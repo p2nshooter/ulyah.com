@@ -1,0 +1,29 @@
+{
+  "name": "ulyah",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ULYAH.COM — Islamic Audio, AI & Knowledge Platform",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "build": "pnpm -r --filter=./apps/* --filter=./packages/* build",
+    "dev:web": "pnpm --filter @ulyah/web dev",
+    "dev:api": "pnpm --filter @ulyah/worker-api dev",
+    "lint": "pnpm -r --filter=./apps/* --filter=./packages/* lint",
+    "typecheck": "pnpm -r --filter=./apps/* --filter=./packages/* typecheck",
+    "test": "pnpm -r --filter=./apps/* --filter=./packages/* test",
+    "db:generate-seed": "tsx scripts/generate-quran-seed.ts",
+    "db:migrate:local": "pnpm --filter @ulyah/worker-api exec wrangler d1 migrations apply ulyah-db --local",
+    "db:migrate:remote": "pnpm --filter @ulyah/worker-api exec wrangler d1 migrations apply ulyah-db --remote",
+    "deploy:web": "pnpm --filter @ulyah/web deploy:cf",
+    "deploy:api": "pnpm --filter @ulyah/worker-api deploy"
+  },
+  "devDependencies": {
+    "@types/pdfkit": "^0.13.9",
+    "pdfkit": "^0.15.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,194 @@
+import { Hono } from "hono";
+import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import type { Env } from "../env.js";
+
+export const quranRoute = new Hono<{ Bindings: Env }>();
+
+function langParam(c: any): { lang: string | null; requested: string } {
+  const requested = c.req.query("lang") ?? DEFAULT_LOCALE;
+  return { lang: resolveTranslationLang(requested), requested };
+}
+
+// GET /quran/surah — 114 surah + metadata (language-independent)
+quranRoute.get("/surah", async (c) => {
+  const cached = await c.env.CACHE_KV.get("quran:surah:all");
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const { results } = await c.env.DB.prepare("SELECT * FROM surah ORDER BY id").all();
+  const body = JSON.stringify({ surah: results });
+  await c.env.CACHE_KV.put("quran:surah:all", body, { expirationTtl: 60 * 60 * 24 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
+// GET /quran/surah/:id?lang= — surah detail + all ayat (Arabic + translation
+// in the requested UI language, falling back per packages/shared/i18n rules)
+quranRoute.get("/surah/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isInteger(id) || id < 1 || id > 114) {
+    return c.json({ error: "Invalid surah id (1-114)" }, 400);
+  }
+  const { lang, requested } = langParam(c);
+
+  const cacheKey = `quran:surah:${id}:full:${requested}`;
+  const cached = await c.env.CACHE_KV.get(cacheKey);
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const surah = await c.env.DB.prepare("SELECT * FROM surah WHERE id = ?").bind(id).first();
+  if (!surah) return c.json({ error: "Surah not found" }, 404);
+
+  const { results: ayat } = lang
+    ? await c.env.DB.prepare(
+        `SELECT a.id, a.number, a.text_ar, a.text_translit, t.text AS translation
+         FROM ayah a
+         LEFT JOIN translation t ON t.ayah_id = a.id AND t.lang = ?
+         WHERE a.surah_id = ?
+         ORDER BY a.number`
+      )
+        .bind(lang, id)
+        .all()
+    : await c.env.DB.prepare(
+        "SELECT id, number, text_ar, text_translit, NULL AS translation FROM ayah WHERE surah_id = ? ORDER BY number"
+      )
+        .bind(id)
+        .all();
+
+  const body = JSON.stringify({ surah, ayat, lang: requested, translationLang: lang });
+  await c.env.CACHE_KV.put(cacheKey, body, { expirationTtl: 60 * 60 * 24 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
+// GET /quran/ayah/:surah/:number?lang= — full "satu ayat terpadu" bundle (§6.1)
+quranRoute.get("/ayah/:surah/:number", async (c) => {
+  const surahId = Number(c.req.param("surah"));
+  const number = Number(c.req.param("number"));
+  if (!Number.isInteger(surahId) || !Number.isInteger(number)) {
+    return c.json({ error: "Invalid surah/ayah number" }, 400);
+  }
+  const { lang, requested } = langParam(c);
+
+  const cacheKey = `quran:ayah:${surahId}:${number}:${requested}`;
+  const cached = await c.env.CACHE_KV.get(cacheKey);
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const ayah = await c.env.DB.prepare("SELECT * FROM ayah WHERE surah_id = ? AND number = ?")
+    .bind(surahId, number)
+    .first<{ id: number }>();
+  if (!ayah) return c.json({ error: "Ayah not found" }, 404);
+
+  const [translation, tafsir, asbabunNuzul, hadits, stories] = await Promise.all([
+    lang
+      ? c.env.DB.prepare("SELECT * FROM translation WHERE ayah_id = ? AND lang = ? LIMIT 1")
+          .bind(ayah.id, lang)
+          .first()
+      : Promise.resolve(null),
+    c.env.DB.prepare("SELECT * FROM tafsir WHERE ayah_id = ? AND status = 'published'").bind(ayah.id).all(),
+    c.env.DB.prepare("SELECT * FROM asbabun_nuzul WHERE ayah_id = ?").bind(ayah.id).all(),
+    c.env.DB.prepare(
+      `SELECT h.*, m.relevance_note FROM hadits h
+       JOIN ayah_hadits_map m ON m.hadits_id = h.id
+       WHERE m.ayah_id = ?`
+    )
+      .bind(ayah.id)
+      .all(),
+    c.env.DB.prepare("SELECT * FROM stories WHERE related_ayah_id = ? AND status = 'published'")
+      .bind(ayah.id)
+      .all(),
+  ]);
+
+  const body = JSON.stringify({
+    ayah,
+    translation,
+    lang: requested,
+    translationLang: lang,
+    tafsir: tafsir.results,
+    asbabun_nuzul: asbabunNuzul.results,
+    hadits: hadits.results,
+    stories: stories.results,
+  });
+  await c.env.CACHE_KV.put(cacheKey, body, { expirationTtl: 60 * 60 * 6 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
+// GET /quran/random?lang= — "Ayat Hari Ini" widget
+quranRoute.get("/random", async (c) => {
+  const { lang, requested } = langParam(c);
+  const totalRow = await c.env.DB.prepare("SELECT MAX(id) AS max_id FROM ayah").first<{ max_id: number }>();
+  const maxId = totalRow?.max_id ?? 6236;
+  const randomId = Math.floor(Math.random() * maxId) + 1;
+
+  const ayah = lang
+    ? await c.env.DB.prepare(
+        `SELECT a.*, s.name_transliteration AS surah_name, t.text AS translation
+         FROM ayah a
+         JOIN surah s ON s.id = a.surah_id
+         LEFT JOIN translation t ON t.ayah_id = a.id AND t.lang = ?
+         WHERE a.id >= ? LIMIT 1`
+      )
+        .bind(lang, randomId)
+        .first()
+    : await c.env.DB.prepare(
+        `SELECT a.*, s.name_transliteration AS surah_name, NULL AS translation
+         FROM ayah a JOIN surah s ON s.id = a.surah_id WHERE a.id >= ? LIMIT 1`
+      )
+        .bind(randomId)
+        .first();
+
+  return c.json({ ayah, lang: requested });
+});
+
+// GET /quran/search?q=&type=ayah|tafsir|hadits|kisah|ebook&lang=
+quranRoute.get("/search", async (c) => {
+  const q = c.req.query("q")?.trim();
+  const type = c.req.query("type") ?? "all";
+  const { lang } = langParam(c);
+  if (!q || q.length < 2) return c.json({ results: {} });
+  const like = `%${q}%`;
+
+  const results: Record<string, unknown[]> = {};
+
+  if ((type === "all" || type === "ayah") && lang) {
+    const { results: r } = await c.env.DB.prepare(
+      `SELECT a.surah_id, a.number, a.text_ar, t.text AS translation, s.name_transliteration AS surah_name
+       FROM ayah a
+       JOIN surah s ON s.id = a.surah_id
+       LEFT JOIN translation t ON t.ayah_id = a.id AND t.lang = ?
+       WHERE t.text LIKE ? OR a.text_translit LIKE ?
+       LIMIT 20`
+    )
+      .bind(lang, like, like)
+      .all();
+    results.ayah = r;
+  }
+  if (type === "all" || type === "tafsir") {
+    const { results: r } = await c.env.DB.prepare(
+      "SELECT * FROM tafsir WHERE text LIKE ? AND status = 'published' LIMIT 20"
+    )
+      .bind(like)
+      .all();
+    results.tafsir = r;
+  }
+  if (type === "all" || type === "hadits") {
+    const { results: r } = await c.env.DB.prepare("SELECT * FROM hadits WHERE text_id LIKE ? LIMIT 20")
+      .bind(like)
+      .all();
+    results.hadits = r;
+  }
+  if (type === "all" || type === "kisah") {
+    const { results: r } = await c.env.DB.prepare(
+      "SELECT * FROM stories WHERE (title LIKE ? OR body LIKE ?) AND status = 'published' LIMIT 20"
+    )
+      .bind(like, like)
+      .all();
+    results.kisah = r;
+  }
+  if (type === "all" || type === "ebook") {
+    const { results: r } = await c.env.DB.prepare(
+      "SELECT * FROM ebooks WHERE title LIKE ? AND license_status != 'unverified' LIMIT 20"
+    )
+      .bind(like)
+      .all();
+    results.ebook = r;
+  }
+
+  return c.json({ query: q, results });
+});

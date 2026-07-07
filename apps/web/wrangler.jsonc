@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ulyah-web",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    { "pattern": "ulyah.com/*", "zone_name": "ulyah.com" },
+    { "pattern": "www.ulyah.com/*", "zone_name": "ulyah.com" }
+  ],
+  "vars": {
+    "NEXT_PUBLIC_API_URL": "https://api.ulyah.com"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

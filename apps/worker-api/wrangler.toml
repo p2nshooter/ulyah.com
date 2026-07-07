@@ -1,0 +1,59 @@
+name = "ulyah-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Requires ulyah.com to already be an active Cloudflare zone (nameservers
+# pointed at Cloudflare) — see docs/SETUP.md. If the zone isn't found,
+# `wrangler deploy` fails with a clear "Could not find zone" error instead
+# of silently deploying only to the *.workers.dev fallback.
+routes = [
+  { pattern = "api.ulyah.com/*", zone_name = "ulyah.com" }
+]
+
+# Resource IDs are injected at deploy time by .github/workflows/deploy.yml
+# from GitHub Secrets (never committed as real values). See docs/SETUP.md.
+# Local dev: copy wrangler.dev.toml.example -> wrangler.dev.toml with your
+# own `wrangler d1 create` / `wrangler kv namespace create` / `wrangler r2
+# bucket create` output, or run `pnpm dlx wrangler dev --local` which will
+# use in-memory/local emulation without real IDs.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ulyah-db"
+database_id = "__D1_DATABASE_ID__"
+migrations_dir = "../../packages/db-schema/migrations"
+
+[[kv_namespaces]]
+binding = "CACHE_KV"
+id = "__KV_NAMESPACE_ID__"
+
+[[r2_buckets]]
+binding = "MEDIA_R2"
+bucket_name = "__R2_BUCKET_NAME__"
+
+[ai]
+binding = "AI"
+
+[[durable_objects.bindings]]
+name = "KEY_POOL"
+class_name = "KeyPoolCoordinator"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["KeyPoolCoordinator"]
+
+# Health-check tick for the AI/GPU key pool (arsitektur doc §13.1 Health Checker)
+# and the zero-hand content-gap scheduler (§14) that keeps the database growing.
+[triggers]
+crons = ["*/15 * * * *"]
+
+[observability]
+enabled = true
+
+[vars]
+# Non-secret runtime config. PAYPAL_MODE / ADMIN_BOOTSTRAP_EMAIL etc are
+# secrets (wrangler secret put) even though they look like plain strings —
+# see docs/SETUP.md for the exact list expected by this codebase.
+PUBLIC_SITE_URL = "https://ulyah.com"
+API_BASE_URL = "https://api.ulyah.com"

@@ -1,0 +1,48 @@
+name: Import Murottal Audio (manual)
+
+# Populates R2 + audio_cache with real qori recitation from EveryAyah.com
+# (licensed for non-commercial redistribution, arsitektur doc §10.1).
+# Manual-only: this moves a lot of data and should be run deliberately, not
+# on every push. Trigger from the Actions tab, pick a qori + surah range.
+
+on:
+  workflow_dispatch:
+    inputs:
+      qori:
+        description: "Qori (alafasy | sudais | ghamdi | husary)"
+        required: true
+        default: "alafasy"
+      surah_range:
+        description: "Surah range, e.g. 1-114 or just 1"
+        required: true
+        default: "1-114"
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Substitute wrangler.toml resource IDs
+        run: |
+          sed -i "s/__D1_DATABASE_ID__/${{ secrets.CLOUDFLARE_D1_DATABASE_ID }}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/" apps/worker-api/wrangler.toml
+
+      - name: Import audio
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_BUCKET_NAME: ${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}
+        run: npx tsx scripts/import-murottal-audio.ts --qori=${{ inputs.qori }} --surah=${{ inputs.surah_range }}
