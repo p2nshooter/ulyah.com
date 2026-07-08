@@ -1,9 +1,10 @@
-name: Generate Audiobooks (manual)
+name: Generate Audiobooks (manual, no API key)
 
 # Synthesises downloadable MP3 audiobooks for published articles that have no
-# audio yet, using a configurable OpenAI-compatible TTS endpoint. The TTS key
-# is read from a GitHub secret (TTS_API_KEY) — never hardcoded. Idempotent:
-# re-running only fills the gaps.
+# audio yet, using fully-offline open-source TTS — NO API key of any kind.
+#   • Piper (neural voices) where a model exists for the language
+#   • eSpeak-NG universal fallback (covers every language incl. id & ar)
+# Idempotent: re-running only fills the gaps.
 
 on:
   workflow_dispatch:
@@ -15,7 +16,7 @@ on:
       limit:
         description: "Max articles to process this run"
         required: true
-        default: "25"
+        default: "40"
 
 jobs:
   audiobooks:
@@ -30,6 +31,38 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+
+      - name: Install offline TTS engines (espeak-ng, ffmpeg, piper)
+        run: |
+          set -eu
+          sudo apt-get update
+          sudo apt-get install -y espeak-ng ffmpeg
+          # Piper (neural TTS) — best-effort; espeak-ng covers everything if this fails.
+          PIPER_VER="2023.11.14-2"
+          curl -sfL "https://github.com/rhasspy/piper/releases/download/${PIPER_VER}/piper_linux_x86_64.tar.gz" -o /tmp/piper.tgz || true
+          if [ -f /tmp/piper.tgz ]; then
+            tar -xzf /tmp/piper.tgz -C "$HOME" || true
+            echo "$HOME/piper" >> "$GITHUB_PATH"
+            echo "PIPER_BIN=$HOME/piper/piper" >> "$GITHUB_ENV"
+          fi
+
+      - name: Download Piper voice models (best-effort, per language)
+        run: |
+          set -u
+          mkdir -p voices
+          base="https://huggingface.co/rhasspy/piper-voices/resolve/main"
+          fetch () { # path name
+            curl -sfL "$base/$1/$2.onnx" -o "voices/$2.onnx" && \
+            curl -sfL "$base/$1/$2.onnx.json" -o "voices/$2.onnx.json" || \
+            echo "  (skip $2 — will use espeak-ng for this language)"
+          }
+          fetch en/en_US/lessac/medium   en_US-lessac-medium
+          fetch ar/ar_JO/kareem/medium   ar_JO-kareem-medium
+          fetch ru/ru_RU/dmitri/medium   ru_RU-dmitri-medium
+          fetch de/de_DE/thorsten/medium de_DE-thorsten-medium
+          fetch fr/fr_FR/siwis/medium    fr_FR-siwis-medium
+          fetch zh/zh_CN/huayan/medium   zh_CN-huayan-medium
+          ls -la voices || true
 
       - name: Resolve provisioned resource IDs
         run: |
@@ -50,8 +83,5 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           R2_BUCKET_NAME: ulyah-media
-          TTS_API_KEY: ${{ secrets.TTS_API_KEY }}
-          TTS_BASE_URL: ${{ secrets.TTS_BASE_URL }}
-          TTS_MODEL: ${{ secrets.TTS_MODEL }}
-          TTS_VOICE: ${{ secrets.TTS_VOICE }}
+          PIPER_VOICES_DIR: ${{ github.workspace }}/voices
         run: npx tsx scripts/generate-audiobooks.ts --lang=${{ inputs.lang }} --limit=${{ inputs.limit }}
