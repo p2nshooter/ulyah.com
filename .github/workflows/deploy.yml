@@ -156,11 +156,18 @@ jobs:
             # Only plain A/AAAA/CNAME records block custom-domain attachment
             # (these are typically dead placeholder records from domain setup —
             # the cause of the 522 error). Worker-managed records are untouched.
-            ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host" \
-              | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | .id')
+            resp=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host")
+            if [ "$(echo "$resp" | jq -r '.success')" != "true" ]; then
+              echo "::warning::Could not list DNS records for $host — token likely lacks Zone>DNS:Edit. Cloudflare said: $(echo "$resp" | jq -c '.errors')"
+              continue
+            fi
+            ids=$(echo "$resp" | jq -r '.result[]? | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | .id')
             for id in $ids; do
               echo "Deleting stale DNS record $id on $host"
-              curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" | jq -r '.success'
+              del=$(curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id")
+              if [ "$(echo "$del" | jq -r '.success')" != "true" ]; then
+                echo "::warning::Failed to delete DNS record $id on $host: $(echo "$del" | jq -c '.errors')"
+              fi
             done
           done
 
