@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Dictionary } from "@/dictionaries";
+import { ShareButtons } from "@/components/ShareButtons";
 
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
   return (
@@ -9,7 +10,18 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="font-heading text-2xl">
             ulyah<span className="text-accent">.</span>
           </p>
-          <p className="mt-2 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
+          <p className="mt-1 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
+          <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
+          <div className="mt-4">
+            <p className="mb-2 text-xs font-semibold text-accent">{dict.footer.followUs}</p>
+            <ShareButtons
+              url={`https://ulyah.com/${locale}`}
+              title={`${dict.common.siteName} — ${dict.common.tagline}`}
+              copyLabel={dict.crypto.copy}
+              copiedLabel={dict.crypto.copied}
+              compact
+            />
+          </div>
         </div>
         <div>
           <p className="text-sm font-semibold text-accent">{dict.footer.platform}</p>
@@ -24,6 +36,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{dict.footer.info}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/tentang`}>{dict.nav.about}</Link></li>
+            <li><Link href={`/${locale}/syukur`}>{dict.syukur.navLabel}</Link></li>
             <li><Link href={`/${locale}/daftar`}>{dict.auth.registerTitle}</Link></li>
             <li><Link href={`/${locale}/masuk`}>{dict.auth.loginTitle}</Link></li>
           </ul>

@@ -58,7 +58,35 @@ export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; loca
       {/* Bank transfer — wondr by BNI */}
       <div className="rounded-2xl border border-accent/40 bg-[var(--color-card)] p-6 shadow-[0_2px_24px_rgba(184,137,43,0.08)]">
         <p className="font-heading text-lg">🏦 Bank Transfer — BNI (wondr multicurrency)</p>
-        <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-[var(--color-text-secondary)]">
+
+        {/* Full bank identity — required for international / SWIFT transfers */}
+        <dl className="mt-3 grid gap-x-4 gap-y-1.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-4 text-sm sm:grid-cols-2 dark:bg-white/[0.02]">
+          <div className="flex justify-between gap-2 sm:col-span-2">
+            <dt className="text-[var(--color-text-secondary)]">Bank</dt>
+            <dd className="text-right font-medium">PT Bank Negara Indonesia (Persero) Tbk.</dd>
+          </div>
+          <div className="flex justify-between gap-2">
+            <dt className="text-[var(--color-text-secondary)]">SWIFT / BIC</dt>
+            <dd>
+              <button
+                onClick={() => copy("BNINIDJA", "swift")}
+                className="font-semibold tabular-nums text-accent hover:underline"
+              >
+                {copied === "swift" ? dict.crypto.copied : "BNINIDJA"}
+              </button>
+            </dd>
+          </div>
+          <div className="flex justify-between gap-2">
+            <dt className="text-[var(--color-text-secondary)]">{dict.crypto.network === "Network" ? "Bank code" : "Kode Bank"}</dt>
+            <dd className="font-medium tabular-nums">009</dd>
+          </div>
+          <div className="flex justify-between gap-2 sm:col-span-2">
+            <dt className="text-[var(--color-text-secondary)]">{dict.cert.senderName === "Name on the certificate" ? "Beneficiary" : "Penerima"}</dt>
+            <dd className="text-right font-medium">YUSRON EFENDI</dd>
+          </div>
+        </dl>
+
+        <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-[var(--color-text-secondary)]">
           {howto.map((step, i) => (
             <li key={i}>{step}</li>
           ))}

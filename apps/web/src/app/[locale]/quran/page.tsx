@@ -13,7 +13,7 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
         <h1 className="font-heading text-2xl sm:text-3xl">{dict.reader.allSurah}</h1>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{dict.reader.sectionSubtitle}</p>
         <div className="mt-6">
-          <QuranReaderWidget locale={locale} dict={dict} showHadits />
+          <QuranReaderWidget locale={locale} dict={dict} />
         </div>
       </div>
     </div>

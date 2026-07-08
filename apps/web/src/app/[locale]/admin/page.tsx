@@ -8,12 +8,13 @@ import { api } from "@/lib/api";
 import { KeyPoolTab } from "@/components/admin/KeyPoolTab";
 import { ContentTab } from "@/components/admin/ContentTab";
 import { DonationsTab } from "@/components/admin/DonationsTab";
+import { ProofsTab } from "@/components/admin/ProofsTab";
 import { AuditLogTab } from "@/components/admin/AuditLogTab";
 import { ClientsTab } from "@/components/admin/ClientsTab";
 import { ScalingTab } from "@/components/admin/ScalingTab";
 import { AccountTab } from "@/components/admin/AccountTab";
 
-type Tab = "dashboard" | "keys" | "content" | "donations" | "log" | "clients" | "scaling" | "account";
+type Tab = "dashboard" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -58,6 +59,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
     ["donations", dict.admin.donations],
+    ["proofs", dict.cert.sectionTitle],
     ["clients", dict.admin.clients],
     ["scaling", dict.admin.scaling],
     ["log", dict.admin.auditLog],
@@ -98,6 +100,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "keys" && <KeyPoolTab />}
         {tab === "content" && <ContentTab />}
         {tab === "donations" && <DonationsTab />}
+        {tab === "proofs" && <ProofsTab />}
         {tab === "clients" && <ClientsTab />}
         {tab === "scaling" && <ScalingTab />}
         {tab === "log" && <AuditLogTab />}

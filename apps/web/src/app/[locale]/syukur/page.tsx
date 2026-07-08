@@ -1,0 +1,109 @@
+import type { Metadata } from "next";
+import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { getDictionary } from "@/dictionaries";
+import { NarrateButton } from "@/components/NarrateButton";
+
+// The family behind Ulyah — proper nouns, reproduced faithfully as given.
+const FOUNDERS = [
+  { name: "Yusron Efendi", lineage: "bin H. Mustadi" },
+  { name: "Ulyah Munayah", lineage: "binti H. Moch. Hilang" },
+];
+const CHILDREN = [
+  "Kultsum Nurunnajah Efendi",
+  "Ahmad Muhayyal Fatah Al Hasan Efendi",
+  "Ahmad Muhayyal Fathir Al Husein Efendi",
+  "Ahmad Yafiq Mumtaz Efendi",
+  "Ahmad Yaser Ulya Efendi",
+];
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  return {
+    title: `${dict.syukur.title} — ${dict.common.siteName}`,
+    description: dict.syukur.subtitle,
+    alternates: { canonical: `/${locale}/syukur` },
+  };
+}
+
+export default async function SyukurPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  const s = dict.syukur;
+
+  return (
+    <div className="relative overflow-hidden">
+      {/* Elegant dark hero */}
+      <section className="relative bg-[#06251b] px-4 py-20 text-center text-[#f4efe3] sm:px-6">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.12]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 50% 0%, rgba(184,137,43,0.6), transparent 60%), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0l8 22 22 8-22 8-8 22-8-22-22-8 22-8z' fill='%23B8892B' fill-opacity='0.15'/%3E%3C/svg%3E\")",
+          }}
+        />
+        <div className="relative mx-auto max-w-3xl">
+          <p className="font-arabic text-4xl text-accent sm:text-5xl">الْحَمْدُ لِلّٰهِ</p>
+          <h1 className="mt-5 font-heading text-3xl sm:text-4xl">{s.title}</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#f4efe3]/80 sm:text-base">{s.subtitle}</p>
+          <div className="mt-8 flex justify-center">
+            <NarrateButton paragraphs={[s.intro, s.dua]} listenLabel={s.listen} stopLabel={s.stop} lang={locale} />
+          </div>
+        </div>
+      </section>
+
+      {/* Gratitude prose */}
+      <section className="px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-lg leading-loose text-[var(--color-text-primary)] sm:text-xl">{s.intro}</p>
+        </div>
+      </section>
+
+      {/* Family */}
+      <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-heading text-2xl">{s.familyTitle}</h2>
+          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{s.foundersLabel}</p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {FOUNDERS.map((f) => (
+              <div key={f.name} className="rounded-2xl border border-accent/30 bg-[var(--color-card)] p-6">
+                <p className="font-heading text-xl text-primary dark:text-accent">{f.name}</p>
+                <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{f.lineage}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-sm font-semibold text-accent">{s.childrenLabel}</p>
+          <ol className="mx-auto mt-4 max-w-md space-y-2 text-left">
+            {CHILDREN.map((c, i) => (
+              <li
+                key={c}
+                className="flex items-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3"
+              >
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent/15 text-xs font-medium text-accent">
+                  {i + 1}
+                </span>
+                <span className="text-sm">{c}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Closing du'a */}
+      <section className="px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-accent/30 bg-gradient-to-b from-accent/10 to-transparent p-8 text-center">
+          <p className="font-arabic text-2xl text-accent">اللّٰهُمَّ آمِيْن</p>
+          <p className="mt-4 text-base leading-loose text-[var(--color-text-primary)]">{s.dua}</p>
+          <div className="mt-6 flex justify-center">
+            <NarrateButton paragraphs={[s.dua]} listenLabel={s.listen} stopLabel={s.stop} lang={locale} />
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

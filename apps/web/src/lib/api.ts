@@ -19,6 +19,15 @@ export const api = {
   post: <T>(path: string, body?: unknown) =>
     request<T>(path, { method: "POST", body: body ? JSON.stringify(body) : undefined }),
   del: <T>(path: string) => request<T>(path, { method: "DELETE" }),
+  // multipart upload — browser sets the boundary Content-Type itself
+  upload: async <T>(path: string, form: FormData): Promise<T> => {
+    const res = await fetch(`${API_BASE}${path}`, { method: "POST", body: form, credentials: "include" });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error((body as { error?: string }).error ?? `Upload failed: ${res.status}`);
+    }
+    return res.json() as Promise<T>;
+  },
 };
 
 export function audioUrl(qoriId: number, surah: number, ayah: number): string {

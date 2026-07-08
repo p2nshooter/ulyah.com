@@ -3,22 +3,47 @@
 import { create } from "zustand";
 import { audioUrl, storyAudioUrl } from "./api";
 
-export const PLAYBACK_MODES = ["full", "ayah", "translation", "tafsir", "story"] as const;
-export type PlaybackMode = (typeof PLAYBACK_MODES)[number];
+/**
+ * Layered playback: for every ayah the listener chooses which layers to hear.
+ * The Arabic recitation ("ayah") is ALWAYS real qori audio from R2 — never
+ * TTS. Every other layer (translation, tafsir, asbabun nuzul, hadits) is
+ * narrated by the browser voice engine in the UI language. The player walks
+ * the enabled layers in this canonical order for each ayah, then advances.
+ */
+export const LAYERS = ["ayah", "translation", "tafsir", "asbabun", "hadits"] as const;
+export type Layer = (typeof LAYERS)[number];
 
-export interface QueueAyah {
+// "Mode Pemahaman" presets from the reference design. Each maps to a set of
+// layers; the listener can still fine-tune with individual layer chips.
+export const MODE_PRESETS: Record<string, Layer[]> = {
+  full: ["ayah", "translation", "tafsir", "asbabun", "hadits"],
+  ayah: ["ayah"],
+  translation: ["translation"],
+  tafsir: ["tafsir"],
+  hikmah: ["hadits", "asbabun"],
+};
+export type PresetKey = keyof typeof MODE_PRESETS;
+
+export interface QueueItem {
   surahId: number;
   surahName: string;
   number: number;
   textAr: string;
   translation: string | null;
+  // Filled lazily from /quran/ayah/:surah/:number the first time a text layer
+  // for this ayah is about to be narrated.
+  tafsir: string | null;
+  asbabun: string | null;
+  hadits: string | null;
+  bundleLoaded: boolean;
 }
 
 interface PlayerState {
-  queue: QueueAyah[];
+  queue: QueueItem[];
   currentIndex: number;
   qoriId: number;
-  mode: PlaybackMode;
+  layers: Layer[];
+  activeLayer: Layer | null;
   isPlaying: boolean;
   playbackRate: number;
   repeatMode: "off" | "ayah" | "surah";
@@ -26,9 +51,13 @@ interface PlayerState {
   storyTrack: { id: number; title: string } | null;
   audioUnavailableNotice: string | null;
 
-  loadSurahQueue: (ayat: QueueAyah[], startIndex?: number) => void;
+  loadSurahQueue: (ayat: QueueItem[], startIndex?: number) => void;
+  patchBundle: (index: number, partial: Partial<QueueItem>) => void;
   playStory: (id: number, title: string) => void;
-  setMode: (m: PlaybackMode) => void;
+  setLayers: (l: Layer[]) => void;
+  toggleLayer: (l: Layer) => void;
+  applyPreset: (p: PresetKey) => void;
+  setActiveLayer: (l: Layer | null) => void;
   setQori: (id: number) => void;
   setPlaybackRate: (r: number) => void;
   setRepeatMode: (m: "off" | "ayah" | "surah") => void;
@@ -41,10 +70,12 @@ interface PlayerState {
   seekToIndex: (i: number) => void;
   clearNotice: () => void;
 
-  currentAudioSrc: () => string | null;
+  ayahAudioSrc: () => string | null;
+  storyAudioSrc: () => string | null;
 }
 
 const QORI_STORAGE_KEY = "ulyah_qori_id";
+const LAYERS_STORAGE_KEY = "ulyah_layers";
 
 function loadStoredQori(): number {
   if (typeof window === "undefined") return 1;
@@ -52,11 +83,31 @@ function loadStoredQori(): number {
   return stored ? Number(stored) : 1;
 }
 
+function loadStoredLayers(): Layer[] {
+  if (typeof window === "undefined") return MODE_PRESETS.full;
+  try {
+    const stored = window.localStorage.getItem(LAYERS_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored) as Layer[];
+      const clean = LAYERS.filter((l) => parsed.includes(l));
+      if (clean.length) return clean;
+    }
+  } catch {
+    /* ignore */
+  }
+  return MODE_PRESETS.full;
+}
+
+function persistLayers(layers: Layer[]) {
+  if (typeof window !== "undefined") window.localStorage.setItem(LAYERS_STORAGE_KEY, JSON.stringify(layers));
+}
+
 export const usePlayerStore = create<PlayerState>((set, get) => ({
   queue: [],
   currentIndex: 0,
   qoriId: loadStoredQori(),
-  mode: "ayah",
+  layers: loadStoredLayers(),
+  activeLayer: null,
   isPlaying: false,
   playbackRate: 1,
   repeatMode: "off",
@@ -65,14 +116,51 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   audioUnavailableNotice: null,
 
   loadSurahQueue: (ayat, startIndex = 0) => {
-    set({ queue: ayat, currentIndex: startIndex, storyTrack: null, isPlaying: true, audioUnavailableNotice: null });
+    set({
+      queue: ayat,
+      currentIndex: startIndex,
+      storyTrack: null,
+      isPlaying: true,
+      activeLayer: null,
+      audioUnavailableNotice: null,
+    });
+  },
+
+  patchBundle: (index, partial) => {
+    set((s) => {
+      const queue = s.queue.slice();
+      if (queue[index]) queue[index] = { ...queue[index], ...partial };
+      return { queue };
+    });
   },
 
   playStory: (id, title) => {
-    set({ storyTrack: { id, title }, queue: [], isPlaying: true, mode: "story", audioUnavailableNotice: null });
+    set({ storyTrack: { id, title }, queue: [], isPlaying: true, activeLayer: null, audioUnavailableNotice: null });
   },
 
-  setMode: (m) => set({ mode: m }),
+  setLayers: (l) => {
+    const ordered = LAYERS.filter((x) => l.includes(x));
+    persistLayers(ordered);
+    set({ layers: ordered });
+  },
+
+  toggleLayer: (l) => {
+    const cur = get().layers;
+    const nextLayers = cur.includes(l) ? cur.filter((x) => x !== l) : [...cur, l];
+    const ordered = LAYERS.filter((x) => nextLayers.includes(x));
+    // Never allow an empty selection — fall back to the ayah recitation.
+    const final = ordered.length ? ordered : (["ayah"] as Layer[]);
+    persistLayers(final);
+    set({ layers: final });
+  },
+
+  applyPreset: (p) => {
+    const layers = MODE_PRESETS[p] ?? MODE_PRESETS.full;
+    persistLayers(layers);
+    set({ layers });
+  },
+
+  setActiveLayer: (l) => set({ activeLayer: l }),
 
   setQori: (id) => {
     if (typeof window !== "undefined") window.localStorage.setItem(QORI_STORAGE_KEY, String(id));
@@ -84,32 +172,26 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setSleepMinutes: (m) => set({ sleepAt: m ? Date.now() + m * 60_000 : null }),
 
   play: () => set({ isPlaying: true }),
-  pause: () => set({ isPlaying: false }),
-  toggle: () => set((s) => ({ isPlaying: !s.isPlaying })),
+  pause: () => set({ isPlaying: false, activeLayer: null }),
+  toggle: () => set((s) => ({ isPlaying: !s.isPlaying, activeLayer: s.isPlaying ? null : s.activeLayer })),
 
   next: () => {
     const { queue, currentIndex, repeatMode } = get();
     if (queue.length === 0) return;
     if (repeatMode === "ayah") {
-      set({ isPlaying: true }); // signal GlobalPlayerBar to replay same track
+      set({ isPlaying: true });
       return;
     }
     const nextIndex = currentIndex + 1;
     if (nextIndex >= queue.length) {
-      if (repeatMode === "surah") {
-        set({ currentIndex: 0, isPlaying: true });
-      } else {
-        set({ isPlaying: false });
-      }
+      if (repeatMode === "surah") set({ currentIndex: 0, isPlaying: true });
+      else set({ isPlaying: false, activeLayer: null });
       return;
     }
     set({ currentIndex: nextIndex });
   },
 
-  prev: () => {
-    const { currentIndex } = get();
-    set({ currentIndex: Math.max(0, currentIndex - 1) });
-  },
+  prev: () => set((s) => ({ currentIndex: Math.max(0, s.currentIndex - 1) })),
 
   seekToIndex: (i) => {
     const { queue } = get();
@@ -119,11 +201,15 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
   clearNotice: () => set({ audioUnavailableNotice: null }),
 
-  currentAudioSrc: () => {
-    const { storyTrack, queue, currentIndex, qoriId } = get();
-    if (storyTrack) return storyAudioUrl(storyTrack.id);
+  ayahAudioSrc: () => {
+    const { queue, currentIndex, qoriId } = get();
     const current = queue[currentIndex];
     if (!current) return null;
     return audioUrl(qoriId, current.surahId, current.number);
+  },
+
+  storyAudioSrc: () => {
+    const { storyTrack } = get();
+    return storyTrack ? storyAudioUrl(storyTrack.id) : null;
   },
 }));

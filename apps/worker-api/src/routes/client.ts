@@ -82,13 +82,95 @@ clientRoute.post("/logout", async (c) => {
 
 clientRoute.get("/me", requireClient, async (c) => {
   const session = c.get("client" as never) as { id: number; email: string };
-  const [donations, keys] = await Promise.all([
+  const [donations, keys, proofs] = await Promise.all([
     c.env.DB.prepare("SELECT * FROM donation_logs WHERE client_id = ? ORDER BY created_at DESC").bind(session.id).all(),
     c.env.DB.prepare(
       "SELECT id, provider, scope, status, donor_label, created_at FROM ai_key_pool WHERE donated_by_client_id = ? ORDER BY created_at DESC"
     )
       .bind(session.id)
       .all(),
+    c.env.DB.prepare(
+      "SELECT id, method, sender_name, amount, currency, status, cert_no, review_note, created_at FROM donation_proofs WHERE client_id = ? ORDER BY created_at DESC"
+    )
+      .bind(session.id)
+      .all(),
   ]);
-  return c.json({ email: session.email, donations: donations.results, keysDonated: keys.results });
+  return c.json({ email: session.email, donations: donations.results, keysDonated: keys.results, proofs: proofs.results });
+});
+
+// ── Sadaqah proof upload → admin review → certificate ────────────────────
+// Registration is only REQUIRED for donors who want the keepsake
+// certificate; anonymous donation stays possible everywhere else.
+
+const PROOF_TYPES: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "application/pdf": "pdf",
+};
+const PROOF_MAX_BYTES = 5 * 1024 * 1024; // 5MB
+const PROOF_METHODS = new Set(["bank", "crypto", "paypal", "nowpayments", "other"]);
+
+clientRoute.post("/proofs", requireClient, async (c) => {
+  const session = c.get("client" as never) as { id: number };
+  const rl = await checkRateLimit(c.env, `proof-upload:${session.id}`, 6, 60 * 60);
+  if (!rl.allowed) return c.json({ error: "Too many uploads. Try again later." }, 429);
+
+  const form = await c.req.formData();
+  const file = form.get("file");
+  const method = String(form.get("method") ?? "");
+  const senderName = String(form.get("sender_name") ?? "").trim();
+  const amountRaw = String(form.get("amount") ?? "").trim();
+  const currency = String(form.get("currency") ?? "").trim().toUpperCase().slice(0, 8);
+  const transferredAt = String(form.get("transferred_at") ?? "").trim().slice(0, 10);
+  const message = String(form.get("message") ?? "").trim().slice(0, 500);
+
+  if (!(file instanceof File)) return c.json({ error: "proof file required" }, 400);
+  if (!PROOF_METHODS.has(method)) return c.json({ error: "invalid method" }, 400);
+  if (!senderName || senderName.length > 80) return c.json({ error: "sender_name required (max 80 chars)" }, 400);
+  const ext = PROOF_TYPES[file.type];
+  if (!ext) return c.json({ error: "file must be JPG, PNG, WEBP or PDF" }, 400);
+  if (file.size > PROOF_MAX_BYTES) return c.json({ error: "file too large (max 5MB)" }, 400);
+  const amount = amountRaw ? Number(amountRaw) : null;
+  if (amount !== null && (!Number.isFinite(amount) || amount < 0)) return c.json({ error: "invalid amount" }, 400);
+
+  const r2Key = `proofs/${session.id}/${crypto.randomUUID()}.${ext}`;
+  await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
+
+  const row = await c.env.DB.prepare(
+    `INSERT INTO donation_proofs (client_id, method, sender_name, amount, currency, transferred_at, message, proof_r2_key)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`
+  )
+    .bind(session.id, method, senderName, amount, currency || null, transferredAt || null, message || null, r2Key)
+    .first<{ id: number }>();
+
+  return c.json({ ok: true, id: row!.id, status: "pending" });
+});
+
+clientRoute.get("/proofs", requireClient, async (c) => {
+  const session = c.get("client" as never) as { id: number };
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, method, sender_name, amount, currency, transferred_at, status, cert_no, review_note, created_at FROM donation_proofs WHERE client_id = ? ORDER BY created_at DESC"
+  )
+    .bind(session.id)
+    .all();
+  return c.json({ proofs: results });
+});
+
+// Certificate data — only for the owner, only once approved. The web app
+// renders this into the printable/downloadable certificate page; the
+// browser's own text engine handles Arabic/CJK/Cyrillic shaping that a
+// Worker-side PDF library cannot.
+clientRoute.get("/certificate/:id", requireClient, async (c) => {
+  const session = c.get("client" as never) as { id: number };
+  const id = Number(c.req.param("id"));
+  const row = await c.env.DB.prepare(
+    `SELECT id, sender_name, amount, currency, method, transferred_at, status, cert_no, reviewed_at, created_at
+     FROM donation_proofs WHERE id = ? AND client_id = ?`
+  )
+    .bind(id, session.id)
+    .first<{ status: string; cert_no: string | null } & Record<string, unknown>>();
+  if (!row) return c.json({ error: "not found" }, 404);
+  if (row.status !== "approved" || !row.cert_no) return c.json({ error: "not approved yet" }, 403);
+  return c.json({ certificate: row });
 });

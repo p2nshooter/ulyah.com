@@ -79,6 +79,14 @@ export interface Dictionary {
     ayahLabel: string;
     translationNotAvailable: string;
     noContentYet: string;
+    autoPlay: string;
+    share: string;
+    chooseLayers: string;
+    modeHikmah: string;
+    modeHikmahDesc: string;
+    layerAyah: string;
+    meccan: string;
+    medinan: string;
   };
   explore: {
     title: string;
@@ -172,5 +180,53 @@ export interface Dictionary {
     copy: string;
     copied: string;
     network: string;
+  };
+  cert: {
+    sectionTitle: string;
+    intro: string;
+    uploadTitle: string;
+    method: string;
+    methodBank: string;
+    methodCrypto: string;
+    methodPaypal: string;
+    methodNowpayments: string;
+    methodOther: string;
+    senderName: string;
+    amount: string;
+    currency: string;
+    transferDate: string;
+    message: string;
+    file: string;
+    fileHint: string;
+    submit: string;
+    submitted: string;
+    statusPending: string;
+    statusApproved: string;
+    statusRejected: string;
+    historyTitle: string;
+    download: string;
+    registerFirst: string;
+    certTitle: string;
+    certPresentedTo: string;
+    certBody: string;
+    certAmountLabel: string;
+    certDateLabel: string;
+    certNoLabel: string;
+    certDua: string;
+    certIssuedBy: string;
+    printButton: string;
+    printHint: string;
+  };
+  syukur: {
+    navLabel: string;
+    title: string;
+    subtitle: string;
+    intro: string;
+    familyTitle: string;
+    foundersLabel: string;
+    childrenLabel: string;
+    dua: string;
+    listen: string;
+    stop: string;
   };
 }

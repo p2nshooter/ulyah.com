@@ -182,6 +182,69 @@ adminRoute.get("/donations", async (c) => {
   return c.json({ donations: results, stats });
 });
 
+// ── Sadaqah proof review → certificate issuance ──────────────────────────
+
+adminRoute.get("/proofs", async (c) => {
+  const status = c.req.query("status") ?? "pending";
+  const { results } = await c.env.DB.prepare(
+    `SELECT p.*, cl.email AS client_email
+     FROM donation_proofs p JOIN clients cl ON cl.id = p.client_id
+     WHERE p.status = ? ORDER BY p.created_at ASC LIMIT 200`
+  )
+    .bind(status)
+    .all();
+  return c.json({ proofs: results });
+});
+
+// Stream the uploaded receipt from R2 so the admin can inspect it before
+// deciding — never exposed publicly, admin session required.
+adminRoute.get("/proofs/:id/file", async (c) => {
+  const id = Number(c.req.param("id"));
+  const row = await c.env.DB.prepare("SELECT proof_r2_key FROM donation_proofs WHERE id = ?")
+    .bind(id)
+    .first<{ proof_r2_key: string }>();
+  if (!row) return c.json({ error: "not found" }, 404);
+  const obj = await c.env.MEDIA_R2.get(row.proof_r2_key);
+  if (!obj) return c.json({ error: "file missing from storage" }, 404);
+  return new Response(obj.body, {
+    headers: {
+      "Content-Type": obj.httpMetadata?.contentType ?? "application/octet-stream",
+      "Cache-Control": "private, no-store",
+    },
+  });
+});
+
+adminRoute.post("/proofs/:id/decide", async (c) => {
+  const id = Number(c.req.param("id"));
+  const { action, note } = await c.req.json<{ action: "approve" | "reject"; note?: string }>();
+  if (action !== "approve" && action !== "reject") return c.json({ error: "action must be approve|reject" }, 400);
+
+  const row = await c.env.DB.prepare("SELECT id, status FROM donation_proofs WHERE id = ?")
+    .bind(id)
+    .first<{ id: number; status: string }>();
+  if (!row) return c.json({ error: "not found" }, 404);
+  if (row.status !== "pending") return c.json({ error: `already ${row.status}` }, 409);
+
+  const admin = c.get("admin" as never) as { id: number; email: string };
+  const status = action === "approve" ? "approved" : "rejected";
+  // Certificate number: stable, human-verifiable, no PII.
+  const certNo = action === "approve" ? `ULYAH-${new Date().getFullYear()}-${String(id).padStart(6, "0")}` : null;
+
+  await c.env.DB.prepare(
+    `UPDATE donation_proofs
+     SET status = ?, cert_no = ?, reviewed_by = ?, reviewed_at = datetime('now'), review_note = ?
+     WHERE id = ?`
+  )
+    .bind(status, certNo, admin.id, note ?? null, id)
+    .run();
+
+  await logAdminAction(c.env, `proof_${status}`, admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    id,
+    cert_no: certNo,
+  });
+  return c.json({ ok: true, status, cert_no: certNo });
+});
+
 // ── Clients / registered donors ──────────────────────────────────────────
 
 adminRoute.get("/clients", async (c) => {

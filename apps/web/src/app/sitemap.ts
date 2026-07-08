@@ -3,7 +3,7 @@ import { LOCALES } from "@ulyah/shared/i18n";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 
 const BASE = "https://ulyah.com";
-const ROUTES = ["", "/quran", "/kisah", "/kitab", "/audiobook", "/harian", "/donasi", "/tentang", "/cari"];
+const ROUTES = ["", "/quran", "/kisah", "/kitab", "/audiobook", "/harian", "/donasi", "/tentang", "/syukur", "/cari"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];

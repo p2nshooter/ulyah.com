@@ -48,6 +48,8 @@ export async function generateMetadata({
       "Al-Quran", "Quran audio", "murottal", "tafsir", "hadits", "kisah nabi",
       "Islamic audiobook", "listen to Quran", "Quran online", "kajian Islam",
     ],
+    // AdSense site verification (also present as the <script> tag in <head>).
+    other: { "google-adsense-account": "ca-pub-6371903555702163" },
   };
 }
 
