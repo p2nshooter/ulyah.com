@@ -34,17 +34,23 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Substitute wrangler.toml resource IDs
+      - name: Resolve provisioned resource IDs (same self-provisioned names as deploy.yml)
         run: |
-          sed -i "s/__D1_DATABASE_ID__/${{ secrets.CLOUDFLARE_D1_DATABASE_ID }}/" apps/worker-api/wrangler.toml
-          sed -i "s/__KV_NAMESPACE_ID__/${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}/" apps/worker-api/wrangler.toml
-          sed -i "s/__R2_BUCKET_NAME__/${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/" apps/worker-api/wrangler.toml
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Import audio
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          R2_BUCKET_NAME: ${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}
+          R2_BUCKET_NAME: ulyah-media
         run: npx tsx scripts/import-murottal-audio.ts --qori=${{ inputs.qori }} --surah=${{ inputs.surah_range }}
-
-# (workflow re-index touch)

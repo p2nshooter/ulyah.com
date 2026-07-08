@@ -101,7 +101,7 @@ async function main() {
       const localPath = join(tmpDir, fileName);
       writeFileSync(localPath, Buffer.from(buf));
 
-      const bucket = process.env.R2_BUCKET_NAME ?? "ulyah-media";
+      const bucket = process.env.R2_BUCKET_NAME || "ulyah-media";
       execFileSync(
         "npx",
         ["wrangler", "r2", "object", "put", `${bucket}/${r2Key}`, `--file=${localPath}`, "--remote"],
