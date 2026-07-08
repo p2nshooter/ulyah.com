@@ -8,9 +8,11 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Custom Domains: DNS records + certs are created automatically on deploy
+  // (stale records are cleaned up by the deploy workflow first).
   "routes": [
-    { "pattern": "ulyah.com/*", "zone_name": "ulyah.com" },
-    { "pattern": "www.ulyah.com/*", "zone_name": "ulyah.com" }
+    { "pattern": "ulyah.com", "custom_domain": true },
+    { "pattern": "www.ulyah.com", "custom_domain": true }
   ],
   "vars": {
     "NEXT_PUBLIC_API_URL": "https://api.ulyah.com"

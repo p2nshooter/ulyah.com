@@ -30,7 +30,7 @@ workflow to match instead.
 
 | Secret | What it is |
 |---|---|
-| `CLOUDFLARE_API_TOKEN` | API token with **Account → Workers Scripts: Edit, D1: Edit, Workers KV Storage: Edit, Workers R2 Storage: Edit** permissions, scoped to this account. Create at [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens). |
+| `CLOUDFLARE_API_TOKEN` | API token with **Account → Workers Scripts: Edit, D1: Edit, Workers KV Storage: Edit, Workers R2 Storage: Edit** AND **Zone (ulyah.com) → Zone: Read, DNS: Edit, Workers Routes: Edit** permissions. The zone permissions let the deploy workflow delete the stale placeholder DNS records (the cause of the 522 error) and auto-attach the Workers Custom Domains for `ulyah.com`, `www.ulyah.com`, and `api.ulyah.com` — no manual DNS steps at all. Create at [dash.cloudflare.com/profile/api-tokens](https://dash.cloudflare.com/profile/api-tokens). |
 | `CLOUDFLARE_ACCOUNT_ID` | Found on the right sidebar of any zone overview page in the Cloudflare dashboard. |
 
 That's it for Cloudflare — the D1 database (`ulyah-db`), KV namespace

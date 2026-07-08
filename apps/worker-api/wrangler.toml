@@ -3,12 +3,13 @@ main = "src/index.ts"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Requires ulyah.com to already be an active Cloudflare zone (nameservers
-# pointed at Cloudflare) — see docs/SETUP.md. If the zone isn't found,
-# `wrangler deploy` fails with a clear "Could not find zone" error instead
-# of silently deploying only to the *.workers.dev fallback.
+# Custom Domain (not a route): wrangler auto-creates the DNS record and
+# certificate for api.ulyah.com on deploy — no manual DNS step. Requires the
+# ulyah.com zone to be active on this account and the API token to have
+# Zone:Read + DNS:Edit + Workers Routes:Edit (see docs/SETUP.md). Stale
+# conflicting DNS records are removed by the deploy workflow first.
 routes = [
-  { pattern = "api.ulyah.com/*", zone_name = "ulyah.com" }
+  { pattern = "api.ulyah.com", custom_domain = true }
 ]
 
 # Resource IDs are injected at deploy time by .github/workflows/deploy.yml

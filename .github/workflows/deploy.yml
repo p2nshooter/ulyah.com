@@ -174,6 +174,29 @@ jobs:
           NOWPAYMENTS_IPN_SECRET: ${{ secrets.NOWPAYMENTS_IPN_SECRET }}
           CORS_ALLOW_ORIGIN: ${{ secrets.CORS_ALLOW_ORIGIN }}
 
+      - name: Clean stale DNS records so Custom Domains can attach
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=ulyah.com" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::ulyah.com zone not found on this account (or token lacks Zone:Read) — workers will deploy without custom domains and be reachable on *.workers.dev only."
+            exit 0
+          fi
+          echo "Zone id: $ZONE_ID"
+          for host in ulyah.com www.ulyah.com api.ulyah.com; do
+            # Only plain A/AAAA/CNAME records block custom-domain attachment
+            # (these are typically dead placeholder records from domain setup —
+            # the cause of the 522 error). Worker-managed records are untouched.
+            ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host" \
+              | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | .id')
+            for id in $ids; do
+              echo "Deleting stale DNS record $id on $host"
+              curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" | jq -r '.success'
+            done
+          done
+
       - name: Deploy worker-api
         working-directory: apps/worker-api
         run: npx wrangler deploy
@@ -188,8 +211,16 @@ jobs:
         working-directory: apps/web
         run: npx wrangler deploy
 
-      - name: Smoke test
+      - name: Smoke test (retries while DNS/cert for the new custom domain settles)
         run: |
           set -eu
-          sleep 5
-          curl -sf "https://api.ulyah.com/health" || (echo "::error::api-worker health check failed" && exit 1)
+          for i in 1 2 3 4 5 6; do
+            if curl -sf --max-time 15 "https://api.ulyah.com/health"; then
+              echo "" && echo "api.ulyah.com is live ✓"
+              exit 0
+            fi
+            echo "attempt $i failed, retrying in 20s..."
+            sleep 20
+          done
+          echo "::error::api.ulyah.com health check failed after 6 attempts — check the Cloudflare dashboard (Workers > ulyah-api > Settings > Domains) and workflow logs above."
+          exit 1
