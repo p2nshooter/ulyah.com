@@ -12,6 +12,78 @@ interface ReviewItem {
   created_at: string;
 }
 
+interface EngineStatus {
+  engineEnabled: boolean;
+  compiledArticles: number;
+  aiArticles: number;
+  recent: { title: string; lang: string; created_at: string }[];
+}
+
+function EnginePanel() {
+  const [status, setStatus] = useState<EngineStatus | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  function load() {
+    api.get<EngineStatus>("/admin/engine/status").then(setStatus).catch(() => {});
+  }
+  useEffect(load, []);
+
+  async function toggle() {
+    if (!status) return;
+    setBusy(true);
+    try {
+      await api.post("/admin/engine/toggle", { enabled: !status.engineEnabled });
+      load();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="rounded-xl border border-accent/40 bg-[var(--color-card)] p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="font-heading text-base">⚙️ Auto Content Engine</p>
+          <p className="text-xs text-[var(--color-text-secondary)]">
+            Compiles sourced Tadabbur articles from the DB every 15 min — runs with or without AI keys, and only
+            stops here.
+          </p>
+        </div>
+        <button
+          onClick={toggle}
+          disabled={busy || !status}
+          className={`rounded-full px-4 py-2 text-xs font-medium text-white disabled:opacity-60 ${
+            status?.engineEnabled ? "bg-danger" : "bg-success"
+          }`}
+        >
+          {status?.engineEnabled ? "⏸ Stop engine" : "▶ Start engine"}
+        </button>
+      </div>
+      {status && (
+        <div className="mt-3 flex flex-wrap gap-4 text-xs">
+          <span>
+            Status:{" "}
+            <span className={status.engineEnabled ? "text-success" : "text-danger"}>
+              {status.engineEnabled ? "running" : "stopped"}
+            </span>
+          </span>
+          <span>Compiled (no-AI): <b>{status.compiledArticles}</b></span>
+          <span>AI articles: <b>{status.aiArticles}</b></span>
+        </div>
+      )}
+      {status && status.recent.length > 0 && (
+        <ul className="mt-2 space-y-1 text-[11px] text-[var(--color-text-secondary)]">
+          {status.recent.map((r, i) => (
+            <li key={i}>
+              · {r.title} <span className="uppercase">[{r.lang}]</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function ContentTab() {
   const [queue, setQueue] = useState<ReviewItem[]>([]);
   const [scheduleCount, setScheduleCount] = useState(5);
@@ -36,6 +108,7 @@ export function ContentTab() {
 
   return (
     <div className="space-y-4">
+      <EnginePanel />
       <div className="flex items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <input
           type="number"

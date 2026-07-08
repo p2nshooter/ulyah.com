@@ -296,9 +296,46 @@ adminRoute.post("/scaling/settings", async (c) => {
 
 adminRoute.get("/scaling/settings", async (c) => {
   const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const defaults = {
+    autoThrottleEnabled: true,
+    monthlyBudgetUsd: 0,
+    preferFreeProviders: true,
+    targetJobsPerTick: 5,
+    engineEnabled: true,
+    compileLangs: ["id", "en"],
+  };
+  return c.json({ settings: raw ? { ...defaults, ...JSON.parse(raw) } : defaults });
+});
+
+// Content-engine status: is the auto-producer on, and what has it produced?
+adminRoute.get("/engine/status", async (c) => {
+  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const settings = raw ? JSON.parse(raw) : {};
+  const [compiled, aiStories, latest] = await Promise.all([
+    c.env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM stories WHERE ai_generated = 0 AND source_format = 'html' AND status = 'published'"
+    ).first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM stories WHERE ai_generated = 1").first<{ n: number }>(),
+    c.env.DB.prepare(
+      "SELECT title, lang, created_at FROM stories WHERE source_format = 'html' ORDER BY created_at DESC LIMIT 5"
+    ).all(),
+  ]);
   return c.json({
-    settings: raw
-      ? JSON.parse(raw)
-      : { autoThrottleEnabled: true, monthlyBudgetUsd: 0, preferFreeProviders: true, targetJobsPerTick: 5 },
+    engineEnabled: settings.engineEnabled !== false,
+    compiledArticles: compiled?.n ?? 0,
+    aiArticles: aiStories?.n ?? 0,
+    recent: latest.results,
   });
+});
+
+// One-click master switch for the auto-production engine (start / stop).
+adminRoute.post("/engine/toggle", async (c) => {
+  const { enabled } = await c.req.json<{ enabled: boolean }>();
+  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const settings = raw ? JSON.parse(raw) : {};
+  settings.engineEnabled = Boolean(enabled);
+  await c.env.CACHE_KV.put("scaling:settings", JSON.stringify(settings));
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, enabled ? "engine_started" : "engine_stopped", admin.email, c.req.header("cf-connecting-ip") ?? null, {});
+  return c.json({ ok: true, engineEnabled: settings.engineEnabled });
 });

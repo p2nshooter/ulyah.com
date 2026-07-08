@@ -1,12 +1,15 @@
 import { generateStoryDraft } from "@ulyah/ai-engine";
 import type { Env } from "./../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
+import { runDeterministicCompile } from "./compile.js";
 
 interface ScalingSettings {
   autoThrottleEnabled: boolean;
   monthlyBudgetUsd: number;
   preferFreeProviders: boolean;
   targetJobsPerTick: number;
+  engineEnabled: boolean; // master switch — the ONLY way to stop auto-production (admin portal)
+  compileLangs: string[]; // languages the AI-free compiler produces
 }
 
 const DEFAULT_SETTINGS: ScalingSettings = {
@@ -14,6 +17,8 @@ const DEFAULT_SETTINGS: ScalingSettings = {
   monthlyBudgetUsd: 0,
   preferFreeProviders: true,
   targetJobsPerTick: 5,
+  engineEnabled: true,
+  compileLangs: ["id", "en"],
 };
 
 const MAX_JOBS_EXECUTED_PER_TICK = 3; // bounded so one cron tick can't run away with CPU/wall time
@@ -39,9 +44,27 @@ export async function runScalingTick(env: Env): Promise<{
   queued: number;
   executed: number;
   failed: number;
+  compiled: number;
   coverage: { total_ayah: number; ayah_with_story: number };
 }> {
   const settings = await getSettings(env);
+
+  // Master switch: the admin portal can stop ALL auto-production here.
+  if (!settings.engineEnabled) {
+    await env.DB.prepare(
+      "INSERT INTO scaling_metrics (metric_type, value, detail) VALUES ('engine_paused', 1, NULL)"
+    ).run();
+    return { queued: 0, executed: 0, failed: 0, compiled: 0, coverage: { total_ayah: 0, ayah_with_story: 0 } };
+  }
+
+  // AI-free heartbeat: compile one sourced article from the DB every tick, so
+  // content keeps growing with or without any donated AI key.
+  let compiled = 0;
+  try {
+    compiled = await runDeterministicCompile(env, settings.compileLangs);
+  } catch (e) {
+    console.error("deterministic-compile failed", e);
+  }
 
   const coverage = await env.DB.prepare(
     `SELECT
@@ -91,7 +114,7 @@ export async function runScalingTick(env: Env): Promise<{
     ),
   ]);
 
-  return { queued, executed, failed, coverage: coverage ?? { total_ayah: 0, ayah_with_story: 0 } };
+  return { queued, executed, failed, compiled, coverage: coverage ?? { total_ayah: 0, ayah_with_story: 0 } };
 }
 
 async function executeQueuedJobs(
