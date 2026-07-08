@@ -113,22 +113,27 @@ async function main() {
         `INSERT INTO audio_cache (ayah_id, qori_id, r2_key) SELECT id, ${qori.id}, '${r2Key}' FROM ayah WHERE surah_id = ${surah} AND number = ${ayah} ON CONFLICT (ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key;`
       );
 
-      await new Promise((r) => setTimeout(r, 150)); // be polite to everyayah.com
+      await new Promise((r) => setTimeout(r, 50)); // be polite to everyayah.com
+    }
+
+    // Flush audio_cache rows to D1 after EVERY surah so a timeout/crash
+    // mid-run never loses the index for already-uploaded audio — re-runs
+    // are idempotent (upsert + r2 overwrite).
+    if (sqlInserts.length > 0) {
+      const sqlFile = join(tmpDir, `audio_cache_${surah}.sql`);
+      writeFileSync(sqlFile, sqlInserts.join("\n"));
+      execFileSync("npx", ["wrangler", "d1", "execute", "ulyah-db", "--remote", `--file=${sqlFile}`], {
+        cwd: join(import.meta.dirname, "..", "apps", "worker-api"),
+        stdio: "inherit",
+      });
+      rmSync(sqlFile);
+      sqlInserts.length = 0;
     }
     console.log(`  surah ${surah}: done (${ayahCount} ayat)`);
   }
 
-  if (sqlInserts.length > 0) {
-    const sqlFile = join(tmpDir, "audio_cache_import.sql");
-    writeFileSync(sqlFile, sqlInserts.join("\n"));
-    execFileSync("npx", ["wrangler", "d1", "execute", "ulyah-db", "--remote", `--file=${sqlFile}`], {
-      cwd: join(import.meta.dirname, "..", "apps", "worker-api"),
-      stdio: "inherit",
-    });
-  }
-
   rmSync(tmpDir, { recursive: true, force: true });
-  console.log(`Done. ${sqlInserts.length} audio files imported.`);
+  console.log("Done.");
 }
 
 main().catch((err) => {
