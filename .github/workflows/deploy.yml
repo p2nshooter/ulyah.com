@@ -45,7 +45,7 @@ jobs:
         run: |
           set -eu
           missing=""
-          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID KEY_ENCRYPTION_SECRET ADMIN_SESSION_SECRET ADMIN_BOOTSTRAP_EMAIL ADMIN_BOOTSTRAP_PASSWORD; do
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID ADMIN_BOOTSTRAP_EMAIL ADMIN_BOOTSTRAP_PASSWORD; do
             if [ -z "${!name:-}" ]; then missing="$missing $name"; fi
           done
           if [ -n "$missing" ]; then
@@ -53,8 +53,6 @@ jobs:
             exit 1
           fi
         env:
-          KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
-          ADMIN_SESSION_SECRET: ${{ secrets.ADMIN_SESSION_SECRET }}
           ADMIN_BOOTSTRAP_EMAIL: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL }}
           ADMIN_BOOTSTRAP_PASSWORD: ${{ secrets.ADMIN_BOOTSTRAP_PASSWORD }}
 
@@ -66,35 +64,42 @@ jobs:
           pnpm --filter @ulyah/worker-api typecheck
           pnpm --filter @ulyah/web typecheck
 
-      - name: Self-provision D1 / KV / R2 if missing
+      - name: Self-provision D1 / KV / R2 if missing (Cloudflare REST API)
         id: provision
-        working-directory: apps/worker-api
         run: |
           set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          JSON="Content-Type: application/json"
 
           echo "--- D1 database 'ulyah-db' ---"
-          D1_ID=$(npx wrangler d1 list --json | jq -r '.[] | select(.name=="ulyah-db") | .uuid' | head -n1)
-          if [ -z "$D1_ID" ] || [ "$D1_ID" = "null" ]; then
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" \
+            | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          if [ -z "$D1_ID" ]; then
             echo "Creating D1 database ulyah-db..."
-            D1_ID=$(npx wrangler d1 create ulyah-db --json | jq -r '.uuid')
+            D1_ID=$(curl -sf -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-db"}' "$CF/d1/database" | jq -r '.result.uuid')
           fi
+          [ -n "$D1_ID" ] && [ "$D1_ID" != "null" ] || { echo "::error::Failed to resolve D1 database id — check token has Account>D1:Edit"; exit 1; }
           echo "D1 database id: $D1_ID"
           echo "CLOUDFLARE_D1_DATABASE_ID=$D1_ID" >> "$GITHUB_ENV"
 
           echo "--- KV namespace 'ulyah-cache' ---"
-          KV_ID=$(npx wrangler kv namespace list --json | jq -r '.[] | select(.title=="ulyah-cache" or (.title | endswith("-ulyah-cache"))) | .id' | head -n1)
-          if [ -z "$KV_ID" ] || [ "$KV_ID" = "null" ]; then
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" \
+            | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          if [ -z "$KV_ID" ]; then
             echo "Creating KV namespace ulyah-cache..."
-            KV_ID=$(npx wrangler kv namespace create ulyah-cache --json | jq -r '.id')
+            KV_ID=$(curl -sf -X POST -H "$AUTH" -H "$JSON" -d '{"title":"ulyah-cache"}' "$CF/storage/kv/namespaces" | jq -r '.result.id')
           fi
+          [ -n "$KV_ID" ] && [ "$KV_ID" != "null" ] || { echo "::error::Failed to resolve KV namespace id — check token has Account>Workers KV Storage:Edit"; exit 1; }
           echo "KV namespace id: $KV_ID"
           echo "CLOUDFLARE_KV_NAMESPACE_ID=$KV_ID" >> "$GITHUB_ENV"
 
           echo "--- R2 bucket 'ulyah-media' ---"
-          R2_EXISTS=$(npx wrangler r2 bucket list --json | jq -r '.[] | select(.name=="ulyah-media") | .name' | head -n1)
+          R2_EXISTS=$(curl -sf -H "$AUTH" "$CF/r2/buckets?per_page=100" \
+            | jq -r '.result.buckets[]? | select(.name=="ulyah-media") | .name' | head -n1)
           if [ -z "$R2_EXISTS" ]; then
             echo "Creating R2 bucket ulyah-media..."
-            npx wrangler r2 bucket create ulyah-media
+            curl -sf -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-media"}' "$CF/r2/buckets" | jq -r '.success'
           fi
           echo "CLOUDFLARE_R2_BUCKET_NAME=ulyah-media" >> "$GITHUB_ENV"
 
@@ -136,44 +141,6 @@ jobs:
             npx wrangler r2 object put "${CLOUDFLARE_R2_BUCKET_NAME}/${key}" --file="$f" --remote --content-type=application/pdf
           done
 
-      - name: Push Worker secrets
-        working-directory: apps/worker-api
-        run: |
-          set -eu
-          cat > /tmp/secrets.json <<EOF
-          {
-            "KEY_ENCRYPTION_SECRET": "${KEY_ENCRYPTION_SECRET}",
-            "ADMIN_SESSION_SECRET": "${ADMIN_SESSION_SECRET}",
-            "ADMIN_BOOTSTRAP_EMAIL": "${ADMIN_BOOTSTRAP_EMAIL}",
-            "ADMIN_BOOTSTRAP_PASSWORD": "${ADMIN_BOOTSTRAP_PASSWORD}",
-            "PAYPAL_MODE": "${PAYPAL_MODE}",
-            "PAYPAL_CLIENT_ID_SANDBOX": "${PAYPAL_CLIENT_ID_SANDBOX}",
-            "PAYPAL_CLIENT_SECRET_SANDBOX": "${PAYPAL_CLIENT_SECRET_SANDBOX}",
-            "PAYPAL_CLIENT_ID_LIVE": "${PAYPAL_CLIENT_ID_LIVE}",
-            "PAYPAL_CLIENT_SECRET_LIVE": "${PAYPAL_CLIENT_SECRET_LIVE}",
-            "PAYPAL_WEBHOOK_ID": "${PAYPAL_WEBHOOK_ID}",
-            "NOWPAYMENTS_API_KEY": "${NOWPAYMENTS_API_KEY}",
-            "NOWPAYMENTS_IPN_SECRET": "${NOWPAYMENTS_IPN_SECRET}",
-            "CORS_ALLOW_ORIGIN": "${CORS_ALLOW_ORIGIN}"
-          }
-          EOF
-          npx wrangler secret bulk /tmp/secrets.json
-          rm -f /tmp/secrets.json
-        env:
-          KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
-          ADMIN_SESSION_SECRET: ${{ secrets.ADMIN_SESSION_SECRET }}
-          ADMIN_BOOTSTRAP_EMAIL: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL }}
-          ADMIN_BOOTSTRAP_PASSWORD: ${{ secrets.ADMIN_BOOTSTRAP_PASSWORD }}
-          PAYPAL_MODE: ${{ secrets.PAYPAL_MODE }}
-          PAYPAL_CLIENT_ID_SANDBOX: ${{ secrets.PAYPAL_CLIENT_ID_SANDBOX }}
-          PAYPAL_CLIENT_SECRET_SANDBOX: ${{ secrets.PAYPAL_CLIENT_SECRET_SANDBOX }}
-          PAYPAL_CLIENT_ID_LIVE: ${{ secrets.PAYPAL_CLIENT_ID_LIVE }}
-          PAYPAL_CLIENT_SECRET_LIVE: ${{ secrets.PAYPAL_CLIENT_SECRET_LIVE }}
-          PAYPAL_WEBHOOK_ID: ${{ secrets.PAYPAL_WEBHOOK_ID }}
-          NOWPAYMENTS_API_KEY: ${{ secrets.NOWPAYMENTS_API_KEY }}
-          NOWPAYMENTS_IPN_SECRET: ${{ secrets.NOWPAYMENTS_IPN_SECRET }}
-          CORS_ALLOW_ORIGIN: ${{ secrets.CORS_ALLOW_ORIGIN }}
-
       - name: Clean stale DNS records so Custom Domains can attach
         run: |
           set -eu
@@ -200,6 +167,67 @@ jobs:
       - name: Deploy worker-api
         working-directory: apps/worker-api
         run: npx wrangler deploy
+
+      - name: Push Worker secrets (auto-generating internal ones if absent)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Internal infrastructure secrets: prefer the GitHub Secret if set;
+          # otherwise keep whatever the Worker already has (stability matters —
+          # KEY_ENCRYPTION_SECRET decrypts every donated API key at rest);
+          # only generate a fresh value the very first time neither exists.
+          EXISTING=$(npx wrangler secret list 2>/dev/null | jq -r '.[].name' || true)
+
+          resolve_internal () {
+            local name="$1" ghvalue="$2" bytes="$3"
+            if [ -n "$ghvalue" ]; then
+              echo "$ghvalue"
+            elif echo "$EXISTING" | grep -qx "$name"; then
+              echo "" # keep the Worker's current value — omit from bulk update
+            else
+              echo "::notice::$name not provided in GitHub Secrets — auto-generating once and storing it only as a Cloudflare Worker secret." >&2
+              openssl rand -base64 "$bytes"
+            fi
+          }
+
+          KEY_ENC=$(resolve_internal "KEY_ENCRYPTION_SECRET" "${KEY_ENCRYPTION_SECRET}" 32)
+          SESS=$(resolve_internal "ADMIN_SESSION_SECRET" "${ADMIN_SESSION_SECRET}" 48)
+
+          # Build the bulk JSON with only non-empty values so we never
+          # overwrite an existing Worker secret with an empty string.
+          jq -n \
+            --arg KEY_ENCRYPTION_SECRET "$KEY_ENC" \
+            --arg ADMIN_SESSION_SECRET "$SESS" \
+            --arg ADMIN_BOOTSTRAP_EMAIL "$ADMIN_BOOTSTRAP_EMAIL" \
+            --arg ADMIN_BOOTSTRAP_PASSWORD "$ADMIN_BOOTSTRAP_PASSWORD" \
+            --arg PAYPAL_MODE "$PAYPAL_MODE" \
+            --arg PAYPAL_CLIENT_ID_SANDBOX "$PAYPAL_CLIENT_ID_SANDBOX" \
+            --arg PAYPAL_CLIENT_SECRET_SANDBOX "$PAYPAL_CLIENT_SECRET_SANDBOX" \
+            --arg PAYPAL_CLIENT_ID_LIVE "$PAYPAL_CLIENT_ID_LIVE" \
+            --arg PAYPAL_CLIENT_SECRET_LIVE "$PAYPAL_CLIENT_SECRET_LIVE" \
+            --arg PAYPAL_WEBHOOK_ID "$PAYPAL_WEBHOOK_ID" \
+            --arg NOWPAYMENTS_API_KEY "$NOWPAYMENTS_API_KEY" \
+            --arg NOWPAYMENTS_IPN_SECRET "$NOWPAYMENTS_IPN_SECRET" \
+            --arg CORS_ALLOW_ORIGIN "$CORS_ALLOW_ORIGIN" \
+            '$ARGS.named | with_entries(select(.value != ""))' > /tmp/secrets.json
+
+          echo "Setting $(jq 'length' /tmp/secrets.json) worker secrets: $(jq -r 'keys | join(", ")' /tmp/secrets.json)"
+          npx wrangler secret bulk /tmp/secrets.json
+          rm -f /tmp/secrets.json
+        env:
+          KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
+          ADMIN_SESSION_SECRET: ${{ secrets.ADMIN_SESSION_SECRET }}
+          ADMIN_BOOTSTRAP_EMAIL: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL }}
+          ADMIN_BOOTSTRAP_PASSWORD: ${{ secrets.ADMIN_BOOTSTRAP_PASSWORD }}
+          PAYPAL_MODE: ${{ secrets.PAYPAL_MODE }}
+          PAYPAL_CLIENT_ID_SANDBOX: ${{ secrets.PAYPAL_CLIENT_ID_SANDBOX }}
+          PAYPAL_CLIENT_SECRET_SANDBOX: ${{ secrets.PAYPAL_CLIENT_SECRET_SANDBOX }}
+          PAYPAL_CLIENT_ID_LIVE: ${{ secrets.PAYPAL_CLIENT_ID_LIVE }}
+          PAYPAL_CLIENT_SECRET_LIVE: ${{ secrets.PAYPAL_CLIENT_SECRET_LIVE }}
+          PAYPAL_WEBHOOK_ID: ${{ secrets.PAYPAL_WEBHOOK_ID }}
+          NOWPAYMENTS_API_KEY: ${{ secrets.NOWPAYMENTS_API_KEY }}
+          NOWPAYMENTS_IPN_SECRET: ${{ secrets.NOWPAYMENTS_IPN_SECRET }}
+          CORS_ALLOW_ORIGIN: ${{ secrets.CORS_ALLOW_ORIGIN }}
 
       - name: Build web (Next.js via OpenNext)
         working-directory: apps/web

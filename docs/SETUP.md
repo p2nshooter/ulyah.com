@@ -38,14 +38,14 @@ That's it for Cloudflare — the D1 database (`ulyah-db`), KV namespace
 the workflow on first run using the token above. You do **not** need to
 pre-create them or find their IDs.
 
-### App secrets (required)
+### App secrets
 
-| Secret | What it is |
-|---|---|
-| `KEY_ENCRYPTION_SECRET` | Base64-encoded 32 random bytes, encrypts every donated AI/GPU API key at rest (AES-256-GCM). Generate with `openssl rand -base64 32`. |
-| `ADMIN_SESSION_SECRET` | Any long random string (e.g. `openssl rand -hex 32`), used to key admin session tokens. |
-| `ADMIN_BOOTSTRAP_EMAIL` | `alghoniy2026@gmail.com` — used **once** to create the first row in `admin_users` on first login. After that, the database is the source of truth; change the email/password anytime from Portal Admin → Account (never hardcoded). |
-| `ADMIN_BOOTSTRAP_PASSWORD` | `ulyahM1980` — same one-time bootstrap behavior as above. |
+| Secret | Required? | What it is |
+|---|---|---|
+| `ADMIN_BOOTSTRAP_EMAIL` | **Yes** | `alghoniy2026@gmail.com` — used **once** to create the first row in `admin_users` on first login. After that, the database is the source of truth; change the email/password anytime from Portal Admin → Account (never hardcoded). |
+| `ADMIN_BOOTSTRAP_PASSWORD` | **Yes** | `ulyahM1980` — same one-time bootstrap behavior as above. |
+| `KEY_ENCRYPTION_SECRET` | No — **auto-generated** | Base64 32 bytes, encrypts every donated AI/GPU API key at rest (AES-256-GCM). If you don't set it, the deploy workflow generates it once (`openssl rand -base64 32`) and stores it **only** as a Cloudflare Worker secret, then reuses that value on every later deploy. Set it in GitHub Secrets only if you want your own copy for disaster recovery — losing it just means donated keys must be re-donated. |
+| `ADMIN_SESSION_SECRET` | No — **auto-generated** | Random string reserved for session hardening; same auto-generation behavior as above. |
 
 ### PayPal (required for donations)
 
