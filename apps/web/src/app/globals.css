@@ -47,8 +47,9 @@ body {
 }
 
 .font-arabic {
-  font-family: "Amiri", "Traditional Arabic", serif;
-  line-height: 2.4;
+  font-family: "Scheherazade New", "Amiri", "Traditional Arabic", serif;
+  line-height: 2.5;
+  letter-spacing: 0.01em;
 }
 
 .ayah-active-highlight {

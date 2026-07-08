@@ -166,4 +166,11 @@ export interface Dictionary {
     monthDonations: string;
     registeredClients: string;
   };
+  crypto: {
+    title: string;
+    desc: string;
+    copy: string;
+    copied: string;
+    network: string;
+  };
 }

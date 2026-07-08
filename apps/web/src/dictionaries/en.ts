@@ -170,6 +170,13 @@ const en: Dictionary = {
     monthDonations: "Donations This Month",
     registeredClients: "Registered Clients",
   },
+  crypto: {
+    title: "Direct Crypto Donation",
+    desc: "Send directly to Ulyah's official wallets. Make sure the network matches — sending on the wrong network will lose the funds.",
+    copy: "Copy address",
+    copied: "Copied!",
+    network: "Network",
+  },
 };
 
 export default en;

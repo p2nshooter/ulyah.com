@@ -2,7 +2,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api, ebookDownloadUrl } from "@/lib/api";
-import { StoryPlayButton } from "@/components/StoryPlayButton";
+import { StoryReader } from "@/components/StoryReader";
 
 interface StoryDetail {
   id: number;
@@ -51,7 +51,6 @@ export default async function KisahDetailPage({
       {fallbackUsed && <p className="mt-3 text-xs text-warning">{dict.reader.translationNotAvailable}</p>}
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <StoryPlayButton storyId={story.id} title={story.title} label={`▶ ${dict.reader.storyLabel}`} />
         {story.pdf_ebook_id && (
           <a
             href={ebookDownloadUrl(story.pdf_ebook_id)}
@@ -62,8 +61,8 @@ export default async function KisahDetailPage({
         )}
       </div>
 
-      <div className="prose prose-sm mt-8 max-w-none whitespace-pre-line text-[15px] leading-relaxed text-[var(--color-text-primary)]">
-        {story.body}
+      <div className="mt-8">
+        <StoryReader body={story.body} lang={storyLang} dict={dict} />
       </div>
 
       {nextEpisode && (

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePlayerStore } from "@/lib/player-store";
+import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { Dictionary } from "@/dictionaries";
 
 const QORI_LIST = [
@@ -35,25 +36,64 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
 
   const [progress, setProgress] = useState({ current: 0, duration: 0 });
   const [showQoriMenu, setShowQoriMenu] = useState(false);
+  const [narrating, setNarrating] = useState(false);
+  const narrationRef = useRef<NarrationHandle | null>(null);
+  const mode = usePlayerStore((s) => s.mode);
   const src = currentAudioSrc();
   const current = queue[currentIndex];
+  const uiLang = typeof document !== "undefined" ? document.documentElement.lang || "id" : "id";
+
+  /** Speak the current ayah's translation, then advance. The always-available
+   * voice layer: runs after recitation in full mode, instead of it in
+   * translation mode, and as the fallback when murottal audio is missing. */
+  function narrateThenNext() {
+    const text = current?.translation;
+    if (!text || !speechAvailable()) {
+      next();
+      return;
+    }
+    setNarrating(true);
+    narrationRef.current?.cancel();
+    const handle = speak(text, uiLang);
+    narrationRef.current = handle;
+    handle.done.then(() => {
+      setNarrating(false);
+      next();
+    });
+  }
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !src) return;
+    if (!audio || !src || !current) return;
+    narrationRef.current?.cancel();
+    setNarrating(false);
+    if (mode === "translation") {
+      // Narration-only mode — no recitation audio involved.
+      audio.pause();
+      if (isPlaying) narrateThenNext();
+      return;
+    }
     if (audio.src !== src) {
       audio.src = src;
       audio.playbackRate = playbackRate;
       if (isPlaying) audio.play().catch(() => {});
     }
-  }, [src]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [src, mode]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => () => narrationRef.current?.cancel(), []);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (isPlaying) audio.play().catch(() => {});
-    else audio.pause();
-  }, [isPlaying]);
+    if (isPlaying) {
+      if (mode === "translation") narrateThenNext();
+      else audio.play().catch(() => {});
+    } else {
+      audio.pause();
+      narrationRef.current?.cancel();
+      setNarrating(false);
+    }
+  }, [isPlaying]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = playbackRate;
@@ -76,8 +116,18 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
         onTimeUpdate={(e) =>
           setProgress({ current: e.currentTarget.currentTime, duration: e.currentTarget.duration || 0 })
         }
-        onEnded={() => next()}
+        onEnded={() => (mode === "full" ? narrateThenNext() : next())}
+        onError={() => {
+          // Murottal for this qori/ayah not imported yet — narrate the
+          // translation instead of going silent, then keep the queue moving.
+          if (isPlaying) narrateThenNext();
+        }}
       />
+      {narrating && (
+        <span className="absolute -top-5 left-1/2 -translate-x-1/2 rounded-full bg-accent/90 px-3 py-0.5 text-[10px] text-white">
+          {dict.reader.translationLabel} 🔊
+        </span>
+      )}
       <div className="mx-auto flex max-w-5xl items-center gap-3">
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{title}</p>

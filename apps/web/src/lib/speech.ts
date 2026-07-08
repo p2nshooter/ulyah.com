@@ -1,0 +1,94 @@
+"use client";
+
+/**
+ * Browser narration engine (Web Speech API) — the always-available voice
+ * layer. Works in every modern browser with zero API keys, in every UI
+ * language, so the site is never silent even before murottal audio is
+ * imported or a TTS-scope AI key is donated. Voice picking prefers the
+ * softest natural voice available on the device for the target language
+ * (per the "suara lembut, enak didengar" requirement).
+ *
+ * Qur'an Arabic text is NEVER routed through this engine — recitation is
+ * only ever real qori audio. This narrates translations, tafsir, and kisah.
+ */
+
+const LANG_TAG: Record<string, string> = {
+  id: "id-ID", en: "en-US", ru: "ru-RU", de: "de-DE",
+  fr: "fr-FR", ar: "ar-SA", zh: "zh-CN", ja: "ja-JP",
+};
+
+// Known soft/natural voice names per platform, in preference order.
+const PREFERRED = [
+  "Google", "Natural", "Neural", // Chrome/Edge high-quality voices
+  "Damayanti", "Samantha", "Milena", "Anna", "Amelie", "Ting-Ting", "Kyoko", "Laila", // iOS/macOS
+];
+
+let voicesReady: Promise<SpeechSynthesisVoice[]> | null = null;
+
+function loadVoices(): Promise<SpeechSynthesisVoice[]> {
+  if (voicesReady) return voicesReady;
+  voicesReady = new Promise((resolve) => {
+    const existing = window.speechSynthesis.getVoices();
+    if (existing.length) return resolve(existing);
+    window.speechSynthesis.onvoiceschanged = () => resolve(window.speechSynthesis.getVoices());
+    setTimeout(() => resolve(window.speechSynthesis.getVoices()), 1500);
+  });
+  return voicesReady;
+}
+
+async function pickVoice(lang: string): Promise<SpeechSynthesisVoice | null> {
+  const tag = LANG_TAG[lang] ?? lang;
+  const voices = await loadVoices();
+  const forLang = voices.filter((v) => v.lang.toLowerCase().startsWith(tag.slice(0, 2).toLowerCase()));
+  if (!forLang.length) return null;
+  for (const hint of PREFERRED) {
+    const hit = forLang.find((v) => v.name.includes(hint));
+    if (hit) return hit;
+  }
+  return forLang.find((v) => v.localService === false) ?? forLang[0]!;
+}
+
+export function speechAvailable(): boolean {
+  return typeof window !== "undefined" && "speechSynthesis" in window;
+}
+
+export interface NarrationHandle {
+  cancel: () => void;
+  done: Promise<void>;
+}
+
+/** Speak one text block. Resolves when finished or cancelled. */
+export function speak(text: string, lang: string, opts: { rate?: number } = {}): NarrationHandle {
+  let cancelled = false;
+  const done = (async () => {
+    if (!speechAvailable() || !text.trim()) return;
+    window.speechSynthesis.cancel();
+    const voice = await pickVoice(lang);
+    await new Promise<void>((resolve) => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = LANG_TAG[lang] ?? lang;
+      if (voice) u.voice = voice;
+      u.rate = opts.rate ?? 0.95;
+      u.pitch = 1.0;
+      u.onend = () => resolve();
+      u.onerror = () => resolve();
+      if (cancelled) return resolve();
+      window.speechSynthesis.speak(u);
+    });
+  })();
+  return {
+    cancel: () => {
+      cancelled = true;
+      if (speechAvailable()) window.speechSynthesis.cancel();
+    },
+    done,
+  };
+}
+
+/** Split long prose into speakable sentences (keeps narration responsive and enables per-sentence highlight). */
+export function splitSentences(text: string): string[] {
+  return text
+    .split(/(?<=[.!?؟。！])\s+|\n+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 1);
+}

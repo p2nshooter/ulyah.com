@@ -170,6 +170,13 @@ const zh: Dictionary = {
     monthDonations: "本月捐赠",
     registeredClients: "注册客户",
   },
+  crypto: {
+    title: "直接加密货币捐赠",
+    desc: "直接转入 Ulyah 官方钱包。请确保网络匹配——使用错误的网络转账将导致资金丢失。",
+    copy: "复制地址",
+    copied: "已复制！",
+    network: "网络",
+  },
 };
 
 export default zh;

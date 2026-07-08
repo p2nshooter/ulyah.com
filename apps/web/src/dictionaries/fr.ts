@@ -170,6 +170,13 @@ const fr: Dictionary = {
     monthDonations: "Dons ce mois-ci",
     registeredClients: "Clients enregistrés",
   },
+  crypto: {
+    title: "Don crypto direct",
+    desc: "Envoyez directement aux portefeuilles officiels d'Ulyah. Vérifiez que le réseau correspond — un envoi sur le mauvais réseau entraînera la perte des fonds.",
+    copy: "Copier l'adresse",
+    copied: "Copié !",
+    network: "Réseau",
+  },
 };
 
 export default fr;

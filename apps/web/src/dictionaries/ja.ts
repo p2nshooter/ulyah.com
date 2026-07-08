@@ -170,6 +170,13 @@ const ja: Dictionary = {
     monthDonations: "今月の寄付",
     registeredClients: "登録済みクライアント",
   },
+  crypto: {
+    title: "暗号資産で直接寄付",
+    desc: "Ulyahの公式ウォレットに直接送金してください。ネットワークが一致していることを確認してください。誤ったネットワークでの送金は資金を失います。",
+    copy: "アドレスをコピー",
+    copied: "コピーしました！",
+    network: "ネットワーク",
+  },
 };
 
 export default ja;

@@ -16,9 +16,9 @@ export default {
         danger: "#B23A3A",
       },
       fontFamily: {
-        heading: ["Cambria", "Georgia", "serif"],
-        arabic: ["Amiri", "Uthmani", "serif"],
-        body: ["Inter", "Calibri", "system-ui", "sans-serif"],
+        heading: ["Cinzel", "Cambria", "Georgia", "serif"],
+        arabic: ["'Scheherazade New'", "Amiri", "'Traditional Arabic'", "serif"],
+        body: ["Lato", "Inter", "system-ui", "sans-serif"],
       },
       fontSize: {
         xs: "12px",

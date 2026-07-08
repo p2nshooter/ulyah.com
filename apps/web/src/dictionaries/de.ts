@@ -170,6 +170,13 @@ const de: Dictionary = {
     monthDonations: "Spenden diesen Monat",
     registeredClients: "Registrierte Kunden",
   },
+  crypto: {
+    title: "Direkte Krypto-Spende",
+    desc: "Senden Sie direkt an die offiziellen Ulyah-Wallets. Achten Sie auf das richtige Netzwerk — Senden über das falsche Netzwerk führt zum Verlust der Mittel.",
+    copy: "Adresse kopieren",
+    copied: "Kopiert!",
+    network: "Netzwerk",
+  },
 };
 
 export default de;

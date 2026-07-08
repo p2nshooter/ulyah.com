@@ -2,6 +2,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { DonationButtons } from "@/components/DonationButtons";
 import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
+import { CryptoDonationSection } from "@/components/CryptoDonationSection";
 
 export default async function DonasiPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -31,6 +32,10 @@ export default async function DonasiPage({ params }: { params: Promise<{ locale:
 
       <div className="mt-10">
         <DonationButtons dict={dict} />
+      </div>
+
+      <div className="mt-12">
+        <CryptoDonationSection dict={dict} locale={locale} />
       </div>
 
       <div className="mt-12">

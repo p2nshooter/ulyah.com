@@ -170,6 +170,13 @@ const id: Dictionary = {
     monthDonations: "Donasi Bulan Ini",
     registeredClients: "Klien Terdaftar",
   },
+  crypto: {
+    title: "Donasi Kripto Langsung",
+    desc: "Transfer langsung ke dompet resmi Ulyah. Pastikan jaringan sesuai — mengirim lewat jaringan yang salah akan menghilangkan dana.",
+    copy: "Salin alamat",
+    copied: "Tersalin!",
+    network: "Jaringan",
+  },
 };
 
 export default id;

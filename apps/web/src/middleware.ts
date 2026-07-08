@@ -47,8 +47,29 @@ function detectLocale(req: NextRequest): string {
   return DEFAULT_LOCALE === "id" ? "en" : DEFAULT_LOCALE; // English is the safe neutral fallback
 }
 
+const SECURITY_HEADERS: Record<string, string> = {
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "X-Frame-Options": "SAMEORIGIN",
+};
+
+function withSecurity(res: NextResponse): NextResponse {
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) res.headers.set(k, v);
+  return res;
+}
+
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // Force HTTPS — fixes the browser "connection not secure / dangerous site"
+  // warning when the zone serves plain HTTP without an edge redirect rule.
+  const proto = req.headers.get("x-forwarded-proto") ?? req.nextUrl.protocol.replace(":", "");
+  if (proto === "http") {
+    const url = req.nextUrl.clone();
+    url.protocol = "https:";
+    return withSecurity(NextResponse.redirect(url, 301));
+  }
 
   // Skip static assets, API proxy routes, and Next internals.
   if (
