@@ -256,17 +256,40 @@ jobs:
             echo "::warning::ulyah.com zone not found — site remains on *.workers.dev until the zone is active."
             exit 0
           fi
+          blocked=""
           for host in ulyah.com www.ulyah.com; do
             resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
               -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"ulyah-web\",\"environment\":\"production\"}" \
               "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
             ok=$(echo "$resp" | jq -r '.success')
+            code=$(echo "$resp" | jq -r '.errors[0].code // 0')
             echo "$host -> ulyah-web: success=$ok errors=$(echo "$resp" | jq -c '.errors')"
             if [ "$ok" != "true" ]; then
-              echo "::error::Failed to attach $host to ulyah-web — see Cloudflare error above."
-              exit 1
+              if [ "$code" = "100117" ]; then
+                # Pre-existing externally managed DNS record blocks the attach and
+                # this token can't delete DNS records. One-time manual fix needed;
+                # after that, this step attaches the domain automatically forever.
+                blocked="$blocked $host"
+              else
+                echo "::error::Failed to attach $host to ulyah-web — see Cloudflare error above."
+                exit 1
+              fi
             fi
           done
+          if [ -n "$blocked" ]; then
+            {
+              echo "## ⚠️ Action needed to finish connecting:$blocked"
+              echo ""
+              echo "These hostnames still have old placeholder DNS records (the cause of the 522 error),"
+              echo "and the deploy token cannot delete DNS records. Pick ONE of these one-time fixes:"
+              echo ""
+              echo "1. **Easiest:** Cloudflare dashboard → ulyah.com → DNS → Records → delete the A/AAAA/CNAME record(s) for \`ulyah.com\` and \`www\` → re-run this workflow (or just push again)."
+              echo "2. **Best long-term:** edit the CLOUDFLARE_API_TOKEN at dash.cloudflare.com/profile/api-tokens → add **Zone → DNS → Edit** for ulyah.com → re-run. The workflow will then clean up and attach automatically, now and forever."
+              echo ""
+              echo "api.ulyah.com is unaffected and already live."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::Could not attach:$blocked — old DNS records must be removed once (see the run summary for the 1-minute fix). api.ulyah.com is live; the site is meanwhile reachable on the workers.dev URL."
+          fi
 
       - name: Smoke test (retries while DNS/cert for the new custom domain settles)
         run: |
