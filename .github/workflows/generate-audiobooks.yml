@@ -1,0 +1,57 @@
+name: Generate Audiobooks (manual)
+
+# Synthesises downloadable MP3 audiobooks for published articles that have no
+# audio yet, using a configurable OpenAI-compatible TTS endpoint. The TTS key
+# is read from a GitHub secret (TTS_API_KEY) — never hardcoded. Idempotent:
+# re-running only fills the gaps.
+
+on:
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: "Language filter (id | en | ar | ... or blank for all)"
+        required: false
+        default: ""
+      limit:
+        description: "Max articles to process this run"
+        required: true
+        default: "25"
+
+jobs:
+  audiobooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Generate audiobooks
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_BUCKET_NAME: ulyah-media
+          TTS_API_KEY: ${{ secrets.TTS_API_KEY }}
+          TTS_BASE_URL: ${{ secrets.TTS_BASE_URL }}
+          TTS_MODEL: ${{ secrets.TTS_MODEL }}
+          TTS_VOICE: ${{ secrets.TTS_VOICE }}
+        run: npx tsx scripts/generate-audiobooks.ts --lang=${{ inputs.lang }} --limit=${{ inputs.limit }}

@@ -90,6 +90,9 @@ const de: Dictionary = {
     layerAyah: "Vers",
     meccan: "Mekkanisch",
     medinan: "Medinensisch",
+    downloadAudiobook: "Hörbuch herunterladen",
+    downloadText: "Text herunterladen",
+    audioProcessing: "Audio wird verarbeitet — vorerst online anhörbar.",
   },
   explore: {
     title: "Mehr als nur der Koran",

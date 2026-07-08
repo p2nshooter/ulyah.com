@@ -90,6 +90,9 @@ const ru: Dictionary = {
     layerAyah: "Аят",
     meccan: "Мекканская",
     medinan: "Мединская",
+    downloadAudiobook: "Скачать аудиокнигу",
+    downloadText: "Скачать текст",
+    audioProcessing: "Аудио обрабатывается — пока можно слушать онлайн.",
   },
   explore: {
     title: "Больше, чем просто Коран",

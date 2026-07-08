@@ -79,6 +79,23 @@ async function fetchWithRetry(url: string, retries = 3): Promise<ArrayBuffer | n
   return null;
 }
 
+/** Run a wrangler command, retrying transient failures (Cloudflare 5xx / 523
+ * gateway blips — the cause of the earlier aborted run) so one network hiccup
+ * can't kill a multi-hour import. Backs off 3s, 6s, 12s, 24s, 48s. */
+function execWithRetry(args: string[], cwd: string, retries = 5): void {
+  for (let i = 0; i < retries; i++) {
+    try {
+      execFileSync("npx", args, { cwd, stdio: "inherit" });
+      return;
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      const waitSec = 3 * 2 ** i;
+      console.warn(`  wrangler failed (attempt ${i + 1}/${retries}), retry in ${waitSec}s`);
+      execFileSync("sleep", [String(waitSec)]);
+    }
+  }
+}
+
 async function main() {
   const { qori, qoriKey, start, end } = parseArgs();
   const tmpDir = mkdtempSync(join(tmpdir(), "ulyah-audio-"));
@@ -102,10 +119,9 @@ async function main() {
       writeFileSync(localPath, Buffer.from(buf));
 
       const bucket = process.env.R2_BUCKET_NAME || "ulyah-media";
-      execFileSync(
-        "npx",
+      execWithRetry(
         ["wrangler", "r2", "object", "put", `${bucket}/${r2Key}`, `--file=${localPath}`, "--remote"],
-        { cwd: join(import.meta.dirname, "..", "apps", "worker-api"), stdio: "inherit" }
+        join(import.meta.dirname, "..", "apps", "worker-api")
       );
       rmSync(localPath);
 
@@ -122,10 +138,10 @@ async function main() {
     if (sqlInserts.length > 0) {
       const sqlFile = join(tmpDir, `audio_cache_${surah}.sql`);
       writeFileSync(sqlFile, sqlInserts.join("\n"));
-      execFileSync("npx", ["wrangler", "d1", "execute", "ulyah-db", "--remote", `--file=${sqlFile}`], {
-        cwd: join(import.meta.dirname, "..", "apps", "worker-api"),
-        stdio: "inherit",
-      });
+      execWithRetry(
+        ["wrangler", "d1", "execute", "ulyah-db", "--remote", `--file=${sqlFile}`],
+        join(import.meta.dirname, "..", "apps", "worker-api")
+      );
       rmSync(sqlFile);
       sqlInserts.length = 0;
     }

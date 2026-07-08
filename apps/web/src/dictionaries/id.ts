@@ -90,6 +90,9 @@ const id: Dictionary = {
     layerAyah: "Ayat",
     meccan: "Makkiyah",
     medinan: "Madaniyah",
+    downloadAudiobook: "Unduh Audiobook",
+    downloadText: "Unduh Teks",
+    audioProcessing: "Audio sedang diproses — untuk sekarang bisa didengarkan online.",
   },
   explore: {
     title: "Lebih Dari Sekadar Al-Qur'an",

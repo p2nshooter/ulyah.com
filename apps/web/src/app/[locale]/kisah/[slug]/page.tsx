@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
-import { api, ebookDownloadUrl } from "@/lib/api";
+import { api } from "@/lib/api";
 import { StoryReader } from "@/components/StoryReader";
 import { AdSlot } from "@/components/AdSlot";
+
+import { StoryDownloads } from "@/components/StoryDownloads";
 
 interface StoryDetail {
   id: number;
@@ -51,15 +53,15 @@ export default async function KisahDetailPage({
 
       {fallbackUsed && <p className="mt-3 text-xs text-warning">{dict.reader.translationNotAvailable}</p>}
 
-      <div className="mt-6 flex flex-wrap gap-3">
-        {story.pdf_ebook_id && (
-          <a
-            href={ebookDownloadUrl(story.pdf_ebook_id)}
-            className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm hover:border-accent"
-          >
-            📄 PDF
-          </a>
-        )}
+      <div className="mt-6">
+        <StoryDownloads
+          storyId={story.id}
+          title={story.title}
+          body={story.body}
+          audioAvailable={Boolean(story.audio_r2_key)}
+          pdfEbookId={story.pdf_ebook_id}
+          dict={dict}
+        />
       </div>
 
       <div className="mt-8">

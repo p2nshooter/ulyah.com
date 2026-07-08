@@ -90,6 +90,9 @@ const zh: Dictionary = {
     layerAyah: "经文",
     meccan: "麦加",
     medinan: "麦地那",
+    downloadAudiobook: "下载有声书",
+    downloadText: "下载文本",
+    audioProcessing: "音频正在处理中——目前可在线收听。",
   },
   explore: {
     title: "不仅仅是古兰经",

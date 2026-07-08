@@ -90,6 +90,9 @@ const en: Dictionary = {
     layerAyah: "Verse",
     meccan: "Meccan",
     medinan: "Medinan",
+    downloadAudiobook: "Download Audiobook",
+    downloadText: "Download Text",
+    audioProcessing: "Audio is being processed — you can listen online for now.",
   },
   explore: {
     title: "More Than Just the Qur'an",

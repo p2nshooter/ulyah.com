@@ -90,6 +90,9 @@ const ar: Dictionary = {
     layerAyah: "الآية",
     meccan: "مكية",
     medinan: "مدنية",
+    downloadAudiobook: "تنزيل الكتاب الصوتي",
+    downloadText: "تنزيل النص",
+    audioProcessing: "يتم تجهيز الصوت — يمكنك الاستماع عبر الإنترنت الآن.",
   },
   explore: {
     title: "أكثر من مجرد القرآن",

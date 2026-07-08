@@ -90,6 +90,9 @@ const ja: Dictionary = {
     layerAyah: "節",
     meccan: "マッカ啓示",
     medinan: "マディーナ啓示",
+    downloadAudiobook: "オーディオブックをダウンロード",
+    downloadText: "テキストをダウンロード",
+    audioProcessing: "音声を準備中です。今のところオンラインで聴けます。",
   },
   explore: {
     title: "クルアーンだけではありません",

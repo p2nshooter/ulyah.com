@@ -87,6 +87,9 @@ export interface Dictionary {
     layerAyah: string;
     meccan: string;
     medinan: string;
+    downloadAudiobook: string;
+    downloadText: string;
+    audioProcessing: string;
   };
   explore: {
     title: string;

@@ -90,6 +90,9 @@ const fr: Dictionary = {
     layerAyah: "Verset",
     meccan: "Mecquoise",
     medinan: "Médinoise",
+    downloadAudiobook: "Télécharger l'audiolivre",
+    downloadText: "Télécharger le texte",
+    audioProcessing: "L'audio est en cours de préparation — écoutez en ligne pour l'instant.",
   },
   explore: {
     title: "Bien plus que le Coran",

@@ -82,6 +82,35 @@ contentRoute.get("/stories/:slug", async (c) => {
   return c.json({ story, transcript, fallbackUsed, nextEpisode });
 });
 
+// GET /content/stories/:id/audio?download=1 — every article is an audiobook:
+// stream its narration MP3, as an attachment when ?download=1. Falls back to
+// 404 with a hint if the audio hasn't been synthesised yet (the audiobook
+// pipeline fills audio_r2_key over time; the browser voice reader always works
+// in the meantime).
+contentRoute.get("/stories/:id/audio", async (c) => {
+  const id = Number(c.req.param("id"));
+  const download = c.req.query("download") === "1";
+  const story = await c.env.DB.prepare(
+    "SELECT title, audio_r2_key FROM stories WHERE id = ? AND status = 'published'"
+  )
+    .bind(id)
+    .first<{ title: string; audio_r2_key: string | null }>();
+  if (!story?.audio_r2_key) return c.json({ error: "Audiobook not synthesised yet for this article" }, 404);
+
+  const obj = await c.env.MEDIA_R2.get(story.audio_r2_key);
+  if (!obj) return c.json({ error: "Audio missing in storage" }, 404);
+
+  const headers = new Headers();
+  obj.writeHttpMetadata(headers);
+  headers.set("accept-ranges", "bytes");
+  headers.set("cache-control", "public, max-age=86400");
+  if (download) {
+    const safe = story.title.replace(/[^\p{L}\p{N} _-]/gu, "").slice(0, 80) || "audiobook";
+    headers.set("content-disposition", `attachment; filename="${safe}.mp3"`);
+  }
+  return new Response(obj.body, { headers });
+});
+
 // GET /content/categories
 contentRoute.get("/categories", async (c) => {
   const { results } = await c.env.DB.prepare("SELECT * FROM categories ORDER BY name").all();
