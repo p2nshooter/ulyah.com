@@ -114,14 +114,101 @@ export async function compileSurahTadabbur(
   };
 }
 
-/** Ensure a "Tadabbur" category exists and return its id. */
-async function ensureTadabburCategory(env: Env): Promise<number | null> {
-  const existing = await env.DB.prepare("SELECT id FROM categories WHERE slug = 'tadabbur'").first<{ id: number }>();
+/** Ensure a category exists (by slug) and return its id. */
+async function ensureCategory(env: Env, slug: string, name: string): Promise<number | null> {
+  const existing = await env.DB.prepare("SELECT id FROM categories WHERE slug = ?").bind(slug).first<{ id: number }>();
   if (existing) return existing.id;
   const row = await env.DB.prepare(
-    "INSERT INTO categories (name, slug, auto_created) VALUES ('Tadabbur Al-Qur''an', 'tadabbur', 1) RETURNING id"
-  ).first<{ id: number }>();
+    "INSERT INTO categories (name, slug, auto_created) VALUES (?, ?, 1) RETURNING id"
+  )
+    .bind(name, slug)
+    .first<{ id: number }>();
   return row?.id ?? null;
+}
+
+async function ensureTadabburCategory(env: Env): Promise<number | null> {
+  return ensureCategory(env, "tadabbur", "Tadabbur Al-Qur'an");
+}
+
+const HADITH_TMPL: Record<
+  string,
+  (n: string, ar: string, tr: string, grade: string, source: string) => { title: string; body: string }
+> = {
+  id: (narrator, ar, tr, grade, source) => ({
+    title: `Hadits Shahih — ${source}`,
+    body: [
+      `Dari ${narrator} radhiyallahu 'anhu, Rasulullah shallallahu 'alaihi wa sallam bersabda:`,
+      ar,
+      `"${tr}"`,
+      `Derajat hadits: ${grade}. Sumber: ${source}.`,
+      "Semoga Allah memberi kita taufik untuk mengamalkan kandungan hadits yang mulia ini.",
+    ].join("\n\n"),
+  }),
+  en: (narrator, ar, tr, grade, source) => ({
+    title: `Authentic Hadith — ${source}`,
+    body: [
+      `On the authority of ${narrator} (may Allah be pleased with him), the Messenger of Allah (peace be upon him) said:`,
+      ar,
+      `"${tr}"`,
+      `Grade: ${grade}. Source: ${source}.`,
+      "May Allah grant us the ability to live by the meaning of this noble hadith.",
+    ].join("\n\n"),
+  }),
+};
+
+/**
+ * Compile one not-yet-compiled hadith from the (vetted) `hadits` table into a
+ * narratable article per language. Uses only what is stored in the DB — no
+ * fabrication. Bounded to one per call.
+ */
+export async function runHadithCompile(env: Env, langs: string[]): Promise<number> {
+  const categoryId = await ensureCategory(env, "hadits-pilihan", "Hadits Pilihan");
+  const { results: rows } = await env.DB.prepare(
+    "SELECT id, text_ar, text_id, text_en, narrator, grade, source FROM hadits ORDER BY id"
+  ).all<{
+    id: number;
+    text_ar: string | null;
+    text_id: string | null;
+    text_en: string | null;
+    narrator: string | null;
+    grade: string | null;
+    source: string | null;
+  }>();
+
+  for (const h of rows) {
+    for (const lang of langs) {
+      const tmpl = HADITH_TMPL[lang];
+      if (!tmpl) continue;
+      const translation = lang === "en" ? h.text_en : h.text_id;
+      if (!translation) continue; // no rendering for this language
+
+      const slug = `hadits-${h.id}`;
+      const exists = await env.DB.prepare("SELECT id FROM stories WHERE slug = ? AND lang = ?")
+        .bind(slug, lang)
+        .first<{ id: number }>();
+      if (exists) continue;
+
+      const { title, body } = tmpl(
+        h.narrator ?? "seorang sahabat",
+        h.text_ar ?? "",
+        translation,
+        h.grade ?? "shahih",
+        h.source ?? ""
+      );
+
+      await env.DB.prepare(
+        `INSERT INTO stories
+           (title, slug, lang, category_id, body, ai_generated, qc_status, source_format, status,
+            series_key, episode_number, published_at)
+         VALUES (?, ?, ?, ?, ?, 0, 'published', 'html', 'published', 'hadits-pilihan', ?, datetime('now'))`
+      )
+        .bind(title, slug, lang, categoryId, body, h.id)
+        .run();
+
+      return 1; // one per tick
+    }
+  }
+  return 0;
 }
 
 /**

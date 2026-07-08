@@ -1,7 +1,7 @@
 import { generateStoryDraft } from "@ulyah/ai-engine";
 import type { Env } from "./../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
-import { runDeterministicCompile } from "./compile.js";
+import { runDeterministicCompile, runHadithCompile } from "./compile.js";
 
 interface ScalingSettings {
   autoThrottleEnabled: boolean;
@@ -57,11 +57,13 @@ export async function runScalingTick(env: Env): Promise<{
     return { queued: 0, executed: 0, failed: 0, compiled: 0, coverage: { total_ayah: 0, ayah_with_story: 0 } };
   }
 
-  // AI-free heartbeat: compile one sourced article from the DB every tick, so
-  // content keeps growing with or without any donated AI key.
+  // AI-free heartbeat: compile sourced articles from the DB every tick, so
+  // content keeps growing with or without any donated AI key. Alternate
+  // between hadith articles and Qur'an tadabbur so both libraries fill.
   let compiled = 0;
   try {
-    compiled = await runDeterministicCompile(env, settings.compileLangs);
+    compiled = await runHadithCompile(env, settings.compileLangs);
+    if (compiled === 0) compiled = await runDeterministicCompile(env, settings.compileLangs);
   } catch (e) {
     console.error("deterministic-compile failed", e);
   }

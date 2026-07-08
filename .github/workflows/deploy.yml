@@ -132,6 +132,15 @@ jobs:
             echo "Database already has $COUNT surah rows — skipping bulk seed."
           fi
 
+      - name: Apply idempotent content seeds (always — INSERT OR IGNORE)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Safe to re-run on every deploy: these use INSERT OR IGNORE, so they
+          # only add new curated content and never duplicate. The AI-free engine
+          # then compiles each row into narratable articles.
+          npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_shahih.sql
+
       - name: Upload seed PDFs (Kisah Nabi Yusuf) to R2
         working-directory: apps/worker-api
         run: |
