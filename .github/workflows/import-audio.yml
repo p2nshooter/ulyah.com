@@ -46,3 +46,5 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           R2_BUCKET_NAME: ${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}
         run: npx tsx scripts/import-murottal-audio.ts --qori=${{ inputs.qori }} --surah=${{ inputs.surah_range }}
+
+# (workflow re-index touch)
