@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api, ebookDownloadUrl } from "@/lib/api";
 import { StoryReader } from "@/components/StoryReader";
+import { AdSlot } from "@/components/AdSlot";
 
 interface StoryDetail {
   id: number;
@@ -63,6 +64,10 @@ export default async function KisahDetailPage({
 
       <div className="mt-8">
         <StoryReader body={story.body} lang={storyLang} dict={dict} />
+      </div>
+
+      <div className="mt-10">
+        <AdSlot minHeight={110} />
       </div>
 
       {nextEpisode && (

@@ -138,6 +138,12 @@ const fr: Dictionary = {
     thankYouTitle: "Merci pour votre don !",
     thankYouDesc: "Votre don aide à garder Ulyah gratuit pour tous. Puisse-t-il être une aumône continue (sadaqah jariyah).",
     voluntaryNote: "Les dons sont entièrement volontaires. Tout le contenu reste gratuit pour tous, pour toujours.",
+    virtuesTitle: "Les mérites du soutien à la da'wah",
+    virtuesSubtitle: "Chaque bien que vous semez grandit multiplié, et sa récompense coule sans fin.",
+    virtuesListen: "Écouter",
+    virtue1: "Ceux qui dépensent leurs biens dans le sentier d'Allah ressemblent à un grain d'où naissent sept épis, à cent grains l'épi. Allah multiplie la récompense à qui Il veut. (Coran, Al-Baqara : 261)",
+    virtue2: "Le Messager d'Allah (paix sur lui) a dit : Quand l'être humain meurt, ses œuvres cessent sauf trois : une aumône continue, un savoir utile et un enfant vertueux qui prie pour lui. (Mouslim)",
+    virtue3: "Ceux qui dépensent leurs biens de nuit et de jour, en secret et ouvertement, auront leur récompense auprès de leur Seigneur ; nulle crainte sur eux et ils ne seront point affligés. (Coran, Al-Baqara : 274)",
   },
   auth: {
     loginTitle: "Connexion à votre compte donateur",

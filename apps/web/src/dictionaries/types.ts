@@ -134,6 +134,12 @@ export interface Dictionary {
     thankYouTitle: string;
     thankYouDesc: string;
     voluntaryNote: string;
+    virtuesTitle: string;
+    virtuesSubtitle: string;
+    virtuesListen: string;
+    virtue1: string;
+    virtue2: string;
+    virtue3: string;
   };
   auth: {
     loginTitle: string;

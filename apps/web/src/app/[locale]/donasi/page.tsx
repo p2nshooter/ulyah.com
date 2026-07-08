@@ -3,6 +3,7 @@ import { getDictionary } from "@/dictionaries";
 import { DonationButtons } from "@/components/DonationButtons";
 import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
 import { CryptoDonationSection } from "@/components/CryptoDonationSection";
+import { DonationVirtues } from "@/components/DonationVirtues";
 
 export default async function DonasiPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -28,6 +29,10 @@ export default async function DonasiPage({ params }: { params: Promise<{ locale:
             <p className="mt-2 text-xs text-[var(--color-text-secondary)]">{label}</p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-12">
+        <DonationVirtues dict={dict} locale={locale} />
       </div>
 
       <div className="mt-10">

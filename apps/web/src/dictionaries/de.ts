@@ -138,6 +138,12 @@ const de: Dictionary = {
     thankYouTitle: "Vielen Dank für Ihre Spende!",
     thankYouDesc: "Ihre Spende hilft, Ulyah für alle kostenlos zu halten. Möge sie eine fortwährende Wohltat (Sadaqah Jariyah) sein.",
     voluntaryNote: "Spenden sind völlig freiwillig. Alle Inhalte bleiben für immer kostenlos für alle.",
+    virtuesTitle: "Die Vorzüge der Unterstützung des Rufes",
+    virtuesSubtitle: "Jedes Gute, das du pflanzt, wächst vielfach, und sein Lohn fließt ohne Ende.",
+    virtuesListen: "Anhören",
+    virtue1: "Das Gleichnis derer, die ihren Besitz auf dem Weg Allahs ausgeben, ist wie ein Korn, das sieben Ähren wachsen lässt, in jeder Ähre hundert Körner. Und Allah vervielfacht, wem Er will. (Koran, Al-Baqara: 261)",
+    virtue2: "Der Gesandte Allahs (Friede sei mit ihm) sagte: Wenn ein Mensch stirbt, enden seine Werke außer dreien: eine fortwährende Wohltat, nützliches Wissen und ein rechtschaffenes Kind, das für ihn betet. (Muslim)",
+    virtue3: "Diejenigen, die ihren Besitz bei Nacht und Tag, heimlich und öffentlich ausgeben, haben ihren Lohn bei ihrem Herrn; keine Furcht soll über sie kommen, noch sollen sie traurig sein. (Koran, Al-Baqara: 274)",
   },
   auth: {
     loginTitle: "Bei Spenderkonto anmelden",

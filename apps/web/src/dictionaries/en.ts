@@ -138,6 +138,12 @@ const en: Dictionary = {
     thankYouTitle: "Thank you for your donation!",
     thankYouDesc: "Your donation helps keep Ulyah free for everyone. May it be an ongoing charity (sadaqah jariyah).",
     voluntaryNote: "Donations are entirely voluntary. All content stays free for everyone, forever.",
+    virtuesTitle: "The Virtues of Supporting the Da'wah",
+    virtuesSubtitle: "Every good you plant grows manifold, and its reward flows without end.",
+    virtuesListen: "Listen",
+    virtue1: "The example of those who spend their wealth in the way of Allah is like a seed that grows seven ears, in every ear a hundred grains. And Allah multiplies for whom He wills. (Qur'an, Al-Baqarah: 261)",
+    virtue2: "The Messenger of Allah (peace be upon him) said: When a person dies, his deeds come to an end except for three: a continuing charity, beneficial knowledge, and a righteous child who prays for him. (Muslim)",
+    virtue3: "Those who spend their wealth by night and day, secretly and openly, will have their reward with their Lord; no fear will be upon them, nor will they grieve. (Qur'an, Al-Baqarah: 274)",
   },
   auth: {
     loginTitle: "Sign In to Your Donor Account",

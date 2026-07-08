@@ -138,6 +138,12 @@ const id: Dictionary = {
     thankYouTitle: "Terima kasih atas donasi Anda!",
     thankYouDesc: "Donasi Anda membantu Ulyah tetap gratis untuk semua. Semoga menjadi amal jariyah.",
     voluntaryNote: "Donasi tidak wajib. Semua konten tetap gratis untuk semua, selamanya.",
+    virtuesTitle: "Keutamaan Mendukung Syiar Agama",
+    virtuesSubtitle: "Setiap kebaikan yang Anda tanam akan tumbuh berlipat ganda, dan pahalanya mengalir tanpa henti.",
+    virtuesListen: "Dengarkan",
+    virtue1: "Perumpamaan orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji. Allah melipatgandakan bagi siapa yang Dia kehendaki. (QS. Al-Baqarah: 261)",
+    virtue2: "Rasulullah shallallahu 'alaihi wa sallam bersabda: Apabila seorang manusia meninggal, terputuslah amalnya kecuali tiga perkara: sedekah jariyah, ilmu yang bermanfaat, dan anak saleh yang mendoakannya. (HR. Muslim)",
+    virtue3: "Orang-orang yang menginfakkan hartanya di malam dan siang hari, secara sembunyi maupun terang-terangan, mereka mendapat pahala di sisi Tuhannya. Tidak ada rasa takut pada mereka dan mereka tidak bersedih. (QS. Al-Baqarah: 274)",
   },
   auth: {
     loginTitle: "Masuk ke Akun Donatur",

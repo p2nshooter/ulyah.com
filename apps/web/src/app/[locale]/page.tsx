@@ -3,6 +3,7 @@ import Image from "next/image";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
+import { AdSlot } from "@/components/AdSlot";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -135,6 +136,11 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
+
+      {/* In-content ad — proportional leaderboard between sections */}
+      <div className="px-4 pb-4 sm:px-6">
+        <AdSlot minHeight={110} className="max-w-5xl" />
+      </div>
 
       {/* ── Explore cards ────────────────────────────────────── */}
       <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
