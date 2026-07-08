@@ -8,12 +8,10 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
-  // Custom Domains: DNS records + certs are created automatically on deploy
-  // (stale records are cleaned up by the deploy workflow first).
-  "routes": [
-    { "pattern": "ulyah.com", "custom_domain": true },
-    { "pattern": "www.ulyah.com", "custom_domain": true }
-  ],
+  // ulyah.com / www.ulyah.com custom domains are attached by the deploy
+  // workflow via the account-level workers/domains API, which overrides the
+  // stale placeholder DNS records that block wrangler's own attach call
+  // (wrangler errors on conflict; the API endpoint replaces the record).
   "vars": {
     "NEXT_PUBLIC_API_URL": "https://api.ulyah.com"
   },

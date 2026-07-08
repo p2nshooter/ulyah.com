@@ -246,6 +246,28 @@ jobs:
         working-directory: apps/web
         run: npx wrangler deploy
 
+      - name: Attach ulyah.com custom domains to web worker (overrides stale DNS)
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=ulyah.com" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::ulyah.com zone not found — site remains on *.workers.dev until the zone is active."
+            exit 0
+          fi
+          for host in ulyah.com www.ulyah.com; do
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"ulyah-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            ok=$(echo "$resp" | jq -r '.success')
+            echo "$host -> ulyah-web: success=$ok errors=$(echo "$resp" | jq -c '.errors')"
+            if [ "$ok" != "true" ]; then
+              echo "::error::Failed to attach $host to ulyah-web — see Cloudflare error above."
+              exit 1
+            fi
+          done
+
       - name: Smoke test (retries while DNS/cert for the new custom domain settles)
         run: |
           set -eu
