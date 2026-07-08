@@ -52,9 +52,28 @@ function esc(s: string | null | undefined): string {
   return `'${s.replace(/'/g, "''")}'`;
 }
 
-function batch<T>(items: T[], size: number): T[][] {
-  const out: T[][] = [];
-  for (let i = 0; i < items.length; i += size) out.push(items.slice(i, i + size));
+/**
+ * Groups value tuples so each INSERT statement stays under D1's hard
+ * 100KB-per-statement limit (SQLITE_TOOBIG otherwise — long ayat like
+ * Al-Baqarah 282 blow past it quickly with fixed row-count batching).
+ */
+const MAX_STATEMENT_BYTES = 60_000;
+
+function batchByBytes(rows: string[]): string[][] {
+  const out: string[][] = [];
+  let current: string[] = [];
+  let currentBytes = 0;
+  for (const row of rows) {
+    const rowBytes = Buffer.byteLength(row, "utf-8") + 2;
+    if (current.length > 0 && currentBytes + rowBytes > MAX_STATEMENT_BYTES) {
+      out.push(current);
+      current = [];
+      currentBytes = 0;
+    }
+    current.push(row);
+    currentBytes += rowBytes;
+  }
+  if (current.length > 0) out.push(current);
   return out;
 }
 
@@ -95,11 +114,11 @@ function main() {
     "",
     "-- ── ayah (explicit sequential ids, 1..N, stable across all language files) ──",
   ];
-  for (const b of batch(ayahRows, 300)) {
+  for (const b of batchByBytes(ayahRows)) {
     baseLines.push(`INSERT INTO ayah (id, surah_id, number, text_ar, text_translit) VALUES\n${b.join(",\n")};`);
   }
   baseLines.push("", "-- ── translation (Indonesian, lang='id') ──");
-  for (const b of batch(idTranslationRows, 300)) {
+  for (const b of batchByBytes(idTranslationRows)) {
     baseLines.push(`INSERT INTO translation (ayah_id, lang, text, source) VALUES\n${b.join(",\n")};`);
   }
   writeFileSync(join(outDir, "quran_seed.sql"), baseLines.join("\n") + "\n", "utf-8");
@@ -125,7 +144,7 @@ function main() {
       "-- Source: quran-json v3.1.2 (CC-BY-4.0) https://github.com/risan/quran-json",
       "",
     ];
-    for (const b of batch(rows, 300)) {
+    for (const b of batchByBytes(rows)) {
       lines.push(`INSERT INTO translation (ayah_id, lang, text, source) VALUES\n${b.join(",\n")};`);
     }
     writeFileSync(join(outDir, `quran_seed_${lang}.sql`), lines.join("\n") + "\n", "utf-8");

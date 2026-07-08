@@ -238,7 +238,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (234, 'en', 'And if they decide on divorce - then indeed, Allah is Hearing and Knowing', 'quran-json (CC-BY-4.0)'),
 (235, 'en', 'Divorced women remain in waiting for three periods, and it is not lawful for them to conceal what Allah has created in their wombs if they believe in Allah and the Last Day. And their husbands have more right to take them back in this [period] if they want reconciliation. And due to the wives is similar to what is expected of them, according to what is reasonable. But the men have a degree over them [in responsibility and authority]. And Allah is Exalted in Might and Wise', 'quran-json (CC-BY-4.0)'),
 (236, 'en', 'Divorce is twice. Then, either keep [her] in an acceptable manner or release [her] with good treatment. And it is not lawful for you to take anything of what you have given them unless both fear that they will not be able to keep [within] the limits of Allah. But if you fear that they will not keep [within] the limits of Allah, then there is no blame upon either of them concerning that by which she ransoms herself. These are the limits of Allah, so do not transgress them. And whoever transgresses the limits of Allah - it is those who are the wrongdoers', 'quran-json (CC-BY-4.0)'),
-(237, 'en', 'And if he has divorced her [for the third time], then she is not lawful to him afterward until [after] she marries a husband other than him. And if the latter husband divorces her [or dies], there is no blame upon the woman and her former husband for returning to each other if they think that they can keep [within] the limits of Allah. These are the limits of Allah, which He makes clear to a people who know', 'quran-json (CC-BY-4.0)'),
+(237, 'en', 'And if he has divorced her [for the third time], then she is not lawful to him afterward until [after] she marries a husband other than him. And if the latter husband divorces her [or dies], there is no blame upon the woman and her former husband for returning to each other if they think that they can keep [within] the limits of Allah. These are the limits of Allah, which He makes clear to a people who know', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (238, 'en', 'And when you divorce women and they have [nearly] fulfilled their term, either retain them according to acceptable terms or release them according to acceptable terms, and do not keep them, intending harm, to transgress [against them]. And whoever does that has certainly wronged himself. And do not take the verses of Allah in jest. And remember the favor of Allah upon you and what has been revealed to you of the Book and wisdom by which He instructs you. And fear Allah and know that Allah is Knowing of all things', 'quran-json (CC-BY-4.0)'),
 (239, 'en', 'And when you divorce women and they have fulfilled their term, do not prevent them from remarrying their [former] husbands if they agree among themselves on an acceptable basis. That is instructed to whoever of you believes in Allah and the Last Day. That is better for you and purer, and Allah knows and you know not', 'quran-json (CC-BY-4.0)'),
 (240, 'en', 'Mothers may breastfeed their children two complete years for whoever wishes to complete the nursing [period]. Upon the father is the mothers'' provision and their clothing according to what is acceptable. No person is charged with more than his capacity. No mother should be harmed through her child, and no father through his child. And upon the [father''s] heir is [a duty] like that [of the father]. And if they both desire weaning through mutual consent from both of them and consultation, there is no blame upon either of them. And if you wish to have your children nursed by a substitute, there is no blame upon you as long as you give payment according to what is acceptable. And fear Allah and know that Allah is Seeing of what you do', 'quran-json (CC-BY-4.0)'),
@@ -301,8 +302,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (297, 'en', 'Before, as guidance for the people. And He revealed the Qur''an. Indeed, those who disbelieve in the verses of Allah will have a severe punishment, and Allah is exalted in Might, the Owner of Retribution', 'quran-json (CC-BY-4.0)'),
 (298, 'en', 'Indeed, from Allah nothing is hidden in the earth nor in the heaven', 'quran-json (CC-BY-4.0)'),
 (299, 'en', 'It is He who forms you in the wombs however He wills. There is no deity except Him, the Exalted in Might, the Wise', 'quran-json (CC-BY-4.0)'),
-(300, 'en', 'It is He who has sent down to you, [O Muhammad], the Book; in it are verses [that are] precise - they are the foundation of the Book - and others unspecific. As for those in whose hearts is deviation [from truth], they will follow that of it which is unspecific, seeking discord and seeking an interpretation [suitable to them]. And no one knows its [true] interpretation except Allah. But those firm in knowledge say, "We believe in it. All [of it] is from our Lord." And no one will be reminded except those of understanding', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(300, 'en', 'It is He who has sent down to you, [O Muhammad], the Book; in it are verses [that are] precise - they are the foundation of the Book - and others unspecific. As for those in whose hearts is deviation [from truth], they will follow that of it which is unspecific, seeking discord and seeking an interpretation [suitable to them]. And no one knows its [true] interpretation except Allah. But those firm in knowledge say, "We believe in it. All [of it] is from our Lord." And no one will be reminded except those of understanding', 'quran-json (CC-BY-4.0)'),
 (301, 'en', '[Who say], "Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower', 'quran-json (CC-BY-4.0)'),
 (302, 'en', 'Our Lord, surely You will gather the people for a Day about which there is no doubt. Indeed, Allah does not fail in His promise', 'quran-json (CC-BY-4.0)'),
 (303, 'en', 'Indeed, those who disbelieve - never will their wealth or their children avail them against Allah at all. And it is they who are fuel for the Fire', 'quran-json (CC-BY-4.0)'),
@@ -464,7 +464,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (459, 'en', 'And what struck you on the day the two armies met was by permission of Allah that He might make evident the [true] believers', 'quran-json (CC-BY-4.0)'),
 (460, 'en', 'And that He might make evident those who are hypocrites. For it was said to them, "Come, fight in the way of Allah or [at least] defend." They said, "If we had known [there would be] fighting, we would have followed you." They were nearer to disbelief that day than to faith, saying with their mouths what was not in their hearts. And Allah is most Knowing of what they conceal', 'quran-json (CC-BY-4.0)'),
 (461, 'en', 'Those who said about their brothers while sitting [at home], "If they had obeyed us, they would not have been killed." Say, "Then prevent death from yourselves, if you should be truthful', 'quran-json (CC-BY-4.0)'),
-(462, 'en', 'And never think of those who have been killed in the cause of Allah as dead. Rather, they are alive with their Lord, receiving provision', 'quran-json (CC-BY-4.0)'),
+(462, 'en', 'And never think of those who have been killed in the cause of Allah as dead. Rather, they are alive with their Lord, receiving provision', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (463, 'en', 'Rejoicing in what Allah has bestowed upon them of His bounty, and they receive good tidings about those [to be martyred] after them who have not yet joined them - that there will be no fear concerning them, nor will they grieve', 'quran-json (CC-BY-4.0)'),
 (464, 'en', 'They receive good tidings of favor from Allah and bounty and [of the fact] that Allah does not allow the reward of believers to be lost', 'quran-json (CC-BY-4.0)'),
 (465, 'en', 'Those [believers] who responded to Allah and the Messenger after injury had struck them. For those who did good among them and feared Allah is a great reward', 'quran-json (CC-BY-4.0)'),
@@ -602,8 +603,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (597, 'en', 'And do not weaken in pursuit of the enemy. If you should be suffering - so are they suffering as you are suffering, but you expect from Allah that which they expect not. And Allah is ever Knowing and Wise', 'quran-json (CC-BY-4.0)'),
 (598, 'en', 'Indeed, We have revealed to you, [O Muhammad], the Book in truth so you may judge between the people by that which Allah has shown you. And do not be for the deceitful an advocate', 'quran-json (CC-BY-4.0)'),
 (599, 'en', 'And seek forgiveness of Allah. Indeed, Allah is ever Forgiving and Merciful', 'quran-json (CC-BY-4.0)'),
-(600, 'en', 'And do not argue on behalf of those who deceive themselves. Indeed, Allah loves not one who is a habitually sinful deceiver', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(600, 'en', 'And do not argue on behalf of those who deceive themselves. Indeed, Allah loves not one who is a habitually sinful deceiver', 'quran-json (CC-BY-4.0)'),
 (601, 'en', 'They conceal [their evil intentions and deeds] from the people, but they cannot conceal [them] from Allah, and He is with them [in His knowledge] when they spend the night in such as He does not accept of speech. And ever is Allah, of what they do, encompassing', 'quran-json (CC-BY-4.0)'),
 (602, 'en', 'Here you are - those who argue on their behalf in [this] worldly life - but who will argue with Allah for them on the Day of Resurrection, or who will [then] be their representative', 'quran-json (CC-BY-4.0)'),
 (603, 'en', 'And whoever does a wrong or wrongs himself but then seeks forgiveness of Allah will find Allah Forgiving and Merciful', 'quran-json (CC-BY-4.0)'),
@@ -682,7 +682,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (676, 'en', 'And remember the favor of Allah upon you and His covenant with which He bound you when you said, "We hear and we obey"; and fear Allah. Indeed, Allah is Knowing of that within the breasts', 'quran-json (CC-BY-4.0)'),
 (677, 'en', 'O you who have believed, be persistently standing firm for Allah, witnesses in justice, and do not let the hatred of a people prevent you from being just. Be just; that is nearer to righteousness. And fear Allah; indeed, Allah is Acquainted with what you do', 'quran-json (CC-BY-4.0)'),
 (678, 'en', 'Allah has promised those who believe and do righteous deeds [that] for them there is forgiveness and great reward', 'quran-json (CC-BY-4.0)'),
-(679, 'en', 'But those who disbelieve and deny Our signs - those are the companions of Hellfire', 'quran-json (CC-BY-4.0)'),
+(679, 'en', 'But those who disbelieve and deny Our signs - those are the companions of Hellfire', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (680, 'en', 'O you who have believed, remember the favor of Allah upon you when a people determined to extend their hands [in aggression] against you, but He withheld their hands from you; and fear Allah. And upon Allah let the believers rely', 'quran-json (CC-BY-4.0)'),
 (681, 'en', 'And Allah had already taken a covenant from the Children of Israel, and We delegated from among them twelve leaders. And Allah said, "I am with you. If you establish prayer and give zakah and believe in My messengers and support them and loan Allah a goodly loan, I will surely remove from you your misdeeds and admit you to gardens beneath which rivers flow. But whoever of you disbelieves after that has certainly strayed from the soundness of the way', 'quran-json (CC-BY-4.0)'),
 (682, 'en', 'So for their breaking of the covenant We cursed them and made their hearts hard. They distort words from their [proper] usages and have forgotten a portion of that of which they were reminded. And you will still observe deceit among them, except a few of them. But pardon them and overlook [their misdeeds]. Indeed, Allah loves the doers of good', 'quran-json (CC-BY-4.0)'),
@@ -903,8 +904,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (897, 'en', 'And do not insult those they invoke other than Allah, lest they insult Allah in enmity without knowledge. Thus We have made pleasing to every community their deeds. Then to their Lord is their return, and He will inform them about what they used to do', 'quran-json (CC-BY-4.0)'),
 (898, 'en', 'And they swear by Allah their strongest oaths that if a sign came to them, they would surely believe in it. Say, "The signs are only with Allah." And what will make you perceive that even if a sign came, they would not believe', 'quran-json (CC-BY-4.0)'),
 (899, 'en', 'And We will turn away their hearts and their eyes just as they refused to believe in it the first time. And We will leave them in their transgression, wandering blindly', 'quran-json (CC-BY-4.0)'),
-(900, 'en', 'And even if We had sent down to them the angels [with the message] and the dead spoke to them [of it] and We gathered together every [created] thing in front of them, they would not believe unless Allah should will. But most of them, [of that], are ignorant', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(900, 'en', 'And even if We had sent down to them the angels [with the message] and the dead spoke to them [of it] and We gathered together every [created] thing in front of them, they would not believe unless Allah should will. But most of them, [of that], are ignorant', 'quran-json (CC-BY-4.0)'),
 (901, 'en', 'And thus We have made for every prophet an enemy - devils from mankind and jinn, inspiring to one another decorative speech in delusion. But if your Lord had willed, they would not have done it, so leave them and that which they invent', 'quran-json (CC-BY-4.0)'),
 (902, 'en', 'And [it is] so the hearts of those who disbelieve in the Hereafter will incline toward it and that they will be satisfied with it and that they will commit that which they are committing', 'quran-json (CC-BY-4.0)'),
 (903, 'en', '[Say], "Then is it other than Allah I should seek as judge while it is He who has revealed to you the Book explained in detail?" And those to whom We [previously] gave the Scripture know that it is sent down from your Lord in truth, so never be among the doubters', 'quran-json (CC-BY-4.0)'),
@@ -916,7 +916,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (909, 'en', 'And leave what is apparent of sin and what is concealed thereof. Indeed, those who earn [blame for] sin will be recompensed for that which they used to commit', 'quran-json (CC-BY-4.0)'),
 (910, 'en', 'And do not eat of that upon which the name of Allah has not been mentioned, for indeed, it is grave disobedience. And indeed do the devils inspire their allies [among men] to dispute with you. And if you were to obey them, indeed, you would be associators [of others with Him]', 'quran-json (CC-BY-4.0)'),
 (911, 'en', 'And is one who was dead and We gave him life and made for him light by which to walk among the people like one who is in darkness, never to emerge therefrom? Thus it has been made pleasing to the disbelievers that which they were doing', 'quran-json (CC-BY-4.0)'),
-(912, 'en', 'And thus We have placed within every city the greatest of its criminals to conspire therein. But they conspire not except against themselves, and they perceive [it] not', 'quran-json (CC-BY-4.0)'),
+(912, 'en', 'And thus We have placed within every city the greatest of its criminals to conspire therein. But they conspire not except against themselves, and they perceive [it] not', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (913, 'en', 'And when a sign comes to them, they say, "Never will we believe until we are given like that which was given to the messengers of Allah." Allah is most knowing of where He places His message. There will afflict those who committed crimes debasement before Allah and severe punishment for what they used to conspire', 'quran-json (CC-BY-4.0)'),
 (914, 'en', 'So whoever Allah wants to guide - He expands his breast to [contain] Islam; and whoever He wants to misguide - He makes his breast tight and constricted as though he were climbing into the sky. Thus does Allah place defilement upon those who do not believe', 'quran-json (CC-BY-4.0)'),
 (915, 'en', 'And this is the path of your Lord, [leading] straight. We have detailed the verses for a people who remember', 'quran-json (CC-BY-4.0)'),
@@ -1176,7 +1177,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1169, 'en', '[Remember] when you asked help of your Lord, and He answered you, "Indeed, I will reinforce you with a thousand from the angels, following one another', 'quran-json (CC-BY-4.0)'),
 (1170, 'en', 'And Allah made it not but good tidings and so that your hearts would be assured thereby. And victory is not but from Allah. Indeed, Allah is Exalted in Might and Wise', 'quran-json (CC-BY-4.0)'),
 (1171, 'en', '[Remember] when He overwhelmed you with drowsiness [giving] security from Him and sent down upon you from the sky, rain by which to purify you and remove from you the evil [suggestions] of Satan and to make steadfast your hearts and plant firmly thereby your feet', 'quran-json (CC-BY-4.0)'),
-(1172, 'en', '[Remember] when your Lord inspired to the angels, "I am with you, so strengthen those who have believed. I will cast terror into the hearts of those who disbelieved, so strike [them] upon the necks and strike from them every fingertip', 'quran-json (CC-BY-4.0)'),
+(1172, 'en', '[Remember] when your Lord inspired to the angels, "I am with you, so strengthen those who have believed. I will cast terror into the hearts of those who disbelieved, so strike [them] upon the necks and strike from them every fingertip', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1173, 'en', 'That is because they opposed Allah and His Messenger. And whoever opposes Allah and His Messenger - indeed, Allah is severe in penalty', 'quran-json (CC-BY-4.0)'),
 (1174, 'en', 'That [is yours], so taste it." And indeed for the disbelievers is the punishment of the Fire', 'quran-json (CC-BY-4.0)'),
 (1175, 'en', 'O you who have believed, when you meet those who disbelieve advancing [for battle], do not turn to them your backs [in flight]', 'quran-json (CC-BY-4.0)'),
@@ -1204,8 +1206,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1197, 'en', '[This is] so that Allah may distinguish the wicked from the good and place the wicked some of them upon others and heap them all together and put them into Hell. It is those who are the losers', 'quran-json (CC-BY-4.0)'),
 (1198, 'en', 'Say to those who have disbelieved [that] if they cease, what has previously occurred will be forgiven for them. But if they return [to hostility] - then the precedent of the former [rebellious] peoples has already taken place', 'quran-json (CC-BY-4.0)'),
 (1199, 'en', 'And fight them until there is no fitnah and [until] the religion, all of it, is for Allah. And if they cease - then indeed, Allah is Seeing of what they do', 'quran-json (CC-BY-4.0)'),
-(1200, 'en', 'But if they turn away - then know that Allah is your protector. Excellent is the protector, and Excellent is the helper', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1200, 'en', 'But if they turn away - then know that Allah is your protector. Excellent is the protector, and Excellent is the helper', 'quran-json (CC-BY-4.0)'),
 (1201, 'en', 'And know that anything you obtain of war booty - then indeed, for Allah is one fifth of it and for the Messenger and for [his] near relatives and the orphans, the needy, and the [stranded] traveler, if you have believed in Allah and in that which We sent down to Our Servant on the day of criterion - the day when the two armies met. And Allah, over all things, is competent', 'quran-json (CC-BY-4.0)'),
 (1202, 'en', '[Remember] when you were on the near side of the valley, and they were on the farther side, and the caravan was lower [in position] than you. If you had made an appointment [to meet], you would have missed the appointment. But [it was] so that Allah might accomplish a matter already destined - that those who perished [through disbelief] would perish upon evidence and those who lived [in faith] would live upon evidence; and indeed, Allah is Hearing and Knowing', 'quran-json (CC-BY-4.0)'),
 (1203, 'en', '[Remember, O Muhammad], when Allah showed them to you in your dream as few; and if He had shown them to you as many, you [believers] would have lost courage and would have disputed in the matter [of whether to fight], but Allah saved [you from that]. Indeed, He is Knowing of that within the breasts', 'quran-json (CC-BY-4.0)'),
@@ -1415,7 +1416,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1407, 'en', 'And among them are those who look at you. But can you guide the blind although they will not [attempt to] see', 'quran-json (CC-BY-4.0)'),
 (1408, 'en', 'Indeed, Allah does not wrong the people at all, but it is the people who are wronging themselves', 'quran-json (CC-BY-4.0)'),
 (1409, 'en', 'And on the Day when He will gather them, [it will be] as if they had not remained [in the world] but an hour of the day, [and] they will know each other. Those will have lost who denied the meeting with Allah and were not guided', 'quran-json (CC-BY-4.0)'),
-(1410, 'en', 'And whether We show you some of what We promise them, [O Muhammad], or We take you in death, to Us is their return; then, [either way], Allah is a witness concerning what they are doing', 'quran-json (CC-BY-4.0)'),
+(1410, 'en', 'And whether We show you some of what We promise them, [O Muhammad], or We take you in death, to Us is their return; then, [either way], Allah is a witness concerning what they are doing', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1411, 'en', 'And for every nation is a messenger. So when their messenger comes, it will be judged between them in justice, and they will not be wronged', 'quran-json (CC-BY-4.0)'),
 (1412, 'en', 'And they say, "When is [the fulfillment of] this promise, if you should be truthful', 'quran-json (CC-BY-4.0)'),
 (1413, 'en', 'Say, "I possess not for myself any harm or benefit except what Allah should will. For every nation is a [specified] term. When their time has come, then they will not remain behind an hour, nor will they precede [it]', 'quran-json (CC-BY-4.0)'),
@@ -1505,8 +1507,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1497, 'en', 'The example of the two parties is like the blind and deaf, and the seeing and hearing. Are they equal in comparison? Then, will you not remember', 'quran-json (CC-BY-4.0)'),
 (1498, 'en', 'And We had certainly sent Noah to his people, [saying], "Indeed, I am to you a clear warner', 'quran-json (CC-BY-4.0)'),
 (1499, 'en', 'That you not worship except Allah. Indeed, I fear for you the punishment of a painful day', 'quran-json (CC-BY-4.0)'),
-(1500, 'en', 'So the eminent among those who disbelieved from his people said, "We do not see you but as a man like ourselves, and we do not see you followed except by those who are the lowest of us [and] at first suggestion. And we do not see in you over us any merit; rather, we think you are liars', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1500, 'en', 'So the eminent among those who disbelieved from his people said, "We do not see you but as a man like ourselves, and we do not see you followed except by those who are the lowest of us [and] at first suggestion. And we do not see in you over us any merit; rather, we think you are liars', 'quran-json (CC-BY-4.0)'),
 (1501, 'en', 'He said, "O my people have you considered: if I should be upon clear evidence from my Lord while He has given me mercy from Himself but it has been made unapparent to you, should we force it upon you while you are averse to it', 'quran-json (CC-BY-4.0)'),
 (1502, 'en', 'And O my people, I ask not of you for it any wealth. My reward is not but from Allah. And I am not one to drive away those who have believed. Indeed, they will meet their Lord, but I see that you are a people behaving ignorantly', 'quran-json (CC-BY-4.0)'),
 (1503, 'en', 'And O my people, who would protect me from Allah if I drove them away? Then will you not be reminded', 'quran-json (CC-BY-4.0)'),
@@ -1702,7 +1703,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1693, 'en', 'They said, "O our father, ask for us forgiveness of our sins; indeed, we have been sinners', 'quran-json (CC-BY-4.0)'),
 (1694, 'en', 'He said, "I will ask forgiveness for you from my Lord. Indeed, it is He who is the Forgiving, the Merciful', 'quran-json (CC-BY-4.0)'),
 (1695, 'en', 'And when they entered upon Joseph, he took his parents to himself and said, "Enter Egypt, Allah willing, safe [and secure]', 'quran-json (CC-BY-4.0)'),
-(1696, 'en', 'And he raised his parents upon the throne, and they bowed to him in prostration. And he said, "O my father, this is the explanation of my vision of before. My Lord has made it reality. And He was certainly good to me when He took me out of prison and brought you [here] from bedouin life after Satan had induced [estrangement] between me and my brothers. Indeed, my Lord is Subtle in what He wills. Indeed, it is He who is the Knowing, the Wise', 'quran-json (CC-BY-4.0)'),
+(1696, 'en', 'And he raised his parents upon the throne, and they bowed to him in prostration. And he said, "O my father, this is the explanation of my vision of before. My Lord has made it reality. And He was certainly good to me when He took me out of prison and brought you [here] from bedouin life after Satan had induced [estrangement] between me and my brothers. Indeed, my Lord is Subtle in what He wills. Indeed, it is He who is the Knowing, the Wise', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1697, 'en', 'My Lord, You have given me [something] of sovereignty and taught me of the interpretation of dreams. Creator of the heavens and earth, You are my protector in this world and in the Hereafter. Cause me to die a Muslim and join me with the righteous', 'quran-json (CC-BY-4.0)'),
 (1698, 'en', 'That is from the news of the unseen which We reveal, [O Muhammad], to you. And you were not with them when they put together their plan while they conspired', 'quran-json (CC-BY-4.0)'),
 (1699, 'en', 'And most of the people, although you strive [for it], are not believers', 'quran-json (CC-BY-4.0)'),
@@ -1806,8 +1808,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1797, 'en', 'So never think that Allah will fail in His promise to His messengers. Indeed, Allah is Exalted in Might and Owner of Retribution', 'quran-json (CC-BY-4.0)'),
 (1798, 'en', '[It will be] on the Day the earth will be replaced by another earth, and the heavens [as well], and all creatures will come out before Allah, the One, the Prevailing', 'quran-json (CC-BY-4.0)'),
 (1799, 'en', 'And you will see the criminals that Day bound together in shackles', 'quran-json (CC-BY-4.0)'),
-(1800, 'en', 'Their garments of liquid pitch and their faces covered by the Fire', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1800, 'en', 'Their garments of liquid pitch and their faces covered by the Fire', 'quran-json (CC-BY-4.0)'),
 (1801, 'en', 'So that Allah will recompense every soul for what it earned. Indeed, Allah is swift in account', 'quran-json (CC-BY-4.0)'),
 (1802, 'en', 'This [Qur''an] is notification for the people that they may be warned thereby and that they may know that He is but one God and that those of understanding will be reminded', 'quran-json (CC-BY-4.0)'),
 (1803, 'en', 'Alif, Lam, Ra. These are the verses of the Book and a clear Qur''an', 'quran-json (CC-BY-4.0)'),
@@ -2023,7 +2024,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2013, 'en', 'And Allah presents an example: a city which was safe and secure, its provision coming to it in abundance from every location, but it denied the favors of Allah. So Allah made it taste the envelopment of hunger and fear for what they had been doing', 'quran-json (CC-BY-4.0)'),
 (2014, 'en', 'And there had certainly come to them a Messenger from among themselves, but they denied him; so punishment overtook them while they were wrongdoers', 'quran-json (CC-BY-4.0)'),
 (2015, 'en', 'Then eat of what Allah has provided for you [which is] lawful and good. And be grateful for the favor of Allah, if it is [indeed] Him that you worship', 'quran-json (CC-BY-4.0)'),
-(2016, 'en', 'He has only forbidden to you dead animals, blood, the flesh of swine, and that which has been dedicated to other than Allah. But whoever is forced [by necessity], neither desiring [it] nor transgressing [its limit] - then indeed, Allah is Forgiving and Merciful', 'quran-json (CC-BY-4.0)'),
+(2016, 'en', 'He has only forbidden to you dead animals, blood, the flesh of swine, and that which has been dedicated to other than Allah. But whoever is forced [by necessity], neither desiring [it] nor transgressing [its limit] - then indeed, Allah is Forgiving and Merciful', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2017, 'en', 'And do not say about what your tongues assert of untruth, "This is lawful and this is unlawful," to invent falsehood about Allah. Indeed, those who invent falsehood about Allah will not succeed', 'quran-json (CC-BY-4.0)'),
 (2018, 'en', '[It is but] a brief enjoyment, and they will have a painful punishment', 'quran-json (CC-BY-4.0)'),
 (2019, 'en', 'And to those who are Jews We have prohibited that which We related to you before. And We did not wrong them [thereby], but they were wronging themselves', 'quran-json (CC-BY-4.0)'),
@@ -2107,8 +2109,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2097, 'en', 'Then do you feel secure that [instead] He will not cause a part of the land to swallow you or send against you a storm of stones? Then you would not find for yourselves an advocate', 'quran-json (CC-BY-4.0)'),
 (2098, 'en', 'Or do you feel secure that He will not send you back into the sea another time and send upon you a hurricane of wind and drown you for what you denied? Then you would not find for yourselves against Us an avenger', 'quran-json (CC-BY-4.0)'),
 (2099, 'en', 'And We have certainly honored the children of Adam and carried them on the land and sea and provided for them of the good things and preferred them over much of what We have created, with [definite] preference', 'quran-json (CC-BY-4.0)'),
-(2100, 'en', '[Mention, O Muhammad], the Day We will call forth every people with their record [of deeds]. Then whoever is given his record in his right hand - those will read their records, and injustice will not be done to them, [even] as much as a thread [inside the date seed]', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2100, 'en', '[Mention, O Muhammad], the Day We will call forth every people with their record [of deeds]. Then whoever is given his record in his right hand - those will read their records, and injustice will not be done to them, [even] as much as a thread [inside the date seed]', 'quran-json (CC-BY-4.0)'),
 (2101, 'en', 'And whoever is blind in this [life] will be blind in the Hereafter and more astray in way', 'quran-json (CC-BY-4.0)'),
 (2102, 'en', 'And indeed, they were about to tempt you away from that which We revealed to you in order to [make] you invent about Us something else; and then they would have taken you as a friend', 'quran-json (CC-BY-4.0)'),
 (2103, 'en', 'And if We had not strengthened you, you would have almost inclined to them a little', 'quran-json (CC-BY-4.0)'),
@@ -2340,7 +2341,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2329, 'en', 'No! We will record what he says and extend for him from the punishment extensively', 'quran-json (CC-BY-4.0)'),
 (2330, 'en', 'And We will inherit him [in] what he mentions, and he will come to Us alone', 'quran-json (CC-BY-4.0)'),
 (2331, 'en', 'And they have taken besides Allah [false] deities that they would be for them [a source of] honor', 'quran-json (CC-BY-4.0)'),
-(2332, 'en', 'No! Those "gods" will deny their worship of them and will be against them opponents [on the Day of Judgement]', 'quran-json (CC-BY-4.0)'),
+(2332, 'en', 'No! Those "gods" will deny their worship of them and will be against them opponents [on the Day of Judgement]', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2333, 'en', 'Do you not see that We have sent the devils upon the disbelievers, inciting them to [evil] with [constant] incitement', 'quran-json (CC-BY-4.0)'),
 (2334, 'en', 'So be not impatient over them. We only count out to them a [limited] number', 'quran-json (CC-BY-4.0)'),
 (2335, 'en', 'On the Day We will gather the righteous to the Most Merciful as a delegation', 'quran-json (CC-BY-4.0)'),
@@ -2408,8 +2410,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2397, 'en', '[Pharaoh] said, "So who is the Lord of you two, O Moses', 'quran-json (CC-BY-4.0)'),
 (2398, 'en', 'He said, "Our Lord is He who gave each thing its form and then guided [it]', 'quran-json (CC-BY-4.0)'),
 (2399, 'en', '[Pharaoh] said, "Then what is the case of the former generations', 'quran-json (CC-BY-4.0)'),
-(2400, 'en', '[Moses] said, "The knowledge thereof is with my Lord in a record. My Lord neither errs nor forgets', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2400, 'en', '[Moses] said, "The knowledge thereof is with my Lord in a record. My Lord neither errs nor forgets', 'quran-json (CC-BY-4.0)'),
 (2401, 'en', '[It is He] who has made for you the earth as a bed [spread out] and inserted therein for you roadways and sent down from the sky, rain and produced thereby categories of various plants', 'quran-json (CC-BY-4.0)'),
 (2402, 'en', 'Eat [therefrom] and pasture your livestock. Indeed, in that are signs for those of intelligence', 'quran-json (CC-BY-4.0)'),
 (2403, 'en', 'From the earth We created you, and into it We will return you, and from it We will extract you another time', 'quran-json (CC-BY-4.0)'),
@@ -2700,7 +2701,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2688, 'en', 'Then indeed, after that you are to die', 'quran-json (CC-BY-4.0)'),
 (2689, 'en', 'Then indeed you, on the Day of Resurrection, will be resurrected', 'quran-json (CC-BY-4.0)'),
 (2690, 'en', 'And We have created above you seven layered heavens, and never have We been of [Our] creation unaware', 'quran-json (CC-BY-4.0)'),
-(2691, 'en', 'And We have sent down rain from the sky in a measured amount and settled it in the earth. And indeed, We are Able to take it away', 'quran-json (CC-BY-4.0)'),
+(2691, 'en', 'And We have sent down rain from the sky in a measured amount and settled it in the earth. And indeed, We are Able to take it away', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2692, 'en', 'And We brought forth for you thereby gardens of palm trees and grapevines in which for you are abundant fruits and from which you eat', 'quran-json (CC-BY-4.0)'),
 (2693, 'en', 'And [We brought forth] a tree issuing from Mount Sinai which produces oil and food for those who eat', 'quran-json (CC-BY-4.0)'),
 (2694, 'en', 'And indeed, for you in livestock is a lesson. We give you drink from that which is in their bellies, and for you in them are numerous benefits, and from them you eat', 'quran-json (CC-BY-4.0)'),
@@ -2709,8 +2711,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2697, 'en', 'But the eminent among those who disbelieved from his people said, "This is not but a man like yourselves who wishes to take precedence over you; and if Allah had willed [to send a messenger], He would have sent down angels. We have not heard of this among our forefathers', 'quran-json (CC-BY-4.0)'),
 (2698, 'en', 'He is not but a man possessed with madness, so wait concerning him for a time', 'quran-json (CC-BY-4.0)'),
 (2699, 'en', '[Noah] said, "My Lord, support me because they have denied me', 'quran-json (CC-BY-4.0)'),
-(2700, 'en', 'So We inspired to him, "Construct the ship under Our observation, and Our inspiration, and when Our command comes and the oven overflows, put into the ship from each [creature] two mates and your family, except those for whom the decree [of destruction] has proceeded. And do not address Me concerning those who have wronged; indeed, they are to be drowned', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2700, 'en', 'So We inspired to him, "Construct the ship under Our observation, and Our inspiration, and when Our command comes and the oven overflows, put into the ship from each [creature] two mates and your family, except those for whom the decree [of destruction] has proceeded. And do not address Me concerning those who have wronged; indeed, they are to be drowned', 'quran-json (CC-BY-4.0)'),
 (2701, 'en', 'And when you have boarded the ship, you and those with you, then say, ''Praise to Allah who has saved us from the wrongdoing people', 'quran-json (CC-BY-4.0)'),
 (2702, 'en', 'And say, ''My Lord, let me land at a blessed landing place, and You are the best to accommodate [us]', 'quran-json (CC-BY-4.0)'),
 (2703, 'en', 'Indeed in that are signs, and indeed, We are ever testing [Our servants]', 'quran-json (CC-BY-4.0)'),
@@ -3010,8 +3011,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2997, 'en', 'And We saved Moses and those with him, all together', 'quran-json (CC-BY-4.0)'),
 (2998, 'en', 'Then We drowned the others', 'quran-json (CC-BY-4.0)'),
 (2999, 'en', 'Indeed in that is a sign, but most of them were not to be believers', 'quran-json (CC-BY-4.0)'),
-(3000, 'en', 'And indeed, your Lord - He is the Exalted in Might, the Merciful', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3000, 'en', 'And indeed, your Lord - He is the Exalted in Might, the Merciful', 'quran-json (CC-BY-4.0)'),
 (3001, 'en', 'And recite to them the news of Abraham', 'quran-json (CC-BY-4.0)'),
 (3002, 'en', 'When he said to his father and his people, "What do you worship', 'quran-json (CC-BY-4.0)'),
 (3003, 'en', 'They said, "We worship idols and remain to them devoted', 'quran-json (CC-BY-4.0)'),
@@ -3087,7 +3087,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3073, 'en', 'Thamud denied the messengers', 'quran-json (CC-BY-4.0)'),
 (3074, 'en', 'When their brother Salih said to them, "Will you not fear Allah', 'quran-json (CC-BY-4.0)'),
 (3075, 'en', 'Indeed, I am to you a trustworthy messenger', 'quran-json (CC-BY-4.0)'),
-(3076, 'en', 'So fear Allah and obey me', 'quran-json (CC-BY-4.0)'),
+(3076, 'en', 'So fear Allah and obey me', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3077, 'en', 'And I do not ask you for it any payment. My payment is only from the Lord of the worlds', 'quran-json (CC-BY-4.0)'),
 (3078, 'en', 'Will you be left in what is here, secure [from death]', 'quran-json (CC-BY-4.0)'),
 (3079, 'en', 'Within gardens and springs', 'quran-json (CC-BY-4.0)'),
@@ -3311,8 +3312,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3297, 'en', 'But We produced [many] generations [after Moses], and prolonged was their duration. And you were not a resident among the people of Madyan, reciting to them Our verses, but We were senders [of this message]', 'quran-json (CC-BY-4.0)'),
 (3298, 'en', 'And you were not at the side of the mount when We called [Moses] but [were sent] as a mercy from your Lord to warn a people to whom no warner had come before you that they might be reminded', 'quran-json (CC-BY-4.0)'),
 (3299, 'en', 'And if not that a disaster should strike them for what their hands put forth [of sins] and they would say, "Our Lord, why did You not send us a messenger so we could have followed Your verses and been among the believers', 'quran-json (CC-BY-4.0)'),
-(3300, 'en', 'But when the truth came to them from Us, they said, "Why was he not given like that which was given to Moses?" Did they not disbelieve in that which was given to Moses before? They said, "[They are but] two works of magic supporting each other, and indeed we are, in both, disbelievers', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3300, 'en', 'But when the truth came to them from Us, they said, "Why was he not given like that which was given to Moses?" Did they not disbelieve in that which was given to Moses before? They said, "[They are but] two works of magic supporting each other, and indeed we are, in both, disbelievers', 'quran-json (CC-BY-4.0)'),
 (3301, 'en', 'Say, "Then bring a scripture from Allah which is more guiding than either of them that I may follow it, if you should be truthful', 'quran-json (CC-BY-4.0)'),
 (3302, 'en', 'But if they do not respond to you - then know that they only follow their [own] desires. And who is more astray than one who follows his desire without guidance from Allah? Indeed, Allah does not guide the wrongdoing people', 'quran-json (CC-BY-4.0)'),
 (3303, 'en', 'And We have [repeatedly] conveyed to them the Qur''an that they might be reminded', 'quran-json (CC-BY-4.0)'),
@@ -3434,7 +3434,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3419, 'en', 'Then the end of those who did evil was the worst [consequence] because they denied the signs of Allah and used to ridicule them', 'quran-json (CC-BY-4.0)'),
 (3420, 'en', 'Allah begins creation; then He will repeat it; then to Him you will be returned', 'quran-json (CC-BY-4.0)'),
 (3421, 'en', 'And the Day the Hour appears the criminals will be in despair', 'quran-json (CC-BY-4.0)'),
-(3422, 'en', 'And there will not be for them among their [alleged] partners any intercessors, and they will [then] be disbelievers in their partners', 'quran-json (CC-BY-4.0)'),
+(3422, 'en', 'And there will not be for them among their [alleged] partners any intercessors, and they will [then] be disbelievers in their partners', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3423, 'en', 'And the Day the Hour appears - that Day they will become separated', 'quran-json (CC-BY-4.0)'),
 (3424, 'en', 'And as for those who had believed and done righteous deeds, they will be in a garden [of Paradise], delighted', 'quran-json (CC-BY-4.0)'),
 (3425, 'en', 'But as for those who disbelieved and denied Our verses and the meeting of the Hereafter, those will be brought into the punishment [to remain]', 'quran-json (CC-BY-4.0)'),
@@ -3612,8 +3613,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3597, 'en', 'Indeed, Allah has cursed the disbelievers and prepared for them a Blaze', 'quran-json (CC-BY-4.0)'),
 (3598, 'en', 'Abiding therein forever, they will not find a protector or a helper', 'quran-json (CC-BY-4.0)'),
 (3599, 'en', 'The Day their faces will be turned about in the Fire, they will say, "How we wish we had obeyed Allah and obeyed the Messenger', 'quran-json (CC-BY-4.0)'),
-(3600, 'en', 'And they will say, "Our Lord, indeed we obeyed our masters and our dignitaries, and they led us astray from the [right] way', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3600, 'en', 'And they will say, "Our Lord, indeed we obeyed our masters and our dignitaries, and they led us astray from the [right] way', 'quran-json (CC-BY-4.0)'),
 (3601, 'en', 'Our Lord, give them double the punishment and curse them with a great curse', 'quran-json (CC-BY-4.0)'),
 (3602, 'en', 'O you who have believed, be not like those who abused Moses; then Allah cleared him of what they said. And he, in the sight of Allah, was distinguished', 'quran-json (CC-BY-4.0)'),
 (3603, 'en', 'O you who have believed, fear Allah and speak words of appropriate justice', 'quran-json (CC-BY-4.0)'),
@@ -3713,7 +3713,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3697, 'en', 'And they will cry out therein, "Our Lord, remove us; we will do righteousness - other than what we were doing!" But did We not grant you life enough for whoever would remember therein to remember, and the warner had come to you? So taste [the punishment], for there is not for the wrongdoers any helper', 'quran-json (CC-BY-4.0)'),
 (3698, 'en', 'Indeed, Allah is Knower of the unseen [aspects] of the heavens and earth. Indeed, He is Knowing of that within the breasts', 'quran-json (CC-BY-4.0)'),
 (3699, 'en', 'It is He who has made you successors upon the earth. And whoever disbelieves - upon him will be [the consequence of] his disbelief. And the disbelief of the disbelievers does not increase them in the sight of their Lord except in hatred; and the disbelief of the disbelievers does not increase them except in loss', 'quran-json (CC-BY-4.0)'),
-(3700, 'en', 'Say, "Have you considered your ''partners'' whom you invoke besides Allah? Show me what they have created from the earth, or have they partnership [with Him] in the heavens? Or have We given them a book so they are [standing] on evidence therefrom? [No], rather, the wrongdoers do not promise each other except delusion', 'quran-json (CC-BY-4.0)'),
+(3700, 'en', 'Say, "Have you considered your ''partners'' whom you invoke besides Allah? Show me what they have created from the earth, or have they partnership [with Him] in the heavens? Or have We given them a book so they are [standing] on evidence therefrom? [No], rather, the wrongdoers do not promise each other except delusion', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3701, 'en', 'Indeed, Allah holds the heavens and the earth, lest they cease. And if they should cease, no one could hold them [in place] after Him. Indeed, He is Forbearing and Forgiving', 'quran-json (CC-BY-4.0)'),
 (3702, 'en', 'And they swore by Allah their strongest oaths that if a warner came to them, they would be more guided than [any] one of the [previous] nations. But when a warner came to them, it did not increase them except in aversion', 'quran-json (CC-BY-4.0)'),
 (3703, 'en', '[Due to] arrogance in the land and plotting of evil; but the evil plot does not encompass except its own people. Then do they await except the way of the former peoples? But you will never find in the way of Allah any change, and you will never find in the way of Allah any alteration', 'quran-json (CC-BY-4.0)'),
@@ -3913,8 +3914,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3897, 'en', 'Peace upon Abraham', 'quran-json (CC-BY-4.0)'),
 (3898, 'en', 'Indeed, We thus reward the doers of good', 'quran-json (CC-BY-4.0)'),
 (3899, 'en', 'Indeed, he was of Our believing servants', 'quran-json (CC-BY-4.0)'),
-(3900, 'en', 'And We gave him good tidings of Isaac, a prophet from among the righteous', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3900, 'en', 'And We gave him good tidings of Isaac, a prophet from among the righteous', 'quran-json (CC-BY-4.0)'),
 (3901, 'en', 'And We blessed him and Isaac. But among their descendants is the doer of good and the clearly unjust to himself', 'quran-json (CC-BY-4.0)'),
 (3902, 'en', 'And We did certainly confer favor upon Moses and Aaron', 'quran-json (CC-BY-4.0)'),
 (3903, 'en', 'And We saved them and their people from the great affliction', 'quran-json (CC-BY-4.0)'),
@@ -4153,7 +4153,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4136, 'en', 'The forgiver of sin, acceptor of repentance, severe in punishment, owner of abundance. There is no deity except Him; to Him is the destination', 'quran-json (CC-BY-4.0)'),
 (4137, 'en', 'No one disputes concerning the signs of Allah except those who disbelieve, so be not deceived by their [uninhibited] movement throughout the land', 'quran-json (CC-BY-4.0)'),
 (4138, 'en', 'The people of Noah denied before them and the [disbelieving] factions after them, and every nation intended [a plot] for their messenger to seize him, and they disputed by [using] falsehood to [attempt to] invalidate thereby the truth. So I seized them, and how [terrible] was My penalty', 'quran-json (CC-BY-4.0)'),
-(4139, 'en', 'And thus has the word of your Lord come into effect upon those who disbelieved that they are companions of the Fire', 'quran-json (CC-BY-4.0)'),
+(4139, 'en', 'And thus has the word of your Lord come into effect upon those who disbelieved that they are companions of the Fire', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4140, 'en', 'Those [angels] who carry the Throne and those around it exalt [Allah] with praise of their Lord and believe in Him and ask forgiveness for those who have believed, [saying], "Our Lord, You have encompassed all things in mercy and knowledge, so forgive those who have repented and followed Your way and protect them from the punishment of Hellfire', 'quran-json (CC-BY-4.0)'),
 (4141, 'en', 'Our Lord, and admit them to gardens of perpetual residence which You have promised them and whoever was righteous among their fathers, their spouses and their offspring. Indeed, it is You who is the Exalted in Might, the Wise', 'quran-json (CC-BY-4.0)'),
 (4142, 'en', 'And protect them from the evil consequences [of their deeds]. And he whom You protect from evil consequences that Day - You will have given him mercy. And that is the great attainment', 'quran-json (CC-BY-4.0)'),
@@ -4214,8 +4215,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4197, 'en', 'It is Allah who made for you the earth a place of settlement and the sky a ceiling and formed you and perfected your forms and provided you with good things. That is Allah, your Lord; then blessed is Allah, Lord of the worlds', 'quran-json (CC-BY-4.0)'),
 (4198, 'en', 'He is the Ever-Living; there is no deity except Him, so call upon Him, [being] sincere to Him in religion. [All] praise is [due] to Allah, Lord of the worlds', 'quran-json (CC-BY-4.0)'),
 (4199, 'en', 'Say, [O Muhammad], "Indeed, I have been forbidden to worship those you call upon besides Allah once the clear proofs have come to me from my Lord, and I have been commanded to submit to the Lord of the worlds', 'quran-json (CC-BY-4.0)'),
-(4200, 'en', 'It is He who created you from dust, then from a sperm-drop, then from a clinging clot; then He brings you out as a child; then [He develops you] that you reach your [time of] maturity, then [further] that you become elders. And among you is he who is taken in death before [that], so that you reach a specified term; and perhaps you will use reason', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4200, 'en', 'It is He who created you from dust, then from a sperm-drop, then from a clinging clot; then He brings you out as a child; then [He develops you] that you reach your [time of] maturity, then [further] that you become elders. And among you is he who is taken in death before [that], so that you reach a specified term; and perhaps you will use reason', 'quran-json (CC-BY-4.0)'),
 (4201, 'en', 'He it is who gives life and causes death; and when He decrees a matter, He but says to it, "Be," and it is', 'quran-json (CC-BY-4.0)'),
 (4202, 'en', 'Do you not consider those who dispute concerning the signs of Allah - how are they averted', 'quran-json (CC-BY-4.0)'),
 (4203, 'en', 'Those who deny the Book and that with which We sent Our messengers - they are going to know', 'quran-json (CC-BY-4.0)'),
@@ -4498,7 +4498,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4480, 'en', 'Woe to every sinful liar', 'quran-json (CC-BY-4.0)'),
 (4481, 'en', 'Who hears the verses of Allah recited to him, then persists arrogantly as if he had not heard them. So give him tidings of a painful punishment', 'quran-json (CC-BY-4.0)'),
 (4482, 'en', 'And when he knows anything of Our verses, he takes them in ridicule. Those will have a humiliating punishment', 'quran-json (CC-BY-4.0)'),
-(4483, 'en', 'Before them is Hell, and what they had earned will not avail them at all nor what they had taken besides Allah as allies. And they will have a great punishment', 'quran-json (CC-BY-4.0)'),
+(4483, 'en', 'Before them is Hell, and what they had earned will not avail them at all nor what they had taken besides Allah as allies. And they will have a great punishment', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4484, 'en', 'This [Qur''an] is guidance. And those who have disbelieved in the verses of their Lord will have a painful punishment of foul nature', 'quran-json (CC-BY-4.0)'),
 (4485, 'en', 'It is Allah who subjected to you the sea so that ships may sail upon it by His command and that you may seek of His bounty; and perhaps you will be grateful', 'quran-json (CC-BY-4.0)'),
 (4486, 'en', 'And He has subjected to you whatever is in the heavens and whatever is on the earth - all from Him. Indeed in that are signs for a people who give thought', 'quran-json (CC-BY-4.0)'),
@@ -4515,8 +4516,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4497, 'en', 'And they say, "There is not but our worldly life; we die and live, and nothing destroys us except time." And they have of that no knowledge; they are only assuming', 'quran-json (CC-BY-4.0)'),
 (4498, 'en', 'And when Our verses are recited to them as clear evidences, their argument is only that they say, "Bring [back] our forefathers, if you should be truthful', 'quran-json (CC-BY-4.0)'),
 (4499, 'en', 'Say, "Allah causes you to live, then causes you to die; then He will assemble you for the Day of Resurrection, about which there is no doubt, but most of the people do not know', 'quran-json (CC-BY-4.0)'),
-(4500, 'en', 'And to Allah belongs the dominion of the heavens and the earth. And the Day the Hour appears - that Day the falsifiers will lose', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4500, 'en', 'And to Allah belongs the dominion of the heavens and the earth. And the Day the Hour appears - that Day the falsifiers will lose', 'quran-json (CC-BY-4.0)'),
 (4501, 'en', 'And you will see every nation kneeling [from fear]. Every nation will be called to its record [and told], "Today you will be recompensed for what you used to do', 'quran-json (CC-BY-4.0)'),
 (4502, 'en', 'This, Our record, speaks about you in truth. Indeed, We were having transcribed whatever you used to do', 'quran-json (CC-BY-4.0)'),
 (4503, 'en', 'So as for those who believed and did righteous deeds, their Lord will admit them into His mercy. That is what is the clear attainment', 'quran-json (CC-BY-4.0)'),
@@ -4816,8 +4816,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4797, 'en', 'And he certainly saw him in another descent', 'quran-json (CC-BY-4.0)'),
 (4798, 'en', 'At the Lote Tree of the Utmost Boundary', 'quran-json (CC-BY-4.0)'),
 (4799, 'en', 'Near it is the Garden of Refuge', 'quran-json (CC-BY-4.0)'),
-(4800, 'en', 'When there covered the Lote Tree that which covered [it]', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4800, 'en', 'When there covered the Lote Tree that which covered [it]', 'quran-json (CC-BY-4.0)'),
 (4801, 'en', 'The sight [of the Prophet] did not swerve, nor did it transgress [its limit]', 'quran-json (CC-BY-4.0)'),
 (4802, 'en', 'He certainly saw of the greatest signs of his Lord', 'quran-json (CC-BY-4.0)'),
 (4803, 'en', 'So have you considered al-Lat and al-''Uzza', 'quran-json (CC-BY-4.0)'),
@@ -4871,7 +4870,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4851, 'en', 'Extensive wisdom - but warning does not avail [them]', 'quran-json (CC-BY-4.0)'),
 (4852, 'en', 'So leave them, [O Muhammad]. The Day the Caller calls to something forbidding', 'quran-json (CC-BY-4.0)'),
 (4853, 'en', 'Their eyes humbled, they will emerge from the graves as if they were locusts spreading', 'quran-json (CC-BY-4.0)'),
-(4854, 'en', 'Racing ahead toward the Caller. The disbelievers will say, "This is a difficult Day', 'quran-json (CC-BY-4.0)'),
+(4854, 'en', 'Racing ahead toward the Caller. The disbelievers will say, "This is a difficult Day', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4855, 'en', 'The people of Noah denied before them, and they denied Our servant and said, "A madman," and he was repelled', 'quran-json (CC-BY-4.0)'),
 (4856, 'en', 'So he invoked his Lord, "Indeed, I am overpowered, so help', 'quran-json (CC-BY-4.0)'),
 (4857, 'en', 'Then We opened the gates of the heaven with rain pouring down', 'quran-json (CC-BY-4.0)'),
@@ -5117,8 +5117,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5097, 'en', 'No disaster strikes upon the earth or among yourselves except that it is in a register before We bring it into being - indeed that, for Allah, is easy', 'quran-json (CC-BY-4.0)'),
 (5098, 'en', 'In order that you not despair over what has eluded you and not exult [in pride] over what He has given you. And Allah does not like everyone self-deluded and boastful', 'quran-json (CC-BY-4.0)'),
 (5099, 'en', '[Those] who are stingy and enjoin upon people stinginess. And whoever turns away - then indeed, Allah is the Free of need, the Praiseworthy', 'quran-json (CC-BY-4.0)'),
-(5100, 'en', 'We have already sent Our messengers with clear evidences and sent down with them the Scripture and the balance that the people may maintain [their affairs] in justice. And We sent down iron, wherein is great military might and benefits for the people, and so that Allah may make evident those who support Him and His messengers unseen. Indeed, Allah is Powerful and Exalted in Might', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5100, 'en', 'We have already sent Our messengers with clear evidences and sent down with them the Scripture and the balance that the people may maintain [their affairs] in justice. And We sent down iron, wherein is great military might and benefits for the people, and so that Allah may make evident those who support Him and His messengers unseen. Indeed, Allah is Powerful and Exalted in Might', 'quran-json (CC-BY-4.0)'),
 (5101, 'en', 'And We have already sent Noah and Abraham and placed in their descendants prophethood and scripture; and among them is he who is guided, but many of them are defiantly disobedient', 'quran-json (CC-BY-4.0)'),
 (5102, 'en', 'Then We sent following their footsteps Our messengers and followed [them] with Jesus, the son of Mary, and gave him the Gospel. And We placed in the hearts of those who followed him compassion and mercy and monasticism, which they innovated; We did not prescribe it for them except [that they did so] seeking the approval of Allah. But they did not observe it with due observance. So We gave the ones who believed among them their reward, but many of them are defiantly disobedient', 'quran-json (CC-BY-4.0)'),
 (5103, 'en', 'O you who have believed, fear Allah and believe in His Messenger; He will [then] give you a double portion of His mercy and make for you a light by which you will walk and forgive you; and Allah is Forgiving and Merciful', 'quran-json (CC-BY-4.0)'),
@@ -5243,7 +5242,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5222, 'en', 'That is the command of Allah, which He has sent down to you; and whoever fears Allah - He will remove for him his misdeeds and make great for him his reward', 'quran-json (CC-BY-4.0)'),
 (5223, 'en', 'Lodge them [in a section] of where you dwell out of your means and do not harm them in order to oppress them. And if they should be pregnant, then spend on them until they give birth. And if they breastfeed for you, then give them their payment and confer among yourselves in the acceptable way; but if you are in discord, then there may breastfeed for the father another woman', 'quran-json (CC-BY-4.0)'),
 (5224, 'en', 'Let a man of wealth spend from his wealth, and he whose provision is restricted - let him spend from what Allah has given him. Allah does not charge a soul except [according to] what He has given it. Allah will bring about, after hardship, ease', 'quran-json (CC-BY-4.0)'),
-(5225, 'en', 'And how many a city was insolent toward the command of its Lord and His messengers, so We took it to severe account and punished it with a terrible punishment', 'quran-json (CC-BY-4.0)'),
+(5225, 'en', 'And how many a city was insolent toward the command of its Lord and His messengers, so We took it to severe account and punished it with a terrible punishment', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5226, 'en', 'And it tasted the bad consequence of its affair, and the outcome of its affair was loss', 'quran-json (CC-BY-4.0)'),
 (5227, 'en', 'Allah has prepared for them a severe punishment; so fear Allah, O you of understanding who have believed. Allah has sent down to you the Qur''an', 'quran-json (CC-BY-4.0)'),
 (5228, 'en', '[He sent] a Messenger [Muhammad] reciting to you the distinct verses of Allah that He may bring out those who believe and do righteous deeds from darknesses into the light. And whoever believes in Allah and does righteousness - He will admit him into gardens beneath which rivers flow to abide therein forever. Allah will have perfected for him a provision', 'quran-json (CC-BY-4.0)'),
@@ -5418,8 +5418,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5397, 'en', 'Except the observers of prayer', 'quran-json (CC-BY-4.0)'),
 (5398, 'en', 'Those who are constant in their prayer', 'quran-json (CC-BY-4.0)'),
 (5399, 'en', 'And those within whose wealth is a known right', 'quran-json (CC-BY-4.0)'),
-(5400, 'en', 'For the petitioner and the deprived', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5400, 'en', 'For the petitioner and the deprived', 'quran-json (CC-BY-4.0)'),
 (5401, 'en', 'And those who believe in the Day of Recompense', 'quran-json (CC-BY-4.0)'),
 (5402, 'en', 'And those who are fearful of the punishment of their Lord', 'quran-json (CC-BY-4.0)'),
 (5403, 'en', 'Indeed, the punishment of their Lord is not that from which one is safe', 'quran-json (CC-BY-4.0)'),
@@ -5719,8 +5718,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5697, 'en', 'Except scalding water and [foul] purulence', 'quran-json (CC-BY-4.0)'),
 (5698, 'en', 'An appropriate recompense', 'quran-json (CC-BY-4.0)'),
 (5699, 'en', 'Indeed, they were not expecting an account', 'quran-json (CC-BY-4.0)'),
-(5700, 'en', 'And denied Our verses with [emphatic] denial', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5700, 'en', 'And denied Our verses with [emphatic] denial', 'quran-json (CC-BY-4.0)'),
 (5701, 'en', 'But all things We have enumerated in writing', 'quran-json (CC-BY-4.0)'),
 (5702, 'en', 'So taste [the penalty], and never will We increase you except in torment', 'quran-json (CC-BY-4.0)'),
 (5703, 'en', 'Indeed, for the righteous is attainment', 'quran-json (CC-BY-4.0)'),
@@ -5771,7 +5769,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5748, 'en', 'And Hellfire will be exposed for [all] those who see', 'quran-json (CC-BY-4.0)'),
 (5749, 'en', 'So as for he who transgressed', 'quran-json (CC-BY-4.0)'),
 (5750, 'en', 'And preferred the life of the world', 'quran-json (CC-BY-4.0)'),
-(5751, 'en', 'Then indeed, Hellfire will be [his] refuge', 'quran-json (CC-BY-4.0)'),
+(5751, 'en', 'Then indeed, Hellfire will be [his] refuge', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5752, 'en', 'But as for he who feared the position of his Lord and prevented the soul from [unlawful] inclination', 'quran-json (CC-BY-4.0)'),
 (5753, 'en', 'Then indeed, Paradise will be [his] refuge', 'quran-json (CC-BY-4.0)'),
 (5754, 'en', 'They ask you, [O Muhammad], about the Hour: when is its arrival', 'quran-json (CC-BY-4.0)'),
@@ -6020,8 +6019,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5997, 'en', 'And [by] the night when it passes', 'quran-json (CC-BY-4.0)'),
 (5998, 'en', 'Is there [not] in [all] that an oath [sufficient] for one of perception', 'quran-json (CC-BY-4.0)'),
 (5999, 'en', 'Have you not considered how your Lord dealt with ''Aad', 'quran-json (CC-BY-4.0)'),
-(6000, 'en', '[With] Iram - who had lofty pillars', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(6000, 'en', '[With] Iram - who had lofty pillars', 'quran-json (CC-BY-4.0)'),
 (6001, 'en', 'The likes of whom had never been created in the land', 'quran-json (CC-BY-4.0)'),
 (6002, 'en', 'And [with] Thamud, who carved out the rocks in the valley', 'quran-json (CC-BY-4.0)'),
 (6003, 'en', 'And [with] Pharaoh, owner of the stakes', 'quran-json (CC-BY-4.0)'),

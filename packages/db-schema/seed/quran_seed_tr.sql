@@ -250,7 +250,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (246, 'tr', 'Eğer korkarsanız, yaya yahut binekte iken kılın, güvene erişince, bilmediklerinizi öğrettiği gibi Allah''ı anın', 'quran-json (CC-BY-4.0)'),
 (247, 'tr', 'İçinizden ölüp, eşler bırakacak olanlar, evlerinden çıkarılmaksızın, senesine kadar eşlerinin geçimini sağlayacak şeyi vasiyet etsinler; eğer çıkarlarsa kendilerinin meşru olarak yaptıklarından dolayı size sorumluluk yoktur. Allah güçlüdür, Hakim''dir', 'quran-json (CC-BY-4.0)'),
 (248, 'tr', 'Boşanan kadınları, haksızlıktan sakınanlara bir borç olmak üzere, uygun bir surette faydalandırma vardır', 'quran-json (CC-BY-4.0)'),
-(249, 'tr', 'Allah ayetlerini düşünesiniz diye böylece açıklamaktadır', 'quran-json (CC-BY-4.0)'),
+(249, 'tr', 'Allah ayetlerini düşünesiniz diye böylece açıklamaktadır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (250, 'tr', 'Binlerce kişinin memleketlerinden ölüm korkusuyla çıktıklarını görmedin mi? Allah onlara "Ölün" dedi. Sonra onları diriltti. Allah insanlara bol nimet verir, fakat insanların çoğu şükretmezler', 'quran-json (CC-BY-4.0)'),
 (251, 'tr', 'Allah yolunda savaşın; bilin ki Allah işitir ve bilir', 'quran-json (CC-BY-4.0)'),
 (252, 'tr', 'Allah''a, kat kat karşılığını arttıracağı güzel bir ödünç takdiminde kim bulunur? Allah hem darlaştırır, hem bollaştırır; O''na döneceksiniz', 'quran-json (CC-BY-4.0)'),
@@ -301,8 +302,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (297, 'tr', 'Kendisinden önceki Kitapları tasdik eden Hak Kitap''ı sana indirdi. Önceden insanlara yol gösterici olarak Tevrat ve İncil''i de indirmişti. O, doğruyu yanlıştan ayıran Kitap''ı indirdi. Doğrusu Allah''ın ayetlerini inkar edenler için şiddetli azab vardır. Allah güçlüdür, mazlumların öcünü alır', 'quran-json (CC-BY-4.0)'),
 (298, 'tr', 'Şüphesiz gökte ve yerde hiçbir şey Allah''tan gizli kalmaz', 'quran-json (CC-BY-4.0)'),
 (299, 'tr', 'Ana rahminde sizi dilediği gibi şekillendiren O''dur. O''ndan başka tanrı yoktur, güçlüdür, Hakim''dir', 'quran-json (CC-BY-4.0)'),
-(300, 'tr', 'Sana Kitap''ı indiren O''dur. Onda Kitap''ın temeli olan kesin anlamlı ayetler vardır, diğerleri de çeşitli anlamlıdırlar. Kalblerinde eğrilik olan kimseler, fitne çıkarmak, kendilerine göre yorumlamak için onların çeşitli anlamlı olanlarına uyarlar. Oysa onların yorumunu ancak Allah bilir. İlimde derinleşmiş olanlar: "Ona inandık, hepsi Rabbimiz''in katındandır" derler. Bunu ancak akıl sahipleri düşünür', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(300, 'tr', 'Sana Kitap''ı indiren O''dur. Onda Kitap''ın temeli olan kesin anlamlı ayetler vardır, diğerleri de çeşitli anlamlıdırlar. Kalblerinde eğrilik olan kimseler, fitne çıkarmak, kendilerine göre yorumlamak için onların çeşitli anlamlı olanlarına uyarlar. Oysa onların yorumunu ancak Allah bilir. İlimde derinleşmiş olanlar: "Ona inandık, hepsi Rabbimiz''in katındandır" derler. Bunu ancak akıl sahipleri düşünür', 'quran-json (CC-BY-4.0)'),
 (301, 'tr', 'Rabbimiz! Bizi doğru yola erdirdikten sonra kalblerimizi eğriltme, katından bize rahmet bağışla; şüphesiz Sen sonsuz bağışta bulunansın', 'quran-json (CC-BY-4.0)'),
 (302, 'tr', 'Rabbimiz! Doğrusu geleceği şüphe götürmeyen günde, insanları toplayacak olan Sensin. Şüphesiz ki Allah verdiği sözden caymaz', 'quran-json (CC-BY-4.0)'),
 (303, 'tr', 'İnkar edenlerin malları ve çocukları, Allah''a karşı onlara bir şey sağlamaz. İşte onlar ateşin yakıtlarıdır', 'quran-json (CC-BY-4.0)'),
@@ -493,7 +493,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (488, 'tr', 'Rableri dualarını kabul etti: "Birbirinizden meydana gelen sizlerden, erkek olsun, kadın olsun, iş yapanın işini boşa çıkarmam. Hicret edenlerin, memleketlerinden çıkarılanların, yolumda ezaya uğratılanların, savaşan ve öldürülenlerin günahlarını elbette örteceğim. And olsun ki, Allah katından bir nimet olarak, onları içlerinden ırmaklar akan cennetlere koyacağım. Nimetin güzeli Allah katındadır', 'quran-json (CC-BY-4.0)'),
 (489, 'tr', 'İnkar edenlerin diyar diyar gezip refah içinde dolaşması sakın seni aldatmasın; az bir faydalanmadan sonra onların varacakları yer cehennemdir. O ne kötü duraktır', 'quran-json (CC-BY-4.0)'),
 (490, 'tr', 'İnkar edenlerin diyar diyar gezip refah içinde dolaşması sakın seni aldatmasın; az bir faydalanmadan sonra onların varacakları yer cehennemdir. O ne kötü duraktır', 'quran-json (CC-BY-4.0)'),
-(491, 'tr', 'Fakat Rablerinden sakınanlara, Allah katından konukluklar bulunan, içlerinden ırmaklar akan, içinde temelli kalacakları cennetler vardır. Allah katındaki şeyler, iyi olanlar için daha hayırlıdır', 'quran-json (CC-BY-4.0)'),
+(491, 'tr', 'Fakat Rablerinden sakınanlara, Allah katından konukluklar bulunan, içlerinden ırmaklar akan, içinde temelli kalacakları cennetler vardır. Allah katındaki şeyler, iyi olanlar için daha hayırlıdır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (492, 'tr', 'Kitap ehlinden Allah''a huşu duyarak inanıp, Allah''ın ayetlerini az bir değere değişmeyenler vardır. İşte onların ecirleri Rablerinin katındadır. Şüphesiz Allah''ın hesabı çabuktur', 'quran-json (CC-BY-4.0)'),
 (493, 'tr', 'Ey İnananlar! Sabredin, düşmanlarınızdan daha sabırlı olun, cihada hazır bulunun, Allah''a karşı gelmekten sakının ki başarıya erişebilesiniz', 'quran-json (CC-BY-4.0)'),
 (494, 'tr', 'Ey İnsanlar! Sizi bir tek nefisten yaratan, ondan eşini var eden ve ikisinden pek çok erkek ve kadın meydana getiren Rabb''inize hürmetsizlikten sakının. Kendisi adına birbirinizden dilekte bulunduğunuz Allah''ın ve akrabanın haklarına riayetsizliktende sakının. Allah şüphesiz hepinizi görüp gözetmektedir', 'quran-json (CC-BY-4.0)'),
@@ -602,8 +603,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (597, 'tr', 'Düşman milleti kovalamakta gevşeklik göstermeyin. Eğer siz acı çekiyorsanız, şüphesiz onlar da sizin çektiğiniz gibi acı çekiyorlar; oysa siz Allah''tan onların beklemedikleri şeyleri bekliyorsunuz. Allah Bilendir, Hakim olandır', 'quran-json (CC-BY-4.0)'),
 (598, 'tr', 'Doğrusu, insanlar arasında Allah''ın sana gösterdiği gibi hükmedesin diye Kitap''ı sana hak olarak indirdik; hakkı gözet, hainlerden taraf olma', 'quran-json (CC-BY-4.0)'),
 (599, 'tr', 'Allah''tan mağfiret dile. Allah bağışlar ve merhamet eder', 'quran-json (CC-BY-4.0)'),
-(600, 'tr', 'Kendilerine hainlik edenlerden yana uğraşmaya kalkma. Allah, hainlikte direnen suçluyu sevmez', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(600, 'tr', 'Kendilerine hainlik edenlerden yana uğraşmaya kalkma. Allah, hainlikte direnen suçluyu sevmez', 'quran-json (CC-BY-4.0)'),
 (601, 'tr', 'Allah''ın razı olmadığı sözü gece kurarlarken, onu, insanlardan gizliyorlar da kendileriyle beraber olan Allah''dan gizlemiyorlar. Allah işlediklerinin hepsini bilmektedir', 'quran-json (CC-BY-4.0)'),
 (602, 'tr', 'İşte siz dünya hayatında onları savunuyorsunuz ama, kıyamet günü onları Allah''a karşı kim savunacak? Veya onların vekaletini kim üzerine alacaktır', 'quran-json (CC-BY-4.0)'),
 (603, 'tr', 'Kim kötülük işler veya kendine yazık eder de sonra Allah''tan bağışlanma dilerse, Allah''ı mağfiret ve merhamet sahibi olarak bulur', 'quran-json (CC-BY-4.0)'),
@@ -713,7 +713,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (707, 'tr', 'Erkek hırsız ve kadın hırsızın, yaptıklarından ötürü Allah tarafından ibret verici bir ceza olarak, ellerini kesin. Allah Güçlü''dür, Hakim''dir', 'quran-json (CC-BY-4.0)'),
 (708, 'tr', 'Ettiği zulümden sonra tevbe edip düzelen kimse, bilsin ki Allah onun tevbesini kabul eder. Allah şüphesiz Bağışlayan''dır, merhametli olandır', 'quran-json (CC-BY-4.0)'),
 (709, 'tr', 'Göklerin ve yerin hükümranlığının Allah''ın olduğunu bilmiyor musun? Dilediğine azabeder, dilediğini bağışlar. Allah her şeye Kadir''dir', 'quran-json (CC-BY-4.0)'),
-(710, 'tr', 'Kalbleri inanmamışken, ağızlarıyla, "İnandık" diyenler, yahudilerden yalana kulak verenler ve başka bir topluluk hesabına casusluk edenlerden inkara koşanlar seni üzmesin. Sözleri asıl yerlerinden değiştirirler de, "Böyle bir fetva size verilirse alın, verilmezse kaçının" derler. Allah''ın fitneye düşmesini dilediği kimse için Allah''a karşı senin elinden bir şey gelmez. İşte onlar Allah''ın, kalblerini arıtmak istemediği kimselerdir. Dünyada rezillik onlaradır. Onlara ahirette de büyük azab vardır', 'quran-json (CC-BY-4.0)'),
+(710, 'tr', 'Kalbleri inanmamışken, ağızlarıyla, "İnandık" diyenler, yahudilerden yalana kulak verenler ve başka bir topluluk hesabına casusluk edenlerden inkara koşanlar seni üzmesin. Sözleri asıl yerlerinden değiştirirler de, "Böyle bir fetva size verilirse alın, verilmezse kaçının" derler. Allah''ın fitneye düşmesini dilediği kimse için Allah''a karşı senin elinden bir şey gelmez. İşte onlar Allah''ın, kalblerini arıtmak istemediği kimselerdir. Dünyada rezillik onlaradır. Onlara ahirette de büyük azab vardır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (711, 'tr', 'Onlar yalana kulak verirler, haram yerler. Eğer sana gelirlerse aralarında hükmet, yahut onlardan yüz çevir; yüz çevirirsen sana bir zarar veremezler. Eğer hükmedersen aralarında adaletle hüküm ver. Allah adil olanları sever', 'quran-json (CC-BY-4.0)'),
 (712, 'tr', 'Allah''ın hükmünün bulunduğu Tevrat yanlarında iken, ne yüzle seni hakem tayin ediyorlar da sonra bundan yüz çeviriyorlar? İşte onlar inanmış değillerdir', 'quran-json (CC-BY-4.0)'),
 (713, 'tr', 'Doğrusu Biz yol gösterici olarak Tevrat''ı indirdik. Kendisini Allah''a teslim etmiş peygamberler, yahudi olanlara onunla ve Rabbe kul olanlar, bilginler de Allah''ın Kitap''ından elde mahfuz kalanla hükmederlerdi. Tevrat''a şahiddiler. O halde insanlardan korkmayın, benden korkun, ayetlerimi hiçbir değerle değiştirmeyin; Allah''ın indirdiği ile hükmetmeyenler, işte onlar kafirlerdir', 'quran-json (CC-BY-4.0)'),
@@ -903,8 +904,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (897, 'tr', 'Allah''tan başka yalvardıklarına sövmeyin ki, onlar da cahillikle ileri giderek Allah''a sövmesinler. Böylece her ümmete işini güzel gösterdik, sonra dönüşleri Rab''lerinedir. O, işlediklerini haber verir', 'quran-json (CC-BY-4.0)'),
 (898, 'tr', 'Kendilerine bir mucize gösterilirse, mutlaka ona inanacaklarına dair bütün güçleriyle Allah''a yemin ederler. De ki: "Mucizeler, ancak Allah katındadır"; onların, mucize geldiği zaman da inanmayacaklarını anlamıyor musunuz', 'quran-json (CC-BY-4.0)'),
 (899, 'tr', 'Onların kalblerini, gözlerini, ona ilk defa inanmadıkları gibi çeviririz; onları taşkınlıkları içinde şaşkın şaşkın bırakırız', 'quran-json (CC-BY-4.0)'),
-(900, 'tr', 'Eğer biz onlara melekleri indirsek, ölüler onlarla konuşsa ve her şeyi karşılarına toplasaydık, Allah dilemedikçe, yine de inanmazlardı; fakat onların çoğu bunu bilmiyorlar', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(900, 'tr', 'Eğer biz onlara melekleri indirsek, ölüler onlarla konuşsa ve her şeyi karşılarına toplasaydık, Allah dilemedikçe, yine de inanmazlardı; fakat onların çoğu bunu bilmiyorlar', 'quran-json (CC-BY-4.0)'),
 (901, 'tr', 'Aldatmak için birbirlerine cazip sözler fısıldayan cin ve insan şeytanlarını her peygambere düşman yaptık. Bu şeytanlar ahirete inanmayanların kalblerinin o sözlere yönelmesi, ondan hoşnut olması ve kendilerinin işledikleri suçları işlemeleri için böyle yaparlar. Rabbin dileseydi bunu yapamazlardı, sen onları iftiraları ile başbaşa bırak', 'quran-json (CC-BY-4.0)'),
 (902, 'tr', 'Aldatmak için birbirlerine cazip sözler fısıldayan cin ve insan şeytanlarını her peygambere düşman yaptık. Bu şeytanlar ahirete inanmayanların kalblerinin o sözlere yönelmesi, ondan hoşnut olması ve kendilerinin işledikleri suçları işlemeleri için böyle yaparlar. Rabbin dileseydi bunu yapamazlardı, sen onları iftiraları ile başbaşa bırak', 'quran-json (CC-BY-4.0)'),
 (903, 'tr', 'Allah size Kitap''ı açık açık indirmişken O''ndan başka bir hakem mi isteyeyim?" Kendilerine Kitap verdiklerimiz, onun gerçekten Rableri katından indirilmiş olduğunu bilirler. Öyleyse, sen şüpheye düşenlerden olma', 'quran-json (CC-BY-4.0)'),
@@ -960,7 +960,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (953, 'tr', 'De ki: "Allah her şeyin Rabbi iken O''ndan başka bir rab mi arayayım? Herkesin kazandığı kendisinedir, kimse başkasının yükünü taşımaz; sonunda dönüşünüz Rabbinizedir, ayrılığa düştüğünüz şeyleri size bildirecektir', 'quran-json (CC-BY-4.0)'),
 (954, 'tr', 'Verdikleriyle denemek için sizi yeryüzünün halifeleri kılan ve kiminizi kiminize derecelerle üstün yapan O''dur. Doğrusu Rabbinin cezalandırması süratlidir. Şüphesiz O bağışlar, merhamet eder', 'quran-json (CC-BY-4.0)'),
 (955, 'tr', 'Elif, Lam, Mim, Sad', 'quran-json (CC-BY-4.0)'),
-(956, 'tr', 'Sana bir Kitap indirildi. Onunla insanları uyarman ve inananlara öğüt vermen için kalbine bir darlık gelmesin', 'quran-json (CC-BY-4.0)'),
+(956, 'tr', 'Sana bir Kitap indirildi. Onunla insanları uyarman ve inananlara öğüt vermen için kalbine bir darlık gelmesin', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (957, 'tr', 'Rabbinizden size indirilen Kitap''a uyun, O''ndan başka dostlar edinerek onlara uymayın. Pek az öğüt dinliyorsunuz', 'quran-json (CC-BY-4.0)'),
 (958, 'tr', 'Biz nice kentleri yok etmişizdir; geceleyin veya gündüz uykularında iken baskınımıza uğramışlardır', 'quran-json (CC-BY-4.0)'),
 (959, 'tr', 'Baskınımıza uğradıklarında, sözleri, "Gerçekten biz haksızdık" demekten ibaret kalmıştır', 'quran-json (CC-BY-4.0)'),
@@ -1204,8 +1205,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1197, 'tr', 'Doğrusu inkar edenler mallarını Allah''ın yolundan insanları alıkoymak için sarfederler ve daha da sarfedeceklerdir; ama sonra içleri yanacak, hem de mağlup olacaklardır. Bu, Allah''ın, temizi murdardan ayırması ve murdarları üstüste koyup hepsini yığarak cehenneme yerleştirmesi içindir; inkar edenler cehenneme toplanacaklardır. İşte onlar mahvolanlardır', 'quran-json (CC-BY-4.0)'),
 (1198, 'tr', 'İnkar edenlere, eğer savaştan vazgeçerlerse, geçmişlerinin bağışlanacağını ve tekrar başlarlarsa evvelkilerin hükmünün uygulanacağını söyle', 'quran-json (CC-BY-4.0)'),
 (1199, 'tr', 'Fitne kalmayıp, yalnız Allah''ın dini kalana kadar onlarla savaşın. Eğer vazgeçerlerse bilsinler ki Allah onların işlediklerini şüphesiz görür', 'quran-json (CC-BY-4.0)'),
-(1200, 'tr', 'Eğer yüz çevirirlerse Allah''ın sizin dostunuz olduğunu bilin; O ne güzel dost, ne güzel yardımcıdır', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1200, 'tr', 'Eğer yüz çevirirlerse Allah''ın sizin dostunuz olduğunu bilin; O ne güzel dost, ne güzel yardımcıdır', 'quran-json (CC-BY-4.0)'),
 (1201, 'tr', 'Eğer Allah''a ve hakkı batıldan ayıran o günde, iki topluluğun karşılaştığı günde kulumuza indirdiğimize inanıyorsanız, bilin ki, ele geçirdiğiniz ganimetin beşte biri Allah''ın, Peygamber''in ve yakınlarının, yetimlerin, düşkünlerin ve yolcularındır. Allah her şeye Kadir''dir', 'quran-json (CC-BY-4.0)'),
 (1202, 'tr', 'Siz vadiye en yakın ve onlar da en uzak yamaçta idiler; kervanın süvarileri sizden daha aşağıdaydı. Savaş için buluşmak üzere sözleşmeye kalksaydınız, vaktini tayinde anlaşmazlığa düşerdiniz; fakat Allah mahvolan, apaçık belgeden ötürü mahvolsun, yaşayan da apaçık belgeden ötürü yaşasın diye olacak işi yaptı. Doğrusu Allah işitir ve bilir', 'quran-json (CC-BY-4.0)'),
 (1203, 'tr', 'Allah onları uykunda sana az gösteriyordu. Çok göstermiş olsaydı, yılacak ve bu hususta çekişmeye başlıyacaktınız, fakat Allah sizi kurtardı; çünkü O kalblerde olanı bilir', 'quran-json (CC-BY-4.0)'),
@@ -1213,7 +1213,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1205, 'tr', 'Ey inananlar! Bir toplulukla karşılaşırsanız dayanın; başarıya erişebilmeniz için Allah''ı çok anın', 'quran-json (CC-BY-4.0)'),
 (1206, 'tr', 'Allah''a ve Peygamberine itaat edin; çekişmeyin, yoksa korkar başarısızlığa düşersiniz ve kuvvetiniz gider. Sabredin, doğrusu Allah sabredenlerle beraberdir', 'quran-json (CC-BY-4.0)'),
 (1207, 'tr', 'Yurtlarından böbürlenerek, insanlara gösteriş yaparak çıkan ve Allah yolundan men edenler gibi olmayın. Allah onların işlediklerini her yönüyle bilendir', 'quran-json (CC-BY-4.0)'),
-(1208, 'tr', 'Şeytan onlara işlediklerini güzel gösterdi ve "Bugün insanlardan sizi yenecek kimse yoktur; doğrusu ben de size yardımcıyım" dedi. İki ordu karşılaşınca da, geri dönüp, "Benim sizinle ilgim yok; doğrusu sizin görmediğinizi ben görüyorum ve şüphesiz Allah''tan korkuyorum, Allah''ın azabı şiddetlidir" dedi', 'quran-json (CC-BY-4.0)'),
+(1208, 'tr', 'Şeytan onlara işlediklerini güzel gösterdi ve "Bugün insanlardan sizi yenecek kimse yoktur; doğrusu ben de size yardımcıyım" dedi. İki ordu karşılaşınca da, geri dönüp, "Benim sizinle ilgim yok; doğrusu sizin görmediğinizi ben görüyorum ve şüphesiz Allah''tan korkuyorum, Allah''ın azabı şiddetlidir" dedi', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1209, 'tr', 'İkiyüzlüler ve kalblerinde hastalık bulunanlar "Müslümanları dinleri aldattı" diyorlardı; oysa, kim Allah''a güvenirse bilmelidir ki Allah güçlüdür, hakimdir', 'quran-json (CC-BY-4.0)'),
 (1210, 'tr', 'Melekler, inkar edenlerin yüzlerine ve sırtlarına vurarak, "Yakıcı azabı tadın, bu, kendi ellerinizle yaptığınızın karşılığıdır" diyerek canlarını alırken bir görseydin! Yoksa Allah kullara asla zulmetmez', 'quran-json (CC-BY-4.0)'),
 (1211, 'tr', 'Melekler, inkar edenlerin yüzlerine ve sırtlarına vurarak, "Yakıcı azabı tadın, bu, kendi ellerinizle yaptığınızın karşılığıdır" diyerek canlarını alırken bir görseydin! Yoksa Allah kullara asla zulmetmez', 'quran-json (CC-BY-4.0)'),
@@ -1473,7 +1474,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1465, 'tr', 'Göklerde ve yerde neler var, bir bakın" de. İnanmayacak bir millete ayetler ve uyarmalar fayda vermez', 'quran-json (CC-BY-4.0)'),
 (1466, 'tr', 'Kendilerinden önce geçenlerin başlarına gelen olaylardan başka bir şey mi bekliyorlar? "Bekleyin, ben de sizinle beraber beklemekteyim" de', 'quran-json (CC-BY-4.0)'),
 (1467, 'tr', 'Sonra Biz, peygamberlerimizi ve inananları böylece kurtarırız, inananları (verdiğimiz söz gereğince) kurtarmamız Bize haktır', 'quran-json (CC-BY-4.0)'),
-(1468, 'tr', 'De ki: "Ey insanlar! Benim dinimden şüphede iseniz bilin ki ben Allah''tan başka taptıklarınıza tapmam. Ancak, sizi öldürecek olan Allah''a kulluk ederim. İnananlardan olmakla emrolundum', 'quran-json (CC-BY-4.0)'),
+(1468, 'tr', 'De ki: "Ey insanlar! Benim dinimden şüphede iseniz bilin ki ben Allah''tan başka taptıklarınıza tapmam. Ancak, sizi öldürecek olan Allah''a kulluk ederim. İnananlardan olmakla emrolundum', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1469, 'tr', '(Muhammed''e) "Yüzünü, doğruya yönelmiş olarak dine çevir, sakın ortak koşanlardan olma; sana fayda da zarar da veremeyecek, Allah''tan başkasına yalvarma; öyle yaparsan şüphesiz, zalimlerden olursun" denildi', 'quran-json (CC-BY-4.0)'),
 (1470, 'tr', '(Muhammed''e) "Yüzünü, doğruya yönelmiş olarak dine çevir, sakın ortak koşanlardan olma; sana fayda da zarar da veremeyecek, Allah''tan başkasına yalvarma; öyle yaparsan şüphesiz, zalimlerden olursun" denildi', 'quran-json (CC-BY-4.0)'),
 (1471, 'tr', 'Allah sana bir sıkıntı verirse, onu O''ndan başkası gideremez. Sana bir iyilik dilerse O''nun nimetini engelleyecek yoktur. O''nu kullarından dilediğine verir. O, bağışlayandır, merhametlidir', 'quran-json (CC-BY-4.0)'),
@@ -1505,8 +1507,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1497, 'tr', 'Bu iki zümrenin durumu, kör ve sağır kimse ile gören ve işiten kimsenin durumuna benzer. Durumları hiç eşit olabilir mi? İbret almıyor musunuz', 'quran-json (CC-BY-4.0)'),
 (1498, 'tr', 'And olsun ki biz Nuh''u kendi milletine gönderdik; "Ben sizin için apaçık bir uyarıcıyım; Allah''tan başkasına kulluk etmeyin; doğrusu ben hakkınızda can yakıcı bir günün azabından korkuyorum" dedi', 'quran-json (CC-BY-4.0)'),
 (1499, 'tr', 'And olsun ki biz Nuh''u kendi milletine gönderdik; "Ben sizin için apaçık bir uyarıcıyım; Allah''tan başkasına kulluk etmeyin; doğrusu ben hakkınızda can yakıcı bir günün azabından korkuyorum" dedi', 'quran-json (CC-BY-4.0)'),
-(1500, 'tr', 'Milletinin inkarcı ileri gelenleri: "Senin ancak kendimiz gibi bir insan olduğunu görüyoruz. Daha başlangıçta, sana bizim ayak takımı dışında kimsenin uyduğunu görmüyoruz. Sizin bizden bir üstünlüğünüz yoktur; biz sizi yalancı sanıyoruz" dediler', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1500, 'tr', 'Milletinin inkarcı ileri gelenleri: "Senin ancak kendimiz gibi bir insan olduğunu görüyoruz. Daha başlangıçta, sana bizim ayak takımı dışında kimsenin uyduğunu görmüyoruz. Sizin bizden bir üstünlüğünüz yoktur; biz sizi yalancı sanıyoruz" dediler', 'quran-json (CC-BY-4.0)'),
 (1501, 'tr', 'Nuh: "Ey milletim! Rabbimin katından bir delilim bulunsa ve bana yine katından bir rahmet vermiş de bunlar sizden gizlenmiş olsa, söyleyin bana, hoşlanmadığınız halde zorla sizi bunlara mecbur mu ederiz?" dedi', 'quran-json (CC-BY-4.0)'),
 (1502, 'tr', 'Ey milletim! Buna karşılık ben sizden bir mal da istemiyorum. Benim ücretim Allah''a aittir; inananları da kovacak değilim; çünkü onlar Rableriyle karşılaşacaklar; fakat ben sizi cahil bir millet olarak görüyorum', 'quran-json (CC-BY-4.0)'),
 (1503, 'tr', 'Ey milletim! Onları kovarsam, Allah''a karşı beni kim savunur? Düşünmez misiniz', 'quran-json (CC-BY-4.0)'),
@@ -1733,7 +1734,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1724, 'tr', 'Allah gökten su indirir, dereler onunla dolar taşar. Sel, üste çıkan köpüğü alır götürür. Süslenmek veya faydalanmak için ateşte erittiklerinizin üzerinde de buna benzer bir köpük vardır. Allah, hak ve batıl için şöyle misal verir: Köpük uçup gider, insanlara fayda veren ise yerde kalır. Allah bunun gibi daha nice misaller verir', 'quran-json (CC-BY-4.0)'),
 (1725, 'tr', 'Rablerinin çağrısına gelenlere en güzel karşılık vardır. O''nun çağrısına uymayanlar ise, yeryüzünde olan her şey ve daha bir katı onların olsa, kurtulmak için fidye verirlerdi. İşte hesapları kötü olanlar bunlardır. Varacakları yer cehennemdir; ne kötü konaktır', 'quran-json (CC-BY-4.0)'),
 (1726, 'tr', 'Sana Rabbinden indirilenin gerçek olduğunu bilen kimse, onu bilmeyen köre benzer mi? Ancak akıl sahipleri ibret alırlar', 'quran-json (CC-BY-4.0)'),
-(1727, 'tr', 'Onlar, Allah''ın ahdini yerine getirirler, anlaşmayı bozmazlar', 'quran-json (CC-BY-4.0)'),
+(1727, 'tr', 'Onlar, Allah''ın ahdini yerine getirirler, anlaşmayı bozmazlar', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1728, 'tr', 'Onlar, Allah''ın birleştirilmesini emrettiği şeyi birleştirirler, Rablerinden korkarlar; kötü hesaptan ürkerler', 'quran-json (CC-BY-4.0)'),
 (1729, 'tr', 'Onlar, Rablerinin rızasını dileyerek sabrederler, namazı kılarlar; kendilerine verdiğimiz rızıktan, gizlice ve açıkça sarfederler; iyilik yaparak kötülüğü ortadan kaldırırlar; işte onlara bu dünyanın iyi sonucu, girecekleri Adn cennetleri vardır; babalarının, eşlerinin, çocuklarının iyi olanları da oraya girerler. Melekler her kapıdan yanlarına girip: "Sabretmenize karşılık size selam olsun; burası dünyanın ne güzel bir sonucudur!" derler', 'quran-json (CC-BY-4.0)'),
 (1730, 'tr', 'Onlar, Rablerinin rızasını dileyerek sabrederler, namazı kılarlar; kendilerine verdiğimiz rızıktan, gizlice ve açıkça sarfederler; iyilik yaparak kötülüğü ortadan kaldırırlar; işte onlara bu dünyanın iyi sonucu, girecekleri Adn cennetleri vardır; babalarının, eşlerinin, çocuklarının iyi olanları da oraya girerler. Melekler her kapıdan yanlarına girip: "Sabretmenize karşılık size selam olsun; burası dünyanın ne güzel bir sonucudur!" derler', 'quran-json (CC-BY-4.0)'),
@@ -1806,8 +1808,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1797, 'tr', 'Yerin başka bir yerle, göklerin de başka göklerle değiştirildiği, her şeye üstün gelen tek Allah''ın huzuruna çıktıkları günde, sakın Allah''ın peygamberlerine verdiği sözden cayacağını sanma; doğrusu Allah güçlüdür, öç alandır', 'quran-json (CC-BY-4.0)'),
 (1798, 'tr', 'Yerin başka bir yerle, göklerin de başka göklerle değiştirildiği, her şeye üstün gelen tek Allah''ın huzuruna çıktıkları günde, sakın Allah''ın peygamberlerine verdiği sözden cayacağını sanma; doğrusu Allah güçlüdür, öç alandır', 'quran-json (CC-BY-4.0)'),
 (1799, 'tr', 'O gün, suçluları zincirlere vurulmuş olarak görürsün', 'quran-json (CC-BY-4.0)'),
-(1800, 'tr', 'Gömlekleri katrandan olacak, yüzlerini ateş bürüyecektir', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1800, 'tr', 'Gömlekleri katrandan olacak, yüzlerini ateş bürüyecektir', 'quran-json (CC-BY-4.0)'),
 (1801, 'tr', 'Bu, Allah herkese yaptığının karşılığını vereceği için böyledir. Doğrusu Allah hesabı çabuk görür', 'quran-json (CC-BY-4.0)'),
 (1802, 'tr', 'Bu Kuran, onunla uyarılsınlar ve tek bir Tanrı bulunduğunu bilsinler ve akıl sahipleri öğüt alsınlar diye insanlara tebliğ edilmiştir', 'quran-json (CC-BY-4.0)'),
 (1803, 'tr', 'Elif, Lam, Ra. Bunlar Kitap''ın ve apaçık olan Kuran''ın ayetleridir', 'quran-json (CC-BY-4.0)'),
@@ -2042,7 +2043,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2032, 'tr', 'Musa''ya kitap verdik. Ey Nuh''la beraber taşıyarak kurtardığımız kimselerin soyundan olanlar! Beni bırakıp başkasını vekil edinmeyesiniz diye onu İsrailoğullarına doğruluk rehberi kıldık. Doğrusu Nuh, çok şükreden bir kuldu', 'quran-json (CC-BY-4.0)'),
 (2033, 'tr', 'İsrailoğullarına Kitap''da: "Doğrusu yeryüzünde iki defa bozgunculuk yapacak ve kibirlendikçe kibirleneceksiniz" diye bildirdik', 'quran-json (CC-BY-4.0)'),
 (2034, 'tr', 'Bu ikiden birincisinin vakti gelince, üzerinize pek güçlü olan kullarımızı salacağız. Onlar memleketlerinizde her köşeyi kontrollerine alacaklar. Bu, yerine gelecek bir vaaddir', 'quran-json (CC-BY-4.0)'),
-(2035, 'tr', 'Bunun ardından sizi onlara galip getireceğiz; mallar ve oğullarla size yardım edecek ve sizin sayınızı artıracağız', 'quran-json (CC-BY-4.0)'),
+(2035, 'tr', 'Bunun ardından sizi onlara galip getireceğiz; mallar ve oğullarla size yardım edecek ve sizin sayınızı artıracağız', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2036, 'tr', 'İyilik ederseniz kendinize iyilik etmiş olursunuz. Kötülük ederseniz o da kendinizedir. İki vaadden ikincisinin vakti gelince, yüzünüzü üzüntüye sokmaları, kötülük yapmaları, önceden Mescid''e girdikleri gibi girmeleri, ele geçirdikleri yerleri harap etmeleri için onları tekrar göndereceğiz', 'quran-json (CC-BY-4.0)'),
 (2037, 'tr', 'Umulur ki Rabbiniz size acır; ama siz dönerseniz Biz de döneriz. Cehennemi, inkarcılara bir zindan kılmışızdır', 'quran-json (CC-BY-4.0)'),
 (2038, 'tr', 'Doğrusu bu Kuran en doğru yola götürür ve yararlı iş yapan müminlere büyük ecir olduğunu, ahirete inanmayanlara can yakıcı bir azap hazırladığımızı müjdeler', 'quran-json (CC-BY-4.0)'),
@@ -2107,8 +2109,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2097, 'tr', 'Onun karada da, sizi yere batırmasından veya başınıza taş yağdırmasından güvende misiniz? Sonra kendinize bir koruyucu da bulamazsınız', 'quran-json (CC-BY-4.0)'),
 (2098, 'tr', 'Yoksa sizi tekrar denize döndürüp, üzerinize ortalığı yıkan bir fırtına gönderip, inkarlarınızdan ötürü sizi suda boğmasından güvende misiniz? O zaman bize soru soracak bir yardımcı da bulamazsınız', 'quran-json (CC-BY-4.0)'),
 (2099, 'tr', 'And olsun ki, biz insanoğullarını şerefli kıldık, onların karada ve denizde gezmesini sağladık, temiz şeylerle onları rızıklandırdık, yaratıklarımızın pek çoğundan üstün kıldık', 'quran-json (CC-BY-4.0)'),
-(2100, 'tr', 'Bir gün bütün insanları önderleriyle beraber çağırırız. O gün kitabı sağından verilenler, işte onlar kitablarını okurlar. Onlara kıl kadar haksizlik edilmez', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2100, 'tr', 'Bir gün bütün insanları önderleriyle beraber çağırırız. O gün kitabı sağından verilenler, işte onlar kitablarını okurlar. Onlara kıl kadar haksizlik edilmez', 'quran-json (CC-BY-4.0)'),
 (2101, 'tr', 'Bu dünyada kalbi kör olan, ahirette de kör ve daha şaşkındır', 'quran-json (CC-BY-4.0)'),
 (2102, 'tr', 'Seni, sana vahyettiğimizden ayırıp başka bir şeyi Bize karşı uydurman için uğraşırlar. O zaman seni dost edinirler', 'quran-json (CC-BY-4.0)'),
 (2103, 'tr', 'Sana sebat vermemiş olsaydık, and olsun ki, az da olsa onlara meyledecektin', 'quran-json (CC-BY-4.0)'),
@@ -2330,7 +2331,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2319, 'tr', 'Sonra her toplumdan Rahman''a en çok kimin baş kaldırdığını ortaya koyacağız', 'quran-json (CC-BY-4.0)'),
 (2320, 'tr', 'Cehenneme girmeye en layık olanları Biz biliriz', 'quran-json (CC-BY-4.0)'),
 (2321, 'tr', 'Sizden cehenneme uğramayacak yoktur. Bu, Rabbinin yapmayı üzerine aldığı kesinleşmiş bir hükümdür', 'quran-json (CC-BY-4.0)'),
-(2322, 'tr', 'Sonra Biz Allah''a karşı gelmekten sakınmış olanları kurtarır, zalimleri de orada diz üstü çökmüş olarak bırakırız', 'quran-json (CC-BY-4.0)'),
+(2322, 'tr', 'Sonra Biz Allah''a karşı gelmekten sakınmış olanları kurtarır, zalimleri de orada diz üstü çökmüş olarak bırakırız', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2323, 'tr', 'Ayetlerimiz kendilerine apaçık okunduğu zaman inkar edenler inananlara: "Bu iki takımın hangisinin makamı daha iyi ve yeri daha güzeldir?" derler', 'quran-json (CC-BY-4.0)'),
 (2324, 'tr', 'Onlardan önce nice nesilleri yok ettik ki, onlar varlıkça ve gösterişçe bunlardan daha üstündüler', 'quran-json (CC-BY-4.0)'),
 (2325, 'tr', 'De ki: "Sapıklıkta olanı Rahman ne kadar ertelese bile, sonunda tehdit edildikleri azabı ya da kıyamet gününü gördükleri zaman onlar kimin yerinin daha kötü ve taraftarlarının daha güçsüz olduğunu bilecektir', 'quran-json (CC-BY-4.0)'),
@@ -2408,8 +2410,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2397, 'tr', 'Firavun: "Musa! Rabbiniz kimdir?" dedi', 'quran-json (CC-BY-4.0)'),
 (2398, 'tr', 'Musa: "Rabbimiz, her şeye ayrı bir özellik veren, sonra doğru yola eriştirendir" dedi', 'quran-json (CC-BY-4.0)'),
 (2399, 'tr', 'Firavun: "Öyleyse önceki nesillerin durumu ne oluyor?" dedi', 'quran-json (CC-BY-4.0)'),
-(2400, 'tr', 'Musa: "Onların bilgisi Rabbimin katında yazılıdır. Rabbim şaşırmaz ve unutmaz." dedi', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2400, 'tr', 'Musa: "Onların bilgisi Rabbimin katında yazılıdır. Rabbim şaşırmaz ve unutmaz." dedi', 'quran-json (CC-BY-4.0)'),
 (2401, 'tr', 'Sizin için yeryüzünü döşeyen, yollar açan, gökten su indiren O''dur. Biz o su ile türlü türlü, çift çift bitkiler yetiştirdik', 'quran-json (CC-BY-4.0)'),
 (2402, 'tr', 'İster yiyin, ister hayvanlarınızı otlatın, onlarda akıl sahipleri için şüphesiz dersler vardır', 'quran-json (CC-BY-4.0)'),
 (2403, 'tr', 'Sizi yerden yarattık, oraya döndüreceğiz, sizi tekrar oradan çıkaracağız', 'quran-json (CC-BY-4.0)'),
@@ -2644,7 +2645,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2632, 'tr', 'Bu hayvanların ne etleri ve ne de kanları Allah''a ulaşacaktır. Allah''a ulaşacak olan ancak sizin O''nun için yaptığınız gösterişten uzak amel ve ibadettir. Size doğru yolu gösterdiğinden, Allah''ı yüceltmeniz için onları böylece sizin buyruğunuza vermiştir. İyilik yapanlara müjde et', 'quran-json (CC-BY-4.0)'),
 (2633, 'tr', 'Allah şüphesiz inananları savunur, çünkü hainleri ve nankörleri hiç sevmez', 'quran-json (CC-BY-4.0)'),
 (2634, 'tr', 'Haksızlığa uğratılarak kendilerine savaş açılan kimselerin karşı koyup savaşmasına izin verilmiştir. Allah onlara yardım etmeğe elbette Kadir''dir', 'quran-json (CC-BY-4.0)'),
-(2635, 'tr', 'Onlar haksız yere ve "Rabbimiz Allah''tır" dediler diye yurtlarından çıkarılmışlardır. Allah insanların bir kısmını diğeriyle savmasaydı, manastırlar, kiliseler, havralar ve içinde Allah''ın adı çok anılan camiler yıkılıp giderdi. And olsun ki, Allah''a yardım edenlere O da yardım eder. Doğrusu Allah kuvvetlidir, güçlüdür', 'quran-json (CC-BY-4.0)'),
+(2635, 'tr', 'Onlar haksız yere ve "Rabbimiz Allah''tır" dediler diye yurtlarından çıkarılmışlardır. Allah insanların bir kısmını diğeriyle savmasaydı, manastırlar, kiliseler, havralar ve içinde Allah''ın adı çok anılan camiler yıkılıp giderdi. And olsun ki, Allah''a yardım edenlere O da yardım eder. Doğrusu Allah kuvvetlidir, güçlüdür', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2636, 'tr', 'Onları biz yeryüzüne yerleştirirsek namaz kılarlar, zekat verirler, uygun olanı emrederler, fenalığı yasak ederler. İşlerin sonucu Allah''a aittir', 'quran-json (CC-BY-4.0)'),
 (2637, 'tr', 'Seni yalancı sayıyorlarsa bil ki, onlardan önce Nuh milleti, Ad, Semud, İbrahim milleti, Lut milleti ve Medyen halkı da peygamberlerini yalancı saymış ve Musa da yalanlanmıştı. Ama Ben, kafirlere önce mehil verdim, sonra da onları yakalayıverdim; Beni tanımamak nasılmış görsünler', 'quran-json (CC-BY-4.0)'),
 (2638, 'tr', 'Seni yalancı sayıyorlarsa bil ki, onlardan önce Nuh milleti, Ad, Semud, İbrahim milleti, Lut milleti ve Medyen halkı da peygamberlerini yalancı saymış ve Musa da yalanlanmıştı. Ama Ben, kafirlere önce mehil verdim, sonra da onları yakalayıverdim; Beni tanımamak nasılmış görsünler', 'quran-json (CC-BY-4.0)'),
@@ -2709,8 +2711,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2697, 'tr', 'Milletinin inkarcı ileri gelenleri: "Bu, sizin gibi bir insandan başka birşey değildir. Sizden üstün olmak istiyor. Allah dilemiş olsaydı melekler indirirdi. İlk atalarımızdan beri böyle birşey işitmedik. Bu adamda nedense biraz delilik var, bir süreye kadar onu gözetleyin" dediler', 'quran-json (CC-BY-4.0)'),
 (2698, 'tr', 'Milletinin inkarcı ileri gelenleri: "Bu, sizin gibi bir insandan başka birşey değildir. Sizden üstün olmak istiyor. Allah dilemiş olsaydı melekler indirirdi. İlk atalarımızdan beri böyle birşey işitmedik. Bu adamda nedense biraz delilik var, bir süreye kadar onu gözetleyin" dediler', 'quran-json (CC-BY-4.0)'),
 (2699, 'tr', 'Nuh: "Rabbim! Beni yalanlamalarına karşılık bana yardım et" dedi', 'quran-json (CC-BY-4.0)'),
-(2700, 'tr', 'Bunun üzerine ona şöyle vahyettik: "Nezaretimiz altında, sana bildirdiğimiz gibi gemiyi yap; buyruğumuz gelip tandırdan sular kaynayınca her cinsten birer çifti ve aleyhine hüküm verilmiş olanın dışında kalan çoluk çocuğunu alıp gemiye bindir. Haksızlık yapanlar için Bana baş vurma, çünkü onlar suda boğulacaklardır', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2700, 'tr', 'Bunun üzerine ona şöyle vahyettik: "Nezaretimiz altında, sana bildirdiğimiz gibi gemiyi yap; buyruğumuz gelip tandırdan sular kaynayınca her cinsten birer çifti ve aleyhine hüküm verilmiş olanın dışında kalan çoluk çocuğunu alıp gemiye bindir. Haksızlık yapanlar için Bana baş vurma, çünkü onlar suda boğulacaklardır', 'quran-json (CC-BY-4.0)'),
 (2701, 'tr', 'Ey Nuh! Sen ve beraberindekiler gemiye yerleşince: "Bizi zalim milletten kurtaran Allah''a hamdolsun" de', 'quran-json (CC-BY-4.0)'),
 (2702, 'tr', 'Rabbim! Beni mübarek bir yere indir. Sen indirenlerin en iyisisin" de', 'quran-json (CC-BY-4.0)'),
 (2703, 'tr', 'Doğrusu bunlarda dersler vardır. Biz şüphesiz insanları denemekteyiz', 'quran-json (CC-BY-4.0)'),
@@ -2953,7 +2954,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2940, 'tr', 'Şüphesiz bunlarda Allah''ın kudretine işaret vardır, ama çoğu inanmazlar', 'quran-json (CC-BY-4.0)'),
 (2941, 'tr', 'Rabbin şüphesiz güçlüdür, merhametlidir', 'quran-json (CC-BY-4.0)'),
 (2942, 'tr', 'Rabbin Musa''ya: "Haksızlık eden millete, Firavun''un milletine git" diye nida etmişti. "Haksızlıktan sakınmazlar mı', 'quran-json (CC-BY-4.0)'),
-(2943, 'tr', 'Rabbin Musa''ya: "Haksızlık eden millete, Firavun''un milletine git" diye nida etmişti. "Haksızlıktan sakınmazlar mı', 'quran-json (CC-BY-4.0)'),
+(2943, 'tr', 'Rabbin Musa''ya: "Haksızlık eden millete, Firavun''un milletine git" diye nida etmişti. "Haksızlıktan sakınmazlar mı', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2944, 'tr', 'Musa: "Rabbim! Doğrusu beni yalanlamalarından korkuyorum; göğsüm daralıyor, dilim açılmıyor. Onun için Harun''a da elçilik ver. Onların bana isnat ettikleri bir suç da vardır. Beni öldürmelerinden korkuyorum" demişti', 'quran-json (CC-BY-4.0)'),
 (2945, 'tr', 'Musa: "Rabbim! Doğrusu beni yalanlamalarından korkuyorum; göğsüm daralıyor, dilim açılmıyor. Onun için Harun''a da elçilik ver. Onların bana isnat ettikleri bir suç da vardır. Beni öldürmelerinden korkuyorum" demişti', 'quran-json (CC-BY-4.0)'),
 (2946, 'tr', 'Musa: "Rabbim! Doğrusu beni yalanlamalarından korkuyorum; göğsüm daralıyor, dilim açılmıyor. Onun için Harun''a da elçilik ver. Onların bana isnat ettikleri bir suç da vardır. Beni öldürmelerinden korkuyorum" demişti', 'quran-json (CC-BY-4.0)'),
@@ -3010,8 +3012,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2997, 'tr', 'Musa ve beraberinde bulunanların hepsini kurtardık', 'quran-json (CC-BY-4.0)'),
 (2998, 'tr', 'Öbürlerini suda boğduk', 'quran-json (CC-BY-4.0)'),
 (2999, 'tr', 'Bunda şüphesiz ders vardır, ama çoğu inanmamıştır', 'quran-json (CC-BY-4.0)'),
-(3000, 'tr', 'Doğrusu Rabbin, güçlü olandır, merhamet edendir', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3000, 'tr', 'Doğrusu Rabbin, güçlü olandır, merhamet edendir', 'quran-json (CC-BY-4.0)'),
 (3001, 'tr', 'Onlara İbrahim''in kıssasını anlat', 'quran-json (CC-BY-4.0)'),
 (3002, 'tr', 'İbrahim, babasına ve milletine: "Nelere tapıyorsunuz?" demişti', 'quran-json (CC-BY-4.0)'),
 (3003, 'tr', 'Putlara tapıyoruz, onlara bağlanıp duruyoruz" demişlerdi', 'quran-json (CC-BY-4.0)'),
@@ -3185,7 +3186,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3171, 'tr', 'Değneğini at!" Musa, değneğinin yılan gibi hareketler yaptığını görünce, arkasına bakmadan dönüp kaçtı. "Ey Musa! Korkma; Benim katımda peygamberler korkmaz; yalnız haksızlık eden bunun dışındadır. Kötü hali iyiliğe çeviren kimse bilsin ki Ben şüphesiz bağışlarım, merhamet ederim. Elini koynuna sok, Firavun ve milletine gönderilen dokuz mucizeden biri olarak kusursuz, bembeyaz çıksın. Gerçekten onlar yoldan çıkmış bir millettir', 'quran-json (CC-BY-4.0)'),
 (3172, 'tr', 'Ayetlerimiz gözlerinin önüne serilince: "Bu apaçık bir sihirdir" dediler', 'quran-json (CC-BY-4.0)'),
 (3173, 'tr', 'Gönülleri kesin olarak kabul ettiği halde, haksızlık ve büyüklenmelerinden ötürü onları bile bile inkar ettiler. Bozguncuların sonunun nasıl olduğuna bir bak', 'quran-json (CC-BY-4.0)'),
-(3174, 'tr', 'And olsun ki, Davud''a ve Süleyman''a ilim verdik. İkisi "Bizi mümin kullarının çoğundan üstün kılan Allah''a hamdolsun" dediler', 'quran-json (CC-BY-4.0)'),
+(3174, 'tr', 'And olsun ki, Davud''a ve Süleyman''a ilim verdik. İkisi "Bizi mümin kullarının çoğundan üstün kılan Allah''a hamdolsun" dediler', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3175, 'tr', 'Süleyman Davud''a varis oldu: "Ey insanlar! Bize kuş dili öğretildi ve bize herşeyden bolca verildi. Doğrusu bu apaçık bir lütuftur" dedi', 'quran-json (CC-BY-4.0)'),
 (3176, 'tr', 'Süleyman''ın cinlerden, insanlardan ve kuşlardan müteşekkil olan ordusu toplandı. Hepsi toplu olarak gidiyorlardı', 'quran-json (CC-BY-4.0)'),
 (3177, 'tr', 'Sonunda, karıncaların bulunduğu vadiye geldiklerinde bir dişi (kraliçe) karınca: "Ey karıncalar! Yuvalarınıza girin, Süleyman''ın ordusu farkına varmadan sizi ezmesin" dedi', 'quran-json (CC-BY-4.0)'),
@@ -3311,8 +3313,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3297, 'tr', 'Ama biz nice nesiller var etmiştik. Sen, Medyen halkı arasında bulunup, onlara ayetlerimizi okumuyordun, fakat o haberleri sana gönderen Biziz', 'quran-json (CC-BY-4.0)'),
 (3298, 'tr', 'Sen, Musa''ya hitap ettiğimiz zaman Tur''un yanında da değildin. Senden önce kendilerine uyarıcı gelmeyen bir toplumu uyarman için, Rabbinden bir rahmet olarak gönderildin; belki düşünürler', 'quran-json (CC-BY-4.0)'),
 (3299, 'tr', 'Yaptıklarından dolayı, başlarına bir musibet geldiğinde: "Rabbimiz! Bize bir peygamber gönderseydin de, ayetlerine uysak ve müminlerden olsaydık olmaz mıydı?" derler', 'quran-json (CC-BY-4.0)'),
-(3300, 'tr', 'Ama onlara katımızdan gerçek gelince: "Musa''ya verildiği gibi buna da mucize verilmesi gerekmez mi?" dediler. Daha önce Musa''ya verileni de inkar etmemişler miydi? "Yardımlaşan iki sihir (Tevrat ve Kuran); hepsini inkar edenleriz" dediler', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3300, 'tr', 'Ama onlara katımızdan gerçek gelince: "Musa''ya verildiği gibi buna da mucize verilmesi gerekmez mi?" dediler. Daha önce Musa''ya verileni de inkar etmemişler miydi? "Yardımlaşan iki sihir (Tevrat ve Kuran); hepsini inkar edenleriz" dediler', 'quran-json (CC-BY-4.0)'),
 (3301, 'tr', 'De ki "Eğer doğru sözlü iseniz, Allah katından, bu ikisinden daha doğru bir Kitap getirin de ona uyayım', 'quran-json (CC-BY-4.0)'),
 (3302, 'tr', 'Eğer, sana cevap veremezlerse, onların sadece heveslerine uyduklarını bil. Allah''tan bir yol gösterici olmadan hevesine uyandan daha sapık kim vardır? Allah zalim milleti şüphesiz ki doğru yola eriştirmez', 'quran-json (CC-BY-4.0)'),
 (3303, 'tr', 'And olsun ki, Biz vahyi onlara ard arda yetiştirdik; belki düşünürler', 'quran-json (CC-BY-4.0)'),
@@ -3462,7 +3463,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3447, 'tr', 'Yakınlığı olana, yoksula, yolda kalmışa hakkını ver. Allah''ın rızasını dileyenler için bu daha hayırlıdır. İşte onlar saadete erenlerdir', 'quran-json (CC-BY-4.0)'),
 (3448, 'tr', 'İnsanların malları içinde artsın diye verdiğiniz her hangi bir faiz Allah katında artmaz; fakat, Allah''ın rızasını dileyerek verdiğiniz herhangi bir sadaka (zekat) böyle değildir. İşte onlar sevablarını kat kat artıranlardır', 'quran-json (CC-BY-4.0)'),
 (3449, 'tr', 'Sizi yaratan, sonra rızıklandıran, sonra öldüren, daha sonra da dirilten Allah''tır. O''na koştuğunuz ortaklarınızdan böyle bir şey yapan var mıdır? Allah onların ortak koştukları şeylerden münezzehtir, yücedir', 'quran-json (CC-BY-4.0)'),
-(3450, 'tr', 'İnsanların elleriyle işledikleri yüzünden karada ve denizde fesat çıkar; Allah da belki dönerler diye yaptıklarının bir kısmını böylece kendilerine tattırır', 'quran-json (CC-BY-4.0)'),
+(3450, 'tr', 'İnsanların elleriyle işledikleri yüzünden karada ve denizde fesat çıkar; Allah da belki dönerler diye yaptıklarının bir kısmını böylece kendilerine tattırır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3451, 'tr', 'De ki: "Yeryüzünde dolaşın da daha öncekilerden çoğu ortak koşan (müşrik) olanların sonunun nasıl olduğuna bir bakın', 'quran-json (CC-BY-4.0)'),
 (3452, 'tr', 'İnsanların fırka fırka olacağı, Allah katından kaçınılmaz o günün gelmesinden önce, kendini dosdoğru dine yönelt', 'quran-json (CC-BY-4.0)'),
 (3453, 'tr', 'Kim inkar ederse, inkarı kendi aleyhine olur. Yararlı iş işleyen kimseler, kendileri için rahat bir yer hazırlamış olurlar', 'quran-json (CC-BY-4.0)'),
@@ -3612,8 +3614,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3597, 'tr', 'Allah şüphesiz, inkarcılara lanet etmiş ve onlara içinde sonsuz olarak temelli kalacakları çılgın alevli cehennemi hazırlamıştır. Onlar bir dost ve yardımcı bulamazlar', 'quran-json (CC-BY-4.0)'),
 (3598, 'tr', 'Allah şüphesiz, inkarcılara lanet etmiş ve onlara içinde sonsuz olarak temelli kalacakları çılgın alevli cehennemi hazırlamıştır. Onlar bir dost ve yardımcı bulamazlar', 'quran-json (CC-BY-4.0)'),
 (3599, 'tr', 'Yüzleri ateşte çevrildiği gün: "Keşke Allah''a itaat etseydik, keşke Peygamber''e itaat etseydik!" derler', 'quran-json (CC-BY-4.0)'),
-(3600, 'tr', 'Rabbimiz! Biz yöneticilerimize ve büyüklerimize itaat etmiştik, fakat onlar bizi yoldan saptırdılar.", "Rabbimiz! Onlara iki kat azap ver, onları büyük bir lanete uğrat" derler', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3600, 'tr', 'Rabbimiz! Biz yöneticilerimize ve büyüklerimize itaat etmiştik, fakat onlar bizi yoldan saptırdılar.", "Rabbimiz! Onlara iki kat azap ver, onları büyük bir lanete uğrat" derler', 'quran-json (CC-BY-4.0)'),
 (3601, 'tr', 'Rabbimiz! Biz yöneticilerimize ve büyüklerimize itaat etmiştik, fakat onlar bizi yoldan saptırdılar.", "Rabbimiz! Onlara iki kat azap ver, onları büyük bir lanete uğrat" derler', 'quran-json (CC-BY-4.0)'),
 (3602, 'tr', 'Ey inananlar! Musa''yı incitenler gibi olmayın. Nitekim Allah onu, söylediklerinden beri tutmuştu. O, Allah''ın katında değerli bir kişiydi', 'quran-json (CC-BY-4.0)'),
 (3603, 'tr', 'Ey inananlar! Allah''tan sakının, dürüst söz söyleyin de Allah işlerinizi kendinize yararlı kılsın ve günahlarınızı size bağışlasın. Kim Allah''a ve Peygamber''ine itaat ederse, şüphesiz büyük bir kurtuluşa ermiş olur', 'quran-json (CC-BY-4.0)'),
@@ -3737,7 +3738,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3721, 'tr', 'Elçiler: "Doğrusu Rabbimiz bizim size gönderildiğimizi bilir; bize düşen ancak apaçık tebliğdir" demişlerdi', 'quran-json (CC-BY-4.0)'),
 (3722, 'tr', 'Elçiler: "Doğrusu Rabbimiz bizim size gönderildiğimizi bilir; bize düşen ancak apaçık tebliğdir" demişlerdi', 'quran-json (CC-BY-4.0)'),
 (3723, 'tr', 'Doğrusu sizin yüzünüzden uğursuzluğa uğradık; vazgeçmezseniz and olsun ki sizi taşlayacağız ve bizden size can yakıcı bir azap dokunacaktır" dediler', 'quran-json (CC-BY-4.0)'),
-(3724, 'tr', 'Elçiler: "Uğursuzluğunuz kendinizdendir. Bu uğursuzluk size öğüt verildiği için mi? Hayır; siz, aşırı giden bir milletsiniz" demişlerdi', 'quran-json (CC-BY-4.0)'),
+(3724, 'tr', 'Elçiler: "Uğursuzluğunuz kendinizdendir. Bu uğursuzluk size öğüt verildiği için mi? Hayır; siz, aşırı giden bir milletsiniz" demişlerdi', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3725, 'tr', 'Şehrin öbür ucundan koşarak bir adam gelmiş ve şöyle demişti: "Ey Milletim! Gönderilen elçilere uyun', 'quran-json (CC-BY-4.0)'),
 (3726, 'tr', 'Sizden bir ücret istemeyenlere uyun, onlar doğru yoldadırlar', 'quran-json (CC-BY-4.0)'),
 (3727, 'tr', 'Beni yaratana ne diye kulluk etmeyeyim? Siz de O''na döneceksiniz', 'quran-json (CC-BY-4.0)'),
@@ -3913,8 +3915,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3897, 'tr', 'Sonra gelenler içinde "İbrahim''e selam olsun" diye ona iyi bir ün bıraktık', 'quran-json (CC-BY-4.0)'),
 (3898, 'tr', 'İşte iyileri böylece mükafatlandırırız', 'quran-json (CC-BY-4.0)'),
 (3899, 'tr', 'Doğrusu o, inanmış kullarımızdandı', 'quran-json (CC-BY-4.0)'),
-(3900, 'tr', 'Ona, iyilerden olan İshak''ı peygamber olarak müjdeledik', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3900, 'tr', 'Ona, iyilerden olan İshak''ı peygamber olarak müjdeledik', 'quran-json (CC-BY-4.0)'),
 (3901, 'tr', 'Kendisini ve İshak''ı mübarek kıldık; ikisinin soyundan iyi olan da vardır, açıktan açığa kendisine yazık eden de vardır', 'quran-json (CC-BY-4.0)'),
 (3902, 'tr', 'And olsun ki Musa ve Harun''a da iyilikte bulunmuştuk', 'quran-json (CC-BY-4.0)'),
 (3903, 'tr', 'İkisini ve milletlerini büyük bir sıkıntıdan kurtarmıştık', 'quran-json (CC-BY-4.0)'),
@@ -4132,7 +4133,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4115, 'tr', 'Veya, "Allah beni doğru yola eriştirseydi sakınanlardan olurdum" diyeceği, yahut, azabı gördüğünde: "Keşke benim için dönüş imkanı bulunsa da iyilerden olsam" diyeceği günden sakının', 'quran-json (CC-BY-4.0)'),
 (4116, 'tr', 'Veya, "Allah beni doğru yola eriştirseydi sakınanlardan olurdum" diyeceği, yahut, azabı gördüğünde: "Keşke benim için dönüş imkanı bulunsa da iyilerden olsam" diyeceği günden sakının', 'quran-json (CC-BY-4.0)'),
 (4117, 'tr', 'Ey insanoğlu! Evet; ayetlerim sana gelmişti de onları yalanlamış, büyüklük taslamış ve inkarcılardan olmuştun', 'quran-json (CC-BY-4.0)'),
-(4118, 'tr', 'Allah''a karşı yalan uyduranların, kıyamet günü, yüzlerinin simsiyah olduğunu görürsün. Böbürlenenler için cehennemde bir durak olmaz olur mu', 'quran-json (CC-BY-4.0)'),
+(4118, 'tr', 'Allah''a karşı yalan uyduranların, kıyamet günü, yüzlerinin simsiyah olduğunu görürsün. Böbürlenenler için cehennemde bir durak olmaz olur mu', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4119, 'tr', 'Allah, sakınanları başarılarından ötürü kurtarır. Onlara hiçbir kötülük gelmez; onlar üzülmezler', 'quran-json (CC-BY-4.0)'),
 (4120, 'tr', 'Allah her şeyin yaratanıdır. O her şeye Vekil''dir', 'quran-json (CC-BY-4.0)'),
 (4121, 'tr', 'Göklerin ve yerin kilitleri O''nundur. Allah''ın ayetlerini inkar edenler, işte onlar hüsrandadırlar', 'quran-json (CC-BY-4.0)'),
@@ -4214,8 +4216,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4197, 'tr', 'Sizin için yeri durak, göğü bina eden, size şekil verip de, şeklinizi güzel yapan, sizi temiz şeylerle rızıklandıran Allah''tır. İşte Rabbiniz olan Allah budur. Alemlerin Rabbi Allah ne yücedir', 'quran-json (CC-BY-4.0)'),
 (4198, 'tr', 'O diridir, O''ndan başka tanrı yoktur. Dini yalnız O''na has kılarak O''na yalvarın. Övgü, Alemlerin Rabbi Allah içindir', 'quran-json (CC-BY-4.0)'),
 (4199, 'tr', 'De ki: "Sizin, Allah''ı bırakıp da kulluk ettiklerinize kulluk etmek bana yasak kılınmıştır. Zira bana Rabbimden belgeler gelmiştir. Ben, kendimi Alemlerin Rabbine vermekle emrolundum', 'quran-json (CC-BY-4.0)'),
-(4200, 'tr', 'Sizi topraktan, sonra nutfeden, sonra kan pıhtısından yaratan; sonra erginlik çağına ulaşmanız, sonra da yaşlanmanız için sizi bebek olarak dünyaya çıkaran O''dur. Kiminiz daha önce öldürülür, kiminiz de, belirtilmiş bir süreye ulaşırsınız. Belki artık düşünürsünüz', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4200, 'tr', 'Sizi topraktan, sonra nutfeden, sonra kan pıhtısından yaratan; sonra erginlik çağına ulaşmanız, sonra da yaşlanmanız için sizi bebek olarak dünyaya çıkaran O''dur. Kiminiz daha önce öldürülür, kiminiz de, belirtilmiş bir süreye ulaşırsınız. Belki artık düşünürsünüz', 'quran-json (CC-BY-4.0)'),
 (4201, 'tr', 'Dirilten, öldüren O''dur. Bir şeye karar verirse "Ol" der, o da oluverir', 'quran-json (CC-BY-4.0)'),
 (4202, 'tr', 'Allah''ın ayetleri üzerinde tartışanları görmez misin? Nasıl da döndürülüyorlar', 'quran-json (CC-BY-4.0)'),
 (4203, 'tr', 'Kitap''ı ve peygamberlerimize gönderdiklerimizi yalanlayanlar elbette bileceklerdir', 'quran-json (CC-BY-4.0)'),
@@ -4426,7 +4427,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4408, 'tr', 'Bırak onları, kendilerine söz verilen güne kavuşana kadar, dalsınlar, oynasınlar', 'quran-json (CC-BY-4.0)'),
 (4409, 'tr', 'Gökte de Tanrı, yerde de Tanrı O''dur. Hakim olan, her şeyi bilen O''dur', 'quran-json (CC-BY-4.0)'),
 (4410, 'tr', 'Göklerin, yerin ve ikisi arasında bulunanların hükümranlığı kendisinin olan Allah ne yücedir! Kıyamet saatini bilmek O''na aittir. O''na döneceksiniz', 'quran-json (CC-BY-4.0)'),
-(4411, 'tr', 'Allah''ı bırakıp yalvardıkları şeyler, şefaat edemezler. Ancak hakkı bilip ona şahidlik edenler bunun dışındadır', 'quran-json (CC-BY-4.0)'),
+(4411, 'tr', 'Allah''ı bırakıp yalvardıkları şeyler, şefaat edemezler. Ancak hakkı bilip ona şahidlik edenler bunun dışındadır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4412, 'tr', 'And olsun ki, onlara kendilerini kimin yarattığını sorsan: "Allah" derler. Öyleyken nasıl da aldatılıp döndürülüyorlar', 'quran-json (CC-BY-4.0)'),
 (4413, 'tr', 'Onlar hakkında: "Ey Rabbim! Bunlar inanmayan bir millettir" demesi üzerine Allah: "Onlardan geç, esenlik dile; yakında bileceklerdir" buyurdu', 'quran-json (CC-BY-4.0)'),
 (4414, 'tr', 'Onlar hakkında: "Ey Rabbim! Bunlar inanmayan bir millettir" demesi üzerine Allah: "Onlardan geç, esenlik dile; yakında bileceklerdir" buyurdu', 'quran-json (CC-BY-4.0)'),
@@ -4515,8 +4517,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4497, 'tr', 'Hayat, ancak bu dünyadaki hayatımızdır. Ölürüz ve yaşarız; bizi ancak zamanın geçişi yokluğa sürükler" derler. Onların bu hususta bir bilgisi yoktur, sadece böyle sanırlar', 'quran-json (CC-BY-4.0)'),
 (4498, 'tr', 'Ayetlerimiz onlara açıkça okunduğu zaman, delilleri yalnızca: "Doğru sözlü iseniz babalarımızı getirin bakalım" demek olur', 'quran-json (CC-BY-4.0)'),
 (4499, 'tr', 'De ki: "Sizi Allah diriltir, sonra öldürür, sonra sizi şüphe götürmeyen kıyamet gününde toplar. Ama insanların çoğu bilmezler', 'quran-json (CC-BY-4.0)'),
-(4500, 'tr', 'Göklerin ve yerin hükümranlığı Allah''ındır. Kıyamet kopacağı gün, işte o gün, batıl sözlere uymuş olanlar hüsranda kalırlar', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4500, 'tr', 'Göklerin ve yerin hükümranlığı Allah''ındır. Kıyamet kopacağı gün, işte o gün, batıl sözlere uymuş olanlar hüsranda kalırlar', 'quran-json (CC-BY-4.0)'),
 (4501, 'tr', 'Her ümmeti diz üstü çökmüş olarak görürsün. Her ümmet kitabına çağrılır. Onlara denir ki: "Bugün, size işlediğinizin karşılığı verilecektir', 'quran-json (CC-BY-4.0)'),
 (4502, 'tr', 'Bu kitabımız gerçekten sizin aleyhinize konuşur. Biz yaptıklarınızı şüphesiz bir bir kaydediyorduk', 'quran-json (CC-BY-4.0)'),
 (4503, 'tr', 'İnanıp, yararlı iş işleyenlere gelince, Rableri onları rahmetine garkeder. İşte bu, apaçık kurtuluştur', 'quran-json (CC-BY-4.0)'),
@@ -4716,7 +4717,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4697, 'tr', 'Rızkınız da, size söz verilen azap da yukarıdan gelir', 'quran-json (CC-BY-4.0)'),
 (4698, 'tr', 'Göğün ve yerin Rabbine and olsun ki bu, sizin konuşmanız kadar kesin ve gerçektir', 'quran-json (CC-BY-4.0)'),
 (4699, 'tr', 'İbrahim''in ikram edilmiş konuklarının haberi sana geldi mi', 'quran-json (CC-BY-4.0)'),
-(4700, 'tr', 'Onlar, İbrahim''in yanına girip: "Selam sana" demişlerdi, İbrahim de: "Selam size" demişti; içinden de, onların "tanınmamış bir topluluk" olduğunu geçirmişti', 'quran-json (CC-BY-4.0)'),
+(4700, 'tr', 'Onlar, İbrahim''in yanına girip: "Selam sana" demişlerdi, İbrahim de: "Selam size" demişti; içinden de, onların "tanınmamış bir topluluk" olduğunu geçirmişti', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4701, 'tr', 'Hemen ailesine giderek semiz bir buzağı getirmiş, onların önüne sürüp: "Yemez misiniz?" demişti', 'quran-json (CC-BY-4.0)'),
 (4702, 'tr', 'Hemen ailesine giderek semiz bir buzağı getirmiş, onların önüne sürüp: "Yemez misiniz?" demişti', 'quran-json (CC-BY-4.0)'),
 (4703, 'tr', '(Yemediklerini görünce) onlardan endişeye düştü; "Korkma" dediler ve ona bilgin bir oğul sahibi olacağını müjdelediler', 'quran-json (CC-BY-4.0)'),
@@ -4816,8 +4818,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4797, 'tr', 'And olsun ki o, Cebrail''i sınırın sonunda başka bir inişinde de görmüştür', 'quran-json (CC-BY-4.0)'),
 (4798, 'tr', 'And olsun ki o, Cebrail''i sınırın sonunda başka bir inişinde de görmüştür', 'quran-json (CC-BY-4.0)'),
 (4799, 'tr', 'Orada Me''va cenneti vardır', 'quran-json (CC-BY-4.0)'),
-(4800, 'tr', 'Sidre''yi bürüyen bürüyordu', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4800, 'tr', 'Sidre''yi bürüyen bürüyordu', 'quran-json (CC-BY-4.0)'),
 (4801, 'tr', 'Gözü oradan ne kaydı ve ne de onu aştı', 'quran-json (CC-BY-4.0)'),
 (4802, 'tr', 'And olsun ki Rabbinin varlığının büyük delillerini gördü', 'quran-json (CC-BY-4.0)'),
 (4803, 'tr', 'Ey inkarcılar! Şimdi Lat, Uzza ve bundan başka üçüncüleri olan Menat''ın ne olduğunu söyler misiniz', 'quran-json (CC-BY-4.0)'),
@@ -5117,14 +5118,14 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5097, 'tr', 'Yeryüzüne ve sizin başınıza gelen herhangi bir musibet yoktur ki biz onu yaratmadan önce o, Kitap''da bulunmasın. Doğrusu bu Allah''a kolaydır', 'quran-json (CC-BY-4.0)'),
 (5098, 'tr', 'Bu, kaybettiğinize üzülmemeniz ve Allah''ın size verdiği nimetlerle şımarmamanız içindir. Allah, kendini beğenip öğünen hiç kimseyi sevmez', 'quran-json (CC-BY-4.0)'),
 (5099, 'tr', 'Bunlar cimrilik ederler ve insanlara da cimrilik yapmalarını söylerler. Allah''ın buyruğundan kim yüz çevirirse bilsin ki, Allah şüphesiz müstağni ve övülmeğe layık olandır', 'quran-json (CC-BY-4.0)'),
-(5100, 'tr', 'And olsun ki peygamberlerimizi belgelerle gönderdik; insanların doğru (adaletli) hareket etmeleri için peygamberlere kitap ve ölçü indirdik; pek sert olan ve insanlara birçok faydası bulunan demiri de indirdik. Bu, Allah''ın dinine ve peygamberlerine görmeksizin yardım edenleri meydana çıkarması içindir. Doğrusu Allah kuvvetlidir, güçlüdür', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5100, 'tr', 'And olsun ki peygamberlerimizi belgelerle gönderdik; insanların doğru (adaletli) hareket etmeleri için peygamberlere kitap ve ölçü indirdik; pek sert olan ve insanlara birçok faydası bulunan demiri de indirdik. Bu, Allah''ın dinine ve peygamberlerine görmeksizin yardım edenleri meydana çıkarması içindir. Doğrusu Allah kuvvetlidir, güçlüdür', 'quran-json (CC-BY-4.0)'),
 (5101, 'tr', 'And olsun ki Nuh''u ve İbrahim''i Biz gönderdik; ikisinin soyundan gelenlere peygamberlik ve kitap verdik; soylarından gelenlerin kimi doğru yoldadır, birçoğu da yoldan çıkmıştır', 'quran-json (CC-BY-4.0)'),
 (5102, 'tr', 'Onların izleri üzerinden peygamberlerimizi ard arda gönderdik; Meryem oğlu İsa''yı da ardlarından gönderdik ve ona İncil''i verdik; ona uyanların gönüllerine şefkat ve merhamet duyguları koyduk; üzerlerine bizim gerekli kılmadığımız fakat kendilerinin güya Allah''ın rızasını kazanmak için ortaya attıkları ruhbaniyete bile gereği gibi riayet etmediler; içlerinde inanmış olan kimselere ecirlerini verdik; ama çoğu yoldan çıkmışlardır', 'quran-json (CC-BY-4.0)'),
 (5103, 'tr', 'Ey inananlar! Allah''tan sakının, Peygamberine inanın ki, Allah size rahmetini iki kat versin; size ışığında yürüyeceğiniz bir ışık var etsin; sizi bağışlasın; Allah bağışlayandır, acıyandır', 'quran-json (CC-BY-4.0)'),
 (5104, 'tr', 'Kitap ehli bilsinler ki, Allah''ın lütfundan hiçbir şey elde edemezler (bu lütfa malik değillerdir); lütuf Allah''ın elindedir, onu dilediğine verir; Allah büyük lütuf sahibidir', 'quran-json (CC-BY-4.0)'),
 (5105, 'tr', 'Kocası hakkında seninle tartışan ve Allah''a şikayette bulunan kadının sözünü Allah işitmiştir; esasen Allah konuşmanızı işitir. Doğrusu Allah işitendir, görendir', 'quran-json (CC-BY-4.0)'),
-(5106, 'tr', 'İçinizde karılarını "zıhar" yapanlar bilsinler ki, karıları anneleri değildir; anneleri ancak, onları doğuranlardır. Doğrusu söyledikleri kötü ve asılsız bir sözdür. Allah şüphesiz affedendir, bağışlayandır', 'quran-json (CC-BY-4.0)'),
+(5106, 'tr', 'İçinizde karılarını "zıhar" yapanlar bilsinler ki, karıları anneleri değildir; anneleri ancak, onları doğuranlardır. Doğrusu söyledikleri kötü ve asılsız bir sözdür. Allah şüphesiz affedendir, bağışlayandır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5107, 'tr', 'Karılarını zıhar yoluyla boşamak isteyip, sonra sözlerinden dönenlerin, ailesiyle temas etmeden bir köle azad etmeleri gerekir. Size bu hususta böylece öğüt verilmektedir. Allah, işlediklerinizden haberdardır', 'quran-json (CC-BY-4.0)'),
 (5108, 'tr', 'Azad edecek köle bulamayanın, ailesiyle temastan önce iki ay birbiri peşinden oruç tutması gerekir. Buna gücü yetmeyen, altmış düşkünü doyurur. Bu kolaylık, Allah''a ve Peygamberine inanmış olmanızdan ötürüdür; bunlar, Allah''ın koyduğu sınırlardır; inkar edenler için can yakıcı azap vardır', 'quran-json (CC-BY-4.0)'),
 (5109, 'tr', 'Allah''a ve Peygamberine karşı gelenler, kendilerinden öncekiler nasıl alçaltıldı ise öyle alçaltılacaklardır. Biz, apaçık ayetler indirmişizdir, bunları inkar edene alçaltıcı azap vardır', 'quran-json (CC-BY-4.0)'),
@@ -5418,8 +5419,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5397, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)'),
 (5398, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)'),
 (5399, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)'),
-(5400, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5400, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)'),
 (5401, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)'),
 (5402, 'tr', 'Ancak namaz kılıp namazlarında yoksul ve yoksuna belirli bir hak tanıyanlar, ceza gününü doğrulayanlar, Rablerinin azabından korkanlar böyle değildir', 'quran-json (CC-BY-4.0)'),
 (5403, 'tr', 'Doğrusu Rablerinin azabından kimse güvende değildir', 'quran-json (CC-BY-4.0)'),
@@ -5431,7 +5431,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5409, 'tr', 'Namazlarına riayet edenler', 'quran-json (CC-BY-4.0)'),
 (5410, 'tr', 'İşte onlar, cennetlerde ikram olunacak kimselerdir', 'quran-json (CC-BY-4.0)'),
 (5411, 'tr', 'İnkar edenlere ne oluyor, sana doğru sağdan soldan topluluklar halinde koşuşuyorlar', 'quran-json (CC-BY-4.0)'),
-(5412, 'tr', 'İnkar edenlere ne oluyor, sana doğru sağdan soldan topluluklar halinde koşuşuyorlar', 'quran-json (CC-BY-4.0)'),
+(5412, 'tr', 'İnkar edenlere ne oluyor, sana doğru sağdan soldan topluluklar halinde koşuşuyorlar', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5413, 'tr', 'Onlardan herbiri nimet bahçesine konulacağını mı umuyor', 'quran-json (CC-BY-4.0)'),
 (5414, 'tr', 'Hayır; doğrusu onları kendilerinin de bildikleri şeyden yaratmışızdır', 'quran-json (CC-BY-4.0)'),
 (5415, 'tr', 'Doğuların ve batıların Rabbine yemin ederim ki, onların yerine daha iyilerini getirmeğe Bizim gücümüz yeter ve kimse de önümüze geçemez', 'quran-json (CC-BY-4.0)'),
@@ -5719,8 +5720,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5697, 'tr', 'Orada ne serinlik ne de içilecek bir şey tatmazlar; sadece kaynar su ve irin', 'quran-json (CC-BY-4.0)'),
 (5698, 'tr', 'Orada ne serinlik ne de içilecek bir şey tatmazlar; sadece kaynar su ve irin', 'quran-json (CC-BY-4.0)'),
 (5699, 'tr', 'Çünkü onlar, hesaba çekileceklerini sanmazlardı', 'quran-json (CC-BY-4.0)'),
-(5700, 'tr', 'Ayetlerimizi hep yalan sayıp dururlardı', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5700, 'tr', 'Ayetlerimizi hep yalan sayıp dururlardı', 'quran-json (CC-BY-4.0)'),
 (5701, 'tr', 'Biz de herşeyi yazıp saymışızdır', 'quran-json (CC-BY-4.0)'),
 (5702, 'tr', 'Şöyle deriz: "Artık tadınız, bundan böyle size azabdan başka bir şey artırmayız', 'quran-json (CC-BY-4.0)'),
 (5703, 'tr', 'Doğrusu, Allah''a karşı gelmekten sakınanlara kurtuluş, bahçeler, bağlar, yaşıtlar ve dolu kadehler vardır', 'quran-json (CC-BY-4.0)'),
@@ -5896,7 +5896,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5873, 'tr', 'Sonunda misk kokusu bırakan, ağzı kapalı saf bir içecekten içerler. İyi şeyler için yarışanlar, bunun için yarışsınlar', 'quran-json (CC-BY-4.0)'),
 (5874, 'tr', 'Sonunda misk kokusu bırakan, ağzı kapalı saf bir içecekten içerler. İyi şeyler için yarışanlar, bunun için yarışsınlar', 'quran-json (CC-BY-4.0)'),
 (5875, 'tr', 'Onun katkısı gözdelerin içtiği yüce kaynaktandır', 'quran-json (CC-BY-4.0)'),
-(5876, 'tr', 'Onun katkısı gözdelerin içtiği yüce kaynaktandır', 'quran-json (CC-BY-4.0)'),
+(5876, 'tr', 'Onun katkısı gözdelerin içtiği yüce kaynaktandır', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5877, 'tr', 'Suçlular, şüphesiz, inanmış olanlara gülerlerdi', 'quran-json (CC-BY-4.0)'),
 (5878, 'tr', 'Yanlarından geçtikleri zaman da birbirlerine göz kırparlardı', 'quran-json (CC-BY-4.0)'),
 (5879, 'tr', 'Taraftarlarına vardıklarında bununla eğlenirlerdi', 'quran-json (CC-BY-4.0)'),
@@ -6020,8 +6021,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5997, 'tr', 'Gelip geçen geceye and olsun ki, bunların her biri akıl sahibi için birer yemine değmez mi', 'quran-json (CC-BY-4.0)'),
 (5998, 'tr', 'Gelip geçen geceye and olsun ki, bunların her biri akıl sahibi için birer yemine değmez mi', 'quran-json (CC-BY-4.0)'),
 (5999, 'tr', 'Rabbinin, hiçbir memlekette benzeri ortaya konmayan sütunlara sahip İrem şehrinde oturan Ad milletine ne ettiğini görmedin mi', 'quran-json (CC-BY-4.0)'),
-(6000, 'tr', 'Rabbinin, hiçbir memlekette benzeri ortaya konmayan sütunlara sahip İrem şehrinde oturan Ad milletine ne ettiğini görmedin mi', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(6000, 'tr', 'Rabbinin, hiçbir memlekette benzeri ortaya konmayan sütunlara sahip İrem şehrinde oturan Ad milletine ne ettiğini görmedin mi', 'quran-json (CC-BY-4.0)'),
 (6001, 'tr', 'Rabbinin, hiçbir memlekette benzeri ortaya konmayan sütunlara sahip İrem şehrinde oturan Ad milletine ne ettiğini görmedin mi', 'quran-json (CC-BY-4.0)'),
 (6002, 'tr', 'Vadide kayaları kesip yontan Semud milletine, memleketlerde aşırı giden, oralarda bozgunculuğu artıran, sarsılmaz bir saltanat sahibi Firavun''a Rabbinin ne ettiğini görmedin mi', 'quran-json (CC-BY-4.0)'),
 (6003, 'tr', 'Vadide kayaları kesip yontan Semud milletine, memleketlerde aşırı giden, oralarda bozgunculuğu artıran, sarsılmaz bir saltanat sahibi Firavun''a Rabbinin ne ettiğini görmedin mi', 'quran-json (CC-BY-4.0)'),

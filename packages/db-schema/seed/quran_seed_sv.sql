@@ -231,7 +231,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (227, 'sv', 'vad gäller både detta liv och det eviga livet. Och de frågar dig hur [de bör handla gentemot] de faderlösa. Säg: "Att göra det som är till deras nytta är det bästa." Och om ni förvaltar deras egendom tillsammans med er egen, [minns då att] de är era bröder; Gud skiljer mellan den som försämrar och den som förbättrar och om Gud så ville, kunde Han lägga på er tunga bördor. Gud är allsmäktig, vis', 'quran-json (CC-BY-4.0)'),
 (228, 'sv', 'TAG inte till hustrur kvinnor som dyrkar avgudar förrän de blivit troende - en troende [Guds] tjänarinna är helt visst bättre än en som dyrkar avgudar, hur tilldragande ni än finner henne. Och gift inte bort era döttrar med män som dyrkar avgudar förrän de blivit troende - en troende [Guds] tjänare är helt visst bättre än en avgudadyrkare, hur förträfflig ni än finner honom. Sådana [människor] inbjuder till Elden, men Gud inbjuder till paradiset och att genom Hans nåd söka syndernas förlåtelse. Och Han klargör Sina budskap för människorna för att stämma dem till eftertanke', 'quran-json (CC-BY-4.0)'),
 (229, 'sv', 'OCH DE frågar dig om [kvinnans] månadsblödning. Säg: "Detta är ett ömtåligt och smärtsamt tillstånd. Håll er därför borta från kvinnorna under deras period och kom inte nära dem förrän de är rena; men när de har renat sig ta dem då till er, så som Gud har befallt er." Gud älskar dem som vänder tillbaka till Honom i ånger [om de har syndat] och Han älskar dem som vill rena sig', 'quran-json (CC-BY-4.0)'),
-(230, 'sv', 'Era hustrur är för er [som] en åker; beträd därför er åker, när och som ni önskar - men sörj [först] för era själar. Frukta Gud och var förvissade om att ni skall möta Honom. Och förkunna för de troende hoppets budskap', 'quran-json (CC-BY-4.0)'),
+(230, 'sv', 'Era hustrur är för er [som] en åker; beträd därför er åker, när och som ni önskar - men sörj [först] för era själar. Frukta Gud och var förvissade om att ni skall möta Honom. Och förkunna för de troende hoppets budskap', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (231, 'sv', 'GÖR INTE Gud till måltavla för era eder så att ni [i Hans namn] hindrar er själva från att göra gott och frukta Gud och att medla i tvister mellan människor. Gud hör allt, vet allt', 'quran-json (CC-BY-4.0)'),
 (232, 'sv', 'Gud bestraffar er inte för obetänksamma eder, men Han ställer er till svars för ert innersta [uppsåt]. Gud är mild och överseende', 'quran-json (CC-BY-4.0)'),
 (233, 'sv', 'Den som [vill skiljas från sin hustru och] går en ed att han inte skall komma nära henne, skall iaktta fyra månaders väntetid. Om han [bryter eden och] går tillbaka [till hustrun], är Gud förlåtande, barmhärtig', 'quran-json (CC-BY-4.0)'),
@@ -301,8 +302,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (297, 'sv', 'i äldre tid, till vägledning för människorna och det är Han som har uppenbarat den måttstock med vars hjälp rätt kan mätas och skiljas från orätt. Ett strängt straff väntar dem som förnekar [sanningen i] Guds budskap - ja, Gud är allsmäktig och hämnden är Hans', 'quran-json (CC-BY-4.0)'),
 (298, 'sv', 'För Gud är ingenting dolt vare sig på jorden eller i himlen', 'quran-json (CC-BY-4.0)'),
 (299, 'sv', 'Det är Han som formar er i moderlivet enligt Sin vilja. Det finns ingen annan gud än Han, den Allsmäktige, den Vise', 'quran-json (CC-BY-4.0)'),
-(300, 'sv', 'Det är Han som har uppenbarat för dig denna Skrift, där det finns fast och klart formulerade budskap - de utgör dess kärna - och andra som är framställda i bilder. Men de vilkas hjärtan har farit vilse går efter sådant i Skriften som har framställts i bild, när de försöker så split och förvirring genom [godtycklig] tolkning av dess innersta mening - dess innersta mening känner ingen utom Gud. - De vilkas kunskap är fast och djupt rotad säger: "Vi tror på denna [Skrift]; allt är från vår Herre." Men ingen ägnar eftertanke åt [och tar varning av] detta utom de som har förstånd', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(300, 'sv', 'Det är Han som har uppenbarat för dig denna Skrift, där det finns fast och klart formulerade budskap - de utgör dess kärna - och andra som är framställda i bilder. Men de vilkas hjärtan har farit vilse går efter sådant i Skriften som har framställts i bild, när de försöker så split och förvirring genom [godtycklig] tolkning av dess innersta mening - dess innersta mening känner ingen utom Gud. - De vilkas kunskap är fast och djupt rotad säger: "Vi tror på denna [Skrift]; allt är från vår Herre." Men ingen ägnar eftertanke åt [och tar varning av] detta utom de som har förstånd', 'quran-json (CC-BY-4.0)'),
 (301, 'sv', '[De ber:] "Herre! Låt inte våra hjärtan fara vilse sedan Du har väglett oss. Och förbarma Dig i Din nåd över oss. - Du är Den som alltid ger', 'quran-json (CC-BY-4.0)'),
 (302, 'sv', 'Herre! Du skall samla alla människor [inför Dig] en Dag [vars ankomst] står utom varje tvivel; Gud sviker helt visst inte Sitt löfte', 'quran-json (CC-BY-4.0)'),
 (303, 'sv', 'DE SOM framhärdar i att förneka sanningen - ingenting av vad de äger på jorden och inte heller deras söner skall kunna skydda dem mot Gud. De skall bli bränsle för Elden', 'quran-json (CC-BY-4.0)'),
@@ -445,7 +445,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (440, 'sv', 'Och [när de bad] sade de bara: "Herre, förlåt oss våra synder och om vi har gått till överdrift [eller brustit] i uppfyllandet av vår plikt! Gör oss stadiga på foten och låt oss segra över dessa förnekare av sanningen', 'quran-json (CC-BY-4.0)'),
 (441, 'sv', 'Och Gud gav dem som lön [både] denna världens goda och det högsta goda, ett evigt liv - Gud älskar dem som gör det goda och det rätta', 'quran-json (CC-BY-4.0)'),
 (442, 'sv', 'TROENDE! Om ni går sanningens förnekare till mötes kommer de att förmå er att vända om [och överge tron] och då står ni som förlorare', 'quran-json (CC-BY-4.0)'),
-(443, 'sv', 'Men Gud är er Beskyddare och Han är den bäste Hjälparen', 'quran-json (CC-BY-4.0)'),
+(443, 'sv', 'Men Gud är er Beskyddare och Han är den bäste Hjälparen', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (444, 'sv', 'Vi skall göra så att [blodet i] förnekarnas ådror isas av skräck [när de tänker på] att de [vågade] sätta medhjälpare vid Guds sida utan att Han någonsin gett [dem något] bemyndigande. Elden skall bli deras tillflykt - denna syndarnas fruktansvärda boning', 'quran-json (CC-BY-4.0)'),
 (445, 'sv', 'GUD höll sannerligen Sitt löfte till er, då ni med Hans vilja var nära att i grund slå [era fiender], till dess modet svek er och ni blev oense om innebörden av den order [ni hade fått] och bröt mot den, då Han redan hade låtit [segern] hägra för er syn. Det fanns de bland er som inte hade annat än denna världens [goda] för ögonen och det fanns de som såg mot evigheten. Därefter lät Han er dra er undan [fienden] för att sätta er på prov. Men Han har nu utplånat er synd - ja, Guds nåd flödar över de troende', 'quran-json (CC-BY-4.0)'),
 (446, 'sv', '[Minns] hur ni flydde uppför [bergets sida] utan att se er om, fastän Sändebudet långt bakom er ropade er tillbaka. Och Gud lät er känna sorg och grämelse [i gengäld] för den sorg och grämelse [ni vållade Profeten] och för att [lära er att] inte sörja över det [byte] som ni gick miste om, inte [ens] över det [nederlag] som ni led. Gud är väl underrättad om vad ni gör', 'quran-json (CC-BY-4.0)'),
@@ -602,8 +603,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (597, 'sv', 'Låt inte er iver mattas när ni förföljer fienden. Om ni måste utstå smärta, måste de utstå den liksom ni. Och ni kan hoppas få av Gud det som de inte kan hoppas på. Gud är allvetande, vis', 'quran-json (CC-BY-4.0)'),
 (598, 'sv', 'VI HAR uppenbarat Skriften med sanningen för dig [Muhammad], för att du skall döma mellan människorna med [stöd av] Guds uppenbarelse. Men försvara inte dem som sviker [alla förtroenden som de får]', 'quran-json (CC-BY-4.0)'),
 (599, 'sv', 'men be Gud förlåta [dem]. Gud är ständigt förlåtande, barmhärtig', 'quran-json (CC-BY-4.0)'),
-(600, 'sv', 'Och tala inte till förmån för dem som bedrar sig själva; Gud är inte bedragares och förhärdade syndares vän', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(600, 'sv', 'Och tala inte till förmån för dem som bedrar sig själva; Gud är inte bedragares och förhärdade syndares vän', 'quran-json (CC-BY-4.0)'),
 (601, 'sv', 'De försöker gömma sig för människorna, men de kan inte gömma sig för Gud; Han är med dem när de överlägger i nattens mörker om lögnaktiga utsagor, som Han inte godkänner. Ja, Gud har full uppsikt över allt vad de företar sig', 'quran-json (CC-BY-4.0)'),
 (602, 'sv', 'Här är det ni som tar dem i försvar i frågor som gäller det jordiska, men vem skall försvara dem på Uppståndelsens dag inför Gud? Vem skall vara deras talesman', 'quran-json (CC-BY-4.0)'),
 (603, 'sv', 'Den som begår en dålig handling eller [på annat sätt] syndar mot sig själv och som därefter ber Gud förlåta honom, skall finna att Gud är förlåtande, barmhärtig', 'quran-json (CC-BY-4.0)'),
@@ -654,7 +654,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (648, 'sv', '[Men Vi straffade dem] därför att de bröt sitt löfte och förnekade Guds budskap och dödade profeterna mot all rätt, och på grund av deras [självbelåtna] ord "våra hjärtan är tillslutna" - nej, det är Gud som har förseglat deras hjärtan till följd av deras ständiga förnekande av tron; de tror bara på få ting', 'quran-json (CC-BY-4.0)'),
 (649, 'sv', 'och [Vi straffade dem] för deras förnekelse och de oerhörda, kränkande lögner som de yttrade om Maria', 'quran-json (CC-BY-4.0)'),
 (650, 'sv', 'och för deras ord: "Vi har dödat Kristus Jesus, Marias son, [som påstod sig vara] Guds sändebud!" Men de dödade honom inte och inte heller korsfäste de honom, fastän det för dem tedde sig så. De som är av annan mening är inte säkra på sin sak; de har ingen [verklig] kunskap om detta utan stöder sig på antaganden. Det är med visshet så att de inte dödade honom', 'quran-json (CC-BY-4.0)'),
-(651, 'sv', 'Nej, Gud upphöjde honom till Sin [härlighet]; Gud är allsmäktig, vis', 'quran-json (CC-BY-4.0)'),
+(651, 'sv', 'Nej, Gud upphöjde honom till Sin [härlighet]; Gud är allsmäktig, vis', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (652, 'sv', 'Och bland efterföljarna av äldre tiders uppenbarelser finns ingen som inte före sin död tror på honom [som Guds Profet] och han skall vittna mot dem på Uppståndelsens dag', 'quran-json (CC-BY-4.0)'),
 (653, 'sv', 'Vi nekade dem som bekänner den judiska tron goda ting som de förut kunde njuta av, på grund av den orätt som de begick och deras många avvikelser från Guds väg', 'quran-json (CC-BY-4.0)'),
 (654, 'sv', 'och därför att de bedrev ocker, som hade förbjudits dem, och orättmätigt tillskansade sig andras egendom. De av dem som envist framhärdar i att förneka sanningen, för dem har Vi i beredskap ett plågsamt straff', 'quran-json (CC-BY-4.0)'),
@@ -861,7 +862,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (855, 'sv', 'Ditt folk påstår att detta är lögn, fastän det är sanningen. Säg: "Jag är inte satt att vaka över er', 'quran-json (CC-BY-4.0)'),
 (856, 'sv', 'För varje [händelse] som [Gud] tillkännager har en tid lagts fast då den skall inträffa; det skall ni [snart] få erfara', 'quran-json (CC-BY-4.0)'),
 (857, 'sv', 'OM DU ser människor [i lättsinne] ge sig in i en diskussion om Våra budskap, dra dig då ifrån dem till dess de övergår till andra ämnen; och om Djävulen skulle få dig att glömma [detta], stanna då inte i sådana ogudaktiga människors sällskap, då du påmint dig [din plikt]', 'quran-json (CC-BY-4.0)'),
-(858, 'sv', 'De gudfruktiga är inte i något avseende ansvariga för dem, men de skall påminna och varna dem - kanske kommer de att frukta Gud', 'quran-json (CC-BY-4.0)'),
+(858, 'sv', 'De gudfruktiga är inte i något avseende ansvariga för dem, men de skall påminna och varna dem - kanske kommer de att frukta Gud', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (859, 'sv', 'Låt dem hållas som, fångade av det jordiska livets [lockelser], ser sin religion som ingenting mer än en lek eller ett tidsfördriv. Men varna [dem] med [Koranens ord] att människan störtar sig i fördärvet genom sina egna handlingar; [på Domens dag] finner hon ingen annan beskyddare än Gud och ingen som talar till hennes förmån. Och även om hon erbjuder den högsta lösesumma [för att slippa ifrån straffet] kommer den inte att tas emot. Dessa [människor] skall utlämnas åt det [straff] som de förtjänat med sina handlingar; de skall bjudas en dryck av brännande förtvivlan och de skall utstå ett svårt lidande för sitt [envisa] förnekande av sanningen', 'quran-json (CC-BY-4.0)'),
 (860, 'sv', 'Säg: ”Skulle vi istället för Gud åkalla vad som varken kan gagna eller skada oss och låta oss förmås att vända om, sedan Gud lett oss på rätt väg? [Vi skulle då] likna den som faller offer för djävulska frestelser på jorden och strövar hit och dit, helt förvirrad, [trots att] vännerna ropar honom tillbaka till den raka vägen: ''Kom med oss!''” Säg: ”Guds ledning är den [sanna] ledningen och vi har blivit befallda att underkasta oss världarnas Herre', 'quran-json (CC-BY-4.0)'),
 (861, 'sv', 'och att förrätta bönen och att frukta Honom. Det är till Honom ni skall samlas åter', 'quran-json (CC-BY-4.0)'),
@@ -903,8 +905,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (897, 'sv', 'Men förolämpa inte dem som de åkallar i Guds ställe. I sin okunnighet kan de vilja hämnas genom att förolämpa Gud. Vi har också låtit [människorna i] alla samfund se sina [dåliga] handlingar i ett fördelaktigt ljus. [Men] till sist skall de vända tillbaka till sin Herre och Han skall låta dem veta vad deras handlingar [var värda]', 'quran-json (CC-BY-4.0)'),
 (898, 'sv', 'De svär högtidliga eder vid Gud att om de fick ett tecken skulle de sannerligen tro på det. Säg: "Gud ensam råder över tecken och under." Men vad kan få er att inse att de inte skulle tro även om de fick [ett tecken]', 'quran-json (CC-BY-4.0)'),
 (899, 'sv', 'När de första gången [hörde Vårt budskap] ville de inte tro, och därför skall Vi vända deras hjärtan ut och in och grumla deras syn, och Vi skall låta dem hållas i sitt trotsiga övermod, snubblande än hit än dit i blindo', 'quran-json (CC-BY-4.0)'),
-(900, 'sv', 'Även om Vi lät änglarna stiga ner till dem och de döda talade till dem och Vi förde samman inför dem allt [skapat som vittnen], skulle de inte kunna förmå sig att tro, om inte Gud ville detta. Men de flesta vet inte [att det förhåller sig så]', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(900, 'sv', 'Även om Vi lät änglarna stiga ner till dem och de döda talade till dem och Vi förde samman inför dem allt [skapat som vittnen], skulle de inte kunna förmå sig att tro, om inte Gud ville detta. Men de flesta vet inte [att det förhåller sig så]', 'quran-json (CC-BY-4.0)'),
 (901, 'sv', 'SÅ HAR Vi också låtit varje profet mötas av fiendskap från de onda krafterna bland människor och osynliga väsen, som viskar fagra ord i varandras öron för att förvirra och vilseleda. Hade det varit din Herres vilja skulle de inte ha gjort detta; låt dem därför hållas med sina påfund', 'quran-json (CC-BY-4.0)'),
 (902, 'sv', 'Och låt dem som innerst inne inte tror på ett evigt liv bedåras av detta [fagra tal] så att de, nöjda och belåtna, [fortsätter att] göra det onda de gör', 'quran-json (CC-BY-4.0)'),
 (903, 'sv', '[Säg, Muhammad:] "Skulle jag söka en annan domare än Gud, som har uppenbarat Skriften för er, där sanningen klart skiljs från lögnen?" De som [tidigare] fick ta emot [Vår] uppenbarelse vet att [även] denna har sänts av din Herre och att den förmedlar sanningen. Hys inte minsta tvivel om detta', 'quran-json (CC-BY-4.0)'),
@@ -1099,7 +1100,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1092, 'sv', 'OCH VI förde Israels barn genom havet och därefter träffade de på ett folk som hängav sig åt avgudadyrkan. Israels barn sade: "Moses! Låt oss få en gud liksom de har gudar!" Han svarade: "Ni är sannerligen ett dåraktigt släkte', 'quran-json (CC-BY-4.0)'),
 (1093, 'sv', 'Vad dessa [människor] ägnar sig åt är dömt till undergång och allt vad de har åstadkommit skall gå förlorat', 'quran-json (CC-BY-4.0)'),
 (1094, 'sv', '[Och] han sade:"Skall jag söka efter en gud åt er vid sidan av Gud, som har gett er vad Han inte har gett något annat folk', 'quran-json (CC-BY-4.0)'),
-(1095, 'sv', 'Och minns att Vi befriade er från Faraos män, som vållade er svåra lidanden, anställde blodbad på era söner och [bara] skonade era kvinnor - detta var en hård prövning, som er Herre [lät er utstå]', 'quran-json (CC-BY-4.0)'),
+(1095, 'sv', 'Och minns att Vi befriade er från Faraos män, som vållade er svåra lidanden, anställde blodbad på era söner och [bara] skonade era kvinnor - detta var en hård prövning, som er Herre [lät er utstå]', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1096, 'sv', 'OCH VI kallade Moses till Oss [efter] trettio nätter [på Sinai berg] och lade till tio, så att tiden som hans Herre mätte ut blev fulla fyrtio nätter. Och Moses sade till sin broder Aron: "Bli min ställföreträdare hos mitt folk, ställ allt till rätta och gå inte samma väg som de som vill sprida oordning och fördärv [på jorden]', 'quran-json (CC-BY-4.0)'),
 (1097, 'sv', 'Och när Moses kom till det möte Vi hade utsatt och hans Herre talade till honom, sade han: "Herre, visa Dig för mig, så att jag får se Dig!" [Gud] sade: "Du kan inte se Mig; men se på berget - om det står kvar stadigt där det står, skall du få se Mig." Och då hans Herre visade Sig för berget krossades det till en grushög och Moses föll medvetslös till marken. Men när han kom till sina sinnen sade han: "Stor är Du i Din härlighet! Jag vänder tillbaka till Dig i djup ånger och jag är den förste att tro på Dig', 'quran-json (CC-BY-4.0)'),
 (1098, 'sv', '[Gud] sade: "Moses! Jag har utvalt dig av alla människor genom [att anförtro dig] Mitt budskap och [låta dig höra] Mitt ord; håll därför fast vid allt som Jag har gett dig och [visa att] du hör till de tacksamma', 'quran-json (CC-BY-4.0)'),
@@ -1204,8 +1206,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1197, 'sv', 'för att Gud skall skilja de onda och de goda åt. Och Han skall bunta ihop de onda och trava dem på varandra och störta dem i helvetet, alla tillsammans. De var förlorarna', 'quran-json (CC-BY-4.0)'),
 (1198, 'sv', '[Muhammad!] Säg till sanningens förnekare: "Om ni gör slut på [ert motstånd mot tron] skall det förflutna förlåtas er, men om ni återupptar [er fientliga hållning, bör ni tänka på] hur det gick för forna tiders folk [som ville trotsa Gud]', 'quran-json (CC-BY-4.0)'),
 (1199, 'sv', 'Och kämpa mot dem till dess förtrycket upphör och all dyrkan ägnas Gud. Om de upphör ser Gud vad de gör', 'quran-json (CC-BY-4.0)'),
-(1200, 'sv', 'men om de vänder om [och på nytt gör motstånd mot tron] skall ni veta att Gud är er beskyddare - den mäktigaste Beskyddaren och den bäste Hjälparen av alla', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1200, 'sv', 'men om de vänder om [och på nytt gör motstånd mot tron] skall ni veta att Gud är er beskyddare - den mäktigaste Beskyddaren och den bäste Hjälparen av alla', 'quran-json (CC-BY-4.0)'),
 (1201, 'sv', 'FEMTEDELEN av det byte som ni tar i krig - det måste ni veta - tillhör Gud och Sändebudet och [hans] närmaste och de faderlösa och de behövande och vandringsmannen. [Lyd detta bud] om ni tror på Gud och på vad Vi har uppenbarat för Vår tjänare den dag då sanningen skildes från lögnen - den dag då de två härarna drabbade samman. Gud har allt i Sin makt', 'quran-json (CC-BY-4.0)'),
 (1202, 'sv', '[Minns] att ni befann er i dalens främre ände och [fienden] i den bortre änden med karavanen långt under er. Om [båda sidor] hade gjort upp om att drabba samman, skulle ni säkert ha dragit er ur spelet, men [striden kom till stånd] därför att Guds vilja måste ske - så att de som stupade, skulle stupa som klart bevis [för sanningen], och att de som fick behålla livet, skulle behålla det som klart bevis [för sanningen]. Gud hör allt, vet allt', 'quran-json (CC-BY-4.0)'),
 (1203, 'sv', 'Gud visade dig i drömmen att de var få. Om Han hade låtit dig se dem som en stark [armé] skulle ni säkert ha tappat modet och börjat tvista om vad som borde göras. Men Gud besparade [er detta]; Han vet vad som rör sig i människans innersta', 'quran-json (CC-BY-4.0)'),
@@ -1319,7 +1320,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1311, 'sv', 'Men när Han ger dem något av Sitt goda klamrar de sig girigt fast vid det, vänder ryggen till och vägrar att infria sitt löfte', 'quran-json (CC-BY-4.0)'),
 (1312, 'sv', 'Och då låter Han följden bli att hyckleriet slår djupa rötter i deras hjärtan [och får växa] intill den Dag då de skall möta Honom, detta därför att de bröt sitt löfte till Gud och inte upphörde med sina lögner', 'quran-json (CC-BY-4.0)'),
 (1313, 'sv', 'Vet de inte att Gud känner deras tysta tankar och deras hemliga överläggningar, och att Han har full kännedom om allt som är dolt [för människor]', 'quran-json (CC-BY-4.0)'),
-(1314, 'sv', 'Dessa [hycklare] talar föraktfullt om dem av de troende som i sina offergåvor ger mer än de är skyldiga att ge och hånar dem som inte har annat att ge än [det magra resultatet av] sitt eget arbete. Gud skall låta deras hån återfalla på dem själva - ett svårt lidande väntar dem', 'quran-json (CC-BY-4.0)'),
+(1314, 'sv', 'Dessa [hycklare] talar föraktfullt om dem av de troende som i sina offergåvor ger mer än de är skyldiga att ge och hånar dem som inte har annat att ge än [det magra resultatet av] sitt eget arbete. Gud skall låta deras hån återfalla på dem själva - ett svårt lidande väntar dem', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1315, 'sv', '[Det är likgiltigt] om du ber Gud förlåta dem eller inte - om du också ber om förlåtelse för dem sjuttio gånger, skall Gud inte förlåta dem. Så [är det] därför att de har förnekat Gud och Hans Sändebud. Gud vägleder sannerligen inte trotsiga syndare', 'quran-json (CC-BY-4.0)'),
 (1316, 'sv', '[HYCKLARNA] som fick stanna hemma gladdes åt att de sluppit ifrån [fälttåget], eftersom de var emot Profetens [plan]; de kände ovilja mot att tvingas kämpa för Guds sak med sina ägodelar och med livet som insats och uppmanade [till och med andra] att inte gå med [i fälttåget] i den hetta [som rådde]. Säg: "Helvetets lågor är hetare!" Om de bara ville förstå', 'quran-json (CC-BY-4.0)'),
 (1317, 'sv', 'Låt dem skratta den korta tid [det jordiska varar] - sedan måste de fälla många tårar över allt det [onda] de gjorde', 'quran-json (CC-BY-4.0)'),
@@ -1505,8 +1507,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1497, 'sv', 'Dessa två slag av människor kan liknas vid de blinda och döva [å ena sidan] och [å den andra] sådana som har synen och hörseln i behåll. Är de jämförbara? Vill ni inte tänka över detta', 'quran-json (CC-BY-4.0)'),
 (1498, 'sv', 'OCH [MED samma budskap] sände Vi Noa till hans folk: "Jag har kommit för att varna er klart och entydigt', 'quran-json (CC-BY-4.0)'),
 (1499, 'sv', 'för att dyrka någon vid sidan av Gud. Jag bävar för det straff som kan drabba er en [sorgens och] plågans Dag', 'quran-json (CC-BY-4.0)'),
-(1500, 'sv', 'Men folkets äldste, som [alla] förnekade sanningen, sade: "Vi ser att du inte är mer än en vanlig människa som vi andra och vi ser att det bara är de eländigaste bland vårt folk som följer dig, sådana som inte har något omdöme. Och vi ser ingenting hos er som i något avseende gör er överlägsna oss; vi anser tvärtom att ni är lögnare', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1500, 'sv', 'Men folkets äldste, som [alla] förnekade sanningen, sade: "Vi ser att du inte är mer än en vanlig människa som vi andra och vi ser att det bara är de eländigaste bland vårt folk som följer dig, sådana som inte har något omdöme. Och vi ser ingenting hos er som i något avseende gör er överlägsna oss; vi anser tvärtom att ni är lögnare', 'quran-json (CC-BY-4.0)'),
 (1501, 'sv', '[Noa] sade: "Vad anser ni, mitt folk? Om jag har ett klart vittnesbörd från min Herre som jag stöder mig på och Han stärker mig med Sin nåd, men [budskapet] ändå förefaller er dunkelt - kan vi då tvinga er att godta det mot er vilja', 'quran-json (CC-BY-4.0)'),
 (1502, 'sv', 'Mitt folk! Jag begär ingen ersättning av er för detta [budskap]; jag väntar ingen lön från någon annan än Gud. Och jag kommer inte att stöta bort dem som antar tron; de är ju kallade att möta sin Herre. Men jag ser att ni är människor utan begrepp [om rätt och orätt]', 'quran-json (CC-BY-4.0)'),
 (1503, 'sv', 'Och vem, mitt folk, skulle kunna skydda mig för Guds [vrede], om jag stötte dem ifrån mig? Vill ni inte tänka över detta', 'quran-json (CC-BY-4.0)'),
@@ -1552,7 +1553,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1543, 'sv', 'Men när han såg att de inte sträckte sina händer mot födan, blev han rädd [att de hade onda avsikter]. [Men] de sade: "Var inte orolig! Vi har sänts till Lots folk', 'quran-json (CC-BY-4.0)'),
 (1544, 'sv', 'Och hans hustru som stod [i närheten] log förnöjt. Då gav Vi henne det glada budskapet om Isaks [födelse] och om Jakob [som skulle födas] efter Isak', 'quran-json (CC-BY-4.0)'),
 (1545, 'sv', 'Hon sade: "Skall jag, arma kvinna, föda en son, gammal och svag som jag är och min man har uppnått hög ålder? Detta är sannerligen märkligt', 'quran-json (CC-BY-4.0)'),
-(1546, 'sv', '[Budbärarna] sade: "Förvånas du över Guds beslut? Guds nåd och välsignelser skall vara med er alla i detta hus! Honom tillhör allt lov och pris', 'quran-json (CC-BY-4.0)'),
+(1546, 'sv', '[Budbärarna] sade: "Förvånas du över Guds beslut? Guds nåd och välsignelser skall vara med er alla i detta hus! Honom tillhör allt lov och pris', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1547, 'sv', 'När Abraham väl övervunnit sin rädsla och fått den goda nyheten [om Isaks födelse], ville han tala till förmån för Lots folk inför Oss', 'quran-json (CC-BY-4.0)'),
 (1548, 'sv', 'Abraham var en fördragsam man och alltid beredd att vända åter i ånger till Gud', 'quran-json (CC-BY-4.0)'),
 (1549, 'sv', '[Men budbärarna sade:] "Avstå, Abraham, från detta! Din Herres dom har fallit och det straff som skall drabba dem kan ingen avvärja', 'quran-json (CC-BY-4.0)'),
@@ -1782,7 +1784,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1773, 'sv', 'Men de som tror och lever ett rättskaffens liv skall föras till lustgårdar, vattnade av bäckar, där de skall förbli till evig tid i enlighet med deras Herres vilja, och där [änglarna] skall välkomna dem med fredshälsningen', 'quran-json (CC-BY-4.0)'),
 (1774, 'sv', 'HAR DU inte tänkt på den liknelse som Gud framställer om det goda ordet? [Det goda ordet] är som ett starkt och friskt träd, fast rotat, som sträcker sina grenar mot skyn', 'quran-json (CC-BY-4.0)'),
 (1775, 'sv', '[ett träd] som enligt sin Herres vilja ständigt bär frukt. Gud framställer [Sina] liknelser för människorna för att [väcka dem till] eftertanke', 'quran-json (CC-BY-4.0)'),
-(1776, 'sv', 'Men det usla ordet är som ett uselt, sjukt träd, som rycks upp med rötterna ur jorden - det saknar fäste', 'quran-json (CC-BY-4.0)'),
+(1776, 'sv', 'Men det usla ordet är som ett uselt, sjukt träd, som rycks upp med rötterna ur jorden - det saknar fäste', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1777, 'sv', 'Gud stärker de troende med det ord vars sanning står fast i denna värld och i evigheten; men de orättfärdiga låter Han gå vilse. - Gud gör vad Han vill', 'quran-json (CC-BY-4.0)'),
 (1778, 'sv', 'VAD TÄNKER du om dem som har bytt bort Guds välgärningar mot förnekandet av sanningen och [på så sätt] har dragit sitt folk med sig ned i förintelsens boning', 'quran-json (CC-BY-4.0)'),
 (1779, 'sv', 'helvetet, vars eld de skall få smaka? I sanning en fasansfull boning', 'quran-json (CC-BY-4.0)'),
@@ -1806,8 +1809,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (1797, 'sv', 'TRO INTE att Gud bryter det löfte Han gav Sina sändebud; Gud är allsmäktig och hämnden är Hans', 'quran-json (CC-BY-4.0)'),
 (1798, 'sv', '[Hans löfte skall infrias] den Dag då jorden förvandlas till en annan jord och himlarna [till andra himlar] och då [alla] skall stiga fram inför den Ende Guden, som härskar över allt med oinskränkt makt', 'quran-json (CC-BY-4.0)'),
 (1799, 'sv', 'Och den Dagen skall du få se de obotfärdiga syndarna, kedjade vid varandra', 'quran-json (CC-BY-4.0)'),
-(1800, 'sv', 'iförda kläder av beck, med ansiktena skymda av eld', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(1800, 'sv', 'iförda kläder av beck, med ansiktena skymda av eld', 'quran-json (CC-BY-4.0)'),
 (1801, 'sv', '[Alla skall stiga fram inför Honom] för att Gud skall ge var och en den lön han har förtjänat [med sina handlingar]; Gud är snar att kalla till räkenskap', 'quran-json (CC-BY-4.0)'),
 (1802, 'sv', 'DETTA ÄR ett budskap till alla människor, som bör lyssna till dess varningar och försöka inse att Han är den Ende Guden. De som har förstånd bör ägna detta eftertanke', 'quran-json (CC-BY-4.0)'),
 (1803, 'sv', 'Alif lam ra. DETTA ÄR budskap ur Skriften, en Koran, klar i sig själv och som ger en klar framställning av sanningen', 'quran-json (CC-BY-4.0)'),
@@ -2085,7 +2087,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2075, 'sv', 'och Vi täcker över deras hjärtan så att de ingenting förstår och täpper till deras öron. Och när du under [läsningen av] Koranen åkallar din Herre och [förkunnar] Hans Enhet, vänder de ryggen till och drar sig bort, fulla av motvilja', 'quran-json (CC-BY-4.0)'),
 (2076, 'sv', 'Vi vet väl vad det är de lyssnar efter då de lyssnar till dig; när de samlas för sig själva säger nämligen [några av] dessa orättfärdiga [människor till de andra]: "[Följer ni Muhammad] följer ni bara en man som står under [inflytande av] trolldom', 'quran-json (CC-BY-4.0)'),
 (2077, 'sv', 'Se där hur de beskriver dig! De har gått helt vilse och kan inte återfinna vägen', 'quran-json (CC-BY-4.0)'),
-(2078, 'sv', 'Och de säger: "Skall vi, efter att ha blivit ben och sönderfrätta rester, återuppstå i en ny skapelse', 'quran-json (CC-BY-4.0)'),
+(2078, 'sv', 'Och de säger: "Skall vi, efter att ha blivit ben och sönderfrätta rester, återuppstå i en ny skapelse', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2079, 'sv', 'Säg: "[Visst!] Även om era [kroppar] hade varit av sten eller av järn', 'quran-json (CC-BY-4.0)'),
 (2080, 'sv', 'eller skapade av vad ni ser som ännu oförenligare [med tanken på liv]." Då kommer de att fråga: "Vem skall skapa oss på nytt?" - [och du skall] svara: "Den som först skapade er." Då ruskar de på huvudet åt dig och frågar: "När skall detta ske?" - [och då] svarar du: "Kanske är tiden nära', 'quran-json (CC-BY-4.0)'),
 (2081, 'sv', 'den Dag då Han skall kalla på er och ni till svar skall lovprisa Honom, kommer det att förefalla er som om ni hade vistats [på jorden] bara en kort stund', 'quran-json (CC-BY-4.0)'),
@@ -2107,8 +2110,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2097, 'sv', 'Känner ni er säkra att Han inte låter jorden [rämna och] uppsluka er eller låter en orkan bryta lös över er? Vem skall då beskydda er', 'quran-json (CC-BY-4.0)'),
 (2098, 'sv', 'Eller är ni säkra på att Han inte på grund av er otacksamhet åter sänder er ut till havs och släpper lös våldsamma stormar över er och låter er drunkna? Då finner ni ingen som kan hämnas på Oss [för er död]', 'quran-json (CC-BY-4.0)'),
 (2099, 'sv', 'VI HAR sannerligen visat Adams söner stor heder. Vi har gjort det möjligt för dem att färdas över land och hav och försörjt dem med god och hälsosam föda och gynnat dem framför många av de andra varelser som Vi har skapat', 'quran-json (CC-BY-4.0)'),
-(2100, 'sv', 'Den dag då Vi - genom att kalla på deras profeter - skall ropa fram alla människor [för att dömas], skall de som får ta emot sin bok med höger hand läsa den [och glädjas] och ingen skall lida ens så mycken orätt som kan rymmas på en tråd', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2100, 'sv', 'Den dag då Vi - genom att kalla på deras profeter - skall ropa fram alla människor [för att dömas], skall de som får ta emot sin bok med höger hand läsa den [och glädjas] och ingen skall lida ens så mycken orätt som kan rymmas på en tråd', 'quran-json (CC-BY-4.0)'),
 (2101, 'sv', 'Men den som på jorden var blind [för sanningen] skall i evigheten förbli blind och förirra sig allt längre från [den raka] vägen', 'quran-json (CC-BY-4.0)'),
 (2102, 'sv', 'DE [SOM sätter gudar vid Guds sida] försökte fresta dig [Muhammad] att lägga åt sidan det som Vi har uppenbarat för dig och [locka dig att] sätta samman något annat som du kunde tillskriva Oss. [Om du hade gjort detta] skulle de helt säkert ha tagit emot dig som en kär vän', 'quran-json (CC-BY-4.0)'),
 (2103, 'sv', 'Och om Vi inte hade gjort dig stark i tron, hade du kunnat gå dem litet till mötes', 'quran-json (CC-BY-4.0)'),
@@ -2384,7 +2386,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2373, 'sv', '[Moses] sade: "Herre! Öppna mitt bröst [för Ditt ljus]', 'quran-json (CC-BY-4.0)'),
 (2374, 'sv', 'och gör min uppgift lätt', 'quran-json (CC-BY-4.0)'),
 (2375, 'sv', 'och lös min tungas band', 'quran-json (CC-BY-4.0)'),
-(2376, 'sv', 'så att de förstår mina ord', 'quran-json (CC-BY-4.0)'),
+(2376, 'sv', 'så att de förstår mina ord', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2377, 'sv', 'och ge mig som medhjälpare en av de mina', 'quran-json (CC-BY-4.0)'),
 (2378, 'sv', 'Aron, min broder', 'quran-json (CC-BY-4.0)'),
 (2379, 'sv', 'Låt honom bli ett stöd för mig', 'quran-json (CC-BY-4.0)'),
@@ -2408,8 +2411,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2397, 'sv', '[När de fått företräde och Moses hade talat] sade [Farao]: "Vem, Moses, är då er Herre', 'quran-json (CC-BY-4.0)'),
 (2398, 'sv', '[Moses] svarade: "Han som ger åt varje ting dess väsen och form och sedan leder det på dess väg - Han är vår Herre', 'quran-json (CC-BY-4.0)'),
 (2399, 'sv', '[Farao] sade: "Hur är det då med de släkten som levde före oss', 'quran-json (CC-BY-4.0)'),
-(2400, 'sv', '[Moses] svarade: "Kunskapen om [vad som hänt] dem finns hos min Herre, [upptecknad] i ett beslut; min Herre begår aldrig ett misstag och Han glömmer ingenting', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2400, 'sv', '[Moses] svarade: "Kunskapen om [vad som hänt] dem finns hos min Herre, [upptecknad] i ett beslut; min Herre begår aldrig ett misstag och Han glömmer ingenting', 'quran-json (CC-BY-4.0)'),
 (2401, 'sv', '[DET ÄR] Han som har gjort jorden till er vagga och stakat ut på den de vägar [ni har att följa för att få er utkomst], och som låter regn falla från skyn - med detta låter Vi växter spira av alla slag', 'quran-json (CC-BY-4.0)'),
 (2402, 'sv', '[Av växterna och deras frukter] får ni livnära er och låta er boskap beta. I detta ligger helt visst budskap till människor som [styrs av] sitt förnuft', 'quran-json (CC-BY-4.0)'),
 (2403, 'sv', 'Av denna [jord] har Vi skapat er och till den låter Vi er vända tillbaka och ur den skall Vi [kalla] er att stiga fram ännu en gång', 'quran-json (CC-BY-4.0)'),
@@ -2682,7 +2684,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2670, 'sv', 'Gud utser sändebud bland änglarna såväl som bland människorna och Han hör allt, ser allt', 'quran-json (CC-BY-4.0)'),
 (2671, 'sv', 'Han vet allt vad [människor] kan veta och allt som är dolt för dem; allt går [till sist] åter till Gud', 'quran-json (CC-BY-4.0)'),
 (2672, 'sv', 'TROENDE! Böj ryggar och knän och fall ned på era ansikten och dyrka er Herre och gör gott - kanske skall det gå er väl i händer', 'quran-json (CC-BY-4.0)'),
-(2673, 'sv', 'Och sträva för Guds sak med all den hängivelse som ni är skyldiga Honom. Han har utvalt er och Han har inte lagt på er svåra eller tunga plikter i [utövningen av er] religion, den rena, ursprungliga tro som var er fader Abrahams. Det är Han som i gången tid och i denna [Skrift] har kallat er "dem som har underkastat sig Guds vilja". Om detta skall Sändebudet vittna mot er och ni skall vittna mot människorna. Förrätta därför bönen regelbundet och erlägg allmoseskatten! Och håll fast vid Gud, er Herre och er Beskyddare - den mäktigaste Beskyddaren och den bäste Hjälparen av alla', 'quran-json (CC-BY-4.0)'),
+(2673, 'sv', 'Och sträva för Guds sak med all den hängivelse som ni är skyldiga Honom. Han har utvalt er och Han har inte lagt på er svåra eller tunga plikter i [utövningen av er] religion, den rena, ursprungliga tro som var er fader Abrahams. Det är Han som i gången tid och i denna [Skrift] har kallat er "dem som har underkastat sig Guds vilja". Om detta skall Sändebudet vittna mot er och ni skall vittna mot människorna. Förrätta därför bönen regelbundet och erlägg allmoseskatten! Och håll fast vid Gud, er Herre och er Beskyddare - den mäktigaste Beskyddaren och den bäste Hjälparen av alla', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2674, 'sv', 'DET SKALL gå de troende väl i händer', 'quran-json (CC-BY-4.0)'),
 (2675, 'sv', 'de som ber med ödmjukt sinne', 'quran-json (CC-BY-4.0)'),
 (2676, 'sv', 'som drar sig undan när de hör lättsinnigt tal', 'quran-json (CC-BY-4.0)'),
@@ -2709,8 +2712,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2697, 'sv', 'Men de äldste, de bland hans folk som förnekade sanningen, sade [till varandra]: "Denne man är bara en människa som vi, men han vill ta befälet över oss. Om Gud ville [sända ett budskap till oss], skulle Han sända änglar. Vi har aldrig hört att något liknande skulle ha förekommit bland våra förfäder i äldre tid', 'quran-json (CC-BY-4.0)'),
 (2698, 'sv', 'Han är en man besatt av andar; men låt oss vänta en tid och se [om det kanske händer honom något]', 'quran-json (CC-BY-4.0)'),
 (2699, 'sv', '[Noa] bad: "Herre, kom till min hjälp! De anser mig vara en lögnare', 'quran-json (CC-BY-4.0)'),
-(2700, 'sv', 'Då gav Vi honom genom uppenbarelse uppdraget: "Bygg - under Vår uppsyn och Vår ledning - den ark [som skall bli din och de dinas räddning]. När Vi ger Vår befallning och vattenmassorna forsar fram över jorden, för då ombord ett par av varje [djurslag], hanne och hona, samt din familj utom den över vilken domen redan har fallit; men tala inte till Mig till förmån för de orättfärdiga - de skall [alla] dö i vågorna', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(2700, 'sv', 'Då gav Vi honom genom uppenbarelse uppdraget: "Bygg - under Vår uppsyn och Vår ledning - den ark [som skall bli din och de dinas räddning]. När Vi ger Vår befallning och vattenmassorna forsar fram över jorden, för då ombord ett par av varje [djurslag], hanne och hona, samt din familj utom den över vilken domen redan har fallit; men tala inte till Mig till förmån för de orättfärdiga - de skall [alla] dö i vågorna', 'quran-json (CC-BY-4.0)'),
 (2701, 'sv', 'Och när du och de som är med dig har gått ombord på arken skall du säga: "Låt oss lova och prisa Gud, som har räddat oss från dessa orättfärdiga människor', 'quran-json (CC-BY-4.0)'),
 (2702, 'sv', 'Och säg: "Herre! Låt mig med Din välsignelse [till sist] nå land! Ingen kan leda människorna till deras bestämmelse som Du', 'quran-json (CC-BY-4.0)'),
 (2703, 'sv', 'I detta ligger helt visst budskap [till de klarsynta]; Vi sätter [ständigt människorna] på prov', 'quran-json (CC-BY-4.0)'),
@@ -3002,7 +3004,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2989, 'sv', 'och vi har drivit bort dem från deras trädgårdar och källor', 'quran-json (CC-BY-4.0)'),
 (2990, 'sv', 'och de rikedomar de samlade och den hedersamma plats [som de intog i vårt land]', 'quran-json (CC-BY-4.0)'),
 (2991, 'sv', 'Så [gick de till väga]. - Men [därefter] gav Vi Israels barn [allt] detta i arv', 'quran-json (CC-BY-4.0)'),
-(2992, 'sv', 'Och de förföljande [egyptierna] hann upp dem vid soluppgången', 'quran-json (CC-BY-4.0)'),
+(2992, 'sv', 'Och de förföljande [egyptierna] hann upp dem vid soluppgången', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2993, 'sv', 'och när de två människohoparna kom inom synhåll för varandra, ropade de som tågade med Moses: "De kommer att hinna ifatt oss [och göra slut på oss]', 'quran-json (CC-BY-4.0)'),
 (2994, 'sv', '[Moses] svarade: "Nej! Min Herre är med mig och Han kommer att leda mig', 'quran-json (CC-BY-4.0)'),
 (2995, 'sv', 'Och Vi befallde Moses: "Slå på vattnet med din stav!" - och se, då delade sig [havet] och de två delarna reste sig som mäktiga berg', 'quran-json (CC-BY-4.0)'),
@@ -3010,8 +3013,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (2997, 'sv', 'Vi räddade Moses och alla som var med honom', 'quran-json (CC-BY-4.0)'),
 (2998, 'sv', 'och därefter lät Vi de andra dränkas', 'quran-json (CC-BY-4.0)'),
 (2999, 'sv', 'I detta ligger helt visst ett budskap [till människorna] men de flesta av dem vill inte tro', 'quran-json (CC-BY-4.0)'),
-(3000, 'sv', 'Din Herre är den Allsmäktige, den Barmhärtige', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3000, 'sv', 'Din Herre är den Allsmäktige, den Barmhärtige', 'quran-json (CC-BY-4.0)'),
 (3001, 'sv', 'OCH BERÄTTA för dem om Abraham', 'quran-json (CC-BY-4.0)'),
 (3002, 'sv', 'hur han frågade sin fader och sitt folk: "Vad är det ni tillber', 'quran-json (CC-BY-4.0)'),
 (3003, 'sv', 'De svarade: "Vi tillber [våra] gudabilder och vi skall fortsätta att ge dem vår hängivna dyrkan', 'quran-json (CC-BY-4.0)'),
@@ -3311,8 +3313,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3297, 'sv', '[Därefter] har Vi låtit [nya] släkten stiga fram och mycken tid har förflutit! - Inte heller vistades du bland folket i Madyan och framförde Våra budskap till dem, men Vi har sänt [dig och berättat för dig om dem som gick före dig]', 'quran-json (CC-BY-4.0)'),
 (3298, 'sv', 'Fastän du inte stod på sluttningen av berget Sinai, när Vi kallade [Moses], har din Herre av nåd [gett dig denna kunskap och sänt dig] för att varna människor som inte har fått ta emot en varnare före dig; kanske skall de [väckas till] eftertanke', 'quran-json (CC-BY-4.0)'),
 (3299, 'sv', 'Om [så inte skett] hade de, när de onda följderna drabbade dem av det som deras händer har sänt vidare [till Domen], kunnat säga: "Om Du ändå hade låtit ett sändebud komma till oss, Herre! Då hade vi kunnat följa Dina budskap och bli sanna troende', 'quran-json (CC-BY-4.0)'),
-(3300, 'sv', 'Men när sanningen från Oss nu har kommit till dem, säger de: "Om han ändå hade fått samma [budskap] som Moses fick!" Men förkastades inte det [budskap] som Moses en gång fick av [hans eget folk]? [Alla] säger de ju: "Två [prov på] bländande vältalighet som bekräftar varandra." Och tillfogar: "Vi avvisar dem båda', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3300, 'sv', 'Men när sanningen från Oss nu har kommit till dem, säger de: "Om han ändå hade fått samma [budskap] som Moses fick!" Men förkastades inte det [budskap] som Moses en gång fick av [hans eget folk]? [Alla] säger de ju: "Två [prov på] bländande vältalighet som bekräftar varandra." Och tillfogar: "Vi avvisar dem båda', 'quran-json (CC-BY-4.0)'),
 (3301, 'sv', 'Säg: "Visa då fram en uppenbarelse från Gud med bättre vägledning än dessa två - jag skall följa den, om ni har talat sanning', 'quran-json (CC-BY-4.0)'),
 (3302, 'sv', 'Om de då inte kan svara, vet du att de styrs bara av vad de själva önskar och hoppas, och vem är vilsnare än den som helt saknar Guds vägledning och styrs av sina egna önskningar och förhoppningar? Gud vägleder sannerligen inte de orättfärdiga', 'quran-json (CC-BY-4.0)'),
 (3303, 'sv', 'VI HAR låtit [Vårt] Ord nå dem steg för steg - kanske skall det stämma dem till eftertanke', 'quran-json (CC-BY-4.0)'),
@@ -3351,7 +3352,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3336, 'sv', 'Den som stiger fram [inför Honom] med en god handling skall få en större [belöning än handlingen förtjänar], och den som stiger fram [inför Honom] med en dålig handling [skall veta att] de som begår dåliga handlingar inte skall straffas för annat än vad de har gjort', 'quran-json (CC-BY-4.0)'),
 (3337, 'sv', 'HAN SOM har uppenbarat denna Koran för dig och gjort dess klara och tydliga föreskrifter till bindande regler [för ditt liv] skall helt visst låta dig nå ditt slutliga mål. Säg [till förnekarna av sanningen]: "Min Herre vet bäst vem som är rätt vägledd och vem som har gått helt vilse', 'quran-json (CC-BY-4.0)'),
 (3338, 'sv', 'Du väntade dig inte att få ta emot uppenbarelsen av denna Skrift, men så har skett genom din Herres nåd. Ge därför inte förnekarna under några omständigheter ditt stöd', 'quran-json (CC-BY-4.0)'),
-(3339, 'sv', 'och låt dem aldrig hindra dig att [i allt] följa din Herres budskap sedan de uppenbarats för dig. Uppmana [människorna] att dyrka din Herre [och att bekänna Hans enhet]. Och närma dig inte dem som sätter någon eller något vid Hans sida', 'quran-json (CC-BY-4.0)'),
+(3339, 'sv', 'och låt dem aldrig hindra dig att [i allt] följa din Herres budskap sedan de uppenbarats för dig. Uppmana [människorna] att dyrka din Herre [och att bekänna Hans enhet]. Och närma dig inte dem som sätter någon eller något vid Hans sida', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3340, 'sv', 'och anropa aldrig en annan gud jämte Gud. Det finns ingen gud utom Han. Allt skall förgå utom Han [som förblir i evighet]; domen är Hans och till Honom skall ni föras åter', 'quran-json (CC-BY-4.0)'),
 (3341, 'sv', 'Alif lam meem', 'quran-json (CC-BY-4.0)'),
 (3342, 'sv', 'TROR människorna att de efter att ha förklarat "Vi tror" skall lämnas i fred utan att få utstå prövningar', 'quran-json (CC-BY-4.0)'),
@@ -3913,8 +3915,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3897, 'sv', '[som ber:] "Fred och välsignelse över Abraham', 'quran-json (CC-BY-4.0)'),
 (3898, 'sv', 'Så belönar Vi dem som gör det goda och det rätta', 'quran-json (CC-BY-4.0)'),
 (3899, 'sv', 'Han var en av Våra sant troende tjänare', 'quran-json (CC-BY-4.0)'),
-(3900, 'sv', 'Och Vi gav honom det glada budskapet att Isak [skulle födas åt honom och bli] en profet, en av de rättfärdiga', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(3900, 'sv', 'Och Vi gav honom det glada budskapet att Isak [skulle födas åt honom och bli] en profet, en av de rättfärdiga', 'quran-json (CC-BY-4.0)'),
 (3901, 'sv', 'Och Vi välsignade honom och Isak - bland deras efterkommande finns såväl den som gör det goda och det rätta och den som begår uppenbar orätt till skada för sig själv', 'quran-json (CC-BY-4.0)'),
 (3902, 'sv', 'VI VISADE sannerligen Moses och Aron stor nåd', 'quran-json (CC-BY-4.0)'),
 (3903, 'sv', 'då Vi räddade dem och deras landsmän ur [träldomens] förbannelse', 'quran-json (CC-BY-4.0)'),
@@ -3988,7 +3989,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3971, 'sv', 'Saad', 'quran-json (CC-BY-4.0)'),
 (3972, 'sv', 'De som förnekar sanningen av högmod och motsägelselusta [och förkastar dess budskap bör tänka på]', 'quran-json (CC-BY-4.0)'),
 (3973, 'sv', 'hur många släkten Vi har låtit gå under före dem! [När de såg straffet] ropade de [på förskoning], men den tid då de hade kunnat rädda sig var förbi', 'quran-json (CC-BY-4.0)'),
-(3974, 'sv', 'De förvånas över att [en man] ur deras egen krets kommer till dem för att varna dem, och förnekarna av sanningen säger: "Hans vältalighet bländar oss, men det är bara lögn', 'quran-json (CC-BY-4.0)'),
+(3974, 'sv', 'De förvånas över att [en man] ur deras egen krets kommer till dem för att varna dem, och förnekarna av sanningen säger: "Hans vältalighet bländar oss, men det är bara lögn', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (3975, 'sv', 'Han gör ju alla gudar till en gud? Det är högst märkligt', 'quran-json (CC-BY-4.0)'),
 (3976, 'sv', 'Och deras ledare sade till varandra när de bröt upp [från en överläggning:] "Låt oss hålla fast vid våra gudar! Här ligger helt säkert något bakom', 'quran-json (CC-BY-4.0)'),
 (3977, 'sv', 'Något liknande har vi inte hört från [de kristna]. Nej, detta är bara [hans eget] påfund', 'quran-json (CC-BY-4.0)'),
@@ -4214,8 +4216,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4197, 'sv', 'Det är Gud som har gett er jorden som boplats och [rest] himlen som ett valv [över er] och som format er [och gett er] den bästa skapnad och som sörjer för ert livsuppehälle med goda och nyttiga ting. Detta är Gud, er Herre - välsignad vare Gud, världarnas Herre', 'quran-json (CC-BY-4.0)'),
 (4198, 'sv', 'Han är Levande Gud; det finns ingen gud utom Han. Åkalla Honom med ren och uppriktig tro! Allt lov och pris tillkommer Gud, världarnas Herre', 'quran-json (CC-BY-4.0)'),
 (4199, 'sv', 'Säg: "Jag har förbjudits att dyrka dem ni åkallar i Guds ställe - jag har fått klara bevis från min Herre - och jag har befallts att underkasta mig Guds, världarnas Herres, vilja', 'quran-json (CC-BY-4.0)'),
-(4200, 'sv', 'Det är Han som har skapat er av jord, därefter [skapar Han er] av en droppe säd, därefter av en grodd som sätter sig fast, därefter låter Han er komma till världen som späda barn för att småningom nå full mognad och, till sist, hög ålder - men några av er får dö innan [de når sådan ålder] - så att ert levnadslopp, som [Han har] fastställt, skall fullbordas, och för att ni skall [lära er] att använda ert förstånd', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4200, 'sv', 'Det är Han som har skapat er av jord, därefter [skapar Han er] av en droppe säd, därefter av en grodd som sätter sig fast, därefter låter Han er komma till världen som späda barn för att småningom nå full mognad och, till sist, hög ålder - men några av er får dö innan [de når sådan ålder] - så att ert levnadslopp, som [Han har] fastställt, skall fullbordas, och för att ni skall [lära er] att använda ert förstånd', 'quran-json (CC-BY-4.0)'),
 (4201, 'sv', 'Det är Han som skänker liv och Han som skänker död. När Han beslutar att något skall vara, säger Han endast till det: "Var!" - och det är', 'quran-json (CC-BY-4.0)'),
 (4202, 'sv', 'De som [i sitt högmod] sätter Guds uppenbarelser i fråga, har du inte märkt hur deras tankar leds bort från [den sanna vägledningen]', 'quran-json (CC-BY-4.0)'),
 (4203, 'sv', 'de som [vågar] förneka Skriften och [likaså] det som Vi uppenbarade för Våra sändebud [i äldre tid]? Men de skall få veta [sanningen]', 'quran-json (CC-BY-4.0)'),
@@ -4279,7 +4280,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4261, 'sv', 'Vad de säger till dig [Muhammad] är ingenting annat än det som har sagts till de profeter som gick före dig. Din Herre är Den som ger full förlåtelse, men också Den som straffar med ett plågsamt straff', 'quran-json (CC-BY-4.0)'),
 (4262, 'sv', 'Om Vi hade uppenbarat denna Koran på ett annat språk än arabiska, skulle de [som nu avvisar den] helt säkert ha sagt: "Varför har inte dess verser fått en fast och klar avfattning? [Budskap på] ett främmande språk! Och [budbäraren] arab!" Säg: "Denna [Skrift] ger alla som vill tro vägledning och bot [mot tvivel och okunnighet]; men för dem som inte vill tro har öronen täppts till och den känns som [en dimma] av blindhet [och elände] - [Koranen blir] för dem [bara] ett rop i ett långt avlägset fjärran', 'quran-json (CC-BY-4.0)'),
 (4263, 'sv', 'Och Vi gav Moses Skriften, men olika meningar uppstod [bland människorna] om dess innebörd; och om inte din Herre hade beslutat [om uppskov] skulle allt [genast] ha varit avgjort mellan dem. Men [som det nu är] fortsätter de att omge [uppenbarelsen] med sina tvivel och misstankar', 'quran-json (CC-BY-4.0)'),
-(4264, 'sv', 'DEN SOM handlar rättrådigt har själv gott av det, och den som gör orätt vållar sig själv skada; deras Herre vill inte Sina tjänare ont', 'quran-json (CC-BY-4.0)'),
+(4264, 'sv', 'DEN SOM handlar rättrådigt har själv gott av det, och den som gör orätt vållar sig själv skada; deras Herre vill inte Sina tjänare ont', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4265, 'sv', 'Han ensam har kunskapen om den Yttersta stundens ankomst; ingen frukt tränger fram ur sitt hölje och ingen varelse av honkön blir havande, inte heller föder hon, utan Hans vetskap. Den Dag då Han skall fråga [avgudadyrkarna]: "Var är [nu] Mina medgudar?" - kommer de att svara: "Vi måste erkänna att ingen av oss kan vittna [att de finns]', 'quran-json (CC-BY-4.0)'),
 (4266, 'sv', 'Det som de förut brukat åkalla har då övergett dem, och de har förstått att det inte finns någon plats dit de kan fly', 'quran-json (CC-BY-4.0)'),
 (4267, 'sv', 'MÄNNISKAN förtröttas inte att be om goda ting, men när hon drabbas av ett ont tappar hon modet och misströstar [om Guds nåd]', 'quran-json (CC-BY-4.0)'),
@@ -4515,8 +4517,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4497, 'sv', 'Och de säger: "Det finns inget liv utom livet på jorden. Några [av oss] dör och några lever [vidare] och enbart tiden förintar oss." Men om detta har de ingen kunskap - de rör sig bara med lösa antaganden', 'quran-json (CC-BY-4.0)'),
 (4498, 'sv', 'Och när någon läser Våra klara budskap högt för dem, kan de inte finna på något annat att säga än: "Låt då våra förfäder stiga fram, om det ni säger är sant', 'quran-json (CC-BY-4.0)'),
 (4499, 'sv', 'Säg: "Det är Gud som ger er liv och sedan låter er dö och som, när Uppståndelsens dag är inne - här finns inte rum för tvivel - skall samla er [till Sig]; men [om detta] har de flesta människor ingen kunskap', 'quran-json (CC-BY-4.0)'),
-(4500, 'sv', 'Guds är herraväldet över himlarna och jorden, och den Dag då den Yttersta stunden närmar sig skall de som ville dra sanningen [i Våra budskap] i tvivelsmål vara förlorade', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4500, 'sv', 'Guds är herraväldet över himlarna och jorden, och den Dag då den Yttersta stunden närmar sig skall de som ville dra sanningen [i Våra budskap] i tvivelsmål vara förlorade', 'quran-json (CC-BY-4.0)'),
 (4501, 'sv', 'Och den Dagen skall du få se alla samfund ligga på knä [inför Domaren] och varje samfund kallas fram till sin bok: "I dag skall ni få lönen för era handlingar', 'quran-json (CC-BY-4.0)'),
 (4502, 'sv', 'Detta är Vår bok som säger [den fulla] sanningen om er; allt vad ni gjorde har Vi låtit nedteckna', 'quran-json (CC-BY-4.0)'),
 (4503, 'sv', 'De som hade tron och levde ett rättskaffens liv skall inneslutas i Sin Herres nåd; detta är den lysande segern', 'quran-json (CC-BY-4.0)'),
@@ -4576,7 +4577,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4557, 'sv', 'De troende som lever ett rättskaffens liv skall Gud föra till lustgårdar, vattnade av bäckar, men de som framhärdar i att förneka sanningen skall [under en tid] få njuta av livet och inta sin föda som boskapen betar; därefter skall [den eviga] Elden bli deras slutliga boning', 'quran-json (CC-BY-4.0)'),
 (4558, 'sv', 'Hur många folk med större makt än ditt [Muhammad] som har jagat bort dig, har Vi inte låtit gå under! Och de fick ingen hjälp', 'quran-json (CC-BY-4.0)'),
 (4559, 'sv', 'KAN DEN som stöder sig på ett klart vittnesbörd från sin Herre jämföras med den vars dåliga handlingar skönmålats för honom och som [bara] följer vad de själva tycker och önskar', 'quran-json (CC-BY-4.0)'),
-(4560, 'sv', 'Paradiset som lovats dem som fruktar Gud kan liknas vid [en lustgård] där bäckar flyter med vatten som alltid förblir friskt, och floder av mjölk med ofördärvad smak, och floder av det ljuvligaste vin, och floder av renaste honung, och där de skall njuta frukter av alla slag och [dessutom få] sin Herres förlåtelse. [Kan den som stiger in i detta paradis jämföras] med den som måste förbli i Elden och [där] dricka skållhett vatten, som bränner sönder hans inälvor', 'quran-json (CC-BY-4.0)'),
+(4560, 'sv', 'Paradiset som lovats dem som fruktar Gud kan liknas vid [en lustgård] där bäckar flyter med vatten som alltid förblir friskt, och floder av mjölk med ofördärvad smak, och floder av det ljuvligaste vin, och floder av renaste honung, och där de skall njuta frukter av alla slag och [dessutom få] sin Herres förlåtelse. [Kan den som stiger in i detta paradis jämföras] med den som måste förbli i Elden och [där] dricka skållhett vatten, som bränner sönder hans inälvor', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4561, 'sv', 'Bland [hycklarna] finns de som lyssnar till dig [Muhammad, och låtsas förstå], men när de går ifrån dig säger de till dem som har kunskap: "Vad betyder det han sade nyss?" De är [människor] vars hjärtan Gud har förseglat, eftersom de [bara] följer vad de själva tycker och önskar', 'quran-json (CC-BY-4.0)'),
 (4562, 'sv', 'men de som vill låta sig vägledas, dem ger Han en allt fastare ledning och fördjupar deras gudsfruktan', 'quran-json (CC-BY-4.0)'),
 (4563, 'sv', 'Väntar de bara att den Yttersta stunden skall komma över dem plötsligt? Men dess förebud är redan här! Och vad har de för nytta av att dra sig till minnes, när Stunden är över dem', 'quran-json (CC-BY-4.0)'),
@@ -4816,8 +4818,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4797, 'sv', 'Ja, han såg honom ännu en gång', 'quran-json (CC-BY-4.0)'),
 (4798, 'sv', 'vid lotusträdet [nära] den yttersta gränsen', 'quran-json (CC-BY-4.0)'),
 (4799, 'sv', 'intill [den ljuvliga] vilans lustgård', 'quran-json (CC-BY-4.0)'),
-(4800, 'sv', 'och lotusträdet badade [i ett bländande ljus]', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(4800, 'sv', 'och lotusträdet badade [i ett bländande ljus]', 'quran-json (CC-BY-4.0)'),
 (4801, 'sv', 'Han tog inte sina ögon [från synen] och inte heller försökte han se mer än vad han såg', 'quran-json (CC-BY-4.0)'),
 (4802, 'sv', 'han fick ju se några av sin Herres största tecken', 'quran-json (CC-BY-4.0)'),
 (4803, 'sv', 'HAR ni ägnat en tanke åt Al-Lat och Al-Uzza', 'quran-json (CC-BY-4.0)'),
@@ -4959,7 +4960,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4939, 'sv', 'vilket av er [allsmäktige] Herres verk vill ni båda då förneka', 'quran-json (CC-BY-4.0)'),
 (4940, 'sv', 'Då skall ingen fråga ställas till vare sig människor eller osynliga väsen om [deras] synder', 'quran-json (CC-BY-4.0)'),
 (4941, 'sv', 'Vilket verk av er [allsmäktige] Herre vill ni båda då förneka', 'quran-json (CC-BY-4.0)'),
-(4942, 'sv', 'De trotsiga, obotfärdiga syndarna skall kännas igen på sina [särskilda] kännetecken och de skall gripas i pannluggen och i fötterna', 'quran-json (CC-BY-4.0)'),
+(4942, 'sv', 'De trotsiga, obotfärdiga syndarna skall kännas igen på sina [särskilda] kännetecken och de skall gripas i pannluggen och i fötterna', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (4943, 'sv', 'Vilket av er [allsmäktige] Herres verk vill ni båda då förneka', 'quran-json (CC-BY-4.0)'),
 (4944, 'sv', 'DETTA ÄR helvetet, vars existens de obotfärdiga syndarna förnekar', 'quran-json (CC-BY-4.0)'),
 (4945, 'sv', 'där skall de vandra av och an mellan [eld] och skållhett vatten', 'quran-json (CC-BY-4.0)'),
@@ -5117,8 +5119,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5097, 'sv', 'Ingen olycka drabbar jorden och inte heller er själva utan att den förts in i [Vår] bok, innan Vi sätter den i verket. Detta kostar inte Gud någon möda', 'quran-json (CC-BY-4.0)'),
 (5098, 'sv', '[Så är det] för att ni inte skall sörja över det som ni har gått miste om, och inte heller jubla i övermod över det som Han har skänkt er. Gud älskar inte inbilska skrävlare', 'quran-json (CC-BY-4.0)'),
 (5099, 'sv', 'och [inte heller] girigbukar, som förmanar andra att hålla hårt om penningpåsen. Och den som vänder [Gud] ryggen [bör tänka på att] Gud är Den som är Sig själv nog, Den som allt lov och pris tillkommer', 'quran-json (CC-BY-4.0)'),
-(5100, 'sv', 'Vi sände Våra profeter med klara bevis [om sanningen] och med dem sände Vi Skriften och en Våg för att [hjälpa] människorna att handla rättvist. Och järnet, som har fruktansvärd styrka och som är människan till nytta, har Vi satt i era [händer]. Låt därför dem ge sig till känna som vill stödja och försvara Guds och Hans Sändebuds sak, fastän [Gud] inte kan ses eller förnimmas. All styrka och all makt ligger hos Gud', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5100, 'sv', 'Vi sände Våra profeter med klara bevis [om sanningen] och med dem sände Vi Skriften och en Våg för att [hjälpa] människorna att handla rättvist. Och järnet, som har fruktansvärd styrka och som är människan till nytta, har Vi satt i era [händer]. Låt därför dem ge sig till känna som vill stödja och försvara Guds och Hans Sändebuds sak, fastän [Gud] inte kan ses eller förnimmas. All styrka och all makt ligger hos Gud', 'quran-json (CC-BY-4.0)'),
 (5101, 'sv', 'Ja, Vi sände Noa och Abraham och kallade flera av deras efterkommande till profeter och gav dem [Våra] uppenbarelser; bland dessa [efterkommande] följde några den raka vägen, men många av dem visade trots och olydnad [mot Gud]', 'quran-json (CC-BY-4.0)'),
 (5102, 'sv', 'Och Vi lät [andra av] Våra sändebud följa i deras spår och Vi sände Jesus, Marias son, och gav honom Evangeliet; och Vi lät hjärtana hos dem som följde honom fyllas av ömhet och medkänsla. Men själva införde de munkväsendet - Vi föreskrev det inte för dem - och med dess [späkningar och försakelser] strävade de efter att uppnå Guds välbehag. Men de följde inte dess [regler] så som de borde ha följt dem. Vi belönade dem bland efterföljarna [till Jesus] som var [sanna] troende, men många av dem visade trots [mot Gud]', 'quran-json (CC-BY-4.0)'),
 (5103, 'sv', 'TROENDE! Frukta Gud och tro på Hans Sändebud! Då skall Han av nåd ge er en dubbel belöning och låta ett ljus lysa er på er vandring och Han skall ge er Sin förlåtelse - Gud är ständigt förlåtande, barmhärtig', 'quran-json (CC-BY-4.0)'),
@@ -5256,7 +5257,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5235, 'sv', 'TROENDE! För er egen skull och för deras som står er nära bör ni frukta den Eld som har människor och stenar till bränsle, och som mäktiga och stränga änglar [vakar över, änglar] som aldrig brister i lydnad för Gud, vad Han än befaller dem, och som utför allt som åläggs dem', 'quran-json (CC-BY-4.0)'),
 (5236, 'sv', 'Urskulda er inte denna Dag, ni envisa förnekare av sanningen! Ni skall lönas enbart för det som ni gjorde [i livet]', 'quran-json (CC-BY-4.0)'),
 (5237, 'sv', 'Troende! Vänd er i uppriktig ånger [över era synder] till Gud! Kanske skall er Herre ur er [bok] utplåna era dåliga handlingar och föra er till lustgårdar, vattnade av bäckar, den Dag då Gud inte låter skam komma vid Profeten och dem som följde honom i tron - ljuset [av deras tro och deras goda handlingar] skall lysa framför dem och till höger om dem [och] de ber: "Herre, låt vårt ljus lysa allt klarare och förlåt oss våra synder! Du har allt i Din makt', 'quran-json (CC-BY-4.0)'),
-(5238, 'sv', 'PROFET! Kämpa outtröttligt mot förnekarna av sanningen och mot hycklarna och visa dig omutligt sträng mot dem; Elden är deras slutliga hemvist - detta eländiga mål', 'quran-json (CC-BY-4.0)'),
+(5238, 'sv', 'PROFET! Kämpa outtröttligt mot förnekarna av sanningen och mot hycklarna och visa dig omutligt sträng mot dem; Elden är deras slutliga hemvist - detta eländiga mål', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5239, 'sv', 'Gud har utpekat Noas hustru och Lots hustru som varnande exempel för dem som framhärdar i att förneka sanningen; deras män var två av Våra rättfärdiga tjänare och de svek dem. Men [männen] kunde inte skydda dem mot Guds [straff] och [på Domens dag] skall de få höra dessa ord: "Gå in i Elden med de [övriga fördömda]', 'quran-json (CC-BY-4.0)'),
 (5240, 'sv', 'Och som ett [efterföljansvärt] exempel för de troende har Gud framhållit Faraos hustru, som bad: "Herre! Bygg en boning åt mig i paradiset i Din närhet och skydda mig mot Farao och allt [det onda] han har gjort och skydda mig mot alla dem som ständigt begår orätt', 'quran-json (CC-BY-4.0)'),
 (5241, 'sv', 'Ännu ett exempel har de i Maria, `Imrans dotter; Hon bevarade sin oskuld och Vi andades in i [hennes kropp] något av Vår ande. Hon trodde på sin Herres ord och på Hans uppenbarelser och hon var en av dem som ödmjukt böjer sig under Hans vilja', 'quran-json (CC-BY-4.0)'),
@@ -5418,8 +5420,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5397, 'sv', '[Så uppträder] inte de som med allvar ger sig hän åt sin andakt', 'quran-json (CC-BY-4.0)'),
 (5398, 'sv', 'och som oförtröttligt förrättar sin bön', 'quran-json (CC-BY-4.0)'),
 (5399, 'sv', 'och som av vad de äger [anslår] rättmätiga andelar', 'quran-json (CC-BY-4.0)'),
-(5400, 'sv', 'åt tiggarna och dem som [i tysthet] lider nöd', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5400, 'sv', 'åt tiggarna och dem som [i tysthet] lider nöd', 'quran-json (CC-BY-4.0)'),
 (5401, 'sv', 'och som tror på Domens dag', 'quran-json (CC-BY-4.0)'),
 (5402, 'sv', 'och fruktar sin Herres straff', 'quran-json (CC-BY-4.0)'),
 (5403, 'sv', 'ingen kan vara säker på att gå fri från sin Herres straff', 'quran-json (CC-BY-4.0)'),
@@ -5719,8 +5720,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5697, 'sv', 'annat än skållhett vatten och den motbjudande [vätska som sipprar ur ett sår]', 'quran-json (CC-BY-4.0)'),
 (5698, 'sv', 'en lön som svarar mot [deras handlingar]', 'quran-json (CC-BY-4.0)'),
 (5699, 'sv', 'De fruktade varken räkenskapen [eller domen]', 'quran-json (CC-BY-4.0)'),
-(5700, 'sv', 'och de förkastade alla Våra budskap som lögn', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(5700, 'sv', 'och de förkastade alla Våra budskap som lögn', 'quran-json (CC-BY-4.0)'),
 (5701, 'sv', 'men allt [vad de har gjort] har Vi fört upp i en bok', 'quran-json (CC-BY-4.0)'),
 (5702, 'sv', '[Och Vi skall säga:] "Smaka nu [frukten av era handlingar] - Vi skall [hädanefter] bara hopa nya lidanden över er', 'quran-json (CC-BY-4.0)'),
 (5703, 'sv', 'I sin triumf får de gudfruktiga glädjas åt', 'quran-json (CC-BY-4.0)'),
@@ -5733,7 +5733,8 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5710, 'sv', 'den Dag då själarna och änglarna står uppställda på led och ingen tar till orda utom den som fått den Nåderikes tillåtelse och han säger inte annat än det som är rätt och sant', 'quran-json (CC-BY-4.0)'),
 (5711, 'sv', 'Så kommer Sanningens dag att vara. Låt då den som så vill, försöka finna vägen tillbaka till sin Herre [medan det är tid]', 'quran-json (CC-BY-4.0)'),
 (5712, 'sv', 'Vi har varnat er för ett straff som är nära förestående [och som kommer att drabba er] den Dag då människan ser [klart], vad hon har sänt framför sig [till Domen], och då den som förnekade sanningen skall säga: "Ack, om jag nu hade varit mull och jord', 'quran-json (CC-BY-4.0)'),
-(5713, 'sv', 'VID STJÄRNORNA som stiger [över horisonten] för att [sedan sjunka och] försvinna', 'quran-json (CC-BY-4.0)'),
+(5713, 'sv', 'VID STJÄRNORNA som stiger [över horisonten] för att [sedan sjunka och] försvinna', 'quran-json (CC-BY-4.0)');
+INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5714, 'sv', 'som rör sig i jämna och stadiga banor', 'quran-json (CC-BY-4.0)'),
 (5715, 'sv', 'som svävar med lätthet [genom rymden]', 'quran-json (CC-BY-4.0)'),
 (5716, 'sv', 'som passerar varandra [i sina kretslopp]', 'quran-json (CC-BY-4.0)'),
@@ -6020,8 +6021,7 @@ INSERT INTO translation (ayah_id, lang, text, source) VALUES
 (5997, 'sv', 'Vid natten, när den viker', 'quran-json (CC-BY-4.0)'),
 (5998, 'sv', 'Räcker inte denna försäkran för [att övertyga] den som är begåvad med insikt och förstånd', 'quran-json (CC-BY-4.0)'),
 (5999, 'sv', 'HAR DU inte sett hur din Herre gick till väga mot [stammen] Aad', 'quran-json (CC-BY-4.0)'),
-(6000, 'sv', 'Och mot Iram, [de tusen] pelarnas [stad]', 'quran-json (CC-BY-4.0)');
-INSERT INTO translation (ayah_id, lang, text, source) VALUES
+(6000, 'sv', 'Och mot Iram, [de tusen] pelarnas [stad]', 'quran-json (CC-BY-4.0)'),
 (6001, 'sv', 'vars like aldrig har återskapats på jorden', 'quran-json (CC-BY-4.0)'),
 (6002, 'sv', 'Och mot thamudenerna, som högg ut [sina bostäder] i dalens klippväggar', 'quran-json (CC-BY-4.0)'),
 (6003, 'sv', 'Och mot [de oräkneliga] tältmasternas Farao', 'quran-json (CC-BY-4.0)'),
