@@ -18,6 +18,7 @@ const en: Dictionary = {
     quran: "Qur'an",
     audiobook: "Audiobook",
     kitab: "Books",
+    hadits: "Hadith",
     kisah: "Stories",
     fitur: "Features",
     dailyContent: "Daily Content",

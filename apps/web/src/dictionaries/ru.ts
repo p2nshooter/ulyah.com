@@ -18,6 +18,7 @@ const ru: Dictionary = {
     quran: "Коран",
     audiobook: "Аудиокниги",
     kitab: "Книги",
+    hadits: "Хадисы",
     kisah: "Истории",
     fitur: "Функции",
     dailyContent: "Ежедневный контент",

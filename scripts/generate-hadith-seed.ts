@@ -48,22 +48,30 @@ interface EditionFile {
 }
 
 interface Collection {
-  key: string; // used in output filename
+  key: string; // used in output filename + `hadits.collection` slug
   editionPrefix: string;
   idStart: number; // first `hadits.id` this collection occupies
   sourceLabel: string; // e.g. "Sahih al-Bukhari"
+  // Most collections ship a native Indonesian edition. Arba'in Nawawi and
+  // Hadits Qudsi don't (fawazahmed0 has only Arabic + English for them), so we
+  // import Arabic + English and store the English into text_id as a readable
+  // stopgap; the reader translates to Indonesian on demand (KV-cached).
+  hasInd: boolean;
 }
 
-// idStart ranges are generously spaced (10k apart) so no collection's real
-// hadith count can ever collide with the next one's range.
+// idStart ranges are generously spaced so no collection's real hadith count
+// can ever collide with the next one's range. These MUST match the ranges in
+// migration 0012_hadits_collections.sql.
 const COLLECTIONS: Collection[] = [
-  { key: "bukhari", editionPrefix: "bukhari", idStart: 1001, sourceLabel: "Sahih al-Bukhari" },
-  { key: "muslim", editionPrefix: "muslim", idStart: 9001, sourceLabel: "Sahih Muslim" },
-  { key: "tirmidhi", editionPrefix: "tirmidhi", idStart: 20001, sourceLabel: "Jami' At-Tirmidzi" },
-  { key: "abudawud", editionPrefix: "abudawud", idStart: 30001, sourceLabel: "Sunan Abu Dawud" },
-  { key: "nasai", editionPrefix: "nasai", idStart: 40001, sourceLabel: "Sunan An-Nasa'i" },
-  { key: "ibnmajah", editionPrefix: "ibnmajah", idStart: 50001, sourceLabel: "Sunan Ibnu Majah" },
-  { key: "malik", editionPrefix: "malik", idStart: 60001, sourceLabel: "Muwatta Malik" },
+  { key: "bukhari", editionPrefix: "bukhari", idStart: 1001, sourceLabel: "Sahih al-Bukhari", hasInd: true },
+  { key: "muslim", editionPrefix: "muslim", idStart: 9001, sourceLabel: "Sahih Muslim", hasInd: true },
+  { key: "tirmidhi", editionPrefix: "tirmidhi", idStart: 20001, sourceLabel: "Jami' At-Tirmidzi", hasInd: true },
+  { key: "abudawud", editionPrefix: "abudawud", idStart: 30001, sourceLabel: "Sunan Abu Dawud", hasInd: true },
+  { key: "nasai", editionPrefix: "nasai", idStart: 40001, sourceLabel: "Sunan An-Nasa'i", hasInd: true },
+  { key: "ibnmajah", editionPrefix: "ibnmajah", idStart: 50001, sourceLabel: "Sunan Ibnu Majah", hasInd: true },
+  { key: "malik", editionPrefix: "malik", idStart: 60001, sourceLabel: "Muwatta Malik", hasInd: true },
+  { key: "nawawi", editionPrefix: "nawawi", idStart: 70001, sourceLabel: "Arba'in An-Nawawi", hasInd: false },
+  { key: "qudsi", editionPrefix: "qudsi", idStart: 75001, sourceLabel: "Hadits Qudsi", hasInd: false },
 ];
 
 function esc(s: string | null | undefined): string {
@@ -106,53 +114,62 @@ async function main() {
 
   for (const col of COLLECTIONS) {
     console.log(`Loading ${col.sourceLabel}...`);
-    const [ar, id, en] = await Promise.all([
+    const [ar, en, idEd] = await Promise.all([
       loadEdition(`ara-${col.editionPrefix}`),
-      loadEdition(`ind-${col.editionPrefix}`),
       loadEdition(`eng-${col.editionPrefix}`),
+      col.hasInd ? loadEdition(`ind-${col.editionPrefix}`) : Promise.resolve(null),
     ]);
 
     // Index by hadithnumber for a robust join (arrays should already align
     // 1:1, but a hadithnumber-keyed join is defensive against any gaps).
-    const arByNum = new Map(ar.hadiths.map((h) => [h.hadithnumber, h.text]));
     const enByNum = new Map(en.hadiths.map((h) => [h.hadithnumber, h.text]));
+    const idByNum = idEd ? new Map(idEd.hadiths.map((h) => [h.hadithnumber, h.text])) : null;
 
     const rows: string[] = [];
     let skipped = 0;
     let nextId = col.idStart;
-    for (const idHadith of id.hadiths) {
+    // Drive the join off the Arabic edition — it's the one edition every
+    // collection has, and the sacred source text we must never fabricate.
+    for (const arHadith of ar.hadiths) {
       // hadithnumber is USUALLY an integer, but Bukhari/Muslim both split some
       // narrations into sub-parts numbered e.g. 1390.1/1390.2/1390.3 — a float.
       // Never feed that into the DB `id` (INTEGER PRIMARY KEY): assign a plain
       // sequential id instead, and keep the original (possibly fractional)
       // number only in the human-readable citation string.
-      const n = idHadith.hadithnumber;
-      const textId = idHadith.text?.trim();
-      const textAr = arByNum.get(n)?.trim();
+      const n = arHadith.hadithnumber;
+      const textAr = arHadith.text?.trim();
       const textEn = enByNum.get(n)?.trim();
-      if (!textId || !textAr || !textEn) {
+      // Collections WITH a native Indonesian edition keep pure Indonesian and
+      // skip any row the ID edition is missing (preserves quality, matches the
+      // original behaviour). Collections WITHOUT one (Arba'in, Qudsi) store the
+      // English as a readable stopgap; the reader replaces it with an on-demand
+      // Indonesian translation — see apps/worker-api/src/lib/mt.ts.
+      const textId = idByNum ? idByNum.get(n)?.trim() : textEn;
+      if (!textAr || !textEn || !textId) {
         skipped++;
-        continue; // incomplete row across the three editions — skip rather than insert a gap
+        continue; // incomplete row across the editions — skip rather than insert a gap
       }
       const hadithId = nextId++;
+      const hadithNumber = hadithId - col.idStart + 1;
       const source = `${col.sourceLabel} no. ${n}`;
       rows.push(
-        `(${hadithId}, ${esc(textAr)}, ${esc(textId)}, ${esc(textEn)}, NULL, 'shahih', ${esc(source)})`
+        `(${hadithId}, ${esc(textAr)}, ${esc(textId)}, ${esc(textEn)}, NULL, 'shahih', ${esc(source)}, ${esc(col.key)}, ${hadithNumber})`
       );
     }
 
     console.log(`  ${rows.length} complete records, ${skipped} skipped (incomplete across editions).`);
 
+    const langNote = col.hasInd ? "Arabic + Indonesian + English" : "Arabic + English (Indonesian translated on demand)";
     const lines: string[] = [
       `-- Auto-generated by scripts/generate-hadith-seed.ts — DO NOT hand-edit.`,
       `-- Source: fawazahmed0/hadith-api (github.com/fawazahmed0/hadith-api), Unlicense / public domain.`,
-      `-- ${col.sourceLabel} — ${rows.length} hadith, Arabic + Indonesian + English, matched by hadithnumber.`,
+      `-- ${col.sourceLabel} — ${rows.length} hadith, ${langNote}, matched by hadithnumber.`,
       `-- Bulk-imported rows leave narrator NULL — the translated text already includes the full isnad.`,
       "",
     ];
     for (const batch of batchByBytes(rows)) {
       lines.push(
-        `INSERT OR IGNORE INTO hadits (id, text_ar, text_id, text_en, narrator, grade, source) VALUES\n  ${batch.join(",\n  ")};`
+        `INSERT OR IGNORE INTO hadits (id, text_ar, text_id, text_en, narrator, grade, source, collection, hadith_number) VALUES\n  ${batch.join(",\n  ")};`
       );
     }
 

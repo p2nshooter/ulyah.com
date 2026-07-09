@@ -18,6 +18,7 @@ const zh: Dictionary = {
     quran: "古兰经",
     audiobook: "有声读物",
     kitab: "典籍",
+    hadits: "圣训",
     kisah: "故事",
     fitur: "功能",
     dailyContent: "每日内容",

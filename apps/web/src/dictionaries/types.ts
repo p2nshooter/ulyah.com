@@ -16,6 +16,7 @@ export interface Dictionary {
     quran: string;
     audiobook: string;
     kitab: string;
+    hadits: string;
     kisah: string;
     fitur: string;
     dailyContent: string;

@@ -18,6 +18,7 @@ const ja: Dictionary = {
     quran: "クルアーン",
     audiobook: "オーディオブック",
     kitab: "書籍",
+    hadits: "ハディース",
     kisah: "物語",
     fitur: "機能",
     dailyContent: "デイリーコンテンツ",

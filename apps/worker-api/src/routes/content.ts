@@ -227,6 +227,85 @@ contentRoute.get("/kitab/book/:id", async (c) => {
   return c.json({ book: { ...rest, topics, description_translated, description_lang: targetLang } });
 });
 
+// ── Kitab Hadits reader (full readable, voiced books) ────────────────────
+// The 30k+ hadith already ingested from fawazahmed0/hadith-api are exposed
+// here as browsable, readable "kitab" (books), page by page, Arabic +
+// Indonesian, each narratable aloud. This is catalogue + full source text
+// straight from a vetted, permissively-licensed dataset — nothing recalled
+// from memory (misquotation of sacred text is never acceptable).
+
+interface HaditsCollectionRow {
+  slug: string;
+  name_id: string;
+  name_ar: string;
+  author: string | null;
+  sort_order: number;
+  has_native_id: number;
+}
+
+// GET /content/hadits/collections — every collection that actually has rows
+contentRoute.get("/hadits/collections", async (c) => {
+  const cached = await c.env.CACHE_KV.get("hadits:collections");
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const { results } = await c.env.DB.prepare(
+    `SELECT hc.slug, hc.name_id, hc.name_ar, hc.author, hc.sort_order, hc.has_native_id,
+            (SELECT COUNT(*) FROM hadits h WHERE h.collection = hc.slug) AS total
+     FROM hadits_collection hc ORDER BY hc.sort_order`
+  ).all<HaditsCollectionRow & { total: number }>();
+  const collections = results.filter((r) => r.total > 0);
+
+  const body = JSON.stringify({ collections });
+  await c.env.CACHE_KV.put("hadits:collections", body, { expirationTtl: 60 * 60 * 6 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
+// GET /content/hadits/:collection?page=&lang= — one readable page of a book
+contentRoute.get("/hadits/:collection", async (c) => {
+  const slug = c.req.param("collection");
+  const page = Math.max(1, Number(c.req.query("page") ?? "1"));
+  const pageSize = 20;
+  const offset = (page - 1) * pageSize;
+  const wantId = (c.req.query("lang") ?? "id") === "id";
+
+  const coll = await c.env.DB.prepare("SELECT * FROM hadits_collection WHERE slug = ?")
+    .bind(slug)
+    .first<HaditsCollectionRow>();
+  if (!coll) return c.json({ error: "Collection not found" }, 404);
+
+  const [count, rows] = await Promise.all([
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM hadits WHERE collection = ?").bind(slug).first<{ n: number }>(),
+    c.env.DB.prepare(
+      `SELECT id, hadith_number, text_ar, text_id, text_en, narrator, grade, source
+       FROM hadits WHERE collection = ? ORDER BY hadith_number LIMIT ? OFFSET ?`
+    )
+      .bind(slug, pageSize, offset)
+      .all<{ id: number; hadith_number: number; text_ar: string; text_id: string; text_en: string }>(),
+  ]);
+
+  // Collections without a native Indonesian edition (Arba'in, Qudsi) carry
+  // English in text_id as a stopgap; translate the Arabic to Indonesian on
+  // demand (KV-cached) so the reader shows real Indonesian, not English.
+  let hadits = rows.results;
+  if (wantId && coll.has_native_id === 0) {
+    hadits = await Promise.all(
+      hadits.map(async (h) => ({
+        ...h,
+        text_id: (await translateText(c.env, h.text_ar, "id")) ?? h.text_id,
+      }))
+    );
+  }
+
+  return c.json({
+    collection: coll,
+    hadits,
+    total: count?.n ?? 0,
+    page,
+    pageSize,
+    totalPages: Math.ceil((count?.n ?? 0) / pageSize),
+  });
+});
+
 // GET /content/ebooks/:id/download — free, no login, short-lived signed token
 contentRoute.get("/ebooks/:id/download", async (c) => {
   const id = Number(c.req.param("id"));
