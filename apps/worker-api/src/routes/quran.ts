@@ -109,12 +109,19 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
+// Days since the Unix epoch, in UTC — a stable per-day seed so "content of
+// the day" is the same for every visitor on a given day (and cacheable),
+// rather than re-rolling on every request.
+function dayOfYearSeed(): number {
+  return Math.floor(Date.now() / 86_400_000);
+}
+
 // GET /quran/random?lang= — "Ayat Hari Ini" widget
 quranRoute.get("/random", async (c) => {
   const { lang, requested } = langParam(c);
   const totalRow = await c.env.DB.prepare("SELECT MAX(id) AS max_id FROM ayah").first<{ max_id: number }>();
   const maxId = totalRow?.max_id ?? 6236;
-  const randomId = Math.floor(Math.random() * maxId) + 1;
+  const randomId = (dayOfYearSeed() % maxId) + 1;
 
   const ayah = lang
     ? await c.env.DB.prepare(
@@ -134,6 +141,23 @@ quranRoute.get("/random", async (c) => {
         .first();
 
   return c.json({ ayah, lang: requested });
+});
+
+// GET /quran/hadits-of-day?lang= — "Hadits Hari Ini" widget, same pick for
+// everyone on a given day. Drawn from the full vetted `hadits` table
+// (curated + the ingested Sahihain collections).
+quranRoute.get("/hadits-of-day", async (c) => {
+  const requested = c.req.query("lang") ?? DEFAULT_LOCALE;
+  const totalRow = await c.env.DB.prepare("SELECT COUNT(*) AS n, MIN(id) AS min_id FROM hadits").first<{
+    n: number;
+    min_id: number;
+  }>();
+  if (!totalRow || totalRow.n === 0) return c.json({ hadits: null, lang: requested });
+
+  const offset = dayOfYearSeed() % totalRow.n;
+  const hadits = await c.env.DB.prepare("SELECT * FROM hadits ORDER BY id LIMIT 1 OFFSET ?").bind(offset).first();
+
+  return c.json({ hadits, lang: requested });
 });
 
 // GET /quran/search?q=&type=ayah|tafsir|hadits|kisah|ebook&lang=
