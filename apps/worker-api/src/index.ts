@@ -11,6 +11,7 @@ import { adminRoute } from "./routes/admin.js";
 import { clientRoute } from "./routes/client.js";
 import { analyticsRoute } from "./routes/analytics.js";
 import { runScalingTick } from "./lib/scaling.js";
+import { cleanupObsoleteMurottalR2 } from "./lib/r2-cleanup.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -63,6 +64,7 @@ export default {
       Promise.all([
         stub.fetch("https://internal/health-tick", { method: "POST" }).catch((e) => console.error("health-tick failed", e)),
         runScalingTick(env).catch((e) => console.error("scaling-tick failed", e)),
+        cleanupObsoleteMurottalR2(env).catch((e) => console.error("r2-cleanup failed", e)),
       ]).then(() => undefined)
     );
   },
