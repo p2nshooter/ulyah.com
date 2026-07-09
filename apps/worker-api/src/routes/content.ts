@@ -133,6 +133,77 @@ contentRoute.get("/ebooks", async (c) => {
   return c.json({ ebooks: results, page });
 });
 
+// ── Kitab library (classical Islamic works, Shamela-sourced) ─────────────
+// A browsable, voiced catalogue: categories → works → per-work detail with a
+// narratable Arabic description. Deliberately catalogue + description only,
+// never full book text.
+
+// GET /content/kitab/categories — every category with its live book count
+contentRoute.get("/kitab/categories", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT c.slug, c.name_ar, c.name_id, c.icon, c.sort_order,
+            (SELECT COUNT(*) FROM kitab_book b WHERE b.category_slug = c.slug) AS book_count
+     FROM kitab_category c ORDER BY c.sort_order`
+  ).all();
+  return c.json({ categories: results });
+});
+
+// GET /content/kitab/category/:slug?q=&page= — works in a category, searchable
+contentRoute.get("/kitab/category/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const q = (c.req.query("q") ?? "").trim();
+  const page = Math.max(1, Number(c.req.query("page") ?? "1"));
+  const pageSize = 24;
+  const offset = (page - 1) * pageSize;
+
+  const cat = await c.env.DB.prepare("SELECT * FROM kitab_category WHERE slug = ?").bind(slug).first();
+  if (!cat) return c.json({ error: "Category not found" }, 404);
+
+  const like = `%${q}%`;
+  const [count, rows] = await Promise.all([
+    q
+      ? c.env.DB.prepare(
+          "SELECT COUNT(*) AS n FROM kitab_book WHERE category_slug = ? AND (title_ar LIKE ? OR author LIKE ?)"
+        ).bind(slug, like, like).first<{ n: number }>()
+      : c.env.DB.prepare("SELECT COUNT(*) AS n FROM kitab_book WHERE category_slug = ?").bind(slug).first<{ n: number }>(),
+    q
+      ? c.env.DB.prepare(
+          `SELECT id, title_ar, author, author_death_year, source,
+                  substr(description_ar, 1, 240) AS excerpt
+           FROM kitab_book WHERE category_slug = ? AND (title_ar LIKE ? OR author LIKE ?)
+           ORDER BY title_ar LIMIT ? OFFSET ?`
+        ).bind(slug, like, like, pageSize, offset).all()
+      : c.env.DB.prepare(
+          `SELECT id, title_ar, author, author_death_year, source,
+                  substr(description_ar, 1, 240) AS excerpt
+           FROM kitab_book WHERE category_slug = ? ORDER BY title_ar LIMIT ? OFFSET ?`
+        ).bind(slug, pageSize, offset).all(),
+  ]);
+
+  return c.json({ category: cat, books: rows.results, total: count?.n ?? 0, page, pageSize });
+});
+
+// GET /content/kitab/book/:id — full detail for one work (voiced description)
+contentRoute.get("/kitab/book/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const book = await c.env.DB.prepare(
+    `SELECT b.*, c.name_id AS category_name, c.name_ar AS category_name_ar, c.icon AS category_icon
+     FROM kitab_book b LEFT JOIN kitab_category c ON c.slug = b.category_slug WHERE b.id = ?`
+  )
+    .bind(id)
+    .first<Record<string, unknown> & { topics_json: string | null }>();
+  if (!book) return c.json({ error: "Book not found" }, 404);
+
+  let topics: string[] = [];
+  try {
+    topics = book.topics_json ? JSON.parse(book.topics_json) : [];
+  } catch {
+    topics = [];
+  }
+  const { topics_json, ...rest } = book;
+  return c.json({ book: { ...rest, topics } });
+});
+
 // GET /content/ebooks/:id/download — free, no login, short-lived signed token
 contentRoute.get("/ebooks/:id/download", async (c) => {
   const id = Number(c.req.param("id"));
