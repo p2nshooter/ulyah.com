@@ -9,7 +9,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
       <div className="mx-auto grid max-w-7xl gap-8 desktop:grid-cols-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <Image src="/icon.svg" alt="" width={38} height={38} className="rounded-[9px]" />
+            <Image src="/icon.png" alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
             <span>
               <span className="block font-heading text-2xl leading-none">
                 ulyah<span className="text-accent">.</span>

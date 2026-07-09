@@ -101,6 +101,16 @@ body {
   border-color: var(--color-accent);
 }
 
+/* Same gold hairline + glow, no hover-lift — for large functional panels
+   (readers, forms) where a moving container would feel wrong, not just
+   clickable link-cards. */
+.card-premium-static {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
 /* Small gold corner-flourish, positioned absolutely by the caller. Purely
    decorative — echoes the illuminated-manuscript corner motif without the
    cost of an image asset. */

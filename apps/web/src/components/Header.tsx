@@ -30,7 +30,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         <div className="flex items-center gap-2">
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
-              <Image src="/icon.svg" alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
+              <Image src="/icon.png" alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
               <span className="leading-none">
                 <span className="block font-heading text-2xl text-primary dark:text-[var(--color-accent)]">
                   ulyah<span className="text-accent">.</span>

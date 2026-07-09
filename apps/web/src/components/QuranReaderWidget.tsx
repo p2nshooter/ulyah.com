@@ -207,7 +207,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   return (
     <div className="grid gap-4 desktop:grid-cols-[236px_1fr_300px]">
       {/* ── Surah list ─────────────────────────────────────────── */}
-      <aside className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-3">
+      <aside className="card-premium-static p-3">
         <div className="mb-2 flex items-center justify-between">
           <p className="font-heading text-sm">{dict.nav.quran}</p>
           <span className="text-[10px] text-[var(--color-text-secondary)]">{dict.reader.allSurah}</span>
@@ -237,7 +237,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       </aside>
 
       {/* ── Ayah focus + player ────────────────────────────────── */}
-      <div className="min-w-0 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 sm:p-6">
+      <div className="card-premium-static min-w-0 p-4 sm:p-6">
         {selectedSurah && (
           <>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -407,7 +407,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       </div>
 
       {/* ── Ringkasan Ayat Ini ─────────────────────────────────── */}
-      <aside className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <aside className="card-premium-static p-4">
         <p className="mb-3 font-heading text-sm">{dict.reader.ayahSummaryTitle}</p>
         <div className="space-y-3">
           {summary.map((s) => (
