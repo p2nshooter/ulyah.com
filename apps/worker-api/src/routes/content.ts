@@ -138,25 +138,36 @@ contentRoute.get("/ebooks", async (c) => {
 // narratable Arabic description. Deliberately catalogue + description only,
 // never full book text.
 
-// GET /content/kitab/categories — every category with its live book count
+// Only Arabic (source) and Indonesian (hand-curated) category names exist
+// natively; everything else gets the English set added in migration 0011 —
+// still far better than silently showing Indonesian to a Japanese visitor.
+function resolveCategoryLang(requested: string): "name_id" | "name_en" {
+  return requested === "id" ? "name_id" : "name_en";
+}
+
+// GET /content/kitab/categories?lang= — every category with its live book count
 contentRoute.get("/kitab/categories", async (c) => {
+  const nameCol = resolveCategoryLang(c.req.query("lang") ?? "id");
   const { results } = await c.env.DB.prepare(
-    `SELECT c.slug, c.name_ar, c.name_id, c.icon, c.sort_order,
+    `SELECT c.slug, c.name_ar, c.name_id, c.name_en, c.${nameCol} AS name, c.icon, c.sort_order,
             (SELECT COUNT(*) FROM kitab_book b WHERE b.category_slug = c.slug) AS book_count
      FROM kitab_category c ORDER BY c.sort_order`
   ).all();
   return c.json({ categories: results });
 });
 
-// GET /content/kitab/category/:slug?q=&page= — works in a category, searchable
+// GET /content/kitab/category/:slug?q=&page=&lang= — works in a category, searchable
 contentRoute.get("/kitab/category/:slug", async (c) => {
   const slug = c.req.param("slug");
   const q = (c.req.query("q") ?? "").trim();
   const page = Math.max(1, Number(c.req.query("page") ?? "1"));
   const pageSize = 24;
   const offset = (page - 1) * pageSize;
+  const nameCol = resolveCategoryLang(c.req.query("lang") ?? "id");
 
-  const cat = await c.env.DB.prepare("SELECT * FROM kitab_category WHERE slug = ?").bind(slug).first();
+  const cat = await c.env.DB.prepare(`SELECT *, ${nameCol} AS name FROM kitab_category WHERE slug = ?`)
+    .bind(slug)
+    .first();
   if (!cat) return c.json({ error: "Category not found" }, 404);
 
   const like = `%${q}%`;
@@ -183,11 +194,12 @@ contentRoute.get("/kitab/category/:slug", async (c) => {
   return c.json({ category: cat, books: rows.results, total: count?.n ?? 0, page, pageSize });
 });
 
-// GET /content/kitab/book/:id — full detail for one work (voiced description)
+// GET /content/kitab/book/:id?lang= — full detail for one work (voiced description)
 contentRoute.get("/kitab/book/:id", async (c) => {
   const id = Number(c.req.param("id"));
+  const nameCol = resolveCategoryLang(c.req.query("lang") ?? "id");
   const book = await c.env.DB.prepare(
-    `SELECT b.*, c.name_id AS category_name, c.name_ar AS category_name_ar, c.icon AS category_icon
+    `SELECT b.*, c.${nameCol} AS category_name, c.name_ar AS category_name_ar, c.icon AS category_icon
      FROM kitab_book b LEFT JOIN kitab_category c ON c.slug = b.category_slug WHERE b.id = ?`
   )
     .bind(id)

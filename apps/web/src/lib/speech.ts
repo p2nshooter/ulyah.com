@@ -57,16 +57,29 @@ export interface NarrationHandle {
   done: Promise<void>;
 }
 
+/** Detect the script actually present in a text block and use ITS matching
+ * voice, regardless of what `lang` the caller passed — a caller often only
+ * knows the page's UI locale, not that a given paragraph happens to be an
+ * Arabic quote embedded in it. Without this, Arabic text read on an
+ * Indonesian-locale page got an Indonesian voice applied to Arabic
+ * characters: garbled or silent, not "no voice" but effectively so. */
+function effectiveLang(text: string, requested: string): string {
+  const arabicChars = (text.match(/[؀-ۿ]/g) ?? []).length;
+  if (arabicChars > text.replace(/\s/g, "").length * 0.3) return "ar";
+  return requested;
+}
+
 /** Speak one text block. Resolves when finished or cancelled. */
 export function speak(text: string, lang: string, opts: { rate?: number } = {}): NarrationHandle {
   let cancelled = false;
   const done = (async () => {
     if (!speechAvailable() || !text.trim()) return;
+    const effLang = effectiveLang(text, lang);
     window.speechSynthesis.cancel();
-    const voice = await pickVoice(lang);
+    const voice = await pickVoice(effLang);
     await new Promise<void>((resolve) => {
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = LANG_TAG[lang] ?? lang;
+      u.lang = LANG_TAG[effLang] ?? effLang;
       if (voice) u.voice = voice;
       u.rate = opts.rate ?? 0.95;
       u.pitch = 1.0;

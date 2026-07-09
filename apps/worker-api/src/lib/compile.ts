@@ -231,15 +231,26 @@ const HADITH_SESSION_INTRO: Record<string, string> = {
 // ("Telah menceritakan kepada kami [Fulan]... Rasulullah bersabda...") —
 // wrapping that again in a synthetic "Dari X, Rasulullah bersabda:" preface
 // would be redundant, so those are read as-is.
-const HADITH_ITEM_TMPL: Record<string, (i: number, n: string | null, tr: string, grade: string, source: string) => string> = {
-  id: (i, narrator, tr, grade, source) =>
-    narrator
-      ? `Hadits ke-${i}. Dari ${narrator} radhiyallahu 'anhu, Rasulullah shallallahu 'alaihi wa sallam bersabda: "${tr}" (Derajat: ${grade}. Sumber: ${source}.)`
-      : `Hadits ke-${i}. ${tr} (Derajat: ${grade}. Sumber: ${source}.)`,
-  en: (i, narrator, tr, grade, source) =>
-    narrator
-      ? `Hadith ${i}. On the authority of ${narrator} (may Allah be pleased with him), the Messenger of Allah (peace be upon him) said: "${tr}" (Grade: ${grade}. Source: ${source}.)`
-      : `Hadith ${i}. ${tr} (Grade: ${grade}. Source: ${source}.)`,
+// The Arabic wording is displayed AND narrated (unlike Qur'an ayat, a
+// hadith's Arabic text carries no tajweed obligation, so the ordinary
+// browser voice engine reading it aloud is not the same concern) — prefixed
+// on its own line so lib/speech.ts's script auto-detection picks it up as a
+// separate sentence and routes it to an Arabic voice, while the translation
+// that follows keeps the visitor's own UI-language voice.
+const HADITH_ITEM_TMPL: Record<
+  string,
+  (i: number, n: string | null, ar: string | null, tr: string, grade: string, source: string) => string
+> = {
+  id: (i, narrator, ar, tr, grade, source) =>
+    `Hadits ke-${i}.${ar ? ` ${ar}.` : ""} ` +
+    (narrator
+      ? `Dari ${narrator} radhiyallahu 'anhu, Rasulullah shallallahu 'alaihi wa sallam bersabda: "${tr}" (Derajat: ${grade}. Sumber: ${source}.)`
+      : `${tr} (Derajat: ${grade}. Sumber: ${source}.)`),
+  en: (i, narrator, ar, tr, grade, source) =>
+    `Hadith ${i}.${ar ? ` ${ar}.` : ""} ` +
+    (narrator
+      ? `On the authority of ${narrator} (may Allah be pleased with him), the Messenger of Allah (peace be upon him) said: "${tr}" (Grade: ${grade}. Source: ${source}.)`
+      : `${tr} (Grade: ${grade}. Source: ${source}.)`),
 };
 
 const HADITH_SESSION_CLOSING: Record<string, string> = {
@@ -264,16 +275,24 @@ export async function runHadithCompile(env: Env, langs: string[]): Promise<numbe
     const lastId = Number((await env.CACHE_KV.get(cursorKey)) ?? "0");
 
     const { results: rows } = await env.DB.prepare(
-      "SELECT id, text_id, text_en, narrator, grade, source FROM hadits WHERE id > ? ORDER BY id LIMIT ?"
+      "SELECT id, text_ar, text_id, text_en, narrator, grade, source FROM hadits WHERE id > ? ORDER BY id LIMIT ?"
     )
       .bind(lastId, SESSION_MAX_ITEMS)
-      .all<{ id: number; text_id: string | null; text_en: string | null; narrator: string | null; grade: string | null; source: string | null }>();
+      .all<{
+        id: number;
+        text_ar: string | null;
+        text_id: string | null;
+        text_en: string | null;
+        narrator: string | null;
+        grade: string | null;
+        source: string | null;
+      }>();
 
     const usable = rows.filter((h) => (lang === "en" ? h.text_en : h.text_id));
     if (usable.length === 0) continue; // nothing new for this language yet
 
     const parts = usable.map((h, i) =>
-      itemTmpl(i + 1, h.narrator, (lang === "en" ? h.text_en : h.text_id)!, h.grade ?? "shahih", h.source ?? "")
+      itemTmpl(i + 1, h.narrator, h.text_ar, (lang === "en" ? h.text_en : h.text_id)!, h.grade ?? "shahih", h.source ?? "")
     );
     const body = [
       HADITH_SESSION_INTRO[lang],

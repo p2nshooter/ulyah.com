@@ -8,6 +8,7 @@ interface CategoryRow {
   slug: string;
   name_ar: string;
   name_id: string;
+  name: string;
   icon: string | null;
   book_count: number;
 }
@@ -19,7 +20,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
 
   let categories: CategoryRow[] = [];
   try {
-    const res = await api.get<{ categories: CategoryRow[] }>("/content/kitab/categories");
+    const res = await api.get<{ categories: CategoryRow[] }>(`/content/kitab/categories?lang=${locale}`);
     categories = res.categories;
   } catch {
     categories = [];
@@ -49,7 +50,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
               {c.icon ?? "📗"}
             </span>
             <div className="min-w-0">
-              <p className="font-heading text-base leading-snug">{c.name_id}</p>
+              <p className="font-heading text-base leading-snug">{c.name}</p>
               <p dir="rtl" className="font-arabic mt-0.5 truncate text-sm text-[var(--color-text-secondary)]">
                 {c.name_ar}
               </p>

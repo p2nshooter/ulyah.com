@@ -17,6 +17,7 @@ interface CategoryDetail {
   slug: string;
   name_ar: string;
   name_id: string;
+  name: string;
   icon: string | null;
 }
 
@@ -37,7 +38,7 @@ export default async function KitabCategoryPage({
   let books: BookRow[] = [];
   let total = 0;
   try {
-    const qs = new URLSearchParams({ page: String(page) });
+    const qs = new URLSearchParams({ page: String(page), lang: locale });
     if (q) qs.set("q", q);
     const res = await api.get<{ category: CategoryDetail; books: BookRow[]; total: number }>(
       `/content/kitab/category/${slug}?${qs.toString()}`
@@ -74,7 +75,7 @@ export default async function KitabCategoryPage({
           {category.icon ?? "📗"}
         </span>
         <div>
-          <h1 className="font-heading text-2xl sm:text-3xl">{category.name_id}</h1>
+          <h1 className="font-heading text-2xl sm:text-3xl">{category.name}</h1>
           <p dir="rtl" className="font-arabic mt-1 text-[var(--color-text-secondary)]">
             {category.name_ar}
           </p>

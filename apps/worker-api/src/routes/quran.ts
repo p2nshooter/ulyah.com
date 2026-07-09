@@ -91,6 +91,25 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
     .bind(surahId, number)
     .first<{ id: number }>();
   if (!ayah) return c.json({ error: "Ayah not found" }, 404);
+  const ayahId = ayah.id;
+
+  // Tafsir/asbabun nuzul are only imported in a couple of languages (id/en) —
+  // try the visitor's resolved language first, then fall back to English,
+  // then Indonesian, rather than showing "not available yet" when a real
+  // translation just isn't in their language.
+  const langCandidates = [...new Set([lang, "en", "id"].filter(Boolean))] as string[];
+
+  async function firstNonEmpty<T>(table: string, extraCols = "*"): Promise<T[]> {
+    for (const l of langCandidates) {
+      const { results } = await c.env.DB.prepare(
+        `SELECT ${extraCols} FROM ${table} WHERE ayah_id = ? AND lang = ?${table === "tafsir" ? " AND status = 'published'" : ""} ORDER BY id`
+      )
+        .bind(ayahId, l)
+        .all<T>();
+      if (results.length) return results;
+    }
+    return [];
+  }
 
   const [translation, tafsir, asbabunNuzul, hadits, stories] = await Promise.all([
     lang
@@ -98,8 +117,8 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
           .bind(ayah.id, lang)
           .first()
       : Promise.resolve(null),
-    c.env.DB.prepare("SELECT * FROM tafsir WHERE ayah_id = ? AND status = 'published'").bind(ayah.id).all(),
-    c.env.DB.prepare("SELECT * FROM asbabun_nuzul WHERE ayah_id = ?").bind(ayah.id).all(),
+    firstNonEmpty("tafsir"),
+    firstNonEmpty("asbabun_nuzul"),
     c.env.DB.prepare(
       `SELECT h.*, m.relevance_note FROM hadits h
        JOIN ayah_hadits_map m ON m.hadits_id = h.id
@@ -117,8 +136,8 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
     translation,
     lang: requested,
     translationLang: lang,
-    tafsir: tafsir.results,
-    asbabun_nuzul: asbabunNuzul.results,
+    tafsir,
+    asbabun_nuzul: asbabunNuzul,
     hadits: hadits.results,
     stories: stories.results,
   });

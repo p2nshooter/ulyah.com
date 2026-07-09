@@ -30,7 +30,7 @@ export default async function KitabBookPage({
 
   let book: BookDetail | null = null;
   try {
-    const res = await api.get<{ book: BookDetail }>(`/content/kitab/book/${id}`);
+    const res = await api.get<{ book: BookDetail }>(`/content/kitab/book/${id}?lang=${locale}`);
     book = res.book;
   } catch {
     book = null;
@@ -79,6 +79,9 @@ export default async function KitabBookPage({
                 lang={locale}
               />
             </div>
+            {t.arabicOnlyNote && (
+              <p className="mt-2 text-xs italic text-[var(--color-text-secondary)]">{t.arabicOnlyNote}</p>
+            )}
             <p dir="rtl" className="font-arabic mt-3 text-lg leading-loose text-[var(--color-text-primary)]">
               {book.description_ar}
             </p>

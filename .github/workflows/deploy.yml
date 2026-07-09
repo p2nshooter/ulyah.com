@@ -174,6 +174,53 @@ jobs:
             echo "Kitab library already has $KCOUNT works — skipping bulk import."
           fi
 
+      - name: Bulk-import Tafsir (As-Sa'di id + Ibn Kathir en) + Asbabun Nuzul (one-time)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # spa5k/tafsir_api (static mirror of quran.com's tafsir API, CC-licensed
+          # classical texts). Covers all 6,236 ayat in two languages, plus
+          # ~1,088 narrated occasions of revelation (surah 1-77 only — the
+          # source has no asbab entries for the later, shorter surah).
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM tafsir;" --json > /tmp/tafsir_count.json
+          TCOUNT=$(node -e "const j=require('/tmp/tafsir_count.json'); console.log(j[0].results[0].n)")
+          if [ "$TCOUNT" -lt "1000" ]; then
+            echo "Tafsir table has only $TCOUNT rows — importing full As-Sa'di + Ibn Kathir."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/tafsir_id.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/tafsir_en.sql
+          else
+            echo "Tafsir table already has $TCOUNT rows — skipping bulk import."
+          fi
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM asbabun_nuzul;" --json > /tmp/asbab_count.json
+          ACOUNT=$(node -e "const j=require('/tmp/asbab_count.json'); console.log(j[0].results[0].n)")
+          if [ "$ACOUNT" -lt "500" ]; then
+            echo "Asbabun nuzul table has only $ACOUNT rows — importing Al-Wahidi."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/asbabun_nuzul.sql
+          else
+            echo "Asbabun nuzul table already has $ACOUNT rows — skipping bulk import."
+          fi
+
+      - name: Regenerate hadits sessions with Arabic text (one-time backfill)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Earlier compiled hadits-sesi stories were built before the item
+          # template included the Arabic wording — wipe them + reset the
+          # compile cursor so the next scheduled compile tick (every 15 min)
+          # regenerates every session from scratch with Arabic included.
+          # Purely additive/reproducible: these are all auto-generated from
+          # the vetted `hadits` table, nothing hand-authored is lost.
+          DONE=$(npx wrangler kv key get "compile:hadits:arabic-backfill-done" --binding=CACHE_KV --remote 2>/dev/null || echo "")
+          if [ -z "$DONE" ]; then
+            echo "Wiping compiled hadits sessions for Arabic-text backfill."
+            npx wrangler d1 execute ulyah-db --remote --command="DELETE FROM stories WHERE series_key = 'hadits-sesi';"
+            npx wrangler kv key delete "compile:hadits:cursor:id" --binding=CACHE_KV --remote || true
+            npx wrangler kv key delete "compile:hadits:cursor:en" --binding=CACHE_KV --remote || true
+            npx wrangler kv key put "compile:hadits:arabic-backfill-done" "1" --binding=CACHE_KV --remote
+          else
+            echo "Hadits Arabic-text backfill already done — skipping."
+          fi
+
       - name: Upload seed PDFs (Kisah Nabi Yusuf) to R2
         working-directory: apps/worker-api
         run: |
