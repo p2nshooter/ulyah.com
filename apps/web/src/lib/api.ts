@@ -1,5 +1,18 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 
+/** Error carrying the API's machine-readable `code` (e.g. "email_not_found")
+ * so callers can branch on it — e.g. show a "Daftar" CTA — not just a string. */
+export class ApiError extends Error {
+  code?: string;
+  status: number;
+  constructor(message: string, status: number, code?: string) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.code = code;
+  }
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...init,
@@ -8,8 +21,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    const { error, detail } = body as { error?: string; detail?: string };
-    throw new Error(detail || error || `Request failed: ${res.status}`);
+    const { error, detail, code } = body as { error?: string; detail?: string; code?: string };
+    throw new ApiError(detail || error || `Request failed: ${res.status}`, res.status, code);
   }
   return res.json() as Promise<T>;
 }

@@ -63,6 +63,23 @@ adminAuthRoute.post("/login", async (c) => {
 
   await ensureAdminBootstrapped(c.env);
 
+  // If no admin exists and no bootstrap secret is configured, the owner simply
+  // hasn't set ADMIN_BOOTSTRAP_EMAIL / ADMIN_BOOTSTRAP_PASSWORD in GitHub
+  // Secrets yet — surface that plainly instead of a misleading "Invalid
+  // credentials". The admin portal is hidden, so this hint helps the owner far
+  // more than it helps a prober.
+  const adminCount = await c.env.DB.prepare("SELECT COUNT(*) AS n FROM admin_users").first<{ n: number }>();
+  if ((adminCount?.n ?? 0) === 0 && !c.env.ADMIN_BOOTSTRAP_EMAIL) {
+    return c.json(
+      {
+        error:
+          "Admin belum dikonfigurasi. Set ADMIN_BOOTSTRAP_EMAIL & ADMIN_BOOTSTRAP_PASSWORD di GitHub Secrets, lalu deploy ulang.",
+        code: "admin_not_configured",
+      },
+      503
+    );
+  }
+
   const admin = await c.env.DB.prepare("SELECT * FROM admin_users WHERE email = ?")
     .bind(email.toLowerCase())
     .first<AdminRow>();
@@ -72,13 +89,13 @@ adminAuthRoute.post("/login", async (c) => {
 
   if (!admin && !bootstrapMatch) {
     await logAdminAction(c.env, "login_failed", email, ip, { reason: "unknown_email" });
-    return c.json({ error: "Invalid credentials" }, 401);
+    return c.json({ error: "Email admin tidak dikenali.", code: "unknown_email" }, 401);
   }
 
   const valid = admin ? await verifyPassword(password, admin.password_hash) : password === c.env.ADMIN_BOOTSTRAP_PASSWORD;
   if (!valid) {
     await logAdminAction(c.env, "login_failed", email, ip, { reason: "bad_password" });
-    return c.json({ error: "Invalid credentials" }, 401);
+    return c.json({ error: "Kata sandi admin salah.", code: "wrong_password" }, 401);
   }
 
   await resetRateLimit(c.env, `admin-login:${ip}`);

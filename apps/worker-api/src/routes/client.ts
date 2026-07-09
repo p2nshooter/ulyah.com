@@ -94,8 +94,15 @@ clientRoute.post("/login", async (c) => {
     .bind(email)
     .first<{ id: number; email: string; password_hash: string }>();
 
-  if (!row || !(await verifyPassword(password, row.password_hash))) {
-    return c.json({ error: "Invalid credentials" }, 401);
+  // Distinguish "no such account" from "wrong password" so a stuck user knows
+  // whether to register or just re-check their password, instead of guessing
+  // against a single opaque "Invalid credentials". The `code` lets the web app
+  // localise the message and, for email_not_found, surface a "Daftar" CTA.
+  if (!row) {
+    return c.json({ error: "Email belum terdaftar. Silakan daftar dulu.", code: "email_not_found" }, 401);
+  }
+  if (!(await verifyPassword(password, row.password_hash))) {
+    return c.json({ error: "Kata sandi salah.", code: "wrong_password" }, 401);
   }
 
   await c.env.DB.prepare("UPDATE clients SET last_login_at = datetime('now') WHERE id = ?").bind(row.id).run();
