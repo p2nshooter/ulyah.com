@@ -6,7 +6,7 @@ import { NarrateButton } from "@/components/NarrateButton";
 // The family behind Ulyah — proper nouns, reproduced faithfully as given.
 const FOUNDERS = [
   { name: "Yusron Efendi", lineage: "bin H. Mursyidi" },
-  { name: "Ulyah Munayah", lineage: "binti H. Moch. Hilang" },
+  { name: "Ulyah Munayah", lineage: "binti H. Moch. Hilwani" },
 ];
 const CHILDREN = [
   "Kultsum Nurunnajah Efendi",

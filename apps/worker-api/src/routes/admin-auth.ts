@@ -34,13 +34,31 @@ async function ensureAdminBootstrapped(env: Env): Promise<void> {
     .run();
 }
 
+// KV rate-limiting must never be what stops a legitimate admin from logging in.
+async function softRateLimit(env: Env, key: string, limit: number, windowSeconds: number): Promise<boolean> {
+  try {
+    return (await checkRateLimit(env, key, limit, windowSeconds)).allowed;
+  } catch (e) {
+    console.error("admin rate-limit check failed (allowing through):", e);
+    return true;
+  }
+}
+
 // POST /admin/auth/login — step 1: email + password
 adminAuthRoute.post("/login", async (c) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `admin-login:${ip}`, 5, 60 * 10);
-  if (!rl.allowed) return c.json({ error: "Too many attempts. Try again later." }, 429);
+  if (!(await softRateLimit(c.env, `admin-login:${ip}`, 5, 60 * 10))) {
+    return c.json({ error: "Too many attempts. Try again later." }, 429);
+  }
 
-  const { email, password } = await c.req.json<{ email: string; password: string }>();
+  let body: { email?: string; password?: string };
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Invalid request body" }, 400);
+  }
+  const email = body.email?.trim();
+  const password = body.password ?? "";
   if (!email || !password) return c.json({ error: "email and password required" }, 400);
 
   await ensureAdminBootstrapped(c.env);

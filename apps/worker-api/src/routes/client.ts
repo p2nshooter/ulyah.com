@@ -10,32 +10,61 @@ export const clientRoute = new Hono<{ Bindings: Env }>();
 
 // Optional donor/contributor account layer — NOT required for visitors
 // (arsitektur doc §2 "Zero Login (User)" still holds for reading/listening).
-// Lets a donor track their donations and AI/GPU key contributions.
+// Lets a donor track their donations and API/GPU key contributions.
+
+/**
+ * KV-backed rate limiting must NEVER be the thing that stops a real user from
+ * registering/logging in. If KV hiccups (cold namespace, transient error) we
+ * log and allow the request through rather than surfacing an opaque 500 — the
+ * account flows are the product, the limiter is only a guardrail.
+ */
+async function softRateLimit(env: Env, key: string, limit: number, windowSeconds: number): Promise<boolean> {
+  try {
+    const rl = await checkRateLimit(env, key, limit, windowSeconds);
+    return rl.allowed;
+  } catch (e) {
+    console.error("rate-limit check failed (allowing through):", e);
+    return true;
+  }
+}
 
 clientRoute.post("/register", async (c) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `client-register:${ip}`, 5, 60 * 10);
-  if (!rl.allowed) return c.json({ error: "Too many attempts. Try again later." }, 429);
+  if (!(await softRateLimit(c.env, `client-register:${ip}`, 5, 60 * 10))) {
+    return c.json({ error: "Too many attempts. Try again later." }, 429);
+  }
 
-  const { email, password, name } = await c.req.json<{ email: string; password: string; name?: string }>();
+  let body: { email?: string; password?: string; name?: string };
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Invalid request body" }, 400);
+  }
+  const email = body.email?.trim().toLowerCase();
+  const password = body.password ?? "";
+  const name = body.name?.trim() || null;
   if (!email || !password || password.length < 8) {
     return c.json({ error: "email and password (min 8 chars) required" }, 400);
   }
 
-  const existing = await c.env.DB.prepare("SELECT id FROM clients WHERE email = ?")
-    .bind(email.toLowerCase())
-    .first();
+  const existing = await c.env.DB.prepare("SELECT id FROM clients WHERE email = ?").bind(email).first();
   if (existing) return c.json({ error: "Email already registered" }, 409);
 
   const hash = await hashPassword(password);
   const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
-  const row = await c.env.DB.prepare(
-    "INSERT INTO clients (email, password_hash, name, country) VALUES (?, ?, ?, ?) RETURNING id"
-  )
-    .bind(email.toLowerCase(), hash, name ?? null, country)
-    .first<{ id: number }>();
 
-  const token = await createSession(c.env, { subject: "client", id: row!.id, email: email.toLowerCase() });
+  // Canonical D1 write: `.run()` + meta.last_row_id. Avoids the
+  // INSERT…RETURNING + `.first()` path, which has proven fragile across D1
+  // runtime versions and was the suspected cause of registration 500s.
+  const res = await c.env.DB.prepare(
+    "INSERT INTO clients (email, password_hash, name, country) VALUES (?, ?, ?, ?)"
+  )
+    .bind(email, hash, name, country)
+    .run();
+  const id = Number(res.meta?.last_row_id);
+  if (!id) return c.json({ error: "Could not create account" }, 500);
+
+  const token = await createSession(c.env, { subject: "client", id, email });
   setCookie(c, sessionCookieName("client"), token, {
     httpOnly: true,
     secure: true,
@@ -44,17 +73,25 @@ clientRoute.post("/register", async (c) => {
     maxAge: 60 * 60 * 24 * 14,
   });
 
-  return c.json({ ok: true, id: row!.id });
+  return c.json({ ok: true, id });
 });
 
 clientRoute.post("/login", async (c) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `client-login:${ip}`, 8, 60 * 10);
-  if (!rl.allowed) return c.json({ error: "Too many attempts. Try again later." }, 429);
+  if (!(await softRateLimit(c.env, `client-login:${ip}`, 8, 60 * 10))) {
+    return c.json({ error: "Too many attempts. Try again later." }, 429);
+  }
 
-  const { email, password } = await c.req.json<{ email: string; password: string }>();
+  let body: { email?: string; password?: string };
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Invalid request body" }, 400);
+  }
+  const email = body.email?.trim().toLowerCase();
+  const password = body.password ?? "";
   const row = await c.env.DB.prepare("SELECT * FROM clients WHERE email = ?")
-    .bind(email?.toLowerCase())
+    .bind(email)
     .first<{ id: number; email: string; password_hash: string }>();
 
   if (!row || !(await verifyPassword(password, row.password_hash))) {

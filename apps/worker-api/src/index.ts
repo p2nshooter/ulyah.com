@@ -44,7 +44,12 @@ app.get("/keypool/connect", async (c) => {
 app.notFound((c) => c.json({ error: "Not found" }, 404));
 app.onError((err, c) => {
   console.error(err);
-  return c.json({ error: "Internal server error" }, 500);
+  // Surface a short error digest to the client. This is an Islamic content
+  // platform, not a system holding third-party secrets in its error paths;
+  // a truncated message costs nothing and makes production 500s diagnosable
+  // instead of the opaque "Internal server error" users kept hitting.
+  const detail = err instanceof Error ? err.message : String(err);
+  return c.json({ error: "Internal server error", detail: detail.slice(0, 300) }, 500);
 });
 
 export default {

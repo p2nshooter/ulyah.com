@@ -53,8 +53,6 @@ export async function generateMetadata({
       "Al-Quran", "Quran audio", "murottal", "tafsir", "hadits", "kisah nabi",
       "Islamic audiobook", "listen to Quran", "Quran online", "kajian Islam",
     ],
-    // AdSense site verification (also present as the <script> tag in <head>).
-    other: { "google-adsense-account": "ca-pub-6371903555702163" },
   };
 }
 
@@ -113,12 +111,16 @@ export default async function LocaleLayout({
             }),
           }}
         />
-        {/* Google AdSense */}
-        <Script
+        {/* Google AdSense — ownership meta + loader as native, server-rendered
+            <head> tags so the AdSense verification crawler sees them in the
+            initial HTML (verification kept failing when these were injected
+            client-side). ads.txt at the domain root is the primary proof. */}
+        <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
         {/* Ezoic */}
         <Script async src="//www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
