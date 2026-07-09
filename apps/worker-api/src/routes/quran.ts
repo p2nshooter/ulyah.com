@@ -20,6 +20,23 @@ quranRoute.get("/surah", async (c) => {
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
+// GET /quran/qori — reciter roster with country of origin and how much of
+// the Qur'an is actually cached for each, so the picker never offers a
+// reciter that would silently fail on every ayah.
+quranRoute.get("/qori", async (c) => {
+  const cached = await c.env.CACHE_KV.get("quran:qori:all");
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const { results } = await c.env.DB.prepare(
+    `SELECT q.id, q.name, q.country,
+            (SELECT COUNT(*) FROM audio_cache ac WHERE ac.qori_id = q.id) AS ayah_count
+     FROM qori q ORDER BY q.id`
+  ).all();
+  const body = JSON.stringify({ qori: results });
+  await c.env.CACHE_KV.put("quran:qori:all", body, { expirationTtl: 60 * 10 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
 // GET /quran/surah/:id?lang= — surah detail + all ayat (Arabic + translation
 // in the requested UI language, falling back per packages/shared/i18n rules)
 quranRoute.get("/surah/:id", async (c) => {

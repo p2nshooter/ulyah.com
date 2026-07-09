@@ -6,11 +6,20 @@ import { api } from "@/lib/api";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { Dictionary } from "@/dictionaries";
 
-const QORI_LIST = [
-  { id: 1, name: "Mishary Rashid Alafasy" },
-  { id: 2, name: "Abdurrahman As-Sudais" },
-  { id: 3, name: "Saad Al-Ghamdi" },
-  { id: 4, name: "Mahmoud Khalil Al-Husary" },
+interface QoriOption {
+  id: number;
+  name: string;
+  country: string | null;
+  ayah_count: number;
+}
+
+// Shown until /quran/qori resolves — keeps the picker usable immediately
+// instead of flashing empty, and is a safe fallback if the fetch fails.
+const QORI_FALLBACK: QoriOption[] = [
+  { id: 1, name: "Mishary Rashid Alafasy", country: "Kuwait", ayah_count: 6236 },
+  { id: 2, name: "Abdurrahman As-Sudais", country: "Saudi Arabia", ayah_count: 0 },
+  { id: 3, name: "Saad Al-Ghamdi", country: "Saudi Arabia", ayah_count: 0 },
+  { id: 4, name: "Mahmoud Khalil Al-Husary", country: "Egypt", ayah_count: 0 },
 ];
 
 interface AyahBundleResponse {
@@ -93,6 +102,16 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
 
   const [progress, setProgress] = useState({ current: 0, duration: 0 });
   const [showQoriMenu, setShowQoriMenu] = useState(false);
+  const [qoriList, setQoriList] = useState<QoriOption[]>(QORI_FALLBACK);
+
+  useEffect(() => {
+    api
+      .get<{ qori: QoriOption[] }>("/quran/qori")
+      .then((r) => {
+        if (r.qori?.length) setQoriList(r.qori);
+      })
+      .catch(() => {});
+  }, []);
   const current = queue[currentIndex];
   const layersKey = layers.join(",");
   const uiLang = typeof document !== "undefined" ? document.documentElement.lang || "id" : "id";
@@ -319,22 +338,32 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
                 onClick={() => setShowQoriMenu((v) => !v)}
                 className="rounded-full border border-accent/30 px-3 py-1 text-xs hover:border-accent"
               >
-                {dict.reader.qariLabel}: {QORI_LIST.find((q) => q.id === qoriId)?.name.split(" ")[0]}
+                {dict.reader.qariLabel}: {qoriList.find((q) => q.id === qoriId)?.name.split(" ")[0]}
               </button>
               {showQoriMenu && (
-                <div className="absolute bottom-full right-0 mb-2 w-56 rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">
-                  {QORI_LIST.map((q) => (
-                    <button
-                      key={q.id}
-                      onClick={() => {
-                        setQori(q.id);
-                        setShowQoriMenu(false);
-                      }}
-                      className={`block w-full px-3 py-2 text-left text-xs hover:bg-accent/10 ${q.id === qoriId ? "text-accent" : ""}`}
-                    >
-                      {q.name}
-                    </button>
-                  ))}
+                <div className="absolute bottom-full right-0 mb-2 max-h-80 w-64 overflow-y-auto rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">
+                  {qoriList.map((q) => {
+                    const ready = q.ayah_count > 0;
+                    return (
+                      <button
+                        key={q.id}
+                        disabled={!ready}
+                        onClick={() => {
+                          setQori(q.id);
+                          setShowQoriMenu(false);
+                        }}
+                        className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-xs ${
+                          !ready ? "cursor-not-allowed opacity-40" : "hover:bg-accent/10"
+                        } ${q.id === qoriId ? "text-accent" : ""}`}
+                      >
+                        <span>
+                          {q.name}
+                          {q.country && <span className="ml-1.5 opacity-60">· {q.country}</span>}
+                        </span>
+                        {!ready && <span className="shrink-0 text-[10px] opacity-70">segera</span>}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>

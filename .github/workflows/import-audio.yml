@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       qori:
-        description: "Qori (alafasy | sudais | ghamdi | husary)"
+        description: "Qori key from scripts/import-murottal-audio.ts (alafasy | sudais | ghamdi | husary | abdulbasit-murattal | abdulbasit-mujawwad | minshawi | tablawi | jibreel | hudhaify | muaiqly | ajmy | shatri | rifai | qatami | dosari | akhdar | sowaid | qasim | bukhatir | abbad | mansoori)"
         required: true
         default: "alafasy"
       surah_range:

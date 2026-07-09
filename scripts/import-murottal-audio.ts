@@ -27,13 +27,42 @@ interface QoriDef {
   everyAyahDir: string;
 }
 
-// EveryAyah.com folder-name convention for each qori. Extend as needed —
+// EveryAyah.com folder-name convention for each qori. `id` must match the
+// row inserted for this reciter in packages/db-schema/migrations (0002 for
+// the original 4, 0009_qori_countries.sql for the rest). Extend as needed —
 // full catalogue: https://everyayah.com/data/status.php
+//
+// This is EveryAyah.com's actual roster, not "every reciter in the world" —
+// it is the largest freely-redistributable per-ayah archive that exists, and
+// in practice it skews Gulf/Egypt/Iran because that is where such archives
+// are actually published under a license that allows this. Genuinely global
+// diversity (Southeast Asia, South Asia, West Africa, Turkey, ...) and
+// children's/women's reciters are not available in this same clean,
+// licensed, per-ayah format from a source we've verified — add them here
+// once we have a real, checked source rather than guessing at a URL.
 const QORI: Record<string, QoriDef> = {
   alafasy: { id: 1, everyAyahDir: "Alafasy_128kbps" },
   sudais: { id: 2, everyAyahDir: "Abdurrahmaan_As-Sudais_192kbps" },
   ghamdi: { id: 3, everyAyahDir: "Saad_Al_Ghamidi_64kbps" },
   husary: { id: 4, everyAyahDir: "Husary_128kbps" },
+  "abdulbasit-murattal": { id: 5, everyAyahDir: "Abdul_Basit_Murattal_192kbps" },
+  "abdulbasit-mujawwad": { id: 6, everyAyahDir: "Abdul_Basit_Mujawwad_128kbps" },
+  minshawi: { id: 7, everyAyahDir: "Minshawy_Murattal_128kbps" },
+  tablawi: { id: 8, everyAyahDir: "Mohammad_al_Tablaway_128kbps" },
+  jibreel: { id: 9, everyAyahDir: "Muhammad_Jibreel_128kbps" },
+  hudhaify: { id: 10, everyAyahDir: "Hudhaify_128kbps" },
+  muaiqly: { id: 11, everyAyahDir: "MaherAlMuaiqly128kbps" },
+  ajmy: { id: 12, everyAyahDir: "Ahmed_ibn_Ali_al_Ajamy_128kbps" },
+  shatri: { id: 13, everyAyahDir: "Abu_Bakr_Ash-Shaatri_128kbps" },
+  rifai: { id: 14, everyAyahDir: "Hani_Rifai_192kbps" },
+  qatami: { id: 15, everyAyahDir: "Nasser_Alqatami_128kbps" },
+  dosari: { id: 16, everyAyahDir: "Yasser_Ad-Dussary_128kbps" },
+  akhdar: { id: 17, everyAyahDir: "Ibrahim_Akhdar_32kbps" },
+  sowaid: { id: 18, everyAyahDir: "Ayman_Sowaid_64kbps" },
+  qasim: { id: 19, everyAyahDir: "Muhsin_Al_Qasim_192kbps" },
+  bukhatir: { id: 20, everyAyahDir: "Salaah_AbdulAziz_Bukhatir_128kbps" },
+  abbad: { id: 21, everyAyahDir: "Fares_Abbad_64kbps" },
+  mansoori: { id: 22, everyAyahDir: "Karim_Mansoori_40kbps" },
 };
 
 // surah_id -> ayah_count (114 entries). Needed to know how many files to
