@@ -2,6 +2,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { AdSlot } from "@/components/AdSlot";
 
 interface StoryRow {
   id: number;
@@ -32,17 +33,23 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
 
       <div className="mt-8 space-y-3">
         {stories.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>}
-        {stories.map((s) => (
-          <Link
-            key={s.id}
-            href={`/${locale}/kisah/${s.slug}`}
-            className="block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
-          >
-            <p className="text-xs font-medium uppercase tracking-wide text-accent">
-              {s.episode_number ? `Episode ${s.episode_number}` : s.category_name}
-            </p>
-            <p className="mt-1 font-heading text-lg">{s.title}</p>
-          </Link>
+        {stories.map((s, i) => (
+          <div key={s.id}>
+            <Link
+              href={`/${locale}/kisah/${s.slug}`}
+              className="block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
+            >
+              <p className="text-xs font-medium uppercase tracking-wide text-accent">
+                {s.episode_number ? `Episode ${s.episode_number}` : s.category_name}
+              </p>
+              <p className="mt-1 font-heading text-lg">{s.title}</p>
+            </Link>
+            {i === 5 && (
+              <div className="mt-3">
+                <AdSlot minHeight={110} />
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>

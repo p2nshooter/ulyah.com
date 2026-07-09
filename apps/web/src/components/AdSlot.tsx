@@ -3,9 +3,17 @@
 import { useEffect, useRef } from "react";
 
 /**
- * A single AdSense unit with reserved height so ads never cause layout shift
- * (good Core Web Vitals + a professional feel). The publisher script lives in
- * <head> (layout.tsx); this only renders the <ins> and requests a fill.
+ * A single AdSense unit, framed as a premium card consistent with the rest of
+ * the site rather than a bare utilitarian box — well-integrated placement
+ * genuinely earns attention (and therefore legitimate clicks) without any
+ * deceptive UI. Reserved height prevents layout shift. The publisher script
+ * lives in <head> (layout.tsx); this only renders the <ins> and requests a
+ * fill.
+ *
+ * IMPORTANT: never disguise this as a "next" button, download link, or part
+ * of the reading content — that violates AdSense policy and risks the whole
+ * account being suspended. The "Sponsored" label must stay visible; only the
+ * framing may be elegant.
  *
  * Slot IDs come from the AdSense dashboard after the account is approved.
  * Until a real slot id is supplied the container renders as an unobtrusive
@@ -23,8 +31,8 @@ declare global {
 export function AdSlot({
   slot,
   format = "auto",
-  minHeight = 120,
-  label = "Advertisement",
+  minHeight = 130,
+  label = "Sponsored",
   className = "",
 }: {
   slot?: string;
@@ -46,11 +54,21 @@ export function AdSlot({
 
   return (
     <div
-      className={`mx-auto w-full max-w-4xl overflow-hidden rounded-xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface)]/40 text-center dark:bg-white/[0.02] ${className}`}
+      className={`mx-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-accent/25 bg-gradient-to-b from-accent/[0.06] to-transparent text-center shadow-sm ${className}`}
       style={{ minHeight }}
       aria-hidden={!slot}
     >
-      <p className="pt-1 text-[9px] uppercase tracking-widest text-[var(--color-text-secondary)]/50">{label}</p>
+      <div className="flex items-center justify-center gap-1.5 border-b border-accent/10 py-1.5">
+        <span aria-hidden className="text-[10px]">
+          ✦
+        </span>
+        <p className="text-[9px] font-medium uppercase tracking-[0.15em] text-[var(--color-text-secondary)]/70">
+          {label}
+        </p>
+        <span aria-hidden className="text-[10px]">
+          ✦
+        </span>
+      </div>
       {slot ? (
         <ins
           ref={ref}
@@ -62,8 +80,8 @@ export function AdSlot({
           data-full-width-responsive="true"
         />
       ) : (
-        <div className="grid place-items-center" style={{ minHeight: minHeight - 16 }}>
-          <span className="text-[10px] text-[var(--color-text-secondary)]/40">ULYAH · {label}</span>
+        <div className="grid place-items-center" style={{ minHeight: minHeight - 28 }}>
+          <span className="text-[10px] text-[var(--color-text-secondary)]/30">ULYAH</span>
         </div>
       )}
     </div>

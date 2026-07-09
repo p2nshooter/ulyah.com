@@ -1,10 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { StoryReader } from "@/components/StoryReader";
 import { AdSlot } from "@/components/AdSlot";
-
 import { StoryDownloads } from "@/components/StoryDownloads";
 
 interface StoryDetail {
@@ -15,6 +15,42 @@ interface StoryDetail {
   episode_number: number | null;
   pdf_ebook_id: number | null;
   audio_r2_key: string | null;
+  published_at: string | null;
+  category_name: string | null;
+}
+
+function metaDescription(body: string): string {
+  const plain = body.replace(/\s+/g, " ").trim();
+  return plain.length > 160 ? `${plain.slice(0, 157)}...` : plain;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale: raw, slug } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const storyLang = locale === "id" ? "id" : "en";
+
+  try {
+    const data = await api.get<{ story: StoryDetail }>(`/content/stories/${slug}?lang=${storyLang}`);
+    const description = metaDescription(data.story.body);
+    return {
+      title: `${data.story.title} — ULYAH.COM`,
+      description,
+      alternates: { canonical: `/${locale}/kisah/${slug}` },
+      openGraph: {
+        title: data.story.title,
+        description,
+        type: "article",
+        publishedTime: data.story.published_at ?? undefined,
+        url: `https://ulyah.com/${locale}/kisah/${slug}`,
+      },
+    };
+  } catch {
+    return {};
+  }
 }
 
 export default async function KisahDetailPage({
@@ -46,6 +82,30 @@ export default async function KisahDetailPage({
 
   return (
     <article className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: story.title,
+            description: metaDescription(story.body),
+            inLanguage: storyLang,
+            articleSection: story.category_name ?? "Kisah Islami",
+            datePublished: story.published_at ?? undefined,
+            author: { "@type": "Organization", name: "ULYAH.COM" },
+            publisher: {
+              "@type": "Organization",
+              name: "ULYAH.COM",
+              logo: { "@type": "ImageObject", url: "https://ulyah.com/icon-512.png" },
+            },
+            mainEntityOfPage: `https://ulyah.com/${locale}/kisah/${slug}`,
+            ...(story.audio_r2_key
+              ? { audio: { "@type": "AudioObject", contentUrl: `${api.base}/content/stories/${story.id}/audio` } }
+              : {}),
+          }),
+        }}
+      />
       {story.episode_number && (
         <p className="text-xs font-medium uppercase tracking-wide text-accent">Episode {story.episode_number}</p>
       )}
