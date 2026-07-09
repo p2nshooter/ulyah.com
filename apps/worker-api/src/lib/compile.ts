@@ -224,11 +224,22 @@ const HADITH_SESSION_INTRO: Record<string, string> = {
   en: "Welcome to this ULYAH session of selected authentic hadith. Let us listen to several sayings of the Messenger of Allah (peace be upon him), one by one, with hearts open to living by them.",
 };
 
-const HADITH_ITEM_TMPL: Record<string, (i: number, n: string, tr: string, grade: string, source: string) => string> = {
+// Two shapes: hand-curated rows store a bare saying + a separate `narrator`,
+// so the template supplies the "On the authority of X, the Prophet said:"
+// framing. Bulk-imported rows (Bukhari/Muslim) have `narrator = NULL` because
+// their `text` already contains the full isnad chain naturally translated
+// ("Telah menceritakan kepada kami [Fulan]... Rasulullah bersabda...") —
+// wrapping that again in a synthetic "Dari X, Rasulullah bersabda:" preface
+// would be redundant, so those are read as-is.
+const HADITH_ITEM_TMPL: Record<string, (i: number, n: string | null, tr: string, grade: string, source: string) => string> = {
   id: (i, narrator, tr, grade, source) =>
-    `Hadits ke-${i}. Dari ${narrator} radhiyallahu 'anhu, Rasulullah shallallahu 'alaihi wa sallam bersabda: "${tr}" (Derajat: ${grade}. Sumber: ${source}.)`,
+    narrator
+      ? `Hadits ke-${i}. Dari ${narrator} radhiyallahu 'anhu, Rasulullah shallallahu 'alaihi wa sallam bersabda: "${tr}" (Derajat: ${grade}. Sumber: ${source}.)`
+      : `Hadits ke-${i}. ${tr} (Derajat: ${grade}. Sumber: ${source}.)`,
   en: (i, narrator, tr, grade, source) =>
-    `Hadith ${i}. On the authority of ${narrator} (may Allah be pleased with him), the Messenger of Allah (peace be upon him) said: "${tr}" (Grade: ${grade}. Source: ${source}.)`,
+    narrator
+      ? `Hadith ${i}. On the authority of ${narrator} (may Allah be pleased with him), the Messenger of Allah (peace be upon him) said: "${tr}" (Grade: ${grade}. Source: ${source}.)`
+      : `Hadith ${i}. ${tr} (Grade: ${grade}. Source: ${source}.)`,
 };
 
 const HADITH_SESSION_CLOSING: Record<string, string> = {
@@ -262,7 +273,7 @@ export async function runHadithCompile(env: Env, langs: string[]): Promise<numbe
     if (usable.length === 0) continue; // nothing new for this language yet
 
     const parts = usable.map((h, i) =>
-      itemTmpl(i + 1, h.narrator ?? "seorang sahabat", (lang === "en" ? h.text_en : h.text_id)!, h.grade ?? "shahih", h.source ?? "")
+      itemTmpl(i + 1, h.narrator, (lang === "en" ? h.text_en : h.text_id)!, h.grade ?? "shahih", h.source ?? "")
     );
     const body = [
       HADITH_SESSION_INTRO[lang],

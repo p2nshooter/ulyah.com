@@ -132,7 +132,7 @@ jobs:
             echo "Database already has $COUNT surah rows — skipping bulk seed."
           fi
 
-      - name: Apply idempotent content seeds (always — INSERT OR IGNORE)
+      - name: Apply idempotent content seeds (always — INSERT OR IGNORE, small)
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -140,6 +140,23 @@ jobs:
           # only add new curated content and never duplicate. The AI-free engine
           # then compiles each row into narratable articles.
           npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_shahih.sql
+
+      - name: Bulk-import Sahih Bukhari + Muslim hadith (one-time, ~11.7k rows)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # fawazahmed0/hadith-api (Unlicense/public domain) — full Arabic +
+          # Indonesian + English text for the two "Sahihain" collections.
+          # Large (~230+310 batched statements): only run once, skip once present.
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM hadits;" --json > /tmp/hadits_count.json
+          HCOUNT=$(node -e "const j=require('/tmp/hadits_count.json'); console.log(j[0].results[0].n)")
+          if [ "$HCOUNT" -lt "1000" ]; then
+            echo "Hadith library has only $HCOUNT rows — importing full Bukhari + Muslim (this takes a while)."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_bukhari.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_muslim.sql
+          else
+            echo "Hadith library already has $HCOUNT rows — skipping bulk import."
+          fi
 
       - name: Upload seed PDFs (Kisah Nabi Yusuf) to R2
         working-directory: apps/worker-api
