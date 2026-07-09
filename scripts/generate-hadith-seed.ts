@@ -49,14 +49,21 @@ interface EditionFile {
 
 interface Collection {
   key: string; // used in output filename
-  editionPrefix: "bukhari" | "muslim";
+  editionPrefix: string;
   idStart: number; // first `hadits.id` this collection occupies
   sourceLabel: string; // e.g. "Sahih al-Bukhari"
 }
 
+// idStart ranges are generously spaced (10k apart) so no collection's real
+// hadith count can ever collide with the next one's range.
 const COLLECTIONS: Collection[] = [
   { key: "bukhari", editionPrefix: "bukhari", idStart: 1001, sourceLabel: "Sahih al-Bukhari" },
   { key: "muslim", editionPrefix: "muslim", idStart: 9001, sourceLabel: "Sahih Muslim" },
+  { key: "tirmidhi", editionPrefix: "tirmidhi", idStart: 20001, sourceLabel: "Jami' At-Tirmidzi" },
+  { key: "abudawud", editionPrefix: "abudawud", idStart: 30001, sourceLabel: "Sunan Abu Dawud" },
+  { key: "nasai", editionPrefix: "nasai", idStart: 40001, sourceLabel: "Sunan An-Nasa'i" },
+  { key: "ibnmajah", editionPrefix: "ibnmajah", idStart: 50001, sourceLabel: "Sunan Ibnu Majah" },
+  { key: "malik", editionPrefix: "malik", idStart: 60001, sourceLabel: "Muwatta Malik" },
 ];
 
 function esc(s: string | null | undefined): string {
