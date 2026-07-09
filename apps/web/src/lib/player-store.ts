@@ -50,6 +50,10 @@ interface PlayerState {
   sleepAt: number | null;
   storyTrack: { id: number; title: string } | null;
   audioUnavailableNotice: string | null;
+  // Live qori-recitation progress (seconds), published by GlobalPlayerBar's
+  // <audio onTimeUpdate> so any component — e.g. the word-by-word Arabic
+  // highlight — can derive playback ratio without owning the <audio> element.
+  audioProgress: { current: number; duration: number };
 
   loadSurahQueue: (ayat: QueueItem[], startIndex?: number) => void;
   patchBundle: (index: number, partial: Partial<QueueItem>) => void;
@@ -58,6 +62,7 @@ interface PlayerState {
   toggleLayer: (l: Layer) => void;
   applyPreset: (p: PresetKey) => void;
   setActiveLayer: (l: Layer | null) => void;
+  setAudioProgress: (p: { current: number; duration: number }) => void;
   setQori: (id: number) => void;
   setPlaybackRate: (r: number) => void;
   setRepeatMode: (m: "off" | "ayah" | "surah") => void;
@@ -114,6 +119,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   sleepAt: null,
   storyTrack: null,
   audioUnavailableNotice: null,
+  audioProgress: { current: 0, duration: 0 },
 
   loadSurahQueue: (ayat, startIndex = 0) => {
     set({
@@ -161,6 +167,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   setActiveLayer: (l) => set({ activeLayer: l }),
+  setAudioProgress: (p) => set({ audioProgress: p }),
 
   setQori: (id) => {
     if (typeof window !== "undefined") window.localStorage.setItem(QORI_STORAGE_KEY, String(id));

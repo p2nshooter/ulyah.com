@@ -58,6 +58,38 @@ function layersMatchPreset(layers: Layer[], preset: Layer[]): boolean {
   return layers.length === preset.length && preset.every((l) => layers.includes(l));
 }
 
+/** Word-by-word Arabic highlight synced to the qori's actual audio progress
+ * (current/duration ratio, so it self-corrects — no fixed-timer drift). Only
+ * active while this ayah's recitation is the thing currently playing. */
+function HighlightedArabic({ text, active }: { text: string; active: boolean }) {
+  const progress = usePlayerStore((s) => s.audioProgress);
+  const words = useMemo(() => text.split(/\s+/).filter(Boolean), [text]);
+
+  if (!active || !progress.duration) return <>{text}</>;
+
+  const ratio = Math.min(progress.current / progress.duration, 1);
+  const targetIdx = Math.min(Math.floor(ratio * words.length), words.length - 1);
+
+  return (
+    <>
+      {words.map((w, i) => (
+        <span
+          key={i}
+          className={
+            i === targetIdx
+              ? "rounded bg-accent/30 px-0.5 text-accent"
+              : i < targetIdx
+                ? "text-[var(--color-text-secondary)]"
+                : ""
+          }
+        >
+          {w}{" "}
+        </span>
+      ))}
+    </>
+  );
+}
+
 export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
   const [surahFilter, setSurahFilter] = useState("");
@@ -274,7 +306,10 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               ) : (
                 <>
                   <p dir="rtl" className="font-arabic text-3xl leading-[2.4] text-[var(--color-text-primary)] sm:text-4xl">
-                    {focusRow?.text_ar}{" "}
+                    <HighlightedArabic
+                      text={focusRow?.text_ar ?? ""}
+                      active={isThisAyahActive && activeLayer === "ayah"}
+                    />{" "}
                     <span className="text-accent">﴿{toArabicNumber(focus)}﴾</span>
                   </p>
                   {focusRow?.translation ? (

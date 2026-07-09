@@ -79,6 +79,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     setQori,
     setPlaybackRate,
     setRepeatMode,
+    setAudioProgress,
   } = usePlayerStore();
 
   const [progress, setProgress] = useState({ current: 0, duration: 0 });
@@ -93,7 +94,8 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     narrationRef.current = null;
     const audio = audioRef.current;
     if (audio) audio.pause();
-  }, []);
+    setAudioProgress({ current: 0, duration: 0 }); // don't leak the previous ayah's highlight ratio
+  }, [setAudioProgress]);
 
   /** Play the current ayah's recitation. Resolves true on natural end,
    * false if the murottal for this qori/ayah isn't imported (404) so the
@@ -248,9 +250,11 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-accent/20 bg-[#06251b]/97 px-3 py-2 text-[#f4efe3] backdrop-blur-md sm:px-6">
       <audio
         ref={audioRef}
-        onTimeUpdate={(e) =>
-          setProgress({ current: e.currentTarget.currentTime, duration: e.currentTarget.duration || 0 })
-        }
+        onTimeUpdate={(e) => {
+          const p = { current: e.currentTarget.currentTime, duration: e.currentTarget.duration || 0 };
+          setProgress(p);
+          setAudioProgress(p);
+        }}
         onEnded={() => {
           if (storyTrack) next();
         }}
