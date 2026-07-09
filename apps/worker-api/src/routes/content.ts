@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { translateText } from "../lib/mt.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
@@ -212,8 +213,18 @@ contentRoute.get("/kitab/book/:id", async (c) => {
   } catch {
     topics = [];
   }
+
+  // Description is stored Arabic-only (the classical source language); a
+  // non-Arabic reader gets a live, KV-cached translation instead of a bulk
+  // pre-translated D1 column — see lib/mt.ts.
+  const targetLang = nameCol === "name_id" ? "id" : "en";
+  const description_translated =
+    typeof book.description_ar === "string" && book.description_ar
+      ? await translateText(c.env, book.description_ar, targetLang)
+      : null;
+
   const { topics_json, ...rest } = book;
-  return c.json({ book: { ...rest, topics } });
+  return c.json({ book: { ...rest, topics, description_translated, description_lang: targetLang } });
 });
 
 // GET /content/ebooks/:id/download — free, no login, short-lived signed token

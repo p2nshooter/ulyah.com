@@ -27,6 +27,7 @@ export interface KitabLabels {
   openWork: string;
   note: string;
   arabicOnlyNote: string;
+  translationLabel: string;
 }
 
 const EN: KitabLabels = {
@@ -53,6 +54,7 @@ const EN: KitabLabels = {
   openWork: "Open",
   note: "Catalogue and summaries only, for study and reference.",
   arabicOnlyNote: "This work's description is in Arabic, the original classical source language — read aloud with an Arabic voice below.",
+  translationLabel: "Translation",
 };
 
 const ID: KitabLabels = {
@@ -79,6 +81,7 @@ const ID: KitabLabels = {
   openWork: "Buka",
   note: "Hanya katalog dan ringkasan, untuk studi dan rujukan.",
   arabicOnlyNote: "Ringkasan kitab ini berbahasa Arab, bahasa sumber aslinya — bisa didengarkan dengan suara Arab di bawah ini.",
+  translationLabel: "Terjemahan",
 };
 
 const AR: KitabLabels = {
@@ -105,6 +108,7 @@ const AR: KitabLabels = {
   openWork: "افتح",
   note: "فهرس وتعريفات فقط، للدراسة والمراجعة.",
   arabicOnlyNote: "",
+  translationLabel: "",
 };
 
 const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR };

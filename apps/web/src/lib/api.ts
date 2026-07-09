@@ -8,7 +8,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error((body as { error?: string }).error ?? `Request failed: ${res.status}`);
+    const { error, detail } = body as { error?: string; detail?: string };
+    throw new Error(detail || error || `Request failed: ${res.status}`);
   }
   return res.json() as Promise<T>;
 }
@@ -24,7 +25,8 @@ export const api = {
     const res = await fetch(`${API_BASE}${path}`, { method: "POST", body: form, credentials: "include" });
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
-      throw new Error((body as { error?: string }).error ?? `Upload failed: ${res.status}`);
+      const { error, detail } = body as { error?: string; detail?: string };
+      throw new Error(detail || error || `Upload failed: ${res.status}`);
     }
     return res.json() as Promise<T>;
   },

@@ -11,6 +11,8 @@ interface BookDetail {
   author: string | null;
   author_death_year: string | null;
   description_ar: string | null;
+  description_translated: string | null;
+  description_lang: string | null;
   source: string | null;
   topics: string[];
   category_slug: string;
@@ -73,18 +75,26 @@ export default async function KitabBookPage({
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold">{t.about}</p>
               <NarrateButton
-                paragraphs={[book.description_ar]}
+                paragraphs={[book.description_translated ?? book.description_ar]}
                 listenLabel={t.listen}
                 stopLabel={t.stop}
-                lang={locale}
+                lang={book.description_translated ? locale : "ar"}
               />
             </div>
-            {t.arabicOnlyNote && (
+            {!book.description_translated && t.arabicOnlyNote && (
               <p className="mt-2 text-xs italic text-[var(--color-text-secondary)]">{t.arabicOnlyNote}</p>
             )}
             <p dir="rtl" className="font-arabic mt-3 text-lg leading-loose text-[var(--color-text-primary)]">
               {book.description_ar}
             </p>
+            {book.description_translated && (
+              <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle,transparent)] p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-accent">{t.translationLabel}</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+                  {book.description_translated}
+                </p>
+              </div>
+            )}
           </div>
         )}
 
