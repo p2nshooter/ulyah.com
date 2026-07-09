@@ -44,6 +44,7 @@ const LAYER_LABEL: Record<Layer, (d: Dictionary) => string> = {
   tafsir: (d) => d.reader.tafsirLabel,
   asbabun: (d) => d.reader.asbabunNuzulLabel,
   hadits: (d) => d.reader.haditsLabel,
+  kisah: (d) => d.reader.storyLabel,
 };
 
 const LAYER_ICON: Record<Layer, string> = {
@@ -52,6 +53,7 @@ const LAYER_ICON: Record<Layer, string> = {
   tafsir: "📖",
   asbabun: "📜",
   hadits: "🕌",
+  kisah: "✨",
 };
 
 function layersMatchPreset(layers: Layer[], preset: Layer[]): boolean {
@@ -169,6 +171,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       tafsir: null,
       asbabun: null,
       hadits: null,
+      kisah: null,
       bundleLoaded: false,
     }));
     const startIndex = Math.max(0, items.findIndex((i) => i.number === startNumber));

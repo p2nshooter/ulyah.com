@@ -70,7 +70,12 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   }
   const { lang, requested } = langParam(c);
 
-  const cacheKey = `quran:ayah:${surahId}:${number}:${requested}`;
+  // "v2" bumps past every bundle cached before tafsir/asbabun moved to the
+  // live spa5k fetch (see lib/tafsir-source.ts) — those old entries would
+  // otherwise keep serving empty tafsir/asbabun for up to their old TTL
+  // regardless of the underlying fix. TTL itself is now short (was 6h) so a
+  // future content fix here self-heals in minutes, not hours.
+  const cacheKey = `quran:ayah:v2:${surahId}:${number}:${requested}`;
   const cached = await c.env.CACHE_KV.get(cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
@@ -111,7 +116,7 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
     hadits: hadits.results,
     stories: stories.results,
   });
-  await c.env.CACHE_KV.put(cacheKey, body, { expirationTtl: 60 * 60 * 6 });
+  await c.env.CACHE_KV.put(cacheKey, body, { expirationTtl: 60 * 15 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 

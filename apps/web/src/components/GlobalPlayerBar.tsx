@@ -12,9 +12,10 @@ interface AyahBundleResponse {
   tafsir: { text: string }[];
   asbabun_nuzul: { text: string }[];
   hadits: { text_id: string; narrator: string | null; source: string }[];
+  stories: { title: string; body: string }[];
 }
 
-/** Fetch tafsir/asbabun/hadits text once and fold it into narratable strings. */
+/** Fetch tafsir/asbabun/hadits/kisah text once and fold it into narratable strings. */
 async function loadBundle(item: QueueItem, lang: string): Promise<Partial<QueueItem>> {
   try {
     const b = await api.get<AyahBundleResponse>(`/quran/ayah/${item.surahId}/${item.number}?lang=${lang}`);
@@ -24,6 +25,7 @@ async function loadBundle(item: QueueItem, lang: string): Promise<Partial<QueueI
       asbabun: b.asbabun_nuzul.map((a) => a.text).join(" ") || null,
       hadits:
         b.hadits.map((h) => `${h.text_id}${h.narrator ? ` — ${h.narrator}` : ""} (${h.source})`).join(". ") || null,
+      kisah: b.stories[0] ? `${b.stories[0].title}. ${b.stories[0].body}` : null,
       bundleLoaded: true,
     };
   } catch {
@@ -41,6 +43,8 @@ function layerText(item: QueueItem, layer: Layer): string | null {
       return item.asbabun;
     case "hadits":
       return item.hadits;
+    case "kisah":
+      return item.kisah;
     default:
       return null;
   }
@@ -249,6 +253,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     tafsir: dict.reader.tafsirLabel,
     asbabun: dict.reader.asbabunNuzulLabel,
     hadits: dict.reader.haditsLabel,
+    kisah: dict.reader.storyLabel,
   };
 
   return (

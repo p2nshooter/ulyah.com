@@ -8,21 +8,23 @@ import { DEFAULT_QORI_KEY } from "./qori-cdn";
  * Layered playback: for every ayah the listener chooses which layers to hear.
  * The Arabic recitation ("ayah") is ALWAYS real qori audio, streamed
  * directly from the reciter's public CDN — never TTS, never re-hosted.
- * Every other layer (translation, tafsir, asbabun nuzul, hadits) is
+ * Every other layer (translation, tafsir, asbabun nuzul, hadits, kisah) is
  * narrated by the browser voice engine in the UI language. The player walks
  * the enabled layers in this canonical order for each ayah, then advances.
+ * "kisah" only speaks when this specific ayah has a linked story — most
+ * ayat don't, same as asbabun nuzul.
  */
-export const LAYERS = ["ayah", "translation", "tafsir", "asbabun", "hadits"] as const;
+export const LAYERS = ["ayah", "translation", "tafsir", "asbabun", "hadits", "kisah"] as const;
 export type Layer = (typeof LAYERS)[number];
 
 // "Mode Pemahaman" presets from the reference design. Each maps to a set of
 // layers; the listener can still fine-tune with individual layer chips.
 export const MODE_PRESETS: Record<string, Layer[]> = {
-  full: ["ayah", "translation", "tafsir", "asbabun", "hadits"],
+  full: ["ayah", "translation", "tafsir", "asbabun", "hadits", "kisah"],
   ayah: ["ayah"],
   translation: ["translation"],
   tafsir: ["tafsir"],
-  hikmah: ["hadits", "asbabun"],
+  hikmah: ["hadits", "asbabun", "kisah"],
 };
 export type PresetKey = keyof typeof MODE_PRESETS;
 
@@ -37,6 +39,7 @@ export interface QueueItem {
   tafsir: string | null;
   asbabun: string | null;
   hadits: string | null;
+  kisah: string | null;
   bundleLoaded: boolean;
 }
 
