@@ -151,11 +151,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 desktop:grid-cols-4">
             {explore.map(([icon, item, href]) => (
-              <Link
-                key={item.title}
-                href={href}
-                className="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition hover:-translate-y-1 hover:border-accent hover:shadow-lg"
-              >
+              <Link key={item.title} href={href} className="card-premium group relative overflow-hidden p-6">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent/10 text-2xl">{icon}</div>
                 <p className="mt-4 font-heading text-lg">{item.title}</p>
                 <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{item.desc}</p>
