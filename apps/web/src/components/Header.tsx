@@ -31,14 +31,24 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
               <Image src="/icon.png" alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
-              <span className="leading-none">
-                <span className="block font-heading text-2xl text-primary dark:text-[var(--color-accent)]">
-                  ulyah<span className="text-accent">.</span>
-                </span>
-                <span dir="rtl" className="font-arabic block text-[13px] leading-none text-accent/80">
-                  علية
-                </span>
-              </span>
+              {/* Natural green+gold reads well on the light header (white bg);
+                  pure-gold reads well on the dark header (deep green bg). */}
+              <Image
+                src="/brand/wordmark-ar.png"
+                alt="Ulyah"
+                width={124}
+                height={34}
+                className="block h-[30px] w-auto dark:hidden"
+                priority
+              />
+              <Image
+                src="/brand/wordmark-ar-gold.png"
+                alt="Ulyah"
+                width={124}
+                height={34}
+                className="hidden h-[30px] w-auto dark:block"
+                priority
+              />
             </span>
           </AdminTrigger>
         </div>

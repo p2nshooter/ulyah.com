@@ -10,14 +10,9 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
         <div>
           <div className="flex items-center gap-2.5">
             <Image src="/icon.png" alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
-            <span>
-              <span className="block font-heading text-2xl leading-none">
-                ulyah<span className="text-accent">.</span>
-              </span>
-              <span dir="rtl" className="font-arabic block text-sm leading-none text-accent/80">
-                علية
-              </span>
-            </span>
+            {/* Footer is always the dark-green brand background, so the
+                pure-gold wordmark (not the theme-aware pair) always applies. */}
+            <Image src="/brand/wordmark-ar-gold.png" alt="Ulyah" width={138} height={38} className="h-[34px] w-auto" />
           </div>
           <p className="mt-2 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
           <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
