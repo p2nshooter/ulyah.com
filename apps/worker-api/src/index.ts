@@ -9,6 +9,7 @@ import { donateRoute } from "./routes/donate.js";
 import { adminAuthRoute } from "./routes/admin-auth.js";
 import { adminRoute } from "./routes/admin.js";
 import { clientRoute } from "./routes/client.js";
+import { analyticsRoute } from "./routes/analytics.js";
 import { runScalingTick } from "./lib/scaling.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
@@ -31,6 +32,7 @@ app.route("/donate", donateRoute);
 app.route("/admin/auth", adminAuthRoute);
 app.route("/admin", adminRoute);
 app.route("/client", clientRoute);
+app.route("/analytics", analyticsRoute);
 
 // WebSocket gateway to the singleton KeyPoolCoordinator (§13.1)
 app.get("/keypool/connect", async (c) => {

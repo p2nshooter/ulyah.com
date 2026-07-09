@@ -245,6 +245,80 @@ adminRoute.post("/proofs/:id/decide", async (c) => {
   return c.json({ ok: true, status, cert_no: certNo });
 });
 
+// ── Visitor / member / certificate analytics (central visibility) ────────
+
+adminRoute.get("/analytics", async (c) => {
+  const [
+    todayRow, weekRow, monthRow, yearRow, allTimeRow,
+    daily, weekly, monthly, yearly, visitorCountries,
+    memberTotal, memberCountries, certTotal, certCountries, certList,
+  ] = await Promise.all([
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE date(created_at) = date('now')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE created_at >= datetime('now','-7 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE created_at >= datetime('now','-30 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE created_at >= datetime('now','-365 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews").first<{ n: number }>(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y-%m-%d', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y-W%W', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y-%m', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews GROUP BY bucket ORDER BY bucket`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT COALESCE(country,'??') AS country, COUNT(*) AS n FROM analytics_pageviews
+       GROUP BY country ORDER BY n DESC LIMIT 25`
+    ).all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM clients").first<{ n: number }>(),
+    c.env.DB.prepare(
+      `SELECT COALESCE(country,'??') AS country, COUNT(*) AS n FROM clients GROUP BY country ORDER BY n DESC LIMIT 25`
+    ).all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM donation_proofs WHERE status = 'approved'").first<{ n: number }>(),
+    c.env.DB.prepare(
+      `SELECT COALESCE(cl.country,'??') AS country, COUNT(*) AS n
+       FROM donation_proofs p JOIN clients cl ON cl.id = p.client_id
+       WHERE p.status = 'approved' GROUP BY country ORDER BY n DESC LIMIT 25`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT p.cert_no, p.sender_name, cl.country, p.amount, p.currency, p.reviewed_at
+       FROM donation_proofs p JOIN clients cl ON cl.id = p.client_id
+       WHERE p.status = 'approved' ORDER BY p.reviewed_at DESC LIMIT 100`
+    ).all(),
+  ]);
+
+  return c.json({
+    visitors: {
+      today: todayRow?.n ?? 0,
+      thisWeek: weekRow?.n ?? 0,
+      thisMonth: monthRow?.n ?? 0,
+      thisYear: yearRow?.n ?? 0,
+      allTime: allTimeRow?.n ?? 0,
+      daily: daily.results,
+      weekly: weekly.results,
+      monthly: monthly.results,
+      yearly: yearly.results,
+      countries: visitorCountries.results,
+    },
+    members: {
+      total: memberTotal?.n ?? 0,
+      countries: memberCountries.results,
+    },
+    certificates: {
+      total: certTotal?.n ?? 0,
+      countries: certCountries.results,
+      recent: certList.results,
+    },
+  });
+});
+
 // ── Clients / registered donors ──────────────────────────────────────────
 
 adminRoute.get("/clients", async (c) => {

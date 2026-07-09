@@ -28,10 +28,11 @@ clientRoute.post("/register", async (c) => {
   if (existing) return c.json({ error: "Email already registered" }, 409);
 
   const hash = await hashPassword(password);
+  const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
   const row = await c.env.DB.prepare(
-    "INSERT INTO clients (email, password_hash, name) VALUES (?, ?, ?) RETURNING id"
+    "INSERT INTO clients (email, password_hash, name, country) VALUES (?, ?, ?, ?) RETURNING id"
   )
-    .bind(email.toLowerCase(), hash, name ?? null)
+    .bind(email.toLowerCase(), hash, name ?? null, country)
     .first<{ id: number }>();
 
   const token = await createSession(c.env, { subject: "client", id: row!.id, email: email.toLowerCase() });

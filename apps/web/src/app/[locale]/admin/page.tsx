@@ -13,8 +13,9 @@ import { AuditLogTab } from "@/components/admin/AuditLogTab";
 import { ClientsTab } from "@/components/admin/ClientsTab";
 import { ScalingTab } from "@/components/admin/ScalingTab";
 import { AccountTab } from "@/components/admin/AccountTab";
+import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
 
-type Tab = "dashboard" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account";
+type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -56,6 +57,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
 
   const tabs: [Tab, string][] = [
     ["dashboard", dict.admin.dashboardTitle],
+    ["analytics", "Analytics"],
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
     ["donations", dict.admin.donations],
@@ -97,6 +99,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
       )}
 
       <div className="mt-6">
+        {tab === "analytics" && <AnalyticsTab />}
         {tab === "keys" && <KeyPoolTab />}
         {tab === "content" && <ContentTab />}
         {tab === "donations" && <DonationsTab />}

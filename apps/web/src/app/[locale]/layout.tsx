@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { SwRegister } from "@/components/SwRegister";
+import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -124,6 +125,7 @@ export default async function LocaleLayout({
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>
         <SwRegister />
+        <AnalyticsBeacon locale={locale} />
         <ThemeProvider>
           <Header locale={locale} dict={dict} />
           <main className="min-h-screen pb-24">{children}</main>
