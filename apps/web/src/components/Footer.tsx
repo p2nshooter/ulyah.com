@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 
@@ -7,10 +8,18 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
     <footer className="border-t border-[var(--color-border)] bg-primary-dark bg-primary px-4 py-12 text-[#f4efe3] sm:px-6">
       <div className="mx-auto grid max-w-7xl gap-8 desktop:grid-cols-4">
         <div>
-          <p className="font-heading text-2xl">
-            ulyah<span className="text-accent">.</span>
-          </p>
-          <p className="mt-1 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
+          <div className="flex items-center gap-2.5">
+            <Image src="/icon.svg" alt="" width={38} height={38} className="rounded-[9px]" />
+            <span>
+              <span className="block font-heading text-2xl leading-none">
+                ulyah<span className="text-accent">.</span>
+              </span>
+              <span dir="rtl" className="font-arabic block text-sm leading-none text-accent/80">
+                علية
+              </span>
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
           <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
           <div className="mt-4">
             <p className="mb-2 text-xs font-semibold text-accent">{dict.footer.followUs}</p>

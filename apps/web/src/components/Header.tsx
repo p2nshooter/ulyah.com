@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import type { Dictionary } from "@/dictionaries";
 import { AdminTrigger } from "@/components/AdminTrigger";
@@ -26,8 +27,16 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-2">
           <AdminTrigger locale={locale}>
-            <span className="font-heading text-2xl text-primary dark:text-[var(--color-accent)]">
-              ulyah<span className="text-accent">.</span>
+            <span className="flex items-center gap-2.5">
+              <Image src="/icon.svg" alt="" width={34} height={34} className="rounded-[8px]" priority />
+              <span className="leading-none">
+                <span className="block font-heading text-2xl text-primary dark:text-[var(--color-accent)]">
+                  ulyah<span className="text-accent">.</span>
+                </span>
+                <span dir="rtl" className="font-arabic block text-[13px] leading-none text-accent/80">
+                  علية
+                </span>
+              </span>
             </span>
           </AdminTrigger>
         </div>
