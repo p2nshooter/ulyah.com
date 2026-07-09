@@ -6,29 +6,53 @@
   --color-primary: #0b3d2e;
   --color-primary-dark: #06251b;
   --color-accent: #b8892b;
+  --color-accent-light: #d4af4a;
+  --color-accent-xl: #f0d080;
   --color-surface: #f4efe3;
+  --color-surface-2: #ede5d0;
   --color-text-primary: #232323;
   --color-text-secondary: #5a5a5a;
   --color-bg: #ffffff;
   --color-card: #ffffff;
   --color-border: rgba(11, 61, 46, 0.12);
+  --color-border-gold: rgba(184, 137, 43, 0.28);
+
+  --shadow-sm: 0 1px 4px rgba(14, 26, 15, 0.08);
+  --shadow-md: 0 4px 20px rgba(14, 26, 15, 0.1);
+  --shadow-lg: 0 10px 40px rgba(14, 26, 15, 0.14);
+  --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.14);
+  --shadow-gold-lg: 0 10px 44px rgba(184, 137, 43, 0.2);
 }
 
 :root[data-theme="dark"] {
   --color-bg: #06251b;
   --color-card: #0b3d2e;
+  --color-surface-2: rgba(244, 239, 227, 0.05);
   --color-text-primary: #f4efe3;
   --color-text-secondary: #c9c2b2;
   --color-border: rgba(244, 239, 227, 0.14);
+  --color-border-gold: rgba(184, 137, 43, 0.32);
+  --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
+  --shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg: #06251b;
     --color-card: #0b3d2e;
+    --color-surface-2: rgba(244, 239, 227, 0.05);
     --color-text-primary: #f4efe3;
     --color-text-secondary: #c9c2b2;
     --color-border: rgba(244, 239, 227, 0.14);
+    --color-border-gold: rgba(184, 137, 43, 0.32);
+    --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
+    --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
+    --shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
+    --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
+    --shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
   }
 }
 
@@ -55,6 +79,40 @@ body {
 .ayah-active-highlight {
   background: linear-gradient(90deg, rgba(184, 137, 43, 0.14), transparent);
   border-radius: 0.5rem;
+}
+
+/* Shared premium-card language — gold hairline border, soft gold glow,
+   gentle lift + brighter border on hover. Use instead of the plain
+   `border-[var(--color-border)]` boxes for anything user-facing that should
+   feel considered rather than utilitarian (listing cards, feature cards). */
+.card-premium {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+.card-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+  border-color: var(--color-accent);
+}
+
+/* Small gold corner-flourish, positioned absolutely by the caller. Purely
+   decorative — echoes the illuminated-manuscript corner motif without the
+   cost of an image asset. */
+.corner-flourish::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle at top right, rgba(184, 137, 43, 0.16), transparent 70%);
+  pointer-events: none;
 }
 
 ::selection {

@@ -11,6 +11,7 @@ const de: Dictionary = {
     submit: "Senden",
     back: "Zurück",
     error: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    all: "Alle",
   },
   nav: {
     home: "Startseite",

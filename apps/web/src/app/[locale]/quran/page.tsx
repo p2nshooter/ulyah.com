@@ -1,6 +1,7 @@
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
+import { AdSlot } from "@/components/AdSlot";
 
 export default async function QuranPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -14,6 +15,9 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{dict.reader.sectionSubtitle}</p>
         <div className="mt-6">
           <QuranReaderWidget locale={locale} dict={dict} />
+        </div>
+        <div className="mx-auto mt-10 max-w-3xl">
+          <AdSlot minHeight={110} />
         </div>
       </div>
     </div>

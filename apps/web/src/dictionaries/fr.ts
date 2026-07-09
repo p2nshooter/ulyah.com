@@ -11,6 +11,7 @@ const fr: Dictionary = {
     submit: "Envoyer",
     back: "Retour",
     error: "Une erreur est survenue. Veuillez réessayer.",
+    all: "Tout",
   },
   nav: {
     home: "Accueil",

@@ -11,6 +11,7 @@ const en: Dictionary = {
     submit: "Submit",
     back: "Back",
     error: "Something went wrong. Please try again.",
+    all: "All",
   },
   nav: {
     home: "Home",

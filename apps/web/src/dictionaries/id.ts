@@ -11,6 +11,7 @@ const id: Dictionary = {
     submit: "Kirim",
     back: "Kembali",
     error: "Terjadi kesalahan. Silakan coba lagi.",
+    all: "Semua",
   },
   nav: {
     home: "Beranda",

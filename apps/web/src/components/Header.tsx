@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { Dictionary } from "@/dictionaries";
 import { AdminTrigger } from "@/components/AdminTrigger";
@@ -11,6 +12,7 @@ import { useTheme } from "@/components/ThemeProvider";
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
+  const pathname = usePathname();
 
   const links: [string, string][] = [
     [dict.nav.home, `/${locale}`],
@@ -23,12 +25,12 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   ];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-accent/15 bg-[var(--color-bg)]/85 shadow-[var(--shadow-sm)] backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-2">
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
-              <Image src="/icon.svg" alt="" width={34} height={34} className="rounded-[8px]" priority />
+              <Image src="/icon.svg" alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
               <span className="leading-none">
                 <span className="block font-heading text-2xl text-primary dark:text-[var(--color-accent)]">
                   ulyah<span className="text-accent">.</span>
@@ -42,11 +44,23 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         </div>
 
         <nav className="hidden items-center gap-6 desktop:flex">
-          {links.map(([label, href]) => (
-            <Link key={href} href={href} className="text-sm text-[var(--color-text-secondary)] hover:text-accent">
-              {label}
-            </Link>
-          ))}
+          {links.map(([label, href]) => {
+            const active = href === `/${locale}` ? pathname === href : pathname?.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`relative py-1 text-sm transition ${
+                  active ? "font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+                }`}
+              >
+                {label}
+                {active && (
+                  <span aria-hidden className="absolute -bottom-[13px] left-0 right-0 h-0.5 rounded-full bg-accent" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2">

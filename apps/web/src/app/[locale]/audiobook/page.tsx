@@ -2,49 +2,117 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { PageHero } from "@/components/PageHero";
+import { AdSlot } from "@/components/AdSlot";
 
 interface StoryRow {
   id: number;
   title: string;
   slug: string;
   episode_number: number | null;
+  category_name: string | null;
+  category_slug?: string | null;
+  audio_r2_key: string | null;
+  series_key: string | null;
 }
 
-export default async function AudiobookPage({ params }: { params: Promise<{ locale: string }> }) {
+interface CategoryRow {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+const CATEGORY_ICON: Record<string, string> = {
+  "kisah-para-nabi": "🕌",
+  "kisah-sahabat": "🌙",
+  "hikmah-harian": "✨",
+  "tafsir-tematik": "📖",
+  tadabbur: "📿",
+  "hadits-pilihan": "🕋",
+};
+
+export default async function AudiobookPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ category?: string }>;
+}) {
   const { locale: raw } = await params;
+  const { category } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const storyLang = locale === "id" ? "id" : "en";
 
   let stories: StoryRow[] = [];
+  let categories: CategoryRow[] = [];
   try {
-    const res = await api.get<{ stories: StoryRow[] }>(`/content/stories?lang=${storyLang}`);
-    stories = res.stories;
+    const [storiesRes, catRes] = await Promise.all([
+      api.get<{ stories: StoryRow[] }>(
+        `/content/stories?lang=${storyLang}${category ? `&category=${category}` : ""}`
+      ),
+      api.get<{ categories: CategoryRow[] }>("/content/categories"),
+    ]);
+    stories = storiesRes.stories;
+    categories = catRes.categories;
   } catch {
     stories = [];
+    categories = [];
   }
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <h1 className="font-heading text-3xl">{dict.explore.audiobook.title}</h1>
-      <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{dict.explore.audiobook.desc}</p>
+      <PageHero icon="🎧" title={dict.explore.audiobook.title} subtitle={dict.explore.audiobook.desc} />
 
-      <div className="mt-8 space-y-3">
-        {stories.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>}
-        {stories.map((s) => (
+      {categories.length > 0 && (
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
           <Link
-            key={s.id}
-            href={`/${locale}/kisah/${s.slug}`}
-            className="flex items-center justify-between rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
+            href={`/${locale}/audiobook`}
+            className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
+              !category ? "border-accent bg-accent text-primary" : "border-[var(--color-border)] hover:border-accent"
+            }`}
           >
-            <div>
-              {s.episode_number && (
-                <p className="text-xs font-medium uppercase tracking-wide text-accent">Episode {s.episode_number}</p>
-              )}
-              <p className="mt-1 font-heading text-lg">{s.title}</p>
-            </div>
-            <span className="text-xl">🎧</span>
+            ✦ {dict.common.all}
           </Link>
+          {categories.map((c) => (
+            <Link
+              key={c.id}
+              href={`/${locale}/audiobook?category=${c.slug}`}
+              className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
+                category === c.slug ? "border-accent bg-accent text-primary" : "border-[var(--color-border)] hover:border-accent"
+              }`}
+            >
+              {CATEGORY_ICON[c.slug] ?? "📚"} {c.name}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        {stories.length === 0 && (
+          <p className="col-span-2 text-center text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>
+        )}
+        {stories.map((s, i) => (
+          <div key={s.id} className={i === 3 && stories.length > 4 ? "sm:col-span-2" : ""}>
+            {i === 3 && stories.length > 4 && <AdSlot minHeight={100} className="mb-3" />}
+            <Link
+              href={`/${locale}/kisah/${s.slug}`}
+              className="card-premium relative flex items-center justify-between gap-3 overflow-hidden p-4"
+            >
+              <div className="min-w-0">
+                <p className="text-xs font-medium uppercase tracking-wide text-accent">
+                  {s.episode_number ? `Episode ${s.episode_number}` : s.category_name ?? dict.explore.audiobook.title}
+                </p>
+                <p className="mt-1 truncate font-heading text-lg">{s.title}</p>
+                <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+                  {s.audio_r2_key ? `🎧 ${dict.reader.downloadAudiobook}` : `⏳ ${dict.reader.audioProcessing}`}
+                </p>
+              </div>
+              <span className="shrink-0 grid h-11 w-11 place-items-center rounded-full bg-accent/10 text-xl text-accent">
+                ▶
+              </span>
+            </Link>
+          </div>
         ))}
       </div>
     </div>

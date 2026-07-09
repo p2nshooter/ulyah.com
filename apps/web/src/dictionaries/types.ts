@@ -9,6 +9,7 @@ export interface Dictionary {
     submit: string;
     back: string;
     error: string;
+    all: string;
   };
   nav: {
     home: string;

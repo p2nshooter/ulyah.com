@@ -11,6 +11,7 @@ const ar: Dictionary = {
     submit: "إرسال",
     back: "رجوع",
     error: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    all: "الكل",
   },
   nav: {
     home: "الرئيسية",

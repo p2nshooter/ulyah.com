@@ -11,6 +11,7 @@ const zh: Dictionary = {
     submit: "提交",
     back: "返回",
     error: "出现错误，请重试。",
+    all: "全部",
   },
   nav: {
     home: "首页",
