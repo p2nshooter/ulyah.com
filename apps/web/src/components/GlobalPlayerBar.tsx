@@ -4,23 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerStore, LAYERS, type Layer, type QueueItem } from "@/lib/player-store";
 import { api } from "@/lib/api";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { RECITERS, resolveAyahAudioUrl } from "@/lib/qori-cdn";
 import type { Dictionary } from "@/dictionaries";
-
-interface QoriOption {
-  id: number;
-  name: string;
-  country: string | null;
-  ayah_count: number;
-}
-
-// Shown until /quran/qori resolves — keeps the picker usable immediately
-// instead of flashing empty, and is a safe fallback if the fetch fails.
-const QORI_FALLBACK: QoriOption[] = [
-  { id: 1, name: "Mishary Rashid Alafasy", country: "Kuwait", ayah_count: 6236 },
-  { id: 2, name: "Abdurrahman As-Sudais", country: "Saudi Arabia", ayah_count: 0 },
-  { id: 3, name: "Saad Al-Ghamdi", country: "Saudi Arabia", ayah_count: 0 },
-  { id: 4, name: "Mahmoud Khalil Al-Husary", country: "Egypt", ayah_count: 0 },
-];
 
 interface AyahBundleResponse {
   translation: { text: string } | null;
@@ -77,7 +62,6 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     playbackRate,
     repeatMode,
     sleepAt,
-    ayahAudioSrc,
     storyAudioSrc,
     pause,
     toggle,
@@ -102,16 +86,6 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
 
   const [progress, setProgress] = useState({ current: 0, duration: 0 });
   const [showQoriMenu, setShowQoriMenu] = useState(false);
-  const [qoriList, setQoriList] = useState<QoriOption[]>(QORI_FALLBACK);
-
-  useEffect(() => {
-    api
-      .get<{ qori: QoriOption[] }>("/quran/qori")
-      .then((r) => {
-        if (r.qori?.length) setQoriList(r.qori);
-      })
-      .catch(() => {});
-  }, []);
   const current = queue[currentIndex];
   const layersKey = layers.join(",");
   const uiLang = typeof document !== "undefined" ? document.documentElement.lang || "id" : "id";
@@ -128,48 +102,51 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
   /** Play the current ayah's recitation. Resolves true on natural end,
    * false if the murottal for this qori/ayah isn't imported (404) so the
    * sequence can fall through to the narrated layers instead of going silent. */
-  const playAyahAudio = useCallback(
-    (myGen: number): Promise<boolean> =>
-      new Promise((resolve) => {
-        const audio = audioRef.current;
-        const src = usePlayerStore.getState().ayahAudioSrc();
-        if (!audio || !src) return resolve(false);
-        let settled = false;
-        const cleanup = () => {
-          audio.removeEventListener("ended", onEnded);
-          audio.removeEventListener("error", onError);
-        };
-        const onEnded = () => {
-          if (settled) return;
+  const playAyahAudio = useCallback(async (myGen: number): Promise<boolean> => {
+    const audio = audioRef.current;
+    const st = usePlayerStore.getState();
+    const current = st.queue[st.currentIndex];
+    if (!audio || !current) return false;
+    const src = await resolveAyahAudioUrl(st.qoriId, current.surahId, current.number);
+    if (myGen !== genRef.current) return false; // superseded while we were resolving the URL
+    if (!src) return false;
+
+    return new Promise<boolean>((resolve) => {
+      let settled = false;
+      const cleanup = () => {
+        audio.removeEventListener("ended", onEnded);
+        audio.removeEventListener("error", onError);
+      };
+      const onEnded = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(true);
+      };
+      const onError = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(false);
+      };
+      audio.addEventListener("ended", onEnded);
+      audio.addEventListener("error", onError);
+      audio.src = src;
+      audio.playbackRate = usePlayerStore.getState().playbackRate;
+      audio.play().catch(() => onError());
+      // If the run is superseded, stop waiting on this audio.
+      const poll = setInterval(() => {
+        if (myGen !== genRef.current && !settled) {
           settled = true;
           cleanup();
-          resolve(true);
-        };
-        const onError = () => {
-          if (settled) return;
-          settled = true;
-          cleanup();
+          clearInterval(poll);
           resolve(false);
-        };
-        audio.addEventListener("ended", onEnded);
-        audio.addEventListener("error", onError);
-        audio.src = src;
-        audio.playbackRate = usePlayerStore.getState().playbackRate;
-        audio.play().catch(() => onError());
-        // If the run is superseded, stop waiting on this audio.
-        const poll = setInterval(() => {
-          if (myGen !== genRef.current && !settled) {
-            settled = true;
-            cleanup();
-            clearInterval(poll);
-            resolve(false);
-          } else if (settled) {
-            clearInterval(poll);
-          }
-        }, 120);
-      }),
-    []
-  );
+        } else if (settled) {
+          clearInterval(poll);
+        }
+      }, 120);
+    });
+  }, []);
 
   const narrate = useCallback(
     (text: string, myGen: number): Promise<void> =>
@@ -338,32 +315,25 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
                 onClick={() => setShowQoriMenu((v) => !v)}
                 className="rounded-full border border-accent/30 px-3 py-1 text-xs hover:border-accent"
               >
-                {dict.reader.qariLabel}: {qoriList.find((q) => q.id === qoriId)?.name.split(" ")[0]}
+                {dict.reader.qariLabel}: {RECITERS.find((q) => q.key === qoriId)?.name.split(" ")[0]}
               </button>
               {showQoriMenu && (
                 <div className="absolute bottom-full right-0 mb-2 max-h-80 w-64 overflow-y-auto rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">
-                  {qoriList.map((q) => {
-                    const ready = q.ayah_count > 0;
-                    return (
-                      <button
-                        key={q.id}
-                        disabled={!ready}
-                        onClick={() => {
-                          setQori(q.id);
-                          setShowQoriMenu(false);
-                        }}
-                        className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-xs ${
-                          !ready ? "cursor-not-allowed opacity-40" : "hover:bg-accent/10"
-                        } ${q.id === qoriId ? "text-accent" : ""}`}
-                      >
-                        <span>
-                          {q.name}
-                          {q.country && <span className="ml-1.5 opacity-60">· {q.country}</span>}
-                        </span>
-                        {!ready && <span className="shrink-0 text-[10px] opacity-70">segera</span>}
-                      </button>
-                    );
-                  })}
+                  {RECITERS.map((q) => (
+                    <button
+                      key={q.key}
+                      onClick={() => {
+                        setQori(q.key);
+                        setShowQoriMenu(false);
+                      }}
+                      className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-xs hover:bg-accent/10 ${q.key === qoriId ? "text-accent" : ""}`}
+                    >
+                      <span>
+                        {q.flag} {q.name}
+                        <span className="ml-1.5 opacity-60">· {q.country}</span>
+                      </span>
+                    </button>
+                  ))}
                 </div>
               )}
             </div>

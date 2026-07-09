@@ -30,10 +30,6 @@ export const api = {
   },
 };
 
-export function audioUrl(qoriId: number, surah: number, ayah: number): string {
-  return `${API_BASE}/audio/${qoriId}/${surah}/${ayah}`;
-}
-
 export function storyAudioUrl(storyId: number): string {
   return `${API_BASE}/audio/story/${storyId}`;
 }

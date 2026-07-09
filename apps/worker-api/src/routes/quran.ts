@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { fetchTafsir, fetchAsbabunNuzul } from "../lib/tafsir-source.js";
 import type { Env } from "../env.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
@@ -20,22 +21,8 @@ quranRoute.get("/surah", async (c) => {
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
-// GET /quran/qori — reciter roster with country of origin and how much of
-// the Qur'an is actually cached for each, so the picker never offers a
-// reciter that would silently fail on every ayah.
-quranRoute.get("/qori", async (c) => {
-  const cached = await c.env.CACHE_KV.get("quran:qori:all");
-  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
-
-  const { results } = await c.env.DB.prepare(
-    `SELECT q.id, q.name, q.country,
-            (SELECT COUNT(*) FROM audio_cache ac WHERE ac.qori_id = q.id) AS ayah_count
-     FROM qori q ORDER BY q.id`
-  ).all();
-  const body = JSON.stringify({ qori: results });
-  await c.env.CACHE_KV.put("quran:qori:all", body, { expirationTtl: 60 * 10 });
-  return c.body(body, 200, { "Content-Type": "application/json" });
-});
+// Reciter roster moved to apps/web/src/lib/qori-cdn.ts — it's static config
+// for CDN URL construction, not data that needs a database round-trip.
 
 // GET /quran/surah/:id?lang= — surah detail + all ayat (Arabic + translation
 // in the requested UI language, falling back per packages/shared/i18n rules)
@@ -91,34 +78,17 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
     .bind(surahId, number)
     .first<{ id: number }>();
   if (!ayah) return c.json({ error: "Ayah not found" }, 404);
-  const ayahId = ayah.id;
 
-  // Tafsir/asbabun nuzul are only imported in a couple of languages (id/en) —
-  // try the visitor's resolved language first, then fall back to English,
-  // then Indonesian, rather than showing "not available yet" when a real
-  // translation just isn't in their language.
-  const langCandidates = [...new Set([lang, "en", "id"].filter(Boolean))] as string[];
-
-  async function firstNonEmpty<T>(table: string, extraCols = "*"): Promise<T[]> {
-    for (const l of langCandidates) {
-      const { results } = await c.env.DB.prepare(
-        `SELECT ${extraCols} FROM ${table} WHERE ayah_id = ? AND lang = ?${table === "tafsir" ? " AND status = 'published'" : ""} ORDER BY id`
-      )
-        .bind(ayahId, l)
-        .all<T>();
-      if (results.length) return results;
-    }
-    return [];
-  }
-
-  const [translation, tafsir, asbabunNuzul, hadits, stories] = await Promise.all([
+  // Tafsir + asbabun nuzul are fetched live from spa5k/tafsir_api (GitHub)
+  // and cached per-surah in KV — not stored in D1. See lib/tafsir-source.ts.
+  const [translation, tafsirHit, asbabHit, hadits, stories] = await Promise.all([
     lang
       ? c.env.DB.prepare("SELECT * FROM translation WHERE ayah_id = ? AND lang = ? LIMIT 1")
           .bind(ayah.id, lang)
           .first()
       : Promise.resolve(null),
-    firstNonEmpty("tafsir"),
-    firstNonEmpty("asbabun_nuzul"),
+    fetchTafsir(c.env, lang, surahId, number),
+    fetchAsbabunNuzul(c.env, surahId, number),
     c.env.DB.prepare(
       `SELECT h.*, m.relevance_note FROM hadits h
        JOIN ayah_hadits_map m ON m.hadits_id = h.id
@@ -136,8 +106,8 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
     translation,
     lang: requested,
     translationLang: lang,
-    tafsir,
-    asbabun_nuzul: asbabunNuzul,
+    tafsir: tafsirHit ? [tafsirHit] : [],
+    asbabun_nuzul: asbabHit ? [asbabHit] : [],
     hadits: hadits.results,
     stories: stories.results,
   });
@@ -219,14 +189,9 @@ quranRoute.get("/search", async (c) => {
       .all();
     results.ayah = r;
   }
-  if (type === "all" || type === "tafsir") {
-    const { results: r } = await c.env.DB.prepare(
-      "SELECT * FROM tafsir WHERE text LIKE ? AND status = 'published' LIMIT 20"
-    )
-      .bind(like)
-      .all();
-    results.tafsir = r;
-  }
+  // Tafsir text now lives on GitHub (see lib/tafsir-source.ts), fetched
+  // per-ayah on demand — there's no local full-text index left to search
+  // against, so this type simply returns nothing rather than a stale D1 hit.
   if (type === "all" || type === "hadits") {
     const { results: r } = await c.env.DB.prepare("SELECT * FROM hadits WHERE text_id LIKE ? LIMIT 20")
       .bind(like)

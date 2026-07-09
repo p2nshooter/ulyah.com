@@ -38,49 +38,11 @@ async function streamR2Object(c: any, key: string) {
   return new Response(obj.body, { status: 200, headers });
 }
 
-// GET /audio/:qori/:surah/:ayah — stream murottal for one ayah
-audioRoute.get("/:qori/:surah/:ayah", async (c) => {
-  const qoriId = Number(c.req.param("qori"));
-  const surah = Number(c.req.param("surah"));
-  const ayahNum = Number(c.req.param("ayah"));
-
-  const row = await c.env.DB.prepare(
-    `SELECT ac.r2_key FROM audio_cache ac
-     JOIN ayah a ON a.id = ac.ayah_id
-     WHERE ac.qori_id = ? AND a.surah_id = ? AND a.number = ?`
-  )
-    .bind(qoriId, surah, ayahNum)
-    .first<{ r2_key: string }>();
-
-  if (!row) return c.json({ error: "Audio not available for this qori/ayah yet" }, 404);
-  return streamR2Object(c, row.r2_key);
-});
-
-// GET /audio/queue/:surah?qori= — ordered playlist for auto-next mode (§6.3)
-audioRoute.get("/queue/:surah", async (c) => {
-  const surah = Number(c.req.param("surah"));
-  const qoriId = Number(c.req.query("qori") ?? "1");
-
-  const { results } = await c.env.DB.prepare(
-    `SELECT a.number, ac.r2_key, ac.duration
-     FROM ayah a
-     LEFT JOIN audio_cache ac ON ac.ayah_id = a.id AND ac.qori_id = ?
-     WHERE a.surah_id = ?
-     ORDER BY a.number`
-  )
-    .bind(qoriId, surah)
-    .all();
-
-  return c.json({
-    surah,
-    qori_id: qoriId,
-    queue: results.map((r: any) => ({
-      number: r.number,
-      url: r.r2_key ? `/audio/${qoriId}/${surah}/${r.number}` : null,
-      duration: r.duration,
-    })),
-  });
-});
+// Murottal (Qur'an recitation) is no longer proxied/stored here — the
+// frontend streams it directly from the reciter's own public CDN
+// (apps/web/src/lib/qori-cdn.ts). Re-downloading every reciter's every ayah
+// into R2 took hours per reciter to store a full copy of audio that already
+// has a free public home; the browser's own HTTP cache is enough.
 
 // GET /audio/story/:id — stream kisah/hikmah narration (TTS or recorded)
 audioRoute.get("/story/:id", async (c) => {

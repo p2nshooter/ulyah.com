@@ -174,30 +174,24 @@ jobs:
             echo "Kitab library already has $KCOUNT works — skipping bulk import."
           fi
 
-      - name: Bulk-import Tafsir (As-Sa'di id + Ibn Kathir en) + Asbabun Nuzul (one-time)
+      - name: Clean up obsolete murottal R2 cache (one-time)
         working-directory: apps/worker-api
         run: |
           set -eu
-          # spa5k/tafsir_api (static mirror of quran.com's tafsir API, CC-licensed
-          # classical texts). Covers all 6,236 ayat in two languages, plus
-          # ~1,088 narrated occasions of revelation (surah 1-77 only — the
-          # source has no asbab entries for the later, shorter surah).
-          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM tafsir;" --json > /tmp/tafsir_count.json
-          TCOUNT=$(node -e "const j=require('/tmp/tafsir_count.json'); console.log(j[0].results[0].n)")
-          if [ "$TCOUNT" -lt "1000" ]; then
-            echo "Tafsir table has only $TCOUNT rows — importing full As-Sa'di + Ibn Kathir."
-            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/tafsir_id.sql
-            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/tafsir_en.sql
+          # Murottal audio is no longer re-hosted in R2 — the frontend streams
+          # it directly from the reciter's own public CDN instead (cheaper,
+          # instant, no import job). Same reasoning applies to tafsir/asbabun
+          # nuzul: fetched live from GitHub + cached in KV, not bulk-imported
+          # into D1 (a full bulk import kept hitting D1's per-statement size
+          # limit for content a stable public source already serves). This
+          # just clears the now-unused audio_cache rows once.
+          DONE=$(npx wrangler kv key get "cleanup:murottal-r2-done" --binding=CACHE_KV --remote 2>/dev/null || echo "")
+          if [ -z "$DONE" ]; then
+            echo "Clearing obsolete audio_cache rows."
+            npx wrangler d1 execute ulyah-db --remote --command="DELETE FROM audio_cache;"
+            npx wrangler kv key put "cleanup:murottal-r2-done" "1" --binding=CACHE_KV --remote
           else
-            echo "Tafsir table already has $TCOUNT rows — skipping bulk import."
-          fi
-          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM asbabun_nuzul;" --json > /tmp/asbab_count.json
-          ACOUNT=$(node -e "const j=require('/tmp/asbab_count.json'); console.log(j[0].results[0].n)")
-          if [ "$ACOUNT" -lt "500" ]; then
-            echo "Asbabun nuzul table has only $ACOUNT rows — importing Al-Wahidi."
-            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/asbabun_nuzul.sql
-          else
-            echo "Asbabun nuzul table already has $ACOUNT rows — skipping bulk import."
+            echo "Murottal R2 cleanup already done — skipping."
           fi
 
       - name: Regenerate hadits sessions with Arabic text (one-time backfill)

@@ -1,12 +1,14 @@
 "use client";
 
 import { create } from "zustand";
-import { audioUrl, storyAudioUrl } from "./api";
+import { storyAudioUrl } from "./api";
+import { DEFAULT_QORI_KEY } from "./qori-cdn";
 
 /**
  * Layered playback: for every ayah the listener chooses which layers to hear.
- * The Arabic recitation ("ayah") is ALWAYS real qori audio from R2 — never
- * TTS. Every other layer (translation, tafsir, asbabun nuzul, hadits) is
+ * The Arabic recitation ("ayah") is ALWAYS real qori audio, streamed
+ * directly from the reciter's public CDN — never TTS, never re-hosted.
+ * Every other layer (translation, tafsir, asbabun nuzul, hadits) is
  * narrated by the browser voice engine in the UI language. The player walks
  * the enabled layers in this canonical order for each ayah, then advances.
  */
@@ -41,7 +43,7 @@ export interface QueueItem {
 interface PlayerState {
   queue: QueueItem[];
   currentIndex: number;
-  qoriId: number;
+  qoriId: string;
   layers: Layer[];
   activeLayer: Layer | null;
   isPlaying: boolean;
@@ -63,7 +65,7 @@ interface PlayerState {
   applyPreset: (p: PresetKey) => void;
   setActiveLayer: (l: Layer | null) => void;
   setAudioProgress: (p: { current: number; duration: number }) => void;
-  setQori: (id: number) => void;
+  setQori: (key: string) => void;
   hydrateFromStorage: () => void;
   setPlaybackRate: (r: number) => void;
   setRepeatMode: (m: "off" | "ayah" | "surah") => void;
@@ -76,17 +78,15 @@ interface PlayerState {
   seekToIndex: (i: number) => void;
   clearNotice: () => void;
 
-  ayahAudioSrc: () => string | null;
   storyAudioSrc: () => string | null;
 }
 
-const QORI_STORAGE_KEY = "ulyah_qori_id";
+const QORI_STORAGE_KEY = "ulyah_qori_key";
 const LAYERS_STORAGE_KEY = "ulyah_layers";
 
-function loadStoredQori(): number {
-  if (typeof window === "undefined") return 1;
-  const stored = window.localStorage.getItem(QORI_STORAGE_KEY);
-  return stored ? Number(stored) : 1;
+function loadStoredQori(): string {
+  if (typeof window === "undefined") return DEFAULT_QORI_KEY;
+  return window.localStorage.getItem(QORI_STORAGE_KEY) || DEFAULT_QORI_KEY;
 }
 
 function loadStoredLayers(): Layer[] {
@@ -118,7 +118,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   // render the saved value on its very first pass and React would flag the
   // mismatch). The real values are applied by `hydrateFromStorage()`, called
   // once from a client-only effect after mount, once hydration is done.
-  qoriId: 1,
+  qoriId: DEFAULT_QORI_KEY,
   layers: MODE_PRESETS.full,
   activeLayer: null,
   isPlaying: false,
@@ -177,9 +177,9 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setActiveLayer: (l) => set({ activeLayer: l }),
   setAudioProgress: (p) => set({ audioProgress: p }),
 
-  setQori: (id) => {
-    if (typeof window !== "undefined") window.localStorage.setItem(QORI_STORAGE_KEY, String(id));
-    set({ qoriId: id });
+  setQori: (key) => {
+    if (typeof window !== "undefined") window.localStorage.setItem(QORI_STORAGE_KEY, key);
+    set({ qoriId: key });
   },
 
   // Client-only, called once after mount (see GlobalPlayerBar) — safe to
@@ -219,13 +219,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   clearNotice: () => set({ audioUnavailableNotice: null }),
-
-  ayahAudioSrc: () => {
-    const { queue, currentIndex, qoriId } = get();
-    const current = queue[currentIndex];
-    if (!current) return null;
-    return audioUrl(qoriId, current.surahId, current.number);
-  },
 
   storyAudioSrc: () => {
     const { storyTrack } = get();
