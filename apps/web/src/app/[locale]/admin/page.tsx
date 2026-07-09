@@ -14,6 +14,7 @@ import { ClientsTab } from "@/components/admin/ClientsTab";
 import { ScalingTab } from "@/components/admin/ScalingTab";
 import { AccountTab } from "@/components/admin/AccountTab";
 import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
+import { AdminAuthModal } from "@/components/AdminTrigger";
 
 type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account";
 
@@ -38,11 +39,8 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     api
       .get("/admin/auth/me")
       .then(() => setAuthed(true))
-      .catch(() => {
-        setAuthed(false);
-        router.replace(`/${locale}`); // no visible admin route for the unauthenticated — bounce home
-      });
-  }, [locale, router]);
+      .catch(() => setAuthed(false));
+  }, [locale]);
 
   useEffect(() => {
     if (authed) api.get<Dashboard>("/admin/dashboard").then(setDashboard).catch(() => {});
@@ -53,7 +51,12 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     router.push(`/${locale}`);
   }
 
-  if (authed !== true) return null;
+  if (authed === null) return null;
+  if (authed === false) {
+    return (
+      <AdminAuthModal locale={locale} standalone onSuccess={() => setAuthed(true)} />
+    );
+  }
 
   const tabs: [Tab, string][] = [
     ["dashboard", dict.admin.dashboardTitle],

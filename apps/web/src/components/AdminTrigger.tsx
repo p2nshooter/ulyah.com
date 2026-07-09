@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
@@ -16,6 +17,7 @@ const WINDOW_MS = 3000;
 export function AdminTrigger({ children, locale }: { children: React.ReactNode; locale: string }) {
   const clicksRef = useRef<number[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   function handleClick() {
     const now = Date.now();
@@ -31,15 +33,36 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
       <button type="button" onClick={handleClick} aria-label="ulyah" className="border-0 bg-transparent p-0">
         {children}
       </button>
-      {showModal && <AdminAuthModal locale={locale} onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <AdminAuthModal
+          locale={locale}
+          onClose={() => setShowModal(false)}
+          onSuccess={() => router.push(`/${locale}/admin`)}
+        />
+      )}
     </>
   );
 }
 
 type Step = "credentials" | "totp" | "totp-setup";
 
-function AdminAuthModal({ locale, onClose }: { locale: string; onClose: () => void }) {
-  const router = useRouter();
+/**
+ * Also reused directly by /admin for an unauthenticated visit (no separate
+ * "how do I even log in" dead end) — the route itself still isn't linked
+ * anywhere in the public nav, so this stays effectively hidden from casual
+ * visitors while still being reachable for whoever already knows the URL.
+ */
+export function AdminAuthModal({
+  locale,
+  onClose,
+  onSuccess,
+  standalone = false,
+}: {
+  locale: string;
+  onClose?: () => void;
+  onSuccess: () => void;
+  standalone?: boolean;
+}) {
   const [step, setStep] = useState<Step>("credentials");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,7 +103,7 @@ function AdminAuthModal({ locale, onClose }: { locale: string; onClose: () => vo
     setBusy(true);
     try {
       await api.post("/admin/auth/totp", { pendingToken, code });
-      router.push(`/${locale}/admin`);
+      onSuccess();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Verification failed");
     } finally {
@@ -89,7 +112,15 @@ function AdminAuthModal({ locale, onClose }: { locale: string; onClose: () => vo
   }
 
   return (
-    <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div
+      role="dialog"
+      aria-modal={!standalone}
+      className={
+        standalone
+          ? "flex min-h-[70vh] items-center justify-center p-4"
+          : "fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+      }
+    >
       <div className="w-full max-w-sm rounded-2xl bg-[var(--color-card)] p-6 shadow-2xl">
         {step === "credentials" && (
           <form onSubmit={submitCredentials} className="space-y-4">
@@ -113,9 +144,15 @@ function AdminAuthModal({ locale, onClose }: { locale: string; onClose: () => vo
             />
             {error && <p className="text-xs text-danger">{error}</p>}
             <div className="flex justify-end gap-2">
-              <button type="button" onClick={onClose} className="text-sm text-[var(--color-text-secondary)]">
-                Cancel
-              </button>
+              {onClose ? (
+                <button type="button" onClick={onClose} className="text-sm text-[var(--color-text-secondary)]">
+                  Cancel
+                </button>
+              ) : (
+                <Link href={`/${locale}`} className="text-sm text-[var(--color-text-secondary)]">
+                  Cancel
+                </Link>
+              )}
               <button
                 type="submit"
                 disabled={busy}
@@ -149,9 +186,15 @@ function AdminAuthModal({ locale, onClose }: { locale: string; onClose: () => vo
             />
             {error && <p className="text-xs text-danger">{error}</p>}
             <div className="flex justify-end gap-2">
-              <button type="button" onClick={onClose} className="text-sm text-[var(--color-text-secondary)]">
-                Cancel
-              </button>
+              {onClose ? (
+                <button type="button" onClick={onClose} className="text-sm text-[var(--color-text-secondary)]">
+                  Cancel
+                </button>
+              ) : (
+                <Link href={`/${locale}`} className="text-sm text-[var(--color-text-secondary)]">
+                  Cancel
+                </Link>
+              )}
               <button
                 type="submit"
                 disabled={busy}

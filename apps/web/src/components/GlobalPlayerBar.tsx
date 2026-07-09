@@ -80,7 +80,16 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     setPlaybackRate,
     setRepeatMode,
     setAudioProgress,
+    hydrateFromStorage,
   } = usePlayerStore();
+
+  // Rendered once app-wide (root layout) — the one safe place to pull the
+  // visitor's saved qori/layers preference out of localStorage after mount,
+  // without risking a hydration mismatch (see player-store.ts).
+  useEffect(() => {
+    hydrateFromStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [progress, setProgress] = useState({ current: 0, duration: 0 });
   const [showQoriMenu, setShowQoriMenu] = useState(false);

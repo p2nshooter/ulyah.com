@@ -17,6 +17,12 @@ on:
         description: "Max articles to process this run"
         required: true
         default: "40"
+  # Zero-hand: without this, "audio being processed" never stops being true —
+  # the workflow only existed as a manual trigger nobody ever pressed, so
+  # every published story sat with no audio indefinitely. Daily is enough to
+  # both work through the backlog and keep up with the content engine.
+  schedule:
+    - cron: "0 3 * * *"
 
 jobs:
   audiobooks:
@@ -84,4 +90,4 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           R2_BUCKET_NAME: ulyah-media
           PIPER_VOICES_DIR: ${{ github.workspace }}/voices
-        run: npx tsx scripts/generate-audiobooks.ts --lang=${{ inputs.lang }} --limit=${{ inputs.limit }}
+        run: npx tsx scripts/generate-audiobooks.ts --lang=${{ inputs.lang || '' }} --limit=${{ inputs.limit || '40' }}

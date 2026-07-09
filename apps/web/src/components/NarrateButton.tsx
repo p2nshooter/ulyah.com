@@ -25,16 +25,22 @@ export function NarrateButton({
   className?: string;
 }) {
   const [playing, setPlaying] = useState(false);
+  // Starts false on both the server render and the client's first hydration
+  // pass (matching), then flips after mount once we can actually check the
+  // browser's speech API — checking `typeof window` directly during render
+  // made the server always render null and the client always render the
+  // button, a guaranteed hydration mismatch.
+  const [available, setAvailable] = useState(false);
   const handleRef = useRef<NarrationHandle | null>(null);
   const cancelledRef = useRef(false);
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    setAvailable(speechAvailable());
+    return () => {
       cancelledRef.current = true;
       handleRef.current?.cancel();
-    },
-    []
-  );
+    };
+  }, []);
 
   async function start() {
     if (!speechAvailable()) return;
@@ -59,7 +65,7 @@ export function NarrateButton({
     setPlaying(false);
   }
 
-  if (!speechAvailable()) return null;
+  if (!available) return null;
 
   return (
     <button

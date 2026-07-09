@@ -64,6 +64,7 @@ interface PlayerState {
   setActiveLayer: (l: Layer | null) => void;
   setAudioProgress: (p: { current: number; duration: number }) => void;
   setQori: (id: number) => void;
+  hydrateFromStorage: () => void;
   setPlaybackRate: (r: number) => void;
   setRepeatMode: (m: "off" | "ayah" | "surah") => void;
   setSleepMinutes: (m: number | null) => void;
@@ -110,8 +111,15 @@ function persistLayers(layers: Layer[]) {
 export const usePlayerStore = create<PlayerState>((set, get) => ({
   queue: [],
   currentIndex: 0,
-  qoriId: loadStoredQori(),
-  layers: loadStoredLayers(),
+  // Always the SSR-safe default here — reading localStorage into the initial
+  // state directly caused a hydration mismatch for any returning visitor
+  // whose saved qori/layers differed from the default (server always has no
+  // localStorage, so it always rendered the default; the client would then
+  // render the saved value on its very first pass and React would flag the
+  // mismatch). The real values are applied by `hydrateFromStorage()`, called
+  // once from a client-only effect after mount, once hydration is done.
+  qoriId: 1,
+  layers: MODE_PRESETS.full,
   activeLayer: null,
   isPlaying: false,
   playbackRate: 1,
@@ -173,6 +181,10 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     if (typeof window !== "undefined") window.localStorage.setItem(QORI_STORAGE_KEY, String(id));
     set({ qoriId: id });
   },
+
+  // Client-only, called once after mount (see GlobalPlayerBar) — safe to
+  // touch localStorage here since hydration has already completed.
+  hydrateFromStorage: () => set({ qoriId: loadStoredQori(), layers: loadStoredLayers() }),
 
   setPlaybackRate: (r) => set({ playbackRate: r }),
   setRepeatMode: (m) => set({ repeatMode: m }),
