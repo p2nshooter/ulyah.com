@@ -88,15 +88,31 @@ const JOBS: Job[] = [
   },
 ];
 
+// D1/SQLite rejects an overlong single statement (SQLITE_TOOBIG) — a fixed
+// 500-row batch worked fine for short hadith text but blew past the limit
+// for full tafsir paragraphs (~10KB/row average, some much longer). Batch
+// by accumulated byte size instead of row count so it adapts to either.
+const MAX_STMT_BYTES = 400_000;
+
 function writeSeedFile(outFile: string, table: string, rows: string[]) {
   if (!rows.length) return;
   const cols =
     table === "tafsir" ? "(ayah_id, source, text, ai_generated, status, lang)" : "(ayah_id, text, source, lang)";
-  const BATCH = 500;
   const stmts: string[] = [];
-  for (let i = 0; i < rows.length; i += BATCH) {
-    stmts.push(`INSERT INTO ${table} ${cols} VALUES\n  ${rows.slice(i, i + BATCH).join(",\n  ")};`);
+  let batch: string[] = [];
+  let batchBytes = 0;
+  const flush = () => {
+    if (batch.length) stmts.push(`INSERT INTO ${table} ${cols} VALUES\n  ${batch.join(",\n  ")};`);
+    batch = [];
+    batchBytes = 0;
+  };
+  for (const row of rows) {
+    const rowBytes = Buffer.byteLength(row, "utf8");
+    if (batch.length && batchBytes + rowBytes > MAX_STMT_BYTES) flush();
+    batch.push(row);
+    batchBytes += rowBytes;
   }
+  flush();
   const outPath = join(import.meta.dirname, "..", "packages", "db-schema", "seed", outFile);
   writeFileSync(outPath, stmts.join("\n\n") + "\n");
   console.log(`Wrote ${outPath} (${rows.length} rows, ${stmts.length} statements)`);
