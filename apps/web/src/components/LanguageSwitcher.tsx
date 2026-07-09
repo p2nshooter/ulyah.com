@@ -22,9 +22,11 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label="Change language"
-        className="flex items-center gap-1 rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs"
+        className="flex items-center gap-1 whitespace-nowrap rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs"
       >
-        <span aria-hidden>🌐</span> {current.label}
+        <span aria-hidden>🌐</span>
+        <span className="hidden sm:inline">{current.label}</span>
+        <span className="sm:hidden">{current.code.toUpperCase()}</span>
       </button>
       {open && (
         <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-48 overflow-y-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-xl">
