@@ -118,7 +118,7 @@ const zh: Dictionary = {
   },
   donation: {
     title: "您的捐赠，是对后世的投资",
-    subtitle: "100% 的捐款用于 Ulyah 的持续运营与发展。",
+    subtitle: "每一份捐款都将被善加利用，用于将 Ulyah 发展成一个充满智慧、祝福并广泛造福大众的平台。",
     impactServer: "服务器与基础设施",
     impactAiGpu: "AI 与 GPU 算力",
     impactContent: "内容开发",

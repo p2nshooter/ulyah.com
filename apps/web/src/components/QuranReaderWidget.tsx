@@ -143,6 +143,13 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     loadSurahQueue(items, startIndex);
   }
 
+  /** Focus an ayah AND start reading it immediately — clicking any ayah (or
+   * navigating to it) should never leave the player silent ("diem aja"). */
+  function focusAndPlay(n: number) {
+    setFocus(n);
+    buildQueue(n);
+  }
+
   function shareAyah() {
     const url = `${typeof window !== "undefined" ? window.location.origin : "https://ulyah.com"}/${locale}/quran?s=${selectedSurah?.id}&a=${focus}`;
     if (navigator.share) {
@@ -234,7 +241,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 <select
                   aria-label="jump to ayah"
                   value={focus}
-                  onChange={(e) => setFocus(Number(e.target.value))}
+                  onChange={(e) => focusAndPlay(Number(e.target.value))}
                   className="rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
                 >
                   {Array.from({ length: selectedSurah.ayah_count }, (_, i) => i + 1).map((n) => (
@@ -252,10 +259,15 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               </div>
             </div>
 
-            {/* Arabic + translation */}
+            {/* Arabic + translation — click the verse to read it right now */}
             <div
               ref={arabicRef}
-              className={`mt-6 rounded-2xl px-2 py-6 text-center transition ${isThisAyahActive && activeLayer === "ayah" ? "ayah-active-highlight" : ""}`}
+              onClick={() => focusRow && buildQueue(focus)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && focusRow && buildQueue(focus)}
+              title={dict.reader.autoPlay}
+              className={`mt-6 cursor-pointer rounded-2xl px-2 py-6 text-center transition hover:bg-accent/5 ${isThisAyahActive && activeLayer === "ayah" ? "ayah-active-highlight" : ""}`}
             >
               {loadingAyat ? (
                 <p className="py-8 text-sm text-[var(--color-text-secondary)]">{dict.common.loading}</p>
@@ -290,14 +302,14 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 </button>
                 <div className="flex items-center gap-1">
                   <button
-                    onClick={() => setFocus((n) => Math.max(1, n - 1))}
+                    onClick={() => focusAndPlay(Math.max(1, focus - 1))}
                     disabled={focus <= 1}
                     className="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
                   >
                     ⏮
                   </button>
                   <button
-                    onClick={() => setFocus((n) => Math.min(selectedSurah.ayah_count, n + 1))}
+                    onClick={() => focusAndPlay(Math.min(selectedSurah.ayah_count, focus + 1))}
                     disabled={focus >= selectedSurah.ayah_count}
                     className="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
                   >

@@ -118,7 +118,7 @@ const id: Dictionary = {
   },
   donation: {
     title: "Donasi Anda, Investasi Akhirat",
-    subtitle: "100% donasi digunakan untuk keberlangsungan & pengembangan Ulyah.",
+    subtitle: "Setiap donasi akan digunakan sebaik-baiknya untuk mengembangkan Ulyah agar menjadi website yang penuh hikmah, berkah, dan bermanfaat luas.",
     impactServer: "Server & Infrastruktur",
     impactAiGpu: "AI & GPU Computing",
     impactContent: "Pengembangan Konten",

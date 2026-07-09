@@ -118,7 +118,7 @@ const de: Dictionary = {
   },
   donation: {
     title: "Ihre Spende, eine Investition ins Jenseits",
-    subtitle: "100% der Spenden fließen in den Betrieb und die Weiterentwicklung von Ulyah.",
+    subtitle: "Jede Spende wird bestmöglich genutzt, um Ulyah zu einer Plattform voller Weisheit, Segen und Nutzen für alle zu entwickeln.",
     impactServer: "Server & Infrastruktur",
     impactAiGpu: "KI- & GPU-Rechenleistung",
     impactContent: "Inhaltsentwicklung",

@@ -118,7 +118,7 @@ const fr: Dictionary = {
   },
   donation: {
     title: "Votre don, un investissement pour l'au-delà",
-    subtitle: "100% des dons servent à faire fonctionner et développer Ulyah.",
+    subtitle: "Chaque don sera utilisé au mieux pour développer Ulyah en une plateforme pleine de sagesse, de bénédictions et de bienfaits pour tous.",
     impactServer: "Serveurs & Infrastructure",
     impactAiGpu: "Calcul IA & GPU",
     impactContent: "Développement de contenu",

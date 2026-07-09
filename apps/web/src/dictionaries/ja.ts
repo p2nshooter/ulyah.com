@@ -118,7 +118,7 @@ const ja: Dictionary = {
   },
   donation: {
     title: "あなたの寄付は、来世への投資です",
-    subtitle: "寄付の100%がUlyahの運営と発展のために使われます。",
+    subtitle: "すべての寄付は、Ulyahを英知と祝福、そして万人のための恩恵に満ちたプラットフォームへと発展させるために、最善を尽くして活用されます。",
     impactServer: "サーバーとインフラ",
     impactAiGpu: "AI・GPUコンピューティング",
     impactContent: "コンテンツ開発",

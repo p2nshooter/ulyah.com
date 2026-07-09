@@ -74,6 +74,14 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={localeDef.dir} suppressHydrationWarning>
       <head>
+        {/* Apply the theme class before paint — avoids a flash of the wrong
+            theme and ensures Tailwind's `dark:` variant is correct from the
+            very first frame (ThemeProvider's effect runs one tick later). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("ulyah_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.documentElement.classList.toggle("dark",t==="dark");}catch(e){}})();`,
+          }}
+        />
         {/* Premium typography: Quranic Arabic + classical serif + clean UI sans */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -13,6 +13,16 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
+/** tailwind.config.ts sets darkMode: "class" — the `dark:` variant used across
+ * ~30 components only activates when the `dark` class is present on <html>.
+ * Previously only `data-theme` was set (drives the CSS custom properties in
+ * globals.css), so every `dark:` utility class was permanently dead — the
+ * cause of invisible/low-contrast text throughout the dark theme. */
+function applyTheme(theme: Theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.classList.toggle("dark", theme === "dark");
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
 
@@ -20,14 +30,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const stored = window.localStorage.getItem("ulyah_theme") as Theme | null;
     const preferred = stored ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     setTheme(preferred);
-    document.documentElement.setAttribute("data-theme", preferred);
+    applyTheme(preferred);
   }, []);
 
   function toggle() {
     setTheme((prev) => {
       const next = prev === "light" ? "dark" : "light";
       window.localStorage.setItem("ulyah_theme", next);
-      document.documentElement.setAttribute("data-theme", next);
+      applyTheme(next);
       return next;
     });
   }
