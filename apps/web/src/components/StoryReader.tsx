@@ -1,20 +1,42 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { Dictionary } from "@/dictionaries";
 
 /**
- * Narrated reading experience for kisah/hikmah: the story is spoken sentence
- * by sentence with the current sentence highlighted and kept in view —
- * listeners can follow along for hours-long sessions. Uses the device's own
- * soft neural voices (no API key needed); if story audio exists in R2 later,
- * the player bar takes precedence.
+ * Narrated reading experience for kisah/hikmah/hadits sessions: the story is
+ * spoken sentence by sentence with the current sentence highlighted and kept
+ * in view. When `nextHref` is given (there's a next episode) and playback
+ * reaches the end naturally, it automatically continues there with
+ * `?autoplay=1` — a listener can start once and let a whole series (e.g. all
+ * the hadits-sesi episodes) play through without clicking every episode.
+ * Uses the device's own soft neural voices (no API key needed); if story
+ * audio exists in R2 later, the player bar takes precedence.
  */
-export function StoryReader({ body, lang, dict }: { body: string; lang: string; dict: Dictionary }) {
+export function StoryReader({
+  body,
+  lang,
+  dict,
+  autoStart = false,
+  nextHref = null,
+}: {
+  body: string;
+  lang: string;
+  dict: Dictionary;
+  autoStart?: boolean;
+  nextHref?: string | null;
+}) {
+  const router = useRouter();
   const sentences = splitSentences(body);
   const [active, setActive] = useState(-1);
   const [playing, setPlaying] = useState(false);
+  // Starts false on both the server render and the client's first hydration
+  // pass (matching), then flips after mount — checking `typeof window`
+  // directly during render made the server always render nothing and the
+  // client always render the button, a guaranteed hydration mismatch.
+  const [available, setAvailable] = useState(false);
   const handleRef = useRef<NarrationHandle | null>(null);
   const stopRef = useRef(false);
 
@@ -29,8 +51,10 @@ export function StoryReader({ body, lang, dict }: { body: string; lang: string; 
       handleRef.current = h;
       await h.done;
     }
-    if (!stopRef.current) setActive(-1);
     setPlaying(false);
+    if (stopRef.current) return;
+    setActive(-1);
+    if (nextHref) router.push(nextHref);
   }
 
   function stop() {
@@ -39,11 +63,20 @@ export function StoryReader({ body, lang, dict }: { body: string; lang: string; 
     setPlaying(false);
   }
 
-  useEffect(() => () => stop(), []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    setAvailable(speechAvailable());
+    return () => stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (autoStart && available) playFrom(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart, available]);
 
   return (
     <div>
-      {speechAvailable() && (
+      {available && (
         <button
           onClick={() => (playing ? stop() : playFrom(active >= 0 ? active : 0))}
           className="mb-6 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-lg dark:bg-accent dark:text-primary"

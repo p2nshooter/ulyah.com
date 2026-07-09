@@ -55,10 +55,13 @@ export async function generateMetadata({
 
 export default async function KisahDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<{ autoplay?: string }>;
 }) {
   const { locale: raw, slug } = await params;
+  const { autoplay } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const storyLang = locale === "id" ? "id" : "en";
@@ -125,7 +128,13 @@ export default async function KisahDetailPage({
       </div>
 
       <div className="mt-8">
-        <StoryReader body={story.body} lang={storyLang} dict={dict} />
+        <StoryReader
+          body={story.body}
+          lang={storyLang}
+          dict={dict}
+          autoStart={autoplay === "1"}
+          nextHref={nextEpisode ? `/${locale}/kisah/${nextEpisode.slug}?autoplay=1` : null}
+        />
       </div>
 
       <div className="mt-10">
