@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { usePlayerStore } from "@/lib/player-store";
 import { RECITERS, DEFAULT_QORI_KEY, resolveAyahAudioUrl, resolveSurahAudioUrl } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
+import { computeLivePosition } from "@/lib/radio-clock";
 
 interface SurahMeta {
   id: number;
@@ -19,27 +20,22 @@ interface Position {
   ayahNumber: number;
 }
 
-const STORAGE_KEY = "ulyah_radio_position";
+const RECITER_STORAGE_KEY = "ulyah_radio_reciter";
 
-function loadPosition(): Position {
-  if (typeof window === "undefined") return { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 };
+function loadReciterKey(): string {
+  if (typeof window === "undefined") return DEFAULT_QORI_KEY;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw) as Position;
-      if (parsed.reciterKey && parsed.surahId >= 1 && parsed.ayahNumber >= 1) return parsed;
-    }
+    return window.localStorage.getItem(RECITER_STORAGE_KEY) || DEFAULT_QORI_KEY;
   } catch {
-    /* ignore */
+    return DEFAULT_QORI_KEY;
   }
-  return { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 };
 }
 
-function savePosition(p: Position) {
+function saveReciterKey(key: string) {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+    window.localStorage.setItem(RECITER_STORAGE_KEY, key);
   } catch {
-    /* quota exceeded — fine, just won't resume exactly */
+    /* quota exceeded — fine, just won't remember the preference */
   }
 }
 
@@ -48,8 +44,15 @@ function savePosition(p: Position) {
  * page, aimed at mosques who want to leave a reciter's voice running all
  * day. Loops through the entire Qur'an (Al-Fatihah -> An-Nas -> back to
  * Al-Fatihah) indefinitely until the visitor stops it or changes reciter.
- * Persists position + reciter choice in localStorage so a page refresh (or a
- * device left on overnight) resumes close to where it left off.
+ *
+ * This behaves like a real broadcast, not a personal bookmark: it "keeps
+ * running" even when nobody's listening, via a shared virtual clock
+ * (computeLivePosition) that every visitor computes identically from the
+ * current time. A fresh visitor (or a reload) always joins wherever the
+ * station currently is — never restarted at Al-Fatihah ayah 1 — the same
+ * way tuning into a real radio station drops you into the middle of
+ * whatever's already playing. Only the reciter (channel) choice is
+ * remembered across visits; the position itself is never "resumed".
  *
  * Browsers block audio-with-sound autoplay without a user gesture, so the
  * very first play always needs one tap; every subsequent ayah/surah then
@@ -60,8 +63,9 @@ function savePosition(p: Position) {
 export function RadioQoriWidget({ locale }: { locale: string }) {
   const t = radioLabels(locale);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const posRef = useRef<Position>(loadPosition());
+  const posRef = useRef<Position>({ reciterKey: loadReciterKey(), surahId: 1, ayahNumber: 1 });
   const genRef = useRef(0);
+  const joinedLiveRef = useRef(false);
 
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
   const [position, setPosition] = useState<Position>(posRef.current);
@@ -103,7 +107,6 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
       const next = nextPosition(p);
       posRef.current = next;
       setPosition(next);
-      savePosition(next);
       loadAndPlay(next, myGen);
       return;
     }
@@ -136,15 +139,18 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
     const next = nextPosition(posRef.current);
     posRef.current = next;
     setPosition(next);
-    savePosition(next);
     loadAndPlay(next, genRef.current);
   }
 
   function switchReciter(key: string) {
-    const next = { ...posRef.current, reciterKey: key };
+    // Switching reciter is like switching to a different channel of the
+    // same live broadcast — re-sync to the current live position rather
+    // than keeping wherever the previous reciter happened to be.
+    const live = computeLivePosition(surahs);
+    const next: Position = { reciterKey: key, ...live };
     posRef.current = next;
     setPosition(next);
-    savePosition(next);
+    saveReciterKey(key);
     setShowPicker(false);
     if (playing || !needsInteraction) {
       genRef.current += 1;
@@ -152,12 +158,20 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
     }
   }
 
-  // Try to autoplay once surah metadata is ready — succeeds if this page load
-  // still carries a "user has interacted with the site" grant from browser
-  // autoplay heuristics (common on a repeat visit); otherwise the tap prompt
-  // below handles it.
+  // Once surah metadata is ready, join the live broadcast at its current
+  // position (never at Al-Fatihah ayah 1) and try to autoplay — this
+  // succeeds if the page load still carries a "user has interacted with the
+  // site" grant from browser autoplay heuristics (common on a repeat
+  // visit); otherwise the tap prompt below handles it.
   useEffect(() => {
-    if (surahs.length > 0) start();
+    if (surahs.length > 0 && !joinedLiveRef.current) {
+      joinedLiveRef.current = true;
+      const live = computeLivePosition(surahs);
+      const next: Position = { ...posRef.current, ...live };
+      posRef.current = next;
+      setPosition(next);
+      start();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [surahs.length > 0]);
 
