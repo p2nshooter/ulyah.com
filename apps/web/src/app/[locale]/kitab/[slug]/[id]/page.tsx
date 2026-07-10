@@ -2,7 +2,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
-import { NarrateButton } from "@/components/NarrateButton";
+import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
 import { AdSlot } from "@/components/AdSlot";
 
 interface BookDetail {
@@ -31,9 +31,13 @@ export default async function KitabBookPage({
   const t = kitabLabels(locale);
 
   let book: BookDetail | null = null;
+  let nextBook: { id: number; title_ar: string } | null = null;
   try {
-    const res = await api.get<{ book: BookDetail }>(`/content/kitab/book/${id}?lang=${locale}`);
+    const res = await api.get<{ book: BookDetail; next_book: { id: number; title_ar: string } | null }>(
+      `/content/kitab/book/${id}?lang=${locale}`
+    );
     book = res.book;
+    nextBook = res.next_book;
   } catch {
     book = null;
   }
@@ -74,11 +78,12 @@ export default async function KitabBookPage({
           <div className="mt-6">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold">{t.about}</p>
-              <NarrateButton
-                paragraphs={[book.description_translated ?? book.description_ar]}
+              <KitabDescriptionReader
+                text={book.description_translated ?? book.description_ar}
                 listenLabel={t.listen}
                 stopLabel={t.stop}
                 lang={book.description_translated ? locale : "ar"}
+                nextHref={nextBook ? `/${locale}/kitab/${slug}/${nextBook.id}` : null}
               />
             </div>
             {!book.description_translated && t.arabicOnlyNote && (
@@ -120,6 +125,16 @@ export default async function KitabBookPage({
       </div>
 
       <AdSlot minHeight={100} className="mt-6" />
+
+      {nextBook && (
+        <Link
+          href={`/${locale}/kitab/${slug}/${nextBook.id}`}
+          className="mt-6 block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
+        >
+          <p className="text-xs text-[var(--color-text-secondary)]">{t.next} →</p>
+          <p dir="rtl" className="font-arabic mt-1 text-lg">{nextBook.title_ar}</p>
+        </Link>
+      )}
     </div>
   );
 }

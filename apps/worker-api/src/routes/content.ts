@@ -223,8 +223,22 @@ contentRoute.get("/kitab/book/:id", async (c) => {
       ? await translateText(c.env, book.description_ar, targetLang)
       : null;
 
+  // Next book in the same category, alphabetical by title_ar — matches the
+  // category listing's own order — so the reader can auto-advance once this
+  // book's description finishes narrating ("auto next pindah sesi").
+  const nextBook = await c.env.DB.prepare(
+    `SELECT id, title_ar FROM kitab_book
+     WHERE category_slug = ? AND title_ar > ?
+     ORDER BY title_ar LIMIT 1`
+  )
+    .bind(book.category_slug as string, book.title_ar as string)
+    .first<{ id: number; title_ar: string }>();
+
   const { topics_json, ...rest } = book;
-  return c.json({ book: { ...rest, topics, description_translated, description_lang: targetLang } });
+  return c.json({
+    book: { ...rest, topics, description_translated, description_lang: targetLang },
+    next_book: nextBook ?? null,
+  });
 });
 
 // ── Kitab Hadits reader (full readable, voiced books) ────────────────────

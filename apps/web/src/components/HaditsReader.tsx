@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { HaditsLabels } from "@/lib/hadits-labels";
 
@@ -18,22 +19,30 @@ export interface HaditsItem {
  * Readable, voiced page of a hadith book. Each hadith shows its Arabic and
  * Indonesian; "Putar Semua" narrates the whole page hadith by hadith —
  * Arabic first (Arabic voice), then the Indonesian (UI-language voice) — with
- * the active hadith highlighted and scrolled into view, so a listener can
- * take in a whole book without tapping each entry. Uses the device's built-in
- * voices (no API key). Hydration-safe: the play button only appears after
- * mount, when the browser's speech support can actually be checked.
+ * the active hadith highlighted and scrolled into view (a live reading
+ * marker), so a listener can take in a whole book without tapping each
+ * entry. When `nextPageHref` is given and the page finishes naturally (not
+ * stopped by the user), playback continues onto the next page automatically
+ * — a whole book plays end to end. Uses the device's built-in voices (no API
+ * key). Hydration-safe: the play button only appears after mount, when the
+ * browser's speech support can actually be checked.
  */
 export function HaditsReader({
   hadits,
   lang,
   labels,
   translatedNote,
+  autoStart = false,
+  nextPageHref = null,
 }: {
   hadits: HaditsItem[];
   lang: string;
   labels: HaditsLabels;
   translatedNote: boolean;
+  autoStart?: boolean;
+  nextPageHref?: string | null;
 }) {
+  const router = useRouter();
   const [available, setAvailable] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [active, setActive] = useState(-1);
@@ -45,6 +54,11 @@ export function HaditsReader({
     return () => stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (autoStart && available) playFrom(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart, available]);
 
   async function playFrom(start: number) {
     stopRef.current = false;
@@ -67,6 +81,7 @@ export function HaditsReader({
     }
     setPlaying(false);
     setActive(-1);
+    if (!stopRef.current && nextPageHref) router.push(nextPageHref);
   }
 
   function stop() {

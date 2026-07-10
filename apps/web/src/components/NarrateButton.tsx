@@ -15,6 +15,7 @@ export function NarrateButton({
   stopLabel,
   lang,
   onSentence,
+  onEnd,
   className = "",
 }: {
   paragraphs: string[];
@@ -22,6 +23,8 @@ export function NarrateButton({
   stopLabel: string;
   lang: string;
   onSentence?: (index: number | null) => void;
+  /** Fires when narration completes naturally (not via the Stop button) — e.g. to auto-advance to the next item. */
+  onEnd?: () => void;
   className?: string;
 }) {
   const [playing, setPlaying] = useState(false);
@@ -56,6 +59,7 @@ export function NarrateButton({
     }
     onSentence?.(null);
     setPlaying(false);
+    if (!cancelledRef.current) onEnd?.();
   }
 
   function stop() {

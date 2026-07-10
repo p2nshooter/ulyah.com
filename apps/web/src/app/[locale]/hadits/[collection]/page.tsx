@@ -14,6 +14,11 @@ interface CollectionMeta {
   has_native_id: number;
 }
 
+// Fixed reading order (matches sort_order in migration 0012). When the last
+// page of a collection finishes narrating, playback continues into the next
+// book automatically instead of just stopping — "auto next pindah sesi".
+const COLLECTION_ORDER = ["bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi"];
+
 interface PageData {
   collection: CollectionMeta;
   hadits: HaditsItem[];
@@ -57,10 +62,10 @@ export default async function HaditsCollectionPage({
   searchParams,
 }: {
   params: Promise<{ locale: string; collection: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; autoplay?: string }>;
 }) {
   const { locale: raw, collection } = await params;
-  const { page: pageRaw } = await searchParams;
+  const { page: pageRaw, autoplay } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = haditsLabels(locale);
   const page = Math.max(1, Number(pageRaw ?? "1"));
@@ -80,6 +85,18 @@ export default async function HaditsCollectionPage({
 
   const { collection: meta, hadits, total, totalPages } = data;
   const base = `/${locale}/hadits/${collection}`;
+
+  // Auto-next target once this page finishes narrating: next page in this
+  // book, or if this was the last page, the first page of the next book in
+  // reading order (falls off the end after the last collection).
+  let nextPageHref: string | null = null;
+  if (page < totalPages) {
+    nextPageHref = `${base}?page=${page + 1}&autoplay=1`;
+  } else {
+    const idx = COLLECTION_ORDER.indexOf(collection);
+    const nextSlug = idx >= 0 ? COLLECTION_ORDER[idx + 1] : undefined;
+    if (nextSlug) nextPageHref = `/${locale}/hadits/${nextSlug}?autoplay=1`;
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
@@ -118,6 +135,8 @@ export default async function HaditsCollectionPage({
           lang={locale}
           labels={t}
           translatedNote={meta.has_native_id === 0}
+          autoStart={autoplay === "1"}
+          nextPageHref={nextPageHref}
         />
       </div>
 
