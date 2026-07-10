@@ -101,15 +101,16 @@ adminAuthRoute.post("/login", async (c) => {
   await resetRateLimit(c.env, `admin-login:${ip}`);
   const row = admin ?? (await c.env.DB.prepare("SELECT * FROM admin_users WHERE email = ?").bind(email.toLowerCase()).first<AdminRow>())!;
 
-  const pendingToken = await createSession(c.env, {
-    subject: "admin_pending_totp",
-    id: row.id,
-    email: row.email,
-  });
-
   if (!row.totp_secret) {
     const secret = generateTotpSecret();
-    await c.env.CACHE_KV.put(`totp-setup:${pendingToken}`, secret, { expirationTtl: 300 });
+    // Carry the setup secret inside the signed pending token — no KV write,
+    // so first-time TOTP enrollment works even when the KV budget is spent.
+    const pendingToken = await createSession(c.env, {
+      subject: "admin_pending_totp",
+      id: row.id,
+      email: row.email,
+      totpSecret: secret,
+    });
     return c.json({
       needsTotpSetup: true,
       pendingToken,
@@ -118,6 +119,12 @@ adminAuthRoute.post("/login", async (c) => {
     });
   }
 
+  // Already enrolled — issue a plain pending token (no secret embedded).
+  const pendingToken = await createSession(c.env, {
+    subject: "admin_pending_totp",
+    id: row.id,
+    email: row.email,
+  });
   return c.json({ needsTotpCode: true, pendingToken });
 });
 
@@ -134,7 +141,10 @@ adminAuthRoute.post("/totp", async (c) => {
   const rl = await checkRateLimit(c.env, `admin-totp:${ip}`, 8, 60 * 10);
   if (!rl.allowed) return c.json({ error: "Too many attempts. Try again later." }, 429);
 
-  const setupSecret = await c.env.CACHE_KV.get(`totp-setup:${pendingToken}`);
+  // The first-time setup secret rides inside the signed pending token now
+  // (no KV); a normal login has no embedded secret and verifies against the
+  // one stored in admin_users.
+  const setupSecret = pending.totpSecret ?? null;
   let secretToVerify = setupSecret;
   if (!secretToVerify) {
     const admin = await c.env.DB.prepare("SELECT totp_secret FROM admin_users WHERE id = ?")
@@ -154,7 +164,6 @@ adminAuthRoute.post("/totp", async (c) => {
     await c.env.DB.prepare("UPDATE admin_users SET totp_secret = ? WHERE id = ?")
       .bind(setupSecret, pending.id)
       .run();
-    await c.env.CACHE_KV.delete(`totp-setup:${pendingToken}`);
   }
 
   await c.env.DB.prepare("UPDATE admin_users SET last_login_at = datetime('now') WHERE id = ?")

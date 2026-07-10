@@ -1,4 +1,5 @@
 import type { Env } from "./../env.js";
+import { safeKvPut } from "./kv-safe.js";
 
 /**
  * Deterministic, AI-free content compiler.
@@ -74,7 +75,7 @@ async function getCursor(env: Env, key: string): Promise<AyahCursor> {
 }
 
 async function setCursor(env: Env, key: string, cursor: AyahCursor): Promise<void> {
-  await env.CACHE_KV.put(key, JSON.stringify(cursor));
+  await safeKvPut(env, key, JSON.stringify(cursor));
 }
 
 async function nextEpisodeNumber(env: Env, seriesKey: string, lang: string): Promise<number> {
@@ -318,7 +319,7 @@ export async function runHadithCompile(env: Env, langs: string[]): Promise<numbe
       .bind(title, `hadits-sesi-${episodeNumber}`, lang, categoryId, body, episodeNumber)
       .run();
 
-    await env.CACHE_KV.put(cursorKey, String(usable[usable.length - 1]!.id));
+    await safeKvPut(env, cursorKey, String(usable[usable.length - 1]!.id));
     return 1;
   }
   return 0;

@@ -103,6 +103,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [focus, setFocus] = useState(1); // focused ayah number (1-based)
   const [bundle, setBundle] = useState<Bundle | null>(null);
   const [loadingAyat, setLoadingAyat] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [qoriCC, setQoriCC] = useState("all"); // country filter for the reciter picker below
   const arabicRef = useRef<HTMLDivElement>(null);
@@ -130,15 +131,34 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       .catch(() => {});
   }, []);
 
-  // Load the selected surah's ayat.
+  // Load the selected surah's ayat. Clear the previous surah's ayat FIRST so
+  // a slow or failed fetch can never leave the reader showing the wrong
+  // surah's text (the "click Al-Ikhlas, see Alif Lām Mīm" bug). A cancelled
+  // flag guards against an out-of-order response overwriting a newer one.
   useEffect(() => {
     if (!selectedSurah) return;
+    let cancelled = false;
+    const wantId = selectedSurah.id;
+    setAyat([]);
     setLoadingAyat(true);
+    setLoadError(false);
     setFocus(1);
     api
-      .get<{ ayat: AyatRow[] }>(`/quran/surah/${selectedSurah.id}?lang=${locale}`)
-      .then((r) => setAyat(r.ayat))
-      .finally(() => setLoadingAyat(false));
+      .get<{ ayat: AyatRow[]; surah: { id: number } }>(`/quran/surah/${wantId}?lang=${locale}`)
+      .then((r) => {
+        // Ignore a response for a surah the user already navigated away from.
+        if (cancelled || r.surah?.id !== wantId) return;
+        setAyat(r.ayat);
+      })
+      .catch(() => {
+        if (!cancelled) setLoadError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingAyat(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [selectedSurah, locale]);
 
   // Keep the focused ayah in sync with the player when it's reciting this surah.
@@ -319,6 +339,16 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
             >
               {loadingAyat ? (
                 <p className="py-8 text-sm text-[var(--color-text-secondary)]">{dict.common.loading}</p>
+              ) : loadError || !focusRow ? (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSurah((s) => (s ? { ...s } : s)); // re-trigger the fetch effect
+                  }}
+                  className="py-8 text-sm text-accent hover:underline"
+                >
+                  ⟳ {dict.common.loading}
+                </button>
               ) : (
                 <>
                   <p dir="rtl" className="font-arabic text-3xl leading-[2.4] text-[var(--color-text-primary)] sm:text-4xl">

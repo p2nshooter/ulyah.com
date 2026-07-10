@@ -1,4 +1,5 @@
 import type { Env } from "../env.js";
+import { safeKvPut } from "./kv-safe.js";
 
 const MYMEMORY_BASE = "https://api.mymemory.translated.net/get";
 // Static classical-Arabic prose never changes, so once a description is
@@ -72,11 +73,11 @@ export async function translateText(
     const parts = await Promise.all(chunks.map((chunk) => translateChunk(chunk, sourceLang, targetLang)));
     if (parts.some((p) => p === null)) {
       // Failure marker with a short TTL — retry soon rather than caching a miss for 90 days.
-      await env.CACHE_KV.put(kvKey, "", { expirationTtl: 60 * 60 * 6 });
+      await safeKvPut(env, kvKey, "", { expirationTtl: 60 * 60 * 6 });
       return null;
     }
     const result = parts.join(" ");
-    await env.CACHE_KV.put(kvKey, result, { expirationTtl: KV_TTL });
+    await safeKvPut(env, kvKey, result, { expirationTtl: KV_TTL });
     return result;
   } catch {
     return null;

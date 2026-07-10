@@ -8,6 +8,7 @@ import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
+import { safeKvPut } from "../lib/kv-safe.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -367,7 +368,7 @@ adminRoute.get("/scaling", async (c) => {
 
 adminRoute.post("/scaling/settings", async (c) => {
   const settings = await c.req.json<Record<string, unknown>>();
-  await c.env.CACHE_KV.put("scaling:settings", JSON.stringify(settings));
+  await safeKvPut(c.env, "scaling:settings", JSON.stringify(settings));
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, "scaling_settings_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, settings);
   return c.json({ ok: true });
@@ -413,7 +414,7 @@ adminRoute.post("/engine/toggle", async (c) => {
   const raw = await c.env.CACHE_KV.get("scaling:settings");
   const settings = raw ? JSON.parse(raw) : {};
   settings.engineEnabled = Boolean(enabled);
-  await c.env.CACHE_KV.put("scaling:settings", JSON.stringify(settings));
+  await safeKvPut(c.env, "scaling:settings", JSON.stringify(settings));
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, enabled ? "engine_started" : "engine_stopped", admin.email, c.req.header("cf-connecting-ip") ?? null, {});
   return c.json({ ok: true, engineEnabled: settings.engineEnabled });

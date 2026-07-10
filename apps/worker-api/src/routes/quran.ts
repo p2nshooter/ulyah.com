@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { fetchTafsir, fetchAsbabunNuzul } from "../lib/tafsir-source.js";
+import { safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
@@ -17,7 +18,7 @@ quranRoute.get("/surah", async (c) => {
 
   const { results } = await c.env.DB.prepare("SELECT * FROM surah ORDER BY id").all();
   const body = JSON.stringify({ surah: results });
-  await c.env.CACHE_KV.put("quran:surah:all", body, { expirationTtl: 60 * 60 * 24 });
+  await safeKvPut(c.env, "quran:surah:all", body, { expirationTtl: 60 * 60 * 24 * 7 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
@@ -57,7 +58,7 @@ quranRoute.get("/surah/:id", async (c) => {
         .all();
 
   const body = JSON.stringify({ surah, ayat, lang: requested, translationLang: lang });
-  await c.env.CACHE_KV.put(cacheKey, body, { expirationTtl: 60 * 60 * 24 });
+  await safeKvPut(c.env, cacheKey, body, { expirationTtl: 60 * 60 * 24 * 30 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
@@ -72,11 +73,11 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
 
   // Bump this version whenever the bundle's content sources change so old
   // cached bundles don't keep serving stale/empty/wrong-language tafsir or
-  // asbabun. v4 = asbabun nuzul's English fallback (spa5k Al-Wahidi, used for
-  // ayat outside the curated dataset) is now translated to Indonesian instead
-  // of leaking raw English into an otherwise Indonesian panel. TTL is short
-  // so future fixes self-heal in minutes, not hours.
-  const cacheKey = `quran:ayah:v4:${surahId}:${number}:${requested}`;
+  // asbabun. v5 = tafsir/translation always populated; empty bundles cached
+  // only briefly so they self-heal, rich bundles cached for 30 days to stay
+  // far under Cloudflare's free-tier KV write budget (the 15-min TTL used
+  // before re-wrote every popular ayah ~96×/day and helped exhaust it).
+  const cacheKey = `quran:ayah:v5:${surahId}:${number}:${requested}`;
   const cached = await c.env.CACHE_KV.get(cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
@@ -117,7 +118,11 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
     hadits: hadits.results,
     stories: stories.results,
   });
-  await c.env.CACHE_KV.put(cacheKey, body, { expirationTtl: 60 * 15 });
+  // A "rich" bundle (translation + tafsir resolved) is stable — cache it for
+  // 30 days. A bundle still missing its core text likely hit a transient
+  // upstream fetch failure, so cache it only briefly so it retries soon.
+  const rich = Boolean(translation) && Boolean(tafsirHit);
+  await safeKvPut(c.env, cacheKey, body, { expirationTtl: rich ? 60 * 60 * 24 * 30 : 60 * 10 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 

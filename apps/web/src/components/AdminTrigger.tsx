@@ -7,7 +7,7 @@ import { api } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
 
 const CLICK_THRESHOLD = 5;
-const WINDOW_MS = 3000;
+const WINDOW_MS = 4000;
 
 /**
  * Wraps the header logo. No visible "Login"/"Admin" link exists anywhere in
@@ -30,7 +30,13 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
 
   return (
     <>
-      <button type="button" onClick={handleClick} aria-label="ulyah" className="border-0 bg-transparent p-0">
+      <button
+        type="button"
+        onClick={handleClick}
+        aria-label="ulyah"
+        className="select-none border-0 bg-transparent p-0"
+        style={{ touchAction: "manipulation" }}
+      >
         {children}
       </button>
       {showModal && (

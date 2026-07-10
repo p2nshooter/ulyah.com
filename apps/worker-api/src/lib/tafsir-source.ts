@@ -1,6 +1,7 @@
 import type { Env } from "../env.js";
 import { ASBAB_DATA } from "./asbabun-nuzul-data.js";
 import { translateText } from "./mt.js";
+import { safeKvPut } from "./kv-safe.js";
 
 /**
  * Tafsir + asbabun nuzul, fetched on demand and KV-cached per surah — never
@@ -32,7 +33,7 @@ async function fetchJsonCached<T>(env: Env, kvKey: string, url: string): Promise
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) return null;
   const data = (await res.json()) as T;
-  await env.CACHE_KV.put(kvKey, JSON.stringify(data), { expirationTtl: KV_TTL });
+  await safeKvPut(env, kvKey, JSON.stringify(data), { expirationTtl: KV_TTL });
   return data;
 }
 

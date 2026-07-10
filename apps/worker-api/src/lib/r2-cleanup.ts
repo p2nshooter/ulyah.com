@@ -1,4 +1,5 @@
 import type { Env } from "../env.js";
+import { safeKvPut } from "./kv-safe.js";
 
 // Murottal audio used to be re-hosted under this prefix in R2 before the
 // architecture switched to streaming directly from each reciter's public CDN
@@ -27,7 +28,7 @@ export async function cleanupObsoleteMurottalR2(env: Env): Promise<void> {
     if (listing.truncated) {
       cursor = listing.cursor;
     } else {
-      await env.CACHE_KV.put(DONE_FLAG, `1:${deleted}`);
+      await safeKvPut(env, DONE_FLAG, `1:${deleted}`);
       console.log(`R2 murottal cleanup complete — removed ${deleted} obsolete objects.`);
       return;
     }

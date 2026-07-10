@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { translateText } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
+import { safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
@@ -295,7 +296,7 @@ contentRoute.get("/hadits/collections", async (c) => {
   const collections = results.filter((r) => r.total > 0);
 
   const body = JSON.stringify({ collections });
-  await c.env.CACHE_KV.put("hadits:collections", body, { expirationTtl: 60 * 60 * 6 });
+  await safeKvPut(c.env, "hadits:collections", body, { expirationTtl: 60 * 60 * 24 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
