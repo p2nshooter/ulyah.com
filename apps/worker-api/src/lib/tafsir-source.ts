@@ -127,12 +127,15 @@ export async function fetchAsbabunNuzul(
   if (!text || text.length < 40) return null;
 
   // This fallback edition is English-only. Surfacing raw English in an
-  // otherwise all-Indonesian panel (translation, Tafsir Kemenag) read as a
+  // otherwise all-Indonesian panel (translation, Tafsir Kemenag) reads as a
   // broken/inconsistent page, so translate it on demand and cache the
   // result forever (same fetch-and-cache shape as lib/mt.ts elsewhere).
+  // If translation genuinely fails for an Indonesian reader, return null so
+  // the reader shows its honest "no specific occasion" state — NEVER leak
+  // untranslated English into the Indonesian UI.
   if (!lang || lang === "id") {
     const translated = await translateText(env, text, "id", "en");
-    if (translated) return { text: translated, source: `${ASBAB_SOURCE} (diterjemahkan)` };
+    return translated ? { text: translated, source: `${ASBAB_SOURCE} (diterjemahkan)` } : null;
   }
   return { text, source: ASBAB_SOURCE };
 }

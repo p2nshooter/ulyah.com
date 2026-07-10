@@ -77,7 +77,7 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   // only briefly so they self-heal, rich bundles cached for 30 days to stay
   // far under Cloudflare's free-tier KV write budget (the 15-min TTL used
   // before re-wrote every popular ayah ~96×/day and helped exhaust it).
-  const cacheKey = `quran:ayah:v5:${surahId}:${number}:${requested}`;
+  const cacheKey = `quran:ayah:v6:${surahId}:${number}:${requested}`;
   const cached = await c.env.CACHE_KV.get(cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
