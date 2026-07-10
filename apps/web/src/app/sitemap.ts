@@ -15,7 +15,7 @@ const ROUTES = ["", "/quran", "/hadits", "/kisah", "/kitab", "/audiobook", "/har
 // large, evolving set); the /kitab landing page links them all, so Googlebot
 // still reaches every category by crawling.
 const HADITS_COLLECTIONS = [
-  "bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi",
+  "bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi", "ahmad", "darimi",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

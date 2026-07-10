@@ -17,7 +17,7 @@ interface CollectionMeta {
 // Fixed reading order (matches sort_order in migration 0012). When the last
 // page of a collection finishes narrating, playback continues into the next
 // book automatically instead of just stopping — "auto next pindah sesi".
-const COLLECTION_ORDER = ["bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi"];
+const COLLECTION_ORDER = ["bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi", "ahmad", "darimi"];
 
 interface PageData {
   collection: CollectionMeta;

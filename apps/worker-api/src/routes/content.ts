@@ -334,7 +334,8 @@ contentRoute.get("/hadits/:collection", async (c) => {
   const page = Math.max(1, Number(c.req.query("page") ?? "1"));
   const pageSize = 20;
   const offset = (page - 1) * pageSize;
-  const wantId = (c.req.query("lang") ?? "id") === "id";
+  const requestedLocale = c.req.query("lang") ?? DEFAULT_LOCALE;
+  const locale = isValidLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
 
   const coll = await c.env.DB.prepare("SELECT * FROM hadits_collection WHERE slug = ?")
     .bind(slug)
@@ -348,19 +349,27 @@ contentRoute.get("/hadits/:collection", async (c) => {
        FROM hadits WHERE collection = ? ORDER BY hadith_number LIMIT ? OFFSET ?`
     )
       .bind(slug, pageSize, offset)
-      .all<{ id: number; hadith_number: number; text_ar: string; text_id: string; text_en: string }>(),
+      .all<{ id: number; hadith_number: number; text_ar: string; text_id: string; text_en: string | null }>(),
   ]);
 
-  // Collections without a native Indonesian edition (Arba'in, Qudsi) carry
-  // English in text_id as a stopgap; translate the Arabic to Indonesian on
-  // demand (KV-cached) so the reader shows real Indonesian, not English.
+  // `text_id` is the field the reader displays/narrates as "the translated
+  // line" for whatever locale was requested — it must actually BE that
+  // locale's text, not always literal Indonesian. Previously any locale
+  // other than "id" got the raw Indonesian column back untouched (even
+  // English readers), narrated in the wrong voice. Now: Indonesian readers
+  // get the native column (or an on-demand translation for collections that
+  // don't have one, e.g. Arba'in/Qudsi); English readers reuse the stored
+  // text_en when present (no wasted call); every other locale (ar/ru/de/fr/
+  // zh/ja) is translated on demand from Arabic, KV-cached forever after.
   let hadits = rows.results;
-  if (wantId && coll.has_native_id === 0) {
+  if (locale !== "ar") {
     hadits = await Promise.all(
-      hadits.map(async (h) => ({
-        ...h,
-        text_id: (await translateText(c.env, h.text_ar, "id")) ?? h.text_id,
-      }))
+      hadits.map(async (h) => {
+        if (locale === "id" && coll.has_native_id === 1) return h;
+        if (locale === "en" && h.text_en) return { ...h, text_id: h.text_en };
+        const translated = await translateText(c.env, h.text_ar, locale);
+        return { ...h, text_id: translated ?? h.text_en ?? h.text_id };
+      })
     );
   }
 
