@@ -230,11 +230,15 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
   const others = RECITERS.filter((r) => !r.featured);
 
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] p-6 text-[#f4efe3] shadow-xl sm:p-8">
+    <section className="relative rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] p-6 text-[#f4efe3] shadow-xl sm:p-8">
       <audio ref={audioRef} onEnded={handleEnded} className="hidden" />
+      {/* rounded-3xl (matching the section) instead of relying on the
+          section's own overflow-hidden to clip this — overflow-hidden on
+          the section also clipped the reciter picker dropdown below,
+          making the lower reciters unreachable. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.08]"
+        className="pointer-events-none absolute inset-0 rounded-3xl opacity-[0.08]"
         style={{
           backgroundImage:
             "radial-gradient(circle at 15% 20%, rgba(184,137,43,0.7), transparent 55%)",
@@ -289,17 +293,24 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
             🎙️ {t.chooseReciter}
           </button>
           {showPicker && (
-            <div className="absolute right-0 top-full z-20 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-accent/25 bg-[#0b3d2e] p-2 shadow-2xl">
+            <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-accent/25 bg-[#0b3d2e] p-2 shadow-2xl">
               <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent">{t.featuredGroup}</p>
               {featured.map((r) => (
                 <button
                   key={r.key}
                   onClick={() => switchReciter(r.key)}
-                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-white/5 ${
-                    r.key === position.reciterKey ? "text-accent" : ""
+                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-white/5 ${
+                    r.key === position.reciterKey ? "bg-accent/10 text-accent" : ""
                   }`}
                 >
-                  {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                  <span>
+                    {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                  </span>
+                  {r.key === position.reciterKey && (
+                    <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-red-300">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" /> {t.nowPlaying}
+                    </span>
+                  )}
                 </button>
               ))}
               <p className="mt-1 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent">{t.allGroup}</p>
@@ -307,11 +318,18 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
                 <button
                   key={r.key}
                   onClick={() => switchReciter(r.key)}
-                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-white/5 ${
-                    r.key === position.reciterKey ? "text-accent" : ""
+                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-white/5 ${
+                    r.key === position.reciterKey ? "bg-accent/10 text-accent" : ""
                   }`}
                 >
-                  {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                  <span>
+                    {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                  </span>
+                  {r.key === position.reciterKey && (
+                    <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-red-300">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" /> {t.nowPlaying}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>

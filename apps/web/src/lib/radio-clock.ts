@@ -19,7 +19,10 @@ export interface AyahCountMeta {
 
 // Fixed reference instant shared by every client — never changes, so the
 // "broadcast" is always in the same place for everyone at any given moment.
-const RADIO_EPOCH_MS = Date.UTC(2026, 0, 1, 0, 0, 0);
+// This is the station's actual launch date: the khatam counter starts at 0
+// from here, not from an arbitrary earlier date that would make the counter
+// read as already huge (and dishonest) on day one.
+const RADIO_EPOCH_MS = Date.UTC(2026, 6, 10, 0, 0, 0);
 
 // Rough average tarteel pace. Not exact (individual ayah lengths vary a
 // lot), but tuned so a full khatam (one loop through all ayah) takes
