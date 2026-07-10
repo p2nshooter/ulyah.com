@@ -227,6 +227,13 @@ export interface Dictionary {
     certIssuedBy: string;
     printButton: string;
     printHint: string;
+    galleryTitle: string;
+    welcomeBack: string;
+    noCertYet: string;
+    cryptoTracking: string;
+    cryptoStatusPending: string;
+    cryptoStatusConfirmed: string;
+    autoIssuedNote: string;
   };
   syukur: {
     navLabel: string;

@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { NarrateButton } from "@/components/NarrateButton";
+import { api } from "@/lib/api";
 
 // The family behind Ulyah — proper nouns, reproduced faithfully as given.
+// Photos are admin-uploaded (Portal Admin -> Media), never hardcoded — see
+// lib/media.ts / GET /content/media/:key. mediaKey is null-safe: until an
+// admin uploads a photo, the card simply shows no image.
 const FOUNDERS = [
-  { name: "Yusron Efendi", lineage: "bin H. Mursyidi" },
-  { name: "Ulyah Munayah", lineage: "binti H. Moch. Hilwani" },
+  { name: "Yusron Efendi", lineage: "bin H. Mursyidi", mediaKey: "founder_yusron_photo" },
+  { name: "Ulyah Munayah", lineage: "binti H. Moch. Hilwani", mediaKey: "founder_ulyah_photo" },
 ];
 const CHILDREN = [
   "Kultsum Nurunnajah Efendi",
@@ -32,6 +36,14 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const s = dict.syukur;
+
+  let mediaSet: Record<string, boolean> = {};
+  try {
+    const res = await api.get<{ media: Record<string, boolean> }>("/content/media-status");
+    mediaSet = res.media;
+  } catch {
+    mediaSet = {};
+  }
 
   return (
     <div className="relative overflow-hidden">
@@ -71,6 +83,14 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {FOUNDERS.map((f) => (
               <div key={f.name} className="rounded-2xl border border-accent/30 bg-[var(--color-card)] p-6">
+                {mediaSet[f.mediaKey] && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={`${api.base}/content/media/${f.mediaKey}`}
+                    alt={f.name}
+                    className="mx-auto mb-4 h-28 w-28 rounded-full border-2 border-accent/40 object-cover shadow-md"
+                  />
+                )}
                 <p className="font-heading text-xl text-primary dark:text-accent">{f.name}</p>
                 <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{f.lineage}</p>
               </div>

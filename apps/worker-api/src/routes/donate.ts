@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { getCookie } from "hono/cookie";
 import type { Env } from "../env.js";
 import { createPaypalOrder, capturePaypalOrder, verifyPaypalWebhook } from "../lib/paypal.js";
@@ -6,9 +6,45 @@ import { createNowPaymentsInvoice, verifyNowPaymentsIpn } from "../lib/nowpaymen
 import { ingestAndTestKey } from "../lib/keypool-db.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { getSession, sessionCookieName } from "../lib/session.js";
+import { issueAutoCertificate, resolveDonorClient } from "../lib/certificates.js";
 import { AI_PROVIDERS } from "@ulyah/shared/providers";
 
 export const donateRoute = new Hono<{ Bindings: Env }>();
+
+/** The donor's client_id if they're logged in, else null — donating never requires an account. */
+async function currentClientId(c: Context<{ Bindings: Env }>): Promise<number | null> {
+  const token = getCookie(c, sessionCookieName("client"));
+  const session = await getSession(c.env, token);
+  return session?.subject === "client" ? session.id : null;
+}
+
+// After a payment confirms, auto-issue a certificate IF the donor was logged
+// in when they started the donation (donation_logs.client_id was captured at
+// /paypal/create or /nowpayments/create time) — no admin review needed, the
+// processor's own confirmation is the proof. Anonymous donations (the
+// platform's default — "Zero Login") simply don't get a portal certificate.
+async function autoCertifyIfOwned(
+  env: Env,
+  method: "paypal" | "nowpayments",
+  providerRef: string
+): Promise<void> {
+  const log = await env.DB.prepare(
+    "SELECT id, client_id, amount, currency FROM donation_logs WHERE provider_ref = ? AND status = 'confirmed'"
+  )
+    .bind(providerRef)
+    .first<{ id: number; client_id: number | null; amount: number | null; currency: string | null }>();
+  if (!log || !log.client_id) return;
+  const donor = await resolveDonorClient(env, log.client_id);
+  if (!donor) return;
+  await issueAutoCertificate(env, {
+    donationLogId: log.id,
+    clientId: donor.id,
+    method,
+    senderName: donor.displayName,
+    amount: log.amount,
+    currency: log.currency,
+  });
+}
 
 // ── PayPal ───────────────────────────────────────────────────────────────
 
@@ -16,11 +52,12 @@ donateRoute.post("/paypal/create", async (c) => {
   const { amount, currency } = await c.req.json<{ amount: string; currency?: string }>();
   if (!amount || Number(amount) <= 0) return c.json({ error: "Invalid amount" }, 400);
 
+  const clientId = await currentClientId(c);
   const order = await createPaypalOrder(c.env, amount, currency ?? "USD");
   await c.env.DB.prepare(
-    "INSERT INTO donation_logs (provider, amount, currency, type, status, provider_ref) VALUES ('paypal', ?, ?, 'fiat', 'pending', ?)"
+    "INSERT INTO donation_logs (provider, amount, currency, type, status, provider_ref, client_id) VALUES ('paypal', ?, ?, 'fiat', 'pending', ?, ?)"
   )
-    .bind(Number(amount), currency ?? "USD", order.id)
+    .bind(Number(amount), currency ?? "USD", order.id, clientId)
     .run();
 
   return c.json({ orderId: order.id, approveUrl: order.approveUrl });
@@ -35,6 +72,8 @@ donateRoute.post("/paypal/capture/:orderId", async (c) => {
     .bind(status, result.amount ? Number(result.amount) : null, orderId)
     .run();
 
+  if (status === "confirmed") await autoCertifyIfOwned(c.env, "paypal", orderId);
+
   return c.json({ status });
 });
 
@@ -48,6 +87,7 @@ donateRoute.post("/paypal/webhook", async (c) => {
     await c.env.DB.prepare("UPDATE donation_logs SET status = 'confirmed' WHERE provider_ref = ?")
       .bind(event.resource.id)
       .run();
+    await autoCertifyIfOwned(c.env, "paypal", event.resource.id);
   } else if (event.event_type === "PAYMENT.CAPTURE.DENIED") {
     await c.env.DB.prepare("UPDATE donation_logs SET status = 'failed' WHERE provider_ref = ?")
       .bind(event.resource.id)
@@ -62,14 +102,28 @@ donateRoute.post("/nowpayments/create", async (c) => {
   const { amount, currency } = await c.req.json<{ amount: number; currency?: string }>();
   if (!amount || amount <= 0) return c.json({ error: "Invalid amount" }, 400);
 
+  const clientId = await currentClientId(c);
   const invoice = await createNowPaymentsInvoice(c.env, amount, currency ?? "usd");
   await c.env.DB.prepare(
-    "INSERT INTO donation_logs (provider, amount, currency, type, status, provider_ref) VALUES ('nowpayments', ?, ?, 'crypto', 'pending', ?)"
+    "INSERT INTO donation_logs (provider, amount, currency, type, status, provider_ref, client_id) VALUES ('nowpayments', ?, ?, 'crypto', 'pending', ?, ?)"
   )
-    .bind(amount, currency ?? "usd", invoice.id)
+    .bind(amount, currency ?? "usd", invoice.id, clientId)
     .run();
 
   return c.json({ invoiceId: invoice.id, invoiceUrl: invoice.invoiceUrl });
+});
+
+// Reports a crypto donation's live pipeline status ("perjalanan crypto sampai
+// sukses") for the client portal — waiting for network confirmations is
+// normal and can take minutes, this lets the UI show it instead of the donor
+// wondering if anything happened.
+donateRoute.get("/nowpayments/status/:invoiceId", async (c) => {
+  const invoiceId = c.req.param("invoiceId");
+  const row = await c.env.DB.prepare("SELECT status, amount, currency, created_at FROM donation_logs WHERE provider_ref = ?")
+    .bind(invoiceId)
+    .first();
+  if (!row) return c.json({ error: "not found" }, 404);
+  return c.json({ donation: row });
 });
 
 donateRoute.post("/nowpayments/webhook", async (c) => {
@@ -88,6 +142,7 @@ donateRoute.post("/nowpayments/webhook", async (c) => {
         : "pending";
 
   await c.env.DB.prepare("UPDATE donation_logs SET status = ? WHERE provider_ref = ?").bind(status, ref).run();
+  if (status === "confirmed") await autoCertifyIfOwned(c.env, "nowpayments", ref);
   return c.json({ received: true });
 });
 

@@ -1,8 +1,33 @@
 import { Hono } from "hono";
 import { translateText } from "../lib/mt.js";
+import { listMediaStatus } from "../lib/media.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
+
+// GET /content/media-status — which admin-managed images are actually
+// uploaded (boolean only, no admin data) — lets a page skip rendering an
+// <img> for a photo nobody has uploaded yet, avoiding a broken-image icon.
+contentRoute.get("/media-status", async (c) => {
+  const status = await listMediaStatus(c.env);
+  return c.json({ media: Object.fromEntries(status.map((m) => [m.key, m.set])) });
+});
+
+// GET /content/media/:key — public, cached image served from R2 (admin-
+// uploaded founder photos etc., see lib/media.ts + routes/admin.ts). Not
+// hardcoded into the repo: the admin portal can replace it any time.
+contentRoute.get("/media/:key", async (c) => {
+  const key = c.req.param("key");
+  const row = await c.env.DB.prepare("SELECT r2_key, content_type FROM site_media WHERE key = ?")
+    .bind(key)
+    .first<{ r2_key: string; content_type: string }>();
+  if (!row) return c.json({ error: "not found" }, 404);
+  const obj = await c.env.MEDIA_R2.get(row.r2_key);
+  if (!obj) return c.json({ error: "file missing from storage" }, 404);
+  return new Response(obj.body, {
+    headers: { "Content-Type": row.content_type, "Cache-Control": "public, max-age=86400" },
+  });
+});
 
 // GET /content/stories?category=&lang=&page=
 contentRoute.get("/stories", async (c) => {

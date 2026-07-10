@@ -231,6 +231,13 @@ const id: Dictionary = {
     certIssuedBy: "Diterbitkan oleh ULYAH.COM \u2014 Listen to Islam.",
     printButton: "Unduh PDF",
     printHint: "Pilih \u201cSimpan sebagai PDF\u201d pada dialog cetak untuk mengunduh.",
+    galleryTitle: "Galeri Sertifikat Anda",
+    welcomeBack: "Selamat datang kembali. Terima kasih atas setiap dukungan Anda untuk syiar Al-Qur'an \u2014 semoga menjadi amal jariyah yang terus mengalir.",
+    noCertYet: "Belum ada sertifikat. Setiap donasi yang berhasil akan otomatis tampil di sini sebagai kenang-kenangan.",
+    cryptoTracking: "Status Donasi Crypto",
+    cryptoStatusPending: "Menunggu konfirmasi jaringan\u2026",
+    cryptoStatusConfirmed: "Terkonfirmasi \u2713",
+    autoIssuedNote: "Diverifikasi otomatis oleh penyedia pembayaran \u2014 tidak perlu unggah bukti.",
   },
   syukur: {
     navLabel: "Puji Syukur",

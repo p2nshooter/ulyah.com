@@ -7,6 +7,7 @@ import { requireAdmin } from "../lib/auth-middleware.js";
 import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
+import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -203,8 +204,11 @@ adminRoute.get("/proofs/:id/file", async (c) => {
   const id = Number(c.req.param("id"));
   const row = await c.env.DB.prepare("SELECT proof_r2_key FROM donation_proofs WHERE id = ?")
     .bind(id)
-    .first<{ proof_r2_key: string }>();
+    .first<{ proof_r2_key: string | null }>();
   if (!row) return c.json({ error: "not found" }, 404);
+  // Auto-issued certs (PayPal/NOWPayments) have no uploaded receipt — the
+  // payment processor's own confirmation was the proof, nothing to view.
+  if (!row.proof_r2_key) return c.json({ error: "No file — this donation was auto-verified by the payment processor." }, 404);
   const obj = await c.env.MEDIA_R2.get(row.proof_r2_key);
   if (!obj) return c.json({ error: "file missing from storage" }, 404);
   return new Response(obj.body, {
@@ -449,5 +453,52 @@ adminRoute.delete("/settings/:key", async (c) => {
   await deleteSetting(c.env, key);
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, "setting_reverted", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
+  return c.json({ ok: true });
+});
+
+// ── Site media (founder photos, etc.) — CRUD, stored in R2 ───────────────
+// Public afterwards via GET /content/media/:key (see routes/content.ts).
+
+const MEDIA_TYPES: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+};
+
+adminRoute.get("/media", async (c) => {
+  return c.json({ media: await listMediaStatus(c.env) });
+});
+
+adminRoute.put("/media/:key", async (c) => {
+  const key = c.req.param("key");
+  if (!MANAGED_MEDIA.some((m) => m.key === key)) return c.json({ error: `Unknown media key: ${key}` }, 400);
+
+  const form = await c.req.formData();
+  const file = form.get("file");
+  if (!(file instanceof File)) return c.json({ error: "file required" }, 400);
+  const ext = MEDIA_TYPES[file.type];
+  if (!ext) return c.json({ error: "file must be JPG, PNG, or WEBP" }, 400);
+  if (file.size > 5 * 1024 * 1024) return c.json({ error: "file too large (max 5MB)" }, 400);
+
+  const r2Key = `media/site/${key}.${ext}`;
+  await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
+
+  const admin = c.get("admin" as never) as { email: string };
+  await c.env.DB.prepare(
+    `INSERT INTO site_media (key, r2_key, content_type, updated_at, updated_by) VALUES (?, ?, ?, datetime('now'), ?)
+     ON CONFLICT(key) DO UPDATE SET r2_key = excluded.r2_key, content_type = excluded.content_type, updated_at = excluded.updated_at, updated_by = excluded.updated_by`
+  )
+    .bind(key, r2Key, file.type, admin.email)
+    .run();
+
+  await logAdminAction(c.env, "media_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
+  return c.json({ ok: true });
+});
+
+adminRoute.delete("/media/:key", async (c) => {
+  const key = c.req.param("key");
+  await c.env.DB.prepare("DELETE FROM site_media WHERE key = ?").bind(key).run();
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "media_removed", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
   return c.json({ ok: true });
 });

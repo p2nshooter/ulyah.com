@@ -231,6 +231,13 @@ const fr: Dictionary = {
     certIssuedBy: "D\u00e9livr\u00e9 par ULYAH.COM \u2014 Listen to Islam.",
     printButton: "T\u00e9l\u00e9charger le PDF",
     printHint: "Choisissez \u00ab Enregistrer au format PDF \u00bb dans la bo\u00eete de dialogue d'impression.",
+    galleryTitle: "Votre galerie de certificats",
+    welcomeBack: "Bon retour parmi nous. Merci pour chaque don que vous avez offert pour diffuser le Coran \u2014 puisse-t-il \u00eatre une aum\u00f4ne continue.",
+    noCertYet: "Aucun certificat pour l'instant. Chaque don r\u00e9ussi appara\u00eetra automatiquement ici en souvenir.",
+    cryptoTracking: "Statut du don en cryptomonnaie",
+    cryptoStatusPending: "En attente de confirmation r\u00e9seau\u2026",
+    cryptoStatusConfirmed: "Confirm\u00e9 \u2713",
+    autoIssuedNote: "V\u00e9rifi\u00e9 automatiquement par le fournisseur de paiement \u2014 aucun re\u00e7u \u00e0 t\u00e9l\u00e9verser.",
   },
   syukur: {
     navLabel: "Gratitude",

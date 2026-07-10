@@ -18,9 +18,19 @@ interface Proof {
   created_at: string;
 }
 
+interface Donation {
+  id: number;
+  provider: string;
+  amount: number | null;
+  currency: string | null;
+  type: string;
+  status: string;
+  created_at: string;
+}
+
 interface Me {
   email: string;
-  donations: { id: number; provider: string; amount: number | null; type: string; status: string; created_at: string }[];
+  donations: Donation[];
   keysDonated: { id: number; provider: string; status: string; created_at: string }[];
   proofs: Proof[];
 }
@@ -112,6 +122,10 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
     rejected: "text-danger",
   };
 
+  const certificates = me.proofs.filter((p) => p.status === "approved" && p.cert_no);
+  const cryptoPending = me.donations.filter((d) => d.type === "crypto" && d.status === "pending");
+  const cryptoConfirmed = me.donations.filter((d) => d.type === "crypto" && d.status === "confirmed");
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
       <div className="flex items-center justify-between">
@@ -121,6 +135,55 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
         </button>
       </div>
       <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{me.email}</p>
+
+      {/* Certificate gallery — the first thing a donor sees after logging in */}
+      <section className="mt-6 rounded-2xl border border-accent/40 bg-gradient-to-b from-accent/[0.06] to-transparent p-5">
+        <p className="text-sm leading-relaxed text-[var(--color-text-primary)]">🌙 {dict.cert.welcomeBack}</p>
+        <h2 className="mt-4 font-heading text-lg text-primary dark:text-accent">🎗️ {dict.cert.galleryTitle}</h2>
+        {certificates.length === 0 ? (
+          <p className="mt-3 text-sm text-[var(--color-text-secondary)]">{dict.cert.noCertYet}</p>
+        ) : (
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {certificates.map((p) => (
+              <a
+                key={p.id}
+                href={`/${locale}/akun/sertifikat/${p.id}`}
+                className="group relative overflow-hidden rounded-xl border border-[#C9A84C]/50 bg-[#fbf7ee] p-3 text-center text-[#232323] shadow-sm transition hover:shadow-md"
+              >
+                <div className="pointer-events-none absolute inset-1.5 rounded-sm border border-double border-[#C9A84C]/60" />
+                <p className="relative font-heading text-[10px] uppercase tracking-widest text-[#C9A84C]">ULYAH.COM</p>
+                <p className="relative mt-2 text-xs font-semibold text-[#0B3D2E]">
+                  {p.amount ? `${p.amount} ${p.currency ?? ""}` : p.method}
+                </p>
+                <p className="relative mt-1 text-[10px] text-[#232323]/60">{p.cert_no}</p>
+                <p className="relative mt-1 text-[9px] text-[#232323]/50">
+                  {new Date(p.created_at).toLocaleDateString(locale)}
+                </p>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {(cryptoPending.length > 0 || cryptoConfirmed.length > 0) && (
+          <div className="mt-5 border-t border-accent/20 pt-4">
+            <p className="text-xs font-semibold text-accent">{dict.cert.cryptoTracking}</p>
+            <div className="mt-2 space-y-1.5">
+              {cryptoPending.map((d) => (
+                <div key={d.id} className="flex items-center justify-between text-xs">
+                  <span>{d.amount ? `${d.amount} ${d.currency ?? ""}` : d.provider}</span>
+                  <span className="text-warning">⏳ {dict.cert.cryptoStatusPending}</span>
+                </div>
+              ))}
+              {cryptoConfirmed.map((d) => (
+                <div key={d.id} className="flex items-center justify-between text-xs">
+                  <span>{d.amount ? `${d.amount} ${d.currency ?? ""}` : d.provider}</span>
+                  <span className="text-success">{dict.cert.cryptoStatusConfirmed}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
 
       {/* Sadaqah certificate — upload proof */}
       <section className="mt-8 rounded-2xl border border-accent/40 bg-[var(--color-card)] p-5 shadow-[0_2px_24px_rgba(184,137,43,0.08)]">
@@ -226,6 +289,9 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
                 <span className={statusColor[p.status]}>{statusLabel[p.status]}</span>
               </div>
               {p.review_note && <p className="mt-1 text-xs text-[var(--color-text-secondary)]">“{p.review_note}”</p>}
+              {!p.review_note && (p.method === "paypal" || p.method === "nowpayments") && p.status === "approved" && (
+                <p className="mt-1 text-xs italic text-[var(--color-text-secondary)]">{dict.cert.autoIssuedNote}</p>
+              )}
               {p.status === "approved" && p.cert_no && (
                 <a
                   href={`/${locale}/akun/sertifikat/${p.id}`}
