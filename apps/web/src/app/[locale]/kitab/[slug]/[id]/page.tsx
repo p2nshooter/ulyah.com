@@ -8,6 +8,7 @@ import { AdSlot } from "@/components/AdSlot";
 interface BookDetail {
   id: number;
   title_ar: string;
+  title_translated: string | null;
   author: string | null;
   author_death_year: string | null;
   description_ar: string | null;
@@ -15,6 +16,7 @@ interface BookDetail {
   description_lang: string | null;
   source: string | null;
   topics: string[];
+  topics_translated: (string | null)[] | null;
   category_slug: string;
   category_name: string | null;
   category_name_ar: string | null;
@@ -64,9 +66,20 @@ export default async function KitabBookPage({
           <span>{book.category_icon ?? "📗"}</span>
           {book.category_name}
         </p>
-        <h1 dir="rtl" className="font-arabic mt-3 text-2xl leading-relaxed text-[var(--color-text-primary)] sm:text-3xl">
-          {book.title_ar}
-        </h1>
+        {book.title_translated ? (
+          <>
+            <h1 className="mt-3 font-heading text-2xl leading-relaxed text-[var(--color-text-primary)] sm:text-3xl">
+              {book.title_translated}
+            </h1>
+            <p dir="rtl" className="font-arabic mt-1 text-lg text-[var(--color-text-secondary)]">
+              {book.title_ar}
+            </p>
+          </>
+        ) : (
+          <h1 dir="rtl" className="font-arabic mt-3 text-2xl leading-relaxed text-[var(--color-text-primary)] sm:text-3xl">
+            {book.title_ar}
+          </h1>
+        )}
         {book.author && (
           <p className="mt-3 text-sm text-[var(--color-text-secondary)]">
             {t.author}: <span className="font-medium text-[var(--color-text-primary)]">{book.author}</span>
@@ -106,13 +119,20 @@ export default async function KitabBookPage({
         {book.topics.length > 0 && (
           <div className="mt-6">
             <p className="text-sm font-semibold">{t.topics}</p>
-            <ul dir="rtl" className="font-arabic mt-3 space-y-1.5 text-[var(--color-text-secondary)]">
-              {book.topics.map((topic, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                  <span>{topic}</span>
-                </li>
-              ))}
+            <ul className="mt-3 space-y-1.5 text-[var(--color-text-secondary)]">
+              {book.topics.map((topic, i) => {
+                const translated = book.topics_translated?.[i];
+                return (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                    {translated ? (
+                      <span>{translated}</span>
+                    ) : (
+                      <span dir="rtl" className="font-arabic">{topic}</span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

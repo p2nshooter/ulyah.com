@@ -7,6 +7,7 @@ import { AdSlot } from "@/components/AdSlot";
 interface BookRow {
   id: number;
   title_ar: string;
+  title_translated: string | null;
   author: string | null;
   author_death_year: string | null;
   source: string | null;
@@ -101,9 +102,20 @@ export default async function KitabCategoryPage({
           <div key={b.id}>
             {i === 6 && books.length > 8 && <AdSlot minHeight={100} className="mb-3" />}
             <Link href={`/${locale}/kitab/${slug}/${b.id}`} className="card-premium block p-4">
-              <p dir="rtl" className="font-arabic text-lg leading-snug text-[var(--color-text-primary)]">
-                {b.title_ar}
-              </p>
+              {b.title_translated ? (
+                <>
+                  <p className="text-base font-medium leading-snug text-[var(--color-text-primary)]">
+                    {b.title_translated}
+                  </p>
+                  <p dir="rtl" className="font-arabic mt-0.5 text-sm text-[var(--color-text-secondary)]">
+                    {b.title_ar}
+                  </p>
+                </>
+              ) : (
+                <p dir="rtl" className="font-arabic text-lg leading-snug text-[var(--color-text-primary)]">
+                  {b.title_ar}
+                </p>
+              )}
               {b.author && (
                 <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
                   {t.author}: {b.author}

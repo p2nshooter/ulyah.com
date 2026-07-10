@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { translateText } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
@@ -218,7 +219,21 @@ contentRoute.get("/kitab/category/:slug", async (c) => {
         ).bind(slug, pageSize, offset).all(),
   ]);
 
-  return c.json({ category: cat, books: rows.results, total: count?.n ?? 0, page, pageSize });
+  // Titles listed here are the same Arabic-only source as the detail page
+  // (see /kitab/book/:id) — translate each into the visitor's own locale so
+  // browsing a category isn't "banyak kitab masih Arab tanpa terjemahan".
+  // Cached per-title forever after the first translation, so repeat page
+  // views (and titles shared across the ~4.9k-work library) cost nothing.
+  const requestedLocale = c.req.query("lang") ?? DEFAULT_LOCALE;
+  const targetLang = isValidLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+  const books = rows.results as { id: number; title_ar: string }[];
+  const titleTranslations =
+    targetLang !== "ar" && books.length > 0
+      ? await Promise.all(books.map((b) => translateText(c.env, b.title_ar, targetLang)))
+      : books.map(() => null);
+  const booksWithTranslation = books.map((b, i) => ({ ...b, title_translated: titleTranslations[i] }));
+
+  return c.json({ category: cat, books: booksWithTranslation, total: count?.n ?? 0, page, pageSize });
 });
 
 // GET /content/kitab/book/:id?lang= — full detail for one work (voiced description)
@@ -240,14 +255,27 @@ contentRoute.get("/kitab/book/:id", async (c) => {
     topics = [];
   }
 
-  // Description is stored Arabic-only (the classical source language); a
-  // non-Arabic reader gets a live, KV-cached translation instead of a bulk
-  // pre-translated D1 column — see lib/mt.ts.
-  const targetLang = nameCol === "name_id" ? "id" : "en";
-  const description_translated =
-    typeof book.description_ar === "string" && book.description_ar
-      ? await translateText(c.env, book.description_ar, targetLang)
-      : null;
+  // Title, description, and topics are all stored Arabic-only (the
+  // classical source language). Every non-Arabic reader gets a live,
+  // KV-cached translation of all three — not description alone — into
+  // their OWN site locale (id/en/ru/de/fr/zh/ja), not a blanket English
+  // fallback. An Arabic-reading visitor sees the Arabic as-is (no
+  // translation needed, same language).
+  const requestedLocale = c.req.query("lang") ?? DEFAULT_LOCALE;
+  const targetLang = isValidLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+  const shouldTranslate = targetLang !== "ar";
+
+  const [title_translated, description_translated, topics_translated] = await Promise.all([
+    shouldTranslate && typeof book.title_ar === "string" && book.title_ar
+      ? translateText(c.env, book.title_ar, targetLang)
+      : Promise.resolve(null),
+    shouldTranslate && typeof book.description_ar === "string" && book.description_ar
+      ? translateText(c.env, book.description_ar, targetLang)
+      : Promise.resolve(null),
+    shouldTranslate && topics.length > 0
+      ? Promise.all(topics.map((topic) => translateText(c.env, topic, targetLang)))
+      : Promise.resolve(null),
+  ]);
 
   // Next book in the same category, alphabetical by title_ar — matches the
   // category listing's own order — so the reader can auto-advance once this
@@ -262,7 +290,7 @@ contentRoute.get("/kitab/book/:id", async (c) => {
 
   const { topics_json, ...rest } = book;
   return c.json({
-    book: { ...rest, topics, description_translated, description_lang: targetLang },
+    book: { ...rest, topics, title_translated, description_translated, topics_translated, description_lang: targetLang },
     next_book: nextBook ?? null,
   });
 });

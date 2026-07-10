@@ -38,10 +38,19 @@ function chunkText(text: string, maxBytes: number): string[] {
   return chunks.length > 0 ? chunks : [text];
 }
 
+// Google's translate endpoint wants "zh-CN" for Simplified Chinese, not the
+// site's own bare "zh" locale code — every other site locale (id, en, ru,
+// de, fr, ar, ja) matches Google's code as-is.
+function toGoogleLang(code: string): string {
+  return code === "zh" ? "zh-CN" : code;
+}
+
 /** Primary: Google's free gtx endpoint. Handles long text in one request;
  * response is [[[translatedSegment, originalSegment, ...], ...], ...]. */
 async function googleTranslate(text: string, sourceLang: string, targetLang: string): Promise<string | null> {
-  const url = `${GTX_BASE}?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+  const sl = toGoogleLang(sourceLang);
+  const tl = toGoogleLang(targetLang);
+  const url = `${GTX_BASE}?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (compatible; ulyah.com/1.0)" } });
     if (!res.ok) return null;
@@ -78,19 +87,19 @@ async function translateChunk(text: string, sourceLang: string, targetLang: stri
 }
 
 /**
- * On-demand translation via MyMemory's free, keyless API, KV-cached per
- * (text, sourceLang, targetLang) so any given piece of text is ever sent to
- * the translator once, then served from cache to every visitor after that.
- * This mirrors the fetch-and-cache pattern used for tafsir/asbabun nuzul
- * (lib/tafsir-source.ts) instead of machine-translating and bulk-storing
- * everything in D1 up front. Defaults to Arabic source (the original use
- * case: kitab descriptions) but also translates English fallback sources
- * (e.g. the spa5k Al-Wahidi asbabun nuzul edition) into Indonesian.
+ * On-demand translation (Google gtx primary, MyMemory fallback), KV-cached
+ * per (text, sourceLang, targetLang) so any given piece of text is ever
+ * sent to the translator once, then served from cache to every visitor
+ * after that. This mirrors the fetch-and-cache pattern used for
+ * tafsir/asbabun nuzul (lib/tafsir-source.ts) instead of machine-translating
+ * and bulk-storing everything in D1 up front. `targetLang` accepts any of
+ * the site's locale codes (id/en/ru/de/fr/ar/zh/ja, packages/shared/i18n) —
+ * every visitor's own language gets a real translation, not just id/en.
  */
 export async function translateText(
   env: Env,
   text: string,
-  targetLang: "id" | "en",
+  targetLang: string,
   sourceLang: "ar" | "en" = "ar"
 ): Promise<string | null> {
   const trimmed = text.trim();
