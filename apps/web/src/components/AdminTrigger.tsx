@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import QRCode from "qrcode";
 import { api } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
 
@@ -75,8 +76,20 @@ export function AdminAuthModal({
   const [code, setCode] = useState("");
   const [pendingToken, setPendingToken] = useState("");
   const [otpauthUrl, setOtpauthUrl] = useState("");
+  const [secret, setSecret] = useState("");
+  const [qrDataUrl, setQrDataUrl] = useState("");
+  const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  // Render the otpauth:// URL to a scannable QR image entirely in the
+  // browser — the TOTP secret never leaves the device to any QR service.
+  useEffect(() => {
+    if (!otpauthUrl) return;
+    QRCode.toDataURL(otpauthUrl, { width: 240, margin: 1, errorCorrectionLevel: "M" })
+      .then(setQrDataUrl)
+      .catch(() => setQrDataUrl(""));
+  }, [otpauthUrl]);
 
   async function submitCredentials(e: React.FormEvent) {
     e.preventDefault();
@@ -88,10 +101,12 @@ export function AdminAuthModal({
         needsTotpCode?: boolean;
         pendingToken: string;
         otpauthUrl?: string;
+        secret?: string;
       }>("/admin/auth/login", { email, password });
       setPendingToken(res.pendingToken);
       if (res.needsTotpSetup) {
         setOtpauthUrl(res.otpauthUrl ?? "");
+        setSecret(res.secret ?? "");
         setStep("totp-setup");
       } else {
         setStep("totp");
@@ -174,9 +189,55 @@ export function AdminAuthModal({
           <form onSubmit={submitTotp} className="space-y-4">
             <h2 className="font-heading text-lg">Two-Step Verification</h2>
             {step === "totp-setup" && otpauthUrl && (
-              <div className="space-y-2 text-xs text-[var(--color-text-secondary)]">
-                <p>Scan this with Google Authenticator / Authy, then enter the 6-digit code:</p>
-                <code className="block break-all rounded bg-black/5 p-2">{otpauthUrl}</code>
+              <div className="space-y-3 text-xs text-[var(--color-text-secondary)]">
+                <p>Pindai QR ini dengan Google Authenticator / Authy / 2FAS, lalu masukkan kode 6 digit:</p>
+                {qrDataUrl && (
+                  <div className="flex justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={qrDataUrl}
+                      alt="QR code 2FA"
+                      width={200}
+                      height={200}
+                      className="rounded-lg bg-white p-2"
+                    />
+                  </div>
+                )}
+                {/* Same phone (no second device to scan with)? Tapping opens the
+                    installed authenticator app pre-filled via the otpauth:// URI. */}
+                <a
+                  href={otpauthUrl}
+                  className="block rounded-lg border border-accent/40 py-2 text-center font-medium text-accent hover:bg-accent/5"
+                >
+                  📲 Buka langsung di aplikasi 2FA
+                </a>
+                <a
+                  href={qrDataUrl || undefined}
+                  download="ulyah-admin-2fa-qr.png"
+                  className="block text-center text-[var(--color-text-secondary)] underline"
+                >
+                  ⬇ Unduh gambar QR
+                </a>
+                {secret && (
+                  <div className="rounded-lg bg-black/5 p-2">
+                    <p className="mb-1 text-[10px] uppercase tracking-wide">Atau masukkan kunci manual:</p>
+                    <div className="flex items-center justify-between gap-2">
+                      <code className="break-all text-[11px]">{secret}</code>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard?.writeText(secret).then(() => {
+                            setCopied(true);
+                            setTimeout(() => setCopied(false), 1500);
+                          });
+                        }}
+                        className="shrink-0 rounded border border-[var(--color-border)] px-2 py-1 text-[10px]"
+                      >
+                        {copied ? "✓ Tersalin" : "Salin"}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
             <input
