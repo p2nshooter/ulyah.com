@@ -165,6 +165,22 @@ jobs:
             fi
           done
 
+      - name: Import Kisah Nabi Musa AS series (one-time, idempotent)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # kisah_yusuf.sql only ever runs inside the "empty database" branch
+          # above, which the already-provisioned production DB never hits
+          # again — this series needs its own idempotency check instead.
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-nabi-musa';" --json > /tmp/kisah_musa_count.json
+          MCOUNT=$(node -e "const j=require('/tmp/kisah_musa_count.json'); console.log(j[0].results[0].n)")
+          if [ "$MCOUNT" -lt "1" ]; then
+            echo "Kisah Nabi Musa not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_musa.sql
+          else
+            echo "Kisah Nabi Musa already has $MCOUNT rows — skipping."
+          fi
+
       - name: Bulk-import Kitab library catalogue (one-time, ~4.9k works)
         working-directory: apps/worker-api
         run: |
@@ -228,6 +244,15 @@ jobs:
           set -eu
           find ../../packages/db-schema/seed/assets/kisah-nabi-yusuf -name "*.pdf" | while read -r f; do
             key="ebooks/kisah-nabi-yusuf/$(echo "$f" | sed 's#.*/kisah-nabi-yusuf/##')"
+            npx wrangler r2 object put "${CLOUDFLARE_R2_BUCKET_NAME}/${key}" --file="$f" --remote --content-type=application/pdf
+          done
+
+      - name: Upload seed PDFs (Kisah Nabi Musa) to R2
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          find ../../packages/db-schema/seed/assets/kisah-nabi-musa -name "*.pdf" | while read -r f; do
+            key="ebooks/kisah-nabi-musa/$(echo "$f" | sed 's#.*/kisah-nabi-musa/##')"
             npx wrangler r2 object put "${CLOUDFLARE_R2_BUCKET_NAME}/${key}" --file="$f" --remote --content-type=application/pdf
           done
 

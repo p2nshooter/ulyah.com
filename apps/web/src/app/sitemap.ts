@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { LOCALES } from "@ulyah/shared/i18n";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
+import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
 
 const BASE = "https://ulyah.com";
 const ROUTES = ["", "/quran", "/hadits", "/kisah", "/kitab", "/audiobook", "/harian", "/donasi", "/tentang", "/syukur", "/cari"];
@@ -32,6 +33,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: `${BASE}/${l.code}/hadits/${slug}`, changeFrequency: "weekly", priority: 0.8 });
     }
     for (const ep of KISAH_YUSUF_SERIES) {
+      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+    }
+    for (const ep of KISAH_MUSA_SERIES) {
       entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
     }
   }
