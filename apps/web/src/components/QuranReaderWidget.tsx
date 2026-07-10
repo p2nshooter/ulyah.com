@@ -62,6 +62,32 @@ function layersMatchPreset(layers: Layer[], preset: Layer[]): boolean {
   return layers.length === preset.length && preset.every((l) => layers.includes(l));
 }
 
+/** Honest per-layer "nothing for this ayah" copy. Translation + tafsir cover
+ * every ayah, so an empty one there means a transient source hiccup ("being
+ * prepared"). Asbabun nuzul and a mapped hadith genuinely don't exist for
+ * most ayat — say so plainly rather than implying content is still coming. */
+function emptyStates(locale: string): { translation: string; tafsir: string; asbabun: string; hadits: string } {
+  const ID = {
+    translation: "Terjemahan sedang disiapkan, coba muat ulang sebentar lagi.",
+    tafsir: "Tafsir sedang disiapkan, coba muat ulang sebentar lagi.",
+    asbabun: "Tidak ada sebab nuzul khusus yang diriwayatkan untuk ayat ini.",
+    hadits: "Belum ada hadits khusus yang dikaitkan dengan ayat ini.",
+  };
+  const EN = {
+    translation: "Translation is being prepared — please reload shortly.",
+    tafsir: "Tafsir is being prepared — please reload shortly.",
+    asbabun: "No specific occasion of revelation is narrated for this ayah.",
+    hadits: "No specific hadith is linked to this ayah yet.",
+  };
+  const AR = {
+    translation: "تُجهَّز الترجمة — يرجى إعادة التحميل بعد قليل.",
+    tafsir: "يُجهَّز التفسير — يرجى إعادة التحميل بعد قليل.",
+    asbabun: "لم يُروَ سبب نزول خاص لهذه الآية.",
+    hadits: "لا يوجد حديث خاص مرتبط بهذه الآية بعد.",
+  };
+  return locale === "id" ? ID : locale === "ar" ? AR : EN;
+}
+
 /** Word-by-word Arabic highlight synced to the qori's actual audio progress
  * (current/duration ratio, so it self-corrects — no fixed-timer drift). Only
  * active while this ayah's recitation is the thing currently playing. */
@@ -233,11 +259,16 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const isThisAyahActive =
     queue[currentIndex]?.surahId === selectedSurah?.id && queue[currentIndex]?.number === focus && isPlaying;
 
-  const summary: { layer: Layer; icon: string; label: string; text: string | null }[] = [
-    { layer: "translation", icon: LAYER_ICON.translation, label: dict.reader.translationLabel, text: focusRow?.translation ?? bundle?.translation?.text ?? null },
-    { layer: "tafsir", icon: LAYER_ICON.tafsir, label: dict.reader.tafsirLabel, text: bundle?.tafsir[0]?.text ?? null },
-    { layer: "asbabun", icon: LAYER_ICON.asbabun, label: dict.reader.asbabunNuzulLabel, text: bundle?.asbabun_nuzul[0]?.text ?? null },
-    { layer: "hadits", icon: LAYER_ICON.hadits, label: dict.reader.haditsLabel, text: bundle?.hadits[0] ? `“${bundle.hadits[0].text_id}” — ${bundle.hadits[0].narrator ?? ""} (${bundle.hadits[0].source})` : null },
+  const e = emptyStates(locale);
+  // `null` text + bundle still loading  -> loading; bundle loaded but empty ->
+  // an honest per-layer message (most ayat genuinely have no specific asbabun
+  // nuzul or mapped hadith — that is a scholarly fact, not "coming soon").
+  const bundleLoading = bundle === null;
+  const summary: { layer: Layer; icon: string; label: string; text: string | null; empty: string }[] = [
+    { layer: "translation", icon: LAYER_ICON.translation, label: dict.reader.translationLabel, text: focusRow?.translation ?? bundle?.translation?.text ?? null, empty: e.translation },
+    { layer: "tafsir", icon: LAYER_ICON.tafsir, label: dict.reader.tafsirLabel, text: bundle?.tafsir[0]?.text ?? null, empty: e.tafsir },
+    { layer: "asbabun", icon: LAYER_ICON.asbabun, label: dict.reader.asbabunNuzulLabel, text: bundle?.asbabun_nuzul[0]?.text ?? null, empty: e.asbabun },
+    { layer: "hadits", icon: LAYER_ICON.hadits, label: dict.reader.haditsLabel, text: bundle?.hadits[0] ? `“${bundle.hadits[0].text_id}” — ${bundle.hadits[0].narrator ?? ""} (${bundle.hadits[0].source})` : null, empty: e.hadits },
   ];
 
   return (
@@ -501,7 +532,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 {s.label}
               </p>
               <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                {s.text ?? dict.reader.noContentYet}
+                {s.text ?? (bundleLoading ? `${dict.common.loading}…` : s.empty)}
               </p>
             </div>
           ))}
