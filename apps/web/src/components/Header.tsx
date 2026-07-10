@@ -8,6 +8,7 @@ import type { Dictionary } from "@/dictionaries";
 import { AdminTrigger } from "@/components/AdminTrigger";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
+import { InstallAppButton } from "@/components/InstallAppButton";
 
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -89,6 +90,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           >
             {theme === "light" ? "🌙" : "☀️"}
           </button>
+          <InstallAppButton />
           <LanguageSwitcher locale={locale} />
           <Link
             href={`/${locale}/donasi`}
