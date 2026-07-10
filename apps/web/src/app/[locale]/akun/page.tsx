@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { PortalWelcome } from "@/components/PortalWelcome";
+import { DonationVirtues } from "@/components/DonationVirtues";
+import { DonationButtons } from "@/components/DonationButtons";
+import { CryptoDonationSection } from "@/components/CryptoDonationSection";
+import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
+import { portalLabels } from "@/lib/portal-labels";
 
 interface Proof {
   id: number;
@@ -136,6 +142,11 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       </div>
       <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{me.email}</p>
 
+      {/* Welcome — spoken aloud automatically, once per session */}
+      <div className="mt-6">
+        <PortalWelcome locale={locale} />
+      </div>
+
       {/* Certificate gallery — the first thing a donor sees after logging in */}
       <section className="mt-6 rounded-2xl border border-accent/40 bg-gradient-to-b from-accent/[0.06] to-transparent p-5">
         <p className="text-sm leading-relaxed text-[var(--color-text-primary)]">🌙 {dict.cert.welcomeBack}</p>
@@ -183,6 +194,27 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
             </div>
           </div>
         )}
+      </section>
+
+      {/* Reward promised for supporting the syiar — the "long version" the
+          short spoken welcome above points to */}
+      <div id="janji-pahala" className="mt-8 scroll-mt-20">
+        <DonationVirtues dict={dict} locale={locale} />
+      </div>
+
+      {/* Donate again, without leaving the dashboard */}
+      <section className="mt-8">
+        <h2 className="font-heading text-lg">{portalLabels(locale).donateSectionTitle}</h2>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{portalLabels(locale).donateSectionSubtitle}</p>
+        <div className="mt-4">
+          <DonationButtons dict={dict} />
+        </div>
+        <div className="mt-6">
+          <CryptoDonationSection dict={dict} locale={locale} />
+        </div>
+        <div className="mt-6">
+          <ApiKeyDonationForm dict={dict} />
+        </div>
       </section>
 
       {/* Sadaqah certificate — upload proof */}
