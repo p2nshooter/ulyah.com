@@ -1,9 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
 import { AdSlot } from "@/components/AdSlot";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  return {
+    title: `${dict.explore.audiobook.title} — ULYAH.COM`,
+    description: dict.explore.audiobook.desc,
+    alternates: { canonical: `/${locale}/audiobook` },
+  };
+}
 
 interface StoryRow {
   id: number;

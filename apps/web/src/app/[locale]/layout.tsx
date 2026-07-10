@@ -48,7 +48,17 @@ export async function generateMetadata({
       locale,
       type: "website",
     },
-    robots: { index: true, follow: true },
+    twitter: {
+      card: "summary_large_image",
+      title: `${dict.common.siteName} — ${dict.common.tagline}`,
+      description: dict.hero.description,
+      images: ["/icon-512.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    },
     keywords: [
       "Al-Quran", "Quran audio", "murottal", "tafsir", "hadits", "kisah nabi",
       "Islamic audiobook", "listen to Quran", "Quran online", "kajian Islam",
@@ -92,7 +102,9 @@ export default async function LocaleLayout({
           href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
           rel="stylesheet"
         />
-        {/* Structured data for SEO */}
+        {/* Structured data for SEO — WebSite (with SearchAction) + Organization,
+            both valid against Google's Rich Results Test. Page-level types
+            (Article, Book, …) are emitted by the individual pages. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -103,11 +115,25 @@ export default async function LocaleLayout({
               alternateName: "Ulyah — Listen to Islam",
               url: "https://ulyah.com",
               inLanguage: LOCALES.map((l) => l.code),
+              publisher: { "@type": "Organization", name: "ULYAH.COM", url: "https://ulyah.com" },
               potentialAction: {
                 "@type": "SearchAction",
                 target: { "@type": "EntryPoint", urlTemplate: `https://ulyah.com/${locale}/cari?q={search_term_string}` },
                 "query-input": "required name=search_term_string",
               },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ULYAH.COM",
+              url: "https://ulyah.com",
+              logo: "https://ulyah.com/icon-512.png",
+              description: "Al-Qur'an, tafsir, hadits, dan kisah Islami — dibaca dan didengarkan dengan suara.",
             }),
           }}
         />

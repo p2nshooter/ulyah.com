@@ -1,7 +1,19 @@
+import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { AdSlot } from "@/components/AdSlot";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  return {
+    title: `${dict.reader.allSurah} — ULYAH.COM`,
+    description: dict.reader.sectionSubtitle,
+    alternates: { canonical: `/${locale}/quran` },
+  };
+}
 
 export default async function QuranPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;

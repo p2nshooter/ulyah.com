@@ -3,7 +3,17 @@ import { LOCALES } from "@ulyah/shared/i18n";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 
 const BASE = "https://ulyah.com";
-const ROUTES = ["", "/quran", "/kisah", "/kitab", "/audiobook", "/harian", "/donasi", "/tentang", "/syukur", "/cari"];
+const ROUTES = ["", "/quran", "/hadits", "/kisah", "/kitab", "/audiobook", "/harian", "/donasi", "/tentang", "/syukur", "/cari"];
+
+// The hadith books are a fixed, known set (migration 0012_hadits_collections).
+// Hardcoding the slugs keeps the sitemap buildable offline — no API round-trip
+// at build time — while still surfacing every readable collection to crawlers.
+// The kitab-library categories are intentionally NOT hardcoded here (they're a
+// large, evolving set); the /kitab landing page links them all, so Googlebot
+// still reaches every category by crawling.
+const HADITS_COLLECTIONS = [
+  "bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
@@ -12,11 +22,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({
         url: `${BASE}/${l.code}${r}`,
         changeFrequency: r === "" || r === "/harian" ? "daily" : "weekly",
-        priority: r === "" ? 1 : r === "/quran" ? 0.9 : 0.7,
+        priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
         alternates: {
           languages: Object.fromEntries(LOCALES.map((x) => [x.code, `${BASE}/${x.code}${r}`])),
         },
       });
+    }
+    for (const slug of HADITS_COLLECTIONS) {
+      entries.push({ url: `${BASE}/${l.code}/hadits/${slug}`, changeFrequency: "weekly", priority: 0.8 });
     }
     for (const ep of KISAH_YUSUF_SERIES) {
       entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });

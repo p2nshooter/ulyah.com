@@ -1,9 +1,21 @@
+import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { DonationButtons } from "@/components/DonationButtons";
 import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
 import { CryptoDonationSection } from "@/components/CryptoDonationSection";
 import { DonationVirtues } from "@/components/DonationVirtues";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  return {
+    title: `${dict.donation.title} — ULYAH.COM`,
+    description: dict.donation.subtitle,
+    alternates: { canonical: `/${locale}/donasi` },
+  };
+}
 
 export default async function DonasiPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;

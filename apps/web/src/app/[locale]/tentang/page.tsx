@@ -1,5 +1,17 @@
+import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  return {
+    title: `${dict.nav.about} — ULYAH.COM`,
+    description: dict.hero.description,
+    alternates: { canonical: `/${locale}/tentang` },
+  };
+}
 
 export default async function TentangPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
