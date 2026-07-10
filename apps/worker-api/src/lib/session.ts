@@ -34,7 +34,7 @@ interface TokenPayload extends SessionData {
 }
 
 const ADMIN_TTL = 60 * 60 * 8; // 8h
-const PENDING_TTL = 60 * 5; // 5 min to complete TOTP enrollment/verification
+const PENDING_TTL = 60 * 10; // 10 min — comfortable window to scan the QR, add the account, and enter the first code
 const CLIENT_TTL = 60 * 60 * 24 * 14; // 14d
 
 const te = new TextEncoder();
