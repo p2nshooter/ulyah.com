@@ -5,7 +5,7 @@ import { api } from "@/lib/api";
 import { usePlayerStore } from "@/lib/player-store";
 import { RECITERS, DEFAULT_QORI_KEY, resolveAyahAudioUrl, resolveSurahAudioUrl } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
-import { computeLivePosition, computeLiveBroadcast } from "@/lib/radio-clock";
+import { computeLivePosition, computeLiveBroadcast, computeKhatamIndex } from "@/lib/radio-clock";
 
 // The default "auto" station rotates through the world-renowned reciters —
 // one full khatam per voice — rather than reciting forever in a single
@@ -82,6 +82,7 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
   const [playing, setPlaying] = useState(false);
   const [needsInteraction, setNeedsInteraction] = useState(true);
   const [showPicker, setShowPicker] = useState(false);
+  const [khatamCount, setKhatamCount] = useState(0);
 
   useEffect(() => {
     api
@@ -89,6 +90,18 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
       .then((r) => setSurahs(r.surah))
       .catch(() => {});
   }, []);
+
+  // The khatam counter is a pure function of wall-clock time (see
+  // radio-clock.ts) — it keeps climbing for as long as the site exists,
+  // whether or not this tab (or anyone else's) is actually open. Refreshed
+  // periodically purely so a tab left open visibly ticks it up in real time.
+  useEffect(() => {
+    if (surahs.length === 0) return;
+    const update = () => setKhatamCount(computeKhatamIndex(surahs));
+    update();
+    const id = setInterval(update, 30_000);
+    return () => clearInterval(id);
+  }, [surahs.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const reciter = RECITERS.find((r) => r.key === position.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   const surahMeta = surahs.find((s) => s.id === position.surahId);
@@ -239,6 +252,13 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
           </div>
           <p className="mt-1 text-xs text-[#f4efe3]/70 sm:text-sm">{t.subtitle}</p>
         </div>
+        <div className="rounded-2xl border border-accent/30 bg-white/5 px-4 py-2 text-right">
+          <p className="font-heading text-2xl leading-none text-accent tabular-nums">{khatamCount}×</p>
+          <p className="mt-1 text-[10px] text-[#f4efe3]/70">
+            {t.khatamCompleted} · {t.khatamInProgress}
+            {khatamCount + 1}
+          </p>
+        </div>
       </div>
 
       <div className="relative mt-6 flex flex-wrap items-center gap-4">
@@ -307,6 +327,8 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
           ▶ {t.clickToStart}
         </button>
       )}
+
+      <p className="relative mt-4 text-center text-[10px] leading-relaxed text-[#f4efe3]/50">{t.khatamRotationNote}</p>
     </section>
   );
 }

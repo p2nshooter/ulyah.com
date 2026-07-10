@@ -64,21 +64,38 @@ export function computeLivePosition(surahs: AyahCountMeta[]): LivePosition {
   return ayahAtGlobalIndex(surahs, globalIndex);
 }
 
+/** How many full khatam (complete loops through the whole Qur'an) have
+ * elapsed since the station's fixed epoch — a pure function of wall-clock
+ * time, so it keeps counting up for as long as the site exists, whether or
+ * not anyone actually has the radio open right now. 0 means the very first
+ * khatam is still in progress; the site's Nth khatam is in progress while
+ * this returns N-1. */
+export function computeKhatamIndex(surahs: AyahCountMeta[]): number {
+  const total = totalAyahCount(surahs);
+  if (surahs.length === 0 || total <= 0) return 0;
+  const elapsedSeconds = Math.max(0, (Date.now() - RADIO_EPOCH_MS) / 1000);
+  const khatamDurationSeconds = total * AVG_SECONDS_PER_AYAH;
+  return Math.floor(elapsedSeconds / khatamDurationSeconds);
+}
+
 /** Same idea as computeLivePosition, but also picks which reciter is
  * "on air" right now: every completed khatam (one full loop through all
- * ayah) rotates to the next reciter in `reciterPool`, so a mosque leaving
- * the default station running all day hears a rotating lineup of world
- * reciters rather than the same voice forever. */
+ * ayah) rotates to the next reciter in `reciterPool`, wrapping back to the
+ * first reciter once every voice in the lineup has had its turn — so a
+ * mosque leaving the default station running all day hears a rotating
+ * lineup of world reciters forever, never stuck in one voice. */
 export function computeLiveBroadcast(surahs: AyahCountMeta[], reciterPool: string[]): LiveBroadcast {
   const total = totalAyahCount(surahs);
   if (surahs.length === 0 || total <= 0 || reciterPool.length === 0) {
     return { reciterKey: reciterPool[0] ?? "", surahId: 1, ayahNumber: 1, khatamIndex: 0 };
   }
-  const elapsedSeconds = Math.max(0, (Date.now() - RADIO_EPOCH_MS) / 1000);
   const khatamDurationSeconds = total * AVG_SECONDS_PER_AYAH;
-  const khatamIndex = Math.floor(elapsedSeconds / khatamDurationSeconds);
+  const khatamIndex = computeKhatamIndex(surahs);
+  const elapsedSeconds = Math.max(0, (Date.now() - RADIO_EPOCH_MS) / 1000);
   const withinKhatamSeconds = elapsedSeconds - khatamIndex * khatamDurationSeconds;
   const globalIndex = Math.floor(withinKhatamSeconds / AVG_SECONDS_PER_AYAH) % total;
+  // Wraps back to reciterPool[0] once khatamIndex passes the last reciter —
+  // "seluruh qori sudah baca -> balik ke yang paling atas, begitu selamanya".
   const reciterKey = reciterPool[khatamIndex % reciterPool.length]!;
   return { reciterKey, khatamIndex, ...ayahAtGlobalIndex(surahs, globalIndex) };
 }

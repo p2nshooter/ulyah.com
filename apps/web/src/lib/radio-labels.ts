@@ -15,6 +15,9 @@ export interface RadioLabels {
   featuredGroup: string;
   allGroup: string;
   liveBadge: string;
+  khatamCompleted: string;
+  khatamInProgress: string;
+  khatamRotationNote: string;
 }
 
 const EN: RadioLabels = {
@@ -30,6 +33,9 @@ const EN: RadioLabels = {
   featuredGroup: "🏆 World-renowned reciters",
   allGroup: "All reciters",
   liveBadge: "LIVE",
+  khatamCompleted: "khatam completed",
+  khatamInProgress: "now on khatam #",
+  khatamRotationNote: "Once every reciter has taken a turn, the rotation loops back to the first — forever.",
 };
 
 const ID: RadioLabels = {
@@ -45,6 +51,9 @@ const ID: RadioLabels = {
   featuredGroup: "🏆 Qori juara dunia",
   allGroup: "Semua qori",
   liveBadge: "LIVE",
+  khatamCompleted: "kali khatam selesai",
+  khatamInProgress: "sedang khataman ke-",
+  khatamRotationNote: "Setelah seluruh qori kebagian giliran, rotasi kembali ke qori paling atas — begitu seterusnya.",
 };
 
 const AR: RadioLabels = {
@@ -60,6 +69,9 @@ const AR: RadioLabels = {
   featuredGroup: "🏆 قراء مشهورون عالميًا",
   allGroup: "كل القراء",
   liveBadge: "مباشر",
+  khatamCompleted: "ختمة مكتملة",
+  khatamInProgress: "الختمة الحالية رقم",
+  khatamRotationNote: "بعد أن يأخذ كل قارئ دوره، يعود الترتيب إلى القارئ الأول — وهكذا إلى الأبد.",
 };
 
 const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR };
