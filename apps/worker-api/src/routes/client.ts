@@ -48,32 +48,41 @@ clientRoute.post("/register", async (c) => {
   }
 
   const existing = await c.env.DB.prepare("SELECT id FROM clients WHERE email = ?").bind(email).first();
-  if (existing) return c.json({ error: "Email already registered" }, 409);
+  if (existing) return c.json({ error: "Email sudah terdaftar. Silakan masuk.", code: "email_exists" }, 409);
 
-  const hash = await hashPassword(password);
-  const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
+  // Everything below is wrapped so any D1/crypto/session failure returns a
+  // precise, human-readable reason instead of a bare 500 — the difference
+  // between "register gagal" (opaque) and a message the owner can act on.
+  try {
+    const hash = await hashPassword(password);
+    const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
 
-  // Canonical D1 write: `.run()` + meta.last_row_id. Avoids the
-  // INSERT…RETURNING + `.first()` path, which has proven fragile across D1
-  // runtime versions and was the suspected cause of registration 500s.
-  const res = await c.env.DB.prepare(
-    "INSERT INTO clients (email, password_hash, name, country) VALUES (?, ?, ?, ?)"
-  )
-    .bind(email, hash, name, country)
-    .run();
-  const id = Number(res.meta?.last_row_id);
-  if (!id) return c.json({ error: "Could not create account" }, 500);
+    // Canonical D1 write: `.run()` + meta.last_row_id. Avoids the
+    // INSERT…RETURNING + `.first()` path, which has proven fragile across D1
+    // runtime versions and was the suspected cause of registration 500s.
+    const res = await c.env.DB.prepare(
+      "INSERT INTO clients (email, password_hash, name, country) VALUES (?, ?, ?, ?)"
+    )
+      .bind(email, hash, name, country)
+      .run();
+    const id = Number(res.meta?.last_row_id);
+    if (!id) return c.json({ error: "Akun tidak dapat dibuat (D1 tidak mengembalikan id)." }, 500);
 
-  const token = await createSession(c.env, { subject: "client", id, email });
-  setCookie(c, sessionCookieName("client"), token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "Lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 14,
-  });
+    const token = await createSession(c.env, { subject: "client", id, email });
+    setCookie(c, sessionCookieName("client"), token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 14,
+    });
 
-  return c.json({ ok: true, id });
+    return c.json({ ok: true, id });
+  } catch (e) {
+    console.error("client register failed:", e);
+    const detail = e instanceof Error ? e.message : String(e);
+    return c.json({ error: "Pendaftaran gagal.", detail: detail.slice(0, 300) }, 500);
+  }
 });
 
 clientRoute.post("/login", async (c) => {

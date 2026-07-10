@@ -70,12 +70,12 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   }
   const { lang, requested } = langParam(c);
 
-  // "v2" bumps past every bundle cached before tafsir/asbabun moved to the
-  // live spa5k fetch (see lib/tafsir-source.ts) — those old entries would
-  // otherwise keep serving empty tafsir/asbabun for up to their old TTL
-  // regardless of the underlying fix. TTL itself is now short (was 6h) so a
-  // future content fix here self-heals in minutes, not hours.
-  const cacheKey = `quran:ayah:v2:${surahId}:${number}:${requested}`;
+  // Bump this version whenever the bundle's content sources change so old
+  // cached bundles don't keep serving stale/empty tafsir/asbabun. v3 = tafsir
+  // now comes from equran.id (Tafsir Kemenag RI) + the curated asbabun nuzul
+  // dataset (see lib/tafsir-source.ts). TTL is short so future fixes self-heal
+  // in minutes, not hours.
+  const cacheKey = `quran:ayah:v3:${surahId}:${number}:${requested}`;
   const cached = await c.env.CACHE_KV.get(cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerStore, LAYERS, type Layer, type QueueItem } from "@/lib/player-store";
 import { api } from "@/lib/api";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
-import { RECITERS, resolveAyahAudioUrl } from "@/lib/qori-cdn";
+import { RECITERS, COUNTRIES, resolveAyahAudioUrl } from "@/lib/qori-cdn";
 import type { Dictionary } from "@/dictionaries";
 
 interface AyahBundleResponse {
@@ -90,6 +90,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
 
   const [progress, setProgress] = useState({ current: 0, duration: 0 });
   const [showQoriMenu, setShowQoriMenu] = useState(false);
+  const [qoriCC, setQoriCC] = useState("all"); // country filter in the reciter picker
   const current = queue[currentIndex];
   const layersKey = layers.join(",");
   const uiLang = typeof document !== "undefined" ? document.documentElement.lang || "id" : "id";
@@ -323,8 +324,27 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
                 {dict.reader.qariLabel}: {RECITERS.find((q) => q.key === qoriId)?.name.split(" ")[0]}
               </button>
               {showQoriMenu && (
-                <div className="absolute bottom-full right-0 mb-2 max-h-80 w-64 overflow-y-auto rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">
-                  {RECITERS.map((q) => (
+                <div className="absolute bottom-full right-0 mb-2 max-h-96 w-72 overflow-y-auto rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">
+                  {/* Per-country filter tabs (imam setiap negara) */}
+                  <div className="sticky top-0 flex flex-wrap gap-1 border-b border-accent/15 bg-[#0b3d2e] p-2">
+                    {COUNTRIES.map((c) => {
+                      const count = c.code === "all" ? RECITERS.length : RECITERS.filter((r) => r.cc === c.code).length;
+                      if (count === 0) return null;
+                      return (
+                        <button
+                          key={c.code}
+                          onClick={() => setQoriCC(c.code)}
+                          className={`rounded-full border px-2 py-0.5 text-[10px] ${
+                            qoriCC === c.code ? "border-accent text-accent" : "border-accent/20 text-[#f4efe3]/70"
+                          }`}
+                        >
+                          {c.flag} {c.label}
+                          <span className="ml-1 opacity-50">{count}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {RECITERS.filter((q) => qoriCC === "all" || q.cc === qoriCC).map((q) => (
                     <button
                       key={q.key}
                       onClick={() => {
@@ -335,7 +355,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
                     >
                       <span>
                         {q.flag} {q.name}
-                        <span className="ml-1.5 opacity-60">· {q.country}</span>
+                        <span className="ml-1.5 opacity-60">· {q.note}</span>
                       </span>
                     </button>
                   ))}
