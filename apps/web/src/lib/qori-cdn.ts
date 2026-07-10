@@ -27,6 +27,8 @@ export interface QoriDef {
   cc: string; // country code for the per-country filter
   note: string;
   cdn: "aqc" | "ey" | "surah";
+  /** World-renowned reciters surfaced first in the Radio Qori picker. */
+  featured?: boolean;
   aqcEdition?: string;
   eyId?: string;
   surahFn?: (surah: number) => string;
@@ -48,8 +50,8 @@ const pad3 = (n: number) => String(n).padStart(3, "0");
 
 export const RECITERS: QoriDef[] = [
   // Arab Saudi — alquran.cloud
-  { key: "ar.abdurrahmaansudais", name: "Abdurrahman As-Sudais", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", cdn: "aqc", aqcEdition: "ar.abdurrahmaansudais" },
-  { key: "ar.mahermuaiqly", name: "Maher Al-Muaiqly", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", cdn: "aqc", aqcEdition: "ar.mahermuaiqly" },
+  { key: "ar.abdurrahmaansudais", name: "Abdurrahman As-Sudais", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "aqc", aqcEdition: "ar.abdurrahmaansudais" },
+  { key: "ar.mahermuaiqly", name: "Maher Al-Muaiqly", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "aqc", aqcEdition: "ar.mahermuaiqly" },
   { key: "ar.saoodshuraym", name: "Saud Al-Shuraim", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", cdn: "aqc", aqcEdition: "ar.saoodshuraym" },
   { key: "ar.hudhaify", name: "Ali Al-Hudhaify", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjid Nabawi, Madinah", cdn: "aqc", aqcEdition: "ar.hudhaify" },
   { key: "ar.muhammadayyoub", name: "Muhammad Ayyub", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjid Nabawi, Madinah", cdn: "aqc", aqcEdition: "ar.muhammadayyoub" },
@@ -60,13 +62,13 @@ export const RECITERS: QoriDef[] = [
   { key: "ey.dussary", name: "Yasser Ad-Dussary", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal", cdn: "ey", eyId: "Yasser_Ad-Dussary_128kbps" },
   { key: "ey.matroud", name: "Abdullah Al-Matroud", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal", cdn: "ey", eyId: "Abdullah_Matroud_128kbps" },
   // Kuwait
-  { key: "ar.alafasy", name: "Mishary Rashid Al-Afasy", flag: "🇰🇼", country: "Kuwait", cc: "kw", note: "Murattal Tartil", cdn: "aqc", aqcEdition: "ar.alafasy", eyId: "Alafasy_128kbps" },
+  { key: "ar.alafasy", name: "Mishary Rashid Al-Afasy", flag: "🇰🇼", country: "Kuwait", cc: "kw", note: "Murattal Tartil", featured: true, cdn: "aqc", aqcEdition: "ar.alafasy", eyId: "Alafasy_128kbps" },
   { key: "ar.ahmedajamy", name: "Ahmed Al-Ajami", flag: "🇰🇼", country: "Kuwait", cc: "kw", note: "Murattal", cdn: "aqc", aqcEdition: "ar.ahmedajamy" },
   // Mesir — alquran.cloud
-  { key: "ar.abdulbasitmurattal", name: "Abdul Basit Abd us-Samad", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "aqc", aqcEdition: "ar.abdulbasitmurattal" },
-  { key: "ar.husary", name: "Mahmoud Khalil Al-Husary", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "aqc", aqcEdition: "ar.husary" },
+  { key: "ar.abdulbasitmurattal", name: "Abdul Basit Abd us-Samad", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", featured: true, cdn: "aqc", aqcEdition: "ar.abdulbasitmurattal" },
+  { key: "ar.husary", name: "Mahmoud Khalil Al-Husary", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", featured: true, cdn: "aqc", aqcEdition: "ar.husary" },
   { key: "ar.husarymujawwad", name: "Al-Husary (Mujawwad)", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Mujawwad", cdn: "aqc", aqcEdition: "ar.husarymujawwad" },
-  { key: "ar.minshawi", name: "Mohamed Siddiq Al-Minshawi", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "aqc", aqcEdition: "ar.minshawi" },
+  { key: "ar.minshawi", name: "Mohamed Siddiq Al-Minshawi", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", featured: true, cdn: "aqc", aqcEdition: "ar.minshawi" },
   { key: "ar.minshawimujawwad", name: "Al-Minshawi (Mujawwad)", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Mujawwad", cdn: "aqc", aqcEdition: "ar.minshawimujawwad" },
   { key: "ar.muhammadjibreel", name: "Muhammad Jibreel", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "aqc", aqcEdition: "ar.muhammadjibreel" },
   { key: "ey.tablawi", name: "Muhammad Al-Tablawi", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "ey", eyId: "Mohammad_al_Tablawi_128kbps" },
@@ -84,6 +86,7 @@ export const RECITERS: QoriDef[] = [
     country: "Indonesia",
     cc: "id",
     note: "Tilawah Mujawwad — per surah",
+    featured: true,
     cdn: "surah",
     surahFn: (n) => `https://download.quranicaudio.com/quran/muammar_za/${pad3(n)}.mp3`,
   },
@@ -155,4 +158,13 @@ export async function resolveAyahAudioUrl(qoriKey: string, surah: number, ayah: 
     return null;
   }
   return null; // surah-mode: no per-ayah URL
+}
+
+/** Whole-surah recitation URL for surah-mode reciters (e.g. Muammar ZA) — one
+ * continuous file per surah rather than a per-ayah split. Used by the Radio
+ * Qori widget so these reciters are actually playable (previously `surahFn`
+ * was defined but nothing ever called it). */
+export function resolveSurahAudioUrl(qoriKey: string, surah: number): string | null {
+  const rc = RECITERS.find((r) => r.key === qoriKey);
+  return rc?.cdn === "surah" && rc.surahFn ? rc.surahFn(surah) : null;
 }

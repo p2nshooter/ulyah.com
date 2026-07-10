@@ -1,0 +1,260 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { api } from "@/lib/api";
+import { usePlayerStore } from "@/lib/player-store";
+import { RECITERS, DEFAULT_QORI_KEY, resolveAyahAudioUrl, resolveSurahAudioUrl } from "@/lib/qori-cdn";
+import { radioLabels } from "@/lib/radio-labels";
+
+interface SurahMeta {
+  id: number;
+  name_transliteration: string;
+  name_ar: string;
+  ayah_count: number;
+}
+
+interface Position {
+  reciterKey: string;
+  surahId: number;
+  ayahNumber: number;
+}
+
+const STORAGE_KEY = "ulyah_radio_position";
+
+function loadPosition(): Position {
+  if (typeof window === "undefined") return { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 };
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as Position;
+      if (parsed.reciterKey && parsed.surahId >= 1 && parsed.ayahNumber >= 1) return parsed;
+    }
+  } catch {
+    /* ignore */
+  }
+  return { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 };
+}
+
+function savePosition(p: Position) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch {
+    /* quota exceeded — fine, just won't resume exactly */
+  }
+}
+
+/**
+ * "Radio Qori Dunia" — an always-on Qur'an recitation stream for the landing
+ * page, aimed at mosques who want to leave a reciter's voice running all
+ * day. Loops through the entire Qur'an (Al-Fatihah -> An-Nas -> back to
+ * Al-Fatihah) indefinitely until the visitor stops it or changes reciter.
+ * Persists position + reciter choice in localStorage so a page refresh (or a
+ * device left on overnight) resumes close to where it left off.
+ *
+ * Browsers block audio-with-sound autoplay without a user gesture, so the
+ * very first play always needs one tap; every subsequent ayah/surah then
+ * auto-advances on its own (`ended` -> immediately load + play the next
+ * one), which satisfies "runs 24 hours nonstop" in the way browsers actually
+ * allow.
+ */
+export function RadioQoriWidget({ locale }: { locale: string }) {
+  const t = radioLabels(locale);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const posRef = useRef<Position>(loadPosition());
+  const genRef = useRef(0);
+
+  const [surahs, setSurahs] = useState<SurahMeta[]>([]);
+  const [position, setPosition] = useState<Position>(posRef.current);
+  const [playing, setPlaying] = useState(false);
+  const [needsInteraction, setNeedsInteraction] = useState(true);
+  const [showPicker, setShowPicker] = useState(false);
+
+  useEffect(() => {
+    api
+      .get<{ surah: SurahMeta[] }>("/quran/surah")
+      .then((r) => setSurahs(r.surah))
+      .catch(() => {});
+  }, []);
+
+  const reciter = RECITERS.find((r) => r.key === position.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
+  const surahMeta = surahs.find((s) => s.id === position.surahId);
+
+  function nextPosition(p: Position): Position {
+    const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? reciter;
+    if (rc.cdn === "surah") {
+      const nextSurah = p.surahId >= 114 ? 1 : p.surahId + 1;
+      return { ...p, surahId: nextSurah, ayahNumber: 1 };
+    }
+    const count = surahs.find((s) => s.id === p.surahId)?.ayah_count ?? 999;
+    if (p.ayahNumber < count) return { ...p, ayahNumber: p.ayahNumber + 1 };
+    const nextSurah = p.surahId >= 114 ? 1 : p.surahId + 1;
+    return { ...p, surahId: nextSurah, ayahNumber: 1 };
+  }
+
+  async function loadAndPlay(p: Position, myGen: number) {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? reciter;
+    const src = rc.cdn === "surah" ? resolveSurahAudioUrl(p.reciterKey, p.surahId) : await resolveAyahAudioUrl(p.reciterKey, p.surahId, p.ayahNumber);
+    if (myGen !== genRef.current) return; // a newer request superseded this one
+    if (!src) {
+      // Nothing playable for this position — skip straight to the next one
+      // rather than stalling the "24 hours nonstop" stream.
+      const next = nextPosition(p);
+      posRef.current = next;
+      setPosition(next);
+      savePosition(next);
+      loadAndPlay(next, myGen);
+      return;
+    }
+    audio.src = src;
+    try {
+      await audio.play();
+      if (myGen !== genRef.current) return;
+      setPlaying(true);
+      setNeedsInteraction(false);
+      usePlayerStore.getState().pause(); // never two audio streams at once
+    } catch {
+      if (myGen !== genRef.current) return;
+      setPlaying(false);
+      setNeedsInteraction(true);
+    }
+  }
+
+  function start() {
+    genRef.current += 1;
+    loadAndPlay(posRef.current, genRef.current);
+  }
+
+  function stop() {
+    genRef.current += 1;
+    audioRef.current?.pause();
+    setPlaying(false);
+  }
+
+  function handleEnded() {
+    const next = nextPosition(posRef.current);
+    posRef.current = next;
+    setPosition(next);
+    savePosition(next);
+    loadAndPlay(next, genRef.current);
+  }
+
+  function switchReciter(key: string) {
+    const next = { ...posRef.current, reciterKey: key };
+    posRef.current = next;
+    setPosition(next);
+    savePosition(next);
+    setShowPicker(false);
+    if (playing || !needsInteraction) {
+      genRef.current += 1;
+      loadAndPlay(next, genRef.current);
+    }
+  }
+
+  // Try to autoplay once surah metadata is ready — succeeds if this page load
+  // still carries a "user has interacted with the site" grant from browser
+  // autoplay heuristics (common on a repeat visit); otherwise the tap prompt
+  // below handles it.
+  useEffect(() => {
+    if (surahs.length > 0) start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surahs.length > 0]);
+
+  const featured = RECITERS.filter((r) => r.featured);
+  const others = RECITERS.filter((r) => !r.featured);
+
+  return (
+    <section className="relative overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] p-6 text-[#f4efe3] shadow-xl sm:p-8">
+      <audio ref={audioRef} onEnded={handleEnded} className="hidden" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 15% 20%, rgba(184,137,43,0.7), transparent 55%)",
+        }}
+      />
+      <div className="relative flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            {playing && (
+              <span className="flex items-center gap-1 rounded-full bg-red-500/20 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-red-300">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" /> {t.liveBadge}
+              </span>
+            )}
+            <h2 className="font-heading text-xl sm:text-2xl">📻 {t.title}</h2>
+          </div>
+          <p className="mt-1 text-xs text-[#f4efe3]/70 sm:text-sm">{t.subtitle}</p>
+        </div>
+      </div>
+
+      <div className="relative mt-6 flex flex-wrap items-center gap-4">
+        <button
+          onClick={playing ? stop : start}
+          className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-accent text-2xl text-primary shadow-lg transition hover:brightness-110"
+          aria-label={playing ? t.pause : t.play}
+        >
+          {playing ? "⏸" : "▶"}
+        </button>
+
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-medium">
+            {reciter.flag} {reciter.name}
+            <span className="ml-1.5 text-xs opacity-60">· {reciter.country}</span>
+          </p>
+          <p className="mt-0.5 truncate text-xs text-[#f4efe3]/70">
+            {t.nowPlaying}: {surahMeta?.name_transliteration ?? "…"}
+            {reciter.cdn === "surah" ? ` (${t.wholeSurah})` : ` : ${position.ayahNumber}`}
+          </p>
+        </div>
+
+        <div className="relative">
+          <button
+            onClick={() => setShowPicker((v) => !v)}
+            className="rounded-full border border-accent/40 px-4 py-2 text-xs font-medium hover:border-accent"
+          >
+            🎙️ {t.chooseReciter}
+          </button>
+          {showPicker && (
+            <div className="absolute right-0 top-full z-20 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-accent/25 bg-[#0b3d2e] p-2 shadow-2xl">
+              <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent">{t.featuredGroup}</p>
+              {featured.map((r) => (
+                <button
+                  key={r.key}
+                  onClick={() => switchReciter(r.key)}
+                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-white/5 ${
+                    r.key === position.reciterKey ? "text-accent" : ""
+                  }`}
+                >
+                  {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                </button>
+              ))}
+              <p className="mt-1 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent">{t.allGroup}</p>
+              {others.map((r) => (
+                <button
+                  key={r.key}
+                  onClick={() => switchReciter(r.key)}
+                  className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-white/5 ${
+                    r.key === position.reciterKey ? "text-accent" : ""
+                  }`}
+                >
+                  {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {needsInteraction && !playing && (
+        <button
+          onClick={start}
+          className="relative mt-5 w-full rounded-xl border border-dashed border-accent/50 py-3 text-center text-xs font-medium text-accent hover:bg-white/5"
+        >
+          ▶ {t.clickToStart}
+        </button>
+      )}
+    </section>
+  );
+}
