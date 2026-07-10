@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import { usePlayerStore, LAYERS, MODE_PRESETS, type Layer, type QueueItem } from "@/lib/player-store";
+import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
+import { radioLabels } from "@/lib/radio-labels";
 import type { Dictionary } from "@/dictionaries";
 
 interface SurahMeta {
@@ -93,6 +95,7 @@ function HighlightedArabic({ text, active }: { text: string; active: boolean }) 
 }
 
 export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dictionary }) {
+  const t = radioLabels(locale);
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
   const [surahFilter, setSurahFilter] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<SurahMeta | null>(null);
@@ -101,10 +104,20 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [bundle, setBundle] = useState<Bundle | null>(null);
   const [loadingAyat, setLoadingAyat] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [qoriCC, setQoriCC] = useState("all"); // country filter for the reciter picker below
   const arabicRef = useRef<HTMLDivElement>(null);
 
-  const { layers, applyPreset, toggleLayer, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer } =
+  const { layers, applyPreset, toggleLayer, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
     usePlayerStore();
+
+  /** Choosing a country narrows the reciter list; if the currently selected
+   * reciter falls outside it, jump to the first one in that country instead
+   * of silently keeping a selection that's no longer shown. */
+  function handleCountryChange(cc: string) {
+    setQoriCC(cc);
+    const pool = RECITERS.filter((r) => cc === "all" || r.cc === cc);
+    if (pool.length > 0 && !pool.some((r) => r.key === qoriId)) setQori(pool[0]!.key);
+  }
 
   // Load surah index once.
   useEffect(() => {
@@ -327,6 +340,39 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   </p>
                 </>
               )}
+            </div>
+
+            {/* Reciter picker — visible before playing, not tucked away in the
+                bottom player bar (which only appears once something is
+                already playing, and hides the picker button on mobile). */}
+            <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-3 dark:bg-white/[0.02]">
+              <p className="mb-2 text-sm font-medium">🎙️ {t.chooseReciter}</p>
+              <div className="flex flex-wrap gap-2">
+                <select
+                  aria-label={t.chooseCountry}
+                  value={qoriCC}
+                  onChange={(e) => handleCountryChange(e.target.value)}
+                  className="rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+                >
+                  {COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.flag} {c.label}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  aria-label={t.chooseReciter}
+                  value={qoriId}
+                  onChange={(e) => setQori(e.target.value)}
+                  className="min-w-0 flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+                >
+                  {RECITERS.filter((r) => qoriCC === "all" || r.cc === qoriCC).map((r) => (
+                    <option key={r.key} value={r.key}>
+                      {r.flag} {r.name} · {r.country}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* Transport for this ayah */}

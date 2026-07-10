@@ -316,12 +316,16 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
           )}
 
           {!storyTrack && (
-            <div className="relative hidden sm:block">
+            <div className="relative">
               <button
                 onClick={() => setShowQoriMenu((v) => !v)}
-                className="rounded-full border border-accent/30 px-3 py-1 text-xs hover:border-accent"
+                aria-label={dict.reader.qariLabel}
+                className="rounded-full border border-accent/30 px-2.5 py-1 text-xs hover:border-accent sm:px-3"
               >
-                {dict.reader.qariLabel}: {RECITERS.find((q) => q.key === qoriId)?.name.split(" ")[0]}
+                <span className="sm:hidden">🎙️</span>
+                <span className="hidden sm:inline">
+                  {dict.reader.qariLabel}: {RECITERS.find((q) => q.key === qoriId)?.name.split(" ")[0]}
+                </span>
               </button>
               {showQoriMenu && (
                 <div className="absolute bottom-full right-0 mb-2 max-h-96 w-72 overflow-y-auto rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">

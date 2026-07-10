@@ -5,7 +5,13 @@ import { api } from "@/lib/api";
 import { usePlayerStore } from "@/lib/player-store";
 import { RECITERS, DEFAULT_QORI_KEY, resolveAyahAudioUrl, resolveSurahAudioUrl } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
-import { computeLivePosition } from "@/lib/radio-clock";
+import { computeLivePosition, computeLiveBroadcast } from "@/lib/radio-clock";
+
+// The default "auto" station rotates through the world-renowned reciters —
+// one full khatam per voice — rather than reciting forever in a single
+// voice. A visitor who explicitly picks a reciter pins that channel instead
+// (see switchReciter) and stops rotating.
+const ROTATION_POOL = RECITERS.filter((r) => r.featured).map((r) => r.key);
 
 interface SurahMeta {
   id: number;
@@ -22,12 +28,13 @@ interface Position {
 
 const RECITER_STORAGE_KEY = "ulyah_radio_reciter";
 
-function loadReciterKey(): string {
-  if (typeof window === "undefined") return DEFAULT_QORI_KEY;
+/** null means "no pinned favorite yet" — the default rotating station. */
+function loadReciterKey(): string | null {
+  if (typeof window === "undefined") return null;
   try {
-    return window.localStorage.getItem(RECITER_STORAGE_KEY) || DEFAULT_QORI_KEY;
+    return window.localStorage.getItem(RECITER_STORAGE_KEY);
   } catch {
-    return DEFAULT_QORI_KEY;
+    return null;
   }
 }
 
@@ -63,9 +70,12 @@ function saveReciterKey(key: string) {
 export function RadioQoriWidget({ locale }: { locale: string }) {
   const t = radioLabels(locale);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const posRef = useRef<Position>({ reciterKey: loadReciterKey(), surahId: 1, ayahNumber: 1 });
+  const posRef = useRef<Position>({ reciterKey: loadReciterKey() ?? DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 });
   const genRef = useRef(0);
   const joinedLiveRef = useRef(false);
+  // true = follow the default rotating "auto" station; false = pinned to a
+  // reciter the visitor explicitly chose (see switchReciter).
+  const autoRotateRef = useRef(loadReciterKey() === null);
 
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
   const [position, setPosition] = useState<Position>(posRef.current);
@@ -124,33 +134,65 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
     }
   }
 
+  /** Recompute "where the station is right now" and adopt it as the current
+   * position — called every time playback (re)starts, never during a
+   * continuous listening session. This is what makes the station behave
+   * like a real broadcast rather than a personal bookmark: stopping only
+   * silences this one device, and pressing play again always rejoins
+   * live, wherever the station has moved on to in the meantime. */
+  function joinLive(): Position {
+    const pinned = loadReciterKey();
+    let next: Position;
+    if (pinned) {
+      autoRotateRef.current = false;
+      next = { reciterKey: pinned, ...computeLivePosition(surahs) };
+    } else {
+      autoRotateRef.current = true;
+      const b = computeLiveBroadcast(surahs, ROTATION_POOL);
+      next = { reciterKey: b.reciterKey, surahId: b.surahId, ayahNumber: b.ayahNumber };
+    }
+    posRef.current = next;
+    setPosition(next);
+    return next;
+  }
+
   function start() {
+    const next = joinLive();
     genRef.current += 1;
-    loadAndPlay(posRef.current, genRef.current);
+    loadAndPlay(next, genRef.current);
   }
 
   function stop() {
+    // Only stops audio on this device — the shared broadcast clock keeps
+    // advancing regardless, so a later "start" rejoins live, not here.
     genRef.current += 1;
     audioRef.current?.pause();
     setPlaying(false);
   }
 
   function handleEnded() {
-    const next = nextPosition(posRef.current);
+    const prev = posRef.current;
+    let next = nextPosition(prev);
+    const completedKhatam = prev.surahId >= 114 && next.surahId === 1 && next.ayahNumber === 1;
+    if (completedKhatam && autoRotateRef.current && ROTATION_POOL.length > 0) {
+      const idx = Math.max(0, ROTATION_POOL.indexOf(prev.reciterKey));
+      const nextReciter = ROTATION_POOL[(idx + 1) % ROTATION_POOL.length]!;
+      next = { ...next, reciterKey: nextReciter };
+    }
     posRef.current = next;
     setPosition(next);
     loadAndPlay(next, genRef.current);
   }
 
   function switchReciter(key: string) {
-    // Switching reciter is like switching to a different channel of the
-    // same live broadcast — re-sync to the current live position rather
-    // than keeping wherever the previous reciter happened to be.
-    const live = computeLivePosition(surahs);
-    const next: Position = { reciterKey: key, ...live };
+    // Switching reciter pins that channel (stops auto-rotation) and joins
+    // it at the current live position — like switching to a different
+    // channel of the same ongoing broadcast, not restarting from scratch.
+    autoRotateRef.current = false;
+    saveReciterKey(key);
+    const next: Position = { reciterKey: key, ...computeLivePosition(surahs) };
     posRef.current = next;
     setPosition(next);
-    saveReciterKey(key);
     setShowPicker(false);
     if (playing || !needsInteraction) {
       genRef.current += 1;
@@ -166,10 +208,6 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
   useEffect(() => {
     if (surahs.length > 0 && !joinedLiveRef.current) {
       joinedLiveRef.current = true;
-      const live = computeLivePosition(surahs);
-      const next: Position = { ...posRef.current, ...live };
-      posRef.current = next;
-      setPosition(next);
       start();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

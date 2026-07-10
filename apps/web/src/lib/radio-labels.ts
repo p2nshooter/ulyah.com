@@ -11,6 +11,7 @@ export interface RadioLabels {
   pause: string;
   clickToStart: string;
   chooseReciter: string;
+  chooseCountry: string;
   featuredGroup: string;
   allGroup: string;
   liveBadge: string;
@@ -25,6 +26,7 @@ const EN: RadioLabels = {
   pause: "Pause",
   clickToStart: "Tap to start the radio",
   chooseReciter: "Choose a reciter",
+  chooseCountry: "Country",
   featuredGroup: "🏆 World-renowned reciters",
   allGroup: "All reciters",
   liveBadge: "LIVE",
@@ -39,6 +41,7 @@ const ID: RadioLabels = {
   pause: "Jeda",
   clickToStart: "Ketuk untuk memulai radio",
   chooseReciter: "Pilih qori",
+  chooseCountry: "Negara",
   featuredGroup: "🏆 Qori juara dunia",
   allGroup: "Semua qori",
   liveBadge: "LIVE",
@@ -53,6 +56,7 @@ const AR: RadioLabels = {
   pause: "إيقاف مؤقت",
   clickToStart: "اضغط لبدء الراديو",
   chooseReciter: "اختر القارئ",
+  chooseCountry: "الدولة",
   featuredGroup: "🏆 قراء مشهورون عالميًا",
   allGroup: "كل القراء",
   liveBadge: "مباشر",
