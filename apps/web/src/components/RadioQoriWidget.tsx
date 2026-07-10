@@ -81,6 +81,7 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
   const [position, setPosition] = useState<Position>(posRef.current);
   const [playing, setPlaying] = useState(false);
   const [needsInteraction, setNeedsInteraction] = useState(true);
+  const [muted, setMuted] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [khatamCount, setKhatamCount] = useState(0);
 
@@ -134,17 +135,47 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
       return;
     }
     audio.src = src;
+    audio.muted = false;
     try {
       await audio.play();
       if (myGen !== genRef.current) return;
       setPlaying(true);
       setNeedsInteraction(false);
+      setMuted(false);
       usePlayerStore.getState().pause(); // never two audio streams at once
+      return;
+    } catch {
+      // Unmuted autoplay blocked (no user gesture yet, e.g. a fresh page
+      // load) — browsers always allow *muted* autoplay, so start the
+      // station right now instead of leaving it silent until a tap: the
+      // live position keeps advancing for real, just inaudible until one
+      // tap to unmute (see the unmute() prompt below).
+    }
+    if (myGen !== genRef.current) return;
+    audio.muted = true;
+    try {
+      await audio.play();
+      if (myGen !== genRef.current) return;
+      setPlaying(true);
+      setNeedsInteraction(false);
+      setMuted(true);
+      usePlayerStore.getState().pause();
     } catch {
       if (myGen !== genRef.current) return;
       setPlaying(false);
       setNeedsInteraction(true);
+      setMuted(false);
     }
+  }
+
+  /** Unmuting an already-playing element (rather than restarting playback)
+   * is allowed on a plain tap — no need to reload/rejoin anything. */
+  function unmute() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = false;
+    setMuted(false);
+    if (audio.paused) audio.play().catch(() => {});
   }
 
   /** Recompute "where the station is right now" and adopt it as the current
@@ -343,6 +374,15 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
           className="relative mt-5 w-full rounded-xl border border-dashed border-accent/50 py-3 text-center text-xs font-medium text-accent hover:bg-white/5"
         >
           ▶ {t.clickToStart}
+        </button>
+      )}
+
+      {playing && muted && (
+        <button
+          onClick={unmute}
+          className="relative mt-5 flex w-full animate-pulse items-center justify-center gap-2 rounded-xl border border-accent bg-accent/10 py-3 text-center text-xs font-medium text-accent hover:bg-accent/20"
+        >
+          🔊 {t.tapToUnmute}
         </button>
       )}
 

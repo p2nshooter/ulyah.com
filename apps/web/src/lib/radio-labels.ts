@@ -18,6 +18,7 @@ export interface RadioLabels {
   khatamCompleted: string;
   khatamInProgress: string;
   khatamRotationNote: string;
+  tapToUnmute: string;
 }
 
 const EN: RadioLabels = {
@@ -36,6 +37,7 @@ const EN: RadioLabels = {
   khatamCompleted: "khatam completed",
   khatamInProgress: "now on khatam #",
   khatamRotationNote: "Once every reciter has taken a turn, the rotation loops back to the first — forever.",
+  tapToUnmute: "The radio is live — tap to hear it",
 };
 
 const ID: RadioLabels = {
@@ -54,6 +56,7 @@ const ID: RadioLabels = {
   khatamCompleted: "kali khatam selesai",
   khatamInProgress: "sedang khataman ke-",
   khatamRotationNote: "Setelah seluruh qori kebagian giliran, rotasi kembali ke qori paling atas — begitu seterusnya.",
+  tapToUnmute: "Radio sudah live — ketuk untuk dengar suaranya",
 };
 
 const AR: RadioLabels = {
@@ -72,6 +75,7 @@ const AR: RadioLabels = {
   khatamCompleted: "ختمة مكتملة",
   khatamInProgress: "الختمة الحالية رقم",
   khatamRotationNote: "بعد أن يأخذ كل قارئ دوره، يعود الترتيب إلى القارئ الأول — وهكذا إلى الأبد.",
+  tapToUnmute: "الراديو يعمل الآن مباشرة — اضغط للاستماع",
 };
 
 const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR };
