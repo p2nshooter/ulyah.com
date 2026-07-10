@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -148,12 +147,6 @@ export default async function LocaleLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
           crossOrigin="anonymous"
         />
-        {/* Ezoic */}
-        <Script async src="//www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
-        <Script id="ezstandalone-init" strategy="afterInteractive">
-          {`window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];`}
-        </Script>
-        <Script src="//ezoicanalytics.com/analytics.js" strategy="afterInteractive" />
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>
         <SwRegister />

@@ -43,6 +43,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/tentang`}>{dict.nav.about}</Link></li>
             <li><Link href={`/${locale}/syukur`}>{dict.syukur.navLabel}</Link></li>
+            <li><Link href={`/${locale}/terima-kasih`}>{dict.nav.thanks}</Link></li>
             <li><Link href={`/${locale}/daftar`}>{dict.auth.registerTitle}</Link></li>
             <li><Link href={`/${locale}/masuk`}>{dict.auth.loginTitle}</Link></li>
           </ul>

@@ -133,6 +133,13 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
+      {/* Ad beside the always-on Radio + Jadwal Sholat widgets — same
+          AdSense client id as every other slot, so nothing needs to change
+          here once the account is approved; it simply starts filling. */}
+      <div className="px-4 pt-6 sm:px-6">
+        <AdSlot minHeight={110} className="max-w-4xl" format="rectangle" />
+      </div>
+
       {/* ── Interactive Qur'an reader ────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-7xl">

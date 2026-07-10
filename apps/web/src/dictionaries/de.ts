@@ -25,6 +25,7 @@ const de: Dictionary = {
     about: "Über uns",
     searchPlaceholder: "Vers, Sure oder Thema suchen...",
     donate: "Jetzt spenden",
+    thanks: "Danksagung",
   },
   hero: {
     titleLine1: "Höre den Islam.",

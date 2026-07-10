@@ -23,6 +23,7 @@ export interface Dictionary {
     about: string;
     searchPlaceholder: string;
     donate: string;
+    thanks: string;
   };
   hero: {
     titleLine1: string;

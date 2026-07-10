@@ -25,6 +25,7 @@ const id: Dictionary = {
     about: "Tentang Kami",
     searchPlaceholder: "Cari ayat, surat, atau topik...",
     donate: "Donasi Sekarang",
+    thanks: "Ucapan Terima Kasih",
   },
   hero: {
     titleLine1: "Dengarkan Islam.",

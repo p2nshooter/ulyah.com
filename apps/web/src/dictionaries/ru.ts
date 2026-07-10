@@ -25,6 +25,7 @@ const ru: Dictionary = {
     about: "О нас",
     searchPlaceholder: "Поиск аята, суры или темы...",
     donate: "Пожертвовать",
+    thanks: "Слова благодарности",
   },
   hero: {
     titleLine1: "Слушай Ислам.",

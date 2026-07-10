@@ -25,6 +25,7 @@ const zh: Dictionary = {
     about: "关于我们",
     searchPlaceholder: "搜索经文、章节或主题...",
     donate: "立即捐赠",
+    thanks: "致谢",
   },
   hero: {
     titleLine1: "聆听伊斯兰。",

@@ -20,10 +20,14 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
-  function handleClick() {
+  function handleClick(e: React.MouseEvent) {
     const now = Date.now();
     clicksRef.current = [...clicksRef.current, now].filter((t) => now - t <= WINDOW_MS);
     if (clicksRef.current.length >= CLICK_THRESHOLD) {
+      // The 5th rapid tap opens the hidden admin login instead of navigating
+      // home — every tap before that behaves like an ordinary logo-to-home
+      // link, so the secret trigger never gets in the way of normal use.
+      e.preventDefault();
       clicksRef.current = [];
       setShowModal(true);
     }
@@ -31,15 +35,15 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
 
   return (
     <>
-      <button
-        type="button"
+      <Link
+        href={`/${locale}`}
         onClick={handleClick}
-        aria-label="ulyah"
-        className="select-none border-0 bg-transparent p-0"
+        aria-label="ulyah — beranda"
+        className="select-none"
         style={{ touchAction: "manipulation" }}
       >
         {children}
-      </button>
+      </Link>
       {showModal && (
         <AdminAuthModal
           locale={locale}

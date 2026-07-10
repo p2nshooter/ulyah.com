@@ -25,6 +25,7 @@ const ja: Dictionary = {
     about: "私たちについて",
     searchPlaceholder: "節、章、トピックを検索...",
     donate: "今すぐ寄付",
+    thanks: "謝辞",
   },
   hero: {
     titleLine1: "イスラームを聴く。",

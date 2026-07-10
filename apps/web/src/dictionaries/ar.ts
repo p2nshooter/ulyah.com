@@ -25,6 +25,7 @@ const ar: Dictionary = {
     about: "من نحن",
     searchPlaceholder: "ابحث عن آية أو سورة أو موضوع...",
     donate: "تبرع الآن",
+    thanks: "كلمة شكر",
   },
   hero: {
     titleLine1: "استمع إلى الإسلام.",

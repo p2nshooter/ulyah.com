@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { prayerLabels } from "@/lib/prayer-labels";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { InstallAppButton } from "@/components/InstallAppButton";
+import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -48,6 +51,31 @@ export default async function JadwalSholatPage({ params }: { params: Promise<{ l
             a prayer-time lookup. */}
         <div className="mt-6">
           <RadioQoriWidget locale={locale} />
+        </div>
+
+        {/* Standalone-app users have no browser address bar to remind them
+            whose app this is — this card carries that identity itself, and
+            invites them toward the full ULYAH.COM experience too. */}
+        <div className="mt-8 overflow-hidden rounded-3xl bg-[#06251b] p-8 text-center text-[#f4efe3]">
+          <Image
+            src="/brand/wordmark-ar-gold.png"
+            alt="Ulyah"
+            width={160}
+            height={44}
+            className="mx-auto h-9 w-auto"
+          />
+          <p className="mt-3 text-xs uppercase tracking-[0.3em] text-accent">ulyah.com</p>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#f4efe3]/80">{t.brandTagline}</p>
+          <Link
+            href={`/${locale}`}
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
+          >
+            {t.brandCta}
+          </Link>
+        </div>
+
+        <div className="mt-6">
+          <AdSlot minHeight={110} format="rectangle" />
         </div>
       </div>
     </div>
