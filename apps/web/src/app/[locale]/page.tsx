@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
+import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { AdSlot } from "@/components/AdSlot";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -121,6 +122,13 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       <section className="px-4 pt-10 sm:px-6">
         <div className="mx-auto max-w-4xl">
           <RadioQoriWidget locale={locale} />
+        </div>
+      </section>
+
+      {/* ── Jadwal Sholat — IP-locked prayer times, Hijri countdown ─ */}
+      <section className="px-4 pt-6 sm:px-6">
+        <div className="mx-auto max-w-4xl">
+          <PrayerTimesWidget locale={locale} />
         </div>
       </section>
 

@@ -10,6 +10,7 @@ import { adminAuthRoute } from "./routes/admin-auth.js";
 import { adminRoute } from "./routes/admin.js";
 import { clientRoute } from "./routes/client.js";
 import { analyticsRoute } from "./routes/analytics.js";
+import { geoRoute } from "./routes/geo.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { cleanupObsoleteMurottalR2 } from "./lib/r2-cleanup.js";
 
@@ -34,6 +35,7 @@ app.route("/admin/auth", adminAuthRoute);
 app.route("/admin", adminRoute);
 app.route("/client", clientRoute);
 app.route("/analytics", analyticsRoute);
+app.route("/geo", geoRoute);
 
 // WebSocket gateway to the singleton KeyPoolCoordinator (§13.1)
 app.get("/keypool/connect", async (c) => {

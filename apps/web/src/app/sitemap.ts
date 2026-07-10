@@ -4,7 +4,7 @@ import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
 
 const BASE = "https://ulyah.com";
-const ROUTES = ["", "/quran", "/hadits", "/kisah", "/kitab", "/audiobook", "/harian", "/donasi", "/tentang", "/syukur", "/cari"];
+const ROUTES = ["", "/quran", "/hadits", "/kisah", "/kitab", "/audiobook", "/harian", "/jadwal-sholat", "/donasi", "/tentang", "/syukur", "/cari"];
 
 // The hadith books are a fixed, known set (migration 0012_hadits_collections).
 // Hardcoding the slugs keeps the sitemap buildable offline — no API round-trip

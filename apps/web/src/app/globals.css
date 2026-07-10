@@ -137,3 +137,19 @@ body {
   background-color: rgba(184, 137, 43, 0.4);
   border-radius: 999px;
 }
+
+/* Running-text ticker (Jadwal Sholat's rotating nasehat). The track holds
+   the content twice back-to-back and scrolls exactly one copy's width, so
+   the loop point is seamless. Duration is set inline per instance (longer
+   text needs more time to stay readable). */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-scroll linear infinite;
+}
