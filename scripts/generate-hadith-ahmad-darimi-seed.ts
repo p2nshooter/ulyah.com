@@ -117,7 +117,14 @@ async function main() {
       const row = `  (${id}, ${esc(rec.arab.trim())}, ${esc(rec.id.trim())}, NULL, NULL, ${esc(col.nameId)}, ${esc(col.key)}, ${rec.number})`;
       const rowBytes = new TextEncoder().encode(row).length;
       if (stmtBytes + rowBytes + 2 > MAX_STATEMENT_BYTES && rowsInStmt > 0) {
-        lines.push(stmt.replace(/,\n$/, ";\n"));
+        // Every statement — not just the final one — MUST end with a literal
+        // ";" here. Without it, D1's remote import parser (which splits the
+        // uploaded file on real semicolons) fails to see a boundary and
+        // merges every un-terminated "rollover" statement together into one
+        // multi-megabyte blob, which is what caused a production deploy
+        // failure ("statement too long: SQLITE_TOOBIG") despite every
+        // individual statement being well under MAX_STATEMENT_BYTES.
+        lines.push(stmt + ";\n");
         stmt = "INSERT OR IGNORE INTO hadits (id, text_ar, text_id, narrator, grade, source, collection, hadith_number) VALUES\n";
         stmtBytes = new TextEncoder().encode(stmt).length;
         rowsInStmt = 0;
