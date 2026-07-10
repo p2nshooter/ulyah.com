@@ -5,6 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
+import { DownloadAppSection } from "@/components/DownloadAppSection";
 import { AdSlot } from "@/components/AdSlot";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -179,6 +180,9 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
+
+      {/* ── Download App — explicit pointer, not just the header icon ── */}
+      <DownloadAppSection locale={locale} />
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">

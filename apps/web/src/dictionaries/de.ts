@@ -117,6 +117,7 @@ const de: Dictionary = {
     help: "Hilfe",
     followUs: "Folgen Sie uns",
     rights: "© 2026 Ulyah. Alle Rechte vorbehalten.",
+    privacyPolicy: "Datenschutzrichtlinie",
   },
   donation: {
     title: "Ihre Spende, eine Investition ins Jenseits",

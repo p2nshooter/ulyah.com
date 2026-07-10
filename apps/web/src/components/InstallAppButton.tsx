@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { pwaLabels } from "@/lib/pwa-labels";
+import { api } from "@/lib/api";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -11,13 +12,17 @@ interface BeforeInstallPromptEvent extends Event {
 const INSTALLED_KEY = "ulyah_pwa_installed";
 
 /**
- * A quiet, permanent "Install App" button in the header — never a popup or
- * banner that reappears on every visit. Disappears entirely once the app is
- * actually installed (detected via the `appinstalled` event, standalone
- * display-mode, or a persisted flag from a previous install), so it never
- * re-offers something the visitor already has.
+ * A permanent "Install App" trigger — never a popup or banner that reappears
+ * on every visit. Disappears entirely once the app is actually installed
+ * (detected via the `appinstalled` event, standalone display-mode, or a
+ * persisted flag from a previous install), so it never re-offers something
+ * the visitor already has. `app` tags which installable PWA this instance
+ * offers (main site vs. the standalone Jadwal Sholat mini-app) so the admin
+ * portal's install counter can tell them apart. `labeled` swaps the quiet
+ * icon-only header form for a bigger pill-with-text CTA, for use in a
+ * dedicated "Download App" section rather than tucked in the header.
  */
-export function InstallAppButton() {
+export function InstallAppButton({ app = "main", labeled = false }: { app?: "main" | "sholat"; labeled?: boolean }) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
@@ -30,7 +35,7 @@ export function InstallAppButton() {
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
-    if (standalone || window.localStorage.getItem(INSTALLED_KEY) === "1") {
+    if (standalone || window.localStorage.getItem(`${INSTALLED_KEY}_${app}`) === "1") {
       setInstalled(true);
       return;
     }
@@ -42,9 +47,10 @@ export function InstallAppButton() {
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
     const onInstalled = () => {
-      window.localStorage.setItem(INSTALLED_KEY, "1");
+      window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
       setInstalled(true);
       setDeferredPrompt(null);
+      api.post("/analytics/install", { app }).catch(() => {});
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
@@ -52,7 +58,7 @@ export function InstallAppButton() {
       window.removeEventListener("beforeinstallprompt", onPrompt);
       window.removeEventListener("appinstalled", onInstalled);
     };
-  }, []);
+  }, [app]);
 
   if (installed) return null;
   if (!deferredPrompt && !isIOS) return null; // nothing installable to offer on this browser
@@ -65,12 +71,31 @@ export function InstallAppButton() {
       const choice = await deferredPrompt.userChoice;
       setDeferredPrompt(null); // a captured prompt can only be used once
       if (choice.outcome === "accepted") {
-        window.localStorage.setItem(INSTALLED_KEY, "1");
+        window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
         setInstalled(true);
+        api.post("/analytics/install", { app }).catch(() => {});
       }
     } else if (isIOS) {
       setShowIOSHint((v) => !v);
     }
+  }
+
+  if (labeled) {
+    return (
+      <div className="relative inline-block">
+        <button
+          onClick={handleClick}
+          className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
+        >
+          📲 {t.installApp}
+        </button>
+        {showIOSHint && (
+          <div className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed text-[var(--color-text-primary)] shadow-2xl">
+            {t.iosHint}
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (

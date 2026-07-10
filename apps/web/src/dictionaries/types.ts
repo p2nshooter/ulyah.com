@@ -114,6 +114,7 @@ export interface Dictionary {
     help: string;
     followUs: string;
     rights: string;
+    privacyPolicy: string;
   };
   donation: {
     title: string;

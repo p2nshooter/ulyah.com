@@ -117,6 +117,7 @@ const ja: Dictionary = {
     help: "ヘルプ",
     followUs: "フォローする",
     rights: "© 2026 Ulyah. All rights reserved.",
+    privacyPolicy: "プライバシーポリシー",
   },
   donation: {
     title: "あなたの寄付は、来世への投資です",

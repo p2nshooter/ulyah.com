@@ -33,9 +33,9 @@ export default async function JadwalSholatPage({ params }: { params: Promise<{ l
             <h1 className="font-heading text-2xl sm:text-3xl">🕌 {t.title}</h1>
             <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{t.subtitle}</p>
           </div>
-          <div className="flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3 py-2 text-xs text-[var(--color-text-secondary)]">
-            <InstallAppButton />
-            {t.installStandalone}
+          <div className="flex flex-col items-end gap-1.5">
+            <InstallAppButton app="sholat" labeled />
+            <span className="text-xs text-[var(--color-text-secondary)]">{t.installStandalone}</span>
           </div>
         </div>
 

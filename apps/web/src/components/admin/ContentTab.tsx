@@ -84,6 +84,51 @@ function EnginePanel() {
   );
 }
 
+interface LibraryStats {
+  kitab: { total: number; byCategory: { slug: string; name_id: string; name_ar: string; n: number }[] };
+  installs: { total: number; byApp: { app: string; n: number }[]; daily: { bucket: string; app: string; n: number }[] };
+}
+
+function LibraryStatsPanel() {
+  const [stats, setStats] = useState<LibraryStats | null>(null);
+
+  useEffect(() => {
+    api.get<LibraryStats>("/admin/library-stats").then(setStats).catch(() => {});
+  }, []);
+
+  if (!stats) return null;
+
+  const mainInstalls = stats.installs.byApp.find((a) => a.app === "main")?.n ?? 0;
+  const sholatInstalls = stats.installs.byApp.find((a) => a.app === "sholat")?.n ?? 0;
+
+  return (
+    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <p className="font-heading text-base">📚 Perpustakaan Kitab & Pemasangan Aplikasi</p>
+
+      <div className="mt-3 flex flex-wrap gap-4 text-xs">
+        <span>Total kitab: <b>{stats.kitab.total.toLocaleString("id")}</b></span>
+        <span>Total install: <b>{stats.installs.total.toLocaleString("id")}</b></span>
+        <span>App ULYAH.COM: <b>{mainInstalls.toLocaleString("id")}</b></span>
+        <span>App Jadwal Sholat: <b>{sholatInstalls.toLocaleString("id")}</b></span>
+      </div>
+
+      <p className="mt-4 text-xs font-semibold text-[var(--color-text-secondary)]">Kitab per kategori</p>
+      <div className="mt-2 max-h-64 overflow-y-auto">
+        <table className="w-full text-left text-[11px]">
+          <tbody>
+            {stats.kitab.byCategory.map((c) => (
+              <tr key={c.slug} className="border-t border-[var(--color-border)]">
+                <td className="py-1 pr-2">{c.name_id}</td>
+                <td className="py-1 text-right font-medium">{c.n.toLocaleString("id")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export function ContentTab() {
   const [queue, setQueue] = useState<ReviewItem[]>([]);
   const [scheduleCount, setScheduleCount] = useState(5);
@@ -109,6 +154,7 @@ export function ContentTab() {
   return (
     <div className="space-y-4">
       <EnginePanel />
+      <LibraryStatsPanel />
       <div className="flex items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <input
           type="number"

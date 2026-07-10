@@ -117,6 +117,7 @@ const ru: Dictionary = {
     help: "Помощь",
     followUs: "Мы в соцсетях",
     rights: "© 2026 Ulyah. Все права защищены.",
+    privacyPolicy: "Политика конфиденциальности",
   },
   donation: {
     title: "Ваше пожертвование — вклад в вечную жизнь",

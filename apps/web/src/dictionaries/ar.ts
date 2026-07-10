@@ -117,6 +117,7 @@ const ar: Dictionary = {
     help: "المساعدة",
     followUs: "تابعنا",
     rights: "© 2026 أُلياه. جميع الحقوق محفوظة.",
+    privacyPolicy: "سياسة الخصوصية",
   },
   donation: {
     title: "تبرعك استثمار للآخرة",

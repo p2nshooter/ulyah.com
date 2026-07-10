@@ -21,3 +21,21 @@ analyticsRoute.post("/pageview", async (c) => {
 
   return c.json({ ok: true });
 });
+
+// POST /analytics/install — fired once when a visitor actually accepts the
+// installable-PWA prompt (see InstallAppButton.tsx). Distinguishes the main
+// app from the standalone Jadwal Sholat mini-app so the admin portal can
+// show install counts per app, not just a single combined number.
+analyticsRoute.post("/install", async (c) => {
+  const ip = c.req.header("cf-connecting-ip") ?? "unknown";
+  const rl = await checkRateLimit(c.env, `install:${ip}`, 10, 60);
+  if (!rl.allowed) return c.json({ ok: false }, 429);
+
+  const { app } = await c.req.json<{ app?: string }>().catch(() => ({}) as any);
+  const appKey = app === "sholat" ? "sholat" : "main";
+  const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
+
+  await c.env.DB.prepare("INSERT INTO app_installs (app, country) VALUES (?, ?)").bind(appKey, country).run();
+
+  return c.json({ ok: true });
+});

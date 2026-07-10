@@ -117,6 +117,7 @@ const zh: Dictionary = {
     help: "帮助",
     followUs: "关注我们",
     rights: "© 2026 Ulyah。保留所有权利。",
+    privacyPolicy: "隐私政策",
   },
   donation: {
     title: "您的捐赠，是对后世的投资",

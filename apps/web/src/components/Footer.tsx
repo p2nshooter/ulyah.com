@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
+import { pwaLabels } from "@/lib/pwa-labels";
 
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
   return (
@@ -50,6 +51,8 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{dict.footer.help}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/donasi`}>{dict.nav.donate}</Link></li>
+            <li><Link href={`/${locale}#download-app`}>{pwaLabels(locale).downloadSectionTitle}</Link></li>
+            <li><Link href={`/${locale}/kebijakan-privasi`}>{dict.footer.privacyPolicy}</Link></li>
           </ul>
         </div>
       </div>

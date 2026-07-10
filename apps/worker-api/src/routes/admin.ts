@@ -325,6 +325,37 @@ adminRoute.get("/analytics", async (c) => {
   });
 });
 
+// ── Kitab library breakdown + app install counts (central visibility) ────
+
+adminRoute.get("/library-stats", async (c) => {
+  const [kitabTotal, kitabByCategory, installTotal, installByApp, installRecent] = await Promise.all([
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM kitab_book").first<{ n: number }>(),
+    c.env.DB.prepare(
+      `SELECT cat.slug, cat.name_id, cat.name_ar, COUNT(b.id) AS n
+       FROM kitab_category cat LEFT JOIN kitab_book b ON b.category_slug = cat.slug
+       GROUP BY cat.slug ORDER BY n DESC`
+    ).all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM app_installs").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT app, COUNT(*) AS n FROM app_installs GROUP BY app").all(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y-%m-%d', created_at) AS bucket, app, COUNT(*) AS n FROM app_installs
+       WHERE created_at >= datetime('now','-30 days') GROUP BY bucket, app ORDER BY bucket`
+    ).all(),
+  ]);
+
+  return c.json({
+    kitab: {
+      total: kitabTotal?.n ?? 0,
+      byCategory: kitabByCategory.results,
+    },
+    installs: {
+      total: installTotal?.n ?? 0,
+      byApp: installByApp.results,
+      daily: installRecent.results,
+    },
+  });
+});
+
 // ── Clients / registered donors ──────────────────────────────────────────
 
 adminRoute.get("/clients", async (c) => {

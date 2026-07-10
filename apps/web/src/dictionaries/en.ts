@@ -117,6 +117,7 @@ const en: Dictionary = {
     help: "Help",
     followUs: "Follow Us",
     rights: "© 2026 Ulyah. All rights reserved.",
+    privacyPolicy: "Privacy Policy",
   },
   donation: {
     title: "Your Donation, an Investment in the Hereafter",

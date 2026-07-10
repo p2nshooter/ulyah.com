@@ -117,6 +117,7 @@ const fr: Dictionary = {
     help: "Aide",
     followUs: "Suivez-nous",
     rights: "© 2026 Ulyah. Tous droits réservés.",
+    privacyPolicy: "Politique de confidentialité",
   },
   donation: {
     title: "Votre don, un investissement pour l'au-delà",

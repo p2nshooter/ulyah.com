@@ -117,6 +117,7 @@ const id: Dictionary = {
     help: "Bantuan",
     followUs: "Ikuti Kami",
     rights: "© 2026 Ulyah. All rights reserved.",
+    privacyPolicy: "Kebijakan Privasi",
   },
   donation: {
     title: "Donasi Anda, Investasi Akhirat",
