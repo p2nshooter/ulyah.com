@@ -4,6 +4,7 @@ import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
 import { KISAH_DZULQARNAIN_SERIES } from "../../../../scripts/content/kisah-dzulqarnain";
 import { KISAH_ASHABUL_KAHFI_SERIES } from "../../../../scripts/content/kisah-ashabul-kahfi";
+import { KISAH_NUH_SERIES } from "../../../../scripts/content/kisah-nuh";
 
 const BASE = "https://ulyah.com";
 const ROUTES = ["", "/quran", "/hadits", "/kisah", "/kitab", "/audiobook", "/harian", "/jadwal-sholat", "/donasi", "/tentang", "/syukur", "/terima-kasih", "/cari", "/kebijakan-privasi"];
@@ -44,6 +45,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
     }
     for (const ep of KISAH_ASHABUL_KAHFI_SERIES) {
+      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+    }
+    for (const ep of KISAH_NUH_SERIES) {
       entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
     }
   }
