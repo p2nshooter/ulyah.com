@@ -243,6 +243,20 @@ const de: Dictionary = {
     dua: "O Allah, mache jeden rezitierten Buchstaben, jede gehörte Ayah und jedes über diese Plattform verbreitete Wissen zu einem Gewicht des Guten auf der Waage dieser Familie und aller, die sie unterstützen. Vergib ihnen, erbarme Dich ihrer und versammle uns in Deinem Paradies mit denen, die Du liebst. Amin.",
     listen: "Anhören",
     stop: "Stopp",
+    karyaAbadiTitle: "Ein bleibendes Werk",
+    karyaAbadiIntro:
+      "Solange diese Website besteht, ist ulyah.com eine digitale Koran-Plattform mit Tausenden Text- und Sprachwerken — Bücher, Hadithe und Geschichten, alle vorgelesen.",
+    karyaAbadiQuote:
+      "Es gibt keine vollkommene Güte, wenn sie auf eine Stadt beschränkt bleibt; kein ewiges Glück, wenn es endet und vergeht; und keine wahre Ehre, wenn der Ehrengeber gedemütigt werden kann.",
+    karyaAbadiDedicationIntro:
+      "Wir widmen ulyah.com als Teil des Weges zu ewiger Wonne und Glück vom Geber, der den Thron erschaffen kann.",
+    karyaAbadiDedicationLabel: "Ewige Widmung",
+    karyaAbadiDedicationBody:
+      "Sein Lohn ist der Großfamilie des verstorbenen Vaters H. Mursyidi und der Mutter Hj. Nuri gewidmet — nach rechts und links, unten und oben, hinten und vorn, verwurzelt und verzweigt, blühend, fruchtend und Samen tragend, bis hin zu Al-Chaliq, dem Schöpfer des Throns.",
+    karyaAbadiClosing:
+      "Mag dieser Körper eines Tages getrennt werden — doch glaube, dass dieses Herz sich niemals von der Bestimmung des Göttlichen lösen kann.",
+    karyaAbadiDua: "اَللّٰهُمَّ تَقَبَّلْ مِنَّا وَاجْعَلْ هٰذَا الْعَمَلَ خَالِصًا لِوَجْهِكَ الْكَرِيْمِ. آمِيْن",
+    karyaAbadiFeatures: "Koran — Text & Stimme · Bücher vorgelesen · Hadithe vorgelesen · Geschichten vorgelesen",
   },
 };
 

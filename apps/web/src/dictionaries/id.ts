@@ -243,6 +243,20 @@ const id: Dictionary = {
     dua: "Ya Allah, jadikanlah setiap huruf yang dibaca, setiap ayat yang didengar, dan setiap ilmu yang tersebar melalui website ini sebagai pemberat timbangan kebaikan bagi keluarga ini dan bagi setiap orang yang turut mendukungnya. Ampunilah, rahmatilah, dan kumpulkanlah kami kelak di surga-Mu bersama orang-orang yang Engkau cintai. Aamiin.",
     listen: "Dengarkan Ucapan Ini",
     stop: "Hentikan",
+    karyaAbadiTitle: "Karya Abadi",
+    karyaAbadiIntro:
+      "Selama website ini berputar, ulyah.com hadir sebagai platform Al-Qur'an digital dengan ribuan kitab berbasis teks dan suara — kitab, hadits, dan kisah, semuanya dibacakan.",
+    karyaAbadiQuote:
+      "Tak ada kebaikan sempurna jika habis hanya di satu kota, tak ada kenikmatan abadi jika selesai dan sirna, dan tak ada kemuliaan yang hakiki jika si pemberi kemuliaan bisa hina.",
+    karyaAbadiDedicationIntro:
+      "Kami dedikasikan ulyah.com sebagai bagian dari ikhtiar menempuh kenikmatan dan kebahagiaan abadi dari Sang Pemberi yang mampu membuat 'Arsy.",
+    karyaAbadiDedicationLabel: "Dedikasi Abadi",
+    karyaAbadiDedicationBody:
+      "Diniatkan pahalanya bagi keluarga besar Papah Alm. H. Mursyidi & Mamah Hj. Nuri — ke kanan dan ke kiri, ke bawah dan ke atas, ke belakang dan ke depan, berakar dan bercabang, berbunga, berbuah, dan berbibit, hingga berakhir kepada Al-Khaliq, Pencipta Al-Kursi.",
+    karyaAbadiClosing:
+      "Biarlah fisik ini kelak akan terpisah, percayalah hati ini tak bisa lepas dari ketetapan Sang Ilahi.",
+    karyaAbadiDua: "اَللّٰهُمَّ تَقَبَّلْ مِنَّا وَاجْعَلْ هٰذَا الْعَمَلَ خَالِصًا لِوَجْهِكَ الْكَرِيْمِ. آمِيْن",
+    karyaAbadiFeatures: "Al-Qur'an — Teks & Suara · Kitab Dibacakan · Hadits Dibacakan · Kisah Dibacakan",
   },
 };
 

@@ -14,9 +14,10 @@ import { ClientsTab } from "@/components/admin/ClientsTab";
 import { ScalingTab } from "@/components/admin/ScalingTab";
 import { AccountTab } from "@/components/admin/AccountTab";
 import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
+import { SettingsTab } from "@/components/admin/SettingsTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account";
+type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -68,6 +69,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["clients", dict.admin.clients],
     ["scaling", dict.admin.scaling],
     ["log", dict.admin.auditLog],
+    ["settings", "Settings"],
     ["account", "Account"],
   ];
 
@@ -110,6 +112,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "clients" && <ClientsTab />}
         {tab === "scaling" && <ScalingTab />}
         {tab === "log" && <AuditLogTab />}
+        {tab === "settings" && <SettingsTab />}
         {tab === "account" && <AccountTab />}
       </div>
     </div>

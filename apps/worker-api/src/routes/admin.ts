@@ -6,6 +6,7 @@ import type { Env } from "../env.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey } from "../lib/keypool-db.js";
+import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -412,4 +413,41 @@ adminRoute.post("/engine/toggle", async (c) => {
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, enabled ? "engine_started" : "engine_stopped", admin.email, c.req.header("cf-connecting-ip") ?? null, {});
   return c.json({ ok: true, engineEnabled: settings.engineEnabled });
+});
+
+// ── Runtime settings (PayPal / NOWPayments credentials, etc.) ────────────
+// CRUD, AES-256-GCM encrypted at rest — see lib/settings.ts. A row here
+// always overrides the GitHub Secret env var of the same name; deleting the
+// row reverts to that env var, it never hard-fails.
+
+// GET /admin/settings — status of every managed key (secrets masked)
+adminRoute.get("/settings", async (c) => {
+  return c.json({ settings: await listSettingsStatus(c.env) });
+});
+
+// PUT /admin/settings/:key — create/update one setting
+adminRoute.put("/settings/:key", async (c) => {
+  const key = c.req.param("key");
+  if (!MANAGED_SETTINGS.some((s) => s.key === key)) {
+    return c.json({ error: `Unknown setting key: ${key}` }, 400);
+  }
+  const { value } = await c.req.json<{ value?: string }>();
+  if (!value || !value.trim()) return c.json({ error: "value required" }, 400);
+
+  const admin = c.get("admin" as never) as { email: string };
+  await setSetting(c.env, key, value.trim(), admin.email);
+  await logAdminAction(c.env, "setting_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
+  return c.json({ ok: true });
+});
+
+// DELETE /admin/settings/:key — revert to the env/GitHub-Secret fallback
+adminRoute.delete("/settings/:key", async (c) => {
+  const key = c.req.param("key");
+  if (!MANAGED_SETTINGS.some((s) => s.key === key)) {
+    return c.json({ error: `Unknown setting key: ${key}` }, 400);
+  }
+  await deleteSetting(c.env, key);
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "setting_reverted", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
+  return c.json({ ok: true });
 });

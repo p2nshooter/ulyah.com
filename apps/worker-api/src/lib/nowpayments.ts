@@ -1,4 +1,5 @@
 import type { Env } from "../env.js";
+import { getSetting } from "./settings.js";
 
 function toArrayBuffer(u: Uint8Array): ArrayBuffer {
   return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength) as ArrayBuffer;
@@ -9,9 +10,13 @@ export async function createNowPaymentsInvoice(
   amount: number,
   currency = "usd"
 ): Promise<{ id: string; invoiceUrl: string }> {
+  const apiKey = await getSetting(env, "NOWPAYMENTS_API_KEY");
+  if (!apiKey) {
+    throw new Error("NOWPayments API key not configured — set it in Portal Admin → Settings or docs/SETUP.md");
+  }
   const res = await fetch("https://api.nowpayments.io/v1/invoice", {
     method: "POST",
-    headers: { "x-api-key": env.NOWPAYMENTS_API_KEY, "Content-Type": "application/json" },
+    headers: { "x-api-key": apiKey, "Content-Type": "application/json" },
     body: JSON.stringify({
       price_amount: amount,
       price_currency: currency,
@@ -28,14 +33,15 @@ export async function createNowPaymentsInvoice(
 
 /** NOWPayments IPN signature: HMAC-SHA512 over the JSON body with keys sorted alphabetically. */
 export async function verifyNowPaymentsIpn(env: Env, rawBody: string, signature: string | null): Promise<boolean> {
-  if (!env.NOWPAYMENTS_IPN_SECRET || !signature) return false;
+  const ipnSecret = await getSetting(env, "NOWPAYMENTS_IPN_SECRET");
+  if (!ipnSecret || !signature) return false;
 
   const parsed = JSON.parse(rawBody);
   const sorted = JSON.stringify(sortKeys(parsed));
 
   const key = await crypto.subtle.importKey(
     "raw",
-    toArrayBuffer(new TextEncoder().encode(env.NOWPAYMENTS_IPN_SECRET)),
+    toArrayBuffer(new TextEncoder().encode(ipnSecret)),
     { name: "HMAC", hash: "SHA-512" },
     false,
     ["sign"]

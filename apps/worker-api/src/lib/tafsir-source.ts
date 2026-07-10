@@ -1,5 +1,6 @@
 import type { Env } from "../env.js";
 import { ASBAB_DATA } from "./asbabun-nuzul-data.js";
+import { translateText } from "./mt.js";
 
 /**
  * Tafsir + asbabun nuzul, fetched on demand and KV-cached per surah — never
@@ -106,7 +107,8 @@ export async function fetchTafsir(
 export async function fetchAsbabunNuzul(
   env: Env,
   surah: number,
-  ayahNumber: number
+  ayahNumber: number,
+  lang: string | null = "id"
 ): Promise<{ text: string; source: string } | null> {
   const key = `${surah}_${ayahNumber}`;
   if (key in ASBAB_DATA) {
@@ -121,6 +123,15 @@ export async function fetchAsbabunNuzul(
   );
   const hit = data?.ayahs?.find((a) => a.ayah === ayahNumber);
   const text = hit?.text?.trim();
-  if (text && text.length >= 40) return { text, source: ASBAB_SOURCE };
-  return null;
+  if (!text || text.length < 40) return null;
+
+  // This fallback edition is English-only. Surfacing raw English in an
+  // otherwise all-Indonesian panel (translation, Tafsir Kemenag) read as a
+  // broken/inconsistent page, so translate it on demand and cache the
+  // result forever (same fetch-and-cache shape as lib/mt.ts elsewhere).
+  if (!lang || lang === "id") {
+    const translated = await translateText(env, text, "id", "en");
+    if (translated) return { text: translated, source: `${ASBAB_SOURCE} (diterjemahkan)` };
+  }
+  return { text, source: ASBAB_SOURCE };
 }

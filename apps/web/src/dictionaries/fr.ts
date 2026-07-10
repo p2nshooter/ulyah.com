@@ -243,6 +243,20 @@ const fr: Dictionary = {
     dua: "Ô Allah, fais de chaque lettre récitée, de chaque verset entendu et de chaque savoir diffusé par cette plateforme un poids de bien dans la balance de cette famille et de tous ceux qui la soutiennent. Pardonne-leur, fais-leur miséricorde et rassemble-nous dans Ton Paradis avec ceux que Tu aimes. Amin.",
     listen: "Écouter",
     stop: "Arrêter",
+    karyaAbadiTitle: "Une œuvre éternelle",
+    karyaAbadiIntro:
+      "Tant que ce site fonctionnera, ulyah.com restera une plateforme numérique du Coran avec des milliers d'œuvres textuelles et vocales — livres, hadiths et récits, tous lus à voix haute.",
+    karyaAbadiQuote:
+      "Il n'y a pas de bonté parfaite si elle se limite à une seule ville, pas de félicité éternelle si elle prend fin et s'évanouit, et pas d'honneur véritable si celui qui l'accorde peut être humilié.",
+    karyaAbadiDedicationIntro:
+      "Nous dédions ulyah.com comme faisant partie du chemin vers la félicité et le bonheur éternels du Donateur capable de créer le Trône.",
+    karyaAbadiDedicationLabel: "Dédicace éternelle",
+    karyaAbadiDedicationBody:
+      "Sa récompense est destinée à la grande famille de feu le père H. Mursyidi et de la mère Hj. Nuri — à droite et à gauche, en bas et en haut, derrière et devant, s'enracinant et se ramifiant, fleurissant, fructifiant et semant, jusqu'à Al-Khaliq, le Créateur du Trône.",
+    karyaAbadiClosing:
+      "Que ce corps soit un jour séparé — mais crois que ce cœur ne peut jamais se détacher du décret du Divin.",
+    karyaAbadiDua: "اَللّٰهُمَّ تَقَبَّلْ مِنَّا وَاجْعَلْ هٰذَا الْعَمَلَ خَالِصًا لِوَجْهِكَ الْكَرِيْمِ. آمِيْن",
+    karyaAbadiFeatures: "Coran — Texte et voix · Livres narrés · Hadiths narrés · Récits narrés",
   },
 };
 

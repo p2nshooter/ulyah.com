@@ -243,6 +243,18 @@ const zh: Dictionary = {
     dua: "主啊，求你使经由本平台诵读的每一个字母、聆听的每一节经文、传播的每一份知识，都成为这个家庭以及每一位支持者善功天平上的分量。求你饶恕他们、慈悯他们，并使我们在你所喜爱者的行列中共聚于你的乐园。阿敏。",
     listen: "聆听此致辞",
     stop: "停止",
+    karyaAbadiTitle: "永恒的功业",
+    karyaAbadiIntro:
+      "只要这个网站运转，ulyah.com 就是一个数字古兰经平台，拥有成千上万的文字与语音作品——典籍、圣训与故事，皆可朗读。",
+    karyaAbadiQuote:
+      "若善行只局限于一座城市，便算不上完美的善；若欢愉终将结束消逝，便算不上永恒的欢愉；若施予荣耀者自身可被羞辱，便算不上真正的荣耀。",
+    karyaAbadiDedicationIntro: "我们将 ulyah.com 献给通往永恒欢愉与幸福之路，来自那位能够创造宝座的赐予者。",
+    karyaAbadiDedicationLabel: "永恒的奉献",
+    karyaAbadiDedicationBody:
+      "谨以此功德回向已故的父亲 H. Mursyidi 与母亲 Hj. Nuri 的大家庭——向右向左，向下向上，向后向前，生根发芽，开花结果，直至归于宝座的创造者 Al-Khaliq。",
+    karyaAbadiClosing: "任凭肉身终将分离，但请相信，这颗心永远不会脱离真主的前定。",
+    karyaAbadiDua: "اَللّٰهُمَّ تَقَبَّلْ مِنَّا وَاجْعَلْ هٰذَا الْعَمَلَ خَالِصًا لِوَجْهِكَ الْكَرِيْمِ. آمِيْن",
+    karyaAbadiFeatures: "古兰经——文字与语音 · 典籍朗读 · 圣训朗读 · 故事朗读",
   },
 };
 

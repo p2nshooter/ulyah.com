@@ -239,5 +239,14 @@ export interface Dictionary {
     dua: string;
     listen: string;
     stop: string;
+    karyaAbadiTitle: string;
+    karyaAbadiIntro: string;
+    karyaAbadiQuote: string;
+    karyaAbadiDedicationIntro: string;
+    karyaAbadiDedicationLabel: string;
+    karyaAbadiDedicationBody: string;
+    karyaAbadiClosing: string;
+    karyaAbadiDua: string;
+    karyaAbadiFeatures: string;
   };
 }

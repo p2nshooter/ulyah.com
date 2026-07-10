@@ -71,11 +71,12 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   const { lang, requested } = langParam(c);
 
   // Bump this version whenever the bundle's content sources change so old
-  // cached bundles don't keep serving stale/empty tafsir/asbabun. v3 = tafsir
-  // now comes from equran.id (Tafsir Kemenag RI) + the curated asbabun nuzul
-  // dataset (see lib/tafsir-source.ts). TTL is short so future fixes self-heal
-  // in minutes, not hours.
-  const cacheKey = `quran:ayah:v3:${surahId}:${number}:${requested}`;
+  // cached bundles don't keep serving stale/empty/wrong-language tafsir or
+  // asbabun. v4 = asbabun nuzul's English fallback (spa5k Al-Wahidi, used for
+  // ayat outside the curated dataset) is now translated to Indonesian instead
+  // of leaking raw English into an otherwise Indonesian panel. TTL is short
+  // so future fixes self-heal in minutes, not hours.
+  const cacheKey = `quran:ayah:v4:${surahId}:${number}:${requested}`;
   const cached = await c.env.CACHE_KV.get(cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
@@ -93,7 +94,7 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
           .first()
       : Promise.resolve(null),
     fetchTafsir(c.env, lang, surahId, number),
-    fetchAsbabunNuzul(c.env, surahId, number),
+    fetchAsbabunNuzul(c.env, surahId, number, lang),
     c.env.DB.prepare(
       `SELECT h.*, m.relevance_note FROM hadits h
        JOIN ayah_hadits_map m ON m.hadits_id = h.id

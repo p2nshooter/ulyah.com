@@ -243,6 +243,20 @@ const en: Dictionary = {
     dua: "O Allah, make every letter recited, every ayah heard, and every knowledge spread through this platform a weight of good in the scales of this family and of everyone who supports it. Forgive them, have mercy upon them, and gather us in Your Paradise with those You love. Ameen.",
     listen: "Listen to This Message",
     stop: "Stop",
+    karyaAbadiTitle: "An Everlasting Work",
+    karyaAbadiIntro:
+      "For as long as this website runs, ulyah.com stands as a digital Qur'an platform with thousands of text- and voice-based works — books, hadith, and stories, all narrated aloud.",
+    karyaAbadiQuote:
+      "There is no perfect goodness if it ends confined to a single city; no everlasting bliss if it finishes and fades; and no true honor if the one who grants honor can be humbled.",
+    karyaAbadiDedicationIntro:
+      "We dedicate ulyah.com as part of a journey toward everlasting bliss and happiness from the One who is able to build the 'Arsh.",
+    karyaAbadiDedicationLabel: "Everlasting Dedication",
+    karyaAbadiDedicationBody:
+      "Its reward is intended for the extended family of the late Papa H. Mursyidi and Mama Hj. Nuri — to the right and the left, below and above, behind and ahead, rooted and branching, flowering, fruiting and seeding, until it reaches Al-Khaliq, the Creator of the Throne.",
+    karyaAbadiClosing:
+      "Let this body one day be parted — but believe that this heart can never be separated from the decree of the Divine.",
+    karyaAbadiDua: "اَللّٰهُمَّ تَقَبَّلْ مِنَّا وَاجْعَلْ هٰذَا الْعَمَلَ خَالِصًا لِوَجْهِكَ الْكَرِيْمِ. آمِيْن",
+    karyaAbadiFeatures: "Qur'an — Text & Voice · Books Narrated · Hadith Narrated · Stories Narrated",
   },
 };
 

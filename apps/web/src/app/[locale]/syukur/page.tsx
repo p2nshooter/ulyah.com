@@ -104,6 +104,51 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
           </div>
         </div>
       </section>
+
+      {/* Karya Abadi — perpetual dedication */}
+      <section className="relative overflow-hidden bg-[#06251b] px-4 py-20 text-center text-[#f4efe3] sm:px-6">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.1]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 50% 0%, rgba(184,137,43,0.6), transparent 60%), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0l8 22 22 8-22 8-8 22-8-22-22-8 22-8z' fill='%23B8892B' fill-opacity='0.15'/%3E%3C/svg%3E\")",
+          }}
+        />
+        <div className="relative mx-auto max-w-2xl">
+          <h2 className="font-heading text-3xl text-accent sm:text-4xl">{s.karyaAbadiTitle}</h2>
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-[#f4efe3]/85 sm:text-base">
+            {s.karyaAbadiIntro}
+          </p>
+
+          <blockquote className="mx-auto mt-8 max-w-lg border-l-2 border-accent/50 pl-5 text-left text-sm italic leading-relaxed text-[#f4efe3]/75 sm:text-base">
+            “{s.karyaAbadiQuote}”
+          </blockquote>
+
+          <p className="mx-auto mt-8 max-w-xl text-sm leading-relaxed text-[#f4efe3]/85 sm:text-base">
+            {s.karyaAbadiDedicationIntro}
+          </p>
+
+          <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-accent/30 bg-white/[0.03] p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              {s.karyaAbadiDedicationLabel}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[#f4efe3]/85 sm:text-base">
+              {s.karyaAbadiDedicationBody}
+            </p>
+          </div>
+
+          <p className="mx-auto mt-8 max-w-lg text-sm italic leading-relaxed text-[#f4efe3]/70">
+            {s.karyaAbadiClosing}
+          </p>
+
+          <p dir="rtl" className="font-arabic mt-6 text-xl text-accent sm:text-2xl">
+            {s.karyaAbadiDua}
+          </p>
+
+          <p className="mt-8 text-[11px] uppercase tracking-[0.15em] text-[#f4efe3]/50">{s.karyaAbadiFeatures}</p>
+        </div>
+      </section>
     </div>
   );
 }
