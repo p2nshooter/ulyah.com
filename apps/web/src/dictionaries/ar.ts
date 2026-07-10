@@ -43,7 +43,9 @@ const ar: Dictionary = {
     tafsirTranslation: "التفسير والترجمة",
     asbabunNuzul: "أسباب النزول",
     haditsSupport: "الأحاديث الداعمة",
+    kitabLibrary: "مكتبة الكتب التراثية",
     storiesWisdom: "القصص والحكم",
+    prayerSchedule: "مواقيت الصلاة",
     qualityAudio: "صوت عالي الجودة",
   },
   stats: {

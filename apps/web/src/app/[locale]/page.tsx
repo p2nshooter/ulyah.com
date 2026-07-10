@@ -13,13 +13,17 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
 
-  const featureIcons: [string, string][] = [
-    ["📖", dict.featureIcons.quranComplete],
-    ["📝", dict.featureIcons.tafsirTranslation],
-    ["📜", dict.featureIcons.asbabunNuzul],
-    ["🕌", dict.featureIcons.haditsSupport],
-    ["✨", dict.featureIcons.storiesWisdom],
-    ["🎙️", dict.featureIcons.qualityAudio],
+  // Quick-access tiles — each links straight to the feature it names, so the
+  // hero row doubles as real navigation instead of being purely decorative.
+  const featureIcons: [string, string, string][] = [
+    ["📖", dict.featureIcons.quranComplete, `/${locale}/quran`],
+    ["📝", dict.featureIcons.tafsirTranslation, `/${locale}/quran`],
+    ["📜", dict.featureIcons.asbabunNuzul, `/${locale}/quran`],
+    ["🕌", dict.featureIcons.haditsSupport, `/${locale}/hadits`],
+    ["📗", dict.featureIcons.kitabLibrary, `/${locale}/kitab`],
+    ["✨", dict.featureIcons.storiesWisdom, `/${locale}/kisah`],
+    ["🕋", dict.featureIcons.prayerSchedule, `/${locale}/jadwal-sholat`],
+    ["🎙️", dict.featureIcons.qualityAudio, `/${locale}/audiobook`],
   ];
 
   const stats: [string, string, string][] = [
@@ -67,16 +71,16 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                 {dict.hero.ctaSecondary}
               </Link>
             </div>
-            <div className="mt-10 grid grid-cols-3 gap-y-5 sm:grid-cols-6">
-              {featureIcons.map(([icon, label]) => (
-                <div key={label} className="text-center">
-                  <div className="mx-auto grid h-11 w-11 place-items-center rounded-2xl border border-accent/30 bg-accent/5 text-lg">
+            <div className="mt-10 grid grid-cols-4 gap-y-5">
+              {featureIcons.map(([icon, label, href]) => (
+                <Link key={label} href={href} className="group text-center">
+                  <div className="mx-auto grid h-11 w-11 place-items-center rounded-2xl border border-accent/30 bg-accent/5 text-lg transition group-hover:border-accent group-hover:bg-accent/15">
                     {icon}
                   </div>
-                  <p className="mx-auto mt-1.5 max-w-[72px] text-[10px] leading-tight text-[var(--color-text-secondary)]">
+                  <p className="mx-auto mt-1.5 max-w-[72px] text-[10px] leading-tight text-[var(--color-text-secondary)] transition group-hover:text-accent">
                     {label}
                   </p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

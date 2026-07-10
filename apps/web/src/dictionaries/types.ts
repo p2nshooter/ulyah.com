@@ -40,7 +40,9 @@ export interface Dictionary {
     tafsirTranslation: string;
     asbabunNuzul: string;
     haditsSupport: string;
+    kitabLibrary: string;
     storiesWisdom: string;
+    prayerSchedule: string;
     qualityAudio: string;
   };
   stats: {

@@ -43,7 +43,9 @@ const zh: Dictionary = {
     tafsirTranslation: "经注与翻译",
     asbabunNuzul: "降示背景",
     haditsSupport: "相关圣训",
+    kitabLibrary: "古典典籍图书馆",
     storiesWisdom: "故事与智慧",
+    prayerSchedule: "礼拜时间表",
     qualityAudio: "高品质音频",
   },
   stats: {

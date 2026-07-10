@@ -43,7 +43,9 @@ const id: Dictionary = {
     tafsirTranslation: "Tafsir & Terjemahan",
     asbabunNuzul: "Asbabun Nuzul",
     haditsSupport: "Hadits Pendukung",
+    kitabLibrary: "Perpustakaan Kitab Klasik",
     storiesWisdom: "Kisah & Hikmah",
+    prayerSchedule: "Jadwal Sholat",
     qualityAudio: "Audio Berkualitas",
   },
   stats: {

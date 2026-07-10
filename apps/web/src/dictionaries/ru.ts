@@ -43,7 +43,9 @@ const ru: Dictionary = {
     tafsirTranslation: "Тафсир и перевод",
     asbabunNuzul: "Причины ниспослания",
     haditsSupport: "Подтверждающие хадисы",
+    kitabLibrary: "Библиотека классических китабов",
     storiesWisdom: "Истории и мудрость",
+    prayerSchedule: "Расписание молитв",
     qualityAudio: "Качественное аудио",
   },
   stats: {

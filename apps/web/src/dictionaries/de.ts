@@ -43,7 +43,9 @@ const de: Dictionary = {
     tafsirTranslation: "Tafsir & Übersetzung",
     asbabunNuzul: "Offenbarungsanlässe",
     haditsSupport: "Unterstützende Hadithe",
+    kitabLibrary: "Klassische Werke",
     storiesWisdom: "Geschichten & Weisheit",
+    prayerSchedule: "Gebetszeiten",
     qualityAudio: "Hochwertiges Audio",
   },
   stats: {

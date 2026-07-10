@@ -43,7 +43,9 @@ const ja: Dictionary = {
     tafsirTranslation: "タフスィールと翻訳",
     asbabunNuzul: "啓示の背景",
     haditsSupport: "関連ハディース",
+    kitabLibrary: "古典書籍ライブラリー",
     storiesWisdom: "物語と知恵",
+    prayerSchedule: "礼拝時間表",
     qualityAudio: "高品質オーディオ",
   },
   stats: {
