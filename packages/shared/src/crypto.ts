@@ -65,9 +65,16 @@ export async function decryptApiKey(payload: EncryptedPayload, secretB64: string
   return td.decode(pt);
 }
 
-// ── Password hashing (PBKDF2-SHA256, 210k iterations — OWASP 2024 baseline) ─
+// ── Password hashing (PBKDF2-SHA256, 100k iterations — Workers runtime cap) ─
 
-const PBKDF2_ITERATIONS = 210_000;
+// Cloudflare Workers' WebCrypto caps PBKDF2 at 100,000 iterations — this
+// isn't a Node/browser polyfill, it's a hard runtime ceiling (deriveBits
+// throws "iteration counts above 100000 are not supported" past it). Every
+// password hash/verify call runs inside the Worker, so 210,000 (the plain
+// OWASP-2024 baseline meant for a general server) silently broke every
+// admin login, registration, and login on this platform. 100,000 is OWASP's
+// own minimum-acceptable floor for PBKDF2-SHA256, not an arbitrary downgrade.
+const PBKDF2_ITERATIONS = 100_000;
 
 export async function hashPassword(password: string): Promise<string> {
   const salt = crypto.getRandomValues(new Uint8Array(16));
