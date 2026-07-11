@@ -66,7 +66,7 @@ const EN: PrivacyLabels = {
     {
       heading: "Contact",
       body: [
-        "Questions about this policy or your data can be raised through the donor registration/contact flow on this site.",
+        "Questions about this policy or your data can be sent to salam@ulyah.com.",
       ],
     },
   ],
@@ -123,7 +123,7 @@ const ID: PrivacyLabels = {
     {
       heading: "Kontak",
       body: [
-        "Pertanyaan tentang kebijakan ini atau data Anda dapat disampaikan melalui alur pendaftaran/kontak donatur di situs ini.",
+        "Pertanyaan tentang kebijakan ini atau data Anda dapat dikirim ke salam@ulyah.com.",
       ],
     },
   ],

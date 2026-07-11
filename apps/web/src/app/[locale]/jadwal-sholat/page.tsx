@@ -23,8 +23,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function JadwalSholatPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function JadwalSholatPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ install?: string }>;
+}) {
   const { locale: raw } = await params;
+  const { install } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = prayerLabels(locale);
 
@@ -37,7 +44,7 @@ export default async function JadwalSholatPage({ params }: { params: Promise<{ l
             <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{t.subtitle}</p>
           </div>
           <div className="flex flex-col items-end gap-1.5">
-            <InstallAppButton app="sholat" labeled />
+            <InstallAppButton app="sholat" labeled autoPrompt={install === "1"} />
             <span className="text-xs text-[var(--color-text-secondary)]">{t.installStandalone}</span>
           </div>
         </div>

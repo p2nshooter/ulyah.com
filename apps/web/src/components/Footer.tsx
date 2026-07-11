@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { pwaLabels } from "@/lib/pwa-labels";
+import { contactLabels } from "@/lib/contact-labels";
 
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
   return (
@@ -44,6 +45,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             <li><Link href={`/${locale}/tentang`}>{dict.nav.about}</Link></li>
             <li><Link href={`/${locale}/syukur`}>{dict.syukur.navLabel}</Link></li>
             <li><Link href={`/${locale}/terima-kasih`}>{dict.nav.thanks}</Link></li>
+            <li><Link href={`/${locale}/kontak`}>{contactLabels(locale).navLabel}</Link></li>
             <li><Link href={`/${locale}/daftar`}>{dict.auth.registerTitle}</Link></li>
             <li><Link href={`/${locale}/masuk`}>{dict.auth.loginTitle}</Link></li>
           </ul>

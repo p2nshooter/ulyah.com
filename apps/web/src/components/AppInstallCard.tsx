@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { InstallAppButton } from "@/components/InstallAppButton";
 
@@ -103,12 +102,18 @@ export function SholatAppInstallCard({ locale }: { locale: string }) {
       name={t.sholatAppName}
       desc={t.sholatAppDesc}
       cta={
-        <Link
-          href={`/${locale}/jadwal-sholat`}
+        // A plain <a> (not next/link) forces a full document reload, so the
+        // browser starts fresh with manifest-sholat.json as the only
+        // manifest it has ever seen in this tab — client-side navigation
+        // between two different manifests is unreliable for getting
+        // beforeinstallprompt to fire for the right one. ?install=1 tells
+        // that page to fire the native prompt the instant it's ready.
+        <a
+          href={`/${locale}/jadwal-sholat?install=1`}
           className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
         >
           {t.sholatAppCta}
-        </Link>
+        </a>
       }
     />
   );
