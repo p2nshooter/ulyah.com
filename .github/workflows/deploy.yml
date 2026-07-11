@@ -114,6 +114,33 @@ jobs:
         working-directory: apps/worker-api
         run: npx wrangler d1 migrations apply ulyah-db --remote
 
+      - name: Ingest AI keys from secret into the pool (secure, idempotent)
+        working-directory: apps/worker-api
+        env:
+          AI_KEY_BULK_IMPORT: ${{ secrets.AI_KEY_BULK_IMPORT }}
+          KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
+        run: |
+          set -eu
+          # Only does anything when the owner has set the AI_KEY_BULK_IMPORT
+          # GitHub Secret (a blob of NVIDIA/OpenRouter keys). Keys are AES-256
+          # encrypted here with KEY_ENCRYPTION_SECRET (same as the worker) and
+          # inserted as 'active'; a SHA-256 fingerprint makes re-runs a no-op.
+          # Nothing is ever written to the repo.
+          if [ -z "${AI_KEY_BULK_IMPORT:-}" ]; then
+            echo "AI_KEY_BULK_IMPORT not set — skipping key ingest."
+            exit 0
+          fi
+          EXISTING_FP=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT key_fingerprint FROM ai_key_pool WHERE key_fingerprint IS NOT NULL;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results.map(r=>r.key_fingerprint).join(','))}catch(e){console.log('')}})" || echo "")
+          EXISTING_FP="$EXISTING_FP" node ../../scripts/ingest-bulk-keys.mjs > /tmp/keys.sql 2>/tmp/keys.err || true
+          cat /tmp/keys.err || true
+          if [ -s /tmp/keys.sql ]; then
+            echo "Applying $(grep -c 'INSERT INTO ai_key_pool' /tmp/keys.sql) new key(s) to the pool."
+            npx wrangler d1 execute ulyah-db --remote --file=/tmp/keys.sql
+          else
+            echo "No new keys to ingest."
+          fi
+          rm -f /tmp/keys.sql /tmp/keys.err
+
       - name: Seed Qur'an text + translations + curated content (idempotent)
         working-directory: apps/worker-api
         run: |
