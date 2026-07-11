@@ -20,9 +20,10 @@ import { RoadmapTab } from "@/components/admin/RoadmapTab";
 import { LibraryTab } from "@/components/admin/LibraryTab";
 import { AdsenseTab } from "@/components/admin/AdsenseTab";
 import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
+import { MonitorTab } from "@/components/admin/MonitorTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets";
+type Tab = "dashboard" | "monitor" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -66,6 +67,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
 
   const tabs: [Tab, string][] = [
     ["dashboard", dict.admin.dashboardTitle],
+    ["monitor", "🖥️ Monitor"],
     ["analytics", "Analytics"],
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
@@ -114,6 +116,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
       )}
 
       <div className="mt-6">
+        {tab === "monitor" && <MonitorTab locale={locale} />}
         {tab === "analytics" && <AnalyticsTab />}
         {tab === "keys" && <KeyPoolTab />}
         {tab === "content" && <ContentTab />}

@@ -460,6 +460,86 @@ adminRoute.get("/library-stats", async (c) => {
   });
 });
 
+// ── Monitor: one-glance health of every menu/feature on the site ──────────
+// Each feature reports ok/warn/error from a cheap COUNT (or config check), so
+// the owner can watch all menus at once and spot anything empty or broken.
+adminRoute.get("/health", async (c) => {
+  const count = async (sql: string): Promise<number> => {
+    try {
+      const r = await c.env.DB.prepare(sql).first<{ n: number }>();
+      return r?.n ?? 0;
+    } catch {
+      return -1; // -1 = query failed (table missing / error)
+    }
+  };
+
+  const [
+    surah,
+    ayah,
+    translation,
+    hadits,
+    haditsColl,
+    kitab,
+    pesantren,
+    amalan,
+    nasakh,
+    stories,
+    ebooks,
+    tafsir,
+    activeKeys,
+    totalKeys,
+    installs,
+  ] = await Promise.all([
+    count("SELECT COUNT(*) n FROM surah"),
+    count("SELECT COUNT(*) n FROM ayah"),
+    count("SELECT COUNT(*) n FROM translation"),
+    count("SELECT COUNT(*) n FROM hadits"),
+    count("SELECT COUNT(*) n FROM hadits_collection"),
+    count("SELECT COUNT(*) n FROM kitab_book"),
+    count("SELECT COUNT(*) n FROM pesantren_kitab"),
+    count("SELECT COUNT(*) n FROM amalan_item"),
+    count("SELECT COUNT(*) n FROM nasakh_mansukh"),
+    count("SELECT COUNT(*) n FROM stories WHERE status='published'"),
+    count("SELECT COUNT(*) n FROM ebooks"),
+    count("SELECT COUNT(*) n FROM tafsir"),
+    count("SELECT COUNT(*) n FROM ai_key_pool WHERE status IN ('active','slow')"),
+    count("SELECT COUNT(*) n FROM ai_key_pool"),
+    count("SELECT COUNT(*) n FROM app_installs"),
+  ]);
+
+  let adsenseSlot = "";
+  try {
+    const raw = await c.env.CACHE_KV.get("adsense:config");
+    if (raw) adsenseSlot = JSON.parse(raw).slotId ?? "";
+  } catch {
+    /* ignore */
+  }
+
+  // status: 'ok' | 'warn' | 'error'. error = query failed; warn = empty/needs
+  // action; ok = has content.
+  const s = (n: number, warnIfZero = true): "ok" | "warn" | "error" =>
+    n < 0 ? "error" : n === 0 && warnIfZero ? "warn" : "ok";
+
+  const features = [
+    { key: "quran", label: "Al-Qur'an", route: "/quran", status: s(ayah), count: ayah, note: `${surah} surah · ${translation} terjemah` },
+    { key: "hadits", label: "Hadits", route: "/hadits", status: s(hadits), count: hadits, note: `${haditsColl} koleksi` },
+    { key: "tafsir", label: "Tafsir", route: "/quran", status: tafsir < 0 ? "error" : "ok", count: tafsir, note: "on-demand + cache (spa5k/Kemenag)" },
+    { key: "kitab", label: "Kitab (katalog)", route: "/kitab", status: s(kitab), count: kitab, note: "katalog Syamela" },
+    { key: "pesantren", label: "Kitab Pesantren", route: "/kitab-pesantren", status: s(pesantren), count: pesantren, note: "kitab bisa dibaca" },
+    { key: "amalan", label: "Amalan Harian", route: "/amalan", status: s(amalan), count: amalan, note: "doa/dzikir/thibb" },
+    { key: "nasakh", label: "Nasakh & Mansukh", route: "/nasakh", status: s(nasakh), count: nasakh, note: "" },
+    { key: "kisah", label: "Kisah", route: "/kisah", status: s(stories), count: stories, note: "kisah terbit" },
+    { key: "ebooks", label: "E-book / PDF", route: "/audiobook", status: s(ebooks), count: ebooks, note: "" },
+    { key: "radio", label: "Radio Qori", route: "/jadwal-sholat", status: s(surah), count: surah, note: "streaming dari CDN qori" },
+    { key: "jadwal", label: "Jadwal Sholat", route: "/jadwal-sholat", status: "ok", count: 0, note: "hitung dari lokasi (adhan)" },
+    { key: "keys", label: "Smart Engine (Key Pool)", route: "", status: activeKeys < 0 ? "error" : activeKeys === 0 ? "warn" : "ok", count: activeKeys, note: `${activeKeys}/${totalKeys} key aktif` },
+    { key: "adsense", label: "AdSense", route: "", status: adsenseSlot ? "ok" : "warn", count: 0, note: adsenseSlot ? `ID iklan terpasang (…${adsenseSlot.slice(-4)})` : "belum ada ID iklan (isi di tab AdSense)" },
+    { key: "installs", label: "Install App", route: "", status: "ok", count: installs, note: "total pemasangan PWA" },
+  ];
+
+  return c.json({ features, checkedAt: new Date().toISOString() });
+});
+
 // ── AdSense: one-time ad-unit id + first-party impression/click analytics ──
 
 // GET /admin/adsense-config — current ad-unit id + estimated eCPM.
