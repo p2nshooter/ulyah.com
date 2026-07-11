@@ -401,3 +401,85 @@ contentRoute.get("/ebooks/:id/download", async (c) => {
   headers.set("content-disposition", `attachment; filename="${ebook.title.replace(/"/g, "")}.pdf"`);
   return new Response(obj.body, { headers });
 });
+
+// ── Kitab Pesantren (readable matn library, see migration 0017) ───────────
+// A tidy, fully-structured reading library — category → kitab (with author)
+// → bab (chapter) → matan (Arabic + terjemah + penjelasan). Separate from
+// the Shamela *catalogue* (/content/kitab/*) which is metadata only.
+
+// GET /content/pesantren/categories — categories + kitab count each.
+contentRoute.get("/pesantren/categories", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT c.slug, c.name_id, c.name_ar, c.icon, c.sort_order,
+            (SELECT COUNT(*) FROM pesantren_kitab k WHERE k.category_slug = c.slug) AS kitab_count
+     FROM pesantren_category c ORDER BY c.sort_order`
+  ).all();
+  return c.json({ categories: results });
+});
+
+// GET /content/pesantren/kitab — the full kitab list (grouped client-side by
+// category), each with author + bab count, for the library index.
+contentRoute.get("/pesantren/kitab", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT k.slug, k.category_slug, k.title_ar, k.title_id, k.author, k.author_death_year,
+            k.description_id, k.sort_order,
+            (SELECT COUNT(*) FROM pesantren_bab b WHERE b.kitab_slug = k.slug) AS bab_count
+     FROM pesantren_kitab k ORDER BY k.sort_order`
+  ).all();
+  return c.json({ kitab: results });
+});
+
+// GET /content/pesantren/kitab/:slug — one kitab in full: its chapters, each
+// with its matan rows (Arabic + terjemah + penjelasan + linked ayat/hadits).
+contentRoute.get("/pesantren/kitab/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const kitab = await c.env.DB.prepare(
+    `SELECT k.*, c.name_id AS category_name, c.icon AS category_icon
+     FROM pesantren_kitab k LEFT JOIN pesantren_category c ON c.slug = k.category_slug
+     WHERE k.slug = ?`
+  )
+    .bind(slug)
+    .first();
+  if (!kitab) return c.json({ error: "Kitab not found" }, 404);
+
+  const [{ results: babs }, { results: matn }] = await Promise.all([
+    c.env.DB.prepare("SELECT id, bab_order, name_id, name_ar FROM pesantren_bab WHERE kitab_slug = ? ORDER BY bab_order")
+      .bind(slug)
+      .all(),
+    c.env.DB.prepare(
+      `SELECT m.id, m.bab_id, m.matn_order, m.title_id, m.title_ar, m.text_ar,
+              m.translation_id, m.explanation_id, m.quran_refs_json, m.hadits_refs_json
+       FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id
+       WHERE b.kitab_slug = ? ORDER BY b.bab_order, m.matn_order`
+    )
+      .bind(slug)
+      .all(),
+  ]);
+
+  // Fold matan rows into their chapter, parsing the ref JSON once server-side.
+  const byBab = new Map<number, unknown[]>();
+  for (const m of matn as Record<string, unknown>[]) {
+    const list = byBab.get(m.bab_id as number) ?? [];
+    list.push({
+      id: m.id,
+      order: m.matn_order,
+      title_id: m.title_id,
+      title_ar: m.title_ar,
+      text_ar: m.text_ar,
+      translation_id: m.translation_id,
+      explanation_id: m.explanation_id,
+      quran_refs: m.quran_refs_json ? JSON.parse(m.quran_refs_json as string) : [],
+      hadits_refs: m.hadits_refs_json ? JSON.parse(m.hadits_refs_json as string) : [],
+    });
+    byBab.set(m.bab_id as number, list);
+  }
+  const chapters = (babs as Record<string, unknown>[]).map((b) => ({
+    id: b.id,
+    order: b.bab_order,
+    name_id: b.name_id,
+    name_ar: b.name_ar,
+    matn: byBab.get(b.id as number) ?? [],
+  }));
+
+  return c.json({ kitab, chapters });
+});
