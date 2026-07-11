@@ -317,6 +317,23 @@ jobs:
             echo "Kitab Pesantren already has $KPCOUNT kitab — skipping import."
           fi
 
+      - name: Upgrade Aqidatul Awam to full 57-bait text (one-time, idempotent)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Replaces the condensed Aqidatul Awam sample with the complete
+          # 57-bait matn (Arab + terjemah), tidily split into 9 chapters —
+          # sourced verbatim from the open wahyu9kdl/islami project (GPL-3.0).
+          # The seed itself is idempotent (clears + re-inserts); the count gate
+          # stops it from running once the kitab already holds the full text.
+          AACOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id=m.bab_id WHERE b.kitab_slug='aqidatulawam';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$AACOUNT" -lt "50" ]; then
+            echo "Aqidatul Awam has $AACOUNT bait — upgrading to full text."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_aqidatul_full.sql
+          else
+            echo "Aqidatul Awam already has $AACOUNT bait — skipping upgrade."
+          fi
+
       - name: Import Amalan Harian (doa/dzikir/thibb, one-time, idempotent)
         working-directory: apps/worker-api
         run: |
