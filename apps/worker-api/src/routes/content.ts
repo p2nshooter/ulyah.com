@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { translateText } from "../lib/mt.js";
+import { translateText, translateCachedOnly } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
@@ -227,11 +227,24 @@ contentRoute.get("/kitab/category/:slug", async (c) => {
   const requestedLocale = c.req.query("lang") ?? DEFAULT_LOCALE;
   const targetLang = isValidLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
   const books = rows.results as { id: number; title_ar: string }[];
+  // Cache-ONLY translation here: never fire live MT for a whole page of
+  // titles at once. Doing so (24 parallel subrequests) tripped Cloudflare's
+  // Worker resource limits → Error 1102 on category pages. Titles fill in as
+  // their detail pages warm the cache. Warm a few in the background so a fresh
+  // category doesn't stay all-Arabic forever, without blocking the response.
   const titleTranslations =
     targetLang !== "ar" && books.length > 0
-      ? await Promise.all(books.map((b) => translateText(c.env, b.title_ar, targetLang)))
+      ? await Promise.all(books.map((b) => translateCachedOnly(c.env, b.title_ar, targetLang)))
       : books.map(() => null);
   const booksWithTranslation = books.map((b, i) => ({ ...b, title_translated: titleTranslations[i] }));
+  if (targetLang !== "ar") {
+    const missing = books.filter((b, i) => !titleTranslations[i]).slice(0, 6);
+    if (missing.length > 0) {
+      c.executionCtx.waitUntil(
+        Promise.all(missing.map((b) => translateText(c.env, b.title_ar, targetLang))).then(() => undefined)
+      );
+    }
+  }
 
   return c.json({ category: cat, books: booksWithTranslation, total: count?.n ?? 0, page, pageSize });
 });
@@ -520,4 +533,15 @@ contentRoute.get("/amalan/all", async (c) => {
     items: byCat.get(cat.slug as string) ?? [],
   }));
   return c.json({ categories });
+});
+
+// ── Nasakh & Mansukh (see migration 0019) ─────────────────────────────────
+// GET /content/nasakh — all abrogating/abrogated entries, ordered.
+contentRoute.get("/nasakh", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, entry_order, title_id, naskh_type, mansukh_ref, mansukh_ar, mansukh_id,
+            nasikh_ref, nasikh_ar, nasikh_id, explanation_id, source
+     FROM nasakh_mansukh ORDER BY entry_order`
+  ).all();
+  return c.json({ entries: results });
 });
