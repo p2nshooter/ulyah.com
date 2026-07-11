@@ -169,6 +169,7 @@ jobs:
           npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_shahih.sql
 
       - name: Bulk-import the Sunnah's nine books + Arba'in/Qudsi (one-time)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -193,6 +194,7 @@ jobs:
           done
 
       - name: Bulk-import Musnad Ahmad + Sunan ad-Darimi (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -216,6 +218,7 @@ jobs:
           done
 
       - name: Import Riyadhus Shalihin (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -231,6 +234,7 @@ jobs:
           fi
 
       - name: Import Kisah Nabi Musa AS series (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -247,6 +251,7 @@ jobs:
           fi
 
       - name: Import Kisah Dzulqarnain series (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -260,6 +265,7 @@ jobs:
           fi
 
       - name: Import Kisah Ashabul Kahfi series (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -273,6 +279,7 @@ jobs:
           fi
 
       - name: Import Kisah Nabi Nuh AS series (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -286,6 +293,7 @@ jobs:
           fi
 
       - name: Bulk-import Kitab library catalogue (one-time, ~4.9k works)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -302,6 +310,7 @@ jobs:
           fi
 
       - name: Import Kitab Pesantren readable library (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -318,6 +327,7 @@ jobs:
           fi
 
       - name: Upgrade Aqidatul Awam to full 57-bait text (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -335,6 +345,7 @@ jobs:
           fi
 
       - name: Import Amalan Harian (doa/dzikir/thibb, one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -350,6 +361,7 @@ jobs:
           fi
 
       - name: Import Nasakh & Mansukh (one-time, idempotent)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -382,6 +394,7 @@ jobs:
           fi
 
       - name: Regenerate hadits sessions with Arabic text (one-time backfill)
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -403,6 +416,7 @@ jobs:
           fi
 
       - name: Upload seed PDFs (Kisah Nabi Yusuf) to R2
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -412,6 +426,7 @@ jobs:
           done
 
       - name: Upload seed PDFs (Kisah Nabi Musa) to R2
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -421,6 +436,7 @@ jobs:
           done
 
       - name: Upload seed PDFs (Kisah Dzulqarnain) to R2
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -430,6 +446,7 @@ jobs:
           done
 
       - name: Upload seed PDFs (Kisah Ashabul Kahfi) to R2
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
@@ -439,6 +456,7 @@ jobs:
           done
 
       - name: Upload seed PDFs (Kisah Nabi Nuh) to R2
+        continue-on-error: true
         working-directory: apps/worker-api
         run: |
           set -eu
