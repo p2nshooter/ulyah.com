@@ -28,12 +28,17 @@ declare global {
 }
 
 // Fetch the admin ad config once per page load, shared across every AdSlot.
-let configPromise: Promise<{ slotId: string; enabled: boolean }> | null = null;
-function getAdConfig(): Promise<{ slotId: string; enabled: boolean }> {
+interface AdConfig {
+  slotId: string;
+  enabled: boolean;
+  previewMode: boolean;
+}
+let configPromise: Promise<AdConfig> | null = null;
+function getAdConfig(): Promise<AdConfig> {
   if (!configPromise) {
     configPromise = api
-      .get<{ slotId: string; enabled: boolean }>("/content/adsense-config")
-      .catch(() => ({ slotId: "", enabled: false }));
+      .get<AdConfig>("/content/adsense-config")
+      .catch(() => ({ slotId: "", enabled: false, previewMode: false }));
   }
   return configPromise;
 }
@@ -59,6 +64,7 @@ export function AdSlot({
   format = "auto",
   minHeight = 130,
   label = "Sponsored",
+  position,
   className = "",
 }: {
   /** Optional override; normally left unset so the admin-configured id is used. */
@@ -66,12 +72,16 @@ export function AdSlot({
   format?: "auto" | "horizontal" | "rectangle";
   minHeight?: number;
   label?: string;
+  /** A human name for this placement, shown in the admin preview so the owner
+   * can verify each slot's position against their AdSense plan. */
+  position?: string;
   className?: string;
 }) {
   const ref = useRef<HTMLModElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [slotId, setSlotId] = useState<string | null>(slot ?? null);
   const [ready, setReady] = useState(Boolean(slot));
+  const [preview, setPreview] = useState(false);
 
   // Resolve the site-wide ad-unit id from the admin config (unless a slot was
   // passed explicitly).
@@ -82,10 +92,10 @@ export function AdSlot({
       if (cancelled) return;
       if (cfg.enabled && cfg.slotId) {
         setSlotId(cfg.slotId);
-        setReady(true);
-      } else {
-        setReady(true); // resolved, but nothing to show
+      } else if (cfg.previewMode) {
+        setPreview(true);
       }
+      setReady(true);
     });
     return () => {
       cancelled = true;
@@ -127,6 +137,24 @@ export function AdSlot({
       window.removeEventListener("blur", onBlur);
     };
   }, [slotId]);
+
+  // Admin preview: no real id yet, but the owner turned on "preview slots" to
+  // verify placement — render a clearly-labelled placeholder (only they see
+  // it; visitors get nothing until a real id is set).
+  if (!slotId && preview) {
+    return (
+      <div
+        className={`mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-accent/40 bg-accent/[0.04] p-4 text-center ${className}`}
+        style={{ minHeight }}
+      >
+        <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-accent">📢 Slot Iklan AdSense</p>
+        {position && <p className="text-xs text-[var(--color-text-secondary)]">Posisi: {position}</p>}
+        <p className="text-[10px] text-[var(--color-text-secondary)]/70">
+          (pratinjau admin — aktif otomatis setelah ID iklan diisi)
+        </p>
+      </div>
+    );
+  }
 
   // Before an id is configured (pre-approval) render nothing — no empty box.
   if (!ready || !slotId) return null;

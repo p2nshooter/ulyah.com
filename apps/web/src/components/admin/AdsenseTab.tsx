@@ -7,6 +7,7 @@ interface Config {
   slotId: string;
   enabled: boolean;
   ecpmUsd: number;
+  previewMode: boolean;
   clientId: string;
 }
 interface Stats {
@@ -50,6 +51,7 @@ export function AdsenseTab() {
       slotId: config.slotId,
       enabled: config.enabled,
       ecpmUsd: config.ecpmUsd,
+      previewMode: config.previewMode,
     });
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
@@ -99,6 +101,22 @@ export function AdsenseTab() {
               />
             </label>
           </div>
+          <label className="flex items-start gap-2 rounded-lg border border-dashed border-accent/40 bg-accent/[0.04] p-3 text-sm">
+            <input
+              type="checkbox"
+              checked={config.previewMode}
+              onChange={(e) => setConfig({ ...config, previewMode: e.target.checked })}
+              className="mt-0.5"
+            />
+            <span>
+              <b>Pratinjau posisi slot iklan</b>
+              <span className="mt-0.5 block text-[11px] text-[var(--color-text-secondary)]">
+                Tampilkan kotak bertanda di setiap lokasi iklan (home, artikel, kitab, Qur'an, dll) agar Bapak bisa
+                cek penempatannya sesuai panduan — pengunjung tidak melihatnya. Matikan lagi setelah selesai
+                mengecek. (Iklan asli muncul otomatis begitu ID iklan diisi.)
+              </span>
+            </span>
+          </label>
           <button
             onClick={save}
             className="rounded-lg bg-primary px-4 py-2 text-sm text-white dark:bg-accent dark:text-primary"

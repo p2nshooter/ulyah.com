@@ -145,7 +145,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           AdSense client id as every other slot, so nothing needs to change
           here once the account is approved; it simply starts filling. */}
       <div className="px-4 pt-6 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-4xl" format="rectangle" />
+        <AdSlot minHeight={110} className="max-w-4xl" format="rectangle" position="Home — di bawah Hero / widget" />
       </div>
 
       {/* ── Interactive Qur'an reader ────────────────────────── */}
@@ -171,7 +171,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
       {/* In-content ad — proportional leaderboard between sections */}
       <div className="px-4 pb-4 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" />
+        <AdSlot minHeight={110} className="max-w-5xl" position="Home — setelah section Al-Qur'an" />
       </div>
 
       {/* ── Explore cards ────────────────────────────────────── */}
@@ -195,6 +195,11 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
+
+      {/* Ad after the Explore/Kitab cards (per placement plan) */}
+      <div className="px-4 pt-6 sm:px-6">
+        <AdSlot minHeight={110} className="max-w-5xl" position="Home — setelah kartu Jelajahi/Kitab" />
+      </div>
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
@@ -220,6 +225,11 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
+
+      {/* Ad just before the footer (per placement plan) */}
+      <div className="px-4 pb-10 sm:px-6">
+        <AdSlot minHeight={110} className="max-w-5xl" position="Home — sebelum Footer" />
+      </div>
     </div>
   );
 }

@@ -540,17 +540,27 @@ contentRoute.get("/amalan/all", async (c) => {
 // uses the same id without a redeploy. Ad-unit ids are not secret (they appear
 // in page source anyway), so this is a public read. Cached briefly at the edge.
 contentRoute.get("/adsense-config", async (c) => {
-  let cfg: { slotId: string; enabled: boolean } = { slotId: "", enabled: false };
+  let cfg: { slotId: string; enabled: boolean; previewMode: boolean } = {
+    slotId: "",
+    enabled: false,
+    previewMode: false,
+  };
   try {
     const raw = await c.env.CACHE_KV.get("adsense:config");
     if (raw) {
       const parsed = JSON.parse(raw);
-      cfg = { slotId: String(parsed.slotId ?? ""), enabled: parsed.enabled !== false && Boolean(parsed.slotId) };
+      cfg = {
+        slotId: String(parsed.slotId ?? ""),
+        enabled: parsed.enabled !== false && Boolean(parsed.slotId),
+        previewMode: parsed.previewMode === true,
+      };
     }
   } catch {
     /* fall back to disabled */
   }
-  return c.json(cfg, 200, { "Cache-Control": "public, max-age=300" });
+  // Preview mode is short-lived (owner verifying placement), so cache it far
+  // less than a live config so toggling it off takes effect quickly.
+  return c.json(cfg, 200, { "Cache-Control": `public, max-age=${cfg.previewMode ? 15 : 300}` });
 });
 
 // ── Nasakh & Mansukh (see migration 0019) ─────────────────────────────────

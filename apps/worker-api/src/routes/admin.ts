@@ -470,6 +470,7 @@ adminRoute.get("/adsense-config", async (c) => {
     slotId: cfg.slotId ?? "",
     enabled: cfg.enabled !== false,
     ecpmUsd: typeof cfg.ecpmUsd === "number" ? cfg.ecpmUsd : 1.0,
+    previewMode: cfg.previewMode === true,
     clientId: "ca-pub-6371903555702163",
   });
 });
@@ -477,10 +478,10 @@ adminRoute.get("/adsense-config", async (c) => {
 // POST /admin/adsense-config — set the single ad-unit id used site-wide + the
 // estimated eCPM (USD per 1000 impressions) used for the earnings estimate.
 adminRoute.post("/adsense-config", async (c) => {
-  const body = await c.req.json<{ slotId?: string; enabled?: boolean; ecpmUsd?: number }>();
+  const body = await c.req.json<{ slotId?: string; enabled?: boolean; ecpmUsd?: number; previewMode?: boolean }>();
   const slotId = String(body.slotId ?? "").trim().replace(/[^0-9]/g, "").slice(0, 20);
   const ecpmUsd = Number.isFinite(body.ecpmUsd) ? Math.max(0, Number(body.ecpmUsd)) : 1.0;
-  const cfg = { slotId, enabled: body.enabled !== false, ecpmUsd };
+  const cfg = { slotId, enabled: body.enabled !== false, ecpmUsd, previewMode: body.previewMode === true };
   await safeKvPut(c.env, "adsense:config", JSON.stringify(cfg));
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
