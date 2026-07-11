@@ -1,9 +1,24 @@
 // Minimal service worker: makes the site installable as an app and keeps the
 // last-visited pages available offline. Audio/API stay network-first.
-const CACHE = "ulyah-shell-v1";
+//
+// Bump this on every deploy that changes any cached asset's *content* at a
+// *fixed* path (icons, wordmark PNGs — anything not content-hashed by
+// Next's build). Those paths never change name, so a browser that cached
+// one once (even a bad/interrupted response) would otherwise keep serving
+// it forever: this cache-first strategy never revalidates against the
+// network on its own. Bumping the name makes `activate` below throw the old
+// cache away and start clean.
+const CACHE = "ulyah-shell-v2";
 
 self.addEventListener("install", (e) => self.skipWaiting());
-self.addEventListener("activate", (e) => e.waitUntil(clients.claim()));
+self.addEventListener("activate", (e) =>
+  e.waitUntil(
+    caches
+      .keys()
+      .then((names) => Promise.all(names.filter((n) => n !== CACHE).map((n) => caches.delete(n))))
+      .then(() => clients.claim())
+  )
+);
 
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);

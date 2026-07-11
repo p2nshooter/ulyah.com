@@ -67,6 +67,62 @@ adminRoute.post("/keys", async (c) => {
   return c.json(result);
 });
 
+// Bulk key import — lets an admin paste a whole batch of donated/found keys
+// (e.g. a stash of NVIDIA NIM keys) in one authenticated submission instead
+// of the single "+ Add" form N times. Each line is
+// "provider,scope,label,rawKey" (label may contain spaces but not commas).
+// Reuses the exact same ingestAndTestKey pipeline per line — same
+// encryption, same automated safety/latency test, same active/pending/
+// rejected classification — just looped, with per-line results returned so
+// a typo in one line doesn't silently swallow the rest.
+adminRoute.post("/keys/bulk", async (c) => {
+  const { text } = await c.req.json<{ text: string }>();
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0 && !l.startsWith("#"));
+
+  const admin = c.get("admin" as never) as { email: string };
+  const results: { line: number; label: string; ok: boolean; detail: string }[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]!;
+    const parts = line.split(",").map((p) => p.trim());
+    const [provider, scope, label, ...rest] = parts;
+    const rawKey = rest.join(","); // key itself may legitimately contain commas
+    if (!provider || !scope || !label || !rawKey) {
+      results.push({ line: i + 1, label: label ?? "?", ok: false, detail: "Format baris salah — perlu: provider,scope,label,apiKey" });
+      continue;
+    }
+    if (!getProvider(provider)) {
+      results.push({ line: i + 1, label, ok: false, detail: `Provider "${provider}" tidak dikenal` });
+      continue;
+    }
+    if (!["text", "tts", "gpu", "image"].includes(scope)) {
+      results.push({ line: i + 1, label, ok: false, detail: `Scope "${scope}" tidak valid` });
+      continue;
+    }
+    try {
+      const result = await ingestAndTestKey(c.env, {
+        provider,
+        scope: scope as "text" | "tts" | "gpu" | "image",
+        rawKey,
+        donorLabel: label,
+      });
+      results.push({ line: i + 1, label, ok: true, detail: `${result.status} — ${result.test.detail}` });
+    } catch (err) {
+      results.push({ line: i + 1, label, ok: false, detail: err instanceof Error ? err.message : "Gagal" });
+    }
+  }
+
+  await logAdminAction(c.env, "key_bulk_added", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    total: lines.length,
+    ok: results.filter((r) => r.ok).length,
+  });
+
+  return c.json({ results });
+});
+
 adminRoute.delete("/keys/:id", async (c) => {
   const id = Number(c.req.param("id"));
   await c.env.DB.prepare("UPDATE ai_key_pool SET status = 'revoked' WHERE id = ?").bind(id).run();

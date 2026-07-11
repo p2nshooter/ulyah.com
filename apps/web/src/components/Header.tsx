@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/dictionaries";
 import { AdminTrigger } from "@/components/AdminTrigger";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -16,6 +16,29 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const { theme, toggle } = useTheme();
   const pathname = usePathname();
   const prayerT = prayerLabels(locale);
+  const navRef = useRef<HTMLElement>(null);
+
+  // The dropdown previously only closed via its own onClick handlers (a nav
+  // link, or the ☰ button again) — tapping anywhere else on the page (or
+  // just navigating away some other way) left it stuck open. Close on any
+  // outside tap and whenever the route actually changes, in addition to the
+  // existing per-link handlers.
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onOutside(e: MouseEvent | TouchEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setMenuOpen(false);
+    }
+    document.addEventListener("mousedown", onOutside);
+    document.addEventListener("touchstart", onOutside);
+    return () => {
+      document.removeEventListener("mousedown", onOutside);
+      document.removeEventListener("touchstart", onOutside);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   const links: [string, string][] = [
     [dict.nav.home, `/${locale}`],
@@ -30,7 +53,10 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   ];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-accent/15 bg-[var(--color-bg)]/85 shadow-[var(--shadow-sm)] backdrop-blur-md">
+    <header
+      ref={navRef}
+      className="sticky top-0 z-30 border-b border-accent/15 bg-[var(--color-bg)]/85 shadow-[var(--shadow-sm)] backdrop-blur-md"
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-2">
           <AdminTrigger locale={locale}>

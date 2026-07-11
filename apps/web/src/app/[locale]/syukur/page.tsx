@@ -4,6 +4,15 @@ import { getDictionary } from "@/dictionaries";
 import { NarrateButton } from "@/components/NarrateButton";
 import { api } from "@/lib/api";
 
+// Without this, Next statically prerenders this page once at build time
+// (this route has no dynamic segments and the locale layout's
+// generateStaticParams makes it a static-generation candidate) — the
+// founder-photo lookup below would be baked into that one build forever,
+// so an admin uploading a new photo via Portal Admin -> Media would never
+// see it appear here until the next deploy. Revalidating every 5 minutes
+// keeps the "no redeploy needed" promise MediaTab.tsx makes to the admin.
+export const revalidate = 300;
+
 // The family behind Ulyah — proper nouns, reproduced faithfully as given.
 // Photos are admin-uploaded (Portal Admin -> Media), never hardcoded — see
 // lib/media.ts / GET /content/media/:key. mediaKey is null-safe: until an
