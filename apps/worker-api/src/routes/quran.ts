@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { fetchTafsir, fetchAsbabunNuzul } from "../lib/tafsir-source.js";
+import { fetchTafsir, fetchAsbabunNuzul, listTafsirEditions, fetchTafsirByEdition } from "../lib/tafsir-source.js";
 import { safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
 
@@ -123,6 +123,41 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   // upstream fetch failure, so cache it only briefly so it retries soon.
   const rich = Boolean(translation) && Boolean(tafsirHit);
   await safeKvPut(c.env, cacheKey, body, { expirationTtl: rich ? 60 * 60 * 24 * 30 : 60 * 10 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
+// GET /quran/tafsir-editions?lang= — the tafsir sources the reader's
+// "pilih tafsir" picker should offer for this UI language. Cheap, static-ish
+// (derived from the bundled editions registry), cached a day.
+quranRoute.get("/tafsir-editions", async (c) => {
+  const { lang } = langParam(c);
+  const editions = listTafsirEditions(lang);
+  return c.json({ editions });
+});
+
+// GET /quran/tafsir/:edition/:surah/:number?lang= — one specific tafsir
+// edition's text for one ayah, so a reader can switch classical tafsirs
+// without reloading the whole ayah bundle. Translated into the UI language
+// when the edition is English/Arabic (see lib/tafsir-source.ts), KV-cached
+// per surah upstream so repeat reads are free.
+quranRoute.get("/tafsir/:edition/:surah/:number", async (c) => {
+  const edition = c.req.param("edition");
+  const surahId = Number(c.req.param("surah"));
+  const number = Number(c.req.param("number"));
+  if (!Number.isInteger(surahId) || !Number.isInteger(number)) {
+    return c.json({ error: "Invalid surah/ayah number" }, 400);
+  }
+  const { lang, requested } = langParam(c);
+
+  const cacheKey = `quran:tafsir-edition:v1:${edition}:${surahId}:${number}:${requested}`;
+  const cached = await c.env.CACHE_KV.get(cacheKey);
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const hit = await fetchTafsirByEdition(c.env, edition, surahId, number, lang);
+  const body = JSON.stringify({ edition, tafsir: hit });
+  // Cache a real hit for 30 days (classical text never changes); cache a miss
+  // only briefly so a transient upstream failure self-heals.
+  await safeKvPut(c.env, cacheKey, body, { expirationTtl: hit ? 60 * 60 * 24 * 30 : 60 * 10 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 

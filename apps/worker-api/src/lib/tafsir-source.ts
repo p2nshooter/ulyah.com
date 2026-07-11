@@ -2,6 +2,7 @@ import type { Env } from "../env.js";
 import { ASBAB_DATA } from "./asbabun-nuzul-data.js";
 import { translateText } from "./mt.js";
 import { safeKvPut } from "./kv-safe.js";
+import { FEATURED_TAFSIR, findEdition, type TafsirEdition } from "./tafsir-editions.js";
 
 /**
  * Tafsir + asbabun nuzul, fetched on demand and KV-cached per surah — never
@@ -97,6 +98,91 @@ export async function fetchTafsir(
     (await fetchSpa5kTafsir(env, "en", surah, ayahNumber)) ??
     (await fetchKemenagTafsir(env, surah, ayahNumber))
   );
+}
+
+// ── Multi-edition access (the tafsir "source picker") ─────────────────────
+// The full spa5k catalogue is in tafsir-editions.ts; these helpers let the
+// reader offer several classical tafsirs per ayah instead of just the single
+// default one fetchTafsir() picks. Same fetch-and-KV-cache model, so adding
+// editions costs nothing at rest.
+
+/** Locale code the site uses for a given spa5k edition's own language, so the
+ * reader knows whether an edition needs translating into the visitor's UI. */
+const SPA5K_LANG_TO_LOCALE: Record<string, string> = {
+  indonesian: "id",
+  english: "en",
+  arabic: "ar",
+  russian: "ru",
+  french: "fr",
+  chinese: "zh",
+  japanese: "ja",
+};
+
+export interface TafsirEditionSummary {
+  slug: string;
+  name: string;
+  author: string;
+  lang: string; // ULYAH locale code this edition reads in natively
+}
+
+/**
+ * The tafsir editions to offer a reader in `uiLang`. Always includes the
+ * featured set for that locale; Indonesian additionally leads with Tafsir
+ * Kemenag RI (a non-spa5k source, resolved separately in fetchTafsir/here).
+ * Falls back to the English featured set for locales with none of their own,
+ * so the picker is never empty.
+ */
+export function listTafsirEditions(uiLang: string | null): TafsirEditionSummary[] {
+  const lang = uiLang && FEATURED_TAFSIR[uiLang] ? uiLang : "en";
+  const out: TafsirEditionSummary[] = [];
+  if (lang === "id") {
+    out.push({ slug: "kemenag", name: "Tafsir Ringkas Kemenag RI", author: "Kementerian Agama RI", lang: "id" });
+  }
+  for (const slug of FEATURED_TAFSIR[lang] ?? []) {
+    const ed = findEdition(slug);
+    if (ed) out.push({ slug: ed.slug, name: ed.name, author: ed.author, lang: SPA5K_LANG_TO_LOCALE[ed.lang] ?? ed.lang });
+  }
+  return out;
+}
+
+/**
+ * Fetch one specific edition's tafsir for one ayah. `edition` is either a
+ * spa5k slug or the pseudo-slug "kemenag" (equran.id). If the edition's own
+ * language differs from `uiLang`, the text is translated into `uiLang` and
+ * cached — never leaking, say, raw English into an Indonesian panel. Returns
+ * null when that edition has no text for this ayah (some editions are sparse).
+ */
+export async function fetchTafsirByEdition(
+  env: Env,
+  edition: string,
+  surah: number,
+  ayahNumber: number,
+  uiLang: string | null
+): Promise<{ text: string; source: string; lang: string } | null> {
+  if (edition === "kemenag") return fetchKemenagTafsir(env, surah, ayahNumber);
+
+  const ed: TafsirEdition | undefined = findEdition(edition);
+  if (!ed) return null;
+  const data = await fetchJsonCached<{ text: string }[] | { ayahs?: { ayah: number; text: string }[] }>(
+    env,
+    `tafsir:${ed.slug}:${surah}`,
+    `${SPA5K}/${ed.slug}/${surah}.json`
+  );
+  // Two shapes exist upstream: a flat array indexed by ayah-1, or an object
+  // with an `ayahs` array keyed by ayah number. Handle both.
+  let raw: string | undefined;
+  if (Array.isArray(data)) raw = data[ayahNumber - 1]?.text;
+  else raw = data?.ayahs?.find((a) => a.ayah === ayahNumber)?.text;
+  const text = raw?.trim();
+  if (!text || text.length < 20) return null;
+
+  const nativeLocale = SPA5K_LANG_TO_LOCALE[ed.lang] ?? ed.lang;
+  if (uiLang && uiLang !== nativeLocale && (nativeLocale === "en" || nativeLocale === "ar")) {
+    const translated = await translateText(env, text, uiLang, nativeLocale === "en" ? "en" : undefined);
+    if (translated) return { text: translated, source: `${ed.name} (diterjemahkan)`, lang: uiLang };
+    return null; // don't leak a foreign-language wall of text into the panel
+  }
+  return { text, source: ed.name, lang: nativeLocale };
 }
 
 /**
