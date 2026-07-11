@@ -13,19 +13,24 @@ const INSTALLED_KEY = "ulyah_pwa_installed";
 
 /**
  * A permanent "Install App" trigger — never a popup or banner that reappears
- * on every visit. Disappears entirely once the app is actually installed
- * (detected via the `appinstalled` event, standalone display-mode, or a
- * persisted flag from a previous install), so it never re-offers something
- * the visitor already has.
+ * on every visit. Hides ONLY while genuinely running installed right now
+ * (`display-mode: standalone`, checked fresh on every load) — deliberately
+ * NOT via a remembered localStorage flag from a past visit. A flag set once
+ * (e.g. the browser reported "accepted" but the shortcut never actually
+ * landed, or the app was later uninstalled — neither has a reliable "undo"
+ * event) used to hide this button forever afterward: it would flash visible
+ * for an instant on mount, then vanish the moment the effect read the stale
+ * flag, even on a device where the app plainly was NOT installed. Trusting
+ * only the live standalone check means the worst case is offering to
+ * install something already installed (harmless, and Chrome/Safari just
+ * handle it) rather than silently hiding the only way to install at all.
  *
  * Chrome only fires `beforeinstallprompt` after its own engagement
  * heuristics are satisfied — sometimes not on a visitor's first visit, and
  * never at all in browsers that don't support it (Firefox, in-app WebViews,
- * desktop Safari). Previously this button simply rendered nothing at all
- * whenever that event hadn't fired, which made the whole "Download App"
- * section look broken rather than just quiet. It now always renders and
- * falls back to manual "add to home screen" instructions when there's no
- * native prompt captured, so the button is never silently invisible.
+ * desktop Safari). It always renders and falls back to manual "add to home
+ * screen" instructions when there's no native prompt captured, so the
+ * button is never silently invisible.
  *
  * `app` tags which installable PWA this instance offers (main site vs. the
  * standalone Jadwal Sholat mini-app) so the admin portal's install counter
@@ -60,7 +65,7 @@ export function InstallAppButton({
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
-    if (standalone || window.localStorage.getItem(`${INSTALLED_KEY}_${app}`) === "1") {
+    if (standalone) {
       setInstalled(true);
       return;
     }

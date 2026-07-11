@@ -5,16 +5,17 @@ import Image from "next/image";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { InstallAppButton } from "@/components/InstallAppButton";
 
-const INSTALLED_KEY = "ulyah_pwa_installed";
-
 /**
- * One card in the "Download App" section. Checks install state itself
- * (localStorage is origin-scoped, so a flag set from /jadwal-sholat is
- * readable from the homepage and vice versa — each card can tell whether
- * *the other* app is already installed, not just itself). Once an app is
- * installed, its card shrinks to just the brand mark and a quiet
- * confirmation instead of repeating a pitch for something already on the
- * visitor's home screen.
+ * One card in the "Download App" section. Only collapses to a quiet
+ * "already installed" confirmation when it can positively confirm that
+ * *right now* — standalone display-mode AND this exact page's manifest
+ * matches this card's app. A remembered localStorage flag from a past visit
+ * was tried here first and caused a real bug: a stale/incorrect flag (e.g.
+ * from an interrupted install, or an app installed then later removed —
+ * neither has a reliable browser event) permanently hid the card even when
+ * the app plainly was not installed, with no way to recover. Showing the
+ * pitch again to someone who already installed is a minor annoyance;
+ * hiding the only way to install is not acceptable.
  */
 export function AppInstallCard({
   locale,
@@ -35,14 +36,10 @@ export function AppInstallCard({
   const [installed, setInstalled] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const flagged = window.localStorage.getItem(`${INSTALLED_KEY}_${app}`) === "1";
-    // If we're currently running standalone (already installed as *some*
-    // app) and the manifest actually linked on this page matches this
-    // card's app, that confirms it beyond the flag alone.
     const standalone = window.matchMedia("(display-mode: standalone)").matches;
     const manifestHref = document.querySelector('link[rel="manifest"]')?.getAttribute("href") ?? "";
     const manifestMatches = app === "sholat" ? manifestHref.includes("sholat") : !manifestHref.includes("sholat");
-    setInstalled(flagged || (standalone && manifestMatches));
+    setInstalled(standalone && manifestMatches);
   }, [app]);
 
   return (
