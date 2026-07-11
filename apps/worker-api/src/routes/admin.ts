@@ -384,7 +384,32 @@ adminRoute.get("/analytics", async (c) => {
 // ── Kitab library breakdown + app install counts (central visibility) ────
 
 adminRoute.get("/library-stats", async (c) => {
-  const [kitabTotal, kitabByCategory, installTotal, installByApp, installRecent] = await Promise.all([
+  // Normalise the many raw hadith grade strings into buckets in SQL — mirrors
+  // apps/web/src/lib/hadith-grade.ts so the admin counts match the badges.
+  const gradeCase = `CASE
+      WHEN lower(coalesce(grade,'')) LIKE '%maudhu%' OR lower(coalesce(grade,'')) LIKE '%maudu%' OR lower(coalesce(grade,'')) LIKE '%mawdu%' OR lower(coalesce(grade,'')) LIKE '%palsu%' OR lower(coalesce(grade,'')) LIKE '%munkar%' THEN 'maudhu'
+      WHEN lower(coalesce(grade,'')) LIKE '%mutawatir%' THEN 'mutawatir'
+      WHEN lower(coalesce(grade,'')) LIKE '%dhaif%' OR lower(coalesce(grade,'')) LIKE '%dhoif%' OR lower(coalesce(grade,'')) LIKE '%daif%' OR lower(coalesce(grade,'')) LIKE '%dalif%' OR lower(coalesce(grade,'')) LIKE '%lemah%' THEN 'dhaif'
+      WHEN lower(coalesce(grade,'')) LIKE '%shahih%' OR lower(coalesce(grade,'')) LIKE '%sahih%' OR lower(coalesce(grade,'')) LIKE '%sohih%' THEN 'shahih'
+      WHEN lower(coalesce(grade,'')) LIKE '%hasan%' THEN 'hasan'
+      ELSE 'lain' END`;
+
+  const [
+    kitabTotal,
+    kitabByCategory,
+    installTotal,
+    installByApp,
+    installRecent,
+    haditsTotal,
+    haditsByGrade,
+    haditsCollections,
+    pesantren,
+    amalanByGroup,
+    nasakh,
+    stories,
+    ebooks,
+    tafsirCount,
+  ] = await Promise.all([
     c.env.DB.prepare("SELECT COUNT(*) AS n FROM kitab_book").first<{ n: number }>(),
     c.env.DB.prepare(
       `SELECT cat.slug, cat.name_id, cat.name_ar, COUNT(b.id) AS n
@@ -397,13 +422,36 @@ adminRoute.get("/library-stats", async (c) => {
       `SELECT strftime('%Y-%m-%d', created_at) AS bucket, app, COUNT(*) AS n FROM app_installs
        WHERE created_at >= datetime('now','-30 days') GROUP BY bucket, app ORDER BY bucket`
     ).all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM hadits").first<{ n: number }>(),
+    c.env.DB.prepare(`SELECT ${gradeCase} AS bucket, COUNT(*) AS n FROM hadits GROUP BY bucket`).all(),
+    c.env.DB.prepare(
+      "SELECT slug, name_id, author, (SELECT COUNT(*) FROM hadits h WHERE h.collection = hc.slug) AS n FROM hadits_collection hc ORDER BY sort_order"
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT (SELECT COUNT(*) FROM pesantren_kitab) AS kitab,
+              (SELECT COUNT(*) FROM pesantren_bab) AS bab,
+              (SELECT COUNT(*) FROM pesantren_matn) AS matan`
+    ).first(),
+    c.env.DB.prepare("SELECT grp, COUNT(*) AS n FROM amalan_category c JOIN amalan_item i ON i.category_slug = c.slug GROUP BY grp").all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM nasakh_mansukh").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM stories WHERE status = 'published'").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM ebooks").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM tafsir").first<{ n: number }>(),
   ]);
 
   return c.json({
-    kitab: {
-      total: kitabTotal?.n ?? 0,
-      byCategory: kitabByCategory.results,
+    kitab: { total: kitabTotal?.n ?? 0, byCategory: kitabByCategory.results },
+    hadits: {
+      total: haditsTotal?.n ?? 0,
+      byGrade: haditsByGrade.results,
+      collections: haditsCollections.results,
     },
+    pesantren: pesantren ?? { kitab: 0, bab: 0, matan: 0 },
+    amalan: amalanByGroup.results,
+    nasakh: nasakh?.n ?? 0,
+    stories: stories?.n ?? 0,
+    ebooks: ebooks?.n ?? 0,
+    tafsir: tafsirCount?.n ?? 0,
     installs: {
       total: installTotal?.n ?? 0,
       byApp: installByApp.results,
