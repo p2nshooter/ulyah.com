@@ -275,6 +275,21 @@ jobs:
             echo "Kitab Pesantren already has $KPCOUNT kitab — skipping import."
           fi
 
+      - name: Import Amalan Harian (doa/dzikir/thibb, one-time, idempotent)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Curated daily amalan (doa bangun→tidur, dzikir, thibbun nabawi,
+          # fitrah). Small + INSERT OR IGNORE, gated on the item count so it
+          # only does real work the first time and re-runs are no-ops.
+          ACOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM amalan_item;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$ACOUNT" -lt "35" ]; then
+            echo "Amalan Harian has $ACOUNT items — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/amalan_harian.sql
+          else
+            echo "Amalan Harian already has $ACOUNT items — skipping import."
+          fi
+
       - name: Clean up obsolete murottal R2 cache (one-time)
         working-directory: apps/worker-api
         run: |

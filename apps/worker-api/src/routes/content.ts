@@ -483,3 +483,41 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
 
   return c.json({ kitab, chapters });
 });
+
+// ── Amalan Harian (doa/dzikir/thibb/kecantikan, see migration 0018) ───────
+// Voice-ready: every item carries Arabic + Latin + terjemah + sumber sahih.
+
+// GET /content/amalan/categories — categories grouped by `grp`, item count each.
+contentRoute.get("/amalan/categories", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT c.slug, c.grp, c.name_id, c.name_ar, c.icon, c.sort_order,
+            (SELECT COUNT(*) FROM amalan_item i WHERE i.category_slug = c.slug) AS item_count
+     FROM amalan_category c ORDER BY c.sort_order`
+  ).all();
+  return c.json({ categories: results });
+});
+
+// GET /content/amalan/all — every category with its items inlined, so the
+// widget can render the whole library (and narrate it) in one fetch.
+contentRoute.get("/amalan/all", async (c) => {
+  const [{ results: cats }, { results: items }] = await Promise.all([
+    c.env.DB.prepare(
+      "SELECT slug, grp, name_id, name_ar, icon, sort_order FROM amalan_category ORDER BY sort_order"
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT category_slug, item_order, title_id, arabic, latin, translation_id, note_id, repeat_count, source
+       FROM amalan_item ORDER BY category_slug, item_order`
+    ).all(),
+  ]);
+  const byCat = new Map<string, unknown[]>();
+  for (const it of items as Record<string, unknown>[]) {
+    const list = byCat.get(it.category_slug as string) ?? [];
+    list.push(it);
+    byCat.set(it.category_slug as string, list);
+  }
+  const categories = (cats as Record<string, unknown>[]).map((cat) => ({
+    ...cat,
+    items: byCat.get(cat.slug as string) ?? [],
+  }));
+  return c.json({ categories });
+});
