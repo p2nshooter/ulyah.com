@@ -18,9 +18,10 @@ import { SettingsTab } from "@/components/admin/SettingsTab";
 import { MediaTab } from "@/components/admin/MediaTab";
 import { RoadmapTab } from "@/components/admin/RoadmapTab";
 import { LibraryTab } from "@/components/admin/LibraryTab";
+import { AdsenseTab } from "@/components/admin/AdsenseTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library";
+type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -75,6 +76,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["settings", "Settings"],
     ["media", "Media"],
     ["library", "📚 Perpustakaan"],
+    ["adsense", "💰 AdSense"],
     ["roadmap", "🗺️ Konsep"],
     ["account", "Account"],
   ];
@@ -121,6 +123,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "settings" && <SettingsTab />}
         {tab === "media" && <MediaTab />}
         {tab === "library" && <LibraryTab />}
+        {tab === "adsense" && <AdsenseTab />}
         {tab === "roadmap" && <RoadmapTab />}
         {tab === "account" && <AccountTab />}
       </div>

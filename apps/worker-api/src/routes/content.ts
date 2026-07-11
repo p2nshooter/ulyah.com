@@ -535,6 +535,24 @@ contentRoute.get("/amalan/all", async (c) => {
   return c.json({ categories });
 });
 
+// GET /content/adsense-config — the single ad-unit id (and on/off flags) the
+// owner set once in the admin AdSense panel, so every <AdSlot> across the site
+// uses the same id without a redeploy. Ad-unit ids are not secret (they appear
+// in page source anyway), so this is a public read. Cached briefly at the edge.
+contentRoute.get("/adsense-config", async (c) => {
+  let cfg: { slotId: string; enabled: boolean } = { slotId: "", enabled: false };
+  try {
+    const raw = await c.env.CACHE_KV.get("adsense:config");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      cfg = { slotId: String(parsed.slotId ?? ""), enabled: parsed.enabled !== false && Boolean(parsed.slotId) };
+    }
+  } catch {
+    /* fall back to disabled */
+  }
+  return c.json(cfg, 200, { "Cache-Control": "public, max-age=300" });
+});
+
 // ── Nasakh & Mansukh (see migration 0019) ─────────────────────────────────
 // GET /content/nasakh — all abrogating/abrogated entries, ordered.
 contentRoute.get("/nasakh", async (c) => {

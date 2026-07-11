@@ -460,6 +460,83 @@ adminRoute.get("/library-stats", async (c) => {
   });
 });
 
+// ── AdSense: one-time ad-unit id + first-party impression/click analytics ──
+
+// GET /admin/adsense-config — current ad-unit id + estimated eCPM.
+adminRoute.get("/adsense-config", async (c) => {
+  const raw = await c.env.CACHE_KV.get("adsense:config");
+  const cfg = raw ? JSON.parse(raw) : {};
+  return c.json({
+    slotId: cfg.slotId ?? "",
+    enabled: cfg.enabled !== false,
+    ecpmUsd: typeof cfg.ecpmUsd === "number" ? cfg.ecpmUsd : 1.0,
+    clientId: "ca-pub-6371903555702163",
+  });
+});
+
+// POST /admin/adsense-config — set the single ad-unit id used site-wide + the
+// estimated eCPM (USD per 1000 impressions) used for the earnings estimate.
+adminRoute.post("/adsense-config", async (c) => {
+  const body = await c.req.json<{ slotId?: string; enabled?: boolean; ecpmUsd?: number }>();
+  const slotId = String(body.slotId ?? "").trim().replace(/[^0-9]/g, "").slice(0, 20);
+  const ecpmUsd = Number.isFinite(body.ecpmUsd) ? Math.max(0, Number(body.ecpmUsd)) : 1.0;
+  const cfg = { slotId, enabled: body.enabled !== false, ecpmUsd };
+  await safeKvPut(c.env, "adsense:config", JSON.stringify(cfg));
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    slotId: slotId ? `…${slotId.slice(-4)}` : "(cleared)",
+    ecpmUsd,
+  });
+  return c.json({ ok: true, ...cfg });
+});
+
+// GET /admin/adsense-stats — first-party impression/click counts + an earnings
+// ESTIMATE (impressions ÷ 1000 × eCPM). Real revenue lives in the Google
+// AdSense dashboard; this is an in-house approximation, by page + country.
+adminRoute.get("/adsense-stats", async (c) => {
+  const raw = await c.env.CACHE_KV.get("adsense:config");
+  const ecpmUsd = raw && typeof JSON.parse(raw).ecpmUsd === "number" ? JSON.parse(raw).ecpmUsd : 1.0;
+
+  const [totals, byCountry, byPage, last30] = await Promise.all([
+    c.env.DB.prepare(
+      `SELECT
+         SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+         SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events`
+    ).first<{ impressions: number; clicks: number }>(),
+    c.env.DB.prepare(
+      `SELECT coalesce(country,'??') AS country,
+              SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events GROUP BY country ORDER BY impressions DESC LIMIT 30`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT page, SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events GROUP BY page ORDER BY impressions DESC LIMIT 20`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y-%m-%d', created_at) AS day,
+              SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events WHERE created_at >= datetime('now','-30 days') GROUP BY day ORDER BY day`
+    ).all(),
+  ]);
+
+  const impressions = totals?.impressions ?? 0;
+  const clicks = totals?.clicks ?? 0;
+  return c.json({
+    impressions,
+    clicks,
+    ctr: impressions > 0 ? clicks / impressions : 0,
+    ecpmUsd,
+    estimatedEarningsUsd: (impressions / 1000) * ecpmUsd,
+    byCountry: byCountry.results,
+    byPage: byPage.results,
+    daily: last30.results,
+  });
+});
+
 // ── Clients / registered donors ──────────────────────────────────────────
 
 adminRoute.get("/clients", async (c) => {
