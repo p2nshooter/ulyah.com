@@ -19,6 +19,12 @@ import { FEATURED_TAFSIR, findEdition, type TafsirEdition } from "./tafsir-editi
 
 const EQURAN = "https://equran.id/api/v2/tafsir";
 const SPA5K = "https://raw.githubusercontent.com/spa5k/tafsir_api/main/tafsir";
+// Sahih Asbab al-Nuzul (صحيح أسباب النزول, Ibrahim Muhammad al-Ali) — an
+// authentic, hadith-analysed occasions-of-revelation dataset. Higher quality
+// than the English Al-Wahidi fallback; Arabic, so translated on demand for
+// non-Arabic readers. Per-surah files are zero-padded to 3 digits.
+const SAHIH_ASBAB = "https://raw.githubusercontent.com/mostafaahmed97/asbab-al-nuzul-dataset/main/data/structured/json";
+const SAHIH_ASBAB_SOURCE = "Sahih Asbabun Nuzul — Ibrahim Muhammad al-Ali";
 const KV_TTL = 60 * 60 * 24 * 30; // 30 days — static classical text, never changes
 
 const SPA5K_TAFSIR: Record<string, { edition: string; source: string }> = {
@@ -185,11 +191,38 @@ export async function fetchTafsirByEdition(
   return { text, source: ed.name, lang: nativeLocale };
 }
 
+/** Sahih Asbab al-Nuzul for one ayah — authentic Arabic, translated to the
+ * reader's language on demand (never leaking raw Arabic into a non-Arabic
+ * panel). An entry can cover a range of ayat via its `ayahs` array. */
+async function fetchSahihAsbab(
+  env: Env,
+  surah: number,
+  ayahNumber: number,
+  lang: string | null
+): Promise<{ text: string; source: string } | null> {
+  const padded = String(surah).padStart(3, "0");
+  const data = await fetchJsonCached<{ ayahs: number[]; occasions: string[] }[]>(
+    env,
+    `asbab:sahih:${surah}`,
+    `${SAHIH_ASBAB}/${padded}.json`
+  );
+  const hit = data?.find((e) => Array.isArray(e.ayahs) && e.ayahs.includes(ayahNumber));
+  const arabic = hit?.occasions?.map((o) => o.trim()).filter(Boolean).join("\n\n").trim();
+  if (!arabic || arabic.length < 40) return null;
+
+  if (lang === "ar") return { text: arabic, source: SAHIH_ASBAB_SOURCE };
+  const translated = await translateText(env, arabic, lang ?? "id", "ar");
+  if (translated) return { text: translated, source: `${SAHIH_ASBAB_SOURCE} (diterjemahkan)` };
+  // Translation genuinely failed — better to fall through to another source
+  // than to dump untranslated Arabic into, say, an Indonesian panel.
+  return null;
+}
+
 /**
- * Resolve one ayah's occasion-of-revelation. The curated Indonesian dataset
- * (Al-Wahidi & As-Suyuthi) wins; a `null` entry there is an explicit "no
- * specific occasion" and is respected. Ayat absent from the curated set fall
- * back to the spa5k Al-Wahidi (English) edition.
+ * Resolve one ayah's occasion-of-revelation. Priority: the curated Indonesian
+ * dataset (Al-Wahidi & As-Suyuthi) — a `null` entry there is an explicit "no
+ * specific occasion" and is respected; then the authentic Sahih Asbab al-Nuzul
+ * (Arabic, translated on demand); then the spa5k Al-Wahidi (English) edition.
  */
 export async function fetchAsbabunNuzul(
   env: Env,
@@ -202,6 +235,9 @@ export async function fetchAsbabunNuzul(
     const text = ASBAB_DATA[key];
     return text ? { text, source: "Asbabun Nuzul — Al-Wahidi & As-Suyuthi" } : null;
   }
+
+  const sahih = await fetchSahihAsbab(env, surah, ayahNumber, lang);
+  if (sahih) return sahih;
 
   const data = await fetchJsonCached<{ ayahs?: { ayah: number; text: string }[] }>(
     env,
