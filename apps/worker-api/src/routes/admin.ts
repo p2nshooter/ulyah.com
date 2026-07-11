@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { decryptApiKey } from "@ulyah/shared/crypto";
 import { testApiKey } from "@ulyah/key-pool";
 import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
@@ -686,7 +686,10 @@ adminRoute.get("/media", async (c) => {
   return c.json({ media: await listMediaStatus(c.env) });
 });
 
-adminRoute.put("/media/:key", async (c) => {
+// Registered for BOTH PUT and POST: the admin Media uploader posts multipart
+// via api.upload() (which is a POST), so a PUT-only route silently 404'd and
+// the photo never saved ("foto yg diupload g muncul"). Same handler for both.
+const uploadMedia = async (c: Context<{ Bindings: Env }>) => {
   const key = c.req.param("key");
   if (!MANAGED_MEDIA.some((m) => m.key === key)) return c.json({ error: `Unknown media key: ${key}` }, 400);
 
@@ -710,7 +713,9 @@ adminRoute.put("/media/:key", async (c) => {
 
   await logAdminAction(c.env, "media_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
   return c.json({ ok: true });
-});
+};
+adminRoute.put("/media/:key", uploadMedia);
+adminRoute.post("/media/:key", uploadMedia);
 
 adminRoute.delete("/media/:key", async (c) => {
   const key = c.req.param("key");
