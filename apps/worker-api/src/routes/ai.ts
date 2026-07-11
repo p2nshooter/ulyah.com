@@ -51,9 +51,20 @@ aiRoute.post("/tts", async (c) => {
     );
   }
 
-  // Workers AI melotts is the always-on fallback (en/zh only); anything else
-  // needs a donated TTS-scope key (ElevenLabs/Azure/self-hosted Edge-TTS proxy).
-  if (targetLang === "en" || targetLang === "zh") {
+  // Cloudflare Workers AI is billable, so it's OFF by default and only used
+  // when the admin explicitly flips the "CF Worker AI" switch on. Until then
+  // (and always for the browser-voice path) the site relies on the zero-cost
+  // browser Web Speech voice and any donated TTS-scope keys — "manfaatin yang
+  // gratis dulu". When off, en/zh fall through to the same donated-key notice.
+  let cfWorkerAiEnabled = false;
+  try {
+    const raw = await c.env.CACHE_KV.get("scaling:settings");
+    if (raw) cfWorkerAiEnabled = JSON.parse(raw).cfWorkerAiEnabled === true;
+  } catch {
+    cfWorkerAiEnabled = false;
+  }
+
+  if (cfWorkerAiEnabled && (targetLang === "en" || targetLang === "zh")) {
     try {
       const result = await c.env.AI.run("@cf/myshell-ai/melotts", { prompt: text, lang: targetLang } as any);
       const audio = (result as any).audio as string | undefined;

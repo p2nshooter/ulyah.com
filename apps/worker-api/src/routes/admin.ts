@@ -518,6 +518,10 @@ adminRoute.get("/scaling/settings", async (c) => {
     targetJobsPerTick: 5,
     engineEnabled: true,
     compileLangs: ["id", "en"],
+    // Cloudflare Workers AI is billable — OFF by default. Donated NVIDIA/
+    // OpenRouter keys + the free browser voice are used first; this is only a
+    // last-resort paid fallback the owner opts into.
+    cfWorkerAiEnabled: false,
   };
   return c.json({ settings: raw ? { ...defaults, ...JSON.parse(raw) } : defaults });
 });
