@@ -4,6 +4,7 @@
 export interface PwaLabels {
   installApp: string;
   iosHint: string;
+  manualHint: string;
   downloadSectionTitle: string;
   downloadSectionSubtitle: string;
   mainAppName: string;
@@ -17,6 +18,7 @@ export interface PwaLabels {
 const EN: PwaLabels = {
   installApp: "Install App",
   iosHint: "On iPhone/iPad: tap the Share icon, then \"Add to Home Screen\".",
+  manualHint: "Open your browser's menu (⋮ or ···) and choose \"Add to Home Screen\" or \"Install App\".",
   downloadSectionTitle: "📲 Download the App",
   downloadSectionSubtitle: "Install ULYAH.COM on your phone — free, no app store needed, one tap.",
   mainAppName: "ULYAH.COM App",
@@ -30,6 +32,7 @@ const EN: PwaLabels = {
 const ID: PwaLabels = {
   installApp: "Pasang Aplikasi",
   iosHint: "Di iPhone/iPad: ketuk ikon Share, lalu pilih \"Add to Home Screen\".",
+  manualHint: "Buka menu browser Anda (⋮ atau ···), lalu pilih \"Add to Home Screen\" atau \"Install App\".",
   downloadSectionTitle: "📲 Download Aplikasi",
   downloadSectionSubtitle: "Pasang ULYAH.COM di HP kamu — gratis, tanpa app store, cukup satu ketukan.",
   mainAppName: "Aplikasi ULYAH.COM",
@@ -43,6 +46,7 @@ const ID: PwaLabels = {
 const AR: PwaLabels = {
   installApp: "تثبيت التطبيق",
   iosHint: "على آيفون/آيباد: اضغط على أيقونة المشاركة، ثم اختر \"إضافة إلى الشاشة الرئيسية\".",
+  manualHint: "افتح قائمة المتصفح (⋮ أو ···) ثم اختر \"إضافة إلى الشاشة الرئيسية\" أو \"تثبيت التطبيق\".",
   downloadSectionTitle: "📲 تحميل التطبيق",
   downloadSectionSubtitle: "ثبّت ULYAH.COM على هاتفك — مجانًا، بدون متجر تطبيقات، بضغطة واحدة.",
   mainAppName: "تطبيق ULYAH.COM",

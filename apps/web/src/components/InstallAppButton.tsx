@@ -16,17 +16,28 @@ const INSTALLED_KEY = "ulyah_pwa_installed";
  * on every visit. Disappears entirely once the app is actually installed
  * (detected via the `appinstalled` event, standalone display-mode, or a
  * persisted flag from a previous install), so it never re-offers something
- * the visitor already has. `app` tags which installable PWA this instance
- * offers (main site vs. the standalone Jadwal Sholat mini-app) so the admin
- * portal's install counter can tell them apart. `labeled` swaps the quiet
- * icon-only header form for a bigger pill-with-text CTA, for use in a
- * dedicated "Download App" section rather than tucked in the header.
+ * the visitor already has.
+ *
+ * Chrome only fires `beforeinstallprompt` after its own engagement
+ * heuristics are satisfied — sometimes not on a visitor's first visit, and
+ * never at all in browsers that don't support it (Firefox, in-app WebViews,
+ * desktop Safari). Previously this button simply rendered nothing at all
+ * whenever that event hadn't fired, which made the whole "Download App"
+ * section look broken rather than just quiet. It now always renders and
+ * falls back to manual "add to home screen" instructions when there's no
+ * native prompt captured, so the button is never silently invisible.
+ *
+ * `app` tags which installable PWA this instance offers (main site vs. the
+ * standalone Jadwal Sholat mini-app) so the admin portal's install counter
+ * can tell them apart. `labeled` swaps the quiet icon-only header form for a
+ * bigger pill-with-text CTA, for use in a dedicated "Download App" section
+ * rather than tucked in the header.
  */
 export function InstallAppButton({ app = "main", labeled = false }: { app?: "main" | "sholat"; labeled?: boolean }) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
-  const [showIOSHint, setShowIOSHint] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const [locale, setLocale] = useState("id");
 
   useEffect(() => {
@@ -61,7 +72,6 @@ export function InstallAppButton({ app = "main", labeled = false }: { app?: "mai
   }, [app]);
 
   if (installed) return null;
-  if (!deferredPrompt && !isIOS) return null; // nothing installable to offer on this browser
 
   const t = pwaLabels(locale);
 
@@ -75,10 +85,14 @@ export function InstallAppButton({ app = "main", labeled = false }: { app?: "mai
         setInstalled(true);
         api.post("/analytics/install", { app }).catch(() => {});
       }
-    } else if (isIOS) {
-      setShowIOSHint((v) => !v);
+      return;
     }
+    // No native prompt captured yet (or this browser never fires one) —
+    // show manual instructions instead of doing nothing.
+    setShowHint((v) => !v);
   }
+
+  const hintText = isIOS ? t.iosHint : t.manualHint;
 
   if (labeled) {
     return (
@@ -89,9 +103,9 @@ export function InstallAppButton({ app = "main", labeled = false }: { app?: "mai
         >
           📲 {t.installApp}
         </button>
-        {showIOSHint && (
+        {showHint && (
           <div className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed text-[var(--color-text-primary)] shadow-2xl">
-            {t.iosHint}
+            {hintText}
           </div>
         )}
       </div>
@@ -108,9 +122,9 @@ export function InstallAppButton({ app = "main", labeled = false }: { app?: "mai
       >
         📲
       </button>
-      {showIOSHint && (
+      {showHint && (
         <div className="absolute right-0 top-full z-30 mt-2 w-60 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed shadow-2xl">
-          {t.iosHint}
+          {hintText}
         </div>
       )}
     </div>

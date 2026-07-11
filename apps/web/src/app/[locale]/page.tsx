@@ -123,8 +123,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
+      {/* ── Download App — explicit pointer, right up top rather than
+          buried near the footer, since a header icon alone went unnoticed ── */}
+      <DownloadAppSection locale={locale} />
+
       {/* ── Radio Qori Dunia — always-on world reciters stream ─ */}
-      <section className="px-4 pt-10 sm:px-6">
+      <section className="px-4 pt-4 sm:px-6">
         <div className="mx-auto max-w-4xl">
           <RadioQoriWidget locale={locale} />
         </div>
@@ -191,9 +195,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
-
-      {/* ── Download App — explicit pointer, not just the header icon ── */}
-      <DownloadAppSection locale={locale} />
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
