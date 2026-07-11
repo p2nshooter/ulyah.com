@@ -48,7 +48,14 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
         <AdminAuthModal
           locale={locale}
           onClose={() => setShowModal(false)}
-          onSuccess={() => router.push(`/${locale}/admin`)}
+          onSuccess={() => {
+            // Close the modal BEFORE navigating — otherwise this trigger lives
+            // in the Header (on every page, including /admin), so the modal
+            // stayed open on top of the dashboard after login ("form login g
+            // ke close padahal sudah masuk").
+            setShowModal(false);
+            router.push(`/${locale}/admin`);
+          }}
         />
       )}
     </>
