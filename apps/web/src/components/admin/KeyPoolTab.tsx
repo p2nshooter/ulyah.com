@@ -87,7 +87,7 @@ export function KeyPoolTab() {
     setBulkBusy(true);
     setBulkResults(null);
     try {
-      const res = await api.post<{ results: { line: number; label: string; ok: boolean; detail: string }[] }>(
+      const res = await api.post<{ results: { label: string; ok: boolean; detail: string }[] }>(
         "/admin/keys/bulk",
         { text: bulkText }
       );
@@ -95,7 +95,7 @@ export function KeyPoolTab() {
       if (res.results.every((r) => r.ok)) setBulkText("");
       load();
     } catch (err) {
-      setBulkResults([{ line: 0, label: "", ok: false, detail: err instanceof Error ? err.message : "Failed" }]);
+      setBulkResults([{ label: "", ok: false, detail: err instanceof Error ? err.message : "Failed" }]);
     } finally {
       setBulkBusy(false);
     }
