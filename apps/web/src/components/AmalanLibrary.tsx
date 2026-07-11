@@ -40,6 +40,23 @@ const GROUPS: { key: string; label: string; icon: string }[] = [
  */
 export function AmalanLibrary({ locale, categories }: { locale: string; categories: AmalanCategory[] }) {
   const [group, setGroup] = useState("doa");
+  const [audioMode, setAudioMode] = useState<"semua" | "arab" | "arti">("semua");
+  const AUDIO_MODES: { key: "semua" | "arab" | "arti"; label: string }[] = [
+    { key: "semua", label: "🔊 Semua" },
+    { key: "arab", label: "﴿ Arab" },
+    { key: "arti", label: "📖 Arti" },
+  ];
+  // Build the {text,lang} narration script for one item per the chosen mode.
+  const itemSegments = (it: Item) => {
+    if (audioMode === "arab") return it.arabic ? [{ text: it.arabic, lang: "ar" }] : [];
+    if (audioMode === "arti")
+      return [it.translation_id ?? "", it.note_id ?? ""].filter(Boolean).map((text) => ({ text, lang: locale }));
+    return [
+      it.arabic ? { text: it.arabic, lang: "ar" } : null,
+      it.translation_id ? { text: it.translation_id, lang: locale } : null,
+      it.note_id ? { text: it.note_id, lang: locale } : null,
+    ].filter(Boolean) as { text: string; lang: string }[];
+  };
   const inGroup = useMemo(() => categories.filter((c) => c.grp === group), [categories, group]);
   const [activeSlug, setActiveSlug] = useState(inGroup[0]?.slug ?? "");
   const current = useMemo(
@@ -52,18 +69,6 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
     const first = categories.find((c) => c.grp === g);
     setActiveSlug(first?.slug ?? "");
   }
-
-  // Narrate the whole open category: title + terjemah + catatan per item.
-  const categoryNarration = useMemo(() => {
-    if (!current) return [];
-    const out: string[] = [];
-    for (const it of current.items) {
-      out.push(it.title_id);
-      if (it.translation_id) out.push(it.translation_id);
-      if (it.note_id) out.push(it.note_id);
-    }
-    return out;
-  }, [current]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
@@ -121,14 +126,31 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                     </p>
                   )}
                 </div>
-                {categoryNarration.length > 0 && (
-                  <NarrateButton
-                    paragraphs={categoryNarration}
-                    listenLabel="🔊 Dengarkan semua"
-                    stopLabel="⏹ Berhenti"
-                    lang={locale}
-                  />
-                )}
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-flex gap-1 rounded-full border border-[var(--color-border)] p-1">
+                    {AUDIO_MODES.map((m) => (
+                      <button
+                        key={m.key}
+                        onClick={() => setAudioMode(m.key)}
+                        className={`rounded-full px-2.5 py-1 text-[11px] transition ${
+                          audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)]"
+                        }`}
+                      >
+                        {m.label}
+                      </button>
+                    ))}
+                  </div>
+                  {current.items.length > 0 && (
+                    <NarrateButton
+                      key={audioMode}
+                      paragraphs={[]}
+                      segments={current.items.flatMap((it) => itemSegments(it))}
+                      listenLabel="🔊 Dengarkan semua"
+                      stopLabel="⏹ Berhenti"
+                      lang={locale}
+                    />
+                  )}
+                </div>
               </div>
 
               <div className="mt-5 space-y-4">
@@ -162,9 +184,11 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                       {it.source && (
                         <p className="text-[11px] italic text-[var(--color-text-secondary)]/70">📖 {it.source}</p>
                       )}
-                      {(it.translation_id || it.note_id || it.latin) && (
+                      {(it.arabic || it.translation_id || it.note_id) && (
                         <NarrateButton
-                          paragraphs={[it.latin ?? "", it.translation_id ?? "", it.note_id ?? ""].filter(Boolean)}
+                          key={audioMode}
+                          paragraphs={[]}
+                          segments={itemSegments(it)}
                           listenLabel="🔊 Dengarkan"
                           stopLabel="⏹"
                           lang={locale}
