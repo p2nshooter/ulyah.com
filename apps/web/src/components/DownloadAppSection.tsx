@@ -1,19 +1,13 @@
-import Link from "next/link";
 import { pwaLabels } from "@/lib/pwa-labels";
-import { InstallAppButton } from "@/components/InstallAppButton";
+import { MainAppInstallCard, SholatAppInstallCard } from "@/components/AppInstallCard";
 
 /**
- * The explicit, permanent "where do I download the app" pointer requested
- * alongside the quiet header icon (InstallAppButton on its own is easy to
- * miss) — a dedicated section naming both installable PWAs so visitors don't
- * have to guess. `id="download-app"` gives the footer link something to jump to.
- *
- * The Jadwal Sholat card links to /jadwal-sholat rather than installing
- * directly from here: the browser's install prompt always installs whichever
- * manifest is linked in the CURRENT page's <head>, and only the
- * /jadwal-sholat route itself overrides that to manifest-sholat.json — an
- * install button here would silently install the main app under the wrong
- * label.
+ * The explicit, permanent "where do I download the app" pointer — a
+ * dedicated section naming both installable PWAs so visitors don't have to
+ * guess. `id="download-app"` gives the footer link something to jump to.
+ * Each card carries the Arabic ULYAH mark and shrinks to a quiet "already
+ * installed" state once that particular app is on the visitor's device, so
+ * the two cards always point at whichever app is still missing.
  */
 export function DownloadAppSection({ locale }: { locale: string }) {
   const t = pwaLabels(locale);
@@ -26,21 +20,8 @@ export function DownloadAppSection({ locale }: { locale: string }) {
           {t.downloadSectionSubtitle}
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <div className="card-premium flex flex-col items-start gap-3 p-6">
-            <p className="font-heading text-lg">🕋 {t.mainAppName}</p>
-            <p className="text-sm text-[var(--color-text-secondary)]">{t.mainAppDesc}</p>
-            <InstallAppButton app="main" labeled />
-          </div>
-          <div className="card-premium flex flex-col items-start gap-3 p-6">
-            <p className="font-heading text-lg">🕌 {t.sholatAppName}</p>
-            <p className="text-sm text-[var(--color-text-secondary)]">{t.sholatAppDesc}</p>
-            <Link
-              href={`/${locale}/jadwal-sholat`}
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
-            >
-              {t.sholatAppCta}
-            </Link>
-          </div>
+          <MainAppInstallCard locale={locale} />
+          <SholatAppInstallCard locale={locale} />
         </div>
       </div>
     </section>

@@ -13,48 +13,52 @@ export interface PwaLabels {
   sholatAppDesc: string;
   sholatAppCta: string;
   alreadyInstalled: string;
+  installedBadge: string;
 }
 
 const EN: PwaLabels = {
   installApp: "Install App",
   iosHint: "On iPhone/iPad: tap the Share icon, then \"Add to Home Screen\".",
-  manualHint: "Open your browser's menu (⋮ or ···) and choose \"Add to Home Screen\" or \"Install App\".",
+  manualHint: "Open your browser's menu (⋮ or ···) and choose \"Add to Home Screen\". Opened this from another app? Try opening it in Chrome or Safari first.",
   downloadSectionTitle: "📲 Download the App",
-  downloadSectionSubtitle: "Install ULYAH.COM on your phone — free, no app store needed, one tap.",
+  downloadSectionSubtitle: "Free. One tap. No app store needed.",
   mainAppName: "ULYAH.COM App",
-  mainAppDesc: "The full platform: live Radio Qori, Qur'an, hadith, kitab library and kisah — offline-ready home screen icon.",
+  mainAppDesc: "Qur'an, radio, hadith & kitab — always with you.",
   sholatAppName: "Jadwal Sholat App",
-  sholatAppDesc: "A lightweight standalone reminder: prayer times locked to your location, Hijri countdown, world clocks — with the live radio still playing.",
+  sholatAppDesc: "Prayer times & live radio, always on your home screen.",
   sholatAppCta: "Open & Install →",
   alreadyInstalled: "Already installed on this device ✓",
+  installedBadge: "Installed on this device",
 };
 
 const ID: PwaLabels = {
   installApp: "Pasang Aplikasi",
   iosHint: "Di iPhone/iPad: ketuk ikon Share, lalu pilih \"Add to Home Screen\".",
-  manualHint: "Buka menu browser Anda (⋮ atau ···), lalu pilih \"Add to Home Screen\" atau \"Install App\".",
+  manualHint: "Buka menu browser (⋮ atau ···), lalu pilih \"Add to Home Screen\". Jika dibuka dari aplikasi lain (mis. WhatsApp), coba buka dulu di Chrome/Safari.",
   downloadSectionTitle: "📲 Download Aplikasi",
-  downloadSectionSubtitle: "Pasang ULYAH.COM di HP kamu — gratis, tanpa app store, cukup satu ketukan.",
+  downloadSectionSubtitle: "Gratis. Sekali ketuk. Tanpa app store.",
   mainAppName: "Aplikasi ULYAH.COM",
-  mainAppDesc: "Platform lengkap: Radio Qori Dunia live, Al-Qur'an, hadits, perpustakaan kitab dan kisah — ikon di layar utama HP.",
+  mainAppDesc: "Al-Qur'an, radio, hadits & kitab — selalu di genggaman.",
   sholatAppName: "Aplikasi Jadwal Sholat",
-  sholatAppDesc: "Pengingat ringan berdiri sendiri: waktu sholat sesuai lokasi kamu, hitung mundur Hijriah, jam dunia — radio live tetap jalan.",
+  sholatAppDesc: "Waktu sholat & radio live, selalu di layar utama HP.",
   sholatAppCta: "Buka & Pasang →",
   alreadyInstalled: "Sudah terpasang di perangkat ini ✓",
+  installedBadge: "Terpasang di perangkat ini",
 };
 
 const AR: PwaLabels = {
   installApp: "تثبيت التطبيق",
   iosHint: "على آيفون/آيباد: اضغط على أيقونة المشاركة، ثم اختر \"إضافة إلى الشاشة الرئيسية\".",
-  manualHint: "افتح قائمة المتصفح (⋮ أو ···) ثم اختر \"إضافة إلى الشاشة الرئيسية\" أو \"تثبيت التطبيق\".",
+  manualHint: "افتح قائمة المتصفح (⋮ أو ···) ثم اختر \"إضافة إلى الشاشة الرئيسية\". إذا فتحت هذا من تطبيق آخر (مثل واتساب)، جرّب فتحه في Chrome أو Safari أولاً.",
   downloadSectionTitle: "📲 تحميل التطبيق",
-  downloadSectionSubtitle: "ثبّت ULYAH.COM على هاتفك — مجانًا، بدون متجر تطبيقات، بضغطة واحدة.",
+  downloadSectionSubtitle: "مجانًا. بضغطة واحدة. بدون متجر تطبيقات.",
   mainAppName: "تطبيق ULYAH.COM",
-  mainAppDesc: "المنصة الكاملة: راديو القرّاء المباشر، القرآن، الحديث، مكتبة الكتب والقصص — أيقونة على الشاشة الرئيسية.",
+  mainAppDesc: "القرآن والراديو والحديث والكتب — دائمًا معك.",
   sholatAppName: "تطبيق مواقيت الصلاة",
-  sholatAppDesc: "تذكير خفيف مستقل: مواقيت الصلاة حسب موقعك، العد التنازلي الهجري، ساعات العالم — مع استمرار الراديو المباشر.",
+  sholatAppDesc: "مواقيت الصلاة والراديو المباشر، دائمًا على شاشتك الرئيسية.",
   sholatAppCta: "افتح وثبّت ←",
   alreadyInstalled: "مثبّت بالفعل على هذا الجهاز ✓",
+  installedBadge: "مثبّت على هذا الجهاز",
 };
 
 const MAP: Record<string, PwaLabels> = { en: EN, id: ID, ar: AR };
