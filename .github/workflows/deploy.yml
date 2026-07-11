@@ -215,6 +215,21 @@ jobs:
             fi
           done
 
+      - name: Import Riyadhus Shalihin (one-time, idempotent)
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # irsyadulibad/hadits-database (carihadis.com) — Riyadhus Shalihin
+          # Imam An-Nawawi, Arabic + Indonesian, HTML-cleaned. ids 100001+.
+          RCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM hadits WHERE collection='riyadhus';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$RCOUNT" -lt "400" ]; then
+            echo "Riyadhus Shalihin has $RCOUNT rows — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_riyadhus.sql
+            npx wrangler kv key delete "hadits:collections" --binding=CACHE_KV --remote || true
+          else
+            echo "Riyadhus Shalihin already has $RCOUNT rows — skipping."
+          fi
+
       - name: Import Kisah Nabi Musa AS series (one-time, idempotent)
         working-directory: apps/worker-api
         run: |
