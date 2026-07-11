@@ -54,7 +54,7 @@ export function KeyPoolTab() {
   const [bulkOpen, setBulkOpen] = useState(false);
   const [bulkText, setBulkText] = useState("");
   const [bulkBusy, setBulkBusy] = useState(false);
-  const [bulkResults, setBulkResults] = useState<{ line: number; label: string; ok: boolean; detail: string }[] | null>(null);
+  const [bulkResults, setBulkResults] = useState<{ label: string; ok: boolean; detail: string }[] | null>(null);
 
   function load() {
     api.get<{ keys: KeyRow[]; providers: ProviderDef[] }>("/admin/keys").then((r) => {
@@ -144,14 +144,17 @@ export function KeyPoolTab() {
         {bulkOpen && (
           <form onSubmit={addBulk} className="mt-3 space-y-2">
             <p className="text-[11px] text-[var(--color-text-secondary)]">
-              Satu key per baris, format: <code className="rounded bg-black/10 px-1">provider,scope,label,apiKey</code>
-              {" "}— contoh: <code className="rounded bg-black/10 px-1">nvidia-nim,text,NVIDIA_KEY_GLM,nvapi-xxxx</code>
+              <b>Tempel apa adanya</b> isi file API key Anda (format WhatsApp/catatan pun boleh) — sistem otomatis
+              mengenali key <code className="rounded bg-black/10 px-1">nvapi-…</code> (NVIDIA) &{" "}
+              <code className="rounded bg-black/10 px-1">sk-or-…</code> (OpenRouter) beserta labelnya. Key langsung
+              aktif &amp; dienkripsi (dites otomatis di latar belakang). Format baris{" "}
+              <code className="rounded bg-black/10 px-1">provider,scope,label,apiKey</code> juga tetap didukung.
             </p>
             <textarea
               value={bulkText}
               onChange={(e) => setBulkText(e.target.value)}
-              placeholder={"nvidia-nim,text,NVIDIA_KEY_GLM,nvapi-xxxx\nnvidia-nim,tts,NVIDIA_KEY_TTS,nvapi-yyyy"}
-              rows={6}
+              placeholder={"Tempel isi file key di sini…\n\nNVIDIA_KEY_MAIN\nValue: nvapi-xxxx\n\nOPENROUTER_KEY\nsk-or-v1-yyyy"}
+              rows={7}
               className="w-full rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 font-mono text-xs"
             />
             <button disabled={bulkBusy || !bulkText.trim()} className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
@@ -159,9 +162,12 @@ export function KeyPoolTab() {
             </button>
             {bulkResults && (
               <ul className="mt-2 space-y-1 text-[11px]">
-                {bulkResults.map((r) => (
-                  <li key={r.line} className={r.ok ? "text-success" : "text-danger"}>
-                    {r.ok ? "✓" : "✗"} baris {r.line} ({r.label}): {r.detail}
+                <li className="font-medium text-[var(--color-text-primary)]">
+                  {bulkResults.filter((r) => r.ok).length} key diproses dari {bulkResults.length} terdeteksi
+                </li>
+                {bulkResults.map((r, i) => (
+                  <li key={i} className={r.ok ? "text-success" : "text-danger"}>
+                    {r.ok ? "✓" : "✗"} {r.label}: {r.detail}
                   </li>
                 ))}
               </ul>

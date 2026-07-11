@@ -5,7 +5,7 @@ import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
 import type { Env } from "../env.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { logAdminAction } from "../lib/audit.js";
-import { ingestAndTestKey } from "../lib/keypool-db.js";
+import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
@@ -77,46 +77,77 @@ adminRoute.post("/keys", async (c) => {
 // a typo in one line doesn't silently swallow the rest.
 adminRoute.post("/keys/bulk", async (c) => {
   const { text } = await c.req.json<{ text: string }>();
-  const lines = text
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l.length > 0 && !l.startsWith("#"));
-
   const admin = c.get("admin" as never) as { email: string };
-  const results: { line: number; label: string; ok: boolean; detail: string }[] = [];
+  const results: { label: string; ok: boolean; detail: string }[] = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]!;
+  // Two accepted inputs, tried per source:
+  //  1) strict CSV lines: provider,scope,label,apiKey
+  //  2) ANY messy blob (WhatsApp/notes export) — we just scan for provider key
+  //     tokens (nvapi-… → nvidia, sk-or-… → openrouter) and use the nearest
+  //     UPPER_SNAKE label. This is why pasting the raw key file now works.
+  const seen = new Set<string>();
+
+  // Pass 1: strict CSV lines (kept for backward compatibility / other providers).
+  for (const raw of text.split("\n")) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
     const parts = line.split(",").map((p) => p.trim());
+    if (parts.length < 4) continue;
     const [provider, scope, label, ...rest] = parts;
-    const rawKey = rest.join(","); // key itself may legitimately contain commas
-    if (!provider || !scope || !label || !rawKey) {
-      results.push({ line: i + 1, label: label ?? "?", ok: false, detail: "Format baris salah — perlu: provider,scope,label,apiKey" });
-      continue;
-    }
-    if (!getProvider(provider)) {
-      results.push({ line: i + 1, label, ok: false, detail: `Provider "${provider}" tidak dikenal` });
-      continue;
-    }
-    if (!["text", "tts", "gpu", "image"].includes(scope)) {
-      results.push({ line: i + 1, label, ok: false, detail: `Scope "${scope}" tidak valid` });
-      continue;
-    }
+    const rawKey = rest.join(",");
+    if (!provider || !scope || !label || !rawKey) continue;
+    if (!getProvider(provider) || !["text", "tts", "gpu", "image"].includes(scope)) continue;
+    if (seen.has(rawKey)) continue;
+    seen.add(rawKey);
     try {
-      const result = await ingestAndTestKey(c.env, {
+      const status = await ingestKeyNoTest(c.env, {
         provider,
         scope: scope as "text" | "tts" | "gpu" | "image",
         rawKey,
         donorLabel: label,
       });
-      results.push({ line: i + 1, label, ok: true, detail: `${result.status} — ${result.test.detail}` });
+      results.push({ label, ok: true, detail: status === "duplicate" ? "sudah ada" : "ditambahkan (active)" });
     } catch (err) {
-      results.push({ line: i + 1, label, ok: false, detail: err instanceof Error ? err.message : "Gagal" });
+      results.push({ label, ok: false, detail: err instanceof Error ? err.message : "Gagal" });
+    }
+  }
+
+  // Pass 2: token scan of the whole blob (handles the raw pasted key file).
+  const TOKEN_RE = /(nvapi-[A-Za-z0-9_-]{20,}|sk-or-v1-[A-Za-z0-9]{20,})/g;
+  const lines = text.split(/\r?\n/);
+  let lastLabel: string | null = null;
+  const isClean = (s: string) => /^[A-Z][A-Z0-9_]{3,}$/.test(s);
+  const tokenLabel = new Map<string, string | null>();
+  const order: string[] = [];
+  for (const line of lines) {
+    const toks = line.match(TOKEN_RE);
+    if (toks) {
+      for (const t of toks) {
+        if (!tokenLabel.has(t)) order.push(t);
+        const prev = tokenLabel.get(t);
+        if (!prev || (lastLabel && isClean(lastLabel) && !isClean(prev))) tokenLabel.set(t, lastLabel);
+      }
+    } else {
+      const cleaned = line.trim().replace(/^Value:\s*/i, "").replace(/[:：].*$/, "").trim();
+      if (cleaned && cleaned.length <= 48 && !/[{}();=]/.test(cleaned)) lastLabel = cleaned;
+    }
+  }
+  for (const tok of order) {
+    if (seen.has(tok)) continue;
+    seen.add(tok);
+    const provider = tok.startsWith("nvapi-") ? "nvidia" : "openrouter";
+    if (!getProvider(provider)) continue;
+    const label = tokenLabel.get(tok) || `${provider} key`;
+    try {
+      const status = await ingestKeyNoTest(c.env, { provider, scope: "text", rawKey: tok, donorLabel: label });
+      results.push({ label, ok: true, detail: status === "duplicate" ? "sudah ada" : "ditambahkan (active)" });
+    } catch (err) {
+      results.push({ label, ok: false, detail: err instanceof Error ? err.message : "Gagal" });
     }
   }
 
   await logAdminAction(c.env, "key_bulk_added", admin.email, c.req.header("cf-connecting-ip") ?? null, {
-    total: lines.length,
+    total: results.length,
     ok: results.filter((r) => r.ok).length,
   });
 
