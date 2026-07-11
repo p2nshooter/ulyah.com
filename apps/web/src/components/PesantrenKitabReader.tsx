@@ -56,6 +56,17 @@ export function PesantrenKitabReader({
   const [activeBab, setActiveBab] = useState(chapters[0]?.id ?? 0);
   const current = useMemo(() => chapters.find((c) => c.id === activeBab) ?? chapters[0], [chapters, activeBab]);
 
+  // Audio mode: what the "Dengarkan" button reads, and in which voice.
+  //  - semua: Arabic matn (Arabic voice) → terjemah + penjelasan (UI voice)
+  //  - arab : only the Arabic matn, Arabic voice
+  //  - arti : only terjemah + penjelasan, UI-language voice
+  const [audioMode, setAudioMode] = useState<"semua" | "arab" | "arti">("semua");
+  const AUDIO_MODES: { key: "semua" | "arab" | "arti"; label: string }[] = [
+    { key: "semua", label: "🔊 Baca semua" },
+    { key: "arab", label: "﴿ Arab saja" },
+    { key: "arti", label: "📖 Arti saja" },
+  ];
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
@@ -120,6 +131,21 @@ export function PesantrenKitabReader({
                 )}
               </div>
 
+              {/* Audio mode selector — applies to every "Dengarkan" below. */}
+              <div className="mt-3 inline-flex flex-wrap gap-1.5 rounded-full border border-[var(--color-border)] p-1">
+                {AUDIO_MODES.map((m) => (
+                  <button
+                    key={m.key}
+                    onClick={() => setAudioMode(m.key)}
+                    className={`rounded-full px-3 py-1 text-xs transition ${
+                      audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)] hover:text-accent"
+                    }`}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+
               <div className="mt-5 space-y-5">
                 {current.matn.map((m) => (
                   <article key={m.id} className="card-premium-static p-5">
@@ -181,11 +207,26 @@ export function PesantrenKitabReader({
                       </div>
                     )}
 
-                    {/* Listen: narrate terjemah + penjelasan aloud */}
-                    {(m.translation_id || m.explanation_id) && (
+                    {/* Listen — obeys the audio-mode selector, with the voice
+                        matching each part's language (Arabic matn vs terjemah). */}
+                    {(m.text_ar || m.translation_id || m.explanation_id) && (
                       <div className="mt-3">
                         <NarrateButton
-                          paragraphs={[m.translation_id ?? "", m.explanation_id ?? ""].filter(Boolean)}
+                          key={audioMode}
+                          paragraphs={
+                            audioMode === "arti" ? [m.translation_id ?? "", m.explanation_id ?? ""].filter(Boolean) : []
+                          }
+                          segments={
+                            audioMode === "arab"
+                              ? [{ text: m.text_ar, lang: "ar" }]
+                              : audioMode === "semua"
+                                ? [
+                                    { text: m.text_ar, lang: "ar" },
+                                    { text: m.translation_id ?? "", lang: locale },
+                                    { text: m.explanation_id ?? "", lang: locale },
+                                  ].filter((s) => s.text)
+                                : undefined
+                          }
                           listenLabel="🔊 Dengarkan"
                           stopLabel="⏹ Berhenti"
                           lang={locale}
