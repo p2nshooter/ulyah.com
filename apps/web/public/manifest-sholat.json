@@ -4,7 +4,7 @@
   "description": "Jadwal sholat sesuai lokasi Anda, hitung mundur Ramadhan, jam dunia, dan Radio Qori Dunia yang selalu hidup.",
   "id": "/jadwal-sholat",
   "start_url": "/id/jadwal-sholat",
-  "scope": "/",
+  "scope": "/id/jadwal-sholat",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#06251b",
