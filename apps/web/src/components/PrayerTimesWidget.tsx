@@ -50,9 +50,34 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
   const [now, setNow] = useState<Date>(() => new Date());
   const [phase, setPhase] = useState<RamadanPhase | null>(null);
 
+  // Tick every second, but pause entirely while the tab/app is in the
+  // background — a standalone installed app can sit open for hours, and a
+  // per-second re-render nobody is watching just drains battery. Resumes
+  // (and snaps to the true current time) the instant it's foregrounded.
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
+    let id: ReturnType<typeof setInterval> | null = null;
+    const start = () => {
+      if (id === null) id = setInterval(() => setNow(new Date()), 1000);
+    };
+    const stop = () => {
+      if (id !== null) {
+        clearInterval(id);
+        id = null;
+      }
+    };
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else {
+        setNow(new Date());
+        start();
+      }
+    };
+    start();
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, []);
 
   useEffect(() => {
@@ -95,7 +120,45 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
     [country, dayKey]
   );
 
-  const nextKey = times.nextPrayer(now) as PrayerKey | "none";
+  // A continuous timeline of prayer moments spanning yesterday's Isha through
+  // tomorrow's Fajr, so the "next prayer" and progress bar stay correct
+  // across the midnight/after-Isha boundary (adhan's nextPrayer() returns
+  // "none" after Isha — this bridges to tomorrow's Fajr instead).
+  const schedule = useMemo(() => {
+    const coords = new Coordinates(country.lat, country.lng);
+    const dayAt = (offset: number) => {
+      const d = new Date(now);
+      d.setDate(d.getDate() + offset);
+      return new PrayerTimes(coords, d, country.method());
+    };
+    const yesterday = dayAt(-1);
+    const tomorrow = dayAt(1);
+    const entries: { key: PrayerKey; time: Date }[] = [{ key: "isha", time: yesterday.isha }];
+    for (const k of PRAYER_ORDER) entries.push({ key: k, time: times.timeForPrayer(k)! });
+    entries.push({ key: "fajr", time: tomorrow.fajr });
+    return entries;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [country, dayKey, times]);
+
+  const nowMs = now.getTime();
+  let prevMoment = schedule[0]!;
+  let nextMoment = schedule[schedule.length - 1]!;
+  for (const e of schedule) if (e.time.getTime() <= nowMs) prevMoment = e;
+  for (const e of schedule) {
+    if (e.time.getTime() > nowMs) {
+      nextMoment = e;
+      break;
+    }
+  }
+  const nextKey = nextMoment.key;
+  const msToNext = Math.max(0, nextMoment.time.getTime() - nowMs);
+  const gap = nextMoment.time.getTime() - prevMoment.time.getTime();
+  const progress = gap > 0 ? Math.min(1, Math.max(0, (nowMs - prevMoment.time.getTime()) / gap)) : 0;
+  const cd = {
+    hours: Math.floor(msToNext / 3_600_000),
+    minutes: Math.floor((msToNext % 3_600_000) / 60_000),
+    seconds: Math.floor((msToNext % 60_000) / 1000),
+  };
   const hijri = toHijri(now);
   const monthNames = locale === "id" ? HIJRI_MONTH_NAMES_ID : HIJRI_MONTH_NAMES_EN;
   const gregorian = new Intl.DateTimeFormat(locale === "ar" ? "ar" : locale === "id" ? "id-ID" : "en-US", {
@@ -140,8 +203,30 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
           </div>
         </div>
 
+        {/* Prominent countdown to the next prayer — the single most useful
+            thing a prayer widget can show: how long until the next salah. */}
+        <div className="mt-6 overflow-hidden rounded-2xl border border-accent/40 bg-accent/10">
+          <div className="flex items-center justify-between px-4 pt-3">
+            <p className="text-xs text-[#f4efe3]/70">
+              {t.untilNext} <span className="font-heading text-accent">{prayerLabelMap[nextKey]}</span>
+              {" · "}
+              <span className="tabular-nums">{hmIn(country.tz, nextMoment.time)}</span>
+            </p>
+            <p className="font-heading text-2xl tabular-nums text-accent">
+              {cd.hours > 0 ? `${String(cd.hours).padStart(2, "0")}:` : ""}
+              {String(cd.minutes).padStart(2, "0")}:{String(cd.seconds).padStart(2, "0")}
+            </p>
+          </div>
+          <div className="mt-2 h-1.5 w-full bg-white/10">
+            <div
+              className="h-full rounded-r-full bg-accent transition-[width] duration-1000 ease-linear"
+              style={{ width: `${Math.round(progress * 100)}%` }}
+            />
+          </div>
+        </div>
+
         {/* Prayer time tiles */}
-        <div className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-6">
+        <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-6">
           {PRAYER_ORDER.map((key) => {
             const d = times.timeForPrayer(key);
             const active = key === nextKey;

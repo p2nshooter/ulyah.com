@@ -28,6 +28,24 @@ declare global {
   }
 }
 
+/**
+ * Loads the AdSense library on demand — once, and only when a real ad slot
+ * actually needs it. Kept out of the global <head> on purpose: a site-wide
+ * loader lets Google's Auto ads inject empty placeholder boxes everywhere
+ * during the review period. With no real slot ids yet, this never runs, so
+ * no script loads and no blank boxes appear.
+ */
+function ensureAdsenseLoaded() {
+  if (typeof document === "undefined") return;
+  if (document.querySelector("script[data-ulyah-adsense]")) return;
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${CLIENT}`;
+  s.crossOrigin = "anonymous";
+  s.setAttribute("data-ulyah-adsense", "1");
+  document.head.appendChild(s);
+}
+
 export function AdSlot({
   slot,
   format = "auto",
@@ -45,6 +63,7 @@ export function AdSlot({
 
   useEffect(() => {
     if (!slot) return;
+    ensureAdsenseLoaded();
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {
@@ -52,11 +71,17 @@ export function AdSlot({
     }
   }, [slot]);
 
+  // Until a real ad-unit id exists (i.e. until the account is approved and
+  // ids are filled in), render nothing at all — no reserved placeholder box.
+  // Post-approval, filling in `slot` makes the ad appear in exactly this
+  // spot with no layout change needed. Keeping the page free of empty boxes
+  // during review is both cleaner for visitors and better for approval.
+  if (!slot) return null;
+
   return (
     <div
       className={`mx-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-accent/25 bg-gradient-to-b from-accent/[0.06] to-transparent text-center shadow-sm ${className}`}
       style={{ minHeight }}
-      aria-hidden={!slot}
     >
       <div className="flex items-center justify-center gap-1.5 border-b border-accent/10 py-1.5">
         <span aria-hidden className="text-[10px]">
@@ -69,21 +94,15 @@ export function AdSlot({
           ✦
         </span>
       </div>
-      {slot ? (
-        <ins
-          ref={ref}
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client={CLIENT}
-          data-ad-slot={slot}
-          data-ad-format={format}
-          data-full-width-responsive="true"
-        />
-      ) : (
-        <div className="grid place-items-center" style={{ minHeight: minHeight - 28 }}>
-          <span className="text-[10px] text-[var(--color-text-secondary)]/30">ULYAH</span>
-        </div>
-      )}
+      <ins
+        ref={ref}
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client={CLIENT}
+        data-ad-slot={slot}
+        data-ad-format={format}
+        data-full-width-responsive="true"
+      />
     </div>
   );
 }

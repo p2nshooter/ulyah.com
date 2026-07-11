@@ -136,17 +136,17 @@ export default async function LocaleLayout({
             }),
           }}
         />
-        {/* Google AdSense — ownership meta + loader as native, server-rendered
-            <head> tags so the AdSense verification crawler sees them in the
-            initial HTML (verification kept failing when these were injected
-            client-side). ads.txt at the domain root is the primary proof. */}
+        {/* Google AdSense — ownership is proven by this meta tag plus ads.txt
+            at the domain root (both are what the verification crawler reads).
+            The adsbygoogle.js loader is deliberately NOT global: loading it
+            site-wide makes Google's account-level Auto ads inject empty,
+            unfilled placeholder boxes on every page while the account is
+            still under review — the blank overlapping boxes reported on
+            /jadwal-sholat. Instead the loader is injected lazily by <AdSlot>
+            only on a slot that has a real ad-unit id, so until approval (no
+            ids yet) no script loads and no empty boxes appear, yet the moment
+            real slot ids are filled in post-approval, ads light up. */}
         <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>
         <SwRegister />

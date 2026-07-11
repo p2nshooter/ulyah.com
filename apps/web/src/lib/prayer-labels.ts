@@ -25,6 +25,8 @@ export interface PrayerLabels {
   installStandalone: string;
   brandTagline: string;
   brandCta: string;
+  untilNext: string;
+  now: string;
 }
 
 const EN: PrayerLabels = {
@@ -52,6 +54,8 @@ const EN: PrayerLabels = {
   brandTagline:
     "Prayer Schedule and Radio Qori Dunia are part of ULYAH.COM — a digital home for the Qur'an, tafsir, hadith, classical texts, and Islamic stories, all narrated aloud for every listener.",
   brandCta: "Discover the full ULYAH.COM app →",
+  untilNext: "Until",
+  now: "now",
 };
 
 const ID: PrayerLabels = {
@@ -79,6 +83,8 @@ const ID: PrayerLabels = {
   brandTagline:
     "Jadwal Sholat dan Radio Qori Dunia adalah bagian dari ULYAH.COM — rumah digital Al-Qur'an, tafsir, hadits, kitab klasik, dan kisah-kisah Islami, yang seluruhnya dibacakan dengan suara untuk setiap pendengarnya.",
   brandCta: "Jelajahi aplikasi lengkap ULYAH.COM →",
+  untilNext: "Menuju",
+  now: "sekarang",
 };
 
 const AR: PrayerLabels = {
@@ -106,6 +112,8 @@ const AR: PrayerLabels = {
   brandTagline:
     "مواقيت الصلاة وراديو القرّاء المباشر جزء من ULYAH.COM — بيت رقمي للقرآن الكريم والتفسير والحديث والكتب التراثية والقصص الإسلامية، جميعها متلوّة بصوت هادئ لكل مستمع.",
   brandCta: "اكتشف تطبيق ULYAH.COM الكامل ←",
+  untilNext: "حتى",
+  now: "الآن",
 };
 
 const MAP: Record<string, PrayerLabels> = { en: EN, id: ID, ar: AR };
