@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { api } from "@/lib/api";
 
@@ -40,11 +40,12 @@ export function InstallAppButton({
 }: {
   app?: "main" | "sholat";
   labeled?: boolean;
-  /** Fire the native install prompt automatically the instant it becomes
-   * available, instead of waiting for a click — used when a visitor just
-   * navigated here specifically to install (e.g. via ?install=1 from the
-   * homepage's Download App card). Browsers that refuse an unclicked
-   * prompt() call just leave the button pulsing, ready for one tap. */
+  /** Pulses the button to draw the eye — used when a visitor just navigated
+   * here specifically to install (e.g. via ?install=1 from the homepage's
+   * Download App card). Deliberately does NOT call prompt() automatically:
+   * calling it without a fresh, in-page user gesture produced a broken,
+   * content-less native install dialog on Android Chrome rather than a
+   * working one — a real tap on this button is required either way. */
   autoPrompt?: boolean;
 }) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -52,7 +53,6 @@ export function InstallAppButton({
   const [isIOS, setIsIOS] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [locale, setLocale] = useState("id");
-  const autoFiredRef = useRef(false);
 
   useEffect(() => {
     setLocale(document.documentElement.lang || "id");
@@ -85,30 +85,6 @@ export function InstallAppButton({
     };
   }, [app]);
 
-  // Fire the moment the native prompt becomes available, so a visitor who
-  // navigated here specifically to install doesn't have to notice and tap a
-  // second button. If the browser refuses (activation already spent by the
-  // time the event fires), deferredPrompt is left set and the button below
-  // just pulses, ready for that one extra tap.
-  useEffect(() => {
-    if (!autoPrompt || !deferredPrompt || autoFiredRef.current) return;
-    autoFiredRef.current = true;
-    (async () => {
-      try {
-        await deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        setDeferredPrompt(null);
-        if (choice.outcome === "accepted") {
-          window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
-          setInstalled(true);
-          api.post("/analytics/install", { app }).catch(() => {});
-        }
-      } catch {
-        /* browser declined the unclicked prompt() call — button stays visible */
-      }
-    })();
-  }, [autoPrompt, deferredPrompt, app]);
-
   if (installed) return null;
 
   const t = pwaLabels(locale);
@@ -131,14 +107,13 @@ export function InstallAppButton({
   }
 
   const hintText = isIOS ? t.iosHint : t.manualHint;
-  const waitingForPrompt = autoPrompt && !deferredPrompt;
 
   if (labeled) {
     return (
       <div className="relative inline-block">
         <button
           onClick={handleClick}
-          className={`inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110 ${waitingForPrompt ? "animate-pulse" : ""}`}
+          className={`inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110 ${autoPrompt ? "animate-pulse" : ""}`}
         >
           📲 {t.installApp}
         </button>
