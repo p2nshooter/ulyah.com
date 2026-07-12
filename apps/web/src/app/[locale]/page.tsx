@@ -95,10 +95,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               </blockquote>
               <div className="mt-6 flex justify-center">
                 <Image
-                  src="/brand/ulyah-logo-dark.png"
+                  src="/brand/ulyah-logo-dark.webp"
                   alt="Ulyah"
-                  width={360}
-                  height={360}
+                  width={640}
+                  height={640}
                   priority
                   className="h-auto w-full max-w-[300px] rounded-2xl"
                 />

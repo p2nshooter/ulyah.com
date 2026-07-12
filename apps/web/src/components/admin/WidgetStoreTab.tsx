@@ -15,6 +15,8 @@
  * building → live here as they ship.
  */
 
+import Image from "next/image";
+
 type Status = "live" | "building" | "concept";
 
 interface Widget {
@@ -150,8 +152,17 @@ export function WidgetStoreTab() {
   return (
     <div className="space-y-6">
       <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-        <p className="font-heading text-lg">🧩 Widget Store — Sumber Tunggal</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/brand/ulyah-logo-dark.webp"
+            alt="Ulyah"
+            width={72}
+            height={72}
+            className="h-10 w-10 shrink-0 rounded-full shadow-sm"
+          />
+          <p className="font-heading text-lg">🧩 Widget Store — Sumber Tunggal</p>
+        </div>
+        <p className="mt-3 text-xs text-[var(--color-text-secondary)]">
           Semua widget (yang sudah live &amp; yang akan datang) terdaftar di sini. Landing "koleksi widget" nanti
           tampil dari daftar ini. Tiap widget dirancang sebagai <b>app terpisah</b> (manifest &amp; identitas install
           sendiri) — jadi tidak perlu saling tahu apakah widget lain sudah dipasang, dan masing-masing terindeks
