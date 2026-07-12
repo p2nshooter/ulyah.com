@@ -99,13 +99,13 @@ const WIDGETS: Widget[] = [
     key: "qibla",
     emoji: "🧭",
     name: "Arah Kiblat (Kompas)",
-    status: "concept",
-    route: "rencana: /id/kiblat",
-    manifest: "rencana: manifest-kiblat.json",
+    status: "live",
+    route: "/id/kiblat",
+    manifest: "pakai manifest utama (belum app terpisah)",
     summary:
-      "Kompas penunjuk arah kiblat berbasis lokasi & sensor perangkat, dengan jarak ke Ka'bah. App ringan tersendiri.",
+      "Sudut & jarak ke Ka'bah dari lokasi IP (bukan sensor kompas perangkat) — rumus bearing lingkaran-besar tervalidasi terhadap bearing publik. Kompas live berbasis device-orientation masih rencana lanjutan.",
     adsense: "AdSlot di bawah kompas.",
-    sources: ["metinkale38/prayer-times-android (perhitungan arah kiblat)"],
+    sources: ["metinkale38/prayer-times-android (referensi perhitungan arah kiblat)"],
   },
   {
     key: "wirdak",
@@ -130,6 +130,30 @@ const WIDGETS: Widget[] = [
       "Menu anak terpisah: hafalan surat pendek, kisah nabi ramah anak, doa & adab, hijaiyah — video pendek & suara lembut. (Detail di tab Konsep.)",
     adsense: "Halaman anak: iklan disaring family-safe / idealnya bebas iklan.",
     sources: ["maulanashalihin/quran-stories", "AzharRivaldi/Kisah-25-Nabi"],
+  },
+  {
+    key: "zakat",
+    emoji: "💰",
+    name: "Kalkulator Zakat",
+    status: "live",
+    route: "/id/zakat",
+    manifest: "pakai manifest utama (belum app terpisah)",
+    summary:
+      "Zakat Maal (2,5%, nisab emas 85g / perak 595g berdampingan) & Zakat Fitrah (per jiwa) — 100% client-side, tidak ada data yang dikirim ke server.",
+    adsense: "Satu AdSlot di antara kedua kalkulator.",
+    sources: ["rizauddin/kira-faraid & lionbytes/zakalc (referensi arsitektur)"],
+  },
+  {
+    key: "hijri-calendar",
+    emoji: "📅",
+    name: "Kalender Hijriyah",
+    status: "live",
+    route: "/id/kalender-hijriyah",
+    manifest: "pakai manifest utama (belum app terpisah)",
+    summary:
+      "Grid bulan Masehi + padanan Hijriyah per hari, memakai kalender Umm al-Qura resmi (Intl bawaan browser, bukan tabular buatan sendiri) — sudah dipakai juga oleh countdown Ramadhan di Jadwal Sholat.",
+    adsense: "Satu AdSlot di bawah kalender.",
+    sources: ["Intl.DateTimeFormat('islamic-umalqura') — bawaan browser, tanpa library eksternal"],
   },
 ];
 
