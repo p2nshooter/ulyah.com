@@ -40,6 +40,20 @@ export function AppInstallCard({
     const manifestHref = document.querySelector('link[rel="manifest"]')?.getAttribute("href") ?? "";
     const manifestMatches = app === "sholat" ? manifestHref.includes("sholat") : !manifestHref.includes("sholat");
     setInstalled(standalone && manifestMatches);
+
+    // This card lives on the regular site, so `standalone` above is almost
+    // never true here even when the app genuinely IS installed (the visitor
+    // is just browsing this page in a normal tab, not the installed app's
+    // window). Where Chrome supports it, ask it directly rather than always
+    // showing the pitch for an app already on the device.
+    if (app === "main") {
+      const nav = navigator as Navigator & { getInstalledRelatedApps?: () => Promise<unknown[]> };
+      nav.getInstalledRelatedApps?.()
+        .then((related) => {
+          if (related.length > 0) setInstalled(true);
+        })
+        .catch(() => {});
+    }
   }, [app]);
 
   return (

@@ -16,5 +16,7 @@
   ],
   "categories": ["education", "books", "lifestyle"],
   "lang": "id",
-  "dir": "ltr"
+  "dir": "ltr",
+  "related_applications": [{ "platform": "webapp", "url": "https://ulyah.com/manifest.json" }],
+  "prefer_related_applications": false
 }
