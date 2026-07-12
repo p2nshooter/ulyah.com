@@ -155,6 +155,18 @@ const WIDGETS: Widget[] = [
     adsense: "Satu AdSlot di bawah kalender.",
     sources: ["Intl.DateTimeFormat('islamic-umalqura') — bawaan browser, tanpa library eksternal"],
   },
+  {
+    key: "waris",
+    emoji: "👪",
+    name: "Kalkulator Waris (Faraid)",
+    status: "live",
+    route: "/id/waris",
+    manifest: "pakai manifest utama (belum app terpisah)",
+    summary:
+      "Pembagian faraid untuk susunan keluarga umum (pasangan, anak, orang tua, saudara kandung/seibu saat kalalah) — Aul, Radd, dan kasus Gharrawain/Umariyyatain ditangani. Kakek/nenek, saudara seayah, dan cucu pengganti SENGAJA tidak dimodelkan (beda pendapat mazhab) — disclaimer eksplisit di halaman.",
+    adsense: "Satu AdSlot di antara input harta dan hasil pembagian.",
+    sources: ["rizauddin/kira-faraid (referensi arsitektur kasus fardhu/asobah/aul/radd)"],
+  },
 ];
 
 const REFERENCE_REPOS: { url: string; use: string }[] = [

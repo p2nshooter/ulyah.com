@@ -47,6 +47,7 @@ export interface Dictionary {
     zakatCalculator: string;
     qiblaDirection: string;
     hijriCalendar: string;
+    warisCalculator: string;
   };
   stats: {
     surah: string;

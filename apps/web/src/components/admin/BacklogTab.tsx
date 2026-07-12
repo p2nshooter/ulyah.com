@@ -115,7 +115,7 @@ const REFERENCE_CATEGORIES: RefCategory[] = [
     title: "10. Zakat, Waris & Keuangan Syariah",
     status: "partial",
     note:
-      "Kalkulator Zakat (Maal 2.5% + Fitrah) SELESAI — /zakat, client-side murni, nisab emas & perak ditampilkan berdampingan (bukan memilih satu pendapat). Kalkulator Waris (Faraid) BELUM ADA — kandidat berikutnya, rizauddin/kira-faraid (web HTML/JS) paling relevan untuk arsitektur (kasus fardhu, asobah, aul, radd, hijab — lebih kompleks dari zakat, perlu tinjauan fiqih waris yang cermat sebelum dibangun). Halal Stock Screener & Sadaqah Kiosk — prioritas rendah, di luar misi inti Ulyah.",
+      "Kalkulator Zakat (Maal 2.5% + Fitrah) SELESAI — /zakat, client-side murni, nisab emas & perak ditampilkan berdampingan (bukan memilih satu pendapat). Kalkulator Waris (Faraid) SELESAI (cakupan umum) — /waris, menghitung pasangan+anak+orang tua+saudara kandung/seibu (kalalah), dengan Aul/Radd/Gharrawain-Umariyyatain. SENGAJA TIDAK mencakup kakek/nenek, saudara seayah, dan cucu pengganti — kasus itu punya khilafiyah nyata antar mazhab (terutama kakek+saudara), disclaimer eksplisit di halaman mengarahkan ke ahli faraid/Pengadilan Agama untuk kasus tersebut atau harta bernilai besar — JANGAN tambahkan kakek/nenek tanpa tinjauan fiqih waris yang cermat. Halal Stock Screener & Sadaqah Kiosk — prioritas rendah, di luar misi inti Ulyah.",
   },
   {
     key: "arabic",
@@ -451,10 +451,12 @@ export function BacklogTab() {
             statis dengan start_url yang di-hardcode ke satu locale.
           </li>
           <li>
-            <b>Fitur yang belum ada sama sekali</b> (urutan disarankan setelah taksonomi hadits): Kalkulator Zakat,
-            Kalkulator Waris (Faraid), Kalender Hijriyah/Imsakiyah, Kompas Kiblat, Kamus Arab-Indonesia, Masjid
-            Finder, Tarikh Islam (timeline sejarah). Semua ini punya sumber OSS gratis yang sudah dicatat di bagian
-            "Sumber Terbuka" di atas — tinggal diserap, bukan riset ulang.
+            <b>Fitur yang belum ada sama sekali</b> (urutan disarankan setelah taksonomi hadits): Imsakiyah Ramadhan
+            (perluasan Kalender Hijriyah + data waktu sholat yang sudah ada), Kamus Arab-Indonesia (oong26/
+            arabic_dictionary_model), Masjid Finder, Tarikh Islam (timeline sejarah — kandidat sumber:
+            abdullah-R197/Complete-Islamic-History-Timeline). Zakat, Waris (Faraid), Kalender Hijriyah, dan Kompas
+            Kiblat SUDAH SELESAI (cakupan umum, lihat Widget Store). Semua item di atas punya sumber OSS gratis yang
+            sudah dicatat di bagian "Sumber Terbuka" — tinggal diserap, bukan riset ulang.
           </li>
         </ol>
       </section>

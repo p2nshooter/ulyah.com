@@ -50,6 +50,7 @@ const ja: Dictionary = {
     zakatCalculator: "ザカート計算機",
     qiblaDirection: "キブラの方角",
     hijriCalendar: "ヒジュラ暦",
+    warisCalculator: "遺産分配計算機",
   },
   stats: {
     surah: "114+",

@@ -50,6 +50,7 @@ const fr: Dictionary = {
     zakatCalculator: "Calculateur de zakat",
     qiblaDirection: "Direction de la qibla",
     hijriCalendar: "Calendrier hégirien",
+    warisCalculator: "Calculateur d'héritage",
   },
   stats: {
     surah: "114+",

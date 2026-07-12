@@ -50,6 +50,7 @@ const zh: Dictionary = {
     zakatCalculator: "天课计算器",
     qiblaDirection: "朝向麦加",
     hijriCalendar: "伊斯兰历",
+    warisCalculator: "遗产计算器",
   },
   stats: {
     surah: "114+",

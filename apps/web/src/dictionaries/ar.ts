@@ -50,6 +50,7 @@ const ar: Dictionary = {
     zakatCalculator: "حاسبة الزكاة",
     qiblaDirection: "اتجاه القبلة",
     hijriCalendar: "التقويم الهجري",
+    warisCalculator: "حاسبة المواريث",
   },
   stats: {
     surah: "+114",

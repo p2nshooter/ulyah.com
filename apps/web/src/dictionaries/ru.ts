@@ -50,6 +50,7 @@ const ru: Dictionary = {
     zakatCalculator: "Калькулятор закята",
     qiblaDirection: "Направление киблы",
     hijriCalendar: "Хиджра-календарь",
+    warisCalculator: "Калькулятор наследства",
   },
   stats: {
     surah: "114+",

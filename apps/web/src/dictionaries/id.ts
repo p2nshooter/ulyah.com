@@ -50,6 +50,7 @@ const id: Dictionary = {
     zakatCalculator: "Kalkulator Zakat",
     qiblaDirection: "Arah Kiblat",
     hijriCalendar: "Kalender Hijriyah",
+    warisCalculator: "Kalkulator Waris",
   },
   stats: {
     surah: "114+",
