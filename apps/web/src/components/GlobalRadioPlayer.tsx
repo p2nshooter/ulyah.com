@@ -113,6 +113,66 @@ export function GlobalRadioPlayer() {
     }
   }, [muted, playing]);
 
+  // Recover from mobile OSes silently killing background audio during a long
+  // screen-lock/sleep — "radio quran sering mati sendiri klo sleep lama".
+  // Without this, the store still believes `playing: true` but the real
+  // <audio> element sits paused with no code path ever noticing, so the
+  // broadcast just stays dead until the visitor manually stops/starts it.
+  // Two complementary checks: an immediate one when the tab regains
+  // visibility/focus (the common case — screen unlock, switching back), and a
+  // slow periodic watchdog (some mobile browsers report the page as still
+  // "visible" even while the screen is off, so visibilitychange alone isn't
+  // reliable). Re-running start() — not just audio.play() — is deliberate:
+  // this is framed as a *live* broadcast synced to the wall clock, so coming
+  // back after a long gap should rejoin wherever the broadcast is *now*,
+  // exactly like pressing play again after a manual stop, rather than
+  // resuming a possibly hours-stale ayah.
+  useEffect(() => {
+    const resyncIfDead = () => {
+      const audio = audioRef.current;
+      if (!audio || !useRadioStore.getState().playing) return;
+      if (audio.paused) useRadioStore.getState().start();
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") resyncIfDead();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("focus", resyncIfDead);
+    window.addEventListener("pageshow", resyncIfDead);
+    const watchdog = setInterval(resyncIfDead, 20_000);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("focus", resyncIfDead);
+      window.removeEventListener("pageshow", resyncIfDead);
+      clearInterval(watchdog);
+    };
+  }, []);
+
+  // Media Session metadata + playback state — tells the OS/browser this is a
+  // legitimate ongoing media session (lock-screen/notification controls, and
+  // on Android/Chrome specifically, one of the signals that make background
+  // audio less likely to be suspended at all during screen-lock).
+  useEffect(() => {
+    if (typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
+    const rc = RECITERS.find((r) => r.key === position.reciterKey);
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: "Radio Qori Dunia",
+      artist: rc?.name ?? "ULYAH.COM",
+      album: "ULYAH.COM",
+      artwork: [{ src: "/icon-512.png", sizes: "512x512", type: "image/png" }],
+    });
+    navigator.mediaSession.setActionHandler("play", () => {
+      if (!useRadioStore.getState().playing) useRadioStore.getState().start();
+    });
+    navigator.mediaSession.setActionHandler("pause", () => useRadioStore.getState().stop());
+    navigator.mediaSession.setActionHandler("nexttrack", () => useRadioStore.getState().advance());
+  }, [position.reciterKey]);
+
+  useEffect(() => {
+    if (typeof navigator === "undefined" || !("mediaSession" in navigator)) return;
+    navigator.mediaSession.playbackState = playing ? "playing" : "paused";
+  }, [playing]);
+
   return (
     <audio
       ref={audioRef}
