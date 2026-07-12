@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
@@ -48,7 +49,14 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
         <AdminAuthModal
           locale={locale}
           onClose={() => setShowModal(false)}
-          onSuccess={() => router.push(`/${locale}/admin`)}
+          onSuccess={() => {
+            // Close the modal BEFORE navigating — otherwise this trigger lives
+            // in the Header (on every page, including /admin), so the modal
+            // stayed open on top of the dashboard after login ("form login g
+            // ke close padahal sudah masuk").
+            setShowModal(false);
+            router.push(`/${locale}/admin`);
+          }}
         />
       )}
     </>
@@ -147,9 +155,25 @@ export function AdminAuthModal({
       }
     >
       <div className="w-full max-w-sm rounded-2xl bg-[var(--color-card)] p-6 shadow-2xl">
+        <div className="mb-4 flex justify-center">
+          <Image
+            src="/brand/ulyah-logo-light.webp"
+            alt="Ulyah"
+            width={96}
+            height={96}
+            className="block h-16 w-16 rounded-full shadow-md dark:hidden"
+          />
+          <Image
+            src="/brand/ulyah-logo-dark.webp"
+            alt="Ulyah"
+            width={96}
+            height={96}
+            className="hidden h-16 w-16 rounded-full shadow-md dark:block"
+          />
+        </div>
         {step === "credentials" && (
           <form onSubmit={submitCredentials} className="space-y-4">
-            <h2 className="font-heading text-lg">Portal Admin</h2>
+            <h2 className="font-heading text-center text-lg">Portal Admin</h2>
             <input
               type="email"
               placeholder="Email"

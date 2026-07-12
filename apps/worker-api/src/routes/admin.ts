@@ -1,11 +1,11 @@
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { decryptApiKey } from "@ulyah/shared/crypto";
 import { testApiKey } from "@ulyah/key-pool";
 import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
 import type { Env } from "../env.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { logAdminAction } from "../lib/audit.js";
-import { ingestAndTestKey } from "../lib/keypool-db.js";
+import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
@@ -65,6 +65,93 @@ adminRoute.post("/keys", async (c) => {
   });
 
   return c.json(result);
+});
+
+// Bulk key import — lets an admin paste a whole batch of donated/found keys
+// (e.g. a stash of NVIDIA NIM keys) in one authenticated submission instead
+// of the single "+ Add" form N times. Each line is
+// "provider,scope,label,rawKey" (label may contain spaces but not commas).
+// Reuses the exact same ingestAndTestKey pipeline per line — same
+// encryption, same automated safety/latency test, same active/pending/
+// rejected classification — just looped, with per-line results returned so
+// a typo in one line doesn't silently swallow the rest.
+adminRoute.post("/keys/bulk", async (c) => {
+  const { text } = await c.req.json<{ text: string }>();
+  const admin = c.get("admin" as never) as { email: string };
+  const results: { label: string; ok: boolean; detail: string }[] = [];
+
+  // Two accepted inputs, tried per source:
+  //  1) strict CSV lines: provider,scope,label,apiKey
+  //  2) ANY messy blob (WhatsApp/notes export) — we just scan for provider key
+  //     tokens (nvapi-… → nvidia, sk-or-… → openrouter) and use the nearest
+  //     UPPER_SNAKE label. This is why pasting the raw key file now works.
+  const seen = new Set<string>();
+
+  // Pass 1: strict CSV lines (kept for backward compatibility / other providers).
+  for (const raw of text.split("\n")) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
+    const parts = line.split(",").map((p) => p.trim());
+    if (parts.length < 4) continue;
+    const [provider, scope, label, ...rest] = parts;
+    const rawKey = rest.join(",");
+    if (!provider || !scope || !label || !rawKey) continue;
+    if (!getProvider(provider) || !["text", "tts", "gpu", "image"].includes(scope)) continue;
+    if (seen.has(rawKey)) continue;
+    seen.add(rawKey);
+    try {
+      const status = await ingestKeyNoTest(c.env, {
+        provider,
+        scope: scope as "text" | "tts" | "gpu" | "image",
+        rawKey,
+        donorLabel: label,
+      });
+      results.push({ label, ok: true, detail: status === "duplicate" ? "sudah ada" : "ditambahkan (active)" });
+    } catch (err) {
+      results.push({ label, ok: false, detail: err instanceof Error ? err.message : "Gagal" });
+    }
+  }
+
+  // Pass 2: token scan of the whole blob (handles the raw pasted key file).
+  const TOKEN_RE = /(nvapi-[A-Za-z0-9_-]{20,}|sk-or-v1-[A-Za-z0-9]{20,})/g;
+  const lines = text.split(/\r?\n/);
+  let lastLabel: string | null = null;
+  const isClean = (s: string) => /^[A-Z][A-Z0-9_]{3,}$/.test(s);
+  const tokenLabel = new Map<string, string | null>();
+  const order: string[] = [];
+  for (const line of lines) {
+    const toks = line.match(TOKEN_RE);
+    if (toks) {
+      for (const t of toks) {
+        if (!tokenLabel.has(t)) order.push(t);
+        const prev = tokenLabel.get(t);
+        if (!prev || (lastLabel && isClean(lastLabel) && !isClean(prev))) tokenLabel.set(t, lastLabel);
+      }
+    } else {
+      const cleaned = line.trim().replace(/^Value:\s*/i, "").replace(/[:：].*$/, "").trim();
+      if (cleaned && cleaned.length <= 48 && !/[{}();=]/.test(cleaned)) lastLabel = cleaned;
+    }
+  }
+  for (const tok of order) {
+    if (seen.has(tok)) continue;
+    seen.add(tok);
+    const provider = tok.startsWith("nvapi-") ? "nvidia" : "openrouter";
+    if (!getProvider(provider)) continue;
+    const label = tokenLabel.get(tok) || `${provider} key`;
+    try {
+      const status = await ingestKeyNoTest(c.env, { provider, scope: "text", rawKey: tok, donorLabel: label });
+      results.push({ label, ok: true, detail: status === "duplicate" ? "sudah ada" : "ditambahkan (active)" });
+    } catch (err) {
+      results.push({ label, ok: false, detail: err instanceof Error ? err.message : "Gagal" });
+    }
+  }
+
+  await logAdminAction(c.env, "key_bulk_added", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    total: results.length,
+    ok: results.filter((r) => r.ok).length,
+  });
+
+  return c.json({ results });
 });
 
 adminRoute.delete("/keys/:id", async (c) => {
@@ -328,7 +415,32 @@ adminRoute.get("/analytics", async (c) => {
 // ── Kitab library breakdown + app install counts (central visibility) ────
 
 adminRoute.get("/library-stats", async (c) => {
-  const [kitabTotal, kitabByCategory, installTotal, installByApp, installRecent] = await Promise.all([
+  // Normalise the many raw hadith grade strings into buckets in SQL — mirrors
+  // apps/web/src/lib/hadith-grade.ts so the admin counts match the badges.
+  const gradeCase = `CASE
+      WHEN lower(coalesce(grade,'')) LIKE '%maudhu%' OR lower(coalesce(grade,'')) LIKE '%maudu%' OR lower(coalesce(grade,'')) LIKE '%mawdu%' OR lower(coalesce(grade,'')) LIKE '%palsu%' OR lower(coalesce(grade,'')) LIKE '%munkar%' THEN 'maudhu'
+      WHEN lower(coalesce(grade,'')) LIKE '%mutawatir%' THEN 'mutawatir'
+      WHEN lower(coalesce(grade,'')) LIKE '%dhaif%' OR lower(coalesce(grade,'')) LIKE '%dhoif%' OR lower(coalesce(grade,'')) LIKE '%daif%' OR lower(coalesce(grade,'')) LIKE '%dalif%' OR lower(coalesce(grade,'')) LIKE '%lemah%' THEN 'dhaif'
+      WHEN lower(coalesce(grade,'')) LIKE '%shahih%' OR lower(coalesce(grade,'')) LIKE '%sahih%' OR lower(coalesce(grade,'')) LIKE '%sohih%' THEN 'shahih'
+      WHEN lower(coalesce(grade,'')) LIKE '%hasan%' THEN 'hasan'
+      ELSE 'lain' END`;
+
+  const [
+    kitabTotal,
+    kitabByCategory,
+    installTotal,
+    installByApp,
+    installRecent,
+    haditsTotal,
+    haditsByGrade,
+    haditsCollections,
+    pesantren,
+    amalanByGroup,
+    nasakh,
+    stories,
+    ebooks,
+    tafsirCount,
+  ] = await Promise.all([
     c.env.DB.prepare("SELECT COUNT(*) AS n FROM kitab_book").first<{ n: number }>(),
     c.env.DB.prepare(
       `SELECT cat.slug, cat.name_id, cat.name_ar, COUNT(b.id) AS n
@@ -341,18 +453,199 @@ adminRoute.get("/library-stats", async (c) => {
       `SELECT strftime('%Y-%m-%d', created_at) AS bucket, app, COUNT(*) AS n FROM app_installs
        WHERE created_at >= datetime('now','-30 days') GROUP BY bucket, app ORDER BY bucket`
     ).all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM hadits").first<{ n: number }>(),
+    c.env.DB.prepare(`SELECT ${gradeCase} AS bucket, COUNT(*) AS n FROM hadits GROUP BY bucket`).all(),
+    c.env.DB.prepare(
+      "SELECT slug, name_id, author, (SELECT COUNT(*) FROM hadits h WHERE h.collection = hc.slug) AS n FROM hadits_collection hc ORDER BY sort_order"
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT (SELECT COUNT(*) FROM pesantren_kitab) AS kitab,
+              (SELECT COUNT(*) FROM pesantren_bab) AS bab,
+              (SELECT COUNT(*) FROM pesantren_matn) AS matan`
+    ).first(),
+    c.env.DB.prepare("SELECT grp, COUNT(*) AS n FROM amalan_category c JOIN amalan_item i ON i.category_slug = c.slug GROUP BY grp").all(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM nasakh_mansukh").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM stories WHERE status = 'published'").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM ebooks").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM tafsir").first<{ n: number }>(),
   ]);
 
   return c.json({
-    kitab: {
-      total: kitabTotal?.n ?? 0,
-      byCategory: kitabByCategory.results,
+    kitab: { total: kitabTotal?.n ?? 0, byCategory: kitabByCategory.results },
+    hadits: {
+      total: haditsTotal?.n ?? 0,
+      byGrade: haditsByGrade.results,
+      collections: haditsCollections.results,
     },
+    pesantren: pesantren ?? { kitab: 0, bab: 0, matan: 0 },
+    amalan: amalanByGroup.results,
+    nasakh: nasakh?.n ?? 0,
+    stories: stories?.n ?? 0,
+    ebooks: ebooks?.n ?? 0,
+    tafsir: tafsirCount?.n ?? 0,
     installs: {
       total: installTotal?.n ?? 0,
       byApp: installByApp.results,
       daily: installRecent.results,
     },
+  });
+});
+
+// ── Monitor: one-glance health of every menu/feature on the site ──────────
+// Each feature reports ok/warn/error from a cheap COUNT (or config check), so
+// the owner can watch all menus at once and spot anything empty or broken.
+adminRoute.get("/health", async (c) => {
+  const count = async (sql: string): Promise<number> => {
+    try {
+      const r = await c.env.DB.prepare(sql).first<{ n: number }>();
+      return r?.n ?? 0;
+    } catch {
+      return -1; // -1 = query failed (table missing / error)
+    }
+  };
+
+  const [
+    surah,
+    ayah,
+    translation,
+    hadits,
+    haditsColl,
+    kitab,
+    pesantren,
+    amalan,
+    nasakh,
+    stories,
+    ebooks,
+    tafsir,
+    activeKeys,
+    totalKeys,
+    installs,
+  ] = await Promise.all([
+    count("SELECT COUNT(*) n FROM surah"),
+    count("SELECT COUNT(*) n FROM ayah"),
+    count("SELECT COUNT(*) n FROM translation"),
+    count("SELECT COUNT(*) n FROM hadits"),
+    count("SELECT COUNT(*) n FROM hadits_collection"),
+    count("SELECT COUNT(*) n FROM kitab_book"),
+    count("SELECT COUNT(*) n FROM pesantren_kitab"),
+    count("SELECT COUNT(*) n FROM amalan_item"),
+    count("SELECT COUNT(*) n FROM nasakh_mansukh"),
+    count("SELECT COUNT(*) n FROM stories WHERE status='published'"),
+    count("SELECT COUNT(*) n FROM ebooks"),
+    count("SELECT COUNT(*) n FROM tafsir"),
+    count("SELECT COUNT(*) n FROM ai_key_pool WHERE status IN ('active','slow')"),
+    count("SELECT COUNT(*) n FROM ai_key_pool"),
+    count("SELECT COUNT(*) n FROM app_installs"),
+  ]);
+
+  let adsenseSlot = "";
+  try {
+    const raw = await c.env.CACHE_KV.get("adsense:config");
+    if (raw) adsenseSlot = JSON.parse(raw).slotId ?? "";
+  } catch {
+    /* ignore */
+  }
+
+  // status: 'ok' | 'warn' | 'error'. error = query failed; warn = empty/needs
+  // action; ok = has content.
+  const s = (n: number, warnIfZero = true): "ok" | "warn" | "error" =>
+    n < 0 ? "error" : n === 0 && warnIfZero ? "warn" : "ok";
+
+  const features = [
+    { key: "quran", label: "Al-Qur'an", route: "/quran", status: s(ayah), count: ayah, note: `${surah} surah · ${translation} terjemah` },
+    { key: "hadits", label: "Hadits", route: "/hadits", status: s(hadits), count: hadits, note: `${haditsColl} koleksi` },
+    { key: "tafsir", label: "Tafsir", route: "/quran", status: tafsir < 0 ? "error" : "ok", count: tafsir, note: "on-demand + cache (spa5k/Kemenag)" },
+    { key: "kitab", label: "Kitab (katalog)", route: "/kitab", status: s(kitab), count: kitab, note: "katalog Syamela" },
+    { key: "pesantren", label: "Kitab Pesantren", route: "/kitab-pesantren", status: s(pesantren), count: pesantren, note: "kitab bisa dibaca" },
+    { key: "amalan", label: "Amalan Harian", route: "/amalan", status: s(amalan), count: amalan, note: "doa/dzikir/thibb" },
+    { key: "nasakh", label: "Nasakh & Mansukh", route: "/nasakh", status: s(nasakh), count: nasakh, note: "" },
+    { key: "kisah", label: "Kisah", route: "/kisah", status: s(stories), count: stories, note: "kisah terbit" },
+    { key: "ebooks", label: "E-book / PDF", route: "/audiobook", status: s(ebooks), count: ebooks, note: "" },
+    { key: "radio", label: "Radio Qori", route: "/jadwal-sholat", status: s(surah), count: surah, note: "streaming dari CDN qori" },
+    { key: "jadwal", label: "Jadwal Sholat", route: "/jadwal-sholat", status: "ok", count: 0, note: "hitung dari lokasi (adhan)" },
+    { key: "keys", label: "Smart Engine (Key Pool)", route: "", status: activeKeys < 0 ? "error" : activeKeys === 0 ? "warn" : "ok", count: activeKeys, note: `${activeKeys}/${totalKeys} key aktif` },
+    { key: "adsense", label: "AdSense", route: "", status: adsenseSlot ? "ok" : "warn", count: 0, note: adsenseSlot ? `ID iklan terpasang (…${adsenseSlot.slice(-4)})` : "belum ada ID iklan (isi di tab AdSense)" },
+    { key: "installs", label: "Install App", route: "", status: "ok", count: installs, note: "total pemasangan PWA" },
+  ];
+
+  return c.json({ features, checkedAt: new Date().toISOString() });
+});
+
+// ── AdSense: one-time ad-unit id + first-party impression/click analytics ──
+
+// GET /admin/adsense-config — current ad-unit id + estimated eCPM.
+adminRoute.get("/adsense-config", async (c) => {
+  const raw = await c.env.CACHE_KV.get("adsense:config");
+  const cfg = raw ? JSON.parse(raw) : {};
+  return c.json({
+    slotId: cfg.slotId ?? "",
+    enabled: cfg.enabled !== false,
+    ecpmUsd: typeof cfg.ecpmUsd === "number" ? cfg.ecpmUsd : 1.0,
+    previewMode: cfg.previewMode === true,
+    clientId: "ca-pub-6371903555702163",
+  });
+});
+
+// POST /admin/adsense-config — set the single ad-unit id used site-wide + the
+// estimated eCPM (USD per 1000 impressions) used for the earnings estimate.
+adminRoute.post("/adsense-config", async (c) => {
+  const body = await c.req.json<{ slotId?: string; enabled?: boolean; ecpmUsd?: number; previewMode?: boolean }>();
+  const slotId = String(body.slotId ?? "").trim().replace(/[^0-9]/g, "").slice(0, 20);
+  const ecpmUsd = Number.isFinite(body.ecpmUsd) ? Math.max(0, Number(body.ecpmUsd)) : 1.0;
+  const cfg = { slotId, enabled: body.enabled !== false, ecpmUsd, previewMode: body.previewMode === true };
+  await safeKvPut(c.env, "adsense:config", JSON.stringify(cfg));
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    slotId: slotId ? `…${slotId.slice(-4)}` : "(cleared)",
+    ecpmUsd,
+  });
+  return c.json({ ok: true, ...cfg });
+});
+
+// GET /admin/adsense-stats — first-party impression/click counts + an earnings
+// ESTIMATE (impressions ÷ 1000 × eCPM). Real revenue lives in the Google
+// AdSense dashboard; this is an in-house approximation, by page + country.
+adminRoute.get("/adsense-stats", async (c) => {
+  const raw = await c.env.CACHE_KV.get("adsense:config");
+  const ecpmUsd = raw && typeof JSON.parse(raw).ecpmUsd === "number" ? JSON.parse(raw).ecpmUsd : 1.0;
+
+  const [totals, byCountry, byPage, last30] = await Promise.all([
+    c.env.DB.prepare(
+      `SELECT
+         SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+         SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events`
+    ).first<{ impressions: number; clicks: number }>(),
+    c.env.DB.prepare(
+      `SELECT coalesce(country,'??') AS country,
+              SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events GROUP BY country ORDER BY impressions DESC LIMIT 30`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT page, SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events GROUP BY page ORDER BY impressions DESC LIMIT 20`
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT strftime('%Y-%m-%d', created_at) AS day,
+              SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
+              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
+       FROM ad_events WHERE created_at >= datetime('now','-30 days') GROUP BY day ORDER BY day`
+    ).all(),
+  ]);
+
+  const impressions = totals?.impressions ?? 0;
+  const clicks = totals?.clicks ?? 0;
+  return c.json({
+    impressions,
+    clicks,
+    ctr: impressions > 0 ? clicks / impressions : 0,
+    ecpmUsd,
+    estimatedEarningsUsd: (impressions / 1000) * ecpmUsd,
+    byCountry: byCountry.results,
+    byPage: byPage.results,
+    daily: last30.results,
   });
 });
 
@@ -414,6 +707,10 @@ adminRoute.get("/scaling/settings", async (c) => {
     targetJobsPerTick: 5,
     engineEnabled: true,
     compileLangs: ["id", "en"],
+    // Cloudflare Workers AI is billable — OFF by default. Donated NVIDIA/
+    // OpenRouter keys + the free browser voice are used first; this is only a
+    // last-resort paid fallback the owner opts into.
+    cfWorkerAiEnabled: false,
   };
   return c.json({ settings: raw ? { ...defaults, ...JSON.parse(raw) } : defaults });
 });
@@ -501,7 +798,10 @@ adminRoute.get("/media", async (c) => {
   return c.json({ media: await listMediaStatus(c.env) });
 });
 
-adminRoute.put("/media/:key", async (c) => {
+// Registered for BOTH PUT and POST: the admin Media uploader posts multipart
+// via api.upload() (which is a POST), so a PUT-only route silently 404'd and
+// the photo never saved ("foto yg diupload g muncul"). Same handler for both.
+const uploadMedia = async (c: Context<{ Bindings: Env }>) => {
   const key = c.req.param("key");
   if (!MANAGED_MEDIA.some((m) => m.key === key)) return c.json({ error: `Unknown media key: ${key}` }, 400);
 
@@ -525,7 +825,9 @@ adminRoute.put("/media/:key", async (c) => {
 
   await logAdminAction(c.env, "media_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
   return c.json({ ok: true });
-});
+};
+adminRoute.put("/media/:key", uploadMedia);
+adminRoute.post("/media/:key", uploadMedia);
 
 adminRoute.delete("/media/:key", async (c) => {
   const key = c.req.param("key");

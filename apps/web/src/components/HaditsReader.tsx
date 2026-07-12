@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { HaditsLabels } from "@/lib/hadits-labels";
+import { gradeInfo } from "@/lib/hadith-grade";
 
 export interface HaditsItem {
   id: number;
@@ -127,11 +128,22 @@ export function HaditsReader({
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{h.text_id}</p>
             {(h.narrator || h.grade) && (
-              <p className="mt-3 border-t border-[var(--color-border)] pt-3 text-xs text-[var(--color-text-secondary)]">
-                {h.narrator ? `${labels.narrator}: ${h.narrator}` : ""}
-                {h.narrator && h.grade ? " · " : ""}
-                {h.grade ? `${labels.grade}: ${h.grade}` : ""}
-              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] pt-3 text-xs text-[var(--color-text-secondary)]">
+                {h.narrator ? <span>{labels.narrator}: {h.narrator}</span> : null}
+                {h.grade
+                  ? (() => {
+                      const g = gradeInfo(h.grade);
+                      return (
+                        <span
+                          title={`${g.meaning}${h.grade && g.label.toLowerCase() !== h.grade.toLowerCase() ? ` (sumber: ${h.grade})` : ""}`}
+                          className={`rounded-full border px-2 py-0.5 text-[11px] font-medium ${g.className}`}
+                        >
+                          {g.label}
+                        </span>
+                      );
+                    })()
+                  : null}
+              </div>
             )}
           </article>
         ))}

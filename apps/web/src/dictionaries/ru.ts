@@ -47,6 +47,11 @@ const ru: Dictionary = {
     storiesWisdom: "Истории и мудрость",
     prayerSchedule: "Расписание молитв",
     qualityAudio: "Качественное аудио",
+    zakatCalculator: "Калькулятор закята",
+    qiblaDirection: "Направление киблы",
+    hijriCalendar: "Хиджра-календарь",
+    warisCalculator: "Калькулятор наследства",
+    imsakiyahRamadhan: "Имсакия Рамадана",
   },
   stats: {
     surah: "114+",

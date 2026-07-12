@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { portalLabels } from "@/lib/portal-labels";
 import { speak, speechAvailable } from "@/lib/speech";
@@ -37,17 +38,26 @@ export function PortalWelcome({ locale }: { locale: string }) {
           backgroundImage: "radial-gradient(circle at 50% 0%, rgba(184,137,43,0.6), transparent 60%)",
         }}
       />
-      <div className="relative">
-        <p className="font-heading text-lg text-accent">🌙 {t.welcomeTitle}</p>
-        <p className="mt-3 text-sm leading-relaxed text-[#f4efe3]/85">{t.welcomeShort}</p>
-        <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-xs">
-          <Link href={`/${locale}/terima-kasih`} className="text-accent hover:underline">
-            {t.linkThanks}
-          </Link>
-          <a href="#janji-pahala" className="text-accent hover:underline">
-            {t.linkVirtues}
-          </a>
+      <div className="relative flex items-start gap-3">
+        <Image
+          src="/brand/ulyah-logo-dark.webp"
+          alt="Ulyah"
+          width={48}
+          height={48}
+          className="mt-0.5 h-11 w-11 shrink-0 rounded-full shadow-md"
+        />
+        <div>
+          <p className="font-heading text-lg text-accent">🌙 {t.welcomeTitle}</p>
+          <p className="mt-3 text-sm leading-relaxed text-[#f4efe3]/85">{t.welcomeShort}</p>
         </div>
+      </div>
+      <div className="relative mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-xs">
+        <Link href={`/${locale}/terima-kasih`} className="text-accent hover:underline">
+          {t.linkThanks}
+        </Link>
+        <a href="#janji-pahala" className="text-accent hover:underline">
+          {t.linkVirtues}
+        </a>
       </div>
     </section>
   );

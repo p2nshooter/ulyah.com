@@ -44,6 +44,11 @@ export interface Dictionary {
     storiesWisdom: string;
     prayerSchedule: string;
     qualityAudio: string;
+    zakatCalculator: string;
+    qiblaDirection: string;
+    hijriCalendar: string;
+    warisCalculator: string;
+    imsakiyahRamadhan: string;
   };
   stats: {
     surah: string;

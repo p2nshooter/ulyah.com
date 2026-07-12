@@ -1,6 +1,7 @@
 "use client";
 
 import { use as usePromise, useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
@@ -16,9 +17,15 @@ import { AccountTab } from "@/components/admin/AccountTab";
 import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
 import { SettingsTab } from "@/components/admin/SettingsTab";
 import { MediaTab } from "@/components/admin/MediaTab";
+import { RoadmapTab } from "@/components/admin/RoadmapTab";
+import { LibraryTab } from "@/components/admin/LibraryTab";
+import { AdsenseTab } from "@/components/admin/AdsenseTab";
+import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
+import { MonitorTab } from "@/components/admin/MonitorTab";
+import { BacklogTab } from "@/components/admin/BacklogTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media";
+type Tab = "dashboard" | "monitor" | "backlog" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -62,6 +69,8 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
 
   const tabs: [Tab, string][] = [
     ["dashboard", dict.admin.dashboardTitle],
+    ["backlog", "🗂️ Rancangan & Backlog"],
+    ["monitor", "🖥️ Monitor"],
     ["analytics", "Analytics"],
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
@@ -72,13 +81,33 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["log", dict.admin.auditLog],
     ["settings", "Settings"],
     ["media", "Media"],
+    ["library", "📚 Perpustakaan"],
+    ["adsense", "💰 AdSense"],
+    ["widgets", "🧩 Widget Store"],
+    ["roadmap", "🗺️ Konsep"],
     ["account", "Account"],
   ];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <div className="flex items-center justify-between">
-        <h1 className="font-heading text-2xl">{dict.admin.dashboardTitle}</h1>
+        <div className="flex items-center gap-3">
+          <Image
+            src="/brand/ulyah-logo-light.webp"
+            alt="Ulyah"
+            width={72}
+            height={72}
+            className="block h-9 w-9 rounded-full shadow-sm dark:hidden"
+          />
+          <Image
+            src="/brand/ulyah-logo-dark.webp"
+            alt="Ulyah"
+            width={72}
+            height={72}
+            className="hidden h-9 w-9 rounded-full shadow-sm dark:block"
+          />
+          <h1 className="font-heading text-2xl">{dict.admin.dashboardTitle}</h1>
+        </div>
         <button onClick={logout} className="text-sm text-danger">
           {dict.admin.logout}
         </button>
@@ -106,6 +135,8 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
       )}
 
       <div className="mt-6">
+        {tab === "backlog" && <BacklogTab />}
+        {tab === "monitor" && <MonitorTab locale={locale} />}
         {tab === "analytics" && <AnalyticsTab />}
         {tab === "keys" && <KeyPoolTab />}
         {tab === "content" && <ContentTab />}
@@ -116,6 +147,10 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "log" && <AuditLogTab />}
         {tab === "settings" && <SettingsTab />}
         {tab === "media" && <MediaTab />}
+        {tab === "library" && <LibraryTab />}
+        {tab === "adsense" && <AdsenseTab />}
+        {tab === "widgets" && <WidgetStoreTab />}
+        {tab === "roadmap" && <RoadmapTab />}
         {tab === "account" && <AccountTab />}
       </div>
     </div>

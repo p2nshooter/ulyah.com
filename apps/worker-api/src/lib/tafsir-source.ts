@@ -2,6 +2,7 @@ import type { Env } from "../env.js";
 import { ASBAB_DATA } from "./asbabun-nuzul-data.js";
 import { translateText } from "./mt.js";
 import { safeKvPut } from "./kv-safe.js";
+import { FEATURED_TAFSIR, findEdition, type TafsirEdition } from "./tafsir-editions.js";
 
 /**
  * Tafsir + asbabun nuzul, fetched on demand and KV-cached per surah — never
@@ -18,6 +19,12 @@ import { safeKvPut } from "./kv-safe.js";
 
 const EQURAN = "https://equran.id/api/v2/tafsir";
 const SPA5K = "https://raw.githubusercontent.com/spa5k/tafsir_api/main/tafsir";
+// Sahih Asbab al-Nuzul (صحيح أسباب النزول, Ibrahim Muhammad al-Ali) — an
+// authentic, hadith-analysed occasions-of-revelation dataset. Higher quality
+// than the English Al-Wahidi fallback; Arabic, so translated on demand for
+// non-Arabic readers. Per-surah files are zero-padded to 3 digits.
+const SAHIH_ASBAB = "https://raw.githubusercontent.com/mostafaahmed97/asbab-al-nuzul-dataset/main/data/structured/json";
+const SAHIH_ASBAB_SOURCE = "Sahih Asbabun Nuzul — Ibrahim Muhammad al-Ali";
 const KV_TTL = 60 * 60 * 24 * 30; // 30 days — static classical text, never changes
 
 const SPA5K_TAFSIR: Record<string, { edition: string; source: string }> = {
@@ -99,11 +106,123 @@ export async function fetchTafsir(
   );
 }
 
+// ── Multi-edition access (the tafsir "source picker") ─────────────────────
+// The full spa5k catalogue is in tafsir-editions.ts; these helpers let the
+// reader offer several classical tafsirs per ayah instead of just the single
+// default one fetchTafsir() picks. Same fetch-and-KV-cache model, so adding
+// editions costs nothing at rest.
+
+/** Locale code the site uses for a given spa5k edition's own language, so the
+ * reader knows whether an edition needs translating into the visitor's UI. */
+const SPA5K_LANG_TO_LOCALE: Record<string, string> = {
+  indonesian: "id",
+  english: "en",
+  arabic: "ar",
+  russian: "ru",
+  french: "fr",
+  chinese: "zh",
+  japanese: "ja",
+};
+
+export interface TafsirEditionSummary {
+  slug: string;
+  name: string;
+  author: string;
+  lang: string; // ULYAH locale code this edition reads in natively
+}
+
 /**
- * Resolve one ayah's occasion-of-revelation. The curated Indonesian dataset
- * (Al-Wahidi & As-Suyuthi) wins; a `null` entry there is an explicit "no
- * specific occasion" and is respected. Ayat absent from the curated set fall
- * back to the spa5k Al-Wahidi (English) edition.
+ * The tafsir editions to offer a reader in `uiLang`. Always includes the
+ * featured set for that locale; Indonesian additionally leads with Tafsir
+ * Kemenag RI (a non-spa5k source, resolved separately in fetchTafsir/here).
+ * Falls back to the English featured set for locales with none of their own,
+ * so the picker is never empty.
+ */
+export function listTafsirEditions(uiLang: string | null): TafsirEditionSummary[] {
+  const lang = uiLang && FEATURED_TAFSIR[uiLang] ? uiLang : "en";
+  const out: TafsirEditionSummary[] = [];
+  if (lang === "id") {
+    out.push({ slug: "kemenag", name: "Tafsir Ringkas Kemenag RI", author: "Kementerian Agama RI", lang: "id" });
+  }
+  for (const slug of FEATURED_TAFSIR[lang] ?? []) {
+    const ed = findEdition(slug);
+    if (ed) out.push({ slug: ed.slug, name: ed.name, author: ed.author, lang: SPA5K_LANG_TO_LOCALE[ed.lang] ?? ed.lang });
+  }
+  return out;
+}
+
+/**
+ * Fetch one specific edition's tafsir for one ayah. `edition` is either a
+ * spa5k slug or the pseudo-slug "kemenag" (equran.id). If the edition's own
+ * language differs from `uiLang`, the text is translated into `uiLang` and
+ * cached — never leaking, say, raw English into an Indonesian panel. Returns
+ * null when that edition has no text for this ayah (some editions are sparse).
+ */
+export async function fetchTafsirByEdition(
+  env: Env,
+  edition: string,
+  surah: number,
+  ayahNumber: number,
+  uiLang: string | null
+): Promise<{ text: string; source: string; lang: string } | null> {
+  if (edition === "kemenag") return fetchKemenagTafsir(env, surah, ayahNumber);
+
+  const ed: TafsirEdition | undefined = findEdition(edition);
+  if (!ed) return null;
+  const data = await fetchJsonCached<{ text: string }[] | { ayahs?: { ayah: number; text: string }[] }>(
+    env,
+    `tafsir:${ed.slug}:${surah}`,
+    `${SPA5K}/${ed.slug}/${surah}.json`
+  );
+  // Two shapes exist upstream: a flat array indexed by ayah-1, or an object
+  // with an `ayahs` array keyed by ayah number. Handle both.
+  let raw: string | undefined;
+  if (Array.isArray(data)) raw = data[ayahNumber - 1]?.text;
+  else raw = data?.ayahs?.find((a) => a.ayah === ayahNumber)?.text;
+  const text = raw?.trim();
+  if (!text || text.length < 20) return null;
+
+  const nativeLocale = SPA5K_LANG_TO_LOCALE[ed.lang] ?? ed.lang;
+  if (uiLang && uiLang !== nativeLocale && (nativeLocale === "en" || nativeLocale === "ar")) {
+    const translated = await translateText(env, text, uiLang, nativeLocale === "en" ? "en" : undefined);
+    if (translated) return { text: translated, source: `${ed.name} (diterjemahkan)`, lang: uiLang };
+    return null; // don't leak a foreign-language wall of text into the panel
+  }
+  return { text, source: ed.name, lang: nativeLocale };
+}
+
+/** Sahih Asbab al-Nuzul for one ayah — authentic Arabic, translated to the
+ * reader's language on demand (never leaking raw Arabic into a non-Arabic
+ * panel). An entry can cover a range of ayat via its `ayahs` array. */
+async function fetchSahihAsbab(
+  env: Env,
+  surah: number,
+  ayahNumber: number,
+  lang: string | null
+): Promise<{ text: string; source: string } | null> {
+  const padded = String(surah).padStart(3, "0");
+  const data = await fetchJsonCached<{ ayahs: number[]; occasions: string[] }[]>(
+    env,
+    `asbab:sahih:${surah}`,
+    `${SAHIH_ASBAB}/${padded}.json`
+  );
+  const hit = data?.find((e) => Array.isArray(e.ayahs) && e.ayahs.includes(ayahNumber));
+  const arabic = hit?.occasions?.map((o) => o.trim()).filter(Boolean).join("\n\n").trim();
+  if (!arabic || arabic.length < 40) return null;
+
+  if (lang === "ar") return { text: arabic, source: SAHIH_ASBAB_SOURCE };
+  const translated = await translateText(env, arabic, lang ?? "id", "ar");
+  if (translated) return { text: translated, source: `${SAHIH_ASBAB_SOURCE} (diterjemahkan)` };
+  // Translation genuinely failed — better to fall through to another source
+  // than to dump untranslated Arabic into, say, an Indonesian panel.
+  return null;
+}
+
+/**
+ * Resolve one ayah's occasion-of-revelation. Priority: the curated Indonesian
+ * dataset (Al-Wahidi & As-Suyuthi) — a `null` entry there is an explicit "no
+ * specific occasion" and is respected; then the authentic Sahih Asbab al-Nuzul
+ * (Arabic, translated on demand); then the spa5k Al-Wahidi (English) edition.
  */
 export async function fetchAsbabunNuzul(
   env: Env,
@@ -116,6 +235,9 @@ export async function fetchAsbabunNuzul(
     const text = ASBAB_DATA[key];
     return text ? { text, source: "Asbabun Nuzul — Al-Wahidi & As-Suyuthi" } : null;
   }
+
+  const sahih = await fetchSahihAsbab(env, surah, ayahNumber, lang);
+  if (sahih) return sahih;
 
   const data = await fetchJsonCached<{ ayahs?: { ayah: number; text: string }[] }>(
     env,

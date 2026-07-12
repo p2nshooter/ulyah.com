@@ -96,6 +96,28 @@ async function translateChunk(text: string, sourceLang: string, targetLang: stri
  * the site's locale codes (id/en/ru/de/fr/ar/zh/ja, packages/shared/i18n) —
  * every visitor's own language gets a real translation, not just id/en.
  */
+/**
+ * Cache-only translation: returns a previously-cached translation or null,
+ * and NEVER calls the translation API. Use this on list pages that render
+ * many items at once (e.g. a kitab category of 24 titles) — calling the live
+ * translateText for each would fire a storm of subrequests on a single page
+ * load and can trip Cloudflare's Worker resource limits (Error 1102). Titles
+ * fill in progressively as their detail pages (which do call translateText)
+ * warm the cache.
+ */
+export async function translateCachedOnly(
+  env: Env,
+  text: string,
+  targetLang: string,
+  sourceLang: "ar" | "en" = "ar"
+): Promise<string | null> {
+  const trimmed = text.trim();
+  if (!trimmed || sourceLang === targetLang) return null;
+  const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
+  const cached = await env.CACHE_KV.get(kvKey);
+  return cached ? cached : null;
+}
+
 export async function translateText(
   env: Env,
   text: string,

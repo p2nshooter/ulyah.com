@@ -47,6 +47,11 @@ const zh: Dictionary = {
     storiesWisdom: "故事与智慧",
     prayerSchedule: "礼拜时间表",
     qualityAudio: "高品质音频",
+    zakatCalculator: "天课计算器",
+    qiblaDirection: "朝向麦加",
+    hijriCalendar: "伊斯兰历",
+    warisCalculator: "遗产计算器",
+    imsakiyahRamadhan: "斋月封斋表",
   },
   stats: {
     surah: "114+",

@@ -36,6 +36,24 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
         subtitle={total > 0 ? `${t.subtitle} · ${total.toLocaleString(locale)} ${t.works}` : t.subtitle}
       />
 
+      {/* Bridge to the readable pesantren library — the Shamela catalogue below
+          is breadth (metadata for ~5k works); this is depth (full readable
+          matn, bab by bab, with terjemah + penjelasan). */}
+      <Link
+        href={`/${locale}/kitab-pesantren`}
+        className="mt-8 flex items-center gap-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/10 to-transparent p-5 transition hover:border-accent"
+      >
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-2xl">🏫</span>
+        <div className="min-w-0">
+          <p className="font-heading text-base">Kitab Pesantren — Perpustakaan Digital</p>
+          <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+            Kitab kuning tersusun rapi per bidang: teks Arab, terjemah &amp; penjelasan, bab per bab — bisa dibaca &amp;
+            didengarkan.
+          </p>
+        </div>
+        <span className="ml-auto shrink-0 text-accent">→</span>
+      </Link>
+
       <div className="mt-10 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
         {categories.length === 0 && (
           <p className="col-span-full text-center text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>

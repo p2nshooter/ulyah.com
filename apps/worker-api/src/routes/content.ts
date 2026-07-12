@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { translateText } from "../lib/mt.js";
+import { translateText, translateCachedOnly } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
@@ -227,11 +227,24 @@ contentRoute.get("/kitab/category/:slug", async (c) => {
   const requestedLocale = c.req.query("lang") ?? DEFAULT_LOCALE;
   const targetLang = isValidLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
   const books = rows.results as { id: number; title_ar: string }[];
+  // Cache-ONLY translation here: never fire live MT for a whole page of
+  // titles at once. Doing so (24 parallel subrequests) tripped Cloudflare's
+  // Worker resource limits → Error 1102 on category pages. Titles fill in as
+  // their detail pages warm the cache. Warm a few in the background so a fresh
+  // category doesn't stay all-Arabic forever, without blocking the response.
   const titleTranslations =
     targetLang !== "ar" && books.length > 0
-      ? await Promise.all(books.map((b) => translateText(c.env, b.title_ar, targetLang)))
+      ? await Promise.all(books.map((b) => translateCachedOnly(c.env, b.title_ar, targetLang)))
       : books.map(() => null);
   const booksWithTranslation = books.map((b, i) => ({ ...b, title_translated: titleTranslations[i] }));
+  if (targetLang !== "ar") {
+    const missing = books.filter((b, i) => !titleTranslations[i]).slice(0, 6);
+    if (missing.length > 0) {
+      c.executionCtx.waitUntil(
+        Promise.all(missing.map((b) => translateText(c.env, b.title_ar, targetLang))).then(() => undefined)
+      );
+    }
+  }
 
   return c.json({ category: cat, books: booksWithTranslation, total: count?.n ?? 0, page, pageSize });
 });
@@ -400,4 +413,163 @@ contentRoute.get("/ebooks/:id/download", async (c) => {
   obj.writeHttpMetadata(headers);
   headers.set("content-disposition", `attachment; filename="${ebook.title.replace(/"/g, "")}.pdf"`);
   return new Response(obj.body, { headers });
+});
+
+// ── Kitab Pesantren (readable matn library, see migration 0017) ───────────
+// A tidy, fully-structured reading library — category → kitab (with author)
+// → bab (chapter) → matan (Arabic + terjemah + penjelasan). Separate from
+// the Shamela *catalogue* (/content/kitab/*) which is metadata only.
+
+// GET /content/pesantren/categories — categories + kitab count each.
+contentRoute.get("/pesantren/categories", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT c.slug, c.name_id, c.name_ar, c.icon, c.sort_order,
+            (SELECT COUNT(*) FROM pesantren_kitab k WHERE k.category_slug = c.slug) AS kitab_count
+     FROM pesantren_category c ORDER BY c.sort_order`
+  ).all();
+  return c.json({ categories: results });
+});
+
+// GET /content/pesantren/kitab — the full kitab list (grouped client-side by
+// category), each with author + bab count, for the library index.
+contentRoute.get("/pesantren/kitab", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT k.slug, k.category_slug, k.title_ar, k.title_id, k.author, k.author_death_year,
+            k.description_id, k.sort_order,
+            (SELECT COUNT(*) FROM pesantren_bab b WHERE b.kitab_slug = k.slug) AS bab_count
+     FROM pesantren_kitab k ORDER BY k.sort_order`
+  ).all();
+  return c.json({ kitab: results });
+});
+
+// GET /content/pesantren/kitab/:slug — one kitab in full: its chapters, each
+// with its matan rows (Arabic + terjemah + penjelasan + linked ayat/hadits).
+contentRoute.get("/pesantren/kitab/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const kitab = await c.env.DB.prepare(
+    `SELECT k.*, c.name_id AS category_name, c.icon AS category_icon
+     FROM pesantren_kitab k LEFT JOIN pesantren_category c ON c.slug = k.category_slug
+     WHERE k.slug = ?`
+  )
+    .bind(slug)
+    .first();
+  if (!kitab) return c.json({ error: "Kitab not found" }, 404);
+
+  const [{ results: babs }, { results: matn }] = await Promise.all([
+    c.env.DB.prepare("SELECT id, bab_order, name_id, name_ar FROM pesantren_bab WHERE kitab_slug = ? ORDER BY bab_order")
+      .bind(slug)
+      .all(),
+    c.env.DB.prepare(
+      `SELECT m.id, m.bab_id, m.matn_order, m.title_id, m.title_ar, m.text_ar,
+              m.translation_id, m.explanation_id, m.quran_refs_json, m.hadits_refs_json
+       FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id
+       WHERE b.kitab_slug = ? ORDER BY b.bab_order, m.matn_order`
+    )
+      .bind(slug)
+      .all(),
+  ]);
+
+  // Fold matan rows into their chapter, parsing the ref JSON once server-side.
+  const byBab = new Map<number, unknown[]>();
+  for (const m of matn as Record<string, unknown>[]) {
+    const list = byBab.get(m.bab_id as number) ?? [];
+    list.push({
+      id: m.id,
+      order: m.matn_order,
+      title_id: m.title_id,
+      title_ar: m.title_ar,
+      text_ar: m.text_ar,
+      translation_id: m.translation_id,
+      explanation_id: m.explanation_id,
+      quran_refs: m.quran_refs_json ? JSON.parse(m.quran_refs_json as string) : [],
+      hadits_refs: m.hadits_refs_json ? JSON.parse(m.hadits_refs_json as string) : [],
+    });
+    byBab.set(m.bab_id as number, list);
+  }
+  const chapters = (babs as Record<string, unknown>[]).map((b) => ({
+    id: b.id,
+    order: b.bab_order,
+    name_id: b.name_id,
+    name_ar: b.name_ar,
+    matn: byBab.get(b.id as number) ?? [],
+  }));
+
+  return c.json({ kitab, chapters });
+});
+
+// ── Amalan Harian (doa/dzikir/thibb/kecantikan, see migration 0018) ───────
+// Voice-ready: every item carries Arabic + Latin + terjemah + sumber sahih.
+
+// GET /content/amalan/categories — categories grouped by `grp`, item count each.
+contentRoute.get("/amalan/categories", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT c.slug, c.grp, c.name_id, c.name_ar, c.icon, c.sort_order,
+            (SELECT COUNT(*) FROM amalan_item i WHERE i.category_slug = c.slug) AS item_count
+     FROM amalan_category c ORDER BY c.sort_order`
+  ).all();
+  return c.json({ categories: results });
+});
+
+// GET /content/amalan/all — every category with its items inlined, so the
+// widget can render the whole library (and narrate it) in one fetch.
+contentRoute.get("/amalan/all", async (c) => {
+  const [{ results: cats }, { results: items }] = await Promise.all([
+    c.env.DB.prepare(
+      "SELECT slug, grp, name_id, name_ar, icon, sort_order FROM amalan_category ORDER BY sort_order"
+    ).all(),
+    c.env.DB.prepare(
+      `SELECT category_slug, item_order, title_id, arabic, latin, translation_id, note_id, repeat_count, source
+       FROM amalan_item ORDER BY category_slug, item_order`
+    ).all(),
+  ]);
+  const byCat = new Map<string, unknown[]>();
+  for (const it of items as Record<string, unknown>[]) {
+    const list = byCat.get(it.category_slug as string) ?? [];
+    list.push(it);
+    byCat.set(it.category_slug as string, list);
+  }
+  const categories = (cats as Record<string, unknown>[]).map((cat) => ({
+    ...cat,
+    items: byCat.get(cat.slug as string) ?? [],
+  }));
+  return c.json({ categories });
+});
+
+// GET /content/adsense-config — the single ad-unit id (and on/off flags) the
+// owner set once in the admin AdSense panel, so every <AdSlot> across the site
+// uses the same id without a redeploy. Ad-unit ids are not secret (they appear
+// in page source anyway), so this is a public read. Cached briefly at the edge.
+contentRoute.get("/adsense-config", async (c) => {
+  let cfg: { slotId: string; enabled: boolean; previewMode: boolean } = {
+    slotId: "",
+    enabled: false,
+    previewMode: false,
+  };
+  try {
+    const raw = await c.env.CACHE_KV.get("adsense:config");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      cfg = {
+        slotId: String(parsed.slotId ?? ""),
+        enabled: parsed.enabled !== false && Boolean(parsed.slotId),
+        previewMode: parsed.previewMode === true,
+      };
+    }
+  } catch {
+    /* fall back to disabled */
+  }
+  // Preview mode is short-lived (owner verifying placement), so cache it far
+  // less than a live config so toggling it off takes effect quickly.
+  return c.json(cfg, 200, { "Cache-Control": `public, max-age=${cfg.previewMode ? 15 : 300}` });
+});
+
+// ── Nasakh & Mansukh (see migration 0019) ─────────────────────────────────
+// GET /content/nasakh — all abrogating/abrogated entries, ordered.
+contentRoute.get("/nasakh", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, entry_order, title_id, naskh_type, mansukh_ref, mansukh_ar, mansukh_id,
+            nasikh_ref, nasikh_ar, nasikh_id, explanation_id, source
+     FROM nasakh_mansukh ORDER BY entry_order`
+  ).all();
+  return c.json({ entries: results });
 });

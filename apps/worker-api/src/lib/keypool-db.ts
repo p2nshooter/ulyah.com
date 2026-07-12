@@ -63,6 +63,41 @@ export async function ingestAndTestKey(env: Env, input: IngestKeyInput) {
   return { id: row!.id, status, test };
 }
 
+/** SHA-256 hex fingerprint of a raw key — for dedup, never reversible. */
+async function keyFingerprint(rawKey: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(rawKey));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * Fast, no-live-test ingest for bulk paste: encrypt + insert as `active`
+ * immediately (deduped by fingerprint so re-paste is a no-op), WITHOUT the
+ * per-key provider probe. Testing 10+ keys live in one request could exceed
+ * the Worker's time budget and fail the whole batch, leaving nothing saved —
+ * the recurring "keys don't show up" problem. The scheduled health-check /
+ * the admin "retest" button verifies each key afterwards and demotes any bad
+ * one. Returns 'inserted' | 'duplicate'.
+ */
+export async function ingestKeyNoTest(
+  env: Env,
+  input: { provider: string; scope: KeyScope; rawKey: string; donorLabel?: string }
+): Promise<"inserted" | "duplicate"> {
+  const fp = await keyFingerprint(input.rawKey);
+  const existing = await env.DB.prepare("SELECT id FROM ai_key_pool WHERE key_fingerprint = ? LIMIT 1")
+    .bind(fp)
+    .first<{ id: number }>();
+  if (existing) return "duplicate";
+
+  const { ciphertext, iv } = await encryptApiKey(input.rawKey, env.KEY_ENCRYPTION_SECRET);
+  await env.DB.prepare(
+    `INSERT INTO ai_key_pool (provider, scope, key_ref, key_iv, status, priority, donor_label, quota_used, latency_ms, last_health_check, key_fingerprint)
+     VALUES (?, ?, ?, ?, 'active', 5, ?, 0, 0, datetime('now'), ?)`
+  )
+    .bind(input.provider, input.scope, ciphertext, iv, input.donorLabel ?? null, fp)
+    .run();
+  return "inserted";
+}
+
 /** Loads all active/slow keys for a scope and asks packages/key-pool to rank them. */
 export async function selectKeyForScope(
   env: Env,

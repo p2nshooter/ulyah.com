@@ -14,6 +14,7 @@ export function NarrateButton({
   listenLabel,
   stopLabel,
   lang,
+  segments,
   onSentence,
   onEnd,
   className = "",
@@ -22,6 +23,11 @@ export function NarrateButton({
   listenLabel: string;
   stopLabel: string;
   lang: string;
+  /** Optional mixed-language script: when provided it overrides
+   * `paragraphs`+`lang`, narrating each segment's text in its OWN language —
+   * so "baca semua" can read the Arabic matn with an Arabic voice, then the
+   * Indonesian terjemah with an Indonesian voice, in one press. */
+  segments?: { text: string; lang: string }[];
   onSentence?: (index: number | null) => void;
   /** Fires when narration completes naturally (not via the Stop button) — e.g. to auto-advance to the next item. */
   onEnd?: () => void;
@@ -49,11 +55,16 @@ export function NarrateButton({
     if (!speechAvailable()) return;
     cancelledRef.current = false;
     setPlaying(true);
-    const sentences = paragraphs.flatMap((p) => splitSentences(p));
-    for (let i = 0; i < sentences.length; i++) {
+    // Build a flat list of {text, lang} sentences: from mixed-language
+    // segments when given, otherwise the single-language paragraphs.
+    const script: { text: string; lang: string }[] =
+      segments && segments.length > 0
+        ? segments.flatMap((s) => splitSentences(s.text).map((text) => ({ text, lang: s.lang })))
+        : paragraphs.flatMap((p) => splitSentences(p).map((text) => ({ text, lang })));
+    for (let i = 0; i < script.length; i++) {
       if (cancelledRef.current) break;
       onSentence?.(i);
-      const h = speak(sentences[i]!, lang, { rate: 0.9 });
+      const h = speak(script[i]!.text, script[i]!.lang, { rate: 0.9 });
       handleRef.current = h;
       await h.done;
     }

@@ -9,6 +9,10 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+interface NavigatorWithRelatedApps extends Navigator {
+  getInstalledRelatedApps?: () => Promise<unknown[]>;
+}
+
 const INSTALLED_KEY = "ulyah_pwa_installed";
 
 /**
@@ -70,6 +74,23 @@ export function InstallAppButton({
       return;
     }
 
+    // `display-mode: standalone` only proves "installed" when the visitor is
+    // *currently inside* the installed app window — it says nothing when
+    // they're back in a normal browser tab, which used to mean the button
+    // kept offering to install an app that was already on the device. Where
+    // Chrome supports it (desktop/Android, manifest declares itself via
+    // `related_applications`), ask it directly instead of guessing.
+    let cancelled = false;
+    const nav = navigator as NavigatorWithRelatedApps;
+    if (nav.getInstalledRelatedApps) {
+      nav
+        .getInstalledRelatedApps()
+        .then((related) => {
+          if (!cancelled && related.length > 0) setInstalled(true);
+        })
+        .catch(() => {});
+    }
+
     setIsIOS(/iphone|ipad|ipod/i.test(navigator.userAgent));
 
     const onPrompt = (e: Event) => {
@@ -85,6 +106,7 @@ export function InstallAppButton({
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
     return () => {
+      cancelled = true;
       window.removeEventListener("beforeinstallprompt", onPrompt);
       window.removeEventListener("appinstalled", onInstalled);
     };

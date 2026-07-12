@@ -14,6 +14,7 @@ export interface RadioLabels {
   chooseCountry: string;
   featuredGroup: string;
   allGroup: string;
+  reciterLineup: string;
   liveBadge: string;
   khatamCompleted: string;
   khatamInProgress: string;
@@ -33,6 +34,7 @@ const EN: RadioLabels = {
   chooseCountry: "Country",
   featuredGroup: "🏆 World-renowned reciters",
   allGroup: "All reciters",
+  reciterLineup: "🎙️ Reciter lineup",
   liveBadge: "LIVE",
   khatamCompleted: "khatam completed",
   khatamInProgress: "now on khatam #",
@@ -52,6 +54,7 @@ const ID: RadioLabels = {
   chooseCountry: "Negara",
   featuredGroup: "🏆 Qori juara dunia",
   allGroup: "Semua qori",
+  reciterLineup: "🎙️ Urutan qori",
   liveBadge: "LIVE",
   khatamCompleted: "kali khatam selesai",
   khatamInProgress: "sedang khataman ke-",
@@ -71,6 +74,7 @@ const AR: RadioLabels = {
   chooseCountry: "الدولة",
   featuredGroup: "🏆 قراء مشهورون عالميًا",
   allGroup: "كل القراء",
+  reciterLineup: "🎙️ ترتيب القراء",
   liveBadge: "مباشر",
   khatamCompleted: "ختمة مكتملة",
   khatamInProgress: "الختمة الحالية رقم",

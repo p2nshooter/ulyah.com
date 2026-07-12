@@ -28,31 +28,12 @@ export interface RadioPosition {
   ayahNumber: number;
 }
 
-// The default "auto" station rotates through the world-renowned reciters —
-// one full khatam per voice — rather than reciting forever in a single
-// voice. Explicitly picking a reciter pins that channel instead and stops
-// the rotation (see switchReciter).
+// The station always rotates through the world-renowned reciters in a fixed
+// sequence — one full khatam per voice — never a listener-chosen channel:
+// "imam nya jgn bisa d klik, biarkan saja berjalan berurutan" (the imam must
+// not be clickable, just let it run in sequence). The widget only ever shows
+// who is in the rotation and who is reading right now, never a picker.
 const ROTATION_POOL = RECITERS.filter((r) => r.featured).map((r) => r.key);
-
-const RECITER_STORAGE_KEY = "ulyah_radio_reciter";
-
-/** null means "no pinned favorite yet" — the default rotating station. */
-function loadReciterKey(): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    return window.localStorage.getItem(RECITER_STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
-
-function saveReciterKey(key: string) {
-  try {
-    window.localStorage.setItem(RECITER_STORAGE_KEY, key);
-  } catch {
-    /* quota exceeded — fine, just won't remember the preference */
-  }
-}
 
 export function nextRadioPosition(p: RadioPosition, surahs: SurahMeta[]): RadioPosition {
   const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
@@ -73,27 +54,24 @@ interface RadioState {
   needsInteraction: boolean;
   muted: boolean;
   khatamCount: number;
-  autoRotate: boolean;
-  gen: number; // bumped on start/stop/switchReciter to invalidate in-flight loads
+  gen: number; // bumped on start/stop to invalidate in-flight loads
 
   setSurahs: (s: SurahMeta[]) => void;
   setKhatamCount: (n: number) => void;
   setPlaybackState: (p: Partial<Pick<RadioState, "playing" | "needsInteraction" | "muted">>) => void;
   start: () => void;
   stop: () => void;
-  switchReciter: (key: string) => void;
   advance: () => void;
   unmuteIntent: () => void;
 }
 
 export const useRadioStore = create<RadioState>((set, get) => ({
   surahs: [],
-  position: { reciterKey: loadReciterKey() ?? DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 },
+  position: { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 },
   playing: false,
   needsInteraction: true,
   muted: false,
   khatamCount: 0,
-  autoRotate: loadReciterKey() === null,
   gen: 0,
 
   setSurahs: (surahs) => set({ surahs }),
@@ -105,18 +83,9 @@ export const useRadioStore = create<RadioState>((set, get) => ({
    * last left off — see radio-clock.ts. */
   start: () => {
     const { surahs } = get();
-    const pinned = loadReciterKey();
-    let position: RadioPosition;
-    let autoRotate: boolean;
-    if (pinned) {
-      autoRotate = false;
-      position = { reciterKey: pinned, ...computeLivePosition(surahs) };
-    } else {
-      autoRotate = true;
-      const b = computeLiveBroadcast(surahs, ROTATION_POOL);
-      position = { reciterKey: b.reciterKey, surahId: b.surahId, ayahNumber: b.ayahNumber };
-    }
-    set((s) => ({ position, autoRotate, playing: true, gen: s.gen + 1 }));
+    const b = computeLiveBroadcast(surahs, ROTATION_POOL);
+    const position: RadioPosition = { reciterKey: b.reciterKey, surahId: b.surahId, ayahNumber: b.ayahNumber };
+    set((s) => ({ position, playing: true, gen: s.gen + 1 }));
   },
 
   /** Only stops audio for this visitor — the shared broadcast clock keeps
@@ -126,27 +95,14 @@ export const useRadioStore = create<RadioState>((set, get) => ({
    * manual start() again, never an auto-resume. */
   stop: () => set((s) => ({ playing: false, gen: s.gen + 1 })),
 
-  switchReciter: (key) => {
-    const { surahs, playing, needsInteraction } = get();
-    saveReciterKey(key);
-    const position: RadioPosition = { reciterKey: key, ...computeLivePosition(surahs) };
-    const shouldPlayNow = playing || !needsInteraction;
-    set((s) => ({
-      position,
-      autoRotate: false,
-      playing: shouldPlayNow ? true : s.playing,
-      gen: shouldPlayNow ? s.gen + 1 : s.gen,
-    }));
-  },
-
   /** Natural forward progression on the audio's 'ended' event — does NOT
    * bump gen, since this continues the current playback rather than
    * superseding it. */
   advance: () => {
-    const { position, surahs, autoRotate } = get();
+    const { position, surahs } = get();
     let next = nextRadioPosition(position, surahs);
     const completedKhatam = position.surahId >= 114 && next.surahId === 1 && next.ayahNumber === 1;
-    if (completedKhatam && autoRotate && ROTATION_POOL.length > 0) {
+    if (completedKhatam && ROTATION_POOL.length > 0) {
       const idx = Math.max(0, ROTATION_POOL.indexOf(position.reciterKey));
       const nextReciter = ROTATION_POOL[(idx + 1) % ROTATION_POOL.length]!;
       next = { ...next, reciterKey: nextReciter };

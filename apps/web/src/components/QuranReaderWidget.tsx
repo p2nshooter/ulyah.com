@@ -132,6 +132,15 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [loadError, setLoadError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [qoriCC, setQoriCC] = useState("all"); // country filter for the reciter picker below
+
+  // Tafsir source picker: which classical tafsir edition to show. `""` = the
+  // reader's default (whatever /quran/ayah picked). Any other value is a slug
+  // from /quran/tafsir-editions, fetched on demand and layered over the
+  // bundle's default tafsir text.
+  const [tafsirEditions, setTafsirEditions] = useState<{ slug: string; name: string; author: string }[]>([]);
+  const [tafsirEdition, setTafsirEdition] = useState("");
+  const [editionTafsir, setEditionTafsir] = useState<{ text: string; source: string } | null>(null);
+  const [editionTafsirLoading, setEditionTafsirLoading] = useState(false);
   const arabicRef = useRef<HTMLDivElement>(null);
 
   const { layers, applyPreset, toggleLayer, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
@@ -209,6 +218,43 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     };
   }, [selectedSurah, focus, locale]);
 
+  // The available tafsir sources for this UI language (loaded once).
+  useEffect(() => {
+    api
+      .get<{ editions: { slug: string; name: string; author: string }[] }>(`/quran/tafsir-editions?lang=${locale}`)
+      .then((r) => setTafsirEditions(r.editions))
+      .catch(() => {});
+  }, [locale]);
+
+  // When a non-default tafsir edition is chosen, fetch just that edition's
+  // text for the focused ayah. Cleared back to the bundle default when the
+  // picker returns to "" or the ayah changes.
+  useEffect(() => {
+    if (!selectedSurah || !tafsirEdition) {
+      setEditionTafsir(null);
+      return;
+    }
+    let cancelled = false;
+    setEditionTafsirLoading(true);
+    setEditionTafsir(null);
+    api
+      .get<{ tafsir: { text: string; source: string } | null }>(
+        `/quran/tafsir/${tafsirEdition}/${selectedSurah.id}/${focus}?lang=${locale}`
+      )
+      .then((r) => {
+        if (!cancelled) setEditionTafsir(r.tafsir);
+      })
+      .catch(() => {
+        if (!cancelled) setEditionTafsir(null);
+      })
+      .finally(() => {
+        if (!cancelled) setEditionTafsirLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedSurah, focus, tafsirEdition, locale]);
+
   const focusRow = useMemo(() => ayat.find((a) => a.number === focus) ?? null, [ayat, focus]);
 
   const filteredSurahs = useMemo(
@@ -266,7 +312,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const bundleLoading = bundle === null;
   const summary: { layer: Layer; icon: string; label: string; text: string | null; empty: string }[] = [
     { layer: "translation", icon: LAYER_ICON.translation, label: dict.reader.translationLabel, text: focusRow?.translation ?? bundle?.translation?.text ?? null, empty: e.translation },
-    { layer: "tafsir", icon: LAYER_ICON.tafsir, label: dict.reader.tafsirLabel, text: bundle?.tafsir[0]?.text ?? null, empty: e.tafsir },
+    { layer: "tafsir", icon: LAYER_ICON.tafsir, label: dict.reader.tafsirLabel, text: (tafsirEdition ? editionTafsir?.text : bundle?.tafsir[0]?.text) ?? null, empty: e.tafsir },
     { layer: "asbabun", icon: LAYER_ICON.asbabun, label: dict.reader.asbabunNuzulLabel, text: bundle?.asbabun_nuzul[0]?.text ?? null, empty: e.asbabun },
     { layer: "hadits", icon: LAYER_ICON.hadits, label: dict.reader.haditsLabel, text: bundle?.hadits[0] ? `“${bundle.hadits[0].text_id}” — ${bundle.hadits[0].narrator ?? ""} (${bundle.hadits[0].source})` : null, empty: e.hadits },
   ];
@@ -520,22 +566,52 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       <aside className="card-premium-static p-4">
         <p className="mb-3 font-heading text-sm">{dict.reader.ayahSummaryTitle}</p>
         <div className="space-y-3">
-          {summary.map((s) => (
-            <div
-              key={s.layer}
-              className={`rounded-xl border p-3 transition ${
-                activeLayer === s.layer && isPlaying ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
-              }`}
-            >
-              <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
-                <span>{s.icon}</span>
-                {s.label}
-              </p>
-              <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                {s.text ?? (bundleLoading ? `${dict.common.loading}…` : s.empty)}
-              </p>
-            </div>
-          ))}
+          {summary.map((s) => {
+            const isTafsir = s.layer === "tafsir";
+            const tafsirLoading = isTafsir && tafsirEdition ? editionTafsirLoading : bundleLoading;
+            const sourceName = isTafsir
+              ? tafsirEdition
+                ? editionTafsir?.source
+                : bundle?.tafsir[0]?.source
+              : undefined;
+            return (
+              <div
+                key={s.layer}
+                className={`rounded-xl border p-3 transition ${
+                  activeLayer === s.layer && isPlaying ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
+                }`}
+              >
+                <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
+                  <span>{s.icon}</span>
+                  {s.label}
+                </p>
+                {/* Tafsir source picker — lets the reader switch between the
+                    classical tafsirs the site pulls from spa5k/tafsir_api
+                    (Ibn Kathir, Jalalayn, As-Sa'di, Al-Mukhtasar, Kemenag …). */}
+                {isTafsir && tafsirEditions.length > 1 && (
+                  <select
+                    aria-label={dict.reader.tafsirLabel}
+                    value={tafsirEdition}
+                    onChange={(ev) => setTafsirEdition(ev.target.value)}
+                    className="mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1 text-[11px]"
+                  >
+                    <option value="">★ {dict.reader.tafsirLabel} — {tafsirEditions[0]?.name}</option>
+                    {tafsirEditions.map((ed) => (
+                      <option key={ed.slug} value={ed.slug}>
+                        {ed.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                <p className="mt-1 line-clamp-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                  {s.text ?? (tafsirLoading ? `${dict.common.loading}…` : s.empty)}
+                </p>
+                {isTafsir && sourceName && s.text && (
+                  <p className="mt-1 text-[10px] italic text-[var(--color-text-secondary)]/70">— {sourceName}</p>
+                )}
+              </div>
+            );
+          })}
           {bundle?.stories && bundle.stories.length > 0 && (
             <div className="rounded-xl border border-[var(--color-border)] p-3">
               <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">

@@ -47,6 +47,11 @@ const fr: Dictionary = {
     storiesWisdom: "Récits & Sagesse",
     prayerSchedule: "Horaires de prière",
     qualityAudio: "Audio de haute qualité",
+    zakatCalculator: "Calculateur de zakat",
+    qiblaDirection: "Direction de la qibla",
+    hijriCalendar: "Calendrier hégirien",
+    warisCalculator: "Calculateur d'héritage",
+    imsakiyahRamadhan: "Imsakiyah du Ramadan",
   },
   stats: {
     surah: "114+",

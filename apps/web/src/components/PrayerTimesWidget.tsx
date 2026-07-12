@@ -49,6 +49,15 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
   const [cityLabel, setCityLabel] = useState<string | null>(null);
   const [now, setNow] = useState<Date>(() => new Date());
   const [phase, setPhase] = useState<RamadanPhase | null>(null);
+  // The very first client render must show the exact same digits the server
+  // rendered, or React discards and rebuilds this whole subtree (a visible
+  // flash) — see the "Hydration failed" warning this used to throw. `now`'s
+  // initial value is computed independently on the server and in the
+  // browser, seconds apart, so the clock/countdown digits almost always
+  // differ. `mounted` keeps those specific digits frozen at a placeholder
+  // through hydration, then swaps to the live value on the next tick.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   // Tick every second, but pause entirely while the tab/app is in the
   // background — a standalone installed app can sit open for hours, and a
@@ -195,7 +204,9 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
             </p>
           </div>
           <div className="rounded-2xl border border-accent/30 bg-white/5 px-4 py-2 text-right">
-            <p className="font-heading text-2xl leading-none text-accent tabular-nums">{hmIn(country.tz, now)}</p>
+            <p className="font-heading text-2xl leading-none text-accent tabular-nums">
+              {mounted ? hmIn(country.tz, now) : "--:--"}
+            </p>
             <p className="mt-1 text-[10px] text-[#f4efe3]/70">{gregorian}</p>
             <p className="mt-0.5 text-[10px] text-[#f4efe3]/70">
               {hijri.day} {monthNames[hijri.month - 1]} {hijri.year} H
@@ -210,17 +221,18 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
             <p className="text-xs text-[#f4efe3]/70">
               {t.untilNext} <span className="font-heading text-accent">{prayerLabelMap[nextKey]}</span>
               {" · "}
-              <span className="tabular-nums">{hmIn(country.tz, nextMoment.time)}</span>
+              <span className="tabular-nums">{mounted ? hmIn(country.tz, nextMoment.time) : "--:--"}</span>
             </p>
             <p className="font-heading text-2xl tabular-nums text-accent">
-              {cd.hours > 0 ? `${String(cd.hours).padStart(2, "0")}:` : ""}
-              {String(cd.minutes).padStart(2, "0")}:{String(cd.seconds).padStart(2, "0")}
+              {mounted
+                ? `${cd.hours > 0 ? `${String(cd.hours).padStart(2, "0")}:` : ""}${String(cd.minutes).padStart(2, "0")}:${String(cd.seconds).padStart(2, "0")}`
+                : "--:--"}
             </p>
           </div>
           <div className="mt-2 h-1.5 w-full bg-white/10">
             <div
               className="h-full rounded-r-full bg-accent transition-[width] duration-1000 ease-linear"
-              style={{ width: `${Math.round(progress * 100)}%` }}
+              style={{ width: `${mounted ? Math.round(progress * 100) : 0}%` }}
             />
           </div>
         </div>
@@ -229,7 +241,7 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
         <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-6">
           {PRAYER_ORDER.map((key) => {
             const d = times.timeForPrayer(key);
-            const active = key === nextKey;
+            const active = mounted && key === nextKey;
             return (
               <div
                 key={key}
@@ -274,7 +286,7 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
                 <p className="truncate text-[10px] text-[#f4efe3]/70">
                   {c.flag} {c.city}
                 </p>
-                <p className="mt-0.5 font-heading text-sm tabular-nums">{timeIn(c.tz, now)}</p>
+                <p className="mt-0.5 font-heading text-sm tabular-nums">{mounted ? timeIn(c.tz, now) : "--:--:--"}</p>
               </div>
             ))}
           </div>

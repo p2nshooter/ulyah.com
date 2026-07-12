@@ -14,6 +14,7 @@ interface Settings {
   monthlyBudgetUsd: number;
   preferFreeProviders: boolean;
   targetJobsPerTick: number;
+  cfWorkerAiEnabled?: boolean;
 }
 
 export function ScalingTab() {
@@ -89,6 +90,26 @@ export function ScalingTab() {
             <label className="flex items-center justify-between">
               Target new jobs per scaling tick
               <input type="number" min={0} max={50} value={settings.targetJobsPerTick} onChange={(e) => setSettings({ ...settings, targetJobsPerTick: Number(e.target.value) })} className="w-24 rounded border border-[var(--color-border)] bg-transparent px-2 py-1" />
+            </label>
+          </div>
+
+          {/* Paid fallback — off by default. Donated NVIDIA/OpenRouter keys +
+              the free browser voice are used first; this only turns on the
+              billable Cloudflare Workers AI when the owner opts in. */}
+          <div className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/[0.06] p-3">
+            <label className="flex items-center justify-between gap-3">
+              <span>
+                <span className="font-medium">☁️ Cloudflare Worker AI (berbayar)</span>
+                <span className="mt-0.5 block text-[11px] text-[var(--color-text-secondary)]">
+                  Default OFF. Nyalakan hanya jika ingin memakai AI berbayar Cloudflare sebagai cadangan terakhir —
+                  key NVIDIA/OpenRouter gratis & suara browser dipakai lebih dulu.
+                </span>
+              </span>
+              <input
+                type="checkbox"
+                checked={settings.cfWorkerAiEnabled ?? false}
+                onChange={(e) => setSettings({ ...settings, cfWorkerAiEnabled: e.target.checked })}
+              />
             </label>
           </div>
           <button onClick={save} className="mt-3 rounded bg-primary px-3 py-1.5 text-xs text-white dark:bg-accent dark:text-primary">
