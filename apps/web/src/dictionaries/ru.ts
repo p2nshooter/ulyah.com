@@ -48,6 +48,7 @@ const ru: Dictionary = {
     prayerSchedule: "Расписание молитв",
     qualityAudio: "Качественное аудио",
     zakatCalculator: "Калькулятор закята",
+    qiblaDirection: "Направление киблы",
   },
   stats: {
     surah: "114+",

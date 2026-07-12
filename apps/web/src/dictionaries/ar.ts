@@ -48,6 +48,7 @@ const ar: Dictionary = {
     prayerSchedule: "مواقيت الصلاة",
     qualityAudio: "صوت عالي الجودة",
     zakatCalculator: "حاسبة الزكاة",
+    qiblaDirection: "اتجاه القبلة",
   },
   stats: {
     surah: "+114",

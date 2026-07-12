@@ -48,6 +48,7 @@ const zh: Dictionary = {
     prayerSchedule: "礼拜时间表",
     qualityAudio: "高品质音频",
     zakatCalculator: "天课计算器",
+    qiblaDirection: "朝向麦加",
   },
   stats: {
     surah: "114+",
