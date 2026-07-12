@@ -102,7 +102,7 @@ const REFERENCE_CATEGORIES: RefCategory[] = [
     title: "8. Jadwal Sholat, Kiblat, Kalender Hijriyah, Masjid, Haji/Umrah",
     status: "partial",
     note:
-      "Jadwal Sholat: SELESAI, app terpisah sendiri. Kiblat (kompas arah): masih konsep, belum dibangun. Kalender Hijriyah (Imsakiyah Ramadhan termasuk): BELUM ADA sama sekali — kandidat cepat, banyak library ringan siap pakai (Hijri.js/hijridate). Masjid Finder: belum ada. Haji/Umrah (GEMA audio tour): dicatat tapi OSS di kategori ini memang tipis — prioritas rendah.",
+      "Jadwal Sholat: SELESAI, app terpisah sendiri. Kiblat: SELESAI — /kiblat, bearing lingkaran-besar ke Ka'bah dari lokasi IP (rumus tervalidasi terhadap bearing publik: Jakarta ~295°, New York ~58°, London ~119°), kompas statis (bukan jarum magnetometer live — presisi IP geolocation sekelas kota, bukan GPS persis; kompas live berbasis device-orientation dicatat sebagai peningkatan lanjutan, belum dibangun). Kalender Hijriyah (Imsakiyah Ramadhan termasuk): BELUM ADA sama sekali — kandidat cepat berikutnya, banyak library ringan siap pakai (Hijri.js/hijridate), tapi WAJIB cantumkan disclaimer bahwa kalender hitung bisa beda 1 hari dari rukyat lokal. Masjid Finder: belum ada. Haji/Umrah (GEMA audio tour): dicatat tapi OSS di kategori ini memang tipis — prioritas rendah.",
   },
   {
     key: "doa-dzikir",
