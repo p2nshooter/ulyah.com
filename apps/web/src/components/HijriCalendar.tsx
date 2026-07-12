@@ -5,7 +5,13 @@ import { toHijri, HIJRI_MONTH_NAMES_ID, HIJRI_MONTH_NAMES_EN } from "@/lib/hijri
 import { hijriCalendarLabels } from "@/lib/hijri-calendar-labels";
 import { AdSlot } from "@/components/AdSlot";
 
-const WEEKDAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+// A known Sunday (2023-01-01) as the reference week — locale-formatted
+// short weekday names read correctly in every supported language (including
+// RTL Arabic) instead of a hardcoded English "Su Mo Tu…" row.
+function weekdayLabels(locale: string): string[] {
+  const formatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
+  return Array.from({ length: 7 }, (_, i) => formatter.format(new Date(2023, 0, 1 + i)));
+}
 
 function sameDay(a: Date, b: Date): boolean {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -21,6 +27,7 @@ function sameDay(a: Date, b: Date): boolean {
 export function HijriCalendar({ locale }: { locale: string }) {
   const t = hijriCalendarLabels(locale);
   const monthNames = locale === "id" ? HIJRI_MONTH_NAMES_ID : HIJRI_MONTH_NAMES_EN;
+  const weekdays = useMemo(() => weekdayLabels(locale), [locale]);
   const today = useMemo(() => new Date(), []);
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth()); // 0-11
@@ -75,7 +82,7 @@ export function HijriCalendar({ locale }: { locale: string }) {
       </div>
 
       <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold text-[var(--color-text-secondary)]">
-        {WEEKDAY_LABELS.map((d) => (
+        {weekdays.map((d) => (
           <div key={d}>{d}</div>
         ))}
       </div>
