@@ -51,6 +51,7 @@ const zh: Dictionary = {
     qiblaDirection: "朝向麦加",
     hijriCalendar: "伊斯兰历",
     warisCalculator: "遗产计算器",
+    imsakiyahRamadhan: "斋月封斋表",
   },
   stats: {
     surah: "114+",

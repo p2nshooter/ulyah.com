@@ -102,7 +102,7 @@ const REFERENCE_CATEGORIES: RefCategory[] = [
     title: "8. Jadwal Sholat, Kiblat, Kalender Hijriyah, Masjid, Haji/Umrah",
     status: "partial",
     note:
-      "Jadwal Sholat: SELESAI, app terpisah sendiri. Kiblat: SELESAI — /kiblat, bearing lingkaran-besar ke Ka'bah dari lokasi IP (rumus tervalidasi terhadap bearing publik: Jakarta ~295°, New York ~58°, London ~119°), kompas statis (bukan jarum magnetometer live — presisi IP geolocation sekelas kota, bukan GPS persis; kompas live berbasis device-orientation dicatat sebagai peningkatan lanjutan, belum dibangun). Kalender Hijriyah: SELESAI — /kalender-hijriyah, grid bulan memakai Intl.DateTimeFormat('islamic-umalqura') yang SUDAH ADA di codebase (lib/hijri.ts, dipakai juga oleh countdown Ramadhan) — kalender resmi Arab Saudi, bukan tabular buatan sendiri, dengan disclaimer eksplisit soal potensi beda 1 hari dari rukyat lokal. Imsakiyah Ramadhan (jadwal imsak/buka per hari selama Ramadhan) BELUM ADA — perluasan wajar dari kalender ini + data waktu sholat yang sudah ada, kandidat berikutnya. Masjid Finder: belum ada. Haji/Umrah (GEMA audio tour): dicatat tapi OSS di kategori ini memang tipis — prioritas rendah.",
+      "Jadwal Sholat: SELESAI, app terpisah sendiri. Kiblat: SELESAI — /kiblat, bearing lingkaran-besar ke Ka'bah dari lokasi IP (rumus tervalidasi terhadap bearing publik: Jakarta ~295°, New York ~58°, London ~119°), kompas statis (bukan jarum magnetometer live — presisi IP geolocation sekelas kota, bukan GPS persis; kompas live berbasis device-orientation dicatat sebagai peningkatan lanjutan, belum dibangun). Kalender Hijriyah: SELESAI — /kalender-hijriyah, grid bulan memakai Intl.DateTimeFormat('islamic-umalqura') yang SUDAH ADA di codebase (lib/hijri.ts, dipakai juga oleh countdown Ramadhan) — kalender resmi Arab Saudi, bukan tabular buatan sendiri, dengan disclaimer eksplisit soal potensi beda 1 hari dari rukyat lokal. Imsakiyah Ramadhan: SELESAI — /imsakiyah, tabel Imsak/Subuh/Maghrib per hari untuk Ramadhan berjalan/berikutnya, pakai mesin adhan.js yang sama dengan Jadwal Sholat (bukan hitungan kedua terpisah). Masjid Finder: belum ada. Haji/Umrah (GEMA audio tour): dicatat tapi OSS di kategori ini memang tipis — prioritas rendah.",
   },
   {
     key: "doa-dzikir",
@@ -451,12 +451,15 @@ export function BacklogTab() {
             statis dengan start_url yang di-hardcode ke satu locale.
           </li>
           <li>
-            <b>Fitur yang belum ada sama sekali</b> (urutan disarankan setelah taksonomi hadits): Imsakiyah Ramadhan
-            (perluasan Kalender Hijriyah + data waktu sholat yang sudah ada), Kamus Arab-Indonesia (oong26/
-            arabic_dictionary_model), Masjid Finder, Tarikh Islam (timeline sejarah — kandidat sumber:
-            abdullah-R197/Complete-Islamic-History-Timeline). Zakat, Waris (Faraid), Kalender Hijriyah, dan Kompas
-            Kiblat SUDAH SELESAI (cakupan umum, lihat Widget Store). Semua item di atas punya sumber OSS gratis yang
-            sudah dicatat di bagian "Sumber Terbuka" — tinggal diserap, bukan riset ulang.
+            <b>Fitur yang belum ada sama sekali</b> (urutan disarankan setelah taksonomi hadits): Kamus Arab-Indonesia
+            (oong26/arabic_dictionary_model, sumber Al-Munawwir — BUTUH data leksikal nyata dari repo tersebut, bukan
+            dikarang; sesi ini belum menyerapnya karena scope GitHub sesi hanya mengizinkan p2nshooter/ulyah.com,
+            AI berikutnya dengan akses lebih luas atau file data yang diunggah owner bisa langsung lanjutkan), Masjid
+            Finder (butuh data lokasi masjid, sumber eksternal), Tarikh Islam (timeline sejarah — kandidat sumber:
+            abdullah-R197/Complete-Islamic-History-Timeline). Zakat, Waris (Faraid), Kalender Hijriyah, Kompas
+            Kiblat, dan Imsakiyah Ramadhan SUDAH SELESAI (cakupan umum, lihat Widget Store) — kelimanya sengaja
+            dikerjakan lebih dulu karena tidak butuh data eksternal (murni hitungan + data yang sudah ada di
+            codebase), sebelum fitur yang butuh dataset dari repo lain.
           </li>
         </ol>
       </section>

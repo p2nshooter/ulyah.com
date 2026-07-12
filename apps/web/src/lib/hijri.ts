@@ -56,6 +56,14 @@ function nextRamadanStart(from: Date): Date {
   return from; // unreachable in practice
 }
 
+/** The Gregorian date of Ramadan 1 that's either currently underway (if
+ * `now` falls inside Ramadan) or the next one coming up — the single date
+ * an Imsakiyah calendar needs to start counting days from. */
+export function ramadanStartFor(now: Date): Date {
+  const h = toHijri(now);
+  return h.month === 9 ? currentHijriMonthStart(now) : nextRamadanStart(now);
+}
+
 export type RamadanPhase =
   | { phase: "before-nuzul"; ramadanStart: Date; nuzululQuran: Date }
   | { phase: "after-nuzul"; ramadanStart: Date; nuzululQuran: Date }

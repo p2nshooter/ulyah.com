@@ -48,6 +48,7 @@ export interface Dictionary {
     qiblaDirection: string;
     hijriCalendar: string;
     warisCalculator: string;
+    imsakiyahRamadhan: string;
   };
   stats: {
     surah: string;

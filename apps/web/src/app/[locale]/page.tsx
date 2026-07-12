@@ -28,6 +28,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     ["🧭", dict.featureIcons.qiblaDirection, `/${locale}/kiblat`],
     ["📅", dict.featureIcons.hijriCalendar, `/${locale}/kalender-hijriyah`],
     ["👪", dict.featureIcons.warisCalculator, `/${locale}/waris`],
+    ["🌙", dict.featureIcons.imsakiyahRamadhan, `/${locale}/imsakiyah`],
   ];
 
   const stats: [string, string, string][] = [

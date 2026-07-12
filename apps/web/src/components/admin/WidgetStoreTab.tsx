@@ -167,6 +167,18 @@ const WIDGETS: Widget[] = [
     adsense: "Satu AdSlot di antara input harta dan hasil pembagian.",
     sources: ["rizauddin/kira-faraid (referensi arsitektur kasus fardhu/asobah/aul/radd)"],
   },
+  {
+    key: "imsakiyah",
+    emoji: "🌙",
+    name: "Imsakiyah Ramadhan",
+    status: "live",
+    route: "/id/imsakiyah",
+    manifest: "pakai manifest utama (belum app terpisah)",
+    summary:
+      "Jadwal Imsak/Subuh/Maghrib per hari untuk satu bulan Ramadhan (sedang berjalan atau berikutnya), dihitung dengan mesin yang sama dengan Jadwal Sholat (adhan.js) — bukan perhitungan kedua yang terpisah. Imsak ditampilkan sebagai konvensi 10 menit sebelum Subuh, dengan catatan eksplisit bahwa sebagian daerah memakai Subuh itu sendiri sebagai batas.",
+    adsense: "Satu AdSlot di bawah tabel.",
+    sources: ["adhan (npm) — mesin perhitungan yang sudah dipakai Jadwal Sholat", "lib/hijri.ts — deteksi awal Ramadhan (Intl islamic-umalqura, sudah ada)"],
+  },
 ];
 
 const REFERENCE_REPOS: { url: string; use: string }[] = [

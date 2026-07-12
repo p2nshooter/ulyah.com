@@ -51,6 +51,7 @@ const ru: Dictionary = {
     qiblaDirection: "Направление киблы",
     hijriCalendar: "Хиджра-календарь",
     warisCalculator: "Калькулятор наследства",
+    imsakiyahRamadhan: "Имсакия Рамадана",
   },
   stats: {
     surah: "114+",

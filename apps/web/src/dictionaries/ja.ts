@@ -51,6 +51,7 @@ const ja: Dictionary = {
     qiblaDirection: "キブラの方角",
     hijriCalendar: "ヒジュラ暦",
     warisCalculator: "遺産分配計算機",
+    imsakiyahRamadhan: "ラマダン断食時間表",
   },
   stats: {
     surah: "114+",

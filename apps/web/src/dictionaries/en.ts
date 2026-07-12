@@ -51,6 +51,7 @@ const en: Dictionary = {
     qiblaDirection: "Qibla Direction",
     hijriCalendar: "Hijri Calendar",
     warisCalculator: "Inheritance Calculator",
+    imsakiyahRamadhan: "Ramadan Imsakiyah",
   },
   stats: {
     surah: "114+",

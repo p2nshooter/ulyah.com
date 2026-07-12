@@ -51,6 +51,7 @@ const de: Dictionary = {
     qiblaDirection: "Qibla-Richtung",
     hijriCalendar: "Hijri-Kalender",
     warisCalculator: "Erbschaftsrechner",
+    imsakiyahRamadhan: "Ramadan-Imsakiyah",
   },
   stats: {
     surah: "114+",

@@ -51,6 +51,7 @@ const ar: Dictionary = {
     qiblaDirection: "اتجاه القبلة",
     hijriCalendar: "التقويم الهجري",
     warisCalculator: "حاسبة المواريث",
+    imsakiyahRamadhan: "إمساكية رمضان",
   },
   stats: {
     surah: "+114",
