@@ -145,8 +145,6 @@ export function ZakatCalculator({ locale }: { locale: string }) {
       </section>
 
       <p className="text-center text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{t.disclaimer}</p>
-
-      <AdSlot position="zakat-bottom" />
     </div>
   );
 }
