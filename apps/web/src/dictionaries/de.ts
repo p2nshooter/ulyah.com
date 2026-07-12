@@ -47,6 +47,7 @@ const de: Dictionary = {
     storiesWisdom: "Geschichten & Weisheit",
     prayerSchedule: "Gebetszeiten",
     qualityAudio: "Hochwertiges Audio",
+    zakatCalculator: "Zakat-Rechner",
   },
   stats: {
     surah: "114+",

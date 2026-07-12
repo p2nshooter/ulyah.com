@@ -47,6 +47,7 @@ const ar: Dictionary = {
     storiesWisdom: "القصص والحكم",
     prayerSchedule: "مواقيت الصلاة",
     qualityAudio: "صوت عالي الجودة",
+    zakatCalculator: "حاسبة الزكاة",
   },
   stats: {
     surah: "+114",

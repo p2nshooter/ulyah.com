@@ -44,6 +44,7 @@ export interface Dictionary {
     storiesWisdom: string;
     prayerSchedule: string;
     qualityAudio: string;
+    zakatCalculator: string;
   };
   stats: {
     surah: string;

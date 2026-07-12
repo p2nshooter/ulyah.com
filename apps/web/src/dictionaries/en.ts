@@ -47,6 +47,7 @@ const en: Dictionary = {
     storiesWisdom: "Stories & Wisdom",
     prayerSchedule: "Prayer Schedule",
     qualityAudio: "High-Quality Audio",
+    zakatCalculator: "Zakat Calculator",
   },
   stats: {
     surah: "114+",

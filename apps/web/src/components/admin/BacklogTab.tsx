@@ -113,9 +113,9 @@ const REFERENCE_CATEGORIES: RefCategory[] = [
   {
     key: "zakat-waris",
     title: "10. Zakat, Waris & Keuangan Syariah",
-    status: "todo",
+    status: "partial",
     note:
-      "BELUM ADA SAMA SEKALI. Kalkulator Zakat & Kalkulator Waris (Faraid) adalah fitur client-side murni (tidak perlu data eksternal terus-menerus, logika hitung saja) — kandidat cepat & bernilai tinggi. rizauddin/kira-faraid (web HTML/JS) & lionbytes/zakalc paling relevan untuk arsitektur. Halal Stock Screener & Sadaqah Kiosk — prioritas rendah, di luar misi inti Ulyah.",
+      "Kalkulator Zakat (Maal 2.5% + Fitrah) SELESAI — /zakat, client-side murni, nisab emas & perak ditampilkan berdampingan (bukan memilih satu pendapat). Kalkulator Waris (Faraid) BELUM ADA — kandidat berikutnya, rizauddin/kira-faraid (web HTML/JS) paling relevan untuk arsitektur (kasus fardhu, asobah, aul, radd, hijab — lebih kompleks dari zakat, perlu tinjauan fiqih waris yang cermat sebelum dibangun). Halal Stock Screener & Sadaqah Kiosk — prioritas rendah, di luar misi inti Ulyah.",
   },
   {
     key: "arabic",

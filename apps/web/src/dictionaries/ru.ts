@@ -47,6 +47,7 @@ const ru: Dictionary = {
     storiesWisdom: "Истории и мудрость",
     prayerSchedule: "Расписание молитв",
     qualityAudio: "Качественное аудио",
+    zakatCalculator: "Калькулятор закята",
   },
   stats: {
     surah: "114+",

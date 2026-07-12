@@ -47,6 +47,7 @@ const id: Dictionary = {
     storiesWisdom: "Kisah & Hikmah",
     prayerSchedule: "Jadwal Sholat",
     qualityAudio: "Audio Berkualitas",
+    zakatCalculator: "Kalkulator Zakat",
   },
   stats: {
     surah: "114+",
