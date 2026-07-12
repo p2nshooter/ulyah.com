@@ -49,6 +49,7 @@ const ru: Dictionary = {
     qualityAudio: "Качественное аудио",
     zakatCalculator: "Калькулятор закята",
     qiblaDirection: "Направление киблы",
+    hijriCalendar: "Хиджра-календарь",
   },
   stats: {
     surah: "114+",

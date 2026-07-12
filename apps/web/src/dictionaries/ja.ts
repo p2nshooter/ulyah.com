@@ -49,6 +49,7 @@ const ja: Dictionary = {
     qualityAudio: "高品質オーディオ",
     zakatCalculator: "ザカート計算機",
     qiblaDirection: "キブラの方角",
+    hijriCalendar: "ヒジュラ暦",
   },
   stats: {
     surah: "114+",

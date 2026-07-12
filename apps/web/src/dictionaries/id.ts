@@ -49,6 +49,7 @@ const id: Dictionary = {
     qualityAudio: "Audio Berkualitas",
     zakatCalculator: "Kalkulator Zakat",
     qiblaDirection: "Arah Kiblat",
+    hijriCalendar: "Kalender Hijriyah",
   },
   stats: {
     surah: "114+",

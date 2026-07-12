@@ -49,6 +49,7 @@ const ar: Dictionary = {
     qualityAudio: "صوت عالي الجودة",
     zakatCalculator: "حاسبة الزكاة",
     qiblaDirection: "اتجاه القبلة",
+    hijriCalendar: "التقويم الهجري",
   },
   stats: {
     surah: "+114",
