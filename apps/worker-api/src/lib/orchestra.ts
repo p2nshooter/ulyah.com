@@ -38,31 +38,33 @@ interface ProviderStep {
   model?: string;
 }
 
-// Cheapest/fastest first, always with at least two independent providers so a
-// single provider's outage or rate-limit never blocks the capability.
+// Cheapest/fastest first, spanning EVERY donated free-tier text provider so no
+// key type is ever left idle and a single provider's outage/rate-limit can't
+// block the capability. Any provider with no active key is simply skipped by
+// the orchestrator, so listing all of them here is safe.
 const TEXT_CHAIN: ProviderStep[] = [
   { provider: "google-ai-studio", scope: "text", model: "gemini-2.0-flash" },
   { provider: "groq", scope: "text" },
+  { provider: "nvidia-nim", scope: "text" },
   { provider: "openrouter", scope: "text" },
+  { provider: "hf-inference", scope: "text" },
 ];
 
 const CAPABILITY_CHAINS: Record<Capability, ProviderStep[]> = {
   // Reasoning prefers the strongest free reasoning model, then any text key.
   reasoning: [
     { provider: "google-ai-studio", scope: "text", model: "gemini-2.0-flash" },
+    { provider: "nvidia-nim", scope: "text", model: "nvidia/llama-3.1-nemotron-70b-instruct" },
     { provider: "openrouter", scope: "text", model: "deepseek/deepseek-chat" },
     { provider: "groq", scope: "text" },
+    { provider: "hf-inference", scope: "text" },
   ],
   translate: TEXT_CHAIN,
   summarize: TEXT_CHAIN,
   answer: TEXT_CHAIN,
   // Classification is short + high-volume, so lead with the fastest provider.
   classify: [{ provider: "groq", scope: "text" }, ...TEXT_CHAIN],
-  sanad: [
-    { provider: "google-ai-studio", scope: "text", model: "gemini-2.0-flash" },
-    { provider: "openrouter", scope: "text" },
-    { provider: "groq", scope: "text" },
-  ],
+  sanad: TEXT_CHAIN,
   content: TEXT_CHAIN,
 };
 

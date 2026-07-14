@@ -187,6 +187,58 @@ adminRoute.post("/keys/:id/retest", async (c) => {
   return c.json({ test });
 });
 
+// Test EVERY key in the pool on demand, so the admin can confirm all donated
+// keys actually work — not just some ("pastiin semua api key bekerja semua").
+// Tested in small parallel batches (fast read-only probes) and each key's
+// status is updated live. Optional ?provider= filter, capped per call.
+adminRoute.post("/keys/test-all", async (c) => {
+  const provider = c.req.query("provider");
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, provider, key_ref, key_iv FROM ai_key_pool
+     WHERE status != 'revoked'${provider ? " AND provider = ?" : ""}
+     ORDER BY last_health_check ASC LIMIT 120`
+  )
+    .bind(...(provider ? [provider] : []))
+    .all<{ id: number; provider: string; key_ref: string; key_iv: string }>();
+
+  const out: { id: number; provider: string; passed: boolean; latencyMs: number; detail: string }[] = [];
+  const BATCH = 10;
+  for (let i = 0; i < results.length; i += BATCH) {
+    const batch = results.slice(i, i + BATCH);
+    const settled = await Promise.allSettled(
+      batch.map(async (row) => {
+        const rawKey = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, c.env.KEY_ENCRYPTION_SECRET);
+        const test = await testApiKey(row.provider, rawKey);
+        const status = test.passed ? (test.optimal ? "active" : "slow") : "rejected";
+        await c.env.DB.prepare(
+          "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"
+        )
+          .bind(status, test.latencyMs, row.id)
+          .run();
+        return { id: row.id, provider: row.provider, passed: test.passed, latencyMs: test.latencyMs, detail: test.detail };
+      })
+    );
+    for (const s of settled) {
+      if (s.status === "fulfilled") out.push(s.value);
+      else out.push({ id: -1, provider: "?", passed: false, latencyMs: 0, detail: String(s.reason).slice(0, 200) });
+    }
+  }
+
+  const passed = out.filter((r) => r.passed).length;
+  const byProvider: Record<string, { ok: number; fail: number }> = {};
+  for (const r of out) {
+    const b = (byProvider[r.provider] ??= { ok: 0, fail: 0 });
+    if (r.passed) b.ok++;
+    else b.fail++;
+  }
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "keys_test_all", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    tested: out.length,
+    passed,
+  });
+  return c.json({ tested: out.length, passed, failed: out.length - passed, byProvider, results: out });
+});
+
 // ── Content review queue (§12.2, §23.3, §23.4) ────────────────────────────
 
 adminRoute.get("/jobs", async (c) => {

@@ -30,20 +30,26 @@ export function pickBestKey(
   provider?: string
 ): AiKeyPoolEntry | null {
   const eligible = candidates.filter(
-    (k) => k.scope === scope && (!provider || k.provider === provider)
+    (k) =>
+      k.scope === scope &&
+      (!provider || k.provider === provider) &&
+      (k.status === "active" || k.status === "slow")
   );
   if (eligible.length === 0) return null;
 
-  let best: AiKeyPoolEntry | null = null;
-  let bestScore = -Infinity;
-  for (const k of eligible) {
-    const s = scoreKey(k);
-    if (s > bestScore) {
-      bestScore = s;
-      best = k;
-    }
-  }
-  return bestScore === -Infinity ? null : best;
+  // Round-robin across the WHOLE pool, not just the single top-scored key —
+  // otherwise one key gets hammered until it rate-limits while the other 99
+  // sit idle ("pastiin semua api key bekerja semua, bukan sebagian"). Keys of
+  // similar health are ordered by LEAST-used-first: since recordKeyUsage
+  // increments quota_used on every successful call, the next request naturally
+  // lands on a different key, spreading load evenly over every donated key.
+  eligible.sort((a, b) => {
+    const sa = scoreKey(a);
+    const sb = scoreKey(b);
+    if (Math.abs(sa - sb) > 0.05) return sb - sa; // clearly-healthier key first
+    return (a.quota_used ?? 0) - (b.quota_used ?? 0); // else the least-used key
+  });
+  return eligible[0]!;
 }
 
 /** Ranks a whole pool for a scope, descending — used by the admin Key Pool table. */

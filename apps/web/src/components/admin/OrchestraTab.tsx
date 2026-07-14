@@ -31,12 +31,38 @@ interface HealthRow {
 function LiveHealth() {
   const [rows, setRows] = useState<HealthRow[] | null>(null);
   const [err, setErr] = useState(false);
-  useEffect(() => {
+  const [testing, setTesting] = useState(false);
+  const [testSummary, setTestSummary] = useState<string | null>(null);
+
+  function loadHealth() {
     api
       .get<{ health: HealthRow[] }>("/ai/orchestra/health")
       .then((d) => setRows(d.health))
       .catch(() => setErr(true));
+  }
+  useEffect(() => {
+    loadHealth();
   }, []);
+
+  async function testAll() {
+    setTesting(true);
+    setTestSummary(null);
+    try {
+      const r = await api.post<{ tested: number; passed: number; failed: number; byProvider: Record<string, { ok: number; fail: number }> }>(
+        "/admin/keys/test-all",
+        {}
+      );
+      const perProv = Object.entries(r.byProvider)
+        .map(([p, v]) => `${p}: ${v.ok}✓${v.fail ? ` ${v.fail}✗` : ""}`)
+        .join(" · ");
+      setTestSummary(`${r.passed}/${r.tested} key aktif${r.failed ? `, ${r.failed} gagal` : ""}. ${perProv}`);
+      loadHealth();
+    } catch (e) {
+      setTestSummary(e instanceof Error ? e.message : "Gagal menguji key");
+    } finally {
+      setTesting(false);
+    }
+  }
 
   const statusCls = (s: string) =>
     s === "active"
@@ -49,7 +75,17 @@ function LiveHealth() {
 
   return (
     <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-      <p className="font-heading text-sm">📡 Status Engine Langsung (Key Pool)</p>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="font-heading text-sm">📡 Status Engine Langsung (Key Pool)</p>
+        <button
+          onClick={testAll}
+          disabled={testing}
+          className="rounded-full border border-accent/50 bg-accent/10 px-3 py-1.5 text-[11px] font-medium text-accent disabled:opacity-50"
+        >
+          {testing ? "Menguji semua key…" : "🔁 Test semua key"}
+        </button>
+      </div>
+      {testSummary && <p className="mt-2 rounded-lg bg-black/5 p-2 text-[11px] text-[var(--color-text-secondary)]">{testSummary}</p>}
       {err && <p className="mt-2 text-xs text-danger">Gagal memuat status (butuh login admin).</p>}
       {!err && rows === null && <p className="mt-2 text-xs text-[var(--color-text-secondary)]">Memuat…</p>}
       {rows !== null && rows.length === 0 && (
