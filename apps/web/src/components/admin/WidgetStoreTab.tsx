@@ -103,9 +103,9 @@ const WIDGETS: Widget[] = [
     route: "/id/kiblat",
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
-      "Sudut & jarak ke Ka'bah dari lokasi IP (bukan sensor kompas perangkat) — rumus bearing lingkaran-besar tervalidasi terhadap bearing publik. Kompas live berbasis device-orientation masih rencana lanjutan.",
+      "Sudut & jarak ke Ka'bah dari lokasi IP + kompas LANGSUNG berbasis sensor perangkat (device-orientation): dial berputar mengikuti gerak HP, panah emas menunjuk kiblat real-time, dengan izin iOS & fallback sudut tetap bila tak ada sensor. Rumus bearing lingkaran-besar tervalidasi terhadap bearing publik.",
     adsense: "AdSlot di bawah kompas.",
-    sources: ["metinkale38/prayer-times-android (referensi perhitungan arah kiblat)"],
+    sources: ["metinkale38/prayer-times-android & medyas/flutter_qiblah (referensi arah kiblat + kompas sensor)"],
   },
   {
     key: "wirdak",
