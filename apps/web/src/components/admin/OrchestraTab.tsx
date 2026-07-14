@@ -16,6 +16,79 @@
  */
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { api } from "@/lib/api";
+
+interface HealthRow {
+  provider: string;
+  scope: string;
+  status: string;
+  keys: number;
+  avg_latency_ms: number | null;
+  quota_used: number | null;
+}
+
+function LiveHealth() {
+  const [rows, setRows] = useState<HealthRow[] | null>(null);
+  const [err, setErr] = useState(false);
+  useEffect(() => {
+    api
+      .get<{ health: HealthRow[] }>("/ai/orchestra/health")
+      .then((d) => setRows(d.health))
+      .catch(() => setErr(true));
+  }, []);
+
+  const statusCls = (s: string) =>
+    s === "active"
+      ? "text-success"
+      : s === "rate_limited"
+        ? "text-danger"
+        : s === "slow"
+          ? "text-warning"
+          : "text-[var(--color-text-secondary)]";
+
+  return (
+    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <p className="font-heading text-sm">📡 Status Engine Langsung (Key Pool)</p>
+      {err && <p className="mt-2 text-xs text-danger">Gagal memuat status (butuh login admin).</p>}
+      {!err && rows === null && <p className="mt-2 text-xs text-[var(--color-text-secondary)]">Memuat…</p>}
+      {rows !== null && rows.length === 0 && (
+        <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
+          Belum ada API key di pool. Tambahkan di tab Key Pool — Orchestra Core akan langsung memakainya sesuai
+          capability &amp; rantai failover di bawah.
+        </p>
+      )}
+      {rows !== null && rows.length > 0 && (
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full min-w-[420px] text-[11px]">
+            <thead>
+              <tr className="border-b border-[var(--color-border)] text-left text-[var(--color-text-secondary)]">
+                <th className="px-2 py-1 font-medium">Provider</th>
+                <th className="px-2 py-1 font-medium">Scope</th>
+                <th className="px-2 py-1 font-medium">Status</th>
+                <th className="px-2 py-1 text-right font-medium">Key</th>
+                <th className="px-2 py-1 text-right font-medium">Latency</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, i) => (
+                <tr key={i} className="border-b border-[var(--color-border)] last:border-0">
+                  <td className="px-2 py-1">{r.provider}</td>
+                  <td className="px-2 py-1 text-[var(--color-text-secondary)]">{r.scope}</td>
+                  <td className={`px-2 py-1 font-medium ${statusCls(r.status)}`}>{r.status}</td>
+                  <td className="px-2 py-1 text-right tabular-nums">{r.keys}</td>
+                  <td className="px-2 py-1 text-right tabular-nums">
+                    {r.avg_latency_ms != null ? `${Math.round(r.avg_latency_ms)}ms` : "—"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
 
 type Status = "live" | "partial" | "planned";
 
@@ -114,13 +187,19 @@ export function OrchestraTab() {
           tidak campur konteks.
         </p>
         <div className="mt-3 rounded-lg bg-danger/10 p-3 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
-          <b>Realita saat ini vs visi:</b> yang benar-benar berjalan hari ini adalah Key Pool (Durable Object) untuk
-          NVIDIA/OpenRouter, toggle CF Workers AI (default OFF, prefer NVIDIA), dan pipeline deploy Cloudflare. Orchestra
-          Core penuh (ribuan worker logis, self-learning, RAG bersanad, failover otomatis lintas provider, billing
-          premium) masih rancangan — jangan klaim sudah jadi. Angka "±4.400 worker" = peran logis, BUKAN 4.400 Cloudflare
-          Worker fisik (realistis ±150–300 worker fisik menjalankan ribuan peran via konfigurasi).
+          <b>Realita saat ini vs visi:</b> yang SUDAH NYATA &amp; live: Key Pool (Durable Object) untuk NVIDIA/OpenRouter,
+          toggle CF Workers AI (default OFF), pipeline deploy Cloudflare, dan — baru — <b>router Orchestra Core sungguhan</b>
+          di worker-api (<code className="rounded bg-black/10 px-1">lib/orchestra.ts</code>): Capability Registry
+          (capability → rantai provider), failover otomatis lintas key donasi, pencatatan health per-key, cooldown
+          auto-wake key yang kena rate-limit, plus endpoint <code className="rounded bg-black/10 px-1">/ai/translate</code>,
+          <code className="mx-1 rounded bg-black/10 px-1">/ai/summarize</code>, dan
+          <code className="rounded bg-black/10 px-1">/ai/orchestra/*</code>. Tabel "Status Engine Langsung" di atas membaca
+          key pool nyata. Yang MASIH rancangan: worker/co-worker hierarki penuh, self-learning malam, RAG bersanad, billing
+          premium. Angka "±4.400 worker" = peran logis, BUKAN 4.400 Worker fisik (realistis ±150–300 fisik).
         </div>
       </div>
+
+      <LiveHealth />
 
       {/* Provider failover hierarchy */}
       <section>
