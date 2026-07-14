@@ -4,6 +4,7 @@ import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, type Capability } from "../lib/orchestra.js";
+import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
 
@@ -170,5 +171,16 @@ aiRoute.post("/orchestra/run", requireAdmin, async (c) => {
   const { capability, prompt } = await c.req.json<{ capability: Capability; prompt: string }>();
   if (!capability || !prompt) return c.json({ error: "capability and prompt required" }, 400);
   const r = await orchestrate(c.env, { capability, prompt });
+  return c.json(r, r.ok ? 200 : 503);
+});
+
+// GET /ai/orchestra/workers — the named worker registry (the AI grouping).
+aiRoute.get("/orchestra/workers", requireAdmin, (c) => c.json({ workers: listWorkers() }));
+
+// POST /ai/orchestra/worker — dispatch a named worker (admin diagnostics).
+aiRoute.post("/orchestra/worker", requireAdmin, async (c) => {
+  const { name, input } = await c.req.json<{ name: string; input: Record<string, string> }>();
+  if (!name) return c.json({ error: "worker name required" }, 400);
+  const r = await runWorker(c.env, name, input ?? {});
   return c.json(r, r.ok ? 200 : 503);
 });
