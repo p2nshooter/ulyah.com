@@ -279,7 +279,7 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
     const { results: ayat } = await env.DB.prepare(
       `SELECT a.surah_id AS surah_id, a.number AS number, t.text AS text
        FROM translation t JOIN ayah a ON a.id = t.ayah_id
-       WHERE t.lang = ? AND (${likeAyah}) LIMIT 4`
+       WHERE t.lang = ? AND (${likeAyah}) LIMIT 6`
     )
       .bind(locale, ...params)
       .all<{ surah_id: number; number: number; text: string }>();
@@ -291,7 +291,7 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
 
   try {
     const { results: had } = await env.DB.prepare(
-      `SELECT collection, grade, text_id FROM hadits WHERE (${likeHad}) AND text_id IS NOT NULL LIMIT 4`
+      `SELECT collection, grade, text_id FROM hadits WHERE (${likeHad}) AND text_id IS NOT NULL LIMIT 6`
     )
       .bind(...params)
       .all<{ collection: string; grade: string | null; text_id: string }>();

@@ -47,18 +47,40 @@ export function QiblaCompass({ locale }: { locale: string }) {
   const listenerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
 
   useEffect(() => {
-    api
-      .get<GeoResponse>("/geo/me")
-      .then((g) => {
-        if (g.latitude && g.longitude) {
-          setCoords({ lat: g.latitude, lng: g.longitude });
-          setCityLabel(g.city ?? g.country ?? null);
-        } else {
-          setFailed(true);
-        }
-      })
-      .catch(() => setFailed(true))
-      .finally(() => setLoading(false));
+    let done = false;
+    const useIp = () => {
+      api
+        .get<GeoResponse>("/geo/me")
+        .then((g) => {
+          if (done) return;
+          if (g.latitude && g.longitude) {
+            setCoords({ lat: g.latitude, lng: g.longitude });
+            setCityLabel(g.city ?? g.country ?? null);
+          } else {
+            setFailed(true);
+          }
+        })
+        .catch(() => !done && setFailed(true))
+        .finally(() => !done && setLoading(false));
+    };
+
+    // Prefer REAL GPS position (where the person actually stands) — IP
+    // geolocation is city-grade and often wrong behind VPN/proxy, which made
+    // the qibla "ancur". Fall back to IP only if GPS is denied/unavailable.
+    if (typeof navigator !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          done = true;
+          setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+          setCityLabel("📍 GPS");
+          setLoading(false);
+        },
+        () => useIp(),
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      );
+    } else {
+      useIp();
+    }
   }, []);
 
   useEffect(() => {

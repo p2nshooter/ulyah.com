@@ -151,7 +151,9 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
    * of silently keeping a selection that's no longer shown. */
   function handleCountryChange(cc: string) {
     setQoriCC(cc);
-    const pool = RECITERS.filter((r) => cc === "all" || r.cc === cc);
+    // Per-ayah picker only: exclude surah-mode reciters (e.g. Muammar ZA has
+    // no per-ayah audio) — they belong to Radio Qur'an, not this reader.
+    const pool = RECITERS.filter((r) => r.cdn !== "surah" && (cc === "all" || r.cc === cc));
     if (pool.length > 0 && !pool.some((r) => r.key === qoriId)) setQori(pool[0]!.key);
   }
 
@@ -486,7 +488,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   onChange={(e) => setQori(e.target.value)}
                   className="min-w-0 flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
                 >
-                  {RECITERS.filter((r) => qoriCC === "all" || r.cc === qoriCC).map((r) => (
+                  {RECITERS.filter((r) => r.cdn !== "surah" && (qoriCC === "all" || r.cc === qoriCC)).map((r) => (
                     <option key={r.key} value={r.key}>
                       {r.flag} {r.name} · {r.country}
                     </option>

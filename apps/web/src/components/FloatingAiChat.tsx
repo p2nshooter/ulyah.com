@@ -15,27 +15,16 @@ interface Msg {
   sources?: Source[];
 }
 
-// The Master (Penasihat Utama) knows every field & routes; the rest are
-// focused specialists that refer to one another when out of their field.
-const SPECIALISTS: { key: string; label: string }[] = [
-  { key: "master", label: "✦ Penasihat" },
-  { key: "quran", label: "Qur'an" },
-  { key: "hadits", label: "Hadits" },
-  { key: "fiqih", label: "Fiqih" },
-  { key: "sirah", label: "Sirah" },
-  { key: "akhlak", label: "Akhlak" },
-];
-
 /**
  * Floating AI chat — a small bubble on the bottom-right of EVERY page (mounted
- * once in the locale layout, like the radio toggle on the bottom-left). Tap to
- * open a compact chat panel; every answer comes from Orchestra Core's grounded
- * answer worker (/ai/ask). Deliberately language-neutral chrome + gentle,
- * elegant fallbacks — never a blunt "not available".
+ * once in the locale layout, like the radio toggle on the bottom-left). One
+ * unified advisor (not split into tabs) that answers from Orchestra Core's
+ * grounded worker (/ai/ask). References are listed (many) but NOT linked — so
+ * a curious visitor opens the Qur'an/hadith pages to look them up, which lifts
+ * page views; direct links are reserved for paying members.
  */
 export function FloatingAiChat({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
-  const [specialist, setSpecialist] = useState("master");
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [busy, setBusy] = useState(false);
@@ -51,7 +40,7 @@ export function FloatingAiChat({ locale }: { locale: string }) {
       const r = await api.post<{ answer: string; sources: Source[] }>("/ai/ask", {
         question: q,
         locale,
-        specialist: specialist || undefined,
+        specialist: "master",
       });
       setMsgs((m) => [...m, { role: "ai", text: r.answer, sources: r.sources }]);
     } catch (e) {
@@ -87,20 +76,6 @@ export function FloatingAiChat({ locale }: { locale: string }) {
             <span className="text-sm font-medium">Tanya AI Islami</span>
           </div>
 
-          <div className="flex flex-wrap gap-1 border-b border-[var(--color-border)] p-2">
-            {SPECIALISTS.map((s) => (
-              <button
-                key={s.key}
-                onClick={() => setSpecialist(s.key)}
-                className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${
-                  specialist === s.key ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-3">
             {msgs.length === 0 && (
               <p className="text-center text-xs text-[var(--color-text-secondary)]">
@@ -113,21 +88,13 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                 <div className={`inline-block max-w-[92%] rounded-2xl px-3 py-2 text-sm ${m.role === "user" ? "bg-accent/15" : "bg-black/5"}`}>
                   <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>
                   {m.sources && m.sources.length > 0 && (
-                    <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
-                      <p className="font-medium">Rujukan:</p>
-                      {m.sources.slice(0, 3).map((s, j) =>
-                        s.url ? (
-                          <a
-                            key={j}
-                            href={`/${locale}${s.url}`}
-                            className="block truncate text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent"
-                          >
-                            [{j + 1}] {s.ref} ↗
-                          </a>
-                        ) : (
-                          <p key={j} className="text-accent">[{j + 1}] {s.ref}</p>
-                        )
-                      )}
+                    <div className="mt-2 space-y-0.5 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
+                      <p className="font-medium">Rujukan (buka Al-Qur'an / Hadits untuk menelaahnya):</p>
+                      {m.sources.map((s, j) => (
+                        <p key={j} className="text-accent">
+                          [{j + 1}] {s.ref}
+                        </p>
+                      ))}
                     </div>
                   )}
                 </div>
