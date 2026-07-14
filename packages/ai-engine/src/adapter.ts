@@ -28,7 +28,7 @@ export async function chatComplete(
   provider: string,
   rawKey: string,
   prompt: string,
-  opts: { model?: string; timeoutMs?: number } = {}
+  opts: { model?: string; timeoutMs?: number; maxTokens?: number } = {}
 ): Promise<ChatCompletionResult> {
   const started = Date.now();
   const controller = new AbortController();
@@ -42,7 +42,11 @@ export async function chatComplete(
         {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": rawKey },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            // Allow a full, multi-paragraph answer instead of a clipped reply.
+            generationConfig: { maxOutputTokens: opts.maxTokens ?? 1024, temperature: 0.5 },
+          }),
           signal: controller.signal,
         }
       );
@@ -61,7 +65,8 @@ export async function chatComplete(
       body: JSON.stringify({
         model: opts.model ?? DEFAULT_MODEL[provider],
         messages: [{ role: "user", content: prompt }],
-        temperature: 0.4,
+        temperature: 0.5,
+        max_tokens: opts.maxTokens ?? 1024,
       }),
       signal: controller.signal,
     });

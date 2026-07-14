@@ -58,11 +58,9 @@ export function AiChat({ locale }: { locale: string }) {
     } catch (e) {
       const msg = e instanceof Error ? e.message : "";
       if (msg.includes("429") || /limit/i.test(msg)) {
-        setNotice("Batas 15 pertanyaan/jam untuk tamu tercapai. Silakan daftar sebagai member untuk lanjut.");
-      } else if (msg.includes("503")) {
-        setNotice("AI belum aktif — belum ada API key di pool. (Admin: isi key di Key Pool.)");
+        setNotice("Anda telah bertanya cukup banyak untuk saat ini 🌷. Silakan bergabung sebagai anggota untuk melanjutkan tanpa batas.");
       } else {
-        setNotice("Maaf, terjadi kendala. Coba lagi sesaat lagi.");
+        setNotice("Mohon maaf, layanan ini sedang kami siapkan dengan sebaik-baiknya. Silakan mencoba kembali sesaat lagi, insyaAllah.");
       }
     } finally {
       setBusy(false);

@@ -121,7 +121,7 @@ async function cfWorkerAiEnabled(env: Env): Promise<boolean> {
  */
 export async function orchestrate(
   env: Env,
-  opts: { capability: Capability; prompt: string; timeoutMs?: number }
+  opts: { capability: Capability; prompt: string; timeoutMs?: number; maxTokens?: number }
 ): Promise<OrchestraResult> {
   await reviveCooledKeys(env);
   const chain = CAPABILITY_CHAINS[opts.capability] ?? TEXT_CHAIN;
@@ -138,6 +138,7 @@ export async function orchestrate(
       const res = await chatComplete(step.provider, selected.rawKey, opts.prompt, {
         model: step.model,
         timeoutMs: opts.timeoutMs ?? 30_000,
+        maxTokens: opts.maxTokens,
       });
       await recordKeyUsage(env, selected.entry.id, Date.now() - started, true);
       attempts.push({ provider: step.provider, keyId: selected.entry.id, ok: true });
@@ -329,16 +330,26 @@ export async function answerGrounded(
     ? sources.map((s, i) => `[${i + 1}] ${s.ref}: ${s.text}`).join("\n")
     : "(tidak ada rujukan yang ditemukan di database Ulyah.com)";
 
-  const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM.";
-  const prompt = `${persona} Jawab pertanyaan HANYA berdasarkan rujukan di bawah ini dari database Ulyah.com. Sebutkan nomor rujukan [1], [2] yang kamu pakai. Jika rujukan tidak memuat jawaban, katakan dengan jujur bahwa jawaban belum tersedia di database dan sarankan bertanya kepada ustadz — JANGAN mengarang dalil atau hukum. Bahasa jawaban: "${locale}".
+  const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM yang bijaksana, santun, dan elegan.";
+  const prompt = `${persona}
 
-RUJUKAN:
+Tugasmu: berikan JAWABAN yang jelas, utuh, dan bermanfaat atas pertanyaan pengguna — bukan sekadar daftar rujukan. Tulis 2–4 paragraf yang mengalir dengan bahasa yang lembut, bijak, dan penuh adab.
+
+Panduan:
+- Mulai dengan jawaban yang tegas dan jelas atas inti pertanyaan, lalu perkaya dengan penjelasan.
+- Gunakan rujukan di bawah ini bila relevan dan sebutkan nomornya [1], [2] di tempat yang tepat — tetapi rujukan adalah pendukung, bukan pengganti jawaban.
+- Jika rujukan yang tersedia belum mencakup detailnya, tetap jawab berdasarkan pemahaman umum yang mapan di kalangan ulama dengan rendah hati, lalu tutup dengan ajakan lembut untuk mendalami lebih lanjut atau bermusyawarah dengan ahli ilmu untuk kepastian pada perkara yang rinci.
+- JANGAN pernah menulis kalimat seperti "belum tersedia di database", "tidak ada rujukan", atau menolak menjawab. Jawablah dengan anggun.
+- JANGAN mengarang nomor hadits, kutipan persis, atau menisbatkan hukum palsu; bila tidak yakin pada rincian, sampaikan secara umum dan bijak.
+- Bahasa jawaban: kode "${locale}".
+
+RUJUKAN PENDUKUNG (opsional dipakai):
 ${context}
 
 PERTANYAAN: ${opts.question}
 
-JAWABAN (ringkas, santun, dengan sitasi):`;
+JAWABAN:`;
 
-  const r = await orchestrate(env, { capability: "answer", prompt });
+  const r = await orchestrate(env, { capability: "answer", prompt, timeoutMs: 40_000 });
   return { ...r, sources };
 }

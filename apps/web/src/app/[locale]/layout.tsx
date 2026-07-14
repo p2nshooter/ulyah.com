@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
+import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
 import "../globals.css";
@@ -160,6 +161,8 @@ export default async function LocaleLayout({
           {/* Owns the Radio Qori audio element so the broadcast survives
               in-app navigation (only a manual stop halts it). */}
           <GlobalRadioPlayer />
+          {/* Floating "Tanya AI" bubble on every page (bottom-right). */}
+          <FloatingAiChat locale={locale} />
         </ThemeProvider>
       </body>
     </html>
