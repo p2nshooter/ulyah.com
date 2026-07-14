@@ -181,3 +181,103 @@ export async function orchestraHealth(env: Env): Promise<OrchestraHealthRow[]> {
 export function capabilityRegistry(): Record<string, { provider: string; scope: string; model?: string }[]> {
   return CAPABILITY_CHAINS as unknown as Record<string, { provider: string; scope: string; model?: string }[]>;
 }
+
+// ── RAG Answer Worker: Database First ────────────────────────────────────────
+// The owner's core rule ("AI tidak boleh langsung mengambil jawaban dari
+// internet apabila database internal sudah memiliki referensi", "jawaban wajib
+// berdalil + link Ulyah"). So the answer worker RETRIEVES from Ulyah's own
+// Qur'an translations and hadith first, then asks the model to answer ONLY
+// from that retrieved context and cite it — never free-form invention. This is
+// the guardrail that keeps a religious Q&A honest.
+
+const STOPWORDS = new Set([
+  "yang", "untuk", "dengan", "adalah", "dari", "pada", "atau", "dan", "apa", "apakah", "bagaimana", "kenapa",
+  "mengapa", "itu", "ini", "the", "and", "for", "what", "how", "why", "is", "are", "about", "tentang", "dalam",
+]);
+
+export interface GroundingSource {
+  kind: "ayah" | "hadits";
+  ref: string;
+  text: string;
+}
+
+export interface GroundedAnswer extends OrchestraResult {
+  sources: GroundingSource[];
+}
+
+function keywords(q: string): string[] {
+  return [...new Set(
+    q
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
+      .split(/\s+/)
+      .filter((w) => w.length >= 4 && !STOPWORDS.has(w))
+  )].slice(0, 5);
+}
+
+async function retrieveSources(env: Env, question: string, locale: string): Promise<GroundingSource[]> {
+  const kws = keywords(question);
+  if (kws.length === 0) return [];
+  const likeAyah = kws.map(() => "t.text LIKE ?").join(" OR ");
+  const likeHad = kws.map(() => "text_id LIKE ?").join(" OR ");
+  const params = kws.map((k) => `%${k}%`);
+  const sources: GroundingSource[] = [];
+
+  try {
+    const { results: ayat } = await env.DB.prepare(
+      `SELECT a.surah_id AS surah_id, a.number AS number, t.text AS text
+       FROM translation t JOIN ayah a ON a.id = t.ayah_id
+       WHERE t.lang = ? AND (${likeAyah}) LIMIT 4`
+    )
+      .bind(locale, ...params)
+      .all<{ surah_id: number; number: number; text: string }>();
+    for (const a of ayat) sources.push({ kind: "ayah", ref: `QS ${a.surah_id}:${a.number}`, text: a.text });
+  } catch {
+    /* translation for this locale may be sparse — non-fatal */
+  }
+
+  try {
+    const { results: had } = await env.DB.prepare(
+      `SELECT collection, grade, text_id FROM hadits WHERE (${likeHad}) AND text_id IS NOT NULL LIMIT 4`
+    )
+      .bind(...params)
+      .all<{ collection: string; grade: string | null; text_id: string }>();
+    for (const h of had)
+      sources.push({ kind: "hadits", ref: `HR ${h.collection}${h.grade ? ` (${h.grade})` : ""}`, text: h.text_id });
+  } catch {
+    /* non-fatal */
+  }
+
+  return sources;
+}
+
+/**
+ * Answer a question grounded in Ulyah's own database. Retrieves relevant ayat
+ * + hadith, then routes an "answer" job through Orchestra Core with a strict
+ * prompt: use ONLY the provided sources, cite them, and if the database has
+ * nothing relevant, say so instead of inventing — never fabricate religious
+ * rulings. Returns the answer plus the exact sources used.
+ */
+export async function answerGrounded(
+  env: Env,
+  opts: { question: string; locale?: string }
+): Promise<GroundedAnswer> {
+  const locale = opts.locale ?? "id";
+  const sources = await retrieveSources(env, opts.question, locale);
+
+  const context = sources.length
+    ? sources.map((s, i) => `[${i + 1}] ${s.ref}: ${s.text}`).join("\n")
+    : "(tidak ada rujukan yang ditemukan di database Ulyah.com)";
+
+  const prompt = `Kamu asisten Islami ULYAH.COM. Jawab pertanyaan HANYA berdasarkan rujukan di bawah ini dari database Ulyah.com. Sebutkan nomor rujukan [1], [2] yang kamu pakai. Jika rujukan tidak memuat jawaban, katakan dengan jujur bahwa jawaban belum tersedia di database dan sarankan bertanya kepada ustadz — JANGAN mengarang dalil atau hukum. Bahasa jawaban: "${locale}".
+
+RUJUKAN:
+${context}
+
+PERTANYAAN: ${opts.question}
+
+JAWABAN (ringkas, santun, dengan sitasi):`;
+
+  const r = await orchestrate(env, { capability: "answer", prompt });
+  return { ...r, sources };
+}

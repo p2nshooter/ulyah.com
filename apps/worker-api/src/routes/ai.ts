@@ -3,7 +3,7 @@ import { extractJson } from "@ulyah/ai-engine";
 import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
-import { orchestrate, orchestraHealth, capabilityRegistry, type Capability } from "../lib/orchestra.js";
+import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, type Capability } from "../lib/orchestra.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
 
@@ -139,6 +139,23 @@ aiRoute.post("/translate", async (c) => {
     return c.json({ error: "No active AI key available for translation", attempts: r.attempts }, 503);
   }
   return c.json({ translation: r.text.trim(), servedBy: r.servedBy });
+});
+
+// POST /ai/ask — RAG-grounded Q&A: retrieves ayat + hadith from Ulyah's own
+// database first, then answers ONLY from those sources with citations (no
+// fabricated rulings). Guest-facing but rate-limited.
+aiRoute.post("/ask", async (c) => {
+  const rl = await checkRateLimit(c.env, `ask:${c.req.header("cf-connecting-ip") ?? "anon"}`, 15, 3600);
+  if (!rl.allowed) return c.json({ error: "Rate limit exceeded — silakan daftar untuk akses lebih.", registerHint: true }, 429);
+
+  const { question, locale } = await c.req.json<{ question: string; locale?: string }>();
+  if (!question || question.length > 500) return c.json({ error: "question required (max 500 chars)" }, 400);
+
+  const r = await answerGrounded(c.env, { question, locale });
+  if (!r.ok || !r.text) {
+    return c.json({ error: "AI belum tersedia (belum ada API key aktif di pool).", sources: r.sources, attempts: r.attempts }, 503);
+  }
+  return c.json({ answer: r.text.trim(), sources: r.sources, servedBy: r.servedBy });
 });
 
 // GET /ai/orchestra/health — live key-pool health grouped by provider/scope/
