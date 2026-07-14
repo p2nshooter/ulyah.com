@@ -318,6 +318,60 @@ function SelfTestPanel() {
   );
 }
 
+function SourceRegistry() {
+  const [data, setData] = useState<{
+    total: number;
+    byStatus: { status: string; n: number }[];
+    byCategory: { category: string; total: number; done: number }[];
+  } | null>(null);
+  const [err, setErr] = useState(false);
+  useEffect(() => {
+    api
+      .get<{ total: number; byStatus: { status: string; n: number }[]; byCategory: { category: string; total: number; done: number }[] }>(
+        "/admin/oss-sources"
+      )
+      .then(setData)
+      .catch(() => setErr(true));
+  }, []);
+
+  const label: Record<string, string> = { absorbed: "✅ Diserap", partial: "🟡 Sebagian", pending: "⬜ Menunggu", skip: "🚫 Dilewati" };
+
+  return (
+    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <p className="font-heading text-sm">📦 Source Registry — semua repo GitHub dalam satu database</p>
+      <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+        Seluruh sumber dari dokumen referensi (Rev 3–6 + FINAL) tercatat di database <code>oss_source</code>. Knowledge
+        Worker mengambilnya bertahap; tiap baris ditandai statusnya (tidak menyerap membabi buta — sesuai CONTENT-POLICY).
+      </p>
+      {err && <p className="mt-2 text-xs text-danger">Gagal memuat (butuh login admin).</p>}
+      {data && (
+        <>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[11px] font-medium text-accent">
+              Total: {data.total} repo
+            </span>
+            {data.byStatus.map((s) => (
+              <span key={s.status} className="rounded-full border border-[var(--color-border)] px-3 py-1 text-[11px]">
+                {label[s.status] ?? s.status}: {s.n}
+              </span>
+            ))}
+          </div>
+          <div className="mt-3 grid gap-1.5 sm:grid-cols-2">
+            {data.byCategory.map((cat) => (
+              <div key={cat.category} className="flex items-center justify-between rounded-lg bg-black/5 px-3 py-1.5 text-[11px]">
+                <span>{cat.category}</span>
+                <span className="tabular-nums text-[var(--color-text-secondary)]">
+                  {cat.done}/{cat.total}
+                </span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </section>
+  );
+}
+
 type Status = "live" | "partial" | "planned";
 
 const STATUS_META: Record<Status, { label: string; cls: string }> = {
@@ -425,10 +479,16 @@ export function OrchestraTab() {
           key pool nyata. Yang MASIH rancangan: worker/co-worker hierarki penuh, self-learning malam, RAG bersanad, billing
           premium. Angka "±4.400 worker" = peran logis, BUKAN 4.400 Worker fisik (realistis ±150–300 fisik).
         </div>
+        <div className="mt-2 rounded-lg bg-success/10 p-3 text-[11px] leading-relaxed text-success">
+          🟢 <b>Tetap jalan saat semua orang offline:</b> Cloudflare Cron memanggil scheduled() tiap 15 menit —
+          memproses antrean konten pakai key donasi (Gemini/Groq/NVIDIA, BUKAN Anthropic), health-check key pool, dan
+          membangunkan key yang kena rate-limit otomatis. Tidak butuh saya/Anthropic online.
+        </div>
       </div>
 
       <LiveHealth />
       <SelfTestPanel />
+      <SourceRegistry />
       <WorkerRunner />
 
       {/* Provider failover hierarchy */}

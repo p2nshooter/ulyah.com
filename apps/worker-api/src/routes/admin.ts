@@ -252,6 +252,23 @@ adminRoute.post("/keys/test-all", async (c) => {
   return c.json({ tested: out.length, passed, failed: out.length - passed, byProvider, results: out });
 });
 
+// Open-source source registry — the "one big database" of every GitHub repo
+// from the reference docs, with absorption status. Read by the admin so the
+// owner sees exactly what's absorbed vs pending across all ~130 sources.
+adminRoute.get("/oss-sources", async (c) => {
+  const byStatus = await c.env.DB.prepare(
+    "SELECT status, COUNT(*) AS n FROM oss_source GROUP BY status"
+  ).all<{ status: string; n: number }>();
+  const byCategory = await c.env.DB.prepare(
+    `SELECT category,
+            COUNT(*) AS total,
+            SUM(CASE WHEN status IN ('absorbed','partial') THEN 1 ELSE 0 END) AS done
+     FROM oss_source GROUP BY category ORDER BY category`
+  ).all<{ category: string; total: number; done: number }>();
+  const total = await c.env.DB.prepare("SELECT COUNT(*) AS n FROM oss_source").first<{ n: number }>();
+  return c.json({ total: total?.n ?? 0, byStatus: byStatus.results, byCategory: byCategory.results });
+});
+
 // ── Content review queue (§12.2, §23.3, §23.4) ────────────────────────────
 
 adminRoute.get("/jobs", async (c) => {
