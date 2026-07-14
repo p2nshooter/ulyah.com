@@ -135,7 +135,11 @@ adminRoute.post("/keys/bulk", async (c) => {
   for (const tok of order) {
     if (seen.has(tok)) continue;
     seen.add(tok);
-    const provider = tok.startsWith("nvapi-") ? "nvidia" : "openrouter";
+    // Must match the registered provider id exactly — it's "nvidia-nim", NOT
+    // "nvidia". The old value silently failed getProvider() and DROPPED every
+    // pasted NVIDIA key, so nvapi- keys never entered the pool ("cuma sebagian
+    // bekerja"). This is the fix that makes NVIDIA keys actually usable.
+    const provider = tok.startsWith("nvapi-") ? "nvidia-nim" : "openrouter";
     if (!getProvider(provider)) continue;
     const label = tokenLabel.get(tok) || `${provider} key`;
     try {

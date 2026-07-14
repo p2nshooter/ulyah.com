@@ -60,7 +60,11 @@ async function fingerprint(rawKey) {
 
 // Detect provider + a sensible default scope from the key prefix.
 function classify(token) {
-  if (token.startsWith("nvapi-")) return { provider: "nvidia", scope: "text" };
+  // Must be the exact registered provider id "nvidia-nim" — "nvidia" fails
+  // getProvider()/testApiKey() and is skipped by the orchestrator's text
+  // chain, so it stored NVIDIA keys as permanently unusable. (migration 0022
+  // repairs any rows already ingested under the wrong "nvidia" id.)
+  if (token.startsWith("nvapi-")) return { provider: "nvidia-nim", scope: "text" };
   if (token.startsWith("sk-or-")) return { provider: "openrouter", scope: "text" };
   return null;
 }
