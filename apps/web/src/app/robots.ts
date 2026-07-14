@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Mediapartners-Google", allow: "/" },
       { userAgent: "AdsBot-Google", allow: "/" },
     ],
-    sitemap: "https://ulyah.com/sitemap.xml",
+    sitemap: ["https://ulyah.com/sitemap.xml", "https://ulyah.com/sitemap.txt"],
     host: "https://ulyah.com",
   };
 }

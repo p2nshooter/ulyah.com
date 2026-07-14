@@ -47,10 +47,34 @@ export function nextRadioPosition(p: RadioPosition, surahs: SurahMeta[]): RadioP
   return { ...p, surahId: nextSurah, ayahNumber: 1 };
 }
 
+// The visitor's explicit OFF is remembered across full page reloads (not just
+// in-app navigation) — "klo sudah di off jgn hidup sampai di on". Once they
+// stop the radio it must stay silent on every subsequent page/visit until they
+// press play again, so the auto-start never overrides a deliberate off.
+const OFF_STORAGE_KEY = "ulyah_radio_off";
+function loadUserDisabled(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(OFF_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+function saveUserDisabled(off: boolean) {
+  if (typeof window === "undefined") return;
+  try {
+    if (off) window.localStorage.setItem(OFF_STORAGE_KEY, "1");
+    else window.localStorage.removeItem(OFF_STORAGE_KEY);
+  } catch {
+    /* private mode / storage disabled — in-memory intent still holds */
+  }
+}
+
 interface RadioState {
   surahs: SurahMeta[];
   position: RadioPosition;
   playing: boolean; // the visitor's intent — survives page navigation
+  userDisabled: boolean; // explicit OFF, persisted across reloads
   needsInteraction: boolean;
   muted: boolean;
   khatamCount: number;
@@ -69,6 +93,7 @@ export const useRadioStore = create<RadioState>((set, get) => ({
   surahs: [],
   position: { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 },
   playing: false,
+  userDisabled: loadUserDisabled(),
   needsInteraction: true,
   muted: false,
   khatamCount: 0,
@@ -85,7 +110,8 @@ export const useRadioStore = create<RadioState>((set, get) => ({
     const { surahs } = get();
     const b = computeLiveBroadcast(surahs, ROTATION_POOL);
     const position: RadioPosition = { reciterKey: b.reciterKey, surahId: b.surahId, ayahNumber: b.ayahNumber };
-    set((s) => ({ position, playing: true, gen: s.gen + 1 }));
+    saveUserDisabled(false);
+    set((s) => ({ position, playing: true, userDisabled: false, gen: s.gen + 1 }));
   },
 
   /** Only stops audio for this visitor — the shared broadcast clock keeps
@@ -93,7 +119,10 @@ export const useRadioStore = create<RadioState>((set, get) => ({
    * triggered automatically except when the visitor plays other audio (see
    * the usePlayerStore subscription below) — an auto-stop always requires a
    * manual start() again, never an auto-resume. */
-  stop: () => set((s) => ({ playing: false, gen: s.gen + 1 })),
+  stop: () => {
+    saveUserDisabled(true);
+    set((s) => ({ playing: false, userDisabled: true, gen: s.gen + 1 }));
+  },
 
   /** Natural forward progression on the audio's 'ended' event — does NOT
    * bump gen, since this continues the current playback rather than
