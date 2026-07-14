@@ -325,6 +325,10 @@ jobs:
           else
             echo "Kitab Pesantren already has $KPCOUNT kitab — skipping import."
           fi
+          # Always refresh the (factual, bibliographic) kitab descriptions —
+          # pure UPDATEs, no matn/sacred text touched, so it is safe every run
+          # and upgrades libraries seeded before the descriptions were enriched.
+          npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_desc_upgrade.sql || true
 
       - name: Upgrade Aqidatul Awam to full 57-bait text (one-time, idempotent)
         continue-on-error: true
