@@ -60,19 +60,23 @@ async function fingerprint(rawKey) {
 
 // Detect provider + a sensible default scope from the key prefix.
 function classify(token) {
-  // Must be the exact registered provider id "nvidia-nim" — "nvidia" fails
-  // getProvider()/testApiKey() and is skipped by the orchestrator's text
-  // chain, so it stored NVIDIA keys as permanently unusable. (migration 0022
-  // repairs any rows already ingested under the wrong "nvidia" id.)
+  // Exact registered provider ids only. "nvidia" (not "nvidia-nim") fails
+  // getProvider()/testApiKey() and is skipped by the text chain, so it stored
+  // NVIDIA keys as permanently unusable (migration 0022 repairs old rows).
+  // Covers every free-tier provider so pasted keys of any of them are ingested.
   if (token.startsWith("nvapi-")) return { provider: "nvidia-nim", scope: "text" };
   if (token.startsWith("sk-or-")) return { provider: "openrouter", scope: "text" };
+  if (token.startsWith("AIza")) return { provider: "google-ai-studio", scope: "text" };
+  if (token.startsWith("gsk_")) return { provider: "groq", scope: "text" };
+  if (token.startsWith("hf_")) return { provider: "hf-inference", scope: "text" };
   return null;
 }
 
 // Scan the blob line-by-line, tracking the most recent "label-ish" line, and
 // pull out every key token with its nearest label.
 const lines = blob.split(/\r?\n/);
-const TOKEN_RE = /(nvapi-[A-Za-z0-9_\-]{20,}|sk-or-v1-[A-Za-z0-9]{20,})/g;
+const TOKEN_RE =
+  /(nvapi-[A-Za-z0-9_\-]{20,}|sk-or-v1-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_\-]{35}|gsk_[A-Za-z0-9]{40,}|hf_[A-Za-z0-9]{30,})/g;
 // token -> best label seen for it. A CLEAN label (UPPER_SNAKE like
 // NVIDIA_KEY_MAIN / OPENROUTER_KEY) always wins over a messy chat-line label.
 const labelForToken = new Map();

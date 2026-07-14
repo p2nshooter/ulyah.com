@@ -113,7 +113,20 @@ adminRoute.post("/keys/bulk", async (c) => {
   }
 
   // Pass 2: token scan of the whole blob (handles the raw pasted key file).
-  const TOKEN_RE = /(nvapi-[A-Za-z0-9_-]{20,}|sk-or-v1-[A-Za-z0-9]{20,})/g;
+  // Covers every free-tier provider the owner uses so a pasted key of ANY of
+  // them is auto-detected — Gemini (AIza…), Groq (gsk_…), Hugging Face (hf_…),
+  // NVIDIA (nvapi-…), OpenRouter (sk-or-v1-…). Maps each prefix to its EXACT
+  // registered provider id (classifyToken) so none are silently dropped.
+  const TOKEN_RE =
+    /(nvapi-[A-Za-z0-9_-]{20,}|sk-or-v1-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{35}|gsk_[A-Za-z0-9]{40,}|hf_[A-Za-z0-9]{30,})/g;
+  const classifyToken = (t: string): string | null => {
+    if (t.startsWith("nvapi-")) return "nvidia-nim";
+    if (t.startsWith("sk-or-")) return "openrouter";
+    if (t.startsWith("AIza")) return "google-ai-studio";
+    if (t.startsWith("gsk_")) return "groq";
+    if (t.startsWith("hf_")) return "hf-inference";
+    return null;
+  };
   const lines = text.split(/\r?\n/);
   let lastLabel: string | null = null;
   const isClean = (s: string) => /^[A-Z][A-Z0-9_]{3,}$/.test(s);
@@ -135,12 +148,8 @@ adminRoute.post("/keys/bulk", async (c) => {
   for (const tok of order) {
     if (seen.has(tok)) continue;
     seen.add(tok);
-    // Must match the registered provider id exactly — it's "nvidia-nim", NOT
-    // "nvidia". The old value silently failed getProvider() and DROPPED every
-    // pasted NVIDIA key, so nvapi- keys never entered the pool ("cuma sebagian
-    // bekerja"). This is the fix that makes NVIDIA keys actually usable.
-    const provider = tok.startsWith("nvapi-") ? "nvidia-nim" : "openrouter";
-    if (!getProvider(provider)) continue;
+    const provider = classifyToken(tok);
+    if (!provider || !getProvider(provider)) continue;
     const label = tokenLabel.get(tok) || `${provider} key`;
     try {
       const status = await ingestKeyNoTest(c.env, { provider, scope: "text", rawKey: tok, donorLabel: label });
