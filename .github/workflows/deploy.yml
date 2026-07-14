@@ -539,6 +539,8 @@ jobs:
             --arg PAYPAL_WEBHOOK_ID "$PAYPAL_WEBHOOK_ID" \
             --arg NOWPAYMENTS_API_KEY "$NOWPAYMENTS_API_KEY" \
             --arg NOWPAYMENTS_IPN_SECRET "$NOWPAYMENTS_IPN_SECRET" \
+            --arg RESEND_API_KEY "$RESEND_API_KEY" \
+            --arg EMAIL_FROM "$EMAIL_FROM" \
             --arg CORS_ALLOW_ORIGIN "$CORS_ALLOW_ORIGIN" \
             '$ARGS.named | with_entries(select(.value != ""))' > /tmp/secrets.json
 
@@ -558,6 +560,8 @@ jobs:
           PAYPAL_WEBHOOK_ID: ${{ secrets.PAYPAL_WEBHOOK_ID }}
           NOWPAYMENTS_API_KEY: ${{ secrets.NOWPAYMENTS_API_KEY }}
           NOWPAYMENTS_IPN_SECRET: ${{ secrets.NOWPAYMENTS_IPN_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           CORS_ALLOW_ORIGIN: ${{ secrets.CORS_ALLOW_ORIGIN }}
 
       - name: Build web (Next.js via OpenNext)

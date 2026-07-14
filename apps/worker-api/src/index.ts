@@ -11,6 +11,7 @@ import { adminRoute } from "./routes/admin.js";
 import { clientRoute } from "./routes/client.js";
 import { analyticsRoute } from "./routes/analytics.js";
 import { geoRoute } from "./routes/geo.js";
+import { grantRoute } from "./routes/grant.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { cleanupObsoleteMurottalR2 } from "./lib/r2-cleanup.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
@@ -37,6 +38,7 @@ app.route("/admin", adminRoute);
 app.route("/client", clientRoute);
 app.route("/analytics", analyticsRoute);
 app.route("/geo", geoRoute);
+app.route("/grant", grantRoute);
 
 // WebSocket gateway to the singleton KeyPoolCoordinator (§13.1)
 app.get("/keypool/connect", async (c) => {
