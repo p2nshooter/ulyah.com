@@ -155,13 +155,26 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     if (pool.length > 0 && !pool.some((r) => r.key === qoriId)) setQori(pool[0]!.key);
   }
 
-  // Load surah index once.
+  // Load surah index once. Honour a deep link like ?surah=2&ayah=5 (used by
+  // the AI chat's clickable references) so the reader opens exactly on the
+  // cited ayah; otherwise default to Al-Baqarah.
   useEffect(() => {
+    let deepSurah: number | null = null;
+    let deepAyah: number | null = null;
+    if (typeof window !== "undefined") {
+      const sp = new URLSearchParams(window.location.search);
+      const s = Number(sp.get("surah"));
+      const a = Number(sp.get("ayah"));
+      if (s >= 1 && s <= 114) deepSurah = s;
+      if (a >= 1) deepAyah = a;
+    }
     api
       .get<{ surah: SurahMeta[] }>("/quran/surah")
       .then((r) => {
         setSurahs(r.surah);
-        setSelectedSurah((prev) => prev ?? r.surah.find((s) => s.id === 2) ?? r.surah[0] ?? null);
+        const target = deepSurah ? r.surah.find((s) => s.id === deepSurah) : undefined;
+        setSelectedSurah((prev) => prev ?? target ?? r.surah.find((s) => s.id === 2) ?? r.surah[0] ?? null);
+        if (deepAyah) setFocus(deepAyah);
       })
       .catch(() => {});
   }, []);

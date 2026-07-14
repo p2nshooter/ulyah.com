@@ -8,6 +8,7 @@ interface Source {
   kind: "ayah" | "hadits";
   ref: string;
   text: string;
+  url?: string;
 }
 interface Msg {
   role: "user" | "ai";
@@ -17,7 +18,7 @@ interface Msg {
 }
 
 const SPECIALISTS: { key: string; label: string }[] = [
-  { key: "", label: "Umum" },
+  { key: "master", label: "✦ Penasihat Utama" },
   { key: "quran", label: "Al-Qur'an" },
   { key: "hadits", label: "Hadits" },
   { key: "fiqih", label: "Fiqih" },
@@ -34,7 +35,7 @@ const SPECIALISTS: { key: string; label: string }[] = [
  * the paid/premium specialist chats build on this exact pipeline.
  */
 export function AiChat({ locale }: { locale: string }) {
-  const [specialist, setSpecialist] = useState("");
+  const [specialist, setSpecialist] = useState("master");
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [busy, setBusy] = useState(false);
@@ -106,11 +107,18 @@ export function AiChat({ locale }: { locale: string }) {
               <p className="whitespace-pre-wrap">{m.text}</p>
               {m.sources && m.sources.length > 0 && (
                 <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-2 text-[11px] text-[var(--color-text-secondary)]">
-                  {m.sources.map((s, j) => (
-                    <p key={j}>
-                      <span className="font-medium text-accent">[{j + 1}] {s.ref}</span> — {s.text.slice(0, 120)}
-                    </p>
-                  ))}
+                  <p className="font-medium">Rujukan (klik untuk membuka sumber):</p>
+                  {m.sources.map((s, j) =>
+                    s.url ? (
+                      <a key={j} href={`/${locale}${s.url}`} className="block text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent">
+                        [{j + 1}] {s.ref} — {s.text.slice(0, 110)} ↗
+                      </a>
+                    ) : (
+                      <p key={j}>
+                        <span className="font-medium text-accent">[{j + 1}] {s.ref}</span> — {s.text.slice(0, 120)}
+                      </p>
+                    )
+                  )}
                 </div>
               )}
             </div>

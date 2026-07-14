@@ -7,6 +7,7 @@ interface Source {
   kind: "ayah" | "hadits";
   ref: string;
   text: string;
+  url?: string;
 }
 interface Msg {
   role: "user" | "ai";
@@ -14,11 +15,14 @@ interface Msg {
   sources?: Source[];
 }
 
+// The Master (Penasihat Utama) knows every field & routes; the rest are
+// focused specialists that refer to one another when out of their field.
 const SPECIALISTS: { key: string; label: string }[] = [
-  { key: "", label: "Umum" },
+  { key: "master", label: "✦ Penasihat" },
   { key: "quran", label: "Qur'an" },
   { key: "hadits", label: "Hadits" },
   { key: "fiqih", label: "Fiqih" },
+  { key: "sirah", label: "Sirah" },
   { key: "akhlak", label: "Akhlak" },
 ];
 
@@ -31,7 +35,7 @@ const SPECIALISTS: { key: string; label: string }[] = [
  */
 export function FloatingAiChat({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
-  const [specialist, setSpecialist] = useState("");
+  const [specialist, setSpecialist] = useState("master");
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [busy, setBusy] = useState(false);
@@ -110,11 +114,20 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                   <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>
                   {m.sources && m.sources.length > 0 && (
                     <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
-                      {m.sources.slice(0, 3).map((s, j) => (
-                        <p key={j}>
-                          <span className="font-medium text-accent">[{j + 1}] {s.ref}</span>
-                        </p>
-                      ))}
+                      <p className="font-medium">Rujukan:</p>
+                      {m.sources.slice(0, 3).map((s, j) =>
+                        s.url ? (
+                          <a
+                            key={j}
+                            href={`/${locale}${s.url}`}
+                            className="block truncate text-accent underline decoration-accent/40 underline-offset-2 hover:decoration-accent"
+                          >
+                            [{j + 1}] {s.ref} ↗
+                          </a>
+                        ) : (
+                          <p key={j} className="text-accent">[{j + 1}] {s.ref}</p>
+                        )
+                      )}
                     </div>
                   )}
                 </div>

@@ -250,6 +250,7 @@ export interface GroundingSource {
   kind: "ayah" | "hadits";
   ref: string;
   text: string;
+  url: string; // locale-relative deep link into ulyah.com (frontend prepends /{locale})
 }
 
 export interface GroundedAnswer extends OrchestraResult {
@@ -282,7 +283,8 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
     )
       .bind(locale, ...params)
       .all<{ surah_id: number; number: number; text: string }>();
-    for (const a of ayat) sources.push({ kind: "ayah", ref: `QS ${a.surah_id}:${a.number}`, text: a.text });
+    for (const a of ayat)
+      sources.push({ kind: "ayah", ref: `QS ${a.surah_id}:${a.number}`, text: a.text, url: `/quran?surah=${a.surah_id}&ayah=${a.number}` });
   } catch {
     /* translation for this locale may be sparse — non-fatal */
   }
@@ -294,7 +296,12 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
       .bind(...params)
       .all<{ collection: string; grade: string | null; text_id: string }>();
     for (const h of had)
-      sources.push({ kind: "hadits", ref: `HR ${h.collection}${h.grade ? ` (${h.grade})` : ""}`, text: h.text_id });
+      sources.push({
+        kind: "hadits",
+        ref: `HR ${h.collection}${h.grade ? ` (${h.grade})` : ""}`,
+        text: h.text_id,
+        url: `/hadits/${h.collection}`,
+      });
   } catch {
     /* non-fatal */
   }
@@ -311,12 +318,19 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
  */
 // Specialist framings for the specialist AI chats. Same answer worker + RAG,
 // but a focused persona per field ("walaupun modelnya sama, promptnya beda").
+// Each specialist is instructed to recognise when a question is OUTSIDE its
+// field and gracefully refer the user to the right specialist — and the
+// "master" (Penasihat) knows every field and routes.
+const REFERRAL =
+  " Jika pertanyaan berada DI LUAR bidangmu, jawab seperlunya lalu sarankan dengan santun agar pengguna beralih ke Penasihat yang tepat (mis. 'Untuk perkara ini, Penasihat Fiqih akan lebih dalam menjelaskannya'). Sebutkan nama bidang penasihat yang paling sesuai.";
 const SPECIALISTS: Record<string, string> = {
-  quran: "Kamu spesialis Al-Qur'an & tafsir.",
-  hadits: "Kamu spesialis hadits (fokus derajat & sumber).",
-  fiqih: "Kamu spesialis fiqih ibadah. Jika ada beda mazhab, sebutkan tanpa memihak.",
-  sirah: "Kamu spesialis sirah nabawiyah & sejarah Islam.",
-  akhlak: "Kamu spesialis akhlak & adab Islami.",
+  master:
+    "Kamu Penasihat Utama ULYAH.COM yang menguasai seluruh bidang (Al-Qur'an, tafsir, hadits, fiqih, sirah, akhlak) dan bijak mengarahkan. Jawab lengkap; bila sebuah perkara sangat teknis pada satu bidang, sebutkan bahwa Penasihat khusus bidang itu dapat memperdalamnya.",
+  quran: "Kamu Penasihat Al-Qur'an & tafsir." + REFERRAL,
+  hadits: "Kamu Penasihat hadits (fokus derajat & sumber)." + REFERRAL,
+  fiqih: "Kamu Penasihat fiqih ibadah. Jika ada beda mazhab, sebutkan tanpa memihak." + REFERRAL,
+  sirah: "Kamu Penasihat sirah nabawiyah & sejarah Islam." + REFERRAL,
+  akhlak: "Kamu Penasihat akhlak & adab Islami." + REFERRAL,
 };
 
 export async function answerGrounded(
