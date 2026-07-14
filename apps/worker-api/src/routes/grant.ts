@@ -215,32 +215,52 @@ grantRoute.post("/email/draft", async (c) => {
 });
 
 grantRoute.post("/email/send", async (c) => {
-  const { donorId, proposalId, to, subject, bodyTarget, bodyId, language } = await c.req.json<{
-    donorId?: number;
-    proposalId?: number;
-    to: string;
-    subject: string;
-    bodyTarget: string;
-    bodyId?: string;
-    language?: string;
-  }>();
-  if (!to || !subject || !bodyTarget) return c.json({ error: "to, subject, bodyTarget required" }, 400);
+  const { donorId, proposalId, to, subject, bodyTarget, bodyId, language, attachments, reviewMode, reviewTo } =
+    await c.req.json<{
+      donorId?: number;
+      proposalId?: number;
+      to: string;
+      subject: string;
+      bodyTarget: string;
+      bodyId?: string;
+      language?: string;
+      // Base64 file payloads (proposal DOC + any manual upload) forwarded to
+      // Resend as real attachments — "upload & download" in the composer.
+      attachments?: { filename: string; contentB64: string }[];
+      // "Kirim Tinjauan": send the exact outgoing email to the admin's own
+      // inbox first (never the donor) so it can be viewed before real send.
+      reviewMode?: boolean;
+      reviewTo?: string;
+    }>();
+  if (!subject || !bodyTarget) return c.json({ error: "subject, bodyTarget required" }, 400);
 
-  const from = c.env.EMAIL_FROM ?? "salam@ulyah.com";
-  let status = "draft";
+  const from = c.env.EMAIL_FROM ?? DEV.email;
+  const recipient = reviewMode ? reviewTo || from : to;
+  if (!recipient) return c.json({ error: "recipient required" }, 400);
+  const finalSubject = reviewMode ? `[TINJAUAN] ${subject}` : subject;
+
+  let status = reviewMode ? "review" : "draft";
   let providerDetail = "";
 
   if (c.env.RESEND_API_KEY) {
     try {
-      const html = `<div style="font-family:Arial,sans-serif;line-height:1.6">${escapeHtml(bodyTarget).replace(/\n/g, "<br>")}</div>`;
+      const reviewBanner = reviewMode
+        ? `<div style="background:#fff7e0;border:1px solid #e6c65c;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#7a5c00">📋 <b>PRATINJAU</b> — beginilah email yang akan diterima donatur. Belum dikirim ke donatur.</div>`
+        : "";
+      const html = `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#1a1a1a">${reviewBanner}${escapeHtml(bodyTarget).replace(/\n/g, "<br>")}
+        <div style="border-top:1px solid #e5e5e5;margin-top:24px;padding-top:12px;color:#888;font-size:12px">${DEV.name} · <a href="${DEV.site}" style="color:#0B3D2E">${DEV.site}</a> · ${DEV.email}</div>
+      </div>`;
+      const payload: Record<string, unknown> = { from: `ULYAH.COM <${from}>`, to: [recipient], subject: finalSubject, html };
+      const cleanAtt = (attachments ?? []).filter((a) => a.filename && a.contentB64).slice(0, 8);
+      if (cleanAtt.length) payload.attachments = cleanAtt.map((a) => ({ filename: a.filename, content: a.contentB64 }));
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { Authorization: `Bearer ${c.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ from: `ULYAH.COM <${from}>`, to: [to], subject, html }),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
-        status = "sent";
-        providerDetail = "resend ok";
+        status = reviewMode ? "review" : "sent";
+        providerDetail = reviewMode ? "tinjauan terkirim ke admin" : "resend ok";
       } else {
         status = "failed";
         providerDetail = `resend ${res.status}: ${(await res.text()).slice(0, 160)}`;
@@ -250,7 +270,6 @@ grantRoute.post("/email/send", async (c) => {
       providerDetail = `resend error: ${String(err).slice(0, 160)}`;
     }
   } else {
-    status = "draft";
     providerDetail = "RESEND_API_KEY belum di-set — email disimpan sebagai draft, belum terkirim.";
   }
 
@@ -258,13 +277,14 @@ grantRoute.post("/email/send", async (c) => {
     `INSERT INTO outreach_email (donor_id, proposal_id, to_email, from_email, language, subject, body_id, body_target, status, provider_detail, sent_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ${status === "sent" ? "datetime('now')" : "NULL"})`
   )
-    .bind(donorId ?? null, proposalId ?? null, to, from, language ?? "en", subject, bodyId ?? null, bodyTarget, status, providerDetail)
+    .bind(donorId ?? null, proposalId ?? null, recipient, from, language ?? "en", finalSubject, bodyId ?? null, bodyTarget, status, providerDetail)
     .run();
 
+  // Only a real (non-review) send advances the donor's pipeline status.
   if (donorId && status === "sent") {
     await c.env.DB.prepare("UPDATE donor SET status = 'proposal_sent', updated_at = datetime('now') WHERE id = ?").bind(donorId).run();
   }
-  return c.json({ status, providerDetail, from });
+  return c.json({ status, providerDetail, from, sentTo: recipient });
 });
 
 // ── Grant dashboard ──────────────────────────────────────────────────────────

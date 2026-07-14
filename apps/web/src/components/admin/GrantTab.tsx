@@ -5,9 +5,12 @@ import { api } from "@/lib/api";
 
 /**
  * Grant & Fundraising Worker admin UI: donor directory, AI-generated proposals
- * from live Ulyah stats (downloadable as a branded .doc / print-to-PDF), and
- * bilingual outreach emails sent from salam@ulyah.com. The AI writes the prose
- * via Orchestra Core; the admin reviews everything before it goes out.
+ * from live Ulyah stats (downloadable as a branded .doc / print-to-PDF), and a
+ * Gmail-style composer that drafts bilingual outreach, carries the proposal as
+ * a real attachment (plus any manual upload), previews the exact outgoing mail,
+ * and can send a review copy to the admin first or the real email to the donor
+ * — all from salam@ulyah.com. The AI writes the prose via Orchestra Core; the
+ * admin reviews everything before it goes out.
  */
 
 interface Donor {
@@ -25,13 +28,31 @@ interface Dashboard {
   donorsByStatus: { status: string; n: number }[];
   emailConfigured: boolean;
 }
+interface Attachment {
+  filename: string;
+  contentB64: string;
+  size: number;
+}
+interface EmailState {
+  to: string;
+  subject: string;
+  bodyTarget: string;
+  bodyId: string;
+  language: string;
+}
 
-function downloadDoc(title: string, body: string) {
+/** UTF-8 safe base64 (btoa alone mangles non-Latin1 characters). */
+function utf8ToB64(str: string): string {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+/** The branded proposal document (opens in Word, print-to-PDF ready). */
+function buildDocHtml(title: string, body: string): string {
   const paras = body
     .split(/\n{2,}/)
     .map((p) => `<p style="margin:0 0 12px;line-height:1.6;text-align:justify">${p.replace(/</g, "&lt;").replace(/\n/g, "<br>")}</p>`)
     .join("");
-  const html = `<!doctype html><html><head><meta charset="utf-8"></head><body style="font-family:Georgia,serif;max-width:720px;margin:40px auto">
+  return `<!doctype html><html><head><meta charset="utf-8"></head><body style="font-family:Georgia,serif;max-width:720px;margin:40px auto">
     <div style="text-align:center;border-bottom:2px solid #0B3D2E;padding-bottom:16px;margin-bottom:24px">
       <img src="https://ulyah.com/brand/ulyah-logo-dark.webp" style="width:96px;height:96px;border-radius:50%">
       <h1 style="color:#0B3D2E;font-size:22px;margin:12px 0 4px">${title}</h1>
@@ -39,12 +60,31 @@ function downloadDoc(title: string, body: string) {
     </div>${paras}
     <div style="border-top:1px solid #ccc;margin-top:32px;padding-top:12px;color:#666;font-size:12px;text-align:center">Yusron Efendi · salam@ulyah.com · https://ulyah.com</div>
   </body></html>`;
-  const blob = new Blob([html], { type: "application/msword" });
+}
+
+function downloadDoc(title: string, body: string) {
+  const blob = new Blob([buildDocHtml(title, body)], { type: "application/msword" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `proposal-ulyah.doc`;
+  a.download = "proposal-ulyah.doc";
   a.click();
   URL.revokeObjectURL(a.href);
+}
+
+function downloadAttachment(att: Attachment) {
+  const bin = atob(att.contentB64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const blob = new Blob([bytes]);
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = att.filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function humanSize(n: number): string {
+  return n < 1024 ? `${n} B` : n < 1048576 ? `${(n / 1024).toFixed(0)} KB` : `${(n / 1048576).toFixed(1)} MB`;
 }
 
 export function GrantTab() {
@@ -54,7 +94,10 @@ export function GrantTab() {
   const [selDonor, setSelDonor] = useState<number | "">("");
   const [propLang, setPropLang] = useState("id");
   const [proposal, setProposal] = useState<{ id?: number; title: string; body: string } | null>(null);
-  const [email, setEmail] = useState<{ to: string; subject: string; bodyTarget: string; bodyId: string; language: string } | null>(null);
+  const [email, setEmail] = useState<EmailState>({ to: "", subject: "", bodyTarget: "", bodyId: "", language: "en" });
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
+  const [reviewTo, setReviewTo] = useState("");
+  const [preview, setPreview] = useState(false);
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
   const [suggest, setSuggest] = useState<{ country: string; category: string }>({ country: "", category: "" });
@@ -65,6 +108,24 @@ export function GrantTab() {
     api.get<{ donors: Donor[] }>("/grant/donors").then((d) => setDonors(d.donors)).catch(() => {});
   }
   useEffect(refresh, []);
+
+  const selectedDonor = donors.find((d) => d.id === selDonor) ?? null;
+
+  // Auto-fill the composer's recipient/subject from the chosen donor & proposal
+  // (Gmail-like: pick a donor, the "To" fills itself; generate a proposal, the
+  // subject fills itself) — without clobbering anything the admin already typed.
+  useEffect(() => {
+    setEmail((e) => ({
+      ...e,
+      to: e.to || selectedDonor?.email || "",
+      language: selectedDonor?.language || e.language,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selDonor]);
+  useEffect(() => {
+    if (proposal?.title) setEmail((e) => ({ ...e, subject: e.subject || proposal.title }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proposal?.title]);
 
   async function addDonor() {
     if (!newDonor.org_name) return;
@@ -102,9 +163,32 @@ export function GrantTab() {
     }
   }
 
+  /** Attach the current proposal as a branded .doc (real email attachment). */
+  function attachProposal() {
+    if (!proposal) return;
+    const html = buildDocHtml(proposal.title, proposal.body);
+    const contentB64 = utf8ToB64(html);
+    const filename = "proposal-ulyah.doc";
+    setAttachments((a) => [...a.filter((x) => x.filename !== filename), { filename, contentB64, size: html.length }]);
+    setMsg("📎 Proposal dilampirkan ke email.");
+  }
+
+  function onUpload(files: FileList | null) {
+    if (!files) return;
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = String(reader.result);
+        const contentB64 = dataUrl.split(",")[1] ?? "";
+        setAttachments((a) => [...a.filter((x) => x.filename !== file.name), { filename: file.name, contentB64, size: file.size }]);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function draftEmail() {
     if (!selDonor) {
-      setMsg("Pilih donatur dulu untuk draft email.");
+      setMsg("Pilih donatur dulu untuk draft email otomatis.");
       return;
     }
     setBusy("email");
@@ -125,7 +209,15 @@ export function GrantTab() {
       };
       const t = parse(r.target);
       const idv = parse(r.indonesian);
-      setEmail({ to: r.to ?? "", subject: t.subject, bodyTarget: t.body, bodyId: idv.body, language: r.language });
+      setEmail({
+        to: r.to ?? selectedDonor?.email ?? "",
+        subject: t.subject || proposal?.title || "",
+        bodyTarget: t.body,
+        bodyId: idv.body,
+        language: r.language,
+      });
+      // Auto-attach the proposal so a drafted email is send-ready in one step.
+      if (proposal) attachProposal();
     } catch {
       setMsg("Gagal draft email — pastikan ada key AI aktif.");
     } finally {
@@ -133,12 +225,19 @@ export function GrantTab() {
     }
   }
 
-  async function sendEmail() {
-    if (!email) return;
-    setBusy("send");
+  async function sendEmail(reviewMode: boolean) {
+    if (!email.bodyTarget.trim() || !email.subject.trim()) {
+      setMsg("Subjek dan isi email belum lengkap.");
+      return;
+    }
+    if (!reviewMode && !email.to.trim()) {
+      setMsg("Alamat donatur (Kepada) belum diisi.");
+      return;
+    }
+    setBusy(reviewMode ? "review" : "send");
     setMsg(null);
     try {
-      const r = await api.post<{ status: string; providerDetail: string }>("/grant/email/send", {
+      const r = await api.post<{ status: string; providerDetail: string; sentTo: string }>("/grant/email/send", {
         donorId: selDonor || undefined,
         proposalId: proposal?.id,
         to: email.to,
@@ -146,8 +245,13 @@ export function GrantTab() {
         bodyTarget: email.bodyTarget,
         bodyId: email.bodyId,
         language: email.language,
+        attachments,
+        reviewMode,
+        reviewTo: reviewMode ? reviewTo || undefined : undefined,
       });
-      setMsg(r.status === "sent" ? "✅ Email terkirim dari salam@ulyah.com." : `ℹ️ ${r.providerDetail}`);
+      if (r.status === "sent") setMsg(`✅ Email terkirim ke ${r.sentTo} dari salam@ulyah.com.`);
+      else if (r.status === "review") setMsg(`📋 Tinjauan terkirim ke ${r.sentTo}. Periksa inbox Anda sebelum kirim ke donatur.`);
+      else setMsg(`ℹ️ ${r.providerDetail}`);
       refresh();
     } catch {
       setMsg("Gagal mengirim email.");
@@ -163,8 +267,9 @@ export function GrantTab() {
       <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <p className="font-heading text-lg">🤝 Grant &amp; Fundraising</p>
         <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-          Cari donatur, buat proposal dari data live ULYAH.COM (unduh DOC berlogo / cetak PDF), dan kirim email pengantar
-          dwibahasa dari <b>salam@ulyah.com</b>. AI menulis, Anda meninjau sebelum kirim.
+          Cari donatur, buat proposal dari data live ULYAH.COM (unduh DOC berlogo / cetak PDF), lalu susun email di komposer
+          ala Gmail — lampirkan proposal, tinjau isi persisnya, kirim tinjauan ke diri sendiri dulu, baru kirim ke donatur
+          dari <b>salam@ulyah.com</b>. AI menulis, Anda meninjau sebelum kirim.
         </p>
         {dash && (
           <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
@@ -236,9 +341,14 @@ export function GrantTab() {
             {busy === "proposal" ? "Menulis proposal…" : selDonor ? "Buat proposal untuk donatur terpilih" : "Buat proposal umum"}
           </button>
           {proposal && (
-            <button onClick={() => downloadDoc(proposal.title, proposal.body)} className="rounded-full border border-accent/50 px-4 py-1.5 text-xs font-medium text-accent">
-              ⬇️ Unduh DOC (berlogo)
-            </button>
+            <>
+              <button onClick={() => downloadDoc(proposal.title, proposal.body)} className="rounded-full border border-accent/50 px-4 py-1.5 text-xs font-medium text-accent">
+                ⬇️ Unduh DOC (berlogo)
+              </button>
+              <button onClick={attachProposal} className="rounded-full border border-accent/50 px-4 py-1.5 text-xs font-medium text-accent">
+                📎 Lampirkan ke email
+              </button>
+            </>
           )}
         </div>
         {proposal && (
@@ -250,29 +360,102 @@ export function GrantTab() {
         )}
       </div>
 
-      {/* Email */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-medium">✉️ Email pengantar (dwibahasa)</p>
-          <button onClick={draftEmail} disabled={busy === "email"} className="rounded-full border border-accent/50 bg-accent/10 px-4 py-1.5 text-xs font-medium text-accent disabled:opacity-50">
-            {busy === "email" ? "Menulis…" : "Draft email (AI)"}
-          </button>
-        </div>
-        {email && (
-          <div className="mt-3 grid gap-2">
-            <input className={field} placeholder="Kepada (email)" value={email.to} onChange={(e) => setEmail({ ...email, to: e.target.value })} />
-            <input className={field} placeholder="Subject" value={email.subject} onChange={(e) => setEmail({ ...email, subject: e.target.value })} />
-            <label className="text-[11px] text-[var(--color-text-secondary)]">Isi ({email.language}) — yang dikirim:</label>
-            <textarea className="h-32 w-full rounded-lg border border-[var(--color-border)] bg-transparent p-2 text-xs" value={email.bodyTarget} onChange={(e) => setEmail({ ...email, bodyTarget: e.target.value })} />
-            {email.bodyId && (
-              <>
-                <label className="text-[11px] text-[var(--color-text-secondary)]">Versi Indonesia (untuk ditinjau saja):</label>
-                <textarea className="h-24 w-full rounded-lg border border-[var(--color-border)] bg-black/5 p-2 text-xs" value={email.bodyId} readOnly />
-              </>
-            )}
-            <button onClick={sendEmail} disabled={busy === "send" || !email.to} className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-white disabled:opacity-50">
-              {busy === "send" ? "Mengirim…" : "Kirim dari salam@ulyah.com"}
+      {/* ── Gmail-style composer ─────────────────────────────────────────── */}
+      <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-sm">
+        <div className="flex items-center justify-between bg-[#0B3D2E] px-4 py-2.5 text-[#f4efe3]">
+          <span className="flex items-center gap-2 text-sm font-medium">✉️ Pesan Baru</span>
+          <div className="flex items-center gap-2">
+            <button onClick={draftEmail} disabled={busy === "email"} className="rounded-full border border-accent/40 bg-white/10 px-3 py-1 text-xs font-medium disabled:opacity-50">
+              {busy === "email" ? "Menulis…" : "✨ Isi otomatis (AI)"}
             </button>
+            <button onClick={() => setPreview((v) => !v)} className="rounded-full border border-white/25 px-3 py-1 text-xs">
+              {preview ? "✎ Edit" : "👁 Pratinjau"}
+            </button>
+          </div>
+        </div>
+
+        {preview ? (
+          <div className="space-y-3 p-5">
+            <div className="text-xs text-[var(--color-text-secondary)]">
+              <p><b>Dari:</b> ULYAH.COM &lt;salam@ulyah.com&gt;</p>
+              <p><b>Kepada:</b> {email.to || "—"}</p>
+              <p><b>Subjek:</b> {email.subject || "—"}</p>
+            </div>
+            <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-4 text-sm leading-relaxed dark:bg-white/[0.02]">
+              <p className="whitespace-pre-wrap">{email.bodyTarget || "(isi email kosong)"}</p>
+              <div className="mt-4 border-t border-[var(--color-border)] pt-2 text-[11px] text-[var(--color-text-secondary)]">
+                Yusron Efendi · https://ulyah.com · salam@ulyah.com
+              </div>
+            </div>
+            {attachments.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {attachments.map((a) => (
+                  <span key={a.filename} className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] px-2 py-1 text-[11px]">
+                    📎 {a.filename} <span className="text-[var(--color-text-secondary)]">({humanSize(a.size)})</span>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="divide-y divide-[var(--color-border)]">
+            <div className="flex items-center gap-2 px-4 py-2 text-sm">
+              <span className="w-16 shrink-0 text-xs text-[var(--color-text-secondary)]">Dari</span>
+              <span className="text-[var(--color-text-secondary)]">ULYAH.COM &lt;salam@ulyah.com&gt;</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-1.5">
+              <span className="w-16 shrink-0 text-xs text-[var(--color-text-secondary)]">Kepada</span>
+              <input className="flex-1 bg-transparent py-1 text-sm outline-none" placeholder="email donatur" value={email.to} onChange={(e) => setEmail({ ...email, to: e.target.value })} />
+            </div>
+            <div className="flex items-center gap-2 px-4 py-1.5">
+              <span className="w-16 shrink-0 text-xs text-[var(--color-text-secondary)]">Subjek</span>
+              <input className="flex-1 bg-transparent py-1 text-sm outline-none" placeholder="judul email" value={email.subject} onChange={(e) => setEmail({ ...email, subject: e.target.value })} />
+            </div>
+            <textarea
+              className="min-h-[180px] w-full resize-y bg-transparent px-4 py-3 text-sm leading-relaxed outline-none"
+              placeholder="Tulis pesan… (atau tekan ✨ Isi otomatis)"
+              value={email.bodyTarget}
+              onChange={(e) => setEmail({ ...email, bodyTarget: e.target.value })}
+            />
+          </div>
+        )}
+
+        {/* Attachments row */}
+        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] px-4 py-2.5">
+          {attachments.map((a) => (
+            <span key={a.filename} className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-2 py-1 text-[11px] dark:bg-white/[0.02]">
+              📎 {a.filename}
+              <span className="text-[var(--color-text-secondary)]">{humanSize(a.size)}</span>
+              <button onClick={() => downloadAttachment(a)} title="Unduh" className="text-accent hover:underline">⬇</button>
+              <button onClick={() => setAttachments((x) => x.filter((y) => y.filename !== a.filename))} title="Hapus" className="text-danger">✕</button>
+            </span>
+          ))}
+          <label className="cursor-pointer rounded-lg border border-dashed border-[var(--color-border)] px-3 py-1 text-[11px] text-[var(--color-text-secondary)] hover:border-accent">
+            + Unggah lampiran
+            <input type="file" multiple className="hidden" onChange={(e) => onUpload(e.target.files)} />
+          </label>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] px-4 py-3">
+          <button onClick={() => sendEmail(false)} disabled={busy === "send"} className="rounded-full bg-accent px-5 py-2 text-xs font-medium text-white disabled:opacity-50">
+            {busy === "send" ? "Mengirim…" : "➤ Kirim ke Donatur"}
+          </button>
+          <button onClick={() => sendEmail(true)} disabled={busy === "review"} className="rounded-full border border-accent/50 bg-accent/10 px-5 py-2 text-xs font-medium text-accent disabled:opacity-50">
+            {busy === "review" ? "Mengirim…" : "📋 Kirim Tinjauan ke saya"}
+          </button>
+          <input
+            className="w-52 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-xs"
+            placeholder="email tinjauan (opsional)"
+            value={reviewTo}
+            onChange={(e) => setReviewTo(e.target.value)}
+          />
+        </div>
+
+        {email.bodyId && (
+          <div className="border-t border-[var(--color-border)] p-4">
+            <p className="mb-1 text-[11px] font-medium text-[var(--color-text-secondary)]">Versi Bahasa Indonesia (untuk ditinjau — tidak dikirim):</p>
+            <textarea className="h-24 w-full rounded-lg border border-[var(--color-border)] bg-black/5 p-2 text-xs" value={email.bodyId} readOnly />
           </div>
         )}
       </div>
