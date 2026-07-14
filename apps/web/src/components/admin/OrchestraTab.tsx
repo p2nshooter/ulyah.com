@@ -90,6 +90,128 @@ function LiveHealth() {
   );
 }
 
+interface WorkerMeta {
+  name: string;
+  label: string;
+  capability: string;
+  desc: string;
+  inputs: string[];
+}
+interface RunResult {
+  ok?: boolean;
+  text?: string | null;
+  answer?: string;
+  translation?: string;
+  summary?: string;
+  servedBy?: string | null;
+  error?: string;
+  attempts?: { provider: string; ok: boolean; detail?: string }[];
+}
+
+function WorkerRunner() {
+  const [workers, setWorkers] = useState<WorkerMeta[] | null>(null);
+  const [sel, setSel] = useState<string>("");
+  const [inputs, setInputs] = useState<Record<string, string>>({});
+  const [result, setResult] = useState<RunResult | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    api
+      .get<{ workers: WorkerMeta[] }>("/ai/orchestra/workers")
+      .then((d) => {
+        setWorkers(d.workers);
+        if (d.workers[0]) setSel(d.workers[0].name);
+      })
+      .catch(() => setWorkers([]));
+  }, []);
+
+  const current = workers?.find((w) => w.name === sel);
+
+  async function run() {
+    if (!current) return;
+    setBusy(true);
+    setResult(null);
+    try {
+      const r = await api.post<RunResult>("/ai/orchestra/worker", { name: sel, input: inputs });
+      setResult(r);
+    } catch (err) {
+      setResult({ error: err instanceof Error ? err.message : "gagal" });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const output = result?.text ?? result?.answer ?? result?.translation ?? result?.summary ?? null;
+
+  return (
+    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <p className="font-heading text-sm">🧪 Coba Worker (uji engine langsung)</p>
+      {workers === null && <p className="mt-2 text-xs text-[var(--color-text-secondary)]">Memuat…</p>}
+      {workers && workers.length === 0 && (
+        <p className="mt-2 text-xs text-danger">Gagal memuat daftar worker (butuh login admin).</p>
+      )}
+      {current && (
+        <div className="mt-3 space-y-3">
+          <select
+            value={sel}
+            onChange={(e) => {
+              setSel(e.target.value);
+              setInputs({});
+              setResult(null);
+            }}
+            className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+          >
+            {workers!.map((w) => (
+              <option key={w.name} value={w.name}>
+                {w.label} — {w.capability}
+              </option>
+            ))}
+          </select>
+          <p className="text-[11px] text-[var(--color-text-secondary)]">{current.desc}</p>
+          {current.inputs.map((f) => (
+            <label key={f} className="block text-xs">
+              <span className="text-[var(--color-text-secondary)]">{f}</span>
+              <input
+                value={inputs[f] ?? ""}
+                onChange={(e) => setInputs((p) => ({ ...p, [f]: e.target.value }))}
+                className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              />
+            </label>
+          ))}
+          <button
+            onClick={run}
+            disabled={busy}
+            className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-white disabled:opacity-50"
+          >
+            {busy ? "Menjalankan…" : "▶ Jalankan"}
+          </button>
+
+          {result && (
+            <div className="rounded-lg bg-black/5 p-3 text-xs">
+              {output != null && <p className="whitespace-pre-wrap">{output}</p>}
+              {result.error && <p className="text-danger">{result.error}</p>}
+              {result.servedBy && (
+                <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]">Dilayani: {result.servedBy}</p>
+              )}
+              {result.attempts && result.attempts.length > 0 && (
+                <div className="mt-1 text-[10px] text-[var(--color-text-secondary)]">
+                  {result.attempts.map((a, i) => (
+                    <span key={i} className={a.ok ? "text-success" : "text-danger"}>
+                      {a.provider}
+                      {a.ok ? "✓" : "✗"}
+                      {i < result.attempts!.length - 1 ? " → " : ""}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
 type Status = "live" | "partial" | "planned";
 
 const STATUS_META: Record<Status, { label: string; cls: string }> = {
@@ -200,6 +322,7 @@ export function OrchestraTab() {
       </div>
 
       <LiveHealth />
+      <WorkerRunner />
 
       {/* Provider failover hierarchy */}
       <section>
