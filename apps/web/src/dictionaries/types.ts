@@ -101,6 +101,16 @@ export interface Dictionary {
     downloadAudiobook: string;
     downloadText: string;
     audioProcessing: string;
+    voiceModeTitle: string;
+    voiceAll: string;
+    voiceAllHint: string;
+    voiceArabic: string;
+    voiceArabicHint: string;
+    voiceTranslation: string;
+    voiceTranslationHint: string;
+    explanationTitle: string;
+    showExplanation: string;
+    hideExplanation: string;
   };
   explore: {
     title: string;

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "@/lib/api";
-import { usePlayerStore, LAYERS, MODE_PRESETS, type Layer, type QueueItem } from "@/lib/player-store";
+import { usePlayerStore, type Layer, type QueueItem } from "@/lib/player-store";
 import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
 import type { Dictionary } from "@/dictionaries";
@@ -32,22 +32,24 @@ interface Bundle {
   stories: { id: number; title: string; slug: string }[];
 }
 
-const PRESETS: { key: keyof typeof MODE_PRESETS; label: (d: Dictionary) => string; desc: (d: Dictionary) => string }[] = [
-  { key: "full", label: (d) => d.reader.modeAll, desc: (d) => d.reader.modeAllDesc },
-  { key: "ayah", label: (d) => d.reader.modeAyahOnly, desc: (d) => d.reader.modeAyahOnlyDesc },
-  { key: "translation", label: (d) => d.reader.modeTranslationOnly, desc: (d) => d.reader.modeTranslationOnlyDesc },
-  { key: "tafsir", label: (d) => d.reader.modeTafsirOnly, desc: (d) => d.reader.modeTafsirOnlyDesc },
-  { key: "hikmah", label: (d) => d.reader.modeHikmah, desc: (d) => d.reader.modeHikmahDesc },
+// The three plainly-labelled listening modes the reader offers, replacing the
+// old grid of five "understanding presets" + separate auto-play buttons that
+// visitors found confusing ("terlalu banyak tombol play"). Each one both sets
+// the narration layers AND starts playback in a single tap:
+//   • Baca Semua      → real qori murottal, then the translation is spoken
+//   • Baca Arab Saja  → only the imam's recitation
+//   • Baca Arti Saja  → only the spoken translation
+const VOICE_MODES: {
+  key: string;
+  layers: Layer[];
+  label: (d: Dictionary) => string;
+  hint: (d: Dictionary) => string;
+  icon: string;
+}[] = [
+  { key: "all", layers: ["ayah", "translation"], label: (d) => d.reader.voiceAll, hint: (d) => d.reader.voiceAllHint, icon: "🔊" },
+  { key: "arabic", layers: ["ayah"], label: (d) => d.reader.voiceArabic, hint: (d) => d.reader.voiceArabicHint, icon: "🕋" },
+  { key: "translation", layers: ["translation"], label: (d) => d.reader.voiceTranslation, hint: (d) => d.reader.voiceTranslationHint, icon: "🌍" },
 ];
-
-const LAYER_LABEL: Record<Layer, (d: Dictionary) => string> = {
-  ayah: (d) => d.reader.layerAyah,
-  translation: (d) => d.reader.translationLabel,
-  tafsir: (d) => d.reader.tafsirLabel,
-  asbabun: (d) => d.reader.asbabunNuzulLabel,
-  hadits: (d) => d.reader.haditsLabel,
-  kisah: (d) => d.reader.storyLabel,
-};
 
 const LAYER_ICON: Record<Layer, string> = {
   ayah: "۝",
@@ -58,8 +60,8 @@ const LAYER_ICON: Record<Layer, string> = {
   kisah: "✨",
 };
 
-function layersMatchPreset(layers: Layer[], preset: Layer[]): boolean {
-  return layers.length === preset.length && preset.every((l) => layers.includes(l));
+function sameLayers(a: Layer[], b: Layer[]): boolean {
+  return a.length === b.length && b.every((l) => a.includes(l));
 }
 
 /** Honest per-layer "nothing for this ayah" copy. Translation + tafsir cover
@@ -132,6 +134,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [loadError, setLoadError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [qoriCC, setQoriCC] = useState("all"); // country filter for the reciter picker below
+  const [showExplanation, setShowExplanation] = useState(true); // "Tafsir & Penjelasan" panel open by default
 
   // Tafsir source picker: which classical tafsir edition to show. `""` = the
   // reader's default (whatever /quran/ayah picked). Any other value is a slug
@@ -143,7 +146,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [editionTafsirLoading, setEditionTafsirLoading] = useState(false);
   const arabicRef = useRef<HTMLDivElement>(null);
 
-  const { layers, applyPreset, toggleLayer, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
+  const { layers, setLayers, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
     usePlayerStore();
 
   /** Choosing a country narrows the reciter list; if the currently selected
@@ -305,6 +308,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     buildQueue(n);
   }
 
+  /** One of the three listening modes: pick the narration layers, then play. */
+  function playVoiceMode(layerSet: Layer[]) {
+    setLayers(layerSet);
+    buildQueue(focus);
+  }
+
   function shareAyah() {
     const url = `${typeof window !== "undefined" ? window.location.origin : "https://ulyah.com"}/${locale}/quran?s=${selectedSurah?.id}&a=${focus}`;
     if (navigator.share) {
@@ -321,19 +330,18 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     queue[currentIndex]?.surahId === selectedSurah?.id && queue[currentIndex]?.number === focus && isPlaying;
 
   const e = emptyStates(locale);
-  // `null` text + bundle still loading  -> loading; bundle loaded but empty ->
-  // an honest per-layer message (most ayat genuinely have no specific asbabun
-  // nuzul or mapped hadith — that is a scholarly fact, not "coming soon").
   const bundleLoading = bundle === null;
-  const summary: { layer: Layer; icon: string; label: string; text: string | null; empty: string }[] = [
-    { layer: "translation", icon: LAYER_ICON.translation, label: dict.reader.translationLabel, text: focusRow?.translation ?? bundle?.translation?.text ?? null, empty: e.translation },
+  // Deeper study material for the collapsible "Tafsir & Penjelasan" panel.
+  // Translation is intentionally NOT here — it's already shown large with the
+  // Arabic verse — so the panel stays focused on tafsir, asbabun & hadits.
+  const explanation: { layer: Layer; icon: string; label: string; text: string | null; empty: string }[] = [
     { layer: "tafsir", icon: LAYER_ICON.tafsir, label: dict.reader.tafsirLabel, text: (tafsirEdition ? editionTafsir?.text : bundle?.tafsir[0]?.text) ?? null, empty: e.tafsir },
     { layer: "asbabun", icon: LAYER_ICON.asbabun, label: dict.reader.asbabunNuzulLabel, text: bundle?.asbabun_nuzul[0]?.text ?? null, empty: e.asbabun },
     { layer: "hadits", icon: LAYER_ICON.hadits, label: dict.reader.haditsLabel, text: bundle?.hadits[0] ? `“${bundle.hadits[0].text_id}” — ${bundle.hadits[0].narrator ?? ""} (${bundle.hadits[0].source})` : null, empty: e.hadits },
   ];
 
   return (
-    <div className="grid gap-4 desktop:grid-cols-[236px_1fr_300px]">
+    <div className="grid gap-4 desktop:grid-cols-[236px_1fr]">
       {/* ── Surah list ─────────────────────────────────────────── */}
       <aside className="card-premium-static p-3">
         <div className="mb-2 flex items-center justify-between">
@@ -346,7 +354,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
           placeholder={dict.nav.searchPlaceholder}
           className="mb-2 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-sm"
         />
-        <div className="scrollbar-thin max-h-72 overflow-y-auto pr-1 desktop:max-h-[520px]">
+        <div className="scrollbar-thin max-h-72 overflow-y-auto pr-1 desktop:max-h-[620px]">
           {filteredSurahs.map((s) => (
             <button
               key={s.id}
@@ -364,7 +372,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
         </div>
       </aside>
 
-      {/* ── Ayah focus + player ────────────────────────────────── */}
+      {/* ── Ayah focus + player + explanation ──────────────────── */}
       <div className="card-premium-static min-w-0 p-4 sm:p-6">
         {selectedSurah && (
           <>
@@ -387,10 +395,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   ›
                 </button>
                 <div>
-                  <p className="font-heading text-lg leading-tight">
-                    {dict.nav.quran.includes("Sur") ? "" : ""}
-                    {selectedSurah.name_transliteration}
-                  </p>
+                  <p className="font-heading text-lg leading-tight">{selectedSurah.name_transliteration}</p>
                   <p className="text-xs text-[var(--color-text-secondary)]">
                     {selectedSurah.ayah_count} {dict.reader.ayahLabel} ·{" "}
                     {selectedSurah.revelation_place === "meccan" ? dict.reader.meccan : dict.reader.medinan}
@@ -426,7 +431,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && focusRow && buildQueue(focus)}
-              title={dict.reader.autoPlay}
+              title={dict.reader.voiceAll}
               className={`mt-6 cursor-pointer rounded-2xl px-2 py-6 text-center transition hover:bg-accent/5 ${isThisAyahActive && activeLayer === "ayah" ? "ayah-active-highlight" : ""}`}
             >
               {loadingAyat ? (
@@ -464,9 +469,8 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               )}
             </div>
 
-            {/* Reciter picker — visible before playing, not tucked away in the
-                bottom player bar (which only appears once something is
-                already playing, and hides the picker button on mobile). */}
+            {/* Reciter (Imam) picker — country + reciter, with the imam's note
+                so the roster reads as complete (Imam Masjidil Haram, dst). */}
             <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-3 dark:bg-white/[0.02]">
               <p className="mb-2 text-sm font-medium">🎙️ {t.chooseReciter}</p>
               <div className="flex flex-wrap gap-2">
@@ -490,165 +494,153 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 >
                   {RECITERS.filter((r) => r.cdn !== "surah" && (qoriCC === "all" || r.cc === qoriCC)).map((r) => (
                     <option key={r.key} value={r.key}>
-                      {r.flag} {r.name} · {r.country}
+                      {r.flag} {r.name} — {r.note}
                     </option>
                   ))}
                 </select>
               </div>
             </div>
 
-            {/* Transport for this ayah */}
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-3 dark:bg-white/[0.02]">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => (isThisAyahActive ? usePlayerStore.getState().pause() : buildQueue(focus))}
-                  className="grid h-11 w-11 place-items-center rounded-full bg-primary text-white shadow-md transition hover:scale-105 dark:bg-accent dark:text-primary"
-                >
-                  {isThisAyahActive ? "⏸" : "▶"}
-                </button>
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => focusAndPlay(Math.max(1, focus - 1))}
-                    disabled={focus <= 1}
-                    className="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
-                  >
-                    ⏮
-                  </button>
-                  <button
-                    onClick={() => focusAndPlay(Math.min(selectedSurah.ayah_count, focus + 1))}
-                    disabled={focus >= selectedSurah.ayah_count}
-                    className="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
-                  >
-                    ⏭
-                  </button>
-                </div>
-              </div>
-              <button
-                onClick={() => buildQueue(focus)}
-                className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-md transition hover:brightness-105"
-              >
-                ▶ {dict.reader.autoPlay}
-              </button>
-            </div>
-
-            {/* Mode presets + fine-grained layer chips */}
-            <div className="mt-5">
-              <p className="mb-2 text-sm font-medium">{dict.reader.modeSectionTitle}</p>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 desktop:grid-cols-5">
-                {PRESETS.map((p) => {
-                  const active = layersMatchPreset(layers, MODE_PRESETS[p.key]);
+            {/* ── Three clear listening modes ──────────────────────
+                Baca Semua / Baca Arab Saja / Baca Arti Saja. One tap sets the
+                narration layers and starts playing — no separate "auto play"
+                button, no five-way preset grid. */}
+            <div className="mt-4">
+              <p className="mb-2 text-sm font-medium">{dict.reader.voiceModeTitle}</p>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                {VOICE_MODES.map((m) => {
+                  const active = sameLayers(layers, m.layers) && isThisAyahActive;
                   return (
                     <button
-                      key={p.key}
-                      onClick={() => applyPreset(p.key)}
-                      className={`rounded-xl border px-3 py-2 text-left text-xs transition ${
-                        active ? "border-accent bg-accent/10" : "border-[var(--color-border)] hover:border-accent/50"
+                      key={m.key}
+                      onClick={() => playVoiceMode(m.layers)}
+                      className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${
+                        active
+                          ? "border-accent bg-accent/10 shadow-sm"
+                          : "border-[var(--color-border)] hover:border-accent/50"
                       }`}
                     >
-                      <span className="block font-medium">{p.label(dict)}</span>
-                      <span className="mt-0.5 block text-[10px] leading-tight text-[var(--color-text-secondary)]">
-                        {p.desc(dict)}
+                      <span className="text-xl">{m.icon}</span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-medium">{m.label(dict)}</span>
+                        <span className="block text-[11px] leading-tight text-[var(--color-text-secondary)]">
+                          {m.hint(dict)}
+                        </span>
                       </span>
                     </button>
                   );
                 })}
               </div>
+            </div>
 
-              <p className="mb-2 mt-4 text-xs text-[var(--color-text-secondary)]">{dict.reader.chooseLayers}</p>
-              <div className="flex flex-wrap gap-2">
-                {LAYERS.map((l) => {
-                  const on = layers.includes(l);
-                  return (
-                    <button
-                      key={l}
-                      onClick={() => toggleLayer(l)}
-                      className={`rounded-full border px-3 py-1.5 text-xs transition ${
-                        on ? "border-accent bg-accent text-primary" : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
-                      }`}
-                    >
-                      {on ? "✓ " : ""}
-                      {LAYER_LABEL[l](dict)}
-                    </button>
-                  );
-                })}
-              </div>
+            {/* Minimal transport — play/pause the focused ayah + step ayat. */}
+            <div className="mt-4 flex items-center justify-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-3 dark:bg-white/[0.02]">
+              <button
+                onClick={() => focusAndPlay(Math.max(1, focus - 1))}
+                disabled={focus <= 1}
+                aria-label="previous ayah"
+                className="grid h-9 w-9 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
+              >
+                ⏮
+              </button>
+              <button
+                onClick={() => (isThisAyahActive ? usePlayerStore.getState().pause() : buildQueue(focus))}
+                aria-label={isThisAyahActive ? "pause" : "play"}
+                className="grid h-12 w-12 place-items-center rounded-full bg-primary text-lg text-white shadow-md transition hover:scale-105 dark:bg-accent dark:text-primary"
+              >
+                {isThisAyahActive ? "⏸" : "▶"}
+              </button>
+              <button
+                onClick={() => focusAndPlay(Math.min(selectedSurah.ayah_count, focus + 1))}
+                disabled={focus >= selectedSurah.ayah_count}
+                aria-label="next ayah"
+                className="grid h-9 w-9 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
+              >
+                ⏭
+              </button>
+            </div>
+
+            {/* ── Tafsir & Penjelasan (collapsible) ──────────────────
+                Replaces the old "Ringkasan Ayat Ini" side panel (which carried
+                a redundant play button and could error). Pure reading — tafsir
+                with an edition picker, asbabun nuzul, supporting hadith, and a
+                link to any related story. No playback controls here. */}
+            <div className="mt-5 rounded-xl border border-[var(--color-border)]">
+              <button
+                onClick={() => setShowExplanation((v) => !v)}
+                className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
+              >
+                <span className="flex items-center gap-2 text-sm font-medium text-primary dark:text-accent">
+                  <span>📖</span>
+                  {dict.reader.explanationTitle}
+                </span>
+                <span className="text-xs text-[var(--color-text-secondary)]">
+                  {showExplanation ? `▲ ${dict.reader.hideExplanation}` : `▼ ${dict.reader.showExplanation}`}
+                </span>
+              </button>
+
+              {showExplanation && (
+                <div className="space-y-3 border-t border-[var(--color-border)] p-4">
+                  {explanation.map((s) => {
+                    const isTafsir = s.layer === "tafsir";
+                    const tafsirLoading = isTafsir && tafsirEdition ? editionTafsirLoading : bundleLoading;
+                    const sourceName = isTafsir
+                      ? tafsirEdition
+                        ? editionTafsir?.source
+                        : bundle?.tafsir[0]?.source
+                      : undefined;
+                    return (
+                      <div key={s.layer} className="rounded-xl border border-[var(--color-border)] p-3">
+                        <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
+                          <span>{s.icon}</span>
+                          {s.label}
+                        </p>
+                        {/* Tafsir source picker — Ibn Kathir, Jalalayn, As-Sa'di,
+                            Al-Mukhtasar, Kemenag … (spa5k/tafsir_api). */}
+                        {isTafsir && tafsirEditions.length > 1 && (
+                          <select
+                            aria-label={dict.reader.tafsirLabel}
+                            value={tafsirEdition}
+                            onChange={(ev) => setTafsirEdition(ev.target.value)}
+                            className="mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1 text-[11px]"
+                          >
+                            <option value="">★ {dict.reader.tafsirLabel} — {tafsirEditions[0]?.name}</option>
+                            {tafsirEditions.map((ed) => (
+                              <option key={ed.slug} value={ed.slug}>
+                                {ed.name}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--color-text-secondary)]">
+                          {s.text ?? (tafsirLoading ? `${dict.common.loading}…` : s.empty)}
+                        </p>
+                        {isTafsir && sourceName && s.text && (
+                          <p className="mt-1 text-[10px] italic text-[var(--color-text-secondary)]/70">— {sourceName}</p>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {bundle?.stories && bundle.stories.length > 0 && (
+                    <div className="rounded-xl border border-[var(--color-border)] p-3">
+                      <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
+                        <span>✨</span>
+                        {dict.reader.storyLabel}
+                      </p>
+                      <a
+                        href={`/${locale}/kisah/${bundle.stories[0]!.slug}`}
+                        className="mt-1 block text-xs text-accent hover:underline"
+                      >
+                        {bundle.stories[0]!.title}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </>
         )}
       </div>
-
-      {/* ── Ringkasan Ayat Ini ─────────────────────────────────── */}
-      <aside className="card-premium-static p-4">
-        <p className="mb-3 font-heading text-sm">{dict.reader.ayahSummaryTitle}</p>
-        <div className="space-y-3">
-          {summary.map((s) => {
-            const isTafsir = s.layer === "tafsir";
-            const tafsirLoading = isTafsir && tafsirEdition ? editionTafsirLoading : bundleLoading;
-            const sourceName = isTafsir
-              ? tafsirEdition
-                ? editionTafsir?.source
-                : bundle?.tafsir[0]?.source
-              : undefined;
-            return (
-              <div
-                key={s.layer}
-                className={`rounded-xl border p-3 transition ${
-                  activeLayer === s.layer && isPlaying ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
-                }`}
-              >
-                <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
-                  <span>{s.icon}</span>
-                  {s.label}
-                </p>
-                {/* Tafsir source picker — lets the reader switch between the
-                    classical tafsirs the site pulls from spa5k/tafsir_api
-                    (Ibn Kathir, Jalalayn, As-Sa'di, Al-Mukhtasar, Kemenag …). */}
-                {isTafsir && tafsirEditions.length > 1 && (
-                  <select
-                    aria-label={dict.reader.tafsirLabel}
-                    value={tafsirEdition}
-                    onChange={(ev) => setTafsirEdition(ev.target.value)}
-                    className="mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1 text-[11px]"
-                  >
-                    <option value="">★ {dict.reader.tafsirLabel} — {tafsirEditions[0]?.name}</option>
-                    {tafsirEditions.map((ed) => (
-                      <option key={ed.slug} value={ed.slug}>
-                        {ed.name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                <p className="mt-1 line-clamp-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                  {s.text ?? (tafsirLoading ? `${dict.common.loading}…` : s.empty)}
-                </p>
-                {isTafsir && sourceName && s.text && (
-                  <p className="mt-1 text-[10px] italic text-[var(--color-text-secondary)]/70">— {sourceName}</p>
-                )}
-              </div>
-            );
-          })}
-          {bundle?.stories && bundle.stories.length > 0 && (
-            <div className="rounded-xl border border-[var(--color-border)] p-3">
-              <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
-                <span>✨</span>
-                {dict.reader.storyLabel}
-              </p>
-              <a
-                href={`/${locale}/kisah/${bundle.stories[0]!.slug}`}
-                className="mt-1 block text-xs text-accent hover:underline"
-              >
-                {bundle.stories[0]!.title}
-              </a>
-            </div>
-          )}
-        </div>
-        <button
-          onClick={() => buildQueue(focus)}
-          className="mt-4 w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-white transition hover:brightness-110 dark:bg-accent dark:text-primary"
-        >
-          ▶ {dict.reader.autoPlay}
-        </button>
-      </aside>
     </div>
   );
 }
