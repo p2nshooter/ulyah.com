@@ -184,6 +184,47 @@ export function capabilityRegistry(): Record<string, { provider: string; scope: 
   return CAPABILITY_CHAINS as unknown as Record<string, { provider: string; scope: string; model?: string }[]>;
 }
 
+// ── Self-test: the engine exercises its OWN workers against live keys ─────────
+// "test apakah worker mampu bekerja... harus orchestra core yg mengerjakan".
+// Each probe is a tiny fixed task run through the real failover chain, so the
+// result is honest proof of what actually works right now (and shows exactly
+// which provider served it). With no active key every probe reports ok:false —
+// the truth, not a fake pass.
+const SELF_TEST_PROBES: { capability: Capability; label: string; prompt: string }[] = [
+  { capability: "translate", label: "Translate Worker", prompt: "Translate to English, output ONLY the translation: Assalamualaikum, selamat pagi." },
+  { capability: "summarize", label: "Summary Worker", prompt: "Ringkas jadi 1 kalimat: Shalat lima waktu adalah kewajiban bagi setiap muslim yang balig dan berakal." },
+  { capability: "classify", label: "Classifier Worker", prompt: 'Balas JSON {"ok":true} saja.' },
+  { capability: "answer", label: "Answer Worker", prompt: "Jawab satu kalimat singkat: apa itu tafsir?" },
+  { capability: "reasoning", label: "Reasoning Worker", prompt: "Berapa 2+2? Jawab angka saja." },
+];
+
+export interface SelfTestRow {
+  capability: Capability;
+  label: string;
+  ok: boolean;
+  servedBy: string | null;
+  sample: string;
+  attempts: OrchestraAttempt[];
+}
+
+export async function selfTest(env: Env): Promise<{ rows: SelfTestRow[]; anyKeyActive: boolean }> {
+  const health = await orchestraHealth(env);
+  const anyKeyActive = health.some((h) => h.status === "active" && h.keys > 0);
+  const rows: SelfTestRow[] = [];
+  for (const p of SELF_TEST_PROBES) {
+    const r = await orchestrate(env, { capability: p.capability, prompt: p.prompt, timeoutMs: 20_000 });
+    rows.push({
+      capability: p.capability,
+      label: p.label,
+      ok: r.ok,
+      servedBy: r.servedBy,
+      sample: (r.text ?? "").replace(/\s+/g, " ").trim().slice(0, 140),
+      attempts: r.attempts,
+    });
+  }
+  return { rows, anyKeyActive };
+}
+
 // ── RAG Answer Worker: Database First ────────────────────────────────────────
 // The owner's core rule ("AI tidak boleh langsung mengambil jawaban dari
 // internet apabila database internal sudah memiliki referensi", "jawaban wajib
@@ -260,9 +301,19 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
  * nothing relevant, say so instead of inventing — never fabricate religious
  * rulings. Returns the answer plus the exact sources used.
  */
+// Specialist framings for the specialist AI chats. Same answer worker + RAG,
+// but a focused persona per field ("walaupun modelnya sama, promptnya beda").
+const SPECIALISTS: Record<string, string> = {
+  quran: "Kamu spesialis Al-Qur'an & tafsir.",
+  hadits: "Kamu spesialis hadits (fokus derajat & sumber).",
+  fiqih: "Kamu spesialis fiqih ibadah. Jika ada beda mazhab, sebutkan tanpa memihak.",
+  sirah: "Kamu spesialis sirah nabawiyah & sejarah Islam.",
+  akhlak: "Kamu spesialis akhlak & adab Islami.",
+};
+
 export async function answerGrounded(
   env: Env,
-  opts: { question: string; locale?: string }
+  opts: { question: string; locale?: string; specialist?: string }
 ): Promise<GroundedAnswer> {
   const locale = opts.locale ?? "id";
   const sources = await retrieveSources(env, opts.question, locale);
@@ -271,7 +322,8 @@ export async function answerGrounded(
     ? sources.map((s, i) => `[${i + 1}] ${s.ref}: ${s.text}`).join("\n")
     : "(tidak ada rujukan yang ditemukan di database Ulyah.com)";
 
-  const prompt = `Kamu asisten Islami ULYAH.COM. Jawab pertanyaan HANYA berdasarkan rujukan di bawah ini dari database Ulyah.com. Sebutkan nomor rujukan [1], [2] yang kamu pakai. Jika rujukan tidak memuat jawaban, katakan dengan jujur bahwa jawaban belum tersedia di database dan sarankan bertanya kepada ustadz — JANGAN mengarang dalil atau hukum. Bahasa jawaban: "${locale}".
+  const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM.";
+  const prompt = `${persona} Jawab pertanyaan HANYA berdasarkan rujukan di bawah ini dari database Ulyah.com. Sebutkan nomor rujukan [1], [2] yang kamu pakai. Jika rujukan tidak memuat jawaban, katakan dengan jujur bahwa jawaban belum tersedia di database dan sarankan bertanya kepada ustadz — JANGAN mengarang dalil atau hukum. Bahasa jawaban: "${locale}".
 
 RUJUKAN:
 ${context}

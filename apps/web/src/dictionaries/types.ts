@@ -49,6 +49,7 @@ export interface Dictionary {
     hijriCalendar: string;
     warisCalculator: string;
     imsakiyahRamadhan: string;
+    aiChat: string;
   };
   stats: {
     surah: string;

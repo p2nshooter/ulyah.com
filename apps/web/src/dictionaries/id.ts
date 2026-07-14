@@ -52,6 +52,7 @@ const id: Dictionary = {
     hijriCalendar: "Kalender Hijriyah",
     warisCalculator: "Kalkulator Waris",
     imsakiyahRamadhan: "Imsakiyah Ramadhan",
+    aiChat: "Tanya AI Islami",
   },
   stats: {
     surah: "114+",

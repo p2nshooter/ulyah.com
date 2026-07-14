@@ -52,6 +52,7 @@ const ru: Dictionary = {
     hijriCalendar: "Хиджра-календарь",
     warisCalculator: "Калькулятор наследства",
     imsakiyahRamadhan: "Имсакия Рамадана",
+    aiChat: "Спросить исламский ИИ",
   },
   stats: {
     surah: "114+",

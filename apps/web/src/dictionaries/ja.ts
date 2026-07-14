@@ -52,6 +52,7 @@ const ja: Dictionary = {
     hijriCalendar: "ヒジュラ暦",
     warisCalculator: "遺産分配計算機",
     imsakiyahRamadhan: "ラマダン断食時間表",
+    aiChat: "イスラームAIに質問",
   },
   stats: {
     surah: "114+",

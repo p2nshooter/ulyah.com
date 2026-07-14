@@ -52,6 +52,7 @@ const de: Dictionary = {
     hijriCalendar: "Hijri-Kalender",
     warisCalculator: "Erbschaftsrechner",
     imsakiyahRamadhan: "Ramadan-Imsakiyah",
+    aiChat: "Islamische KI fragen",
   },
   stats: {
     surah: "114+",

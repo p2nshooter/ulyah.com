@@ -52,6 +52,7 @@ const ar: Dictionary = {
     hijriCalendar: "التقويم الهجري",
     warisCalculator: "حاسبة المواريث",
     imsakiyahRamadhan: "إمساكية رمضان",
+    aiChat: "اسأل الذكاء الإسلامي",
   },
   stats: {
     surah: "+114",

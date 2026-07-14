@@ -3,7 +3,7 @@ import { extractJson } from "@ulyah/ai-engine";
 import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
-import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, type Capability } from "../lib/orchestra.js";
+import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, type Capability } from "../lib/orchestra.js";
 import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
@@ -149,10 +149,10 @@ aiRoute.post("/ask", async (c) => {
   const rl = await checkRateLimit(c.env, `ask:${c.req.header("cf-connecting-ip") ?? "anon"}`, 15, 3600);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded — silakan daftar untuk akses lebih.", registerHint: true }, 429);
 
-  const { question, locale } = await c.req.json<{ question: string; locale?: string }>();
+  const { question, locale, specialist } = await c.req.json<{ question: string; locale?: string; specialist?: string }>();
   if (!question || question.length > 500) return c.json({ error: "question required (max 500 chars)" }, 400);
 
-  const r = await answerGrounded(c.env, { question, locale });
+  const r = await answerGrounded(c.env, { question, locale, specialist });
   if (!r.ok || !r.text) {
     return c.json({ error: "AI belum tersedia (belum ada API key aktif di pool).", sources: r.sources, attempts: r.attempts }, 503);
   }
@@ -172,6 +172,12 @@ aiRoute.post("/orchestra/run", requireAdmin, async (c) => {
   if (!capability || !prompt) return c.json({ error: "capability and prompt required" }, 400);
   const r = await orchestrate(c.env, { capability, prompt });
   return c.json(r, r.ok ? 200 : 503);
+});
+
+// POST /ai/orchestra/self-test — the engine runs each worker against live
+// keys and reports what genuinely works right now (admin proof).
+aiRoute.post("/orchestra/self-test", requireAdmin, async (c) => {
+  return c.json(await selfTest(c.env));
 });
 
 // GET /ai/orchestra/workers — the named worker registry (the AI grouping).

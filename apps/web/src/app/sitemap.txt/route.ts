@@ -21,7 +21,7 @@ const BASE = "https://ulyah.com";
 
 const ROUTES = [
   "", "/quran", "/hadits", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/nasakh", "/audiobook",
-  "/harian", "/jadwal-sholat", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah",
+  "/harian", "/jadwal-sholat", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya",
   "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi",
 ];
 

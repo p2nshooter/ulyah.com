@@ -52,6 +52,7 @@ const fr: Dictionary = {
     hijriCalendar: "Calendrier hégirien",
     warisCalculator: "Calculateur d'héritage",
     imsakiyahRamadhan: "Imsakiyah du Ramadan",
+    aiChat: "Demander à l'IA islamique",
   },
   stats: {
     surah: "114+",

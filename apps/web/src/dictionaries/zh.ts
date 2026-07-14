@@ -52,6 +52,7 @@ const zh: Dictionary = {
     hijriCalendar: "伊斯兰历",
     warisCalculator: "遗产计算器",
     imsakiyahRamadhan: "斋月封斋表",
+    aiChat: "询问伊斯兰AI",
   },
   stats: {
     surah: "114+",

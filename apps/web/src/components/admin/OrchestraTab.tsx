@@ -248,6 +248,76 @@ function WorkerRunner() {
   );
 }
 
+interface SelfTestRow {
+  capability: string;
+  label: string;
+  ok: boolean;
+  servedBy: string | null;
+  sample: string;
+}
+
+function SelfTestPanel() {
+  const [rows, setRows] = useState<SelfTestRow[] | null>(null);
+  const [anyKey, setAnyKey] = useState<boolean | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function run() {
+    setBusy(true);
+    setErr(null);
+    try {
+      const r = await api.post<{ rows: SelfTestRow[]; anyKeyActive: boolean }>("/ai/orchestra/self-test", {});
+      setRows(r.rows);
+      setAnyKey(r.anyKeyActive);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Gagal menjalankan self-test");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="font-heading text-sm">✅ Self-Test Worker (mesin menguji dirinya)</p>
+        <button
+          onClick={run}
+          disabled={busy}
+          className="rounded-full border border-accent/50 bg-accent/10 px-3 py-1.5 text-[11px] font-medium text-accent disabled:opacity-50"
+        >
+          {busy ? "Menguji worker…" : "▶ Jalankan self-test"}
+        </button>
+      </div>
+      <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+        Orchestra Core menjalankan tiap worker (translate, summary, classifier, answer, reasoning) terhadap key aktif dan
+        melaporkan mana yang benar-benar bekerja + provider mana yang melayani.
+      </p>
+      {err && <p className="mt-2 text-xs text-danger">{err}</p>}
+      {anyKey === false && (
+        <p className="mt-2 rounded-lg bg-warning/10 p-2 text-[11px] text-warning">
+          Belum ada key aktif di pool — semua worker akan gagal sampai Anda isi minimal 1 key (Gemini/Groq/NVIDIA/…) di
+          tab Key Pool. Ini jujur, bukan pura-pura lolos.
+        </p>
+      )}
+      {rows && (
+        <div className="mt-3 space-y-1.5">
+          {rows.map((r) => (
+            <div key={r.capability} className="rounded-lg bg-black/5 p-2 text-[11px]">
+              <div className="flex items-center justify-between">
+                <span className="font-medium">
+                  {r.ok ? "✅" : "❌"} {r.label}
+                </span>
+                <span className="text-[var(--color-text-secondary)]">{r.servedBy ?? "—"}</span>
+              </div>
+              {r.ok && r.sample && <p className="mt-0.5 text-[var(--color-text-secondary)]">↳ {r.sample}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 type Status = "live" | "partial" | "planned";
 
 const STATUS_META: Record<Status, { label: string; cls: string }> = {
@@ -358,6 +428,7 @@ export function OrchestraTab() {
       </div>
 
       <LiveHealth />
+      <SelfTestPanel />
       <WorkerRunner />
 
       {/* Provider failover hierarchy */}
