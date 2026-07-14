@@ -20,6 +20,11 @@ export interface RadioLabels {
   khatamInProgress: string;
   khatamRotationNote: string;
   tapToUnmute: string;
+  installStandalone: string;
+  pageIntro: string;
+  brandTagline: string;
+  brandCta: string;
+  openRadioPage: string;
 }
 
 const EN: RadioLabels = {
@@ -40,6 +45,11 @@ const EN: RadioLabels = {
   khatamInProgress: "now on khatam #",
   khatamRotationNote: "Once every reciter has taken a turn, the rotation loops back to the first — forever.",
   tapToUnmute: "The radio is live — tap to hear it",
+  installStandalone: "Install as a standalone app",
+  pageIntro: "A live Qur'an radio that never stops — install it and keep the recitation with you, one tap from your home screen.",
+  brandTagline: "Listen, understand, and bring the Qur'an to life every day with Ulyah.",
+  brandCta: "Explore ULYAH.COM",
+  openRadioPage: "Open Radio · install as app",
 };
 
 const ID: RadioLabels = {
@@ -60,6 +70,11 @@ const ID: RadioLabels = {
   khatamInProgress: "sedang khataman ke-",
   khatamRotationNote: "Setelah seluruh qori kebagian giliran, rotasi kembali ke qori paling atas — begitu seterusnya.",
   tapToUnmute: "Radio sudah live — ketuk untuk dengar suaranya",
+  installStandalone: "Pasang sebagai aplikasi tersendiri",
+  pageIntro: "Radio Al-Qur'an yang hidup tanpa henti — pasang di ponsel Anda, murottal selalu menemani hanya dengan satu ketukan dari layar depan.",
+  brandTagline: "Dengarkan, pahami, dan hidupkan Al-Qur'an setiap hari bersama Ulyah.",
+  brandCta: "Jelajahi ULYAH.COM",
+  openRadioPage: "Buka Radio · pasang jadi aplikasi",
 };
 
 const AR: RadioLabels = {
@@ -80,6 +95,11 @@ const AR: RadioLabels = {
   khatamInProgress: "الختمة الحالية رقم",
   khatamRotationNote: "بعد أن يأخذ كل قارئ دوره، يعود الترتيب إلى القارئ الأول — وهكذا إلى الأبد.",
   tapToUnmute: "الراديو يعمل الآن مباشرة — اضغط للاستماع",
+  installStandalone: "ثبّته كتطبيق مستقل",
+  pageIntro: "راديو قرآني حي لا يتوقف — ثبّته على هاتفك لتبقى التلاوة معك بضغطة واحدة من الشاشة الرئيسية.",
+  brandTagline: "استمع وافهم وأحيِ القرآن كل يوم مع أُليَه.",
+  brandCta: "استكشف ULYAH.COM",
+  openRadioPage: "افتح الراديو · ثبّته كتطبيق",
 };
 
 const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR };

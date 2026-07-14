@@ -37,6 +37,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             <li><Link href={`/${locale}/kitab`}>{dict.nav.kitab}</Link></li>
             <li><Link href={`/${locale}/kitab-pesantren`}>Kitab Pesantren</Link></li>
             <li><Link href={`/${locale}/amalan`}>Amalan Harian</Link></li>
+            <li><Link href={`/${locale}/radio`}>Radio Qur'an</Link></li>
             <li><Link href={`/${locale}/nasakh`}>Nasakh & Mansukh</Link></li>
             <li><Link href={`/${locale}/hadits`}>{dict.nav.hadits}</Link></li>
             <li><Link href={`/${locale}/kisah`}>{dict.nav.kisah}</Link></li>
