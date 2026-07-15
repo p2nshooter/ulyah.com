@@ -196,13 +196,30 @@ async function executeQueuedJobs(
         }
       }
 
-      const status = draft.factCheckVerdict === "pass" && draft.confidence >= 0.6 ? "pending_review" : "draft";
+      // Content that both passes the automated fact-check AND scores high
+      // confidence goes straight to 'published' — the review queue used to
+      // gate EVERY AI story behind a human click no matter how solid it was,
+      // which stalled the site's "never stop growing" content pipeline on
+      // whether anyone happened to check the admin portal that day (this is
+      // exactly why several categories sat empty despite jobs running).
+      // Anything that passes fact-check but scored more modestly still goes
+      // to human review rather than auto-publishing — a sensible quality
+      // floor for a religious-content site. Anything that fails fact-check
+      // stays a private draft for a future re-generation attempt.
+      const AUTO_PUBLISH_CONFIDENCE = 0.85;
+      const passed = draft.factCheckVerdict === "pass";
+      const status =
+        passed && draft.confidence >= AUTO_PUBLISH_CONFIDENCE
+          ? "published"
+          : passed && draft.confidence >= 0.6
+            ? "pending_review"
+            : "draft";
 
       await env.DB.prepare(
-        `INSERT INTO stories (title, slug, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id)
-         VALUES (?, ?, ?, ?, 1, 'draft_audio', 'ai_original', ?, ?, ?)`
+        `INSERT INTO stories (title, slug, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id, published_at)
+         VALUES (?, ?, ?, ?, 1, 'draft_audio', 'ai_original', ?, ?, ?, CASE WHEN ? = 'published' THEN datetime('now') ELSE NULL END)`
       )
-        .bind(draft.title, uniqueSlug(draft.slug, job.id), categoryId, draft.body, status, draft.confidence, job.target_id)
+        .bind(draft.title, uniqueSlug(draft.slug, job.id), categoryId, draft.body, status, draft.confidence, job.target_id, status)
         .run();
 
       await env.DB.prepare(
