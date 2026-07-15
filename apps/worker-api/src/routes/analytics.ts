@@ -40,22 +40,3 @@ analyticsRoute.post("/install", async (c) => {
   return c.json({ ok: true });
 });
 
-// POST /analytics/ad-event — first-party ad analytics beacon (see AdSlot.tsx).
-// type = 'impression' (ad unit rendered) | 'click' (best-effort focus/blur
-// heuristic — an estimate, since the real click happens inside a cross-origin
-// Google iframe). Country from the edge header, never client input.
-analyticsRoute.post("/ad-event", async (c) => {
-  const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `adevent:${ip}`, 120, 60);
-  if (!rl.allowed) return c.json({ ok: false }, 429);
-
-  const { type, page } = await c.req.json<{ type?: string; page?: string }>().catch(() => ({}) as any);
-  const eventType = type === "click" ? "click" : "impression";
-  const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
-
-  await c.env.DB.prepare("INSERT INTO ad_events (event_type, page, country) VALUES (?, ?, ?)")
-    .bind(eventType, String(page ?? "/").slice(0, 200), country)
-    .run();
-
-  return c.json({ ok: true });
-});
