@@ -41,25 +41,34 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale: raw, slug } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const data = await fetchKitab(slug);
   if (!data) return { title: "Kitab — ULYAH.COM" };
   const k = data.kitab;
   return {
     title: `${k.title_id} — Kitab Pesantren · ULYAH.COM`,
     description: `${k.title_id} (${k.title_ar}) karya ${k.author ?? "ulama klasik"}. ${k.description_id ?? ""}`.trim(),
+    alternates: { canonical: `/${locale}/kitab-pesantren/${slug}` },
+    // Its own manifest ("widget per buku") — the browser's install prompt
+    // names the app after THIS specific kitab, not the library as a whole,
+    // and scopes it to only this book's route (see manifest-kitab route.ts).
+    manifest: `/manifest-kitab.webmanifest?slug=${slug}&locale=${locale}`,
   };
 }
 
 export default async function KitabPesantrenDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<{ install?: string }>;
 }) {
   const { locale: raw, slug } = await params;
+  const { install } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const data = await fetchKitab(slug);
   if (!data) notFound();
 
-  return <PesantrenKitabReader locale={locale} kitab={data.kitab} chapters={data.chapters} />;
+  return <PesantrenKitabReader locale={locale} kitab={data.kitab} chapters={data.chapters} autoPromptInstall={install === "1"} />;
 }
