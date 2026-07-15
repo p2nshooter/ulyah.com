@@ -3,7 +3,6 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
-import { AdSlot } from "@/components/AdSlot";
 import { InstallAppButton } from "@/components/InstallAppButton";
 
 interface QuranRef {
@@ -196,7 +195,6 @@ export function PesantrenKitabReader({
 
       {/* Ad after the kitab title/header (per Kitab placement plan) */}
       <div className="mt-5">
-        <AdSlot minHeight={110} format="horizontal" position="Kitab — setelah judul kitab" />
       </div>
 
       <div className="mt-6 grid gap-6 desktop:grid-cols-[240px_1fr]">
@@ -299,12 +297,8 @@ export function PesantrenKitabReader({
                 className={`mt-5 space-y-5 rounded-2xl transition-opacity duration-200 ${pageTurn ? "opacity-0" : "opacity-100"} ${theme !== "light" ? "p-4" : ""}`}
                 style={THEME_STYLE[theme]}
               >
-                {current.matn.map((m, mi) => (
+                {current.matn.map((m) => (
                   <Fragment key={m.id}>
-                  {/* Mid-content ad after the 2nd matan (per Kitab placement plan) */}
-                  {mi === 2 && (
-                    <AdSlot minHeight={110} format="rectangle" position="Kitab — tengah isi bab" />
-                  )}
                   <article
                     className={`card-premium-static p-5 ${theme !== "light" ? "border-accent/20" : ""}`}
                     style={THEME_STYLE[theme]}
@@ -398,7 +392,6 @@ export function PesantrenKitabReader({
                 ))}
 
                 {/* Ad at the end of the bab, before prev/next (per plan) */}
-                <AdSlot minHeight={110} format="horizontal" position="Kitab — akhir bab / sebelum navigasi" />
               </div>
 
               {/* Prev / next bab */}

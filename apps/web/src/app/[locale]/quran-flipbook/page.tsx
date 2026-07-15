@@ -5,7 +5,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { flipbookLabels } from "@/lib/flipbook-labels";
 import { QuranFlipbook } from "@/components/QuranFlipbook";
 import { InstallAppButton } from "@/components/InstallAppButton";
-import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -50,7 +49,6 @@ export default async function QuranFlipbookPage({
         </div>
 
         <div className="mt-8">
-          <AdSlot minHeight={110} format="rectangle" />
         </div>
 
         <div className="mt-8 overflow-hidden rounded-3xl bg-[#06251b] p-8 text-center text-[#f4efe3]">

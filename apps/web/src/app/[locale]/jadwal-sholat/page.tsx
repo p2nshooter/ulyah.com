@@ -6,7 +6,6 @@ import { prayerLabels } from "@/lib/prayer-labels";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { InstallAppButton } from "@/components/InstallAppButton";
-import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -84,7 +83,6 @@ export default async function JadwalSholatPage({
         </div>
 
         <div className="mt-6">
-          <AdSlot minHeight={110} format="rectangle" />
         </div>
       </div>
     </div>

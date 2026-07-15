@@ -141,7 +141,7 @@ export default async function LocaleLayout({
         {/* This site shows NO ads anywhere — no AdSense, no Adsterra. This
             meta tag only proves domain ownership for a future AdSense
             application; it does not load any ad script and never will on its
-            own. AdSlot (used across many pages) is a permanent no-op. */}
+            own. */}
         <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>

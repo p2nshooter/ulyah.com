@@ -4,7 +4,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { StoryReader } from "@/components/StoryReader";
-import { AdSlot } from "@/components/AdSlot";
 import { StoryDownloads } from "@/components/StoryDownloads";
 
 interface StoryDetail {
@@ -138,7 +137,6 @@ export default async function KisahDetailPage({
       </div>
 
       <div className="mt-10">
-        <AdSlot minHeight={110} />
       </div>
 
       {nextEpisode && (

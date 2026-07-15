@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import { qiblaLabels } from "@/lib/qibla-labels";
 import { qiblaBearing, qiblaDistanceKm } from "@/lib/qibla";
-import { AdSlot } from "@/components/AdSlot";
 
 interface GeoResponse {
   city: string | null;
@@ -235,7 +234,6 @@ export function QiblaCompass({ locale }: { locale: string }) {
       <p className="text-center text-xs leading-relaxed text-[var(--color-text-secondary)]">{t.howToUse}</p>
       <p className="text-center text-[11px] text-[var(--color-text-secondary)]/70">{t.manualNote}</p>
 
-      <AdSlot position="qibla-bottom" />
     </div>
   );
 }

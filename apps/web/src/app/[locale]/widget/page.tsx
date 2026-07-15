@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { AdSlot } from "@/components/AdSlot";
 
 interface WidgetCard {
   emoji: string;
@@ -86,7 +85,6 @@ export default async function WidgetHubPage({ params }: { params: Promise<{ loca
         </div>
 
         <div className="mt-6">
-          <AdSlot minHeight={110} format="horizontal" />
         </div>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
@@ -113,7 +111,6 @@ export default async function WidgetHubPage({ params }: { params: Promise<{ loca
         </div>
 
         <div className="mt-10">
-          <AdSlot minHeight={110} format="rectangle" />
         </div>
       </div>
     </div>

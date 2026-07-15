@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { warisLabels } from "@/lib/waris-labels";
 import { calculateWaris, type WarisInput } from "@/lib/waris";
-import { AdSlot } from "@/components/AdSlot";
 
 function toNumber(v: string): number {
   const n = Number(v.replace(/,/g, ""));
@@ -254,7 +253,6 @@ export function WarisCalculator({ locale }: { locale: string }) {
         </div>
       </section>
 
-      <AdSlot position="waris-mid" />
 
       <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
         <p className="font-heading text-lg">{t.resultsTitle}</p>

@@ -3,7 +3,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
 import { NasakhLibrary } from "@/components/NasakhLibrary";
-import { AdSlot } from "@/components/AdSlot";
 
 export const revalidate = 300;
 
@@ -52,7 +51,6 @@ export default async function NasakhPage({ params }: { params: Promise<{ locale:
         />
       </div>
       <div className="mx-auto mt-6 max-w-4xl px-4 sm:px-6">
-        <AdSlot minHeight={110} format="horizontal" />
       </div>
 
       {entries.length === 0 ? (

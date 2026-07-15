@@ -4,7 +4,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
-import { AdSlot } from "@/components/AdSlot";
 
 interface CollectionMeta {
   slug: string;
@@ -141,7 +140,6 @@ export default async function HaditsCollectionPage({
       </div>
 
       <div className="mt-8">
-        <AdSlot minHeight={110} />
       </div>
 
       <nav className="mt-8 flex items-center justify-between gap-3 text-sm">
