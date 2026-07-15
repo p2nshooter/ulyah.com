@@ -247,7 +247,7 @@ const STOPWORDS = new Set([
 ]);
 
 export interface GroundingSource {
-  kind: "ayah" | "hadits";
+  kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
   ref: string;
   text: string;
   url: string; // locale-relative deep link into ulyah.com (frontend prepends /{locale})
@@ -267,19 +267,25 @@ function keywords(q: string): string[] {
   )].slice(0, 5);
 }
 
+/** RAG retrieval across the WHOLE Ulyah.com database — not just ayat/hadits.
+ * Every result carries a real deep link into an existing page on the site,
+ * so the chat's citations are never dead ends: Qur'an + tafsir, hadits,
+ * kisah (Nabi/Sahabat/Ulama profiles + full story series), kitab (Shamela
+ * catalogue), and Amalan Harian (doa/dzikir). Each table is queried
+ * independently and failures are non-fatal (a sparse table for this locale
+ * or a schema not yet migrated never breaks the whole answer). */
 async function retrieveSources(env: Env, question: string, locale: string): Promise<GroundingSource[]> {
   const kws = keywords(question);
   if (kws.length === 0) return [];
-  const likeAyah = kws.map(() => "t.text LIKE ?").join(" OR ");
-  const likeHad = kws.map(() => "text_id LIKE ?").join(" OR ");
   const params = kws.map((k) => `%${k}%`);
   const sources: GroundingSource[] = [];
 
   try {
+    const likeAyah = kws.map(() => "t.text LIKE ?").join(" OR ");
     const { results: ayat } = await env.DB.prepare(
       `SELECT a.surah_id AS surah_id, a.number AS number, t.text AS text
        FROM translation t JOIN ayah a ON a.id = t.ayah_id
-       WHERE t.lang = ? AND (${likeAyah}) LIMIT 6`
+       WHERE t.lang = ? AND (${likeAyah}) LIMIT 5`
     )
       .bind(locale, ...params)
       .all<{ surah_id: number; number: number; text: string }>();
@@ -290,8 +296,29 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
   }
 
   try {
+    const likeTafsir = kws.map(() => "tf.text LIKE ?").join(" OR ");
+    const { results: tf } = await env.DB.prepare(
+      `SELECT a.surah_id AS surah_id, a.number AS number, tf.source AS source, tf.text AS text
+       FROM tafsir tf JOIN ayah a ON a.id = tf.ayah_id
+       WHERE tf.status = 'published' AND (${likeTafsir}) LIMIT 4`
+    )
+      .bind(...params)
+      .all<{ surah_id: number; number: number; source: string; text: string }>();
+    for (const t of tf)
+      sources.push({
+        kind: "tafsir",
+        ref: `Tafsir QS ${t.surah_id}:${t.number} (${t.source})`,
+        text: t.text,
+        url: `/quran?surah=${t.surah_id}&ayah=${t.number}`,
+      });
+  } catch {
+    /* non-fatal */
+  }
+
+  try {
+    const likeHad = kws.map(() => "text_id LIKE ?").join(" OR ");
     const { results: had } = await env.DB.prepare(
-      `SELECT collection, grade, text_id FROM hadits WHERE (${likeHad}) AND text_id IS NOT NULL LIMIT 6`
+      `SELECT collection, grade, text_id FROM hadits WHERE (${likeHad}) AND text_id IS NOT NULL LIMIT 5`
     )
       .bind(...params)
       .all<{ collection: string; grade: string | null; text_id: string }>();
@@ -301,6 +328,63 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
         ref: `HR ${h.collection}${h.grade ? ` (${h.grade})` : ""}`,
         text: h.text_id,
         url: `/hadits/${h.collection}`,
+      });
+  } catch {
+    /* non-fatal */
+  }
+
+  try {
+    const likePerson = kws.map(() => "(name_id LIKE ? OR summary_id LIKE ?)").join(" OR ");
+    const personParams = kws.flatMap((k) => [`%${k}%`, `%${k}%`]);
+    const { results: persons } = await env.DB.prepare(
+      `SELECT slug, name_id, summary_id, full_story_slug FROM kisah_person WHERE (${likePerson}) LIMIT 3`
+    )
+      .bind(...personParams)
+      .all<{ slug: string; name_id: string; summary_id: string; full_story_slug: string | null }>();
+    for (const p of persons)
+      sources.push({
+        kind: "kisah",
+        ref: `Kisah — ${p.name_id}`,
+        text: p.summary_id,
+        url: p.full_story_slug ? `/kisah/${p.full_story_slug}` : `/kisah/tokoh/${p.slug}`,
+      });
+  } catch {
+    /* migration 0025 may not be applied yet on an older DB — non-fatal */
+  }
+
+  try {
+    const likeKitab = kws.map(() => "(title_ar LIKE ? OR description_ar LIKE ?)").join(" OR ");
+    const kitabParams = kws.flatMap((k) => [`%${k}%`, `%${k}%`]);
+    const { results: books } = await env.DB.prepare(
+      `SELECT id, title_ar, author, description_ar FROM kitab_book WHERE (${likeKitab}) LIMIT 3`
+    )
+      .bind(...kitabParams)
+      .all<{ id: number; title_ar: string; author: string | null; description_ar: string | null }>();
+    for (const b of books)
+      sources.push({
+        kind: "kitab",
+        ref: `Kitab — ${b.title_ar}${b.author ? ` (${b.author})` : ""}`,
+        text: b.description_ar ?? b.title_ar,
+        url: `/kitab/book/${b.id}`,
+      });
+  } catch {
+    /* non-fatal */
+  }
+
+  try {
+    const likeAmalan = kws.map(() => "(title_id LIKE ? OR translation_id LIKE ?)").join(" OR ");
+    const amalanParams = kws.flatMap((k) => [`%${k}%`, `%${k}%`]);
+    const { results: amalan } = await env.DB.prepare(
+      `SELECT category_slug, title_id, translation_id, source FROM amalan_item WHERE (${likeAmalan}) LIMIT 3`
+    )
+      .bind(...amalanParams)
+      .all<{ category_slug: string; title_id: string; translation_id: string | null; source: string | null }>();
+    for (const am of amalan)
+      sources.push({
+        kind: "amalan",
+        ref: `Amalan — ${am.title_id}${am.source ? ` (${am.source})` : ""}`,
+        text: am.translation_id ?? am.title_id,
+        url: `/amalan`,
       });
   } catch {
     /* non-fatal */
@@ -347,17 +431,17 @@ export async function answerGrounded(
   const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM yang bijaksana, santun, dan elegan.";
   const prompt = `${persona}
 
-Tugasmu: berikan JAWABAN yang jelas, utuh, dan bermanfaat atas pertanyaan pengguna — bukan sekadar daftar rujukan. Tulis 2–4 paragraf yang mengalir dengan bahasa yang lembut, bijak, dan penuh adab.
+Tugasmu: mengobrol secara natural dan cerdas seperti asisten AI kelas dunia (gaya ChatGPT) — tapi seluruh wawasanmu berakar dari database ULYAH.COM (Al-Qur'an & tafsir, hadits, kisah Nabi/Sahabat/Ulama, kitab, amalan harian). Jawab dengan percakapan yang hangat dan mengalir, bukan robotik, bukan sekadar daftar rujukan.
 
 Panduan:
-- Mulai dengan jawaban yang tegas dan jelas atas inti pertanyaan, lalu perkaya dengan penjelasan.
-- Gunakan rujukan di bawah ini bila relevan dan sebutkan nomornya [1], [2] di tempat yang tepat — tetapi rujukan adalah pendukung, bukan pengganti jawaban.
+- Mulai dengan jawaban yang tegas dan jelas atas inti pertanyaan, lalu kembangkan dengan penjelasan, konteks, dan contoh secukupnya — panjang jawaban menyesuaikan kompleksitas pertanyaan (pertanyaan sederhana cukup singkat, pertanyaan mendalam boleh beberapa paragraf).
+- WAJIB gunakan rujukan di bawah ini ketika relevan dan sebutkan nomornya [1], [2] tepat di kalimat yang didukungnya — setiap rujukan yang kamu sebut akan tampil sebagai tautan yang bisa diklik pengguna menuju halaman aslinya di ulyah.com, jadi sebutkan serelevan dan sesering mungkin agar pengguna terdorong menelusuri halaman aslinya.
 - Jika rujukan yang tersedia belum mencakup detailnya, tetap jawab berdasarkan pemahaman umum yang mapan di kalangan ulama dengan rendah hati, lalu tutup dengan ajakan lembut untuk mendalami lebih lanjut atau bermusyawarah dengan ahli ilmu untuk kepastian pada perkara yang rinci.
 - JANGAN pernah menulis kalimat seperti "belum tersedia di database", "tidak ada rujukan", atau menolak menjawab. Jawablah dengan anggun.
 - JANGAN mengarang nomor hadits, kutipan persis, atau menisbatkan hukum palsu; bila tidak yakin pada rincian, sampaikan secara umum dan bijak.
-- Bahasa jawaban: kode "${locale}".
+- Bahasa jawaban WAJIB konsisten memakai kode locale "${locale}" dari awal sampai akhir — jangan bercampur dengan bahasa lain.
 
-RUJUKAN PENDUKUNG (opsional dipakai):
+RUJUKAN DARI DATABASE ULYAH.COM (opsional dipakai, sebut nomornya bila dipakai):
 ${context}
 
 PERTANYAAN: ${opts.question}

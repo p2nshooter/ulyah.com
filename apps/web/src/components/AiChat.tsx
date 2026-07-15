@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { api } from "@/lib/api";
 import { AdSlot } from "@/components/AdSlot";
 
 interface Source {
-  kind: "ayah" | "hadits";
+  kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
   ref: string;
   text: string;
   url?: string;
@@ -27,12 +28,15 @@ const SPECIALISTS: { key: string; label: string }[] = [
 ];
 
 /**
- * Landing / member AI chat — every answer is produced by Orchestra Core's
- * RAG "answer worker" (POST /ai/ask): it retrieves ayat + hadith from Ulyah's
- * own database and answers ONLY from those, with citations. The specialist
- * chips just pick a focused persona for the same grounded worker. Guests are
- * capped (15/hour) server-side and nudged to register when the limit hits —
- * the paid/premium specialist chats build on this exact pipeline.
+ * Landing / Tanya AI chat — free for everyone, no paid tier, no member
+ * account required. Every answer comes from Orchestra Core's RAG "answer
+ * worker" (POST /ai/ask): it retrieves relevant ayat, tafsir, hadits, kisah
+ * profiles, kitab, and amalan from Ulyah's own database and answers from
+ * that context, citing each source with a real link into the matching page
+ * on ulyah.com — clicking a reference takes the visitor straight there.
+ * Guests get a generous rate limit (15/hour, anti-abuse only, not a paywall)
+ * and are nudged toward donor registration when it's hit, purely as a way to
+ * lift the limit — never a gate on the chat itself.
  */
 export function AiChat({ locale }: { locale: string }) {
   const [specialist, setSpecialist] = useState("master");
@@ -59,7 +63,7 @@ export function AiChat({ locale }: { locale: string }) {
     } catch (e) {
       const msg = e instanceof Error ? e.message : "";
       if (msg.includes("429") || /limit/i.test(msg)) {
-        setNotice("Anda telah bertanya cukup banyak untuk saat ini 🌷. Silakan bergabung sebagai anggota untuk melanjutkan tanpa batas.");
+        setNotice("Anda telah bertanya cukup banyak untuk saat ini 🌷. Daftar sebagai donatur agar batasnya lebih longgar.");
       } else {
         setNotice("Mohon maaf, layanan ini sedang kami siapkan dengan sebaik-baiknya. Silakan mencoba kembali sesaat lagi, insyaAllah.");
       }
@@ -93,8 +97,8 @@ export function AiChat({ locale }: { locale: string }) {
       >
         {msgs.length === 0 && (
           <p className="text-center text-sm text-[var(--color-text-secondary)]">
-            Tanyakan tentang Al-Qur'an, hadits, fiqih, atau adab. Jawaban diambil dari database ULYAH.COM beserta
-            rujukannya.
+            Tanyakan apa saja tentang Al-Qur'an, tafsir, hadits, fiqih, kisah, atau kitab. Jawaban diambil dari
+            seluruh database ULYAH.COM, lengkap dengan rujukan yang bisa Anda buka langsung.
           </p>
         )}
         {msgs.map((m, i) => (
@@ -107,12 +111,22 @@ export function AiChat({ locale }: { locale: string }) {
               <p className="whitespace-pre-wrap">{m.text}</p>
               {m.sources && m.sources.length > 0 && (
                 <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-2 text-[11px] text-[var(--color-text-secondary)]">
-                  <p className="font-medium">Rujukan (silakan buka Al-Qur'an / Hadits untuk menelaahnya):</p>
-                  {m.sources.map((s, j) => (
-                    <p key={j}>
-                      <span className="font-medium text-accent">[{j + 1}] {s.ref}</span> — {s.text.slice(0, 120)}
-                    </p>
-                  ))}
+                  <p className="font-medium">Rujukan dari ULYAH.COM:</p>
+                  {m.sources.map((s, j) =>
+                    s.url ? (
+                      <Link
+                        key={j}
+                        href={`/${locale}${s.url}`}
+                        className="block text-accent hover:underline"
+                      >
+                        [{j + 1}] {s.ref} →
+                      </Link>
+                    ) : (
+                      <p key={j}>
+                        <span className="font-medium text-accent">[{j + 1}] {s.ref}</span> — {s.text.slice(0, 120)}
+                      </p>
+                    )
+                  )}
                 </div>
               )}
             </div>
@@ -141,8 +155,8 @@ export function AiChat({ locale }: { locale: string }) {
       </div>
 
       <p className="text-center text-[11px] text-[var(--color-text-secondary)]">
-        Jawaban berbasis database ULYAH.COM &amp; bersitasi. Untuk keputusan hukum penting, tetap rujuk ke ustadz
-        terpercaya.
+        Jawaban berbasis database ULYAH.COM &amp; bersitasi, gratis tanpa batas wajar. Untuk keputusan hukum
+        penting, tetap rujuk ke ustadz terpercaya.
       </p>
 
       <AdSlot position="tanya-bottom" />

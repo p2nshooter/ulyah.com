@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { translateText, translateCachedOnly } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
+import { extractSanadChain } from "../lib/sanad.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
@@ -495,6 +496,46 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
   }));
 
   return c.json({ kitab, chapters });
+});
+
+// ── Sanad Explorer — narrator chain extracted from the hadith's own text ──
+// See lib/sanad.ts: pattern-extracted from `text_ar`, never invented. Admin-
+// facing "mata rantai sanad" tool: pick a collection/hadith, see the chain.
+
+// GET /content/hadits/:collection/:number/sanad — one hadith's extracted
+// narrator chain plus its own Arabic text (so the extraction is auditable
+// against its source in the same response, never a black box).
+contentRoute.get("/hadits/:collection/:number/sanad", async (c) => {
+  const slug = c.req.param("collection");
+  const number = Number(c.req.param("number"));
+  const row = await c.env.DB.prepare(
+    "SELECT id, hadith_number, text_ar, source FROM hadits WHERE collection = ? AND hadith_number = ?"
+  )
+    .bind(slug, number)
+    .first<{ id: number; hadith_number: number; text_ar: string | null; source: string }>();
+  if (!row) return c.json({ error: "Hadith not found" }, 404);
+  return c.json({
+    hadith: { id: row.id, hadith_number: row.hadith_number, text_ar: row.text_ar, source: row.source },
+    chain: extractSanadChain(row.text_ar),
+  });
+});
+
+// GET /content/hadits/:collection/sanad-sample?limit= — a batch of chains for
+// the admin Sanad Explorer overview (default 20 per collection).
+contentRoute.get("/hadits/:collection/sanad-sample", async (c) => {
+  const slug = c.req.param("collection");
+  const limit = Math.min(50, Number(c.req.query("limit") ?? "20"));
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, hadith_number, text_ar FROM hadits WHERE collection = ? ORDER BY hadith_number LIMIT ?"
+  )
+    .bind(slug, limit)
+    .all<{ id: number; hadith_number: number; text_ar: string | null }>();
+  const sample = results.map((r) => ({
+    id: r.id,
+    hadith_number: r.hadith_number,
+    chain: extractSanadChain(r.text_ar),
+  }));
+  return c.json({ collection: slug, sample });
 });
 
 // ── Kisah person index (Nabi/Sahabat/Ulama "click a name" navigation) ─────

@@ -70,25 +70,26 @@ function sameLayers(a: Layer[], b: Layer[]): boolean {
 }
 
 /** Honest per-layer "nothing for this ayah" copy. Translation + tafsir cover
- * every ayah, so an empty one there means a transient source hiccup ("being
- * prepared"). Asbabun nuzul and a mapped hadith genuinely don't exist for
- * most ayat — say so plainly rather than implying content is still coming. */
+ * every ayah, so an empty one there is a transient fetch hiccup, framed as a
+ * loading failure (not "still being prepared" — the content itself already
+ * exists in full). Asbabun nuzul and a mapped hadith genuinely don't exist
+ * for most ayat — say so plainly rather than implying content is coming. */
 function emptyStates(locale: string): { translation: string; tafsir: string; asbabun: string; hadits: string } {
   const ID = {
-    translation: "Terjemahan sedang disiapkan, coba muat ulang sebentar lagi.",
-    tafsir: "Tafsir sedang disiapkan, coba muat ulang sebentar lagi.",
+    translation: "Gagal memuat terjemahan — coba muat ulang halaman ini.",
+    tafsir: "Gagal memuat tafsir — coba muat ulang halaman ini.",
     asbabun: "Tidak ada sebab nuzul khusus yang diriwayatkan untuk ayat ini.",
     hadits: "Belum ada hadits khusus yang dikaitkan dengan ayat ini.",
   };
   const EN = {
-    translation: "Translation is being prepared — please reload shortly.",
-    tafsir: "Tafsir is being prepared — please reload shortly.",
+    translation: "Failed to load the translation — please reload this page.",
+    tafsir: "Failed to load the tafsir — please reload this page.",
     asbabun: "No specific occasion of revelation is narrated for this ayah.",
     hadits: "No specific hadith is linked to this ayah yet.",
   };
   const AR = {
-    translation: "تُجهَّز الترجمة — يرجى إعادة التحميل بعد قليل.",
-    tafsir: "يُجهَّز التفسير — يرجى إعادة التحميل بعد قليل.",
+    translation: "تعذّر تحميل الترجمة — يرجى إعادة تحميل الصفحة.",
+    tafsir: "تعذّر تحميل التفسير — يرجى إعادة تحميل الصفحة.",
     asbabun: "لم يُروَ سبب نزول خاص لهذه الآية.",
     hadits: "لا يوجد حديث خاص مرتبط بهذه الآية بعد.",
   };

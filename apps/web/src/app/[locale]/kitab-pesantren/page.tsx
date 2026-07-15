@@ -73,7 +73,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
 
       {categories.length === 0 && (
         <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">
-          Koleksi sedang disiapkan, coba muat ulang sebentar lagi.
+          Gagal memuat koleksi — silakan muat ulang halaman ini.
         </p>
       )}
 

@@ -30,7 +30,13 @@ interface PersonRow {
 // every Nabi/Sahabat/Ulama's name is browsable even before a full
 // multi-episode series exists for them, unlike the episode-only sections
 // below which only ever showed names that already had published episodes.
-const PERSON_INDEX_CATEGORIES = new Set(["kisah-para-nabi", "kisah-sahabat", "kisah-ulama-dunia"]);
+const PERSON_INDEX_CATEGORIES = new Set([
+  "kisah-para-nabi",
+  "kisah-sahabat",
+  "kisah-tabiin",
+  "kisah-tabiin-tabiin",
+  "kisah-ulama-dunia",
+]);
 
 // Fixed reading order for the library's taxonomy — the 25 prophets first,
 // then the generations after them, then scholars, then everything else that

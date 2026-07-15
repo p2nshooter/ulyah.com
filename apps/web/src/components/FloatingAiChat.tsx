@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { api } from "@/lib/api";
 
 interface Source {
-  kind: "ayah" | "hadits";
+  kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
   ref: string;
   text: string;
   url?: string;
@@ -19,9 +20,10 @@ interface Msg {
  * Floating AI chat — a small bubble on the bottom-right of EVERY page (mounted
  * once in the locale layout, like the radio toggle on the bottom-left). One
  * unified advisor (not split into tabs) that answers from Orchestra Core's
- * grounded worker (/ai/ask). References are listed (many) but NOT linked — so
- * a curious visitor opens the Qur'an/hadith pages to look them up, which lifts
- * page views; direct links are reserved for paying members.
+ * grounded worker (/ai/ask), free for every visitor — no paid tier, no member
+ * account. Every reference is a real clickable link straight into the source
+ * page on ulyah.com (Qur'an/tafsir, hadits, kisah, kitab, amalan) so a
+ * curious visitor can open the source and read it in full.
  */
 export function FloatingAiChat({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
@@ -47,7 +49,7 @@ export function FloatingAiChat({ locale }: { locale: string }) {
       const msg = e instanceof Error ? e.message : "";
       const gentle =
         msg.includes("429") || /limit/i.test(msg)
-          ? "Anda telah bertanya cukup banyak untuk saat ini 🌷. Silakan bergabung sebagai anggota untuk melanjutkan tanpa batas."
+          ? "Anda telah bertanya cukup banyak untuk saat ini 🌷. Daftar sebagai donatur agar batasnya lebih longgar."
           : "Mohon maaf, layanan ini sedang kami siapkan dengan sebaik-baiknya. Silakan mencoba kembali sesaat lagi, insyaAllah.";
       setMsgs((m) => [...m, { role: "ai", text: gentle }]);
     } finally {
@@ -79,8 +81,8 @@ export function FloatingAiChat({ locale }: { locale: string }) {
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-3">
             {msgs.length === 0 && (
               <p className="text-center text-xs text-[var(--color-text-secondary)]">
-                Silakan bertanya tentang Al-Qur'an, hadits, fiqih, atau adab. Jawaban dirangkai dari khazanah ULYAH.COM
-                dengan penuh adab. 🌙
+                Silakan bertanya apa saja tentang Al-Qur'an, tafsir, hadits, fiqih, kisah, atau kitab. Jawaban
+                dirangkai dari seluruh khazanah ULYAH.COM, lengkap dengan rujukan yang bisa Anda buka. 🌙
               </p>
             )}
             {msgs.map((m, i) => (
@@ -88,13 +90,19 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                 <div className={`inline-block max-w-[92%] rounded-2xl px-3 py-2 text-sm ${m.role === "user" ? "bg-accent/15" : "bg-black/5"}`}>
                   <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>
                   {m.sources && m.sources.length > 0 && (
-                    <div className="mt-2 space-y-0.5 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
-                      <p className="font-medium">Rujukan (buka Al-Qur'an / Hadits untuk menelaahnya):</p>
-                      {m.sources.map((s, j) => (
-                        <p key={j} className="text-accent">
-                          [{j + 1}] {s.ref}
-                        </p>
-                      ))}
+                    <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
+                      <p className="font-medium">Rujukan dari ULYAH.COM:</p>
+                      {m.sources.map((s, j) =>
+                        s.url ? (
+                          <Link key={j} href={`/${locale}${s.url}`} className="block text-accent hover:underline">
+                            [{j + 1}] {s.ref} →
+                          </Link>
+                        ) : (
+                          <p key={j} className="text-accent">
+                            [{j + 1}] {s.ref}
+                          </p>
+                        )
+                      )}
                     </div>
                   )}
                 </div>
