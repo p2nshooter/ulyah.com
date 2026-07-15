@@ -181,13 +181,16 @@ jobs:
           # checked independently so this is idempotent and a collection added
           # later only backfills what's missing. The `hadith_number`/`collection`
           # threshold uses a low bar (nawawi has only 42 hadith, qudsi ~40).
-          for col in bukhari:1001:100 muslim:9001:100 tirmidhi:20001:100 abudawud:30001:100 nasai:40001:100 ibnmajah:50001:100 malik:60001:100 nawawi:70001:10 qudsi:75001:10; do
+          for col in bukhari:1001:100 muslim:9001:100 tirmidhi:20001:100 abudawud:30001:100 nasai:40001:100 ibnmajah:50001:100 malik:60001:100 nawawi:70001:10 qudsi:75001:10 dehlawi:80001:10; do
             name="${col%%:*}"; rest="${col#*:}"; startid="${rest%%:*}"; minrows="${rest##*:}"
             npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM hadits WHERE id >= ${startid} AND id < ${startid}+9999;" --json > /tmp/hadits_${name}_count.json
             HCOUNT=$(node -e "const j=require('/tmp/hadits_${name}_count.json'); console.log(j[0].results[0].n)")
             if [ "$HCOUNT" -lt "$minrows" ]; then
               echo "$name has only $HCOUNT rows — importing."
               npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_${name}.sql
+              # Drop the cached collections list so a newly-added book (e.g.
+              # dehlawi) appears on /hadits immediately, not after its 24h TTL.
+              npx wrangler kv key delete "hadits:collections" --binding=CACHE_KV --remote || true
             else
               echo "$name already has $HCOUNT rows — skipping."
             fi
@@ -362,6 +365,81 @@ jobs:
             npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/amalan_harian.sql
           else
             echo "Amalan Harian already has $ACOUNT items — skipping import."
+          fi
+
+      - name: Import 99 Asmaul Husna (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          AHCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM amalan_item WHERE category_slug='asmaul-husna';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$AHCOUNT" -lt "100" ]; then
+            echo "Asmaul Husna has $AHCOUNT items — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/asmaul_husna.sql
+          else
+            echo "Asmaul Husna already has $AHCOUNT items — skipping import."
+          fi
+
+      - name: Import Kisah Anak — 6 children's episodes (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          KACOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_anak;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$KACOUNT" -lt "6" ]; then
+            echo "Kisah Anak has $KACOUNT episodes — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_anak.sql
+          else
+            echo "Kisah Anak already has $KACOUNT episodes — skipping."
+          fi
+
+      - name: Import Kisah Anak batch 2 — episodes 7-9 for the animated film player (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          KA2COUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_anak WHERE episode_order >= 7;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$KA2COUNT" -lt "3" ]; then
+            echo "Kisah Anak batch 2 has $KA2COUNT episodes — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_anak_batch2.sql
+          else
+            echo "Kisah Anak batch 2 already has $KA2COUNT episodes — skipping."
+          fi
+
+      - name: Import Audiobook library — 25 original articles filling all categories (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Fills every Audiobook category that used to sit empty behind a
+          # filter chip (fiqih pernikahan/warisan, pondasi iman, hikmah,
+          # tafsir tematik, kisah sahabat/tabi'in/tabi'ut-tabi'in/ulama).
+          # INSERT OR IGNORE on UNIQUE (slug,lang), so re-running is a no-op.
+          ABCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE lang='id' AND slug IN ('fiqih-nikah-rukun-syarat','kisah-ulama-ghazali-audio');" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$ABCOUNT" -lt "2" ]; then
+            echo "Audiobook library articles missing (sentinel=$ABCOUNT) — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/audiobook_library.sql
+          else
+            echo "Audiobook library already imported — skipping."
+          fi
+
+      - name: Import Kisah person index — 25 Nabi + notable Sahabat (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Browsable "click a name" navigation for Kisah (migration 0025) —
+          # complete original profiles, INSERT OR IGNORE so re-running is a
+          # no-op and later additions (Ulama, more Sahabat) only backfill.
+          PCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_person;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$PCOUNT" -lt "62" ]; then
+            echo "Kisah person index has $PCOUNT entries — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_nabi.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_sahabat.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_ulama.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_tabiin.sql
+          else
+            echo "Kisah person index already has $PCOUNT entries — skipping."
           fi
 
       - name: Import Nasakh & Mansukh (one-time, idempotent)

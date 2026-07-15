@@ -47,7 +47,7 @@ export function InstallAppButton({
   labeled = false,
   autoPrompt = false,
 }: {
-  app?: "main" | "sholat" | "radio";
+  app?: "main" | "sholat" | "radio" | "quran-flipbook" | "kitab";
   labeled?: boolean;
   /** Pulses the button to draw the eye — used when a visitor just navigated
    * here specifically to install (e.g. via ?install=1 from the homepage's
@@ -69,7 +69,13 @@ export function InstallAppButton({
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
-    if (standalone) {
+    // Only the MAIN app may hide itself on the generic standalone signal. For a
+    // mini-app (radio, sholat, …) being inside the main app's standalone window
+    // does NOT mean THIS widget is installed — treating it that way is exactly
+    // why the Radio's install button never appeared once the main app was
+    // installed. Each mini-app decides "installed" only from its own
+    // getInstalledRelatedApps match + its appinstalled event.
+    if (standalone && app === "main") {
       setInstalled(true);
       return;
     }
@@ -135,6 +141,18 @@ export function InstallAppButton({
 
   const hintText = isIOS ? t.iosHint : t.manualHint;
 
+  // Fixed, theme-independent tooltip colors. The old classes used
+  // bg-[var(--color-surface)] + text-[var(--color-text-primary)] — but in
+  // dark mode --color-text-primary flips to cream while --color-surface is
+  // never overridden and STAYS cream, so the hint rendered as cream text on
+  // a cream box: a blank rectangle ("g bisa download"). A dark-green tooltip
+  // with cream text is readable on every page in both themes.
+  const hintStyle: React.CSSProperties = {
+    backgroundColor: "#0b3d2e",
+    color: "#f4efe3",
+    borderColor: "rgba(184, 137, 43, 0.45)",
+  };
+
   if (labeled) {
     return (
       <div className="relative inline-block">
@@ -145,7 +163,7 @@ export function InstallAppButton({
           📲 {t.installApp}
         </button>
         {showHint && (
-          <div className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed text-[var(--color-text-primary)] shadow-2xl">
+          <div style={hintStyle} className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border p-3 text-xs leading-relaxed shadow-2xl">
             {hintText}
           </div>
         )}
@@ -164,7 +182,7 @@ export function InstallAppButton({
         📲
       </button>
       {showHint && (
-        <div className="absolute right-0 top-full z-30 mt-2 w-60 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed shadow-2xl">
+        <div style={hintStyle} className="absolute right-0 top-full z-30 mt-2 w-60 rounded-xl border p-3 text-xs leading-relaxed shadow-2xl">
           {hintText}
         </div>
       )}

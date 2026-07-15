@@ -39,6 +39,11 @@ interface Bundle {
 //   • Baca Semua      → real qori murottal, then the translation is spoken
 //   • Baca Arab Saja  → only the imam's recitation
 //   • Baca Arti Saja  → only the spoken translation
+// "Baca Semua" recites the Arabic then narrates the meaning AND the tafsir /
+// asbabun / hadith explanation; "Baca Arti Saja" narrates that same
+// understanding (terjemah + tafsir + penjelasan) WITHOUT the Arabic audio;
+// "Baca Arab Saja" is the pure murottal. This matches the request that tafsir
+// & penjelasan be read under both "arti saja" and "baca semua".
 const VOICE_MODES: {
   key: string;
   layers: Layer[];
@@ -46,9 +51,9 @@ const VOICE_MODES: {
   hint: (d: Dictionary) => string;
   icon: string;
 }[] = [
-  { key: "all", layers: ["ayah", "translation"], label: (d) => d.reader.voiceAll, hint: (d) => d.reader.voiceAllHint, icon: "🔊" },
+  { key: "all", layers: ["ayah", "translation", "tafsir", "asbabun", "hadits"], label: (d) => d.reader.voiceAll, hint: (d) => d.reader.voiceAllHint, icon: "🔊" },
   { key: "arabic", layers: ["ayah"], label: (d) => d.reader.voiceArabic, hint: (d) => d.reader.voiceArabicHint, icon: "🕋" },
-  { key: "translation", layers: ["translation"], label: (d) => d.reader.voiceTranslation, hint: (d) => d.reader.voiceTranslationHint, icon: "🌍" },
+  { key: "translation", layers: ["translation", "tafsir", "asbabun", "hadits"], label: (d) => d.reader.voiceTranslation, hint: (d) => d.reader.voiceTranslationHint, icon: "🌍" },
 ];
 
 const LAYER_ICON: Record<Layer, string> = {
@@ -64,26 +69,45 @@ function sameLayers(a: Layer[], b: Layer[]): boolean {
   return a.length === b.length && b.every((l) => a.includes(l));
 }
 
+// Last-read position, persisted per device ("bacaan terakhir masih di situ",
+// not a reset to Al-Baqarah 1 on every visit). Deep links still win over it.
+const LAST_READ_KEY = "ulyah_quran_last_read";
+
+function loadLastRead(): { surah: number; ayah: number } | null {
+  try {
+    const raw = window.localStorage.getItem(LAST_READ_KEY);
+    if (!raw) return null;
+    const p = JSON.parse(raw) as { surah?: number; ayah?: number };
+    if (typeof p.surah === "number" && p.surah >= 1 && p.surah <= 114 && typeof p.ayah === "number" && p.ayah >= 1) {
+      return { surah: p.surah, ayah: p.ayah };
+    }
+  } catch {
+    /* corrupt/blocked storage — fall back to the default */
+  }
+  return null;
+}
+
 /** Honest per-layer "nothing for this ayah" copy. Translation + tafsir cover
- * every ayah, so an empty one there means a transient source hiccup ("being
- * prepared"). Asbabun nuzul and a mapped hadith genuinely don't exist for
- * most ayat — say so plainly rather than implying content is still coming. */
+ * every ayah, so an empty one there is a transient fetch hiccup, framed as a
+ * loading failure (not "still being prepared" — the content itself already
+ * exists in full). Asbabun nuzul and a mapped hadith genuinely don't exist
+ * for most ayat — say so plainly rather than implying content is coming. */
 function emptyStates(locale: string): { translation: string; tafsir: string; asbabun: string; hadits: string } {
   const ID = {
-    translation: "Terjemahan sedang disiapkan, coba muat ulang sebentar lagi.",
-    tafsir: "Tafsir sedang disiapkan, coba muat ulang sebentar lagi.",
+    translation: "Gagal memuat terjemahan — coba muat ulang halaman ini.",
+    tafsir: "Gagal memuat tafsir — coba muat ulang halaman ini.",
     asbabun: "Tidak ada sebab nuzul khusus yang diriwayatkan untuk ayat ini.",
     hadits: "Belum ada hadits khusus yang dikaitkan dengan ayat ini.",
   };
   const EN = {
-    translation: "Translation is being prepared — please reload shortly.",
-    tafsir: "Tafsir is being prepared — please reload shortly.",
+    translation: "Failed to load the translation — please reload this page.",
+    tafsir: "Failed to load the tafsir — please reload this page.",
     asbabun: "No specific occasion of revelation is narrated for this ayah.",
     hadits: "No specific hadith is linked to this ayah yet.",
   };
   const AR = {
-    translation: "تُجهَّز الترجمة — يرجى إعادة التحميل بعد قليل.",
-    tafsir: "يُجهَّز التفسير — يرجى إعادة التحميل بعد قليل.",
+    translation: "تعذّر تحميل الترجمة — يرجى إعادة تحميل الصفحة.",
+    tafsir: "تعذّر تحميل التفسير — يرجى إعادة تحميل الصفحة.",
     asbabun: "لم يُروَ سبب نزول خاص لهذه الآية.",
     hadits: "لا يوجد حديث خاص مرتبط بهذه الآية بعد.",
   };
@@ -145,6 +169,15 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [editionTafsir, setEditionTafsir] = useState<{ text: string; source: string } | null>(null);
   const [editionTafsirLoading, setEditionTafsirLoading] = useState(false);
   const arabicRef = useRef<HTMLDivElement>(null);
+  const explRefs = useRef<Map<Layer, HTMLDivElement | null>>(new Map());
+  // The ayah to land on once the (deep-linked or restored) surah's ayat
+  // arrive. The surah-change effect always resets focus to 1, so a plain
+  // setFocus() from the mount effect was silently overwritten one render
+  // later — this ref survives that reset and is consumed exactly once.
+  const pendingAyahRef = useRef<number | null>(null);
+  // Don't persist the position until the initial restore has happened,
+  // otherwise the default (Al-Baqarah:1) overwrites the saved spot on mount.
+  const restoredRef = useRef(false);
 
   const { layers, setLayers, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
     usePlayerStore();
@@ -160,9 +193,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     if (pool.length > 0 && !pool.some((r) => r.key === qoriId)) setQori(pool[0]!.key);
   }
 
-  // Load surah index once. Honour a deep link like ?surah=2&ayah=5 (used by
-  // the AI chat's clickable references) so the reader opens exactly on the
-  // cited ayah; otherwise default to Al-Baqarah.
+  // Load surah index once. Priority for the opening position:
+  //   1. a deep link like ?surah=2&ayah=5 (AI chat's clickable references),
+  //   2. the visitor's own last-read position (localStorage) — coming back
+  //      to the reader continues where they left off, never a reset to
+  //      Al-Baqarah 1,
+  //   3. Al-Baqarah as the first-visit default.
   useEffect(() => {
     let deepSurah: number | null = null;
     let deepAyah: number | null = null;
@@ -173,16 +209,32 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       if (s >= 1 && s <= 114) deepSurah = s;
       if (a >= 1) deepAyah = a;
     }
+    const last = typeof window !== "undefined" && !deepSurah ? loadLastRead() : null;
     api
       .get<{ surah: SurahMeta[] }>("/quran/surah")
       .then((r) => {
         setSurahs(r.surah);
-        const target = deepSurah ? r.surah.find((s) => s.id === deepSurah) : undefined;
+        const target = deepSurah
+          ? r.surah.find((s) => s.id === deepSurah)
+          : last
+            ? r.surah.find((s) => s.id === last.surah)
+            : undefined;
+        pendingAyahRef.current = deepSurah ? deepAyah : (last?.ayah ?? null);
+        restoredRef.current = true;
         setSelectedSurah((prev) => prev ?? target ?? r.surah.find((s) => s.id === 2) ?? r.surah[0] ?? null);
-        if (deepAyah) setFocus(deepAyah);
       })
       .catch(() => {});
   }, []);
+
+  // Remember where the visitor is, so the next visit reopens right here.
+  useEffect(() => {
+    if (!restoredRef.current || !selectedSurah || typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(LAST_READ_KEY, JSON.stringify({ surah: selectedSurah.id, ayah: focus }));
+    } catch {
+      /* storage full/blocked — persistence is best-effort */
+    }
+  }, [selectedSurah, focus]);
 
   // Load the selected surah's ayat. Clear the previous surah's ayat FIRST so
   // a slow or failed fetch can never leave the reader showing the wrong
@@ -195,7 +247,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     setAyat([]);
     setLoadingAyat(true);
     setLoadError(false);
-    setFocus(1);
+    // Land on the pending ayah (deep link / restored last-read) when there is
+    // one; a plain surah switch starts at ayah 1 as before. Clamped to the
+    // surah's real length so a stale saved ayah can never point past the end.
+    const landing = Math.min(pendingAyahRef.current ?? 1, selectedSurah.ayah_count);
+    pendingAyahRef.current = null;
+    setFocus(Math.max(1, landing));
     api
       .get<{ ayat: AyatRow[]; surah: { id: number } }>(`/quran/surah/${wantId}?lang=${locale}`)
       .then((r) => {
@@ -272,6 +329,15 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       cancelled = true;
     };
   }, [selectedSurah, focus, tafsirEdition, locale]);
+
+  // Keep the explanation card that is currently being narrated in view and
+  // marked, so a long tafsir/penjelasan auto-scrolls to follow the voice
+  // ("penjelasan kasih penanda text yg sedang di baca, auto scroll klo panjang").
+  useEffect(() => {
+    if (!isPlaying || !activeLayer) return;
+    const el = explRefs.current.get(activeLayer);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [activeLayer, isPlaying]);
 
   const focusRow = useMemo(() => ayat.find((a) => a.number === focus) ?? null, [ayat, focus]);
 
@@ -589,11 +655,19 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         ? editionTafsir?.source
                         : bundle?.tafsir[0]?.source
                       : undefined;
+                    const reading = activeLayer === s.layer && isPlaying;
                     return (
-                      <div key={s.layer} className="rounded-xl border border-[var(--color-border)] p-3">
+                      <div
+                        key={s.layer}
+                        ref={(el) => {
+                          explRefs.current.set(s.layer, el);
+                        }}
+                        className={`rounded-xl border p-3 transition ${reading ? "border-accent bg-accent/10 shadow-sm" : "border-[var(--color-border)]"}`}
+                      >
                         <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
                           <span>{s.icon}</span>
                           {s.label}
+                          {reading && <span className="ml-auto text-[10px] font-normal text-accent">🔊 sedang dibaca…</span>}
                         </p>
                         {/* Tafsir source picker — Ibn Kathir, Jalalayn, As-Sa'di,
                             Al-Mukhtasar, Kemenag … (spa5k/tafsir_api). */}

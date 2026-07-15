@@ -2,7 +2,6 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
-import { AdSlot } from "@/components/AdSlot";
 
 interface BookRow {
   id: number;
@@ -100,7 +99,6 @@ export default async function KitabCategoryPage({
         {books.length === 0 && <p className="text-center text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>}
         {books.map((b, i) => (
           <div key={b.id}>
-            {i === 6 && books.length > 8 && <AdSlot minHeight={100} className="mb-3" />}
             <Link href={`/${locale}/kitab/${slug}/${b.id}`} className="card-premium block p-4">
               {b.title_translated ? (
                 <>

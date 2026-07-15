@@ -138,16 +138,10 @@ export default async function LocaleLayout({
             }),
           }}
         />
-        {/* Google AdSense — ownership is proven by this meta tag plus ads.txt
-            at the domain root (both are what the verification crawler reads).
-            The adsbygoogle.js loader is deliberately NOT global: loading it
-            site-wide makes Google's account-level Auto ads inject empty,
-            unfilled placeholder boxes on every page while the account is
-            still under review — the blank overlapping boxes reported on
-            /jadwal-sholat. Instead the loader is injected lazily by <AdSlot>
-            only on a slot that has a real ad-unit id, so until approval (no
-            ids yet) no script loads and no empty boxes appear, yet the moment
-            real slot ids are filled in post-approval, ads light up. */}
+        {/* This site shows NO ads anywhere — no AdSense, no Adsterra. This
+            meta tag only proves domain ownership for a future AdSense
+            application; it does not load any ad script and never will on its
+            own. */}
         <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>

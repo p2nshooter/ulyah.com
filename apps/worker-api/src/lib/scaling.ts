@@ -172,21 +172,44 @@ async function executeQueuedJobs(
 
       let categoryId: number | null = draft.categoryExistingId;
       if (!categoryId && draft.categoryNewName) {
-        const newCat = await env.DB.prepare(
-          "INSERT INTO categories (name, slug, auto_created) VALUES (?, ?, 1) RETURNING id"
-        )
-          .bind(draft.categoryNewName, slugify(draft.categoryNewName))
-          .first<{ id: number }>();
-        categoryId = newCat?.id ?? null;
+        // Reuse an existing category with essentially the same name before
+        // creating a new one — the model doesn't always pick the matching id
+        // out of `existingCategories` even when one already exists (e.g. it
+        // proposes "Tadabbur Al-Qur'an" again when that category is already
+        // there under a different slug). That used to leave a duplicate
+        // filter chip on the site with zero stories in it forever.
+        const wanted = normalizeCategoryName(draft.categoryNewName);
+        const dupe = categories.results.find((c) => normalizeCategoryName(c.name) === wanted);
+        if (dupe) {
+          categoryId = dupe.id;
+        } else {
+          const slug = slugify(draft.categoryNewName);
+          const newCat = await env.DB.prepare(
+            "INSERT INTO categories (name, slug, auto_created) VALUES (?, ?, 1) ON CONFLICT(slug) DO NOTHING RETURNING id"
+          )
+            .bind(draft.categoryNewName, slug)
+            .first<{ id: number }>();
+          categoryId =
+            newCat?.id ??
+            (await env.DB.prepare("SELECT id FROM categories WHERE slug = ?").bind(slug).first<{ id: number }>())?.id ??
+            null;
+        }
       }
 
-      const status = draft.factCheckVerdict === "pass" && draft.confidence >= 0.6 ? "pending_review" : "draft";
+      // Zero-hand platform: nobody works a manual moderation queue, so
+      // "pending_review" used to mean "invisible on the site forever" for a
+      // draft that had already passed fact-checking — exactly what produced
+      // audiobook category chips with nothing behind them. The fact-check +
+      // confidence gate below IS the review; publish immediately when it
+      // passes instead of parking the story in a queue no one empties.
+      const status = draft.factCheckVerdict === "pass" && draft.confidence >= 0.6 ? "published" : "draft";
+      const publishedAt = status === "published" ? new Date().toISOString() : null;
 
       await env.DB.prepare(
-        `INSERT INTO stories (title, slug, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id)
-         VALUES (?, ?, ?, ?, 1, 'draft_audio', 'ai_original', ?, ?, ?)`
+        `INSERT INTO stories (title, slug, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id, published_at)
+         VALUES (?, ?, ?, ?, 1, 'draft_audio', 'ai_original', ?, ?, ?, ?)`
       )
-        .bind(draft.title, uniqueSlug(draft.slug, job.id), categoryId, draft.body, status, draft.confidence, job.target_id)
+        .bind(draft.title, uniqueSlug(draft.slug, job.id), categoryId, draft.body, status, draft.confidence, job.target_id, publishedAt)
         .run();
 
       await env.DB.prepare(
@@ -207,6 +230,15 @@ async function executeQueuedJobs(
   }
 
   return { executed, failed };
+}
+
+function normalizeCategoryName(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "") // strip diacritics
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 function slugify(text: string): string {

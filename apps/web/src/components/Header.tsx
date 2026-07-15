@@ -9,24 +9,33 @@ import { AdminTrigger } from "@/components/AdminTrigger";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
-import { prayerLabels } from "@/lib/prayer-labels";
+import { navLabels } from "@/lib/nav-labels";
 
+/**
+ * Grouped navigation. The old header was a flat run of 13 links that
+ * overflowed on anything smaller than a wide desktop and mixed unrelated
+ * things side by side; the structure now comes from lib/nav-labels.ts
+ * (shared with the footer) as four themed groups + two direct links.
+ * Desktop: click a group to open its dropdown (click-outside and
+ * route-change both close it). Mobile: the burger opens an accordion of the
+ * same groups.
+ */
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const { theme, toggle } = useTheme();
   const pathname = usePathname();
-  const prayerT = prayerLabels(locale);
+  const nav = navLabels(locale);
   const navRef = useRef<HTMLElement>(null);
 
-  // The dropdown previously only closed via its own onClick handlers (a nav
-  // link, or the ☰ button again) — tapping anywhere else on the page (or
-  // just navigating away some other way) left it stuck open. Close on any
-  // outside tap and whenever the route actually changes, in addition to the
-  // existing per-link handlers.
+  // Close dropdown + mobile menu on any outside tap and on route change.
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!menuOpen && !openGroup) return;
     function onOutside(e: MouseEvent | TouchEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setMenuOpen(false);
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+        setOpenGroup(null);
+      }
     }
     document.addEventListener("mousedown", onOutside);
     document.addEventListener("touchstart", onOutside);
@@ -34,24 +43,17 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
       document.removeEventListener("mousedown", onOutside);
       document.removeEventListener("touchstart", onOutside);
     };
-  }, [menuOpen]);
+  }, [menuOpen, openGroup]);
 
   useEffect(() => {
     setMenuOpen(false);
+    setOpenGroup(null);
   }, [pathname]);
 
-  const links: [string, string][] = [
-    [dict.nav.home, `/${locale}`],
-    [dict.nav.quran, `/${locale}/quran`],
-    [dict.nav.audiobook, `/${locale}/audiobook`],
-    [dict.nav.kitab, `/${locale}/kitab`],
-    [dict.nav.hadits, `/${locale}/hadits`],
-    [dict.nav.kisah, `/${locale}/kisah`],
-    ["Amalan", `/${locale}/amalan`],
-    [dict.nav.dailyContent, `/${locale}/harian`],
-    [prayerT.title, `/${locale}/jadwal-sholat`],
-    [dict.nav.about, `/${locale}/tentang`],
-  ];
+  const isActive = (path: string) =>
+    path === "" ? pathname === `/${locale}` : pathname?.startsWith(`/${locale}${path}`);
+  const groupActive = (key: string) =>
+    nav.groups.find((g) => g.key === key)?.items.some((it) => isActive(it.path)) ?? false;
 
   return (
     <header
@@ -85,24 +87,63 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           </AdminTrigger>
         </div>
 
-        <nav className="hidden items-center gap-6 desktop:flex">
-          {links.map(([label, href]) => {
-            const active = href === `/${locale}` ? pathname === href : pathname?.startsWith(href);
+        {/* Desktop: grouped dropdowns */}
+        <nav className="hidden items-center gap-1 desktop:flex">
+          <Link
+            href={`/${locale}`}
+            className={`rounded-full px-3 py-1.5 text-sm transition ${
+              pathname === `/${locale}` ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+            }`}
+          >
+            {nav.home}
+          </Link>
+
+          {nav.groups.map((g) => {
+            const open = openGroup === g.key;
+            const active = groupActive(g.key);
             return (
-              <Link
-                key={href}
-                href={href}
-                className={`relative py-1 text-sm transition ${
-                  active ? "font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
-                }`}
-              >
-                {label}
-                {active && (
-                  <span aria-hidden className="absolute -bottom-[13px] left-0 right-0 h-0.5 rounded-full bg-accent" />
+              <div key={g.key} className="relative">
+                <button
+                  onClick={() => setOpenGroup(open ? null : g.key)}
+                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition ${
+                    active || open ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+                  }`}
+                >
+                  <span aria-hidden className="text-xs">{g.icon}</span>
+                  {g.label}
+                  <span aria-hidden className={`text-[9px] transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
+                </button>
+                {open && (
+                  <div className="absolute left-0 top-full z-40 mt-2 w-60 overflow-hidden rounded-2xl border border-accent/25 bg-[var(--color-card)] py-2 shadow-[var(--shadow-gold-lg)]">
+                    {g.items.map((it) => (
+                      <Link
+                        key={it.path}
+                        href={`/${locale}${it.path}`}
+                        onClick={() => setOpenGroup(null)}
+                        className={`block px-4 py-2.5 text-sm transition hover:bg-accent/10 hover:text-accent ${
+                          isActive(it.path) ? "font-medium text-accent" : ""
+                        }`}
+                      >
+                        {it.label}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-              </Link>
+              </div>
             );
           })}
+
+          {nav.direct.map((it) => (
+            <Link
+              key={it.path}
+              href={`/${locale}${it.path}`}
+              className={`rounded-full px-3 py-1.5 text-sm transition ${
+                isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+              }`}
+            >
+              {it.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -122,12 +163,6 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           </button>
           <InstallAppButton />
           <LanguageSwitcher locale={locale} />
-          <Link
-            href={`/${locale}/donasi`}
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-white desktop:inline-block"
-          >
-            {dict.nav.donate}
-          </Link>
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="menu"
@@ -138,25 +173,58 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         </div>
       </div>
 
+      {/* Mobile: accordion of the same groups */}
       {menuOpen && (
-        <nav className="flex flex-col gap-1 border-t border-[var(--color-border)] px-4 py-3 desktop:hidden">
-          {links.map(([label, href]) => (
+        <nav className="max-h-[75vh] overflow-y-auto border-t border-[var(--color-border)] px-4 py-3 desktop:hidden">
+          <Link
+            href={`/${locale}`}
+            onClick={() => setMenuOpen(false)}
+            className="block rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
+          >
+            🏠 {nav.home}
+          </Link>
+          {nav.groups.map((g) => {
+            const open = openGroup === g.key;
+            return (
+              <div key={g.key} className="border-t border-[var(--color-border)]/60">
+                <button
+                  onClick={() => setOpenGroup(open ? null : g.key)}
+                  className="flex w-full items-center justify-between rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
+                >
+                  <span>
+                    {g.icon} {g.label}
+                  </span>
+                  <span aria-hidden className={`text-[10px] text-accent transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
+                </button>
+                {open && (
+                  <div className="mb-2 space-y-0.5 pl-4">
+                    {g.items.map((it) => (
+                      <Link
+                        key={it.path}
+                        href={`/${locale}${it.path}`}
+                        onClick={() => setMenuOpen(false)}
+                        className={`block rounded px-2 py-2 text-sm hover:bg-black/5 ${
+                          isActive(it.path) ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"
+                        }`}
+                      >
+                        {it.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          {nav.direct.map((it) => (
             <Link
-              key={href}
-              href={href}
+              key={it.path}
+              href={`/${locale}${it.path}`}
               onClick={() => setMenuOpen(false)}
-              className="rounded px-2 py-2 text-sm hover:bg-black/5"
+              className="block border-t border-[var(--color-border)]/60 rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
             >
-              {label}
+              {it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}
             </Link>
           ))}
-          <Link
-            href={`/${locale}/donasi`}
-            onClick={() => setMenuOpen(false)}
-            className="mt-2 rounded-full bg-accent px-4 py-2 text-center text-sm font-medium text-white"
-          >
-            {dict.nav.donate}
-          </Link>
         </nav>
       )}
     </header>

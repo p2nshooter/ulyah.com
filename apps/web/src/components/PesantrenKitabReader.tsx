@@ -1,9 +1,9 @@
 "use client";
 
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
-import { AdSlot } from "@/components/AdSlot";
+import { InstallAppButton } from "@/components/InstallAppButton";
 
 interface QuranRef {
   s: number;
@@ -39,22 +39,110 @@ export interface KitabDetail {
   category_icon: string | null;
 }
 
+type FontSize = "sm" | "md" | "lg" | "xl";
+type Theme = "light" | "sepia" | "dark";
+
+const FONT_SIZE_CLASS: Record<FontSize, string> = {
+  sm: "text-lg leading-[2]",
+  md: "text-2xl leading-[2.3]",
+  lg: "text-3xl leading-[2.4]",
+  xl: "text-4xl leading-[2.5]",
+};
+const FONT_SIZE_LABEL: Record<FontSize, string> = { sm: "Kecil", md: "Sedang", lg: "Besar", xl: "XL" };
+const THEME_LABEL: Record<Theme, string> = { light: "☀️ Terang", sepia: "📜 Sepia", dark: "🌙 Gelap" };
+// Inline styles, not Tailwind classes: .card-premium-static's own
+// background-color rule sits below `@tailwind utilities` in globals.css, so
+// it wins the cascade over same-specificity utility classes and would
+// silently swallow a class-based theme override. An inline style always
+// wins regardless of stylesheet order, so the theme toggle reliably applies.
+const THEME_STYLE: Record<Theme, React.CSSProperties | undefined> = {
+  light: undefined,
+  sepia: { backgroundColor: "#f6ecd9", color: "#3b2f1e" },
+  dark: { backgroundColor: "#0f1a14", color: "#e8f0ea" },
+};
+
+function prefsKey(slug: string) {
+  return `ulyah_kitab_prefs_${slug}`;
+}
+function bookmarkKey(slug: string) {
+  return `ulyah_kitab_bookmark_${slug}`;
+}
+
 /**
- * Reads one pesantren kitab as a proper library book: a chapter (bab) rail on
- * the left, and each matan shown as Arabic source + terjemah + penjelasan,
- * with its linked ayat/hadits. Every matan's terjemah + penjelasan is
- * narratable aloud with the zero-key browser voice (NarrateButton).
+ * Reads one pesantren kitab as a proper library book — now installable as
+ * its OWN standalone app ("widget per buku", see manifest-kitab route.ts),
+ * with reading preferences (font size, page theme) and a bookmark that
+ * remembers exactly where a visitor left off, both persisted per-kitab in
+ * localStorage so returning to "Safinatun Najah" tomorrow picks up right
+ * where "Ta'lim Muta'allim" left off yesterday, independently.
  */
 export function PesantrenKitabReader({
   locale,
   kitab,
   chapters,
+  autoPromptInstall = false,
 }: {
   locale: string;
   kitab: KitabDetail;
   chapters: Chapter[];
+  autoPromptInstall?: boolean;
 }) {
   const [activeBab, setActiveBab] = useState(chapters[0]?.id ?? 0);
+  const [resumeHint, setResumeHint] = useState(false);
+  const [fontSize, setFontSize] = useState<FontSize>("md");
+  const [theme, setTheme] = useState<Theme>("light");
+  const [showPrefs, setShowPrefs] = useState(false);
+  const [pageTurn, setPageTurn] = useState(false);
+
+  // Restore reading preferences + bookmark for THIS kitab only, once, after
+  // mount (client-only — avoids an SSR/CSR hydration mismatch, same
+  // precaution as the Qur'an player's qori/layers preferences).
+  useEffect(() => {
+    try {
+      const savedPrefs = window.localStorage.getItem(prefsKey(kitab.slug));
+      if (savedPrefs) {
+        const parsed = JSON.parse(savedPrefs) as { fontSize?: FontSize; theme?: Theme };
+        if (parsed.fontSize) setFontSize(parsed.fontSize);
+        if (parsed.theme) setTheme(parsed.theme);
+      }
+      const savedBab = window.localStorage.getItem(bookmarkKey(kitab.slug));
+      if (savedBab) {
+        const babId = Number(savedBab);
+        if (chapters.some((c) => c.id === babId) && babId !== chapters[0]?.id) {
+          setActiveBab(babId);
+          setResumeHint(true);
+        }
+      }
+    } catch {
+      /* localStorage unavailable (private mode, etc.) — reader still works, just without memory */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [kitab.slug]);
+
+  function persistPrefs(next: { fontSize?: FontSize; theme?: Theme }) {
+    const merged = { fontSize, theme, ...next };
+    try {
+      window.localStorage.setItem(prefsKey(kitab.slug), JSON.stringify(merged));
+    } catch {
+      /* non-fatal */
+    }
+  }
+
+  function goToBab(id: number) {
+    setPageTurn(true);
+    setTimeout(() => {
+      setActiveBab(id);
+      setResumeHint(false);
+      setPageTurn(false);
+      try {
+        window.localStorage.setItem(bookmarkKey(kitab.slug), String(id));
+      } catch {
+        /* non-fatal */
+      }
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 180);
+  }
+
   const current = useMemo(() => chapters.find((c) => c.id === activeBab) ?? chapters[0], [chapters, activeBab]);
 
   // Audio mode: what the "Dengarkan" button reads, and in which voice.
@@ -70,9 +158,14 @@ export function PesantrenKitabReader({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
-        ← Kitab Pesantren
-      </Link>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
+          ← Kitab Pesantren
+        </Link>
+        <div className="flex items-center gap-2">
+          <InstallAppButton app="kitab" labeled autoPrompt={autoPromptInstall} />
+        </div>
+      </div>
 
       {/* Kitab header card — author, category, description */}
       <div className="mt-3 overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] p-6 text-[#f4efe3] sm:p-8">
@@ -94,9 +187,14 @@ export function PesantrenKitabReader({
         )}
       </div>
 
+      {resumeHint && current && (
+        <p className="mt-3 rounded-xl border border-accent/30 bg-accent/10 px-4 py-2.5 text-xs text-accent">
+          📑 Melanjutkan dari bacaan terakhir — Bab {current.order}: {current.name_id}
+        </p>
+      )}
+
       {/* Ad after the kitab title/header (per Kitab placement plan) */}
       <div className="mt-5">
-        <AdSlot minHeight={110} format="horizontal" position="Kitab — setelah judul kitab" />
       </div>
 
       <div className="mt-6 grid gap-6 desktop:grid-cols-[240px_1fr]">
@@ -107,7 +205,7 @@ export function PesantrenKitabReader({
             {chapters.map((ch) => (
               <li key={ch.id}>
                 <button
-                  onClick={() => setActiveBab(ch.id)}
+                  onClick={() => goToBab(ch.id)}
                   className={`flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm transition hover:bg-accent/5 ${
                     ch.id === activeBab ? "bg-accent/10 font-medium text-accent" : ""
                   }`}
@@ -137,29 +235,74 @@ export function PesantrenKitabReader({
                 )}
               </div>
 
-              {/* Audio mode selector — applies to every "Dengarkan" below. */}
-              <div className="mt-3 inline-flex flex-wrap gap-1.5 rounded-full border border-[var(--color-border)] p-1">
-                {AUDIO_MODES.map((m) => (
-                  <button
-                    key={m.key}
-                    onClick={() => setAudioMode(m.key)}
-                    className={`rounded-full px-3 py-1 text-xs transition ${
-                      audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)] hover:text-accent"
-                    }`}
-                  >
-                    {m.label}
-                  </button>
-                ))}
+              {/* Audio mode + reading preferences */}
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <div className="inline-flex flex-wrap gap-1.5 rounded-full border border-[var(--color-border)] p-1">
+                  {AUDIO_MODES.map((m) => (
+                    <button
+                      key={m.key}
+                      onClick={() => setAudioMode(m.key)}
+                      className={`rounded-full px-3 py-1 text-xs transition ${
+                        audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)] hover:text-accent"
+                      }`}
+                    >
+                      {m.label}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setShowPrefs((v) => !v)}
+                  className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs transition hover:border-accent"
+                >
+                  🎨 Tampilan
+                </button>
               </div>
 
-              <div className="mt-5 space-y-5">
-                {current.matn.map((m, mi) => (
+              {showPrefs && (
+                <div className="mt-2 flex flex-wrap items-center gap-4 rounded-xl border border-[var(--color-border)] bg-black/5 p-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[11px] text-[var(--color-text-secondary)]">Ukuran teks:</span>
+                    {(Object.keys(FONT_SIZE_LABEL) as FontSize[]).map((fs) => (
+                      <button
+                        key={fs}
+                        onClick={() => {
+                          setFontSize(fs);
+                          persistPrefs({ fontSize: fs });
+                        }}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] ${fontSize === fs ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
+                      >
+                        {FONT_SIZE_LABEL[fs]}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[11px] text-[var(--color-text-secondary)]">Tema:</span>
+                    {(Object.keys(THEME_LABEL) as Theme[]).map((th) => (
+                      <button
+                        key={th}
+                        onClick={() => {
+                          setTheme(th);
+                          persistPrefs({ theme: th });
+                        }}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] ${theme === th ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
+                      >
+                        {THEME_LABEL[th]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div
+                className={`mt-5 space-y-5 rounded-2xl transition-opacity duration-200 ${pageTurn ? "opacity-0" : "opacity-100"} ${theme !== "light" ? "p-4" : ""}`}
+                style={THEME_STYLE[theme]}
+              >
+                {current.matn.map((m) => (
                   <Fragment key={m.id}>
-                  {/* Mid-content ad after the 2nd matan (per Kitab placement plan) */}
-                  {mi === 2 && (
-                    <AdSlot minHeight={110} format="rectangle" position="Kitab — tengah isi bab" />
-                  )}
-                  <article className="card-premium-static p-5">
+                  <article
+                    className={`card-premium-static p-5 ${theme !== "light" ? "border-accent/20" : ""}`}
+                    style={THEME_STYLE[theme]}
+                  >
                     {(m.title_id || m.title_ar) && (
                       <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--color-border)] pb-2">
                         {m.title_id && <p className="font-heading text-sm text-primary dark:text-accent">{m.title_id}</p>}
@@ -171,8 +314,8 @@ export function PesantrenKitabReader({
                       </div>
                     )}
 
-                    {/* Matan (Arabic source) */}
-                    <p dir="rtl" className="font-arabic text-2xl leading-[2.3] text-[var(--color-text-primary)]">
+                    {/* Matan (Arabic source) — font size follows reading preference */}
+                    <p dir="rtl" className={`font-arabic ${FONT_SIZE_CLASS[fontSize]}`}>
                       {m.text_ar}
                     </p>
 
@@ -249,29 +392,12 @@ export function PesantrenKitabReader({
                 ))}
 
                 {/* Ad at the end of the bab, before prev/next (per plan) */}
-                <AdSlot minHeight={110} format="horizontal" position="Kitab — akhir bab / sebelum navigasi" />
               </div>
 
               {/* Prev / next bab */}
               <div className="mt-6 flex items-center justify-between gap-3">
-                <BabNav
-                  chapters={chapters}
-                  currentOrder={current.order}
-                  dir="prev"
-                  onGo={(id) => {
-                    setActiveBab(id);
-                    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                />
-                <BabNav
-                  chapters={chapters}
-                  currentOrder={current.order}
-                  dir="next"
-                  onGo={(id) => {
-                    setActiveBab(id);
-                    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                />
+                <BabNav chapters={chapters} currentOrder={current.order} dir="prev" onGo={goToBab} />
+                <BabNav chapters={chapters} currentOrder={current.order} dir="next" onGo={goToBab} />
               </div>
             </>
           )}

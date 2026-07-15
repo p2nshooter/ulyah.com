@@ -28,9 +28,13 @@ export function GET(req: NextRequest) {
     short_name: "Jadwal Sholat",
     description:
       "Jadwal sholat sesuai lokasi Anda, hitung mundur Ramadhan, jam dunia, dan Radio Qori Dunia yang selalu hidup.",
-    id: "/jadwal-sholat",
+    // Narrow, app-specific scope + id so this installs as its own standalone
+    // app independent of the main ULYAH app and the Radio app — otherwise a
+    // shared "/" scope makes the browser treat one install as covering all of
+    // them and the per-widget install buttons never appear.
+    id: `/${locale}/jadwal-sholat`,
     start_url: `/${locale}/jadwal-sholat`,
-    scope: "/",
+    scope: `/${locale}/jadwal-sholat`,
     display: "standalone",
     orientation: "portrait",
     background_color: "#06251b",

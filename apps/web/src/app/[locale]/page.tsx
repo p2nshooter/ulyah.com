@@ -6,7 +6,6 @@ import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { DownloadAppSection } from "@/components/DownloadAppSection";
-import { AdSlot } from "@/components/AdSlot";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -50,9 +49,9 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
+      <section className="pattern-islamic bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
         <div className="mx-auto grid max-w-7xl items-center gap-10 desktop:grid-cols-2">
-          <div>
+          <div className="hero-entrance">
             <h1 className="font-heading text-4xl leading-[1.15] tracking-tight sm:text-5xl desktop:text-6xl">
               {dict.hero.titleLine1}
               <br />
@@ -77,7 +76,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                 {dict.hero.ctaSecondary}
               </Link>
             </div>
-            <div className="mt-10 grid grid-cols-4 gap-y-5">
+            <div className="reveal-stagger mt-10 grid grid-cols-4 gap-y-5">
               {featureIcons.map(([icon, label, href]) => (
                 <Link key={label} href={href} className="group text-center">
                   <div className="mx-auto grid h-11 w-11 place-items-center rounded-2xl border border-accent/30 bg-accent/5 text-lg transition group-hover:border-accent group-hover:bg-accent/15">
@@ -92,7 +91,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
 
           {/* Quote + brand visual */}
-          <div className="relative">
+          <div className="hero-entrance relative" style={{ animationDelay: "180ms" }}>
             <div className="overflow-hidden rounded-3xl bg-[#06251b] p-8 text-[#f4efe3] shadow-2xl">
               <blockquote>
                 <span className="font-heading text-5xl leading-none text-accent">“</span>
@@ -147,16 +146,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Ad beside the always-on Radio + Jadwal Sholat widgets — same
-          AdSense client id as every other slot, so nothing needs to change
-          here once the account is approved; it simply starts filling. */}
-      <div className="px-4 pt-6 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-4xl" format="rectangle" position="Home — di bawah Hero / widget" />
-      </div>
-
       {/* ── Interactive Qur'an reader ────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-7xl">
+          <div className="section-divider mb-4"><span>✿</span></div>
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{dict.reader.sectionTitle}</h2>
           <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
             {dict.reader.sectionSubtitle}
@@ -175,19 +168,15 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* In-content ad — proportional leaderboard between sections */}
-      <div className="px-4 pb-4 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" position="Home — setelah section Al-Qur'an" />
-      </div>
-
       {/* ── Explore cards ────────────────────────────────────── */}
       <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
         <div className="mx-auto max-w-7xl">
+          <div className="section-divider mb-4"><span>✿</span></div>
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{dict.explore.title}</h2>
           <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
             {dict.explore.subtitle}
           </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 desktop:grid-cols-4">
+          <div className="reveal-stagger mt-8 grid gap-4 sm:grid-cols-2 desktop:grid-cols-4">
             {explore.map(([icon, item, href]) => (
               <Link key={item.title} href={href} className="card-premium group relative overflow-hidden p-6">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent/10 text-2xl">{icon}</div>
@@ -201,11 +190,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
-
-      {/* Ad after the Explore/Kitab cards (per placement plan) */}
-      <div className="px-4 pt-6 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" position="Home — setelah kartu Jelajahi/Kitab" />
-      </div>
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
@@ -232,10 +216,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Ad just before the footer (per placement plan) */}
-      <div className="px-4 pb-10 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" position="Home — sebelum Footer" />
-      </div>
     </div>
   );
 }
