@@ -140,10 +140,26 @@ contentRoute.get("/stories/:id/audio", async (c) => {
   return new Response(obj.body, { headers });
 });
 
-// GET /content/categories
+// GET /content/categories?lang=&countedOnly=1 — `countedOnly` drops any
+// category with zero published stories (in `lang`, if given) so a page like
+// /audiobook never offers a filter chip that leads to an empty result. Other
+// callers (e.g. the Kisah taxonomy page, which mixes stories with the
+// person-index) omit it and get every category, unchanged.
 contentRoute.get("/categories", async (c) => {
-  const { results } = await c.env.DB.prepare("SELECT * FROM categories ORDER BY name").all();
-  return c.json({ categories: results });
+  const lang = c.req.query("lang");
+  const countedOnly = c.req.query("countedOnly") === "1";
+  const { results } = await (lang
+    ? c.env.DB.prepare(
+        `SELECT c.*, (SELECT COUNT(*) FROM stories st WHERE st.category_id = c.id AND st.status = 'published' AND st.lang = ?) AS story_count
+         FROM categories c ORDER BY c.name`
+      ).bind(lang)
+    : c.env.DB.prepare(
+        `SELECT c.*, (SELECT COUNT(*) FROM stories st WHERE st.category_id = c.id AND st.status = 'published') AS story_count
+         FROM categories c ORDER BY c.name`
+      )
+  ).all<{ story_count: number }>();
+  const categories = countedOnly ? results.filter((r) => r.story_count > 0) : results;
+  return c.json({ categories });
 });
 
 // GET /content/ebooks?category=&page=

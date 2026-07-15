@@ -63,7 +63,7 @@ export default async function AudiobookPage({
       api.get<{ stories: StoryRow[] }>(
         `/content/stories?lang=${storyLang}${category ? `&category=${category}` : ""}`
       ),
-      api.get<{ categories: CategoryRow[] }>("/content/categories"),
+      api.get<{ categories: CategoryRow[] }>(`/content/categories?lang=${storyLang}&countedOnly=1`),
     ]);
     stories = storiesRes.stories;
     categories = catRes.categories;
