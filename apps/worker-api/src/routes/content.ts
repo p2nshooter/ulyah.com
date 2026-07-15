@@ -498,6 +498,25 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
   return c.json({ kitab, chapters });
 });
 
+// ── Kisah Anak — short sequential children's stories, watch/listen-only ───
+contentRoute.get("/kisah-anak", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, slug, episode_order, title_id, title_en, moral_id, moral_en, motif, age_range FROM kisah_anak ORDER BY episode_order"
+  ).all();
+  return c.json({ episodes: results });
+});
+contentRoute.get("/kisah-anak/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const episode = await c.env.DB.prepare("SELECT * FROM kisah_anak WHERE slug = ?").bind(slug).first();
+  if (!episode) return c.json({ error: "Not found" }, 404);
+  const next = await c.env.DB.prepare(
+    "SELECT slug, title_id FROM kisah_anak WHERE episode_order = (SELECT episode_order + 1 FROM kisah_anak WHERE slug = ?)"
+  )
+    .bind(slug)
+    .first<{ slug: string; title_id: string }>();
+  return c.json({ episode, next: next ?? null });
+});
+
 // ── Sanad Explorer — narrator chain extracted from the hadith's own text ──
 // See lib/sanad.ts: pattern-extracted from `text_ar`, never invented. Admin-
 // facing "mata rantai sanad" tool: pick a collection/hadith, see the chain.

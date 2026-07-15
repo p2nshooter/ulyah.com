@@ -47,7 +47,7 @@ export function InstallAppButton({
   labeled = false,
   autoPrompt = false,
 }: {
-  app?: "main" | "sholat" | "radio";
+  app?: "main" | "sholat" | "radio" | "quran-flipbook";
   labeled?: boolean;
   /** Pulses the button to draw the eye — used when a visitor just navigated
    * here specifically to install (e.g. via ?install=1 from the homepage's

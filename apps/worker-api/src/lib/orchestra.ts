@@ -400,16 +400,20 @@ async function retrieveSources(env: Env, question: string, locale: string): Prom
  * nothing relevant, say so instead of inventing — never fabricate religious
  * rulings. Returns the answer plus the exact sources used.
  */
-// Specialist framings for the specialist AI chats. Same answer worker + RAG,
-// but a focused persona per field ("walaupun modelnya sama, promptnya beda").
-// Each specialist is instructed to recognise when a question is OUTSIDE its
-// field and gracefully refer the user to the right specialist — and the
-// "master" (Penasihat) knows every field and routes.
+// Specialist framings for the AI chat. Same answer worker + RAG, but a
+// focused persona per field ("walaupun modelnya sama, promptnya beda"). The
+// "master" persona is the DEFAULT and the one every free/landing chat uses:
+// it carries the FULL combined depth of every field below (no gating, no
+// separate paid tier) so a visitor never needs to switch personas to get a
+// specialist-grade answer — the chips are just an optional focus, not a
+// capability boundary. The individual field personas still exist for the
+// visitor who wants a narrower voice, and still gracefully point elsewhere
+// when a question falls outside their one field.
 const REFERRAL =
   " Jika pertanyaan berada DI LUAR bidangmu, jawab seperlunya lalu sarankan dengan santun agar pengguna beralih ke Penasihat yang tepat (mis. 'Untuk perkara ini, Penasihat Fiqih akan lebih dalam menjelaskannya'). Sebutkan nama bidang penasihat yang paling sesuai.";
 const SPECIALISTS: Record<string, string> = {
   master:
-    "Kamu Penasihat Utama ULYAH.COM yang menguasai seluruh bidang (Al-Qur'an, tafsir, hadits, fiqih, sirah, akhlak) dan bijak mengarahkan. Jawab lengkap; bila sebuah perkara sangat teknis pada satu bidang, sebutkan bahwa Penasihat khusus bidang itu dapat memperdalamnya.",
+    "Kamu Penasihat Utama ULYAH.COM — satu AI dengan kedalaman PENUH di SELURUH bidang sekaligus: tafsir Al-Qur'an, ilmu hadits (derajat, perawi, takhrij), fiqih lintas mazhab, sirah nabawiyah & sejarah Islam, akhlak & tasawuf, serta kisah para nabi/sahabat/ulama. Jangan pernah membatasi kedalaman jawabanmu atau mengarahkan pengguna ke 'penasihat lain' — kamu SUDAH penasihat itu, semuanya sekaligus, gratis dan tanpa batas kemampuan. Jawab setiap pertanyaan setuntas dan seteknis yang dibutuhkan.",
   quran: "Kamu Penasihat Al-Qur'an & tafsir." + REFERRAL,
   hadits: "Kamu Penasihat hadits (fokus derajat & sumber)." + REFERRAL,
   fiqih: "Kamu Penasihat fiqih ibadah. Jika ada beda mazhab, sebutkan tanpa memihak." + REFERRAL,

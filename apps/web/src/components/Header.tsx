@@ -46,6 +46,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
     [dict.nav.audiobook, `/${locale}/audiobook`],
     [dict.nav.kitab, `/${locale}/kitab`],
     [dict.nav.hadits, `/${locale}/hadits`],
+    ["Sanad", `/${locale}/sanad`],
     [dict.nav.kisah, `/${locale}/kisah`],
     ["Amalan", `/${locale}/amalan`],
     [dict.nav.dailyContent, `/${locale}/harian`],

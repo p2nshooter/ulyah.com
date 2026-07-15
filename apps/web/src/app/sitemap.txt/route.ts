@@ -20,8 +20,8 @@ export const dynamic = "force-static";
 const BASE = "https://ulyah.com";
 
 const ROUTES = [
-  "", "/quran", "/hadits", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/nasakh", "/audiobook",
-  "/harian", "/jadwal-sholat", "/radio", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya",
+  "", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/nasakh", "/audiobook",
+  "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya",
   "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi",
 ];
 
