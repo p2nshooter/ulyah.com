@@ -376,10 +376,11 @@ jobs:
           # complete original profiles, INSERT OR IGNORE so re-running is a
           # no-op and later additions (Ulama, more Sahabat) only backfill.
           PCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_person;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
-          if [ "$PCOUNT" -lt "37" ]; then
+          if [ "$PCOUNT" -lt "50" ]; then
             echo "Kisah person index has $PCOUNT entries — importing."
             npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_nabi.sql
             npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_sahabat.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_person_ulama.sql
           else
             echo "Kisah person index already has $PCOUNT entries — skipping."
           fi
