@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { fetchTafsir, fetchAsbabunNuzul, listTafsirEditions, fetchTafsirByEdition } from "../lib/tafsir-source.js";
+import { fetchMushafPage, resolvePageForSurahStart, resolvePageForJuzStart } from "../lib/mushaf-source.js";
 import { safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
 
@@ -262,4 +263,90 @@ quranRoute.get("/search", async (c) => {
   }
 
   return c.json({ query: q, results });
+});
+
+// ── Mushaf Utsmani (604-page Madinah Mushaf layout) ───────────────────────
+
+// GET /quran/mushaf/page/:number?lang= — one full Mushaf page: every ayah on
+// it in Uthmani script (see lib/mushaf-source.ts), enriched with this site's
+// own surah names + translation for the requested language so the reader
+// doesn't need a second round-trip for that.
+quranRoute.get("/mushaf/page/:number", async (c) => {
+  const pageNumber = Number(c.req.param("number"));
+  if (!Number.isInteger(pageNumber) || pageNumber < 1 || pageNumber > 604) {
+    return c.json({ error: "Invalid page number (1-604)" }, 400);
+  }
+  const { lang, requested } = langParam(c);
+
+  const cacheKey = `quran:mushaf-page:v1:${pageNumber}:${requested}`;
+  const cached = await c.env.CACHE_KV.get(cacheKey);
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  const mushafAyat = await fetchMushafPage(c.env, pageNumber);
+  if (!mushafAyat) return c.json({ error: "Mushaf page unavailable" }, 502);
+
+  const surahIds = [...new Set(mushafAyat.map((a) => a.surahNumber))];
+  const placeholders = surahIds.map(() => "?").join(",");
+  const { results: surahRows } = await c.env.DB.prepare(
+    `SELECT id, name_ar, name_transliteration FROM surah WHERE id IN (${placeholders})`
+  )
+    .bind(...surahIds)
+    .all<{ id: number; name_ar: string; name_transliteration: string }>();
+  const surahById = new Map(surahRows.map((s) => [s.id, s]));
+
+  const translationRows = lang
+    ? (
+        await c.env.DB.prepare(
+          `SELECT a.surah_id, a.number, t.text AS translation
+           FROM ayah a
+           JOIN translation t ON t.ayah_id = a.id AND t.lang = ?
+           WHERE a.surah_id IN (${placeholders})`
+        )
+          .bind(lang, ...surahIds)
+          .all<{ surah_id: number; number: number; translation: string }>()
+      ).results
+    : [];
+  const translationByKey = new Map(translationRows.map((r) => [`${r.surah_id}:${r.number}`, r.translation]));
+
+  let lastSurah = -1;
+  const ayahs = mushafAyat.map((a) => {
+    const isFirstOfSurah = a.surahNumber !== lastSurah;
+    lastSurah = a.surahNumber;
+    const surah = surahById.get(a.surahNumber);
+    return {
+      surahId: a.surahNumber,
+      surahNameAr: surah?.name_ar ?? "",
+      surahName: surah?.name_transliteration ?? "",
+      number: a.numberInSurah,
+      textAr: a.textUthmani,
+      translation: translationByKey.get(`${a.surahNumber}:${a.numberInSurah}`) ?? null,
+      isFirstOfSurah,
+    };
+  });
+
+  const body = JSON.stringify({
+    pageNumber,
+    totalPages: 604,
+    juz: mushafAyat[0]?.juz ?? null,
+    ayahs,
+    lang: requested,
+    translationLang: lang,
+  });
+  await safeKvPut(c.env, cacheKey, body, { expirationTtl: 60 * 60 * 24 * 30 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
+});
+
+// GET /quran/mushaf/jump?type=surah|juz&id= — resolves which Mushaf page a
+// surah or juz starts on, so the reader's quick-jump menus can navigate
+// straight there. See lib/mushaf-source.ts for how this avoids a hand-typed
+// (and unverifiable-here) lookup table.
+quranRoute.get("/mushaf/jump", async (c) => {
+  const type = c.req.query("type");
+  const id = Number(c.req.query("id"));
+  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
+
+  const page =
+    type === "surah" ? await resolvePageForSurahStart(c.env, id) : type === "juz" ? await resolvePageForJuzStart(c.env, id) : null;
+  if (page === null) return c.json({ error: "Could not resolve page" }, 404);
+  return c.json({ page });
 });

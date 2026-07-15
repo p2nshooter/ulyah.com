@@ -150,6 +150,68 @@ body {
     transform: translateX(-50%);
   }
 }
+/* Mushaf Utsmani page-turn — a book-like flip split into two 3D quarter-turns
+   (current page rotates away edge-on, then the new page rotates back in from
+   the same edge) rather than one continuous rotation, so the moment the page
+   is perpendicular to the screen (and would otherwise show nothing, or the
+   page's non-existent "back side") is exactly when the content underneath
+   gets swapped — the visible result reads as one smooth, continuous flip.
+   Direction-aware: "next" turns as if pulling the right edge over to the
+   left (transform-origin left), "prev" is the mirror (transform-origin
+   right). */
+.mushaf-page-flip-next-out {
+  animation: mushaf-flip-out-left 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.mushaf-page-flip-next-in {
+  animation: mushaf-flip-in-left 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.mushaf-page-flip-prev-out {
+  animation: mushaf-flip-out-right 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.mushaf-page-flip-prev-in {
+  animation: mushaf-flip-in-right 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes mushaf-flip-out-left {
+  from {
+    transform: perspective(2000px) rotateY(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: perspective(2000px) rotateY(-92deg);
+    opacity: 0.4;
+  }
+}
+@keyframes mushaf-flip-in-left {
+  from {
+    transform: perspective(2000px) rotateY(92deg);
+    opacity: 0.4;
+  }
+  to {
+    transform: perspective(2000px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+@keyframes mushaf-flip-out-right {
+  from {
+    transform: perspective(2000px) rotateY(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: perspective(2000px) rotateY(92deg);
+    opacity: 0.4;
+  }
+}
+@keyframes mushaf-flip-in-right {
+  from {
+    transform: perspective(2000px) rotateY(-92deg);
+    opacity: 0.4;
+  }
+  to {
+    transform: perspective(2000px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
 .marquee-track {
   animation: marquee-scroll linear infinite;
 }

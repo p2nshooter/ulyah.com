@@ -11,6 +11,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
 import { prayerLabels } from "@/lib/prayer-labels";
 import { amalanLabels } from "@/lib/amalan-labels";
+import { mushafLabels } from "@/lib/mushaf-labels";
 
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,6 +19,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const pathname = usePathname();
   const prayerT = prayerLabels(locale);
   const amalanT = amalanLabels(locale);
+  const mushafT = mushafLabels(locale);
   const navRef = useRef<HTMLElement>(null);
 
   // The dropdown previously only closed via its own onClick handlers (a nav
@@ -45,6 +47,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const links: [string, string][] = [
     [dict.nav.home, `/${locale}`],
     [dict.nav.quran, `/${locale}/quran`],
+    [mushafT.navLabel, `/${locale}/quran/mushaf`],
     [dict.nav.audiobook, `/${locale}/audiobook`],
     [dict.nav.kitab, `/${locale}/kitab`],
     [dict.nav.hadits, `/${locale}/hadits`],
