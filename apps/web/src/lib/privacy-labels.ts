@@ -33,9 +33,9 @@ const EN: PrivacyLabels = {
     {
       heading: "Cookies and advertising",
       body: [
-        "This site is supported by Google AdSense, which may use cookies and similar technologies to serve ads based on your visits to this and other websites, and to measure ad performance.",
-        "Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet. You can opt out of personalized advertising by visiting Google's Ad Settings (adssettings.google.com). Users in the EEA, UK, and Switzerland can also manage consent choices for Google's ad partners.",
-        "Learn more about how Google uses information from sites that use its services at policies.google.com/technologies/partner-sites.",
+        "This site is supported by third-party advertising partners, which may use cookies and similar technologies to serve ads based on your visits to this and other websites, and to measure ad performance.",
+        "These advertising cookies enable our partners to serve ads based on your visit to this site and/or other sites on the Internet. You can opt out of personalized advertising through Google's Ad Settings (adssettings.google.com) and, where applicable, other partners' own opt-out tools.",
+        "Learn more about how advertising partners use information from sites that use their services at policies.google.com/technologies/partner-sites.",
         "You can control or delete cookies at any time through your browser settings. Blocking cookies may affect ad personalization but will not prevent you from reading or listening to any content on this site.",
       ],
     },
@@ -90,9 +90,9 @@ const ID: PrivacyLabels = {
     {
       heading: "Cookie dan iklan",
       body: [
-        "Situs ini didukung oleh Google AdSense, yang dapat menggunakan cookie dan teknologi serupa untuk menayangkan iklan berdasarkan kunjungan Anda ke situs ini maupun situs lain, serta mengukur performa iklan.",
-        "Penggunaan cookie periklanan oleh Google memungkinkan Google dan mitranya menayangkan iklan berdasarkan kunjungan Anda ke situs ini dan/atau situs lain di Internet. Anda dapat menonaktifkan iklan yang dipersonalisasi melalui Pengaturan Iklan Google (adssettings.google.com).",
-        "Pelajari lebih lanjut bagaimana Google menggunakan informasi dari situs yang menggunakan layanannya di policies.google.com/technologies/partner-sites.",
+        "Situs ini didukung oleh mitra periklanan pihak ketiga, yang dapat menggunakan cookie dan teknologi serupa untuk menayangkan iklan berdasarkan kunjungan Anda ke situs ini maupun situs lain, serta mengukur performa iklan.",
+        "Penggunaan cookie periklanan ini memungkinkan mitra kami menayangkan iklan berdasarkan kunjungan Anda ke situs ini dan/atau situs lain di Internet. Anda dapat menonaktifkan iklan yang dipersonalisasi melalui Pengaturan Iklan Google (adssettings.google.com) dan alat serupa dari mitra lain bila tersedia.",
+        "Pelajari lebih lanjut bagaimana mitra periklanan menggunakan informasi dari situs yang menggunakan layanan mereka di policies.google.com/technologies/partner-sites.",
         "Anda dapat mengatur atau menghapus cookie kapan saja melalui pengaturan browser. Memblokir cookie dapat memengaruhi personalisasi iklan, tetapi tidak akan menghalangi Anda membaca atau mendengarkan konten apa pun di situs ini.",
       ],
     },
