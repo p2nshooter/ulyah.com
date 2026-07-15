@@ -61,10 +61,12 @@ app.onError((err, c) => {
 export default {
   fetch: app.fetch,
 
-  // Autonomous heartbeat (§13.1, §14), every 15 min via Cloudflare Cron — this
-  // is what keeps Orchestra Core & its workers running with NO human and NO
-  // Anthropic online: content-gap scheduler drafts new content through donated
-  // keys, the key pool self-heals, and rate-limited keys auto-wake.
+  // Autonomous heartbeat (§13.1, §14), every minute via Cloudflare Cron — the
+  // finest interval the platform supports, so this is as close to "never
+  // stops" as a serverless Worker can get. This is what keeps Orchestra Core
+  // & its workers running with NO human and NO Anthropic online:
+  // content-gap scheduler drafts new content through donated keys, the key
+  // pool self-heals, and rate-limited keys auto-wake.
   async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
     const id = env.KEY_POOL.idFromName("global");
     const stub = env.KEY_POOL.get(id);

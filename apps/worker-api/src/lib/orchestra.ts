@@ -99,7 +99,7 @@ async function reviveCooledKeys(env: Env): Promise<void> {
 
 /** Cron-callable maintenance so cooled-down keys auto-wake even when the site
  * is idle (no live request to trigger it) — keeps Orchestra Core healthy while
- * nobody, including Anthropic, is online. Runs from scheduled() every 15 min. */
+ * nobody, including Anthropic, is online. Runs from scheduled() every minute. */
 export async function orchestraMaintenance(env: Env): Promise<void> {
   await reviveCooledKeys(env);
 }

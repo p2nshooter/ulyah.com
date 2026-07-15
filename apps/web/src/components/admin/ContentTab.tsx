@@ -45,8 +45,8 @@ function EnginePanel() {
         <div>
           <p className="font-heading text-base">⚙️ Auto Content Engine</p>
           <p className="text-xs text-[var(--color-text-secondary)]">
-            Compiles sourced Tadabbur articles from the DB every 15 min — runs with or without AI keys, and only
-            stops here.
+            Compiles sourced Tadabbur articles from the DB every minute — the fastest interval Cloudflare Cron
+            supports — runs with or without AI keys, and only stops here.
           </p>
         </div>
         <button

@@ -46,8 +46,15 @@ new_sqlite_classes = ["KeyPoolCoordinator"]
 
 # Health-check tick for the AI/GPU key pool (arsitektur doc §13.1 Health Checker)
 # and the zero-hand content-gap scheduler (§14) that keeps the database growing.
+# Runs every minute — the finest interval Cloudflare Cron Triggers support
+# (there is no sub-minute option on any plan, so this is the closest a
+# serverless Worker can get to "never stop"). Previously every 15 minutes,
+# which thereby throttled how often new content could be drafted/published to
+# once per 15-minute window; each tick still only does a small bounded batch
+# of work (see MAX_JOBS_EXECUTED_PER_TICK in lib/scaling.ts), so this simply
+# lets that same bounded batch run 15x more often.
 [triggers]
-crons = ["*/15 * * * *"]
+crons = ["* * * * *"]
 
 [observability]
 enabled = true
