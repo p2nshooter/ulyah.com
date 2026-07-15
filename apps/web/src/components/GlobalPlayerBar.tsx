@@ -5,6 +5,7 @@ import { usePlayerStore, LAYERS, type Layer, type QueueItem } from "@/lib/player
 import { api } from "@/lib/api";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { RECITERS, COUNTRIES, resolveAyahAudioUrl } from "@/lib/qori-cdn";
+import { resolveTranslationLang } from "@ulyah/shared/i18n";
 import type { Dictionary } from "@/dictionaries";
 
 interface AyahBundleResponse {
@@ -153,12 +154,19 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     });
   }, []);
 
+  // Narrate every text layer in the ACTUAL content language, not the raw UI
+  // locale: for locales that don't have their own Qur'an translation (de, ja)
+  // the text served is the fallback (English), so speaking it with a German
+  // voice read English words — the "tidak konsisten translate dan bahasa" bug.
+  // resolveTranslationLang gives the language the text is truly in.
+  const contentLang = resolveTranslationLang(uiLang) ?? uiLang;
+
   const narrate = useCallback(
     (text: string, myGen: number): Promise<void> =>
       new Promise((resolve) => {
         if (!speechAvailable() || !text.trim()) return resolve();
         const rate = Math.min(1.1, Math.max(0.7, 0.95 * (usePlayerStore.getState().playbackRate || 1)));
-        const handle = speak(text, uiLang, { rate });
+        const handle = speak(text, contentLang, { rate });
         narrationRef.current = handle;
         handle.done.then(() => {
           if (myGen === genRef.current) resolve();

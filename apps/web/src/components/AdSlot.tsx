@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
+import { AdsterraBanner, useResponsiveAdSize } from "@/components/AdsterraBanner";
 
 /**
  * A single AdSense unit, framed as a premium card consistent with the rest of
@@ -156,8 +157,16 @@ export function AdSlot({
     );
   }
 
-  // Before an id is configured (pre-approval) render nothing — no empty box.
-  if (!ready || !slotId) return null;
+  // Still resolving the admin config — render nothing (no empty box, no shift).
+  if (!ready) return null;
+
+  // AdSense not configured yet → fill the placement with an Adsterra banner so
+  // the slot earns from day one. AdSense (kept intact) takes over automatically
+  // once an ad-unit id is set. Admin pages never mount an AdSlot, so this never
+  // shows in the portal.
+  if (!slotId) {
+    return <AdsterraFill format={format} minHeight={minHeight} label={label} className={className} />;
+  }
 
   return (
     <div
@@ -185,6 +194,40 @@ export function AdSlot({
         data-ad-format={format}
         data-full-width-responsive="true"
       />
+    </div>
+  );
+}
+
+/** Interim Adsterra fill, framed identically to the AdSense card so it reads
+ * as an elegant, on-brand placement rather than a bare ad. */
+function AdsterraFill({
+  format,
+  minHeight,
+  label,
+  className,
+}: {
+  format: "auto" | "horizontal" | "rectangle";
+  minHeight: number;
+  label: string;
+  className: string;
+}) {
+  const size = useResponsiveAdSize(format);
+  useEffect(() => {
+    sendAdEvent("impression");
+  }, []);
+  return (
+    <div
+      className={`mx-auto flex w-full max-w-4xl flex-col items-center overflow-hidden rounded-2xl border border-accent/25 bg-gradient-to-b from-accent/[0.06] to-transparent text-center shadow-sm ${className}`}
+      style={{ minHeight }}
+    >
+      <div className="flex w-full items-center justify-center gap-1.5 border-b border-accent/10 py-1.5">
+        <span aria-hidden className="text-[10px]">✦</span>
+        <p className="text-[9px] font-medium uppercase tracking-[0.15em] text-[var(--color-text-secondary)]/70">{label}</p>
+        <span aria-hidden className="text-[10px]">✦</span>
+      </div>
+      <div className="flex w-full items-center justify-center p-2">
+        <AdsterraBanner size={size} />
+      </div>
     </div>
   );
 }

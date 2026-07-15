@@ -39,6 +39,11 @@ interface Bundle {
 //   • Baca Semua      → real qori murottal, then the translation is spoken
 //   • Baca Arab Saja  → only the imam's recitation
 //   • Baca Arti Saja  → only the spoken translation
+// "Baca Semua" recites the Arabic then narrates the meaning AND the tafsir /
+// asbabun / hadith explanation; "Baca Arti Saja" narrates that same
+// understanding (terjemah + tafsir + penjelasan) WITHOUT the Arabic audio;
+// "Baca Arab Saja" is the pure murottal. This matches the request that tafsir
+// & penjelasan be read under both "arti saja" and "baca semua".
 const VOICE_MODES: {
   key: string;
   layers: Layer[];
@@ -46,9 +51,9 @@ const VOICE_MODES: {
   hint: (d: Dictionary) => string;
   icon: string;
 }[] = [
-  { key: "all", layers: ["ayah", "translation"], label: (d) => d.reader.voiceAll, hint: (d) => d.reader.voiceAllHint, icon: "🔊" },
+  { key: "all", layers: ["ayah", "translation", "tafsir", "asbabun", "hadits"], label: (d) => d.reader.voiceAll, hint: (d) => d.reader.voiceAllHint, icon: "🔊" },
   { key: "arabic", layers: ["ayah"], label: (d) => d.reader.voiceArabic, hint: (d) => d.reader.voiceArabicHint, icon: "🕋" },
-  { key: "translation", layers: ["translation"], label: (d) => d.reader.voiceTranslation, hint: (d) => d.reader.voiceTranslationHint, icon: "🌍" },
+  { key: "translation", layers: ["translation", "tafsir", "asbabun", "hadits"], label: (d) => d.reader.voiceTranslation, hint: (d) => d.reader.voiceTranslationHint, icon: "🌍" },
 ];
 
 const LAYER_ICON: Record<Layer, string> = {
@@ -145,6 +150,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [editionTafsir, setEditionTafsir] = useState<{ text: string; source: string } | null>(null);
   const [editionTafsirLoading, setEditionTafsirLoading] = useState(false);
   const arabicRef = useRef<HTMLDivElement>(null);
+  const explRefs = useRef<Map<Layer, HTMLDivElement | null>>(new Map());
 
   const { layers, setLayers, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
     usePlayerStore();
@@ -272,6 +278,15 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       cancelled = true;
     };
   }, [selectedSurah, focus, tafsirEdition, locale]);
+
+  // Keep the explanation card that is currently being narrated in view and
+  // marked, so a long tafsir/penjelasan auto-scrolls to follow the voice
+  // ("penjelasan kasih penanda text yg sedang di baca, auto scroll klo panjang").
+  useEffect(() => {
+    if (!isPlaying || !activeLayer) return;
+    const el = explRefs.current.get(activeLayer);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [activeLayer, isPlaying]);
 
   const focusRow = useMemo(() => ayat.find((a) => a.number === focus) ?? null, [ayat, focus]);
 
@@ -589,11 +604,19 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         ? editionTafsir?.source
                         : bundle?.tafsir[0]?.source
                       : undefined;
+                    const reading = activeLayer === s.layer && isPlaying;
                     return (
-                      <div key={s.layer} className="rounded-xl border border-[var(--color-border)] p-3">
+                      <div
+                        key={s.layer}
+                        ref={(el) => {
+                          explRefs.current.set(s.layer, el);
+                        }}
+                        className={`rounded-xl border p-3 transition ${reading ? "border-accent bg-accent/10 shadow-sm" : "border-[var(--color-border)]"}`}
+                      >
                         <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
                           <span>{s.icon}</span>
                           {s.label}
+                          {reading && <span className="ml-auto text-[10px] font-normal text-accent">🔊 sedang dibaca…</span>}
                         </p>
                         {/* Tafsir source picker — Ibn Kathir, Jalalayn, As-Sa'di,
                             Al-Mukhtasar, Kemenag … (spa5k/tafsir_api). */}

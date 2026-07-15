@@ -9,6 +9,7 @@ import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
+import { AdsterraGlobal } from "@/components/AdsterraGlobal";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -153,6 +154,7 @@ export default async function LocaleLayout({
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>
         <SwRegister />
         <AnalyticsBeacon locale={locale} />
+        <AdsterraGlobal />
         <ThemeProvider>
           <Header locale={locale} dict={dict} />
           <main className="min-h-screen pb-24">{children}</main>
