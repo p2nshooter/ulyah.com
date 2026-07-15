@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
-import { AdSlot } from "@/components/AdSlot";
 import { NarrateButton } from "@/components/NarrateButton";
 
 interface Person {
@@ -81,7 +80,6 @@ export default async function KisahTokohPage({
       </div>
 
       <div className="mt-10">
-        <AdSlot minHeight={110} />
       </div>
     </article>
   );

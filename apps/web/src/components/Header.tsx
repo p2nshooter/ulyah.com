@@ -10,12 +10,14 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
 import { prayerLabels } from "@/lib/prayer-labels";
+import { mushafLabels } from "@/lib/mushaf-labels";
 
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
   const pathname = usePathname();
   const prayerT = prayerLabels(locale);
+  const mushafT = mushafLabels(locale);
   const navRef = useRef<HTMLElement>(null);
 
   // The dropdown previously only closed via its own onClick handlers (a nav
@@ -43,11 +45,13 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const links: [string, string][] = [
     [dict.nav.home, `/${locale}`],
     [dict.nav.quran, `/${locale}/quran`],
+    [mushafT.navLabel, `/${locale}/quran/mushaf`],
     [dict.nav.audiobook, `/${locale}/audiobook`],
     [dict.nav.kitab, `/${locale}/kitab`],
     [dict.nav.hadits, `/${locale}/hadits`],
     ["Sanad", `/${locale}/sanad`],
     [dict.nav.kisah, `/${locale}/kisah`],
+    [locale === "id" ? "Kisah Anak" : locale === "ar" ? "قصص الأطفال" : "Kids", `/${locale}/anak`],
     ["Amalan", `/${locale}/amalan`],
     [dict.nav.dailyContent, `/${locale}/harian`],
     [prayerT.title, `/${locale}/jadwal-sholat`],

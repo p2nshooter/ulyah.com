@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { api } from "@/lib/api";
-import { NarrateButton } from "@/components/NarrateButton";
-import { AdSlot } from "@/components/AdSlot";
+import { KidsFilmPlayer } from "@/components/kids/KidsFilmPlayer";
+import type { KidsVariant } from "@/components/kids/KidsCharacter";
 
 interface EpisodeSummary {
   id: number;
@@ -21,9 +21,13 @@ interface EpisodeDetail extends EpisodeSummary {
   age_range: string;
 }
 
-// Decorative, non-figurative Islamic motifs only — no depiction of any
-// living being anywhere in this widget, per the request to avoid imagery
-// that Islamic teaching holds impermissible. Pure CSS animation.
+// Each episode stars one of the two generic child characters (see
+// KidsCharacter.tsx — never a depiction of any prophet, companion, or named
+// figure). Alternating per episode keeps the series varied.
+function episodeVariant(order: number): KidsVariant {
+  return order % 2 === 0 ? "girl" : "boy";
+}
+
 const MOTIF_EMOJI: Record<string, string> = {
   star: "⭐",
   moon: "🌙",
@@ -32,36 +36,22 @@ const MOTIF_EMOJI: Record<string, string> = {
   pattern: "✨",
 };
 
-function MotifAnimation({ motif }: { motif: string }) {
-  return (
-    <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#06251b] to-[#0B3D2E]">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(184,137,43,0.8) 1px, transparent 1px)",
-          backgroundSize: "18px 18px",
-          animation: "kisah-anak-drift 12s linear infinite",
-        }}
-      />
-      <span className="animate-bounce text-6xl" style={{ animationDuration: "2.4s" }}>
-        {MOTIF_EMOJI[motif] ?? "✨"}
-      </span>
-      <style>{`
-        @keyframes kisah-anak-drift {
-          from { background-position: 0 0; }
-          to { background-position: 60px 60px; }
-        }
-      `}</style>
-    </div>
-  );
-}
-
 export function KisahAnakList({ locale, episodes }: { locale: string; episodes: EpisodeSummary[] }) {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [detail, setDetail] = useState<EpisodeDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showText, setShowText] = useState(false);
   const isId = locale === "id";
+
+  const labels = {
+    play: isId ? "Putar film" : "Play film",
+    pause: isId ? "Jeda" : "Pause",
+    replay: isId ? "Ulangi" : "Replay",
+    sceneOf: (c: number, t: number) => (isId ? `Adegan ${c} dari ${t}` : `Scene ${c} of ${t}`),
+    moralTitle: isId ? "Hikmah" : "Lesson",
+    readText: isId ? "📖 Baca teks cerita" : "📖 Read the story text",
+    hideText: isId ? "Sembunyikan teks" : "Hide text",
+  };
 
   async function open(slug: string) {
     if (openSlug === slug) {
@@ -70,6 +60,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
       return;
     }
     setOpenSlug(slug);
+    setShowText(false);
     setLoading(true);
     try {
       const r = await api.get<{ episode: EpisodeDetail }>(`/content/kisah-anak/${slug}`);
@@ -82,40 +73,55 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
   }
 
   return (
-    <div className="space-y-4">
+    <div className="reveal-stagger space-y-4">
       {episodes.map((ep) => {
         const isOpen = openSlug === ep.slug;
         return (
-          <div key={ep.slug} className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)]">
+          <div
+            key={ep.slug}
+            className="card-premium overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)]"
+          >
             <button onClick={() => open(ep.slug)} className="flex w-full items-center gap-3 p-4 text-left">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-accent/40 text-xs font-medium text-accent">
-                {ep.episode_order}
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-accent/40 bg-accent/10 text-lg">
+                {MOTIF_EMOJI[ep.motif] ?? "✨"}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block font-heading text-base">{isId ? ep.title_id : ep.title_en ?? ep.title_id}</span>
-                {ep.moral_id && <span className="block truncate text-xs text-[var(--color-text-secondary)]">{isId ? ep.moral_id : ep.moral_en}</span>}
+                <span className="block font-heading text-base">
+                  {ep.episode_order}. {isId ? ep.title_id : ep.title_en ?? ep.title_id}
+                </span>
+                {ep.moral_id && (
+                  <span className="block truncate text-xs text-[var(--color-text-secondary)]">
+                    {isId ? ep.moral_id : ep.moral_en}
+                  </span>
+                )}
               </span>
-              <span className="text-accent">{isOpen ? "▲" : "▼"}</span>
+              <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-primary">
+                {isOpen ? "✕" : "▶"}
+              </span>
             </button>
 
             {isOpen && (
               <div className="space-y-4 border-t border-[var(--color-border)] p-4">
-                <MotifAnimation motif={ep.motif} />
                 {loading && <p className="text-sm text-[var(--color-text-secondary)]">…</p>}
                 {detail && detail.slug === ep.slug && (
                   <>
-                    <NarrateButton
-                      paragraphs={[isId ? detail.body_id : detail.body_en ?? detail.body_id]}
-                      listenLabel={isId ? "Dengarkan cerita" : "Listen to the story"}
-                      stopLabel={isId ? "Hentikan" : "Stop"}
+                    <KidsFilmPlayer
+                      title={isId ? detail.title_id : detail.title_en ?? detail.title_id}
+                      body={isId ? detail.body_id : detail.body_en ?? detail.body_id}
+                      moral={isId ? detail.moral_id : detail.moral_en ?? detail.moral_id}
+                      variant={episodeVariant(detail.episode_order)}
                       lang={locale}
+                      labels={labels}
                     />
-                    <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]">
-                      {isId ? detail.body_id : detail.body_en ?? detail.body_id}
-                    </p>
-                    {detail.moral_id && (
-                      <p className="rounded-xl border border-accent/30 bg-accent/5 p-3 text-sm font-medium text-accent">
-                        💡 {isId ? detail.moral_id : detail.moral_en}
+                    <button
+                      onClick={() => setShowText((v) => !v)}
+                      className="text-xs font-medium text-accent hover:underline"
+                    >
+                      {showText ? labels.hideText : labels.readText}
+                    </button>
+                    {showText && (
+                      <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]">
+                        {isId ? detail.body_id : detail.body_en ?? detail.body_id}
                       </p>
                     )}
                   </>
@@ -125,8 +131,6 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
           </div>
         );
       })}
-
-      <AdSlot minHeight={110} format="rectangle" />
     </div>
   );
 }

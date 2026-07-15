@@ -2,7 +2,6 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
-import { AdSlot } from "@/components/AdSlot";
 
 interface StoryRow {
   id: number;
@@ -149,7 +148,6 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
               ) : null}
               {showAd && (
                 <div className="mt-4">
-                  <AdSlot minHeight={110} />
                 </div>
               )}
             </section>

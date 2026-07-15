@@ -380,6 +380,19 @@ jobs:
             echo "Kisah Anak already has $KACOUNT episodes — skipping."
           fi
 
+      - name: Import Kisah Anak batch 2 — episodes 7-9 for the animated film player (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          KA2COUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_anak WHERE episode_order >= 7;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$KA2COUNT" -lt "3" ]; then
+            echo "Kisah Anak batch 2 has $KA2COUNT episodes — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_anak_batch2.sql
+          else
+            echo "Kisah Anak batch 2 already has $KA2COUNT episodes — skipping."
+          fi
+
       - name: Import Audiobook library — 25 original articles filling all categories (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api

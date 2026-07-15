@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
-import { AdSlot } from "@/components/AdSlot";
 
 interface Source {
   kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
@@ -159,7 +158,6 @@ export function AiChat({ locale }: { locale: string }) {
         penting, tetap rujuk ke ustadz terpercaya.
       </p>
 
-      <AdSlot position="tanya-bottom" />
     </div>
   );
 }

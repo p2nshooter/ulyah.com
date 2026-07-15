@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { sanadLabels } from "@/lib/sanad-labels";
 import { SanadExplorer } from "@/components/SanadExplorer";
-import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -27,7 +26,6 @@ export default async function SanadPage({ params }: { params: Promise<{ locale: 
         <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{t.subtitle}</p>
 
         <div className="mt-6">
-          <AdSlot minHeight={110} format="horizontal" />
         </div>
 
         <div className="mt-8">
