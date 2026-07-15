@@ -9,9 +9,25 @@ import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvPut } from "../lib/kv-safe.js";
+import { getAllHeartbeats, LIVE_WINDOW_MS } from "../lib/worker-heartbeat.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
+
+// GET /admin/worker-status — live/last-run status for every scheduled
+// background worker (see lib/worker-heartbeat.ts), so the admin portal can
+// show each one its own status bar instead of a single combined toggle.
+adminRoute.get("/worker-status", async (c) => {
+  const heartbeats = await getAllHeartbeats(c.env);
+  const now = Date.now();
+  return c.json({
+    liveWindowMs: LIVE_WINDOW_MS,
+    workers: heartbeats.map((h) => ({
+      ...h,
+      isLive: h.lastRunAt !== "" && now - new Date(h.lastRunAt).getTime() < LIVE_WINDOW_MS,
+    })),
+  });
+});
 
 // GET /admin/dashboard — summary tiles for wireframe §23.1
 adminRoute.get("/dashboard", async (c) => {

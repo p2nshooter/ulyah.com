@@ -18,6 +18,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { WorkerStatusPanel } from "@/components/admin/WorkerStatusPanel";
 
 interface HealthRow {
   provider: string;
@@ -299,6 +300,7 @@ export function OrchestraTab() {
         </div>
       </div>
 
+      <WorkerStatusPanel />
       <LiveHealth />
       <SourceRegistry />
 

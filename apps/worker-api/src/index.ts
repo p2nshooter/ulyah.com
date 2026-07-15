@@ -15,6 +15,7 @@ import { grantRoute } from "./routes/grant.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { cleanupObsoleteMurottalR2 } from "./lib/r2-cleanup.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
+import { withHeartbeat } from "./lib/worker-heartbeat.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -70,12 +71,24 @@ export default {
   async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
     const id = env.KEY_POOL.idFromName("global");
     const stub = env.KEY_POOL.get(id);
+    // Each sub-task reports its own live/last-run status (see
+    // lib/worker-heartbeat.ts) so the admin portal can show a per-worker
+    // status bar instead of one combined on/off toggle — every tick still
+    // runs all four regardless of what any other one reported.
     ctx.waitUntil(
       Promise.all([
-        stub.fetch("https://internal/health-tick", { method: "POST" }).catch((e) => console.error("health-tick failed", e)),
-        runScalingTick(env).catch((e) => console.error("scaling-tick failed", e)),
-        cleanupObsoleteMurottalR2(env).catch((e) => console.error("r2-cleanup failed", e)),
-        orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
+        withHeartbeat(env, "keypool-health", "Key Pool Health Check", () =>
+          stub.fetch("https://internal/health-tick", { method: "POST" })
+        ).catch((e) => console.error("health-tick failed", e)),
+        withHeartbeat(env, "scaling-tick", "Content-Gap Scheduler (Scaling)", () => runScalingTick(env)).catch((e) =>
+          console.error("scaling-tick failed", e)
+        ),
+        withHeartbeat(env, "r2-cleanup", "R2 Cleanup", () => cleanupObsoleteMurottalR2(env)).catch((e) =>
+          console.error("r2-cleanup failed", e)
+        ),
+        withHeartbeat(env, "orchestra-maintenance", "Orchestra Maintenance (key wake-up)", () => orchestraMaintenance(env)).catch(
+          (e) => console.error("orchestra-maintenance failed", e)
+        ),
       ]).then(() => undefined)
     );
   },
