@@ -27,6 +27,7 @@ export interface AmalanCategory {
 const GROUPS: { key: string; label: string; icon: string }[] = [
   { key: "doa", label: "Doa Harian", icon: "📿" },
   { key: "dzikir", label: "Dzikir", icon: "☀️" },
+  { key: "asmaul", label: "99 Asmaul Husna", icon: "🌟" },
   { key: "thibb", label: "Pengobatan (Thibbun Nabawi)", icon: "🌿" },
   { key: "kecantikan", label: "Kebersihan & Keindahan", icon: "✨" },
 ];
