@@ -288,9 +288,14 @@ export function OrchestraTab() {
           premium. Angka "±4.400 worker" = peran logis, BUKAN 4.400 Worker fisik (realistis ±150–300 fisik).
         </div>
         <div className="mt-2 rounded-lg bg-success/10 p-3 text-[11px] leading-relaxed text-success">
-          🟢 <b>Tetap jalan saat semua orang offline:</b> Cloudflare Cron memanggil scheduled() tiap 15 menit —
-          memproses antrean konten pakai key donasi (Gemini/Groq/NVIDIA, BUKAN Anthropic), health-check key pool, dan
-          membangunkan key yang kena rate-limit otomatis. Tidak butuh saya/Anthropic online.
+          🟢 <b>Tetap jalan saat semua orang offline:</b> Cloudflare Cron memanggil scheduled() tiap <b>1 menit</b> —
+          interval tercepat yang didukung Cloudflare Cron (tidak ada opsi sub-menit di plan mana pun), jadi ini
+          sedekat mungkin dengan "tidak pernah berhenti" untuk arsitektur serverless. Tiap tick memproses antrean
+          konten pakai key donasi (Gemini/Groq/NVIDIA, BUKAN Anthropic), health-check key pool, dan membangunkan key
+          yang kena rate-limit otomatis. Konten yang lolos fact-check dengan skor keyakinan tinggi (≥0.85) langsung
+          tayang tanpa menunggu approve manual. Audiobook (TTS multi-bahasa) berjalan tiap jam via GitHub Actions
+          terpisah (job ini lebih berat — install espeak-ng/ffmpeg/model Piper tiap run — jadi tidak bisa semenit
+          sekali). Tidak butuh saya/Anthropic online.
         </div>
       </div>
 
