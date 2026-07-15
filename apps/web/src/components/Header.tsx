@@ -122,12 +122,6 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           </button>
           <InstallAppButton />
           <LanguageSwitcher locale={locale} />
-          <Link
-            href={`/${locale}/donasi`}
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-white desktop:inline-block"
-          >
-            {dict.nav.donate}
-          </Link>
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="menu"
@@ -150,13 +144,6 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               {label}
             </Link>
           ))}
-          <Link
-            href={`/${locale}/donasi`}
-            onClick={() => setMenuOpen(false)}
-            className="mt-2 rounded-full bg-accent px-4 py-2 text-center text-sm font-medium text-white"
-          >
-            {dict.nav.donate}
-          </Link>
         </nav>
       )}
     </header>

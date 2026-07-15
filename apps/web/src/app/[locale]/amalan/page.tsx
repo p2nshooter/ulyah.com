@@ -3,7 +3,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
 import { AmalanLibrary, type AmalanCategory } from "@/components/AmalanLibrary";
-import { AdSlot } from "@/components/AdSlot";
 
 export const revalidate = 300;
 
@@ -35,10 +34,6 @@ export default async function AmalanPage({ params }: { params: Promise<{ locale:
           title="Amalan Harian"
           subtitle="Doa dari bangun tidur sampai tidur lagi, dzikir, thibbun nabawi (pengobatan Nabi ﷺ), dan adab kebersihan & keindahan — semua bersumber sahih, lengkap Arab, latin, terjemah, dan bisa didengarkan."
         />
-      </div>
-
-      <div className="mx-auto mt-6 max-w-5xl px-4 sm:px-6">
-        <AdSlot minHeight={110} format="horizontal" />
       </div>
 
       {categories.length === 0 ? (

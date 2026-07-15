@@ -3,7 +3,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
-import { AdSlot } from "@/components/AdSlot";
 
 interface BookDetail {
   id: number;
@@ -143,8 +142,6 @@ export default async function KitabBookPage({
           </p>
         )}
       </div>
-
-      <AdSlot minHeight={100} className="mt-6" />
 
       {nextBook && (
         <Link

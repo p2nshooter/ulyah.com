@@ -10,7 +10,6 @@ import {
   type PrayerCountry,
 } from "@/lib/prayer-countries";
 import { toHijri, ramadanStartFor } from "@/lib/hijri";
-import { AdSlot } from "@/components/AdSlot";
 
 interface GeoResponse {
   country: string | null;
@@ -95,6 +94,7 @@ export function ImsakiyahCalendar({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-4">
+
       <p className="text-center text-xs text-accent">
         📍 {locating ? t.locating : `${country.flag} ${cityLabel ?? country.city}`}
       </p>
@@ -123,8 +123,6 @@ export function ImsakiyahCalendar({ locale }: { locale: string }) {
           </tbody>
         </table>
       </div>
-
-      <AdSlot position="imsakiyah-mid" />
 
       <p className="text-center text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{t.disclaimer}</p>
     </div>

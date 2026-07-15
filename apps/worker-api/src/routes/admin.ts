@@ -620,14 +620,6 @@ adminRoute.get("/health", async (c) => {
     count("SELECT COUNT(*) n FROM app_installs"),
   ]);
 
-  let adsenseSlot = "";
-  try {
-    const raw = await c.env.CACHE_KV.get("adsense:config");
-    if (raw) adsenseSlot = JSON.parse(raw).slotId ?? "";
-  } catch {
-    /* ignore */
-  }
-
   // status: 'ok' | 'warn' | 'error'. error = query failed; warn = empty/needs
   // action; ok = has content.
   const s = (n: number, warnIfZero = true): "ok" | "warn" | "error" =>
@@ -646,89 +638,44 @@ adminRoute.get("/health", async (c) => {
     { key: "radio", label: "Radio Qori", route: "/jadwal-sholat", status: s(surah), count: surah, note: "streaming dari CDN qori" },
     { key: "jadwal", label: "Jadwal Sholat", route: "/jadwal-sholat", status: "ok", count: 0, note: "hitung dari lokasi (adhan)" },
     { key: "keys", label: "Smart Engine (Key Pool)", route: "", status: activeKeys < 0 ? "error" : activeKeys === 0 ? "warn" : "ok", count: activeKeys, note: `${activeKeys}/${totalKeys} key aktif` },
-    { key: "adsense", label: "AdSense", route: "", status: adsenseSlot ? "ok" : "warn", count: 0, note: adsenseSlot ? `ID iklan terpasang (…${adsenseSlot.slice(-4)})` : "belum ada ID iklan (isi di tab AdSense)" },
+    { key: "adsense", label: "Iklan", route: "", status: "ok", count: 0, note: "tidak ada iklan ditampilkan (situs bebas iklan); verifikasi AdSense tetap tertanam untuk proses ACC" },
     { key: "installs", label: "Install App", route: "", status: "ok", count: installs, note: "total pemasangan PWA" },
   ];
 
   return c.json({ features, checkedAt: new Date().toISOString() });
 });
 
-// ── AdSense: one-time ad-unit id + first-party impression/click analytics ──
+// ── AdSense: verification status only ─────────────────────────────────────
+// No ad ever renders on the site (the owner chose to run with zero ads, from
+// any network, until further notice). This just reports whether the AdSense
+// account-verification meta tag (embedded in every page's <head>, see
+// layout.tsx) is present — useful for the admin dashboard checklist — and
+// lets the owner note the eventual ad-unit id once AdSense approves the
+// account, for a developer to wire back up later. It does not control
+// anything visible to visitors today.
 
-// GET /admin/adsense-config — current ad-unit id + estimated eCPM.
+// GET /admin/adsense-config — verification status + the noted ad-unit id (if any).
 adminRoute.get("/adsense-config", async (c) => {
   const raw = await c.env.CACHE_KV.get("adsense:config");
   const cfg = raw ? JSON.parse(raw) : {};
   return c.json({
     slotId: cfg.slotId ?? "",
-    enabled: cfg.enabled !== false,
-    ecpmUsd: typeof cfg.ecpmUsd === "number" ? cfg.ecpmUsd : 1.0,
-    previewMode: cfg.previewMode === true,
     clientId: "ca-pub-6371903555702163",
   });
 });
 
-// POST /admin/adsense-config — set the single ad-unit id used site-wide + the
-// estimated eCPM (USD per 1000 impressions) used for the earnings estimate.
+// POST /admin/adsense-config — note the ad-unit id for later (no ad renders
+// from this either way — see comment above).
 adminRoute.post("/adsense-config", async (c) => {
-  const body = await c.req.json<{ slotId?: string; enabled?: boolean; ecpmUsd?: number; previewMode?: boolean }>();
+  const body = await c.req.json<{ slotId?: string }>();
   const slotId = String(body.slotId ?? "").trim().replace(/[^0-9]/g, "").slice(0, 20);
-  const ecpmUsd = Number.isFinite(body.ecpmUsd) ? Math.max(0, Number(body.ecpmUsd)) : 1.0;
-  const cfg = { slotId, enabled: body.enabled !== false, ecpmUsd, previewMode: body.previewMode === true };
+  const cfg = { slotId };
   await safeKvPut(c.env, "adsense:config", JSON.stringify(cfg));
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
     slotId: slotId ? `…${slotId.slice(-4)}` : "(cleared)",
-    ecpmUsd,
   });
   return c.json({ ok: true, ...cfg });
-});
-
-// GET /admin/adsense-stats — first-party impression/click counts + an earnings
-// ESTIMATE (impressions ÷ 1000 × eCPM). Real revenue lives in the Google
-// AdSense dashboard; this is an in-house approximation, by page + country.
-adminRoute.get("/adsense-stats", async (c) => {
-  const raw = await c.env.CACHE_KV.get("adsense:config");
-  const ecpmUsd = raw && typeof JSON.parse(raw).ecpmUsd === "number" ? JSON.parse(raw).ecpmUsd : 1.0;
-
-  const [totals, byCountry, byPage, last30] = await Promise.all([
-    c.env.DB.prepare(
-      `SELECT
-         SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
-         SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
-       FROM ad_events`
-    ).first<{ impressions: number; clicks: number }>(),
-    c.env.DB.prepare(
-      `SELECT coalesce(country,'??') AS country,
-              SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
-              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
-       FROM ad_events GROUP BY country ORDER BY impressions DESC LIMIT 30`
-    ).all(),
-    c.env.DB.prepare(
-      `SELECT page, SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
-              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
-       FROM ad_events GROUP BY page ORDER BY impressions DESC LIMIT 20`
-    ).all(),
-    c.env.DB.prepare(
-      `SELECT strftime('%Y-%m-%d', created_at) AS day,
-              SUM(CASE WHEN event_type='impression' THEN 1 ELSE 0 END) AS impressions,
-              SUM(CASE WHEN event_type='click' THEN 1 ELSE 0 END) AS clicks
-       FROM ad_events WHERE created_at >= datetime('now','-30 days') GROUP BY day ORDER BY day`
-    ).all(),
-  ]);
-
-  const impressions = totals?.impressions ?? 0;
-  const clicks = totals?.clicks ?? 0;
-  return c.json({
-    impressions,
-    clicks,
-    ctr: impressions > 0 ? clicks / impressions : 0,
-    ecpmUsd,
-    estimatedEarningsUsd: (impressions / 1000) * ecpmUsd,
-    byCountry: byCountry.results,
-    byPage: byPage.results,
-    daily: last30.results,
-  });
 });
 
 // ── Clients / registered donors ──────────────────────────────────────────

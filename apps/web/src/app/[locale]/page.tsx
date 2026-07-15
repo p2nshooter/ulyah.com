@@ -6,7 +6,6 @@ import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { DownloadAppSection } from "@/components/DownloadAppSection";
-import { AdSlot } from "@/components/AdSlot";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -147,13 +146,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* Ad beside the always-on Radio + Jadwal Sholat widgets — same
-          AdSense client id as every other slot, so nothing needs to change
-          here once the account is approved; it simply starts filling. */}
-      <div className="px-4 pt-6 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-4xl" format="rectangle" position="Home — di bawah Hero / widget" />
-      </div>
-
       {/* ── Interactive Qur'an reader ────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-7xl">
@@ -174,11 +166,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
-
-      {/* In-content ad — proportional leaderboard between sections */}
-      <div className="px-4 pb-4 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" position="Home — setelah section Al-Qur'an" />
-      </div>
 
       {/* ── Explore cards ────────────────────────────────────── */}
       <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
@@ -201,11 +188,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
-
-      {/* Ad after the Explore/Kitab cards (per placement plan) */}
-      <div className="px-4 pt-6 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" position="Home — setelah kartu Jelajahi/Kitab" />
-      </div>
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
@@ -231,11 +213,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </div>
       </section>
-
-      {/* Ad just before the footer (per placement plan) */}
-      <div className="px-4 pb-10 sm:px-6">
-        <AdSlot minHeight={110} className="max-w-5xl" position="Home — sebelum Footer" />
-      </div>
     </div>
   );
 }

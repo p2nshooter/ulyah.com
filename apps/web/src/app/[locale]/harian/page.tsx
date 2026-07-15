@@ -3,7 +3,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { NarrateButton } from "@/components/NarrateButton";
-import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -117,12 +116,6 @@ export default async function HarianPage({ params }: { params: Promise<{ locale:
             listenLabel={dict.donation.virtuesListen}
             stopLabel={dict.syukur.stop}
           />
-        )}
-
-        {ayah && (
-          <div className="py-1">
-            <AdSlot minHeight={100} />
-          </div>
         )}
 
         {hadits && haditsText && (

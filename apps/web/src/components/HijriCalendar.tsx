@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { toHijri, HIJRI_MONTH_NAMES_ID, HIJRI_MONTH_NAMES_EN } from "@/lib/hijri";
 import { hijriCalendarLabels } from "@/lib/hijri-calendar-labels";
-import { AdSlot } from "@/components/AdSlot";
 
 // A known Sunday (2023-01-01) as the reference week — locale-formatted
 // short weekday names read correctly in every supported language (including
@@ -68,6 +67,7 @@ export function HijriCalendar({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-4">
+
       <div className="flex items-center justify-between">
         <button onClick={() => shiftMonth(-1)} className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs hover:border-accent">
           {t.prev}
@@ -108,8 +108,6 @@ export function HijriCalendar({ locale }: { locale: string }) {
           );
         })}
       </div>
-
-      <AdSlot position="hijri-bottom" />
 
       <p className="text-center text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{t.disclaimer}</p>
     </div>

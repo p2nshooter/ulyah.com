@@ -2,7 +2,6 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
-import { AdSlot } from "@/components/AdSlot";
 
 interface StoryRow {
   id: number;
@@ -65,7 +64,6 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   );
 
   const hasAnyStory = sections.some((s) => s.stories.length > 0);
-  let adPlaced = false;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
@@ -77,8 +75,6 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
       <div className="mt-8 space-y-12">
         {sections.map(({ cat, stories }) => {
           if (stories.length === 0 && !hasAnyStory) return null;
-          const showAd = !adPlaced && stories.length > 0;
-          if (showAd) adPlaced = true;
           return (
             <section key={cat.id}>
               <h2 className="font-heading text-xl text-primary dark:text-accent">{cat.name}</h2>
@@ -98,11 +94,6 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                       <p className="mt-1 font-heading text-lg">{s.title}</p>
                     </Link>
                   ))}
-                </div>
-              )}
-              {showAd && (
-                <div className="mt-4">
-                  <AdSlot minHeight={110} />
                 </div>
               )}
             </section>

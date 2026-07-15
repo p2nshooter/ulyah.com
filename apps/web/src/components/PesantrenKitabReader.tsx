@@ -1,9 +1,8 @@
 "use client";
 
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
-import { AdSlot } from "@/components/AdSlot";
 
 interface QuranRef {
   s: number;
@@ -94,11 +93,6 @@ export function PesantrenKitabReader({
         )}
       </div>
 
-      {/* Ad after the kitab title/header (per Kitab placement plan) */}
-      <div className="mt-5">
-        <AdSlot minHeight={110} format="horizontal" position="Kitab — setelah judul kitab" />
-      </div>
-
       <div className="mt-6 grid gap-6 desktop:grid-cols-[240px_1fr]">
         {/* Daftar bab (table of contents) */}
         <aside className="card-premium-static h-max p-3">
@@ -153,13 +147,8 @@ export function PesantrenKitabReader({
               </div>
 
               <div className="mt-5 space-y-5">
-                {current.matn.map((m, mi) => (
-                  <Fragment key={m.id}>
-                  {/* Mid-content ad after the 2nd matan (per Kitab placement plan) */}
-                  {mi === 2 && (
-                    <AdSlot minHeight={110} format="rectangle" position="Kitab — tengah isi bab" />
-                  )}
-                  <article className="card-premium-static p-5">
+                {current.matn.map((m) => (
+                  <article key={m.id} className="card-premium-static p-5">
                     {(m.title_id || m.title_ar) && (
                       <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--color-border)] pb-2">
                         {m.title_id && <p className="font-heading text-sm text-primary dark:text-accent">{m.title_id}</p>}
@@ -245,11 +234,7 @@ export function PesantrenKitabReader({
                       </div>
                     )}
                   </article>
-                  </Fragment>
                 ))}
-
-                {/* Ad at the end of the bab, before prev/next (per plan) */}
-                <AdSlot minHeight={110} format="horizontal" position="Kitab — akhir bab / sebelum navigasi" />
               </div>
 
               {/* Prev / next bab */}

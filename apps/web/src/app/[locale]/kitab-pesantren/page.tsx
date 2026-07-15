@@ -3,7 +3,6 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
-import { AdSlot } from "@/components/AdSlot";
 
 // Revalidate periodically so newly-imported kitab appear without a redeploy,
 // while still serving a cached page most of the time.
@@ -66,10 +65,6 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
             : "Perpustakaan digital kitab kuning — tersusun rapi per bidang, lengkap pengarang & bab."
         }
       />
-
-      <div className="mt-6">
-        <AdSlot minHeight={110} format="horizontal" />
-      </div>
 
       {categories.length === 0 && (
         <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">

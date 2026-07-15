@@ -5,7 +5,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { radioLabels } from "@/lib/radio-labels";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { InstallAppButton } from "@/components/InstallAppButton";
-import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -50,10 +49,6 @@ export default async function RadioPage({
 
         <div className="mt-6">
           <RadioQoriWidget locale={locale} />
-        </div>
-
-        <div className="mt-6">
-          <AdSlot minHeight={110} format="rectangle" />
         </div>
 
         {/* Standalone-app users have no browser address bar to remind them

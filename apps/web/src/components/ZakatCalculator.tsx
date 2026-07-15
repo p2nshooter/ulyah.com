@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { zakatLabels } from "@/lib/zakat-labels";
-import { AdSlot } from "@/components/AdSlot";
 
 const NISAB_GRAMS = { gold: 85, silver: 595 } as const;
 const FITRAH_KG_PER_PERSON = 2.5;
@@ -50,6 +49,7 @@ export function ZakatCalculator({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-6">
+
       <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
         <p className="font-heading text-lg">{t.maalTitle}</p>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{t.maalIntro}</p>
@@ -110,8 +110,6 @@ export function ZakatCalculator({ locale }: { locale: string }) {
           )}
         </div>
       </section>
-
-      <AdSlot position="zakat-mid" />
 
       <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
         <p className="font-heading text-lg">{t.fitrahTitle}</p>

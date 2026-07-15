@@ -4,7 +4,6 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
-import { AdSlot } from "@/components/AdSlot";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -100,13 +99,12 @@ export default async function AudiobookPage({
         </div>
       )}
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {stories.length === 0 && (
           <p className="col-span-2 text-center text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>
         )}
-        {stories.map((s, i) => (
-          <div key={s.id} className={i === 3 && stories.length > 4 ? "sm:col-span-2" : ""}>
-            {i === 3 && stories.length > 4 && <AdSlot minHeight={100} className="mb-3" />}
+        {stories.map((s) => (
+          <div key={s.id}>
             <Link
               href={`/${locale}/kisah/${s.slug}`}
               className="card-premium relative flex items-center justify-between gap-3 overflow-hidden p-4"

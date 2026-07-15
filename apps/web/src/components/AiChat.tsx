@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { api } from "@/lib/api";
-import { AdSlot } from "@/components/AdSlot";
 
 interface Source {
   kind: "ayah" | "hadits";
@@ -71,6 +70,7 @@ export function AiChat({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-4">
+
       <div className="flex flex-wrap gap-2">
         {SPECIALISTS.map((s) => (
           <button
@@ -144,8 +144,6 @@ export function AiChat({ locale }: { locale: string }) {
         Jawaban berbasis database ULYAH.COM &amp; bersitasi. Untuk keputusan hukum penting, tetap rujuk ke ustadz
         terpercaya.
       </p>
-
-      <AdSlot position="tanya-bottom" />
     </div>
   );
 }

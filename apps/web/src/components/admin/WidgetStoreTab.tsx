@@ -10,8 +10,7 @@
  *
  * Deliberately data-driven and self-contained (no backend yet): it captures
  * the architecture — status, what each widget is, its own manifest/scope, its
- * ULYAH identity, its AdSense placement, and the open-source repos it draws
- * from — so the plan lives in the product. Widgets graduate concept →
+ * ULYAH identity, and the open-source repos it draws from — so the plan lives in the product. Widgets graduate concept →
  * building → live here as they ship.
  */
 
@@ -27,7 +26,6 @@ interface Widget {
   route: string;
   manifest: string;
   summary: string;
-  adsense: string;
   sources: string[];
 }
 
@@ -47,7 +45,6 @@ const WIDGETS: Widget[] = [
     manifest: "manifest-sholat.json (scope /id/jadwal-sholat)",
     summary:
       "Jadwal sholat sesuai lokasi, hitung mundur waktu sholat, jam dunia, Radio Qori Dunia. Installable sebagai app tersendiri.",
-    adsense: "AdSlot di bawah widget (aktif setelah ACC).",
     sources: ["metinkale38/prayer-times-android (referensi metode & koreksi waktu)", "mahmoodhamdi/wirdak (dzikir)"],
   },
   {
@@ -59,7 +56,6 @@ const WIDGETS: Widget[] = [
     manifest: "pakai manifest utama",
     summary:
       "Pembaca Al-Qur'an interaktif: terjemah, tafsir (pemilih sumber), asbabun nuzul, murottal per qori, audio berlapis.",
-    adsense: "AdSlot di bawah info surah & setelah tiap 10 ayat (sesuai panduan).",
     sources: [
       "quran/quran_android (arsitektur pembaca)",
       "IsmailHosenIsmailJames/al_quran_v3 (data & UI)",
@@ -75,7 +71,6 @@ const WIDGETS: Widget[] = [
     manifest: "rencana: manifest-kitab.json (scope /id/kitab-pesantren)",
     summary:
       "Kitab pesantren tampil seperti buku fisik dengan efek balik halaman (page-flip): Arab asli + terjemah + penjelasan, bisa didengarkan. Tiap kitab bisa dijual terpisah.",
-    adsense: "AdSlot setelah judul, tiap 25%/50%/75% isi, dan sebelum footer (sesuai panduan Kitab).",
     sources: [
       "Nodlik/StPageFlip (efek balik halaman — web, paling relevan)",
       "bizz84/page_flip_builder, saeedahmed725/turnable_page (referensi animasi)",
@@ -92,7 +87,6 @@ const WIDGETS: Widget[] = [
     manifest: "rencana: manifest-tajwid.json",
     summary:
       "Mushaf dengan pewarnaan hukum tajwid (ikhfa, idgham, qalqalah, dll) + audio per ayat, untuk belajar bacaan yang benar.",
-    adsense: "AdSlot di bawah mushaf & di bawah panel tajwid.",
     sources: ["rovshan-b/Quran-flutter-tajweed (data pewarnaan tajwid)"],
   },
   {
@@ -104,7 +98,6 @@ const WIDGETS: Widget[] = [
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Sudut & jarak ke Ka'bah dari lokasi IP + kompas LANGSUNG berbasis sensor perangkat (device-orientation): dial berputar mengikuti gerak HP, panah emas menunjuk kiblat real-time, dengan izin iOS & fallback sudut tetap bila tak ada sensor. Rumus bearing lingkaran-besar tervalidasi terhadap bearing publik.",
-    adsense: "AdSlot di bawah kompas.",
     sources: ["metinkale38/prayer-times-android & medyas/flutter_qiblah (referensi arah kiblat + kompas sensor)"],
   },
   {
@@ -116,7 +109,6 @@ const WIDGETS: Widget[] = [
     manifest: "rencana: manifest-wirid.json",
     summary:
       "Penghitung tasbih digital + wirid pagi/petang & setelah shalat dengan pengingat. Melengkapi menu Amalan Harian yang sudah ada.",
-    adsense: "AdSlot di bawah penghitung.",
     sources: ["mahmoodhamdi/wirdak (struktur wirid & counter)"],
   },
   {
@@ -128,7 +120,6 @@ const WIDGETS: Widget[] = [
     manifest: "rencana: manifest-kids.json",
     summary:
       "Menu anak terpisah: hafalan surat pendek, kisah nabi ramah anak, doa & adab, hijaiyah — video pendek & suara lembut. (Detail di tab Konsep.)",
-    adsense: "Halaman anak: iklan disaring family-safe / idealnya bebas iklan.",
     sources: ["maulanashalihin/quran-stories", "AzharRivaldi/Kisah-25-Nabi"],
   },
   {
@@ -140,7 +131,6 @@ const WIDGETS: Widget[] = [
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Zakat Maal (2,5%, nisab emas 85g / perak 595g berdampingan) & Zakat Fitrah (per jiwa) — 100% client-side, tidak ada data yang dikirim ke server.",
-    adsense: "Satu AdSlot di antara kedua kalkulator.",
     sources: ["rizauddin/kira-faraid & lionbytes/zakalc (referensi arsitektur)"],
   },
   {
@@ -152,7 +142,6 @@ const WIDGETS: Widget[] = [
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Grid bulan Masehi + padanan Hijriyah per hari, memakai kalender Umm al-Qura resmi (Intl bawaan browser, bukan tabular buatan sendiri) — sudah dipakai juga oleh countdown Ramadhan di Jadwal Sholat.",
-    adsense: "Satu AdSlot di bawah kalender.",
     sources: ["Intl.DateTimeFormat('islamic-umalqura') — bawaan browser, tanpa library eksternal"],
   },
   {
@@ -164,7 +153,6 @@ const WIDGETS: Widget[] = [
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Pembagian faraid untuk susunan keluarga umum (pasangan, anak, orang tua, saudara kandung/seibu saat kalalah) — Aul, Radd, dan kasus Gharrawain/Umariyyatain ditangani. Kakek/nenek, saudara seayah, dan cucu pengganti SENGAJA tidak dimodelkan (beda pendapat mazhab) — disclaimer eksplisit di halaman.",
-    adsense: "Satu AdSlot di antara input harta dan hasil pembagian.",
     sources: ["rizauddin/kira-faraid (referensi arsitektur kasus fardhu/asobah/aul/radd)"],
   },
   {
@@ -176,7 +164,6 @@ const WIDGETS: Widget[] = [
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Jadwal Imsak/Subuh/Maghrib per hari untuk satu bulan Ramadhan (sedang berjalan atau berikutnya), dihitung dengan mesin yang sama dengan Jadwal Sholat (adhan.js) — bukan perhitungan kedua yang terpisah. Imsak ditampilkan sebagai konvensi 10 menit sebelum Subuh, dengan catatan eksplisit bahwa sebagian daerah memakai Subuh itu sendiri sebagai batas.",
-    adsense: "Satu AdSlot di bawah tabel.",
     sources: ["adhan (npm) — mesin perhitungan yang sudah dipakai Jadwal Sholat", "lib/hijri.ts — deteksi awal Ramadhan (Intl islamic-umalqura, sudah ada)"],
   },
 ];
@@ -214,7 +201,7 @@ export function WidgetStoreTab() {
           Semua widget (yang sudah live &amp; yang akan datang) terdaftar di sini. Landing "koleksi widget" nanti
           tampil dari daftar ini. Tiap widget dirancang sebagai <b>app terpisah</b> (manifest &amp; identitas install
           sendiri) — jadi tidak perlu saling tahu apakah widget lain sudah dipasang, dan masing-masing terindeks
-          sendiri. Semua beridentitas ulyah.com &amp; memuat AdSense.
+          sendiri. Semua beridentitas ulyah.com &amp; bebas dari iklan.
         </p>
       </div>
 
@@ -236,9 +223,6 @@ export function WidgetStoreTab() {
             </p>
             <p>
               <span className="font-semibold text-primary dark:text-accent">Manifest:</span> {w.manifest}
-            </p>
-            <p className="sm:col-span-2">
-              <span className="font-semibold text-primary dark:text-accent">AdSense:</span> {w.adsense}
             </p>
           </div>
           <div className="mt-2">

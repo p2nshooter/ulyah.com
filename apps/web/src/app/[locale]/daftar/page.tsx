@@ -47,6 +47,11 @@ export default function DaftarPage({ params }: { params: Promise<{ locale: strin
   return (
     <div className="mx-auto max-w-sm px-4 py-20 sm:px-6">
       <h1 className="font-heading text-2xl">{dict.auth.registerTitle}</h1>
+      <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
+        {locale === "id"
+          ? "Semua konten ULYAH.COM gratis untuk siapa saja tanpa perlu mendaftar. Akun ini hanya opsional — untuk donatur yang ingin melacak riwayat donasi dan menerima sertifikat kenang-kenangan."
+          : "Every ULYAH.COM feature is free to use without an account. This is optional — only for donors who want to track their donation history and receive a keepsake certificate."}
+      </p>
       <form onSubmit={submit} className="mt-6 space-y-3">
         <input value={name} onChange={(e) => setName(e.target.value)} placeholder={dict.auth.name} className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm" />
         <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={dict.auth.email} className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm" />
