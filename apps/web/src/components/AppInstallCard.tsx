@@ -26,7 +26,7 @@ export function AppInstallCard({
   cta,
 }: {
   locale: string;
-  app: "main" | "sholat";
+  app: "main" | "sholat" | "radio";
   icon: string;
   name: string;
   desc: string;
@@ -38,7 +38,12 @@ export function AppInstallCard({
   useEffect(() => {
     const standalone = window.matchMedia("(display-mode: standalone)").matches;
     const manifestHref = document.querySelector('link[rel="manifest"]')?.getAttribute("href") ?? "";
-    const manifestMatches = app === "sholat" ? manifestHref.includes("sholat") : !manifestHref.includes("sholat");
+    const manifestMatches =
+      app === "sholat"
+        ? manifestHref.includes("sholat")
+        : app === "radio"
+          ? manifestHref.includes("radio")
+          : !manifestHref.includes("sholat") && !manifestHref.includes("radio");
     setInstalled(standalone && manifestMatches);
 
     // This card lives on the regular site, so `standalone` above is almost
@@ -124,6 +129,30 @@ export function SholatAppInstallCard({ locale }: { locale: string }) {
           className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
         >
           {t.sholatAppCta}
+        </a>
+      }
+    />
+  );
+}
+
+export function RadioAppInstallCard({ locale }: { locale: string }) {
+  const t = pwaLabels(locale);
+  return (
+    <AppInstallCard
+      locale={locale}
+      app="radio"
+      icon="📻"
+      name={t.radioAppName}
+      desc={t.radioAppDesc}
+      cta={
+        // Same reasoning as the Jadwal Sholat card: a full document reload so
+        // the tab sees manifest-radio.webmanifest as the only manifest, which
+        // is what makes beforeinstallprompt fire for the right app.
+        <a
+          href={`/${locale}/radio?install=1`}
+          className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
+        >
+          {t.radioAppCta}
         </a>
       }
     />

@@ -88,6 +88,20 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={localeDef.dir} suppressHydrationWarning>
       <head>
+        {/* Capture `beforeinstallprompt` the instant it fires — before any
+            React/Next JS has even loaded. Chrome dispatches this event only
+            ONCE per page load, only to listeners already attached at that
+            moment; a listener attached inside a React useEffect (which only
+            runs after hydration) is regularly too late and misses it, which
+            silently and permanently breaks the "Pasang Aplikasi" button for
+            that whole page load (it falls back to manual instructions even
+            on a browser that fully supports native installation). See
+            lib/install-prompt.ts for how components read this. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){window.__ulyahInstallPrompt=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__ulyahInstallPrompt=e;window.dispatchEvent(new Event("ulyah:bip-ready"));});})();`,
+          }}
+        />
         {/* Apply the theme class before paint — avoids a flash of the wrong
             theme and ensures Tailwind's `dark:` variant is correct from the
             very first frame (ThemeProvider's effect runs one tick later). */}

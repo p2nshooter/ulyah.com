@@ -3,11 +3,7 @@
 import { useEffect, useState } from "react";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { api } from "@/lib/api";
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-}
+import { type BeforeInstallPromptEvent, clearCapturedPrompt, getCapturedPrompt, onPromptReady } from "@/lib/install-prompt";
 
 interface NavigatorWithRelatedApps extends Navigator {
   getInstalledRelatedApps?: () => Promise<unknown[]>;
@@ -93,21 +89,26 @@ export function InstallAppButton({
 
     setIsIOS(/iphone|ipad|ipod/i.test(navigator.userAgent));
 
-    const onPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-    };
+    // Read the shared capture (see lib/install-prompt.ts): a tiny inline
+    // script in the root layout's <head> listens for `beforeinstallprompt`
+    // before any React code runs, so the event is never missed even if it
+    // fires before this component mounts — the bug that made this button
+    // permanently fall back to manual "Add to Home Screen" instructions.
+    const already = getCapturedPrompt();
+    if (already) setDeferredPrompt(already);
+    const unsubscribe = onPromptReady((e) => setDeferredPrompt(e));
+
     const onInstalled = () => {
       window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
       setInstalled(true);
       setDeferredPrompt(null);
+      clearCapturedPrompt();
       api.post("/analytics/install", { app }).catch(() => {});
     };
-    window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
     return () => {
       cancelled = true;
-      window.removeEventListener("beforeinstallprompt", onPrompt);
+      unsubscribe();
       window.removeEventListener("appinstalled", onInstalled);
     };
   }, [app]);
@@ -121,6 +122,7 @@ export function InstallAppButton({
       await deferredPrompt.prompt();
       const choice = await deferredPrompt.userChoice;
       setDeferredPrompt(null); // a captured prompt can only be used once
+      clearCapturedPrompt();
       if (choice.outcome === "accepted") {
         window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
         setInstalled(true);

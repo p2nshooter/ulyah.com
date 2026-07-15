@@ -12,6 +12,9 @@ export interface PwaLabels {
   sholatAppName: string;
   sholatAppDesc: string;
   sholatAppCta: string;
+  radioAppName: string;
+  radioAppDesc: string;
+  radioAppCta: string;
   alreadyInstalled: string;
   installedBadge: string;
 }
@@ -27,6 +30,9 @@ const EN: PwaLabels = {
   sholatAppName: "Jadwal Sholat App",
   sholatAppDesc: "Prayer times & live radio, always on your home screen.",
   sholatAppCta: "Open & Install →",
+  radioAppName: "Radio Qur'an App",
+  radioAppDesc: "The Qur'an recited around the clock, one tap from your home screen.",
+  radioAppCta: "Open & Install →",
   alreadyInstalled: "Already installed on this device ✓",
   installedBadge: "Installed on this device",
 };
@@ -42,6 +48,9 @@ const ID: PwaLabels = {
   sholatAppName: "Aplikasi Jadwal Sholat",
   sholatAppDesc: "Waktu sholat & radio live, selalu di layar utama HP.",
   sholatAppCta: "Buka & Pasang →",
+  radioAppName: "Aplikasi Radio Qur'an",
+  radioAppDesc: "Al-Qur'an dibacakan tanpa henti 24 jam, sekali ketuk dari layar utama HP.",
+  radioAppCta: "Buka & Pasang →",
   alreadyInstalled: "Sudah terpasang di perangkat ini ✓",
   installedBadge: "Terpasang di perangkat ini",
 };
@@ -57,6 +66,9 @@ const AR: PwaLabels = {
   sholatAppName: "تطبيق مواقيت الصلاة",
   sholatAppDesc: "مواقيت الصلاة والراديو المباشر، دائمًا على شاشتك الرئيسية.",
   sholatAppCta: "افتح وثبّت ←",
+  radioAppName: "تطبيق راديو القرآن",
+  radioAppDesc: "القرآن يُتلى على مدار الساعة، بضغطة واحدة من شاشتك الرئيسية.",
+  radioAppCta: "افتح وثبّت ←",
   alreadyInstalled: "مثبّت بالفعل على هذا الجهاز ✓",
   installedBadge: "مثبّت على هذا الجهاز",
 };

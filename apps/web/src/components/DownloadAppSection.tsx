@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { pwaLabels } from "@/lib/pwa-labels";
-import { MainAppInstallCard, SholatAppInstallCard } from "@/components/AppInstallCard";
+import { MainAppInstallCard, RadioAppInstallCard, SholatAppInstallCard } from "@/components/AppInstallCard";
 
 /**
  * The explicit, permanent "where do I download the app" pointer — a
@@ -30,9 +30,10 @@ export function DownloadAppSection({ locale }: { locale: string }) {
         <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
           {t.downloadSectionSubtitle}
         </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
           <MainAppInstallCard locale={locale} />
           <SholatAppInstallCard locale={locale} />
+          <RadioAppInstallCard locale={locale} />
         </div>
       </div>
     </section>
