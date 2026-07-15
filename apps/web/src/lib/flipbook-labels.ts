@@ -13,8 +13,8 @@ export interface FlipbookLabels {
 }
 
 const EN: FlipbookLabels = {
-  title: "Qur'an Flipbook",
-  subtitle: "A page-turning Mushaf you can read right in the browser — swipe or tap to turn the page.",
+  title: "Mushaf Utsmani (App)",
+  subtitle: "The full 604-page Mushaf Utsmani with a page-turn animation — installable on your home screen as its own app.",
   installStandalone: "Install as a standalone app",
   pageOf: "Page",
   prevPage: "Previous page",
@@ -24,8 +24,8 @@ const EN: FlipbookLabels = {
 };
 
 const ID: FlipbookLabels = {
-  title: "Al-Qur'an Flipbook",
-  subtitle: "Mushaf yang bisa dibalik halamannya langsung di browser — ketuk atau geser untuk membalik halaman.",
+  title: "Mushaf Utsmani (Aplikasi)",
+  subtitle: "Mushaf Utsmani lengkap 604 halaman dengan animasi balik halaman — bisa dipasang di layar utama HP sebagai aplikasi sendiri.",
   installStandalone: "Pasang sebagai aplikasi tersendiri",
   pageOf: "Halaman",
   prevPage: "Halaman sebelumnya",
@@ -35,8 +35,8 @@ const ID: FlipbookLabels = {
 };
 
 const AR: FlipbookLabels = {
-  title: "المصحف المتصفح",
-  subtitle: "مصحف يمكنك تقليب صفحاته مباشرة في المتصفح — اضغط أو مرر لتقليب الصفحة.",
+  title: "المصحف العثماني (تطبيق)",
+  subtitle: "المصحف العثماني الكامل ٦٠٤ صفحات مع تقليب الصفحات — يثبت على الشاشة الرئيسية كتطبيق مستقل.",
   installStandalone: "ثبّته كتطبيق مستقل",
   pageOf: "صفحة",
   prevPage: "الصفحة السابقة",

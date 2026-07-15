@@ -4,12 +4,21 @@ import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { contactLabels } from "@/lib/contact-labels";
+import { navLabels } from "@/lib/nav-labels";
 
+/**
+ * Footer columns mirror the header's grouped navigation exactly (both read
+ * lib/nav-labels.ts) — one place to add a page, zero chance of the two
+ * drifting apart. The extra "Informasi/Bantuan" column keeps the pages that
+ * deliberately live only down here (privacy, donate, contact, accounts).
+ */
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
+  const nav = navLabels(locale);
+
   return (
     <footer className="border-t border-[var(--color-border)] bg-primary-dark bg-primary px-4 py-12 text-[#f4efe3] sm:px-6">
-      <div className="mx-auto grid max-w-7xl gap-8 desktop:grid-cols-4">
-        <div>
+      <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 desktop:grid-cols-6">
+        <div className="sm:col-span-2 desktop:col-span-2">
           <div className="flex items-center gap-2.5">
             <Image src="/icon.png" alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
             {/* Footer is always the dark-green brand background, so the
@@ -29,43 +38,59 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             />
           </div>
         </div>
-        <div>
-          <p className="text-sm font-semibold text-accent">{dict.footer.platform}</p>
-          <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/quran`}>{dict.nav.quran}</Link></li>
-            <li><Link href={`/${locale}/audiobook`}>{dict.nav.audiobook}</Link></li>
-            <li><Link href={`/${locale}/kitab`}>{dict.nav.kitab}</Link></li>
-            <li><Link href={`/${locale}/kitab-pesantren`}>Kitab Pesantren</Link></li>
-            <li><Link href={`/${locale}/amalan`}>Amalan Harian</Link></li>
-            <li><Link href={`/${locale}/radio`}>Radio Qur'an</Link></li>
-            <li><Link href={`/${locale}/quran-flipbook`}>Qur'an Flipbook</Link></li>
-            <li><Link href={`/${locale}/widget`}>Widget Store</Link></li>
-            <li><Link href={`/${locale}/anak`}>Kisah Anak</Link></li>
-            <li><Link href={`/${locale}/nasakh`}>Nasakh & Mansukh</Link></li>
-            <li><Link href={`/${locale}/hadits`}>{dict.nav.hadits}</Link></li>
-            <li><Link href={`/${locale}/kisah`}>{dict.nav.kisah}</Link></li>
-          </ul>
-        </div>
+
+        {nav.groups.map((g) => (
+          <div key={g.key}>
+            <p className="text-sm font-semibold text-accent">
+              {g.icon} {g.label}
+            </p>
+            <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
+              {g.items.map((it) => (
+                <li key={it.path}>
+                  <Link href={`/${locale}${it.path}`} className="transition hover:text-accent">
+                    {it.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-auto mt-10 grid max-w-7xl gap-8 border-t border-[#f4efe3]/10 pt-8 sm:grid-cols-2 desktop:grid-cols-4">
         <div>
           <p className="text-sm font-semibold text-accent">{dict.footer.info}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/tentang`}>{dict.nav.about}</Link></li>
-            <li><Link href={`/${locale}/syukur`}>{dict.syukur.navLabel}</Link></li>
-            <li><Link href={`/${locale}/terima-kasih`}>{dict.nav.thanks}</Link></li>
-            <li><Link href={`/${locale}/kontak`}>{contactLabels(locale).navLabel}</Link></li>
-            <li><Link href={`/${locale}/daftar`}>{dict.auth.registerTitle}</Link></li>
-            <li><Link href={`/${locale}/masuk`}>{dict.auth.loginTitle}</Link></li>
+            <li><Link href={`/${locale}/tentang`} className="transition hover:text-accent">{dict.nav.about}</Link></li>
+            <li><Link href={`/${locale}/widget`} className="transition hover:text-accent">{nav.direct[0]!.label}</Link></li>
+            <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
+            <li><Link href={`/${locale}/terima-kasih`} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-accent">{contactLabels(locale).navLabel}</p>
+          <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
+            <li><Link href={`/${locale}/kontak`} className="transition hover:text-accent">{contactLabels(locale).navLabel}</Link></li>
+            <li><Link href={`/${locale}/tanya`} className="transition hover:text-accent">Tanya AI</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-accent">{dict.auth.loginTitle}</p>
+          <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
+            <li><Link href={`/${locale}/daftar`} className="transition hover:text-accent">{dict.auth.registerTitle}</Link></li>
+            <li><Link href={`/${locale}/masuk`} className="transition hover:text-accent">{dict.auth.loginTitle}</Link></li>
           </ul>
         </div>
         <div>
           <p className="text-sm font-semibold text-accent">{dict.footer.help}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/donasi`}>{dict.nav.donate}</Link></li>
-            <li><Link href={`/${locale}#download-app`}>{pwaLabels(locale).downloadSectionTitle}</Link></li>
-            <li><Link href={`/${locale}/kebijakan-privasi`}>{dict.footer.privacyPolicy}</Link></li>
+            <li><Link href={`/${locale}/donasi`} className="transition hover:text-accent">{dict.nav.donate}</Link></li>
+            <li><Link href={`/${locale}#download-app`} className="transition hover:text-accent">{pwaLabels(locale).downloadSectionTitle}</Link></li>
+            <li><Link href={`/${locale}/kebijakan-privasi`} className="transition hover:text-accent">{dict.footer.privacyPolicy}</Link></li>
           </ul>
         </div>
       </div>
+
       <p className="mx-auto mt-10 max-w-7xl text-xs text-[#f4efe3]/50">{dict.footer.rights}</p>
     </footer>
   );

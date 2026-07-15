@@ -49,7 +49,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
+      <section className="pattern-islamic bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
         <div className="mx-auto grid max-w-7xl items-center gap-10 desktop:grid-cols-2">
           <div className="hero-entrance">
             <h1 className="font-heading text-4xl leading-[1.15] tracking-tight sm:text-5xl desktop:text-6xl">
@@ -149,6 +149,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       {/* ── Interactive Qur'an reader ────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-7xl">
+          <div className="section-divider mb-4"><span>✿</span></div>
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{dict.reader.sectionTitle}</h2>
           <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
             {dict.reader.sectionSubtitle}
@@ -170,6 +171,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       {/* ── Explore cards ────────────────────────────────────── */}
       <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
         <div className="mx-auto max-w-7xl">
+          <div className="section-divider mb-4"><span>✿</span></div>
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{dict.explore.title}</h2>
           <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
             {dict.explore.subtitle}

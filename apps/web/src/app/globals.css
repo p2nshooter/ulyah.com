@@ -458,3 +458,50 @@ body {
     transform: none !important;
   }
 }
+
+/* ── Islamic geometric ambience ──────────────────────────────────────────
+   A subtle 8-point-star lattice built purely from layered gradients (no
+   image assets): two diagonal line grids forming stars where they cross,
+   plus a soft radial gold wash. Deliberately faint — texture, not noise. */
+.pattern-islamic {
+  position: relative;
+}
+.pattern-islamic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(-45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(0deg, currentColor 0, currentColor 1px, transparent 1px, transparent 52px),
+    repeating-linear-gradient(90deg, currentColor 0, currentColor 1px, transparent 1px, transparent 52px);
+  color: var(--color-accent);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Ornamental section divider: ─────── ✿ ─────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 auto;
+  max-width: 22rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--divider-dir, right), transparent, rgba(184, 137, 43, 0.55));
+}
+.section-divider::after {
+  --divider-dir: left;
+}
+.section-divider > span {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  line-height: 1;
+}

@@ -5,29 +5,29 @@ import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { mushafLabels } from "@/lib/mushaf-labels";
 
-// Self-contained labels (radio-labels pattern) for the widget banner below
-// the reader — points straight at the installable Qur'an Flipbook widget so
-// it is discoverable from the page people actually read the Qur'an on.
+// Self-contained labels (radio-labels pattern) for the install banner below
+// the reader — the installable Mushaf app (same MushafReader engine as
+// /quran/mushaf, packaged with its own home-screen identity).
 function widgetBannerLabels(locale: string): { title: string; desc: string; cta: string; store: string } {
   if (locale === "id")
     return {
-      title: "Widget Al-Qur'an Flipbook",
-      desc: "Mushaf digital dengan animasi buku membalik — bisa dipasang di layar utama HP sebagai aplikasi sendiri.",
-      cta: "Buka & Pasang Widget →",
-      store: "Semua widget",
+      title: "Pasang Mushaf sebagai Aplikasi",
+      desc: "Mushaf Utsmani 604 halaman dengan animasi balik halaman — pasang di layar utama HP sebagai aplikasi sendiri.",
+      cta: "Buka & Pasang Aplikasi →",
+      store: "Semua aplikasi",
     };
   if (locale === "ar")
     return {
-      title: "ودجت المصحف (فليب بوك)",
-      desc: "مصحف رقمي بتأثير تقليب الصفحات — يمكن تثبيته على الشاشة الرئيسية كتطبيق مستقل.",
-      cta: "افتح وثبّت الودجت ←",
-      store: "كل الودجات",
+      title: "ثبّت المصحف كتطبيق",
+      desc: "المصحف العثماني ٦٠٤ صفحات مع تقليب الصفحات — يثبت على الشاشة الرئيسية كتطبيق مستقل.",
+      cta: "افتح وثبّت التطبيق ←",
+      store: "كل التطبيقات",
     };
   return {
-    title: "Qur'an Flipbook Widget",
-    desc: "A digital mushaf with a page-turn animation — installable on your home screen as its own app.",
-    cta: "Open & Install Widget →",
-    store: "All widgets",
+    title: "Install the Mushaf as an App",
+    desc: "The 604-page Mushaf Utsmani with page-turn animation — installable on your home screen as its own app.",
+    cta: "Open & Install App →",
+    store: "All apps",
   };
 }
 

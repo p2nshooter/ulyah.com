@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { flipbookLabels } from "@/lib/flipbook-labels";
-import { QuranFlipbook } from "@/components/QuranFlipbook";
+import { MushafReader } from "@/components/MushafReader";
 import { InstallAppButton } from "@/components/InstallAppButton";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -44,11 +44,11 @@ export default async function QuranFlipbookPage({
           </div>
         </div>
 
+        {/* One Qur'an reading engine site-wide: this installable widget wraps
+            the same MushafReader as /quran/mushaf (the old 5-ayat chunker it
+            replaced was a duplicate, lower-fidelity reader). */}
         <div className="mt-6">
-          <QuranFlipbook locale={locale} />
-        </div>
-
-        <div className="mt-8">
+          <MushafReader locale={locale} />
         </div>
 
         <div className="mt-8 overflow-hidden rounded-3xl bg-[#06251b] p-8 text-center text-[#f4efe3]">
