@@ -13,6 +13,7 @@ import { prayerLabels } from "@/lib/prayer-labels";
 import { amalanLabels } from "@/lib/amalan-labels";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { sanadLabels } from "@/lib/sanad-labels";
+import { kidsLabels } from "@/lib/kids-labels";
 
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,6 +23,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const amalanT = amalanLabels(locale);
   const mushafT = mushafLabels(locale);
   const sanadT = sanadLabels(locale);
+  const kidsT = kidsLabels(locale);
   const navRef = useRef<HTMLElement>(null);
 
   // The dropdown previously only closed via its own onClick handlers (a nav
@@ -55,6 +57,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
     [dict.nav.hadits, `/${locale}/hadits`],
     [sanadT.navLabel, `/${locale}/sanad`],
     [dict.nav.kisah, `/${locale}/kisah`],
+    [kidsT.navLabel, `/${locale}/kisah-anak`],
     [amalanT.navLabel, `/${locale}/amalan`],
     [dict.nav.dailyContent, `/${locale}/harian`],
     [prayerT.title, `/${locale}/jadwal-sholat`],

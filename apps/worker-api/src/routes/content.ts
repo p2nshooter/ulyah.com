@@ -602,6 +602,37 @@ contentRoute.get("/sanad/:haditsId", async (c) => {
   return c.json({ hadits, chain: { id: chain.id, links } });
 });
 
+// ── Kisah Anak (character-animated kids stories, see migration 0028) ─────
+
+// GET /content/kids-stories — list of published stories for the browse page.
+contentRoute.get("/kids-stories", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, slug, title_id, title_en, summary_id, summary_en, cover_variant
+     FROM kids_story WHERE status = 'published' ORDER BY sort_order, id`
+  ).all();
+  return c.json({ stories: results });
+});
+
+// GET /content/kids-stories/:slug — one story's full scene list, in order.
+contentRoute.get("/kids-stories/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const story = await c.env.DB.prepare(
+    "SELECT id, slug, title_id, title_en, summary_id, summary_en, cover_variant FROM kids_story WHERE slug = ? AND status = 'published'"
+  )
+    .bind(slug)
+    .first<{ id: number }>();
+  if (!story) return c.json({ error: "Story not found" }, 404);
+
+  const { results: scenes } = await c.env.DB.prepare(
+    `SELECT scene_order, time_of_day, character_variant, character_action, caption_id, caption_en, duration_ms
+     FROM kids_story_scene WHERE story_id = ? ORDER BY scene_order`
+  )
+    .bind(story.id)
+    .all();
+
+  return c.json({ story, scenes });
+});
+
 // GET /content/sanad/perawi/:id/chains — every OTHER published chain this
 // narrator appears in, so a visitor can explore across hadith by narrator
 // rather than only ever seeing one linear chain — the closest thing to a

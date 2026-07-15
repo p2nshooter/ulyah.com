@@ -212,6 +212,149 @@ body {
   }
 }
 
+/* Kisah Anak (kids' animated stories) — character + scene animation. Plain
+   CSS keyframes rather than an animation library, matching the site's
+   existing approach (see the Mushaf page-flip above): lightweight, and
+   every action is just a transform loop so it costs nothing at rest. */
+.kids-character {
+  width: 100%;
+  height: 100%;
+  animation: kids-bob 1.8s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes kids-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.kids-arm-right {
+  transform-origin: 125px 95px;
+}
+.kids-arm-left {
+  transform-origin: 55px 95px;
+}
+
+.kids-action-wave .kids-arm-right {
+  animation: kids-wave 1.4s ease-in-out infinite;
+}
+@keyframes kids-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-28deg); }
+}
+
+.kids-action-point .kids-arm-right {
+  animation: kids-point 1.6s ease-in-out infinite;
+}
+@keyframes kids-point {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(6px, -10px) rotate(-15deg); }
+}
+
+.kids-action-think .kids-arm-right {
+  animation: kids-think 2.2s ease-in-out infinite;
+  transform: rotate(-70deg) translate(-10px, -6px);
+}
+@keyframes kids-think {
+  0%, 100% { transform: rotate(-70deg) translate(-10px, -6px); }
+  50% { transform: rotate(-75deg) translate(-10px, -10px); }
+}
+.kids-action-think .kids-face {
+  animation: kids-tilt 2.2s ease-in-out infinite;
+  transform-origin: 90px 48px;
+}
+@keyframes kids-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-4deg); }
+}
+
+.kids-action-walk {
+  animation: kids-walk-bounce 0.6s ease-in-out infinite;
+}
+@keyframes kids-walk-bounce {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-6px) translateX(3px); }
+  50% { transform: translateY(0) translateX(6px); }
+  75% { transform: translateY(-6px) translateX(3px); }
+}
+
+.kids-action-jump {
+  animation: kids-jump 0.9s ease-in-out infinite;
+}
+@keyframes kids-jump {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  30% { transform: translateY(-30px) scaleY(1.05); }
+  60% { transform: translateY(0) scaleY(0.92); }
+}
+
+.kids-action-hug {
+  animation: kids-hug 1.6s ease-in-out infinite;
+}
+@keyframes kids-hug {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.kids-action-hug .kids-arm-left {
+  animation: kids-hug-arm-left 1.6s ease-in-out infinite;
+}
+.kids-action-hug .kids-arm-right {
+  animation: kids-hug-arm-right 1.6s ease-in-out infinite;
+}
+@keyframes kids-hug-arm-left {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(20deg); }
+}
+@keyframes kids-hug-arm-right {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+.kids-action-idle {
+  animation: kids-bob 3s ease-in-out infinite;
+}
+
+.kids-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #f4d97b;
+  box-shadow: 0 0 6px 1px rgba(244, 217, 123, 0.8);
+  animation: kids-twinkle 2.4s ease-in-out infinite;
+}
+@keyframes kids-twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.kids-moon,
+.kids-sun {
+  animation: kids-float 6s ease-in-out infinite;
+}
+@keyframes kids-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.kids-palm {
+  animation: kids-sway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes kids-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.kids-cloud {
+  animation: kids-drift 18s linear infinite;
+}
+@keyframes kids-drift {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(30px); }
+}
+
+.kids-caption-enter {
+  animation: kids-caption-in 0.5s ease forwards;
+}
+@keyframes kids-caption-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .marquee-track {
   animation: marquee-scroll linear infinite;
 }
