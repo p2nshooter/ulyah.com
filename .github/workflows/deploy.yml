@@ -306,6 +306,20 @@ jobs:
             echo "Kisah Sahabat already has $SAHABATCOUNT rows — skipping."
           fi
 
+      - name: Import Pondasi Iman (Rukun Iman) series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'pondasi-iman-rukun';" --json > /tmp/pondasi_iman_count.json
+          PONDASICOUNT=$(node -e "const j=require('/tmp/pondasi_iman_count.json'); console.log(j[0].results[0].n)")
+          if [ "$PONDASICOUNT" -lt "1" ]; then
+            echo "Pondasi Iman not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pondasi_iman.sql
+          else
+            echo "Pondasi Iman already has $PONDASICOUNT rows — skipping."
+          fi
+
       - name: Bulk-import Kitab library catalogue (one-time, ~4.9k works)
         continue-on-error: true
         working-directory: apps/worker-api
