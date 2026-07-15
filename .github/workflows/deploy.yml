@@ -380,6 +380,23 @@ jobs:
             echo "Kisah Anak already has $KACOUNT episodes — skipping."
           fi
 
+      - name: Import Audiobook library — 25 original articles filling all categories (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Fills every Audiobook category that used to sit empty behind a
+          # filter chip (fiqih pernikahan/warisan, pondasi iman, hikmah,
+          # tafsir tematik, kisah sahabat/tabi'in/tabi'ut-tabi'in/ulama).
+          # INSERT OR IGNORE on UNIQUE (slug,lang), so re-running is a no-op.
+          ABCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE lang='id' AND slug IN ('fiqih-nikah-rukun-syarat','kisah-ulama-ghazali-audio');" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$ABCOUNT" -lt "2" ]; then
+            echo "Audiobook library articles missing (sentinel=$ABCOUNT) — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/audiobook_library.sql
+          else
+            echo "Audiobook library already imported — skipping."
+          fi
+
       - name: Import Kisah person index — 25 Nabi + notable Sahabat (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api

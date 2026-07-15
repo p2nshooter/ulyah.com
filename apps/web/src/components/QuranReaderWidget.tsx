@@ -69,6 +69,24 @@ function sameLayers(a: Layer[], b: Layer[]): boolean {
   return a.length === b.length && b.every((l) => a.includes(l));
 }
 
+// Last-read position, persisted per device ("bacaan terakhir masih di situ",
+// not a reset to Al-Baqarah 1 on every visit). Deep links still win over it.
+const LAST_READ_KEY = "ulyah_quran_last_read";
+
+function loadLastRead(): { surah: number; ayah: number } | null {
+  try {
+    const raw = window.localStorage.getItem(LAST_READ_KEY);
+    if (!raw) return null;
+    const p = JSON.parse(raw) as { surah?: number; ayah?: number };
+    if (typeof p.surah === "number" && p.surah >= 1 && p.surah <= 114 && typeof p.ayah === "number" && p.ayah >= 1) {
+      return { surah: p.surah, ayah: p.ayah };
+    }
+  } catch {
+    /* corrupt/blocked storage — fall back to the default */
+  }
+  return null;
+}
+
 /** Honest per-layer "nothing for this ayah" copy. Translation + tafsir cover
  * every ayah, so an empty one there is a transient fetch hiccup, framed as a
  * loading failure (not "still being prepared" — the content itself already
@@ -152,6 +170,14 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [editionTafsirLoading, setEditionTafsirLoading] = useState(false);
   const arabicRef = useRef<HTMLDivElement>(null);
   const explRefs = useRef<Map<Layer, HTMLDivElement | null>>(new Map());
+  // The ayah to land on once the (deep-linked or restored) surah's ayat
+  // arrive. The surah-change effect always resets focus to 1, so a plain
+  // setFocus() from the mount effect was silently overwritten one render
+  // later — this ref survives that reset and is consumed exactly once.
+  const pendingAyahRef = useRef<number | null>(null);
+  // Don't persist the position until the initial restore has happened,
+  // otherwise the default (Al-Baqarah:1) overwrites the saved spot on mount.
+  const restoredRef = useRef(false);
 
   const { layers, setLayers, loadSurahQueue, queue, currentIndex, isPlaying, activeLayer, qoriId, setQori } =
     usePlayerStore();
@@ -167,9 +193,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     if (pool.length > 0 && !pool.some((r) => r.key === qoriId)) setQori(pool[0]!.key);
   }
 
-  // Load surah index once. Honour a deep link like ?surah=2&ayah=5 (used by
-  // the AI chat's clickable references) so the reader opens exactly on the
-  // cited ayah; otherwise default to Al-Baqarah.
+  // Load surah index once. Priority for the opening position:
+  //   1. a deep link like ?surah=2&ayah=5 (AI chat's clickable references),
+  //   2. the visitor's own last-read position (localStorage) — coming back
+  //      to the reader continues where they left off, never a reset to
+  //      Al-Baqarah 1,
+  //   3. Al-Baqarah as the first-visit default.
   useEffect(() => {
     let deepSurah: number | null = null;
     let deepAyah: number | null = null;
@@ -180,16 +209,32 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       if (s >= 1 && s <= 114) deepSurah = s;
       if (a >= 1) deepAyah = a;
     }
+    const last = typeof window !== "undefined" && !deepSurah ? loadLastRead() : null;
     api
       .get<{ surah: SurahMeta[] }>("/quran/surah")
       .then((r) => {
         setSurahs(r.surah);
-        const target = deepSurah ? r.surah.find((s) => s.id === deepSurah) : undefined;
+        const target = deepSurah
+          ? r.surah.find((s) => s.id === deepSurah)
+          : last
+            ? r.surah.find((s) => s.id === last.surah)
+            : undefined;
+        pendingAyahRef.current = deepSurah ? deepAyah : (last?.ayah ?? null);
+        restoredRef.current = true;
         setSelectedSurah((prev) => prev ?? target ?? r.surah.find((s) => s.id === 2) ?? r.surah[0] ?? null);
-        if (deepAyah) setFocus(deepAyah);
       })
       .catch(() => {});
   }, []);
+
+  // Remember where the visitor is, so the next visit reopens right here.
+  useEffect(() => {
+    if (!restoredRef.current || !selectedSurah || typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(LAST_READ_KEY, JSON.stringify({ surah: selectedSurah.id, ayah: focus }));
+    } catch {
+      /* storage full/blocked — persistence is best-effort */
+    }
+  }, [selectedSurah, focus]);
 
   // Load the selected surah's ayat. Clear the previous surah's ayat FIRST so
   // a slow or failed fetch can never leave the reader showing the wrong
@@ -202,7 +247,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     setAyat([]);
     setLoadingAyat(true);
     setLoadError(false);
-    setFocus(1);
+    // Land on the pending ayah (deep link / restored last-read) when there is
+    // one; a plain surah switch starts at ayah 1 as before. Clamped to the
+    // surah's real length so a stale saved ayah can never point past the end.
+    const landing = Math.min(pendingAyahRef.current ?? 1, selectedSurah.ayah_count);
+    pendingAyahRef.current = null;
+    setFocus(Math.max(1, landing));
     api
       .get<{ ayat: AyatRow[]; surah: { id: number } }>(`/quran/surah/${wantId}?lang=${locale}`)
       .then((r) => {

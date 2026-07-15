@@ -37,10 +37,17 @@ interface CategoryRow {
 const CATEGORY_ICON: Record<string, string> = {
   "kisah-para-nabi": "🕌",
   "kisah-sahabat": "🌙",
-  "hikmah-harian": "✨",
+  "kisah-tabiin": "🌿",
+  "kisah-tabiin-tabiin": "🌱",
+  "kisah-ulama-dunia": "🌍",
+  "kisah-islami": "✨",
+  "hikmah-harian": "💡",
   "tafsir-tematik": "📖",
+  "fiqih-pernikahan": "💍",
+  "fiqih-warisan": "⚖️",
+  "pondasi-iman": "🕋",
   tadabbur: "📿",
-  "hadits-pilihan": "🕋",
+  "hadits-pilihan": "🕌",
 };
 
 export default async function AudiobookPage({

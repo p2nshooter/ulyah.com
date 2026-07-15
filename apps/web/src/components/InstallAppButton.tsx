@@ -141,6 +141,18 @@ export function InstallAppButton({
 
   const hintText = isIOS ? t.iosHint : t.manualHint;
 
+  // Fixed, theme-independent tooltip colors. The old classes used
+  // bg-[var(--color-surface)] + text-[var(--color-text-primary)] — but in
+  // dark mode --color-text-primary flips to cream while --color-surface is
+  // never overridden and STAYS cream, so the hint rendered as cream text on
+  // a cream box: a blank rectangle ("g bisa download"). A dark-green tooltip
+  // with cream text is readable on every page in both themes.
+  const hintStyle: React.CSSProperties = {
+    backgroundColor: "#0b3d2e",
+    color: "#f4efe3",
+    borderColor: "rgba(184, 137, 43, 0.45)",
+  };
+
   if (labeled) {
     return (
       <div className="relative inline-block">
@@ -151,7 +163,7 @@ export function InstallAppButton({
           📲 {t.installApp}
         </button>
         {showHint && (
-          <div className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed text-[var(--color-text-primary)] shadow-2xl">
+          <div style={hintStyle} className="absolute left-0 top-full z-30 mt-2 w-64 rounded-xl border p-3 text-xs leading-relaxed shadow-2xl">
             {hintText}
           </div>
         )}
@@ -170,7 +182,7 @@ export function InstallAppButton({
         📲
       </button>
       {showHint && (
-        <div className="absolute right-0 top-full z-30 mt-2 w-60 rounded-xl border border-accent/25 bg-[var(--color-surface)] p-3 text-xs leading-relaxed shadow-2xl">
+        <div style={hintStyle} className="absolute right-0 top-full z-30 mt-2 w-60 rounded-xl border p-3 text-xs leading-relaxed shadow-2xl">
           {hintText}
         </div>
       )}
