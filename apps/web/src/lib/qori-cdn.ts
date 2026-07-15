@@ -43,6 +43,8 @@ export const COUNTRIES: { code: string; label: string; flag: string }[] = [
   { code: "ly", label: "Libya", flag: "🇱🇾" },
   { code: "qa", label: "Qatar", flag: "🇶🇦" },
   { code: "ae", label: "Emirat Arab", flag: "🇦🇪" },
+  { code: "ye", label: "Yaman", flag: "🇾🇪" },
+  { code: "dz", label: "Aljazair", flag: "🇩🇿" },
   { code: "id", label: "Indonesia", flag: "🇮🇩" },
 ];
 
@@ -78,6 +80,15 @@ export const RECITERS: QoriDef[] = [
   { key: "ey.qatami", name: "Nasser Al-Qatami", flag: "🇶🇦", country: "Qatar", cc: "qa", note: "Murattal", cdn: "ey", eyId: "Nasser_Alqatami_128kbps" },
   // Emirat Arab
   { key: "ey.tunaiji", name: "Khalifa Al-Tunaiji", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "khalefa_al_tunaiji_128kbps" },
+  { key: "ey.bukhatir", name: "Salah Bukhatir", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "Salaah_AbdulRahman_Bukhatir_128kbps" },
+  // Tambahan — cakupan lebih luas (per-ayat, everyayah.com)
+  { key: "ey.juhany", name: "Abdullah Awad Al-Juhany", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "ey", eyId: "Abdullaah_3awwaad_Al-Juhaynee_128kbps" },
+  { key: "ey.ghamdi", name: "Saad Al-Ghamdi", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal Tartil", featured: true, cdn: "ey", eyId: "Ghamadi_40kbps" },
+  { key: "ey.alijaber", name: "Ali Jaber", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal", cdn: "ey", eyId: "Ali_Jaber_64kbps" },
+  { key: "ey.akhdar", name: "Ibrahim Al-Akhdar", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal", cdn: "ey", eyId: "Ibrahim_Akhdar_32kbps" },
+  { key: "ey.banna", name: "Mahmoud Ali Al-Banna", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "ey", eyId: "mahmoud_ali_al_banna_32kbps" },
+  { key: "ey.faresabbad", name: "Fares Abbad", flag: "🇾🇪", country: "Yaman", cc: "ye", note: "Murattal", featured: true, cdn: "ey", eyId: "Fares_Abbad_64kbps" },
+  { key: "ey.mansouri", name: "Karim Mansouri", flag: "🇩🇿", country: "Aljazair", cc: "dz", note: "Murattal", featured: true, cdn: "ey", eyId: "Karim_Mansouri_128kbps" },
   // Indonesia — surah-mode only (see surahFn note above)
   {
     key: "id.muammar",

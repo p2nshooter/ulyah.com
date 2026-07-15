@@ -39,7 +39,7 @@
    "ar": "سَفِيْنَةُ النَّجَاةِ",
    "id": "Safinatun Najah",
    "auth": "Syaikh Salim bin Samir Al-Hadhrami",
-   "desc": "Kitab fiqih dasar madzhab Syafi'i, pegangan utama santri pemula",
+   "desc": "Kitab fiqih dasar mazhab Syafi'i karya Syaikh Salim bin Sumair Al-Hadhrami, disusun ringkas dalam bentuk enumerasi (rukun, syarat, dan pembatal) sehingga mudah dihafal santri pemula. Membahas dasar-dasar ibadah: rukun Islam dan iman, thaharah (bersuci, wudhu, mandi, tayamum, najis), serta shalat lengkap dengan syarat, rukun, dan sunnahnya. Menjadi kitab pertama di hampir seluruh pesantren Nusantara dan pintu masuk memahami fiqih ibadah harian.",
    "babs": [
     {
      "id": "s_muq",
@@ -226,7 +226,7 @@
    "ar": "تَعْلِيْمُ الْمُتَعَلِّمِ",
    "id": "Ta'lim Muta'allim",
    "auth": "Syaikh Burhanuddin Az-Zarnuji",
-   "desc": "Kitab adab menuntut ilmu — wajib dibaca setiap santri sebelum belajar",
+   "desc": "Kitab adab menuntut ilmu karya Syaikh Burhanuddin Az-Zarnuji yang mengajarkan bagaimana seorang penuntut ilmu bersikap agar ilmunya berkah dan bermanfaat. Membahas niat belajar, memilih ilmu dan guru, mengagungkan ilmu dan ahlinya, kesungguhan, tawakal, serta hal-hal yang menguatkan dan melemahkan hafalan. Dibaca turun-temurun di pesantren sebagai pembentuk akhlak sebelum dan selama menuntut ilmu.",
    "babs": [
     {
      "id": "tm1",
@@ -421,7 +421,7 @@
    "ar": "مُقَدِّمَةُ الْآجُرُّومِيَّةِ",
    "id": "Al-Jurumiyyah",
    "auth": "Ibnu Ajurrum Ash-Shanhaji (w.723H)",
-   "desc": "Kitab nahwu paling dasar dan masyhur di dunia Islam",
+   "desc": "Matan dasar ilmu nahwu (tata bahasa Arab) karya Ibnu Ajurrum Ash-Shanhaji (w. 723 H) dari Maroko, ringkas namun mencakup pokok-pokok kaidah i'rab. Membahas pembagian kalam, tanda-tanda i'rab, marfu'at, manshubat, dan makhfudhat sebagai fondasi membaca kitab kuning. Menjadi jenjang pertama pembelajaran nahwu di pesantren sebelum naik ke Al-Imrithi dan Alfiyah.",
    "babs": [
     {
      "id": "j1",
@@ -483,7 +483,7 @@
    "ar": "عَقِيدَةُ الْعَوَامِّ",
    "id": "Aqidatul Awam",
    "auth": "Syaikh Ahmad Al-Marzuqi Al-Maliki (w.1262H)",
-   "desc": "Nadhom 57 bait akidah Ahlussunnah — wajib dihafalkan santri",
+   "desc": "Nazham akidah Ahlussunnah wal Jama'ah karya Syaikh Ahmad Al-Marzuqi Al-Maliki (w. 1281 H), tersusun dalam 57 bait yang mudah dilagukan dan dihafal. Merangkum 50 sifat wajib, mustahil, dan jaiz bagi Allah dan para rasul, nama-nama 25 nabi, para malaikat, kitab suci, serta peristiwa Isra Mikraj. Menjadi rujukan akidah pemula paling populer di Nusantara.",
    "babs": [
     {
      "id": "aq1",
@@ -553,7 +553,7 @@
    "ar": "أَلْفِيَّةُ ابْنِ مَالِكٍ",
    "id": "Alfiyah Ibnu Malik",
    "auth": "Imam Ibnu Malik Al-Andalusi (w.672H)",
-   "desc": "1002 bait nadhom nahwu-shorof — puncak ilmu nahwu pesantren",
+   "desc": "Nazham agung ilmu nahwu dan sharaf karya Imam Ibnu Malik Al-Andalusi (w. 672 H) yang berisi seribu bait (alfiyah = seribu). Mencakup nyaris seluruh kaidah tata bahasa Arab secara sistematis, dari kalam hingga masalah sharaf yang rumit. Menjadi puncak pembelajaran nahwu di pesantren; santri yang mengkhatamkannya dipandang telah kokoh dalam gramatika Arab.",
    "babs": [
     {
      "id": "alf1",
@@ -615,7 +615,7 @@
    "ar": "بِدَايَةُ الْهِدَايَةِ",
    "id": "Bidayatul Hidayah",
    "auth": "Imam Al-Ghazali (w.505H)",
-   "desc": "Panduan awal suluk dan adab harian Muslim — karya Hujjatul Islam",
+   "desc": "Kitab akhlak dan tasawuf amali karya Hujjatul Islam Imam Al-Ghazali (w. 505 H) sebagai gerbang awal menempuh jalan hidayah. Membagi tuntunan menjadi tiga: ketaatan (adab bangun, bersuci, shalat, hingga aktivitas harian), menjauhi maksiat anggota badan, dan adab pergaulan dengan Allah maupun sesama. Ringkas, praktis, dan menjadi bekal amaliah santri sehari-hari.",
    "babs": [
     {
      "id": "bh1",
@@ -667,7 +667,7 @@
    "ar": "سُلَّمُ التَّوْفِيقِ",
    "id": "Sullam Taufiq",
    "auth": "Syaikh Abdullah Ba'lawi Al-Hadhrami",
-   "desc": "Kitab fiqih dan akidah komprehensif madzhab Syafi'i",
+   "desc": "Kitab karya Syaikh Abdullah bin Husain Ba'alawi yang memadukan tiga pilar agama: akidah, fiqih, dan tasawuf dalam satu matan ringkas. Membahas dasar keimanan, kewajiban ibadah (thaharah, shalat, zakat, puasa, haji), serta larangan-larangan dan taubat. Banyak dibaca di pesantren sebagai pelengkap Safinatun Najah karena cakupannya yang menyeluruh namun padat.",
    "babs": [
     {
      "id": "st1",
@@ -723,7 +723,7 @@
    "ar": "فَتْحُ الْقَرِيبِ الْمُجِيبِ",
    "id": "Fathul Qarib",
    "auth": "Syaikh Ibnu Qasim Al-Ghazi (w.918H)",
-   "desc": "Syarah Matan Taqrib — fiqih Syafi'i tingkat menengah paling luas digunakan",
+   "desc": "Syarah masyhur atas matan Al-Ghayah wat Taqrib karya Syaikh Ibnu Qasim Al-Ghazi (w. 918 H), menjelaskan fiqih mazhab Syafi'i secara lengkap dan tertib. Membahas seluruh bab ibadah dan muamalah: thaharah, shalat, zakat, puasa, haji, jual beli, waris, nikah, jinayah, hingga peradilan. Menjadi jenjang menengah fiqih pesantren setelah Safinah dan Sullam Taufiq.",
    "babs": [
     {
      "id": "fq1",
@@ -772,7 +772,7 @@
    "ar": "مِنْهَاجُ الطَّالِبِينَ",
    "id": "Minhajut Thalibin",
    "auth": "Imam An-Nawawi (w.676H)",
-   "desc": "Referensi fiqih Syafi'i paling otoritatif — mu'tamad madzhab seluruh dunia",
+   "desc": "Kitab fiqih mazhab Syafi'i tingkat lanjut karya Imam An-Nawawi (w. 676 H), ringkasan dari Al-Muharrar milik Ar-Rafi'i dengan tarjih (pemilihan pendapat terkuat). Menjadi rujukan utama fatwa mazhab Syafi'i dan induk banyak syarah besar seperti Mughni al-Muhtaj dan Tuhfah al-Muhtaj. Dikaji santri senior yang telah menguasai fiqih dasar dan menengah.",
    "babs": [
     {
      "id": "mh1",
@@ -824,7 +824,7 @@
    "ar": "تِيجَانُ الدُّرَارِيِّ",
    "id": "Tijan Daruri",
    "auth": "Syaikh Nawawi Al-Bantani (w.1316H) — Ulama Nusantara",
-   "desc": "Syarah akidah karya ulama Nusantara terbesar — Imam Nawawi Al-Bantani Al-Jawi",
+   "desc": "Kitab tauhid karya ulama Nusantara Syaikh Nawawi Al-Bantani (w. 1314 H), syarah atas risalah tauhid Syaikh Ibrahim Al-Bajuri. Menguraikan sifat-sifat wajib, mustahil, dan jaiz bagi Allah serta para rasul secara jelas dan sistematis. Menjadi salah satu kitab akidah kebanggaan Nusantara yang diajarkan luas di pesantren.",
    "babs": [
     {
      "id": "tj1",
@@ -857,7 +857,7 @@
    "ar": "النَّصَائِحُ الدِّينِيَّةُ",
    "id": "Nashaihud Diniyyah",
    "auth": "Al-Habib Abdullah Al-Haddad (w.1132H)",
-   "desc": "Nasihat-nasihat agama dari Al-Imam Al-Haddad Ba'alawi Hadhramaut",
+   "desc": "Kitab nasihat keagamaan dan tasawuf karya Al-Habib Abdullah bin Alwi Al-Haddad (w. 1132 H), penyusun Ratib Al-Haddad. Berisi nasihat menghidupkan iman, takwa, muraqabah, taubat, ikhlas, dan zuhud dengan bahasa yang menyentuh hati. Dibaca di pesantren dan majelis untuk melembutkan hati dan menguatkan amaliah ruhani.",
    "babs": [
     {
      "id": "nd1",
@@ -902,7 +902,7 @@
    "ar": "نَظْمُ الْإِمْرِيطِيِّ",
    "id": "Al-Imrithi",
    "auth": "Syaikh Syarafuddin Yahya Al-Imrithi",
-   "desc": "Nadhom 250 bait — syarah Al-Jurumiyyah dalam format mudah dihafal",
+   "desc": "Nazham nahwu karya Syaikh Syarafuddin Yahya Al-Imrithi, penyair ulang matan Al-Ajurrumiyyah ke dalam sekitar 254 bait agar lebih mudah dihafal dan dilagukan. Menjadi jembatan antara Al-Jurumiyyah yang ringkas dan Alfiyah yang luas dalam tangga pembelajaran nahwu pesantren. Memperdalam kaidah i'rab sekaligus melatih santri menghafal bait.",
    "babs": [
     {
      "id": "im1",
@@ -937,7 +937,7 @@
    "ar": "أُمُّ الْبَرَاهِينِ",
    "id": "Umm al-Barahin (As-Sanusiyyah)",
    "auth": "Imam Muhammad bin Yusuf As-Sanusi (w.895H)",
-   "desc": "Risalah akidah Asy'ariyyah yang paling ringkas dan padat — wajib hafal santri",
+   "desc": "Kitab akidah karya Imam Muhammad bin Yusuf As-Sanusi (w. 895 H), dikenal sebagai As-Sanusiyyah, yang menekankan pembuktian akidah dengan dalil akal (burhan). Merangkum sifat wajib, mustahil, dan jaiz bagi Allah dan rasul beserta dalil rasionalnya, serta makna kalimat tauhid. Menjadi rujukan penting kajian ilmu kalam Ahlussunnah di pesantren.",
    "babs": [
     {
      "id": "um1",

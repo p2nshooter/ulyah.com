@@ -23,9 +23,11 @@ import { AdsenseTab } from "@/components/admin/AdsenseTab";
 import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
 import { MonitorTab } from "@/components/admin/MonitorTab";
 import { BacklogTab } from "@/components/admin/BacklogTab";
+import { OrchestraTab } from "@/components/admin/OrchestraTab";
+import { GrantTab } from "@/components/admin/GrantTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -70,6 +72,8 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
   const tabs: [Tab, string][] = [
     ["dashboard", dict.admin.dashboardTitle],
     ["backlog", "🗂️ Rancangan & Backlog"],
+    ["orchestra", "🎻 Orchestra Core"],
+    ["grant", "🤝 Grant & Donatur"],
     ["monitor", "🖥️ Monitor"],
     ["analytics", "Analytics"],
     ["keys", dict.admin.keyPool],
@@ -136,6 +140,8 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
 
       <div className="mt-6">
         {tab === "backlog" && <BacklogTab />}
+        {tab === "orchestra" && <OrchestraTab />}
+        {tab === "grant" && <GrantTab />}
         {tab === "monitor" && <MonitorTab locale={locale} />}
         {tab === "analytics" && <AnalyticsTab />}
         {tab === "keys" && <KeyPoolTab />}

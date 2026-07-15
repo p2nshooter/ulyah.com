@@ -100,6 +100,7 @@ function LibraryStatsPanel() {
 
   const mainInstalls = stats.installs.byApp.find((a) => a.app === "main")?.n ?? 0;
   const sholatInstalls = stats.installs.byApp.find((a) => a.app === "sholat")?.n ?? 0;
+  const radioInstalls = stats.installs.byApp.find((a) => a.app === "radio")?.n ?? 0;
 
   return (
     <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
@@ -110,6 +111,7 @@ function LibraryStatsPanel() {
         <span>Total install: <b>{stats.installs.total.toLocaleString("id")}</b></span>
         <span>App ULYAH.COM: <b>{mainInstalls.toLocaleString("id")}</b></span>
         <span>App Jadwal Sholat: <b>{sholatInstalls.toLocaleString("id")}</b></span>
+        <span>App Radio Qur'an: <b>{radioInstalls.toLocaleString("id")}</b></span>
       </div>
 
       <p className="mt-4 text-xs font-semibold text-[var(--color-text-secondary)]">Kitab per kategori</p>

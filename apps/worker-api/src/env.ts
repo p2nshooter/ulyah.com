@@ -28,5 +28,12 @@ export interface Env {
   NOWPAYMENTS_API_KEY: string;
   NOWPAYMENTS_IPN_SECRET?: string;
 
+  // Outreach email (Grant & Fundraising Worker). RESEND_API_KEY is the
+  // serverless-friendly sender that works with a DNS-verified domain; the
+  // "From" defaults to salam@ulyah.com. If unset, drafting still works and
+  // sending reports clearly that email isn't configured yet.
+  RESEND_API_KEY?: string;
+  EMAIL_FROM?: string;
+
   CORS_ALLOW_ORIGIN?: string;
 }

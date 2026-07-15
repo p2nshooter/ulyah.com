@@ -11,8 +11,10 @@ import { adminRoute } from "./routes/admin.js";
 import { clientRoute } from "./routes/client.js";
 import { analyticsRoute } from "./routes/analytics.js";
 import { geoRoute } from "./routes/geo.js";
+import { grantRoute } from "./routes/grant.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { cleanupObsoleteMurottalR2 } from "./lib/r2-cleanup.js";
+import { orchestraMaintenance } from "./lib/orchestra.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -36,6 +38,7 @@ app.route("/admin", adminRoute);
 app.route("/client", clientRoute);
 app.route("/analytics", analyticsRoute);
 app.route("/geo", geoRoute);
+app.route("/grant", grantRoute);
 
 // WebSocket gateway to the singleton KeyPoolCoordinator (§13.1)
 app.get("/keypool/connect", async (c) => {
@@ -58,7 +61,10 @@ app.onError((err, c) => {
 export default {
   fetch: app.fetch,
 
-  // Health Checker (§13.1) + zero-hand content-gap scheduler (§14), every 15 min.
+  // Autonomous heartbeat (§13.1, §14), every 15 min via Cloudflare Cron — this
+  // is what keeps Orchestra Core & its workers running with NO human and NO
+  // Anthropic online: content-gap scheduler drafts new content through donated
+  // keys, the key pool self-heals, and rate-limited keys auto-wake.
   async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
     const id = env.KEY_POOL.idFromName("global");
     const stub = env.KEY_POOL.get(id);
@@ -67,6 +73,7 @@ export default {
         stub.fetch("https://internal/health-tick", { method: "POST" }).catch((e) => console.error("health-tick failed", e)),
         runScalingTick(env).catch((e) => console.error("scaling-tick failed", e)),
         cleanupObsoleteMurottalR2(env).catch((e) => console.error("r2-cleanup failed", e)),
+        orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
       ]).then(() => undefined)
     );
   },

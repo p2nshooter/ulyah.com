@@ -32,7 +32,7 @@ analyticsRoute.post("/install", async (c) => {
   if (!rl.allowed) return c.json({ ok: false }, 429);
 
   const { app } = await c.req.json<{ app?: string }>().catch(() => ({}) as any);
-  const appKey = app === "sholat" ? "sholat" : "main";
+  const appKey = app === "sholat" || app === "radio" ? app : "main";
   const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
 
   await c.env.DB.prepare("INSERT INTO app_installs (app, country) VALUES (?, ?)").bind(appKey, country).run();

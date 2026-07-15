@@ -33,13 +33,17 @@ export function GlobalRadioPlayer() {
   }, []);
 
   // Auto-start the broadcast once per fresh page load (muted if the browser
-  // blocks sound), so the radio "otomatis jalan". A manual stop is respected:
-  // we only ever auto-start a single time, never re-start after a stop.
+  // blocks sound), so the radio "otomatis jalan" — but ONLY if the visitor has
+  // never explicitly turned it off. A persisted OFF (localStorage, see
+  // radio-store) is honoured across reloads: once stopped it stays silent on
+  // every page until the visitor presses play again ("klo sudah di off jgn
+  // hidup sampai di on").
   useEffect(() => {
     if (autoStartedRef.current) return;
     if (surahs.length === 0) return;
     autoStartedRef.current = true;
-    if (!useRadioStore.getState().playing) useRadioStore.getState().start();
+    const st = useRadioStore.getState();
+    if (!st.playing && !st.userDisabled) st.start();
   }, [surahs.length]);
 
   // Keep the wall-clock khatam counter ticking while anything is mounted.
@@ -174,11 +178,34 @@ export function GlobalRadioPlayer() {
   }, [playing]);
 
   return (
-    <audio
-      ref={audioRef}
-      onEnded={() => useRadioStore.getState().advance()}
-      className="hidden"
-      aria-hidden
-    />
+    <>
+      <audio
+        ref={audioRef}
+        onEnded={() => useRadioStore.getState().advance()}
+        className="hidden"
+        aria-hidden
+      />
+      {/* Always-visible ON/OFF for the radio, on every page — so the visitor
+          can silence (or resume) the broadcast from anywhere, and the state is
+          remembered across navigation and reloads. Deliberately icon-only to
+          stay language-neutral across all 8 locales. */}
+      <button
+        type="button"
+        onClick={() => (playing ? useRadioStore.getState().stop() : useRadioStore.getState().start())}
+        aria-label={playing ? "Radio Qur'an: OFF" : "Radio Qur'an: ON"}
+        title={playing ? "Matikan Radio Qur'an" : "Nyalakan Radio Qur'an"}
+        className="fixed bottom-4 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[#0B3D2E]/90 px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur transition hover:border-accent hover:bg-[#0B3D2E]"
+      >
+        <span aria-hidden>📻</span>
+        {playing ? (
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
+            <span className="tabular-nums">ON</span>
+          </span>
+        ) : (
+          <span className="text-[#f4efe3]/70">OFF</span>
+        )}
+      </button>
+    </>
   );
 }

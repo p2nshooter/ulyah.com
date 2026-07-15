@@ -1,9 +1,10 @@
 import { Hono } from "hono";
-import { chatComplete, extractJson } from "@ulyah/ai-engine";
+import { extractJson } from "@ulyah/ai-engine";
 import type { Env } from "../env.js";
-import { selectKeyForScope, recordKeyUsage } from "../lib/keypool-db.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
+import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, type Capability } from "../lib/orchestra.js";
+import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
 
@@ -100,7 +101,8 @@ aiRoute.get("/recommend/:ayahId", async (c) => {
   return c.json({ recommended: results });
 });
 
-// POST /ai/summarize — ringkas tafsir panjang, uses best available text key
+// POST /ai/summarize — ringkas tafsir panjang, routed through Orchestra Core
+// so it transparently fails over across every donated text key.
 aiRoute.post("/summarize", async (c) => {
   const rl = await checkRateLimit(c.env, `summarize:${c.req.header("cf-connecting-ip") ?? "anon"}`, 10, 60);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
@@ -108,21 +110,83 @@ aiRoute.post("/summarize", async (c) => {
   const { text } = await c.req.json<{ text: string }>();
   if (!text) return c.json({ error: "text required" }, 400);
 
-  const selected = await selectKeyForScope(c.env, "text");
-  if (!selected) return c.json({ error: "No active AI key available — donate one via /donate/api-key" }, 503);
-
-  const started = Date.now();
-  try {
-    const res = await chatComplete(
-      selected.entry.provider,
-      selected.rawKey,
-      `Ringkas teks berikut menjadi maksimal 3 kalimat Bahasa Indonesia tanpa menambah klaim baru:\n\n${text}\n\nOUTPUT (JSON): { "summary": "..." }`
-    );
-    await recordKeyUsage(c.env, selected.entry.id, Date.now() - started, true);
-    const json = extractJson<{ summary: string }>(res.text);
-    return c.json({ summary: json?.summary ?? res.text });
-  } catch (err) {
-    await recordKeyUsage(c.env, selected.entry.id, Date.now() - started, false);
-    return c.json({ error: "Summarization failed", detail: String(err) }, 502);
+  const r = await orchestrate(c.env, {
+    capability: "summarize",
+    prompt: `Ringkas teks berikut menjadi maksimal 3 kalimat Bahasa Indonesia tanpa menambah klaim baru:\n\n${text}\n\nOUTPUT (JSON): { "summary": "..." }`,
+  });
+  if (!r.ok || !r.text) {
+    return c.json({ error: "No active AI key available — donate one via /donate/api-key", attempts: r.attempts }, 503);
   }
+  const json = extractJson<{ summary: string }>(r.text);
+  return c.json({ summary: json?.summary ?? r.text, servedBy: r.servedBy });
+});
+
+// POST /ai/translate — multi-language translation via Orchestra Core. Keeps
+// the site's "terjemah multi-bahasa konsisten" promise using whatever text
+// key is healthiest, with automatic failover.
+aiRoute.post("/translate", async (c) => {
+  const rl = await checkRateLimit(c.env, `translate:${c.req.header("cf-connecting-ip") ?? "anon"}`, 20, 60);
+  if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
+
+  const { text, targetLang } = await c.req.json<{ text: string; targetLang: string }>();
+  if (!text || !targetLang) return c.json({ error: "text and targetLang required" }, 400);
+  if (text.length > 4000) return c.json({ error: "text too long (max 4000)" }, 400);
+
+  const r = await orchestrate(c.env, {
+    capability: "translate",
+    prompt: `Translate the text below into language code "${targetLang}". Preserve meaning faithfully, keep Arabic religious terms transliterated, and output ONLY the translation with no preamble:\n\n${text}`,
+  });
+  if (!r.ok || !r.text) {
+    return c.json({ error: "No active AI key available for translation", attempts: r.attempts }, 503);
+  }
+  return c.json({ translation: r.text.trim(), servedBy: r.servedBy });
+});
+
+// POST /ai/ask — RAG-grounded Q&A: retrieves ayat + hadith from Ulyah's own
+// database first, then answers ONLY from those sources with citations (no
+// fabricated rulings). Guest-facing but rate-limited.
+aiRoute.post("/ask", async (c) => {
+  const rl = await checkRateLimit(c.env, `ask:${c.req.header("cf-connecting-ip") ?? "anon"}`, 15, 3600);
+  if (!rl.allowed) return c.json({ error: "Rate limit exceeded — silakan daftar untuk akses lebih.", registerHint: true }, 429);
+
+  const { question, locale, specialist } = await c.req.json<{ question: string; locale?: string; specialist?: string }>();
+  if (!question || question.length > 500) return c.json({ error: "question required (max 500 chars)" }, 400);
+
+  const r = await answerGrounded(c.env, { question, locale, specialist });
+  if (!r.ok || !r.text) {
+    return c.json({ error: "AI belum tersedia (belum ada API key aktif di pool).", sources: r.sources, attempts: r.attempts }, 503);
+  }
+  return c.json({ answer: r.text.trim(), sources: r.sources, servedBy: r.servedBy });
+});
+
+// GET /ai/orchestra/health — live key-pool health grouped by provider/scope/
+// status (admin observability for Orchestra Core).
+aiRoute.get("/orchestra/health", requireAdmin, async (c) => {
+  return c.json({ health: await orchestraHealth(c.env), registry: capabilityRegistry() });
+});
+
+// POST /ai/orchestra/run — run an arbitrary capability through the failover
+// chain and return the full attempt trail (admin-only diagnostics).
+aiRoute.post("/orchestra/run", requireAdmin, async (c) => {
+  const { capability, prompt } = await c.req.json<{ capability: Capability; prompt: string }>();
+  if (!capability || !prompt) return c.json({ error: "capability and prompt required" }, 400);
+  const r = await orchestrate(c.env, { capability, prompt });
+  return c.json(r, r.ok ? 200 : 503);
+});
+
+// POST /ai/orchestra/self-test — the engine runs each worker against live
+// keys and reports what genuinely works right now (admin proof).
+aiRoute.post("/orchestra/self-test", requireAdmin, async (c) => {
+  return c.json(await selfTest(c.env));
+});
+
+// GET /ai/orchestra/workers — the named worker registry (the AI grouping).
+aiRoute.get("/orchestra/workers", requireAdmin, (c) => c.json({ workers: listWorkers() }));
+
+// POST /ai/orchestra/worker — dispatch a named worker (admin diagnostics).
+aiRoute.post("/orchestra/worker", requireAdmin, async (c) => {
+  const { name, input } = await c.req.json<{ name: string; input: Record<string, string> }>();
+  if (!name) return c.json({ error: "worker name required" }, 400);
+  const r = await runWorker(c.env, name, input ?? {});
+  return c.json(r, r.ok ? 200 : 503);
 });
