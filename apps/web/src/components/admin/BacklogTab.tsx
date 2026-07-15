@@ -273,12 +273,12 @@ const HADITH_TAXONOMY: TaxonomyGroup[] = [
     terms: [
       { term: "Derajat Hadits", status: "done" },
       { term: "Takhrij", status: "todo" },
-      { term: "Sanad Lengkap", status: "todo" },
-      { term: "Jalur Riwayat", status: "todo" },
-      { term: "Pohon Sanad", status: "todo" },
-      { term: "Perawi", status: "todo" },
-      { term: "Biografi Perawi", status: "todo" },
-      { term: "Tahun Wafat Perawi", status: "todo" },
+      { term: "Sanad Lengkap", status: "partial" },
+      { term: "Jalur Riwayat", status: "partial" },
+      { term: "Pohon Sanad", status: "done" },
+      { term: "Perawi", status: "partial" },
+      { term: "Biografi Perawi", status: "partial" },
+      { term: "Tahun Wafat Perawi", status: "partial" },
       { term: "Kitab Asal", status: "done" },
       { term: "Bab", status: "partial" },
       { term: "Nomor Hadits", status: "done" },
@@ -298,8 +298,6 @@ interface AiIdea {
   desc: string;
 }
 const AI_HADITH_IDEAS: AiIdea[] = [
-  { title: "AI Analisis Sanad", desc: "Visualisasi rantai perawi otomatis dari data sanad yang tersedia." },
-  { title: "Pohon Sanad Interaktif", desc: "Diagram pohon sanad yang bisa dijelajah, dari perawi ke perawi." },
   { title: "Perbandingan Penilaian Ulama", desc: "Satu hadits, tampilkan berdampingan penilaian Al-Bukhari, Al-Albani, Ibnu Hajar, dll." },
   { title: "Grafik Jalur Riwayat", desc: "Peta visual jalur periwayatan sebuah hadits melalui berbagai kitab." },
   {
@@ -399,6 +397,16 @@ export function BacklogTab() {
           Semua item ini butuh data sanad/rawi/penilaian-ulama terisi dulu (lihat taksonomi di atas) sebelum bisa
           dibangun — urutkan setelah taksonomi metadata sanad tersedia, bukan sebelum.
         </p>
+        <p className="mt-2 rounded-lg bg-success/10 p-2 text-[11px] leading-relaxed text-success">
+          ✅ <b>Pohon Sanad</b> DAN <b>AI Analisis Sanad</b> (dua ide yang tadinya di sini) sudah dibangun: rantai
+          isnad diekstrak deterministik langsung dari teks hadits Bukhari &amp; Muslim yang sudah ada di database
+          (tokenisasi kata sambung periwayatan — bukan dari dorar-hadith-api, yang belum diserap), menghasilkan
+          10.903 rantai &amp; 7.699 perawi unik. Semuanya berstatus <code>pending_review</code> sampai ditinjau
+          manual di tab Sanad admin (ekstraksi heuristik, bukan 100% dijamin akurat) — baru yang{" "}
+          <code>published</code> tampil di halaman publik <code>/sanad</code>. Biografi perawi (bio_id/bio_en,
+          tahun wafat, tingkat kepercayaan) masih sebagian besar kosong — lihat status &quot;Perawi&quot; &amp;
+          &quot;Biografi Perawi&quot; di taksonomi atas, PR selanjutnya bisa mengisi ini secara bertahap.
+        </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {AI_HADITH_IDEAS.map((idea) => (
             <div key={idea.title} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
@@ -409,14 +417,55 @@ export function BacklogTab() {
         </div>
       </section>
 
+      {/* ── Fitur besar di luar 14 kategori sumber terbuka ── */}
+      <section>
+        <h2 className="font-heading text-base">✨ Fitur Besar Lain yang Sudah Dibangun</h2>
+        <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+          Tidak masuk salah satu dari 14 kategori sumber terbuka di atas — dicatat terpisah di sini supaya AI
+          berikutnya tidak menganggapnya belum ada.
+        </p>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-sm font-medium">Mushaf Utsmani (/quran/mushaf)</p>
+              <Pill status="done" />
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+              604 halaman mushaf dari alquran.cloud (teks Utsmani), animasi balik halaman 3D CSS murni (tanpa
+              library), lompat ke surah/juz, audio murottal via player queue yang sudah ada, panel tafsir (spa5k +
+              Kemenag/equran.id). Cache 1 tahun via KV per halaman.
+            </p>
+          </div>
+          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-sm font-medium">Kisah Anak (/kisah-anak)</p>
+              <Pill status="partial" />
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+              Storybook animasi karakter (SVG + CSS, boy/girl, 7 aksi) untuk anak, dinarasikan oleh mesin TTS
+              browser yang sama dipakai di seluruh situs, caption ID/EN. Baru 3 kisah tayang (Jujur Itu Hebat,
+              Sabar Membawa Berkah, Berbagi Itu Indah) — belum ada tab moderasi admin khusus (kisah ditulis manual
+              lalu di-seed langsung sebagai <code>published</code>, bukan lewat pipeline AI/review seperti Sanad).
+              Tambah kisah baru dengan pola yang sama di <code>packages/db-schema/seed/kids_stories.sql</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Catatan untuk AI berikutnya ── */}
       <section className="rounded-xl border border-accent/40 bg-accent/5 p-4">
         <h2 className="font-heading text-base">📝 Catatan untuk AI/Developer Berikutnya — Baca Sebelum Mulai</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
           <li>
-            <b>Prioritas tertinggi saat ini:</b> perkaya taksonomi hadits (bagian "Berdasarkan Perawi", "Sandaran",
-            "Ketersambungan Sanad") memakai dorar-hadith-api (MIT, punya field grade+rawi nyata) — ini yang membuka
-            jalan untuk semua fitur AI Sanad yang diminta.
+            <b>Pohon Sanad sudah dibangun</b> (lihat "✨ Fitur Besar Lain" di atas), tapi lewat jalur berbeda dari
+            rencana semula: bukan dorar-hadith-api (masih belum diserap), melainkan ekstraksi deterministik
+            langsung dari teks Bukhari &amp; Muslim yang SUDAH ada di database (tokenisasi kata sambung
+            periwayatan — حدثنا/أخبرنا/عن/سمعت, dll., lihat <code>scripts/extract-sanad-chains.ts</code>). Hasilnya
+            10.903 rantai berstatus <code>pending_review</code>, ditinjau bertahap di tab Sanad admin sebelum
+            tampil publik. <b>Prioritas berikutnya:</b> (a) isi bio_id/bio_en/tahun-wafat/tingkat-kepercayaan
+            perawi yang masih kosong, (b) tinjau &amp; publish antrean pending_review, (c) baru pertimbangkan
+            dorar-hadith-api sebagai sumber TAMBAHAN kalau butuh penilaian ulama per-perawi yang lebih kaya —
+            jangan re-ekstrak dari nol, field yang sudah ada harus dilengkapi dulu.
           </li>
           <li>
             <b>Kitab pesantren:</b> baru 1 dari ~13 kitab (Aqidatul Awam) yang teksnya LENGKAP (Arab+terjemah utuh per
