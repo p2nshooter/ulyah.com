@@ -19,10 +19,23 @@ on:
         default: "40"
   # Zero-hand: without this, "audio being processed" never stops being true —
   # the workflow only existed as a manual trigger nobody ever pressed, so
-  # every published story sat with no audio indefinitely. Daily is enough to
-  # both work through the backlog and keep up with the content engine.
+  # every published story sat with no audio indefinitely. Hourly (rather than
+  # daily) keeps audio production much closer in step with the every-minute
+  # content-generation cron (wrangler.toml) — this job just can't run at that
+  # same cadence: each run spends real wall-clock minutes installing
+  # espeak-ng/ffmpeg and downloading Piper voice models before it even starts
+  # synthesising, and GitHub Actions itself discourages/throttles schedules
+  # finer than a few minutes on shared runners. Hourly is the practical floor
+  # for a job with this much per-run setup cost.
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "0 * * * *"
+
+# Hourly runs are frequent enough that a slow run could still be going when
+# the next one fires; queue (never cancel a run already writing audio) rather
+# than let two runs race the same articles.
+concurrency:
+  group: generate-audiobooks
+  cancel-in-progress: false
 
 jobs:
   audiobooks:
