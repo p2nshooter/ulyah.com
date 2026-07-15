@@ -25,9 +25,10 @@ import { MonitorTab } from "@/components/admin/MonitorTab";
 import { BacklogTab } from "@/components/admin/BacklogTab";
 import { OrchestraTab } from "@/components/admin/OrchestraTab";
 import { GrantTab } from "@/components/admin/GrantTab";
+import { SanadTab } from "@/components/admin/SanadTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "sanad";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -78,6 +79,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["analytics", "Analytics"],
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
+    ["sanad", "🌳 Pohon Sanad"],
     ["donations", dict.admin.donations],
     ["proofs", dict.cert.sectionTitle],
     ["clients", dict.admin.clients],
@@ -146,6 +148,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "analytics" && <AnalyticsTab />}
         {tab === "keys" && <KeyPoolTab />}
         {tab === "content" && <ContentTab />}
+        {tab === "sanad" && <SanadTab />}
         {tab === "donations" && <DonationsTab />}
         {tab === "proofs" && <ProofsTab />}
         {tab === "clients" && <ClientsTab />}

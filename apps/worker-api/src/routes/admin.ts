@@ -321,6 +321,127 @@ adminRoute.post("/content/reject/:id", async (c) => {
   return c.json({ ok: true });
 });
 
+// ── Pohon Sanad review queue (see migration 0027) ─────────────────────────
+// Every extracted chain starts 'pending_review' — a heuristic Arabic-text
+// parser can mis-segment a name, and misrepresenting a hadith's
+// authentication chain is a real scholarly-accuracy concern, so an admin
+// must confirm each one (edit narrator names/bios as needed) before it's
+// visible on the public Sanad tree page.
+
+adminRoute.get("/sanad/queue", async (c) => {
+  const page = Math.max(1, Number(c.req.query("page") ?? "1"));
+  const pageSize = 30;
+  const offset = (page - 1) * pageSize;
+  const { results } = await c.env.DB.prepare(
+    `SELECT sc.id AS chain_id, sc.hadits_id, sc.extraction_method, h.text_ar, h.text_id, h.source, h.collection
+     FROM sanad_chain sc JOIN hadits h ON h.id = sc.hadits_id
+     WHERE sc.status = 'pending_review'
+     ORDER BY sc.id LIMIT ? OFFSET ?`
+  )
+    .bind(pageSize, offset)
+    .all();
+
+  const chainIds = (results as { chain_id: number }[]).map((r) => r.chain_id);
+  const linksByChain = new Map<number, unknown[]>();
+  if (chainIds.length > 0) {
+    const placeholders = chainIds.map(() => "?").join(",");
+    const { results: links } = await c.env.DB.prepare(
+      `SELECT sl.id AS link_id, sl.sanad_chain_id, sl.position, p.id AS perawi_id, p.name_ar
+       FROM sanad_link sl JOIN perawi p ON p.id = sl.perawi_id
+       WHERE sl.sanad_chain_id IN (${placeholders}) ORDER BY sl.sanad_chain_id, sl.position`
+    )
+      .bind(...chainIds)
+      .all();
+    for (const l of links as { sanad_chain_id: number }[]) {
+      const arr = linksByChain.get(l.sanad_chain_id) ?? [];
+      arr.push(l);
+      linksByChain.set(l.sanad_chain_id, arr);
+    }
+  }
+
+  const queue = (results as { chain_id: number }[]).map((r) => ({ ...r, links: linksByChain.get(r.chain_id) ?? [] }));
+  return c.json({ queue, page });
+});
+
+adminRoute.get("/sanad/stats", async (c) => {
+  const [pending, published, rejected, perawi] = await Promise.all([
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM sanad_chain WHERE status='pending_review'").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM sanad_chain WHERE status='published'").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM sanad_chain WHERE status='rejected'").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM perawi").first<{ n: number }>(),
+  ]);
+  return c.json({
+    pending: pending?.n ?? 0,
+    published: published?.n ?? 0,
+    rejected: rejected?.n ?? 0,
+    perawi: perawi?.n ?? 0,
+  });
+});
+
+adminRoute.post("/sanad/:chainId/approve", async (c) => {
+  const chainId = Number(c.req.param("chainId"));
+  await c.env.DB.prepare("UPDATE sanad_chain SET status = 'published' WHERE id = ?").bind(chainId).run();
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "sanad_approved", admin.email, c.req.header("cf-connecting-ip") ?? null, { chainId });
+  return c.json({ ok: true });
+});
+
+adminRoute.post("/sanad/:chainId/reject", async (c) => {
+  const chainId = Number(c.req.param("chainId"));
+  await c.env.DB.prepare("UPDATE sanad_chain SET status = 'rejected' WHERE id = ?").bind(chainId).run();
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "sanad_rejected", admin.email, c.req.header("cf-connecting-ip") ?? null, { chainId });
+  return c.json({ ok: true });
+});
+
+// PUT /admin/sanad/link/:linkId — fix a mis-extracted narrator: re-points
+// this ONE link to a different (or newly named) perawi, without touching
+// the rest of the chain. Looking up/creating by name_normalized keeps
+// perawi de-duplicated exactly like the extractor script does.
+adminRoute.put("/sanad/link/:linkId", async (c) => {
+  const linkId = Number(c.req.param("linkId"));
+  const { name } = await c.req.json<{ name?: string }>();
+  const clean = String(name ?? "").trim().replace(/\s+/g, " ");
+  if (!clean) return c.json({ error: "name is required" }, 400);
+
+  let perawi = await c.env.DB.prepare("SELECT id FROM perawi WHERE name_normalized = ?").bind(clean).first<{ id: number }>();
+  if (!perawi) {
+    perawi = await c.env.DB.prepare(
+      "INSERT INTO perawi (name_ar, name_normalized, auto_created) VALUES (?, ?, 0) RETURNING id"
+    )
+      .bind(clean, clean)
+      .first<{ id: number }>();
+  }
+  await c.env.DB.prepare("UPDATE sanad_link SET perawi_id = ? WHERE id = ?").bind(perawi!.id, linkId).run();
+  return c.json({ ok: true, perawiId: perawi!.id });
+});
+
+// PUT /admin/sanad/perawi/:id — fill in a narrator's biographical fields
+// (all nullable — the tree displays whatever is filled in so far).
+adminRoute.put("/sanad/perawi/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const body = await c.req.json<{
+    bio_id?: string;
+    bio_en?: string;
+    generation?: string;
+    reliability_grade?: string;
+    death_year_hijri?: number;
+  }>();
+  await c.env.DB.prepare(
+    `UPDATE perawi SET bio_id = ?, bio_en = ?, generation = ?, reliability_grade = ?, death_year_hijri = ? WHERE id = ?`
+  )
+    .bind(
+      body.bio_id ?? null,
+      body.bio_en ?? null,
+      body.generation ?? null,
+      body.reliability_grade ?? null,
+      body.death_year_hijri ?? null,
+      id
+    )
+    .run();
+  return c.json({ ok: true });
+});
+
 // Bulk: "Jadwalkan N Kisah Baru" button (§23.3)
 adminRoute.post("/content/schedule-batch", async (c) => {
   const { count } = await c.req.json<{ count: number }>();

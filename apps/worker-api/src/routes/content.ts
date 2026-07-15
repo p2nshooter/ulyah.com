@@ -545,3 +545,80 @@ contentRoute.get("/nasakh", async (c) => {
   ).all();
   return c.json({ entries: results });
 });
+
+// ── Pohon Sanad (isnad chain tree, see migration 0027) ────────────────────
+// Only ever shows PUBLISHED chains — a chain reaches that status only after
+// an admin approves it (see routes/admin.ts), since a heuristically
+// extracted chain can mis-segment a name and misrepresenting a hadith's
+// authentication chain is a real scholarly-accuracy concern.
+
+// GET /content/sanad/list?page= — published chains, newest-approved first,
+// for the public landing page's browse list.
+contentRoute.get("/sanad/list", async (c) => {
+  const page = Math.max(1, Number(c.req.query("page") ?? "1"));
+  const pageSize = 24;
+  const offset = (page - 1) * pageSize;
+  const { results } = await c.env.DB.prepare(
+    `SELECT sc.id AS chain_id, sc.hadits_id, h.text_id, h.source, h.collection, h.hadith_number,
+            (SELECT COUNT(*) FROM sanad_link sl WHERE sl.sanad_chain_id = sc.id) AS link_count
+     FROM sanad_chain sc
+     JOIN hadits h ON h.id = sc.hadits_id
+     WHERE sc.status = 'published'
+     ORDER BY sc.id DESC LIMIT ? OFFSET ?`
+  )
+    .bind(pageSize, offset)
+    .all();
+  return c.json({ chains: results, page });
+});
+
+// GET /content/sanad/:haditsId — one hadith's full published chain, ordered
+// from the narrator closest to the compiler through to the Prophet ﷺ, with
+// each perawi's biographical fields (nullable — filled in over time by the
+// admin, same as every other "being completed" field on this site).
+contentRoute.get("/sanad/:haditsId", async (c) => {
+  const haditsId = Number(c.req.param("haditsId"));
+  if (!Number.isInteger(haditsId)) return c.json({ error: "Invalid hadits id" }, 400);
+
+  const hadits = await c.env.DB.prepare(
+    "SELECT id, text_ar, text_id, source, collection, hadith_number, grade FROM hadits WHERE id = ?"
+  )
+    .bind(haditsId)
+    .first();
+  if (!hadits) return c.json({ error: "Hadits not found" }, 404);
+
+  const chain = await c.env.DB.prepare("SELECT id FROM sanad_chain WHERE hadits_id = ? AND status = 'published'")
+    .bind(haditsId)
+    .first<{ id: number }>();
+  if (!chain) return c.json({ hadits, chain: null });
+
+  const { results: links } = await c.env.DB.prepare(
+    `SELECT sl.position, p.id AS perawi_id, p.name_ar, p.bio_id, p.bio_en, p.generation, p.reliability_grade, p.death_year_hijri
+     FROM sanad_link sl JOIN perawi p ON p.id = sl.perawi_id
+     WHERE sl.sanad_chain_id = ? ORDER BY sl.position`
+  )
+    .bind(chain.id)
+    .all();
+
+  return c.json({ hadits, chain: { id: chain.id, links } });
+});
+
+// GET /content/sanad/perawi/:id/chains — every OTHER published chain this
+// narrator appears in, so a visitor can explore across hadith by narrator
+// rather than only ever seeing one linear chain — the closest thing to a
+// "tree" without a full force-directed graph.
+contentRoute.get("/sanad/perawi/:id/chains", async (c) => {
+  const perawiId = Number(c.req.param("id"));
+  if (!Number.isInteger(perawiId)) return c.json({ error: "Invalid perawi id" }, 400);
+
+  const { results } = await c.env.DB.prepare(
+    `SELECT DISTINCT sc.hadits_id, h.source, h.collection
+     FROM sanad_link sl
+     JOIN sanad_chain sc ON sc.id = sl.sanad_chain_id
+     JOIN hadits h ON h.id = sc.hadits_id
+     WHERE sl.perawi_id = ? AND sc.status = 'published'
+     LIMIT 30`
+  )
+    .bind(perawiId)
+    .all();
+  return c.json({ chains: results });
+});

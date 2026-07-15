@@ -193,6 +193,26 @@ jobs:
             fi
           done
 
+      - name: Import Sanad chains for Bukhari + Muslim (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Extracted (never fabricated — see scripts/extract-sanad-chains.ts)
+          # from the isnad text already in hadith_bukhari.sql/hadith_muslim.sql,
+          # both of which must already be imported (previous step) since these
+          # reference their hadits ids. Every chain lands 'pending_review' —
+          # nothing here is public until an admin approves it.
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM sanad_chain;" --json > /tmp/sanad_count.json
+          SANADCOUNT=$(node -e "const j=require('/tmp/sanad_count.json'); console.log(j[0].results[0].n)")
+          if [ "$SANADCOUNT" -lt "1" ]; then
+            echo "Sanad chains not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/sanad_chains_bukhari.sql
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/sanad_chains_muslim.sql
+          else
+            echo "Sanad chains already has $SANADCOUNT rows — skipping."
+          fi
+
       - name: Bulk-import Musnad Ahmad + Sunan ad-Darimi (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
