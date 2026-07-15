@@ -69,7 +69,13 @@ export function InstallAppButton({
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
-    if (standalone) {
+    // Only the MAIN app may hide itself on the generic standalone signal. For a
+    // mini-app (radio, sholat, …) being inside the main app's standalone window
+    // does NOT mean THIS widget is installed — treating it that way is exactly
+    // why the Radio's install button never appeared once the main app was
+    // installed. Each mini-app decides "installed" only from its own
+    // getInstalledRelatedApps match + its appinstalled event.
+    if (standalone && app === "main") {
       setInstalled(true);
       return;
     }

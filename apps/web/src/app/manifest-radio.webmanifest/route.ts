@@ -19,9 +19,15 @@ export function GET(req: NextRequest) {
     short_name: "Radio Qur'an",
     description:
       "Al-Qur'an dibacakan tanpa henti 24 jam oleh para qori dunia — radio murottal yang selalu hidup, siap dipasang di layar depan Anda.",
-    id: "/radio",
+    // A NARROW, app-specific scope + id so the browser treats this as its own
+    // independently-installable app (like a separate shop app), NOT part of
+    // the main ULYAH app: with a shared "/" scope, installing the main app
+    // made the browser consider the Radio already installed and hid its
+    // install button. A focused widget app that only owns its own route is
+    // exactly what "semua app widget wajib bisa di install mandiri" means.
+    id: `/${locale}/radio`,
     start_url: `/${locale}/radio`,
-    scope: "/",
+    scope: `/${locale}/radio`,
     display: "standalone",
     orientation: "portrait",
     background_color: "#06251b",
