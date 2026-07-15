@@ -172,12 +172,28 @@ async function executeQueuedJobs(
 
       let categoryId: number | null = draft.categoryExistingId;
       if (!categoryId && draft.categoryNewName) {
-        const newCat = await env.DB.prepare(
-          "INSERT INTO categories (name, slug, auto_created) VALUES (?, ?, 1) RETURNING id"
-        )
-          .bind(draft.categoryNewName, slugify(draft.categoryNewName))
-          .first<{ id: number }>();
-        categoryId = newCat?.id ?? null;
+        // The model picks `categoryExistingId` from the list it was shown,
+        // but it can still occasionally propose a "new" category whose name
+        // is really the same category worded slightly differently (e.g.
+        // "Tadabbur Al-Qur'an" vs "Tadabbur Al-Quran") — each such near-miss
+        // used to mint a fresh row with its own slug, so the same category
+        // ended up duplicated in every filter list across the site. Guard
+        // against that here with a normalized-name match (case/diacritic/
+        // punctuation-insensitive) against every category that already
+        // exists, regardless of what the model believed.
+        const existingCats = categories.results;
+        const proposedNorm = normalizeCategoryName(draft.categoryNewName);
+        const match = existingCats.find((c) => normalizeCategoryName(c.name) === proposedNorm);
+        if (match) {
+          categoryId = match.id;
+        } else {
+          const newCat = await env.DB.prepare(
+            "INSERT INTO categories (name, slug, auto_created) VALUES (?, ?, 1) RETURNING id"
+          )
+            .bind(draft.categoryNewName, slugify(draft.categoryNewName))
+            .first<{ id: number }>();
+          categoryId = newCat?.id ?? null;
+        }
       }
 
       const status = draft.factCheckVerdict === "pass" && draft.confidence >= 0.6 ? "pending_review" : "draft";
@@ -215,6 +231,15 @@ function slugify(text: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")
     .slice(0, 80);
+}
+
+// Same idea as slugify() but collapses ALL non-alphanumerics (rather than
+// turning them into "-") so wording variants of the same category name
+// compare equal — "Tadabbur Al-Qur'an", "Tadabbur Al-Quran", and "tadabbur
+// al qur an" all normalize to the same string. Used only for the dedupe
+// check above; slugify() is still what actually generates a new slug.
+function normalizeCategoryName(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
 function uniqueSlug(base: string, jobId: number): string {
