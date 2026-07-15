@@ -10,12 +10,14 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
 import { prayerLabels } from "@/lib/prayer-labels";
+import { amalanLabels } from "@/lib/amalan-labels";
 
 export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
   const pathname = usePathname();
   const prayerT = prayerLabels(locale);
+  const amalanT = amalanLabels(locale);
   const navRef = useRef<HTMLElement>(null);
 
   // The dropdown previously only closed via its own onClick handlers (a nav
@@ -47,7 +49,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
     [dict.nav.kitab, `/${locale}/kitab`],
     [dict.nav.hadits, `/${locale}/hadits`],
     [dict.nav.kisah, `/${locale}/kisah`],
-    ["Amalan", `/${locale}/amalan`],
+    [amalanT.navLabel, `/${locale}/amalan`],
     [dict.nav.dailyContent, `/${locale}/harian`],
     [prayerT.title, `/${locale}/jadwal-sholat`],
     [dict.nav.about, `/${locale}/tentang`],

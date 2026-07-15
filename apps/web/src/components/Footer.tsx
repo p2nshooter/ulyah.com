@@ -4,8 +4,10 @@ import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { contactLabels } from "@/lib/contact-labels";
+import { amalanLabels } from "@/lib/amalan-labels";
 
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
+  const amalanT = amalanLabels(locale);
   return (
     <footer className="border-t border-[var(--color-border)] bg-primary-dark bg-primary px-4 py-12 text-[#f4efe3] sm:px-6">
       <div className="mx-auto grid max-w-7xl gap-8 desktop:grid-cols-4">
@@ -36,7 +38,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             <li><Link href={`/${locale}/audiobook`}>{dict.nav.audiobook}</Link></li>
             <li><Link href={`/${locale}/kitab`}>{dict.nav.kitab}</Link></li>
             <li><Link href={`/${locale}/kitab-pesantren`}>Kitab Pesantren</Link></li>
-            <li><Link href={`/${locale}/amalan`}>Amalan Harian</Link></li>
+            <li><Link href={`/${locale}/amalan`}>{amalanT.title}</Link></li>
             <li><Link href={`/${locale}/radio`}>Radio Qur'an</Link></li>
             <li><Link href={`/${locale}/nasakh`}>Nasakh & Mansukh</Link></li>
             <li><Link href={`/${locale}/hadits`}>{dict.nav.hadits}</Link></li>

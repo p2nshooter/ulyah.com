@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { NarrateButton } from "@/components/NarrateButton";
+import { amalanLabels } from "@/lib/amalan-labels";
 
 interface Item {
   category_slug: string;
@@ -24,13 +25,6 @@ export interface AmalanCategory {
   items: Item[];
 }
 
-const GROUPS: { key: string; label: string; icon: string }[] = [
-  { key: "doa", label: "Doa Harian", icon: "📿" },
-  { key: "dzikir", label: "Dzikir", icon: "☀️" },
-  { key: "thibb", label: "Pengobatan (Thibbun Nabawi)", icon: "🌿" },
-  { key: "kecantikan", label: "Kebersihan & Keindahan", icon: "✨" },
-];
-
 /**
  * The Amalan Harian library — daily du'a (waking → sleeping), dzikir,
  * prophetic medicine, and grooming/self-care sunnah. A group filter, a
@@ -39,12 +33,19 @@ const GROUPS: { key: string; label: string; icon: string }[] = [
  * with the zero-key browser voice.
  */
 export function AmalanLibrary({ locale, categories }: { locale: string; categories: AmalanCategory[] }) {
+  const t = amalanLabels(locale);
+  const GROUPS: { key: string; label: string; icon: string }[] = [
+    { key: "doa", label: t.groupDoa, icon: "📿" },
+    { key: "dzikir", label: t.groupDzikir, icon: "☀️" },
+    { key: "thibb", label: t.groupThibb, icon: "🌿" },
+    { key: "kecantikan", label: t.groupKecantikan, icon: "✨" },
+  ];
   const [group, setGroup] = useState("doa");
   const [audioMode, setAudioMode] = useState<"semua" | "arab" | "arti">("semua");
   const AUDIO_MODES: { key: "semua" | "arab" | "arti"; label: string }[] = [
-    { key: "semua", label: "🔊 Semua" },
-    { key: "arab", label: "﴿ Arab" },
-    { key: "arti", label: "📖 Arti" },
+    { key: "semua", label: t.audioAll },
+    { key: "arab", label: t.audioArabic },
+    { key: "arti", label: t.audioMeaning },
   ];
   // Build the {text,lang} narration script for one item per the chosen mode.
   const itemSegments = (it: Item) => {
@@ -92,7 +93,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
       <div className="mt-6 grid gap-6 desktop:grid-cols-[220px_1fr]">
         {/* Category rail */}
         <aside className="card-premium-static h-max p-3">
-          <p className="mb-2 px-2 font-heading text-sm">Kategori</p>
+          <p className="mb-2 px-2 font-heading text-sm">{t.categoryLabel}</p>
           <ul className="space-y-1">
             {inGroup.map((c) => (
               <li key={c.slug}>
@@ -145,8 +146,8 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                       key={audioMode}
                       paragraphs={[]}
                       segments={current.items.flatMap((it) => itemSegments(it))}
-                      listenLabel="🔊 Dengarkan semua"
-                      stopLabel="⏹ Berhenti"
+                      listenLabel={t.listenAll}
+                      stopLabel={t.stopAll}
                       lang={locale}
                     />
                   )}
@@ -175,7 +176,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
 
                     {it.note_id && (
                       <div className="mt-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-3 dark:bg-white/[0.02]">
-                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">Catatan</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.note}</p>
                         <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">{it.note_id}</p>
                       </div>
                     )}
@@ -189,8 +190,8 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                           key={audioMode}
                           paragraphs={[]}
                           segments={itemSegments(it)}
-                          listenLabel="🔊 Dengarkan"
-                          stopLabel="⏹"
+                          listenLabel={t.listen}
+                          stopLabel={t.stop}
                           lang={locale}
                         />
                       )}

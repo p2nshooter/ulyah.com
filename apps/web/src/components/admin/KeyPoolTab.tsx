@@ -191,6 +191,7 @@ export function KeyPoolTab() {
               <th className="px-3 py-2">Provider</th>
               <th className="px-3 py-2">Status</th>
               <th className="px-3 py-2">Latency</th>
+              <th className="px-3 py-2">Kuota</th>
               <th className="px-3 py-2">Kegunaan</th>
               <th className="px-3 py-2"></th>
             </tr>
@@ -203,6 +204,9 @@ export function KeyPoolTab() {
                   {k.status}
                 </td>
                 <td className="px-3 py-2">{k.latency_ms ? `${k.latency_ms}ms` : "—"}</td>
+                <td className="px-3 py-2 tabular-nums">
+                  {k.quota_limit ? `${k.quota_used.toLocaleString("id")}/${k.quota_limit.toLocaleString("id")}` : k.quota_used > 0 ? `${k.quota_used.toLocaleString("id")} (tanpa batas)` : "—"}
+                </td>
                 <td className="px-3 py-2">{k.donor_label ?? "—"}</td>
                 <td className="px-3 py-2 text-right">
                   <button onClick={() => retest(k.id)} className="mr-2 text-accent">retest</button>
