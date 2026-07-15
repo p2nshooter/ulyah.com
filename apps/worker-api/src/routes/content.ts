@@ -497,6 +497,36 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
   return c.json({ kitab, chapters });
 });
 
+// ── Kisah person index (Nabi/Sahabat/Ulama "click a name" navigation) ─────
+// See migration 0025: browsable name → full-story, distinct from the episode
+// list at /content/stories. `full_story_slug` (when set) points at an
+// existing `stories` row so the frontend can send the reader straight into
+// the rich multi-episode experience; otherwise the frontend renders the
+// person's own one-page profile from `summary_id`.
+
+// GET /content/kisah-tokoh?category=<slug> — the name list for one tier
+// (kisah-para-nabi | kisah-sahabat | kisah-ulama-dunia), in curriculum order.
+contentRoute.get("/kisah-tokoh", async (c) => {
+  const category = c.req.query("category");
+  const { results } = await (category
+    ? c.env.DB.prepare(
+        "SELECT slug, category_slug, name_id, name_ar, title_id, full_story_slug, sort_order FROM kisah_person WHERE category_slug = ? ORDER BY sort_order"
+      ).bind(category)
+    : c.env.DB.prepare(
+        "SELECT slug, category_slug, name_id, name_ar, title_id, full_story_slug, sort_order FROM kisah_person ORDER BY category_slug, sort_order"
+      )
+  ).all();
+  return c.json({ persons: results });
+});
+
+// GET /content/kisah-tokoh/:slug — one person's full profile.
+contentRoute.get("/kisah-tokoh/:slug", async (c) => {
+  const slug = c.req.param("slug");
+  const person = await c.env.DB.prepare("SELECT * FROM kisah_person WHERE slug = ?").bind(slug).first();
+  if (!person) return c.json({ error: "Not found" }, 404);
+  return c.json({ person });
+});
+
 // ── Amalan Harian (doa/dzikir/thibb/kecantikan, see migration 0018) ───────
 // Voice-ready: every item carries Arabic + Latin + terjemah + sumber sahih.
 
