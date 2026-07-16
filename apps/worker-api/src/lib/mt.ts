@@ -109,7 +109,7 @@ export async function translateCachedOnly(
   env: Env,
   text: string,
   targetLang: string,
-  sourceLang: "ar" | "en" = "ar"
+  sourceLang: string = "ar"
 ): Promise<string | null> {
   const trimmed = text.trim();
   if (!trimmed || sourceLang === targetLang) return null;
@@ -122,7 +122,7 @@ export async function translateText(
   env: Env,
   text: string,
   targetLang: string,
-  sourceLang: "ar" | "en" = "ar"
+  sourceLang: string = "ar"
 ): Promise<string | null> {
   const trimmed = text.trim();
   if (!trimmed || sourceLang === targetLang) return null;
@@ -150,4 +150,76 @@ export async function translateText(
   } catch {
     return null;
   }
+}
+
+/**
+ * Localize MANY short texts in as few upstream calls as possible. Reads the
+ * KV cache per text (cheap), then translates all misses in newline-joined
+ * batches — one gtx request per ~30 texts instead of one per text, which is
+ * what keeps a cold cache inside Cloudflare's per-request subrequest budget
+ * (the naive per-field loop hit it immediately on 100-item categories).
+ * Internal newlines are flattened to spaces before joining, so the split is
+ * unambiguous. If a batch comes back with the wrong segment count (MT
+ * engines occasionally eat line breaks), that batch falls back to the
+ * originals rather than mis-assigning translations to the wrong rows.
+ * Returns the input text unchanged wherever translation isn't available —
+ * the reader sees the source language, never a hole.
+ */
+export async function localizeBatch(
+  env: Env,
+  texts: (string | null | undefined)[],
+  targetLang: string,
+  sourceLang = "id"
+): Promise<(string | null)[]> {
+  if (targetLang === sourceLang) return texts.map((t) => t ?? null);
+
+  const out: (string | null)[] = new Array(texts.length).fill(null);
+  const misses: { idx: number; text: string; kvKey: string }[] = [];
+
+  await Promise.all(
+    texts.map(async (raw, idx) => {
+      const trimmed = raw?.trim();
+      if (!trimmed) return;
+      const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
+      const cached = await env.CACHE_KV.get(kvKey);
+      if (cached) out[idx] = cached;
+      else if (cached === "") out[idx] = trimmed; // known-failed recently — serve source
+      else misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
+    })
+  );
+
+  // Batch misses: ≤30 texts and ≤6000 chars per upstream call.
+  const batches: (typeof misses)[] = [];
+  let cur: typeof misses = [];
+  let curLen = 0;
+  for (const m of misses) {
+    if (cur.length >= 30 || curLen + m.text.length > 6000) {
+      if (cur.length) batches.push(cur);
+      cur = [];
+      curLen = 0;
+    }
+    cur.push(m);
+    curLen += m.text.length;
+  }
+  if (cur.length) batches.push(cur);
+
+  for (const batch of batches) {
+    const joined = batch.map((m) => m.text).join("\n");
+    const translated = await googleTranslate(joined, sourceLang, targetLang);
+    const parts = translated?.split("\n").map((s) => s.trim()) ?? [];
+    if (parts.length === batch.length) {
+      await Promise.all(
+        batch.map((m, i) => {
+          out[m.idx] = parts[i] || m.text;
+          return parts[i] ? safeKvPut(env, m.kvKey, parts[i]!, { expirationTtl: KV_TTL }) : Promise.resolve();
+        })
+      );
+    } else {
+      // Segment-count mismatch — never mis-assign; serve source text.
+      for (const m of batch) out[m.idx] = m.text;
+    }
+  }
+
+  // Anything still null (empty inputs already handled) falls back to source.
+  return out.map((v, i) => v ?? texts[i]?.trim() ?? null);
 }
