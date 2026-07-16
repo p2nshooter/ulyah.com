@@ -30,7 +30,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: raw, slug } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const storyLang = locale === "id" ? "id" : "en";
+  const storyLang = locale; // the API localizes non-authored languages server-side
 
   try {
     const data = await api.get<{ story: StoryDetail }>(`/content/stories/${slug}?lang=${storyLang}`);
@@ -63,7 +63,7 @@ export default async function KisahDetailPage({
   const { autoplay } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
-  const storyLang = locale === "id" ? "id" : "en";
+  const storyLang = locale; // the API localizes non-authored languages server-side
 
   let data: { story: StoryDetail; fallbackUsed: boolean; nextEpisode: { slug: string; title: string } | null } | null = null;
   try {

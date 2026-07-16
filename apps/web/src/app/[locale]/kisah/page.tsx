@@ -56,7 +56,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
 
-  const storyLang = locale === "id" ? "id" : "en"; // series currently authored in id/en; see docs/CONTENT-POLICY.md
+  const storyLang = locale; // the API localizes non-authored languages server-side
 
   let categories: CategoryRow[] = [];
   try {
@@ -76,7 +76,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
         const [storiesRes, personsRes] = await Promise.all([
           api.get<{ stories: StoryRow[] }>(`/content/stories?category=${cat.slug}&lang=${storyLang}`),
           PERSON_INDEX_CATEGORIES.has(cat.slug)
-            ? api.get<{ persons: PersonRow[] }>(`/content/kisah-tokoh?category=${cat.slug}`).catch(() => ({ persons: [] }))
+            ? api.get<{ persons: PersonRow[] }>(`/content/kisah-tokoh?category=${cat.slug}&lang=${locale}`).catch(() => ({ persons: [] }))
             : Promise.resolve({ persons: [] as PersonRow[] }),
         ]);
         return { cat, stories: storiesRes.stories, persons: personsRes.persons };

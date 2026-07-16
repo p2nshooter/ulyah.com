@@ -32,10 +32,16 @@ contentRoute.get("/media/:key", async (c) => {
   });
 });
 
-// GET /content/stories?category=&lang=&page=
+// GET /content/stories?category=&lang=&page= — stories are AUTHORED in id/en
+// (per-language rows); every other site locale gets the English rows with
+// their titles machine-translated server-side (batched + KV-cached), so a
+// Russian/German/… visitor sees list text in their own language instead of
+// English-with-a-Russian-voice.
 contentRoute.get("/stories", async (c) => {
   const category = c.req.query("category");
-  const lang = c.req.query("lang") ?? "id";
+  const requested = c.req.query("lang") ?? "id";
+  const authored = requested === "id" || requested === "en";
+  const lang = authored ? requested : "en";
   const page = Math.max(1, Number(c.req.query("page") ?? "1"));
   const pageSize = 20;
   const offset = (page - 1) * pageSize;
@@ -54,16 +60,26 @@ contentRoute.get("/stories", async (c) => {
          ORDER BY st.series_key, st.episode_number, st.published_at DESC LIMIT ? OFFSET ?`
       ).bind(lang, pageSize, offset);
 
-  const { results } = await query.all();
-  return c.json({ stories: results, page });
+  const { results } = await query.all<Record<string, unknown>>();
+  if (!authored && results.length) {
+    const titles = await localizeBatch(c.env, results.map((r) => r.title as string), requested, "en");
+    results.forEach((r, i) => {
+      r.title = titles[i] ?? r.title;
+    });
+  }
+  return c.json({ stories: results, page, lang: requested });
 });
 
-// GET /content/stories/:slug?lang= — falls back to Indonesian if the
-// requested language isn't authored yet for this story (never 404s solely
-// because of a missing translation when the base content exists).
+// GET /content/stories/:slug?lang= — falls back to an authored language when
+// the requested one isn't authored for this story (never 404s solely because
+// of a missing translation when the base content exists). For locales beyond
+// id/en, the fallback story's title and body are machine-translated
+// paragraph by paragraph (batched + KV-cached) so text and narration follow
+// the chosen language together.
 contentRoute.get("/stories/:slug", async (c) => {
   const slug = c.req.param("slug");
-  const lang = c.req.query("lang") ?? "id";
+  const requestedLang = c.req.query("lang") ?? "id";
+  const lang = requestedLang === "id" || requestedLang === "en" ? requestedLang : "en";
 
   let story = await c.env.DB.prepare(
     `SELECT st.*, c.name AS category_name, vp.name AS voice_name, e.r2_key AS pdf_r2_key
@@ -108,7 +124,16 @@ contentRoute.get("/stories/:slug", async (c) => {
       .first();
   }
 
-  return c.json({ story, transcript, fallbackUsed, nextEpisode });
+  // Localize the served story into the requested (non-authored) locale.
+  if (requestedLang !== s.lang) {
+    const st = story as Record<string, unknown> & { title: string; body: string; lang: string };
+    const paras = st.body.split(/\n\s*\n/);
+    const loc = await localizeBatch(c.env, [st.title, ...paras], requestedLang, st.lang);
+    st.title = loc[0] ?? st.title;
+    st.body = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
+  }
+
+  return c.json({ story, transcript, fallbackUsed, nextEpisode, lang: requestedLang });
 });
 
 // GET /content/stories/:id/audio?download=1 — every article is an audiobook:
@@ -631,8 +656,12 @@ contentRoute.get("/hadits/:collection/sanad-sample", async (c) => {
 
 // GET /content/kisah-tokoh?category=<slug> — the name list for one tier
 // (kisah-para-nabi | kisah-sahabat | kisah-ulama-dunia), in curriculum order.
+// The person index is authored in Indonesian; with ?lang= the honorific
+// (title_id) and profile summary are machine-translated server-side. Names
+// are proper nouns and never translated.
 contentRoute.get("/kisah-tokoh", async (c) => {
   const category = c.req.query("category");
+  const lang = c.req.query("lang") ?? "id";
   const { results } = await (category
     ? c.env.DB.prepare(
         "SELECT slug, category_slug, name_id, name_ar, title_id, full_story_slug, sort_order FROM kisah_person WHERE category_slug = ? ORDER BY sort_order"
@@ -640,16 +669,31 @@ contentRoute.get("/kisah-tokoh", async (c) => {
     : c.env.DB.prepare(
         "SELECT slug, category_slug, name_id, name_ar, title_id, full_story_slug, sort_order FROM kisah_person ORDER BY category_slug, sort_order"
       )
-  ).all();
-  return c.json({ persons: results });
+  ).all<Record<string, unknown>>();
+  if (lang !== "id" && results.length) {
+    const titles = await localizeBatch(c.env, results.map((r) => r.title_id as string | null), lang, "id");
+    results.forEach((r, i) => {
+      r.title_id = titles[i] ?? r.title_id;
+    });
+  }
+  return c.json({ persons: results, lang });
 });
 
-// GET /content/kisah-tokoh/:slug — one person's full profile.
+// GET /content/kisah-tokoh/:slug?lang= — one person's full profile.
 contentRoute.get("/kisah-tokoh/:slug", async (c) => {
   const slug = c.req.param("slug");
-  const person = await c.env.DB.prepare("SELECT * FROM kisah_person WHERE slug = ?").bind(slug).first();
+  const lang = c.req.query("lang") ?? "id";
+  const person = await c.env.DB.prepare("SELECT * FROM kisah_person WHERE slug = ?").bind(slug).first<
+    Record<string, unknown> & { title_id: string | null; summary_id: string }
+  >();
   if (!person) return c.json({ error: "Not found" }, 404);
-  return c.json({ person });
+  if (lang !== "id") {
+    const paras = person.summary_id.split(/\n\s*\n/);
+    const loc = await localizeBatch(c.env, [person.title_id, ...paras], lang, "id");
+    person.title_id = loc[0] ?? person.title_id;
+    person.summary_id = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
+  }
+  return c.json({ person, lang });
 });
 
 // ── Amalan Harian (doa/dzikir/thibb/kecantikan, see migration 0018) ───────
