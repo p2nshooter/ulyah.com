@@ -862,3 +862,23 @@ adminRoute.delete("/media/:key", async (c) => {
   await logAdminAction(c.env, "media_removed", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
   return c.json({ ok: true });
 });
+
+// ── Live streaming hub management ──────────────────────────────────────────
+adminRoute.get("/live-streams", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, platform, slot, title, url, is_live, updated_at FROM live_stream ORDER BY platform = 'youtube' DESC, platform, slot"
+  ).all();
+  return c.json({ streams: results });
+});
+
+adminRoute.put("/live-streams/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
+  const body = await c.req.json<{ title?: string; url?: string; is_live?: boolean }>();
+  await c.env.DB.prepare(
+    "UPDATE live_stream SET title = ?, url = ?, is_live = ?, updated_at = datetime('now') WHERE id = ?"
+  )
+    .bind(body.title?.trim() || null, body.url?.trim() || null, body.is_live ? 1 : 0, id)
+    .run();
+  return c.json({ ok: true });
+});

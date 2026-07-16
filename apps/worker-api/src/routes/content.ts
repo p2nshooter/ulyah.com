@@ -651,3 +651,13 @@ contentRoute.get("/nasakh", async (c) => {
   ).all();
   return c.json({ entries: results });
 });
+
+// ── Live streaming hub (see migration 0028) ───────────────────────────────
+// GET /content/live-streams — every slot, including offline ones (the page
+// renders those as the branded offline card, so the layout never collapses).
+contentRoute.get("/live-streams", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, platform, slot, title, url, is_live FROM live_stream ORDER BY platform = 'youtube' DESC, platform, slot"
+  ).all();
+  return c.json({ streams: results });
+});
