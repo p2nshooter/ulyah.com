@@ -773,13 +773,54 @@ contentRoute.get("/nasakh", async (c) => {
 });
 
 // ── Live streaming hub (see migration 0028) ───────────────────────────────
+// YouTube's /embed/live_stream?channel= endpoint answers "Video unavailable"
+// for many channels even while they ARE live (owner screenshots), so we
+// resolve the channel's current live broadcast to a concrete video id by
+// reading the canonical link of /channel/UC…/live. Cached per channel in KV
+// for 10 minutes; a not-live/failed lookup caches "" so YouTube isn't
+// hammered on every page view.
+async function resolveLiveVideoId(env: Env, channelId: string): Promise<string | null> {
+  const key = `yt:live:${channelId}`;
+  const cached = await env.CACHE_KV.get(key);
+  if (cached !== null) return cached || null;
+  let id: string | null = null;
+  try {
+    const res = await fetch(`https://www.youtube.com/channel/${channelId}/live`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        "Accept-Language": "en",
+      },
+    });
+    if (res.ok) {
+      const html = await res.text();
+      const canonical = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
+      // Canonical alone can point at a scheduled premiere — require a live marker too.
+      if (canonical && /"isLiveNow"\s*:\s*true|"isLive"\s*:\s*true|hlsManifestUrl/.test(html)) id = canonical[1] ?? null;
+    }
+  } catch {
+    // network hiccup → cache the miss briefly and let the playlist fallback carry the card
+  }
+  await safeKvPut(env, key, id ?? "", { expirationTtl: 60 * 10 });
+  return id;
+}
+
 // GET /content/live-streams — every slot, including offline ones (the page
 // renders those as the branded offline card, so the layout never collapses).
+// Auto rows carry channel_id + the resolved live video_id (null when the
+// channel isn't live right now or can't be resolved — the client then embeds
+// the channel's uploads playlist instead of a dead iframe).
 contentRoute.get("/live-streams", async (c) => {
   const { results } = await c.env.DB.prepare(
     "SELECT id, platform, slot, kind, region, title, url, is_live FROM live_stream WHERE kind = 'manual' OR is_live = 1 ORDER BY kind = 'auto' DESC, slot"
-  ).all();
-  return c.json({ streams: results });
+  ).all<{ id: number; platform: string; slot: number; kind: string; region: string | null; title: string | null; url: string | null; is_live: number }>();
+  const streams = await Promise.all(
+    results.map(async (s) => {
+      const ch = s.kind === "auto" && s.url ? s.url.match(/channel\/(UC[\w-]{10,})/)?.[1] : undefined;
+      if (!ch) return { ...s, channel_id: null, video_id: null };
+      return { ...s, channel_id: ch, video_id: await resolveLiveVideoId(c.env, ch) };
+    })
+  );
+  return c.json({ streams });
 });
 
 // GET /content/video-anak — the owner's 45 kids videos (see migration 0030),
