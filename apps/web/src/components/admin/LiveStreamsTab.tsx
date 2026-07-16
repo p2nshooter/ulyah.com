@@ -69,9 +69,12 @@ export function LiveStreamsTab() {
         <p className="font-heading text-base text-[var(--color-text-primary)]">📡 Live Streaming — halaman publik /live</p>
         <p className="mt-2">
           Tempel link siaran (YouTube: link video/live/channel; Facebook: link video live; TikTok: link live), nyalakan
-          <b> LIVE</b> saat siaran berlangsung, lalu simpan. Slot yang offline otomatis menampilkan kartu ULYAH.COM +
-          kontak Yusron Efendi (+62 856-9123-4561) untuk yang ingin siaran lewat ulyah.com. Catatan jujur: TikTok tidak
-          mengizinkan live diputar di situs lain — slot TikTok tampil sebagai kartu elegan dengan tombol menuju live.
+          <b> LIVE</b> saat siaran berlangsung, lalu simpan. <b>YouTube Slot 1 &amp; 2 tidak pernah gelap:</b> saat
+          tidak diisi siaran sendiri, otomatis menayangkan live resmi 24 jam Masjidil Haram (Slot 1) dan Masjid Nabawi
+          (Slot 2) dari Saudi Broadcasting Authority — suara mati bawaan, pengunjung yang mengaktifkan. Slot YouTube
+          3-5 untuk umum: yang offline menampilkan kartu ULYAH.COM + kontak Yusron Efendi (+62 856-9123-4561) untuk
+          yang ingin siaran lewat ulyah.com. Catatan jujur: TikTok tidak mengizinkan live diputar di situs lain — slot
+          TikTok tampil sebagai kartu elegan dengan tombol menuju live.
         </p>
       </div>
 
@@ -86,6 +89,12 @@ export function LiveStreamsTab() {
                 <p className="text-sm font-medium">
                   {PLATFORM_LABEL[s.platform]}
                   {s.platform === "youtube" ? ` — Slot ${s.slot}` : ""}
+                  {s.platform === "youtube" && s.slot === 1 && (
+                    <span className="ml-2 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] text-accent">🕋 fallback Makkah 24 jam</span>
+                  )}
+                  {s.platform === "youtube" && s.slot === 2 && (
+                    <span className="ml-2 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] text-accent">🕌 fallback Madinah 24 jam</span>
+                  )}
                 </p>
                 <label className="flex cursor-pointer items-center gap-2 text-xs">
                   <input

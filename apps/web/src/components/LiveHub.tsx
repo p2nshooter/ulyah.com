@@ -25,6 +25,23 @@ const PLATFORM_META: Record<StreamRow["platform"], { label: string; icon: string
   facebook: { label: "Facebook", icon: "📘" },
 };
 
+// YouTube slots 1 & 2 never go dark: when the owner isn't broadcasting on
+// them, they fall back to the OFFICIAL Saudi Broadcasting Authority 24/7
+// lives — Masjid al-Haram (KSA Qur'an TV, UCos52azQNBgW63_9uDJoPDA) and
+// Masjid an-Nabawi (Sunnah TV, UCROKYPep-UuODNwyipe6JMw) — like a TV that is
+// always on. Channel-based embeds (`live_stream?channel=`) always resolve to
+// whatever that channel is currently streaming, so this needs no manual
+// updating when the stream session changes. Muted by default (autoplay
+// policy + owner request) — visitors turn the sound on themselves.
+const HOLY_FALLBACK: Record<number, { channelId: string; titleId: string; titleEn: string; icon: string }> = {
+  1: { channelId: "UCos52azQNBgW63_9uDJoPDA", titleId: "Masjidil Haram — Makkah", titleEn: "Masjid al-Haram — Makkah", icon: "🕋" },
+  2: { channelId: "UCROKYPep-UuODNwyipe6JMw", titleId: "Masjid Nabawi — Madinah", titleEn: "Masjid an-Nabawi — Madinah", icon: "🕌" },
+};
+
+function fallbackEmbedUrl(channelId: string): string {
+  return `https://www.youtube-nocookie.com/embed/live_stream?channel=${channelId}&autoplay=1&mute=1`;
+}
+
 /**
  * Build the on-site embed URL for a pasted stream link. YouTube goes through
  * youtube-nocookie (privacy-enhanced, matches the site's no-tracking
@@ -106,7 +123,23 @@ export function LiveHub({ locale }: { locale: string }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [maximized]);
 
+  // Fallback applies whenever the owner isn't broadcasting on that slot.
+  const holyFallbackFor = (s: StreamRow) =>
+    s.platform === "youtube" && (!s.is_live || !s.url) ? HOLY_FALLBACK[s.slot] : undefined;
+
   function renderPlayer(s: StreamRow, inMax = false) {
+    const fb = holyFallbackFor(s);
+    if (fb) {
+      return (
+        <iframe
+          src={fallbackEmbedUrl(fb.channelId)}
+          title={isId ? fb.titleId : fb.titleEn}
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+          className={inMax ? "h-full w-full" : "aspect-video w-full rounded-2xl"}
+        />
+      );
+    }
     const embed = s.is_live && s.url ? toEmbedUrl(s.platform, s.url) : null;
     if (!s.is_live || !s.url) return <OfflineCard platform={s.platform} isId={isId} />;
     if (embed) {
@@ -144,34 +177,53 @@ export function LiveHub({ locale }: { locale: string }) {
   return (
     <div>
       <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
-        {streams.map((s) => (
-          <div key={s.id} className="card-premium overflow-hidden p-3">
-            <div className="mb-2 flex items-center justify-between gap-2 px-1">
-              <p className="flex items-center gap-2 text-sm font-medium">
-                <span aria-hidden>{PLATFORM_META[s.platform].icon}</span>
-                {s.title || `${PLATFORM_META[s.platform].label} ${s.platform === "youtube" ? s.slot : ""}`}
-                {s.is_live ? (
-                  <span className="flex items-center gap-1 rounded-full bg-red-600/15 px-2 py-0.5 text-[10px] font-semibold text-red-500">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" /> LIVE
-                  </span>
-                ) : (
-                  <span className="rounded-full bg-black/10 px-2 py-0.5 text-[10px] text-[var(--color-text-secondary)] dark:bg-white/10">
-                    OFFLINE
-                  </span>
+        {streams.map((s) => {
+          const fb = holyFallbackFor(s);
+          const hasEmbed = !!fb || (!!s.is_live && !!s.url && !!toEmbedUrl(s.platform, s.url));
+          return (
+            <div key={s.id} className="card-premium overflow-hidden p-3">
+              <div className="mb-2 flex items-center justify-between gap-2 px-1">
+                <p className="flex items-center gap-2 text-sm font-medium">
+                  <span aria-hidden>{fb ? fb.icon : PLATFORM_META[s.platform].icon}</span>
+                  {fb
+                    ? isId
+                      ? fb.titleId
+                      : fb.titleEn
+                    : s.title || `${PLATFORM_META[s.platform].label} ${s.platform === "youtube" ? s.slot : ""}`}
+                  {fb ? (
+                    <span className="flex items-center gap-1 rounded-full bg-red-600/15 px-2 py-0.5 text-[10px] font-semibold text-red-500">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" /> 24 {isId ? "JAM" : "HRS"}
+                    </span>
+                  ) : s.is_live ? (
+                    <span className="flex items-center gap-1 rounded-full bg-red-600/15 px-2 py-0.5 text-[10px] font-semibold text-red-500">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" /> LIVE
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-black/10 px-2 py-0.5 text-[10px] text-[var(--color-text-secondary)] dark:bg-white/10">
+                      OFFLINE
+                    </span>
+                  )}
+                </p>
+                {hasEmbed && (
+                  <button
+                    onClick={() => setMaximized(s)}
+                    className="rounded-full border border-accent/40 px-3 py-1 text-xs text-accent"
+                  >
+                    ⛶ {isId ? "Perbesar" : "Maximize"}
+                  </button>
                 )}
-              </p>
-              {s.is_live && s.url && toEmbedUrl(s.platform, s.url) && (
-                <button
-                  onClick={() => setMaximized(s)}
-                  className="rounded-full border border-accent/40 px-3 py-1 text-xs text-accent"
-                >
-                  ⛶ {isId ? "Perbesar" : "Maximize"}
-                </button>
+              </div>
+              {renderPlayer(s)}
+              {fb && (
+                <p className="mt-2 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+                  {isId
+                    ? "🔇 Suara mati secara bawaan — ketuk ikon speaker di pemutar untuk mengaktifkan. Siaran resmi Saudi Broadcasting Authority."
+                    : "🔇 Muted by default — tap the speaker icon in the player to unmute. Official Saudi Broadcasting Authority stream."}
+                </p>
               )}
             </div>
-            {renderPlayer(s)}
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* On-site maximize — full-viewport overlay, still on ulyah.com. */}
@@ -179,7 +231,9 @@ export function LiveHub({ locale }: { locale: string }) {
         <div className="fixed inset-0 z-50 flex flex-col bg-black">
           <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-[#f4efe3]">
             <p className="truncate text-sm">
-              {PLATFORM_META[maximized.platform].icon} {maximized.title || PLATFORM_META[maximized.platform].label}
+              {holyFallbackFor(maximized)
+                ? `${holyFallbackFor(maximized)!.icon} ${isId ? holyFallbackFor(maximized)!.titleId : holyFallbackFor(maximized)!.titleEn}`
+                : `${PLATFORM_META[maximized.platform].icon} ${maximized.title || PLATFORM_META[maximized.platform].label}`}
             </p>
             <button
               onClick={() => setMaximized(null)}
