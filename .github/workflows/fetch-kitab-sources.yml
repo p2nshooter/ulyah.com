@@ -1,0 +1,63 @@
+name: Fetch kitab source texts
+
+# Manual-dispatch helper: the development sandbox can only reach GitHub, so
+# this workflow does the open-web fetching (runner has full egress) for the
+# three kitab that are NOT in OpenITI — Ta'lim al-Muta'allim, Sullam
+# at-Taufiq, Tijan ad-Darari — and commits the RAW downloads to the
+# `kitab-sources` branch under sources/kitab-raw/. The texts themselves are
+# public-domain classical matn; parsing/verification happens afterwards in
+# the dev session (never blindly seeded).
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: Fetch sources
+        run: |
+          set -u
+          mkdir -p sources/kitab-raw
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+          fetch () { # name url
+            echo "── $1 ← $2"
+            curl -sSL --retry 3 --max-time 180 -A "$UA" -o "sources/kitab-raw/$1" "$2" \
+              && echo "   ok: $(stat -c%s "sources/kitab-raw/$1") bytes" \
+              || echo "   FAILED (continuing)"
+          }
+
+          # ── Ta'lim al-Muta'allim (az-Zarnuji) ──
+          fetch talim_islamhouse.pdf "https://d1.islamhouse.com/data/ar/ih_books/single-03/ar-taelim-almutaealim.pdf"
+          fetch talim_fatihsyuhud_index.html "https://www.fatihsyuhud.org/2013/04/kitab-taklim-mutaallim-zarnuji.html"
+
+          # ── Sullam at-Taufiq (Abdullah Ba'alawi) ──
+          fetch sullam_fatihsyuhud.html "https://www.fatihsyuhud.org/2013/02/sullam-taufiq-matan.html"
+
+          # ── Tijan ad-Darari (matn al-Bajuri, sharh Nawawi al-Bantani) ──
+          fetch tijan_alkhoirot.html "https://www.alkhoirot.org/2018/10/terjemah-matan-al-bajuri-tijan-darari.html"
+          fetch tijan_islamitumudah.html "https://www.islamitumudah.web.id/2023/08/terjemah-kitab-tijan-darari-tiijaan-al.html"
+          fetch tijan_archive_hocr.html "https://ia803402.us.archive.org/4/items/kitab-syarah-tijan-ad-darori/%D8%AA%D9%8A%D8%AC%D8%A7%D9%86%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A7%D8%B1%D9%8A_hocr.html"
+
+          # Text layer of the Islamhouse PDF (usually true text, not scan)
+          if [ -s sources/kitab-raw/talim_islamhouse.pdf ]; then
+            pdftotext -enc UTF-8 sources/kitab-raw/talim_islamhouse.pdf sources/kitab-raw/talim_islamhouse.txt || true
+          fi
+          ls -la sources/kitab-raw/
+
+      - name: Commit to kitab-sources branch
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B kitab-sources
+          git add -f sources/kitab-raw
+          git commit -m "Raw kitab source downloads (Ta'lim, Sullam Taufiq, Tijan Darari)" || echo "nothing to commit"
+          git push -f origin kitab-sources
