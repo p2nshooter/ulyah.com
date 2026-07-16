@@ -492,6 +492,24 @@ jobs:
             echo "Round-3 kitab texts already imported (jalalayn matn: $R3COUNT) — skipping."
           fi
 
+      - name: Import Kitab Pesantren round 4 — 12 kitab lintas 7 kategori (idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Round 4 (ROUND=4 of scripts/extract-pesantren-openiti.py):
+          # Arba'in Nawawi, Tuhfatul Athfal, Jazariyyah, Bayquniyyah,
+          # Nukhbatul Fikar, Waraqat, Qatrun Nada, Mulhatul I'rab, Al-Hikam,
+          # Fathul Mu'in, Kifayatul Akhyar, Tarikh Khulafa (+ kategori
+          # tajwid/ulumul-hadits/usul-fiqih). Gate on arbainnawawi matn.
+          R4COUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id WHERE b.kitab_slug='arbainnawawi';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$R4COUNT" -lt "40" ]; then
+            echo "Round-4 kitab texts missing (arbain matn: $R4COUNT) — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_full_texts_4.sql
+          else
+            echo "Round-4 kitab texts already imported (arbain matn: $R4COUNT) — skipping."
+          fi
+
       - name: Import Doa Mustajab (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api

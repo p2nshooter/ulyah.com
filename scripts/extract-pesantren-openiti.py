@@ -250,6 +250,144 @@ def parse_bulugh(path):
         babs.append(cur_bab)
     return [(name, None, matns) for name, matns in babs if matns]
 
+# ── Round 4 parsers (structures verified by inspection, 2026-07-16) ───────
+def parse_pipe_headers(path, is_bab=lambda h: True, chunk=3500):
+    """Books marked with '# | Heading' lines (Fath al-Mu'in, Kifayat
+    al-Akhyar, Waraqat, Nukhbat al-Fikar): '# |' (optionally '# |1') is a
+    header; '# $' is the book title (skipped); other '# '/'~~' lines are
+    content, merged then chunked."""
+    with open(path, encoding="utf-8") as f:
+        body = f.read().split("#META#Header#End#", 1)[-1]
+    babs, cur_bab, cur_title, cur_text = [], None, None, []
+    def flush():
+        nonlocal cur_title, cur_text
+        text = "\n\n".join(cur_text).strip()
+        if cur_bab is not None and (text or cur_title):
+            for i, ch in enumerate(_chunk(text, target=2500, hard=chunk) or [""]):
+                cur_bab[1].append((cur_title if i == 0 else None, ch))
+        cur_title, cur_text = [None, []][0], []
+    for line in body.splitlines():
+        s = line.strip()
+        if s.startswith("# $"):
+            continue
+        if s.startswith("# |"):
+            h = clean(re.sub(r"^# \|\d*", "", s)).strip("|() ").strip()
+            h = re.sub(r"^\d+\s*[-ـ]?\s*", "", h).strip() or None
+            if h and is_bab(h):
+                flush()
+                if cur_bab and cur_bab[1]:
+                    babs.append(cur_bab)
+                cur_bab = (h, [])
+            else:
+                flush()
+                if cur_bab is None:
+                    cur_bab = ("مقدمة", [])
+                cur_title = h
+        elif s.startswith("#") or s.startswith("~~"):
+            t = clean(s)
+            t = re.sub(r"^\d+\s", "", t)
+            if t:
+                if cur_bab is None:
+                    cur_bab = ("مقدمة", [])
+                if s.startswith("~~") and cur_text:
+                    cur_text[-1] += " " + t
+                else:
+                    cur_text.append(t)
+    flush()
+    if cur_bab and cur_bab[1]:
+        babs.append(cur_bab)
+    return [(name, None, matns) for name, matns in babs if matns]
+
+def parse_poem_lines(path, bab_name):
+    """One-verse-per-'# ' line poems (Tuhfat al-Atfal): strip parens, keep
+    the % half-verse divider as ' * '. Single bab."""
+    verses = []
+    for kind, text in body_lines(path):
+        if kind != "p":
+            continue
+        for para in text.split("\n\n"):
+            v = para.strip().strip("()").replace("%", "*").strip()
+            v = re.sub(r"\s+", " ", v)
+            if len(v) > 3:
+                verses.append((None, v))
+    return [(bab_name, None, verses)] if verses else []
+
+def parse_star_poem(path, bab_name):
+    """Poems written as a running text with '*' between half-verses
+    (Bayquniyya): pair consecutive halves into verses. Raw-line read —
+    clean() strips asterisks, which are exactly the delimiter here."""
+    with open(path, encoding="utf-8") as f:
+        body = f.read().split("#META#Header#End#", 1)[-1]
+    parts = []
+    for line in body.splitlines():
+        s = line.strip()
+        if s.startswith("#") or s.startswith("~~"):
+            s = re.sub(r"PageV\d+P\d+", "", s)
+            s = re.sub(r"^[#~ ]+", "", s).strip()
+            if s:
+                parts.append(s)
+    text = " ".join(parts)
+    halves = [h.strip() for h in text.split("*") if h.strip()]
+    verses = []
+    for i in range(0, len(halves) - 1, 2):
+        verses.append((None, halves[i] + " * " + halves[i + 1]))
+    if len(halves) % 2:
+        verses.append((None, halves[-1]))
+    return [(bab_name, None, verses)] if verses else []
+
+def parse_hikam(path):
+    """Al-Hikam: aphorisms in flowing paragraphs — single bab, ~700-char
+    chunks so each screenful is a handful of hikmah."""
+    text = "\n\n".join(t for k, t in body_lines(path) if k == "p")
+    return [("متن الحكم العطائية", None, [(None, c) for c in _chunk(text, target=700, hard=1400)])]
+
+def parse_qatr(path):
+    """Qatr al-Nada: real '### |' section headers mixed with bare numbered
+    ones ('1-') that are list markers, not bab."""
+    babs = parse_by_headers(path, lambda h: not re.match(r"^\d+\s*[-ـ]?\s*$", h.strip()))
+    out = []
+    for name, _, matns in babs:
+        clean_matns = []
+        for title, text in matns:
+            if title and re.match(r"^\d+\s*[-ـ]?\s*$", title.strip()):
+                title = None
+            clean_matns.append((title, text))
+        out.append((name, None, clean_matns))
+    return out
+
+BOOKS_ROUND4 = [
+    ("arbainnawawi", "arbainnawawi.md", parse_sirah, "0676Nawawi.ArbacunaNawawiyya.Shamela0012836-ara1"),
+    ("tuhfatulathfal", "tuhfatulathfal.md", lambda p: parse_poem_lines(p, "متن تحفة الأطفال"), "1208SulaymanJamzuriAffandi.TuhfatAtfal.JK000963-ara1"),
+    ("jazariyyah", "jazariyyah.md", parse_imrithi, "0833IbnJazari.ManzumaJazariyya.Shamela0012093-ara1"),
+    ("bayquniyyah", "bayquniyyah.md", lambda p: parse_star_poem(p, "متن المنظومة البيقونية"), "1080IbnMuhammadBayquniDimashqi.ManzumaBayquniyya.JK010967-ara1"),
+    ("nukhbatulfikar", "nukhbatulfikar.md", lambda p: parse_pipe_headers(p, lambda h: False), "0852IbnHajarCasqalani.NukhbatFikar.JK000434-ara1"),
+    ("waraqat", "waraqat.md", parse_pipe_headers, "0478ImamHaramaynJuwayni.Waraqat.JK000308-ara1"),
+    ("qatrunnada", "qatrunnada.md", parse_qatr, "0761JamalDinIbnHisham.MatnQatrNada.Shamela0011376-ara1"),
+    ("mulhatulirab", "mulhatulirab.md", lambda p: parse_pipe_headers(p, lambda h: len(h) > 3), "0516IbnCaliHariri.MulhatIcrab.JK009281-ara1"),
+    ("hikam", "hikam.md", parse_hikam, "0709IbnCataAllahSikandari.HikamCataiyya.JK009323-ara1"),
+    ("fathulmuin", "fathulmuin.md", parse_pipe_headers, "0987ZaynDinMalibari.FathMucin.JK000228-ara1"),
+    ("kifayatulakhyar", "kifayatulakhyar.md", parse_pipe_headers, "0829TaqiDinDimashqiHisni.KifayatAkhyar.JK000119-ara1"),
+    ("tarikhkhulafa", "tarikhkhulafa.md", parse_sirah, "0911Suyuti.TarikhKhulafa.Shamela0011997-ara1"),
+]
+
+HEADER_ROUND4 = """
+INSERT OR IGNORE INTO pesantren_category (slug, name_id, name_ar, icon, sort_order) VALUES ('tajwid', 'Tajwid', 'التجويد', '🎙️', 8);
+INSERT OR IGNORE INTO pesantren_category (slug, name_id, name_ar, icon, sort_order) VALUES ('ulumul-hadits', 'Ulumul Hadits', 'مصطلح الحديث', '🔎', 9);
+INSERT OR IGNORE INTO pesantren_category (slug, name_id, name_ar, icon, sort_order) VALUES ('usul-fiqih', 'Ushul Fiqih', 'أصول الفقه', '🏛️', 10);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('arbainnawawi', 'hadits', 'الأَرْبَعُونَ النَّوَوِيَّةُ', 'Arba''in Nawawi', 'Imam An-Nawawi', '676H', 'Empat puluh dua hadits pilihan Imam An-Nawawi (w. 676 H) yang menghimpun pokok-pokok agama — niat, rukun Islam-iman-ihsan, halal-haram, zuhud, hingga wali Allah. Kitab hafalan hadits pertama di pesantren dan pengajian di seluruh dunia, dengan puluhan syarah masyhur.', 2);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('tuhfatulathfal', 'tajwid', 'تُحْفَةُ الْأَطْفَالِ', 'Tuhfatul Athfal', 'Syaikh Sulaiman Al-Jamzuri', '1208H', 'Nazham 61 bait tentang hukum nun sukun & tanwin, mim sukun, dan mad — pelajaran tajwid pertama santri di seluruh dunia. Ringkas, mudah dihafal, dan menjadi dasar sebelum naik ke Al-Jazariyyah.', 1);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('jazariyyah', 'tajwid', 'الْمُقَدِّمَةُ الْجَزَرِيَّةُ', 'Matan Al-Jazariyyah', 'Imam Ibnul Jazari', '833H', 'Nazham tajwid tingkat lanjut karya imam qiraat Ibnul Jazari (w. 833 H): makharijul huruf, sifat huruf, tafkhim-tarqiq, hingga waqaf-ibtida. Matan induk ilmu tajwid yang dihafal para qari dan huffazh.', 2);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('bayquniyyah', 'ulumul-hadits', 'الْمَنْظُومَةُ الْبَيْقُونِيَّةُ', 'Manzhumah Bayquniyyah', 'Imam Al-Bayquni', '1080H', 'Nazham 34 bait yang merangkum jenis-jenis hadits (shahih, hasan, dhaif, marfu'', maqthu'', musnad, muttashil, dst.) — pintu masuk ilmu mustholah hadits di pesantren dan universitas.', 1);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('nukhbatulfikar', 'ulumul-hadits', 'نُخْبَةُ الْفِكَرِ', 'Nukhbatul Fikar', 'Al-Hafizh Ibnu Hajar Al-Asqalani', '852H', 'Risalah mustholah hadits paling berpengaruh karya Ibnu Hajar (w. 852 H): klasifikasi khabar, syarat shahih, jenis cacat, hingga istilah jarh-ta''dil — ringkas namun menjadi induk kurikulum ilmu hadits, dengan syarah beliau sendiri Nuzhatun Nazhar.', 2);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('waraqat', 'usul-fiqih', 'الْوَرَقَاتُ', 'Al-Waraqat', 'Imam Al-Haramain Al-Juwaini', '478H', 'Risalah ushul fiqih dasar karya Imam Al-Haramain (w. 478 H): hukum taklifi, amr-nahi, ''am-khash, nasakh, ijma'', qiyas, ijtihad. Matan pertama santri dalam memahami cara hukum Islam diistinbath, dengan syarah masyhur Al-Mahalli.', 1);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('qatrunnada', 'nahwu-shorof', 'قَطْرُ النَّدَى وَبَلُّ الصَّدَى', 'Qatrun Nada', 'Ibnu Hisyam Al-Anshari', '761H', 'Matan nahwu tingkat menengah karya Ibnu Hisyam (w. 761 H), jembatan antara Jurumiyyah dan Alfiyyah: kalimat dan i''rab, nawasikh, ''amil, hingga tawabi'' — ringkas dengan definisi yang sangat presisi.', 3);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('mulhatulirab', 'nahwu-shorof', 'مُلْحَةُ الْإِعْرَابِ', 'Mulhatul I''rab', 'Al-Hariri Al-Bashri', '516H', 'Nazham nahwu karya Al-Hariri (w. 516 H), penulis Maqamat: kaidah i''rab disajikan dalam bait-bait indah yang mudah dihafal — pendamping nazham bagi santri penghafal selain Imrithi dan Alfiyyah.', 4);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('hikam', 'akhlak', 'الْحِكَمُ الْعَطَائِيَّةُ', 'Al-Hikam', 'Ibnu Atha''illah As-Sakandari', '709H', 'Untaian hikmah tasawuf paling termasyhur karya Ibnu Atha''illah As-Sakandari (w. 709 H) — kalimat-kalimat pendek yang menembus hati tentang tauhid, tawakal, ikhlas, dan ma''rifah. Dikaji rutin di pesantren dengan berbagai syarah.', 3);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('fathulmuin', 'fiqih', 'فَتْحُ الْمُعِينِ', 'Fathul Mu''in', 'Syaikh Zainuddin Al-Malibari', '987H', 'Kitab fiqih Syafi''i karya Zainuddin Al-Malibari (w. 987 H), murid Ibnu Hajar Al-Haitami — syarah atas Qurratul ''Ain miliknya sendiri. Standar kajian fiqih menengah-atas pesantren Nusantara; induk hasyiyah I''anatut Thalibin.', 5);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('kifayatulakhyar', 'fiqih', 'كِفَايَةُ الْأَخْيَارِ', 'Kifayatul Akhyar', 'Imam Taqiyuddin Al-Hishni', '829H', 'Syarah lengkap atas Matan Taqrib karya Taqiyuddin Al-Hishni (w. 829 H) — fiqih Syafi''i dengan dalil Al-Qur''an dan hadits pada tiap masalah, dari thaharah hingga peradilan. Melengkapi jenjang Taqrib → Fathul Qarib di rak ini.', 6);
+INSERT OR IGNORE INTO pesantren_kitab (slug, category_slug, title_ar, title_id, author, author_death_year, description_id, sort_order) VALUES ('tarikhkhulafa', 'sirah', 'تَارِيخُ الْخُلَفَاءِ', 'Tarikh Khulafa', 'Imam Jalaluddin As-Suyuthi', '911H', 'Sejarah para khalifah karya As-Suyuthi (w. 911 H): Khulafaur Rasyidin, Bani Umayyah, hingga Abbasiyah — biografi, keutamaan, dan peristiwa penting tiap masa kekhalifahan, melanjutkan rak sejarah setelah Sirah Ibnu Hisham.', 2);
+"""
+
 BOOKS_ROUND3 = [
     ("jalalayn", "jalalayn.md", parse_jalalayn, "0911Suyuti.TafsirJalalayn.JK000818-ara1"),
     ("sirahibnhisham", "sirahibnhisham.md", parse_sirah, "0213IbnHisham.SiraNabawiyya.Shamela0023833-ara1"),
@@ -291,9 +429,11 @@ rows = ["""-- Full Arabic texts for the Kitab Pesantren library, parsed from the
 """]
 total_matn = 0
 _round = os.environ.get("ROUND")
-BOOK_SET = BOOKS_ROUND3 if _round == "3" else BOOKS_ROUND2 if _round == "2" else BOOKS
+BOOK_SET = BOOKS_ROUND4 if _round == "4" else BOOKS_ROUND3 if _round == "3" else BOOKS_ROUND2 if _round == "2" else BOOKS
 if _round == "3":
     rows.append(HEADER_ROUND3)
+if _round == "4":
+    rows.append(HEADER_ROUND4)
 for slug, fname, parser, uri in BOOK_SET:
     babs = parser(os.path.join(SRC, fname))
     rows.append(f"\n-- ═══ {slug} — OpenITI {uri} ═══")
