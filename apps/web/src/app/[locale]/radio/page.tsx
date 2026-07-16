@@ -4,7 +4,6 @@ import Image from "next/image";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { radioLabels } from "@/lib/radio-labels";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
-import { InstallAppButton } from "@/components/InstallAppButton";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -42,7 +41,6 @@ export default async function RadioPage({
             <p className="mt-1 max-w-xl text-sm text-[var(--color-text-secondary)]">{t.pageIntro}</p>
           </div>
           <div className="flex flex-col items-end gap-1.5">
-            <InstallAppButton app="radio" labeled autoPrompt={install === "1"} />
             <span className="text-xs text-[var(--color-text-secondary)]">{t.installStandalone}</span>
           </div>
         </div>

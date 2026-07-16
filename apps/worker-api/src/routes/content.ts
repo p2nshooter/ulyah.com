@@ -733,7 +733,7 @@ contentRoute.get("/nasakh", async (c) => {
 // renders those as the branded offline card, so the layout never collapses).
 contentRoute.get("/live-streams", async (c) => {
   const { results } = await c.env.DB.prepare(
-    "SELECT id, platform, slot, title, url, is_live FROM live_stream ORDER BY platform = 'youtube' DESC, platform, slot"
+    "SELECT id, platform, slot, kind, region, title, url, is_live FROM live_stream ORDER BY kind = 'auto' DESC, slot"
   ).all();
   return c.json({ streams: results });
 });
@@ -741,8 +741,13 @@ contentRoute.get("/live-streams", async (c) => {
 // GET /content/video-anak — the owner's 45 kids videos (see migration 0030),
 // grouped client-side by series.
 contentRoute.get("/video-anak", async (c) => {
-  const { results } = await c.env.DB.prepare(
-    "SELECT id, series, video_order, title, youtube_id FROM video_anak ORDER BY series, video_order"
-  ).all();
-  return c.json({ videos: results });
+  const [{ results: videos }, { results: channels }] = await Promise.all([
+    c.env.DB.prepare(
+      "SELECT id, series, video_order, title, youtube_id, country FROM video_anak ORDER BY series, video_order"
+    ).all(),
+    c.env.DB.prepare(
+      "SELECT id, country, title, channel_id, language, sort_order FROM video_anak_channel ORDER BY sort_order"
+    ).all(),
+  ]);
+  return c.json({ videos, channels });
 });
