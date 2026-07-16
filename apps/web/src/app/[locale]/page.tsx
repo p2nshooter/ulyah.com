@@ -5,7 +5,6 @@ import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
-import { DownloadAppSection } from "@/components/DownloadAppSection";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -128,9 +127,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      {/* ── Download App — explicit pointer, right up top rather than
-          buried near the footer, since a header icon alone went unnoticed ── */}
-      <DownloadAppSection locale={locale} />
 
       {/* ── Radio Qori Dunia — always-on world reciters stream ─ */}
       <section className="px-4 pt-4 sm:px-6">

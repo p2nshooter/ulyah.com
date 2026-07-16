@@ -5,30 +5,27 @@ import { api } from "@/lib/api";
 
 interface StreamRow {
   id: number;
-  platform: "youtube" | "tiktok" | "facebook";
+  platform: "youtube";
   slot: number;
+  kind: "auto" | "manual";
+  region: string | null;
   title: string | null;
   url: string | null;
   is_live: number;
   updated_at: string;
 }
 
-const PLATFORM_LABEL: Record<StreamRow["platform"], string> = {
-  youtube: "▶️ YouTube",
-  tiktok: "🎵 TikTok",
-  facebook: "📘 Facebook",
-};
-
 /**
- * Admin manager for the /live streaming hub: 5 YouTube slots + TikTok +
- * Facebook. Paste the stream link, set LIVE when broadcasting, save. Offline
- * slots show the branded contact card publicly (Yusron Efendi's number), so
- * "everything offline" still looks intentional, never broken.
+ * Admin for the /live hub v2: six manual YouTube slots (owner's own
+ * broadcasts/recordings) + the always-on AUTO world channels (Makkah,
+ * Madinah, and any 24h Islamic channel/campus/mosque the owner adds by
+ * channel URL). TikTok/Facebook were removed by owner request.
  */
 export function LiveStreamsTab() {
   const [rows, setRows] = useState<StreamRow[]>([]);
-  const [drafts, setDrafts] = useState<Record<number, { title: string; url: string; is_live: boolean }>>({});
-  const [saving, setSaving] = useState<number | null>(null);
+  const [drafts, setDrafts] = useState<Record<number, { title: string; url: string; region: string; is_live: boolean }>>({});
+  const [newAuto, setNewAuto] = useState({ title: "", url: "", region: "" });
+  const [saving, setSaving] = useState<number | "new" | null>(null);
   const [note, setNote] = useState<string | null>(null);
 
   async function load() {
@@ -36,7 +33,8 @@ export function LiveStreamsTab() {
       const r = await api.get<{ streams: StreamRow[] }>("/admin/live-streams");
       setRows(r.streams);
       const d: typeof drafts = {};
-      for (const s of r.streams) d[s.id] = { title: s.title ?? "", url: s.url ?? "", is_live: !!s.is_live };
+      for (const s of r.streams)
+        d[s.id] = { title: s.title ?? "", url: s.url ?? "", region: s.region ?? "", is_live: !!s.is_live };
       setDrafts(d);
     } catch {
       setNote("Gagal memuat data.");
@@ -63,74 +61,131 @@ export function LiveStreamsTab() {
     }
   }
 
+  async function addAuto() {
+    if (!newAuto.title.trim() || !newAuto.url.trim()) {
+      setNote("Judul dan link channel wajib diisi.");
+      return;
+    }
+    setSaving("new");
+    setNote(null);
+    try {
+      await api.post("/admin/live-streams", newAuto);
+      setNewAuto({ title: "", url: "", region: "" });
+      setNote("✓ Channel dunia ditambahkan.");
+      load();
+    } catch {
+      setNote("Gagal menambahkan channel.");
+    } finally {
+      setSaving(null);
+    }
+  }
+
+  async function removeAuto(id: number) {
+    setSaving(id);
+    try {
+      await api.del(`/admin/live-streams/${id}`);
+      setNote("✓ Channel dihapus.");
+      load();
+    } catch {
+      setNote("Gagal menghapus.");
+    } finally {
+      setSaving(null);
+    }
+  }
+
+  const autos = rows.filter((r) => r.kind === "auto");
+  const manuals = rows.filter((r) => r.kind === "manual");
+  const input = "rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm";
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
         <p className="font-heading text-base text-[var(--color-text-primary)]">📡 Live Streaming — halaman publik /live</p>
         <p className="mt-2">
-          Tempel link siaran (YouTube: link video/live/channel; Facebook: link video live; TikTok: link live), nyalakan
-          <b> LIVE</b> saat siaran berlangsung, lalu simpan. <b>YouTube Slot 1 &amp; 2 tidak pernah gelap:</b> saat
-          tidak diisi siaran sendiri, otomatis menayangkan live resmi 24 jam Masjidil Haram (Slot 1) dan Masjid Nabawi
-          (Slot 2) dari Saudi Broadcasting Authority — suara mati bawaan, pengunjung yang mengaktifkan. Slot YouTube
-          3-5 untuk umum: yang offline menampilkan kartu ULYAH.COM + kontak Yusron Efendi (+62 856-9123-4561) untuk
-          yang ingin siaran lewat ulyah.com. Catatan jujur: TikTok tidak mengizinkan live diputar di situs lain — slot
-          TikTok tampil sebagai kartu elegan dengan tombol menuju live.
+          <b>Live Otomatis 24 Jam:</b> daftar channel dunia (Makkah, Madinah, Rodja TV, Madani, ARY Qtv — bisa ditambah
+          sendiri di bawah dengan link channel YouTube apa pun: negara lain, kampus, masjid). Embed mengikuti siaran
+          live channel-nya otomatis. <b>Siaran ULYAH (6 slot):</b> untuk link YouTube live/rekaman yang Anda isi
+          manual — nyalakan LIVE saat aktif; slot offline menampilkan kartu ULYAH.COM + kontak Yusron Efendi
+          (+62 856-9123-4561). TikTok &amp; Facebook sudah dihapus sesuai permintaan.
         </p>
       </div>
 
       {note && <p className="text-sm text-accent">{note}</p>}
 
-      <div className="space-y-3">
-        {rows.map((s) => {
-          const d = drafts[s.id] ?? { title: "", url: "", is_live: false };
-          return (
-            <div key={s.id} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-medium">
-                  {PLATFORM_LABEL[s.platform]}
-                  {s.platform === "youtube" ? ` — Slot ${s.slot}` : ""}
-                  {s.platform === "youtube" && s.slot === 1 && (
-                    <span className="ml-2 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] text-accent">🕋 fallback Makkah 24 jam</span>
-                  )}
-                  {s.platform === "youtube" && s.slot === 2 && (
-                    <span className="ml-2 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] text-accent">🕌 fallback Madinah 24 jam</span>
-                  )}
-                </p>
-                <label className="flex cursor-pointer items-center gap-2 text-xs">
-                  <input
-                    type="checkbox"
-                    checked={d.is_live}
-                    onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, is_live: e.target.checked } }))}
-                  />
-                  <span className={d.is_live ? "font-semibold text-red-500" : "text-[var(--color-text-secondary)]"}>
-                    {d.is_live ? "🔴 LIVE" : "Offline"}
-                  </span>
-                </label>
-              </div>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                <input
-                  value={d.title}
-                  onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, title: e.target.value } }))}
-                  placeholder="Judul siaran (mis. Kajian Subuh)"
-                  className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
-                />
-                <input
-                  value={d.url}
-                  onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, url: e.target.value } }))}
-                  placeholder="Link siaran (https://…)"
-                  className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
-                />
-              </div>
-              <button
-                onClick={() => save(s.id)}
-                disabled={saving === s.id}
-                className="mt-3 rounded-full bg-accent px-4 py-1.5 text-xs font-medium text-primary disabled:opacity-50"
-              >
-                {saving === s.id ? "Menyimpan…" : "Simpan"}
-              </button>
+      {/* Auto world channels */}
+      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <p className="text-sm font-medium">🕋 Live Otomatis 24 Jam ({autos.length})</p>
+        <div className="mt-3 space-y-2">
+          {autos.map((s) => (
+            <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-lg border border-[var(--color-border)] p-2 text-xs">
+              <span className="min-w-0 flex-1 truncate">
+                <b>{s.title}</b> {s.region && <span className="text-[var(--color-text-secondary)]">· {s.region}</span>}
+                <span className="ml-2 break-all text-[var(--color-text-secondary)]">{s.url}</span>
+              </span>
+              {s.slot > 102 ? (
+                <button
+                  onClick={() => removeAuto(s.id)}
+                  disabled={saving === s.id}
+                  className="rounded-full border border-danger/40 px-3 py-1 text-danger disabled:opacity-50"
+                >
+                  Hapus
+                </button>
+              ) : (
+                <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] text-accent">tetap</span>
+              )}
             </div>
-          );
-        })}
+          ))}
+        </div>
+        <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_140px_auto]">
+          <input className={input} placeholder="Judul (mis. Al-Azhar Kairo)" value={newAuto.title} onChange={(e) => setNewAuto((p) => ({ ...p, title: e.target.value }))} />
+          <input className={input} placeholder="Link channel YouTube (https://www.youtube.com/channel/UC…)" value={newAuto.url} onChange={(e) => setNewAuto((p) => ({ ...p, url: e.target.value }))} />
+          <input className={input} placeholder="Negara/kota" value={newAuto.region} onChange={(e) => setNewAuto((p) => ({ ...p, region: e.target.value }))} />
+          <button onClick={addAuto} disabled={saving === "new"} className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary disabled:opacity-50">
+            {saving === "new" ? "…" : "+ Tambah"}
+          </button>
+        </div>
+        <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
+          Tip: pakai link CHANNEL (bukan link video) agar slot selalu mengikuti live terbaru channel itu. Makkah &amp;
+          Madinah dikunci sebagai fondasi.
+        </p>
+      </div>
+
+      {/* Manual slots */}
+      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <p className="text-sm font-medium">🎥 Siaran ULYAH — 6 slot manual</p>
+        <div className="mt-3 space-y-3">
+          {manuals.map((s) => {
+            const d = drafts[s.id] ?? { title: "", url: "", region: "", is_live: false };
+            return (
+              <div key={s.id} className="rounded-lg border border-[var(--color-border)] p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-xs font-medium">Slot {s.slot}</p>
+                  <label className="flex cursor-pointer items-center gap-2 text-xs">
+                    <input
+                      type="checkbox"
+                      checked={d.is_live}
+                      onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, is_live: e.target.checked } }))}
+                    />
+                    <span className={d.is_live ? "font-semibold text-red-500" : "text-[var(--color-text-secondary)]"}>
+                      {d.is_live ? "🔴 LIVE" : "Offline"}
+                    </span>
+                  </label>
+                </div>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  <input className={input} placeholder="Judul siaran" value={d.title} onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, title: e.target.value } }))} />
+                  <input className={input} placeholder="Link YouTube (live atau rekaman)" value={d.url} onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, url: e.target.value } }))} />
+                </div>
+                <button
+                  onClick={() => save(s.id)}
+                  disabled={saving === s.id}
+                  className="mt-2 rounded-full bg-accent px-4 py-1.5 text-xs font-medium text-primary disabled:opacity-50"
+                >
+                  {saving === s.id ? "Menyimpan…" : "Simpan"}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

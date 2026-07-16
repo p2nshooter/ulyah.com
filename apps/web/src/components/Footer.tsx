@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
-import { pwaLabels } from "@/lib/pwa-labels";
 import { contactLabels } from "@/lib/contact-labels";
 import { navLabels } from "@/lib/nav-labels";
 
@@ -62,7 +61,6 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{dict.footer.info}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/tentang`} className="transition hover:text-accent">{dict.nav.about}</Link></li>
-            <li><Link href={`/${locale}/widget`} className="transition hover:text-accent">{nav.direct[0]!.label}</Link></li>
             <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
             <li><Link href={`/${locale}/terima-kasih`} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
           </ul>
@@ -85,7 +83,6 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{dict.footer.help}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/donasi`} className="transition hover:text-accent">{dict.nav.donate}</Link></li>
-            <li><Link href={`/${locale}#download-app`} className="transition hover:text-accent">{pwaLabels(locale).downloadSectionTitle}</Link></li>
             <li><Link href={`/${locale}/kebijakan-privasi`} className="transition hover:text-accent">{dict.footer.privacyPolicy}</Link></li>
           </ul>
         </div>
