@@ -1,7 +1,7 @@
 import type { Env } from "../env.js";
 import { ASBAB_DATA } from "./asbabun-nuzul-data.js";
 import { translateText } from "./mt.js";
-import { safeKvPut } from "./kv-safe.js";
+import { safeKvGet, safeKvPut } from "./kv-safe.js";
 import { FEATURED_TAFSIR, findEdition, type TafsirEdition } from "./tafsir-editions.js";
 
 /**
@@ -35,7 +35,7 @@ const ASBAB_EDITION = "en-asbab-al-nuzul-by-al-wahidi";
 const ASBAB_SOURCE = "Asbab An-Nuzul by Al-Wahidi";
 
 async function fetchJsonCached<T>(env: Env, kvKey: string, url: string): Promise<T | null> {
-  const cached = await env.CACHE_KV.get(kvKey);
+  const cached = await safeKvGet(env, kvKey);
   if (cached) return JSON.parse(cached) as T;
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) return null;

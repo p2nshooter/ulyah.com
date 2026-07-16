@@ -2,6 +2,7 @@ import { chatComplete, extractJson } from "@ulyah/ai-engine";
 import type { KeyScope } from "@ulyah/shared/types";
 import type { Env } from "../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
+import { safeKvGet } from "./kv-safe.js";
 
 /**
  * ORCHESTRA CORE — the real routing brain for ULYAH.COM's AI.
@@ -106,7 +107,7 @@ export async function orchestraMaintenance(env: Env): Promise<void> {
 
 async function cfWorkerAiEnabled(env: Env): Promise<boolean> {
   try {
-    const raw = await env.CACHE_KV.get("scaling:settings");
+    const raw = await safeKvGet(env, "scaling:settings");
     return raw ? JSON.parse(raw).cfWorkerAiEnabled === true : false;
   } catch {
     return false;

@@ -1,5 +1,5 @@
 import type { Env } from "./../env.js";
-import { safeKvPut } from "./kv-safe.js";
+import { safeKvGet, safeKvPut } from "./kv-safe.js";
 
 /**
  * Deterministic, AI-free content compiler.
@@ -64,7 +64,7 @@ interface AyahCursor {
 }
 
 async function getCursor(env: Env, key: string): Promise<AyahCursor> {
-  const raw = await env.CACHE_KV.get(key);
+  const raw = await safeKvGet(env, key);
   if (!raw) return { surah: 1, ayah: 1 };
   try {
     const parsed = JSON.parse(raw) as AyahCursor;
@@ -273,7 +273,7 @@ export async function runHadithCompile(env: Env, langs: string[]): Promise<numbe
     if (!itemTmpl) continue;
 
     const cursorKey = `compile:hadits:cursor:${lang}`;
-    const lastId = Number((await env.CACHE_KV.get(cursorKey)) ?? "0");
+    const lastId = Number((await safeKvGet(env, cursorKey)) ?? "0");
 
     const { results: rows } = await env.DB.prepare(
       "SELECT id, text_ar, text_id, text_en, narrator, grade, source FROM hadits WHERE id > ? ORDER BY id LIMIT ?"

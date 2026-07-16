@@ -8,7 +8,7 @@ import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
-import { safeKvPut } from "../lib/kv-safe.js";
+import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -653,7 +653,7 @@ adminRoute.get("/health", async (c) => {
 
 // GET /admin/adsense-config — verification status + the noted ad-unit id (if any).
 adminRoute.get("/adsense-config", async (c) => {
-  const raw = await c.env.CACHE_KV.get("adsense:config");
+  const raw = await safeKvGet(c.env, "adsense:config");
   const cfg = raw ? JSON.parse(raw) : {};
   return c.json({
     slotId: cfg.slotId ?? "",
@@ -725,7 +725,7 @@ adminRoute.post("/scaling/settings", async (c) => {
 });
 
 adminRoute.get("/scaling/settings", async (c) => {
-  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(c.env, "scaling:settings");
   const defaults = {
     autoThrottleEnabled: true,
     monthlyBudgetUsd: 0,
@@ -743,7 +743,7 @@ adminRoute.get("/scaling/settings", async (c) => {
 
 // Content-engine status: is the auto-producer on, and what has it produced?
 adminRoute.get("/engine/status", async (c) => {
-  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(c.env, "scaling:settings");
   const settings = raw ? JSON.parse(raw) : {};
   const [compiled, aiStories, latest] = await Promise.all([
     c.env.DB.prepare(
@@ -765,7 +765,7 @@ adminRoute.get("/engine/status", async (c) => {
 // One-click master switch for the auto-production engine (start / stop).
 adminRoute.post("/engine/toggle", async (c) => {
   const { enabled } = await c.req.json<{ enabled: boolean }>();
-  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(c.env, "scaling:settings");
   const settings = raw ? JSON.parse(raw) : {};
   settings.engineEnabled = Boolean(enabled);
   await safeKvPut(c.env, "scaling:settings", JSON.stringify(settings));

@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { translateText, translateCachedOnly, localizeBatch } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
-import { safeKvPut } from "../lib/kv-safe.js";
+import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
 import type { Env } from "../env.js";
 
@@ -368,7 +368,7 @@ interface HaditsCollectionRow {
 
 // GET /content/hadits/collections — every collection that actually has rows
 contentRoute.get("/hadits/collections", async (c) => {
-  const cached = await c.env.CACHE_KV.get("hadits:collections");
+  const cached = await safeKvGet(c.env, "hadits:collections");
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const { results } = await c.env.DB.prepare(
@@ -796,7 +796,7 @@ contentRoute.get("/nasakh", async (c) => {
 // hammered on every page view.
 async function resolveLiveVideoId(env: Env, channelId: string): Promise<string | null> {
   const key = `yt:live:${channelId}`;
-  const cached = await env.CACHE_KV.get(key);
+  const cached = await safeKvGet(env, key);
   if (cached !== null) return cached || null;
   let id: string | null = null;
   try {
@@ -825,7 +825,7 @@ async function resolveLiveVideoId(env: Env, channelId: string): Promise<string |
 // owner screenshot), while a concrete video id always embeds. Cached 30 min.
 async function resolveLatestVideoId(env: Env, channelId: string): Promise<string | null> {
   const key = `yt:latest:${channelId}`;
-  const cached = await env.CACHE_KV.get(key);
+  const cached = await safeKvGet(env, key);
   if (cached !== null) return cached || null;
   let id: string | null = null;
   try {
