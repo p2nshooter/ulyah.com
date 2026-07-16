@@ -56,7 +56,7 @@ const REFERENCE_CATEGORIES: RefCategory[] = [
     title: "1. Al-Qur'an",
     status: "partial",
     note:
-      "Teks, terjemah 8 bahasa, tafsir (spa5k), asbabun nuzul, audio murottal & radio sudah jalan (data awal dari paket quran-json, bukan repo di daftar). Alternatif API (Gading, Semarketir, Bachors, dll.) TIDAK diserap — sudah punya sumber yang jalan, redundant. Tajwid berwarna, Hifz/AI Pronunciation (ISSAAM11, mostafa-adel, Tikrar) masih konsep — proyek sumber masih kecil/riset, baru cocok jadi referensi arsitektur bukan produk siap pakai. Islamic Radio API (uthumany) belum diserap — radio ULYAH pakai CDN qori sendiri.",
+      "Teks, terjemah 8 bahasa, tafsir (spa5k), asbabun nuzul, audio murottal & radio sudah jalan (data awal dari paket quran-json, bukan repo di daftar). Alternatif API (Gading, Semarketir, Bachors, dll.) TIDAK diserap — sudah punya sumber yang jalan, redundant. Tajwid berwarna SELESAI (mesin deterministik lib/tajwid.ts: 9 hukum + popup penjelasan di Mushaf Utsmani /quran/mushaf — bukan dari repo eksternal); Hifz/AI Pronunciation (ISSAAM11, mostafa-adel, Tikrar) masih konsep — proyek sumber masih kecil/riset, baru cocok jadi referensi arsitektur bukan produk siap pakai. Islamic Radio API (uthumany) belum diserap — radio ULYAH pakai CDN qori sendiri.",
   },
   {
     key: "hadits",
@@ -107,8 +107,8 @@ const REFERENCE_CATEGORIES: RefCategory[] = [
   {
     key: "doa-dzikir",
     title: "9. Doa, Dzikir & Asmaul Husna",
-    status: "partial",
-    note: "Amalan Harian (doa bangun-tidur, dzikir, thibbun nabawi) sudah jalan dengan suara. PERLU DIVERIFIKASI: apakah 99 Asmaul Husna lengkap sudah masuk di dalamnya atau belum — kalau belum, Sidd42144/Asmaul-Husna (JSON ringan) siap pakai.",
+    status: "done",
+    note: "Amalan Harian (doa bangun-tidur, dzikir, thibbun nabawi) sudah jalan dengan suara. 99 Asmaul Husna SELESAI: grup tab '🌟 99 Asmaul Husna' di /amalan, 100 item (hadits keutamaan HR. Bukhari & Muslim + 99 nama berurutan, Arab + latin + arti), seed packages/db-schema/seed/asmaul_husna.sql — ditulis langsung dari enumerasi standar (Tirmidzi/Kemenag), TIDAK memakai repo eksternal.",
   },
   {
     key: "zakat-waris",

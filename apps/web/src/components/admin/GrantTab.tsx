@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { api } from "@/lib/api";
+import { api, ApiError } from "@/lib/api";
 
 /**
  * Grant & Fundraising Worker admin UI: donor directory, AI-generated proposals
@@ -218,8 +218,10 @@ export function GrantTab() {
       });
       // Auto-attach the proposal so a drafted email is send-ready in one step.
       if (proposal) attachProposal();
-    } catch {
-      setMsg("Gagal draft email — pastikan ada key AI aktif.");
+    } catch (e) {
+      const status = e instanceof ApiError ? e.status : 0;
+      if (status === 401) setMsg("❌ Sesi admin sudah berakhir — muat ulang halaman dan masuk kembali.");
+      else setMsg(`❌ Gagal draft email: ${e instanceof Error ? e.message : "jaringan bermasalah"}.`);
     } finally {
       setBusy("");
     }
@@ -251,10 +253,19 @@ export function GrantTab() {
       });
       if (r.status === "sent") setMsg(`✅ Email terkirim ke ${r.sentTo} dari salam@ulyah.com.`);
       else if (r.status === "review") setMsg(`📋 Tinjauan terkirim ke ${r.sentTo}. Periksa inbox Anda sebelum kirim ke donatur.`);
+      else if (r.status === "failed" && /403|domain|verify|not.?verified|testing emails/i.test(r.providerDetail))
+        setMsg(
+          `❌ Ditolak provider email: ${r.providerDetail} — kemungkinan besar domain ulyah.com belum diverifikasi di dashboard Resend (resend.com/domains). Sebelum diverifikasi, Resend hanya mengizinkan kirim ke email pemilik akun sendiri.`
+        );
       else setMsg(`ℹ️ ${r.providerDetail}`);
       refresh();
-    } catch {
-      setMsg("Gagal mengirim email.");
+    } catch (e) {
+      // Never swallow the real reason — "Gagal mengirim email" without a
+      // cause is exactly what made this bug unreportable.
+      const status = e instanceof ApiError ? e.status : 0;
+      if (status === 401)
+        setMsg("❌ Sesi admin sudah berakhir — muat ulang halaman ini dan masuk kembali, lalu kirim ulang.");
+      else setMsg(`❌ Gagal mengirim email: ${e instanceof Error ? e.message : "jaringan bermasalah"}.`);
     } finally {
       setBusy("");
     }
