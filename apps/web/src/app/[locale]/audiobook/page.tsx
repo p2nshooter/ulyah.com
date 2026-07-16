@@ -60,7 +60,7 @@ export default async function AudiobookPage({
   const { category } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
-  const storyLang = locale === "id" ? "id" : "en";
+  const storyLang = locale; // the API localizes non-authored languages server-side
 
   let stories: StoryRow[] = [];
   let categories: CategoryRow[] = [];

@@ -14,9 +14,9 @@ interface Person {
   full_story_slug: string | null;
 }
 
-async function fetchPerson(slug: string): Promise<Person | null> {
+async function fetchPerson(slug: string, locale: string): Promise<Person | null> {
   try {
-    const r = await api.get<{ person: Person }>(`/content/kisah-tokoh/${slug}`);
+    const r = await api.get<{ person: Person }>(`/content/kisah-tokoh/${slug}?lang=${locale}`);
     return r.person;
   } catch {
     return null;
@@ -30,7 +30,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: raw, slug } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const person = await fetchPerson(slug);
+  const person = await fetchPerson(slug, locale);
   if (!person) return { title: "Kisah — ULYAH.COM" };
   return {
     title: `${person.name_id} — Kisah Islami · ULYAH.COM`,
@@ -46,7 +46,7 @@ export default async function KisahTokohPage({
 }) {
   const { locale: raw, slug } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const person = await fetchPerson(slug);
+  const person = await fetchPerson(slug, locale);
   if (!person) notFound();
 
   return (
