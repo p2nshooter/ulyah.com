@@ -2,6 +2,7 @@ import { generateStoryDraft } from "@ulyah/ai-engine";
 import type { Env } from "./../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
 import { runDeterministicCompile, runHadithCompile } from "./compile.js";
+import { safeKvGet } from "./kv-safe.js";
 
 interface ScalingSettings {
   autoThrottleEnabled: boolean;
@@ -24,7 +25,7 @@ const DEFAULT_SETTINGS: ScalingSettings = {
 const MAX_JOBS_EXECUTED_PER_TICK = 3; // bounded so one cron tick can't run away with CPU/wall time
 
 async function getSettings(env: Env): Promise<ScalingSettings> {
-  const raw = await env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(env, "scaling:settings");
   return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : DEFAULT_SETTINGS;
 }
 

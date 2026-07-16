@@ -5,6 +5,7 @@ import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, type Capability } from "../lib/orchestra.js";
 import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
+import { safeKvGet } from "../lib/kv-safe.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
 
@@ -59,7 +60,7 @@ aiRoute.post("/tts", async (c) => {
   // gratis dulu". When off, en/zh fall through to the same donated-key notice.
   let cfWorkerAiEnabled = false;
   try {
-    const raw = await c.env.CACHE_KV.get("scaling:settings");
+    const raw = await safeKvGet(c.env, "scaling:settings");
     if (raw) cfWorkerAiEnabled = JSON.parse(raw).cfWorkerAiEnabled === true;
   } catch {
     cfWorkerAiEnabled = false;

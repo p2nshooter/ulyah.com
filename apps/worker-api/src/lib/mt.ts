@@ -1,5 +1,5 @@
 import type { Env } from "../env.js";
-import { safeKvPut } from "./kv-safe.js";
+import { safeKvGet, safeKvPut } from "./kv-safe.js";
 
 // Free, keyless Google Translate ("gtx") endpoint — much more reliable and
 // higher-limit than MyMemory, and handles long text in one request. Used as
@@ -96,6 +96,30 @@ async function translateChunk(text: string, sourceLang: string, targetLang: stri
  * the site's locale codes (id/en/ru/de/fr/ar/zh/ja, packages/shared/i18n) —
  * every visitor's own language gets a real translation, not just id/en.
  */
+
+// Per-isolate memo in front of KV. The free-tier KV READ quota (100k/day)
+// was exhausted on 2026-07-16 and every unguarded get() threw, taking all
+// content routes down at once. safeKvGet already makes that non-fatal; this
+// memo also makes it rare — repeated texts (nav labels, titles, amalan rows)
+// resolve in-memory without touching KV at all while the isolate lives.
+const MT_MEM_MAX = 5000;
+const mtMem = new Map<string, string>();
+function memGet(key: string): string | undefined {
+  const v = mtMem.get(key);
+  if (v !== undefined) {
+    mtMem.delete(key);
+    mtMem.set(key, v); // refresh LRU position
+  }
+  return v;
+}
+function memSet(key: string, value: string): void {
+  if (mtMem.size >= MT_MEM_MAX) {
+    const oldest = mtMem.keys().next().value;
+    if (oldest !== undefined) mtMem.delete(oldest);
+  }
+  mtMem.set(key, value);
+}
+
 /**
  * Cache-only translation: returns a previously-cached translation or null,
  * and NEVER calls the translation API. Use this on list pages that render
@@ -114,7 +138,10 @@ export async function translateCachedOnly(
   const trimmed = text.trim();
   if (!trimmed || sourceLang === targetLang) return null;
   const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
-  const cached = await env.CACHE_KV.get(kvKey);
+  const mem = memGet(kvKey);
+  if (mem !== undefined) return mem || null;
+  const cached = await safeKvGet(env, kvKey);
+  if (cached !== null) memSet(kvKey, cached);
   return cached ? cached : null;
 }
 
@@ -128,8 +155,13 @@ export async function translateText(
   if (!trimmed || sourceLang === targetLang) return null;
 
   const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
-  const cached = await env.CACHE_KV.get(kvKey);
-  if (cached !== null) return cached || null;
+  const mem = memGet(kvKey);
+  if (mem !== undefined) return mem || null;
+  const cached = await safeKvGet(env, kvKey);
+  if (cached !== null) {
+    memSet(kvKey, cached);
+    return cached || null;
+  }
 
   try {
     // Google handles the whole passage in one request — try that first.
@@ -142,9 +174,11 @@ export async function translateText(
     }
     if (!result) {
       // Failure marker with a short TTL — retry soon rather than caching a miss for 90 days.
+      memSet(kvKey, "");
       await safeKvPut(env, kvKey, "", { expirationTtl: 60 * 60 * 6 });
       return null;
     }
+    memSet(kvKey, result);
     await safeKvPut(env, kvKey, result, { expirationTtl: KV_TTL });
     return result;
   } catch {
@@ -181,7 +215,8 @@ export async function localizeBatch(
       const trimmed = raw?.trim();
       if (!trimmed) return;
       const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
-      const cached = await env.CACHE_KV.get(kvKey);
+      const cached = memGet(kvKey) ?? (await safeKvGet(env, kvKey));
+      if (cached !== null && cached !== undefined) memSet(kvKey, cached);
       if (cached) out[idx] = cached;
       else if (cached === "") out[idx] = trimmed; // known-failed recently — serve source
       else misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
@@ -211,6 +246,7 @@ export async function localizeBatch(
       await Promise.all(
         batch.map((m, i) => {
           out[m.idx] = parts[i] || m.text;
+          if (parts[i]) memSet(m.kvKey, parts[i]!);
           return parts[i] ? safeKvPut(env, m.kvKey, parts[i]!, { expirationTtl: KV_TTL }) : Promise.resolve();
         })
       );
