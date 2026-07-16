@@ -351,6 +351,23 @@ jobs:
             echo "Aqidatul Awam already has $AACOUNT bait — skipping upgrade."
           fi
 
+      - name: Import Kitab Pesantren full texts from OpenITI (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Full Arabic texts (Safinah, Imrithi, Bidayatul Hidayah, Fathul
+          # Qarib, Minhaj) — 704 matn. Gated on the matn count so re-runs are
+          # no-ops. Statements are one-row inserts (max ~13KB), well under
+          # D1's statement size limit.
+          PMCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$PMCOUNT" -lt "500" ]; then
+            echo "Pesantren has $PMCOUNT matn — importing full texts."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_full_texts.sql
+          else
+            echo "Pesantren already has $PMCOUNT matn — skipping."
+          fi
+
       - name: Import Amalan Harian (doa/dzikir/thibb, one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
