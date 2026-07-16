@@ -475,6 +475,22 @@ jobs:
             echo "Kisah person index already has $PCOUNT entries — skipping."
           fi
 
+      - name: Import Kisah Nabi full stories — 113 bab untuk 25 nabi (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Full multi-section prophet biographies (migration 0035 +
+          # seed/kisah_nabi_full.sql). INSERT OR IGNORE + UNIQUE key, so
+          # re-running is a no-op.
+          NSCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_person_section;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$NSCOUNT" -lt "113" ]; then
+            echo "kisah_person_section has $NSCOUNT rows — importing full prophet stories."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_nabi_full.sql
+          else
+            echo "Full prophet stories already imported ($NSCOUNT rows) — skipping."
+          fi
+
       - name: Import Nasakh & Mansukh (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
