@@ -33,7 +33,7 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
 
   let episodes: EpisodeRow[] = [];
   try {
-    const r = await api.get<{ episodes: EpisodeRow[] }>("/content/kisah-anak");
+    const r = await api.get<{ episodes: EpisodeRow[] }>(`/content/kisah-anak?lang=${locale}`);
     episodes = r.episodes;
   } catch {
     episodes = [];
