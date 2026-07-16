@@ -117,6 +117,12 @@ def parse_imrithi(path):
             out.append((name, None, verses))
     return out
 
+BOOKS_ROUND2 = [
+    ("jurumiyah", "jurumiyah.md", lambda p: parse_by_headers(p, lambda h: True), "0723IbnAjrum.Ajrumiyya.Shamela0011371-ara1"),
+    ("alfiyah", "alfiyah.md", parse_imrithi, "0672IbnMalik.Alfiyya.Shamela0008522-ara1"),
+    ("taqrib", "taqrib.md", lambda p: parse_by_headers(p, lambda h: True), "0593IbnHusaynShihabDinIsbahani.GhayaWaTaqrib.Shamela0011370-ara1"),
+]
+
 BOOKS = [
     ("safinah", "safinah.md", parse_safinah, "1271SalimHadrami.MatnSafinatNaja.ShamAY0037367-ara1"),
     ("imrithi", "imrithi.md", parse_imrithi, "0989SharafDinCimriti.DurraBahiyya.Shamela0002084-ara1"),
@@ -134,7 +140,8 @@ rows = ["""-- Full Arabic texts for the Kitab Pesantren library, parsed from the
 -- existing hand-curated bab rows.
 """]
 total_matn = 0
-for slug, fname, parser, uri in BOOKS:
+BOOK_SET = BOOKS_ROUND2 if os.environ.get("ROUND") == "2" else BOOKS
+for slug, fname, parser, uri in BOOK_SET:
     babs = parser(os.path.join(SRC, fname))
     rows.append(f"\n-- ═══ {slug} — OpenITI {uri} ═══")
     for bi, (name_ar, name_id, matns) in enumerate(babs, start=100):
