@@ -661,3 +661,12 @@ contentRoute.get("/live-streams", async (c) => {
   ).all();
   return c.json({ streams: results });
 });
+
+// GET /content/video-anak — the owner's 45 kids videos (see migration 0030),
+// grouped client-side by series.
+contentRoute.get("/video-anak", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, series, video_order, title, youtube_id FROM video_anak ORDER BY series, video_order"
+  ).all();
+  return c.json({ videos: results });
+});
