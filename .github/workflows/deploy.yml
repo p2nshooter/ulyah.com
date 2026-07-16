@@ -475,6 +475,21 @@ jobs:
             echo "Kisah person index already has $PCOUNT entries — skipping."
           fi
 
+      - name: Import Doa Mustajab (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Waktu/keadaan terkabulnya doa, semua bersumber hadits sahih/hasan
+          # (seed/amalan_doa_mustajab.sql). INSERT OR IGNORE, re-run = no-op.
+          DMCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM amalan_item WHERE category_slug='doa-mustajab';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$DMCOUNT" -lt "14" ]; then
+            echo "Doa Mustajab has $DMCOUNT items — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/amalan_doa_mustajab.sql
+          else
+            echo "Doa Mustajab already imported ($DMCOUNT items) — skipping."
+          fi
+
       - name: Import Kisah Nabi full stories — 113 bab untuk 25 nabi (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
