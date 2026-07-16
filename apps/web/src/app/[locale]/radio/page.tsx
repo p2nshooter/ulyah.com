@@ -40,9 +40,6 @@ export default async function RadioPage({
             <h1 className="font-heading text-2xl sm:text-3xl">📻 {t.title}</h1>
             <p className="mt-1 max-w-xl text-sm text-[var(--color-text-secondary)]">{t.pageIntro}</p>
           </div>
-          <div className="flex flex-col items-end gap-1.5">
-            <span className="text-xs text-[var(--color-text-secondary)]">{t.installStandalone}</span>
-          </div>
         </div>
 
         <div className="mt-6">
