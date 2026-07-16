@@ -16,8 +16,10 @@ interface StreamRow {
   /** Auto rows: the channel id parsed from url (UC…). */
   channel_id?: string | null;
   /** Auto rows: the channel's CURRENT live broadcast, resolved server-side.
-   * null = not live right now / not resolvable → embed uploads playlist. */
+   * null = not live right now / not resolvable → fall back to latest video. */
   video_id?: string | null;
+  /** Auto rows, when not live: the channel's newest upload (RSS-resolved). */
+  latest_video_id?: string | null;
 }
 
 // Streaming-via-ulyah contact, shown on every offline manual card — explicit
@@ -50,7 +52,7 @@ function toEmbedUrl(raw: string, opts: { autoplayMuted?: boolean } = {}): string
     // playlist (UU + channel-id suffix). YouTube's live_stream?channel=
     // endpoint shows "Video unavailable" far too often to rely on.
     if (chIdx >= 0 && parts[chIdx + 1]?.startsWith("UC"))
-      return `https://www.youtube-nocookie.com/embed/videoseries?list=UU${parts[chIdx + 1].slice(2)}&rel=0${params}`;
+      return `https://www.youtube.com/embed/videoseries?list=UU${parts[chIdx + 1].slice(2)}&rel=0${params}`;
     return null;
   } catch {
     return null;
@@ -58,12 +60,15 @@ function toEmbedUrl(raw: string, opts: { autoplayMuted?: boolean } = {}): string
 }
 
 /** Preferred embed for a stream row: exact live video id when the worker
- * resolved one, else uploads playlist / plain URL parsing. */
+ * resolved one; else the channel's newest upload (RSS-resolved — uploads
+ * PLAYLIST embeds are refused by the privacy player for many channels); the
+ * playlist on plain youtube.com stays as the very last resort. */
 function streamEmbedUrl(s: StreamRow, opts: { autoplayMuted?: boolean } = {}): string | null {
   const params = opts.autoplayMuted ? "&autoplay=1&mute=1" : "";
   if (s.video_id) return `https://www.youtube-nocookie.com/embed/${s.video_id}?rel=0${params}`;
+  if (s.latest_video_id) return `https://www.youtube-nocookie.com/embed/${s.latest_video_id}?rel=0${params}`;
   if (s.kind === "auto" && s.channel_id)
-    return `https://www.youtube-nocookie.com/embed/videoseries?list=UU${s.channel_id.slice(2)}&rel=0${params}`;
+    return `https://www.youtube.com/embed/videoseries?list=UU${s.channel_id.slice(2)}&rel=0${params}`;
   return s.url ? toEmbedUrl(s.url, opts) : null;
 }
 
