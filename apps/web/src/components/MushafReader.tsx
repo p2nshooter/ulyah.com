@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { resolveTranslationLang, LOCALES } from "@ulyah/shared/i18n";
 import { usePlayerStore, type QueueItem } from "@/lib/player-store";
 import { mushafLabels } from "@/lib/mushaf-labels";
+import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 
 interface MushafAyahDTO {
   surahId: number;
@@ -29,6 +30,9 @@ interface SurahMeta {
 
 const TOTAL_PAGES = 604;
 const JUZ_LIST = Array.from({ length: 30 }, (_, i) => i + 1);
+// Where the reader left off last visit — restored on open so nobody is ever
+// thrown back to page 1 / Al-Fatihah after closing the tab.
+const LAST_PAGE_KEY = "ulyah:mushaf:last-page";
 
 type FlipPhase = "idle" | "out" | "in";
 type FlipDirection = "next" | "prev";
@@ -59,6 +63,9 @@ export function MushafReader({ locale }: { locale: string }) {
 
   const [showTranslation, setShowTranslation] = useState(true);
   const [translationLocale, setTranslationLocale] = useState(locale);
+  const [tajwidOn, setTajwidOn] = useState(true);
+  const [tajwidPopup, setTajwidPopup] = useState<TajwidRule | null>(null);
+  const initRef = useRef(false);
 
   const [surahList, setSurahList] = useState<SurahMeta[]>([]);
   const [pageInput, setPageInput] = useState("1");
@@ -72,7 +79,26 @@ export function MushafReader({ locale }: { locale: string }) {
   const setLayers = usePlayerStore((s) => s.setLayers);
   const pause = usePlayerStore((s) => s.pause);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
+  const queue = usePlayerStore((s) => s.queue);
+  const currentIndex = usePlayerStore((s) => s.currentIndex);
   const flipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Continuous-recitation mode: set when the reader starts playback, cleared
+  // by its stop button. While on, finishing the last ayah of the page turns
+  // the page by itself (with the flip animation) and keeps reciting.
+  const continuousRef = useRef(false);
+  const wasPlayingRef = useRef(false);
+
+  // Which ayah is being recited right now (for the live pointer/highlight).
+  const activeItem = isPlaying ? queue[currentIndex] : undefined;
+  const activeKey = activeItem ? `${activeItem.surahId}:${activeItem.number}` : null;
+
+  // Keep the recited ayah in view as recitation proceeds down the page.
+  useEffect(() => {
+    if (!activeKey) return;
+    document
+      .getElementById(`mushaf-ayah-${activeKey.replace(":", "-")}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [activeKey]);
 
   const translationLang = resolveTranslationLang(translationLocale);
 
@@ -88,11 +114,22 @@ export function MushafReader({ locale }: { locale: string }) {
   );
 
   // Initial load + reload when the translation language changes (Arabic text
-  // itself never changes, only which translation is attached per ayah).
+  // itself never changes, only which translation is attached per ayah). On
+  // the very first load, resume from the last page the visitor was reading.
   useEffect(() => {
     let cancelled = false;
+    let n = pageNumber;
+    if (!initRef.current) {
+      initRef.current = true;
+      const stored = Number(localStorage.getItem(LAST_PAGE_KEY));
+      if (Number.isInteger(stored) && stored >= 1 && stored <= TOTAL_PAGES && stored !== pageNumber) {
+        n = stored;
+        setPageNumber(n);
+        setPageInput(String(n));
+      }
+    }
     setLoading(true);
-    fetchPage(pageNumber).then((data) => {
+    fetchPage(n).then((data) => {
       if (!cancelled) {
         setPageData(data);
         setLoading(false);
@@ -103,6 +140,17 @@ export function MushafReader({ locale }: { locale: string }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [translationLocale]);
+
+  // Every page change is the new "last read" position; the tajwid popup also
+  // closes itself on page turn (it otherwise stays until closed manually).
+  useEffect(() => {
+    try {
+      localStorage.setItem(LAST_PAGE_KEY, String(pageNumber));
+    } catch {
+      /* storage may be unavailable (private mode) — reading still works */
+    }
+    setTajwidPopup(null);
+  }, [pageNumber]);
 
   useEffect(() => {
     api
@@ -117,7 +165,7 @@ export function MushafReader({ locale }: { locale: string }) {
     };
   }, []);
 
-  function goToPage(n: number, direction: FlipDirection) {
+  function goToPage(n: number, direction: FlipDirection, autoplay = false) {
     if (n < 1 || n > TOTAL_PAGES || flipPhase !== "idle") return;
     setFlipDirection(direction);
     setFlipPhase("out");
@@ -128,20 +176,22 @@ export function MushafReader({ locale }: { locale: string }) {
     // connection the page just stays flipped-out a little longer rather than
     // flipping "in" with stale/missing content.
     const animDelay = new Promise<void>((resolve) => {
-      flipTimeoutRef.current = setTimeout(resolve, 260);
+      flipTimeoutRef.current = setTimeout(resolve, 470);
     });
     Promise.all([fetchPage(n), animDelay]).then(([data]) => {
       setPageNumber(n);
       setPageData(data);
       setFlipPhase("in");
-      flipTimeoutRef.current = setTimeout(() => setFlipPhase("idle"), 280);
+      flipTimeoutRef.current = setTimeout(() => setFlipPhase("idle"), 530);
+      // Continuous recitation: the page has turned itself — keep reciting
+      // from the first ayah of the new page.
+      if (autoplay && data) startRecitation(data);
     });
   }
 
-  function playPage() {
-    if (!pageData) return;
+  function startRecitation(data: MushafPageResponse) {
     setLayers(["ayah"]);
-    const items: QueueItem[] = pageData.ayahs.map((a) => ({
+    const items: QueueItem[] = data.ayahs.map((a) => ({
       surahId: a.surahId,
       surahName: a.surahName,
       number: a.number,
@@ -155,6 +205,39 @@ export function MushafReader({ locale }: { locale: string }) {
     }));
     loadSurahQueue(items, 0);
   }
+
+  function playPage() {
+    if (!pageData) return;
+    continuousRef.current = true;
+    startRecitation(pageData);
+  }
+
+  function stopPage() {
+    continuousRef.current = false;
+    pause();
+  }
+
+  // Auto page-turn: when continuous recitation finishes the LAST ayah of
+  // this page (the player flips isPlaying off after the final queue item),
+  // turn the page with the flip animation and keep going. A manual stop
+  // clears continuousRef first, so it never re-triggers. (A pause from the
+  // global bar exactly on the final ayah is indistinguishable from a natural
+  // finish — acceptable: the reader's own stop button is the primary stop.)
+  useEffect(() => {
+    const finished =
+      wasPlayingRef.current &&
+      !isPlaying &&
+      continuousRef.current &&
+      queue.length > 0 &&
+      currentIndex >= queue.length - 1 &&
+      queue[0]?.surahId === pageData?.ayahs[0]?.surahId &&
+      queue[0]?.number === pageData?.ayahs[0]?.number;
+    wasPlayingRef.current = isPlaying;
+    if (finished && pageNumber < TOTAL_PAGES && flipPhase === "idle") {
+      goToPage(pageNumber + 1, "next", true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPlaying, currentIndex, queue]);
 
   function openTafsir(surahId: number, number: number) {
     setTafsirFor({ surahId, number });
@@ -208,7 +291,7 @@ export function MushafReader({ locale }: { locale: string }) {
           </button>
           {isPlaying && (
             <button
-              onClick={pause}
+              onClick={stopPage}
               className="rounded-full border border-accent/40 px-4 py-2 text-xs font-medium text-accent"
             >
               {t.stopPage}
@@ -220,6 +303,18 @@ export function MushafReader({ locale }: { locale: string }) {
             className="rounded-full border border-accent/40 px-4 py-2 text-xs font-medium text-accent"
           >
             {showTranslation ? t.hideTranslation : t.showTranslation}
+          </button>
+
+          <button
+            onClick={() => {
+              setTajwidOn((v) => !v);
+              setTajwidPopup(null);
+            }}
+            className={`rounded-full px-4 py-2 text-xs font-medium transition ${
+              tajwidOn ? "bg-accent/20 text-accent ring-1 ring-accent/50" : "border border-accent/40 text-accent"
+            }`}
+          >
+            {locale === "id" ? "Tajwid" : locale === "ar" ? "التجويد" : "Tajwid"} {tajwidOn ? "✓" : ""}
           </button>
 
           <select
@@ -328,36 +423,74 @@ export function MushafReader({ locale }: { locale: string }) {
 
           <div
             key={pageNumber}
-            className={`mushaf-page-surface mx-auto min-h-[70vh] max-w-3xl rounded-[2rem] border-[6px] border-double border-accent/50 bg-[#fdf8ec] p-6 shadow-2xl sm:min-h-[75vh] sm:p-10 dark:bg-[#fdf8ec] ${flipClass}`}
+            className={`mushaf-frame mx-auto min-h-[70vh] max-w-3xl p-2 sm:min-h-[75vh] sm:p-3 ${flipClass}`}
             style={{ transformStyle: "preserve-3d" }}
           >
+            <div className="mushaf-paper flex min-h-full flex-col px-4 pb-4 pt-6 sm:px-8 sm:pb-6 sm:pt-8">
             {loading && !pageData ? (
               <p className="py-24 text-center text-sm text-[#0B3D2E]/60">{t.loadingPage}</p>
             ) : pageData ? (
-              <div dir="rtl" className="space-y-1">
+              <div dir="rtl" className="mushaf-text flex-1">
                 {pageData.ayahs.map((a) => (
-                  <div key={`${a.surahId}:${a.number}`}>
+                  <span key={`${a.surahId}:${a.number}`}>
                     {a.isFirstOfSurah && (
-                      <div className="my-4 rounded-xl border border-accent/40 bg-accent/10 py-3 text-center">
-                        <p className="font-heading text-lg text-[#0B3D2E]">{a.surahNameAr}</p>
-                        <p className="text-xs text-[#0B3D2E]/60">{a.surahName}</p>
-                      </div>
+                      <span className="my-4 flex items-center justify-center gap-3 rounded-xl border-2 border-accent/60 bg-gradient-to-l from-accent/15 via-accent/5 to-accent/15 py-3 text-center">
+                        <span aria-hidden className="text-accent">✦</span>
+                        <span>
+                          <span className="block font-heading text-xl text-[#7a1f2b]">{a.surahNameAr}</span>
+                          <span className="block text-[11px] text-[#0B3D2E]/60">{a.surahName}</span>
+                        </span>
+                        <span aria-hidden className="text-accent">✦</span>
+                      </span>
                     )}
                     <span
-                      className="font-arabic cursor-pointer text-2xl leading-[2.4] text-[#0B3D2E] transition hover:bg-accent/10 sm:text-3xl"
+                      id={`mushaf-ayah-${a.surahId}-${a.number}`}
+                      className={`font-arabic cursor-pointer px-0.5 text-2xl leading-[2.4] text-[#1a1408] transition hover:bg-accent/10 sm:text-3xl ${
+                        activeKey === `${a.surahId}:${a.number}` ? "mushaf-ayah-active" : ""
+                      }`}
                       onClick={() => openTafsir(a.surahId, a.number)}
                     >
-                      {a.textAr}
-                      <span className="mx-1 inline-block rounded-full border border-accent/50 px-2 text-base text-accent">
+                      {tajwidOn
+                        ? analyzeTajwid(a.textAr).map((seg, si) =>
+                            seg.rule ? (
+                              <span
+                                key={si}
+                                role="button"
+                                style={{ color: TAJWID_RULES[seg.rule].color, fontWeight: 600 }}
+                                onClick={(e) => {
+                                  // Explaining a rule must never interrupt the
+                                  // recitation or open the tafsir sheet.
+                                  e.stopPropagation();
+                                  setTajwidPopup(seg.rule);
+                                }}
+                              >
+                                {seg.text}
+                              </span>
+                            ) : (
+                              <span key={si}>{seg.text}</span>
+                            )
+                          )
+                        : a.textAr}
+                      <span
+                        className={`mx-1 inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-accent/70 bg-accent/5 text-sm font-semibold text-[#7a1f2b] ${
+                          activeKey === `${a.surahId}:${a.number}` ? "mushaf-ayah-live" : ""
+                        }`}
+                      >
                         {toArabicNumeral(a.number)}
                       </span>
-                    </span>
-                  </div>
+                    </span>{" "}
+                  </span>
                 ))}
               </div>
             ) : (
               <p className="py-24 text-center text-sm text-danger">—</p>
             )}
+
+            {/* Page-number medallion, like the roundel at the foot of a
+                printed mushaf page. */}
+            <div className="mt-6 text-center">
+              <span className="mushaf-page-medallion text-sm">{toArabicNumeral(pageNumber)}</span>
+            </div>
 
             {showTranslation && pageData && (
               <div className="mt-6 space-y-2 border-t border-accent/20 pt-4 text-left" dir={isRtl ? "rtl" : "ltr"}>
@@ -373,9 +506,40 @@ export function MushafReader({ locale }: { locale: string }) {
                 )}
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Tajwid rule popup — deliberately NON-modal: no backdrop, playback
+          keeps going, the reader keeps scrolling. Stays until closed manually
+          or the page turns (see the pageNumber effect). */}
+      {tajwidPopup && (
+        <div className="tajwid-pop fixed bottom-24 left-1/2 z-40 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border-2 bg-[var(--color-card)] p-4 shadow-2xl"
+          style={{ borderColor: TAJWID_RULES[tajwidPopup].color }}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <p className="flex items-center gap-2 font-heading text-base">
+              <span
+                aria-hidden
+                className="inline-block h-3.5 w-3.5 rounded-full"
+                style={{ backgroundColor: TAJWID_RULES[tajwidPopup].color }}
+              />
+              {locale === "id" ? TAJWID_RULES[tajwidPopup].nameId : TAJWID_RULES[tajwidPopup].nameEn}
+            </p>
+            <button
+              onClick={() => setTajwidPopup(null)}
+              aria-label={t.closeButton}
+              className="rounded-full border border-[var(--color-border)] px-2 py-0.5 text-xs text-[var(--color-text-secondary)]"
+            >
+              ✕
+            </button>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+            {locale === "id" ? TAJWID_RULES[tajwidPopup].descId : TAJWID_RULES[tajwidPopup].descEn}
+          </p>
+        </div>
+      )}
 
       {tafsirFor && (
         <div

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
 
@@ -37,6 +37,12 @@ const SPECIALISTS: { key: string; label: string }[] = [
  * and are nudged toward donor registration when it's hit, purely as a way to
  * lift the limit — never a gate on the chat itself.
  */
+// Chat history survives refreshes and link-outs (clicking a cited source and
+// coming back previously wiped the whole conversation — the #1 complaint
+// about this chat). Session-scoped on purpose: closing the browser ends the
+// conversation, which is the honest lifetime for an anonymous chat.
+const CHAT_STORE_KEY = "ulyah:ai-chat:v1";
+
 export function AiChat({ locale }: { locale: string }) {
   const [specialist, setSpecialist] = useState("master");
   const [input, setInput] = useState("");
@@ -44,6 +50,30 @@ export function AiChat({ locale }: { locale: string }) {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Restore the conversation once on mount, then persist on every change.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(CHAT_STORE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw) as { msgs: Msg[]; specialist: string };
+        if (Array.isArray(saved.msgs) && saved.msgs.length) {
+          setMsgs(saved.msgs);
+          if (saved.specialist) setSpecialist(saved.specialist);
+          requestAnimationFrame(() => scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight));
+        }
+      }
+    } catch {
+      /* corrupt/unavailable storage — start fresh */
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      if (msgs.length) sessionStorage.setItem(CHAT_STORE_KEY, JSON.stringify({ msgs, specialist }));
+    } catch {
+      /* storage full/unavailable — chat still works, just won't survive refresh */
+    }
+  }, [msgs, specialist]);
 
   async function send() {
     const q = input.trim();
@@ -113,12 +143,16 @@ export function AiChat({ locale }: { locale: string }) {
                   <p className="font-medium">Rujukan dari ULYAH.COM:</p>
                   {m.sources.map((s, j) =>
                     s.url ? (
+                      // New tab, so following a citation never leaves (or
+                      // used to: wiped) the running conversation.
                       <Link
                         key={j}
                         href={`/${locale}${s.url}`}
+                        target="_blank"
+                        rel="noopener"
                         className="block text-accent hover:underline"
                       >
-                        [{j + 1}] {s.ref} →
+                        [{j + 1}] {s.ref} ↗
                       </Link>
                     ) : (
                       <p key={j}>
