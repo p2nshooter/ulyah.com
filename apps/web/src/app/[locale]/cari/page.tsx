@@ -1,6 +1,7 @@
 "use client";
 
-import { use as usePromise, useState } from "react";
+import { Suspense, use as usePromise, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
@@ -15,29 +16,55 @@ interface SearchResults {
   ebook?: { id: number; title: string }[];
 }
 
+// useSearchParams requires a Suspense boundary to prerender, hence the
+// inner/outer split.
 export default function CariPage({ params }: { params: Promise<{ locale: string }> }) {
+  return (
+    <Suspense fallback={null}>
+      <CariPageInner params={params} />
+    </Suspense>
+  );
+}
+
+function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = usePromise(params);
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
 
+  const searchParams = useSearchParams();
   const [q, setQ] = useState("");
   const [results, setResults] = useState<SearchResults>({});
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
 
-  async function runSearch(e: React.FormEvent) {
-    e.preventDefault();
-    if (q.trim().length < 2) return;
+  async function doSearch(query: string) {
+    if (query.trim().length < 2) return;
     setLoading(true);
     try {
       const res = await api.get<{ results: SearchResults }>(
-        `/quran/search?q=${encodeURIComponent(q)}&lang=${locale}`
+        `/quran/search?q=${encodeURIComponent(query)}&lang=${locale}`
       );
       setResults(res.results);
       setSearched(true);
     } finally {
       setLoading(false);
     }
+  }
+
+  // Deep-linkable search: the header search box submits here as /cari?q=…,
+  // so run that query immediately on arrival.
+  useEffect(() => {
+    const fromUrl = searchParams.get("q");
+    if (fromUrl && fromUrl.trim().length >= 2) {
+      setQ(fromUrl);
+      doSearch(fromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  async function runSearch(e: React.FormEvent) {
+    e.preventDefault();
+    await doSearch(q);
   }
 
   const totalResults =

@@ -20,7 +20,7 @@ export default async function AmalanPage({ params }: { params: Promise<{ locale:
 
   let categories: AmalanCategory[] = [];
   try {
-    const res = await api.get<{ categories: AmalanCategory[] }>("/content/amalan/all");
+    const res = await api.get<{ categories: AmalanCategory[] }>(`/content/amalan/all?lang=${locale}`);
     categories = res.categories;
   } catch {
     categories = [];

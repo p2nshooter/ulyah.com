@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { NarrateButton } from "@/components/NarrateButton";
+import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 
 interface Item {
   category_slug: string;
@@ -70,6 +71,55 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
     const first = categories.find((c) => c.grp === g);
     setActiveSlug(first?.slug ?? "");
   }
+
+  // ── Sequential playback ("Putar berurutan") ──────────────────────────────
+  // Reads the category item by item: the item being read is highlighted and
+  // scrolled into view (the reading pointer), then playback advances to the
+  // next item by itself — requested specifically for 99 Asmaul Husna, works
+  // for every category. Stopping, or switching category/group/mode, ends it.
+  const [seqIdx, setSeqIdx] = useState<number | null>(null);
+  const seqHandle = useRef<NarrationHandle | null>(null);
+  const seqStopped = useRef(false);
+
+  function stopSequence() {
+    seqStopped.current = true;
+    seqHandle.current?.cancel();
+    setSeqIdx(null);
+  }
+
+  useEffect(() => {
+    // Any change of what's on screen invalidates the running sequence.
+    stopSequence();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSlug, group, audioMode]);
+
+  useEffect(() => {
+    if (seqIdx === null || !current) return;
+    const item = current.items[seqIdx];
+    if (!item) {
+      setSeqIdx(null);
+      return;
+    }
+    seqStopped.current = false;
+    document.getElementById(`amalan-item-${seqIdx}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    let cancelled = false;
+    (async () => {
+      for (const seg of itemSegments(item)) {
+        if (cancelled || seqStopped.current) return;
+        seqHandle.current = speak(seg.text, seg.lang);
+        await seqHandle.current.done;
+      }
+      if (!cancelled && !seqStopped.current) {
+        setSeqIdx((i) => (i === null || i + 1 >= current.items.length ? null : i + 1));
+      }
+    })();
+    return () => {
+      cancelled = true;
+      seqHandle.current?.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seqIdx]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
@@ -141,22 +191,35 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                       </button>
                     ))}
                   </div>
-                  {current.items.length > 0 && (
-                    <NarrateButton
-                      key={audioMode}
-                      paragraphs={[]}
-                      segments={current.items.flatMap((it) => itemSegments(it))}
-                      listenLabel="🔊 Dengarkan semua"
-                      stopLabel="⏹ Berhenti"
-                      lang={locale}
-                    />
-                  )}
+                  {current.items.length > 0 &&
+                    speechAvailable() &&
+                    (seqIdx === null ? (
+                      <button
+                        onClick={() => setSeqIdx(0)}
+                        className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary shadow transition hover:brightness-110"
+                      >
+                        ▶ Putar berurutan
+                      </button>
+                    ) : (
+                      <button
+                        onClick={stopSequence}
+                        className="rounded-full border border-accent/50 px-4 py-2 text-xs font-medium text-accent"
+                      >
+                        ⏹ Berhenti ({seqIdx + 1}/{current.items.length})
+                      </button>
+                    ))}
                 </div>
               </div>
 
               <div className="mt-5 space-y-4">
-                {current.items.map((it) => (
-                  <article key={it.item_order} className="card-premium-static p-5">
+                {current.items.map((it, idx) => (
+                  <article
+                    key={it.item_order}
+                    id={`amalan-item-${idx}`}
+                    className={`card-premium-static p-5 transition ${
+                      seqIdx === idx ? "ring-2 ring-accent shadow-[var(--shadow-gold)]" : ""
+                    }`}
+                  >
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <p className="font-heading text-base text-primary dark:text-accent">{it.title_id}</p>
                       {it.repeat_count ? (

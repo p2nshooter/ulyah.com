@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { KisahAnakList } from "@/components/KisahAnakList";
+import { VideoAnakGrid } from "@/components/kids/VideoAnakGrid";
 
 interface EpisodeRow {
   id: number;
@@ -32,7 +33,7 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
 
   let episodes: EpisodeRow[] = [];
   try {
-    const r = await api.get<{ episodes: EpisodeRow[] }>("/content/kisah-anak");
+    const r = await api.get<{ episodes: EpisodeRow[] }>(`/content/kisah-anak?lang=${locale}`);
     episodes = r.episodes;
   } catch {
     episodes = [];
@@ -53,8 +54,19 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
           </p>
         </div>
 
+        {/* The owner's 45 kids videos from youtube.com/@ulyah-com — three
+            series, click-to-play (see VideoAnakGrid). */}
         <div className="mt-10">
-          <KisahAnakList locale={locale} episodes={episodes} />
+          <VideoAnakGrid locale={locale} />
+        </div>
+
+        <div className="mt-12">
+          <h2 className="flex items-center gap-2 font-heading text-xl">
+            <span aria-hidden>📖</span> {isId ? "Kisah Interaktif Beranimasi" : "Interactive Animated Stories"}
+          </h2>
+          <div className="mt-4">
+            <KisahAnakList locale={locale} episodes={episodes} />
+          </div>
         </div>
       </div>
     </div>

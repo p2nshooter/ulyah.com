@@ -74,7 +74,7 @@ const EN: NavLabels = {
     },
   ],
   direct: [
-    { label: "Apps", path: "/widget" },
+    { label: "🔴 Live", path: "/live" },
     { label: "About", path: "/tentang" },
   ],
 };
@@ -131,7 +131,7 @@ const ID: NavLabels = {
     },
   ],
   direct: [
-    { label: "Aplikasi", path: "/widget" },
+    { label: "🔴 Live", path: "/live" },
     { label: "Tentang", path: "/tentang" },
   ],
 };
@@ -188,7 +188,7 @@ const AR: NavLabels = {
     },
   ],
   direct: [
-    { label: "التطبيقات", path: "/widget" },
+    { label: "🔴 مباشر", path: "/live" },
     { label: "من نحن", path: "/tentang" },
   ],
 };

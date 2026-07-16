@@ -14,11 +14,15 @@ interface EpisodeSummary {
   moral_id: string | null;
   moral_en: string | null;
   motif: string;
+  /** Localized by the API per ?lang — title/moral in the SITE locale. */
+  title?: string;
+  moral?: string | null;
 }
 interface EpisodeDetail extends EpisodeSummary {
   body_id: string;
   body_en: string | null;
   age_range: string;
+  body?: string;
 }
 
 // Each episode stars one of the two generic child characters (see
@@ -63,7 +67,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
     setShowText(false);
     setLoading(true);
     try {
-      const r = await api.get<{ episode: EpisodeDetail }>(`/content/kisah-anak/${slug}`);
+      const r = await api.get<{ episode: EpisodeDetail }>(`/content/kisah-anak/${slug}?lang=${locale}`);
       setDetail(r.episode);
     } catch {
       setDetail(null);
@@ -87,11 +91,11 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block font-heading text-base">
-                  {ep.episode_order}. {isId ? ep.title_id : ep.title_en ?? ep.title_id}
+                  {ep.episode_order}. {ep.title ?? (isId ? ep.title_id : ep.title_en ?? ep.title_id)}
                 </span>
-                {ep.moral_id && (
+                {(ep.moral ?? ep.moral_id) && (
                   <span className="block truncate text-xs text-[var(--color-text-secondary)]">
-                    {isId ? ep.moral_id : ep.moral_en}
+                    {ep.moral ?? (isId ? ep.moral_id : ep.moral_en)}
                   </span>
                 )}
               </span>
@@ -106,9 +110,9 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
                 {detail && detail.slug === ep.slug && (
                   <>
                     <KidsFilmPlayer
-                      title={isId ? detail.title_id : detail.title_en ?? detail.title_id}
-                      body={isId ? detail.body_id : detail.body_en ?? detail.body_id}
-                      moral={isId ? detail.moral_id : detail.moral_en ?? detail.moral_id}
+                      title={detail.title ?? (isId ? detail.title_id : detail.title_en ?? detail.title_id)}
+                      body={detail.body ?? (isId ? detail.body_id : detail.body_en ?? detail.body_id)}
+                      moral={detail.moral ?? (isId ? detail.moral_id : detail.moral_en ?? detail.moral_id)}
                       variant={episodeVariant(detail.episode_order)}
                       lang={locale}
                       labels={labels}
@@ -121,7 +125,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
                     </button>
                     {showText && (
                       <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]">
-                        {isId ? detail.body_id : detail.body_en ?? detail.body_id}
+                        {detail.body ?? (isId ? detail.body_id : detail.body_en ?? detail.body_id)}
                       </p>
                     )}
                   </>

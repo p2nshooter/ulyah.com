@@ -154,66 +154,123 @@ body {
   animation: marquee-scroll linear infinite;
 }
 
-/* Mushaf Utsmani page-turn — a book-like flip split into two 3D quarter-turns
-   (current page rotates away edge-on, then the new page rotates back in from
-   the same edge) rather than one continuous rotation, so the moment the page
-   is perpendicular to the screen (and would otherwise show nothing, or the
-   page's non-existent "back side") is exactly when the content underneath
-   gets swapped — the visible result reads as one smooth, continuous flip.
-   Direction-aware: "next" turns as if pulling the right edge over to the
-   left (transform-origin left), "prev" is the mirror (transform-origin
-   right). */
+/* Mushaf Utsmani page-turn — a real book flip for an ARABIC book: the leaf
+   turns about the spine, which for a mushaf sits on the RIGHT edge of the
+   page you are reading (Arabic books advance left-to-right physically).
+   Split into two quarter-turns around that same edge — current page sweeps
+   back edge-on, new page completes the sweep in — so the swap happens
+   exactly when the leaf is perpendicular and invisible. A page-shadow
+   overlay (::after on the flip classes) darkens along the fold as the leaf
+   lifts, which is what actually sells the "paper" feel. Slow enough to be
+   unmistakable (~0.5s per half), still fast enough to not drag when
+   auto-advancing during continuous recitation. */
 .mushaf-page-flip-next-out {
-  animation: mushaf-flip-out-left 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: right center;
+  animation: mushaf-flip-out-next 480ms cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
 }
 .mushaf-page-flip-next-in {
-  animation: mushaf-flip-in-left 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: right center;
+  animation: mushaf-flip-in-next 520ms cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
 }
 .mushaf-page-flip-prev-out {
-  animation: mushaf-flip-out-right 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: left center;
+  animation: mushaf-flip-out-prev 480ms cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
 }
 .mushaf-page-flip-prev-in {
-  animation: mushaf-flip-in-right 260ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: left center;
+  animation: mushaf-flip-in-prev 520ms cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
 }
-@keyframes mushaf-flip-out-left {
-  from {
-    transform: perspective(2000px) rotateY(0deg);
-    opacity: 1;
-  }
-  to {
-    transform: perspective(2000px) rotateY(-92deg);
-    opacity: 0.4;
-  }
+.mushaf-page-flip-next-out::after,
+.mushaf-page-flip-prev-out::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(to left, rgba(20, 12, 0, 0.28), transparent 55%);
+  animation: mushaf-shadow-in 480ms ease forwards;
 }
-@keyframes mushaf-flip-in-left {
-  from {
-    transform: perspective(2000px) rotateY(92deg);
-    opacity: 0.4;
-  }
-  to {
-    transform: perspective(2000px) rotateY(0deg);
-    opacity: 1;
-  }
+.mushaf-page-flip-prev-out::after {
+  background: linear-gradient(to right, rgba(20, 12, 0, 0.28), transparent 55%);
 }
-@keyframes mushaf-flip-out-right {
-  from {
-    transform: perspective(2000px) rotateY(0deg);
-    opacity: 1;
-  }
-  to {
-    transform: perspective(2000px) rotateY(92deg);
-    opacity: 0.4;
-  }
+@keyframes mushaf-shadow-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-@keyframes mushaf-flip-in-right {
-  from {
-    transform: perspective(2000px) rotateY(-92deg);
-    opacity: 0.4;
-  }
-  to {
-    transform: perspective(2000px) rotateY(0deg);
-    opacity: 1;
-  }
+@keyframes mushaf-flip-out-next {
+  from { transform: perspective(1600px) rotateY(0deg); }
+  to { transform: perspective(1600px) rotateY(88deg); }
+}
+@keyframes mushaf-flip-in-next {
+  from { transform: perspective(1600px) rotateY(-88deg); }
+  to { transform: perspective(1600px) rotateY(0deg); }
+}
+@keyframes mushaf-flip-out-prev {
+  from { transform: perspective(1600px) rotateY(0deg); }
+  to { transform: perspective(1600px) rotateY(-88deg); }
+}
+@keyframes mushaf-flip-in-prev {
+  from { transform: perspective(1600px) rotateY(88deg); }
+  to { transform: perspective(1600px) rotateY(0deg); }
+}
+
+/* The mushaf page frame — modelled on a printed Madinah mushaf: a deep
+   outer frame, an ornamental patterned band (pure repeating gradients, no
+   image), a thin gold rule, then the cream paper. */
+.mushaf-frame {
+  position: relative;
+  background:
+    linear-gradient(#fdf8ec, #fdf8ec) padding-box,
+    repeating-linear-gradient(45deg, #7a1f2b 0 6px, #b8892b 6px 8px, #7a1f2b 8px 14px) border-box;
+  border: 10px solid transparent;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 0 0 3px #b8892b,
+    0 0 0 6px #4a1219,
+    0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.mushaf-paper {
+  border: 1px solid rgba(184, 137, 43, 0.55);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(ellipse at top left, rgba(184, 137, 43, 0.06), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(184, 137, 43, 0.06), transparent 55%),
+    #fdf8ec;
+}
+/* Justified Arabic text block, like a typeset mushaf line. */
+.mushaf-text {
+  text-align: justify;
+  text-align-last: center;
+}
+/* Bottom-center page-number medallion (like the ٩١ roundel in a printed
+   mushaf). */
+.mushaf-page-medallion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.6rem;
+  height: 2.6rem;
+  padding: 0 0.6rem;
+  border-radius: 999px;
+  border: 2px solid #b8892b;
+  box-shadow: 0 0 0 3px #fdf8ec, 0 0 0 4px rgba(122, 31, 43, 0.7);
+  background: radial-gradient(circle at 35% 30%, #fffbe9, #f4e8c8);
+  color: #7a1f2b;
+  font-weight: 600;
+}
+/* The ayah currently being recited — gold wash + underline glow, plus a
+   little pulsing ring on its number roundel via .mushaf-ayah-live. */
+.mushaf-ayah-active {
+  background: linear-gradient(to left, rgba(184, 137, 43, 0.22), rgba(184, 137, 43, 0.08));
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 0 rgba(184, 137, 43, 0.55);
+}
+.mushaf-ayah-live {
+  animation: mushaf-live-pulse 1.6s ease-in-out infinite;
+}
+@keyframes mushaf-live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(184, 137, 43, 0.55); }
+  50% { box-shadow: 0 0 0 6px rgba(184, 137, 43, 0); }
 }
 
 /* Kisah Anak (kids' animated stories) — character + scene animation. Plain
@@ -504,4 +561,13 @@ body {
   color: var(--color-accent);
   font-size: 0.9rem;
   line-height: 1;
+}
+
+/* Tajwid rule popup — zooms in from below, non-modal. */
+.tajwid-pop {
+  animation: tajwid-pop-in 320ms cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+@keyframes tajwid-pop-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(24px) scale(0.8); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }

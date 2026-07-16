@@ -862,3 +862,46 @@ adminRoute.delete("/media/:key", async (c) => {
   await logAdminAction(c.env, "media_removed", admin.email, c.req.header("cf-connecting-ip") ?? null, { key });
   return c.json({ ok: true });
 });
+
+// ── Live streaming hub management ──────────────────────────────────────────
+adminRoute.get("/live-streams", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, platform, slot, kind, region, title, url, is_live, updated_at FROM live_stream ORDER BY kind = 'auto' DESC, slot"
+  ).all();
+  return c.json({ streams: results });
+});
+
+adminRoute.put("/live-streams/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
+  const body = await c.req.json<{ title?: string; url?: string; is_live?: boolean }>();
+  await c.env.DB.prepare(
+    "UPDATE live_stream SET title = ?, url = ?, is_live = ?, updated_at = datetime('now') WHERE id = ?"
+  )
+    .bind(body.title?.trim() || null, body.url?.trim() || null, body.is_live ? 1 : 0, id)
+    .run();
+  return c.json({ ok: true });
+});
+
+// Add a new AUTO world channel (kind='auto'); manual slots are fixed at six.
+adminRoute.post("/live-streams", async (c) => {
+  const body = await c.req.json<{ title?: string; url?: string; region?: string }>();
+  if (!body.url?.trim() || !body.title?.trim()) return c.json({ error: "title dan url wajib diisi" }, 400);
+  const next = await c.env.DB.prepare(
+    "SELECT COALESCE(MAX(slot), 100) + 1 AS n FROM live_stream WHERE kind = 'auto'"
+  ).first<{ n: number }>();
+  await c.env.DB.prepare(
+    "INSERT INTO live_stream (platform, slot, kind, title, region, url, is_live) VALUES ('youtube', ?, 'auto', ?, ?, ?, 1)"
+  )
+    .bind(next?.n ?? 101, body.title.trim(), body.region?.trim() || null, body.url.trim())
+    .run();
+  return c.json({ ok: true });
+});
+
+// Only auto rows are deletable — the six manual slots are the fixed frame.
+adminRoute.delete("/live-streams/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
+  await c.env.DB.prepare("DELETE FROM live_stream WHERE id = ? AND kind = 'auto'").bind(id).run();
+  return c.json({ ok: true });
+});

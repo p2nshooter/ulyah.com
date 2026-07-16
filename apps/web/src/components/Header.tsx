@@ -147,10 +147,23 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Real search box, not a buried icon — owner request, and it's
+              what visitors expect from a reference site. */}
+          <form action={`/${locale}/cari`} className="hidden items-center tablet:flex">
+            <div className="flex items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-black/[0.03] py-1 pl-3 pr-1 transition focus-within:border-accent dark:bg-white/5">
+              <span aria-hidden className="text-sm opacity-70">🔍</span>
+              <input
+                type="search"
+                name="q"
+                placeholder={dict.nav.searchPlaceholder}
+                className="w-28 bg-transparent text-xs outline-none placeholder:text-[var(--color-text-secondary)] focus:w-44 transition-all"
+              />
+            </div>
+          </form>
           <Link
             href={`/${locale}/cari`}
             aria-label={dict.nav.searchPlaceholder}
-            className="hidden rounded-full border border-[var(--color-border)] p-2 tablet:block"
+            className="rounded-full border border-[var(--color-border)] p-2 tablet:hidden"
           >
             🔍
           </Link>
