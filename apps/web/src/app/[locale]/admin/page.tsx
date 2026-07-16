@@ -23,6 +23,7 @@ import { AdsenseTab } from "@/components/admin/AdsenseTab";
 import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
 import { LiveStreamsTab } from "@/components/admin/LiveStreamsTab";
 import { KaggleGuideTab } from "@/components/admin/KaggleGuideTab";
+import { KidsChannelsTab } from "@/components/admin/KidsChannelsTab";
 import { MonitorTab } from "@/components/admin/MonitorTab";
 import { BacklogTab } from "@/components/admin/BacklogTab";
 import { OrchestraTab } from "@/components/admin/OrchestraTab";
@@ -30,7 +31,7 @@ import { SanadTab } from "@/components/admin/SanadTab";
 import { GrantTab } from "@/components/admin/GrantTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kaggle";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kaggle";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -93,6 +94,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["adsense", "💰 AdSense"],
     ["widgets", "🧩 Widget Store"],
     ["live", "📡 Live Streaming"],
+    ["kids", "🎬 Film Anak"],
     ["kaggle", "🎓 Kaggle GPU"],
     ["roadmap", "🗺️ Konsep"],
     ["account", "Account"],
@@ -164,6 +166,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "adsense" && <AdsenseTab />}
         {tab === "widgets" && <WidgetStoreTab />}
         {tab === "live" && <LiveStreamsTab />}
+        {tab === "kids" && <KidsChannelsTab />}
         {tab === "kaggle" && <KaggleGuideTab />}
         {tab === "roadmap" && <RoadmapTab />}
         {tab === "account" && <AccountTab />}

@@ -80,6 +80,23 @@ export function LiveStreamsTab() {
     }
   }
 
+  // For AUTO rows is_live doubles as show/hide on the public /live page
+  // (the public route only lists autos WHERE is_live = 1). The PUT endpoint
+  // overwrites title/url too, so resend the row's current values.
+  async function toggleAuto(s: StreamRow) {
+    setSaving(s.id);
+    setNote(null);
+    try {
+      await api.put(`/admin/live-streams/${s.id}`, { title: s.title ?? "", url: s.url ?? "", is_live: !s.is_live });
+      setNote(s.is_live ? "✓ Channel disembunyikan dari /live." : "✓ Channel ditampilkan di /live.");
+      load();
+    } catch {
+      setNote("Gagal menyimpan — coba lagi.");
+    } finally {
+      setSaving(null);
+    }
+  }
+
   async function removeAuto(id: number) {
     setSaving(id);
     try {
@@ -122,6 +139,17 @@ export function LiveStreamsTab() {
                 <b>{s.title}</b> {s.region && <span className="text-[var(--color-text-secondary)]">· {s.region}</span>}
                 <span className="ml-2 break-all text-[var(--color-text-secondary)]">{s.url}</span>
               </span>
+              <button
+                onClick={() => toggleAuto(s)}
+                disabled={saving === s.id}
+                className={`rounded-full border px-3 py-1 disabled:opacity-50 ${
+                  s.is_live
+                    ? "border-accent/50 text-accent"
+                    : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                }`}
+              >
+                {s.is_live ? "👁 Tampil" : "🙈 Sembunyi"}
+              </button>
               {s.slot > 102 ? (
                 <button
                   onClick={() => removeAuto(s.id)}
