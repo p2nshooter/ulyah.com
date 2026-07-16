@@ -679,7 +679,11 @@ contentRoute.get("/kisah-tokoh", async (c) => {
   return c.json({ persons: results, lang });
 });
 
-// GET /content/kisah-tokoh/:slug?lang= — one person's full profile.
+// GET /content/kisah-tokoh/:slug?lang= — one person's full profile plus the
+// full multi-section story (kisah_person_section, see migration 0035). For a
+// non-Indonesian ?lang the summary AND every section heading/body are
+// machine-translated server-side (batched + KV-cached); quran_refs stay as-is
+// (surah names are proper nouns).
 contentRoute.get("/kisah-tokoh/:slug", async (c) => {
   const slug = c.req.param("slug");
   const lang = c.req.query("lang") ?? "id";
@@ -687,13 +691,24 @@ contentRoute.get("/kisah-tokoh/:slug", async (c) => {
     Record<string, unknown> & { title_id: string | null; summary_id: string }
   >();
   if (!person) return c.json({ error: "Not found" }, 404);
+  const { results: sections } = await c.env.DB.prepare(
+    "SELECT section_order, heading_id, body_id, quran_refs FROM kisah_person_section WHERE person_slug = ? ORDER BY section_order"
+  )
+    .bind(slug)
+    .all<{ section_order: number; heading_id: string; body_id: string; quran_refs: string | null }>();
   if (lang !== "id") {
     const paras = person.summary_id.split(/\n\s*\n/);
-    const loc = await localizeBatch(c.env, [person.title_id, ...paras], lang, "id");
+    const texts = [person.title_id, ...paras, ...sections.flatMap((s) => [s.heading_id, s.body_id])];
+    const loc = await localizeBatch(c.env, texts, lang, "id");
     person.title_id = loc[0] ?? person.title_id;
     person.summary_id = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
+    const base = 1 + paras.length;
+    sections.forEach((s, i) => {
+      s.heading_id = loc[base + i * 2] ?? s.heading_id;
+      s.body_id = loc[base + i * 2 + 1] ?? s.body_id;
+    });
   }
-  return c.json({ person, lang });
+  return c.json({ person, sections, lang });
 });
 
 // ── Amalan Harian (doa/dzikir/thibb/kecantikan, see migration 0018) ───────
@@ -773,13 +788,80 @@ contentRoute.get("/nasakh", async (c) => {
 });
 
 // ── Live streaming hub (see migration 0028) ───────────────────────────────
+// YouTube's /embed/live_stream?channel= endpoint answers "Video unavailable"
+// for many channels even while they ARE live (owner screenshots), so we
+// resolve the channel's current live broadcast to a concrete video id by
+// reading the canonical link of /channel/UC…/live. Cached per channel in KV
+// for 10 minutes; a not-live/failed lookup caches "" so YouTube isn't
+// hammered on every page view.
+async function resolveLiveVideoId(env: Env, channelId: string): Promise<string | null> {
+  const key = `yt:live:${channelId}`;
+  const cached = await env.CACHE_KV.get(key);
+  if (cached !== null) return cached || null;
+  let id: string | null = null;
+  try {
+    const res = await fetch(`https://www.youtube.com/channel/${channelId}/live`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        "Accept-Language": "en",
+      },
+    });
+    if (res.ok) {
+      const html = await res.text();
+      const canonical = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
+      // Canonical alone can point at a scheduled premiere — require a live marker too.
+      if (canonical && /"isLiveNow"\s*:\s*true|"isLive"\s*:\s*true|hlsManifestUrl/.test(html)) id = canonical[1] ?? null;
+    }
+  } catch {
+    // network hiccup → cache the miss briefly and let the playlist fallback carry the card
+  }
+  await safeKvPut(env, key, id ?? "", { expirationTtl: 60 * 10 });
+  return id;
+}
+
+// Latest upload of a channel via YouTube's RSS feed — the reliable fallback
+// when the channel isn't live: uploads-playlist embeds (UU…) are refused by
+// the privacy-enhanced player for many channels ("Video tidak tersedia",
+// owner screenshot), while a concrete video id always embeds. Cached 30 min.
+async function resolveLatestVideoId(env: Env, channelId: string): Promise<string | null> {
+  const key = `yt:latest:${channelId}`;
+  const cached = await env.CACHE_KV.get(key);
+  if (cached !== null) return cached || null;
+  let id: string | null = null;
+  try {
+    const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; UlyahBot/1.0)" },
+    });
+    if (res.ok) {
+      const xml = await res.text();
+      id = xml.match(/<yt:videoId>([\w-]{11})<\/yt:videoId>/)?.[1] ?? null;
+    }
+  } catch {
+    // cache the miss; the client still has the plain-YouTube playlist fallback
+  }
+  await safeKvPut(env, key, id ?? "", { expirationTtl: 60 * 30 });
+  return id;
+}
+
 // GET /content/live-streams — every slot, including offline ones (the page
 // renders those as the branded offline card, so the layout never collapses).
+// Auto rows carry channel_id + the resolved live video_id (null when the
+// channel isn't live right now or can't be resolved — the client then embeds
+// the channel's uploads playlist instead of a dead iframe).
 contentRoute.get("/live-streams", async (c) => {
   const { results } = await c.env.DB.prepare(
-    "SELECT id, platform, slot, kind, region, title, url, is_live FROM live_stream ORDER BY kind = 'auto' DESC, slot"
-  ).all();
-  return c.json({ streams: results });
+    "SELECT id, platform, slot, kind, region, title, url, is_live FROM live_stream WHERE kind = 'manual' OR is_live = 1 ORDER BY kind = 'auto' DESC, slot"
+  ).all<{ id: number; platform: string; slot: number; kind: string; region: string | null; title: string | null; url: string | null; is_live: number }>();
+  const streams = await Promise.all(
+    results.map(async (s) => {
+      const ch = s.kind === "auto" && s.url ? s.url.match(/channel\/(UC[\w-]{10,})/)?.[1] : undefined;
+      if (!ch) return { ...s, channel_id: null, video_id: null, latest_video_id: null };
+      const video_id = await resolveLiveVideoId(c.env, ch);
+      const latest_video_id = video_id ? null : await resolveLatestVideoId(c.env, ch);
+      return { ...s, channel_id: ch, video_id, latest_video_id };
+    })
+  );
+  return c.json({ streams });
 });
 
 // GET /content/video-anak — the owner's 45 kids videos (see migration 0030),
@@ -790,7 +872,7 @@ contentRoute.get("/video-anak", async (c) => {
       "SELECT id, series, video_order, title, youtube_id, country FROM video_anak ORDER BY series, video_order"
     ).all(),
     c.env.DB.prepare(
-      "SELECT id, country, title, channel_id, language, sort_order FROM video_anak_channel ORDER BY sort_order"
+      "SELECT id, country, title, channel_id, language, sort_order FROM video_anak_channel WHERE visible = 1 ORDER BY country, sort_order"
     ).all(),
   ]);
   return c.json({ videos, channels });

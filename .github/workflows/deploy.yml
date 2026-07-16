@@ -475,6 +475,54 @@ jobs:
             echo "Kisah person index already has $PCOUNT entries — skipping."
           fi
 
+      - name: Import Kitab Pesantren round 3 — Jalalayn, Sirah Ibn Hisham, Bulughul Maram (idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Round 3 of the OpenITI imports (scripts/extract-pesantren-openiti.py,
+          # ROUND=3): Tafsir Jalalayn (114 surah), Sirah Nabawiyah Ibn Hisham
+          # (264 bab), Bulughul Maram (106 bab, ~1577 hadits). INSERT OR
+          # IGNORE + gate on the jalalayn matn count, so re-running is a no-op.
+          R3COUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id WHERE b.kitab_slug='jalalayn';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$R3COUNT" -lt "600" ]; then
+            echo "Round-3 kitab texts missing (jalalayn matn: $R3COUNT) — importing (large file, please wait)."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_full_texts_3.sql
+          else
+            echo "Round-3 kitab texts already imported (jalalayn matn: $R3COUNT) — skipping."
+          fi
+
+      - name: Import Doa Mustajab (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Waktu/keadaan terkabulnya doa, semua bersumber hadits sahih/hasan
+          # (seed/amalan_doa_mustajab.sql). INSERT OR IGNORE, re-run = no-op.
+          DMCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM amalan_item WHERE category_slug='doa-mustajab';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$DMCOUNT" -lt "14" ]; then
+            echo "Doa Mustajab has $DMCOUNT items — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/amalan_doa_mustajab.sql
+          else
+            echo "Doa Mustajab already imported ($DMCOUNT items) — skipping."
+          fi
+
+      - name: Import Kisah Nabi full stories — 113 bab untuk 25 nabi (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Full multi-section prophet biographies (migration 0035 +
+          # seed/kisah_nabi_full.sql). INSERT OR IGNORE + UNIQUE key, so
+          # re-running is a no-op.
+          NSCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_person_section;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$NSCOUNT" -lt "113" ]; then
+            echo "kisah_person_section has $NSCOUNT rows — importing full prophet stories."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_nabi_full.sql
+          else
+            echo "Full prophet stories already imported ($NSCOUNT rows) — skipping."
+          fi
+
       - name: Import Nasakh & Mansukh (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api

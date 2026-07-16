@@ -78,7 +78,9 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
                 <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-accent">🌍 {ch.country}</p>
                 {playingChannel === ch.id ? (
                   <iframe
-                    src={`https://www.youtube-nocookie.com/embed/videoseries?list=UU${ch.channel_id.slice(2)}`}
+                    // Uploads-playlist embeds are refused by the privacy player
+                    // for many channels — plain youtube.com plays them reliably.
+                    src={`https://www.youtube.com/embed/videoseries?list=UU${ch.channel_id.slice(2)}&autoplay=1`}
                     title={ch.title}
                     loading="lazy"
                     allow="autoplay; encrypted-media; picture-in-picture; fullscreen"

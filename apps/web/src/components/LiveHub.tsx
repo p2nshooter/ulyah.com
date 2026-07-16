@@ -13,6 +13,13 @@ interface StreamRow {
   title: string | null;
   url: string | null;
   is_live: number;
+  /** Auto rows: the channel id parsed from url (UC…). */
+  channel_id?: string | null;
+  /** Auto rows: the channel's CURRENT live broadcast, resolved server-side.
+   * null = not live right now / not resolvable → fall back to latest video. */
+  video_id?: string | null;
+  /** Auto rows, when not live: the channel's newest upload (RSS-resolved). */
+  latest_video_id?: string | null;
 }
 
 // Streaming-via-ulyah contact, shown on every offline manual card — explicit
@@ -41,12 +48,28 @@ function toEmbedUrl(raw: string, opts: { autoplayMuted?: boolean } = {}): string
     const embedIdx = parts.indexOf("embed");
     if (embedIdx >= 0 && parts[embedIdx + 1]) return `https://www.youtube-nocookie.com/embed/${parts[embedIdx + 1]}?rel=0${params}`;
     const chIdx = parts.indexOf("channel");
-    if (chIdx >= 0 && parts[chIdx + 1])
-      return `https://www.youtube-nocookie.com/embed/live_stream?channel=${parts[chIdx + 1]}${params}`;
+    // Channel URL without a server-resolved live id: embed the uploads
+    // playlist (UU + channel-id suffix). YouTube's live_stream?channel=
+    // endpoint shows "Video unavailable" far too often to rely on.
+    if (chIdx >= 0 && parts[chIdx + 1]?.startsWith("UC"))
+      return `https://www.youtube.com/embed/videoseries?list=UU${parts[chIdx + 1].slice(2)}&rel=0${params}`;
     return null;
   } catch {
     return null;
   }
+}
+
+/** Preferred embed for a stream row: exact live video id when the worker
+ * resolved one; else the channel's newest upload (RSS-resolved — uploads
+ * PLAYLIST embeds are refused by the privacy player for many channels); the
+ * playlist on plain youtube.com stays as the very last resort. */
+function streamEmbedUrl(s: StreamRow, opts: { autoplayMuted?: boolean } = {}): string | null {
+  const params = opts.autoplayMuted ? "&autoplay=1&mute=1" : "";
+  if (s.video_id) return `https://www.youtube-nocookie.com/embed/${s.video_id}?rel=0${params}`;
+  if (s.latest_video_id) return `https://www.youtube-nocookie.com/embed/${s.latest_video_id}?rel=0${params}`;
+  if (s.kind === "auto" && s.channel_id)
+    return `https://www.youtube.com/embed/videoseries?list=UU${s.channel_id.slice(2)}&rel=0${params}`;
+  return s.url ? toEmbedUrl(s.url, opts) : null;
 }
 
 function OfflineCard({ isId }: { isId: boolean }) {
@@ -99,7 +122,7 @@ export function LiveHub({ locale }: { locale: string }) {
     // a TV that's always on; the rest are click-to-play inside the player and
     // lazy-loaded, so a page full of world channels stays light.
     const autoplayMuted = s.kind === "auto" && (s.slot === 101 || s.slot === 102 || inMax);
-    const embed = s.url ? toEmbedUrl(s.url, { autoplayMuted }) : null;
+    const embed = streamEmbedUrl(s, { autoplayMuted });
     if (!embed || (s.kind === "manual" && !s.is_live)) return <OfflineCard isId={isId} />;
     return (
       <iframe
@@ -114,7 +137,10 @@ export function LiveHub({ locale }: { locale: string }) {
   }
 
   function card(s: StreamRow) {
-    const live = s.kind === "auto" || !!s.is_live;
+    // Auto rows are only "live" when the worker actually resolved a live
+    // broadcast; otherwise they play the channel's recent videos (REKAMAN).
+    const live = s.kind === "auto" ? !!s.video_id : !!s.is_live;
+    const canMax = !!streamEmbedUrl(s) && (s.kind === "auto" || !!s.is_live);
     return (
       <div key={s.id} className="card-premium overflow-hidden p-3">
         <div className="mb-2 flex items-center justify-between gap-2 px-1">
@@ -126,7 +152,11 @@ export function LiveHub({ locale }: { locale: string }) {
             {live ? (
               <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-600/15 px-2 py-0.5 text-[10px] font-semibold text-red-500">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
-                {s.kind === "auto" ? `24 ${isId ? "JAM" : "HRS"}` : "LIVE"}
+                {s.kind === "auto" ? `LIVE · 24 ${isId ? "JAM" : "HRS"}` : "LIVE"}
+              </span>
+            ) : s.kind === "auto" ? (
+              <span className="shrink-0 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
+                ⏵ {isId ? "REKAMAN" : "REPLAY"}
               </span>
             ) : (
               <span className="shrink-0 rounded-full bg-black/10 px-2 py-0.5 text-[10px] text-[var(--color-text-secondary)] dark:bg-white/10">
@@ -134,13 +164,32 @@ export function LiveHub({ locale }: { locale: string }) {
               </span>
             )}
           </p>
-          {live && s.url && toEmbedUrl(s.url) && (
+          {canMax && (
             <button onClick={() => setMaximized(s)} className="shrink-0 rounded-full border border-accent/40 px-3 py-1 text-xs text-accent">
               ⛶ {isId ? "Perbesar" : "Maximize"}
             </button>
           )}
         </div>
         {player(s)}
+        {s.kind === "auto" && (
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+            {!s.video_id && (
+              <span>
+                ⏸ {isId ? "Sedang tidak siaran langsung — memutar video terbaru channel." : "Not live right now — playing the channel's latest videos."}
+              </span>
+            )}
+            {s.channel_id && (
+              <a
+                href={`https://www.youtube.com/channel/${s.channel_id}/live`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-accent hover:underline"
+              >
+                ↗ {isId ? "Buka di YouTube" : "Open on YouTube"}
+              </a>
+            )}
+          </p>
+        )}
         {s.kind === "auto" && (s.slot === 101 || s.slot === 102) && (
           <p className="mt-2 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
             {isId
