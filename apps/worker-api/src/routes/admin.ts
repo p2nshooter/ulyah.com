@@ -905,3 +905,37 @@ adminRoute.delete("/live-streams/:id", async (c) => {
   await c.env.DB.prepare("DELETE FROM live_stream WHERE id = ? AND kind = 'auto'").bind(id).run();
   return c.json({ ok: true });
 });
+
+// ── Video Anak world channels management (show/hide + add/remove) ─────────
+adminRoute.get("/kids-channels", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT id, country, title, channel_id, language, sort_order, visible FROM video_anak_channel ORDER BY country, sort_order"
+  ).all();
+  return c.json({ channels: results });
+});
+
+adminRoute.post("/kids-channels", async (c) => {
+  const body = await c.req.json<{ country?: string; title?: string; url?: string; language?: string }>();
+  const m = body.url?.match(/channel\/(UC[\w-]{10,})/);
+  if (!body.title?.trim() || !body.country?.trim() || !m)
+    return c.json({ error: "country, title, dan link channel (…/channel/UC…) wajib diisi" }, 400);
+  await c.env.DB.prepare(
+    "INSERT OR IGNORE INTO video_anak_channel (country, title, channel_id, language, sort_order, visible) VALUES (?, ?, ?, ?, 99, 1)"
+  )
+    .bind(body.country.trim(), body.title.trim(), m[1], body.language?.trim() || null)
+    .run();
+  return c.json({ ok: true });
+});
+
+adminRoute.put("/kids-channels/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const body = await c.req.json<{ visible?: boolean }>();
+  await c.env.DB.prepare("UPDATE video_anak_channel SET visible = ? WHERE id = ?").bind(body.visible ? 1 : 0, id).run();
+  return c.json({ ok: true });
+});
+
+adminRoute.delete("/kids-channels/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  await c.env.DB.prepare("DELETE FROM video_anak_channel WHERE id = ?").bind(id).run();
+  return c.json({ ok: true });
+});

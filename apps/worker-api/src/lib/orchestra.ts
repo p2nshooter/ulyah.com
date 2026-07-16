@@ -1,4 +1,4 @@
-import { chatComplete } from "@ulyah/ai-engine";
+import { chatComplete, extractJson } from "@ulyah/ai-engine";
 import type { KeyScope } from "@ulyah/shared/types";
 import type { Env } from "../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
@@ -421,31 +421,111 @@ const SPECIALISTS: Record<string, string> = {
   akhlak: "Kamu Penasihat akhlak & adab Islami." + REFERRAL,
 };
 
+// ── Worker 1 (Non-AI): intent gate ──────────────────────────────────────
+// Deterministically detects greetings / small talk / personal venting so
+// those turns get a warm conversational reply with NO references at all
+// (owner rule: casual chat must never carry dalil links) plus a gentle note
+// of what this chat is for. Conservative: any hint of a religious topic
+// falls through to the full grounded pipeline.
+const ISLAMIC_HINTS =
+  /shalat|sholat|solat|puasa|zakat|quran|qur'an|ayat|surah|surat|hadits|hadith|doa|do'a|dzikir|allah|nabi|rasul|hukum|halal|haram|wudhu|tayamum|iman|islam|makruh|sunnah|wajib|tafsir|fiqih|fikih|mazhab|jilbab|nikah|talak|waris|riba|umrah|haji|ramadhan|tarawih|masjid|malaikat|akhirat|surga|neraka|dosa|pahala|taubat|tawakal|sabar|ikhlas|kiblat|adzan|iqamah|imam|makmum|junub|haid|nifas|aqiqah|qurban|kurban|sedekah|infaq|wakaf/i;
+const SMALLTALK =
+  /^(hai|halo|hallo|hei|hey|hi|hello|assalamu\s*['`]?alaikum(\s+w[br.\s]*)?|selamat\s+(pagi|siang|sore|malam)|apa\s+kabar|pa\s+kabar|test|tes|ping|makasih|terima\s*kasih|thanks|thank\s*you|oke?|ok|baik|iya|ya|siapa\s+(kamu|anda|nama\s*mu)|kamu\s+siapa|lagi\s+apa|bosan|bosen|gabut|curhat(\s+dong)?)\s*[!?.,]*$/i;
+
+function isSmallTalk(question: string): boolean {
+  const q = question.trim();
+  if (ISLAMIC_HINTS.test(q)) return false;
+  if (SMALLTALK.test(q)) return true;
+  // Very short messages with no religious hint are conversation, not queries.
+  return q.split(/\s+/).length <= 3 && q.length <= 20;
+}
+
+// ── Worker 2 (AI): relevance judge ──────────────────────────────────────
+// The keyword retrieval is deliberately broad; this pass reads the question
+// against each candidate and keeps only the sources that genuinely support
+// answering it — the "dalil tepat sasaran" filter. Fails open (keeps all)
+// if no key is available, so the chat never breaks because of the judge.
+async function judgeRelevance(env: Env, question: string, sources: GroundingSource[]): Promise<GroundingSource[]> {
+  if (sources.length <= 2) return sources;
+  const listing = sources.map((s, i) => `[${i + 1}] ${s.ref}: ${s.text.slice(0, 220)}`).join("\n");
+  const r = await orchestrate(env, {
+    capability: "summarize",
+    timeoutMs: 15_000,
+    prompt: `PERTANYAAN: ${question}
+
+KANDIDAT RUJUKAN:
+${listing}
+
+Tugas: pilih HANYA nomor rujukan yang isinya benar-benar menjawab/mendukung pertanyaan di atas secara langsung. Rujukan yang cuma kebetulan memuat kata yang sama TIDAK dihitung. Jika tidak ada yang relevan, kembalikan daftar kosong.
+OUTPUT (JSON saja): { "relevant": [nomor, ...] }`,
+  });
+  if (!r.ok || !r.text) return sources;
+  const parsed = extractJson<{ relevant: number[] }>(r.text);
+  if (!parsed || !Array.isArray(parsed.relevant)) return sources;
+  const keep = sources.filter((_, i) => parsed.relevant.includes(i + 1));
+  return keep; // an empty verdict is a valid verdict: answer without dalil
+}
+
+// ── Worker 3 (Non-AI): citation validator ───────────────────────────────
+// After the answer is written, keep only the sources the answer ACTUALLY
+// cites and renumber both the text and the list 1..k — so every reference
+// link shown provably backs a specific sentence, never decoration.
+function validateCitations(answer: string, sources: GroundingSource[]): { answer: string; sources: GroundingSource[] } {
+  const cited = [...new Set([...answer.matchAll(/\[(\d{1,2})\]/g)].map((m) => Number(m[1])))].filter(
+    (n) => n >= 1 && n <= sources.length
+  );
+  if (cited.length === 0) return { answer: answer.replace(/\[\d{1,2}\]/g, ""), sources: [] };
+  const order = cited.sort((a, b) => a - b);
+  const renumber = new Map(order.map((n, i) => [n, i + 1]));
+  const rewritten = answer.replace(/\[(\d{1,2})\]/g, (m, d) => {
+    const n = renumber.get(Number(d));
+    return n ? `[${n}]` : "";
+  });
+  return { answer: rewritten, sources: order.map((n) => sources[n - 1]!) };
+}
+
 export async function answerGrounded(
   env: Env,
   opts: { question: string; locale?: string; specialist?: string }
 ): Promise<GroundedAnswer> {
   const locale = opts.locale ?? "id";
-  const sources = await retrieveSources(env, opts.question, locale);
+  const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM yang bijaksana, santun, dan elegan.";
+
+  // Small talk / curhat: warm conversation, zero references, gentle steer.
+  if (isSmallTalk(opts.question)) {
+    const chatPrompt = `${persona}
+
+Pengguna sedang menyapa/berbasa-basi/curhat ringan, BUKAN bertanya soal agama. Balas dengan hangat, singkat, dan manusiawi dalam bahasa locale "${locale}". JANGAN menyebut rujukan, dalil, atau nomor apa pun. Tutup dengan satu kalimat lembut bahwa ruang ini tersedia untuk curhat dan pertanyaan seputar agama Islam — ajak mereka bertanya apa saja tentang Islam.
+
+PESAN PENGGUNA: ${opts.question}
+
+BALASAN:`;
+    const r = await orchestrate(env, { capability: "answer", prompt: chatPrompt, timeoutMs: 25_000 });
+    return { ...r, sources: [] };
+  }
+
+  // Worker pipeline: broad retrieval → AI relevance judge → grounded answer
+  // → deterministic citation validation.
+  const candidates = await retrieveSources(env, opts.question, locale);
+  const sources = await judgeRelevance(env, opts.question, candidates);
 
   const context = sources.length
     ? sources.map((s, i) => `[${i + 1}] ${s.ref}: ${s.text}`).join("\n")
-    : "(tidak ada rujukan yang ditemukan di database Ulyah.com)";
+    : "(tidak ada rujukan database yang lolos uji relevansi untuk pertanyaan ini)";
 
-  const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM yang bijaksana, santun, dan elegan.";
   const prompt = `${persona}
 
-Tugasmu: mengobrol secara natural dan cerdas seperti asisten AI kelas dunia (gaya ChatGPT) — tapi seluruh wawasanmu berakar dari database ULYAH.COM (Al-Qur'an & tafsir, hadits, kisah Nabi/Sahabat/Ulama, kitab, amalan harian). Jawab dengan percakapan yang hangat dan mengalir, bukan robotik, bukan sekadar daftar rujukan.
+Tugasmu: mengobrol secara natural dan cerdas seperti asisten AI kelas dunia — seluruh wawasanmu berakar dari database ULYAH.COM (Al-Qur'an & tafsir, hadits, kisah, kitab, amalan). Jawab hangat dan mengalir, bukan robotik.
 
 Panduan:
-- Mulai dengan jawaban yang tegas dan jelas atas inti pertanyaan, lalu kembangkan dengan penjelasan, konteks, dan contoh secukupnya — panjang jawaban menyesuaikan kompleksitas pertanyaan (pertanyaan sederhana cukup singkat, pertanyaan mendalam boleh beberapa paragraf).
-- WAJIB gunakan rujukan di bawah ini ketika relevan dan sebutkan nomornya [1], [2] tepat di kalimat yang didukungnya — setiap rujukan yang kamu sebut akan tampil sebagai tautan yang bisa diklik pengguna menuju halaman aslinya di ulyah.com, jadi sebutkan serelevan dan sesering mungkin agar pengguna terdorong menelusuri halaman aslinya.
-- Jika rujukan yang tersedia belum mencakup detailnya, tetap jawab berdasarkan pemahaman umum yang mapan di kalangan ulama dengan rendah hati, lalu tutup dengan ajakan lembut untuk mendalami lebih lanjut atau bermusyawarah dengan ahli ilmu untuk kepastian pada perkara yang rinci.
-- JANGAN pernah menulis kalimat seperti "belum tersedia di database", "tidak ada rujukan", atau menolak menjawab. Jawablah dengan anggun.
-- JANGAN mengarang nomor hadits, kutipan persis, atau menisbatkan hukum palsu; bila tidak yakin pada rincian, sampaikan secara umum dan bijak.
-- Bahasa jawaban WAJIB konsisten memakai kode locale "${locale}" dari awal sampai akhir — jangan bercampur dengan bahasa lain.
+- Mulai dengan jawaban yang tegas dan jelas atas inti pertanyaan, lalu kembangkan secukupnya — panjang menyesuaikan kompleksitas pertanyaan.
+- Rujukan di bawah SUDAH lolos uji relevansi. Sebutkan nomornya [1], [2] HANYA tepat di kalimat yang benar-benar didukung isi rujukan itu. JANGAN menyebut rujukan sebagai hiasan; kalimat yang tidak didukung rujukan mana pun ditulis tanpa nomor. Lebih baik sedikit rujukan yang tepat daripada banyak yang meleset.
+- Jika tidak ada rujukan yang relevan, jawab berdasarkan pemahaman yang mapan di kalangan ulama dengan rendah hati TANPA menyebut nomor apa pun, dan tutup dengan ajakan bermusyawarah dengan ahli ilmu untuk kepastian perkara rinci.
+- JANGAN menulis "belum tersedia di database" atau menolak menjawab; jawab dengan anggun.
+- JANGAN mengarang nomor hadits, kutipan persis, atau hukum; bila ragu pada rincian, sampaikan secara umum.
+- Bahasa jawaban WAJIB konsisten memakai kode locale "${locale}" dari awal sampai akhir.
 
-RUJUKAN DARI DATABASE ULYAH.COM (opsional dipakai, sebut nomornya bila dipakai):
+RUJUKAN TERVERIFIKASI:
 ${context}
 
 PERTANYAAN: ${opts.question}
@@ -453,5 +533,8 @@ PERTANYAAN: ${opts.question}
 JAWABAN:`;
 
   const r = await orchestrate(env, { capability: "answer", prompt, timeoutMs: 40_000 });
-  return { ...r, sources };
+  if (!r.ok || !r.text) return { ...r, sources };
+
+  const validated = validateCitations(r.text, sources);
+  return { ...r, text: validated.answer, sources: validated.sources };
 }
