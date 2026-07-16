@@ -22,6 +22,9 @@ interface Donor {
   contact_person: string | null;
   language: string | null;
   status: string;
+  /** Owner's curated proposal PDF for this org in Google Drive (see
+   * migration 0029) — one click from the composer. */
+  drive_proposal_url?: string | null;
 }
 interface Dashboard {
   totals: { donors: number; proposals: number; emailsSent: number; emailsDraft: number };
@@ -337,10 +340,37 @@ export function GrantTab() {
               <input type="radio" name="donor" checked={selDonor === d.id} onChange={() => setSelDonor(d.id)} />
               <span className="font-medium">{d.org_name}</span>
               <span className="text-[var(--color-text-secondary)]">{d.country ?? ""} · {d.language ?? "en"} · {d.status}</span>
+              {d.drive_proposal_url && <span title="Proposal tersedia di Drive">📁</span>}
+              {!d.email && <span className="rounded bg-warning/15 px-1 text-[9px] text-warning" title="Email kontak belum diisi">email?</span>}
             </label>
           ))}
           {donors.length === 0 && <p className="text-xs text-[var(--color-text-secondary)]">Belum ada donatur.</p>}
         </div>
+        {selectedDonor && (
+          <div className="mt-3 rounded-lg border border-accent/30 bg-accent/5 p-3 text-xs">
+            <p className="font-medium">{selectedDonor.org_name}</p>
+            <p className="mt-1 text-[var(--color-text-secondary)]">
+              {selectedDonor.org_type ?? "—"} · {selectedDonor.country ?? "—"} · bahasa: {selectedDonor.language ?? "en"} ·
+              email: {selectedDonor.email || "BELUM DIISI — lengkapi dulu sebelum kirim"}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {selectedDonor.drive_proposal_url && (
+                <a
+                  href={selectedDonor.drive_proposal_url}
+                  target="_blank"
+                  rel="noopener"
+                  className="rounded-full border border-accent/50 px-3 py-1 font-medium text-accent hover:bg-accent/10"
+                >
+                  📁 Buka proposal di Drive ↗
+                </a>
+              )}
+              <span className="text-[var(--color-text-secondary)]">
+                Alur 1-klik: pilih donatur → ✨ Isi otomatis (AI menulis dalam bahasa Inggris + bahasa negaranya) →
+                proposal terlampir otomatis → Kirim. PDF Drive bisa diunduh lalu dilampirkan lewat “+ Unggah lampiran”.
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Proposal */}
