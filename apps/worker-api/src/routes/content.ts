@@ -819,6 +819,30 @@ async function resolveLiveVideoId(env: Env, channelId: string): Promise<string |
   return id;
 }
 
+// Latest upload of a channel via YouTube's RSS feed — the reliable fallback
+// when the channel isn't live: uploads-playlist embeds (UU…) are refused by
+// the privacy-enhanced player for many channels ("Video tidak tersedia",
+// owner screenshot), while a concrete video id always embeds. Cached 30 min.
+async function resolveLatestVideoId(env: Env, channelId: string): Promise<string | null> {
+  const key = `yt:latest:${channelId}`;
+  const cached = await env.CACHE_KV.get(key);
+  if (cached !== null) return cached || null;
+  let id: string | null = null;
+  try {
+    const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; UlyahBot/1.0)" },
+    });
+    if (res.ok) {
+      const xml = await res.text();
+      id = xml.match(/<yt:videoId>([\w-]{11})<\/yt:videoId>/)?.[1] ?? null;
+    }
+  } catch {
+    // cache the miss; the client still has the plain-YouTube playlist fallback
+  }
+  await safeKvPut(env, key, id ?? "", { expirationTtl: 60 * 30 });
+  return id;
+}
+
 // GET /content/live-streams — every slot, including offline ones (the page
 // renders those as the branded offline card, so the layout never collapses).
 // Auto rows carry channel_id + the resolved live video_id (null when the
@@ -831,8 +855,10 @@ contentRoute.get("/live-streams", async (c) => {
   const streams = await Promise.all(
     results.map(async (s) => {
       const ch = s.kind === "auto" && s.url ? s.url.match(/channel\/(UC[\w-]{10,})/)?.[1] : undefined;
-      if (!ch) return { ...s, channel_id: null, video_id: null };
-      return { ...s, channel_id: ch, video_id: await resolveLiveVideoId(c.env, ch) };
+      if (!ch) return { ...s, channel_id: null, video_id: null, latest_video_id: null };
+      const video_id = await resolveLiveVideoId(c.env, ch);
+      const latest_video_id = video_id ? null : await resolveLatestVideoId(c.env, ch);
+      return { ...s, channel_id: ch, video_id, latest_video_id };
     })
   );
   return c.json({ streams });
