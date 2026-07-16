@@ -679,7 +679,11 @@ contentRoute.get("/kisah-tokoh", async (c) => {
   return c.json({ persons: results, lang });
 });
 
-// GET /content/kisah-tokoh/:slug?lang= — one person's full profile.
+// GET /content/kisah-tokoh/:slug?lang= — one person's full profile plus the
+// full multi-section story (kisah_person_section, see migration 0035). For a
+// non-Indonesian ?lang the summary AND every section heading/body are
+// machine-translated server-side (batched + KV-cached); quran_refs stay as-is
+// (surah names are proper nouns).
 contentRoute.get("/kisah-tokoh/:slug", async (c) => {
   const slug = c.req.param("slug");
   const lang = c.req.query("lang") ?? "id";
@@ -687,13 +691,24 @@ contentRoute.get("/kisah-tokoh/:slug", async (c) => {
     Record<string, unknown> & { title_id: string | null; summary_id: string }
   >();
   if (!person) return c.json({ error: "Not found" }, 404);
+  const { results: sections } = await c.env.DB.prepare(
+    "SELECT section_order, heading_id, body_id, quran_refs FROM kisah_person_section WHERE person_slug = ? ORDER BY section_order"
+  )
+    .bind(slug)
+    .all<{ section_order: number; heading_id: string; body_id: string; quran_refs: string | null }>();
   if (lang !== "id") {
     const paras = person.summary_id.split(/\n\s*\n/);
-    const loc = await localizeBatch(c.env, [person.title_id, ...paras], lang, "id");
+    const texts = [person.title_id, ...paras, ...sections.flatMap((s) => [s.heading_id, s.body_id])];
+    const loc = await localizeBatch(c.env, texts, lang, "id");
     person.title_id = loc[0] ?? person.title_id;
     person.summary_id = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
+    const base = 1 + paras.length;
+    sections.forEach((s, i) => {
+      s.heading_id = loc[base + i * 2] ?? s.heading_id;
+      s.body_id = loc[base + i * 2 + 1] ?? s.body_id;
+    });
   }
-  return c.json({ person, lang });
+  return c.json({ person, sections, lang });
 });
 
 // ── Amalan Harian (doa/dzikir/thibb/kecantikan, see migration 0018) ───────
