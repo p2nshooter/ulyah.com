@@ -17,7 +17,7 @@
  * lock-step with this file.
  */
 
-export type TenantId = "ulyah" | "1fr";
+export type TenantId = "ulyah" | "1fr" | "tilawa";
 
 export interface TenantConfig {
   id: TenantId;
@@ -73,8 +73,30 @@ const ONEFAITH: TenantConfig = {
   features: { ads: false, donationForward: true, forSale: true },
 };
 
-export const TENANT: TenantConfig = process.env.NEXT_PUBLIC_TENANT === "1fr" ? ONEFAITH : ULYAH;
+const TILAWA: TenantConfig = {
+  id: "tilawa",
+  siteUrl: "https://tilawa.de",
+  siteName: "Tilawa",
+  tagline: {
+    de: "Das islamische Portal auf Deutsch",
+    en: "The Islamic Portal in German",
+    ar: "البوابة الإسلامية بالألمانية",
+  },
+  logoIcon: "/brand/tilawa/icon.png",
+  logoBanner: "/brand/tilawa/banner.png",
+  wordmark: null,
+  wordmarkGold: null,
+  acquisitionEmail: "salam@tilawa.de",
+  features: { ads: false, donationForward: true, forSale: true },
+};
+
+const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, ulyah: ULYAH };
+
+export const TENANT: TenantConfig = TENANTS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? ULYAH;
 
 export function tenantTagline(locale: string, fallback: string): string {
-  return TENANT.tagline[locale] ?? TENANT.tagline["fr"] ?? fallback;
+  // Prefer the requested locale, then the tenant's own default language, then
+  // the caller's fallback — so a sibling site always shows a native tagline.
+  const first = Object.keys(TENANT.tagline)[0];
+  return TENANT.tagline[locale] ?? (first ? TENANT.tagline[first] : undefined) ?? fallback;
 }
