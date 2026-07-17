@@ -39,6 +39,28 @@ const COPY = {
     donateNote: "En attendant, chaque don maintient ce portail vivant et son œuvre continue.",
     donateCta: "Soutenir ce portail",
   },
+  de: {
+    title: "Dieses Portal steht zum Verkauf — eine schlüsselfertige Übernahme",
+    intro:
+      "Tilawa (tilawa.de) ist ein vollständiges, reines und werbefreies islamisches Portal für die deutschsprachige Gemeinschaft. Es wird zur Übernahme angeboten, damit seine Botschaft (Daʿwa) in den Händen eines Eigentümers in Deutschland weiterwächst.",
+    benefitsTitle: "Was der neue Eigentümer erhält",
+    benefits: [
+      "Den Domainnamen tilawa.de — kurz, einprägsam, national",
+      "Die geschäftliche E-Mail salam@tilawa.de und das vollständige Eigentum an der Marke",
+      "Die volle Kontrolle über die Live-Übertragungen (Mekka, Medina und islamische Kanäle weltweit, bereits rund um die Uhr aktiv)",
+      "Das komplette Admin-Portal: jede Seite ist dynamisch — Spenden, Produkte, Hadsch & Umra, Kinderfilme; alles lässt sich mit einem Klick bearbeiten, ein- oder ausblenden",
+      "Das separate Spender-Portal mit automatisch erstellten Dankeszertifikaten für jeden Spender",
+      "Den vollständigen Koran (604 Mushaf-Seiten mit farbigem Tadschwid), zehntausende Hadithe, eine klassische Kitab-Bibliothek und die Geschichten der Propheten — der Inhalt kann Teil der Übernahmegespräche sein, damit nichts neu aufgebaut werden muss",
+      "Nach der Übernahme: die kostenlose KI wird automatisch entfernt und durch die Premium-KI des Eigentümers mit leistungsfähigeren Assistenten ersetzt",
+    ],
+    demoTitle: "Mit Vertrauen prüfen",
+    demo:
+      "Ein Nur-Lese-Demozugang zu beiden Portalen — Verwaltung und Spender — ist auf Anfrage verfügbar: Sie sehen alles, einschließlich Beispielzertifikaten, ohne etwas ändern zu können.",
+    contactTitle: "Kontakt aufnehmen",
+    contact: "Für jedes Übernahmeangebot schreiben Sie uns:",
+    donateNote: "Bis dahin hält jede Spende dieses Portal am Leben und sein Wirken in Gang.",
+    donateCta: "Dieses Portal unterstützen",
+  },
   en: {
     title: "This portal is for sale — a turnkey acquisition",
     intro:
@@ -85,8 +107,28 @@ const COPY = {
   },
 } as const;
 
+// The fr/en/ar copy was authored for One Faith France; rebrand its tokens to
+// the active tenant at render time so tilawa.de (and any future sibling) shows
+// its own name/domain/email in every language, not 1fr's. The `de` block is
+// already Tilawa-native.
+function brandize(s: string): string {
+  const domain = TENANT.siteUrl.replace(/^https?:\/\//, "");
+  return s
+    .replace(/One Faith France/g, TENANT.siteName)
+    .replace(/salam@1fr\.fr/g, TENANT.acquisitionEmail ?? `salam@${domain}`)
+    .replace(/1fr\.fr/g, domain);
+}
+
 function copyFor(locale: string) {
-  return COPY[(locale in COPY ? locale : "fr") as keyof typeof COPY];
+  const base = COPY[(locale in COPY ? locale : "en") as keyof typeof COPY];
+  return {
+    ...base,
+    title: brandize(base.title),
+    intro: brandize(base.intro),
+    benefits: base.benefits.map(brandize),
+    demo: brandize(base.demo),
+    contact: brandize(base.contact),
+  };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
