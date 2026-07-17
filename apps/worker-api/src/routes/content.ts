@@ -840,13 +840,14 @@ async function resolveLiveVideoId(env: Env, channelId: string): Promise<string |
     if (res.ok) {
       const html = await res.text();
       const canonical = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
-      // Canonical alone can point at a scheduled premiere — require a genuine
-      // live marker too. YouTube's watch payload exposes several equivalent
-      // ones; accept any so a markup tweak doesn't silently blank the hub.
-      const liveNow = /"isLiveNow"\s*:\s*true|"isLive"\s*:\s*true|"isLiveContent"\s*:\s*true|hlsManifestUrl|"liveBroadcastDetails"\s*:\s*\{[^}]*"isLiveNow"\s*:\s*true|\{"iconType":"LIVE"\}/.test(html);
+      // HONEST live detection (owner: "statusnya live padahal g live"). Only
+      // `"isLiveNow":true` means "streaming RIGHT NOW". The looser markers we
+      // used before — `isLiveContent` and `hlsManifestUrl` — persist on the VOD
+      // of an ENDED stream, so a channel that finished a broadcast falsely read
+      // as LIVE. Requiring isLiveNow means the badge is truthful: live only when
+      // genuinely live, otherwise the card honestly plays the latest recording.
+      const liveNow = /"isLiveNow"\s*:\s*true/.test(html);
       if (canonical && liveNow) id = canonical[1] ?? null;
-      // Fallback: some live pages carry the id only in the player config.
-      if (!id && liveNow) id = html.match(/"videoId"\s*:\s*"([\w-]{11})"/)?.[1] ?? null;
     }
   } catch {
     // network hiccup → cache the miss briefly and let the playlist fallback carry the card
