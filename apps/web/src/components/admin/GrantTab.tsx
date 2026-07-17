@@ -189,6 +189,46 @@ export function GrantTab() {
     });
   }
 
+  /** Instant, production-ready English outreach — no AI, no key needed. Fills
+   * the subject in place and a persuasive, respectful body personalised from
+   * the selected donor. Owner: "langsung siap produksi, jgn yg standar." */
+  function fillTemplate() {
+    const org = selectedDonor?.org_name?.trim() || "your foundation";
+    const person = selectedDonor?.contact_person?.trim();
+    const greeting = person ? `Dear ${person},` : `Dear ${org} team,`;
+    const subject = `Partnership invitation — bringing the Qur'an to millions, ad-free with ${org}`;
+    const body = `${greeting}
+
+Assalamu'alaikum wa rahmatullahi wa barakatuh.
+
+I am reaching out from ULYAH.COM, a global, ad-free Islamic platform built to make authentic knowledge effortless to reach — for every Muslim, in their own language. Today it already serves:
+
+• The complete Qur'an — all 604 Mushaf pages with colour-coded tajwid, verse-by-verse audio from world-renowned reciters, and word-level translation in 8 languages.
+• Tens of thousands of verified hadith, a growing warehouse of classical kitab (tafsir, fiqh, sirah, hadith sciences), and the full stories of the 25 Prophets — each sourced and referenced, never fabricated.
+• 24/7 live streaming from Makkah, Madinah and Islamic channels worldwide, animated stories for children, and a reference-checked AI companion for questions of faith.
+
+Everything is free and free of advertising — funded purely by people who believe this da'wah should never be interrupted or compromised.
+
+We would be honoured to explore a partnership with ${org}. Your support would directly sustain and expand this work — hosting, new translations, children's content, and the reciter library — with transparent reporting and a formal acknowledgement for every contribution, in shaa Allah. A detailed proposal is attached for your review${proposal ? "" : " on request"}.
+
+The Prophet ﷺ said: "Whoever guides someone to goodness will have a reward like the one who does it." (Muslim). May Allah make ${org} a partner in the reward of every letter recited through this platform.
+
+I would welcome a brief call at your convenience. Jazakumullahu khayran for your time and consideration.
+
+Warm regards,
+The ULYAH.COM Team
+salam@ulyah.com · https://ulyah.com`;
+    setEmail((e) => ({
+      ...e,
+      to: e.to || selectedDonor?.email || "",
+      subject,
+      bodyTarget: body,
+      language: "en",
+    }));
+    if (proposal) attachProposal();
+    setMsg("✍️ Template siap-kirim terisi — tinjau, sesuaikan bila perlu, lalu kirim.");
+  }
+
   async function draftEmail() {
     if (!selDonor) {
       setMsg("Pilih donatur dulu untuk draft email otomatis.");
@@ -406,6 +446,9 @@ export function GrantTab() {
         <div className="flex items-center justify-between bg-[#0B3D2E] px-4 py-2.5 text-[#f4efe3]">
           <span className="flex items-center gap-2 text-sm font-medium">✉️ Pesan Baru</span>
           <div className="flex items-center gap-2">
+            <button onClick={fillTemplate} className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-primary">
+              ✍️ Template siap-kirim
+            </button>
             <button onClick={draftEmail} disabled={busy === "email"} className="rounded-full border border-accent/40 bg-white/10 px-3 py-1 text-xs font-medium disabled:opacity-50">
               {busy === "email" ? "Menulis…" : "✨ Isi otomatis (AI)"}
             </button>

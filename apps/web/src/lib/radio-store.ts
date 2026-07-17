@@ -33,7 +33,15 @@ export interface RadioPosition {
 // "imam nya jgn bisa d klik, biarkan saja berjalan berurutan" (the imam must
 // not be clickable, just let it run in sequence). The widget only ever shows
 // who is in the rotation and who is reading right now, never a picker.
-const ROTATION_POOL = RECITERS.filter((r) => r.featured).map((r) => r.key);
+// HiFi only: the always-on station must sound clean. everyayah publishes some
+// reciters at 32–64 kbps, and those low-bitrate MP3s came through muffled and
+// warbly on the broadcast ("dalem banget, kaya kaset kusut" — owner report).
+// alquran.cloud (cdn === "aqc") streams 128 kbps, and the everyayah entries we
+// keep in rotation are the 128 kbps folders; anything lower stays selectable
+// elsewhere but never drives the radio.
+const ROTATION_POOL = RECITERS.filter(
+  (r) => r.featured && (r.cdn === "aqc" || (r.cdn === "ey" && (r.eyId ?? "").includes("128kbps")))
+).map((r) => r.key);
 
 export function nextRadioPosition(p: RadioPosition, surahs: SurahMeta[]): RadioPosition {
   const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;

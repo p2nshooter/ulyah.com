@@ -602,3 +602,29 @@ html[data-tenant="1fr"] h1,
 html[data-tenant="1fr"] h2 {
   letter-spacing: 0.015em;
 }
+
+/* ═══ Tilawa (tilawa.de tenant) — premium teal & gold theme ═══
+   data-tenant="tilawa" on <html>. Deep teal canvas with warm gold accents,
+   distinct from ulyah's green/gold and 1fr's royal-green/champagne. */
+html[data-tenant="tilawa"] {
+  --color-accent: #d4af37;
+  --shadow-gold: 0 2px 14px rgba(212, 175, 55, 0.33);
+}
+html[data-tenant="tilawa"][data-theme="light"] {
+  --color-bg: #f4f1e8;
+  --color-card: #fffdf7;
+  --color-border: #ddd3bd;
+}
+html[data-tenant="tilawa"][data-theme="dark"] {
+  --color-bg: #052e29;
+  --color-card: #0a463f;
+  --color-border: #16564d;
+}
+html[data-tenant="tilawa"] .card-premium {
+  border-width: 1.5px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
+}
+html[data-tenant="tilawa"] .card-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
