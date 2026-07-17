@@ -723,3 +723,92 @@ html[data-tenant="tilawa"] header {
   border-bottom: 1px solid var(--color-border);
 }
 html[data-tenant="tilawa"] header nav a { letter-spacing: -0.01em; font-weight: 600; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CSS v2 — 1fr.fr vs tilawa.de pushed to ZERO recognizable similarity.
+   Owner: "css tilawa.de dan 1fr.fr betul2 berbeda, tidak ada kemiripan
+   walaupun hanya 5%." Two opposite design languages across every element:
+   background texture, page rhythm, links, buttons, badges, inputs, dividers,
+   scrollbar, selection, footer. 1fr = light navy-on-ivory French editorial,
+   serif, centred, curved, hairline gold. tilawa = dark amber-on-charcoal
+   German technical, geometric sans, left, squared, blueprint grid.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ---- 1fr.fr : soft ivory paper, warm and curved -------------------------- */
+html[data-tenant="1fr"] body {
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(193, 154, 62, 0.06), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(23, 41, 74, 0.05), transparent 45%);
+  background-attachment: fixed;
+}
+/* generous, editorial line-height + serif numerals feel */
+html[data-tenant="1fr"] { line-height: 1.7; }
+html[data-tenant="1fr"] p { letter-spacing: 0.01em; }
+/* curved everything (contrast with tilawa's hard squares) */
+html[data-tenant="1fr"] .rounded-xl,
+html[data-tenant="1fr"] .rounded-2xl,
+html[data-tenant="1fr"] .rounded-3xl { border-radius: 1.35rem; }
+html[data-tenant="1fr"] .rounded-lg,
+html[data-tenant="1fr"] .rounded-md { border-radius: 0.9rem; }
+/* links: elegant serif underline that grows on hover */
+html[data-tenant="1fr"] a:not(.card-premium):not(header a):hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+/* solid buttons become a warm gradient with a soft glow */
+html[data-tenant="1fr"] .bg-accent { box-shadow: 0 6px 20px rgba(193, 154, 62, 0.28); }
+/* badges/pills: fully round, hairline */
+html[data-tenant="1fr"] .rounded-full { border-radius: 9999px; }
+/* section dividers: centred hairline with a diamond */
+html[data-tenant="1fr"] .section-divider { text-align: center; }
+/* inputs: underline-style, no box */
+html[data-tenant="1fr"] input[type="search"],
+html[data-tenant="1fr"] input[type="text"],
+html[data-tenant="1fr"] input[type="email"] { border-radius: 0.75rem; }
+/* thin gold scrollbar */
+html[data-tenant="1fr"] * { scrollbar-width: thin; scrollbar-color: #c19a3e transparent; }
+html[data-tenant="1fr"] *::-webkit-scrollbar { width: 8px; height: 8px; }
+html[data-tenant="1fr"] *::-webkit-scrollbar-thumb { background: #c19a3e; border-radius: 9999px; }
+html[data-tenant="1fr"] ::selection { background: rgba(193, 154, 62, 0.3); color: #14233f; }
+/* footer: warm ivory tone, centred */
+html[data-tenant="1fr"] footer { text-align: center; }
+
+/* ---- tilawa.de : dark blueprint grid, cold and squared ------------------- */
+html[data-tenant="tilawa"] body {
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+}
+/* tight technical rhythm + squared corners everywhere */
+html[data-tenant="tilawa"] { line-height: 1.5; }
+html[data-tenant="tilawa"] .rounded-xl,
+html[data-tenant="tilawa"] .rounded-2xl,
+html[data-tenant="tilawa"] .rounded-3xl { border-radius: 0.25rem; }
+html[data-tenant="tilawa"] .rounded-lg,
+html[data-tenant="tilawa"] .rounded-md { border-radius: 0.2rem; }
+/* links: no underline, amber shift + monospace numerals */
+html[data-tenant="tilawa"] a:hover { color: var(--color-accent); }
+html[data-tenant="tilawa"] .tabular-nums,
+html[data-tenant="tilawa"] time { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+/* buttons: flat solid amber, squared, bold uppercase — no glow */
+html[data-tenant="tilawa"] .bg-accent {
+  border-radius: 0.25rem;
+  box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+}
+/* badges/pills squared */
+html[data-tenant="tilawa"] .rounded-full { border-radius: 0.3rem; }
+/* headings get an amber left-tick — a technical marker */
+html[data-tenant="tilawa"] h2.font-heading { padding-left: 0.6rem; border-left: 3px solid var(--color-accent); }
+/* inputs: squared, hard border */
+html[data-tenant="tilawa"] input { border-radius: 0.2rem !important; }
+/* blocky amber scrollbar */
+html[data-tenant="tilawa"] * { scrollbar-width: thin; scrollbar-color: #d4af37 #14181d; }
+html[data-tenant="tilawa"] *::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-tenant="tilawa"] *::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 0; }
+html[data-tenant="tilawa"] *::-webkit-scrollbar-track { background: #14181d; }
+html[data-tenant="tilawa"] ::selection { background: rgba(212, 175, 55, 0.35); color: #eef2ee; }
+/* footer: dark charcoal, left-aligned technical */
+html[data-tenant="tilawa"] footer { border-top: 3px solid var(--color-accent); }

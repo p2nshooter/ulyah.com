@@ -4,9 +4,35 @@ import { translateText, translateCachedOnly, localizeBatch } from "../lib/mt.js"
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
+import { tenantFromReq } from "./analytics.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
+
+// GET /content/site-pages — per-tenant page visibility + custom labels, so the
+// site's nav and each page can be shown/hidden/renamed from the admin portal
+// (owner: "jgn ada yg hardcode, semua dynamic dari portal admin"). Absent rows
+// mean "visible, built-in label"; only overrides are returned. Tenant is read
+// from the request Origin, never trusted from the client.
+contentRoute.get("/site-pages", async (c) => {
+  // Client calls carry the sibling Origin; server-side (SSR) calls pass an
+  // explicit ?tenant since they have no Origin. Both only read visibility data.
+  const tenant = c.req.query("tenant") || tenantFromReq(c);
+  try {
+    const { results } = await c.env.DB.prepare(
+      "SELECT path, visible, custom_label FROM tenant_pages WHERE tenant = ?"
+    )
+      .bind(tenant)
+      .all<{ path: string; visible: number; custom_label: string | null }>();
+    return c.json({
+      tenant,
+      pages: results.map((r) => ({ path: r.path, visible: r.visible === 1, label: r.custom_label })),
+    });
+  } catch {
+    // Table not migrated yet, or a transient error — fail open (all visible).
+    return c.json({ tenant, pages: [] });
+  }
+});
 
 // GET /content/media-status — which admin-managed images are actually
 // uploaded (boolean only, no admin data) — lets a page skip rendering an

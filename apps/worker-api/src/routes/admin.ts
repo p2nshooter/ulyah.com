@@ -4,6 +4,7 @@ import { testApiKey } from "@ulyah/key-pool";
 import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
 import type { Env } from "../env.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
+import type { SessionData } from "../lib/session.js";
 import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
@@ -28,6 +29,56 @@ adminRoute.get("/dashboard", async (c) => {
     c.env.DB.prepare("SELECT COUNT(*) AS total FROM clients").first(),
   ]);
   return c.json({ keys, jobs, donations, clients });
+});
+
+// ── Dynamic pages (show / hide / rename per site) ─────────────────────────
+// The catalogue of pages lives in the web app; the API only stores overrides.
+// A sibling admin is locked to its own tenant; the ulyah owner (tenant NULL)
+// may pass ?tenant= / body.tenant to manage any site.
+function scopedTenant(c: Context<{ Bindings: Env }>, requested?: string): string {
+  const admin = c.get("admin" as never) as SessionData | undefined;
+  if (admin?.tenant) return admin.tenant; // sibling admin — locked to own site
+  return requested || "ulyah"; // ulyah owner — may target any site
+}
+
+adminRoute.get("/site-pages", async (c) => {
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  const { results } = await c.env.DB.prepare(
+    "SELECT path, visible, custom_label, updated_at FROM tenant_pages WHERE tenant = ? ORDER BY path"
+  )
+    .bind(tenant)
+    .all<{ path: string; visible: number; custom_label: string | null; updated_at: string }>();
+  return c.json({
+    tenant,
+    overrides: results.map((r) => ({ path: r.path, visible: r.visible === 1, label: r.custom_label, updatedAt: r.updated_at })),
+  });
+});
+
+adminRoute.post("/site-pages", async (c) => {
+  const body = await c.req.json<{ path?: string; visible?: boolean; label?: string | null; tenant?: string }>();
+  const path = (body.path ?? "").trim();
+  if (!path.startsWith("/")) return c.json({ error: "path required (must start with /)" }, 400);
+  const tenant = scopedTenant(c, body.tenant);
+  const visible = body.visible === false ? 0 : 1;
+  const label = body.label && body.label.trim() ? body.label.trim().slice(0, 80) : null;
+  await c.env.DB.prepare(
+    `INSERT INTO tenant_pages (tenant, path, visible, custom_label, updated_at)
+     VALUES (?, ?, ?, ?, datetime('now'))
+     ON CONFLICT(tenant, path) DO UPDATE SET visible = excluded.visible, custom_label = excluded.custom_label, updated_at = datetime('now')`
+  )
+    .bind(tenant, path, visible, label)
+    .run();
+  await logAdminAction(c.env, "site_page_updated", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? "", { tenant, path, visible: !!visible, label });
+  return c.json({ ok: true, tenant, path, visible: !!visible, label });
+});
+
+// Reset a page to its built-in default (visible, original label).
+adminRoute.delete("/site-pages", async (c) => {
+  const path = (c.req.query("path") ?? "").trim();
+  if (!path) return c.json({ error: "path required" }, 400);
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  await c.env.DB.prepare("DELETE FROM tenant_pages WHERE tenant = ? AND path = ?").bind(tenant, path).run();
+  return c.json({ ok: true, tenant, path });
 });
 
 // ── Key Pool Manager (§12.2, §23.2) ───────────────────────────────────────
