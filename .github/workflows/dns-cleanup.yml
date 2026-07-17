@@ -1,0 +1,55 @@
+name: DNS cleanup tilawa.de
+
+# One-off, manual. Lists every DNS record in the tilawa.de zone, then removes
+# ONLY the unused parking records (A/AAAA whose content is the registrar
+# parking IP 185.181.104.242, on any name) so nothing dangles. Email records
+# (MX/TXT) and the Cloudflare-managed Worker custom-domain routing are left
+# untouched. Prints before/after and re-checks the live site.
+
+on:
+  workflow_dispatch: {}
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Audit + remove unused parking DNS
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=tilawa.de" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::tilawa.de zone not visible to this token."
+            exit 0
+          fi
+          echo "=== DNS records BEFORE ==="
+          curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?per_page=200" \
+            | jq -r '.result[] | "\(.type)\t\(.name)\t\(.content)\tproxied=\(.proxied)"' | sort
+
+          echo ""
+          echo "=== Deleting unused parking records (content 185.181.104.242) ==="
+          ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?per_page=200" \
+            | jq -r '.result[] | select((.type=="A" or .type=="AAAA") and (.content=="185.181.104.242")) | .id')
+          if [ -z "$ids" ]; then
+            echo "(no parking records left — nothing to delete)"
+          else
+            for id in $ids; do
+              echo "deleting $id -> $(curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" | jq -r '.success')"
+            done
+          fi
+
+          echo ""
+          echo "=== DNS records AFTER ==="
+          curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?per_page=200" \
+            | jq -r '.result[] | "\(.type)\t\(.name)\t\(.content)\tproxied=\(.proxied)"' | sort
+
+          echo ""
+          echo "=== Live check ==="
+          for i in 1 2 3; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L "https://tilawa.de/de" || echo 000)
+            echo "https://tilawa.de/de -> $code"; [ "$code" = "200" ] && break; sleep 10
+          done
