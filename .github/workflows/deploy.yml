@@ -1,0 +1,78 @@
+name: Deploy 1fr.fr (One Faith France)
+
+# Standalone pipeline for the 1fr.fr property. This repo deliberately does
+# NOT touch ulyah.com infrastructure: no D1 migrations, no seeds, no
+# worker-api deploy. Content is served read-only from the shared content API
+# (https://api.ulyah.com) until/unless the content is included in an
+# acquisition deal. Required GitHub Secrets: CLOUDFLARE_API_TOKEN,
+# CLOUDFLARE_ACCOUNT_ID (token needs Workers Scripts:Edit + the 1fr.fr zone).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-1fr
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm --filter @ulyah/web typecheck
+
+      - name: Build web (1fr tenant)
+        working-directory: apps/web
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_TENANT: "1fr"
+
+      - name: Deploy onefaith-web
+        working-directory: apps/web
+        run: npx wrangler deploy --name onefaith-web
+
+      - name: Attach 1fr.fr custom domains
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=1fr.fr" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::1fr.fr zone not visible to this token — site stays on workers.dev. Add the zone (or zone permission) and re-run."
+            exit 0
+          fi
+          for host in 1fr.fr www.1fr.fr; do
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"onefaith-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            echo "$host -> onefaith-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
+          done
+
+      - name: Smoke test
+        run: |
+          for i in 1 2 3 4 5; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "https://1fr.fr/fr" || echo 000)
+            echo "attempt $i: https://1fr.fr/fr -> $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 20
+          done
+          echo "::warning::1fr.fr not yet reachable (DNS/cert may still be settling)."

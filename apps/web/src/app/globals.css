@@ -1,0 +1,604 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #0b3d2e;
+  --color-primary-dark: #06251b;
+  --color-accent: #b8892b;
+  --color-accent-light: #d4af4a;
+  --color-accent-xl: #f0d080;
+  --color-surface: #f4efe3;
+  --color-surface-2: #ede5d0;
+  --color-text-primary: #232323;
+  --color-text-secondary: #5a5a5a;
+  --color-bg: #ffffff;
+  --color-card: #ffffff;
+  --color-border: rgba(11, 61, 46, 0.12);
+  --color-border-gold: rgba(184, 137, 43, 0.28);
+
+  --shadow-sm: 0 1px 4px rgba(14, 26, 15, 0.08);
+  --shadow-md: 0 4px 20px rgba(14, 26, 15, 0.1);
+  --shadow-lg: 0 10px 40px rgba(14, 26, 15, 0.14);
+  --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.14);
+  --shadow-gold-lg: 0 10px 44px rgba(184, 137, 43, 0.2);
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #06251b;
+  --color-card: #0b3d2e;
+  --color-surface-2: rgba(244, 239, 227, 0.05);
+  --color-text-primary: #f4efe3;
+  --color-text-secondary: #c9c2b2;
+  --color-border: rgba(244, 239, 227, 0.14);
+  --color-border-gold: rgba(184, 137, 43, 0.32);
+  --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
+  --shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #06251b;
+    --color-card: #0b3d2e;
+    --color-surface-2: rgba(244, 239, 227, 0.05);
+    --color-text-primary: #f4efe3;
+    --color-text-secondary: #c9c2b2;
+    --color-border: rgba(244, 239, 227, 0.14);
+    --color-border-gold: rgba(184, 137, 43, 0.32);
+    --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
+    --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
+    --shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
+    --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
+    --shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: "Inter", "Calibri", system-ui, sans-serif;
+}
+
+[dir="rtl"] .ltr-only {
+  direction: ltr;
+}
+
+.font-arabic {
+  font-family: "Scheherazade New", "Amiri", "Traditional Arabic", serif;
+  line-height: 2.5;
+  letter-spacing: 0.01em;
+}
+
+.ayah-active-highlight {
+  background: linear-gradient(90deg, rgba(184, 137, 43, 0.14), transparent);
+  border-radius: 0.5rem;
+}
+
+/* Shared premium-card language — gold hairline border, soft gold glow,
+   gentle lift + brighter border on hover. Use instead of the plain
+   `border-[var(--color-border)]` boxes for anything user-facing that should
+   feel considered rather than utilitarian (listing cards, feature cards). */
+.card-premium {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+.card-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+  border-color: var(--color-accent);
+}
+
+/* Same gold hairline + glow, no hover-lift — for large functional panels
+   (readers, forms) where a moving container would feel wrong, not just
+   clickable link-cards. */
+.card-premium-static {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Small gold corner-flourish, positioned absolutely by the caller. Purely
+   decorative — echoes the illuminated-manuscript corner motif without the
+   cost of an image asset. */
+.corner-flourish::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(circle at top right, rgba(184, 137, 43, 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+::selection {
+  background-color: rgba(184, 137, 43, 0.3);
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(184, 137, 43, 0.4);
+  border-radius: 999px;
+}
+
+/* Running-text ticker (Jadwal Sholat's rotating nasehat). The track holds
+   the content twice back-to-back and scrolls exactly one copy's width, so
+   the loop point is seamless. Duration is set inline per instance (longer
+   text needs more time to stay readable). */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-scroll linear infinite;
+}
+
+/* Mushaf Utsmani page-turn — a real book flip for an ARABIC book: the leaf
+   turns about the spine, which for a mushaf sits on the RIGHT edge of the
+   page you are reading (Arabic books advance left-to-right physically).
+   Split into two quarter-turns around that same edge — current page sweeps
+   back edge-on, new page completes the sweep in — so the swap happens
+   exactly when the leaf is perpendicular and invisible. A page-shadow
+   overlay (::after on the flip classes) darkens along the fold as the leaf
+   lifts, which is what actually sells the "paper" feel. Slow enough to be
+   unmistakable (~0.5s per half), still fast enough to not drag when
+   auto-advancing during continuous recitation. */
+.mushaf-page-flip-next-out {
+  transform-origin: right center;
+  animation: mushaf-flip-out-next 480ms cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+}
+.mushaf-page-flip-next-in {
+  transform-origin: right center;
+  animation: mushaf-flip-in-next 520ms cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
+}
+.mushaf-page-flip-prev-out {
+  transform-origin: left center;
+  animation: mushaf-flip-out-prev 480ms cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+}
+.mushaf-page-flip-prev-in {
+  transform-origin: left center;
+  animation: mushaf-flip-in-prev 520ms cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
+}
+.mushaf-page-flip-next-out::after,
+.mushaf-page-flip-prev-out::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(to left, rgba(20, 12, 0, 0.28), transparent 55%);
+  animation: mushaf-shadow-in 480ms ease forwards;
+}
+.mushaf-page-flip-prev-out::after {
+  background: linear-gradient(to right, rgba(20, 12, 0, 0.28), transparent 55%);
+}
+@keyframes mushaf-shadow-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes mushaf-flip-out-next {
+  from { transform: perspective(1600px) rotateY(0deg); }
+  to { transform: perspective(1600px) rotateY(88deg); }
+}
+@keyframes mushaf-flip-in-next {
+  from { transform: perspective(1600px) rotateY(-88deg); }
+  to { transform: perspective(1600px) rotateY(0deg); }
+}
+@keyframes mushaf-flip-out-prev {
+  from { transform: perspective(1600px) rotateY(0deg); }
+  to { transform: perspective(1600px) rotateY(-88deg); }
+}
+@keyframes mushaf-flip-in-prev {
+  from { transform: perspective(1600px) rotateY(88deg); }
+  to { transform: perspective(1600px) rotateY(0deg); }
+}
+
+/* The mushaf page frame — modelled on a printed Madinah mushaf: a deep
+   outer frame, an ornamental patterned band (pure repeating gradients, no
+   image), a thin gold rule, then the cream paper. */
+.mushaf-frame {
+  position: relative;
+  background:
+    linear-gradient(#fdf8ec, #fdf8ec) padding-box,
+    repeating-linear-gradient(45deg, #7a1f2b 0 6px, #b8892b 6px 8px, #7a1f2b 8px 14px) border-box;
+  border: 10px solid transparent;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 0 0 3px #b8892b,
+    0 0 0 6px #4a1219,
+    0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.mushaf-paper {
+  border: 1px solid rgba(184, 137, 43, 0.55);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(ellipse at top left, rgba(184, 137, 43, 0.06), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(184, 137, 43, 0.06), transparent 55%),
+    #fdf8ec;
+}
+/* Justified Arabic text block, like a typeset mushaf line. */
+.mushaf-text {
+  text-align: justify;
+  text-align-last: center;
+}
+/* Bottom-center page-number medallion (like the ٩١ roundel in a printed
+   mushaf). */
+.mushaf-page-medallion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.6rem;
+  height: 2.6rem;
+  padding: 0 0.6rem;
+  border-radius: 999px;
+  border: 2px solid #b8892b;
+  box-shadow: 0 0 0 3px #fdf8ec, 0 0 0 4px rgba(122, 31, 43, 0.7);
+  background: radial-gradient(circle at 35% 30%, #fffbe9, #f4e8c8);
+  color: #7a1f2b;
+  font-weight: 600;
+}
+/* The ayah currently being recited — gold wash + underline glow, plus a
+   little pulsing ring on its number roundel via .mushaf-ayah-live. */
+.mushaf-ayah-active {
+  background: linear-gradient(to left, rgba(184, 137, 43, 0.22), rgba(184, 137, 43, 0.08));
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 0 rgba(184, 137, 43, 0.55);
+}
+.mushaf-ayah-live {
+  animation: mushaf-live-pulse 1.6s ease-in-out infinite;
+}
+@keyframes mushaf-live-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(184, 137, 43, 0.55); }
+  50% { box-shadow: 0 0 0 6px rgba(184, 137, 43, 0); }
+}
+
+/* Kisah Anak (kids' animated stories) — character + scene animation. Plain
+   CSS keyframes rather than an animation library, matching the site's
+   existing approach (see the Mushaf page-flip above): lightweight, and
+   every action is just a transform loop so it costs nothing at rest. */
+.kids-character {
+  width: 100%;
+  height: 100%;
+  animation: kids-bob 1.8s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes kids-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.kids-arm-right {
+  transform-origin: 125px 95px;
+}
+.kids-arm-left {
+  transform-origin: 55px 95px;
+}
+
+.kids-action-wave .kids-arm-right {
+  animation: kids-wave 1.4s ease-in-out infinite;
+}
+@keyframes kids-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-28deg); }
+}
+
+.kids-action-point .kids-arm-right {
+  animation: kids-point 1.6s ease-in-out infinite;
+}
+@keyframes kids-point {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(6px, -10px) rotate(-15deg); }
+}
+
+.kids-action-think .kids-arm-right {
+  animation: kids-think 2.2s ease-in-out infinite;
+  transform: rotate(-70deg) translate(-10px, -6px);
+}
+@keyframes kids-think {
+  0%, 100% { transform: rotate(-70deg) translate(-10px, -6px); }
+  50% { transform: rotate(-75deg) translate(-10px, -10px); }
+}
+.kids-action-think .kids-face {
+  animation: kids-tilt 2.2s ease-in-out infinite;
+  transform-origin: 90px 48px;
+}
+@keyframes kids-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-4deg); }
+}
+
+.kids-action-walk {
+  animation: kids-walk-bounce 0.6s ease-in-out infinite;
+}
+@keyframes kids-walk-bounce {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-6px) translateX(3px); }
+  50% { transform: translateY(0) translateX(6px); }
+  75% { transform: translateY(-6px) translateX(3px); }
+}
+
+.kids-action-jump {
+  animation: kids-jump 0.9s ease-in-out infinite;
+}
+@keyframes kids-jump {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  30% { transform: translateY(-30px) scaleY(1.05); }
+  60% { transform: translateY(0) scaleY(0.92); }
+}
+
+.kids-action-hug {
+  animation: kids-hug 1.6s ease-in-out infinite;
+}
+@keyframes kids-hug {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.kids-action-hug .kids-arm-left {
+  animation: kids-hug-arm-left 1.6s ease-in-out infinite;
+}
+.kids-action-hug .kids-arm-right {
+  animation: kids-hug-arm-right 1.6s ease-in-out infinite;
+}
+@keyframes kids-hug-arm-left {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(20deg); }
+}
+@keyframes kids-hug-arm-right {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+.kids-action-idle {
+  animation: kids-bob 3s ease-in-out infinite;
+}
+
+.kids-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #f4d97b;
+  box-shadow: 0 0 6px 1px rgba(244, 217, 123, 0.8);
+  animation: kids-twinkle 2.4s ease-in-out infinite;
+}
+@keyframes kids-twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.kids-moon,
+.kids-sun {
+  animation: kids-float 6s ease-in-out infinite;
+}
+@keyframes kids-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.kids-palm {
+  animation: kids-sway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes kids-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.kids-cloud {
+  animation: kids-drift 18s linear infinite;
+}
+@keyframes kids-drift {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(30px); }
+}
+
+.kids-caption-enter {
+  animation: kids-caption-in 0.5s ease forwards;
+}
+@keyframes kids-caption-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Sanad isnad tree animation ──────────────────────────────────────────
+   Narrator nodes cascade in one after another (per-node animation-delay set
+   inline), each glowing dot popping onto a golden line that draws itself
+   downward — the visual metaphor is the unbroken chain of transmission. */
+.sanad-line {
+  background: linear-gradient(to bottom, rgba(184, 137, 43, 0.9), rgba(184, 137, 43, 0.25));
+  transform-origin: top;
+  animation: sanad-line-grow 900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes sanad-line-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.sanad-node {
+  opacity: 0;
+  animation: sanad-node-in 480ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+@keyframes sanad-node-in {
+  from { opacity: 0; transform: translateY(14px) translateX(6px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+}
+
+/* ── Sitewide entrance animation ─────────────────────────────────────────
+   Add .reveal-stagger to any list/grid container: its direct children fade
+   and rise in one after another on page load. Pure CSS (nth-child delays,
+   capped at 12 then everything appears together) — no observer JS, no
+   layout shift since only opacity/transform animate. Respects
+   prefers-reduced-motion. */
+.reveal-stagger > * {
+  opacity: 0;
+  animation: reveal-up 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-stagger > *:nth-child(1) { animation-delay: 40ms; }
+.reveal-stagger > *:nth-child(2) { animation-delay: 110ms; }
+.reveal-stagger > *:nth-child(3) { animation-delay: 180ms; }
+.reveal-stagger > *:nth-child(4) { animation-delay: 250ms; }
+.reveal-stagger > *:nth-child(5) { animation-delay: 320ms; }
+.reveal-stagger > *:nth-child(6) { animation-delay: 390ms; }
+.reveal-stagger > *:nth-child(7) { animation-delay: 460ms; }
+.reveal-stagger > *:nth-child(8) { animation-delay: 530ms; }
+.reveal-stagger > *:nth-child(9) { animation-delay: 600ms; }
+.reveal-stagger > *:nth-child(10) { animation-delay: 670ms; }
+.reveal-stagger > *:nth-child(11) { animation-delay: 740ms; }
+.reveal-stagger > *:nth-child(n + 12) { animation-delay: 800ms; }
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero entrance — title sweeps up with a soft golden glow settling in. */
+.hero-entrance {
+  animation: hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(22px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Soft floating ornament (hero decorations, section icons). */
+.float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+/* Gold shimmer sweep for premium CTAs (runs once on hover). */
+.shimmer-gold {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 245, 210, 0.35), transparent);
+}
+.shimmer-gold:hover::after {
+  animation: shimmer-sweep 700ms ease forwards;
+}
+@keyframes shimmer-sweep {
+  to { transform: translateX(120%) skewX(-18deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-stagger > *,
+  .hero-entrance,
+  .sanad-node,
+  .sanad-line,
+  .float-soft,
+  .kids-character,
+  .kids-caption-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Islamic geometric ambience ──────────────────────────────────────────
+   A subtle 8-point-star lattice built purely from layered gradients (no
+   image assets): two diagonal line grids forming stars where they cross,
+   plus a soft radial gold wash. Deliberately faint — texture, not noise. */
+.pattern-islamic {
+  position: relative;
+}
+.pattern-islamic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(-45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(0deg, currentColor 0, currentColor 1px, transparent 1px, transparent 52px),
+    repeating-linear-gradient(90deg, currentColor 0, currentColor 1px, transparent 1px, transparent 52px);
+  color: var(--color-accent);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Ornamental section divider: ─────── ✿ ─────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 auto;
+  max-width: 22rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to var(--divider-dir, right), transparent, rgba(184, 137, 43, 0.55));
+}
+.section-divider::after {
+  --divider-dir: left;
+}
+.section-divider > span {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* Tajwid rule popup — zooms in from below, non-modal. */
+.tajwid-pop {
+  animation: tajwid-pop-in 320ms cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+@keyframes tajwid-pop-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(24px) scale(0.8); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+/* ═══ One Faith France (1fr.fr tenant) — premium royal theme ═══
+   The 1fr build stamps data-tenant="1fr" on <html>. A deeper royal green,
+   champagne-gold accents and a warm parchment canvas set it apart from
+   ulyah.com at a glance while reusing every component. */
+html[data-tenant="1fr"] {
+  --color-accent: #c9a227;
+  --shadow-gold: 0 2px 14px rgba(201, 162, 39, 0.35);
+}
+html[data-tenant="1fr"][data-theme="light"] {
+  --color-bg: #faf6ec;
+  --color-card: #fffdf6;
+  --color-border: #e6dcc2;
+}
+html[data-tenant="1fr"][data-theme="dark"] {
+  --color-bg: #071f18;
+  --color-card: #0a2a20;
+  --color-border: #1c4436;
+}
+html[data-tenant="1fr"] .card-premium {
+  border-width: 1.5px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
+}
+html[data-tenant="1fr"] .card-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(201, 162, 39, 0.22);
+}
+html[data-tenant="1fr"] h1,
+html[data-tenant="1fr"] h2 {
+  letter-spacing: 0.015em;
+}

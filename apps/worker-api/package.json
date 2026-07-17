@@ -1,0 +1,23 @@
+{
+  "name": "@ulyah/worker-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo \"(no separate lint step — covered by typecheck)\""
+  },
+  "dependencies": {
+    "@ulyah/ai-engine": "workspace:*",
+    "@ulyah/key-pool": "workspace:*",
+    "@ulyah/shared": "workspace:*",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250109.0",
+    "typescript": "^5.7.3",
+    "wrangler": "^4.107.0"
+  }
+}

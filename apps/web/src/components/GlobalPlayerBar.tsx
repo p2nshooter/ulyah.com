@@ -1,0 +1,411 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { usePlayerStore, LAYERS, type Layer, type QueueItem } from "@/lib/player-store";
+import { api } from "@/lib/api";
+import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { RECITERS, COUNTRIES, resolveAyahAudioUrl } from "@/lib/qori-cdn";
+import { resolveTranslationLang } from "@ulyah/shared/i18n";
+import type { Dictionary } from "@/dictionaries";
+
+interface AyahBundleResponse {
+  translation: { text: string } | null;
+  tafsir: { text: string }[];
+  asbabun_nuzul: { text: string }[];
+  hadits: { text_id: string; narrator: string | null; source: string }[];
+  stories: { title: string; body: string }[];
+}
+
+/** Fetch tafsir/asbabun/hadits/kisah text once and fold it into narratable strings. */
+async function loadBundle(item: QueueItem, lang: string): Promise<Partial<QueueItem>> {
+  try {
+    const b = await api.get<AyahBundleResponse>(`/quran/ayah/${item.surahId}/${item.number}?lang=${lang}`);
+    return {
+      translation: item.translation ?? b.translation?.text ?? null,
+      tafsir: b.tafsir.map((t) => t.text).join(" ") || null,
+      asbabun: b.asbabun_nuzul.map((a) => a.text).join(" ") || null,
+      hadits:
+        b.hadits.map((h) => `${h.text_id}${h.narrator ? ` — ${h.narrator}` : ""} (${h.source})`).join(". ") || null,
+      kisah: b.stories[0] ? `${b.stories[0].title}. ${b.stories[0].body}` : null,
+      bundleLoaded: true,
+    };
+  } catch {
+    return { bundleLoaded: true };
+  }
+}
+
+function layerText(item: QueueItem, layer: Layer): string | null {
+  switch (layer) {
+    case "translation":
+      return item.translation;
+    case "tafsir":
+      return item.tafsir;
+    case "asbabun":
+      return item.asbabun;
+    case "hadits":
+      return item.hadits;
+    case "kisah":
+      return item.kisah;
+    default:
+      return null;
+  }
+}
+
+export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const narrationRef = useRef<NarrationHandle | null>(null);
+  const genRef = useRef(0);
+
+  const {
+    queue,
+    currentIndex,
+    storyTrack,
+    isPlaying,
+    qoriId,
+    layers,
+    activeLayer,
+    playbackRate,
+    repeatMode,
+    sleepAt,
+    storyAudioSrc,
+    pause,
+    toggle,
+    next,
+    prev,
+    patchBundle,
+    setActiveLayer,
+    setQori,
+    setPlaybackRate,
+    setRepeatMode,
+    setAudioProgress,
+    hydrateFromStorage,
+  } = usePlayerStore();
+
+  // Rendered once app-wide (root layout) — the one safe place to pull the
+  // visitor's saved qori/layers preference out of localStorage after mount,
+  // without risking a hydration mismatch (see player-store.ts).
+  useEffect(() => {
+    hydrateFromStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [progress, setProgress] = useState({ current: 0, duration: 0 });
+  const [showQoriMenu, setShowQoriMenu] = useState(false);
+  const [qoriCC, setQoriCC] = useState("all"); // country filter in the reciter picker
+  const current = queue[currentIndex];
+  const layersKey = layers.join(",");
+  const uiLang = typeof document !== "undefined" ? document.documentElement.lang || "id" : "id";
+
+  const cancelAll = useCallback(() => {
+    genRef.current++;
+    narrationRef.current?.cancel();
+    narrationRef.current = null;
+    const audio = audioRef.current;
+    if (audio) audio.pause();
+    setAudioProgress({ current: 0, duration: 0 }); // don't leak the previous ayah's highlight ratio
+  }, [setAudioProgress]);
+
+  /** Play the current ayah's recitation. Resolves true on natural end,
+   * false if the murottal for this qori/ayah isn't imported (404) so the
+   * sequence can fall through to the narrated layers instead of going silent. */
+  const playAyahAudio = useCallback(async (myGen: number): Promise<boolean> => {
+    const audio = audioRef.current;
+    const st = usePlayerStore.getState();
+    const current = st.queue[st.currentIndex];
+    if (!audio || !current) return false;
+    const src = await resolveAyahAudioUrl(st.qoriId, current.surahId, current.number);
+    if (myGen !== genRef.current) return false; // superseded while we were resolving the URL
+    if (!src) return false;
+
+    return new Promise<boolean>((resolve) => {
+      let settled = false;
+      const cleanup = () => {
+        audio.removeEventListener("ended", onEnded);
+        audio.removeEventListener("error", onError);
+      };
+      const onEnded = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(true);
+      };
+      const onError = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        resolve(false);
+      };
+      audio.addEventListener("ended", onEnded);
+      audio.addEventListener("error", onError);
+      audio.src = src;
+      audio.playbackRate = usePlayerStore.getState().playbackRate;
+      audio.play().catch(() => onError());
+      // If the run is superseded, stop waiting on this audio.
+      const poll = setInterval(() => {
+        if (myGen !== genRef.current && !settled) {
+          settled = true;
+          cleanup();
+          clearInterval(poll);
+          resolve(false);
+        } else if (settled) {
+          clearInterval(poll);
+        }
+      }, 120);
+    });
+  }, []);
+
+  // Narrate every text layer in the ACTUAL content language, not the raw UI
+  // locale: for locales that don't have their own Qur'an translation (de, ja)
+  // the text served is the fallback (English), so speaking it with a German
+  // voice read English words — the "tidak konsisten translate dan bahasa" bug.
+  // resolveTranslationLang gives the language the text is truly in.
+  const contentLang = resolveTranslationLang(uiLang) ?? uiLang;
+
+  const narrate = useCallback(
+    (text: string, myGen: number): Promise<void> =>
+      new Promise((resolve) => {
+        if (!speechAvailable() || !text.trim()) return resolve();
+        const rate = Math.min(1.1, Math.max(0.7, 0.95 * (usePlayerStore.getState().playbackRate || 1)));
+        const handle = speak(text, contentLang, { rate });
+        narrationRef.current = handle;
+        handle.done.then(() => {
+          if (myGen === genRef.current) resolve();
+          else resolve();
+        });
+      }),
+    [uiLang]
+  );
+
+  /** The sequence runner for one ayah: walk enabled layers, then advance. */
+  const runAyah = useCallback(
+    async (myGen: number) => {
+      const st = usePlayerStore.getState();
+      const item = st.queue[st.currentIndex];
+      if (!item) return;
+      const enabled = st.layers;
+
+      let work = item;
+      const needsText = enabled.some((l) => l !== "ayah");
+      if (needsText && !item.bundleLoaded) {
+        const patch = await loadBundle(item, uiLang);
+        if (myGen !== genRef.current) return;
+        patchBundle(st.currentIndex, patch);
+        work = { ...item, ...patch };
+      }
+
+      for (const layer of LAYERS) {
+        if (!enabled.includes(layer)) continue;
+        if (myGen !== genRef.current) return;
+        if (layer === "ayah") {
+          setActiveLayer("ayah");
+          await playAyahAudio(myGen);
+        } else {
+          const text = layerText(work, layer);
+          if (!text) continue;
+          setActiveLayer(layer);
+          await narrate(text, myGen);
+        }
+        if (myGen !== genRef.current) return;
+      }
+      if (myGen !== genRef.current) return;
+      setActiveLayer(null);
+      next();
+    },
+    [uiLang, patchBundle, setActiveLayer, playAyahAudio, narrate, next]
+  );
+
+  // Main driver: (re)start the current ayah's layer sequence whenever the
+  // focused ayah, the layer selection, or the qori changes while playing.
+  useEffect(() => {
+    if (storyTrack) return;
+    cancelAll();
+    if (!isPlaying || !current) return;
+    const myGen = genRef.current; // cancelAll already bumped it
+    runAyah(myGen);
+    return () => {
+      /* next effect run calls cancelAll */
+    };
+  }, [isPlaying, currentIndex, layersKey, qoriId, storyTrack]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Story playback — a single recorded/narrated track, simple transport.
+  useEffect(() => {
+    if (!storyTrack) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+    const src = storyAudioSrc();
+    if (!src) return;
+    if (audio.src !== src) audio.src = src;
+    audio.playbackRate = playbackRate;
+    if (isPlaying) audio.play().catch(() => {});
+    else audio.pause();
+  }, [storyTrack, isPlaying, playbackRate, storyAudioSrc]);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = playbackRate;
+  }, [playbackRate]);
+
+  useEffect(() => {
+    if (!sleepAt) return;
+    const t = setTimeout(() => pause(), Math.max(0, sleepAt - Date.now()));
+    return () => clearTimeout(t);
+  }, [sleepAt, pause]);
+
+  useEffect(() => () => cancelAll(), [cancelAll]);
+
+  const hasTrack = Boolean(current || storyTrack);
+  if (!hasTrack) return null;
+
+  const title = storyTrack?.title ?? (current ? `${current.surahName} · ${dict.reader.ayahLabel} ${current.number}` : "");
+  const layerLabelMap: Record<Layer, string> = {
+    ayah: dict.reader.modeAyahOnly,
+    translation: dict.reader.translationLabel,
+    tafsir: dict.reader.tafsirLabel,
+    asbabun: dict.reader.asbabunNuzulLabel,
+    hadits: dict.reader.haditsLabel,
+    kisah: dict.reader.storyLabel,
+  };
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-accent/20 bg-[#06251b]/97 px-3 py-2 text-[#f4efe3] backdrop-blur-md sm:px-6">
+      <audio
+        ref={audioRef}
+        onTimeUpdate={(e) => {
+          const p = { current: e.currentTarget.currentTime, duration: e.currentTarget.duration || 0 };
+          setProgress(p);
+          setAudioProgress(p);
+        }}
+        onEnded={() => {
+          if (storyTrack) next();
+        }}
+      />
+      <div className="mx-auto flex max-w-5xl items-center gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <p className="truncate text-sm font-medium">{title}</p>
+            {activeLayer && (
+              <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-[#06251b]">
+                🔊 {layerLabelMap[activeLayer]}
+              </span>
+            )}
+          </div>
+          <div className="mt-1 flex items-center gap-2">
+            <span className="text-xs tabular-nums text-[#f4efe3]/60">{formatTime(progress.current)}</span>
+            <input
+              type="range"
+              min={0}
+              max={progress.duration || 0}
+              value={progress.current}
+              onChange={(e) => {
+                if (audioRef.current) audioRef.current.currentTime = Number(e.target.value);
+              }}
+              className="h-1 flex-1 accent-accent"
+            />
+            <span className="text-xs tabular-nums text-[#f4efe3]/60">{formatTime(progress.duration)}</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1 sm:gap-2">
+          {!storyTrack && (
+            <button aria-label="previous" onClick={prev} className="p-2 text-lg hover:text-accent">
+              ⏮
+            </button>
+          )}
+          <button
+            aria-label={isPlaying ? "pause" : "play"}
+            onClick={toggle}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-lg text-[#06251b] shadow-lg transition hover:scale-105"
+          >
+            {isPlaying ? "⏸" : "▶"}
+          </button>
+          {!storyTrack && (
+            <button aria-label="next" onClick={() => next()} className="p-2 text-lg hover:text-accent">
+              ⏭
+            </button>
+          )}
+
+          {!storyTrack && (
+            <div className="relative">
+              <button
+                onClick={() => setShowQoriMenu((v) => !v)}
+                aria-label={dict.reader.qariLabel}
+                className="rounded-full border border-accent/30 px-2.5 py-1 text-xs hover:border-accent sm:px-3"
+              >
+                <span className="sm:hidden">🎙️</span>
+                <span className="hidden sm:inline">
+                  {dict.reader.qariLabel}: {RECITERS.find((q) => q.key === qoriId)?.name.split(" ")[0]}
+                </span>
+              </button>
+              {showQoriMenu && (
+                <div className="absolute bottom-full right-0 mb-2 max-h-96 w-72 overflow-y-auto rounded-lg border border-accent/20 bg-[#0b3d2e] shadow-xl">
+                  {/* Per-country filter tabs (imam setiap negara) */}
+                  <div className="sticky top-0 flex flex-wrap gap-1 border-b border-accent/15 bg-[#0b3d2e] p-2">
+                    {COUNTRIES.map((c) => {
+                      const count = c.code === "all" ? RECITERS.length : RECITERS.filter((r) => r.cc === c.code).length;
+                      if (count === 0) return null;
+                      return (
+                        <button
+                          key={c.code}
+                          onClick={() => setQoriCC(c.code)}
+                          className={`rounded-full border px-2 py-0.5 text-[10px] ${
+                            qoriCC === c.code ? "border-accent text-accent" : "border-accent/20 text-[#f4efe3]/70"
+                          }`}
+                        >
+                          {c.flag} {c.label}
+                          <span className="ml-1 opacity-50">{count}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {RECITERS.filter((q) => qoriCC === "all" || q.cc === qoriCC).map((q) => (
+                    <button
+                      key={q.key}
+                      onClick={() => {
+                        setQori(q.key);
+                        setShowQoriMenu(false);
+                      }}
+                      className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-xs hover:bg-accent/10 ${q.key === qoriId ? "text-accent" : ""}`}
+                    >
+                      <span>
+                        {q.flag} {q.name}
+                        <span className="ml-1.5 opacity-60">· {q.note}</span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <select
+            aria-label="playback speed"
+            value={playbackRate}
+            onChange={(e) => setPlaybackRate(Number(e.target.value))}
+            className="hidden rounded border border-accent/30 bg-transparent px-1 py-1 text-xs sm:block"
+          >
+            {[0.75, 1, 1.25, 1.5, 2].map((r) => (
+              <option key={r} value={r} className="text-[#232323]">
+                {r}x
+              </option>
+            ))}
+          </select>
+
+          <button
+            aria-label="repeat"
+            onClick={() => setRepeatMode(repeatMode === "off" ? "ayah" : repeatMode === "ayah" ? "surah" : "off")}
+            className={`hidden p-2 text-sm sm:block ${repeatMode !== "off" ? "text-accent" : "text-[#f4efe3]/70"}`}
+            title={repeatMode}
+          >
+            🔁
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function formatTime(seconds: number): string {
+  if (!isFinite(seconds) || seconds < 0) return "00:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}

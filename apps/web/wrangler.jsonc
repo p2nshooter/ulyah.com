@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "onefaith-web",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // ulyah.com / www.ulyah.com custom domains are attached by the deploy
+  // workflow via the account-level workers/domains API, which overrides the
+  // stale placeholder DNS records that block wrangler's own attach call
+  // (wrangler errors on conflict; the API endpoint replaces the record).
+  "vars": {
+    "NEXT_PUBLIC_API_URL": "https://api.ulyah.com"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
