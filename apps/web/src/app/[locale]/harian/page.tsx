@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   return {
-    title: `${dict.explore.daily.title} — ULYAH.COM`,
+    title: `${dict.explore.daily.title}`,
     description: dict.explore.daily.desc,
     alternates: { canonical: `/${locale}/harian` },
   };

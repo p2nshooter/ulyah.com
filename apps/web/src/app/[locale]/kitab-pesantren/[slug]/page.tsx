@@ -44,10 +44,10 @@ export async function generateMetadata({
   const { locale: raw, slug } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const data = await fetchKitab(slug);
-  if (!data) return { title: "Kitab — ULYAH.COM" };
+  if (!data) return { title: "Kitab" };
   const k = data.kitab;
   return {
-    title: `${k.title_id} — Kitab Pesantren · ULYAH.COM`,
+    title: `${k.title_id} — Kitab Pesantren`,
     description: `${k.title_id} (${k.title_ar}) karya ${k.author ?? "ulama klasik"}. ${k.description_id ?? ""}`.trim(),
     alternates: { canonical: `/${locale}/kitab-pesantren/${slug}` },
     // Its own manifest ("widget per buku") — the browser's install prompt

@@ -800,22 +800,34 @@ async function resolveLiveVideoId(env: Env, channelId: string): Promise<string |
   if (cached !== null) return cached || null;
   let id: string | null = null;
   try {
-    const res = await fetch(`https://www.youtube.com/channel/${channelId}/live`, {
+    const res = await fetch(`https://www.youtube.com/channel/${channelId}/live?hl=en`, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-        "Accept-Language": "en",
+        "Accept-Language": "en-US,en;q=0.9",
+        // Cloudflare Worker egress IPs get YouTube's EU "consent" interstitial
+        // instead of the real page, so the canonical/live markers never matched
+        // and EVERY auto stream fell back to REPLAY (owner: "g ada satupun yg
+        // live"). These cookies pre-accept consent so the real watch page loads.
+        Cookie: "CONSENT=YES+1; SOCS=CAISEwgDEgk0ODE3Nzk3MjQaAmVuIAEaBgiA_LyaBg",
       },
     });
     if (res.ok) {
       const html = await res.text();
       const canonical = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
-      // Canonical alone can point at a scheduled premiere — require a live marker too.
-      if (canonical && /"isLiveNow"\s*:\s*true|"isLive"\s*:\s*true|hlsManifestUrl/.test(html)) id = canonical[1] ?? null;
+      // Canonical alone can point at a scheduled premiere — require a genuine
+      // live marker too. YouTube's watch payload exposes several equivalent
+      // ones; accept any so a markup tweak doesn't silently blank the hub.
+      const liveNow = /"isLiveNow"\s*:\s*true|"isLive"\s*:\s*true|"isLiveContent"\s*:\s*true|hlsManifestUrl|"liveBroadcastDetails"\s*:\s*\{[^}]*"isLiveNow"\s*:\s*true|\{"iconType":"LIVE"\}/.test(html);
+      if (canonical && liveNow) id = canonical[1] ?? null;
+      // Fallback: some live pages carry the id only in the player config.
+      if (!id && liveNow) id = html.match(/"videoId"\s*:\s*"([\w-]{11})"/)?.[1] ?? null;
     }
   } catch {
     // network hiccup → cache the miss briefly and let the playlist fallback carry the card
   }
-  await safeKvPut(env, key, id ?? "", { expirationTtl: 60 * 10 });
+  // Cache a hit for 10 min; cache a miss for only 3 min so a channel that just
+  // went live shows up quickly rather than staying "REPLAY" for a full window.
+  await safeKvPut(env, key, id ?? "", { expirationTtl: id ? 60 * 10 : 60 * 3 });
   return id;
 }
 

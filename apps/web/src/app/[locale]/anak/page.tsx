@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { KisahAnakList } from "@/components/KisahAnakList";
 import { VideoAnakGrid } from "@/components/kids/VideoAnakGrid";
+import { TENANT } from "@/lib/tenant";
 
 interface EpisodeRow {
   id: number;
@@ -15,21 +16,71 @@ interface EpisodeRow {
   motif: string;
 }
 
+// Native per-locale copy — siblings render their own language (fr/de), never
+// an English/Indonesian fallback. `{site}` becomes the tenant brand.
+const L: Record<string, { heading: string; intro: string; interactive: string; metaTitle: (s: string) => string; metaDesc: string }> = {
+  id: {
+    heading: "Kisah Anak Muslim",
+    intro:
+      "Film animasi pendek dengan karakter bergerak dan narasi suara — setiap kisah mengajarkan satu akhlak dari Al-Qur'an dan Sunnah. Langsung tonton, tanpa unduh.",
+    interactive: "Kisah Interaktif Beranimasi",
+    metaTitle: (s) => `Kisah Anak Muslim — Film Animasi Islami — ${s}`,
+    metaDesc:
+      "Film animasi pendek untuk anak: karakter bergerak, dibacakan dengan suara, mengajarkan akhlak Islami — langsung tonton tanpa unduh.",
+  },
+  en: {
+    heading: "Muslim Kids' Stories",
+    intro:
+      "Short animated films with moving characters and voice narration — each story teaches one value from the Qur'an and Sunnah. Watch right here, no download.",
+    interactive: "Interactive Animated Stories",
+    metaTitle: (s) => `Muslim Kids' Stories — Animated Films — ${s}`,
+    metaDesc:
+      "Short animated films for children: moving characters, narrated aloud, teaching Islamic character — watch right here, no download.",
+  },
+  fr: {
+    heading: "Histoires pour enfants musulmans",
+    intro:
+      "Courts films d'animation avec des personnages animés et une narration vocale — chaque histoire enseigne une valeur du Coran et de la Sunna. À regarder ici même, sans téléchargement.",
+    interactive: "Histoires animées interactives",
+    metaTitle: (s) => `Histoires pour enfants musulmans — Films d'animation — ${s}`,
+    metaDesc:
+      "Courts films d'animation pour enfants : personnages animés, narration vocale, enseignant le bon caractère islamique — à regarder ici même, sans téléchargement.",
+  },
+  de: {
+    heading: "Geschichten für muslimische Kinder",
+    intro:
+      "Kurze Animationsfilme mit bewegten Figuren und Sprachausgabe — jede Geschichte vermittelt einen Wert aus Koran und Sunna. Direkt hier ansehen, ohne Download.",
+    interactive: "Interaktive Animationsgeschichten",
+    metaTitle: (s) => `Geschichten für muslimische Kinder — Animationsfilme — ${s}`,
+    metaDesc:
+      "Kurze Animationsfilme für Kinder: bewegte Figuren, gesprochene Erzählung, die islamischen guten Charakter vermitteln — direkt hier ansehen, ohne Download.",
+  },
+  ar: {
+    heading: "قصص الأطفال المسلمين",
+    intro:
+      "أفلام رسوم متحركة قصيرة بشخصيات متحركة وسرد صوتي — كل قصة تعلّم خُلقًا من القرآن والسنة. تُشاهد هنا مباشرةً دون تنزيل.",
+    interactive: "قصص متحركة تفاعلية",
+    metaTitle: (s) => `قصص الأطفال المسلمين — أفلام رسوم متحركة — ${s}`,
+    metaDesc:
+      "أفلام رسوم متحركة قصيرة للأطفال: شخصيات متحركة، سرد صوتي، تعلّم الأخلاق الإسلامية — تُشاهد هنا مباشرةً دون تنزيل.",
+  },
+};
+
+function labels(locale: string) {
+  return L[locale] ?? L.en!;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const title = locale === "id" ? "Kisah Anak Muslim — Film Animasi Islami — ULYAH.COM" : "Muslim Kids' Stories — Animated Films — ULYAH.COM";
-  const description =
-    locale === "id"
-      ? "Film animasi pendek untuk anak: karakter bergerak, dibacakan dengan suara, mengajarkan akhlak Islami — langsung tonton tanpa unduh."
-      : "Short animated films for children: moving characters, narrated aloud, teaching Islamic character — watch right here, no download.";
-  return { title, description, alternates: { canonical: `/${locale}/anak` } };
+  const t = labels(locale);
+  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc, alternates: { canonical: `/${locale}/anak` } };
 }
 
 export default async function KisahAnakPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const isId = locale === "id";
+  const t = labels(locale);
 
   let episodes: EpisodeRow[] = [];
   try {
@@ -44,13 +95,9 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
       <div className="mx-auto max-w-3xl">
         <div className="hero-entrance text-center">
           <span aria-hidden className="float-soft inline-block text-5xl">🌙</span>
-          <h1 className="mt-2 font-heading text-3xl sm:text-4xl">
-            {isId ? "Kisah Anak Muslim" : "Muslim Kids' Stories"}
-          </h1>
+          <h1 className="mt-2 font-heading text-3xl sm:text-4xl">{t.heading}</h1>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {isId
-              ? "Film animasi pendek dengan karakter bergerak dan narasi suara — setiap kisah mengajarkan satu akhlak dari Al-Qur'an dan Sunnah. Langsung tonton, tanpa unduh."
-              : "Short animated films with moving characters and voice narration — each story teaches one value from the Qur'an and Sunnah. Watch right here, no download."}
+            {t.intro}
           </p>
         </div>
 
@@ -62,7 +109,7 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
 
         <div className="mt-12">
           <h2 className="flex items-center gap-2 font-heading text-xl">
-            <span aria-hidden>📖</span> {isId ? "Kisah Interaktif Beranimasi" : "Interactive Animated Stories"}
+            <span aria-hidden>📖</span> {t.interactive}
           </h2>
           <div className="mt-4">
             <KisahAnakList locale={locale} episodes={episodes} />

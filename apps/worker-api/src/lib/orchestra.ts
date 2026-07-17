@@ -487,10 +487,14 @@ function validateCitations(answer: string, sources: GroundingSource[]): { answer
 
 export async function answerGrounded(
   env: Env,
-  opts: { question: string; locale?: string; specialist?: string }
+  opts: { question: string; locale?: string; specialist?: string; site?: string }
 ): Promise<GroundedAnswer> {
   const locale = opts.locale ?? "id";
-  const persona = (opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM yang bijaksana, santun, dan elegan.";
+  // Sibling sites (1fr.fr / tilawa.de) run the same worker but must never
+  // surface the "ULYAH.COM" brand — the caller passes its own site name and
+  // every persona/task mention of the brand is rewritten to it.
+  const site = (opts.site && opts.site.trim()) || "ULYAH.COM";
+  const persona = ((opts.specialist && SPECIALISTS[opts.specialist]) || "Kamu asisten Islami ULYAH.COM yang bijaksana, santun, dan elegan.").replace(/ULYAH\.COM/gi, site);
 
   // Small talk / curhat: warm conversation, zero references, gentle steer.
   if (isSmallTalk(opts.question)) {
@@ -516,7 +520,7 @@ BALASAN:`;
 
   const prompt = `${persona}
 
-Tugasmu: mengobrol secara natural dan cerdas seperti asisten AI kelas dunia — seluruh wawasanmu berakar dari database ULYAH.COM (Al-Qur'an & tafsir, hadits, kisah, kitab, amalan). Jawab hangat dan mengalir, bukan robotik.
+Tugasmu: mengobrol secara natural dan cerdas seperti asisten AI kelas dunia — seluruh wawasanmu berakar dari database ${site} (Al-Qur'an & tafsir, hadits, kisah, kitab, amalan). Jawab hangat dan mengalir, bukan robotik.
 
 Panduan:
 - Mulai dengan jawaban yang tegas dan jelas atas inti pertanyaan, lalu kembangkan secukupnya — panjang menyesuaikan kompleksitas pertanyaan.

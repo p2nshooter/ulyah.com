@@ -23,7 +23,7 @@ export async function generateMetadata({
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = haditsLabels(locale);
   return {
-    title: `${t.title} — ULYAH.COM`,
+    title: `${t.title}`,
     description: t.subtitle,
     alternates: { canonical: `/${locale}/hadits` },
   };

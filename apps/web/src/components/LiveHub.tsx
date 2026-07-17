@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
+import { liveLabels } from "@/lib/live-labels";
 
 interface StreamRow {
   id: number;
@@ -72,15 +74,15 @@ function streamEmbedUrl(s: StreamRow, opts: { autoplayMuted?: boolean } = {}): s
   return s.url ? toEmbedUrl(s.url, opts) : null;
 }
 
-function OfflineCard({ isId }: { isId: boolean }) {
+function OfflineCard({ t }: { t: ReturnType<typeof liveLabels> }) {
   return (
     <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-2xl bg-gradient-to-b from-[#0B3D2E] to-[#06251b] p-6 text-center text-[#f4efe3]">
-      <Image src="/brand/wordmark-ar-gold.png" alt="ULYAH.COM" width={150} height={42} className="h-9 w-auto opacity-90" />
-      <p className="text-xs uppercase tracking-[0.25em] text-accent">ulyah.com</p>
-      <p className="mt-1 text-sm text-[#f4efe3]/75">{isId ? "Slot siaran ini sedang offline." : "This stream slot is currently offline."}</p>
+      <Image src={TENANT.id === "ulyah" ? "/brand/wordmark-ar-gold.png" : TENANT.logoIcon} alt={TENANT.siteName} width={TENANT.id === "ulyah" ? 150 : 56} height={TENANT.id === "ulyah" ? 42 : 56} className={TENANT.id === "ulyah" ? "h-9 w-auto opacity-90" : "h-12 w-12 rounded-xl"} />
+      <p className="text-xs uppercase tracking-[0.25em] text-accent">{TENANT.siteUrl.replace(/^https?:\/\//, "")}</p>
+      <p className="mt-1 text-sm text-[#f4efe3]/75">{t.offlineSlot}</p>
       <div className="mt-2 rounded-xl border border-accent/30 bg-accent/10 px-4 py-2.5 text-xs leading-relaxed">
         <p className="font-medium text-accent">
-          {isId ? "Ingin siaran langsung melalui ulyah.com?" : "Want to stream live via ulyah.com?"}
+          {t.wantStream}
         </p>
         <p className="mt-1">
           {CONTACT_NAME} ·{" "}
@@ -94,7 +96,7 @@ function OfflineCard({ isId }: { isId: boolean }) {
 }
 
 export function LiveHub({ locale }: { locale: string }) {
-  const isId = locale !== "en" && locale !== "ar";
+  const t = liveLabels(locale, TENANT.siteName);
   const [streams, setStreams] = useState<StreamRow[]>([]);
   const [maximized, setMaximized] = useState<StreamRow | null>(null);
 
@@ -123,7 +125,7 @@ export function LiveHub({ locale }: { locale: string }) {
     // lazy-loaded, so a page full of world channels stays light.
     const autoplayMuted = s.kind === "auto" && (s.slot === 101 || s.slot === 102 || inMax);
     const embed = streamEmbedUrl(s, { autoplayMuted });
-    if (!embed || (s.kind === "manual" && !s.is_live)) return <OfflineCard isId={isId} />;
+    if (!embed || (s.kind === "manual" && !s.is_live)) return <OfflineCard t={t} />;
     return (
       <iframe
         src={embed}
@@ -152,11 +154,11 @@ export function LiveHub({ locale }: { locale: string }) {
             {live ? (
               <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-600/15 px-2 py-0.5 text-[10px] font-semibold text-red-500">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
-                {s.kind === "auto" ? `LIVE · 24 ${isId ? "JAM" : "HRS"}` : "LIVE"}
+                {s.kind === "auto" ? `LIVE · 24 ${t.hrs}` : "LIVE"}
               </span>
             ) : s.kind === "auto" ? (
               <span className="shrink-0 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
-                ⏵ {isId ? "REKAMAN" : "REPLAY"}
+                ⏵ {t.replay}
               </span>
             ) : (
               <span className="shrink-0 rounded-full bg-black/10 px-2 py-0.5 text-[10px] text-[var(--color-text-secondary)] dark:bg-white/10">
@@ -166,7 +168,7 @@ export function LiveHub({ locale }: { locale: string }) {
           </p>
           {canMax && (
             <button onClick={() => setMaximized(s)} className="shrink-0 rounded-full border border-accent/40 px-3 py-1 text-xs text-accent">
-              ⛶ {isId ? "Perbesar" : "Maximize"}
+              ⛶ {t.maximize}
             </button>
           )}
         </div>
@@ -175,7 +177,7 @@ export function LiveHub({ locale }: { locale: string }) {
           <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
             {!s.video_id && (
               <span>
-                ⏸ {isId ? "Sedang tidak siaran langsung — memutar video terbaru channel." : "Not live right now — playing the channel's latest videos."}
+                ⏸ {t.notLive}
               </span>
             )}
             {s.channel_id && (
@@ -185,16 +187,14 @@ export function LiveHub({ locale }: { locale: string }) {
                 rel="noopener noreferrer"
                 className="font-medium text-accent hover:underline"
               >
-                ↗ {isId ? "Buka di YouTube" : "Open on YouTube"}
+                ↗ {t.openYoutube}
               </a>
             )}
           </p>
         )}
         {s.kind === "auto" && (s.slot === 101 || s.slot === 102) && (
           <p className="mt-2 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
-            {isId
-              ? "🔇 Suara mati bawaan — ketuk ikon speaker di pemutar untuk mengaktifkan."
-              : "🔇 Muted by default — tap the speaker icon in the player to unmute."}
+            {t.mutedDefault}
           </p>
         )}
       </div>
@@ -206,13 +206,11 @@ export function LiveHub({ locale }: { locale: string }) {
       {/* Auto: always-on world broadcasts */}
       <section>
         <h2 className="flex items-center gap-2 font-heading text-xl">
-          <span aria-hidden>🕋</span> {isId ? "Live Otomatis 24 Jam — Dunia Islam" : "Always-On 24h — Islamic World"}
+          <span aria-hidden>🕋</span> {t.autoTitle}
           <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{autos.length}</span>
         </h2>
         <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-          {isId
-            ? "Siaran resmi yang selalu mengudara — Makkah, Madinah, dan kanal Islami dunia. Mengikuti siaran langsung kanalnya secara otomatis."
-            : "Official always-on broadcasts — Makkah, Madinah, and Islamic channels worldwide. Follows each channel's current live automatically."}
+          {t.autoDesc}
         </p>
         <div className="reveal-stagger mt-4 grid gap-5 sm:grid-cols-2">{autos.map(card)}</div>
       </section>
@@ -220,13 +218,11 @@ export function LiveHub({ locale }: { locale: string }) {
       {/* Manual: the owner's six slots */}
       <section>
         <h2 className="flex items-center gap-2 font-heading text-xl">
-          <span aria-hidden>🎥</span> {isId ? "Siaran ULYAH" : "ULYAH Broadcasts"}
+          <span aria-hidden>🎥</span> {t.broadcastsTitle}
           <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{manuals.length}</span>
         </h2>
         <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-          {isId
-            ? "Kajian dan siaran yang diisi langsung oleh pengelola ULYAH.COM."
-            : "Lectures and broadcasts curated directly by the ULYAH.COM team."}
+          {t.broadcastsDesc}
         </p>
         <div className="reveal-stagger mt-4 grid gap-5 sm:grid-cols-2">{manuals.map(card)}</div>
       </section>
@@ -240,7 +236,7 @@ export function LiveHub({ locale }: { locale: string }) {
               {maximized.region ? ` · ${maximized.region}` : ""}
             </p>
             <button onClick={() => setMaximized(null)} className="rounded-full border border-white/25 px-4 py-1.5 text-sm hover:bg-white/10">
-              ✕ {isId ? "Tutup" : "Close"}
+              ✕ {t.close}
             </button>
           </div>
           <div className="min-h-0 flex-1">{player(maximized, true)}</div>
