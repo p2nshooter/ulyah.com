@@ -92,7 +92,19 @@ export function InstallAppButton({
       nav
         .getInstalledRelatedApps()
         .then((related) => {
-          if (!cancelled && related.length > 0) setInstalled(true);
+          if (cancelled) return;
+          if (related.length > 0) {
+            setInstalled(true);
+            return;
+          }
+          // Best-effort uninstall: getInstalledRelatedApps is supported and
+          // reports none installed, yet we previously recorded an install for
+          // this app on this device — treat it as an uninstall (fired once,
+          // then the flag is cleared so it can't double-count).
+          if (window.localStorage.getItem(`${INSTALLED_KEY}_${app}`) === "1") {
+            window.localStorage.removeItem(`${INSTALLED_KEY}_${app}`);
+            api.post("/analytics/uninstall", { app }).catch(() => {});
+          }
         })
         .catch(() => {});
     }
