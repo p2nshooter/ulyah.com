@@ -111,7 +111,61 @@ const AR: KitabLabels = {
   translationLabel: "",
 };
 
-const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR };
+const FR: KitabLabels = {
+  title: "Bibliothèque islamique",
+  subtitle: "Les ouvrages classiques de la tradition islamique — tafsir, hadith, les quatre madhhab, sîra, histoire et vies des savants. Chaque résumé peut être écouté à voix haute.",
+  categories: "Catégories",
+  works: "ouvrages",
+  browse: "Parcourir",
+  searchPlaceholder: "Rechercher un ouvrage ou un auteur…",
+  author: "Auteur",
+  died: "m.",
+  topics: "Sujets abordés",
+  about: "À propos de cet ouvrage",
+  listen: "Écouter",
+  stop: "Arrêter",
+  source: "Source",
+  backToCategories: "Toutes les catégories",
+  backToCategory: "Retour à la catégorie",
+  noResults: "Aucun ouvrage trouvé.",
+  prev: "Précédent",
+  next: "Suivant",
+  page: "Page",
+  worksInCategory: "ouvrages dans cette catégorie",
+  openWork: "Ouvrir",
+  note: "Catalogue et résumés uniquement, pour l'étude et la référence.",
+  arabicOnlyNote: "La description de cet ouvrage est en arabe, la langue classique d'origine — lue à voix haute avec une voix arabe ci-dessous.",
+  translationLabel: "Traduction",
+};
+
+const DE: KitabLabels = {
+  title: "Islamische Bibliothek",
+  subtitle: "Die klassischen Werke der islamischen Tradition — Tafsir, Hadith, die vier Madhhab, Sīra, Geschichte und die Lebensläufe der Gelehrten. Jede Zusammenfassung kann laut vorgelesen werden.",
+  categories: "Kategorien",
+  works: "Werke",
+  browse: "Durchsuchen",
+  searchPlaceholder: "Werk oder Autor suchen…",
+  author: "Autor",
+  died: "gest.",
+  topics: "Behandelte Themen",
+  about: "Über dieses Werk",
+  listen: "Anhören",
+  stop: "Stopp",
+  source: "Quelle",
+  backToCategories: "Alle Kategorien",
+  backToCategory: "Zurück zur Kategorie",
+  noResults: "Keine Werke gefunden.",
+  prev: "Zurück",
+  next: "Weiter",
+  page: "Seite",
+  worksInCategory: "Werke in dieser Kategorie",
+  openWork: "Öffnen",
+  note: "Nur Katalog und Zusammenfassungen, zum Studium und als Referenz.",
+  arabicOnlyNote: "Die Beschreibung dieses Werks ist auf Arabisch, der klassischen Originalsprache — unten mit arabischer Stimme vorgelesen.",
+  translationLabel: "Übersetzung",
+};
+
+const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
 
 export function kitabLabels(locale: string): KitabLabels {
   return MAP[locale] ?? EN;

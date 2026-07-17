@@ -117,7 +117,65 @@ const AR: MushafLabels = {
   goButton: "اذهب",
 };
 
-const MAP: Record<string, MushafLabels> = { en: EN, id: ID, ar: AR };
+const FR: MushafLabels = {
+  navLabel: "Moushaf",
+  metaTitle: "Moushaf ʿUthmānī — Lecteur complet du Coran avec feuilletage",
+  metaDescription:
+    "Lisez le Coran complet dans la mise en page standard du Moushaf ʿUthmānī de 604 pages, avec une belle animation de feuilletage, des traductions dans toutes les langues du site, l'audio de la récitation et le tafsir de sources du monde entier.",
+  title: "Moushaf ʿUthmānī",
+  subtitle: "Le Coran complet, page par page, exactement comme imprimé — avec récitation, traduction et tafsir.",
+  pageOf: (page, total) => `Page ${page} sur ${total}`,
+  juzLabel: "Juz'",
+  jumpToSurah: "Aller à la sourate",
+  jumpToJuz: "Aller au Juz'",
+  prevPage: "Page précédente",
+  nextPage: "Page suivante",
+  playPage: "🔊 Écouter cette page",
+  stopPage: "⏹ Arrêter",
+  showTranslation: "Afficher la traduction",
+  hideTranslation: "Masquer la traduction",
+  translationLanguage: "Langue de traduction",
+  tafsirButton: "📖 Tafsir",
+  tafsirTitle: "Tafsir",
+  tafsirSource: "Source",
+  tafsirLoading: "Chargement du tafsir…",
+  tafsirEmpty: "Aucun tafsir disponible pour ce verset depuis cette source.",
+  closeButton: "Fermer",
+  loadingPage: "Chargement de la page…",
+  pageInputLabel: "Page",
+  goButton: "Aller",
+};
+
+const DE: MushafLabels = {
+  navLabel: "Mushaf",
+  metaTitle: "ʿUthmānī-Mushaf — vollständiger Koran-Leser mit Blätter-Animation",
+  metaDescription:
+    "Lesen Sie den vollständigen Koran im gängigen 604-seitigen ʿUthmānī-Mushaf-Layout, mit schöner Blätter-Animation, Übersetzungen in allen Sprachen der Website, Rezitations-Audio und Tafsir aus Quellen weltweit.",
+  title: "ʿUthmānī-Mushaf",
+  subtitle: "Der vollständige Koran, Seite für Seite, genau wie gedruckt — mit Rezitation, Übersetzung und Tafsir.",
+  pageOf: (page, total) => `Seite ${page} von ${total}`,
+  juzLabel: "Dschuzʾ",
+  jumpToSurah: "Zur Sure springen",
+  jumpToJuz: "Zum Dschuzʾ springen",
+  prevPage: "Vorherige Seite",
+  nextPage: "Nächste Seite",
+  playPage: "🔊 Diese Seite anhören",
+  stopPage: "⏹ Stopp",
+  showTranslation: "Übersetzung anzeigen",
+  hideTranslation: "Übersetzung ausblenden",
+  translationLanguage: "Übersetzungssprache",
+  tafsirButton: "📖 Tafsir",
+  tafsirTitle: "Tafsir",
+  tafsirSource: "Quelle",
+  tafsirLoading: "Tafsir wird geladen…",
+  tafsirEmpty: "Für diesen Vers ist aus dieser Quelle kein Tafsir verfügbar.",
+  closeButton: "Schließen",
+  loadingPage: "Seite wird geladen…",
+  pageInputLabel: "Seite",
+  goButton: "Los",
+};
+
+const MAP: Record<string, MushafLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
 
 export function mushafLabels(locale: string): MushafLabels {
   return MAP[locale] ?? EN;

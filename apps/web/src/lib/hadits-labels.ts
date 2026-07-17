@@ -96,7 +96,55 @@ const AR: HaditsLabels = {
   noResults: "لا توجد أحاديث.",
 };
 
-const MAP: Record<string, HaditsLabels> = { en: EN, id: ID, ar: AR };
+const FR: HaditsLabels = {
+  title: "Bibliothèque de hadiths",
+  subtitle:
+    "Les neuf livres de la Sunna, plus les Quarante Hadiths de an-Nawawî et les Hadiths Qudsî — à lire en entier, en arabe avec traduction, chaque hadith pouvant être écouté à voix haute.",
+  books: "livres",
+  hadithCount: "hadiths",
+  author: "Compilateur",
+  read: "Lire",
+  backToBooks: "Tous les livres",
+  hadithNo: "Hadith",
+  narrator: "Rapporteur",
+  grade: "Degré",
+  listen: "Écouter",
+  stop: "Arrêter",
+  playAll: "Tout lire",
+  pause: "Pause",
+  prev: "Précédent",
+  next: "Suivant",
+  page: "Page",
+  of: "sur",
+  translatedNote: "Traduction générée automatiquement à partir de l'arabe.",
+  noResults: "Aucun hadith trouvé.",
+};
+
+const DE: HaditsLabels = {
+  title: "Hadith-Bibliothek",
+  subtitle:
+    "Die neun Bücher der Sunna sowie die Vierzig Hadithe von an-Nawawî und die Hadith Qudsî — vollständig zu lesen, Arabisch mit Übersetzung, jeder Hadith laut vorlesbar.",
+  books: "Bücher",
+  hadithCount: "Hadithe",
+  author: "Verfasser",
+  read: "Lesen",
+  backToBooks: "Alle Bücher",
+  hadithNo: "Hadith",
+  narrator: "Überlieferer",
+  grade: "Grad",
+  listen: "Anhören",
+  stop: "Stopp",
+  playAll: "Alle abspielen",
+  pause: "Pause",
+  prev: "Zurück",
+  next: "Weiter",
+  page: "Seite",
+  of: "von",
+  translatedNote: "Übersetzung automatisch aus dem Arabischen erstellt.",
+  noResults: "Keine Hadithe gefunden.",
+};
+
+const MAP: Record<string, HaditsLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
 
 export function haditsLabels(locale: string): HaditsLabels {
   return MAP[locale] ?? EN;
