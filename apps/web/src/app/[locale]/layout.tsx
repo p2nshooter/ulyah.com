@@ -102,11 +102,21 @@ export default async function LocaleLayout({
             __html: `(function(){try{var t=localStorage.getItem("ulyah_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.documentElement.classList.toggle("dark",t==="dark");}catch(e){}})();`,
           }}
         />
-        {/* Premium typography: Quranic Arabic + classical serif + clean UI sans */}
+        {/* Per-tenant typography — each sibling site has its OWN type system so
+            it reads as a different product: ulyah = Cinzel (classical/ornate),
+            1fr.fr = Cormorant Garamond (elegant French editorial serif),
+            tilawa.de = Space Grotesk (modern German geometric sans). Arabic
+            (Scheherazade/Amiri) and the UI sans are shared. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+          href={
+            TENANT.id === "1fr"
+              ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500&display=swap"
+              : TENANT.id === "tilawa"
+                ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+                : "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+          }
           rel="stylesheet"
         />
         {/* Structured data for SEO — WebSite (with SearchAction) + Organization,

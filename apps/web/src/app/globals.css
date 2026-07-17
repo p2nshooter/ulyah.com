@@ -14,6 +14,12 @@
   --color-text-secondary: #5a5a5a;
   --color-bg: #ffffff;
   --color-card: #ffffff;
+  /* Dark hero/stat panels + card radius — overridden per tenant for a
+     distinct look (see tenant blocks at the end of this file). */
+  --panel-bg: #06251b;
+  --panel-bg2: #0b3d2e;
+  --panel-fg: #f4efe3;
+  --radius-card: 1rem;
   --color-border: rgba(11, 61, 46, 0.12);
   --color-border-gold: rgba(184, 137, 43, 0.28);
 
@@ -572,59 +578,107 @@ body {
   to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 
-/* ═══ One Faith France (1fr.fr tenant) — premium royal theme ═══
-   The 1fr build stamps data-tenant="1fr" on <html>. A deeper royal green,
-   champagne-gold accents and a warm parchment canvas set it apart from
-   ulyah.com at a glance while reusing every component. */
+/* ══════════════════════════════════════════════════════════════════════
+   SIBLING SITES — each gets its OWN visual identity so it never looks like
+   ulyah.com or its sibling. Different heading font, palette, panel hue,
+   card shape and section treatment. Owner: "bedain semua sampai masing2
+   ga dikenalin."
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1fr.fr · One Faith France — ELEGANT FRENCH EDITORIAL ──────────────
+   Cormorant Garamond display serif, airy, ivory-and-emerald with champagne
+   gold hairlines. Feels like a refined French luxury magazine. */
 html[data-tenant="1fr"] {
-  --color-accent: #c9a227;
-  --shadow-gold: 0 2px 14px rgba(201, 162, 39, 0.35);
+  --color-accent: #c19a3e;
+  --color-accent-light: #d9b86a;
+  --panel-bg: #0a3a2c;
+  --panel-bg2: #0f4d3a;
+  --panel-fg: #f6f1e4;
+  --radius-card: 0.5rem;
+  --shadow-gold: 0 2px 18px rgba(193, 154, 62, 0.28);
 }
 html[data-tenant="1fr"][data-theme="light"] {
-  --color-bg: #faf6ec;
-  --color-card: #fffdf6;
-  --color-border: #e6dcc2;
+  --color-bg: #fbf8f0;
+  --color-card: #fffdf8;
+  --color-border: #e7ddc6;
+  --color-text-primary: #23301f;
 }
 html[data-tenant="1fr"][data-theme="dark"] {
-  --color-bg: #071f18;
-  --color-card: #0a2a20;
-  --color-border: #1c4436;
+  --color-bg: #08251c;
+  --color-card: #0c3527;
+  --color-border: #1d5140;
 }
+html[data-tenant="1fr"] .font-heading,
+html[data-tenant="1fr"] h1,
+html[data-tenant="1fr"] h2,
+html[data-tenant="1fr"] h3,
+html[data-tenant="1fr"] blockquote p {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+html[data-tenant="1fr"] h1 { font-weight: 700; line-height: 1.1; }
+html[data-tenant="1fr"] body,
+html[data-tenant="1fr"] { font-family: "Jost", "Inter", system-ui, sans-serif; }
 html[data-tenant="1fr"] .card-premium {
-  border-width: 1.5px;
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
+  border-radius: var(--radius-card);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+  box-shadow: none;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 html[data-tenant="1fr"] .card-premium:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(201, 162, 39, 0.22);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 30px rgba(193, 154, 62, 0.18);
+  transform: none;
 }
-html[data-tenant="1fr"] h1,
-html[data-tenant="1fr"] h2 {
-  letter-spacing: 0.015em;
+/* thin gold rule under section dividers */
+html[data-tenant="1fr"] .section-divider span {
+  border-color: var(--color-accent);
 }
 
-/* ═══ Tilawa (tilawa.de tenant) — premium teal & gold theme ═══
-   data-tenant="tilawa" on <html>. Deep teal canvas with warm gold accents,
-   distinct from ulyah's green/gold and 1fr's royal-green/champagne. */
+/* ── tilawa.de · Tilawa — MODERN GERMAN GEOMETRIC ─────────────────────
+   Space Grotesk geometric sans, tight bold headings, graphite-forest with
+   squared cards and flat, engineered surfaces. Feels modern and technical. */
 html[data-tenant="tilawa"] {
   --color-accent: #d4af37;
-  --shadow-gold: 0 2px 14px rgba(212, 175, 55, 0.33);
+  --color-accent-light: #e6c866;
+  --panel-bg: #10231d;
+  --panel-bg2: #17352b;
+  --panel-fg: #eef2ee;
+  --radius-card: 0.25rem;
+  --shadow-gold: 0 2px 14px rgba(212, 175, 55, 0.3);
 }
 html[data-tenant="tilawa"][data-theme="light"] {
-  --color-bg: #f4f1e8;
-  --color-card: #fffdf7;
-  --color-border: #ddd3bd;
+  --color-bg: #f3f5f2;
+  --color-card: #ffffff;
+  --color-border: #d7ddd6;
+  --color-text-primary: #16211c;
 }
 html[data-tenant="tilawa"][data-theme="dark"] {
-  --color-bg: #052e29;
-  --color-card: #0a463f;
-  --color-border: #16564d;
+  --color-bg: #0c1a15;
+  --color-card: #122b22;
+  --color-border: #204034;
 }
+html[data-tenant="tilawa"] .font-heading,
+html[data-tenant="tilawa"] h1,
+html[data-tenant="tilawa"] h2,
+html[data-tenant="tilawa"] h3 {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+html[data-tenant="tilawa"] body,
+html[data-tenant="tilawa"] { font-family: "Inter", system-ui, sans-serif; }
 html[data-tenant="tilawa"] .card-premium {
-  border-width: 1.5px;
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+  transition: transform 0.25s ease, border-color 0.25s ease;
 }
 html[data-tenant="tilawa"] .card-premium:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
+/* squared pills/buttons for the engineered look */
+html[data-tenant="tilawa"] .rounded-full { border-radius: 0.375rem; }
