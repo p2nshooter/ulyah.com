@@ -510,6 +510,22 @@ jobs:
             echo "Round-4 kitab texts already imported (arbain matn: $R4COUNT) — skipping."
           fi
 
+      - name: Import Sullam at-Taufiq full text (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Full matn from an open-web source (fatihsyuhud.org), verified
+          # against the known fasal structure — 56 fasal / 181 matn. The
+          # kitab row already exists; this fills bab_order >= 100.
+          STCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id WHERE b.kitab_slug='sullamtaufiq' AND b.bab_order >= 100;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$STCOUNT" -lt "150" ]; then
+            echo "Sullam Taufiq full text missing ($STCOUNT matn) — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_sullamtaufiq.sql
+          else
+            echo "Sullam Taufiq already imported ($STCOUNT matn) — skipping."
+          fi
+
       - name: Import Doa Mustajab (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
