@@ -194,7 +194,124 @@ const AR: NavLabels = {
   ],
 };
 
-const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR };
+// tilawa.de ships German-first; the nav must be fully German, never the EN
+// fallback that leaked into the header (owner: "semua inkonsisten").
+const DE: NavLabels = {
+  home: "Startseite",
+  groups: [
+    {
+      key: "quran",
+      label: "Der Koran",
+      icon: "📖",
+      items: [
+        { label: "Koran lesen", path: "/quran" },
+        { label: "Uthmani-Mushaf", path: "/quran/mushaf" },
+        { label: "Koran-Radio", path: "/radio" },
+        { label: "Nāsikh & Mansūkh", path: "/nasakh" },
+      ],
+    },
+    {
+      key: "kajian",
+      label: "Hadith & Kitāb",
+      icon: "📚",
+      items: [
+        { label: "Hadith-Sammlungen", path: "/hadits" },
+        { label: "Sanad-Baum", path: "/sanad" },
+        { label: "Kitāb-Bibliothek", path: "/kitab" },
+        { label: "Pesantren-Kitāb", path: "/kitab-pesantren" },
+      ],
+    },
+    {
+      key: "kisah",
+      label: "Geschichten & Audio",
+      icon: "🎧",
+      items: [
+        { label: "Islamische Geschichten", path: "/kisah" },
+        { label: "Zeichentrickfilme für Kinder", path: "/anak" },
+        { label: "Hörbuch", path: "/audiobook" },
+        { label: "Täglicher Inhalt", path: "/harian" },
+      ],
+    },
+    {
+      key: "ibadah",
+      label: "Gottesdienst & Werkzeuge",
+      icon: "🕌",
+      items: [
+        { label: "Tägliche Andachten", path: "/amalan" },
+        { label: "Gebetszeiten", path: "/jadwal-sholat" },
+        { label: "Ramadan-Imsākīya", path: "/imsakiyah" },
+        { label: "Qibla-Richtung", path: "/kiblat" },
+        { label: "Hidschri-Kalender", path: "/kalender-hijriyah" },
+        { label: "Zakāt-Rechner", path: "/zakat" },
+        { label: "Erbrecht (Farāʾid)", path: "/waris" },
+      ],
+    },
+  ],
+  direct: [
+    { label: "🔴 Live", path: "/live" },
+    { label: "Über uns", path: "/tentang" },
+  ],
+};
+
+// 1fr.fr ships French-first — same requirement, no EN fallback in the nav.
+const FR: NavLabels = {
+  home: "Accueil",
+  groups: [
+    {
+      key: "quran",
+      label: "Le Coran",
+      icon: "📖",
+      items: [
+        { label: "Lire le Coran", path: "/quran" },
+        { label: "Mushaf Uthmani", path: "/quran/mushaf" },
+        { label: "Radio Coran", path: "/radio" },
+        { label: "Nâsikh & Mansûkh", path: "/nasakh" },
+      ],
+    },
+    {
+      key: "kajian",
+      label: "Hadith & Kitâb",
+      icon: "📚",
+      items: [
+        { label: "Recueils de hadiths", path: "/hadits" },
+        { label: "Arbre du Sanad", path: "/sanad" },
+        { label: "Bibliothèque de Kitâb", path: "/kitab" },
+        { label: "Kitâb Pesantren", path: "/kitab-pesantren" },
+      ],
+    },
+    {
+      key: "kisah",
+      label: "Récits & Audio",
+      icon: "🎧",
+      items: [
+        { label: "Récits islamiques", path: "/kisah" },
+        { label: "Dessins animés pour enfants", path: "/anak" },
+        { label: "Livre audio", path: "/audiobook" },
+        { label: "Contenu quotidien", path: "/harian" },
+      ],
+    },
+    {
+      key: "ibadah",
+      label: "Adoration & Outils",
+      icon: "🕌",
+      items: [
+        { label: "Pratiques quotidiennes", path: "/amalan" },
+        { label: "Heures de prière", path: "/jadwal-sholat" },
+        { label: "Imsakiya du Ramadan", path: "/imsakiyah" },
+        { label: "Direction de la Qibla", path: "/kiblat" },
+        { label: "Calendrier hégirien", path: "/kalender-hijriyah" },
+        { label: "Calculateur de Zakât", path: "/zakat" },
+        { label: "Héritage (Farâ'id)", path: "/waris" },
+      ],
+    },
+  ],
+  direct: [
+    { label: "🔴 En direct", path: "/live" },
+    { label: "À propos", path: "/tentang" },
+  ],
+};
+
+const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR };
 
 /** Apply the admin portal's per-tenant show/hide + rename overrides to a nav
  * tree: drop hidden items (and any group left empty), and swap in custom
@@ -222,9 +339,9 @@ export function navLabels(locale: string): NavLabels {
   // 1fr.fr: donation is promoted into the top-level nav ("terang-terangan")
   // and the acquisition page is openly linked. Labels per language.
   const donate =
-    locale === "fr" ? "🤲 Faire un don" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
+    locale === "fr" ? "🤲 Faire un don" : locale === "de" ? "🤲 Spenden" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
   const acq =
-    locale === "fr" ? "💎 Acquisition" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
+    locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
   return {
     ...base,
     direct: [

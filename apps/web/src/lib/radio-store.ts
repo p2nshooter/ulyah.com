@@ -107,7 +107,11 @@ export const useRadioStore = create<RadioState>((set, get) => ({
   khatamCount: 0,
   gen: 0,
 
-  setSurahs: (surahs) => set({ surahs }),
+  // Coerce to an array no matter what the caller passes — a malformed/empty
+  // API response must never put `undefined` into the store, or every consumer
+  // that does `surahs.find(...)` crashes the whole page (owner: client-side
+  // exception on the live sites).
+  setSurahs: (surahs) => set({ surahs: Array.isArray(surahs) ? surahs : [] }),
   setKhatamCount: (khatamCount) => set({ khatamCount }),
   setPlaybackState: (p) => set(p),
 
@@ -158,7 +162,7 @@ export function ensureSurahsLoaded() {
   surahsRequested = true;
   api
     .get<{ surah: SurahMeta[] }>("/quran/surah")
-    .then((r) => useRadioStore.getState().setSurahs(r.surah))
+    .then((r) => useRadioStore.getState().setSurahs(Array.isArray(r?.surah) ? r.surah : []))
     .catch(() => {
       surahsRequested = false;
     });
