@@ -32,7 +32,14 @@ const SERIES_META: Record<VideoRow["series"], { label: string; icon: string }> =
  * in a privacy-enhanced youtube-nocookie player that autoplays.
  */
 export function VideoAnakGrid({ locale }: { locale: string }) {
-  const isId = locale !== "en";
+  const KIDS_L: Record<string, { worldwide: string; worldwideDesc: string; play: string; video: string; series: Record<VideoRow["series"], string> }> = {
+    id: { worldwide: "Film Anak Muslim Seluruh Dunia", worldwideDesc: "Kanal resmi film anak Muslim dari berbagai negara — dikelompokkan per negara, semuanya bisa ditonton di sini.", play: "Putar", video: "video", series: { "doa-kisah": "Seri Do'a & Kisah", "syamil-dodo": "Bioskop Anak Muslim — Syamil & Dodo", "biografi-rasul": "Biografi Rasulullah ﷺ" } },
+    en: { worldwide: "Muslim Kids' Films Worldwide", worldwideDesc: "Official Muslim kids' film channels from around the world — grouped by country, all watchable right here.", play: "Play", video: "videos", series: { "doa-kisah": "Du'a & Stories Series", "syamil-dodo": "Muslim Kids' Cinema — Syamil & Dodo", "biografi-rasul": "Biography of the Prophet ﷺ" } },
+    fr: { worldwide: "Films pour enfants musulmans du monde entier", worldwideDesc: "Chaînes officielles de films pour enfants musulmans du monde entier — regroupées par pays, toutes visibles ici.", play: "Lire", video: "vidéos", series: { "doa-kisah": "Série Invocations & Récits", "syamil-dodo": "Cinéma pour enfants musulmans — Syamil & Dodo", "biografi-rasul": "Biographie du Prophète ﷺ" } },
+    de: { worldwide: "Muslimische Kinderfilme aus aller Welt", worldwideDesc: "Offizielle Kanäle mit muslimischen Kinderfilmen aus aller Welt — nach Ländern gruppiert, alle hier ansehbar.", play: "Abspielen", video: "Videos", series: { "doa-kisah": "Reihe: Bittgebete & Geschichten", "syamil-dodo": "Muslimisches Kinderkino — Syamil & Dodo", "biografi-rasul": "Biografie des Propheten ﷺ" } },
+    ar: { worldwide: "أفلام الأطفال المسلمين من العالم", worldwideDesc: "قنوات رسمية لأفلام الأطفال المسلمين من مختلف الدول — مُجمّعة حسب الدولة، ويمكن مشاهدتها كلها هنا.", play: "تشغيل", video: "فيديو", series: { "doa-kisah": "سلسلة الأدعية والقصص", "syamil-dodo": "سينما الأطفال المسلمين — شامل ودودو", "biografi-rasul": "سيرة النبي ﷺ" } },
+  };
+  const kl = KIDS_L[locale] ?? KIDS_L.en!;
   const [videos, setVideos] = useState<VideoRow[]>([]);
   const [channels, setChannels] = useState<ChannelRow[]>([]);
   const [playing, setPlaying] = useState<number | null>(null);
@@ -64,13 +71,11 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
       {channels.length > 0 && (
         <section>
           <h2 className="flex items-center gap-2 font-heading text-xl">
-            <span aria-hidden>🌍</span> {isId ? "Film Anak Muslim Seluruh Dunia" : "Muslim Kids' Films Worldwide"}
+            <span aria-hidden>🌍</span> {kl.worldwide}
             <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{channels.length}</span>
           </h2>
           <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-            {isId
-              ? "Kanal resmi film anak Muslim dari berbagai negara — dikelompokkan per negara, semuanya bisa ditonton di sini."
-              : "Official Muslim kids' film channels from around the world — grouped by country, all watchable right here."}
+{kl.worldwideDesc}
           </p>
           <div className="reveal-stagger mt-4 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
             {channels.map((ch) => (
@@ -91,7 +96,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
                   <button
                     onClick={() => setPlayingChannel(ch.id)}
                     className="group relative grid aspect-video w-full place-items-center overflow-hidden rounded-xl bg-gradient-to-b from-[#0B3D2E] to-[#06251b]"
-                    aria-label={`${isId ? "Putar" : "Play"}: ${ch.title}`}
+                    aria-label={`${kl.play}: ${ch.title}`}
                   >
                     <span className="grid h-14 w-14 place-items-center rounded-full bg-accent text-2xl text-primary shadow-xl transition group-hover:scale-110">
                       ▶
@@ -110,8 +115,8 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
           s.items.length > 0 && (
             <section key={s.key}>
               <h2 className="flex items-center gap-2 font-heading text-xl">
-                <span aria-hidden>{s.icon}</span> {s.label}
-                <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{s.items.length} video</span>
+                <span aria-hidden>{s.icon}</span> {kl.series[s.key]}
+                <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{s.items.length} {kl.video}</span>
               </h2>
               <div className="reveal-stagger mt-4 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
                 {s.items.map((v) => (
@@ -128,7 +133,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
                       <button
                         onClick={() => setPlaying(v.id)}
                         className="group relative block aspect-video w-full overflow-hidden rounded-xl bg-black"
-                        aria-label={`${isId ? "Putar" : "Play"}: ${v.title}`}
+                        aria-label={`${kl.play}: ${v.title}`}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
