@@ -1,0 +1,230 @@
+"use client";
+
+import { create } from "zustand";
+import { storyAudioUrl } from "./api";
+import { DEFAULT_QORI_KEY } from "./qori-cdn";
+
+/**
+ * Layered playback: for every ayah the listener chooses which layers to hear.
+ * The Arabic recitation ("ayah") is ALWAYS real qori audio, streamed
+ * directly from the reciter's public CDN — never TTS, never re-hosted.
+ * Every other layer (translation, tafsir, asbabun nuzul, hadits, kisah) is
+ * narrated by the browser voice engine in the UI language. The player walks
+ * the enabled layers in this canonical order for each ayah, then advances.
+ * "kisah" only speaks when this specific ayah has a linked story — most
+ * ayat don't, same as asbabun nuzul.
+ */
+export const LAYERS = ["ayah", "translation", "tafsir", "asbabun", "hadits", "kisah"] as const;
+export type Layer = (typeof LAYERS)[number];
+
+// "Mode Pemahaman" presets from the reference design. Each maps to a set of
+// layers; the listener can still fine-tune with individual layer chips.
+export const MODE_PRESETS: Record<string, Layer[]> = {
+  full: ["ayah", "translation", "tafsir", "asbabun", "hadits", "kisah"],
+  ayah: ["ayah"],
+  translation: ["translation"],
+  tafsir: ["tafsir"],
+  hikmah: ["hadits", "asbabun", "kisah"],
+};
+export type PresetKey = keyof typeof MODE_PRESETS;
+
+export interface QueueItem {
+  surahId: number;
+  surahName: string;
+  number: number;
+  textAr: string;
+  translation: string | null;
+  // Filled lazily from /quran/ayah/:surah/:number the first time a text layer
+  // for this ayah is about to be narrated.
+  tafsir: string | null;
+  asbabun: string | null;
+  hadits: string | null;
+  kisah: string | null;
+  bundleLoaded: boolean;
+}
+
+interface PlayerState {
+  queue: QueueItem[];
+  currentIndex: number;
+  qoriId: string;
+  layers: Layer[];
+  activeLayer: Layer | null;
+  isPlaying: boolean;
+  playbackRate: number;
+  repeatMode: "off" | "ayah" | "surah";
+  sleepAt: number | null;
+  storyTrack: { id: number; title: string } | null;
+  audioUnavailableNotice: string | null;
+  // Live qori-recitation progress (seconds), published by GlobalPlayerBar's
+  // <audio onTimeUpdate> so any component — e.g. the word-by-word Arabic
+  // highlight — can derive playback ratio without owning the <audio> element.
+  audioProgress: { current: number; duration: number };
+
+  loadSurahQueue: (ayat: QueueItem[], startIndex?: number) => void;
+  patchBundle: (index: number, partial: Partial<QueueItem>) => void;
+  playStory: (id: number, title: string) => void;
+  setLayers: (l: Layer[]) => void;
+  toggleLayer: (l: Layer) => void;
+  applyPreset: (p: PresetKey) => void;
+  setActiveLayer: (l: Layer | null) => void;
+  setAudioProgress: (p: { current: number; duration: number }) => void;
+  setQori: (key: string) => void;
+  hydrateFromStorage: () => void;
+  setPlaybackRate: (r: number) => void;
+  setRepeatMode: (m: "off" | "ayah" | "surah") => void;
+  setSleepMinutes: (m: number | null) => void;
+  play: () => void;
+  pause: () => void;
+  toggle: () => void;
+  next: () => void;
+  prev: () => void;
+  seekToIndex: (i: number) => void;
+  clearNotice: () => void;
+
+  storyAudioSrc: () => string | null;
+}
+
+const QORI_STORAGE_KEY = "ulyah_qori_key";
+const LAYERS_STORAGE_KEY = "ulyah_layers";
+
+function loadStoredQori(): string {
+  if (typeof window === "undefined") return DEFAULT_QORI_KEY;
+  return window.localStorage.getItem(QORI_STORAGE_KEY) || DEFAULT_QORI_KEY;
+}
+
+function loadStoredLayers(): Layer[] {
+  if (typeof window === "undefined") return MODE_PRESETS.full;
+  try {
+    const stored = window.localStorage.getItem(LAYERS_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored) as Layer[];
+      const clean = LAYERS.filter((l) => parsed.includes(l));
+      if (clean.length) return clean;
+    }
+  } catch {
+    /* ignore */
+  }
+  return MODE_PRESETS.full;
+}
+
+function persistLayers(layers: Layer[]) {
+  if (typeof window !== "undefined") window.localStorage.setItem(LAYERS_STORAGE_KEY, JSON.stringify(layers));
+}
+
+export const usePlayerStore = create<PlayerState>((set, get) => ({
+  queue: [],
+  currentIndex: 0,
+  // Always the SSR-safe default here — reading localStorage into the initial
+  // state directly caused a hydration mismatch for any returning visitor
+  // whose saved qori/layers differed from the default (server always has no
+  // localStorage, so it always rendered the default; the client would then
+  // render the saved value on its very first pass and React would flag the
+  // mismatch). The real values are applied by `hydrateFromStorage()`, called
+  // once from a client-only effect after mount, once hydration is done.
+  qoriId: DEFAULT_QORI_KEY,
+  layers: MODE_PRESETS.full,
+  activeLayer: null,
+  isPlaying: false,
+  playbackRate: 1,
+  repeatMode: "off",
+  sleepAt: null,
+  storyTrack: null,
+  audioUnavailableNotice: null,
+  audioProgress: { current: 0, duration: 0 },
+
+  loadSurahQueue: (ayat, startIndex = 0) => {
+    set({
+      queue: ayat,
+      currentIndex: startIndex,
+      storyTrack: null,
+      isPlaying: true,
+      activeLayer: null,
+      audioUnavailableNotice: null,
+    });
+  },
+
+  patchBundle: (index, partial) => {
+    set((s) => {
+      const queue = s.queue.slice();
+      if (queue[index]) queue[index] = { ...queue[index], ...partial };
+      return { queue };
+    });
+  },
+
+  playStory: (id, title) => {
+    set({ storyTrack: { id, title }, queue: [], isPlaying: true, activeLayer: null, audioUnavailableNotice: null });
+  },
+
+  setLayers: (l) => {
+    const ordered = LAYERS.filter((x) => l.includes(x));
+    persistLayers(ordered);
+    set({ layers: ordered });
+  },
+
+  toggleLayer: (l) => {
+    const cur = get().layers;
+    const nextLayers = cur.includes(l) ? cur.filter((x) => x !== l) : [...cur, l];
+    const ordered = LAYERS.filter((x) => nextLayers.includes(x));
+    // Never allow an empty selection — fall back to the ayah recitation.
+    const final = ordered.length ? ordered : (["ayah"] as Layer[]);
+    persistLayers(final);
+    set({ layers: final });
+  },
+
+  applyPreset: (p) => {
+    const layers = MODE_PRESETS[p] ?? MODE_PRESETS.full;
+    persistLayers(layers);
+    set({ layers });
+  },
+
+  setActiveLayer: (l) => set({ activeLayer: l }),
+  setAudioProgress: (p) => set({ audioProgress: p }),
+
+  setQori: (key) => {
+    if (typeof window !== "undefined") window.localStorage.setItem(QORI_STORAGE_KEY, key);
+    set({ qoriId: key });
+  },
+
+  // Client-only, called once after mount (see GlobalPlayerBar) — safe to
+  // touch localStorage here since hydration has already completed.
+  hydrateFromStorage: () => set({ qoriId: loadStoredQori(), layers: loadStoredLayers() }),
+
+  setPlaybackRate: (r) => set({ playbackRate: r }),
+  setRepeatMode: (m) => set({ repeatMode: m }),
+  setSleepMinutes: (m) => set({ sleepAt: m ? Date.now() + m * 60_000 : null }),
+
+  play: () => set({ isPlaying: true }),
+  pause: () => set({ isPlaying: false, activeLayer: null }),
+  toggle: () => set((s) => ({ isPlaying: !s.isPlaying, activeLayer: s.isPlaying ? null : s.activeLayer })),
+
+  next: () => {
+    const { queue, currentIndex, repeatMode } = get();
+    if (queue.length === 0) return;
+    if (repeatMode === "ayah") {
+      set({ isPlaying: true });
+      return;
+    }
+    const nextIndex = currentIndex + 1;
+    if (nextIndex >= queue.length) {
+      if (repeatMode === "surah") set({ currentIndex: 0, isPlaying: true });
+      else set({ isPlaying: false, activeLayer: null });
+      return;
+    }
+    set({ currentIndex: nextIndex });
+  },
+
+  prev: () => set((s) => ({ currentIndex: Math.max(0, s.currentIndex - 1) })),
+
+  seekToIndex: (i) => {
+    const { queue } = get();
+    if (i < 0 || i >= queue.length) return;
+    set({ currentIndex: i, isPlaying: true });
+  },
+
+  clearNotice: () => set({ audioUnavailableNotice: null }),
+
+  storyAudioSrc: () => {
+    const { storyTrack } = get();
+    return storyTrack ? storyAudioUrl(storyTrack.id) : null;
+  },
+}));

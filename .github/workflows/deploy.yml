@@ -1,0 +1,78 @@
+name: Deploy tilawa.de (Tilawa)
+
+# Standalone pipeline for tilawa.de. Does NOT touch ulyah.com infra. App code
+# mirrors ulyah.com so every fix flows here. Content read-only from the shared
+# content API. Secrets: CLOUDFLARE_API_TOKEN (Workers Scripts:Edit + Zone
+# DNS:Edit for tilawa.de), CLOUDFLARE_ACCOUNT_ID.
+
+on:
+  push:
+    branches: [tilawa-de]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-tilawa
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm --filter @ulyah/web typecheck
+      - name: Build web (tilawa tenant)
+        working-directory: apps/web
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_TENANT: "tilawa"
+      - name: Deploy tilawa-web
+        working-directory: apps/web
+        run: npx wrangler deploy --name tilawa-web
+      - name: Point tilawa.de at tilawa-web (clean parking DNS + attach domain)
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=tilawa.de" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::tilawa.de zone not visible to this token — add the zone (or DNS:Edit) and re-run. Site stays on workers.dev."
+            exit 0
+          fi
+          for host in "tilawa.de" "www.tilawa.de" "*.tilawa.de"; do
+            ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?per_page=100&name=$host" \
+              | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | .id')
+            for id in $ids; do
+              echo "deleting conflicting DNS record for $host ($id)"
+              curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" | jq -r '.success'
+            done
+          done
+          for host in tilawa.de www.tilawa.de; do
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"tilawa-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            echo "$host -> tilawa-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
+          done
+      - name: Smoke test
+        run: |
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L "https://tilawa.de/de" || echo 000)
+            echo "attempt $i: https://tilawa.de/de -> $code"
+            [ "$code" = "200" ] && exit 0
+            sleep 25
+          done
+          echo "::warning::tilawa.de not 200 yet (DNS/cert may still be settling)."
