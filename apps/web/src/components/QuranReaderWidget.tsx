@@ -226,15 +226,22 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     api
       .get<{ surah: SurahMeta[] }>("/quran/surah")
       .then((r) => {
-        setSurahs(r.surah);
+        // The API must return a surah array, but a malformed/empty 200 (e.g.
+        // `{}` from an edge hiccup) would make every `r.surah.find(...)` below
+        // throw. Crucially the setSelectedSurah updater runs during React's
+        // render phase — OUTSIDE this promise's .catch — so an undefined
+        // `r.surah` there escapes uncaught and takes the whole page down
+        // ("client-side exception" on the live sites). Coerce to an array once.
+        const list = Array.isArray(r?.surah) ? r.surah : [];
+        setSurahs(list);
         const target = deepSurah
-          ? r.surah.find((s) => s.id === deepSurah)
+          ? list.find((s) => s.id === deepSurah)
           : last
-            ? r.surah.find((s) => s.id === last.surah)
+            ? list.find((s) => s.id === last.surah)
             : undefined;
         pendingAyahRef.current = deepSurah ? deepAyah : (last?.ayah ?? null);
         restoredRef.current = true;
-        setSelectedSurah((prev) => prev ?? target ?? r.surah.find((s) => s.id === 2) ?? r.surah[0] ?? null);
+        setSelectedSurah((prev) => prev ?? target ?? list.find((s) => s.id === 2) ?? list[0] ?? null);
       })
       .catch(() => {});
   }, []);

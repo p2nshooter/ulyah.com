@@ -24,8 +24,11 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale = isValidLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
-  const siteName = TENANT.id === "1fr" ? TENANT.siteName : dict.common.siteName;
-  const tagline = TENANT.id === "1fr" ? tenantTagline(locale, dict.common.tagline) : dict.common.tagline;
+  // Every non-default tenant (1fr, tilawa, …) must brand with its OWN siteName,
+  // not the shared dictionary's (which still resolves to "ulyah" and leaked a
+  // stray "ulyah — …" into the tilawa.de browser tab — owner screenshot).
+  const siteName = TENANT.id !== "ulyah" ? TENANT.siteName : dict.common.siteName;
+  const tagline = TENANT.id !== "ulyah" ? tenantTagline(locale, dict.common.tagline) : dict.common.tagline;
   return {
     // A tenant-scoped title template so EVERY child page's tab title carries
     // the right brand (never a stray "ULYAH.COM" on a sibling). Child pages
