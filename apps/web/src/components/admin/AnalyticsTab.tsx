@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { MiniBarChart, countryName, countryFlag } from "./MiniBarChart";
+import { TenantAnalyticsPanel } from "./TenantAnalyticsPanel";
 
 interface Bucket {
   bucket: string;
@@ -81,7 +82,11 @@ export function AnalyticsTab() {
 
   return (
     <div className="space-y-6">
-      {/* Visitor overview */}
+      {/* Per-site (tenant) visitor + install analytics — all sites on ulyah's
+          admin, own-site only on a sibling admin. */}
+      <TenantAnalyticsPanel />
+
+      {/* Visitor overview (combined across all sites) */}
       <section>
         <p className="mb-2 font-heading text-base">Pengunjung</p>
         <div className="grid grid-cols-2 gap-3 desktop:grid-cols-5">

@@ -20,9 +20,25 @@ export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
 const app = new Hono<{ Bindings: Env }>();
 
+// One API (api.ulyah.com) serves three front-ends: ulyah.com, 1fr.fr and
+// tilawa.de. Credentialed CORS can't use "*", so echo the request Origin when
+// it's one of our own sites (apex + www), else fall back to the configured
+// origin. The sibling sites' client calls (analytics beacon, admin portal, AI
+// chat) would otherwise be blocked cross-origin.
+const SIBLING_ORIGINS = new Set([
+  "https://ulyah.com", "https://www.ulyah.com",
+  "https://1fr.fr", "https://www.1fr.fr",
+  "https://tilawa.de", "https://www.tilawa.de",
+]);
 app.use("*", async (c, next) => {
-  const allowOrigin = c.env.CORS_ALLOW_ORIGIN ?? c.env.PUBLIC_SITE_URL ?? "*";
-  return cors({ origin: allowOrigin, credentials: true })(c, next);
+  const configured = c.env.CORS_ALLOW_ORIGIN ?? c.env.PUBLIC_SITE_URL ?? "*";
+  return cors({
+    origin: (origin) => {
+      if (origin && SIBLING_ORIGINS.has(origin)) return origin;
+      return configured;
+    },
+    credentials: true,
+  })(c, next);
 });
 
 app.get("/", (c) => c.json({ service: "ulyah-api", status: "ok" }));

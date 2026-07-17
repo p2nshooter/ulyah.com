@@ -494,6 +494,60 @@ adminRoute.get("/analytics", async (c) => {
   });
 });
 
+// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de) ────────────────
+// One content DB, three sites. Each sibling's admin portal shows only its own
+// tenant; ulyah.com's admin sees all three side by side to watch each site's
+// visitor growth. Every metric is grouped by tenant in a handful of queries.
+adminRoute.get("/tenant-analytics", async (c) => {
+  const [visitors, installs, uninstalls, series, pages, countries] = await Promise.all([
+    c.env.DB.prepare(
+      `SELECT tenant,
+              SUM(CASE WHEN date(created_at) = date('now') THEN 1 ELSE 0 END) AS today,
+              SUM(CASE WHEN created_at >= datetime('now','-7 days') THEN 1 ELSE 0 END) AS week,
+              SUM(CASE WHEN created_at >= datetime('now','-30 days') THEN 1 ELSE 0 END) AS month,
+              COUNT(*) AS allTime
+       FROM analytics_pageviews GROUP BY tenant`
+    ).all<{ tenant: string; today: number; week: number; month: number; allTime: number }>(),
+    c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_installs GROUP BY tenant").all<{ tenant: string; n: number }>(),
+    c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_uninstalls GROUP BY tenant").all<{ tenant: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, strftime('%Y-%m-%d', created_at) AS bucket, COUNT(*) AS n
+       FROM analytics_pageviews WHERE created_at >= datetime('now','-30 days')
+       GROUP BY tenant, bucket ORDER BY bucket`
+    ).all<{ tenant: string; bucket: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, path, COUNT(*) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-30 days')
+       GROUP BY tenant, path ORDER BY n DESC`
+    ).all<{ tenant: string; path: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, COALESCE(country,'??') AS country, COUNT(*) AS n FROM analytics_pageviews
+       GROUP BY tenant, country ORDER BY n DESC`
+    ).all<{ tenant: string; country: string; n: number }>(),
+  ]);
+
+  const TENANTS = ["ulyah", "1fr", "tilawa"];
+  const byTenant = TENANTS.map((t) => {
+    const v = visitors.results.find((r) => r.tenant === t);
+    return {
+      tenant: t,
+      visitors: {
+        today: v?.today ?? 0,
+        week: v?.week ?? 0,
+        month: v?.month ?? 0,
+        allTime: v?.allTime ?? 0,
+      },
+      installs: installs.results.find((r) => r.tenant === t)?.n ?? 0,
+      uninstalls: uninstalls.results.find((r) => r.tenant === t)?.n ?? 0,
+      daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n })),
+      topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n })),
+      topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n })),
+    };
+  });
+
+  return c.json({ tenants: byTenant });
+});
+
 // ── Kitab library breakdown + app install counts (central visibility) ────
 
 adminRoute.get("/library-stats", async (c) => {
