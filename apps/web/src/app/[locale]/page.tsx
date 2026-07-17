@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { TENANT } from "@/lib/tenant";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
@@ -99,8 +100,8 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               </blockquote>
               <div className="mt-6 flex justify-center">
                 <Image
-                  src="/brand/ulyah-logo-dark.webp"
-                  alt="Ulyah"
+                  src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-dark.webp" : TENANT.logoIcon}
+                  alt={TENANT.siteName}
                   width={640}
                   height={640}
                   priority
