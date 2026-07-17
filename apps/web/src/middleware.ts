@@ -38,13 +38,23 @@ function detectLocale(req: NextRequest): string {
   // Cloudflare appends this header to every request at the edge — no
   // separate geo-IP lookup service needed.
   const country = req.headers.get("cf-ipcountry")?.toUpperCase();
-  if (country === "ID") return "id"; // explicit: Indonesian IPs always get full Indonesian
-  if (country && COUNTRY_TO_LOCALE[country]) return COUNTRY_TO_LOCALE[country]!;
+  // Every candidate is validated against isValidLocale, which is build-aware:
+  // on the 1fr.fr tenant LOCALES is only fr/en/ar, so a geo/accept-language
+  // guess of "id"/"de"/… must NOT be returned — otherwise the middleware
+  // redirects to /id, /id isn't a valid prefix on that build, and it loops
+  // (ERR_TOO_MANY_REDIRECTS). We fall through to the neutral default instead.
+  if (country && COUNTRY_TO_LOCALE[country] && isValidLocale(COUNTRY_TO_LOCALE[country]!)) {
+    return COUNTRY_TO_LOCALE[country]!;
+  }
 
   const fromHeader = localeFromAcceptLanguage(req.headers.get("accept-language"));
   if (fromHeader) return fromHeader;
 
-  return DEFAULT_LOCALE === "id" ? "en" : DEFAULT_LOCALE; // English is the safe neutral fallback
+  // Neutral fallback that is always a valid locale in the current build:
+  // English on ulyah (default "id" is fine for content but English is the
+  // safer neutral guess), the build default (fr) on 1fr.
+  const neutral = DEFAULT_LOCALE === "id" ? "en" : DEFAULT_LOCALE;
+  return isValidLocale(neutral) ? neutral : DEFAULT_LOCALE;
 }
 
 const SECURITY_HEADERS: Record<string, string> = {
@@ -62,10 +72,24 @@ function withSecurity(res: NextResponse): NextResponse {
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Force HTTPS — fixes the browser "connection not secure / dangerous site"
-  // warning when the zone serves plain HTTP without an edge redirect rule.
-  const proto = req.headers.get("x-forwarded-proto") ?? req.nextUrl.protocol.replace(":", "");
-  if (proto === "http") {
+  // Force HTTPS ONLY when we can prove the *client* used plain HTTP. Inside a
+  // Cloudflare Worker (OpenNext) the internal req.nextUrl.protocol is often
+  // "http:" even for an HTTPS visitor, and workers.dev never sets
+  // x-forwarded-proto — trusting either of those made every request redirect
+  // to itself forever (ERR_TOO_MANY_REDIRECTS, owner screenshot). The only
+  // header that reflects the true client scheme at Cloudflare is cf-visitor
+  // ({"scheme":"https"|"http"}); x-forwarded-proto is the standard-proxy
+  // fallback. If neither says "http", assume HTTPS and do NOT redirect.
+  const cfScheme = (() => {
+    try {
+      const v = req.headers.get("cf-visitor");
+      return v ? (JSON.parse(v).scheme as string | undefined) : undefined;
+    } catch {
+      return undefined;
+    }
+  })();
+  const clientProto = cfScheme ?? req.headers.get("x-forwarded-proto") ?? undefined;
+  if (clientProto === "http") {
     const url = req.nextUrl.clone();
     url.protocol = "https:";
     return withSecurity(NextResponse.redirect(url, 301));
