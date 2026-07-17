@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+import { TENANT, tenantTagline } from "@/lib/tenant";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -23,10 +24,12 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale = isValidLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
+  const siteName = TENANT.id === "1fr" ? TENANT.siteName : dict.common.siteName;
+  const tagline = TENANT.id === "1fr" ? tenantTagline(locale, dict.common.tagline) : dict.common.tagline;
   return {
-    title: `${dict.common.siteName} — ${dict.common.tagline}`,
+    title: `${siteName} — ${tagline}`,
     description: dict.hero.description,
-    metadataBase: new URL("https://ulyah.com"),
+    metadataBase: new URL(TENANT.siteUrl),
     alternates: {
       canonical: `/${locale}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l.code, `/${l.code}`])),
@@ -41,17 +44,17 @@ export async function generateMetadata({
       apple: "/apple-touch-icon.png",
     },
     openGraph: {
-      title: `${dict.common.siteName} — ${dict.common.tagline}`,
+      title: `${siteName} — ${tagline}`,
       description: dict.hero.description,
-      url: `https://ulyah.com/${locale}`,
-      siteName: "Ulyah",
+      url: `${TENANT.siteUrl}/${locale}`,
+      siteName: TENANT.siteName,
       images: [{ url: "/icon-512.png", width: 512, height: 512 }],
       locale,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${dict.common.siteName} — ${dict.common.tagline}`,
+      title: `${siteName} — ${tagline}`,
       description: dict.hero.description,
       images: ["/icon-512.png"],
     },
@@ -86,7 +89,7 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
-    <html lang={locale} dir={localeDef.dir} suppressHydrationWarning>
+    <html lang={locale} dir={localeDef.dir} data-tenant={TENANT.id} suppressHydrationWarning>
       <head>
         {/* Apply the theme class before paint — avoids a flash of the wrong
             theme and ensures Tailwind's `dark:` variant is correct from the
@@ -112,14 +115,14 @@ export default async function LocaleLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Ulyah",
-              alternateName: "Ulyah — Listen to Islam",
-              url: "https://ulyah.com",
+              name: TENANT.siteName,
+              alternateName: TENANT.id === "1fr" ? "1FR — One Faith France" : "Ulyah — Listen to Islam",
+              url: TENANT.siteUrl,
               inLanguage: LOCALES.map((l) => l.code),
-              publisher: { "@type": "Organization", name: "ULYAH.COM", url: "https://ulyah.com" },
+              publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
               potentialAction: {
                 "@type": "SearchAction",
-                target: { "@type": "EntryPoint", urlTemplate: `https://ulyah.com/${locale}/cari?q={search_term_string}` },
+                target: { "@type": "EntryPoint", urlTemplate: `${TENANT.siteUrl}/${locale}/cari?q={search_term_string}` },
                 "query-input": "required name=search_term_string",
               },
             }),

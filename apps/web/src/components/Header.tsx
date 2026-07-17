@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { TENANT } from "@/lib/tenant";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/dictionaries";
@@ -64,25 +65,33 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         <div className="flex items-center gap-2">
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
-              <Image src="/icon.png" alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
-              {/* Natural green+gold reads well on the light header (white bg);
-                  pure-gold reads well on the dark header (deep green bg). */}
-              <Image
-                src="/brand/wordmark-ar.png"
-                alt="Ulyah"
-                width={124}
-                height={34}
-                className="block h-[30px] w-auto dark:hidden"
-                priority
-              />
-              <Image
-                src="/brand/wordmark-ar-gold.png"
-                alt="Ulyah"
-                width={124}
-                height={34}
-                className="hidden h-[30px] w-auto dark:block"
-                priority
-              />
+              <Image src={TENANT.logoIcon} alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
+              {TENANT.wordmark && TENANT.wordmarkGold ? (
+                <>
+                  {/* Natural green+gold reads well on the light header (white bg);
+                      pure-gold reads well on the dark header (deep green bg). */}
+                  <Image
+                    src={TENANT.wordmark}
+                    alt={TENANT.siteName}
+                    width={124}
+                    height={34}
+                    className="block h-[30px] w-auto dark:hidden"
+                    priority
+                  />
+                  <Image
+                    src={TENANT.wordmarkGold}
+                    alt={TENANT.siteName}
+                    width={124}
+                    height={34}
+                    className="hidden h-[30px] w-auto dark:block"
+                    priority
+                  />
+                </>
+              ) : (
+                <span className="font-heading text-lg font-semibold leading-none tracking-wide text-[var(--color-text-primary)]">
+                  {TENANT.siteName}
+                </span>
+              )}
             </span>
           </AdminTrigger>
         </div>

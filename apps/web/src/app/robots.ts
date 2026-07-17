@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { TENANT } from "@/lib/tenant";
 
 // Served at https://ulyah.com/robots.txt. Googlebot (search) and
 // Mediapartners-Google (the AdSense ad crawler) are allowed explicitly — the
@@ -14,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Mediapartners-Google", allow: "/" },
       { userAgent: "AdsBot-Google", allow: "/" },
     ],
-    sitemap: ["https://ulyah.com/sitemap.xml", "https://ulyah.com/sitemap.txt"],
-    host: "https://ulyah.com",
+    sitemap: [`${TENANT.siteUrl}/sitemap.xml`, `${TENANT.siteUrl}/sitemap.txt`],
+    host: TENANT.siteUrl,
   };
 }

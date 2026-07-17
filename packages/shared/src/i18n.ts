@@ -15,7 +15,7 @@ export interface LocaleDef {
   fallbackTranslationLang?: string;
 }
 
-export const LOCALES: LocaleDef[] = [
+const ALL_LOCALES: LocaleDef[] = [
   { code: "id", label: "Bahasa Indonesia", dir: "ltr", hasQuranTranslation: true },
   { code: "en", label: "English", dir: "ltr", hasQuranTranslation: true },
   { code: "ru", label: "Русский", dir: "ltr", hasQuranTranslation: true },
@@ -26,7 +26,18 @@ export const LOCALES: LocaleDef[] = [
   { code: "ja", label: "日本語", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
 ];
 
-export const DEFAULT_LOCALE = "id";
+// Tenant narrowing (see apps/web/src/lib/tenant.ts): the 1fr.fr build ships
+// French-first with exactly fr/en/ar. NEXT_PUBLIC_TENANT is inlined by
+// Next.js at build time; the worker-api build never sets it, so the API
+// keeps validating against the full list for both sites.
+declare const process: { env?: Record<string, string | undefined> } | undefined;
+const IS_1FR = typeof process !== "undefined" && process?.env?.NEXT_PUBLIC_TENANT === "1fr";
+
+export const LOCALES: LocaleDef[] = IS_1FR
+  ? ALL_LOCALES.filter((l) => l.code === "fr" || l.code === "en" || l.code === "ar")
+  : ALL_LOCALES;
+
+export const DEFAULT_LOCALE = IS_1FR ? "fr" : "id";
 
 export function isValidLocale(code: string): boolean {
   return LOCALES.some((l) => l.code === code);

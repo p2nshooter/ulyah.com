@@ -4,6 +4,7 @@ import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { contactLabels } from "@/lib/contact-labels";
 import { navLabels } from "@/lib/nav-labels";
+import { TENANT } from "@/lib/tenant";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -19,10 +20,14 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
       <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 desktop:grid-cols-6">
         <div className="sm:col-span-2 desktop:col-span-2">
           <div className="flex items-center gap-2.5">
-            <Image src="/icon.png" alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
-            {/* Footer is always the dark-green brand background, so the
-                pure-gold wordmark (not the theme-aware pair) always applies. */}
-            <Image src="/brand/wordmark-ar-gold.png" alt="Ulyah" width={138} height={38} className="h-[34px] w-auto" />
+            <Image src={TENANT.logoIcon} alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
+            {TENANT.wordmarkGold ? (
+              /* Footer is always the dark-green brand background, so the
+                 pure-gold wordmark (not the theme-aware pair) always applies. */
+              <Image src={TENANT.wordmarkGold} alt={TENANT.siteName} width={138} height={38} className="h-[34px] w-auto" />
+            ) : (
+              <span className="font-heading text-xl font-semibold tracking-wide text-accent">{TENANT.siteName}</span>
+            )}
           </div>
           <p className="mt-2 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
           <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
