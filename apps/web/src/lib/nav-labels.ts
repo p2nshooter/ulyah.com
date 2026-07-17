@@ -1,3 +1,4 @@
+import { TENANT } from "./tenant";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
 // (the old flat 13-link nav plus an differently-organised footer was exactly
@@ -196,5 +197,20 @@ const AR: NavLabels = {
 const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR };
 
 export function navLabels(locale: string): NavLabels {
-  return MAP[locale] ?? EN;
+  const base = MAP[locale] ?? EN;
+  if (!TENANT.features.forSale && !TENANT.features.donationForward) return base;
+  // 1fr.fr: donation is promoted into the top-level nav ("terang-terangan")
+  // and the acquisition page is openly linked. Labels per language.
+  const donate =
+    locale === "fr" ? "🤲 Faire un don" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
+  const acq =
+    locale === "fr" ? "💎 Acquisition" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
+  return {
+    ...base,
+    direct: [
+      ...base.direct,
+      ...(TENANT.features.donationForward ? [{ label: donate, path: "/donasi" }] : []),
+      ...(TENANT.features.forSale ? [{ label: acq, path: "/acquisition" }] : []),
+    ],
+  };
 }

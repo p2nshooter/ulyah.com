@@ -571,3 +571,34 @@ body {
   from { opacity: 0; transform: translateX(-50%) translateY(24px) scale(0.8); }
   to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
+
+/* ═══ One Faith France (1fr.fr tenant) — premium royal theme ═══
+   The 1fr build stamps data-tenant="1fr" on <html>. A deeper royal green,
+   champagne-gold accents and a warm parchment canvas set it apart from
+   ulyah.com at a glance while reusing every component. */
+html[data-tenant="1fr"] {
+  --color-accent: #c9a227;
+  --shadow-gold: 0 2px 14px rgba(201, 162, 39, 0.35);
+}
+html[data-tenant="1fr"][data-theme="light"] {
+  --color-bg: #faf6ec;
+  --color-card: #fffdf6;
+  --color-border: #e6dcc2;
+}
+html[data-tenant="1fr"][data-theme="dark"] {
+  --color-bg: #071f18;
+  --color-card: #0a2a20;
+  --color-border: #1c4436;
+}
+html[data-tenant="1fr"] .card-premium {
+  border-width: 1.5px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
+}
+html[data-tenant="1fr"] .card-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(201, 162, 39, 0.22);
+}
+html[data-tenant="1fr"] h1,
+html[data-tenant="1fr"] h2 {
+  letter-spacing: 0.015em;
+}

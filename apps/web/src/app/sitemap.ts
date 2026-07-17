@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { LOCALES } from "@ulyah/shared/i18n";
+import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
 import { KISAH_DZULQARNAIN_SERIES } from "../../../../scripts/content/kisah-dzulqarnain";
 import { KISAH_ASHABUL_KAHFI_SERIES } from "../../../../scripts/content/kisah-ashabul-kahfi";
 import { KISAH_NUH_SERIES } from "../../../../scripts/content/kisah-nuh";
 
-const BASE = "https://ulyah.com";
+const BASE = TENANT.siteUrl;
 const ROUTES = ["", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/nasakh", "/audiobook", "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya", "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi"];
 
 // The hadith books are a fixed, known set (migration 0012_hadits_collections).
