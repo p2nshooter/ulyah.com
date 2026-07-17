@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { TENANT } from "@/lib/tenant";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { InstallAppButton } from "@/components/InstallAppButton";
 
@@ -58,20 +59,17 @@ export function AppInstallCard({
 
   return (
     <div className="card-premium flex flex-col items-start gap-3 p-6">
-      <Image
-        src="/brand/wordmark-ar.png"
-        alt="Ulyah"
-        width={110}
-        height={30}
-        className="block h-6 w-auto dark:hidden"
-      />
-      <Image
-        src="/brand/wordmark-ar-gold.png"
-        alt="Ulyah"
-        width={110}
-        height={30}
-        className="hidden h-6 w-auto dark:block"
-      />
+      {TENANT.id === "ulyah" ? (
+        <>
+          <Image src="/brand/wordmark-ar.png" alt={TENANT.siteName} width={110} height={30} className="block h-6 w-auto dark:hidden" />
+          <Image src="/brand/wordmark-ar-gold.png" alt={TENANT.siteName} width={110} height={30} className="hidden h-6 w-auto dark:block" />
+        </>
+      ) : (
+        <div className="flex items-center gap-2">
+          <Image src={TENANT.logoIcon} alt={TENANT.siteName} width={32} height={32} className="h-8 w-8 rounded-lg" />
+          <span className="font-heading text-base font-semibold text-accent">{TENANT.siteName}</span>
+        </div>
+      )}
       {installed ? (
         <p className="text-sm text-[var(--color-text-secondary)]">
           {icon} {name} · <span className="text-success">✓ {t.installedBadge}</span>

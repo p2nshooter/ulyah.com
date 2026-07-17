@@ -2,6 +2,7 @@
 
 import { api, ebookDownloadUrl } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
+import { TENANT } from "@/lib/tenant";
 
 /**
  * Download row for an article: the audiobook MP3 (once the narration has been
@@ -25,7 +26,7 @@ export function StoryDownloads({
   dict: Dictionary;
 }) {
   function downloadText() {
-    const blob = new Blob([`${title}\n\n${body}\n\n— ULYAH.COM`], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([`${title}\n\n${body}\n\n— ${TENANT.siteName}`], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

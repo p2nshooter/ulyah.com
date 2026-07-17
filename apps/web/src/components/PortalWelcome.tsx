@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
+import { TENANT } from "@/lib/tenant";
 import Link from "next/link";
 import { portalLabels } from "@/lib/portal-labels";
 import { speak, speechAvailable } from "@/lib/speech";
@@ -40,8 +41,8 @@ export function PortalWelcome({ locale }: { locale: string }) {
       />
       <div className="relative flex items-start gap-3">
         <Image
-          src="/brand/ulyah-logo-dark.webp"
-          alt="Ulyah"
+          src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-dark.webp" : TENANT.logoIcon}
+          alt={TENANT.siteName}
           width={48}
           height={48}
           className="mt-0.5 h-11 w-11 shrink-0 rounded-full shadow-md"

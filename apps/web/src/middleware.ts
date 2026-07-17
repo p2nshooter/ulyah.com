@@ -31,9 +31,19 @@ function localeFromAcceptLanguage(header: string | null): string | null {
   return null;
 }
 
+// Sibling tenants (1fr.fr, tilawa.de) ship a single native default language
+// (fr / de). Owner rule: "setiap website pakai bahasa native-nya sebagai
+// default, bukan hasil translate, jangan bahasa Inggris." So on a sibling
+// build we do NOT geo/Accept-Language-detect (which would land a visitor on
+// English); we honour an explicit cookie only, else the native default.
+const IS_SIBLING_TENANT =
+  process.env.NEXT_PUBLIC_TENANT === "1fr" || process.env.NEXT_PUBLIC_TENANT === "tilawa";
+
 function detectLocale(req: NextRequest): string {
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
   if (cookieLocale && isValidLocale(cookieLocale)) return cookieLocale;
+
+  if (IS_SIBLING_TENANT) return DEFAULT_LOCALE; // native language first
 
   // Cloudflare appends this header to every request at the edge — no
   // separate geo-IP lookup service needed.
