@@ -41,9 +41,12 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
   const stop = useRadioStore((s) => s.stop);
   const unmuteIntent = useRadioStore((s) => s.unmuteIntent);
 
+  // Defensive: the store should always hold arrays/objects, but never let a
+  // bad value here take the whole page down with an uncaught .find on undefined.
+  const pos = position ?? { reciterKey: DEFAULT_QORI_KEY, surahId: 1, ayahNumber: 1 };
   const reciter =
-    RECITERS.find((r) => r.key === position.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
-  const surahMeta = surahs.find((s) => s.id === position.surahId);
+    RECITERS.find((r) => r.key === pos.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
+  const surahMeta = (surahs ?? []).find((s) => s.id === pos.surahId);
 
   const featured = RECITERS.filter((r) => r.featured);
 
@@ -93,7 +96,7 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
           </p>
           <p className="mt-0.5 truncate text-xs text-[#f4efe3]/70">
             {t.nowPlaying}: {surahMeta?.name_transliteration ?? "…"}
-            {reciter.cdn === "surah" ? ` (${t.wholeSurah})` : ` : ${position.ayahNumber}`}
+            {reciter.cdn === "surah" ? ` (${t.wholeSurah})` : ` : ${pos.ayahNumber}`}
           </p>
         </div>
 
@@ -112,13 +115,13 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
                 <div
                   key={r.key}
                   className={`flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs ${
-                    r.key === position.reciterKey ? "bg-accent/10 text-accent" : ""
+                    r.key === pos.reciterKey ? "bg-accent/10 text-accent" : ""
                   }`}
                 >
                   <span>
                     {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
                   </span>
-                  {r.key === position.reciterKey && (
+                  {r.key === pos.reciterKey && (
                     <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-red-300">
                       <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" /> {t.nowPlaying}
                     </span>
