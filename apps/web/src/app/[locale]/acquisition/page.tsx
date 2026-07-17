@@ -188,9 +188,9 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
         <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{c.demo}</p>
       </section>
 
-      <section className="hero-entrance mt-12 rounded-2xl bg-gradient-to-b from-[#0B3D2E] to-[#06251b] p-8 text-center text-[#f4efe3]">
+      <section className="hero-entrance mt-12 rounded-2xl bg-gradient-to-b from-[var(--panel-bg2)] to-[var(--panel-bg)] p-8 text-center text-[var(--panel-fg)]">
         <h2 className="font-heading text-2xl text-accent">✉️ {c.contactTitle}</h2>
-        <p className="mt-3 text-sm text-[#f4efe3]/80">{c.contact}</p>
+        <p className="mt-3 text-sm text-[var(--panel-fg)]/80">{c.contact}</p>
         <p className="mx-auto mt-3 inline-block rounded-full border border-accent/60 bg-accent/15 px-5 py-1.5 text-sm font-semibold tracking-wide text-accent">
           {(c as { minOffer?: string }).minOffer}
         </p>
@@ -201,7 +201,7 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
         >
           {TENANT.acquisitionEmail}
         </a>
-        <p className="mt-6 text-xs text-[#f4efe3]/60">{c.donateNote}</p>
+        <p className="mt-6 text-xs text-[var(--panel-fg)]/60">{c.donateNote}</p>
         <Link href={`/${locale}/donasi`} className="mt-2 inline-block rounded-full border border-accent/50 px-6 py-2 text-sm text-accent transition hover:bg-accent/10">
           🤲 {c.donateCta}
         </Link>

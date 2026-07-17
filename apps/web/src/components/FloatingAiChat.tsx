@@ -3,6 +3,8 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
+import { aiChatLabels } from "@/lib/ai-chat-labels";
 
 interface Source {
   kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
@@ -26,6 +28,8 @@ interface Msg {
  * curious visitor can open the source and read it in full.
  */
 export function FloatingAiChat({ locale }: { locale: string }) {
+  const t = aiChatLabels(locale);
+  const site = TENANT.siteName;
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -43,14 +47,12 @@ export function FloatingAiChat({ locale }: { locale: string }) {
         question: q,
         locale,
         specialist: "master",
+        site,
       });
       setMsgs((m) => [...m, { role: "ai", text: r.answer, sources: r.sources }]);
     } catch (e) {
       const msg = e instanceof Error ? e.message : "";
-      const gentle =
-        msg.includes("429") || /limit/i.test(msg)
-          ? "Anda telah bertanya cukup banyak untuk saat ini 🌷. Daftar sebagai donatur agar batasnya lebih longgar."
-          : "Mohon maaf, layanan ini sedang kami siapkan dengan sebaik-baiknya. Silakan mencoba kembali sesaat lagi, insyaAllah.";
+      const gentle = msg.includes("429") || /limit/i.test(msg) ? t.rateLimited : t.error;
       setMsgs((m) => [...m, { role: "ai", text: gentle }]);
     } finally {
       setBusy(false);
@@ -64,26 +66,23 @@ export function FloatingAiChat({ locale }: { locale: string }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Tutup Tanya AI" : "Buka Tanya AI"}
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-accent/40 bg-[#0B3D2E] px-4 py-3 text-sm font-medium text-[#f4efe3] shadow-lg backdrop-blur transition hover:bg-[#0d4d3a]"
+        aria-label={open ? t.closeBubble : t.openBubble}
+        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-accent/40 bg-[var(--panel-bg)] px-4 py-3 text-sm font-medium text-[var(--panel-fg)] shadow-lg backdrop-blur transition hover:brightness-125"
       >
         <span aria-hidden className="text-lg">{open ? "✕" : "💬"}</span>
-        {!open && <span className="hidden sm:inline">Tanya AI</span>}
+        {!open && <span className="hidden sm:inline">{t.bubble}</span>}
       </button>
 
       {open && (
         <div className="fixed bottom-20 right-4 z-40 flex max-h-[70vh] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-2xl">
-          <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[#0B3D2E] px-3 py-2 text-[#f4efe3]">
+          <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--panel-bg)] px-3 py-2 text-[var(--panel-fg)]">
             <span aria-hidden>💬</span>
-            <span className="text-sm font-medium">Tanya AI Islami</span>
+            <span className="text-sm font-medium">{t.title}</span>
           </div>
 
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-3">
             {msgs.length === 0 && (
-              <p className="text-center text-xs text-[var(--color-text-secondary)]">
-                Silakan bertanya apa saja tentang Al-Qur'an, tafsir, hadits, fiqih, kisah, atau kitab. Jawaban
-                dirangkai dari seluruh khazanah ULYAH.COM, lengkap dengan rujukan yang bisa Anda buka. 🌙
-              </p>
+              <p className="text-center text-xs text-[var(--color-text-secondary)]">{t.intro(site)} 🌙</p>
             )}
             {msgs.map((m, i) => (
               <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
@@ -91,7 +90,7 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                   <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>
                   {m.sources && m.sources.length > 0 && (
                     <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
-                      <p className="font-medium">Rujukan dari ULYAH.COM:</p>
+                      <p className="font-medium">{t.sourcesFrom(site)}</p>
                       {m.sources.map((s, j) =>
                         s.url ? (
                           <Link key={j} href={`/${locale}${s.url}`} className="block text-accent hover:underline">
@@ -108,7 +107,7 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                 </div>
               </div>
             ))}
-            {busy && <p className="text-xs text-[var(--color-text-secondary)]">Sedang merangkai jawaban…</p>}
+            {busy && <p className="text-xs text-[var(--color-text-secondary)]">{t.answering}</p>}
           </div>
 
           <div className="flex gap-2 border-t border-[var(--color-border)] p-2">
@@ -116,7 +115,7 @@ export function FloatingAiChat({ locale }: { locale: string }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder="Tulis pertanyaan…"
+              placeholder={t.placeholder}
               className="flex-1 rounded-full border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
             />
             <button onClick={send} disabled={busy || !input.trim()} className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white disabled:opacity-50">

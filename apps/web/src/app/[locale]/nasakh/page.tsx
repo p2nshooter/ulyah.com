@@ -23,7 +23,7 @@ interface NasakhEntry {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Nasakh & Mansukh — Ayat Penghapus & Dihapus · ULYAH.COM",
+    title: "Nasakh & Mansukh — Ayat Penghapus & Dihapus",
     description:
       "Kumpulan kasus nasakh (penghapus) dan mansukh (dihapus) dalam Al-Qur'an, tersusun rapi: ayat yang dinasakh, ayat penggantinya, jenis naskh, penjelasan, dan sumber. Bisa didengarkan.",
   };

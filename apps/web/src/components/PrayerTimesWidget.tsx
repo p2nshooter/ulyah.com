@@ -170,7 +170,11 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
   };
   const hijri = toHijri(now);
   const monthNames = locale === "id" ? HIJRI_MONTH_NAMES_ID : HIJRI_MONTH_NAMES_EN;
-  const gregorian = new Intl.DateTimeFormat(locale === "ar" ? "ar" : locale === "id" ? "id-ID" : "en-US", {
+  // Use the visitor's actual language for the Gregorian date so fr/de render
+  // native weekday/month names (not an English fallback).
+  const intlLocale =
+    ({ id: "id-ID", ar: "ar", fr: "fr-FR", de: "de-DE" } as Record<string, string>)[locale] ?? "en-US";
+  const gregorian = new Intl.DateTimeFormat(intlLocale, {
     weekday: "long",
     day: "numeric",
     month: "long",

@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   return {
-    title: `${dict.nav.about} — ULYAH.COM`,
+    title: `${dict.nav.about}`,
     description: dict.hero.description,
     alternates: { canonical: `/${locale}/tentang` },
   };

@@ -27,7 +27,14 @@ export async function generateMetadata({
   const siteName = TENANT.id === "1fr" ? TENANT.siteName : dict.common.siteName;
   const tagline = TENANT.id === "1fr" ? tenantTagline(locale, dict.common.tagline) : dict.common.tagline;
   return {
-    title: `${siteName} — ${tagline}`,
+    // A tenant-scoped title template so EVERY child page's tab title carries
+    // the right brand (never a stray "ULYAH.COM" on a sibling). Child pages
+    // that return a plain-string title get "<their title> — <brand>"; the home
+    // page uses `default`.
+    title: {
+      default: `${siteName} — ${tagline}`,
+      template: `%s — ${TENANT.siteName}`,
+    },
     description: dict.hero.description,
     metadataBase: new URL(TENANT.siteUrl),
     alternates: {
@@ -99,14 +106,28 @@ export default async function LocaleLayout({
             very first frame (ThemeProvider's effect runs one tick later). */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("ulyah_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.documentElement.classList.toggle("dark",t==="dark");}catch(e){}})();`,
+            // Each sibling has a SIGNATURE default theme so it reads as its own
+            // product on first paint: 1fr.fr opens light (ivory editorial),
+            // tilawa.de opens dark (graphite technical), ulyah follows the OS.
+            // A saved preference always wins.
+            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
           }}
         />
-        {/* Premium typography: Quranic Arabic + classical serif + clean UI sans */}
+        {/* Per-tenant typography — each sibling site has its OWN type system so
+            it reads as a different product: ulyah = Cinzel (classical/ornate),
+            1fr.fr = Cormorant Garamond (elegant French editorial serif),
+            tilawa.de = Space Grotesk (modern German geometric sans). Arabic
+            (Scheherazade/Amiri) and the UI sans are shared. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+          href={
+            TENANT.id === "1fr"
+              ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500&display=swap"
+              : TENANT.id === "tilawa"
+                ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+                : "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+          }
           rel="stylesheet"
         />
         {/* Structured data for SEO — WebSite (with SearchAction) + Organization,

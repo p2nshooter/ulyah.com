@@ -40,6 +40,28 @@ const MOTIF_EMOJI: Record<string, string> = {
   pattern: "✨",
 };
 
+interface KidsLabels {
+  play: string;
+  pause: string;
+  replay: string;
+  sceneOf: (c: number, t: number) => string;
+  moralTitle: string;
+  readText: string;
+  hideText: string;
+}
+
+// English labels, reused as the base type and the fallback for any locale
+// without a native entry (never Indonesian).
+const EN_LABELS: KidsLabels = {
+  play: "Play film",
+  pause: "Pause",
+  replay: "Replay",
+  sceneOf: (c, t) => `Scene ${c} of ${t}`,
+  moralTitle: "Lesson",
+  readText: "📖 Read the story text",
+  hideText: "Hide text",
+};
+
 export function KisahAnakList({ locale, episodes }: { locale: string; episodes: EpisodeSummary[] }) {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [detail, setDetail] = useState<EpisodeDetail | null>(null);
@@ -47,15 +69,33 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
   const [showText, setShowText] = useState(false);
   const isId = locale === "id";
 
-  const labels = {
-    play: isId ? "Putar film" : "Play film",
-    pause: isId ? "Jeda" : "Pause",
-    replay: isId ? "Ulangi" : "Replay",
-    sceneOf: (c: number, t: number) => (isId ? `Adegan ${c} dari ${t}` : `Scene ${c} of ${t}`),
-    moralTitle: isId ? "Hikmah" : "Lesson",
-    readText: isId ? "📖 Baca teks cerita" : "📖 Read the story text",
-    hideText: isId ? "Sembunyikan teks" : "Hide text",
+  // UI chrome is fully native per locale (fr/de never fall back to English).
+  // Story content itself only exists in id/en in the database, so the text
+  // fields below fall back to English for other locales.
+  const LABELS: Record<string, KidsLabels> = {
+    id: {
+      play: "Putar film", pause: "Jeda", replay: "Ulangi",
+      sceneOf: (c, t) => `Adegan ${c} dari ${t}`,
+      moralTitle: "Hikmah", readText: "📖 Baca teks cerita", hideText: "Sembunyikan teks",
+    },
+    en: EN_LABELS,
+    fr: {
+      play: "Lire le film", pause: "Pause", replay: "Revoir",
+      sceneOf: (c, t) => `Scène ${c} sur ${t}`,
+      moralTitle: "Leçon", readText: "📖 Lire le texte de l'histoire", hideText: "Masquer le texte",
+    },
+    de: {
+      play: "Film abspielen", pause: "Pause", replay: "Wiederholen",
+      sceneOf: (c, t) => `Szene ${c} von ${t}`,
+      moralTitle: "Lehre", readText: "📖 Geschichtentext lesen", hideText: "Text ausblenden",
+    },
+    ar: {
+      play: "شغّل الفيلم", pause: "إيقاف مؤقت", replay: "إعادة",
+      sceneOf: (c, t) => `المشهد ${c} من ${t}`,
+      moralTitle: "العبرة", readText: "📖 اقرأ نص القصة", hideText: "إخفاء النص",
+    },
   };
+  const labels = LABELS[locale] ?? EN_LABELS;
 
   async function open(slug: string) {
     if (openSlug === slug) {
