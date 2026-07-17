@@ -35,7 +35,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             <p className="mb-2 text-xs font-semibold text-accent">{dict.footer.followUs}</p>
             <ShareButtons
               url={`https://ulyah.com/${locale}`}
-              title={`${dict.common.siteName} — ${dict.common.tagline}`}
+              title={`${TENANT.id === "ulyah" ? dict.common.siteName : TENANT.siteName} — ${dict.common.tagline}`}
               copyLabel={dict.crypto.copy}
               copiedLabel={dict.crypto.copied}
               compact
@@ -93,7 +93,11 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
         </div>
       </div>
 
-      <p className="mx-auto mt-10 max-w-7xl text-xs text-[#f4efe3]/50">{dict.footer.rights}</p>
+      <p className="mx-auto mt-10 max-w-7xl text-xs text-[#f4efe3]/50">
+        {TENANT.id === "ulyah"
+          ? dict.footer.rights
+          : dict.footer.rights.replace(/Ulyah\.?/gi, TENANT.siteName)}
+      </p>
     </footer>
   );
 }
