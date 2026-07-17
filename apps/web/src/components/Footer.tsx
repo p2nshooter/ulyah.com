@@ -1,11 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { contactLabels } from "@/lib/contact-labels";
-import { navLabels } from "@/lib/nav-labels";
+import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
 import { TENANT } from "@/lib/tenant";
+import { usePageOverrides } from "@/lib/site-pages";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -14,7 +17,12 @@ import { TENANT } from "@/lib/tenant";
  * deliberately live only down here (privacy, donate, contact, accounts).
  */
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
-  const nav = navLabels(locale);
+  const overrides = usePageOverrides();
+  const nav = applyPageOverrides(
+    navLabels(locale),
+    new Set(overrides.hidden),
+    new Map(Object.entries(overrides.labels))
+  );
 
   return (
     <footer className="border-t border-[var(--color-border)] bg-primary-dark bg-primary px-4 py-12 text-[#f4efe3] sm:px-6">
