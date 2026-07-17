@@ -22,6 +22,11 @@ export interface SessionData {
   subject: SessionSubject;
   id: number;
   email: string;
+  // Admin sessions carry their role + tenant scope so the API can enforce
+  // read-only for demo accounts and scope a sibling admin to its own site.
+  // role: 'owner' | 'admin' | 'demo'; tenant: null (ulyah/global) | '1fr' | 'tilawa'.
+  role?: string;
+  tenant?: string | null;
   // Only present on an `admin_pending_totp` token during first-time TOTP
   // enrollment — carries the freshly generated secret through the two-step
   // flow inside the signed token itself, so it needs no KV storage (which
@@ -94,7 +99,14 @@ export async function getSession(env: Env, token: string | undefined | null): Pr
     if (!constantTimeEqual(expected, got)) return null;
     const payload = JSON.parse(new TextDecoder().decode(b64urlDecode(payloadB64))) as TokenPayload;
     if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return null;
-    return { subject: payload.subject, id: payload.id, email: payload.email, totpSecret: payload.totpSecret };
+    return {
+      subject: payload.subject,
+      id: payload.id,
+      email: payload.email,
+      role: payload.role,
+      tenant: payload.tenant ?? null,
+      totpSecret: payload.totpSecret,
+    };
   } catch {
     return null;
   }
