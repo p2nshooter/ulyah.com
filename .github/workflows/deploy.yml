@@ -1,11 +1,10 @@
 name: Deploy 1fr.fr (One Faith France)
 
-# Standalone pipeline for the 1fr.fr property. This repo deliberately does
-# NOT touch ulyah.com infrastructure: no D1 migrations, no seeds, no
-# worker-api deploy. Content is served read-only from the shared content API
-# (https://api.ulyah.com) until/unless the content is included in an
-# acquisition deal. Required GitHub Secrets: CLOUDFLARE_API_TOKEN,
-# CLOUDFLARE_ACCOUNT_ID (token needs Workers Scripts:Edit + the 1fr.fr zone).
+# Standalone pipeline for 1fr.fr. Does NOT touch ulyah.com infra (no D1, no
+# seeds, no worker-api). App code mirrors ulyah.com so every fix flows here.
+# Content is read-only from the shared content API (https://api.ulyah.com).
+# Required GitHub Secrets: CLOUDFLARE_API_TOKEN (Workers Scripts:Edit + Zone
+# DNS:Edit for 1fr.fr), CLOUDFLARE_ACCOUNT_ID.
 
 on:
   push:
@@ -50,16 +49,29 @@ jobs:
         working-directory: apps/web
         run: npx wrangler deploy --name onefaith-web
 
-      - name: Attach 1fr.fr custom domains
+      - name: Point 1fr.fr at onefaith-web (clean parking DNS + attach domain)
         run: |
           set -eu
           CF="https://api.cloudflare.com/client/v4"
           AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
           ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=1fr.fr" | jq -r '.result[0].id // empty')
           if [ -z "$ZONE_ID" ]; then
-            echo "::warning::1fr.fr zone not visible to this token — site stays on workers.dev. Add the zone (or zone permission) and re-run."
+            echo "::warning::1fr.fr zone not visible to this token — add the zone (or DNS:Edit) and re-run. Site stays on workers.dev."
             exit 0
           fi
+          # 1) Remove any A/AAAA/CNAME on apex, www, and wildcard that point at a
+          #    parking IP and block the Worker custom-domain attach (err 100117).
+          #    MX/TXT (email) are left untouched.
+          for host in "1fr.fr" "www.1fr.fr" "*.1fr.fr"; do
+            ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?per_page=100&name=$host" \
+              | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | .id')
+            for id in $ids; do
+              echo "deleting conflicting DNS record for $host ($id)"
+              curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" | jq -r '.success'
+            done
+          done
+          # 2) Attach the custom domains to the Worker (creates the correct
+          #    proxied records automatically).
           for host in 1fr.fr www.1fr.fr; do
             resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
               -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"onefaith-web\",\"environment\":\"production\"}" \
@@ -69,10 +81,10 @@ jobs:
 
       - name: Smoke test
         run: |
-          for i in 1 2 3 4 5; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "https://1fr.fr/fr" || echo 000)
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L "https://1fr.fr/fr" || echo 000)
             echo "attempt $i: https://1fr.fr/fr -> $code"
             [ "$code" = "200" ] && exit 0
-            sleep 20
+            sleep 25
           done
-          echo "::warning::1fr.fr not yet reachable (DNS/cert may still be settling)."
+          echo "::warning::1fr.fr not 200 yet (DNS/cert may still be settling — recheck in a few minutes)."
