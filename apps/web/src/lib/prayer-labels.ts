@@ -116,7 +116,65 @@ const AR: PrayerLabels = {
   now: "الآن",
 };
 
-const MAP: Record<string, PrayerLabels> = { en: EN, id: ID, ar: AR };
+const FR: PrayerLabels = {
+  title: "Horaires de prière",
+  subtitle: "Calés sur votre position — les horaires de prière là où vous êtes, maintenant.",
+  fajr: "Fajr",
+  sunrise: "Lever du soleil",
+  dhuhr: "Dhuhr",
+  asr: "Asr",
+  maghrib: "Maghrib",
+  isha: "Isha",
+  nextPrayer: "Prochaine prière",
+  yourLocation: "Votre position",
+  worldClocks: "Horloges mondiales",
+  hijriDate: "Date hégirienne",
+  countdownToRamadan: "Compte à rebours vers le Ramadan",
+  countdownToNuzul: "Compte à rebours vers Nuzul al-Qur'an (17 Ramadan)",
+  nuzulPassedNote: "Nuzul al-Qur'an est passé — que le reste du Ramadan soit béni.",
+  days: "jours",
+  hours: "h",
+  minutes: "min",
+  seconds: "s",
+  locating: "Localisation en cours…",
+  installStandalone: "Installer comme application de rappel autonome",
+  brandTagline:
+    "Les horaires de prière et la Radio des récitateurs du monde font partie de ce portail — une maison numérique pour le Coran, le tafsir, le hadith, les textes classiques et les récits islamiques, tous narrés à voix haute.",
+  brandCta: "Découvrir l'application complète →",
+  untilNext: "Dans",
+  now: "maintenant",
+};
+
+const DE: PrayerLabels = {
+  title: "Gebetszeiten",
+  subtitle: "An Ihren Standort gebunden — die Gebetszeiten dort, wo Sie gerade sind.",
+  fajr: "Fadschr",
+  sunrise: "Sonnenaufgang",
+  dhuhr: "Dhuhr",
+  asr: "Asr",
+  maghrib: "Maghrib",
+  isha: "Ischa",
+  nextPrayer: "Nächstes Gebet",
+  yourLocation: "Ihr Standort",
+  worldClocks: "Weltuhren",
+  hijriDate: "Hidschri-Datum",
+  countdownToRamadan: "Countdown bis zum Ramadan",
+  countdownToNuzul: "Countdown bis Nuzul al-Qur'an (17. Ramadan)",
+  nuzulPassedNote: "Nuzul al-Qur'an ist vorüber — möge der Rest des Ramadan gesegnet sein.",
+  days: "Tage",
+  hours: "Std",
+  minutes: "Min",
+  seconds: "Sek",
+  locating: "Standort wird ermittelt…",
+  installStandalone: "Als eigenständige Erinnerungs-App installieren",
+  brandTagline:
+    "Gebetszeiten und das weltweite Rezitatoren-Radio sind Teil dieses Portals — ein digitales Zuhause für Koran, Tafsir, Hadith, klassische Texte und islamische Geschichten, alle laut vorgetragen.",
+  brandCta: "Die vollständige App entdecken →",
+  untilNext: "In",
+  now: "jetzt",
+};
+
+const MAP: Record<string, PrayerLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
 
 export function prayerLabels(locale: string): PrayerLabels {
   return MAP[locale] ?? EN;

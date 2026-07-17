@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { NarrateButton } from "@/components/NarrateButton";
+import { narrateLabels } from "@/lib/narrate-labels";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 
 interface Item {
@@ -253,8 +254,8 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                           key={audioMode}
                           paragraphs={[]}
                           segments={itemSegments(it)}
-                          listenLabel="🔊 Dengarkan"
-                          stopLabel="⏹"
+                          listenLabel={narrateLabels(locale).listen}
+                          stopLabel={narrateLabels(locale).stop}
                           lang={locale}
                         />
                       )}

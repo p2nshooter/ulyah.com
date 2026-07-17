@@ -102,7 +102,57 @@ const AR: RadioLabels = {
   openRadioPage: "افتح الراديو · ثبّته كتطبيق",
 };
 
-const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR };
+const FR: RadioLabels = {
+  title: "Radio des récitateurs du monde",
+  subtitle: "Le Coran récité sans interruption, 24 h/24 — choisissez le récitateur que vous aimez.",
+  nowPlaying: "En cours de récitation",
+  wholeSurah: "sourate entière",
+  play: "Lire",
+  pause: "Pause",
+  clickToStart: "Touchez pour lancer la radio",
+  chooseReciter: "Choisir un récitateur",
+  chooseCountry: "Pays",
+  featuredGroup: "🏆 Récitateurs de renommée mondiale",
+  allGroup: "Tous les récitateurs",
+  reciterLineup: "🎙️ Liste des récitateurs",
+  liveBadge: "EN DIRECT",
+  khatamCompleted: "khatma(s) terminée(s)",
+  khatamInProgress: "khatma en cours n°",
+  khatamRotationNote: "Une fois que chaque récitateur a eu son tour, la rotation revient au premier — indéfiniment.",
+  tapToUnmute: "La radio est en direct — touchez pour l'écouter",
+  installStandalone: "Installer comme application autonome",
+  pageIntro: "Une radio coranique en direct qui ne s'arrête jamais — installez-la et gardez la récitation avec vous, à un geste de votre écran d'accueil.",
+  brandTagline: "Écoutez, comprenez et faites vivre le Coran chaque jour.",
+  brandCta: "Explorer le site",
+  openRadioPage: "Ouvrir la radio · installer l'application",
+};
+
+const DE: RadioLabels = {
+  title: "Weltweite Rezitatoren-Radio",
+  subtitle: "Der Koran rund um die Uhr rezitiert — wählen Sie Ihren Lieblingsrezitator.",
+  nowPlaying: "Wird gerade rezitiert",
+  wholeSurah: "ganze Sure",
+  play: "Abspielen",
+  pause: "Pause",
+  clickToStart: "Tippen, um das Radio zu starten",
+  chooseReciter: "Rezitator wählen",
+  chooseCountry: "Land",
+  featuredGroup: "🏆 Weltbekannte Rezitatoren",
+  allGroup: "Alle Rezitatoren",
+  reciterLineup: "🎙️ Rezitatoren-Übersicht",
+  liveBadge: "LIVE",
+  khatamCompleted: "Chatma(s) abgeschlossen",
+  khatamInProgress: "aktuelle Chatma Nr.",
+  khatamRotationNote: "Sobald jeder Rezitator an der Reihe war, beginnt die Rotation wieder beim ersten — endlos.",
+  tapToUnmute: "Das Radio läuft live — tippen zum Anhören",
+  installStandalone: "Als eigenständige App installieren",
+  pageIntro: "Ein Live-Koranradio, das nie aufhört — installieren Sie es und behalten Sie die Rezitation bei sich, nur einen Fingertipp vom Startbildschirm entfernt.",
+  brandTagline: "Hören, verstehen und den Koran jeden Tag lebendig werden lassen.",
+  brandCta: "Website erkunden",
+  openRadioPage: "Radio öffnen · als App installieren",
+};
+
+const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
 
 export function radioLabels(locale: string): RadioLabels {
   return MAP[locale] ?? EN;
