@@ -3,6 +3,40 @@ import { LOCALES, DEFAULT_LOCALE, isValidLocale } from "@ulyah/shared/i18n";
 
 const LOCALE_COOKIE = "ulyah_locale";
 
+// Dynamic page show/hide (sibling sites). The admin portal marks pages hidden;
+// the middleware always runs per-request (unlike a statically-cached page), so
+// it is the reliable place to keep a hidden page unreachable. The hidden set is
+// fetched from the content API and cached per-isolate for 60s. Fails OPEN.
+const TENANT_ID = process.env.NEXT_PUBLIC_TENANT ?? "ulyah";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
+let hiddenCache: { paths: string[]; at: number } | null = null;
+
+async function hiddenPaths(): Promise<string[]> {
+  if (TENANT_ID === "ulyah") return [];
+  const now = Date.now();
+  if (hiddenCache && now - hiddenCache.at < 60_000) return hiddenCache.paths;
+  try {
+    const res = await fetch(`${API_BASE}/content/site-pages?tenant=${TENANT_ID}`);
+    if (res.ok) {
+      const j = (await res.json()) as { pages?: { path: string; visible: boolean }[] };
+      const paths = (j.pages ?? []).filter((p) => !p.visible).map((p) => p.path);
+      hiddenCache = { paths, at: now };
+      return paths;
+    }
+  } catch {
+    /* fail open — keep serving the page */
+  }
+  return hiddenCache?.paths ?? [];
+}
+
+function pathIsHidden(hidden: string[], pageless: string): boolean {
+  for (const h of hidden) {
+    if (h === pageless) return true;
+    if (h !== "/" && pageless.startsWith(h + "/")) return true;
+  }
+  return false;
+}
+
 /**
  * Country -> language mapping for first-visit geo detection. Deliberately
  * conservative: only maps countries whose majority/official language is one
@@ -79,7 +113,7 @@ function withSecurity(res: NextResponse): NextResponse {
   return res;
 }
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Force HTTPS ONLY when we can prove the *client* used plain HTTP. Inside a
@@ -118,6 +152,13 @@ export function middleware(req: NextRequest) {
   const maybeLocale = segments[1];
 
   if (maybeLocale && isValidLocale(maybeLocale)) {
+    // A page the admin has hidden for this sibling is sent home (unreachable).
+    if (TENANT_ID !== "ulyah") {
+      const pageless = "/" + segments.slice(2).join("/");
+      if (pathIsHidden(await hiddenPaths(), pageless === "/" ? "/" : pageless.replace(/\/$/, ""))) {
+        return withSecurity(NextResponse.redirect(new URL(`/${maybeLocale}`, req.url)));
+      }
+    }
     const res = NextResponse.next();
     res.cookies.set(LOCALE_COOKIE, maybeLocale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
     return res;

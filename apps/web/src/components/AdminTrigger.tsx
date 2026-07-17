@@ -110,12 +110,19 @@ export function AdminAuthModal({
     setBusy(true);
     try {
       const res = await api.post<{
+        ok?: boolean;
         needsTotpSetup?: boolean;
         needsTotpCode?: boolean;
         pendingToken: string;
         otpauthUrl?: string;
         secret?: string;
       }>("/admin/auth/login", { email, password });
+      // Sibling admins and demo accounts have no second factor — the server
+      // sets the session cookie on login and returns { ok: true } directly.
+      if (res.ok && !res.pendingToken) {
+        onSuccess();
+        return;
+      }
       setPendingToken(res.pendingToken);
       if (res.needsTotpSetup) {
         setOtpauthUrl(res.otpauthUrl ?? "");

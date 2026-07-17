@@ -10,7 +10,8 @@ import { AdminTrigger } from "@/components/AdminTrigger";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
-import { navLabels } from "@/lib/nav-labels";
+import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
+import { usePageOverrides } from "@/lib/site-pages";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -26,7 +27,12 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const { theme, toggle } = useTheme();
   const pathname = usePathname();
-  const nav = navLabels(locale);
+  const overrides = usePageOverrides();
+  const nav = applyPageOverrides(
+    navLabels(locale),
+    new Set(overrides.hidden),
+    new Map(Object.entries(overrides.labels))
+  );
   const navRef = useRef<HTMLElement>(null);
 
   // Close dropdown + mobile menu on any outside tap and on route change.

@@ -15,6 +15,15 @@ interface AdminRow {
   email: string;
   password_hash: string;
   totp_secret: string | null;
+  role: string;
+  tenant: string | null;
+}
+
+// TOTP is required only for the ulyah owner account (tenant NULL). Sibling
+// admins (1fr/tilawa) and every demo account skip it so credentials can be
+// handed over directly, and the demo login is friction-free for prospects.
+function requiresTotp(row: { role: string; tenant: string | null }): boolean {
+  return row.role !== "demo" && (row.tenant === null || row.tenant === undefined);
 }
 
 /**
@@ -101,6 +110,28 @@ adminAuthRoute.post("/login", async (c) => {
   await resetRateLimit(c.env, `admin-login:${ip}`);
   const row = admin ?? (await c.env.DB.prepare("SELECT * FROM admin_users WHERE email = ?").bind(email.toLowerCase()).first<AdminRow>())!;
 
+  // Sibling admins and demo accounts have no second factor — issue the real
+  // admin session cookie immediately, tagged with role + tenant.
+  if (!requiresTotp(row)) {
+    await c.env.DB.prepare("UPDATE admin_users SET last_login_at = datetime('now') WHERE id = ?").bind(row.id).run();
+    const fullToken = await createSession(c.env, {
+      subject: "admin",
+      id: row.id,
+      email: row.email,
+      role: row.role,
+      tenant: row.tenant,
+    });
+    setCookie(c, sessionCookieName("admin"), fullToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+      path: "/",
+      maxAge: 60 * 60 * 8,
+    });
+    await logAdminAction(c.env, "login_success", row.email, ip, { role: row.role, tenant: row.tenant, totp: false });
+    return c.json({ ok: true });
+  }
+
   if (!row.totp_secret) {
     const secret = generateTotpSecret();
     // Carry the setup secret inside the signed pending token — no KV write,
@@ -172,7 +203,16 @@ adminAuthRoute.post("/totp", async (c) => {
   await destroySession(c.env, pendingToken);
   await resetRateLimit(c.env, `admin-totp:${ip}`);
 
-  const fullToken = await createSession(c.env, { subject: "admin", id: pending.id, email: pending.email });
+  const who = await c.env.DB.prepare("SELECT role, tenant FROM admin_users WHERE id = ?")
+    .bind(pending.id)
+    .first<{ role: string; tenant: string | null }>();
+  const fullToken = await createSession(c.env, {
+    subject: "admin",
+    id: pending.id,
+    email: pending.email,
+    role: who?.role ?? "admin",
+    tenant: who?.tenant ?? null,
+  });
   setCookie(c, sessionCookieName("admin"), fullToken, {
     httpOnly: true,
     secure: true,
@@ -196,7 +236,13 @@ adminAuthRoute.get("/me", async (c) => {
   const token = getCookie(c, sessionCookieName("admin"));
   const session = await getSession(c.env, token);
   if (!session || session.subject !== "admin") return c.json({ authenticated: false }, 401);
-  return c.json({ authenticated: true, email: session.email });
+  return c.json({
+    authenticated: true,
+    email: session.email,
+    role: session.role ?? "admin",
+    tenant: session.tenant ?? null,
+    readOnly: session.role === "demo",
+  });
 });
 
 /**
@@ -211,6 +257,7 @@ adminAuthRoute.post("/change-credentials", async (c) => {
   const token = getCookie(c, sessionCookieName("admin"));
   const session = await getSession(c.env, token);
   if (!session || session.subject !== "admin") return c.json({ error: "Not authenticated" }, 401);
+  if (session.role === "demo") return c.json({ error: "This is a read-only demo account — changes are disabled.", code: "demo_readonly" }, 403);
 
   const rl = await checkRateLimit(c.env, `admin-change-cred:${session.id}`, 5, 60 * 10);
   if (!rl.allowed) return c.json({ error: "Too many attempts. Try again later." }, 429);

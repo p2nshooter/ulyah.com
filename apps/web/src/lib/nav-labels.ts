@@ -196,6 +196,26 @@ const AR: NavLabels = {
 
 const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR };
 
+/** Apply the admin portal's per-tenant show/hide + rename overrides to a nav
+ * tree: drop hidden items (and any group left empty), and swap in custom
+ * labels. Passing an empty config is a no-op, so ulyah is unaffected. */
+export function applyPageOverrides(
+  nav: NavLabels,
+  hidden: Set<string>,
+  labels: Map<string, string>
+): NavLabels {
+  if (hidden.size === 0 && labels.size === 0) return nav;
+  const keep = (path: string) => !hidden.has(path);
+  const relabel = (it: NavItem): NavItem => (labels.has(it.path) ? { ...it, label: labels.get(it.path)! } : it);
+  return {
+    ...nav,
+    groups: nav.groups
+      .map((g) => ({ ...g, items: g.items.filter((it) => keep(it.path)).map(relabel) }))
+      .filter((g) => g.items.length > 0),
+    direct: nav.direct.filter((it) => keep(it.path)).map(relabel),
+  };
+}
+
 export function navLabels(locale: string): NavLabels {
   const base = MAP[locale] ?? EN;
   if (!TENANT.features.forSale && !TENANT.features.donationForward) return base;
