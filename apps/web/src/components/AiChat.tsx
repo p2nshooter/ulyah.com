@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
+import { aiChatLabels } from "@/lib/ai-chat-labels";
 
 interface Source {
   kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
@@ -17,14 +19,7 @@ interface Msg {
   servedBy?: string | null;
 }
 
-const SPECIALISTS: { key: string; label: string }[] = [
-  { key: "master", label: "✦ Penasihat Utama" },
-  { key: "quran", label: "Al-Qur'an" },
-  { key: "hadits", label: "Hadits" },
-  { key: "fiqih", label: "Fiqih" },
-  { key: "sirah", label: "Sirah" },
-  { key: "akhlak", label: "Akhlak" },
-];
+const SPECIALIST_KEYS = ["master", "quran", "hadits", "fiqih", "sirah", "akhlak"] as const;
 
 /**
  * Landing / Tanya AI chat — free for everyone, no paid tier, no member
@@ -44,6 +39,8 @@ const SPECIALISTS: { key: string; label: string }[] = [
 const CHAT_STORE_KEY = "ulyah:ai-chat:v1";
 
 export function AiChat({ locale }: { locale: string }) {
+  const t = aiChatLabels(locale);
+  const site = TENANT.siteName;
   const [specialist, setSpecialist] = useState("master");
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -87,14 +84,15 @@ export function AiChat({ locale }: { locale: string }) {
         question: q,
         locale,
         specialist: specialist || undefined,
+        site,
       });
       setMsgs((m) => [...m, { role: "ai", text: r.answer, sources: r.sources, servedBy: r.servedBy }]);
     } catch (e) {
       const msg = e instanceof Error ? e.message : "";
       if (msg.includes("429") || /limit/i.test(msg)) {
-        setNotice("Anda telah bertanya cukup banyak untuk saat ini 🌷. Daftar sebagai donatur agar batasnya lebih longgar.");
+        setNotice(t.rateLimited);
       } else {
-        setNotice("Mohon maaf, layanan ini sedang kami siapkan dengan sebaik-baiknya. Silakan mencoba kembali sesaat lagi, insyaAllah.");
+        setNotice(t.error);
       }
     } finally {
       setBusy(false);
@@ -105,17 +103,17 @@ export function AiChat({ locale }: { locale: string }) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        {SPECIALISTS.map((s) => (
+        {SPECIALIST_KEYS.map((key) => (
           <button
-            key={s.key}
-            onClick={() => setSpecialist(s.key)}
+            key={key}
+            onClick={() => setSpecialist(key)}
             className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
-              specialist === s.key
+              specialist === key
                 ? "border-accent bg-accent/15 text-accent"
                 : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
             }`}
           >
-            {s.label}
+            {t.specialists[key]}
           </button>
         ))}
       </div>
@@ -125,10 +123,7 @@ export function AiChat({ locale }: { locale: string }) {
         className="max-h-[50vh] min-h-[160px] space-y-3 overflow-y-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-4"
       >
         {msgs.length === 0 && (
-          <p className="text-center text-sm text-[var(--color-text-secondary)]">
-            Tanyakan apa saja tentang Al-Qur'an, tafsir, hadits, fiqih, kisah, atau kitab. Jawaban diambil dari
-            seluruh database ULYAH.COM, lengkap dengan rujukan yang bisa Anda buka langsung.
-          </p>
+          <p className="text-center text-sm text-[var(--color-text-secondary)]">{t.intro(site)}</p>
         )}
         {msgs.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
@@ -140,7 +135,7 @@ export function AiChat({ locale }: { locale: string }) {
               <p className="whitespace-pre-wrap">{m.text}</p>
               {m.sources && m.sources.length > 0 && (
                 <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-2 text-[11px] text-[var(--color-text-secondary)]">
-                  <p className="font-medium">Rujukan dari ULYAH.COM:</p>
+                  <p className="font-medium">{t.sourcesFrom(site)}</p>
                   {m.sources.map((s, j) =>
                     s.url ? (
                       // New tab, so following a citation never leaves (or
@@ -165,7 +160,7 @@ export function AiChat({ locale }: { locale: string }) {
             </div>
           </div>
         ))}
-        {busy && <p className="text-left text-xs text-[var(--color-text-secondary)]">AI sedang menjawab…</p>}
+        {busy && <p className="text-left text-xs text-[var(--color-text-secondary)]">{t.answering}</p>}
       </div>
 
       {notice && <p className="rounded-lg bg-warning/10 p-2 text-center text-xs text-warning">{notice}</p>}
@@ -175,7 +170,7 @@ export function AiChat({ locale }: { locale: string }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && send()}
-          placeholder="Tulis pertanyaan…"
+          placeholder={t.placeholder}
           className="flex-1 rounded-full border border-[var(--color-border)] bg-transparent px-4 py-2.5 text-sm"
         />
         <button
@@ -183,14 +178,11 @@ export function AiChat({ locale }: { locale: string }) {
           disabled={busy || !input.trim()}
           className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white disabled:opacity-50"
         >
-          Kirim
+          {t.send}
         </button>
       </div>
 
-      <p className="text-center text-[11px] text-[var(--color-text-secondary)]">
-        Jawaban berbasis database ULYAH.COM &amp; bersitasi, gratis tanpa batas wajar. Untuk keputusan hukum
-        penting, tetap rujuk ke ustadz terpercaya.
-      </p>
+      <p className="text-center text-[11px] text-[var(--color-text-secondary)]">{t.disclaimer(site)}</p>
 
     </div>
   );

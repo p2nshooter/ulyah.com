@@ -4,6 +4,7 @@ import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { contactLabels } from "@/lib/contact-labels";
 import { navLabels } from "@/lib/nav-labels";
+import { aiChatLabels } from "@/lib/ai-chat-labels";
 import { TENANT } from "@/lib/tenant";
 
 /**
@@ -34,7 +35,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <div className="mt-4">
             <p className="mb-2 text-xs font-semibold text-accent">{dict.footer.followUs}</p>
             <ShareButtons
-              url={`https://ulyah.com/${locale}`}
+              url={`${TENANT.siteUrl}/${locale}`}
               title={`${TENANT.id === "ulyah" ? dict.common.siteName : TENANT.siteName} — ${dict.common.tagline}`}
               copyLabel={dict.crypto.copy}
               copiedLabel={dict.crypto.copied}
@@ -66,7 +67,9 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{dict.footer.info}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/tentang`} className="transition hover:text-accent">{dict.nav.about}</Link></li>
-            <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
+            {TENANT.id === "ulyah" && (
+              <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
+            )}
             <li><Link href={`/${locale}/terima-kasih`} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
           </ul>
         </div>
@@ -74,7 +77,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{contactLabels(locale).navLabel}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/kontak`} className="transition hover:text-accent">{contactLabels(locale).navLabel}</Link></li>
-            <li><Link href={`/${locale}/tanya`} className="transition hover:text-accent">Tanya AI</Link></li>
+            <li><Link href={`/${locale}/tanya`} className="transition hover:text-accent">{aiChatLabels(locale).bubble}</Link></li>
           </ul>
         </div>
         <div>

@@ -42,7 +42,6 @@ export function SanadExplorer({ locale }: { locale: string }) {
   const [sample, setSample] = useState<SampleRow[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [openId, setOpenId] = useState<number | null>(null);
-  const isId = locale === "id";
 
   useEffect(() => {
     api
@@ -102,7 +101,7 @@ export function SanadExplorer({ locale }: { locale: string }) {
               >
                 <button onClick={() => setOpenId(isOpen ? null : row.id)} className="flex w-full items-center justify-between gap-2 text-left">
                   <p className="text-xs font-medium uppercase tracking-wide text-accent">
-                    {t.hadithNo} {row.hadith_number} · {row.chain.length} {isId ? "perawi" : "narrators"}
+                    {t.hadithNo} {row.hadith_number} · {row.chain.length} {t.narrators}
                   </p>
                   <span className="rounded-full bg-accent/15 px-2.5 py-1 text-xs text-accent">{isOpen ? "▲" : "🌳 ▼"}</span>
                 </button>
@@ -127,8 +126,8 @@ export function SanadExplorer({ locale }: { locale: string }) {
                   <div className="mt-4">
                     <NarrateButton
                       paragraphs={row.chain.map((l) => l.name)}
-                      listenLabel={isId ? "🔊 Dengarkan rantai" : "🔊 Listen to the chain"}
-                      stopLabel={isId ? "⏹ Berhenti" : "⏹ Stop"}
+                      listenLabel={t.listenChain}
+                      stopLabel={t.stopChain}
                       lang="ar"
                     />
                     <div className="relative mt-4 pl-6">

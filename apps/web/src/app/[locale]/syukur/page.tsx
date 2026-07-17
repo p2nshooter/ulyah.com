@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { NarrateButton } from "@/components/NarrateButton";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
 
 // Without this, Next statically prerenders this page once at build time
 // (this route has no dynamic segments and the locale layout's
@@ -41,6 +43,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function SyukurPage({ params }: { params: Promise<{ locale: string }> }) {
+  // The founders' family dedication is personal to ulyah.com. The sibling
+  // sites (1fr.fr / tilawa.de) are separate products openly for sale, so this
+  // page never appears there.
+  if (TENANT.id !== "ulyah") notFound();
+
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);

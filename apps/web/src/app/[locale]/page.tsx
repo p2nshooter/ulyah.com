@@ -92,10 +92,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
           {/* Quote + brand visual */}
           <div className="hero-entrance relative" style={{ animationDelay: "180ms" }}>
-            <div className="overflow-hidden rounded-3xl bg-[#06251b] p-8 text-[#f4efe3] shadow-2xl">
+            <div className="overflow-hidden rounded-3xl bg-[var(--panel-bg)] p-8 text-[var(--panel-fg)] shadow-2xl">
               <blockquote>
                 <span className="font-heading text-5xl leading-none text-accent">“</span>
-                <p className="mt-2 font-heading text-xl leading-relaxed italic text-[#f4efe3]">{dict.hero.quote}</p>
+                <p className="mt-2 font-heading text-xl leading-relaxed italic text-[var(--panel-fg)]">{dict.hero.quote}</p>
                 <cite className="mt-3 block text-xs not-italic text-accent">{dict.hero.quoteSource}</cite>
               </blockquote>
               <div className="mt-6 flex justify-center">
@@ -114,7 +114,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* ── Stats bar ────────────────────────────────────────── */}
-      <section className="bg-[#06251b] px-4 py-7 text-[#f4efe3] sm:px-6">
+      <section className="bg-[var(--panel-bg)] px-4 py-7 text-[var(--panel-fg)] sm:px-6">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 sm:grid-cols-5">
           {stats.map(([icon, value, label]) => (
             <div key={label} className="flex items-center justify-center gap-3">
@@ -190,7 +190,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-[#06251b] px-6 py-14 text-center text-[#f4efe3]">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-[var(--panel-bg)] px-6 py-14 text-center text-[var(--panel-fg)]">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-20"

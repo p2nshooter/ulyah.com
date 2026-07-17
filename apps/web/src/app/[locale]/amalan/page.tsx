@@ -8,7 +8,7 @@ export const revalidate = 300;
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Amalan Harian — Doa, Dzikir, Thibbun Nabawi · ULYAH.COM",
+    title: "Amalan Harian — Doa, Dzikir, Thibbun Nabawi",
     description:
       "Kumpulan amalan harian tersusun rapi: doa dari bangun tidur sampai tidur lagi, dzikir pagi-petang, pengobatan ala Nabi (thibbun nabawi) yang sahih, serta adab kebersihan & keindahan diri — lengkap Arab, latin, terjemah, dan suara.",
   };
