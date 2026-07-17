@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { TENANT, tenantTagline } from "@/lib/tenant";
 
 interface Certificate {
   id: number;
@@ -74,8 +75,8 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
 
           <div className="relative">
             <p className="font-arabic text-3xl text-[#0B3D2E]">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-            <p className="mt-6 font-heading text-2xl uppercase tracking-[0.2em] text-[#C9A84C]">ULYAH.COM</p>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-[#0B3D2E]/60">Listen to Islam</p>
+            <p className="mt-6 font-heading text-2xl uppercase tracking-[0.2em] text-[#C9A84C]">{TENANT.siteName}</p>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#0B3D2E]/60">{tenantTagline(locale, "Listen to Islam")}</p>
 
             <h1 className="mt-8 font-heading text-3xl text-[#0B3D2E] sm:text-4xl">{c.certTitle}</h1>
             <p className="mt-6 text-sm text-[#232323]/70">{c.certPresentedTo}</p>

@@ -50,7 +50,7 @@ export async function generateMetadata({
   const t = haditsLabels(locale);
   const suffix = page > 1 ? ` — ${t.page} ${page}` : "";
   return {
-    title: `${data.collection.name_id}${suffix} — ULYAH.COM`,
+    title: `${data.collection.name_id}${suffix}`,
     description: `${data.collection.name_id} (${data.collection.name_ar}) — ${data.total.toLocaleString(locale)} ${t.hadithCount}. ${t.subtitle}`,
     alternates: { canonical: `/${locale}/hadits/${collection}${page > 1 ? `?page=${page}` : ""}` },
   };

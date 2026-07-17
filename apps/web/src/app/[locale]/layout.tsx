@@ -27,7 +27,14 @@ export async function generateMetadata({
   const siteName = TENANT.id === "1fr" ? TENANT.siteName : dict.common.siteName;
   const tagline = TENANT.id === "1fr" ? tenantTagline(locale, dict.common.tagline) : dict.common.tagline;
   return {
-    title: `${siteName} — ${tagline}`,
+    // A tenant-scoped title template so EVERY child page's tab title carries
+    // the right brand (never a stray "ULYAH.COM" on a sibling). Child pages
+    // that return a plain-string title get "<their title> — <brand>"; the home
+    // page uses `default`.
+    title: {
+      default: `${siteName} — ${tagline}`,
+      template: `%s — ${TENANT.siteName}`,
+    },
     description: dict.hero.description,
     metadataBase: new URL(TENANT.siteUrl),
     alternates: {

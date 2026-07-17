@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = contactLabels(locale);
   return {
-    title: `${t.title} — ULYAH.COM`,
+    title: `${t.title}`,
     description: t.subtitle,
     alternates: { canonical: `/${locale}/kontak` },
   };

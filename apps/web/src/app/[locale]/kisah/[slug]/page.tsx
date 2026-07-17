@@ -36,7 +36,7 @@ export async function generateMetadata({
     const data = await api.get<{ story: StoryDetail }>(`/content/stories/${slug}?lang=${storyLang}`);
     const description = metaDescription(data.story.body);
     return {
-      title: `${data.story.title} — ULYAH.COM`,
+      title: `${data.story.title}`,
       description,
       alternates: { canonical: `/${locale}/kisah/${slug}` },
       openGraph: {
