@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { NarrateButton } from "@/components/NarrateButton";
+import { narrateLabels } from "@/lib/narrate-labels";
 
 interface Person {
   slug: string;
@@ -79,8 +80,8 @@ export default async function KisahTokohPage({
       <div className="mt-6">
         <NarrateButton
           paragraphs={narrateParagraphs}
-          listenLabel={locale === "id" ? "Dengarkan" : "Listen"}
-          stopLabel={locale === "id" ? "Hentikan" : "Stop"}
+          listenLabel={narrateLabels(locale).listen}
+          stopLabel={narrateLabels(locale).stop}
           lang={locale}
         />
       </div>

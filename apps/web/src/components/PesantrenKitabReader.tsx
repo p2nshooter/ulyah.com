@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
+import { narrateLabels } from "@/lib/narrate-labels";
 import { InstallAppButton } from "@/components/InstallAppButton";
 
 interface QuranRef {
@@ -381,8 +382,8 @@ export function PesantrenKitabReader({
                                   ].filter((s) => s.text)
                                 : undefined
                           }
-                          listenLabel="🔊 Dengarkan"
-                          stopLabel="⏹ Berhenti"
+                          listenLabel={narrateLabels(locale).listen}
+                          stopLabel={narrateLabels(locale).stop}
                           lang={locale}
                         />
                       </div>

@@ -34,7 +34,29 @@ const ID: PortalLabels = {
     "Kapan pun Anda siap memberi lagi, semua jalan terbuka di sini — tanpa perlu meninggalkan dasbor Anda.",
 };
 
-const MAP: Record<string, PortalLabels> = { en: EN, id: ID };
+const FR: PortalLabels = {
+  welcomeTitle: "Bienvenue, ami de la cause",
+  welcomeShort:
+    "Que la paix soit sur vous, et bienvenue. Merci de cheminer à nos côtés pour porter la lumière du Coran vers ceux qui la cherchent encore — que chaque instant passé ici soit inscrit en votre faveur comme une bonne action.",
+  linkThanks: "Lire les remerciements complets →",
+  linkVirtues: "Voir la récompense promise pour le soutien à la cause ↓",
+  donateSectionTitle: "Continuer à partager le bien",
+  donateSectionSubtitle:
+    "Dès que vous êtes prêt à donner de nouveau, toutes les voies vous sont ouvertes ici — sans quitter votre tableau de bord.",
+};
+
+const DE: PortalLabels = {
+  welcomeTitle: "Willkommen, Freund der guten Sache",
+  welcomeShort:
+    "Friede sei mit Ihnen und willkommen. Danke, dass Sie an unserer Seite gehen, um das Licht des Korans zu jenen zu tragen, die es noch suchen — möge jeder Moment, den Sie hier verbringen, Ihnen als gute Tat angerechnet werden.",
+  linkThanks: "Die vollständige Danksagung lesen →",
+  linkVirtues: "Den versprochenen Lohn für die Unterstützung sehen ↓",
+  donateSectionTitle: "Weiter Gutes teilen",
+  donateSectionSubtitle:
+    "Wann immer Sie bereit sind, erneut zu geben, stehen Ihnen hier alle Wege offen — ohne Ihr Dashboard zu verlassen.",
+};
+
+const MAP: Record<string, PortalLabels> = { en: EN, id: ID, fr: FR, de: DE };
 
 export function portalLabels(locale: string): PortalLabels {
   return MAP[locale] ?? EN;

@@ -39,7 +39,33 @@ const ID: ContactLabels = {
   otherLinksLabel: "Mungkin Anda juga mencari",
 };
 
-const MAP: Record<string, ContactLabels> = { en: EN, id: ID };
+const FR: ContactLabels = {
+  navLabel: "Nous contacter",
+  title: "Nous contacter",
+  subtitle: "Nous serions ravis de vous lire.",
+  intro:
+    "Une question, un retour, une correction à suggérer ou simplement un mot de salutation — envoyez-le à notre e-mail officiel ci-dessous. Pour les dons, consultez la page Don ; pour vos données personnelles, voyez notre Politique de confidentialité.",
+  emailLabel: "E-mail officiel",
+  dedication:
+    "Chaque message qui nous parvient est reçu à cœur ouvert. Cette boîte n'est pas qu'une simple boîte de réception — elle fait partie de notre effort pour porter fidèlement la responsabilité de transmettre le savoir. Nous dédions cet espace à quiconque souhaite poser une question, nous corriger, suggérer un bien ou simplement dire bonjour, car chaque mot que vous envoyez participe à l'amélioration que nous continuons de rechercher, si Dieu le veut.",
+  responseNote: "Nous lisons chaque message reçu, même si une réponse peut prendre du temps — merci de votre patience.",
+  otherLinksLabel: "Vous cherchez peut-être aussi",
+};
+
+const DE: ContactLabels = {
+  navLabel: "Kontakt",
+  title: "Kontakt",
+  subtitle: "Wir freuen uns, von Ihnen zu hören.",
+  intro:
+    "Eine Frage, ein Hinweis, eine Korrektur oder einfach ein Gruß — senden Sie sie an unsere offizielle E-Mail unten. Für Spenden besuchen Sie die Spendenseite; für Fragen zu Ihren Daten siehe unsere Datenschutzerklärung.",
+  emailLabel: "Offizielle E-Mail",
+  dedication:
+    "Jede Nachricht, die uns erreicht, empfangen wir mit offenem Herzen. Dieser Posteingang ist nicht nur ein Posteingang — er ist Teil unseres Bemühens, die Verantwortung der Wissensvermittlung treu zu tragen. Wir widmen diesen Raum allen, die fragen, uns korrigieren, Gutes anregen oder einfach Hallo sagen möchten, denn jedes Wort, das Sie senden, wird Teil der Verbesserung, um die wir uns weiter bemühen, so Gott will.",
+  responseNote: "Wir lesen jede eingehende Nachricht, auch wenn eine Antwort etwas dauern kann — danke für Ihre Geduld.",
+  otherLinksLabel: "Vielleicht suchen Sie auch",
+};
+
+const MAP: Record<string, ContactLabels> = { en: EN, id: ID, fr: FR, de: DE };
 
 export function contactLabels(locale: string): ContactLabels {
   return MAP[locale] ?? EN;

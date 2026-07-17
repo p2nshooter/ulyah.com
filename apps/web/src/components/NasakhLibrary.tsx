@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
+import { narrateLabels } from "@/lib/narrate-labels";
 
 interface NasakhEntry {
   id: number;
@@ -92,7 +93,7 @@ export function NasakhLibrary({ locale, entries }: { locale: string; entries: Na
 
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                 {e.source && <p className="text-[11px] italic text-[var(--color-text-secondary)]/70">📖 {e.source}</p>}
-                <NarrateButton paragraphs={narration} listenLabel="🔊 Dengarkan" stopLabel="⏹" lang={locale} />
+                <NarrateButton paragraphs={narration} listenLabel={narrateLabels(locale).listen} stopLabel={narrateLabels(locale).stop} lang={locale} />
               </div>
             </article>
           );
