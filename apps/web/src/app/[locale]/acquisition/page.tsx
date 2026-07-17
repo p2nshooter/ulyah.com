@@ -36,6 +36,7 @@ const COPY = {
       "Un accès de démonstration (lecture seule) aux deux portails — administration et donateurs — est fourni sur demande : vous voyez tout, y compris des exemples de certificats, sans pouvoir rien modifier.",
     contactTitle: "Entrer en contact",
     contact: "Pour toute proposition d'acquisition, écrivez-nous :",
+    minOffer: "Offre minimale : 20 000 $ US",
     donateNote: "En attendant, chaque don maintient ce portail vivant et son œuvre continue.",
     donateCta: "Soutenir ce portail",
   },
@@ -58,6 +59,7 @@ const COPY = {
       "Ein Nur-Lese-Demozugang zu beiden Portalen — Verwaltung und Spender — ist auf Anfrage verfügbar: Sie sehen alles, einschließlich Beispielzertifikaten, ohne etwas ändern zu können.",
     contactTitle: "Kontakt aufnehmen",
     contact: "Für jedes Übernahmeangebot schreiben Sie uns:",
+    minOffer: "Mindestgebot: 20.000 US$",
     donateNote: "Bis dahin hält jede Spende dieses Portal am Leben und sein Wirken in Gang.",
     donateCta: "Dieses Portal unterstützen",
   },
@@ -80,6 +82,7 @@ const COPY = {
       "A read-only demo login for both portals — admin and donor — is available on request: you can see everything, including sample certificates, without being able to change anything.",
     contactTitle: "Get in touch",
     contact: "For any acquisition proposal, write to us:",
+    minOffer: "Minimum offer: US$20,000",
     donateNote: "Meanwhile, every donation keeps this portal alive and its work going.",
     donateCta: "Support this portal",
   },
@@ -102,6 +105,7 @@ const COPY = {
       "يتاح عند الطلب دخول تجريبي (للاطلاع فقط) إلى البوابتين — الإدارة والمتبرعين — ترى كل شيء بما فيه نماذج الشهادات دون إمكانية تغيير أي شيء.",
     contactTitle: "تواصل معنا",
     contact: "لأي عرض استحواذ، راسلونا على:",
+    minOffer: "الحد الأدنى للعرض: ٢٠٬٠٠٠ دولار أمريكي",
     donateNote: "وإلى ذلك الحين، كل تبرع يُبقي هذه البوابة حيّة ويُديم عملها.",
     donateCta: "ادعم هذه البوابة",
   },
@@ -184,16 +188,20 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
         <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{c.demo}</p>
       </section>
 
-      <section className="hero-entrance mt-12 rounded-2xl bg-gradient-to-b from-[#0B3D2E] to-[#06251b] p-8 text-center text-[#f4efe3]">
+      <section className="hero-entrance mt-12 rounded-2xl bg-gradient-to-b from-[var(--panel-bg2)] to-[var(--panel-bg)] p-8 text-center text-[var(--panel-fg)]">
         <h2 className="font-heading text-2xl text-accent">✉️ {c.contactTitle}</h2>
-        <p className="mt-3 text-sm text-[#f4efe3]/80">{c.contact}</p>
+        <p className="mt-3 text-sm text-[var(--panel-fg)]/80">{c.contact}</p>
+        <p className="mx-auto mt-3 inline-block rounded-full border border-accent/60 bg-accent/15 px-5 py-1.5 text-sm font-semibold tracking-wide text-accent">
+          {(c as { minOffer?: string }).minOffer}
+        </p>
+        <br />
         <a
           href={`mailto:${TENANT.acquisitionEmail}`}
           className="mt-4 inline-block rounded-full bg-accent px-8 py-3 font-heading text-lg font-semibold text-primary shadow-[var(--shadow-gold)] transition hover:scale-105"
         >
           {TENANT.acquisitionEmail}
         </a>
-        <p className="mt-6 text-xs text-[#f4efe3]/60">{c.donateNote}</p>
+        <p className="mt-6 text-xs text-[var(--panel-fg)]/60">{c.donateNote}</p>
         <Link href={`/${locale}/donasi`} className="mt-2 inline-block rounded-full border border-accent/50 px-6 py-2 text-sm text-accent transition hover:bg-accent/10">
           🤲 {c.donateCta}
         </Link>
