@@ -816,34 +816,6 @@ jobs:
             echo "::warning::Could not attach:$blocked — old DNS records must be removed once (see the run summary for the 1-minute fix). api.ulyah.com is live; the site is meanwhile reachable on the workers.dev URL."
           fi
 
-      - name: Build web for 1fr.fr tenant (One Faith France)
-        working-directory: apps/web
-        run: npx opennextjs-cloudflare build
-        env:
-          NEXT_PUBLIC_API_URL: https://api.ulyah.com
-          NEXT_PUBLIC_TENANT: "1fr"
-
-      - name: Deploy 1fr.fr web (onefaith-web worker)
-        working-directory: apps/web
-        run: npx wrangler deploy --name onefaith-web
-
-      - name: Attach 1fr.fr custom domains to onefaith-web
-        run: |
-          set -eu
-          CF="https://api.cloudflare.com/client/v4"
-          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
-          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=1fr.fr" | jq -r '.result[0].id // empty')
-          if [ -z "$ZONE_ID" ]; then
-            echo "::warning::1fr.fr zone not found on this account/token — onefaith-web stays on workers.dev until the zone is added."
-            exit 0
-          fi
-          for host in 1fr.fr www.1fr.fr; do
-            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
-              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"onefaith-web\",\"environment\":\"production\"}" \
-              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
-            echo "$host -> onefaith-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
-          done
-
       - name: Smoke test (retries while DNS/cert for the new custom domain settles)
         run: |
           set -eu
