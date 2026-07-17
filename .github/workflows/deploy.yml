@@ -9,7 +9,7 @@ name: Deploy 1fr.fr (One Faith France)
 
 on:
   push:
-    branches: [main]
+    branches: [onefaith-1fr]
   workflow_dispatch: {}
 
 concurrency:

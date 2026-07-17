@@ -2,7 +2,7 @@
 
 **Le Portail Islamique en Français** · Français (défaut) · English · العربية
 
-This repository is the standalone home of https://1fr.fr — deliberately
+This branch (`onefaith-1fr`) is the standalone home of https://1fr.fr — it lives beside ulyah.com only for hosting convenience and exports to its own repository unchanged at hand-over time — deliberately
 separated from ulyah.com so the property can change hands cleanly:
 
 - **Deploys only itself**: the workflow builds the web app with
