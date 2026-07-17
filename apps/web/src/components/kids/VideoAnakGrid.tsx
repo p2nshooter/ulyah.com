@@ -95,7 +95,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
                 ) : (
                   <button
                     onClick={() => setPlayingChannel(ch.id)}
-                    className="group relative grid aspect-video w-full place-items-center overflow-hidden rounded-xl bg-gradient-to-b from-[#0B3D2E] to-[#06251b]"
+                    className="group relative grid aspect-video w-full place-items-center overflow-hidden rounded-xl bg-gradient-to-b from-[var(--panel-bg2)] to-[var(--panel-bg)]"
                     aria-label={`${kl.play}: ${ch.title}`}
                   >
                     <span className="grid h-14 w-14 place-items-center rounded-full bg-accent text-2xl text-primary shadow-xl transition group-hover:scale-110">

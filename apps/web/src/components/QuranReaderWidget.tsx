@@ -111,7 +111,20 @@ function emptyStates(locale: string): { translation: string; tafsir: string; asb
     asbabun: "لم يُروَ سبب نزول خاص لهذه الآية.",
     hadits: "لا يوجد حديث خاص مرتبط بهذه الآية بعد.",
   };
-  return locale === "id" ? ID : locale === "ar" ? AR : EN;
+  const FR = {
+    translation: "Échec du chargement de la traduction — veuillez recharger cette page.",
+    tafsir: "Échec du chargement du tafsir — veuillez recharger cette page.",
+    asbabun: "Aucune circonstance de révélation particulière n'est rapportée pour ce verset.",
+    hadits: "Aucun hadith particulier n'est encore associé à ce verset.",
+  };
+  const DE = {
+    translation: "Übersetzung konnte nicht geladen werden — bitte laden Sie diese Seite neu.",
+    tafsir: "Tafsir konnte nicht geladen werden — bitte laden Sie diese Seite neu.",
+    asbabun: "Für diesen Vers ist kein besonderer Offenbarungsanlass überliefert.",
+    hadits: "Diesem Vers ist noch kein besonderer Hadith zugeordnet.",
+  };
+  const MAP: Record<string, typeof EN> = { id: ID, en: EN, ar: AR, fr: FR, de: DE };
+  return MAP[locale] ?? EN;
 }
 
 /** Word-by-word Arabic highlight synced to the qori's actual audio progress

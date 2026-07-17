@@ -99,7 +99,11 @@ export default async function LocaleLayout({
             very first frame (ThemeProvider's effect runs one tick later). */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("ulyah_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.documentElement.classList.toggle("dark",t==="dark");}catch(e){}})();`,
+            // Each sibling has a SIGNATURE default theme so it reads as its own
+            // product on first paint: 1fr.fr opens light (ivory editorial),
+            // tilawa.de opens dark (graphite technical), ulyah follows the OS.
+            // A saved preference always wins.
+            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
           }}
         />
         {/* Per-tenant typography — each sibling site has its OWN type system so
