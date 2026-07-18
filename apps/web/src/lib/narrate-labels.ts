@@ -13,6 +13,7 @@ const L: Record<string, NarrateLabels> = {
   en: { listen: "🔊 Listen", stop: "⏹ Stop" },
   fr: { listen: "🔊 Écouter", stop: "⏹ Arrêter" },
   de: { listen: "🔊 Anhören", stop: "⏹ Stopp" },
+  es: { listen: "🔊 Escuchar", stop: "⏹ Detener" },
   ar: { listen: "🔊 استماع", stop: "⏹ إيقاف" },
 };
 

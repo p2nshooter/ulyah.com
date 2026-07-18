@@ -61,7 +61,52 @@ const AR: PwaLabels = {
   installedBadge: "مثبّت على هذا الجهاز",
 };
 
-const MAP: Record<string, PwaLabels> = { en: EN, id: ID, ar: AR };
+const FR: PwaLabels = {
+  installApp: "Installer l'application",
+  iosHint: "Sur iPhone/iPad : touchez l'icône Partager, puis « Ajouter à l'écran d'accueil ».",
+  manualHint: "Ouvrez le menu du navigateur (⋮ ou ···), puis choisissez « Ajouter à l'écran d'accueil ». Ouvert depuis une autre application ? Essayez d'abord dans Chrome ou Safari.",
+  downloadSectionTitle: "📲 Télécharger l'application",
+  downloadSectionSubtitle: "Gratuit. En un geste. Sans app store.",
+  mainAppName: "Application One Faith France",
+  mainAppDesc: "Coran, radio, hadiths & livres — toujours avec vous.",
+  sholatAppName: "Application Heures de prière",
+  sholatAppDesc: "Heures de prière & radio en direct, toujours sur votre écran d'accueil.",
+  sholatAppCta: "Ouvrir & installer →",
+  alreadyInstalled: "Déjà installée sur cet appareil ✓",
+  installedBadge: "Installée sur cet appareil",
+};
+
+const DE: PwaLabels = {
+  installApp: "App installieren",
+  iosHint: "Auf iPhone/iPad: Tippe auf das Teilen-Symbol und wähle „Zum Home-Bildschirm hinzufügen“.",
+  manualHint: "Öffne das Browser-Menü (⋮ oder ···) und wähle „Zum Home-Bildschirm hinzufügen“. Aus einer anderen App geöffnet? Versuche es zuerst in Chrome oder Safari.",
+  downloadSectionTitle: "📲 App herunterladen",
+  downloadSectionSubtitle: "Kostenlos. Ein Tipp. Kein App Store nötig.",
+  mainAppName: "Tilawa-App",
+  mainAppDesc: "Koran, Radio, Hadithe & Bücher — immer dabei.",
+  sholatAppName: "Gebetszeiten-App",
+  sholatAppDesc: "Gebetszeiten & Live-Radio, immer auf deinem Startbildschirm.",
+  sholatAppCta: "Öffnen & installieren →",
+  alreadyInstalled: "Bereits auf diesem Gerät installiert ✓",
+  installedBadge: "Auf diesem Gerät installiert",
+};
+
+const ES: PwaLabels = {
+  installApp: "Instalar la aplicación",
+  iosHint: "En iPhone/iPad: toca el icono de Compartir y elige «Añadir a pantalla de inicio».",
+  manualHint: "Abre el menú del navegador (⋮ o ···) y elige «Añadir a pantalla de inicio». ¿Lo abriste desde otra app? Prueba primero en Chrome o Safari.",
+  downloadSectionTitle: "📲 Descargar la aplicación",
+  downloadSectionSubtitle: "Gratis. Con un toque. Sin tienda de aplicaciones.",
+  mainAppName: "Aplicación Dawa",
+  mainAppDesc: "Corán, radio, hadices y libros — siempre contigo.",
+  sholatAppName: "Aplicación de horarios de oración",
+  sholatAppDesc: "Horarios de oración y radio en directo, siempre en tu pantalla de inicio.",
+  sholatAppCta: "Abrir e instalar →",
+  alreadyInstalled: "Ya instalada en este dispositivo ✓",
+  installedBadge: "Instalada en este dispositivo",
+};
+
+const MAP: Record<string, PwaLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function pwaLabels(locale: string): PwaLabels {
   return MAP[locale] ?? EN;

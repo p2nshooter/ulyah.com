@@ -15,6 +15,7 @@ function siteFromOrigin(origin: string): string {
   const h = origin.toLowerCase();
   if (h.includes("1fr.fr")) return "One Faith France";
   if (h.includes("tilawa.de")) return "Tilawa";
+  if (h.includes("dawa.es")) return "Dawa";
   return "ULYAH.COM";
 }
 

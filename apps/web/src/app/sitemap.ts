@@ -20,6 +20,21 @@ const HADITS_COLLECTIONS = [
   "bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi", "ahmad", "darimi",
 ];
 
+// Cross-DOMAIN hreflang (owner: Update Global Seluruh Portal §3): the same
+// route exists on all four sites, each in its own language, so every sitemap
+// URL declares its translations on the sibling domains — id → ulyah.com,
+// fr → 1fr.fr, de → tilawa.de, es → dawa.es. Google reads hreflang from
+// sitemaps, which keeps every <head> lean while still linking the cluster.
+function crossDomainLanguages(route: string): Record<string, string> {
+  return {
+    id: `https://ulyah.com/id${route}`,
+    fr: `https://1fr.fr/fr${route}`,
+    de: `https://tilawa.de/de${route}`,
+    es: `https://dawa.es/es${route}`,
+    "x-default": `https://ulyah.com/id${route}`,
+  };
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   for (const l of LOCALES) {
@@ -29,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: r === "" || r === "/harian" ? "daily" : "weekly",
         priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
         alternates: {
-          languages: Object.fromEntries(LOCALES.map((x) => [x.code, `${BASE}/${x.code}${r}`])),
+          languages: crossDomainLanguages(r),
         },
       });
     }

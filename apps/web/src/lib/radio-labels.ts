@@ -152,7 +152,32 @@ const DE: RadioLabels = {
   openRadioPage: "Radio öffnen · als App installieren",
 };
 
-const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
+const ES: RadioLabels = {
+  title: "Radio de recitadores del mundo",
+  subtitle: "El Corán recitado sin pausa, 24 horas al día — elige el recitador que más te guste.",
+  nowPlaying: "Recitando ahora",
+  wholeSurah: "sura completa",
+  play: "Reproducir",
+  pause: "Pausa",
+  clickToStart: "Toca para iniciar la radio",
+  chooseReciter: "Elige un recitador",
+  chooseCountry: "País",
+  featuredGroup: "🏆 Recitadores de fama mundial",
+  allGroup: "Todos los recitadores",
+  reciterLineup: "🎙️ Lista de recitadores",
+  liveBadge: "EN DIRECTO",
+  khatamCompleted: "jatma(s) completada(s)",
+  khatamInProgress: "jatma en curso n.º",
+  khatamRotationNote: "Cuando todos los recitadores han tenido su turno, la rotación vuelve al primero — para siempre.",
+  tapToUnmute: "La radio está en directo — toca para escucharla",
+  installStandalone: "Instalar como aplicación independiente",
+  pageIntro: "Una radio del Corán en directo que nunca se detiene — instálala y lleva la recitación contigo, a un toque desde tu pantalla de inicio.",
+  brandTagline: "Escucha, comprende y haz vivir el Corán cada día.",
+  brandCta: "Explorar el sitio",
+  openRadioPage: "Abrir la radio · instalar como aplicación",
+};
+
+const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function radioLabels(locale: string): RadioLabels {
   return MAP[locale] ?? EN;

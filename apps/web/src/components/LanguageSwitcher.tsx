@@ -17,6 +17,11 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
 
   const current = LOCALES.find((l) => l.code === locale) ?? LOCALES[0]!;
 
+  // A single-language site (each sibling ships ONLY its native language —
+  // fr / de / es) has nothing to switch to; hiding the control entirely reads
+  // better than a dropdown with one entry.
+  if (LOCALES.length < 2) return null;
+
   return (
     <div className="relative">
       <button

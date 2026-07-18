@@ -52,11 +52,22 @@ Fully automatic — see `docs/SETUP.md` for the GitHub Secrets required, then
 push to `main`. No manual Cloudflare console steps beyond having the
 `ulyah.com` zone active and adding those secrets.
 
-## Multi-language
+## Multi-tenant & multi-language
 
-8 UI languages (id/en/ru/de/fr/ar/zh/ja) with geo-IP + `Accept-Language`
-auto-detection (Indonesian IPs always get Indonesian; unsupported languages
-fall back to English). Qur'an translations exist natively in 10 languages
-(id/en/ru/fr/zh/es/bn/sv/tr/ur, CC-BY-4.0); German/Japanese ayah translation
-falls back to English with a visible notice rather than machine-translating
-scripture. See `packages/shared/src/i18n.ts`.
+ONE codebase serves four sites, each with its own visual identity
+(`src/styles/themes/`) and its own single native language:
+
+| Domain | Worker | Language | Identity |
+|---|---|---|---|
+| ulyah.com | ulyah-web | Indonesian (+8 UI languages) | Modern Islamic Premium |
+| 1fr.fr | onefaith-web | French only | French Editorial Luxury |
+| tilawa.de | tilawa-web | German only | German Modern Tech |
+| dawa.es | dawa-web | Spanish only | Spanish Warm Mediterranean |
+
+ulyah.com keeps 9 UI languages (id/en/ru/de/fr/es/ar/zh/ja) with geo-IP +
+`Accept-Language` auto-detection (Indonesian IPs always get Indonesian).
+Qur'an translations exist natively in 11 languages — quran-json (CC-BY-4.0)
+for id/en/ru/fr/zh/es/bn/sv/tr/ur plus German (Abu Rida via
+fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`); only Japanese
+still falls back to English with a visible notice rather than
+machine-translating scripture. See `packages/shared/src/i18n.ts`.

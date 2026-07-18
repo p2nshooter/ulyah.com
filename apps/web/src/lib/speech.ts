@@ -14,7 +14,7 @@
 
 const LANG_TAG: Record<string, string> = {
   id: "id-ID", en: "en-US", ru: "ru-RU", de: "de-DE",
-  fr: "fr-FR", ar: "ar-SA", zh: "zh-CN", ja: "ja-JP",
+  fr: "fr-FR", es: "es-ES", ar: "ar-SA", zh: "zh-CN", ja: "ja-JP",
 };
 
 // Known soft/natural voice names per platform, in preference order.

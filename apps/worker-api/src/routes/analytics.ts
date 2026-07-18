@@ -5,12 +5,13 @@ import { checkRateLimit } from "../lib/rate-limit.js";
 export const analyticsRoute = new Hono<{ Bindings: Env }>();
 
 /** Which sibling site the request came from — derived from the Origin (or
- * Referer) header, never trusted from the body. One content DB, three sites:
- * 1fr.fr and tilawa.de each count themselves; ulyah is the default. */
+ * Referer) header, never trusted from the body. One content DB, four sites:
+ * 1fr.fr, tilawa.de and dawa.es each count themselves; ulyah is the default. */
 export function tenantFromReq(c: { req: { header: (n: string) => string | undefined } }): string {
   const src = c.req.header("origin") || c.req.header("referer") || "";
   if (src.includes("1fr.fr")) return "1fr";
   if (src.includes("tilawa.de")) return "tilawa";
+  if (src.includes("dawa.es")) return "dawa";
   return "ulyah";
 }
 

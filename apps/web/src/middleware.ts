@@ -50,11 +50,19 @@ const COUNTRY_TO_LOCALE: Record<string, string> = {
   RU: "ru", BY: "ru", KZ: "ru",
   DE: "de", AT: "de", CH: "de", LI: "de",
   FR: "fr", MC: "fr", // Belgium/Canada/Switzerland are multi-lingual — left to Accept-Language instead of a blanket guess
+  ES: "es", MX: "es", AR: "es", CO: "es", PE: "es", CL: "es", VE: "es", EC: "es", GT: "es", BO: "es", DO: "es", HN: "es", PY: "es", SV: "es", NI: "es", CR: "es", PA: "es", UY: "es",
   SA: "ar", AE: "ar", EG: "ar", QA: "ar", KW: "ar", BH: "ar", OM: "ar", JO: "ar", IQ: "ar", MA: "ar", DZ: "ar", TN: "ar", LB: "ar", YE: "ar", LY: "ar",
   CN: "zh", TW: "zh", HK: "zh", MO: "zh", SG: "zh",
   JP: "ja",
   GB: "en", US: "en", AU: "en", CA: "en", NZ: "en", IE: "en", IN: "en", PH: "en",
 };
+
+// Every locale code any build has ever served. On a single-language sibling
+// build (1fr.fr = fr only, tilawa.de = de only, dawa.es = es only) an old
+// indexed URL like /en/quran must 301 to /fr/quran — NOT be re-prefixed into
+// /fr/en/quran (a 404). Google Search Console then consolidates the stale
+// language URLs onto the canonical native ones instead of reporting errors.
+const KNOWN_LOCALE_PREFIXES = new Set(["id", "en", "ru", "de", "fr", "es", "ar", "zh", "ja"]);
 
 function localeFromAcceptLanguage(header: string | null): string | null {
   if (!header) return null;
@@ -65,13 +73,15 @@ function localeFromAcceptLanguage(header: string | null): string | null {
   return null;
 }
 
-// Sibling tenants (1fr.fr, tilawa.de) ship a single native default language
-// (fr / de). Owner rule: "setiap website pakai bahasa native-nya sebagai
+// Sibling tenants (1fr.fr, tilawa.de, dawa.es) ship a single native language
+// (fr / de / es). Owner rule: "setiap website pakai bahasa native-nya sebagai
 // default, bukan hasil translate, jangan bahasa Inggris." So on a sibling
 // build we do NOT geo/Accept-Language-detect (which would land a visitor on
 // English); we honour an explicit cookie only, else the native default.
 const IS_SIBLING_TENANT =
-  process.env.NEXT_PUBLIC_TENANT === "1fr" || process.env.NEXT_PUBLIC_TENANT === "tilawa";
+  process.env.NEXT_PUBLIC_TENANT === "1fr" ||
+  process.env.NEXT_PUBLIC_TENANT === "tilawa" ||
+  process.env.NEXT_PUBLIC_TENANT === "dawa";
 
 function detectLocale(req: NextRequest): string {
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
@@ -166,8 +176,15 @@ export async function middleware(req: NextRequest) {
 
   const locale = detectLocale(req);
   const url = req.nextUrl.clone();
-  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  const res = NextResponse.redirect(url);
+  // A known-but-not-enabled locale prefix (old /en/… URL on a native-only
+  // sibling build) is REPLACED by the active locale, permanently — never
+  // stacked in front of it.
+  const pageless =
+    maybeLocale && KNOWN_LOCALE_PREFIXES.has(maybeLocale)
+      ? "/" + segments.slice(2).join("/")
+      : pathname;
+  url.pathname = `/${locale}${pageless === "/" ? "" : pageless}`;
+  const res = NextResponse.redirect(url, maybeLocale && KNOWN_LOCALE_PREFIXES.has(maybeLocale) ? 301 : 307);
   res.cookies.set(LOCALE_COOKIE, locale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
   return res;
 }

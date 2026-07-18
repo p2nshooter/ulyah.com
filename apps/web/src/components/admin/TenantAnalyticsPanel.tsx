@@ -19,6 +19,7 @@ const META: Record<string, { name: string; site: string; icon: string }> = {
   ulyah: { name: "ULYAH.COM", site: "ulyah.com", icon: "🕌" },
   "1fr": { name: "One Faith France", site: "1fr.fr", icon: "🇫🇷" },
   tilawa: { name: "Tilawa", site: "tilawa.de", icon: "🇩🇪" },
+  dawa: { name: "Dawa", site: "dawa.es", icon: "🇪🇸" },
 };
 
 /**
@@ -30,9 +31,28 @@ const META: Record<string, { name: string; site: string; icon: string }> = {
  */
 export function TenantAnalyticsPanel() {
   const [rows, setRows] = useState<TenantStat[] | null>(null);
+  const [refreshedAt, setRefreshedAt] = useState<Date | null>(null);
 
+  // Live report: refetch every 60s and on demand — the owner uninstalled the
+  // app and the numbers looked frozen because this fetched exactly once per
+  // portal visit and never again.
   useEffect(() => {
-    api.get<{ tenants: TenantStat[] }>("/admin/tenant-analytics").then((r) => setRows(r.tenants)).catch(() => {});
+    let alive = true;
+    const load = () =>
+      api
+        .get<{ tenants: TenantStat[] }>("/admin/tenant-analytics")
+        .then((r) => {
+          if (!alive) return;
+          setRows(r.tenants);
+          setRefreshedAt(new Date());
+        })
+        .catch(() => {});
+    load();
+    const t = setInterval(load, 60_000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
   }, []);
 
   if (!rows) return null;
@@ -44,7 +64,12 @@ export function TenantAnalyticsPanel() {
   return (
     <section>
       <p className="mb-2 font-heading text-base">
-        {isMulti ? "🌐 Pengunjung per Situs (ulyah.com · 1fr.fr · tilawa.de)" : "🌐 Pengunjung Situs Ini"}
+        {isMulti ? "🌐 Pengunjung per Situs (ulyah.com · 1fr.fr · tilawa.de · dawa.es)" : "🌐 Pengunjung Situs Ini"}
+        {refreshedAt && (
+          <span className="ml-2 align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
+            diperbarui {refreshedAt.toLocaleTimeString()} · auto-refresh 60 dtk
+          </span>
+        )}
       </p>
       <div className={`grid gap-3 ${isMulti ? "desktop:grid-cols-3" : ""}`}>
         {visible.map((r) => {

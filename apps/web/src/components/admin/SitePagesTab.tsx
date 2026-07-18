@@ -115,13 +115,13 @@ export function SitePagesTab() {
         {isUlyah && (
           <div className="mt-3 flex items-center gap-2 text-sm">
             <span className="text-[var(--color-text-secondary)]">Site:</span>
-            {["1fr", "tilawa"].map((t) => (
+            {["1fr", "tilawa", "dawa"].map((t) => (
               <button
                 key={t}
                 onClick={() => setTenant(t)}
                 className={`rounded-full px-3 py-1 text-xs ${tenant === t ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
               >
-                {t === "1fr" ? "1fr.fr" : "tilawa.de"}
+                {t === "1fr" ? "1fr.fr" : t === "tilawa" ? "tilawa.de" : "dawa.es"}
               </button>
             ))}
           </div>

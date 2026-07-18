@@ -174,7 +174,36 @@ const DE: PrayerLabels = {
   now: "jetzt",
 };
 
-const MAP: Record<string, PrayerLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
+const ES: PrayerLabels = {
+  title: "Horarios de oración",
+  subtitle: "Fijados a tu ubicación — los horarios de oración donde estás, ahora mismo.",
+  fajr: "Fayr",
+  sunrise: "Amanecer",
+  dhuhr: "Dhuhr",
+  asr: "Asr",
+  maghrib: "Magrib",
+  isha: "Isha",
+  nextPrayer: "Próxima oración",
+  yourLocation: "Tu ubicación",
+  worldClocks: "Relojes del mundo",
+  hijriDate: "Fecha hegiriana",
+  countdownToRamadan: "Cuenta atrás para el Ramadán",
+  countdownToNuzul: "Cuenta atrás para Nuzul al-Qur'an (17 de Ramadán)",
+  nuzulPassedNote: "Nuzul al-Qur'an ya pasó — que el resto del Ramadán sea bendecido.",
+  days: "días",
+  hours: "h",
+  minutes: "min",
+  seconds: "s",
+  locating: "Detectando tu ubicación…",
+  installStandalone: "Instalar como aplicación de recordatorio independiente",
+  brandTagline:
+    "Los horarios de oración y la Radio de recitadores del mundo forman parte de este portal — un hogar digital para el Corán, el tafsir, los hadices, los textos clásicos y los relatos islámicos, todos narrados en voz alta.",
+  brandCta: "Descubrir la aplicación completa →",
+  untilNext: "Para",
+  now: "ahora",
+};
+
+const MAP: Record<string, PrayerLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function prayerLabels(locale: string): PrayerLabels {
   return MAP[locale] ?? EN;

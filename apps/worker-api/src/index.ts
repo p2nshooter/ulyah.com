@@ -29,6 +29,7 @@ const SIBLING_ORIGINS = new Set([
   "https://ulyah.com", "https://www.ulyah.com",
   "https://1fr.fr", "https://www.1fr.fr",
   "https://tilawa.de", "https://www.tilawa.de",
+  "https://dawa.es", "https://www.dawa.es",
 ]);
 app.use("*", async (c, next) => {
   const configured = c.env.CORS_ALLOW_ORIGIN ?? c.env.PUBLIC_SITE_URL ?? "*";

@@ -66,7 +66,18 @@ const DE: HijriCalendarLabels = {
     "Berechnet nach dem Umm-al-Qura-Kalender (das offizielle System Saudi-Arabiens), nicht nach lokaler Mondsichtung — der tatsächliche Monatsbeginn in Ihrem Land kann um einen Tag abweichen.",
 };
 
-const MAP: Record<string, HijriCalendarLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
+const ES: HijriCalendarLabels = {
+  title: "Calendario hegiriano",
+  subtitle: "Las fechas gregorianas junto a su equivalente hegiriano (Umm al-Qura).",
+  todayLabel: "Hoy",
+  prev: "◀ Anterior",
+  next: "Siguiente ▶",
+  today: "Hoy",
+  disclaimer:
+    "Calculado con el calendario Umm al-Qura (el sistema oficial de Arabia Saudí), no con el avistamiento local de la luna — el inicio real del mes anunciado en tu país puede diferir en un día.",
+};
+
+const MAP: Record<string, HijriCalendarLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function hijriCalendarLabels(locale: string): HijriCalendarLabels {
   return MAP[locale] ?? EN;

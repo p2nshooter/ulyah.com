@@ -19,24 +19,28 @@ const ALL_LOCALES: LocaleDef[] = [
   { code: "id", label: "Bahasa Indonesia", dir: "ltr", hasQuranTranslation: true },
   { code: "en", label: "English", dir: "ltr", hasQuranTranslation: true },
   { code: "ru", label: "Русский", dir: "ltr", hasQuranTranslation: true },
-  { code: "de", label: "Deutsch", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "de", label: "Deutsch", dir: "ltr", hasQuranTranslation: true },
   { code: "fr", label: "Français", dir: "ltr", hasQuranTranslation: true },
+  { code: "es", label: "Español", dir: "ltr", hasQuranTranslation: true },
   { code: "ar", label: "العربية", dir: "rtl", hasQuranTranslation: false, isSourceLanguage: true },
   { code: "zh", label: "中文", dir: "ltr", hasQuranTranslation: true },
   { code: "ja", label: "日本語", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
 ];
 
 // Tenant narrowing (see apps/web/src/lib/tenant.ts): each sibling site ships
-// its own native language first plus English and Arabic (the naskh source).
-// NEXT_PUBLIC_TENANT is inlined by Next.js at build time; the worker-api build
-// never sets it, so the API keeps validating the full list for all sites.
-// Owner rule: "bahasa induk domain, bukan hasil translate" — the default
-// locale is the domain's own language.
+// ONLY its own native language — owner rule: "hanya menggunakan bahasa induk
+// extension domain name" (1fr.fr = French only, tilawa.de = German only,
+// dawa.es = Spanish only; no English/Indonesian/other UI languages on a
+// sibling). Arabic remains the Qur'an/Hadith source text everywhere — that's
+// scripture, not a UI language. NEXT_PUBLIC_TENANT is inlined by Next.js at
+// build time; the worker-api build never sets it, so the API keeps validating
+// the full list for all sites.
 declare const process: { env?: Record<string, string | undefined> } | undefined;
 const TENANT_ID = (typeof process !== "undefined" && process?.env?.NEXT_PUBLIC_TENANT) || "ulyah";
 const TENANT_LOCALES: Record<string, { codes: string[]; def: string }> = {
-  "1fr": { codes: ["fr", "en", "ar"], def: "fr" },
-  tilawa: { codes: ["de", "en", "ar"], def: "de" },
+  "1fr": { codes: ["fr"], def: "fr" },
+  tilawa: { codes: ["de"], def: "de" },
+  dawa: { codes: ["es"], def: "es" },
 };
 const _tenantL = TENANT_LOCALES[TENANT_ID];
 

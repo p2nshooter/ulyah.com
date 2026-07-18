@@ -85,6 +85,22 @@ const L: Record<string, (site: string) => LiveLabels> = {
     broadcastsDesc: `Vorträge und Übertragungen, direkt vom ${site}-Team kuratiert.`,
     close: "Schließen",
   }),
+  es: (site) => ({
+    offlineSlot: "Este canal de emisión está actualmente desconectado.",
+    wantStream: `¿Quieres emitir en directo a través de ${site}?`,
+    hrs: "H",
+    replay: "GRABACIÓN",
+    maximize: "Ampliar",
+    notLive: "Ahora no hay directo — se reproducen los últimos vídeos del canal.",
+    openYoutube: "Abrir en YouTube",
+    mutedDefault: "🔇 Silenciado por defecto — toca el icono del altavoz en el reproductor para activar el sonido.",
+    autoTitle: "En directo 24 h — Mundo islámico",
+    autoDesc:
+      "Emisiones oficiales siempre en línea — La Meca, Medina y canales islámicos de todo el mundo. Sigue automáticamente el directo actual de cada canal.",
+    broadcastsTitle: `Emisiones de ${site}`,
+    broadcastsDesc: `Clases y emisiones seleccionadas directamente por el equipo de ${site}.`,
+    close: "Cerrar",
+  }),
   ar: (site) => ({
     offlineSlot: "قناة البث هذه غير متصلة حاليًا.",
     wantStream: `هل تريد البث المباشر عبر ${site}؟`,
