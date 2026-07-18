@@ -51,14 +51,7 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
   const featured = RECITERS.filter((r) => r.featured);
 
   return (
-    <section className="relative rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] p-6 text-[#f4efe3] shadow-xl sm:p-8">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-3xl opacity-[0.08]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 15% 20%, rgba(184,137,43,0.7), transparent 55%)",
-        }}
-      />
+    <section className="app-hero relative overflow-hidden rounded-3xl border border-accent/30 p-6 shadow-xl sm:p-8">
       <div className="relative flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -109,7 +102,7 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
             {t.reciterLineup}
           </button>
           {showLineup && (
-            <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-accent/25 bg-[#0b3d2e] p-2 shadow-2xl">
+            <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-accent/25 bg-[var(--color-primary)] p-2 shadow-2xl">
               <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent">{t.featuredGroup}</p>
               {featured.map((r) => (
                 <div
