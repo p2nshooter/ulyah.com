@@ -151,7 +151,12 @@ export default async function LocaleLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: TENANT.siteName,
-              alternateName: TENANT.id === "1fr" ? "1FR — One Faith France" : "Ulyah — Listen to Islam",
+              alternateName:
+                TENANT.id === "1fr"
+                  ? "1FR — One Faith France"
+                  : TENANT.id === "tilawa"
+                    ? "Tilawa — Islam hören"
+                    : "Ulyah — Listen to Islam",
               url: TENANT.siteUrl,
               inLanguage: LOCALES.map((l) => l.code),
               publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },

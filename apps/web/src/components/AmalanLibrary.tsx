@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { amalanLabels } from "@/lib/amalan-labels";
 
 interface Item {
   category_slug: string;
@@ -26,12 +27,12 @@ export interface AmalanCategory {
   items: Item[];
 }
 
-const GROUPS: { key: string; label: string; icon: string }[] = [
-  { key: "doa", label: "Doa Harian", icon: "📿" },
-  { key: "dzikir", label: "Dzikir", icon: "☀️" },
-  { key: "asmaul", label: "99 Asmaul Husna", icon: "🌟" },
-  { key: "thibb", label: "Pengobatan (Thibbun Nabawi)", icon: "🌿" },
-  { key: "kecantikan", label: "Kebersihan & Keindahan", icon: "✨" },
+const GROUP_META: { key: keyof ReturnType<typeof amalanLabels>["groups"]; icon: string }[] = [
+  { key: "doa", icon: "📿" },
+  { key: "dzikir", icon: "☀️" },
+  { key: "asmaul", icon: "🌟" },
+  { key: "thibb", icon: "🌿" },
+  { key: "kecantikan", icon: "✨" },
 ];
 
 /**
@@ -42,12 +43,14 @@ const GROUPS: { key: string; label: string; icon: string }[] = [
  * with the zero-key browser voice.
  */
 export function AmalanLibrary({ locale, categories }: { locale: string; categories: AmalanCategory[] }) {
+  const t = amalanLabels(locale);
+  const GROUPS = GROUP_META.map((g) => ({ ...g, label: t.groups[g.key] }));
   const [group, setGroup] = useState("doa");
   const [audioMode, setAudioMode] = useState<"semua" | "arab" | "arti">("semua");
   const AUDIO_MODES: { key: "semua" | "arab" | "arti"; label: string }[] = [
-    { key: "semua", label: "🔊 Semua" },
-    { key: "arab", label: "﴿ Arab" },
-    { key: "arti", label: "📖 Arti" },
+    { key: "semua", label: t.audioAll },
+    { key: "arab", label: t.audioArabic },
+    { key: "arti", label: t.audioMeaning },
   ];
   // Build the {text,lang} narration script for one item per the chosen mode.
   const itemSegments = (it: Item) => {
@@ -144,7 +147,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
       <div className="mt-6 grid gap-6 desktop:grid-cols-[220px_1fr]">
         {/* Category rail */}
         <aside className="card-premium-static h-max p-3">
-          <p className="mb-2 px-2 font-heading text-sm">Kategori</p>
+          <p className="mb-2 px-2 font-heading text-sm">{t.categories}</p>
           <ul className="space-y-1">
             {inGroup.map((c) => (
               <li key={c.slug}>
@@ -199,14 +202,14 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                         onClick={() => setSeqIdx(0)}
                         className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary shadow transition hover:brightness-110"
                       >
-                        ▶ Putar berurutan
+                        {t.playSequence}
                       </button>
                     ) : (
                       <button
                         onClick={stopSequence}
                         className="rounded-full border border-accent/50 px-4 py-2 text-xs font-medium text-accent"
                       >
-                        ⏹ Berhenti ({seqIdx + 1}/{current.items.length})
+                        {t.stop} ({seqIdx + 1}/{current.items.length})
                       </button>
                     ))}
                 </div>
@@ -240,7 +243,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
 
                     {it.note_id && (
                       <div className="mt-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-3 dark:bg-white/[0.02]">
-                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">Catatan</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.note}</p>
                         <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">{it.note_id}</p>
                       </div>
                     )}
