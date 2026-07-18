@@ -23,6 +23,7 @@ const CATALOG: { path: string; label: string; group: string }[] = [
   { path: "/anak", label: "Kids' Animated Films", group: "Stories & Audio" },
   { path: "/audiobook", label: "Audiobook", group: "Stories & Audio" },
   { path: "/harian", label: "Daily Content", group: "Stories & Audio" },
+  { path: "/haji-umroh", label: "Hajj & Umrah", group: "Worship & Tools" },
   { path: "/amalan", label: "Daily Practices", group: "Worship & Tools" },
   { path: "/jadwal-sholat", label: "Prayer Times", group: "Worship & Tools" },
   { path: "/imsakiyah", label: "Ramadan Imsakiyah", group: "Worship & Tools" },

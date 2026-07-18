@@ -8,7 +8,7 @@ import { KISAH_ASHABUL_KAHFI_SERIES } from "../../../../scripts/content/kisah-as
 import { KISAH_NUH_SERIES } from "../../../../scripts/content/kisah-nuh";
 
 const BASE = TENANT.siteUrl;
-const ROUTES = ["", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/nasakh", "/audiobook", "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya", "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi"];
+const ROUTES = ["", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/haji-umroh", "/nasakh", "/audiobook", "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya", "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi"];
 
 // The hadith books are a fixed, known set (migration 0012_hadits_collections).
 // Hardcoding the slugs keeps the sitemap buildable offline — no API round-trip

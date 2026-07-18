@@ -64,6 +64,7 @@ const EN: NavLabels = {
       label: "Worship & Tools",
       icon: "🕌",
       items: [
+        { label: "Hajj & Umrah", path: "/haji-umroh" },
         { label: "Daily Practices", path: "/amalan" },
         { label: "Prayer Times", path: "/jadwal-sholat" },
         { label: "Ramadan Imsakiyah", path: "/imsakiyah" },
@@ -121,6 +122,7 @@ const ID: NavLabels = {
       label: "Ibadah & Alat",
       icon: "🕌",
       items: [
+        { label: "Haji & Umroh", path: "/haji-umroh" },
         { label: "Amalan Harian", path: "/amalan" },
         { label: "Jadwal Sholat", path: "/jadwal-sholat" },
         { label: "Imsakiyah Ramadhan", path: "/imsakiyah" },
@@ -178,6 +180,7 @@ const AR: NavLabels = {
       label: "العبادة والأدوات",
       icon: "🕌",
       items: [
+        { label: "الحج والعمرة", path: "/haji-umroh" },
         { label: "الأذكار اليومية", path: "/amalan" },
         { label: "مواقيت الصلاة", path: "/jadwal-sholat" },
         { label: "إمساكية رمضان", path: "/imsakiyah" },
@@ -237,6 +240,7 @@ const DE: NavLabels = {
       label: "Gottesdienst & Werkzeuge",
       icon: "🕌",
       items: [
+        { label: "Hadsch & Umrah", path: "/haji-umroh" },
         { label: "Tägliche Andachten", path: "/amalan" },
         { label: "Gebetszeiten", path: "/jadwal-sholat" },
         { label: "Ramadan-Imsākīya", path: "/imsakiyah" },
@@ -295,6 +299,7 @@ const FR: NavLabels = {
       label: "Adoration & Outils",
       icon: "🕌",
       items: [
+        { label: "Hajj & Omra", path: "/haji-umroh" },
         { label: "Pratiques quotidiennes", path: "/amalan" },
         { label: "Heures de prière", path: "/jadwal-sholat" },
         { label: "Imsakiya du Ramadan", path: "/imsakiyah" },

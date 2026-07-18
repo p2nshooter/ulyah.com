@@ -1044,3 +1044,95 @@ adminRoute.delete("/kids-channels/:id", async (c) => {
   await c.env.DB.prepare("DELETE FROM video_anak_channel WHERE id = ?").bind(id).run();
   return c.json({ ok: true });
 });
+
+// ── Hajj & Umrah packages (migration 0038) ───────────────────────────────
+// Tenant-scoped CRUD: a sibling admin only ever sees/edits its own site's
+// packages (scopedTenant locks it); the ulyah owner may target any site via
+// ?tenant=. Writes are automatically blocked for demo accounts by the auth
+// middleware (role === 'demo'). `features` is persisted as a JSON string array.
+interface HajjBody {
+  tenant?: string;
+  kind?: string;
+  title?: string;
+  provider?: string | null;
+  description?: string | null;
+  price?: string | null;
+  duration?: string | null;
+  departure?: string | null;
+  image_url?: string | null;
+  badge?: string | null;
+  features?: string[] | null;
+  contact_url?: string | null;
+  sort_order?: number;
+  visible?: boolean;
+}
+function normFeatures(f: unknown): string {
+  if (!Array.isArray(f)) return "[]";
+  return JSON.stringify(f.filter((x): x is string => typeof x === "string" && x.trim().length > 0).map((s) => s.trim()).slice(0, 12));
+}
+
+adminRoute.get("/hajj-packages", async (c) => {
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, kind, title, provider, description, price, duration, departure, image_url, badge, features, contact_url, sort_order, visible
+       FROM hajj_package WHERE tenant = ? ORDER BY sort_order, id`
+  )
+    .bind(tenant)
+    .all();
+  return c.json({ tenant, packages: results });
+});
+
+adminRoute.post("/hajj-packages", async (c) => {
+  const body = await c.req.json<HajjBody>();
+  const tenant = scopedTenant(c, body.tenant);
+  const title = (body.title ?? "").trim();
+  if (!title) return c.json({ error: "title wajib diisi / title is required" }, 400);
+  const kind = body.kind === "hajj" ? "hajj" : "umrah";
+  const admin = c.get("admin" as never) as SessionData | undefined;
+  await c.env.DB.prepare(
+    `INSERT INTO hajj_package (tenant, kind, title, provider, description, price, duration, departure, image_url, badge, features, contact_url, sort_order, visible, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
+  )
+    .bind(
+      tenant, kind, title.slice(0, 160), (body.provider ?? null), (body.description ?? null),
+      (body.price ?? null), (body.duration ?? null), (body.departure ?? null), (body.image_url ?? null),
+      (body.badge ?? null), normFeatures(body.features), (body.contact_url ?? null),
+      Number.isFinite(body.sort_order) ? Number(body.sort_order) : 99, body.visible === false ? 0 : 1
+    )
+    .run();
+  await logAdminAction(c.env, "hajj_package_created", admin?.email ?? "", c.req.header("cf-connecting-ip") ?? "", { tenant, title, kind });
+  return c.json({ ok: true });
+});
+
+adminRoute.put("/hajj-packages/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const body = await c.req.json<HajjBody>();
+  const tenant = scopedTenant(c, body.tenant);
+  // Toggle-only fast path (the show/hide switch sends just { visible }).
+  if (Object.keys(body).length === 1 && typeof body.visible === "boolean") {
+    await c.env.DB.prepare("UPDATE hajj_package SET visible = ?, updated_at = datetime('now') WHERE id = ? AND tenant = ?")
+      .bind(body.visible ? 1 : 0, id, tenant)
+      .run();
+    return c.json({ ok: true });
+  }
+  const kind = body.kind === "hajj" ? "hajj" : "umrah";
+  await c.env.DB.prepare(
+    `UPDATE hajj_package SET kind = ?, title = ?, provider = ?, description = ?, price = ?, duration = ?, departure = ?, image_url = ?, badge = ?, features = ?, contact_url = ?, sort_order = ?, visible = ?, updated_at = datetime('now')
+       WHERE id = ? AND tenant = ?`
+  )
+    .bind(
+      kind, (body.title ?? "").trim().slice(0, 160), (body.provider ?? null), (body.description ?? null),
+      (body.price ?? null), (body.duration ?? null), (body.departure ?? null), (body.image_url ?? null),
+      (body.badge ?? null), normFeatures(body.features), (body.contact_url ?? null),
+      Number.isFinite(body.sort_order) ? Number(body.sort_order) : 99, body.visible === false ? 0 : 1, id, tenant
+    )
+    .run();
+  return c.json({ ok: true });
+});
+
+adminRoute.delete("/hajj-packages/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  await c.env.DB.prepare("DELETE FROM hajj_package WHERE id = ? AND tenant = ?").bind(id, tenant).run();
+  return c.json({ ok: true });
+});
