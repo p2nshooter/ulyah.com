@@ -916,3 +916,32 @@ contentRoute.get("/video-anak", async (c) => {
   ]);
   return c.json({ videos, channels });
 });
+
+// GET /content/hajj-packages?tenant=… — the public Hajj & Umrah product cards
+// for a site (migration 0038). Tenant-scoped, only visible rows, ordered by the
+// admin's sort_order. `features` is stored as a JSON array; parse it here so the
+// client gets a real array (falls back to [] on any malformed value).
+contentRoute.get("/hajj-packages", async (c) => {
+  const tenant = c.req.query("tenant") || "ulyah";
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, kind, title, provider, description, price, duration, departure, image_url, badge, features, contact_url
+       FROM hajj_package WHERE tenant = ? AND visible = 1 ORDER BY sort_order, id`
+  )
+    .bind(tenant)
+    .all<{
+      id: number; kind: string; title: string; provider: string | null; description: string | null;
+      price: string | null; duration: string | null; departure: string | null; image_url: string | null;
+      badge: string | null; features: string | null; contact_url: string | null;
+    }>();
+  const packages = results.map((r) => {
+    let features: string[] = [];
+    try {
+      const parsed = r.features ? JSON.parse(r.features) : [];
+      if (Array.isArray(parsed)) features = parsed.filter((x): x is string => typeof x === "string");
+    } catch {
+      /* malformed JSON — show the card without bullets rather than 500 */
+    }
+    return { ...r, features };
+  });
+  return c.json({ packages });
+});

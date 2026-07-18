@@ -121,6 +121,11 @@ export default async function LocaleLayout({
             1fr.fr = Cormorant Garamond (elegant French editorial serif),
             tilawa.de = Space Grotesk (modern German geometric sans). Arabic
             (Scheherazade/Amiri) and the UI sans are shared. */}
+        {/* Sitemap planted in the landing page itself, so the whole site is
+            discoverable from just the root domain (owner: "sitemap-nya tanem di
+            landing page, biar cukup https://tilawa.de & https://1fr.fr"). Both
+            the XML and the robust plain-text list point at THIS tenant's URL. */}
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

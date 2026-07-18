@@ -1,4 +1,5 @@
 import { LOCALES } from "@ulyah/shared/i18n";
+import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../../scripts/content/kisah-musa";
 import { KISAH_DZULQARNAIN_SERIES } from "../../../../../scripts/content/kisah-dzulqarnain";
@@ -17,10 +18,15 @@ import { KISAH_NUH_SERIES } from "../../../../../scripts/content/kisah-nuh";
 
 export const dynamic = "force-static";
 
-const BASE = "https://ulyah.com";
+// Per-tenant base URL — the sibling sites (tilawa.de, 1fr.fr) MUST list their
+// own domain here, not ulyah.com, so submitting just the root domain to Search
+// Console indexes the whole site ("biar cukup https://tilawa.de"). This was
+// hardcoded to ulyah.com, which made the siblings' text sitemap advertise
+// ulyah.com URLs instead of their own.
+const BASE = TENANT.siteUrl;
 
 const ROUTES = [
-  "", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/nasakh", "/audiobook",
+  "", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/haji-umroh", "/nasakh", "/audiobook",
   "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya",
   "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi",
 ];
