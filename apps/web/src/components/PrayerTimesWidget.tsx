@@ -192,12 +192,7 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
   };
 
   return (
-    <section className="relative rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] text-[#f4efe3] shadow-xl">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-3xl opacity-[0.08]"
-        style={{ backgroundImage: "radial-gradient(circle at 85% 15%, rgba(184,137,43,0.7), transparent 55%)" }}
-      />
+    <section className="app-hero relative overflow-hidden rounded-3xl border border-accent/30 shadow-xl">
       <div className="relative p-6 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
