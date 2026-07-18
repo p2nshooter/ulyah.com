@@ -84,7 +84,10 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0B3D2E",
+  // The browser/PWA chrome colour must match EACH site (owner: "warna aplikasi
+  // harus seimbang dengan website"), not a baked-in emerald: 1fr navy, tilawa
+  // charcoal, ulyah emerald.
+  themeColor: TENANT.id === "1fr" ? "#17294a" : TENANT.id === "tilawa" ? "#14181d" : "#0B3D2E",
   width: "device-width",
   initialScale: 1,
 };

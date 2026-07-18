@@ -54,6 +54,12 @@ export function QiblaCompass({ locale }: { locale: string }) {
   const [cityLabel, setCityLabel] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  // Magnetic declination at the visitor's location (degrees, east positive).
+  // The phone's magnetometer reads MAGNETIC north; the qibla bearing is from
+  // TRUE north — so a live heading must be corrected by the declination or the
+  // arrow is systematically off (up to several degrees). Computed offline from
+  // the World Magnetic Model (WMM2025) once the location is known.
+  const [declination, setDeclination] = useState(0);
 
   const [heading, setHeading] = useState<number | null>(null);
   // Continuous (unwrapped) dial rotation so the CSS transition always turns the
@@ -127,6 +133,29 @@ export function QiblaCompass({ locale }: { locale: string }) {
     };
   }, []);
 
+  // Compute magnetic declination for the resolved location (WMM2025), so the
+  // live compass converts the phone's magnetic heading to true north. Loaded
+  // lazily so the ~16 KB model never ships on pages that don't show a compass.
+  useEffect(() => {
+    if (!coords) return;
+    let cancelled = false;
+    type GeoMod = { model: () => { point: (c: [number, number]) => { decl: number } } };
+    import("geomagnetism")
+      .then((mod) => {
+        if (cancelled) return;
+        const raw = mod as unknown as GeoMod & { default?: GeoMod };
+        const geo = typeof raw.model === "function" ? raw : raw.default;
+        const d = geo?.model().point([coords.lat, coords.lng]).decl;
+        if (typeof d === "number" && Number.isFinite(d)) setDeclination(d);
+      })
+      .catch(() => {
+        /* model failed to load — fall back to magnetic north (small error) */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [coords]);
+
   async function enableCompass() {
     if (typeof window === "undefined" || !("DeviceOrientationEvent" in window)) {
       setUnsupported(true);
@@ -191,8 +220,10 @@ export function QiblaCompass({ locale }: { locale: string }) {
   // Rotate the whole dial (cardinal marks + arrow) by the CONTINUOUS -heading so
   // North tracks real north and the arrow points at the real qibla relative to
   // the phone — the unwrapped value keeps the animation smooth across 0°/360°.
-  const dialRotation = live ? dialCont : 0;
-  const relative = live ? norm(bearing - heading!) : null;
+  // The declination shifts magnetic → true north (a constant per location, so it
+  // needs no unwrapping) so the arrow lands on the true-north qibla bearing.
+  const dialRotation = live ? dialCont - declination : 0;
+  const relative = live ? norm(bearing - heading! - declination) : null;
   const facing = relative != null && (relative <= 6 || relative >= 354);
 
   return (
@@ -207,7 +238,7 @@ export function QiblaCompass({ locale }: { locale: string }) {
         <div className="relative aspect-square w-full">
           {/* Fixed forward marker at the top — the phone's own "ahead" line. */}
           <div className="absolute left-1/2 top-0 z-10 h-0 w-0 -translate-x-1/2 -translate-y-1 border-x-[8px] border-t-[12px] border-x-transparent border-t-accent" />
-          <div className="relative aspect-square w-full rounded-full border-4 border-accent/40 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] shadow-xl">
+          <div className="relative aspect-square w-full rounded-full border-4 border-accent/40 bg-gradient-to-br from-[var(--color-primary-dark)] to-[var(--color-primary)] shadow-xl">
             {/* Rotating dial */}
             <div
               className="absolute inset-0"

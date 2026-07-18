@@ -160,9 +160,9 @@ export function InstallAppButton({
   // a cream box: a blank rectangle ("g bisa download"). A dark-green tooltip
   // with cream text is readable on every page in both themes.
   const hintStyle: React.CSSProperties = {
-    backgroundColor: "#0b3d2e",
+    backgroundColor: "var(--color-primary-dark)",
     color: "#f4efe3",
-    borderColor: "rgba(184, 137, 43, 0.45)",
+    borderColor: "color-mix(in srgb, var(--color-accent) 45%, transparent)",
   };
 
   if (labeled) {
