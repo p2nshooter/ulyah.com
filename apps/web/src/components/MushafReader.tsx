@@ -274,7 +274,7 @@ export function MushafReader({ locale }: { locale: string }) {
         : "";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#06251b] via-[#0B3D2E] to-[#06251b] px-3 py-6 sm:px-6 sm:py-10">
+    <div className="min-h-screen bg-gradient-to-b from-[var(--color-primary-dark)] via-[var(--color-primary)] to-[var(--color-primary-dark)] px-3 py-6 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <h1 className="font-heading text-3xl text-accent sm:text-4xl">{t.title}</h1>
@@ -282,7 +282,7 @@ export function MushafReader({ locale }: { locale: string }) {
         </div>
 
         {/* Controls bar */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-accent/25 bg-[#0B3D2E]/60 p-3 backdrop-blur-sm">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-accent/25 bg-[color-mix(in_srgb,var(--color-primary)_60%,transparent)] p-3 backdrop-blur-sm">
           <button
             onClick={playPage}
             className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary shadow-lg transition hover:brightness-110"
@@ -408,7 +408,7 @@ export function MushafReader({ locale }: { locale: string }) {
             onClick={() => goToPage(pageNumber - 1, "prev")}
             disabled={pageNumber <= 1 || flipPhase !== "idle"}
             aria-label={t.prevPage}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-accent/40 bg-[#0B3D2E]/80 p-3 text-accent shadow-lg transition hover:bg-accent/20 disabled:opacity-30"
+            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_80%,transparent)] p-3 text-accent shadow-lg transition hover:bg-accent/20 disabled:opacity-30"
           >
             {isRtl ? "→" : "←"}
           </button>
@@ -416,7 +416,7 @@ export function MushafReader({ locale }: { locale: string }) {
             onClick={() => goToPage(pageNumber + 1, "next")}
             disabled={pageNumber >= TOTAL_PAGES || flipPhase !== "idle"}
             aria-label={t.nextPage}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-accent/40 bg-[#0B3D2E]/80 p-3 text-accent shadow-lg transition hover:bg-accent/20 disabled:opacity-30"
+            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_80%,transparent)] p-3 text-accent shadow-lg transition hover:bg-accent/20 disabled:opacity-30"
           >
             {isRtl ? "←" : "→"}
           </button>
@@ -428,7 +428,7 @@ export function MushafReader({ locale }: { locale: string }) {
           >
             <div className="mushaf-paper flex min-h-full flex-col px-4 pb-4 pt-6 sm:px-8 sm:pb-6 sm:pt-8">
             {loading && !pageData ? (
-              <p className="py-24 text-center text-sm text-[#0B3D2E]/60">{t.loadingPage}</p>
+              <p className="py-24 text-center text-sm text-[color-mix(in_srgb,var(--color-primary)_60%,transparent)]">{t.loadingPage}</p>
             ) : pageData ? (
               <div dir="rtl" className="mushaf-text flex-1">
                 {pageData.ayahs.map((a) => (
@@ -438,7 +438,7 @@ export function MushafReader({ locale }: { locale: string }) {
                         <span aria-hidden className="text-accent">✦</span>
                         <span>
                           <span className="block font-heading text-xl text-[#7a1f2b]">{a.surahNameAr}</span>
-                          <span className="block text-[11px] text-[#0B3D2E]/60">{a.surahName}</span>
+                          <span className="block text-[11px] text-[color-mix(in_srgb,var(--color-primary)_60%,transparent)]">{a.surahName}</span>
                         </span>
                         <span aria-hidden className="text-accent">✦</span>
                       </span>
@@ -496,7 +496,7 @@ export function MushafReader({ locale }: { locale: string }) {
               <div className="mt-6 space-y-2 border-t border-accent/20 pt-4 text-left" dir={isRtl ? "rtl" : "ltr"}>
                 {pageData.ayahs.map((a) =>
                   a.translation ? (
-                    <p key={`t-${a.surahId}:${a.number}`} className="text-sm leading-relaxed text-[#0B3D2E]/80">
+                    <p key={`t-${a.surahId}:${a.number}`} className="text-sm leading-relaxed text-[color-mix(in_srgb,var(--color-primary)_80%,transparent)]">
                       <span className="font-medium text-accent">
                         {a.surahId}:{a.number}
                       </span>{" "}

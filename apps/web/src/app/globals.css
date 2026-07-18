@@ -802,7 +802,10 @@ html[data-tenant="tilawa"] footer { border-top: 3px solid var(--color-accent); }
     inset 0 1px 0 0 color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
 .app-hero > * { position: relative; z-index: 1; }
-/* Signature motif — default (ulyah): a soft, organic dot bloom (warm/botanical). */
+/* Signature Islamic geometric motif per site, drawn in each site's own accent
+   colour via a CSS mask (the pattern SVG is the alpha mask; the fill is
+   var(--color-accent)). Owner: "banyakin ornamen2 Islam-nya." Default (ulyah):
+   the 8-point khatam star (two interlaced squares) — classic and warm. */
 .app-hero::before {
   content: "";
   position: absolute;
@@ -810,25 +813,27 @@ html[data-tenant="tilawa"] footer { border-top: 3px solid var(--color-accent); }
   border-radius: inherit;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.06;
-  background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 92%, transparent) 1px, transparent 1.5px);
-  background-size: 26px 26px;
+  opacity: 0.14;
+  background-color: var(--color-accent);
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='48'%20height='48'%20viewBox='0%200%2048%2048'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='1.2'%3E%3Crect%20x='12'%20y='12'%20width='24'%20height='24'/%3E%3Crect%20x='12'%20y='12'%20width='24'%20height='24'%20transform='rotate(45%2024%2024)'/%3E%3Ccircle%20cx='24'%20cy='24'%20r='3'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-image: var(--motif);
+  mask-image: var(--motif);
+  -webkit-mask-size: 48px 48px;
+  mask-size: 48px 48px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
 }
-/* 1fr.fr — editorial fine diagonal pinstripes. */
+/* 1fr.fr — a finer interlaced star lattice (editorial, delicate). */
 html[data-tenant="1fr"] .app-hero::before {
-  opacity: 0.08;
-  background-image: repeating-linear-gradient(
-    45deg,
-    color-mix(in srgb, var(--color-accent) 60%, transparent) 0 1px,
-    transparent 1px 13px
-  );
-  background-size: auto;
+  opacity: 0.12;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='0.9'%3E%3Crect%20x='7'%20y='7'%20width='16'%20height='16'/%3E%3Crect%20x='7'%20y='7'%20width='16'%20height='16'%20transform='rotate(45%2015%2015)'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 30px 30px;
+  mask-size: 30px 30px;
 }
-/* tilawa.de — technical fine grid. */
+/* tilawa.de — an octagon-and-square girih grid (modern, geometric). */
 html[data-tenant="tilawa"] .app-hero::before {
-  opacity: 0.07;
-  background-image:
-    repeating-linear-gradient(0deg, color-mix(in srgb, var(--color-accent) 55%, transparent) 0 1px, transparent 1px 20px),
-    repeating-linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 55%, transparent) 0 1px, transparent 1px 20px);
-  background-size: auto;
+  opacity: 0.11;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='44'%20height='44'%20viewBox='0%200%2044%2044'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='1'%3E%3Cpolygon%20points='14,3%2030,3%2041,14%2041,30%2030,41%2014,41%203,30%203,14'/%3E%3Crect%20x='17'%20y='17'%20width='10'%20height='10'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 44px 44px;
+  mask-size: 44px 44px;
 }
