@@ -22,6 +22,21 @@ interface DeviceOrientationEventStatic {
 function norm(deg: number): number {
   return ((deg % 360) + 360) % 360;
 }
+// Shortest signed angular delta from → to, in (-180, 180]. Used both for the
+// low-pass smoothing and for unwrapping the dial rotation so it never spins the
+// long way around the 0°/360° seam.
+function shortDelta(from: number, to: number): number {
+  return ((to - from + 540) % 360) - 180;
+}
+// When the screen is rotated (landscape), "up on screen" is no longer the top
+// of the device, so the compass heading must be offset by the screen angle.
+function screenAngle(): number {
+  if (typeof window === "undefined") return 0;
+  const so = window.screen?.orientation?.angle;
+  if (typeof so === "number") return so;
+  const wo = (window as unknown as { orientation?: number }).orientation;
+  return typeof wo === "number" ? wo : 0;
+}
 
 /**
  * Qibla compass — direction + distance to the Kaaba from the visitor's
@@ -41,9 +56,30 @@ export function QiblaCompass({ locale }: { locale: string }) {
   const [failed, setFailed] = useState(false);
 
   const [heading, setHeading] = useState<number | null>(null);
+  // Continuous (unwrapped) dial rotation so the CSS transition always turns the
+  // short way and never whips ~360° round at the north seam.
+  const [dialCont, setDialCont] = useState(0);
   const [compassOn, setCompassOn] = useState(false);
   const [unsupported, setUnsupported] = useState(false);
   const listenerRef = useRef<((e: DeviceOrientationEvent) => void) | null>(null);
+  const smoothRef = useRef<number | null>(null); // low-pass-filtered heading
+  const prevHeadingRef = useRef<number | null>(null);
+  const contRef = useRef(0);
+
+  // Feed one raw compass reading through a circular low-pass filter (kills the
+  // magnetometer jitter that made the pointer shake) and accumulate the dial's
+  // continuous rotation.
+  function pushHeading(raw: number) {
+    const prevSmooth = smoothRef.current;
+    const smoothed = prevSmooth == null ? raw : norm(prevSmooth + shortDelta(prevSmooth, raw) * 0.25);
+    smoothRef.current = smoothed;
+    setHeading(smoothed);
+    const prevH = prevHeadingRef.current;
+    if (prevH == null) contRef.current = -smoothed;
+    else contRef.current += -shortDelta(prevH, smoothed);
+    prevHeadingRef.current = smoothed;
+    setDialCont(contRef.current);
+  }
 
   useEffect(() => {
     let done = false;
@@ -114,18 +150,25 @@ export function QiblaCompass({ locale }: { locale: string }) {
     const handler = (e: DeviceOrientationEvent) => {
       const ev = e as OrientationEventWithCompass;
       let h: number | null = null;
+      let screenReferenced = false;
       if (typeof ev.webkitCompassHeading === "number") {
-        h = ev.webkitCompassHeading; // iOS: degrees clockwise from magnetic north
-      } else if (ev.alpha != null) {
-        // Standard: alpha is counter-clockwise from north, so heading = 360 - alpha.
-        h = 360 - ev.alpha;
+        h = ev.webkitCompassHeading; // iOS: clockwise from magnetic north, already screen-referenced
+        screenReferenced = true;
+      } else if (ev.alpha != null && ev.absolute === true) {
+        // ONLY trust an ABSOLUTE (north-referenced) alpha. A plain
+        // `deviceorientation` reading with absolute!==true is relative to an
+        // arbitrary start heading, not north — feeding it here (both listeners
+        // shared one handler) is exactly what made the arrow wander/"error".
+        h = 360 - ev.alpha; // alpha is counter-clockwise from north
       }
-      if (h != null) {
-        gotReading = true;
-        setHeading(norm(h));
-      }
+      if (h == null) return;
+      if (!screenReferenced) h += screenAngle(); // correct for a rotated/landscape screen
+      gotReading = true;
+      pushHeading(norm(h));
     };
     listenerRef.current = handler;
+    // Both events feed the same handler, but the handler now discards any
+    // non-absolute reading, so the two never fight each other.
     window.addEventListener("deviceorientationabsolute", handler as EventListener);
     window.addEventListener("deviceorientation", handler as EventListener);
     setCompassOn(true);
@@ -145,9 +188,10 @@ export function QiblaCompass({ locale }: { locale: string }) {
   const bearing = qiblaBearing(coords.lat, coords.lng);
   const distanceKm = qiblaDistanceKm(coords.lat, coords.lng);
   const live = compassOn && heading != null && !unsupported;
-  // Rotate the whole dial (cardinal marks + arrow) by -heading so North tracks
-  // real north and the arrow points at the real qibla relative to the phone.
-  const dialRotation = live ? -heading! : 0;
+  // Rotate the whole dial (cardinal marks + arrow) by the CONTINUOUS -heading so
+  // North tracks real north and the arrow points at the real qibla relative to
+  // the phone — the unwrapped value keeps the animation smooth across 0°/360°.
+  const dialRotation = live ? dialCont : 0;
   const relative = live ? norm(bearing - heading!) : null;
   const facing = relative != null && (relative <= 6 || relative >= 354);
 
