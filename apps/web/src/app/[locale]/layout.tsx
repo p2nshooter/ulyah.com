@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+import { TENANT, tenantTagline } from "@/lib/tenant";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -23,35 +24,50 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale = isValidLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
+  // Every non-default tenant (1fr, tilawa, …) must brand with its OWN siteName,
+  // not the shared dictionary's (which still resolves to "ulyah" and leaked a
+  // stray "ulyah — …" into the tilawa.de browser tab — owner screenshot).
+  const siteName = TENANT.id !== "ulyah" ? TENANT.siteName : dict.common.siteName;
+  const tagline = TENANT.id !== "ulyah" ? tenantTagline(locale, dict.common.tagline) : dict.common.tagline;
   return {
-    title: `${dict.common.siteName} — ${dict.common.tagline}`,
+    // A tenant-scoped title template so EVERY child page's tab title carries
+    // the right brand (never a stray "ULYAH.COM" on a sibling). Child pages
+    // that return a plain-string title get "<their title> — <brand>"; the home
+    // page uses `default`.
+    title: {
+      default: `${siteName} — ${tagline}`,
+      template: `%s — ${TENANT.siteName}`,
+    },
     description: dict.hero.description,
-    metadataBase: new URL("https://ulyah.com"),
+    metadataBase: new URL(TENANT.siteUrl),
     alternates: {
       canonical: `/${locale}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l.code, `/${l.code}`])),
     },
-    manifest: "/manifest.json",
-    icons: {
-      icon: [
-        { url: "/favicon.ico" },
-        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-        { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
-      ],
-      apple: "/apple-touch-icon.png",
-    },
+    manifest: `/manifest.webmanifest?locale=${locale}`,
+    icons:
+      TENANT.id === "ulyah"
+        ? {
+            icon: [
+              { url: "/favicon.ico" },
+              { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+              { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+            ],
+            apple: "/apple-touch-icon.png",
+          }
+        : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
     openGraph: {
-      title: `${dict.common.siteName} — ${dict.common.tagline}`,
+      title: `${siteName} — ${tagline}`,
       description: dict.hero.description,
-      url: `https://ulyah.com/${locale}`,
-      siteName: "Ulyah",
+      url: `${TENANT.siteUrl}/${locale}`,
+      siteName: TENANT.siteName,
       images: [{ url: "/icon-512.png", width: 512, height: 512 }],
       locale,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${dict.common.siteName} — ${dict.common.tagline}`,
+      title: `${siteName} — ${tagline}`,
       description: dict.hero.description,
       images: ["/icon-512.png"],
     },
@@ -68,7 +84,10 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0B3D2E",
+  // The browser/PWA chrome colour must match EACH site (owner: "warna aplikasi
+  // harus seimbang dengan website"), not a baked-in emerald: 1fr navy, tilawa
+  // charcoal, ulyah emerald.
+  themeColor: TENANT.id === "1fr" ? "#17294a" : TENANT.id === "tilawa" ? "#14181d" : "#0B3D2E",
   width: "device-width",
   initialScale: 1,
 };
@@ -86,21 +105,40 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
-    <html lang={locale} dir={localeDef.dir} suppressHydrationWarning>
+    <html lang={locale} dir={localeDef.dir} data-tenant={TENANT.id} suppressHydrationWarning>
       <head>
         {/* Apply the theme class before paint — avoids a flash of the wrong
             theme and ensures Tailwind's `dark:` variant is correct from the
             very first frame (ThemeProvider's effect runs one tick later). */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("ulyah_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.documentElement.classList.toggle("dark",t==="dark");}catch(e){}})();`,
+            // Each sibling has a SIGNATURE default theme so it reads as its own
+            // product on first paint: 1fr.fr opens light (ivory editorial),
+            // tilawa.de opens dark (graphite technical), ulyah follows the OS.
+            // A saved preference always wins.
+            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
           }}
         />
-        {/* Premium typography: Quranic Arabic + classical serif + clean UI sans */}
+        {/* Per-tenant typography — each sibling site has its OWN type system so
+            it reads as a different product: ulyah = Cinzel (classical/ornate),
+            1fr.fr = Cormorant Garamond (elegant French editorial serif),
+            tilawa.de = Space Grotesk (modern German geometric sans). Arabic
+            (Scheherazade/Amiri) and the UI sans are shared. */}
+        {/* Sitemap planted in the landing page itself, so the whole site is
+            discoverable from just the root domain (owner: "sitemap-nya tanem di
+            landing page, biar cukup https://tilawa.de & https://1fr.fr"). Both
+            the XML and the robust plain-text list point at THIS tenant's URL. */}
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+          href={
+            TENANT.id === "1fr"
+              ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap"
+              : TENANT.id === "tilawa"
+                ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+                : "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+          }
           rel="stylesheet"
         />
         {/* Structured data for SEO — WebSite (with SearchAction) + Organization,
@@ -112,14 +150,19 @@ export default async function LocaleLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Ulyah",
-              alternateName: "Ulyah — Listen to Islam",
-              url: "https://ulyah.com",
+              name: TENANT.siteName,
+              alternateName:
+                TENANT.id === "1fr"
+                  ? "1FR — One Faith France"
+                  : TENANT.id === "tilawa"
+                    ? "Tilawa — Islam hören"
+                    : "Ulyah — Listen to Islam",
+              url: TENANT.siteUrl,
               inLanguage: LOCALES.map((l) => l.code),
-              publisher: { "@type": "Organization", name: "ULYAH.COM", url: "https://ulyah.com" },
+              publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
               potentialAction: {
                 "@type": "SearchAction",
-                target: { "@type": "EntryPoint", urlTemplate: `https://ulyah.com/${locale}/cari?q={search_term_string}` },
+                target: { "@type": "EntryPoint", urlTemplate: `${TENANT.siteUrl}/${locale}/cari?q={search_term_string}` },
                 "query-input": "required name=search_term_string",
               },
             }),

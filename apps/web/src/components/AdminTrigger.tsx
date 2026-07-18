@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { TENANT } from "@/lib/tenant";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
@@ -109,12 +110,19 @@ export function AdminAuthModal({
     setBusy(true);
     try {
       const res = await api.post<{
+        ok?: boolean;
         needsTotpSetup?: boolean;
         needsTotpCode?: boolean;
         pendingToken: string;
         otpauthUrl?: string;
         secret?: string;
       }>("/admin/auth/login", { email, password });
+      // Sibling admins and demo accounts have no second factor — the server
+      // sets the session cookie on login and returns { ok: true } directly.
+      if (res.ok && !res.pendingToken) {
+        onSuccess();
+        return;
+      }
       setPendingToken(res.pendingToken);
       if (res.needsTotpSetup) {
         setOtpauthUrl(res.otpauthUrl ?? "");
@@ -157,14 +165,14 @@ export function AdminAuthModal({
       <div className="w-full max-w-sm rounded-2xl bg-[var(--color-card)] p-6 shadow-2xl">
         <div className="mb-4 flex justify-center">
           <Image
-            src="/brand/ulyah-logo-light.webp"
+            src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-light.webp" : TENANT.logoIcon}
             alt="Ulyah"
             width={96}
             height={96}
             className="block h-16 w-16 rounded-full shadow-md dark:hidden"
           />
           <Image
-            src="/brand/ulyah-logo-dark.webp"
+            src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-dark.webp" : TENANT.logoIcon}
             alt="Ulyah"
             width={96}
             height={96}

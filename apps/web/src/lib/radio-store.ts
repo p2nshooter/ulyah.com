@@ -33,7 +33,15 @@ export interface RadioPosition {
 // "imam nya jgn bisa d klik, biarkan saja berjalan berurutan" (the imam must
 // not be clickable, just let it run in sequence). The widget only ever shows
 // who is in the rotation and who is reading right now, never a picker.
-const ROTATION_POOL = RECITERS.filter((r) => r.featured).map((r) => r.key);
+// HiFi only: the always-on station must sound clean. everyayah publishes some
+// reciters at 32–64 kbps, and those low-bitrate MP3s came through muffled and
+// warbly on the broadcast ("dalem banget, kaya kaset kusut" — owner report).
+// alquran.cloud (cdn === "aqc") streams 128 kbps, and the everyayah entries we
+// keep in rotation are the 128 kbps folders; anything lower stays selectable
+// elsewhere but never drives the radio.
+const ROTATION_POOL = RECITERS.filter(
+  (r) => r.featured && (r.cdn === "aqc" || (r.cdn === "ey" && (r.eyId ?? "").includes("128kbps")))
+).map((r) => r.key);
 
 export function nextRadioPosition(p: RadioPosition, surahs: SurahMeta[]): RadioPosition {
   const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
@@ -99,7 +107,11 @@ export const useRadioStore = create<RadioState>((set, get) => ({
   khatamCount: 0,
   gen: 0,
 
-  setSurahs: (surahs) => set({ surahs }),
+  // Coerce to an array no matter what the caller passes — a malformed/empty
+  // API response must never put `undefined` into the store, or every consumer
+  // that does `surahs.find(...)` crashes the whole page (owner: client-side
+  // exception on the live sites).
+  setSurahs: (surahs) => set({ surahs: Array.isArray(surahs) ? surahs : [] }),
   setKhatamCount: (khatamCount) => set({ khatamCount }),
   setPlaybackState: (p) => set(p),
 
@@ -150,7 +162,7 @@ export function ensureSurahsLoaded() {
   surahsRequested = true;
   api
     .get<{ surah: SurahMeta[] }>("/quran/surah")
-    .then((r) => useRadioStore.getState().setSurahs(r.surah))
+    .then((r) => useRadioStore.getState().setSurahs(Array.isArray(r?.surah) ? r.surah : []))
     .catch(() => {
       surahsRequested = false;
     });

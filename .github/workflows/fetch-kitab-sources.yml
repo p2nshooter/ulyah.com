@@ -35,15 +35,18 @@ jobs:
           }
 
           # ── Ta'lim al-Muta'allim (az-Zarnuji) ──
-          fetch talim_islamhouse.pdf "https://d1.islamhouse.com/data/ar/ih_books/single-03/ar-taelim-almutaealim.pdf"
-          fetch talim_fatihsyuhud_index.html "https://www.fatihsyuhud.org/2013/04/kitab-taklim-mutaallim-zarnuji.html"
+          # Round-1 finding: the IslamHouse PDF text layer is garbled
+          # (reordered ligatures) and the index page holds only the TOC —
+          # but ALL 13 fasal live on this single page (anchors #1..#13):
+          fetch talim_full.html "https://www.fatihsyuhud.org/2013/04/niat-taallum-taklim-zarnuji.html"
 
-          # ── Sullam at-Taufiq (Abdullah Ba'alawi) ──
-          fetch sullam_fatihsyuhud.html "https://www.fatihsyuhud.org/2013/02/sullam-taufiq-matan.html"
+          # ── Sullam at-Taufiq — DONE in round 1 (seeded), skip ──
 
           # ── Tijan ad-Darari (matn al-Bajuri, sharh Nawawi al-Bantani) ──
-          fetch tijan_alkhoirot.html "https://www.alkhoirot.org/2018/10/terjemah-matan-al-bajuri-tijan-darari.html"
+          # Round-1: alkhoirot page held only the opening; retry the other
+          # mirrors and list the archive.org item to locate its hOCR file.
           fetch tijan_islamitumudah.html "https://www.islamitumudah.web.id/2023/08/terjemah-kitab-tijan-darari-tiijaan-al.html"
+          fetch tijan_archive_listing.html "https://archive.org/download/kitab-syarah-tijan-ad-darori/"
           fetch tijan_archive_hocr.html "https://ia803402.us.archive.org/4/items/kitab-syarah-tijan-ad-darori/%D8%AA%D9%8A%D8%AC%D8%A7%D9%86%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A7%D8%B1%D9%8A_hocr.html"
 
           # Text layer of the Islamhouse PDF (usually true text, not scan)

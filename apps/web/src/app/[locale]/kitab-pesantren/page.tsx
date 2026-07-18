@@ -28,7 +28,7 @@ interface Kitab {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Kitab Pesantren — Perpustakaan Digital · ULYAH.COM",
+    title: "Kitab Pesantren — Perpustakaan Digital",
     description:
       "Kitab klasik pesantren tersusun rapi per bidang: fiqih, akidah, akhlak, nahwu-shorof. Lengkap dengan nama pengarang, bab per bab, teks Arab, terjemah, dan penjelasan.",
   };

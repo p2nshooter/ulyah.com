@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
 import { PortalWelcome } from "@/components/PortalWelcome";
 import { DonationVirtues } from "@/components/DonationVirtues";
 import { DonationButtons } from "@/components/DonationButtons";
@@ -162,7 +163,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
                 className="group relative overflow-hidden rounded-xl border border-[#C9A84C]/50 bg-[#fbf7ee] p-3 text-center text-[#232323] shadow-sm transition hover:shadow-md"
               >
                 <div className="pointer-events-none absolute inset-1.5 rounded-sm border border-double border-[#C9A84C]/60" />
-                <p className="relative font-heading text-[10px] uppercase tracking-widest text-[#C9A84C]">ULYAH.COM</p>
+                <p className="relative font-heading text-[10px] uppercase tracking-widest text-[#C9A84C]">{TENANT.siteName}</p>
                 <p className="relative mt-2 text-xs font-semibold text-[#0B3D2E]">
                   {p.amount ? `${p.amount} ${p.currency ?? ""}` : p.method}
                 </p>

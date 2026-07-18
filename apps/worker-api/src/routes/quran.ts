@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { fetchTafsir, fetchAsbabunNuzul, listTafsirEditions, fetchTafsirByEdition } from "../lib/tafsir-source.js";
 import { fetchMushafPage, resolvePageForSurahStart, resolvePageForJuzStart } from "../lib/mushaf-source.js";
-import { safeKvPut } from "../lib/kv-safe.js";
+import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import type { Env } from "../env.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
@@ -14,7 +14,7 @@ function langParam(c: any): { lang: string | null; requested: string } {
 
 // GET /quran/surah — 114 surah + metadata (language-independent)
 quranRoute.get("/surah", async (c) => {
-  const cached = await c.env.CACHE_KV.get("quran:surah:all");
+  const cached = await safeKvGet(c.env, "quran:surah:all");
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const { results } = await c.env.DB.prepare("SELECT * FROM surah ORDER BY id").all();
@@ -36,7 +36,7 @@ quranRoute.get("/surah/:id", async (c) => {
   const { lang, requested } = langParam(c);
 
   const cacheKey = `quran:surah:${id}:full:${requested}`;
-  const cached = await c.env.CACHE_KV.get(cacheKey);
+  const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const surah = await c.env.DB.prepare("SELECT * FROM surah WHERE id = ?").bind(id).first();
@@ -79,7 +79,7 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   // far under Cloudflare's free-tier KV write budget (the 15-min TTL used
   // before re-wrote every popular ayah ~96×/day and helped exhaust it).
   const cacheKey = `quran:ayah:v6:${surahId}:${number}:${requested}`;
-  const cached = await c.env.CACHE_KV.get(cacheKey);
+  const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const ayah = await c.env.DB.prepare("SELECT * FROM ayah WHERE surah_id = ? AND number = ?")
@@ -151,7 +151,7 @@ quranRoute.get("/tafsir/:edition/:surah/:number", async (c) => {
   const { lang, requested } = langParam(c);
 
   const cacheKey = `quran:tafsir-edition:v1:${edition}:${surahId}:${number}:${requested}`;
-  const cached = await c.env.CACHE_KV.get(cacheKey);
+  const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const hit = await fetchTafsirByEdition(c.env, edition, surahId, number, lang);
@@ -279,7 +279,7 @@ quranRoute.get("/mushaf/page/:number", async (c) => {
   const { lang, requested } = langParam(c);
 
   const cacheKey = `quran:mushaf-page:v1:${pageNumber}:${requested}`;
-  const cached = await c.env.CACHE_KV.get(cacheKey);
+  const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const mushafAyat = await fetchMushafPage(c.env, pageNumber);

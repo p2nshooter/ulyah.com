@@ -92,7 +92,19 @@ export function InstallAppButton({
       nav
         .getInstalledRelatedApps()
         .then((related) => {
-          if (!cancelled && related.length > 0) setInstalled(true);
+          if (cancelled) return;
+          if (related.length > 0) {
+            setInstalled(true);
+            return;
+          }
+          // Best-effort uninstall: getInstalledRelatedApps is supported and
+          // reports none installed, yet we previously recorded an install for
+          // this app on this device — treat it as an uninstall (fired once,
+          // then the flag is cleared so it can't double-count).
+          if (window.localStorage.getItem(`${INSTALLED_KEY}_${app}`) === "1") {
+            window.localStorage.removeItem(`${INSTALLED_KEY}_${app}`);
+            api.post("/analytics/uninstall", { app }).catch(() => {});
+          }
         })
         .catch(() => {});
     }
@@ -148,9 +160,9 @@ export function InstallAppButton({
   // a cream box: a blank rectangle ("g bisa download"). A dark-green tooltip
   // with cream text is readable on every page in both themes.
   const hintStyle: React.CSSProperties = {
-    backgroundColor: "#0b3d2e",
+    backgroundColor: "var(--color-primary-dark)",
     color: "#f4efe3",
-    borderColor: "rgba(184, 137, 43, 0.45)",
+    borderColor: "color-mix(in srgb, var(--color-accent) 45%, transparent)",
   };
 
   if (labeled) {

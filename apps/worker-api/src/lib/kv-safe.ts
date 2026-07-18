@@ -12,6 +12,24 @@ import type { Env } from "../env.js";
  * Session/auth state does NOT go through KV anymore (see session.ts), so no
  * correctness-critical write depends on this succeeding.
  */
+/**
+ * Best-effort KV read — the read-side twin of safeKvPut. The free tier also
+ * caps KV at 100k reads/day; once exhausted, `KV.get()` THROWS on every
+ * call, and because cache reads sit at the top of nearly every route
+ * (rate-limit, Qur'an, hadits, machine-translation), an unguarded get turns
+ * quota exhaustion into a sitewide "all content gone" outage while D1 is
+ * perfectly healthy (owner incident, 2026-07-16). A failed read is just a
+ * cache miss: return null and let the route recompute from D1.
+ */
+export async function safeKvGet(env: Env, key: string): Promise<string | null> {
+  try {
+    return await env.CACHE_KV.get(key);
+  } catch (e) {
+    console.warn(`safeKvGet miss for ${key}:`, e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
 export async function safeKvPut(
   env: Env,
   key: string,

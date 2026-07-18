@@ -1,5 +1,5 @@
 import type { Env } from "../env.js";
-import { safeKvPut } from "./kv-safe.js";
+import { safeKvGet, safeKvPut } from "./kv-safe.js";
 
 /**
  * Fixed-window per-key rate limiter backed by KV — arsitektur doc §17
@@ -19,7 +19,7 @@ export async function checkRateLimit(
   const kvKey = `rl:${key}`;
   let count = 0;
   try {
-    const current = await env.CACHE_KV.get(kvKey);
+    const current = await safeKvGet(env, kvKey);
     count = current ? parseInt(current, 10) : 0;
   } catch {
     return { allowed: true, remaining: limit }; // KV read failed — fail open

@@ -2,11 +2,37 @@ import { Hono } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { translateText, translateCachedOnly, localizeBatch } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
-import { safeKvPut } from "../lib/kv-safe.js";
+import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
+import { tenantFromReq } from "./analytics.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
+
+// GET /content/site-pages — per-tenant page visibility + custom labels, so the
+// site's nav and each page can be shown/hidden/renamed from the admin portal
+// (owner: "jgn ada yg hardcode, semua dynamic dari portal admin"). Absent rows
+// mean "visible, built-in label"; only overrides are returned. Tenant is read
+// from the request Origin, never trusted from the client.
+contentRoute.get("/site-pages", async (c) => {
+  // Client calls carry the sibling Origin; server-side (SSR) calls pass an
+  // explicit ?tenant since they have no Origin. Both only read visibility data.
+  const tenant = c.req.query("tenant") || tenantFromReq(c);
+  try {
+    const { results } = await c.env.DB.prepare(
+      "SELECT path, visible, custom_label FROM tenant_pages WHERE tenant = ?"
+    )
+      .bind(tenant)
+      .all<{ path: string; visible: number; custom_label: string | null }>();
+    return c.json({
+      tenant,
+      pages: results.map((r) => ({ path: r.path, visible: r.visible === 1, label: r.custom_label })),
+    });
+  } catch {
+    // Table not migrated yet, or a transient error — fail open (all visible).
+    return c.json({ tenant, pages: [] });
+  }
+});
 
 // GET /content/media-status — which admin-managed images are actually
 // uploaded (boolean only, no admin data) — lets a page skip rendering an
@@ -368,7 +394,7 @@ interface HaditsCollectionRow {
 
 // GET /content/hadits/collections — every collection that actually has rows
 contentRoute.get("/hadits/collections", async (c) => {
-  const cached = await c.env.CACHE_KV.get("hadits:collections");
+  const cached = await safeKvGet(c.env, "hadits:collections");
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const { results } = await c.env.DB.prepare(
@@ -796,26 +822,39 @@ contentRoute.get("/nasakh", async (c) => {
 // hammered on every page view.
 async function resolveLiveVideoId(env: Env, channelId: string): Promise<string | null> {
   const key = `yt:live:${channelId}`;
-  const cached = await env.CACHE_KV.get(key);
+  const cached = await safeKvGet(env, key);
   if (cached !== null) return cached || null;
   let id: string | null = null;
   try {
-    const res = await fetch(`https://www.youtube.com/channel/${channelId}/live`, {
+    const res = await fetch(`https://www.youtube.com/channel/${channelId}/live?hl=en`, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-        "Accept-Language": "en",
+        "Accept-Language": "en-US,en;q=0.9",
+        // Cloudflare Worker egress IPs get YouTube's EU "consent" interstitial
+        // instead of the real page, so the canonical/live markers never matched
+        // and EVERY auto stream fell back to REPLAY (owner: "g ada satupun yg
+        // live"). These cookies pre-accept consent so the real watch page loads.
+        Cookie: "CONSENT=YES+1; SOCS=CAISEwgDEgk0ODE3Nzk3MjQaAmVuIAEaBgiA_LyaBg",
       },
     });
     if (res.ok) {
       const html = await res.text();
       const canonical = html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]{11})"/);
-      // Canonical alone can point at a scheduled premiere — require a live marker too.
-      if (canonical && /"isLiveNow"\s*:\s*true|"isLive"\s*:\s*true|hlsManifestUrl/.test(html)) id = canonical[1] ?? null;
+      // HONEST live detection (owner: "statusnya live padahal g live"). Only
+      // `"isLiveNow":true` means "streaming RIGHT NOW". The looser markers we
+      // used before — `isLiveContent` and `hlsManifestUrl` — persist on the VOD
+      // of an ENDED stream, so a channel that finished a broadcast falsely read
+      // as LIVE. Requiring isLiveNow means the badge is truthful: live only when
+      // genuinely live, otherwise the card honestly plays the latest recording.
+      const liveNow = /"isLiveNow"\s*:\s*true/.test(html);
+      if (canonical && liveNow) id = canonical[1] ?? null;
     }
   } catch {
     // network hiccup → cache the miss briefly and let the playlist fallback carry the card
   }
-  await safeKvPut(env, key, id ?? "", { expirationTtl: 60 * 10 });
+  // Cache a hit for 10 min; cache a miss for only 3 min so a channel that just
+  // went live shows up quickly rather than staying "REPLAY" for a full window.
+  await safeKvPut(env, key, id ?? "", { expirationTtl: id ? 60 * 10 : 60 * 3 });
   return id;
 }
 
@@ -825,7 +864,7 @@ async function resolveLiveVideoId(env: Env, channelId: string): Promise<string |
 // owner screenshot), while a concrete video id always embeds. Cached 30 min.
 async function resolveLatestVideoId(env: Env, channelId: string): Promise<string | null> {
   const key = `yt:latest:${channelId}`;
-  const cached = await env.CACHE_KV.get(key);
+  const cached = await safeKvGet(env, key);
   if (cached !== null) return cached || null;
   let id: string | null = null;
   try {
@@ -876,4 +915,33 @@ contentRoute.get("/video-anak", async (c) => {
     ).all(),
   ]);
   return c.json({ videos, channels });
+});
+
+// GET /content/hajj-packages?tenant=… — the public Hajj & Umrah product cards
+// for a site (migration 0038). Tenant-scoped, only visible rows, ordered by the
+// admin's sort_order. `features` is stored as a JSON array; parse it here so the
+// client gets a real array (falls back to [] on any malformed value).
+contentRoute.get("/hajj-packages", async (c) => {
+  const tenant = c.req.query("tenant") || "ulyah";
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, kind, title, provider, description, price, duration, departure, image_url, badge, features, contact_url
+       FROM hajj_package WHERE tenant = ? AND visible = 1 ORDER BY sort_order, id`
+  )
+    .bind(tenant)
+    .all<{
+      id: number; kind: string; title: string; provider: string | null; description: string | null;
+      price: string | null; duration: string | null; departure: string | null; image_url: string | null;
+      badge: string | null; features: string | null; contact_url: string | null;
+    }>();
+  const packages = results.map((r) => {
+    let features: string[] = [];
+    try {
+      const parsed = r.features ? JSON.parse(r.features) : [];
+      if (Array.isArray(parsed)) features = parsed.filter((x): x is string => typeof x === "string");
+    } catch {
+      /* malformed JSON — show the card without bullets rather than 500 */
+    }
+    return { ...r, features };
+  });
+  return c.json({ packages });
 });

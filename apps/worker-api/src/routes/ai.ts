@@ -5,8 +5,18 @@ import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, type Capability } from "../lib/orchestra.js";
 import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
+import { safeKvGet } from "../lib/kv-safe.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
+
+// The worker is shared across all three sibling sites; map the request origin
+// to the brand the answer should mention (never the wrong site's name).
+function siteFromOrigin(origin: string): string {
+  const h = origin.toLowerCase();
+  if (h.includes("1fr.fr")) return "One Faith France";
+  if (h.includes("tilawa.de")) return "Tilawa";
+  return "ULYAH.COM";
+}
 
 // POST /ai/generate/story — trigger the zero-hand pipeline (admin/internal only)
 aiRoute.post("/generate/story", requireAdmin, async (c) => {
@@ -59,7 +69,7 @@ aiRoute.post("/tts", async (c) => {
   // gratis dulu". When off, en/zh fall through to the same donated-key notice.
   let cfWorkerAiEnabled = false;
   try {
-    const raw = await c.env.CACHE_KV.get("scaling:settings");
+    const raw = await safeKvGet(c.env, "scaling:settings");
     if (raw) cfWorkerAiEnabled = JSON.parse(raw).cfWorkerAiEnabled === true;
   } catch {
     cfWorkerAiEnabled = false;
@@ -149,10 +159,14 @@ aiRoute.post("/ask", async (c) => {
   const rl = await checkRateLimit(c.env, `ask:${c.req.header("cf-connecting-ip") ?? "anon"}`, 15, 3600);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded — silakan daftar untuk akses lebih.", registerHint: true }, 429);
 
-  const { question, locale, specialist } = await c.req.json<{ question: string; locale?: string; specialist?: string }>();
+  const { question, locale, specialist, site } = await c.req.json<{ question: string; locale?: string; specialist?: string; site?: string }>();
   if (!question || question.length > 500) return c.json({ error: "question required (max 500 chars)" }, 400);
 
-  const r = await answerGrounded(c.env, { question, locale, specialist });
+  // Which sibling site is asking? Prefer the client-declared brand, else derive
+  // from the request Origin so answers never surface the wrong brand.
+  const resolvedSite = (site && site.trim()) || siteFromOrigin(c.req.header("origin") ?? c.req.header("referer") ?? "");
+
+  const r = await answerGrounded(c.env, { question, locale, specialist, site: resolvedSite });
   if (!r.ok || !r.text) {
     return c.json({ error: "AI belum tersedia (belum ada API key aktif di pool).", sources: r.sources, attempts: r.attempts }, 503);
   }

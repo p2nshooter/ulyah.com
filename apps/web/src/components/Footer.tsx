@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary } from "@/dictionaries";
 import { ShareButtons } from "@/components/ShareButtons";
 import { contactLabels } from "@/lib/contact-labels";
-import { navLabels } from "@/lib/nav-labels";
+import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
+import { aiChatLabels } from "@/lib/ai-chat-labels";
+import { TENANT } from "@/lib/tenant";
+import { usePageOverrides } from "@/lib/site-pages";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -12,25 +17,34 @@ import { navLabels } from "@/lib/nav-labels";
  * deliberately live only down here (privacy, donate, contact, accounts).
  */
 export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
-  const nav = navLabels(locale);
+  const overrides = usePageOverrides();
+  const nav = applyPageOverrides(
+    navLabels(locale),
+    new Set(overrides.hidden),
+    new Map(Object.entries(overrides.labels))
+  );
 
   return (
     <footer className="border-t border-[var(--color-border)] bg-primary-dark bg-primary px-4 py-12 text-[#f4efe3] sm:px-6">
       <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 desktop:grid-cols-6">
         <div className="sm:col-span-2 desktop:col-span-2">
           <div className="flex items-center gap-2.5">
-            <Image src="/icon.png" alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
-            {/* Footer is always the dark-green brand background, so the
-                pure-gold wordmark (not the theme-aware pair) always applies. */}
-            <Image src="/brand/wordmark-ar-gold.png" alt="Ulyah" width={138} height={38} className="h-[34px] w-auto" />
+            <Image src={TENANT.logoIcon} alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
+            {TENANT.wordmarkGold ? (
+              /* Footer is always the dark-green brand background, so the
+                 pure-gold wordmark (not the theme-aware pair) always applies. */
+              <Image src={TENANT.wordmarkGold} alt={TENANT.siteName} width={138} height={38} className="h-[34px] w-auto" />
+            ) : (
+              <span className="font-heading text-xl font-semibold tracking-wide text-accent">{TENANT.siteName}</span>
+            )}
           </div>
           <p className="mt-2 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
           <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
           <div className="mt-4">
             <p className="mb-2 text-xs font-semibold text-accent">{dict.footer.followUs}</p>
             <ShareButtons
-              url={`https://ulyah.com/${locale}`}
-              title={`${dict.common.siteName} — ${dict.common.tagline}`}
+              url={`${TENANT.siteUrl}/${locale}`}
+              title={`${TENANT.id === "ulyah" ? dict.common.siteName : TENANT.siteName} — ${dict.common.tagline}`}
               copyLabel={dict.crypto.copy}
               copiedLabel={dict.crypto.copied}
               compact
@@ -61,7 +75,9 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{dict.footer.info}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/tentang`} className="transition hover:text-accent">{dict.nav.about}</Link></li>
-            <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
+            {TENANT.id === "ulyah" && (
+              <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
+            )}
             <li><Link href={`/${locale}/terima-kasih`} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
           </ul>
         </div>
@@ -69,7 +85,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <p className="text-sm font-semibold text-accent">{contactLabels(locale).navLabel}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={`/${locale}/kontak`} className="transition hover:text-accent">{contactLabels(locale).navLabel}</Link></li>
-            <li><Link href={`/${locale}/tanya`} className="transition hover:text-accent">Tanya AI</Link></li>
+            <li><Link href={`/${locale}/tanya`} className="transition hover:text-accent">{aiChatLabels(locale).bubble}</Link></li>
           </ul>
         </div>
         <div>
@@ -88,7 +104,11 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
         </div>
       </div>
 
-      <p className="mx-auto mt-10 max-w-7xl text-xs text-[#f4efe3]/50">{dict.footer.rights}</p>
+      <p className="mx-auto mt-10 max-w-7xl text-xs text-[#f4efe3]/50">
+        {TENANT.id === "ulyah"
+          ? dict.footer.rights
+          : dict.footer.rights.replace(/Ulyah\.?/gi, TENANT.siteName)}
+      </p>
     </footer>
   );
 }

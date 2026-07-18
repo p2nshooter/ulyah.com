@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { NarrateButton } from "@/components/NarrateButton";
+import { narrateLabels } from "@/lib/narrate-labels";
 
 interface Person {
   slug: string;
@@ -38,9 +39,9 @@ export async function generateMetadata({
   const { locale: raw, slug } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const data = await fetchPerson(slug, locale);
-  if (!data) return { title: "Kisah — ULYAH.COM" };
+  if (!data) return { title: "Kisah" };
   return {
-    title: `${data.person.name_id} — Kisah Islami · ULYAH.COM`,
+    title: `${data.person.name_id} — Kisah Islami`,
     description: data.person.summary_id.slice(0, 160),
     alternates: { canonical: `/${locale}/kisah/tokoh/${slug}` },
   };
@@ -79,8 +80,8 @@ export default async function KisahTokohPage({
       <div className="mt-6">
         <NarrateButton
           paragraphs={narrateParagraphs}
-          listenLabel={locale === "id" ? "Dengarkan" : "Listen"}
-          stopLabel={locale === "id" ? "Hentikan" : "Stop"}
+          listenLabel={narrateLabels(locale).listen}
+          stopLabel={narrateLabels(locale).stop}
           lang={locale}
         />
       </div>

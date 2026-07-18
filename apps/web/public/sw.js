@@ -8,7 +8,7 @@
 // it forever: this cache-first strategy never revalidates against the
 // network on its own. Bumping the name makes `activate` below throw the old
 // cache away and start clean.
-const CACHE = "ulyah-shell-v2";
+const CACHE = "ulyah-shell-v3";
 
 self.addEventListener("install", (e) => self.skipWaiting());
 self.addEventListener("activate", (e) =>

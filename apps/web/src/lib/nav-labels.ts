@@ -1,3 +1,4 @@
+import { TENANT } from "./tenant";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
 // (the old flat 13-link nav plus an differently-organised footer was exactly
@@ -63,6 +64,7 @@ const EN: NavLabels = {
       label: "Worship & Tools",
       icon: "🕌",
       items: [
+        { label: "Hajj & Umrah", path: "/haji-umroh" },
         { label: "Daily Practices", path: "/amalan" },
         { label: "Prayer Times", path: "/jadwal-sholat" },
         { label: "Ramadan Imsakiyah", path: "/imsakiyah" },
@@ -120,6 +122,7 @@ const ID: NavLabels = {
       label: "Ibadah & Alat",
       icon: "🕌",
       items: [
+        { label: "Haji & Umroh", path: "/haji-umroh" },
         { label: "Amalan Harian", path: "/amalan" },
         { label: "Jadwal Sholat", path: "/jadwal-sholat" },
         { label: "Imsakiyah Ramadhan", path: "/imsakiyah" },
@@ -177,6 +180,7 @@ const AR: NavLabels = {
       label: "العبادة والأدوات",
       icon: "🕌",
       items: [
+        { label: "الحج والعمرة", path: "/haji-umroh" },
         { label: "الأذكار اليومية", path: "/amalan" },
         { label: "مواقيت الصلاة", path: "/jadwal-sholat" },
         { label: "إمساكية رمضان", path: "/imsakiyah" },
@@ -193,8 +197,162 @@ const AR: NavLabels = {
   ],
 };
 
-const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR };
+// tilawa.de ships German-first; the nav must be fully German, never the EN
+// fallback that leaked into the header (owner: "semua inkonsisten").
+const DE: NavLabels = {
+  home: "Startseite",
+  groups: [
+    {
+      key: "quran",
+      label: "Der Koran",
+      icon: "📖",
+      items: [
+        { label: "Koran lesen", path: "/quran" },
+        { label: "Uthmani-Mushaf", path: "/quran/mushaf" },
+        { label: "Koran-Radio", path: "/radio" },
+        { label: "Nāsikh & Mansūkh", path: "/nasakh" },
+      ],
+    },
+    {
+      key: "kajian",
+      label: "Hadith & Kitāb",
+      icon: "📚",
+      items: [
+        { label: "Hadith-Sammlungen", path: "/hadits" },
+        { label: "Sanad-Baum", path: "/sanad" },
+        { label: "Kitāb-Bibliothek", path: "/kitab" },
+        { label: "Pesantren-Kitāb", path: "/kitab-pesantren" },
+      ],
+    },
+    {
+      key: "kisah",
+      label: "Geschichten & Audio",
+      icon: "🎧",
+      items: [
+        { label: "Islamische Geschichten", path: "/kisah" },
+        { label: "Zeichentrickfilme für Kinder", path: "/anak" },
+        { label: "Hörbuch", path: "/audiobook" },
+        { label: "Täglicher Inhalt", path: "/harian" },
+      ],
+    },
+    {
+      key: "ibadah",
+      label: "Gottesdienst & Werkzeuge",
+      icon: "🕌",
+      items: [
+        { label: "Hadsch & Umrah", path: "/haji-umroh" },
+        { label: "Tägliche Andachten", path: "/amalan" },
+        { label: "Gebetszeiten", path: "/jadwal-sholat" },
+        { label: "Ramadan-Imsākīya", path: "/imsakiyah" },
+        { label: "Qibla-Richtung", path: "/kiblat" },
+        { label: "Hidschri-Kalender", path: "/kalender-hijriyah" },
+        { label: "Zakāt-Rechner", path: "/zakat" },
+        { label: "Erbrecht (Farāʾid)", path: "/waris" },
+      ],
+    },
+  ],
+  direct: [
+    { label: "🔴 Live", path: "/live" },
+    { label: "Über uns", path: "/tentang" },
+  ],
+};
+
+// 1fr.fr ships French-first — same requirement, no EN fallback in the nav.
+const FR: NavLabels = {
+  home: "Accueil",
+  groups: [
+    {
+      key: "quran",
+      label: "Le Coran",
+      icon: "📖",
+      items: [
+        { label: "Lire le Coran", path: "/quran" },
+        { label: "Mushaf Uthmani", path: "/quran/mushaf" },
+        { label: "Radio Coran", path: "/radio" },
+        { label: "Nâsikh & Mansûkh", path: "/nasakh" },
+      ],
+    },
+    {
+      key: "kajian",
+      label: "Hadith & Kitâb",
+      icon: "📚",
+      items: [
+        { label: "Recueils de hadiths", path: "/hadits" },
+        { label: "Arbre du Sanad", path: "/sanad" },
+        { label: "Bibliothèque de Kitâb", path: "/kitab" },
+        { label: "Kitâb Pesantren", path: "/kitab-pesantren" },
+      ],
+    },
+    {
+      key: "kisah",
+      label: "Récits & Audio",
+      icon: "🎧",
+      items: [
+        { label: "Récits islamiques", path: "/kisah" },
+        { label: "Dessins animés pour enfants", path: "/anak" },
+        { label: "Livre audio", path: "/audiobook" },
+        { label: "Contenu quotidien", path: "/harian" },
+      ],
+    },
+    {
+      key: "ibadah",
+      label: "Adoration & Outils",
+      icon: "🕌",
+      items: [
+        { label: "Hajj & Omra", path: "/haji-umroh" },
+        { label: "Pratiques quotidiennes", path: "/amalan" },
+        { label: "Heures de prière", path: "/jadwal-sholat" },
+        { label: "Imsakiya du Ramadan", path: "/imsakiyah" },
+        { label: "Direction de la Qibla", path: "/kiblat" },
+        { label: "Calendrier hégirien", path: "/kalender-hijriyah" },
+        { label: "Calculateur de Zakât", path: "/zakat" },
+        { label: "Héritage (Farâ'id)", path: "/waris" },
+      ],
+    },
+  ],
+  direct: [
+    { label: "🔴 En direct", path: "/live" },
+    { label: "À propos", path: "/tentang" },
+  ],
+};
+
+const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR };
+
+/** Apply the admin portal's per-tenant show/hide + rename overrides to a nav
+ * tree: drop hidden items (and any group left empty), and swap in custom
+ * labels. Passing an empty config is a no-op, so ulyah is unaffected. */
+export function applyPageOverrides(
+  nav: NavLabels,
+  hidden: Set<string>,
+  labels: Map<string, string>
+): NavLabels {
+  if (hidden.size === 0 && labels.size === 0) return nav;
+  const keep = (path: string) => !hidden.has(path);
+  const relabel = (it: NavItem): NavItem => (labels.has(it.path) ? { ...it, label: labels.get(it.path)! } : it);
+  return {
+    ...nav,
+    groups: nav.groups
+      .map((g) => ({ ...g, items: g.items.filter((it) => keep(it.path)).map(relabel) }))
+      .filter((g) => g.items.length > 0),
+    direct: nav.direct.filter((it) => keep(it.path)).map(relabel),
+  };
+}
 
 export function navLabels(locale: string): NavLabels {
-  return MAP[locale] ?? EN;
+  const base = MAP[locale] ?? EN;
+  if (!TENANT.features.forSale && !TENANT.features.donationForward) return base;
+  // 1fr.fr: donation is promoted into the top-level nav ("terang-terangan")
+  // and the acquisition page is openly linked. Labels per language.
+  const donate =
+    locale === "fr" ? "🤲 Faire un don" : locale === "de" ? "🤲 Spenden" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
+  const acq =
+    locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
+  return {
+    ...base,
+    direct: [
+      ...base.direct,
+      ...(TENANT.features.donationForward ? [{ label: donate, path: "/donasi" }] : []),
+      ...(TENANT.features.forSale ? [{ label: acq, path: "/acquisition" }] : []),
+    ],
+  };
 }

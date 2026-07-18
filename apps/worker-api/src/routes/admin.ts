@@ -4,11 +4,12 @@ import { testApiKey } from "@ulyah/key-pool";
 import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
 import type { Env } from "../env.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
+import type { SessionData } from "../lib/session.js";
 import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
-import { safeKvPut } from "../lib/kv-safe.js";
+import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -28,6 +29,56 @@ adminRoute.get("/dashboard", async (c) => {
     c.env.DB.prepare("SELECT COUNT(*) AS total FROM clients").first(),
   ]);
   return c.json({ keys, jobs, donations, clients });
+});
+
+// ── Dynamic pages (show / hide / rename per site) ─────────────────────────
+// The catalogue of pages lives in the web app; the API only stores overrides.
+// A sibling admin is locked to its own tenant; the ulyah owner (tenant NULL)
+// may pass ?tenant= / body.tenant to manage any site.
+function scopedTenant(c: Context<{ Bindings: Env }>, requested?: string): string {
+  const admin = c.get("admin" as never) as SessionData | undefined;
+  if (admin?.tenant) return admin.tenant; // sibling admin — locked to own site
+  return requested || "ulyah"; // ulyah owner — may target any site
+}
+
+adminRoute.get("/site-pages", async (c) => {
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  const { results } = await c.env.DB.prepare(
+    "SELECT path, visible, custom_label, updated_at FROM tenant_pages WHERE tenant = ? ORDER BY path"
+  )
+    .bind(tenant)
+    .all<{ path: string; visible: number; custom_label: string | null; updated_at: string }>();
+  return c.json({
+    tenant,
+    overrides: results.map((r) => ({ path: r.path, visible: r.visible === 1, label: r.custom_label, updatedAt: r.updated_at })),
+  });
+});
+
+adminRoute.post("/site-pages", async (c) => {
+  const body = await c.req.json<{ path?: string; visible?: boolean; label?: string | null; tenant?: string }>();
+  const path = (body.path ?? "").trim();
+  if (!path.startsWith("/")) return c.json({ error: "path required (must start with /)" }, 400);
+  const tenant = scopedTenant(c, body.tenant);
+  const visible = body.visible === false ? 0 : 1;
+  const label = body.label && body.label.trim() ? body.label.trim().slice(0, 80) : null;
+  await c.env.DB.prepare(
+    `INSERT INTO tenant_pages (tenant, path, visible, custom_label, updated_at)
+     VALUES (?, ?, ?, ?, datetime('now'))
+     ON CONFLICT(tenant, path) DO UPDATE SET visible = excluded.visible, custom_label = excluded.custom_label, updated_at = datetime('now')`
+  )
+    .bind(tenant, path, visible, label)
+    .run();
+  await logAdminAction(c.env, "site_page_updated", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? "", { tenant, path, visible: !!visible, label });
+  return c.json({ ok: true, tenant, path, visible: !!visible, label });
+});
+
+// Reset a page to its built-in default (visible, original label).
+adminRoute.delete("/site-pages", async (c) => {
+  const path = (c.req.query("path") ?? "").trim();
+  if (!path) return c.json({ error: "path required" }, 400);
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  await c.env.DB.prepare("DELETE FROM tenant_pages WHERE tenant = ? AND path = ?").bind(tenant, path).run();
+  return c.json({ ok: true, tenant, path });
 });
 
 // ── Key Pool Manager (§12.2, §23.2) ───────────────────────────────────────
@@ -494,6 +545,60 @@ adminRoute.get("/analytics", async (c) => {
   });
 });
 
+// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de) ────────────────
+// One content DB, three sites. Each sibling's admin portal shows only its own
+// tenant; ulyah.com's admin sees all three side by side to watch each site's
+// visitor growth. Every metric is grouped by tenant in a handful of queries.
+adminRoute.get("/tenant-analytics", async (c) => {
+  const [visitors, installs, uninstalls, series, pages, countries] = await Promise.all([
+    c.env.DB.prepare(
+      `SELECT tenant,
+              SUM(CASE WHEN date(created_at) = date('now') THEN 1 ELSE 0 END) AS today,
+              SUM(CASE WHEN created_at >= datetime('now','-7 days') THEN 1 ELSE 0 END) AS week,
+              SUM(CASE WHEN created_at >= datetime('now','-30 days') THEN 1 ELSE 0 END) AS month,
+              COUNT(*) AS allTime
+       FROM analytics_pageviews GROUP BY tenant`
+    ).all<{ tenant: string; today: number; week: number; month: number; allTime: number }>(),
+    c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_installs GROUP BY tenant").all<{ tenant: string; n: number }>(),
+    c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_uninstalls GROUP BY tenant").all<{ tenant: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, strftime('%Y-%m-%d', created_at) AS bucket, COUNT(*) AS n
+       FROM analytics_pageviews WHERE created_at >= datetime('now','-30 days')
+       GROUP BY tenant, bucket ORDER BY bucket`
+    ).all<{ tenant: string; bucket: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, path, COUNT(*) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-30 days')
+       GROUP BY tenant, path ORDER BY n DESC`
+    ).all<{ tenant: string; path: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, COALESCE(country,'??') AS country, COUNT(*) AS n FROM analytics_pageviews
+       GROUP BY tenant, country ORDER BY n DESC`
+    ).all<{ tenant: string; country: string; n: number }>(),
+  ]);
+
+  const TENANTS = ["ulyah", "1fr", "tilawa"];
+  const byTenant = TENANTS.map((t) => {
+    const v = visitors.results.find((r) => r.tenant === t);
+    return {
+      tenant: t,
+      visitors: {
+        today: v?.today ?? 0,
+        week: v?.week ?? 0,
+        month: v?.month ?? 0,
+        allTime: v?.allTime ?? 0,
+      },
+      installs: installs.results.find((r) => r.tenant === t)?.n ?? 0,
+      uninstalls: uninstalls.results.find((r) => r.tenant === t)?.n ?? 0,
+      daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n })),
+      topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n })),
+      topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n })),
+    };
+  });
+
+  return c.json({ tenants: byTenant });
+});
+
 // ── Kitab library breakdown + app install counts (central visibility) ────
 
 adminRoute.get("/library-stats", async (c) => {
@@ -653,7 +758,7 @@ adminRoute.get("/health", async (c) => {
 
 // GET /admin/adsense-config — verification status + the noted ad-unit id (if any).
 adminRoute.get("/adsense-config", async (c) => {
-  const raw = await c.env.CACHE_KV.get("adsense:config");
+  const raw = await safeKvGet(c.env, "adsense:config");
   const cfg = raw ? JSON.parse(raw) : {};
   return c.json({
     slotId: cfg.slotId ?? "",
@@ -725,7 +830,7 @@ adminRoute.post("/scaling/settings", async (c) => {
 });
 
 adminRoute.get("/scaling/settings", async (c) => {
-  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(c.env, "scaling:settings");
   const defaults = {
     autoThrottleEnabled: true,
     monthlyBudgetUsd: 0,
@@ -743,7 +848,7 @@ adminRoute.get("/scaling/settings", async (c) => {
 
 // Content-engine status: is the auto-producer on, and what has it produced?
 adminRoute.get("/engine/status", async (c) => {
-  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(c.env, "scaling:settings");
   const settings = raw ? JSON.parse(raw) : {};
   const [compiled, aiStories, latest] = await Promise.all([
     c.env.DB.prepare(
@@ -765,7 +870,7 @@ adminRoute.get("/engine/status", async (c) => {
 // One-click master switch for the auto-production engine (start / stop).
 adminRoute.post("/engine/toggle", async (c) => {
   const { enabled } = await c.req.json<{ enabled: boolean }>();
-  const raw = await c.env.CACHE_KV.get("scaling:settings");
+  const raw = await safeKvGet(c.env, "scaling:settings");
   const settings = raw ? JSON.parse(raw) : {};
   settings.engineEnabled = Boolean(enabled);
   await safeKvPut(c.env, "scaling:settings", JSON.stringify(settings));
@@ -937,5 +1042,97 @@ adminRoute.put("/kids-channels/:id", async (c) => {
 adminRoute.delete("/kids-channels/:id", async (c) => {
   const id = Number(c.req.param("id"));
   await c.env.DB.prepare("DELETE FROM video_anak_channel WHERE id = ?").bind(id).run();
+  return c.json({ ok: true });
+});
+
+// ── Hajj & Umrah packages (migration 0038) ───────────────────────────────
+// Tenant-scoped CRUD: a sibling admin only ever sees/edits its own site's
+// packages (scopedTenant locks it); the ulyah owner may target any site via
+// ?tenant=. Writes are automatically blocked for demo accounts by the auth
+// middleware (role === 'demo'). `features` is persisted as a JSON string array.
+interface HajjBody {
+  tenant?: string;
+  kind?: string;
+  title?: string;
+  provider?: string | null;
+  description?: string | null;
+  price?: string | null;
+  duration?: string | null;
+  departure?: string | null;
+  image_url?: string | null;
+  badge?: string | null;
+  features?: string[] | null;
+  contact_url?: string | null;
+  sort_order?: number;
+  visible?: boolean;
+}
+function normFeatures(f: unknown): string {
+  if (!Array.isArray(f)) return "[]";
+  return JSON.stringify(f.filter((x): x is string => typeof x === "string" && x.trim().length > 0).map((s) => s.trim()).slice(0, 12));
+}
+
+adminRoute.get("/hajj-packages", async (c) => {
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, kind, title, provider, description, price, duration, departure, image_url, badge, features, contact_url, sort_order, visible
+       FROM hajj_package WHERE tenant = ? ORDER BY sort_order, id`
+  )
+    .bind(tenant)
+    .all();
+  return c.json({ tenant, packages: results });
+});
+
+adminRoute.post("/hajj-packages", async (c) => {
+  const body = await c.req.json<HajjBody>();
+  const tenant = scopedTenant(c, body.tenant);
+  const title = (body.title ?? "").trim();
+  if (!title) return c.json({ error: "title wajib diisi / title is required" }, 400);
+  const kind = body.kind === "hajj" ? "hajj" : "umrah";
+  const admin = c.get("admin" as never) as SessionData | undefined;
+  await c.env.DB.prepare(
+    `INSERT INTO hajj_package (tenant, kind, title, provider, description, price, duration, departure, image_url, badge, features, contact_url, sort_order, visible, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
+  )
+    .bind(
+      tenant, kind, title.slice(0, 160), (body.provider ?? null), (body.description ?? null),
+      (body.price ?? null), (body.duration ?? null), (body.departure ?? null), (body.image_url ?? null),
+      (body.badge ?? null), normFeatures(body.features), (body.contact_url ?? null),
+      Number.isFinite(body.sort_order) ? Number(body.sort_order) : 99, body.visible === false ? 0 : 1
+    )
+    .run();
+  await logAdminAction(c.env, "hajj_package_created", admin?.email ?? "", c.req.header("cf-connecting-ip") ?? "", { tenant, title, kind });
+  return c.json({ ok: true });
+});
+
+adminRoute.put("/hajj-packages/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const body = await c.req.json<HajjBody>();
+  const tenant = scopedTenant(c, body.tenant);
+  // Toggle-only fast path (the show/hide switch sends just { visible }).
+  if (Object.keys(body).length === 1 && typeof body.visible === "boolean") {
+    await c.env.DB.prepare("UPDATE hajj_package SET visible = ?, updated_at = datetime('now') WHERE id = ? AND tenant = ?")
+      .bind(body.visible ? 1 : 0, id, tenant)
+      .run();
+    return c.json({ ok: true });
+  }
+  const kind = body.kind === "hajj" ? "hajj" : "umrah";
+  await c.env.DB.prepare(
+    `UPDATE hajj_package SET kind = ?, title = ?, provider = ?, description = ?, price = ?, duration = ?, departure = ?, image_url = ?, badge = ?, features = ?, contact_url = ?, sort_order = ?, visible = ?, updated_at = datetime('now')
+       WHERE id = ? AND tenant = ?`
+  )
+    .bind(
+      kind, (body.title ?? "").trim().slice(0, 160), (body.provider ?? null), (body.description ?? null),
+      (body.price ?? null), (body.duration ?? null), (body.departure ?? null), (body.image_url ?? null),
+      (body.badge ?? null), normFeatures(body.features), (body.contact_url ?? null),
+      Number.isFinite(body.sort_order) ? Number(body.sort_order) : 99, body.visible === false ? 0 : 1, id, tenant
+    )
+    .run();
+  return c.json({ ok: true });
+});
+
+adminRoute.delete("/hajj-packages/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  const tenant = scopedTenant(c, c.req.query("tenant"));
+  await c.env.DB.prepare("DELETE FROM hajj_package WHERE id = ? AND tenant = ?").bind(id, tenant).run();
   return c.json({ ok: true });
 });

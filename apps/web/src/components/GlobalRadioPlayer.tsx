@@ -194,7 +194,7 @@ export function GlobalRadioPlayer() {
         onClick={() => (playing ? useRadioStore.getState().stop() : useRadioStore.getState().start())}
         aria-label={playing ? "Radio Qur'an: OFF" : "Radio Qur'an: ON"}
         title={playing ? "Matikan Radio Qur'an" : "Nyalakan Radio Qur'an"}
-        className="fixed bottom-4 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[#0B3D2E]/90 px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur transition hover:border-accent hover:bg-[#0B3D2E]"
+        className="fixed bottom-4 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur transition hover:border-accent hover:bg-[var(--color-primary)]"
       >
         <span aria-hidden>📻</span>
         {playing ? (

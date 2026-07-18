@@ -51,7 +51,7 @@ export function KidsScene({
     <div
       className={`relative aspect-[3/2] w-full overflow-hidden rounded-[2rem] shadow-2xl ${
         isNight
-          ? "bg-gradient-to-b from-[#1a5f45] via-[#0B3D2E] to-[#06251b]"
+          ? "bg-gradient-to-b from-[#1a5f45] via-[var(--color-primary)] to-[var(--color-primary-dark)]"
           : "bg-gradient-to-b from-[#7ec8e3] via-[#a9dfc7] to-[#e8f5df]"
       }`}
     >

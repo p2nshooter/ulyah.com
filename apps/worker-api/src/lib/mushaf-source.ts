@@ -1,5 +1,5 @@
 import type { Env } from "../env.js";
-import { safeKvPut } from "./kv-safe.js";
+import { safeKvGet, safeKvPut } from "./kv-safe.js";
 
 /**
  * Mushaf Utsmani page data — the standard 604-page Madinah Mushaf pagination
@@ -50,7 +50,7 @@ function toMushafAyah(raw: AlQuranAyahRaw): MushafAyah {
 }
 
 async function fetchJsonCached<T>(env: Env, kvKey: string, url: string): Promise<T | null> {
-  const cached = await env.CACHE_KV.get(kvKey);
+  const cached = await safeKvGet(env, kvKey);
   if (cached) return JSON.parse(cached) as T;
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) return null;

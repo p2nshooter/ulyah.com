@@ -492,6 +492,40 @@ jobs:
             echo "Round-3 kitab texts already imported (jalalayn matn: $R3COUNT) — skipping."
           fi
 
+      - name: Import Kitab Pesantren round 4 — 12 kitab lintas 7 kategori (idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Round 4 (ROUND=4 of scripts/extract-pesantren-openiti.py):
+          # Arba'in Nawawi, Tuhfatul Athfal, Jazariyyah, Bayquniyyah,
+          # Nukhbatul Fikar, Waraqat, Qatrun Nada, Mulhatul I'rab, Al-Hikam,
+          # Fathul Mu'in, Kifayatul Akhyar, Tarikh Khulafa (+ kategori
+          # tajwid/ulumul-hadits/usul-fiqih). Gate on arbainnawawi matn.
+          R4COUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id WHERE b.kitab_slug='arbainnawawi';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$R4COUNT" -lt "40" ]; then
+            echo "Round-4 kitab texts missing (arbain matn: $R4COUNT) — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_full_texts_4.sql
+          else
+            echo "Round-4 kitab texts already imported (arbain matn: $R4COUNT) — skipping."
+          fi
+
+      - name: Import Sullam at-Taufiq full text (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          # Full matn from an open-web source (fatihsyuhud.org), verified
+          # against the known fasal structure — 56 fasal / 181 matn. The
+          # kitab row already exists; this fills bab_order >= 100.
+          STCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id WHERE b.kitab_slug='sullamtaufiq' AND b.bab_order >= 100;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$STCOUNT" -lt "150" ]; then
+            echo "Sullam Taufiq full text missing ($STCOUNT matn) — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/pesantren_sullamtaufiq.sql
+          else
+            echo "Sullam Taufiq already imported ($STCOUNT matn) — skipping."
+          fi
+
       - name: Import Doa Mustajab (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
@@ -781,6 +815,34 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
             echo "::warning::Could not attach:$blocked — old DNS records must be removed once (see the run summary for the 1-minute fix). api.ulyah.com is live; the site is meanwhile reachable on the workers.dev URL."
           fi
+
+      - name: Build web for 1fr.fr tenant (One Faith France)
+        working-directory: apps/web
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_TENANT: "1fr"
+
+      - name: Deploy 1fr.fr web (onefaith-web worker)
+        working-directory: apps/web
+        run: npx wrangler deploy --name onefaith-web
+
+      - name: Attach 1fr.fr custom domains to onefaith-web
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=1fr.fr" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::1fr.fr zone not found on this account/token — onefaith-web stays on workers.dev until the zone is added."
+            exit 0
+          fi
+          for host in 1fr.fr www.1fr.fr; do
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"onefaith-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            echo "$host -> onefaith-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
+          done
 
       - name: Smoke test (retries while DNS/cert for the new custom domain settles)
         run: |

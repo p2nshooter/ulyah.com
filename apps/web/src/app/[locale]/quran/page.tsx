@@ -4,31 +4,46 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { mushafLabels } from "@/lib/mushaf-labels";
+import { TENANT } from "@/lib/tenant";
 
 // Self-contained labels (radio-labels pattern) for the install banner below
 // the reader — the installable Mushaf app (same MushafReader engine as
-// /quran/mushaf, packaged with its own home-screen identity).
+// /quran/mushaf, packaged with its own home-screen identity). Siblings render
+// their own native language (fr/de); English is the fallback, never Indonesian.
 function widgetBannerLabels(locale: string): { title: string; desc: string; cta: string; store: string } {
-  if (locale === "id")
-    return {
+  const M: Record<string, { title: string; desc: string; cta: string; store: string }> = {
+    id: {
       title: "Pasang Mushaf sebagai Aplikasi",
       desc: "Mushaf Utsmani 604 halaman dengan animasi balik halaman — pasang di layar utama HP sebagai aplikasi sendiri.",
       cta: "Buka & Pasang Aplikasi →",
       store: "Semua aplikasi",
-    };
-  if (locale === "ar")
-    return {
+    },
+    en: {
+      title: "Install the Mushaf as an App",
+      desc: "The 604-page Mushaf Utsmani with page-turn animation — installable on your home screen as its own app.",
+      cta: "Open & Install App →",
+      store: "All apps",
+    },
+    fr: {
+      title: "Installer le Moushaf comme application",
+      desc: "Le Moushaf ʿUthmānī de 604 pages avec animation de feuilletage — installable sur votre écran d'accueil comme une application à part entière.",
+      cta: "Ouvrir et installer l'application →",
+      store: "Toutes les applications",
+    },
+    de: {
+      title: "Mushaf als App installieren",
+      desc: "Das 604-seitige ʿUthmānī-Mushaf mit Blätter-Animation — installierbar auf Ihrem Startbildschirm als eigene App.",
+      cta: "App öffnen & installieren →",
+      store: "Alle Apps",
+    },
+    ar: {
       title: "ثبّت المصحف كتطبيق",
       desc: "المصحف العثماني ٦٠٤ صفحات مع تقليب الصفحات — يثبت على الشاشة الرئيسية كتطبيق مستقل.",
       cta: "افتح وثبّت التطبيق ←",
       store: "كل التطبيقات",
-    };
-  return {
-    title: "Install the Mushaf as an App",
-    desc: "The 604-page Mushaf Utsmani with page-turn animation — installable on your home screen as its own app.",
-    cta: "Open & Install App →",
-    store: "All apps",
+    },
   };
+  return M[locale] ?? M.en!;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -36,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   return {
-    title: `${dict.reader.allSurah} — ULYAH.COM`,
+    title: `${dict.reader.allSurah} — ${TENANT.siteName}`,
     description: dict.reader.sectionSubtitle,
     alternates: { canonical: `/${locale}/quran` },
   };

@@ -15,7 +15,7 @@ export interface LocaleDef {
   fallbackTranslationLang?: string;
 }
 
-export const LOCALES: LocaleDef[] = [
+const ALL_LOCALES: LocaleDef[] = [
   { code: "id", label: "Bahasa Indonesia", dir: "ltr", hasQuranTranslation: true },
   { code: "en", label: "English", dir: "ltr", hasQuranTranslation: true },
   { code: "ru", label: "Русский", dir: "ltr", hasQuranTranslation: true },
@@ -26,7 +26,25 @@ export const LOCALES: LocaleDef[] = [
   { code: "ja", label: "日本語", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
 ];
 
-export const DEFAULT_LOCALE = "id";
+// Tenant narrowing (see apps/web/src/lib/tenant.ts): each sibling site ships
+// its own native language first plus English and Arabic (the naskh source).
+// NEXT_PUBLIC_TENANT is inlined by Next.js at build time; the worker-api build
+// never sets it, so the API keeps validating the full list for all sites.
+// Owner rule: "bahasa induk domain, bukan hasil translate" — the default
+// locale is the domain's own language.
+declare const process: { env?: Record<string, string | undefined> } | undefined;
+const TENANT_ID = (typeof process !== "undefined" && process?.env?.NEXT_PUBLIC_TENANT) || "ulyah";
+const TENANT_LOCALES: Record<string, { codes: string[]; def: string }> = {
+  "1fr": { codes: ["fr", "en", "ar"], def: "fr" },
+  tilawa: { codes: ["de", "en", "ar"], def: "de" },
+};
+const _tenantL = TENANT_LOCALES[TENANT_ID];
+
+export const LOCALES: LocaleDef[] = _tenantL
+  ? ALL_LOCALES.filter((l) => _tenantL.codes.includes(l.code))
+  : ALL_LOCALES;
+
+export const DEFAULT_LOCALE = _tenantL ? _tenantL.def : "id";
 
 export function isValidLocale(code: string): boolean {
   return LOCALES.some((l) => l.code === code);

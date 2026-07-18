@@ -24,14 +24,16 @@ import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
 import { LiveStreamsTab } from "@/components/admin/LiveStreamsTab";
 import { KaggleGuideTab } from "@/components/admin/KaggleGuideTab";
 import { KidsChannelsTab } from "@/components/admin/KidsChannelsTab";
+import { HajjTab } from "@/components/admin/HajjTab";
 import { MonitorTab } from "@/components/admin/MonitorTab";
 import { BacklogTab } from "@/components/admin/BacklogTab";
 import { OrchestraTab } from "@/components/admin/OrchestraTab";
 import { SanadTab } from "@/components/admin/SanadTab";
 import { GrantTab } from "@/components/admin/GrantTab";
+import { SitePagesTab } from "@/components/admin/SitePagesTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kaggle";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kaggle" | "pages" | "hajj";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -49,11 +51,15 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [tab, setTab] = useState<Tab>("dashboard");
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
+  const [me, setMe] = useState<{ role?: string; tenant?: string | null; readOnly?: boolean } | null>(null);
 
   useEffect(() => {
     api
-      .get("/admin/auth/me")
-      .then(() => setAuthed(true))
+      .get<{ role?: string; tenant?: string | null; readOnly?: boolean }>("/admin/auth/me")
+      .then((r) => {
+        setMe(r);
+        setAuthed(true);
+      })
       .catch(() => setAuthed(false));
   }, [locale]);
 
@@ -93,8 +99,10 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["library", "📚 Perpustakaan"],
     ["adsense", "💰 AdSense"],
     ["widgets", "🧩 Widget Store"],
+    ["pages", "🧭 Halaman Situs"],
     ["live", "📡 Live Streaming"],
     ["kids", "🎬 Film Anak"],
+    ["hajj", "🕋 Haji & Umroh"],
     ["kaggle", "🎓 Kaggle GPU"],
     ["roadmap", "🗺️ Konsep"],
     ["account", "Account"],
@@ -124,6 +132,12 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
           {dict.admin.logout}
         </button>
       </div>
+
+      {me?.readOnly && (
+        <div className="mt-3 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-sm text-amber-600 dark:text-amber-400">
+          👁️ Demo (read-only) — you can view everything but changes are disabled.
+        </div>
+      )}
 
       <div className="mt-4 flex flex-wrap gap-2 border-b border-[var(--color-border)] pb-3">
         {tabs.map(([key, label]) => (
@@ -165,8 +179,10 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "library" && <LibraryTab />}
         {tab === "adsense" && <AdsenseTab />}
         {tab === "widgets" && <WidgetStoreTab />}
+        {tab === "pages" && <SitePagesTab />}
         {tab === "live" && <LiveStreamsTab />}
         {tab === "kids" && <KidsChannelsTab />}
+        {tab === "hajj" && <HajjTab />}
         {tab === "kaggle" && <KaggleGuideTab />}
         {tab === "roadmap" && <RoadmapTab />}
         {tab === "account" && <AccountTab />}
