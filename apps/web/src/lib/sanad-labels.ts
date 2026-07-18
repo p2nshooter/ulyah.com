@@ -91,7 +91,22 @@ const AR: SanadLabels = {
   stopChain: "⏹ إيقاف",
 };
 
-const MAP: Record<string, SanadLabels> = { en: EN, id: ID, fr: FR, de: DE, ar: AR };
+const ES: SanadLabels = {
+  title: "Explorador de sanad",
+  subtitle: "Observa la cadena de transmisores (isnad) contenida en el texto árabe de cada hadiz.",
+  chooseCollection: "Elige una colección",
+  chainLabel: "Cadena de transmisores",
+  disclaimer:
+    "Esta cadena se extrae automáticamente del texto árabe del hadiz (fórmulas clásicas de transmisión como ḥaddazana, ajbarana, ʻan). Es una ayuda de lectura, no un sustituto de una obra erudita de riyal.",
+  noChain: "No se pudo detectar una cadena para este hadiz — algunas narraciones son extractos sin isnad completo.",
+  hadithNo: "Hadiz n.º",
+  viewFull: "Leer el hadiz completo →",
+  narrators: "transmisores",
+  listenChain: "🔊 Escuchar la cadena",
+  stopChain: "⏹ Detener",
+};
+
+const MAP: Record<string, SanadLabels> = { en: EN, id: ID, fr: FR, de: DE, ar: AR, es: ES };
 
 export function sanadLabels(locale: string): SanadLabels {
   return MAP[locale] ?? EN;

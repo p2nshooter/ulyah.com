@@ -175,7 +175,36 @@ const DE: MushafLabels = {
   goButton: "Los",
 };
 
-const MAP: Record<string, MushafLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
+const ES: MushafLabels = {
+  navLabel: "Mushaf",
+  metaTitle: "Mushaf Uzmani — lector completo del Corán con paso de página",
+  metaDescription:
+    "Lee el Corán completo en la maquetación estándar del Mushaf Uzmani de 604 páginas, con una bella animación de paso de página, traducciones en todos los idiomas del sitio, audio de recitación y tafsir de fuentes de todo el mundo.",
+  title: "Mushaf Uzmani",
+  subtitle: "El Corán completo, página a página, exactamente como impreso — con recitación, traducción y tafsir.",
+  pageOf: (page, total) => `Página ${page} de ${total}`,
+  juzLabel: "Yuz",
+  jumpToSurah: "Ir a la sura",
+  jumpToJuz: "Ir al yuz",
+  prevPage: "Página anterior",
+  nextPage: "Página siguiente",
+  playPage: "🔊 Escuchar esta página",
+  stopPage: "⏹ Detener",
+  showTranslation: "Mostrar la traducción",
+  hideTranslation: "Ocultar la traducción",
+  translationLanguage: "Idioma de la traducción",
+  tafsirButton: "📖 Tafsir",
+  tafsirTitle: "Tafsir",
+  tafsirSource: "Fuente",
+  tafsirLoading: "Cargando el tafsir…",
+  tafsirEmpty: "No hay tafsir disponible para este versículo desde esta fuente.",
+  closeButton: "Cerrar",
+  loadingPage: "Cargando la página…",
+  pageInputLabel: "Página",
+  goButton: "Ir",
+};
+
+const MAP: Record<string, MushafLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function mushafLabels(locale: string): MushafLabels {
   return MAP[locale] ?? EN;

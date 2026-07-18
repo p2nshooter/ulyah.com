@@ -144,7 +144,31 @@ const DE: HaditsLabels = {
   noResults: "Keine Hadithe gefunden.",
 };
 
-const MAP: Record<string, HaditsLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
+const ES: HaditsLabels = {
+  title: "Biblioteca de hadices",
+  subtitle:
+    "Los nueve libros de la Sunna, más los Cuarenta Hadices de an-Nawawi y los Hadices Qudsí — para leer completos, en árabe con traducción, y cada hadiz puede escucharse en voz alta.",
+  books: "libros",
+  hadithCount: "hadices",
+  author: "Compilador",
+  read: "Leer",
+  backToBooks: "Todos los libros",
+  hadithNo: "Hadiz",
+  narrator: "Transmisor",
+  grade: "Grado",
+  listen: "Escuchar",
+  stop: "Detener",
+  playAll: "Reproducir todo",
+  pause: "Pausa",
+  prev: "Anterior",
+  next: "Siguiente",
+  page: "Página",
+  of: "de",
+  translatedNote: "Traducción generada automáticamente a partir del árabe.",
+  noResults: "No se encontraron hadices.",
+};
+
+const MAP: Record<string, HaditsLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function haditsLabels(locale: string): HaditsLabels {
   return MAP[locale] ?? EN;

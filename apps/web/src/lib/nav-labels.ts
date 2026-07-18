@@ -316,7 +316,66 @@ const FR: NavLabels = {
   ],
 };
 
-const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR };
+// dawa.es ships Spanish-first — same requirement, no EN fallback in the nav.
+const ES: NavLabels = {
+  home: "Inicio",
+  groups: [
+    {
+      key: "quran",
+      label: "El Corán",
+      icon: "📖",
+      items: [
+        { label: "Leer el Corán", path: "/quran" },
+        { label: "Mushaf Uzmani", path: "/quran/mushaf" },
+        { label: "Radio del Corán", path: "/radio" },
+        { label: "Násij y Mansuj", path: "/nasakh" },
+      ],
+    },
+    {
+      key: "kajian",
+      label: "Hadices y Libros",
+      icon: "📚",
+      items: [
+        { label: "Colecciones de hadices", path: "/hadits" },
+        { label: "Árbol del Sanad", path: "/sanad" },
+        { label: "Biblioteca de libros", path: "/kitab" },
+        { label: "Libros de madrasa", path: "/kitab-pesantren" },
+      ],
+    },
+    {
+      key: "kisah",
+      label: "Relatos y Audio",
+      icon: "🎧",
+      items: [
+        { label: "Relatos islámicos", path: "/kisah" },
+        { label: "Dibujos animados para niños", path: "/anak" },
+        { label: "Audiolibro", path: "/audiobook" },
+        { label: "Contenido diario", path: "/harian" },
+      ],
+    },
+    {
+      key: "ibadah",
+      label: "Adoración y Herramientas",
+      icon: "🕌",
+      items: [
+        { label: "Hach y Umra", path: "/haji-umroh" },
+        { label: "Prácticas diarias", path: "/amalan" },
+        { label: "Horarios de oración", path: "/jadwal-sholat" },
+        { label: "Imsakiya de Ramadán", path: "/imsakiyah" },
+        { label: "Dirección de la Alquibla", path: "/kiblat" },
+        { label: "Calendario hegiriano", path: "/kalender-hijriyah" },
+        { label: "Calculadora de Zakat", path: "/zakat" },
+        { label: "Herencia (Faráid)", path: "/waris" },
+      ],
+    },
+  ],
+  direct: [
+    { label: "🔴 En directo", path: "/live" },
+    { label: "Quiénes somos", path: "/tentang" },
+  ],
+};
+
+const MAP: Record<string, NavLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR, es: ES };
 
 /** Apply the admin portal's per-tenant show/hide + rename overrides to a nav
  * tree: drop hidden items (and any group left empty), and swap in custom
@@ -344,9 +403,9 @@ export function navLabels(locale: string): NavLabels {
   // 1fr.fr: donation is promoted into the top-level nav ("terang-terangan")
   // and the acquisition page is openly linked. Labels per language.
   const donate =
-    locale === "fr" ? "🤲 Faire un don" : locale === "de" ? "🤲 Spenden" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
+    locale === "fr" ? "🤲 Faire un don" : locale === "de" ? "🤲 Spenden" : locale === "es" ? "🤲 Donar" : locale === "id" ? "🤲 Donasi" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
   const acq =
-    locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
+    locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "es" ? "💎 Adquisición" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
   return {
     ...base,
     direct: [

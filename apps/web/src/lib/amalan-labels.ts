@@ -146,7 +146,32 @@ const FR: AmalanLabels = {
   },
 };
 
-const MAP: Record<string, AmalanLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR };
+const ES: AmalanLabels = {
+  title: "Prácticas diarias",
+  subtitle:
+    "Súplicas desde el despertar hasta el dormir, dikr, medicina profética (tibb an-nabawi) y la etiqueta de la limpieza y el cuidado — todo de fuentes auténticas, con árabe, transliteración, traducción y audio.",
+  metaTitle: "Prácticas diarias — Súplicas, Dikr, Medicina profética",
+  metaDesc:
+    "Una colección ordenada de prácticas diarias: súplicas desde el despertar hasta el dormir, dikr de la mañana y la tarde, medicina profética auténtica y la etiqueta de la limpieza y el cuidado personal — con árabe, transliteración, traducción y audio.",
+  loadError: "No se pudo cargar la colección — recarga esta página.",
+  categories: "Categorías",
+  note: "Nota",
+  listen: "🔊 Escuchar",
+  playSequence: "▶ Reproducir en orden",
+  stop: "⏹ Detener",
+  audioAll: "🔊 Todo",
+  audioArabic: "﴿ Árabe",
+  audioMeaning: "📖 Significado",
+  groups: {
+    doa: "Súplicas diarias",
+    dzikir: "Dikr",
+    asmaul: "Los 99 nombres de Alá",
+    thibb: "Medicina profética",
+    kecantikan: "Limpieza y cuidado",
+  },
+};
+
+const MAP: Record<string, AmalanLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR, es: ES };
 
 export function amalanLabels(locale: string): AmalanLabels {
   return MAP[locale] ?? EN;

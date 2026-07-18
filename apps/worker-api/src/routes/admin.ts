@@ -545,9 +545,9 @@ adminRoute.get("/analytics", async (c) => {
   });
 });
 
-// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de) ────────────────
-// One content DB, three sites. Each sibling's admin portal shows only its own
-// tenant; ulyah.com's admin sees all three side by side to watch each site's
+// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de + dawa.es) ──────
+// One content DB, four sites. Each sibling's admin portal shows only its own
+// tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
 adminRoute.get("/tenant-analytics", async (c) => {
   const [visitors, installs, uninstalls, series, pages, countries] = await Promise.all([
@@ -577,7 +577,7 @@ adminRoute.get("/tenant-analytics", async (c) => {
     ).all<{ tenant: string; country: string; n: number }>(),
   ]);
 
-  const TENANTS = ["ulyah", "1fr", "tilawa"];
+  const TENANTS = ["ulyah", "1fr", "tilawa", "dawa"];
   const byTenant = TENANTS.map((t) => {
     const v = visitors.results.find((r) => r.tenant === t);
     return {

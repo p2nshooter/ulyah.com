@@ -14,6 +14,24 @@ interface NavigatorWithRelatedApps extends Navigator {
 }
 
 const INSTALLED_KEY = "ulyah_pwa_installed";
+const REPORTED_KEY = "ulyah_pwa_install_reported";
+
+/** Report one install per actual install: the accepted-prompt branch AND the
+ * `appinstalled` event both fire on Chrome for the same single install, which
+ * double-counted every install in the admin report. A short-lived timestamp
+ * lets a genuine REINSTALL (uninstall → install again, always minutes-to-days
+ * apart) count again while the duplicate seconds-apart signal is dropped. */
+function reportInstallOnce(app: string) {
+  try {
+    const key = `${REPORTED_KEY}_${app}`;
+    const last = Number(window.localStorage.getItem(key) ?? 0);
+    if (Date.now() - last < 10 * 60 * 1000) return;
+    window.localStorage.setItem(key, String(Date.now()));
+  } catch {
+    /* storage unavailable — still report rather than lose the event */
+  }
+  api.post("/analytics/install", { app }).catch(() => {});
+}
 
 /**
  * A permanent "Install App" trigger — never a popup or banner that reappears
@@ -119,7 +137,7 @@ export function InstallAppButton({
       window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
       setInstalled(true);
       setDeferredPrompt(null);
-      api.post("/analytics/install", { app }).catch(() => {});
+      reportInstallOnce(app);
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
@@ -142,7 +160,7 @@ export function InstallAppButton({
       if (choice.outcome === "accepted") {
         window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
         setInstalled(true);
-        api.post("/analytics/install", { app }).catch(() => {});
+        reportInstallOnce(app);
       }
       return;
     }

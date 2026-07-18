@@ -10,7 +10,31 @@ import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
+// Modular CSS architecture (src/styles/README.md): tokens+base → shared
+// animations → components → per-site themes (last, so tenant tokens win).
 import "../globals.css";
+import "@/styles/core/animations.css";
+import "@/styles/components/mushaf.css";
+import "@/styles/components/kids.css";
+import "@/styles/components/sanad.css";
+import "@/styles/components/ornaments.css";
+import "@/styles/themes/ulyah.css";
+import "@/styles/themes/france.css";
+import "@/styles/themes/germany.css";
+import "@/styles/themes/spain.css";
+
+// The four-domain hreflang cluster (owner: Update Global Seluruh Portal §3):
+// every page on every site declares its language siblings across DOMAINS —
+// id → ulyah.com, fr → 1fr.fr, de → tilawa.de, es → dawa.es, with ulyah.com
+// as x-default. Google then treats the four sites as translations of one
+// another instead of flagging duplicates.
+const HREFLANG_CLUSTER: Record<string, string> = {
+  id: "https://ulyah.com/",
+  fr: "https://1fr.fr/",
+  de: "https://tilawa.de/",
+  es: "https://dawa.es/",
+  "x-default": "https://ulyah.com/",
+};
 
 export function generateStaticParams() {
   return LOCALES.map((l) => ({ locale: l.code }));
@@ -41,8 +65,13 @@ export async function generateMetadata({
     description: dict.hero.description,
     metadataBase: new URL(TENANT.siteUrl),
     alternates: {
-      canonical: `/${locale}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l.code, `/${l.code}`])),
+      // Self-referencing canonical on EVERY page ("./" resolves against the
+      // current route) — the old `/${locale}` made every child page
+      // canonicalize to the locale home, which is exactly the "Alternate
+      // page with canonical" / "Duplicate without user-selected canonical"
+      // mess Google Search Console reported.
+      canonical: "./",
+      languages: HREFLANG_CLUSTER,
     },
     manifest: `/manifest.webmanifest?locale=${locale}`,
     icons:
@@ -86,8 +115,9 @@ export async function generateMetadata({
 export const viewport: Viewport = {
   // The browser/PWA chrome colour must match EACH site (owner: "warna aplikasi
   // harus seimbang dengan website"), not a baked-in emerald: 1fr navy, tilawa
-  // charcoal, ulyah emerald.
-  themeColor: TENANT.id === "1fr" ? "#17294a" : TENANT.id === "tilawa" ? "#14181d" : "#0B3D2E",
+  // charcoal, dawa terracotta, ulyah emerald.
+  themeColor:
+    TENANT.id === "1fr" ? "#17294a" : TENANT.id === "tilawa" ? "#14181d" : TENANT.id === "dawa" ? "#8a3b12" : "#0B3D2E",
   width: "device-width",
   initialScale: 1,
 };
@@ -114,9 +144,10 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{
             // Each sibling has a SIGNATURE default theme so it reads as its own
             // product on first paint: 1fr.fr opens light (ivory editorial),
-            // tilawa.de opens dark (graphite technical), ulyah follows the OS.
-            // A saved preference always wins.
-            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
+            // tilawa.de opens dark (graphite technical), dawa.es opens light
+            // (sunny Mediterranean), ulyah follows the OS. A saved preference
+            // always wins.
+            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":tn==="dawa"?"light":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
           }}
         />
         {/* Per-tenant typography — each sibling site has its OWN type system so
@@ -137,7 +168,9 @@ export default async function LocaleLayout({
               ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap"
               : TENANT.id === "tilawa"
                 ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-                : "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
+                : TENANT.id === "dawa"
+                  ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Marcellus&family=Nunito:wght@300;400;600;700;800&display=swap"
+                  : "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
           }
           rel="stylesheet"
         />
@@ -156,7 +189,9 @@ export default async function LocaleLayout({
                   ? "1FR — One Faith France"
                   : TENANT.id === "tilawa"
                     ? "Tilawa — Islam hören"
-                    : "Ulyah — Listen to Islam",
+                    : TENANT.id === "dawa"
+                      ? "Dawa — El Islam en Español"
+                      : "Ulyah — Listen to Islam",
               url: TENANT.siteUrl,
               inLanguage: LOCALES.map((l) => l.code),
               publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
@@ -168,24 +203,29 @@ export default async function LocaleLayout({
             }),
           }}
         />
+        {/* Organization schema is per-tenant — a sibling site must never
+            declare itself as the ULYAH organization (branding leak). */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "ULYAH.COM",
-              url: "https://ulyah.com",
-              logo: "https://ulyah.com/icon-512.png",
-              description: "Al-Qur'an, tafsir, hadits, dan kisah Islami — dibaca dan didengarkan dengan suara.",
+              name: TENANT.siteName,
+              url: TENANT.siteUrl,
+              logo: `${TENANT.siteUrl}${TENANT.id === "ulyah" ? "/icon-512.png" : TENANT.logoIcon}`,
+              description: dict.hero.description,
             }),
           }}
         />
-        {/* This site shows NO ads anywhere — no AdSense, no Adsterra. This
-            meta tag only proves domain ownership for a future AdSense
-            application; it does not load any ad script and never will on its
-            own. */}
+        {/* Google AdSense on EVERY page of EVERY site (owner: Update Global
+            Seluruh Portal §2). The async loader never blocks rendering. */}
         <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>
         <SwRegister />

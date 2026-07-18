@@ -114,7 +114,26 @@ const FR: QiblaLabels = {
   compassUnsupported: "Votre appareil n'a pas de capteur de boussole — utilisez l'angle fixe ci-dessus avec une vraie boussole.",
 };
 
-const MAP: Record<string, QiblaLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR };
+const ES: QiblaLabels = {
+  title: "Dirección de la Alquibla",
+  subtitle: "La dirección y la distancia hasta la Kaaba desde tu ubicación actual.",
+  locating: "Detectando tu ubicación…",
+  locationLabel: "Tu ubicación",
+  bearingLabel: "Ángulo de la alquibla (desde el Norte verdadero)",
+  distanceLabel: "Distancia hasta la Kaaba",
+  howToUse:
+    "Coloca una brújula real en plano, localiza el Norte y gírate hacia el ángulo mostrado arriba (medido en sentido horario desde el Norte) — esa es la dirección de la alquibla desde donde estás.",
+  manualNote: "La ubicación se estima a partir de tu red/IP, así que puede desviarse el ancho de una ciudad — suficiente para un ángulo de brújula, no para un mapa de precisión.",
+  errorLabel: "No se pudo detectar tu ubicación — inténtalo de nuevo en un momento.",
+  enableCompass: "Activar la brújula en vivo",
+  compassLive: "Brújula en vivo — gira tu teléfono hasta que la flecha apunte recto hacia arriba",
+  compassHint: "Sostén el teléfono en plano y gira despacio; la flecha dorada sigue la alquibla en tiempo real. Si se desvía, mueve el teléfono en forma de 8 para recalibrarlo.",
+  turnToKaaba: "Gírate siguiendo la flecha",
+  facingKaaba: "Estás mirando hacia la alquibla 🕋",
+  compassUnsupported: "Tu dispositivo no tiene sensor de brújula — usa el ángulo fijo de arriba con una brújula real.",
+};
+
+const MAP: Record<string, QiblaLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR, es: ES };
 
 export function qiblaLabels(locale: string): QiblaLabels {
   return MAP[locale] ?? EN;

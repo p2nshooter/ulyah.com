@@ -1,0 +1,108 @@
+/* ── Core animations — shared by every site ──────────────────────────────
+   All motion is transform/opacity only (GPU-composited, no layout work).
+   Per-site character comes from the theme files re-tinting the colours the
+   keyframes reference via CSS variables — the motion contract stays one. */
+
+/* Running-text ticker (Jadwal Sholat's rotating nasehat). The track holds
+   the content twice back-to-back and scrolls exactly one copy's width, so
+   the loop point is seamless. Duration is set inline per instance (longer
+   text needs more time to stay readable). */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-scroll linear infinite;
+}
+
+/* ── Sitewide entrance animation ─────────────────────────────────────────
+   Add .reveal-stagger to any list/grid container: its direct children fade
+   and rise in one after another on page load. Pure CSS (nth-child delays,
+   capped at 12 then everything appears together) — no observer JS, no
+   layout shift since only opacity/transform animate. Respects
+   prefers-reduced-motion. */
+.reveal-stagger > * {
+  opacity: 0;
+  animation: reveal-up 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.reveal-stagger > *:nth-child(1) { animation-delay: 40ms; }
+.reveal-stagger > *:nth-child(2) { animation-delay: 110ms; }
+.reveal-stagger > *:nth-child(3) { animation-delay: 180ms; }
+.reveal-stagger > *:nth-child(4) { animation-delay: 250ms; }
+.reveal-stagger > *:nth-child(5) { animation-delay: 320ms; }
+.reveal-stagger > *:nth-child(6) { animation-delay: 390ms; }
+.reveal-stagger > *:nth-child(7) { animation-delay: 460ms; }
+.reveal-stagger > *:nth-child(8) { animation-delay: 530ms; }
+.reveal-stagger > *:nth-child(9) { animation-delay: 600ms; }
+.reveal-stagger > *:nth-child(10) { animation-delay: 670ms; }
+.reveal-stagger > *:nth-child(11) { animation-delay: 740ms; }
+.reveal-stagger > *:nth-child(n + 12) { animation-delay: 800ms; }
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero entrance — title sweeps up with a soft glow settling in. */
+.hero-entrance {
+  animation: hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(22px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Soft floating ornament (hero decorations, section icons). */
+.float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+/* Shimmer sweep for premium CTAs (runs once on hover). Gold on ulyah/1fr,
+   re-tinted per theme via --shimmer-tint. */
+.shimmer-gold {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, var(--shimmer-tint, rgba(255, 245, 210, 0.35)), transparent);
+}
+.shimmer-gold:hover::after {
+  animation: shimmer-sweep 700ms ease forwards;
+}
+@keyframes shimmer-sweep {
+  to { transform: translateX(120%) skewX(-18deg); }
+}
+
+/* Tajwid rule popup — zooms in from below, non-modal. */
+.tajwid-pop {
+  animation: tajwid-pop-in 320ms cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+@keyframes tajwid-pop-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(24px) scale(0.8); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-stagger > *,
+  .hero-entrance,
+  .sanad-node,
+  .sanad-line,
+  .float-soft,
+  .kids-character,
+  .kids-caption-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

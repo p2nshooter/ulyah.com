@@ -1,0 +1,101 @@
+/* ────────────────────────────────────────────────────────────────────
+   1fr.fr — FRENCH EDITORIAL LUXURY
+   Light pearl ivory · emerald ink · champagne gold · Playfair serif.
+   Refined luxury magazine: airy, centred, gold hairlines, marble wash.
+   Signature theme: LIGHT (set in the layout).
+   ──────────────────────────────────────────────────────────────────── */
+html[data-tenant="1fr"] {
+  --color-primary: #16241d;          /* deep emerald ink (footer/brand) */
+  --color-primary-dark: #0e1a14;
+  --color-accent: #c9a227;           /* champagne gold */
+  --color-accent-light: #ddc06a;
+  --color-accent-xl: #efe0b0;
+  --panel-bg: #16241d;
+  --panel-bg2: #1f3a2e;
+  --panel-fg: #f7f4ec;
+  --radius-card: 0.5rem;
+  --shadow-gold: 0 2px 20px rgba(201, 162, 39, 0.22);
+  --color-border-gold: rgba(201, 162, 39, 0.30);
+  --shimmer-tint: rgba(255, 245, 210, 0.4);
+}
+html[data-tenant="1fr"][data-theme="light"] {
+  --color-bg: #f7f4ec;               /* pearl ivory */
+  --color-card: #fffdf8;
+  --color-surface: #efeadd;
+  --color-surface-2: #e6dfcc;
+  --color-border: #e4dcc6;
+  --color-text-primary: #16241d;
+  --color-text-secondary: #5b6b60;
+}
+html[data-tenant="1fr"][data-theme="dark"] {
+  --color-bg: #0e1a14;
+  --color-card: #14271e;
+  --color-surface-2: rgba(247, 244, 236, 0.05);
+  --color-text-primary: #f7f4ec;
+  --color-text-secondary: #c3cfc6;
+  --color-border: rgba(247, 244, 236, 0.14);
+}
+/* Display serif — large, elegant, editorial */
+html[data-tenant="1fr"] .font-heading,
+html[data-tenant="1fr"] h1,
+html[data-tenant="1fr"] h2,
+html[data-tenant="1fr"] h3,
+html[data-tenant="1fr"] blockquote p {
+  font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+html[data-tenant="1fr"] h1 { font-weight: 800; line-height: 1.08; }
+html[data-tenant="1fr"] body,
+html[data-tenant="1fr"] { font-family: "Jost", "Inter", system-ui, sans-serif; line-height: 1.7; }
+/* Soft architectural light wash (marble-arch feel) */
+html[data-tenant="1fr"] body {
+  background-image:
+    radial-gradient(1200px 520px at 78% -8%, rgba(201, 162, 39, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 0% 0%, rgba(31, 111, 84, 0.06), transparent 55%);
+  background-attachment: fixed;
+}
+/* Ivory hairline cards */
+html[data-tenant="1fr"] .card-premium {
+  border-radius: var(--radius-card);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 34%, transparent);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+html[data-tenant="1fr"] .card-premium:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 12px 34px rgba(201, 162, 39, 0.16);
+}
+/* Curved editorial radii */
+html[data-tenant="1fr"] .rounded-xl,
+html[data-tenant="1fr"] .rounded-2xl,
+html[data-tenant="1fr"] .rounded-3xl { border-radius: 1.1rem; }
+html[data-tenant="1fr"] .rounded-full { border-radius: 9999px; }
+html[data-tenant="1fr"] .rounded-lg,
+html[data-tenant="1fr"] .rounded-md { border-radius: 0.8rem; }
+/* Centred serif masthead: translucent pearl + double champagne rule */
+html[data-tenant="1fr"] header {
+  background: color-mix(in srgb, var(--color-bg) 86%, transparent);
+  border-bottom: 1px solid var(--color-border-gold);
+  box-shadow: inset 0 -3px 0 -1.5px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+html[data-tenant="1fr"] header nav a { text-transform: uppercase; letter-spacing: 0.11em; font-size: 0.72rem; }
+html[data-tenant="1fr"] .section-divider { text-align: center; }
+html[data-tenant="1fr"] .section-divider span { border-color: var(--color-accent); }
+/* Emerald solid CTA with a soft gold glow */
+html[data-tenant="1fr"] .bg-accent { box-shadow: 0 6px 20px rgba(201, 162, 39, 0.22); }
+/* Editorial links + refined focus */
+html[data-tenant="1fr"] a:not(.card-premium):not(header a):hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+/* Gold thin scrollbar + selection */
+html[data-tenant="1fr"] * { scrollbar-width: thin; scrollbar-color: #c9a227 transparent; }
+html[data-tenant="1fr"] *::-webkit-scrollbar { width: 9px; height: 9px; }
+html[data-tenant="1fr"] *::-webkit-scrollbar-thumb { background: #c9a227; border-radius: 9999px; }
+html[data-tenant="1fr"] ::selection { background: rgba(201, 162, 39, 0.28); color: #16241d; }
+html[data-tenant="1fr"] footer { text-align: center; }
+/* App-hero motif — a finer interlaced star lattice (editorial, delicate). */
+html[data-tenant="1fr"] .app-hero::before {
+  opacity: 0.12;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='0.9'%3E%3Crect%20x='7'%20y='7'%20width='16'%20height='16'/%3E%3Crect%20x='7'%20y='7'%20width='16'%20height='16'%20transform='rotate(45%2015%2015)'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 30px 30px;
+  mask-size: 30px 30px;
+}

@@ -160,7 +160,7 @@ export function HajjTab() {
       {isUlyah && (
         <div className="flex items-center gap-2 text-sm">
           <span className="text-[var(--color-text-secondary)]">Situs:</span>
-          {["ulyah", "1fr", "tilawa"].map((t) => (
+          {["ulyah", "1fr", "tilawa", "dawa"].map((t) => (
             <button
               key={t}
               onClick={() => {
@@ -169,7 +169,7 @@ export function HajjTab() {
               }}
               className={`rounded-full px-3 py-1 text-xs ${tenant === t ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
             >
-              {t === "1fr" ? "1fr.fr" : t === "tilawa" ? "tilawa.de" : "ulyah.com"}
+              {t === "1fr" ? "1fr.fr" : t === "tilawa" ? "tilawa.de" : t === "dawa" ? "dawa.es" : "ulyah.com"}
             </button>
           ))}
         </div>

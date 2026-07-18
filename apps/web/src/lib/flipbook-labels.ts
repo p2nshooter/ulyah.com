@@ -45,7 +45,40 @@ const AR: FlipbookLabels = {
   chooseSurah: "اختر سورة",
 };
 
-const MAP: Record<string, FlipbookLabels> = { en: EN, id: ID, ar: AR };
+const FR: FlipbookLabels = {
+  title: "Mushaf Uthmani (application)",
+  subtitle: "Le Mushaf Uthmani complet de 604 pages avec une animation de tourne-page — installable sur votre écran d'accueil comme application indépendante.",
+  installStandalone: "Installer comme application indépendante",
+  pageOf: "Page",
+  prevPage: "Page précédente",
+  nextPage: "Page suivante",
+  tapHint: "Touchez les bords ou faites glisser pour tourner la page",
+  chooseSurah: "Choisir une sourate",
+};
+
+const DE: FlipbookLabels = {
+  title: "Uthmani-Mushaf (App)",
+  subtitle: "Der vollständige Uthmani-Mushaf mit 604 Seiten und Umblätter-Animation — als eigene App auf dem Startbildschirm installierbar.",
+  installStandalone: "Als eigenständige App installieren",
+  pageOf: "Seite",
+  prevPage: "Vorherige Seite",
+  nextPage: "Nächste Seite",
+  tapHint: "Tippe auf die Ränder oder wische, um umzublättern",
+  chooseSurah: "Sure wählen",
+};
+
+const ES: FlipbookLabels = {
+  title: "Mushaf Uzmani (aplicación)",
+  subtitle: "El Mushaf Uzmani completo de 604 páginas con animación de paso de página — instalable en tu pantalla de inicio como aplicación independiente.",
+  installStandalone: "Instalar como aplicación independiente",
+  pageOf: "Página",
+  prevPage: "Página anterior",
+  nextPage: "Página siguiente",
+  tapHint: "Toca los bordes o desliza para pasar la página",
+  chooseSurah: "Elegir una sura",
+};
+
+const MAP: Record<string, FlipbookLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function flipbookLabels(locale: string): FlipbookLabels {
   return MAP[locale] ?? EN;

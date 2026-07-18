@@ -165,7 +165,34 @@ const DE: KitabLabels = {
   translationLabel: "Übersetzung",
 };
 
-const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE };
+const ES: KitabLabels = {
+  title: "Biblioteca islámica",
+  subtitle: "Las obras clásicas de la tradición islámica — tafsir, hadices, las cuatro escuelas, sira, historia y las vidas de los sabios. Cada resumen puede escucharse en voz alta.",
+  categories: "Categorías",
+  works: "obras",
+  browse: "Explorar",
+  searchPlaceholder: "Busca una obra o un autor…",
+  author: "Autor",
+  died: "f.",
+  topics: "Temas tratados",
+  about: "Sobre esta obra",
+  listen: "Escuchar",
+  stop: "Detener",
+  source: "Fuente",
+  backToCategories: "Todas las categorías",
+  backToCategory: "Volver a la categoría",
+  noResults: "No se encontraron obras.",
+  prev: "Anterior",
+  next: "Siguiente",
+  page: "Página",
+  worksInCategory: "obras en esta categoría",
+  openWork: "Abrir",
+  note: "Solo catálogo y resúmenes, para estudio y referencia.",
+  arabicOnlyNote: "La descripción de esta obra está en árabe, la lengua clásica original — se lee en voz alta con una voz árabe abajo.",
+  translationLabel: "Traducción",
+};
+
+const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function kitabLabels(locale: string): KitabLabels {
   return MAP[locale] ?? EN;

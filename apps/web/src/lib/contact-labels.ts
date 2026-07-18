@@ -65,7 +65,20 @@ const DE: ContactLabels = {
   otherLinksLabel: "Vielleicht suchen Sie auch",
 };
 
-const MAP: Record<string, ContactLabels> = { en: EN, id: ID, fr: FR, de: DE };
+const ES: ContactLabels = {
+  navLabel: "Contacto",
+  title: "Contacto",
+  subtitle: "Nos encantará saber de ti.",
+  intro:
+    "Una pregunta, una sugerencia, una corrección o simplemente un saludo — envíalo a nuestro correo oficial de abajo. Para asuntos de donaciones, visita la página de Donación; para preguntas sobre tus datos, consulta nuestra Política de privacidad.",
+  emailLabel: "Correo oficial",
+  dedication:
+    "Cada mensaje que nos llega lo recibimos con el corazón abierto. Esta bandeja no es solo una bandeja de entrada — es parte de nuestro esfuerzo por llevar con fidelidad la responsabilidad de transmitir el conocimiento. Dedicamos este espacio a quien quiera preguntar, corregirnos, proponer un bien o simplemente saludar, porque cada palabra que envías forma parte de la mejora por la que seguimos trabajando, si Dios quiere.",
+  responseNote: "Leemos cada mensaje que llega, aunque la respuesta pueda tardar — gracias por tu paciencia.",
+  otherLinksLabel: "Quizá también busques",
+};
+
+const MAP: Record<string, ContactLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function contactLabels(locale: string): ContactLabels {
   return MAP[locale] ?? EN;

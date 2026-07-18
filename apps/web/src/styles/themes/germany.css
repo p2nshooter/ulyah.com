@@ -1,0 +1,112 @@
+/* ────────────────────────────────────────────────────────────────────
+   tilawa.de — GERMAN MODERN TECH
+   Near-black navy · electric violet · Space Grotesk sans · glassy glow.
+   Modern German app landing: dark, glowing cards, particle grid.
+   Signature theme: DARK (set in the layout).
+   ──────────────────────────────────────────────────────────────────── */
+html[data-tenant="tilawa"] {
+  --color-primary: #151a2e;          /* dark navy (footer/brand) */
+  --color-primary-dark: #0c0e18;
+  --color-accent: #7c5cff;           /* electric violet */
+  --color-accent-light: #a889ff;
+  --color-accent-xl: #cbb8ff;
+  --panel-bg: #0c0e18;
+  --panel-bg2: #171d38;
+  --panel-fg: #eceefb;
+  --radius-card: 0.35rem;
+  --shadow-gold: 0 2px 22px rgba(124, 92, 255, 0.35);
+  --color-border-gold: rgba(124, 92, 255, 0.36);
+  --shimmer-tint: rgba(203, 184, 255, 0.35);
+}
+html[data-tenant="tilawa"][data-theme="dark"] {
+  --color-bg: #0c0e18;               /* near-black navy */
+  --color-card: #151a2e;
+  --color-surface-2: rgba(236, 238, 251, 0.05);
+  --color-text-primary: #eceefb;
+  --color-text-secondary: #9aa0c0;
+  --color-border: rgba(160, 150, 220, 0.16);
+}
+html[data-tenant="tilawa"][data-theme="light"] {
+  --color-bg: #f2f2fb;
+  --color-card: #ffffff;
+  --color-surface: #e9e9f7;
+  --color-surface-2: #e1e1f2;
+  --color-border: #dcdcef;
+  --color-text-primary: #14152b;
+  --color-text-secondary: #55597a;
+}
+/* Geometric bold sans display */
+html[data-tenant="tilawa"] .font-heading,
+html[data-tenant="tilawa"] h1,
+html[data-tenant="tilawa"] h2,
+html[data-tenant="tilawa"] h3 {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+html[data-tenant="tilawa"] h1 { line-height: 1.03; }
+html[data-tenant="tilawa"] body,
+html[data-tenant="tilawa"] { font-family: "Inter", system-ui, sans-serif; line-height: 1.5; }
+/* Dark particle glow + dotted grid */
+html[data-tenant="tilawa"] body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(680px 380px at 88% 4%, rgba(124, 92, 255, 0.20), transparent 60%),
+    radial-gradient(560px 360px at 6% 96%, rgba(139, 92, 246, 0.14), transparent 60%),
+    radial-gradient(rgba(160, 150, 220, 0.10) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px;
+  background-attachment: fixed, fixed, scroll;
+}
+/* Glassy squared cards with violet glow on hover */
+html[data-tenant="tilawa"] .card-premium {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-card) 82%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+html[data-tenant="tilawa"] .card-premium:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(124, 92, 255, 0.28);
+}
+/* Squared radii */
+html[data-tenant="tilawa"] .rounded-xl,
+html[data-tenant="tilawa"] .rounded-2xl,
+html[data-tenant="tilawa"] .rounded-3xl { border-radius: 0.5rem; }
+html[data-tenant="tilawa"] .rounded-lg,
+html[data-tenant="tilawa"] .rounded-md { border-radius: 0.35rem; }
+html[data-tenant="tilawa"] .rounded-full { border-radius: 0.4rem; }
+/* Gradient violet buttons with white text */
+html[data-tenant="tilawa"] .bg-accent {
+  background-image: linear-gradient(135deg, #7c5cff, #5b8cff);
+  box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
+  font-weight: 700;
+}
+html[data-tenant="tilawa"] .bg-accent.text-primary,
+html[data-tenant="tilawa"] a.bg-accent,
+html[data-tenant="tilawa"] button.bg-accent { color: #ffffff !important; }
+/* Header: dark glass bar with a violet underglow */
+html[data-tenant="tilawa"] header {
+  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 1px 0 rgba(124, 92, 255, 0.25), 0 8px 30px -20px rgba(124, 92, 255, 0.6);
+}
+html[data-tenant="tilawa"] header nav a { letter-spacing: 0.01em; font-weight: 600; text-transform: uppercase; font-size: 0.72rem; }
+/* Headings get a violet left tick */
+html[data-tenant="tilawa"] h2.font-heading { padding-left: 0.6rem; border-left: 3px solid var(--color-accent); }
+/* Violet blocky scrollbar + selection */
+html[data-tenant="tilawa"] * { scrollbar-width: thin; scrollbar-color: #7c5cff #0c0e18; }
+html[data-tenant="tilawa"] *::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-tenant="tilawa"] *::-webkit-scrollbar-thumb { background: #7c5cff; border-radius: 0; }
+html[data-tenant="tilawa"] *::-webkit-scrollbar-track { background: #0c0e18; }
+html[data-tenant="tilawa"] ::selection { background: rgba(124, 92, 255, 0.4); color: #ffffff; }
+html[data-tenant="tilawa"] footer { border-top: 3px solid var(--color-accent); }
+/* App-hero motif — an octagon-and-square girih grid (modern, geometric). */
+html[data-tenant="tilawa"] .app-hero::before {
+  opacity: 0.11;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='44'%20height='44'%20viewBox='0%200%2044%2044'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='1'%3E%3Cpolygon%20points='14,3%2030,3%2041,14%2041,30%2030,41%2014,41%203,30%203,14'/%3E%3Crect%20x='17'%20y='17'%20width='10'%20height='10'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 44px 44px;
+  mask-size: 44px 44px;
+}

@@ -1,7 +1,37 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { TENANT } from "@/lib/tenant";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
+
+// Generic fallback copy per locale — brand always the tenant's own.
+const KITAB_COPY: Record<string, { name: string; desc: string; read: string }> = {
+  id: {
+    name: `Kitab Pesantren — ${TENANT.siteName}`,
+    desc: "Kitab kuning digital lengkap: matan, terjemah, dan penjelasan — siap dipasang sebagai aplikasi tersendiri.",
+    read: "Baca",
+  },
+  en: {
+    name: `Kitab Library — ${TENANT.siteName}`,
+    desc: "The complete digital classical texts: matn, translation, and explanation — installable as its own app.",
+    read: "Read",
+  },
+  fr: {
+    name: `Bibliothèque de Kitâb — ${TENANT.siteName}`,
+    desc: "Les textes classiques numériques complets : matn, traduction et explication — installable comme application indépendante.",
+    read: "Lire",
+  },
+  de: {
+    name: `Kitāb-Bibliothek — ${TENANT.siteName}`,
+    desc: "Die vollständigen klassischen Texte digital: Matn, Übersetzung und Erklärung — als eigene App installierbar.",
+    read: "Lesen",
+  },
+  es: {
+    name: `Biblioteca de Kitab — ${TENANT.siteName}`,
+    desc: "Los textos clásicos digitales completos: matn, traducción y explicación — instalable como aplicación independiente.",
+    read: "Leer",
+  },
+};
 
 /**
  * Dynamic, PER-BOOK installable manifest for the Kitab Pesantren library —
@@ -22,9 +52,10 @@ export async function GET(req: NextRequest) {
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const slug = req.nextUrl.searchParams.get("slug") ?? "";
 
-  let name = "Kitab Pesantren — ULYAH";
-  let shortName = "Kitab Pesantren";
-  let description = "Kitab kuning digital lengkap: matan, terjemah, dan penjelasan — siap dipasang sebagai aplikasi tersendiri.";
+  const copy = KITAB_COPY[locale] ?? KITAB_COPY.en!;
+  let name = copy.name;
+  let shortName = "Kitab";
+  let description = copy.desc;
 
   if (slug) {
     try {
@@ -37,9 +68,9 @@ export async function GET(req: NextRequest) {
       if (res.ok) {
         const data = (await res.json()) as { kitab?: { title_id?: string; title_ar?: string } };
         if (data.kitab?.title_id) {
-          name = `${data.kitab.title_id} — ULYAH`;
+          name = `${data.kitab.title_id} — ${TENANT.siteName}`;
           shortName = data.kitab.title_id.length > 24 ? `${data.kitab.title_id.slice(0, 21)}…` : data.kitab.title_id;
-          description = `Baca ${data.kitab.title_id} (${data.kitab.title_ar ?? ""}) lengkap — matan, terjemah, dan penjelasan, bisa didengarkan.`;
+          description = `${copy.read} ${data.kitab.title_id} (${data.kitab.title_ar ?? ""}) — matn, ${locale === "id" ? "terjemah, dan penjelasan, bisa didengarkan" : locale === "fr" ? "traduction et explication, avec audio" : locale === "de" ? "Übersetzung und Erklärung, mit Audio" : locale === "es" ? "traducción y explicación, con audio" : "translation, and explanation, with audio"}.`;
         }
       }
     } catch {

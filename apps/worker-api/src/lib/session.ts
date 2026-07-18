@@ -24,7 +24,7 @@ export interface SessionData {
   email: string;
   // Admin sessions carry their role + tenant scope so the API can enforce
   // read-only for demo accounts and scope a sibling admin to its own site.
-  // role: 'owner' | 'admin' | 'demo'; tenant: null (ulyah/global) | '1fr' | 'tilawa'.
+  // role: 'owner' | 'admin' | 'demo'; tenant: null (ulyah/global) | '1fr' | 'tilawa' | 'dawa'.
   role?: string;
   tenant?: string | null;
   // Only present on an `admin_pending_totp` token during first-time TOTP

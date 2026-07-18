@@ -1,0 +1,26 @@
+/* ────────────────────────────────────────────────────────────────────
+   ulyah.com — MODERN ISLAMIC PREMIUM (Indonesia)
+   Warm cream · forest emerald · antique gold · Cinzel display.
+   The token DEFAULTS for this theme live in app/globals.css (:root),
+   because ulyah is the base tenant every other theme overrides. This
+   file only carries ulyah's signature ornaments beyond the tokens.
+   ──────────────────────────────────────────────────────────────────── */
+
+/* Soft emerald-and-gold ambient wash behind the whole page — the "warm
+   nature" glow that makes ulyah feel organic rather than flat white. */
+html[data-tenant="ulyah"] body {
+  background-image:
+    radial-gradient(1100px 480px at 85% -6%, rgba(184, 137, 43, 0.07), transparent 60%),
+    radial-gradient(900px 480px at -5% 4%, rgba(11, 61, 46, 0.05), transparent 55%);
+  background-attachment: fixed;
+}
+html[data-tenant="ulyah"][data-theme="dark"] body {
+  background-image:
+    radial-gradient(1100px 480px at 85% -6%, rgba(184, 137, 43, 0.08), transparent 60%),
+    radial-gradient(900px 480px at -5% 4%, rgba(244, 239, 227, 0.03), transparent 55%);
+}
+
+/* Gold divider glyph + soft gold hover glow are ulyah's signature. */
+html[data-tenant="ulyah"] .card-premium:hover {
+  box-shadow: var(--shadow-gold);
+}

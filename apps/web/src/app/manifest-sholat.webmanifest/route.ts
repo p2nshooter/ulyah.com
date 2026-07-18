@@ -1,5 +1,37 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { TENANT } from "@/lib/tenant";
+
+// Native-language app name/description per locale — a sibling site must
+// never install an app named "ULYAH" with an Indonesian description
+// (owner: language + branding purity on every surface, manifests included).
+const SHOLAT_COPY: Record<string, { name: string; short: string; desc: string }> = {
+  id: {
+    name: `Jadwal Sholat & Radio Qori — ${TENANT.siteName}`,
+    short: "Jadwal Sholat",
+    desc: "Jadwal sholat sesuai lokasi Anda, hitung mundur Ramadhan, jam dunia, dan Radio Qori Dunia yang selalu hidup.",
+  },
+  en: {
+    name: `Prayer Times & Qori Radio — ${TENANT.siteName}`,
+    short: "Prayer Times",
+    desc: "Prayer times for your location, Ramadan countdown, world clocks, and the always-on World Reciters Radio.",
+  },
+  fr: {
+    name: `Heures de prière & Radio — ${TENANT.siteName}`,
+    short: "Heures de prière",
+    desc: "Les heures de prière selon votre position, le compte à rebours du Ramadan, les horloges mondiales et la radio des récitateurs toujours en direct.",
+  },
+  de: {
+    name: `Gebetszeiten & Radio — ${TENANT.siteName}`,
+    short: "Gebetszeiten",
+    desc: "Gebetszeiten für deinen Standort, Ramadan-Countdown, Weltuhren und das immer laufende Rezitatoren-Radio.",
+  },
+  es: {
+    name: `Horarios de oración y Radio — ${TENANT.siteName}`,
+    short: "Horarios de oración",
+    desc: "Horarios de oración según tu ubicación, cuenta atrás del Ramadán, relojes del mundo y la radio de recitadores siempre en directo.",
+  },
+};
 
 /**
  * Dynamic, locale-aware manifest for the "Jadwal Sholat" mini-app — replaces
@@ -23,11 +55,11 @@ export function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get("locale") ?? "";
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
 
+  const copy = SHOLAT_COPY[locale] ?? SHOLAT_COPY.en!;
   const manifest = {
-    name: "Jadwal Sholat & Radio Qori — ULYAH",
-    short_name: "Jadwal Sholat",
-    description:
-      "Jadwal sholat sesuai lokasi Anda, hitung mundur Ramadhan, jam dunia, dan Radio Qori Dunia yang selalu hidup.",
+    name: copy.name,
+    short_name: copy.short,
+    description: copy.desc,
     // Narrow, app-specific scope + id so this installs as its own standalone
     // app independent of the main ULYAH app and the Radio app — otherwise a
     // shared "/" scope makes the browser treat one install as covering all of
