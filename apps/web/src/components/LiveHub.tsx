@@ -76,7 +76,7 @@ function streamEmbedUrl(s: StreamRow, opts: { autoplayMuted?: boolean } = {}): s
 
 function OfflineCard({ t }: { t: ReturnType<typeof liveLabels> }) {
   return (
-    <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-2xl bg-gradient-to-b from-[#0B3D2E] to-[#06251b] p-6 text-center text-[#f4efe3]">
+    <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 app-hero rounded-2xl p-6 text-center">
       <Image src={TENANT.id === "ulyah" ? "/brand/wordmark-ar-gold.png" : TENANT.logoIcon} alt={TENANT.siteName} width={TENANT.id === "ulyah" ? 150 : 56} height={TENANT.id === "ulyah" ? 42 : 56} className={TENANT.id === "ulyah" ? "h-9 w-auto opacity-90" : "h-12 w-12 rounded-xl"} />
       <p className="text-xs uppercase tracking-[0.25em] text-accent">{TENANT.siteUrl.replace(/^https?:\/\//, "")}</p>
       <p className="mt-1 text-sm text-[#f4efe3]/75">{t.offlineSlot}</p>
