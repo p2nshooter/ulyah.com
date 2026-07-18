@@ -169,7 +169,7 @@ export function PesantrenKitabReader({
       </div>
 
       {/* Kitab header card — author, category, description */}
-      <div className="mt-3 overflow-hidden rounded-3xl border border-accent/30 bg-gradient-to-br from-[#06251b] to-[#0B3D2E] p-6 text-[#f4efe3] sm:p-8">
+      <div className="mt-3 app-hero overflow-hidden rounded-3xl border border-accent/30 p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.2em] text-accent">
           {kitab.category_icon ?? "📗"} {kitab.category_name}
         </p>

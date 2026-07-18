@@ -15,7 +15,7 @@ export function DonationVirtues({ dict, locale }: { dict: Dictionary; locale: st
   const virtues = [dict.donation.virtue1, dict.donation.virtue2, dict.donation.virtue3];
 
   return (
-    <section className="relative overflow-hidden rounded-3xl bg-[#06251b] px-6 py-12 text-[#f4efe3] sm:px-10">
+    <section className="relative overflow-hidden app-hero rounded-3xl px-6 py-12 sm:px-10">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.10]"

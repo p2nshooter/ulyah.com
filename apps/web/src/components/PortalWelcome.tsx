@@ -31,7 +31,7 @@ export function PortalWelcome({ locale }: { locale: string }) {
   }, []);
 
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-[#06251b] p-6 text-[#f4efe3]">
+    <section className="relative overflow-hidden app-hero rounded-2xl p-6">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.1]"
