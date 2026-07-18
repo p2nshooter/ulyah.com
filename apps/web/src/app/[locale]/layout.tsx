@@ -44,7 +44,7 @@ export async function generateMetadata({
       canonical: `/${locale}`,
       languages: Object.fromEntries(LOCALES.map((l) => [l.code, `/${l.code}`])),
     },
-    manifest: "/manifest.json",
+    manifest: `/manifest.webmanifest?locale=${locale}`,
     icons:
       TENANT.id === "ulyah"
         ? {
