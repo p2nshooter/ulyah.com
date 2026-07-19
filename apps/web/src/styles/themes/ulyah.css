@@ -24,3 +24,52 @@ html[data-tenant="ulyah"][data-theme="dark"] body {
 html[data-tenant="ulyah"] .card-premium:hover {
   box-shadow: var(--shadow-gold);
 }
+
+/* ── NUANSA MASJID — structural identity, not just colour ──────────────────
+   A mosque skyline (domes + minarets, pure SVG mask, accent-tinted) rises
+   behind the hero and again above the footer, and the hero closes with a
+   scalloped arch band — ulyah.com reads as "masjid" at a glance. */
+html[data-tenant="ulyah"] .hero-main {
+  position: relative;
+  overflow: hidden;
+}
+html[data-tenant="ulyah"] .hero-main::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 84px;
+  pointer-events: none;
+  opacity: 0.1;
+  background-color: var(--color-primary);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='84' viewBox='0 0 320 84'%3E%3Cpath d='M0 84V64h6V40l4-8 4 8v24h10V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h12V44l4-8 4 8v20h8V52c0-12 10-22 20-24 2-6 5-9 8-11 3 2 6 5 8 11 10 2 20 12 20 24v12h10V38l5-10 5 10v26h12V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h10V40l4-8 4 8v24h6v20z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='84' viewBox='0 0 320 84'%3E%3Cpath d='M0 84V64h6V40l4-8 4 8v24h10V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h12V44l4-8 4 8v20h8V52c0-12 10-22 20-24 2-6 5-9 8-11 3 2 6 5 8 11 10 2 20 12 20 24v12h10V38l5-10 5 10v26h12V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h10V40l4-8 4 8v24h6v20z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-position: bottom center;
+  mask-position: bottom center;
+}
+/* Mosque skyline above the footer too — the page "ends at the mosque". */
+html[data-tenant="ulyah"] footer {
+  position: relative;
+}
+html[data-tenant="ulyah"] footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -58px;
+  height: 58px;
+  pointer-events: none;
+  opacity: 0.16;
+  background-color: var(--color-primary);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='84' viewBox='0 0 320 84'%3E%3Cpath d='M0 84V64h6V40l4-8 4 8v24h10V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h12V44l4-8 4 8v20h8V52c0-12 10-22 20-24 2-6 5-9 8-11 3 2 6 5 8 11 10 2 20 12 20 24v12h10V38l5-10 5 10v26h12V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h10V40l4-8 4 8v24h6v20z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='84' viewBox='0 0 320 84'%3E%3Cpath d='M0 84V64h6V40l4-8 4 8v24h10V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h12V44l4-8 4 8v20h8V52c0-12 10-22 20-24 2-6 5-9 8-11 3 2 6 5 8 11 10 2 20 12 20 24v12h10V38l5-10 5 10v26h12V50c0-16 12-28 26-30 2-8 6-12 10-14 4 2 8 6 10 14 14 2 26 14 26 30v14h10V40l4-8 4 8v24h6v20z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-position: bottom center;
+  mask-position: bottom center;
+  -webkit-mask-size: 320px 84px;
+  mask-size: 320px 84px;
+}

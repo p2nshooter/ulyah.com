@@ -122,6 +122,49 @@ html[data-tenant="dawa"] footer {
   border-top: 4px solid transparent;
   border-image: repeating-linear-gradient(90deg, #d35400 0 14px, #7d8f38 14px 28px, #e67e22 28px 42px) 4;
 }
+/* ── ANDALUSIA — structural identity ───────────────────────────────────────
+   dawa.es opens under a horseshoe-arch sky: the hero sits on a warm arched
+   wash with sun rays, and closes with a zellige mosaic tile band. */
+html[data-tenant="dawa"] .hero-main {
+  position: relative;
+  background-image:
+    radial-gradient(140% 90% at 50% -30%, rgba(230, 126, 34, 0.16), transparent 60%),
+    repeating-conic-gradient(from -18deg at 88% 0%, rgba(245, 176, 65, 0.10) 0deg 6deg, transparent 6deg 18deg);
+}
+html[data-tenant="dawa"] .hero-main::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background:
+    repeating-linear-gradient(90deg,
+      #d35400 0 18px, #f5b041 18px 22px, #7d8f38 22px 40px, #f5b041 40px 44px);
+  opacity: 0.75;
+}
+/* The quote card sits inside a horseshoe arch. */
+html[data-tenant="dawa"] .hero-main .rounded-3xl {
+  border-radius: 46% 46% 1.25rem 1.25rem / 34% 34% 1.25rem 1.25rem !important;
+  border: 3px solid color-mix(in srgb, var(--color-accent-xl, #f5b041) 70%, transparent);
+  padding-top: 3.2rem !important;
+}
+/* Sunny rounded CTAs. */
+html[data-tenant="dawa"] .hero-main a.rounded-full {
+  border-radius: 9999px;
+  font-weight: 700;
+}
+/* Feature tiles = warm zellige diamonds. */
+html[data-tenant="dawa"] .hero-main .rounded-2xl {
+  border-radius: 0.9rem;
+  transform: rotate(45deg);
+  overflow: hidden;
+}
+html[data-tenant="dawa"] .hero-main .rounded-2xl > span,
+html[data-tenant="dawa"] .hero-main .rounded-2xl > * {
+  transform: rotate(-45deg);
+}
+
 /* App-hero motif — Andalusian zellige mosaic (8-point star + cross). */
 html[data-tenant="dawa"] .app-hero::before {
   opacity: 0.13;

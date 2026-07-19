@@ -117,7 +117,12 @@ const aqcSurahCache = new Map<string, Promise<(string | null)[]>>();
  * repeat visit doesn't even need the metadata fetch again. */
 async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(string | null)[]> {
   const cacheKey = `aqc:${edition}:${surah}`;
-  const lsKey = `ulyah_qori_${cacheKey}`;
+  // v2: version-busted — devices that cached audio URL lists under the old
+  // key (including any low-bitrate URLs from before the 128 kbps-only radio
+  // rotation) kept replaying muffled audio FOREVER, because localStorage
+  // never expires ("suara mendem kaya kaset kusut" persisting after the
+  // server-side fix). New key = every device re-resolves fresh 128 kbps URLs.
+  const lsKey = `ulyah_qori2_${cacheKey}`;
 
   if (aqcSurahCache.has(cacheKey)) return aqcSurahCache.get(cacheKey)!;
 

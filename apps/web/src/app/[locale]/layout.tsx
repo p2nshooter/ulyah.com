@@ -87,7 +87,17 @@ export async function generateMetadata({
             ],
             apple: "/apple-touch-icon.png",
           }
-        : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
+        : TENANT.id === "dawa"
+          ? {
+              // Owner-provided round emblem as the browser-tab favicon, the
+              // square artwork for home-screen/apple icons.
+              icon: [
+                { url: "/brand/dawa/favicon.png", sizes: "64x64", type: "image/png" },
+                { url: "/brand/dawa/favicon-256.png", sizes: "256x256", type: "image/png" },
+              ],
+              apple: "/brand/dawa/icon-180.png",
+            }
+          : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
     openGraph: {
       title: `${siteName} — ${tagline}`,
       description: dict.hero.description,

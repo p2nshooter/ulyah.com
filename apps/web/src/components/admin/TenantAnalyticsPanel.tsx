@@ -13,6 +13,11 @@ interface TenantStat {
   /** Distinct devices whose LAST event is an install — "truly installed
    * right now", immune to install→uninstall→reinstall double counting. */
   activeDevices: number;
+  /** Devices whose LAST event is an uninstall — DECREASES when the same
+   * device installs again. */
+  uninstalledDevices: number;
+  /** Real pageview beacons in the last 5 minutes — live "online now". */
+  activeNow: number;
   daily: { bucket: string; n: number }[];
   topPages: { path: string; n: number }[];
   topCountries: { country: string; n: number }[];
@@ -51,7 +56,7 @@ export function TenantAnalyticsPanel() {
         })
         .catch(() => {});
     load();
-    const t = setInterval(load, 60_000);
+    const t = setInterval(load, 30_000);
     return () => {
       alive = false;
       clearInterval(t);
@@ -70,7 +75,7 @@ export function TenantAnalyticsPanel() {
         {isMulti ? "🌐 Pengunjung per Situs (ulyah.com · 1fr.fr · tilawa.de · dawa.es)" : "🌐 Pengunjung Situs Ini"}
         {refreshedAt && (
           <span className="ml-2 align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
-            diperbarui {refreshedAt.toLocaleTimeString()} · auto-refresh 60 dtk
+            live · diperbarui {refreshedAt.toLocaleTimeString()} · auto-refresh 30 dtk
           </span>
         )}
       </p>
@@ -111,10 +116,17 @@ export function TenantAnalyticsPanel() {
               )}
 
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                <span>📲 Install: <b className="text-accent">{r.installs}</b></span>
-                <span>🗑️ Uninstall*: <b>{r.uninstalls}</b></span>
                 <span>
-                  📱 Perangkat aktif: <b className="text-accent">{r.activeDevices > 0 ? r.activeDevices : net > 0 ? net : 0}</b>
+                  🟢 Online sekarang: <b className="text-accent">{r.activeNow}</b>
+                </span>
+                <span>
+                  📱 App terpasang (perangkat): <b className="text-accent">{r.activeDevices > 0 ? r.activeDevices : net > 0 ? net : 0}</b>
+                </span>
+                <span>
+                  🗑️ Uninstall (perangkat)*: <b>{r.uninstalledDevices}</b>
+                </span>
+                <span className="text-[var(--color-text-secondary)]">
+                  riwayat: {r.installs}× install · {r.uninstalls}× uninstall
                 </span>
               </div>
 
@@ -136,10 +148,11 @@ export function TenantAnalyticsPanel() {
         })}
       </div>
       <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
-        * Uninstall bersifat perkiraan — web tidak punya event resmi &quot;uninstall&quot;; dihitung saat perangkat yang
-        sebelumnya memasang aplikasi terdeteksi tidak lagi memasangnya. &quot;Perangkat aktif&quot; = jumlah perangkat unik
-        yang event TERAKHIR-nya install (satu HP yang install → uninstall → install lagi tetap dihitung 1 perangkat,
-        dengan riwayat 2 install + 1 uninstall).
+        Semua angka nyata dari beacon perangkat — tidak ada estimasi. &quot;Online sekarang&quot; = kunjungan halaman 5 menit
+        terakhir. &quot;App terpasang&quot; = perangkat unik yang event terakhirnya install. &quot;Uninstall (perangkat)&quot; =
+        perangkat yang event terakhirnya uninstall — otomatis BERKURANG saat perangkat yang sama install lagi. Baris
+        &quot;riwayat&quot; adalah jumlah kejadian mentah. * Deteksi uninstall bersifat best-effort (web tidak punya event
+        resmi uninstall); terdeteksi saat perangkat itu kembali membuka situs.
       </p>
     </section>
   );
