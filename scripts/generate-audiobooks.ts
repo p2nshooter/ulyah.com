@@ -21,7 +21,7 @@
  *   npx tsx scripts/generate-audiobooks.ts --lang=id --limit=25
  */
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, rmSync, existsSync } from "node:fs";
+import { mkdtempSync, writeFileSync, rmSync, existsSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -136,15 +136,55 @@ function synthesizeWav(text: string, lang: string, tmp: string): string | null {
   return null;
 }
 
-function toMp3(wavPath: string, mp3Path: string): boolean {
+// Wrangler rejects R2 uploads over 300 MiB, so every MP3 must land safely
+// under that. Speech tolerates low bitrates well; pick one from the actual
+// duration so even a 9-hour story fits, and shrink further if the estimate
+// was off.
+const MAX_UPLOAD_BYTES = 280 * 1024 * 1024;
+
+function wavDurationSeconds(wavPath: string): number {
   try {
-    execFileSync("ffmpeg", ["-y", "-i", wavPath, "-codec:a", "libmp3lame", "-qscale:a", "4", mp3Path], {
-      stdio: "inherit",
-    });
+    const out = execFileSync(
+      "ffprobe",
+      ["-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", wavPath],
+      { encoding: "utf8" }
+    );
+    const dur = parseFloat(out.trim());
+    return Number.isFinite(dur) && dur > 0 ? dur : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function encodeMp3(wavPath: string, mp3Path: string, kbps: number): boolean {
+  try {
+    execFileSync(
+      "ffmpeg",
+      ["-y", "-i", wavPath, "-codec:a", "libmp3lame", "-b:a", `${kbps}k`, "-ac", "1", "-ar", "22050", mp3Path],
+      { stdio: "inherit" }
+    );
     return existsSync(mp3Path);
   } catch (err) {
     console.warn(`  ffmpeg failed: ${err}`);
     return false;
+  }
+}
+
+function toMp3(wavPath: string, mp3Path: string): boolean {
+  const duration = wavDurationSeconds(wavPath);
+  // Fit the whole story under the upload cap; 96k mono is plenty for speech.
+  let kbps = duration > 0 ? Math.min(96, Math.floor((MAX_UPLOAD_BYTES * 8) / duration / 1000)) : 64;
+  kbps = Math.max(kbps, 24);
+  for (;;) {
+    if (!encodeMp3(wavPath, mp3Path, kbps)) return false;
+    const size = statSync(mp3Path).size;
+    if (size <= MAX_UPLOAD_BYTES) return true;
+    if (kbps <= 24) {
+      console.warn(`  still ${(size / 1024 / 1024).toFixed(0)} MiB at ${kbps}kbps — skipping story`);
+      return false;
+    }
+    kbps = Math.max(24, Math.floor(kbps / 2));
+    console.warn(`  re-encoding at ${kbps}kbps to fit the 300 MiB upload limit`);
   }
 }
 
@@ -156,29 +196,43 @@ async function main() {
   const tmp = mkdtempSync(join(tmpdir(), "ulyah-tts-"));
   let done = 0;
 
+  let failed = 0;
+
   for (const story of stories) {
     console.log(`\n▶ #${story.id} [${story.lang}] ${story.title}`);
-    const wav = synthesizeWav(story.body, story.lang, tmp);
-    if (!wav) {
-      console.warn("  synthesis failed — skipping");
-      continue;
+    try {
+      const wav = synthesizeWav(story.body, story.lang, tmp);
+      if (!wav) {
+        console.warn("  synthesis failed — skipping");
+        failed++;
+        continue;
+      }
+      const mp3Path = join(tmp, `story-${story.id}.mp3`);
+      if (!toMp3(wav, mp3Path)) {
+        rmSync(wav, { force: true });
+        failed++;
+        continue;
+      }
+
+      const r2Key = `audio/story/${story.id}.mp3`;
+      wrangler(["r2", "object", "put", `${BUCKET}/${r2Key}`, `--file=${mp3Path}`, "--remote"]);
+      rmSync(mp3Path, { force: true });
+      rmSync(wav, { force: true });
+
+      const upd = `UPDATE stories SET audio_r2_key = '${r2Key}', qc_status = 'published' WHERE id = ${story.id};`;
+      wrangler(["d1", "execute", "ulyah-db", "--remote", `--command=${upd}`]);
+      done++;
+      console.log(`  ✓ audiobook uploaded`);
+    } catch (err) {
+      // One broken story must never sink the whole nightly run — the rest of
+      // the queue still deserves its audio.
+      failed++;
+      console.warn(`  ✗ story #${story.id} failed: ${err}`);
     }
-    const mp3Path = join(tmp, `story-${story.id}.mp3`);
-    if (!toMp3(wav, mp3Path)) continue;
-
-    const r2Key = `audio/story/${story.id}.mp3`;
-    wrangler(["r2", "object", "put", `${BUCKET}/${r2Key}`, `--file=${mp3Path}`, "--remote"]);
-    rmSync(mp3Path, { force: true });
-    rmSync(wav, { force: true });
-
-    const upd = `UPDATE stories SET audio_r2_key = '${r2Key}', qc_status = 'published' WHERE id = ${story.id};`;
-    wrangler(["d1", "execute", "ulyah-db", "--remote", `--command=${upd}`]);
-    done++;
-    console.log(`  ✓ audiobook uploaded`);
   }
 
   rmSync(tmp, { recursive: true, force: true });
-  console.log(`\nDone. ${done} audiobook(s) generated (no API key used).`);
+  console.log(`\nDone. ${done} audiobook(s) generated, ${failed} skipped (no API key used).`);
 }
 
 main().catch((err) => {

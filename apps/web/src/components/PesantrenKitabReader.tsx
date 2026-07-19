@@ -1,10 +1,12 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
-import { InstallAppButton } from "@/components/InstallAppButton";
+import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
 
 interface QuranRef {
@@ -43,6 +45,7 @@ export interface KitabDetail {
 
 type FontSize = "sm" | "md" | "lg" | "xl";
 type Theme = "light" | "sepia" | "dark";
+type AudioMode = "semua" | "arab" | "arti";
 
 const FONT_SIZE_CLASS: Record<FontSize, string> = {
   sm: "text-lg leading-[2]",
@@ -50,8 +53,6 @@ const FONT_SIZE_CLASS: Record<FontSize, string> = {
   lg: "text-3xl leading-[2.4]",
   xl: "text-4xl leading-[2.5]",
 };
-const FONT_SIZE_LABEL: Record<FontSize, string> = { sm: "Kecil", md: "Sedang", lg: "Besar", xl: "XL" };
-const THEME_LABEL: Record<Theme, string> = { light: "☀️ Terang", sepia: "📜 Sepia", dark: "🌙 Gelap" };
 // Inline styles, not Tailwind classes: .card-premium-static's own
 // background-color rule sits below `@tailwind utilities` in globals.css, so
 // it wins the cascade over same-specificity utility classes and would
@@ -63,43 +64,233 @@ const THEME_STYLE: Record<Theme, React.CSSProperties | undefined> = {
   dark: { backgroundColor: "#0f1a14", color: "#e8f0ea" },
 };
 
+// Every visible reader string per site language — a sibling site must never
+// show Indonesian chrome (owner rule + AdSense language purity).
+interface ReaderLabels {
+  back: string;
+  resume: (order: number, name: string) => string;
+  toc: string;
+  chapter: string;
+  display: string;
+  fontSize: string;
+  theme: string;
+  sizes: Record<FontSize, string>;
+  themes: Record<Theme, string>;
+  translation: string;
+  explanation: string;
+  died: string;
+  prevChapter: string;
+  nextChapter: string;
+  readAll: string;
+  arabicOnly: string;
+  translationOnly: string;
+  autoRead: string;
+  stopReading: string;
+  reading: string;
+  nextBook: string;
+}
+const READER_L: Record<string, ReaderLabels> = {
+  id: {
+    back: "← Kitab Pesantren",
+    resume: (o, n) => `📑 Melanjutkan dari bacaan terakhir — Bab ${o}: ${n}`,
+    toc: "Daftar Bab",
+    chapter: "Bab",
+    display: "🎨 Tampilan",
+    fontSize: "Ukuran teks:",
+    theme: "Tema:",
+    sizes: { sm: "Kecil", md: "Sedang", lg: "Besar", xl: "XL" },
+    themes: { light: "☀️ Terang", sepia: "📜 Sepia", dark: "🌙 Gelap" },
+    translation: "Terjemah",
+    explanation: "Penjelasan",
+    died: "wafat",
+    prevChapter: "Bab sebelumnya",
+    nextChapter: "Bab berikutnya",
+    readAll: "🔊 Baca semua",
+    arabicOnly: "﴿ Arab saja",
+    translationOnly: "📖 Terjemahan saja",
+    autoRead: "▶ Baca otomatis",
+    stopReading: "⏹ Berhenti",
+    reading: "Sedang membacakan… halaman & bab berpindah otomatis sampai dihentikan.",
+    nextBook: "Kitab selesai — berpindah ke kitab berikutnya…",
+  },
+  en: {
+    back: "← Classical Texts",
+    resume: (o, n) => `📑 Resuming where you left off — Chapter ${o}: ${n}`,
+    toc: "Chapters",
+    chapter: "Chapter",
+    display: "🎨 Display",
+    fontSize: "Text size:",
+    theme: "Theme:",
+    sizes: { sm: "Small", md: "Medium", lg: "Large", xl: "XL" },
+    themes: { light: "☀️ Light", sepia: "📜 Sepia", dark: "🌙 Dark" },
+    translation: "Translation",
+    explanation: "Commentary",
+    died: "died",
+    prevChapter: "Previous chapter",
+    nextChapter: "Next chapter",
+    readAll: "🔊 Read everything",
+    arabicOnly: "﴿ Arabic only",
+    translationOnly: "📖 Translation only",
+    autoRead: "▶ Auto-read",
+    stopReading: "⏹ Stop",
+    reading: "Reading aloud… pages & chapters advance automatically until stopped.",
+    nextBook: "Book finished — moving to the next book…",
+  },
+  fr: {
+    back: "← Textes Classiques",
+    resume: (o, n) => `📑 Reprise de votre lecture — Chapitre ${o} : ${n}`,
+    toc: "Chapitres",
+    chapter: "Chapitre",
+    display: "🎨 Affichage",
+    fontSize: "Taille du texte :",
+    theme: "Thème :",
+    sizes: { sm: "Petit", md: "Moyen", lg: "Grand", xl: "XL" },
+    themes: { light: "☀️ Clair", sepia: "📜 Sépia", dark: "🌙 Sombre" },
+    translation: "Traduction",
+    explanation: "Commentaire",
+    died: "décédé",
+    prevChapter: "Chapitre précédent",
+    nextChapter: "Chapitre suivant",
+    readAll: "🔊 Tout lire",
+    arabicOnly: "﴿ Arabe seul",
+    translationOnly: "📖 Traduction seule",
+    autoRead: "▶ Lecture auto",
+    stopReading: "⏹ Arrêter",
+    reading: "Lecture en cours… pages et chapitres avancent automatiquement jusqu'à l'arrêt.",
+    nextBook: "Livre terminé — passage au livre suivant…",
+  },
+  de: {
+    back: "← Klassische Werke",
+    resume: (o, n) => `📑 Weiterlesen bei — Kapitel ${o}: ${n}`,
+    toc: "Kapitel",
+    chapter: "Kapitel",
+    display: "🎨 Ansicht",
+    fontSize: "Textgröße:",
+    theme: "Thema:",
+    sizes: { sm: "Klein", md: "Mittel", lg: "Groß", xl: "XL" },
+    themes: { light: "☀️ Hell", sepia: "📜 Sepia", dark: "🌙 Dunkel" },
+    translation: "Übersetzung",
+    explanation: "Erläuterung",
+    died: "gest.",
+    prevChapter: "Vorheriges Kapitel",
+    nextChapter: "Nächstes Kapitel",
+    readAll: "🔊 Alles vorlesen",
+    arabicOnly: "﴿ Nur Arabisch",
+    translationOnly: "📖 Nur Übersetzung",
+    autoRead: "▶ Automatisch vorlesen",
+    stopReading: "⏹ Stopp",
+    reading: "Vorlesen läuft… Seiten & Kapitel wechseln automatisch bis zum Stopp.",
+    nextBook: "Buch beendet — weiter zum nächsten Buch…",
+  },
+  es: {
+    back: "← Textos Clásicos",
+    resume: (o, n) => `📑 Continuando donde lo dejaste — Capítulo ${o}: ${n}`,
+    toc: "Capítulos",
+    chapter: "Capítulo",
+    display: "🎨 Pantalla",
+    fontSize: "Tamaño del texto:",
+    theme: "Tema:",
+    sizes: { sm: "Pequeño", md: "Mediano", lg: "Grande", xl: "XL" },
+    themes: { light: "☀️ Claro", sepia: "📜 Sepia", dark: "🌙 Oscuro" },
+    translation: "Traducción",
+    explanation: "Comentario",
+    died: "fallecido",
+    prevChapter: "Capítulo anterior",
+    nextChapter: "Capítulo siguiente",
+    readAll: "🔊 Leer todo",
+    arabicOnly: "﴿ Solo árabe",
+    translationOnly: "📖 Solo traducción",
+    autoRead: "▶ Lectura automática",
+    stopReading: "⏹ Detener",
+    reading: "Leyendo en voz alta… páginas y capítulos avanzan automáticamente hasta detenerse.",
+    nextBook: "Libro terminado — pasando al siguiente libro…",
+  },
+};
+function readerLabels(locale: string): ReaderLabels {
+  return READER_L[locale] ?? READER_L.en!;
+}
+
 function prefsKey(slug: string) {
   return `ulyah_kitab_prefs_${slug}`;
 }
 function bookmarkKey(slug: string) {
   return `ulyah_kitab_bookmark_${slug}`;
 }
+const AUTOREAD_KEY = "ulyah_kitab_autoread";
+
+interface ReadingPos {
+  matnId: number;
+  part: "ar" | "tr" | "ex";
+  idx: number;
+}
+
+/** Renders prose as sentence spans so the sentence currently being narrated
+ * can be highlighted — the "reading marker" that follows the voice. */
+function SentenceText({
+  text,
+  active,
+  activeIdx,
+  className,
+}: {
+  text: string;
+  active: boolean;
+  activeIdx: number;
+  className?: string;
+}) {
+  const sentences = useMemo(() => splitSentences(text), [text]);
+  if (!active) return <p className={className}>{text}</p>;
+  return (
+    <p className={className}>
+      {sentences.map((s, i) => (
+        <span
+          key={i}
+          className={i === activeIdx ? "rounded bg-accent/25 text-inherit shadow-[0_0_0_3px_rgba(0,0,0,0.02)]" : undefined}
+        >
+          {s}{" "}
+        </span>
+      ))}
+    </p>
+  );
+}
 
 /**
- * Reads one pesantren kitab as a proper library book — now installable as
- * its OWN standalone app ("widget per buku", see manifest-kitab route.ts),
- * with reading preferences (font size, page theme) and a bookmark that
- * remembers exactly where a visitor left off, both persisted per-kitab in
- * localStorage so returning to "Safinatun Najah" tomorrow picks up right
- * where "Ta'lim Muta'allim" left off yesterday, independently.
+ * Reads one pesantren kitab as a proper library book, with reading
+ * preferences (font size, page theme), a per-kitab bookmark, and a
+ * continuous auto-read voice mode: pick "read everything / Arabic only /
+ * translation only" and press play — sentences highlight as they are
+ * spoken, the view scrolls itself, chapters turn automatically, and when
+ * the book ends the reader moves to the NEXT kitab in the library, looping
+ * through the whole collection until the visitor presses stop — even if
+ * that takes days.
  */
 export function PesantrenKitabReader({
   locale,
   kitab: kitabProp,
   chapters: chaptersProp,
-  autoPromptInstall = false,
+  autoReadStart = false,
+  autoReadMode = "semua",
   translationPending = false,
 }: {
   locale: string;
   kitab: KitabDetail;
   chapters: Chapter[];
-  autoPromptInstall?: boolean;
+  /** Arrived here from the auto-reader finishing the previous kitab — keep
+   * reading without any click (same document, so speech stays allowed). */
+  autoReadStart?: boolean;
+  autoReadMode?: AudioMode;
   /** The API is translating this kitab into `locale` in the background —
    * refetch shortly so the visitor sees their own language without a manual
    * refresh (the ISR-cached page itself can't change for a few minutes). */
   translationPending?: boolean;
 }) {
+  const router = useRouter();
+  const t = readerLabels(locale);
   const [kitab, setKitab] = useState(kitabProp);
   const [chapters, setChapters] = useState(chaptersProp);
 
   // Quiet client-side refetches (~12s apart, max 3 tries) while the worker
-  // writes the translated blob (content.ts translatePesantrenKitab) — the
-  // reader swaps to the visitor's own language as soon as it exists.
+  // writes the translated blob — the reader swaps to the visitor's own
+  // language as soon as it exists.
   useEffect(() => {
     if (!translationPending) return;
     let tries = 0;
@@ -133,8 +324,7 @@ export function PesantrenKitabReader({
   const [pageTurn, setPageTurn] = useState(false);
 
   // Restore reading preferences + bookmark for THIS kitab only, once, after
-  // mount (client-only — avoids an SSR/CSR hydration mismatch, same
-  // precaution as the Qur'an player's qori/layers preferences).
+  // mount (client-only — avoids an SSR/CSR hydration mismatch).
   useEffect(() => {
     try {
       const savedPrefs = window.localStorage.getItem(prefsKey(kitab.slug));
@@ -152,7 +342,7 @@ export function PesantrenKitabReader({
         }
       }
     } catch {
-      /* localStorage unavailable (private mode, etc.) — reader still works, just without memory */
+      /* localStorage unavailable — reader still works, just without memory */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kitab.slug]);
@@ -183,26 +373,177 @@ export function PesantrenKitabReader({
 
   const current = useMemo(() => chapters.find((c) => c.id === activeBab) ?? chapters[0], [chapters, activeBab]);
 
-  // Audio mode: what the "Dengarkan" button reads, and in which voice.
-  //  - semua: Arabic matn (Arabic voice) → terjemah + penjelasan (UI voice)
-  //  - arab : only the Arabic matn, Arabic voice
-  //  - arti : only terjemah + penjelasan, UI-language voice
-  const [audioMode, setAudioMode] = useState<"semua" | "arab" | "arti">("semua");
-  const AUDIO_MODES: { key: "semua" | "arab" | "arti"; label: string }[] = [
-    { key: "semua", label: "🔊 Baca semua" },
-    { key: "arab", label: "﴿ Arab saja" },
-    { key: "arti", label: "📖 Arti saja" },
+  // ── Continuous auto-read engine ────────────────────────────────────────
+  const [audioMode, setAudioMode] = useState<AudioMode>(autoReadMode);
+  const [autoReading, setAutoReading] = useState(false);
+  const [switchingBook, setSwitchingBook] = useState(false);
+  const [readingPos, setReadingPos] = useState<ReadingPos | null>(null);
+  const readingRef = useRef(false);
+  const handleRef = useRef<NarrationHandle | null>(null);
+  const wakeLockRef = useRef<{ release?: () => Promise<void> } | null>(null);
+  const [speechOk, setSpeechOk] = useState(false);
+  useEffect(() => {
+    setSpeechOk(speechAvailable());
+  }, []);
+
+  const AUDIO_MODES: { key: AudioMode; label: string }[] = [
+    { key: "semua", label: t.readAll },
+    { key: "arab", label: t.arabicOnly },
+    { key: "arti", label: t.translationOnly },
   ];
+
+  // Keep the screen awake for marathon sessions ("berhari-hari") — best
+  // effort; re-acquired when the tab becomes visible again.
+  async function acquireWakeLock() {
+    try {
+      const nav = navigator as Navigator & { wakeLock?: { request: (t: string) => Promise<{ release?: () => Promise<void> }> } };
+      wakeLockRef.current = (await nav.wakeLock?.request("screen")) ?? null;
+    } catch {
+      /* unsupported — narration still runs while the tab lives */
+    }
+  }
+  useEffect(() => {
+    const onVis = () => {
+      if (document.visibilityState === "visible" && readingRef.current) void acquireWakeLock();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
+  // Follow the voice: keep the sentence being read in the middle of the view.
+  useEffect(() => {
+    if (!readingPos) return;
+    document.getElementById(`matn-${readingPos.matnId}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [readingPos?.matnId, readingPos?.part]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const sleepMs = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  /** Narrate one matn per the chosen mode. Returns false when stopped. */
+  async function readMatn(m: Matn, mode: AudioMode): Promise<boolean> {
+    const parts: { part: "ar" | "tr" | "ex"; text: string; lang: string }[] = [];
+    if (mode !== "arti" && m.text_ar) parts.push({ part: "ar", text: m.text_ar, lang: "ar" });
+    if (mode !== "arab") {
+      if (m.translation_id) parts.push({ part: "tr", text: m.translation_id, lang: locale });
+      if (mode === "semua" && m.explanation_id) parts.push({ part: "ex", text: m.explanation_id, lang: locale });
+    }
+    for (const p of parts) {
+      const sentences = splitSentences(p.text);
+      for (let i = 0; i < sentences.length; i++) {
+        if (!readingRef.current) return false;
+        setReadingPos({ matnId: m.id, part: p.part, idx: i });
+        const h = speak(sentences[i]!, p.lang, { rate: 0.9 });
+        handleRef.current = h;
+        await h.done;
+      }
+    }
+    return readingRef.current;
+  }
+
+  /** When this kitab is fully read, continue into the next kitab in the
+   * library (wrapping at the end) — the whole menu plays like one long,
+   * unending recitation until the visitor stops it. */
+  async function advanceToNextKitab(mode: AudioMode) {
+    setSwitchingBook(true);
+    try {
+      const res = await api.get<{ kitab: { slug: string }[] }>(`/content/pesantren/kitab?lang=${locale}`);
+      const slugs = res.kitab.map((k) => k.slug);
+      const cur = slugs.indexOf(kitab.slug);
+      const next = slugs[(cur + 1) % slugs.length];
+      if (next && next !== kitab.slug) {
+        try {
+          window.sessionStorage.setItem(AUTOREAD_KEY, mode);
+        } catch {
+          /* non-fatal */
+        }
+        // Soft App-Router navigation: same document, so speech permission and
+        // the reading session survive into the next book.
+        router.push(`/${locale}/kitab-pesantren/${next}?autoread=1&mode=${mode}`);
+        return;
+      }
+    } catch {
+      /* list unavailable — end gracefully */
+    }
+    stopAutoRead();
+  }
+
+  async function startAutoRead(mode: AudioMode) {
+    if (readingRef.current) return;
+    // The radio and the narration voice must never sound together — stop the
+    // always-on radio the moment auto-read begins (it only resumes on a manual
+    // press, matching the existing "other audio stops the radio" rule).
+    try {
+      if (useRadioStore.getState().playing) useRadioStore.getState().stop();
+    } catch {
+      /* radio store unavailable — narration still runs */
+    }
+    readingRef.current = true;
+    setAutoReading(true);
+    setSwitchingBook(false);
+    void acquireWakeLock();
+
+    let babIdx = chapters.findIndex((c) => c.id === activeBab);
+    if (babIdx < 0) babIdx = 0;
+    for (; babIdx < chapters.length; babIdx++) {
+      const bab = chapters[babIdx]!;
+      if (bab.id !== activeBab) {
+        goToBab(bab.id);
+        await sleepMs(500);
+      }
+      for (const m of bab.matn) {
+        const ok = await readMatn(m, mode);
+        if (!ok) return;
+      }
+      await sleepMs(400);
+    }
+    if (readingRef.current) await advanceToNextKitab(mode);
+  }
+
+  function stopAutoRead() {
+    readingRef.current = false;
+    handleRef.current?.cancel();
+    setReadingPos(null);
+    setAutoReading(false);
+    setSwitchingBook(false);
+    try {
+      window.sessionStorage.removeItem(AUTOREAD_KEY);
+    } catch {
+      /* non-fatal */
+    }
+    void wakeLockRef.current?.release?.();
+    wakeLockRef.current = null;
+  }
+
+  // Cancel narration when the reader unmounts mid-session.
+  useEffect(() => {
+    return () => {
+      readingRef.current = false;
+      handleRef.current?.cancel();
+    };
+  }, []);
+
+  // Continue the marathon: arriving with ?autoread=1 (or the sessionStorage
+  // flag) means the PREVIOUS kitab just finished — keep reading, no click.
+  useEffect(() => {
+    let stored: string | null = null;
+    try {
+      stored = window.sessionStorage.getItem(AUTOREAD_KEY);
+    } catch {
+      /* private mode */
+    }
+    if (!autoReadStart && !stored) return;
+    const mode = (autoReadStart ? autoReadMode : (stored as AudioMode)) || "semua";
+    setAudioMode(mode);
+    const timer = setTimeout(() => void startAutoRead(mode), 800);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
-          ← Kitab Pesantren
+          {t.back}
         </Link>
-        <div className="flex items-center gap-2">
-          <InstallAppButton app="kitab" labeled autoPrompt={autoPromptInstall} />
-        </div>
       </div>
 
       {/* Kitab header card — author, category, description */}
@@ -217,7 +558,7 @@ export function PesantrenKitabReader({
         {kitab.author && (
           <p className="mt-3 text-sm text-[#f4efe3]/80">
             ✍️ {kitab.author}
-            {kitab.author_death_year ? ` — wafat ${kitab.author_death_year}` : ""}
+            {kitab.author_death_year ? ` — ${t.died} ${kitab.author_death_year}` : ""}
           </p>
         )}
         {kitab.description_id && (
@@ -227,7 +568,7 @@ export function PesantrenKitabReader({
 
       {resumeHint && current && (
         <p className="mt-3 rounded-xl border border-accent/30 bg-accent/10 px-4 py-2.5 text-xs text-accent">
-          📑 Melanjutkan dari bacaan terakhir — Bab {current.order}: {current.name_id}
+          {t.resume(current.order, current.name_id)}
         </p>
       )}
 
@@ -236,9 +577,9 @@ export function PesantrenKitabReader({
       </div>
 
       <div className="mt-6 grid gap-6 desktop:grid-cols-[240px_1fr]">
-        {/* Daftar bab (table of contents) */}
+        {/* Table of contents */}
         <aside className="card-premium-static h-max p-3">
-          <p className="mb-2 px-2 font-heading text-sm">Daftar Bab</p>
+          <p className="mb-2 px-2 font-heading text-sm">{t.toc}</p>
           <ol className="space-y-1">
             {chapters.map((ch) => (
               <li key={ch.id}>
@@ -258,13 +599,13 @@ export function PesantrenKitabReader({
           </ol>
         </aside>
 
-        {/* Bab content */}
+        {/* Chapter content */}
         <div className="min-w-0">
           {current && (
             <>
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h2 className="font-heading text-xl">
-                  Bab {current.order}: {current.name_id}
+                  {t.chapter} {current.order}: {current.name_id}
                 </h2>
                 {current.name_ar && (
                   <span dir="rtl" className="font-arabic text-lg text-[var(--color-text-secondary)]">
@@ -273,34 +614,53 @@ export function PesantrenKitabReader({
                 )}
               </div>
 
-              {/* Audio mode + reading preferences */}
+              {/* Voice mode + continuous auto-read + reading preferences */}
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <div className="inline-flex flex-wrap gap-1.5 rounded-full border border-[var(--color-border)] p-1">
                   {AUDIO_MODES.map((m) => (
                     <button
                       key={m.key}
                       onClick={() => setAudioMode(m.key)}
+                      disabled={autoReading}
                       className={`rounded-full px-3 py-1 text-xs transition ${
                         audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)] hover:text-accent"
-                      }`}
+                      } ${autoReading ? "opacity-60" : ""}`}
                     >
                       {m.label}
                     </button>
                   ))}
                 </div>
+                {speechOk && (
+                  <button
+                    onClick={() => (autoReading ? stopAutoRead() : void startAutoRead(audioMode))}
+                    className={`rounded-full px-4 py-1.5 text-xs font-medium shadow-md transition ${
+                      autoReading
+                        ? "bg-red-600 text-white hover:brightness-110"
+                        : "bg-accent text-primary hover:brightness-105"
+                    }`}
+                  >
+                    {autoReading ? t.stopReading : t.autoRead}
+                  </button>
+                )}
                 <button
                   onClick={() => setShowPrefs((v) => !v)}
                   className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs transition hover:border-accent"
                 >
-                  🎨 Tampilan
+                  {t.display}
                 </button>
               </div>
+
+              {autoReading && (
+                <p className="mt-2 rounded-xl border border-accent/30 bg-accent/10 px-4 py-2 text-xs text-accent">
+                  {switchingBook ? t.nextBook : t.reading}
+                </p>
+              )}
 
               {showPrefs && (
                 <div className="mt-2 flex flex-wrap items-center gap-4 rounded-xl border border-[var(--color-border)] bg-black/5 p-3">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] text-[var(--color-text-secondary)]">Ukuran teks:</span>
-                    {(Object.keys(FONT_SIZE_LABEL) as FontSize[]).map((fs) => (
+                    <span className="text-[11px] text-[var(--color-text-secondary)]">{t.fontSize}</span>
+                    {(Object.keys(t.sizes) as FontSize[]).map((fs) => (
                       <button
                         key={fs}
                         onClick={() => {
@@ -309,13 +669,13 @@ export function PesantrenKitabReader({
                         }}
                         className={`rounded-full border px-2.5 py-1 text-[11px] ${fontSize === fs ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
                       >
-                        {FONT_SIZE_LABEL[fs]}
+                        {t.sizes[fs]}
                       </button>
                     ))}
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] text-[var(--color-text-secondary)]">Tema:</span>
-                    {(Object.keys(THEME_LABEL) as Theme[]).map((th) => (
+                    <span className="text-[11px] text-[var(--color-text-secondary)]">{t.theme}</span>
+                    {(Object.keys(t.themes) as Theme[]).map((th) => (
                       <button
                         key={th}
                         onClick={() => {
@@ -324,7 +684,7 @@ export function PesantrenKitabReader({
                         }}
                         className={`rounded-full border px-2.5 py-1 text-[11px] ${theme === th ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
                       >
-                        {THEME_LABEL[th]}
+                        {t.themes[th]}
                       </button>
                     ))}
                   </div>
@@ -338,7 +698,10 @@ export function PesantrenKitabReader({
                 {current.matn.map((m) => (
                   <Fragment key={m.id}>
                   <article
-                    className={`card-premium-static p-5 ${theme !== "light" ? "border-accent/20" : ""}`}
+                    id={`matn-${m.id}`}
+                    className={`card-premium-static p-5 transition-shadow ${theme !== "light" ? "border-accent/20" : ""} ${
+                      readingPos?.matnId === m.id ? "ring-2 ring-accent shadow-lg" : ""
+                    }`}
                     style={THEME_STYLE[theme]}
                   >
                     {(m.title_id || m.title_ar) && (
@@ -352,26 +715,40 @@ export function PesantrenKitabReader({
                       </div>
                     )}
 
-                    {/* Matan (Arabic source) — font size follows reading preference */}
-                    <p dir="rtl" className={`font-arabic ${FONT_SIZE_CLASS[fontSize]}`}>
-                      {m.text_ar}
-                    </p>
+                    {/* Matan (Arabic source) — font size follows reading preference;
+                        the sentence being narrated is highlighted live. */}
+                    <div dir="rtl">
+                      <SentenceText
+                        text={m.text_ar}
+                        active={readingPos?.matnId === m.id && readingPos.part === "ar"}
+                        activeIdx={readingPos?.part === "ar" && readingPos.matnId === m.id ? readingPos.idx : -1}
+                        className={`font-arabic ${FONT_SIZE_CLASS[fontSize]}`}
+                      />
+                    </div>
 
-                    {/* Terjemah */}
+                    {/* Translation */}
                     {m.translation_id && (
                       <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-3 dark:bg-white/[0.02]">
-                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">Terjemah</p>
-                        <p className="mt-1 text-sm leading-relaxed">{m.translation_id}</p>
+                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.translation}</p>
+                        <SentenceText
+                          text={m.translation_id}
+                          active={readingPos?.matnId === m.id && readingPos.part === "tr"}
+                          activeIdx={readingPos?.part === "tr" && readingPos.matnId === m.id ? readingPos.idx : -1}
+                          className="mt-1 text-sm leading-relaxed"
+                        />
                       </div>
                     )}
 
-                    {/* Penjelasan */}
+                    {/* Commentary */}
                     {m.explanation_id && (
                       <div className="mt-3 rounded-xl border border-[var(--color-border)] p-3">
-                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">Penjelasan</p>
-                        <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-                          {m.explanation_id}
-                        </p>
+                        <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.explanation}</p>
+                        <SentenceText
+                          text={m.explanation_id}
+                          active={readingPos?.matnId === m.id && readingPos.part === "ex"}
+                          activeIdx={readingPos?.part === "ex" && readingPos.matnId === m.id ? readingPos.idx : -1}
+                          className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]"
+                        />
                       </div>
                     )}
 
@@ -399,9 +776,9 @@ export function PesantrenKitabReader({
                       </div>
                     )}
 
-                    {/* Listen — obeys the audio-mode selector, with the voice
-                        matching each part's language (Arabic matn vs terjemah). */}
-                    {(m.text_ar || m.translation_id || m.explanation_id) && (
+                    {/* Per-passage listen — obeys the voice-mode selector, with
+                        the voice matching each part's language. */}
+                    {!autoReading && (m.text_ar || m.translation_id || m.explanation_id) && (
                       <div className="mt-3">
                         <NarrateButton
                           key={audioMode}
@@ -432,10 +809,10 @@ export function PesantrenKitabReader({
                 {/* Ad at the end of the bab, before prev/next (per plan) */}
               </div>
 
-              {/* Prev / next bab */}
+              {/* Prev / next chapter */}
               <div className="mt-6 flex items-center justify-between gap-3">
-                <BabNav chapters={chapters} currentOrder={current.order} dir="prev" onGo={goToBab} />
-                <BabNav chapters={chapters} currentOrder={current.order} dir="next" onGo={goToBab} />
+                <BabNav chapters={chapters} currentOrder={current.order} dir="prev" onGo={goToBab} labels={t} />
+                <BabNav chapters={chapters} currentOrder={current.order} dir="next" onGo={goToBab} labels={t} />
               </div>
             </>
           )}
@@ -450,11 +827,13 @@ function BabNav({
   currentOrder,
   dir,
   onGo,
+  labels,
 }: {
   chapters: Chapter[];
   currentOrder: number;
   dir: "prev" | "next";
   onGo: (id: number) => void;
+  labels: ReaderLabels;
 }) {
   const target = chapters.find((c) => c.order === currentOrder + (dir === "next" ? 1 : -1));
   if (!target) return <span />;
@@ -464,7 +843,7 @@ function BabNav({
       className="rounded-full border border-[var(--color-border)] px-4 py-2 text-xs hover:border-accent"
     >
       {dir === "prev" ? "← " : ""}
-      {dir === "prev" ? "Bab sebelumnya" : "Bab berikutnya"}
+      {dir === "prev" ? labels.prevChapter : labels.nextChapter}
       {dir === "next" ? " →" : ""}
     </button>
   );

@@ -74,18 +74,17 @@ function reportInstallOnce(app: string) {
  * screen" instructions when there's no native prompt captured, so the
  * button is never silently invisible.
  *
- * `app` tags which installable PWA this instance offers (main site vs. the
- * standalone Jadwal Sholat mini-app) so the admin portal's install counter
- * can tell them apart. `labeled` swaps the quiet icon-only header form for a
- * bigger pill-with-text CTA, for use in a dedicated "Download App" section
- * rather than tucked in the header.
+ * `labeled` swaps the quiet icon-only header form for a bigger
+ * pill-with-text CTA, for use in a dedicated "Download App" section rather
+ * than tucked in the header. There is only ONE installable app per site (the
+ * main app in the header — per owner instruction, no mini-apps).
  */
 export function InstallAppButton({
   app = "main",
   labeled = false,
   autoPrompt = false,
 }: {
-  app?: "main" | "sholat" | "radio" | "quran-flipbook" | "kitab";
+  app?: "main";
   labeled?: boolean;
   /** Pulses the button to draw the eye — used when a visitor just navigated
    * here specifically to install (e.g. via ?install=1 from the homepage's

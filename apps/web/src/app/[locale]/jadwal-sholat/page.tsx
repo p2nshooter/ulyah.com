@@ -15,12 +15,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: `${t.title}`,
     description: t.subtitle,
     alternates: { canonical: localePath(locale, `/jadwal-sholat`) },
-    // A separate manifest (distinct "id") from the site's main app, so this
-    // page can be installed as its own standalone reminder app rather than
-    // only being reachable inside the full ULYAH.COM app shell. Dynamic route
-    // (not the old static file) so start_url matches the visitor's actual
-    // locale and scope is always spec-valid — see route.ts for why.
-    manifest: `/manifest-sholat.webmanifest?locale=${locale}`,
   };
 }
 

@@ -107,6 +107,11 @@ export function GlobalRadioPlayer() {
         useRadioStore.getState().advance();
         return;
       }
+      // Never let the browser's narration voice (kitab auto-read, "dengarkan"
+      // buttons) run at the same instant as the radio — two overlapping audio
+      // sources is exactly the muffled "kaset kusut" echo. The radio wins; the
+      // narration UI stops itself on its own next tick.
+      if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
       audio.src = src;
       audio.muted = false;
       try {

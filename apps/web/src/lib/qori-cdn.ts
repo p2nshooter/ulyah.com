@@ -105,6 +105,24 @@ export const RECITERS: QoriDef[] = [
 
 export const DEFAULT_QORI_KEY = "ar.alafasy";
 
+/**
+ * Per-site CDN separation for the always-on radio (owner: "masing-masing situs
+ * narik CDN-nya terpisah agar tidak ada duplikat"). Each domain leads its
+ * rotation with a DIFFERENT source CDN, so the four sites never pull the exact
+ * same file from the exact same host at the same moment — which both honours
+ * the request and spreads load so no single CDN throttles us into choppy,
+ * "kaset kusut" audio. Only 128 kbps / alquran.cloud voices are eligible (the
+ * low-bitrate everyayah folders are what sounded muffled), so separation never
+ * costs audio quality. Every pool still contains the same world-renowned
+ * reciters — only the ORDER and the leading CDN differ per site.
+ */
+export const TENANT_RADIO_CDN: Record<string, ("aqc" | "ey")[]> = {
+  ulyah: ["aqc", "ey"], // Indonesia flagship — alquran.cloud first
+  "1fr": ["ey", "aqc"], // France — everyayah first
+  tilawa: ["aqc", "ey"], // Germany — alquran.cloud first, reversed reciter order
+  dawa: ["ey", "aqc"], // Spain — everyayah first, reversed reciter order
+};
+
 function buildEyUrl(eyId: string, surah: number, ayah: number): string {
   return `https://everyayah.com/data/${eyId}/${pad3(surah)}${pad3(ayah)}.mp3`;
 }

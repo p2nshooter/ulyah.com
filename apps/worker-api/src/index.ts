@@ -45,6 +45,61 @@ app.use("*", async (c, next) => {
 app.get("/", (c) => c.json({ service: "ulyah-api", status: "ok" }));
 app.get("/health", (c) => c.json({ status: "ok", ts: Date.now() }));
 
+// Edge-cache public read-only JSON (Cache API — free, unlimited, per-colo).
+// The Workers free plan's KV-read and subrequest budgets were the real cause
+// of the slow pages and intermittent Error 1102: every page view re-ran
+// D1/KV/MT work. Serving repeat views straight from the colo cache makes the
+// sites fast and keeps the origin work far under the free-plan caps.
+// CORS stays correct on hits: hono's cors() sets its headers on the context
+// placeholder per-request, and Hono merges those into whatever response the
+// downstream returns — including a cache hit.
+const EDGE_CACHEABLE = /^\/(quran|content)\//;
+app.use("*", async (c, next) => {
+  const url = new URL(c.req.url);
+  if (
+    c.req.method !== "GET" ||
+    !EDGE_CACHEABLE.test(url.pathname) ||
+    url.pathname.includes("/download") ||
+    url.searchParams.has("nocache") ||
+    c.req.header("authorization") ||
+    c.req.header("cookie")
+  ) {
+    return next();
+  }
+
+  const key = new Request(url.toString(), { method: "GET" });
+  // `caches.default` is Cloudflare's per-colo edge cache; the DOM lib's
+  // CacheStorage type doesn't declare it, so reach it through a cast.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const hit = await cache.match(key).catch(() => undefined);
+  if (hit) {
+    const res = new Response(hit.body, hit);
+    res.headers.set("X-Edge-Cache", "HIT");
+    return res;
+  }
+
+  await next();
+
+  const res = c.res;
+  if (
+    res &&
+    res.ok &&
+    (res.headers.get("content-type") ?? "").includes("json") &&
+    !res.headers.get("x-no-edge-cache")
+  ) {
+    // Qur'an text/tafsir is immutable (6h); content lists change rarely (30m).
+    const ttl = url.pathname.startsWith("/quran/") ? 21600 : 1800;
+    const copy = res.clone();
+    const toCache = new Response(copy.body, copy);
+    toCache.headers.set("Cache-Control", `public, max-age=300, s-maxage=${ttl}`);
+    // Never bake one origin's CORS grant into the shared cache entry — the
+    // per-request cors() middleware re-applies the right one on every hit.
+    toCache.headers.delete("Access-Control-Allow-Origin");
+    toCache.headers.delete("Access-Control-Allow-Credentials");
+    c.executionCtx.waitUntil(cache.put(key, toCache));
+  }
+});
+
 app.route("/quran", quranRoute);
 app.route("/audio", audioRoute);
 app.route("/content", contentRoute);
