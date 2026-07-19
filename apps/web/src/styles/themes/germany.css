@@ -107,6 +107,69 @@ html[data-tenant="tilawa"] *::-webkit-scrollbar-thumb { background: #7c5cff; bor
 html[data-tenant="tilawa"] *::-webkit-scrollbar-track { background: #0c0e18; }
 html[data-tenant="tilawa"] ::selection { background: rgba(124, 92, 255, 0.4); color: #ffffff; }
 html[data-tenant="tilawa"] footer { border-top: 3px solid var(--color-accent); }
+/* ── APP-STYLE (Android/Material feel) — structural identity ───────────────
+   tilawa.de reads as a modern app product page: the hero quote panel wears
+   an app-window chrome (titlebar dots), buttons are squared Material blocks,
+   and a circuit rule runs under the hero. */
+html[data-tenant="tilawa"] .hero-main {
+  position: relative;
+}
+html[data-tenant="tilawa"] .hero-main::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--color-accent) 0 26px, transparent 26px 34px,
+      color-mix(in srgb, var(--color-accent) 45%, transparent) 34px 38px, transparent 38px 64px);
+  opacity: 0.7;
+}
+/* The quote card = an "app window": squared, titlebar with three dots. */
+html[data-tenant="tilawa"] .hero-main .rounded-3xl {
+  border-radius: 0.75rem !important;
+  border: 1px solid var(--color-border);
+  padding-top: 3.4rem !important;
+  position: relative;
+}
+html[data-tenant="tilawa"] .hero-main .rounded-3xl::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.2rem;
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+html[data-tenant="tilawa"] .hero-main .rounded-3xl::after {
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  left: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: 0.9rem 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent),
+    1.8rem 0 0 color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+/* Material-style squared CTAs with bold labels. */
+html[data-tenant="tilawa"] .hero-main a.rounded-full {
+  border-radius: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+/* Feature quick-nav tiles become app icons on a launcher grid. */
+html[data-tenant="tilawa"] .hero-main .rounded-2xl {
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--color-card) 90%, transparent);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
 /* App-hero motif — an octagon-and-square girih grid (modern, geometric). */
 html[data-tenant="tilawa"] .app-hero::before {
   opacity: 0.11;

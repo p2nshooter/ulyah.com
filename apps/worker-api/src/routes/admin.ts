@@ -550,7 +550,7 @@ adminRoute.get("/analytics", async (c) => {
 // tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
 adminRoute.get("/tenant-analytics", async (c) => {
-  const [visitors, installs, uninstalls, series, pages, countries, activeDevices] = await Promise.all([
+  const [visitors, installs, uninstalls, series, pages, countries, activeDevices, uninstalledDevices, activeNow] = await Promise.all([
     c.env.DB.prepare(
       `SELECT tenant,
               SUM(CASE WHEN date(created_at) = date('now') THEN 1 ELSE 0 END) AS today,
@@ -593,6 +593,30 @@ adminRoute.get("/tenant-analytics", async (c) => {
          )
        ) WHERE rn = 1 AND ev = 1 GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
+    // Devices whose LAST event is an uninstall — this number GOES DOWN when
+    // the same device installs again (owner: "jika di-install lagi setelah
+    // uninstall maka kurangin jumlah uninstall jika masih di perangkat yang
+    // sama"). Same window query, opposite terminal event.
+    c.env.DB.prepare(
+      `SELECT tenant, COUNT(*) AS n FROM (
+         SELECT tenant, device_id, app, ev,
+                ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
+         FROM (
+           SELECT tenant, device_id, app, created_at, 1 AS ev
+           FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
+           UNION ALL
+           SELECT tenant, device_id, app, created_at, 0 AS ev
+           FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
+         )
+       ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
+    ).all<{ tenant: string; n: number }>(),
+    // LIVE "online right now": real pageview beacons in the last 5 minutes —
+    // never an estimate, never invented (owner: "harus real live bukan info
+    // bohong"). Zero when nobody is browsing.
+    c.env.DB.prepare(
+      `SELECT tenant, COUNT(*) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-5 minutes') GROUP BY tenant`
+    ).all<{ tenant: string; n: number }>(),
   ]);
 
   const TENANTS = ["ulyah", "1fr", "tilawa", "dawa"];
@@ -609,6 +633,8 @@ adminRoute.get("/tenant-analytics", async (c) => {
       installs: installs.results.find((r) => r.tenant === t)?.n ?? 0,
       uninstalls: uninstalls.results.find((r) => r.tenant === t)?.n ?? 0,
       activeDevices: activeDevices.results.find((r) => r.tenant === t)?.n ?? 0,
+      uninstalledDevices: uninstalledDevices.results.find((r) => r.tenant === t)?.n ?? 0,
+      activeNow: activeNow.results.find((r) => r.tenant === t)?.n ?? 0,
       daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n })),
       topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n })),
       topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n })),
