@@ -29,11 +29,11 @@ import "@/styles/themes/spain.css";
 // as x-default. Google then treats the four sites as translations of one
 // another instead of flagging duplicates.
 const HREFLANG_CLUSTER: Record<string, string> = {
-  id: "https://ulyah.com/",
-  fr: "https://1fr.fr/",
-  de: "https://tilawa.de/",
-  es: "https://dawa.es/",
-  "x-default": "https://ulyah.com/",
+  id: "https://ulyah.com",
+  fr: "https://1fr.fr",
+  de: "https://tilawa.de",
+  es: "https://dawa.es",
+  "x-default": "https://ulyah.com",
 };
 
 export function generateStaticParams() {
@@ -69,8 +69,11 @@ export async function generateMetadata({
       // current route) — the old `/${locale}` made every child page
       // canonicalize to the locale home, which is exactly the "Alternate
       // page with canonical" / "Duplicate without user-selected canonical"
-      // mess Google Search Console reported.
-      canonical: "./",
+      // mess Google Search Console reported. The DEFAULT locale is served at
+      // BARE URLs (no /id — middleware rewrite) and its prefixed twins 301
+      // there, so it emits no canonical at all: only one URL ever serves the
+      // content.
+      ...(locale === DEFAULT_LOCALE ? {} : { canonical: "./" }),
       languages: HREFLANG_CLUSTER,
     },
     manifest: `/manifest.webmanifest?locale=${locale}`,

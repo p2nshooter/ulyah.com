@@ -80,10 +80,30 @@ async function fetchSpa5kTafsir(
   return null;
 }
 
+/** Native "(translated)" suffix per UI language — the source label must not
+ * leak Indonesian "(diterjemahkan)" onto a French/German/Spanish page. */
+export function translatedSuffix(lang: string | null): string {
+  switch (lang) {
+    case "fr": return "(traduit)";
+    case "de": return "(übersetzt)";
+    case "es": return "(traducido)";
+    case "en": return "(translated)";
+    case "ru": return "(переведено)";
+    case "zh": return "(已翻译)";
+    case "ja": return "(翻訳)";
+    default: return "(diterjemahkan)";
+  }
+}
+
 /**
  * Resolve one ayah's tafsir. Indonesian readers get the authoritative Tafsir
  * Kemenag RI (equran.id); everyone else gets Ibn Kathir. Each source falls
  * back to the other so the panel is populated whenever any source has it.
+ *
+ * LANGUAGE PURITY (owner rule + AdSense): a locale without its own native
+ * tafsir edition (fr/de/es/ru/zh/ja) must NEVER be handed raw English or
+ * Indonesian — the fallback text is machine-translated into the UI language
+ * (KV-cached forever by mt.ts) before it leaves this function.
  */
 export async function fetchTafsir(
   env: Env,
@@ -99,11 +119,22 @@ export async function fetchTafsir(
       (await fetchSpa5kTafsir(env, "en", surah, ayahNumber))
     );
   }
-  return (
-    (await fetchSpa5kTafsir(env, lang, surah, ayahNumber)) ??
+  const native = await fetchSpa5kTafsir(env, lang, surah, ayahNumber);
+  if (native) return native;
+
+  const fallback =
     (await fetchSpa5kTafsir(env, "en", surah, ayahNumber)) ??
-    (await fetchKemenagTafsir(env, surah, ayahNumber))
-  );
+    (await fetchKemenagTafsir(env, surah, ayahNumber));
+  if (!fallback) return null;
+  if (fallback.lang === lang) return fallback;
+
+  const translated = await translateText(env, fallback.text, lang, fallback.lang);
+  if (translated) {
+    return { text: translated, source: `${fallback.source} ${translatedSuffix(lang)}`, lang };
+  }
+  // Translation genuinely failed — an empty panel is more honest than a
+  // wrong-language one on a single-language site.
+  return null;
 }
 
 // ── Multi-edition access (the tafsir "source picker") ─────────────────────
@@ -212,7 +243,7 @@ async function fetchSahihAsbab(
 
   if (lang === "ar") return { text: arabic, source: SAHIH_ASBAB_SOURCE };
   const translated = await translateText(env, arabic, lang ?? "id", "ar");
-  if (translated) return { text: translated, source: `${SAHIH_ASBAB_SOURCE} (diterjemahkan)` };
+  if (translated) return { text: translated, source: `${SAHIH_ASBAB_SOURCE} ${translatedSuffix(lang)}` };
   // Translation genuinely failed — better to fall through to another source
   // than to dump untranslated Arabic into, say, an Indonesian panel.
   return null;
@@ -233,7 +264,15 @@ export async function fetchAsbabunNuzul(
   const key = `${surah}_${ayahNumber}`;
   if (key in ASBAB_DATA) {
     const text = ASBAB_DATA[key];
-    return text ? { text, source: "Asbabun Nuzul — Al-Wahidi & As-Suyuthi" } : null;
+    if (!text) return null;
+    // The curated dataset is authored in Indonesian — translate it for any
+    // other UI language rather than leaking Indonesian onto a sibling site.
+    if (!lang || lang === "id") return { text, source: "Asbabun Nuzul — Al-Wahidi & As-Suyuthi" };
+    const translated = await translateText(env, text, lang, "id");
+    if (translated) {
+      return { text: translated, source: `Asbabun Nuzul — Al-Wahidi & As-Suyuthi ${translatedSuffix(lang)}` };
+    }
+    // fall through to the other sources below rather than serving Indonesian
   }
 
   const sahih = await fetchSahihAsbab(env, surah, ayahNumber, lang);
@@ -248,16 +287,14 @@ export async function fetchAsbabunNuzul(
   const text = hit?.text?.trim();
   if (!text || text.length < 40) return null;
 
-  // This fallback edition is English-only. Surfacing raw English in an
-  // otherwise all-Indonesian panel (translation, Tafsir Kemenag) reads as a
-  // broken/inconsistent page, so translate it on demand and cache the
-  // result forever (same fetch-and-cache shape as lib/mt.ts elsewhere).
-  // If translation genuinely fails for an Indonesian reader, return null so
+  // This fallback edition is English-only. Surfacing raw English in any
+  // non-English UI reads as a broken/inconsistent page (and mixes languages
+  // on the single-language sibling sites), so translate it on demand and
+  // cache the result forever. If translation genuinely fails, return null so
   // the reader shows its honest "no specific occasion" state — NEVER leak
-  // untranslated English into the Indonesian UI.
-  if (!lang || lang === "id") {
-    const translated = await translateText(env, text, "id", "en");
-    return translated ? { text: translated, source: `${ASBAB_SOURCE} (diterjemahkan)` } : null;
-  }
-  return { text, source: ASBAB_SOURCE };
+  // the wrong language.
+  if (lang === "en") return { text, source: ASBAB_SOURCE };
+  const target = lang ?? "id";
+  const translatedEn = await translateText(env, text, target, "en");
+  return translatedEn ? { text: translatedEn, source: `${ASBAB_SOURCE} ${translatedSuffix(target)}` } : null;
 }

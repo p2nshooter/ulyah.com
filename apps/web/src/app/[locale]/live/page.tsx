@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { LiveHub } from "@/components/LiveHub";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 // Native per-locale copy — siblings render their own language (fr/de), never
 // an English or Indonesian fallback. `{site}` becomes the tenant brand.
@@ -54,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t.metaTitle(TENANT.siteName),
     description: t.metaDesc(TENANT.siteName),
-    alternates: { canonical: `/${locale}/live` },
+    alternates: { canonical: localePath(locale, `/live`) },
   };
 }
 

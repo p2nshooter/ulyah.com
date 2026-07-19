@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 interface WidgetCard {
   emoji: string;
@@ -114,7 +115,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = labels(locale);
-  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc(TENANT.siteName), alternates: { canonical: `/${locale}/widget` } };
+  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc(TENANT.siteName), alternates: { canonical: localePath(locale, `/widget`) } };
 }
 
 export default async function WidgetHubPage({ params }: { params: Promise<{ locale: string }> }) {

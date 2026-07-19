@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { AiChat } from "@/components/AiChat";
 import { TENANT } from "@/lib/tenant";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
+import { localePath } from "@/lib/paths";
 
 // Native per-locale page chrome — siblings render their own language (fr/de),
 // never Indonesian/English fallback. `{site}` = tenant brand.
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t.metaTitle(TENANT.siteName),
     description: t.metaDesc(TENANT.siteName),
-    alternates: { canonical: `/${locale}/tanya` },
+    alternates: { canonical: localePath(locale, `/tanya`) },
   };
 }
 

@@ -25,7 +25,9 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
   );
 
   return (
-    <footer className="border-t border-[var(--color-border)] bg-primary-dark bg-primary px-4 py-12 text-[#f4efe3] sm:px-6">
+    <footer
+      className="border-t border-[var(--color-border)] bg-primary px-4 py-12 text-[var(--panel-fg)] sm:px-6"
+    >
       <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 desktop:grid-cols-6">
         <div className="sm:col-span-2 desktop:col-span-2">
           <div className="flex items-center gap-2.5">

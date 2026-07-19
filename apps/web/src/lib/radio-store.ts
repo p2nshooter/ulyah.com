@@ -93,6 +93,7 @@ interface RadioState {
   setPlaybackState: (p: Partial<Pick<RadioState, "playing" | "needsInteraction" | "muted">>) => void;
   start: () => void;
   stop: () => void;
+  pauseLocal: () => void;
   advance: () => void;
   unmuteIntent: () => void;
 }
@@ -134,6 +135,14 @@ export const useRadioStore = create<RadioState>((set, get) => ({
   stop: () => {
     saveUserDisabled(true);
     set((s) => ({ playing: false, userDisabled: true, gen: s.gen + 1 }));
+  },
+
+  /** Silence THIS context only, without recording an explicit OFF — used by
+   * the cross-tab takeover (another tab/installed-app window now carries the
+   * broadcast). The visitor's own preference is untouched, so a later page
+   * load may auto-resume normally once it is the only context left. */
+  pauseLocal: () => {
+    set((s) => ({ playing: false, gen: s.gen + 1 }));
   },
 
   /** Natural forward progression on the audio's 'ended' event — does NOT

@@ -19,10 +19,17 @@ export interface AyahCountMeta {
 
 // Fixed reference instant shared by every client — never changes, so the
 // "broadcast" is always in the same place for everyone at any given moment.
-// This is the station's actual launch date: the khatam counter starts at 0
-// from here, not from an arbitrary earlier date that would make the counter
-// read as already huge (and dishonest) on day one.
-const RADIO_EPOCH_MS = Date.UTC(2026, 6, 10, 0, 0, 0);
+// PER SITE: each domain's station starts from ITS OWN launch date with the
+// khatam counter at 0 (owner: "radio quran harus mulai dari 0 masing-masing —
+// 1fr.fr & tilawa.de jangan ngikutin ulyah.com"). Honest counters, no
+// inherited history. NEXT_PUBLIC_TENANT is inlined at build time.
+const RADIO_EPOCHS: Record<string, number> = {
+  ulyah: Date.UTC(2026, 6, 10, 0, 0, 0), // ulyah.com launch
+  "1fr": Date.UTC(2026, 6, 17, 0, 0, 0), // 1fr.fr go-live
+  tilawa: Date.UTC(2026, 6, 17, 0, 0, 0), // tilawa.de go-live
+  dawa: Date.UTC(2026, 6, 19, 0, 0, 0), // dawa.es go-live
+};
+const RADIO_EPOCH_MS = RADIO_EPOCHS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? RADIO_EPOCHS.ulyah!;
 
 // Rough average tarteel pace. Not exact (individual ayah lengths vary a
 // lot), but tuned so a full khatam (one loop through all ayah) takes

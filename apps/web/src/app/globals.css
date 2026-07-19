@@ -13,6 +13,12 @@
   --color-primary: #0b3d2e;
   --color-primary-dark: #06251b;
   --color-accent: #b8892b;
+  /* RGB triplets consumed by tailwind.config.ts (rgb(var()/alpha)) — keep in
+     sync with the hex tokens above; each theme file overrides its own set. */
+  --tw-primary: 11 61 46;
+  --tw-primary-dark: 6 37 27;
+  --tw-accent: 184 137 43;
+  --tw-surface: 244 239 227;
   --color-accent-light: #d4af4a;
   --color-accent-xl: #f0d080;
   --color-surface: #f4efe3;

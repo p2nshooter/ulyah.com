@@ -5,6 +5,7 @@ import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
 import { InstallAppButton } from "@/components/InstallAppButton";
+import { api } from "@/lib/api";
 
 interface QuranRef {
   s: number;
@@ -79,15 +80,51 @@ function bookmarkKey(slug: string) {
  */
 export function PesantrenKitabReader({
   locale,
-  kitab,
-  chapters,
+  kitab: kitabProp,
+  chapters: chaptersProp,
   autoPromptInstall = false,
+  translationPending = false,
 }: {
   locale: string;
   kitab: KitabDetail;
   chapters: Chapter[];
   autoPromptInstall?: boolean;
+  /** The API is translating this kitab into `locale` in the background —
+   * refetch shortly so the visitor sees their own language without a manual
+   * refresh (the ISR-cached page itself can't change for a few minutes). */
+  translationPending?: boolean;
 }) {
+  const [kitab, setKitab] = useState(kitabProp);
+  const [chapters, setChapters] = useState(chaptersProp);
+
+  // Quiet client-side refetches (~12s apart, max 3 tries) while the worker
+  // writes the translated blob (content.ts translatePesantrenKitab) — the
+  // reader swaps to the visitor's own language as soon as it exists.
+  useEffect(() => {
+    if (!translationPending) return;
+    let tries = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const poll = async () => {
+      tries++;
+      try {
+        const d = await api.get<{ kitab: KitabDetail; chapters: Chapter[]; translationPending?: boolean }>(
+          `/content/pesantren/kitab/${kitabProp.slug}?lang=${locale}`
+        );
+        if (d && !d.translationPending) {
+          setKitab(d.kitab);
+          setChapters(d.chapters);
+          return;
+        }
+      } catch {
+        /* keep polling */
+      }
+      if (tries < 3) timer = setTimeout(poll, 12_000);
+    };
+    timer = setTimeout(poll, 12_000);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [translationPending, kitabProp.slug, locale]);
+
   const [activeBab, setActiveBab] = useState(chapters[0]?.id ?? 0);
   const [resumeHint, setResumeHint] = useState(false);
   const [fontSize, setFontSize] = useState<FontSize>("md");

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { contactLabels } from "@/lib/contact-labels";
+import { localePath } from "@/lib/paths";
 
 const EMAIL = "salam@ulyah.com";
 
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: `/${locale}/kontak` },
+    alternates: { canonical: localePath(locale, `/kontak`) },
   };
 }
 

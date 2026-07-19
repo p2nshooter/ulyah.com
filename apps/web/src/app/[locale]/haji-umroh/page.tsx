@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { HajjUmrahHub } from "@/components/HajjUmrahHub";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 // Native per-locale copy — every site renders its own language (fr/de), never
 // an English/Indonesian fallback. `{site}` becomes the tenant brand.
@@ -54,7 +55,7 @@ export async function generateMetadata({
   return {
     title: t.metaTitle,
     description: t.metaDesc(TENANT.siteName),
-    alternates: { canonical: `/${locale}/haji-umroh` },
+    alternates: { canonical: localePath(locale, `/haji-umroh`) },
   };
 }
 

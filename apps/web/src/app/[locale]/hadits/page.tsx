@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { PageHero } from "@/components/PageHero";
+import { localePath } from "@/lib/paths";
 
 interface CollectionRow {
   slug: string;
@@ -25,7 +26,7 @@ export async function generateMetadata({
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: `/${locale}/hadits` },
+    alternates: { canonical: localePath(locale, `/hadits`) },
   };
 }
 
