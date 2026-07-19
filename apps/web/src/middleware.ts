@@ -10,21 +10,33 @@ const LOCALE_COOKIE = "ulyah_locale";
 const TENANT_ID = process.env.NEXT_PUBLIC_TENANT ?? "ulyah";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 let hiddenCache: { paths: string[]; at: number } | null = null;
+let hiddenRefreshing = false;
 
-async function hiddenPaths(): Promise<string[]> {
+/**
+ * NON-BLOCKING hidden-page lookup: always answers instantly from the
+ * per-isolate cache and refreshes it in the background at most once per
+ * minute. The old version AWAITED a cross-worker fetch inside the middleware
+ * on cold isolates — request latency + CPU per request is exactly the diet
+ * that keeps Error 1102 ("Worker exceeded resource limits") away. Fails OPEN.
+ */
+function hiddenPathsCached(): string[] {
   if (TENANT_ID === "ulyah") return [];
   const now = Date.now();
-  if (hiddenCache && now - hiddenCache.at < 60_000) return hiddenCache.paths;
-  try {
-    const res = await fetch(`${API_BASE}/content/site-pages?tenant=${TENANT_ID}`);
-    if (res.ok) {
-      const j = (await res.json()) as { pages?: { path: string; visible: boolean }[] };
-      const paths = (j.pages ?? []).filter((p) => !p.visible).map((p) => p.path);
-      hiddenCache = { paths, at: now };
-      return paths;
-    }
-  } catch {
-    /* fail open — keep serving the page */
+  if ((!hiddenCache || now - hiddenCache.at >= 60_000) && !hiddenRefreshing) {
+    hiddenRefreshing = true;
+    fetch(`${API_BASE}/content/site-pages?tenant=${TENANT_ID}`)
+      .then(async (res) => {
+        if (res.ok) {
+          const j = (await res.json()) as { pages?: { path: string; visible: boolean }[] };
+          hiddenCache = { paths: (j.pages ?? []).filter((p) => !p.visible).map((p) => p.path), at: Date.now() };
+        }
+      })
+      .catch(() => {
+        /* fail open — keep serving the page */
+      })
+      .finally(() => {
+        hiddenRefreshing = false;
+      });
   }
   return hiddenCache?.paths ?? [];
 }
@@ -50,11 +62,19 @@ const COUNTRY_TO_LOCALE: Record<string, string> = {
   RU: "ru", BY: "ru", KZ: "ru",
   DE: "de", AT: "de", CH: "de", LI: "de",
   FR: "fr", MC: "fr", // Belgium/Canada/Switzerland are multi-lingual — left to Accept-Language instead of a blanket guess
+  ES: "es", MX: "es", AR: "es", CO: "es", PE: "es", CL: "es", VE: "es", EC: "es", GT: "es", BO: "es", DO: "es", HN: "es", PY: "es", SV: "es", NI: "es", CR: "es", PA: "es", UY: "es",
   SA: "ar", AE: "ar", EG: "ar", QA: "ar", KW: "ar", BH: "ar", OM: "ar", JO: "ar", IQ: "ar", MA: "ar", DZ: "ar", TN: "ar", LB: "ar", YE: "ar", LY: "ar",
   CN: "zh", TW: "zh", HK: "zh", MO: "zh", SG: "zh",
   JP: "ja",
   GB: "en", US: "en", AU: "en", CA: "en", NZ: "en", IE: "en", IN: "en", PH: "en",
 };
+
+// Every locale code any build has ever served. On a single-language sibling
+// build (1fr.fr = fr only, tilawa.de = de only, dawa.es = es only) an old
+// indexed URL like /en/quran must 301 to /fr/quran — NOT be re-prefixed into
+// /fr/en/quran (a 404). Google Search Console then consolidates the stale
+// language URLs onto the canonical native ones instead of reporting errors.
+const KNOWN_LOCALE_PREFIXES = new Set(["id", "en", "ru", "de", "fr", "es", "ar", "zh", "ja"]);
 
 function localeFromAcceptLanguage(header: string | null): string | null {
   if (!header) return null;
@@ -65,13 +85,15 @@ function localeFromAcceptLanguage(header: string | null): string | null {
   return null;
 }
 
-// Sibling tenants (1fr.fr, tilawa.de) ship a single native default language
-// (fr / de). Owner rule: "setiap website pakai bahasa native-nya sebagai
+// Sibling tenants (1fr.fr, tilawa.de, dawa.es) ship a single native language
+// (fr / de / es). Owner rule: "setiap website pakai bahasa native-nya sebagai
 // default, bukan hasil translate, jangan bahasa Inggris." So on a sibling
 // build we do NOT geo/Accept-Language-detect (which would land a visitor on
 // English); we honour an explicit cookie only, else the native default.
 const IS_SIBLING_TENANT =
-  process.env.NEXT_PUBLIC_TENANT === "1fr" || process.env.NEXT_PUBLIC_TENANT === "tilawa";
+  process.env.NEXT_PUBLIC_TENANT === "1fr" ||
+  process.env.NEXT_PUBLIC_TENANT === "tilawa" ||
+  process.env.NEXT_PUBLIC_TENANT === "dawa";
 
 function detectLocale(req: NextRequest): string {
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
@@ -152,11 +174,23 @@ export async function middleware(req: NextRequest) {
   const maybeLocale = segments[1];
 
   if (maybeLocale && isValidLocale(maybeLocale)) {
+    // The site's OWN language never carries a URL prefix (owner: "default
+    // ulyah.com adalah berbahasa Indonesia, tidak perlu /id" — and the same
+    // for each sibling's native language). Old prefixed URLs 301 to the bare
+    // path so exactly ONE URL serves each page.
+    if (maybeLocale === DEFAULT_LOCALE) {
+      const url = req.nextUrl.clone();
+      const rest = "/" + segments.slice(2).join("/");
+      url.pathname = rest === "/" ? "/" : rest;
+      const res = withSecurity(NextResponse.redirect(url, 301));
+      res.cookies.set(LOCALE_COOKIE, maybeLocale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+      return res;
+    }
     // A page the admin has hidden for this sibling is sent home (unreachable).
     if (TENANT_ID !== "ulyah") {
       const pageless = "/" + segments.slice(2).join("/");
-      if (pathIsHidden(await hiddenPaths(), pageless === "/" ? "/" : pageless.replace(/\/$/, ""))) {
-        return withSecurity(NextResponse.redirect(new URL(`/${maybeLocale}`, req.url)));
+      if (pathIsHidden(hiddenPathsCached(), pageless === "/" ? "/" : pageless.replace(/\/$/, ""))) {
+        return withSecurity(NextResponse.redirect(new URL("/", req.url)));
       }
     }
     const res = NextResponse.next();
@@ -164,10 +198,32 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
+  // A known-but-not-enabled locale prefix (old /en/… URL on a native-only
+  // sibling build) is REPLACED, permanently — never stacked in front of.
+  const staleLocale = Boolean(maybeLocale && KNOWN_LOCALE_PREFIXES.has(maybeLocale));
+  const pageless = staleLocale ? "/" + segments.slice(2).join("/") : pathname;
+
   const locale = detectLocale(req);
+  if (locale === DEFAULT_LOCALE && !staleLocale) {
+    // Bare URL in the site's own language: serve it AT the bare URL via an
+    // internal rewrite — the visitor (and Google) only ever see ulyah.com/…
+    // without /id (and 1fr.fr/… without /fr, etc.).
+    if (TENANT_ID !== "ulyah" && pathIsHidden(hiddenPathsCached(), pathname.replace(/\/$/, "") || "/")) {
+      return withSecurity(NextResponse.redirect(new URL("/", req.url)));
+    }
+    const url = req.nextUrl.clone();
+    url.pathname = `/${DEFAULT_LOCALE}${pathname === "/" ? "" : pathname}`;
+    const res = withSecurity(NextResponse.rewrite(url));
+    res.cookies.set(LOCALE_COOKIE, locale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+    return res;
+  }
+
   const url = req.nextUrl.clone();
-  url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  const res = NextResponse.redirect(url);
+  url.pathname =
+    locale === DEFAULT_LOCALE
+      ? pageless === "/" ? "/" : pageless
+      : `/${locale}${pageless === "/" ? "" : pageless}`;
+  const res = withSecurity(NextResponse.redirect(url, staleLocale ? 301 : 307));
   res.cookies.set(LOCALE_COOKIE, locale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
   return res;
 }

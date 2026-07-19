@@ -90,6 +90,23 @@ const L: Record<string, AiChatLabels> = {
     error: "Es tut uns leid — dieser Dienst wird mit größter Sorgfalt vorbereitet. Bitte versuchen Sie es gleich noch einmal, in schā' Allāh.",
     specialists: { master: "✦ Hauptberater", quran: "Koran", hadits: "Hadith", fiqih: "Fiqh", sirah: "Sīra", akhlak: "Charakter" },
   },
+  es: {
+    title: "Pregunta a la IA islámica",
+    bubble: "Preguntar a la IA",
+    openBubble: "Abrir el chat de IA",
+    closeBubble: "Cerrar el chat de IA",
+    intro: (site) =>
+      `Pregunta lo que quieras sobre el Corán, el tafsir, los hadices, el fiqh, los relatos o los libros clásicos. Las respuestas provienen de toda la base de datos de ${site}, con referencias que puedes abrir directamente.`,
+    placeholder: "Escribe tu pregunta…",
+    send: "Enviar",
+    answering: "La IA está respondiendo…",
+    sourcesFrom: (site) => `Referencias de ${site}:`,
+    disclaimer: (site) =>
+      `Las respuestas se basan en la base de datos de ${site} y están citadas, gratis dentro de un uso razonable. Para decisiones jurídicas importantes, consulta siempre a un sabio de confianza.`,
+    rateLimited: "Ya has preguntado bastante por ahora 🌷. Regístrate como donante para ampliar el límite.",
+    error: "Lo sentimos — este servicio se está preparando con el mayor cuidado. Inténtalo de nuevo en un momento, in sha' Allah.",
+    specialists: { master: "✦ Consejero principal", quran: "Corán", hadits: "Hadices", fiqih: "Fiqh", sirah: "Sira", akhlak: "Carácter" },
+  },
   ar: {
     title: "اسأل الذكاء الاصطناعي الإسلامي",
     bubble: "اسأل",

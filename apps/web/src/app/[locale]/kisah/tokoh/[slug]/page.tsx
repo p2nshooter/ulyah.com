@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
+import { localePath } from "@/lib/paths";
 
 interface Person {
   slug: string;
@@ -43,7 +44,7 @@ export async function generateMetadata({
   return {
     title: `${data.person.name_id} — Kisah Islami`,
     description: data.person.summary_id.slice(0, 160),
-    alternates: { canonical: `/${locale}/kisah/tokoh/${slug}` },
+    alternates: { canonical: localePath(locale, `/kisah/tokoh/${slug}`) },
   };
 }
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 /**
  * Acquisition page — 1fr.fr tenant only (404 on ulyah.com). Owner brief: the
@@ -86,6 +87,29 @@ const COPY = {
     donateNote: "Meanwhile, every donation keeps this portal alive and its work going.",
     donateCta: "Support this portal",
   },
+  es: {
+    title: "Este portal está en venta — una adquisición llave en mano",
+    intro:
+      "One Faith France (1fr.fr) es un portal islámico completo, puro y sin publicidad, listo para servir a la comunidad hispanohablante. Se ofrece en adquisición para que su labor siga creciendo en manos de un propietario en España.",
+    benefitsTitle: "Lo que recibe el nuevo propietario",
+    benefits: [
+      "El nombre de dominio 1fr.fr — corto, memorable, nacional",
+      "El correo profesional salam@1fr.fr y la plena propiedad de la marca",
+      "El control total de las emisiones en directo (La Meca, Medina y canales de todo el mundo, ya operativas 24/7)",
+      "El portal de administración completo: cada página es dinámica — donaciones, productos, Hach y Umra, películas infantiles; todo se edita, se muestra o se oculta con un clic",
+      "El portal de donantes independiente, con certificados de agradecimiento generados para cada donante",
+      "El Corán completo (604 páginas del Mushaf con tajwid coloreado), decenas de miles de hadices, una biblioteca de kitab clásicos y las historias de los Profetas — el contenido puede formar parte de la conversación de adquisición para no reconstruir nada",
+      "Tras la adquisición: la IA gratuita se retira automáticamente y se sustituye por la IA premium del propietario, con asistentes más capaces",
+    ],
+    demoTitle: "Inspecciona con confianza",
+    demo:
+      "Un acceso de demostración (solo lectura) a ambos portales — administración y donantes — está disponible bajo petición: lo ves todo, incluidos certificados de ejemplo, sin poder cambiar nada.",
+    contactTitle: "Ponte en contacto",
+    contact: "Para cualquier propuesta de adquisición, escríbenos:",
+    minOffer: "Oferta mínima: 20 000 US$",
+    donateNote: "Mientras tanto, cada donación mantiene vivo este portal y su labor en marcha.",
+    donateCta: "Apoyar este portal",
+  },
   ar: {
     title: "هذه البوابة معروضة للبيع — استحواذ جاهز بالكامل",
     intro:
@@ -142,7 +166,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${c.title} — ${TENANT.siteName}`,
     description: c.intro.slice(0, 160),
-    alternates: { canonical: `/${locale}/acquisition` },
+    alternates: { canonical: localePath(locale, `/acquisition`) },
   };
 }
 

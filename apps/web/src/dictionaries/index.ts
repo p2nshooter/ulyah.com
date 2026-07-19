@@ -4,6 +4,7 @@ import en from "./en";
 import ru from "./ru";
 import de from "./de";
 import fr from "./fr";
+import es from "./es";
 import ar from "./ar";
 import zh from "./zh";
 import ja from "./ja";
@@ -11,7 +12,7 @@ import { TENANT } from "@/lib/tenant";
 
 export type { Dictionary };
 
-const dictionaries: Record<string, Dictionary> = { id, en, ru, de, fr, ar, zh, ja };
+const dictionaries: Record<string, Dictionary> = { id, en, ru, de, fr, es, ar, zh, ja };
 
 // The dictionaries are authored with the ULYAH brand baked into their prose
 // (hero copy, footer, donation/certificate text, "the family behind Ulyah", …).

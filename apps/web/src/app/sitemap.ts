@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LOCALES } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
@@ -20,36 +20,57 @@ const HADITS_COLLECTIONS = [
   "bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi", "ahmad", "darimi",
 ];
 
+// Every site serves its OWN language at BARE URLs (no /id on ulyah.com, no
+// /fr on 1fr.fr, …) — the middleware rewrites bare → default locale and 301s
+// the prefixed twins, so the sitemap must list the bare form.
+function urlFor(localeCode: string, route: string): string {
+  return localeCode === DEFAULT_LOCALE ? `${BASE}${route}` : `${BASE}/${localeCode}${route}`;
+}
+
+// Cross-DOMAIN hreflang (owner: Update Global Seluruh Portal §3): the same
+// route exists on all four sites, each in its own language, so every sitemap
+// URL declares its translations on the sibling domains — id → ulyah.com,
+// fr → 1fr.fr, de → tilawa.de, es → dawa.es — each at its bare native URL.
+function crossDomainLanguages(route: string): Record<string, string> {
+  return {
+    id: `https://ulyah.com${route}`,
+    fr: `https://1fr.fr${route}`,
+    de: `https://tilawa.de${route}`,
+    es: `https://dawa.es${route}`,
+    "x-default": `https://ulyah.com${route}`,
+  };
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   for (const l of LOCALES) {
     for (const r of ROUTES) {
       entries.push({
-        url: `${BASE}/${l.code}${r}`,
+        url: urlFor(l.code, r),
         changeFrequency: r === "" || r === "/harian" ? "daily" : "weekly",
         priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
         alternates: {
-          languages: Object.fromEntries(LOCALES.map((x) => [x.code, `${BASE}/${x.code}${r}`])),
+          languages: crossDomainLanguages(r),
         },
       });
     }
     for (const slug of HADITS_COLLECTIONS) {
-      entries.push({ url: `${BASE}/${l.code}/hadits/${slug}`, changeFrequency: "weekly", priority: 0.8 });
+      entries.push({ url: urlFor(l.code, `/hadits/${slug}`), changeFrequency: "weekly", priority: 0.8 });
     }
     for (const ep of KISAH_YUSUF_SERIES) {
-      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
     }
     for (const ep of KISAH_MUSA_SERIES) {
-      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
     }
     for (const ep of KISAH_DZULQARNAIN_SERIES) {
-      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
     }
     for (const ep of KISAH_ASHABUL_KAHFI_SERIES) {
-      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
     }
     for (const ep of KISAH_NUH_SERIES) {
-      entries.push({ url: `${BASE}/${l.code}/kisah/${ep.slug}`, changeFrequency: "monthly", priority: 0.6 });
+      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
     }
   }
   return entries;

@@ -1,4 +1,4 @@
-import { LOCALES } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../../scripts/content/kisah-musa";
@@ -37,14 +37,18 @@ const HADITS_COLLECTIONS = [
 
 export function GET() {
   const lines: string[] = [];
+  // The default locale lives at BARE URLs (middleware rewrite) — the text
+  // sitemap must list those, matching sitemap.xml.
+  const prefix = (code: string) => (code === DEFAULT_LOCALE ? "" : `/${code}`);
   for (const l of LOCALES) {
-    for (const r of ROUTES) lines.push(`${BASE}/${l.code}${r}`);
-    for (const slug of HADITS_COLLECTIONS) lines.push(`${BASE}/${l.code}/hadits/${slug}`);
-    for (const ep of KISAH_YUSUF_SERIES) lines.push(`${BASE}/${l.code}/kisah/${ep.slug}`);
-    for (const ep of KISAH_MUSA_SERIES) lines.push(`${BASE}/${l.code}/kisah/${ep.slug}`);
-    for (const ep of KISAH_DZULQARNAIN_SERIES) lines.push(`${BASE}/${l.code}/kisah/${ep.slug}`);
-    for (const ep of KISAH_ASHABUL_KAHFI_SERIES) lines.push(`${BASE}/${l.code}/kisah/${ep.slug}`);
-    for (const ep of KISAH_NUH_SERIES) lines.push(`${BASE}/${l.code}/kisah/${ep.slug}`);
+    const p = prefix(l.code);
+    for (const r of ROUTES) lines.push(`${BASE}${p}${r}` || BASE);
+    for (const slug of HADITS_COLLECTIONS) lines.push(`${BASE}${p}/hadits/${slug}`);
+    for (const ep of KISAH_YUSUF_SERIES) lines.push(`${BASE}${p}/kisah/${ep.slug}`);
+    for (const ep of KISAH_MUSA_SERIES) lines.push(`${BASE}${p}/kisah/${ep.slug}`);
+    for (const ep of KISAH_DZULQARNAIN_SERIES) lines.push(`${BASE}${p}/kisah/${ep.slug}`);
+    for (const ep of KISAH_ASHABUL_KAHFI_SERIES) lines.push(`${BASE}${p}/kisah/${ep.slug}`);
+    for (const ep of KISAH_NUH_SERIES) lines.push(`${BASE}${p}/kisah/${ep.slug}`);
   }
   return new Response(lines.join("\n") + "\n", {
     headers: {

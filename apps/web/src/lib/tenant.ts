@@ -1,14 +1,13 @@
 /**
  * Build-time tenant configuration — ONE codebase and ONE content database
- * serve two sites:
+ * serve four sites:
  *
- *   • ulyah.com          — the global Islamic platform (default tenant)
- *   • 1fr.fr             — "One Faith France · Le Portail Islamique en
- *                          Français": same content, French-first (fr/en/ar),
- *                          premium look, donation-forward, openly for sale
- *                          (acquisition page), zero ads.
+ *   • ulyah.com          — the global Islamic platform (default tenant, id)
+ *   • 1fr.fr             — One Faith France, French only
+ *   • tilawa.de          — Tilawa, German only
+ *   • dawa.es            — Dawa, Spanish only
  *
- * The tenant is fixed at BUILD time via NEXT_PUBLIC_TENANT ("1fr" | unset),
+ * The tenant is fixed at BUILD time via NEXT_PUBLIC_TENANT,
  * and the deploy workflow builds/deploys the app twice (ulyah-web and
  * onefaith-web workers). Build-time — not hostname sniffing — so there are
  * no runtime edge cases and each deployment is fully static-optimizable.
@@ -17,7 +16,7 @@
  * lock-step with this file.
  */
 
-export type TenantId = "ulyah" | "1fr" | "tilawa";
+export type TenantId = "ulyah" | "1fr" | "tilawa" | "dawa";
 
 export interface TenantConfig {
   id: TenantId;
@@ -62,15 +61,15 @@ const ONEFAITH: TenantConfig = {
   siteName: "One Faith France",
   tagline: {
     fr: "Le Portail Islamique en Français",
-    en: "The Islamic Portal in French",
-    ar: "البوابة الإسلامية بالفرنسية",
   },
   logoIcon: "/brand/1fr/icon.png",
   logoBanner: "/brand/1fr/banner.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@1fr.fr",
-  features: { ads: false, donationForward: true, forSale: true },
+  acquisitionEmail: "salam@ulyah.com",
+  // Owner (Update Global Seluruh Portal §2): the AdSense loader script must be
+  // present on every page of EVERY site — ads are enabled on all tenants.
+  features: { ads: true, donationForward: true, forSale: true },
 };
 
 const TILAWA: TenantConfig = {
@@ -79,18 +78,34 @@ const TILAWA: TenantConfig = {
   siteName: "Tilawa",
   tagline: {
     de: "Das islamische Portal auf Deutsch",
-    en: "The Islamic Portal in German",
-    ar: "البوابة الإسلامية بالألمانية",
   },
   logoIcon: "/brand/tilawa/icon.png",
   logoBanner: "/brand/tilawa/banner.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@tilawa.de",
-  features: { ads: false, donationForward: true, forSale: true },
+  // All acquisition offers go to the OWNER's inbox (owner: "semua email
+  // penawaran ke salam@ulyah.com") — the sibling domain's own mailbox is an
+  // asset the BUYER receives, not the negotiation channel.
+  acquisitionEmail: "salam@ulyah.com",
+  features: { ads: true, donationForward: true, forSale: true },
 };
 
-const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, ulyah: ULYAH };
+const DAWA: TenantConfig = {
+  id: "dawa",
+  siteUrl: "https://dawa.es",
+  siteName: "Dawa",
+  tagline: {
+    es: "El Portal Islámico en Español",
+  },
+  logoIcon: "/brand/dawa/icon.png",
+  logoBanner: "/brand/dawa/banner.png",
+  wordmark: null,
+  wordmarkGold: null,
+  acquisitionEmail: "salam@ulyah.com",
+  features: { ads: true, donationForward: true, forSale: true },
+};
+
+const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, dawa: DAWA, ulyah: ULYAH };
 
 export const TENANT: TenantConfig = TENANTS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? ULYAH;
 

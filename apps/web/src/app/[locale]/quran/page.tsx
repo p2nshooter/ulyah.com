@@ -5,6 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 // Self-contained labels (radio-labels pattern) for the install banner below
 // the reader — the installable Mushaf app (same MushafReader engine as
@@ -53,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.reader.allSurah} — ${TENANT.siteName}`,
     description: dict.reader.sectionSubtitle,
-    alternates: { canonical: `/${locale}/quran` },
+    alternates: { canonical: localePath(locale, `/quran`) },
   };
 }
 

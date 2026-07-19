@@ -1,5 +1,36 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { TENANT } from "@/lib/tenant";
+
+// Native-language app name/description per locale (never Indonesian/ULYAH on
+// a sibling site).
+const FLIPBOOK_COPY: Record<string, { name: string; short: string; desc: string }> = {
+  id: {
+    name: `Al-Qur'an Flipbook — ${TENANT.siteName}`,
+    short: "Qur'an Flipbook",
+    desc: "Mushaf yang bisa dibalik halamannya langsung di browser, siap dipasang sebagai aplikasi tersendiri.",
+  },
+  en: {
+    name: `Qur'an Flipbook — ${TENANT.siteName}`,
+    short: "Qur'an Flipbook",
+    desc: "A mushaf you can page through right in the browser, installable as its own app.",
+  },
+  fr: {
+    name: `Coran Flipbook — ${TENANT.siteName}`,
+    short: "Coran Flipbook",
+    desc: "Un mushaf que l'on feuillette directement dans le navigateur, installable comme application indépendante.",
+  },
+  de: {
+    name: `Koran-Flipbook — ${TENANT.siteName}`,
+    short: "Koran-Flipbook",
+    desc: "Ein Mushaf zum Umblättern direkt im Browser, als eigene App installierbar.",
+  },
+  es: {
+    name: `Corán Flipbook — ${TENANT.siteName}`,
+    short: "Corán Flipbook",
+    desc: "Un mushaf cuyas páginas puedes pasar directamente en el navegador, instalable como aplicación independiente.",
+  },
+};
 
 /**
  * Dynamic, locale-aware manifest for the standalone "Qur'an Flipbook"
@@ -11,10 +42,11 @@ export function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get("locale") ?? "";
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
 
+  const copy = FLIPBOOK_COPY[locale] ?? FLIPBOOK_COPY.en!;
   const manifest = {
-    name: "Al-Qur'an Flipbook — ULYAH",
-    short_name: "Qur'an Flipbook",
-    description: "Mushaf yang bisa dibalik halamannya langsung di browser, siap dipasang sebagai aplikasi tersendiri.",
+    name: copy.name,
+    short_name: copy.short,
+    description: copy.desc,
     id: `/${locale}/quran-flipbook`,
     start_url: `/${locale}/quran-flipbook`,
     scope: `/${locale}/quran-flipbook`,

@@ -1,0 +1,110 @@
+/* ── Shared ornaments — pattern lattice, dividers, app-hero panel ─────────
+   Every ornament reads the tenant's tokens, so the SAME component wears a
+   different identity per site; the theme files additionally swap the motif
+   SVG mask (khatam star / fine lattice / girih grid / Andalusian mosaic). */
+
+/* A subtle 8-point-star lattice built purely from layered gradients (no
+   image assets): two diagonal line grids forming stars where they cross,
+   plus a soft radial wash. Deliberately faint — texture, not noise. */
+.pattern-islamic {
+  position: relative;
+}
+.pattern-islamic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    repeating-linear-gradient(45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(-45deg, currentColor 0, currentColor 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(0deg, currentColor 0, currentColor 1px, transparent 1px, transparent 52px),
+    repeating-linear-gradient(90deg, currentColor 0, currentColor 1px, transparent 1px, transparent 52px);
+  color: var(--color-accent);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Ornamental section divider: ─────── ✿ ─────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 auto;
+  max-width: 22rem;
+}
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to var(--divider-dir, right),
+    transparent,
+    color-mix(in srgb, var(--color-accent) 55%, transparent)
+  );
+}
+.section-divider::after {
+  --divider-dir: left;
+}
+.section-divider > span {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* Small corner-flourish, positioned absolutely by the caller. Purely
+   decorative — echoes the illuminated-manuscript corner motif without the
+   cost of an image asset. */
+.corner-flourish::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(
+    circle at top right,
+    color-mix(in srgb, var(--color-accent) 16%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── App-style hero panels (Jadwal Sholat, Radio Qur'an, Qibla) ──────────
+   One premium panel treatment that automatically wears EACH SITE'S palette
+   (primary gradient + accent glow) and its own signature motif, so the "app"
+   surfaces stay in harmony with the rest of the site. All colours come from
+   the per-tenant CSS variables, so a new site themes these for free. */
+.app-hero {
+  position: relative;
+  color: #f6f1e6;
+  background:
+    radial-gradient(circle at 85% 12%, color-mix(in srgb, var(--color-accent) 34%, transparent), transparent 60%),
+    linear-gradient(135deg, var(--color-primary-dark), var(--color-primary) 60%, color-mix(in srgb, var(--color-primary) 82%, #000) 100%);
+  box-shadow:
+    0 24px 50px -28px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 0 color-mix(in srgb, var(--color-accent) 28%, transparent);
+}
+.app-hero > * { position: relative; z-index: 1; }
+/* Signature Islamic geometric motif per site, drawn in each site's own
+   accent colour via a CSS mask (the pattern SVG is the alpha mask; the fill
+   is var(--color-accent)). Default (ulyah): the 8-point khatam star (two
+   interlaced squares) — classic and warm. Themes override --motif. */
+.app-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.14;
+  background-color: var(--color-accent);
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='48'%20height='48'%20viewBox='0%200%2048%2048'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='1.2'%3E%3Crect%20x='12'%20y='12'%20width='24'%20height='24'/%3E%3Crect%20x='12'%20y='12'%20width='24'%20height='24'%20transform='rotate(45%2024%2024)'/%3E%3Ccircle%20cx='24'%20cy='24'%20r='3'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-image: var(--motif);
+  mask-image: var(--motif);
+  -webkit-mask-size: 48px 48px;
+  mask-size: 48px 48px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}

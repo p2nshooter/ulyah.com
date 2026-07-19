@@ -23,7 +23,7 @@ export interface LiveLabels {
 const L: Record<string, (site: string) => LiveLabels> = {
   id: (site) => ({
     offlineSlot: "Slot siaran ini sedang offline.",
-    wantStream: `Ingin siaran langsung melalui ${site}?`,
+    wantStream: `Slot live streaming ini disewakan — pengunjung real dan ramai. Dana sewa dipergunakan untuk keberlangsungan ${site}. Hubungi salam@ulyah.com`,
     hrs: "JAM",
     replay: "REKAMAN",
     maximize: "Perbesar",
@@ -39,7 +39,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   en: (site) => ({
     offlineSlot: "This stream slot is currently offline.",
-    wantStream: `Want to stream live via ${site}?`,
+    wantStream: `This live-stream slot is for rent — real, active visitors. Rental proceeds keep ${site} running. Contact salam@ulyah.com`,
     hrs: "HRS",
     replay: "REPLAY",
     maximize: "Maximize",
@@ -55,7 +55,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   fr: (site) => ({
     offlineSlot: "Ce créneau de diffusion est actuellement hors ligne.",
-    wantStream: `Vous souhaitez diffuser en direct via ${site} ?`,
+    wantStream: `Ce créneau de diffusion en direct est à louer — visiteurs réels et nombreux. Les revenus de location font vivre ${site}. Contact : salam@ulyah.com`,
     hrs: "H",
     replay: "REDIFFUSION",
     maximize: "Agrandir",
@@ -71,7 +71,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   de: (site) => ({
     offlineSlot: "Dieser Übertragungskanal ist derzeit offline.",
-    wantStream: `Möchten Sie live über ${site} übertragen?`,
+    wantStream: `Dieser Livestream-Platz ist zu vermieten — echte, aktive Besucher. Die Mieteinnahmen erhalten ${site}. Kontakt: salam@ulyah.com`,
     hrs: "STD",
     replay: "AUFZEICHNUNG",
     maximize: "Vergrößern",
@@ -85,9 +85,25 @@ const L: Record<string, (site: string) => LiveLabels> = {
     broadcastsDesc: `Vorträge und Übertragungen, direkt vom ${site}-Team kuratiert.`,
     close: "Schließen",
   }),
+  es: (site) => ({
+    offlineSlot: "Este canal de emisión está actualmente desconectado.",
+    wantStream: `Este espacio de emisión en directo se alquila — visitantes reales y activos. El alquiler mantiene ${site} en marcha. Contacto: salam@ulyah.com`,
+    hrs: "H",
+    replay: "GRABACIÓN",
+    maximize: "Ampliar",
+    notLive: "Ahora no hay directo — se reproducen los últimos vídeos del canal.",
+    openYoutube: "Abrir en YouTube",
+    mutedDefault: "🔇 Silenciado por defecto — toca el icono del altavoz en el reproductor para activar el sonido.",
+    autoTitle: "En directo 24 h — Mundo islámico",
+    autoDesc:
+      "Emisiones oficiales siempre en línea — La Meca, Medina y canales islámicos de todo el mundo. Sigue automáticamente el directo actual de cada canal.",
+    broadcastsTitle: `Emisiones de ${site}`,
+    broadcastsDesc: `Clases y emisiones seleccionadas directamente por el equipo de ${site}.`,
+    close: "Cerrar",
+  }),
   ar: (site) => ({
     offlineSlot: "قناة البث هذه غير متصلة حاليًا.",
-    wantStream: `هل تريد البث المباشر عبر ${site}؟`,
+    wantStream: `مساحة البث هذه متاحة للإيجار — زوار حقيقيون ونشطون. عائد الإيجار يُبقي ${site} مستمرًا. تواصل: salam@ulyah.com`,
     hrs: "ساعة",
     replay: "تسجيل",
     maximize: "تكبير",

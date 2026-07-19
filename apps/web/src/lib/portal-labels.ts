@@ -56,7 +56,18 @@ const DE: PortalLabels = {
     "Wann immer Sie bereit sind, erneut zu geben, stehen Ihnen hier alle Wege offen — ohne Ihr Dashboard zu verlassen.",
 };
 
-const MAP: Record<string, PortalLabels> = { en: EN, id: ID, fr: FR, de: DE };
+const ES: PortalLabels = {
+  welcomeTitle: "Bienvenido, amigo de la causa",
+  welcomeShort:
+    "La paz sea contigo, y bienvenido. Gracias por caminar a nuestro lado llevando la luz del Corán a quienes aún la buscan — que cada momento que pases aquí se escriba a tu favor como una buena obra.",
+  linkThanks: "Leer los agradecimientos completos →",
+  linkVirtues: "Ver la recompensa prometida por apoyar la causa ↓",
+  donateSectionTitle: "Sigue compartiendo el bien",
+  donateSectionSubtitle:
+    "Cuando estés listo para dar de nuevo, todos los caminos están abiertos aquí — sin salir de tu panel.",
+};
+
+const MAP: Record<string, PortalLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function portalLabels(locale: string): PortalLabels {
   return MAP[locale] ?? EN;

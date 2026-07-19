@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { qiblaLabels } from "@/lib/qibla-labels";
 import { QiblaCompass } from "@/components/QiblaCompass";
+import { localePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -10,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: `/${locale}/kiblat` },
+    alternates: { canonical: localePath(locale, `/kiblat`) },
   };
 }
 

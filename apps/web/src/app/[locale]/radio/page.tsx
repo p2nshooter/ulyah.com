@@ -4,6 +4,7 @@ import Image from "next/image";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { radioLabels } from "@/lib/radio-labels";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
+import { localePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: `/${locale}/radio` },
+    alternates: { canonical: localePath(locale, `/radio`) },
     // A distinct manifest (own "id") so this page installs as its own
     // always-on Radio Qur'an app, separate from the full-site shell and from
     // the Jadwal Sholat mini-app — see manifest-radio.webmanifest/route.ts.

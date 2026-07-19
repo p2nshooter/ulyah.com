@@ -6,9 +6,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: { DEFAULT: "#0B3D2E", dark: "#06251b" },
-        accent: "#B8892B",
-        surface: "#F4EFE3",
+        // Driven by per-tenant CSS variables (RGB triplets defined in
+        // globals.css + src/styles/themes/*) so bg-primary / text-accent /
+        // accent/40 etc. automatically wear EACH SITE'S palette — the footer
+        // must never stay ulyah-emerald on the navy tilawa.de or terracotta
+        // dawa.es (owner: "warna footer dan body tidak seimbang").
+        primary: {
+          DEFAULT: "rgb(var(--tw-primary) / <alpha-value>)",
+          dark: "rgb(var(--tw-primary-dark) / <alpha-value>)",
+        },
+        accent: "rgb(var(--tw-accent) / <alpha-value>)",
+        surface: "rgb(var(--tw-surface) / <alpha-value>)",
         "text-primary": "#232323",
         "text-secondary": "#5A5A5A",
         success: "#2E7D4F",

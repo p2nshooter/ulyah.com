@@ -49,7 +49,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="pattern-islamic bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
+      <section className="hero-main pattern-islamic bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
         <div className="mx-auto grid max-w-7xl items-center gap-10 desktop:grid-cols-2">
           <div className="hero-entrance">
             <h1 className="font-heading text-4xl leading-[1.15] tracking-tight sm:text-5xl desktop:text-6xl">

@@ -14,6 +14,44 @@ interface NavigatorWithRelatedApps extends Navigator {
 }
 
 const INSTALLED_KEY = "ulyah_pwa_installed";
+const REPORTED_KEY = "ulyah_pwa_install_reported";
+const DEVICE_KEY = "ulyah_device_id";
+
+/** Stable anonymous device token (random, localStorage-only — NOT a
+ * fingerprint, no personal data). Lets the admin report count DISTINCT
+ * devices with the app currently installed, so one phone doing
+ * install → uninstall → install again is counted honestly as ONE active
+ * device with 2 installs + 1 uninstall in its history. */
+function deviceId(): string {
+  try {
+    let id = window.localStorage.getItem(DEVICE_KEY);
+    if (!id) {
+      id =
+        (crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2) + Date.now().toString(36)).replace(/-/g, "");
+      window.localStorage.setItem(DEVICE_KEY, id);
+    }
+    return id;
+  } catch {
+    return "anon";
+  }
+}
+
+/** Report one install per actual install: the accepted-prompt branch AND the
+ * `appinstalled` event both fire on Chrome for the same single install, which
+ * double-counted every install in the admin report. A short-lived timestamp
+ * lets a genuine REINSTALL (uninstall → install again, always minutes-to-days
+ * apart) count again while the duplicate seconds-apart signal is dropped. */
+function reportInstallOnce(app: string) {
+  try {
+    const key = `${REPORTED_KEY}_${app}`;
+    const last = Number(window.localStorage.getItem(key) ?? 0);
+    if (Date.now() - last < 10 * 60 * 1000) return;
+    window.localStorage.setItem(key, String(Date.now()));
+  } catch {
+    /* storage unavailable — still report rather than lose the event */
+  }
+  api.post("/analytics/install", { app, device: deviceId() }).catch(() => {});
+}
 
 /**
  * A permanent "Install App" trigger — never a popup or banner that reappears
@@ -103,7 +141,7 @@ export function InstallAppButton({
           // then the flag is cleared so it can't double-count).
           if (window.localStorage.getItem(`${INSTALLED_KEY}_${app}`) === "1") {
             window.localStorage.removeItem(`${INSTALLED_KEY}_${app}`);
-            api.post("/analytics/uninstall", { app }).catch(() => {});
+            api.post("/analytics/uninstall", { app, device: deviceId() }).catch(() => {});
           }
         })
         .catch(() => {});
@@ -119,7 +157,7 @@ export function InstallAppButton({
       window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
       setInstalled(true);
       setDeferredPrompt(null);
-      api.post("/analytics/install", { app }).catch(() => {});
+      reportInstallOnce(app);
     };
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
@@ -142,7 +180,7 @@ export function InstallAppButton({
       if (choice.outcome === "accepted") {
         window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
         setInstalled(true);
-        api.post("/analytics/install", { app }).catch(() => {});
+        reportInstallOnce(app);
       }
       return;
     }

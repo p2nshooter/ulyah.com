@@ -562,8 +562,114 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
     matn: byBab.get(b.id as number) ?? [],
   }));
 
+  // Native-language reading (owner rule + AdSense: a sibling site must not
+  // show Indonesian matn translations). For any locale other than id/ar the
+  // WHOLE kitab's Indonesian fields are machine-translated once in the
+  // background and stored as ONE KV blob — never a per-string subrequest
+  // storm (the known Error-1102 failure mode, see lib/mt.ts). First request
+  // serves Indonesian + translationPending; the reader refetches shortly
+  // after and gets the stored translation.
+  const requestedLang = c.req.query("lang") ?? "id";
+  const wantLang = isValidLocale(requestedLang) ? requestedLang : "id";
+  if (wantLang !== "id" && wantLang !== "ar") {
+    const blobKey = `pes-i18n:v1:${slug}:${wantLang}`;
+    const blob = await safeKvGet(c.env, blobKey);
+    if (blob) {
+      try {
+        const tr = JSON.parse(blob) as Record<string, string>;
+        const kk = kitab as Record<string, unknown>;
+        for (const f of ["title_id", "description_id", "category_name"]) {
+          if (typeof kk[f] === "string" && tr[`k:${f}`]) kk[f] = tr[`k:${f}`];
+        }
+        for (const ch of chapters as { id: unknown; name_id: unknown; matn: Record<string, unknown>[] }[]) {
+          if (tr[`b:${ch.id}`]) ch.name_id = tr[`b:${ch.id}`];
+          for (const m of ch.matn) {
+            if (tr[`mt:${m.id}`]) m.title_id = tr[`mt:${m.id}`];
+            if (tr[`tr:${m.id}`]) m.translation_id = tr[`tr:${m.id}`];
+            if (tr[`ex:${m.id}`]) m.explanation_id = tr[`ex:${m.id}`];
+          }
+        }
+        return c.json({ kitab, chapters, lang: wantLang });
+      } catch {
+        /* fall through — serve Indonesian below */
+      }
+    }
+    c.executionCtx.waitUntil(translatePesantrenKitab(c.env, blobKey, wantLang, kitab, chapters));
+    return c.json({ kitab, chapters, lang: "id", translationPending: true });
+  }
+
   return c.json({ kitab, chapters });
 });
+
+// Background whole-kitab translation: joins the Indonesian strings into a
+// few large chunks (one gtx call each, separator-preserved), then stores a
+// single KV blob keyed by kitab+lang. Runs after the response is sent.
+const PES_SEP = "\n⁂\n";
+async function translatePesantrenKitab(
+  env: Env,
+  blobKey: string,
+  lang: string,
+  kitab: unknown,
+  chapters: unknown
+): Promise<void> {
+  try {
+    // A concurrent request may already be translating — a tiny KV lock keeps
+    // the expensive job single-flight without blocking anyone.
+    const lockKey = `${blobKey}:lock`;
+    if (await safeKvGet(env, lockKey)) return;
+    await safeKvPut(env, lockKey, "1", { expirationTtl: 300 });
+
+    const entries: [string, string][] = [];
+    const kk = kitab as Record<string, unknown>;
+    for (const f of ["title_id", "description_id", "category_name"]) {
+      if (typeof kk[f] === "string" && (kk[f] as string).trim()) entries.push([`k:${f}`, kk[f] as string]);
+    }
+    for (const ch of chapters as { id: unknown; name_id: unknown; matn: Record<string, unknown>[] }[]) {
+      if (typeof ch.name_id === "string" && ch.name_id.trim()) entries.push([`b:${ch.id}`, ch.name_id]);
+      for (const m of ch.matn) {
+        if (typeof m.title_id === "string" && m.title_id.trim()) entries.push([`mt:${m.id}`, m.title_id]);
+        if (typeof m.translation_id === "string" && (m.translation_id as string).trim())
+          entries.push([`tr:${m.id}`, m.translation_id as string]);
+        if (typeof m.explanation_id === "string" && (m.explanation_id as string).trim())
+          entries.push([`ex:${m.id}`, m.explanation_id as string]);
+      }
+    }
+    if (entries.length === 0) return;
+
+    // Group into ≤3500-char batches; each batch is ONE translator call.
+    const out: Record<string, string> = {};
+    let batch: [string, string][] = [];
+    let size = 0;
+    const flush = async () => {
+      if (batch.length === 0) return;
+      const joined = batch.map(([, v]) => v.replace(/\n{2,}/g, "\n")).join(PES_SEP);
+      const translated = await translateText(env, joined, lang, "id");
+      if (translated) {
+        const parts = translated.split(/\n?\s*⁂\s*\n?/);
+        if (parts.length === batch.length) {
+          batch.forEach(([key], i) => {
+            const t = parts[i]?.trim();
+            if (t) out[key] = t;
+          });
+        }
+      }
+      batch = [];
+      size = 0;
+    };
+    for (const e of entries) {
+      if (size + e[1].length > 3500 && batch.length > 0) await flush();
+      batch.push(e);
+      size += e[1].length;
+    }
+    await flush();
+
+    if (Object.keys(out).length > 0) {
+      await safeKvPut(env, blobKey, JSON.stringify(out), { expirationTtl: 60 * 60 * 24 * 90 });
+    }
+  } catch {
+    /* background best-effort — the next visit simply retries */
+  }
+}
 
 // ── Kisah Anak — short sequential children's stories, watch/listen-only ───
 // Both kisah-anak endpoints accept ?lang= and return normalized `title`,

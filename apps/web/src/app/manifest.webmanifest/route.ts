@@ -15,18 +15,21 @@ const THEME: Record<string, { theme: string; bg: string }> = {
   ulyah: { theme: "#0B3D2E", bg: "#06251b" }, // emerald, dark splash
   "1fr": { theme: "#17294a", bg: "#fbf8f0" }, // navy on ivory (light identity)
   tilawa: { theme: "#14181d", bg: "#14181d" }, // charcoal
+  dawa: { theme: "#8a3b12", bg: "#fff8f1" }, // terracotta on warm cream
 };
 
 const NAME: Record<string, string> = {
   ulyah: "Ulyah — Listen to Islam",
   "1fr": "One Faith France",
   tilawa: "Tilawa — Islam hören",
+  dawa: "Dawa — El Islam en Español",
 };
 
 const DESC: Record<string, string> = {
   ulyah: "Al-Qur'an, tafsir, hadits, dan kisah-kisah Islami dalam pengalaman audio yang tenang dan mendalam.",
   "1fr": "Le Coran, le tafsir, les hadiths et les récits islamiques dans une expérience audio apaisante.",
   tilawa: "Der Koran, Tafsir, Hadithe und islamische Geschichten in einem ruhigen Hörerlebnis.",
+  dawa: "El Corán, el tafsir, los hadices y los relatos islámicos en una experiencia de audio serena.",
 };
 
 function icons() {
@@ -42,6 +45,13 @@ function icons() {
       { src: "/brand/tilawa/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/brand/tilawa/icon-512.png", sizes: "512x512", type: "image/png" },
       { src: "/brand/tilawa/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+    ];
+  }
+  if (TENANT.id === "dawa") {
+    return [
+      { src: "/brand/dawa/icon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/brand/dawa/icon-512.png", sizes: "512x512", type: "image/png" },
+      { src: "/brand/dawa/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ];
   }
   // 1fr (and any future sibling): one square icon declared at both sizes.
@@ -72,7 +82,16 @@ export function GET(req: NextRequest) {
     categories: ["education", "books", "lifestyle"],
     lang: locale,
     dir: locale === "ar" ? "rtl" : "ltr",
+    // Declare THIS PWA as its own related webapp. Without this,
+    // navigator.getInstalledRelatedApps() always returns [] — which made
+    // InstallAppButton conclude "previously installed, now gone" on every
+    // normal-tab visit right after an install: a phantom uninstall was
+    // recorded immediately AND the device flag was cleared, so the REAL
+    // uninstall later was never counted (owner: "uninstall tidak update
+    // report"). With the self-declaration, Chrome reports the truth and the
+    // install/uninstall/reinstall counters finally move correctly.
     prefer_related_applications: false,
+    related_applications: [{ platform: "webapp", url: `${TENANT.siteUrl}/manifest.webmanifest` }],
   };
 
   return NextResponse.json(manifest, {
