@@ -185,7 +185,16 @@ export function GlobalReadAll({ locale }: { locale: string }) {
   // Auto-resume after an auto-advance navigation: if a mode is stored, keep
   // reading the new page without a click.
   useEffect(() => {
-    if (hasNative) return;
+    if (hasNative) {
+      // A page with its own reader now drives the narration (via ?autoread=1);
+      // drop our resume flag so it can't restart on a later unrelated page.
+      try {
+        window.sessionStorage.removeItem(RESUME_KEY);
+      } catch {
+        /* ignore */
+      }
+      return;
+    }
     let mode: string | null = null;
     try {
       mode = window.sessionStorage.getItem(RESUME_KEY);
@@ -201,7 +210,17 @@ export function GlobalReadAll({ locale }: { locale: string }) {
   if (!available || hasNative) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2">
+    // Anchored with inset-x-0 + justify-center (NOT translate): on Chrome
+    // Android a `fixed` element combining a transform with backdrop-blur often
+    // fails to paint until the first scroll — that was the "tombol harus
+    // digeser ke bawah dulu baru muncul" bug. Raised above the mobile browser
+    // toolbar + OS nav with a safe-area-aware offset so it is visible without
+    // scrolling. pointer-events only on the button so the row doesn't block taps.
+    <div
+      className="pointer-events-none fixed inset-x-0 z-50 flex justify-center px-4"
+      style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 4.75rem)" }}
+    >
+      <div className="pointer-events-auto">
       {reading ? (
         <button
           onClick={stop}
@@ -233,6 +252,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
           {t.menu}
         </button>
       )}
+      </div>
     </div>
   );
 }

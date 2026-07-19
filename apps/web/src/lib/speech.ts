@@ -95,8 +95,17 @@ function effectiveLang(text: string, requested: string): string {
   return requested;
 }
 
-/** Speak one text block. Resolves when finished or cancelled. */
-export function speak(text: string, lang: string, opts: { rate?: number } = {}): NarrationHandle {
+/** Speak one text block. Resolves when finished or cancelled.
+ * `onWord(charIndex)` fires at each spoken word boundary (where the browser
+ * supports it) so the caller can highlight the exact word being read — the
+ * "penunjuk per kata" the owner asked for. Falls back silently to no word
+ * events on browsers without boundary support (the block-level highlight then
+ * still shows progress). */
+export function speak(
+  text: string,
+  lang: string,
+  opts: { rate?: number; onWord?: (charIndex: number, charLength: number) => void } = {}
+): NarrationHandle {
   let cancelled = false;
   const done = (async () => {
     if (!speechAvailable() || !text.trim()) return;
@@ -111,6 +120,15 @@ export function speak(text: string, lang: string, opts: { rate?: number } = {}):
         if (voice) u.voice = voice;
         u.rate = opts.rate ?? 0.95;
         u.pitch = 1.0;
+        if (opts.onWord) {
+          u.onboundary = (e: SpeechSynthesisEvent) => {
+            // Some engines fire sentence boundaries too; take word (or any
+            // boundary carrying a charIndex) and let the caller map it.
+            if (e.name === "word" || e.name === undefined || e.name === "") {
+              opts.onWord!(e.charIndex ?? 0, (e as SpeechSynthesisEvent & { charLength?: number }).charLength ?? 0);
+            }
+          };
+        }
         u.onend = () => resolve();
         u.onerror = () => resolve();
         if (cancelled) return resolve();
