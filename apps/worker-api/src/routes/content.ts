@@ -495,7 +495,26 @@ contentRoute.get("/pesantren/categories", async (c) => {
             (SELECT COUNT(*) FROM pesantren_kitab k WHERE k.category_slug = c.slug) AS kitab_count
      FROM pesantren_category c ORDER BY c.sort_order`
   ).all();
-  return c.json({ categories: results });
+
+  // Category names come pre-translated from D1 (stored under the reserved
+  // slug '_cat' by scripts/translate-pesantren.ts) — no runtime MT.
+  const requestedLang = c.req.query("lang") ?? "id";
+  const lang = isValidLocale(requestedLang) ? requestedLang : "id";
+  if (lang !== "id" && lang !== "ar" && results.length > 0) {
+    try {
+      const { results: tr } = await c.env.DB.prepare("SELECT k, v FROM pes_i18n WHERE slug = '_cat' AND lang = ?")
+        .bind(lang)
+        .all<{ k: string; v: string }>();
+      const map = new Map(tr.map((r) => [r.k, r.v]));
+      for (const row of results as Record<string, unknown>[]) {
+        const t = map.get(String(row.slug));
+        if (t) row.name_id = t;
+      }
+    } catch {
+      /* pes_i18n not migrated yet — serve Indonesian */
+    }
+  }
+  return c.json({ categories: results, lang });
 });
 
 // GET /content/pesantren/kitab — the full kitab list (grouped client-side by
@@ -507,7 +526,30 @@ contentRoute.get("/pesantren/kitab", async (c) => {
             (SELECT COUNT(*) FROM pesantren_bab b WHERE b.kitab_slug = k.slug) AS bab_count
      FROM pesantren_kitab k ORDER BY k.sort_order`
   ).all();
-  return c.json({ kitab: results });
+
+  // Localize list titles/descriptions from the pre-translated D1 strings
+  // (scripts/translate-pesantren.ts) — one extra query, no runtime MT.
+  const requestedLang = c.req.query("lang") ?? "id";
+  const lang = isValidLocale(requestedLang) ? requestedLang : "id";
+  if (lang !== "id" && lang !== "ar" && results.length > 0) {
+    try {
+      const { results: tr } = await c.env.DB.prepare(
+        "SELECT slug, k, v FROM pes_i18n WHERE lang = ? AND k IN ('k:title_id', 'k:description_id')"
+      )
+        .bind(lang)
+        .all<{ slug: string; k: string; v: string }>();
+      const map = new Map(tr.map((r) => [`${r.slug}|${r.k}`, r.v]));
+      for (const row of results as Record<string, unknown>[]) {
+        const t = map.get(`${row.slug}|k:title_id`);
+        const d = map.get(`${row.slug}|k:description_id`);
+        if (t) row.title_id = t;
+        if (d) row.description_id = d;
+      }
+    } catch {
+      /* pes_i18n not migrated yet — serve Indonesian */
+    }
+  }
+  return c.json({ kitab: results, lang });
 });
 
 // GET /content/pesantren/kitab/:slug — one kitab in full: its chapters, each
@@ -572,28 +614,57 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
   const requestedLang = c.req.query("lang") ?? "id";
   const wantLang = isValidLocale(requestedLang) ? requestedLang : "id";
   if (wantLang !== "id" && wantLang !== "ar") {
+    // Primary source: pre-translated strings in D1, written by the
+    // translate-content GitHub Actions job (scripts/translate-pesantren.ts).
+    // One query, free-plan safe — the in-Worker background translation could
+    // never finish under the free plan's subrequest/KV-write caps, which is
+    // why sibling sites kept serving Indonesian.
+    let tr: Record<string, string> | null = null;
+    try {
+      const { results } = await c.env.DB.prepare("SELECT k, v FROM pes_i18n WHERE slug = ? AND lang = ?")
+        .bind(slug, wantLang)
+        .all<{ k: string; v: string }>();
+      if (results && results.length > 0) {
+        tr = {};
+        for (const r of results) tr[r.k] = r.v;
+      }
+    } catch {
+      /* table may not exist yet on a fresh DB — fall through to KV */
+    }
+
     const blobKey = `pes-i18n:v1:${slug}:${wantLang}`;
-    const blob = await safeKvGet(c.env, blobKey);
-    if (blob) {
-      try {
-        const tr = JSON.parse(blob) as Record<string, string>;
-        const kk = kitab as Record<string, unknown>;
-        for (const f of ["title_id", "description_id", "category_name"]) {
-          if (typeof kk[f] === "string" && tr[`k:${f}`]) kk[f] = tr[`k:${f}`];
+    if (!tr) {
+      const blob = await safeKvGet(c.env, blobKey);
+      if (blob) {
+        try {
+          tr = JSON.parse(blob) as Record<string, string>;
+        } catch {
+          tr = null;
         }
-        for (const ch of chapters as { id: unknown; name_id: unknown; matn: Record<string, unknown>[] }[]) {
-          if (tr[`b:${ch.id}`]) ch.name_id = tr[`b:${ch.id}`];
-          for (const m of ch.matn) {
-            if (tr[`mt:${m.id}`]) m.title_id = tr[`mt:${m.id}`];
-            if (tr[`tr:${m.id}`]) m.translation_id = tr[`tr:${m.id}`];
-            if (tr[`ex:${m.id}`]) m.explanation_id = tr[`ex:${m.id}`];
-          }
-        }
-        return c.json({ kitab, chapters, lang: wantLang });
-      } catch {
-        /* fall through — serve Indonesian below */
       }
     }
+
+    if (tr) {
+      const kk = kitab as Record<string, unknown>;
+      for (const f of ["title_id", "description_id", "category_name"]) {
+        if (typeof kk[f] === "string" && tr[`k:${f}`]) kk[f] = tr[`k:${f}`];
+      }
+      for (const ch of chapters as { id: unknown; name_id: unknown; matn: Record<string, unknown>[] }[]) {
+        if (tr[`b:${ch.id}`]) ch.name_id = tr[`b:${ch.id}`];
+        for (const m of ch.matn) {
+          if (tr[`mt:${m.id}`]) m.title_id = tr[`mt:${m.id}`];
+          if (tr[`tr:${m.id}`]) m.translation_id = tr[`tr:${m.id}`];
+          if (tr[`ex:${m.id}`]) m.explanation_id = tr[`ex:${m.id}`];
+        }
+      }
+      return c.json({ kitab, chapters, lang: wantLang });
+    }
+
+    // Not translated yet — serve Indonesian, flag pending, and still try the
+    // best-effort background path (it can succeed for small kitab). Never
+    // edge-cache this interim response: the translated one must replace it
+    // the moment it exists (index.ts checks this header).
+    c.header("X-No-Edge-Cache", "1");
     c.executionCtx.waitUntil(translatePesantrenKitab(c.env, blobKey, wantLang, kitab, chapters));
     return c.json({ kitab, chapters, lang: "id", translationPending: true });
   }

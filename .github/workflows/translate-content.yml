@@ -1,0 +1,69 @@
+name: Pre-translate Content (kitab pesantren)
+
+# Translates every kitab pesantren into the sibling sites' languages
+# (1fr.fr→fr, tilawa.de→de, dawa.es→es) and stores the strings in D1, so the
+# Worker serves native-language kitab with one query. Runs here because the
+# Workers free plan (50 subrequests/request, 1k KV writes/day) cannot finish
+# a whole-kitab translation at request time. Idempotent — unchanged kitab are
+# skipped via a source hash.
+
+on:
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: "Comma-separated target languages"
+        required: false
+        default: "fr,de,es"
+      force:
+        description: "Re-translate even if source hash unchanged (true/false)"
+        required: false
+        default: "false"
+  schedule:
+    - cron: "30 2 * * *"
+  # Also run when the translator, the workflow, or the kitab source changes
+  # lands on main — so new/edited kitab get their sibling-language strings
+  # populated on the next deploy, not only on the daily schedule. Idempotent
+  # (unchanged kitab are skipped via a source hash), so re-runs are cheap.
+  push:
+    branches: [main]
+    paths:
+      - "scripts/translate-pesantren.ts"
+      - ".github/workflows/translate-content.yml"
+      - "packages/db-schema/seed/pesantren_*.sql"
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Pre-translate kitab pesantren into sibling languages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          FORCE_FLAG=""
+          if [ "${{ inputs.force || 'false' }}" = "true" ]; then FORCE_FLAG="--force"; fi
+          npx tsx scripts/translate-pesantren.ts --langs=${{ inputs.langs || 'fr,de,es' }} $FORCE_FLAG

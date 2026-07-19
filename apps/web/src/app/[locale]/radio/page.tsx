@@ -14,10 +14,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: `${t.title}`,
     description: t.subtitle,
     alternates: { canonical: localePath(locale, `/radio`) },
-    // A distinct manifest (own "id") so this page installs as its own
-    // always-on Radio Qur'an app, separate from the full-site shell and from
-    // the Jadwal Sholat mini-app — see manifest-radio.webmanifest/route.ts.
-    manifest: `/manifest-radio.webmanifest?locale=${locale}`,
   };
 }
 

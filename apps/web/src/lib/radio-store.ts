@@ -12,7 +12,7 @@
 import { create } from "zustand";
 import { api } from "./api";
 import { usePlayerStore } from "./player-store";
-import { RECITERS, DEFAULT_QORI_KEY } from "./qori-cdn";
+import { RECITERS, DEFAULT_QORI_KEY, TENANT_RADIO_CDN } from "./qori-cdn";
 import { computeLivePosition, computeLiveBroadcast } from "./radio-clock";
 
 export interface SurahMeta {
@@ -39,9 +39,24 @@ export interface RadioPosition {
 // alquran.cloud (cdn === "aqc") streams 128 kbps, and the everyayah entries we
 // keep in rotation are the 128 kbps folders; anything lower stays selectable
 // elsewhere but never drives the radio.
-const ROTATION_POOL = RECITERS.filter(
+// Per-tenant rotation: the same HiFi lineup, but ordered by THIS site's CDN
+// preference (see TENANT_RADIO_CDN) so each domain leads with a different
+// source and reciter order — separated CDNs, no cross-site duplication.
+const TENANT = (process.env.NEXT_PUBLIC_TENANT ?? "ulyah") as keyof typeof TENANT_RADIO_CDN;
+const CDN_ORDER = TENANT_RADIO_CDN[TENANT] ?? TENANT_RADIO_CDN.ulyah!;
+const HIFI = RECITERS.filter(
   (r) => r.featured && (r.cdn === "aqc" || (r.cdn === "ey" && (r.eyId ?? "").includes("128kbps")))
-).map((r) => r.key);
+);
+const ROTATION_POOL = [...HIFI]
+  .sort((a, b) => {
+    const ca = CDN_ORDER.indexOf(a.cdn as "aqc" | "ey");
+    const cb = CDN_ORDER.indexOf(b.cdn as "aqc" | "ey");
+    if (ca !== cb) return ca - cb;
+    // Sites that lead with everyayah also reverse the reciter order, so even
+    // two sites sharing a leading CDN never sit on the same reciter at once.
+    return CDN_ORDER[0] === "ey" ? b.key.localeCompare(a.key) : a.key.localeCompare(b.key);
+  })
+  .map((r) => r.key);
 
 export function nextRadioPosition(p: RadioPosition, surahs: SurahMeta[]): RadioPosition {
   const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;

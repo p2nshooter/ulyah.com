@@ -48,10 +48,12 @@ function icons() {
     ];
   }
   if (TENANT.id === "dawa") {
+    // ?v=2 busts any placeholder icon a device cached before the owner
+    // artwork was applied (browser + service-worker png cache key on URL).
     return [
-      { src: "/brand/dawa/icon-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/brand/dawa/icon-512.png", sizes: "512x512", type: "image/png" },
-      { src: "/brand/dawa/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/brand/dawa/icon-192.png?v=2", sizes: "192x192", type: "image/png" },
+      { src: "/brand/dawa/icon-512.png?v=2", sizes: "512x512", type: "image/png" },
+      { src: "/brand/dawa/icon-512.png?v=2", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ];
   }
   // 1fr (and any future sibling): one square icon declared at both sizes.

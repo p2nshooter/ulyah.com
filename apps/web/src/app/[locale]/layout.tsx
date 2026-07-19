@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
+import { AdhanReminder } from "@/components/AdhanReminder";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
@@ -90,12 +91,16 @@ export async function generateMetadata({
         : TENANT.id === "dawa"
           ? {
               // Owner-provided round emblem as the browser-tab favicon, the
-              // square artwork for home-screen/apple icons.
+              // square artwork for home-screen/apple icons. The ?v= query busts
+              // the browser's own favicon cache AND the service-worker png cache
+              // (both key on the full URL) so a device that once fetched a
+              // placeholder favicon re-fetches the real artwork — the reason the
+              // owner kept seeing the old icon after it was already replaced.
               icon: [
-                { url: "/brand/dawa/favicon.png", sizes: "64x64", type: "image/png" },
-                { url: "/brand/dawa/favicon-256.png", sizes: "256x256", type: "image/png" },
+                { url: "/brand/dawa/favicon.png?v=2", sizes: "64x64", type: "image/png" },
+                { url: "/brand/dawa/favicon-256.png?v=2", sizes: "256x256", type: "image/png" },
               ],
-              apple: "/brand/dawa/icon-180.png",
+              apple: "/brand/dawa/icon-180.png?v=2",
             }
           : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
     openGraph: {
@@ -251,6 +256,8 @@ export default async function LocaleLayout({
           {/* Owns the Radio Qori audio element so the broadcast survives
               in-app navigation (only a manual stop halts it). */}
           <GlobalRadioPlayer />
+          {/* Adhan prayer-time reminder — default ON, remembered OFF. */}
+          <AdhanReminder locale={locale} />
           {/* Floating "Tanya AI" bubble on every page (bottom-right). */}
           <FloatingAiChat locale={locale} />
         </ThemeProvider>
