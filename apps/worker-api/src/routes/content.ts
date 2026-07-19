@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { translateText, translateCachedOnly, localizeBatch } from "../lib/mt.js";
+import { translateText, translateCachedOnly, localizeBatch, localizeBatchProtected } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
@@ -88,7 +88,9 @@ contentRoute.get("/stories", async (c) => {
 
   const { results } = await query.all<Record<string, unknown>>();
   if (!authored && results.length) {
-    const titles = await localizeBatch(c.env, results.map((r) => r.title as string), requested, "en");
+    // Protected localize so "Bukhari/Muslim/no." in audiobook titles are not
+    // mangled by the translator on sibling sites.
+    const titles = await localizeBatchProtected(c.env, results.map((r) => r.title as string), requested, "en");
     results.forEach((r, i) => {
       r.title = titles[i] ?? r.title;
     });
@@ -154,7 +156,9 @@ contentRoute.get("/stories/:slug", async (c) => {
   if (requestedLang !== s.lang) {
     const st = story as Record<string, unknown> & { title: string; body: string; lang: string };
     const paras = st.body.split(/\n\s*\n/);
-    const loc = await localizeBatch(c.env, [st.title, ...paras], requestedLang, st.lang);
+    // Protected localize keeps hadith collection names & "no." intact in both
+    // the title and the narrated body.
+    const loc = await localizeBatchProtected(c.env, [st.title, ...paras], requestedLang, st.lang);
     st.title = loc[0] ?? st.title;
     st.body = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
   }
