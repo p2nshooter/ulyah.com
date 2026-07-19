@@ -23,7 +23,7 @@ export interface LiveLabels {
 const L: Record<string, (site: string) => LiveLabels> = {
   id: (site) => ({
     offlineSlot: "Slot siaran ini sedang offline.",
-    wantStream: `Slot live streaming ini disewakan — pengunjung real dan ramai. Dana sewa dipergunakan untuk keberlangsungan ${site}. Hubungi salam@ulyah.com`,
+    wantStream: `Slot live streaming ini disewakan dengan elegan — pengunjung real dan ramai. Sewa hanya $1/hari untuk satu link YouTube. Dana sewa dipergunakan untuk keberlangsungan ${site}. Dengan hormat, hubungi salam@ulyah.com`,
     hrs: "JAM",
     replay: "REKAMAN",
     maximize: "Perbesar",
@@ -39,7 +39,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   en: (site) => ({
     offlineSlot: "This stream slot is currently offline.",
-    wantStream: `This live-stream slot is for rent — real, active visitors. Rental proceeds keep ${site} running. Contact salam@ulyah.com`,
+    wantStream: `This live-stream slot is available to rent — real, engaged visitors. Just $1/day per YouTube link. Rental proceeds keep ${site} running. We would be honoured to host you — contact salam@ulyah.com`,
     hrs: "HRS",
     replay: "REPLAY",
     maximize: "Maximize",
@@ -55,7 +55,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   fr: (site) => ({
     offlineSlot: "Ce créneau de diffusion est actuellement hors ligne.",
-    wantStream: `Ce créneau de diffusion en direct est à louer — visiteurs réels et nombreux. Les revenus de location font vivre ${site}. Contact : salam@ulyah.com`,
+    wantStream: `Ce créneau de diffusion en direct est à louer — un public réel et engagé. Seulement 1 $/jour par lien YouTube. Les revenus de location font vivre ${site}. Ce serait un honneur de vous accueillir — contact : salam@ulyah.com`,
     hrs: "H",
     replay: "REDIFFUSION",
     maximize: "Agrandir",
@@ -71,7 +71,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   de: (site) => ({
     offlineSlot: "Dieser Übertragungskanal ist derzeit offline.",
-    wantStream: `Dieser Livestream-Platz ist zu vermieten — echte, aktive Besucher. Die Mieteinnahmen erhalten ${site}. Kontakt: salam@ulyah.com`,
+    wantStream: `Dieser Livestream-Platz ist zu vermieten — echtes, engagiertes Publikum. Nur 1 $/Tag pro YouTube-Link. Die Mieteinnahmen erhalten ${site}. Wir würden uns freuen, Sie zu begrüßen — Kontakt: salam@ulyah.com`,
     hrs: "STD",
     replay: "AUFZEICHNUNG",
     maximize: "Vergrößern",
@@ -87,7 +87,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   es: (site) => ({
     offlineSlot: "Este canal de emisión está actualmente desconectado.",
-    wantStream: `Este espacio de emisión en directo se alquila — visitantes reales y activos. El alquiler mantiene ${site} en marcha. Contacto: salam@ulyah.com`,
+    wantStream: `Este espacio de emisión en directo se alquila — público real y comprometido. Solo 1 $/día por enlace de YouTube. El alquiler mantiene ${site} en marcha. Sería un honor recibirle — contacto: salam@ulyah.com`,
     hrs: "H",
     replay: "GRABACIÓN",
     maximize: "Ampliar",
@@ -103,7 +103,7 @@ const L: Record<string, (site: string) => LiveLabels> = {
   }),
   ar: (site) => ({
     offlineSlot: "قناة البث هذه غير متصلة حاليًا.",
-    wantStream: `مساحة البث هذه متاحة للإيجار — زوار حقيقيون ونشطون. عائد الإيجار يُبقي ${site} مستمرًا. تواصل: salam@ulyah.com`,
+    wantStream: `مساحة البث هذه متاحة للإيجار — جمهور حقيقي ومتفاعل. الإيجار دولار واحد يوميًا لكل رابط يوتيوب فقط. عائد الإيجار يُبقي ${site} مستمرًا. يشرّفنا استضافتكم — تواصل: salam@ulyah.com`,
     hrs: "ساعة",
     replay: "تسجيل",
     maximize: "تكبير",

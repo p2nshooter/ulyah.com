@@ -149,7 +149,7 @@ export function ContinuousStoryReader({
     `transition-shadow ${isActive(id) ? "rounded-xl bg-accent/10 shadow-[0_0_0_2px_var(--color-accent)]" : ""}`;
 
   return (
-    <div>
+    <div data-native-reader>
       {speechOk && (
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <button

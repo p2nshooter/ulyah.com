@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
+import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
@@ -258,6 +259,9 @@ export default async function LocaleLayout({
           <GlobalRadioPlayer />
           {/* Adhan prayer-time reminder — default ON, remembered OFF. */}
           <AdhanReminder locale={locale} />
+          {/* Universal "Baca Semua / Terjemahan / Arab" on every menu. Hides
+              itself on pages that ship their own richer reader. */}
+          <GlobalReadAll locale={locale} />
           {/* Floating "Tanya AI" bubble on every page (bottom-right). */}
           <FloatingAiChat locale={locale} />
         </ThemeProvider>

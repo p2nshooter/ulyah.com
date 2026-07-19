@@ -539,7 +539,7 @@ export function PesantrenKitabReader({
   }, []);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6" data-native-reader>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
           {t.back}

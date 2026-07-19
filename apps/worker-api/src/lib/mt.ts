@@ -199,6 +199,61 @@ export async function translateText(
  * Returns the input text unchanged wherever translation isn't available —
  * the reader sees the source language, never a hole.
  */
+// Proper nouns and tokens that must NEVER be machine-translated — hadith
+// collections, imams, and the "no." abbreviation. Left to gtx, "Bukhari"
+// became "Boukhari/Bujari", "Muslim" became the adjective "musulman", and
+// "no." became "non." on the sibling audiobook lists (owner: "css/menu error").
+// Longest first so "Abu Dawud" masks before "Dawud". Word-boundary, case-i.
+const PROTECTED_TERMS = [
+  "Abu Dawud", "Ibnu Majah", "Ibn Majah", "An-Nasa'i", "Ad-Darimi",
+  "Bukhari", "Muslim", "Tirmidzi", "Tirmidhi", "Nasa'i", "Nasai",
+  "Ahmad", "Malik", "Darimi", "Baihaqi", "Hakim", "Thabrani", "no.", "No.",
+];
+const PROTECT_RE = new RegExp(
+  `(${PROTECTED_TERMS.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+  "gi"
+);
+
+function maskProtected(text: string): { masked: string; map: string[] } {
+  const map: string[] = [];
+  const masked = text.replace(PROTECT_RE, (m) => {
+    const i = map.length;
+    map.push(m);
+    return `@@${i}@@`;
+  });
+  return { masked, map };
+}
+function restoreProtected(text: string, map: string[]): string {
+  return text.replace(/@@\s*(\d+)\s*@@/g, (_, d) => map[Number(d)] ?? "");
+}
+
+/**
+ * Like localizeBatch, but shields Islamic proper nouns and "no." from the
+ * translator so a hadith audiobook title keeps "Bukhari"/"Muslim"/"no." intact
+ * across every language instead of being mangled. gtx passes the @@n@@
+ * sentinels through unchanged (verified), then they are restored.
+ */
+export async function localizeBatchProtected(
+  env: Env,
+  texts: (string | null | undefined)[],
+  targetLang: string,
+  sourceLang = "en"
+): Promise<(string | null)[]> {
+  if (targetLang === sourceLang) return texts.map((t) => t ?? null);
+  const maps: (string[] | null)[] = [];
+  const masked = texts.map((t) => {
+    if (!t) {
+      maps.push(null);
+      return t ?? null;
+    }
+    const { masked, map } = maskProtected(t);
+    maps.push(map);
+    return masked;
+  });
+  const out = await localizeBatch(env, masked, targetLang, sourceLang);
+  return out.map((v, i) => (v && maps[i] ? restoreProtected(v, maps[i]!) : v));
+}
+
 export async function localizeBatch(
   env: Env,
   texts: (string | null | undefined)[],

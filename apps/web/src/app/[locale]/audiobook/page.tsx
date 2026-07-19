@@ -34,6 +34,11 @@ interface CategoryRow {
   slug: string;
 }
 
+// "Episode" in each site's language — was hardcoded English on every sibling.
+const EPISODE_LABEL: Record<string, string> = {
+  id: "Episode", en: "Episode", fr: "Épisode", de: "Folge", es: "Episodio", ar: "الحلقة",
+};
+
 const CATEGORY_ICON: Record<string, string> = {
   "kisah-para-nabi": "🕌",
   "kisah-sahabat": "🌙",
@@ -119,7 +124,9 @@ export default async function AudiobookPage({
             >
               <div className="min-w-0">
                 <p className="text-xs font-medium uppercase tracking-wide text-accent">
-                  {s.episode_number ? `Episode ${s.episode_number}` : s.category_name ?? dict.explore.audiobook.title}
+                  {s.episode_number
+                    ? `${EPISODE_LABEL[locale] ?? EPISODE_LABEL.en} ${s.episode_number}`
+                    : s.category_name ?? dict.explore.audiobook.title}
                 </p>
                 <p className="mt-1 truncate font-heading text-lg">{s.title}</p>
                 <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
