@@ -3,6 +3,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
+import { localePath } from "@/lib/paths";
 
 // Revalidate periodically so newly-imported kitab appear without a redeploy,
 // while still serving a cached page most of the time.
@@ -26,24 +27,124 @@ interface Kitab {
   bab_count: number;
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Kitab Pesantren — Perpustakaan Digital",
-    description:
+// Every visible UI string on this page, per site language — a sibling site
+// must never show Indonesian chrome (owner rule + AdSense language purity).
+const L: Record<
+  string,
+  {
+    title: string;
+    metaTitle: string;
+    metaDesc: string;
+    subtitle: (n: number) => string;
+    loadError: string;
+    chapters: string;
+    died: string;
+    footnote: string;
+  }
+> = {
+  id: {
+    title: "Kitab Pesantren",
+    metaTitle: "Kitab Pesantren — Perpustakaan Digital",
+    metaDesc:
       "Kitab klasik pesantren tersusun rapi per bidang: fiqih, akidah, akhlak, nahwu-shorof. Lengkap dengan nama pengarang, bab per bab, teks Arab, terjemah, dan penjelasan.",
+    subtitle: (n) =>
+      n > 0
+        ? `Perpustakaan digital kitab kuning — tersusun rapi per bidang, lengkap pengarang & bab. ${n} kitab.`
+        : "Perpustakaan digital kitab kuning — tersusun rapi per bidang, lengkap pengarang & bab.",
+    loadError: "Gagal memuat koleksi — silakan muat ulang halaman ini.",
+    chapters: "bab",
+    died: "w.",
+    footnote:
+      "Teks dikutip dari matan kitab klasik. Terjemah & penjelasan disusun ringkas untuk memudahkan santri dan pembaca umum.",
+  },
+  en: {
+    title: "Classical Islamic Texts",
+    metaTitle: "Classical Islamic Texts — Digital Library",
+    metaDesc:
+      "Classical Islamic texts organized by field: fiqh, creed, character, Arabic grammar. Complete with author, chapter-by-chapter Arabic text, translation, and commentary.",
+    subtitle: (n) =>
+      n > 0
+        ? `A digital library of classical texts — organized by field, with authors & chapters. ${n} books.`
+        : "A digital library of classical texts — organized by field, with authors & chapters.",
+    loadError: "Could not load the collection — please reload this page.",
+    chapters: "chapters",
+    died: "d.",
+    footnote:
+      "Texts are quoted from classical works. Translations & commentary are kept concise for students and general readers.",
+  },
+  fr: {
+    title: "Textes Islamiques Classiques",
+    metaTitle: "Textes Islamiques Classiques — Bibliothèque Numérique",
+    metaDesc:
+      "Textes islamiques classiques organisés par domaine : fiqh, croyance, caractère, grammaire arabe. Avec auteur, texte arabe chapitre par chapitre, traduction et commentaire.",
+    subtitle: (n) =>
+      n > 0
+        ? `Bibliothèque numérique de textes classiques — classés par domaine, avec auteurs et chapitres. ${n} livres.`
+        : "Bibliothèque numérique de textes classiques — classés par domaine, avec auteurs et chapitres.",
+    loadError: "Impossible de charger la collection — veuillez recharger cette page.",
+    chapters: "chapitres",
+    died: "m.",
+    footnote:
+      "Les textes sont cités d'œuvres classiques. Les traductions et commentaires restent concis pour les étudiants et le grand public.",
+  },
+  de: {
+    title: "Klassische Islamische Werke",
+    metaTitle: "Klassische Islamische Werke — Digitale Bibliothek",
+    metaDesc:
+      "Klassische islamische Werke nach Fachgebiet geordnet: Fiqh, Glaubenslehre, Charakter, arabische Grammatik. Mit Autor, arabischem Text Kapitel für Kapitel, Übersetzung und Erläuterung.",
+    subtitle: (n) =>
+      n > 0
+        ? `Digitale Bibliothek klassischer Werke — nach Fachgebiet geordnet, mit Autoren & Kapiteln. ${n} Bücher.`
+        : "Digitale Bibliothek klassischer Werke — nach Fachgebiet geordnet, mit Autoren & Kapiteln.",
+    loadError: "Die Sammlung konnte nicht geladen werden — bitte laden Sie die Seite neu.",
+    chapters: "Kapitel",
+    died: "gest.",
+    footnote:
+      "Die Texte sind klassischen Werken entnommen. Übersetzungen & Erläuterungen sind bewusst knapp gehalten.",
+  },
+  es: {
+    title: "Textos Islámicos Clásicos",
+    metaTitle: "Textos Islámicos Clásicos — Biblioteca Digital",
+    metaDesc:
+      "Textos islámicos clásicos organizados por materia: fiqh, credo, carácter, gramática árabe. Con autor, texto árabe capítulo a capítulo, traducción y comentario.",
+    subtitle: (n) =>
+      n > 0
+        ? `Biblioteca digital de textos clásicos — organizados por materia, con autores y capítulos. ${n} libros.`
+        : "Biblioteca digital de textos clásicos — organizados por materia, con autores y capítulos.",
+    loadError: "No se pudo cargar la colección — recargue esta página.",
+    chapters: "capítulos",
+    died: "m.",
+    footnote:
+      "Los textos se citan de obras clásicas. Las traducciones y comentarios son concisos para estudiantes y lectores.",
+  },
+};
+
+function labels(locale: string) {
+  return L[locale] ?? L.en!;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const t = labels(locale);
+  return {
+    title: t.metaTitle,
+    description: t.metaDesc,
+    alternates: { canonical: localePath(locale, "/kitab-pesantren") },
   };
 }
 
 export default async function KitabPesantrenPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const t = labels(locale);
 
   let categories: Category[] = [];
   let kitab: Kitab[] = [];
   try {
     const [cRes, kRes] = await Promise.all([
-      api.get<{ categories: Category[] }>("/content/pesantren/categories"),
-      api.get<{ kitab: Kitab[] }>("/content/pesantren/kitab"),
+      api.get<{ categories: Category[] }>(`/content/pesantren/categories?lang=${locale}`),
+      api.get<{ kitab: Kitab[] }>(`/content/pesantren/kitab?lang=${locale}`),
     ]);
     categories = cRes.categories;
     kitab = kRes.kitab;
@@ -56,23 +157,13 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
-      <PageHero
-        icon="🏫"
-        title="Kitab Pesantren"
-        subtitle={
-          total > 0
-            ? `Perpustakaan digital kitab kuning — tersusun rapi per bidang, lengkap pengarang & bab. ${total} kitab.`
-            : "Perpustakaan digital kitab kuning — tersusun rapi per bidang, lengkap pengarang & bab."
-        }
-      />
+      <PageHero icon="🏫" title={t.title} subtitle={t.subtitle(total)} />
 
       <div className="mt-6">
       </div>
 
       {categories.length === 0 && (
-        <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">
-          Gagal memuat koleksi — silakan muat ulang halaman ini.
-        </p>
+        <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">{t.loadError}</p>
       )}
 
       {categories.map((cat) => {
@@ -106,7 +197,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
                   {k.author && (
                     <p className="mt-1.5 text-xs text-[var(--color-text-secondary)]">
                       ✍️ {k.author}
-                      {k.author_death_year ? ` (w. ${k.author_death_year})` : ""}
+                      {k.author_death_year ? ` (${t.died} ${k.author_death_year})` : ""}
                     </p>
                   )}
                   {k.description_id && (
@@ -115,7 +206,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
                     </p>
                   )}
                   <p className="mt-auto pt-3 text-xs font-medium text-accent">
-                    {k.bab_count} bab →
+                    {k.bab_count} {t.chapters} →
                   </p>
                 </Link>
               ))}
@@ -124,10 +215,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
         );
       })}
 
-      <p className="mt-12 text-center text-xs text-[var(--color-text-secondary)]">
-        Teks dikutip dari matan kitab klasik. Terjemah &amp; penjelasan disusun ringkas untuk memudahkan santri dan
-        pembaca umum.
-      </p>
+      <p className="mt-12 text-center text-xs text-[var(--color-text-secondary)]">{t.footnote}</p>
     </div>
   );
 }
