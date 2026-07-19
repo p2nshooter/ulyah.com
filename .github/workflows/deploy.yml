@@ -575,6 +575,16 @@ jobs:
           else
             echo "Full prophet stories already imported ($NSCOUNT rows) — skipping."
           fi
+          # Expansion (kisah_nabi_full_v2.sql): berjilid/berbab per nabi utama
+          # (Yusuf, Musa, Ibrahim, Isa, Sulaiman, Ayyub, Yunus, Nuh, Adam).
+          # INSERT OR IGNORE, so gating on a probe row keeps it a no-op once in.
+          V2PROBE=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_person_section WHERE person_slug='yusuf' AND section_order=18;" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$V2PROBE" -lt "1" ]; then
+            echo "Importing expanded multi-chapter prophet stories (v2)."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_nabi_full_v2.sql
+          else
+            echo "Expanded prophet stories (v2) already imported — skipping."
+          fi
 
       - name: Import Nasakh & Mansukh (one-time, idempotent)
         continue-on-error: true
