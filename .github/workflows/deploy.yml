@@ -585,6 +585,15 @@ jobs:
           else
             echo "Expanded prophet stories (v2) already imported — skipping."
           fi
+          # Full multi-chapter biographies for the 36 sahabat/tabi'in/ulama who
+          # previously had only a summary and 0 sections (kisah_tokoh_full.sql).
+          TKPROBE=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM kisah_person_section WHERE person_slug='abu-bakar';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          if [ "$TKPROBE" -lt "1" ]; then
+            echo "Importing full sahabat/tabi'in/ulama biographies."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_tokoh_full.sql
+          else
+            echo "Full figure biographies already imported — skipping."
+          fi
 
       - name: Import Nasakh & Mansukh (one-time, idempotent)
         continue-on-error: true
