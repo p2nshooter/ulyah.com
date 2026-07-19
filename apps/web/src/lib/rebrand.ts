@@ -13,12 +13,18 @@ export function rebrand(s: string): string {
   if (TENANT.id === "ulyah") return s;
   const brand = TENANT.siteName;
   const domain = TENANT.siteUrl.replace(/^https?:\/\//, "");
+  // The contact e-mail stays salam@ulyah.com on every site (owner: all
+  // offers/inquiries to the owner's inbox) — park it behind a placeholder so
+  // the domain rewrite below can't corrupt it into salam@<sibling-domain>.
+  const EMAIL_TOKEN = "@@OWNER_EMAIL@@";
   return s
-    .replace(/salam@ulyah\.com/g, TENANT.acquisitionEmail ?? `salam@${domain}`)
+    .replace(/salam@ulyah\.com/g, EMAIL_TOKEN)
     .replace(/ULYAH\.COM/g, brand.toUpperCase())
     .replace(/ulyah\.com/g, domain)
     .replace(/Ulyah/g, brand)
-    .replace(/ulyah/g, brand);
+    .replace(/ulyah/g, brand)
+    .split(EMAIL_TOKEN)
+    .join("salam@ulyah.com");
 }
 
 /** Deep variant for whole label objects (strings, arrays, nested records). */

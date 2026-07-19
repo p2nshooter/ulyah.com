@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+import { localePath } from "@/lib/paths";
 
 // The search page itself is a client component, so its per-page metadata
 // (unique title + canonical) lives here in a segment layout instead.
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.nav.searchPlaceholder}`,
     description: dict.hero.description,
-    alternates: { canonical: `/${locale}/cari` },
+    alternates: { canonical: localePath(locale, `/cari`) },
   };
 }
 

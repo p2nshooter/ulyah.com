@@ -10,21 +10,33 @@ const LOCALE_COOKIE = "ulyah_locale";
 const TENANT_ID = process.env.NEXT_PUBLIC_TENANT ?? "ulyah";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 let hiddenCache: { paths: string[]; at: number } | null = null;
+let hiddenRefreshing = false;
 
-async function hiddenPaths(): Promise<string[]> {
+/**
+ * NON-BLOCKING hidden-page lookup: always answers instantly from the
+ * per-isolate cache and refreshes it in the background at most once per
+ * minute. The old version AWAITED a cross-worker fetch inside the middleware
+ * on cold isolates — request latency + CPU per request is exactly the diet
+ * that keeps Error 1102 ("Worker exceeded resource limits") away. Fails OPEN.
+ */
+function hiddenPathsCached(): string[] {
   if (TENANT_ID === "ulyah") return [];
   const now = Date.now();
-  if (hiddenCache && now - hiddenCache.at < 60_000) return hiddenCache.paths;
-  try {
-    const res = await fetch(`${API_BASE}/content/site-pages?tenant=${TENANT_ID}`);
-    if (res.ok) {
-      const j = (await res.json()) as { pages?: { path: string; visible: boolean }[] };
-      const paths = (j.pages ?? []).filter((p) => !p.visible).map((p) => p.path);
-      hiddenCache = { paths, at: now };
-      return paths;
-    }
-  } catch {
-    /* fail open — keep serving the page */
+  if ((!hiddenCache || now - hiddenCache.at >= 60_000) && !hiddenRefreshing) {
+    hiddenRefreshing = true;
+    fetch(`${API_BASE}/content/site-pages?tenant=${TENANT_ID}`)
+      .then(async (res) => {
+        if (res.ok) {
+          const j = (await res.json()) as { pages?: { path: string; visible: boolean }[] };
+          hiddenCache = { paths: (j.pages ?? []).filter((p) => !p.visible).map((p) => p.path), at: Date.now() };
+        }
+      })
+      .catch(() => {
+        /* fail open — keep serving the page */
+      })
+      .finally(() => {
+        hiddenRefreshing = false;
+      });
   }
   return hiddenCache?.paths ?? [];
 }
@@ -162,11 +174,23 @@ export async function middleware(req: NextRequest) {
   const maybeLocale = segments[1];
 
   if (maybeLocale && isValidLocale(maybeLocale)) {
+    // The site's OWN language never carries a URL prefix (owner: "default
+    // ulyah.com adalah berbahasa Indonesia, tidak perlu /id" — and the same
+    // for each sibling's native language). Old prefixed URLs 301 to the bare
+    // path so exactly ONE URL serves each page.
+    if (maybeLocale === DEFAULT_LOCALE) {
+      const url = req.nextUrl.clone();
+      const rest = "/" + segments.slice(2).join("/");
+      url.pathname = rest === "/" ? "/" : rest;
+      const res = withSecurity(NextResponse.redirect(url, 301));
+      res.cookies.set(LOCALE_COOKIE, maybeLocale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+      return res;
+    }
     // A page the admin has hidden for this sibling is sent home (unreachable).
     if (TENANT_ID !== "ulyah") {
       const pageless = "/" + segments.slice(2).join("/");
-      if (pathIsHidden(await hiddenPaths(), pageless === "/" ? "/" : pageless.replace(/\/$/, ""))) {
-        return withSecurity(NextResponse.redirect(new URL(`/${maybeLocale}`, req.url)));
+      if (pathIsHidden(hiddenPathsCached(), pageless === "/" ? "/" : pageless.replace(/\/$/, ""))) {
+        return withSecurity(NextResponse.redirect(new URL("/", req.url)));
       }
     }
     const res = NextResponse.next();
@@ -174,17 +198,32 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
-  const locale = detectLocale(req);
-  const url = req.nextUrl.clone();
   // A known-but-not-enabled locale prefix (old /en/… URL on a native-only
-  // sibling build) is REPLACED by the active locale, permanently — never
-  // stacked in front of it.
-  const pageless =
-    maybeLocale && KNOWN_LOCALE_PREFIXES.has(maybeLocale)
-      ? "/" + segments.slice(2).join("/")
-      : pathname;
-  url.pathname = `/${locale}${pageless === "/" ? "" : pageless}`;
-  const res = NextResponse.redirect(url, maybeLocale && KNOWN_LOCALE_PREFIXES.has(maybeLocale) ? 301 : 307);
+  // sibling build) is REPLACED, permanently — never stacked in front of.
+  const staleLocale = Boolean(maybeLocale && KNOWN_LOCALE_PREFIXES.has(maybeLocale));
+  const pageless = staleLocale ? "/" + segments.slice(2).join("/") : pathname;
+
+  const locale = detectLocale(req);
+  if (locale === DEFAULT_LOCALE && !staleLocale) {
+    // Bare URL in the site's own language: serve it AT the bare URL via an
+    // internal rewrite — the visitor (and Google) only ever see ulyah.com/…
+    // without /id (and 1fr.fr/… without /fr, etc.).
+    if (TENANT_ID !== "ulyah" && pathIsHidden(hiddenPathsCached(), pathname.replace(/\/$/, "") || "/")) {
+      return withSecurity(NextResponse.redirect(new URL("/", req.url)));
+    }
+    const url = req.nextUrl.clone();
+    url.pathname = `/${DEFAULT_LOCALE}${pathname === "/" ? "" : pathname}`;
+    const res = withSecurity(NextResponse.rewrite(url));
+    res.cookies.set(LOCALE_COOKIE, locale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+    return res;
+  }
+
+  const url = req.nextUrl.clone();
+  url.pathname =
+    locale === DEFAULT_LOCALE
+      ? pageless === "/" ? "/" : pageless
+      : `/${locale}${pageless === "/" ? "" : pageless}`;
+  const res = withSecurity(NextResponse.redirect(url, staleLocale ? 301 : 307));
   res.cookies.set(LOCALE_COOKIE, locale, { maxAge: 60 * 60 * 24 * 365, path: "/" });
   return res;
 }

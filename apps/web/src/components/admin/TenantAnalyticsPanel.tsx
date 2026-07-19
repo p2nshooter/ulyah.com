@@ -10,6 +10,9 @@ interface TenantStat {
   visitors: { today: number; week: number; month: number; allTime: number };
   installs: number;
   uninstalls: number;
+  /** Distinct devices whose LAST event is an install — "truly installed
+   * right now", immune to install→uninstall→reinstall double counting. */
+  activeDevices: number;
   daily: { bucket: string; n: number }[];
   topPages: { path: string; n: number }[];
   topCountries: { country: string; n: number }[];
@@ -110,7 +113,9 @@ export function TenantAnalyticsPanel() {
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
                 <span>📲 Install: <b className="text-accent">{r.installs}</b></span>
                 <span>🗑️ Uninstall*: <b>{r.uninstalls}</b></span>
-                <span>Terpasang aktif: <b>{net > 0 ? net : 0}</b></span>
+                <span>
+                  📱 Perangkat aktif: <b className="text-accent">{r.activeDevices > 0 ? r.activeDevices : net > 0 ? net : 0}</b>
+                </span>
               </div>
 
               {r.topPages.length > 0 && (
@@ -132,7 +137,9 @@ export function TenantAnalyticsPanel() {
       </div>
       <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
         * Uninstall bersifat perkiraan — web tidak punya event resmi &quot;uninstall&quot;; dihitung saat perangkat yang
-        sebelumnya memasang aplikasi terdeteksi tidak lagi memasangnya.
+        sebelumnya memasang aplikasi terdeteksi tidak lagi memasangnya. &quot;Perangkat aktif&quot; = jumlah perangkat unik
+        yang event TERAKHIR-nya install (satu HP yang install → uninstall → install lagi tetap dihitung 1 perangkat,
+        dengan riwayat 2 install + 1 uninstall).
       </p>
     </section>
   );

@@ -32,11 +32,12 @@ interface Labels {
   empty: string;
 }
 const LABELS: Record<string, Labels> = {
-  id: { all: "Semua", hajj: "Haji", umrah: "Umroh", duration: "Durasi", departure: "Keberangkatan", from: "Mulai", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini." },
-  en: { all: "All", hajj: "Hajj", umrah: "Umrah", duration: "Duration", departure: "Departure", from: "From", contact: "Contact us", empty: "No packages are available right now." },
-  ar: { all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة", from: "ابتداءً من", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً." },
-  fr: { all: "Tout", hajj: "Hajj", umrah: "Omra", duration: "Durée", departure: "Départ", from: "À partir de", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment." },
-  de: { all: "Alle", hajj: "Hadsch", umrah: "Umrah", duration: "Dauer", departure: "Abflug", from: "Ab", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar." },
+  id: { all: "Semua", hajj: "Haji", umrah: "Umroh", duration: "Durasi", departure: "Keberangkatan", from: "Disewakan", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini." },
+  en: { all: "All", hajj: "Hajj", umrah: "Umrah", duration: "Duration", departure: "Departure", from: "Slot for rent", contact: "Contact us", empty: "No packages are available right now." },
+  ar: { all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة", from: "متاح للإيجار", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً." },
+  fr: { all: "Tout", hajj: "Hajj", umrah: "Omra", duration: "Durée", departure: "Départ", from: "Emplacement à louer", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment." },
+  de: { all: "Alle", hajj: "Hadsch", umrah: "Umrah", duration: "Dauer", departure: "Abflug", from: "Platz zu vermieten", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar." },
+  es: { all: "Todo", hajj: "Hach", umrah: "Umra", duration: "Duración", departure: "Salida", from: "Espacio en alquiler", contact: "Contáctanos", empty: "No hay paquetes disponibles por ahora." },
 };
 
 export function HajjUmrahHub({ locale }: { locale: string }) {
@@ -153,14 +154,14 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
               </dl>
 
               <div className="mt-4 flex items-end justify-between gap-3">
-                {p.price ? (
-                  <div>
-                    <span className="block text-[11px] uppercase tracking-wide text-[var(--color-text-secondary)]">{t.from}</span>
-                    <span className="font-heading text-xl text-accent">{p.price}</span>
-                  </div>
-                ) : (
-                  <span />
-                )}
+                {/* NO price claims on the public page (owner: "jangan pernah
+                    memasukkan harga, jangan ada claim harga — tulis aja
+                    disewakan"): the slot is offered for rent instead. */}
+                <div>
+                  <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
+                    {t.from}
+                  </span>
+                </div>
                 {p.contact_url && (
                   <a
                     href={p.contact_url}

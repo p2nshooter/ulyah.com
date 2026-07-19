@@ -17,6 +17,10 @@ html[data-tenant="1fr"] {
   --shadow-gold: 0 2px 20px rgba(201, 162, 39, 0.22);
   --color-border-gold: rgba(201, 162, 39, 0.30);
   --shimmer-tint: rgba(255, 245, 210, 0.4);
+  --tw-primary: 22 36 29;
+  --tw-primary-dark: 14 26 20;
+  --tw-accent: 201 162 39;
+  --tw-surface: 239 234 221;
 }
 html[data-tenant="1fr"][data-theme="light"] {
   --color-bg: #f7f4ec;               /* pearl ivory */

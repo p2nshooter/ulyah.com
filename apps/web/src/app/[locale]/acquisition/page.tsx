@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 /**
  * Acquisition page — 1fr.fr tenant only (404 on ulyah.com). Owner brief: the
@@ -165,7 +166,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${c.title} — ${TENANT.siteName}`,
     description: c.intro.slice(0, 160),
-    alternates: { canonical: `/${locale}/acquisition` },
+    alternates: { canonical: localePath(locale, `/acquisition`) },
   };
 }
 

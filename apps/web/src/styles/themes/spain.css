@@ -21,6 +21,10 @@ html[data-tenant="dawa"] {
   --shadow-gold: 0 6px 26px rgba(211, 84, 0, 0.20);
   --color-border-gold: rgba(211, 84, 0, 0.28);
   --shimmer-tint: rgba(255, 220, 180, 0.45);
+  --tw-primary: 138 59 18;
+  --tw-primary-dark: 95 42 12;
+  --tw-accent: 211 84 0;
+  --tw-surface: 253 238 222;
 }
 html[data-tenant="dawa"][data-theme="light"] {
   --color-bg: #fff8f1;               /* warm cream */

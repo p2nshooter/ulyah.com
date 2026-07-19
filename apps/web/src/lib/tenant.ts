@@ -66,7 +66,7 @@ const ONEFAITH: TenantConfig = {
   logoBanner: "/brand/1fr/banner.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@1fr.fr",
+  acquisitionEmail: "salam@ulyah.com",
   // Owner (Update Global Seluruh Portal §2): the AdSense loader script must be
   // present on every page of EVERY site — ads are enabled on all tenants.
   features: { ads: true, donationForward: true, forSale: true },
@@ -83,7 +83,10 @@ const TILAWA: TenantConfig = {
   logoBanner: "/brand/tilawa/banner.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@tilawa.de",
+  // All acquisition offers go to the OWNER's inbox (owner: "semua email
+  // penawaran ke salam@ulyah.com") — the sibling domain's own mailbox is an
+  // asset the BUYER receives, not the negotiation channel.
+  acquisitionEmail: "salam@ulyah.com",
   features: { ads: true, donationForward: true, forSale: true },
 };
 
@@ -98,7 +101,7 @@ const DAWA: TenantConfig = {
   logoBanner: "/brand/dawa/banner.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@dawa.es",
+  acquisitionEmail: "salam@ulyah.com",
   features: { ads: true, donationForward: true, forSale: true },
 };
 

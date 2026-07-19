@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
+import { localePath } from "@/lib/paths";
 
 interface CollectionMeta {
   slug: string;
@@ -52,7 +53,9 @@ export async function generateMetadata({
   return {
     title: `${data.collection.name_id}${suffix}`,
     description: `${data.collection.name_id} (${data.collection.name_ar}) — ${data.total.toLocaleString(locale)} ${t.hadithCount}. ${t.subtitle}`,
-    alternates: { canonical: `/${locale}/hadits/${collection}${page > 1 ? `?page=${page}` : ""}` },
+    alternates: {
+      canonical: localePath(locale, page > 1 ? `/hadits/${collection}?page=${page}` : `/hadits/${collection}`),
+    },
   };
 }
 

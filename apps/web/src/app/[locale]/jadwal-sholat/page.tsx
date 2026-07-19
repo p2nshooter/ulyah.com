@@ -5,6 +5,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { prayerLabels } from "@/lib/prayer-labels";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
+import { localePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: `/${locale}/jadwal-sholat` },
+    alternates: { canonical: localePath(locale, `/jadwal-sholat`) },
     // A separate manifest (distinct "id") from the site's main app, so this
     // page can be installed as its own standalone reminder app rather than
     // only being reachable inside the full ULYAH.COM app shell. Dynamic route

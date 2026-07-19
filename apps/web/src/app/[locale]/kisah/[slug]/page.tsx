@@ -5,6 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { StoryReader } from "@/components/StoryReader";
 import { StoryDownloads } from "@/components/StoryDownloads";
+import { localePath } from "@/lib/paths";
 
 interface StoryDetail {
   id: number;
@@ -38,7 +39,7 @@ export async function generateMetadata({
     return {
       title: `${data.story.title}`,
       description,
-      alternates: { canonical: `/${locale}/kisah/${slug}` },
+      alternates: { canonical: localePath(locale, `/kisah/${slug}`) },
       openGraph: {
         title: data.story.title,
         description,

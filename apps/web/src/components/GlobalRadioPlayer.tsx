@@ -20,6 +20,7 @@ import { useRadioStore, ensureSurahsLoaded } from "@/lib/radio-store";
 export function GlobalRadioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoStartedRef = useRef(false);
+  const tabIdRef = useRef<string>("");
 
   const surahs = useRadioStore((s) => s.surahs);
   const position = useRadioStore((s) => s.position);
@@ -30,6 +31,34 @@ export function GlobalRadioPlayer() {
   // Load the surah index once, app-wide.
   useEffect(() => {
     ensureSurahsLoaded();
+  }, []);
+
+  // ONE tab/window plays at a time. With the installed app AND a browser tab
+  // open, both auto-resumed the broadcast a fraction of a second apart — two
+  // overlapping streams of the same recitation is exactly the muffled,
+  // "kaset kusut" echo the owner reported. A BroadcastChannel takeover keeps
+  // whichever context started playback most recently and silences the rest.
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof BroadcastChannel === "undefined") return;
+    tabIdRef.current = Math.random().toString(36).slice(2);
+    const ch = new BroadcastChannel("ulyah-radio-lock");
+    ch.onmessage = (e: MessageEvent) => {
+      if (e.data?.type === "takeover" && e.data.id !== tabIdRef.current) {
+        const st = useRadioStore.getState();
+        // pauseLocal, NOT stop(): losing the race to another window must not
+        // record a persisted OFF against the visitor's own preference.
+        if (st.playing) st.pauseLocal();
+      }
+    };
+    const unsub = useRadioStore.subscribe((state, prev) => {
+      if (state.playing && !prev.playing) {
+        ch.postMessage({ type: "takeover", id: tabIdRef.current });
+      }
+    });
+    return () => {
+      unsub();
+      ch.close();
+    };
   }, []);
 
   // Auto-start the broadcast once per fresh page load (muted if the browser

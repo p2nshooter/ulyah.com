@@ -4,6 +4,7 @@ import { api } from "@/lib/api";
 import { KisahAnakList } from "@/components/KisahAnakList";
 import { VideoAnakGrid } from "@/components/kids/VideoAnakGrid";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 interface EpisodeRow {
   id: number;
@@ -74,7 +75,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = labels(locale);
-  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc, alternates: { canonical: `/${locale}/anak` } };
+  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc, alternates: { canonical: localePath(locale, `/anak`) } };
 }
 
 export default async function KisahAnakPage({ params }: { params: Promise<{ locale: string }> }) {
