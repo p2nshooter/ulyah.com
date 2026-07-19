@@ -52,6 +52,32 @@ export function speechAvailable(): boolean {
   return typeof window !== "undefined" && "speechSynthesis" in window;
 }
 
+// Chrome/Chromium silently PAUSES speech synthesis after ~15 seconds of
+// continuous speaking — the single biggest reason a "read for hours" session
+// dies on its own. Pinging resume() on a timer keeps a long, multi-utterance
+// narration alive indefinitely. Harmless on browsers without the bug (resume
+// on a non-paused engine is a no-op). Ref-counted so it runs only while
+// something is actually speaking.
+let keepAliveTimer: ReturnType<typeof setInterval> | null = null;
+let speakingCount = 0;
+function startKeepAlive() {
+  speakingCount++;
+  if (keepAliveTimer !== null) return;
+  keepAliveTimer = setInterval(() => {
+    if (!speechAvailable()) return;
+    const s = window.speechSynthesis;
+    // Only nudge while it believes it's speaking; resume() undoes the phantom pause.
+    if (s.speaking) s.resume();
+  }, 8000);
+}
+function stopKeepAlive() {
+  speakingCount = Math.max(0, speakingCount - 1);
+  if (speakingCount === 0 && keepAliveTimer !== null) {
+    clearInterval(keepAliveTimer);
+    keepAliveTimer = null;
+  }
+}
+
 export interface NarrationHandle {
   cancel: () => void;
   done: Promise<void>;
@@ -77,17 +103,22 @@ export function speak(text: string, lang: string, opts: { rate?: number } = {}):
     const effLang = effectiveLang(text, lang);
     window.speechSynthesis.cancel();
     const voice = await pickVoice(effLang);
-    await new Promise<void>((resolve) => {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = LANG_TAG[effLang] ?? effLang;
-      if (voice) u.voice = voice;
-      u.rate = opts.rate ?? 0.95;
-      u.pitch = 1.0;
-      u.onend = () => resolve();
-      u.onerror = () => resolve();
-      if (cancelled) return resolve();
-      window.speechSynthesis.speak(u);
-    });
+    startKeepAlive();
+    try {
+      await new Promise<void>((resolve) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = LANG_TAG[effLang] ?? effLang;
+        if (voice) u.voice = voice;
+        u.rate = opts.rate ?? 0.95;
+        u.pitch = 1.0;
+        u.onend = () => resolve();
+        u.onerror = () => resolve();
+        if (cancelled) return resolve();
+        window.speechSynthesis.speak(u);
+      });
+    } finally {
+      stopKeepAlive();
+    }
   })();
   return {
     cancel: () => {

@@ -20,6 +20,16 @@ on:
         default: "false"
   schedule:
     - cron: "30 2 * * *"
+  # Also run when the translator, the workflow, or the kitab source changes
+  # lands on main — so new/edited kitab get their sibling-language strings
+  # populated on the next deploy, not only on the daily schedule. Idempotent
+  # (unchanged kitab are skipped via a source hash), so re-runs are cheap.
+  push:
+    branches: [main]
+    paths:
+      - "scripts/translate-pesantren.ts"
+      - ".github/workflows/translate-content.yml"
+      - "packages/db-schema/seed/pesantren_*.sql"
 
 jobs:
   translate:
