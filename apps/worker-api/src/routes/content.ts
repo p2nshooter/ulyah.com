@@ -5,9 +5,24 @@ import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
 import { tenantFromReq } from "./analytics.js";
+import { getAdConfig, publicAdView } from "../lib/ad-config.js";
 import type { Env } from "../env.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
+
+// GET /content/ad-config?site=<id> — the ONE public ad config every site reads
+// (the four ulyah tenants + the three AXTO sites) to decide whether/what ads to
+// render. Editable only from the ulyah.com admin portal. Public + non-secret;
+// served CORS-open and never edge-cached long so an admin toggle propagates in
+// under a minute.
+contentRoute.get("/ad-config", async (c) => {
+  const site = c.req.query("site") || tenantFromReq(c) || "ulyah";
+  const cfg = await getAdConfig(c.env);
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("X-No-Edge-Cache", "1");
+  c.header("Cache-Control", "public, max-age=60");
+  return c.json(publicAdView(cfg, site));
+});
 
 // GET /content/site-pages — per-tenant page visibility + custom labels, so the
 // site's nav and each page can be shown/hidden/renamed from the admin portal

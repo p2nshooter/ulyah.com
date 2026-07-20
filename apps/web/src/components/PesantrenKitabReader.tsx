@@ -7,6 +7,7 @@ import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { SpokenText } from "@/components/SpokenText";
+import { AdSlot } from "@/components/AdSlot";
 import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
 
@@ -547,9 +548,8 @@ export function PesantrenKitabReader({
         </p>
       )}
 
-      {/* Ad after the kitab title/header (per Kitab placement plan) */}
-      <div className="mt-5">
-      </div>
+      {/* Ad after the kitab title/header — tasteful, between finished blocks. */}
+      <AdSlot placement="in_article" className="mt-5" />
 
       <div className="mt-6 grid gap-6 desktop:grid-cols-[240px_1fr]">
         {/* Table of contents */}
