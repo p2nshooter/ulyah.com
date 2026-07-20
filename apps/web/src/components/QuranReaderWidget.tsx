@@ -350,14 +350,31 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     };
   }, [selectedSurah, focus, tafsirEdition, locale]);
 
-  // Keep the explanation card that is currently being narrated in view and
-  // marked, so a long tafsir/penjelasan auto-scrolls to follow the voice
-  // ("penjelasan kasih penanda text yg sedang di baca, auto scroll klo panjang").
+  // Keep the block that is currently being narrated in view and marked, so a
+  // long tafsir/penjelasan auto-scrolls to follow the voice ("penjelasan kasih
+  // penanda text yg sedang di baca, auto scroll klo panjang").
   useEffect(() => {
     if (!isPlaying || !activeLayer) return;
+    // The Arabic recitation layer scrolls back UP to the ayah text — so when
+    // an ayah's tafsir finishes and the next ayah starts, the view returns to
+    // the verse being recited instead of staying stuck on the old explanation
+    // (owner: "tidak langsung auto naik pindah ke text ayat yg sedang dibaca").
+    if (activeLayer === "ayah") {
+      arabicRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     const el = explRefs.current.get(activeLayer);
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [activeLayer, isPlaying]);
+
+  // When the reader advances to a new ayah mid-session (even in text-only
+  // modes that never activate the "ayah" layer), snap the view back up to the
+  // verse first — each ayah's reading starts at its own text.
+  useEffect(() => {
+    if (!isPlaying) return;
+    arabicRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus]);
 
   const focusRow = useMemo(() => ayat.find((a) => a.number === focus) ?? null, [ayat, focus]);
 
