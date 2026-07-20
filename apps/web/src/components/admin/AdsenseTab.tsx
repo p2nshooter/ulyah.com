@@ -3,15 +3,20 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
+interface SiteState {
+  enabled: boolean;
+  approved: boolean;
+}
 interface Config {
   clientId: string;
   slots: Record<string, string>;
-  sites: Record<string, boolean>;
+  sites: Record<string, SiteState>;
 }
 
-const PLACEMENTS = ["in_article", "list", "footer", "sidebar"];
+// One responsive unit id can drive every placement the network uses.
+const PLACEMENTS = ["in_article", "in_article_1", "in_article_2", "list", "footer", "sidebar"];
 
-const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" }[] = [
+const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" | "es" }[] = [
   { key: "ulyah", label: "ulyah.com", group: "ulyah" },
   { key: "1fr", label: "1fr.fr", group: "ulyah" },
   { key: "tilawa", label: "tilawa.de", group: "ulyah" },
@@ -19,23 +24,35 @@ const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" }[] = [
   { key: "axto-io", label: "axto.io", group: "axto" },
   { key: "axto-dev", label: "axto.dev", group: "axto" },
   { key: "axto-us", label: "axto.us", group: "axto" },
-  // Situs artikel India — dikontrol dari sini juga, satu pintu untuk semua.
-  { key: "profity-in", label: "profity.in", group: "axto" },
-  { key: "oldco-in", label: "oldco.in", group: "axto" },
+  { key: "profity-in", label: "profity.in", group: "es" },
+  { key: "oldco-in", label: "oldco.in", group: "es" },
+  { key: "xaa-es", label: "xaa.es", group: "es" },
+  { key: "xad-es", label: "xad.es", group: "es" },
+  { key: "jai-lat", label: "jai.lat", group: "es" },
+  { key: "lie-skin", label: "lie.skin", group: "es" },
 ];
 
+function coerce(v: unknown): SiteState {
+  if (typeof v === "boolean") return { enabled: v, approved: false };
+  if (v && typeof v === "object") {
+    const o = v as Record<string, unknown>;
+    return { enabled: o.enabled === true, approved: o.approved === true };
+  }
+  return { enabled: false, approved: false };
+}
+
 /**
- * Central ad control for the WHOLE network (4 ulyah tenants + 3 AXTO sites).
- * Every site reads /content/ad-config from api.ulyah.com, so what is set here
- * governs all of them. Default: every site OFF (no ad anywhere). Turn a site
- * ON to preview positions (dashed boxes) even before approval; paste the real
- * ad-unit id and every ON site instantly serves live ads. Ads never appear in
- * any admin portal.
+ * Central ad control for the WHOLE network. Every site reads /content/ad-config
+ * from api.ulyah.com, so what is set here governs all of them. Flow the owner
+ * asked for: (1) paste the ONE real ad-unit id once; (2) turn a site ON to
+ * preview ad positions even before approval; (3) tick "ACC" on the sites
+ * AdSense has approved — only ON + ACC sites serve live ads, so approving one
+ * site never switches them all on at once. Ads never appear in any admin.
  */
 export function AdsenseTab() {
   const [config, setConfig] = useState<Config | null>(null);
   const [masterId, setMasterId] = useState("");
-  const [sites, setSites] = useState<Record<string, boolean>>({});
+  const [sites, setSites] = useState<Record<string, SiteState>>({});
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -44,10 +61,10 @@ export function AdsenseTab() {
       .get<Config>("/admin/adsense-config")
       .then((cfg) => {
         setConfig(cfg);
-        // The master id = whatever the placements currently share (in_article
-        // is the canonical one).
-        setMasterId(cfg.slots?.in_article ?? "");
-        setSites(cfg.sites ?? {});
+        setMasterId(cfg.slots?.in_article ?? cfg.slots?.in_article_1 ?? "");
+        const s: Record<string, SiteState> = {};
+        for (const { key } of SITE_LABELS) s[key] = coerce(cfg.sites?.[key]);
+        setSites(s);
       })
       .catch(() => {});
   }, []);
@@ -56,11 +73,13 @@ export function AdsenseTab() {
     setBusy(true);
     const id = masterId.replace(/[^0-9]/g, "").slice(0, 20);
     const slots: Record<string, string> = {};
-    for (const p of PLACEMENTS) slots[p] = id; // one responsive unit drives all
+    for (const p of PLACEMENTS) slots[p] = id;
     try {
       const next = await api.post<Config>("/admin/adsense-config", { slots, sites });
       setConfig(next);
-      setSites(next.sites);
+      const s: Record<string, SiteState> = {};
+      for (const { key } of SITE_LABELS) s[key] = coerce(next.sites?.[key]);
+      setSites(s);
       setSaved(true);
       setTimeout(() => setSaved(false), 1800);
     } finally {
@@ -69,12 +88,15 @@ export function AdsenseTab() {
   }
 
   function toggle(key: string) {
-    setSites((s) => ({ ...s, [key]: !s[key] }));
+    setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), enabled: !coerce(s[key]).enabled } }));
   }
-  function setAll(v: boolean) {
+  function toggleApproved(key: string) {
+    setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), approved: !coerce(s[key]).approved } }));
+  }
+  function setAll(field: "enabled" | "approved", v: boolean) {
     setSites((s) => {
       const n = { ...s };
-      for (const { key } of SITE_LABELS) n[key] = v;
+      for (const { key } of SITE_LABELS) n[key] = { ...coerce(n[key]), [field]: v };
       return n;
     });
   }
@@ -82,17 +104,20 @@ export function AdsenseTab() {
   if (!config) return <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>;
 
   const hasRealId = !!masterId.replace(/[^0-9]/g, "");
-  const onCount = SITE_LABELS.filter(({ key }) => sites[key]).length;
+  const onCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled).length;
+  const liveCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved).length;
+  const groupIcon = (g: string) => (g === "axto" ? "🛰️" : g === "es" ? "📰" : "🕌");
 
   return (
     <div className="space-y-6">
       <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <p className="font-heading text-base">Kontrol Iklan Jaringan</p>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-          Satu tempat mengatur iklan untuk <b>seluruh situs</b> (ulyah.com, 1fr.fr, tilawa.de, dawa.es, axto.io,
-          axto.dev, axto.us). Bawaan: semua <b>mati</b>. Nyalakan situs untuk melihat posisi (kotak putus-putus)
-          walau belum ada ID; isi ID unit iklan asli, lalu semua situs yang aktif langsung menayangkan iklan asli.
-          Iklan tidak pernah muncul di portal admin.
+          Satu tempat mengatur iklan untuk <b>seluruh situs</b> (ulyah.com + saudara, AXTO, dan situs artikel:
+          profity.in, oldco.in, xaa.es, xad.es, jai.lat, lie.skin). Bawaan semua <b>mati</b>. Nyalakan situs untuk
+          melihat posisi iklan (kotak putus-putus), isi ID unit iklan asli sekali, lalu <b>centang “ACC”</b> hanya
+          pada situs yang sudah diterima AdSense — cuma situs ON + ACC yang menayangkan iklan asli, jadi tidak semua
+          langsung aktif. Iklan tidak pernah muncul di portal admin.
         </p>
       </section>
 
@@ -100,7 +125,7 @@ export function AdsenseTab() {
         <p className="font-heading text-base">1 · ID Unit Iklan AdSense</p>
         <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
           Publisher: <code className="rounded bg-black/10 px-1">{config.clientId}</code>. Tempel ID unit iklan
-          responsif (angka saja) — satu ID ini otomatis dipakai semua posisi (in-article, daftar, footer, sidebar).
+          responsif (angka saja) — dipakai semua posisi (in-article, sidebar, footer, dst.) di semua situs yang ACC.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <input
@@ -113,42 +138,59 @@ export function AdsenseTab() {
           <span
             className={`rounded-full px-2.5 py-1 text-xs ${hasRealId ? "bg-success/15 text-success" : "bg-black/10 text-[var(--color-text-secondary)]"}`}
           >
-            {hasRealId ? "● Iklan asli aktif di situs yang ON" : "○ Belum ada ID — situs ON tampil pratinjau posisi"}
+            {hasRealId ? "● Ada ID — situs ON+ACC menayangkan iklan asli" : "○ Belum ada ID — situs ON tampil pratinjau"}
           </span>
         </div>
       </section>
 
       <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="font-heading text-base">2 · Tampilkan / Sembunyikan per Situs</p>
-          <div className="flex gap-2 text-xs">
-            <button onClick={() => setAll(true)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+          <p className="font-heading text-base">2 · Aktif (tampil) & ACC (iklan asli) per Situs</p>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <button onClick={() => setAll("enabled", true)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
               Semua ON
             </button>
-            <button onClick={() => setAll(false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+            <button onClick={() => setAll("enabled", false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
               Semua OFF
+            </button>
+            <button onClick={() => setAll("approved", false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+              Hapus semua ACC
             </button>
           </div>
         </div>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
-          {SITE_LABELS.map(({ key, label, group }) => (
-            <button
-              key={key}
-              onClick={() => toggle(key)}
-              className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm transition ${
-                sites[key] ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
-              }`}
-            >
-              <span>
-                {group === "axto" ? "🛰️" : "🕌"} {label}
-              </span>
-              <span className={sites[key] ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"}>
-                {sites[key] ? "ON" : "OFF"}
-              </span>
-            </button>
-          ))}
+          {SITE_LABELS.map(({ key, label, group }) => {
+            const st = coerce(sites[key]);
+            return (
+              <div
+                key={key}
+                className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm transition ${
+                  st.enabled ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
+                }`}
+              >
+                <button onClick={() => toggle(key)} className="flex items-center gap-2 text-left">
+                  <span>{groupIcon(group)} {label}</span>
+                  <span className={st.enabled ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"}>
+                    {st.enabled ? "ON" : "OFF"}
+                  </span>
+                </button>
+                <label className={`flex cursor-pointer items-center gap-1.5 text-xs ${st.enabled ? "" : "opacity-40"}`}>
+                  <input
+                    type="checkbox"
+                    checked={st.approved}
+                    disabled={!st.enabled}
+                    onChange={() => toggleApproved(key)}
+                    className="h-4 w-4 accent-[var(--color-accent)]"
+                  />
+                  ACC{st.enabled && st.approved && hasRealId ? " ✓ live" : ""}
+                </label>
+              </div>
+            );
+          })}
         </div>
-        <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/70">{onCount} situs aktif.</p>
+        <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/70">
+          {onCount} situs aktif · {liveCount} situs menayangkan iklan asli.
+        </p>
       </section>
 
       <button

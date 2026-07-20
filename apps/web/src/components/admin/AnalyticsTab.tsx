@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { MiniBarChart, countryName, countryFlag } from "./MiniBarChart";
 import { TenantAnalyticsPanel } from "./TenantAnalyticsPanel";
+import { NetworkTraffic } from "./NetworkTraffic";
 
 interface Bucket {
   bucket: string;
@@ -85,6 +86,10 @@ export function AnalyticsTab() {
       {/* Per-site (tenant) visitor + install analytics — all sites on ulyah's
           admin, own-site only on a sibling admin. */}
       <TenantAnalyticsPanel />
+
+      {/* Network traffic — every ecosystem site's cookieless pageviews from
+          the /track beacon (owner: "semua website wajib punya analisa trafic"). */}
+      <NetworkTraffic />
 
       {/* Visitor overview (combined across all sites) */}
       <section>
