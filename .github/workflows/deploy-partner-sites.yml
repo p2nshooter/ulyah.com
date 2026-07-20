@@ -7,10 +7,17 @@ name: Deploy partner sites (profity.in + oldco.in)
 # any new secret setup. Their own repos still carry a guarded deploy workflow
 # that activates automatically if secrets are ever added there.
 #
-# Runs only on manual dispatch to keep paid Actions minutes predictable.
+# Triggers: manual dispatch (once the repo default branch carries this file)
+# and — because workflow_dispatch only registers off the DEFAULT branch, which
+# in this repo is not main — also on push to main when this file changes, so
+# merging an update to this workflow immediately runs the deploy.
 
 on:
   workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-partner-sites.yml'
 
 concurrency:
   group: deploy-partner-sites
