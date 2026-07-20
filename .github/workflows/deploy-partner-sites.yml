@@ -28,6 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      # Deploy one site at a time: six parallel `wrangler deploy`s hammer the
+      # Cloudflare API at once and trip its account rate limit (code 10429),
+      # which fails every deploy. Serialising spreads the API calls out.
+      max-parallel: 1
       matrix:
         include:
           - repo: p2nshooter/profity.in
@@ -69,8 +73,23 @@ jobs:
       - name: Build for Cloudflare
         run: npm run cf:build
 
+      # Retry with backoff: the Cloudflare API occasionally rate-limits
+      # (code 10429) even one deploy at a time when the account is busy.
       - name: Deploy to Cloudflare Workers
-        run: npx opennextjs-cloudflare deploy
+        run: |
+          for attempt in 1 2 3 4; do
+            echo "::group::Deploy attempt $attempt"
+            if npx opennextjs-cloudflare deploy; then
+              echo "::endgroup::"
+              exit 0
+            fi
+            echo "::endgroup::"
+            wait=$((attempt * 30))
+            echo "Deploy attempt $attempt failed — waiting ${wait}s before retry..."
+            sleep $wait
+          done
+          echo "All deploy attempts failed." >&2
+          exit 1
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
