@@ -36,6 +36,18 @@ jobs:
           - repo: p2nshooter/oldco.in
             worker: oldco-in
             domain: oldco.in
+          - repo: p2nshooter/xaa
+            worker: xaa-es
+            domain: xaa.es
+          - repo: p2nshooter/xad
+            worker: xad-es
+            domain: xad.es
+          - repo: p2nshooter/jai
+            worker: jai-lat
+            domain: jai.lat
+          - repo: p2nshooter/lie
+            worker: lie-skin
+            domain: lie.skin
     name: ${{ matrix.domain }}
     steps:
       - name: Checkout ${{ matrix.repo }}

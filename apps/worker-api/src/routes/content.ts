@@ -24,6 +24,38 @@ contentRoute.get("/ad-config", async (c) => {
   return c.json(publicAdView(cfg, site));
 });
 
+// POST /track — cookieless pageview beacon from every site in the network.
+// Body: { site, path, ref }. Aggregated into site_pageviews (site+day+path) so
+// the ulyah.com admin can show per-site traffic for the whole ecosystem. CORS
+// open; accepts text/plain beacons (sendBeacon) so there is no preflight.
+contentRoute.post("/track", async (c) => {
+  try {
+    const text = await c.req.text();
+    const body = JSON.parse(text || "{}") as { site?: string; path?: string };
+    const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
+    let path = String(body.path ?? "/").slice(0, 200);
+    if (!path.startsWith("/")) path = "/" + path;
+    if (!site) return c.body(null, 204);
+    const day = new Date().toISOString().slice(0, 10);
+    await c.env.DB.prepare(
+      `INSERT INTO site_pageviews (site, day, path, count) VALUES (?, ?, ?, 1)
+       ON CONFLICT(site, day, path) DO UPDATE SET count = count + 1`
+    )
+      .bind(site, day, path)
+      .run();
+  } catch {
+    /* analytics is best-effort — never error the beacon */
+  }
+  c.header("Access-Control-Allow-Origin", "*");
+  return c.body(null, 204);
+});
+contentRoute.options("/track", (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Content-Type");
+  return c.body(null, 204);
+});
+
 // GET /content/site-pages — per-tenant page visibility + custom labels, so the
 // site's nav and each page can be shown/hidden/renamed from the admin portal
 // (owner: "jgn ada yg hardcode, semua dynamic dari portal admin"). Absent rows

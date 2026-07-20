@@ -808,24 +808,67 @@ adminRoute.get("/adsense-config", async (c) => {
   return c.json(cfg);
 });
 
+// GET /admin/site-analytics — per-site traffic for the whole network, last N
+// days, from the cookieless /track beacon. Powers the admin traffic panel
+// (owner: "semua website wajib punya analisa trafic di portal admin").
+adminRoute.get("/site-analytics", async (c) => {
+  const days = Math.min(90, Math.max(1, Number(c.req.query("days")) || 30));
+  const since = new Date(Date.now() - days * 86400_000).toISOString().slice(0, 10);
+  try {
+    const [totals, daily, top] = await Promise.all([
+      c.env.DB.prepare(
+        `SELECT site, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY site ORDER BY views DESC`
+      ).bind(since).all<{ site: string; views: number }>(),
+      c.env.DB.prepare(
+        `SELECT day, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY day ORDER BY day`
+      ).bind(since).all<{ day: string; views: number }>(),
+      c.env.DB.prepare(
+        `SELECT site, path, SUM(count) AS views FROM site_pageviews WHERE day >= ?
+         GROUP BY site, path ORDER BY views DESC LIMIT 50`
+      ).bind(since).all<{ site: string; path: string; views: number }>(),
+    ]);
+    return c.json({
+      days,
+      totals: totals.results ?? [],
+      daily: daily.results ?? [],
+      topPages: top.results ?? [],
+    });
+  } catch {
+    return c.json({ days, totals: [], daily: [], topPages: [] });
+  }
+});
+
 // POST /admin/adsense-config — the single control point for the WHOLE network's
 // ads (4 ulyah tenants + 3 AXTO sites). Saves per-site show/hide + the real
 // ad-unit ids; every site polls /content/ad-config and updates within a minute.
 adminRoute.post("/adsense-config", async (c) => {
-  const body = await c.req.json<{ slots?: Record<string, string>; sites?: Record<string, boolean> }>();
+  const body = await c.req.json<{
+    slots?: Record<string, string>;
+    sites?: Record<string, { enabled?: boolean; approved?: boolean } | boolean>;
+  }>();
   const current = await getAdConfig(c.env);
+  const mergedSites: Record<string, { enabled: boolean; approved: boolean }> = { ...current.sites };
+  for (const [k, v] of Object.entries(body.sites ?? {})) {
+    if (typeof v === "boolean") {
+      mergedSites[k] = { enabled: v, approved: false };
+    } else if (v && typeof v === "object") {
+      mergedSites[k] = { enabled: v.enabled === true, approved: v.approved === true };
+    }
+  }
   await saveAdConfig(c.env, {
     clientId: current.clientId,
     slots: { ...current.slots, ...(body.slots ?? {}) },
-    sites: { ...current.sites, ...(body.sites ?? {}) },
+    sites: mergedSites,
   });
   const saved = await getAdConfig(c.env);
   const admin = c.get("admin" as never) as { email: string };
   const liveSlots = Object.values(saved.slots).filter(Boolean).length;
-  const onSites = Object.entries(saved.sites).filter(([, v]) => v).map(([k]) => k);
+  const onSites = Object.entries(saved.sites).filter(([, v]) => v.enabled).map(([k]) => k);
+  const liveSites = Object.entries(saved.sites).filter(([, v]) => v.enabled && v.approved).map(([k]) => k);
   await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
     liveSlots,
     sitesOn: onSites.join(",") || "(none)",
+    sitesLive: liveSites.join(",") || "(none)",
   });
   return c.json(saved);
 });
