@@ -35,16 +35,36 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
       </button>
       {open && (
         <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-48 overflow-y-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-xl">
-          {LOCALES.map((l) => (
-            <button
-              key={l.code}
-              onClick={() => switchTo(l.code)}
-              dir={l.dir}
-              className={`block w-full px-3 py-2 text-left text-sm hover:bg-black/5 ${l.code === locale ? "font-semibold text-accent" : ""}`}
-            >
-              {l.label}
-            </button>
-          ))}
+          {LOCALES.map((l) => {
+            const isCurrent = l.code === locale;
+            // In-page language switching is temporarily out of service — the
+            // owner asked for the broken entries to be visibly struck through
+            // and unclickable until it works again ("untuk sementara tandai
+            // dulu dengan di coret dan non aktifkan"). Only the language the
+            // page is already in stays active.
+            if (!isCurrent) {
+              return (
+                <span
+                  key={l.code}
+                  dir={l.dir}
+                  aria-disabled
+                  className="block w-full cursor-not-allowed px-3 py-2 text-left text-sm text-[var(--color-text-secondary)] line-through opacity-50"
+                >
+                  {l.label}
+                </span>
+              );
+            }
+            return (
+              <button
+                key={l.code}
+                onClick={() => switchTo(l.code)}
+                dir={l.dir}
+                className="block w-full px-3 py-2 text-left text-sm font-semibold text-accent hover:bg-black/5"
+              >
+                {l.label}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>

@@ -19,6 +19,9 @@ const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" }[] = [
   { key: "axto-io", label: "axto.io", group: "axto" },
   { key: "axto-dev", label: "axto.dev", group: "axto" },
   { key: "axto-us", label: "axto.us", group: "axto" },
+  // Situs artikel India — dikontrol dari sini juga, satu pintu untuk semua.
+  { key: "profity-in", label: "profity.in", group: "axto" },
+  { key: "oldco-in", label: "oldco.in", group: "axto" },
 ];
 
 /**

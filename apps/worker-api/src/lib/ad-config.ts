@@ -19,8 +19,8 @@ import { safeKvGet, safeKvPut } from "./kv-safe.js";
  */
 export const AD_CLIENT_ID = "ca-pub-6371903555702163";
 
-export type AdSite = "ulyah" | "1fr" | "tilawa" | "dawa" | "axto-io" | "axto-dev" | "axto-us";
-export const AD_SITES: AdSite[] = ["ulyah", "1fr", "tilawa", "dawa", "axto-io", "axto-dev", "axto-us"];
+export type AdSite = "ulyah" | "1fr" | "tilawa" | "dawa" | "axto-io" | "axto-dev" | "axto-us" | "profity-in" | "oldco-in";
+export const AD_SITES: AdSite[] = ["ulyah", "1fr", "tilawa", "dawa", "axto-io", "axto-dev", "axto-us", "profity-in", "oldco-in"];
 
 // Placement names the AdSlot component uses across the sites. Kept small and
 // deliberate — visitor-friendly density (owner: "iklan yang benar-benar ramah,
