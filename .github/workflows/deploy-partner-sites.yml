@@ -21,7 +21,9 @@ on:
 
 concurrency:
   group: deploy-partner-sites
-  cancel-in-progress: false
+  # Cancel an in-flight run when a newer one starts — a doomed run (e.g. an
+  # invalid token) should not keep burning Actions minutes while a fix lands.
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -79,11 +81,18 @@ jobs:
         run: |
           for attempt in 1 2 3 4; do
             echo "::group::Deploy attempt $attempt"
-            if npx opennextjs-cloudflare deploy; then
+            if npx opennextjs-cloudflare deploy 2>&1 | tee /tmp/deploy.log; then
               echo "::endgroup::"
               exit 0
             fi
             echo "::endgroup::"
+            # An invalid/expired token (9109 / 10000 / "Invalid access token")
+            # can never self-heal — fail fast instead of burning ~5 min of
+            # retries. Update the CLOUDFLARE_API_TOKEN secret and re-run.
+            if grep -qiE "Invalid access token|code: ?9109|code: ?10000|Authentication error" /tmp/deploy.log; then
+              echo "::error::Cloudflare rejected the API token (invalid/expired). Update the CLOUDFLARE_API_TOKEN secret with a valid token that has Workers Scripts:Edit. Not retrying."
+              exit 1
+            fi
             wait=$((attempt * 30))
             echo "Deploy attempt $attempt failed — waiting ${wait}s before retry..."
             sleep $wait
