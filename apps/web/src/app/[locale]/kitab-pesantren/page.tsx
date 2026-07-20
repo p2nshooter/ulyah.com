@@ -155,8 +155,18 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
 
   const total = kitab.length;
 
+  // First kitab in the library — "Baca Semua" reads this list then dives into
+  // it and auto-advances through every book to the end of the menu.
+  const firstKitab = categories.map((c) => kitab.find((k) => k.category_slug === c.slug)).find(Boolean);
+  const firstReadHref = firstKitab ? `/${locale}/kitab-pesantren/${firstKitab.slug}?autoread=1&mode=semua` : null;
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+      {firstReadHref && (
+        <a data-read-next href={firstReadHref} className="hidden" aria-hidden>
+          next
+        </a>
+      )}
       <PageHero icon="🏫" title={t.title} subtitle={t.subtitle(total)} />
 
       <div className="mt-6">

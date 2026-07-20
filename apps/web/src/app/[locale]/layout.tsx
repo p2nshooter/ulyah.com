@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
+import { GlobalReadAll } from "@/components/GlobalReadAll";
+import { AdSlot } from "@/components/AdSlot";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
@@ -251,6 +253,12 @@ export default async function LocaleLayout({
         <ThemeProvider>
           <Header locale={locale} dict={dict} />
           <main className="min-h-screen pb-24">{children}</main>
+          {/* One tasteful ad above the footer on every page — off by default,
+              controlled centrally from the ulyah.com admin (AdSlot renders
+              nothing until the site is enabled + an ad-unit id is set). */}
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <AdSlot placement="footer" />
+          </div>
           <Footer locale={locale} dict={dict} />
           <GlobalPlayerBar dict={dict} />
           {/* Owns the Radio Qori audio element so the broadcast survives
@@ -258,6 +266,9 @@ export default async function LocaleLayout({
           <GlobalRadioPlayer />
           {/* Adhan prayer-time reminder — default ON, remembered OFF. */}
           <AdhanReminder locale={locale} />
+          {/* Universal "Baca Semua / Terjemahan / Arab" on every menu. Hides
+              itself on pages that ship their own richer reader. */}
+          <GlobalReadAll locale={locale} />
           {/* Floating "Tanya AI" bubble on every page (bottom-right). */}
           <FloatingAiChat locale={locale} />
         </ThemeProvider>

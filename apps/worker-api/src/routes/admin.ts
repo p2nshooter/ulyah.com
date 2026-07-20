@@ -10,6 +10,7 @@ import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
+import { getAdConfig, saveAdConfig } from "../lib/ad-config.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -803,26 +804,30 @@ adminRoute.get("/health", async (c) => {
 
 // GET /admin/adsense-config — verification status + the noted ad-unit id (if any).
 adminRoute.get("/adsense-config", async (c) => {
-  const raw = await safeKvGet(c.env, "adsense:config");
-  const cfg = raw ? JSON.parse(raw) : {};
-  return c.json({
-    slotId: cfg.slotId ?? "",
-    clientId: "ca-pub-6371903555702163",
-  });
+  const cfg = await getAdConfig(c.env);
+  return c.json(cfg);
 });
 
-// POST /admin/adsense-config — note the ad-unit id for later (no ad renders
-// from this either way — see comment above).
+// POST /admin/adsense-config — the single control point for the WHOLE network's
+// ads (4 ulyah tenants + 3 AXTO sites). Saves per-site show/hide + the real
+// ad-unit ids; every site polls /content/ad-config and updates within a minute.
 adminRoute.post("/adsense-config", async (c) => {
-  const body = await c.req.json<{ slotId?: string }>();
-  const slotId = String(body.slotId ?? "").trim().replace(/[^0-9]/g, "").slice(0, 20);
-  const cfg = { slotId };
-  await safeKvPut(c.env, "adsense:config", JSON.stringify(cfg));
-  const admin = c.get("admin" as never) as { email: string };
-  await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
-    slotId: slotId ? `…${slotId.slice(-4)}` : "(cleared)",
+  const body = await c.req.json<{ slots?: Record<string, string>; sites?: Record<string, boolean> }>();
+  const current = await getAdConfig(c.env);
+  await saveAdConfig(c.env, {
+    clientId: current.clientId,
+    slots: { ...current.slots, ...(body.slots ?? {}) },
+    sites: { ...current.sites, ...(body.sites ?? {}) },
   });
-  return c.json({ ok: true, ...cfg });
+  const saved = await getAdConfig(c.env);
+  const admin = c.get("admin" as never) as { email: string };
+  const liveSlots = Object.values(saved.slots).filter(Boolean).length;
+  const onSites = Object.entries(saved.sites).filter(([, v]) => v).map(([k]) => k);
+  await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    liveSlots,
+    sitesOn: onSites.join(",") || "(none)",
+  });
+  return c.json(saved);
 });
 
 // ── Clients / registered donors ──────────────────────────────────────────

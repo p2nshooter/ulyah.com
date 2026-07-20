@@ -102,26 +102,43 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
             {t.reciterLineup}
           </button>
           {showLineup && (
-            <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-72 overflow-y-auto rounded-xl border border-accent/25 bg-[var(--color-primary)] p-2 shadow-2xl">
-              <p className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-accent">{t.featuredGroup}</p>
-              {featured.map((r) => (
-                <div
-                  key={r.key}
-                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs ${
-                    r.key === pos.reciterKey ? "bg-accent/10 text-accent" : ""
-                  }`}
-                >
-                  <span>
-                    {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
-                  </span>
-                  {r.key === pos.reciterKey && (
-                    <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-red-300">
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" /> {t.nowPlaying}
-                    </span>
-                  )}
+            // Rendered as a FIXED overlay, not an absolute dropdown: the card
+            // section has overflow-hidden (needed for its rounded ornament
+            // background), which clipped the old dropdown so the lineup
+            // appeared squashed "inside" the card (owner: "harusnya ketika
+            // diklik muncul di depan, bukan terlihat ada di dalam").
+            <>
+              <button
+                aria-label="close"
+                onClick={() => setShowLineup(false)}
+                className="fixed inset-0 z-40 cursor-default bg-black/40"
+              />
+              <div className="fixed left-1/2 top-1/2 z-50 max-h-[70vh] w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-accent/25 bg-[var(--color-primary)] p-2 shadow-2xl">
+                <div className="flex items-center justify-between px-2 py-1">
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.featuredGroup}</p>
+                  <button onClick={() => setShowLineup(false)} aria-label="close" className="p-1 text-xs opacity-70 hover:opacity-100">
+                    ✕
+                  </button>
                 </div>
-              ))}
-            </div>
+                {featured.map((r) => (
+                  <div
+                    key={r.key}
+                    className={`flex w-full items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs ${
+                      r.key === pos.reciterKey ? "bg-accent/10 text-accent" : ""
+                    }`}
+                  >
+                    <span>
+                      {r.flag} {r.name} <span className="opacity-50">· {r.country}</span>
+                    </span>
+                    {r.key === pos.reciterKey && (
+                      <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-red-300">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-400" /> {t.nowPlaying}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>

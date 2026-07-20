@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
-import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { SpokenText } from "@/components/SpokenText";
+import { AdSlot } from "@/components/AdSlot";
 import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
 
@@ -221,36 +223,7 @@ const AUTOREAD_KEY = "ulyah_kitab_autoread";
 interface ReadingPos {
   matnId: number;
   part: "ar" | "tr" | "ex";
-  idx: number;
-}
-
-/** Renders prose as sentence spans so the sentence currently being narrated
- * can be highlighted — the "reading marker" that follows the voice. */
-function SentenceText({
-  text,
-  active,
-  activeIdx,
-  className,
-}: {
-  text: string;
-  active: boolean;
-  activeIdx: number;
-  className?: string;
-}) {
-  const sentences = useMemo(() => splitSentences(text), [text]);
-  if (!active) return <p className={className}>{text}</p>;
-  return (
-    <p className={className}>
-      {sentences.map((s, i) => (
-        <span
-          key={i}
-          className={i === activeIdx ? "rounded bg-accent/25 text-inherit shadow-[0_0_0_3px_rgba(0,0,0,0.02)]" : undefined}
-        >
-          {s}{" "}
-        </span>
-      ))}
-    </p>
-  );
+  charIndex: number;
 }
 
 /**
@@ -427,14 +400,17 @@ export function PesantrenKitabReader({
       if (mode === "semua" && m.explanation_id) parts.push({ part: "ex", text: m.explanation_id, lang: locale });
     }
     for (const p of parts) {
-      const sentences = splitSentences(p.text);
-      for (let i = 0; i < sentences.length; i++) {
-        if (!readingRef.current) return false;
-        setReadingPos({ matnId: m.id, part: p.part, idx: i });
-        const h = speak(sentences[i]!, p.lang, { rate: 0.9 });
-        handleRef.current = h;
-        await h.done;
-      }
+      if (!readingRef.current) return false;
+      // Read each part as ONE utterance so the browser reports word boundaries,
+      // and the highlight follows word by word (keep-alive survives the long
+      // Arabic matn without cutting off).
+      setReadingPos({ matnId: m.id, part: p.part, charIndex: 0 });
+      const h = speak(p.text, p.lang, {
+        rate: 0.9,
+        onWord: (ci) => setReadingPos({ matnId: m.id, part: p.part, charIndex: ci }),
+      });
+      handleRef.current = h;
+      await h.done;
     }
     return readingRef.current;
   }
@@ -539,7 +515,7 @@ export function PesantrenKitabReader({
   }, []);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6" data-native-reader>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
           {t.back}
@@ -572,9 +548,8 @@ export function PesantrenKitabReader({
         </p>
       )}
 
-      {/* Ad after the kitab title/header (per Kitab placement plan) */}
-      <div className="mt-5">
-      </div>
+      {/* Ad after the kitab title/header — tasteful, between finished blocks. */}
+      <AdSlot placement="in_article" className="mt-5" />
 
       <div className="mt-6 grid gap-6 desktop:grid-cols-[240px_1fr]">
         {/* Table of contents */}
@@ -716,12 +691,13 @@ export function PesantrenKitabReader({
                     )}
 
                     {/* Matan (Arabic source) — font size follows reading preference;
-                        the sentence being narrated is highlighted live. */}
+                        the WORD being narrated is highlighted live. */}
                     <div dir="rtl">
-                      <SentenceText
+                      <SpokenText
                         text={m.text_ar}
+                        dir="rtl"
                         active={readingPos?.matnId === m.id && readingPos.part === "ar"}
-                        activeIdx={readingPos?.part === "ar" && readingPos.matnId === m.id ? readingPos.idx : -1}
+                        charIndex={readingPos?.part === "ar" && readingPos.matnId === m.id ? readingPos.charIndex : -1}
                         className={`font-arabic ${FONT_SIZE_CLASS[fontSize]}`}
                       />
                     </div>
@@ -730,10 +706,10 @@ export function PesantrenKitabReader({
                     {m.translation_id && (
                       <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-3 dark:bg-white/[0.02]">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.translation}</p>
-                        <SentenceText
+                        <SpokenText
                           text={m.translation_id}
                           active={readingPos?.matnId === m.id && readingPos.part === "tr"}
-                          activeIdx={readingPos?.part === "tr" && readingPos.matnId === m.id ? readingPos.idx : -1}
+                          charIndex={readingPos?.part === "tr" && readingPos.matnId === m.id ? readingPos.charIndex : -1}
                           className="mt-1 text-sm leading-relaxed"
                         />
                       </div>
@@ -743,10 +719,10 @@ export function PesantrenKitabReader({
                     {m.explanation_id && (
                       <div className="mt-3 rounded-xl border border-[var(--color-border)] p-3">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.explanation}</p>
-                        <SentenceText
+                        <SpokenText
                           text={m.explanation_id}
                           active={readingPos?.matnId === m.id && readingPos.part === "ex"}
-                          activeIdx={readingPos?.part === "ex" && readingPos.matnId === m.id ? readingPos.idx : -1}
+                          charIndex={readingPos?.part === "ex" && readingPos.matnId === m.id ? readingPos.charIndex : -1}
                           className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]"
                         />
                       </div>

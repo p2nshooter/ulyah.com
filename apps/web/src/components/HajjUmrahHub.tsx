@@ -30,14 +30,56 @@ interface Labels {
   from: string;
   contact: string;
   empty: string;
+  rentTitle: string;
+  rentBody: string;
+  rentCta: string;
 }
+// $1/day rental of this Hajj & Umrah page — elegant, courteous, inviting copy
+// per site language (owner: "kasih harga sewa halaman haji & umroh $1/hari,
+// bahasa elegan sopan tapi mengundang, bahasa masing-masing negara").
 const LABELS: Record<string, Labels> = {
-  id: { all: "Semua", hajj: "Haji", umrah: "Umroh", duration: "Durasi", departure: "Keberangkatan", from: "Disewakan", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini." },
-  en: { all: "All", hajj: "Hajj", umrah: "Umrah", duration: "Duration", departure: "Departure", from: "Slot for rent", contact: "Contact us", empty: "No packages are available right now." },
-  ar: { all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة", from: "متاح للإيجار", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً." },
-  fr: { all: "Tout", hajj: "Hajj", umrah: "Omra", duration: "Durée", departure: "Départ", from: "Emplacement à louer", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment." },
-  de: { all: "Alle", hajj: "Hadsch", umrah: "Umrah", duration: "Dauer", departure: "Abflug", from: "Platz zu vermieten", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar." },
-  es: { all: "Todo", hajj: "Hach", umrah: "Umra", duration: "Duración", departure: "Salida", from: "Espacio en alquiler", contact: "Contáctanos", empty: "No hay paquetes disponibles por ahora." },
+  id: {
+    all: "Semua", hajj: "Haji", umrah: "Umroh", duration: "Durasi", departure: "Keberangkatan",
+    from: "Disewakan · $1/hari", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini.",
+    rentTitle: "Ruang terhormat untuk mitra travel Haji & Umroh",
+    rentBody: "Tampilkan layanan Haji & Umroh Anda di halaman ini kepada pengunjung yang nyata dan bersungguh-sungguh. Sewa dengan ringan hati — hanya $1 per hari. Sebuah kehormatan bagi kami untuk menyambut Anda.",
+    rentCta: "Sewa halaman ini — salam@ulyah.com",
+  },
+  en: {
+    all: "All", hajj: "Hajj", umrah: "Umrah", duration: "Duration", departure: "Departure",
+    from: "For rent · $1/day", contact: "Contact us", empty: "No packages are available right now.",
+    rentTitle: "A distinguished space for Hajj & Umrah partners",
+    rentBody: "Present your Hajj & Umrah services on this page to real, devoted visitors. Rent it with ease — just $1 per day. It would be our honour to welcome you.",
+    rentCta: "Rent this page — salam@ulyah.com",
+  },
+  ar: {
+    all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة",
+    from: "متاح للإيجار · دولار/يوم", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً.",
+    rentTitle: "مساحة مميّزة لشركاء الحج والعمرة",
+    rentBody: "اعرض خدمات الحج والعمرة على هذه الصفحة أمام زوّار حقيقيين ومهتمّين. الإيجار ميسور — دولار واحد فقط في اليوم. يشرّفنا أن نرحّب بكم.",
+    rentCta: "استأجر هذه الصفحة — salam@ulyah.com",
+  },
+  fr: {
+    all: "Tout", hajj: "Hajj", umrah: "Omra", duration: "Durée", departure: "Départ",
+    from: "À louer · 1 $/jour", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment.",
+    rentTitle: "Un espace distingué pour les partenaires du Hajj et de l'Omra",
+    rentBody: "Présentez vos services de Hajj et d'Omra sur cette page, devant un public réel et dévoué. Louez-le en toute simplicité — seulement 1 $ par jour. Ce serait un honneur de vous accueillir.",
+    rentCta: "Louer cette page — salam@ulyah.com",
+  },
+  de: {
+    all: "Alle", hajj: "Hadsch", umrah: "Umrah", duration: "Dauer", departure: "Abflug",
+    from: "Zu vermieten · 1 $/Tag", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar.",
+    rentTitle: "Ein erlesener Platz für Hadsch- und Umrah-Partner",
+    rentBody: "Präsentieren Sie Ihre Hadsch- und Umrah-Angebote auf dieser Seite vor einem echten, andächtigen Publikum. Mieten Sie ihn ganz unbeschwert — nur 1 $ pro Tag. Es wäre uns eine Ehre, Sie willkommen zu heißen.",
+    rentCta: "Diese Seite mieten — salam@ulyah.com",
+  },
+  es: {
+    all: "Todo", hajj: "Hach", umrah: "Umra", duration: "Duración", departure: "Salida",
+    from: "En alquiler · 1 $/día", contact: "Contáctanos", empty: "No hay paquetes disponibles por ahora.",
+    rentTitle: "Un espacio distinguido para socios de Hach y Umra",
+    rentBody: "Presente sus servicios de Hach y Umra en esta página ante visitantes reales y devotos. Alquílela con toda comodidad — solo 1 $ al día. Sería un honor darle la bienvenida.",
+    rentCta: "Alquilar esta página — salam@ulyah.com",
+  },
 };
 
 export function HajjUmrahHub({ locale }: { locale: string }) {
@@ -71,16 +113,36 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
     );
   }
 
+  // Elegant, courteous rental invitation — shown whether or not any package
+  // is listed, so the $1/day offer to Hajj & Umrah partners is always present.
+  const rentInvite = (
+    <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 p-6 text-center sm:p-8">
+      <p className="text-3xl">🕋</p>
+      <h2 className="mt-2 font-heading text-xl sm:text-2xl">{t.rentTitle}</h2>
+      <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-text-secondary)]">{t.rentBody}</p>
+      <a
+        href="mailto:salam@ulyah.com"
+        className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow transition hover:brightness-110"
+      >
+        ✉️ {t.rentCta}
+      </a>
+    </div>
+  );
+
   if (packages.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-[var(--color-border)] px-6 py-16 text-center text-[var(--color-text-secondary)]">
-        {t.empty}
+      <div>
+        {rentInvite}
+        <div className="rounded-2xl border border-dashed border-[var(--color-border)] px-6 py-16 text-center text-[var(--color-text-secondary)]">
+          {t.empty}
+        </div>
       </div>
     );
   }
 
   return (
     <div>
+      {rentInvite}
       {hasHajj && hasUmrah && (
         <div className="mb-8 flex flex-wrap gap-2">
           {(["all", "umrah", "hajj"] as const).map((k) => (

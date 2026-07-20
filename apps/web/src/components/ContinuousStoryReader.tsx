@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
+import { SpokenText } from "@/components/SpokenText";
 import { useRadioStore } from "@/lib/radio-store";
 
 export interface StorySection {
@@ -54,7 +55,9 @@ export function ContinuousStoryReader({
   const t = labels(locale);
   const [reading, setReading] = useState(false);
   const [advancing, setAdvancing] = useState(false);
-  const [active, setActive] = useState<{ block: string; sentence: number } | null>(null);
+  // Which block is being read, and the char offset of the word currently
+  // spoken within it (for the per-word highlight).
+  const [active, setActive] = useState<{ block: string; charIndex: number } | null>(null);
   const readingRef = useRef(false);
   const handleRef = useRef<NarrationHandle | null>(null);
   const [speechOk, setSpeechOk] = useState(false);
@@ -70,6 +73,8 @@ export function ContinuousStoryReader({
     return list.filter((b) => b.text && b.text.trim());
   }, [summary, sections]);
 
+  // When a new block starts, bring it into view (the per-word highlight then
+  // fine-scrolls within it).
   useEffect(() => {
     if (!active) return;
     document.getElementById(active.block)?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -85,15 +90,18 @@ export function ContinuousStoryReader({
     readingRef.current = true;
     setReading(true);
     setAdvancing(false);
+    // Read each block as ONE utterance so the browser can report word
+    // boundaries; the highlight follows word by word (keep-alive in speak()
+    // survives Chromium's ~15s pause on long blocks).
     for (const b of blocks) {
-      const sentences = splitSentences(b.text);
-      for (let i = 0; i < sentences.length; i++) {
-        if (!readingRef.current) return;
-        setActive({ block: b.id, sentence: i });
-        const h = speak(sentences[i]!, locale, { rate: 0.95 });
-        handleRef.current = h;
-        await h.done;
-      }
+      if (!readingRef.current) return;
+      setActive({ block: b.id, charIndex: 0 });
+      const h = speak(b.text, locale, {
+        rate: 0.95,
+        onWord: (ci) => setActive({ block: b.id, charIndex: ci }),
+      });
+      handleRef.current = h;
+      await h.done;
     }
     // Whole story read — advance to the next one if there is a next.
     if (readingRef.current && nextHref) {
@@ -144,12 +152,11 @@ export function ContinuousStoryReader({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const charOf = (id: string) => (active?.block === id ? active.charIndex : -1);
   const isActive = (id: string) => active?.block === id;
-  const blockClass = (id: string) =>
-    `transition-shadow ${isActive(id) ? "rounded-xl bg-accent/10 shadow-[0_0_0_2px_var(--color-accent)]" : ""}`;
 
   return (
-    <div>
+    <div data-native-reader>
       {speechOk && (
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <button
@@ -166,26 +173,40 @@ export function ContinuousStoryReader({
         </div>
       )}
 
-      <div id="summary" className={`mt-6 p-2 ${blockClass("summary")}`}>
-        <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]">{summary}</p>
+      <div id="summary" className="mt-6 p-2">
+        <SpokenText
+          text={summary}
+          active={isActive("summary")}
+          charIndex={charOf("summary")}
+          className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]"
+        />
       </div>
 
       {sections.length > 0 && (
         <div className="reveal-stagger mt-10 space-y-8">
           {sections.map((s) => (
             <section key={s.section_order} className="p-2">
-              <h2 id={`sec-${s.section_order}-h`} className={`flex items-baseline gap-2.5 font-heading text-xl ${blockClass(`sec-${s.section_order}-h`)}`}>
+              <h2 className="flex items-baseline gap-2.5 font-heading text-xl">
                 <span className="grid h-7 w-7 shrink-0 translate-y-0.5 place-items-center rounded-full bg-accent/12 text-xs font-semibold text-accent">
                   {s.section_order}
                 </span>
-                {s.heading_id}
+                <span id={`sec-${s.section_order}-h`} className="min-w-0">
+                  <SpokenText
+                    text={s.heading_id}
+                    active={isActive(`sec-${s.section_order}-h`)}
+                    charIndex={charOf(`sec-${s.section_order}-h`)}
+                    className="inline"
+                  />
+                </span>
               </h2>
-              <p
-                id={`sec-${s.section_order}-b`}
-                className={`mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)] ${blockClass(`sec-${s.section_order}-b`)}`}
-              >
-                {s.body_id}
-              </p>
+              <div id={`sec-${s.section_order}-b`}>
+                <SpokenText
+                  text={s.body_id}
+                  active={isActive(`sec-${s.section_order}-b`)}
+                  charIndex={charOf(`sec-${s.section_order}-b`)}
+                  className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]"
+                />
+              </div>
               {s.quran_refs && (
                 <p className="mt-2.5 rounded-lg border border-accent/25 bg-accent/5 px-3 py-1.5 text-xs leading-relaxed text-accent">
                   📖 {s.quran_refs}

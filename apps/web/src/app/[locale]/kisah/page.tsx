@@ -2,6 +2,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { AdSlot } from "@/components/AdSlot";
 
 interface StoryRow {
   id: number;
@@ -89,8 +90,20 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   const hasAnyContent = sections.some((s) => s.stories.length > 0 || s.persons.length > 0);
   let adPlaced = false;
 
+  const episodeLabel = ({ id: "Episode", en: "Episode", fr: "Épisode", de: "Folge", es: "Episodio", ar: "الحلقة" } as Record<string, string>)[locale] ?? "Episode";
+
+  // The first readable figure — "Baca Semua" reads this list's titles then
+  // dives into this figure's full story and chains through the rest of the menu.
+  const firstSection = sections.find((s) => s.persons.length > 0);
+  const firstReadHref = firstSection ? `/${locale}/kisah/tokoh/${firstSection.persons[0]!.slug}?autoread=1` : null;
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      {firstReadHref && (
+        <a data-read-next href={firstReadHref} className="hidden" aria-hidden>
+          next
+        </a>
+      )}
       <h1 className="font-heading text-3xl">{dict.explore.kisah.title}</h1>
       <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{dict.explore.kisah.desc}</p>
 
@@ -139,17 +152,14 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                       className="block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
                     >
                       <p className="text-xs font-medium uppercase tracking-wide text-accent">
-                        {s.episode_number ? `Episode ${s.episode_number}` : cat.name}
+                        {s.episode_number ? `${episodeLabel} ${s.episode_number}` : cat.name}
                       </p>
                       <p className="mt-1 font-heading text-lg">{s.title}</p>
                     </Link>
                   ))}
                 </div>
               ) : null}
-              {showAd && (
-                <div className="mt-4">
-                </div>
-              )}
+              {showAd && <AdSlot placement="list" className="mt-4" />}
             </section>
           );
         })}

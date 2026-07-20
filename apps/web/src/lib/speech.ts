@@ -95,26 +95,83 @@ function effectiveLang(text: string, requested: string): string {
   return requested;
 }
 
-/** Speak one text block. Resolves when finished or cancelled. */
-export function speak(text: string, lang: string, opts: { rate?: number } = {}): NarrationHandle {
+/** Speak one text block. Resolves when finished or cancelled.
+ * `onWord(charIndex)` fires at each spoken word boundary (where the browser
+ * supports it) so the caller can highlight the exact word being read — the
+ * "penunjuk per kata" the owner asked for. Falls back silently to no word
+ * events on browsers without boundary support (the block-level highlight then
+ * still shows progress). */
+export function speak(
+  text: string,
+  lang: string,
+  opts: { rate?: number; onWord?: (charIndex: number, charLength: number) => void } = {}
+): NarrationHandle {
   let cancelled = false;
   const done = (async () => {
     if (!speechAvailable() || !text.trim()) return;
     const effLang = effectiveLang(text, lang);
-    window.speechSynthesis.cancel();
+    const synth = window.speechSynthesis;
+    // Chromium quirk #1: speak() issued while a cancel() is still settling is
+    // silently DROPPED — no onstart, no onend, no onerror. The old code always
+    // cancelled and then spoke immediately, so a continuous multi-ayah reading
+    // randomly froze on a layer: the promise never resolved and the whole
+    // sequence hung ("tafsir dibaca sekali lalu ayat berikutnya tidak membaca
+    // apa-apa"). Only cancel when something is actually queued, then give the
+    // engine a beat to settle before speaking.
+    if (synth.speaking || synth.pending) {
+      synth.cancel();
+      await new Promise((r) => setTimeout(r, 120));
+    }
+    if (cancelled) return;
     const voice = await pickVoice(effLang);
     startKeepAlive();
     try {
+      // Chromium quirk #2 (belt & braces): even a clean speak() occasionally
+      // never starts. Watchdog: if onstart hasn't fired within 2s, re-issue
+      // the utterance once; if it still hasn't started 3s later, resolve so
+      // the caller's reading sequence NEVER hangs — it moves on to the next
+      // block instead of freezing mid-page.
       await new Promise<void>((resolve) => {
+        let started = false;
+        let settled = false;
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(startWatchdog);
+          clearTimeout(retryWatchdog);
+          resolve();
+        };
         const u = new SpeechSynthesisUtterance(text);
         u.lang = LANG_TAG[effLang] ?? effLang;
         if (voice) u.voice = voice;
         u.rate = opts.rate ?? 0.95;
         u.pitch = 1.0;
-        u.onend = () => resolve();
-        u.onerror = () => resolve();
-        if (cancelled) return resolve();
-        window.speechSynthesis.speak(u);
+        if (opts.onWord) {
+          u.onboundary = (e: SpeechSynthesisEvent) => {
+            // Some engines fire sentence boundaries too; take word (or any
+            // boundary carrying a charIndex) and let the caller map it.
+            if (e.name === "word" || e.name === undefined || e.name === "") {
+              opts.onWord!(e.charIndex ?? 0, (e as SpeechSynthesisEvent & { charLength?: number }).charLength ?? 0);
+            }
+          };
+        }
+        u.onstart = () => {
+          started = true;
+        };
+        u.onend = finish;
+        u.onerror = finish;
+        if (cancelled) return finish();
+        synth.speak(u);
+        const startWatchdog = setTimeout(() => {
+          if (started || settled || cancelled) return;
+          // Swallowed utterance — nudge the engine and try once more.
+          synth.cancel();
+          synth.resume();
+          synth.speak(u);
+        }, 2000);
+        const retryWatchdog = setTimeout(() => {
+          if (!started && !settled) finish();
+        }, 5000);
       });
     } finally {
       stopKeepAlive();
