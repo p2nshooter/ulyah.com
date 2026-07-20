@@ -66,40 +66,80 @@ jobs:
 
       - name: Self-provision D1 / KV / R2 if missing (Cloudflare REST API)
         id: provision
+        env:
+          # Optional overrides so a Workers-scoped token can still deploy: if
+          # the token can't LIST D1/KV (needs D1:Read / KV:Read), set these repo
+          # Variables to the known ids and provisioning uses them directly.
+          # ulyah-db uuid is 28800662-2034-456d-a91d-a6532c2a9abd.
+          VAR_D1_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
+          VAR_KV_ID: ${{ vars.CLOUDFLARE_KV_NAMESPACE_ID }}
         run: |
           set -eu
           CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
           AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
           JSON="Content-Type: application/json"
 
-          echo "--- D1 database 'ulyah-db' ---"
-          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" \
-            | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
-          if [ -z "$D1_ID" ]; then
-            echo "Creating D1 database ulyah-db..."
-            D1_ID=$(curl -sf -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-db"}' "$CF/d1/database" | jq -r '.result.uuid')
+          # Verify the token up front and show which permissions it actually
+          # carries — turns a cryptic "Failed to resolve id" into a clear
+          # "your token is missing D1:Edit" the moment you read the log.
+          echo "--- Token verification ---"
+          VERIFY=$(curl -s -H "$AUTH" "https://api.cloudflare.com/client/v4/user/tokens/verify" || true)
+          echo "$VERIFY" | jq -r '"status=\(.result.status // "unknown") success=\(.success)"' 2>/dev/null || echo "verify parse failed"
+          if [ "$(echo "$VERIFY" | jq -r '.success' 2>/dev/null)" != "true" ]; then
+            echo "::warning::Token verify did not return success — the API token may be invalid or expired."
           fi
-          [ -n "$D1_ID" ] && [ "$D1_ID" != "null" ] || { echo "::error::Failed to resolve D1 database id — check token has Account>D1:Edit"; exit 1; }
+
+          # Helper: on a failed list/create, print Cloudflare's real error text.
+          show_err() { echo "$1" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' 2>/dev/null || true; }
+
+          echo "--- D1 database 'ulyah-db' ---"
+          D1_RESP=$(curl -s -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" || true)
+          D1_ID=$(echo "$D1_RESP" | jq -r '.result[]? | select(.name=="ulyah-db") | .uuid' 2>/dev/null | head -n1 || true)
+          if [ -z "$D1_ID" ] && [ -n "${VAR_D1_ID:-}" ]; then
+            echo "List returned nothing; using repo Variable CLOUDFLARE_D1_DATABASE_ID."
+            D1_ID="$VAR_D1_ID"
+          fi
+          if [ -z "$D1_ID" ]; then
+            show_err "$D1_RESP"
+            echo "Creating D1 database ulyah-db..."
+            D1_CREATE=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-db"}' "$CF/d1/database" || true)
+            D1_ID=$(echo "$D1_CREATE" | jq -r '.result.uuid // empty' 2>/dev/null || true)
+            [ -z "$D1_ID" ] && show_err "$D1_CREATE"
+          fi
+          if [ -z "$D1_ID" ] || [ "$D1_ID" = "null" ]; then
+            echo "::error::Cannot resolve the D1 database id. The CLOUDFLARE_API_TOKEN can deploy Workers but cannot read/create D1 — add the 'Account > D1 : Edit' permission to the token (the 'Edit Cloudflare Workers' template already includes it), or set the repo Variable CLOUDFLARE_D1_DATABASE_ID=28800662-2034-456d-a91d-a6532c2a9abd."
+            exit 1
+          fi
           echo "D1 database id: $D1_ID"
           echo "CLOUDFLARE_D1_DATABASE_ID=$D1_ID" >> "$GITHUB_ENV"
 
           echo "--- KV namespace 'ulyah-cache' ---"
-          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" \
-            | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
-          if [ -z "$KV_ID" ]; then
-            echo "Creating KV namespace ulyah-cache..."
-            KV_ID=$(curl -sf -X POST -H "$AUTH" -H "$JSON" -d '{"title":"ulyah-cache"}' "$CF/storage/kv/namespaces" | jq -r '.result.id')
+          KV_RESP=$(curl -s -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" || true)
+          KV_ID=$(echo "$KV_RESP" | jq -r '.result[]? | select(.title=="ulyah-cache") | .id' 2>/dev/null | head -n1 || true)
+          if [ -z "$KV_ID" ] && [ -n "${VAR_KV_ID:-}" ]; then
+            echo "List returned nothing; using repo Variable CLOUDFLARE_KV_NAMESPACE_ID."
+            KV_ID="$VAR_KV_ID"
           fi
-          [ -n "$KV_ID" ] && [ "$KV_ID" != "null" ] || { echo "::error::Failed to resolve KV namespace id — check token has Account>Workers KV Storage:Edit"; exit 1; }
+          if [ -z "$KV_ID" ]; then
+            show_err "$KV_RESP"
+            echo "Creating KV namespace ulyah-cache..."
+            KV_CREATE=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"title":"ulyah-cache"}' "$CF/storage/kv/namespaces" || true)
+            KV_ID=$(echo "$KV_CREATE" | jq -r '.result.id // empty' 2>/dev/null || true)
+            [ -z "$KV_ID" ] && show_err "$KV_CREATE"
+          fi
+          if [ -z "$KV_ID" ] || [ "$KV_ID" = "null" ]; then
+            echo "::error::Cannot resolve the KV namespace id — add 'Account > Workers KV Storage : Edit' to the token, or set repo Variable CLOUDFLARE_KV_NAMESPACE_ID."
+            exit 1
+          fi
           echo "KV namespace id: $KV_ID"
           echo "CLOUDFLARE_KV_NAMESPACE_ID=$KV_ID" >> "$GITHUB_ENV"
 
           echo "--- R2 bucket 'ulyah-media' ---"
-          R2_EXISTS=$(curl -sf -H "$AUTH" "$CF/r2/buckets?per_page=100" \
-            | jq -r '.result.buckets[]? | select(.name=="ulyah-media") | .name' | head -n1)
+          R2_RESP=$(curl -s -H "$AUTH" "$CF/r2/buckets?per_page=100" || true)
+          R2_EXISTS=$(echo "$R2_RESP" | jq -r '.result.buckets[]? | select(.name=="ulyah-media") | .name' 2>/dev/null | head -n1 || true)
           if [ -z "$R2_EXISTS" ]; then
-            echo "Creating R2 bucket ulyah-media..."
-            curl -sf -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-media"}' "$CF/r2/buckets" | jq -r '.success'
+            echo "Creating R2 bucket ulyah-media (non-fatal if the token lacks R2)..."
+            curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-media"}' "$CF/r2/buckets" | jq -r '.success' || true
           fi
           echo "CLOUDFLARE_R2_BUCKET_NAME=ulyah-media" >> "$GITHUB_ENV"
 
