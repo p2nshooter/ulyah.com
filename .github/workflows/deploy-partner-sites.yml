@@ -1,0 +1,95 @@
+name: Deploy partner sites (profity.in + oldco.in)
+
+# profity.in and oldco.in live in their own PUBLIC repos, which have no
+# Cloudflare secrets of their own yet. This workflow bridges that: it checks
+# out each public repo, builds it, and deploys it to the SAME Cloudflare
+# account using THIS repo's existing secrets — so both sites go live without
+# any new secret setup. Their own repos still carry a guarded deploy workflow
+# that activates automatically if secrets are ever added there.
+#
+# Runs only on manual dispatch to keep paid Actions minutes predictable.
+
+on:
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-partner-sites
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repo: p2nshooter/profity.in
+            worker: profity-in
+            domain: profity.in
+          - repo: p2nshooter/oldco.in
+            worker: oldco-in
+            domain: oldco.in
+    name: ${{ matrix.domain }}
+    steps:
+      - name: Checkout ${{ matrix.repo }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build for Cloudflare
+        run: npm run cf:build
+
+      - name: Deploy to Cloudflare Workers
+        run: npx opennextjs-cloudflare deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Attaches the apex + www custom domains to the Worker, creating DNS
+      # automatically. Zone id is looked up by name — the zone must simply
+      # exist in this Cloudflare account. Conflicting A/AAAA/CNAME records
+      # (registrar parking) are removed first; MX/TXT stay untouched.
+      # Non-fatal if the token lacks zone scope.
+      - name: Attach ${{ matrix.domain }} custom domain + DNS (best effort)
+        continue-on-error: true
+        run: |
+          set -e
+          zone=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/zones?name=${{ matrix.domain }}" \
+            | node -e "try{const d=JSON.parse(require('fs').readFileSync(0,'utf8'));process.stdout.write((d.result&&d.result[0]&&d.result[0].id)||'')}catch(e){}")
+          if [ -z "$zone" ]; then
+            echo "Zone ${{ matrix.domain }} not visible to this token — attach the domain manually once (Workers & Pages → ${{ matrix.worker }} → Settings → Domains & Routes)."
+            exit 0
+          fi
+          echo "Zone id: $zone"
+          for host in ${{ matrix.domain }} www.${{ matrix.domain }}; do
+            for type in A AAAA CNAME; do
+              ids=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                "https://api.cloudflare.com/client/v4/zones/$zone/dns_records?type=$type&name=$host" \
+                | node -e "try{const d=JSON.parse(require('fs').readFileSync(0,'utf8'));(d.result||[]).forEach(r=>console.log(r.id))}catch(e){}")
+              for id in $ids; do
+                echo "Deleting conflicting $type record for $host ($id)..."
+                curl -s -X DELETE -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                  "https://api.cloudflare.com/client/v4/zones/$zone/dns_records/$id" > /dev/null
+              done
+            done
+            echo "Attaching $host ..."
+            curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+              -d "{\"hostname\":\"$host\",\"zone_id\":\"$zone\",\"service\":\"${{ matrix.worker }}\",\"environment\":\"production\"}" \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"
+            echo
+          done
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
