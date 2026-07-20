@@ -117,6 +117,23 @@ export const AI_PROVIDERS: ProviderDef[] = [
     },
   },
   {
+    id: "kaggle",
+    label: "Kaggle (GPU/TPU notebooks)",
+    kind: "gpu",
+    freeTier: "±30 jam GPU + 20 jam TPU gratis per minggu per akun",
+    homepage: "https://www.kaggle.com/docs/api",
+    // Kaggle's API uses HTTP Basic auth (username:key from kaggle.json). Paste
+    // the credential as "username:key" so the probe can authenticate; a bare
+    // key still ingests but lands in pending_verification until confirmed.
+    validation: {
+      method: "GET",
+      url: "https://www.kaggle.com/api/v1/datasets/list?page=1",
+      authHeader: (key) => ({
+        Authorization: `Basic ${btoa(key.includes(":") ? key : `kaggle:${key}`)}`,
+      }),
+    },
+  },
+  {
     id: "elevenlabs",
     label: "ElevenLabs TTS",
     kind: "tts",

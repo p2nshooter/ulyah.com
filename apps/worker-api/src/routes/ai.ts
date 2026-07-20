@@ -174,6 +174,72 @@ aiRoute.post("/ask", async (c) => {
   return c.json({ answer: r.text.trim(), sources: r.sources, servedBy: r.servedBy });
 });
 
+// POST /ai/reader — DEDICATED reading companion for the AXTO story network
+// (axto.us / axto.dev). It embeds the SAME Orchestra Core + shared key pool as
+// the rest of ulyah.com ("agar seluruh AI api key milik ulyah.com dipakai
+// bersama"), but deliberately WITHOUT the Islamic RAG grounding used by
+// /ai/ask — AXTO carries secular adventure/e-book stories, so grounding in
+// Ulyah's Qur'an/hadith DB would be wrong. The caller passes the passage it is
+// showing the reader as `context`; the model works only from that text. One
+// endpoint covers every reading aid the voice reader needs:
+//   task = "summarize" | "translate" | "explain" | "define" | "continue" | "ask"
+// Register-free + CORS-open (the global middleware already allows axto.us) so
+// the site can call it straight from the browser with no login.
+aiRoute.post("/reader", async (c) => {
+  const rl = await checkRateLimit(c.env, `reader:${c.req.header("cf-connecting-ip") ?? "anon"}`, 30, 60);
+  if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
+
+  const { task, context, question, targetLang, locale } = await c.req.json<{
+    task?: "summarize" | "translate" | "explain" | "define" | "continue" | "ask";
+    context?: string;
+    question?: string;
+    targetLang?: string;
+    locale?: string;
+  }>();
+
+  const text = (context ?? "").slice(0, 6000);
+  if (!text && task !== "define") return c.json({ error: "context required" }, 400);
+  const lang = (targetLang || locale || "en").slice(0, 12);
+  const t = task ?? "summarize";
+
+  // Each task is a plain-language capability job — no religious persona, no
+  // citations. capability "content"/"summarize"/"translate" all resolve to the
+  // same failover text chain, so any donated key can serve it.
+  let capability: Capability = "content";
+  let prompt: string;
+  switch (t) {
+    case "translate":
+      capability = "translate";
+      prompt = `Translate the passage below into language code "${lang}". Keep the tone and meaning; output ONLY the translation:\n\n${text}`;
+      break;
+    case "summarize":
+      capability = "summarize";
+      prompt = `Summarize the passage below in 2-3 clear sentences in language "${lang}", no spoilers beyond what is shown:\n\n${text}`;
+      break;
+    case "explain":
+      prompt = `In language "${lang}", explain in simple, friendly terms what happens in this passage for a reader who is unsure:\n\n${text}`;
+      break;
+    case "define":
+      capability = "answer";
+      prompt = `In language "${lang}", give a short, simple dictionary-style definition of: "${(question ?? "").slice(0, 120)}"${text ? `\n\nAs used in this sentence:\n${text}` : ""}`;
+      break;
+    case "continue":
+      prompt = `Continue the story below naturally for one short paragraph in language "${lang}", matching its voice. Do not repeat the given text:\n\n${text}`;
+      break;
+    case "ask":
+    default:
+      capability = "answer";
+      prompt = `You are a reading companion. Using ONLY the passage below, answer the reader's question in language "${lang}". If the passage does not say, reply that it isn't stated in this part.\n\nPASSAGE:\n${text}\n\nQUESTION: ${(question ?? "").slice(0, 300)}\n\nANSWER:`;
+      break;
+  }
+
+  const r = await orchestrate(c.env, { capability, prompt, timeoutMs: 30_000, maxTokens: 700 });
+  if (!r.ok || !r.text) {
+    return c.json({ error: "No active AI key available for the reader companion", attempts: r.attempts }, 503);
+  }
+  return c.json({ task: t, result: r.text.trim(), servedBy: r.servedBy });
+});
+
 // GET /ai/orchestra/health — live key-pool health grouped by provider/scope/
 // status (admin observability for Orchestra Core).
 aiRoute.get("/orchestra/health", requireAdmin, async (c) => {
