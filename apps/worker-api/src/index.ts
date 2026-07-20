@@ -30,6 +30,10 @@ const SIBLING_ORIGINS = new Set([
   "https://1fr.fr", "https://www.1fr.fr",
   "https://tilawa.de", "https://www.tilawa.de",
   "https://dawa.es", "https://www.dawa.es",
+  // AXTO network reads the central ad config from api.ulyah.com too.
+  "https://axto.io", "https://www.axto.io",
+  "https://axto.dev", "https://www.axto.dev",
+  "https://axto.us", "https://www.axto.us",
 ]);
 app.use("*", async (c, next) => {
   const configured = c.env.CORS_ALLOW_ORIGIN ?? c.env.PUBLIC_SITE_URL ?? "*";
