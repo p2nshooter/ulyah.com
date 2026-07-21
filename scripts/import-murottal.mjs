@@ -34,7 +34,7 @@ import { AwsClient } from "aws4fetch";
 
 const R2_BUCKET = "ulyah-media";
 const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
-const AQC_CDN = "https://cdn.islamic.network/quran/audio/128"; // /<edition>/<globalAyah>.mp3
+const AQC_API = "https://api.alquran.cloud/v1"; // /surah/<n>/<edition> -> real per-ayah audio URLs
 const EY_CDN = "https://everyayah.com/data"; // /<folder>/<SSS><AAA>.mp3
 
 // Each R2 folder (as already used in audio_cache.r2_key) → its 128 kbps source.
@@ -137,6 +137,32 @@ async function fetchMp3(url) {
   return buf.length > 2000 ? buf : null; // guard against tiny error pages
 }
 
+// Resolve the REAL per-ayah audio URL for an alquran.cloud edition via its API
+// (returns the correct CDN URL + bitrate for that reciter — guessing the CDN
+// path directly 404'd because not every edition is published at 128 kbps).
+// Cached per (edition, surah): one API call yields every ayah of the surah.
+const surahUrlCache = new Map();
+async function aqcAyahUrl(edition, surah, ayahNum) {
+  const ck = `${edition}:${surah}`;
+  let m = surahUrlCache.get(ck);
+  if (!m) {
+    m = new Map();
+    try {
+      const r = await fetch(`${AQC_API}/surah/${surah}/${edition}`, { headers: { Accept: "application/json" } });
+      if (r.ok) {
+        const j = await r.json();
+        for (const ay of j?.data?.ayahs ?? []) {
+          if (ay?.numberInSurah && ay?.audio) m.set(ay.numberInSurah, ay.audio);
+        }
+      }
+    } catch {
+      /* leave empty — caller counts a miss */
+    }
+    surahUrlCache.set(ck, m);
+  }
+  return m.get(ayahNum) ?? null;
+}
+
 async function main() {
   const { qori, limit, concurrency } = args();
   if (!ACCOUNT_ID || !process.env.R2_ACCESS_KEY_ID || !process.env.R2_SECRET_ACCESS_KEY) {
@@ -186,7 +212,14 @@ async function main() {
             ok++;
             return;
           }
-          const url = src.kind === "aqc" ? `${AQC_CDN}/${src.edition}/${a.global}.mp3` : `${EY_CDN}/${src.folder}/${pad3(a.s)}${pad3(a.n)}.mp3`;
+          const url =
+            src.kind === "aqc"
+              ? await aqcAyahUrl(src.edition, a.s, a.n)
+              : `${EY_CDN}/${src.folder}/${pad3(a.s)}${pad3(a.n)}.mp3`;
+          if (!url) {
+            fail++;
+            return;
+          }
           const buf = await fetchMp3(url);
           if (!buf) {
             fail++;
