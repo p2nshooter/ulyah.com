@@ -90,6 +90,44 @@
   --color-border-gold: rgba(181, 98, 42, 0.3); --culture-motif: "❂";
 }
 
+/* ── XAD — "eXplore Ayah Daily" (English member) ──────────────────────────
+   xad.es must NOT look like ulyah.com (owner: "warnanya 100% sama, rubah cms
+   & ornamen, seimbang header→footer"). A COMPLETE, distinct identity: royal
+   VIOLET base (not emerald) + luminous gold, a cooler lavender surface, a
+   sharper card radius, and its own ✦ motif — so every surface from header to
+   footer reads as a different site. Full token override, light + dark. Higher
+   specificity than :root/:root[data-theme] so it always wins. */
+:root[data-tenant="xad"] {
+  --color-primary: #3f2b76; --color-primary-dark: #281a4d;
+  --tw-primary: 63 43 118; --tw-primary-dark: 40 26 77;
+  --color-accent: #d4a72c; --tw-accent: 212 167 44;
+  --color-accent-light: #e6c25a; --color-accent-xl: #f4e3a0;
+  --color-surface: #f3f0f8; --color-surface-2: #e9e3f2; --tw-surface: 243 240 248;
+  --panel-bg: #281a4d; --panel-bg2: #3f2b76; --panel-fg: #f3f0f8;
+  --color-border: rgba(63, 43, 118, 0.13);
+  --color-border-gold: rgba(212, 167, 44, 0.3);
+  --shadow-gold: 0 4px 24px rgba(212, 167, 44, 0.16);
+  --shadow-gold-lg: 0 10px 44px rgba(212, 167, 44, 0.22);
+  --radius-card: 0.5rem; /* sharper than ulyah's 1rem — a different silhouette */
+  --culture-motif: "✦";
+}
+:root[data-tenant="xad"][data-theme="dark"] {
+  --color-bg: #150c28; --color-card: #241640;
+  --color-surface-2: rgba(243, 240, 248, 0.05);
+  --color-text-primary: #f3f0f8; --color-text-secondary: #cabfe2;
+  --color-border: rgba(243, 240, 248, 0.14);
+  --color-border-gold: rgba(212, 167, 44, 0.32);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-tenant="xad"]:not([data-theme="light"]) {
+    --color-bg: #150c28; --color-card: #241640;
+    --color-surface-2: rgba(243, 240, 248, 0.05);
+    --color-text-primary: #f3f0f8; --color-text-secondary: #cabfe2;
+    --color-border: rgba(243, 240, 248, 0.14);
+    --color-border-gold: rgba(212, 167, 44, 0.32);
+  }
+}
+
 :root[data-theme="dark"] {
   --color-bg: #06251b;
   --color-card: #0b3d2e;

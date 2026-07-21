@@ -220,7 +220,11 @@ async function main() {
             fail++;
             return;
           }
-          const buf = await fetchMp3(url);
+          // Prefer 128 kbps (the API default is sometimes a muffled 48/64 kbps
+          // file), falling back to the native-bitrate URL if 128 isn't served.
+          const hifi = url.replace(/\/quran\/audio\/\d+\//, "/quran/audio/128/");
+          let buf = await fetchMp3(hifi);
+          if (!buf && hifi !== url) buf = await fetchMp3(url);
           if (!buf) {
             fail++;
             return;

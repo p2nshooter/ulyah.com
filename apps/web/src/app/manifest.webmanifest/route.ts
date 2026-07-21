@@ -16,6 +16,7 @@ const THEME: Record<string, { theme: string; bg: string }> = {
   "1fr": { theme: "#17294a", bg: "#fbf8f0" }, // navy on ivory (light identity)
   tilawa: { theme: "#14181d", bg: "#14181d" }, // charcoal
   dawa: { theme: "#8a3b12", bg: "#fff8f1" }, // terracotta on warm cream
+  xad: { theme: "#281a4d", bg: "#150c28" }, // royal violet, deep-space splash
 };
 
 const NAME: Record<string, string> = {
@@ -23,6 +24,7 @@ const NAME: Record<string, string> = {
   "1fr": "One Faith France",
   tilawa: "Tilawa — Islam hören",
   dawa: "Dawa — El Islam en Español",
+  xad: "XAD — eXplore Ayah Daily",
 };
 
 const DESC: Record<string, string> = {
@@ -30,6 +32,7 @@ const DESC: Record<string, string> = {
   "1fr": "Le Coran, le tafsir, les hadiths et les récits islamiques dans une expérience audio apaisante.",
   tilawa: "Der Koran, Tafsir, Hadithe und islamische Geschichten in einem ruhigen Hörerlebnis.",
   dawa: "El Corán, el tafsir, los hadices y los relatos islámicos en una experiencia de audio serena.",
+  xad: "Explore the Qur'an, tafsir, hadith and Islamic stories in English — a calm daily audio journey through the ayah.",
 };
 
 function icons() {

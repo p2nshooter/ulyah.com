@@ -135,12 +135,12 @@ const aqcSurahCache = new Map<string, Promise<(string | null)[]>>();
  * repeat visit doesn't even need the metadata fetch again. */
 async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(string | null)[]> {
   const cacheKey = `aqc:${edition}:${surah}`;
-  // v2: version-busted — devices that cached audio URL lists under the old
-  // key (including any low-bitrate URLs from before the 128 kbps-only radio
-  // rotation) kept replaying muffled audio FOREVER, because localStorage
-  // never expires ("suara mendem kaya kaset kusut" persisting after the
-  // server-side fix). New key = every device re-resolves fresh 128 kbps URLs.
-  const lsKey = `ulyah_qori2_${cacheKey}`;
+  // v3: version-busted again — devices that cached audio URL lists under the
+  // old key (including any low-bitrate URLs from before the 128 kbps upgrade
+  // below) kept replaying muffled audio FOREVER, because localStorage never
+  // expires ("suara mendem kaya kaset kusut" persisting after the fix). New
+  // key = every device re-resolves fresh, forced-128 kbps URLs.
+  const lsKey = `ulyah_qori3_${cacheKey}`;
 
   if (aqcSurahCache.has(cacheKey)) return aqcSurahCache.get(cacheKey)!;
 
@@ -155,8 +155,15 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
     }
     const res = await fetch(`${AQC_API}/surah/${surah}/${edition}`);
     if (!res.ok) throw new Error(`aqc fetch failed: ${res.status}`);
-    const data = (await res.json()) as { data?: { ayahs?: { audio?: string }[] } };
-    const urls = (data.data?.ayahs ?? []).map((a) => a.audio ?? null);
+    const data = (await res.json()) as { data?: { ayahs?: { audio?: string; audioSecondary?: string[] }[] } };
+    const urls = (data.data?.ayahs ?? []).map((a) => {
+      // The API's default `audio` for several editions is a LOW-bitrate file
+      // (48/64 kbps) that sounds muffled ("mendem"). islamic.network serves the
+      // exact same ayah at 128 kbps for every major reciter in the rotation, so
+      // force the bitrate path segment up to 128 — same file, clean HiFi audio.
+      const raw = a.audio ?? a.audioSecondary?.[0] ?? null;
+      return raw ? raw.replace(/\/quran\/audio\/\d+\//, "/quran/audio/128/") : null;
+    });
     if (typeof window !== "undefined") {
       try {
         window.localStorage.setItem(lsKey, JSON.stringify(urls));
