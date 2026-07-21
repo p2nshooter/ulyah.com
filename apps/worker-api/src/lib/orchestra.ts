@@ -84,15 +84,34 @@ export interface OrchestraResult {
   attempts: OrchestraAttempt[];
 }
 
-/** Bring rate-limited keys back automatically once their cooldown has elapsed —
- * "jika ada AI yg kena rate limited pastikan bangun otomatis, jgn diem aja".
- * A 5-minute cooldown is a safe default for free tiers; the next real request
- * re-tests the key for good and re-demotes it if it's still throttled. */
+/** Auto-heal keys whose problem is only TEMPORARY, and leave the truly-dead
+ * ones dead — the owner's rule: "pisahkan yang sudah mati (tidak bisa hidup
+ * lagi) dari yang cuma kena limit; yang cuma limit, biarkan hidup lagi".
+ *
+ * Status meaning + revival policy:
+ *  - rate_limited : hit a per-minute throttle → revive after 5 minutes.
+ *  - exhausted    : hit a DAILY quota → revive after 6 hours (well before the
+ *                   ~24h reset, so it retries as soon as the window rolls).
+ *  - slow         : working but slow → promote back to active after 30 min so
+ *                   it's reconsidered once load eases.
+ *  - rejected     : auth failed / invalid / revoked = PERMANENTLY DEAD. Never
+ *                   auto-revived here; only a manual admin "retest" can. This is
+ *                   the separation that keeps dead keys out of the rotation
+ *                   while genuinely-throttled keys keep coming back.
+ * The next real request re-tests a revived key and re-demotes it if still bad. */
 async function reviveCooledKeys(env: Env): Promise<void> {
   try {
-    await env.DB.prepare(
-      "UPDATE ai_key_pool SET status = 'active' WHERE status = 'rate_limited' AND last_health_check < datetime('now', '-5 minutes')"
-    ).run();
+    await env.DB.batch([
+      env.DB.prepare(
+        "UPDATE ai_key_pool SET status = 'active' WHERE status = 'rate_limited' AND last_health_check < datetime('now', '-5 minutes')"
+      ),
+      env.DB.prepare(
+        "UPDATE ai_key_pool SET status = 'active' WHERE status = 'exhausted' AND last_health_check < datetime('now', '-6 hours')"
+      ),
+      env.DB.prepare(
+        "UPDATE ai_key_pool SET status = 'active' WHERE status = 'slow' AND last_health_check < datetime('now', '-30 minutes')"
+      ),
+    ]);
   } catch {
     /* non-fatal: revival is best-effort */
   }
