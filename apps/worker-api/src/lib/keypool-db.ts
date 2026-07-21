@@ -31,7 +31,9 @@ export async function ingestAndTestKey(env: Env, input: IngestKeyInput) {
   const { ciphertext, iv } = await encryptApiKey(input.rawKey, env.KEY_ENCRYPTION_SECRET);
 
   const status = !test.passed
-    ? "rejected"
+    ? test.dead
+      ? "rejected" // confirmed invalid credential — permanently dead
+      : "pending_verification" // transient failure at ingest — recheck later, don't kill it
     : test.optimal && test.safetyScore >= 0.7
       ? "active"
       : "pending_verification";

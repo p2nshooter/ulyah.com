@@ -114,7 +114,16 @@ export class KeyPoolCoordinator implements DurableObject {
       try {
         const rawKey = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, this.env.KEY_ENCRYPTION_SECRET);
         const test = await testApiKey(row.provider, rawKey);
-        const newStatus = !test.passed ? "exhausted" : test.optimal ? "active" : "slow";
+        // Only a CONFIRMED invalid credential is permanently rejected; a
+        // transient failure cools down as `exhausted` (auto-revived), never
+        // killed — matches the admin retest / bulk-test classification.
+        const newStatus = !test.passed
+          ? test.dead
+            ? "rejected"
+            : "exhausted"
+          : test.optimal
+            ? "active"
+            : "slow";
         if (newStatus !== row.status) changed++;
         await this.env.DB.prepare(
           "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"

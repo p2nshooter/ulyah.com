@@ -241,7 +241,11 @@ adminRoute.post("/keys/:id/retest", async (c) => {
   await c.env.DB.prepare(
     "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"
   )
-    .bind(test.passed ? (test.optimal ? "active" : "slow") : "exhausted", test.latencyMs, id)
+    .bind(
+      test.passed ? (test.optimal ? "active" : "slow") : test.dead ? "rejected" : "rate_limited",
+      test.latencyMs,
+      id
+    )
     .run();
   await c.env.DB.prepare(
     "INSERT INTO key_validation_log (key_id, test_type, passed, latency_ms, safety_score, detail) VALUES (?, 'auth_check', ?, ?, ?, ?)"
@@ -274,7 +278,16 @@ adminRoute.post("/keys/test-all", async (c) => {
       batch.map(async (row) => {
         const rawKey = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, c.env.KEY_ENCRYPTION_SECRET);
         const test = await testApiKey(row.provider, rawKey);
-        const status = test.passed ? (test.optimal ? "active" : "slow") : "rejected";
+        // Only a CONFIRMED bad credential is permanently rejected; a transient
+        // failure (rate limit / 5xx / timeout) cools down as rate_limited and
+        // is retried — never permanently killed by one flaky probe.
+        const status = test.passed
+          ? test.optimal
+            ? "active"
+            : "slow"
+          : test.dead
+            ? "rejected"
+            : "rate_limited";
         await c.env.DB.prepare(
           "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"
         )
