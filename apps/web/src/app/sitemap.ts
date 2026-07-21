@@ -34,6 +34,7 @@ function urlFor(localeCode: string, route: string): string {
 function crossDomainLanguages(route: string): Record<string, string> {
   return {
     id: `https://ulyah.com${route}`,
+    en: `https://xad.es${route}`,
     fr: `https://1fr.fr${route}`,
     de: `https://tilawa.de${route}`,
     es: `https://dawa.es${route}`,

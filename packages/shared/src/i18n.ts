@@ -41,6 +41,7 @@ const TENANT_LOCALES: Record<string, { codes: string[]; def: string }> = {
   "1fr": { codes: ["fr"], def: "fr" },
   tilawa: { codes: ["de"], def: "de" },
   dawa: { codes: ["es"], def: "es" },
+  xad: { codes: ["en"], def: "en" }, // xad.es = the English member of the ecosystem
 };
 const _tenantL = TENANT_LOCALES[TENANT_ID];
 
@@ -55,12 +56,14 @@ export function isValidLocale(code: string): boolean {
 }
 
 // Languages the in-page switcher on ulyah.com actually lets you switch TO.
-// The site's own default language is always ready; the rest are opened ONE AT
-// A TIME as each is verified fully translated and consistent (owner: "buka
-// coretan satu-persatu, jangan ada yang inkonsisten"). Not-yet-ready languages
-// stay visibly struck through and unclickable. Add a code here only after its
-// whole UI + straggler strings are complete in that language.
-export const READY_LOCALE_CODES = new Set<string>(["id", "en", "fr", "de", "es", "zh", "ar", "ru", "ja"]);
+// The site's own default language is always ready; every other code shows
+// struck-through and UNCLICKABLE. Owner's final model (one language per
+// domain): ulyah.com is Indonesian-only, and each other language has its OWN
+// ecosystem domain — English → xad.es, French → 1fr.fr, German → tilawa.de,
+// Spanish → dawa.es. So ulyah.com's header lists the other languages only as
+// crossed-out labels ("coret aja biar nggak bisa diklik"); the real
+// translations still exist and are served on their own sibling domains.
+export const READY_LOCALE_CODES = new Set<string>(["id"]);
 
 export function isLocaleReady(code: string): boolean {
   return code === DEFAULT_LOCALE || READY_LOCALE_CODES.has(code);

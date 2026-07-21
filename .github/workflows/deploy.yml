@@ -779,6 +779,45 @@ jobs:
             fi
           fi
 
+      - name: Ensure xad.es zone exists in Cloudflare (create if missing)
+        continue-on-error: true
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE=$(curl -s -H "$AUTH" "$CF/zones?name=xad.es")
+          ZONE_ID=$(echo "$ZONE" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "xad.es zone missing — creating it on this account."
+            CREATE=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"name\":\"xad.es\",\"account\":{\"id\":\"${CLOUDFLARE_ACCOUNT_ID}\"},\"type\":\"full\"}" "$CF/zones")
+            if [ "$(echo "$CREATE" | jq -r '.success')" = "true" ]; then
+              ZONE_ID=$(echo "$CREATE" | jq -r '.result.id')
+              NS=$(echo "$CREATE" | jq -r '.result.name_servers | join(" · ")')
+              {
+                echo "## 🌐 xad.es zone created in Cloudflare"
+                echo ""
+                echo "One manual step remains (only the registrar can do this): set the"
+                echo "xad.es nameservers at your registrar to:"
+                echo ""
+                echo "**${NS}**"
+                echo ""
+                echo "Once the delegation is live, every future deploy attaches"
+                echo "xad.es/www.xad.es to xad-web automatically."
+              } >> "$GITHUB_STEP_SUMMARY"
+              echo "::notice::xad.es zone created — set registrar nameservers to: ${NS}"
+            else
+              echo "::warning::Could not create xad.es zone: $(echo "$CREATE" | jq -c '.errors') — token may lack Zone:Edit, or the domain isn't registered yet."
+            fi
+          else
+            STATUS=$(echo "$ZONE" | jq -r '.result[0].status')
+            NS=$(echo "$ZONE" | jq -r '.result[0].name_servers | join(" · ")' 2>/dev/null || echo "?")
+            echo "xad.es zone exists (status: $STATUS, ns: $NS)."
+            if [ "$STATUS" != "active" ]; then
+              echo "::warning::xad.es zone is '$STATUS' — set the registrar nameservers to: ${NS} to activate it."
+            fi
+          fi
+
       - name: Clean stale DNS records so Custom Domains can attach (all zones)
         run: |
           set -eu
@@ -818,6 +857,7 @@ jobs:
           clean_zone 1fr.fr 1fr.fr www.1fr.fr
           clean_zone tilawa.de tilawa.de www.tilawa.de
           clean_zone dawa.es dawa.es www.dawa.es
+          clean_zone xad.es xad.es www.xad.es
 
       - name: Deploy worker-api
         working-directory: apps/worker-api
@@ -1027,11 +1067,39 @@ jobs:
             echo "$host -> dawa-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
           done
 
+      - name: Build web for xad.es tenant (Ulyah English)
+        working-directory: apps/web
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_TENANT: "xad"
+
+      - name: Deploy xad.es web (xad-web worker)
+        working-directory: apps/web
+        run: npx wrangler deploy --name xad-web
+
+      - name: Attach xad.es custom domains to xad-web
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=xad.es" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::xad.es zone not found on this account/token — xad-web stays on workers.dev until the zone is added."
+            exit 0
+          fi
+          for host in xad.es www.xad.es; do
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"xad-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            echo "$host -> xad-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
+          done
+
       - name: Smoke test sibling domains (non-fatal while DNS settles)
         continue-on-error: true
         run: |
           set -eu
-          for site in https://1fr.fr https://tilawa.de https://dawa.es; do
+          for site in https://1fr.fr https://tilawa.de https://dawa.es https://xad.es; do
             code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L "$site" || echo "000")
             echo "$site -> HTTP $code"
           done
