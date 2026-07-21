@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
 import { NasakhLibrary } from "@/components/NasakhLibrary";
+import { t } from "@/lib/ui-strings";
 
 export const revalidate = 300;
 
@@ -21,11 +22,12 @@ interface NasakhEntry {
   source: string | null;
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   return {
-    title: "Nasakh & Mansukh — Ayat Penghapus & Dihapus",
-    description:
-      "Kumpulan kasus nasakh (penghapus) dan mansukh (dihapus) dalam Al-Qur'an, tersusun rapi: ayat yang dinasakh, ayat penggantinya, jenis naskh, penjelasan, dan sumber. Bisa didengarkan.",
+    title: "Nasakh & Mansukh",
+    description: t("nasakhHeroDesc", locale),
   };
 }
 
@@ -47,7 +49,7 @@ export default async function NasakhPage({ params }: { params: Promise<{ locale:
         <PageHero
           icon="🔁"
           title="Nasakh & Mansukh"
-          subtitle="Ilmu ayat penghapus (nasikh) dan yang dihapus (mansukh) — tersusun rapi: yang dinasakh, penggantinya, jenisnya, penjelasan & sumber. Bisa didengarkan."
+          subtitle={t("nasakhIntro", locale)}
         />
       </div>
       <div className="mx-auto mt-6 max-w-4xl px-4 sm:px-6">
@@ -55,7 +57,7 @@ export default async function NasakhPage({ params }: { params: Promise<{ locale:
 
       {entries.length === 0 ? (
         <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">
-          Gagal memuat koleksi — silakan muat ulang halaman ini.
+          {t("kitabLoadError", locale)}
         </p>
       ) : (
         <NasakhLibrary locale={locale} entries={entries} />
