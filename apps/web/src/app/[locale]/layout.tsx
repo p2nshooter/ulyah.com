@@ -27,13 +27,14 @@ import "@/styles/themes/france.css";
 import "@/styles/themes/germany.css";
 import "@/styles/themes/spain.css";
 
-// The four-domain hreflang cluster (owner: Update Global Seluruh Portal §3):
+// The ecosystem hreflang cluster (owner: Update Global Seluruh Portal §3):
 // every page on every site declares its language siblings across DOMAINS —
-// id → ulyah.com, fr → 1fr.fr, de → tilawa.de, es → dawa.es, with ulyah.com
-// as x-default. Google then treats the four sites as translations of one
-// another instead of flagging duplicates.
+// id → ulyah.com, en → xad.es, fr → 1fr.fr, de → tilawa.de, es → dawa.es,
+// with ulyah.com as x-default. Google then treats the sites as translations
+// of one another instead of flagging duplicates.
 const HREFLANG_CLUSTER: Record<string, string> = {
   id: "https://ulyah.com",
+  en: "https://xad.es",
   fr: "https://1fr.fr",
   de: "https://tilawa.de",
   es: "https://dawa.es",
@@ -80,6 +81,16 @@ export async function generateMetadata({
       ...(locale === DEFAULT_LOCALE ? {} : { canonical: "./" }),
       languages: HREFLANG_CLUSTER,
     },
+    // One language per DOMAIN. ulyah.com is Indonesian-only now — the other
+    // languages each live on their own ecosystem domain (en→xad.es, fr→1fr.fr,
+    // de→tilawa.de, es→dawa.es). ulyah.com's non-Indonesian locale routes still
+    // render (so the header can show them struck-through) but must NOT be
+    // indexed, or they'd duplicate the sibling domains and fail AdSense/Search
+    // Console duplicate checks. Siblings serve only their own language, so this
+    // only ever fires on the ulyah tenant.
+    ...(TENANT.id === "ulyah" && locale !== DEFAULT_LOCALE
+      ? { robots: { index: false, follow: true } }
+      : {}),
     manifest: `/manifest.webmanifest?locale=${locale}`,
     icons:
       TENANT.id === "ulyah"

@@ -6,6 +6,7 @@
  *   • 1fr.fr             — One Faith France, French only
  *   • tilawa.de          — Tilawa, German only
  *   • dawa.es            — Dawa, Spanish only
+ *   • xad.es             — the English member of the ecosystem, English only
  *
  * The tenant is fixed at BUILD time via NEXT_PUBLIC_TENANT,
  * and the deploy workflow builds/deploys the app twice (ulyah-web and
@@ -16,7 +17,7 @@
  * lock-step with this file.
  */
 
-export type TenantId = "ulyah" | "1fr" | "tilawa" | "dawa";
+export type TenantId = "ulyah" | "1fr" | "tilawa" | "dawa" | "xad";
 
 export interface TenantConfig {
   id: TenantId;
@@ -105,7 +106,23 @@ const DAWA: TenantConfig = {
   features: { ads: true, donationForward: true, forSale: true },
 };
 
-const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, dawa: DAWA, ulyah: ULYAH };
+const XAD: TenantConfig = {
+  id: "xad",
+  siteUrl: "https://xad.es",
+  siteName: "Ulyah English",
+  tagline: {
+    en: "The Islamic Portal in English",
+  },
+  logoIcon: "/icon.png",
+  logoBanner: null,
+  wordmark: null,
+  wordmarkGold: null,
+  acquisitionEmail: "salam@ulyah.com",
+  // Core English member of the ecosystem — ads on, donation forward, not for sale.
+  features: { ads: true, donationForward: true, forSale: false },
+};
+
+const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, dawa: DAWA, xad: XAD, ulyah: ULYAH };
 
 export const TENANT: TenantConfig = TENANTS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? ULYAH;
 

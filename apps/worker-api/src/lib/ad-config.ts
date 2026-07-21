@@ -26,13 +26,14 @@ import { safeKvGet, safeKvPut } from "./kv-safe.js";
 export const AD_CLIENT_ID = "ca-pub-6371903555702163";
 
 export type AdSite =
-  | "ulyah" | "1fr" | "tilawa" | "dawa"
+  | "ulyah" | "1fr" | "tilawa" | "dawa" | "xad"
   | "axto-io" | "axto-dev" | "axto-us"
   | "profity-in" | "oldco-in"
   | "xaa-es" | "xad-es" | "jai-lat" | "lie-skin";
 
 export const AD_SITES: AdSite[] = [
-  "ulyah", "1fr", "tilawa", "dawa",
+  // ulyah ecosystem (one language per domain): id, en=xad.es, fr, de, es
+  "ulyah", "1fr", "tilawa", "dawa", "xad",
   "axto-io", "axto-dev", "axto-us",
   "profity-in", "oldco-in",
   "xaa-es", "xad-es", "jai-lat", "lie-skin",

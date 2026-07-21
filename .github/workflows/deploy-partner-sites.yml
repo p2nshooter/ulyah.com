@@ -45,9 +45,10 @@ jobs:
           - repo: p2nshooter/xaa
             worker: xaa-es
             domain: xaa.es
-          - repo: p2nshooter/xad
-            worker: xad-es
-            domain: xad.es
+          # xad.es is no longer a standalone tech-article partner site — it is
+          # now the ENGLISH member of the ulyah.com ecosystem, built from THIS
+          # monorepo (NEXT_PUBLIC_TENANT=xad → xad-web) and its domain is
+          # attached in deploy.yml. The old p2nshooter/xad repo is retired.
           - repo: p2nshooter/jai
             worker: jai-lat
             domain: jai.lat
