@@ -16,13 +16,14 @@ interface WidgetCard {
 const WIDGETS: WidgetCard[] = [
   {
     emoji: "📖",
-    title: { id: "Al-Qur'an Flipbook", en: "Qur'an Flipbook", fr: "Coran feuilletable", de: "Koran-Blätterbuch", ar: "مصحف قابل للتقليب", es: "Corán hojeable", zh: "可翻页《古兰经》", ru: "Перелистываемый Коран" },
+    title: { id: "Al-Qur'an Flipbook", en: "Qur'an Flipbook", fr: "Coran feuilletable", de: "Koran-Blätterbuch", ar: "مصحف قابل للتقليب", es: "Corán hojeable", zh: "可翻页《古兰经》", ru: "Перелистываемый Коран", ja: "めくれるクルアーン" },
     desc: {
       id: "Mushaf yang bisa dibalik halamannya seperti buku asli, langsung di browser.",
       en: "A page-turning Mushaf you can read right in the browser.",
       es: "Un Mushaf de páginas que puedes leer directamente en el navegador.",
       zh: "可像真书一样翻页的《古兰经》，直接在浏览器中阅读。",
       ru: "Мусхаф с перелистыванием страниц — читайте прямо в браузере.",
+      ja: "本物の本のようにページをめくれるムスハフ、ブラウザでそのまま読めます。",
       fr: "Un Moushaf que l'on feuillette comme un vrai livre, directement dans le navigateur.",
       de: "Ein Mushaf zum Blättern wie ein echtes Buch, direkt im Browser.",
       ar: "مصحف تُقلَّب صفحاته كالكتاب الحقيقي، مباشرةً في المتصفح.",
@@ -31,13 +32,14 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "📻",
-    title: { id: "Radio Qur'an Dunia", en: "World Qur'an Radio", fr: "Radio Coran du monde", de: "Weltweites Koran-Radio", ar: "إذاعة القرآن العالمية", es: "Radio Corán Mundial", zh: "世界《古兰经》电台", ru: "Всемирное радио Корана" },
+    title: { id: "Radio Qur'an Dunia", en: "World Qur'an Radio", fr: "Radio Coran du monde", de: "Weltweites Koran-Radio", ar: "إذاعة القرآن العالمية", es: "Radio Corán Mundial", zh: "世界《古兰经》电台", ru: "Всемирное радио Корана", ja: "世界クルアーンラジオ" },
     desc: {
       id: "Al-Qur'an dibacakan tanpa henti 24 jam oleh para qori dunia.",
       en: "The Qur'an recited nonstop, 24 hours a day, by reciters from around the world.",
       es: "El Corán recitado sin parar, 24 horas al día, por recitadores de todo el mundo.",
       zh: "《古兰经》全天候不间断诵读，由世界各地的诵读者呈现。",
       ru: "Коран, читаемый круглосуточно чтецами со всего мира.",
+      ja: "世界中の朗誦者による、24時間途切れないクルアーン朗誦。",
       fr: "Le Coran récité sans interruption, 24 h/24, par des récitants du monde entier.",
       de: "Der Koran rund um die Uhr rezitiert, von Rezitatoren aus aller Welt.",
       ar: "القرآن يُتلى دون توقف على مدار الساعة بأصوات قرّاء من العالم.",
@@ -46,13 +48,14 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "🕌",
-    title: { id: "Jadwal Sholat & Radio", en: "Prayer Times & Radio", fr: "Horaires de prière & Radio", de: "Gebetszeiten & Radio", ar: "مواقيت الصلاة والإذاعة", es: "Horarios de oración y Radio", zh: "礼拜时间与电台", ru: "Время намаза и радио" },
+    title: { id: "Jadwal Sholat & Radio", en: "Prayer Times & Radio", fr: "Horaires de prière & Radio", de: "Gebetszeiten & Radio", ar: "مواقيت الصلاة والإذاعة", es: "Horarios de oración y Radio", zh: "礼拜时间与电台", ru: "Время намаза и радио", ja: "礼拝時刻とラジオ" },
     desc: {
       id: "Jadwal sholat sesuai lokasi Anda, plus Radio Qori Dunia yang selalu hidup.",
       en: "Prayer times for your location, plus the always-on World Qur'an Radio.",
       es: "Los horarios de oración según tu ubicación, además de la Radio Corán Mundial siempre activa.",
       zh: "根据您所在位置的礼拜时间，外加始终在线的世界《古兰经》电台。",
       ru: "Время намаза для вашего местоположения и всегда работающее Всемирное радио Корана.",
+      ja: "あなたの位置に合わせた礼拝時刻に、常時稼働の世界クルアーンラジオ付き。",
       fr: "Les horaires de prière selon votre position, plus la Radio Coran du monde toujours active.",
       de: "Gebetszeiten für Ihren Standort, dazu das immer aktive Weltweite Koran-Radio.",
       ar: "مواقيت الصلاة حسب موقعك، مع إذاعة القرآن العالمية الدائمة.",
@@ -61,13 +64,14 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "🧒",
-    title: { id: "Kisah Anak Muslim", en: "Muslim Kids' Stories", fr: "Histoires pour enfants musulmans", de: "Geschichten für muslimische Kinder", ar: "قصص الأطفال المسلمين", es: "Historias para niños musulmanes", zh: "穆斯林儿童故事", ru: "Истории для мусульманских детей" },
+    title: { id: "Kisah Anak Muslim", en: "Muslim Kids' Stories", fr: "Histoires pour enfants musulmans", de: "Geschichten für muslimische Kinder", ar: "قصص الأطفال المسلمين", es: "Historias para niños musulmanes", zh: "穆斯林儿童故事", ru: "Истории для мусульманских детей", ja: "ムスリムの子ども向け物語" },
     desc: {
       id: "Kisah pendek berurutan untuk anak, aman ditonton, tanpa gambar yang dilarang.",
       en: "Short, sequential stories for children — safe to watch, no prohibited imagery.",
       es: "Historias cortas y secuenciales para niños — seguras de ver, sin imágenes prohibidas.",
       zh: "为儿童准备的连续短篇故事 — 观看安全，无违禁画面。",
       ru: "Короткие последовательные истории для детей — безопасны для просмотра, без запретных изображений.",
+      ja: "子ども向けの連続した短編物語 — 安心して視聴でき、禁じられた映像はありません。",
       fr: "De courtes histoires suivies pour enfants — à regarder en toute sécurité, sans image interdite.",
       de: "Kurze, aufeinanderfolgende Geschichten für Kinder — unbedenklich, ohne verbotene Bilder.",
       ar: "قصص قصيرة متتابعة للأطفال — آمنة للمشاهدة، دون صور محظورة.",
@@ -116,6 +120,13 @@ const L: Record<string, { heading: (s: string) => string; intro: string; open: s
     open: "Открыть и установить",
     metaTitle: (s) => `Магазин виджетов — ${s}`,
     metaDesc: (s) => `Все устанавливаемые виджеты ${s} в одном месте — Коран, радио, время намаза и другое.`,
+  },
+  ja: {
+    heading: (s) => `${s} ウィジェットストア`,
+    intro: "各ウィジェットはホーム画面に個別にインストールできます — 他とは別の、独立したアプリのように。",
+    open: "開いてインストール",
+    metaTitle: (s) => `ウィジェットストア — ${s}`,
+    metaDesc: (s) => `${s} のインストール可能なウィジェットを一か所に — クルアーン、ラジオ、礼拝時刻など。`,
   },
   fr: {
     heading: (s) => `Boutique de widgets ${s}`,
