@@ -73,8 +73,17 @@ export function AnalyticsTab() {
   const [data, setData] = useState<Analytics | null>(null);
   const [tf, setTf] = useState<"daily" | "weekly" | "monthly" | "yearly">("daily");
 
+  // Live: refetch every 30s so the visitor overview rises without a manual
+  // page refresh.
   useEffect(() => {
-    api.get<Analytics>("/admin/analytics").then(setData).catch(() => {});
+    let alive = true;
+    const load = () => api.get<Analytics>("/admin/analytics").then((r) => alive && setData(r)).catch(() => {});
+    load();
+    const t = setInterval(load, 30_000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
   }, []);
 
   if (!data) return <p className="text-sm text-[var(--color-text-secondary)]">Loading…</p>;

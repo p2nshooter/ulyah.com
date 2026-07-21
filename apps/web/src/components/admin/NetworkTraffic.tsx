@@ -50,9 +50,28 @@ export function isEcosystemSite(site: string): boolean {
 export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | "external" }) {
   const [data, setData] = useState<Resp | null>(null);
   const [days, setDays] = useState(30);
+  const [refreshedAt, setRefreshedAt] = useState<Date | null>(null);
 
+  // Live: refetch every 20s (and whenever the range changes) so rising traffic
+  // shows without a manual page refresh (owner: "bikin real time, jangan harus
+  // di-refresh manual baru kelihatan").
   useEffect(() => {
-    api.get<Resp>(`/admin/site-analytics?days=${days}`).then(setData).catch(() => {});
+    let alive = true;
+    const load = () =>
+      api
+        .get<Resp>(`/admin/site-analytics?days=${days}`)
+        .then((r) => {
+          if (!alive) return;
+          setData(r);
+          setRefreshedAt(new Date());
+        })
+        .catch(() => {});
+    load();
+    const t = setInterval(load, 20_000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
   }, [days]);
 
   if (!data) return null;
@@ -66,7 +85,14 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
   return (
     <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="font-heading text-base">{heading}</p>
+        <p className="font-heading text-base">
+          {heading}
+          {refreshedAt && (
+            <span className="ml-2 align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
+              🟢 live · {refreshedAt.toLocaleTimeString()} · auto 20 dtk
+            </span>
+          )}
+        </p>
         <div className="flex gap-1 text-xs">
           {[7, 30, 90].map((d) => (
             <button
