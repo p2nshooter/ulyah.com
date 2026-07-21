@@ -116,7 +116,18 @@ export async function generateMetadata({
               ],
               apple: "/brand/dawa/icon-180.png?v=2",
             }
-          : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
+          : TENANT.id === "xad"
+            ? {
+                // xad.es (English member) — its own crisp SVG emblem as the
+                // browser-tab favicon + home-screen icon, so it reads as its own
+                // product, not a clone of ulyah.com.
+                icon: [
+                  { url: "/brand/xad/favicon.svg", type: "image/svg+xml" },
+                  { url: "/brand/xad/icon.svg", sizes: "512x512", type: "image/svg+xml" },
+                ],
+                apple: "/brand/xad/icon.svg",
+              }
+            : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
     openGraph: {
       title: `${siteName} — ${tagline}`,
       description: dict.hero.description,

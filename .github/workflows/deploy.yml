@@ -1089,8 +1089,12 @@ jobs:
             exit 0
           fi
           for host in xad.es www.xad.es; do
+            # override_existing_origin: xad.es was previously bound to the old
+            # standalone xad-es tech-article worker. Without this flag Cloudflare
+            # refuses to move the hostname (error 100116) and xad.es keeps
+            # serving the retired site instead of the new xad-web ecosystem app.
             resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
-              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"xad-web\",\"environment\":\"production\"}" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"xad-web\",\"environment\":\"production\",\"override_existing_origin\":true}" \
               "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
             echo "$host -> xad-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
           done
