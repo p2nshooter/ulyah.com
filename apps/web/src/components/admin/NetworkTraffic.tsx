@@ -52,9 +52,9 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
   const [days, setDays] = useState(30);
   const [refreshedAt, setRefreshedAt] = useState<Date | null>(null);
 
-  // Live: refetch every 20s (and whenever the range changes) so rising traffic
-  // shows without a manual page refresh (owner: "bikin real time, jangan harus
-  // di-refresh manual baru kelihatan").
+  // Live: refetch on an interval so rising cross-site traffic shows without a
+  // manual page refresh (owner: "bikin real time, jangan harus di-refresh
+  // manual baru kelihatan").
   useEffect(() => {
     let alive = true;
     const load = () =>
@@ -67,7 +67,7 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
         })
         .catch(() => {});
     load();
-    const t = setInterval(load, 20_000);
+    const t = setInterval(load, 15_000);
     return () => {
       alive = false;
       clearInterval(t);
@@ -85,13 +85,12 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
   return (
     <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="font-heading text-base">
+        <p className="flex items-center gap-2 font-heading text-base">
           {heading}
-          {refreshedAt && (
-            <span className="ml-2 align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
-              🟢 live · {refreshedAt.toLocaleTimeString()} · auto 20 dtk
-            </span>
-          )}
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-500">
+            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+            LIVE{refreshedAt ? ` · ${refreshedAt.toLocaleTimeString()}` : ""}
+          </span>
         </p>
         <div className="flex gap-1 text-xs">
           {[7, 30, 90].map((d) => (
