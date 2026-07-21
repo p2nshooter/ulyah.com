@@ -54,6 +54,18 @@ export function isValidLocale(code: string): boolean {
   return LOCALES.some((l) => l.code === code);
 }
 
+// Languages the in-page switcher on ulyah.com actually lets you switch TO.
+// The site's own default language is always ready; the rest are opened ONE AT
+// A TIME as each is verified fully translated and consistent (owner: "buka
+// coretan satu-persatu, jangan ada yang inkonsisten"). Not-yet-ready languages
+// stay visibly struck through and unclickable. Add a code here only after its
+// whole UI + straggler strings are complete in that language.
+export const READY_LOCALE_CODES = new Set<string>(["id", "en"]);
+
+export function isLocaleReady(code: string): boolean {
+  return code === DEFAULT_LOCALE || READY_LOCALE_CODES.has(code);
+}
+
 export function getLocale(code: string): LocaleDef {
   return LOCALES.find((l) => l.code === code) ?? LOCALES[0]!;
 }

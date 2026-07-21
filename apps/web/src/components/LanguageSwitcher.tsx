@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { LOCALES } from "@ulyah/shared/i18n";
+import { LOCALES, isLocaleReady } from "@ulyah/shared/i18n";
 
 export function LanguageSwitcher({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
@@ -37,12 +37,11 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
         <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-48 overflow-y-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-xl">
           {LOCALES.map((l) => {
             const isCurrent = l.code === locale;
-            // In-page language switching is temporarily out of service — the
-            // owner asked for the broken entries to be visibly struck through
-            // and unclickable until it works again ("untuk sementara tandai
-            // dulu dengan di coret dan non aktifkan"). Only the language the
-            // page is already in stays active.
-            if (!isCurrent) {
+            // Languages are opened ONE AT A TIME as each is verified fully
+            // translated (owner: "buka coretan satu-persatu"). A language that
+            // is neither the current one nor marked ready stays struck through
+            // and unclickable; ready ones switch normally. See READY_LOCALE_CODES.
+            if (!isCurrent && !isLocaleReady(l.code)) {
               return (
                 <span
                   key={l.code}
@@ -57,11 +56,15 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
             return (
               <button
                 key={l.code}
-                onClick={() => switchTo(l.code)}
+                onClick={() => (isCurrent ? setOpen(false) : switchTo(l.code))}
                 dir={l.dir}
-                className="block w-full px-3 py-2 text-left text-sm font-semibold text-accent hover:bg-black/5"
+                aria-current={isCurrent}
+                className={`block w-full px-3 py-2 text-left text-sm hover:bg-black/5 ${
+                  isCurrent ? "font-semibold text-accent" : "text-[var(--color-text-primary)]"
+                }`}
               >
                 {l.label}
+                {isCurrent ? " ✓" : ""}
               </button>
             );
           })}
