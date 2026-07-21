@@ -30,12 +30,24 @@ const SITE_LABEL: Record<string, string> = {
   "xaa-es": "xaa.es", "xad-es": "xad.es", "jai-lat": "jai.lat", "lie-skin": "lie.skin",
 };
 
+// The ulyah.com ecosystem = the Islamic da'wah network that mirrors ulyah's
+// content in each native language. Every OTHER owner site (the ebook store +
+// the high-CPC article/ad sites) is "di luar ekosistem" and — per the owner —
+// gets its own SEPARATE traffic menu so it's easy to monitor apart from the
+// da'wah traffic. Any site id not listed here is treated as external.
+export const ECOSYSTEM_SITES = new Set(["ulyah", "1fr", "tilawa", "dawa"]);
+export function isEcosystemSite(site: string): boolean {
+  return ECOSYSTEM_SITES.has(site);
+}
+
 /**
- * Network traffic — per-site pageviews for the WHOLE ecosystem, from the
- * cookieless /track beacon each site sends. One panel to watch every site's
- * traffic (owner: "semua website wajib punya analisa trafic di portal admin").
+ * Network traffic — per-site pageviews from the cookieless /track beacon each
+ * site sends. `scope` splits the view: "ecosystem" (default) shows only the
+ * ulyah da'wah network; "external" shows only the other owner sites, rendered
+ * as its own admin menu (owner: "situs di luar ekosistem ulyah.com trafiknya
+ * tampilkan terpisah menunya di portal admin agar mudah dipantau").
  */
-export function NetworkTraffic() {
+export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | "external" }) {
   const [data, setData] = useState<Resp | null>(null);
   const [days, setDays] = useState(30);
 
@@ -44,13 +56,17 @@ export function NetworkTraffic() {
   }, [days]);
 
   if (!data) return null;
-  const max = Math.max(1, ...data.totals.map((t) => t.views));
-  const grand = data.totals.reduce((s, t) => s + t.views, 0);
+  const inScope = (site: string) => (scope === "ecosystem" ? isEcosystemSite(site) : !isEcosystemSite(site));
+  const totals = data.totals.filter((t) => inScope(t.site));
+  const topPages = data.topPages.filter((p) => inScope(p.site));
+  const max = Math.max(1, ...totals.map((t) => t.views));
+  const grand = totals.reduce((s, t) => s + t.views, 0);
+  const heading = scope === "ecosystem" ? "🌐 Trafik Jaringan (ekosistem ulyah.com)" : "🌍 Trafik Situs Luar Ekosistem";
 
   return (
     <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="font-heading text-base">🌐 Trafik Jaringan (semua situs)</p>
+        <p className="font-heading text-base">{heading}</p>
         <div className="flex gap-1 text-xs">
           {[7, 30, 90].map((d) => (
             <button
@@ -67,13 +83,13 @@ export function NetworkTraffic() {
         Total {grand.toLocaleString()} tampilan halaman dalam {data.days} hari terakhir.
       </p>
 
-      {data.totals.length === 0 ? (
+      {totals.length === 0 ? (
         <p className="mt-3 text-sm text-[var(--color-text-secondary)]">
           Belum ada data — trafik muncul di sini begitu situs mulai dikunjungi.
         </p>
       ) : (
         <div className="mt-3 space-y-1.5">
-          {data.totals.map((t) => (
+          {totals.map((t) => (
             <div key={t.site} className="flex items-center gap-2 text-sm">
               <span className="w-24 shrink-0 truncate">{SITE_LABEL[t.site] ?? t.site}</span>
               <div className="h-4 flex-1 overflow-hidden rounded bg-black/5">
@@ -85,11 +101,11 @@ export function NetworkTraffic() {
         </div>
       )}
 
-      {data.topPages.length > 0 && (
+      {topPages.length > 0 && (
         <div className="mt-4">
           <p className="text-xs font-semibold text-[var(--color-text-secondary)]">Halaman teratas</p>
           <ul className="mt-1.5 space-y-1 text-xs text-[var(--color-text-secondary)]">
-            {data.topPages.slice(0, 12).map((p, i) => (
+            {topPages.slice(0, 12).map((p, i) => (
               <li key={i} className="flex justify-between gap-2">
                 <span className="truncate">
                   <span className="opacity-60">{SITE_LABEL[p.site] ?? p.site}</span> {p.path}

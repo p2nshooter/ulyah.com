@@ -20,6 +20,35 @@ export interface KeyTestResult {
   detail: string;
   quotaLimit?: number;
   quotaUsed?: number;
+  /**
+   * TRUE only when the failure is a CONFIRMED bad credential (revoked / invalid
+   * key) — i.e. permanently dead, safe to mark `rejected`. FALSE for a
+   * *transient* failure (rate limit, 5xx, timeout, network blip): the key is
+   * probably fine and must NOT be permanently rejected — it should cool down
+   * as `rate_limited` and be retried. Only meaningful when `passed` is false.
+   *
+   * The old code treated EVERY `passed:false` as `rejected`, so one momentary
+   * HTTP 400/503 during a bulk retest permanently killed a working key and
+   * dropped it out of rotation forever — the root cause of the ~280 keys that
+   * verified OK yet sat stuck in `rejected`.
+   */
+  dead: boolean;
+}
+
+/** Provider-specific "this 400 really means the API key is invalid" markers.
+ * Google AI Studio (Gemini) notoriously returns HTTP 400 with API_KEY_INVALID
+ * — not 401 — for a bad key, so a plain status check would misread it as a
+ * transient error. Everything else that isn't one of these markers is treated
+ * as transient. */
+function bodyLooksLikeInvalidKey(text: string): boolean {
+  const t = text.toLowerCase();
+  return (
+    t.includes("api_key_invalid") ||
+    t.includes("api key not valid") ||
+    t.includes("invalid api key") ||
+    t.includes("invalid authentication") ||
+    t.includes("permission_denied")
+  );
 }
 
 const PROBE_TIMEOUT_MS = 8000;
@@ -29,6 +58,7 @@ export async function testApiKey(providerId: string, rawKey: string): Promise<Ke
   if (!provider) {
     return {
       passed: false,
+      dead: true, // an unknown provider can never work — safe to reject
       latencyMs: 0,
       safetyScore: 0,
       optimal: false,
@@ -55,6 +85,7 @@ export async function testApiKey(providerId: string, rawKey: string): Promise<Ke
     if (res.status === 401 || res.status === 403) {
       return {
         passed: false,
+        dead: true, // confirmed bad credential
         latencyMs,
         safetyScore: 0,
         optimal: false,
@@ -62,12 +93,26 @@ export async function testApiKey(providerId: string, rawKey: string): Promise<Ke
       };
     }
     if (!res.ok) {
+      // A 400 can mean "invalid key" (esp. Google's API_KEY_INVALID) OR a
+      // transient/bad-probe error. Peek at the body to tell them apart; treat
+      // 429 and all 5xx as transient (cool down, don't reject).
+      let peek = "";
+      try {
+        peek = (await res.text()).slice(0, 2000);
+      } catch {
+        /* body unreadable — fall back to status heuristics below */
+      }
+      const invalidKey =
+        (res.status === 400 || res.status === 404) && bodyLooksLikeInvalidKey(peek);
       return {
         passed: false,
+        dead: invalidKey, // only a confirmed invalid-key body is permanently dead
         latencyMs,
-        safetyScore: 0.2,
+        safetyScore: invalidKey ? 0 : 0.2,
         optimal: false,
-        detail: `Unexpected response HTTP ${res.status} from ${provider.label} probe endpoint.`,
+        detail: invalidKey
+          ? `Provider reported the key is invalid (HTTP ${res.status}) — revoked or wrong key.`
+          : `Transient HTTP ${res.status} from ${provider.label} probe (rate limit / server error) — cooling down, not rejecting.`,
       };
     }
 
@@ -83,6 +128,7 @@ export async function testApiKey(providerId: string, rawKey: string): Promise<Ke
 
     return {
       passed: true,
+      dead: false,
       latencyMs,
       safetyScore,
       optimal,
@@ -95,6 +141,7 @@ export async function testApiKey(providerId: string, rawKey: string): Promise<Ke
     const isAbort = err instanceof Error && err.name === "AbortError";
     return {
       passed: false,
+      dead: false, // timeout / network blip is transient, never a permanent reject
       latencyMs: Date.now() - started,
       safetyScore: 0,
       optimal: false,

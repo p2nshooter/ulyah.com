@@ -117,11 +117,48 @@ async function reviveCooledKeys(env: Env): Promise<void> {
   }
 }
 
+/** Corrective auto-heal for keys wrongly stuck in `rejected`.
+ *
+ * Historically ANY failed probe (including a transient HTTP 400/429/503 or a
+ * timeout during a bulk retest) set a key to `rejected` and dropped it from
+ * rotation forever. That left hundreds of keys marked dead whose most-recent
+ * validation actually PASSED. The classifier is fixed at the source now
+ * (transient → rate_limited, only confirmed-invalid → rejected), but the
+ * already-corrupted rows need repairing without a manual SQL migration.
+ *
+ * This promotes back to `active` any `rejected` key whose LATEST validation-log
+ * entry passed — i.e. it verified OK the last time we actually checked. It is
+ * self-limiting: going forward a genuinely rejected key always has a failing
+ * latest log, so it is never touched. Bounded per run (indexed by key_id) so it
+ * stays cheap and never slows the site down. */
+async function reconcileMisrejectedKeys(env: Env): Promise<void> {
+  try {
+    await env.DB.prepare(
+      `UPDATE ai_key_pool
+         SET status = 'active', last_health_check = datetime('now')
+       WHERE id IN (
+         SELECT k.id FROM ai_key_pool k
+         WHERE k.status = 'rejected'
+           AND (
+             SELECT v.passed FROM key_validation_log v
+             WHERE v.key_id = k.id
+             ORDER BY v.created_at DESC, v.id DESC
+             LIMIT 1
+           ) = 1
+         LIMIT 60
+       )`
+    ).run();
+  } catch {
+    /* non-fatal: reconciliation is best-effort */
+  }
+}
+
 /** Cron-callable maintenance so cooled-down keys auto-wake even when the site
  * is idle (no live request to trigger it) — keeps Orchestra Core healthy while
  * nobody, including Anthropic, is online. Runs from scheduled() every 15 min. */
 export async function orchestraMaintenance(env: Env): Promise<void> {
   await reviveCooledKeys(env);
+  await reconcileMisrejectedKeys(env);
 }
 
 async function cfWorkerAiEnabled(env: Env): Promise<boolean> {
