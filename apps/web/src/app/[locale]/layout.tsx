@@ -156,7 +156,7 @@ export default async function LocaleLayout({
   const dict = getDictionary(locale);
 
   return (
-    <html lang={locale} dir={localeDef.dir} data-tenant={TENANT.id} suppressHydrationWarning>
+    <html lang={locale} dir={localeDef.dir} data-tenant={TENANT.id} data-culture={locale} suppressHydrationWarning>
       <head>
         {/* Apply the theme class before paint — avoids a flash of the wrong
             theme and ensures Tailwind's `dark:` variant is correct from the

@@ -41,6 +41,53 @@
   --shadow-lg: 0 10px 40px rgba(14, 26, 15, 0.14);
   --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.14);
   --shadow-gold-lg: 0 10px 44px rgba(184, 137, 43, 0.2);
+  --culture-motif: "❖";
+}
+
+/* ── Per-culture identity ──────────────────────────────────────────────────
+   On ulyah.com the in-page language switch also shifts the visual identity
+   toward that culture's Muslim heritage (owner: "ganti bahasa → warna,
+   ornamen, style ikut budaya muslim setempat"). Only the ACCENT hue + the
+   ornament motif change; the emerald Islamic base stays, so every language
+   still reads as one family. Scoped to the ulyah tenant so the single-language
+   siblings keep their own fixed identity. Higher specificity than :root and
+   :root[data-theme=dark], so it wins in both light and dark. id/en keep the
+   default gold. Full cultural artwork/animation per language is a further
+   enhancement; this establishes the palette + motif system it hangs on. */
+:root[data-tenant="ulyah"][data-culture="ar"] {
+  --color-accent: #c9a227; --tw-accent: 201 162 39;
+  --color-accent-light: #e0c04a; --color-accent-xl: #f3e08a;
+  --color-border-gold: rgba(201, 162, 39, 0.3); --culture-motif: "۞";
+}
+:root[data-tenant="ulyah"][data-culture="zh"] {
+  --color-accent: #b21f35; --tw-accent: 178 31 53;
+  --color-accent-light: #d24d61; --color-accent-xl: #f0b3bd;
+  --color-border-gold: rgba(178, 31, 53, 0.3); --culture-motif: "✾";
+}
+:root[data-tenant="ulyah"][data-culture="ru"] {
+  --color-accent: #178a8a; --tw-accent: 23 138 138;
+  --color-accent-light: #35b0b0; --color-accent-xl: #9fe0e0;
+  --color-border-gold: rgba(23, 138, 138, 0.3); --culture-motif: "❈";
+}
+:root[data-tenant="ulyah"][data-culture="ja"] {
+  --color-accent: #38477e; --tw-accent: 56 71 126;
+  --color-accent-light: #5d6fae; --color-accent-xl: #b3bde0;
+  --color-border-gold: rgba(56, 71, 126, 0.3); --culture-motif: "❀";
+}
+:root[data-tenant="ulyah"][data-culture="fr"] {
+  --color-accent: #4453a6; --tw-accent: 68 83 166;
+  --color-accent-light: #6d7ac0; --color-accent-xl: #b7c0e8;
+  --color-border-gold: rgba(68, 83, 166, 0.3); --culture-motif: "❦";
+}
+:root[data-tenant="ulyah"][data-culture="de"] {
+  --color-accent: #8a6a2b; --tw-accent: 138 106 43;
+  --color-accent-light: #b08e46; --color-accent-xl: #e0c98a;
+  --color-border-gold: rgba(138, 106, 43, 0.3); --culture-motif: "❧";
+}
+:root[data-tenant="ulyah"][data-culture="es"] {
+  --color-accent: #b5622a; --tw-accent: 181 98 42;
+  --color-accent-light: #d2854d; --color-accent-xl: #f0c3a0;
+  --color-border-gold: rgba(181, 98, 42, 0.3); --culture-motif: "❂";
 }
 
 :root[data-theme="dark"] {
