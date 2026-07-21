@@ -43,9 +43,15 @@ export function AdSlot({
   }, []);
 
   const slotId = view?.slots?.[placement] || "";
+  // A slot serves a REAL ad only once the owner has ticked "approved" for this
+  // site (AdSense has accepted it) AND pasted a unit id. Until then — enabled
+  // but not approved, or no id yet — we ALWAYS render the dashed position
+  // marker so the owner can see exactly where each ad will land before going
+  // live (owner: "kasih kolom/tanda posisi saat iklan nanti muncul").
+  const live = !!view?.approved && !!slotId && !!view?.clientId;
 
   useEffect(() => {
-    if (!view?.enabled || !slotId || pushedRef.current) return;
+    if (!live || pushedRef.current) return;
     pushedRef.current = true;
     try {
       // Global adsbygoogle array is created by the loader script in layout head.
@@ -53,12 +59,12 @@ export function AdSlot({
     } catch {
       /* ad blocker / not ready — the reserved space simply stays empty */
     }
-  }, [view?.enabled, slotId]);
+  }, [live]);
 
   if (!view || !view.enabled) return null;
 
-  // Real ad.
-  if (slotId && view.clientId) {
+  // Real ad — approved + id present.
+  if (live) {
     return (
       <div className={`my-8 flex justify-center ${className}`} aria-hidden={false}>
         <ins
@@ -74,13 +80,19 @@ export function AdSlot({
     );
   }
 
-  // Preview placeholder (site on, no real id yet) — lets the owner see the
-  // position without violating policy (no fake ad content, clearly labelled).
+  // Position marker (site on, but not approved yet or no id) — lets the owner
+  // see the exact spot/size the ad will occupy without violating policy (no
+  // fake ad content, clearly labelled as a reserved preview slot).
+  const stateNote = slotId ? "menunggu ACC AdSense" : "belum ada ID iklan";
   return (
     <div
-      className={`my-8 flex min-h-[90px] items-center justify-center rounded-xl border border-dashed border-accent/40 bg-accent/5 text-xs text-[var(--color-text-secondary)] ${className}`}
+      className={`my-8 flex min-h-[90px] flex-col items-center justify-center gap-0.5 rounded-xl border border-dashed border-accent/50 bg-accent/5 text-center text-xs text-[var(--color-text-secondary)] ${className}`}
+      data-ad-placeholder={placement}
     >
-      <span className="opacity-70">▭ {label} · pratinjau posisi</span>
+      <span className="font-medium opacity-80">▭ {label}</span>
+      <span className="text-[10px] opacity-60">
+        posisi iklan «{placement}» · {stateNote}
+      </span>
     </div>
   );
 }

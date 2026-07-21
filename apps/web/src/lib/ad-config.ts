@@ -5,11 +5,12 @@ import { TENANT } from "@/lib/tenant";
 
 export interface AdView {
   enabled: boolean;
+  approved: boolean;
   clientId: string;
   slots: Record<string, string>;
 }
 
-const EMPTY: AdView = { enabled: false, clientId: "", slots: {} };
+const EMPTY: AdView = { enabled: false, approved: false, clientId: "", slots: {} };
 
 // One fetch per page load, shared by every AdSlot (the config is tiny and
 // identical for all slots on the page). api.base = https://api.ulyah.com, so
@@ -20,7 +21,7 @@ export function fetchAdView(): Promise<AdView> {
   if (cached) return cached;
   cached = api
     .get<AdView>(`/content/ad-config?site=${encodeURIComponent(TENANT.id)}`)
-    .then((v) => ({ enabled: !!v.enabled, clientId: v.clientId ?? "", slots: v.slots ?? {} }))
+    .then((v) => ({ enabled: !!v.enabled, approved: !!v.approved, clientId: v.clientId ?? "", slots: v.slots ?? {} }))
     .catch(() => EMPTY);
   return cached;
 }
