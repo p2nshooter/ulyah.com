@@ -21,6 +21,8 @@ const T: Record<string, Strings> = {
   kitabLoadError: {
     id: "Gagal memuat koleksi — silakan muat ulang halaman ini.",
     en: "Could not load the collection — please reload this page.",
+    fr: "Impossible de charger la collection — veuillez recharger cette page.",
+    de: "Sammlung konnte nicht geladen werden — bitte laden Sie diese Seite neu.",
   },
   kitabFootnote: {
     id: "Teks dikutip dari matan kitab klasik. Terjemah & penjelasan disusun ringkas untuk memudahkan santri dan pembaca umum.",
@@ -30,10 +32,14 @@ const T: Record<string, Strings> = {
   nasakhHeroDesc: {
     id: "Kumpulan kasus nasakh (penghapus) dan mansukh (dihapus) dalam Al-Qur'an, tersusun rapi: ayat yang dinasakh, ayat penggantinya, jenis naskh, penjelasan, dan sumber. Bisa didengarkan.",
     en: "A collected study of abrogating (nasikh) and abrogated (mansukh) cases in the Qur'an, neatly laid out: the abrogated verse, its replacement, the type, an explanation, and the source. Listenable.",
+    fr: "Une étude des cas d'abrogation (nasikh) et d'abrogé (mansukh) dans le Coran, clairement présentée : le verset abrogé, son remplacement, le type, une explication et la source. Écoutable.",
+    de: "Eine Studie der abrogierenden (nasikh) und abrogierten (mansukh) Fälle im Koran, übersichtlich dargestellt: der abrogierte Vers, sein Ersatz, die Art, eine Erläuterung und die Quelle. Anhörbar.",
   },
   nasakhIntro: {
     id: "Ilmu ayat penghapus (nasikh) dan yang dihapus (mansukh) — tersusun rapi: yang dinasakh, penggantinya, jenisnya, penjelasan & sumber. Bisa didengarkan.",
     en: "The science of abrogating (nasikh) and abrogated (mansukh) verses — neatly laid out: what was abrogated, its replacement, the type, an explanation and the source. Listenable.",
+    fr: "La science des versets abrogeants (nasikh) et abrogés (mansukh) — clairement présentée : ce qui est abrogé, son remplacement, le type, une explication et la source. Écoutable.",
+    de: "Die Wissenschaft der abrogierenden (nasikh) und abrogierten (mansukh) Verse — übersichtlich dargestellt: was abrogiert wurde, sein Ersatz, die Art, eine Erläuterung und die Quelle. Anhörbar.",
   },
   // anak (kids)
   anakHeroDesc: {
