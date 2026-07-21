@@ -54,6 +54,9 @@ jobs:
           - repo: p2nshooter/lie
             worker: lie-skin
             domain: lie.skin
+          - repo: p2nshooter/axtodev
+            worker: axto-dev
+            domain: axto.dev
     name: ${{ matrix.domain }}
     steps:
       - name: Checkout ${{ matrix.repo }}
