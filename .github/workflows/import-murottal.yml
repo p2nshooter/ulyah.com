@@ -41,8 +41,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Install S3 client (R2 upload)
-        run: npm i @aws-sdk/client-s3 --no-save
+      - name: Install R2 S3 signer (aws4fetch)
+        run: pnpm add -w --save-dev aws4fetch
 
       - name: Resolve provisioned resource IDs
         run: |

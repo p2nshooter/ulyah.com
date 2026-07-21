@@ -30,7 +30,7 @@ import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { S3Client, PutObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
+import { AwsClient } from "aws4fetch";
 
 const R2_BUCKET = "ulyah-media";
 const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
@@ -105,24 +105,28 @@ function d1File(sql, tmp) {
   rmSync(p, { force: true });
 }
 
-const s3 = new S3Client({
+const aws = new AwsClient({
+  accessKeyId: process.env.R2_ACCESS_KEY_ID ?? "",
+  secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? "",
   region: "auto",
-  endpoint: `https://${ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID ?? "",
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? "",
-  },
+  service: "s3",
 });
+const R2_BASE = `https://${ACCOUNT_ID}.r2.cloudflarestorage.com/${R2_BUCKET}`;
 async function r2Has(key) {
   try {
-    await s3.send(new HeadObjectCommand({ Bucket: R2_BUCKET, Key: key }));
-    return true;
+    const res = await aws.fetch(`${R2_BASE}/${key}`, { method: "HEAD" });
+    return res.ok;
   } catch {
     return false;
   }
 }
 async function r2Put(key, bytes) {
-  await s3.send(new PutObjectCommand({ Bucket: R2_BUCKET, Key: key, Body: bytes, ContentType: "audio/mpeg" }));
+  const res = await aws.fetch(`${R2_BASE}/${key}`, {
+    method: "PUT",
+    body: bytes,
+    headers: { "content-type": "audio/mpeg" },
+  });
+  if (!res.ok) throw new Error(`R2 PUT ${res.status}`);
 }
 
 const pad3 = (n) => String(n).padStart(3, "0");
