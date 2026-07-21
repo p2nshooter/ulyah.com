@@ -95,12 +95,24 @@ function effectiveLang(text: string, requested: string): string {
   return requested;
 }
 
+/** Character offset + length of every WORD (non-space run) in a block, in
+ * order — lets a time-based estimator walk the words when the browser fires no
+ * boundary events. */
+function wordOffsets(text: string): { start: number; len: number }[] {
+  const out: { start: number; len: number }[] = [];
+  const re = /\S+/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) out.push({ start: m.index, len: m[0].length });
+  return out;
+}
+
 /** Speak one text block. Resolves when finished or cancelled.
- * `onWord(charIndex)` fires at each spoken word boundary (where the browser
- * supports it) so the caller can highlight the exact word being read — the
- * "penunjuk per kata" the owner asked for. Falls back silently to no word
- * events on browsers without boundary support (the block-level highlight then
- * still shows progress). */
+ * `onWord(charIndex)` fires at each spoken word so the caller can highlight the
+ * exact word being read — the "penunjuk per kata" the owner asked for. Real
+ * SpeechSynthesis word-boundary events are used when the browser fires them;
+ * MANY browsers (notably Android Chrome and most non-Latin/Arabic voices)
+ * never fire `onboundary`, so a time-based estimator walks the words instead —
+ * the pointer moves word by word everywhere, not just as a block. */
 export function speak(
   text: string,
   lang: string,
@@ -134,23 +146,52 @@ export function speak(
       await new Promise<void>((resolve) => {
         let started = false;
         let settled = false;
+        let nativeBoundary = false; // real onboundary events seen → trust them
+        let estTimer: ReturnType<typeof setTimeout> | null = null;
+        const rate = opts.rate ?? 0.95;
+        const words = opts.onWord ? wordOffsets(text) : [];
+        const stopEstimator = () => {
+          if (estTimer) {
+            clearTimeout(estTimer);
+            estTimer = null;
+          }
+        };
+        // Walk the words on a timer when the browser gives us no boundary
+        // events. Per-word duration scales with word length and the speaking
+        // rate — rough but enough to keep the highlight moving with the voice.
+        const startEstimator = () => {
+          if (!opts.onWord || nativeBoundary || settled || cancelled || words.length === 0) return;
+          let wi = 0;
+          const step = () => {
+            if (settled || cancelled || nativeBoundary || wi >= words.length) return;
+            opts.onWord!(words[wi]!.start, words[wi]!.len);
+            const ms = Math.max(140, words[wi]!.len * 68 + 90) / rate;
+            wi++;
+            estTimer = setTimeout(step, ms);
+          };
+          step();
+        };
         const finish = () => {
           if (settled) return;
           settled = true;
+          stopEstimator();
           clearTimeout(startWatchdog);
           clearTimeout(retryWatchdog);
+          clearTimeout(estKick);
           resolve();
         };
         const u = new SpeechSynthesisUtterance(text);
         u.lang = LANG_TAG[effLang] ?? effLang;
         if (voice) u.voice = voice;
-        u.rate = opts.rate ?? 0.95;
+        u.rate = rate;
         u.pitch = 1.0;
         if (opts.onWord) {
           u.onboundary = (e: SpeechSynthesisEvent) => {
             // Some engines fire sentence boundaries too; take word (or any
             // boundary carrying a charIndex) and let the caller map it.
             if (e.name === "word" || e.name === undefined || e.name === "") {
+              nativeBoundary = true; // browser supports it — drop the estimator
+              stopEstimator();
               opts.onWord!(e.charIndex ?? 0, (e as SpeechSynthesisEvent & { charLength?: number }).charLength ?? 0);
             }
           };
@@ -162,6 +203,11 @@ export function speak(
         u.onerror = finish;
         if (cancelled) return finish();
         synth.speak(u);
+        // If no native boundary has fired shortly after start, drive the
+        // per-word highlight ourselves.
+        const estKick = setTimeout(() => {
+          if (!nativeBoundary) startEstimator();
+        }, 500);
         const startWatchdog = setTimeout(() => {
           if (started || settled || cancelled) return;
           // Swallowed utterance — nudge the engine and try once more.
