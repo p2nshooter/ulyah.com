@@ -38,6 +38,15 @@ const L: Record<string, { heading: string; intro: string; interactive: string; m
     metaDesc:
       "Short animated films for children: moving characters, narrated aloud, teaching Islamic character — watch right here, no download.",
   },
+  es: {
+    heading: "Historias para niños musulmanes",
+    intro:
+      "Cortometrajes animados con personajes en movimiento y narración de voz: cada historia enseña un valor del Corán y la Sunna. Míralos aquí mismo, sin descargas.",
+    interactive: "Historias animadas interactivas",
+    metaTitle: (s) => `Historias para niños musulmanes — Películas animadas — ${s}`,
+    metaDesc:
+      "Cortometrajes animados para niños: personajes en movimiento, narrados en voz alta, que enseñan el carácter islámico — míralos aquí mismo, sin descargas.",
+  },
   fr: {
     heading: "Histoires pour enfants musulmans",
     intro:

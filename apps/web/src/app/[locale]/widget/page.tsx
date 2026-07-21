@@ -16,10 +16,11 @@ interface WidgetCard {
 const WIDGETS: WidgetCard[] = [
   {
     emoji: "📖",
-    title: { id: "Al-Qur'an Flipbook", en: "Qur'an Flipbook", fr: "Coran feuilletable", de: "Koran-Blätterbuch", ar: "مصحف قابل للتقليب" },
+    title: { id: "Al-Qur'an Flipbook", en: "Qur'an Flipbook", fr: "Coran feuilletable", de: "Koran-Blätterbuch", ar: "مصحف قابل للتقليب", es: "Corán hojeable" },
     desc: {
       id: "Mushaf yang bisa dibalik halamannya seperti buku asli, langsung di browser.",
       en: "A page-turning Mushaf you can read right in the browser.",
+      es: "Un Mushaf de páginas que puedes leer directamente en el navegador.",
       fr: "Un Moushaf que l'on feuillette comme un vrai livre, directement dans le navigateur.",
       de: "Ein Mushaf zum Blättern wie ein echtes Buch, direkt im Browser.",
       ar: "مصحف تُقلَّب صفحاته كالكتاب الحقيقي، مباشرةً في المتصفح.",
@@ -28,10 +29,11 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "📻",
-    title: { id: "Radio Qur'an Dunia", en: "World Qur'an Radio", fr: "Radio Coran du monde", de: "Weltweites Koran-Radio", ar: "إذاعة القرآن العالمية" },
+    title: { id: "Radio Qur'an Dunia", en: "World Qur'an Radio", fr: "Radio Coran du monde", de: "Weltweites Koran-Radio", ar: "إذاعة القرآن العالمية", es: "Radio Corán Mundial" },
     desc: {
       id: "Al-Qur'an dibacakan tanpa henti 24 jam oleh para qori dunia.",
       en: "The Qur'an recited nonstop, 24 hours a day, by reciters from around the world.",
+      es: "El Corán recitado sin parar, 24 horas al día, por recitadores de todo el mundo.",
       fr: "Le Coran récité sans interruption, 24 h/24, par des récitants du monde entier.",
       de: "Der Koran rund um die Uhr rezitiert, von Rezitatoren aus aller Welt.",
       ar: "القرآن يُتلى دون توقف على مدار الساعة بأصوات قرّاء من العالم.",
@@ -40,10 +42,11 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "🕌",
-    title: { id: "Jadwal Sholat & Radio", en: "Prayer Times & Radio", fr: "Horaires de prière & Radio", de: "Gebetszeiten & Radio", ar: "مواقيت الصلاة والإذاعة" },
+    title: { id: "Jadwal Sholat & Radio", en: "Prayer Times & Radio", fr: "Horaires de prière & Radio", de: "Gebetszeiten & Radio", ar: "مواقيت الصلاة والإذاعة", es: "Horarios de oración y Radio" },
     desc: {
       id: "Jadwal sholat sesuai lokasi Anda, plus Radio Qori Dunia yang selalu hidup.",
       en: "Prayer times for your location, plus the always-on World Qur'an Radio.",
+      es: "Los horarios de oración según tu ubicación, además de la Radio Corán Mundial siempre activa.",
       fr: "Les horaires de prière selon votre position, plus la Radio Coran du monde toujours active.",
       de: "Gebetszeiten für Ihren Standort, dazu das immer aktive Weltweite Koran-Radio.",
       ar: "مواقيت الصلاة حسب موقعك، مع إذاعة القرآن العالمية الدائمة.",
@@ -52,10 +55,11 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "🧒",
-    title: { id: "Kisah Anak Muslim", en: "Muslim Kids' Stories", fr: "Histoires pour enfants musulmans", de: "Geschichten für muslimische Kinder", ar: "قصص الأطفال المسلمين" },
+    title: { id: "Kisah Anak Muslim", en: "Muslim Kids' Stories", fr: "Histoires pour enfants musulmans", de: "Geschichten für muslimische Kinder", ar: "قصص الأطفال المسلمين", es: "Historias para niños musulmanes" },
     desc: {
       id: "Kisah pendek berurutan untuk anak, aman ditonton, tanpa gambar yang dilarang.",
       en: "Short, sequential stories for children — safe to watch, no prohibited imagery.",
+      es: "Historias cortas y secuenciales para niños — seguras de ver, sin imágenes prohibidas.",
       fr: "De courtes histoires suivies pour enfants — à regarder en toute sécurité, sans image interdite.",
       de: "Kurze, aufeinanderfolgende Geschichten für Kinder — unbedenklich, ohne verbotene Bilder.",
       ar: "قصص قصيرة متتابعة للأطفال — آمنة للمشاهدة، دون صور محظورة.",
@@ -83,6 +87,13 @@ const L: Record<string, { heading: (s: string) => string; intro: string; open: s
     open: "Open & install",
     metaTitle: (s) => `Widget Store — ${s}`,
     metaDesc: (s) => `Every installable ${s} widget in one place — Qur'an, Radio, Prayer Times, and more.`,
+  },
+  es: {
+    heading: (s) => `Tienda de widgets ${s}`,
+    intro: "Cada widget se instala de forma independiente en tu pantalla de inicio — como su propia app, separada de las demás.",
+    open: "Abrir e instalar",
+    metaTitle: (s) => `Tienda de widgets — ${s}`,
+    metaDesc: (s) => `Todos los widgets instalables de ${s} en un solo lugar — Corán, Radio, horarios de oración y más.`,
   },
   fr: {
     heading: (s) => `Boutique de widgets ${s}`,
