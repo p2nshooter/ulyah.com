@@ -1,0 +1,67 @@
+name: Import murottal to R2 (complete the library)
+
+# Fills the self-hosted murottal library in R2 to 100% for the chosen qori,
+# so the radio + Qur'an reader can stream from R2 (free egress, edge-cached,
+# can't be blocked like a third-party CDN). Runs on a GitHub runner because a
+# whole-library import (up to 6236 ayat × 22 qori) far exceeds a Worker's
+# subrequest/time budget. Idempotent + resumable — re-running only fetches the
+# gaps, so start with one reciter, verify, then do the rest.
+
+on:
+  workflow_dispatch:
+    inputs:
+      qori:
+        description: "Comma list of R2 folders (e.g. alafasy,sudais) or 'all'"
+        required: false
+        default: "alafasy"
+      limit:
+        description: "Max ayat per qori this run (6236 = full)"
+        required: false
+        default: "6236"
+      concurrency:
+        description: "Parallel downloads"
+        required: false
+        default: "12"
+
+concurrency:
+  group: import-murottal
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install S3 client (R2 upload)
+        run: npm i @aws-sdk/client-s3 --no-save
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Import
+        run: node scripts/import-murottal.mjs --qori=${{ inputs.qori || 'alafasy' }} --limit=${{ inputs.limit || '6236' }} --concurrency=${{ inputs.concurrency || '12' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}

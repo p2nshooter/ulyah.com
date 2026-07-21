@@ -648,25 +648,11 @@ jobs:
             echo "Nasakh-Mansukh already has $NCOUNT entries — skipping import."
           fi
 
-      - name: Clean up obsolete murottal R2 cache (one-time)
-        working-directory: apps/worker-api
-        run: |
-          set -eu
-          # Murottal audio is no longer re-hosted in R2 — the frontend streams
-          # it directly from the reciter's own public CDN instead (cheaper,
-          # instant, no import job). Same reasoning applies to tafsir/asbabun
-          # nuzul: fetched live from GitHub + cached in KV, not bulk-imported
-          # into D1 (a full bulk import kept hitting D1's per-statement size
-          # limit for content a stable public source already serves). This
-          # just clears the now-unused audio_cache rows once.
-          DONE=$(npx wrangler kv key get "cleanup:murottal-r2-done" --binding=CACHE_KV --remote 2>/dev/null || echo "")
-          if [ -z "$DONE" ]; then
-            echo "Clearing obsolete audio_cache rows."
-            npx wrangler d1 execute ulyah-db --remote --command="DELETE FROM audio_cache;"
-            npx wrangler kv key put "cleanup:murottal-r2-done" "1" --binding=CACHE_KV --remote
-          else
-            echo "Murottal R2 cleanup already done — skipping."
-          fi
+      # (Removed) A one-time step here used to DELETE FROM audio_cache, from
+      # when murottal was going to be served only from the reciters' CDN. The
+      # owner has since decided to SELF-HOST murottal in R2 again (complete the
+      # library to 100% and stream the radio from R2, CDN only as fallback), so
+      # that destructive cleanup is gone — audio_cache is the R2 catalog now.
 
       - name: Regenerate hadits sessions with Arabic text (one-time backfill)
         continue-on-error: true
