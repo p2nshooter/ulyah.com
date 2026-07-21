@@ -1,0 +1,132 @@
+/* ────────────────────────────────────────────────────────────────────
+   xad.es — XAD "eXplore Ayah Daily" (English member)
+   A modern CELESTIAL identity, deliberately unlike ulyah's emerald and every
+   sibling (owner: "warnanya 100% sama ulyah.com — rubah cms & ornamen total,
+   posisi & warna, seimbang header→footer"). Royal VIOLET/indigo + luminous
+   gold, a deep-space background wash + faint starfield, SHARP modern cards
+   (opposite of dawa's soft rounding), an 8-point star motif — "explore the
+   ayah like exploring the night sky". Base color tokens live in globals.css
+   under :root[data-tenant="xad"]; this file adds the structural/visual layer.
+   ──────────────────────────────────────────────────────────────────── */
+
+/* Modern display headings: tight, confident, lightly tracked — an English
+   editorial feel distinct from the siblings' humanist serifs. */
+html[data-tenant="xad"] .font-heading,
+html[data-tenant="xad"] h1,
+html[data-tenant="xad"] h2,
+html[data-tenant="xad"] h3 {
+  font-family: "Fraunces", "Spectral", "Georgia", serif !important;
+  letter-spacing: -0.01em;
+}
+html[data-tenant="xad"] h1 { line-height: 1.08; }
+html[data-tenant="xad"] body,
+html[data-tenant="xad"] { font-family: "Inter", system-ui, sans-serif; line-height: 1.6; }
+
+/* Deep-space wash: two violet glows + a gold ember, over a faint dotted
+   starfield — calm, cosmic, never flat. Fixed so it reads as one sky. */
+html[data-tenant="xad"] body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(1100px 500px at 84% -10%, rgba(124, 92, 214, 0.16), transparent 60%),
+    radial-gradient(820px 460px at -6% 8%, rgba(63, 43, 118, 0.14), transparent 58%),
+    radial-gradient(680px 380px at 50% 120%, rgba(212, 167, 44, 0.08), transparent 60%),
+    radial-gradient(rgba(124, 92, 214, 0.10) 1px, transparent 1.4px);
+  background-size: auto, auto, auto, 26px 26px;
+  background-attachment: fixed, fixed, fixed, scroll;
+}
+html[data-tenant="xad"][data-theme="dark"] body {
+  background-image:
+    radial-gradient(1100px 500px at 84% -10%, rgba(124, 92, 214, 0.22), transparent 60%),
+    radial-gradient(820px 460px at -6% 8%, rgba(63, 43, 118, 0.20), transparent 58%),
+    radial-gradient(680px 380px at 50% 120%, rgba(212, 167, 44, 0.10), transparent 60%),
+    radial-gradient(rgba(200, 180, 255, 0.10) 1px, transparent 1.4px);
+  background-size: auto, auto, auto, 26px 26px;
+}
+
+/* SHARP modern cards — thin gold hairline, cool violet shadow, crisp lift.
+   The deliberate opposite of dawa's big soft rounding → a different silhouette. */
+html[data-tenant="xad"] .card-premium {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border-gold);
+  box-shadow: 0 4px 18px rgba(40, 26, 77, 0.14);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+html[data-tenant="xad"] .card-premium:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  box-shadow: 0 14px 40px rgba(124, 92, 214, 0.22);
+}
+/* Crisp, restrained rounding everywhere (modern, architectural). */
+html[data-tenant="xad"] .rounded-3xl { border-radius: 0.85rem; }
+html[data-tenant="xad"] .rounded-2xl { border-radius: 0.65rem; }
+html[data-tenant="xad"] .rounded-xl { border-radius: 0.5rem; }
+html[data-tenant="xad"] .rounded-lg,
+html[data-tenant="xad"] .rounded-md { border-radius: 0.4rem; }
+
+/* Gold gradient buttons with deep-violet ink. */
+html[data-tenant="xad"] .bg-accent {
+  background-image: linear-gradient(135deg, #d4a72c, #e6c25a);
+  box-shadow: 0 8px 24px rgba(212, 167, 44, 0.28);
+  font-weight: 700;
+}
+html[data-tenant="xad"] .bg-accent.text-primary,
+html[data-tenant="xad"] a.bg-accent,
+html[data-tenant="xad"] button.bg-accent { color: #281a4d !important; }
+
+/* Header: violet glass with a thin gold underline (a horizon line). */
+html[data-tenant="xad"] header {
+  background: color-mix(in srgb, var(--color-bg) 86%, transparent);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: inset 0 -2px 0 -1px color-mix(in srgb, var(--color-accent) 42%, transparent);
+  backdrop-filter: saturate(1.1) blur(8px);
+}
+html[data-tenant="xad"] header nav a { font-weight: 600; font-size: 0.8rem; letter-spacing: 0.01em; }
+
+/* Section headings carry a small gold star tick. */
+html[data-tenant="xad"] h2.font-heading {
+  padding-left: 0.7rem;
+  border-left: 3px solid var(--color-accent);
+}
+
+/* Violet/gold scrollbar + selection. */
+html[data-tenant="xad"] * { scrollbar-width: thin; scrollbar-color: #6b4fb0 transparent; }
+html[data-tenant="xad"] *::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-tenant="xad"] *::-webkit-scrollbar-thumb { background: linear-gradient(#6b4fb0, #3f2b76); border-radius: 9999px; }
+html[data-tenant="xad"] ::selection { background: rgba(124, 92, 214, 0.34); color: #f3f0f8; }
+
+/* Footer: a violet→gold horizon band (distinct from dawa's mosaic). */
+html[data-tenant="xad"] footer {
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, #3f2b76 0%, #6b4fb0 45%, #d4a72c 100%) 3;
+}
+
+/* ── CELESTIAL — structural identity ───────────────────────────────────────
+   The hero opens on a night sky: a soft violet dome with a rising gold ember
+   at the horizon, and a thin star-line closing edge. */
+html[data-tenant="xad"] .hero-main {
+  position: relative;
+  background-image:
+    radial-gradient(150% 100% at 50% -40%, rgba(124, 92, 214, 0.20), transparent 62%),
+    radial-gradient(60% 40% at 50% 118%, rgba(212, 167, 44, 0.14), transparent 60%);
+}
+html[data-tenant="xad"] .hero-main::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4a72c 20%, #e6c25a 50%, #d4a72c 80%, transparent);
+  opacity: 0.7;
+}
+/* The quote card sits inside a soft-arched violet frame. */
+html[data-tenant="xad"] .hero-main .rounded-3xl {
+  border-radius: 0.85rem !important;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+
+/* App-hero motif — an 8-point night star (gold, faint). */
+html[data-tenant="xad"] .app-hero::before {
+  opacity: 0.12;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='42'%20height='42'%20viewBox='0%200%2042%2042'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='1'%3E%3Cpath%20d='M21%203l3%2013%2013%203-13%203-3%2013-3-13-13-3%2013-3z'/%3E%3Cpath%20d='M21%2010l1.6%208.4L31%2021l-8.4%201.6L21%2032l-1.6-8.4L11%2021l8.4-1.6z'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 42px 42px;
+  mask-size: 42px 42px;
+}

@@ -26,6 +26,7 @@ import "@/styles/themes/ulyah.css";
 import "@/styles/themes/france.css";
 import "@/styles/themes/germany.css";
 import "@/styles/themes/spain.css";
+import "@/styles/themes/xad.css";
 
 // The ecosystem hreflang cluster (owner: Update Global Seluruh Portal §3):
 // every page on every site declares its language siblings across DOMAINS —
@@ -160,7 +161,15 @@ export const viewport: Viewport = {
   // harus seimbang dengan website"), not a baked-in emerald: 1fr navy, tilawa
   // charcoal, dawa terracotta, ulyah emerald.
   themeColor:
-    TENANT.id === "1fr" ? "#17294a" : TENANT.id === "tilawa" ? "#14181d" : TENANT.id === "dawa" ? "#8a3b12" : "#0B3D2E",
+    TENANT.id === "1fr"
+      ? "#17294a"
+      : TENANT.id === "tilawa"
+        ? "#14181d"
+        : TENANT.id === "dawa"
+          ? "#8a3b12"
+          : TENANT.id === "xad"
+            ? "#281a4d"
+            : "#0B3D2E",
   width: "device-width",
   initialScale: 1,
 };
