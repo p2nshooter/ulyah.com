@@ -95,7 +95,7 @@ export async function getAdConfig(env: Env): Promise<AdConfig> {
   }
 }
 
-export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<void> {
+export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<AdConfig> {
   const clean: AdConfig = { clientId: AD_CLIENT_ID, slots: {}, sites: {} };
   for (const p of AD_PLACEMENTS) {
     // slot ids are digits only, ≤20 chars
@@ -103,6 +103,11 @@ export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<void> {
   }
   for (const s of AD_SITES) clean.sites[s] = coerceSite(cfg.sites?.[s]);
   await safeKvPut(env, KV_KEY, JSON.stringify(clean));
+  // Return the exact config we just wrote. Callers MUST NOT re-read from KV
+  // right after this: Cloudflare KV is eventually consistent, so a get()
+  // immediately after put() often returns the STALE previous value — which
+  // made the admin "save" appear to reset every toggle back to OFF.
+  return clean;
 }
 
 /** The public per-site view a site fetches to decide what to render.

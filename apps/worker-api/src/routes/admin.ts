@@ -855,12 +855,14 @@ adminRoute.post("/adsense-config", async (c) => {
       mergedSites[k] = { enabled: v.enabled === true, approved: v.approved === true };
     }
   }
-  await saveAdConfig(c.env, {
+  // Use the config saveAdConfig actually wrote — never re-read from KV here
+  // (KV is eventually consistent; an immediate get() returns the stale value
+  // and made every saved toggle snap back to OFF in the admin panel).
+  const saved = await saveAdConfig(c.env, {
     clientId: current.clientId,
     slots: { ...current.slots, ...(body.slots ?? {}) },
     sites: mergedSites,
   });
-  const saved = await getAdConfig(c.env);
   const admin = c.get("admin" as never) as { email: string };
   const liveSlots = Object.values(saved.slots).filter(Boolean).length;
   const onSites = Object.entries(saved.sites).filter(([, v]) => v.enabled).map(([k]) => k);

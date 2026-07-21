@@ -74,7 +74,11 @@ export function GET(req: NextRequest) {
     short_name: TENANT.siteName,
     description: DESC[TENANT.id] ?? DESC.ulyah!,
     id: "/",
-    start_url: `/${locale}`,
+    // The site's own language is served at the BARE path (middleware 301s
+    // /id -> /). Launching the installed app at /${DEFAULT_LOCALE} would hit
+    // that redirect on every cold start — fragile on slow mobile links — so
+    // the default locale starts at "/" directly; other locales keep /xx.
+    start_url: locale === DEFAULT_LOCALE ? "/" : `/${locale}`,
     scope: "/",
     display: "standalone",
     orientation: "portrait",
