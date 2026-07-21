@@ -72,6 +72,21 @@ const L: Record<
     footnote:
       "Texts are quoted from classical works. Translations & commentary are kept concise for students and general readers.",
   },
+  zh: {
+    title: "古典伊斯兰典籍",
+    metaTitle: "古典伊斯兰典籍 — 数字图书馆",
+    metaDesc:
+      "按学科分类的古典伊斯兰典籍：教法、信仰、品德、阿拉伯语法。附作者、逐章阿拉伯原文、译文与注释。",
+    subtitle: (n) =>
+      n > 0
+        ? `古典典籍数字图书馆 — 按学科分类，附作者与章节。共 ${n} 部。`
+        : "古典典籍数字图书馆 — 按学科分类，附作者与章节。",
+    loadError: "无法加载藏书 — 请重新加载本页面。",
+    chapters: "章",
+    died: "卒于",
+    footnote:
+      "文本引自古典著作。译文与注释力求简明，方便学子与普通读者阅读。",
+  },
   fr: {
     title: "Textes Islamiques Classiques",
     metaTitle: "Textes Islamiques Classiques — Bibliothèque Numérique",

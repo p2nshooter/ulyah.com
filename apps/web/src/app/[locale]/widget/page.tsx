@@ -16,11 +16,12 @@ interface WidgetCard {
 const WIDGETS: WidgetCard[] = [
   {
     emoji: "📖",
-    title: { id: "Al-Qur'an Flipbook", en: "Qur'an Flipbook", fr: "Coran feuilletable", de: "Koran-Blätterbuch", ar: "مصحف قابل للتقليب", es: "Corán hojeable" },
+    title: { id: "Al-Qur'an Flipbook", en: "Qur'an Flipbook", fr: "Coran feuilletable", de: "Koran-Blätterbuch", ar: "مصحف قابل للتقليب", es: "Corán hojeable", zh: "可翻页《古兰经》" },
     desc: {
       id: "Mushaf yang bisa dibalik halamannya seperti buku asli, langsung di browser.",
       en: "A page-turning Mushaf you can read right in the browser.",
       es: "Un Mushaf de páginas que puedes leer directamente en el navegador.",
+      zh: "可像真书一样翻页的《古兰经》，直接在浏览器中阅读。",
       fr: "Un Moushaf que l'on feuillette comme un vrai livre, directement dans le navigateur.",
       de: "Ein Mushaf zum Blättern wie ein echtes Buch, direkt im Browser.",
       ar: "مصحف تُقلَّب صفحاته كالكتاب الحقيقي، مباشرةً في المتصفح.",
@@ -29,11 +30,12 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "📻",
-    title: { id: "Radio Qur'an Dunia", en: "World Qur'an Radio", fr: "Radio Coran du monde", de: "Weltweites Koran-Radio", ar: "إذاعة القرآن العالمية", es: "Radio Corán Mundial" },
+    title: { id: "Radio Qur'an Dunia", en: "World Qur'an Radio", fr: "Radio Coran du monde", de: "Weltweites Koran-Radio", ar: "إذاعة القرآن العالمية", es: "Radio Corán Mundial", zh: "世界《古兰经》电台" },
     desc: {
       id: "Al-Qur'an dibacakan tanpa henti 24 jam oleh para qori dunia.",
       en: "The Qur'an recited nonstop, 24 hours a day, by reciters from around the world.",
       es: "El Corán recitado sin parar, 24 horas al día, por recitadores de todo el mundo.",
+      zh: "《古兰经》全天候不间断诵读，由世界各地的诵读者呈现。",
       fr: "Le Coran récité sans interruption, 24 h/24, par des récitants du monde entier.",
       de: "Der Koran rund um die Uhr rezitiert, von Rezitatoren aus aller Welt.",
       ar: "القرآن يُتلى دون توقف على مدار الساعة بأصوات قرّاء من العالم.",
@@ -42,11 +44,12 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "🕌",
-    title: { id: "Jadwal Sholat & Radio", en: "Prayer Times & Radio", fr: "Horaires de prière & Radio", de: "Gebetszeiten & Radio", ar: "مواقيت الصلاة والإذاعة", es: "Horarios de oración y Radio" },
+    title: { id: "Jadwal Sholat & Radio", en: "Prayer Times & Radio", fr: "Horaires de prière & Radio", de: "Gebetszeiten & Radio", ar: "مواقيت الصلاة والإذاعة", es: "Horarios de oración y Radio", zh: "礼拜时间与电台" },
     desc: {
       id: "Jadwal sholat sesuai lokasi Anda, plus Radio Qori Dunia yang selalu hidup.",
       en: "Prayer times for your location, plus the always-on World Qur'an Radio.",
       es: "Los horarios de oración según tu ubicación, además de la Radio Corán Mundial siempre activa.",
+      zh: "根据您所在位置的礼拜时间，外加始终在线的世界《古兰经》电台。",
       fr: "Les horaires de prière selon votre position, plus la Radio Coran du monde toujours active.",
       de: "Gebetszeiten für Ihren Standort, dazu das immer aktive Weltweite Koran-Radio.",
       ar: "مواقيت الصلاة حسب موقعك، مع إذاعة القرآن العالمية الدائمة.",
@@ -55,11 +58,12 @@ const WIDGETS: WidgetCard[] = [
   },
   {
     emoji: "🧒",
-    title: { id: "Kisah Anak Muslim", en: "Muslim Kids' Stories", fr: "Histoires pour enfants musulmans", de: "Geschichten für muslimische Kinder", ar: "قصص الأطفال المسلمين", es: "Historias para niños musulmanes" },
+    title: { id: "Kisah Anak Muslim", en: "Muslim Kids' Stories", fr: "Histoires pour enfants musulmans", de: "Geschichten für muslimische Kinder", ar: "قصص الأطفال المسلمين", es: "Historias para niños musulmanes", zh: "穆斯林儿童故事" },
     desc: {
       id: "Kisah pendek berurutan untuk anak, aman ditonton, tanpa gambar yang dilarang.",
       en: "Short, sequential stories for children — safe to watch, no prohibited imagery.",
       es: "Historias cortas y secuenciales para niños — seguras de ver, sin imágenes prohibidas.",
+      zh: "为儿童准备的连续短篇故事 — 观看安全，无违禁画面。",
       fr: "De courtes histoires suivies pour enfants — à regarder en toute sécurité, sans image interdite.",
       de: "Kurze, aufeinanderfolgende Geschichten für Kinder — unbedenklich, ohne verbotene Bilder.",
       ar: "قصص قصيرة متتابعة للأطفال — آمنة للمشاهدة، دون صور محظورة.",
@@ -94,6 +98,13 @@ const L: Record<string, { heading: (s: string) => string; intro: string; open: s
     open: "Abrir e instalar",
     metaTitle: (s) => `Tienda de widgets — ${s}`,
     metaDesc: (s) => `Todos los widgets instalables de ${s} en un solo lugar — Corán, Radio, horarios de oración y más.`,
+  },
+  zh: {
+    heading: (s) => `${s} 小组件商店`,
+    intro: "每个小组件都可独立安装到您的主屏幕 — 如同一个独立的应用，彼此分开。",
+    open: "打开并安装",
+    metaTitle: (s) => `小组件商店 — ${s}`,
+    metaDesc: (s) => `${s} 所有可安装的小组件汇于一处 — 《古兰经》、电台、礼拜时间等。`,
   },
   fr: {
     heading: (s) => `Boutique de widgets ${s}`,
