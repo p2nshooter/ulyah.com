@@ -52,6 +52,13 @@ const LABELS: Record<string, Labels> = {
     rentBody: "Present your Hajj & Umrah services on this page to real, devoted visitors. Rent it with ease — just $1 per day. It would be our honour to welcome you.",
     rentCta: "Rent this page — salam@ulyah.com",
   },
+  zh: {
+    all: "全部", hajj: "朝觐", umrah: "副朝", duration: "行程天数", departure: "出发",
+    from: "招租 · 每日 $1", contact: "联系我们", empty: "目前暂无套餐。",
+    rentTitle: "为朝觐与副朝合作伙伴预留的尊贵位置",
+    rentBody: "在此页面向真实、虔诚的访客展示您的朝觐与副朝服务。轻松租用 — 每日仅需 $1。我们很荣幸欢迎您。",
+    rentCta: "租用此页面 — salam@ulyah.com",
+  },
   ar: {
     all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة",
     from: "متاح للإيجار · دولار/يوم", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً.",

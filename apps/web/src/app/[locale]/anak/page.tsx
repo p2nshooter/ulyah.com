@@ -47,6 +47,15 @@ const L: Record<string, { heading: string; intro: string; interactive: string; m
     metaDesc:
       "Cortometrajes animados para niños: personajes en movimiento, narrados en voz alta, que enseñan el carácter islámico — míralos aquí mismo, sin descargas.",
   },
+  zh: {
+    heading: "穆斯林儿童故事",
+    intro:
+      "带有动态角色和语音旁白的短篇动画 — 每个故事讲述一则出自《古兰经》与圣行的美德。即刻观看，无需下载。",
+    interactive: "互动动画故事",
+    metaTitle: (s) => `穆斯林儿童故事 — 动画影片 — ${s}`,
+    metaDesc:
+      "为儿童制作的短篇动画：动态角色、语音朗读、传授伊斯兰美德 — 即刻观看，无需下载。",
+  },
   fr: {
     heading: "Histoires pour enfants musulmans",
     intro:
