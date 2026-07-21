@@ -44,7 +44,15 @@ function crossDomainLanguages(route: string): Record<string, string> {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
-  for (const l of LOCALES) {
+  // One language per DOMAIN: each site's sitemap lists ONLY its own default
+  // language at bare URLs (ulyah.com=id, xad.es=en, 1fr.fr=fr, tilawa.de=de,
+  // dawa.es=es); the other languages live on their sibling domains and are
+  // referenced via the cross-domain hreflang alternates below. Listing every
+  // LOCALES prefix here (e.g. ulyah.com/en/*) would duplicate the sibling
+  // domains' content and trip AdSense/Search Console duplicate checks
+  // (owner: "hati-hati sitemap, jangan sampai duplikat").
+  const OWN_LOCALES = LOCALES.filter((l) => l.code === DEFAULT_LOCALE);
+  for (const l of OWN_LOCALES) {
     for (const r of ROUTES) {
       entries.push({
         url: urlFor(l.code, r),

@@ -81,6 +81,16 @@ export async function generateMetadata({
       ...(locale === DEFAULT_LOCALE ? {} : { canonical: "./" }),
       languages: HREFLANG_CLUSTER,
     },
+    // One language per DOMAIN. ulyah.com is Indonesian-only now — the other
+    // languages each live on their own ecosystem domain (en→xad.es, fr→1fr.fr,
+    // de→tilawa.de, es→dawa.es). ulyah.com's non-Indonesian locale routes still
+    // render (so the header can show them struck-through) but must NOT be
+    // indexed, or they'd duplicate the sibling domains and fail AdSense/Search
+    // Console duplicate checks. Siblings serve only their own language, so this
+    // only ever fires on the ulyah tenant.
+    ...(TENANT.id === "ulyah" && locale !== DEFAULT_LOCALE
+      ? { robots: { index: false, follow: true } }
+      : {}),
     manifest: `/manifest.webmanifest?locale=${locale}`,
     icons:
       TENANT.id === "ulyah"
