@@ -60,7 +60,7 @@ export function isValidLocale(code: string): boolean {
 // coretan satu-persatu, jangan ada yang inkonsisten"). Not-yet-ready languages
 // stay visibly struck through and unclickable. Add a code here only after its
 // whole UI + straggler strings are complete in that language.
-export const READY_LOCALE_CODES = new Set<string>(["id", "en", "fr", "de", "es", "zh"]);
+export const READY_LOCALE_CODES = new Set<string>(["id", "en", "fr", "de", "es", "zh", "ar"]);
 
 export function isLocaleReady(code: string): boolean {
   return code === DEFAULT_LOCALE || READY_LOCALE_CODES.has(code);
