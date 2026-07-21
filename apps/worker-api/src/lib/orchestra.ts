@@ -114,6 +114,34 @@ async function cfWorkerAiEnabled(env: Env): Promise<boolean> {
   }
 }
 
+// ── Kaggle (free GPU/TPU) compute endpoint ───────────────────────────────
+// The owner's Kaggle notebooks give ~30h GPU + 20h TPU FREE per week. When one
+// is running a self-hosted OpenAI-compatible server (vLLM/llama.cpp) exposed
+// through a Cloudflare tunnel, its URL is registered here from the admin
+// portal. Orchestra then puts this FREE powerful model at the FRONT of every
+// capability chain — "maximalin AI... buat seluruh ekosistem" — so ulyah.com,
+// the siblings, AND axto.us all draw on it via the existing REST endpoints,
+// and fail over to the donated API keys the moment the notebook stops.
+export const KAGGLE_ENDPOINT_KV = "orchestra:kaggle:endpoint";
+export interface KaggleEndpoint {
+  url: string; // full OpenAI-compatible chat/completions URL (the tunnel)
+  token?: string; // optional bearer the notebook expects
+  model?: string; // served model name (e.g. "meta-llama/Llama-3.1-8B-Instruct")
+  enabled?: boolean;
+}
+
+export async function getKaggleEndpoint(env: Env): Promise<KaggleEndpoint | null> {
+  try {
+    const raw = await safeKvGet(env, KAGGLE_ENDPOINT_KV);
+    if (!raw) return null;
+    const cfg = JSON.parse(raw) as KaggleEndpoint;
+    if (!cfg.url || cfg.enabled === false) return null;
+    return cfg;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Run one AI job through the failover chain for its capability. Returns which
  * provider/key actually served it plus the full attempt trail (for the admin
@@ -125,10 +153,32 @@ export async function orchestrate(
   opts: { capability: Capability; prompt: string; timeoutMs?: number; maxTokens?: number }
 ): Promise<OrchestraResult> {
   await reviveCooledKeys(env);
-  const chain = CAPABILITY_CHAINS[opts.capability] ?? TEXT_CHAIN;
+  const baseChain = CAPABILITY_CHAINS[opts.capability] ?? TEXT_CHAIN;
   const attempts: OrchestraAttempt[] = [];
 
-  for (const step of chain) {
+  // Free Kaggle GPU/TPU first (when a notebook is live), then the donated keys.
+  const kaggle = await getKaggleEndpoint(env);
+  if (kaggle) {
+    const started = Date.now();
+    try {
+      const res = await chatComplete("kaggle", kaggle.token ?? "", opts.prompt, {
+        model: kaggle.model,
+        baseUrl: kaggle.url,
+        timeoutMs: opts.timeoutMs ?? 30_000,
+        maxTokens: opts.maxTokens,
+      });
+      if (res.text && res.text.trim()) {
+        attempts.push({ provider: "kaggle", keyId: null, ok: true });
+        return { ok: true, text: res.text, servedBy: "kaggle-gpu", capability: opts.capability, attempts };
+      }
+      attempts.push({ provider: "kaggle", keyId: null, ok: false, detail: "empty response" });
+    } catch (err) {
+      // Notebook stopped / tunnel down — fall through to the donated keys.
+      attempts.push({ provider: "kaggle", keyId: null, ok: false, detail: String(err).slice(0, 200) });
+    }
+  }
+
+  for (const step of baseChain) {
     const selected = await selectKeyForScope(env, step.scope, step.provider);
     if (!selected) {
       attempts.push({ provider: step.provider, keyId: null, ok: false, detail: "no active key for this provider/scope" });

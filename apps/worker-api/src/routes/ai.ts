@@ -3,9 +3,9 @@ import { extractJson } from "@ulyah/ai-engine";
 import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
-import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, type Capability } from "../lib/orchestra.js";
+import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, getKaggleEndpoint, KAGGLE_ENDPOINT_KV, type Capability, type KaggleEndpoint } from "../lib/orchestra.js";
 import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
-import { safeKvGet } from "../lib/kv-safe.js";
+import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
 
@@ -244,6 +244,49 @@ aiRoute.post("/reader", async (c) => {
 // status (admin observability for Orchestra Core).
 aiRoute.get("/orchestra/health", requireAdmin, async (c) => {
   return c.json({ health: await orchestraHealth(c.env), registry: capabilityRegistry() });
+});
+
+// ── Kaggle free-GPU compute endpoint (admin) ──────────────────────────────
+// Register the URL of a running Kaggle notebook that serves an OpenAI-
+// compatible API (vLLM/llama.cpp) through a Cloudflare tunnel. Once set,
+// Orchestra Core puts this FREE model at the front of every capability chain
+// for the whole ecosystem (ulyah.com + siblings + axto.us), failing over to
+// the donated keys when the notebook stops. See scripts/kaggle-orchestra-server.py.
+aiRoute.get("/orchestra/kaggle", requireAdmin, async (c) => {
+  const cfg = await getKaggleEndpoint(c.env);
+  // Never echo the bearer back; just say whether one is set.
+  return c.json(
+    cfg
+      ? { configured: true, url: cfg.url, model: cfg.model ?? null, enabled: cfg.enabled !== false, hasToken: !!cfg.token }
+      : { configured: false }
+  );
+});
+
+aiRoute.post("/orchestra/kaggle", requireAdmin, async (c) => {
+  const body = await c.req.json<Partial<KaggleEndpoint>>();
+  const url = String(body.url ?? "").trim();
+  if (url && !/^https:\/\/.+/.test(url)) return c.json({ error: "url must be an https endpoint" }, 400);
+  const cfg: KaggleEndpoint = {
+    url,
+    token: body.token ? String(body.token) : undefined,
+    model: body.model ? String(body.model).slice(0, 120) : undefined,
+    enabled: body.enabled !== false,
+  };
+  await safeKvPut(c.env, KAGGLE_ENDPOINT_KV, JSON.stringify(cfg));
+  return c.json({ ok: true, configured: !!url, enabled: cfg.enabled });
+});
+
+// POST /ai/orchestra/kaggle-test — prove the registered endpoint actually
+// answers, through the real Orchestra path (servedBy tells you if Kaggle or a
+// fallback key handled it).
+aiRoute.post("/orchestra/kaggle-test", requireAdmin, async (c) => {
+  const r = await orchestrate(c.env, {
+    capability: "answer",
+    prompt: "Reply with exactly: OK",
+    timeoutMs: 25_000,
+    maxTokens: 20,
+  });
+  return c.json({ ok: r.ok, servedBy: r.servedBy, sample: (r.text ?? "").trim().slice(0, 80), attempts: r.attempts }, r.ok ? 200 : 503);
 });
 
 // POST /ai/orchestra/run — run an arbitrary capability through the failover

@@ -28,7 +28,7 @@ export async function chatComplete(
   provider: string,
   rawKey: string,
   prompt: string,
-  opts: { model?: string; timeoutMs?: number; maxTokens?: number } = {}
+  opts: { model?: string; timeoutMs?: number; maxTokens?: number; baseUrl?: string } = {}
 ): Promise<ChatCompletionResult> {
   const started = Date.now();
   const controller = new AbortController();
@@ -56,14 +56,21 @@ export async function chatComplete(
       return { text, latencyMs: Date.now() - started };
     }
 
-    const url = OPENAI_COMPATIBLE_BASE[provider];
+    // A self-hosted OpenAI-compatible endpoint (e.g. a Kaggle GPU/TPU notebook
+    // running vLLM/llama.cpp behind a Cloudflare tunnel) passes its live URL
+    // via opts.baseUrl — it can't be a static entry since it changes per
+    // session. Everything else uses its registered provider URL.
+    const url = opts.baseUrl ?? OPENAI_COMPATIBLE_BASE[provider];
     if (!url) throw new Error(`No chat-completion adapter registered for provider "${provider}"`);
 
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    // A self-hosted endpoint may run open (no key); only send auth when present.
+    if (rawKey) headers.Authorization = `Bearer ${rawKey}`;
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${rawKey}` },
+      headers,
       body: JSON.stringify({
-        model: opts.model ?? DEFAULT_MODEL[provider],
+        model: opts.model ?? DEFAULT_MODEL[provider] ?? "default",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.5,
         max_tokens: opts.maxTokens ?? 1024,
