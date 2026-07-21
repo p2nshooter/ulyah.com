@@ -69,6 +69,11 @@ function classify(token) {
   if (token.startsWith("AIza")) return { provider: "google-ai-studio", scope: "text" };
   if (token.startsWith("gsk_")) return { provider: "groq", scope: "text" };
   if (token.startsWith("hf_")) return { provider: "hf-inference", scope: "text" };
+  // Kaggle GPU/TPU tokens (owner pasted them as KGAT_<hex>). Stored as the
+  // "kaggle" provider, gpu scope, so they join the shared pool. Paste them in
+  // the AI_KEY_BULK_IMPORT secret as "username:KGAT_..." for real Basic-auth
+  // (Kaggle needs the username); a bare KGAT_ still ingests and is recorded.
+  if (token.startsWith("KGAT_") || /^[a-z0-9_.-]+:KGAT_/i.test(token)) return { provider: "kaggle", scope: "gpu" };
   return null;
 }
 
@@ -76,7 +81,7 @@ function classify(token) {
 // pull out every key token with its nearest label.
 const lines = blob.split(/\r?\n/);
 const TOKEN_RE =
-  /(nvapi-[A-Za-z0-9_\-]{20,}|sk-or-v1-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_\-]{35}|gsk_[A-Za-z0-9]{40,}|hf_[A-Za-z0-9]{30,})/g;
+  /((?:[A-Za-z0-9_.-]+:)?KGAT_[A-Za-z0-9]{20,}|nvapi-[A-Za-z0-9_\-]{20,}|sk-or-v1-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_\-]{35}|gsk_[A-Za-z0-9]{40,}|hf_[A-Za-z0-9]{30,})/g;
 // token -> best label seen for it. A CLEAN label (UPPER_SNAKE like
 // NVIDIA_KEY_MAIN / OPENROUTER_KEY) always wins over a messy chat-line label.
 const labelForToken = new Map();
