@@ -15,6 +15,7 @@ import { ClientsTab } from "@/components/admin/ClientsTab";
 import { ScalingTab } from "@/components/admin/ScalingTab";
 import { AccountTab } from "@/components/admin/AccountTab";
 import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
+import { NetworkTraffic } from "@/components/admin/NetworkTraffic";
 import { SettingsTab } from "@/components/admin/SettingsTab";
 import { MediaTab } from "@/components/admin/MediaTab";
 import { RoadmapTab } from "@/components/admin/RoadmapTab";
@@ -33,7 +34,7 @@ import { GrantTab } from "@/components/admin/GrantTab";
 import { SitePagesTab } from "@/components/admin/SitePagesTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kaggle" | "pages" | "hajj";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kaggle" | "pages" | "hajj";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -87,6 +88,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["grant", "🤝 Grant & Donatur"],
     ["monitor", "🖥️ Monitor"],
     ["analytics", "Analytics"],
+    ["traffic-ext", "🌍 Trafik Luar Ekosistem"],
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
     ["donations", dict.admin.donations],
@@ -167,6 +169,19 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "grant" && <GrantTab />}
         {tab === "monitor" && <MonitorTab locale={locale} />}
         {tab === "analytics" && <AnalyticsTab />}
+        {tab === "traffic-ext" && (
+          <div className="space-y-4">
+            <div>
+              <h2 className="font-heading text-lg">🌍 Trafik Situs di Luar Ekosistem ulyah.com</h2>
+              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+                Menu terpisah untuk memantau trafik situs non-dakwah (axto, profity, oldco, xaa, xad, jai, lie).
+                Semua layanan iklan AdSense &amp; fitur worker AI/non-AI situs ini tetap dikendalikan dari portal
+                admin ulyah.com ini (tab 💰 AdSense, 🎻 Orchestra Core, KeyPool, Scaling).
+              </p>
+            </div>
+            <NetworkTraffic scope="external" />
+          </div>
+        )}
         {tab === "keys" && <KeyPoolTab />}
         {tab === "content" && <ContentTab />}
         {tab === "donations" && <DonationsTab />}
