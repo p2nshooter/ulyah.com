@@ -124,6 +124,21 @@ jobs:
             exit 0
           fi
           echo "Zone id: $zone"
+          # Purge any leftover Sedo parking records anywhere in the zone — these
+          # domains were bought via Sedo and CF's zone import can carry over the
+          # Sedo NS/TXT records, which keep the parking page/favicon showing.
+          # Safe: only records whose content or name mentions "sedo" are removed
+          # (Cloudflare's own records never do). Owner: "hapus nameserver Sedo
+          # yang masih ngikut di DNS CF biar aman, nggak muncul lagi."
+          sedo_ids=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/zones/$zone/dns_records?per_page=1000" \
+            | node -e "try{const d=JSON.parse(require('fs').readFileSync(0,'utf8'));(d.result||[]).filter(r=>/sedo/i.test(((r.content||'')+' '+(r.name||''))) ).forEach(r=>console.log(r.id+':'+r.type))}catch(e){}")
+          for entry in $sedo_ids; do
+            id="${entry%%:*}"; typ="${entry##*:}"
+            echo "Deleting Sedo parking $typ record ($id)..."
+            curl -s -X DELETE -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              "https://api.cloudflare.com/client/v4/zones/$zone/dns_records/$id" > /dev/null
+          done
           for host in ${{ matrix.domain }} www.${{ matrix.domain }}; do
             for type in A AAAA CNAME; do
               ids=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
