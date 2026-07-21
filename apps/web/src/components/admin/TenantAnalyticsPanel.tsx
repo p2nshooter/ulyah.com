@@ -37,13 +37,20 @@ const META: Record<string, { name: string; site: string; icon: string }> = {
  * sibling site's own admin it shows only that site. Numbers start at 0 for a
  * freshly-launched site — nothing is guessed.
  */
+const REFRESH_MS = 12_000; // fast enough to feel live, gentle on the API
+
 export function TenantAnalyticsPanel() {
   const [rows, setRows] = useState<TenantStat[] | null>(null);
   const [refreshedAt, setRefreshedAt] = useState<Date | null>(null);
+  const [failed, setFailed] = useState(false);
+  // Ticks every second so the "updated Xs ago" counter visibly moves even
+  // between fetches — the owner's "harus di-refresh manual baru kelihatan"
+  // was partly the frozen timestamp making a working 30s refresh look dead.
+  const [nowTick, setNowTick] = useState(() => Date.now());
 
-  // Live report: refetch every 60s and on demand — the owner uninstalled the
-  // app and the numbers looked frozen because this fetched exactly once per
-  // portal visit and never again.
+  // Live report: refetch on an interval AND whenever the tab regains focus,
+  // so numbers climb on their own — no manual reload. A silently-failing fetch
+  // now surfaces (the timestamp used to freeze with no hint why).
   useEffect(() => {
     let alive = true;
     const load = () =>
@@ -53,17 +60,30 @@ export function TenantAnalyticsPanel() {
           if (!alive) return;
           setRows(r.tenants);
           setRefreshedAt(new Date());
+          setFailed(false);
         })
-        .catch(() => {});
+        .catch(() => {
+          if (alive) setFailed(true);
+        });
     load();
-    const t = setInterval(load, 30_000);
+    const t = setInterval(load, REFRESH_MS);
+    const onVis = () => {
+      if (document.visibilityState === "visible") load();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    const tick = setInterval(() => alive && setNowTick(Date.now()), 1000);
     return () => {
       alive = false;
       clearInterval(t);
+      clearInterval(tick);
+      document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
 
   if (!rows) return null;
+
+  const secondsAgo = refreshedAt ? Math.max(0, Math.round((nowTick - refreshedAt.getTime()) / 1000)) : null;
+  const onlineTotal = rows.reduce((s, r) => s + (r.activeNow ?? 0), 0);
 
   // ulyah admin sees everyone; a sibling admin sees only itself.
   const visible = TENANT.id === "ulyah" ? rows : rows.filter((r) => r.tenant === TENANT.id);
@@ -71,13 +91,20 @@ export function TenantAnalyticsPanel() {
 
   return (
     <section>
-      <p className="mb-2 font-heading text-base">
+      <p className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-heading text-base">
         {isMulti ? "🌐 Pengunjung per Situs (ulyah.com · 1fr.fr · tilawa.de · dawa.es)" : "🌐 Pengunjung Situs Ini"}
-        {refreshedAt && (
-          <span className="ml-2 align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
-            live · diperbarui {refreshedAt.toLocaleTimeString()} · auto-refresh 30 dtk
-          </span>
-        )}
+        <span
+          className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
+            failed ? "bg-red-500/15 text-red-500" : "bg-emerald-500/15 text-emerald-500"
+          }`}
+          title="Data live dari beacon perangkat"
+        >
+          <span className={`inline-block h-1.5 w-1.5 rounded-full ${failed ? "bg-red-500" : "animate-pulse bg-emerald-500"}`} />
+          {failed ? "koneksi terputus — mencoba lagi…" : "LIVE"}
+        </span>
+        <span className="align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
+          🟢 {onlineTotal} online sekarang · diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk
+        </span>
       </p>
       <div className={`grid gap-3 ${isMulti ? "desktop:grid-cols-3" : ""}`}>
         {visible.map((r) => {
