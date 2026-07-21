@@ -113,8 +113,8 @@ const XAD: TenantConfig = {
   tagline: {
     en: "The Islamic Portal in English",
   },
-  logoIcon: "/icon.png",
-  logoBanner: null,
+  logoIcon: "/brand/xad/icon.svg",
+  logoBanner: "/brand/xad/banner.svg",
   wordmark: null,
   wordmarkGold: null,
   acquisitionEmail: "salam@ulyah.com",
