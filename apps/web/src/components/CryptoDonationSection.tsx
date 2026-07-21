@@ -69,6 +69,11 @@ const BANK_HOWTO: Record<string, string[]> = {
     "Введите номер счёта, соответствующий вашей валюте ниже — получатель: YUSRON EFENDI.",
     "Завершите перевод и сохраните квитанцию. Да воздаст вам Аллах многократно за вашу доброту.",
   ],
+  ja: [
+    "銀行アプリを開き、インドネシアの Bank BNI への送金を選択します（銀行コード 009 / SWIFT BNINIDJA）。",
+    "下記の通貨に対応する口座番号を入力します — 受取人：YUSRON EFENDI。",
+    "送金を完了し、控えを保管してください。あなたの善行にアッラーが幾重にも報いてくださいますように。",
+  ],
 };
 
 export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; locale: string }) {
