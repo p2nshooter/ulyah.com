@@ -837,6 +837,17 @@ jobs:
               return 0
             fi
             echo "Zone $zone id: $ZONE_ID"
+            # Purge any leftover Sedo parking records zone-wide (NS/TXT/etc.
+            # whose content or name mentions "sedo") — several of these domains
+            # were bought via Sedo and the parking records get carried into the
+            # CF zone, keeping the Sedo page/favicon alive. Safe: Cloudflare's
+            # own records never contain "sedo".
+            sedo_ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?per_page=1000" \
+              | jq -r '.result[]? | select((.content // "" | ascii_downcase | test("sedo")) or (.name // "" | ascii_downcase | test("sedo"))) | .id')
+            for id in $sedo_ids; do
+              echo "Deleting Sedo parking record $id on $zone"
+              curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" > /dev/null
+            done
             for host in "$@"; do
               resp=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host")
               if [ "$(echo "$resp" | jq -r '.success')" != "true" ]; then
