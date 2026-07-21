@@ -12,6 +12,7 @@ import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { AdSlot } from "@/components/AdSlot";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
+import { TrafficBeacon } from "@/components/TrafficBeacon";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
 // Modular CSS architecture (src/styles/README.md): tokens+base → shared
 // animations → components → per-site themes (last, so tenant tokens win).
@@ -249,6 +250,7 @@ export default async function LocaleLayout({
       </head>
       <body className={localeDef.dir === "rtl" ? "font-arabic-ui" : ""}>
         <SwRegister />
+        <TrafficBeacon />
         <AnalyticsBeacon locale={locale} />
         <ThemeProvider>
           <Header locale={locale} dict={dict} />
