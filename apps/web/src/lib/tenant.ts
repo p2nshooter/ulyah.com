@@ -109,9 +109,10 @@ const DAWA: TenantConfig = {
 const XAD: TenantConfig = {
   id: "xad",
   siteUrl: "https://xad.es",
-  siteName: "Ulyah English",
+  // XAD = "eXplore Ayah Daily" — the English member of the ecosystem.
+  siteName: "XAD",
   tagline: {
-    en: "The Islamic Portal in English",
+    en: "eXplore Ayah Daily — Qur'an, Hadith & Tafsir in English",
   },
   logoIcon: "/brand/xad/icon.svg",
   logoBanner: "/brand/xad/banner.svg",
