@@ -166,6 +166,110 @@ function LiveHealth({ registry }: { registry: Record<string, ProviderStep[]> | n
   );
 }
 
+function KaggleEndpointPanel() {
+  const [cfg, setCfg] = useState<{ configured: boolean; url?: string; model?: string | null; enabled?: boolean; hasToken?: boolean } | null>(null);
+  const [url, setUrl] = useState("");
+  const [model, setModel] = useState("");
+  const [token, setToken] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  function load() {
+    api
+      .get<{ configured: boolean; url?: string; model?: string | null; enabled?: boolean; hasToken?: boolean }>("/ai/orchestra/kaggle")
+      .then((d) => {
+        setCfg(d);
+        if (d.url) setUrl(d.url);
+        if (d.model) setModel(d.model);
+      })
+      .catch(() => setCfg({ configured: false }));
+  }
+  useEffect(load, []);
+
+  async function save(enabled: boolean) {
+    setBusy(true);
+    setMsg(null);
+    try {
+      await api.post("/ai/orchestra/kaggle", { url: url.trim(), model: model.trim() || undefined, token: token.trim() || undefined, enabled });
+      setToken("");
+      setMsg(enabled ? "Tersimpan — Orchestra memakai GPU Kaggle lebih dulu." : "Endpoint dinonaktifkan.");
+      load();
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : "Gagal menyimpan");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function test() {
+    setBusy(true);
+    setMsg(null);
+    try {
+      const r = await api.post<{ ok: boolean; servedBy: string | null; sample: string }>("/ai/orchestra/kaggle-test", {});
+      setMsg(r.ok ? `Dilayani oleh: ${r.servedBy} · contoh: "${r.sample}"` : "Tidak ada AI yang menjawab.");
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : "Gagal menguji");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <p className="font-heading text-sm">🖥️ GPU Gratis Kaggle — endpoint compute</p>
+      <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+        Jalankan <code className="rounded bg-black/10 px-1">scripts/kaggle-orchestra-server.py</code> di notebook Kaggle
+        (GPU ON), lalu tempel URL + model + token yang tercetak. Saat aktif, Orchestra memakai GPU gratis ini{" "}
+        <b>paling depan</b> untuk seluruh ekosistem (ulyah.com, situs saudara, axto.us), dan otomatis pindah ke API key
+        donasi begitu notebook berhenti.
+      </p>
+      {cfg?.configured && (
+        <p className="mt-2 text-[11px]">
+          Status:{" "}
+          <span className={cfg.enabled ? "text-success" : "text-[var(--color-text-secondary)]"}>
+            {cfg.enabled ? "● aktif" : "○ nonaktif"}
+          </span>{" "}
+          {cfg.hasToken ? "· token tersimpan" : "· tanpa token"}
+        </p>
+      )}
+      <div className="mt-3 space-y-2">
+        <input
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="https://xxxx.trycloudflare.com/v1/chat/completions"
+          className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-xs"
+        />
+        <div className="flex flex-wrap gap-2">
+          <input
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            placeholder="Qwen/Qwen2.5-3B-Instruct"
+            className="min-w-[180px] flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-xs"
+          />
+          <input
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            placeholder="token (opsional — kosongkan utk tak mengubah)"
+            className="min-w-[180px] flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-xs"
+          />
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+        <button onClick={() => save(true)} disabled={busy} className="rounded-full bg-primary px-3 py-1.5 text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
+          Simpan & aktifkan
+        </button>
+        <button onClick={() => save(false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1.5 hover:border-accent">
+          Nonaktifkan
+        </button>
+        <button onClick={test} disabled={busy} className="rounded-full border border-accent/50 bg-accent/10 px-3 py-1.5 text-accent">
+          Uji sekarang
+        </button>
+      </div>
+      {msg && <p className="mt-2 rounded-lg bg-black/5 p-2 text-[11px] text-[var(--color-text-secondary)]">{msg}</p>}
+    </section>
+  );
+}
+
 function WorkerRegistry() {
   const [workers, setWorkers] = useState<WorkerDef[] | null>(null);
   const [err, setErr] = useState(false);
@@ -279,6 +383,7 @@ export function OrchestraTab() {
       </div>
 
       <LiveHealth registry={registry} />
+      <KaggleEndpointPanel />
       <WorkerRegistry />
       <SourceRegistry />
     </div>
