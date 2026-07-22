@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
 import { localePath } from "@/lib/paths";
@@ -113,7 +114,7 @@ export default async function HaditsCollectionPage({
             author: meta.author ? { "@type": "Person", name: meta.author } : undefined,
             inLanguage: ["ar", locale],
             numberOfPages: total,
-            publisher: { "@type": "Organization", name: "ULYAH.COM" },
+            publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
           }),
         }}
       />
