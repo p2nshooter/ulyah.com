@@ -907,12 +907,13 @@ adminRoute.get("/site-analytics", async (c) => {
         `SELECT site, path, SUM(count) AS views FROM site_pageviews WHERE day >= ?
          GROUP BY site, path ORDER BY views DESC LIMIT 50`
       ).bind(since).all<{ site: string; path: string; views: number }>(),
-      // LIVE per-site "online sekarang": real beacons in the last 5 minutes —
-      // this is what makes the admin numbers rise AND fall without a manual
-      // refresh; the panel polls this endpoint on a short interval.
+      // LIVE per-site "online sekarang" — SAME source + window as the ⚡ Live
+      // bar (presence heartbeat, ≤5s) so every site's live count is real-time
+      // and consistent, rising and falling within ~5s (owner: "online skrg
+      // maksimal 5 detik turun-naiknya, sesuai live skrg di paling atas").
       c.env.DB.prepare(
-        `SELECT site, COUNT(*) AS hits FROM site_hits
-         WHERE ts >= strftime('%s','now') - 300 GROUP BY site`
+        `SELECT tenant AS site, COUNT(*) AS hits FROM live_presence
+         WHERE last_seen >= strftime('%s','now') - 5 GROUP BY tenant`
       ).all<{ site: string; hits: number }>().catch(() => ({ results: [] as { site: string; hits: number }[] })),
     ]);
     return c.json({

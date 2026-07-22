@@ -110,8 +110,8 @@ export function TenantAnalyticsPanel() {
           {failed ? "koneksi terputus — mencoba lagi…" : "LIVE"}
         </span>
         <span className="align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
-          diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk · &quot;online sekarang&quot; ada di
-          bar ⚡ Live di atas
+          statistik historis · diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk (untuk
+          &quot;online sekarang&quot; real-time lihat bar ⚡ Live di atas)
         </span>
       </p>
       <div className={`grid gap-3 ${isMulti ? "desktop:grid-cols-3" : ""}`}>
