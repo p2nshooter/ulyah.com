@@ -121,14 +121,15 @@ export async function generateMetadata({
             }
           : TENANT.id === "xad"
             ? {
-                // xad.es (English member) — its own crisp SVG emblem as the
+                // xad.es (English member) — its own purple/gold emblem as the
                 // browser-tab favicon + home-screen icon, so it reads as its own
                 // product, not a clone of ulyah.com.
                 icon: [
-                  { url: "/brand/xad/favicon.svg", type: "image/svg+xml" },
-                  { url: "/brand/xad/icon.svg", sizes: "512x512", type: "image/svg+xml" },
+                  { url: "/brand/xad/favicon.png", sizes: "64x64", type: "image/png" },
+                  { url: "/brand/xad/icon-192.png", sizes: "192x192", type: "image/png" },
+                  { url: "/brand/xad/icon.png", sizes: "512x512", type: "image/png" },
                 ],
-                apple: "/brand/xad/icon.svg",
+                apple: "/brand/xad/apple-touch.png",
               }
             : { icon: [{ url: TENANT.logoIcon, type: "image/png" }], apple: TENANT.logoIcon },
     openGraph: {
