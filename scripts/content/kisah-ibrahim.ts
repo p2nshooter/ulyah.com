@@ -1,0 +1,269 @@
+/**
+ * "Kisah Nabi Ibrahim AS" — one complete, fully-grounded story series drawn
+ * from the main Qur'anic passages about Ibrahim: his reasoning toward the
+ * Creator (Al-An'am), his gentle appeal to his father (Maryam), the breaking
+ * of the idols and the cool fire (Al-Anbiya'), the debate with the tyrant and
+ * the four birds (Al-Baqarah), the angel guests and glad tidings (Hud), the
+ * trial of the sacrifice and its ransom (As-Saffat), and the raising of the
+ * Ka'bah's foundations with his prayer for Mecca (Al-Baqarah / Ibrahim).
+ *
+ * DELIBERATELY conservative like the other series: each episode is a close
+ * paraphrase of specific ayat, cited by surah and number, with no hadith, no
+ * scholarly opinion, and no invented dialogue beyond what the ayat state
+ * (docs/CONTENT-POLICY.md). Because the story spans several surahs, each
+ * episode carries its own surahId. Source: quran-json v3.1.2 (CC-BY-4.0).
+ */
+
+export interface IbrahimEpisode {
+  slug: string;
+  surahId: number;
+  ayahStart: number;
+  ayahEnd: number;
+  id: { title: string; body: string };
+  en: { title: string; body: string };
+}
+
+export const KISAH_IBRAHIM_SERIES: IbrahimEpisode[] = [
+  {
+    slug: "kisah-ibrahim-01-mencari-tuhan",
+    surahId: 6,
+    ayahStart: 74,
+    ayahEnd: 79,
+    id: {
+      title: "Episode 1: Perjalanan Akal Menuju Sang Pencipta",
+      body: `Kisah Ibrahim AS dibuka dengan penolakannya terhadap penyembahan berhala. Ia berkata kepada ayahnya, Azar, "Pantaskah engkau menjadikan berhala-berhala sebagai tuhan? Sesungguhnya aku melihat engkau dan kaummu dalam kesesatan yang nyata" (QS. Al-An'am: 74).
+
+Lalu Allah memperlihatkan kepada Ibrahim kerajaan (keajaiban) langit dan bumi, agar ia termasuk orang-orang yang yakin (QS. Al-An'am: 75). Ketika malam menjadi gelap, ia melihat sebuah bintang, lalu berkata (untuk menguji kaumnya), "Inikah Tuhanku?" Tetapi ketika bintang itu terbenam, ia berkata, "Aku tidak suka kepada yang terbenam" (QS. Al-An'am: 76).
+
+Ketika ia melihat bulan terbit, ia berkata, "Inikah Tuhanku?" Tetapi setelah bulan itu terbenam, ia berkata, "Sungguh, jika Tuhanku tidak memberiku petunjuk, pastilah aku termasuk orang-orang yang sesat" (QS. Al-An'am: 77). Kemudian ketika ia melihat matahari terbit, ia berkata, "Inikah Tuhanku? Ini lebih besar." Tetapi ketika matahari terbenam, ia berkata, "Wahai kaumku, sungguh aku berlepas diri dari apa yang kamu persekutukan. Aku hadapkan wajahku kepada (Allah) yang menciptakan langit dan bumi dengan penuh kepasrahan, dan aku bukanlah termasuk orang-orang musyrik" (QS. Al-An'am: 78-79).
+
+Hikmah: Ibrahim mengajarkan bahwa akal yang jujur akan menolak menyembah apa pun yang terbenam, berubah, dan lemah — dan akan menuntun kepada Sang Pencipta Yang Mahakekal.`,
+    },
+    en: {
+      title: "Episode 1: A Journey of Reason Toward the Creator",
+      body: `The story of Ibrahim (Abraham) opens with his rejection of idol worship. He said to his father, Azar, "Do you take idols as gods? Indeed, I see you and your people in clear error" (Qur'an 6:74).
+
+Then Allah showed Ibrahim the wonders of the dominion of the heavens and the earth, that he might be among the certain (6:75). When night grew dark, he saw a star and said — testing his people — "Is this my Lord?" But when it set, he said, "I do not love those that set" (6:76).
+
+When he saw the moon rising, he said, "Is this my Lord?" But when it set, he said, "If my Lord does not guide me, I will surely be among the people gone astray" (6:77). Then when he saw the sun rising, he said, "Is this my Lord? This is greater." But when it set, he said, "O my people, indeed I am free of what you associate with Allah. I have turned my face toward the One who created the heavens and the earth, inclining to truth, and I am not of the polytheists" (6:78-79).
+
+Reflection: Ibrahim teaches that honest reason refuses to worship anything that sets, changes, and is powerless — and is led instead to the eternal Creator.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-02-nasihat-untuk-ayah",
+    surahId: 19,
+    ayahStart: 41,
+    ayahEnd: 48,
+    id: {
+      title: "Episode 2: Nasihat Lembut untuk Sang Ayah",
+      body: `Ceritakanlah (Muhammad) kisah Ibrahim di dalam Kitab. Sesungguhnya ia adalah seorang yang sangat membenarkan lagi seorang nabi (QS. Maryam: 41). Ingatlah ketika ia berkata kepada ayahnya, "Wahai ayahku, mengapa engkau menyembah sesuatu yang tidak mendengar, tidak melihat, dan tidak dapat menolongmu sedikit pun?" (QS. Maryam: 42).
+
+"Wahai ayahku, sungguh telah datang kepadaku sebagian ilmu yang tidak sampai kepadamu, maka ikutilah aku, niscaya aku akan menunjukkan kepadamu jalan yang lurus. Wahai ayahku, janganlah engkau menyembah setan, karena setan itu durhaka kepada Yang Maha Pengasih" (QS. Maryam: 43-44). Perhatikan betapa setiap seruan Ibrahim diawali dengan "Wahai ayahku" — penuh kasih dan hormat, meski ia menyeru kepada perkara yang paling mendasar.
+
+Namun ayahnya menolak dengan keras, "Bencikah engkau kepada tuhan-tuhanku, wahai Ibrahim? Jika engkau tidak berhenti, pasti engkau akan kurajam, maka tinggalkanlah aku untuk waktu yang lama" (QS. Maryam: 46). Ibrahim menjawab dengan santun, "Semoga keselamatan atasmu, aku akan memohonkan ampunan bagimu kepada Tuhanku. Sungguh, Dia sangat baik kepadaku. Dan aku akan menjauhkan diri darimu dan dari apa yang kamu sembah selain Allah, dan aku akan berdoa kepada Tuhanku; mudah-mudahan aku tidak akan kecewa dengan berdoa kepada Tuhanku" (QS. Maryam: 47-48).
+
+Hikmah: Ibrahim mengajarkan adab berdakwah kepada orang yang paling dekat dan paling keras menolak — dengan kelembutan, kesabaran, dan tetap mendoakan kebaikan, tanpa membalas kekasaran dengan kekasaran.`,
+    },
+    en: {
+      title: "Episode 2: A Gentle Counsel to His Father",
+      body: `Relate the story of Ibrahim in the Book. Indeed, he was a man of truth and a prophet (19:41). Recall when he said to his father, "O my father, why do you worship that which does not hear, does not see, and cannot benefit you at all?" (19:42).
+
+"O my father, indeed there has come to me knowledge that has not come to you, so follow me; I will guide you to a straight path. O my father, do not worship Satan, for Satan is disobedient to the Most Merciful" (19:43-44). Note how each appeal began with "O my father" — full of affection and respect, even as he called to the most fundamental of matters.
+
+But his father refused harshly: "Do you reject my gods, O Ibrahim? If you do not stop, I will surely stone you, so leave me for a long while" (19:46). Ibrahim answered with grace, "Peace be upon you; I will ask forgiveness for you from my Lord. Indeed, He is ever gracious to me. And I will withdraw from you and from what you invoke besides Allah, and I will call upon my Lord; perhaps I will not be disappointed in calling upon my Lord" (19:47-48).
+
+Reflection: Ibrahim teaches the manner of calling the closest and most stubborn to the truth — with gentleness, patience, and continued prayer for their good, never answering harshness with harshness.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-03-menghancurkan-berhala",
+    surahId: 21,
+    ayahStart: 51,
+    ayahEnd: 67,
+    id: {
+      title: "Episode 3: Menghancurkan Berhala",
+      body: `Sungguh, Kami telah menganugerahkan kepada Ibrahim petunjuk (kebenaran) sejak dahulu, dan Kami mengetahui keadaannya (QS. Al-Anbiya': 51). Ketika ia berkata kepada ayahnya dan kaumnya, "Patung-patung apakah ini yang kamu tekun menyembahnya?" Mereka menjawab, "Kami mendapati nenek moyang kami menyembahnya." Ibrahim berkata, "Sungguh, kamu dan nenek moyangmu berada dalam kesesatan yang nyata" (QS. Al-Anbiya': 52-54).
+
+Ibrahim lalu bertekad, "Demi Allah, sungguh aku akan melakukan tipu daya terhadap berhala-berhalamu setelah kamu pergi meninggalkannya" (QS. Al-Anbiya': 57). Maka ia menghancurkan berhala-berhala itu berkeping-keping, kecuali yang terbesar, agar mereka kembali (bertanya) kepadanya (QS. Al-Anbiya': 58).
+
+Ketika kaumnya kembali dan melihatnya, mereka berkata, "Siapakah yang melakukan ini terhadap tuhan-tuhan kami? Sungguh, dia termasuk orang yang zalim." Sebagian mereka berkata, "Kami mendengar seorang pemuda yang mencela mereka, namanya Ibrahim" (QS. Al-Anbiya': 59-60). Maka mereka menghadirkannya dan bertanya, "Apakah engkau yang melakukan ini terhadap tuhan-tuhan kami, wahai Ibrahim?" Ia menjawab, "Sebenarnya yang melakukannya adalah yang terbesar dari mereka ini; maka tanyakanlah kepada mereka, jika mereka dapat berbicara" (QS. Al-Anbiya': 62-63).
+
+Maka mereka kembali kepada kesadaran diri dan berkata (dalam hati), "Sesungguhnya kamulah yang zalim." Kemudian mereka menundukkan kepala (lalu berkata), "Sungguh, engkau (Ibrahim) telah mengetahui bahwa berhala-berhala itu tidak dapat berbicara" (QS. Al-Anbiya': 64-65).
+
+Hikmah: Ibrahim menghancurkan berhala bukan untuk kekerasan, melainkan untuk memaksa kaumnya berpikir. Ketika mereka berkata "berhala tidak bisa bicara," mereka sesungguhnya sedang membuktikan sendiri kelemahan sesembahan mereka.`,
+    },
+    en: {
+      title: "Episode 3: Breaking the Idols",
+      body: `Indeed, We gave Ibrahim right guidance from before, and We were aware of him (21:51). When he said to his father and his people, "What are these statues to which you are so devoted?" They said, "We found our fathers worshipping them." He said, "Indeed, you and your fathers are in clear error" (21:52-54).
+
+Ibrahim then resolved, "By Allah, I will surely plan against your idols after you have turned away and gone" (21:57). So he broke them to pieces, except the largest of them, that they might return to it [and ask] (21:58).
+
+When his people returned and saw it, they said, "Who has done this to our gods? Indeed, he is of the wrongdoers." Some said, "We heard a young man mention them; he is called Ibrahim" (21:59-60). So they brought him and asked, "Did you do this to our gods, O Ibrahim?" He answered, "Rather, this — the largest of them — did it; so ask them, if they can speak" (21:62-63).
+
+So they returned to their own consciences and said [within themselves], "Indeed, it is you who are the wrongdoers." Then they hung their heads [and said], "You already know that these do not speak" (21:64-65).
+
+Reflection: Ibrahim broke the idols not for violence but to force his people to think. When they admitted "these idols cannot speak," they themselves were proving the helplessness of what they worshipped.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-04-api-yang-dingin",
+    surahId: 21,
+    ayahStart: 68,
+    ayahEnd: 70,
+    id: {
+      title: "Episode 4: Api yang Menjadi Dingin dan Menyelamatkan",
+      body: `Meski kebenaran telah jelas di hadapan mereka, kaum Ibrahim justru memilih kekerasan. Mereka berkata, "Bakarlah dia dan belalah tuhan-tuhanmu, jika kamu benar-benar hendak berbuat" (QS. Al-Anbiya': 68). Mereka menyalakan api yang besar untuk membakar seorang manusia yang tidak berdosa, hanya karena ia menyeru kepada tauhid.
+
+Namun ketika Ibrahim dilemparkan ke dalam api, Allah berfirman, "Wahai api, jadilah dingin dan keselamatan bagi Ibrahim" (QS. Al-Anbiya': 69). Api yang panasnya membakar segalanya, atas perintah Allah, seketika menjadi dingin dan menyelamatkan.
+
+Mereka hendak berbuat jahat terhadap Ibrahim, maka Kami menjadikan mereka orang-orang yang paling merugi (QS. Al-Anbiya': 70). Rencana besar mereka untuk membinasakan Ibrahim justru berbalik menjadi bukti nyata akan kekuasaan Allah dan kebenaran dakwahnya.
+
+Hikmah: pertolongan Allah datang justru pada puncak ujian. Ketika seorang hamba benar-benar berserah dan berada di jalan-Nya, Allah mampu mengubah sifat sesuatu — bahkan menjadikan api yang membakar sebagai dingin yang menyelamatkan.`,
+    },
+    en: {
+      title: "Episode 4: The Fire That Became Cool and Safe",
+      body: `Though the truth was plain before them, Ibrahim's people chose violence. They said, "Burn him and support your gods, if you are to act" (21:68). They kindled a great fire to burn an innocent man, only because he called to the oneness of Allah.
+
+But when Ibrahim was cast into the fire, Allah commanded, "O fire, be coolness and safety upon Ibrahim" (21:69). The fire whose heat consumes everything became, by Allah's command, at once cool and a means of safety.
+
+They intended harm for Ibrahim, but We made them the greatest losers (21:70). Their grand plan to destroy him instead turned into a clear proof of Allah's power and the truth of his call.
+
+Reflection: Allah's help comes at the very peak of the trial. When a servant truly surrenders and stands on His path, Allah can change the very nature of a thing — even make a burning fire into a saving coolness.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-05-debat-dengan-raja",
+    surahId: 2,
+    ayahStart: 258,
+    ayahEnd: 258,
+    id: {
+      title: "Episode 5: Debat Melawan Raja yang Mengaku Tuhan",
+      body: `Tidakkah engkau memperhatikan orang yang mendebat Ibrahim tentang Tuhannya, karena Allah telah memberinya kerajaan (kekuasaan)? Ketika Ibrahim berkata, "Tuhanku ialah Yang menghidupkan dan mematikan," raja itu menjawab dengan sombong, "Aku pun dapat menghidupkan dan mematikan" (QS. Al-Baqarah: 258). Sang raja mengira ia dapat membuktikan klaimnya dengan membiarkan hidup seorang tawanan dan membunuh yang lain — sebuah tipuan kata belaka.
+
+Maka Ibrahim tidak berdebat berkepanjangan dalam permainan kata itu. Ia langsung menghadirkan bukti yang tak mungkin dibantah, "Sesungguhnya Allah menerbitkan matahari dari timur, maka terbitkanlah ia dari barat" (QS. Al-Baqarah: 258).
+
+Maka terdiamlah orang yang kafir itu; dan Allah tidak memberi petunjuk kepada kaum yang zalim (QS. Al-Baqarah: 258). Argumen sang raja runtuh seketika, karena ia sama sekali tidak berkuasa atas hukum-hukum alam yang Allah tetapkan.
+
+Hikmah: kebenaran tidak perlu banyak kata untuk mengalahkan kesombongan. Satu bukti yang jelas dan tak terbantahkan lebih kuat daripada seribu perdebatan yang berputar-putar.`,
+    },
+    en: {
+      title: "Episode 5: The Debate Against the King Who Claimed Lordship",
+      body: `Have you not considered the one who argued with Ibrahim about his Lord because Allah had given him kingship? When Ibrahim said, "My Lord is the One who gives life and death," the king answered arrogantly, "I too give life and death" (2:258). He imagined he could prove his claim by sparing one prisoner and killing another — a mere trick of words.
+
+So Ibrahim did not prolong the argument on that wordplay. He at once brought a proof impossible to counter: "Indeed, Allah brings the sun from the east, so bring it from the west" (2:258).
+
+So the disbeliever was silenced; and Allah does not guide the wrongdoing people (2:258). The king's argument collapsed instantly, for he had no power at all over the laws of nature that Allah has decreed.
+
+Reflection: truth needs few words to defeat arrogance. One clear, irrefutable proof is stronger than a thousand debates that go in circles.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-06-empat-burung",
+    surahId: 2,
+    ayahStart: 260,
+    ayahEnd: 260,
+    id: {
+      title: "Episode 6: Ketika Ibrahim Ingin Menenteramkan Hatinya",
+      body: `Ibrahim, sang kekasih Allah, pernah memohon sesuatu bukan karena ragu, melainkan agar hatinya semakin tenang. Ia berkata, "Ya Tuhanku, perlihatkanlah kepadaku bagaimana Engkau menghidupkan orang mati." Allah bertanya, "Belum percayakah engkau?" Ibrahim menjawab, "Aku telah percaya, tetapi agar hatiku tenang (mantap)" (QS. Al-Baqarah: 260).
+
+Allah berfirman, "Kalau demikian, ambillah empat ekor burung, lalu jinakkanlah (cincanglah) olehmu, kemudian letakkanlah di atas tiap-tiap bukit satu bagian, setelah itu panggillah mereka, niscaya mereka akan datang kepadamu dengan segera" (QS. Al-Baqarah: 260).
+
+Ibrahim pun melakukannya, dan dengan izin Allah, bagian-bagian burung itu kembali menyatu dan hidup, lalu datang bergegas kepadanya. Maka Allah menutup ayat itu, "Dan ketahuilah bahwa Allah Mahaperkasa lagi Mahabijaksana" (QS. Al-Baqarah: 260).
+
+Hikmah: bahkan seorang nabi mulia seperti Ibrahim ingin memperkuat keyakinannya dengan menyaksikan langsung. Ini mengajarkan bahwa iman bisa terus bertumbuh — dan bahwa merenungkan tanda-tanda kekuasaan Allah adalah jalan menenteramkan hati.`,
+    },
+    en: {
+      title: "Episode 6: When Ibrahim Sought to Set His Heart at Ease",
+      body: `Ibrahim, the close friend of Allah, once asked for something not out of doubt but so that his heart might be more at ease. He said, "My Lord, show me how You give life to the dead." Allah asked, "Do you not believe?" Ibrahim answered, "Yes, but [I ask] so that my heart may be satisfied" (2:260).
+
+Allah said, "Then take four birds and incline them toward yourself [and cut them up], then place a portion of them on each hill, then call them; they will come to you in haste" (2:260).
+
+Ibrahim did so, and by Allah's leave the portions of the birds came together and lived, then hurried back to him. So Allah closed the verse: "And know that Allah is Exalted in Might and Wise" (2:260).
+
+Reflection: even a noble prophet like Ibrahim wished to strengthen his certainty by witnessing directly. This teaches that faith can keep growing — and that reflecting on the signs of Allah's power is a path to a tranquil heart.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-07-tamu-para-malaikat",
+    surahId: 11,
+    ayahStart: 69,
+    ayahEnd: 73,
+    id: {
+      title: "Episode 7: Tamu para Malaikat dan Kabar Gembira Ishaq",
+      body: `Dan sungguh, utusan-utusan Kami (para malaikat) telah datang kepada Ibrahim dengan membawa kabar gembira. Mereka mengucapkan, "Salam." Ibrahim menjawab, "Salam," lalu dengan segera ia menyuguhkan daging anak sapi yang dipanggang (QS. Hud: 69).
+
+Tetapi ketika ia melihat tangan mereka tidak menjamahnya, ia merasa curiga dan menaruh rasa takut terhadap mereka. Mereka berkata, "Janganlah engkau takut, sesungguhnya kami diutus kepada kaum Luth" (QS. Hud: 70). Barulah Ibrahim mengerti bahwa mereka adalah para malaikat.
+
+Dan istrinya berdiri (di sampingnya), lalu ia tersenyum (heran). Maka Kami sampaikan kepadanya kabar gembira tentang (kelahiran) Ishaq, dan setelah Ishaq (akan lahir pula) Ya'qub (QS. Hud: 71). Istrinya berkata (dengan takjub), "Sungguh mengherankan, mungkinkah aku akan melahirkan anak, padahal aku sudah tua dan suamiku pun sudah sangat tua? Ini benar-benar sesuatu yang aneh" (QS. Hud: 72). Para malaikat menjawab, "Apakah engkau merasa heran terhadap ketetapan Allah? Itulah rahmat dan berkah Allah, dicurahkan kepada kamu, wahai penghuni rumah tangga (Ibrahim). Sungguh, Dia Maha Terpuji lagi Maha Pengasih" (QS. Hud: 73).
+
+Hikmah: dari keluarga Ibrahim yang telah lanjut usia, Allah melahirkan keturunan para nabi. Tidak ada ketetapan Allah yang perlu diherankan — sebab tak ada satu pun yang mustahil bagi-Nya.`,
+    },
+    en: {
+      title: "Episode 7: The Angel Guests and the Glad Tidings of Ishaq",
+      body: `And Our messengers (the angels) came to Ibrahim with glad tidings. They said, "Peace." He answered, "Peace," and hastened to bring a roasted calf (11:69).
+
+But when he saw their hands not reaching for it, he grew wary and felt a fear of them. They said, "Do not fear; indeed, we have been sent to the people of Luth" (11:70). Only then did Ibrahim understand that they were angels.
+
+His wife was standing [nearby], and she smiled in wonder. So We gave her glad tidings of Ishaq (Isaac), and after Ishaq, Ya'qub (Jacob) (11:71). His wife said in amazement, "How astonishing! Shall I bear a child when I am old and my husband is very old? This is truly a strange thing" (11:72). The angels answered, "Are you amazed at the decree of Allah? That is the mercy and blessings of Allah upon you, O people of this house. Indeed, He is Praiseworthy and Honorable" (11:73).
+
+Reflection: from Ibrahim's aged household, Allah brought forth a lineage of prophets. No decree of Allah should cause astonishment — for nothing at all is impossible for Him.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-08-ujian-penyembelihan",
+    surahId: 37,
+    ayahStart: 99,
+    ayahEnd: 111,
+    id: {
+      title: "Episode 8: Ujian Terbesar — Perintah Penyembelihan",
+      body: `Ibrahim berkata, "Sesungguhnya aku pergi menghadap kepada Tuhanku, Dia akan memberiku petunjuk. Ya Tuhanku, anugerahkanlah kepadaku (seorang anak) yang termasuk orang saleh." Maka Kami beri ia kabar gembira dengan (kelahiran) seorang anak yang sangat sabar (QS. As-Saffat: 99-101).
+
+Ketika anak itu telah cukup umur untuk berusaha bersamanya, Ibrahim berkata, "Wahai anakku, sesungguhnya aku bermimpi bahwa aku menyembelihmu. Maka pikirkanlah bagaimana pendapatmu." Sang anak menjawab dengan keimanan yang menakjubkan, "Wahai ayahku, lakukanlah apa yang diperintahkan (Allah) kepadamu; insya Allah engkau akan mendapatiku termasuk orang-orang yang sabar" (QS. As-Saffat: 102).
+
+Maka ketika keduanya telah berserah diri, dan Ibrahim membaringkan anaknya di atas pelipisnya (untuk melaksanakan perintah itu), Kami memanggilnya, "Wahai Ibrahim! Sungguh, engkau telah membenarkan mimpi itu." Sesungguhnya demikianlah Kami memberi balasan kepada orang-orang yang berbuat baik. Sesungguhnya ini benar-benar suatu ujian yang nyata (QS. As-Saffat: 103-106).
+
+Dan Kami tebus anak itu dengan seekor sembelihan yang besar. Dan Kami abadikan untuk Ibrahim (pujian yang baik) di kalangan orang-orang yang datang kemudian, "Salam sejahtera bagi Ibrahim." Demikianlah Kami memberi balasan kepada orang-orang yang berbuat baik. Sungguh, ia termasuk hamba-hamba Kami yang beriman (QS. As-Saffat: 107-111).
+
+Hikmah: inti ujian ini bukanlah darah, melainkan kepasrahan total. Ketika ayah dan anak sama-sama berserah kepada perintah Allah, Allah menggantinya dengan tebusan — sebab yang Dia kehendaki adalah ketaatan hati, bukan kebinasaan.`,
+    },
+    en: {
+      title: "Episode 8: The Greatest Trial — the Command to Sacrifice",
+      body: `Ibrahim said, "Indeed, I am going to my Lord; He will guide me. My Lord, grant me [a child] from among the righteous." So We gave him glad tidings of a forbearing boy (37:99-101).
+
+When the boy reached the age to strive alongside him, Ibrahim said, "O my son, I have seen in a dream that I am to sacrifice you, so consider what you think." The son answered with astonishing faith, "O my father, do as you are commanded; you will find me, Allah willing, among the patient" (37:102).
+
+So when they had both submitted, and Ibrahim laid his son down upon his forehead [to carry out the command], We called to him, "O Ibrahim! You have fulfilled the vision." Indeed, thus do We reward the doers of good. Indeed, this was a clear trial (37:103-106).
+
+And We ransomed the boy with a great sacrifice. And We left for Ibrahim [favorable mention] among later generations: "Peace be upon Ibrahim." Thus do We reward the doers of good. Indeed, he was among Our believing servants (37:107-111).
+
+Reflection: the heart of this trial was not blood but total surrender. When father and son alike submitted to Allah's command, Allah replaced it with a ransom — for what He desires is the obedience of the heart, not destruction.`,
+    },
+  },
+  {
+    slug: "kisah-ibrahim-09-membangun-kabah",
+    surahId: 2,
+    ayahStart: 127,
+    ayahEnd: 129,
+    id: {
+      title: "Episode 9: Meninggikan Fondasi Ka'bah dan Doa untuk Mekah",
+      body: `Dan ingatlah ketika Ibrahim bersama Ismail meninggikan fondasi (dasar) Baitullah (Ka'bah), seraya keduanya berdoa, "Ya Tuhan kami, terimalah (amal) dari kami. Sungguh, Engkaulah Yang Maha Mendengar lagi Maha Mengetahui" (QS. Al-Baqarah: 127). Sebuah pekerjaan besar yang mereka lakukan bukan untuk kemasyhuran, melainkan sepenuhnya sebagai persembahan yang mereka harap diterima.
+
+Keduanya melanjutkan doa, "Ya Tuhan kami, jadikanlah kami berdua orang yang berserah diri kepada-Mu, dan jadikanlah di antara keturunan kami umat yang berserah diri kepada-Mu, dan tunjukkanlah kepada kami cara-cara melakukan ibadah (haji) kami, dan terimalah tobat kami. Sungguh, Engkaulah Yang Maha Penerima tobat lagi Maha Penyayang" (QS. Al-Baqarah: 128).
+
+"Ya Tuhan kami, utuslah di tengah mereka seorang rasul dari kalangan mereka sendiri, yang akan membacakan kepada mereka ayat-ayat-Mu, mengajarkan kepada mereka Kitab dan hikmah, serta menyucikan mereka. Sungguh, Engkaulah Yang Mahaperkasa lagi Mahabijaksana" (QS. Al-Baqarah: 129). Ibrahim juga berdoa agar dijadikan negeri Mekah aman dan penduduknya diberi rezeki dari buah-buahan (bandingkan QS. Ibrahim: 37).
+
+Hikmah: warisan terbesar Ibrahim bukanlah bangunan batu, melainkan doa yang menembus zaman — sebuah rumah tauhid dan permohonan akan datangnya seorang rasul, yang kelak Allah kabulkan dengan diutusnya Nabi Muhammad SAW dari keturunannya.`,
+    },
+    en: {
+      title: "Episode 9: Raising the Foundations of the Ka'bah and the Prayer for Mecca",
+      body: `And recall when Ibrahim, together with Ismail (Ishmael), raised the foundations of the House (the Ka'bah), both praying, "Our Lord, accept [this] from us. Indeed, You are the All-Hearing, the All-Knowing" (2:127). A great work they did not for fame, but wholly as an offering they hoped would be accepted.
+
+They continued their prayer, "Our Lord, make us both submitting to You, and make of our descendants a nation submitting to You, and show us our rites [of worship], and accept our repentance. Indeed, You are the Accepting of repentance, the Merciful" (2:128).
+
+"Our Lord, send among them a messenger from themselves who will recite to them Your verses, teach them the Book and wisdom, and purify them. Indeed, You are the Exalted in Might, the Wise" (2:129). Ibrahim also prayed that Mecca be made secure and its people provided with fruits (cf. Qur'an 14:37).
+
+Reflection: Ibrahim's greatest legacy was not a building of stone but a prayer that pierced the ages — a house of pure monotheism and a plea for a messenger to come, which Allah later answered by sending Prophet Muhammad from his descendants.`,
+    },
+  },
+];
