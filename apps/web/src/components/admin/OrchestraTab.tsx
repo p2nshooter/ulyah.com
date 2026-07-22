@@ -403,12 +403,14 @@ function ContentBotPanel() {
 
   return (
     <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-      <p className="font-heading text-sm">✍️ Penulis Otonom — auto-post artikel</p>
+      <p className="font-heading text-sm">✍️ Penulis Otonom — AUTO-POST otomatis</p>
       <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
-        Orchestra menulis 1 artikel orisinal on-theme tiap putaran terjadwal dan{" "}
-        <b>langsung mem-posting</b>-nya ke situs artikel (jai.lat, lie.skin, axto.dev, xaa.es, axto.us, oldco.in,
-        profity.in) — tanpa perintah. Aman: hanya menambah file data, jadi hasil generate tak bisa mematahkan build;
-        tiap situs dibatasi ±1 artikel / 3 jam agar mengalir, bukan spam.
+        <b>Berjalan sendiri setiap ~15 menit</b> (cron worker) — tanpa perlu menekan tombol. Tiap putaran, Orchestra
+        menulis 1 artikel orisinal on-theme dan <b>langsung mem-posting (commit → deploy)</b> ke situs artikel yang
+        paling lama tak diperbarui: jai.lat, lie.skin, axto.dev, xaa.es, axto.us, oldco.in, profity.in. Tiap situs
+        dibatasi ±1 artikel / 3 jam agar mengalir, bukan spam (≈8 artikel/situs/hari). Aman: hanya menambah file data,
+        jadi hasil generate tak bisa mematahkan build; setiap artikel divalidasi dulu. Tombol "Post 1 sekarang" hanya
+        pemicu manual tambahan.
       </p>
 
       {cfg && (
@@ -417,7 +419,7 @@ function ContentBotPanel() {
             {cfg.tokenConfigured ? "● token GitHub tersimpan" : "○ butuh secret GH_CONTENT_TOKEN"}
           </span>
           <span className={`rounded-full border px-3 py-1 ${cfg.paused ? "border-danger/40 bg-danger/10 text-danger" : "border-success/40 bg-success/10 text-success"}`}>
-            {cfg.paused ? "⏸ dijeda" : "▶ berjalan"}
+            {cfg.paused ? "Auto-post ⏸ DIJEDA" : "Auto-post ▶ AKTIF (tiap ~15 mnt)"}
           </span>
         </div>
       )}
