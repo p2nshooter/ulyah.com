@@ -91,7 +91,6 @@ export function TenantAnalyticsPanel() {
   if (!rows) return null;
 
   const secondsAgo = refreshedAt ? Math.max(0, Math.round((nowTick - refreshedAt.getTime()) / 1000)) : null;
-  const onlineTotal = rows.reduce((s, r) => s + (r.activeNow ?? 0), 0);
 
   // ulyah admin sees everyone; a sibling admin sees only itself.
   const visible = TENANT.id === "ulyah" ? rows : rows.filter((r) => r.tenant === TENANT.id);
@@ -111,7 +110,8 @@ export function TenantAnalyticsPanel() {
           {failed ? "koneksi terputus — mencoba lagi…" : "LIVE"}
         </span>
         <span className="align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
-          🟢 {onlineTotal} online sekarang · diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk
+          diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk · &quot;online sekarang&quot; ada di
+          bar ⚡ Live di atas
         </span>
       </p>
       <div className={`grid gap-3 ${isMulti ? "desktop:grid-cols-3" : ""}`}>
@@ -171,9 +171,6 @@ export function TenantAnalyticsPanel() {
               </div>
 
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                <span>
-                  🟢 Online sekarang: <b className="text-accent">{r.activeNow}</b>
-                </span>
                 <span>
                   📱 App terpasang (perangkat): <b className="text-accent">{r.activeDevices > 0 ? r.activeDevices : net > 0 ? net : 0}</b>
                 </span>

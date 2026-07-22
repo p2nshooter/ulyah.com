@@ -56,12 +56,15 @@ export function LivePresenceBar() {
     };
   }, []);
 
-  // ulyah admin sees the whole ecosystem; a sibling admin sees only itself.
-  const visible = rows.filter((r) => TENANT.id === "ulyah" || r.tenant === TENANT.id);
-  const onlineTotal = visible.reduce((s, r) => s + r.online, 0);
-  const closedTotal = visible.reduce((s, r) => s + r.closed, 0);
+  // ulyah admin sees the WHOLE ecosystem (always all five sites, even at 0, so
+  // the total is unambiguous); a sibling admin sees only its own site.
+  const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
+  const scope = TENANT.id === "ulyah" ? ECOSYSTEM : [TENANT.id];
+  const byTenant = new Map(rows.map((r) => [r.tenant, r]));
+  const cards: LiveRow[] = scope.map((t) => byTenant.get(t) ?? { tenant: t, online: 0, closed: 0 });
+  const onlineTotal = cards.reduce((s, r) => s + r.online, 0);
+  const closedTotal = cards.reduce((s, r) => s + r.closed, 0);
   const secondsAgo = at ? Math.max(0, Math.round((nowTick - at) / 1000)) : null;
-  const ordered = [...visible].sort((a, b) => b.online - a.online);
 
   return (
     <section className="rounded-xl border border-emerald-500/25 bg-emerald-500/[0.04] p-4">
@@ -90,7 +93,7 @@ export function LivePresenceBar() {
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 desktop:grid-cols-5">
-        {(ordered.length ? ordered : visible).map((r) => {
+        {cards.map((r) => {
           const m = META[r.tenant] ?? { name: r.tenant, icon: "🌍" };
           return (
             <div key={r.tenant} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2">
@@ -98,7 +101,7 @@ export function LivePresenceBar() {
                 {m.icon} {m.name}
               </p>
               <p className="mt-0.5 text-sm">
-                <span className="font-heading text-emerald-500">{r.online}</span>
+                <span className={`font-heading ${r.online > 0 ? "text-emerald-500" : "text-[var(--color-text-secondary)]"}`}>{r.online}</span>
                 <span className="text-[10px] text-[var(--color-text-secondary)]"> online</span>
                 {r.closed > 0 && (
                   <span className="ml-2 text-[10px] text-[var(--color-text-secondary)]">· {r.closed} baru keluar</span>
@@ -107,11 +110,6 @@ export function LivePresenceBar() {
             </div>
           );
         })}
-        {visible.length === 0 && (
-          <p className="col-span-full text-[11px] text-[var(--color-text-secondary)]">
-            Belum ada perangkat aktif detik ini — angka naik begitu ada yang membuka situs ekosistem.
-          </p>
-        )}
       </div>
       <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
         Perangkat NYATA (bukan page view), dari heartbeat tiap 5 detik. &quot;Online&quot; = aktif ≤20 detik terakhir;
