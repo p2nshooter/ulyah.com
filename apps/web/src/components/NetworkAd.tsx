@@ -114,9 +114,26 @@ function nativeDoc(n: Native): string {
 
 const SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
 
-function AdFrame({ doc, width, height, title }: { doc: string; width: number | string; height: number; title: string }) {
+function AdFrame({
+  doc,
+  width,
+  height,
+  title,
+  onEmpty,
+}: {
+  doc: string;
+  width: number | string;
+  height: number;
+  title: string;
+  onEmpty?: (empty: boolean) => void;
+}) {
   const holderRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<HTMLIFrameElement | null>(null);
   const [show, setShow] = useState(false);
+  // Until an ad actually paints we do NOT reserve the full height — an unfilled
+  // network (e.g. while the Adsterra domain is still being verified) would
+  // otherwise leave a large empty labelled box on every page ("css ganjil").
+  const [filled, setFilled] = useState(false);
 
   // Lazy-mount: only build the ad iframe when the slot nears the viewport.
   useEffect(() => {
@@ -135,10 +152,52 @@ function AdFrame({ doc, width, height, title }: { doc: string; width: number | s
     return () => io.disconnect();
   }, [show]);
 
+  // After the sandboxed (same-origin srcdoc) iframe loads, poll its content a
+  // few times — ad scripts inject asynchronously. If nothing paints, collapse
+  // the slot so no empty gap or lonely "Iklan" label is left behind.
+  useEffect(() => {
+    if (!show) return;
+    let tries = 0;
+    let done = false;
+    const check = () => {
+      if (done) return;
+      tries += 1;
+      let has = false;
+      try {
+        const body = frameRef.current?.contentDocument?.body;
+        has = !!body && body.scrollHeight > 10 && body.childElementCount > 0;
+      } catch {
+        // Cross-origin read blocked → assume it may have filled; keep it.
+        has = true;
+      }
+      if (has) {
+        done = true;
+        setFilled(true);
+        onEmpty?.(false);
+      } else if (tries >= 6) {
+        done = true;
+        setFilled(false);
+        onEmpty?.(true);
+      } else {
+        window.setTimeout(check, 700);
+      }
+    };
+    const id = window.setTimeout(check, 700);
+    return () => {
+      done = true;
+      window.clearTimeout(id);
+    };
+  }, [show, onEmpty]);
+
   return (
-    <div ref={holderRef} style={{ minHeight: height }} className="flex w-full justify-center">
+    <div
+      ref={holderRef}
+      style={{ minHeight: filled ? height : 0 }}
+      className="flex w-full justify-center overflow-hidden transition-[min-height] duration-300"
+    >
       {show ? (
         <iframe
+          ref={frameRef}
           title={title}
           srcDoc={doc}
           width={typeof width === "number" ? width : undefined}
@@ -150,7 +209,7 @@ function AdFrame({ doc, width, height, title }: { doc: string; width: number | s
             border: "0",
             width: typeof width === "number" ? width : "100%",
             maxWidth: "100%",
-            height,
+            height: filled ? height : 0,
             display: "block",
             overflow: "hidden",
           }}
@@ -176,6 +235,8 @@ export function NetworkAd({
 }) {
   const inv = INVENTORY[TENANT];
   const pathname = usePathname();
+  // Collapses the whole slot (label + spacing) if the network paints nothing.
+  const [empty, setEmpty] = useState(false);
   // Desktop-vs-mobile is decided after mount so we load ONLY the size shown.
   const [wide, setWide] = useState<boolean | null>(null);
   useEffect(() => {
@@ -191,7 +252,7 @@ export function NetworkAd({
   if (pathname?.includes("/admin")) return null; // never in the admin portal
 
   const label = LABEL[TENANT] ?? "Ad";
-  const wrap = `my-6 flex flex-col items-center gap-1 ${className}`;
+  const wrap = `${empty ? "my-0" : "my-6"} flex flex-col items-center gap-1 ${className}`;
   const tag = (
     <span className="select-none text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)] opacity-50">
       {label}
@@ -202,8 +263,8 @@ export function NetworkAd({
     if (!inv.rect) return null;
     return (
       <aside className={wrap} aria-label={label}>
-        {tag}
-        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} />
+        {!empty && tag}
+        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onEmpty={setEmpty} />
       </aside>
     );
   }
@@ -212,9 +273,9 @@ export function NetworkAd({
     if (!inv.native) return null;
     return (
       <aside className={`${wrap} w-full`} aria-label={label}>
-        {tag}
+        {!empty && tag}
         <div className="w-full max-w-3xl">
-          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} />
+          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onEmpty={setEmpty} />
         </div>
       </aside>
     );
@@ -231,11 +292,11 @@ export function NetworkAd({
   const reserve = Math.max(desktop?.h ?? 0, mobile?.h ?? 0) || 90;
   return (
     <aside className={wrap} aria-label={label}>
-      {tag}
+      {!empty && tag}
       {wide === null ? (
         <div style={{ minHeight: reserve }} className="w-full" />
       ) : (
-        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} />
+        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onEmpty={setEmpty} />
       )}
     </aside>
   );
