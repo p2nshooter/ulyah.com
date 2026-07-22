@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import type { Context } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { translateText, translateCachedOnly, localizeBatch, localizeBatchProtected } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
@@ -28,7 +29,7 @@ contentRoute.get("/ad-config", async (c) => {
 // Body: { site, path, ref }. Aggregated into site_pageviews (site+day+path) so
 // the ulyah.com admin can show per-site traffic for the whole ecosystem. CORS
 // open; accepts text/plain beacons (sendBeacon) so there is no preflight.
-contentRoute.post("/track", async (c) => {
+export async function trackBeacon(c: Context<{ Bindings: Env }>) {
   try {
     const text = await c.req.text();
     const body = JSON.parse(text || "{}") as { site?: string; path?: string };
@@ -51,13 +52,18 @@ contentRoute.post("/track", async (c) => {
   }
   c.header("Access-Control-Allow-Origin", "*");
   return c.body(null, 204);
-});
-contentRoute.options("/track", (c) => {
+}
+export function trackOptions(c: Context<{ Bindings: Env }>) {
   c.header("Access-Control-Allow-Origin", "*");
   c.header("Access-Control-Allow-Methods", "POST, OPTIONS");
   c.header("Access-Control-Allow-Headers", "Content-Type");
   return c.body(null, 204);
-});
+}
+// Registered here (so /content/track keeps working) AND at the bare /track in
+// index.ts — every site's beacon (TrafficBeacon/SiteBeacon) posts to the bare
+// path, so that alias is what actually feeds the admin traffic panel.
+contentRoute.post("/track", trackBeacon);
+contentRoute.options("/track", trackOptions);
 
 // GET /content/site-pages — per-tenant page visibility + custom labels, so the
 // site's nav and each page can be shown/hidden/renamed from the admin portal
