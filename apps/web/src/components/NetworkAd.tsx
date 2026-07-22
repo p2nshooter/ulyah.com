@@ -235,8 +235,11 @@ export function NetworkAd({
 }) {
   const inv = INVENTORY[TENANT];
   const pathname = usePathname();
-  // Collapses the whole slot (label + spacing) if the network paints nothing.
-  const [empty, setEmpty] = useState(false);
+  // Nothing is shown — no label, no reserved gap — until an ad actually paints.
+  // This keeps the page clean when the network has no fill (e.g. while the
+  // Adsterra domain is still being verified) instead of leaving an empty box.
+  const [filled, setFilled] = useState(false);
+  const onEmpty = (isEmpty: boolean) => setFilled(!isEmpty);
   // Desktop-vs-mobile is decided after mount so we load ONLY the size shown.
   const [wide, setWide] = useState<boolean | null>(null);
   useEffect(() => {
@@ -252,7 +255,7 @@ export function NetworkAd({
   if (pathname?.includes("/admin")) return null; // never in the admin portal
 
   const label = LABEL[TENANT] ?? "Ad";
-  const wrap = `${empty ? "my-0" : "my-6"} flex flex-col items-center gap-1 ${className}`;
+  const wrap = `${filled ? "my-6" : "my-0"} flex flex-col items-center gap-1 ${className}`;
   const tag = (
     <span className="select-none text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)] opacity-50">
       {label}
@@ -263,8 +266,8 @@ export function NetworkAd({
     if (!inv.rect) return null;
     return (
       <aside className={wrap} aria-label={label}>
-        {!empty && tag}
-        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onEmpty={setEmpty} />
+        {filled && tag}
+        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onEmpty={onEmpty} />
       </aside>
     );
   }
@@ -273,9 +276,9 @@ export function NetworkAd({
     if (!inv.native) return null;
     return (
       <aside className={`${wrap} w-full`} aria-label={label}>
-        {!empty && tag}
+        {filled && tag}
         <div className="w-full max-w-3xl">
-          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onEmpty={setEmpty} />
+          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onEmpty={onEmpty} />
         </div>
       </aside>
     );
@@ -289,14 +292,11 @@ export function NetworkAd({
   if (!b) return null;
   // Reserve the taller of the two candidates before we know the breakpoint,
   // so there is never a layout jump on first paint.
-  const reserve = Math.max(desktop?.h ?? 0, mobile?.h ?? 0) || 90;
   return (
     <aside className={wrap} aria-label={label}>
-      {!empty && tag}
-      {wide === null ? (
-        <div style={{ minHeight: reserve }} className="w-full" />
-      ) : (
-        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onEmpty={setEmpty} />
+      {filled && tag}
+      {wide === null ? null : (
+        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onEmpty={onEmpty} />
       )}
     </aside>
   );
