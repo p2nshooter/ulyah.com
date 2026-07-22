@@ -256,8 +256,10 @@ body {
   text-align: center;
   white-space: nowrap;
   font-weight: 700;
-  /* Big by default; on phones it scales with the viewport to fill the header. */
-  font-size: clamp(2.5rem, 7vw, 3.25rem);
+  /* Prominent, but sized to sit WITHIN the header beside the icon + flip-book
+     — the earlier larger size overflowed and clipped the 'Ain (owner: "logo
+     ulyah bhs Arab-nya ketutup, dikecilin sedikit biar ga ketutup"). */
+  font-size: clamp(1.9rem, 5vw, 2.5rem);
   line-height: 1;
   letter-spacing: 0.01em;
   padding: 0 0.1em 0.06em;
@@ -280,9 +282,10 @@ body {
     ulyah-wm-size 19s ease-in-out infinite,
     ulyah-wm-rock 4.5s ease-in-out infinite;
 }
-/* On phones the wordmark grows with the viewport to fill the header width. */
+/* On phones it still scales with the viewport, but capped so it never runs
+   under the flip-book / off the header edge. */
 @media (max-width: 640px) {
-  .ulyah-wm { font-size: clamp(2.75rem, 13vw, 4.25rem); }
+  .ulyah-wm { font-size: clamp(1.9rem, 8vw, 2.7rem); }
 }
 /* Gentle boat-like rocking (tilt + bob). Transform only — no layout reflow. */
 @keyframes ulyah-wm-rock {
