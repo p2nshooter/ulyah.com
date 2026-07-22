@@ -49,6 +49,12 @@ export type AdPlacement = (typeof AD_PLACEMENTS)[number];
 export interface SiteAdState {
   enabled: boolean;
   approved: boolean;
+  /** Per-site Adsterra ON/OFF (owner: "adsterra harus punya checklist on/off
+   *  per situs… semua halaman ga muncul klo di off di satu situs"). Default ON
+   *  so existing sites keep their Adsterra until the owner unchecks one. A site
+   *  serves Adsterra only when BOTH the master switch and this per-site flag are
+   *  on. Independent of the AdSense enabled/approved fields above. */
+  adsterra: boolean;
 }
 
 export interface AdConfig {
@@ -66,7 +72,7 @@ const KV_KEY = "ads:cfg:v1";
 
 export function defaultAdConfig(): AdConfig {
   const sites: Record<string, SiteAdState> = {};
-  for (const s of AD_SITES) sites[s] = { enabled: false, approved: false };
+  for (const s of AD_SITES) sites[s] = { enabled: false, approved: false, adsterra: true };
   const slots: Record<string, string> = {};
   for (const p of AD_PLACEMENTS) slots[p] = "";
   return { clientId: AD_CLIENT_ID, slots, sites, adsterra: true };
@@ -75,12 +81,18 @@ export function defaultAdConfig(): AdConfig {
 /** Coerce a stored site value that may be the old boolean form OR the new
  * { enabled, approved } object into the new shape. */
 function coerceSite(v: unknown): SiteAdState {
-  if (typeof v === "boolean") return { enabled: v, approved: false };
+  // adsterra defaults to true (ON) whenever the stored value predates the
+  // per-site Adsterra field, so upgrading never silently hides existing ads.
+  if (typeof v === "boolean") return { enabled: v, approved: false, adsterra: true };
   if (v && typeof v === "object") {
     const o = v as Record<string, unknown>;
-    return { enabled: o.enabled === true, approved: o.approved === true };
+    return {
+      enabled: o.enabled === true,
+      approved: o.approved === true,
+      adsterra: o.adsterra !== false,
+    };
   }
-  return { enabled: false, approved: false };
+  return { enabled: false, approved: false, adsterra: true };
 }
 
 export async function getAdConfig(env: Env): Promise<AdConfig> {
@@ -128,8 +140,9 @@ export function publicAdView(cfg: AdConfig, site: string) {
     approved: st.approved,
     clientId: cfg.clientId,
     slots: st.enabled ? cfg.slots : {},
-    // Master Adsterra switch — every site reads this and hides all network ads
-    // when it is off. Default ON.
-    adsterra: cfg.adsterra !== false,
+    // Effective Adsterra flag for THIS site: on only when BOTH the master
+    // switch and this site's per-site toggle are on. NetworkAd reads this one
+    // value and hides every unit on the site when it is false. Default ON.
+    adsterra: cfg.adsterra !== false && st.adsterra !== false,
   };
 }

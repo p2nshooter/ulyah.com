@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 interface SiteState {
   enabled: boolean;
   approved: boolean;
+  adsterra: boolean;
 }
 interface Config {
   clientId: string;
@@ -36,13 +37,21 @@ const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" | "es" 
   { key: "lie-skin", label: "lie.skin", group: "es" },
 ];
 
+// Only these ecosystem sites actually carry Adsterra inventory (matches the
+// INVENTORY map in NetworkAd.tsx). The AXTO + article sites monetise with
+// AdSense only, so an Adsterra toggle for them would do nothing — we list just
+// the sites where the switch has a real effect.
+const ADSTERRA_SITES = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
+
 function coerce(v: unknown): SiteState {
-  if (typeof v === "boolean") return { enabled: v, approved: false };
+  // adsterra defaults ON so a site whose stored config predates the per-site
+  // Adsterra toggle keeps showing its network ads until the owner turns it off.
+  if (typeof v === "boolean") return { enabled: v, approved: false, adsterra: true };
   if (v && typeof v === "object") {
     const o = v as Record<string, unknown>;
-    return { enabled: o.enabled === true, approved: o.approved === true };
+    return { enabled: o.enabled === true, approved: o.approved === true, adsterra: o.adsterra !== false };
   }
-  return { enabled: false, approved: false };
+  return { enabled: false, approved: false, adsterra: true };
 }
 
 /**
@@ -101,10 +110,20 @@ export function AdsenseTab() {
   function toggleApproved(key: string) {
     setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), approved: !coerce(s[key]).approved } }));
   }
+  function toggleAdsterra(key: string) {
+    setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), adsterra: !coerce(s[key]).adsterra } }));
+  }
   function setAll(field: "enabled" | "approved", v: boolean) {
     setSites((s) => {
       const n = { ...s };
       for (const { key } of SITE_LABELS) n[key] = { ...coerce(n[key]), [field]: v };
+      return n;
+    });
+  }
+  function setAllAdsterra(v: boolean) {
+    setSites((s) => {
+      const n = { ...s };
+      for (const key of ADSTERRA_SITES) n[key] = { ...coerce(n[key]), adsterra: v };
       return n;
     });
   }
@@ -114,6 +133,8 @@ export function AdsenseTab() {
   const hasRealId = !!masterId.replace(/[^0-9]/g, "");
   const onCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled).length;
   const liveCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved).length;
+  const adsterraOnCount = ADSTERRA_SITES.filter((k) => coerce(sites[k]).adsterra).length;
+  const labelOf = (key: string) => SITE_LABELS.find((s) => s.key === key)?.label ?? key;
   const groupIcon = (g: string) => (g === "axto" ? "🛰️" : g === "es" ? "📰" : "🕌");
 
   return (
@@ -158,6 +179,61 @@ export function AdsenseTab() {
             <span className={adsterra ? "pl-1.5" : "ml-auto pr-1.5"}>{adsterra ? "ON" : "OFF"}</span>
           </button>
         </div>
+      </section>
+
+      {/* Per-site Adsterra checklist — the owner asked for the SAME on/off
+          checklist Adsterra has that AdSense already has ("adsterra harus punya
+          checklist on/off per situs… semua halaman ga muncul klo di off di satu
+          situs"). A site shows Adsterra only when the master switch above AND
+          its own toggle here are both ON. Only the five ecosystem sites that
+          carry Adsterra inventory are listed. */}
+      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <p className="font-heading text-base">📣 Adsterra per Situs — Checklist ON/OFF</p>
+            <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+              Matikan Adsterra untuk satu situs → semua halaman situs itu tidak menampilkan iklan Adsterra.{" "}
+              {adsterra
+                ? "Sakelar utama menyala, jadi setelan per-situs di bawah berlaku."
+                : "Sakelar utama MATI, jadi semua Adsterra tetap tersembunyi apa pun setelan di bawah."}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <button onClick={() => setAllAdsterra(true)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+              Semua ON
+            </button>
+            <button onClick={() => setAllAdsterra(false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+              Semua OFF
+            </button>
+          </div>
+        </div>
+        <div className={`mt-3 grid gap-2 sm:grid-cols-2 ${adsterra ? "" : "opacity-50"}`}>
+          {ADSTERRA_SITES.map((key) => {
+            const on = coerce(sites[key]).adsterra;
+            return (
+              <button
+                key={key}
+                onClick={() => toggleAdsterra(key)}
+                className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-left text-sm transition ${
+                  on ? "border-emerald-500/50 bg-emerald-500/10" : "border-rose-500/40 bg-rose-500/[0.06]"
+                }`}
+              >
+                <span>🕌 {labelOf(key)}</span>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs font-bold ${
+                    on ? "bg-emerald-500 text-white" : "bg-rose-500/80 text-white"
+                  }`}
+                >
+                  {on ? "ON" : "OFF"}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/70">
+          {adsterraOnCount} dari {ADSTERRA_SITES.length} situs menyalakan Adsterra. Perubahan berlaku ≤1 menit setelah
+          disimpan. Situs lain (AXTO, artikel) tidak memakai Adsterra.
+        </p>
       </section>
 
       <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
