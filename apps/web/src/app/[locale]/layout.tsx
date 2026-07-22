@@ -270,6 +270,18 @@ export default async function LocaleLayout({
             }),
           }}
         />
+        {/* Capture `beforeinstallprompt` the instant it fires. Android Chrome
+            dispatches it during page load — BEFORE React hydrates and the
+            InstallAppButton's effect can attach a listener — so the event was
+            being missed on every visit and the install button only ever showed
+            the manual "add to home screen" fallback ("ga bisa install app").
+            Stashing the event on window here (runs in <head>, before hydration)
+            means the button always finds a real prompt to fire. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){window.__bipEvent=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bipEvent=e;window.dispatchEvent(new Event('bip-ready'));});window.addEventListener('appinstalled',function(){window.__bipEvent=null;});})();`,
+          }}
+        />
         {/* Google AdSense on EVERY page of EVERY site (owner: Update Global
             Seluruh Portal §2). The async loader never blocks rendering. */}
         <meta name="google-adsense-account" content="ca-pub-6371903555702163" />

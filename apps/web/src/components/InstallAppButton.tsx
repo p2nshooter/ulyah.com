@@ -156,12 +156,24 @@ export function InstallAppButton({
       window.localStorage.setItem(`${INSTALLED_KEY}_${app}`, "1");
       setInstalled(true);
       setDeferredPrompt(null);
+      (window as unknown as { __bipEvent?: unknown }).__bipEvent = null;
       reportInstallOnce(app);
     };
+    // The head script (see layout.tsx) captures beforeinstallprompt before
+    // React hydrates. Adopt any event it already stashed so a prompt that
+    // fired during load is not lost; also listen for a fresh one and for the
+    // custom "bip-ready" signal the head script raises when it captures late.
+    const adoptEarly = () => {
+      const early = (window as unknown as { __bipEvent?: BeforeInstallPromptEvent | null }).__bipEvent;
+      if (early) setDeferredPrompt(early);
+    };
+    adoptEarly();
+    window.addEventListener("bip-ready", adoptEarly);
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
     return () => {
       cancelled = true;
+      window.removeEventListener("bip-ready", adoptEarly);
       window.removeEventListener("beforeinstallprompt", onPrompt);
       window.removeEventListener("appinstalled", onInstalled);
     };
