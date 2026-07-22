@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import type { Context } from "hono";
 import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 
@@ -33,6 +34,59 @@ analyticsRoute.post("/pageview", async (c) => {
 
   return c.json({ ok: true });
 });
+
+// ── Real-time presence ────────────────────────────────────────────────────
+// A heartbeat while the page is open (PresenceBeacon.tsx) → the admin can show,
+// within ~3s, how many devices are on each ecosystem site RIGHT NOW and how
+// many just left. text/plain bodies so cross-origin beacons need no preflight;
+// tenant comes from the Origin, never the body.
+async function readDevice(c: Context<{ Bindings: Env }>): Promise<string | undefined> {
+  try {
+    return (JSON.parse((await c.req.text()) || "{}") as { device?: string }).device;
+  } catch {
+    return undefined;
+  }
+}
+function corsPreflight(c: Context<{ Bindings: Env }>) {
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Content-Type");
+  return c.body(null, 204);
+}
+
+// POST /analytics/ping — presence heartbeat. Upsert this device's last-seen.
+analyticsRoute.post("/ping", async (c) => {
+  const dev = deviceParam(await readDevice(c));
+  c.header("Access-Control-Allow-Origin", "*");
+  if (!dev) return c.body(null, 204);
+  const now = Math.floor(Date.now() / 1000);
+  await c.env.DB.prepare(
+    `INSERT INTO live_presence (tenant, device_id, last_seen) VALUES (?, ?, ?)
+     ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen`
+  )
+    .bind(tenantFromReq(c), dev, now)
+    .run();
+  return c.body(null, 204);
+});
+
+// POST /analytics/leave — best-effort "closed" signal (pagehide/tab-hidden).
+// Ages the device just past the online window so the live count drops at once
+// instead of waiting for the heartbeat to lapse.
+analyticsRoute.post("/leave", async (c) => {
+  const dev = deviceParam(await readDevice(c));
+  c.header("Access-Control-Allow-Origin", "*");
+  if (!dev) return c.body(null, 204);
+  const gone = Math.floor(Date.now() / 1000) - 25; // just outside the 20s "online" window
+  await c.env.DB.prepare(
+    `UPDATE live_presence SET last_seen = ? WHERE tenant = ? AND device_id = ? AND last_seen > ?`
+  )
+    .bind(gone, tenantFromReq(c), dev, gone)
+    .run();
+  return c.body(null, 204);
+});
+
+analyticsRoute.options("/ping", corsPreflight);
+analyticsRoute.options("/leave", corsPreflight);
 
 // POST /analytics/install — fired once when a visitor actually accepts the
 // installable-PWA prompt (see InstallAppButton.tsx). Distinguishes the main

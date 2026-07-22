@@ -16,6 +16,7 @@ import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { TrafficBeacon } from "@/components/TrafficBeacon";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
+import { PresenceBeacon } from "@/components/PresenceBeacon";
 // Modular CSS architecture (src/styles/README.md): tokens+base → shared
 // animations → components → per-site themes (last, so tenant tokens win).
 import "../globals.css";
@@ -299,6 +300,7 @@ export default async function LocaleLayout({
         <SwRegister />
         <TrafficBeacon />
         <AnalyticsBeacon locale={locale} />
+        <PresenceBeacon />
         <ThemeProvider>
           {/* Soft ambient ornaments behind every page (ulyah/1fr/tilawa). */}
           <EcoOrnaments />
