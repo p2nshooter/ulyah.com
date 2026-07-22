@@ -936,6 +936,7 @@ adminRoute.post("/adsense-config", async (c) => {
   const body = await c.req.json<{
     slots?: Record<string, string>;
     sites?: Record<string, { enabled?: boolean; approved?: boolean } | boolean>;
+    adsterra?: boolean;
   }>();
   const current = await getAdConfig(c.env);
   const mergedSites: Record<string, { enabled: boolean; approved: boolean }> = { ...current.sites };
@@ -953,6 +954,8 @@ adminRoute.post("/adsense-config", async (c) => {
     clientId: current.clientId,
     slots: { ...current.slots, ...(body.slots ?? {}) },
     sites: mergedSites,
+    // Master Adsterra ON/OFF — only changed when the key is present in the body.
+    adsterra: typeof body.adsterra === "boolean" ? body.adsterra : current.adsterra,
   });
   const admin = c.get("admin" as never) as { email: string };
   const liveSlots = Object.values(saved.slots).filter(Boolean).length;

@@ -23,6 +23,24 @@ import { usePathname } from "next/navigation";
  */
 
 const TENANT = (process.env.NEXT_PUBLIC_TENANT ?? "ulyah") as string;
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
+
+// Master Adsterra switch — read ONCE per page from the central ad config
+// (the ulyah.com admin toggle). Cached module-level so every NetworkAd slot on
+// the page shares a single fetch. Fail-open (show) if the config can't be read;
+// when the admin has turned it OFF, every slot returns null — no exception.
+let _adsterraMaster: boolean | null = null;
+let _adsterraPromise: Promise<boolean> | null = null;
+function fetchAdsterraMaster(): Promise<boolean> {
+  if (_adsterraMaster !== null) return Promise.resolve(_adsterraMaster);
+  if (!_adsterraPromise) {
+    _adsterraPromise = fetch(`${API_BASE}/content/ad-config?site=${TENANT}`)
+      .then((r) => r.json())
+      .then((d: { adsterra?: boolean }) => (_adsterraMaster = d?.adsterra !== false))
+      .catch(() => (_adsterraMaster = true));
+  }
+  return _adsterraPromise;
+}
 
 interface Banner {
   key: string;
@@ -235,6 +253,16 @@ export function NetworkAd({
 }) {
   const inv = INVENTORY[TENANT];
   const pathname = usePathname();
+  // Master Adsterra switch (admin ON/OFF). When OFF, hide every unit — no
+  // exception. Starts from the module cache so a second slot never flashes.
+  const [adsterraOn, setAdsterraOn] = useState<boolean>(_adsterraMaster ?? true);
+  useEffect(() => {
+    let alive = true;
+    fetchAdsterraMaster().then((on) => alive && setAdsterraOn(on));
+    return () => {
+      alive = false;
+    };
+  }, []);
   // Nothing is shown — no label, no reserved gap — until an ad actually paints.
   // This keeps the page clean when the network has no fill (e.g. while the
   // Adsterra domain is still being verified) instead of leaving an empty box.
@@ -252,6 +280,7 @@ export function NetworkAd({
   }, [unit]);
 
   if (!inv) return null; // safety: a tenant with no configured inventory
+  if (!adsterraOn) return null; // master Adsterra switch is OFF → hide everything
   if (pathname?.includes("/admin")) return null; // never in the admin portal
 
   const label = LABEL[TENANT] ?? "Ad";
