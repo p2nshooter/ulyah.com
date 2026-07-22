@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
 import { StoryReader } from "@/components/StoryReader";
 import { StoryDownloads } from "@/components/StoryDownloads";
 import { localePath } from "@/lib/paths";
@@ -45,7 +46,8 @@ export async function generateMetadata({
         description,
         type: "article",
         publishedTime: data.story.published_at ?? undefined,
-        url: `https://ulyah.com/${locale}/kisah/${slug}`,
+        url: `${TENANT.siteUrl}${localePath(locale, `/kisah/${slug}`)}`,
+        siteName: TENANT.siteName,
       },
     };
   } catch {
@@ -83,6 +85,15 @@ export default async function KisahDetailPage({
 
   const { story, fallbackUsed, nextEpisode } = data;
 
+  // Tenant-aware structured data — every sibling site must attribute its own
+  // content to ITSELF, never leak "ULYAH.COM" as the author/publisher/canonical
+  // (that would split link equity to ulyah.com and mislead crawlers on xad.es,
+  // dawa.es, 1fr.fr, tilawa.de). A full Article + BreadcrumbList, both eligible
+  // for rich results.
+  const pageUrl = `${TENANT.siteUrl}${localePath(locale, `/kisah/${slug}`)}`;
+  const logoUrl = `${TENANT.siteUrl}${TENANT.id === "ulyah" ? "/icon-512.png" : TENANT.logoIcon}`;
+  const wordCount = story.body.split(/\s+/).filter(Boolean).length;
+
   return (
     <article className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
       <script
@@ -90,22 +101,39 @@ export default async function KisahDetailPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
-            headline: story.title,
-            description: metaDescription(story.body),
-            inLanguage: storyLang,
-            articleSection: story.category_name ?? "Kisah Islami",
-            datePublished: story.published_at ?? undefined,
-            author: { "@type": "Organization", name: "ULYAH.COM" },
-            publisher: {
-              "@type": "Organization",
-              name: "ULYAH.COM",
-              logo: { "@type": "ImageObject", url: "https://ulyah.com/icon-512.png" },
-            },
-            mainEntityOfPage: `https://ulyah.com/${locale}/kisah/${slug}`,
-            ...(story.audio_r2_key
-              ? { audio: { "@type": "AudioObject", contentUrl: `${api.base}/content/stories/${story.id}/audio` } }
-              : {}),
+            "@graph": [
+              {
+                "@type": "Article",
+                "@id": `${pageUrl}#article`,
+                headline: story.title,
+                description: metaDescription(story.body),
+                inLanguage: storyLang,
+                articleSection: story.category_name ?? "Kisah Islami",
+                datePublished: story.published_at ?? undefined,
+                dateModified: story.published_at ?? undefined,
+                wordCount,
+                isAccessibleForFree: true,
+                author: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
+                publisher: {
+                  "@type": "Organization",
+                  name: TENANT.siteName,
+                  url: TENANT.siteUrl,
+                  logo: { "@type": "ImageObject", url: logoUrl },
+                },
+                mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+                ...(story.audio_r2_key
+                  ? { audio: { "@type": "AudioObject", contentUrl: `${api.base}/content/stories/${story.id}/audio` } }
+                  : {}),
+              },
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: TENANT.siteName, item: TENANT.siteUrl },
+                  { "@type": "ListItem", position: 2, name: "Kisah", item: `${TENANT.siteUrl}${localePath(locale, "/kisah")}` },
+                  { "@type": "ListItem", position: 3, name: story.title, item: pageUrl },
+                ],
+              },
+            ],
           }),
         }}
       />
