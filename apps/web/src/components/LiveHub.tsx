@@ -100,11 +100,24 @@ export function LiveHub({ locale }: { locale: string }) {
   const [streams, setStreams] = useState<StreamRow[]>([]);
   const [maximized, setMaximized] = useState<StreamRow | null>(null);
 
+  // Load once, then re-poll every 60s so an admin CRUD (add/edit/delete/toggle
+  // a stream in the ulyah portal) reaches an already-open page without a manual
+  // reload. The endpoint is no longer edge-cached 30 min, so each poll returns
+  // the current DB state; the YouTube live-lookup behind it stays KV-cached, so
+  // polling stays cheap. (owner: konten live wajib full updated dari admin.)
   useEffect(() => {
-    api
-      .get<{ streams: StreamRow[] }>("/content/live-streams")
-      .then((r) => setStreams(r.streams))
-      .catch(() => setStreams([]));
+    let alive = true;
+    const load = () =>
+      api
+        .get<{ streams: StreamRow[] }>("/content/live-streams")
+        .then((r) => alive && setStreams(r.streams))
+        .catch(() => alive && setStreams((prev) => prev));
+    load();
+    const id = window.setInterval(load, 60000);
+    return () => {
+      alive = false;
+      window.clearInterval(id);
+    };
   }, []);
 
   useEffect(() => {
