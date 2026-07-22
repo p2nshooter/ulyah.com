@@ -403,8 +403,10 @@ jobs:
           set -eu
           npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-adam';" --json > /tmp/kisah_adam_count.json
           ADMCOUNT=$(node -e "const j=require('/tmp/kisah_adam_count.json'); console.log(j[0].results[0].n)")
-          if [ "$ADMCOUNT" -lt "1" ]; then
-            echo "Kisah Adam not yet seeded — importing."
+          # 11 episodes x 2 languages = 22. Seed is INSERT OR IGNORE, so re-applying
+          # while under-count tops up newly-added episodes without duplicating.
+          if [ "$ADMCOUNT" -lt "22" ]; then
+            echo "Kisah Adam has $ADMCOUNT/22 rows — importing (idempotent)."
             npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_adam.sql
           else
             echo "Kisah Adam already has $ADMCOUNT rows — skipping."

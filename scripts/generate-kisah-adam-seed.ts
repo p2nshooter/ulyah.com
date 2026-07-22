@@ -42,7 +42,7 @@ function main() {
     for (const lang of ["id", "en"] as const) {
       const content = ep[lang];
       lines.push(
-        `INSERT INTO stories (title, slug, lang, series_key, episode_number, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id, pdf_ebook_id, published_at)
+        `INSERT OR IGNORE INTO stories (title, slug, lang, series_key, episode_number, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id, pdf_ebook_id, published_at)
 SELECT ${esc(content.title)}, ${esc(ep.slug)}, ${esc(lang)}, 'kisah-adam', ${i + 1}, ${CATEGORY_ID}, ${esc(content.body)}, 0, 'qc_pending', 'ai_original', 'published', 1.0,
   (SELECT id FROM ayah WHERE surah_id = ${ep.surahId} AND number = ${ep.ayahStart}), NULL, datetime('now');`
       );
