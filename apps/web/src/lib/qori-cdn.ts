@@ -187,16 +187,22 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
   return promise;
 }
 
+// Cache-bust token for murottal audio. Audio is served immutable (1-year)
+// for speed, so a file that was ever cached at a low bitrate — in the browser
+// OR at Cloudflare's edge — can NEVER be corrected in place; only a NEW URL
+// escapes it. The worker folds this token into its edge-cache key too (see
+// routes/audio.ts), so BUMPING THIS NUMBER instantly invalidates every
+// poisoned browser + edge entry network-wide and re-reads the corrected R2
+// file. Bump it whenever muffled audio is reported after a library fix.
+export const MUROTTAL_VERSION = 3;
+
 /** PRIMARY per-ayah URL: our own R2 library behind api.ulyah.com. Pure URL
- * formula — zero metadata fetches, so starting playback is instant. */
+ * formula — zero metadata fetches, so starting playback is instant. The
+ * ?v token busts stale immutable caches without changing the R2 object key. */
 export function r2AyahAudioUrl(qoriKey: string, surah: number, ayah: number): string | null {
   const rc = RECITERS.find((r) => r.key === qoriKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   if (!rc.r2Folder) return null;
-  // "qori2" is the clean HiFi library. The original /audio/qori/ URLs were
-  // served (and immutable-cached, edge AND browser, for a year) while R2
-  // still held the old low-bitrate imports — those muffled bytes can only be
-  // escaped by a NEW URL, never by re-uploading behind the old one.
-  return `${API_BASE}/audio/qori2/${rc.r2Folder}/${pad3(surah)}${pad3(ayah)}.mp3`;
+  return `${API_BASE}/audio/qori2/${rc.r2Folder}/${pad3(surah)}${pad3(ayah)}.mp3?v=${MUROTTAL_VERSION}`;
 }
 
 /** Resolve the playable URL for one ayah's recitation, or null if this

@@ -83,10 +83,14 @@ async function serveMurottal(c: any, folder: string, file: string) {
   const cache = (caches as unknown as { default: Cache }).default;
   // Canonical cache key on the qori2 URL no matter which route matched — the
   // legacy /audio/qori/ alias must never read the poisoned low-bitrate
-  // entries cached under its own URL.
+  // entries cached under its own URL. The ?v cache-bust token (set by the web
+  // player, see qori-cdn.ts MUROTTAL_VERSION) is KEPT in the key: a bumped
+  // version is a brand-new edge key, so poisoned immutable entries under the
+  // old version are bypassed entirely and the corrected R2 file is re-read.
+  const incoming = new URL(c.req.url);
   const canonical = new URL(c.req.url);
   canonical.pathname = `/audio/qori2/${folder}/${file}`;
-  canonical.search = "";
+  canonical.search = incoming.searchParams.has("v") ? `?v=${incoming.searchParams.get("v")}` : "";
   const cacheKey = new Request(canonical.toString(), { method: "GET" });
 
   if (cacheable) {
