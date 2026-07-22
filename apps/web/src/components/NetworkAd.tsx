@@ -22,7 +22,6 @@ import { usePathname } from "next/navigation";
  *     sticky bars.
  */
 
-type Tenant = "ulyah" | "dawa";
 const TENANT = (process.env.NEXT_PUBLIC_TENANT ?? "ulyah") as string;
 
 interface Banner {
@@ -34,11 +33,22 @@ interface Native {
   pl: string;
   container: string;
 }
+// Not every site was given every size. Fields are optional and the component
+// falls back gracefully (desktop: lead→wide→rect; mobile: mobile→rect).
+interface TenantAds {
+  lead?: Banner; // 728x90 leaderboard
+  wide?: Banner; // 468x60 banner
+  mobile?: Banner; // 320x50 mobile banner
+  rect?: Banner; // 300x250 rectangle
+  sky?: Banner; // 160x600 skyscraper (only where supplied)
+  native?: Native;
+}
 
 // Public ad-unit ids (safe in the browser — that is how ad networks work).
-const INVENTORY: Record<Tenant, { lead: Banner; mobile: Banner; rect: Banner; native: Native }> = {
+// One Adsterra inventory per tenant; every site now monetises with the network.
+const INVENTORY: Record<string, TenantAds> = {
   ulyah: {
-    lead: { key: "43de5175051326c3521298136c0b8fb0", w: 468, h: 60 },
+    wide: { key: "43de5175051326c3521298136c0b8fb0", w: 468, h: 60 },
     mobile: { key: "c7a89c9467cee8902928e404f04a5925", w: 320, h: 50 },
     rect: { key: "96123a4a53798c8bf60792bffec51a90", w: 300, h: 250 },
     native: { pl: "pl30370139", container: "f1bb94c167450510581bdb45f60c9547" },
@@ -49,9 +59,35 @@ const INVENTORY: Record<Tenant, { lead: Banner; mobile: Banner; rect: Banner; na
     rect: { key: "9f9666d9859c7821548cbe92829722f5", w: 300, h: 250 },
     native: { pl: "pl30477122", container: "838f097f32d8d1cec906187de951db18" },
   },
+  "1fr": {
+    lead: { key: "522efc4634b8157053ada057e9c5372b", w: 728, h: 90 },
+    wide: { key: "4a228d4a4ac4b9aa0d85afa4b8df15ac", w: 468, h: 60 },
+    rect: { key: "ac7d9a34efbdb15afe2170c5f7e0fec7", w: 300, h: 250 },
+    native: { pl: "pl30460827", container: "eeb62eb94066800f48ec6f3dcc6eb93a" },
+  },
+  tilawa: {
+    wide: { key: "0b779fe2b8580c718b63255eb0ab94c0", w: 468, h: 60 },
+    mobile: { key: "75a9f0c7d69ebfbec7aadf4d3ca66c18", w: 320, h: 50 },
+    rect: { key: "6599067e75afd3b869159c0b094fe5f3", w: 300, h: 250 },
+    native: { pl: "pl30477239", container: "7ba2bc8ee8c8868ae6028d0d358ef52e" },
+  },
+  xad: {
+    lead: { key: "e3d8fa05b18b4a40d6b861f6dca5561d", w: 728, h: 90 },
+    mobile: { key: "8e92c2a078eb7f3eed217eb891fc9fe6", w: 320, h: 50 },
+    rect: { key: "9748f45401ddd3f96c910486f3a71623", w: 300, h: 250 },
+    sky: { key: "95044feb7a28fdd0e449b3edc1d52fdf", w: 160, h: 600 },
+    native: { pl: "pl30477257", container: "de9149dd93fc5a1803fe9c6ad380875b" },
+  },
 };
 
-const LABEL: Record<string, string> = { ulyah: "Iklan", dawa: "Publicidad" };
+// Ad label in each site's own language.
+const LABEL: Record<string, string> = {
+  ulyah: "Iklan",
+  dawa: "Publicidad",
+  "1fr": "Publicité",
+  tilawa: "Werbung",
+  xad: "Sponsored",
+};
 
 function bannerDoc(b: Banner): string {
   // Isolated document: its own atOptions + invoke.js, transparent, no scroll.
@@ -138,7 +174,7 @@ export function NetworkAd({
   unit?: "banner" | "rectangle" | "native";
   className?: string;
 }) {
-  const inv = INVENTORY[TENANT as Tenant];
+  const inv = INVENTORY[TENANT];
   const pathname = usePathname();
   // Desktop-vs-mobile is decided after mount so we load ONLY the size shown.
   const [wide, setWide] = useState<boolean | null>(null);
@@ -151,7 +187,7 @@ export function NetworkAd({
     return () => mq.removeEventListener("change", on);
   }, [unit]);
 
-  if (!inv) return null; // tenant has no network ads (1fr, tilawa, xad, …)
+  if (!inv) return null; // safety: a tenant with no configured inventory
   if (pathname?.includes("/admin")) return null; // never in the admin portal
 
   const label = LABEL[TENANT] ?? "Ad";
@@ -163,6 +199,7 @@ export function NetworkAd({
   );
 
   if (unit === "rectangle") {
+    if (!inv.rect) return null;
     return (
       <aside className={wrap} aria-label={label}>
         {tag}
@@ -172,6 +209,7 @@ export function NetworkAd({
   }
 
   if (unit === "native") {
+    if (!inv.native) return null;
     return (
       <aside className={`${wrap} w-full`} aria-label={label}>
         {tag}
@@ -182,14 +220,20 @@ export function NetworkAd({
     );
   }
 
-  // banner (responsive). Reserve the taller of the two heights before we know
-  // the breakpoint, so there is never a layout jump on first paint.
-  const b = wide ? inv.lead : inv.mobile;
+  // banner (responsive). Desktop prefers the leaderboard, then the 468 banner;
+  // mobile prefers the 320x50, then the 300x250 rectangle (both fit a phone).
+  const desktop = inv.lead ?? inv.wide ?? inv.rect;
+  const mobile = inv.mobile ?? inv.rect ?? inv.wide;
+  const b = wide ? desktop : mobile;
+  if (!b) return null;
+  // Reserve the taller of the two candidates before we know the breakpoint,
+  // so there is never a layout jump on first paint.
+  const reserve = Math.max(desktop?.h ?? 0, mobile?.h ?? 0) || 90;
   return (
     <aside className={wrap} aria-label={label}>
       {tag}
       {wide === null ? (
-        <div style={{ minHeight: 90 }} className="w-full" />
+        <div style={{ minHeight: reserve }} className="w-full" />
       ) : (
         <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} />
       )}
