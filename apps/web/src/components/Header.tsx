@@ -14,6 +14,7 @@ import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
+import { BookFlip } from "@/components/HeaderMotif";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -72,7 +73,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
       <WorldCup2026Stripe />
       <EcoTopLine />
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
               <Image src={TENANT.logoIcon} alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
@@ -106,6 +107,9 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               )}
             </span>
           </AdminTrigger>
+          {/* Forever-turning open book beside the brand (hidden only on the
+              tiniest screens so it never crowds the mobile header). */}
+          <BookFlip className="hidden min-[380px]:flex" />
           <WorldCup2026 />
         </div>
 

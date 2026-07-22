@@ -303,9 +303,10 @@ export default async function LocaleLayout({
           {/* Soft ambient ornaments behind every page (ulyah/1fr/tilawa). */}
           <EcoOrnaments />
           <Header locale={locale} dict={dict} />
-          {/* Owner request: NO network ad at the top — the reader meets content
-              first. All Adsterra units live together at the very bottom of the
-              page, just before the footer, so they never disturb the top. */}
+          {/* Owner request ("iklan adsterra pindahkan di posisi paling bawah
+              aja sebelum footer biar ga menggang di atas"): NO network ad at
+              the top — the reader meets content first. All Adsterra units live
+              together at the very bottom, just before the footer. */}
           <main className="min-h-screen pb-24">{children}</main>
           {/* All ecosystem Adsterra ads consolidated here, right before the
               footer. Renders only on tenants that have units; collapses cleanly

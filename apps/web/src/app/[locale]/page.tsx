@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { TENANT } from "@/lib/tenant";
+import { headerMotifOn } from "@/components/HeaderMotif";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
@@ -105,7 +106,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                   width={640}
                   height={640}
                   priority
-                  className="h-auto w-full max-w-[300px] rounded-2xl"
+                  className={`h-auto w-full max-w-[300px] rounded-2xl ${headerMotifOn ? "float-soft" : ""}`}
                 />
               </div>
             </div>
