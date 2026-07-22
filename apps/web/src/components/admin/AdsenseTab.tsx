@@ -11,6 +11,7 @@ interface Config {
   clientId: string;
   slots: Record<string, string>;
   sites: Record<string, SiteState>;
+  adsterra?: boolean;
 }
 
 // One responsive unit id can drive every placement the network uses.
@@ -56,6 +57,7 @@ export function AdsenseTab() {
   const [config, setConfig] = useState<Config | null>(null);
   const [masterId, setMasterId] = useState("");
   const [sites, setSites] = useState<Record<string, SiteState>>({});
+  const [adsterra, setAdsterra] = useState(true);
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -65,6 +67,7 @@ export function AdsenseTab() {
       .then((cfg) => {
         setConfig(cfg);
         setMasterId(cfg.slots?.in_article ?? cfg.slots?.in_article_1 ?? "");
+        setAdsterra(cfg.adsterra !== false);
         const s: Record<string, SiteState> = {};
         for (const { key } of SITE_LABELS) s[key] = coerce(cfg.sites?.[key]);
         setSites(s);
@@ -72,14 +75,16 @@ export function AdsenseTab() {
       .catch(() => {});
   }, []);
 
-  async function save() {
+  async function save(overrides?: { adsterra?: boolean }) {
     setBusy(true);
     const id = masterId.replace(/[^0-9]/g, "").slice(0, 20);
     const slots: Record<string, string> = {};
     for (const p of PLACEMENTS) slots[p] = id;
+    const adsterraNext = overrides?.adsterra ?? adsterra;
     try {
-      const next = await api.post<Config>("/admin/adsense-config", { slots, sites });
+      const next = await api.post<Config>("/admin/adsense-config", { slots, sites, adsterra: adsterraNext });
       setConfig(next);
+      setAdsterra(next.adsterra !== false);
       const s: Record<string, SiteState> = {};
       for (const { key } of SITE_LABELS) s[key] = coerce(next.sites?.[key]);
       setSites(s);
@@ -113,6 +118,48 @@ export function AdsenseTab() {
 
   return (
     <div className="space-y-6">
+      {/* Master ON/OFF for the Adsterra network ads across every site. OFF =
+          every Adsterra unit hidden everywhere, no exception. Applies within
+          ≤1 menit as each site re-reads /content/ad-config. */}
+      <section
+        className={`rounded-xl border p-4 ${
+          adsterra ? "border-emerald-500/40 bg-emerald-500/[0.06]" : "border-rose-500/40 bg-rose-500/[0.06]"
+        }`}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-heading text-base">📣 Iklan Adsterra — Sakelar Utama</p>
+            <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+              {adsterra
+                ? "Iklan Adsterra AKTIF di semua situs. Matikan untuk menyembunyikan SEMUA iklan Adsterra tanpa kecuali."
+                : "Iklan Adsterra MATI — tidak ada satu pun unit Adsterra yang tampil di situs mana pun."}
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              const next = !adsterra;
+              setAdsterra(next);
+              save({ adsterra: next });
+            }}
+            disabled={busy}
+            role="switch"
+            aria-checked={adsterra}
+            className={`relative inline-flex h-9 w-20 shrink-0 items-center rounded-full px-1 text-xs font-bold transition disabled:opacity-60 ${
+              adsterra ? "bg-emerald-500 text-white" : "bg-rose-500/80 text-white"
+            }`}
+          >
+            <span
+              className={`absolute inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-[var(--color-text-primary)] shadow transition-all ${
+                adsterra ? "left-[calc(100%-1.85rem)]" : "left-1"
+              }`}
+            >
+              {adsterra ? "ON" : "OFF"}
+            </span>
+            <span className={adsterra ? "pl-1.5" : "ml-auto pr-1.5"}>{adsterra ? "ON" : "OFF"}</span>
+          </button>
+        </div>
+      </section>
+
       <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
         <p className="font-heading text-base">Kontrol Iklan Jaringan</p>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
@@ -197,7 +244,7 @@ export function AdsenseTab() {
       </section>
 
       <button
-        onClick={save}
+        onClick={() => save()}
         disabled={busy}
         className="rounded-lg bg-primary px-5 py-2.5 text-sm text-white disabled:opacity-60 dark:bg-accent dark:text-primary"
       >

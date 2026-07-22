@@ -55,6 +55,11 @@ export interface AdConfig {
   clientId: string;
   slots: Record<string, string>;
   sites: Record<string, SiteAdState>;
+  /** Master ON/OFF for the Adsterra network ads across EVERY site (owner:
+   *  "kontrol iklan adsterra dengan tombol ON & OFF, kalau OFF semua iklan
+   *  hidden tanpa kecuali"). Default ON. When false, NetworkAd renders nothing
+   *  anywhere — no exception. */
+  adsterra: boolean;
 }
 
 const KV_KEY = "ads:cfg:v1";
@@ -64,7 +69,7 @@ export function defaultAdConfig(): AdConfig {
   for (const s of AD_SITES) sites[s] = { enabled: false, approved: false };
   const slots: Record<string, string> = {};
   for (const p of AD_PLACEMENTS) slots[p] = "";
-  return { clientId: AD_CLIENT_ID, slots, sites };
+  return { clientId: AD_CLIENT_ID, slots, sites, adsterra: true };
 }
 
 /** Coerce a stored site value that may be the old boolean form OR the new
@@ -90,6 +95,7 @@ export async function getAdConfig(env: Env): Promise<AdConfig> {
       clientId: AD_CLIENT_ID, // never trust a stored client id
       slots: { ...def.slots, ...(parsed.slots ?? {}) },
       sites,
+      adsterra: parsed.adsterra !== false, // default ON unless explicitly turned off
     };
   } catch {
     return def;
@@ -97,7 +103,7 @@ export async function getAdConfig(env: Env): Promise<AdConfig> {
 }
 
 export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<AdConfig> {
-  const clean: AdConfig = { clientId: AD_CLIENT_ID, slots: {}, sites: {} };
+  const clean: AdConfig = { clientId: AD_CLIENT_ID, slots: {}, sites: {}, adsterra: cfg.adsterra !== false };
   for (const p of AD_PLACEMENTS) {
     // slot ids are digits only, ≤20 chars
     clean.slots[p] = String(cfg.slots?.[p] ?? "").replace(/[^0-9]/g, "").slice(0, 20);
@@ -122,5 +128,8 @@ export function publicAdView(cfg: AdConfig, site: string) {
     approved: st.approved,
     clientId: cfg.clientId,
     slots: st.enabled ? cfg.slots : {},
+    // Master Adsterra switch — every site reads this and hides all network ads
+    // when it is off. Default ON.
+    adsterra: cfg.adsterra !== false,
   };
 }
