@@ -138,6 +138,39 @@ app.onError((err, c) => {
   return c.json({ error: "Internal server error", detail: detail.slice(0, 300) }, 500);
 });
 
+// The ORIGINAL audio/qori/ R2 library predates the 128 kbps importer fixes,
+// so much of its ~17 GB is low-bitrate, muffled audio the owner called dead
+// weight ("cuma jadi beban"). Playback now lives exclusively under the clean
+// audio/qori2/ prefix (see routes/audio.ts), so the legacy objects are
+// unreachable — delete them a bounded slice per tick until done, guarded by
+// a KV flag. NOTE: list({ prefix: "audio/qori/" }) cannot match
+// "audio/qori2/…" — the trailing slash protects the HiFi library.
+const LEGACY_MUROTTAL_PREFIX = "audio/qori/";
+const LEGACY_PURGE_DONE_FLAG = "cleanup:r2-murottal-legacy-lowbitrate-done";
+
+async function purgeLegacyMurottal(env: Env): Promise<void> {
+  const done = await env.CACHE_KV.get(LEGACY_PURGE_DONE_FLAG).catch(() => null);
+  if (done) return;
+  let cursor: string | undefined;
+  let deleted = 0;
+  for (let page = 0; page < 20; page++) {
+    const listing = await env.MEDIA_R2.list({ prefix: LEGACY_MUROTTAL_PREFIX, cursor, limit: 1000 });
+    const keys = listing.objects.map((o) => o.key);
+    if (keys.length > 0) {
+      await env.MEDIA_R2.delete(keys);
+      deleted += keys.length;
+    }
+    if (listing.truncated) {
+      cursor = listing.cursor;
+    } else {
+      await env.CACHE_KV.put(LEGACY_PURGE_DONE_FLAG, `1:${deleted}`).catch(() => {});
+      console.log(`Legacy murottal purge complete — removed ${deleted} low-bitrate objects.`);
+      return;
+    }
+  }
+  console.log(`Legacy murottal purge: removed ${deleted} objects this tick, more remain — continuing next tick.`);
+}
+
 export default {
   fetch: app.fetch,
 
@@ -152,14 +185,12 @@ export default {
       Promise.all([
         stub.fetch("https://internal/health-tick", { method: "POST" }).catch((e) => console.error("health-tick failed", e)),
         runScalingTick(env).catch((e) => console.error("scaling-tick failed", e)),
-        // The old cleanupObsoleteMurottalR2 step is GONE for good: it deleted
-        // the whole audio/qori/ prefix — the very library the R2-first player
-        // now streams from and the import workflow spends hours filling.
-        // Prune the live-traffic rolling window instead (site_hits only needs
-        // the last few minutes to answer "online sekarang").
+        // Prune the live-traffic rolling window (site_hits only needs the
+        // last few minutes to answer "online sekarang").
         env.DB.prepare("DELETE FROM site_hits WHERE ts < strftime('%s','now') - 1800")
           .run()
           .catch((e) => console.error("site-hits prune failed", e)),
+        purgeLegacyMurottal(env).catch((e) => console.error("legacy-murottal purge failed", e)),
         orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
       ]).then(() => undefined)
     );
