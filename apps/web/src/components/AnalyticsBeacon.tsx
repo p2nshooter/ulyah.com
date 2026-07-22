@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { api } from "@/lib/api";
+import { getDeviceId } from "@/lib/device-id";
 
 /**
  * Fires one lightweight, anonymous pageview beacon per navigation so the
@@ -15,7 +16,7 @@ export function AnalyticsBeacon({ locale }: { locale: string }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    api.post("/analytics/pageview", { path: pathname, locale }).catch(() => {});
+    api.post("/analytics/pageview", { path: pathname, locale, device: getDeviceId() }).catch(() => {});
   }, [pathname, locale]);
 
   return null;

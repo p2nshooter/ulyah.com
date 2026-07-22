@@ -564,7 +564,7 @@ adminRoute.get("/analytics", async (c) => {
 // tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
 adminRoute.get("/tenant-analytics", async (c) => {
-  const [visitors, installs, uninstalls, series, pages, countries, activeDevices, uninstalledDevices, activeNow] = await Promise.all([
+  const [visitors, installs, uninstalls, series, pages, countries, activeDevices, uninstalledDevices, activeNow, devices24h, devices7d] = await Promise.all([
     c.env.DB.prepare(
       `SELECT tenant,
               SUM(CASE WHEN date(created_at) = date('now') THEN 1 ELSE 0 END) AS today,
@@ -631,6 +631,20 @@ adminRoute.get("/tenant-analytics", async (c) => {
       `SELECT tenant, COUNT(*) AS n FROM analytics_pageviews
        WHERE created_at >= datetime('now','-5 minutes') GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
+    // REAL unique devices actually browsing each site in the last 24h — DISTINCT
+    // localStorage device tokens, not page views (owner: "tampilkan real brp
+    // perangkat dalam 24 jam ... 1 perangkat 30 page view"). Beacons without a
+    // device id (older clients) are ignored here so the number stays honest.
+    c.env.DB.prepare(
+      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-24 hours') AND device_id IS NOT NULL AND device_id != ''
+       GROUP BY tenant`
+    ).all<{ tenant: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-7 days') AND device_id IS NOT NULL AND device_id != ''
+       GROUP BY tenant`
+    ).all<{ tenant: string; n: number }>(),
   ]);
 
   const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
@@ -649,6 +663,8 @@ adminRoute.get("/tenant-analytics", async (c) => {
       activeDevices: activeDevices.results.find((r) => r.tenant === t)?.n ?? 0,
       uninstalledDevices: uninstalledDevices.results.find((r) => r.tenant === t)?.n ?? 0,
       activeNow: activeNow.results.find((r) => r.tenant === t)?.n ?? 0,
+      devices24h: devices24h.results.find((r) => r.tenant === t)?.n ?? 0,
+      devices7d: devices7d.results.find((r) => r.tenant === t)?.n ?? 0,
       daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n })),
       topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n })),
       topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n })),

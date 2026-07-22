@@ -14,7 +14,7 @@ import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
-import { BookFlip } from "@/components/HeaderMotif";
+import { SurahFlipbook } from "@/components/SurahFlipbook";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -107,10 +107,10 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               )}
             </span>
           </AdminTrigger>
-          {/* Forever-turning open book beside the brand (hidden only on the
-              tiniest screens so it never crowds the mobile header). */}
-          <BookFlip className="hidden min-[380px]:flex" />
           <WorldCup2026 />
+          {/* Forever-turning open book showing all 114 surah in turn, beside
+              the brand (hidden on the tiniest screens so it never crowds). */}
+          <SurahFlipbook className="hidden min-[380px]:flex" />
         </div>
 
         {/* Desktop: grouped dropdowns */}
