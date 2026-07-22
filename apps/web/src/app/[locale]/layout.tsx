@@ -10,6 +10,7 @@ import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { AdSlot } from "@/components/AdSlot";
+import { NetworkAd } from "@/components/NetworkAd";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { TrafficBeacon } from "@/components/TrafficBeacon";
@@ -298,11 +299,18 @@ export default async function LocaleLayout({
         <AnalyticsBeacon locale={locale} />
         <ThemeProvider>
           <Header locale={locale} dict={dict} />
+          {/* Network ad (Adsterra) directly under the header on every page —
+              renders only on the tenants that have units (dawa.es, ulyah.com);
+              every other site gets nothing. Reserved height = no layout jump. */}
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <NetworkAd unit="banner" />
+          </div>
           <main className="min-h-screen pb-24">{children}</main>
           {/* One tasteful ad above the footer on every page — off by default,
               controlled centrally from the ulyah.com admin (AdSlot renders
               nothing until the site is enabled + an ad-unit id is set). */}
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <NetworkAd unit="native" />
             <AdSlot placement="footer" />
           </div>
           <Footer locale={locale} dict={dict} />
