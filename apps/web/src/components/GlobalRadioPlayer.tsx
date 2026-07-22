@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { RECITERS, resolveAyahAudioUrl, resolveSurahAudioUrl } from "@/lib/qori-cdn";
+import { RECITERS, resolveAyahAudioSources, resolveSurahAudioUrl } from "@/lib/qori-cdn";
 import { computeKhatamIndex } from "@/lib/radio-clock";
 import { usePlayerStore } from "@/lib/player-store";
-import { useRadioStore, ensureSurahsLoaded } from "@/lib/radio-store";
+import { useRadioStore, ensureSurahsLoaded, nextRadioPosition } from "@/lib/radio-store";
 
 /**
  * The one place the Radio Qori <audio> element lives — mounted ONCE in the
@@ -17,6 +17,26 @@ import { useRadioStore, ensureSurahsLoaded } from "@/lib/radio-store";
  * first play starts muted with a one-tap unmute prompt — same behaviour as
  * before, just lifted out of the page component.
  */
+
+// Warm the NEXT ayah while the current one plays (owner: "pastikan betul-betul
+// sangat cepat"): one background fetch primes the Cloudflare edge cache AND
+// the browser's own HTTP cache (the files are immutable), so advancing to the
+// next ayah starts instantly with no gap. Best-effort — failures are ignored,
+// the normal load path still works.
+function prefetchNextAyah() {
+  try {
+    const { position, surahs } = useRadioStore.getState();
+    if (surahs.length === 0) return;
+    const next = nextRadioPosition(position, surahs);
+    void resolveAyahAudioSources(next.reciterKey, next.surahId, next.ayahNumber).then((sources) => {
+      const url = sources[0];
+      if (url) fetch(url).catch(() => {}); // plain GET — no preflight, warms edge + browser cache
+    });
+  } catch {
+    /* prefetch is purely opportunistic */
+  }
+}
+
 export function GlobalRadioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoStartedRef = useRef(false);
@@ -95,14 +115,17 @@ export function GlobalRadioPlayer() {
       return;
     }
     let cancelled = false;
+    let retryTimer: ReturnType<typeof setTimeout> | null = null;
     (async () => {
       const rc = RECITERS.find((r) => r.key === position.reciterKey);
-      const src =
+      // R2 first, source CDN as fallback (see qori-cdn.ts) — the player walks
+      // the list on load failure so one bad source never silences the radio.
+      const sources =
         rc?.cdn === "surah"
-          ? resolveSurahAudioUrl(position.reciterKey, position.surahId)
-          : await resolveAyahAudioUrl(position.reciterKey, position.surahId, position.ayahNumber);
+          ? [resolveSurahAudioUrl(position.reciterKey, position.surahId)].filter((s): s is string => !!s)
+          : await resolveAyahAudioSources(position.reciterKey, position.surahId, position.ayahNumber);
       if (cancelled) return;
-      if (!src) {
+      if (sources.length === 0) {
         // Nothing playable here — skip straight to the next position.
         useRadioStore.getState().advance();
         return;
@@ -112,31 +135,47 @@ export function GlobalRadioPlayer() {
       // sources is exactly the muffled "kaset kusut" echo. The radio wins; the
       // narration UI stops itself on its own next tick.
       if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
-      audio.src = src;
-      audio.muted = false;
-      try {
-        await audio.play();
+
+      for (const src of sources) {
         if (cancelled) return;
-        useRadioStore.getState().setPlaybackState({ playing: true, needsInteraction: false, muted: false });
-        usePlayerStore.getState().pause(); // never two audio streams at once
-        return;
-      } catch {
-        /* unmuted blocked — try muted */
+        audio.src = src;
+        audio.muted = false;
+        try {
+          await audio.play();
+          if (cancelled) return;
+          useRadioStore.getState().setPlaybackState({ playing: true, needsInteraction: false, muted: false });
+          usePlayerStore.getState().pause(); // never two audio streams at once
+          prefetchNextAyah();
+          return;
+        } catch (err) {
+          if (cancelled) return;
+          // A load/decode failure means THIS source is bad — try the next one.
+          // Only an autoplay-permission block warrants the muted retry.
+          if ((err as DOMException)?.name !== "NotAllowedError") continue;
+        }
+        audio.muted = true;
+        try {
+          await audio.play();
+          if (cancelled) return;
+          useRadioStore.getState().setPlaybackState({ needsInteraction: false, muted: true });
+          usePlayerStore.getState().pause();
+          return;
+        } catch {
+          if (cancelled) return;
+          useRadioStore.getState().setPlaybackState({ playing: false, needsInteraction: true, muted: false });
+          return;
+        }
       }
-      if (cancelled) return;
-      audio.muted = true;
-      try {
-        await audio.play();
-        if (cancelled) return;
-        useRadioStore.getState().setPlaybackState({ needsInteraction: false, muted: true });
-        usePlayerStore.getState().pause();
-      } catch {
-        if (cancelled) return;
-        useRadioStore.getState().setPlaybackState({ playing: false, needsInteraction: true, muted: false });
-      }
+      // Every source failed (offline blip / file truly missing everywhere) —
+      // move on after a short breather so a dead network can't spin the
+      // rotation through the whole mushaf in seconds.
+      retryTimer = setTimeout(() => {
+        if (!cancelled && useRadioStore.getState().playing) useRadioStore.getState().advance();
+      }, 4000);
     })();
     return () => {
       cancelled = true;
+      if (retryTimer) clearTimeout(retryTimer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing, gen, position.reciterKey, position.surahId, position.ayahNumber]);
@@ -169,7 +208,10 @@ export function GlobalRadioPlayer() {
     const resyncIfDead = () => {
       const audio = audioRef.current;
       if (!audio || !useRadioStore.getState().playing) return;
-      if (audio.paused) useRadioStore.getState().start();
+      // audio.error covers a mid-play network/decode failure, where the
+      // element stops WITHOUT flipping paused — previously an unrecoverable
+      // silent state until manual stop/start.
+      if (audio.paused || audio.error) useRadioStore.getState().start();
     };
     const onVisibility = () => {
       if (document.visibilityState === "visible") resyncIfDead();

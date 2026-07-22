@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import type { Env } from "../env.js";
+import { MUROTTAL_SOURCES, sourceUrlCandidates } from "../lib/murottal-sources.js";
 
 export const audioRoute = new Hono<{ Bindings: Env }>();
 
@@ -38,11 +39,136 @@ async function streamR2Object(c: any, key: string) {
   return new Response(obj.body, { status: 200, headers });
 }
 
-// Murottal (Qur'an recitation) is no longer proxied/stored here — the
-// frontend streams it directly from the reciter's own public CDN
-// (apps/web/src/lib/qori-cdn.ts). Re-downloading every reciter's every ayah
-// into R2 took hours per reciter to store a full copy of audio that already
-// has a free public home; the browser's own HTTP cache is enough.
+// ── Murottal from R2 (owner: R2 is the PRIMARY player source) ─────────────
+//
+// GET /audio/qori/:folder/:file  (file = <SSS><AAA>.mp3)
+//
+// Serves the self-hosted murottal library: radio, per-ayah Qur'an reader and
+// Mushaf Utsmani all point here first (apps/web/src/lib/qori-cdn.ts). Three
+// tiers keep it fast and self-completing:
+//   1. Cloudflare edge cache (per-colo, free) — repeat plays of the same ayah
+//      in a colo never touch R2 at all;
+//   2. R2 — the permanent library (filled by the bulk importer and by tier 3);
+//   3. source-CDN fill — an R2 miss transparently fetches the 128 kbps file
+//      from the reciter's own CDN, streams it to the listener AND stores it
+//      into R2 + audio_cache in the background, so every gap heals itself the
+//      first time anyone plays it. Playback is never blocked on the import
+//      workflow finishing.
+audioRoute.get("/qori/:folder/:file", async (c) => {
+  const folder = c.req.param("folder");
+  const file = c.req.param("file");
+  if (!MUROTTAL_SOURCES[folder] || !/^\d{6}\.mp3$/.test(file)) {
+    return c.json({ error: "Unknown murottal path" }, 404);
+  }
+  const surah = Number(file.slice(0, 3));
+  const ayah = Number(file.slice(3, 6));
+  const key = `audio/qori/${folder}/${file}`;
+
+  const rangeHeader = c.req.header("range");
+  const rangeStart = rangeHeader ? Number(/bytes=(\d+)-/.exec(rangeHeader)?.[1] ?? 0) : 0;
+  // The files are one-ayah MP3s (tiny). Only a nonzero-offset seek needs a
+  // real 206; a plain load or a bytes=0- probe is happily served the full
+  // 200 body, which lets the edge cache carry the hot path.
+  const cacheable = rangeStart === 0;
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(new URL(c.req.url).toString(), { method: "GET" });
+
+  if (cacheable) {
+    const hit = await cache.match(cacheKey).catch(() => undefined);
+    if (hit) {
+      const res = new Response(hit.body, hit);
+      res.headers.set("X-Murottal-Source", "edge");
+      return res;
+    }
+  }
+
+  const audioHeaders = () => {
+    const h = new Headers();
+    h.set("content-type", "audio/mpeg");
+    h.set("accept-ranges", "bytes");
+    h.set("cache-control", "public, max-age=31536000, immutable");
+    // Audio is public and non-credentialed — let every sibling domain play it.
+    h.set("access-control-allow-origin", "*");
+    return h;
+  };
+
+  // Tier 2 — R2.
+  const options: R2GetOptions = {};
+  if (rangeStart > 0) options.range = { offset: rangeStart };
+  const obj = await c.env.MEDIA_R2.get(key, options).catch(() => null);
+  if (obj) {
+    const headers = audioHeaders();
+    headers.set("etag", obj.httpEtag);
+    headers.set("X-Murottal-Source", "r2");
+    if (rangeStart > 0) {
+      const total = obj.size;
+      headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
+      return new Response(obj.body, { status: 206, headers });
+    }
+    const res = new Response(obj.body, { status: 200, headers });
+    const [toClient, toEdge] = res.body!.tee();
+    c.executionCtx.waitUntil(
+      cache.put(cacheKey, new Response(toEdge, { status: 200, headers: new Headers(headers) })).catch(() => {})
+    );
+    return new Response(toClient, { status: 200, headers });
+  }
+
+  // Tier 3 — fill from the source CDN (highest bitrate first), serve it now,
+  // and persist to R2 + audio_cache in the background.
+  let buf: ArrayBuffer | null = null;
+  for (const url of sourceUrlCandidates(folder, surah, ayah)) {
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": "ulyah.com murottal" } });
+      if (res.ok) {
+        const b = await res.arrayBuffer();
+        if (b.byteLength > 2000) {
+          buf = b;
+          break;
+        }
+      }
+    } catch {
+      /* try the next bitrate/source */
+    }
+  }
+  if (!buf) return c.json({ error: "Audio not found" }, 404);
+
+  const bytes = buf;
+  c.executionCtx.waitUntil(
+    (async () => {
+      await c.env.MEDIA_R2.put(key, bytes, { httpMetadata: { contentType: "audio/mpeg" } }).catch(() => {});
+      // Catalog row so the importer/admin can see true completeness; the
+      // subselects resolve ids without an extra read round-trip.
+      await c.env.DB.prepare(
+        `INSERT OR IGNORE INTO audio_cache (ayah_id, qori_id, r2_key)
+         SELECT a.id, q.id, ?3 FROM ayah a, qori q
+         WHERE a.surah_id = ?1 AND a.number = ?2 AND q.audio_base_path = ?4`
+      )
+        .bind(surah, ayah, key, `audio/qori/${folder}`)
+        .run()
+        .catch(() => {});
+    })()
+  );
+
+  const headers = audioHeaders();
+  headers.set("X-Murottal-Source", "cdn-fill");
+  if (rangeStart > 0) {
+    const total = bytes.byteLength;
+    const body = bytes.slice(rangeStart);
+    headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
+    return new Response(body, { status: 206, headers });
+  }
+  c.executionCtx.waitUntil(cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {}));
+  return new Response(bytes, { status: 200, headers });
+});
+
+// CORS preflight for the audio path (some browsers preflight crossorigin
+// media fetches).
+audioRoute.options("/qori/:folder/:file", (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+  c.header("Access-Control-Allow-Headers", "Range");
+  return c.body(null, 204);
+});
 
 // GET /audio/story/:id — stream kisah/hikmah narration (TTS or recorded)
 audioRoute.get("/story/:id", async (c) => {

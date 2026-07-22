@@ -13,7 +13,6 @@ import { analyticsRoute } from "./routes/analytics.js";
 import { geoRoute } from "./routes/geo.js";
 import { grantRoute } from "./routes/grant.js";
 import { runScalingTick } from "./lib/scaling.js";
-import { cleanupObsoleteMurottalR2 } from "./lib/r2-cleanup.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
@@ -30,6 +29,11 @@ const SIBLING_ORIGINS = new Set([
   "https://1fr.fr", "https://www.1fr.fr",
   "https://tilawa.de", "https://www.tilawa.de",
   "https://dawa.es", "https://www.dawa.es",
+  // xad.es is the English member of the ecosystem. Leaving it out of this
+  // set blocked EVERY credentialed API call from xad.es (including the surah
+  // index the radio needs before it can start) — the "radio xad.es ga bisa"
+  // report.
+  "https://xad.es", "https://www.xad.es",
   // AXTO network reads the central ad config from api.ulyah.com too.
   "https://axto.io", "https://www.axto.io",
   "https://axto.dev", "https://www.axto.dev",
@@ -148,7 +152,14 @@ export default {
       Promise.all([
         stub.fetch("https://internal/health-tick", { method: "POST" }).catch((e) => console.error("health-tick failed", e)),
         runScalingTick(env).catch((e) => console.error("scaling-tick failed", e)),
-        cleanupObsoleteMurottalR2(env).catch((e) => console.error("r2-cleanup failed", e)),
+        // The old cleanupObsoleteMurottalR2 step is GONE for good: it deleted
+        // the whole audio/qori/ prefix — the very library the R2-first player
+        // now streams from and the import workflow spends hours filling.
+        // Prune the live-traffic rolling window instead (site_hits only needs
+        // the last few minutes to answer "online sekarang").
+        env.DB.prepare("DELETE FROM site_hits WHERE ts < strftime('%s','now') - 1800")
+          .run()
+          .catch((e) => console.error("site-hits prune failed", e)),
         orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
       ]).then(() => undefined)
     );

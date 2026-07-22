@@ -41,30 +41,45 @@ const EY_CDN = "https://everyayah.com/data"; // /<folder>/<SSS><AAA>.mp3
 // `aqc` uses the alquran.cloud islamic.network CDN by GLOBAL ayah number;
 // `ey` uses everyayah.com by surah+ayah. Editions/folders verified against the
 // reciter list in apps/web/src/lib/qori-cdn.ts.
+// Keep in sync with apps/worker-api/src/lib/murottal-sources.ts (the worker's
+// on-demand cache-fill uses the same mapping) and the r2Folder values in
+// apps/web/src/lib/qori-cdn.ts. `name` lets this importer CREATE the qori row
+// when it doesn't exist yet — previously a folder with no pre-existing
+// audio_cache rows could never be imported at all.
 const SOURCES = {
-  alafasy: { kind: "aqc", edition: "ar.alafasy" },
-  sudais: { kind: "aqc", edition: "ar.abdurrahmaansudais" },
-  muaiqly: { kind: "aqc", edition: "ar.mahermuaiqly" },
-  hudhaify: { kind: "aqc", edition: "ar.hudhaify" },
-  minshawi: { kind: "aqc", edition: "ar.minshawi" },
-  "minshawi-mujawwad": { kind: "aqc", edition: "ar.minshawimujawwad" },
-  husary: { kind: "aqc", edition: "ar.husary" },
-  "abdulbasit-murattal": { kind: "aqc", edition: "ar.abdulbasitmurattal" },
-  "abdulbasit-mujawwad": { kind: "aqc", edition: "ar.abdulbasitmurattal" },
-  ajmy: { kind: "aqc", edition: "ar.ahmedajamy" },
-  akhdar: { kind: "aqc", edition: "ar.ibrahimakhdar" },
-  jibreel: { kind: "aqc", edition: "ar.muhammadjibreel" },
-  sowaid: { kind: "aqc", edition: "ar.aymanswoaid" },
-  rifai: { kind: "aqc", edition: "ar.hanirifai" },
-  qasim: { kind: "aqc", edition: "ar.muhammadalmuhaisany" },
-  shatri: { kind: "aqc", edition: "ar.shaatree" },
-  ghamdi: { kind: "ey", folder: "Ghamadi_40kbps" },
-  bukhatir: { kind: "ey", folder: "Salaah_AbdulRahman_Bukhatir_128kbps" },
-  fares: { kind: "ey", folder: "Fares_Abbad_64kbps" },
-  tablawi: { kind: "ey", folder: "Mohammad_al_Tablawi_128kbps" },
-  dosari: { kind: "ey", folder: "Yasser_Ad-Dussary_128kbps" },
-  qatami: { kind: "ey", folder: "Nasser_Alqatami_128kbps" },
-  mansoori: { kind: "ey", folder: "Karim_Mansoori_40kbps" },
+  alafasy: { kind: "aqc", edition: "ar.alafasy", name: "Mishary Rashid Alafasy" },
+  sudais: { kind: "aqc", edition: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais" },
+  muaiqly: { kind: "aqc", edition: "ar.mahermuaiqly", name: "Maher Al Muaiqly" },
+  shuraym: { kind: "aqc", edition: "ar.saoodshuraym", name: "Saud Al-Shuraim" },
+  hudhaify: { kind: "aqc", edition: "ar.hudhaify", name: "Ali Al-Hudhaify" },
+  ayyoub: { kind: "aqc", edition: "ar.muhammadayyoub", name: "Muhammad Ayyub" },
+  basfar: { kind: "aqc", edition: "ar.abdullahbasfar", name: "Abdullah Basfar" },
+  minshawi: { kind: "aqc", edition: "ar.minshawi", name: "Muhammad Siddiq Al-Minshawi" },
+  "minshawi-mujawwad": { kind: "aqc", edition: "ar.minshawimujawwad", name: "Al-Minshawi (Mujawwad)" },
+  husary: { kind: "aqc", edition: "ar.husary", name: "Mahmoud Khalil Al-Husary" },
+  "husary-mujawwad": { kind: "aqc", edition: "ar.husarymujawwad", name: "Al-Husary (Mujawwad)" },
+  "abdulbasit-murattal": { kind: "aqc", edition: "ar.abdulbasitmurattal", name: "Abdul Basit Abdul Samad (Murattal)" },
+  "abdulbasit-mujawwad": { kind: "aqc", edition: "ar.abdulbasitmurattal", name: "Abdul Basit Abdul Samad (Mujawwad)" },
+  ajmy: { kind: "aqc", edition: "ar.ahmedajamy", name: "Ahmed Al-Ajmy" },
+  akhdar: { kind: "ey", folder: "Ibrahim_Akhdar_32kbps", name: "Ibrahim Al-Akhdar" },
+  jibreel: { kind: "aqc", edition: "ar.muhammadjibreel", name: "Muhammad Jibreel" },
+  sowaid: { kind: "aqc", edition: "ar.aymanswoaid", name: "Ayman Sowaid" },
+  rifai: { kind: "aqc", edition: "ar.hanirifai", name: "Hani Ar-Rifai" },
+  qasim: { kind: "aqc", edition: "ar.muhammadalmuhaisany", name: "Muhsin Al-Qasim" },
+  shatri: { kind: "aqc", edition: "ar.shaatree", name: "Abu Bakr Al-Shatri" },
+  ghamdi: { kind: "ey", folder: "Ghamadi_40kbps", name: "Saad Al-Ghamdi" },
+  bukhatir: { kind: "ey", folder: "Salaah_AbdulRahman_Bukhatir_128kbps", name: "Salah Bukhatir" },
+  fares: { kind: "ey", folder: "Fares_Abbad_64kbps", name: "Fares Abbad" },
+  tablawi: { kind: "ey", folder: "Mohammad_al_Tablawi_128kbps", name: "Mohammad Al-Tablawi" },
+  dosari: { kind: "ey", folder: "Yasser_Ad-Dussary_128kbps", name: "Yasser Al-Dosari" },
+  qatami: { kind: "ey", folder: "Nasser_Alqatami_128kbps", name: "Nasser Al Qatami" },
+  tunaiji: { kind: "ey", folder: "khalefa_al_tunaiji_128kbps", name: "Khalifa Al-Tunaiji" },
+  matroud: { kind: "ey", folder: "Abdullah_Matroud_128kbps", name: "Abdullah Al-Matroud" },
+  juhany: { kind: "ey", folder: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", name: "Abdullah Awad Al-Juhany" },
+  alijaber: { kind: "ey", folder: "Ali_Jaber_64kbps", name: "Ali Jaber" },
+  banna: { kind: "ey", folder: "mahmoud_ali_al_banna_32kbps", name: "Mahmoud Ali Al-Banna" },
+  // 128 kbps folder (the old Karim_Mansoori_40kbps was the muffled source).
+  mansoori: { kind: "ey", folder: "Karim_Mansouri_128kbps", name: "Karim Mansouri" },
 };
 
 function args() {
@@ -186,11 +201,23 @@ async function main() {
       console.warn(`No source mapping for "${folder}" — skipping.`);
       continue;
     }
-    // Map the R2 folder to a qori_id via the existing audio_cache, else by name match.
-    const known = d1(`SELECT qori_id FROM audio_cache WHERE r2_key LIKE 'audio/qori/${folder}/%' LIMIT 1`);
-    let qoriId = known[0] ? Number(known[0].qori_id) : null;
+    // Resolve qori_id from the qori registry (audio_base_path is the R2
+    // folder), falling back to audio_cache inference for legacy rows, and
+    // finally CREATING the row — a fresh folder must never be unimportable.
+    const byPath = d1(`SELECT id FROM qori WHERE audio_base_path = 'audio/qori/${folder}' LIMIT 1`);
+    let qoriId = byPath[0] ? Number(byPath[0].id) : null;
     if (!qoriId) {
-      console.warn(`Folder "${folder}" has no existing rows to infer qori_id — skipping (add a qori row first).`);
+      const known = d1(`SELECT qori_id FROM audio_cache WHERE r2_key LIKE 'audio/qori/${folder}/%' LIMIT 1`);
+      qoriId = known[0] ? Number(known[0].qori_id) : null;
+    }
+    if (!qoriId) {
+      const safeName = String(src.name || folder).replace(/'/g, "''");
+      d1(`INSERT INTO qori (name, audio_base_path) VALUES ('${safeName}', 'audio/qori/${folder}')`, false);
+      const created = d1(`SELECT id FROM qori WHERE audio_base_path = 'audio/qori/${folder}' LIMIT 1`);
+      qoriId = created[0] ? Number(created[0].id) : null;
+    }
+    if (!qoriId) {
+      console.warn(`Folder "${folder}" — could not resolve or create a qori row, skipping.`);
       continue;
     }
     const have = new Set(

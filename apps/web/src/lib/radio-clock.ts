@@ -28,6 +28,7 @@ const RADIO_EPOCHS: Record<string, number> = {
   "1fr": Date.UTC(2026, 6, 17, 0, 0, 0), // 1fr.fr go-live
   tilawa: Date.UTC(2026, 6, 17, 0, 0, 0), // tilawa.de go-live
   dawa: Date.UTC(2026, 6, 19, 0, 0, 0), // dawa.es go-live
+  xad: Date.UTC(2026, 6, 22, 0, 0, 0), // xad.es joins the ecosystem — khatam from 0
 };
 const RADIO_EPOCH_MS = RADIO_EPOCHS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? RADIO_EPOCHS.ulyah!;
 
