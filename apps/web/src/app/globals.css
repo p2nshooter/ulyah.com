@@ -372,3 +372,74 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .eco-topline, .ulyah-wm, .eco-orb, .eco-star { animation: none; }
 }
+
+/* ═══ Header Qur'an flip-book (SurahFlipbook.tsx) — ulyah / 1fr / tilawa ═══
+   A small open book whose page turns by itself, showing all 114 surah in turn
+   (Arabic name + number + transliteration), then looping. */
+.sf-book {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: clamp(84px, 24vw, 128px);
+  height: clamp(48px, 13vw, 62px);
+  margin: 0 0.15rem;
+  border-radius: 5px 9px 9px 5px;
+  background: linear-gradient(180deg, #fffaf0, #efe3c6);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.55);
+  overflow: hidden;
+  perspective: 520px;
+}
+/* the spine down the middle of the open book */
+.sf-book::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  height: 90%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(var(--color-accent), transparent, var(--color-accent));
+  opacity: 0.45;
+  z-index: 2;
+}
+.sf-leaf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 4px;
+  text-align: center;
+  line-height: 1.05;
+  transform-origin: left center;
+  animation: sf-turn 0.7s ease-out;
+}
+.sf-ar {
+  font-size: clamp(1rem, 4.4vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: #0f4030;
+}
+.sf-latin {
+  margin-top: 1px;
+  font-size: clamp(0.5rem, 2vw, 0.66rem);
+  font-weight: 600;
+  color: #37543f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+@keyframes sf-turn {
+  0% { transform: rotateY(-88deg); opacity: 0; }
+  55% { opacity: 1; }
+  100% { transform: rotateY(0deg); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sf-leaf { animation: none; }
+}

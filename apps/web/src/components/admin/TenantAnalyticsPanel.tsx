@@ -18,6 +18,9 @@ interface TenantStat {
   uninstalledDevices: number;
   /** Real pageview beacons in the last 5 minutes — live "online now". */
   activeNow: number;
+  /** DISTINCT devices that actually browsed this site in the last 24h / 7d. */
+  devices24h?: number;
+  devices7d?: number;
   daily: { bucket: string; n: number }[];
   topPages: { path: string; n: number }[];
   topCountries: { country: string; n: number }[];
@@ -145,6 +148,12 @@ export function TenantAnalyticsPanel() {
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
                 <span>
                   🟢 Online sekarang: <b className="text-accent">{r.activeNow}</b>
+                </span>
+                <span>
+                  📲 Perangkat unik (24 jam): <b className="text-accent">{r.devices24h ?? 0}</b>
+                </span>
+                <span>
+                  📲 Perangkat unik (7 hari): <b className="text-accent">{r.devices7d ?? 0}</b>
                 </span>
                 <span>
                   📱 App terpasang (perangkat): <b className="text-accent">{r.activeDevices > 0 ? r.activeDevices : net > 0 ? net : 0}</b>

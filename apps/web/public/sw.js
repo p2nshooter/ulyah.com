@@ -9,7 +9,7 @@
 // Bump CACHE on every deploy that changes a fixed-path cached asset's content
 // (icons, wordmark PNGs) — those paths never change name, so activate() must
 // throw the old cache away.
-const CACHE = "ulyah-shell-v11d"; // v11d: new xad brand art + turning-book motif + bigger wordmark/boat rock — bust the shell so returning/installed visitors drop the cached green emblem
+const CACHE = "ulyah-shell-v12"; // v12: surah flip-book (114 surah) + unique-device analytics
 const SHELL = "/"; // the app's start_url (canonical bare path)
 const NAV_TIMEOUT = 3500; // ms before we serve the cached shell instead of waiting
 
