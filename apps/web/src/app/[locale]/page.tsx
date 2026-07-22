@@ -101,7 +101,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               </blockquote>
               <div className="mt-6 flex justify-center">
                 <Image
-                  src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-dark.webp" : TENANT.logoIcon}
+                  src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-dark.webp" : TENANT.logoLockup ?? TENANT.logoIcon}
                   alt={TENANT.siteName}
                   width={640}
                   height={640}

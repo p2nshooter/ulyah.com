@@ -186,7 +186,7 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
             alt={TENANT.siteName}
             width={1200}
             height={480}
-            className="mx-auto mb-8 w-full max-w-2xl rounded-2xl shadow-[var(--shadow-gold)]"
+            className="mx-auto mb-8 h-auto w-full max-w-2xl rounded-2xl shadow-[var(--shadow-gold)]"
             priority
           />
         )}

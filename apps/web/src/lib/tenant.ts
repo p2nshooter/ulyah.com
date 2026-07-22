@@ -29,6 +29,9 @@ export interface TenantConfig {
   /** Square app icon and wide banner (public/ paths). */
   logoIcon: string;
   logoBanner: string | null;
+  /** Full brand lockup (emblem + wordmark) for large hero/portal visuals;
+   *  null = fall back to logoIcon. */
+  logoLockup: string | null;
   /** Wordmark images for header/footer; null = render siteName as text. */
   wordmark: string | null;
   wordmarkGold: string | null;
@@ -50,6 +53,7 @@ const ULYAH: TenantConfig = {
   tagline: {},
   logoIcon: "/icon.png",
   logoBanner: null,
+  logoLockup: null,
   wordmark: "/brand/wordmark-ar.png",
   wordmarkGold: "/brand/wordmark-ar-gold.png",
   acquisitionEmail: null,
@@ -65,6 +69,7 @@ const ONEFAITH: TenantConfig = {
   },
   logoIcon: "/brand/1fr/icon.png",
   logoBanner: "/brand/1fr/banner.png",
+  logoLockup: null,
   wordmark: null,
   wordmarkGold: null,
   acquisitionEmail: "salam@ulyah.com",
@@ -82,6 +87,7 @@ const TILAWA: TenantConfig = {
   },
   logoIcon: "/brand/tilawa/icon.png",
   logoBanner: "/brand/tilawa/banner.png",
+  logoLockup: null,
   wordmark: null,
   wordmarkGold: null,
   // All acquisition offers go to the OWNER's inbox (owner: "semua email
@@ -100,6 +106,7 @@ const DAWA: TenantConfig = {
   },
   logoIcon: "/brand/dawa/icon.png",
   logoBanner: "/brand/dawa/banner.png",
+  logoLockup: null,
   wordmark: null,
   wordmarkGold: null,
   acquisitionEmail: "salam@ulyah.com",
@@ -114,8 +121,12 @@ const XAD: TenantConfig = {
   tagline: {
     en: "eXplore Ayah Daily — Qur'an, Hadith & Tafsir in English",
   },
-  logoIcon: "/brand/xad/icon.svg",
-  logoBanner: "/brand/xad/banner.svg",
+  // Brand refresh (owner upload): a purple/gold app-icon emblem, a full
+  // "XAD — eXplore Ayah Daily" lockup for hero visuals, and a wide marketing
+  // banner — all raster art replacing the earlier SVG placeholders.
+  logoIcon: "/brand/xad/icon.png",
+  logoBanner: "/brand/xad/banner.webp",
+  logoLockup: "/brand/xad/logo.png",
   wordmark: null,
   wordmarkGold: null,
   acquisitionEmail: "salam@ulyah.com",
