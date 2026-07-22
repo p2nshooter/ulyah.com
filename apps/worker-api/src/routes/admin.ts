@@ -935,16 +935,23 @@ adminRoute.get("/site-analytics", async (c) => {
 adminRoute.post("/adsense-config", async (c) => {
   const body = await c.req.json<{
     slots?: Record<string, string>;
-    sites?: Record<string, { enabled?: boolean; approved?: boolean } | boolean>;
+    sites?: Record<string, { enabled?: boolean; approved?: boolean; adsterra?: boolean } | boolean>;
     adsterra?: boolean;
   }>();
   const current = await getAdConfig(c.env);
-  const mergedSites: Record<string, { enabled: boolean; approved: boolean }> = { ...current.sites };
+  const mergedSites: Record<string, { enabled: boolean; approved: boolean; adsterra: boolean }> = { ...current.sites };
   for (const [k, v] of Object.entries(body.sites ?? {})) {
     if (typeof v === "boolean") {
-      mergedSites[k] = { enabled: v, approved: false };
+      // legacy boolean form only carried "enabled"; keep the site's existing
+      // adsterra flag rather than resetting it.
+      mergedSites[k] = { enabled: v, approved: false, adsterra: current.sites[k]?.adsterra !== false };
     } else if (v && typeof v === "object") {
-      mergedSites[k] = { enabled: v.enabled === true, approved: v.approved === true };
+      mergedSites[k] = {
+        enabled: v.enabled === true,
+        approved: v.approved === true,
+        // adsterra defaults ON unless the client explicitly sends false.
+        adsterra: v.adsterra !== false,
+      };
     }
   }
   // Use the config saveAdConfig actually wrote — never re-read from KV here

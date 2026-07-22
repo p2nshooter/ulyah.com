@@ -1183,6 +1183,14 @@ contentRoute.get("/live-streams", async (c) => {
       return { ...s, channel_id: ch, video_id, latest_video_id };
     })
   );
+  // NEVER edge-cache this 30 min like other /content lists: an admin CRUD on a
+  // live stream (add/edit/delete/toggle is_live) must reach every ecosystem site
+  // almost immediately (owner: "live streaming YouTube belum update ke ekosistem
+  // ulyah.com, bahaya ini"). The expensive YouTube live-lookup is already
+  // KV-cached per channel inside resolveLiveVideoId, so skipping the edge cache
+  // here does not blow the free-plan budget — it only re-reads a few D1 rows.
+  c.header("X-No-Edge-Cache", "1");
+  c.header("Cache-Control", "public, max-age=30");
   return c.json({ streams });
 });
 
@@ -1197,6 +1205,11 @@ contentRoute.get("/video-anak", async (c) => {
       "SELECT id, country, title, channel_id, language, sort_order FROM video_anak_channel WHERE visible = 1 ORDER BY country, sort_order"
     ).all(),
   ]);
+  // Admin can show/hide/add/remove world channels — don't let a 30-min edge
+  // cache hide those changes from the ecosystem (owner: konten wajib full
+  // updated dari portal admin).
+  c.header("X-No-Edge-Cache", "1");
+  c.header("Cache-Control", "public, max-age=60");
   return c.json({ videos, channels });
 });
 
@@ -1226,5 +1239,9 @@ contentRoute.get("/hajj-packages", async (c) => {
     }
     return { ...r, features };
   });
+  // Admin-editable product cards — keep them fresh across the ecosystem instead
+  // of stuck behind a 30-min edge cache (owner: konten wajib full updated).
+  c.header("X-No-Edge-Cache", "1");
+  c.header("Cache-Control", "public, max-age=60");
   return c.json({ packages });
 });
