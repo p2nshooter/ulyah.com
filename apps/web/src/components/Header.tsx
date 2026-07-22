@@ -13,7 +13,7 @@ import { InstallAppButton } from "@/components/InstallAppButton";
 import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
-import { EcoTopLine, EcoBook } from "@/components/EcosystemDecor";
+import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -76,7 +76,9 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
               <Image src={TENANT.logoIcon} alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
-              {TENANT.wordmark && TENANT.wordmarkGold ? (
+              {TENANT.id === "ulyah" ? (
+                <UlyahWordmark />
+              ) : TENANT.wordmark && TENANT.wordmarkGold ? (
                 <>
                   {/* Natural green+gold reads well on the light header (white bg);
                       pure-gold reads well on the dark header (deep green bg). */}
@@ -105,7 +107,6 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
             </span>
           </AdminTrigger>
           <WorldCup2026 />
-          <EcoBook />
         </div>
 
         {/* Desktop: grouped dropdowns */}

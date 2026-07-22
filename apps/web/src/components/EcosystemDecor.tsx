@@ -5,15 +5,17 @@ import { TENANT } from "@/lib/tenant";
  * 1fr.fr and tilawa.de (owner request). Gated to these three tenants so the
  * football-themed dawa.es / xad.es keep their own World Cup ornament.
  *
- *   • EcoTopLine   — a slim, endlessly-scrolling multi-colour ribbon pinned to
- *                    the very top edge of the header.
- *   • EcoBook      — a small open book whose pages flip continuously, sitting
- *                    beside the logo.
- *   • EcoOrnaments — soft, slowly-drifting ambient ornaments (gold orbs + a
- *                    turning eight-point star) behind every page. Decorative
- *                    only: aria-hidden, pointer-events:none, very low opacity,
- *                    and fully stilled under prefers-reduced-motion (see
- *                    globals.css).
+ *   • EcoTopLine     — a slim, endlessly-scrolling multi-colour ribbon pinned
+ *                      to the very top edge of the header.
+ *   • UlyahWordmark  — the Arabic "عليه" wordmark rendered as live text (Amiri)
+ *                      with a never-ending, cinema-marquee multi-colour gradient
+ *                      that slides across the letters and cycles through dozens
+ *                      of hues. ulyah.com only.
+ *   • EcoOrnaments   — soft, slowly-drifting ambient ornaments (gold orbs + a
+ *                      turning eight-point star) behind every page. Decorative
+ *                      only: aria-hidden, pointer-events:none, very low opacity,
+ *                      and fully stilled under prefers-reduced-motion (see
+ *                      globals.css).
  */
 const DECOR_TENANTS = new Set(["ulyah", "1fr", "tilawa"]);
 const decorOn = () => DECOR_TENANTS.has(TENANT.id);
@@ -23,13 +25,11 @@ export function EcoTopLine() {
   return <span className="eco-topline" aria-hidden="true" />;
 }
 
-export function EcoBook() {
-  if (!decorOn()) return null;
+/** Animated Arabic wordmark for ulyah.com (replaces the static gold image). */
+export function UlyahWordmark() {
   return (
-    <span className="eco-book" aria-hidden="true" title="ulyah">
-      <span className="eco-book-page" />
-      <span className="eco-book-page" />
-      <span className="eco-book-page" />
+    <span className="ulyah-wm font-arabic" role="img" aria-label="ulyah">
+      عليه
     </span>
   );
 }
