@@ -624,12 +624,13 @@ adminRoute.get("/tenant-analytics", async (c) => {
          )
        ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
-    // LIVE "online right now": real pageview beacons in the last 5 minutes —
-    // never an estimate, never invented (owner: "harus real live bukan info
-    // bohong"). Zero when nobody is browsing.
+    // LIVE "online right now" — the SAME source as the ⚡ Live bar so the two
+    // never disagree (owner: "kenapa live skrg berbeda jika ditotalin"):
+    // DISTINCT devices with a presence heartbeat in the last 20s. Real devices,
+    // not page views; zero when nobody is actively on the site.
     c.env.DB.prepare(
-      `SELECT tenant, COUNT(*) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-5 minutes') GROUP BY tenant`
+      `SELECT tenant, COUNT(*) AS n FROM live_presence
+       WHERE last_seen >= (strftime('%s','now') - 20) GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
     // REAL unique devices actually browsing each site in the last 24h — DISTINCT
     // localStorage device tokens, not page views (owner: "tampilkan real brp
