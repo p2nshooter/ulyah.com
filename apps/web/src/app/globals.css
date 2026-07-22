@@ -251,11 +251,16 @@ body {
    the right toward the Ha) while hue, saturation and brightness keep shifting. */
 .ulyah-wm {
   display: inline-block;
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+  white-space: nowrap;
   font-weight: 700;
-  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  /* Big by default; on phones it scales with the viewport to fill the header. */
+  font-size: clamp(2.5rem, 7vw, 3.25rem);
   line-height: 1;
   letter-spacing: 0.01em;
-  padding: 0 0.12em 0.06em;
+  padding: 0 0.1em 0.06em;
   background-image: linear-gradient(
     90deg,
     #ff0040, #ff7a00, #ffd400, #a6ff00, #24ff8f, #00e5ff, #2f6bff, #6a2bff,
@@ -268,10 +273,23 @@ body {
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  transform-origin: center;
   animation:
     ulyah-wm-slide 7.3s linear infinite,
     ulyah-wm-cycle 13s linear infinite,
-    ulyah-wm-size 19s ease-in-out infinite;
+    ulyah-wm-size 19s ease-in-out infinite,
+    ulyah-wm-rock 4.5s ease-in-out infinite;
+}
+/* On phones the wordmark grows with the viewport to fill the header width. */
+@media (max-width: 640px) {
+  .ulyah-wm { font-size: clamp(2.75rem, 13vw, 4.25rem); }
+}
+/* Gentle boat-like rocking (tilt + bob). Transform only — no layout reflow. */
+@keyframes ulyah-wm-rock {
+  0%, 100% { transform: rotate(-3.2deg) translateY(0); }
+  25% { transform: rotate(0deg) translateY(-2px); }
+  50% { transform: rotate(3.2deg) translateY(0); }
+  75% { transform: rotate(0deg) translateY(-2px); }
 }
 /* Slides the wide rainbow rightward across the word, continuously. */
 @keyframes ulyah-wm-slide {
