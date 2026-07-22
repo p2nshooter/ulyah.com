@@ -98,11 +98,14 @@ async function serveMurottal(c: any, folder: string, file: string) {
     }
   }
 
-  const audioHeaders = () => {
+  // `immutable` (default) is for the permanent, top-quality file. A fallback
+  // (lower-bitrate) fill is served with SHORT freshness so it is retried at
+  // the HiFi source soon and never becomes the muffled-forever copy.
+  const audioHeaders = (durable = true) => {
     const h = new Headers();
     h.set("content-type", "audio/mpeg");
     h.set("accept-ranges", "bytes");
-    h.set("cache-control", "public, max-age=31536000, immutable");
+    h.set("cache-control", durable ? "public, max-age=31536000, immutable" : "public, max-age=3600");
     // Audio is public and non-credentialed — let every sibling domain play it.
     h.set("access-control-allow-origin", "*");
     return h;
@@ -129,16 +132,24 @@ async function serveMurottal(c: any, folder: string, file: string) {
     return new Response(toClient, { status: 200, headers });
   }
 
-  // Tier 3 — fill from the source CDN (highest bitrate first), serve it now,
-  // and persist to R2 + audio_cache in the background.
+  // Tier 3 — fill from the source CDN. `sourceUrlCandidates` lists the BEST
+  // source first (128 kbps for aqc; the reciter's HiFi folder for ey), then
+  // lower-bitrate fallbacks. We track WHICH candidate answered: only the
+  // top one (index 0) is HiFi and may be stored permanently. A fallback is
+  // played but never persisted to R2 nor immutably cached — otherwise a
+  // momentary 128 kbps blip would freeze a muffled copy under this URL for a
+  // year, which is exactly the "mendem kaya kaset kusut" bug we are killing.
   let buf: ArrayBuffer | null = null;
-  for (const url of sourceUrlCandidates(folder, surah, ayah)) {
+  let usedIndex = -1;
+  const candidates = sourceUrlCandidates(folder, surah, ayah);
+  for (let ci = 0; ci < candidates.length; ci++) {
     try {
-      const res = await fetch(url, { headers: { "User-Agent": "ulyah.com murottal" } });
+      const res = await fetch(candidates[ci]!, { headers: { "User-Agent": "ulyah.com murottal" } });
       if (res.ok) {
         const b = await res.arrayBuffer();
         if (b.byteLength > 2000) {
           buf = b;
+          usedIndex = ci;
           break;
         }
       }
@@ -147,36 +158,42 @@ async function serveMurottal(c: any, folder: string, file: string) {
     }
   }
   if (!buf) return c.json({ error: "Audio not found" }, 404);
+  const isHiFi = usedIndex === 0; // top-quality source for this reciter
 
   const bytes = buf;
-  c.executionCtx.waitUntil(
-    (async () => {
-      await c.env.MEDIA_R2.put(key, bytes, { httpMetadata: { contentType: "audio/mpeg" } }).catch(() => {});
-      // Catalog row so the importer/admin can see true completeness; the
-      // subselects resolve ids without an extra read round-trip.
-      // Upsert: a legacy low-bitrate row for this (ayah, qori) must not block
-      // recording the fresh HiFi key.
-      await c.env.DB.prepare(
-        `INSERT INTO audio_cache (ayah_id, qori_id, r2_key)
-         SELECT a.id, q.id, ?3 FROM ayah a, qori q
-         WHERE a.surah_id = ?1 AND a.number = ?2 AND q.audio_base_path = ?4
-         ON CONFLICT(ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key`
-      )
-        .bind(surah, ayah, key, `audio/qori/${folder}`)
-        .run()
-        .catch(() => {});
-    })()
-  );
+  if (isHiFi) {
+    c.executionCtx.waitUntil(
+      (async () => {
+        await c.env.MEDIA_R2.put(key, bytes, { httpMetadata: { contentType: "audio/mpeg" } }).catch(() => {});
+        // Catalog row so the importer/admin can see true completeness; the
+        // subselects resolve ids without an extra read round-trip. Upsert: a
+        // legacy low-bitrate row must not block recording the fresh HiFi key.
+        await c.env.DB.prepare(
+          `INSERT INTO audio_cache (ayah_id, qori_id, r2_key)
+           SELECT a.id, q.id, ?3 FROM ayah a, qori q
+           WHERE a.surah_id = ?1 AND a.number = ?2 AND q.audio_base_path = ?4
+           ON CONFLICT(ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key`
+        )
+          .bind(surah, ayah, key, `audio/qori/${folder}`)
+          .run()
+          .catch(() => {});
+      })()
+    );
+  }
 
-  const headers = audioHeaders();
-  headers.set("X-Murottal-Source", "cdn-fill");
+  const headers = audioHeaders(isHiFi);
+  headers.set("X-Murottal-Source", isHiFi ? "cdn-fill-hifi" : "cdn-fill-fallback");
   if (rangeStart > 0) {
     const total = bytes.byteLength;
     const body = bytes.slice(rangeStart);
     headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
     return new Response(body, { status: 206, headers });
   }
-  c.executionCtx.waitUntil(cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {}));
+  // Only edge-cache the durable HiFi fill; a fallback must stay uncached so
+  // the next play re-attempts the 128 kbps source.
+  if (isHiFi) {
+    c.executionCtx.waitUntil(cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {}));
+  }
   return new Response(bytes, { status: 200, headers });
 }
 
