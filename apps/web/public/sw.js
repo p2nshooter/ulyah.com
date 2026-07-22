@@ -9,7 +9,7 @@
 // Bump CACHE on every deploy that changes a fixed-path cached asset's content
 // (icons, wordmark PNGs) — those paths never change name, so activate() must
 // throw the old cache away.
-const CACHE = "ulyah-shell-v11"; // v11: animated Arabic wordmark, book removed
+const CACHE = "ulyah-shell-v11b"; // v11b: richer non-repeating wordmark colour cycle
 const SHELL = "/"; // the app's start_url (canonical bare path)
 const NAV_TIMEOUT = 3500; // ms before we serve the cached shell instead of waiting
 
