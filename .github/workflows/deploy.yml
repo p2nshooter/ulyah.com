@@ -396,6 +396,20 @@ jobs:
             echo "Kisah Ibrahim already has $IBRCOUNT rows — skipping."
           fi
 
+      - name: Import Kisah Nabi Adam AS series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-adam';" --json > /tmp/kisah_adam_count.json
+          ADMCOUNT=$(node -e "const j=require('/tmp/kisah_adam_count.json'); console.log(j[0].results[0].n)")
+          if [ "$ADMCOUNT" -lt "1" ]; then
+            echo "Kisah Adam not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_adam.sql
+          else
+            echo "Kisah Adam already has $ADMCOUNT rows — skipping."
+          fi
+
       - name: Bulk-import Kitab library catalogue (one-time, ~4.9k works)
         continue-on-error: true
         working-directory: apps/worker-api
