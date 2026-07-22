@@ -903,6 +903,7 @@ jobs:
             --arg RESEND_API_KEY "$RESEND_API_KEY" \
             --arg EMAIL_FROM "$EMAIL_FROM" \
             --arg CORS_ALLOW_ORIGIN "$CORS_ALLOW_ORIGIN" \
+            --arg GH_CONTENT_TOKEN "$GH_CONTENT_TOKEN" \
             '$ARGS.named | with_entries(select(.value != ""))' > /tmp/secrets.json
 
           echo "Setting $(jq 'length' /tmp/secrets.json) worker secrets: $(jq -r 'keys | join(", ")' /tmp/secrets.json)"
@@ -924,6 +925,7 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           CORS_ALLOW_ORIGIN: ${{ secrets.CORS_ALLOW_ORIGIN }}
+          GH_CONTENT_TOKEN: ${{ secrets.GH_CONTENT_TOKEN }}
 
       - name: Build web (Next.js via OpenNext)
         working-directory: apps/web
