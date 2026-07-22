@@ -11,6 +11,7 @@ import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { AdSlot } from "@/components/AdSlot";
 import { NetworkAd } from "@/components/NetworkAd";
+import { EcoOrnaments } from "@/components/EcosystemDecor";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
 import { TrafficBeacon } from "@/components/TrafficBeacon";
@@ -299,18 +300,19 @@ export default async function LocaleLayout({
         <TrafficBeacon />
         <AnalyticsBeacon locale={locale} />
         <ThemeProvider>
+          {/* Soft ambient ornaments behind every page (ulyah/1fr/tilawa). */}
+          <EcoOrnaments />
           <Header locale={locale} dict={dict} />
-          {/* Network ad (Adsterra) directly under the header on every page —
-              renders only on the tenants that have units (dawa.es, ulyah.com);
-              every other site gets nothing. Reserved height = no layout jump. */}
+          {/* Owner request: NO network ad at the top — the reader meets content
+              first. All Adsterra units live together at the very bottom of the
+              page, just before the footer, so they never disturb the top. */}
+          <main className="min-h-screen pb-24">{children}</main>
+          {/* All ecosystem Adsterra ads consolidated here, right before the
+              footer. Renders only on tenants that have units; collapses cleanly
+              when the network has no fill. AdSlot (AdSense) stays dormant until
+              enabled centrally from the ulyah.com admin. */}
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
             <NetworkAd unit="banner" />
-          </div>
-          <main className="min-h-screen pb-24">{children}</main>
-          {/* One tasteful ad above the footer on every page — off by default,
-              controlled centrally from the ulyah.com admin (AdSlot renders
-              nothing until the site is enabled + an ad-unit id is set). */}
-          <div className="mx-auto max-w-4xl px-4 sm:px-6">
             <NetworkAd unit="native" />
             <AdSlot placement="footer" />
           </div>

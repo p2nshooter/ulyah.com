@@ -6,7 +6,6 @@ import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
-import { NetworkAd } from "@/components/NetworkAd";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -143,12 +142,6 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <PrayerTimesWidget locale={locale} />
         </div>
       </section>
-
-      {/* Network ad between the tools and the reading experience — a natural
-          break, never inside the Qur'an text itself. */}
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <NetworkAd unit="rectangle" />
-      </div>
 
       {/* ── Interactive Qur'an reader ────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
