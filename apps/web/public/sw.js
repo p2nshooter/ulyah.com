@@ -9,7 +9,7 @@
 // Bump CACHE on every deploy that changes a fixed-path cached asset's content
 // (icons, wordmark PNGs) — those paths never change name, so activate() must
 // throw the old cache away.
-const CACHE = "ulyah-shell-v7"; // v7: murottal ?v=3 cache-bust reaches installed apps
+const CACHE = "ulyah-shell-v8"; // v8: murottal ?v=4 (bitrate-audited HiFi library) reaches installed apps
 const SHELL = "/"; // the app's start_url (canonical bare path)
 const NAV_TIMEOUT = 3500; // ms before we serve the cached shell instead of waiting
 

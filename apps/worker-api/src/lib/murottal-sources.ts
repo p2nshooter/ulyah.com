@@ -113,3 +113,18 @@ export function sourceUrlCandidates(folder: string, surah: number, ayah: number)
   }
   return [];
 }
+
+/** The bitrate (kbps) this reciter's TOP source publishes — i.e. what a
+ * permanently-stored R2 object under audio/qori2/<folder>/ is supposed to
+ * be. aqc reciters are always imported through the forced 128 kbps path;
+ * ey reciters carry their bitrate in the everyayah folder name (a few
+ * voices only exist at 40/64 kbps — that IS their HiFi, never "poisoned").
+ * Used by the audio route's self-audit to spot low-bitrate objects that
+ * slipped into the HiFi library and must be re-fetched. */
+export function expectedHiFiKbps(folder: string): number | null {
+  const src = MUROTTAL_SOURCES[folder];
+  if (!src) return null;
+  if (src.kind === "aqc") return 128;
+  const m = /(\d+)\s*kbps/i.exec(src.folder ?? "");
+  return m ? Number(m[1]) : null;
+}

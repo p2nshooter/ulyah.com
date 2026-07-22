@@ -22,6 +22,7 @@ import "@/styles/components/mushaf.css";
 import "@/styles/components/kids.css";
 import "@/styles/components/sanad.css";
 import "@/styles/components/ornaments.css";
+import "@/styles/components/worldcup.css";
 import "@/styles/themes/ulyah.css";
 import "@/styles/themes/france.css";
 import "@/styles/themes/germany.css";

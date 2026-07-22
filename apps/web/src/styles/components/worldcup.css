@@ -1,0 +1,135 @@
+/* ── World Cup 2026 header festoon — dawa.es & xad.es only ────────────────
+   Owner request: "kasih ornamen dan animasi Piala Dunia 2026 … bola
+   mantul-mantul bolak-balik samping logo header sama tropi piala dunia".
+   The component (WorldCup2026.tsx) renders nothing on other tenants; these
+   rules only ever match under html[data-tenant="dawa"|"xad"] anyway, so the
+   sibling sites keep their untouched identity. Pure CSS animation — no JS
+   timers, no layout thrash (transform/filter only), and it fully respects
+   prefers-reduced-motion. */
+
+/* Festive top stripe over the sticky header: host-nation tricolour (Mexico
+   green · USA white/blue · Canada red) with a slow shimmer sweep. */
+html[data-tenant="dawa"] .wc26-stripe,
+html[data-tenant="xad"] .wc26-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    #046a38 0 18%,
+    #f5f5f5 18% 36%,
+    #b31942 36% 54%,
+    #0a3161 54% 72%,
+    #f5b041 72% 100%
+  );
+  background-size: 200% 100%;
+  animation: wc26-stripe-slide 14s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes wc26-stripe-slide {
+  from { background-position: 0% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* The trophy + bouncing-ball cluster beside the logo. */
+.wc26-header {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 1px;
+  margin-left: 4px;
+  user-select: none;
+  line-height: 1;
+  translate: 0 2px; /* sit the "pitch" on the wordmark's baseline */
+}
+
+.wc26-trophy {
+  display: block;
+  font-size: 17px;
+  transform-origin: 50% 92%;
+  animation: wc26-trophy-sway 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px rgba(245, 176, 65, 0.6));
+}
+
+@keyframes wc26-trophy-sway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+/* The ball's little pitch: X-sweep on the outer span (bolak-balik, away
+   from the trophy and back), Y-bounce + spin on the inner span — two
+   independent transforms compose into a natural bouncing arc. */
+.wc26-lane {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  overflow: visible;
+}
+
+.wc26-ball-x {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  animation: wc26-ball-x 2.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes wc26-ball-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(26px); }
+}
+
+.wc26-ball {
+  display: block;
+  font-size: 13px;
+  animation: wc26-ball-y 0.7s cubic-bezier(0.35, 0, 0.65, 1) infinite alternate,
+    wc26-ball-spin 1.4s linear infinite;
+  will-change: transform;
+}
+
+@keyframes wc26-ball-y {
+  from { transform: translateY(0) scale(1.05, 0.92); } /* squash on the turf */
+  to { transform: translateY(-11px) scale(0.96, 1.02); } /* stretch at apex */
+}
+
+@keyframes wc26-ball-spin {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
+/* Tiny gold "2026" chip so the festoon reads as the event, not random emoji. */
+.wc26-badge {
+  align-self: center;
+  margin-left: 1px;
+  padding: 2px 4px 1px;
+  border-radius: 6px;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #5f2a0c;
+  background: linear-gradient(135deg, #f5d576, #e9a93d 60%, #f5d576);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+/* Ultra-narrow phones: the header row is already tight with logo + burger —
+   shorten the pitch instead of wrapping the row. */
+@media (max-width: 400px) {
+  .wc26-lane { width: 24px; }
+  @keyframes wc26-ball-x {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(12px); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-tenant="dawa"] .wc26-stripe,
+  html[data-tenant="xad"] .wc26-stripe,
+  .wc26-trophy,
+  .wc26-ball-x,
+  .wc26-ball {
+    animation: none;
+  }
+}

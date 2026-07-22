@@ -194,7 +194,12 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
 // routes/audio.ts), so BUMPING THIS NUMBER instantly invalidates every
 // poisoned browser + edge entry network-wide and re-reads the corrected R2
 // file. Bump it whenever muffled audio is reported after a library fix.
-export const MUROTTAL_VERSION = 3;
+// v4: the worker now audits the real MP3 bitrate of every R2 object before
+// serving (see worker-api routes/audio.ts) — poisoned low-bitrate objects
+// stored during the #98→#100 window are re-fetched at 128 kbps. Bumping to 4
+// abandons every edge/browser entry that may hold those muffled bytes, so the
+// verified-HiFi files are what get cached from now on.
+export const MUROTTAL_VERSION = 4;
 
 /** PRIMARY per-ayah URL: our own R2 library behind api.ulyah.com. Pure URL
  * formula — zero metadata fetches, so starting playback is instant. The
