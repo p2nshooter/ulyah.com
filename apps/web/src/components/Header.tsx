@@ -12,6 +12,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
 import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { usePageOverrides } from "@/lib/site-pages";
+import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -67,6 +68,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
       ref={navRef}
       className="sticky top-0 z-30 border-b border-accent/15 bg-[var(--color-bg)]/85 shadow-[var(--shadow-sm)] backdrop-blur-md"
     >
+      <WorldCup2026Stripe />
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-2">
           <AdminTrigger locale={locale}>
@@ -100,6 +102,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               )}
             </span>
           </AdminTrigger>
+          <WorldCup2026 />
         </div>
 
         {/* Desktop: grouped dropdowns */}

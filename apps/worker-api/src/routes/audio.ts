@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import type { Env } from "../env.js";
-import { MUROTTAL_SOURCES, sourceUrlCandidates } from "../lib/murottal-sources.js";
+import { MUROTTAL_SOURCES, sourceUrlCandidates, expectedHiFiKbps } from "../lib/murottal-sources.js";
+import { sniffMp3Kbps } from "../lib/mp3-bitrate.js";
 
 export const audioRoute = new Hono<{ Bindings: Env }>();
 
@@ -115,25 +116,46 @@ async function serveMurottal(c: any, folder: string, file: string) {
     return h;
   };
 
-  // Tier 2 — R2.
+  // Tier 2 — R2, WITH a bitrate self-audit. R2 bytes used to be trusted
+  // blindly, but the library briefly persisted low-bitrate fallback fills
+  // (fixed in #100) — and a poisoned object behind an immutable URL keeps
+  // sounding "mendem kaya kaset kusut" forever, no matter how many cache
+  // versions are bumped, because the BYTES in R2 are wrong. So: sniff the
+  // real MP3 frame bitrate before serving; an object below this reciter's
+  // published HiFi bitrate is treated as a MISS, letting tier 3 re-fetch the
+  // true 128 kbps file and overwrite the poisoned object in place.
   const options: R2GetOptions = {};
   if (rangeStart > 0) options.range = { offset: rangeStart };
   const obj = await c.env.MEDIA_R2.get(key, options).catch(() => null);
+  let poisonedBytes: ArrayBuffer | null = null; // last-resort if every source is down
   if (obj) {
-    const headers = audioHeaders();
-    headers.set("etag", obj.httpEtag);
-    headers.set("X-Murottal-Source", "r2");
     if (rangeStart > 0) {
+      // Nonzero seek (rare): serve as-is — the offset-0 load that started
+      // playback already audited (or will audit) this object.
+      const headers = audioHeaders();
+      headers.set("etag", obj.httpEtag);
+      headers.set("X-Murottal-Source", "r2");
       const total = obj.size;
       headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
       return new Response(obj.body, { status: 206, headers });
     }
-    const res = new Response(obj.body, { status: 200, headers });
-    const [toClient, toEdge] = res.body!.tee();
-    c.executionCtx.waitUntil(
-      cache.put(cacheKey, new Response(toEdge, { status: 200, headers: new Headers(headers) })).catch(() => {})
-    );
-    return new Response(toClient, { status: 200, headers });
+    const bytes = await obj.arrayBuffer();
+    const realKbps = sniffMp3Kbps(bytes);
+    const wantKbps = expectedHiFiKbps(folder);
+    // Only a POSITIVE sniff below the published bitrate marks poison — an
+    // unparseable buffer must serve normally or healthy files would refetch
+    // on every play.
+    if (realKbps !== null && wantKbps !== null && realKbps < wantKbps) {
+      poisonedBytes = bytes; // fall through to tier 3, which overwrites R2
+    } else {
+      const headers = audioHeaders();
+      headers.set("etag", obj.httpEtag);
+      headers.set("X-Murottal-Source", "r2");
+      c.executionCtx.waitUntil(
+        cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {})
+      );
+      return new Response(bytes, { status: 200, headers });
+    }
   }
 
   // Tier 3 — fill from the source CDN. `sourceUrlCandidates` lists the BEST
@@ -161,8 +183,23 @@ async function serveMurottal(c: any, folder: string, file: string) {
       /* try the next bitrate/source */
     }
   }
-  if (!buf) return c.json({ error: "Audio not found" }, 404);
-  const isHiFi = usedIndex === 0; // top-quality source for this reciter
+  if (!buf) {
+    if (poisonedBytes) {
+      // Every source CDN is unreachable — the low-bitrate copy is still
+      // better than silence. Serve it with SHORT freshness and no edge
+      // cache, so the very next play retries the HiFi repair.
+      const headers = audioHeaders(false);
+      headers.set("X-Murottal-Source", "r2-lowbitrate-pending-repair");
+      return new Response(poisonedBytes, { status: 200, headers });
+    }
+    return c.json({ error: "Audio not found" }, 404);
+  }
+  // Top-quality source AND the bytes really carry the published bitrate —
+  // belt-and-braces so a throttled/duff "HiFi" response can never be stored
+  // permanently and poison the library again.
+  const fillKbps = sniffMp3Kbps(buf);
+  const hifiKbps = expectedHiFiKbps(folder);
+  const isHiFi = usedIndex === 0 && !(fillKbps !== null && hifiKbps !== null && fillKbps < hifiKbps);
 
   const bytes = buf;
   if (isHiFi) {
