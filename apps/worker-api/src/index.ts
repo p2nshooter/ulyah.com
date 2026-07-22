@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import type { Env } from "./env.js";
 import { quranRoute } from "./routes/quran.js";
 import { audioRoute } from "./routes/audio.js";
-import { contentRoute } from "./routes/content.js";
+import { contentRoute, trackBeacon, trackOptions } from "./routes/content.js";
 import { aiRoute } from "./routes/ai.js";
 import { donateRoute } from "./routes/donate.js";
 import { adminAuthRoute } from "./routes/admin-auth.js";
@@ -112,6 +112,12 @@ app.use("*", async (c, next) => {
 app.route("/quran", quranRoute);
 app.route("/audio", audioRoute);
 app.route("/content", contentRoute);
+// Public pageview beacon at the BARE /track. Every ecosystem + external site
+// posts here (TrafficBeacon/SiteBeacon → https://api.ulyah.com/track); the
+// handler also lives under /content/track, but the beacons call the bare path,
+// so without this alias every hit 404s and the admin traffic panel stays at 0.
+app.post("/track", trackBeacon);
+app.options("/track", trackOptions);
 app.route("/ai", aiRoute);
 app.route("/donate", donateRoute);
 app.route("/admin/auth", adminAuthRoute);
