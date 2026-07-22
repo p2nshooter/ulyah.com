@@ -96,13 +96,34 @@ function args() {
   };
 }
 
-function wrangler(argv, capture = false) {
+// wrangler d1 execute --remote occasionally dies with "fetch failed" /
+// connectivity errors mid-run. Because the import is idempotent+resumable,
+// a blip must NOT abort the whole job — retry a few times with backoff so a
+// single transient network error doesn't throw away an hour of downloads.
+function wranglerOnce(argv, capture) {
   return execFileSync("npx", ["wrangler", ...argv], {
     cwd: join(import.meta.dirname, "..", "apps", "worker-api"),
     stdio: capture ? ["ignore", "pipe", "inherit"] : "inherit",
     encoding: "utf8",
     maxBuffer: 512 * 1024 * 1024,
   });
+}
+function wrangler(argv, capture = false, tries = 5) {
+  let lastErr;
+  for (let i = 0; i < tries; i++) {
+    try {
+      return wranglerOnce(argv, capture);
+    } catch (e) {
+      lastErr = e;
+      const msg = String(e?.stderr || e?.message || e);
+      const transient = /fetch failed|ECONN|ETIMEDOUT|EAI_AGAIN|connectivity|network|5\d\d|too many requests|429/i.test(msg);
+      if (!transient || i === tries - 1) break;
+      const backoff = 2000 * 2 ** i; // 2s, 4s, 8s, 16s
+      console.error(`  ↻ wrangler transient error (attempt ${i + 1}/${tries}), retry in ${backoff / 1000}s: ${msg.split("\n")[0].slice(0, 120)}`);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, backoff); // sync sleep
+    }
+  }
+  throw lastErr;
 }
 function d1(sql, capture = true) {
   const out = wrangler(["d1", "execute", "ulyah-db", "--remote", "--json", `--command=${sql}`], capture);
@@ -196,6 +217,7 @@ async function main() {
   const tmp = mkdtempSync(join(tmpdir(), "murottal-"));
 
   for (const folder of targets) {
+   try {
     const src = SOURCES[folder];
     if (!src) {
       console.warn(`No source mapping for "${folder}" — skipping.`);
@@ -278,6 +300,11 @@ async function main() {
       d1File(`INSERT OR IGNORE INTO audio_cache (ayah_id, qori_id, r2_key, duration) VALUES ${inserts.join(",")};`, tmp);
     }
     console.log(`✓ ${folder}: +${ok} tersimpan, ${fail} gagal (sumber tidak punya ayat itu).`);
+   } catch (e) {
+    // One reciter failing (persistent wrangler/network error after retries)
+    // must not abort the whole `qori=all` run — log and move to the next.
+    console.error(`✘ ${folder}: dilewati karena error — ${String(e?.message || e).split("\n")[0].slice(0, 160)}`);
+   }
   }
   rmSync(tmp, { recursive: true, force: true });
   console.log("\nSelesai. Cek: SELECT qori_id, COUNT(*) FROM audio_cache GROUP BY qori_id;");
