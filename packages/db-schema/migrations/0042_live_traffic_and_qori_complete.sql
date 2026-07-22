@@ -15,24 +15,58 @@ CREATE INDEX IF NOT EXISTS idx_site_hits_site_ts ON site_hits(site, ts);
 -- Every per-ayah reciter the web player offers (apps/web/src/lib/qori-cdn.ts)
 -- must have a qori row whose audio_base_path matches its R2 folder — the
 -- /audio/qori cache-fill and the bulk importer both resolve qori_id through
--- audio_base_path. Idempotent: inserts only what is missing.
+-- audio_base_path. Idempotent: each INSERT adds its row only if missing.
+--
+-- NB: written as separate single-row INSERT ... WHERE NOT EXISTS statements on
+-- purpose. The previous version used one INSERT ... SELECT ... UNION ALL ... in
+-- a derived table with a correlated WHERE NOT EXISTS, which Cloudflare D1
+-- rejected with "too many terms in compound SELECT (SQLITE_ERROR 7500)" and
+-- failed the whole deploy. Plain statements have no compound-SELECT limit.
 
 -- The importer + player use the folder 'fares'; the old seed row said 'abbad'.
 UPDATE qori SET audio_base_path = 'audio/qori/fares'
  WHERE audio_base_path = 'audio/qori/abbad';
 
 INSERT INTO qori (name, audio_base_path, country)
-SELECT v.name, v.path, v.country FROM (
-  SELECT 'Saud Al-Shuraim'            AS name, 'audio/qori/shuraym'           AS path, 'Saudi Arabia'          AS country
-  UNION ALL SELECT 'Muhammad Ayyub',            'audio/qori/ayyoub',            'Saudi Arabia'
-  UNION ALL SELECT 'Abdullah Basfar',           'audio/qori/basfar',            'Saudi Arabia'
-  UNION ALL SELECT 'Al-Minshawi (Mujawwad)',    'audio/qori/minshawi-mujawwad', 'Egypt'
-  UNION ALL SELECT 'Al-Husary (Mujawwad)',      'audio/qori/husary-mujawwad',   'Egypt'
-  UNION ALL SELECT 'Khalifa Al-Tunaiji',        'audio/qori/tunaiji',           'United Arab Emirates'
-  UNION ALL SELECT 'Abdullah Al-Matroud',       'audio/qori/matroud',           'Saudi Arabia'
-  UNION ALL SELECT 'Abdullah Awad Al-Juhany',   'audio/qori/juhany',            'Saudi Arabia'
-  UNION ALL SELECT 'Ali Jaber',                 'audio/qori/alijaber',          'Saudi Arabia'
-  UNION ALL SELECT 'Mahmoud Ali Al-Banna',      'audio/qori/banna',             'Egypt'
-  UNION ALL SELECT 'Fares Abbad',               'audio/qori/fares',             'Yemen'
-) v
-WHERE NOT EXISTS (SELECT 1 FROM qori q WHERE q.audio_base_path = v.path);
+SELECT 'Saud Al-Shuraim', 'audio/qori/shuraym', 'Saudi Arabia'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/shuraym');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Muhammad Ayyub', 'audio/qori/ayyoub', 'Saudi Arabia'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/ayyoub');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Abdullah Basfar', 'audio/qori/basfar', 'Saudi Arabia'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/basfar');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Al-Minshawi (Mujawwad)', 'audio/qori/minshawi-mujawwad', 'Egypt'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/minshawi-mujawwad');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Al-Husary (Mujawwad)', 'audio/qori/husary-mujawwad', 'Egypt'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/husary-mujawwad');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Khalifa Al-Tunaiji', 'audio/qori/tunaiji', 'United Arab Emirates'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/tunaiji');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Abdullah Al-Matroud', 'audio/qori/matroud', 'Saudi Arabia'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/matroud');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Abdullah Awad Al-Juhany', 'audio/qori/juhany', 'Saudi Arabia'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/juhany');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Ali Jaber', 'audio/qori/alijaber', 'Saudi Arabia'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/alijaber');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Mahmoud Ali Al-Banna', 'audio/qori/banna', 'Egypt'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/banna');
+
+INSERT INTO qori (name, audio_base_path, country)
+SELECT 'Fares Abbad', 'audio/qori/fares', 'Yemen'
+WHERE NOT EXISTS (SELECT 1 FROM qori WHERE audio_base_path = 'audio/qori/fares');
