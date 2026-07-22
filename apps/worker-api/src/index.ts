@@ -14,6 +14,7 @@ import { geoRoute } from "./routes/geo.js";
 import { grantRoute } from "./routes/grant.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
+import { contentBotTick } from "./lib/content-bot.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -192,6 +193,10 @@ export default {
           .catch((e) => console.error("site-hits prune failed", e)),
         purgeLegacyMurottal(env).catch((e) => console.error("legacy-murottal purge failed", e)),
         orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
+        // Autonomous content bot: the Orchestra writes + auto-publishes one
+        // article per tick to an eligible article site (inert until
+        // GH_CONTENT_TOKEN is set; throttled per site).
+        contentBotTick(env).catch((e) => console.error("content-bot failed", e)),
       ]).then(() => undefined)
     );
   },

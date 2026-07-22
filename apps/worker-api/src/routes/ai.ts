@@ -5,6 +5,7 @@ import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, getKaggleEndpoint, KAGGLE_ENDPOINT_KV, type Capability, type KaggleEndpoint } from "../lib/orchestra.js";
 import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
+import { contentBotTick } from "../lib/content-bot.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 
 export const aiRoute = new Hono<{ Bindings: Env }>();
@@ -244,6 +245,30 @@ aiRoute.post("/reader", async (c) => {
 // status (admin observability for Orchestra Core).
 aiRoute.get("/orchestra/health", requireAdmin, async (c) => {
   return c.json({ health: await orchestraHealth(c.env), registry: capabilityRegistry() });
+});
+
+// ── Autonomous content bot control (admin) ────────────────────────────────
+// The Orchestra writes + auto-publishes articles to the ad sites on the
+// scheduled tick (lib/content-bot.ts). These endpoints let the ulyah.com admin
+// portal see status, pause/resume, and kick a publish immediately.
+aiRoute.get("/contentbot", requireAdmin, async (c) => {
+  const [off, lastrun] = await Promise.all([
+    c.env.CACHE_KV.get("contentbot:off"),
+    c.env.CACHE_KV.get("contentbot:lastrun"),
+  ]);
+  return c.json({ tokenConfigured: !!c.env.GH_CONTENT_TOKEN, paused: off === "1", lastRun: lastrun });
+});
+aiRoute.post("/contentbot/toggle", requireAdmin, async (c) => {
+  const { paused } = await c.req.json<{ paused: boolean }>().catch(() => ({ paused: false }));
+  if (paused) await c.env.CACHE_KV.put("contentbot:off", "1");
+  else await c.env.CACHE_KV.delete("contentbot:off");
+  return c.json({ paused: !!paused });
+});
+// Kick one publish now (bypasses the wait for a scheduled tick) — handy to
+// verify the pipeline and to kickstart the first article on each site.
+aiRoute.post("/contentbot/run", requireAdmin, async (c) => {
+  await contentBotTick(c.env);
+  return c.json({ ran: true, lastRun: await c.env.CACHE_KV.get("contentbot:lastrun") });
 });
 
 // ── Kaggle free-GPU compute endpoint (admin) ──────────────────────────────
