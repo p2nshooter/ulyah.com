@@ -94,7 +94,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                   />
                 </>
               ) : (
-                <span className="font-heading text-lg font-semibold leading-none tracking-wide text-[var(--color-text-primary)]">
+                <span className="font-heading text-base font-semibold leading-tight tracking-wide text-[var(--color-text-primary)] sm:text-lg">
                   {TENANT.siteName}
                 </span>
               )}
