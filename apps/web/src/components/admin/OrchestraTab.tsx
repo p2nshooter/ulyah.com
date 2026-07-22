@@ -361,6 +361,100 @@ function SourceRegistry() {
   );
 }
 
+function ContentBotPanel() {
+  const [cfg, setCfg] = useState<{ tokenConfigured: boolean; paused: boolean; lastRun: string | null } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  function load() {
+    api
+      .get<{ tokenConfigured: boolean; paused: boolean; lastRun: string | null }>("/ai/contentbot")
+      .then(setCfg)
+      .catch(() => setCfg(null));
+  }
+  useEffect(load, []);
+
+  async function runNow() {
+    setBusy(true);
+    setMsg(null);
+    try {
+      const r = await api.post<{ ran: boolean; lastRun: string | null }>("/ai/contentbot/run", {});
+      setMsg(r.lastRun ? r.lastRun : "Dijalankan — cek commit di repo situs.");
+      load();
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : "Gagal menjalankan");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function toggle(paused: boolean) {
+    setBusy(true);
+    setMsg(null);
+    try {
+      await api.post("/ai/contentbot/toggle", { paused });
+      load();
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : "Gagal mengubah status");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <p className="font-heading text-sm">✍️ Penulis Otonom — auto-post artikel</p>
+      <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+        Orchestra menulis 1 artikel orisinal on-theme tiap putaran terjadwal dan{" "}
+        <b>langsung mem-posting</b>-nya ke situs artikel (jai.lat, lie.skin, axto.dev, xaa.es, axto.us, oldco.in,
+        profity.in) — tanpa perintah. Aman: hanya menambah file data, jadi hasil generate tak bisa mematahkan build;
+        tiap situs dibatasi ±1 artikel / 3 jam agar mengalir, bukan spam.
+      </p>
+
+      {cfg && (
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px]">
+          <span className={`rounded-full border px-3 py-1 ${cfg.tokenConfigured ? "border-success/40 bg-success/10 text-success" : "border-warning/40 bg-warning/10 text-warning"}`}>
+            {cfg.tokenConfigured ? "● token GitHub tersimpan" : "○ butuh secret GH_CONTENT_TOKEN"}
+          </span>
+          <span className={`rounded-full border px-3 py-1 ${cfg.paused ? "border-danger/40 bg-danger/10 text-danger" : "border-success/40 bg-success/10 text-success"}`}>
+            {cfg.paused ? "⏸ dijeda" : "▶ berjalan"}
+          </span>
+        </div>
+      )}
+
+      {!cfg?.tokenConfigured && (
+        <p className="mt-2 rounded-lg bg-warning/10 p-2 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+          Untuk mengaktifkan: tambahkan secret <code className="rounded bg-black/10 px-1">GH_CONTENT_TOKEN</code> (GitHub
+          fine-grained token, izin <b>Contents: Read and write</b> untuk repo artikel) di GitHub Secrets repo ulyah.com.
+          Sebelum itu, bot diam total — worker tetap aman.
+        </p>
+      )}
+
+      <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+        <button onClick={runNow} disabled={busy} className="rounded-full bg-primary px-3 py-1.5 text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
+          {busy ? "Memproses…" : "✍️ Post 1 sekarang"}
+        </button>
+        {cfg?.paused ? (
+          <button onClick={() => toggle(false)} disabled={busy} className="rounded-full border border-success/50 bg-success/10 px-3 py-1.5 text-success disabled:opacity-50">
+            ▶ Lanjutkan
+          </button>
+        ) : (
+          <button onClick={() => toggle(true)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1.5 hover:border-danger disabled:opacity-50">
+            ⏸ Jeda
+          </button>
+        )}
+      </div>
+
+      {(msg || cfg?.lastRun) && (
+        <p className="mt-2 rounded-lg bg-black/5 p-2 text-[11px] text-[var(--color-text-secondary)]">
+          <span className="opacity-70">Terakhir: </span>
+          {msg ?? cfg?.lastRun}
+        </p>
+      )}
+    </section>
+  );
+}
+
 export function OrchestraTab() {
   const [registry, setRegistry] = useState<Record<string, ProviderStep[]> | null>(null);
   useEffect(() => {
@@ -383,6 +477,7 @@ export function OrchestraTab() {
       </div>
 
       <LiveHealth registry={registry} />
+      <ContentBotPanel />
       <KaggleEndpointPanel />
       <WorkerRegistry />
       <SourceRegistry />
