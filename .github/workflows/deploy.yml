@@ -472,6 +472,21 @@ jobs:
             echo "Kisah Lut already has $LUTCOUNT rows — skipping."
           fi
 
+      - name: Import Kisah Nabi Isma'il AS series (idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-ismail';" --json > /tmp/kisah_ismail_count.json
+          ISMCOUNT=$(node -e "const j=require('/tmp/kisah_ismail_count.json'); console.log(j[0].results[0].n)")
+          # 6 episodes x 2 languages = 12. INSERT OR IGNORE → safe to re-apply.
+          if [ "$ISMCOUNT" -lt "12" ]; then
+            echo "Kisah Isma'il has $ISMCOUNT/12 rows — importing (idempotent)."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_ismail.sql
+          else
+            echo "Kisah Isma'il already has $ISMCOUNT rows — skipping."
+          fi
+
       - name: Bulk-import Kitab library catalogue (one-time, ~4.9k works)
         continue-on-error: true
         working-directory: apps/worker-api
