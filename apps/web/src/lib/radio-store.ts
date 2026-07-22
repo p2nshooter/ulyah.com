@@ -39,13 +39,16 @@ export interface RadioPosition {
 // head of the pool: his R2 library is nearly empty (≈55 of 6236 ayat), so
 // most of his broadcast streamed live from everyayah.com — a host that
 // throttles — while ulyah.com was happily on an alquran.cloud reciter served
-// from R2. Owner's call: "pelajarin ulyah.com muter radio apakah make CDN
-// atau R2 — itu lu ikutin". So the rotation now contains ONLY the aqc
-// (alquran.cloud 128 kbps) world-renowned reciters that ulyah.com's clean
-// broadcast plays, streamed the identical way on every tenant: our R2
-// library first (api.ulyah.com, bitrate-audited), islamic.network 128 kbps
-// as the self-healing fill. everyayah voices stay selectable in the reader/
-// picker but never drive the always-on radio again.
+// from R2. (A second strike against everyayah on the broadcast: some of its
+// "128kbps" archives are digitised from old cassette masters — e.g. Juhany's
+// taraweeh rips — so they hiss and warble at ANY encode bitrate.) Owner's
+// call: "pelajarin ulyah.com muter radio apakah make CDN atau R2 — itu lu
+// ikutin". So the rotation now contains ONLY the aqc (alquran.cloud 128 kbps)
+// world-renowned reciters that ulyah.com's clean broadcast plays, streamed
+// the identical way on every tenant: our R2 library first (api.ulyah.com,
+// bitrate-audited), islamic.network 128 kbps as the self-healing fill.
+// everyayah voices stay selectable in the reader/picker but never drive the
+// always-on radio again.
 // Per-tenant variety is kept via reciter ORDER (sites that used to lead with
 // everyayah keep a reversed order) and each site's own broadcast epoch, so
 // no two domains sit on the same reciter+ayah at the same moment.
