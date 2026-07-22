@@ -633,7 +633,7 @@ adminRoute.get("/tenant-analytics", async (c) => {
     ).all<{ tenant: string; n: number }>(),
   ]);
 
-  const TENANTS = ["ulyah", "1fr", "tilawa", "dawa"];
+  const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
   const byTenant = TENANTS.map((t) => {
     const v = visitors.results.find((r) => r.tenant === t);
     return {
@@ -828,7 +828,7 @@ adminRoute.get("/site-analytics", async (c) => {
   const days = Math.min(90, Math.max(1, Number(c.req.query("days")) || 30));
   const since = new Date(Date.now() - days * 86400_000).toISOString().slice(0, 10);
   try {
-    const [totals, daily, top] = await Promise.all([
+    const [totals, daily, top, live] = await Promise.all([
       c.env.DB.prepare(
         `SELECT site, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY site ORDER BY views DESC`
       ).bind(since).all<{ site: string; views: number }>(),
@@ -839,15 +839,24 @@ adminRoute.get("/site-analytics", async (c) => {
         `SELECT site, path, SUM(count) AS views FROM site_pageviews WHERE day >= ?
          GROUP BY site, path ORDER BY views DESC LIMIT 50`
       ).bind(since).all<{ site: string; path: string; views: number }>(),
+      // LIVE per-site "online sekarang": real beacons in the last 5 minutes —
+      // this is what makes the admin numbers rise AND fall without a manual
+      // refresh; the panel polls this endpoint on a short interval.
+      c.env.DB.prepare(
+        `SELECT site, COUNT(*) AS hits FROM site_hits
+         WHERE ts >= strftime('%s','now') - 300 GROUP BY site`
+      ).all<{ site: string; hits: number }>().catch(() => ({ results: [] as { site: string; hits: number }[] })),
     ]);
     return c.json({
       days,
       totals: totals.results ?? [],
       daily: daily.results ?? [],
       topPages: top.results ?? [],
+      liveNow: live.results ?? [],
+      at: Date.now(),
     });
   } catch {
-    return c.json({ days, totals: [], daily: [], topPages: [] });
+    return c.json({ days, totals: [], daily: [], topPages: [], liveNow: [], at: Date.now() });
   }
 });
 

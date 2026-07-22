@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerStore, LAYERS, type Layer, type QueueItem } from "@/lib/player-store";
 import { api } from "@/lib/api";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
-import { RECITERS, COUNTRIES, resolveAyahAudioUrl } from "@/lib/qori-cdn";
+import { RECITERS, COUNTRIES, resolveAyahAudioSources } from "@/lib/qori-cdn";
 import { resolveTranslationLang } from "@ulyah/shared/i18n";
 import type { Dictionary } from "@/dictionaries";
 
@@ -113,45 +113,55 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     const st = usePlayerStore.getState();
     const current = st.queue[st.currentIndex];
     if (!audio || !current) return false;
-    const src = await resolveAyahAudioUrl(st.qoriId, current.surahId, current.number);
+    // R2 library first, the reciter's own CDN as fallback — one bad source
+    // falls through to the next instead of silencing the ayah.
+    const sources = await resolveAyahAudioSources(st.qoriId, current.surahId, current.number);
     if (myGen !== genRef.current) return false; // superseded while we were resolving the URL
-    if (!src) return false;
+    if (sources.length === 0) return false;
 
-    return new Promise<boolean>((resolve) => {
-      let settled = false;
-      const cleanup = () => {
-        audio.removeEventListener("ended", onEnded);
-        audio.removeEventListener("error", onError);
-      };
-      const onEnded = () => {
-        if (settled) return;
-        settled = true;
-        cleanup();
-        resolve(true);
-      };
-      const onError = () => {
-        if (settled) return;
-        settled = true;
-        cleanup();
-        resolve(false);
-      };
-      audio.addEventListener("ended", onEnded);
-      audio.addEventListener("error", onError);
-      audio.src = src;
-      audio.playbackRate = usePlayerStore.getState().playbackRate;
-      audio.play().catch(() => onError());
-      // If the run is superseded, stop waiting on this audio.
-      const poll = setInterval(() => {
-        if (myGen !== genRef.current && !settled) {
+    const playOne = (src: string) =>
+      new Promise<boolean>((resolve) => {
+        let settled = false;
+        const cleanup = () => {
+          audio.removeEventListener("ended", onEnded);
+          audio.removeEventListener("error", onError);
+        };
+        const onEnded = () => {
+          if (settled) return;
           settled = true;
           cleanup();
-          clearInterval(poll);
+          resolve(true);
+        };
+        const onError = () => {
+          if (settled) return;
+          settled = true;
+          cleanup();
           resolve(false);
-        } else if (settled) {
-          clearInterval(poll);
-        }
-      }, 120);
-    });
+        };
+        audio.addEventListener("ended", onEnded);
+        audio.addEventListener("error", onError);
+        audio.src = src;
+        audio.playbackRate = usePlayerStore.getState().playbackRate;
+        audio.play().catch(() => onError());
+        // If the run is superseded, stop waiting on this audio.
+        const poll = setInterval(() => {
+          if (myGen !== genRef.current && !settled) {
+            settled = true;
+            cleanup();
+            clearInterval(poll);
+            resolve(false);
+          } else if (settled) {
+            clearInterval(poll);
+          }
+        }, 120);
+      });
+
+    for (const src of sources) {
+      if (myGen !== genRef.current) return false;
+      if (await playOne(src)) return true;
+      if (myGen !== genRef.current) return false; // superseded, not a source failure
+    }
+    return false;
   }, []);
 
   // Narrate every text layer in the ACTUAL content language, not the raw UI

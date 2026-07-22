@@ -37,12 +37,15 @@ contentRoute.post("/track", async (c) => {
     if (!path.startsWith("/")) path = "/" + path;
     if (!site) return c.body(null, 204);
     const day = new Date().toISOString().slice(0, 10);
-    await c.env.DB.prepare(
-      `INSERT INTO site_pageviews (site, day, path, count) VALUES (?, ?, ?, 1)
-       ON CONFLICT(site, day, path) DO UPDATE SET count = count + 1`
-    )
-      .bind(site, day, path)
-      .run();
+    await c.env.DB.batch([
+      c.env.DB.prepare(
+        `INSERT INTO site_pageviews (site, day, path, count) VALUES (?, ?, ?, 1)
+         ON CONFLICT(site, day, path) DO UPDATE SET count = count + 1`
+      ).bind(site, day, path),
+      // Rolling per-hit row so the admin can show a LIVE "online sekarang"
+      // per site (pruned to a 30-minute window by the scheduled tick).
+      c.env.DB.prepare(`INSERT INTO site_hits (site, ts) VALUES (?, strftime('%s','now'))`).bind(site),
+    ]);
   } catch {
     /* analytics is best-effort — never error the beacon */
   }

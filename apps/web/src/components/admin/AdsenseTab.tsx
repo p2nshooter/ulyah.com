@@ -21,13 +21,16 @@ const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" | "es" 
   { key: "1fr", label: "1fr.fr", group: "ulyah" },
   { key: "tilawa", label: "tilawa.de", group: "ulyah" },
   { key: "dawa", label: "dawa.es", group: "ulyah" },
+  // xad.es reads its ad config as tenant "xad" (TENANT.id) — without this row
+  // the English ecosystem site could never be switched on from the admin.
+  { key: "xad", label: "xad.es", group: "ulyah" },
   { key: "axto-io", label: "axto.io", group: "axto" },
   { key: "axto-dev", label: "axto.dev", group: "axto" },
   { key: "axto-us", label: "axto.us", group: "axto" },
   { key: "profity-in", label: "profity.in", group: "es" },
   { key: "oldco-in", label: "oldco.in", group: "es" },
   { key: "xaa-es", label: "xaa.es", group: "es" },
-  { key: "xad-es", label: "xad.es", group: "es" },
+  { key: "xad-es", label: "xad.es (lama)", group: "es" },
   { key: "jai-lat", label: "jai.lat", group: "es" },
   { key: "lie-skin", label: "lie.skin", group: "es" },
 ];
