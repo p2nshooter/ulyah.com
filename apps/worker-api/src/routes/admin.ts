@@ -674,6 +674,41 @@ adminRoute.get("/tenant-analytics", async (c) => {
   return c.json({ tenants: byTenant });
 });
 
+// GET /admin/live-presence — who is on each ecosystem site RIGHT NOW. Fed by
+// the presence heartbeat (/analytics/ping): ONLINE = a device seen in the last
+// ~20s, CLOSED = seen 20s..5min ago (was here, just left). Real devices, not
+// page views. Polled every ~3s by the admin so the count feels instant. Prunes
+// stale rows on the way through so the table stays tiny.
+adminRoute.get("/live-presence", async (c) => {
+  const now = Math.floor(Date.now() / 1000);
+  const ONLINE = now - 20; // seen within 20s → online now
+  const RECENT = now - 300; // seen within 5min → still "just left" if not online
+  try {
+    // Opportunistic prune — anything older than 10 minutes is long gone.
+    await c.env.DB.prepare("DELETE FROM live_presence WHERE last_seen < ?").bind(now - 600).run();
+    const res = await c.env.DB.prepare(
+      `SELECT tenant,
+              SUM(CASE WHEN last_seen >= ? THEN 1 ELSE 0 END) AS online,
+              SUM(CASE WHEN last_seen <  ? AND last_seen >= ? THEN 1 ELSE 0 END) AS closed
+         FROM live_presence
+        WHERE last_seen >= ?
+        GROUP BY tenant`
+    )
+      .bind(ONLINE, ONLINE, RECENT, RECENT)
+      .all<{ tenant: string; online: number; closed: number }>();
+    const rows = res.results ?? [];
+    const tenants = rows.map((r) => ({ tenant: r.tenant, online: Number(r.online) || 0, closed: Number(r.closed) || 0 }));
+    return c.json({
+      tenants,
+      onlineTotal: tenants.reduce((s, r) => s + r.online, 0),
+      closedTotal: tenants.reduce((s, r) => s + r.closed, 0),
+      at: now,
+    });
+  } catch {
+    return c.json({ tenants: [], onlineTotal: 0, closedTotal: 0, at: now });
+  }
+});
+
 // ── Kitab library breakdown + app install counts (central visibility) ────
 
 adminRoute.get("/library-stats", async (c) => {

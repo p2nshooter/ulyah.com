@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { MiniBarChart, countryName, countryFlag } from "./MiniBarChart";
 import { TenantAnalyticsPanel } from "./TenantAnalyticsPanel";
+import { LivePresenceBar } from "./LivePresenceBar";
 import { NetworkTraffic } from "./NetworkTraffic";
 
 interface Bucket {
@@ -92,6 +93,10 @@ export function AnalyticsTab() {
 
   return (
     <div className="space-y-6">
+      {/* Real-time presence — how many devices are on each ecosystem site right
+          now (≤3s), and how many just closed. Live per-device, not page views. */}
+      <LivePresenceBar />
+
       {/* Per-site (tenant) visitor + install analytics — all sites on ulyah's
           admin, own-site only on a sibling admin. */}
       <TenantAnalyticsPanel />
