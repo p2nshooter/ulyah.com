@@ -36,4 +36,10 @@ export interface Env {
   EMAIL_FROM?: string;
 
   CORS_ALLOW_ORIGIN?: string;
+
+  // Autonomous content bot (see lib/content-bot.ts). A GitHub token with
+  // contents:write on the article repos lets the Orchestra generate an article
+  // and commit it (= auto-publish via each repo's Cloudflare deploy). OPTIONAL:
+  // when unset the bot is a complete no-op, so the worker is always safe.
+  GH_CONTENT_TOKEN?: string;
 }
