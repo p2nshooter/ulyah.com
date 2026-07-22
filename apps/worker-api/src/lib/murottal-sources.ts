@@ -108,8 +108,13 @@ export function sourceUrlCandidates(folder: string, surah: number, ayah: number)
   if (src.kind === "aqc" && src.edition) {
     const g = globalAyahNumber(surah, ayah);
     if (!g) return [];
-    // Not every edition is published at every bitrate — walk down from HiFi.
-    return [128, 64, 48, 32].map((b) => `https://cdn.islamic.network/quran/audio/${b}/${src.edition}/${g}.mp3`);
+    // Not every edition is published at every bitrate. 128 first (the
+    // rotation's standard), then 192 — several editions (e.g. Abdul Basit
+    // murattal) skip 128 but publish 192, and a cache-fill is PERMANENT
+    // (stored to R2 + edge-cached immutable), so it must never settle for
+    // 64 kbps when a HiFi encode exists. Low bitrates remain the last resort
+    // for voices published no other way.
+    return [128, 192, 64, 48, 32].map((b) => `https://cdn.islamic.network/quran/audio/${b}/${src.edition}/${g}.mp3`);
   }
   return [];
 }
