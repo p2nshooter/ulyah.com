@@ -18,9 +18,13 @@ interface TenantStat {
   uninstalledDevices: number;
   /** Real pageview beacons in the last 5 minutes — live "online now". */
   activeNow: number;
-  /** DISTINCT devices that actually browsed this site in the last 24h / 7d. */
+  /** DISTINCT devices that actually browsed this site per window. Until device
+   * tracking has run longer than a window, the shorter windows equal the longer
+   * ones (every tagged device so far falls inside all of them). */
   devices24h?: number;
   devices7d?: number;
+  devices30d?: number;
+  devices365d?: number;
   daily: { bucket: string; n: number }[];
   topPages: { path: string; n: number }[];
   topCountries: { country: string; n: number }[];
@@ -145,15 +149,29 @@ export function TenantAnalyticsPanel() {
                 </div>
               )}
 
+              {/* Real unique visiting devices — ordered short → long window. */}
+              <div className="mt-3">
+                <p className="mb-1 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">
+                  📲 Perangkat unik (pengunjung nyata)
+                </p>
+                <div className="grid grid-cols-4 gap-2 text-center">
+                  {[
+                    ["24 jam", r.devices24h ?? 0],
+                    ["7 hari", r.devices7d ?? 0],
+                    ["30 hari", r.devices30d ?? 0],
+                    ["1 tahun", r.devices365d ?? 0],
+                  ].map(([label, val]) => (
+                    <div key={label as string} className="rounded-lg bg-black/[0.03] py-2 dark:bg-white/[0.03]">
+                      <p className="font-heading text-base text-accent">{val as number}</p>
+                      <p className="text-[10px] text-[var(--color-text-secondary)]">{label as string}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
                 <span>
                   🟢 Online sekarang: <b className="text-accent">{r.activeNow}</b>
-                </span>
-                <span>
-                  📲 Perangkat unik (24 jam): <b className="text-accent">{r.devices24h ?? 0}</b>
-                </span>
-                <span>
-                  📲 Perangkat unik (7 hari): <b className="text-accent">{r.devices7d ?? 0}</b>
                 </span>
                 <span>
                   📱 App terpasang (perangkat): <b className="text-accent">{r.activeDevices > 0 ? r.activeDevices : net > 0 ? net : 0}</b>
@@ -188,7 +206,9 @@ export function TenantAnalyticsPanel() {
         terakhir. &quot;App terpasang&quot; = perangkat unik yang event terakhirnya install. &quot;Uninstall (perangkat)&quot; =
         perangkat yang event terakhirnya uninstall — otomatis BERKURANG saat perangkat yang sama install lagi. Baris
         &quot;riwayat&quot; adalah jumlah kejadian mentah. * Deteksi uninstall bersifat best-effort (web tidak punya event
-        resmi uninstall); terdeteksi saat perangkat itu kembali membuka situs.
+        resmi uninstall); terdeteksi saat perangkat itu kembali membuka situs. Angka &quot;perangkat unik&quot; 24 jam/7 hari/30
+        hari/1 tahun bisa SAMA di awal karena pelacakan per-perangkat baru mulai — setiap perangkat masih masuk ke semua
+        jendela; nilainya melebar sendiri seiring waktu berjalan.
       </p>
     </section>
   );

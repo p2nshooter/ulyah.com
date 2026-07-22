@@ -564,7 +564,7 @@ adminRoute.get("/analytics", async (c) => {
 // tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
 adminRoute.get("/tenant-analytics", async (c) => {
-  const [visitors, installs, uninstalls, series, pages, countries, activeDevices, uninstalledDevices, activeNow, devices24h, devices7d] = await Promise.all([
+  const [visitors, installs, uninstalls, series, pages, countries, activeDevices, uninstalledDevices, activeNow, devices24h, devices7d, devices30d, devices365d] = await Promise.all([
     c.env.DB.prepare(
       `SELECT tenant,
               SUM(CASE WHEN date(created_at) = date('now') THEN 1 ELSE 0 END) AS today,
@@ -645,6 +645,20 @@ adminRoute.get("/tenant-analytics", async (c) => {
        WHERE created_at >= datetime('now','-7 days') AND device_id IS NOT NULL AND device_id != ''
        GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
+    // 30-day and 1-year windows too. Until device tracking has been live for
+    // longer than a given window, the shorter windows equal the longer ones
+    // (every tagged device so far falls inside all of them) — that is why 24h
+    // and 7d read the same today; they diverge as real time passes.
+    c.env.DB.prepare(
+      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-30 days') AND device_id IS NOT NULL AND device_id != ''
+       GROUP BY tenant`
+    ).all<{ tenant: string; n: number }>(),
+    c.env.DB.prepare(
+      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
+       WHERE created_at >= datetime('now','-365 days') AND device_id IS NOT NULL AND device_id != ''
+       GROUP BY tenant`
+    ).all<{ tenant: string; n: number }>(),
   ]);
 
   const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
@@ -665,6 +679,8 @@ adminRoute.get("/tenant-analytics", async (c) => {
       activeNow: activeNow.results.find((r) => r.tenant === t)?.n ?? 0,
       devices24h: devices24h.results.find((r) => r.tenant === t)?.n ?? 0,
       devices7d: devices7d.results.find((r) => r.tenant === t)?.n ?? 0,
+      devices30d: devices30d.results.find((r) => r.tenant === t)?.n ?? 0,
+      devices365d: devices365d.results.find((r) => r.tenant === t)?.n ?? 0,
       daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n })),
       topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n })),
       topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n })),
