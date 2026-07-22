@@ -9,7 +9,7 @@
 // Bump CACHE on every deploy that changes a fixed-path cached asset's content
 // (icons, wordmark PNGs) — those paths never change name, so activate() must
 // throw the old cache away.
-const CACHE = "ulyah-shell-v9"; // v9: ad slots collapse when unfilled (no empty "Iklan" box) — purge stale shell
+const CACHE = "ulyah-shell-v10"; // v10: ecosystem header decor (flip-book + colour ribbon), ads moved to bottom before footer
 const SHELL = "/"; // the app's start_url (canonical bare path)
 const NAV_TIMEOUT = 3500; // ms before we serve the cached shell instead of waiting
 
