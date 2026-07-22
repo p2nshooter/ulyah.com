@@ -192,7 +192,11 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
 export function r2AyahAudioUrl(qoriKey: string, surah: number, ayah: number): string | null {
   const rc = RECITERS.find((r) => r.key === qoriKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   if (!rc.r2Folder) return null;
-  return `${API_BASE}/audio/qori/${rc.r2Folder}/${pad3(surah)}${pad3(ayah)}.mp3`;
+  // "qori2" is the clean HiFi library. The original /audio/qori/ URLs were
+  // served (and immutable-cached, edge AND browser, for a year) while R2
+  // still held the old low-bitrate imports — those muffled bytes can only be
+  // escaped by a NEW URL, never by re-uploading behind the old one.
+  return `${API_BASE}/audio/qori2/${rc.r2Folder}/${pad3(surah)}${pad3(ayah)}.mp3`;
 }
 
 /** Resolve the playable URL for one ayah's recitation, or null if this

@@ -11,7 +11,8 @@
  * This job fills the gaps: for each qori × each of the 6236 ayat, if the file
  * isn't already in R2 (tracked by the audio_cache row), it downloads the
  * 128 kbps MP3 from the source and uploads it to
- *   audio/qori/<folder>/<SSS><AAA>.mp3
+ *   audio/qori2/<folder>/<SSS><AAA>.mp3   (qori2 = HiFi-only library; the
+ *   legacy audio/qori/ prefix held pre-128kbps muffled files and is purged)
  * then records an audio_cache (ayah_id, qori_id, r2_key, duration) row.
  *
  * Idempotent + resumable: existing (ayah_id, qori_id) pairs are skipped, so
@@ -243,7 +244,7 @@ async function main() {
       continue;
     }
     const have = new Set(
-      d1(`SELECT ayah_id FROM audio_cache WHERE qori_id = ${qoriId}`).map((r) => Number(r.ayah_id))
+      d1(`SELECT ayah_id FROM audio_cache WHERE qori_id = ${qoriId} AND r2_key LIKE 'audio/qori2/%'`).map((r) => Number(r.ayah_id))
     );
     const todo = ayat.filter((a) => !have.has(a.id)).slice(0, limit);
     console.log(`\n▶ ${folder} (qori_id=${qoriId}, ${src.kind}): ${have.size} sudah ada, ${todo.length} akan diunduh.`);
@@ -255,7 +256,7 @@ async function main() {
       const batch = todo.slice(i, i + concurrency);
       await Promise.all(
         batch.map(async (a) => {
-          const key = `audio/qori/${folder}/${pad3(a.s)}${pad3(a.n)}.mp3`;
+          const key = `audio/qori2/${folder}/${pad3(a.s)}${pad3(a.n)}.mp3`; // qori2 = the clean HiFi library
           if (await r2Has(key)) {
             inserts.push(`(${a.id}, ${qoriId}, '${key}', NULL)`);
             ok++;
@@ -290,14 +291,14 @@ async function main() {
       // Flush audio_cache rows in chunks so progress persists mid-run.
       if (inserts.length >= 400) {
         d1File(
-          `INSERT OR IGNORE INTO audio_cache (ayah_id, qori_id, r2_key, duration) VALUES ${inserts.splice(0).join(",")};`,
+          `INSERT INTO audio_cache (ayah_id, qori_id, r2_key, duration) VALUES ${inserts.splice(0).join(",")} ON CONFLICT(ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key;`,
           tmp
         );
       }
       if (i % (concurrency * 20) === 0) console.log(`  ${folder}: ${ok} ok, ${fail} gagal (…${i + batch.length}/${todo.length})`);
     }
     if (inserts.length > 0) {
-      d1File(`INSERT OR IGNORE INTO audio_cache (ayah_id, qori_id, r2_key, duration) VALUES ${inserts.join(",")};`, tmp);
+      d1File(`INSERT INTO audio_cache (ayah_id, qori_id, r2_key, duration) VALUES ${inserts.join(",")} ON CONFLICT(ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key;`, tmp);
     }
     console.log(`✓ ${folder}: +${ok} tersimpan, ${fail} gagal (sumber tidak punya ayat itu).`);
    } catch (e) {

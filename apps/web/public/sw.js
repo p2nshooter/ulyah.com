@@ -9,7 +9,7 @@
 // Bump CACHE on every deploy that changes a fixed-path cached asset's content
 // (icons, wordmark PNGs) — those paths never change name, so activate() must
 // throw the old cache away.
-const CACHE = "ulyah-shell-v5";
+const CACHE = "ulyah-shell-v6"; // v6: R2-first HiFi murottal (qori2) + xad.es CORS fix must reach every installed app
 const SHELL = "/"; // the app's start_url (canonical bare path)
 const NAV_TIMEOUT = 3500; // ms before we serve the cached shell instead of waiting
 

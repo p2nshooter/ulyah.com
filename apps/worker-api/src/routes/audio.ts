@@ -41,7 +41,7 @@ async function streamR2Object(c: any, key: string) {
 
 // ── Murottal from R2 (owner: R2 is the PRIMARY player source) ─────────────
 //
-// GET /audio/qori/:folder/:file  (file = <SSS><AAA>.mp3)
+// GET /audio/qori2/:folder/:file  (file = <SSS><AAA>.mp3)
 //
 // Serves the self-hosted murottal library: radio, per-ayah Qur'an reader and
 // Mushaf Utsmani all point here first (apps/web/src/lib/qori-cdn.ts). Three
@@ -54,15 +54,25 @@ async function streamR2Object(c: any, key: string) {
 //      into R2 + audio_cache in the background, so every gap heals itself the
 //      first time anyone plays it. Playback is never blocked on the import
 //      workflow finishing.
-audioRoute.get("/qori/:folder/:file", async (c) => {
-  const folder = c.req.param("folder");
-  const file = c.req.param("file");
+//
+// WHY "qori2": the ORIGINAL audio/qori/ library was filled before the
+// 128 kbps importer fixes (#93/#94), so a large share of it is low-bitrate,
+// muffled audio ("mendem, kaya kaset kusut"). Serving R2-first from that
+// prefix made the muffled files the PRIMARY source — and worse, they were
+// then stamped into edge and browser caches with a one-year immutable
+// Cache-Control. Bytes behind an immutable URL can never be repaired in
+// place; only a NEW URL escapes every stale cache. audio/qori2/ is that
+// clean-slate library: HiFi-only from day one, self-healing at 128 kbps.
+// The legacy prefix is purged in the background (see index.ts scheduled).
+const MUROTTAL_PREFIX = "audio/qori2/";
+
+async function serveMurottal(c: any, folder: string, file: string) {
   if (!MUROTTAL_SOURCES[folder] || !/^\d{6}\.mp3$/.test(file)) {
     return c.json({ error: "Unknown murottal path" }, 404);
   }
   const surah = Number(file.slice(0, 3));
   const ayah = Number(file.slice(3, 6));
-  const key = `audio/qori/${folder}/${file}`;
+  const key = `${MUROTTAL_PREFIX}${folder}/${file}`;
 
   const rangeHeader = c.req.header("range");
   const rangeStart = rangeHeader ? Number(/bytes=(\d+)-/.exec(rangeHeader)?.[1] ?? 0) : 0;
@@ -71,7 +81,13 @@ audioRoute.get("/qori/:folder/:file", async (c) => {
   // 200 body, which lets the edge cache carry the hot path.
   const cacheable = rangeStart === 0;
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request(new URL(c.req.url).toString(), { method: "GET" });
+  // Canonical cache key on the qori2 URL no matter which route matched — the
+  // legacy /audio/qori/ alias must never read the poisoned low-bitrate
+  // entries cached under its own URL.
+  const canonical = new URL(c.req.url);
+  canonical.pathname = `/audio/qori2/${folder}/${file}`;
+  canonical.search = "";
+  const cacheKey = new Request(canonical.toString(), { method: "GET" });
 
   if (cacheable) {
     const hit = await cache.match(cacheKey).catch(() => undefined);
@@ -138,10 +154,13 @@ audioRoute.get("/qori/:folder/:file", async (c) => {
       await c.env.MEDIA_R2.put(key, bytes, { httpMetadata: { contentType: "audio/mpeg" } }).catch(() => {});
       // Catalog row so the importer/admin can see true completeness; the
       // subselects resolve ids without an extra read round-trip.
+      // Upsert: a legacy low-bitrate row for this (ayah, qori) must not block
+      // recording the fresh HiFi key.
       await c.env.DB.prepare(
-        `INSERT OR IGNORE INTO audio_cache (ayah_id, qori_id, r2_key)
+        `INSERT INTO audio_cache (ayah_id, qori_id, r2_key)
          SELECT a.id, q.id, ?3 FROM ayah a, qori q
-         WHERE a.surah_id = ?1 AND a.number = ?2 AND q.audio_base_path = ?4`
+         WHERE a.surah_id = ?1 AND a.number = ?2 AND q.audio_base_path = ?4
+         ON CONFLICT(ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key`
       )
         .bind(surah, ayah, key, `audio/qori/${folder}`)
         .run()
@@ -159,16 +178,24 @@ audioRoute.get("/qori/:folder/:file", async (c) => {
   }
   c.executionCtx.waitUntil(cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {}));
   return new Response(bytes, { status: 200, headers });
-});
+}
 
-// CORS preflight for the audio path (some browsers preflight crossorigin
+// Canonical HiFi route.
+audioRoute.get("/qori2/:folder/:file", (c) => serveMurottal(c, c.req.param("folder"), c.req.param("file")));
+// Legacy alias — old cached pages/JS keep working, but they too are served
+// the fresh HiFi bytes (never the poisoned legacy library).
+audioRoute.get("/qori/:folder/:file", (c) => serveMurottal(c, c.req.param("folder"), c.req.param("file")));
+
+// CORS preflight for the audio paths (some browsers preflight crossorigin
 // media fetches).
-audioRoute.options("/qori/:folder/:file", (c) => {
+const murottalPreflight = (c: any) => {
   c.header("Access-Control-Allow-Origin", "*");
   c.header("Access-Control-Allow-Methods", "GET, OPTIONS");
   c.header("Access-Control-Allow-Headers", "Range");
   return c.body(null, 204);
-});
+};
+audioRoute.options("/qori2/:folder/:file", murottalPreflight);
+audioRoute.options("/qori/:folder/:file", murottalPreflight);
 
 // GET /audio/story/:id — stream kisah/hikmah narration (TTS or recorded)
 audioRoute.get("/story/:id", async (c) => {
