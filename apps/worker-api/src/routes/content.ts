@@ -65,6 +65,52 @@ export function trackOptions(c: Context<{ Bindings: Env }>) {
 contentRoute.post("/track", trackBeacon);
 contentRoute.options("/track", trackOptions);
 
+// POST /track/ping — presence heartbeat for the NON-ecosystem sites (their
+// SiteBeacon posts {site, device} here every few seconds). Ecosystem sites use
+// /analytics/ping (tenant from Origin); external sites must name their own site
+// in the body. Both feed the SAME live_presence table, so the admin's "online
+// sekarang" (≤5s) is identical for every site — real devices, not page views.
+export async function trackPing(c: Context<{ Bindings: Env }>) {
+  c.header("Access-Control-Allow-Origin", "*");
+  try {
+    const body = JSON.parse((await c.req.text()) || "{}") as { site?: string; device?: string };
+    const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
+    const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
+    if (!site || device.length < 8) return c.body(null, 204);
+    await c.env.DB.prepare(
+      `INSERT INTO live_presence (tenant, device_id, last_seen) VALUES (?, ?, strftime('%s','now'))
+       ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen`
+    )
+      .bind(site, device)
+      .run();
+  } catch {
+    /* best-effort */
+  }
+  return c.body(null, 204);
+}
+// POST /track/leave — best-effort "closed" for external sites (pagehide).
+export async function trackLeave(c: Context<{ Bindings: Env }>) {
+  c.header("Access-Control-Allow-Origin", "*");
+  try {
+    const body = JSON.parse((await c.req.text()) || "{}") as { site?: string; device?: string };
+    const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
+    const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
+    if (!site || device.length < 8) return c.body(null, 204);
+    await c.env.DB.prepare(
+      `UPDATE live_presence SET last_seen = strftime('%s','now') - 10 WHERE tenant = ? AND device_id = ?`
+    )
+      .bind(site, device)
+      .run();
+  } catch {
+    /* best-effort */
+  }
+  return c.body(null, 204);
+}
+contentRoute.post("/track/ping", trackPing);
+contentRoute.post("/track/leave", trackLeave);
+contentRoute.options("/track/ping", trackOptions);
+contentRoute.options("/track/leave", trackOptions);
+
 // GET /content/site-pages — per-tenant page visibility + custom labels, so the
 // site's nav and each page can be shown/hidden/renamed from the admin portal
 // (owner: "jgn ada yg hardcode, semua dynamic dari portal admin"). Absent rows

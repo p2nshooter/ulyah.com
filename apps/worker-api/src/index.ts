@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import type { Env } from "./env.js";
 import { quranRoute } from "./routes/quran.js";
 import { audioRoute } from "./routes/audio.js";
-import { contentRoute, trackBeacon, trackOptions } from "./routes/content.js";
+import { contentRoute, trackBeacon, trackOptions, trackPing, trackLeave } from "./routes/content.js";
 import { aiRoute } from "./routes/ai.js";
 import { donateRoute } from "./routes/donate.js";
 import { adminAuthRoute } from "./routes/admin-auth.js";
@@ -118,6 +118,12 @@ app.route("/content", contentRoute);
 // so without this alias every hit 404s and the admin traffic panel stays at 0.
 app.post("/track", trackBeacon);
 app.options("/track", trackOptions);
+// External-site presence heartbeat (SiteBeacon) → same live_presence table as
+// the ecosystem, so "online sekarang" is ≤5s real-time for every site alike.
+app.post("/track/ping", trackPing);
+app.post("/track/leave", trackLeave);
+app.options("/track/ping", trackOptions);
+app.options("/track/leave", trackOptions);
 app.route("/ai", aiRoute);
 app.route("/donate", donateRoute);
 app.route("/admin/auth", adminAuthRoute);

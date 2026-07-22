@@ -88,7 +88,7 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
         })
         .catch(() => {});
     load();
-    const t = setInterval(load, 10_000);
+    const t = setInterval(load, 3000); // ~3s so "online sekarang" rises/falls in near real-time
     return () => {
       alive = false;
       clearInterval(t);
@@ -131,7 +131,8 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
       </div>
       <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
         Total {grand.toLocaleString()} tampilan halaman dalam {data.days} hari terakhir ·{" "}
-        <span className="font-medium text-emerald-500">{liveTotal.toLocaleString()} online 5 menit terakhir</span>
+        <span className="font-medium text-emerald-500">{liveTotal.toLocaleString()} online sekarang</span>
+        <span className="text-[var(--color-text-secondary)]"> (perangkat aktif ≤5 detik)</span>
       </p>
 
       {totals.length === 0 ? (
@@ -149,13 +150,13 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
                 <div className="h-4 flex-1 overflow-hidden rounded bg-black/5">
                   <div className="h-full rounded bg-accent" style={{ width: `${(t.views / max) * 100}%` }} />
                 </div>
-                {/* Live "online sekarang" per situs, updated every poll — the
-                    ▲/▼ shows visitors rising or falling vs the previous tick. */}
+                {/* Live "online sekarang" per situs (≤5s presence), updated every
+                    poll — the ▲/▼ shows visitors rising or falling vs the last tick. */}
                 <span
                   className={`w-16 shrink-0 text-right text-xs tabular-nums ${
                     delta > 0 ? "text-emerald-500" : delta < 0 ? "text-rose-500" : "text-[var(--color-text-secondary)]"
                   }`}
-                  title="Pengunjung 5 menit terakhir"
+                  title="Online sekarang — perangkat aktif ≤5 detik"
                 >
                   {delta > 0 ? "▲" : delta < 0 ? "▼" : "•"} {live}
                 </span>
