@@ -7,9 +7,10 @@ import { TENANT } from "@/lib/tenant";
 /**
  * Real-time presence bar — how many devices are on each ecosystem site RIGHT
  * NOW, and how many just left ("closed"). Fed by the presence heartbeat
- * (/analytics/ping) and polled every 3 seconds, so the count moves within ~3s
- * (owner: "hitungan maksimal 3 detik langsung live berapa yg online dan yg
- * sudah closed"). These are REAL devices, not page views.
+ * (/analytics/ping, every 3s) and polled every 2s, with a 5s "online" window,
+ * so the count reflects THIS second and rises/falls within ≤5s (owner: "online
+ * skrg itu kondisi saat detik ini, turun-naik ≤5 detik"). REAL devices, not
+ * page views.
  */
 interface LiveRow {
   tenant: string;
@@ -23,7 +24,7 @@ const META: Record<string, { name: string; icon: string }> = {
   dawa: { name: "dawa.es", icon: "🇪🇸" },
   xad: { name: "xad.es", icon: "🌌" },
 };
-const POLL_MS = 3000; // ≤3s freshness, as requested
+const POLL_MS = 2000; // poll every 2s so the count moves within ~2s
 
 export function LivePresenceBar() {
   const [rows, setRows] = useState<LiveRow[]>([]);
@@ -79,7 +80,7 @@ export function LivePresenceBar() {
           {failed ? "terputus — mencoba lagi…" : "LIVE"}
         </span>
         <span className="text-[10px] font-normal text-[var(--color-text-secondary)]">
-          diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 3 dtk
+          diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 2 dtk
         </span>
       </p>
 
@@ -112,8 +113,8 @@ export function LivePresenceBar() {
         })}
       </div>
       <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
-        Perangkat NYATA (bukan page view), dari heartbeat tiap 5 detik. &quot;Online&quot; = aktif ≤20 detik terakhir;
-        &quot;closed&quot; = sempat aktif lalu menutup/pindah tab dalam 5 menit terakhir.
+        Perangkat NYATA (bukan page view), dari heartbeat tiap 3 detik. &quot;Online&quot; = aktif ≤5 detik terakhir (kondisi
+        detik ini — turun/naik dalam ≤5 detik); &quot;closed&quot; = sempat aktif lalu menutup/pindah tab dalam 2 menit terakhir.
       </p>
     </section>
   );
