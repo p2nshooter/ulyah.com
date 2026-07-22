@@ -87,7 +87,7 @@ export const RECITERS: QoriDef[] = [
   // Qatar
   { key: "ey.qatami", name: "Nasser Al-Qatami", flag: "🇶🇦", country: "Qatar", cc: "qa", note: "Murattal", cdn: "ey", eyId: "Nasser_Alqatami_128kbps", r2Folder: "qatami" },
   // Emirat Arab
-  { key: "ey.tunaiji", name: "Khalifa Al-Tunaiji", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "khalefa_al_tunaiji_128kbps", r2Folder: "tunaiji" },
+  { key: "ey.tunaiji", name: "Khalifa Al-Tunaiji", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "khalefa_al_tunaiji_64kbps", r2Folder: "tunaiji" },
   { key: "ey.bukhatir", name: "Salah Bukhatir", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "Salaah_AbdulRahman_Bukhatir_128kbps", r2Folder: "bukhatir" },
   // Tambahan — cakupan lebih luas (per-ayat, everyayah.com)
   { key: "ey.juhany", name: "Abdullah Awad Al-Juhany", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "ey", eyId: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", r2Folder: "juhany" },
@@ -96,7 +96,7 @@ export const RECITERS: QoriDef[] = [
   { key: "ey.akhdar", name: "Ibrahim Al-Akhdar", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal", cdn: "ey", eyId: "Ibrahim_Akhdar_32kbps", r2Folder: "akhdar" },
   { key: "ey.banna", name: "Mahmoud Ali Al-Banna", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "ey", eyId: "mahmoud_ali_al_banna_32kbps", r2Folder: "banna" },
   { key: "ey.faresabbad", name: "Fares Abbad", flag: "🇾🇪", country: "Yaman", cc: "ye", note: "Murattal", featured: true, cdn: "ey", eyId: "Fares_Abbad_64kbps", r2Folder: "fares" },
-  { key: "ey.mansouri", name: "Karim Mansouri", flag: "🇩🇿", country: "Aljazair", cc: "dz", note: "Murattal", featured: true, cdn: "ey", eyId: "Karim_Mansouri_128kbps", r2Folder: "mansoori" },
+  { key: "ey.mansouri", name: "Karim Mansouri", flag: "🇩🇿", country: "Aljazair", cc: "dz", note: "Murattal", featured: true, cdn: "ey", eyId: "Karim_Mansoori_40kbps", r2Folder: "mansoori" },
   // Indonesia — surah-mode only (see surahFn note above)
   {
     key: "id.muammar",

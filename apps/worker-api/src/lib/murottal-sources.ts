@@ -55,7 +55,7 @@ export const MUROTTAL_SOURCES: Record<string, MurottalSource> = {
   dosari: { kind: "ey", folder: "Yasser_Ad-Dussary_128kbps", name: "Yasser Al-Dosari" },
   qatami: { kind: "ey", folder: "Nasser_Alqatami_128kbps", name: "Nasser Al Qatami" },
   bukhatir: { kind: "ey", folder: "Salaah_AbdulRahman_Bukhatir_128kbps", name: "Salah Bukhatir" },
-  tunaiji: { kind: "ey", folder: "khalefa_al_tunaiji_128kbps", name: "Khalifa Al-Tunaiji" },
+  tunaiji: { kind: "ey", folder: "khalefa_al_tunaiji_64kbps", name: "Khalifa Al-Tunaiji" },
   matroud: { kind: "ey", folder: "Abdullah_Matroud_128kbps", name: "Abdullah Al-Matroud" },
   juhany: { kind: "ey", folder: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", name: "Abdullah Awad Al-Juhany" },
   // 128 kbps is not published for these voices — their native bitrate is the
@@ -66,7 +66,7 @@ export const MUROTTAL_SOURCES: Record<string, MurottalSource> = {
   alijaber: { kind: "ey", folder: "Ali_Jaber_64kbps", name: "Ali Jaber" },
   akhdar: { kind: "ey", folder: "Ibrahim_Akhdar_32kbps", name: "Ibrahim Al-Akhdar" },
   banna: { kind: "ey", folder: "mahmoud_ali_al_banna_32kbps", name: "Mahmoud Ali Al-Banna" },
-  mansoori: { kind: "ey", folder: "Karim_Mansouri_128kbps", name: "Karim Mansouri" },
+  mansoori: { kind: "ey", folder: "Karim_Mansoori_40kbps", name: "Karim Mansouri" },
 };
 
 // Hafs/Madinah mushaf ayah count per surah (1..114) — sums to 6236. Used to

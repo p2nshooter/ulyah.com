@@ -74,13 +74,16 @@ const SOURCES = {
   tablawi: { kind: "ey", folder: "Mohammad_al_Tablawi_128kbps", name: "Mohammad Al-Tablawi" },
   dosari: { kind: "ey", folder: "Yasser_Ad-Dussary_128kbps", name: "Yasser Al-Dosari" },
   qatami: { kind: "ey", folder: "Nasser_Alqatami_128kbps", name: "Nasser Al Qatami" },
-  tunaiji: { kind: "ey", folder: "khalefa_al_tunaiji_128kbps", name: "Khalifa Al-Tunaiji" },
+  tunaiji: { kind: "ey", folder: "khalefa_al_tunaiji_64kbps", name: "Khalifa Al-Tunaiji" },
   matroud: { kind: "ey", folder: "Abdullah_Matroud_128kbps", name: "Abdullah Al-Matroud" },
   juhany: { kind: "ey", folder: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", name: "Abdullah Awad Al-Juhany" },
   alijaber: { kind: "ey", folder: "Ali_Jaber_64kbps", name: "Ali Jaber" },
   banna: { kind: "ey", folder: "mahmoud_ali_al_banna_32kbps", name: "Mahmoud Ali Al-Banna" },
-  // 128 kbps folder (the old Karim_Mansoori_40kbps was the muffled source).
-  mansoori: { kind: "ey", folder: "Karim_Mansouri_128kbps", name: "Karim Mansouri" },
+  // everyayah publishes Karim Mansouri ONLY at 40 kbps (folder spelled
+  // "Mansoori"). The "Karim_Mansouri_128kbps" guess 404s for every ayah — it
+  // does not exist — so the import stuck at 0. 40 kbps is his best available
+  // source anywhere, same as Ghamdi/Akhdar/Banna.
+  mansoori: { kind: "ey", folder: "Karim_Mansoori_40kbps", name: "Karim Mansouri" },
 };
 
 function args() {
@@ -167,11 +170,28 @@ async function r2Put(key, bytes) {
 }
 
 const pad3 = (n) => String(n).padStart(3, "0");
-async function fetchMp3(url) {
-  const res = await fetch(url, { headers: { "User-Agent": "ulyah.com murottal importer" } });
-  if (!res.ok) return null;
-  const buf = Buffer.from(await res.arrayBuffer());
-  return buf.length > 2000 ? buf : null; // guard against tiny error pages
+const sleepMs = (ms) => new Promise((r) => setTimeout(r, ms));
+// everyayah.com is a small volunteer host; a whole-Qur'an pull at concurrency
+// 12-16 gets throttled (403/429) or drops connections, which looked like a
+// reciter "having no source" (dosari/juhany stuck at ~7 ayat). A 404 is a
+// real "this ayah isn't published for this reciter" and must NOT be retried,
+// but a throttle/transient error should back off and try again.
+async function fetchMp3(url, tries = 4) {
+  for (let i = 0; i < tries; i++) {
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": "ulyah.com murottal importer" } });
+      if (res.ok) {
+        const buf = Buffer.from(await res.arrayBuffer());
+        return buf.length > 2000 ? buf : null; // guard against tiny error pages
+      }
+      if (res.status === 404) return null; // genuinely absent — don't retry
+      // 403/429/5xx = throttled/transient → fall through to backoff+retry
+    } catch {
+      /* network blip → retry */
+    }
+    if (i < tries - 1) await sleepMs(400 * 2 ** i + Math.random() * 300); // 0.4/0.8/1.6s + jitter
+  }
+  return null;
 }
 
 // Resolve the REAL per-ayah audio URL for an alquran.cloud edition via its API
