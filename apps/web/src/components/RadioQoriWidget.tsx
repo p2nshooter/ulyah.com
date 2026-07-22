@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { RECITERS, DEFAULT_QORI_KEY } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
-import { useRadioStore } from "@/lib/radio-store";
+import { useRadioStore, RADIO_ROTATION_KEYS } from "@/lib/radio-store";
 
 /**
  * "Radio Qori Dunia" — the visible controls for the always-on Qur'an
@@ -48,7 +48,13 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
     RECITERS.find((r) => r.key === pos.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   const surahMeta = (surahs ?? []).find((s) => s.id === pos.surahId);
 
-  const featured = RECITERS.filter((r) => r.featured);
+  // Show the ACTUAL rotation, in its playing order — not every featured
+  // reciter. The radio only rotates the aqc/128kbps voices (same proven
+  // R2-first path ulyah.com plays), so the lineup must match what the
+  // station will really broadcast.
+  const featured = RADIO_ROTATION_KEYS.map((k) => RECITERS.find((r) => r.key === k)).filter(
+    (r): r is (typeof RECITERS)[number] => !!r
+  );
 
   return (
     <section className="app-hero relative overflow-hidden rounded-3xl border border-accent/30 p-6 shadow-xl sm:p-8">
