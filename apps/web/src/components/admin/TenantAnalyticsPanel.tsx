@@ -16,8 +16,8 @@ interface TenantStat {
   /** Devices whose LAST event is an uninstall — DECREASES when the same
    * device installs again. */
   uninstalledDevices: number;
-  /** Distinct devices with a presence heartbeat in the last 20s — the SAME
-   * live "online now" source as the ⚡ Live bar, so the two always agree. */
+  /** Distinct devices with a presence heartbeat in the last 5s — the SAME
+   * live "online now" source as the ⚡ Live bar (no longer shown here). */
   activeNow: number;
   /** DISTINCT devices that actually browsed this site per window. Until device
    * tracking has run longer than a window, the shorter windows equal the longer
@@ -200,9 +200,8 @@ export function TenantAnalyticsPanel() {
         })}
       </div>
       <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
-        Semua angka nyata dari beacon perangkat — tidak ada estimasi. &quot;Online sekarang&quot; = perangkat aktif ≤20 detik
-        terakhir (sumber sama dengan bar ⚡ Live sekarang di atas, jadi totalnya selalu cocok). &quot;App terpasang&quot; =
-        perangkat unik yang event terakhirnya install. &quot;Uninstall (perangkat)&quot; =
+        Semua angka nyata dari beacon perangkat — tidak ada estimasi. &quot;Online sekarang&quot; (di bar ⚡ Live) = perangkat
+        aktif ≤5 detik terakhir — kondisi detik ini. &quot;App terpasang&quot; = perangkat unik yang event terakhirnya install. &quot;Uninstall (perangkat)&quot; =
         perangkat yang event terakhirnya uninstall — otomatis BERKURANG saat perangkat yang sama install lagi. Baris
         &quot;riwayat&quot; adalah jumlah kejadian mentah. * Deteksi uninstall bersifat best-effort (web tidak punya event
         resmi uninstall); terdeteksi saat perangkat itu kembali membuka situs. Angka &quot;perangkat unik&quot; 24 jam/7 hari/30

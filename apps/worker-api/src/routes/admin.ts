@@ -625,12 +625,12 @@ adminRoute.get("/tenant-analytics", async (c) => {
        ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
     // LIVE "online right now" — the SAME source as the ⚡ Live bar so the two
-    // never disagree (owner: "kenapa live skrg berbeda jika ditotalin"):
-    // DISTINCT devices with a presence heartbeat in the last 20s. Real devices,
-    // not page views; zero when nobody is actively on the site.
+    // never disagree: DISTINCT devices with a presence heartbeat in the last 5s
+    // (owner: "online skrg itu kondisi saat detik ini, turun-naik ≤5 detik").
+    // Real devices, not page views; zero when nobody is actively on the site.
     c.env.DB.prepare(
       `SELECT tenant, COUNT(*) AS n FROM live_presence
-       WHERE last_seen >= (strftime('%s','now') - 20) GROUP BY tenant`
+       WHERE last_seen >= (strftime('%s','now') - 5) GROUP BY tenant`
     ).all<{ tenant: string; n: number }>(),
     // REAL unique devices actually browsing each site in the last 24h — DISTINCT
     // localStorage device tokens, not page views (owner: "tampilkan real brp
@@ -698,8 +698,8 @@ adminRoute.get("/tenant-analytics", async (c) => {
 // stale rows on the way through so the table stays tiny.
 adminRoute.get("/live-presence", async (c) => {
   const now = Math.floor(Date.now() / 1000);
-  const ONLINE = now - 20; // seen within 20s → online now
-  const RECENT = now - 300; // seen within 5min → still "just left" if not online
+  const ONLINE = now - 5; // seen within 5s → online THIS second (owner: turun-naik ≤5 dtk)
+  const RECENT = now - 120; // seen within 2min → still "just left" if not online
   try {
     // Opportunistic prune — anything older than 10 minutes is long gone.
     await c.env.DB.prepare("DELETE FROM live_presence WHERE last_seen < ?").bind(now - 600).run();

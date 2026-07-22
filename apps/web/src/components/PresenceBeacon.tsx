@@ -15,7 +15,10 @@ import { getDeviceId } from "@/lib/device-id";
  * are text/plain so the cross-origin beacon needs no CORS preflight.
  */
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
-const HEARTBEAT_MS = 5000; // every 5s while visible → admin sees ≤~3s freshness on its own poll
+// Beat every 3s so a device's last-seen is always ≤3s old — comfortably inside
+// the admin's 5s "online now" window (no flicker), and it drops within ~5s of
+// closing (owner: "online skrg kondisi detik ini, turun-naik ≤5 detik").
+const HEARTBEAT_MS = 3000;
 
 export function PresenceBeacon() {
   useEffect(() => {
