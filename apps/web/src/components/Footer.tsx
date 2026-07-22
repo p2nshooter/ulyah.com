@@ -39,11 +39,6 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             ) : (
               <span className="font-heading text-xl font-semibold tracking-wide text-accent">{TENANT.siteName}</span>
             )}
-            {/* Temporary Adsterra site-verification token for dawa.es, placed
-                beside the footer logo per owner request; removed once verified. */}
-            {TENANT.id === "dawa" && (
-              <span className="ml-1 self-center text-[11px] text-[#f4efe3]/40">45fdgf541</span>
-            )}
           </div>
           <p className="mt-2 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
           <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
