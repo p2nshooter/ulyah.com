@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePlayerStore, LAYERS, type Layer, type QueueItem } from "@/lib/player-store";
 import { api } from "@/lib/api";
+import { sendPresencePing } from "@/lib/presence";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { RECITERS, COUNTRIES, resolveAyahAudioSources } from "@/lib/qori-cdn";
 import { resolveTranslationLang } from "@ulyah/shared/i18n";
@@ -283,6 +284,9 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
           const p = { current: e.currentTarget.currentTime, duration: e.currentTarget.duration || 0 };
           setProgress(p);
           setAudioProgress(p);
+          // Background-audio presence: keeps a listener counted as ONLINE while
+          // murottal/story audio plays with the screen off (throttled to 3s).
+          sendPresencePing();
         }}
         onEnded={() => {
           if (storyTrack) next();
