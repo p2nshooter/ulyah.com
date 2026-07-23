@@ -5,6 +5,7 @@ import { RECITERS, resolveAyahAudioSources, resolveSurahAudioUrl } from "@/lib/q
 import { computeKhatamIndex } from "@/lib/radio-clock";
 import { usePlayerStore } from "@/lib/player-store";
 import { useRadioStore, ensureSurahsLoaded, nextRadioPosition } from "@/lib/radio-store";
+import { sendPresencePing } from "@/lib/presence";
 
 /**
  * The one place the Radio Qori <audio> element lives — mounted ONCE in the
@@ -258,6 +259,12 @@ export function GlobalRadioPlayer() {
       <audio
         ref={audioRef}
         onEnded={() => useRadioStore.getState().advance()}
+        // Presence heartbeat that survives screen-lock: timeupdate keeps firing
+        // while the audio actually plays, even after the tab is hidden and
+        // plain JS timers are frozen — so a listener who only keeps the Qur'an
+        // radio on with the screen off stays counted as ONLINE (sendPresencePing
+        // is throttled to 3s internally, matching the admin's 5s live window).
+        onTimeUpdate={() => sendPresencePing()}
         className="hidden"
         aria-hidden
       />
