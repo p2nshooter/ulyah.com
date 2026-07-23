@@ -1,7 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { fetchAdView, type AdView } from "@/lib/ad-config";
+
+// Preview-box wording per site language (DEFAULT_LOCALE is the tenant's own
+// language at build time). A sibling in "enabled but not yet approved" state
+// must never show the Indonesian placeholder text.
+const AD_L: Record<string, { label: string; pos: string; waiting: string; noId: string }> = {
+  id: { label: "Ruang Iklan", pos: "posisi iklan", waiting: "menunggu ACC AdSense", noId: "belum ada ID iklan" },
+  en: { label: "Ad space", pos: "ad position", waiting: "awaiting AdSense approval", noId: "no ad ID yet" },
+  fr: { label: "Espace publicitaire", pos: "emplacement", waiting: "en attente d'approbation AdSense", noId: "pas encore d'ID d'annonce" },
+  de: { label: "Werbefläche", pos: "Anzeigenplatz", waiting: "wartet auf AdSense-Freigabe", noId: "noch keine Anzeigen-ID" },
+  es: { label: "Espacio publicitario", pos: "posición del anuncio", waiting: "esperando aprobación de AdSense", noId: "aún sin ID de anuncio" },
+  ar: { label: "مساحة إعلانية", pos: "موضع الإعلان", waiting: "بانتظار موافقة AdSense", noId: "لا يوجد معرّف إعلان بعد" },
+};
 
 /**
  * A single, visitor-friendly ad placement. Reads the central config (edited
@@ -20,12 +33,13 @@ import { fetchAdView, type AdView } from "@/lib/ad-config";
 export function AdSlot({
   placement = "in_article",
   className = "",
-  label = "Ruang Iklan",
+  label,
 }: {
   placement?: "in_article" | "list" | "footer" | "sidebar";
   className?: string;
   label?: string;
 }) {
+  const adL = AD_L[DEFAULT_LOCALE] ?? AD_L.en!;
   const [view, setView] = useState<AdView | null>(null);
   const insRef = useRef<HTMLModElement | null>(null);
   const pushedRef = useRef(false);
@@ -83,15 +97,15 @@ export function AdSlot({
   // Position marker (site on, but not approved yet or no id) — lets the owner
   // see the exact spot/size the ad will occupy without violating policy (no
   // fake ad content, clearly labelled as a reserved preview slot).
-  const stateNote = slotId ? "menunggu ACC AdSense" : "belum ada ID iklan";
+  const stateNote = slotId ? adL.waiting : adL.noId;
   return (
     <div
       className={`my-8 flex min-h-[90px] flex-col items-center justify-center gap-0.5 rounded-xl border border-dashed border-accent/50 bg-accent/5 text-center text-xs text-[var(--color-text-secondary)] ${className}`}
       data-ad-placeholder={placement}
     >
-      <span className="font-medium opacity-80">▭ {label}</span>
+      <span className="font-medium opacity-80">▭ {label ?? adL.label}</span>
       <span className="text-[10px] opacity-60">
-        posisi iklan «{placement}» · {stateNote}
+        {adL.pos} «{placement}» · {stateNote}
       </span>
     </div>
   );
