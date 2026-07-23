@@ -183,17 +183,45 @@ async function main() {
 
   const esc = (s: string) => s.replace(/'/g, "''");
   const dir = mkdtempSync(join(tmpdir(), "mtwarm-"));
+  // D1 caps a SINGLE statement at ~100KB (SQLITE_TOOBIG), and story bodies /
+  // summaries are long — so pack value tuples into an INSERT by BYTE budget
+  // (~40KB), not by a fixed row count, then start a fresh statement. Many
+  // statements go into one file (wrangler runs them all sequentially); the
+  // file is flushed every 40 statements (~1.6MB) to keep each execute modest.
+  const STMT_BUDGET = 40000;
+  const stmtOf = (rows: string[]) =>
+    `INSERT INTO mt_cache (k, v) VALUES ${rows.join(",")} ON CONFLICT(k) DO UPDATE SET v = excluded.v;`;
   try {
     let wrote = 0;
-    for (let i = 0; i < pairs.length; i += 400) {
-      const chunk = pairs.slice(i, i + 400);
-      const values = chunk.map((p) => `('${esc(p.key)}','${esc(p.value)}')`).join(",");
-      const file = join(dir, `mt-${i}.sql`);
-      writeFileSync(file, `INSERT INTO mt_cache (k, v) VALUES ${values} ON CONFLICT(k) DO UPDATE SET v = excluded.v;`, "utf8");
+    let fileIdx = 0;
+    let statements: string[] = [];
+    let curRows: string[] = [];
+    let curBytes = 0;
+    const flushStmt = () => {
+      if (curRows.length) {
+        statements.push(stmtOf(curRows));
+        curRows = [];
+        curBytes = 0;
+      }
+    };
+    const flushFile = () => {
+      flushStmt();
+      if (!statements.length) return;
+      const file = join(dir, `mt-${fileIdx++}.sql`);
+      writeFileSync(file, statements.join("\n"), "utf8");
       wrangler(["d1", "execute", "ulyah-db", "--remote", `--file=${file}`]);
-      wrote += chunk.length;
+      statements = [];
       console.log(`  wrote ${wrote}/${pairs.length}`);
+    };
+    for (const p of pairs) {
+      const tuple = `('${esc(p.key)}','${esc(p.value)}')`;
+      if (curBytes + tuple.length > STMT_BUDGET) flushStmt();
+      curRows.push(tuple);
+      curBytes += tuple.length + 1;
+      wrote++;
+      if (statements.length >= 40) flushFile();
     }
+    flushFile();
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
