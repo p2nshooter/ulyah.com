@@ -316,6 +316,23 @@ contentRoute.get("/categories", async (c) => {
       )
   ).all<{ story_count: number }>();
   const categories = countedOnly ? results.filter((r) => r.story_count > 0) : results;
+  // Category names are authored in Indonesian ("Kisah Para Nabi", …). Every
+  // sibling site shows them in its OWN language — batched + KV-cached MT, source
+  // id — so a French/German/Spanish/English visitor never sees an Indonesian
+  // heading above translated stories (owner: "langsung di-translate ke bahasa
+  // masing2"). id sites keep the original text.
+  if (lang && lang !== "id" && categories.length) {
+    const names = await localizeBatchProtected(
+      c.env,
+      categories.map((r) => (r as { name?: string }).name ?? ""),
+      lang,
+      "id"
+    );
+    categories.forEach((r, i) => {
+      const name = names[i];
+      if (name) (r as { name?: string }).name = name;
+    });
+  }
   return c.json({ categories });
 });
 
@@ -1183,6 +1200,21 @@ contentRoute.get("/live-streams", async (c) => {
       return { ...s, channel_id: ch, video_id, latest_video_id };
     })
   );
+  // Localize the stream titles into the site's language so a live card on
+  // 1fr.fr/tilawa.de/dawa.es reads in French/German/Spanish, not Indonesian
+  // (batched + KV-cached MT, source id). id keeps the original.
+  const lang = c.req.query("lang");
+  if (lang && lang !== "id" && streams.length) {
+    const titles = await localizeBatchProtected(
+      c.env,
+      streams.map((s) => (s.title as string | null) ?? ""),
+      lang,
+      "id"
+    );
+    streams.forEach((s, i) => {
+      if (titles[i]) (s as { title?: string | null }).title = titles[i];
+    });
+  }
   // NEVER edge-cache this 30 min like other /content lists: an admin CRUD on a
   // live stream (add/edit/delete/toggle is_live) must reach every ecosystem site
   // almost immediately (owner: "live streaming YouTube belum update ke ekosistem
