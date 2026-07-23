@@ -95,23 +95,51 @@ function coerceSite(v: unknown): SiteAdState {
   return { enabled: false, approved: false, adsterra: true };
 }
 
-export async function getAdConfig(env: Env): Promise<AdConfig> {
-  const raw = await safeKvGet(env, KV_KEY);
+function normalizeAdConfig(parsed: Partial<AdConfig>): AdConfig {
   const def = defaultAdConfig();
-  if (!raw) return def;
-  try {
-    const parsed = JSON.parse(raw) as Partial<AdConfig>;
-    const sites: Record<string, SiteAdState> = { ...def.sites };
-    for (const s of AD_SITES) sites[s] = coerceSite((parsed.sites as Record<string, unknown> | undefined)?.[s]);
-    return {
-      clientId: AD_CLIENT_ID, // never trust a stored client id
-      slots: { ...def.slots, ...(parsed.slots ?? {}) },
-      sites,
-      adsterra: parsed.adsterra !== false, // default ON unless explicitly turned off
-    };
-  } catch {
-    return def;
+  const sites: Record<string, SiteAdState> = { ...def.sites };
+  for (const s of AD_SITES) sites[s] = coerceSite((parsed.sites as Record<string, unknown> | undefined)?.[s]);
+  return {
+    clientId: AD_CLIENT_ID, // never trust a stored client id
+    slots: { ...def.slots, ...(parsed.slots ?? {}) },
+    sites,
+    adsterra: parsed.adsterra !== false, // default ON unless explicitly turned off
+  };
+}
+
+/**
+ * @param consistent When true (the ADMIN read path), read from D1 — the
+ *   read-after-write-consistent source of truth, so a toggle saved in the
+ *   admin is visible on the very next refresh (KV's ~60 s edge read-cache used
+ *   to serve the stale value and snap the switch back ON). When false (the
+ *   high-traffic PUBLIC per-site view), read the fast KV cache and only fall
+ *   back to D1 — eventual (<1 min) propagation is fine for what a site renders.
+ */
+export async function getAdConfig(env: Env, consistent = false): Promise<AdConfig> {
+  if (consistent) {
+    try {
+      const row = await env.DB.prepare("SELECT json FROM ad_config WHERE id = 1").first<{ json: string }>();
+      if (row?.json) return normalizeAdConfig(JSON.parse(row.json) as Partial<AdConfig>);
+    } catch {
+      /* fall through to KV */
+    }
   }
+  const raw = await safeKvGet(env, KV_KEY);
+  if (raw) {
+    try {
+      return normalizeAdConfig(JSON.parse(raw) as Partial<AdConfig>);
+    } catch {
+      /* fall through */
+    }
+  }
+  // KV empty/unparneable — try D1 before giving up on the default.
+  try {
+    const row = await env.DB.prepare("SELECT json FROM ad_config WHERE id = 1").first<{ json: string }>();
+    if (row?.json) return normalizeAdConfig(JSON.parse(row.json) as Partial<AdConfig>);
+  } catch {
+    /* fall through */
+  }
+  return defaultAdConfig();
 }
 
 export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<AdConfig> {
@@ -121,11 +149,22 @@ export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<AdConfig> {
     clean.slots[p] = String(cfg.slots?.[p] ?? "").replace(/[^0-9]/g, "").slice(0, 20);
   }
   for (const s of AD_SITES) clean.sites[s] = coerceSite(cfg.sites?.[s]);
-  await safeKvPut(env, KV_KEY, JSON.stringify(clean));
-  // Return the exact config we just wrote. Callers MUST NOT re-read from KV
-  // right after this: Cloudflare KV is eventually consistent, so a get()
-  // immediately after put() often returns the STALE previous value — which
-  // made the admin "save" appear to reset every toggle back to OFF.
+  const json = JSON.stringify(clean);
+  // D1 first — the consistent store the admin reads back on refresh. The
+  // single row is pinned to id = 1 (UPSERT), so there is never more than one.
+  try {
+    await env.DB.prepare(
+      `INSERT INTO ad_config (id, json, updated_at) VALUES (1, ?, datetime('now'))
+       ON CONFLICT(id) DO UPDATE SET json = excluded.json, updated_at = datetime('now')`
+    )
+      .bind(json)
+      .run();
+  } catch (e) {
+    console.warn("ad_config D1 write failed, KV still updated:", e instanceof Error ? e.message : e);
+  }
+  // KV too — best-effort warm cache for the public per-site view.
+  await safeKvPut(env, KV_KEY, json);
+  // Return the exact config we just wrote so the caller never has to re-read.
   return clean;
 }
 

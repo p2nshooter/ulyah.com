@@ -885,7 +885,7 @@ adminRoute.get("/health", async (c) => {
 
 // GET /admin/adsense-config — verification status + the noted ad-unit id (if any).
 adminRoute.get("/adsense-config", async (c) => {
-  const cfg = await getAdConfig(c.env);
+  const cfg = await getAdConfig(c.env, true); // consistent read so a refresh shows the saved state
   return c.json(cfg);
 });
 
@@ -938,7 +938,7 @@ adminRoute.post("/adsense-config", async (c) => {
     sites?: Record<string, { enabled?: boolean; approved?: boolean; adsterra?: boolean } | boolean>;
     adsterra?: boolean;
   }>();
-  const current = await getAdConfig(c.env);
+  const current = await getAdConfig(c.env, true); // merge onto the consistent current state
   const mergedSites: Record<string, { enabled: boolean; approved: boolean; adsterra: boolean }> = { ...current.sites };
   for (const [k, v] of Object.entries(body.sites ?? {})) {
     if (typeof v === "boolean") {
