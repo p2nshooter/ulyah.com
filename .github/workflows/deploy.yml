@@ -425,6 +425,62 @@ jobs:
             echo "Kisah Ashabul Jannah already has $JNCOUNT rows — skipping."
           fi
 
+      - name: Import Kisah Habil dan Qabil series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-habil-qabil';" --json > /tmp/kisah_habil_count.json
+          HBCOUNT=$(node -e "const j=require('/tmp/kisah_habil_count.json'); console.log(j[0].results[0].n)")
+          if [ "$HBCOUNT" -lt "1" ]; then
+            echo "Kisah Habil dan Qabil not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_habil_qabil.sql
+          else
+            echo "Kisah Habil dan Qabil already has $HBCOUNT rows — skipping."
+          fi
+
+      - name: Import Kisah Kaum Saba series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-kaum-saba';" --json > /tmp/kisah_saba_count.json
+          SBCOUNT=$(node -e "const j=require('/tmp/kisah_saba_count.json'); console.log(j[0].results[0].n)")
+          if [ "$SBCOUNT" -lt "1" ]; then
+            echo "Kisah Kaum Saba not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_kaum_saba.sql
+          else
+            echo "Kisah Kaum Saba already has $SBCOUNT rows — skipping."
+          fi
+
+      - name: Import Kisah Ashabus-Sabt series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-ashabus-sabt';" --json > /tmp/kisah_sabt_count.json
+          STCOUNT=$(node -e "const j=require('/tmp/kisah_sabt_count.json'); console.log(j[0].results[0].n)")
+          if [ "$STCOUNT" -lt "1" ]; then
+            echo "Kisah Ashabus-Sabt not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_ashabus_sabt.sql
+          else
+            echo "Kisah Ashabus-Sabt already has $STCOUNT rows — skipping."
+          fi
+
+      - name: Import Kisah Sapi Betina Bani Israil series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-sapi-betina';" --json > /tmp/kisah_sapi_count.json
+          SPCOUNT=$(node -e "const j=require('/tmp/kisah_sapi_count.json'); console.log(j[0].results[0].n)")
+          if [ "$SPCOUNT" -lt "1" ]; then
+            echo "Kisah Sapi Betina not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_sapi_betina.sql
+          else
+            echo "Kisah Sapi Betina already has $SPCOUNT rows — skipping."
+          fi
+
       - name: Import Kisah Nabi Nuh AS series (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
