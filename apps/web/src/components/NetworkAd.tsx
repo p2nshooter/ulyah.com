@@ -29,15 +29,41 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 // (the ulyah.com admin toggle). Cached module-level so every NetworkAd slot on
 // the page shares a single fetch. Fail-open (show) if the config can't be read;
 // when the admin has turned it OFF, every slot returns null — no exception.
+const ADSTERRA_LS_KEY = `adsterra:${TENANT}`;
+
+// Last-known master state, persisted so a page load respects an OFF toggle
+// instantly (no flash of ads) even before the fresh fetch resolves.
+function readAdsterraLS(): boolean | null {
+  try {
+    const v = localStorage.getItem(ADSTERRA_LS_KEY);
+    return v === null ? null : v === "1";
+  } catch {
+    return null;
+  }
+}
+
 let _adsterraMaster: boolean | null = null;
 let _adsterraPromise: Promise<boolean> | null = null;
 function fetchAdsterraMaster(): Promise<boolean> {
   if (_adsterraMaster !== null) return Promise.resolve(_adsterraMaster);
   if (!_adsterraPromise) {
-    _adsterraPromise = fetch(`${API_BASE}/content/ad-config?site=${TENANT}`)
+    // no-store: always read the CURRENT switch state, never a cached copy, so an
+    // admin OFF hides ads on the next refresh instead of up to a minute later.
+    _adsterraPromise = fetch(`${API_BASE}/content/ad-config?site=${TENANT}`, { cache: "no-store" })
       .then((r) => r.json())
-      .then((d: { adsterra?: boolean }) => (_adsterraMaster = d?.adsterra !== false))
-      .catch(() => (_adsterraMaster = true));
+      .then((d: { adsterra?: boolean }) => {
+        const on = d?.adsterra !== false;
+        _adsterraMaster = on;
+        try {
+          localStorage.setItem(ADSTERRA_LS_KEY, on ? "1" : "0");
+        } catch {
+          /* private mode / storage full — fine, we just lose the sticky hint */
+        }
+        return on;
+      })
+      // On network failure honour the last-known state; only fail-open (show)
+      // when we have never successfully read the config on this device.
+      .catch(() => (_adsterraMaster = readAdsterraLS() ?? true));
   }
   return _adsterraPromise;
 }
@@ -258,6 +284,10 @@ export function NetworkAd({
   const [adsterraOn, setAdsterraOn] = useState<boolean>(_adsterraMaster ?? true);
   useEffect(() => {
     let alive = true;
+    // Instantly apply the last-known state (so an OFF site never flashes an ad),
+    // then confirm with a fresh no-store fetch.
+    const ls = readAdsterraLS();
+    if (ls !== null) setAdsterraOn(ls);
     fetchAdsterraMaster().then((on) => alive && setAdsterraOn(on));
     return () => {
       alive = false;
