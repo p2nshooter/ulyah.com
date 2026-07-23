@@ -90,7 +90,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
 
   let categories: CategoryRow[] = [];
   try {
-    const res = await api.get<{ categories: CategoryRow[] }>("/content/categories");
+    const res = await api.get<{ categories: CategoryRow[] }>(`/content/categories?lang=${locale}`);
     categories = res.categories;
   } catch {
     categories = [];

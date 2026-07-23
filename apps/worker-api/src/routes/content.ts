@@ -1030,9 +1030,20 @@ contentRoute.get("/kisah-tokoh", async (c) => {
       )
   ).all<Record<string, unknown>>();
   if (lang !== "id" && results.length) {
-    const titles = await localizeBatch(c.env, results.map((r) => r.title_id as string | null), lang, "id");
+    // Localize BOTH the honorific/subtitle (title_id) AND the display name
+    // (name_id). The name carries the Indonesian word "Nabi"/"Sahabat" etc.,
+    // so leaving it untranslated showed "Nabi Adam" on dawa.es — the Arabic
+    // name (name_ar) stays as the proper-noun anchor on the card. Protected
+    // terms (hadith imams etc.) are masked so they aren't mangled.
+    const n = results.length;
+    const src = [
+      ...results.map((r) => r.name_id as string | null),
+      ...results.map((r) => r.title_id as string | null),
+    ];
+    const loc = await localizeBatchProtected(c.env, src, lang, "id");
     results.forEach((r, i) => {
-      r.title_id = titles[i] ?? r.title_id;
+      r.name_id = loc[i] ?? r.name_id;
+      r.title_id = loc[n + i] ?? r.title_id;
     });
   }
   return c.json({ persons: results, lang });
