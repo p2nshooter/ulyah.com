@@ -49,6 +49,7 @@ const CATEGORY_ORDER = [
   "kisah-tabiin",
   "kisah-tabiin-tabiin",
   "kisah-ulama-dunia",
+  "kisah-wali-songo",
   "kisah-islami",
 ];
 
