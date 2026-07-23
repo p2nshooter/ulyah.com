@@ -1,0 +1,246 @@
+/**
+ * "Kisah Nabi Muhammad ﷺ" — the closing series of the 25 prophets, and the
+ * seal of them all. Because his life is the most documented of any prophet,
+ * this series keeps the Qur'an as its spine (every episode anchors to cited
+ * ayat) and enriches with the widely-known sirah and authentic hadith, always
+ * marking in the "Sumber & Catatan" line what is Qur'an and what is sirah/
+ * hadith. Written with the utmost care and adab; ﷺ (salawat) accompanies his
+ * name. No fabrication, no unverified Isra'iliyyat (docs/CONTENT-POLICY.md).
+ * ai_generated=0, status='published'.
+ */
+
+export interface MuhammadEpisode {
+  slug: string;
+  surahId: number;
+  ayahStart: number;
+  ayahEnd: number;
+  id: { title: string; body: string };
+  en: { title: string; body: string };
+}
+
+export const KISAH_MUHAMMAD_SERIES: MuhammadEpisode[] = [
+  {
+    slug: "kisah-muhammad-01-kelahiran-dan-al-amin",
+    surahId: 93,
+    ayahStart: 6,
+    ayahEnd: 8,
+    id: {
+      title: "Episode 1: Kelahiran dan Masa Muda Sang Al-Amin",
+      body: `Nabi Muhammad ﷺ lahir di Makkah pada Tahun Gajah, dari keturunan mulia Bani Hasyim suku Quraisy. Ayahnya, Abdullah, wafat sebelum beliau lahir, dan ibunya, Aminah, wafat ketika beliau masih kecil. Maka beliau tumbuh sebagai yatim piatu, diasuh oleh kakeknya Abdul Muthalib, lalu pamannya Abu Thalib. Al-Qur'an mengisyaratkan masa ini dengan lembut, "Bukankah Dia mendapatimu sebagai seorang yatim, lalu Dia melindungimu? Dan Dia mendapatimu sebagai seorang yang bingung (belum mengetahui syariat), lalu Dia memberikan petunjuk. Dan Dia mendapatimu sebagai seorang yang kekurangan, lalu Dia memberikan kecukupan" (QS. Ad-Duha: 6-8).
+
+Sejak muda, beliau dikenal jujur dan terpercaya, sehingga kaumnya menjulukinya "Al-Amin" (yang tepercaya). Beliau menjauhi penyembahan berhala dan perbuatan buruk yang lazim di masa jahiliah, menggembala kambing lalu berdagang dengan kejujuran yang termasyhur. Ketika terjadi perselisihan tentang siapa yang berhak meletakkan Hajar Aswad, kaum Quraisy justru mempercayakannya kepada Muhammad ﷺ — bukti kedudukannya di hati mereka bahkan sebelum kenabian.
+
+Hikmah: Allah menyiapkan hamba pilihan-Nya melalui didikan langsung — keyatiman yang menumbuhkan kelembutan, kejujuran yang menjadi modal dakwah, dan penjagaan dari kotoran jahiliah. Kemuliaan akhlak beliau telah nyata jauh sebelum wahyu turun.
+
+Sumber & Catatan: isyarat masa yatim, bimbingan, dan kecukupan bersandar pada QS. Ad-Duha: 6-8 (teks & terjemahan quran-json). Rincian kelahiran di Tahun Gajah, gelar "Al-Amin", dan peristiwa peletakan Hajar Aswad berasal dari sirah yang masyhur (mis. Sirah Ibnu Hisyam, Ar-Rahiq al-Makhtum); disampaikan sebagai catatan sejarah, bukan ayat.`,
+    },
+    en: {
+      title: "Episode 1: The Birth and Youth of the Trustworthy One",
+      body: `Prophet Muhammad ﷺ was born in Makkah in the Year of the Elephant, of the noble line of Banu Hashim of the Quraysh. His father, Abdullah, died before his birth, and his mother, Aminah, died while he was still a child. So he grew up an orphan, cared for by his grandfather Abd al-Muttalib, then his uncle Abu Talib. The Qur'an alludes gently to this time: "Did He not find you an orphan and give [you] refuge? And He found you lost and guided [you]. And He found you poor and made [you] self-sufficient" (Qur'an 93:6-8).
+
+From his youth he was known as honest and trustworthy, so his people named him "Al-Amin" (the trustworthy). He kept away from the idol-worship and evil common in the age of ignorance, herding sheep and then trading with a famed honesty. When a dispute arose over who had the right to set the Black Stone in place, the Quraysh entrusted it to Muhammad ﷺ — proof of his standing in their hearts even before prophethood.
+
+Reflection: Allah prepared His chosen servant through direct nurturing — an orphanhood that grew tenderness, an honesty that became the capital of da'wah, and protection from the filth of ignorance. The nobility of his character was clear long before revelation descended.
+
+Source & Note: the allusion to the time of orphanhood, guidance, and sufficiency rests on Qur'an 93:6-8 (text & translation from quran-json). The details of his birth in the Year of the Elephant, the title "Al-Amin," and the Black Stone event come from the well-known sirah (e.g. Sirat Ibn Hisham, Ar-Raheeq Al-Makhtum); related as history, not as ayat.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-02-wahyu-pertama-di-gua-hira",
+    surahId: 96,
+    ayahStart: 1,
+    ayahEnd: 5,
+    id: {
+      title: "Episode 2: Wahyu Pertama di Gua Hira",
+      body: `Menjelang usia empat puluh tahun, Nabi Muhammad ﷺ sering menyendiri di Gua Hira di Jabal Nur, merenung dan beribadah, jauh dari keramaian dan kerusakan kaumnya. Pada suatu malam di bulan Ramadan, datanglah Malaikat Jibril membawa wahyu pertama. Ia memerintahkan, "Bacalah!" Beliau menjawab bahwa dirinya tidak bisa membaca, hingga turunlah firman Allah yang pertama, "Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan. Dia telah menciptakan manusia dari segumpal darah. Bacalah, dan Tuhanmulah Yang Mahamulia, Yang mengajar (manusia) dengan pena. Dia mengajarkan manusia apa yang tidak diketahuinya" (QS. Al-'Alaq: 1-5).
+
+Inilah lima ayat pertama Al-Qur'an, yang mengangkat "membaca", "pena", dan "ilmu" sebagai pembuka risalah — menegaskan bahwa agama ini dibangun di atas ilmu dan pengenalan kepada Sang Pencipta. Beliau pulang dalam keadaan gemetar, lalu ditenangkan oleh istrinya, Khadijah, yang meyakinkan bahwa Allah tidak akan menghinakan orang yang berakhlak mulia sepertinya.
+
+Hikmah: wahyu pertama bukan perintah perang atau kekuasaan, melainkan perintah membaca dengan nama Allah. Islam menempatkan ilmu yang berlandaskan tauhid sebagai pondasi. Kesendirian yang tulus untuk mencari kebenaran pun menjadi jalan turunnya hidayah.
+
+Sumber & Catatan: dalil dari Al-Qur'an, QS. Al-'Alaq: 1-5 (wahyu pertama). Rincian peristiwa Gua Hira, kedatangan Jibril, dan penenteraman oleh Khadijah RA bersumber dari hadits sahih (HR. Bukhari no. 3 & Muslim no. 160, hadits permulaan wahyu); disampaikan dengan sumbernya.`,
+    },
+    en: {
+      title: "Episode 2: The First Revelation in the Cave of Hira",
+      body: `As he neared the age of forty, Prophet Muhammad ﷺ often withdrew to the Cave of Hira on Jabal an-Nur, reflecting and worshipping, away from the clamor and corruption of his people. One night in Ramadan, the angel Jibril came with the first revelation. He commanded, "Read!" The Prophet answered that he could not read, until Allah's first words descended: "Read in the name of your Lord who created — Created man from a clinging clot. Read, and your Lord is the most Generous — Who taught by the pen — Taught man that which he knew not" (Qur'an 96:1-5).
+
+These are the first five verses of the Qur'an, raising "reading," "the pen," and "knowledge" as the opening of the message — affirming that this religion is built upon knowledge and the recognition of the Creator. He returned trembling, then was calmed by his wife Khadijah, who assured him that Allah would never disgrace one of such noble character.
+
+Reflection: the first revelation was not a command to war or power, but a command to read in the name of Allah. Islam places knowledge grounded in tawhid as its foundation. Even sincere solitude in search of truth became a path for guidance to descend.
+
+Source & Note: evidence from the Qur'an, 96:1-5 (the first revelation). The details of the Cave of Hira, the coming of Jibril, and Khadijah's reassurance come from authentic hadith (Bukhari no. 3 & Muslim no. 160, the hadith of the beginning of revelation); relayed with their source.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-03-bangkitlah-dan-beri-peringatan",
+    surahId: 74,
+    ayahStart: 1,
+    ayahEnd: 7,
+    id: {
+      title: "Episode 3: Bangkitlah dan Berilah Peringatan",
+      body: `Setelah wahyu pertama, turunlah perintah untuk memulai tugas kenabian secara nyata: bangkit menyampaikan peringatan kepada umat manusia. Allah berfirman, "Wahai orang yang berselimut! Bangunlah, lalu berilah peringatan! Dan agungkanlah Tuhanmu, dan bersihkanlah pakaianmu, dan tinggalkanlah segala (perbuatan) yang keji, dan janganlah engkau memberi (dengan maksud) memperoleh (balasan) yang lebih banyak. Dan karena Tuhanmu, bersabarlah" (QS. Al-Muddassir: 1-7).
+
+Ayat-ayat ini merangkum tugas dan sifat seorang dai: menyampaikan peringatan, mengagungkan Allah, menjaga kesucian lahir dan batin, menjauhi keburukan, ikhlas tanpa mengharap balasan duniawi, dan bersabar. Maka Nabi Muhammad ﷺ pun memulai dakwah — mula-mula secara sembunyi kepada orang-orang terdekat, lalu terang-terangan kepada seluruh kaum Quraisy.
+
+Beliau mengajak kepada kalimat tauhid: "La ilaha illallah" — tiada tuhan yang berhak disembah selain Allah. Seruan yang lembut namun menggoncang tatanan jahiliah yang mengagungkan berhala, sehingga para pembesar Quraisy mulai memusuhinya.
+
+Hikmah: kenabian adalah amanah untuk bangkit, bukan berdiam. Modal dakwah bukan kekuatan, melainkan keikhlasan, kebersihan diri, dan kesabaran. Perubahan besar selalu dimulai dari seruan tauhid yang tulus.
+
+Sumber & Catatan: dalil dari Al-Qur'an, QS. Al-Muddassir: 1-7 (perintah bangkit memberi peringatan). Urutan turunnya setelah Al-'Alaq, serta tahapan dakwah sembunyi lalu terang-terangan, dijelaskan dalam riwayat sahih dan kitab sirah; inti seruan "La ilaha illallah" adalah ajaran pokok seluruh nabi.`,
+    },
+    en: {
+      title: "Episode 3: Arise and Warn",
+      body: `After the first revelation came the command to begin the prophetic mission in earnest: to arise and convey warning to humankind. Allah said, "O you who covers himself [with a garment], Arise and warn, And your Lord glorify, And your clothing purify, And uncleanliness avoid, And do not confer favor to acquire more, But for your Lord be patient" (Qur'an 74:1-7).
+
+These verses sum up the task and traits of a caller: to convey warning, to magnify Allah, to keep purity inward and outward, to shun evil, to be sincere without seeking worldly return, and to be patient. So Prophet Muhammad ﷺ began his da'wah — first secretly among those closest to him, then openly to all the Quraysh.
+
+He called to the word of tawhid: "La ilaha illallah" — there is no deity worthy of worship except Allah. A call gentle in manner yet shaking the order of ignorance that glorified idols, so that the chiefs of Quraysh began to oppose him.
+
+Reflection: prophethood is a trust to arise, not to remain still. The capital of da'wah is not power, but sincerity, purity of self, and patience. Great change always begins with a sincere call to tawhid.
+
+Source & Note: evidence from the Qur'an, 74:1-7 (the command to arise and warn). Its descent after al-'Alaq, and the stages of secret then open da'wah, are explained in authentic reports and the sirah works; the core call "La ilaha illallah" is the essential teaching of every prophet.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-04-cobaan-dan-penghiburan-allah",
+    surahId: 94,
+    ayahStart: 1,
+    ayahEnd: 6,
+    id: {
+      title: "Episode 4: Cobaan Dakwah dan Penghiburan dari Allah",
+      body: `Dakwah Nabi Muhammad ﷺ menghadapi cobaan yang berat. Kaum Quraisy menghina, memboikot, dan menyiksa para pengikutnya yang lemah, seperti Bilal bin Rabah RA. Beliau sendiri mengalami masa duka — wafatnya Khadijah dan Abu Thalib pada tahun yang sama, serta penolakan penduduk Thaif. Di tengah kesulitan itu, Allah menurunkan ayat-ayat penghiburan. Allah berfirman, "Demi waktu duha, dan demi malam apabila telah sunyi, Tuhanmu tidak meninggalkanmu dan tidak (pula) membencimu" (QS. Ad-Duha: 1-3).
+
+Allah juga melapangkan dada beliau dengan firman-Nya, "Bukankah Kami telah melapangkan dadamu untukmu? Dan Kami pun telah menurunkan bebanmu darimu, yang memberatkan punggungmu, dan Kami tinggikan sebutan (nama)mu bagimu. Maka sesungguhnya beserta kesulitan ada kemudahan, sesungguhnya beserta kesulitan ada kemudahan" (QS. Al-Insyirah: 1-6).
+
+Janji "beserta kesulitan ada kemudahan" yang diulang dua kali menjadi pegangan abadi bagi setiap mukmin. Nabi ﷺ tetap teguh, penuh kasih bahkan kepada yang memusuhinya, mendoakan kebaikan bagi mereka yang menyakitinya.
+
+Hikmah: jalan kebenaran tidak lepas dari ujian, tetapi Allah tidak pernah meninggalkan hamba-Nya yang berjuang di jalan-Nya. Setiap kesulitan pasti disertai kemudahan — sebuah janji yang menguatkan langkah para pejuang dakwah sepanjang zaman.
+
+Sumber & Catatan: dalil dari Al-Qur'an, QS. Ad-Duha: 1-3 dan Al-Insyirah: 1-6 (penghiburan Allah kepada Nabi ﷺ). Peristiwa boikot, "tahun duka" (wafatnya Khadijah & Abu Thalib), dan Thaif berasal dari sirah yang masyhur; disampaikan sebagai catatan sejarah.`,
+    },
+    en: {
+      title: "Episode 4: The Trials of Da'wah and Consolation from Allah",
+      body: `The da'wah of Prophet Muhammad ﷺ faced heavy trials. The Quraysh insulted, boycotted, and tortured his weaker followers, such as Bilal ibn Rabah (RA). He himself lived through grief — the death of Khadijah and Abu Talib in the same year, and the rejection by the people of Ta'if. Amid that hardship, Allah sent down verses of consolation: "By the morning brightness, and [by] the night when it covers with darkness, your Lord has not taken leave of you, nor has He detested [you]" (Qur'an 93:1-3).
+
+Allah also expanded his breast with His words: "Did We not expand for you your breast? And We removed from you your burden which had weighed upon your back, and raised high for you your repute. For indeed, with hardship [will be] ease. Indeed, with hardship [will be] ease" (Qur'an 94:1-6).
+
+The promise "with hardship [will be] ease," repeated twice, became an everlasting anchor for every believer. The Prophet ﷺ remained steadfast, full of compassion even toward those who opposed him, praying for the good of those who harmed him.
+
+Reflection: the path of truth is not free of trial, but Allah never abandons a servant who struggles in His way. Every hardship is surely accompanied by ease — a promise that strengthens the steps of the callers of truth through all time.
+
+Source & Note: evidence from the Qur'an, 93:1-3 and 94:1-6 (Allah's consolation to the Prophet ﷺ). The boycott, the "year of grief" (the deaths of Khadijah & Abu Talib), and Ta'if come from the well-known sirah; related as history.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-05-isra-dan-miraj",
+    surahId: 17,
+    ayahStart: 1,
+    ayahEnd: 1,
+    id: {
+      title: "Episode 5: Isra' dan Mi'raj",
+      body: `Sebagai penghormatan dan penguatan setelah masa-masa sulit, Allah memperjalankan Nabi Muhammad ﷺ pada suatu malam dari Masjidil Haram di Makkah ke Masjidil Aqsha di Baitul Maqdis (Isra'), lalu menaikkannya melewati langit (Mi'raj). Allah berfirman, "Mahasuci (Allah), yang telah memperjalankan hamba-Nya (Muhammad) pada malam hari dari Masjidil Haram ke Masjidil Aqsa yang telah Kami berkahi sekelilingnya agar Kami perlihatkan kepadanya sebagian tanda-tanda (kebesaran) Kami. Sesungguhnya Dia Maha Mendengar, Maha Melihat" (QS. Al-Isra': 1).
+
+Dalam Surah An-Najm, Allah menegaskan bahwa apa yang beliau lihat adalah wahyu yang benar, bukan khayalan, "Kawanmu (Muhammad) tidak sesat dan tidak pula keliru, dan tidaklah yang diucapkannya itu menurut keinginan hawa nafsunya. Tidak lain (Al-Qur'an itu) adalah wahyu yang diwahyukan (kepadanya)" (QS. An-Najm: 2-4).
+
+Pada peristiwa agung inilah diwajibkan salat lima waktu — hadiah langsung dari Allah kepada umat ini. Isra' Mi'raj menjadi bukti kekuasaan Allah dan kemuliaan Nabi ﷺ, sekaligus penguat iman di tengah beratnya perjuangan.
+
+Hikmah: setelah kesabaran menghadapi cobaan, Allah memuliakan hamba-Nya dengan perjalanan yang tiada bandingnya. Salat, yang diwajibkan pada malam itu, menjadi mikraj harian setiap mukmin untuk naik menghadap Tuhannya.
+
+Sumber & Catatan: inti peristiwa Isra' bersandar pada QS. Al-Isra': 1, dan kebenaran penglihatan wahyu pada QS. An-Najm: 1-18. Rincian Mi'raj melewati langit, pertemuan dengan para nabi, dan pewajiban salat lima waktu bersumber dari hadits-hadits sahih (mis. HR. Bukhari no. 3887 & Muslim no. 162); disampaikan dengan penanda bahwa rinciannya dari hadits, bukan dari ayat Isra' itu sendiri.`,
+    },
+    en: {
+      title: "Episode 5: The Night Journey and Ascension",
+      body: `As an honor and a strengthening after times of hardship, Allah took Prophet Muhammad ﷺ by night from al-Masjid al-Haram in Makkah to al-Masjid al-Aqsa in Jerusalem (the Isra'), then raised him through the heavens (the Mi'raj). Allah said, "Exalted is He who took His Servant by night from al-Masjid al-Haram to al-Masjid al-Aqsa, whose surroundings We have blessed, to show him of Our signs. Indeed, He is the Hearing, the Seeing" (Qur'an 17:1).
+
+In Surah An-Najm, Allah affirms that what he saw was true revelation, not imagination: "Your companion has not strayed, nor has he erred, nor does he speak from [his own] inclination. It is not but a revelation revealed" (Qur'an 53:2-4).
+
+In this magnificent event the five daily prayers were made obligatory — a gift directly from Allah to this nation. The Isra' and Mi'raj became a proof of Allah's power and the honor of the Prophet ﷺ, and a strengthening of faith amid the weight of the struggle.
+
+Reflection: after patience through trial, Allah honored His servant with a journey beyond compare. Prayer, made obligatory that night, became the daily ascent of every believer to stand before his Lord.
+
+Source & Note: the core of the Isra' rests on Qur'an 17:1, and the truth of the revelation seen on 53:1-18. The details of the Mi'raj through the heavens, the meeting with the prophets, and the imposition of the five prayers come from authentic hadith (e.g. Bukhari no. 3887 & Muslim no. 162); relayed with the marker that these details are from hadith, not from the verse of the Isra' itself.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-06-hijrah-dan-pertolongan-allah",
+    surahId: 9,
+    ayahStart: 40,
+    ayahEnd: 40,
+    id: {
+      title: "Episode 6: Hijrah dan Pertolongan Allah di Gua",
+      body: `Ketika permusuhan Quraisy memuncak hingga mereka bersepakat membunuh Nabi Muhammad ﷺ, Allah memerintahkan beliau berhijrah ke Madinah. Beliau berangkat bersama sahabat setianya, Abu Bakar RA. Dalam perjalanan, keduanya bersembunyi di Gua Tsur, sementara para pengejar Quraisy sampai tepat di mulut gua. Di saat genting itu, Allah menurunkan ketenangan. Allah mengabadikan peristiwa ini, "…(yaitu) ketika orang-orang kafir mengusirnya (dari Makkah), sedang dia salah seorang dari dua orang ketika keduanya berada dalam gua, ketika itu dia berkata kepada sahabatnya, ‘Janganlah engkau bersedih, sesungguhnya Allah bersama kita.’ Maka Allah menurunkan ketenangan kepadanya (Muhammad) dan membantunya dengan bala tentara (malaikat) yang tidak terlihat olehmu…" (QS. At-Taubah: 40).
+
+Kalimat "Janganlah engkau bersedih, sesungguhnya Allah bersama kita" menjadi salah satu ungkapan tawakal paling agung dalam sejarah. Nabi ﷺ pun tiba di Madinah dengan sambutan penuh kegembiraan, dan di sanalah masyarakat Islam pertama dibangun: masjid didirikan, kaum Muhajirin dan Anshar dipersaudarakan, dan piagam kehidupan bersama ditegakkan.
+
+Hikmah: hijrah bukan pelarian, melainkan strategi dan ketaatan yang membuahkan pertolongan Allah. Ketika seorang hamba benar-benar bertawakal, Allah mencukupinya — bahkan dua orang tanpa senjata pun dijaga dari pasukan yang memburunya.
+
+Sumber & Catatan: peristiwa gua dan ucapan "innallaha ma'ana" bersandar pada QS. At-Taubah: 40. Rincian persiapan hijrah, pembangunan masjid, dan persaudaraan Muhajirin-Anshar berasal dari sirah dan riwayat sahih; peristiwa hijrah pula menjadi titik awal penanggalan Hijriyah.`,
+    },
+    en: {
+      title: "Episode 6: The Migration and Allah's Aid in the Cave",
+      body: `When the hostility of the Quraysh reached its peak and they conspired to kill Prophet Muhammad ﷺ, Allah commanded him to migrate to Madinah. He set out with his loyal companion Abu Bakar (RA). On the way, the two hid in the Cave of Thawr while the Quraysh pursuers reached the very mouth of the cave. In that critical moment, Allah sent down calm. Allah immortalized this event: "…when those who disbelieved had driven him out [as] one of two, when they were in the cave and he said to his companion, 'Do not grieve; indeed Allah is with us.' And Allah sent down His tranquility upon him and supported him with soldiers you did not see…" (Qur'an 9:40).
+
+The words "Do not grieve; indeed Allah is with us" became one of the greatest expressions of reliance upon Allah in history. The Prophet ﷺ then reached Madinah to a joyful welcome, and there the first Muslim society was built: a mosque was established, the Muhajirin and Ansar were joined in brotherhood, and a charter of communal life was set in place.
+
+Reflection: the migration was not flight but strategy and obedience that bore the fruit of Allah's aid. When a servant truly relies on Allah, He suffices him — even two unarmed men were guarded from an army hunting them.
+
+Source & Note: the cave event and the words "indeed Allah is with us" rest on Qur'an 9:40. The details of the migration's preparation, the building of the mosque, and the brotherhood of Muhajirin and Ansar come from the sirah and authentic reports; the migration is also the starting point of the Hijri calendar.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-07-kemenangan-dan-penyempurnaan-agama",
+    surahId: 48,
+    ayahStart: 1,
+    ayahEnd: 3,
+    id: {
+      title: "Episode 7: Kemenangan dan Penyempurnaan Agama",
+      body: `Setelah bertahun-tahun berjuang dan melalui berbagai peristiwa, datanglah kemenangan yang Allah janjikan. Perjanjian Hudaibiyah, yang semula tampak sebagai kelemahan, Allah sebut sebagai "kemenangan yang nyata". Allah berfirman, "Sungguh, Kami telah memberikan kepadamu kemenangan yang nyata, agar Allah memberikan ampunan kepadamu (Muhammad) atas dosamu yang lalu dan yang akan datang, serta menyempurnakan nikmat-Nya atasmu dan menunjukimu ke jalan yang lurus, dan agar Allah menolongmu dengan pertolongan yang kuat (banyak)" (QS. Al-Fath: 1-3).
+
+Beberapa waktu kemudian, Makkah pun ditaklukkan tanpa pertumpahan darah yang berarti. Nabi ﷺ memasuki kota kelahirannya dengan penuh tawaduk dan memaafkan orang-orang yang dahulu memusuhinya, membersihkan Ka'bah dari berhala. Islam pun tersebar luas. Pada Haji Wada' (haji perpisahan), turunlah ayat yang menandai kesempurnaan agama, "…Pada hari ini telah Aku sempurnakan agamamu untukmu, dan telah Aku cukupkan nikmat-Ku bagimu, dan telah Aku ridai Islam sebagai agamamu…" (QS. Al-Ma'idah: 3).
+
+Hikmah: kemenangan sejati datang dari kesabaran, bukan ketergesaan; dan puncak kemuliaan seorang pemenang adalah memaafkan. Dengan sempurnanya agama ini, tidak ada lagi yang perlu ditambah atau dikurangi — cukuplah Al-Qur'an dan Sunnah sebagai pegangan.
+
+Sumber & Catatan: dalil dari Al-Qur'an, QS. Al-Fath: 1-3 (Hudaibiyah sebagai kemenangan nyata) dan Al-Ma'idah: 3 (penyempurnaan agama saat Haji Wada'). Peristiwa Fathu Makkah tanpa balas dendam, dan pembersihan Ka'bah dari berhala, berasal dari sirah dan riwayat sahih; disampaikan sebagai catatan sejarah yang masyhur.`,
+    },
+    en: {
+      title: "Episode 7: Victory and the Perfection of the Religion",
+      body: `After years of struggle and many events, the victory Allah had promised arrived. The Treaty of Hudaybiyyah, which at first seemed a weakness, Allah called "a clear conquest." Allah said, "Indeed, We have given you a clear conquest, that Allah may forgive for you what preceded of your sin and what will follow and complete His favor upon you and guide you to a straight path, and [that] Allah may aid you with a mighty victory" (Qur'an 48:1-3).
+
+Some time later, Makkah was conquered without significant bloodshed. The Prophet ﷺ entered his birthplace in humility and pardoned those who had once opposed him, cleansing the Ka'bah of idols. Islam then spread widely. At the Farewell Pilgrimage (Hajj al-Wada'), the verse marking the perfection of the religion descended: "…This day I have perfected for you your religion and completed My favor upon you and have approved for you Islam as religion…" (Qur'an 5:3).
+
+Reflection: true victory comes from patience, not haste; and the summit of a victor's honor is to forgive. With the perfection of this religion, there is nothing left to add or subtract — the Qur'an and the Sunnah suffice as the anchor.
+
+Source & Note: evidence from the Qur'an, 48:1-3 (Hudaybiyyah as a clear conquest) and 5:3 (the perfection of the religion at the Farewell Pilgrimage). The Conquest of Makkah without revenge, and the cleansing of the Ka'bah of idols, come from the sirah and authentic reports; related as well-known history.`,
+    },
+  },
+  {
+    slug: "kisah-muhammad-08-rahmat-dan-penutup-para-nabi",
+    surahId: 21,
+    ayahStart: 107,
+    ayahEnd: 107,
+    id: {
+      title: "Episode 8: Rahmat bagi Semesta dan Penutup Para Nabi",
+      body: `Puncak kemuliaan Nabi Muhammad ﷺ adalah bahwa beliau diutus bukan untuk satu kaum saja, melainkan sebagai rahmat bagi seluruh alam. Allah berfirman, "Dan Kami tidak mengutus engkau (Muhammad) melainkan untuk (menjadi) rahmat bagi seluruh alam" (QS. Al-Anbiya': 107). Rahmat itu tampak pada ajarannya yang mengangkat martabat manusia, memuliakan yatim dan kaum lemah, menegakkan keadilan, dan menyeru kepada kasih sayang.
+
+Beliau juga adalah penutup para nabi; tidak ada nabi setelahnya. Allah berfirman, "Muhammad itu bukanlah bapak dari seseorang di antara kamu, tetapi dia adalah utusan Allah dan penutup para nabi (khatamun-nabiyyin)…" (QS. Al-Ahzab: 40). Maka risalah beliau adalah penyempurna dan penutup seluruh risalah para nabi sebelumnya — dari Adam hingga Isa.
+
+Tentang pribadi beliau, Allah sendiri memuji, "Dan sesungguhnya engkau benar-benar berbudi pekerti yang luhur" (QS. Al-Qalam: 4). Akhlak beliaulah yang menjadi teladan sempurna bagi umat manusia. Nabi Muhammad ﷺ wafat di Madinah setelah menyampaikan risalah dengan sempurna, meninggalkan dua pusaka: Kitabullah dan Sunnah.
+
+Hikmah: seluruh rangkaian kisah 25 nabi bermuara pada beliau ﷺ — mata rantai kenabian yang dimulai dari Adam disempurnakan olehnya. Meneladani akhlaknya dan berpegang pada ajarannya adalah jalan meraih rahmat yang untuknya beliau diutus.
+
+Sumber & Catatan: dalil dari Al-Qur'an — QS. Al-Anbiya': 107 (rahmat bagi semesta), Al-Ahzab: 40 (penutup para nabi), dan Al-Qalam: 4 (akhlak yang agung). Keluhuran akhlak beliau juga ditegaskan dalam hadits sahih (mis. HR. Ahmad; Aisyah RA berkata, "Akhlak beliau adalah Al-Qur'an"). Dengan seri ini, kisah 25 nabi lengkap — kisah Zakariya, Yahya, dan Isa telah tercakup dalam seri Kisah Maryam.`,
+    },
+    en: {
+      title: "Episode 8: A Mercy to the Worlds and the Seal of the Prophets",
+      body: `The summit of Prophet Muhammad's ﷺ honor is that he was sent not for one people alone, but as a mercy to all the worlds. Allah said, "And We have not sent you except as a mercy to the worlds" (Qur'an 21:107). That mercy shows in his teaching that raised human dignity, honored the orphan and the weak, established justice, and called to compassion.
+
+He is also the seal of the prophets; there is no prophet after him. Allah said, "Muhammad is not the father of [any] one of your men, but [he is] the Messenger of Allah and the seal (last) of the prophets…" (Qur'an 33:40). So his message is the completion and seal of all the messages of the prophets before him — from Adam to Isa.
+
+Concerning his person, Allah Himself praised: "And indeed, you are of a great moral character" (Qur'an 68:4). His character was the perfect example for humankind. Prophet Muhammad ﷺ passed away in Madinah after conveying the message completely, leaving two treasures: the Book of Allah and the Sunnah.
+
+Reflection: the whole chain of the 25 prophets' stories culminates in him ﷺ — the chain of prophethood begun with Adam was perfected through him. Following his character and holding to his teaching is the way to attain the mercy for which he was sent.
+
+Source & Note: evidence from the Qur'an — 21:107 (a mercy to the worlds), 33:40 (the seal of the prophets), and 68:4 (great moral character). The loftiness of his character is also affirmed in authentic hadith (e.g. Ahmad; Aisha (RA) said, "His character was the Qur'an"). With this series, the story of the 25 prophets is complete — the stories of Zakariya, Yahya, and Isa are covered within the Kisah Maryam series.`,
+    },
+  },
+];
