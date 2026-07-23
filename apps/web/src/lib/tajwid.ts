@@ -18,8 +18,12 @@ export type TajwidRule =
   | "iqlab"
   | "ikhfa-syafawi"
   | "idgham-mimi"
+  | "idgham-syamsiyah"
   | "qalqalah"
-  | "madd";
+  | "madd"
+  | "madd-wajib-muttasil"
+  | "madd-jaiz-munfasil"
+  | "madd-lazim";
 
 export interface TajwidSegment {
   text: string;
@@ -86,19 +90,47 @@ export const TAJWID_RULES: Record<TajwidRule, TajwidRuleInfo> = {
     descId: "Mim sukun bertemu م: dileburkan menjadi mim bertasydid dengan dengung.",
     descEn: "Mim sakinah before م merges into a doubled mim with a nasal sound.",
   },
+  "idgham-syamsiyah": {
+    color: "#be185d",
+    nameId: "Idgham Syamsiyah (Lam Syamsiyah)",
+    nameEn: "Idgham shamsiyyah (sun-letter lam)",
+    descId: "Alif-lam (ال) bertemu huruf syamsiah: huruf lam tidak dibaca, langsung ke huruf berikutnya yang bertasydid.",
+    descEn: "The definite article ال before a 'sun letter': the lam is silent and merges into the next (doubled) letter.",
+  },
   qalqalah: {
     color: "#b91c1c",
     nameId: "Qalqalah",
     nameEn: "Qalqalah",
-    descId: "Huruf ق ط ب ج د bersukun: dibaca memantul.",
-    descEn: "The letters ق ط ب ج د with sukun are read with an echoing bounce.",
+    descId: "Huruf ق ط ب ج د bersukun: dibaca memantul. (Di akhir waqaf disebut qalqalah kubra, di tengah kata qalqalah sughra.)",
+    descEn: "The letters ق ط ب ج د with sukun are read with an echoing bounce (kubra at a stop, sughra mid-word).",
   },
   madd: {
     color: "#92400e",
-    nameId: "Madd (tanda ~)",
-    nameEn: "Madd (the ~ sign)",
-    descId: "Tanda madd (ٓ): bacaan dipanjangkan 4–6 harakat.",
-    descEn: "The madd sign (ٓ) lengthens the vowel to 4–6 counts.",
+    nameId: "Madd",
+    nameEn: "Madd",
+    descId: "Tanda madd (ٓ) atau alif madd (آ): bacaan dipanjangkan. Mad thabi'i 2 harakat; jenis mad lain lihat panduan.",
+    descEn: "The madd sign (ٓ) or alef-madda (آ): the vowel is lengthened. Natural madd is 2 counts; see the guide for the other types.",
+  },
+  "madd-wajib-muttasil": {
+    color: "#9a3412",
+    nameId: "Mad Wajib Muttasil",
+    nameEn: "Madd wajib muttasil",
+    descId: "Mad bertemu hamzah (ء) dalam satu kata: wajib dipanjangkan 4–5 harakat.",
+    descEn: "Madd followed by hamza (ء) within the same word: obligatorily lengthened 4–5 counts.",
+  },
+  "madd-jaiz-munfasil": {
+    color: "#b45309",
+    nameId: "Mad Jaiz Munfasil",
+    nameEn: "Madd jaiz munfasil",
+    descId: "Mad di akhir kata dan hamzah (ء) di awal kata berikutnya: boleh dipanjangkan 2, 4, atau 5 harakat.",
+    descEn: "Madd at a word's end with hamza at the start of the next word: may be lengthened 2, 4, or 5 counts.",
+  },
+  "madd-lazim": {
+    color: "#7c2d12",
+    nameId: "Mad Lazim",
+    nameEn: "Madd lazim",
+    descId: "Mad bertemu huruf bertasydid atau bersukun: dipanjangkan 6 harakat.",
+    descEn: "Madd followed by a letter carrying shadda or sukun: lengthened a full 6 counts.",
   },
 };
 
@@ -113,6 +145,12 @@ const IDGHAM_GHUNNAH = new Set(["ي", "ن", "م", "و"]);
 const IDGHAM_NO_GHUNNAH = new Set(["ل", "ر"]);
 const IKHFA_LETTERS = new Set(["ت", "ث", "ج", "د", "ذ", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ف", "ق", "ك"]);
 const IZHAR_LETTERS = new Set(["ء", "أ", "إ", "ه", "ع", "ح", "غ", "خ"]);
+// Hamza in its various written forms — the trigger for mad muttasil/munfasil.
+const HAMZA = new Set(["ء", "أ", "إ", "ئ", "ؤ"]);
+// The 14 "sun letters": after the definite article ال the lam assimilates.
+const SUN_LETTERS = new Set(["ت", "ث", "د", "ذ", "ر", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ل", "ن"]);
+// Alef forms that begin the definite article (plain alef + alef-wasla + hamza).
+const ARTICLE_ALEF = new Set(["ا", "ٱ", "أ", "إ"]);
 
 function isCombining(ch: string): boolean {
   const c = ch.codePointAt(0)!;
@@ -164,6 +202,31 @@ function nextLetter(units: Unit[], i: number): Unit | null {
   return null;
 }
 
+/** Like nextLetter, but also reports whether a space (word boundary) was
+ *  crossed on the way — needed to tell mad muttasil (same word) from mad
+ *  munfasil (across a word boundary). */
+function nextLetterAcross(units: Unit[], i: number): { u: Unit | null; boundary: boolean } {
+  let boundary = false;
+  for (let j = i + 1; j < units.length; j++) {
+    const u = units[j]!;
+    if (u.isSpace) {
+      boundary = true;
+      continue;
+    }
+    if (u.base !== "" && /[ء-ي]/.test(u.base)) return { u, boundary };
+  }
+  return { u: null, boundary };
+}
+
+/** The previous LETTER unit before index i (skipping spaces); null at start. */
+function prevLetter(units: Unit[], i: number): Unit | null {
+  for (let j = i - 1; j >= 0; j--) {
+    const u = units[j]!;
+    if (!u.isSpace && u.base !== "" && /[ء-ي]/.test(u.base)) return u;
+  }
+  return null;
+}
+
 function hasVowel(u: Unit): boolean {
   return ["َ", "ُ", "ِ"].some((m) => u.marks.has(m)) || u.marks.has(SHADDA);
 }
@@ -188,14 +251,39 @@ export function analyzeTajwid(text: string): TajwidSegment[] {
     }
 
     // Madd sign — either the combining madda mark (ـٓ) or the precomposed
-    // alef-with-madda letter (آ), depending on how the source text encodes it.
+    // alef-with-madda letter (آ). Classify the branch (far'i) type by what
+    // follows: hamza in the same word → wajib muttasil; hamza across a word
+    // boundary → jaiz munfasil; a letter carrying shadda/sukun → lazim (6
+    // counts). Anything else stays the generic madd (thabi'i/badal).
     if (u.marks.has(MADDA) || u.base === "آ") {
-      ruleAt[i] = "madd";
+      let mrule: TajwidRule = "madd";
+      const { u: mn, boundary } = nextLetterAcross(units, i);
+      if (mn) {
+        if (HAMZA.has(mn.base)) mrule = boundary ? "madd-jaiz-munfasil" : "madd-wajib-muttasil";
+        else if (mn.marks.has(SHADDA) || mn.marks.has(SUKUN)) mrule = "madd-lazim";
+      }
+      ruleAt[i] = mrule;
     }
 
     // Qalqalah: explicit sukun on one of the five letters.
     if (QALQALAH_LETTERS.has(u.base) && u.marks.has(SUKUN)) {
       ruleAt[i] = "qalqalah";
+    }
+
+    // Lam ta'rif syamsiyah: the definite-article lam (preceded by the article
+    // alef, itself unvowelled) before a "sun letter" that carries shadda — the
+    // lam is silent and the cluster is read as the doubled sun letter. Only the
+    // clearly-written form (alef + lam + sun-letter-with-shadda) is marked; the
+    // fully-merged spelling (e.g. الَّذين) is left alone rather than risk a
+    // wrong call.
+    if (u.base === "ل" && !hasVowel(u) && !u.marks.has(SUKUN)) {
+      const prev = prevLetter(units, i);
+      const nx = nextLetter(units, i);
+      if (prev && ARTICLE_ALEF.has(prev.base) && nx && SUN_LETTERS.has(nx.base) && nx.marks.has(SHADDA)) {
+        ruleAt[i] = ruleAt[i] ?? "idgham-syamsiyah";
+        const j = units.indexOf(nx);
+        ruleAt[j] = ruleAt[j] ?? "idgham-syamsiyah";
+      }
     }
 
     // Nun sakinah / tanwin family. Uthmani script writes nun sakinah subject
