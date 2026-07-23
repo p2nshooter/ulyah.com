@@ -109,7 +109,7 @@ export function LiveHub({ locale }: { locale: string }) {
     let alive = true;
     const load = () =>
       api
-        .get<{ streams: StreamRow[] }>("/content/live-streams")
+        .get<{ streams: StreamRow[] }>(`/content/live-streams?lang=${encodeURIComponent(locale)}`)
         .then((r) => alive && setStreams(r.streams))
         .catch(() => alive && setStreams((prev) => prev));
     load();
