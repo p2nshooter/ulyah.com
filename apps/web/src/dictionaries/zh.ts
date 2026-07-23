@@ -12,6 +12,8 @@ const zh: Dictionary = {
     back: "返回",
     error: "出现错误，请重试。",
     all: "全部",
+    notFoundTitle: "页面未找到",
+    notFoundBody: "抱歉，您要查找的页面不存在。",
   },
   nav: {
     home: "首页",

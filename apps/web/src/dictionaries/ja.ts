@@ -12,6 +12,8 @@ const ja: Dictionary = {
     back: "戻る",
     error: "エラーが発生しました。もう一度お試しください。",
     all: "すべて",
+    notFoundTitle: "ページが見つかりません",
+    notFoundBody: "申し訳ありません。お探しのページは存在しません。",
   },
   nav: {
     home: "ホーム",

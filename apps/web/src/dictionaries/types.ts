@@ -10,6 +10,8 @@ export interface Dictionary {
     back: string;
     error: string;
     all: string;
+    notFoundTitle: string;
+    notFoundBody: string;
   };
   nav: {
     home: string;

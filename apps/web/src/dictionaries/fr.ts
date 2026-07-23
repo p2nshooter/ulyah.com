@@ -12,6 +12,8 @@ const fr: Dictionary = {
     back: "Retour",
     error: "Une erreur est survenue. Veuillez réessayer.",
     all: "Tout",
+    notFoundTitle: "Page introuvable",
+    notFoundBody: "Désolé, la page que vous recherchez n’existe pas.",
   },
   nav: {
     home: "Accueil",

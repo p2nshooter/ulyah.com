@@ -12,6 +12,8 @@ const en: Dictionary = {
     back: "Back",
     error: "Something went wrong. Please try again.",
     all: "All",
+    notFoundTitle: "Page not found",
+    notFoundBody: "Sorry, the page you’re looking for doesn’t exist.",
   },
   nav: {
     home: "Home",

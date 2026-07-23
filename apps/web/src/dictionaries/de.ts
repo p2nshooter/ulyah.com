@@ -12,6 +12,8 @@ const de: Dictionary = {
     back: "Zurück",
     error: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
     all: "Alle",
+    notFoundTitle: "Seite nicht gefunden",
+    notFoundBody: "Entschuldigung, die gesuchte Seite existiert nicht.",
   },
   nav: {
     home: "Startseite",
