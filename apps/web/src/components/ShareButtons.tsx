@@ -18,8 +18,11 @@ const NETWORKS: { key: string; label: string; icon: string; href: (u: string, t:
 export function ShareButtons({
   url,
   title,
-  copyLabel = "Salin tautan",
-  copiedLabel = "Tersalin!",
+  // Callers pass localized labels (Footer uses dict.crypto.copy/copied). The
+  // defaults are English, never Indonesian, so a caller that omits them can
+  // never leak Indonesian onto a sibling site.
+  copyLabel = "Copy link",
+  copiedLabel = "Copied!",
   compact = false,
 }: {
   url?: string;
