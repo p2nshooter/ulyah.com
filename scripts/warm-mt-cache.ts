@@ -65,6 +65,28 @@ function wrangler(argv: string[], capture = false): string {
   return "";
 }
 
+// One KV bulk write, with stderr captured so we can tell a genuine failure
+// apart from the free-tier daily write quota (Cloudflare code 10048). Hitting
+// the quota is NOT an error worth failing the whole run over: we warmed what we
+// could, and the Worker's runtime Workers-AI fallback (lib/mt.ts) serves the
+// rest and the next scheduled run continues. Returns "quota" on that case.
+function bulkPut(file: string): "ok" | "quota" {
+  try {
+    execFileSync("npx", ["wrangler", "kv", "bulk", "put", "--binding=CACHE_KV", "--remote", file], {
+      cwd: WORKER_CWD,
+      stdio: ["ignore", "pipe", "pipe"],
+      encoding: "utf8",
+      maxBuffer: 256 * 1024 * 1024,
+    });
+    return "ok";
+  } catch (err) {
+    const e = err as { stderr?: string; message?: string };
+    const text = `${e.stderr ?? ""}\n${e.message ?? ""}`;
+    if (/10048|free usage limit/i.test(text)) return "quota";
+    throw err;
+  }
+}
+
 function d1Json<T>(sql: string): T[] {
   const out = wrangler(["d1", "execute", "ulyah-db", "--remote", "--json", `--command=${sql}`], true);
   try {
@@ -145,11 +167,20 @@ async function main() {
   // cache the Worker reads via `CACHE_KV`. TTL matches the Worker's 90 days.
   const dir = mkdtempSync(join(tmpdir(), "mtwarm-"));
   try {
+    let wrote = 0;
     for (let i = 0; i < pairs.length; i += 9000) {
       const chunk = pairs.slice(i, i + 9000).map((p) => ({ ...p, expiration_ttl: 60 * 60 * 24 * 90 }));
       const file = join(dir, `bulk-${i}.json`);
       writeFileSync(file, JSON.stringify(chunk), "utf8");
-      wrangler(["kv", "bulk", "put", "--binding=CACHE_KV", "--remote", file]);
+      if (bulkPut(file) === "quota") {
+        console.log(
+          `⚠ Cloudflare KV free-tier daily write quota reached after ${wrote} pairs. ` +
+            `Warmed what we could; the remaining strings are translated at runtime by the ` +
+            `Worker's Workers-AI fallback, and the next scheduled run continues warming. Not a failure.`
+        );
+        break;
+      }
+      wrote += chunk.length;
       console.log(`  wrote ${chunk.length} pairs`);
     }
   } finally {
