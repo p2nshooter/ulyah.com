@@ -23,6 +23,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Audit i18n consistency (no sibling site left in the wrong language)
+        run: npx tsx scripts/audit-i18n-consistency.ts
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 
