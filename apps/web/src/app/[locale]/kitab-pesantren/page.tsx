@@ -4,6 +4,8 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
 import { localePath } from "@/lib/paths";
+import { coverFor } from "@/lib/book-cover";
+import { kitabLabels } from "@/lib/kitab-labels";
 
 // Revalidate periodically so newly-imported kitab appear without a redeploy,
 // while still serving a cached page most of the time.
@@ -198,6 +200,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = labels(locale);
+  const listenLabel = kitabLabels(locale).listen; // reuse the library's localized "Listen"
 
   let categories: Category[] = [];
   let kitab: Kitab[] = [];
@@ -239,6 +242,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
       {categories.map((cat) => {
         const inCat = kitab.filter((k) => k.category_slug === cat.slug);
         if (inCat.length === 0) return null;
+        const cv = coverFor(cat.slug); // one binding colour per shelf
         return (
           <section key={cat.slug} className="mt-12">
             <div className="flex items-baseline justify-between gap-3 border-b border-accent/20 pb-2">
@@ -253,31 +257,53 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
               )}
             </div>
 
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
+            {/* Each kitab is a bound volume on this shelf — a jewel-tone cover
+                with a gold-foiled Arabic title, a spine, and a "dengarkan" cue
+                (the matn can be read AND narrated). */}
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 desktop:grid-cols-4">
               {inCat.map((k) => (
                 <Link
                   key={k.slug}
                   href={`/${locale}/kitab-pesantren/${k.slug}`}
-                  className="card-premium flex flex-col p-5"
+                  aria-label={k.title_id}
+                  style={{ background: cv.cover }}
+                  className="group relative flex min-h-[210px] flex-col overflow-hidden rounded-r-lg rounded-l-sm p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"
                 >
-                  <p dir="rtl" className="font-arabic text-lg leading-tight text-primary dark:text-accent">
-                    {k.title_ar}
-                  </p>
-                  <p className="mt-1 font-heading text-base">{k.title_id}</p>
-                  {k.author && (
-                    <p className="mt-1.5 text-xs text-[var(--color-text-secondary)]">
-                      ✍️ {k.author}
-                      {k.author_death_year ? ` (${t.died} ${k.author_death_year})` : ""}
+                  <span aria-hidden style={{ background: cv.spine }} className="absolute inset-y-0 left-0 w-3" />
+                  <span aria-hidden style={{ background: cv.foil }} className="absolute inset-y-0 left-3 w-px opacity-40" />
+                  <span
+                    aria-hidden
+                    style={{ borderColor: cv.foil }}
+                    className="pointer-events-none absolute inset-2 left-5 rounded-sm border opacity-15"
+                  />
+
+                  <div className="relative">
+                    <p dir="rtl" style={{ color: cv.foil }} className="font-arabic text-lg leading-tight">
+                      {k.title_ar}
                     </p>
-                  )}
-                  {k.description_id && (
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                      {k.description_id}
+                    <p style={{ color: cv.ink }} className="mt-1 font-heading text-sm leading-snug">
+                      {k.title_id}
                     </p>
-                  )}
-                  <p className="mt-auto pt-3 text-xs font-medium text-accent">
-                    {k.bab_count} {t.chapters} →
-                  </p>
+                    {k.author && (
+                      <p style={{ color: cv.ink }} className="mt-1.5 text-[11px] opacity-80">
+                        ✍️ {k.author}
+                        {k.author_death_year ? ` (${t.died} ${k.author_death_year})` : ""}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="relative mt-auto flex items-center justify-between gap-2 pt-3">
+                    <span style={{ color: cv.foil }} className="text-xs font-medium tabular-nums opacity-90">
+                      {k.bab_count} {t.chapters}
+                    </span>
+                    <span
+                      style={{ color: cv.ink, borderColor: cv.foil }}
+                      className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] opacity-80 transition group-hover:opacity-100"
+                    >
+                      <span aria-hidden>🔊</span>
+                      {listenLabel}
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>
