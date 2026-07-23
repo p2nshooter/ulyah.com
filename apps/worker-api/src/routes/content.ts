@@ -548,9 +548,17 @@ interface HaditsCollectionRow {
   has_native_id: number;
 }
 
-// GET /content/hadits/collections — every collection that actually has rows
+// GET /content/hadits/collections?lang= — every collection that actually has
+// rows, with its title localized to the requested site language. The name is
+// authored in Indonesian (`name_id`); the sibling sites (en/de/es/fr/…) get it
+// translated from the D1 mt_cache (pre-warmed), so no book on the shelf shows
+// an Indonesian title on a non-Indonesian site.
 contentRoute.get("/hadits/collections", async (c) => {
-  const cached = await safeKvGet(c.env, "hadits:collections");
+  const requestedLocale = c.req.query("lang") ?? DEFAULT_LOCALE;
+  const lang = isValidLocale(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;
+
+  const cacheKey = `hadits:collections:${lang}`;
+  const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
   const { results } = await c.env.DB.prepare(
@@ -558,10 +566,18 @@ contentRoute.get("/hadits/collections", async (c) => {
             (SELECT COUNT(*) FROM hadits h WHERE h.collection = hc.slug) AS total
      FROM hadits_collection hc ORDER BY hc.sort_order`
   ).all<HaditsCollectionRow & { total: number }>();
-  const collections = results.filter((r) => r.total > 0);
+  const filtered = results.filter((r) => r.total > 0);
+
+  // Localize the collection titles (small list, ~7 books). Indonesian keeps the
+  // native column; every other locale is translated id→lang (cache-first).
+  const names =
+    lang === "id"
+      ? filtered.map((r) => r.name_id)
+      : await localizeBatch(c.env, filtered.map((r) => r.name_id), lang, "id");
+  const collections = filtered.map((r, i) => ({ ...r, name: names[i] ?? r.name_id }));
 
   const body = JSON.stringify({ collections });
-  await safeKvPut(c.env, "hadits:collections", body, { expirationTtl: 60 * 60 * 24 });
+  await safeKvPut(c.env, cacheKey, body, { expirationTtl: 60 * 60 * 24 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
