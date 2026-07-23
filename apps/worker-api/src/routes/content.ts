@@ -21,7 +21,12 @@ contentRoute.get("/ad-config", async (c) => {
   const cfg = await getAdConfig(c.env);
   c.header("Access-Control-Allow-Origin", "*");
   c.header("X-No-Edge-Cache", "1");
-  c.header("Cache-Control", "public, max-age=60");
+  // NEVER browser-cache the ad config. The owner's Adsterra kill switch has to
+  // take effect on the very next refresh — a 60s max-age meant an OFF toggle
+  // kept serving the stale "adsterra:true" for up to a minute, so ads "came
+  // back alive on refresh" (owner: "udah sy off, pas di-refresh hidup lagi").
+  // It's one tiny KV read per page load, so no-store is cheap and correct.
+  c.header("Cache-Control", "no-store");
   return c.json(publicAdView(cfg, site));
 });
 
