@@ -1,0 +1,53 @@
+name: Warm Translation Cache (kisah taxonomy)
+
+# Pre-translates the short taxonomy strings the sibling sites render — category
+# names + the kisah "tokoh" person index (name + honorific) + story titles —
+# and writes them into the SAME KV cache the Worker reads. The Worker's runtime
+# Google-translate calls are blocked from Cloudflare IPs, so those strings fell
+# back to Indonesian on 1fr.fr/dawa.es/tilawa.de/xad.es; a GitHub Actions runner
+# is not blocked, so it can fill the cache once and let the Worker serve the
+# translation with no upstream call. Idempotent bulk write, safe to re-run.
+
+on:
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: "Comma-separated target languages"
+        required: false
+        default: "en,fr,de,es"
+  schedule:
+    - cron: "45 2 * * *" # daily, just after the kitab translate job
+
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Warm the MT cache
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx tsx scripts/warm-mt-cache.ts --langs=${{ inputs.langs || 'en,fr,de,es' }}
