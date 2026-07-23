@@ -251,10 +251,14 @@ body {
    the right toward the Ha) while hue, saturation and brightness keep shifting. */
 .ulyah-wm {
   display: inline-block;
-  flex: 1 1 auto;
-  min-width: 0;
-  text-align: center;
+  /* Natural content width — NEVER a growing/shrinking flex item. When it was
+     flex:1 1 auto its box collapsed on a crowded phone header and the nowrap
+     Arabic text overflowed, so the opaque flip-book card painted over it
+     (owner: "logo ulyah arab jg masih ke tutup"). Taking its own width, the
+     flip-book always starts after it and can't cover it. */
+  flex: 0 0 auto;
   white-space: nowrap;
+  overflow: visible;
   font-weight: 700;
   /* Prominent, but sized to sit WITHIN the header beside the icon + flip-book
      — the earlier larger size overflowed and clipped the 'Ain (owner: "logo
@@ -285,7 +289,9 @@ body {
 /* On phones it still scales with the viewport, but capped so it never runs
    under the flip-book / off the header edge. */
 @media (max-width: 640px) {
-  .ulyah-wm { font-size: clamp(1.9rem, 8vw, 2.7rem); }
+  /* Smaller on phones so brand + wordmark + right-side controls all fit one
+     row without the wordmark being pushed under anything. */
+  .ulyah-wm { font-size: clamp(1.4rem, 6vw, 1.95rem); }
 }
 /* Gentle boat-like rocking (tilt + bob). Transform only — no layout reflow. */
 @keyframes ulyah-wm-rock {
