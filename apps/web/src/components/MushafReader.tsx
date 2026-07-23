@@ -397,6 +397,29 @@ export function MushafReader({ locale }: { locale: string }) {
           </form>
         </div>
 
+        {/* Colour legend + link to the full tajwid guide — only while tajwid
+            colouring is on, so the reader knows what each colour means. */}
+        {tajwidOn && (
+          <div className="mx-auto mt-3 flex max-w-3xl flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-[11px]">
+            {(Object.entries(TAJWID_RULES) as [TajwidRule, (typeof TAJWID_RULES)[TajwidRule]][]).map(([key, info]) => (
+              <button
+                key={key}
+                onClick={() => setTajwidPopup(key)}
+                className="inline-flex items-center gap-1 text-accent/90 transition hover:text-accent"
+              >
+                <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: info.color }} />
+                {locale === "id" ? info.nameId : info.nameEn}
+              </button>
+            ))}
+            <a
+              href={`/${locale}/quran/tajwid`}
+              className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2.5 py-0.5 font-medium text-accent transition hover:bg-accent/10"
+            >
+              🎨 {locale === "id" ? "Panduan lengkap" : locale === "ar" ? "الدليل الكامل" : "Full guide"} →
+            </a>
+          </div>
+        )}
+
         <p className="mt-3 text-center text-xs text-accent/80">
           {t.pageOf(pageNumber, TOTAL_PAGES)}
           {pageData?.juz ? ` · ${t.juzLabel} ${pageData.juz}` : ""}

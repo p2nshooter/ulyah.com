@@ -52,6 +52,22 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
           </span>
         </Link>
 
+        {/* Complete tajwid reference — pairs with the coloured Mushaf. */}
+        <Link
+          href={`/${locale}/quran/tajwid`}
+          className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-accent/30 bg-accent/5 p-4 transition hover:border-accent"
+        >
+          <span className="flex items-center gap-2 text-sm font-medium">
+            <span aria-hidden>🎨</span>
+            {locale === "id"
+              ? "Panduan Tajwid Lengkap — semua hukum, warna & contoh"
+              : locale === "ar"
+                ? "دليل التجويد الكامل"
+                : "Complete Tajwid Guide — every rule, colour & example"}
+          </span>
+          <span className="shrink-0 text-accent">→</span>
+        </Link>
+
         <div className="mt-6">
           <QuranReaderWidget locale={locale} dict={dict} />
         </div>
