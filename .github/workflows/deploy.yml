@@ -397,6 +397,20 @@ jobs:
             echo "Kisah Ashabul Fil already has $FILCOUNT rows — skipping."
           fi
 
+      - name: Import Kisah Ashabul Qaryah series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-ashabul-qaryah';" --json > /tmp/kisah_qaryah_count.json
+          QRYCOUNT=$(node -e "const j=require('/tmp/kisah_qaryah_count.json'); console.log(j[0].results[0].n)")
+          if [ "$QRYCOUNT" -lt "1" ]; then
+            echo "Kisah Ashabul Qaryah not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_ashabul_qaryah.sql
+          else
+            echo "Kisah Ashabul Qaryah already has $QRYCOUNT rows — skipping."
+          fi
+
       - name: Import Kisah Nabi Nuh AS series (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
