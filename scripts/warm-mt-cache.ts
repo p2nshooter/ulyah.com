@@ -79,8 +79,8 @@ function d1Json<T>(sql: string): T[] {
   }
 }
 
-async function gtx(text: string, tl: string): Promise<string | null> {
-  const url = `${GTX_BASE}?client=gtx&sl=id&tl=${toGoogleLang(tl)}&dt=t&q=${encodeURIComponent(text)}`;
+async function gtx(text: string, tl: string, sl = "id"): Promise<string | null> {
+  const url = `${GTX_BASE}?client=gtx&sl=${toGoogleLang(sl)}&tl=${toGoogleLang(tl)}&dt=t&q=${encodeURIComponent(text)}`;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (compatible; ulyah.com/1.0)" } });
     if (!res.ok) return null;
@@ -91,6 +91,26 @@ async function gtx(text: string, tl: string): Promise<string | null> {
   } catch {
     return null;
   }
+}
+
+/** Translate MANY short-ish texts in one gtx call via newline batching (gtx
+ * preserves line breaks). Returns an array aligned to `texts`; on a segment
+ * mismatch (MT occasionally eats a break) that whole batch is retried per-item
+ * so a translation is never mis-paired to the wrong hadith. Used for the 30k+
+ * hadith corpus, where one-call-per-string would take hours. */
+async function gtxBatch(texts: string[], tl: string, sl: string): Promise<(string | null)[]> {
+  // Newlines inside a source string would corrupt the split — flatten first.
+  const flat = texts.map((t) => t.replace(/\s*\n\s*/g, " "));
+  const joined = flat.join("\n");
+  const out = await gtx(joined, tl, sl);
+  if (out) {
+    const parts = out.split("\n");
+    if (parts.length === texts.length) return parts.map((s) => s.trim() || null);
+  }
+  // Fallback: translate each on its own (rare) so we never mis-assign.
+  const res: (string | null)[] = [];
+  for (const t of flat) res.push(await gtx(t, tl, sl));
+  return res;
 }
 
 /** Gather the distinct id-source strings the sibling sites render as taxonomy. */
@@ -184,6 +204,87 @@ async function main() {
       translated++;
     }
     console.log(`  ${lang}: ${pairs.length} new staged (${cached} already cached)`);
+  }
+
+  // ── Hadith (Arabic-source) ──────────────────────────────────────────────
+  // The hadith reader translates `text_ar` on demand into the site language
+  // (key `mt:ar-<lang>:<hash>`); when the Worker's runtime translate is blocked
+  // it falls back to the stored English `text_en`, which is why 1fr.fr/
+  // tilawa.de/dawa.es showed English hadith. Warm ar→{fr,de,es,…} here (en
+  // uses text_en directly, id has a native column, ar IS the source, so those
+  // are skipped). Batched (gtxBatch) + paginated so 30k+ rows finish in one
+  // run, and skip-cached so re-runs are cheap.
+  const hadithLangs = langs.filter((l) => l !== "id" && l !== "en" && l !== "ar");
+  if (hadithLangs.length && !dry) {
+    const hadithCount =
+      d1Json<{ n: number }>("SELECT COUNT(*) AS n FROM hadits WHERE text_ar IS NOT NULL AND text_ar <> '';")[0]?.n ?? 0;
+    for (const lang of hadithLangs) {
+      const cachedCount =
+        d1Json<{ n: number }>(`SELECT COUNT(*) AS n FROM mt_cache WHERE k LIKE 'mt:ar-${lang}:%';`)[0]?.n ?? 0;
+      // Already fully warmed (hadith text is static once imported) → skip the
+      // whole phase; no 30k-key load, no re-translation on the post-deploy run.
+      if (cachedCount >= hadithCount && hadithCount > 0) {
+        console.log(`  hadith ar→${lang}: already warmed (${cachedCount}) — skipping`);
+        continue;
+      }
+      // Resuming a partial warm: load existing keys to skip, paginated so the
+      // result set never gets too big to return.
+      const already = new Set<string>();
+      for (let ko = 0; ; ko += 10000) {
+        const kr = d1Json<{ k: string }>(
+          `SELECT k FROM mt_cache WHERE k LIKE 'mt:ar-${lang}:%' ORDER BY k LIMIT 10000 OFFSET ${ko};`
+        );
+        for (const r of kr) already.add(r.k);
+        if (kr.length < 10000) break;
+      }
+      let offset = 0;
+      let hadCached = 0;
+      let hadDone = 0;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const rows = d1Json<{ text_ar: string }>(
+          `SELECT text_ar FROM hadits WHERE text_ar IS NOT NULL AND text_ar <> '' ORDER BY id LIMIT 1500 OFFSET ${offset};`
+        );
+        if (rows.length === 0) break;
+        offset += rows.length;
+        // Only the not-yet-cached ones, de-duplicated within this page.
+        const todo: string[] = [];
+        const seen = new Set<string>();
+        for (const r of rows) {
+          const t = r.text_ar.trim();
+          if (!t) continue;
+          const key = `mt:ar-${lang}:${hashKey(t)}`;
+          if (already.has(key) || seen.has(t)) {
+            hadCached++;
+            continue;
+          }
+          seen.add(t);
+          todo.push(t);
+        }
+        // Translate in newline batches, byte-budgeted (~4KB source per call).
+        for (let i = 0; i < todo.length; ) {
+          const batch: string[] = [];
+          let bytes = 0;
+          while (i < todo.length && batch.length < 40 && bytes < 4000) {
+            batch.push(todo[i]!);
+            bytes += todo[i]!.length + 1;
+            i++;
+          }
+          const outs = await gtxBatch(batch, lang, "ar");
+          batch.forEach((src, k) => {
+            const v = outs[k];
+            if (v && v !== src) {
+              pairs.push({ key: `mt:ar-${lang}:${hashKey(src)}`, value: v });
+              translated++;
+              hadDone++;
+            } else {
+              failed++;
+            }
+          });
+        }
+      }
+      console.log(`  hadith ar→${lang}: ${hadDone} new, ${hadCached} already cached`);
+    }
   }
 
   console.log(`Translated ${translated}, failed/unchanged ${failed}, ${pairs.length} rows to write to D1.`);
