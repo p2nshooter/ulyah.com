@@ -54,6 +54,7 @@ const EN: NavLabels = {
       label: "Stories & Audio",
       icon: "🎧",
       items: [
+        { label: "Al-Qur'an Kids", path: "/kids" },
         { label: "Islamic Stories", path: "/kisah" },
         { label: "Kids' Animated Films", path: "/anak" },
         { label: "Audiobook", path: "/audiobook" },
@@ -112,6 +113,7 @@ const ID: NavLabels = {
       label: "Kisah & Audio",
       icon: "🎧",
       items: [
+        { label: "Al-Qur'an Kids", path: "/kids" },
         { label: "Kisah Islami", path: "/kisah" },
         { label: "Film Animasi Anak", path: "/anak" },
         { label: "Audiobook", path: "/audiobook" },
@@ -170,6 +172,7 @@ const AR: NavLabels = {
       label: "القصص والصوتيات",
       icon: "🎧",
       items: [
+        { label: "أطفال القرآن", path: "/kids" },
         { label: "قصص إسلامية", path: "/kisah" },
         { label: "أفلام الأطفال المتحركة", path: "/anak" },
         { label: "كتاب صوتي", path: "/audiobook" },
@@ -230,6 +233,7 @@ const DE: NavLabels = {
       label: "Geschichten & Audio",
       icon: "🎧",
       items: [
+        { label: "Al-Qur'an Kids", path: "/kids" },
         { label: "Islamische Geschichten", path: "/kisah" },
         { label: "Zeichentrickfilme für Kinder", path: "/anak" },
         { label: "Hörbuch", path: "/audiobook" },
@@ -289,6 +293,7 @@ const FR: NavLabels = {
       label: "Récits & Audio",
       icon: "🎧",
       items: [
+        { label: "Al-Qur'an Kids", path: "/kids" },
         { label: "Récits islamiques", path: "/kisah" },
         { label: "Dessins animés pour enfants", path: "/anak" },
         { label: "Livre audio", path: "/audiobook" },
@@ -348,6 +353,7 @@ const ES: NavLabels = {
       label: "Relatos y Audio",
       icon: "🎧",
       items: [
+        { label: "Al-Qur'an Kids", path: "/kids" },
         { label: "Relatos islámicos", path: "/kisah" },
         { label: "Dibujos animados para niños", path: "/anak" },
         { label: "Audiolibro", path: "/audiobook" },

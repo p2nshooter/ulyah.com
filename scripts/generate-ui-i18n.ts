@@ -58,6 +58,7 @@ const GETTERS: Array<{ file: string; fn: string; args?: unknown[] }> = [
   { file: "privacy-labels", fn: "privacyLabels" },
   { file: "narrate-labels", fn: "narrateLabels" },
   { file: "ai-chat-labels", fn: "aiChatLabels" },
+  { file: "kids-labels", fn: "kidsLabels" },
   { file: "live-labels", fn: "liveLabels", args: ["en", "ULYAH.COM"] },
   { file: "nasehat", fn: "nasehatList" },
 ];

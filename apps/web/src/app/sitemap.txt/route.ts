@@ -27,7 +27,7 @@ const BASE = TENANT.siteUrl;
 
 const ROUTES = [
   "", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/haji-umroh", "/nasakh", "/audiobook",
-  "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya",
+  "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/kids", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya",
   "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi",
 ];
 
