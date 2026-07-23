@@ -134,7 +134,11 @@ export const TAJWID_RULES: Record<TajwidRule, TajwidRuleInfo> = {
   },
 };
 
-const SUKUN = "ْ";
+// Uthmani/Indopak texts (including our D1 ayah text) mark a resting consonant
+// with a small high zero/head (U+06E1 etc.) rather than the plain sukun U+0652,
+// so recognise all of them or qalqalah + mim-sakinah rules would be silently
+// missed on real text.
+const SUKUN_MARKS = new Set(["ْ", "ۡ", "۟", "۠"]);
 const SHADDA = "ّ";
 const MADDA = "ٓ";
 const TANWIN = new Set(["ً", "ٌ", "ٍ"]); // fathatan, dammatan, kasratan
@@ -230,6 +234,11 @@ function prevLetter(units: Unit[], i: number): Unit | null {
 function hasVowel(u: Unit): boolean {
   return ["َ", "ُ", "ِ"].some((m) => u.marks.has(m)) || u.marks.has(SHADDA);
 }
+/** True if the unit carries any of the Uthmani sukun-family marks. */
+function hasSukun(u: Unit): boolean {
+  for (const m of SUKUN_MARKS) if (u.marks.has(m)) return true;
+  return false;
+}
 
 /**
  * Split one ayah's Uthmani text into contiguous segments, each either plain
@@ -260,13 +269,13 @@ export function analyzeTajwid(text: string): TajwidSegment[] {
       const { u: mn, boundary } = nextLetterAcross(units, i);
       if (mn) {
         if (HAMZA.has(mn.base)) mrule = boundary ? "madd-jaiz-munfasil" : "madd-wajib-muttasil";
-        else if (mn.marks.has(SHADDA) || mn.marks.has(SUKUN)) mrule = "madd-lazim";
+        else if (mn.marks.has(SHADDA) || hasSukun(mn)) mrule = "madd-lazim";
       }
       ruleAt[i] = mrule;
     }
 
     // Qalqalah: explicit sukun on one of the five letters.
-    if (QALQALAH_LETTERS.has(u.base) && u.marks.has(SUKUN)) {
+    if (QALQALAH_LETTERS.has(u.base) && hasSukun(u)) {
       ruleAt[i] = "qalqalah";
     }
 
@@ -276,7 +285,7 @@ export function analyzeTajwid(text: string): TajwidSegment[] {
     // clearly-written form (alef + lam + sun-letter-with-shadda) is marked; the
     // fully-merged spelling (e.g. الَّذين) is left alone rather than risk a
     // wrong call.
-    if (u.base === "ل" && !hasVowel(u) && !u.marks.has(SUKUN)) {
+    if (u.base === "ل" && !hasVowel(u) && !hasSukun(u)) {
       const prev = prevLetter(units, i);
       const nx = nextLetter(units, i);
       if (prev && ARTICLE_ALEF.has(prev.base) && nx && SUN_LETTERS.has(nx.base) && nx.marks.has(SHADDA)) {
@@ -309,7 +318,7 @@ export function analyzeTajwid(text: string): TajwidSegment[] {
     }
 
     // Mim sakinah family (explicit sukun or bare mim before ب/م).
-    const isMimSakinah = u.base === "م" && !hasVowel(u) && (u.marks.has(SUKUN) || u.marks.size === 0);
+    const isMimSakinah = u.base === "م" && !hasVowel(u) && (hasSukun(u) || u.marks.size === 0);
     if (isMimSakinah) {
       const nx = nextLetter(units, i);
       if (nx) {

@@ -6,6 +6,7 @@ import { usePlayerStore, type Layer, type QueueItem } from "@/lib/player-store";
 import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
 import { TENANT } from "@/lib/tenant";
+import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 import type { Dictionary } from "@/dictionaries";
 
 interface SurahMeta {
@@ -160,6 +161,33 @@ function HighlightedArabic({ text, active }: { text: string; active: boolean }) 
   );
 }
 
+/** Colours the ayah by tajwid rule (nun/mim sakinah, qalqalah, ghunnah, madd,
+ * lam syamsiyah). Tapping a coloured letter surfaces its rule. Used when the
+ * ayah is NOT being word-highlighted by live audio. */
+function TajwidArabic({ text, onRule }: { text: string; onRule: (r: TajwidRule) => void }) {
+  return (
+    <>
+      {analyzeTajwid(text).map((seg, i) =>
+        seg.rule ? (
+          <span
+            key={i}
+            role="button"
+            style={{ color: TAJWID_RULES[seg.rule].color, fontWeight: 600 }}
+            onClick={(ev) => {
+              ev.stopPropagation();
+              onRule(seg.rule!);
+            }}
+          >
+            {seg.text}
+          </span>
+        ) : (
+          <span key={i}>{seg.text}</span>
+        )
+      )}
+    </>
+  );
+}
+
 export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dictionary }) {
   const t = radioLabels(locale);
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
@@ -173,6 +201,8 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [copied, setCopied] = useState(false);
   const [qoriCC, setQoriCC] = useState("all"); // country filter for the reciter picker below
   const [showExplanation, setShowExplanation] = useState(true); // "Tafsir & Penjelasan" panel open by default
+  const [tajwidOn, setTajwidOn] = useState(true); // colour-code the reading rules on the Arabic (default on)
+  const [tajwidPopup, setTajwidPopup] = useState<TajwidRule | null>(null);
 
   // Tafsir source picker: which classical tafsir edition to show. `""` = the
   // reader's default (whatever /quran/ayah picked). Any other value is a slug
@@ -520,6 +550,19 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   ))}
                 </select>
                 <button
+                  onClick={() => {
+                    setTajwidOn((v) => !v);
+                    setTajwidPopup(null);
+                  }}
+                  aria-pressed={tajwidOn}
+                  title={locale === "id" ? "Tandai hukum tajwid" : "Colour tajwid rules"}
+                  className={`rounded-lg px-3 py-1.5 text-xs transition ${
+                    tajwidOn ? "bg-accent/20 font-medium text-accent ring-1 ring-accent/40" : "border border-[var(--color-border)] hover:border-accent"
+                  }`}
+                >
+                  {locale === "id" ? "Tajwid" : locale === "ar" ? "التجويد" : "Tajwid"} {tajwidOn ? "✓" : ""}
+                </button>
+                <button
                   onClick={shareAyah}
                   className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-xs hover:border-accent"
                 >
@@ -553,12 +596,43 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               ) : (
                 <>
                   <p dir="rtl" className="font-arabic text-3xl leading-[2.4] text-[var(--color-text-primary)] sm:text-4xl">
-                    <HighlightedArabic
-                      text={focusRow?.text_ar ?? ""}
-                      active={isThisAyahActive && activeLayer === "ayah"}
-                    />{" "}
+                    {isThisAyahActive && activeLayer === "ayah" ? (
+                      <HighlightedArabic text={focusRow?.text_ar ?? ""} active />
+                    ) : tajwidOn ? (
+                      <TajwidArabic text={focusRow?.text_ar ?? ""} onRule={setTajwidPopup} />
+                    ) : (
+                      (focusRow?.text_ar ?? "")
+                    )}{" "}
                     <span className="text-accent">﴿{toArabicNumber(focus)}﴾</span>
                   </p>
+                  {/* Tajwid colour legend + full-guide link, shown under the verse
+                      when colouring is on so the reader knows what each hue means. */}
+                  {tajwidOn && (
+                    <div
+                      className="mx-auto mt-3 flex max-w-2xl flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[10px]"
+                      onClick={(ev) => ev.stopPropagation()}
+                    >
+                      {(Object.entries(TAJWID_RULES) as [TajwidRule, (typeof TAJWID_RULES)[TajwidRule]][]).map(
+                        ([key, info]) => (
+                          <button
+                            key={key}
+                            onClick={() => setTajwidPopup(key)}
+                            className="inline-flex items-center gap-1 text-[var(--color-text-secondary)] transition hover:text-accent"
+                          >
+                            <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: info.color }} />
+                            {locale === "id" ? info.nameId : info.nameEn}
+                          </button>
+                        )
+                      )}
+                      <a
+                        href={`/${locale}/quran/tajwid`}
+                        onClick={(ev) => ev.stopPropagation()}
+                        className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 font-medium text-accent transition hover:bg-accent/10"
+                      >
+                        🎨 {locale === "id" ? "Panduan" : locale === "ar" ? "الدليل" : "Guide"} →
+                      </a>
+                    </div>
+                  )}
                   {focusRow?.translation ? (
                     <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
                       {focusRow.translation}
@@ -753,6 +827,35 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
           </>
         )}
       </div>
+
+      {/* Tajwid rule explanation — tap any coloured letter (or a legend chip). */}
+      {tajwidPopup && (
+        <div
+          className="tajwid-pop fixed bottom-24 left-1/2 z-40 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border-2 bg-[var(--color-card)] p-4 shadow-2xl"
+          style={{ borderColor: TAJWID_RULES[tajwidPopup].color }}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <p className="flex items-center gap-2 font-heading text-base">
+              <span
+                aria-hidden
+                className="inline-block h-3.5 w-3.5 rounded-full"
+                style={{ backgroundColor: TAJWID_RULES[tajwidPopup].color }}
+              />
+              {locale === "id" ? TAJWID_RULES[tajwidPopup].nameId : TAJWID_RULES[tajwidPopup].nameEn}
+            </p>
+            <button
+              onClick={() => setTajwidPopup(null)}
+              aria-label="close"
+              className="rounded-full border border-[var(--color-border)] px-2 py-0.5 text-xs text-[var(--color-text-secondary)]"
+            >
+              ✕
+            </button>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+            {locale === "id" ? TAJWID_RULES[tajwidPopup].descId : TAJWID_RULES[tajwidPopup].descEn}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
