@@ -355,6 +355,20 @@ jobs:
             echo "Kisah Luqman already has $LQMCOUNT rows — skipping."
           fi
 
+      - name: Import Kisah Qarun series (one-time, idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-qarun';" --json > /tmp/kisah_qarun_count.json
+          QRNCOUNT=$(node -e "const j=require('/tmp/kisah_qarun_count.json'); console.log(j[0].results[0].n)")
+          if [ "$QRNCOUNT" -lt "1" ]; then
+            echo "Kisah Qarun not yet seeded — importing."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_qarun.sql
+          else
+            echo "Kisah Qarun already has $QRNCOUNT rows — skipping."
+          fi
+
       - name: Import Kisah Nabi Nuh AS series (one-time, idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
