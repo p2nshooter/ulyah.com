@@ -47,7 +47,7 @@ const EN: RadioLabels = {
   tapToUnmute: "The radio is live — tap to hear it",
   installStandalone: "Install as a standalone app",
   pageIntro: "A live Qur'an radio that never stops — install it and keep the recitation with you, one tap from your home screen.",
-  brandTagline: "Listen, understand, and bring the Qur'an to life every day with Ulyah.",
+  brandTagline: "Listen, understand, and bring the Qur'an to life every day.",
   brandCta: "Explore ULYAH.COM",
   openRadioPage: "Open Radio · install as app",
 };

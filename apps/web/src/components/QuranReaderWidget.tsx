@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { usePlayerStore, type Layer, type QueueItem } from "@/lib/player-store";
 import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
+import { TENANT } from "@/lib/tenant";
 import type { Dictionary } from "@/dictionaries";
 
 interface SurahMeta {
@@ -418,7 +419,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   }
 
   function shareAyah() {
-    const url = `${typeof window !== "undefined" ? window.location.origin : "https://ulyah.com"}/${locale}/quran?s=${selectedSurah?.id}&a=${focus}`;
+    const url = `${typeof window !== "undefined" ? window.location.origin : TENANT.siteUrl}/${locale}/quran?s=${selectedSurah?.id}&a=${focus}`;
     if (navigator.share) {
       navigator.share({ title: `${selectedSurah?.name_transliteration} : ${focus}`, url }).catch(() => {});
     } else {

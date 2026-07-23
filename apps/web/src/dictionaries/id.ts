@@ -12,6 +12,8 @@ const id: Dictionary = {
     back: "Kembali",
     error: "Terjadi kesalahan. Silakan coba lagi.",
     all: "Semua",
+    notFoundTitle: "Halaman tidak ditemukan",
+    notFoundBody: "Maaf, halaman yang Anda cari tidak ada.",
   },
   nav: {
     home: "Beranda",

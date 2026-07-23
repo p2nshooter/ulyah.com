@@ -248,7 +248,9 @@ export default async function LocaleLayout({
                     ? "Tilawa — Islam hören"
                     : TENANT.id === "dawa"
                       ? "Dawa — El Islam en Español"
-                      : "Ulyah — Listen to Islam",
+                      : TENANT.id === "xad"
+                        ? "XAD — Listen to Islam"
+                        : "Ulyah — Listen to Islam",
               url: TENANT.siteUrl,
               inLanguage: LOCALES.map((l) => l.code),
               publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },

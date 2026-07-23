@@ -1,8 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
+import { ogCoverUrl } from "@/lib/og";
 
 interface BookDetail {
   id: number;
@@ -20,6 +22,30 @@ interface BookDetail {
   category_name: string | null;
   category_name_ar: string | null;
   category_icon: string | null;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale: raw, slug, id } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  try {
+    const { book } = await api.get<{ book: BookDetail }>(`/content/kitab/book/${id}?lang=${locale}`);
+    // Arabic title is the language-neutral hero (matches the shelf card); the
+    // localized latin title rides underneath. The cover uses the category slug
+    // so the share image shares its shelf's binding colour.
+    const title = book.title_translated || book.title_ar;
+    const cover = ogCoverUrl({ slug, title: book.title_ar, subtitle: book.title_translated ?? undefined, rtl: true });
+    return {
+      title,
+      openGraph: { title, type: "book", images: [{ url: cover, width: 1200, height: 630, alt: title }] },
+      twitter: { card: "summary_large_image", title, images: [cover] },
+    };
+  } catch {
+    return {};
+  }
 }
 
 export default async function KitabBookPage({

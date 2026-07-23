@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { TENANT } from "@/lib/tenant";
 
 /**
  * Social share row — lets visitors help spread the syiar by sharing the site.
@@ -28,7 +29,7 @@ export function ShareButtons({
   compact?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
-  const shareUrl = url ?? (typeof window !== "undefined" ? window.location.href : "https://ulyah.com");
+  const shareUrl = url ?? (typeof window !== "undefined" ? window.location.href : TENANT.siteUrl);
 
   async function copy() {
     try {

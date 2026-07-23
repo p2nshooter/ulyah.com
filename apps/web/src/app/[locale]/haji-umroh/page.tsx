@@ -42,6 +42,30 @@ const L: Record<
     metaTitle: "Hadsch & Umrah — Pakete & Begleitung",
     metaDesc: (s) => `Ausgewählte Hadsch- und Umrah-Pakete auf ${s}: klare Dauer, Preise und Abflüge.`,
   },
+  es: {
+    heading: "Hajj y Umrah",
+    desc: "Paquetes seleccionados de Hajj y Umrah — orientación de confianza, precios transparentes, contacta directamente con el organizador.",
+    metaTitle: "Hajj y Umrah — Paquetes y orientación",
+    metaDesc: (s) => `Paquetes seleccionados de Hajj y Umrah en ${s}: duración, precios y salidas claras.`,
+  },
+  ru: {
+    heading: "Хадж и умра",
+    desc: "Отобранные пакеты хаджа и умры — надёжное сопровождение, прозрачные цены, свяжитесь напрямую с организатором.",
+    metaTitle: "Хадж и умра — пакеты и сопровождение",
+    metaDesc: (s) => `Отобранные пакеты хаджа и умры на ${s}: понятная длительность, цены и даты вылета.`,
+  },
+  zh: {
+    heading: "朝觐与副朝",
+    desc: "精选的朝觐与副朝套餐——值得信赖的指导、透明的价格，直接联系组织方。",
+    metaTitle: "朝觐与副朝 — 套餐与指导",
+    metaDesc: (s) => `${s} 上精选的朝觐与副朝套餐：清晰的行程时长、价格与出发日期。`,
+  },
+  ja: {
+    heading: "ハッジとウムラ",
+    desc: "厳選されたハッジ・ウムラのパッケージ——信頼できる案内、透明な価格、主催者に直接お問い合わせください。",
+    metaTitle: "ハッジとウムラ — パッケージと案内",
+    metaDesc: (s) => `${s} の厳選されたハッジ・ウムラのパッケージ：明確な期間・価格・出発日。`,
+  },
 };
 
 export async function generateMetadata({

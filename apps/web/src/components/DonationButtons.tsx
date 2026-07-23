@@ -82,7 +82,7 @@ export function DonationButtons({ dict }: { dict: Dictionary }) {
         >
           <span aria-hidden>⚡</span> PayPal.me
         </a>
-        <a href={NOWPAYMENTS_DONATION_URL} target="_blank" rel="noreferrer noopener" aria-label="Donasi crypto via NOWPayments">
+        <a href={NOWPAYMENTS_DONATION_URL} target="_blank" rel="noreferrer noopener" aria-label="Donate with crypto via NOWPayments">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://nowpayments.io/images/embeds/donation-button-white.svg"

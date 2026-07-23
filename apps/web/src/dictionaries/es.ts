@@ -15,6 +15,8 @@ const es: Dictionary = {
     back: "Volver",
     error: "Algo salió mal. Inténtalo de nuevo.",
     all: "Todo",
+    notFoundTitle: "Página no encontrada",
+    notFoundBody: "Lo sentimos, la página que buscas no existe.",
   },
   nav: {
     home: "Inicio",

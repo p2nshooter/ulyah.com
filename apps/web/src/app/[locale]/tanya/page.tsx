@@ -33,6 +33,26 @@ const L: Record<string, { subtitle: (s: string) => string; metaTitle: (s: string
     metaTitle: (s) => `اسأل الذكاء الاصطناعي الإسلامي — ${s}`,
     metaDesc: (s) => `أسئلة وأجوبة إسلامية مبنية على القرآن والحديث من قاعدة بيانات ${s}، مع المراجع.`,
   },
+  es: {
+    subtitle: (s) => `Respondido por el worker Orchestra Core, basado en la base de datos de ${s} — con evidencias y referencias, sin inventar.`,
+    metaTitle: (s) => `Pregunta a la IA islámica — ${s}`,
+    metaDesc: (s) => `Preguntas y respuestas islámicas basadas en el Corán y el hadiz de la base de datos de ${s}, con referencias.`,
+  },
+  ru: {
+    subtitle: (s) => `Отвечает воркер Orchestra Core на основе базы данных ${s} — с доказательствами и ссылками, без вымысла.`,
+    metaTitle: (s) => `Спросить исламский ИИ — ${s}`,
+    metaDesc: (s) => `Исламские вопросы и ответы на основе Корана и хадисов из базы данных ${s}, со ссылками.`,
+  },
+  zh: {
+    subtitle: (s) => `由 Orchestra Core 工作程序基于 ${s} 数据库作答——附证据与出处，绝不杜撰。`,
+    metaTitle: (s) => `向伊斯兰 AI 提问 — ${s}`,
+    metaDesc: (s) => `基于《古兰经》与圣训、来自 ${s} 数据库的伊斯兰问答，附出处。`,
+  },
+  ja: {
+    subtitle: (s) => `Orchestra Core ワーカーが ${s} のデータベースに基づいて回答——証拠と出典つき、捏造なし。`,
+    metaTitle: (s) => `イスラームAIに質問 — ${s}`,
+    metaDesc: (s) => `クルアーンとハディースに基づく、${s} のデータベースからのイスラームQ&A。出典つき。`,
+  },
 };
 
 function labels(locale: string) {

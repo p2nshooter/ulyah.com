@@ -12,6 +12,8 @@ const ar: Dictionary = {
     back: "رجوع",
     error: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     all: "الكل",
+    notFoundTitle: "الصفحة غير موجودة",
+    notFoundBody: "عذرًا، الصفحة التي تبحث عنها غير موجودة.",
   },
   nav: {
     home: "الرئيسية",

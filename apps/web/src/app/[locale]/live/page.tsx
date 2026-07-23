@@ -42,6 +42,34 @@ const L: Record<string, { title: string; heading: string; desc: string; metaTitl
     metaTitle: (s) => `بث مباشر — شاهد على ${s}`,
     metaDesc: (s) => `بثوث إسلامية مباشرة من أنحاء العالم — تُشاهد هنا مباشرةً على ${s}.`,
   },
+  es: {
+    title: "Transmisión en directo",
+    heading: "Transmisión en directo",
+    desc: "Clases y recitaciones en directo — se ven aquí mismo, sin salir del sitio.",
+    metaTitle: (s) => `En directo — Míralo en ${s}`,
+    metaDesc: (s) => `Transmisiones islámicas en directo de todo el mundo — se ven aquí mismo en ${s}.`,
+  },
+  ru: {
+    title: "Прямая трансляция",
+    heading: "Прямая трансляция",
+    desc: "Лекции и чтения в прямом эфире — смотрите прямо здесь, не покидая сайт.",
+    metaTitle: (s) => `Прямой эфир — смотрите на ${s}`,
+    metaDesc: (s) => `Исламские прямые трансляции со всего мира — смотрите прямо здесь на ${s}.`,
+  },
+  zh: {
+    title: "直播",
+    heading: "直播",
+    desc: "讲座与诵读直播——就在此处观看，无需离开网站。",
+    metaTitle: (s) => `直播 — 在 ${s} 观看`,
+    metaDesc: (s) => `来自世界各地的伊斯兰直播——就在 ${s} 此处观看。`,
+  },
+  ja: {
+    title: "ライブ配信",
+    heading: "ライブ配信",
+    desc: "講義や朗誦のライブ配信——サイトを離れずにここで視聴できます。",
+    metaTitle: (s) => `ライブ配信 — ${s} で視聴`,
+    metaDesc: (s) => `世界中からのイスラームのライブ配信——${s} のここで視聴できます。`,
+  },
 };
 
 function labels(locale: string) {
