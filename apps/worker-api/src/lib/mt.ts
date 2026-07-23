@@ -1,5 +1,4 @@
 import type { Env } from "../env.js";
-import { safeKvGet, safeKvPut } from "./kv-safe.js";
 
 // Free, keyless Google Translate ("gtx") endpoint — much more reliable and
 // higher-limit than MyMemory, and handles long text in one request. Used as
@@ -7,10 +6,6 @@ import { safeKvGet, safeKvPut } from "./kv-safe.js";
 // a translation rather than leaking the untranslated source language.
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
 const MYMEMORY_BASE = "https://api.mymemory.translated.net/get";
-// Static classical-Arabic prose never changes, so once a description is
-// translated it stays correct forever — a long TTL just bounds KV storage,
-// it isn't a freshness concern.
-const KV_TTL = 60 * 60 * 24 * 90;
 
 function hashKey(text: string): string {
   let h = 2166136261;
@@ -158,6 +153,69 @@ function memSet(key: string, value: string): void {
   mtMem.set(key, value);
 }
 
+// ── Translation cache backend: D1, not KV ────────────────────────────────
+// The whole ecosystem's translations were being written to KV, whose FREE
+// plan caps writes at 1,000/day. The taxonomy alone is 5,000+ strings × the
+// sibling languages, so the daily cap was exhausted after ~0 useful writes
+// and EVERY string fell back to Indonesian on 1fr.fr/dawa.es/tilawa.de/xad.es
+// — no matter how often the cache was "warmed". D1 has no such daily write
+// cap (and the app already writes to it constantly for analytics), so the
+// translation cache lives here now. Same `mt:<src>-<tgt>:<hash>` key, moved
+// from a KV namespace to the `mt_cache` table (migration 0046). All ops are
+// wrapped so a cache hiccup degrades to a live/​source result, never a 500.
+async function mtDbGet(env: Env, key: string): Promise<string | null> {
+  try {
+    const row = await env.DB.prepare("SELECT v FROM mt_cache WHERE k = ?").bind(key).first<{ v: string }>();
+    return row ? row.v : null;
+  } catch {
+    return null;
+  }
+}
+
+async function mtDbGetMany(env: Env, keys: string[]): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
+  const uniq = [...new Set(keys)];
+  for (let i = 0; i < uniq.length; i += 90) {
+    const chunk = uniq.slice(i, i + 90);
+    const ph = chunk.map(() => "?").join(",");
+    try {
+      const { results } = await env.DB.prepare(`SELECT k, v FROM mt_cache WHERE k IN (${ph})`)
+        .bind(...chunk)
+        .all<{ k: string; v: string }>();
+      for (const r of results) map.set(r.k, r.v);
+    } catch {
+      /* ignore — misses just get retranslated */
+    }
+  }
+  return map;
+}
+
+async function mtDbPut(env: Env, key: string, value: string): Promise<void> {
+  try {
+    await env.DB.prepare("INSERT INTO mt_cache (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v")
+      .bind(key, value)
+      .run();
+  } catch {
+    /* non-fatal: the memo still holds it for this isolate */
+  }
+}
+
+async function mtDbPutMany(env: Env, entries: { k: string; v: string }[]): Promise<void> {
+  if (!entries.length) return;
+  try {
+    await env.DB.batch(
+      entries.map((e) =>
+        env.DB.prepare("INSERT INTO mt_cache (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v").bind(
+          e.k,
+          e.v
+        )
+      )
+    );
+  } catch {
+    /* non-fatal */
+  }
+}
+
 /**
  * Cache-only translation: returns a previously-cached translation or null,
  * and NEVER calls the translation API. Use this on list pages that render
@@ -178,7 +236,7 @@ export async function translateCachedOnly(
   const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
   const mem = memGet(kvKey);
   if (mem !== undefined) return mem || null;
-  const cached = await safeKvGet(env, kvKey);
+  const cached = await mtDbGet(env, kvKey);
   if (cached !== null) memSet(kvKey, cached);
   return cached ? cached : null;
 }
@@ -195,7 +253,7 @@ export async function translateText(
   const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
   const mem = memGet(kvKey);
   if (mem !== undefined) return mem || null;
-  const cached = await safeKvGet(env, kvKey);
+  const cached = await mtDbGet(env, kvKey);
   if (cached !== null) {
     memSet(kvKey, cached);
     return cached || null;
@@ -212,13 +270,15 @@ export async function translateText(
       result = parts.some((p) => p === null) ? null : parts.join(" ");
     }
     if (!result) {
-      // Failure marker with a short TTL — retry soon rather than caching a miss for 90 days.
+      // Failure is transient now that Workers AI backs the chain — hold a
+      // short-lived miss in the isolate memo only, NEVER persist "" to D1
+      // (a stored failure marker is what used to freeze a page in Indonesian
+      // forever). The next request retries and almost always succeeds.
       memSet(kvKey, "");
-      await safeKvPut(env, kvKey, "", { expirationTtl: 60 * 60 * 6 });
       return null;
     }
     memSet(kvKey, result);
-    await safeKvPut(env, kvKey, result, { expirationTtl: KV_TTL });
+    await mtDbPut(env, kvKey, result);
     return result;
   } catch {
     return null;
@@ -304,23 +364,34 @@ export async function localizeBatch(
   const out: (string | null)[] = new Array(texts.length).fill(null);
   const misses: { idx: number; text: string; kvKey: string }[] = [];
 
-  await Promise.all(
-    texts.map(async (raw, idx) => {
-      const trimmed = raw?.trim();
-      if (!trimmed) return;
-      const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
-      const cached = memGet(kvKey) ?? (await safeKvGet(env, kvKey));
-      if (cached) {
-        memSet(kvKey, cached);
-        out[idx] = cached;
-      } else {
-        // Not cached OR a stale "" failure marker — retry it. Now that
-        // Workers AI backs the chain a translation almost always succeeds, so
-        // old Indonesian-fallback markers self-heal instead of sticking.
-        misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
-      }
-    })
-  );
+  // One batched D1 read for the whole list (chunked internally) instead of N
+  // parallel lookups — keeps a cold 100-item list well inside the per-request
+  // budget. Keys not in the memo are gathered and fetched together.
+  const keyByIdx = new Map<number, string>();
+  const needDbKeys: string[] = [];
+  texts.forEach((raw, idx) => {
+    const trimmed = raw?.trim();
+    if (!trimmed) return;
+    const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
+    keyByIdx.set(idx, kvKey);
+    const mem = memGet(kvKey);
+    if (mem) out[idx] = mem;
+    else if (mem === undefined) needDbKeys.push(kvKey);
+  });
+  const dbHits = await mtDbGetMany(env, needDbKeys);
+
+  texts.forEach((raw, idx) => {
+    const trimmed = raw?.trim();
+    if (!trimmed || out[idx]) return;
+    const kvKey = keyByIdx.get(idx)!;
+    const hit = dbHits.get(kvKey);
+    if (hit) {
+      memSet(kvKey, hit);
+      out[idx] = hit;
+    } else {
+      misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
+    }
+  });
 
   // Batch misses: ≤30 texts and ≤6000 chars per upstream call.
   const batches: (typeof misses)[] = [];
@@ -342,13 +413,15 @@ export async function localizeBatch(
     const translated = await googleTranslate(joined, sourceLang, targetLang);
     const parts = translated?.split("\n").map((s) => s.trim()) ?? [];
     if (parts.length === batch.length) {
-      await Promise.all(
-        batch.map((m, i) => {
-          out[m.idx] = parts[i] || m.text;
-          if (parts[i]) memSet(m.kvKey, parts[i]!);
-          return parts[i] ? safeKvPut(env, m.kvKey, parts[i]!, { expirationTtl: KV_TTL }) : Promise.resolve();
-        })
-      );
+      const writes: { k: string; v: string }[] = [];
+      batch.forEach((m, i) => {
+        out[m.idx] = parts[i] || m.text;
+        if (parts[i]) {
+          memSet(m.kvKey, parts[i]!);
+          writes.push({ k: m.kvKey, v: parts[i]! });
+        }
+      });
+      await mtDbPutMany(env, writes);
     } else {
       // Batch upstream failed (null) or the split mismatched — never
       // mis-assign. Translate each string on its own via the reliable chain
@@ -360,7 +433,7 @@ export async function localizeBatch(
           out[m.idx] = t || m.text;
           if (t) {
             memSet(m.kvKey, t);
-            await safeKvPut(env, m.kvKey, t, { expirationTtl: KV_TTL });
+            await mtDbPut(env, m.kvKey, t);
           }
         })
       );
