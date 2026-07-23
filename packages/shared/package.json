@@ -11,7 +11,8 @@
     "./crypto": "./src/crypto.ts",
     "./design-tokens": "./src/design-tokens.ts",
     "./providers": "./src/providers.ts",
-    "./i18n": "./src/i18n.ts"
+    "./i18n": "./src/i18n.ts",
+    "./cover-art": "./src/cover-art.ts"
   },
   "devDependencies": {
     "typescript": "^5.7.3"

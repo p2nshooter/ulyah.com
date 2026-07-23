@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import type { Context } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { coverSvg } from "@ulyah/shared/cover-art";
 import { translateText, translateCachedOnly, localizeBatch, localizeBatchProtected } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
@@ -271,6 +272,33 @@ contentRoute.get("/stories/:slug", async (c) => {
   }
 
   return c.json({ story, transcript, fallbackUsed, nextEpisode, lang: requestedLang });
+});
+
+// GET /content/og/cover.svg?slug=&t=&sub=&kicker=&rtl=1 — the per-work Open
+// Graph / share image. Each kitab and kisah gets a UNIQUE cover (same jewel
+// binding + tooled motif as its shelf card, from @ulyah/shared/cover-art) with
+// its own title foil-stamped on it — instead of every page sharing one generic
+// site logo (an AdSense/SEO thin-signal). The caller passes the already-
+// localized title/subtitle as query params, so the image matches the page's
+// language exactly and the route is a pure function of its URL → fully edge-
+// cacheable, no D1 read.
+contentRoute.get("/og/cover.svg", (c) => {
+  const slug = (c.req.query("slug") || "ulyah").slice(0, 120);
+  const title = (c.req.query("t") || "").slice(0, 160).trim();
+  const subtitle = (c.req.query("sub") || "").slice(0, 160).trim() || undefined;
+  const kicker = (c.req.query("kicker") || "").slice(0, 40).trim() || undefined;
+  const rtl = c.req.query("rtl") === "1";
+  if (!title) return c.json({ error: "missing title (t)" }, 400);
+
+  const svg = coverSvg(slug, { title, subtitle, kicker, rtl });
+  return new Response(svg, {
+    headers: {
+      "content-type": "image/svg+xml; charset=utf-8",
+      // Deterministic art — cache hard at the edge and in browsers.
+      "cache-control": "public, max-age=86400, s-maxage=604800, immutable",
+      "access-control-allow-origin": "*",
+    },
+  });
 });
 
 // GET /content/stories/:id/audio?download=1 — every article is an audiobook:

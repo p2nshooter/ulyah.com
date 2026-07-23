@@ -7,6 +7,7 @@ import { TENANT } from "@/lib/tenant";
 import { StoryReader } from "@/components/StoryReader";
 import { StoryDownloads } from "@/components/StoryDownloads";
 import { localePath } from "@/lib/paths";
+import { ogCoverUrl } from "@/lib/og";
 
 interface StoryDetail {
   id: number;
@@ -37,6 +38,11 @@ export async function generateMetadata({
   try {
     const data = await api.get<{ story: StoryDetail }>(`/content/stories/${slug}?lang=${storyLang}`);
     const description = metaDescription(data.story.body);
+    const cover = ogCoverUrl({
+      slug,
+      title: data.story.title,
+      subtitle: data.story.category_name ?? undefined,
+    });
     return {
       title: `${data.story.title}`,
       description,
@@ -48,7 +54,9 @@ export async function generateMetadata({
         publishedTime: data.story.published_at ?? undefined,
         url: `${TENANT.siteUrl}${localePath(locale, `/kisah/${slug}`)}`,
         siteName: TENANT.siteName,
+        images: [{ url: cover, width: 1200, height: 630, alt: data.story.title }],
       },
+      twitter: { card: "summary_large_image", title: data.story.title, description, images: [cover] },
     };
   } catch {
     return {};
