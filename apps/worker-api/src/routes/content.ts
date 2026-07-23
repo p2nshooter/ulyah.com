@@ -1068,11 +1068,16 @@ contentRoute.get("/kisah-tokoh/:slug", async (c) => {
     .all<{ section_order: number; heading_id: string; body_id: string; quran_refs: string | null }>();
   if (lang !== "id") {
     const paras = person.summary_id.split(/\n\s*\n/);
-    const texts = [person.title_id, ...paras, ...sections.flatMap((s) => [s.heading_id, s.body_id])];
+    // Localize the display name too — it carries the Indonesian word
+    // "Nabi"/"Sahabat" ("Nabi Idris"), so leaving it out showed Indonesian in
+    // the profile heading on siblings even when everything else translated.
+    const nm = typeof person.name_id === "string" ? (person.name_id as string) : null;
+    const texts = [nm, person.title_id, ...paras, ...sections.flatMap((s) => [s.heading_id, s.body_id])];
     const loc = await localizeBatch(c.env, texts, lang, "id");
-    person.title_id = loc[0] ?? person.title_id;
-    person.summary_id = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
-    const base = 1 + paras.length;
+    if (nm) person.name_id = loc[0] ?? person.name_id;
+    person.title_id = loc[1] ?? person.title_id;
+    person.summary_id = paras.map((p, i) => loc[i + 2] ?? p).join("\n\n");
+    const base = 2 + paras.length;
     sections.forEach((s, i) => {
       s.heading_id = loc[base + i * 2] ?? s.heading_id;
       s.body_id = loc[base + i * 2 + 1] ?? s.body_id;

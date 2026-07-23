@@ -46,11 +46,8 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
       >
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-2xl">🏫</span>
         <div className="min-w-0">
-          <p className="font-heading text-base">Kitab Pesantren — Perpustakaan Digital</p>
-          <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-            Kitab kuning tersusun rapi per bidang: teks Arab, terjemah &amp; penjelasan, bab per bab — bisa dibaca &amp;
-            didengarkan.
-          </p>
+          <p className="font-heading text-base">{t.bridgeTitle}</p>
+          <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">{t.bridgeDesc}</p>
         </div>
         <span className="ml-auto shrink-0 text-accent">→</span>
       </Link>
