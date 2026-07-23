@@ -2,6 +2,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
+import { coverFor } from "@/lib/book-cover";
 
 interface BookRow {
   id: number;
@@ -63,6 +64,7 @@ export default async function KitabCategoryPage({
 
   const pageSize = 24;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const cv = coverFor(slug); // this shelf's binding colour, shared by its works
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
@@ -95,32 +97,47 @@ export default async function KitabCategoryPage({
         />
       </form>
 
+      {/* Works on this shelf share the category's binding colour — a spine down
+          the left edge and a "listen" cue, so the list still reads like a row
+          of books from the same collection. */}
       <div className="mt-6 grid gap-3">
         {books.length === 0 && <p className="text-center text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>}
-        {books.map((b, i) => (
+        {books.map((b) => (
           <div key={b.id}>
-            <Link href={`/${locale}/kitab/${slug}/${b.id}`} className="card-premium block p-4">
-              {b.title_translated ? (
-                <>
-                  <p className="text-base font-medium leading-snug text-[var(--color-text-primary)]">
-                    {b.title_translated}
-                  </p>
-                  <p dir="rtl" className="font-arabic mt-0.5 text-sm text-[var(--color-text-secondary)]">
-                    {b.title_ar}
-                  </p>
-                </>
-              ) : (
-                <p dir="rtl" className="font-arabic text-lg leading-snug text-[var(--color-text-primary)]">
-                  {b.title_ar}
-                </p>
-              )}
-              {b.author && (
-                <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-                  {t.author}: {b.author}
-                  {b.author_death_year ? ` (${t.died} ${b.author_death_year})` : ""}
-                </p>
-              )}
-              {b.excerpt && <p dir="rtl" className="font-arabic mt-2 line-clamp-2 text-sm text-[var(--color-text-secondary)]">{b.excerpt}</p>}
+            <Link
+              href={`/${locale}/kitab/${slug}/${b.id}`}
+              className="card-premium relative block overflow-hidden p-4 pl-5 transition hover:-translate-y-0.5"
+            >
+              <span aria-hidden style={{ background: cv.cover }} className="absolute inset-y-0 left-0 w-1.5" />
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  {b.title_translated ? (
+                    <>
+                      <p className="text-base font-medium leading-snug text-[var(--color-text-primary)]">
+                        {b.title_translated}
+                      </p>
+                      <p dir="rtl" className="font-arabic mt-0.5 text-sm text-[var(--color-text-secondary)]">
+                        {b.title_ar}
+                      </p>
+                    </>
+                  ) : (
+                    <p dir="rtl" className="font-arabic text-lg leading-snug text-[var(--color-text-primary)]">
+                      {b.title_ar}
+                    </p>
+                  )}
+                  {b.author && (
+                    <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+                      {t.author}: {b.author}
+                      {b.author_death_year ? ` (${t.died} ${b.author_death_year})` : ""}
+                    </p>
+                  )}
+                  {b.excerpt && <p dir="rtl" className="font-arabic mt-2 line-clamp-2 text-sm text-[var(--color-text-secondary)]">{b.excerpt}</p>}
+                </div>
+                <span className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 text-[10px] text-accent">
+                  <span aria-hidden>🔊</span>
+                  {t.listen}
+                </span>
+              </div>
             </Link>
           </div>
         ))}
