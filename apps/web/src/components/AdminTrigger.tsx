@@ -166,14 +166,14 @@ export function AdminAuthModal({
         <div className="mb-4 flex justify-center">
           <Image
             src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-light.webp" : TENANT.logoIcon}
-            alt="Ulyah"
+            alt={TENANT.siteName}
             width={96}
             height={96}
             className="block h-16 w-16 rounded-full shadow-md dark:hidden"
           />
           <Image
             src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-dark.webp" : TENANT.logoIcon}
-            alt="Ulyah"
+            alt={TENANT.siteName}
             width={96}
             height={96}
             className="hidden h-16 w-16 rounded-full shadow-md dark:block"

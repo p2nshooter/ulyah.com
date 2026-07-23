@@ -5,6 +5,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { radioLabels } from "@/lib/radio-labels";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { localePath } from "@/lib/paths";
+import { TENANT } from "@/lib/tenant";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -50,8 +51,12 @@ export default async function RadioPage({
             whose app this is — this card carries that identity and invites
             them into the full ULYAH.COM experience. */}
         <div className="mt-8 overflow-hidden rounded-3xl bg-[#06251b] p-8 text-center text-[#f4efe3]">
-          <Image src="/brand/wordmark-ar-gold.png" alt="Ulyah" width={160} height={44} className="mx-auto h-9 w-auto" />
-          <p className="mt-3 text-xs uppercase tracking-[0.3em] text-accent">ulyah.com</p>
+          {TENANT.id === "ulyah" ? (
+            <Image src="/brand/wordmark-ar-gold.png" alt={TENANT.siteName} width={160} height={44} className="mx-auto h-9 w-auto" />
+          ) : (
+            <p className="font-heading text-2xl font-semibold text-accent">{TENANT.siteName}</p>
+          )}
+          <p className="mt-3 text-xs uppercase tracking-[0.3em] text-accent">{TENANT.siteUrl.replace(/^https?:\/\//, "")}</p>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#f4efe3]/80">{t.brandTagline}</p>
           <Link
             href={`/${locale}`}

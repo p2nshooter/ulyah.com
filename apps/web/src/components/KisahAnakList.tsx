@@ -94,6 +94,26 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
       sceneOf: (c, t) => `المشهد ${c} من ${t}`,
       moralTitle: "العبرة", readText: "📖 اقرأ نص القصة", hideText: "إخفاء النص",
     },
+    es: {
+      play: "Reproducir película", pause: "Pausa", replay: "Repetir",
+      sceneOf: (c, t) => `Escena ${c} de ${t}`,
+      moralTitle: "Lección", readText: "📖 Leer el texto del cuento", hideText: "Ocultar el texto",
+    },
+    ru: {
+      play: "Смотреть фильм", pause: "Пауза", replay: "Повтор",
+      sceneOf: (c, t) => `Сцена ${c} из ${t}`,
+      moralTitle: "Урок", readText: "📖 Читать текст истории", hideText: "Скрыть текст",
+    },
+    zh: {
+      play: "播放影片", pause: "暂停", replay: "重播",
+      sceneOf: (c, t) => `第 ${c} / ${t} 场`,
+      moralTitle: "寓意", readText: "📖 阅读故事文本", hideText: "隐藏文本",
+    },
+    ja: {
+      play: "映画を再生", pause: "一時停止", replay: "リプレイ",
+      sceneOf: (c, t) => `シーン ${c} / ${t}`,
+      moralTitle: "教訓", readText: "📖 物語のテキストを読む", hideText: "テキストを隠す",
+    },
   };
   const labels = LABELS[locale] ?? EN_LABELS;
 
