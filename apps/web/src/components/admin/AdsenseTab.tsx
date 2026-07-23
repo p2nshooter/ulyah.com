@@ -84,14 +84,17 @@ export function AdsenseTab() {
       .catch(() => {});
   }, []);
 
-  async function save(overrides?: { adsterra?: boolean }) {
+  // The one write path. Persists an EXPLICIT sites snapshot + adsterra value so
+  // an auto-save never races React's async state (using the closure `sites`
+  // right after setSites would post the STALE value). Every toggle calls this,
+  // so a change is saved the instant it's made — no "refresh reverts it".
+  async function persist(nextSites: Record<string, SiteState>, adsterraNext: boolean) {
     setBusy(true);
     const id = masterId.replace(/[^0-9]/g, "").slice(0, 20);
     const slots: Record<string, string> = {};
     for (const p of PLACEMENTS) slots[p] = id;
-    const adsterraNext = overrides?.adsterra ?? adsterra;
     try {
-      const next = await api.post<Config>("/admin/adsense-config", { slots, sites, adsterra: adsterraNext });
+      const next = await api.post<Config>("/admin/adsense-config", { slots, sites: nextSites, adsterra: adsterraNext });
       setConfig(next);
       setAdsterra(next.adsterra !== false);
       const s: Record<string, SiteState> = {};
@@ -104,28 +107,38 @@ export function AdsenseTab() {
     }
   }
 
+  // The explicit "Simpan" button (also saves the typed ad-unit id).
+  function save(overrides?: { adsterra?: boolean }) {
+    return persist(sites, overrides?.adsterra ?? adsterra);
+  }
+
+  // Each toggle computes the next snapshot, updates the UI, AND auto-saves it.
   function toggle(key: string) {
-    setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), enabled: !coerce(s[key]).enabled } }));
+    const next = { ...sites, [key]: { ...coerce(sites[key]), enabled: !coerce(sites[key]).enabled } };
+    setSites(next);
+    persist(next, adsterra);
   }
   function toggleApproved(key: string) {
-    setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), approved: !coerce(s[key]).approved } }));
+    const next = { ...sites, [key]: { ...coerce(sites[key]), approved: !coerce(sites[key]).approved } };
+    setSites(next);
+    persist(next, adsterra);
   }
   function toggleAdsterra(key: string) {
-    setSites((s) => ({ ...s, [key]: { ...coerce(s[key]), adsterra: !coerce(s[key]).adsterra } }));
+    const next = { ...sites, [key]: { ...coerce(sites[key]), adsterra: !coerce(sites[key]).adsterra } };
+    setSites(next);
+    persist(next, adsterra);
   }
   function setAll(field: "enabled" | "approved", v: boolean) {
-    setSites((s) => {
-      const n = { ...s };
-      for (const { key } of SITE_LABELS) n[key] = { ...coerce(n[key]), [field]: v };
-      return n;
-    });
+    const next = { ...sites };
+    for (const { key } of SITE_LABELS) next[key] = { ...coerce(next[key]), [field]: v };
+    setSites(next);
+    persist(next, adsterra);
   }
   function setAllAdsterra(v: boolean) {
-    setSites((s) => {
-      const n = { ...s };
-      for (const key of ADSTERRA_SITES) n[key] = { ...coerce(n[key]), adsterra: v };
-      return n;
-    });
+    const next = { ...sites };
+    for (const key of ADSTERRA_SITES) next[key] = { ...coerce(next[key]), adsterra: v };
+    setSites(next);
+    persist(next, adsterra);
   }
 
   if (!config) return <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>;
@@ -199,10 +212,10 @@ export function AdsenseTab() {
             </p>
           </div>
           <div className="flex flex-wrap gap-2 text-xs">
-            <button onClick={() => setAllAdsterra(true)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+            <button onClick={() => setAllAdsterra(true)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua ON
             </button>
-            <button onClick={() => setAllAdsterra(false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+            <button onClick={() => setAllAdsterra(false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua OFF
             </button>
           </div>
@@ -214,7 +227,8 @@ export function AdsenseTab() {
               <button
                 key={key}
                 onClick={() => toggleAdsterra(key)}
-                className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-left text-sm transition ${
+                disabled={busy}
+                className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-left text-sm transition disabled:opacity-60 ${
                   on ? "border-emerald-500/50 bg-emerald-500/10" : "border-rose-500/40 bg-rose-500/[0.06]"
                 }`}
               >
@@ -231,8 +245,8 @@ export function AdsenseTab() {
           })}
         </div>
         <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/70">
-          {adsterraOnCount} dari {ADSTERRA_SITES.length} situs menyalakan Adsterra. Perubahan berlaku ≤1 menit setelah
-          disimpan. Situs lain (AXTO, artikel) tidak memakai Adsterra.
+          {adsterraOnCount} dari {ADSTERRA_SITES.length} situs menyalakan Adsterra. Setiap perubahan{" "}
+          <b>otomatis tersimpan</b> dan berlaku ≤1 menit di situs. Situs lain (AXTO, artikel) tidak memakai Adsterra.
         </p>
       </section>
 
@@ -273,13 +287,13 @@ export function AdsenseTab() {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="font-heading text-base">2 · Aktif (tampil) & ACC (iklan asli) per Situs</p>
           <div className="flex flex-wrap gap-2 text-xs">
-            <button onClick={() => setAll("enabled", true)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+            <button onClick={() => setAll("enabled", true)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua ON
             </button>
-            <button onClick={() => setAll("enabled", false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+            <button onClick={() => setAll("enabled", false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua OFF
             </button>
-            <button onClick={() => setAll("approved", false)} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent">
+            <button onClick={() => setAll("approved", false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
               Hapus semua ACC
             </button>
           </div>
@@ -294,7 +308,7 @@ export function AdsenseTab() {
                   st.enabled ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
                 }`}
               >
-                <button onClick={() => toggle(key)} className="flex items-center gap-2 text-left">
+                <button onClick={() => toggle(key)} disabled={busy} className="flex items-center gap-2 text-left disabled:opacity-60">
                   <span>{groupIcon(group)} {label}</span>
                   <span className={st.enabled ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"}>
                     {st.enabled ? "ON" : "OFF"}
@@ -304,7 +318,7 @@ export function AdsenseTab() {
                   <input
                     type="checkbox"
                     checked={st.approved}
-                    disabled={!st.enabled}
+                    disabled={!st.enabled || busy}
                     onChange={() => toggleApproved(key)}
                     className="h-4 w-4 accent-[var(--color-accent)]"
                   />
@@ -324,7 +338,7 @@ export function AdsenseTab() {
         disabled={busy}
         className="rounded-lg bg-primary px-5 py-2.5 text-sm text-white disabled:opacity-60 dark:bg-accent dark:text-primary"
       >
-        {saved ? "Tersimpan ✓ — berlaku ≤1 menit di semua situs" : busy ? "Menyimpan…" : "Simpan & terapkan ke semua situs"}
+        {saved ? "Tersimpan ✓ — berlaku ≤1 menit di semua situs" : busy ? "Menyimpan…" : "Simpan ID unit iklan (sakelar ON/OFF sudah otomatis tersimpan)"}
       </button>
     </div>
   );
