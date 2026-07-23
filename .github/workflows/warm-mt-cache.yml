@@ -17,10 +17,24 @@ on:
         default: "en,fr,de,es"
   schedule:
     - cron: "45 2 * * *" # daily, just after the kitab translate job
+  # Run automatically after every successful deploy, so content added and
+  # imported by that deploy gets its sibling-language translations right away
+  # instead of waiting for the nightly run. The script skips strings already in
+  # the D1 mt_cache, so an unchanged corpus costs zero upstream calls — only
+  # genuinely new content is translated. (default branch is main, so this
+  # registers correctly.)
+  workflow_run:
+    workflows: ["Deploy to Cloudflare"]
+    types: [completed]
+    branches: [main]
 
 jobs:
   warm:
     runs-on: ubuntu-latest
+    # workflow_run fires on ANY completion — only warm after a SUCCESSFUL deploy
+    # (a failed/cancelled deploy didn't import new content worth warming). Manual
+    # dispatch and the nightly schedule always run.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

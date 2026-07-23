@@ -139,25 +139,51 @@ function collectStrings(): string[] {
 
 async function main() {
   const { langs, dry } = parseArgs();
+
+  // Ensure the cache table exists up front so the "already cached?" query below
+  // works even on the very first run (before migration 0046 has been applied).
+  if (!dry) {
+    wrangler([
+      "d1",
+      "execute",
+      "ulyah-db",
+      "--remote",
+      "--command=CREATE TABLE IF NOT EXISTS mt_cache (k TEXT PRIMARY KEY, v TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now')));",
+    ]);
+  }
+
   const strings = collectStrings();
   console.log(`Collected ${strings.length} distinct id strings to warm into [${langs.join(", ")}].`);
 
   let translated = 0;
   let failed = 0;
+  let cached = 0;
   const pairs: { key: string; value: string }[] = [];
 
   for (const lang of langs) {
     if (lang === "id") continue;
+    // Skip strings already translated in a previous run — this is what makes
+    // the post-deploy trigger cheap: an unchanged corpus costs ZERO upstream
+    // calls, and only genuinely new content (a kisah/story/amalan you just
+    // added) is sent to the translator. First run translates everything.
+    const already = dry
+      ? new Set<string>()
+      : new Set(d1Json<{ k: string }>(`SELECT k FROM mt_cache WHERE k LIKE 'mt:id-${lang}:%';`).map((r) => r.k));
     for (const text of strings) {
+      const key = `mt:id-${lang}:${hashKey(text)}`;
+      if (already.has(key)) {
+        cached++;
+        continue;
+      }
       const value = await gtx(text, lang);
       if (!value || value === text) {
         failed++;
         continue;
       }
-      pairs.push({ key: `mt:id-${lang}:${hashKey(text)}`, value });
+      pairs.push({ key, value });
       translated++;
     }
-    console.log(`  ${lang}: ${pairs.length} pairs staged so far`);
+    console.log(`  ${lang}: ${pairs.length} new staged (${cached} already cached)`);
   }
 
   console.log(`Translated ${translated}, failed/unchanged ${failed}, ${pairs.length} rows to write to D1.`);
@@ -170,16 +196,7 @@ async function main() {
   // KV. KV's free plan caps writes at 1,000/day — that cap silently dropped
   // EVERY translation and is exactly why the sibling sites stayed Indonesian
   // for days. D1 has no such daily write cap. INSERT ... ON CONFLICT keeps it
-  // idempotent; ~400 rows per `d1 execute --file` stays well under limits.
-  // Self-sufficient: ensure the table exists so this job doesn't depend on a
-  // deploy having run migration 0046 first.
-  wrangler([
-    "d1",
-    "execute",
-    "ulyah-db",
-    "--remote",
-    "--command=CREATE TABLE IF NOT EXISTS mt_cache (k TEXT PRIMARY KEY, v TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now')));",
-  ]);
+  // idempotent (the table was already ensured at the top of main()).
 
   const esc = (s: string) => s.replace(/'/g, "''");
   const dir = mkdtempSync(join(tmpdir(), "mtwarm-"));
