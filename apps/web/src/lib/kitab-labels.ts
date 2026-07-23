@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Localized UI strings for the Kitab library only. Kept out of the global
 // Dictionary type on purpose — the library is a self-contained surface and
 // this avoids threading ~10 new keys through all eight locale files. English
@@ -209,5 +210,5 @@ const ES: KitabLabels = {
 const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function kitabLabels(locale: string): KitabLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

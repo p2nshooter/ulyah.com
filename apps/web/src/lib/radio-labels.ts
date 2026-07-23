@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Radio Qori Dunia widget, same pattern as
 // hadits-labels.ts / kitab-labels.ts. English is the fallback for locales
 // not listed.
@@ -180,5 +181,5 @@ const ES: RadioLabels = {
 const MAP: Record<string, RadioLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function radioLabels(locale: string): RadioLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

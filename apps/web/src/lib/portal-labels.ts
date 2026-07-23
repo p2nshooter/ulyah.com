@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained donor-portal welcome copy, same pattern as thanks-labels.ts.
 // The short greeting is written to sound natural when spoken aloud by the
 // browser's voice engine on first entry — full sentences, no symbols.
@@ -70,5 +71,5 @@ const ES: PortalLabels = {
 const MAP: Record<string, PortalLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function portalLabels(locale: string): PortalLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

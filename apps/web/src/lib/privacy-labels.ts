@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained privacy policy content, same pattern as prayer-labels.ts —
 // a real legal document should not be run through on-demand machine
 // translation. Every sibling language (id/en/fr/de/es) is hand-written in
@@ -296,5 +297,5 @@ const ES: PrivacyLabels = {
 const MAP: Record<string, PrivacyLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function privacyLabels(locale: string): PrivacyLabels {
-  return rebrandDeep(MAP[locale] ?? EN);
+  return rebrandDeep(MAP[locale] ?? fillLabels(locale, EN));
 }

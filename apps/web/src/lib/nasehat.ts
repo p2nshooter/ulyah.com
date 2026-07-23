@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 /**
  * Short, general reminders for the prayer widget's scrolling ticker —
  * everyday wisdom/etiquette, not quoted Qur'an or hadith text (which would
@@ -122,5 +123,5 @@ const ES: string[] = [
 const MAP: Record<string, string[]> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function nasehatList(locale: string): string[] {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

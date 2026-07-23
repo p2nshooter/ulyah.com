@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 /**
  * Native listen/stop labels for the browser narration ("suara") buttons, so a
  * sibling site never shows an Indonesian "Dengarkan" on a French or German
@@ -18,5 +19,5 @@ const L: Record<string, NarrateLabels> = {
 };
 
 export function narrateLabels(locale: string): NarrateLabels {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }

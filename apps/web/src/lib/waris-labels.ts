@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Waris (Faraid) calculator, same pattern
 // as zakat-labels.ts. English is the fallback for locales not listed.
 
@@ -275,5 +276,5 @@ const ES: WarisLabels = {
 const MAP: Record<string, WarisLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function warisLabels(locale: string): WarisLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

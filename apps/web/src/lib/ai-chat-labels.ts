@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 /**
  * Localized strings for the AI advisor (AiChat + FloatingAiChat). Each sibling
  * site renders its OWN native language (owner rule: .fr full French, .de full
@@ -127,5 +128,5 @@ const L: Record<string, AiChatLabels> = {
 };
 
 export function aiChatLabels(locale: string): AiChatLabels {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }

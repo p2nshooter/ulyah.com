@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the public Sanad Hadits page, same pattern
 // as radio-labels.ts / hadits-labels.ts. Siblings render their own native
 // language (fr/de); English is the fallback, never Indonesian.
@@ -109,5 +110,5 @@ const ES: SanadLabels = {
 const MAP: Record<string, SanadLabels> = { en: EN, id: ID, fr: FR, de: DE, ar: AR, es: ES };
 
 export function sanadLabels(locale: string): SanadLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Amalan Harian (Daily Practices) page and
 // library — the chrome was hardcoded Indonesian and rendered Indonesian on
 // every locale, including the German/French sibling sites (owner: "daily
@@ -174,5 +175,5 @@ const ES: AmalanLabels = {
 const MAP: Record<string, AmalanLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR, es: ES };
 
 export function amalanLabels(locale: string): AmalanLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

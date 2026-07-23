@@ -15,7 +15,7 @@ export interface LocaleDef {
   fallbackTranslationLang?: string;
 }
 
-const ALL_LOCALES: LocaleDef[] = [
+export const ALL_LOCALES: LocaleDef[] = [
   { code: "id", label: "Bahasa Indonesia", dir: "ltr", hasQuranTranslation: true },
   { code: "en", label: "English", dir: "ltr", hasQuranTranslation: true },
   { code: "ru", label: "Русский", dir: "ltr", hasQuranTranslation: true },
@@ -60,6 +60,26 @@ export const LOCALE_SITE: Record<string, string> = {
   es: "https://dawa.es",
   fr: "https://1fr.fr",
 };
+
+// The hub that hosts Indonesian AND every language without its own domain
+// (ar/ru/zh/ja plus the India/Turkey/Persia/… set). Its default locale (id)
+// lives at bare URLs; the others live under a /<code> prefix.
+export const HUB_SITE = "https://ulyah.com";
+const HUB_DEFAULT = "id";
+
+/**
+ * Absolute canonical URL for a given language's copy of a route — the single
+ * source of truth shared by every domain's sitemap so the hreflang graph is
+ * consistent no matter which site emits it. A language with its own domain
+ * lives there at a bare URL; Indonesian lives bare on the hub; every other
+ * language lives on the hub under its /<code> prefix.
+ */
+export function localeCanonicalUrl(code: string, route = ""): string {
+  const domain = LOCALE_SITE[code];
+  if (domain) return `${domain}${route}`;
+  if (code === HUB_DEFAULT) return `${HUB_SITE}${route}`;
+  return `${HUB_SITE}/${code}${route}`;
+}
 
 // Tenant narrowing (see apps/web/src/lib/tenant.ts): each sibling site ships
 // ONLY its own native language — owner rule: "hanya menggunakan bahasa induk

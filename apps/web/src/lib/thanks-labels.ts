@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained acknowledgments content, same pattern as privacy-labels.ts —
 // Indonesian and English are hand-written in full; other locales fall back
 // to English.
@@ -230,5 +231,5 @@ const MAP: Record<string, ThanksLabels> = { en: EN, id: ID, fr: FR, de: DE, es: 
 import { rebrandDeep } from "./rebrand";
 
 export function thanksLabels(locale: string): ThanksLabels {
-  return rebrandDeep(MAP[locale] ?? EN);
+  return rebrandDeep(MAP[locale] ?? fillLabels(locale, EN));
 }

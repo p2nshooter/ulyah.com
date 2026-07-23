@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Mushaf Utsmani reader, same pattern as
 // radio-labels.ts / prayer-labels.ts. English is the fallback for locales
 // not listed below.
@@ -207,5 +208,5 @@ const ES: MushafLabels = {
 const MAP: Record<string, MushafLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function mushafLabels(locale: string): MushafLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

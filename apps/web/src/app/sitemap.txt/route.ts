@@ -1,4 +1,4 @@
-import { LOCALES, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../../scripts/content/kisah-musa";
@@ -40,7 +40,14 @@ export function GET() {
   // The default locale lives at BARE URLs (middleware rewrite) — the text
   // sitemap must list those, matching sitemap.xml.
   const prefix = (code: string) => (code === DEFAULT_LOCALE ? "" : `/${code}`);
-  for (const l of LOCALES) {
+  // Only the languages THIS domain actually hosts (ulyah.com = id + the ~23
+  // domainless languages; a sibling = its single language). The four languages
+  // that own a domain live there, not under ulyah.com/<code>, so listing them
+  // here would advertise duplicate content of the sibling sites.
+  const OWN_LOCALES = LOCALES.filter(
+    (l) => !LOCALE_SITE[l.code] || LOCALE_SITE[l.code] === TENANT.siteUrl
+  );
+  for (const l of OWN_LOCALES) {
     const p = prefix(l.code);
     for (const r of ROUTES) lines.push(`${BASE}${p}${r}` || BASE);
     for (const slug of HADITS_COLLECTIONS) lines.push(`${BASE}${p}/hadits/${slug}`);

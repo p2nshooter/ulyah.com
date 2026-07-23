@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Imsakiyah Ramadhan calendar, same
 // pattern as zakat-labels.ts / waris-labels.ts. English is the fallback.
 
@@ -81,5 +82,5 @@ const ES: ImsakiyahLabels = {
 const MAP: Record<string, ImsakiyahLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function imsakiyahLabels(locale: string): ImsakiyahLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Qibla compass, same pattern as
 // contact-labels.ts / zakat-labels.ts. English is the fallback for locales
 // not listed.
@@ -136,5 +137,5 @@ const ES: QiblaLabels = {
 const MAP: Record<string, QiblaLabels> = { en: EN, id: ID, ar: AR, de: DE, fr: FR, es: ES };
 
 export function qiblaLabels(locale: string): QiblaLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

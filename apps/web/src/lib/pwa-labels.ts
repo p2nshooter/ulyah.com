@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the header's install-app button, same
 // pattern as radio-labels.ts. English is the fallback for locales not listed.
 
@@ -109,5 +110,5 @@ const ES: PwaLabels = {
 const MAP: Record<string, PwaLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function pwaLabels(locale: string): PwaLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

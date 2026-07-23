@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LOCALES, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, ALL_LOCALES, localeCanonicalUrl, HUB_SITE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
@@ -27,31 +27,35 @@ function urlFor(localeCode: string, route: string): string {
   return localeCode === DEFAULT_LOCALE ? `${BASE}${route}` : `${BASE}/${localeCode}${route}`;
 }
 
-// Cross-DOMAIN hreflang (owner: Update Global Seluruh Portal §3): the same
-// route exists on all four sites, each in its own language, so every sitemap
-// URL declares its translations on the sibling domains — id → ulyah.com,
-// fr → 1fr.fr, de → tilawa.de, es → dawa.es — each at its bare native URL.
+// Full hreflang graph for a route (owner: "link sitemap mengikuti bahasa, jangan
+// bahasa Indonesia semua"). Every one of the 28 ecosystem languages declares
+// where its copy of the route lives: the four with their own domain point there
+// (en → xad.es, fr → 1fr.fr, de → tilawa.de, es → dawa.es), Indonesian is bare
+// on the hub, and every other language (ar/ru/zh/ja + the India/Turkey/Persia/…
+// set) is the hub under its /<code> prefix — via the shared localeCanonicalUrl,
+// so all five sitemaps stay consistent.
 function crossDomainLanguages(route: string): Record<string, string> {
-  return {
-    id: `https://ulyah.com${route}`,
-    en: `https://xad.es${route}`,
-    fr: `https://1fr.fr${route}`,
-    de: `https://tilawa.de${route}`,
-    es: `https://dawa.es${route}`,
-    "x-default": `https://ulyah.com${route}`,
-  };
+  const langs: Record<string, string> = {};
+  for (const l of ALL_LOCALES) langs[l.code] = localeCanonicalUrl(l.code, route);
+  langs["x-default"] = `${HUB_SITE}${route}`;
+  return langs;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
-  // One language per DOMAIN: each site's sitemap lists ONLY its own default
-  // language at bare URLs (ulyah.com=id, xad.es=en, 1fr.fr=fr, tilawa.de=de,
-  // dawa.es=es); the other languages live on their sibling domains and are
-  // referenced via the cross-domain hreflang alternates below. Listing every
-  // LOCALES prefix here (e.g. ulyah.com/en/*) would duplicate the sibling
-  // domains' content and trip AdSense/Search Console duplicate checks
-  // (owner: "hati-hati sitemap, jangan sampai duplikat").
-  const OWN_LOCALES = LOCALES.filter((l) => l.code === DEFAULT_LOCALE);
+  // Every language this DOMAIN actually hosts gets its own URLs — on ulyah.com
+  // that's Indonesian (bare) plus the ~23 languages served in place under a
+  // /<code> prefix (Arabic, Russian, Chinese, Japanese, Urdu, Hindi, Turkish,
+  // …), so the sitemap "follows the language" instead of listing Indonesian
+  // only. The four languages with their OWN domain (en/de/es/fr) are NOT listed
+  // here — they live on the sibling sites and are referenced via the
+  // cross-domain hreflang alternates, so we never duplicate their content
+  // (owner: "hati-hati sitemap, jangan sampai duplikat"). On a sibling tenant
+  // LOCALES is already just that one language, and it is hosted there, so this
+  // filter keeps it.
+  const OWN_LOCALES = LOCALES.filter(
+    (l) => !LOCALE_SITE[l.code] || LOCALE_SITE[l.code] === TENANT.siteUrl
+  );
   for (const l of OWN_LOCALES) {
     for (const r of ROUTES) {
       entries.push({

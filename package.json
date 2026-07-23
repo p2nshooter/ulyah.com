@@ -18,7 +18,8 @@
     "db:migrate:local": "pnpm --filter @ulyah/worker-api exec wrangler d1 migrations apply ulyah-db --local",
     "db:migrate:remote": "pnpm --filter @ulyah/worker-api exec wrangler d1 migrations apply ulyah-db --remote",
     "deploy:web": "pnpm --filter @ulyah/web deploy:cf",
-    "deploy:api": "pnpm --filter @ulyah/worker-api deploy"
+    "deploy:api": "pnpm --filter @ulyah/worker-api deploy",
+    "gen:ui-i18n": "tsx scripts/generate-ui-i18n.ts"
   },
   "devDependencies": {
     "@types/pdfkit": "^0.13.9",

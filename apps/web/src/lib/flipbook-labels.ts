@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Quran Flipbook widget, same pattern as
 // radio-labels.ts. English is the fallback for locales not listed.
 
@@ -81,5 +82,5 @@ const ES: FlipbookLabels = {
 const MAP: Record<string, FlipbookLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function flipbookLabels(locale: string): FlipbookLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

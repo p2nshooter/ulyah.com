@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained contact-page content, same pattern as thanks-labels.ts —
 // Indonesian and English hand-written in full; other locales fall back to
 // English.
@@ -81,5 +82,5 @@ const ES: ContactLabels = {
 const MAP: Record<string, ContactLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function contactLabels(locale: string): ContactLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

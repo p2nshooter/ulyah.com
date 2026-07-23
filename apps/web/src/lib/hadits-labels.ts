@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Kitab Hadits reader, same pattern as
 // kitab-labels.ts — keeps a focused surface from threading ~12 keys through
 // every locale dictionary. English is the fallback for any locale not listed.
@@ -171,5 +172,5 @@ const ES: HaditsLabels = {
 const MAP: Record<string, HaditsLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function haditsLabels(locale: string): HaditsLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

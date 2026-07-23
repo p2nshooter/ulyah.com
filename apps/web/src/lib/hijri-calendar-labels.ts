@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Hijri calendar page, same pattern as
 // contact-labels.ts / zakat-labels.ts / qibla-labels.ts. English is the
 // fallback for locales not listed.
@@ -80,5 +81,5 @@ const ES: HijriCalendarLabels = {
 const MAP: Record<string, HijriCalendarLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function hijriCalendarLabels(locale: string): HijriCalendarLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

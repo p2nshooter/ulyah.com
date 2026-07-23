@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Zakat calculator, same pattern as
 // contact-labels.ts. English is the fallback for locales not listed.
 
@@ -139,5 +140,5 @@ const ES: ZakatLabels = {
 const MAP: Record<string, ZakatLabels> = { en: EN, id: ID, fr: FR, de: DE, es: ES };
 
 export function zakatLabels(locale: string): ZakatLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }

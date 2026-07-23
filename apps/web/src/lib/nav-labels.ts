@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 import { TENANT } from "./tenant";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
@@ -398,7 +399,7 @@ export function applyPageOverrides(
 }
 
 export function navLabels(locale: string): NavLabels {
-  const base = MAP[locale] ?? EN;
+  const base = MAP[locale] ?? fillLabels(locale, EN);
   if (!TENANT.features.forSale && !TENANT.features.donationForward) return base;
   // 1fr.fr: donation is promoted into the top-level nav ("terang-terangan")
   // and the acquisition page is openly linked. Labels per language.

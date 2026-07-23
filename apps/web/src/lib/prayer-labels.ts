@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Self-contained UI strings for the Jadwal Sholat widget, same pattern as
 // radio-labels.ts. English is the fallback for locales not listed.
 
@@ -206,5 +207,5 @@ const ES: PrayerLabels = {
 const MAP: Record<string, PrayerLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
 
 export function prayerLabels(locale: string): PrayerLabels {
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }
