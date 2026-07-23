@@ -113,46 +113,89 @@ async function gtxBatch(texts: string[], tl: string, sl: string): Promise<(strin
   return res;
 }
 
-/** Gather the distinct id-source strings the sibling sites render as taxonomy. */
+// Tables that must NOT be auto-scanned for Indonesian text: the Qur'an and
+// tafsir already carry proper per-language rows (machine-translating scripture
+// is both wrong and wasteful), and system/analytics/auth tables hold no
+// visitor-facing prose. hadits is handled by the dedicated Arabic-source phase.
+// Everything else is fair game, so a NEW content table added later is picked up
+// automatically with no edit to this script.
+const TABLE_DENY = new Set([
+  "translation", "tafsir", "asbabun_nuzul", "ayah", "surah", "hadits", "hadith_collections",
+  "qori", "voice_persona", "license_sources", "mt_cache", "pes_i18n", "pes_i18n_meta",
+  "generation_jobs", "scaling_metrics", "audio_transcript_sync", "ayah_hadits_map",
+  "site_media", "app_installs", "ad_events", "ad_config", "donors", "certificates",
+  "grants", "admin_audit_log", "d1_migrations",
+]);
+const TABLE_DENY_RE = /^(sqlite_|_cf_|d1_|analytics_|admin_|session|auth_|live_|device_|pageview|site_pageviews|world_|channel|video_)/i;
+
+// A TEXT column is visitor-facing content if it ends in the project's language
+// suffix (_id = Indonesian, our authoring language) or is a well-known bare
+// content column. Foreign-key "_id" columns are INTEGER, so the TEXT filter
+// already excludes them. These names are never content even when TEXT.
+const BARE_CONTENT = new Set([
+  "name", "title", "body", "summary", "description", "desc", "translation", "note", "moral",
+  "matn", "caption", "subtitle", "excerpt", "content", "question", "answer", "headline", "tagline",
+  "label", "intro", "outro", "verse", "meaning", "wisdom", "lesson",
+]);
+const COL_DENY = new Set([
+  "slug", "source", "grade", "motif", "age_range", "status", "gender", "tts_engine", "provider",
+  "kind", "type", "category_slug", "full_story_slug", "series_key", "collection", "icon", "color",
+  "narrator", "author", "email", "url", "path", "lang", "code", "key", "hash", "token",
+]);
+
+/**
+ * Schema-driven collector: every distinct Indonesian string across every
+ * content table, discovered from the DB schema — so any new menu/feature whose
+ * table follows the project's naming convention (`*_id` / name / title / body …)
+ * is translated automatically, with no per-type edit here ("jangan dipisah-pisah
+ * … apapun yang masuk langsung ditranslate"). Arabic-source hadith is warmed by
+ * the dedicated phase in main(); English-source strings are handled on demand.
+ */
 function collectStrings(): string[] {
   const set = new Set<string>();
-  const add = (s: unknown) => {
-    const t = typeof s === "string" ? s.trim() : "";
-    if (t) set.add(t);
-  };
-  for (const r of d1Json<{ name: string }>("SELECT name FROM categories;")) add(r.name);
-  // Kisah person index: name + honorific (list) AND the full profile summary
-  // (detail page body) — the summary was the long Indonesian block still shown
-  // on dawa.es/kisah/tokoh even after the taxonomy was warmed.
-  for (const r of d1Json<{ name_id: string; title_id: string | null; summary_id: string | null }>(
-    "SELECT name_id, title_id, summary_id FROM kisah_person;"
-  )) {
-    add(r.name_id);
-    add(r.title_id);
-    add(r.summary_id);
-  }
-  // Story titles AND bodies (audiobook articles + kisah episodes) — authored id.
-  for (const r of d1Json<{ title: string; body: string }>(
-    "SELECT DISTINCT title, body FROM stories WHERE lang = 'id' AND status = 'published';"
-  )) {
-    add(r.title);
-    add(r.body);
-  }
-  // Children's stories: title + body + moral.
-  for (const r of d1Json<{ title_id: string; body_id: string | null; moral_id: string | null }>(
-    "SELECT title_id, body_id, moral_id FROM kisah_anak;"
-  )) {
-    add(r.title_id);
-    add(r.body_id);
-    add(r.moral_id);
-  }
-  // Amalan harian: title + translation + note (all id-source).
-  for (const r of d1Json<{ title_id: string; translation_id: string | null; note_id: string | null }>(
-    "SELECT title_id, translation_id, note_id FROM amalan_item;"
-  )) {
-    add(r.title_id);
-    add(r.translation_id);
-    add(r.note_id);
+  const tables = d1Json<{ name: string }>(
+    "SELECT name FROM sqlite_master WHERE type='table';"
+  ).map((r) => r.name);
+
+  for (const table of tables) {
+    if (TABLE_DENY.has(table) || TABLE_DENY_RE.test(table)) continue;
+    const allCols = d1Json<{ name: string; type: string }>(`PRAGMA table_info("${table}");`);
+    const hasLang = allCols.some((c) => c.name.toLowerCase() === "lang");
+    const cols = allCols
+      .filter((c) => {
+        const isText = /char|clob|text/i.test(c.type) || c.type === "";
+        if (!isText) return false;
+        const nm = c.name.toLowerCase();
+        if (COL_DENY.has(nm)) return false;
+        return nm.endsWith("_id") || BARE_CONTENT.has(nm);
+      })
+      .map((c) => c.name);
+    if (!cols.length) continue;
+
+    // If the table carries a per-row `lang`, only the Indonesian rows are
+    // id-source (e.g. `stories` also holds en episodes) — translating an
+    // English body as if it were Indonesian would just cache noise.
+    const where = hasLang ? " WHERE lang = 'id'" : "";
+    const colList = cols.map((c) => `"${c}"`).join(",");
+    for (let off = 0; ; off += 2000) {
+      let rows: Record<string, unknown>[];
+      try {
+        rows = d1Json<Record<string, unknown>>(`SELECT ${colList} FROM "${table}"${where} LIMIT 2000 OFFSET ${off};`);
+      } catch {
+        break; // table vanished / unreadable — skip rather than fail the whole run
+      }
+      if (rows.length === 0) break;
+      for (const row of rows) {
+        for (const c of cols) {
+          const v = row[c];
+          if (typeof v === "string") {
+            const t = v.trim();
+            if (t.length > 1) set.add(t);
+          }
+        }
+      }
+      if (rows.length < 2000) break;
+    }
   }
   return [...set];
 }
@@ -184,26 +227,47 @@ async function main() {
     if (lang === "id") continue;
     // Skip strings already translated in a previous run — this is what makes
     // the post-deploy trigger cheap: an unchanged corpus costs ZERO upstream
-    // calls, and only genuinely new content (a kisah/story/amalan you just
-    // added) is sent to the translator. First run translates everything.
-    const already = dry
-      ? new Set<string>()
-      : new Set(d1Json<{ k: string }>(`SELECT k FROM mt_cache WHERE k LIKE 'mt:id-${lang}:%';`).map((r) => r.k));
-    for (const text of strings) {
-      const key = `mt:id-${lang}:${hashKey(text)}`;
-      if (already.has(key)) {
-        cached++;
-        continue;
+    // calls, and only genuinely new content is sent to the translator. Loaded
+    // paginated because the generic collector can gather a large corpus.
+    const already = new Set<string>();
+    if (!dry) {
+      for (let ko = 0; ; ko += 10000) {
+        const kr = d1Json<{ k: string }>(
+          `SELECT k FROM mt_cache WHERE k LIKE 'mt:id-${lang}:%' ORDER BY k LIMIT 10000 OFFSET ${ko};`
+        );
+        for (const r of kr) already.add(r.k);
+        if (kr.length < 10000) break;
       }
-      const value = await gtx(text, lang);
-      if (!value || value === text) {
-        failed++;
-        continue;
-      }
-      pairs.push({ key, value });
-      translated++;
     }
-    console.log(`  ${lang}: ${pairs.length} new staged (${cached} already cached)`);
+    const todo = strings.filter((t) => {
+      if (already.has(`mt:id-${lang}:${hashKey(t)}`)) {
+        cached++;
+        return false;
+      }
+      return true;
+    });
+    // Batched (gtxBatch), byte-budgeted (~4KB source per call) — a big corpus
+    // is a few thousand calls, not one-per-string.
+    for (let i = 0; i < todo.length; ) {
+      const batch: string[] = [];
+      let bytes = 0;
+      while (i < todo.length && batch.length < 40 && bytes < 4000) {
+        batch.push(todo[i]!);
+        bytes += todo[i]!.length + 1;
+        i++;
+      }
+      const outs = await gtxBatch(batch, lang, "id");
+      batch.forEach((src, k) => {
+        const v = outs[k];
+        if (v && v !== src) {
+          pairs.push({ key: `mt:id-${lang}:${hashKey(src)}`, value: v });
+          translated++;
+        } else {
+          failed++;
+        }
+      });
+    }
+    console.log(`  id→${lang}: ${pairs.length} new staged (${cached} already cached)`);
   }
 
   // ── Hadith (Arabic-source) ──────────────────────────────────────────────

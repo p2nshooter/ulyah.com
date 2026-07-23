@@ -28,6 +28,13 @@ on:
     types: [completed]
     branches: [main]
 
+# Never let two warms run at once (a deploy trigger firing while a manual/
+# nightly run is still translating). Queue the newcomer instead of cancelling
+# the in-progress one, so a long first warm always finishes.
+concurrency:
+  group: warm-mt-cache
+  cancel-in-progress: false
+
 jobs:
   warm:
     runs-on: ubuntu-latest
