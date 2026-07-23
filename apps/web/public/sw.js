@@ -9,7 +9,14 @@
 // Bump CACHE on every deploy that changes a fixed-path cached asset's content
 // (icons, wordmark PNGs) — those paths never change name, so activate() must
 // throw the old cache away.
-const CACHE = "ulyah-shell-v13"; // v13: kitab book-cover gallery + background-audio presence
+//
+// v14: previous versions stranded returning users on STALE assets — the shell
+// + /_next/static chunks were cache-first and the version had not moved across
+// many deploys, so the header logo kept its old CSS and pages whose chunks a
+// newer build had replaced rendered blank (the Mushaf "disappeared"). Bumping
+// here purges every old cache on activate; SwRegister auto-reloads once when
+// this new worker takes control, so the fresh build shows immediately.
+const CACHE = "ulyah-shell-v14";
 const SHELL = "/"; // the app's start_url (canonical bare path)
 const NAV_TIMEOUT = 3500; // ms before we serve the cached shell instead of waiting
 
