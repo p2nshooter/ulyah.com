@@ -109,10 +109,12 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           </AdminTrigger>
           <WorldCup2026 />
           {/* Forever-turning open book showing all 114 surah in turn, beside
-              the brand. Shown from tablet up only — on phones it crowded the
-              header and painted over the Arabic wordmark (owner: "ke tutup"),
-              so the phone header stays brand + wordmark + controls. */}
-          <SurahFlipbook className="hidden tablet:flex" />
+              the brand (hidden only on the very tiniest screens). On ulyah.com
+              it renders a size smaller so it sits next to the Arabic wordmark
+              without crowding it (owner: "kecilin aja bukunya buat ulyah.com,
+              yg lain g usah ikut"); the wordmark's natural width already keeps
+              it from being covered. */}
+          <SurahFlipbook className="hidden min-[380px]:flex" />
         </div>
 
         {/* Desktop: grouped dropdowns */}

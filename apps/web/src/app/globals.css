@@ -401,6 +401,22 @@ body {
   overflow: hidden;
   perspective: 520px;
 }
+/* ulyah.com only: a size smaller so the book sits comfortably next to the
+   Arabic wordmark on the header (owner: "kecilin aja bukunya buat ulyah.com").
+   The sibling sites (1fr.fr, tilawa.de) keep the original size above. */
+.sf-book.sf-sm {
+  width: clamp(62px, 17vw, 100px);
+  height: clamp(46px, 12vw, 64px);
+}
+.sf-book.sf-sm .sf-ar {
+  font-size: clamp(0.66rem, 2.5vw, 0.9rem);
+}
+.sf-book.sf-sm .sf-latin {
+  font-size: clamp(0.42rem, 1.6vw, 0.56rem);
+}
+.sf-book.sf-sm .sf-leaf {
+  padding: 7px 4px 3px;
+}
 /* the spine down the middle of the open book */
 .sf-book::before {
   content: "";

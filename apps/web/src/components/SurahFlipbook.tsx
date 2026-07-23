@@ -49,8 +49,12 @@ export function SurahFlipbook({ className = "" }: { className?: string }) {
   const ar = cur?.ar ?? "";
   const latin = cur?.latin ?? `Surah ${num}`;
 
+  // ulyah.com wants the book a size smaller so it never crowds the Arabic
+  // wordmark; the sibling sites keep the original size ("yg lain g usah ikut").
+  const sizeClass = TENANT.id === "ulyah" ? "sf-sm" : "";
+
   return (
-    <span className={`sf-book ${className}`} role="img" aria-label={`Al-Qur'an — surah ${num} ${latin}`} title="Al-Qur'an · 114 surah">
+    <span className={`sf-book ${sizeClass} ${className}`} role="img" aria-label={`Al-Qur'an — surah ${num} ${latin}`} title="Al-Qur'an · 114 surah">
       {/* key={i} remounts the leaf so the page-turn animation replays each time */}
       <span className="sf-leaf" key={i}>
         <span className="sf-ar font-arabic">{ar}</span>
