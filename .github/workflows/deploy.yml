@@ -622,6 +622,21 @@ jobs:
             echo "Kisah Ilyasa already has $ILSCOUNT rows — skipping."
           fi
 
+      - name: Import Kisah Nabi Yunus AS series (idempotent)
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -eu
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM stories WHERE series_key = 'kisah-yunus';" --json > /tmp/kisah_yunus_count.json
+          YNSCOUNT=$(node -e "const j=require('/tmp/kisah_yunus_count.json'); console.log(j[0].results[0].n)")
+          # 5 episodes x 2 languages = 10. INSERT OR IGNORE → safe to re-apply.
+          if [ "$YNSCOUNT" -lt "10" ]; then
+            echo "Kisah Yunus has $YNSCOUNT/10 rows — importing (idempotent)."
+            npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/kisah_yunus.sql
+          else
+            echo "Kisah Yunus already has $YNSCOUNT rows — skipping."
+          fi
+
       - name: Import Kisah Wali Songo series (idempotent)
         continue-on-error: true
         working-directory: apps/worker-api
