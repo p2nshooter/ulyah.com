@@ -82,8 +82,46 @@ async function mymemoryTranslate(text: string, sourceLang: string, targetLang: s
   }
 }
 
-async function translateChunk(text: string, sourceLang: string, targetLang: string): Promise<string | null> {
-  return (await googleTranslate(text, sourceLang, targetLang)) ?? (await mymemoryTranslate(text, sourceLang, targetLang));
+// Cloudflare Workers AI translation (Meta M2M100). Runs on Cloudflare's own
+// infrastructure — no external fetch — so unlike the free Google/MyMemory
+// endpoints it is never rate-limited or IP-blocked from the Worker's egress.
+// That was the real cause of siblings "still showing a lot of Indonesian":
+// the free endpoints intermittently refuse the Worker, MT returns null, and
+// localizeBatch falls back to the Indonesian source. This model is the
+// reliable last line so a translation almost always exists.
+const M2M_LANG: Record<string, string> = {
+  id: "indonesian", en: "english", fr: "french", de: "german", es: "spanish",
+  ar: "arabic", ru: "russian", zh: "chinese", ja: "japanese", nl: "dutch",
+  tr: "turkish", ur: "urdu", bn: "bengali", sv: "swedish",
+};
+async function cfAiTranslate(
+  env: Env,
+  text: string,
+  sourceLang: string,
+  targetLang: string
+): Promise<string | null> {
+  const sl = M2M_LANG[sourceLang];
+  const tl = M2M_LANG[targetLang];
+  if (!sl || !tl) return null; // model can't do this pair — leave to others
+  try {
+    const r = (await env.AI.run("@cf/meta/m2m100-1.2b", {
+      text,
+      source_lang: sl,
+      target_lang: tl,
+    })) as { translated_text?: string } | null;
+    const out = r?.translated_text?.trim();
+    return out ? out : null;
+  } catch {
+    return null;
+  }
+}
+
+async function translateChunk(env: Env, text: string, sourceLang: string, targetLang: string): Promise<string | null> {
+  return (
+    (await googleTranslate(text, sourceLang, targetLang)) ??
+    (await mymemoryTranslate(text, sourceLang, targetLang)) ??
+    (await cfAiTranslate(env, text, sourceLang, targetLang))
+  );
 }
 
 /**
@@ -167,9 +205,10 @@ export async function translateText(
     // Google handles the whole passage in one request — try that first.
     let result = await googleTranslate(trimmed, sourceLang, targetLang);
     if (!result) {
-      // Fall back to chunked translation (Google per-chunk, then MyMemory).
+      // Fall back to chunked translation (Google per-chunk, MyMemory, then
+      // Cloudflare Workers AI — the reliable last line).
       const chunks = chunkText(trimmed, 450);
-      const parts = await Promise.all(chunks.map((chunk) => translateChunk(chunk, sourceLang, targetLang)));
+      const parts = await Promise.all(chunks.map((chunk) => translateChunk(env, chunk, sourceLang, targetLang)));
       result = parts.some((p) => p === null) ? null : parts.join(" ");
     }
     if (!result) {
@@ -271,10 +310,15 @@ export async function localizeBatch(
       if (!trimmed) return;
       const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
       const cached = memGet(kvKey) ?? (await safeKvGet(env, kvKey));
-      if (cached !== null && cached !== undefined) memSet(kvKey, cached);
-      if (cached) out[idx] = cached;
-      else if (cached === "") out[idx] = trimmed; // known-failed recently — serve source
-      else misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
+      if (cached) {
+        memSet(kvKey, cached);
+        out[idx] = cached;
+      } else {
+        // Not cached OR a stale "" failure marker — retry it. Now that
+        // Workers AI backs the chain a translation almost always succeeds, so
+        // old Indonesian-fallback markers self-heal instead of sticking.
+        misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
+      }
     })
   );
 
@@ -306,8 +350,20 @@ export async function localizeBatch(
         })
       );
     } else {
-      // Segment-count mismatch — never mis-assign; serve source text.
-      for (const m of batch) out[m.idx] = m.text;
+      // Batch upstream failed (null) or the split mismatched — never
+      // mis-assign. Translate each string on its own via the reliable chain
+      // (Google → MyMemory → Workers AI) and cache successes; anything that
+      // still fails serves source and is retried on the next load.
+      await Promise.all(
+        batch.map(async (m) => {
+          const t = await translateChunk(env, m.text, sourceLang, targetLang);
+          out[m.idx] = t || m.text;
+          if (t) {
+            memSet(m.kvKey, t);
+            await safeKvPut(env, m.kvKey, t, { expirationTtl: KV_TTL });
+          }
+        })
+      );
     }
   }
 

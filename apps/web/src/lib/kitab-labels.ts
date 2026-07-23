@@ -28,6 +28,8 @@ export interface KitabLabels {
   note: string;
   arabicOnlyNote: string;
   translationLabel: string;
+  bridgeTitle: string;
+  bridgeDesc: string;
 }
 
 const EN: KitabLabels = {
@@ -55,6 +57,8 @@ const EN: KitabLabels = {
   note: "Catalogue and summaries only, for study and reference.",
   arabicOnlyNote: "This work's description is in Arabic, the original classical source language — read aloud with an Arabic voice below.",
   translationLabel: "Translation",
+  bridgeTitle: "Pesantren Books — Digital Library",
+  bridgeDesc: "Classical books, neatly arranged by field: Arabic text, translation & explanation, chapter by chapter — read and listened to.",
 };
 
 const ID: KitabLabels = {
@@ -82,6 +86,8 @@ const ID: KitabLabels = {
   note: "Hanya katalog dan ringkasan, untuk studi dan rujukan.",
   arabicOnlyNote: "Ringkasan kitab ini berbahasa Arab, bahasa sumber aslinya — bisa didengarkan dengan suara Arab di bawah ini.",
   translationLabel: "Terjemahan",
+  bridgeTitle: "Kitab Pesantren — Perpustakaan Digital",
+  bridgeDesc: "Kitab kuning tersusun rapi per bidang: teks Arab, terjemah & penjelasan, bab per bab — bisa dibaca & didengarkan.",
 };
 
 const AR: KitabLabels = {
@@ -109,6 +115,8 @@ const AR: KitabLabels = {
   note: "فهرس وتعريفات فقط، للدراسة والمراجعة.",
   arabicOnlyNote: "",
   translationLabel: "",
+  bridgeTitle: "كتب المعاهد — مكتبة رقمية",
+  bridgeDesc: "كتب كلاسيكية مرتبة حسب المجال: النص العربي والترجمة والشرح، بابًا بابًا — تُقرأ وتُستمع.",
 };
 
 const FR: KitabLabels = {
@@ -136,6 +144,8 @@ const FR: KitabLabels = {
   note: "Catalogue et résumés uniquement, pour l'étude et la référence.",
   arabicOnlyNote: "La description de cet ouvrage est en arabe, la langue classique d'origine — lue à voix haute avec une voix arabe ci-dessous.",
   translationLabel: "Traduction",
+  bridgeTitle: "Livres de pesantren — Bibliothèque numérique",
+  bridgeDesc: "Livres classiques, classés par domaine : texte arabe, traduction et explication, chapitre par chapitre — à lire et à écouter.",
 };
 
 const DE: KitabLabels = {
@@ -163,6 +173,8 @@ const DE: KitabLabels = {
   note: "Nur Katalog und Zusammenfassungen, zum Studium und als Referenz.",
   arabicOnlyNote: "Die Beschreibung dieses Werks ist auf Arabisch, der klassischen Originalsprache — unten mit arabischer Stimme vorgelesen.",
   translationLabel: "Übersetzung",
+  bridgeTitle: "Pesantren-Bücher — Digitale Bibliothek",
+  bridgeDesc: "Klassische Bücher, ordentlich nach Fach geordnet: arabischer Text, Übersetzung & Erläuterung, Kapitel für Kapitel — zum Lesen und Anhören.",
 };
 
 const ES: KitabLabels = {
@@ -190,6 +202,8 @@ const ES: KitabLabels = {
   note: "Solo catálogo y resúmenes, para estudio y referencia.",
   arabicOnlyNote: "La descripción de esta obra está en árabe, la lengua clásica original — se lee en voz alta con una voz árabe abajo.",
   translationLabel: "Traducción",
+  bridgeTitle: "Libros de pesantren — Biblioteca digital",
+  bridgeDesc: "Libros clásicos, ordenados por materia: texto árabe, traducción y explicación, capítulo por capítulo — para leer y escuchar.",
 };
 
 const MAP: Record<string, KitabLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };
