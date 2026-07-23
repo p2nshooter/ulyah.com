@@ -8,11 +8,33 @@ import es from "./es";
 import ar from "./ar";
 import zh from "./zh";
 import ja from "./ja";
+import ur from "./ur";
+import hi from "./hi";
+import bn from "./bn";
+import tr from "./tr";
+import fa from "./fa";
+import ms from "./ms";
+import sw from "./sw";
+import pt from "./pt";
+import nl from "./nl";
+import it from "./it";
+import ta from "./ta";
+import ha from "./ha";
+import ps from "./ps";
+import th from "./th";
+import ko from "./ko";
+import vi from "./vi";
+import uz from "./uz";
+import so from "./so";
+import pl from "./pl";
 import { TENANT } from "@/lib/tenant";
 
 export type { Dictionary };
 
-const dictionaries: Record<string, Dictionary> = { id, en, ru, de, fr, es, ar, zh, ja };
+const dictionaries: Record<string, Dictionary> = {
+  id, en, ru, de, fr, es, ar, zh, ja,
+  ur, hi, bn, tr, fa, ms, sw, pt, nl, it, ta, ha, ps, th, ko, vi, uz, so, pl,
+};
 
 // The dictionaries are authored with the ULYAH brand baked into their prose
 // (hero copy, footer, donation/certificate text, "the family behind Ulyah", …).

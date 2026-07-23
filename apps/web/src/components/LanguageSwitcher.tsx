@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { LOCALES, isLocaleReady } from "@ulyah/shared/i18n";
+import { LOCALES, LOCALE_SITE } from "@ulyah/shared/i18n";
 
 export function LanguageSwitcher({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
@@ -37,20 +37,20 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
         <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-48 overflow-y-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-xl">
           {LOCALES.map((l) => {
             const isCurrent = l.code === locale;
-            // Languages are opened ONE AT A TIME as each is verified fully
-            // translated (owner: "buka coretan satu-persatu"). A language that
-            // is neither the current one nor marked ready stays struck through
-            // and unclickable; ready ones switch normally. See READY_LOCALE_CODES.
-            if (!isCurrent && !isLocaleReady(l.code)) {
+            const site = LOCALE_SITE[l.code];
+            // A language with its own ecosystem domain jumps to that site
+            // instead of switching in place (the sites cross-promote). The
+            // little ↗ hints it opens the sibling domain.
+            if (site && !isCurrent) {
               return (
-                <span
+                <a
                   key={l.code}
+                  href={site}
                   dir={l.dir}
-                  aria-disabled
-                  className="block w-full cursor-not-allowed px-3 py-2 text-left text-sm text-[var(--color-text-secondary)] line-through opacity-50"
+                  className="block w-full px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-black/5"
                 >
-                  {l.label}
-                </span>
+                  {l.label} <span aria-hidden className="opacity-50">↗</span>
+                </a>
               );
             }
             return (

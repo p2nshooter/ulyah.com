@@ -25,7 +25,41 @@ const ALL_LOCALES: LocaleDef[] = [
   { code: "ar", label: "العربية", dir: "rtl", hasQuranTranslation: false, isSourceLanguage: true },
   { code: "zh", label: "中文", dir: "ltr", hasQuranTranslation: true },
   { code: "ja", label: "日本語", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  // Languages with no dedicated ecosystem domain — served on ulyah.com itself.
+  // No licensed Qur'an-translation rows yet, so the ayah line falls back to
+  // English while the rest of the site (UI + all DB content) is machine-
+  // translated and cached in D1. RTL set for Arabic-script languages.
+  { code: "ur", label: "اردو", dir: "rtl", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "hi", label: "हिन्दी", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "bn", label: "বাংলা", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "tr", label: "Türkçe", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "fa", label: "فارسی", dir: "rtl", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "ms", label: "Bahasa Melayu", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "sw", label: "Kiswahili", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "pt", label: "Português", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "nl", label: "Nederlands", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "it", label: "Italiano", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "ta", label: "தமிழ்", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "ha", label: "Hausa", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "ps", label: "پښتو", dir: "rtl", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "th", label: "ไทย", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "ko", label: "한국어", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "vi", label: "Tiếng Việt", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "uz", label: "Oʻzbekcha", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "so", label: "Soomaali", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
+  { code: "pl", label: "Polski", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
 ];
+
+// The four languages that have their OWN ecosystem domain. On ulyah.com they
+// still appear in the language switcher, but clicking one jumps straight to
+// its site (owner: "arahkan saja ke website nya … langsung pindah domain")
+// instead of switching locale in place — the sites cross-promote each other.
+export const LOCALE_SITE: Record<string, string> = {
+  en: "https://xad.es",
+  de: "https://tilawa.de",
+  es: "https://dawa.es",
+  fr: "https://1fr.fr",
+};
 
 // Tenant narrowing (see apps/web/src/lib/tenant.ts): each sibling site ships
 // ONLY its own native language — owner rule: "hanya menggunakan bahasa induk
@@ -55,18 +89,12 @@ export function isValidLocale(code: string): boolean {
   return LOCALES.some((l) => l.code === code);
 }
 
-// Languages the in-page switcher on ulyah.com actually lets you switch TO.
-// The site's own default language is always ready; every other code shows
-// struck-through and UNCLICKABLE. Owner's final model (one language per
-// domain): ulyah.com is Indonesian-only, and each other language has its OWN
-// ecosystem domain — English → xad.es, French → 1fr.fr, German → tilawa.de,
-// Spanish → dawa.es. So ulyah.com's header lists the other languages only as
-// crossed-out labels ("coret aja biar nggak bisa diklik"); the real
-// translations still exist and are served on their own sibling domains.
-export const READY_LOCALE_CODES = new Set<string>(["id"]);
-
-export function isLocaleReady(code: string): boolean {
-  return code === DEFAULT_LOCALE || READY_LOCALE_CODES.has(code);
+// Every language in the switcher is now live: the four with their own domain
+// (see LOCALE_SITE) link out to that site, and every other language is served
+// in place on ulyah.com with UI + content translated and cached in D1. Nothing
+// is struck-through anymore. Kept as an always-true helper for API compat.
+export function isLocaleReady(_code: string): boolean {
+  return true;
 }
 
 export function getLocale(code: string): LocaleDef {

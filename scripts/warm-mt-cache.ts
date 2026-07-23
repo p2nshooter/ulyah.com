@@ -33,7 +33,16 @@ function parseArgs() {
     })
   );
   return {
-    langs: ((args.langs as string) || "en,fr,de,es").split(",").map((s) => s.trim()).filter(Boolean),
+    // Every non-Indonesian ecosystem language: the four domain sibling sites
+    // (en/de/es/fr) plus every language served on ulyah.com itself. Content is
+    // translated + cached in D1 per language ("D1 kumplit dulu perbahasa").
+    langs: (
+      (args.langs as string) ||
+      "en,de,es,fr,ru,ar,zh,ja,ur,hi,bn,tr,fa,ms,sw,pt,nl,it,ta,ha,ps,th,ko,vi,uz,so,pl"
+    )
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean),
     dry: args.dry === "true",
   };
 }
@@ -278,7 +287,11 @@ async function main() {
   // uses text_en directly, id has a native column, ar IS the source, so those
   // are skipped). Batched (gtxBatch) + paginated so 30k+ rows finish in one
   // run, and skip-cached so re-runs are cheap.
-  const hadithLangs = langs.filter((l) => l !== "id" && l !== "en" && l !== "ar");
+  // The 30k-hadith corpus is enormous per language, so pre-warm it only for
+  // the established domain sites; every other language still translates hadith
+  // ON DEMAND (cached to D1 on first view). Widen this set to pre-warm more.
+  const HADITH_WARM_LANGS = ["fr", "de", "es"];
+  const hadithLangs = langs.filter((l) => HADITH_WARM_LANGS.includes(l));
   if (hadithLangs.length && !dry) {
     const hadithCount =
       d1Json<{ n: number }>("SELECT COUNT(*) AS n FROM hadits WHERE text_ar IS NOT NULL AND text_ar <> '';")[0]?.n ?? 0;
