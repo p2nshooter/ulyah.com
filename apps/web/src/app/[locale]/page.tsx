@@ -4,14 +4,43 @@ import { TENANT } from "@/lib/tenant";
 import { headerMotifOn } from "@/components/HeaderMotif";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+import { api } from "@/lib/api";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
+
+// Front-page "Bendahara Kitab" pointer copy (id primary; en fallback for every
+// other locale, per the site's hardcoded-label convention).
+const BENDAHARA: Record<string, { title: string; cta: string; desc: (n: string, c: number) => string }> = {
+  id: {
+    title: "Bendahara Kitab — Perpustakaan Digital",
+    cta: "Buka",
+    desc: (n, c) => `Jelajahi ${n} kitab klasik dari ${c} bidang ilmu — tafsir, hadits, fikih, akidah, nahwu-sharaf, balaghah, tasawuf, dan lainnya. Klik langsung per bidang.`,
+  },
+  en: {
+    title: "The Kitab Treasury — Digital Library",
+    cta: "Open",
+    desc: (n, c) => `Explore ${n} classical works across ${c} disciplines — tafsir, hadith, fiqh, creed, grammar, rhetoric, spirituality and more. Browse by field in one tap.`,
+  },
+};
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
+
+  // Live kitab totals for the treasury pointer (best-effort — the band simply
+  // hides if the catalogue endpoint is briefly unavailable).
+  let kitabTotal = 0;
+  let kitabCats = 0;
+  try {
+    const res = await api.get<{ categories: { book_count: number }[] }>(`/content/kitab/categories?lang=${locale}`);
+    kitabCats = res.categories.length;
+    kitabTotal = res.categories.reduce((n, c) => n + (c.book_count ?? 0), 0);
+  } catch {
+    kitabTotal = 0;
+  }
+  const bk = BENDAHARA[locale] ?? BENDAHARA.en!;
 
   // Quick-access tiles — each links straight to the feature it names, so the
   // hero row doubles as real navigation instead of being purely decorative.
@@ -129,6 +158,28 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
+      {/* ── Bendahara Kitab — prominent pointer to the classical library ─ */}
+      {kitabTotal > 0 && (
+        <section className="px-4 pt-6 sm:px-6">
+          <div className="mx-auto max-w-4xl">
+            <Link
+              href={`/${locale}/kitab`}
+              className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/10 via-accent/5 to-transparent p-5 shadow-[var(--shadow-gold)] transition hover:border-accent sm:flex-row sm:items-center"
+            >
+              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-accent/15 text-3xl">📚</span>
+              <div className="min-w-0 flex-1">
+                <p className="font-heading text-lg">{bk.title}</p>
+                <p className="mt-0.5 text-sm text-[var(--color-text-secondary)]">
+                  {bk.desc(kitabTotal.toLocaleString(locale), kitabCats)}
+                </p>
+              </div>
+              <span className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-md transition group-hover:brightness-110">
+                {bk.cta} →
+              </span>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* ── Radio Qori Dunia — always-on world reciters stream ─ */}
       <section className="px-4 pt-4 sm:px-6">
