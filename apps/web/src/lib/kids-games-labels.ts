@@ -30,6 +30,24 @@ export interface KidsGamesLabels {
   moves: string;
   hint: string;
   orderHint: string;
+  memoryName: string;
+  memoryDesc: string;
+  speedName: string;
+  speedDesc: string;
+  harakatName: string;
+  harakatDesc: string;
+  level: string;
+  levelUp: string;
+  watch: string;
+  yourTurn: string;
+  timeLeft: string;
+  start: string;
+  finalScore: string;
+  whichHarakat: string;
+  fathah: string;
+  kasrah: string;
+  dhammah: string;
+  sukun: string;
 }
 
 const EN: KidsGamesLabels = {
@@ -56,6 +74,24 @@ const EN: KidsGamesLabels = {
   moves: "Moves",
   hint: "Tap a card to flip it",
   orderHint: "Tap the letters in order",
+  memoryName: "Remember the Letters",
+  memoryDesc: "Watch the sequence, then repeat it — it grows each level",
+  speedName: "Quick & Correct",
+  speedDesc: "How many can you get before the time runs out?",
+  harakatName: "Guess the Harakat",
+  harakatDesc: "Which vowel mark is on the letter?",
+  level: "Level",
+  levelUp: "Level up!",
+  watch: "Watch carefully…",
+  yourTurn: "Your turn!",
+  timeLeft: "Time",
+  start: "Start",
+  finalScore: "Final score",
+  whichHarakat: "Which harakat?",
+  fathah: "Fathah (a)",
+  kasrah: "Kasrah (i)",
+  dhammah: "Dhammah (u)",
+  sukun: "Sukun",
 };
 
 const ID: KidsGamesLabels = {
@@ -82,6 +118,24 @@ const ID: KidsGamesLabels = {
   moves: "Langkah",
   hint: "Ketuk kartu untuk membukanya",
   orderHint: "Ketuk huruf sesuai urutan",
+  memoryName: "Ingat Huruf",
+  memoryDesc: "Lihat urutannya, lalu ulangi — makin naik makin panjang",
+  speedName: "Cepat & Tepat",
+  speedDesc: "Berapa banyak yang bisa kamu jawab sebelum waktu habis?",
+  harakatName: "Tebak Harakat",
+  harakatDesc: "Harakat apa yang ada di huruf itu?",
+  level: "Tingkat",
+  levelUp: "Naik tingkat!",
+  watch: "Perhatikan baik-baik…",
+  yourTurn: "Giliranmu!",
+  timeLeft: "Waktu",
+  start: "Mulai",
+  finalScore: "Skor akhir",
+  whichHarakat: "Harakat apa ini?",
+  fathah: "Fathah (a)",
+  kasrah: "Kasrah (i)",
+  dhammah: "Dhammah (u)",
+  sukun: "Sukun",
 };
 
 const AR: KidsGamesLabels = {
@@ -108,6 +162,24 @@ const AR: KidsGamesLabels = {
   moves: "الحركات",
   hint: "انقر البطاقة لقلبها",
   orderHint: "انقر الحروف بالترتيب",
+  memoryName: "تذكّر الحروف",
+  memoryDesc: "شاهد التسلسل ثم كرّره — يزداد طولًا كل مستوى",
+  speedName: "سريع ودقيق",
+  speedDesc: "كم إجابة صحيحة قبل انتهاء الوقت؟",
+  harakatName: "خمّن الحركة",
+  harakatDesc: "ما الحركة الموجودة على الحرف؟",
+  level: "المستوى",
+  levelUp: "مستوى أعلى!",
+  watch: "انتبه جيدًا…",
+  yourTurn: "دورك!",
+  timeLeft: "الوقت",
+  start: "ابدأ",
+  finalScore: "النتيجة النهائية",
+  whichHarakat: "ما هذه الحركة؟",
+  fathah: "فتحة (a)",
+  kasrah: "كسرة (i)",
+  dhammah: "ضمة (u)",
+  sukun: "سكون",
 };
 
 const MAP: Record<string, KidsGamesLabels> = { en: EN, id: ID, ar: AR };

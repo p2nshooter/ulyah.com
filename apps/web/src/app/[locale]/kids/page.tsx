@@ -125,7 +125,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
           icon="🎮"
           title={t.gamesTitle}
           desc={t.gamesDesc}
-          count="4"
+          count="7"
         />
         <Link
           href={`/${locale}/kids/game`}
