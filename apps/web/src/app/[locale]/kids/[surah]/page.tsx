@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kidsLabels } from "@/lib/kids-labels";
 import { KidsSurahPlayer, type KidsAyah } from "@/components/KidsSurahPlayer";
+import { KIDS_SURAHS } from "@/lib/kids-surahs";
 
 export const revalidate = 86400;
 
@@ -41,8 +42,8 @@ export default async function KidsSurahPage({
   const { locale: raw, surah } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const id = Number(surah);
-  // Al-Qur'an Kids only covers Juz 30 (78–114) for now.
-  if (!Number.isInteger(id) || id < 78 || id > 114) notFound();
+  // Al-Qur'an Kids covers Juz 30, Juz 29 and the favourite surahs.
+  if (!Number.isInteger(id) || !KIDS_SURAHS.has(id)) notFound();
 
   const t = kidsLabels(locale);
   const data = await load(id, locale);

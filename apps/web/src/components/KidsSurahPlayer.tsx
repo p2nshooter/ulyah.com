@@ -89,6 +89,20 @@ export function KidsSurahPlayer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, repeat, ayat.length]);
 
+  // Auto-scroll: follow the playing verse; when the loop restarts at the first
+  // verse (repeat), glide back to the very top on its own — over and over until
+  // the child stops it (owner: "saat ngulang juga auto ke atas sendiri begitu
+  // terus sebelum di stop").
+  useEffect(() => {
+    if (current < 0) return;
+    if (current === 0) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    const node = document.getElementById(`kids-ayah-${ayat[current]?.number}`);
+    node?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [current, ayat]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-24 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6">
@@ -134,7 +148,8 @@ export function KidsSurahPlayer({
           {ayat.map((a, i) => (
             <li
               key={a.number}
-              className={`rounded-3xl p-4 shadow-sm ring-1 transition ${
+              id={`kids-ayah-${a.number}`}
+              className={`scroll-mt-24 rounded-3xl p-4 shadow-sm ring-1 transition ${
                 current === i
                   ? "bg-amber-100 ring-amber-300 dark:bg-amber-500/20 dark:ring-amber-400/40"
                   : "bg-white/80 ring-black/5 dark:bg-white/5"

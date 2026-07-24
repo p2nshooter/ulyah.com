@@ -11,8 +11,15 @@ export interface KidsLabels {
   metaDesc: string;
   title: string;
   subtitle: string;
+  iqroTitle: string;
+  iqroDesc: string;
+  jilid: string;
   hifzTitle: string;
   hifzDesc: string;
+  juz29Title: string;
+  juz29Desc: string;
+  pilihanTitle: string;
+  pilihanDesc: string;
   hijaiyahTitle: string;
   hijaiyahDesc: string;
   letters: string;
@@ -29,15 +36,22 @@ export interface KidsLabels {
 }
 
 const EN: KidsLabels = {
-  metaTitle: "Al-Qur'an Kids — memorize the short surahs, learn the letters",
+  metaTitle: "Al-Qur'an Kids — learn to read, memorize the short surahs",
   metaDesc:
-    "A bright, gentle corner for children: memorize the short surahs of Juz 30 with repeat-audio, and get to know the hijaiyah letters.",
+    "A bright, gentle corner for children: learn to read step by step, get to know the hijaiyah letters, and memorize the short surahs with repeat-audio.",
   title: "Al-Qur'an Kids",
-  subtitle: "Let's memorize and learn — gently, one little step at a time 🌱",
+  subtitle: "Let's read, memorize and learn — gently, one little step at a time 🌱",
+  iqroTitle: "Learn to Read (Iqro)",
+  iqroDesc: "Six little levels, from single letters to full words — tap any letter to hear it in Arabic.",
+  jilid: "Level",
   hifzTitle: "Memorize Juz 30",
   hifzDesc: "The short surahs, from An-Nas upward — listen, repeat, and memorize.",
+  juz29Title: "Memorize Juz 29",
+  juz29Desc: "The next set — Al-Mulk and its neighbours, with the same repeat-and-scroll player.",
+  pilihanTitle: "Favourite Surahs",
+  pilihanDesc: "The surahs families love to recite — Yasin, Ar-Rahman, Al-Waqi'ah, Al-Mulk and more.",
   hijaiyahTitle: "Hijaiyah Letters",
-  hijaiyahDesc: "Get to know the Arabic letters — tap a letter to hear its name.",
+  hijaiyahDesc: "Get to know the Arabic letters — tap a letter to hear its name in Arabic.",
   letters: "letters",
   surahs: "surahs",
   listen: "Listen",
@@ -52,15 +66,22 @@ const EN: KidsLabels = {
 };
 
 const ID: KidsLabels = {
-  metaTitle: "Al-Qur'an Kids — hafal surat pendek, kenal huruf hijaiyah",
+  metaTitle: "Al-Qur'an Kids — belajar membaca, hafal surat pendek",
   metaDesc:
-    "Sudut cerah dan lembut untuk anak: hafalkan surat-surat pendek Juz 30 dengan audio ulang-ulang, dan kenali huruf hijaiyah.",
+    "Sudut cerah dan lembut untuk anak: belajar membaca langkah demi langkah, kenali huruf hijaiyah, dan hafalkan surat-surat pendek dengan audio ulang-ulang.",
   title: "Al-Qur'an Kids",
-  subtitle: "Yuk menghafal dan belajar — pelan-pelan, satu langkah kecil 🌱",
+  subtitle: "Yuk membaca, menghafal dan belajar — pelan-pelan, satu langkah kecil 🌱",
+  iqroTitle: "Belajar Membaca (Iqro)",
+  iqroDesc: "Enam jilid kecil, dari satu huruf sampai kata utuh — ketuk huruf untuk mendengarnya dalam bahasa Arab.",
+  jilid: "Jilid",
   hifzTitle: "Hafalan Juz 30",
   hifzDesc: "Surat-surat pendek, mulai dari An-Nas — dengar, ulangi, lalu hafalkan.",
+  juz29Title: "Hafalan Juz 29",
+  juz29Desc: "Lanjutannya — Al-Mulk dan sekitarnya, dengan pemutar ulang-ulang & gulir otomatis yang sama.",
+  pilihanTitle: "Surat Pilihan",
+  pilihanDesc: "Surat yang biasa dibaca keluarga — Yasin, Ar-Rahman, Al-Waqi'ah, Al-Mulk, dan lainnya.",
   hijaiyahTitle: "Huruf Hijaiyah",
-  hijaiyahDesc: "Kenali huruf-huruf Arab — ketuk satu huruf untuk mendengar namanya.",
+  hijaiyahDesc: "Kenali huruf-huruf Arab — ketuk satu huruf untuk mendengar namanya dalam bahasa Arab.",
   letters: "huruf",
   surahs: "surat",
   listen: "Dengar",
@@ -75,14 +96,21 @@ const ID: KidsLabels = {
 };
 
 const AR: KidsLabels = {
-  metaTitle: "أطفال القرآن — احفظ قصار السور وتعلّم الحروف",
-  metaDesc: "ركن لطيف ومشرق للأطفال: احفظ قصار سور جزء عمّ مع تكرار الصوت، وتعرّف على الحروف الهجائية.",
+  metaTitle: "أطفال القرآن — تعلّم القراءة واحفظ قصار السور",
+  metaDesc: "ركن لطيف ومشرق للأطفال: تعلّم القراءة خطوة بخطوة، وتعرّف على الحروف الهجائية، واحفظ قصار السور مع تكرار الصوت.",
   title: "أطفال القرآن",
-  subtitle: "هيّا نحفظ ونتعلّم — بلطف، خطوة صغيرة تلو الأخرى 🌱",
+  subtitle: "هيّا نقرأ ونحفظ ونتعلّم — بلطف، خطوة صغيرة تلو الأخرى 🌱",
+  iqroTitle: "تعلّم القراءة",
+  iqroDesc: "ستّ مراحل صغيرة، من الحرف المفرد إلى الكلمة الكاملة — انقر أيّ حرف لتسمعه بالعربية.",
+  jilid: "المرحلة",
   hifzTitle: "حفظ جزء عمّ",
   hifzDesc: "قصار السور، ابتداءً من الناس — استمع وكرّر ثم احفظ.",
+  juz29Title: "حفظ جزء تبارك",
+  juz29Desc: "المجموعة التالية — سورة الملك وما حولها، بنفس مشغّل التكرار والتمرير التلقائي.",
+  pilihanTitle: "سور مختارة",
+  pilihanDesc: "السور التي تحب العائلات تلاوتها — يس والرحمن والواقعة والملك وغيرها.",
   hijaiyahTitle: "الحروف الهجائية",
-  hijaiyahDesc: "تعرّف على الحروف العربية — انقر حرفًا لتسمع اسمه.",
+  hijaiyahDesc: "تعرّف على الحروف العربية — انقر حرفًا لتسمع اسمه بالعربية.",
   letters: "حرفًا",
   surahs: "سورة",
   listen: "استمع",

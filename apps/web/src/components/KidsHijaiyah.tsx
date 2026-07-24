@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HIJAIYAH } from "@/lib/hijaiyah";
+import { speakArabic, primeVoices } from "@/lib/arabic-voice";
 
 // A colourful grid of the 28 hijaiyah letters. Tapping a letter speaks its name
 // with the browser's built-in speech (no network, no tracking — safe for a
@@ -18,18 +19,14 @@ const TINTS = [
 export function KidsHijaiyah({ tapHint }: { tapHint: string }) {
   const [active, setActive] = useState<number | null>(null);
 
-  function say(i: number, name: string) {
+  useEffect(() => primeVoices(), []);
+
+  function say(i: number, arName: string) {
     setActive(i);
     window.setTimeout(() => setActive((v) => (v === i ? null : v)), 450);
-    try {
-      const u = new SpeechSynthesisUtterance(name);
-      u.rate = 0.85;
-      u.pitch = 1.1;
-      window.speechSynthesis?.cancel();
-      window.speechSynthesis?.speak(u);
-    } catch {
-      /* speech unsupported — the letter + name are still shown */
-    }
+    // Always pronounce the letter with an Arabic voice (its Arabic name), never
+    // the visitor's local accent.
+    speakArabic(arName);
   }
 
   return (
@@ -37,7 +34,7 @@ export function KidsHijaiyah({ tapHint }: { tapHint: string }) {
       {HIJAIYAH.map((h, i) => (
         <button
           key={h.ar}
-          onClick={() => say(i, h.name)}
+          onClick={() => say(i, h.arName)}
           title={`${tapHint}: ${h.name}`}
           aria-label={h.name}
           className={`flex aspect-square flex-col items-center justify-center rounded-2xl ${
