@@ -5,7 +5,8 @@ import { HIJAIYAH } from "@/lib/hijaiyah";
 import { kidsGamesLabels, type KidsGamesLabels } from "@/lib/kids-games-labels";
 
 /**
- * Four small Qur'an-learning games for Al-Qur'an Kids.
+ * Seven small Qur'an-learning games for Al-Qur'an Kids, including a leveled
+ * memory game whose sequence grows as the child succeeds.
  *
  * Deliberately featherweight, because these ship to every visitor of a site
  * that must stay fast: NO game engine, NO canvas, NO images, NO new
@@ -16,7 +17,7 @@ import { kidsGamesLabels, type KidsGamesLabels } from "@/lib/kids-games-labels";
  * split and costs the rest of the site nothing.
  */
 
-type GameId = "tebak-huruf" | "cari-huruf" | "pasangan" | "urutan";
+type GameId = "tebak-huruf" | "cari-huruf" | "pasangan" | "urutan" | "ingat" | "cepat" | "harakat";
 
 /** The game menu. Icons live in code (they are not language), every word comes
  *  from the labels helper so all 28 locales are covered. */
@@ -25,6 +26,9 @@ const menu = (t: KidsGamesLabels): { id: GameId; icon: string; name: string; des
   { id: "cari-huruf", icon: "👂", name: t.findName, desc: t.findDesc },
   { id: "pasangan", icon: "🃏", name: t.matchName, desc: t.matchDesc },
   { id: "urutan", icon: "🔢", name: t.orderName, desc: t.orderDesc },
+  { id: "ingat", icon: "🧠", name: t.memoryName, desc: t.memoryDesc },
+  { id: "cepat", icon: "⚡", name: t.speedName, desc: t.speedDesc },
+  { id: "harakat", icon: "✍️", name: t.harakatName, desc: t.harakatDesc },
 ];
 
 const BEST_KEY = "ulyah:kids:games:best";
@@ -119,6 +123,9 @@ export function KidsGames({ locale }: { locale: string }) {
       {game === "cari-huruf" && <QuizGame t={t} mode="name" onScore={saveBest} />}
       {game === "pasangan" && <MatchGame t={t} />}
       {game === "urutan" && <OrderGame t={t} />}
+      {game === "ingat" && <MemoryGame t={t} onScore={saveBest} />}
+      {game === "cepat" && <SpeedGame t={t} onScore={saveBest} />}
+      {game === "harakat" && <HarakatGame t={t} onScore={saveBest} />}
     </div>
   );
 }
@@ -344,6 +351,270 @@ function OrderGame({ t }: { t: T }) {
             {t.again}
           </button>
         </div>
+      )}
+    </div>
+  );
+}
+
+/** Remember the letters: a sequence flashes, the child repeats it. The
+ *  sequence grows by one every level, so difficulty climbs on its own. */
+function MemoryGame({ t, onScore }: { t: T; onScore: (n: number) => void }) {
+  const [level, setLevel] = useState(1);
+  const [seq, setSeq] = useState<number[]>([]);
+  const [shownAt, setShownAt] = useState(-1);
+  const [phase, setPhase] = useState<"idle" | "show" | "input" | "wrong">("idle");
+  const [step, setStep] = useState(0);
+  const [score, setScore] = useState(0);
+
+  // Six letters on the board; the sequence is drawn from them.
+  const board = useMemo(() => pick(HIJAIYAH, 6), [level]);
+
+  function begin(lv = level) {
+    const s = Array.from({ length: lv + 1 }, () => Math.floor(Math.random() * board.length));
+    setSeq(s);
+    setStep(0);
+    setPhase("show");
+  }
+
+  // Flash the sequence, one letter at a time, then hand over to the child.
+  useEffect(() => {
+    if (phase !== "show" || seq.length === 0) return;
+    let i = 0;
+    setShownAt(seq[0]!);
+    const id = window.setInterval(() => {
+      i++;
+      if (i >= seq.length) {
+        window.clearInterval(id);
+        setShownAt(-1);
+        setPhase("input");
+        return;
+      }
+      setShownAt(-1);
+      window.setTimeout(() => setShownAt(seq[i]!), 140);
+    }, 700);
+    return () => window.clearInterval(id);
+  }, [phase, seq]);
+
+  function tap(i: number) {
+    if (phase !== "input") return;
+    if (seq[step] === i) {
+      say(board[i]!.arName);
+      if (step + 1 === seq.length) {
+        const s = score + level * 10;
+        setScore(s);
+        onScore(s);
+        setLevel((l) => l + 1);
+        setPhase("idle");
+      } else {
+        setStep((p) => p + 1);
+      }
+    } else {
+      setPhase("wrong");
+    }
+  }
+
+  return (
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="flex items-center justify-center gap-3 text-xs font-bold">
+        <span className="rounded-full bg-sky-100 px-3 py-1 text-sky-800 dark:bg-sky-500/20 dark:text-sky-200">
+          {t.level} {level}
+        </span>
+        <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200">
+          {t.score}: {score}
+        </span>
+      </div>
+
+      <p className="mt-3 h-5 text-sm font-bold text-slate-600 dark:text-slate-300">
+        {phase === "show" ? t.watch : phase === "input" ? t.yourTurn : phase === "wrong" ? `${t.wrong} 💪` : ""}
+      </p>
+
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        {board.map((h, i) => (
+          <button
+            key={h.name}
+            onClick={() => tap(i)}
+            className={`font-arabic grid h-20 place-items-center rounded-2xl border-2 text-4xl transition ${
+              shownAt === i
+                ? "scale-105 border-amber-400 bg-amber-200 text-amber-900"
+                : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            }`}
+          >
+            {h.ar}
+          </button>
+        ))}
+      </div>
+
+      {(phase === "idle" || phase === "wrong") && (
+        <button
+          onClick={() => {
+            if (phase === "wrong") {
+              setLevel(1);
+              setScore(0);
+              begin(1);
+            } else begin();
+          }}
+          className="mt-4 rounded-full bg-emerald-500 px-6 py-2 text-sm font-bold text-white"
+        >
+          {phase === "wrong" ? t.again : t.start}
+        </button>
+      )}
+    </div>
+  );
+}
+
+/** Quick & correct: 30 seconds, as many letters as possible. */
+function SpeedGame({ t, onScore }: { t: T; onScore: (n: number) => void }) {
+  const [running, setRunning] = useState(false);
+  const [left, setLeft] = useState(30);
+  const [score, setScore] = useState(0);
+  const [round, setRound] = useState(0);
+
+  const q = useMemo(() => {
+    const answer = HIJAIYAH[Math.floor(Math.random() * HIJAIYAH.length)]!;
+    const others = pick(HIJAIYAH.filter((h) => h.name !== answer.name), 3);
+    return { answer, options: shuffle([answer, ...others]) };
+  }, [round]);
+
+  useEffect(() => {
+    if (!running) return;
+    if (left <= 0) {
+      setRunning(false);
+      onScore(score);
+      return;
+    }
+    const id = window.setTimeout(() => setLeft((l) => l - 1), 1000);
+    return () => window.clearTimeout(id);
+  }, [running, left, score, onScore]);
+
+  function choose(name: string) {
+    if (!running) return;
+    if (name === q.answer.name) setScore((s) => s + 5);
+    setRound((r) => r + 1);
+  }
+
+  if (!running && left === 30) {
+    return (
+      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <p className="text-5xl">⚡</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t.speedDesc}</p>
+        <button onClick={() => setRunning(true)} className="mt-4 rounded-full bg-emerald-500 px-8 py-3 text-base font-bold text-white">
+          {t.start}
+        </button>
+      </div>
+    );
+  }
+
+  if (!running) {
+    return (
+      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <p className="text-5xl">🏆</p>
+        <p className="mt-2 font-heading text-lg font-bold text-slate-800 dark:text-amber-100">
+          {t.finalScore}: {score}
+        </p>
+        <button
+          onClick={() => {
+            setScore(0);
+            setLeft(30);
+            setRound((r) => r + 1);
+            setRunning(true);
+          }}
+          className="mt-4 rounded-full bg-emerald-500 px-6 py-2 text-sm font-bold text-white"
+        >
+          {t.again}
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="flex items-center justify-center gap-3 text-xs font-bold">
+        <span className={`rounded-full px-3 py-1 ${left <= 5 ? "bg-rose-100 text-rose-700" : "bg-sky-100 text-sky-800 dark:bg-sky-500/20 dark:text-sky-200"}`}>
+          ⏱ {t.timeLeft}: {left}
+        </span>
+        <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200">
+          {t.score}: {score}
+        </span>
+      </div>
+      <div className="mt-5 grid min-h-[6rem] place-items-center">
+        <span className="font-arabic text-7xl leading-none text-emerald-700 dark:text-emerald-300">{q.answer.ar}</span>
+      </div>
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {q.options.map((o) => (
+          <button
+            key={o.name}
+            onClick={() => choose(o.name)}
+            className="rounded-xl border-2 border-slate-200 bg-slate-50 px-3 py-3 font-bold text-slate-700 transition hover:border-emerald-400 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+          >
+            {o.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Guess the harakat: a letter is shown carrying one vowel mark. */
+function HarakatGame({ t, onScore }: { t: T; onScore: (n: number) => void }) {
+  const MARKS = useMemo(
+    () => [
+      { mark: "َ", label: t.fathah },
+      { mark: "ِ", label: t.kasrah },
+      { mark: "ُ", label: t.dhammah },
+      { mark: "ْ", label: t.sukun },
+    ],
+    [t]
+  );
+  const [round, setRound] = useState(0);
+  const [score, setScore] = useState(0);
+  const [feedback, setFeedback] = useState<"ok" | "no" | null>(null);
+
+  const q = useMemo(() => {
+    const letter = HIJAIYAH[Math.floor(Math.random() * HIJAIYAH.length)]!;
+    const m = MARKS[Math.floor(Math.random() * MARKS.length)]!;
+    return { letter, m };
+  }, [round, MARKS]);
+
+  function choose(label: string) {
+    if (feedback) return;
+    if (label === q.m.label) {
+      const s = score + 10;
+      setScore(s);
+      onScore(s);
+      setFeedback("ok");
+    } else setFeedback("no");
+    setTimeout(() => {
+      setFeedback(null);
+      setRound((r) => r + 1);
+    }, 800);
+  }
+
+  return (
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-200">
+        {t.score}: {score}
+      </span>
+      <p className="mt-3 text-sm font-bold text-slate-600 dark:text-slate-300">{t.whichHarakat}</p>
+      <div className="mt-3 grid min-h-[7rem] place-items-center">
+        <span className="font-arabic text-7xl leading-none text-emerald-700 dark:text-emerald-300">
+          {q.letter.ar + q.m.mark}
+        </span>
+      </div>
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {MARKS.map((m) => (
+          <button
+            key={m.label}
+            onClick={() => choose(m.label)}
+            className="rounded-xl border-2 border-slate-200 bg-slate-50 px-3 py-3 text-sm font-bold text-slate-700 transition hover:border-emerald-400 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+      {feedback && (
+        <p className={`mt-3 text-lg font-extrabold ${feedback === "ok" ? "text-emerald-600" : "text-rose-500"}`}>
+          {feedback === "ok" ? `${t.correct} 🎉` : `${t.wrong} 💪`}
+        </p>
       )}
     </div>
   );
