@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { KitabCover } from "@/components/KitabCover";
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
@@ -123,13 +124,26 @@ export default async function HaditsCollectionPage({
         ← {t.backToBooks}
       </Link>
 
-      <div className="mt-4">
-        <p dir="rtl" className="font-arabic text-2xl leading-snug text-[var(--color-text-primary)]">{meta.name_ar}</p>
-        <h1 className="mt-1 font-heading text-2xl">{meta.name_id}</h1>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-          {meta.author ? `${t.author}: ${meta.author} · ` : ""}
-          {total.toLocaleString(locale)} {t.hadithCount}
-        </p>
+      {/* The collection opens as its own bound kitab — same binding art the
+          shelf card and the share image use, so it is recognisably the book
+          the reader just picked up. */}
+      <div className="mt-4 grid gap-5 sm:grid-cols-[minmax(0,240px)_1fr] sm:items-center">
+        <KitabCover
+          slug={meta.slug}
+          titleAr={meta.name_ar}
+          title={meta.name_id}
+          size="hero"
+          ribbon
+          meta={`${total.toLocaleString(locale)} ${t.hadithCount}`}
+        />
+        <div>
+          <h1 className="font-heading text-2xl">{meta.name_id}</h1>
+          <p dir="rtl" className="font-arabic mt-1 text-2xl leading-snug text-[var(--color-text-primary)]">{meta.name_ar}</p>
+          <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
+            {meta.author ? `${t.author}: ${meta.author} · ` : ""}
+            {total.toLocaleString(locale)} {t.hadithCount}
+          </p>
+        </div>
       </div>
 
       <div className="mt-8">
