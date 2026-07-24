@@ -1,0 +1,54 @@
+name: Import Quran morphology (nahwu-shorof)
+
+# One-time load of the Quranic Arabic Corpus word-by-word morphology into the
+# D1 `quran_morphology` table (~130k segments) so the reader can show nahwu &
+# shorof for every ayah. Runs on a GitHub runner (the volume far exceeds a
+# Worker's budget). Idempotent: skips if the table is already populated; pass
+# force=true to reimport.
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Reimport even if already populated (true/false)"
+        required: false
+        default: "false"
+
+concurrency:
+  group: import-morphology
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Import morphology
+        run: node scripts/import-morphology.mjs ${{ inputs.force == 'true' && '--force' || '' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

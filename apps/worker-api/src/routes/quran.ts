@@ -3,6 +3,7 @@ import { resolveTranslationLang, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { fetchTafsir, fetchAsbabunNuzul, listTafsirEditions, fetchTafsirByEdition } from "../lib/tafsir-source.js";
 import { fetchMushafPage, resolvePageForSurahStart, resolvePageForJuzStart } from "../lib/mushaf-source.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
+import { parseSegment } from "../lib/grammar-terms.js";
 import type { Env } from "../env.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
@@ -349,4 +350,57 @@ quranRoute.get("/mushaf/jump", async (c) => {
     type === "surah" ? await resolvePageForSurahStart(c.env, id) : type === "juz" ? await resolvePageForJuzStart(c.env, id) : null;
   if (page === null) return c.json({ error: "Could not resolve page" }, 404);
   return c.json({ page });
+});
+
+// GET /quran/morphology/:surah/:ayah — word-by-word nahwu & shorof for one
+// ayah, from the Quranic Arabic Corpus data loaded into `quran_morphology`.
+// Each word is broken into its segments (prefix/stem/suffix); every segment is
+// relabelled into readable Indonesian/Arabic via lib/grammar-terms. The data
+// is static, so cache it long. Returns { words: [] } (empty) when the table is
+// not yet populated — the reader simply hides the panel then.
+quranRoute.get("/morphology/:surah/:ayah", async (c) => {
+  const surah = Number(c.req.param("surah"));
+  const ayah = Number(c.req.param("ayah"));
+  if (!Number.isInteger(surah) || surah < 1 || surah > 114 || !Number.isInteger(ayah) || ayah < 1) {
+    return c.json({ error: "Invalid surah/ayah" }, 400);
+  }
+  const cacheKey = `quran:morph:v1:${surah}:${ayah}`;
+  const cached = await safeKvGet(c.env, cacheKey);
+  if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
+
+  let rows: { word: number; segment: number; form: string; tag: string; features: string; root: string | null; lemma: string | null }[] = [];
+  try {
+    const res = await c.env.DB.prepare(
+      `SELECT word, segment, form, tag, features, root, lemma
+       FROM quran_morphology WHERE surah = ? AND ayah = ? ORDER BY word, segment`
+    )
+      .bind(surah, ayah)
+      .all<{ word: number; segment: number; form: string; tag: string; features: string; root: string | null; lemma: string | null }>();
+    rows = res.results ?? [];
+  } catch {
+    rows = []; // table not created yet — degrade to empty
+  }
+
+  // Group segments by word, relabelling each into readable grammar.
+  const byWord = new Map<number, { word: number; arabic: string; segments: ReturnType<typeof parseSegment>[] }>();
+  for (const r of rows) {
+    let w = byWord.get(r.word);
+    if (!w) {
+      w = { word: r.word, arabic: "", segments: [] };
+      byWord.set(r.word, w);
+    }
+    w.arabic += r.form;
+    w.segments.push(parseSegment(r.form, r.tag, r.features));
+  }
+  const words = [...byWord.values()].sort((a, b) => a.word - b.word);
+
+  const body = JSON.stringify({
+    surah,
+    ayah,
+    words,
+    source: "Quranic Arabic Corpus — corpus.quran.com (Kais Dukes, Univ. of Leeds)",
+  });
+  // 90-day cache; morphology never changes once imported.
+  await safeKvPut(c.env, cacheKey, body, { expirationTtl: 60 * 60 * 24 * 90 });
+  return c.body(body, 200, { "Content-Type": "application/json" });
 });
