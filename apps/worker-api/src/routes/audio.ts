@@ -40,6 +40,20 @@ async function streamR2Object(c: any, key: string) {
   return new Response(obj.body, { status: 200, headers });
 }
 
+// ── Al-Qur'an Kids audio (hijaiyah letters + Iqro base syllables) ──────────
+// GET /audio/kids/:code — the real recorded audio for one kids slot, uploaded
+// or recorded from the admin "Al-Qur'an Kids" console. Returns 404 when a slot
+// has no recording yet, so the kids page falls back to an Arabic voice.
+audioRoute.get("/kids/:code", async (c) => {
+  const code = c.req.param("code");
+  if (!/^(h-\d{1,2}|s-\d{1,2}-[aiu])$/.test(code)) return c.json({ error: "bad code" }, 400);
+  const row = await c.env.DB.prepare("SELECT r2_key FROM kids_audio WHERE code = ?")
+    .bind(code)
+    .first<{ r2_key: string }>();
+  if (!row) return c.json({ error: "not found" }, 404);
+  return streamR2Object(c, row.r2_key);
+});
+
 // ── Murottal from R2 (owner: R2 is the PRIMARY player source) ─────────────
 //
 // GET /audio/qori2/:folder/:file  (file = <SSS><AAA>.mp3)

@@ -25,6 +25,7 @@ import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
 import { LiveStreamsTab } from "@/components/admin/LiveStreamsTab";
 import { KaggleGuideTab } from "@/components/admin/KaggleGuideTab";
 import { KidsChannelsTab } from "@/components/admin/KidsChannelsTab";
+import { KidsAudioTab } from "@/components/admin/KidsAudioTab";
 import { HajjTab } from "@/components/admin/HajjTab";
 import { MonitorTab } from "@/components/admin/MonitorTab";
 import { BacklogTab } from "@/components/admin/BacklogTab";
@@ -34,7 +35,7 @@ import { GrantTab } from "@/components/admin/GrantTab";
 import { SitePagesTab } from "@/components/admin/SitePagesTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kaggle" | "pages" | "hajj";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -104,6 +105,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["pages", "🧭 Halaman Situs"],
     ["live", "📡 Live Streaming"],
     ["kids", "🎬 Film Anak"],
+    ["kids-audio", "🧒 Al-Qur'an Kids"],
     ["hajj", "🕋 Haji & Umroh"],
     ["kaggle", "🎓 Kaggle GPU"],
     ["roadmap", "🗺️ Konsep"],
@@ -197,6 +199,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "pages" && <SitePagesTab />}
         {tab === "live" && <LiveStreamsTab />}
         {tab === "kids" && <KidsChannelsTab />}
+        {tab === "kids-audio" && <KidsAudioTab />}
         {tab === "hajj" && <HajjTab />}
         {tab === "kaggle" && <KaggleGuideTab />}
         {tab === "roadmap" && <RoadmapTab />}

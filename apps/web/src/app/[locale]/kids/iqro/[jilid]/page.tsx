@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { api } from "@/lib/api";
 import { kidsLabels } from "@/lib/kids-labels";
 import { getJilid, IQRO } from "@/lib/iqro";
 import { IqroReader } from "@/components/IqroReader";
@@ -37,6 +38,13 @@ export default async function IqroJilidPage({
 
   const next = getJilid(j.no + 1);
 
+  let filledAudio: string[] = [];
+  try {
+    filledAudio = (await api.get<{ codes: string[] }>("/content/kids-audio")).codes;
+  } catch {
+    filledAudio = [];
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6">
@@ -56,7 +64,7 @@ export default async function IqroJilidPage({
         </header>
 
         <div className="mt-6">
-          <IqroReader rows={j.rows} tapHint={t.tapToHear} />
+          <IqroReader rows={j.rows} tapHint={t.tapToHear} filled={filledAudio} />
         </div>
 
         {next && (

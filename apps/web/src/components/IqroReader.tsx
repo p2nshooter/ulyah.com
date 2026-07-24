@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { speakArabic, primeVoices } from "@/lib/arabic-voice";
+import { hasRealAudio, playKidsSequence } from "@/lib/kids-audio-play";
 import type { IqroUnit } from "@/lib/iqro";
 
 // A jilid page: colourful cards of Arabic syllables. Tapping a card ALWAYS
@@ -17,15 +18,22 @@ const TINTS = [
   "bg-cyan-100 text-cyan-800 dark:bg-cyan-500/20 dark:text-cyan-100",
 ];
 
-export function IqroReader({ rows, tapHint }: { rows: IqroUnit[][]; tapHint: string }) {
+export function IqroReader({ rows, tapHint, filled = [] }: { rows: IqroUnit[][]; tapHint: string; filled?: string[] }) {
   const [active, setActive] = useState<string | null>(null);
+  const filledSet = useMemo(() => new Set(filled), [filled]);
 
   useEffect(() => primeVoices(), []);
 
   function tap(u: IqroUnit) {
     setActive(u.ar);
     window.setTimeout(() => setActive((v) => (v === u.ar ? null : v)), 450);
-    speakArabic(u.ar);
+    // Real recorded audio when every base sound of this unit is filled; else
+    // fall back to an Arabic voice.
+    if (hasRealAudio(u.codes, filledSet)) {
+      playKidsSequence(u.codes, () => speakArabic(u.ar));
+    } else {
+      speakArabic(u.ar);
+    }
   }
 
   let colorIdx = 0;

@@ -86,6 +86,15 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
     byId = new Map();
   }
 
+  // Which letter slots already have a real recording (else the grid uses an
+  // Arabic voice).
+  let filledAudio: string[] = [];
+  try {
+    filledAudio = (await api.get<{ codes: string[] }>("/content/kids-audio")).codes;
+  } catch {
+    filledAudio = [];
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <header className="mx-auto max-w-4xl px-4 pt-12 text-center sm:px-6">
@@ -111,7 +120,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
       {/* Hijaiyah letters */}
       <section className="mx-auto mt-12 max-w-4xl px-4 sm:px-6">
         <SectionHead icon="🔤" title={t.hijaiyahTitle} desc={t.hijaiyahDesc} count={`28 ${t.letters}`} />
-        <KidsHijaiyah tapHint={t.tapToHear} />
+        <KidsHijaiyah tapHint={t.tapToHear} filled={filledAudio} />
       </section>
 
       {/* Hafalan Juz 30 */}

@@ -5,27 +5,29 @@
 // kasrah, dhammah, tanwin, mad, sukun, tasydid) — following the ordinary
 // beginner qiraah progression that every teacher uses. It is NOT a reproduction
 // of any particular published primer; the drills are assembled programmatically
-// below. Every unit is a real, correct Arabic syllable, spoken on tap with an
-// Arabic voice.
+// below. Every unit is a real, correct Arabic syllable.
+//
+// Each unit also carries `codes`: the base-syllable audio slots (see
+// lib/kids-audio.ts) that voice it. When those slots hold real recorded audio
+// the reader plays them in sequence; otherwise it falls back to an Arabic voice.
 
-const FATHAH = "َ"; // -a
-const KASRAH = "ِ"; // -i
-const DHAMMAH = "ُ"; // -u
-const SUKUN = "ْ"; // consonant, no vowel
-const TAN_FAT = "ً"; // -an
-const TAN_KAS = "ٍ"; // -in
-const TAN_DAM = "ٌ"; // -un
-const SHADDA = "ّ"; // doubled consonant
+import { syllableCode, FATHAH, KASRAH, DHAMMAH } from "./kids-audio";
+
+const SUKUN = "ْ";
+const TAN_FAT = "ً";
+const TAN_KAS = "ٍ";
+const TAN_DAM = "ٌ";
+const SHADDA = "ّ";
 const ALIF = "ا";
 const YA = "ي";
 const WAW = "و";
 
 interface Letter {
-  g: string; // glyph
-  c: string; // consonant transliteration
+  g: string;
+  c: string;
 }
 
-// 28 letters with a simple Latin consonant value for the transliteration line.
+// 28 letters (same order/index as HIJAIYAH, so index i ↔ audio code s-i-*).
 const L: Letter[] = [
   { g: "ا", c: "a" }, { g: "ب", c: "b" }, { g: "ت", c: "t" }, { g: "ث", c: "ts" },
   { g: "ج", c: "j" }, { g: "ح", c: "ḥ" }, { g: "خ", c: "kh" }, { g: "د", c: "d" },
@@ -39,6 +41,7 @@ const L: Letter[] = [
 export interface IqroUnit {
   ar: string;
   latin: string;
+  codes: string[];
 }
 export interface IqroJilid {
   no: number;
@@ -54,52 +57,56 @@ const chunk = <T>(arr: T[], n: number): T[][] => {
 };
 
 // A letter carrying a short vowel, e.g. بَ / بِ / بُ.
-const vowelled = (mark: string, suffix: string): IqroUnit[] =>
-  L.map((x) => ({ ar: x.g + mark, latin: (x.c === "a" && suffix === "a" ? "aa" : x.c + suffix) }));
+const vowelled = (mark: string, h: "a" | "i" | "u"): IqroUnit[] =>
+  L.map((x, i) => ({
+    ar: x.g + mark,
+    latin: x.c === "a" && h === "a" ? "aa" : x.c + h,
+    codes: [syllableCode(i, h)],
+  }));
 
 // Jilid 1 — every letter with fathah.
 const jilid1: IqroUnit[][] = chunk(vowelled(FATHAH, "a"), 6);
 
-// Jilid 2 — joined pairs (huruf sambung), fathah on both, so the child reads
-// two connected letters as one little word: بَتَ ثَجَ …
+// Jilid 2 — joined pairs (huruf sambung), fathah on both.
 const jilid2Units: IqroUnit[] = [];
 for (let i = 0; i + 1 < L.length; i += 2) {
   const a = L[i]!;
   const b = L[i + 1]!;
-  jilid2Units.push({ ar: a.g + FATHAH + b.g + FATHAH, latin: `${a.c}a${b.c}a` });
+  jilid2Units.push({ ar: a.g + FATHAH + b.g + FATHAH, latin: `${a.c}a${b.c}a`, codes: [syllableCode(i, "a"), syllableCode(i + 1, "a")] });
 }
 const jilid2: IqroUnit[][] = chunk(jilid2Units, 4);
 
 // Jilid 3 — kasrah and dhammah.
 const jilid3: IqroUnit[][] = [...chunk(vowelled(KASRAH, "i"), 6), ...chunk(vowelled(DHAMMAH, "u"), 6)];
 
-// Jilid 4 — tanwin (an / in / un).
+// Jilid 4 — tanwin (an / in / un). Audio hint = the base short-vowel syllable.
 const jilid4Units: IqroUnit[] = [];
-for (const x of L) {
-  jilid4Units.push({ ar: x.g + TAN_FAT, latin: `${x.c === "a" ? "a" : x.c}an` });
-  jilid4Units.push({ ar: x.g + TAN_KAS, latin: `${x.c === "a" ? "i" : x.c}in` });
-  jilid4Units.push({ ar: x.g + TAN_DAM, latin: `${x.c === "a" ? "u" : x.c}un` });
+for (let i = 0; i < L.length; i++) {
+  const x = L[i]!;
+  jilid4Units.push({ ar: x.g + TAN_FAT, latin: `${x.c === "a" ? "a" : x.c}an`, codes: [syllableCode(i, "a")] });
+  jilid4Units.push({ ar: x.g + TAN_KAS, latin: `${x.c === "a" ? "i" : x.c}in`, codes: [syllableCode(i, "i")] });
+  jilid4Units.push({ ar: x.g + TAN_DAM, latin: `${x.c === "a" ? "u" : x.c}un`, codes: [syllableCode(i, "u")] });
 }
 const jilid4: IqroUnit[][] = chunk(jilid4Units, 6);
 
-// Jilid 5 — mad (long vowels): letter + fathah + alif (aa), + kasrah + ya (ii),
-// + dhammah + waw (uu).
+// Jilid 5 — mad (long vowels).
 const jilid5Units: IqroUnit[] = [];
-for (const x of L) {
+for (let i = 0; i < L.length; i++) {
+  const x = L[i]!;
   if (x.g === "ا") continue;
-  jilid5Units.push({ ar: x.g + FATHAH + ALIF, latin: `${x.c}aa` });
-  jilid5Units.push({ ar: x.g + KASRAH + YA, latin: `${x.c}ii` });
-  jilid5Units.push({ ar: x.g + DHAMMAH + WAW, latin: `${x.c}uu` });
+  jilid5Units.push({ ar: x.g + FATHAH + ALIF, latin: `${x.c}aa`, codes: [syllableCode(i, "a")] });
+  jilid5Units.push({ ar: x.g + KASRAH + YA, latin: `${x.c}ii`, codes: [syllableCode(i, "i")] });
+  jilid5Units.push({ ar: x.g + DHAMMAH + WAW, latin: `${x.c}uu`, codes: [syllableCode(i, "u")] });
 }
 const jilid5: IqroUnit[][] = chunk(jilid5Units, 6);
 
-// Jilid 6 — sukun (closed syllable) and tasydid (doubled), the last steps
-// before reading full āyāt. أَبْ (ab), بَبّ (babb) …
+// Jilid 6 — sukun (closed syllable) and tasydid (doubled).
 const jilid6Units: IqroUnit[] = [];
-for (const x of L) {
+for (let i = 0; i < L.length; i++) {
+  const x = L[i]!;
   if (x.g === "ا") continue;
-  jilid6Units.push({ ar: ALIF + FATHAH + x.g + SUKUN, latin: `a${x.c}` });
-  jilid6Units.push({ ar: x.g + FATHAH + x.g + SHADDA, latin: `${x.c}a${x.c}${x.c}` });
+  jilid6Units.push({ ar: ALIF + FATHAH + x.g + SUKUN, latin: `a${x.c}`, codes: [syllableCode(0, "a"), syllableCode(i, "a")] });
+  jilid6Units.push({ ar: x.g + FATHAH + x.g + SHADDA, latin: `${x.c}a${x.c}${x.c}`, codes: [syllableCode(i, "a")] });
 }
 const jilid6: IqroUnit[][] = chunk(jilid6Units, 6);
 

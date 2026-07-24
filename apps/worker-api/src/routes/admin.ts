@@ -1164,6 +1164,118 @@ adminRoute.delete("/media/:key", async (c) => {
   return c.json({ ok: true });
 });
 
+// ── Al-Qur'an Kids audio console ───────────────────────────────────────────
+// Real recorded audio for the hijaiyah letters + Iqro base syllables, uploaded
+// as a file or recorded straight from the microphone in the admin. Stored in
+// R2, tracked in kids_audio; the kids pages play it and fall back to an Arabic
+// voice only for slots that are still empty. Public serve: GET /audio/kids/:code.
+const KIDS_AUDIO_EXT: Record<string, string> = {
+  "audio/mpeg": "mp3",
+  "audio/mp3": "mp3",
+  "audio/mp4": "m4a",
+  "audio/aac": "aac",
+  "audio/x-m4a": "m4a",
+  "audio/wav": "wav",
+  "audio/x-wav": "wav",
+  "audio/webm": "webm",
+  "audio/ogg": "ogg",
+  "application/ogg": "ogg",
+};
+const isKidsAudioCode = (code: string | undefined): code is string =>
+  !!code && /^(h-\d{1,2}|s-\d{1,2}-[aiu])$/.test(code);
+
+adminRoute.get("/kids-audio", async (c) => {
+  const { results } = await c.env.DB.prepare(
+    "SELECT code, content_type, source, updated_at, updated_by FROM kids_audio ORDER BY code"
+  ).all();
+  return c.json({ audio: results });
+});
+
+const uploadKidsAudio = async (c: Context<{ Bindings: Env }>) => {
+  const code = c.req.param("code");
+  if (!isKidsAudioCode(code)) return c.json({ error: `Unknown audio code: ${code}` }, 400);
+
+  const form = await c.req.formData();
+  const file = form.get("file");
+  if (!(file instanceof File)) return c.json({ error: "file required" }, 400);
+  // content type can arrive bare (e.g. "audio/webm;codecs=opus") — take the mime.
+  const mime = (file.type || "").split(";")[0]!.trim();
+  const ext = KIDS_AUDIO_EXT[mime];
+  if (!ext) return c.json({ error: `unsupported audio type: ${mime || "unknown"}` }, 400);
+  if (file.size === 0) return c.json({ error: "empty file" }, 400);
+  if (file.size > 2 * 1024 * 1024) return c.json({ error: "audio too large (max 2MB)" }, 400);
+
+  const source = typeof form.get("source") === "string" ? String(form.get("source")) : "upload";
+  const r2Key = `kids-audio/${code}.${ext}`;
+  await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: mime } });
+
+  const admin = c.get("admin" as never) as { email: string };
+  await c.env.DB.prepare(
+    `INSERT INTO kids_audio (code, r2_key, content_type, source, updated_at, updated_by)
+     VALUES (?, ?, ?, ?, datetime('now'), ?)
+     ON CONFLICT(code) DO UPDATE SET r2_key = excluded.r2_key, content_type = excluded.content_type,
+       source = excluded.source, updated_at = excluded.updated_at, updated_by = excluded.updated_by`
+  )
+    .bind(code, r2Key, mime, source, admin.email)
+    .run();
+
+  await logAdminAction(c.env, "kids_audio_set", admin.email, c.req.header("cf-connecting-ip") ?? null, { code, source });
+  return c.json({ ok: true, code });
+};
+adminRoute.put("/kids-audio/:code", uploadKidsAudio);
+adminRoute.post("/kids-audio/:code", uploadKidsAudio);
+
+// Import a slot's audio from a public URL (e.g. a Wikimedia Commons file the
+// admin has verified is openly licensed). The Worker (unlike the dev sandbox)
+// has full egress. https only; the admin previews it in the console afterwards,
+// so nothing wrong goes live unchecked.
+adminRoute.post("/kids-audio/:code/import", async (c) => {
+  const code = c.req.param("code");
+  if (!isKidsAudioCode(code)) return c.json({ error: `Unknown audio code: ${code}` }, 400);
+  const { url } = await c.req.json<{ url?: string }>().catch(() => ({ url: undefined }));
+  if (!url || !/^https:\/\//i.test(url)) return c.json({ error: "https url required" }, 400);
+
+  let res: Response;
+  try {
+    res = await fetch(url, { headers: { "user-agent": "ulyah-kids-audio/1.0 (+https://ulyah.com)" } });
+  } catch {
+    return c.json({ error: "could not fetch the source URL" }, 502);
+  }
+  if (!res.ok) return c.json({ error: `source returned ${res.status}` }, 502);
+  const mime = (res.headers.get("content-type") || "").split(";")[0]!.trim();
+  const ext = KIDS_AUDIO_EXT[mime];
+  if (!ext) return c.json({ error: `source is not a supported audio type (${mime || "unknown"})` }, 400);
+  const buf = await res.arrayBuffer();
+  if (buf.byteLength === 0 || buf.byteLength > 3 * 1024 * 1024) return c.json({ error: "audio empty or too large (max 3MB)" }, 400);
+
+  const r2Key = `kids-audio/${code}.${ext}`;
+  await c.env.MEDIA_R2.put(r2Key, buf, { httpMetadata: { contentType: mime } });
+  const admin = c.get("admin" as never) as { email: string };
+  await c.env.DB.prepare(
+    `INSERT INTO kids_audio (code, r2_key, content_type, source, updated_at, updated_by)
+     VALUES (?, ?, ?, 'import', datetime('now'), ?)
+     ON CONFLICT(code) DO UPDATE SET r2_key = excluded.r2_key, content_type = excluded.content_type,
+       source = excluded.source, updated_at = excluded.updated_at, updated_by = excluded.updated_by`
+  )
+    .bind(code, r2Key, mime, admin.email)
+    .run();
+  await logAdminAction(c.env, "kids_audio_import", admin.email, c.req.header("cf-connecting-ip") ?? null, { code, url });
+  return c.json({ ok: true, code });
+});
+
+adminRoute.delete("/kids-audio/:code", async (c) => {
+  const code = c.req.param("code");
+  if (!isKidsAudioCode(code)) return c.json({ error: "bad code" }, 400);
+  const row = await c.env.DB.prepare("SELECT r2_key FROM kids_audio WHERE code = ?").bind(code).first<{ r2_key: string }>();
+  if (row) {
+    await c.env.MEDIA_R2.delete(row.r2_key).catch(() => {});
+    await c.env.DB.prepare("DELETE FROM kids_audio WHERE code = ?").bind(code).run();
+  }
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "kids_audio_removed", admin.email, c.req.header("cf-connecting-ip") ?? null, { code });
+  return c.json({ ok: true });
+});
+
 // ── Live streaming hub management ──────────────────────────────────────────
 adminRoute.get("/live-streams", async (c) => {
   const { results } = await c.env.DB.prepare(

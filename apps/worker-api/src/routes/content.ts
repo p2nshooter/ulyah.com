@@ -581,6 +581,14 @@ contentRoute.get("/hadits/collections", async (c) => {
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
 
+// GET /content/kids-audio — which Al-Qur'an Kids audio slots have a real
+// recording (so the kids pages know when to play real audio vs. an Arabic
+// voice). Short cache: an admin recording should show up quickly.
+contentRoute.get("/kids-audio", async (c) => {
+  const { results } = await c.env.DB.prepare("SELECT code FROM kids_audio").all<{ code: string }>();
+  return c.json({ codes: results.map((r) => r.code) });
+});
+
 // GET /content/hadits/:collection?page=&lang= — one readable page of a book
 contentRoute.get("/hadits/:collection", async (c) => {
   const slug = c.req.param("collection");

@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { HIJAIYAH } from "@/lib/hijaiyah";
 import { speakArabic, primeVoices } from "@/lib/arabic-voice";
+import { hijaiyahCode } from "@/lib/kids-audio";
+import { hasRealAudio, playKidsSequence } from "@/lib/kids-audio-play";
 
 // A colourful grid of the 28 hijaiyah letters. Tapping a letter speaks its name
 // with the browser's built-in speech (no network, no tracking — safe for a
@@ -16,17 +18,23 @@ const TINTS = [
   "bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-200",
 ];
 
-export function KidsHijaiyah({ tapHint }: { tapHint: string }) {
+export function KidsHijaiyah({ tapHint, filled = [] }: { tapHint: string; filled?: string[] }) {
   const [active, setActive] = useState<number | null>(null);
+  const filledSet = useMemo(() => new Set(filled), [filled]);
 
   useEffect(() => primeVoices(), []);
 
   function say(i: number, arName: string) {
     setActive(i);
     window.setTimeout(() => setActive((v) => (v === i ? null : v)), 450);
-    // Always pronounce the letter with an Arabic voice (its Arabic name), never
-    // the visitor's local accent.
-    speakArabic(arName);
+    // Prefer the real recorded voice for this letter when it exists; otherwise
+    // pronounce it with an Arabic voice (never a local accent).
+    const code = hijaiyahCode(i);
+    if (hasRealAudio([code], filledSet)) {
+      playKidsSequence([code], () => speakArabic(arName));
+    } else {
+      speakArabic(arName);
+    }
   }
 
   return (
