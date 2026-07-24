@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import { resolveTranslationLang, LOCALES } from "@ulyah/shared/i18n";
 import { usePlayerStore, type QueueItem } from "@/lib/player-store";
+import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 
@@ -33,6 +34,14 @@ const JUZ_LIST = Array.from({ length: 30 }, (_, i) => i + 1);
 // Where the reader left off last visit — restored on open so nobody is ever
 // thrown back to page 1 / Al-Fatihah after closing the tab.
 const LAST_PAGE_KEY = "ulyah:mushaf:last-page";
+// The Mushaf keeps its OWN reciter, stored under its own key, so picking a
+// voice here never changes the per-ayah reader's voice (owner: "suara alquran
+// mushaf mengikuti suara qori alquran per ayat, tolong d pisah"). The full
+// roster is offered, exactly like the per-ayah reader.
+const MUSHAF_QORI_KEY = "ulyah:mushaf:qori";
+// Per-ayah reciters only — surah-mode voices have no per-ayah audio, and the
+// Mushaf plays page by page (ayah by ayah).
+const MUSHAF_RECITERS = RECITERS.filter((r) => r.cdn !== "surah");
 
 type FlipPhase = "idle" | "out" | "in";
 type FlipDirection = "next" | "prev";
@@ -66,6 +75,26 @@ export function MushafReader({ locale }: { locale: string }) {
   const [tajwidOn, setTajwidOn] = useState(true);
   const [tajwidPopup, setTajwidPopup] = useState<TajwidRule | null>(null);
   const initRef = useRef(false);
+
+  // Mushaf's own reciter + country filter (see MUSHAF_QORI_KEY).
+  const [mushafQori, setMushafQori] = useState<string>(MUSHAF_RECITERS[0]?.key ?? "ar.alafasy");
+  const [mushafCC, setMushafCC] = useState("all");
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(MUSHAF_QORI_KEY);
+      if (saved && MUSHAF_RECITERS.some((r) => r.key === saved)) setMushafQori(saved);
+    } catch {
+      /* storage blocked — fall back to the default voice */
+    }
+  }, []);
+  function chooseMushafQori(key: string) {
+    setMushafQori(key);
+    try {
+      window.localStorage.setItem(MUSHAF_QORI_KEY, key);
+    } catch {
+      /* ignore */
+    }
+  }
 
   const [surahList, setSurahList] = useState<SurahMeta[]>([]);
   const [pageInput, setPageInput] = useState("1");
@@ -203,7 +232,9 @@ export function MushafReader({ locale }: { locale: string }) {
       kisah: null,
       bundleLoaded: false,
     }));
-    loadSurahQueue(items, 0);
+    // Pass the Mushaf's own voice with the queue — the global reciter is left
+    // untouched, so the per-ayah reader keeps whatever it was set to.
+    loadSurahQueue(items, 0, mushafQori);
   }
 
   function playPage() {
@@ -316,6 +347,39 @@ export function MushafReader({ locale }: { locale: string }) {
           >
             {locale === "id" ? "Tajwid" : locale === "ar" ? "التجويد" : "Tajwid"} {tajwidOn ? "✓" : ""}
           </button>
+
+          {/* Mushaf's OWN reciter — full roster, country filter, independent of
+              the per-ayah reader's choice. */}
+          <select
+            value={mushafCC}
+            onChange={(e) => {
+              const cc = e.target.value;
+              setMushafCC(cc);
+              const pool = MUSHAF_RECITERS.filter((r) => cc === "all" || r.cc === cc);
+              if (pool.length && !pool.some((r) => r.key === mushafQori)) chooseMushafQori(pool[0]!.key);
+            }}
+            aria-label="qori country"
+            className="rounded-full border border-accent/40 bg-transparent px-3 py-2 text-xs text-accent"
+          >
+            {COUNTRIES.map((c) => (
+              <option key={c.code} value={c.code} className="text-primary">
+                {c.flag} {c.label}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={mushafQori}
+            onChange={(e) => chooseMushafQori(e.target.value)}
+            aria-label="qori"
+            className="max-w-[13rem] rounded-full border border-accent/40 bg-transparent px-3 py-2 text-xs text-accent"
+          >
+            {MUSHAF_RECITERS.filter((r) => mushafCC === "all" || r.cc === mushafCC).map((r) => (
+              <option key={r.key} value={r.key} className="text-primary">
+                🎙️ {r.flag} {r.name}
+              </option>
+            ))}
+          </select>
 
           <select
             value={translationLocale}

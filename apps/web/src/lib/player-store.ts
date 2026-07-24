@@ -60,7 +60,14 @@ interface PlayerState {
   // highlight — can derive playback ratio without owning the <audio> element.
   audioProgress: { current: number; duration: number };
 
-  loadSurahQueue: (ayat: QueueItem[], startIndex?: number) => void;
+  /** Reciter for the CURRENT queue only, when the caller wants its own voice
+   *  instead of the site-wide `qoriId`. The Mushaf sets this so choosing a
+   *  reciter there does not silently change the per-ayah reader's reciter (and
+   *  vice versa) — owner: "suara alquran mushaf mengikuti suara qori alquran
+   *  per ayat, tolong d pisah". Null = follow the global choice. */
+  qoriOverride: string | null;
+
+  loadSurahQueue: (ayat: QueueItem[], startIndex?: number, qoriOverride?: string | null) => void;
   patchBundle: (index: number, partial: Partial<QueueItem>) => void;
   playStory: (id: number, title: string) => void;
   setLayers: (l: Layer[]) => void;
@@ -122,6 +129,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   // mismatch). The real values are applied by `hydrateFromStorage()`, called
   // once from a client-only effect after mount, once hydration is done.
   qoriId: DEFAULT_QORI_KEY,
+  qoriOverride: null,
   layers: MODE_PRESETS.full,
   activeLayer: null,
   isPlaying: false,
@@ -132,7 +140,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   audioUnavailableNotice: null,
   audioProgress: { current: 0, duration: 0 },
 
-  loadSurahQueue: (ayat, startIndex = 0) => {
+  loadSurahQueue: (ayat, startIndex = 0, qoriOverride = null) => {
     set({
       queue: ayat,
       currentIndex: startIndex,
@@ -140,6 +148,9 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       isPlaying: true,
       activeLayer: null,
       audioUnavailableNotice: null,
+      // Whoever loads a queue owns the voice for it: the Mushaf passes its own
+      // reciter, every other caller passes nothing and gets the global one.
+      qoriOverride,
     });
   },
 
