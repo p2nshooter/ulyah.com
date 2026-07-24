@@ -31,10 +31,16 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   // Live kitab totals for the treasury pointer (best-effort — the band simply
   // hides if the catalogue endpoint is briefly unavailable).
+  //
+  // Deliberately requested WITHOUT a `lang`: this band renders only counts, so
+  // asking for a localized payload would make the landing page — the very page
+  // a language switch lands on — wait on translating 38 category names on a
+  // cold cache. That is server work the visitor never sees, and on a thin
+  // cache it helped push the render past the Worker's limits (Error 1102).
   let kitabTotal = 0;
   let kitabCats = 0;
   try {
-    const res = await api.get<{ categories: { book_count: number }[] }>(`/content/kitab/categories?lang=${locale}`);
+    const res = await api.get<{ categories: { book_count: number }[] }>(`/content/kitab/categories`);
     kitabCats = res.categories.length;
     kitabTotal = res.categories.reduce((n, c) => n + (c.book_count ?? 0), 0);
   } catch {

@@ -216,6 +216,25 @@ async function mtDbPutMany(env: Env, entries: { k: string; v: string }[]): Promi
   }
 }
 
+// ── Runtime translation budget (Error 1102 guard) ────────────────────────
+// A page rendered in a language whose cache is still thin misses on hundreds
+// of strings. The batched path is cheap, but when a batched upstream call
+// fails — and Google's endpoint IS routinely blocked from Cloudflare IPs — the
+// old code retried EVERY string individually through the Workers AI chain.
+// Hundreds of inference subrequests in one request is exactly what Cloudflare
+// kills with "Error 1102 — Worker exceeded resource limits", which is what
+// visitors hit when switching ulyah.com to one of the newer languages.
+//
+// So the runtime is BOUNDED: a handful of upstream batches, a small per-string
+// retry fan-out, a wall-clock deadline, and a cap on how many chunks one long
+// passage may spend. Whatever doesn't fit renders in the source language
+// (never a hole, never a 1102) and is filled in by the nightly warm job on a
+// GitHub runner, which has no such limits and persists everything to D1.
+const MAX_UPSTREAM_BATCHES = 3;
+const MAX_SINGLE_RETRIES = 6;
+const UPSTREAM_DEADLINE_MS = 5000;
+const MAX_RUNTIME_CHUNKS = 8;
+
 /**
  * Cache-only translation: returns a previously-cached translation or null,
  * and NEVER calls the translation API. Use this on list pages that render
@@ -264,8 +283,14 @@ export async function translateText(
     let result = await googleTranslate(trimmed, sourceLang, targetLang);
     if (!result) {
       // Fall back to chunked translation (Google per-chunk, MyMemory, then
-      // Cloudflare Workers AI — the reliable last line).
+      // Cloudflare Workers AI — the reliable last line). A very long passage
+      // splits into many chunks, and one inference subrequest per chunk is the
+      // other way a single request used to trip Cloudflare's resource limits
+      // (Error 1102). Above the cap we don't attempt it at runtime at all: the
+      // reader gets the source text and the warm job — which runs on a GitHub
+      // runner with no such limits — translates it into D1 for the next visit.
       const chunks = chunkText(trimmed, 450);
+      if (chunks.length > MAX_RUNTIME_CHUNKS) return null;
       const parts = await Promise.all(chunks.map((chunk) => translateChunk(env, chunk, sourceLang, targetLang)));
       result = parts.some((p) => p === null) ? null : parts.join(" ");
     }
@@ -408,7 +433,15 @@ export async function localizeBatch(
   }
   if (cur.length) batches.push(cur);
 
+  const startedAt = Date.now();
+  let usedBatches = 0;
   for (const batch of batches) {
+    // Stay inside the request's resource budget — see the note above. Once the
+    // budget is spent, the remaining misses simply render in the source
+    // language instead of taking the whole page down with a 1102.
+    if (usedBatches >= MAX_UPSTREAM_BATCHES || Date.now() - startedAt > UPSTREAM_DEADLINE_MS) break;
+    usedBatches++;
+
     const joined = batch.map((m) => m.text).join("\n");
     const translated = await googleTranslate(joined, sourceLang, targetLang);
     const parts = translated?.split("\n").map((s) => s.trim()) ?? [];
@@ -424,11 +457,13 @@ export async function localizeBatch(
       await mtDbPutMany(env, writes);
     } else {
       // Batch upstream failed (null) or the split mismatched — never
-      // mis-assign. Translate each string on its own via the reliable chain
-      // (Google → MyMemory → Workers AI) and cache successes; anything that
-      // still fails serves source and is retried on the next load.
+      // mis-assign. Retry a BOUNDED slice one string at a time via the
+      // reliable chain (Google → MyMemory → Workers AI); the rest serve source
+      // and are picked up by the warm job. The cap is what keeps a cold cache
+      // from fanning out into hundreds of inference subrequests.
+      const retry = batch.slice(0, MAX_SINGLE_RETRIES);
       await Promise.all(
-        batch.map(async (m) => {
+        retry.map(async (m) => {
           const t = await translateChunk(env, m.text, sourceLang, targetLang);
           out[m.idx] = t || m.text;
           if (t) {
