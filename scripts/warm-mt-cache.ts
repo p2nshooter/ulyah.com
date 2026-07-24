@@ -225,7 +225,33 @@ async function main() {
   }
 
   const strings = collectStrings();
+
+  // Warm the FURTHEST-BEHIND language first.
+  //
+  // The list is otherwise processed in its declared order (en, de, es, fr, …),
+  // and the languages at the front carry by far the largest corpora. They ate
+  // the whole run every time, so the ones near the end never got past their
+  // first small phase: fr/en/es/de sat at 11k/11k/7k/4k cached strings while
+  // ur, hi, tr and the rest were all stuck on exactly 532 — for days, no matter
+  // how often the job ran. Sorting by how much each language already has makes
+  // every run top up whoever is behind, so coverage evens out on its own
+  // instead of depending on where a language happens to sit in the list.
+  const cachedPerLang = new Map<string, number>();
+  if (!dry) {
+    for (const lang of langs) {
+      const n = d1Json<{ n: number }>(`SELECT COUNT(*) AS n FROM mt_cache WHERE k LIKE 'mt:id-${lang}:%';`)[0]?.n ?? 0;
+      cachedPerLang.set(lang, Number(n));
+    }
+    langs.sort((a, b) => (cachedPerLang.get(a) ?? 0) - (cachedPerLang.get(b) ?? 0));
+  }
+
   console.log(`Collected ${strings.length} distinct id strings to warm into [${langs.join(", ")}].`);
+  if (cachedPerLang.size) {
+    console.log(
+      "Cached per language (least first): " +
+        langs.map((l) => `${l}=${cachedPerLang.get(l) ?? 0}`).join(", ")
+    );
+  }
 
   let translated = 0;
   let failed = 0;
