@@ -7,6 +7,7 @@ import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
 import { TENANT } from "@/lib/tenant";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
+import { NahwuShorofPanel } from "@/components/NahwuShorofPanel";
 import type { Dictionary } from "@/dictionaries";
 
 interface SurahMeta {
@@ -646,6 +647,9 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 </>
               )}
             </div>
+
+            {/* Word-by-word nahwu & shorof, read aloud in a separate voice. */}
+            <NahwuShorofPanel surah={selectedSurah.id} ayah={focus} locale={locale} />
 
             {/* Reciter (Imam) picker — country + reciter, with the imam's note
                 so the roster reads as complete (Imam Masjidil Haram, dst). */}
