@@ -28,11 +28,21 @@ on:
     types: [completed]
     branches: [main]
 
-# Never let two warms run at once (a deploy trigger firing while a manual/
-# nightly run is still translating). Queue the newcomer instead of cancelling
-# the in-progress one, so a long first warm always finishes.
+# Queue rather than cancel, so a long warm always finishes — but keep each
+# TRIGGER in its own lane.
+#
+# With a single shared lane the after-every-deploy runs starved everything
+# else: on a busy day (~20 deploys) each new deploy-triggered run cancelled the
+# one still queued, and the nightly full pass was cancelled along with them. In
+# 26 runs only 3 ever completed, and none for ~18 hours, which is exactly why
+# the newer languages stayed at ~600 cached strings while French sat at 11k.
+#
+# Per-event groups mean the scheduled full pass and a manual dispatch can never
+# be cancelled by deploy churn. Concurrent lanes are safe: the script is
+# idempotent (INSERT … ON CONFLICT) and skips anything already in D1, so the
+# worst case is a little duplicated lookup work.
 concurrency:
-  group: warm-mt-cache
+  group: warm-mt-cache-${{ github.event_name }}
   cancel-in-progress: false
 
 jobs:

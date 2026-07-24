@@ -8,6 +8,26 @@ import { api } from "@/lib/api";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
+import { MainAppInstallCard } from "@/components/AppInstallCard";
+import { IQRO } from "@/lib/iqro";
+
+// Front-page "Al-Qur'an Kids" pointer + install pitch (id primary; en fallback).
+const KIDS = {
+  id: {
+    title: "Al-Qur'an Kids",
+    desc: (n: number) => `Belajar mengaji dari nol: hijaiyah, ${n} jilid Iqro bersuara, hafalan Juz 'Amma, dan film anak islami.`,
+    cta: "Mulai belajar",
+    iqro: (n: number) => `${n} jilid Iqro`,
+    install: "Pasang aplikasinya biar lebih cepat dibuka",
+  },
+  en: {
+    title: "Al-Qur'an Kids",
+    desc: (n: number) => `Learn to read from zero: the hijaiyah, ${n} voiced Iqro levels, Juz 'Amma memorisation, and Islamic films for children.`,
+    cta: "Start learning",
+    iqro: (n: number) => `${n} Iqro levels`,
+    install: "Install the app so it opens faster",
+  },
+};
 
 // Front-page "Bendahara Kitab" pointer copy (id primary; en fallback for every
 // other locale, per the site's hardcoded-label convention).
@@ -47,6 +67,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     kitabTotal = 0;
   }
   const bk = BENDAHARA[locale] ?? BENDAHARA.en!;
+  const kids = KIDS[locale as keyof typeof KIDS] ?? KIDS.en;
 
   // Quick-access tiles — each links straight to the feature it names, so the
   // hero row doubles as real navigation instead of being purely decorative.
@@ -186,6 +207,35 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
         </section>
       )}
+
+      {/* ── Al-Qur'an Kids + install the app (front and centre so a parent
+             finds it immediately, and so the site can be installed for a
+             faster cold start instead of hunting for the header button) ─ */}
+      <section className="px-4 pt-6 sm:px-6">
+        <div className="mx-auto grid max-w-4xl gap-4 desktop:grid-cols-[1.4fr_1fr]">
+          <Link
+            href={`/${locale}/kids`}
+            className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-sky-400/10 via-accent/5 to-transparent p-5 transition hover:border-accent sm:flex-row sm:items-center"
+          >
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-accent/15 text-3xl">🧒</span>
+            <div className="min-w-0 flex-1">
+              <p className="font-heading text-lg">{kids.title}</p>
+              <p className="mt-0.5 text-sm text-[var(--color-text-secondary)]">{kids.desc(IQRO.length)}</p>
+              <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-accent/40 px-2.5 py-0.5 text-[11px] font-medium text-accent">
+                📗 {kids.iqro(IQRO.length)}
+              </span>
+            </div>
+            <span className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-md transition group-hover:brightness-110">
+              {kids.cta} →
+            </span>
+          </Link>
+
+          <div>
+            <MainAppInstallCard locale={locale} />
+            <p className="mt-2 text-center text-[11px] text-[var(--color-text-secondary)]">{kids.install}</p>
+          </div>
+        </div>
+      </section>
 
       {/* ── Radio Qori Dunia — always-on world reciters stream ─ */}
       <section className="px-4 pt-4 sm:px-6">
