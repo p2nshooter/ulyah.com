@@ -1,0 +1,110 @@
+/* ══════════════════════════════════════════════════════════════════════
+   Premium kitab binding — the "real book" finish shared by every shelf
+   and every work/collection header (components/KitabCover.tsx).
+
+   Drawn entirely with gradients and shadows: no images, so a shelf of
+   forty covers still costs nothing to download. The jewel binding, foil
+   and spine colours come per-slug from @ulyah/shared/cover-art; this file
+   only adds the physical book cues on top of them.
+   ══════════════════════════════════════════════════════════════════════ */
+
+.kitab-cover {
+  position: relative;
+  isolation: isolate;
+  border-radius: 5px 10px 10px 5px;
+  box-shadow:
+    /* the stacked page block peeking out along the fore-edge */
+    inset -6px 0 0 -3px rgba(255, 253, 244, 0.55),
+    inset -9px 0 0 -6px rgba(190, 180, 155, 0.5),
+    inset -12px 0 0 -9px rgba(255, 253, 244, 0.4),
+    /* binding depth */
+    0 10px 26px -10px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+/* Raised spine along the binding edge, with a lit rim. */
+.kitab-cover::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 14px;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.12) 55%, transparent),
+    var(--kc-spine, rgba(0, 0, 0, 0.5));
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+/* Soft sheen sweeping across the board, like light on cloth binding. */
+.kitab-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0%, transparent 38%, transparent 62%, rgba(0, 0, 0, 0.16) 100%);
+}
+
+/* Everything the card renders sits above the spine + sheen layers. */
+.kitab-cover > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Tooled foil frame, inset like a blind-stamped border. */
+.kitab-cover-frame {
+  position: absolute;
+  inset: 10px 10px 10px 22px;
+  z-index: 2;
+  border: 1px solid var(--kc-foil, rgba(212, 175, 90, 0.7));
+  border-radius: 3px;
+  opacity: 0.42;
+  pointer-events: none;
+}
+.kitab-cover-frame::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--kc-foil, rgba(212, 175, 90, 0.7));
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+/* Gold-foil title: a warm gradient with a hairline emboss under it. */
+.kitab-foil {
+  color: var(--kc-foil, #d4af5a);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45), 0 0 10px rgba(212, 175, 90, 0.18);
+}
+
+/* Silk ribbon bookmark falling out of the lower edge. */
+.kitab-ribbon {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 16%;
+  width: 10px;
+  height: 42%;
+  z-index: 3;
+  background: linear-gradient(180deg, #a8202f, #7a1f2b);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%);
+  opacity: 0.9;
+}
+
+/* Lift on hover — the book easing off the shelf. */
+.kitab-cover-lift {
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 260ms ease;
+}
+.kitab-cover-lift:hover {
+  transform: translateY(-6px) rotate(-0.6deg);
+  box-shadow:
+    inset -6px 0 0 -3px rgba(255, 253, 244, 0.6),
+    inset -9px 0 0 -6px rgba(190, 180, 155, 0.55),
+    0 22px 40px -14px rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kitab-cover-lift { transition: none; }
+  .kitab-cover-lift:hover { transform: none; }
+}

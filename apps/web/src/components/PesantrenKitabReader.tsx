@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { KitabCover } from "@/components/KitabCover";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { NarrateButton } from "@/components/NarrateButton";
@@ -614,8 +615,19 @@ export function PesantrenKitabReader({
         </Link>
       </div>
 
-      {/* Kitab header card — author, category, description */}
+      {/* Kitab header card — the bound volume beside author, category and
+          description, so opening a kitab looks like opening the book itself. */}
       <div className="mt-3 app-hero overflow-hidden rounded-3xl border border-accent/30 p-6 sm:p-8">
+        <div className="float-none mb-5 w-full max-w-[220px] sm:float-right sm:mb-0 sm:ml-6">
+          <KitabCover
+            slug={kitab.slug}
+            titleAr={kitab.title_ar}
+            title={kitab.title_id}
+            size="hero"
+            ribbon
+            meta={kitab.author ?? undefined}
+          />
+        </div>
         <p className="text-xs uppercase tracking-[0.2em] text-accent">
           {kitab.category_icon ?? "📗"} {kitab.category_name}
         </p>
