@@ -89,6 +89,13 @@ export const RECITERS: QoriDef[] = [
   // Emirat Arab
   { key: "ey.tunaiji", name: "Khalifa Al-Tunaiji", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "khalefa_al_tunaiji_64kbps", r2Folder: "tunaiji" },
   { key: "ey.bukhatir", name: "Salah Bukhatir", flag: "🇦🇪", country: "Emirat Arab", cc: "ae", note: "Murattal", cdn: "ey", eyId: "Salaah_AbdulRahman_Bukhatir_128kbps", r2Folder: "bukhatir" },
+  // Suara anak — the classic "Al-Minshawi teaching children" recording, where
+  // the sheikh reads a phrase and a children's choir repeats it. Free on
+  // everyayah, per-ayah, and the gentlest voice to learn from, so Al-Qur'an
+  // Kids offers it as its own reciter. No R2 folder on purpose: it streams
+  // straight from the CDN rather than adding another 6,236-file library.
+  { key: "ey.minshawi_children", name: "Al-Minshawi & Anak-anak", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Suara anak — ikuti bacaan", cdn: "ey", eyId: "Minshawy_Children_128kbps" },
+
   // Tambahan — cakupan lebih luas (per-ayat, everyayah.com)
   { key: "ey.juhany", name: "Abdullah Awad Al-Juhany", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "ey", eyId: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", r2Folder: "juhany" },
   { key: "ey.ghamdi", name: "Saad Al-Ghamdi", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Murattal Tartil", featured: true, cdn: "ey", eyId: "Ghamadi_40kbps", r2Folder: "ghamdi" },
