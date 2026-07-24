@@ -76,6 +76,29 @@ export function MushafReader({ locale }: { locale: string }) {
   const [tajwidPopup, setTajwidPopup] = useState<TajwidRule | null>(null);
   const initRef = useRef(false);
 
+  // Reading comfort: page finish (light / sepia / night) and Arabic size, both
+  // remembered per device. A long session on a bright cream page is tiring, and
+  // one fixed Arabic size never suits every reader.
+  const [pageMode, setPageMode] = useState<"light" | "sepia" | "night">("light");
+  const [textSize, setTextSize] = useState<"s" | "m" | "l" | "xl">("m");
+  useEffect(() => {
+    try {
+      const m = window.localStorage.getItem("ulyah:mushaf:mode");
+      const s = window.localStorage.getItem("ulyah:mushaf:size");
+      if (m === "light" || m === "sepia" || m === "night") setPageMode(m);
+      if (s === "s" || s === "m" || s === "l" || s === "xl") setTextSize(s);
+    } catch {
+      /* storage blocked — defaults are fine */
+    }
+  }, []);
+  function persist(key: string, value: string) {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch {
+      /* ignore */
+    }
+  }
+
   // Mushaf's own reciter + country filter (see MUSHAF_QORI_KEY).
   const [mushafQori, setMushafQori] = useState<string>(MUSHAF_RECITERS[0]?.key ?? "ar.alafasy");
   const [mushafCC, setMushafCC] = useState("all");
@@ -348,6 +371,46 @@ export function MushafReader({ locale }: { locale: string }) {
             {locale === "id" ? "Tajwid" : locale === "ar" ? "التجويد" : "Tajwid"} {tajwidOn ? "✓" : ""}
           </button>
 
+          {/* Page finish — light / sepia / night, for long sessions. */}
+          <div className="inline-flex overflow-hidden rounded-full border border-accent/40">
+            {([
+              ["light", "☀️"],
+              ["sepia", "📜"],
+              ["night", "🌙"],
+            ] as const).map(([m, icon]) => (
+              <button
+                key={m}
+                onClick={() => {
+                  setPageMode(m);
+                  persist("ulyah:mushaf:mode", m);
+                }}
+                aria-label={m}
+                aria-pressed={pageMode === m}
+                className={`px-3 py-2 text-xs transition ${pageMode === m ? "bg-accent/25 text-accent" : "text-accent/70 hover:bg-accent/10"}`}
+              >
+                {icon}
+              </button>
+            ))}
+          </div>
+
+          {/* Arabic size. */}
+          <div className="inline-flex overflow-hidden rounded-full border border-accent/40">
+            {(["s", "m", "l", "xl"] as const).map((s) => (
+              <button
+                key={s}
+                onClick={() => {
+                  setTextSize(s);
+                  persist("ulyah:mushaf:size", s);
+                }}
+                aria-label={`text ${s}`}
+                aria-pressed={textSize === s}
+                className={`px-2.5 py-2 text-xs transition ${textSize === s ? "bg-accent/25 text-accent" : "text-accent/70 hover:bg-accent/10"}`}
+              >
+                {s === "s" ? "A−" : s === "m" ? "A" : s === "l" ? "A+" : "A++"}
+              </button>
+            ))}
+          </div>
+
           {/* Mushaf's OWN reciter — full roster, country filter, independent of
               the per-ayah reader's choice. */}
           <select
@@ -510,6 +573,7 @@ export function MushafReader({ locale }: { locale: string }) {
 
           <div
             key={pageNumber}
+            data-mode={pageMode}
             className={`mushaf-frame mx-auto min-h-[70vh] max-w-3xl p-2 sm:min-h-[75vh] sm:p-3 ${flipClass}`}
             style={{ transformStyle: "preserve-3d" }}
           >
@@ -517,22 +581,22 @@ export function MushafReader({ locale }: { locale: string }) {
             {loading && !pageData ? (
               <p className="py-24 text-center text-sm text-[color-mix(in_srgb,var(--color-primary)_60%,transparent)]">{t.loadingPage}</p>
             ) : pageData ? (
-              <div dir="rtl" className="mushaf-text flex-1">
+              <div dir="rtl" data-size={textSize} className="mushaf-text flex-1">
                 {pageData.ayahs.map((a) => (
                   <span key={`${a.surahId}:${a.number}`}>
                     {a.isFirstOfSurah && (
-                      <span className="my-4 flex items-center justify-center gap-3 rounded-xl border-2 border-accent/60 bg-gradient-to-l from-accent/15 via-accent/5 to-accent/15 py-3 text-center">
-                        <span aria-hidden className="text-accent">✦</span>
+                      <span className="mushaf-surah-band my-5 flex items-center justify-center px-10 py-3 text-center">
                         <span>
-                          <span className="block font-heading text-xl text-[#7a1f2b]">{a.surahNameAr}</span>
-                          <span className="block text-[11px] text-[color-mix(in_srgb,var(--color-primary)_60%,transparent)]">{a.surahName}</span>
+                          <span className="font-arabic block text-2xl" style={{ color: "var(--mp-accent)" }}>
+                            {a.surahNameAr}
+                          </span>
+                          <span className="block text-[11px] opacity-70">{a.surahName}</span>
                         </span>
-                        <span aria-hidden className="text-accent">✦</span>
                       </span>
                     )}
                     <span
                       id={`mushaf-ayah-${a.surahId}-${a.number}`}
-                      className={`font-arabic cursor-pointer px-0.5 text-2xl leading-[2.4] text-[#1a1408] transition hover:bg-accent/10 sm:text-3xl ${
+                      className={`mushaf-ayah font-arabic cursor-pointer px-0.5 transition hover:bg-accent/10 ${
                         activeKey === `${a.surahId}:${a.number}` ? "mushaf-ayah-active" : ""
                       }`}
                       onClick={() => openTafsir(a.surahId, a.number)}
