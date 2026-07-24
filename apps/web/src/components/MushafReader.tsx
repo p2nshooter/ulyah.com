@@ -7,6 +7,7 @@ import { usePlayerStore, type QueueItem } from "@/lib/player-store";
 import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
+import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 
 interface MushafAyahDTO {
   surahId: number;
@@ -62,6 +63,8 @@ type FlipDirection = "next" | "prev";
  */
 export function MushafReader({ locale }: { locale: string }) {
   const t = mushafLabels(locale);
+  const tjw = tajwidRuleTexts(locale);
+  const tw = tajwidUiLabels(locale);
   const isRtl = locale === "ar";
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -368,7 +371,7 @@ export function MushafReader({ locale }: { locale: string }) {
               tajwidOn ? "bg-accent/20 text-accent ring-1 ring-accent/50" : "border border-accent/40 text-accent"
             }`}
           >
-            {locale === "id" ? "Tajwid" : locale === "ar" ? "التجويد" : "Tajwid"} {tajwidOn ? "✓" : ""}
+            {tw.tajwid} {tajwidOn ? "✓" : ""}
           </button>
 
           {/* Page finish — light / sepia / night, for long sessions. */}
@@ -535,14 +538,14 @@ export function MushafReader({ locale }: { locale: string }) {
                 className="inline-flex items-center gap-1 text-accent/90 transition hover:text-accent"
               >
                 <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: info.color }} />
-                {locale === "id" ? info.nameId : info.nameEn}
+                {tjw[key].name}
               </button>
             ))}
             <a
               href={`/${locale}/quran/tajwid`}
               className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2.5 py-0.5 font-medium text-accent transition hover:bg-accent/10"
             >
-              🎨 {locale === "id" ? "Panduan lengkap" : locale === "ar" ? "الدليل الكامل" : "Full guide"} →
+              🎨 {tw.guideFull} →
             </a>
           </div>
         )}
@@ -676,7 +679,7 @@ export function MushafReader({ locale }: { locale: string }) {
                 className="inline-block h-3.5 w-3.5 rounded-full"
                 style={{ backgroundColor: TAJWID_RULES[tajwidPopup].color }}
               />
-              {locale === "id" ? TAJWID_RULES[tajwidPopup].nameId : TAJWID_RULES[tajwidPopup].nameEn}
+              {tjw[tajwidPopup].name}
             </p>
             <button
               onClick={() => setTajwidPopup(null)}
@@ -687,7 +690,7 @@ export function MushafReader({ locale }: { locale: string }) {
             </button>
           </div>
           <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {locale === "id" ? TAJWID_RULES[tajwidPopup].descId : TAJWID_RULES[tajwidPopup].descEn}
+            {tjw[tajwidPopup].desc}
           </p>
         </div>
       )}

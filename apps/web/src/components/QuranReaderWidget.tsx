@@ -7,6 +7,7 @@ import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { radioLabels } from "@/lib/radio-labels";
 import { TENANT } from "@/lib/tenant";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
+import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 import { NahwuShorofPanel } from "@/components/NahwuShorofPanel";
 import type { Dictionary } from "@/dictionaries";
 
@@ -191,6 +192,8 @@ function TajwidArabic({ text, onRule }: { text: string; onRule: (r: TajwidRule) 
 
 export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dictionary }) {
   const t = radioLabels(locale);
+  const tjw = tajwidRuleTexts(locale);
+  const tw = tajwidUiLabels(locale);
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
   const [surahFilter, setSurahFilter] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<SurahMeta | null>(null);
@@ -556,12 +559,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                     setTajwidPopup(null);
                   }}
                   aria-pressed={tajwidOn}
-                  title={locale === "id" ? "Tandai hukum tajwid" : "Colour tajwid rules"}
+                  title={tw.tajwidTitle}
                   className={`rounded-lg px-3 py-1.5 text-xs transition ${
                     tajwidOn ? "bg-accent/20 font-medium text-accent ring-1 ring-accent/40" : "border border-[var(--color-border)] hover:border-accent"
                   }`}
                 >
-                  {locale === "id" ? "Tajwid" : locale === "ar" ? "التجويد" : "Tajwid"} {tajwidOn ? "✓" : ""}
+                  {tw.tajwid} {tajwidOn ? "✓" : ""}
                 </button>
                 <button
                   onClick={shareAyah}
@@ -621,7 +624,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                             className="inline-flex items-center gap-1 text-[var(--color-text-secondary)] transition hover:text-accent"
                           >
                             <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: info.color }} />
-                            {locale === "id" ? info.nameId : info.nameEn}
+                            {tjw[key].name}
                           </button>
                         )
                       )}
@@ -630,7 +633,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         onClick={(ev) => ev.stopPropagation()}
                         className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 font-medium text-accent transition hover:bg-accent/10"
                       >
-                        🎨 {locale === "id" ? "Panduan" : locale === "ar" ? "الدليل" : "Guide"} →
+                        🎨 {tw.guide} →
                       </a>
                     </div>
                   )}
@@ -845,7 +848,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 className="inline-block h-3.5 w-3.5 rounded-full"
                 style={{ backgroundColor: TAJWID_RULES[tajwidPopup].color }}
               />
-              {locale === "id" ? TAJWID_RULES[tajwidPopup].nameId : TAJWID_RULES[tajwidPopup].nameEn}
+              {tjw[tajwidPopup].name}
             </p>
             <button
               onClick={() => setTajwidPopup(null)}
@@ -856,7 +859,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
             </button>
           </div>
           <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {locale === "id" ? TAJWID_RULES[tajwidPopup].descId : TAJWID_RULES[tajwidPopup].descEn}
+            {tjw[tajwidPopup].desc}
           </p>
         </div>
       )}

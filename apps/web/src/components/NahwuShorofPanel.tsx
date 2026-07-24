@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
+import { nahwuLabels } from "@/lib/nahwu-labels";
 
 // Word-by-word nahwu & shorof under a verse, from the Quranic Arabic Corpus
 // (loaded into D1 `quran_morphology`, served by /quran/morphology). Each word
@@ -25,38 +26,9 @@ interface Word {
   segments: Seg[];
 }
 
-const L = {
-  id: {
-    title: "Urai Kata — Nahwu & Shorof",
-    show: "Tampilkan",
-    hide: "Sembunyikan",
-    read: "Bacakan uraian",
-    stop: "Hentikan",
-    root: "akar",
-    prefix: "awalan",
-    suffix: "akhiran",
-    word: "Kata",
-    none: "Belum ada data urai kata untuk ayat ini.",
-    src: "Sumber",
-  },
-  en: {
-    title: "Word-by-word — Grammar & Morphology",
-    show: "Show",
-    hide: "Hide",
-    read: "Read aloud",
-    stop: "Stop",
-    root: "root",
-    prefix: "prefix",
-    suffix: "suffix",
-    word: "Word",
-    none: "No word-analysis data for this ayah yet.",
-    src: "Source",
-  },
-};
-
 export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah: number; locale: string }) {
   const isId = locale === "id";
-  const t = isId ? L.id : L.en;
+  const t = nahwuLabels(locale);
   const lang = (isId ? "id" : "en") as "id" | "en";
   const [open, setOpen] = useState(false);
   const [words, setWords] = useState<Word[] | null>(null);

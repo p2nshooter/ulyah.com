@@ -123,15 +123,15 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto mt-12 max-w-4xl px-4 sm:px-6">
         <SectionHead
           icon="🎮"
-          title={locale === "id" ? "Game Belajar" : "Learning Games"}
-          desc={locale === "id" ? "Belajar huruf hijaiyah sambil bermain — tebak, dengar, cocokkan, urutkan." : "Learn the hijaiyah letters by playing — guess, listen, match, order."}
+          title={t.gamesTitle}
+          desc={t.gamesDesc}
           count="4"
         />
         <Link
           href={`/${locale}/kids/game`}
           className="flex items-center justify-between rounded-3xl bg-gradient-to-br from-amber-400 to-rose-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
         >
-          <span className="font-heading text-lg font-bold">🎮 {locale === "id" ? "Main Game" : "Play Games"}</span>
+          <span className="font-heading text-lg font-bold">🎮 {t.gamesCta}</span>
           <span aria-hidden className="text-2xl">→</span>
         </Link>
       </section>

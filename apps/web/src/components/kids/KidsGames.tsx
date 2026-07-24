@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { HIJAIYAH } from "@/lib/hijaiyah";
+import { kidsGamesLabels, type KidsGamesLabels } from "@/lib/kids-games-labels";
 
 /**
  * Four small Qur'an-learning games for Al-Qur'an Kids.
@@ -17,56 +18,14 @@ import { HIJAIYAH } from "@/lib/hijaiyah";
 
 type GameId = "tebak-huruf" | "cari-huruf" | "pasangan" | "urutan";
 
-const L = {
-  id: {
-    title: "Game Belajar Qur'an",
-    subtitle: "Belajar huruf hijaiyah sambil bermain 🌟",
-    games: {
-      "tebak-huruf": { name: "Tebak Huruf", desc: "Lihat hurufnya, pilih namanya", icon: "🔤" },
-      "cari-huruf": { name: "Cari Huruf", desc: "Dengar namanya, pilih hurufnya", icon: "👂" },
-      pasangan: { name: "Kartu Pasangan", desc: "Cocokkan huruf dengan namanya", icon: "🃏" },
-      urutan: { name: "Urutkan Huruf", desc: "Susun sesuai urutan hijaiyah", icon: "🔢" },
-    },
-    score: "Skor",
-    streak: "Beruntun",
-    best: "Terbaik",
-    correct: "Benar! 🎉",
-    wrong: "Coba lagi ya 💪",
-    play: "Main",
-    again: "Main lagi",
-    back: "← Pilih game lain",
-    listen: "🔊 Dengarkan",
-    done: "Hebat! Selesai 🏆",
-    moves: "Langkah",
-    next: "Lanjut →",
-    hint: "Ketuk kartu untuk membukanya",
-    order: "Ketuk huruf sesuai urutan",
-  },
-  en: {
-    title: "Qur'an Learning Games",
-    subtitle: "Learn the hijaiyah letters by playing 🌟",
-    games: {
-      "tebak-huruf": { name: "Guess the Letter", desc: "See the letter, pick its name", icon: "🔤" },
-      "cari-huruf": { name: "Find the Letter", desc: "Hear the name, pick the letter", icon: "👂" },
-      pasangan: { name: "Matching Cards", desc: "Match each letter to its name", icon: "🃏" },
-      urutan: { name: "Put in Order", desc: "Arrange them in hijaiyah order", icon: "🔢" },
-    },
-    score: "Score",
-    streak: "Streak",
-    best: "Best",
-    correct: "Correct! 🎉",
-    wrong: "Try again 💪",
-    play: "Play",
-    again: "Play again",
-    back: "← Choose another game",
-    listen: "🔊 Listen",
-    done: "Great! Finished 🏆",
-    moves: "Moves",
-    next: "Next →",
-    hint: "Tap a card to flip it",
-    order: "Tap the letters in order",
-  },
-};
+/** The game menu. Icons live in code (they are not language), every word comes
+ *  from the labels helper so all 28 locales are covered. */
+const menu = (t: KidsGamesLabels): { id: GameId; icon: string; name: string; desc: string }[] => [
+  { id: "tebak-huruf", icon: "🔤", name: t.guessName, desc: t.guessDesc },
+  { id: "cari-huruf", icon: "👂", name: t.findName, desc: t.findDesc },
+  { id: "pasangan", icon: "🃏", name: t.matchName, desc: t.matchDesc },
+  { id: "urutan", icon: "🔢", name: t.orderName, desc: t.orderDesc },
+];
 
 const BEST_KEY = "ulyah:kids:games:best";
 const shuffle = <T,>(a: T[]): T[] => {
@@ -93,7 +52,7 @@ function say(text: string, lang = "ar") {
 }
 
 export function KidsGames({ locale }: { locale: string }) {
-  const t = locale === "id" ? L.id : L.en;
+  const t = kidsGamesLabels(locale);
   const [game, setGame] = useState<GameId | null>(null);
   const [best, setBest] = useState(0);
 
@@ -130,18 +89,18 @@ export function KidsGames({ locale }: { locale: string }) {
           )}
         </div>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          {(Object.keys(t.games) as GameId[]).map((id) => (
+          {menu(t).map((g) => (
             <button
-              key={id}
-              onClick={() => setGame(id)}
+              key={g.id}
+              onClick={() => setGame(g.id)}
               className="flex items-center gap-3 rounded-2xl border-2 border-amber-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md dark:border-slate-700 dark:bg-slate-800"
             >
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-amber-200 to-sky-200 text-2xl dark:from-amber-500/30 dark:to-sky-500/30">
-                {t.games[id].icon}
+                {g.icon}
               </span>
               <span className="min-w-0">
-                <span className="block font-heading text-base font-bold text-slate-800 dark:text-amber-100">{t.games[id].name}</span>
-                <span className="block text-xs text-slate-500 dark:text-slate-400">{t.games[id].desc}</span>
+                <span className="block font-heading text-base font-bold text-slate-800 dark:text-amber-100">{g.name}</span>
+                <span className="block text-xs text-slate-500 dark:text-slate-400">{g.desc}</span>
               </span>
               <span className="ml-auto shrink-0 rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold text-white">{t.play}</span>
             </button>
@@ -154,7 +113,7 @@ export function KidsGames({ locale }: { locale: string }) {
   return (
     <div>
       <button onClick={() => setGame(null)} className="mb-3 text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-300">
-        {t.back}
+        ← {t.back}
       </button>
       {game === "tebak-huruf" && <QuizGame t={t} mode="letter" onScore={saveBest} />}
       {game === "cari-huruf" && <QuizGame t={t} mode="name" onScore={saveBest} />}
@@ -164,7 +123,7 @@ export function KidsGames({ locale }: { locale: string }) {
   );
 }
 
-type T = typeof L.id;
+type T = KidsGamesLabels;
 
 /** Multiple-choice: show a letter → pick its name, or hear a name → pick the letter. */
 function QuizGame({ t, mode, onScore }: { t: T; mode: "letter" | "name"; onScore: (n: number) => void }) {
@@ -243,7 +202,7 @@ function QuizGame({ t, mode, onScore }: { t: T; mode: "letter" | "name"; onScore
 
       {feedback && (
         <p className={`mt-4 text-lg font-extrabold ${feedback === "ok" ? "text-emerald-600" : "text-rose-500"}`}>
-          {feedback === "ok" ? t.correct : t.wrong}
+          {feedback === "ok" ? `${t.correct} 🎉` : `${t.wrong} 💪`}
         </p>
       )}
     </div>
@@ -305,7 +264,7 @@ function MatchGame({ t }: { t: T }) {
       </div>
       {complete && (
         <div className="mt-4">
-          <p className="text-lg font-extrabold text-emerald-600">{t.done}</p>
+          <p className="text-lg font-extrabold text-emerald-600">{t.done} 🏆</p>
           <button
             onClick={() => {
               setSeed((s) => s + 1);
@@ -354,7 +313,7 @@ function OrderGame({ t }: { t: T }) {
 
   return (
     <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
-      <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t.order}</p>
+      <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t.orderHint}</p>
 
       <div className="mt-4 flex min-h-[4.5rem] flex-wrap items-center justify-center gap-2 rounded-2xl bg-emerald-50 p-3 dark:bg-emerald-500/10" dir="rtl">
         {placed.map((h) => (
@@ -380,7 +339,7 @@ function OrderGame({ t }: { t: T }) {
       {wrong && <p className="mt-3 font-bold text-rose-500">{t.wrong}</p>}
       {complete && (
         <div className="mt-4">
-          <p className="text-lg font-extrabold text-emerald-600">{t.done}</p>
+          <p className="text-lg font-extrabold text-emerald-600">{t.done} 🏆</p>
           <button onClick={() => setSeed((s) => s + 1)} className="mt-2 rounded-full bg-emerald-500 px-5 py-2 text-sm font-bold text-white">
             {t.again}
           </button>
