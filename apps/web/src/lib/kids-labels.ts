@@ -20,6 +20,9 @@ export interface KidsLabels {
   juz29Desc: string;
   pilihanTitle: string;
   pilihanDesc: string;
+  gamesTitle: string;
+  gamesDesc: string;
+  gamesCta: string;
   hijaiyahTitle: string;
   hijaiyahDesc: string;
   letters: string;
@@ -50,6 +53,9 @@ const EN: KidsLabels = {
   juz29Desc: "The next set — Al-Mulk and its neighbours, with the same repeat-and-scroll player.",
   pilihanTitle: "Favourite Surahs",
   pilihanDesc: "The surahs families love to recite — Yasin, Ar-Rahman, Al-Waqi'ah, Al-Mulk and more.",
+  gamesTitle: "Learning Games",
+  gamesDesc: "Learn the hijaiyah letters by playing — guess, listen, match, order.",
+  gamesCta: "Play Games",
   hijaiyahTitle: "Hijaiyah Letters",
   hijaiyahDesc: "Get to know the Arabic letters — tap a letter to hear its name in Arabic.",
   letters: "letters",
@@ -80,6 +86,9 @@ const ID: KidsLabels = {
   juz29Desc: "Lanjutannya — Al-Mulk dan sekitarnya, dengan pemutar ulang-ulang & gulir otomatis yang sama.",
   pilihanTitle: "Surat Pilihan",
   pilihanDesc: "Surat yang biasa dibaca keluarga — Yasin, Ar-Rahman, Al-Waqi'ah, Al-Mulk, dan lainnya.",
+  gamesTitle: "Game Belajar",
+  gamesDesc: "Belajar huruf hijaiyah sambil bermain — tebak, dengar, cocokkan, urutkan.",
+  gamesCta: "Main Game",
   hijaiyahTitle: "Huruf Hijaiyah",
   hijaiyahDesc: "Kenali huruf-huruf Arab — ketuk satu huruf untuk mendengar namanya dalam bahasa Arab.",
   letters: "huruf",
@@ -109,6 +118,9 @@ const AR: KidsLabels = {
   juz29Desc: "المجموعة التالية — سورة الملك وما حولها، بنفس مشغّل التكرار والتمرير التلقائي.",
   pilihanTitle: "سور مختارة",
   pilihanDesc: "السور التي تحب العائلات تلاوتها — يس والرحمن والواقعة والملك وغيرها.",
+  gamesTitle: "ألعاب تعليمية",
+  gamesDesc: "تعلّم الحروف الهجائية باللعب — خمّن واستمع وطابق ورتّب.",
+  gamesCta: "العب",
   hijaiyahTitle: "الحروف الهجائية",
   hijaiyahDesc: "تعرّف على الحروف العربية — انقر حرفًا لتسمع اسمه بالعربية.",
   letters: "حرفًا",

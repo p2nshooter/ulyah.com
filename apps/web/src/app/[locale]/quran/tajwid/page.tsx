@@ -4,46 +4,14 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { localePath } from "@/lib/paths";
 import { TAJWID_GUIDE, type GuideRule } from "@/lib/tajwid-guide";
+import { tajwidPageLabels } from "@/lib/tajwid-labels";
 
 // Self-contained page chrome (mushaf-labels pattern): Indonesian on ulyah.com,
 // English as the fallback for every other locale — never leaks Indonesian.
-const PAGE = {
-  id: {
-    title: "Panduan Tajwid Lengkap",
-    subtitle:
-      "Seluruh hukum tajwid — nun & mim sukun, mad, qalqalah, ghunnah, lam ta'rif, hukum ra, dan tanda waqaf — dengan definisi, huruf, cara membaca, dan contoh ayat.",
-    legend: "Keterangan warna di Mushaf",
-    coloredBadge: "Diwarnai di Mushaf",
-    explainedBadge: "Dijelaskan saja",
-    huruf: "Huruf",
-    cara: "Cara membaca",
-    contoh: "Contoh",
-    tryTitle: "Coba langsung di Mushaf Utsmani",
-    trySub: "Aktifkan tombol “Tajwid ✓” lalu ketuk huruf berwarna untuk penjelasannya.",
-    tryCta: "Buka Mushaf",
-    note: "Catatan",
-  },
-  en: {
-    title: "Complete Tajwid Guide",
-    subtitle:
-      "Every tajwid rule — nun & mim sakinah, madd, qalqalah, ghunnah, the definite article, ra, and the waqf signs — with definitions, letters, how to read, and example verses.",
-    legend: "Colour key used in the Mushaf",
-    coloredBadge: "Coloured in the Mushaf",
-    explainedBadge: "Explained only",
-    huruf: "Letters",
-    cara: "How to read",
-    contoh: "Examples",
-    tryTitle: "Try it live in the Uthmani Mushaf",
-    trySub: "Turn on the “Tajwid ✓” button, then tap a coloured letter for its explanation.",
-    tryCta: "Open the Mushaf",
-    note: "Note",
-  },
-};
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const p = locale === "id" ? PAGE.id : PAGE.en;
+  const p = tajwidPageLabels(locale);
   return {
     title: `${p.title} — ${TENANT.siteName}`,
     description: p.subtitle,
@@ -54,8 +22,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function TajwidGuidePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const p = tajwidPageLabels(locale);
+  // The guide's rule CONTENT (definitions, examples) is authored id/en in
+  // lib/tajwid-guide.ts; other locales read the English source, which the warm
+  // pipeline then translates. Page chrome comes from the labels helper above,
+  // so it is covered in all 28 languages.
   const isId = locale === "id";
-  const p = isId ? PAGE.id : PAGE.en;
   const tr = <T extends { id: string; en: string }>(o: T) => (isId ? o.id : o.en);
 
   const coloredRules: GuideRule[] = TAJWID_GUIDE.flatMap((g) => g.rules).filter((r) => r.colored && r.color);
