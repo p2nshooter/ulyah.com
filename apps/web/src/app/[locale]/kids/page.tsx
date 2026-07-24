@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { kidsLabels } from "@/lib/kids-labels";
 import { KidsHijaiyah } from "@/components/KidsHijaiyah";
 import { JUZ30, JUZ29, PILIHAN } from "@/lib/kids-surahs";
+import { IQRO } from "@/lib/iqro";
 
 export const revalidate = 86400;
 
@@ -105,14 +106,32 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
         <p className="mx-auto mt-2 max-w-xl text-base text-slate-600 dark:text-slate-300">{t.subtitle}</p>
       </header>
 
-      {/* Iqro — learn to read */}
+      {/* Iqro — learn to read. The count follows IQRO itself so adding a level
+          can never leave a stale "6 jilid" label behind. */}
       <section className="mx-auto mt-10 max-w-4xl px-4 sm:px-6">
-        <SectionHead icon="📖" title={t.iqroTitle} desc={t.iqroDesc} count={`6 ${t.jilid}`} />
+        <SectionHead icon="📖" title={t.iqroTitle} desc={t.iqroDesc} count={`${IQRO.length} ${t.jilid}`} />
         <Link
           href={`/${locale}/kids/iqro`}
           className="flex items-center justify-between rounded-3xl bg-gradient-to-br from-emerald-400 to-sky-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
         >
           <span className="font-heading text-lg font-bold">📖 {t.iqroTitle}</span>
+          <span aria-hidden className="text-2xl">→</span>
+        </Link>
+      </section>
+
+      {/* Games — a light client island on its own route */}
+      <section className="mx-auto mt-12 max-w-4xl px-4 sm:px-6">
+        <SectionHead
+          icon="🎮"
+          title={locale === "id" ? "Game Belajar" : "Learning Games"}
+          desc={locale === "id" ? "Belajar huruf hijaiyah sambil bermain — tebak, dengar, cocokkan, urutkan." : "Learn the hijaiyah letters by playing — guess, listen, match, order."}
+          count="4"
+        />
+        <Link
+          href={`/${locale}/kids/game`}
+          className="flex items-center justify-between rounded-3xl bg-gradient-to-br from-amber-400 to-rose-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
+        >
+          <span className="font-heading text-lg font-bold">🎮 {locale === "id" ? "Main Game" : "Play Games"}</span>
           <span aria-hidden className="text-2xl">→</span>
         </Link>
       </section>

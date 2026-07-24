@@ -115,8 +115,10 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
     const current = st.queue[st.currentIndex];
     if (!audio || !current) return false;
     // R2 library first, the reciter's own CDN as fallback — one bad source
-    // falls through to the next instead of silencing the ayah.
-    const sources = await resolveAyahAudioSources(st.qoriId, current.surahId, current.number);
+    // falls through to the next instead of silencing the ayah. A queue loaded
+    // with its own reciter (the Mushaf) wins over the site-wide choice, so the
+    // two readers no longer share one voice.
+    const sources = await resolveAyahAudioSources(st.qoriOverride ?? st.qoriId, current.surahId, current.number);
     if (myGen !== genRef.current) return false; // superseded while we were resolving the URL
     if (sources.length === 0) return false;
 
