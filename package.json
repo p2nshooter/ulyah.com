@@ -22,7 +22,8 @@
     "gen:ui-i18n": "tsx scripts/generate-ui-i18n.ts",
     "gen:locale-readiness": "tsx scripts/generate-locale-readiness.ts",
     "gen:locale-content": "tsx scripts/measure-locale-content.ts",
-    "seo:notify": "tsx scripts/notify-search-engines.ts"
+    "seo:notify": "tsx scripts/notify-search-engines.ts",
+    "check:locale": "tsx scripts/check-locale-detect.ts"
   },
   "devDependencies": {
     "@types/pdfkit": "^0.13.9",

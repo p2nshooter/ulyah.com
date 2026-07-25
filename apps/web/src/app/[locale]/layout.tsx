@@ -33,19 +33,20 @@ import "@/styles/themes/germany.css";
 import "@/styles/themes/spain.css";
 import "@/styles/themes/xad.css";
 
-// The ecosystem hreflang cluster (owner: Update Global Seluruh Portal §3):
-// every page on every site declares its language siblings across DOMAINS —
-// id → ulyah.com, en → xad.es, fr → 1fr.fr, de → tilawa.de, es → dawa.es,
-// with ulyah.com as x-default. Google then treats the sites as translations
-// of one another instead of flagging duplicates.
-const HREFLANG_CLUSTER: Record<string, string> = {
-  id: "https://ulyah.com",
-  en: "https://xad.es",
-  fr: "https://1fr.fr",
-  de: "https://tilawa.de",
-  es: "https://dawa.es",
-  "x-default": "https://ulyah.com",
-};
+// The ecosystem hreflang cluster (owner: Update Global Seluruh Portal §3) is no
+// longer declared here.
+//
+// It used to be this constant — five HOME pages — applied to every page in the
+// layout. So /kisah/kisah-nabi-yusuf-01-mimpi told Google "my French version is
+// 1fr.fr", the front page, which of course does not point back. hreflang that
+// is not reciprocal is discarded, so the graph counted for nothing except on
+// the five home pages themselves.
+//
+// It is now emitted per page as an HTTP Link header from the middleware (see
+// withHreflang there), which is Google's documented equivalent of the <link>
+// tag and the only way to make it page-specific without forcing every page
+// into dynamic rendering. The sitemap declares the same graph for the section
+// routes, built from the same helper, so the two always agree.
 
 export function generateStaticParams() {
   return LOCALES.map((l) => ({ locale: l.code }));
@@ -85,7 +86,6 @@ export async function generateMetadata({
       // there, so it emits no canonical at all: only one URL ever serves the
       // content.
       ...(locale === DEFAULT_LOCALE ? {} : { canonical: "./" }),
-      languages: HREFLANG_CLUSTER,
     },
     // One language per DOMAIN. ulyah.com is Indonesian-only now — the other
     // languages each live on their own ecosystem domain (en→xad.es, fr→1fr.fr,
