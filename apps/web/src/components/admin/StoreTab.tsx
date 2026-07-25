@@ -38,6 +38,7 @@ interface Shelf {
   keywords: string;
   department: string | null;
   icon: string | null;
+  detail: string | null;
   sort_order: number;
   enabled: number;
 }
@@ -51,6 +52,9 @@ export function StoreTab() {
   const [draft, setDraft] = useState(blank);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState<string | null>(null);
+  // Which shelf's buying guide is open for editing, and the text being edited.
+  const [editing, setEditing] = useState<number | null>(null);
+  const [guide, setGuide] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -128,6 +132,31 @@ export function StoreTab() {
     setNote(`✓ ${added} kategori ditambahkan.`);
     setBusy(false);
     load();
+  }
+
+  /**
+   * The buying guide. Writing one is what gives a category its own page — the
+   * page is conditional on the text existing, so that a category with nothing
+   * to say never becomes a thin page in the sitemap. 400 characters is the
+   * floor, enforced by the api as well as here.
+   */
+  async function saveGuide(id: number) {
+    setBusy(true);
+    setNote(null);
+    try {
+      await api.patch(`/admin/store/shelf/${id}`, { detail: guide });
+      setNote(
+        guide.trim().length >= 400
+          ? "✓ Panduan tersimpan — kategori ini sekarang punya halaman sendiri."
+          : "Panduan dikosongkan — kategori ini kembali menautkan langsung ke Amazon."
+      );
+      setEditing(null);
+      load();
+    } catch (e) {
+      setNote((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function toggle(s: Shelf) {
@@ -323,8 +352,28 @@ export function StoreTab() {
                     🔍 <code>{s.keywords}</code>
                     {s.department && <> · {DEPARTMENTS.find((d) => d.value === s.department)?.label ?? s.department}</>}
                   </p>
+                  <p className="mt-1 text-[11px]">
+                    {s.detail ? (
+                      <span className="text-emerald-600 dark:text-emerald-400">
+                        📄 Punya halaman sendiri · {s.detail.length} karakter
+                      </span>
+                    ) : (
+                      <span className="text-[var(--color-text-secondary)]">
+                        Tanpa panduan — kartu ini menautkan langsung ke Amazon
+                      </span>
+                    )}
+                  </p>
                 </div>
-                <div className="flex shrink-0 gap-1.5">
+                <div className="flex shrink-0 flex-wrap justify-end gap-1.5">
+                  <button
+                    onClick={() => {
+                      setEditing(editing === s.id ? null : s.id);
+                      setGuide(s.detail ?? "");
+                    }}
+                    className="rounded-lg border border-[var(--color-border)] px-2 py-1 text-[11px]"
+                  >
+                    {s.detail ? "Edit panduan" : "Tulis panduan"}
+                  </button>
                   <button
                     onClick={() => toggle(s)}
                     className="rounded-lg border border-[var(--color-border)] px-2 py-1 text-[11px]"
@@ -339,6 +388,47 @@ export function StoreTab() {
                   </button>
                 </div>
               </div>
+
+              {editing === s.id && (
+                <div className="mt-3 border-t border-[var(--color-border)] pt-3">
+                  <p className="text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+                    Panduan beli dalam <b>bahasa {current.lang}</b>: apa yang perlu diperhatikan, ukuran, bahan,
+                    kesalahan yang sering terjadi. Menulis <b>minimal 400 karakter</b> membuat kategori ini punya
+                    halaman sendiri yang masuk sitemap. Mengosongkannya menghapus halaman itu lagi. Pisahkan paragraf
+                    dengan baris kosong.
+                  </p>
+                  <textarea
+                    value={guide}
+                    onChange={(e) => setGuide(e.target.value)}
+                    rows={10}
+                    className="mt-2 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs leading-relaxed"
+                  />
+                  <div className="mt-2 flex items-center gap-2">
+                    <button
+                      onClick={() => saveGuide(s.id)}
+                      disabled={busy}
+                      className="rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-[11px] font-bold text-white disabled:opacity-40"
+                    >
+                      Simpan panduan
+                    </button>
+                    <button
+                      onClick={() => setEditing(null)}
+                      className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-[11px]"
+                    >
+                      Batal
+                    </button>
+                    <span
+                      className={`text-[11px] ${
+                        guide.trim().length >= 400
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : "text-[var(--color-text-secondary)]"
+                      }`}
+                    >
+                      {guide.trim().length} / 400
+                    </span>
+                  </div>
+                </div>
+              )}
             </li>
           ))}
         </ul>
