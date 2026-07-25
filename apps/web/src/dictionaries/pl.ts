@@ -53,7 +53,7 @@ const pl: Dictionary = {
     qiblaDirection: "Kierunek Qibla",
     hijriCalendar: "Kalendarz Hidżry",
     warisCalculator: "Kalkulator dziedziczenia",
-    imsakiyahRamadhan: "Ramadan Imsakiyah",
+    imsakiyahRamadhan: "Imsakija ramadanowa",
     aiChat: "Zapytaj islamską sztuczną inteligencję",
   },
   stats: {

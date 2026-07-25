@@ -53,7 +53,7 @@ const nl: Dictionary = {
     qiblaDirection: "Qibla-richting",
     hijriCalendar: "Hijri-kalender",
     warisCalculator: "Erfeniscalculator",
-    imsakiyahRamadhan: "Ramadan Imsakiyah",
+    imsakiyahRamadhan: "Imsakiyah van de Ramadan",
     aiChat: "Vraag het aan Islamitische AI",
   },
   stats: {

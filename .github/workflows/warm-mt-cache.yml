@@ -45,6 +45,10 @@ concurrency:
   group: warm-mt-cache-${{ github.event_name }}
   cancel-in-progress: false
 
+# The readiness re-measurement step commits the updated numbers back.
+permissions:
+  contents: write
+
 jobs:
   warm:
     runs-on: ubuntu-latest
@@ -54,6 +58,9 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The readiness step commits back, so keep the token that can push.
+          persist-credentials: true
       - uses: pnpm/action-setup@v4
         with:
           version: 10.33.0
@@ -84,3 +91,30 @@ jobs:
         # Empty langs (schedule / workflow_run / blank dispatch) → the script's
         # own default: every ecosystem language.
         run: npx tsx scripts/warm-mt-cache.ts --langs=${{ inputs.langs }}
+
+      # Close the loop: re-measure how much of the site's writing now exists in
+      # each language and regenerate the readiness table. A language that has
+      # reached 100% unlocks itself on the next deploy instead of waiting for
+      # somebody to notice — which is the whole point of gating on a measurement
+      # rather than on a hand-kept list.
+      - name: Re-measure language readiness
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx tsx scripts/measure-locale-content.ts
+          npx tsx scripts/generate-locale-readiness.ts
+
+      - name: Commit the new readiness measurement
+        run: |
+          set -eu
+          if git diff --quiet -- scripts/locale-content.json packages/shared/src/locale-readiness.gen.ts; then
+            echo "No change in language readiness."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/locale-content.json packages/shared/src/locale-readiness.gen.ts
+          git commit -m "chore(i18n): re-measure language readiness after warming"
+          git pull --rebase origin main
+          git push origin HEAD:main

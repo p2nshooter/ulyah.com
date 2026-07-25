@@ -3,6 +3,10 @@
 // drift out of sync ("jangan setengah-setengah" requirement: changing the
 // language must switch 100% of the site consistently).
 
+import { LOCALE_READINESS, type LocaleReadiness } from "./locale-readiness.gen.js";
+
+export type { LocaleReadiness };
+
 export interface LocaleDef {
   code: string; // BCP-47-ish, matches `translation.lang` and `voice_persona.lang`
   label: string; // shown in the language switcher, in its own language
@@ -109,13 +113,40 @@ export function isValidLocale(code: string): boolean {
   return LOCALES.some((l) => l.code === code);
 }
 
-// Every language in the switcher is now live: the four with their own domain
-// (see LOCALE_SITE) link out to that site, and every other language is served
-// in place on ulyah.com with UI + content translated and cached in D1. Nothing
-// is struck-through anymore. Kept as an always-true helper for API compat.
-export function isLocaleReady(_code: string): boolean {
-  return true;
+/**
+ * Is this language finished enough to offer a visitor?
+ *
+ * Owner rule: a half-translated language must NOT be selectable — "kesian
+ * pengunjung kalau bahasanya berubah-ubah". Being able to click a language and
+ * land on a page that is Thai in the header and English in the article is worse
+ * than not offering Thai at all, so the switcher strikes those languages
+ * through and refuses the click until they are genuinely complete.
+ *
+ * "Complete" is MEASURED, not declared — see scripts/generate-locale-readiness.ts:
+ * the UI half counts dictionary strings that are still English, the content half
+ * counts how much of the site's own writing has been translated and cached in
+ * D1, and a language scores the LOWER of the two.
+ *
+ * Two categories are ready without needing that score:
+ *  - the site's own language, which is what everything is authored in;
+ *  - a language with its own ecosystem domain (1fr.fr, tilawa.de, dawa.es,
+ *    xad.es). Those are separate single-language sites, and the switcher sends
+ *    the visitor to the site rather than translating in place.
+ */
+export function isLocaleReady(code: string): boolean {
+  if (code === DEFAULT_LOCALE) return true;
+  if (LOCALE_SITE[code]) return true;
+  return (LOCALE_READINESS[code]?.overall ?? 0) >= 100;
 }
+
+/** How complete a language is, for the switcher's badge and the admin portal. */
+export function localeReadiness(code: string): LocaleReadiness {
+  if (code === DEFAULT_LOCALE) return { dict: 100, content: 100, overall: 100, missing: [] };
+  return LOCALE_READINESS[code] ?? { dict: 0, content: 0, overall: 0, missing: [] };
+}
+
+/** The languages a visitor may actually be sent to right now. */
+export const READY_LOCALES: LocaleDef[] = LOCALES.filter((l) => isLocaleReady(l.code));
 
 export function getLocale(code: string): LocaleDef {
   return LOCALES.find((l) => l.code === code) ?? LOCALES[0]!;

@@ -58,7 +58,7 @@ const sw: Dictionary = {
   },
   stats: {
     surah: "114+",
-    surahLabel: "Surah",
+    surahLabel: "Sura",
     ayat: "6,236",
     ayatLabel: "Aya",
     qari: "20+",

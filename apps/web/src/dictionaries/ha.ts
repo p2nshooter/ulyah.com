@@ -58,7 +58,7 @@ const ha: Dictionary = {
   },
   stats: {
     surah: "114+",
-    surahLabel: "Surah",
+    surahLabel: "Sura",
     ayat: "6,236",
     ayatLabel: "Ayoyi",
     qari: "20+",
@@ -188,7 +188,7 @@ const ha: Dictionary = {
     keysDonated: "AI/GPU Keys An Ba da gudummawa",
   },
   adminModal: {
-    title: "Admin Portal",
+    title: "Kofar Gudanarwa",
     subtitle: "Shigar da imel da kalmar wucewa don ci gaba.",
     otpTitle: "Tabbatar da Mataki Biyu",
     otpSubtitle: "Shigar da lambar lambobi 6 daga aikace-aikacen tabbatar da ku.",
@@ -219,7 +219,7 @@ const ha: Dictionary = {
     network: "Cibiyar sadarwa",
   },
   cert: {
-    sectionTitle: "Sadaqah Certificate",
+    sectionTitle: "Takardar Shaidar Sadaka",
     intro: "Loda takardar gudummawar ku. Da zarar admin namu ya tabbatar, za a samu kyakkyawar satifiket ɗin sadaqah don saukewa a matsayin ajiyar kuɗi.",
     uploadTitle: "Loda Tabbacin Taimakawa",
     method: "Hanyar bayarwa",
@@ -243,7 +243,7 @@ const ha: Dictionary = {
     historyTitle: "Tarihin Sadaqah",
     download: "Zazzage takaddun shaida",
     registerFirst: "Shiga ciki ko kuma ka Ƙirƙiri asusu domin ganin hotunan sadaqah.",
-    certTitle: "Certificate of Sadaqah",
+    certTitle: "Takardar Shaidar Sadaka",
     certPresentedTo: "An gabatar da godiya ga",
     certBody: "domin sadaqah da ake bayarwa domin tallafawa miliyoyin masu saurare a fadin duniya ta hanyar ULYAH.COM domin yada alkur'ani da ilimin addinin musulunci.",
     certAmountLabel: "Adadin",
