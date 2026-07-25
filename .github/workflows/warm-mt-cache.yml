@@ -15,8 +15,8 @@ on:
         description: "Comma-separated target languages (blank = all ecosystem languages)"
         required: false
         default: ""
-      behind:
-        description: "Spend the whole run on the languages furthest behind"
+      one:
+        description: "Warm ONE language this run, then chain to the next (recommended)"
         required: false
         type: boolean
         default: true
@@ -70,6 +70,11 @@ permissions:
 jobs:
   warm:
     runs-on: ubuntu-latest
+    # Below GitHub's 6-hour kill, and above the script's own 4-hour translate
+    # budget plus the write, the re-measure and the commit that follow it. The
+    # script is meant to stop itself and bank its work; this is only the outer
+    # bound, so a hang ends as a clean timeout rather than at the platform cap.
+    timeout-minutes: 330
     # workflow_run fires on ANY completion — only warm after a SUCCESSFUL deploy
     # (a failed/cancelled deploy didn't import new content worth warming). Manual
     # dispatch and the nightly schedule always run.
@@ -106,19 +111,35 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Unlocks the donated AI key pool: the keys live encrypted in D1 and
+          # this is the only thing that can read them. Absent (a fork, a repo
+          # without the secret) the script says so and translates with gtx
+          # alone — the behaviour this job had before the pool existed.
+          KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
         # Empty langs (schedule / workflow_run / blank dispatch) → the script's
         # own default: every ecosystem language.
         #
-        # --behind hands the WHOLE run to the languages furthest back (owner:
-        # "khususnya bahasa-bahasa yang sengaja dimatikan kerjain dulu sampai
-        # 100%"). It is on for the schedule and the chain, and defaults on for a
-        # manual dispatch; the script measures who is behind rather than reading
-        # a list, so a language drops out of the priority set by catching up and
-        # the flag turns itself off when nobody is behind.
+        # ONE language per run (owner: "bikin per bahasa dulu jgn langsung, per
+        # bahasa bisa saling nyambung"). A pass that tried all 26 spread its wall
+        # clock across all of them and finished none; one language per run
+        # finishes that language and chains into the next.
+        #
+        # Order is "utamain yg saat ini di pakai dulu": the sites with live
+        # readers first (de 49%, es 72%, en 83%), then the switched-off ones.
+        #
+        # The script prints WARM_NEXT=<remaining> — the chaining step reads it
+        # rather than re-deriving the queue, so the two can never disagree.
         run: |
+          set -o pipefail
           npx tsx scripts/warm-mt-cache.ts \
             --langs=${{ inputs.langs }} \
-            ${{ (github.event_name != 'workflow_dispatch' || inputs.behind) && '--behind' || '' }}
+            ${{ (github.event_name != 'workflow_dispatch' || inputs.one) && '--one' || '' }} \
+            | tee /tmp/warm.log
+          # Keep the run's own answer. Absent (a mode that does not print it)
+          # is deliberately NOT the same as present-and-empty: the first means
+          # "unknown", the second means "finished", and treating them alike
+          # would silently stop the chain.
+          grep -E '^WARM_NEXT=' /tmp/warm.log | tail -1 > /tmp/warm-next.txt || true
 
       # Close the loop: re-measure how much of the site's writing now exists in
       # each language and regenerate the readiness table. A language that has
@@ -129,9 +150,21 @@ jobs:
       # moved anything, and refuse to chain into a loop that is achieving
       # nothing (Google occasionally rate-limits the runner).
       - name: Snapshot coverage before re-measuring
+        if: ${{ !cancelled() }}
         run: cp scripts/locale-content.json /tmp/locale-content.before.json
 
+      # `!cancelled()` rather than the default success-only, and this is the
+      # reason the admin's language bars were wrong: the measurement runs AFTER
+      # the warm step, so every warm failure skipped it, and the numbers on
+      # screen were the last ones a SUCCESSFUL run happened to leave behind.
+      # With warm failing for months, "de 49%" was measured against a corpus
+      # five times smaller than the one in D1 today.
+      #
+      # The measurement reads D1 directly and does not care whether warming
+      # went well — a failed pass still moved the numbers, and a bar that only
+      # updates on success is a bar that lies exactly when it matters.
       - name: Re-measure language readiness
+        if: ${{ !cancelled() }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -143,6 +176,7 @@ jobs:
           npx tsx scripts/generate-ui-i18n.ts
 
       - name: Commit the new readiness measurement
+        if: ${{ !cancelled() }}
         run: |
           set -eu
           if git diff --quiet -- scripts/locale-content.json packages/shared/src/locale-readiness.gen.ts \
@@ -180,7 +214,17 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -eu
-          decision=$(node -e '
+          # WARM_NEXT is empty only when every language has reached parity. It is
+          # the script's own answer, so the chain follows exactly what was warmed
+          # rather than a second guess at the queue.
+          if [ -s /tmp/warm-next.txt ]; then
+            next=$(sed -n 's/^WARM_NEXT=//p' /tmp/warm-next.txt)
+            known=1
+          else
+            next=""
+            known=0
+          fi
+          decision=$(WARM_NEXT="$next" WARM_NEXT_KNOWN="$known" node -e '
             const fs = require("fs");
             const read = (p) => { try { return JSON.parse(fs.readFileSync(p, "utf8")).rows ?? {}; } catch { return {}; } };
             const before = read("/tmp/locale-content.before.json");
@@ -188,26 +232,34 @@ jobs:
             const sum = (o) => Object.values(o).reduce((a, b) => a + Number(b), 0);
             const gained = sum(after) - sum(before);
             const best = Math.max(0, ...Object.values(after).map(Number));
-            // The same set the warm run prioritises: languages WITHOUT a domain
-            // of their own — the ones that are switched off — still short of the
-            // corpus. Kept in step with PARITY_RATIO in scripts/warm-mt-cache.ts.
-            const OWN_DOMAIN = new Set(["en", "de", "es", "fr"]);
-            const short = Object.entries(after)
-              .filter(([l, n]) => !OWN_DOMAIN.has(l) && Number(n) < best * 0.99)
-              .sort((a, b) => Number(a[1]) - Number(b[1]));
+            // The queue the run itself reported, not a re-derivation — so the
+            // chain follows exactly what was warmed. When the run did not report
+            // one at all, fall back to the measurement rather than assuming the
+            // job is finished.
+            const known = process.env.WARM_NEXT_KNOWN === "1";
+            const remaining = (process.env.WARM_NEXT || "").split(",").filter(Boolean);
             const pct = (n) => best ? Math.round((Number(n) / best) * 100) : 0;
+            const shortFromMeasure = Object.entries(after)
+              .filter(([, n]) => Number(n) < best * 0.99)
+              .sort((a, b) => Number(a[1]) - Number(b[1]));
             console.error(`gained ${gained} strings this pass; corpus is ${best}`);
-            for (const [l, n] of short) console.error(`  still short: ${l} ${n} (${pct(n)}%)`);
-            if (short.length === 0) console.log("done");
+            console.error(
+              known
+                ? `still queued: ${remaining.length} — ${remaining.slice(0, 8).join(", ")}`
+                : `queue not reported; ${shortFromMeasure.length} language(s) short by measurement`
+            );
+            for (const [l, n] of shortFromMeasure.slice(0, 5)) console.error(`  lowest: ${l} ${n} (${pct(n)}%)`);
+            const left = known ? remaining.length : shortFromMeasure.length;
+            if (left === 0) console.log("done");
             else if (gained <= 0) console.log("stalled");
             else console.log("chain");
           ')
           case "$decision" in
             done)
-              echo "Every language is at parity with the leader — nothing left to warm." ;;
+              echo "Every language has reached parity — nothing left to warm." ;;
             stalled)
               echo "::warning::This pass gained no new translations; not chaining. The 3-hourly schedule will retry." ;;
             chain)
               echo "Work remains — starting the next pass."
-              gh workflow run warm-mt-cache.yml --ref main -f langs= -f behind=true -f chain=true ;;
+              gh workflow run warm-mt-cache.yml --ref main -f langs= -f one=true -f chain=true ;;
           esac
