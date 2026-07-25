@@ -95,16 +95,16 @@ const IS_SIBLING_TENANT =
   process.env.NEXT_PUBLIC_TENANT === "tilawa" ||
   process.env.NEXT_PUBLIC_TENANT === "dawa";
 
-function detectLocale(req: NextRequest): string {
-  // An explicit, still-supported choice is honoured even if that language is
-  // unfinished: the visitor asked for it, and a direct /th URL must keep
-  // working rather than 404. What we never do is GUESS an unfinished language
-  // for someone who did not ask — that is what `usable` guards below.
-  const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
-  if (cookieLocale && isValidLocale(cookieLocale)) return cookieLocale;
+/** A language may only be served if it is both in this build AND finished. */
+const usable = (code: string) => isValidLocale(code) && isLocaleReady(code);
 
-  /** Only ever auto-select a language that is actually finished. */
-  const usable = (code: string) => isValidLocale(code) && isLocaleReady(code);
+function detectLocale(req: NextRequest): string {
+  // A remembered choice only counts while that language is still offered. A
+  // visitor who tried Thai once must not stay pinned to a locked language
+  // forever — the site's own language is what they get back (owner:
+  // "kembaliin dulu default webnya ke bahasa Indonesia").
+  const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
+  if (cookieLocale && usable(cookieLocale)) return cookieLocale;
 
   if (IS_SIBLING_TENANT) return DEFAULT_LOCALE; // native language first
 
@@ -182,7 +182,7 @@ export async function middleware(req: NextRequest) {
   // opened /th had no way back — the cookie kept redirecting every bare URL to
   // /th. A plain link like ulyah.com/?lang=id now always works, from anywhere.
   const forced = req.nextUrl.searchParams.get("lang");
-  if (forced && isValidLocale(forced)) {
+  if (forced && usable(forced)) {
     const url = req.nextUrl.clone();
     url.searchParams.delete("lang");
     const segs = pathname.split("/");
@@ -196,6 +196,24 @@ export async function middleware(req: NextRequest) {
 
   const segments = pathname.split("/");
   const maybeLocale = segments[1];
+
+  // A language that is still being finished is not served at all — it is not
+  // enough to hide it from the switcher, because a bookmark, an old link or a
+  // stale cookie would still land a reader on a half-translated page. Those
+  // URLs go to the same page in the site's own language, and the sticky cookie
+  // is rewritten on the way so the visitor stays there.
+  //
+  // 307, deliberately, NOT 301: every one of these languages comes back as soon
+  // as its content is warmed, and a permanent redirect cached in browsers would
+  // keep sending readers away long after the language was ready.
+  if (maybeLocale && isValidLocale(maybeLocale) && !isLocaleReady(maybeLocale)) {
+    const url = req.nextUrl.clone();
+    const rest = "/" + segments.slice(2).join("/");
+    url.pathname = rest === "/" ? "/" : rest.replace(/\/$/, "");
+    const res = withSecurity(NextResponse.redirect(url, 307));
+    res.cookies.set(LOCALE_COOKIE, DEFAULT_LOCALE, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+    return res;
+  }
 
   if (maybeLocale && isValidLocale(maybeLocale)) {
     // The site's OWN language never carries a URL prefix (owner: "default
