@@ -4,6 +4,7 @@ import { AiChat } from "@/components/AiChat";
 import { TENANT } from "@/lib/tenant";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 // Native per-locale page chrome — siblings render their own language (fr/de),
 // never Indonesian/English fallback. `{site}` = tenant brand.
@@ -56,7 +57,7 @@ const L: Record<string, { subtitle: (s: string) => string; metaTitle: (s: string
 };
 
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

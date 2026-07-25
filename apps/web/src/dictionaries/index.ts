@@ -28,6 +28,7 @@ import uz from "./uz";
 import so from "./so";
 import pl from "./pl";
 import { TENANT } from "@/lib/tenant";
+import { fillLabels } from "@/lib/fill-labels";
 
 export type { Dictionary };
 
@@ -74,10 +75,20 @@ function brandize(dict: Dictionary, locale: string): Dictionary {
   return out;
 }
 
-/** Every dictionary is fully translated (checked at build time by TS — the
- * `Dictionary` interface has no optional fields), so switching languages
- * always swaps 100% of the UI chrome consistently, never a partial mix. On a
- * sibling tenant the ULYAH brand tokens are rewritten to that site's brand. */
+/**
+ * Every dictionary has every KEY (the `Dictionary` interface has no optional
+ * fields, so TypeScript enforces that at build time) — but a key being present
+ * never proved its VALUE had actually been translated. Nineteen of the 28 still
+ * carried English prose in places, which is what produced a Thai homepage with
+ * an English hero paragraph.
+ *
+ * So the dictionary now goes through the same `fillLabels()` path as the rest
+ * of the UI chrome: any string that is still the English original is swapped
+ * for its entry in the generated UI_I18N table, while strings that were really
+ * translated aren't in that table at all and pass through untouched. Brand
+ * tokens are excluded at generation time, so `brandize()` still finds them.
+ */
 export function getDictionary(locale: string): Dictionary {
-  return brandize(dictionaries[locale] ?? dictionaries.en!, locale);
+  const base = dictionaries[locale] ?? dictionaries.en!;
+  return brandize(locale === "en" ? base : fillLabels(locale, base), locale);
 }

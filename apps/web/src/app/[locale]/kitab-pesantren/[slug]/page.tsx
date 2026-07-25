@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PesantrenKitabReader, type KitabDetail } from "@/components/PesantrenKitabReader";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 export const revalidate = 300;
 
@@ -57,7 +58,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: raw, slug } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const m = META[locale] ?? META.en!;
+  const m = META[locale] ?? fillLabels(locale, META.en!);
   const data = await fetchKitab(slug, locale);
   if (!data) return { title: m.section };
   const k = data.kitab;

@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 /**
  * Localized strings for the Live streaming hub (LiveHub). Each sibling site
  * shows its OWN native language (owner rule: .fr full French, .de full German,
@@ -120,5 +121,9 @@ const L: Record<string, (site: string) => LiveLabels> = {
 };
 
 export function liveLabels(locale: string, site: string): LiveLabels {
-  return (L[locale] ?? L.en!)(site);
+  // The site name is interpolated INTO the strings, so English has to be built
+  // first and then filled — filling a template would leave the placeholder
+  // untranslated on the 22 locales that aren't hand-authored above.
+  const hand = L[locale];
+  return hand ? hand(site) : fillLabels(locale, L.en!(site));
 }

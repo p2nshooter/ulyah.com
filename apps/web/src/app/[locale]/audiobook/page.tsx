@@ -5,6 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -125,7 +126,7 @@ export default async function AudiobookPage({
               <div className="min-w-0">
                 <p className="text-xs font-medium uppercase tracking-wide text-accent">
                   {s.episode_number
-                    ? `${EPISODE_LABEL[locale] ?? EPISODE_LABEL.en} ${s.episode_number}`
+                    ? `${EPISODE_LABEL[locale] ?? fillLabels(locale, EPISODE_LABEL.en!)} ${s.episode_number}`
                     : s.category_name ?? dict.explore.audiobook.title}
                 </p>
                 <p className="mt-1 truncate font-heading text-lg">{s.title}</p>

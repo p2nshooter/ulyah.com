@@ -21,6 +21,7 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const LIB = resolve(__dirname, "../apps/web/src/lib");
+const WEB = resolve(__dirname, "../apps/web/src");
 const OUT = resolve(LIB, "ui-i18n.gen.ts");
 const CACHE = resolve(__dirname, ".ui-i18n-cache.json");
 
@@ -61,7 +62,75 @@ const GETTERS: Array<{ file: string; fn: string; args?: unknown[] }> = [
   { file: "kids-labels", fn: "kidsLabels" },
   { file: "live-labels", fn: "liveLabels", args: ["en", "ULYAH.COM"] },
   { file: "nasehat", fn: "nasehatList" },
+  { file: "home-labels", fn: "homeLabels" },
+  { file: "tajwid-labels", fn: "tajwidUiLabels" },
+  { file: "tajwid-labels", fn: "tajwidRuleTexts" },
+  { file: "tajwid-labels", fn: "tajwidPageLabels" },
+  { file: "nahwu-labels", fn: "nahwuLabels" },
+  { file: "kids-games-labels", fn: "kidsGamesLabels" },
+  { file: "iqro-labels", fn: "iqroFocusLabels" },
 ];
+
+// The page dictionaries (apps/web/src/dictionaries) are the site's MAIN copy —
+// hero, nav, footer, section headings, every page's prose. 19 of the 28 were
+// still carrying untranslated English in places (owner screenshot: a Thai
+// homepage with an English hero paragraph). They are plain data modules with a
+// single type-only import, so harvesting the English one here — and filling the
+// gaps through the same fillLabels() path at runtime — closes the largest
+// remaining source of mixed-language pages in one move.
+const DICTIONARY_EN = resolve(WEB, "dictionaries/en.ts");
+
+// Label maps written INLINE inside components (rather than in a *-labels.ts
+// getter) can't be imported here — they live in "use client" modules that pull
+// in React. Their English block is harvested from source instead: find the
+// English object literal, brace-match it, and take the string literals inside.
+const INLINE_SOURCES: string[] = [
+  "components/GlobalReadAll.tsx",
+  "components/AdhanReminder.tsx",
+  "components/ContinuousStoryReader.tsx",
+  "components/KisahAnakList.tsx",
+  "components/QuranReaderWidget.tsx",
+  "components/HajjUmrahHub.tsx",
+  "components/CryptoDonationSection.tsx",
+  "components/PesantrenKitabReader.tsx",
+  "components/kids/VideoAnakGrid.tsx",
+  "app/[locale]/anak/page.tsx",
+  "app/[locale]/audiobook/page.tsx",
+  "app/[locale]/haji-umroh/page.tsx",
+  "app/[locale]/kisah/page.tsx",
+  "app/[locale]/kitab-pesantren/page.tsx",
+  "app/[locale]/live/page.tsx",
+  "app/[locale]/tanya/page.tsx",
+  "app/[locale]/widget/page.tsx",
+  "lib/ui-strings.ts",
+];
+
+// Brand tokens must never be machine-translated — a transliterated "Ulyah" in
+// Thai script would be a different name, and brandize() rewrites these per
+// tenant afterwards anyway.
+const BRAND_TOKENS = new Set(["Ulyah", "ULYAH", "ULYAH.COM", "ulyah", "ulyah.com", "ulyah."]);
+
+/** Harvest the string literals inside a file's English label block(s). */
+function collectInline(src: string, into: Set<string>): void {
+  const starts = [...src.matchAll(/(?:^|[\s,{])(?:const\s+EN\w*\s*(?::[^=]*)?=|en\s*:)\s*\{/gm)];
+  for (const m of starts) {
+    let i = src.indexOf("{", m.index! + m[0].length - 1);
+    let depth = 0;
+    let end = i;
+    for (; end < src.length; end++) {
+      if (src[end] === "{") depth++;
+      else if (src[end] === "}") {
+        depth--;
+        if (depth === 0) break;
+      }
+    }
+    const block = src.slice(i, end + 1);
+    for (const s of block.matchAll(/"((?:[^"\\]|\\.)*)"/g)) {
+      const v = s[1]!.replace(/\\"/g, '"').replace(/\\n/g, "\n").trim();
+      if (isTranslatable("", v)) into.add(v);
+    }
+  }
+}
 
 // Keys whose string value is never human prose (routing / iconography).
 const DENY_KEYS = new Set(["path", "icon", "key", "code", "href", "src", "url", "dir", "slug"]);
@@ -74,6 +143,10 @@ function isTranslatable(key: string, val: unknown): val is string {
   if (/^https?:\/\//.test(s)) return false;
   if (s.startsWith("/")) return false; // path
   if (!/\p{L}/u.test(s)) return false; // pure emoji / punctuation / digits
+  if (BRAND_TOKENS.has(s)) return false; // the brand keeps its name in every language
+  // Tailwind class lists and other machine tokens sneak in when harvesting from
+  // component source; they are never shown to a reader.
+  if (/(?:^|\s)(?:dark:|hover:|sm:|md:|lg:)?(?:bg|text|rounded|border|px|py|pt|pb|mt|mb|ml|mr|flex|grid|gap|shadow|font|leading|w|h|min|max|opacity|z|inset|absolute|relative)-/.test(s)) return false;
   return true;
 }
 
@@ -98,7 +171,15 @@ async function gtxOne(text: string, tl: string): Promise<string> {
   return j[0].map((seg) => seg[0]).join("");
 }
 
-async function gtxBatch(texts: string[], tl: string): Promise<string[]> {
+/**
+ * Returns one entry per input: the translation, or null when the request
+ * genuinely failed. Null matters — a failure must NOT be written to the cache.
+ * The previous version pushed the English text on failure, the caller cached
+ * it, and from then on that string was permanently "translated" to itself:
+ * a handful of Thai strings were stuck in English for exactly this reason.
+ * Leaving it uncached means the next run simply retries it.
+ */
+async function gtxBatch(texts: string[], tl: string): Promise<(string | null)[]> {
   // Newline-batch for throughput; if Google's segment count doesn't line up
   // (rare), fall back to translating each string on its own.
   const joined = texts.join("\n");
@@ -109,12 +190,12 @@ async function gtxBatch(texts: string[], tl: string): Promise<string[]> {
   } catch {
     /* fall through to per-item */
   }
-  const solo: string[] = [];
+  const solo: (string | null)[] = [];
   for (const t of texts) {
     try {
       solo.push((await gtxOne(t, tl)).trim());
     } catch {
-      solo.push(t); // last resort: keep English rather than crash the run
+      solo.push(null); // retried on the next run instead of poisoning the cache
     }
     await new Promise((r) => setTimeout(r, 40));
   }
@@ -138,6 +219,23 @@ async function main() {
       console.warn(`  skip ${g.file}: ${(e as Error).message}`);
     }
   }
+  // 1b) The page dictionaries — the site's main copy.
+  try {
+    const dict = (await import(DICTIONARY_EN)).default;
+    collect(dict, "", strings);
+  } catch (e) {
+    console.warn(`  skip dictionaries/en: ${(e as Error).message}`);
+  }
+
+  // 1c) English label blocks written inline inside components.
+  for (const rel of INLINE_SOURCES) {
+    try {
+      collectInline(readFileSync(resolve(WEB, rel), "utf8"), strings);
+    } catch (e) {
+      console.warn(`  skip ${rel}: ${(e as Error).message}`);
+    }
+  }
+
   const unique = [...strings].sort();
   console.log(`Harvested ${unique.length} unique English UI strings.`);
 
@@ -156,8 +254,14 @@ async function main() {
         const solo = chunk.filter((s) => s.includes("\n"));
         const batchable = chunk.filter((s) => !s.includes("\n"));
         const translated = batchable.length ? await gtxBatch(batchable, tl) : [];
-        batchable.forEach((s, idx) => (cache[`${tl} ${s}`] = translated[idx] ?? s));
-        for (const s of solo) cache[`${tl} ${s}`] = await gtxOne(s, tl).catch(() => s);
+        batchable.forEach((s, idx) => {
+          const t = translated[idx];
+          if (t) cache[`${tl} ${s}`] = t; // a failure stays uncached and is retried
+        });
+        for (const s of solo) {
+          const t = await gtxOne(s, tl).catch(() => null);
+          if (t) cache[`${tl} ${s}`] = t;
+        }
         writeFileSync(CACHE, JSON.stringify(cache));
       }
     }

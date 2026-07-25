@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Dictionary } from "@/dictionaries";
+import { fillLabels } from "@/lib/fill-labels";
 
 const WALLETS = [
   { id: "btc", coin: "Bitcoin", symbol: "BTC", network: "Bitcoin", address: "1AzqohLY6XPGbabHmMhstYMPFUThoiBnya" },
@@ -79,7 +80,7 @@ const BANK_HOWTO: Record<string, string[]> = {
 export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; locale: string }) {
   const [copied, setCopied] = useState<string | null>(null);
   const [openWallet, setOpenWallet] = useState<string | null>("usdt-trc20");
-  const howto = BANK_HOWTO[locale] ?? BANK_HOWTO.en!;
+  const howto = BANK_HOWTO[locale] ?? fillLabels(locale, BANK_HOWTO.en!);
 
   function copy(text: string, key: string) {
     navigator.clipboard?.writeText(text).then(() => {

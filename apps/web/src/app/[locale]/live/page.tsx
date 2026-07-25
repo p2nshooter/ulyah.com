@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { LiveHub } from "@/components/LiveHub";
 import { TENANT } from "@/lib/tenant";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 // Native per-locale copy — siblings render their own language (fr/de), never
 // an English or Indonesian fallback. `{site}` becomes the tenant brand.
@@ -73,7 +74,7 @@ const L: Record<string, { title: string; heading: string; desc: string; metaTitl
 };
 
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

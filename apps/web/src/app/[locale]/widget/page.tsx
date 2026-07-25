@@ -3,6 +3,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface WidgetCard {
   emoji: string;
@@ -81,7 +82,7 @@ const WIDGETS: WidgetCard[] = [
 ];
 
 function pick(m: Record<string, string>, locale: string): string {
-  return m[locale] ?? m.en ?? "";
+  return m[locale] ?? fillLabels(locale, m.en ?? "");
 }
 
 // Page chrome in every supported UI language. `{site}` = tenant brand.
@@ -152,7 +153,7 @@ const L: Record<string, { heading: (s: string) => string; intro: string; open: s
 };
 
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

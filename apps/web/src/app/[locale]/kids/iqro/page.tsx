@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { kidsLabels } from "@/lib/kids-labels";
 import { IQRO } from "@/lib/iqro";
+import { iqroFocus } from "@/lib/iqro-labels";
 
 export const revalidate = 86400;
 
@@ -61,7 +62,7 @@ export default async function IqroIndexPage({ params }: { params: Promise<{ loca
                 <p className="font-heading text-base font-bold">
                   {t.jilid} {j.no}
                 </p>
-                <p className="mt-0.5 text-xs opacity-90">{j.focus}</p>
+                <p className="mt-0.5 text-xs opacity-90">{iqroFocus(locale, j.no)}</p>
               </div>
             </Link>
           ))}

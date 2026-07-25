@@ -4,6 +4,7 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { KidsFilmPlayer } from "@/components/kids/KidsFilmPlayer";
 import type { KidsVariant } from "@/components/kids/KidsCharacter";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface EpisodeSummary {
   id: number;
@@ -115,7 +116,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
       moralTitle: "教訓", readText: "📖 物語のテキストを読む", hideText: "テキストを隠す",
     },
   };
-  const labels = LABELS[locale] ?? EN_LABELS;
+  const labels = LABELS[locale] ?? fillLabels(locale, EN_LABELS);
 
   async function open(slug: string) {
     if (openSlug === slug) {

@@ -48,17 +48,54 @@ export interface KidsGamesLabels {
   kasrah: string;
   dhammah: string;
   sukun: string;
+  tasydid: string;
+  tanwinFathah: string;
+  tanwinKasrah: string;
+  tanwinDhammah: string;
+  growName: string;
+  growDesc: string;
+  flyName: string;
+  flyDesc: string;
+  chooseLevel: string;
+  goal: string;
+  catchThis: string;
+  missed: string;
+  tier0: string;
+  tier1: string;
+  tier2: string;
+  tier3: string;
+  tier4: string;
+  locked: string;
+  cleared: string;
+  lives: string;
+  round: string;
+  tapInOrder: string;
+  meaning: string;
+  passed: string;
+  failed: string;
+  retry: string;
+  nextTier: string;
+  stars: string;
+  yourName: string;
+  yourAge: string;
+  years: string;
+  certificate: string;
+  certTitle: string;
+  certBody: string;
+  certLocked: string;
+  print: string;
+  progress: string;
 }
 
 const EN: KidsGamesLabels = {
   title: "Qur'an Learning Games",
-  subtitle: "Learn the hijaiyah letters by playing",
-  guessName: "Guess the Letter",
-  guessDesc: "See the letter, pick its name",
-  findName: "Find the Letter",
-  findDesc: "Hear the name, pick the letter",
+  subtitle: "Learn the Arabic hijaiyah letters by playing",
+  guessName: "Guess the Arabic Letter",
+  guessDesc: "See the Arabic letter, pick its name",
+  findName: "Find the Arabic Letter",
+  findDesc: "Hear the name, pick the Arabic letter",
   matchName: "Matching Cards",
-  matchDesc: "Match each letter to its name",
+  matchDesc: "Match each Arabic letter to its name",
   orderName: "Put in Order",
   orderDesc: "Arrange them in hijaiyah order",
   score: "Score",
@@ -73,13 +110,13 @@ const EN: KidsGamesLabels = {
   done: "Great! Finished",
   moves: "Moves",
   hint: "Tap a card to flip it",
-  orderHint: "Tap the letters in order",
-  memoryName: "Remember the Letters",
+  orderHint: "Tap the Arabic letters in order",
+  memoryName: "Remember the Arabic Letters",
   memoryDesc: "Watch the sequence, then repeat it — it grows each level",
   speedName: "Quick & Correct",
   speedDesc: "How many can you get before the time runs out?",
   harakatName: "Guess the Harakat",
-  harakatDesc: "Which vowel mark is on the letter?",
+  harakatDesc: "Which vowel mark is on the Arabic letter?",
   level: "Level",
   levelUp: "Level up!",
   watch: "Watch carefully…",
@@ -92,6 +129,43 @@ const EN: KidsGamesLabels = {
   kasrah: "Kasrah (i)",
   dhammah: "Dhammah (u)",
   sukun: "Sukun",
+  tasydid: "Tasydid (doubled)",
+  tanwinFathah: "Tanwin fathah (an)",
+  tanwinKasrah: "Tanwin kasrah (in)",
+  tanwinDhammah: "Tanwin dhammah (un)",
+  growName: "Grow the Arabic Letters",
+  growDesc: "One Arabic letter becomes a syllable, a word, then a whole phrase",
+  flyName: "Catch the Arabic Letters in the Air",
+  flyDesc: "Arabic letters float past — tap the correct one before it escapes",
+  chooseLevel: "Choose a level",
+  goal: "Target",
+  catchThis: "Find these Arabic letters in the air",
+  missed: "It got away!",
+  tier0: "Very easy",
+  tier1: "Easy",
+  tier2: "Medium",
+  tier3: "Hard",
+  tier4: "Very hard",
+  locked: "Clear the level before this one first",
+  cleared: "Cleared",
+  lives: "Lives",
+  round: "Round",
+  tapInOrder: "Tap the pieces in order",
+  meaning: "Meaning",
+  passed: "Level cleared!",
+  failed: "Out of lives — try again",
+  retry: "Try again",
+  nextTier: "Next level",
+  stars: "Stars",
+  yourName: "Child's name",
+  yourAge: "Age",
+  years: "years",
+  certificate: "Certificate",
+  certTitle: "Certificate of Hijaiyah Mastery",
+  certBody: "has completed every hijaiyah level, from the first Arabic letter to a full phrase.",
+  certLocked: "Clear the top level of every core game to earn the certificate.",
+  print: "Print / save",
+  progress: "Progress",
 };
 
 const ID: KidsGamesLabels = {
@@ -136,6 +210,43 @@ const ID: KidsGamesLabels = {
   kasrah: "Kasrah (i)",
   dhammah: "Dhammah (u)",
   sukun: "Sukun",
+  tasydid: "Tasydid (dobel)",
+  tanwinFathah: "Tanwin fathah (an)",
+  tanwinKasrah: "Tanwin kasrah (in)",
+  tanwinDhammah: "Tanwin dhammah (un)",
+  growName: "Tumbuh Huruf",
+  growDesc: "Satu huruf tumbuh jadi suku kata, kata, lalu satu kalimat",
+  flyName: "Tangkap Huruf Terbang",
+  flyDesc: "Huruf berterbangan — ketuk yang benar sebelum kabur",
+  chooseLevel: "Pilih tingkat",
+  goal: "Target",
+  catchThis: "Tangkap huruf ini",
+  missed: "Kabur!",
+  tier0: "Sangat mudah",
+  tier1: "Mudah",
+  tier2: "Sedang",
+  tier3: "Sulit",
+  tier4: "Sangat sulit",
+  locked: "Selesaikan tingkat sebelumnya dulu",
+  cleared: "Selesai",
+  lives: "Nyawa",
+  round: "Ronde",
+  tapInOrder: "Ketuk potongannya sesuai urutan",
+  meaning: "Artinya",
+  passed: "Tingkat selesai!",
+  failed: "Nyawa habis — coba lagi",
+  retry: "Coba lagi",
+  nextTier: "Tingkat berikutnya",
+  stars: "Bintang",
+  yourName: "Nama anak",
+  yourAge: "Umur",
+  years: "tahun",
+  certificate: "Sertifikat",
+  certTitle: "Sertifikat Menguasai Huruf Hijaiyah",
+  certBody: "telah menyelesaikan seluruh tingkat hijaiyah, dari huruf pertama sampai satu kalimat penuh.",
+  certLocked: "Selesaikan tingkat tertinggi di semua game inti untuk mendapat sertifikat.",
+  print: "Cetak / simpan",
+  progress: "Kemajuan",
 };
 
 const AR: KidsGamesLabels = {
@@ -180,6 +291,43 @@ const AR: KidsGamesLabels = {
   kasrah: "كسرة (i)",
   dhammah: "ضمة (u)",
   sukun: "سكون",
+  tasydid: "شدّة",
+  tanwinFathah: "تنوين فتح (an)",
+  tanwinKasrah: "تنوين كسر (in)",
+  tanwinDhammah: "تنوين ضم (un)",
+  growName: "نمو الحروف",
+  growDesc: "حرف واحد يصير مقطعًا ثم كلمة ثم جملة كاملة",
+  flyName: "امسك الحرف الطائر",
+  flyDesc: "الحروف تطير — انقر الحرف الصحيح قبل أن يهرب",
+  chooseLevel: "اختر المستوى",
+  goal: "الهدف",
+  catchThis: "امسك هذا الحرف",
+  missed: "هرب!",
+  tier0: "سهل جدًا",
+  tier1: "سهل",
+  tier2: "متوسط",
+  tier3: "صعب",
+  tier4: "صعب جدًا",
+  locked: "أكمل المستوى السابق أولًا",
+  cleared: "مكتمل",
+  lives: "المحاولات",
+  round: "جولة",
+  tapInOrder: "انقر الأجزاء بالترتيب",
+  meaning: "المعنى",
+  passed: "اجتزت المستوى!",
+  failed: "انتهت المحاولات — أعد الكرّة",
+  retry: "حاول مرة أخرى",
+  nextTier: "المستوى التالي",
+  stars: "النجوم",
+  yourName: "اسم الطفل",
+  yourAge: "العمر",
+  years: "سنة",
+  certificate: "الشهادة",
+  certTitle: "شهادة إتقان الحروف الهجائية",
+  certBody: "أكمل جميع مستويات الحروف الهجائية، من أول حرف إلى جملة كاملة.",
+  certLocked: "أكمل أعلى مستوى في كل الألعاب الأساسية للحصول على الشهادة.",
+  print: "طباعة / حفظ",
+  progress: "التقدم",
 };
 
 const MAP: Record<string, KidsGamesLabels> = { en: EN, id: ID, ar: AR };

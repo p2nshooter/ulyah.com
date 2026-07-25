@@ -37,7 +37,7 @@ const L: Letter[] = [
   { g: "ج", c: "j" }, { g: "ح", c: "ḥ" }, { g: "خ", c: "kh" }, { g: "د", c: "d" },
   { g: "ذ", c: "dz" }, { g: "ر", c: "r" }, { g: "ز", c: "z" }, { g: "س", c: "s" },
   { g: "ش", c: "sy" }, { g: "ص", c: "sh" }, { g: "ض", c: "dh" }, { g: "ط", c: "th" },
-  { g: "ظ", c: "zh" }, { g: "ع", c: "'a" }, { g: "غ", c: "gh" }, { g: "ف", c: "f" },
+  { g: "ظ", c: "zh" }, { g: "ع", c: "'" }, { g: "غ", c: "gh" }, { g: "ف", c: "f" },
   { g: "ق", c: "q" }, { g: "ك", c: "k" }, { g: "ل", c: "l" }, { g: "م", c: "m" },
   { g: "ن", c: "n" }, { g: "ه", c: "h" }, { g: "و", c: "w" }, { g: "ي", c: "y" },
 ];
@@ -51,8 +51,8 @@ export interface IqroUnit {
 }
 export interface IqroJilid {
   no: number;
-  title: string;
-  focus: string;
+  /** Rows of six drills. The level's TITLE and FOCUS text are not stored here:
+   *  they are language, and live in lib/iqro-labels.ts so every locale gets them. */
   rows: IqroUnit[][];
 }
 
@@ -250,33 +250,223 @@ const maddLazimDrills = (): IqroUnit[] =>
     };
   });
 
+/** tanwin + trigger — the SAME nun-sakinah rule, written the other way, which
+ *  is the half most beginners never get drilled on. e.g. مًا تَ → مًا تَ. */
+const tanwinDrills = (triggers: string[], baseGlyph = "م", tan = TAN_FAT): IqroUnit[] => {
+  const b = idxOf(baseGlyph);
+  const h: Hk = tan === TAN_FAT ? "a" : tan === TAN_KAS ? "i" : "u";
+  return triggers.map((t) => {
+    const ti = idxOf(t);
+    return {
+      ar: at(b).g + MARK[h] + tan + " " + at(ti).g + MARK.a,
+      latin: `${lat(at(b), h)}n ${lat(at(ti), "a")}`,
+      codes: [syllableCode(b, h), syllableCode(ti, "a")],
+    };
+  });
+};
+
+/** base(a) + qalqalah letter with sukun + closing letter — qalqalah sughra,
+ *  the bounce that happens in the MIDDLE of a word. */
+const qalqalahSughra = (bases: string[]): IqroUnit[] =>
+  QALQALAH_L.flatMap((g) =>
+    bases.map((baseGlyph) => {
+      const b = idxOf(baseGlyph);
+      const qi = idxOf(g);
+      const c = (b + 3) % N;
+      return {
+        ar: at(b).g + MARK.a + at(qi).g + SUKUN + at(c).g + MARK.a,
+        latin: `${lat(at(b), "a")}${at(qi).c}${lat(at(c), "a")}`,
+        codes: [syllableCode(b, "a"), syllableCode(qi, "a"), syllableCode(c, "a")],
+      };
+    })
+  );
+
+/** base + qalqalah letter carrying shadda + sukun at a stop — qalqalah kubra
+ *  in its strongest form (as at the end of سورة المسد). */
+const qalqalahKubraShadda = (bases: string[]): IqroUnit[] =>
+  QALQALAH_L.flatMap((g) =>
+    bases.map((baseGlyph) => {
+      const b = idxOf(baseGlyph);
+      const qi = idxOf(g);
+      return {
+        ar: at(b).g + MARK.a + at(qi).g + SHADDA + SUKUN,
+        latin: `${lat(at(b), "a")}${at(qi).c}${at(qi).c}`,
+        codes: [syllableCode(b, "a"), syllableCode(qi, "a")],
+      };
+    })
+  );
+
+/** nun/mim with shadda across all three vowels — ghunnah held two harakat. */
+const ghunnahVowels = (bases: string[]): IqroUnit[] =>
+  bases.flatMap((baseGlyph) =>
+    [NUN_I, MIM_I].flatMap((gi) =>
+      (["a", "i", "u"] as Hk[]).map((h) => {
+        const b = idxOf(baseGlyph);
+        return {
+          ar: at(b).g + MARK.a + at(gi).g + SHADDA + MARK[h],
+          latin: `${lat(at(b), "a")}${at(gi).c}${at(gi).c}${h}`,
+          codes: [syllableCode(b, "a"), syllableCode(gi, h)],
+        };
+      })
+    )
+  );
+
+/** The plain 2-harakat mad, all three forms — the base every branch mad grows
+ *  from, so jilid 10 starts by re-grounding it. */
+const madThabiiDrills = (letters: string[]): IqroUnit[] =>
+  letters.flatMap((g) => {
+    const i = idxOf(g);
+    return [
+      { ar: at(i).g + FATHAH + ALIF, latin: `${at(i).c}aa`, codes: [syllableCode(i, "a")] },
+      { ar: at(i).g + KASRAH + YA + SUKUN, latin: `${at(i).c}ii`, codes: [syllableCode(i, "i")] },
+      { ar: at(i).g + DHAMMAH + WAW + SUKUN, latin: `${at(i).c}uu`, codes: [syllableCode(i, "u")] },
+    ];
+  });
+
+/** mad at the end of a word meeting a hamzah at the start of the next —
+ *  mad jaiz munfasil, 4-5 harakat. */
+const maddMunfasilDrills = (letters: string[]): IqroUnit[] =>
+  letters.map((g) => {
+    const i = idxOf(g);
+    return {
+      ar: at(i).g + FATHAH + ALIF + " " + "أ" + FATHAH + at(i).g + MARK.a,
+      latin: `${at(i).c}aa a${lat(at(i), "a")}`,
+      codes: [syllableCode(i, "a"), syllableCode(i, "a")],
+    };
+  });
+
+/** tanwin fathah read as a long "aa" when you stop on it — mad 'iwadh. */
+const maddIwadhDrills = (letters: string[]): IqroUnit[] =>
+  letters.map((g) => {
+    const i = idxOf(g);
+    return {
+      ar: at(i).g + FATHAH + at(i).g + TAN_FAT + ALIF,
+      latin: `${lat(at(i), "a")}${at(i).c}aa`,
+      codes: [syllableCode(i, "a"), syllableCode(i, "a")],
+    };
+  });
+
+/** hamzah followed by its own mad — mad badal, 2 harakat. */
+const maddBadalDrills = (letters: string[]): IqroUnit[] =>
+  letters.map((g) => {
+    const i = idxOf(g);
+    return {
+      ar: "آ" + at(i).g + MARK.a + at(i).g + MARK.a,
+      latin: `aa${lat(at(i), "a")}${lat(at(i), "a")}`,
+      codes: [syllableCode(0, "a"), syllableCode(i, "a")],
+    };
+  });
+
+/** mad meeting a sukun only because you stopped there — mad 'aridh lissukun,
+ *  2, 4 or 6 harakat at the reader's choice. */
+const AR_CLOSERS = ["ب", "ت", "د", "ر", "س", "ك", "ل", "م", "ن"];
+const maddAridhDrills = (letters: string[]): IqroUnit[] =>
+  letters.map((g, k) => {
+    const i = idxOf(g);
+    const c = idxOf(AR_CLOSERS[(k + 1) % AR_CLOSERS.length]!);
+    return {
+      ar: at(i).g + FATHAH + ALIF + at(c).g + SUKUN,
+      latin: `${at(i).c}aa${at(c).c}`,
+      codes: [syllableCode(i, "a"), syllableCode(c, "a")],
+    };
+  });
+
+/** the ه of a pronoun stretched before the next word — mad shilah shughra. */
+const maddShilahDrills = (letters: string[]): IqroUnit[] =>
+  letters.map((g) => {
+    const i = idxOf(g);
+    const hi = idxOf("ه");
+    return {
+      ar: at(i).g + MARK.a + at(hi).g + DHAMMAH + WAW + SUKUN,
+      latin: `${lat(at(i), "a")}huu`,
+      codes: [syllableCode(i, "a"), syllableCode(hi, "u")],
+    };
+  });
+
 const IKHFA_L = ["ت", "ث", "ج", "د", "ذ", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ف", "ق", "ك"];
 const IDGHAM_GH_L = ["ي", "ن", "م", "و"];
 const IDGHAM_NOGH_L = ["ل", "ر"];
 const IZHAR_L = ["ه", "ع", "ح", "غ", "خ"];
+const QALQALAH_L = ["ق", "ط", "ب", "ج", "د"];
+/** Every letter EXCEPT ب and م — mim sukun before any of these is izhar syafawi. */
+const IZHAR_SYAFAWI_L = L.map((x) => x.g).filter((g) => g !== "ب" && g !== "م");
 
-const jilid7 = [...nunSukunDrills(IKHFA_L), ...nunSukunDrills(IKHFA_L, "ب")];
-const jilid8 = [
-  ...nunSukunDrills(IDGHAM_GH_L),
-  ...nunSukunDrills(IDGHAM_NOGH_L),
-  ...nunSukunDrills(["ب"]), // iqlab
-  ...nunSukunDrills(IZHAR_L),
-  ...mimSukunDrills(["ب", "م"]),
+// Jilid 7 — ikhfa, the biggest single nun-sakinah rule (15 of the 28 letters).
+// Drilled on four different opening letters and in BOTH spellings (nun sukun
+// and tanwin), which is what makes the level as long and as thorough as the
+// classic jilid 6 rather than a token page.
+const jilid7 = [
+  ...nunSukunDrills(IKHFA_L, "م"),
+  ...nunSukunDrills(IKHFA_L, "ب"),
+  ...nunSukunDrills(IKHFA_L, "ع"),
+  ...nunSukunDrills(IKHFA_L, "ك"),
+  ...tanwinDrills(IKHFA_L, "م", TAN_FAT),
+  ...tanwinDrills(IKHFA_L, "ب", TAN_KAS),
 ];
-const jilid9 = [...qalqalahDrills(), ...ghunnahDrills()];
-const jilid10 = [...maddMuttasilDrills(), ...maddLazimDrills()];
+
+// Jilid 8 — the remaining nun-sakinah rules (idgham with and without ghunnah,
+// iqlab, izhar halqi) in both spellings, then the three mim-sakinah rules.
+const jilid8 = [
+  ...nunSukunDrills(IDGHAM_GH_L, "م"),
+  ...nunSukunDrills(IDGHAM_GH_L, "ب"),
+  ...nunSukunDrills(IDGHAM_GH_L, "ك"),
+  ...nunSukunDrills(IDGHAM_NOGH_L, "م"),
+  ...nunSukunDrills(IDGHAM_NOGH_L, "ب"),
+  ...nunSukunDrills(IDGHAM_NOGH_L, "ك"),
+  ...nunSukunDrills(["ب"], "م"), // iqlab: nun sukun before ب becomes a mim
+  ...nunSukunDrills(["ب"], "ع"),
+  ...nunSukunDrills(["ب"], "ك"),
+  ...nunSukunDrills(IZHAR_L, "م"),
+  ...nunSukunDrills(IZHAR_L, "ب"),
+  ...nunSukunDrills(IZHAR_L, "ك"),
+  ...tanwinDrills(IDGHAM_GH_L, "م", TAN_FAT),
+  ...tanwinDrills(IDGHAM_NOGH_L, "م", TAN_KAS),
+  ...tanwinDrills(["ب"], "م", TAN_DAM),
+  ...tanwinDrills(IZHAR_L, "ب", TAN_FAT),
+  // mim sakinah: ikhfa syafawi (before ب), idgham mimi (before م), then izhar
+  // syafawi — every OTHER letter, read plainly with the lips closed.
+  ...mimSukunDrills(["ب"], "م"),
+  ...mimSukunDrills(["ب"], "ع"),
+  ...mimSukunDrills(["ب"], "ك"),
+  ...mimSukunDrills(["م"], "ع"),
+  ...mimSukunDrills(["م"], "ك"),
+  ...mimSukunDrills(IZHAR_SYAFAWI_L, "م"),
+];
+
+// Jilid 9 — qalqalah in both strengths (sughra in the middle of a word, kubra
+// at a stop, and the doubled kubra) and ghunnah across all three vowels.
+const jilid9 = [
+  ...qalqalahDrills(),
+  ...qalqalahSughra(["م", "ي", "ع", "ك", "ت"]),
+  ...qalqalahKubraShadda(["م", "ي"]),
+  ...ghunnahDrills(),
+  ...ghunnahVowels(["م", "ع", "ك", "ي", "ت", "س"]),
+];
+
+// Jilid 10 — the mad family end to end: the plain 2-harakat mad first, then
+// every branch mad a reader actually meets, up to the 6-harakat mad lazim.
+const jilid10 = [
+  ...madThabiiDrills(["ب", "ت", "ج", "د", "ر", "س", "ك", "ل", "م", "ن"]),
+  ...maddMuttasilDrills(),
+  ...maddMunfasilDrills(["ب", "ت", "ج", "د", "ر", "س", "ك", "م"]),
+  ...maddIwadhDrills(["ب", "ت", "ج", "د", "ر", "س", "ك", "ل", "م", "ن"]),
+  ...maddBadalDrills(["ب", "ت", "ج", "د", "ر", "س", "ك", "م"]),
+  ...maddAridhDrills(["ب", "ت", "ج", "د", "ر", "س", "ك", "ل", "م", "ن"]),
+  ...maddShilahDrills(["ب", "ت", "ج", "د", "ر", "س", "ك", "م"]),
+  ...maddLazimDrills(),
+];
 
 export const IQRO: IqroJilid[] = [
-  { no: 1, title: "Jilid 1", focus: "Huruf berharakat fathah (a)", rows: chunk(jilid1) },
-  { no: 2, title: "Jilid 2", focus: "Huruf sambung", rows: chunk(jilid2) },
-  { no: 3, title: "Jilid 3", focus: "Kasrah (i), dhammah (u) & campuran", rows: chunk(jilid3) },
-  { no: 4, title: "Jilid 4", focus: "Tanwin (an, in, un)", rows: chunk(jilid4) },
-  { no: 5, title: "Jilid 5", focus: "Mad — bacaan panjang", rows: chunk(jilid5) },
-  { no: 6, title: "Jilid 6", focus: "Sukun & tasydid", rows: chunk(jilid6) },
-  { no: 7, title: "Jilid 7", focus: "Ikhfa — nun sukun dibaca samar", rows: chunk(jilid7) },
-  { no: 8, title: "Jilid 8", focus: "Idgham, iqlab, izhar & mim sukun", rows: chunk(jilid8) },
-  { no: 9, title: "Jilid 9", focus: "Qalqalah (memantul) & ghunnah (dengung)", rows: chunk(jilid9) },
-  { no: 10, title: "Jilid 10", focus: "Mad wajib & mad lazim — panjang 4-6 harakat", rows: chunk(jilid10) },
+  { no: 1, rows: chunk(jilid1) },
+  { no: 2, rows: chunk(jilid2) },
+  { no: 3, rows: chunk(jilid3) },
+  { no: 4, rows: chunk(jilid4) },
+  { no: 5, rows: chunk(jilid5) },
+  { no: 6, rows: chunk(jilid6) },
+  { no: 7, rows: chunk(jilid7) },
+  { no: 8, rows: chunk(jilid8) },
+  { no: 9, rows: chunk(jilid9) },
+  { no: 10, rows: chunk(jilid10) },
 ];
 
 export const getJilid = (no: number): IqroJilid | undefined => IQRO.find((j) => j.no === no);

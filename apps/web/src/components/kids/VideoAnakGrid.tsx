@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface VideoRow {
   id: number;
@@ -43,7 +44,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
     zh: { worldwide: "全球穆斯林儿童影片", worldwideDesc: "来自世界各地的官方穆斯林儿童影片频道——按国家分组，全部可在此观看。", play: "播放", video: "个视频", series: { "doa-kisah": "祈祷与故事系列", "syamil-dodo": "穆斯林儿童影院 — Syamil 与 Dodo", "biografi-rasul": "先知生平 ﷺ" } },
     ja: { worldwide: "世界のムスリムの子ども向け映画", worldwideDesc: "世界各国の公式ムスリム子ども向け映画チャンネル——国別にまとめ、すべてここで視聴できます。", play: "再生", video: "本の動画", series: { "doa-kisah": "ドゥアーと物語シリーズ", "syamil-dodo": "ムスリム子どもシネマ — シャミルとドド", "biografi-rasul": "預言者の生涯 ﷺ" } },
   };
-  const kl = KIDS_L[locale] ?? KIDS_L.en!;
+  const kl = KIDS_L[locale] ?? fillLabels(locale, KIDS_L.en!);
   const [videos, setVideos] = useState<VideoRow[]>([]);
   const [channels, setChannels] = useState<ChannelRow[]>([]);
   const [playing, setPlaying] = useState<number | null>(null);

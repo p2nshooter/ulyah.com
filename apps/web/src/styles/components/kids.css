@@ -139,3 +139,42 @@
   from { opacity: 0; transform: translateY(10px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* ── Tangkap Huruf Terbang — letters drift across the play area ──────────
+   The moving element is a full-width track, so translateX(100%) → -100% is
+   exactly one crossing of the play area whatever the phone's width. Only
+   transform/opacity animate, so it stays on the compositor and a dozen letters
+   cost a phone nothing; duration comes from an inline style per letter, which
+   is what actually makes the higher tiers faster. */
+.kids-fly-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  animation-name: kids-fly-across;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+@keyframes kids-fly-across {
+  from { transform: translateX(100%) translateY(0); }
+  50%  { transform: translateX(0%) translateY(var(--fly-arc, 10px)); }
+  to   { transform: translateX(-100%) translateY(0); }
+}
+.kids-fly-letter {
+  animation: kids-fly-tilt 2.2s ease-in-out infinite;
+}
+@keyframes kids-fly-tilt {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg); }
+}
+.kids-fly-pop {
+  animation: kids-fly-pop 0.35s ease forwards;
+}
+@keyframes kids-fly-pop {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.9); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kids-fly-track { animation-duration: 14s !important; }
+  .kids-fly-letter { animation: none; }
+}

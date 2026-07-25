@@ -116,11 +116,11 @@ function detectLocale(req: NextRequest): string {
   const fromHeader = localeFromAcceptLanguage(req.headers.get("accept-language"));
   if (fromHeader) return fromHeader;
 
-  // Neutral fallback that is always a valid locale in the current build:
-  // English on ulyah (default "id" is fine for content but English is the
-  // safer neutral guess), the build default (fr) on 1fr.
-  const neutral = DEFAULT_LOCALE === "id" ? "en" : DEFAULT_LOCALE;
-  return isValidLocale(neutral) ? neutral : DEFAULT_LOCALE;
+  // Nothing to go on: serve the site's OWN language. ulyah.com is an
+  // Indonesian site (owner: "defaultnya indonesia") — guessing English for an
+  // unknown visitor made the hub feel like an English site by default. Geo and
+  // Accept-Language above already cover visitors we can actually identify.
+  return DEFAULT_LOCALE;
 }
 
 const SECURITY_HEADERS: Record<string, string> = {
@@ -168,6 +168,23 @@ export async function middleware(req: NextRequest) {
     pathname.includes(".") // files like /favicon.ico, /manifest.json
   ) {
     return NextResponse.next();
+  }
+
+  // Explicit escape hatch: ?lang=<code> forces a language and rewrites the
+  // sticky cookie, whatever it used to say. Without this, a visitor who once
+  // opened /th had no way back — the cookie kept redirecting every bare URL to
+  // /th. A plain link like ulyah.com/?lang=id now always works, from anywhere.
+  const forced = req.nextUrl.searchParams.get("lang");
+  if (forced && isValidLocale(forced)) {
+    const url = req.nextUrl.clone();
+    url.searchParams.delete("lang");
+    const segs = pathname.split("/");
+    const bare = isValidLocale(segs[1] ?? "") ? "/" + segs.slice(2).join("/") : pathname;
+    const clean = bare === "/" || bare === "" ? "" : bare.replace(/\/$/, "");
+    url.pathname = forced === DEFAULT_LOCALE ? clean || "/" : `/${forced}${clean}`;
+    const res = withSecurity(NextResponse.redirect(url, 307));
+    res.cookies.set(LOCALE_COOKIE, forced, { maxAge: 60 * 60 * 24 * 365, path: "/" });
+    return res;
   }
 
   const segments = pathname.split("/");
