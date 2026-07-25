@@ -282,6 +282,49 @@ contentRoute.get("/locales", async (c) => {
   }
 });
 
+/**
+ * GET /content/store?marketplace=fr — the shelves for one Amazon.
+ *
+ * Shelves, not products: Amazon forbids scraping their pages and the sanctioned
+ * API is not open to this account yet, so there is no legal way to hold
+ * thousands of products. A shelf is a category we name and describe ourselves,
+ * pointing at a filtered Amazon search — the reader chooses from Amazon's
+ * thousands, on Amazon.
+ *
+ * Answers with the tracking tag AND the shelves together, because without a tag
+ * there is no store: sending a reader to Amazon untagged is traffic given away,
+ * so the page renders nothing rather than something that earns nothing.
+ *
+ * Marketplace comes from the query, not the Origin — the page is rendered
+ * server-side and has no Origin — and is checked against a fixed list.
+ */
+const STORE_MARKETPLACES = new Set(["com", "fr", "de", "es"]);
+
+contentRoute.get("/store", async (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  const marketplace = c.req.query("marketplace") ?? "";
+  if (!STORE_MARKETPLACES.has(marketplace)) return c.json({ tag: null, shelves: [], ok: false });
+
+  try {
+    const [tagRow, shelves] = await c.env.DB.batch([
+      c.env.DB.prepare("SELECT tag FROM affiliate_tag WHERE marketplace = ?").bind(marketplace),
+      c.env.DB.prepare(
+        `SELECT id, slug, label, blurb, keywords, department, icon FROM affiliate_shelf
+          WHERE marketplace = ? AND enabled = 1
+          ORDER BY sort_order, id`
+      ).bind(marketplace),
+    ]);
+    const tag = ((tagRow?.results as { tag: string }[] | undefined)?.[0]?.tag ?? "").trim();
+    if (!tag) return c.json({ tag: null, shelves: [], ok: true });
+    c.header("Cache-Control", "public, max-age=300");
+    return c.json({ tag, shelves: (shelves?.results ?? []) as unknown[], ok: true });
+  } catch {
+    // Table not migrated yet, or a transient error — an empty store is the safe
+    // answer; the page simply does not render.
+    return c.json({ tag: null, shelves: [], ok: false });
+  }
+});
+
 // GET /content/media-status — which admin-managed images are actually
 // uploaded (boolean only, no admin data) — lets a page skip rendering an
 // <img> for a photo nobody has uploaded yet, avoiding a broken-image icon.

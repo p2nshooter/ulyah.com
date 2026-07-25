@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { DEFAULT_LOCALE, LOCALE_SITE, isValidLocale, localeCanonicalUrl } from "@ulyah/shared/i18n";
-import { localizedRoute, canonicalRoute } from "@ulyah/shared/routes";
+import { localizedRoute, canonicalRoute, routeLocales } from "@ulyah/shared/routes";
 import { KNOWN_LOCALE_PREFIXES, isUsable, pickLocale } from "@/lib/locale-detect";
 
 const LOCALE_COOKIE = "ulyah_locale";
@@ -127,11 +127,21 @@ const ALWAYS_LIVE = ["id", "en", "fr", "de", "es"];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {
   const clean = route === "/" ? "" : route.replace(/\/+$/, "");
-  const codes = [...ALWAYS_LIVE, ...(enabledLocales() ?? []).filter((c) => !ALWAYS_LIVE.includes(c))];
+  // A route that does not exist everywhere only names the languages that have
+  // it — /toko lives on the four sites with an Amazon, and declaring an
+  // Indonesian alternate would point Google at a 404 on ulyah.com.
+  const only = routeLocales(clean);
+  const codes = [...ALWAYS_LIVE, ...(enabledLocales() ?? []).filter((c) => !ALWAYS_LIVE.includes(c))].filter(
+    (c) => !only || only.includes(c)
+  );
+  if (codes.length === 0) return res;
   const parts = codes.map(
     (code) => `<${localeCanonicalUrl(code, localizedRoute(clean, code))}>; rel="alternate"; hreflang="${code}"`
   );
-  parts.push(`<${localeCanonicalUrl("id", clean)}>; rel="alternate"; hreflang="x-default"`);
+  // x-default must be a page that exists: the hub, unless the hub does not have
+  // this route, in which case the first language that does.
+  const xDefault = only ? localeCanonicalUrl(codes[0]!, localizedRoute(clean, codes[0]!)) : localeCanonicalUrl("id", clean);
+  parts.push(`<${xDefault}>; rel="alternate"; hreflang="x-default"`);
   // append, not set: Next.js puts its own preload hints in Link too.
   res.headers.append("Link", parts.join(", "));
   return res;

@@ -7,8 +7,9 @@ import {
   localeCanonicalUrl,
   HUB_SITE,
 } from "@ulyah/shared/i18n";
-import { localizedRoute } from "@ulyah/shared/routes";
+import { localizedRoute, routeLocales } from "@ulyah/shared/routes";
 import { TENANT } from "@/lib/tenant";
+import { TENANT_MARKETPLACE } from "@/lib/store";
 
 /**
  * THE list of pages this site announces to search engines.
@@ -60,6 +61,10 @@ export const ROUTES = [
   "/kontak",
   "/cari",
   "/kebijakan-privasi",
+  // The Amazon shelf — only on a site that has an Amazon to point at. ulyah.com
+  // does not (Amazon has no Indonesian marketplace), and the page 404s there,
+  // so announcing it would be advertising a page that does not exist.
+  ...(TENANT_MARKETPLACE ? ["/toko"] : []),
 ];
 
 // The hadith collections, the story slugs and the kitab catalogue all come from
@@ -84,6 +89,7 @@ function urlFor(localeCode: string, route: string): string {
 // set) is the hub under its /<code> prefix — via the shared localeCanonicalUrl,
 // so all five sitemaps stay consistent.
 function crossDomainLanguages(route: string, enabled: string[]): Record<string, string> {
+  const only = routeLocales(route);
   const langs: Record<string, string> = {};
   // Only languages actually being served. A language still switched off
   // redirects to the site's own language, so declaring an hreflang for it would
@@ -92,6 +98,7 @@ function crossDomainLanguages(route: string, enabled: string[]): Record<string, 
   // admin portal's own list, so a language appears here the moment the owner
   // switches it on, in the same breath as the middleware starts serving it.
   for (const l of ALL_LOCALES) {
+    if (only && !only.includes(l.code)) continue;
     if (!(l.code === "id" || LOCALE_SITE[l.code] || enabled.includes(l.code))) continue;
     // Each language's copy lives at ITS OWN url — the French alternate of
     // /jadwal-sholat is 1fr.fr/horaires-priere, not 1fr.fr/jadwal-sholat.
@@ -99,7 +106,12 @@ function crossDomainLanguages(route: string, enabled: string[]): Record<string, 
     // and wastes the crawl.
     langs[l.code] = localeCanonicalUrl(l.code, localizedRoute(route, l.code));
   }
-  langs["x-default"] = `${HUB_SITE}${route}`;
+  // x-default is what a reader gets when no language matches, so it has to be a
+  // page that exists. For a route the hub does not have, that is the English
+  // member of the ecosystem rather than a 404 on ulyah.com.
+  langs["x-default"] = only
+    ? langs[only[0]!] ?? Object.values(langs)[0] ?? `${HUB_SITE}${route}`
+    : `${HUB_SITE}${route}`;
   return langs;
 }
 
