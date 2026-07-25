@@ -21,7 +21,8 @@
     "deploy:api": "pnpm --filter @ulyah/worker-api deploy",
     "gen:ui-i18n": "tsx scripts/generate-ui-i18n.ts",
     "gen:locale-readiness": "tsx scripts/generate-locale-readiness.ts",
-    "gen:locale-content": "tsx scripts/measure-locale-content.ts"
+    "gen:locale-content": "tsx scripts/measure-locale-content.ts",
+    "seo:notify": "tsx scripts/notify-search-engines.ts"
   },
   "devDependencies": {
     "@types/pdfkit": "^0.13.9",
