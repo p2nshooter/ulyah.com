@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { DEPARTMENTS, searchUrl } from "@/lib/store";
-import { SHELF_PRESETS } from "@/lib/store-presets";
+import { shelfPresets } from "@/lib/store-presets";
 
 /**
  * Toko Amazon — kategori, bukan produk satu-satu.
@@ -107,7 +107,7 @@ export function StoreTab() {
    * and search ranking at risk.
    */
   async function addPresets() {
-    const presets = SHELF_PRESETS[market] ?? [];
+    const presets = shelfPresets(market);
     const have = new Set(mine.map((s) => s.label.toLowerCase()));
     const todo = presets.filter((p) => !have.has(p.label.toLowerCase()));
     if (todo.length === 0) {
@@ -292,7 +292,7 @@ export function StoreTab() {
               className="rounded-lg border border-[var(--color-border)] px-4 py-2 text-xs font-bold disabled:opacity-40"
               title="Pasang set kategori siap pakai untuk situs ini"
             >
-              ⚡ Pasang {SHELF_PRESETS[market]?.length ?? 0} kategori bawaan
+              ⚡ Pasang {shelfPresets(market).length} kategori bawaan
             </button>
           </div>
         </div>

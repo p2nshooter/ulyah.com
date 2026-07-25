@@ -295,9 +295,24 @@ const ES: ShelfPreset[] = [
   },
 ];
 
-export const SHELF_PRESETS: Record<string, ShelfPreset[]> = {
-  com: EN,
-  fr: FR,
-  de: DE,
-  es: ES,
+/**
+ * Keyed by the Amazon DOMAIN, not by a language code.
+ *
+ * Three of the four marketplaces happen to share a name with a locale
+ * ("fr", "de", "es"), which made this look like a translation table to the
+ * i18n consistency patrol — it asked, reasonably, where Indonesian and English
+ * had gone. They are not missing: there is no amazon.co.id at all, and English
+ * is amazon.com. Spelling the host out says what this really is and leaves the
+ * patrol free to keep guarding the maps that ARE about language.
+ */
+const PRESETS_BY_STORE: Record<string, ShelfPreset[]> = {
+  "amazon.com": EN,
+  "amazon.fr": FR,
+  "amazon.de": DE,
+  "amazon.es": ES,
 };
+
+/** Ready-made shelves for one marketplace ("com" | "fr" | "de" | "es"). */
+export function shelfPresets(marketplace: string): ShelfPreset[] {
+  return PRESETS_BY_STORE[`amazon.${marketplace}`] ?? [];
+}
