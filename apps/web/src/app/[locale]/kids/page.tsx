@@ -5,7 +5,7 @@ import { api } from "@/lib/api";
 import { kidsLabels } from "@/lib/kids-labels";
 import { KidsHijaiyah } from "@/components/KidsHijaiyah";
 import { JUZ30, JUZ29, PILIHAN } from "@/lib/kids-surahs";
-import { IQRO } from "@/lib/iqro";
+import { IQRO_COUNT } from "@/lib/iqro";
 
 export const revalidate = 86400;
 
@@ -109,7 +109,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
       {/* Iqro — learn to read. The count follows IQRO itself so adding a level
           can never leave a stale "6 jilid" label behind. */}
       <section className="mx-auto mt-10 max-w-4xl px-4 sm:px-6">
-        <SectionHead icon="📖" title={t.iqroTitle} desc={t.iqroDesc} count={`${IQRO.length} ${t.jilid}`} />
+        <SectionHead icon="📖" title={t.iqroTitle} desc={t.iqroDesc} count={`${IQRO_COUNT} ${t.jilid}`} />
         <Link
           href={`/${locale}/kids/iqro`}
           className="flex items-center justify-between rounded-3xl bg-gradient-to-br from-emerald-400 to-sky-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
