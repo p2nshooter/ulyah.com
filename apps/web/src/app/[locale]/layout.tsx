@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { TENANT, tenantTagline } from "@/lib/tenant";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -87,16 +87,6 @@ export async function generateMetadata({
       // content.
       ...(locale === DEFAULT_LOCALE ? {} : { canonical: "./" }),
     },
-    // One language per DOMAIN. ulyah.com is Indonesian-only now — the other
-    // languages each live on their own ecosystem domain (en→xad.es, fr→1fr.fr,
-    // de→tilawa.de, es→dawa.es). ulyah.com's non-Indonesian locale routes still
-    // render (so the header can show them struck-through) but must NOT be
-    // indexed, or they'd duplicate the sibling domains and fail AdSense/Search
-    // Console duplicate checks. Siblings serve only their own language, so this
-    // only ever fires on the ulyah tenant.
-    ...(TENANT.id === "ulyah" && locale !== DEFAULT_LOCALE
-      ? { robots: { index: false, follow: true } }
-      : {}),
     manifest: `/manifest.webmanifest?locale=${locale}`,
     icons:
       TENANT.id === "ulyah"
@@ -150,11 +140,30 @@ export async function generateMetadata({
       description: dict.hero.description,
       images: ["/icon-512.png"],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
-    },
+    // One language per DOMAIN. en/fr/de/es each live on their own ecosystem
+    // site, so those urls do not belong on this host at all — the middleware
+    // 301s ulyah.com/en/… to xad.es/…. This is the belt to that pair of braces:
+    // if one ever slips through, it must not be indexed as a duplicate of the
+    // site that owns it.
+    //
+    // It used to be written as a conditional spread ABOVE this key, which meant
+    // this literal silently overwrote it and the noindex never applied at all —
+    // ulyah.com/en/quran was fully indexable, competing with xad.es/quran.
+    // A later key wins; the guard has to BE the value.
+    //
+    // Every OTHER language (ar/ru/zh/ja + the India/Turkey/Persia set) has no
+    // domain of its own: ulyah.com/<code> IS its canonical home, it is what the
+    // sitemap lists, and it must stay indexable. A language the owner has not
+    // switched on never renders in the first place — the middleware sends it
+    // home — so nothing half-finished can reach a crawler either way.
+    robots:
+      TENANT.id === "ulyah" && locale !== DEFAULT_LOCALE && LOCALE_SITE[locale]
+        ? { index: false, follow: true }
+        : {
+            index: true,
+            follow: true,
+            googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+          },
     keywords: [
       "Al-Quran", "Quran audio", "murottal", "tafsir", "hadits", "kisah nabi",
       "Islamic audiobook", "listen to Quran", "Quran online", "kajian Islam",
