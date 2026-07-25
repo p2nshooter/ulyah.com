@@ -47,7 +47,7 @@ export function StoryReader({
       if (stopRef.current) break;
       setActive(i);
       document.getElementById(`sent-${i}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
-      const h = speak(sentences[i]!, lang);
+      const h = speak(sentences[i]!, lang, { owner: "kisah" });
       handleRef.current = h;
       await h.done;
     }

@@ -500,6 +500,7 @@ export function PesantrenKitabReader({
       // Arabic matn without cutting off).
       setReadingPos({ matnId: m.id, part: p.part, charIndex: 0 });
       const h = speak(p.text, p.lang, {
+        owner: "kitab",
         rate: 0.9,
         onWord: (ci) => setReadingPos({ matnId: m.id, part: p.part, charIndex: ci }),
       });

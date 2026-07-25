@@ -98,6 +98,7 @@ export function ContinuousStoryReader({
       if (!readingRef.current) return;
       setActive({ block: b.id, charIndex: 0 });
       const h = speak(b.text, locale, {
+        owner: "kisah",
         rate: 0.95,
         onWord: (ci) => setActive({ block: b.id, charIndex: ci }),
       });

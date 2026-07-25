@@ -6,6 +6,7 @@ import { computeKhatamIndex } from "@/lib/radio-clock";
 import { usePlayerStore } from "@/lib/player-store";
 import { useRadioStore, ensureSurahsLoaded, nextRadioPosition } from "@/lib/radio-store";
 import { sendPresencePing } from "@/lib/presence";
+import { stopNarration } from "@/lib/speech";
 
 /**
  * The one place the Radio Qori <audio> element lives — mounted ONCE in the
@@ -135,7 +136,8 @@ export function GlobalRadioPlayer() {
       // buttons) run at the same instant as the radio — two overlapping audio
       // sources is exactly the muffled "kaset kusut" echo. The radio wins; the
       // narration UI stops itself on its own next tick.
-      if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+      // The radio takes over the audio: stop every narrator, whoever it is.
+      stopNarration();
 
       for (const src of sources) {
         if (cancelled) return;

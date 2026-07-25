@@ -155,6 +155,28 @@ contentRoute.get("/site-pages", async (c) => {
   }
 });
 
+// GET /content/locales — which languages the site currently offers. Public,
+// because the language control and the edge middleware both need it on every
+// request. Deliberately tiny (a list of two-letter codes) and cached at the
+// edge for a minute, so asking is essentially free.
+//
+// Fails CLOSED, unlike site-pages above: if the table cannot be read we return
+// no languages rather than all of them, and the caller falls back to its own
+// built-in default. Failing open here would briefly re-expose the
+// half-translated languages this switch exists to keep hidden.
+contentRoute.get("/locales", async (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  try {
+    const { results } = await c.env.DB.prepare(
+      "SELECT code FROM locale_settings WHERE enabled = 1"
+    ).all<{ code: string }>();
+    c.header("Cache-Control", "public, max-age=60");
+    return c.json({ enabled: results.map((r) => r.code), ok: true });
+  } catch {
+    return c.json({ enabled: [], ok: false });
+  }
+});
+
 // GET /content/media-status — which admin-managed images are actually
 // uploaded (boolean only, no admin data) — lets a page skip rendering an
 // <img> for a photo nobody has uploaded yet, avoiding a broken-image icon.
