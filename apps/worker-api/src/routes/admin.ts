@@ -496,30 +496,30 @@ adminRoute.get("/analytics", async (c) => {
     // Readers only (is_bot = 0), on Jakarta days — the same clock and the same
     // filter as /tenant-analytics, so no two cards in the portal can disagree.
     // Crawler and unclassified counts are returned separately below.
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND date(created_at, '+7 hours') = date('now', '+7 hours')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND created_at >= datetime('now','-7 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND created_at >= datetime('now','-30 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND created_at >= datetime('now','-365 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND date(created_at, '+7 hours') = date('now', '+7 hours')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-7 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-30 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-365 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0").first<{ n: number }>(),
     c.env.DB.prepare(
       `SELECT date(created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE is_bot = 0 AND created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT strftime('%Y-W%W', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE is_bot = 0 AND created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT strftime('%Y-%m', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE is_bot = 0 AND created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT strftime('%Y', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE is_bot = 0 GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT COALESCE(country,'??') AS country, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE is_bot = 0 GROUP BY country ORDER BY n DESC LIMIT 25`
+       WHERE COALESCE(is_bot, 0) = 0 GROUP BY country ORDER BY n DESC LIMIT 25`
     ).all(),
     c.env.DB.prepare("SELECT COUNT(*) AS n FROM clients").first<{ n: number }>(),
     c.env.DB.prepare(
@@ -586,9 +586,21 @@ adminRoute.get("/tenant-analytics", async (c) => {
   //    guessed at after the fact.
   const WIB = "+7 hours";
   const win = (expr: string) => expr.replace(/@/g, WIB);
-  // A reader is a row we positively classified as human; unknown rows predate
-  // the classifier and are surfaced on their own line.
-  const HUMAN = "is_bot = 0";
+  // Traffic is everything that is NOT a KNOWN crawler.
+  //
+  // This started as "positively classified as human", which quietly erased the
+  // site's whole history: bot classification only began on 25 July, so 8,281 of
+  // 8,342 recorded pageviews carry no verdict at all, and the traffic cards
+  // dropped from thousands to 23 (owner: "kok trafik-nya hilang, jangan
+  // dihilangkan trafik-nya"). Removing a visit because we cannot prove it was a
+  // person is not honest either — it was recorded, it happened.
+  //
+  // So a row counts as traffic unless it was actually identified as a crawler.
+  // Confirmed bots are excluded and reported separately, and the still-unjudged
+  // rows are reported on their own line so it stays visible how much of the
+  // total predates the classifier. That share shrinks on its own as new,
+  // classified traffic fills the windows.
+  const HUMAN = "COALESCE(is_bot, 0) = 0";
   const BOT = "is_bot = 1";
   const UNKNOWN = "is_bot IS NULL";
   const TODAY = win("date(created_at, '@') = date('now', '@')");
@@ -635,7 +647,7 @@ adminRoute.get("/tenant-analytics", async (c) => {
           `SELECT tenant, date(created_at, '@') AS bucket,
                   COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
            FROM analytics_pageviews
-           WHERE created_at >= datetime('now','-30 days') AND is_bot = 0
+           WHERE created_at >= datetime('now','-30 days') AND COALESCE(is_bot, 0) = 0
            GROUP BY tenant, bucket ORDER BY bucket`
         )
       ).all<{ tenant: string; bucket: string; n: number; d: number }>(),
