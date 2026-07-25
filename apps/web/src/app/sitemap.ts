@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, ALL_LOCALES, localeCanonicalUrl, HUB_SITE, isLocaleReady } from "@ulyah/shared/i18n";
+import { localizedRoute } from "@ulyah/shared/routes";
 import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
@@ -23,8 +24,11 @@ const HADITS_COLLECTIONS = [
 // Every site serves its OWN language at BARE URLs (no /id on ulyah.com, no
 // /fr on 1fr.fr, …) — the middleware rewrites bare → default locale and 301s
 // the prefixed twins, so the sitemap must list the bare form.
+/** This site's url for a route, with the slug in this site's own language —
+ *  dawa.es/horarios-de-oracion, never dawa.es/jadwal-sholat. */
 function urlFor(localeCode: string, route: string): string {
-  return localeCode === DEFAULT_LOCALE ? `${BASE}${route}` : `${BASE}/${localeCode}${route}`;
+  const slug = localizedRoute(route, localeCode);
+  return localeCode === DEFAULT_LOCALE ? `${BASE}${slug}` : `${BASE}/${localeCode}${slug}`;
 }
 
 // Full hreflang graph for a route (owner: "link sitemap mengikuti bahasa, jangan
@@ -43,7 +47,11 @@ function crossDomainLanguages(route: string): Record<string, string> {
   // automatically the moment they reach 100%.
   for (const l of ALL_LOCALES) {
     if (!isLocaleReady(l.code)) continue;
-    langs[l.code] = localeCanonicalUrl(l.code, route);
+    // Each language's copy lives at ITS OWN url — the French alternate of
+    // /jadwal-sholat is 1fr.fr/horaires-priere, not 1fr.fr/jadwal-sholat.
+    // Pointing hreflang at a url that only redirects is a Search Console
+    // error and wastes the crawl.
+    langs[l.code] = localeCanonicalUrl(l.code, localizedRoute(route, l.code));
   }
   langs["x-default"] = `${HUB_SITE}${route}`;
   return langs;
