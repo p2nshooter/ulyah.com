@@ -5,9 +5,24 @@ import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
 import { MiniBarChart } from "./MiniBarChart";
 
+interface Window4 {
+  today: number;
+  week: number;
+  month: number;
+  allTime: number;
+}
+
 interface TenantStat {
   tenant: string;
-  visitors: { today: number; week: number; month: number; allTime: number };
+  /** Pageviews from readers we positively classified as human. */
+  visitors: Window4;
+  /** Crawler pageviews. Shown, not hidden — see the note under the cards. */
+  bots?: Window4;
+  /** Rows written before bot classification existed; never guessed at. */
+  unclassified?: Window4;
+  /** DISTINCT human devices over the SAME windows as `visitors`, which is what
+   *  makes "3 pembaca, 11 halaman" add up instead of contradicting itself. */
+  readers?: Window4;
   installs: number;
   uninstalls: number;
   /** Distinct devices whose LAST event is an install — "truly installed
@@ -26,16 +41,20 @@ interface TenantStat {
   devices7d?: number;
   devices30d?: number;
   devices365d?: number;
-  daily: { bucket: string; n: number }[];
-  topPages: { path: string; n: number }[];
-  topCountries: { country: string; n: number }[];
+  daily: { bucket: string; n: number; d?: number }[];
+  topPages: { path: string; n: number; d?: number }[];
+  topCountries: { country: string; n: number; d?: number }[];
+  topReferers?: { host: string; n: number }[];
 }
+
+const ZERO: Window4 = { today: 0, week: 0, month: 0, allTime: 0 };
 
 const META: Record<string, { name: string; site: string; icon: string }> = {
   ulyah: { name: "ULYAH.COM", site: "ulyah.com", icon: "🕌" },
   "1fr": { name: "One Faith France", site: "1fr.fr", icon: "🇫🇷" },
   tilawa: { name: "Tilawa", site: "tilawa.de", icon: "🇩🇪" },
   dawa: { name: "Dawa", site: "dawa.es", icon: "🇪🇸" },
+  xad: { name: "XAD", site: "xad.es", icon: "🇬🇧" },
 };
 
 /**
@@ -119,6 +138,9 @@ export function TenantAnalyticsPanel() {
           const m = META[r.tenant] ?? { name: r.tenant, site: r.tenant, icon: "🌍" };
           const chart = r.daily.map((b) => ({ label: b.bucket.slice(5), value: b.n }));
           const net = r.installs - r.uninstalls;
+          const readers = r.readers ?? ZERO;
+          const bots = r.bots ?? ZERO;
+          const unclassified = r.unclassified ?? ZERO;
           return (
             <div key={r.tenant} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
               <div className="flex items-center justify-between">
@@ -129,19 +151,29 @@ export function TenantAnalyticsPanel() {
                 <span className="text-[11px] text-[var(--color-text-secondary)]">{m.site}</span>
               </div>
 
+              {/* Readers and pages read, over the SAME windows. Before this was
+                  fixed the two cards used different clocks (a UTC calendar day
+                  next to a rolling 24 hours), which is how the portal came to
+                  show more devices than pageviews on the same day. */}
               <div className="mt-3 grid grid-cols-4 gap-2 text-center">
-                {[
-                  ["Hari ini", r.visitors.today],
-                  ["7 hari", r.visitors.week],
-                  ["30 hari", r.visitors.month],
-                  ["Total", r.visitors.allTime],
-                ].map(([label, val]) => (
-                  <div key={label as string} className="rounded-lg bg-black/[0.03] py-2 dark:bg-white/[0.03]">
-                    <p className="font-heading text-lg text-accent">{val as number}</p>
-                    <p className="text-[10px] text-[var(--color-text-secondary)]">{label as string}</p>
+                {(
+                  [
+                    ["Hari ini", readers.today, r.visitors.today],
+                    ["7 hari", readers.week, r.visitors.week],
+                    ["30 hari", readers.month, r.visitors.month],
+                    ["Total", readers.allTime, r.visitors.allTime],
+                  ] as [string, number, number][]
+                ).map(([label, dev, pv]) => (
+                  <div key={label} className="rounded-lg bg-black/[0.03] py-2 dark:bg-white/[0.03]">
+                    <p className="font-heading text-lg text-accent">{dev}</p>
+                    <p className="text-[10px] text-[var(--color-text-secondary)]">{label}</p>
+                    <p className="text-[10px] text-[var(--color-text-secondary)]">{pv} halaman</p>
                   </div>
                 ))}
               </div>
+              <p className="mt-1 text-center text-[10px] text-[var(--color-text-secondary)]">
+                pembaca (perangkat unik) · halaman dibaca — hari Jakarta (UTC+7)
+              </p>
 
               {chart.length > 0 && (
                 <div className="mt-3">
@@ -150,24 +182,23 @@ export function TenantAnalyticsPanel() {
                 </div>
               )}
 
-              {/* Real unique visiting devices — ordered short → long window. */}
-              <div className="mt-3">
-                <p className="mb-1 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">
-                  📲 Perangkat unik (pengunjung nyata)
-                </p>
-                <div className="grid grid-cols-4 gap-2 text-center">
-                  {[
-                    ["24 jam", r.devices24h ?? 0],
-                    ["7 hari", r.devices7d ?? 0],
-                    ["30 hari", r.devices30d ?? 0],
-                    ["1 tahun", r.devices365d ?? 0],
-                  ].map(([label, val]) => (
-                    <div key={label as string} className="rounded-lg bg-black/[0.03] py-2 dark:bg-white/[0.03]">
-                      <p className="font-heading text-base text-accent">{val as number}</p>
-                      <p className="text-[10px] text-[var(--color-text-secondary)]">{label as string}</p>
-                    </div>
-                  ))}
-                </div>
+              {/* The crawler split, shown rather than silently filtered — the
+                  owner should be able to see WHY a number is what it is. */}
+              <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px]">
+                <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-600 dark:text-emerald-400">
+                  🧑 pembaca 30 hari: <b>{r.visitors.month}</b> halaman
+                </span>
+                <span className="rounded-full bg-black/[0.04] px-2 py-0.5 text-[var(--color-text-secondary)] dark:bg-white/[0.06]">
+                  🤖 bot 30 hari: <b>{bots.month}</b>
+                </span>
+                {unclassified.month > 0 && (
+                  <span
+                    className="rounded-full bg-amber-500/10 px-2 py-0.5 text-amber-600 dark:text-amber-400"
+                    title="Tercatat sebelum pemilahan bot aktif — tidak ditebak belakangan"
+                  >
+                    ❔ belum terpilah: <b>{unclassified.month}</b>
+                  </span>
+                )}
               </div>
 
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
@@ -189,7 +220,24 @@ export function TenantAnalyticsPanel() {
                     {r.topPages.slice(0, 5).map((p) => (
                       <li key={p.path} className="flex justify-between gap-2">
                         <span className="truncate text-[var(--color-text-secondary)]">{p.path}</span>
-                        <span className="shrink-0 tabular-nums">{p.n}</span>
+                        <span className="shrink-0 tabular-nums">
+                          {p.n}
+                          {p.d ? ` · ${p.d} pembaca` : ""}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {(r.topReferers?.length ?? 0) > 0 && (
+                <div className="mt-3">
+                  <p className="mb-1 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">Datang dari</p>
+                  <ul className="space-y-0.5 text-[11px]">
+                    {r.topReferers!.slice(0, 5).map((f) => (
+                      <li key={f.host} className="flex justify-between gap-2">
+                        <span className="truncate text-[var(--color-text-secondary)]">{f.host}</span>
+                        <span className="shrink-0 tabular-nums">{f.n}</span>
                       </li>
                     ))}
                   </ul>
@@ -199,14 +247,16 @@ export function TenantAnalyticsPanel() {
           );
         })}
       </div>
-      <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
-        Semua angka nyata dari beacon perangkat — tidak ada estimasi. &quot;Online sekarang&quot; (di bar ⚡ Live) = perangkat
-        aktif ≤5 detik terakhir — kondisi detik ini. &quot;App terpasang&quot; = perangkat unik yang event terakhirnya install. &quot;Uninstall (perangkat)&quot; =
-        perangkat yang event terakhirnya uninstall — otomatis BERKURANG saat perangkat yang sama install lagi. Baris
-        &quot;riwayat&quot; adalah jumlah kejadian mentah. * Deteksi uninstall bersifat best-effort (web tidak punya event
-        resmi uninstall); terdeteksi saat perangkat itu kembali membuka situs. Angka &quot;perangkat unik&quot; 24 jam/7 hari/30
-        hari/1 tahun bisa SAMA di awal karena pelacakan per-perangkat baru mulai — setiap perangkat masih masuk ke semua
-        jendela; nilainya melebar sendiri seiring waktu berjalan.
+      <p className="mt-2 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+        <b>Angka ini nyata, bukan asumsi.</b> Semuanya dihitung dari beacon perangkat yang benar-benar merender halaman.
+        Dua hal yang dulu membuatnya keliru sudah diperbaiki: (1) kartu &quot;hari ini&quot; memakai hari UTC sementara kartu
+        perangkat memakai 24 jam berjalan — Jakarta UTC+7, jadi pagi hari perangkat bisa terlihat LEBIH banyak daripada
+        kunjungan; sekarang semua kartu memakai jendela yang sama, hari Jakarta; (2) crawler ikut terhitung sebagai
+        pengunjung — sekarang dipilah di sisi server dari User-Agent dan ditampilkan terpisah (🤖), tidak disembunyikan.
+        Baris ❔ adalah baris yang tercatat sebelum pemilahan itu ada — sengaja tidak ditebak belakangan. &quot;Online
+        sekarang&quot; (bar ⚡ Live) = perangkat aktif ≤5 detik terakhir. &quot;App terpasang&quot; = perangkat unik yang event
+        terakhirnya install; &quot;Uninstall (perangkat)&quot; BERKURANG saat perangkat yang sama install lagi. * Deteksi
+        uninstall best-effort — web tidak punya event resmi uninstall.
       </p>
     </section>
   );

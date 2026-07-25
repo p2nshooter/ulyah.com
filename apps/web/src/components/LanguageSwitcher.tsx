@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { LOCALES, LOCALE_SITE, DEFAULT_LOCALE, isValidLocale } from "@ulyah/shared/i18n";
+import { LOCALES, LOCALE_SITE, DEFAULT_LOCALE, isValidLocale, isLocaleReady, localeReadiness } from "@ulyah/shared/i18n";
 
 const LOCALE_COOKIE = "ulyah_locale";
 
@@ -59,7 +59,9 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
       </button>
       {open && (
         <div className="absolute right-0 top-full z-30 mt-2 max-h-80 w-48 overflow-y-auto rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-xl">
-          {LOCALES.map((l) => {
+          {[...LOCALES]
+            .sort((a, b) => Number(isLocaleReady(b.code)) - Number(isLocaleReady(a.code)))
+            .map((l) => {
             const isCurrent = l.code === locale;
             const site = LOCALE_SITE[l.code];
             // A language with its own ecosystem domain jumps to that site
@@ -75,6 +77,27 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
                 >
                   {l.label} <span aria-hidden className="opacity-50">↗</span>
                 </a>
+              );
+            }
+            // A language that is not finished is shown but NOT offered: struck
+            // through, greyed, unclickable, with its real percentage next to it.
+            // Landing on a page that is half one language and half another is
+            // worse for a visitor than not having that language yet, so the
+            // switcher refuses the click until the language is genuinely done
+            // (owner: "kesian pengunjung kalau bahasanya berubah-ubah").
+            if (!isCurrent && !isLocaleReady(l.code)) {
+              const pct = localeReadiness(l.code).overall;
+              return (
+                <div
+                  key={l.code}
+                  dir={l.dir}
+                  aria-disabled
+                  title={`${l.label} — ${pct}%`}
+                  className="flex w-full cursor-not-allowed items-center justify-between gap-2 px-3 py-2 text-left text-sm text-[var(--color-text-primary)] opacity-40"
+                >
+                  <span className="line-through">{l.label}</span>
+                  <span className="shrink-0 text-[10px] font-bold tabular-nums">{pct}%</span>
+                </div>
               );
             }
             return (

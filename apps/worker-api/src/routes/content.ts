@@ -9,6 +9,7 @@ import { extractSanadChain } from "../lib/sanad.js";
 import { tenantFromReq } from "./analytics.js";
 import { getAdConfig, publicAdView } from "../lib/ad-config.js";
 import type { Env } from "../env.js";
+import { isBotUA } from "../lib/bot.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
 
@@ -44,15 +45,27 @@ export async function trackBeacon(c: Context<{ Bindings: Env }>) {
     if (!path.startsWith("/")) path = "/" + path;
     if (!site) return c.body(null, 204);
     const day = new Date().toISOString().slice(0, 10);
-    await c.env.DB.batch([
-      c.env.DB.prepare(
-        `INSERT INTO site_pageviews (site, day, path, count) VALUES (?, ?, ?, 1)
-         ON CONFLICT(site, day, path) DO UPDATE SET count = count + 1`
-      ).bind(site, day, path),
-      // Rolling per-hit row so the admin can show a LIVE "online sekarang"
-      // per site (pruned to a 30-minute window by the scheduled tick).
-      c.env.DB.prepare(`INSERT INTO site_hits (site, ts) VALUES (?, strftime('%s','now'))`).bind(site),
-    ]);
+    // External sites get the same honesty as the ecosystem ones: a crawler is
+    // counted in its own column, never mixed into the reader number.
+    const bot = isBotUA(c.req.header("user-agent"));
+    await c.env.DB.batch(
+      bot
+        ? [
+            c.env.DB.prepare(
+              `INSERT INTO site_pageviews (site, day, path, count, bot_count) VALUES (?, ?, ?, 0, 1)
+               ON CONFLICT(site, day, path) DO UPDATE SET bot_count = bot_count + 1`
+            ).bind(site, day, path),
+          ]
+        : [
+            c.env.DB.prepare(
+              `INSERT INTO site_pageviews (site, day, path, count, bot_count) VALUES (?, ?, ?, 1, 0)
+               ON CONFLICT(site, day, path) DO UPDATE SET count = count + 1`
+            ).bind(site, day, path),
+            // Rolling per-hit row so the admin can show a LIVE "online sekarang"
+            // per site (pruned to a 30-minute window by the scheduled tick).
+            c.env.DB.prepare(`INSERT INTO site_hits (site, ts) VALUES (?, strftime('%s','now'))`).bind(site),
+          ]
+    );
   } catch {
     /* analytics is best-effort — never error the beacon */
   }

@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { LOCALES, DEFAULT_LOCALE, isValidLocale } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE, isValidLocale, isLocaleReady } from "@ulyah/shared/i18n";
 
 const LOCALE_COOKIE = "ulyah_locale";
 
@@ -96,8 +96,15 @@ const IS_SIBLING_TENANT =
   process.env.NEXT_PUBLIC_TENANT === "dawa";
 
 function detectLocale(req: NextRequest): string {
+  // An explicit, still-supported choice is honoured even if that language is
+  // unfinished: the visitor asked for it, and a direct /th URL must keep
+  // working rather than 404. What we never do is GUESS an unfinished language
+  // for someone who did not ask — that is what `usable` guards below.
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
   if (cookieLocale && isValidLocale(cookieLocale)) return cookieLocale;
+
+  /** Only ever auto-select a language that is actually finished. */
+  const usable = (code: string) => isValidLocale(code) && isLocaleReady(code);
 
   if (IS_SIBLING_TENANT) return DEFAULT_LOCALE; // native language first
 
@@ -109,12 +116,12 @@ function detectLocale(req: NextRequest): string {
   // guess of "id"/"de"/… must NOT be returned — otherwise the middleware
   // redirects to /id, /id isn't a valid prefix on that build, and it loops
   // (ERR_TOO_MANY_REDIRECTS). We fall through to the neutral default instead.
-  if (country && COUNTRY_TO_LOCALE[country] && isValidLocale(COUNTRY_TO_LOCALE[country]!)) {
+  if (country && COUNTRY_TO_LOCALE[country] && usable(COUNTRY_TO_LOCALE[country]!)) {
     return COUNTRY_TO_LOCALE[country]!;
   }
 
   const fromHeader = localeFromAcceptLanguage(req.headers.get("accept-language"));
-  if (fromHeader) return fromHeader;
+  if (fromHeader && usable(fromHeader)) return fromHeader;
 
   // Nothing to go on: serve the site's OWN language. ulyah.com is an
   // Indonesian site (owner: "defaultnya indonesia") — guessing English for an

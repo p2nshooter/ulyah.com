@@ -493,29 +493,33 @@ adminRoute.get("/analytics", async (c) => {
     daily, weekly, monthly, yearly, visitorCountries,
     memberTotal, memberCountries, certTotal, certCountries, certList,
   ] = await Promise.all([
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE date(created_at) = date('now')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE created_at >= datetime('now','-7 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE created_at >= datetime('now','-30 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE created_at >= datetime('now','-365 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews").first<{ n: number }>(),
+    // Readers only (is_bot = 0), on Jakarta days — the same clock and the same
+    // filter as /tenant-analytics, so no two cards in the portal can disagree.
+    // Crawler and unclassified counts are returned separately below.
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND date(created_at, '+7 hours') = date('now', '+7 hours')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND created_at >= datetime('now','-7 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND created_at >= datetime('now','-30 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0 AND created_at >= datetime('now','-365 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE is_bot = 0").first<{ n: number }>(),
     c.env.DB.prepare(
-      `SELECT strftime('%Y-%m-%d', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
+      `SELECT date(created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+       WHERE is_bot = 0 AND created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
-      `SELECT strftime('%Y-W%W', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
+      `SELECT strftime('%Y-W%W', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+       WHERE is_bot = 0 AND created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
-      `SELECT strftime('%Y-%m', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
+      `SELECT strftime('%Y-%m', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+       WHERE is_bot = 0 AND created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
-      `SELECT strftime('%Y', created_at) AS bucket, COUNT(*) AS n FROM analytics_pageviews GROUP BY bucket ORDER BY bucket`
+      `SELECT strftime('%Y', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+       WHERE is_bot = 0 GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
-      `SELECT COALESCE(country,'??') AS country, COUNT(*) AS n FROM analytics_pageviews
-       GROUP BY country ORDER BY n DESC LIMIT 25`
+      `SELECT COALESCE(country,'??') AS country, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+       WHERE is_bot = 0 GROUP BY country ORDER BY n DESC LIMIT 25`
     ).all(),
     c.env.DB.prepare("SELECT COUNT(*) AS n FROM clients").first<{ n: number }>(),
     c.env.DB.prepare(
@@ -564,131 +568,181 @@ adminRoute.get("/analytics", async (c) => {
 // tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
 adminRoute.get("/tenant-analytics", async (c) => {
-  const [visitors, installs, uninstalls, series, pages, countries, activeDevices, uninstalledDevices, activeNow, devices24h, devices7d, devices30d, devices365d] = await Promise.all([
-    c.env.DB.prepare(
-      `SELECT tenant,
-              SUM(CASE WHEN date(created_at) = date('now') THEN 1 ELSE 0 END) AS today,
-              SUM(CASE WHEN created_at >= datetime('now','-7 days') THEN 1 ELSE 0 END) AS week,
-              SUM(CASE WHEN created_at >= datetime('now','-30 days') THEN 1 ELSE 0 END) AS month,
-              COUNT(*) AS allTime
-       FROM analytics_pageviews GROUP BY tenant`
-    ).all<{ tenant: string; today: number; week: number; month: number; allTime: number }>(),
-    c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_installs GROUP BY tenant").all<{ tenant: string; n: number }>(),
-    c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_uninstalls GROUP BY tenant").all<{ tenant: string; n: number }>(),
-    c.env.DB.prepare(
-      `SELECT tenant, strftime('%Y-%m-%d', created_at) AS bucket, COUNT(*) AS n
-       FROM analytics_pageviews WHERE created_at >= datetime('now','-30 days')
-       GROUP BY tenant, bucket ORDER BY bucket`
-    ).all<{ tenant: string; bucket: string; n: number }>(),
-    c.env.DB.prepare(
-      `SELECT tenant, path, COUNT(*) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-30 days')
-       GROUP BY tenant, path ORDER BY n DESC`
-    ).all<{ tenant: string; path: string; n: number }>(),
-    c.env.DB.prepare(
-      `SELECT tenant, COALESCE(country,'??') AS country, COUNT(*) AS n FROM analytics_pageviews
-       GROUP BY tenant, country ORDER BY n DESC`
-    ).all<{ tenant: string; country: string; n: number }>(),
-    // DISTINCT devices whose most recent event is an INSTALL — the honest
-    // "currently installed" number per site (owner: one phone doing
-    // install → uninstall → install again must count as ONE active device).
-    // Beacons without a device id (older clients) are excluded here; they
-    // still show in the raw install/uninstall event counts above.
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(*) AS n FROM (
-         SELECT tenant, device_id, app, ev,
-                ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
-         FROM (
-           SELECT tenant, device_id, app, created_at, 1 AS ev
-           FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
-           UNION ALL
-           SELECT tenant, device_id, app, created_at, 0 AS ev
-           FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
-         )
-       ) WHERE rn = 1 AND ev = 1 GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-    // Devices whose LAST event is an uninstall — this number GOES DOWN when
-    // the same device installs again (owner: "jika di-install lagi setelah
-    // uninstall maka kurangin jumlah uninstall jika masih di perangkat yang
-    // sama"). Same window query, opposite terminal event.
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(*) AS n FROM (
-         SELECT tenant, device_id, app, ev,
-                ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
-         FROM (
-           SELECT tenant, device_id, app, created_at, 1 AS ev
-           FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
-           UNION ALL
-           SELECT tenant, device_id, app, created_at, 0 AS ev
-           FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
-         )
-       ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-    // LIVE "online right now" — the SAME source as the ⚡ Live bar so the two
-    // never disagree: DISTINCT devices with a presence heartbeat in the last 5s
-    // (owner: "online skrg itu kondisi saat detik ini, turun-naik ≤5 detik").
-    // Real devices, not page views; zero when nobody is actively on the site.
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(*) AS n FROM live_presence
-       WHERE last_seen >= (strftime('%s','now') - 5) GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-    // REAL unique devices actually browsing each site in the last 24h — DISTINCT
-    // localStorage device tokens, not page views (owner: "tampilkan real brp
-    // perangkat dalam 24 jam ... 1 perangkat 30 page view"). Beacons without a
-    // device id (older clients) are ignored here so the number stays honest.
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-24 hours') AND device_id IS NOT NULL AND device_id != ''
-       GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-7 days') AND device_id IS NOT NULL AND device_id != ''
-       GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-    // 30-day and 1-year windows too. Until device tracking has been live for
-    // longer than a given window, the shorter windows equal the longer ones
-    // (every tagged device so far falls inside all of them) — that is why 24h
-    // and 7d read the same today; they diverge as real time passes.
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-30 days') AND device_id IS NOT NULL AND device_id != ''
-       GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-    c.env.DB.prepare(
-      `SELECT tenant, COUNT(DISTINCT device_id) AS n FROM analytics_pageviews
-       WHERE created_at >= datetime('now','-365 days') AND device_id IS NOT NULL AND device_id != ''
-       GROUP BY tenant`
-    ).all<{ tenant: string; n: number }>(),
-  ]);
+  // ── Why this looks the way it does ──────────────────────────────────────
+  // The owner caught the portal showing MORE devices than pageviews on the same
+  // day, which is impossible. Two things were wrong and both are fixed here.
+  //
+  // 1. The cards measured different spans of time. "Today" was a UTC calendar
+  //    day while "devices" was a rolling 24 hours. Jakarta is UTC+7, so early in
+  //    the UTC day "today" covered an hour and "devices" covered a full day.
+  //    Every window below is now built on the SAME clock — Jakarta local time,
+  //    which is the day the owner actually means — and pageviews and devices are
+  //    counted over identical spans.
+  //
+  // 2. Crawlers were counted as visitors. They are classified at write time now
+  //    (lib/bot.ts) and reported SEPARATELY rather than silently dropped, so the
+  //    split is visible instead of taken on trust. Rows written before that
+  //    classification existed are reported as "unclassified" — they are not
+  //    guessed at after the fact.
+  const WIB = "+7 hours";
+  const win = (expr: string) => expr.replace(/@/g, WIB);
+  // A reader is a row we positively classified as human; unknown rows predate
+  // the classifier and are surfaced on their own line.
+  const HUMAN = "is_bot = 0";
+  const BOT = "is_bot = 1";
+  const UNKNOWN = "is_bot IS NULL";
+  const TODAY = win("date(created_at, '@') = date('now', '@')");
+  const D7 = "created_at >= datetime('now','-7 days')";
+  const D30 = "created_at >= datetime('now','-30 days')";
+
+  const [totals, devices, installs, uninstalls, series, pages, countries, referers, activeDevices, uninstalledDevices, activeNow] =
+    await Promise.all([
+      // Pageviews per tenant, split by classification, over identical windows.
+      c.env.DB.prepare(
+        `SELECT tenant,
+                SUM(CASE WHEN ${TODAY} AND ${HUMAN}   THEN 1 ELSE 0 END) AS todayHuman,
+                SUM(CASE WHEN ${TODAY} AND ${BOT}     THEN 1 ELSE 0 END) AS todayBot,
+                SUM(CASE WHEN ${TODAY} AND ${UNKNOWN} THEN 1 ELSE 0 END) AS todayUnknown,
+                SUM(CASE WHEN ${D7}    AND ${HUMAN}   THEN 1 ELSE 0 END) AS weekHuman,
+                SUM(CASE WHEN ${D7}    AND ${BOT}     THEN 1 ELSE 0 END) AS weekBot,
+                SUM(CASE WHEN ${D7}    AND ${UNKNOWN} THEN 1 ELSE 0 END) AS weekUnknown,
+                SUM(CASE WHEN ${D30}   AND ${HUMAN}   THEN 1 ELSE 0 END) AS monthHuman,
+                SUM(CASE WHEN ${D30}   AND ${BOT}     THEN 1 ELSE 0 END) AS monthBot,
+                SUM(CASE WHEN ${D30}   AND ${UNKNOWN} THEN 1 ELSE 0 END) AS monthUnknown,
+                SUM(CASE WHEN ${HUMAN} THEN 1 ELSE 0 END) AS allHuman,
+                SUM(CASE WHEN ${BOT}   THEN 1 ELSE 0 END) AS allBot,
+                SUM(CASE WHEN ${UNKNOWN} THEN 1 ELSE 0 END) AS allUnknown
+         FROM analytics_pageviews GROUP BY tenant`
+      ).all<Record<string, number> & { tenant: string }>(),
+      // Distinct human devices over the SAME windows as the pageviews above —
+      // that identity is what makes "3 readers, 11 pages" add up.
+      c.env.DB.prepare(
+        `SELECT tenant,
+                COUNT(DISTINCT CASE WHEN ${TODAY} THEN device_id END) AS today,
+                COUNT(DISTINCT CASE WHEN ${D7}    THEN device_id END) AS week,
+                COUNT(DISTINCT CASE WHEN ${D30}   THEN device_id END) AS month,
+                COUNT(DISTINCT device_id) AS allTime
+         FROM analytics_pageviews
+         WHERE ${HUMAN} AND device_id IS NOT NULL AND device_id != ''
+         GROUP BY tenant`
+      ).all<{ tenant: string; today: number; week: number; month: number; allTime: number }>(),
+      c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_installs GROUP BY tenant").all<{ tenant: string; n: number }>(),
+      c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_uninstalls GROUP BY tenant").all<{ tenant: string; n: number }>(),
+      // Daily series, in Jakarta days, readers only — a chart of crawler hits
+      // tells the owner nothing about the site.
+      c.env.DB.prepare(
+        win(
+          `SELECT tenant, date(created_at, '@') AS bucket,
+                  COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
+           FROM analytics_pageviews
+           WHERE created_at >= datetime('now','-30 days') AND is_bot = 0
+           GROUP BY tenant, bucket ORDER BY bucket`
+        )
+      ).all<{ tenant: string; bucket: string; n: number; d: number }>(),
+      c.env.DB.prepare(
+        `SELECT tenant, path, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+         WHERE ${D30} AND ${HUMAN}
+         GROUP BY tenant, path ORDER BY n DESC`
+      ).all<{ tenant: string; path: string; n: number; d: number }>(),
+      c.env.DB.prepare(
+        `SELECT tenant, COALESCE(country,'??') AS country, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
+         FROM analytics_pageviews WHERE ${D30} AND ${HUMAN}
+         GROUP BY tenant, country ORDER BY n DESC`
+      ).all<{ tenant: string; country: string; n: number; d: number }>(),
+      // Where readers actually arrive from — real acquisition, not a guess.
+      c.env.DB.prepare(
+        `SELECT tenant, referer_host AS host, COUNT(*) AS n FROM analytics_pageviews
+         WHERE ${D30} AND ${HUMAN} AND referer_host IS NOT NULL AND referer_host != ''
+         GROUP BY tenant, host ORDER BY n DESC`
+      ).all<{ tenant: string; host: string; n: number }>(),
+      // DISTINCT devices whose most recent event is an INSTALL — the honest
+      // "currently installed" number per site (owner: one phone doing
+      // install → uninstall → install again must count as ONE active device).
+      c.env.DB.prepare(
+        `SELECT tenant, COUNT(*) AS n FROM (
+           SELECT tenant, device_id, app, ev,
+                  ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
+           FROM (
+             SELECT tenant, device_id, app, created_at, 1 AS ev
+             FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
+             UNION ALL
+             SELECT tenant, device_id, app, created_at, 0 AS ev
+             FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
+           )
+         ) WHERE rn = 1 AND ev = 1 GROUP BY tenant`
+      ).all<{ tenant: string; n: number }>(),
+      // Devices whose LAST event is an uninstall — goes DOWN when the same
+      // device installs again.
+      c.env.DB.prepare(
+        `SELECT tenant, COUNT(*) AS n FROM (
+           SELECT tenant, device_id, app, ev,
+                  ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
+           FROM (
+             SELECT tenant, device_id, app, created_at, 1 AS ev
+             FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
+             UNION ALL
+             SELECT tenant, device_id, app, created_at, 0 AS ev
+             FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
+           )
+         ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
+      ).all<{ tenant: string; n: number }>(),
+      // LIVE "online right now" — same source as the ⚡ Live bar so the two
+      // never disagree: devices with a presence heartbeat in the last 5s.
+      // Crawlers never reach this table (the ping route rejects them).
+      c.env.DB.prepare(
+        `SELECT tenant, COUNT(*) AS n FROM live_presence
+         WHERE last_seen >= (strftime('%s','now') - 5) GROUP BY tenant`
+      ).all<{ tenant: string; n: number }>(),
+    ]);
 
   const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
   const byTenant = TENANTS.map((t) => {
-    const v = visitors.results.find((r) => r.tenant === t);
+    const v = totals.results.find((r) => r.tenant === t);
+    const dv = devices.results.find((r) => r.tenant === t);
+    const num = (k: string) => Number(v?.[k] ?? 0);
     return {
       tenant: t,
+      // Readers (classified human) — the headline.
       visitors: {
-        today: v?.today ?? 0,
-        week: v?.week ?? 0,
-        month: v?.month ?? 0,
-        allTime: v?.allTime ?? 0,
+        today: num("todayHuman"),
+        week: num("weekHuman"),
+        month: num("monthHuman"),
+        allTime: num("allHuman"),
+      },
+      // Crawlers, shown so the split is visible rather than assumed.
+      bots: {
+        today: num("todayBot"),
+        week: num("weekBot"),
+        month: num("monthBot"),
+        allTime: num("allBot"),
+      },
+      // Rows written before classification existed — not guessed at.
+      unclassified: {
+        today: num("todayUnknown"),
+        week: num("weekUnknown"),
+        month: num("monthUnknown"),
+        allTime: num("allUnknown"),
+      },
+      // Distinct human devices over the SAME windows as `visitors`.
+      readers: {
+        today: dv?.today ?? 0,
+        week: dv?.week ?? 0,
+        month: dv?.month ?? 0,
+        allTime: dv?.allTime ?? 0,
       },
       installs: installs.results.find((r) => r.tenant === t)?.n ?? 0,
       uninstalls: uninstalls.results.find((r) => r.tenant === t)?.n ?? 0,
       activeDevices: activeDevices.results.find((r) => r.tenant === t)?.n ?? 0,
       uninstalledDevices: uninstalledDevices.results.find((r) => r.tenant === t)?.n ?? 0,
       activeNow: activeNow.results.find((r) => r.tenant === t)?.n ?? 0,
-      devices24h: devices24h.results.find((r) => r.tenant === t)?.n ?? 0,
-      devices7d: devices7d.results.find((r) => r.tenant === t)?.n ?? 0,
-      devices30d: devices30d.results.find((r) => r.tenant === t)?.n ?? 0,
-      devices365d: devices365d.results.find((r) => r.tenant === t)?.n ?? 0,
-      daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n })),
-      topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n })),
-      topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n })),
+      daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n, d: r.d })),
+      topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n, d: r.d })),
+      topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n, d: r.d })),
+      topReferers: referers.results.filter((r) => r.tenant === t).slice(0, 8).map((r) => ({ host: r.host, n: r.n })),
     };
   });
 
-  return c.json({ tenants: byTenant });
+  return c.json({ tenants: byTenant, timezone: "Asia/Jakarta (UTC+7)" });
 });
 
 // GET /admin/live-presence — who is on each ecosystem site RIGHT NOW. Fed by

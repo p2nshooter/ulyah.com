@@ -53,7 +53,7 @@ const ms: Dictionary = {
     qiblaDirection: "Arah Kiblat",
     hijriCalendar: "Kalendar Hijrah",
     warisCalculator: "Kalkulator Warisan",
-    imsakiyahRamadhan: "Ramadan Imsakiyah",
+    imsakiyahRamadhan: "Imsakiah Ramadan",
     aiChat: "Tanya AI Islam",
   },
   stats: {
@@ -72,7 +72,7 @@ const ms: Dictionary = {
     sectionTitle: "Al-Quran Interaktif: Dengar & Fahami pada Satu Halaman",
     sectionSubtitle: "Pilih cara terbaik untuk memahami setiap ayat al-Quran, disesuaikan dengan keperluan anda.",
     allSurah: "al-Quran",
-    viewAllSurah: "View All Surah",
+    viewAllSurah: "Lihat Semua Surah",
     ayahSummaryTitle: "Ringkasan Ayat Ini",
     translationLabel: "Terjemahan",
     tafsirLabel: "Tafsir ringkas",

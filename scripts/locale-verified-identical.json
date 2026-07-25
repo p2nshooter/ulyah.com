@@ -1,0 +1,17 @@
+{
+  "_comment": "Strings that are CORRECT as-is in a given language, verified by hand. A word being identical to English is not proof it was skipped — German really does write 'Hadith' and 'Name', French really does write 'Date' and 'Gratitude', Dutch really does write 'Stop' and 'Platform'. Without this list those languages could never reach 100%, and the gate in isLocaleReady() would keep them locked forever for no reason. Anything NOT listed here and still equal to English counts as untranslated.",
+  "_reviewedAt": "2026-07-25",
+  "verified": {
+    "de": ["Hadith", "Name"],
+    "fr": ["Hadith", "Date", "Gratitude"],
+    "it": ["Hadith"],
+    "ms": ["Surah", "Platform"],
+    "nl": ["Hadith", "Platform", "Crypto", "Stop"],
+    "pt": ["Hadith"],
+    "so": ["Platform", "AI & GPU Computing", "Crypto"],
+    "sw": ["Qur'an", "Smart Scaling", "Crypto"],
+    "uz": ["Smart Scaling"],
+    "vi": ["Qur'an", "Hadith", "Surah", "Email"],
+    "ha": ["AI & GPU Computing", "Smart Scaling", "Crypto"]
+  }
+}

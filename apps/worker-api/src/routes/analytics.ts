@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { Context } from "hono";
 import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
+import { isBotUA, refererHost } from "../lib/bot.js";
 
 export const analyticsRoute = new Hono<{ Bindings: Env }>();
 
@@ -27,9 +28,24 @@ analyticsRoute.post("/pageview", async (c) => {
 
   const { path, locale, device } = await c.req.json<{ path?: string; locale?: string; device?: string }>().catch(() => ({}) as any);
   const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
+  // Classified here, at write time, and STORED — so the admin can always show
+  // the human/robot split instead of presenting a filtered number on faith.
+  const ua = (c.req.header("user-agent") ?? "").slice(0, 200);
+  const bot = isBotUA(ua) ? 1 : 0;
 
-  await c.env.DB.prepare("INSERT INTO analytics_pageviews (path, country, locale, tenant, device_id) VALUES (?, ?, ?, ?, ?)")
-    .bind(String(path ?? "/").slice(0, 200), country, String(locale ?? "").slice(0, 5) || null, tenantFromReq(c), deviceParam(device))
+  await c.env.DB.prepare(
+    "INSERT INTO analytics_pageviews (path, country, locale, tenant, device_id, ua, is_bot, referer_host) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+  )
+    .bind(
+      String(path ?? "/").slice(0, 200),
+      country,
+      String(locale ?? "").slice(0, 5) || null,
+      tenantFromReq(c),
+      deviceParam(device),
+      ua || null,
+      bot,
+      refererHost(c.req.header("referer"))
+    )
     .run();
 
   return c.json({ ok: true });
@@ -59,6 +75,8 @@ analyticsRoute.post("/ping", async (c) => {
   const dev = deviceParam(await readDevice(c));
   c.header("Access-Control-Allow-Origin", "*");
   if (!dev) return c.body(null, 204);
+  // A crawler must never show up as somebody reading the site right now.
+  if (isBotUA(c.req.header("user-agent"))) return c.body(null, 204);
   const now = Math.floor(Date.now() / 1000);
   await c.env.DB.prepare(
     `INSERT INTO live_presence (tenant, device_id, last_seen) VALUES (?, ?, ?)

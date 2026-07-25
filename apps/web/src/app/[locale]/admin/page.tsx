@@ -33,9 +33,10 @@ import { OrchestraTab } from "@/components/admin/OrchestraTab";
 import { SanadTab } from "@/components/admin/SanadTab";
 import { GrantTab } from "@/components/admin/GrantTab";
 import { SitePagesTab } from "@/components/admin/SitePagesTab";
+import { LanguagesTab } from "@/components/admin/LanguagesTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -90,6 +91,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["monitor", "🖥️ Monitor"],
     ["analytics", "Analytics"],
     ["traffic-ext", "🌍 Trafik Luar Ekosistem"],
+    ["languages", "🈯 Kesiapan Bahasa"],
     ["keys", dict.admin.keyPool],
     ["content", dict.admin.content],
     ["donations", dict.admin.donations],
@@ -171,6 +173,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "grant" && <GrantTab />}
         {tab === "monitor" && <MonitorTab locale={locale} />}
         {tab === "analytics" && <AnalyticsTab />}
+        {tab === "languages" && <LanguagesTab />}
         {tab === "traffic-ext" && (
           <div className="space-y-4">
             <div>
