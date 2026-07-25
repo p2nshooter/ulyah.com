@@ -6,7 +6,6 @@ import {
   ALL_LOCALES,
   localeCanonicalUrl,
   HUB_SITE,
-  isLocaleReady,
 } from "@ulyah/shared/i18n";
 import { localizedRoute } from "@ulyah/shared/routes";
 import { TENANT } from "@/lib/tenant";
@@ -84,15 +83,16 @@ function urlFor(localeCode: string, route: string): string {
 // on the hub, and every other language (ar/ru/zh/ja + the India/Turkey/Persia/…
 // set) is the hub under its /<code> prefix — via the shared localeCanonicalUrl,
 // so all five sitemaps stay consistent.
-function crossDomainLanguages(route: string): Record<string, string> {
+function crossDomainLanguages(route: string, enabled: string[]): Record<string, string> {
   const langs: Record<string, string> = {};
-  // Only languages actually being served. A language still being finished
+  // Only languages actually being served. A language still switched off
   // redirects to the site's own language, so declaring an hreflang for it would
   // point search engines at a URL that immediately redirects — a Search Console
-  // error, and a promise of a page that does not exist yet. They reappear here
-  // automatically the moment they reach 100%.
+  // error, and a promise of a page that does not exist yet. `enabled` is the
+  // admin portal's own list, so a language appears here the moment the owner
+  // switches it on, in the same breath as the middleware starts serving it.
   for (const l of ALL_LOCALES) {
-    if (!isLocaleReady(l.code)) continue;
+    if (!(l.code === "id" || LOCALE_SITE[l.code] || enabled.includes(l.code))) continue;
     // Each language's copy lives at ITS OWN url — the French alternate of
     // /jadwal-sholat is 1fr.fr/horaires-priere, not 1fr.fr/jadwal-sholat.
     // Pointing hreflang at a url that only redirects is a Search Console error
@@ -187,18 +187,45 @@ function weightFor(path: string): { changeFrequency: "daily" | "weekly" | "month
 const DAILY_ROUTES = new Set(["", "/harian", "/jadwal-sholat", "/imsakiyah", "/kalender-hijriyah"]);
 
 /**
- * Which languages THIS domain hosts.
+ * The languages that are actually being served right now, from the admin
+ * portal's switches — the SAME answer the edge middleware acts on.
  *
- * The four languages that own a domain live there, not under ulyah.com/<code>,
- * so listing them here would advertise duplicate content of the sibling sites
- * (owner: "hati-hati sitemap, jangan sampai duplikat"). Languages still being
- * finished are excluded too: they redirect to the site's own language, so their
- * urls would be an invitation to a redirect.
+ * This has to come from the database, not from the built-in readiness gate, or
+ * the site contradicts itself. The middleware serves a language the moment the
+ * owner switches it on; the sitemap and the hreflang graph were still asking
+ * isLocaleReady(), which is held shut by the IN_PLACE_LANGUAGES master switch.
+ * The result was a language that visitors could reach and search engines were
+ * never told about: served, crawlable, and absent from every sitemap — which
+ * would have quietly wasted the whole point of warming them to 100%.
+ *
+ * Fails CLOSED, like the middleware's copy: an unreadable list means no extra
+ * languages, never all of them. Cached for an hour, same as the page list.
  */
-function ownLocales() {
-  return LOCALES.filter(
-    (l) => isLocaleReady(l.code) && (!LOCALE_SITE[l.code] || LOCALE_SITE[l.code] === TENANT.siteUrl)
-  );
+async function enabledLocales(): Promise<string[]> {
+  try {
+    const res = await fetch(`${API_BASE}/content/locales`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const j = (await res.json()) as { enabled?: string[]; ok?: boolean };
+    return j.ok && Array.isArray(j.enabled) ? j.enabled : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Served on THIS domain: its own language, plus any hub language switched on. */
+function isServedHere(code: string, enabled: string[]): boolean {
+  if (code === DEFAULT_LOCALE) return true;
+  // A language with its own domain lives THERE. Listing it here would advertise
+  // duplicate content of the sibling site (owner: "hati-hati sitemap, jangan
+  // sampai duplikat").
+  if (LOCALE_SITE[code]) return LOCALE_SITE[code] === TENANT.siteUrl;
+  return enabled.includes(code);
+}
+
+/** Which languages THIS domain hosts. */
+async function ownLocales() {
+  const enabled = await enabledLocales();
+  return LOCALES.filter((l) => isServedHere(l.code, enabled));
 }
 
 /**
@@ -256,7 +283,7 @@ export async function sitemapGroups(): Promise<SitemapGroup[]> {
   for (const p of content) used.add(SECTIONS.find((s) => s.match(p.path))!.key);
 
   const groups: SitemapGroup[] = [];
-  for (const l of ownLocales()) {
+  for (const l of await ownLocales()) {
     for (const s of SECTIONS) {
       if (!used.has(s.key)) continue;
       const slug = sectionSlug(s.key, l.code);
@@ -306,7 +333,9 @@ export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRout
   const entries: MetadataRoute.Sitemap = [];
   const buildDate = new Date();
   const content = await contentPaths();
-  const locales = group ? ownLocales().filter((l) => l.code === group.locale) : ownLocales();
+  const enabled = await enabledLocales();
+  const all = await ownLocales();
+  const locales = group ? all.filter((l) => l.code === group.locale) : all;
 
   for (const l of locales) {
     // Section routes carry the full hreflang graph: they are the pages a reader
@@ -319,7 +348,7 @@ export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRout
           ...(daily ? { lastModified: buildDate } : {}),
           changeFrequency: daily ? "daily" : "weekly",
           priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
-          alternates: { languages: crossDomainLanguages(r) },
+          alternates: { languages: crossDomainLanguages(r, enabled) },
         });
       }
     }
