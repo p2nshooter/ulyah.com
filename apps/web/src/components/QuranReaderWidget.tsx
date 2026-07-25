@@ -10,6 +10,7 @@ import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 import { NahwuShorofPanel } from "@/components/NahwuShorofPanel";
 import type { Dictionary } from "@/dictionaries";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface SurahMeta {
   id: number;
@@ -128,7 +129,7 @@ function emptyStates(locale: string): { translation: string; tafsir: string; asb
     hadits: "Diesem Vers ist noch kein besonderer Hadith zugeordnet.",
   };
   const MAP: Record<string, typeof EN> = { id: ID, en: EN, ar: AR, fr: FR, de: DE };
-  return MAP[locale] ?? EN;
+  return MAP[locale] ?? fillLabels(locale, EN);
 }
 
 /** Word-by-word Arabic highlight synced to the qori's actual audio progress

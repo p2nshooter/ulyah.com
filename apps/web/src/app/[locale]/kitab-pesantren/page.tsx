@@ -6,6 +6,7 @@ import { PageHero } from "@/components/PageHero";
 import { localePath } from "@/lib/paths";
 import { coverFor } from "@/lib/book-cover";
 import { kitabLabels } from "@/lib/kitab-labels";
+import { fillLabels } from "@/lib/fill-labels";
 
 // Revalidate periodically so newly-imported kitab appear without a redeploy,
 // while still serving a cached page most of the time.
@@ -182,7 +183,7 @@ const L: Record<
 };
 
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

@@ -5,6 +5,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kidsLabels } from "@/lib/kids-labels";
 import { getJilid, IQRO } from "@/lib/iqro";
+import { iqroFocus } from "@/lib/iqro-labels";
 import { IqroReader } from "@/components/IqroReader";
 
 export const revalidate = 86400;
@@ -59,7 +60,7 @@ export default async function IqroJilidPage({
           <h1 className="font-heading text-2xl font-extrabold text-slate-800 dark:text-amber-100">
             {t.jilid} {j.no}
           </h1>
-          <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">{j.focus}</p>
+          <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">{iqroFocus(locale, j.no)}</p>
           <p className="mt-1 text-xs text-slate-500">👆 {t.tapToHear}</p>
         </header>
 

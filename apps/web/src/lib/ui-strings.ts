@@ -1,3 +1,4 @@
+import { fillLabels } from "./fill-labels";
 // Straggler UI strings that were hardcoded in Indonesian inside a handful of
 // secondary pages/components (kitab-pesantren, nasakh, anak, widget, hajj,
 // crypto-donation, reader status). The main chrome lives in the type-enforced
@@ -115,5 +116,5 @@ const T: Record<string, Strings> = {
 export function t(key: keyof typeof T, locale: string): string {
   const e = T[key];
   if (!e) return "";
-  return e[locale] ?? e.en ?? e.id;
+  return e[locale] ?? fillLabels(locale, e.en ?? e.id ?? "");
 }

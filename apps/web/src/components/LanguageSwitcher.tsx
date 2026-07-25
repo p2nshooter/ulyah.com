@@ -1,18 +1,42 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { LOCALES, LOCALE_SITE } from "@ulyah/shared/i18n";
+import { usePathname } from "next/navigation";
+import { LOCALES, LOCALE_SITE, DEFAULT_LOCALE, isValidLocale } from "@ulyah/shared/i18n";
+
+const LOCALE_COOKIE = "ulyah_locale";
 
 export function LanguageSwitcher({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
   const pathname = usePathname();
 
+  /**
+   * Switching language is a whole-document change (lang, dir, fonts, every
+   * string), so it is a real navigation — not a client-side router.push.
+   *
+   * Two bugs lived here and between them they trapped visitors on whatever
+   * language they tried once ("pindah bahasa ke Indonesia susah banget, nggak
+   * balik-balik"):
+   *
+   *  1. The path was rebuilt with `split("/").slice(2)`, which assumes the URL
+   *     always starts with a locale prefix. The site's OWN language is served
+   *     at BARE urls (ulyah.com/quran, no /id), so from a bare page this threw
+   *     away the first real segment — /quran became just /<code>.
+   *  2. Only the URL changed. The sticky `ulyah_locale` cookie still said the
+   *     old language, so any later bare URL was redirected straight back to it.
+   *     Picking Indonesian led to /id → 301 to / → cookie still "th" → /th.
+   *
+   * So: write the cookie here (the visitor's explicit choice always wins), and
+   * send the site's own language to the BARE path rather than /<default>.
+   */
   function switchTo(code: string) {
-    const rest = pathname.split("/").slice(2).join("/");
-    router.push(`/${code}${rest ? `/${rest}` : ""}`);
+    const segments = pathname.split("/");
+    const rest = isValidLocale(segments[1] ?? "") ? "/" + segments.slice(2).join("/") : pathname;
+    const clean = rest === "/" || rest === "" ? "" : rest.replace(/\/$/, "");
+    document.cookie = `${LOCALE_COOKIE}=${code}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+    const target = code === DEFAULT_LOCALE ? clean || "/" : `/${code}${clean}`;
     setOpen(false);
+    window.location.assign(target);
   }
 
   const current = LOCALES.find((l) => l.code === locale) ?? LOCALES[0]!;

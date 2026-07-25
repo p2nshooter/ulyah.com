@@ -4,20 +4,44 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { useRadioStore } from "@/lib/radio-store";
+import { fillLabels } from "@/lib/fill-labels";
 
 type Mode = "all" | "translation" | "arabic";
 
-// Localized control labels — every site shows its own language.
-const L: Record<string, { all: string; translation: string; arabic: string; stop: string; reading: string; menu: string; next: string }> = {
+interface ReadLabels {
+  all: string;
+  translation: string;
+  arabic: string;
+  stop: string;
+  reading: string;
+  menu: string;
+  next: string;
+}
+
+// Localized control labels — every site shows its own language. The six below
+// are hand-authored; every OTHER locale is filled from the generated UI_I18N
+// table instead of falling back to English. This control sits on every page of
+// every site, so an English "🔊 Read" button was the single most visible
+// inconsistency on the 22 languages that had no entry here.
+const EN: ReadLabels = {
+  all: "Read all",
+  translation: "Read translation",
+  arabic: "Read Arabic",
+  stop: "Stop",
+  reading: "Reading…",
+  menu: "🔊 Read",
+  next: "Continuing to the next page…",
+};
+const L: Record<string, ReadLabels> = {
+  en: EN,
   id: { all: "Baca semua", translation: "Baca terjemahan", arabic: "Baca Arab", stop: "Berhenti", reading: "Membacakan…", menu: "🔊 Baca", next: "Lanjut halaman berikutnya…" },
-  en: { all: "Read all", translation: "Read translation", arabic: "Read Arabic", stop: "Stop", reading: "Reading…", menu: "🔊 Read", next: "Continuing to the next page…" },
   fr: { all: "Tout lire", translation: "Lire la traduction", arabic: "Lire l'arabe", stop: "Arrêter", reading: "Lecture…", menu: "🔊 Lire", next: "Passage à la page suivante…" },
   de: { all: "Alles vorlesen", translation: "Übersetzung vorlesen", arabic: "Arabisch vorlesen", stop: "Stopp", reading: "Vorlesen…", menu: "🔊 Vorlesen", next: "Weiter zur nächsten Seite…" },
   es: { all: "Leer todo", translation: "Leer traducción", arabic: "Leer árabe", stop: "Detener", reading: "Leyendo…", menu: "🔊 Leer", next: "Pasando a la página siguiente…" },
   ar: { all: "اقرأ الكل", translation: "اقرأ الترجمة", arabic: "اقرأ العربية", stop: "إيقاف", reading: "جارٍ القراءة…", menu: "🔊 اقرأ", next: "الانتقال إلى الصفحة التالية…" },
 };
-function labels(locale: string) {
-  return L[locale] ?? L.en!;
+function labels(locale: string): ReadLabels {
+  return L[locale] ?? fillLabels(locale, EN);
 }
 
 const RESUME_KEY = "ulyah_readall_mode";

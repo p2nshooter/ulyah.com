@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { SpokenText } from "@/components/SpokenText";
 import { useRadioStore } from "@/lib/radio-store";
+import { fillLabels } from "@/lib/fill-labels";
 
 export interface StorySection {
   section_order: number;
@@ -23,7 +24,7 @@ const L: Record<string, { readAll: string; stop: string; reading: string; nextUn
   ar: { readAll: "▶ اقرأ الكل", stop: "⏹ إيقاف", reading: "جارٍ القراءة… تمرير وانتقال تلقائي حتى الإيقاف.", nextUnit: "انتهى — الانتقال إلى القصة التالية…" },
 };
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 const AUTOREAD_FLAG = "ulyah_story_autoread";

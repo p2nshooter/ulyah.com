@@ -11,6 +11,7 @@ import { SpokenText } from "@/components/SpokenText";
 import { AdSlot } from "@/components/AdSlot";
 import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface QuranRef {
   s: number;
@@ -302,7 +303,7 @@ const READER_L: Record<string, ReaderLabels> = {
   },
 };
 function readerLabels(locale: string): ReaderLabels {
-  return READER_L[locale] ?? READER_L.en!;
+  return READER_L[locale] ?? fillLabels(locale, READER_L.en!);
 }
 
 function prefsKey(slug: string) {

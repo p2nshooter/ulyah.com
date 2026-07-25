@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface HajjPackage {
   id: number;
@@ -104,7 +105,7 @@ const LABELS: Record<string, Labels> = {
 };
 
 export function HajjUmrahHub({ locale }: { locale: string }) {
-  const t = LABELS[locale] ?? LABELS.en!;
+  const t = LABELS[locale] ?? fillLabels(locale, LABELS.en!);
   const [packages, setPackages] = useState<HajjPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "hajj" | "umrah">("all");

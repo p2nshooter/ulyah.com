@@ -5,6 +5,7 @@ import { KisahAnakList } from "@/components/KisahAnakList";
 import { VideoAnakGrid } from "@/components/kids/VideoAnakGrid";
 import { TENANT } from "@/lib/tenant";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface EpisodeRow {
   id: number;
@@ -104,7 +105,7 @@ const L: Record<string, { heading: string; intro: string; interactive: string; m
 };
 
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

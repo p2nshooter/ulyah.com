@@ -4,6 +4,7 @@ import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { coverFor } from "@/lib/book-cover";
 import { AdSlot } from "@/components/AdSlot";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface StoryRow {
   id: number;
@@ -119,8 +120,9 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   const hasAnyContent = sections.some((s) => s.stories.length > 0 || s.persons.length > 0);
   let adPlaced = false;
 
-  const episodeLabel = ({ id: "Episode", en: "Episode", fr: "Épisode", de: "Folge", es: "Episodio", ar: "الحلقة" } as Record<string, string>)[locale] ?? "Episode";
-  const listen = LISTEN[locale] ?? LISTEN.en;
+  const EPISODE: Record<string, string> = { id: "Episode", en: "Episode", fr: "Épisode", de: "Folge", es: "Episodio", ar: "الحلقة" };
+  const episodeLabel = EPISODE[locale] ?? fillLabels(locale, "Episode");
+  const listen = LISTEN[locale] ?? fillLabels(locale, LISTEN.en!);
 
   // The first readable figure — "Baca Semua" reads this list's titles then
   // dives into this figure's full story and chains through the rest of the menu.

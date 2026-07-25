@@ -7,6 +7,7 @@ import { prayerLabels } from "@/lib/prayer-labels";
 import { COUNTRY_LOOKUP, DEFAULT_PRAYER_COUNTRY, type PrayerCountry } from "@/lib/prayer-countries";
 import { useAdhanStore } from "@/lib/adhan-reminder-store";
 import { useRadioStore } from "@/lib/radio-store";
+import { fillLabels } from "@/lib/fill-labels";
 
 type PrayerKey = "fajr" | "dhuhr" | "asr" | "maghrib" | "isha";
 const PRAYERS: PrayerKey[] = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
@@ -60,7 +61,7 @@ const L: Record<string, { time: (p: string) => string; on: string; off: string; 
   },
 };
 function labels(locale: string) {
-  return L[locale] ?? L.en!;
+  return L[locale] ?? fillLabels(locale, L.en!);
 }
 
 // Public adhan recording (plays directly in the visitor's browser — no CORS

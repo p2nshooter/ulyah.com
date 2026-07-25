@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { localePath } from "@/lib/paths";
 import { ContinuousStoryReader, type StorySection } from "@/components/ContinuousStoryReader";
+import { fillLabels } from "@/lib/fill-labels";
 
 interface Person {
   slug: string;
@@ -22,7 +23,7 @@ const CATEGORY_LABEL: Record<string, Record<string, string>> = {
 };
 function categoryLabel(slug: string, locale: string): string {
   const m = CATEGORY_LABEL[slug] ?? CATEGORY_LABEL["kisah-para-nabi"]!;
-  return m[locale] ?? m.en!;
+  return m[locale] ?? fillLabels(locale, m.en!);
 }
 
 async function fetchPerson(slug: string, locale: string): Promise<{ person: Person; sections: StorySection[] } | null> {

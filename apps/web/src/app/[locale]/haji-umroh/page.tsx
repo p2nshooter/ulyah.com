@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { HajjUmrahHub } from "@/components/HajjUmrahHub";
 import { TENANT } from "@/lib/tenant";
 import { localePath } from "@/lib/paths";
+import { fillLabels } from "@/lib/fill-labels";
 
 // Native per-locale copy — every site renders its own language (fr/de), never
 // an English/Indonesian fallback. `{site}` becomes the tenant brand.
@@ -75,7 +76,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const t = L[locale] ?? L.en!;
+  const t = L[locale] ?? fillLabels(locale, L.en!);
   return {
     title: t.metaTitle,
     description: t.metaDesc(TENANT.siteName),
@@ -86,7 +87,7 @@ export async function generateMetadata({
 export default async function HajjUmrahPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  const t = L[locale] ?? L.en!;
+  const t = L[locale] ?? fillLabels(locale, L.en!);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
