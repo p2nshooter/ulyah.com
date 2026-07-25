@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { localePath } from "@/lib/paths";
 import { ContinuousStoryReader, type StorySection } from "@/components/ContinuousStoryReader";
 import { fillLabels } from "@/lib/fill-labels";
+import { person as personLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
 interface Person {
   slug: string;
@@ -82,8 +83,25 @@ export default async function KisahTokohPage({
   const nextSlug = await nextPersonSlug(person.category_slug, slug);
   const nextHref = nextSlug ? `${localePath(locale, `/kisah/tokoh/${nextSlug}`)}?autoread=1` : undefined;
 
+  // A biography page: tell Google it is about a PERSON, and where it sits.
+  const ld = [
+    personLd({
+      locale,
+      route: `/kisah/tokoh/${slug}`,
+      name: person.name_id,
+      alternateName: person.name_ar,
+      jobTitle: person.title_id,
+      description: person.summary_id,
+    }),
+    breadcrumbs(locale, [
+      { name: categoryLabel(person.category_slug, locale), route: "/kisah" },
+      { name: person.name_id, route: `/kisah/tokoh/${slug}` },
+    ]),
+  ];
+
   return (
     <article className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
+      <script {...jsonLdProps(ld)} />
       <p className="text-xs font-medium uppercase tracking-wide text-accent">
         {categoryLabel(person.category_slug, locale)}
       </p>
