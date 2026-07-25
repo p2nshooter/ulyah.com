@@ -24,7 +24,8 @@
     "gen:locale-content": "tsx scripts/measure-locale-content.ts",
     "seo:notify": "tsx scripts/notify-search-engines.ts",
     "check:locale": "tsx scripts/check-locale-detect.ts",
-    "check:urls": "tsx scripts/check-canonical-urls.ts"
+    "check:urls": "tsx scripts/check-canonical-urls.ts",
+    "check:translate": "tsx scripts/check-ai-translate.ts"
   },
   "devDependencies": {
     "@types/pdfkit": "^0.13.9",

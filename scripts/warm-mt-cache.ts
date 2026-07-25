@@ -26,6 +26,7 @@ import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { LOCALE_SITE } from "../packages/shared/src/i18n";
+import { loadPool, aiTranslateBatch, rotate, poolSummary, PREFER_GTX, type PoolKey } from "./ai-translate";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -156,6 +157,28 @@ async function gtx(text: string, tl: string, sl = "id"): Promise<string | null> 
   }
 }
 
+/**
+ * Translate one batch: the AI pool first, gtx if the pool cannot answer.
+ *
+ * The pool is tried first because it has 595 quotas instead of one and because
+ * it has been told what the text is. gtx remains behind it so a run never stops
+ * for want of a key — the worst case is the behaviour this job always had.
+ */
+async function translateBatch(
+  pool: PoolKey[],
+  texts: string[],
+  tl: string,
+  sl: string
+): Promise<(string | null)[]> {
+  // A language the pool is worse at goes straight to gtx — see PREFER_GTX.
+  if (pool.length > 0 && !PREFER_GTX.has(tl)) {
+    const ai = await aiTranslateBatch(pool, texts, tl, sl);
+    rotate(pool);
+    if (ai) return ai;
+  }
+  return gtxBatch(texts, tl, sl);
+}
+
 /** Translate MANY short-ish texts in one gtx call via newline batching (gtx
  * preserves line breaks). Returns an array aligned to `texts`; on a segment
  * mismatch (MT occasionally eats a break) that whole batch is retried per-item
@@ -276,6 +299,33 @@ async function main() {
       "--remote",
       "--command=CREATE TABLE IF NOT EXISTS mt_cache (k TEXT PRIMARY KEY, v TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now')));",
     ]);
+  }
+
+  // The donated AI key pool — 595 active keys, taking turns (owner: "aktifkan
+  // seluruh ai untuk menerjemahkan, seluruh AI saling menyambut klo limit").
+  //
+  // gtx is one anonymous bucket: when it rate-limits, the whole run waits and
+  // there is nothing to hand the work to. The pool is 595 separate quotas, so a
+  // spent key only moves the work along. It also knows what it is reading —
+  // "sanad" and "radhiyallahu 'anhu" survive a model that has been told this is
+  // Islamic scholarship, and do not survive a generic sentence translator.
+  //
+  // gtx stays as the fallback, so an empty or unreachable pool degrades to
+  // exactly the old behaviour rather than to nothing.
+  let pool: PoolKey[] = [];
+  if (!dry && process.env.KEY_ENCRYPTION_SECRET) {
+    const rows = d1Json<{ id: number; provider: string; key_ref: string; key_iv: string }>(
+      `SELECT id, provider, key_ref, key_iv FROM ai_key_pool
+        WHERE scope = 'text' AND status IN ('active','slow') ORDER BY quota_used, id;`
+    );
+    pool = await loadPool(rows, process.env.KEY_ENCRYPTION_SECRET);
+    console.log(
+      pool.length
+        ? `AI pool: ${pool.length} usable key(s) — ${poolSummary(pool)}. gtx is the fallback.`
+        : "AI pool: no usable keys — falling back to gtx for the whole run."
+    );
+  } else if (!dry) {
+    console.log("AI pool: KEY_ENCRYPTION_SECRET not set — falling back to gtx.");
   }
 
   const collected = collectStrings();
@@ -408,7 +458,7 @@ async function main() {
         bytes += todo[i]!.length + 1;
         i++;
       }
-      const outs = await gtxBatch(batch, lang, "id");
+      const outs = await translateBatch(pool, batch, lang, "id");
       batch.forEach((src, k) => {
         const v = outs[k];
         if (v && v !== src) {
@@ -493,7 +543,7 @@ async function main() {
             bytes += todo[i]!.length + 1;
             i++;
           }
-          const outs = await gtxBatch(batch, lang, "ar");
+          const outs = await translateBatch(pool, batch, lang, "ar");
           batch.forEach((src, k) => {
             const v = outs[k];
             if (v && v !== src) {

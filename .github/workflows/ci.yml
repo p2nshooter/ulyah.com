@@ -64,6 +64,14 @@ jobs:
       - name: Check canonical urls and hreflang reciprocity
         run: pnpm check:urls
 
+      # The warm job translates through 595 donated keys, and its failure modes
+      # are all quiet ones: a model that merges two lines pairs every following
+      # translation to the wrong source, and a language the prompt cannot name
+      # is answered confidently in the wrong one. Neither shows up in a build.
+      # Runs with fetch stubbed, so it needs no key and no network.
+      - name: Check the translation pool's failover logic
+        run: pnpm check:translate
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 
