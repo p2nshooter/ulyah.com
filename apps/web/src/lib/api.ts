@@ -34,6 +34,11 @@ export const api = {
     request<T>(path, { method: "POST", body: body ? JSON.stringify(body) : undefined }),
   put: <T>(path: string, body?: unknown) =>
     request<T>(path, { method: "PUT", body: body ? JSON.stringify(body) : undefined }),
+  // PATCH, for endpoints that accept a partial update and keep the rest of the
+  // row as it is — editing one field of a store product without having to
+  // resend the ones you are not touching.
+  patch: <T>(path: string, body?: unknown) =>
+    request<T>(path, { method: "PATCH", body: body ? JSON.stringify(body) : undefined }),
   del: <T>(path: string) => request<T>(path, { method: "DELETE" }),
   // multipart upload — browser sets the boundary Content-Type itself
   upload: async <T>(path: string, form: FormData): Promise<T> => {

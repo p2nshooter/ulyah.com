@@ -22,6 +22,7 @@ import { RoadmapTab } from "@/components/admin/RoadmapTab";
 import { LibraryTab } from "@/components/admin/LibraryTab";
 import { AdsenseTab } from "@/components/admin/AdsenseTab";
 import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
+import { StoreTab } from "@/components/admin/StoreTab";
 import { LiveStreamsTab } from "@/components/admin/LiveStreamsTab";
 import { KaggleGuideTab } from "@/components/admin/KaggleGuideTab";
 import { KidsChannelsTab } from "@/components/admin/KidsChannelsTab";
@@ -36,7 +37,7 @@ import { SitePagesTab } from "@/components/admin/SitePagesTab";
 import { LanguagesTab } from "@/components/admin/LanguagesTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "adsense" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "store";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -104,6 +105,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["library", "📚 Perpustakaan"],
     ["adsense", "💰 AdSense"],
     ["widgets", "🧩 Widget Store"],
+    ["store", "🛒 Toko Amazon"],
     ["pages", "🧭 Halaman Situs"],
     ["live", "📡 Live Streaming"],
     ["kids", "🎬 Film Anak"],
@@ -199,6 +201,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "library" && <LibraryTab />}
         {tab === "adsense" && <AdsenseTab />}
         {tab === "widgets" && <WidgetStoreTab />}
+        {tab === "store" && <StoreTab />}
         {tab === "pages" && <SitePagesTab />}
         {tab === "live" && <LiveStreamsTab />}
         {tab === "kids" && <KidsChannelsTab />}

@@ -1409,6 +1409,180 @@ adminRoute.delete("/live-streams/:id", async (c) => {
   return c.json({ ok: true });
 });
 
+// ── Amazon store ──────────────────────────────────────────────────────────
+//
+// SHELVES, not products. Amazon's Associates agreement forbids scraping their
+// pages, and the sanctioned source (the Product Advertising API) opens only
+// after three qualifying sales — so there is no legal way to hold thousands of
+// products. A shelf is a category the owner names and describes, pointing at a
+// filtered Amazon search: the reader chooses from Amazon's thousands, there.
+//
+// Copying Amazon's own descriptions would not have helped even if it were
+// allowed: that text is identical on thousands of affiliate sites, and Google
+// treats syndicated product copy as low value. The sentences the owner writes
+// about a category exist nowhere else, which is why `blurb` is required.
+//
+// Nothing here is per-tenant: one owner curates all four shelves, and the
+// marketplace column decides which site each appears on.
+const STORE_MARKETPLACES = new Set(["com", "fr", "de", "es"]);
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 48);
+
+adminRoute.get("/store", async (c) => {
+  const [tags, shelves] = await Promise.all([
+    c.env.DB.prepare("SELECT marketplace, tag FROM affiliate_tag").all(),
+    c.env.DB.prepare(
+      `SELECT id, marketplace, slug, label, blurb, keywords, department, icon, sort_order, enabled
+         FROM affiliate_shelf ORDER BY marketplace, sort_order, id`
+    ).all(),
+  ]);
+  return c.json({ tags: tags.results, shelves: shelves.results });
+});
+
+// The tracking tag per marketplace. ulyah-20 is a US tag and earns nothing on
+// amazon.de/fr/es, so each is stored on its own rather than assumed shared.
+adminRoute.post("/store/tag", async (c) => {
+  const body = await c.req.json<{ marketplace?: string; tag?: string }>();
+  const marketplace = (body.marketplace ?? "").trim();
+  const tag = (body.tag ?? "").trim();
+  if (!STORE_MARKETPLACES.has(marketplace)) return c.json({ error: "Marketplace tidak dikenal" }, 400);
+  if (tag && !/^[A-Za-z0-9_-]{2,32}$/.test(tag)) return c.json({ error: "Format tag tidak valid" }, 400);
+
+  if (!tag) {
+    // Clearing the tag switches that site's store off, which is the honest way
+    // to take it down: no tag, no store, no untagged traffic.
+    await c.env.DB.prepare("DELETE FROM affiliate_tag WHERE marketplace = ?").bind(marketplace).run();
+  } else {
+    await c.env.DB.prepare(
+      `INSERT INTO affiliate_tag (marketplace, tag) VALUES (?, ?)
+         ON CONFLICT(marketplace) DO UPDATE SET tag = excluded.tag, updated_at = datetime('now')`
+    )
+      .bind(marketplace, tag)
+      .run();
+  }
+  await logAdminAction(c.env, "store_tag_set", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { marketplace, tag: tag || null });
+  return c.json({ ok: true });
+});
+
+adminRoute.post("/store/shelf", async (c) => {
+  const body = await c.req.json<{
+    marketplace?: string;
+    label?: string;
+    blurb?: string;
+    keywords?: string;
+    department?: string;
+    icon?: string;
+  }>();
+  const marketplace = (body.marketplace ?? "").trim();
+  const label = (body.label ?? "").trim();
+  const blurb = (body.blurb ?? "").trim();
+  const keywords = (body.keywords ?? "").trim();
+  const department = (body.department ?? "").trim() || null;
+  const icon = (body.icon ?? "").trim().slice(0, 8) || null;
+
+  if (!STORE_MARKETPLACES.has(marketplace)) return c.json({ error: "Marketplace tidak dikenal" }, 400);
+  if (!label) return c.json({ error: "Nama kategori wajib diisi" }, 400);
+  if (!keywords) return c.json({ error: "Kata kunci pencarian wajib diisi" }, 400);
+  // Not a formality. This is the only text on the page Google has not already
+  // seen on a thousand other affiliate sites; without it the page is exactly
+  // the "thin affiliate" pattern that earns a manual penalty.
+  if (blurb.length < 40) return c.json({ error: "Deskripsi kategori minimal 40 karakter" }, 400);
+
+  const slug = slugify(label);
+  if (!slug) return c.json({ error: "Nama kategori tidak bisa dijadikan slug" }, 400);
+  const exists = await c.env.DB.prepare(
+    "SELECT id FROM affiliate_shelf WHERE marketplace = ? AND slug = ?"
+  )
+    .bind(marketplace, slug)
+    .first();
+  if (exists) return c.json({ error: "Kategori dengan nama itu sudah ada" }, 409);
+
+  const next = await c.env.DB.prepare(
+    "SELECT COALESCE(MAX(sort_order), 0) + 1 AS n FROM affiliate_shelf WHERE marketplace = ?"
+  )
+    .bind(marketplace)
+    .first<{ n: number }>();
+
+  await c.env.DB.prepare(
+    `INSERT INTO affiliate_shelf (marketplace, slug, label, blurb, keywords, department, icon, sort_order)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  )
+    .bind(marketplace, slug, label, blurb, keywords, department, icon, next?.n ?? 1)
+    .run();
+  await logAdminAction(c.env, "store_shelf_added", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { marketplace, slug });
+  return c.json({ ok: true });
+});
+
+adminRoute.patch("/store/shelf/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
+  const body = await c.req.json<{
+    label?: string;
+    blurb?: string;
+    keywords?: string;
+    department?: string;
+    icon?: string;
+    sort_order?: number;
+    enabled?: boolean;
+  }>();
+
+  const cur = await c.env.DB.prepare(
+    "SELECT label, blurb, keywords, department, icon, sort_order, enabled FROM affiliate_shelf WHERE id = ?"
+  )
+    .bind(id)
+    .first<{
+      label: string;
+      blurb: string;
+      keywords: string;
+      department: string | null;
+      icon: string | null;
+      sort_order: number;
+      enabled: number;
+    }>();
+  if (!cur) return c.json({ error: "Kategori tidak ditemukan" }, 404);
+
+  const label = body.label?.trim() ?? cur.label;
+  const blurb = body.blurb?.trim() ?? cur.blurb;
+  const keywords = body.keywords?.trim() ?? cur.keywords;
+  if (!label) return c.json({ error: "Nama kategori wajib diisi" }, 400);
+  if (!keywords) return c.json({ error: "Kata kunci pencarian wajib diisi" }, 400);
+  if (blurb.length < 40) return c.json({ error: "Deskripsi kategori minimal 40 karakter" }, 400);
+
+  await c.env.DB.prepare(
+    `UPDATE affiliate_shelf
+        SET label = ?, blurb = ?, keywords = ?, department = ?, icon = ?, sort_order = ?, enabled = ?
+      WHERE id = ?`
+  )
+    .bind(
+      label,
+      blurb,
+      keywords,
+      body.department === undefined ? cur.department : body.department.trim() || null,
+      body.icon === undefined ? cur.icon : body.icon.trim().slice(0, 8) || null,
+      Number.isFinite(body.sort_order) ? Number(body.sort_order) : cur.sort_order,
+      body.enabled === undefined ? cur.enabled : body.enabled ? 1 : 0,
+      id
+    )
+    .run();
+  await logAdminAction(c.env, "store_shelf_edited", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { id, enabled: body.enabled });
+  return c.json({ ok: true });
+});
+
+adminRoute.delete("/store/shelf/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
+  await c.env.DB.prepare("DELETE FROM affiliate_shelf WHERE id = ?").bind(id).run();
+  await logAdminAction(c.env, "store_shelf_deleted", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { id });
+  return c.json({ ok: true });
+});
+
 // ── Video Anak world channels management (show/hide + add/remove) ─────────
 adminRoute.get("/kids-channels", async (c) => {
   const { results } = await c.env.DB.prepare(

@@ -77,7 +77,30 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
     es: "/politica-de-privacidad",
   },
   "/widget": { en: "/widget", fr: "/widget", de: "/widget", es: "/widget" },
+  // The Amazon shelf. ulyah.com has no entry because Amazon does not operate in
+  // Indonesia and the store is not published there at all — the folder is named
+  // in Indonesian only because every folder in this repo is.
+  "/toko": { en: "/store", fr: "/boutique", de: "/shop", es: "/tienda" },
 };
+
+/**
+ * Routes that do NOT exist on every site, and the languages that do have them.
+ *
+ * /toko is the Amazon shelf. It exists only where there is an Amazon to point
+ * at, and Amazon does not operate in Indonesia, so the page 404s on ulyah.com.
+ * Without this, dawa.es would declare `hreflang="id" → ulyah.com/toko` and hand
+ * Google an alternate that does not exist — the same class of error as pointing
+ * hreflang at a redirect, and the reason this table is here rather than in one
+ * of the two places that need it.
+ */
+export const ROUTE_LOCALES: Record<string, readonly string[]> = {
+  "/toko": ["en", "fr", "de", "es"],
+};
+
+/** Which languages have this route at all. Undefined means "every language". */
+export function routeLocales(route: string): readonly string[] | undefined {
+  return ROUTE_LOCALES[route];
+}
 
 /** Reverse lookup, built once: "/es/horarios-de-oracion" → "/jadwal-sholat". */
 const REVERSE: Record<string, Record<string, string>> = (() => {

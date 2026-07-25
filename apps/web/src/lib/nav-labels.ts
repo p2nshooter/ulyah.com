@@ -1,5 +1,6 @@
 import { fillLabels } from "./fill-labels";
 import { TENANT } from "./tenant";
+import { TENANT_MARKETPLACE } from "./store";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
 // (the old flat 13-link nav plus an differently-organised footer was exactly
@@ -404,9 +405,27 @@ export function applyPageOverrides(
   };
 }
 
+/**
+ * The store's own menu entry (owner: "bikin menu husus aja").
+ *
+ * Only on a site that HAS a store — ulyah.com has no Amazon marketplace, so
+ * the page 404s there and a menu item would be a dead link. Four languages,
+ * written out rather than machine-filled, because a nav label is two words and
+ * a wrong one is visible on every page.
+ */
+const STORE_LABEL: Record<string, string> = {
+  en: "🛒 Store",
+  fr: "🛒 Boutique",
+  de: "🛒 Shop",
+  es: "🛒 Tienda",
+};
+
 export function navLabels(locale: string): NavLabels {
   const base = MAP[locale] ?? fillLabels(locale, EN);
-  if (!TENANT.features.forSale && !TENANT.features.donationForward) return base;
+  const store = TENANT_MARKETPLACE ? [{ label: STORE_LABEL[locale] ?? STORE_LABEL.en!, path: "/toko" }] : [];
+  if (!TENANT.features.forSale && !TENANT.features.donationForward) {
+    return store.length ? { ...base, direct: [...base.direct, ...store] } : base;
+  }
   // 1fr.fr: donation is promoted into the top-level nav ("terang-terangan")
   // and the acquisition page is openly linked. Labels per language.
   const donate =
@@ -417,6 +436,7 @@ export function navLabels(locale: string): NavLabels {
     ...base,
     direct: [
       ...base.direct,
+      ...store,
       ...(TENANT.features.donationForward ? [{ label: donate, path: "/donasi" }] : []),
       ...(TENANT.features.forSale ? [{ label: acq, path: "/acquisition" }] : []),
     ],

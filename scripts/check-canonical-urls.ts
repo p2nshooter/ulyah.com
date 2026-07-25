@@ -20,7 +20,7 @@
  *
  *   pnpm check:urls
  */
-import { localizedRoute, canonicalRoute } from "../packages/shared/src/routes";
+import { localizedRoute, canonicalRoute, routeLocales } from "../packages/shared/src/routes";
 import { localeCanonicalUrl } from "../packages/shared/src/i18n";
 
 /** The five sites, and the language each one serves at its bare urls. */
@@ -178,6 +178,44 @@ for (const { host, locale } of SITES) {
     }
   }
   console.log(`  ${bad === 0 ? "ok  " : "FAIL"}  ${host.padEnd(11)} ${ids.map((i) => `${i}.xml`).join("  ")}`);
+}
+
+// ── 6. A route that does not exist everywhere never claims it does ─────────
+//
+// /toko is the Amazon shelf. Amazon does not operate in Indonesia, so the page
+// 404s on ulyah.com — and an hreflang pointing at a 404 is worse than no
+// hreflang at all. Every site with the page must name exactly the four sites
+// that have it, and no more.
+console.log("\n=== a partial route only names the sites that have it ===");
+bad = 0;
+for (const route of Object.keys({ "/toko": 1 })) {
+  const only = routeLocales(route);
+  if (!only) {
+    fail(`${route} is expected to be a partial route but has no locale list`);
+    bad++;
+    continue;
+  }
+  for (const { host, locale } of SITES) {
+    const has = only.includes(locale);
+    // The hub must NOT be in the list — that is the whole point.
+    if (locale === "id" && has) {
+      fail(`${route} claims to exist on ${host}, which has no Amazon marketplace`);
+      bad++;
+    }
+    if (!has) continue;
+    // And where it does exist, the slug must be that site's own word.
+    const slug = localizedRoute(route, locale);
+    if (slug === route) {
+      fail(`${host} would serve ${route} — no ${locale} slug for it`);
+      bad++;
+    }
+    if (canonicalRoute(slug, locale) !== route) {
+      fail(`${host}${slug} does not resolve back to ${route}`);
+      bad++;
+    }
+  }
+  const urls = only.map((l) => localizedRoute(route, l));
+  console.log(`  ${bad === 0 ? "ok  " : "FAIL"}  ${route} → ${only.map((l, i) => `${l}${urls[i]}`).join("  ")}`);
 }
 
 console.log(failed === 0 ? "\nALL OK" : `\n${failed} FAILED`);
