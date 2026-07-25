@@ -17,10 +17,11 @@ import { sitemapEntries } from "@/lib/sitemap-source";
  * the same site.
  */
 
-// No longer force-static: the page list comes from the database, the same way
-// sitemap.xml gets it, and a build-time snapshot would go stale the moment a
-// story is published. The response is cached at the edge for a day instead.
-export const dynamic = "force-dynamic";
+// Was force-static, which froze the page list at build time — fine when the
+// list was hardcoded, wrong now that it comes from the database. Revalidating
+// hourly is what sitemap.xml already does: rendered once, refreshed on a timer,
+// so 6,333 urls are never rebuilt per request against a 10 ms CPU budget.
+export const revalidate = 3600;
 
 export async function GET() {
   const entries = await sitemapEntries();
