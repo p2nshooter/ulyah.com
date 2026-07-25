@@ -52,7 +52,44 @@ function parseArgs() {
     dry: args.dry === "true",
     behind: args.behind === "true",
     one: args.one === "true",
+    // Minutes of translating before the run stops and writes what it has.
+    // Written the long way because `Number(x) || 240` turns an explicit 0 into
+    // 240 — and 0 is the value that makes the budget testable at all.
+    minutes:
+      args.minutes !== undefined && Number.isFinite(Number(args.minutes)) && Number(args.minutes) >= 0
+        ? Number(args.minutes)
+        : 240,
   };
+}
+
+/**
+ * Everything translated is held in memory and written to D1 in one phase at the
+ * END of the run. That is fine until the run does not reach the end: GitHub
+ * kills a job at six hours, and a killed job takes every translation still in
+ * memory with it — the same "hours of work, discarded at the last step" this
+ * script was already fixed for once, arriving by a different road.
+ *
+ * gtx answered fast enough that six hours was mostly theoretical. A model round
+ * trip is seconds, so it stopped being theoretical the moment the pool went in
+ * front of gtx. The deadline stops translating at four hours and proceeds to the
+ * write, so a long pass banks its work; the chain then starts the next pass and
+ * the skip-cached filter means it resumes exactly where this one stopped.
+ *
+ * Four hours, not five and a half: the write itself, the readiness re-measure
+ * and the commit all happen after this, and they need room.
+ */
+const startedAt = Date.now();
+let deadlineMs = 240 * 60_000;
+let ranOutOfTime = false;
+function outOfTime(): boolean {
+  if (ranOutOfTime) return true;
+  if (Date.now() - startedAt < deadlineMs) return false;
+  ranOutOfTime = true;
+  console.warn(
+    `  time budget reached (${Math.round(deadlineMs / 60_000)} min) — stopping translation and writing what is done. ` +
+      `The next pass resumes here; nothing is lost and nothing is re-translated.`
+  );
+  return true;
 }
 
 /**
@@ -287,7 +324,8 @@ function collectStrings(): string[] {
 }
 
 async function main() {
-  const { langs, dry, behind, one } = parseArgs();
+  const { langs, dry, behind, one, minutes } = parseArgs();
+  deadlineMs = minutes * 60_000;
 
   // Ensure the cache table exists up front so the "already cached?" query below
   // works even on the very first run (before migration 0046 has been applied).
@@ -451,6 +489,7 @@ async function main() {
     // Batched (gtxBatch), byte-budgeted (~4KB source per call) — a big corpus
     // is a few thousand calls, not one-per-string.
     for (let i = 0; i < todo.length; ) {
+      if (outOfTime()) break;
       const batch: string[] = [];
       let bytes = 0;
       while (i < todo.length && batch.length < 40 && bytes < 4000) {
@@ -470,6 +509,7 @@ async function main() {
       });
     }
     console.log(`  id→${lang}: ${pairs.length} new staged (${cached} already cached)`);
+    if (outOfTime()) break;
   }
 
   // ── Hadith (Arabic-source) ──────────────────────────────────────────────
@@ -536,6 +576,7 @@ async function main() {
         }
         // Translate in newline batches, byte-budgeted (~4KB source per call).
         for (let i = 0; i < todo.length; ) {
+          if (outOfTime()) break;
           const batch: string[] = [];
           let bytes = 0;
           while (i < todo.length && batch.length < 40 && bytes < 4000) {
@@ -555,8 +596,11 @@ async function main() {
             }
           });
         }
+        // Without this the pager keeps fetching pages it will never translate.
+        if (outOfTime()) break;
       }
       console.log(`  hadith ar→${lang}: ${hadDone} new, ${hadCached} already cached`);
+      if (outOfTime()) break;
     }
   }
 

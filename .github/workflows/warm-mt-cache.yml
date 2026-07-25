@@ -70,6 +70,11 @@ permissions:
 jobs:
   warm:
     runs-on: ubuntu-latest
+    # Below GitHub's 6-hour kill, and above the script's own 4-hour translate
+    # budget plus the write, the re-measure and the commit that follow it. The
+    # script is meant to stop itself and bank its work; this is only the outer
+    # bound, so a hang ends as a clean timeout rather than at the platform cap.
+    timeout-minutes: 330
     # workflow_run fires on ANY completion — only warm after a SUCCESSFUL deploy
     # (a failed/cancelled deploy didn't import new content worth warming). Manual
     # dispatch and the nightly schedule always run.
