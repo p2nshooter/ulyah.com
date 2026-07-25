@@ -3,7 +3,13 @@
 // drift out of sync ("jangan setengah-setengah" requirement: changing the
 // language must switch 100% of the site consistently).
 
-import { LOCALE_READINESS, type LocaleReadiness } from "./locale-readiness.gen.js";
+// Extensionless on purpose. index.ts can use ".js" because nothing bundles it —
+// the apps import the "@ulyah/shared/i18n" subpath directly. This file IS
+// bundled by Next.js, and webpack will not resolve a ".js" specifier onto a
+// ".ts" file, so the extension broke the web build (and only the build: tsc
+// resolved it happily, so the typecheck stayed green and the failure did not
+// surface until deploy).
+import { LOCALE_READINESS, type LocaleReadiness } from "./locale-readiness.gen";
 
 export type { LocaleReadiness };
 

@@ -26,6 +26,23 @@ jobs:
       - name: Audit i18n consistency (no sibling site left in the wrong language)
         run: npx tsx scripts/audit-i18n-consistency.ts
 
+      # The Worker is capped at 3 MiB by Cloudflare and this table ships inside
+      # it. Regenerating it for all 26 languages once took it from 471 KB to
+      # 813 KB gzipped and the deploy was rejected outright — after the build
+      # had already passed, so nothing caught it until production. This is the
+      # cheap guard that would have.
+      - name: Guard the bundled translation table's size
+        run: |
+          set -eu
+          GZ=$(gzip -9c apps/web/src/lib/ui-i18n.gen.ts | wc -c)
+          LIMIT=$((300 * 1024))
+          echo "ui-i18n.gen.ts: $((GZ / 1024)) KiB gzipped (limit $((LIMIT / 1024)) KiB)"
+          if [ "$GZ" -gt "$LIMIT" ]; then
+            echo "::error::The bundled UI translation table is too large for the 3 MiB Worker limit."
+            echo "It must carry only the languages actually served — see scripts/generate-ui-i18n.ts."
+            exit 1
+          fi
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

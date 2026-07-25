@@ -24,7 +24,10 @@ import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DICTS = resolve(__dirname, "../apps/web/src/dictionaries");
-const UI_TABLE = resolve(__dirname, "../apps/web/src/lib/ui-i18n.gen.ts");
+// The COMPLETE translation table, not the trimmed one that ships in the Worker
+// bundle — scoring a language by a file that deliberately omits it would report
+// every locked language as 0% and they could never unlock.
+const UI_TABLE = resolve(__dirname, "ui-i18n-full.json");
 const CONTENT = resolve(__dirname, "locale-content.json");
 const VERIFIED = resolve(__dirname, "locale-verified-identical.json");
 const OUT = resolve(__dirname, "../packages/shared/src/locale-readiness.gen.ts");
@@ -67,7 +70,7 @@ function leaves(node: unknown, out: string[] = []): string[] {
 const hasLetters = (s: string) => /\p{L}/u.test(s);
 
 async function main() {
-  const { UI_I18N } = (await import(UI_TABLE)) as { UI_I18N: Record<string, Record<string, string>> };
+  const UI_I18N = JSON.parse(readFileSync(UI_TABLE, "utf8")) as Record<string, Record<string, string>>;
   const load = async (f: string) => (await import(resolve(DICTS, f))).default as Dict;
 
   const en = leaves(await load("en.ts"));
