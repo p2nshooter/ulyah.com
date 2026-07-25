@@ -121,28 +121,53 @@ export function speak(
   let cancelled = false;
   const done = (async () => {
     if (!speechAvailable() || !text.trim()) return;
+    // A block longer than one utterance is spoken as consecutive pieces, so
+    // callers keep passing whole paragraphs and the listener still hears every
+    // word. Word offsets are shifted back onto the ORIGINAL text so a caller
+    // highlighting per word stays aligned with what it rendered.
+    const pieces = chunkText(text);
+    let consumed = 0;
+    for (const piece of pieces) {
+      if (cancelled) return;
+      const at = text.indexOf(piece, consumed);
+      const base = at >= 0 ? at : consumed;
+      consumed = base + piece.length;
+      await speakPiece(piece, lang, opts, () => cancelled, base);
+    }
+  })();
+  return {
+    cancel: () => {
+      cancelled = true;
+      if (speechAvailable()) window.speechSynthesis.cancel();
+    },
+    done,
+  };
+}
+
+/** Speak exactly one utterance-sized piece. Resolves when it finishes, errors,
+ *  or is cancelled — never hangs, and never abandons audio that is still
+ *  playing. */
+function speakPiece(
+  text: string,
+  lang: string,
+  opts: { rate?: number; onWord?: (charIndex: number, charLength: number) => void },
+  cancelled: () => boolean,
+  charOffset: number
+): Promise<void> {
+  return (async () => {
     const effLang = effectiveLang(text, lang);
     const synth = window.speechSynthesis;
-    // Chromium quirk #1: speak() issued while a cancel() is still settling is
-    // silently DROPPED — no onstart, no onend, no onerror. The old code always
-    // cancelled and then spoke immediately, so a continuous multi-ayah reading
-    // randomly froze on a layer: the promise never resolved and the whole
-    // sequence hung ("tafsir dibaca sekali lalu ayat berikutnya tidak membaca
-    // apa-apa"). Only cancel when something is actually queued, then give the
-    // engine a beat to settle before speaking.
+    // Chromium quirk: speak() issued while a cancel() is still settling is
+    // silently DROPPED — no onstart, no onend, no onerror. Only cancel when
+    // something is actually queued, then give the engine a beat to settle.
     if (synth.speaking || synth.pending) {
       synth.cancel();
       await new Promise((r) => setTimeout(r, 120));
     }
-    if (cancelled) return;
+    if (cancelled()) return;
     const voice = await pickVoice(effLang);
     startKeepAlive();
     try {
-      // Chromium quirk #2 (belt & braces): even a clean speak() occasionally
-      // never starts. Watchdog: if onstart hasn't fired within 2s, re-issue
-      // the utterance once; if it still hasn't started 3s later, resolve so
-      // the caller's reading sequence NEVER hangs — it moves on to the next
-      // block instead of freezing mid-page.
       await new Promise<void>((resolve) => {
         let started = false;
         let settled = false;
@@ -157,14 +182,13 @@ export function speak(
           }
         };
         // Walk the words on a timer when the browser gives us no boundary
-        // events. Per-word duration scales with word length and the speaking
-        // rate — rough but enough to keep the highlight moving with the voice.
+        // events. Per-word duration scales with word length and speaking rate.
         const startEstimator = () => {
-          if (!opts.onWord || nativeBoundary || settled || cancelled || words.length === 0) return;
+          if (!opts.onWord || nativeBoundary || settled || cancelled() || words.length === 0) return;
           let wi = 0;
           const step = () => {
-            if (settled || cancelled || nativeBoundary || wi >= words.length) return;
-            opts.onWord!(words[wi]!.start, words[wi]!.len);
+            if (settled || cancelled() || nativeBoundary || wi >= words.length) return;
+            opts.onWord!(charOffset + words[wi]!.start, words[wi]!.len);
             const ms = Math.max(140, words[wi]!.len * 68 + 90) / rate;
             wi++;
             estTimer = setTimeout(step, ms);
@@ -176,7 +200,7 @@ export function speak(
           settled = true;
           stopEstimator();
           clearTimeout(startWatchdog);
-          clearTimeout(retryWatchdog);
+          clearTimeout(giveUpWatchdog);
           clearTimeout(estKick);
           resolve();
         };
@@ -187,12 +211,13 @@ export function speak(
         u.pitch = 1.0;
         if (opts.onWord) {
           u.onboundary = (e: SpeechSynthesisEvent) => {
-            // Some engines fire sentence boundaries too; take word (or any
-            // boundary carrying a charIndex) and let the caller map it.
             if (e.name === "word" || e.name === undefined || e.name === "") {
               nativeBoundary = true; // browser supports it — drop the estimator
               stopEstimator();
-              opts.onWord!(e.charIndex ?? 0, (e as SpeechSynthesisEvent & { charLength?: number }).charLength ?? 0);
+              opts.onWord!(
+                charOffset + (e.charIndex ?? 0),
+                (e as SpeechSynthesisEvent & { charLength?: number }).charLength ?? 0
+              );
             }
           };
         }
@@ -201,41 +226,100 @@ export function speak(
         };
         u.onend = finish;
         u.onerror = finish;
-        if (cancelled) return finish();
+        if (cancelled()) return finish();
         synth.speak(u);
-        // If no native boundary has fired shortly after start, drive the
-        // per-word highlight ourselves.
+
         const estKick = setTimeout(() => {
           if (!nativeBoundary) startEstimator();
         }, 500);
+
+        // A swallowed utterance produces no onstart. But several engines
+        // (Android Chrome, most Arabic voices) also never fire onstart while
+        // speaking perfectly well — so the old version's cancel()+re-speak cut
+        // the listener off mid-word and replayed from the top. THAT is the
+        // jumping. Retry only when the engine confirms nothing is playing, and
+        // with a fresh utterance: re-issuing a used one is unreliable.
         const startWatchdog = setTimeout(() => {
-          if (started || settled || cancelled) return;
-          // Swallowed utterance — nudge the engine and try once more.
-          synth.cancel();
+          if (started || settled || cancelled()) return;
+          if (synth.speaking || synth.pending) {
+            started = true; // it IS talking — let onend finish this piece
+            return;
+          }
           synth.resume();
-          synth.speak(u);
+          const retry = new SpeechSynthesisUtterance(text);
+          retry.lang = u.lang;
+          if (voice) retry.voice = voice;
+          retry.rate = rate;
+          retry.pitch = 1.0;
+          retry.onstart = () => {
+            started = true;
+          };
+          retry.onend = finish;
+          retry.onerror = finish;
+          synth.speak(retry);
         }, 2000);
-        const retryWatchdog = setTimeout(() => {
-          if (!started && !settled) finish();
-        }, 5000);
+
+        // Give up only if nothing ever started AND nothing is playing —
+        // otherwise a slow engine has its audio abandoned and the reader skips
+        // over text the listener never heard.
+        const giveUpWatchdog = setTimeout(() => {
+          if (!started && !settled && !synth.speaking && !synth.pending) finish();
+        }, 6000);
       });
     } finally {
       stopKeepAlive();
     }
   })();
-  return {
-    cancel: () => {
-      cancelled = true;
-      if (speechAvailable()) window.speechSynthesis.cancel();
-    },
-    done,
-  };
 }
 
-/** Split long prose into speakable sentences (keeps narration responsive and enables per-sentence highlight). */
+/**
+ * The longest text a single utterance may carry.
+ *
+ * This is the fix for "dibaca setengah". Chromium stops a long utterance after
+ * roughly fifteen seconds and, worse, often fires neither `onend` nor `onerror`
+ * when it does — the reader's watchdog then gives up on that block and moves to
+ * the next one, so the listener hears a paragraph cut off mid-sentence and the
+ * rest of it silently skipped. Religious prose is exactly the worst case: kitab
+ * and hadith translations run for hundreds of characters without a full stop,
+ * so sentence-splitting alone left blocks far past the limit.
+ */
+const MAX_UTTERANCE_CHARS = 190;
+
+/** Break a long run of text at word boundaries into utterance-sized pieces. */
+function chunkText(text: string): string[] {
+  const clean = text.trim();
+  if (clean.length <= MAX_UTTERANCE_CHARS) return clean ? [clean] : [];
+  const out: string[] = [];
+  // Prefer to break after punctuation, then at a space, then — only if a single
+  // "word" really is longer than the limit — mid-word rather than lose it.
+  let rest = clean;
+  while (rest.length > MAX_UTTERANCE_CHARS) {
+    const window = rest.slice(0, MAX_UTTERANCE_CHARS + 1);
+    let cut = Math.max(
+      window.lastIndexOf("، "),
+      window.lastIndexOf(", "),
+      window.lastIndexOf("; "),
+      window.lastIndexOf(": ")
+    );
+    if (cut > MAX_UTTERANCE_CHARS * 0.5) cut += 1;
+    else cut = window.lastIndexOf(" ");
+    if (cut <= 0) cut = MAX_UTTERANCE_CHARS;
+    out.push(rest.slice(0, cut).trim());
+    rest = rest.slice(cut).trim();
+  }
+  if (rest) out.push(rest);
+  return out.filter((c) => c.length > 0);
+}
+
+/**
+ * Split long prose into speakable pieces: sentences first, so the narration
+ * still breathes naturally, then each sentence capped at an utterance-safe
+ * length so nothing is ever cut off half-read.
+ */
 export function splitSentences(text: string): string[] {
   return text
-    .split(/(?<=[.!?؟。！])\s+|\n+/)
+    .split(/(?<=[.!?\u061F\u3002\uFF01])\s+|\n+/)
     .map((s) => s.trim())
-    .filter((s) => s.length > 1);
+    .filter((s) => s.length > 1)
+    .flatMap(chunkText);
 }
