@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, isValidLocale, isLocaleReady } from "@ulyah/shared/i18n";
+import { localizedRoute, canonicalRoute } from "@ulyah/shared/routes";
 
 const LOCALE_COOKIE = "ulyah_locale";
 
@@ -235,6 +236,45 @@ export async function middleware(req: NextRequest) {
     const res = withSecurity(NextResponse.redirect(url, 307));
     res.cookies.set(LOCALE_COOKIE, forced, { maxAge: 60 * 60 * 24 * 365, path: "/" });
     return res;
+  }
+
+  // ── URLs in the site's own language ────────────────────────────────────
+  // Route folders are named in Indonesian because that is what ulyah.com is
+  // written in, and that leaked into the sibling sites — dawa.es advertising
+  // /jadwal-sholat, tilawa.de /kalender-hijriyah. The words in a URL are a
+  // ranking signal AND they are shown in the search result itself, so a Spanish
+  // reader was being offered a link they could not read.
+  //
+  // Two halves, and together they keep exactly ONE indexable url per page:
+  //  · a localized slug is rewritten onto the Indonesian route internally, so
+  //    no page file moves and nothing is duplicated on disk;
+  //  · the Indonesian slug on a non-Indonesian site redirects permanently to
+  //    the localized one, so old links and any internal <Link> still work while
+  //    search engines consolidate on the localized url.
+  if (DEFAULT_LOCALE !== "id") {
+    const canonical = canonicalRoute(pathname, DEFAULT_LOCALE);
+    if (canonical) {
+      const url = req.nextUrl.clone();
+      url.pathname = `/${DEFAULT_LOCALE}${canonical}`;
+      return withSecurity(NextResponse.rewrite(url));
+    }
+    const localized = localizedRoute(pathname, DEFAULT_LOCALE);
+    if (localized !== pathname) {
+      const url = req.nextUrl.clone();
+      url.pathname = localized;
+      return withSecurity(NextResponse.redirect(url, 301));
+    }
+    // A deep Indonesian path (/kisah/…) on a sibling: redirect the section.
+    const cut = pathname.indexOf("/", 1);
+    if (cut > 0) {
+      const head = pathname.slice(0, cut);
+      const headLocalized = localizedRoute(head, DEFAULT_LOCALE);
+      if (headLocalized !== head) {
+        const url = req.nextUrl.clone();
+        url.pathname = headLocalized + pathname.slice(cut);
+        return withSecurity(NextResponse.redirect(url, 301));
+      }
+    }
   }
 
   const segments = pathname.split("/");

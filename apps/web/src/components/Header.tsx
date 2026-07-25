@@ -15,6 +15,7 @@ import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
 import { SurahFlipbook } from "@/components/SurahFlipbook";
+import { localizedRoute } from "@ulyah/shared/routes";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -60,8 +61,14 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
     setOpenGroup(null);
   }, [pathname]);
 
-  const isActive = (path: string) =>
-    path === "" ? pathname === `/${locale}` : pathname?.startsWith(`/${locale}${path}`);
+  // Compare against the LOCALIZED path — on a sibling site the address bar
+  // shows /gebetszeiten, so matching the Indonesian /jadwal-sholat would leave
+  // the menu item looking inactive on its own page.
+  const isActive = (path: string) => {
+    if (path === "") return pathname === `/${locale}`;
+    const here = `/${locale}${localizedRoute(path, locale)}`;
+    return pathname?.startsWith(here);
+  };
   const groupActive = (key: string) =>
     nav.groups.find((g) => g.key === key)?.items.some((it) => isActive(it.path)) ?? false;
 
@@ -148,7 +155,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                     {g.items.map((it) => (
                       <Link
                         key={it.path}
-                        href={`/${locale}${it.path}`}
+                        href={`/${locale}${localizedRoute(it.path, locale)}`}
                         onClick={() => setOpenGroup(null)}
                         className={`block px-4 py-2.5 text-sm transition hover:bg-accent/10 hover:text-accent ${
                           isActive(it.path) ? "font-medium text-accent" : ""
@@ -166,7 +173,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           {nav.direct.map((it) => (
             <Link
               key={it.path}
-              href={`/${locale}${it.path}`}
+              href={`/${locale}${localizedRoute(it.path, locale)}`}
               className={`rounded-full px-3 py-1.5 text-sm transition ${
                 isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
               }`}
@@ -244,7 +251,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                     {g.items.map((it) => (
                       <Link
                         key={it.path}
-                        href={`/${locale}${it.path}`}
+                        href={`/${locale}${localizedRoute(it.path, locale)}`}
                         onClick={() => setMenuOpen(false)}
                         className={`block rounded px-2 py-2 text-sm hover:bg-black/5 ${
                           isActive(it.path) ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"
@@ -261,7 +268,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           {nav.direct.map((it) => (
             <Link
               key={it.path}
-              href={`/${locale}${it.path}`}
+              href={`/${locale}${localizedRoute(it.path, locale)}`}
               onClick={() => setMenuOpen(false)}
               className="block border-t border-[var(--color-border)]/60 rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
             >
