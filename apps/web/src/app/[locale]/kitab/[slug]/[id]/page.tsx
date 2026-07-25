@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
 import { ogCoverUrl } from "@/lib/og";
+import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
 interface BookDetail {
   id: number;
@@ -80,8 +81,31 @@ export default async function KitabBookPage({
     );
   }
 
+  // What this page IS, for the search engine: a book, and where it sits in the
+  // library. 4,967 catalogue pages had no structured data at all, which is most
+  // of the site — a result with a breadcrumb and an author reads as something
+  // worth opening, a bare url does not.
+  const title = book.title_translated || book.title_ar;
+  const ld = [
+    bookLd({
+      locale,
+      route: `/kitab/${slug}/${id}`,
+      name: title,
+      alternateName: book.title_translated ? book.title_ar : null,
+      author: book.author,
+      description: book.description_translated || book.description_ar,
+      inLanguage: book.description_lang ?? undefined,
+    }),
+    breadcrumbs(locale, [
+      { name: t.title, route: "/kitab" },
+      { name: book.category_name ?? slug, route: `/kitab/${slug}` },
+      { name: title, route: `/kitab/${slug}/${id}` },
+    ]),
+  ];
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+      <script {...jsonLdProps(ld)} />
       <Link href={`/${locale}/kitab/${slug}`} className="text-sm text-accent hover:underline">
         ← {t.backToCategory}
       </Link>

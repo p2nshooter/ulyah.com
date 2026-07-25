@@ -5,6 +5,7 @@ import { api } from "@/lib/api";
 import { PesantrenKitabReader, type KitabDetail } from "@/components/PesantrenKitabReader";
 import { localePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
+import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
 export const revalidate = 300;
 
@@ -84,7 +85,26 @@ export default async function KitabPesantrenDetailPage({
 
   const autoMode = mode === "arab" || mode === "arti" ? mode : "semua";
 
+  // A readable classical work: Book + where it sits in the pesantren library.
+  const k = data.kitab;
+  const ld = [
+    bookLd({
+      locale,
+      route: `/kitab-pesantren/${slug}`,
+      name: k.title_id || k.title_ar || slug,
+      alternateName: k.title_id ? k.title_ar : null,
+      author: k.author,
+      description: k.description_id,
+    }),
+    breadcrumbs(locale, [
+      { name: (META[locale] ?? fillLabels(locale, META.en!)).section, route: "/kitab-pesantren" },
+      { name: k.title_id || k.title_ar || slug, route: `/kitab-pesantren/${slug}` },
+    ]),
+  ];
+
   return (
+    <>
+      <script {...jsonLdProps(ld)} />
     <PesantrenKitabReader
       locale={locale}
       kitab={data.kitab}
@@ -93,5 +113,6 @@ export default async function KitabPesantrenDetailPage({
       autoReadMode={autoMode}
       translationPending={data.translationPending === true}
     />
+    </>
   );
 }

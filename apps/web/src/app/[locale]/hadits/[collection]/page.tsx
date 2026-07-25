@@ -7,6 +7,7 @@ import { TENANT } from "@/lib/tenant";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
 import { localePath } from "@/lib/paths";
+import { breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
 interface CollectionMeta {
   slug: string;
@@ -104,6 +105,16 @@ export default async function HaditsCollectionPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+      {/* The Book description already existed; the trail did not, and the
+          breadcrumb is the rich result Google shows most often. */}
+      <script
+        {...jsonLdProps(
+          breadcrumbs(locale, [
+            { name: t.title, route: "/hadits" },
+            { name: meta.name_id, route: `/hadits/${collection}` },
+          ])
+        )}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
