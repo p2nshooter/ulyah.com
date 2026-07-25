@@ -57,6 +57,13 @@ jobs:
             NEXT_PUBLIC_TENANT=$t pnpm check:locale
           done
 
+      # One url per page across the five sites, and an hreflang graph that
+      # points both ways. Non-reciprocal hreflang is discarded silently, and a
+      # page reachable at two urls splits its own ranking — neither shows up in
+      # a build or a typecheck.
+      - name: Check canonical urls and hreflang reciprocity
+        run: pnpm check:urls
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

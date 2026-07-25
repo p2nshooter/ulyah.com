@@ -170,6 +170,19 @@ export async function middleware(req: NextRequest) {
     return withSecurity(NextResponse.redirect(url, 301));
   }
 
+  // ONE host per site. www.<domain> is attached to the same Worker as the apex
+  // (see the deploy's "attach custom domains" step), so every page had a www
+  // twin answering 200 with byte-identical content — 6,333 of them per site,
+  // five sites. And the site's own language deliberately emits NO canonical
+  // tag, because there is meant to be exactly one url per page, so nothing at
+  // all told Google which of the pair to keep. Apex wins: it is what the
+  // sitemap, robots.txt, hreflang and every internal link already say.
+  const host = req.headers.get("host") ?? "";
+  if (host.startsWith("www.")) {
+    const url = `https://${host.slice(4)}${pathname}${req.nextUrl.search}`;
+    return withSecurity(NextResponse.redirect(url, 301));
+  }
+
   // Skip static assets, API proxy routes, and Next internals.
   if (
     pathname.startsWith("/_next") ||
