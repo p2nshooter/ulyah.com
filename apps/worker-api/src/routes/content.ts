@@ -156,6 +156,79 @@ contentRoute.get("/site-pages", async (c) => {
   }
 });
 
+/**
+ * GET /content/sitemap — every indexable path on the site, from the database.
+ *
+ * The sitemap used to be a hardcoded list: 31 section routes plus five story
+ * series someone remembered to add. Everything else the site has ever
+ * published — 1,191 stories, 4,967 books in the catalogue, 62 figures, the
+ * pesantren kitab, the hadith collections — was invisible to search engines
+ * because nothing ever told them those pages existed (owner: "harusnya sitemap
+ * 1 situs ini ribuan").
+ *
+ * Reading it from the database instead means new content enters the sitemap by
+ * existing, with nobody having to remember. Paths are returned RAW (the
+ * Indonesian route names on disk); each site localizes them into its own
+ * language when it writes its sitemap, so one answer serves all five.
+ *
+ * Cached in KV for six hours because it is only ever read at build time — the
+ * queries scan tens of thousands of rows, and a Worker's CPU budget is 10 ms.
+ * Shape is deliberately compact (arrays, not objects) to keep serialization
+ * inside that budget on the one request that misses the cache.
+ */
+const SITEMAP_KEY = "sitemap:paths:v1";
+const SITEMAP_TTL = 6 * 60 * 60;
+
+contentRoute.get("/sitemap", async (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("Cache-Control", "public, max-age=3600");
+  try {
+    const cached = await c.env.CACHE_KV.get(SITEMAP_KEY);
+    if (cached) return c.body(cached, 200, { "content-type": "application/json" });
+  } catch {
+    /* KV miss or unavailable — fall through and compute */
+  }
+
+  const paths: string[] = [];
+  const push = (p: string) => {
+    if (p && !p.includes("..")) paths.push(p);
+  };
+
+  try {
+    const [stories, books, cats, persons, kitab, collections] = await c.env.DB.batch([
+      c.env.DB.prepare("SELECT DISTINCT slug FROM stories WHERE status = 'published' AND slug != ''"),
+      c.env.DB.prepare("SELECT id, category_slug FROM kitab_book"),
+      c.env.DB.prepare("SELECT slug FROM kitab_category"),
+      c.env.DB.prepare("SELECT slug FROM kisah_person"),
+      c.env.DB.prepare("SELECT slug FROM pesantren_kitab"),
+      c.env.DB.prepare("SELECT DISTINCT collection FROM hadits WHERE collection != ''"),
+    ]);
+
+    const rows = <T,>(r: { results?: unknown[] } | undefined): T[] => (r?.results as T[]) ?? [];
+    for (const r of rows<{ slug: string }>(stories)) push(`/kisah/${r.slug}`);
+    for (const r of rows<{ slug: string }>(cats)) push(`/kitab/${r.slug}`);
+    for (const r of rows<{ id: number; category_slug: string }>(books)) {
+      push(`/kitab/${r.category_slug}/${r.id}`);
+    }
+    for (const r of rows<{ slug: string }>(persons)) push(`/kisah/tokoh/${r.slug}`);
+    for (const r of rows<{ slug: string }>(kitab)) push(`/kitab-pesantren/${r.slug}`);
+    for (const r of rows<{ collection: string }>(collections)) push(`/hadits/${r.collection}`);
+  } catch {
+    // A failed lookup must not empty the sitemap — the caller keeps its own
+    // static section routes, so a bad day costs discovery of new pages, not
+    // the pages already indexed.
+    return c.json({ paths: [], ok: false });
+  }
+
+  const body = JSON.stringify({ paths, ok: true, count: paths.length });
+  try {
+    await c.env.CACHE_KV.put(SITEMAP_KEY, body, { expirationTtl: SITEMAP_TTL });
+  } catch {
+    /* best-effort */
+  }
+  return c.body(body, 200, { "content-type": "application/json" });
+});
+
 // GET /content/locales — which languages the site currently offers. Public,
 // because the language control and the edge middleware both need it on every
 // request. Deliberately tiny (a list of two-letter codes) and cached at the
