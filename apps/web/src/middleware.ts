@@ -127,6 +127,12 @@ const ALWAYS_LIVE = ["id", "en", "fr", "de", "es"];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {
   const clean = route === "/" ? "" : route.replace(/\/+$/, "");
+  // A store CATEGORY page has no alternates anywhere. Its slug is this site's
+  // own word — hiyabs-y-panuelos on dawa.es, hijabs-et-foulards on 1fr.fr — so
+  // translating the path would name a url that does not exist on the other
+  // site. A page with no true alternate says nothing rather than something
+  // wrong.
+  if (clean.startsWith("/toko/")) return res;
   // A route that does not exist everywhere only names the languages that have
   // it — /toko lives on the four sites with an Amazon, and declaring an
   // Indonesian alternate would point Google at a 404 on ulyah.com.

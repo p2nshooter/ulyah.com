@@ -19,6 +19,8 @@ export interface StoreLabels {
   noExtraCost: string;
   /** The button on every category card. */
   browseOnAmazon: string;
+  /** Shown instead, on a category that has a buying guide of its own. */
+  readGuide: string;
   empty: string;
 }
 
@@ -30,6 +32,7 @@ const EN: StoreLabels = {
   noExtraCost:
     "Buying through these links costs you nothing extra, and the commission helps keep this site free to read and listen to.",
   browseOnAmazon: "Browse on Amazon",
+  readGuide: "What to look for",
   empty: "No categories yet.",
 };
 
@@ -43,6 +46,7 @@ const L: Record<string, StoreLabels> = {
     noExtraCost:
       "Membeli lewat tautan ini tidak menambah biaya sedikit pun bagi Anda, dan komisinya membantu situs ini tetap gratis dibaca dan didengarkan.",
     browseOnAmazon: "Telusuri di Amazon",
+    readGuide: "Yang perlu diperhatikan",
     empty: "Belum ada kategori.",
   },
   fr: {
@@ -54,6 +58,7 @@ const L: Record<string, StoreLabels> = {
     noExtraCost:
       "Acheter via ces liens ne vous coûte pas un centime de plus, et la commission aide ce site à rester gratuit à lire et à écouter.",
     browseOnAmazon: "Parcourir sur Amazon",
+    readGuide: "Ce qu'il faut regarder",
     empty: "Aucune catégorie pour le moment.",
   },
   de: {
@@ -64,6 +69,7 @@ const L: Record<string, StoreLabels> = {
     noExtraCost:
       "Ein Kauf über diese Links kostet Sie keinen Cent mehr, und die Provision hilft, diese Seite zum Lesen und Hören kostenlos zu halten.",
     browseOnAmazon: "Bei Amazon stöbern",
+    readGuide: "Worauf zu achten ist",
     empty: "Noch keine Kategorien.",
   },
   es: {
@@ -74,6 +80,7 @@ const L: Record<string, StoreLabels> = {
     noExtraCost:
       "Comprar a través de estos enlaces no le cuesta ni un céntimo más, y la comisión ayuda a que este sitio siga siendo gratuito para leer y escuchar.",
     browseOnAmazon: "Explorar en Amazon",
+    readGuide: "En qué fijarse",
     empty: "Todavía no hay categorías.",
   },
 };

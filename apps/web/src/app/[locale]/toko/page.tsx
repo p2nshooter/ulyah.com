@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { api } from "@/lib/api";
+import { localizedRoute } from "@ulyah/shared/routes";
 import { PageHero } from "@/components/PageHero";
 import { storeLabels } from "@/lib/store-labels";
 import { TENANT_MARKETPLACE, searchUrl } from "@/lib/store";
+import { storeData, type Shelf } from "@/lib/store-data";
 import { jsonLdProps, breadcrumbs } from "@/lib/structured-data";
 
 /**
@@ -33,16 +35,6 @@ import { jsonLdProps, breadcrumbs } from "@/lib/structured-data";
 
 export const revalidate = 300;
 
-interface Shelf {
-  id: number;
-  slug: string;
-  label: string;
-  blurb: string;
-  keywords: string;
-  department: string | null;
-  icon: string | null;
-}
-
 export async function generateMetadata({
   params,
 }: {
@@ -65,18 +57,12 @@ export default async function StorePage({ params }: { params: Promise<{ locale: 
   if (!TENANT_MARKETPLACE) notFound();
   const marketplace: string = TENANT_MARKETPLACE;
 
-  let tag: string | null = null;
-  let shelves: Shelf[] = [];
-  try {
-    const r = await api.get<{ tag: string | null; shelves: Shelf[] }>(
-      `/content/store?marketplace=${marketplace}`
-    );
-    tag = r.tag;
-    shelves = Array.isArray(r.shelves) ? r.shelves : [];
-  } catch {
-    // A store we cannot read is an empty store, never a broken page.
-  }
-  if (!tag) shelves = [];
+  const { tag, shelves } = await storeData();
+  const storePath = `/${locale}${localizedRoute("/toko", locale)}`;
+  // A category with a buying guide has a page of its own; send the reader there
+  // rather than straight out to Amazon, so the visit is worth something to us
+  // as well. A category without one is honest about being just a doorway.
+  const hasPage = (s: Shelf) => (s.detail ?? "").trim().length > 0;
 
   return (
     <>
@@ -106,18 +92,27 @@ export default async function StorePage({ params }: { params: Promise<{ locale: 
                 <p className="mt-1.5 flex-1 text-xs leading-relaxed text-[var(--color-text-secondary)]">
                   {s.blurb}
                 </p>
-                <a
-                  href={searchUrl(marketplace, s.keywords, tag!, s.department)}
-                  target="_blank"
-                  // sponsored: this link is paid, and Google requires it to say
-                  // so. Unmarked affiliate links at any scale are a link-scheme
-                  // violation, which would undo the indexing work rather than
-                  // add to it.
-                  rel="sponsored nofollow noopener"
-                  className="mt-3 inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-3 py-2 text-xs font-bold text-white"
-                >
-                  {t.browseOnAmazon} ↗
-                </a>
+                {hasPage(s) ? (
+                  <Link
+                    href={`${storePath}/${s.slug}`}
+                    className="mt-3 inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-3 py-2 text-xs font-bold text-white"
+                  >
+                    {t.readGuide} →
+                  </Link>
+                ) : (
+                  <a
+                    href={searchUrl(marketplace, s.keywords, tag!, s.department)}
+                    target="_blank"
+                    // sponsored: this link is paid, and Google requires it to say
+                    // so. Unmarked affiliate links at any scale are a link-scheme
+                    // violation, which would undo the indexing work rather than
+                    // add to it.
+                    rel="sponsored nofollow noopener"
+                    className="mt-3 inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-3 py-2 text-xs font-bold text-white"
+                  >
+                    {t.browseOnAmazon} ↗
+                  </a>
+                )}
               </li>
             ))}
           </ul>
