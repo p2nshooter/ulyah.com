@@ -9,7 +9,7 @@ import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { MainAppInstallCard } from "@/components/AppInstallCard";
-import { IQRO } from "@/lib/iqro";
+import { IQRO_COUNT } from "@/lib/iqro";
 import { homeLabels } from "@/lib/home-labels";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -193,7 +193,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               <p className="font-heading text-lg">{t.kidsTitle}</p>
               <p className="mt-0.5 text-sm text-[var(--color-text-secondary)]">{t.kidsDesc}</p>
               <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-accent/40 px-2.5 py-0.5 text-[11px] font-medium text-accent">
-                📗 {IQRO.length} {t.kidsIqro}
+                📗 {IQRO_COUNT} {t.kidsIqro}
               </span>
             </div>
             <span className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-md transition group-hover:brightness-110">

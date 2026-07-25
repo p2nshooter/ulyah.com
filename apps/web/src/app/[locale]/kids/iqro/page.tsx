@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { kidsLabels } from "@/lib/kids-labels";
-import { IQRO } from "@/lib/iqro";
+import { JILID_NUMBERS } from "@/lib/iqro";
 import { iqroFocus } from "@/lib/iqro-labels";
 
 export const revalidate = 86400;
@@ -47,22 +47,22 @@ export default async function IqroIndexPage({ params }: { params: Promise<{ loca
         </header>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {IQRO.map((j, i) => (
+          {JILID_NUMBERS.map((no, i) => (
             <Link
-              key={j.no}
-              href={`/${locale}/kids/iqro/${j.no}`}
+              key={no}
+              href={`/${locale}/kids/iqro/${no}`}
               className={`flex min-h-[120px] flex-col justify-between rounded-3xl bg-gradient-to-br ${
                 TINTS[i % TINTS.length]
               } p-4 text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl`}
             >
               <span className="grid h-9 w-9 place-items-center rounded-full bg-white/30 text-lg font-extrabold">
-                {j.no}
+                {no}
               </span>
               <div>
                 <p className="font-heading text-base font-bold">
-                  {t.jilid} {j.no}
+                  {t.jilid} {no}
                 </p>
-                <p className="mt-0.5 text-xs opacity-90">{iqroFocus(locale, j.no)}</p>
+                <p className="mt-0.5 text-xs opacity-90">{iqroFocus(locale, no)}</p>
               </div>
             </Link>
           ))}

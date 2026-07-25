@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kidsLabels } from "@/lib/kids-labels";
-import { getJilid, IQRO } from "@/lib/iqro";
+import { getJilid, JILID_NUMBERS } from "@/lib/iqro";
 import { iqroFocus } from "@/lib/iqro-labels";
 import { IqroReader } from "@/components/IqroReader";
 
@@ -12,7 +12,7 @@ export const revalidate = 86400;
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return IQRO.map((j) => ({ jilid: String(j.no) }));
+  return JILID_NUMBERS.map((no) => ({ jilid: String(no) }));
 }
 
 export async function generateMetadata({
