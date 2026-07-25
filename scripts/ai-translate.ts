@@ -51,6 +51,10 @@ const SPEAKS: Record<string, "openai" | "gemini" | "anthropic"> = {
   anthropic: "anthropic",
 };
 
+/** Exported so a check can assert which providers are callable without having
+ *  to reach one. Read-only view of SPEAKS. */
+export const PROVIDERS_SPOKEN: Readonly<Record<string, string>> = SPEAKS;
+
 const ENDPOINT: Record<string, string> = {
   groq: "https://api.groq.com/openai/v1/chat/completions",
   openrouter: "https://openrouter.ai/api/v1/chat/completions",
@@ -141,7 +145,14 @@ ${scripture}
 7. Add nothing that is not in the source, and remove nothing that is. Do not comment on the content.`;
 }
 
-/** Load every usable key from the pool, decrypted, in a stable order. */
+/**
+ * Load every usable key from the pool, decrypted, in a stable order.
+ *
+ * The PROVIDER decides usability, not the row's `scope` label — see the query
+ * in warm-mt-cache.ts for why. A provider this translator cannot call is
+ * skipped here, so a GPU runner or a Kaggle token can never reach a chat
+ * endpoint however it happens to be labelled.
+ */
 export async function loadPool(
   rows: { id: number; provider: string; key_ref: string; key_iv: string }[],
   secretB64: string

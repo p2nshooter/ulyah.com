@@ -14,7 +14,7 @@
  *
  *   npx tsx scripts/check-ai-translate.ts
  */
-import { aiTranslateBatch, rotate, rankPool, PREFER_GTX, type PoolKey } from "./ai-translate";
+import { aiTranslateBatch, rotate, rankPool, loadPool, PROVIDERS_SPOKEN, PREFER_GTX, type PoolKey } from "./ai-translate";
 
 const key = (id: number, provider: string): PoolKey => ({ id, provider, key: `k${id}`, fails: 0 });
 let calls: { id: number; system: string; user: string }[] = [];
@@ -188,6 +188,30 @@ async function run() {
     ranked.map((k) => k.provider).join(",")
   );
   check("ranking does not drop keys", ranked.length === 4);
+
+  // 7f. Usability is decided by the PROVIDER, never by the row's scope label.
+  //     Reading the label instead is what left 443 working keys idle: 478 rows
+  //     say scope=tts, nothing in this repo consumes a tts-scoped key, and the
+  //     project's own ingest script would have written 'text' for them.
+  console.log("\n7f. the provider decides usability, not the scope label");
+  const enc = { key_ref: "x", key_iv: "y" };
+  const loaded = await loadPool(
+    [
+      { id: 1, provider: "groq", ...enc },
+      { id: 2, provider: "google-ai-studio", ...enc },
+      { id: 3, provider: "hf-zerogpu", ...enc },
+      { id: 4, provider: "kaggle", ...enc },
+      { id: 5, provider: "anthropic", ...enc },
+    ],
+    "not-a-real-secret"
+  ).catch(() => []);
+  // Decryption fails for every row here (the secret is nonsense), which is the
+  // point: loadPool must survive that and drop the rows rather than throw.
+  check("a pool of undecryptable rows loads as empty, not a crash", Array.isArray(loaded) && loaded.length === 0);
+  check("hf-zerogpu is not a chat provider and is excluded", !("hf-zerogpu" in PROVIDERS_SPOKEN));
+  check("kaggle is not a chat provider and is excluded", !("kaggle" in PROVIDERS_SPOKEN));
+  check("groq, google, openrouter, nvidia and anthropic are all callable",
+    ["groq", "google-ai-studio", "openrouter", "nvidia-nim", "anthropic"].every((p) => p in PROVIDERS_SPOKEN));
 
   // 8. rotate() spreads the next batch onto a different key.
   console.log("\n8. rotation moves the used key to the back");

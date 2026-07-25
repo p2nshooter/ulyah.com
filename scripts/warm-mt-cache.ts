@@ -462,40 +462,54 @@ async function main() {
   // exactly the old behaviour rather than to nothing.
   let pool: PoolKey[] = [];
   if (!dry && process.env.KEY_ENCRYPTION_SECRET) {
-    // 'rate_limited' is included on purpose. That status is a note left by
-    // whatever last touched the key, possibly weeks ago, and a daily quota has
-    // long since reset. The translator has its own live cooldown, so a key that
-    // is genuinely still limited costs one call and steps aside — whereas
-    // excluding it on a stale label costs the key for the whole run.
-    const rows = d1Json<{ id: number; provider: string; key_ref: string; key_iv: string }>(
-      `SELECT id, provider, key_ref, key_iv FROM ai_key_pool
-        WHERE scope = 'text' AND status IN ('active','slow','rate_limited') ORDER BY quota_used, id;`
+    // NO SCOPE FILTER, and that is the point.
+    //
+    // `scope` was filtering out almost the entire pool. The table holds 478
+    // keys marked 'tts' — 241 google-ai-studio, 202 groq, 21 hf-inference, 12
+    // openrouter — against 29 marked 'text'. Asking for scope='text' therefore
+    // loaded 28 usable keys while the owner was told there were hundreds.
+    //
+    // Those 478 are not busy. Nothing in this repo consumes a tts-scoped key:
+    // selectKeyForScope() is called in exactly two places (orchestra.ts and
+    // scaling.ts) and both ask for 'text'. There is no tts chain in
+    // CAPABILITY_CHAINS. And the bulk ingest script classifies a gsk_ key as
+    // groq/text and an AIza key as google-ai-studio/text — so 'tts' is not even
+    // what this project's own tooling would have written. The label is wrong,
+    // and it has kept 443 perfectly good chat keys idle.
+    //
+    // The scope column is left alone rather than rewritten: a label is cheap to
+    // ignore and expensive to lose, and a future server-side TTS feature may
+    // want to know which keys were donated with that in mind. What decides
+    // usability here is the provider — loadPool() keeps only providers this
+    // translator can actually call, so a GPU runner or a Kaggle token is
+    // dropped whatever its scope says.
+    //
+    // 'rate_limited' is included for the same reason: that status is a note
+    // left by whatever last touched the key, and a daily quota has long since
+    // reset. The translator has a live cooldown, so a key still limited costs
+    // one call and steps aside — while excluding it on a stale label costs the
+    // key for the whole run.
+    const rows = d1Json<{ id: number; provider: string; scope: string; key_ref: string; key_iv: string }>(
+      `SELECT id, provider, scope, key_ref, key_iv FROM ai_key_pool
+        WHERE status IN ('active','slow','rate_limited') ORDER BY quota_used, id;`
     );
     pool = rankPool(await loadPool(rows, process.env.KEY_ENCRYPTION_SECRET));
-    // Say what was found AND what was found but cannot be used, because the
-    // difference between those two numbers is where a wrong belief about the
-    // pool's size lives. A count that is only ever reported as a total invites
-    // exactly the mistake this line exists to prevent.
-    const unusable = rows.length - pool.length;
+    const usableIds = new Set(pool.map((k) => k.id));
+    const byScope = new Map<string, number>();
+    for (const r of rows) {
+      if (!usableIds.has(r.id)) continue;
+      byScope.set(r.scope, (byScope.get(r.scope) ?? 0) + 1);
+    }
+    // Report the total AND its shape. A number reported only as a total is
+    // exactly how "595 keys" survived as long as it did.
     console.log(
       pool.length
-        ? `AI pool: ${pool.length} usable text key(s) — ${poolSummary(pool)}` +
-            (unusable > 0 ? ` (${unusable} more are text-scoped but on providers this script cannot call)` : "") +
-            `. gtx is the fallback.`
-        : `AI pool: ${rows.length} text-scoped key(s) found, none usable — falling back to gtx for the whole run.`
+        ? `AI pool: ${pool.length} usable key(s) of ${rows.length} in the table — ${poolSummary(pool)}. gtx is the fallback.`
+        : `AI pool: ${rows.length} key(s) in the table, none this script can call — falling back to gtx for the whole run.`
     );
-    // Keys registered under another scope are NOT quietly borrowed. A key
-    // donated for TTS is doing a job (owner: "TTS jgn campur2, masing2 aja
-    // tugasnya"), and spending its quota here would break that job somewhere
-    // this script never looks. Reported so the size of the pool is visible, and
-    // left alone.
-    const otherScope = d1Json<{ scope: string; n: number }>(
-      `SELECT scope, COUNT(*) AS n FROM ai_key_pool
-        WHERE scope <> 'text' AND status IN ('active','slow') GROUP BY scope ORDER BY n DESC;`
-    );
-    if (otherScope.length) {
-      const desc = otherScope.map((r) => `${r.n} ${r.scope}`).join(", ");
-      console.log(`  (not used for translation: ${desc} — those keys are registered for another job.)`);
+    if (pool.length) {
+      const shape = [...byScope.entries()].map(([s, n]) => `${n} scope=${s}`).join(", ");
+      console.log(`  by registered scope: ${shape} (scope is not used to decide; the provider is).`);
     }
   } else if (!dry) {
     console.log("AI pool: KEY_ENCRYPTION_SECRET not set — falling back to gtx.");
