@@ -118,6 +118,40 @@ async function run() {
   out = await aiTranslateBatch(pool, ["baris satu\nbaris dua", "kedua"], "de", "id");
   check("sent 2 lines, not 3", calls[0]!.user.split("\n").length === 2, JSON.stringify(calls[0]!.user));
 
+  // 7b. Direction. The hadith corpus is Arabic translated OUT; the stories are
+  //     Indonesian with Arabic quoted INSIDE. One "never translate Arabic" rule
+  //     serves the second and destroys the first — the model would hand back the
+  //     hadith unchanged and all 30,000 would be counted as failures.
+  console.log("\n7b. the scripture rule follows the direction of translation");
+  calls = [];
+  responder = () => openai("a\nb\nc");
+  pool = [key(1, "groq")];
+  await aiTranslateBatch(pool, src, "de", "id");
+  const intoLang = calls[0]!.system;
+  calls = [];
+  pool = [key(1, "groq")];
+  await aiTranslateBatch(pool, ["حديث اول", "حديث ثان", "حديث ثالث"], "de", "ar");
+  const outOfAr = calls[0]!.system;
+  check("id→de: Arabic script is reproduced, not translated", intoLang.includes("ARABIC SCRIPT IS NEVER TRANSLATED"));
+  check("ar→de: does NOT carry that rule", !outOfAr.includes("ARABIC SCRIPT IS NEVER TRANSLATED"), outOfAr.split("\n")[4]);
+  check("ar→de: says the source must be translated", outOfAr.includes("The source is Arabic and you must translate it"));
+  check("ar→de: still protects Qur'anic verses", outOfAr.includes("﴿") && outOfAr.includes("not translated and not paraphrased"));
+
+  // 7c. A model that echoes its source has not translated anything. Accepting
+  //     that would count the batch as failed AND skip the gtx fallback.
+  console.log("\n7c. an echoed source is rejected so gtx still gets its turn");
+  calls = [];
+  responder = (auth) => (auth.endsWith("k1") ? openai(src.join("\n")) : openai("a\nb\nc"));
+  pool = [key(1, "groq"), key(2, "openrouter")];
+  out = await aiTranslateBatch(pool, src, "de", "id");
+  check("did not accept the echo", out?.join(",") === "a,b,c", JSON.stringify(out));
+  check("key 1 counted as failing", pool[0]!.fails === 1);
+  calls = [];
+  responder = () => openai(src.join("\n"));
+  pool = [key(1, "groq")];
+  out = await aiTranslateBatch(pool, src, "de", "id");
+  check("an all-echo pool returns null, so gtx runs", out === null, String(out));
+
   // 8. rotate() spreads the next batch onto a different key.
   console.log("\n8. rotation moves the used key to the back");
   pool = [key(1, "groq"), key(2, "groq"), key(3, "groq")];

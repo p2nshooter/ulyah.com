@@ -75,20 +75,42 @@ export const LANGUAGE_NAME: Record<string, string> = {
  * dan dengan bahasa yg benar, jgn asal2an").
  *
  * Every rule here answers a specific way this can go wrong:
- *  · rule 2 stops the model paraphrasing the Qur'an, which it must never do;
+ *  · rule 2 protects scripture, and is the one rule that DEPENDS ON DIRECTION —
+ *    see below;
  *  · rule 3 keeps the terms a Muslim reader expects instead of an approximation
  *    invented by a translator ("chain of narration" for sanad, and so on);
  *  · rules 5-6 keep the output usable as data — one line in, one line out, no
  *    preamble, so a batch can be split back apart safely;
  *  · rule 7 exists because models like to be helpful. Nothing may be added.
+ *
+ * WHY RULE 2 IS NOT THE SAME IN BOTH DIRECTIONS
+ *
+ * This job warms two corpora. The stories are Indonesian with scripture QUOTED
+ * inside them; the hadith corpus is Arabic that IS the text to translate. A
+ * single "never translate Arabic script" rule is right for the first and
+ * catastrophic for the second: told that, the model returns the hadith
+ * unchanged, the caller sees output identical to its input and counts all 30,000
+ * as failures — while the pool is spent and gtx never gets its turn, because a
+ * non-null answer looks like success. Nothing about that is visible in a log
+ * except a count of zero.
+ *
+ * So: translating INTO a language, embedded Arabic is quoted scripture and is
+ * reproduced. Translating OUT of Arabic, the Arabic is the source — but a
+ * Qur'anic verse quoted inside a hadith is still scripture and is still
+ * reproduced rather than paraphrased. Hadith quote the Qur'an constantly, and
+ * ﴿…﴾ is how those quotes are marked in this corpus, which gives the model
+ * something it can actually recognise instead of a judgement call.
  */
-function promptFor(targetName: string, sourceName: string, count: number): string {
+function promptFor(targetName: string, sourceName: string, count: number, fromArabic: boolean): string {
+  const scripture = fromArabic
+    ? `2. The source is Arabic and you must translate it — EXCEPT for Qur'anic verses. A verse of the Qur'an quoted inside the text (usually written between ﴿ and ﴾) must be reproduced EXACTLY in Arabic, character for character, not translated and not paraphrased. The Qur'an has its own tafsir. Translate the narration around it normally.`
+    : `2. ARABIC SCRIPT IS NEVER TRANSLATED. Any passage in Arabic letters (Qur'anic verses, hadith text, du'a) must be reproduced EXACTLY as given, character for character. The Qur'an has its own tafsir; you do not paraphrase it.`;
   return `You are translating text for an Islamic library website from ${sourceName} into ${targetName}.
 
 Rules, all of them mandatory:
 
 1. Translate into natural, fluent ${targetName} as a native speaker writes it — not word for word.
-2. ARABIC SCRIPT IS NEVER TRANSLATED. Any passage in Arabic letters (Qur'anic verses, hadith text, du'a) must be reproduced EXACTLY as given, character for character. The Qur'an has its own tafsir; you do not paraphrase it.
+${scripture}
 3. Keep Islamic terms in the form ${targetName} readers already use: Qur'an, hadith, sunnah, tafsir, fiqh, sanad, sirah, ihram, hijab, imam, surah, ayah, and the honorifics (ﷺ, radhiyallahu 'anhu, 'alayhis-salam). Do not replace them with invented equivalents.
 4. Keep names of people, places and books as they are normally written in ${targetName}.
 5. The input is ${count} item(s), one per line. Return EXACTLY ${count} line(s), in the same order, each the translation of the line at that position. Never merge or split lines.
@@ -183,7 +205,7 @@ export async function aiTranslateBatch(
   // Newlines inside an item would corrupt the split back — flatten first, the
   // same rule the line-count instruction depends on.
   const flat = texts.map((t) => t.replace(/\s*\n\s*/g, " "));
-  const system = promptFor(targetName, sourceName, flat.length);
+  const system = promptFor(targetName, sourceName, flat.length, sourceCode === "ar");
   const user = flat.join("\n");
 
   const now = () => Date.now();
@@ -210,6 +232,17 @@ export async function aiTranslateBatch(
       // something, and pairing those to the wrong source would put the wrong
       // translation on the wrong hadith. Reject the batch rather than guess.
       if (lines.length !== flat.length) {
+        k.fails++;
+        continue;
+      }
+      // An answer identical to its source is not a translation — it is a model
+      // that read a "reproduce exactly" rule too broadly, or refused. The
+      // caller stores only values that differ from the source, so returning
+      // this would count the whole batch as failed AND deny gtx its turn,
+      // which is the expensive way to cache nothing. Reject it so the fallback
+      // actually runs. (A batch of proper nouns can echo legitimately; sending
+      // that to gtx costs one call and reaches the same answer.)
+      if (lines.every((l, idx) => l === flat[idx])) {
         k.fails++;
         continue;
       }
