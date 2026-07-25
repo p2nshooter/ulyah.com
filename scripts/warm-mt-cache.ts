@@ -26,7 +26,7 @@ import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { LOCALE_SITE } from "../packages/shared/src/i18n";
-import { loadPool, aiTranslateBatch, rotate, poolSummary, PREFER_GTX, type PoolKey } from "./ai-translate";
+import { loadPool, aiTranslateBatch, rotate, rankPool, poolSummary, PREFER_GTX, type PoolKey } from "./ai-translate";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -78,6 +78,116 @@ function parseArgs() {
  * Four hours, not five and a half: the write itself, the readiness re-measure
  * and the commit all happen after this, and they need room.
  */
+/**
+ * How many translations may sit in memory before they are written to D1.
+ *
+ * Owner: "save kerjaan ke d1 biar ga mulai dari awal". Before this, the run
+ * translated for hours and wrote once, at the very end — so anything that
+ * stopped the run early (a kill at GitHub's six-hour cap, a crash, a cancelled
+ * workflow) threw away everything it had earned, and the next pass began at
+ * zero. Now the run banks its work every 2,000 translations, and because the
+ * skip-cached filter reads what is already in D1, the next pass starts from the
+ * last checkpoint rather than from the beginning.
+ *
+ * 2,000 rows is roughly one wrangler invocation's worth of statements — small
+ * enough that little is ever at risk, large enough that the write does not
+ * become the thing the run spends its time on.
+ */
+const CHECKPOINT_EVERY = 2000;
+
+/** Running totals across every checkpoint, reported once at the end. */
+const totals = { wrote: 0, oversize: 0, failedFiles: 0, checkpoints: 0 };
+
+/**
+ * Write staged translations into the D1 `mt_cache` table the Worker reads
+ * (migration 0046), NOT KV. KV's free plan caps writes at 1,000/day — that cap
+ * silently dropped EVERY translation and is exactly why the sibling sites
+ * stayed Indonesian for days. D1 has no such daily write cap.
+ * INSERT … ON CONFLICT keeps it idempotent, which is what makes calling this
+ * repeatedly mid-run safe.
+ *
+ * EMPTIES `pairs` in place: the caller keeps translating into the same array,
+ * and nothing already written should be written twice.
+ */
+function writePairs(pairs: { key: string; value: string }[], dry: boolean): void {
+  if (pairs.length === 0) return;
+  if (dry) {
+    console.log(`  --dry: ${pairs.length} row(s) would be written.`);
+    pairs.length = 0;
+    return;
+  }
+  const esc = (s: string) => s.replace(/'/g, "''");
+  const dir = mkdtempSync(join(tmpdir(), "mtwarm-"));
+  // D1 caps a SINGLE statement at ~100KB (SQLITE_TOOBIG), and story bodies /
+  // summaries are long — so pack value tuples into an INSERT by BYTE budget
+  // (~40KB), not by a fixed row count, then start a fresh statement. Many
+  // statements go into one file (wrangler runs them all sequentially); the
+  // file is flushed every 40 statements (~1.6MB) to keep each execute modest.
+  const STMT_BUDGET = 40000;
+  const stmtOf = (rows: string[]) =>
+    `INSERT INTO mt_cache (k, v) VALUES ${rows.join(",")} ON CONFLICT(k) DO UPDATE SET v = excluded.v;`;
+  try {
+    let wrote = 0;
+    let fileIdx = 0;
+    let statements: string[] = [];
+    let curRows: string[] = [];
+    let curBytes = 0;
+    const flushStmt = () => {
+      if (curRows.length) {
+        statements.push(stmtOf(curRows));
+        curRows = [];
+        curBytes = 0;
+      }
+    };
+    const flushFile = () => {
+      flushStmt();
+      if (!statements.length) return;
+      const file = join(dir, `mt-${fileIdx++}.sql`);
+      writeFileSync(file, statements.join("\n"), "utf8");
+      try {
+        wrangler(["d1", "execute", "ulyah-db", "--remote", `--file=${file}`]);
+      } catch (err) {
+        // One bad batch must not throw away a whole run. This is what turned a
+        // single oversized row into hours of lost work: the execute threw, main
+        // rejected, and every translation still in flight went with it. Now the
+        // batch is reported and the rest of the run continues.
+        totals.failedFiles++;
+        console.warn(`  batch failed to write: ${(err as Error).message.split("\n")[0]}`);
+      }
+      statements = [];
+    };
+    for (const p of pairs) {
+      const tuple = `('${esc(p.key)}','${esc(p.value)}')`;
+      // A tuple that cannot fit in ANY statement is dropped here rather than
+      // being emitted alone and blowing past D1's ~100 KB statement cap. The
+      // old code flushed and then pushed it anyway, which is exactly how
+      // SQLITE_TOOBIG got in. Escaping can double the length, so the check is
+      // on the escaped tuple, after escaping.
+      if (tuple.length > STMT_BUDGET) {
+        totals.oversize++;
+        continue;
+      }
+      if (curBytes + tuple.length > STMT_BUDGET) flushStmt();
+      curRows.push(tuple);
+      curBytes += tuple.length + 1;
+      wrote++;
+      if (statements.length >= 40) flushFile();
+    }
+    flushFile();
+    totals.wrote += wrote;
+    totals.checkpoints++;
+    console.log(`  ✓ saved to D1: ${wrote} row(s) this checkpoint, ${totals.wrote} total this run.`);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+    // Cleared even if the write failed. A checkpoint that could not be written
+    // is reported and dropped rather than carried forward — retrying it every
+    // checkpoint for the rest of the run would grow without bound, and the next
+    // PASS will pick the same strings up again anyway, because they never
+    // reached D1 and so never entered the skip-cached set.
+    pairs.length = 0;
+  }
+}
+
 const startedAt = Date.now();
 let deadlineMs = 240 * 60_000;
 let ranOutOfTime = false;
@@ -352,16 +462,41 @@ async function main() {
   // exactly the old behaviour rather than to nothing.
   let pool: PoolKey[] = [];
   if (!dry && process.env.KEY_ENCRYPTION_SECRET) {
+    // 'rate_limited' is included on purpose. That status is a note left by
+    // whatever last touched the key, possibly weeks ago, and a daily quota has
+    // long since reset. The translator has its own live cooldown, so a key that
+    // is genuinely still limited costs one call and steps aside — whereas
+    // excluding it on a stale label costs the key for the whole run.
     const rows = d1Json<{ id: number; provider: string; key_ref: string; key_iv: string }>(
       `SELECT id, provider, key_ref, key_iv FROM ai_key_pool
-        WHERE scope = 'text' AND status IN ('active','slow') ORDER BY quota_used, id;`
+        WHERE scope = 'text' AND status IN ('active','slow','rate_limited') ORDER BY quota_used, id;`
     );
-    pool = await loadPool(rows, process.env.KEY_ENCRYPTION_SECRET);
+    pool = rankPool(await loadPool(rows, process.env.KEY_ENCRYPTION_SECRET));
+    // Say what was found AND what was found but cannot be used, because the
+    // difference between those two numbers is where a wrong belief about the
+    // pool's size lives. A count that is only ever reported as a total invites
+    // exactly the mistake this line exists to prevent.
+    const unusable = rows.length - pool.length;
     console.log(
       pool.length
-        ? `AI pool: ${pool.length} usable key(s) — ${poolSummary(pool)}. gtx is the fallback.`
-        : "AI pool: no usable keys — falling back to gtx for the whole run."
+        ? `AI pool: ${pool.length} usable text key(s) — ${poolSummary(pool)}` +
+            (unusable > 0 ? ` (${unusable} more are text-scoped but on providers this script cannot call)` : "") +
+            `. gtx is the fallback.`
+        : `AI pool: ${rows.length} text-scoped key(s) found, none usable — falling back to gtx for the whole run.`
     );
+    // Keys registered under another scope are NOT quietly borrowed. A key
+    // donated for TTS is doing a job (owner: "TTS jgn campur2, masing2 aja
+    // tugasnya"), and spending its quota here would break that job somewhere
+    // this script never looks. Reported so the size of the pool is visible, and
+    // left alone.
+    const otherScope = d1Json<{ scope: string; n: number }>(
+      `SELECT scope, COUNT(*) AS n FROM ai_key_pool
+        WHERE scope <> 'text' AND status IN ('active','slow') GROUP BY scope ORDER BY n DESC;`
+    );
+    if (otherScope.length) {
+      const desc = otherScope.map((r) => `${r.n} ${r.scope}`).join(", ");
+      console.log(`  (not used for translation: ${desc} — those keys are registered for another job.)`);
+    }
   } else if (!dry) {
     console.log("AI pool: KEY_ENCRYPTION_SECRET not set — falling back to gtx.");
   }
@@ -507,8 +642,12 @@ async function main() {
           failed++;
         }
       });
+      // Bank the work as it is earned, not at the end of the run.
+      if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
     }
-    console.log(`  id→${lang}: ${pairs.length} new staged (${cached} already cached)`);
+    // Bank whatever this language produced before moving to the next one.
+    writePairs(pairs, dry);
+    console.log(`  id→${lang}: ${translated} translated so far (${cached} already cached)`);
     if (outOfTime()) break;
   }
 
@@ -595,98 +734,31 @@ async function main() {
               failed++;
             }
           });
+          if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
         }
         // Without this the pager keeps fetching pages it will never translate.
         if (outOfTime()) break;
       }
+      writePairs(pairs, dry);
       console.log(`  hadith ar→${lang}: ${hadDone} new, ${hadCached} already cached`);
       if (outOfTime()) break;
     }
   }
 
-  console.log(`Translated ${translated}, failed/unchanged ${failed}, ${pairs.length} rows to write to D1.`);
-  if (dry || pairs.length === 0) {
-    console.log(dry ? "--dry: not writing." : "nothing to write.");
-    return;
-  }
+  // Anything still staged after the loops (the last partial checkpoint).
+  writePairs(pairs, dry);
 
-  // Write into the D1 `mt_cache` table the Worker reads (migration 0046), NOT
-  // KV. KV's free plan caps writes at 1,000/day — that cap silently dropped
-  // EVERY translation and is exactly why the sibling sites stayed Indonesian
-  // for days. D1 has no such daily write cap. INSERT ... ON CONFLICT keeps it
-  // idempotent (the table was already ensured at the top of main()).
-
-  const esc = (s: string) => s.replace(/'/g, "''");
-  const dir = mkdtempSync(join(tmpdir(), "mtwarm-"));
-  // D1 caps a SINGLE statement at ~100KB (SQLITE_TOOBIG), and story bodies /
-  // summaries are long — so pack value tuples into an INSERT by BYTE budget
-  // (~40KB), not by a fixed row count, then start a fresh statement. Many
-  // statements go into one file (wrangler runs them all sequentially); the
-  // file is flushed every 40 statements (~1.6MB) to keep each execute modest.
-  const STMT_BUDGET = 40000;
-  const stmtOf = (rows: string[]) =>
-    `INSERT INTO mt_cache (k, v) VALUES ${rows.join(",")} ON CONFLICT(k) DO UPDATE SET v = excluded.v;`;
-  try {
-    let wrote = 0;
-    let fileIdx = 0;
-    let statements: string[] = [];
-    let curRows: string[] = [];
-    let curBytes = 0;
-    const flushStmt = () => {
-      if (curRows.length) {
-        statements.push(stmtOf(curRows));
-        curRows = [];
-        curBytes = 0;
-      }
-    };
-    let oversize = 0;
-    let failedFiles = 0;
-    const flushFile = () => {
-      flushStmt();
-      if (!statements.length) return;
-      const file = join(dir, `mt-${fileIdx++}.sql`);
-      writeFileSync(file, statements.join("\n"), "utf8");
-      try {
-        wrangler(["d1", "execute", "ulyah-db", "--remote", `--file=${file}`]);
-      } catch (err) {
-        // One bad batch must not throw away a whole run. This is what turned a
-        // single oversized row into hours of lost work: the execute threw, main
-        // rejected, and every translation still in flight went with it. Now the
-        // batch is reported and the rest of the run continues.
-        failedFiles++;
-        console.warn(`  batch ${fileIdx - 1} failed to write: ${(err as Error).message.split("\n")[0]}`);
-      }
-      statements = [];
-      console.log(`  wrote ${wrote}/${pairs.length}`);
-    };
-    for (const p of pairs) {
-      const tuple = `('${esc(p.key)}','${esc(p.value)}')`;
-      // A tuple that cannot fit in ANY statement is dropped here rather than
-      // being emitted alone and blowing past D1's ~100 KB statement cap. The
-      // old code flushed and then pushed it anyway, which is exactly how
-      // SQLITE_TOOBIG got in. Escaping can double the length, so the check is
-      // on the escaped tuple, after escaping.
-      if (tuple.length > STMT_BUDGET) {
-        oversize++;
-        continue;
-      }
-      if (curBytes + tuple.length > STMT_BUDGET) flushStmt();
-      curRows.push(tuple);
-      curBytes += tuple.length + 1;
-      wrote++;
-      if (statements.length >= 40) flushFile();
-    }
-    flushFile();
-    if (oversize > 0) {
-      console.warn(
-        `  ${oversize} translation(s) were too large for a single D1 statement and were not stored. ` +
-          `They need chunked translation with a matching Worker lookup, not a bigger batch.`
-      );
-    }
-    if (failedFiles > 0) console.warn(`  ${failedFiles} batch(es) failed; the rest were written.`);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
+  console.log(
+    `Translated ${translated}, failed/unchanged ${failed}. ` +
+      `${totals.wrote} row(s) written to D1 across ${totals.checkpoints} checkpoint(s).`
+  );
+  if (totals.oversize > 0) {
+    console.warn(
+      `  ${totals.oversize} translation(s) were too large for a single D1 statement and were not stored. ` +
+        `They need chunked translation with a matching Worker lookup, not a bigger batch.`
+    );
   }
+  if (totals.failedFiles > 0) console.warn(`  ${totals.failedFiles} batch(es) failed; the rest were written.`);
   console.log("Done — sibling sites now serve these from D1 with no runtime translate call, no KV write cap.");
 }
 

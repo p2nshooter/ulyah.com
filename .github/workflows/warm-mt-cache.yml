@@ -150,9 +150,21 @@ jobs:
       # moved anything, and refuse to chain into a loop that is achieving
       # nothing (Google occasionally rate-limits the runner).
       - name: Snapshot coverage before re-measuring
+        if: ${{ !cancelled() }}
         run: cp scripts/locale-content.json /tmp/locale-content.before.json
 
+      # `!cancelled()` rather than the default success-only, and this is the
+      # reason the admin's language bars were wrong: the measurement runs AFTER
+      # the warm step, so every warm failure skipped it, and the numbers on
+      # screen were the last ones a SUCCESSFUL run happened to leave behind.
+      # With warm failing for months, "de 49%" was measured against a corpus
+      # five times smaller than the one in D1 today.
+      #
+      # The measurement reads D1 directly and does not care whether warming
+      # went well — a failed pass still moved the numbers, and a bar that only
+      # updates on success is a bar that lies exactly when it matters.
       - name: Re-measure language readiness
+        if: ${{ !cancelled() }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -164,6 +176,7 @@ jobs:
           npx tsx scripts/generate-ui-i18n.ts
 
       - name: Commit the new readiness measurement
+        if: ${{ !cancelled() }}
         run: |
           set -eu
           if git diff --quiet -- scripts/locale-content.json packages/shared/src/locale-readiness.gen.ts \

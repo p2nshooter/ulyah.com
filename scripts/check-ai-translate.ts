@@ -14,7 +14,7 @@
  *
  *   npx tsx scripts/check-ai-translate.ts
  */
-import { aiTranslateBatch, rotate, PREFER_GTX, type PoolKey } from "./ai-translate";
+import { aiTranslateBatch, rotate, rankPool, PREFER_GTX, type PoolKey } from "./ai-translate";
 
 const key = (id: number, provider: string): PoolKey => ({ id, provider, key: `k${id}`, fails: 0 });
 let calls: { id: number; system: string; user: string }[] = [];
@@ -24,12 +24,22 @@ let ok = 0;
 type Responder = (k: string, body: any) => { status: number; json: any };
 let responder: Responder;
 
+let lastInit: any = { headers: {}, body: "{}" };
+
 (globalThis as any).fetch = async (url: string, init: any) => {
+  lastInit = init;
   const body = JSON.parse(init.body);
-  const auth: string = init.headers.Authorization ?? init.headers["x-goog-api-key"] ?? "";
+  const auth: string =
+    init.headers.Authorization ?? init.headers["x-goog-api-key"] ?? init.headers["x-api-key"] ?? "";
   const id = Number(auth.replace("Bearer ", "").replace("k", ""));
-  const system = body.messages ? body.messages[0].content : body.systemInstruction.parts[0].text;
-  const user = body.messages ? body.messages[1].content : body.contents[0].parts[0].text;
+  // Three request shapes: OpenAI puts the system prompt in messages[0],
+  // Anthropic in a top-level `system`, Gemini in `systemInstruction`.
+  const system = body.system ?? (body.messages ? body.messages[0].content : body.systemInstruction.parts[0].text);
+  const user = body.system
+    ? body.messages[0].content
+    : body.messages
+      ? body.messages[1].content
+      : body.contents[0].parts[0].text;
   calls.push({ id, system, user });
   const r = responder(auth, body);
   return { status: r.status, ok: r.status === 200, json: async () => r.json };
@@ -37,6 +47,7 @@ let responder: Responder;
 
 const openai = (text: string) => ({ status: 200, json: { choices: [{ message: { content: text } }] } });
 const gemini = (text: string) => ({ status: 200, json: { candidates: [{ content: { parts: [{ text }] } }] } });
+const anthropic = (text: string) => ({ status: 200, json: { content: [{ type: "text", text }] } });
 
 function check(name: string, cond: boolean, extra = "") {
   if (cond) { ok++; console.log(`  ok   ${name}`); }
@@ -151,6 +162,32 @@ async function run() {
   pool = [key(1, "groq")];
   out = await aiTranslateBatch(pool, src, "de", "id");
   check("an all-echo pool returns null, so gtx runs", out === null, String(out));
+
+  // 7d. Anthropic speaks a third protocol: x-api-key, a top-level `system`,
+  //     and content as a parts array. Getting any of those wrong is a 400 on
+  //     every call, which reads as "the key is bad" rather than "we called it
+  //     wrong".
+  console.log("\n7d. an anthropic key is called the Messages-API way");
+  calls = [];
+
+  responder = () => anthropic("a\nb\nc");
+  pool = [key(7, "anthropic")];
+  out = await aiTranslateBatch(pool, src, "de", "id");
+  check("translated via the Anthropic shape", out?.join(",") === "a,b,c", JSON.stringify(out));
+  check("sent x-api-key, not a bearer token", lastInit.headers["x-api-key"] === "k7");
+  check("sent the anthropic-version header", lastInit.headers["anthropic-version"] === "2023-06-01");
+  check("put the prompt in the top-level system field", JSON.parse(lastInit.body).system.includes("German"));
+
+  // 7e. The pool is walked in order, so ordering decides who actually does the
+  //     work — everything after the first healthy key is failover, not a peer.
+  console.log("\n7e. the strongest provider is offered the work first");
+  const ranked = rankPool([key(1, "openrouter"), key(2, "groq"), key(3, "anthropic"), key(4, "google-ai-studio")]);
+  check(
+    "order is anthropic, google, groq, openrouter",
+    ranked.map((k) => k.provider).join(",") === "anthropic,google-ai-studio,groq,openrouter",
+    ranked.map((k) => k.provider).join(",")
+  );
+  check("ranking does not drop keys", ranked.length === 4);
 
   // 8. rotate() spreads the next batch onto a different key.
   console.log("\n8. rotation moves the used key to the back");

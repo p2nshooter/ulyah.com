@@ -34,28 +34,51 @@ export type PoolKey = {
   fails: number;
 };
 
-/** The providers this translator knows how to call. Between them they cover 487
- *  of the 595 active keys; hf-zerogpu is a Spaces GPU runner, not a chat api,
- *  and is deliberately not pretended to be one. */
-const SPEAKS: Record<string, "openai" | "gemini"> = {
+/**
+ * The providers this translator knows how to call.
+ *
+ * hf-zerogpu is a Spaces GPU runner, not a chat api, and is deliberately not
+ * pretended to be one. hf-inference is absent for the same reason: every
+ * hf-inference key in the pool is registered under a non-text scope, and a key
+ * this translator cannot use is better left visible as unused than quietly
+ * counted as available.
+ */
+const SPEAKS: Record<string, "openai" | "gemini" | "anthropic"> = {
   groq: "openai",
   openrouter: "openai",
   "nvidia-nim": "openai",
   "google-ai-studio": "gemini",
+  anthropic: "anthropic",
 };
 
 const ENDPOINT: Record<string, string> = {
   groq: "https://api.groq.com/openai/v1/chat/completions",
   openrouter: "https://openrouter.ai/api/v1/chat/completions",
   "nvidia-nim": "https://integrate.api.nvidia.com/v1/chat/completions",
+  anthropic: "https://api.anthropic.com/v1/messages",
 };
 
-/** Free, fast, and good enough for translation on each provider. */
+/**
+ * The model used on each provider.
+ *
+ * Anthropic is here because the owner asked for it by name, and it is the one
+ * entry that is not free: a key added under this provider is billed per token.
+ * It is also the strongest translator of the set for this material — the failure
+ * this job keeps hitting is a translator that does not know "nun sukun" is a
+ * tajwid rule, and that is a comprehension problem rather than a vocabulary one.
+ * Haiku is chosen over the larger models deliberately: translation is the kind
+ * of work it is already good at, and this corpus is tens of thousands of strings
+ * per language, where the price difference is the whole decision.
+ *
+ * No key ships here. The pool is read from D1, so a key exists only if somebody
+ * adds one through the admin.
+ */
 const MODEL: Record<string, string> = {
   groq: "llama-3.3-70b-versatile",
   openrouter: "meta-llama/llama-3.3-70b-instruct:free",
   "nvidia-nim": "meta/llama-3.3-70b-instruct",
   "google-ai-studio": "gemini-2.0-flash",
+  anthropic: "claude-haiku-4-5-20251001",
 };
 
 /** Language names the model will recognise. A code like "ps" means nothing to a
@@ -176,6 +199,37 @@ async function callGemini(k: PoolKey, system: string, user: string): Promise<Cal
   return { text: text || null, rateLimited: false };
 }
 
+async function callAnthropic(k: PoolKey, system: string, user: string): Promise<CallResult> {
+  const res = await fetch(ENDPOINT[k.provider]!, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": k.key,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: MODEL[k.provider],
+      // Generous, because the cap truncates rather than errors — and a
+      // truncated answer loses its last lines, which the line-count check then
+      // rejects as a merge. Better to pay for the headroom than to retry.
+      max_tokens: 8192,
+      temperature: 0.2,
+      system,
+      messages: [{ role: "user", content: user }],
+    }),
+  });
+  // 529 is Anthropic's "overloaded" — a wait-and-retry, same as a rate limit.
+  if (res.status === 429 || res.status === 529) return { text: null, rateLimited: true };
+  if (!res.ok) return { text: null, rateLimited: false };
+  const j = (await res.json()) as { content?: { type?: string; text?: string }[] };
+  const text = j.content
+    ?.filter((c) => c.type === "text")
+    .map((c) => c.text ?? "")
+    .join("")
+    .trim();
+  return { text: text || null, rateLimited: false };
+}
+
 /** How long a rate-limited key sits out before being offered again. */
 const COOLDOWN_MS = 90_000;
 /** A key that keeps erroring for non-quota reasons is retired for the run. */
@@ -218,7 +272,13 @@ export async function aiTranslateBatch(
     if (k.coolUntil && k.coolUntil > now()) continue;
     attempts++;
     try {
-      const r = SPEAKS[k.provider] === "gemini" ? await callGemini(k, system, user) : await callOpenAi(k, system, user);
+      const speaks = SPEAKS[k.provider];
+      const r =
+        speaks === "gemini"
+          ? await callGemini(k, system, user)
+          : speaks === "anthropic"
+            ? await callAnthropic(k, system, user)
+            : await callOpenAi(k, system, user);
       if (r.rateLimited) {
         k.coolUntil = now() + COOLDOWN_MS;
         continue;
@@ -285,4 +345,25 @@ export function poolSummary(pool: PoolKey[]): string {
   const byProvider = new Map<string, number>();
   for (const k of pool) byProvider.set(k.provider, (byProvider.get(k.provider) ?? 0) + 1);
   return [...byProvider.entries()].map(([p, n]) => `${p} ${n}`).join(", ");
+}
+
+/**
+ * Order the pool best-translator-first.
+ *
+ * The pool is walked in order and the first key that answers does the work, so
+ * this ordering decides what actually translates the corpus — everything below
+ * the first healthy key is failover, not a peer. Anthropic leads when a key
+ * exists because it is the strongest of these at text that carries meaning it
+ * must not lose; Gemini next; the Llama endpoints last, where they serve as the
+ * broad free capacity that keeps a run moving when the better keys are spent.
+ */
+const PROVIDER_RANK: Record<string, number> = {
+  anthropic: 0,
+  "google-ai-studio": 1,
+  groq: 2,
+  "nvidia-nim": 3,
+  openrouter: 4,
+};
+export function rankPool(pool: PoolKey[]): PoolKey[] {
+  return [...pool].sort((a, b) => (PROVIDER_RANK[a.provider] ?? 9) - (PROVIDER_RANK[b.provider] ?? 9));
 }
