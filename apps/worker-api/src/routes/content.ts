@@ -309,7 +309,7 @@ contentRoute.get("/store", async (c) => {
     const [tagRow, shelves] = await c.env.DB.batch([
       c.env.DB.prepare("SELECT tag FROM affiliate_tag WHERE marketplace = ?").bind(marketplace),
       c.env.DB.prepare(
-        `SELECT id, slug, label, blurb, keywords, department, icon FROM affiliate_shelf
+        `SELECT id, slug, label, blurb, keywords, department, icon, detail FROM affiliate_shelf
           WHERE marketplace = ? AND enabled = 1
           ORDER BY sort_order, id`
       ).bind(marketplace),

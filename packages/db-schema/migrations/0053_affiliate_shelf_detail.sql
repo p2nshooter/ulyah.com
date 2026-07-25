@@ -1,0 +1,17 @@
+-- A shelf may earn its own page, by having something worth reading on it.
+--
+-- The store is one page listing every category. Splitting all 22 into 22 urls
+-- would multiply the addresses without multiplying the value: a page carrying
+-- one paragraph and one outbound button is the "thin affiliate page" Google
+-- names as a manual-penalty category, and 88 of them across the ecosystem would
+-- pull the whole site down rather than lift it.
+--
+-- So the page is conditional on the writing existing. `detail` holds a real
+-- buying guide — what to look for, what sizes run small, what the words on the
+-- box mean — in the marketplace's own language. A shelf WITH detail gets its own
+-- url and enters the sitemap; a shelf WITHOUT one stays a card that links
+-- straight to Amazon, which is honest about what it is.
+--
+-- That also makes promotion self-service: the owner writes the guide in the
+-- admin, and the page appears. Nothing to deploy.
+ALTER TABLE affiliate_shelf ADD COLUMN detail TEXT;

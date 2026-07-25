@@ -1439,7 +1439,7 @@ adminRoute.get("/store", async (c) => {
   const [tags, shelves] = await Promise.all([
     c.env.DB.prepare("SELECT marketplace, tag FROM affiliate_tag").all(),
     c.env.DB.prepare(
-      `SELECT id, marketplace, slug, label, blurb, keywords, department, icon, sort_order, enabled
+      `SELECT id, marketplace, slug, label, blurb, keywords, department, icon, detail, sort_order, enabled
          FROM affiliate_shelf ORDER BY marketplace, sort_order, id`
     ).all(),
   ]);
@@ -1479,6 +1479,7 @@ adminRoute.post("/store/shelf", async (c) => {
     keywords?: string;
     department?: string;
     icon?: string;
+    detail?: string;
   }>();
   const marketplace = (body.marketplace ?? "").trim();
   const label = (body.label ?? "").trim();
@@ -1511,10 +1512,10 @@ adminRoute.post("/store/shelf", async (c) => {
     .first<{ n: number }>();
 
   await c.env.DB.prepare(
-    `INSERT INTO affiliate_shelf (marketplace, slug, label, blurb, keywords, department, icon, sort_order)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO affiliate_shelf (marketplace, slug, label, blurb, keywords, department, icon, detail, sort_order)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
   )
-    .bind(marketplace, slug, label, blurb, keywords, department, icon, next?.n ?? 1)
+    .bind(marketplace, slug, label, blurb, keywords, department, icon, (body.detail ?? "").trim() || null, next?.n ?? 1)
     .run();
   await logAdminAction(c.env, "store_shelf_added", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { marketplace, slug });
   return c.json({ ok: true });
@@ -1529,12 +1530,13 @@ adminRoute.patch("/store/shelf/:id", async (c) => {
     keywords?: string;
     department?: string;
     icon?: string;
+    detail?: string;
     sort_order?: number;
     enabled?: boolean;
   }>();
 
   const cur = await c.env.DB.prepare(
-    "SELECT label, blurb, keywords, department, icon, sort_order, enabled FROM affiliate_shelf WHERE id = ?"
+    "SELECT label, blurb, keywords, department, icon, detail, sort_order, enabled FROM affiliate_shelf WHERE id = ?"
   )
     .bind(id)
     .first<{
@@ -1543,6 +1545,7 @@ adminRoute.patch("/store/shelf/:id", async (c) => {
       keywords: string;
       department: string | null;
       icon: string | null;
+      detail: string | null;
       sort_order: number;
       enabled: number;
     }>();
@@ -1557,7 +1560,7 @@ adminRoute.patch("/store/shelf/:id", async (c) => {
 
   await c.env.DB.prepare(
     `UPDATE affiliate_shelf
-        SET label = ?, blurb = ?, keywords = ?, department = ?, icon = ?, sort_order = ?, enabled = ?
+        SET label = ?, blurb = ?, keywords = ?, department = ?, icon = ?, detail = ?, sort_order = ?, enabled = ?
       WHERE id = ?`
   )
     .bind(
@@ -1566,6 +1569,10 @@ adminRoute.patch("/store/shelf/:id", async (c) => {
       keywords,
       body.department === undefined ? cur.department : body.department.trim() || null,
       body.icon === undefined ? cur.icon : body.icon.trim().slice(0, 8) || null,
+      // A guide long enough to deserve its own page, or nothing. Anything
+      // shorter would put a thin page into the sitemap, which is the one thing
+      // the split was designed to avoid.
+      body.detail === undefined ? cur.detail : body.detail.trim().length >= 400 ? body.detail.trim() : null,
       Number.isFinite(body.sort_order) ? Number(body.sort_order) : cur.sort_order,
       body.enabled === undefined ? cur.enabled : body.enabled ? 1 : 0,
       id
