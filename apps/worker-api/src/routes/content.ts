@@ -92,15 +92,16 @@ contentRoute.options("/track", trackOptions);
 export async function trackPing(c: Context<{ Bindings: Env }>) {
   c.header("Access-Control-Allow-Origin", "*");
   try {
-    const body = JSON.parse((await c.req.text()) || "{}") as { site?: string; device?: string };
+    const body = JSON.parse((await c.req.text()) || "{}") as { site?: string; device?: string; listening?: boolean };
     const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
     const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
+    const listening = body.listening === true;
     if (!site || device.length < 8) return c.body(null, 204);
     await c.env.DB.prepare(
-      `INSERT INTO live_presence (tenant, device_id, last_seen) VALUES (?, ?, strftime('%s','now'))
-       ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen`
+      `INSERT INTO live_presence (tenant, device_id, last_seen, listening) VALUES (?, ?, strftime('%s','now'), ?)
+       ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen, listening = excluded.listening`
     )
-      .bind(site, device)
+      .bind(site, device, listening ? 1 : 0)
       .run();
   } catch {
     /* best-effort */

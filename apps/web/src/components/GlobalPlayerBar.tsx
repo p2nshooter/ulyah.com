@@ -288,7 +288,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
           setAudioProgress(p);
           // Background-audio presence: keeps a listener counted as ONLINE while
           // murottal/story audio plays with the screen off (throttled to 3s).
-          sendPresencePing();
+          sendPresencePing(false, true);
         }}
         onEnded={() => {
           if (storyTrack) next();

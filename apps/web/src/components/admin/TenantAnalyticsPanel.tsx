@@ -34,13 +34,6 @@ interface TenantStat {
   /** Distinct devices with a presence heartbeat in the last 5s — the SAME
    * live "online now" source as the ⚡ Live bar (no longer shown here). */
   activeNow: number;
-  /** DISTINCT devices that actually browsed this site per window. Until device
-   * tracking has run longer than a window, the shorter windows equal the longer
-   * ones (every tagged device so far falls inside all of them). */
-  devices24h?: number;
-  devices7d?: number;
-  devices30d?: number;
-  devices365d?: number;
   daily: { bucket: string; n: number; d?: number }[];
   topPages: { path: string; n: number; d?: number }[];
   topCountries: { country: string; n: number; d?: number }[];
@@ -172,7 +165,7 @@ export function TenantAnalyticsPanel() {
                 ))}
               </div>
               <p className="mt-1 text-center text-[10px] text-[var(--color-text-secondary)]">
-                pembaca (perangkat unik) · halaman dibaca — hari Jakarta (UTC+7)
+                pembaca (perangkat unik) · halaman dibaca — <b>jendela waktu yang sama</b>, hari Jakarta (UTC+7)
               </p>
 
               {chart.length > 0 && (

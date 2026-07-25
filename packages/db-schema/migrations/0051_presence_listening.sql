@@ -1,0 +1,13 @@
+-- Tell a reader apart from a listener in the live "online sekarang" count.
+--
+-- These are read-aloud sites: a visitor very often puts the Qur'an radio on and
+-- switches to another app with the browser still open. That person is genuinely
+-- online and listening, and the owner asked to be able to see it — "yang cuma
+-- dengerin al-Qur'an tetap terdeteksi walaupun browsernya di-flip pindah ke
+-- aplikasi lain, selagi browser aktif dan memang masih kebuka".
+--
+-- The heartbeat already survives a locked screen (it rides the audio element's
+-- timeupdate, which keeps firing while a plain timer is frozen). What it could
+-- not do is SHOW that those devices are listeners, so a live count of, say, 12
+-- gave no hint that 9 of them had the radio on. This column carries that.
+ALTER TABLE live_presence ADD COLUMN listening INTEGER NOT NULL DEFAULT 0;

@@ -760,23 +760,33 @@ adminRoute.get("/live-presence", async (c) => {
     const res = await c.env.DB.prepare(
       `SELECT tenant,
               SUM(CASE WHEN last_seen >= ? THEN 1 ELSE 0 END) AS online,
+              SUM(CASE WHEN last_seen >= ? AND listening = 1 THEN 1 ELSE 0 END) AS listening,
               SUM(CASE WHEN last_seen <  ? AND last_seen >= ? THEN 1 ELSE 0 END) AS closed
          FROM live_presence
         WHERE last_seen >= ?
         GROUP BY tenant`
     )
-      .bind(ONLINE, ONLINE, RECENT, RECENT)
-      .all<{ tenant: string; online: number; closed: number }>();
+      .bind(ONLINE, ONLINE, ONLINE, RECENT, RECENT)
+      .all<{ tenant: string; online: number; listening: number; closed: number }>();
     const rows = res.results ?? [];
-    const tenants = rows.map((r) => ({ tenant: r.tenant, online: Number(r.online) || 0, closed: Number(r.closed) || 0 }));
+    // `listening` is a SUBSET of `online`: a device with the radio on is still
+    // one person online, counted once. Splitting it out answers the question
+    // the number alone could not — how many of these are here to listen.
+    const tenants = rows.map((r) => ({
+      tenant: r.tenant,
+      online: Number(r.online) || 0,
+      listening: Number(r.listening) || 0,
+      closed: Number(r.closed) || 0,
+    }));
     return c.json({
       tenants,
       onlineTotal: tenants.reduce((s, r) => s + r.online, 0),
+      listeningTotal: tenants.reduce((s, r) => s + r.listening, 0),
       closedTotal: tenants.reduce((s, r) => s + r.closed, 0),
       at: now,
     });
   } catch {
-    return c.json({ tenants: [], onlineTotal: 0, closedTotal: 0, at: now });
+    return c.json({ tenants: [], onlineTotal: 0, listeningTotal: 0, closedTotal: 0, at: now });
   }
 });
 

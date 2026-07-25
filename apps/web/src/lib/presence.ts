@@ -26,8 +26,15 @@ const MIN_INTERVAL_MS = 3000;
 
 let lastSent = 0;
 
-/** Send a presence ping now, unless one was sent within the throttle window. */
-export function sendPresencePing(force = false): void {
+/**
+ * Send a presence ping now, unless one was sent within the throttle window.
+ *
+ * `listening` marks a device that has audio playing — the radio or the ayah
+ * player. It carries no extra information about the person; it only lets the
+ * admin see that, say, 9 of 12 people online right now have the Qur'an on
+ * rather than guessing.
+ */
+export function sendPresencePing(force = false, listening = false): void {
   const now = Date.now();
   if (!force && now - lastSent < MIN_INTERVAL_MS) return;
   const device = getDeviceId();
@@ -36,7 +43,7 @@ export function sendPresencePing(force = false): void {
   fetch(`${API_BASE}/analytics/ping`, {
     method: "POST",
     headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify({ device }),
+    body: JSON.stringify({ device, listening }),
     keepalive: true,
   }).catch(() => {});
 }
