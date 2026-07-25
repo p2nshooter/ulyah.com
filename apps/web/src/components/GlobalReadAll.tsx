@@ -115,16 +115,26 @@ export function GlobalReadAll({ locale }: { locale: string }) {
     const out: { el: HTMLElement; text: string; lang: string }[] = [];
     const seen = new Set<HTMLElement>();
     scope.querySelectorAll<HTMLElement>(READ_SELECTOR).forEach((el) => {
-      // Only leaf text blocks — skip a container that holds other readable
-      // blocks, so nothing is read twice.
-      if (el.querySelector(READ_SELECTOR)) return;
       if (el.closest("[data-noread]") || el.closest("nav,footer,aside,header,button,select,textarea,input")) return;
       // Skip anything not actually visible (collapsed menus, hidden tabs).
       const rect = el.getBoundingClientRect();
       if (rect.width === 0 && rect.height === 0) return;
-      const text = (el.textContent ?? "").replace(/\s+/g, " ").trim();
-      if (text.length < 2 || /^[\d\s.,:/·—–-]+$/.test(text)) return;
       if (seen.has(el)) return;
+
+      // A container that also holds readable blocks contributes only its OWN
+      // direct text. The old rule skipped such an element entirely, so markup
+      // like `<li>Bab 1<p>…isi…</p></li>` — ordinary on the kitab and hadith
+      // pages — lost "Bab 1" completely, and a heading wrapping a paragraph
+      // lost the heading. That is a large part of "dibaca setengah".
+      const hasNestedBlocks = el.querySelector(READ_SELECTOR) !== null;
+      const raw = hasNestedBlocks
+        ? Array.from(el.childNodes)
+            .filter((n) => n.nodeType === Node.TEXT_NODE || !(n as HTMLElement).matches?.(READ_SELECTOR))
+            .map((n) => n.textContent ?? "")
+            .join(" ")
+        : (el.textContent ?? "");
+      const text = raw.replace(/\s+/g, " ").trim();
+      if (text.length < 2 || /^[\d\s.,:/·—–-]+$/.test(text)) return;
       seen.add(el);
       const isAr = arabicRatio(text) > 0.35;
       if (mode === "arabic" && !isAr) return;

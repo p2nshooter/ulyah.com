@@ -120,6 +120,22 @@ export function isValidLocale(code: string): boolean {
 }
 
 /**
+ * MASTER SWITCH for translating ulyah.com in place.
+ *
+ * Owner decision: "coret dulu seluruh bahasa di ulyah.com kecuali yang link ke
+ * ekosistem — ulyah.com fokus aja dulu ke bahasa Indonesia."
+ *
+ * ulyah.com is an Indonesian site. The four languages that have their OWN
+ * finished site (1fr.fr, tilawa.de, dawa.es, xad.es) still appear, because
+ * choosing one sends the visitor to that site rather than translating anything.
+ * Every other language is switched off here regardless of how complete its
+ * measurement says it is — the admin portal keeps showing the real progress, so
+ * flipping this back to true is a one-line change once a language is genuinely
+ * finished end to end.
+ */
+const IN_PLACE_LANGUAGES = false;
+
+/**
  * Is this language finished enough to offer a visitor?
  *
  * Owner rule: a half-translated language must NOT be selectable — "kesian
@@ -142,6 +158,7 @@ export function isValidLocale(code: string): boolean {
 export function isLocaleReady(code: string): boolean {
   if (code === DEFAULT_LOCALE) return true;
   if (LOCALE_SITE[code]) return true;
+  if (!IN_PLACE_LANGUAGES) return false;
   return (LOCALE_READINESS[code]?.overall ?? 0) >= 100;
 }
 
