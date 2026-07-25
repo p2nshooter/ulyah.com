@@ -49,7 +49,7 @@ export function PresenceBeacon() {
     // background listener still counts as a real, online device).
     const ping = () => {
       if (typeof document !== "undefined" && document.visibilityState !== "visible" && !audioActive()) return;
-      sendPresencePing(true);
+      sendPresencePing(true, audioActive());
     };
     const leave = () => {
       const blob = new Blob([body], { type: "text/plain" });
@@ -58,6 +58,14 @@ export function PresenceBeacon() {
       } else {
         fetch(`${API_BASE}/analytics/leave`, { method: "POST", headers: { "Content-Type": "text/plain" }, body, keepalive: true }).catch(() => {});
       }
+    };
+
+    // "Left" is only true when nothing is playing. On a phone, switching to
+    // another app fires pagehide even though the browser stays open and the
+    // audio keeps going — reporting a leave there is exactly what made a radio
+    // listener vanish from the live count within five seconds.
+    const leaveIfSilent = () => {
+      if (!audioActive()) leave();
     };
 
     ping();
@@ -69,12 +77,12 @@ export function PresenceBeacon() {
       else if (!audioActive()) leave();
     };
     document.addEventListener("visibilitychange", onVisibility);
-    window.addEventListener("pagehide", leave);
+    window.addEventListener("pagehide", leaveIfSilent);
 
     return () => {
       window.clearInterval(timer);
       document.removeEventListener("visibilitychange", onVisibility);
-      window.removeEventListener("pagehide", leave);
+      window.removeEventListener("pagehide", leaveIfSilent);
     };
   }, []);
 

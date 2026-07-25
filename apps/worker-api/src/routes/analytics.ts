@@ -56,11 +56,13 @@ analyticsRoute.post("/pageview", async (c) => {
 // within ~3s, how many devices are on each ecosystem site RIGHT NOW and how
 // many just left. text/plain bodies so cross-origin beacons need no preflight;
 // tenant comes from the Origin, never the body.
-async function readDevice(c: Context<{ Bindings: Env }>): Promise<string | undefined> {
+async function readPing(
+  c: Context<{ Bindings: Env }>
+): Promise<{ device?: string; listening?: boolean }> {
   try {
-    return (JSON.parse((await c.req.text()) || "{}") as { device?: string }).device;
+    return JSON.parse((await c.req.text()) || "{}") as { device?: string; listening?: boolean };
   } catch {
-    return undefined;
+    return {};
   }
 }
 function corsPreflight(c: Context<{ Bindings: Env }>) {
@@ -72,17 +74,18 @@ function corsPreflight(c: Context<{ Bindings: Env }>) {
 
 // POST /analytics/ping — presence heartbeat. Upsert this device's last-seen.
 analyticsRoute.post("/ping", async (c) => {
-  const dev = deviceParam(await readDevice(c));
+  const { device, listening } = await readPing(c);
+  const dev = deviceParam(device);
   c.header("Access-Control-Allow-Origin", "*");
   if (!dev) return c.body(null, 204);
   // A crawler must never show up as somebody reading the site right now.
   if (isBotUA(c.req.header("user-agent"))) return c.body(null, 204);
   const now = Math.floor(Date.now() / 1000);
   await c.env.DB.prepare(
-    `INSERT INTO live_presence (tenant, device_id, last_seen) VALUES (?, ?, ?)
-     ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen`
+    `INSERT INTO live_presence (tenant, device_id, last_seen, listening) VALUES (?, ?, ?, ?)
+     ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen, listening = excluded.listening`
   )
-    .bind(tenantFromReq(c), dev, now)
+    .bind(tenantFromReq(c), dev, now, listening ? 1 : 0)
     .run();
   return c.body(null, 204);
 });
@@ -91,7 +94,7 @@ analyticsRoute.post("/ping", async (c) => {
 // Ages the device just past the online window so the live count drops at once
 // instead of waiting for the heartbeat to lapse.
 analyticsRoute.post("/leave", async (c) => {
-  const dev = deviceParam(await readDevice(c));
+  const dev = deviceParam((await readPing(c)).device);
   c.header("Access-Control-Allow-Origin", "*");
   if (!dev) return c.body(null, 204);
   const gone = Math.floor(Date.now() / 1000) - 25; // just outside the 20s "online" window

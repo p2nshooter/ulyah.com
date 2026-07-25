@@ -266,7 +266,7 @@ export function GlobalRadioPlayer() {
         // plain JS timers are frozen — so a listener who only keeps the Qur'an
         // radio on with the screen off stays counted as ONLINE (sendPresencePing
         // is throttled to 3s internally, matching the admin's 5s live window).
-        onTimeUpdate={() => sendPresencePing()}
+        onTimeUpdate={() => sendPresencePing(false, true)}
         className="hidden"
         aria-hidden
       />

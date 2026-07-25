@@ -15,6 +15,9 @@ import { TENANT } from "@/lib/tenant";
 interface LiveRow {
   tenant: string;
   online: number;
+  /** SUBSET of `online`: devices with the Qur'an playing. A listener who has
+   *  switched to another app is still one person online, counted once here. */
+  listening?: number;
   closed: number;
 }
 const META: Record<string, { name: string; icon: string }> = {
@@ -62,9 +65,10 @@ export function LivePresenceBar() {
   const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
   const scope = TENANT.id === "ulyah" ? ECOSYSTEM : [TENANT.id];
   const byTenant = new Map(rows.map((r) => [r.tenant, r]));
-  const cards: LiveRow[] = scope.map((t) => byTenant.get(t) ?? { tenant: t, online: 0, closed: 0 });
+  const cards: LiveRow[] = scope.map((t) => byTenant.get(t) ?? { tenant: t, online: 0, listening: 0, closed: 0 });
   const onlineTotal = cards.reduce((s, r) => s + r.online, 0);
   const closedTotal = cards.reduce((s, r) => s + r.closed, 0);
+  const listeningTotal = cards.reduce((s, r) => s + (r.listening ?? 0), 0);
   const secondsAgo = at ? Math.max(0, Math.round((nowTick - at) / 1000)) : null;
 
   return (
@@ -89,6 +93,9 @@ export function LivePresenceBar() {
           🟢 Online sekarang: <b className="text-lg text-emerald-500">{onlineTotal}</b> perangkat
         </span>
         <span>
+          🎧 Sedang mendengarkan: <b className="text-lg text-sky-500">{listeningTotal}</b> perangkat
+        </span>
+        <span>
           🚪 Baru menutup (closed): <b className="text-lg text-accent">{closedTotal}</b> perangkat
         </span>
       </div>
@@ -104,6 +111,9 @@ export function LivePresenceBar() {
               <p className="mt-0.5 text-sm">
                 <span className={`font-heading ${r.online > 0 ? "text-emerald-500" : "text-[var(--color-text-secondary)]"}`}>{r.online}</span>
                 <span className="text-[10px] text-[var(--color-text-secondary)]"> online</span>
+                {(r.listening ?? 0) > 0 && (
+                  <span className="ml-2 text-[10px] text-sky-500">· {r.listening} 🎧</span>
+                )}
                 {r.closed > 0 && (
                   <span className="ml-2 text-[10px] text-[var(--color-text-secondary)]">· {r.closed} baru keluar</span>
                 )}
@@ -115,6 +125,9 @@ export function LivePresenceBar() {
       <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
         Perangkat NYATA (bukan page view), dari heartbeat tiap 3 detik. &quot;Online&quot; = aktif ≤5 detik terakhir (kondisi
         detik ini — turun/naik dalam ≤5 detik); &quot;closed&quot; = sempat aktif lalu menutup/pindah tab dalam 2 menit terakhir.
+        🎧 = bagian dari &quot;online&quot; yang sedang memutar Qur&apos;an. Pendengar TETAP terhitung online walau pindah ke
+        aplikasi lain atau layar dimatikan, selama browsernya masih terbuka dan audionya jalan — detaknya menumpang jam
+        audio, yang tidak ikut dibekukan HP seperti timer biasa. Yang menutup tab benar-benar hilang dalam ≤5 detik.
       </p>
     </section>
   );
