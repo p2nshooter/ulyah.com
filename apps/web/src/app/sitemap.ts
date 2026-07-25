@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, ALL_LOCALES, localeCanonicalUrl, HUB_SITE } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, ALL_LOCALES, localeCanonicalUrl, HUB_SITE, isLocaleReady } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
 import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
@@ -36,7 +36,15 @@ function urlFor(localeCode: string, route: string): string {
 // so all five sitemaps stay consistent.
 function crossDomainLanguages(route: string): Record<string, string> {
   const langs: Record<string, string> = {};
-  for (const l of ALL_LOCALES) langs[l.code] = localeCanonicalUrl(l.code, route);
+  // Only languages actually being served. A language still being finished
+  // redirects to the site's own language, so declaring an hreflang for it would
+  // point search engines at a URL that immediately redirects — a Search Console
+  // error, and a promise of a page that does not exist yet. They reappear here
+  // automatically the moment they reach 100%.
+  for (const l of ALL_LOCALES) {
+    if (!isLocaleReady(l.code)) continue;
+    langs[l.code] = localeCanonicalUrl(l.code, route);
+  }
   langs["x-default"] = `${HUB_SITE}${route}`;
   return langs;
 }
@@ -53,8 +61,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // (owner: "hati-hati sitemap, jangan sampai duplikat"). On a sibling tenant
   // LOCALES is already just that one language, and it is hosted there, so this
   // filter keeps it.
+  // …and only the languages that are finished — an unfinished one redirects
+  // home, so listing its URLs would fill the sitemap with redirects.
   const OWN_LOCALES = LOCALES.filter(
-    (l) => !LOCALE_SITE[l.code] || LOCALE_SITE[l.code] === TENANT.siteUrl
+    (l) => isLocaleReady(l.code) && (!LOCALE_SITE[l.code] || LOCALE_SITE[l.code] === TENANT.siteUrl)
   );
   for (const l of OWN_LOCALES) {
     for (const r of ROUTES) {
