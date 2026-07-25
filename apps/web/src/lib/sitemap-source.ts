@@ -201,24 +201,127 @@ function ownLocales() {
   );
 }
 
-/** Every entry this site publishes — the single source both sitemaps render. */
-export async function sitemapEntries(): Promise<MetadataRoute.Sitemap> {
+/**
+ * The sections a sitemap is split into, and which paths belong to each.
+ *
+ * One file of 6,333 urls is legal, and it is also useless to read: Search
+ * Console reports "discovered" and "indexed" PER SITEMAP, so a single file gives
+ * one number for the whole site and no way to tell that, say, the kitab
+ * catalogue is being ignored while the stories are fine.
+ *
+ * Split by language first (owner: "pisahkan semua sitemap sesuai bahasa
+ * masing-masing untuk memperluas SEO") and by section within it, and the report
+ * turns into a diagnosis. It also means a language switched on later arrives
+ * with its own set of sitemaps rather than swelling somebody else's.
+ *
+ * Order matters — first match wins.
+ *
+ * `route` is what the file is NAMED after, in the site's own language:
+ * dawa.es publishes /sitemap/es-historias.xml, not /sitemap/es-kisah.xml. The
+ * filename is not a page and will never rank, but a Spanish sitemap list full
+ * of Indonesian words is exactly the thing the owner keeps having to ask about,
+ * and it costs nothing to derive it from the table we already have.
+ */
+const SECTIONS: { key: string; route: string | null; match: (path: string) => boolean }[] = [
+  // The section routes themselves. `match` never fires: they are added
+  // explicitly, not matched from the content list.
+  { key: "utama", route: null, match: () => false },
+  { key: "kisah", route: "/kisah", match: (p) => p.startsWith("/kisah/") },
+  { key: "kitab", route: "/kitab", match: (p) => p.startsWith("/kitab/") || p.startsWith("/kitab-pesantren/") },
+  { key: "hadits", route: "/hadits", match: (p) => p.startsWith("/hadits/") },
+  // Anything a future content type adds. Empty today, so it is never published
+  // — but it exists so new content cannot silently fall out of the sitemap.
+  // "extra" rather than an Indonesian word: it reads the same in all five.
+  { key: "extra", route: "/extra", match: () => true },
+];
+
+/** The name a section's file carries on this site — `historias` on dawa.es. */
+function sectionSlug(section: string, locale: string): string {
+  const s = SECTIONS.find((x) => x.key === section);
+  if (!s?.route) return "";
+  return localizedRoute(s.route, locale).replace(/^\//, "");
+}
+
+/** `id-kisah` → the Indonesian stories; `es-historias` → the Spanish ones. */
+export type SitemapGroup = { id: string; locale: string; section: string };
+
+/**
+ * Every sitemap this site publishes. Empty groups are dropped, so a site never
+ * advertises a sitemap with nothing in it — Search Console reports that as an
+ * error, and an empty file is not something to be proud of either.
+ */
+export async function sitemapGroups(): Promise<SitemapGroup[]> {
+  const content = await contentPaths();
+  const used = new Set<string>(["utama"]);
+  for (const p of content) used.add(SECTIONS.find((s) => s.match(p.path))!.key);
+
+  const groups: SitemapGroup[] = [];
+  for (const l of ownLocales()) {
+    for (const s of SECTIONS) {
+      if (!used.has(s.key)) continue;
+      const slug = sectionSlug(s.key, l.code);
+      // The section routes are the site's main sitemap, so they carry the bare
+      // language code: /sitemap/id.xml, /sitemap/es.xml.
+      groups.push({ id: slug ? `${l.code}-${slug}` : l.code, locale: l.code, section: s.key });
+    }
+  }
+  return groups;
+}
+
+/**
+ * The index that lists them — what /sitemap.xml serves, and the one url
+ * robots.txt has always named.
+ *
+ * Next.js generates the child sitemaps from generateSitemaps but does NOT
+ * generate an index for them, so this is written out by hand. Without it
+ * /sitemap.xml would 404, and that is the address Google already has.
+ *
+ * lastmod here follows the same rule as inside the files: the newest real date
+ * in the group, or nothing at all. The section routes have no recorded date, so
+ * the "utama" entry carries none.
+ */
+export async function sitemapIndex(): Promise<{ id: string; lastModified?: Date }[]> {
+  const [groups, content] = await Promise.all([sitemapGroups(), contentPaths()]);
+  const newest = new Map<string, number>();
+  for (const p of content) {
+    if (!p.lastModified) continue;
+    const section = SECTIONS.find((s) => s.match(p.path))!.key;
+    const at = p.lastModified.getTime();
+    if (at > (newest.get(section) ?? 0)) newest.set(section, at);
+  }
+  return groups.map((g) => {
+    const at = newest.get(g.section);
+    return at ? { id: g.id, lastModified: new Date(at) } : { id: g.id };
+  });
+}
+
+/**
+ * Every entry this site publishes, or just one group of them.
+ *
+ * Called with no argument it returns the whole set — that is what sitemap.txt
+ * renders, and what the checks measure. Called with a group it returns that
+ * language's slice of that section.
+ */
+export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
   const buildDate = new Date();
   const content = await contentPaths();
+  const locales = group ? ownLocales().filter((l) => l.code === group.locale) : ownLocales();
 
-  for (const l of ownLocales()) {
+  for (const l of locales) {
     // Section routes carry the full hreflang graph: they are the pages a reader
     // lands on from search, and the ones that exist in every language.
-    for (const r of ROUTES) {
-      const daily = DAILY_ROUTES.has(r);
-      entries.push({
-        url: urlFor(l.code, r),
-        ...(daily ? { lastModified: buildDate } : {}),
-        changeFrequency: daily ? "daily" : "weekly",
-        priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
-        alternates: { languages: crossDomainLanguages(r) },
-      });
+    if (!group || group.section === "utama") {
+      for (const r of ROUTES) {
+        const daily = DAILY_ROUTES.has(r);
+        entries.push({
+          url: urlFor(l.code, r),
+          ...(daily ? { lastModified: buildDate } : {}),
+          changeFrequency: daily ? "daily" : "weekly",
+          priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
+          alternates: { languages: crossDomainLanguages(r) },
+        });
+      }
     }
 
     // Content pages. No per-entry alternates: with thousands of pages that
@@ -226,6 +329,7 @@ export async function sitemapEntries(): Promise<MetadataRoute.Sitemap> {
     // canonical in the page head. lastModified appears only where the database
     // actually recorded one.
     for (const p of content) {
+      if (group && SECTIONS.find((s) => s.match(p.path))!.key !== group.section) continue;
       entries.push({
         url: urlFor(l.code, p.path),
         ...(p.lastModified ? { lastModified: p.lastModified } : {}),
