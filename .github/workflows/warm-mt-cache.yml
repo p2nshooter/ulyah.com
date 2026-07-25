@@ -15,8 +15,8 @@ on:
         description: "Comma-separated target languages (blank = all ecosystem languages)"
         required: false
         default: ""
-      behind:
-        description: "Spend the whole run on the languages furthest behind"
+      one:
+        description: "Warm ONE language this run, then chain to the next (recommended)"
         required: false
         type: boolean
         default: true
@@ -109,16 +109,27 @@ jobs:
         # Empty langs (schedule / workflow_run / blank dispatch) → the script's
         # own default: every ecosystem language.
         #
-        # --behind hands the WHOLE run to the languages furthest back (owner:
-        # "khususnya bahasa-bahasa yang sengaja dimatikan kerjain dulu sampai
-        # 100%"). It is on for the schedule and the chain, and defaults on for a
-        # manual dispatch; the script measures who is behind rather than reading
-        # a list, so a language drops out of the priority set by catching up and
-        # the flag turns itself off when nobody is behind.
+        # ONE language per run (owner: "bikin per bahasa dulu jgn langsung, per
+        # bahasa bisa saling nyambung"). A pass that tried all 26 spread its wall
+        # clock across all of them and finished none; one language per run
+        # finishes that language and chains into the next.
+        #
+        # Order is "utamain yg saat ini di pakai dulu": the sites with live
+        # readers first (de 49%, es 72%, en 83%), then the switched-off ones.
+        #
+        # The script prints WARM_NEXT=<remaining> — the chaining step reads it
+        # rather than re-deriving the queue, so the two can never disagree.
         run: |
+          set -o pipefail
           npx tsx scripts/warm-mt-cache.ts \
             --langs=${{ inputs.langs }} \
-            ${{ (github.event_name != 'workflow_dispatch' || inputs.behind) && '--behind' || '' }}
+            ${{ (github.event_name != 'workflow_dispatch' || inputs.one) && '--one' || '' }} \
+            | tee /tmp/warm.log
+          # Keep the run's own answer. Absent (a mode that does not print it)
+          # is deliberately NOT the same as present-and-empty: the first means
+          # "unknown", the second means "finished", and treating them alike
+          # would silently stop the chain.
+          grep -E '^WARM_NEXT=' /tmp/warm.log | tail -1 > /tmp/warm-next.txt || true
 
       # Close the loop: re-measure how much of the site's writing now exists in
       # each language and regenerate the readiness table. A language that has
@@ -180,7 +191,17 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -eu
-          decision=$(node -e '
+          # WARM_NEXT is empty only when every language has reached parity. It is
+          # the script's own answer, so the chain follows exactly what was warmed
+          # rather than a second guess at the queue.
+          if [ -s /tmp/warm-next.txt ]; then
+            next=$(sed -n 's/^WARM_NEXT=//p' /tmp/warm-next.txt)
+            known=1
+          else
+            next=""
+            known=0
+          fi
+          decision=$(WARM_NEXT="$next" WARM_NEXT_KNOWN="$known" node -e '
             const fs = require("fs");
             const read = (p) => { try { return JSON.parse(fs.readFileSync(p, "utf8")).rows ?? {}; } catch { return {}; } };
             const before = read("/tmp/locale-content.before.json");
@@ -188,26 +209,34 @@ jobs:
             const sum = (o) => Object.values(o).reduce((a, b) => a + Number(b), 0);
             const gained = sum(after) - sum(before);
             const best = Math.max(0, ...Object.values(after).map(Number));
-            // The same set the warm run prioritises: languages WITHOUT a domain
-            // of their own — the ones that are switched off — still short of the
-            // corpus. Kept in step with PARITY_RATIO in scripts/warm-mt-cache.ts.
-            const OWN_DOMAIN = new Set(["en", "de", "es", "fr"]);
-            const short = Object.entries(after)
-              .filter(([l, n]) => !OWN_DOMAIN.has(l) && Number(n) < best * 0.99)
-              .sort((a, b) => Number(a[1]) - Number(b[1]));
+            // The queue the run itself reported, not a re-derivation — so the
+            // chain follows exactly what was warmed. When the run did not report
+            // one at all, fall back to the measurement rather than assuming the
+            // job is finished.
+            const known = process.env.WARM_NEXT_KNOWN === "1";
+            const remaining = (process.env.WARM_NEXT || "").split(",").filter(Boolean);
             const pct = (n) => best ? Math.round((Number(n) / best) * 100) : 0;
+            const shortFromMeasure = Object.entries(after)
+              .filter(([, n]) => Number(n) < best * 0.99)
+              .sort((a, b) => Number(a[1]) - Number(b[1]));
             console.error(`gained ${gained} strings this pass; corpus is ${best}`);
-            for (const [l, n] of short) console.error(`  still short: ${l} ${n} (${pct(n)}%)`);
-            if (short.length === 0) console.log("done");
+            console.error(
+              known
+                ? `still queued: ${remaining.length} — ${remaining.slice(0, 8).join(", ")}`
+                : `queue not reported; ${shortFromMeasure.length} language(s) short by measurement`
+            );
+            for (const [l, n] of shortFromMeasure.slice(0, 5)) console.error(`  lowest: ${l} ${n} (${pct(n)}%)`);
+            const left = known ? remaining.length : shortFromMeasure.length;
+            if (left === 0) console.log("done");
             else if (gained <= 0) console.log("stalled");
             else console.log("chain");
           ')
           case "$decision" in
             done)
-              echo "Every language is at parity with the leader — nothing left to warm." ;;
+              echo "Every language has reached parity — nothing left to warm." ;;
             stalled)
               echo "::warning::This pass gained no new translations; not chaining. The 3-hourly schedule will retry." ;;
             chain)
               echo "Work remains — starting the next pass."
-              gh workflow run warm-mt-cache.yml --ref main -f langs= -f behind=true -f chain=true ;;
+              gh workflow run warm-mt-cache.yml --ref main -f langs= -f one=true -f chain=true ;;
           esac

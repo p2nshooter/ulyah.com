@@ -17,8 +17,9 @@
  *
  * Usage: npx tsx scripts/warm-mt-cache.ts [--langs=en,fr,de,es] [--behind] [--dry]
  *
- *   --behind  spend the whole run on the languages that are FURTHEST behind,
- *             ignoring the ones already near the front. See BEHIND_RATIO.
+ *   --behind  spend the whole run on the languages that are switched off.
+ *   --one     warm exactly ONE language this run, the neediest in priority
+ *             order, and print which. The workflow chains to the next.
  */
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
@@ -49,8 +50,33 @@ function parseArgs() {
       .filter(Boolean),
     dry: args.dry === "true",
     behind: args.behind === "true",
+    one: args.one === "true",
   };
 }
+
+/**
+ * The longest source string worth sending to the translator, and the reason the
+ * warm job kept dying.
+ *
+ * Story bodies run to 625,896 characters. Two independent walls stand in front
+ * of a string that size:
+ *
+ *   · Google's endpoint takes a few kilobytes per call. A 600 KB string was
+ *     being sent as ONE call and simply failing.
+ *   · D1 caps a single SQL statement at about 100 KB. An oversized value became
+ *     its own oversized INSERT, which failed with SQLITE_TOOBIG — and because
+ *     wrangler executes a whole file at once, that one row killed the entire
+ *     batch and the run threw. Hours of successful translation, discarded at
+ *     the last step. That is the "tidak selesai-selesai".
+ *
+ * 20,000 is drawn from evidence, not taste: the largest value that has EVER
+ * landed in mt_cache is 17,868 characters. Everything above that has always
+ * failed, so excluding it costs nothing that was ever working, and the counts
+ * are printed rather than hidden — 1,210 story bodies sit above 40 KB and are
+ * simply not warmable this way. Making them warmable needs chunked translation
+ * with a matching lookup in the Worker, which is a different change.
+ */
+const MAX_SOURCE_CHARS = 20000;
 
 /**
  * The languages --behind gives the whole run to: the ones that are switched
@@ -238,7 +264,7 @@ function collectStrings(): string[] {
 }
 
 async function main() {
-  const { langs, dry, behind } = parseArgs();
+  const { langs, dry, behind, one } = parseArgs();
 
   // Ensure the cache table exists up front so the "already cached?" query below
   // works even on the very first run (before migration 0046 has been applied).
@@ -252,7 +278,17 @@ async function main() {
     ]);
   }
 
-  const strings = collectStrings();
+  const collected = collectStrings();
+  const strings = collected.filter((t) => t.length <= MAX_SOURCE_CHARS);
+  const skipped = collected.length - strings.length;
+  if (skipped > 0) {
+    const biggest = Math.max(...collected.map((t) => t.length));
+    console.log(
+      `Skipping ${skipped} of ${collected.length} strings over ${MAX_SOURCE_CHARS} chars ` +
+        `(largest ${biggest}). They exceed what the translator takes in one call AND what D1 ` +
+        `accepts in one statement — sending them is what made this job fail rather than finish.`
+    );
+  }
 
   // Warm the FURTHEST-BEHIND language first.
   //
@@ -279,7 +315,39 @@ async function main() {
     // languages still sat in the queue behind the others — so when a pass ran
     // long, the tail never got reached at all. Dropping them outright means
     // every minute of every run goes where the owner asked it to go.
-    if (behind) {
+    // --one: warm exactly ONE language this run (owner: "bikin per bahasa dulu
+    // jgn langsung, per bahasa bisa saling nyambung").
+    //
+    // A pass that tries all 26 spreads a fixed wall clock across all of them and
+    // finishes none. One language per run finishes that language, and the
+    // workflow chains straight into the next — same total work, but the progress
+    // is real and visible instead of everything creeping.
+    //
+    // Order, per the owner: "utamain yg saat ini di pakai dulu". A language with
+    // a live site has readers today and comes first, neediest of them leading;
+    // the switched-off ones follow. Inside each group, least covered first.
+    if (one) {
+      const best = Math.max(0, ...cachedPerLang.values());
+      const short = queue.filter((l) => (cachedPerLang.get(l) ?? 0) < best * PARITY_RATIO);
+      const inUse = short.filter((l) => LOCALE_SITE[l]);
+      const locked = short.filter((l) => !LOCALE_SITE[l]);
+      const order = [...inUse, ...locked];
+      const pct = (l: string) => (best ? Math.round(((cachedPerLang.get(l) ?? 0) / best) * 100) : 0);
+      if (order.length === 0) {
+        console.log("--one: every language is at parity. Nothing to warm.");
+        console.log("WARM_NEXT=");
+        return;
+      }
+      const pick = order[0]!;
+      console.log(
+        `--one: warming ${pick} (${pct(pick)}%), ${LOCALE_SITE[pick] ? "a live site" : "switched off"}. ` +
+          `Queue after this: ${order.slice(1, 6).map((l) => `${l} ${pct(l)}%`).join(", ")}` +
+          (order.length > 6 ? ` … +${order.length - 6}` : "")
+      );
+      // The workflow reads this line to decide whether to chain again.
+      console.log(`WARM_NEXT=${order.slice(1).join(",")}`);
+      queue = [pick];
+    } else if (behind) {
       const best = Math.max(0, ...cachedPerLang.values());
       const locked = queue.filter((l) => !LOCALE_SITE[l] && (cachedPerLang.get(l) ?? 0) < best * PARITY_RATIO);
       if (locked.length > 0) {
@@ -477,17 +545,37 @@ async function main() {
         curBytes = 0;
       }
     };
+    let oversize = 0;
+    let failedFiles = 0;
     const flushFile = () => {
       flushStmt();
       if (!statements.length) return;
       const file = join(dir, `mt-${fileIdx++}.sql`);
       writeFileSync(file, statements.join("\n"), "utf8");
-      wrangler(["d1", "execute", "ulyah-db", "--remote", `--file=${file}`]);
+      try {
+        wrangler(["d1", "execute", "ulyah-db", "--remote", `--file=${file}`]);
+      } catch (err) {
+        // One bad batch must not throw away a whole run. This is what turned a
+        // single oversized row into hours of lost work: the execute threw, main
+        // rejected, and every translation still in flight went with it. Now the
+        // batch is reported and the rest of the run continues.
+        failedFiles++;
+        console.warn(`  batch ${fileIdx - 1} failed to write: ${(err as Error).message.split("\n")[0]}`);
+      }
       statements = [];
       console.log(`  wrote ${wrote}/${pairs.length}`);
     };
     for (const p of pairs) {
       const tuple = `('${esc(p.key)}','${esc(p.value)}')`;
+      // A tuple that cannot fit in ANY statement is dropped here rather than
+      // being emitted alone and blowing past D1's ~100 KB statement cap. The
+      // old code flushed and then pushed it anyway, which is exactly how
+      // SQLITE_TOOBIG got in. Escaping can double the length, so the check is
+      // on the escaped tuple, after escaping.
+      if (tuple.length > STMT_BUDGET) {
+        oversize++;
+        continue;
+      }
       if (curBytes + tuple.length > STMT_BUDGET) flushStmt();
       curRows.push(tuple);
       curBytes += tuple.length + 1;
@@ -495,6 +583,13 @@ async function main() {
       if (statements.length >= 40) flushFile();
     }
     flushFile();
+    if (oversize > 0) {
+      console.warn(
+        `  ${oversize} translation(s) were too large for a single D1 statement and were not stored. ` +
+          `They need chunked translation with a matching Worker lookup, not a bigger batch.`
+      );
+    }
+    if (failedFiles > 0) console.warn(`  ${failedFiles} batch(es) failed; the rest were written.`);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
