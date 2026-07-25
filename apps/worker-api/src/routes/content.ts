@@ -171,12 +171,27 @@ contentRoute.get("/site-pages", async (c) => {
  * Indonesian route names on disk); each site localizes them into its own
  * language when it writes its sitemap, so one answer serves all five.
  *
+ * TWO LISTS, because a sitemap date has to be TRUE.
+ *
+ *   dated  — [path, lastmod] for the stories, whose publication date we record.
+ *   paths  — everything whose change date we genuinely do not know.
+ *
+ * The catalogue tables (kitab_book, kitab_category, kisah_person,
+ * pesantren_kitab, hadits) carry no timestamp at all: they are reference data
+ * that has not changed since it was imported. Stamping them with "now" on every
+ * build — which is what the first version did — tells Google that 5,111 pages
+ * were rewritten seconds ago, every single deploy. Google's documented response
+ * to lastmod values it can see are automatic is to stop believing lastmod for
+ * the WHOLE SITE, which would throw away the 1,191 dates that are real. So a
+ * page with no recorded date is sent with no date, and says nothing rather than
+ * something false.
+ *
  * Cached in KV for six hours because it is only ever read at build time — the
  * queries scan tens of thousands of rows, and a Worker's CPU budget is 10 ms.
  * Shape is deliberately compact (arrays, not objects) to keep serialization
  * inside that budget on the one request that misses the cache.
  */
-const SITEMAP_KEY = "sitemap:paths:v1";
+const SITEMAP_KEY = "sitemap:paths:v2";
 const SITEMAP_TTL = 6 * 60 * 60;
 
 contentRoute.get("/sitemap", async (c) => {
@@ -190,13 +205,22 @@ contentRoute.get("/sitemap", async (c) => {
   }
 
   const paths: string[] = [];
+  const dated: [string, string][] = [];
+  const safe = (p: string) => Boolean(p) && !p.includes("..");
   const push = (p: string) => {
-    if (p && !p.includes("..")) paths.push(p);
+    if (safe(p)) paths.push(p);
   };
 
   try {
     const [stories, books, cats, persons, kitab, collections] = await c.env.DB.batch([
-      c.env.DB.prepare("SELECT DISTINCT slug FROM stories WHERE status = 'published' AND slug != ''"),
+      // One slug can have many rows — the Indonesian original plus its
+      // translations — so the date that matters is the newest of them.
+      // published_at is the real one; created_at covers the handful imported
+      // before that column was filled in.
+      c.env.DB.prepare(
+        `SELECT slug, MAX(COALESCE(NULLIF(published_at, ''), created_at)) AS mod
+           FROM stories WHERE status = 'published' AND slug != '' GROUP BY slug`
+      ),
       c.env.DB.prepare("SELECT id, category_slug FROM kitab_book"),
       c.env.DB.prepare("SELECT slug FROM kitab_category"),
       c.env.DB.prepare("SELECT slug FROM kisah_person"),
@@ -205,7 +229,14 @@ contentRoute.get("/sitemap", async (c) => {
     ]);
 
     const rows = <T,>(r: { results?: unknown[] } | undefined): T[] => (r?.results as T[]) ?? [];
-    for (const r of rows<{ slug: string }>(stories)) push(`/kisah/${r.slug}`);
+    for (const r of rows<{ slug: string; mod: string | null }>(stories)) {
+      const p = `/kisah/${r.slug}`;
+      if (!safe(p)) continue;
+      // A date we hold goes out as a date; a row with none joins the undated
+      // list rather than being given one.
+      if (r.mod) dated.push([p, r.mod]);
+      else paths.push(p);
+    }
     for (const r of rows<{ slug: string }>(cats)) push(`/kitab/${r.slug}`);
     for (const r of rows<{ id: number; category_slug: string }>(books)) {
       push(`/kitab/${r.category_slug}/${r.id}`);
@@ -217,10 +248,10 @@ contentRoute.get("/sitemap", async (c) => {
     // A failed lookup must not empty the sitemap — the caller keeps its own
     // static section routes, so a bad day costs discovery of new pages, not
     // the pages already indexed.
-    return c.json({ paths: [], ok: false });
+    return c.json({ paths: [], dated: [], ok: false });
   }
 
-  const body = JSON.stringify({ paths, ok: true, count: paths.length });
+  const body = JSON.stringify({ paths, dated, ok: true, count: paths.length + dated.length });
   try {
     await c.env.CACHE_KV.put(SITEMAP_KEY, body, { expirationTtl: SITEMAP_TTL });
   } catch {
