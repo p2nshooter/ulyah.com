@@ -2,24 +2,13 @@ import type { MetadataRoute } from "next";
 import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, ALL_LOCALES, localeCanonicalUrl, HUB_SITE, isLocaleReady } from "@ulyah/shared/i18n";
 import { localizedRoute } from "@ulyah/shared/routes";
 import { TENANT } from "@/lib/tenant";
-import { KISAH_YUSUF_SERIES } from "../../../../scripts/content/kisah-yusuf";
-import { KISAH_MUSA_SERIES } from "../../../../scripts/content/kisah-musa";
-import { KISAH_DZULQARNAIN_SERIES } from "../../../../scripts/content/kisah-dzulqarnain";
-import { KISAH_ASHABUL_KAHFI_SERIES } from "../../../../scripts/content/kisah-ashabul-kahfi";
-import { KISAH_NUH_SERIES } from "../../../../scripts/content/kisah-nuh";
 
 const BASE = TENANT.siteUrl;
 const ROUTES = ["", "/quran", "/hadits", "/sanad", "/kisah", "/kitab", "/kitab-pesantren", "/amalan", "/haji-umroh", "/nasakh", "/audiobook", "/harian", "/jadwal-sholat", "/radio", "/quran-flipbook", "/widget", "/anak", "/kids", "/zakat", "/kiblat", "/kalender-hijriyah", "/waris", "/imsakiyah", "/tanya", "/donasi", "/tentang", "/syukur", "/terima-kasih", "/kontak", "/cari", "/kebijakan-privasi"];
 
-// The hadith books are a fixed, known set (migration 0012_hadits_collections).
-// Hardcoding the slugs keeps the sitemap buildable offline — no API round-trip
-// at build time — while still surfacing every readable collection to crawlers.
-// The kitab-library categories are intentionally NOT hardcoded here (they're a
-// large, evolving set); the /kitab landing page links them all, so Googlebot
-// still reaches every category by crawling.
-const HADITS_COLLECTIONS = [
-  "bukhari", "muslim", "tirmidhi", "abudawud", "nasai", "ibnmajah", "malik", "nawawi", "qudsi", "ahmad", "darimi",
-];
+// The hadith collections, the story slugs and the kitab catalogue all come
+// from the database now (see contentPaths below). They used to be hardcoded
+// here, which is exactly why only a handful of pages were ever announced.
 
 // Every site serves its OWN language at BARE URLs (no /id on ulyah.com, no
 // /fr on 1fr.fr, …) — the middleware rewrites bare → default locale and 301s
@@ -57,52 +46,82 @@ function crossDomainLanguages(route: string): Record<string, string> {
   return langs;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
+
+/**
+ * Every content path the site publishes, read from the database at build time.
+ *
+ * The sitemap was a hardcoded list — 31 section routes and five story series
+ * someone remembered to add — so search engines were never told about the 1,191
+ * stories, 4,967 catalogue entries, 62 figures and the rest. Those pages
+ * existed and were reachable, but nothing announced them, and Google does not
+ * find what it is not shown (owner: "harusnya sitemap 1 situs ini ribuan").
+ *
+ * Reading it from the database means new content enters the sitemap by
+ * existing. A failed fetch is not fatal: the section routes below are still
+ * emitted, so a bad build day costs the DISCOVERY of new pages, never the
+ * pages already indexed.
+ */
+async function contentPaths(): Promise<string[]> {
+  try {
+    const res = await fetch(`${API_BASE}/content/sitemap`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const j = (await res.json()) as { paths?: string[]; ok?: boolean };
+    return j.ok && Array.isArray(j.paths) ? j.paths : [];
+  } catch {
+    return [];
+  }
+}
+
+/** How often a section changes, and how much it matters, by its first segment. */
+function weightFor(path: string): { changeFrequency: "daily" | "weekly" | "monthly"; priority: number } {
+  if (path.startsWith("/hadits/")) return { changeFrequency: "weekly", priority: 0.8 };
+  if (path.startsWith("/kisah/tokoh/")) return { changeFrequency: "monthly", priority: 0.6 };
+  if (path.startsWith("/kisah/")) return { changeFrequency: "monthly", priority: 0.6 };
+  if (path.startsWith("/kitab-pesantren/")) return { changeFrequency: "monthly", priority: 0.7 };
+  // A catalogue entry is one book among thousands; the category page above it
+  // is what deserves the crawler's attention first.
+  if (/^\/kitab\/[^/]+\/\d+$/.test(path)) return { changeFrequency: "monthly", priority: 0.4 };
+  if (path.startsWith("/kitab/")) return { changeFrequency: "weekly", priority: 0.7 };
+  return { changeFrequency: "monthly", priority: 0.5 };
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
+  const lastModified = new Date();
   // Every language this DOMAIN actually hosts gets its own URLs — on ulyah.com
-  // that's Indonesian (bare) plus the ~23 languages served in place under a
-  // /<code> prefix (Arabic, Russian, Chinese, Japanese, Urdu, Hindi, Turkish,
-  // …), so the sitemap "follows the language" instead of listing Indonesian
-  // only. The four languages with their OWN domain (en/de/es/fr) are NOT listed
-  // here — they live on the sibling sites and are referenced via the
-  // cross-domain hreflang alternates, so we never duplicate their content
-  // (owner: "hati-hati sitemap, jangan sampai duplikat"). On a sibling tenant
-  // LOCALES is already just that one language, and it is hosted there, so this
-  // filter keeps it.
-  // …and only the languages that are finished — an unfinished one redirects
-  // home, so listing its URLs would fill the sitemap with redirects.
+  // that is Indonesian at bare paths. The four languages with their OWN domain
+  // are NOT listed here: they live on the sibling sites and are referenced
+  // through the cross-domain hreflang alternates, so nothing is duplicated
+  // (owner: "hati-hati sitemap, jangan sampai duplikat"). Unfinished languages
+  // are excluded too — they redirect home, so their urls would be redirects.
   const OWN_LOCALES = LOCALES.filter(
     (l) => isLocaleReady(l.code) && (!LOCALE_SITE[l.code] || LOCALE_SITE[l.code] === TENANT.siteUrl)
   );
+
+  const content = await contentPaths();
+
   for (const l of OWN_LOCALES) {
+    // Section routes carry the full hreflang graph: they are the pages a
+    // reader lands on from search, and the ones that exist in every language.
     for (const r of ROUTES) {
       entries.push({
         url: urlFor(l.code, r),
+        lastModified,
         changeFrequency: r === "" || r === "/harian" ? "daily" : "weekly",
         priority: r === "" ? 1 : r === "/quran" || r === "/hadits" ? 0.9 : 0.7,
-        alternates: {
-          languages: crossDomainLanguages(r),
-        },
+        alternates: { languages: crossDomainLanguages(r) },
       });
     }
-    for (const slug of HADITS_COLLECTIONS) {
-      entries.push({ url: urlFor(l.code, `/hadits/${slug}`), changeFrequency: "weekly", priority: 0.8 });
-    }
-    for (const ep of KISAH_YUSUF_SERIES) {
-      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
-    }
-    for (const ep of KISAH_MUSA_SERIES) {
-      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
-    }
-    for (const ep of KISAH_DZULQARNAIN_SERIES) {
-      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
-    }
-    for (const ep of KISAH_ASHABUL_KAHFI_SERIES) {
-      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
-    }
-    for (const ep of KISAH_NUH_SERIES) {
-      entries.push({ url: urlFor(l.code, `/kisah/${ep.slug}`), changeFrequency: "monthly", priority: 0.6 });
+
+    // Content pages. No per-entry alternates: with thousands of pages that
+    // would multiply the file for no gain, and each one already declares its
+    // canonical in the page head.
+    for (const p of content) {
+      const w = weightFor(p);
+      entries.push({ url: urlFor(l.code, p), lastModified, ...w });
     }
   }
+
   return entries;
 }
