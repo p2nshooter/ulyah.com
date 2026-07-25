@@ -14,7 +14,9 @@ interface Window4 {
 
 interface TenantStat {
   tenant: string;
-  /** Pageviews from readers we positively classified as human. */
+  /** Traffic: every pageview that is not a KNOWN crawler. Rows recorded before
+   *  bot classification existed are included — they happened, and dropping them
+   *  would erase the site's history. */
   visitors: Window4;
   /** Crawler pageviews. Shown, not hidden — see the note under the cards. */
   bots?: Window4;
@@ -165,7 +167,7 @@ export function TenantAnalyticsPanel() {
                 ))}
               </div>
               <p className="mt-1 text-center text-[10px] text-[var(--color-text-secondary)]">
-                pembaca (perangkat unik) · halaman dibaca — <b>jendela waktu yang sama</b>, hari Jakarta (UTC+7)
+                perangkat unik · kunjungan halaman — <b>jendela waktu yang sama</b>, hari Jakarta (UTC+7)
               </p>
 
               {chart.length > 0 && (
@@ -179,7 +181,7 @@ export function TenantAnalyticsPanel() {
                   owner should be able to see WHY a number is what it is. */}
               <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px]">
                 <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-600 dark:text-emerald-400">
-                  🧑 pembaca 30 hari: <b>{r.visitors.month}</b> halaman
+                  📈 trafik 30 hari: <b>{r.visitors.month}</b> kunjungan
                 </span>
                 <span className="rounded-full bg-black/[0.04] px-2 py-0.5 text-[var(--color-text-secondary)] dark:bg-white/[0.06]">
                   🤖 bot 30 hari: <b>{bots.month}</b>
@@ -241,15 +243,18 @@ export function TenantAnalyticsPanel() {
         })}
       </div>
       <p className="mt-2 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
-        <b>Angka ini nyata, bukan asumsi.</b> Semuanya dihitung dari beacon perangkat yang benar-benar merender halaman.
-        Dua hal yang dulu membuatnya keliru sudah diperbaiki: (1) kartu &quot;hari ini&quot; memakai hari UTC sementara kartu
-        perangkat memakai 24 jam berjalan — Jakarta UTC+7, jadi pagi hari perangkat bisa terlihat LEBIH banyak daripada
-        kunjungan; sekarang semua kartu memakai jendela yang sama, hari Jakarta; (2) crawler ikut terhitung sebagai
-        pengunjung — sekarang dipilah di sisi server dari User-Agent dan ditampilkan terpisah (🤖), tidak disembunyikan.
-        Baris ❔ adalah baris yang tercatat sebelum pemilahan itu ada — sengaja tidak ditebak belakangan. &quot;Online
-        sekarang&quot; (bar ⚡ Live) = perangkat aktif ≤5 detik terakhir. &quot;App terpasang&quot; = perangkat unik yang event
-        terakhirnya install; &quot;Uninstall (perangkat)&quot; BERKURANG saat perangkat yang sama install lagi. * Deteksi
-        uninstall best-effort — web tidak punya event resmi uninstall.
+        <b>Angka ini nyata, bukan asumsi.</b> Semuanya dari beacon perangkat yang benar-benar merender halaman.
+        <b> Trafik</b> = semua kunjungan yang <i>bukan</i> crawler yang terdeteksi — termasuk yang tercatat sebelum
+        pemilahan bot ada, karena kunjungan itu memang terjadi dan menghapusnya berarti menghapus sejarah situs.
+        🤖 = crawler yang <i>terkonfirmasi</i>, dikeluarkan dari trafik dan ditampilkan terpisah supaya terlihat, bukan
+        disembunyikan. ❔ = baris yang tercatat sebelum pemilahan itu ada — sengaja tidak ditebak belakangan; porsinya
+        menyusut sendiri seiring data baru mengisi jendela waktu. Kartu perangkat dan kunjungan memakai
+        <b> jendela waktu yang sama</b> (hari Jakarta UTC+7) — dulu yang satu hari UTC dan yang lain 24 jam berjalan,
+        itu sebabnya perangkat pernah terlihat lebih banyak daripada kunjungan. &quot;Online sekarang&quot; (bar ⚡ Live) =
+        perangkat aktif ≤5 detik terakhir; 🎧 di bar itu = yang sedang memutar Qur&apos;an, tetap terhitung walau pindah
+        aplikasi. &quot;App terpasang&quot; = perangkat unik yang event terakhirnya install; &quot;Uninstall (perangkat)&quot;
+        BERKURANG saat perangkat yang sama install lagi. * Deteksi uninstall best-effort — web tidak punya event resmi
+        uninstall.
       </p>
     </section>
   );
