@@ -119,11 +119,16 @@ function detectLocale(req: NextRequest): string {
  * slug in its own language: the French alternate of /jadwal-sholat is
  * 1fr.fr/horaires-priere.
  */
-const HREFLANG_CODES = ["id", "en", "fr", "de", "es"];
+// Indonesian and the four languages that own a domain are always live. Any
+// other language joins the moment the owner switches it on in the admin portal
+// — the same list the routing above acts on, so a language is never served
+// without being announced, or announced without being served.
+const ALWAYS_LIVE = ["id", "en", "fr", "de", "es"];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {
   const clean = route === "/" ? "" : route.replace(/\/+$/, "");
-  const parts = HREFLANG_CODES.map(
+  const codes = [...ALWAYS_LIVE, ...(enabledLocales() ?? []).filter((c) => !ALWAYS_LIVE.includes(c))];
+  const parts = codes.map(
     (code) => `<${localeCanonicalUrl(code, localizedRoute(clean, code))}>; rel="alternate"; hreflang="${code}"`
   );
   parts.push(`<${localeCanonicalUrl("id", clean)}>; rel="alternate"; hreflang="x-default"`);

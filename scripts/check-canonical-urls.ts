@@ -150,5 +150,35 @@ for (const { host, locale } of SITES) {
 }
 console.log(`  ${bad === 0 ? "ok  " : "FAIL"}  ${INDONESIAN_ONLY.length} sections × 4 sites`);
 
+// ── 5. Sitemap files are named in each site's own language ─────────────────
+//
+// /sitemap.xml is an index of one file per language per section. The filenames
+// are not pages and will never rank, but a Spanish sitemap list full of
+// Indonesian words is the same defect in a different place, and it is derived
+// from the same table, so it is checkable here.
+console.log("\n=== sitemap filenames follow each site's language ===");
+const SITEMAP_SECTIONS = [null, "/kisah", "/kitab", "/hadits"]; // null = the section routes
+bad = 0;
+for (const { host, locale } of SITES) {
+  const ids = SITEMAP_SECTIONS.map((route) =>
+    route ? `${locale}-${localizedRoute(route, locale).replace(/^\//, "")}` : locale
+  );
+  if (new Set(ids).size !== ids.length) {
+    fail(`${host} would publish two sitemaps with the same name: ${ids.join(", ")}`);
+    bad++;
+  }
+  // On a non-Indonesian site no filename may still be the Indonesian word.
+  if (locale !== "id") {
+    for (const route of SITEMAP_SECTIONS) {
+      if (!route) continue;
+      if (localizedRoute(route, locale) === route) {
+        fail(`${host} names its ${route} sitemap in Indonesian`);
+        bad++;
+      }
+    }
+  }
+  console.log(`  ${bad === 0 ? "ok  " : "FAIL"}  ${host.padEnd(11)} ${ids.map((i) => `${i}.xml`).join("  ")}`);
+}
+
 console.log(failed === 0 ? "\nALL OK" : `\n${failed} FAILED`);
 process.exit(failed === 0 ? 0 : 1);
