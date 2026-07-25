@@ -42,6 +42,7 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
     es: "/libros-clasicos",
   },
   "/kisah": { en: "/stories", fr: "/histoires", de: "/geschichten", es: "/historias" },
+  "/kisah/tokoh": { en: "/stories/figures", fr: "/histoires/figures", de: "/geschichten/personen", es: "/historias/figuras" },
   "/kids": { en: "/kids", fr: "/enfants", de: "/kinder", es: "/ninos" },
   "/anak": { en: "/kids-films", fr: "/films-enfants", de: "/kinderfilme", es: "/peliculas-infantiles" },
   "/audiobook": { en: "/audiobooks", fr: "/livres-audio", de: "/hoerbuecher", es: "/audiolibros" },
@@ -123,14 +124,19 @@ export function canonicalRoute(path: string, locale: string): string | null {
   if (!table) return null;
   const clean = path.replace(/\/+$/, "") || "/";
   if (table[clean]) return table[clean]!;
-  // Deep paths: only the section prefix is localized, the slug after it is the
-  // content's own id — /historias/kisah-adam-01 → /kisah/kisah-adam-01.
-  const firstSlash = clean.indexOf("/", 1);
-  if (firstSlash === -1) return null;
-  const head = clean.slice(0, firstSlash);
-  const tail = clean.slice(firstSlash);
-  const mappedHead = table[head];
-  return mappedHead ? mappedHead + tail : null;
+  // Deep paths: the SECTION is localized, the part after it is the content's
+  // own id — /historias/kisah-adam-01 → /kisah/kisah-adam-01.
+  //
+  // Longest head first. A section can be two segments deep (/historias/figuras
+  // → /kisah/tokoh), and matching only the first would turn it into
+  // /kisah/figuras — a 404 on every sibling site.
+  for (let at = clean.lastIndexOf("/"); at > 0; ) {
+    const head = clean.slice(0, at);
+    const mapped = table[head];
+    if (mapped) return mapped + clean.slice(at);
+    at = head.lastIndexOf("/");
+  }
+  return null;
 }
 
 /** Every localized first segment for a language — lets the middleware tell a

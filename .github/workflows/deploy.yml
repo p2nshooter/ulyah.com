@@ -1606,6 +1606,17 @@ jobs:
             echo "$site -> HTTP $code"
           done
 
+      # Tell the search engines the sitemap changed. IndexNow reaches Bing,
+      # Yandex, Seznam, Naver and Yep in one call — ownership is proved by the
+      # key file each site hosts at its own root, so this needs no account and
+      # no secret. Google does NOT participate: its sitemap ping was retired in
+      # 2023 and its Indexing API only accepts job postings and broadcasts, so
+      # Google keeps finding us through robots.txt -> sitemap.xml instead.
+      # Never fails the deploy — a notification is not a deployment step.
+      - name: Notify search engines (IndexNow)
+        continue-on-error: true
+        run: npx tsx scripts/notify-search-engines.ts
+
       - name: Smoke test (retries while DNS/cert for the new custom domain settles)
         run: |
           set -eu
