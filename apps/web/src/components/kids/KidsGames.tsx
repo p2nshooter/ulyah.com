@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HIJAIYAH } from "@/lib/hijaiyah";
+import { speak as speakText } from "@/lib/speech";
 import { kidsGamesLabels, type KidsGamesLabels } from "@/lib/kids-games-labels";
 import { GrowGame } from "@/components/kids/GrowGame";
 import { FlyGame } from "@/components/kids/FlyGame";
@@ -73,17 +74,11 @@ const shuffle = <T,>(a: T[]): T[] => {
 };
 const pick = <T,>(a: T[], n: number): T[] => shuffle(a).slice(0, n);
 
-/** Speak an Arabic letter name with the browser's own voice (no download). */
+/** Speak an Arabic letter name. Routed through the shared narration engine so a
+ *  game tapping letters takes the turn properly instead of colliding with a
+ *  reader that happens to be running on the same page. */
 function say(text: string, lang = "ar") {
-  if (typeof window === "undefined" || !window.speechSynthesis) return;
-  const synth = window.speechSynthesis;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  const v = synth.getVoices().find((vc) => vc.lang?.toLowerCase().startsWith(lang));
-  if (v) u.voice = v;
-  u.lang = v?.lang ?? "ar-SA";
-  u.rate = 0.85;
-  synth.speak(u);
+  void speakText(text, lang, { rate: 0.85, owner: "kids" });
 }
 
 const EMPTY_PROGRESS: KidsProgress = { profile: { name: "", age: null }, games: {}, xp: 0, certificates: [] };

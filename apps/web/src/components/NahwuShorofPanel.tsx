@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import { nahwuLabels } from "@/lib/nahwu-labels";
+import { speak as speakText, stopNarration, type NarrationHandle } from "@/lib/speech";
 
 // Word-by-word nahwu & shorof under a verse, from the Quranic Arabic Corpus
 // (loaded into D1 `quran_morphology`, served by /quran/morphology). Each word
@@ -34,6 +35,7 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
   const [words, setWords] = useState<Word[] | null>(null);
   const [source, setSource] = useState("");
   const [speaking, setSpeaking] = useState(false);
+  const handleRef = useRef<NarrationHandle | null>(null);
   const spokenRef = useRef(false);
 
   useEffect(() => {
@@ -56,7 +58,9 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
   // Stop any narration when the verse changes or the panel closes.
   useEffect(() => {
     return () => {
-      if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
+      // Only our own narration — never silence a reader that has taken over.
+      handleRef.current?.cancel();
+      stopNarration("nahwu");
     };
   }, [surah, ayah]);
 
@@ -65,31 +69,26 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
   }
 
   function speak() {
-    if (typeof window === "undefined" || !window.speechSynthesis || !words || words.length === 0) return;
-    const synth = window.speechSynthesis;
-    synth.cancel();
+    if (!words || words.length === 0) return;
     // Read the grammar of each word, in the reader's language, with a voice
     // that is NOT the recitation — this is the "separate voice" for the lesson.
+    // Routed through the shared engine so it takes the narration turn properly
+    // instead of cancelling whatever else was reading (long explanations are
+    // also chunked there, so nothing is cut off half-read).
     const parts = words.map((w, i) => {
       const st = stemOf(w);
       const bits = [st.explanation[lang]];
       return `${t.word} ${i + 1}: ${bits.join(", ")}.`;
     });
-    const u = new SpeechSynthesisUtterance(parts.join(" "));
-    const want = isId ? "id" : "en";
-    const voices = synth.getVoices();
-    const v = voices.find((vc) => vc.lang?.toLowerCase().startsWith(want)) ?? voices.find((vc) => vc.lang?.toLowerCase().startsWith("en"));
-    if (v) u.voice = v;
-    u.lang = v?.lang ?? (isId ? "id-ID" : "en-US");
-    u.rate = 0.95;
-    u.onend = () => setSpeaking(false);
-    u.onerror = () => setSpeaking(false);
     spokenRef.current = true;
     setSpeaking(true);
-    synth.speak(u);
+    const h = speakText(parts.join(" "), isId ? "id" : "en", { rate: 0.95, owner: "nahwu" });
+    handleRef.current = h;
+    h.done.finally(() => setSpeaking(false));
   }
   function stopSpeak() {
-    if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
+    handleRef.current?.cancel();
+    stopNarration("nahwu");
     setSpeaking(false);
   }
 

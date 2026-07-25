@@ -1433,6 +1433,44 @@ function normFeatures(f: unknown): string {
   return JSON.stringify(f.filter((x): x is string => typeof x === "string" && x.trim().length > 0).map((s) => s.trim()).slice(0, 12));
 }
 
+// ── Language on/off switches ────────────────────────────────────────────
+// The owner decides which languages ulyah.com offers, from the portal, without
+// a deploy (owner: "kasih tombol aktif non-aktif biar saya sendiri yang milih").
+// Readiness is measured and shown beside each switch so the choice is informed,
+// but it never flips a switch on its own.
+adminRoute.get("/locales", async (c) => {
+  try {
+    const { results } = await c.env.DB.prepare(
+      "SELECT code, enabled, updated_at FROM locale_settings ORDER BY code"
+    ).all<{ code: string; enabled: number; updated_at: string }>();
+    return c.json({
+      locales: results.map((r) => ({ code: r.code, enabled: r.enabled === 1, updatedAt: r.updated_at })),
+    });
+  } catch {
+    return c.json({ locales: [] });
+  }
+});
+
+adminRoute.post("/locales", async (c) => {
+  const { code, enabled } = await c.req
+    .json<{ code?: string; enabled?: boolean }>()
+    .catch(() => ({}) as { code?: string; enabled?: boolean });
+  const clean = String(code ?? "").replace(/[^a-z]/g, "").slice(0, 5);
+  if (clean.length !== 2) return c.json({ ok: false, error: "bad code" }, 400);
+  // Indonesian is what the site is written in; switching it off would leave
+  // ulyah.com with no language at all.
+  if (clean === "id" && enabled === false) {
+    return c.json({ ok: false, error: "the site's own language cannot be switched off" }, 400);
+  }
+  await c.env.DB.prepare(
+    `INSERT INTO locale_settings (code, enabled, updated_at) VALUES (?, ?, datetime('now'))
+     ON CONFLICT(code) DO UPDATE SET enabled = excluded.enabled, updated_at = excluded.updated_at`
+  )
+    .bind(clean, enabled ? 1 : 0)
+    .run();
+  return c.json({ ok: true, code: clean, enabled: Boolean(enabled) });
+});
+
 adminRoute.get("/hajj-packages", async (c) => {
   const tenant = scopedTenant(c, c.req.query("tenant"));
   const { results } = await c.env.DB.prepare(

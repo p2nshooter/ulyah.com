@@ -74,7 +74,7 @@ export function HaditsReader({
         [h.text_id, lang],
       ] as const) {
         if (stopRef.current || !text) continue;
-        const handle = speak(text, l, { rate: l === "ar" ? 0.85 : 0.95 });
+        const handle = speak(text, l, { rate: l === "ar" ? 0.85 : 0.95, owner: "hadits" });
         handleRef.current = handle;
         await handle.done;
         if (stopRef.current) break;

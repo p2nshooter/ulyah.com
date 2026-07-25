@@ -78,6 +78,47 @@ function stopKeepAlive() {
   }
 }
 
+/**
+ * ONE narrator at a time.
+ *
+ * `window.speechSynthesis` is a single global engine, but the site has several
+ * readers that can all reach it: the site-wide "Baca semua", the kitab reader,
+ * the hadith reader, the kisah reader, the children's letter sounds. Nothing
+ * stopped two of them speaking at once, and because every `speak()` begins by
+ * cancelling whatever is queued, two active readers simply cut each other off
+ * turn by turn — which is heard as text jumping around and paragraphs going
+ * missing (owner: "TTS jangan campur-campur, masing-masing aja tugasnya").
+ *
+ * So narration is now a claim. Whoever starts speaking becomes the narrator and
+ * every earlier one stops cleanly at its next piece boundary instead of
+ * fighting for the engine. Each reader passes its own `owner` name, so the job
+ * that is talking is always identifiable — and a reader can stop only its own
+ * narration without silencing somebody else's.
+ */
+let narrationSeq = 0;
+let narrationOwner: string | null = null;
+
+/** Who is speaking right now, if anyone. */
+export function currentNarrator(): string | null {
+  return narrationOwner;
+}
+
+/** Take the microphone. Any narration already running is superseded. */
+function claimNarration(owner: string): number {
+  narrationSeq += 1;
+  narrationOwner = owner;
+  return narrationSeq;
+}
+
+/** Stop narration. With an `owner`, only if that owner still holds it — so a
+ *  component unmounting cannot silence a reader that has since taken over. */
+export function stopNarration(owner?: string): void {
+  if (owner && narrationOwner !== owner) return;
+  narrationSeq += 1; // invalidates every in-flight sequence
+  narrationOwner = null;
+  if (speechAvailable()) window.speechSynthesis.cancel();
+}
+
 export interface NarrationHandle {
   cancel: () => void;
   done: Promise<void>;
@@ -116,9 +157,12 @@ function wordOffsets(text: string): { start: number; len: number }[] {
 export function speak(
   text: string,
   lang: string,
-  opts: { rate?: number; onWord?: (charIndex: number, charLength: number) => void } = {}
+  opts: { rate?: number; onWord?: (charIndex: number, charLength: number) => void; owner?: string } = {}
 ): NarrationHandle {
   let cancelled = false;
+  // Taking the microphone: whoever spoke last stops at its next piece boundary.
+  const token = claimNarration(opts.owner ?? "reader");
+  const superseded = () => cancelled || narrationSeq !== token;
   const done = (async () => {
     if (!speechAvailable() || !text.trim()) return;
     // A block longer than one utterance is spoken as consecutive pieces, so
@@ -128,17 +172,19 @@ export function speak(
     const pieces = chunkText(text);
     let consumed = 0;
     for (const piece of pieces) {
-      if (cancelled) return;
+      if (superseded()) return;
       const at = text.indexOf(piece, consumed);
       const base = at >= 0 ? at : consumed;
       consumed = base + piece.length;
-      await speakPiece(piece, lang, opts, () => cancelled, base);
+      await speakPiece(piece, lang, opts, superseded, base);
     }
   })();
   return {
     cancel: () => {
       cancelled = true;
-      if (speechAvailable()) window.speechSynthesis.cancel();
+      // Only silence the engine if this narration still owns it — otherwise a
+      // component tearing down would cut off whoever took over from it.
+      if (narrationSeq === token) stopNarration(opts.owner ?? "reader");
     },
     done,
   };

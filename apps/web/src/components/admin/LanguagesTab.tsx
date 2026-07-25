@@ -1,6 +1,8 @@
 "use client";
 
-import { ALL_LOCALES, LOCALE_SITE, DEFAULT_LOCALE, isLocaleReady, localeReadiness } from "@ulyah/shared/i18n";
+import { useCallback, useEffect, useState } from "react";
+import { api } from "@/lib/api";
+import { ALL_LOCALES, LOCALE_SITE, DEFAULT_LOCALE, localeReadiness } from "@ulyah/shared/i18n";
 
 /**
  * How finished each of the 28 languages actually is.
@@ -37,88 +39,144 @@ function Bar({ pct, tone }: { pct: number; tone: "ui" | "content" }) {
 }
 
 export function LanguagesTab() {
+  // The switches live in the database, not in the code — turning a language on
+  // is the owner's call and takes effect without a deploy.
+  const [enabled, setEnabled] = useState<Record<string, boolean> | null>(null);
+  const [saving, setSaving] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const load = useCallback(() => {
+    api
+      .get<{ locales: { code: string; enabled: boolean }[] }>("/admin/locales")
+      .then((r) => {
+        const map: Record<string, boolean> = {};
+        for (const l of r.locales) map[l.code] = l.enabled;
+        setEnabled(map);
+      })
+      .catch(() => setError("Gagal memuat status bahasa."));
+  }, []);
+
+  useEffect(load, [load]);
+
+  async function toggle(code: string, next: boolean) {
+    setSaving(code);
+    setError(null);
+    try {
+      await api.post("/admin/locales", { code, enabled: next });
+      setEnabled((e) => ({ ...(e ?? {}), [code]: next }));
+    } catch {
+      setError(`Gagal mengubah ${code}.`);
+    } finally {
+      setSaving(null);
+    }
+  }
+
   const rows = ALL_LOCALES.map((l) => ({
     ...l,
-    ready: isLocaleReady(l.code),
     own: Boolean(LOCALE_SITE[l.code]),
+    isDefault: l.code === DEFAULT_LOCALE,
+    on: l.code === DEFAULT_LOCALE || Boolean(enabled?.[l.code]),
     r: localeReadiness(l.code),
-  })).sort((a, b) => Number(b.ready) - Number(a.ready) || b.r.overall - a.r.overall);
+  })).sort((a, b) => Number(b.on) - Number(a.on) || b.r.overall - a.r.overall);
 
-  const live = rows.filter((r) => r.ready).length;
+  const liveCount = rows.filter((r) => r.on || r.own).length;
 
   return (
     <section className="space-y-4">
       <div>
-        <p className="font-heading text-base">🈯 Kesiapan Bahasa</p>
+        <p className="font-heading text-base">🈯 Kesiapan &amp; Saklar Bahasa</p>
         <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
-          {live} dari {rows.length} bahasa aktif. Bahasa yang belum 100% <b>dicoret dan tidak bisa diklik</b> di pemilih
-          bahasa — pengunjung tidak akan mendarat di halaman yang setengah bahasa A setengah bahasa B. Persentase di bawah
-          ini diukur, bukan ditaksir: UI dihitung dari string kamus yang masih berbahasa Inggris, Konten dari berapa banyak
-          tulisan situs yang sudah diterjemahkan dan tersimpan di D1.
+          {liveCount} dari {rows.length} bahasa aktif di ulyah.com. Bahasa yang dimatikan <b>dicoret dan tidak bisa
+          diklik</b> di pemilih bahasa, dan URL-nya dialihkan ke Bahasa Indonesia — pengunjung tidak akan mendarat di
+          halaman setengah bahasa A setengah bahasa B. Persentasenya <b>diukur, bukan ditaksir</b>: UI dari string kamus
+          yang masih berbahasa Inggris, Konten dari berapa banyak tulisan situs yang sudah diterjemahkan dan tersimpan di
+          D1. Keputusan menyalakannya tetap di tangan Anda — sistem tidak pernah menyalakan sendiri.
         </p>
+        {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
       </div>
 
       <div className="grid gap-2 desktop:grid-cols-2">
-        {rows.map((l) => (
-          <div
-            key={l.code}
-            className={`rounded-xl border p-3 ${
-              l.ready
-                ? "border-emerald-500/40 bg-emerald-500/[0.04]"
-                : "border-[var(--color-border)] bg-[var(--color-card)]"
-            }`}
-          >
-            <div className="flex items-baseline justify-between gap-2">
-              <p className="font-heading text-sm">
-                <span dir={l.dir} className={l.ready ? "" : "line-through opacity-60"}>
-                  {l.label}
-                </span>
-                <span className="ml-1.5 text-[10px] uppercase text-[var(--color-text-secondary)]">{l.code}</span>
-              </p>
-              <span
-                className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                  l.ready ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" : "bg-black/[0.06] text-[var(--color-text-secondary)] dark:bg-white/[0.08]"
-                }`}
-              >
-                {l.code === DEFAULT_LOCALE
-                  ? "BAHASA SITUS"
-                  : l.own
-                    ? `SITUS SENDIRI · ${LOCALE_SITE[l.code]!.replace("https://", "")}`
-                    : l.ready
-                      ? "AKTIF"
-                      : `${l.r.overall}% — DIKUNCI`}
-              </span>
-            </div>
+        {rows.map((l) => {
+          const live = l.on || l.own;
+          return (
+            <div
+              key={l.code}
+              className={`rounded-xl border p-3 ${
+                live ? "border-emerald-500/40 bg-emerald-500/[0.04]" : "border-[var(--color-border)] bg-[var(--color-card)]"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <p className="font-heading text-sm">
+                  <span dir={l.dir} className={live ? "" : "line-through opacity-60"}>
+                    {l.label}
+                  </span>
+                  <span className="ml-1.5 text-[10px] uppercase text-[var(--color-text-secondary)]">{l.code}</span>
+                  {l.r.overall >= 100 && !live && (
+                    <span className="ml-1.5 rounded-full bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-bold text-amber-600 dark:text-amber-400">
+                      siap dinyalakan
+                    </span>
+                  )}
+                </p>
 
-            <div className="mt-2 space-y-1">
-              <Bar pct={l.r.dict} tone="ui" />
-              <Bar pct={l.r.content} tone="content" />
-            </div>
+                {l.isDefault ? (
+                  <span className="shrink-0 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                    BAHASA SITUS
+                  </span>
+                ) : l.own ? (
+                  <span
+                    className="shrink-0 rounded-full bg-sky-500/15 px-2 py-0.5 text-[10px] font-bold text-sky-600 dark:text-sky-400"
+                    title="Punya situs sendiri — pemilih bahasa mengarahkan ke sana, tidak menerjemahkan di tempat"
+                  >
+                    ↗ {LOCALE_SITE[l.code]!.replace("https://", "")}
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => toggle(l.code, !l.on)}
+                    disabled={saving === l.code || enabled === null}
+                    aria-pressed={l.on}
+                    className={`relative h-6 w-11 shrink-0 rounded-full transition disabled:opacity-40 ${
+                      l.on ? "bg-emerald-500" : "bg-black/20 dark:bg-white/20"
+                    }`}
+                    title={l.on ? "Matikan bahasa ini" : "Nyalakan bahasa ini"}
+                  >
+                    <span
+                      className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
+                        l.on ? "left-[1.375rem]" : "left-0.5"
+                      }`}
+                    />
+                  </button>
+                )}
+              </div>
 
-            {l.r.missing.length > 0 && (
-              <details className="mt-2">
-                <summary className="cursor-pointer text-[10px] text-[var(--color-text-secondary)]">
-                  {l.r.missing.length} teks UI masih berbahasa Inggris
-                </summary>
-                <ul className="mt-1 space-y-0.5">
-                  {l.r.missing.map((m, i) => (
-                    <li key={i} className="truncate text-[10px] text-[var(--color-text-secondary)]">
-                      · {m}
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            )}
-          </div>
-        ))}
+              <div className="mt-2 space-y-1">
+                <Bar pct={l.r.dict} tone="ui" />
+                <Bar pct={l.r.content} tone="content" />
+              </div>
+
+              {l.r.missing.length > 0 && (
+                <details className="mt-2">
+                  <summary className="cursor-pointer text-[10px] text-[var(--color-text-secondary)]">
+                    {l.r.missing.length} teks UI masih berbahasa Inggris
+                  </summary>
+                  <ul className="mt-1 space-y-0.5">
+                    {l.r.missing.map((m, i) => (
+                      <li key={i} className="truncate text-[10px] text-[var(--color-text-secondary)]">
+                        · {m}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <p className="text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
-        Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, dawa.es, xad.es) tetap bisa diklik karena pemilih bahasa
-        mengirim pengunjung ke situs itu, bukan menerjemahkan di tempat — situs tersebut hanya punya satu bahasa dan sudah
-        utuh sebagai situs. Angka Konten mereka tetap ditampilkan apa adanya supaya terlihat mana yang masih perlu
-        di-warm. Untuk membuka bahasa baru: selesaikan terjemahannya, jalankan <code>pnpm gen:ui-i18n</code> lalu{" "}
-        <code>pnpm gen:locale-readiness</code>, dan bahasa itu terbuka sendiri begitu mencapai 100%.
+        Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, dawa.es, xad.es) tidak punya saklar: memilihnya berarti
+        pindah ke situs itu, bukan menerjemahkan ulyah.com. Angka Konten mereka tetap ditampilkan apa adanya supaya
+        terlihat mana yang masih perlu di-warm. Angka UI diperbarui saat <code>pnpm gen:locale-readiness</code> berjalan;
+        angka Konten diukur ulang otomatis setiap kali workflow warm selesai.
       </p>
     </section>
   );

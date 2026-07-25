@@ -1,14 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { LOCALES, LOCALE_SITE, DEFAULT_LOCALE, isValidLocale, isLocaleReady, localeReadiness } from "@ulyah/shared/i18n";
 
 const LOCALE_COOKIE = "ulyah_locale";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
+
 export function LanguageSwitcher({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  // Which languages the owner has switched on, from the admin portal. null =
+  // not answered yet, in which case the built-in gate decides — that fallback
+  // is the restrictive one, so a slow or failed request can never briefly
+  // re-expose a language that is still being finished.
+  const [enabled, setEnabled] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch(`${API_BASE}/content/locales`)
+      .then((r) => r.json() as Promise<{ enabled?: string[]; ok?: boolean }>)
+      .then((j) => {
+        if (alive && j.ok && Array.isArray(j.enabled)) setEnabled(j.enabled);
+      })
+      .catch(() => {
+        /* keep the built-in gate */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  /** A language with its own site is always reachable — choosing it leaves for
+   *  that domain rather than translating anything here. */
+  const offered = (code: string) =>
+    Boolean(LOCALE_SITE[code]) || (enabled ? enabled.includes(code) : isLocaleReady(code));
 
   /**
    * Switching language is a whole-document change (lang, dir, fonts, every
@@ -45,7 +72,7 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
   // the four sibling sites — the in-place language switching is off (owner:
   // "non-aktifin dulu tombol bahasa di ulyah.com, fokus bahasa Indonesia aja").
   // Choosing one of these leaves for that site; nothing is translated in place.
-  const reachable = LOCALES.filter((l) => l.code !== locale && isLocaleReady(l.code));
+  const reachable = LOCALES.filter((l) => l.code !== locale && offered(l.code));
 
   // Nothing to switch to — a sibling site ships one language, and ulyah.com now
   // offers only outbound links. Hiding the control entirely reads better than a
@@ -70,20 +97,33 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
           </p>
           {reachable.map((l) => {
             const site = LOCALE_SITE[l.code];
-            // Every entry left in this menu has its own finished site, so this
-            // is always an outbound link. The ↗ says so before the click.
+            // A language with its own site is an outbound link (the ↗ says so
+            // before the click). One the owner switched on here is translated
+            // in place, like Indonesian.
+            if (site) {
+              return (
+                <a
+                  key={l.code}
+                  href={site}
+                  dir={l.dir}
+                  className="flex items-center justify-between gap-2 px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-black/5"
+                >
+                  <span>{l.label}</span>
+                  <span aria-hidden className="shrink-0 text-[10px] opacity-50">
+                    {site.replace("https://", "")} ↗
+                  </span>
+                </a>
+              );
+            }
             return (
-              <a
+              <button
                 key={l.code}
-                href={site}
+                onClick={() => switchTo(l.code)}
                 dir={l.dir}
-                className="flex items-center justify-between gap-2 px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-black/5"
+                className="block w-full px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-black/5"
               >
-                <span>{l.label}</span>
-                <span aria-hidden className="shrink-0 text-[10px] opacity-50">
-                  {site?.replace("https://", "")} ↗
-                </span>
-              </a>
+                {l.label}
+              </button>
             );
           })}
         </div>

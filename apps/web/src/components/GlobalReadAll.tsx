@@ -177,7 +177,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
       highlight(b.el);
       for (const sentence of splitSentences(b.text)) {
         if (!readingRef.current) break;
-        const h = speak(sentence, b.lang, { rate: 0.95 });
+        const h = speak(sentence, b.lang, { rate: 0.95, owner: "baca-semua" });
         handleRef.current = h;
         await h.done;
       }

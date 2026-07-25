@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { LOCALES, DEFAULT_LOCALE, isValidLocale, isLocaleReady } from "@ulyah/shared/i18n";
+import { LOCALES, DEFAULT_LOCALE, LOCALE_SITE, isValidLocale, isLocaleReady } from "@ulyah/shared/i18n";
 
 const LOCALE_COOKIE = "ulyah_locale";
 
@@ -95,8 +95,51 @@ const IS_SIBLING_TENANT =
   process.env.NEXT_PUBLIC_TENANT === "tilawa" ||
   process.env.NEXT_PUBLIC_TENANT === "dawa";
 
-/** A language may only be served if it is both in this build AND finished. */
-const usable = (code: string) => isValidLocale(code) && isLocaleReady(code);
+/**
+ * Which languages the owner has switched ON, from the admin portal.
+ *
+ * Same non-blocking shape as the hidden-page lookup above: answers instantly
+ * from a per-isolate cache and refreshes in the background at most once a
+ * minute, so this costs the edge nothing per request (awaiting a cross-worker
+ * fetch inside middleware is exactly what invites Error 1102).
+ *
+ * Until the first refresh lands — and if the API is unreachable — we fall back
+ * to the built-in gate, which offers only the site's own language and the
+ * sibling domains. That fallback is deliberately the RESTRICTIVE one: a blip
+ * must never re-expose a half-translated language.
+ */
+let localeCache: { codes: string[]; at: number } | null = null;
+let localeRefreshing = false;
+
+function enabledLocales(): string[] | null {
+  const now = Date.now();
+  if ((!localeCache || now - localeCache.at >= 60_000) && !localeRefreshing) {
+    localeRefreshing = true;
+    fetch(`${API_BASE}/content/locales`)
+      .then(async (res) => {
+        if (!res.ok) return;
+        const j = (await res.json()) as { enabled?: string[]; ok?: boolean };
+        if (j.ok && Array.isArray(j.enabled)) localeCache = { codes: j.enabled, at: Date.now() };
+      })
+      .catch(() => {
+        /* keep the previous answer, or the built-in gate */
+      })
+      .finally(() => {
+        localeRefreshing = false;
+      });
+  }
+  return localeCache?.codes ?? null;
+}
+
+/** A language may only be served if it is in this build AND switched on. */
+const usable = (code: string) => {
+  if (!isValidLocale(code)) return false;
+  // A language with its own site is always reachable — choosing it leaves for
+  // that domain rather than translating anything here.
+  if (code === DEFAULT_LOCALE || LOCALE_SITE[code]) return true;
+  const on = enabledLocales();
+  return on ? on.includes(code) : isLocaleReady(code);
+};
 
 function detectLocale(req: NextRequest): string {
   // A remembered choice only counts while that language is still offered. A
@@ -206,7 +249,7 @@ export async function middleware(req: NextRequest) {
   // 307, deliberately, NOT 301: every one of these languages comes back as soon
   // as its content is warmed, and a permanent redirect cached in browsers would
   // keep sending readers away long after the language was ready.
-  if (maybeLocale && isValidLocale(maybeLocale) && !isLocaleReady(maybeLocale)) {
+  if (maybeLocale && isValidLocale(maybeLocale) && !usable(maybeLocale)) {
     const url = req.nextUrl.clone();
     const rest = "/" + segments.slice(2).join("/");
     url.pathname = rest === "/" ? "/" : rest.replace(/\/$/, "");
