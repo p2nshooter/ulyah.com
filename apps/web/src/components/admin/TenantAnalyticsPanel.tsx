@@ -18,6 +18,9 @@ interface TenantStat {
    *  bot classification existed are included — they happened, and dropping them
    *  would erase the site's history. */
   visitors: Window4;
+  /** The PROVEN-human share of that traffic — positively identified, not
+   *  assumed. traffic = humans + unclassified. */
+  humans?: Window4;
   /** Crawler pageviews. Shown, not hidden — see the note under the cards. */
   bots?: Window4;
   /** Rows written before bot classification existed; never guessed at. */
@@ -134,6 +137,7 @@ export function TenantAnalyticsPanel() {
           const chart = r.daily.map((b) => ({ label: b.bucket.slice(5), value: b.n }));
           const net = r.installs - r.uninstalls;
           const readers = r.readers ?? ZERO;
+          const humans = r.humans ?? ZERO;
           const bots = r.bots ?? ZERO;
           const unclassified = r.unclassified ?? ZERO;
           return (
@@ -146,28 +150,46 @@ export function TenantAnalyticsPanel() {
                 <span className="text-[11px] text-[var(--color-text-secondary)]">{m.site}</span>
               </div>
 
-              {/* Readers and pages read, over the SAME windows. Before this was
-                  fixed the two cards used different clocks (a UTC calendar day
-                  next to a rolling 24 hours), which is how the portal came to
-                  show more devices than pageviews on the same day. */}
+              {/* Every window shows the same three numbers, and they add up:
+                  traffic = human + unjudged, with confirmed crawlers kept out
+                  and shown separately. Nobody has to trust a filtered number. */}
               <div className="mt-3 grid grid-cols-4 gap-2 text-center">
                 {(
                   [
-                    ["Hari ini", readers.today, r.visitors.today],
-                    ["7 hari", readers.week, r.visitors.week],
-                    ["30 hari", readers.month, r.visitors.month],
-                    ["Total", readers.allTime, r.visitors.allTime],
-                  ] as [string, number, number][]
-                ).map(([label, dev, pv]) => (
+                    ["Hari ini", r.visitors.today, humans.today, bots.today, unclassified.today, readers.today],
+                    ["7 hari", r.visitors.week, humans.week, bots.week, unclassified.week, readers.week],
+                    ["30 hari", r.visitors.month, humans.month, bots.month, unclassified.month, readers.month],
+                    ["Total", r.visitors.allTime, humans.allTime, bots.allTime, unclassified.allTime, readers.allTime],
+                  ] as [string, number, number, number, number, number][]
+                ).map(([label, traffic, human, bot, unknown, dev]) => (
                   <div key={label} className="rounded-lg bg-black/[0.03] py-2 dark:bg-white/[0.03]">
-                    <p className="font-heading text-lg text-accent">{dev}</p>
-                    <p className="text-[10px] text-[var(--color-text-secondary)]">{label}</p>
-                    <p className="text-[10px] text-[var(--color-text-secondary)]">{pv} halaman</p>
+                    <p className="font-heading text-lg text-accent" title="Trafik: manusia + belum terpilah">
+                      {traffic}
+                    </p>
+                    <p className="text-[10px] font-medium text-[var(--color-text-secondary)]">{label}</p>
+                    <p className="mt-1 text-[10px] text-emerald-600 dark:text-emerald-400" title="Manusia terkonfirmasi">
+                      🧑 {human}
+                    </p>
+                    <p className="text-[10px] text-[var(--color-text-secondary)]" title="Crawler terkonfirmasi — di luar trafik">
+                      🤖 {bot}
+                    </p>
+                    {unknown > 0 && (
+                      <p
+                        className="text-[10px] text-amber-600 dark:text-amber-400"
+                        title="Tercatat sebelum pemilahan bot ada — tidak ditebak belakangan"
+                      >
+                        ❔ {unknown}
+                      </p>
+                    )}
+                    <p className="text-[10px] text-sky-600 dark:text-sky-400" title="Perangkat unik">
+                      📲 {dev}
+                    </p>
                   </div>
                 ))}
               </div>
               <p className="mt-1 text-center text-[10px] text-[var(--color-text-secondary)]">
-                perangkat unik · kunjungan halaman — <b>jendela waktu yang sama</b>, hari Jakarta (UTC+7)
+                trafik · 🧑 manusia · 🤖 bot · ❔ belum terpilah · 📲 perangkat — <b>jendela waktu yang sama</b>, hari
+                Jakarta (UTC+7)
               </p>
 
               {chart.length > 0 && (
@@ -176,25 +198,6 @@ export function TenantAnalyticsPanel() {
                   <MiniBarChart data={chart} />
                 </div>
               )}
-
-              {/* The crawler split, shown rather than silently filtered — the
-                  owner should be able to see WHY a number is what it is. */}
-              <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px]">
-                <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-600 dark:text-emerald-400">
-                  📈 trafik 30 hari: <b>{r.visitors.month}</b> kunjungan
-                </span>
-                <span className="rounded-full bg-black/[0.04] px-2 py-0.5 text-[var(--color-text-secondary)] dark:bg-white/[0.06]">
-                  🤖 bot 30 hari: <b>{bots.month}</b>
-                </span>
-                {unclassified.month > 0 && (
-                  <span
-                    className="rounded-full bg-amber-500/10 px-2 py-0.5 text-amber-600 dark:text-amber-400"
-                    title="Tercatat sebelum pemilahan bot aktif — tidak ditebak belakangan"
-                  >
-                    ❔ belum terpilah: <b>{unclassified.month}</b>
-                  </span>
-                )}
-              </div>
 
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
                 <span>
