@@ -610,6 +610,11 @@ adminRoute.get("/tenant-analytics", async (c) => {
   const [totals, devices, installs, uninstalls, series, pages, countries, referers, activeDevices, uninstalledDevices, activeNow] =
     await Promise.all([
       // Pageviews per tenant, split by classification, over identical windows.
+      // Three numbers per window, and they add up: TRAFFIC = human + unjudged,
+      // with confirmed bots kept out of it and reported alongside. Showing all
+      // three means nobody has to take a filtered number on trust — the owner
+      // can see exactly how much of the traffic is proven human, how much is
+      // still unjudged, and how much was thrown out as crawler.
       c.env.DB.prepare(
         `SELECT tenant,
                 SUM(CASE WHEN ${TODAY} AND ${HUMAN}   THEN 1 ELSE 0 END) AS todayHuman,
@@ -715,11 +720,20 @@ adminRoute.get("/tenant-analytics", async (c) => {
     return {
       tenant: t,
       // Readers (classified human) — the headline.
+      // Traffic: human + unjudged (confirmed crawlers excluded).
       visitors: {
         today: num("todayHuman"),
         week: num("weekHuman"),
         month: num("monthHuman"),
         allTime: num("allHuman"),
+      },
+      // The proven-human share of that traffic — a real person's browser,
+      // positively identified, not an assumption.
+      humans: {
+        today: num("todayHuman") - num("todayUnknown"),
+        week: num("weekHuman") - num("weekUnknown"),
+        month: num("monthHuman") - num("monthUnknown"),
+        allTime: num("allHuman") - num("allUnknown"),
       },
       // Crawlers, shown so the split is visible rather than assumed.
       bots: {
