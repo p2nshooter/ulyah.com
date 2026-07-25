@@ -15,12 +15,16 @@
  * stayed Indonesian.) After a run, the Worker serves the cached translation
  * with no upstream call. Idempotent INSERT ... ON CONFLICT, safe to run daily.
  *
- * Usage: npx tsx scripts/warm-mt-cache.ts [--langs=en,fr,de,es] [--dry]
+ * Usage: npx tsx scripts/warm-mt-cache.ts [--langs=en,fr,de,es] [--behind] [--dry]
+ *
+ *   --behind  spend the whole run on the languages that are FURTHEST behind,
+ *             ignoring the ones already near the front. See BEHIND_RATIO.
  */
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { LOCALE_SITE } from "../packages/shared/src/i18n";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -44,8 +48,32 @@ function parseArgs() {
       .map((s) => s.trim())
       .filter(Boolean),
     dry: args.dry === "true",
+    behind: args.behind === "true",
   };
 }
+
+/**
+ * The languages --behind gives the whole run to: the ones that are switched
+ * OFF, and still short of the corpus (owner: "khususnya bahasa-bahasa yang
+ * sengaja dimatikan kerjain dulu sampai 100%").
+ *
+ * "Switched off" is not a guess from a percentage. A language is served on
+ * ulyah.com only if it is finished; the four that have their OWN site —
+ * en/fr/de/es — are never switched off, because choosing them leaves for that
+ * domain. So the locked set is exactly: every target language that does not own
+ * a domain. Twenty-two of them, and today they hold between 673 and 3,546
+ * strings against French's 18,355 — around 4 to 19%.
+ *
+ * A picked-out ratio would have been wrong here: at 90% of the leader the set
+ * would have swept in en (15,232), es (13,234) and de (9,057), which are the
+ * sibling sites and are not what the owner asked for.
+ *
+ * PARITY is what "100%" means for a language: it holds as much of the corpus as
+ * the best-covered language does. A locked language that reaches it drops out
+ * of the priority set on the next run, and when they all have, the run goes
+ * back to warming everything. Nothing to maintain by hand.
+ */
+const PARITY_RATIO = 0.99;
 
 // EXACT copy of the Worker's cache-key hash (apps/worker-api/src/lib/mt.ts) —
 // must stay byte-identical or the Worker won't find what we write.
@@ -210,7 +238,7 @@ function collectStrings(): string[] {
 }
 
 async function main() {
-  const { langs, dry } = parseArgs();
+  const { langs, dry, behind } = parseArgs();
 
   // Ensure the cache table exists up front so the "already cached?" query below
   // works even on the very first run (before migration 0046 has been applied).
@@ -237,19 +265,40 @@ async function main() {
   // every run top up whoever is behind, so coverage evens out on its own
   // instead of depending on where a language happens to sit in the list.
   const cachedPerLang = new Map<string, number>();
+  let queue = langs;
   if (!dry) {
     for (const lang of langs) {
       const n = d1Json<{ n: number }>(`SELECT COUNT(*) AS n FROM mt_cache WHERE k LIKE 'mt:id-${lang}:%';`)[0]?.n ?? 0;
       cachedPerLang.set(lang, Number(n));
     }
-    langs.sort((a, b) => (cachedPerLang.get(a) ?? 0) - (cachedPerLang.get(b) ?? 0));
-  }
+    queue = [...langs].sort((a, b) => (cachedPerLang.get(a) ?? 0) - (cachedPerLang.get(b) ?? 0));
 
-  console.log(`Collected ${strings.length} distinct id strings to warm into [${langs.join(", ")}].`);
+    // --behind: hand the WHOLE run to the switched-off languages.
+    //
+    // Sorting alone was not enough. A run has a wall clock, and the finished
+    // languages still sat in the queue behind the others — so when a pass ran
+    // long, the tail never got reached at all. Dropping them outright means
+    // every minute of every run goes where the owner asked it to go.
+    if (behind) {
+      const best = Math.max(0, ...cachedPerLang.values());
+      const locked = queue.filter((l) => !LOCALE_SITE[l] && (cachedPerLang.get(l) ?? 0) < best * PARITY_RATIO);
+      if (locked.length > 0) {
+        const pct = (l: string) => (best ? Math.round(((cachedPerLang.get(l) ?? 0) / best) * 100) : 0);
+        console.log(
+          `--behind: ${locked.length} switched-off languages are short of the ${best}-string corpus. ` +
+            `Spending the whole run on them: ${locked.map((l) => `${l} ${pct(l)}%`).join(", ")}`
+        );
+        queue = locked;
+      } else {
+        console.log("--behind: every switched-off language is at parity — warming all of them.");
+      }
+    }
+  }
+  console.log(`Collected ${strings.length} distinct id strings to warm into [${queue.join(", ")}].`);
   if (cachedPerLang.size) {
     console.log(
       "Cached per language (least first): " +
-        langs.map((l) => `${l}=${cachedPerLang.get(l) ?? 0}`).join(", ")
+        queue.map((l) => `${l}=${cachedPerLang.get(l) ?? 0}`).join(", ")
     );
   }
 
@@ -258,7 +307,7 @@ async function main() {
   let cached = 0;
   const pairs: { key: string; value: string }[] = [];
 
-  for (const lang of langs) {
+  for (const lang of queue) {
     if (lang === "id") continue;
     // Skip strings already translated in a previous run — this is what makes
     // the post-deploy trigger cheap: an unchanged corpus costs ZERO upstream
@@ -317,7 +366,10 @@ async function main() {
   // the established domain sites; every other language still translates hadith
   // ON DEMAND (cached to D1 on first view). Widen this set to pre-warm more.
   const HADITH_WARM_LANGS = ["fr", "de", "es"];
-  const hadithLangs = langs.filter((l) => HADITH_WARM_LANGS.includes(l));
+  // `queue`, not `langs` — under --behind the finished languages are not in
+  // this run at all, and the whole point is that nothing spends its budget on
+  // them. This phase then does nothing, which is correct.
+  const hadithLangs = queue.filter((l) => HADITH_WARM_LANGS.includes(l));
   if (hadithLangs.length && !dry) {
     const hadithCount =
       d1Json<{ n: number }>("SELECT COUNT(*) AS n FROM hadits WHERE text_ar IS NOT NULL AND text_ar <> '';")[0]?.n ?? 0;

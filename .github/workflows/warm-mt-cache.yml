@@ -15,8 +15,24 @@ on:
         description: "Comma-separated target languages (blank = all ecosystem languages)"
         required: false
         default: ""
+      behind:
+        description: "Spend the whole run on the languages furthest behind"
+        required: false
+        type: boolean
+        default: true
+      chain:
+        description: "Re-dispatch this workflow when the pass finishes and work remains"
+        required: false
+        type: boolean
+        default: true
   schedule:
-    - cron: "45 2 * * *" # daily, just after the kitab translate job
+    # Every three hours, not once at night. A single nightly pass could never
+    # close the gap: the twenty-two switched-off languages were 15,000 strings
+    # each behind French, and one pass tops up only what it has time for
+    # (owner: "bikin warm nyambung terus jangan cuma malam"). The runs also
+    # chain — see the last step — so this schedule is really just a safety net
+    # in case a chain ever breaks.
+    - cron: "45 */3 * * *"
   # Run automatically after every successful deploy, so content added and
   # imported by that deploy gets its sibling-language translations right away
   # instead of waiting for the nightly run. The script skips strings already in
@@ -45,9 +61,11 @@ concurrency:
   group: warm-mt-cache-${{ github.event_name }}
   cancel-in-progress: false
 
-# The readiness re-measurement step commits the updated numbers back.
+# contents: the readiness re-measurement step commits the updated numbers back.
+# actions:  the last step re-dispatches this workflow to continue the warming.
 permissions:
   contents: write
+  actions: write
 
 jobs:
   warm:
@@ -90,13 +108,29 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         # Empty langs (schedule / workflow_run / blank dispatch) → the script's
         # own default: every ecosystem language.
-        run: npx tsx scripts/warm-mt-cache.ts --langs=${{ inputs.langs }}
+        #
+        # --behind hands the WHOLE run to the languages furthest back (owner:
+        # "khususnya bahasa-bahasa yang sengaja dimatikan kerjain dulu sampai
+        # 100%"). It is on for the schedule and the chain, and defaults on for a
+        # manual dispatch; the script measures who is behind rather than reading
+        # a list, so a language drops out of the priority set by catching up and
+        # the flag turns itself off when nobody is behind.
+        run: |
+          npx tsx scripts/warm-mt-cache.ts \
+            --langs=${{ inputs.langs }} \
+            ${{ (github.event_name != 'workflow_dispatch' || inputs.behind) && '--behind' || '' }}
 
       # Close the loop: re-measure how much of the site's writing now exists in
       # each language and regenerate the readiness table. A language that has
       # reached 100% unlocks itself on the next deploy instead of waiting for
       # somebody to notice — which is the whole point of gating on a measurement
       # rather than on a hand-kept list.
+      # Kept so the chaining step below can tell whether this pass actually
+      # moved anything, and refuse to chain into a loop that is achieving
+      # nothing (Google occasionally rate-limits the runner).
+      - name: Snapshot coverage before re-measuring
+        run: cp scripts/locale-content.json /tmp/locale-content.before.json
+
       - name: Re-measure language readiness
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -123,3 +157,57 @@ jobs:
           git commit -m "chore(i18n): re-measure language readiness after warming"
           git pull --rebase origin main
           git push origin HEAD:main
+
+      # Keep going until the work is done (owner: "klo sudah selesai satu
+      # nyambung lg"). One pass can only translate what fits in its wall clock,
+      # and the switched-off languages were ~15,000 strings each behind French —
+      # so a pass that ends with work left over starts the next one itself.
+      #
+      # Two brakes, so this can never become a hot loop:
+      #   · nobody behind  → the job is finished; stop and say so;
+      #   · no progress    → the previous pass gained nothing (rate limit,
+      #                      upstream block). Chaining again would just burn
+      #                      minutes, so stop and let the 3-hourly schedule
+      #                      retry with fresh luck.
+      #
+      # workflow_dispatch is one of the two events GitHub still delivers when
+      # raised with GITHUB_TOKEN, so the chain is allowed to exist at all.
+      # Deploy-triggered runs never chain: they exist to catch up new content,
+      # not to start a campaign.
+      - name: Chain the next pass
+        if: ${{ github.event_name != 'workflow_run' && (github.event_name != 'workflow_dispatch' || inputs.chain) }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          decision=$(node -e '
+            const fs = require("fs");
+            const read = (p) => { try { return JSON.parse(fs.readFileSync(p, "utf8")).rows ?? {}; } catch { return {}; } };
+            const before = read("/tmp/locale-content.before.json");
+            const after  = read("scripts/locale-content.json");
+            const sum = (o) => Object.values(o).reduce((a, b) => a + Number(b), 0);
+            const gained = sum(after) - sum(before);
+            const best = Math.max(0, ...Object.values(after).map(Number));
+            // The same set the warm run prioritises: languages WITHOUT a domain
+            // of their own — the ones that are switched off — still short of the
+            // corpus. Kept in step with PARITY_RATIO in scripts/warm-mt-cache.ts.
+            const OWN_DOMAIN = new Set(["en", "de", "es", "fr"]);
+            const short = Object.entries(after)
+              .filter(([l, n]) => !OWN_DOMAIN.has(l) && Number(n) < best * 0.99)
+              .sort((a, b) => Number(a[1]) - Number(b[1]));
+            const pct = (n) => best ? Math.round((Number(n) / best) * 100) : 0;
+            console.error(`gained ${gained} strings this pass; corpus is ${best}`);
+            for (const [l, n] of short) console.error(`  still short: ${l} ${n} (${pct(n)}%)`);
+            if (short.length === 0) console.log("done");
+            else if (gained <= 0) console.log("stalled");
+            else console.log("chain");
+          ')
+          case "$decision" in
+            done)
+              echo "Every language is at parity with the leader — nothing left to warm." ;;
+            stalled)
+              echo "::warning::This pass gained no new translations; not chaining. The 3-hourly schedule will retry." ;;
+            chain)
+              echo "Work remains — starting the next pass."
+              gh workflow run warm-mt-cache.yml --ref main -f langs= -f behind=true -f chain=true ;;
+          esac
