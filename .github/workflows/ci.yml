@@ -43,6 +43,27 @@ jobs:
             exit 1
           fi
 
+      # A visitor must land on the language the site actually serves. This got
+      # it wrong in the direction nothing else can catch: Googlebot crawls from
+      # US addresses with no cookie, so every bare ulyah.com url answered
+      # 307 -> /en/..., a page we mark noindex on purpose. The site built,
+      # typechecked and served fine — it was simply never indexed. Checked for
+      # every tenant, because each one inlines its own locale list.
+      - name: Check language detection (all five sites)
+        run: |
+          set -eu
+          for t in ulyah dawa 1fr tilawa xad; do
+            echo "--- $t ---"
+            NEXT_PUBLIC_TENANT=$t pnpm check:locale
+          done
+
+      # One url per page across the five sites, and an hreflang graph that
+      # points both ways. Non-reciprocal hreflang is discarded silently, and a
+      # page reachable at two urls splits its own ranking — neither shows up in
+      # a build or a typecheck.
+      - name: Check canonical urls and hreflang reciprocity
+        run: pnpm check:urls
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 
