@@ -138,6 +138,12 @@ jobs:
       - name: Check the pesantren cleaner keeps every Arabic letter
         run: npx tsx scripts/check-pesantren-clean.mjs
 
+      # The kitab terjemah now ends in "(HR. Bukhari no. 1)", and the sibling
+      # sites get it through gtx — which renders "HR." as "recursos humanos" and
+      # replaces Arabic with a pious phrase of its own. Both must be masked.
+      - name: Check kitab citations survive translation to the sibling sites
+        run: npx tsx scripts/check-pesantren-mask.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 
