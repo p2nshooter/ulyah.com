@@ -118,7 +118,10 @@ async function main() {
     const cleaned = cleanMatn(r.text_ar);
     if (cleaned === r.text_ar) continue;
     perKitab.set(r.kitab_slug, (perKitab.get(r.kitab_slug) ?? 0) + 1);
-    if (!cleaned) {
+    // A row left with no letter or digit was only ever markup. "</span>:" is
+    // four of these — cleaning leaves a bare colon, which is no more a matn
+    // than the tag was.
+    if (!/[\p{L}\p{N}]/u.test(cleaned)) {
       drops.push(r.id);
       continue;
     }

@@ -7,7 +7,7 @@
  * hadith that share a famous opening but say different things, which is exactly
  * the pair a careless matcher gets wrong.
  */
-import { normalizeArabic, shingles, buildMatcher } from "./link-pesantren-hadits.ts";
+import { normalizeArabic, shingles, buildMatcher, looksIndonesian } from "./link-pesantren-hadits.ts";
 
 let failed = 0;
 function ok(cond, label) {
@@ -97,6 +97,32 @@ ok(formulaHit === null, `the isnad formula alone matches nothing, got ${JSON.str
 
 // Raising the bar must never invent matches that the lower bar missed.
 ok(m.match(NOT_IN_CORPUS, 0.9, 0.1) === null, "a stricter threshold stays empty too");
+
+// --- the corpus is not all Indonesian ------------------------------------
+// Arba'in An-Nawawi and Hadits Qudsi were imported Arabic + English, and the
+// English sits in the text_id column — 82 rows. They are the rows the matcher
+// most wants, being the same hadith word for word, so the language screen is
+// the only thing standing between a reader and an English kitab. These are the
+// real strings from both sides of that line.
+const REAL_ENGLISH_ARBAIN =
+  "It is narrated on the authority of Amirul Mu'minin, Abu Hafs 'Umar bin al-Khattab (ra) who said: " +
+  "I heard the Messenger of Allah (ﷺ) say: \"Actions are according to intentions, and everyone will get what was intended.\"";
+const REAL_ENGLISH_QUDSI =
+  "On the authority of Abu Hurayrah (may Allah be pleased with him), who said that the Messenger of Allah (ﷺ) said: " +
+  "Allah the Almighty said: The son of Adam denies Me and he has no right to do so.";
+const REAL_INDONESIAN_BUKHARI =
+  "Telah menceritakan kepada kami Abdullah bin Yusuf, dia berkata; telah mengabarkan kepada kami Malik, " +
+  "bahwa Rasulullah shallallahu 'alaihi wasallam bersabda: sesungguhnya amal itu tergantung niatnya.";
+const REAL_INDONESIAN_RIYADHUS =
+  "Pendahuluan Dengan nama Allah yang Maha Pengasih lagi Maha Penyayang. Segala puji bagi Allah Yang Maha Esa, " +
+  "dan tidak ada yang berhak disembah selain Dia.";
+
+ok(!looksIndonesian(REAL_ENGLISH_ARBAIN), "the English Arba'in text is not mistaken for Indonesian");
+ok(!looksIndonesian(REAL_ENGLISH_QUDSI), "the English Hadits Qudsi text is not mistaken for Indonesian");
+ok(looksIndonesian(REAL_INDONESIAN_BUKHARI), "the Indonesian Bukhari text is recognised");
+ok(looksIndonesian(REAL_INDONESIAN_RIYADHUS), "the Indonesian Riyadhus text is recognised");
+ok(!looksIndonesian(""), "an empty terjemah is never usable");
+ok(!looksIndonesian("Allah"), "a single neutral word is not enough to call it Indonesian");
 
 if (failed) {
   console.error(`\n${failed} check(s) failed.`);

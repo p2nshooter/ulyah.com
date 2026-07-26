@@ -41,6 +41,15 @@ eq(cleanMatn("</span\n\nقال ابن هشام: جهرة"), "قال ابن هش�
 eq(cleanMatn("</span>"), "", "a row that is only a tag cleans down to nothing and is dropped");
 eq(cleanMatn("</span>:"), ":", "a tag with a stray colon keeps only what is left");
 
+// What the caller drops: a row with no letter and no digit left in it was only
+// ever markup, whatever punctuation the scrape left behind.
+const isEmptyMatn = (s) => !/[\p{L}\p{N}]/u.test(cleanMatn(s));
+ok(isEmptyMatn("</span>"), "a bare tag counts as an empty matn");
+ok(isEmptyMatn("</span>:"), "a tag leaving only a colon counts as an empty matn");
+ok(isEmptyMatn("   "), "whitespace counts as an empty matn");
+ok(!isEmptyMatn("قال ms03 النبي"), "a row with Arabic left in it is never dropped");
+ok(!isEmptyMatn("40"), "a row that is only a number still carries something");
+
 // --- what must NOT change ------------------------------------------------
 const UNTOUCHED = [
   "إنما الأعمال بالنيات وإنما لكل امرئ ما نوى",

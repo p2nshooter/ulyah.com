@@ -139,6 +139,25 @@ export function shingles(words: string[], stride = 1): string[] {
   return out;
 }
 
+/**
+ * Not every row in the corpus is Indonesian. Arba'in An-Nawawi and Hadits Qudsi
+ * were imported Arabic + English, and their English landed in the text_id
+ * column — 82 rows of it. Those are the rows a matcher most wants to pick,
+ * because they are the same hadith word for word, and picking one would put
+ * English under an Indonesian kitab.
+ *
+ * Screened by language rather than by a list of collections, so an import added
+ * later cannot quietly reintroduce the problem.
+ */
+const ID_WORDS = /\b(?:telah|dari|kepada|bahwa|dengan|yang|tidak|adalah|berkata|kami|beliau|sesungguhnya|barangsiapa|orang|dia)\b/gi;
+const EN_WORDS = /\b(?:the|of|said|that|was|were|from|upon|authority|whoever|him|his|and|to)\b/gi;
+
+export function looksIndonesian(text: string): boolean {
+  const id = (text.match(ID_WORDS) ?? []).length;
+  const en = (text.match(EN_WORDS) ?? []).length;
+  return id >= 2 && id > en;
+}
+
 export interface MatchResult {
   index: number;
   score: number;
@@ -240,14 +259,16 @@ interface MatnRow {
 function loadCorpus(): HadithRow[] {
   const PAGE = 2000;
   const rows: HadithRow[] = [];
+  let read = 0;
   for (let offset = 0; ; offset += PAGE) {
     const page = d1Json<HadithRow>(
       `SELECT id, collection, hadith_number, text_ar, text_id FROM hadits ` +
         `WHERE text_ar IS NOT NULL AND TRIM(text_ar) <> '' AND text_id IS NOT NULL AND TRIM(text_id) <> '' ` +
         `ORDER BY id LIMIT ${PAGE} OFFSET ${offset};`
     );
-    rows.push(...page);
-    process.stdout.write(`\r  corpus: ${rows.length} hadits`);
+    for (const r of page) if (looksIndonesian(r.text_id ?? "")) rows.push(r);
+    read += page.length;
+    process.stdout.write(`\r  corpus: ${rows.length} usable of ${read} hadits`);
     if (page.length < PAGE) break;
   }
   process.stdout.write("\n");
