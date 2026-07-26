@@ -22,9 +22,23 @@ const PROTECT_RE = new RegExp(
   "gi"
 );
 
+/**
+ * Any run of Arabic script. Masked first, and never translated — see the note
+ * on ARABIC_RUN in apps/worker-api/src/lib/mt.ts for the 232 rows where the
+ * matn of a hadith had been replaced with a Spanish pious phrase.
+ */
+const ARABIC_RUN = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+(?:[\s\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]*[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF])?/g;
+
 export function maskProtected(text) {
   const map = [];
-  const masked = text.replace(PROTECT_RE, (m) => {
+  // Arabic first, exactly as the Worker does: a run may contain a word the
+  // term list also matches, and the script must win.
+  const withArabic = text.replace(ARABIC_RUN, (m) => {
+    const i = map.length;
+    map.push(m);
+    return `@@${i}@@`;
+  });
+  const masked = withArabic.replace(PROTECT_RE, (m) => {
     const i = map.length;
     map.push(m);
     return `@@${i}@@`;

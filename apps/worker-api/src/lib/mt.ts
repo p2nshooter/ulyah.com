@@ -338,9 +338,39 @@ const PROTECT_RE = new RegExp(
   "gi"
 );
 
+/**
+ * Any run of Arabic script, including the marks and punctuation that belong to
+ * it. Masked before translation and put back afterwards, untouched.
+ *
+ * This is not a nicety. Measured in the live cache: 232 Spanish rows had the
+ * Arabic matn of a hadith DELETED and replaced with a Spanish pious phrase —
+ * "si dios quiere", "Dios te bendiga" — because the translator recognised
+ * "إن شاء الله" and rendered it. One row read:
+ *
+ *     De Tamim Ad-De … dijo:
+ *     si dios quiere                     ← the words of the Prophet ﷺ, gone
+ *     "La religión es un consejo …"
+ *     Fuente: RRHH. Musulmán no. 55.     ← RRHH is the HR department
+ *
+ * The Qur'an and hadith are reproduced, never paraphrased by a machine. Masking
+ * the script is the only way to guarantee that, because no prompt binds gtx and
+ * the on-demand path uses it.
+ *
+ * ؀-ۿ Arabic, ݐ-ݿ supplement, ࢠ-ࣿ extended-A,
+ * ﭐ-﷿ and ﹰ-﻿ presentation forms.
+ */
+const ARABIC_RUN = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]+(?:[\s؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]*[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿])?/g;
+
 function maskProtected(text: string): { masked: string; map: string[] } {
   const map: string[] = [];
-  const masked = text.replace(PROTECT_RE, (m) => {
+  // Arabic first: a run may contain a word the term list also matches, and the
+  // script must win — reproducing it is stricter than transliterating it.
+  const withArabic = text.replace(ARABIC_RUN, (m) => {
+    const i = map.length;
+    map.push(m);
+    return `@@${i}@@`;
+  });
+  const masked = withArabic.replace(PROTECT_RE, (m) => {
     const i = map.length;
     map.push(m);
     return `@@${i}@@`;

@@ -142,7 +142,8 @@ ${scripture}
 4. Keep names of people, places and books as they are normally written in ${targetName}.
 5. The input is ${count} item(s), one per line. Return EXACTLY ${count} line(s), in the same order, each the translation of the line at that position. Never merge or split lines.
 6. Output the translation only. No numbering you were not given, no notes, no explanation, no apology, no quotation marks you were not given.
-7. Add nothing that is not in the source, and remove nothing that is. Do not comment on the content.`;
+7. Add nothing that is not in the source, and remove nothing that is. Do not comment on the content.
+8. A placeholder of the form @@0@@, @@1@@ and so on stands for text that has already been set aside — a name, or a passage of Arabic scripture. COPY EVERY PLACEHOLDER THROUGH UNCHANGED, in the same order, exactly as written. Never translate one, never renumber one, never drop one, never invent one. The number of placeholders in your answer must equal the number in the source.`;
 }
 
 /**
@@ -345,6 +346,71 @@ export async function aiTranslateBatch(
  * replaced by a side-by-side comparison on real sentences when one exists.
  */
 export const PREFER_GTX = new Set(["ha", "ps", "so", "uz", "ta", "sw"]);
+
+/**
+ * Split the pool into `n` slices that share no key.
+ *
+ * This is what makes concurrency worth anything. A PoolKey carries mutable
+ * state — `coolUntil` when it rate-limits, `fails` when it misbehaves — and if
+ * two concurrent calls walk the same array they hand the same key the same work
+ * at the same moment, spend one quota twice as fast, and each mark it cooling
+ * for the other. Having 489 keys and using them one at a time is a queue; having
+ * 489 keys and letting sixteen workers fight over the front of it is worse.
+ *
+ * Round-robin rather than contiguous, so every slice gets a mix of providers
+ * instead of one slice inheriting all of a single provider's rate limit.
+ */
+export function splitPool(pool: PoolKey[], n: number): PoolKey[][] {
+  const slices: PoolKey[][] = Array.from({ length: Math.max(1, n) }, () => []);
+  pool.forEach((k, i) => slices[i % slices.length]!.push(k));
+  return slices.filter((s) => s.length > 0);
+}
+
+/**
+ * How many batches to translate at once.
+ *
+ * The corpus is ~88,000 paragraph translations. Serially, at roughly five
+ * seconds a call, that is thirty hours; the limit is not quota — 489 keys is
+ * far more than this needs — it is that the calls were waiting for each other.
+ *
+ * Four keys per worker is the floor: a worker needs somewhere to fail over to
+ * when its first key is rate-limited, or concurrency just multiplies the
+ * stalls. Sixteen is the ceiling because past that the D1 checkpoint writes,
+ * not the translation, become the slow part.
+ */
+export function concurrencyFor(pool: PoolKey[]): number {
+  return Math.max(1, Math.min(16, Math.floor(pool.length / 4)));
+}
+
+/**
+ * Translate many batches at once, preserving order.
+ *
+ * Each worker owns a slice of the pool, so no two concurrent calls touch the
+ * same key. Results are written back by batch index rather than pushed, because
+ * a paragraph paired to the wrong translation is the one failure here that
+ * looks completely normal on the page.
+ */
+export async function translateBatchesParallel(
+  pool: PoolKey[],
+  batches: string[][],
+  targetCode: string,
+  sourceCode: string,
+  translateOne: (slice: PoolKey[], batch: string[]) => Promise<(string | null)[]>
+): Promise<(string | null)[][]> {
+  const out: (string | null)[][] = new Array(batches.length);
+  const slices = splitPool(pool, concurrencyFor(pool));
+  let next = 0; // single-threaded event loop: i++ needs no lock
+  await Promise.all(
+    slices.map(async (slice) => {
+      for (;;) {
+        const i = next++;
+        if (i >= batches.length) return;
+        out[i] = await translateOne(slice, batches[i]!);
+      }
+    })
+  );
+  return out;
+}
 
 /** Move the used key to the back, so the next batch starts on a different one. */
 export function rotate(pool: PoolKey[]): void {
