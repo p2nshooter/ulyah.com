@@ -582,14 +582,41 @@ function resolveCategoryLang(requested: string): "name_id" | "name_en" {
 
 // GET /content/kitab/categories?lang= — every category with its live book count
 contentRoute.get("/kitab/categories", async (c) => {
-  const nameCol = resolveCategoryLang(c.req.query("lang") ?? "id");
+  const requested = c.req.query("lang") ?? "id";
+  const nameCol = resolveCategoryLang(requested);
   const { results } = await c.env.DB.prepare(
     `SELECT c.slug, c.name_ar, c.name_id, c.name_en, c.${nameCol} AS name, c.icon, c.sort_order,
             (SELECT COUNT(*) FROM kitab_book b WHERE b.category_slug = c.slug) AS book_count
      FROM kitab_category c ORDER BY c.sort_order`
   ).all();
+  // resolveCategoryLang only knows Indonesian and English, so every other
+  // language was being handed the English name verbatim — "Hanafi
+  // Jurisprudence" sitting in the navigation of dawa.es, tilawa.de and 1fr.fr,
+  // on every page of the library. Localize it the same way story titles are
+  // localized, from the English name, cache-first.
+  await localizeCategoryNames(c.env, results as { name: string }[], requested);
   return c.json({ categories: results });
 });
+
+/**
+ * Translate category names in place, from English.
+ *
+ * These 38 strings sit in the navigation of every kitab page, so they are worth
+ * getting right: the seeds in packages/db-schema/seed/translations carry
+ * hand-written Spanish, German and French for all of them, which means this is
+ * a cache read rather than an upstream call in the common case.
+ */
+async function localizeCategoryNames(
+  env: Env,
+  rows: { name: string }[],
+  requested: string
+): Promise<void> {
+  if (requested === "id" || requested === "en" || rows.length === 0) return;
+  const out = await localizeBatchProtected(env, rows.map((r) => r.name), requested, "en");
+  rows.forEach((r, i) => {
+    r.name = out[i] ?? r.name;
+  });
+}
 
 // GET /content/kitab/category/:slug?q=&page=&lang= — works in a category, searchable
 contentRoute.get("/kitab/category/:slug", async (c) => {
@@ -604,6 +631,9 @@ contentRoute.get("/kitab/category/:slug", async (c) => {
     .bind(slug)
     .first();
   if (!cat) return c.json({ error: "Category not found" }, 404);
+  // Same as the category list: without this the heading of every book shelf on
+  // the sibling sites is in English.
+  await localizeCategoryNames(c.env, [cat as { name: string }], c.req.query("lang") ?? "id");
 
   const like = `%${q}%`;
   const [count, rows] = await Promise.all([
@@ -751,12 +781,17 @@ contentRoute.get("/hadits/collections", async (c) => {
   ).all<HaditsCollectionRow & { total: number }>();
   const filtered = results.filter((r) => r.total > 0);
 
-  // Localize the collection titles (small list, ~7 books). Indonesian keeps the
-  // native column; every other locale is translated id→lang (cache-first).
+  // Localize the collection titles. Indonesian keeps the native column; every
+  // other locale is translated id→lang, cache-first.
+  //
+  // PROTECTED, not plain: these are book names. "Shahih Muslim" through an
+  // unguarded translator becomes "Sahih musulmán" — the adjective — and
+  // "Muwatta Malik" loses its author. The mask is exactly what stops that, and
+  // it was the one localize call in this file not using it.
   const names =
     lang === "id"
       ? filtered.map((r) => r.name_id)
-      : await localizeBatch(c.env, filtered.map((r) => r.name_id), lang, "id");
+      : await localizeBatchProtected(c.env, filtered.map((r) => r.name_id), lang, "id");
   const collections = filtered.map((r, i) => ({ ...r, name: names[i] ?? r.name_id }));
 
   const body = JSON.stringify({ collections });

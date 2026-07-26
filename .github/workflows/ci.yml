@@ -78,6 +78,21 @@ jobs:
       - name: Check the warm job's parity decision
         run: node scripts/check-warm-parity.mjs
 
+      # Hand-written translations are stored under a key derived from the text.
+      # The Worker derives it in mt.ts; scripts/mt-key.mjs derives it again so
+      # translations can be written offline. If the two ever disagree the Worker
+      # looks up keys nobody wrote, every affected page quietly falls back to
+      # English, and nothing anywhere reports a problem.
+      - name: Check the translation key still matches the Worker's
+        run: node scripts/check-mt-key.mjs
+
+      # A title can be translated, spelled correctly and committed, and still
+      # never reach a reader — if it was filed under a key the Worker does not
+      # ask for. Counting rows would not notice; deriving every expected key
+      # and looking for it does.
+      - name: Check every story title has all three languages
+        run: node scripts/check-translation-coverage.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 
