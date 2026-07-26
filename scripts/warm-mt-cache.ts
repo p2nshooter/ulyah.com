@@ -26,7 +26,15 @@ import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { LOCALE_SITE } from "../packages/shared/src/i18n";
-import { loadPool, aiTranslateBatch, rotate, rankPool, poolSummary, PREFER_GTX, type PoolKey } from "./ai-translate";
+import {
+  loadPool, aiTranslateBatch, rotate, rankPool, poolSummary, PREFER_GTX,
+  translateBatchesParallel, concurrencyFor, type PoolKey,
+} from "./ai-translate";
+// The Worker's own masking, replicated. Hides Arabic script and protected names
+// behind @@n@@ before anything is translated, so a hadith's matn is never sent
+// to a translator and comes back exactly as it went in.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { maskProtected } from "./mt-key.mjs";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -769,6 +777,123 @@ async function main() {
       }
       writePairs(pairs, dry);
       console.log(`  hadith ar→${lang}: ${hadDone} new, ${hadCached} already cached`);
+      if (outOfTime()) break;
+    }
+  }
+
+  // ── Story bodies, English-source (the sibling sites' actual reading path) ──
+  //
+  // This is the phase that was missing, and its absence is why the articles on
+  // dawa.es, tilawa.de and 1fr.fr never became translated no matter how often
+  // the job ran.
+  //
+  // For es/de/fr the API serves the ENGLISH row of a story and translates from
+  // that (content.ts, /content/stories/:slug), so it asks for `mt:en-es:…`.
+  // Every phase above caches `mt:id-…`. The work was real, and for these
+  // articles nothing ever read it.
+  //
+  // Three details have to match the Worker exactly or the rows are unreachable:
+  //   · the body is split on a blank line, the same split the API makes;
+  //   · each paragraph is MASKED before hashing — and the mask now hides Arabic
+  //     script, so a hadith's matn is never sent to a translator at all;
+  //   · the value stored keeps the @@n@@ sentinels, which the Worker restores.
+  //
+  // Splitting into paragraphs also reaches the 1,210 bodies that were too long
+  // to translate whole: a paragraph is comfortably inside every limit.
+  const BODY_LANGS = ["es", "de", "fr"];
+  const bodyLangs = queue.filter((l) => BODY_LANGS.includes(l));
+  if (bodyLangs.length && !dry) {
+    for (const lang of bodyLangs) {
+      const already = new Set<string>();
+      for (let ko = 0; ; ko += 10000) {
+        const kr = d1Json<{ k: string }>(
+          `SELECT k FROM mt_cache WHERE k LIKE 'mt:en-${lang}:%' ORDER BY k LIMIT 10000 OFFSET ${ko};`
+        );
+        for (const r of kr) already.add(r.k);
+        if (kr.length < 10000) break;
+      }
+      let done = 0;
+      let skipped = 0;
+      let offset = 0;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        if (outOfTime()) break;
+        const rows = d1Json<{ title: string; body: string }>(
+          `SELECT title, body FROM stories WHERE lang = 'en' AND status = 'published'
+             AND body IS NOT NULL AND body <> '' ORDER BY id LIMIT 40 OFFSET ${offset};`
+        );
+        if (rows.length === 0) break;
+        offset += rows.length;
+
+        const todo: string[] = [];
+        const seen = new Set<string>();
+        for (const r of rows) {
+          // Title first, then paragraphs — the same list the API localizes.
+          for (const raw of [r.title, ...r.body.split(/\n\s*\n/)]) {
+            const masked = maskProtected(String(raw ?? "")).masked.trim();
+            if (masked.length < 2) continue;
+            // A paragraph that is nothing but Arabic masks to "@@0@@": there is
+            // no text to translate, and the Worker restores it verbatim.
+            if (/^(@@\d+@@\s*)+$/.test(masked)) continue;
+            if (masked.length > MAX_SOURCE_CHARS) {
+              skipped++;
+              continue;
+            }
+            const key = `mt:en-${lang}:${hashKey(masked)}`;
+            if (already.has(key) || seen.has(masked)) continue;
+            seen.add(masked);
+            todo.push(masked);
+          }
+        }
+
+        // Pack the page into batches, then translate them CONCURRENTLY.
+        //
+        // Serially this corpus is ~30 hours: 88,000 translations, four
+        // paragraphs a call, five seconds a call. The pool is 489 keys, so the
+        // wait was never quota — the calls were simply queueing behind each
+        // other. Each worker owns its own slice of keys (see splitPool), so
+        // running sixteen at once spends sixteen separate quotas rather than
+        // hammering one.
+        const batches: string[][] = [];
+        for (let i = 0; i < todo.length; ) {
+          const batch: string[] = [];
+          let bytes = 0;
+          while (i < todo.length && batch.length < 25 && bytes < 4000) {
+            batch.push(todo[i]!);
+            bytes += todo[i]!.length + 1;
+            i++;
+          }
+          batches.push(batch);
+        }
+
+        const results = await translateBatchesParallel(pool, batches, lang, "en", (slice, batch) =>
+          translateBatch(slice, batch, lang, "en")
+        );
+
+        batches.forEach((batch, bi) => {
+          const outs = results[bi] ?? [];
+          batch.forEach((src, k) => {
+            const v = outs[k];
+            // A translation that lost a sentinel would drop the Arabic — or a
+            // collector's name — out of the text entirely. Reject it; the next
+            // pass retries the paragraph.
+            const want = (src.match(/@@\d+@@/g) ?? []).length;
+            const got = v ? (v.match(/@@\d+@@/g) ?? []).length : 0;
+            if (v && v !== src && got === want) {
+              pairs.push({ key: `mt:en-${lang}:${hashKey(src)}`, value: v });
+              translated++;
+              done++;
+            } else {
+              failed++;
+            }
+          });
+        });
+        if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
+      }
+      writePairs(pairs, dry);
+      console.log(
+        `  stories en→${lang}: ${done} new` + (skipped ? `, ${skipped} paragraph(s) over ${MAX_SOURCE_CHARS} chars` : "")
+      );
       if (outOfTime()) break;
     }
   }

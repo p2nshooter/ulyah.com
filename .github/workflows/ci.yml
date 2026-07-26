@@ -23,6 +23,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Two checks were written in a scratch directory and copied in with their
+      # imports still absolute. They passed locally every time and failed CI
+      # twice, for a reason unrelated to the commit. First, because everything
+      # after it is pointless if the scripts cannot load.
+      - name: Check no script imports by absolute path
+        run: node scripts/check-no-absolute-imports.mjs
+
       - name: Audit i18n consistency (no sibling site left in the wrong language)
         run: npx tsx scripts/audit-i18n-consistency.ts
 
@@ -92,6 +99,25 @@ jobs:
       # and looking for it does.
       - name: Check every story title has all three languages
         run: node scripts/check-translation-coverage.mjs
+
+      # 232 Spanish rows had the Arabic matn of a hadith replaced with a Spanish
+      # pious phrase, because the translator recognised it and rendered it. No
+      # prompt binds gtx and the on-demand path uses it, so the guarantee has to
+      # be structural: hide the script, translate, put it back.
+      - name: Check Arabic scripture survives translation untouched
+        run: node scripts/check-arabic-preserved.mjs
+
+      # The same guarantee end to end, against a translator written to destroy
+      # scripture. If masking ever stops covering the whole path, this fails
+      # before a single hadith is mangled in production.
+      - name: Check a hadith survives a hostile translator
+        run: node scripts/check-scripture-survives.mjs
+
+      # Concurrency has two silent failures: a translation paired to the wrong
+      # paragraph reads perfectly, and two workers sharing a key make 489 keys
+      # behave like a handful. Both are asserted here.
+      - name: Check parallel translation keeps order and key isolation
+        run: npx tsx scripts/check-parallel-translate.mjs
 
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
