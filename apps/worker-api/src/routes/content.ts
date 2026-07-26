@@ -781,12 +781,17 @@ contentRoute.get("/hadits/collections", async (c) => {
   ).all<HaditsCollectionRow & { total: number }>();
   const filtered = results.filter((r) => r.total > 0);
 
-  // Localize the collection titles (small list, ~7 books). Indonesian keeps the
-  // native column; every other locale is translated id→lang (cache-first).
+  // Localize the collection titles. Indonesian keeps the native column; every
+  // other locale is translated id→lang, cache-first.
+  //
+  // PROTECTED, not plain: these are book names. "Shahih Muslim" through an
+  // unguarded translator becomes "Sahih musulmán" — the adjective — and
+  // "Muwatta Malik" loses its author. The mask is exactly what stops that, and
+  // it was the one localize call in this file not using it.
   const names =
     lang === "id"
       ? filtered.map((r) => r.name_id)
-      : await localizeBatch(c.env, filtered.map((r) => r.name_id), lang, "id");
+      : await localizeBatchProtected(c.env, filtered.map((r) => r.name_id), lang, "id");
   const collections = filtered.map((r, i) => ({ ...r, name: names[i] ?? r.name_id }));
 
   const body = JSON.stringify({ collections });
