@@ -5,6 +5,18 @@ import { kitabLabels } from "@/lib/kitab-labels";
 import { coverFor } from "@/lib/book-cover";
 import { PageHero } from "@/components/PageHero";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * The library index changes only when a new import runs.
+ */
+export const revalidate = 86400;
+
 interface CategoryRow {
   slug: string;
   name_ar: string;
@@ -21,7 +33,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
 
   let categories: CategoryRow[] = [];
   try {
-    const res = await api.get<{ categories: CategoryRow[] }>(`/content/kitab/categories?lang=${locale}`);
+    const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/kitab/categories?lang=${locale}`, 86400);
     categories = res.categories;
   } catch {
     categories = [];

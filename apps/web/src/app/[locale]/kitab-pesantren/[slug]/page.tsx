@@ -9,6 +9,20 @@ import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data"
 
 export const revalidate = 300;
 
+/**
+ * Empty on purpose — and required, or `revalidate` above does nothing.
+ *
+ * A dynamic segment with no generateStaticParams is never registered as a
+ * cacheable route: it gets no entry in the prerender manifest and re-renders
+ * on every request forever, whatever revalidate says. Declaring it — with
+ * nothing to prerender — makes Next treat the route as incrementally static:
+ * nothing is built at deploy time, each url renders once on first request, and
+ * every hit after that is served from cache until it expires.
+ */
+export function generateStaticParams() {
+  return [];
+}
+
 interface Chapter {
   id: number;
   order: number;
@@ -46,7 +60,7 @@ const META: Record<string, { section: string; by: string }> = {
 // sibling site never shows Indonesian (owner rule + AdSense language purity).
 async function fetchKitab(slug: string, locale: string): Promise<KitabResponse | null> {
   try {
-    return await api.get<KitabResponse>(`/content/pesantren/kitab/${slug}?lang=${locale}`);
+    return await api.getCached<KitabResponse>(`/content/pesantren/kitab/${slug}?lang=${locale}`, 300);
   } catch {
     return null;
   }

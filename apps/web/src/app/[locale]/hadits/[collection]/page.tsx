@@ -9,6 +9,18 @@ import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
 import { localePath } from "@/lib/paths";
 import { breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * Hadith text is static once imported.
+ */
+export const revalidate = 86400;
+
 interface CollectionMeta {
   slug: string;
   name_id: string;
@@ -32,7 +44,7 @@ interface PageData {
 
 async function load(slug: string, page: number, locale: string): Promise<PageData | null> {
   try {
-    return await api.get<PageData>(`/content/hadits/${slug}?page=${page}&lang=${locale}`);
+    return await api.getCached<PageData>(`/content/hadits/${slug}?page=${page}&lang=${locale}`, 86400);
   } catch {
     return null;
   }

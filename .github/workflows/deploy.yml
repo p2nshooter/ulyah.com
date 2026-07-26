@@ -143,6 +143,19 @@ jobs:
           fi
           echo "CLOUDFLARE_R2_BUCKET_NAME=ulyah-media" >> "$GITHUB_ENV"
 
+          # Next.js's rendered-page cache (OpenNext incremental cache). Its own
+          # bucket, not ulyah-media: this fills and empties on its own schedule
+          # and must never be caught by a media cleanup. Losing it costs one
+          # re-render per page, so it is disposable by design — which is
+          # exactly why it should not sit next to the 17GB of murottal that is
+          # not.
+          echo "--- R2 bucket 'ulyah-next-cache' ---"
+          NC_EXISTS=$(curl -s -H "$AUTH" "$CF/r2/buckets?per_page=100" | jq -r '.result.buckets[]? | select(.name=="ulyah-next-cache") | .name' 2>/dev/null | head -n1 || true)
+          if [ -z "$NC_EXISTS" ]; then
+            echo "Creating R2 bucket ulyah-next-cache..."
+            curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-next-cache"}' "$CF/r2/buckets" | jq -r '.success' || true
+          fi
+
       - name: Substitute wrangler.toml resource IDs
         run: |
           set -eu
@@ -1434,7 +1447,14 @@ jobs:
 
       - name: Deploy web
         working-directory: apps/web
-        run: npx wrangler deploy
+        # --var NEXT_INC_CACHE_R2_PREFIX: the rendered-page cache lives in ONE R2
+        # bucket shared by all five tenants, so each needs its own namespace in
+        # it. OpenNext's key already includes the Next build id, which differs
+        # per build today — but that is a default, not a guarantee: set
+        # generateBuildId to the git SHA (a common thing to do) and all five
+        # tenants would collide and start serving each other's HTML. Naming the
+        # prefix makes the separation explicit instead of accidental.
+        run: npx wrangler deploy --var NEXT_INC_CACHE_R2_PREFIX:inc-ulyah
 
       - name: Attach ulyah.com custom domains to web worker (overrides stale DNS)
         run: |
@@ -1490,7 +1510,14 @@ jobs:
 
       - name: Deploy 1fr.fr web (onefaith-web worker)
         working-directory: apps/web
-        run: npx wrangler deploy --name onefaith-web
+        # --var NEXT_INC_CACHE_R2_PREFIX: the rendered-page cache lives in ONE R2
+        # bucket shared by all five tenants, so each needs its own namespace in
+        # it. OpenNext's key already includes the Next build id, which differs
+        # per build today — but that is a default, not a guarantee: set
+        # generateBuildId to the git SHA (a common thing to do) and all five
+        # tenants would collide and start serving each other's HTML. Naming the
+        # prefix makes the separation explicit instead of accidental.
+        run: npx wrangler deploy --name onefaith-web --var NEXT_INC_CACHE_R2_PREFIX:inc-1fr
 
       - name: Attach 1fr.fr custom domains to onefaith-web
         run: |
@@ -1518,7 +1545,14 @@ jobs:
 
       - name: Deploy tilawa.de web (tilawa-web worker)
         working-directory: apps/web
-        run: npx wrangler deploy --name tilawa-web
+        # --var NEXT_INC_CACHE_R2_PREFIX: the rendered-page cache lives in ONE R2
+        # bucket shared by all five tenants, so each needs its own namespace in
+        # it. OpenNext's key already includes the Next build id, which differs
+        # per build today — but that is a default, not a guarantee: set
+        # generateBuildId to the git SHA (a common thing to do) and all five
+        # tenants would collide and start serving each other's HTML. Naming the
+        # prefix makes the separation explicit instead of accidental.
+        run: npx wrangler deploy --name tilawa-web --var NEXT_INC_CACHE_R2_PREFIX:inc-tilawa
 
       - name: Attach tilawa.de custom domains to tilawa-web
         run: |
@@ -1546,7 +1580,14 @@ jobs:
 
       - name: Deploy dawa.es web (dawa-web worker)
         working-directory: apps/web
-        run: npx wrangler deploy --name dawa-web
+        # --var NEXT_INC_CACHE_R2_PREFIX: the rendered-page cache lives in ONE R2
+        # bucket shared by all five tenants, so each needs its own namespace in
+        # it. OpenNext's key already includes the Next build id, which differs
+        # per build today — but that is a default, not a guarantee: set
+        # generateBuildId to the git SHA (a common thing to do) and all five
+        # tenants would collide and start serving each other's HTML. Naming the
+        # prefix makes the separation explicit instead of accidental.
+        run: npx wrangler deploy --name dawa-web --var NEXT_INC_CACHE_R2_PREFIX:inc-dawa
 
       - name: Attach dawa.es custom domains to dawa-web
         run: |
@@ -1574,7 +1615,14 @@ jobs:
 
       - name: Deploy xad.es web (xad-web worker)
         working-directory: apps/web
-        run: npx wrangler deploy --name xad-web
+        # --var NEXT_INC_CACHE_R2_PREFIX: the rendered-page cache lives in ONE R2
+        # bucket shared by all five tenants, so each needs its own namespace in
+        # it. OpenNext's key already includes the Next build id, which differs
+        # per build today — but that is a default, not a guarantee: set
+        # generateBuildId to the git SHA (a common thing to do) and all five
+        # tenants would collide and start serving each other's HTML. Naming the
+        # prefix makes the separation explicit instead of accidental.
+        run: npx wrangler deploy --name xad-web --var NEXT_INC_CACHE_R2_PREFIX:inc-xad
 
       - name: Attach xad.es custom domains to xad-web
         run: |

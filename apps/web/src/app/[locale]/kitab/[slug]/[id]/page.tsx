@@ -7,6 +7,50 @@ import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
 import { ogCoverUrl } from "@/lib/og";
 import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
+/**
+ * A day, because this is the page that took the whole ecosystem down.
+ *
+ * There are 4,967 of these — 79% of every url in the sitemap — and until now
+ * each one was rendered from scratch on every single request, calling the API
+ * twice as it went (once in generateMetadata, once in the page). One crawl of
+ * one site therefore cost 4,967 × 3 = 14,901 Worker requests, and there are
+ * five sites. The Workers free plan allows 100,000 requests a DAY, so a single
+ * crawler working through the catalogue could exhaust the account on its own —
+ * which is exactly what happened, and every site in the ecosystem answered
+ * Error 1027 until the quota reset at midnight UTC.
+ *
+ * It only started happening now because the crawler could not reach these
+ * pages before: bare urls were being redirected to a noindex twin, so nothing
+ * was ever indexed. Fixing that opened the catalogue to Googlebot for the
+ * first time.
+ *
+ * The content behind this page is a library record — a title, an author, a
+ * description imported once and not edited since. Serving it from cache for a
+ * day costs nothing in freshness and removes both API calls from the common
+ * path.
+ */
+export const revalidate = 86400;
+
+/**
+ * Empty on purpose — and required, or `revalidate` above does nothing.
+ *
+ * A dynamic segment with no generateStaticParams is not registered as a
+ * cacheable route at all: it gets no entry in the prerender manifest and is
+ * re-rendered on every request forever, whatever revalidate says. Declaring it
+ * — even with nothing to prerender — is what makes Next treat the route as
+ * incrementally static: no page is built at deploy time, each url is rendered
+ * once on first request, and every hit after that is served from the cache
+ * until it expires.
+ *
+ * Empty rather than all 4,967 because prerendering them would mean 4,967
+ * renders × 5 tenants at every deploy, which trades one runaway for another.
+ * Rendering on first request spreads that cost across the crawl and only ever
+ * pays it for pages somebody actually asks for.
+ */
+export function generateStaticParams() {
+  return [];
+}
+
 interface BookDetail {
   id: number;
   title_ar: string;
@@ -33,7 +77,7 @@ export async function generateMetadata({
   const { locale: raw, slug, id } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   try {
-    const { book } = await api.get<{ book: BookDetail }>(`/content/kitab/book/${id}?lang=${locale}`);
+    const { book } = await api.getCached<{ book: BookDetail }>(`/content/kitab/book/${id}?lang=${locale}`, 86400);
     // Arabic title is the language-neutral hero (matches the shelf card); the
     // localized latin title rides underneath. The cover uses the category slug
     // so the share image shares its shelf's binding colour.
@@ -61,9 +105,8 @@ export default async function KitabBookPage({
   let book: BookDetail | null = null;
   let nextBook: { id: number; title_ar: string } | null = null;
   try {
-    const res = await api.get<{ book: BookDetail; next_book: { id: number; title_ar: string } | null }>(
-      `/content/kitab/book/${id}?lang=${locale}`
-    );
+    const res = await api.getCached<{ book: BookDetail; next_book: { id: number; title_ar: string } | null }>(
+      `/content/kitab/book/${id}?lang=${locale}`, 86400);
     book = res.book;
     nextBook = res.next_book;
   } catch {

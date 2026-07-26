@@ -7,6 +7,18 @@ import { TENANT } from "@/lib/tenant";
 import { localePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * Children's episodes are added by import.
+ */
+export const revalidate = 3600;
+
 interface EpisodeRow {
   id: number;
   slug: string;
@@ -122,7 +134,7 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
 
   let episodes: EpisodeRow[] = [];
   try {
-    const r = await api.get<{ episodes: EpisodeRow[] }>(`/content/kisah-anak?lang=${locale}`);
+    const r = await api.getCached<{ episodes: EpisodeRow[] }>(`/content/kisah-anak?lang=${locale}`, 3600);
     episodes = r.episodes;
   } catch {
     episodes = [];

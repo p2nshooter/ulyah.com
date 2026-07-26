@@ -8,6 +8,22 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Where a rendered page is kept so the next request does not rebuild it.
+  //
+  // Read by OpenNext's R2 incremental cache under this exact binding name (see
+  // open-next.config.ts). Without it, `export const revalidate` on a route is
+  // decoration: every hit re-renders and re-calls the API, which is what put
+  // the account past the Workers free plan's 100,000 requests a day and left
+  // every site on Error 1027.
+  //
+  // All five tenants deploy from this one file (the workflow only changes
+  // --name), so one entry binds the cache for the whole ecosystem.
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "ulyah-next-cache"
+    }
+  ],
   // ulyah.com / www.ulyah.com custom domains are attached by the deploy
   // workflow via the account-level workers/domains API, which overrides the
   // stale placeholder DNS records that block wrangler's own attach call
