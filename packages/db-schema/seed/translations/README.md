@@ -62,12 +62,23 @@ translation, not to skip it because something is already there.
 
 | file | rows | covers |
 |---|---:|---|
-| `story-titles-1.sql` | 102 | 34 prophet-story episode titles × es/de/fr |
-| `hadith-sessions-*.sql` | 1,899 | all 633 "Authentic Hadith Session N" titles × es/de/fr |
+| `hadith-sessions-*.sql` | 1,899 | all 633 "Authentic Hadith Session N" titles |
+| `story-titles-1.sql` | 102 | 34 prophet-story episode titles |
+| `story-titles-2.sql` | 400 | the 9 cited-hadith titles + prophet stories |
+| `story-titles-3.sql` | 89 | the remainder |
+| **total** | **2,490** | **all 830 titles × es/de/fr** |
 
-667 of the 830 English story titles, in three languages. Titles are the highest
--leverage strings on the site: the listing endpoint localizes titles and
-nothing else, so they appear on every index, card and search result.
+`titles.json` is the manifest the coverage check reads — the list of story
+titles the seeds are expected to cover.
 
-Still untranslated: 163 remaining titles, and the story bodies (~17,000
-paragraphs per language, translated on demand).
+Every English story title, in all three languages. Titles are the
+highest-leverage strings on the site: the listing endpoint localizes titles and
+nothing else, so one title appears on every index, card and search result of
+all three sibling sites.
+
+`scripts/check-translation-coverage.mjs` derives the key for each of the 830
+and fails if any is absent, duplicated with conflicting text, or left with the
+English lead-in. It is in CI.
+
+Still untranslated: the story **bodies** — roughly 17,000 paragraphs per
+language, still translated on demand.
