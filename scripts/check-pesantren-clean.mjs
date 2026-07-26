@@ -73,6 +73,16 @@ eq(
   "the ayah itself is not edited, only its wrapper"
 );
 
+// The bare S OpenITI uses for the salawat, from the one Fathul Qarib row that
+// has it.
+eq(
+  cleanMatn("(و) الثاني (الصلاة على النبي S)، ويكره أن يجمع"),
+  "(و) الثاني (الصلاة على النبي ﷺ)، ويكره أن يجمع",
+  "the salawat abbreviation is restored, not deleted"
+);
+// A latin S that is not preceded by Arabic is left alone.
+eq(cleanMatn("S"), "S", "a lone S with no Arabic before it is not touched");
+
 // --- what must NOT change ------------------------------------------------
 const UNTOUCHED = [
   "إنما الأعمال بالنيات وإنما لكل امرئ ما نوى",

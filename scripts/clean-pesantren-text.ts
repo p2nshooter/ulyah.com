@@ -36,6 +36,14 @@ const PAGE_MARKER = /(^|[^\p{L}\p{N}])ms\d+(?=[^\p{L}\p{N}]|$)/giu;
 const QURAN_OPEN = /@QB@\s*/g;
 const QURAN_CLOSE = /\s*@QE@/g;
 
+/**
+ * OpenITI also abbreviates the salawat to a bare latin S, which reads as a
+ * stray letter: "(الصلاة على النبي S)". Restored to ﷺ. Bounded by Arabic on
+ * the left so no ordinary S is touched — only one row in the whole corpus has
+ * this, and it is about the Prophet ﷺ.
+ */
+const SALAWAT = /(?<=[؀-ۿ]\s*)S(?=[\s)،.:؛]|$)/g;
+
 /** A whole tag, closing bracket and all. */
 const HTML_TAG = /<\/?[a-z][a-z0-9]*(?:\s[^<>]*)?>/gi;
 /**
@@ -52,6 +60,7 @@ export function cleanMatn(text: string): string {
     .replace(HTML_STUB, " ")
     .replace(QURAN_OPEN, "﴿")
     .replace(QURAN_CLOSE, "﴾")
+    .replace(SALAWAT, "ﷺ")
     .replace(PAGE_MARKER, "$1")
     .replace(/[ \t]{2,}/g, " ")
     .replace(/[ \t]+\n/g, "\n")
