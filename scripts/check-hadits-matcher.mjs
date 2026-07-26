@@ -98,6 +98,31 @@ ok(formulaHit === null, `the isnad formula alone matches nothing, got ${JSON.str
 // Raising the bar must never invent matches that the lower bar missed.
 ok(m.match(NOT_IN_CORPUS, 0.9, 0.1) === null, "a stricter threshold stays empty too");
 
+// --- a chapter that contains the hadith is not the hadith -----------------
+// Riyadhus Shalihin is stored a whole bab at a time: heading, Qur'anic proof
+// texts, then several hadith. Any matn inside one is contained in it at score
+// 1.0, and 97 rows were filled from such a bab before this was caught — what
+// they got was "Bab 185. Keutamaan Berwudhu' …", a chapter title under a
+// hadith. So a candidate many times longer than the matn is refused.
+const BAB_CONTAINING_HALAL_HARAM =
+  "باب النهي عن الشبهات " +
+  "قال الله تعالى ﴿وأن هذا صراطي مستقيما فاتبعوه ولا تتبعوا السبل فتفرق بكم عن سبيله﴾ " +
+  "وقال تعالى ﴿فماذا بعد الحق إلا الضلال﴾ " +
+  HALAL_HARAM +
+  " وعن أنس رضي الله عنه قال قال رسول الله صلى الله عليه وسلم من غش فليس مني " +
+  " وعن أبي هريرة رضي الله عنه أن النبي صلى الله عليه وسلم مر على صبرة طعام فأدخل يده فيها فنالت أصابعه بللا " +
+  " وعن النعمان رضي الله عنه قال سمعت رسول الله صلى الله عليه وسلم يقول وأهوى النعمان بأصبعيه إلى أذنيه " +
+  " وعن عائشة رضي الله عنها قالت كان لأبي بكر الصديق غلام يخرج له الخراج وكان أبو بكر يأكل من خراجه " +
+  " وعن نافع عن ابن عمر رضي الله عنهما أن رسول الله صلى الله عليه وسلم نهى عن بيع الغرر وعن بيع حبل الحبلة";
+
+const withBab = buildMatcher([BUKHARI_1, HALAL_HARAM, UNRELATED, BAB_CONTAINING_HALAL_HARAM, ...filler]);
+const babHit = withBab.match(ARBAIN_6, 0.55, 0.1);
+ok(babHit !== null, "the hadith is still found when a whole bab also contains it");
+ok(
+  babHit?.index === 1,
+  `the hadith itself wins over the bab that contains it, got index ${babHit?.index}`
+);
+
 // --- the corpus is not all Indonesian ------------------------------------
 // Arba'in An-Nawawi and Hadits Qudsi were imported Arabic + English, and the
 // English sits in the text_id column — 82 rows. They are the rows the matcher
