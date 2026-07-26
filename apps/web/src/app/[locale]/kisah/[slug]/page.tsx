@@ -9,6 +9,34 @@ import { StoryDownloads } from "@/components/StoryDownloads";
 import { localePath } from "@/lib/paths";
 import { ogCoverUrl } from "@/lib/og";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * 1,191 stories, each previously rendered from scratch on every request with
+ * two API calls. An hour, not a day: the warm job keeps adding translations
+ * and a reader in another language should see them the same morning.
+ */
+export const revalidate = 3600;
+
+/**
+ * Empty on purpose — and required, or `revalidate` above does nothing.
+ *
+ * A dynamic segment with no generateStaticParams is never registered as a
+ * cacheable route: it gets no entry in the prerender manifest and re-renders
+ * on every request forever, whatever revalidate says. Declaring it — with
+ * nothing to prerender — makes Next treat the route as incrementally static:
+ * nothing is built at deploy time, each url renders once on first request, and
+ * every hit after that is served from cache until it expires.
+ */
+export function generateStaticParams() {
+  return [];
+}
+
 interface StoryDetail {
   id: number;
   title: string;
@@ -36,7 +64,7 @@ export async function generateMetadata({
   const storyLang = locale; // the API localizes non-authored languages server-side
 
   try {
-    const data = await api.get<{ story: StoryDetail }>(`/content/stories/${slug}?lang=${storyLang}`);
+    const data = await api.getCached<{ story: StoryDetail }>(`/content/stories/${slug}?lang=${storyLang}`, 3600);
     const description = metaDescription(data.story.body);
     const cover = ogCoverUrl({
       slug,
@@ -65,20 +93,17 @@ export async function generateMetadata({
 
 export default async function KisahDetailPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ autoplay?: string }>;
 }) {
   const { locale: raw, slug } = await params;
-  const { autoplay } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   const storyLang = locale; // the API localizes non-authored languages server-side
 
   let data: { story: StoryDetail; fallbackUsed: boolean; nextEpisode: { slug: string; title: string } | null } | null = null;
   try {
-    data = await api.get(`/content/stories/${slug}?lang=${storyLang}`);
+    data = await api.getCached(`/content/stories/${slug}?lang=${storyLang}`, 3600);
   } catch {
     data = null;
   }
@@ -168,7 +193,6 @@ export default async function KisahDetailPage({
           body={story.body}
           lang={storyLang}
           dict={dict}
-          autoStart={autoplay === "1"}
           nextHref={nextEpisode ? `/${locale}/kisah/${nextEpisode.slug}?autoplay=1` : null}
         />
       </div>

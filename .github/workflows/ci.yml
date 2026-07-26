@@ -72,6 +72,12 @@ jobs:
       - name: Check the translation pool's failover logic
         run: pnpm check:translate
 
+      # A warm run that translates nothing and exits 0 is indistinguishable
+      # from a corpus that was already finished, so the parity arithmetic that
+      # decides "is there work here" gets its own check.
+      - name: Check the warm job's parity decision
+        run: node scripts/check-warm-parity.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

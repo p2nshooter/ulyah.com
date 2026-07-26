@@ -537,13 +537,27 @@ async function main() {
   // how often the job ran. Sorting by how much each language already has makes
   // every run top up whoever is behind, so coverage evens out on its own
   // instead of depending on where a language happens to sit in the list.
+  //
+  // Counted for EVERY language, not just the ones this run was asked to warm.
+  // "Parity" means "level with the best-covered language in the ecosystem", and
+  // measuring only the requested subset silently redefines it: `--langs=de
+  // --one` made de both the queue and the benchmark, so de was trivially at
+  // 100%, the run announced "every language is at parity", translated nothing,
+  // and exited successfully. A run that does nothing while reporting success is
+  // the worst possible failure here, because it looks exactly like a corpus
+  // that was already finished.
+  //
+  // One grouped query instead of one COUNT per language — fewer scans than the
+  // loop it replaces, and it sees languages outside the queue.
   const cachedPerLang = new Map<string, number>();
   let queue = langs;
   if (!dry) {
-    for (const lang of langs) {
-      const n = d1Json<{ n: number }>(`SELECT COUNT(*) AS n FROM mt_cache WHERE k LIKE 'mt:id-${lang}:%';`)[0]?.n ?? 0;
-      cachedPerLang.set(lang, Number(n));
-    }
+    const counts = d1Json<{ lang: string; n: number }>(
+      `SELECT substr(k, 7, instr(substr(k,7),':')-1) AS lang, COUNT(*) AS n
+         FROM mt_cache WHERE k LIKE 'mt:id-%' GROUP BY lang;`
+    );
+    for (const r of counts) if (/^[a-z]{2}$/.test(r.lang)) cachedPerLang.set(r.lang, Number(r.n));
+    for (const lang of langs) if (!cachedPerLang.has(lang)) cachedPerLang.set(lang, 0);
     queue = [...langs].sort((a, b) => (cachedPerLang.get(a) ?? 0) - (cachedPerLang.get(b) ?? 0));
 
     // --behind: hand the WHOLE run to the switched-off languages.

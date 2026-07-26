@@ -6,6 +6,19 @@ import { coverFor } from "@/lib/book-cover";
 import { AdSlot } from "@/components/AdSlot";
 import { fillLabels } from "@/lib/fill-labels";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * The story index makes three API calls; an hour of cache removes all three
+ * from the common path.
+ */
+export const revalidate = 3600;
+
 interface StoryRow {
   id: number;
   title: string;
@@ -91,7 +104,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
 
   let categories: CategoryRow[] = [];
   try {
-    const res = await api.get<{ categories: CategoryRow[] }>(`/content/categories?lang=${locale}`);
+    const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${locale}`, 3600);
     categories = res.categories;
   } catch {
     categories = [];
@@ -105,9 +118,9 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
     orderedCategories.map(async (cat) => {
       try {
         const [storiesRes, personsRes] = await Promise.all([
-          api.get<{ stories: StoryRow[] }>(`/content/stories?category=${cat.slug}&lang=${storyLang}`),
+          api.getCached<{ stories: StoryRow[] }>(`/content/stories?category=${cat.slug}&lang=${storyLang}`, 3600),
           PERSON_INDEX_CATEGORIES.has(cat.slug)
-            ? api.get<{ persons: PersonRow[] }>(`/content/kisah-tokoh?category=${cat.slug}&lang=${locale}`).catch(() => ({ persons: [] }))
+            ? api.getCached<{ persons: PersonRow[] }>(`/content/kisah-tokoh?category=${cat.slug}&lang=${locale}`, 3600).catch(() => ({ persons: [] }))
             : Promise.resolve({ persons: [] as PersonRow[] }),
         ]);
         return { cat, stories: storiesRes.stories, persons: personsRes.persons };

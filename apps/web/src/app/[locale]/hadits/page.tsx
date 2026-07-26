@@ -7,6 +7,18 @@ import { PageHero } from "@/components/PageHero";
 import { localePath } from "@/lib/paths";
 import { coverFor } from "@/lib/book-cover";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * The collection list changes only on import.
+ */
+export const revalidate = 86400;
+
 interface CollectionRow {
   slug: string;
   name_id: string;
@@ -39,7 +51,7 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
 
   let collections: CollectionRow[] = [];
   try {
-    const res = await api.get<{ collections: CollectionRow[] }>(`/content/hadits/collections?lang=${locale}`);
+    const res = await api.getCached<{ collections: CollectionRow[] }>(`/content/hadits/collections?lang=${locale}`, 86400);
     collections = res.collections;
   } catch {
     collections = [];

@@ -69,10 +69,29 @@ export function StoryReader({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ?autoplay=1 is read HERE, in the browser, rather than from searchParams on
+  // the server — and that is not a style choice.
+  //
+  // A page that awaits searchParams is dynamic in Next, permanently and with no
+  // way to opt back in. That kept all 1,191 story pages re-rendering on every
+  // request, API calls and all, for every visitor and every crawler; with the
+  // ecosystem newly indexable it was a large part of what pushed the account
+  // past the Workers free plan's daily request limit and put every site behind
+  // Error 1027.
+  //
+  // Reading it after mount costs nothing: autostart could only ever happen once
+  // speech synthesis was ready, which is already client-side and already inside
+  // an effect. The chained "next episode" link keeps working exactly as before.
+  const [autoFromUrl, setAutoFromUrl] = useState(false);
   useEffect(() => {
-    if (autoStart && available) playFrom(0);
+    if (typeof window === "undefined") return;
+    setAutoFromUrl(new URLSearchParams(window.location.search).get("autoplay") === "1");
+  }, []);
+
+  useEffect(() => {
+    if ((autoStart || autoFromUrl) && available) playFrom(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoStart, available]);
+  }, [autoStart, autoFromUrl, available]);
 
   return (
     <div>

@@ -7,6 +7,32 @@ import { ContinuousStoryReader, type StorySection } from "@/components/Continuou
 import { fillLabels } from "@/lib/fill-labels";
 import { person as personLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * Same corpus as the stories, same warm job adding translations to it.
+ */
+export const revalidate = 3600;
+
+/**
+ * Empty on purpose — and required, or `revalidate` above does nothing.
+ *
+ * A dynamic segment with no generateStaticParams is never registered as a
+ * cacheable route: it gets no entry in the prerender manifest and re-renders
+ * on every request forever, whatever revalidate says. Declaring it — with
+ * nothing to prerender — makes Next treat the route as incrementally static:
+ * nothing is built at deploy time, each url renders once on first request, and
+ * every hit after that is served from cache until it expires.
+ */
+export function generateStaticParams() {
+  return [];
+}
+
 interface Person {
   slug: string;
   category_slug: string;
@@ -29,7 +55,7 @@ function categoryLabel(slug: string, locale: string): string {
 
 async function fetchPerson(slug: string, locale: string): Promise<{ person: Person; sections: StorySection[] } | null> {
   try {
-    const r = await api.get<{ person: Person; sections?: StorySection[] }>(`/content/kisah-tokoh/${slug}?lang=${locale}`);
+    const r = await api.getCached<{ person: Person; sections?: StorySection[] }>(`/content/kisah-tokoh/${slug}?lang=${locale}`, 3600);
     return { person: r.person, sections: r.sections ?? [] };
   } catch {
     return null;
@@ -40,7 +66,7 @@ async function fetchPerson(slug: string, locale: string): Promise<{ person: Pers
  * continuous reader can roll on through the whole menu until stopped. */
 async function nextPersonSlug(category: string, currentSlug: string): Promise<string | null> {
   try {
-    const r = await api.get<{ persons: { slug: string }[] }>(`/content/kisah-tokoh?category=${category}`);
+    const r = await api.getCached<{ persons: { slug: string }[] }>(`/content/kisah-tokoh?category=${category}`, 3600);
     const slugs = r.persons.map((p) => p.slug);
     const i = slugs.indexOf(currentSlug);
     if (i < 0) return null;

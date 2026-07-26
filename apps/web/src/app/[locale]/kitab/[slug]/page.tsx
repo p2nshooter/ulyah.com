@@ -4,6 +4,19 @@ import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { coverFor } from "@/lib/book-cover";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * A library category listing, imported once and not edited since — a day of
+ * cache costs nothing in freshness and keeps a crawler off the API.
+ */
+export const revalidate = 86400;
+
 interface BookRow {
   id: number;
   title_ar: string;
@@ -41,9 +54,8 @@ export default async function KitabCategoryPage({
   try {
     const qs = new URLSearchParams({ page: String(page), lang: locale });
     if (q) qs.set("q", q);
-    const res = await api.get<{ category: CategoryDetail; books: BookRow[]; total: number }>(
-      `/content/kitab/category/${slug}?${qs.toString()}`
-    );
+    const res = await api.getCached<{ category: CategoryDetail; books: BookRow[]; total: number }>(
+      `/content/kitab/category/${slug}?${qs.toString()}`, 86400);
     category = res.category;
     books = res.books;
     total = res.total;

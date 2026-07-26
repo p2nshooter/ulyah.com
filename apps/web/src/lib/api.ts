@@ -19,6 +19,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     credentials: "include",
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
   });
+  return handle<T>(res);
+}
+
+async function handle<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
     const { error, detail, code } = body as { error?: string; detail?: string; code?: string };
@@ -27,9 +31,37 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+/**
+ * A GET of PUBLIC content that Next.js is allowed to cache.
+ *
+ * `request()` sends `credentials: "include"` on everything, and Next treats a
+ * credentialed fetch as uncacheable — so a route calling it was dynamic no
+ * matter what `export const revalidate` it declared. That is why 4,967 library
+ * pages and 1,191 stories were rebuilt, API calls and all, on every single hit
+ * from every visitor and every crawler, until the account passed the Workers
+ * free plan's 100,000 requests a day and every site returned Error 1027.
+ *
+ * Two differences from `get`, and both are the point:
+ *  · no credentials, so Next will cache the response;
+ *  · an explicit `next.revalidate`, because fetch in Next 15 does not cache by
+ *    default — omitting it would leave the route dynamic again.
+ *
+ * ONLY for endpoints whose answer is the same for everybody. A response that
+ * depends on who is asking must keep using `get`: caching one would serve one
+ * reader's data to the next.
+ */
+export function getCached<T>(path: string, revalidate: number): Promise<T> {
+  return fetch(`${API_BASE}${path}`, {
+    headers: { "Content-Type": "application/json" },
+    next: { revalidate },
+  }).then((res) => handle<T>(res));
+}
+
 export const api = {
   base: API_BASE,
   get: <T>(path: string) => request<T>(path),
+  /** Public, cacheable GET — see getCached above. */
+  getCached,
   post: <T>(path: string, body?: unknown) =>
     request<T>(path, { method: "POST", body: body ? JSON.stringify(body) : undefined }),
   put: <T>(path: string, body?: unknown) =>

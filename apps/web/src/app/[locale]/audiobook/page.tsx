@@ -7,6 +7,18 @@ import { PageHero } from "@/components/PageHero";
 import { localePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
+/**
+ * Served from cache instead of rebuilt per request.
+ *
+ * Every one of these pages ran a full render — and its API calls — for each
+ * visitor AND each crawler hit. With the ecosystem newly indexable, that put
+ * the account past the Workers free plan's 100,000 requests a day and every
+ * site answered Error 1027 until midnight UTC.
+ *
+ * The audiobook library grows by import, not by the minute.
+ */
+export const revalidate = 3600;
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
@@ -73,10 +85,10 @@ export default async function AudiobookPage({
   let categories: CategoryRow[] = [];
   try {
     const [storiesRes, catRes] = await Promise.all([
-      api.get<{ stories: StoryRow[] }>(
+      api.getCached<{ stories: StoryRow[] }>(
         `/content/stories?lang=${storyLang}${category ? `&category=${category}` : ""}`
-      ),
-      api.get<{ categories: CategoryRow[] }>(`/content/categories?lang=${storyLang}&countedOnly=1`),
+      , 3600),
+      api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${storyLang}&countedOnly=1`, 3600),
     ]);
     stories = storiesRes.stories;
     categories = catRes.categories;
