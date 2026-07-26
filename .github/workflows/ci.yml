@@ -125,6 +125,13 @@ jobs:
       - name: Check the Iqro drills respect huruf sambung
         run: npx tsx scripts/check-iqro-joining.mjs
 
+      # Bulughul Maram and Arba'in are filled from the hadith corpus by matching
+      # Arabic, not by translating. A wrong pairing would put a real, fluent,
+      # wrong terjemah under a hadith — invisible to anyone not reading Arabic.
+      # So the matcher has to refuse boilerplate and refuse near misses.
+      - name: Check the hadits matcher refuses anything but a certain match
+        run: npx tsx scripts/check-hadits-matcher.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

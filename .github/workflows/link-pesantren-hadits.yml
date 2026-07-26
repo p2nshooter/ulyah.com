@@ -1,0 +1,84 @@
+name: Fill kitab hadits terjemah from the corpus
+
+# Bulughul Maram and Arba'in Nawawi are compilations of hadith that this site
+# already holds in full, with an Indonesian translation, from public-domain
+# (Unlicense) and MIT sources. So their terjemah is not translated — it is
+# matched, by Arabic text, against that corpus, and only written when one
+# hadith is a clear, unambiguous match.
+#
+# Run --dry first: it reports the match rate per kitab without writing a row.
+
+on:
+  workflow_dispatch:
+    inputs:
+      kitab:
+        description: "Comma-separated kitab slugs"
+        required: false
+        default: "arbainnawawi,bulughulmaram"
+      dry:
+        description: "Report matches without writing (true/false)"
+        required: false
+        type: boolean
+        default: true
+      min:
+        description: "Minimum share of the matn the hadith must contain (0-1)"
+        required: false
+        default: "0.55"
+      margin:
+        description: "How far the best match must beat the runner-up (0-1)"
+        required: false
+        default: "0.10"
+
+jobs:
+  link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Check the matcher before letting it near the database
+        run: npx tsx scripts/check-hadits-matcher.mjs
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Match each matn against the hadith corpus
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -eu
+          DRY_FLAG=""
+          if [ "${{ inputs.dry }}" = "true" ]; then DRY_FLAG="--dry"; fi
+          npx tsx scripts/link-pesantren-hadits.ts \
+            --kitab="${{ inputs.kitab || 'arbainnawawi,bulughulmaram' }}" \
+            --min="${{ inputs.min || '0.55' }}" \
+            --margin="${{ inputs.margin || '0.10' }}" \
+            $DRY_FLAG
+
+      - name: Report what the kitab look like now
+        if: ${{ inputs.dry != true }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: apps/worker-api
+        run: |
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT b.kitab_slug, COUNT(*) AS total, SUM(CASE WHEN m.translation_id IS NOT NULL AND TRIM(m.translation_id) <> '' THEN 1 ELSE 0 END) AS punya_terjemah FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id GROUP BY b.kitab_slug ORDER BY total DESC;"
