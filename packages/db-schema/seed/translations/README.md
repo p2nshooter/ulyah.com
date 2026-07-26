@@ -66,7 +66,9 @@ translation, not to skip it because something is already there.
 | `story-titles-1.sql` | 102 | 34 prophet-story episode titles |
 | `story-titles-2.sql` | 400 | the 9 cited-hadith titles + prophet stories |
 | `story-titles-3.sql` | 89 | the remainder |
-| **total** | **2,490** | **all 830 titles × es/de/fr** |
+| `kitab-categories.sql` | 114 | all 38 library category names |
+| `hadith-collections.sql` | 36 | all 12 hadith collection names |
+| **total** | **2,640** | |
 
 `titles.json` is the manifest the coverage check reads — the list of story
 titles the seeds are expected to cover.
@@ -79,6 +81,19 @@ all three sibling sites.
 `scripts/check-translation-coverage.mjs` derives the key for each of the 830
 and fails if any is absent, duplicated with conflicting text, or left with the
 English lead-in. It is in CI.
+
+### Two of these were not cache gaps
+
+`kitab_category` and `hadits_collection` needed a code change as well as
+translations, and neither would ever have been fixed by warming:
+
+- **Category names** were served in English to every non-Indonesian language.
+  `resolveCategoryLang()` returns `name_id` or `name_en` and has no third
+  branch, so no lookup happened at all — the warm job had been dutifully
+  caching `mt:id-es` for names nothing ever asked for.
+- **Collection names** went through the *unprotected* localize path, the only
+  call in `content.ts` that did. "Shahih Muslim" through an unguarded
+  translator becomes "Sahih musulmán" — the adjective.
 
 Still untranslated: the story **bodies** — roughly 17,000 paragraphs per
 language, still translated on demand.

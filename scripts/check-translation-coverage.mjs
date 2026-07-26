@@ -51,9 +51,14 @@ for (const f of readdirSync(DIR).filter((n) => n.endsWith(".sql"))) {
 }
 ok("seed files parsed", seen.size > 0, `${seen.size} distinct keys`);
 ok("no key written twice with different text", conflicts === 0, `${conflicts} conflicts, ${dupes} repeats`);
+// Two source languages are legitimate here and the difference is not cosmetic:
+// stories and library categories are translated from the English row, while
+// hadith collection names are authored in Indonesian and translated from that.
+// A row filed under the wrong source is never read.
+const SOURCES = ["en", "id"];
 ok(
-  "every key targets a language we serve",
-  [...seen.keys()].every((k) => LANGS.some((l) => k.startsWith(`mt:en-${l}:`))),
+  "every key targets a language we serve, from a source we translate",
+  [...seen.keys()].every((k) => SOURCES.some((s) => LANGS.some((l) => k.startsWith(`mt:${s}-${l}:`)))),
   ""
 );
 ok("no value left with the English lead-in", ![...seen.values()].some((v) => v.includes("Authentic Hadith — HR.")));
