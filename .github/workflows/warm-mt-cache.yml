@@ -201,8 +201,23 @@ jobs:
           # The substituted file was never meant to be committed, so discard it
           # before rebasing rather than the other way round.
           git checkout -- apps/worker-api/wrangler.toml
-          git pull --rebase origin main
-          git push origin HEAD:main
+          # Two warm passes can finish within seconds of each other, and both
+          # want main. Rebasing once is not enough: the winner's commit lands
+          # between the loser's rebase and its push, and the push comes back
+          # "cannot lock ref 'refs/heads/main': is at X but expected Y" — which
+          # fails the run and, worse, skips the chaining step, so the campaign
+          # stops. Re-fetch and replay until the push is actually accepted.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase FETCH_HEAD || { git rebase --abort; echo "rebase conflict — giving this pass up"; exit 0; }
+            if git push origin HEAD:main; then
+              echo "readiness pushed on attempt ${attempt}"
+              exit 0
+            fi
+            # Back off by a different amount than whoever we are racing.
+            sleep $(( (RANDOM % 8) + attempt * 3 ))
+          done
+          echo "main kept moving under us; the next pass will re-measure anyway."
 
       # Keep going until the work is done (owner: "klo sudah selesai satu
       # nyambung lg"). One pass can only translate what fits in its wall clock,

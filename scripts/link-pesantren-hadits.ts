@@ -66,6 +66,7 @@ function parseArgs() {
     min: Number(args.min ?? 0.55),
     margin: Number(args.margin ?? 0.1),
     dry: args.dry === "true",
+    sample: Number(args.sample ?? 0),
   };
 }
 
@@ -168,7 +169,12 @@ export function buildMatcher(corpusArabic: string[]) {
   /** A match built only out of boilerplate is not a match. */
   const MIN_RARE = 4;
 
-  function match(text: string, min: number, margin: number): MatchResult | null {
+  /**
+   * The best candidate and its score, with no threshold applied — so a run can
+   * report how far the misses actually were, and say whether a lower bar would
+   * find more hadith or only start pairing the wrong ones.
+   */
+  function best(text: string): MatchResult | null {
     const words = normalizeArabic(text).split(" ").filter(Boolean);
     const query = shingles(words, 1);
     if (query.length < 3) return null;
@@ -188,7 +194,7 @@ export function buildMatcher(corpusArabic: string[]) {
     // Score the few plausible candidates properly: what share of the passage
     // does this entry actually contain?
     const shortlist = [...seen.entries()].sort((a, b) => b[1] - a[1]).slice(0, 20);
-    let best = -1;
+    let winner = -1;
     let bestScore = 0;
     let bestShared = 0;
     let runnerUp = 0;
@@ -200,15 +206,21 @@ export function buildMatcher(corpusArabic: string[]) {
         runnerUp = bestScore;
         bestScore = score;
         bestShared = shared;
-        best = ci;
+        winner = ci;
       } else if (score > runnerUp) runnerUp = score;
     }
-    if (best < 0 || bestShared < MIN_RARE) return null;
-    if (bestScore < min || bestScore - runnerUp < margin) return null;
-    return { index: best, score: bestScore, runnerUp };
+    if (winner < 0 || bestShared < MIN_RARE) return null;
+    return { index: winner, score: bestScore, runnerUp };
   }
 
-  return { match, size: index.size };
+  function match(text: string, min: number, margin: number): MatchResult | null {
+    const b = best(text);
+    if (!b) return null;
+    if (b.score < min || b.score - b.runnerUp < margin) return null;
+    return b;
+  }
+
+  return { match, best, size: index.size };
 }
 
 interface HadithRow {
@@ -249,7 +261,7 @@ function citation(h: HadithRow): string {
 }
 
 async function main() {
-  const { kitab, min, margin, dry } = parseArgs();
+  const { kitab, min, margin, dry, sample } = parseArgs();
   console.log(`Linking terjemah for: ${kitab.join(", ")} (min=${min}, margin=${margin}${dry ? ", dry" : ""})`);
 
   const matns = d1Json<MatnRow>(
@@ -272,6 +284,8 @@ async function main() {
   console.log(`Index: ${matcher.size} shingles over ${corpus.length} hadits.`);
 
   const updates: string[] = [];
+  const samples: string[] = [];
+  const nearMiss = { none: 0, far: 0, below: 0, ambiguous: 0 };
   const perKitab = new Map<string, { hit: number; miss: number }>();
   for (const m of matns) {
     const stat = perKitab.get(m.kitab_slug) ?? { hit: 0, miss: 0 };
@@ -280,6 +294,13 @@ async function main() {
     const hit = matcher.match(m.text_ar, min, margin);
     if (!hit) {
       stat.miss++;
+      // Where the misses sit tells us whether a lower bar would find more
+      // hadith or only start pairing the wrong ones.
+      const b = matcher.best(m.text_ar);
+      if (!b) nearMiss.none++;
+      else if (b.score < 0.3) nearMiss.far++;
+      else if (b.score < min) nearMiss.below++;
+      else nearMiss.ambiguous++;
       continue;
     }
 
@@ -287,12 +308,29 @@ async function main() {
     const terjemah = `${(h.text_id ?? "").trim()}\n\n(${citation(h)})`;
     updates.push(`UPDATE pesantren_matn SET translation_id = ${sq(terjemah)} WHERE id = ${m.id};`);
     stat.hit++;
+
+    // Printed side by side so a human can see whether the pairing is right —
+    // the one thing no automated threshold can confirm.
+    if (samples.length < sample) {
+      samples.push(
+        `\n— matn #${m.id} (${m.kitab_slug}), score ${hit.score.toFixed(2)} vs runner-up ${hit.runnerUp.toFixed(2)}\n` +
+          `  matn : ${m.text_ar.replace(/\s+/g, " ").slice(0, 200)}\n` +
+          `  cocok: ${(h.text_ar ?? "").replace(/\s+/g, " ").slice(0, 200)}\n` +
+          `  ${citation(h)} — ${(h.text_id ?? "").replace(/\s+/g, " ").slice(0, 200)}`
+      );
+    }
   }
 
   for (const [slug, s] of perKitab) {
     const total = s.hit + s.miss;
     console.log(`  ${slug}: ${s.hit}/${total} matched (${((s.hit / total) * 100).toFixed(1)}%)`);
   }
+  console.log(
+    `Misses: ${nearMiss.none} with nothing distinctive to go on, ${nearMiss.far} nowhere near ` +
+      `(<0.30), ${nearMiss.below} short of --min=${min}, ${nearMiss.ambiguous} good enough but ` +
+      `too close to a second hadith to choose.`
+  );
+  if (samples.length) console.log(`\nSample pairings to read by eye:${samples.join("\n")}\n`);
 
   if (dry) {
     console.log(`Dry run — ${updates.length} rows would be filled.`);

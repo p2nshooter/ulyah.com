@@ -132,6 +132,18 @@ jobs:
       - name: Check the hadits matcher refuses anything but a certain match
         run: npx tsx scripts/check-hadits-matcher.mjs
 
+      # The cleaner edits classical Arabic in place. Its first draft swallowed a
+      # whole row after an unterminated `</span` — 268 rows of Sirah Ibnu Hisyam
+      # would have been emptied. Every Arabic letter must survive the scrub.
+      - name: Check the pesantren cleaner keeps every Arabic letter
+        run: npx tsx scripts/check-pesantren-clean.mjs
+
+      # The kitab terjemah now ends in "(HR. Bukhari no. 1)", and the sibling
+      # sites get it through gtx — which renders "HR." as "recursos humanos" and
+      # replaces Arabic with a pious phrase of its own. Both must be masked.
+      - name: Check kitab citations survive translation to the sibling sites
+        run: npx tsx scripts/check-pesantren-mask.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

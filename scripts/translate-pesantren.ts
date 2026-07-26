@@ -19,6 +19,7 @@ import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { maskProtected } from "./mt-key.mjs";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -122,6 +123,63 @@ async function mymemory(text: string, target: string, source = "id"): Promise<st
   }
 }
 
+/**
+ * The shared list in mt-key.mjs protects the book names and "no.", but not the
+ * citation markers themselves — "HR." (hadits riwayat) and "QS." (Qur'an surat).
+ * gtx renders "HR." as "recursos humanos" in Spanish.
+ *
+ * They are masked here rather than added to the shared list on purpose: that
+ * list feeds hashKey, so growing it would change the cache key of every string
+ * containing one of these and orphan the entries already written under the old
+ * key. This script writes to pes_i18n by (kitab, lang) and never hashes masked
+ * text, so it can protect more without moving anyone's keys.
+ */
+const CITATION_MARKER = /\b(?:HR|QS)\s*\.?/gi;
+
+function maskProtectedPlus(text: string): { masked: string; map: string[] } {
+  const { masked, map } = maskProtected(text);
+  // Sentinels are @@n@@ — the marker pattern cannot match inside one.
+  const out = masked.replace(CITATION_MARKER, (m) => {
+    const i = map.length;
+    map.push(m);
+    return `@@${i}@@`;
+  });
+  return { masked: out, map };
+}
+
+/**
+ * Puts the masked runs back exactly as they were. Refuses if a sentinel went
+ * missing: a translator that ate an @@n@@ has swallowed a hadith's Arabic or a
+ * citation, and half-restored text is worse than no translation at all.
+ */
+function unmaskProtected(text: string, map: string[]): string | null {
+  let out = text;
+  for (let i = 0; i < map.length; i++) {
+    const sentinel = new RegExp(`@@\\s*${i}\\s*@@`, "g");
+    if (!sentinel.test(out)) return null;
+    out = out.replace(sentinel, map[i]);
+  }
+  return /@@\d+@@/.test(out) ? null : out;
+}
+
+/**
+ * Translate, with the things that must not be translated hidden first.
+ *
+ * gtx renders "HR." — hadits riwayat, "narrated by" — as "recursos humanos" in
+ * Spanish, turns narrator names into their nearest common noun, and will
+ * happily replace a run of Arabic with a pious phrase of its own. So the Arabic
+ * and the protected terms are masked to @@n@@ before the request and restored
+ * after it, and a response that lost a sentinel is thrown away.
+ */
+async function translateProtected(text: string, target: string): Promise<string | null> {
+  const { masked, map } = maskProtectedPlus(text);
+  // Nothing left to translate once the Arabic is hidden — keep the original.
+  if (!/[A-Za-zÀ-ɏ]/.test(masked.replace(/@@\d+@@/g, ""))) return text;
+  const out = await translate(masked, target);
+  if (!out) return null;
+  return unmaskProtected(out, map);
+}
+
 /** Translate one string with retries; falls back to sentence-chunked MyMemory. */
 async function translate(text: string, target: string): Promise<string | null> {
   for (let i = 0; i < 4; i++) {
@@ -196,7 +254,7 @@ async function main() {
     const catRows: string[] = [];
     for (const cat of cats) {
       if (!cat.name_id?.trim()) continue;
-      const t = await translate(cat.name_id, lang);
+      const t = await translateProtected(cat.name_id, lang);
       if (t) catRows.push(`('_cat', ${sq(lang)}, ${sq(cat.slug)}, ${sq(t)})`);
       await sleep(300);
     }
@@ -240,7 +298,7 @@ async function main() {
       const flush = async () => {
         if (batch.length === 0) return;
         const joined = batch.map(([, v]) => v.replace(/\n{2,}/g, "\n")).join(SEP);
-        const translated = await translate(joined, lang);
+        const translated = await translateProtected(joined, lang);
         const parts = translated?.split(/\n?\s*⁂\s*\n?/) ?? [];
         if (parts.length === batch.length) {
           batch.forEach(([key], i) => {
@@ -250,7 +308,7 @@ async function main() {
         } else {
           // Separator got eaten — translate the batch string by string.
           for (const [key, v] of batch) {
-            const t = await translate(v.replace(/\n{2,}/g, "\n"), lang);
+            const t = await translateProtected(v.replace(/\n{2,}/g, "\n"), lang);
             if (t) out[key] = t;
             else ok = false;
             await sleep(300);
