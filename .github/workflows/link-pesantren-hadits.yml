@@ -28,6 +28,10 @@ on:
         description: "How far the best match must beat the runner-up (0-1)"
         required: false
         default: "0.10"
+      sample:
+        description: "Print this many matched pairs side by side, to read by eye"
+        required: false
+        default: "0"
 
 jobs:
   link:
@@ -72,6 +76,7 @@ jobs:
             --kitab="${{ inputs.kitab || 'arbainnawawi,bulughulmaram' }}" \
             --min="${{ inputs.min || '0.55' }}" \
             --margin="${{ inputs.margin || '0.10' }}" \
+            --sample="${{ inputs.sample || '0' }}" \
             $DRY_FLAG
 
       - name: Report what the kitab look like now

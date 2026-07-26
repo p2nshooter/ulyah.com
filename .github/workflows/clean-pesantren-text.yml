@@ -1,0 +1,66 @@
+name: Scrub digitisation artefacts from kitab pesantren
+
+# The matn came out of OpenITI with the printed edition's page breaks left
+# inline as ms01, ms02… markers, and with a few stray HTML tags from the scrape.
+# Both are shown to the reader as if they were part of the kitab.
+#
+# Run --dry first: it lists what would change, per kitab, and writes nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "List what would change without writing (true/false)"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Check the cleaner before letting it near the database
+        run: npx tsx scripts/check-pesantren-clean.mjs
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Scrub the markers and the markup
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -eu
+          DRY_FLAG=""
+          if [ "${{ inputs.dry }}" = "true" ]; then DRY_FLAG="--dry"; fi
+          npx tsx scripts/clean-pesantren-text.ts $DRY_FLAG
+
+      - name: Count what is left
+        if: ${{ inputs.dry != true }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: apps/worker-api
+        run: |
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS sisa_latin FROM pesantren_matn WHERE text_ar GLOB '*[A-Za-z]*';"

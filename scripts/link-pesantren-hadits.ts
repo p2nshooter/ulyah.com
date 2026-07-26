@@ -66,6 +66,7 @@ function parseArgs() {
     min: Number(args.min ?? 0.55),
     margin: Number(args.margin ?? 0.1),
     dry: args.dry === "true",
+    sample: Number(args.sample ?? 0),
   };
 }
 
@@ -249,7 +250,7 @@ function citation(h: HadithRow): string {
 }
 
 async function main() {
-  const { kitab, min, margin, dry } = parseArgs();
+  const { kitab, min, margin, dry, sample } = parseArgs();
   console.log(`Linking terjemah for: ${kitab.join(", ")} (min=${min}, margin=${margin}${dry ? ", dry" : ""})`);
 
   const matns = d1Json<MatnRow>(
@@ -272,6 +273,7 @@ async function main() {
   console.log(`Index: ${matcher.size} shingles over ${corpus.length} hadits.`);
 
   const updates: string[] = [];
+  const samples: string[] = [];
   const perKitab = new Map<string, { hit: number; miss: number }>();
   for (const m of matns) {
     const stat = perKitab.get(m.kitab_slug) ?? { hit: 0, miss: 0 };
@@ -287,12 +289,24 @@ async function main() {
     const terjemah = `${(h.text_id ?? "").trim()}\n\n(${citation(h)})`;
     updates.push(`UPDATE pesantren_matn SET translation_id = ${sq(terjemah)} WHERE id = ${m.id};`);
     stat.hit++;
+
+    // Printed side by side so a human can see whether the pairing is right —
+    // the one thing no automated threshold can confirm.
+    if (samples.length < sample) {
+      samples.push(
+        `\n— matn #${m.id} (${m.kitab_slug}), score ${hit.score.toFixed(2)} vs runner-up ${hit.runnerUp.toFixed(2)}\n` +
+          `  matn : ${m.text_ar.replace(/\s+/g, " ").slice(0, 200)}\n` +
+          `  cocok: ${(h.text_ar ?? "").replace(/\s+/g, " ").slice(0, 200)}\n` +
+          `  ${citation(h)} — ${(h.text_id ?? "").replace(/\s+/g, " ").slice(0, 200)}`
+      );
+    }
   }
 
   for (const [slug, s] of perKitab) {
     const total = s.hit + s.miss;
     console.log(`  ${slug}: ${s.hit}/${total} matched (${((s.hit / total) * 100).toFixed(1)}%)`);
   }
+  if (samples.length) console.log(`\nSample pairings to read by eye:${samples.join("\n")}\n`);
 
   if (dry) {
     console.log(`Dry run — ${updates.length} rows would be filled.`);
