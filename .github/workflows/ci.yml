@@ -119,6 +119,12 @@ jobs:
       - name: Check parallel translation keeps order and key isolation
         run: npx tsx scripts/check-parallel-translate.mjs
 
+      # Six letters never join to what follows them, and that rule is the whole
+      # of the second Iqro level. The generator did not know it, so drills that
+      # do not touch were shown as joined.
+      - name: Check the Iqro drills respect huruf sambung
+        run: npx tsx scripts/check-iqro-joining.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

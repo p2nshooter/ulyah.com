@@ -659,8 +659,11 @@ async function main() {
     });
     // Batched (gtxBatch), byte-budgeted (~4KB source per call) — a big corpus
     // is a few thousand calls, not one-per-string.
+    // Batched, then run concurrently — the same sixteen-worker split the body
+    // phase uses. This phase runs FIRST, so leaving it serial meant it spent
+    // the whole four-hour budget and the article bodies were never reached.
+    const idBatches: string[][] = [];
     for (let i = 0; i < todo.length; ) {
-      if (outOfTime()) break;
       const batch: string[] = [];
       let bytes = 0;
       while (i < todo.length && batch.length < 40 && bytes < 4000) {
@@ -668,7 +671,13 @@ async function main() {
         bytes += todo[i]!.length + 1;
         i++;
       }
-      const outs = await translateBatch(pool, batch, lang, "id");
+      idBatches.push(batch);
+    }
+    const idResults = await translateBatchesParallel(pool, idBatches, lang, "id", (slice, batch) =>
+      translateBatch(slice, batch, lang, "id")
+    );
+    idBatches.forEach((batch, bi) => {
+      const outs = idResults[bi] ?? [];
       batch.forEach((src, k) => {
         const v = outs[k];
         if (v && v !== src) {
@@ -678,9 +687,9 @@ async function main() {
           failed++;
         }
       });
-      // Bank the work as it is earned, not at the end of the run.
-      if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
-    }
+    });
+    // Bank the work as it is earned, not at the end of the run.
+    if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
     // Bank whatever this language produced before moving to the next one.
     writePairs(pairs, dry);
     console.log(`  id→${lang}: ${translated} translated so far (${cached} already cached)`);
@@ -750,8 +759,10 @@ async function main() {
           todo.push(t);
         }
         // Translate in newline batches, byte-budgeted (~4KB source per call).
+        // Concurrent, like the other two phases. 30,000 hadith serially is the
+        // rest of the budget on its own.
+        const arBatches: string[][] = [];
         for (let i = 0; i < todo.length; ) {
-          if (outOfTime()) break;
           const batch: string[] = [];
           let bytes = 0;
           while (i < todo.length && batch.length < 40 && bytes < 4000) {
@@ -759,7 +770,13 @@ async function main() {
             bytes += todo[i]!.length + 1;
             i++;
           }
-          const outs = await translateBatch(pool, batch, lang, "ar");
+          arBatches.push(batch);
+        }
+        const arResults = await translateBatchesParallel(pool, arBatches, lang, "ar", (slice, batch) =>
+          translateBatch(slice, batch, lang, "ar")
+        );
+        arBatches.forEach((batch, bi) => {
+          const outs = arResults[bi] ?? [];
           batch.forEach((src, k) => {
             const v = outs[k];
             if (v && v !== src) {
@@ -770,8 +787,8 @@ async function main() {
               failed++;
             }
           });
-          if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
-        }
+        });
+        if (pairs.length >= CHECKPOINT_EVERY) writePairs(pairs, dry);
         // Without this the pager keeps fetching pages it will never translate.
         if (outOfTime()) break;
       }
