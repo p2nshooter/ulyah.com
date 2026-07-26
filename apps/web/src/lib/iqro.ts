@@ -86,11 +86,85 @@ const doubles = (h: Hk): IqroUnit[] => L.map((_, i) => seq([{ i, h }, { i, h }])
 const pairs = (h: Hk, step = 1): IqroUnit[] => L.map((_, i) => seq([{ i, h }, { i: i + step, h }]));
 const triples = (h: Hk, step = 1): IqroUnit[] => L.map((_, i) => seq([{ i, h }, { i: i + step, h }, { i: i + 2 * step, h }]));
 
-// ── Jilid 1 — fathah: letters, then doubles, then joined pairs ─────────────
-const buildJilid1 = () => [...singles("a"), ...doubles("a"), ...pairs("a")];
+// ── huruf sambung: the rule the drills used to ignore ─────────────────────
+//
+// Six letters — ا د ذ ر ز و — never join to the letter that FOLLOWS them.
+// They take a tail from the right and stop there.
+//
+// The generator did not know this. It built "joined pairs" by walking the
+// alphabet, so اَبَ and رَزَ were presented as joined exactly like بَتَ, and a
+// child was shown three shapes with one label and no explanation for why two
+// of them do not touch. That is the central lesson of the second book, and it
+// was the one thing missing.
+//
+// So joining is now something the drills know: a pair is only offered as
+// joined when the first letter actually joins, and the six that do not get
+// their own group, immediately after, so the contrast is the lesson rather
+// than an accident.
+const NON_CONNECTING = new Set([0, 7, 8, 9, 10, 26]); // ا د ذ ر ز و
+const joins = (i: number): boolean => !NON_CONNECTING.has(((i % N) + N) % N);
 
-// ── Jilid 2 — huruf sambung: pairs (step 1 & 3) and triples ────────────────
-const buildJilid2 = () => [...pairs("a", 1), ...pairs("a", 3), ...triples("a", 1)];
+/** Pairs that genuinely join, because the first letter connects forward. */
+const joinedPairs = (h: Hk, step = 1): IqroUnit[] =>
+  L.map((_, i) => i).filter(joins).map((i) => seq([{ i, h }, { i: i + step, h }]));
+
+/** Triples that join all the way through: the first TWO letters must connect
+ *  forward, or the run breaks in the middle and is not what the drill claims. */
+const joinedTriples = (h: Hk, step = 1): IqroUnit[] =>
+  L.map((_, i) => i)
+    .filter((i) => joins(i) && joins(i + step))
+    .map((i) => seq([{ i, h }, { i: i + step, h }, { i: i + 2 * step, h }]));
+
+/** Doubles of a letter with itself, only where the letter joins — دَدَ does not
+ *  touch, and belongs with the stoppers rather than among the joined drills. */
+const joinedDoubles = (h: Hk): IqroUnit[] =>
+  L.map((_, i) => i).filter(joins).map((i) => seq([{ i, h }, { i, h }]));
+
+/** The six that stop. Shown with a follower so the eye sees the gap. */
+const stoppers = (h: Hk): IqroUnit[] =>
+  [...NON_CONNECTING].map((i) => seq([{ i, h }, { i: i + 1, h }]));
+
+/**
+ * One letter in the three places it can stand: opening a word, inside it, and
+ * closing it. A connecting letter looks different in each — بـ ـبـ ـب — and
+ * recognising the same letter across those shapes is the skill this level is
+ * for. Built with a fixed partner (ب, which joins on both sides) so the only
+ * thing changing is the letter being taught.
+ */
+const positions = (h: Hk): IqroUnit[] => {
+  const B = 1; // ب — joins left and right, so it frames without interfering
+  const out: IqroUnit[] = [];
+  for (let i = 0; i < N; i++) {
+    // The frame letter itself is skipped: ب framed by ب gives بَبَ for both
+    // "opening" and "closing", which teaches nothing and looks like a mistake.
+    if (!joins(i) || i === B) continue;
+    out.push(seq([{ i, h }, { i: B, h }]));               // opening
+    out.push(seq([{ i: B, h }, { i, h }, { i: B, h }]));  // inside
+    out.push(seq([{ i: B, h }, { i, h }]));               // closing
+  }
+  return out;
+};
+
+// ── Jilid 1 — fathah: letters, then doubles, then pairs that really join ───
+// joinedPairs, not pairs: the first level should never show a child a pair
+// that does not touch and call it joined. The six that stop are met properly
+// in jilid 2, where they are the lesson rather than a stray exception.
+const buildJilid1 = () => [...singles("a"), ...joinedDoubles("a"), ...joinedPairs("a")];
+
+// ── Jilid 2 — huruf sambung, taught in the order it is learned ─────────────
+//
+// Joined pairs first, and only pairs that really join. Then the six that never
+// join forward, as their own group, so the difference is met head-on instead of
+// being stumbled over. Then the same letter in its three positions — opening,
+// inside, closing — which is the shape-recognition this level exists for. Only
+// then longer runs.
+const buildJilid2 = () => [
+  ...joinedPairs("a", 1),
+  ...stoppers("a"),
+  ...positions("a"),
+  ...joinedPairs("a", 3),
+  ...joinedTriples("a", 1),
+];
 
 // ── Jilid 3 — kasrah & dhammah: singles, doubles, joined ───────────────────
 const buildJilid3 = () => [

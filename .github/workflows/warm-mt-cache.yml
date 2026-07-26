@@ -189,6 +189,18 @@ jobs:
           git add scripts/locale-content.json packages/shared/src/locale-readiness.gen.ts \
                   scripts/ui-i18n-full.json apps/web/src/lib/ui-i18n.gen.ts
           git commit -m "chore(i18n): re-measure language readiness after warming"
+          # The earlier "Resolve provisioned resource IDs" step sed-edits
+          # apps/worker-api/wrangler.toml IN PLACE (it substitutes real
+          # D1/KV/R2 IDs so `wrangler d1 execute` works) — a tracked file, left
+          # modified for the rest of the job. That was harmless while this
+          # rebase had nothing to actually replay. Today it did: several warm
+          # passes (schedule, workflow_run, this dispatch) were racing and
+          # pushing to main around the same time, so a real rebase became
+          # necessary, and git refused with "cannot pull with rebase: you have
+          # unstaged changes" — failing the commit and, with it, the whole run.
+          # The substituted file was never meant to be committed, so discard it
+          # before rebasing rather than the other way round.
+          git checkout -- apps/worker-api/wrangler.toml
           git pull --rebase origin main
           git push origin HEAD:main
 
