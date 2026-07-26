@@ -1,0 +1,73 @@
+# Hand-written translations
+
+Translations written by hand for the sibling sites, applied to `mt_cache` on
+every deploy.
+
+## Why these exist
+
+The sites translate at runtime and cache the result. What was in the cache was
+wrong in ways that a fluent-sounding translation hides:
+
+| where | English | what was cached |
+|---|---|---|
+| Spanish hadith titles | `HR.` (*hadits riwayat* — "narrated by") | **"recursos humanos"** — Human Resources |
+| French hadith titles | `HR.` | **"RH."** — *ressources humaines* |
+| German episode title | "Episode 2: The Well of Betrayal" | "Folge 2: **The Well of Betrayal**" — half untranslated |
+| German session titles | "Authentic Hadith Session 2" | "Authentische **Hadith**-Sitzung 2" — uninflected |
+
+None of that throws an error. The page renders, the words are Spanish, and the
+heading says Human Resources.
+
+## How a translation reaches a reader
+
+The Worker looks up `mt:<src>-<tgt>:<hash>` in `mt_cache`, where the hash is
+FNV-1a over the source text **after protected terms are masked**. Derived in
+`apps/worker-api/src/lib/mt.ts`; replicated in `scripts/mt-key.mjs` so
+translations can be written offline.
+
+Two things are easy to get wrong and produce silence rather than failure:
+
+- **The source language is `en`, not `id`.** For es/de/fr the API serves the
+  English row and translates from it (`content.ts`, `/content/stories/:slug`).
+  A translation written under `mt:id-es:…` is never looked up.
+- **Mask before hashing.** `localizeBatchProtected` masks first, so a title
+  containing "Bukhari" or "no." hashes as `@@0@@ @@1@@`, not as itself.
+
+`scripts/check-mt-key.mjs` guards both, and is in CI. Its expected keys were
+read back out of the live database, not invented.
+
+## Adding more
+
+1. Pull the English source strings from D1.
+2. Translate them.
+3. Generate rows with `storyKey(text, lang)` from `scripts/mt-key.mjs`.
+4. Drop the `.sql` file in this directory — the deploy applies every file here.
+
+`ON CONFLICT DO UPDATE`, deliberately: the point is to replace a bad
+translation, not to skip it because something is already there.
+
+## Conventions
+
+- Prophet names keep their Qur'anic form (Yusuf, Musa, Ibrahim, Nuh, Lut,
+  Isma'il, Ishaq, Ya'qub, Zakariya, Yahya, Maryam, Sulaiman, Idris, Hud,
+  Salih). The English source says "Noah" in one series and the Arabic form
+  everywhere else; the Arabic form is used throughout rather than mirroring
+  that inconsistency.
+- Islamic terms are not replaced with approximations: Tawhid, Ka'bah, Ummah,
+  Iblis, Fir'aun, 'Ad, Thamud, sanad, tafsir.
+- Place and person names stay: Al-Aziz, Madyan, Thuwa, Saba.
+- Qur'anic text is **not** translated here. The Qur'an has its own tafsir.
+
+## What is in here
+
+| file | rows | covers |
+|---|---:|---|
+| `story-titles-1.sql` | 102 | 34 prophet-story episode titles × es/de/fr |
+| `hadith-sessions-*.sql` | 1,899 | all 633 "Authentic Hadith Session N" titles × es/de/fr |
+
+667 of the 830 English story titles, in three languages. Titles are the highest
+-leverage strings on the site: the listing endpoint localizes titles and
+nothing else, so they appear on every index, card and search result.
+
+Still untranslated: 163 remaining titles, and the story bodies (~17,000
+paragraphs per language, translated on demand).
