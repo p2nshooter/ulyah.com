@@ -25,6 +25,17 @@ const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
  * editions are not consistent.
  */
 const PAGE_MARKER = /(^|[^\p{L}\p{N}])ms\d+(?=[^\p{L}\p{N}]|$)/giu;
+/**
+ * OpenITI wraps a Qur'anic quotation inside the prose in @QB@ … @QE@. These are
+ * not junk — they mark where a fiqh text stops speaking and starts quoting the
+ * Qur'an — but shown raw they read as gibberish: "لآية @QB@ فاغسلوا وجوهكم @QE@".
+ *
+ * They become the ornate parentheses the printed kitab use for exactly this,
+ * ﴿ ﴾, so the ayah keeps the boundary its author gave it.
+ */
+const QURAN_OPEN = /@QB@\s*/g;
+const QURAN_CLOSE = /\s*@QE@/g;
+
 /** A whole tag, closing bracket and all. */
 const HTML_TAG = /<\/?[a-z][a-z0-9]*(?:\s[^<>]*)?>/gi;
 /**
@@ -39,6 +50,8 @@ export function cleanMatn(text: string): string {
   return text
     .replace(HTML_TAG, " ")
     .replace(HTML_STUB, " ")
+    .replace(QURAN_OPEN, "﴿")
+    .replace(QURAN_CLOSE, "﴾")
     .replace(PAGE_MARKER, "$1")
     .replace(/[ \t]{2,}/g, " ")
     .replace(/[ \t]+\n/g, "\n")
