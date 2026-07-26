@@ -50,6 +50,29 @@ ok(isEmptyMatn("   "), "whitespace counts as an empty matn");
 ok(!isEmptyMatn("قال ms03 النبي"), "a row with Arabic left in it is never dropped");
 ok(!isEmptyMatn("40"), "a row that is only a number still carries something");
 
+// A Qur'anic quotation inside the prose keeps its boundary, in the ornate
+// parentheses the printed kitab use. Real Fathul Mu'in and Al-Waraqat lines.
+eq(
+  cleanMatn("( غسل ) ظاهر ( وجهه ) لآية @QB@ فاغسلوا وجوهكم @QE@ وهو طولا"),
+  "( غسل ) ظاهر ( وجهه ) لآية ﴿فاغسلوا وجوهكم﴾ وهو طولا",
+  "an ayah quoted inside fiqh prose gets its ornate parentheses"
+);
+eq(
+  cleanMatn("جاز بالزيادة مثل قوله تعالى @QB@ ليس كمثله شيء @QE@"),
+  "جاز بالزيادة مثل قوله تعالى ﴿ليس كمثله شيء﴾",
+  "the marker at the end of a line closes cleanly"
+);
+ok(
+  !/@Q[BE]@/.test(cleanMatn("لآية @QB@ فاغسلوا وجوهكم @QE@")),
+  "no raw quote marker survives"
+);
+// The words of the ayah are untouched — only its wrapper changes.
+eq(
+  (cleanMatn("لآية @QB@ فاغسلوا وجوهكم @QE@").match(/[؀-ۿ]+/g) ?? []).join(" "),
+  "لآية فاغسلوا وجوهكم",
+  "the ayah itself is not edited, only its wrapper"
+);
+
 // --- what must NOT change ------------------------------------------------
 const UNTOUCHED = [
   "إنما الأعمال بالنيات وإنما لكل امرئ ما نوى",
