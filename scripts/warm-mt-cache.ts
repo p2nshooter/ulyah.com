@@ -631,6 +631,25 @@ async function main() {
 
   let translated = 0;
   let failed = 0;
+  // Why a string failed, split three ways.
+  //
+  // One combined counter is why Spanish took a day to diagnose: a pass
+  // reported "failed/unchanged 31654" with 595 healthy keys in the pool, and
+  // that single number cannot tell apart three completely different faults —
+  // both translators returning nothing (upstream is refusing us), an answer
+  // identical to its source (the model echoed instead of translating), and a
+  // lost @@n@@ sentinel (the guard that protects scripture rejecting the
+  // result). Each one has a different fix, and the number said nothing about
+  // which.
+  const why = { noResult: 0, echoed: 0, sentinel: 0 };
+  /** Count one rejection under the reason it actually happened for. */
+  function reject(src: string, v: string | null | undefined, sentinelOk = true): void {
+    failed++;
+    if (!v) why.noResult++;
+    else if (v === src) why.echoed++;
+    else if (!sentinelOk) why.sentinel++;
+    else why.noResult++;
+  }
   let cached = 0;
   const pairs: { key: string; value: string }[] = [];
 
@@ -684,7 +703,7 @@ async function main() {
           pairs.push({ key: `mt:id-${lang}:${hashKey(src)}`, value: v });
           translated++;
         } else {
-          failed++;
+          reject(src, v);
         }
       });
     });
@@ -784,7 +803,7 @@ async function main() {
               translated++;
               hadDone++;
             } else {
-              failed++;
+              reject(src, v);
             }
           });
         });
@@ -901,7 +920,7 @@ async function main() {
               translated++;
               done++;
             } else {
-              failed++;
+              reject(src, v, got === want);
             }
           });
         });
@@ -922,6 +941,13 @@ async function main() {
     `Translated ${translated}, failed/unchanged ${failed}. ` +
       `${totals.wrote} row(s) written to D1 across ${totals.checkpoints} checkpoint(s).`
   );
+  if (failed > 0) {
+    console.log(
+      `Of the ${failed} that failed: ${why.noResult} came back empty (both the pool ` +
+        `and gtx refused), ${why.echoed} came back identical to the source, ` +
+        `${why.sentinel} lost a @@n@@ sentinel and were rejected to protect the scripture.`
+    );
+  }
   if (totals.oversize > 0) {
     console.warn(
       `  ${totals.oversize} translation(s) were too large for a single D1 statement and were not stored. ` +
