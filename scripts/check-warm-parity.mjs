@@ -14,11 +14,14 @@
 const REAL = { en: 15833, fr: 4357, de: 4151, es: 2371, bn: 1002, ha: 533 };
 const PARITY_RATIO = 0.99;
 
-function decide(langs, measureAll) {
+function decide(langs, measureAll, collectable = 0) {
   const cached = new Map();
   const measured = measureAll ? Object.keys(REAL) : langs;
   for (const l of measured) cached.set(l, REAL[l] ?? 0);
-  const best = Math.max(0, ...cached.values());
+  // Mirrors warm-mt-cache.ts: parity is capped at the number of strings that
+  // still exist to warm, so a historical total nobody can reach cannot become
+  // a benchmark nobody can clear.
+  const best = Math.min(Math.max(0, ...cached.values()), collectable || Number.POSITIVE_INFINITY);
   const queue = [...langs].sort((a, b) => (cached.get(a) ?? 0) - (cached.get(b) ?? 0));
   const short = queue.filter((l) => (cached.get(l) ?? 0) < best * PARITY_RATIO);
   return { best, picked: short[0] ?? null };
@@ -46,6 +49,66 @@ ok("all-languages behaviour is unchanged", allBefore.picked === allAfter.picked 
 // A language that genuinely IS the best must still report parity, not loop.
 const bestOnly = decide(["en"], true);
 ok("asking for the best-covered language still reports parity", bestOnly.picked === null);
+
+// ── The deadlock the cap fixes ─────────────────────────────────────────────
+//
+// Real D1 counts on 27 July, with 5,204 distinct Indonesian strings left to
+// collect. id→en holds 18,805 rows — keys written for text since edited or
+// removed, plus the Worker's own runtime translations — so the old benchmark
+// was a number no language could reach. Every pass went to Spanish, and the
+// twenty-two languages at 1% were never reached at all.
+const LIVE = { en: 18805, fr: 9765, de: 9113, es: 4367, ha: 714, th: 773 };
+const COLLECTABLE = 5204;
+
+// Languages with a live site today. The real code puts these first whatever
+// their count — "utamain yg saat ini di pakai dulu" — so a mirror that sorts
+// on count alone does not model the queue at all.
+const LIVE_SITE = new Set(["en", "fr", "de", "es"]);
+
+function decideLive(collectable) {
+  const cached = new Map(Object.entries(LIVE));
+  const best = Math.min(Math.max(0, ...cached.values()), collectable || Number.POSITIVE_INFINITY);
+  const queue = [...cached.keys()].sort((a, b) => cached.get(a) - cached.get(b));
+  const stillShort = queue.filter((l) => cached.get(l) < best * PARITY_RATIO);
+  const short = [
+    ...stillShort.filter((l) => LIVE_SITE.has(l)),
+    ...stillShort.filter((l) => !LIVE_SITE.has(l)),
+  ];
+  return { best, short };
+}
+
+const stuck = decideLive(0); // uncapped — the old behaviour
+ok("DEADLOCK: uncapped, the benchmark is a total nobody can reach",
+   stuck.best === 18805, `best=${stuck.best}`);
+ok("DEADLOCK: uncapped, even fully-warmed languages look short",
+   stuck.short.includes("de") && stuck.short.includes("fr"), stuck.short.join(","));
+ok("DEADLOCK: uncapped, Spanish is picked forever",
+   stuck.short[0] === "es", `picked=${stuck.short[0]}`);
+
+const fixed = decideLive(COLLECTABLE);
+ok("FIXED: the benchmark is what can actually be warmed",
+   fixed.best === COLLECTABLE, `best=${fixed.best}`);
+ok("FIXED: languages holding every collectable string drop out",
+   !fixed.short.includes("de") && !fixed.short.includes("fr") && !fixed.short.includes("en"),
+   fixed.short.join(","));
+ok("FIXED: Spanish is still short and still goes first — it genuinely lags",
+   fixed.short[0] === "es", `picked=${fixed.short[0]}`);
+ok("FIXED: the 1% languages are finally in the queue",
+   fixed.short.includes("ha") && fixed.short.includes("th"), fixed.short.join(","));
+
+// And once Spanish fills, the queue moves on rather than looping.
+const done = { ...LIVE, es: COLLECTABLE };
+const cachedDone = new Map(Object.entries(done));
+const bestDone = Math.min(Math.max(...cachedDone.values()), COLLECTABLE);
+const stillShortDone = [...cachedDone.keys()]
+  .sort((a, b) => cachedDone.get(a) - cachedDone.get(b))
+  .filter((l) => cachedDone.get(l) < bestDone * PARITY_RATIO);
+const shortDone = [
+  ...stillShortDone.filter((l) => LIVE_SITE.has(l)),
+  ...stillShortDone.filter((l) => !LIVE_SITE.has(l)),
+];
+ok("FIXED: once Spanish fills, a switched-off language is next",
+   shortDone[0] === "ha", `next=${shortDone[0]}`);
 
 const failed = bad > 0;
 console.log(failed ? `parity check FAILED (${bad})` : "parity check: ok");

@@ -613,7 +613,29 @@ async function main() {
     // a live site has readers today and comes first, neediest of them leading;
     // the switched-off ones follow. Inside each group, least covered first.
     if (one) {
-      const best = Math.max(0, ...cachedPerLang.values());
+      // Parity is capped at what this script can actually warm.
+      //
+      // Without the cap the chain deadlocks, and it had. The benchmark was the
+      // best-covered language — id→en at 18,805 rows — but only 5,204 distinct
+      // Indonesian strings still EXIST to collect. The extra rows are history:
+      // keys written for text that has since been edited or removed, plus the
+      // Worker's own runtime translations. So no language could ever reach the
+      // benchmark, every language stayed "short" forever, and the queue handed
+      // every single pass to the same one — Spanish, the neediest live site.
+      // Spanish is the most complete language in the ecosystem by content
+      // (87,916 strings, ahead of English) and the chain still would not move
+      // past it. The twenty-two languages at 1% were never going to be reached.
+      //
+      // A language holding as many rows as there are strings to warm is done,
+      // whatever some other language's historical total happens to be.
+      //
+      // The cap is slightly generous: a language could hold 5,204 rows and
+      // still miss a few CURRENT strings, having cached older ones. That costs
+      // a delayed top-up on its next turn — the id phase always re-checks what
+      // is missing — where the old behaviour cost every other language its turn
+      // permanently.
+      const collectable = strings.length;
+      const best = Math.min(Math.max(0, ...cachedPerLang.values()), collectable || Number.POSITIVE_INFINITY);
       const short = queue.filter((l) => (cachedPerLang.get(l) ?? 0) < best * PARITY_RATIO);
       const inUse = short.filter((l) => LOCALE_SITE[l]);
       const locked = short.filter((l) => !LOCALE_SITE[l]);
