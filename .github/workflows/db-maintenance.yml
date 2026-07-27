@@ -17,14 +17,25 @@ name: D1 Maintenance (free space)
 # API client, because that is this repository's normal path for them and it
 # leaves a run log of exactly what was executed.
 on:
+  # Automatic, because a full D1 does not degrade — it stops. Every write
+  # fails, the admin cannot log in, and the only warning is a red line in a
+  # dialog. Owner: "D1 di jadiin write awal, klo penuh pindahin ke R2, dan
+  # ngebacanya dari R2, begitu seterusnya, jd D1 selalu luas."
+  #
+  # Daily at 19:40 UTC (02:40 Jakarta) — off the hour so it does not collide
+  # with the warm passes, and while the sites are quiet. The spill only acts
+  # when the bulk in D1 is over the high-water mark, so on most days this
+  # measures, says "D1 has room", and exits.
+  schedule:
+    - cron: "40 19 * * *"
   workflow_dispatch:
     inputs:
       job:
         description: "What to run"
         required: true
         type: choice
-        options: [prune-logs, move-bodies, both]
-        default: both
+        options: [spill, prune-logs, move-bodies, both]
+        default: spill
       limit:
         description: "How many story bodies to move this run"
         required: false
@@ -33,6 +44,14 @@ on:
         description: "Days of key-validation log to keep"
         required: false
         default: "3"
+      high_mb:
+        description: "MB of story bodies in D1 that triggers a spill"
+        required: false
+        default: "40"
+      low_mb:
+        description: "MB to spill down to once triggered"
+        required: false
+        default: "15"
 
 permissions:
   contents: read
@@ -69,8 +88,12 @@ jobs:
           sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
           sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
           sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+          # The watermark reports the whole-file size alongside the bulk it
+          # controls, and needs the id to ask for it.
+          echo "D1_DATABASE_ID=${D1_ID}" >> "$GITHUB_ENV"
 
       - name: Size before
+        if: always()
         run: |
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '' UNION ALL SELECT 'key_validation_log', COUNT(*), NULL FROM key_validation_log;"
@@ -80,6 +103,17 @@ jobs:
       # and it had grown to 35,049 rows. Deleting them frees pages immediately;
       # SQLite reuses freed pages, so writes start working again without the
       # file having to shrink.
+      # The watermark: measure, and spill to R2 only if there is too much bulk
+      # sitting in D1. This is the step the schedule exists for.
+      - name: Spill to R2 if D1 is filling up
+        if: ${{ github.event_name == 'schedule' || inputs.job == 'spill' }}
+        env:
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+        run: |
+          npx tsx scripts/d1-watermark.ts \
+            --high=${{ inputs.high_mb || '40' }} \
+            --low=${{ inputs.low_mb || '15' }}
+
       - name: Prune the key validation log
         if: ${{ inputs.job == 'prune-logs' || inputs.job == 'both' }}
         run: |
