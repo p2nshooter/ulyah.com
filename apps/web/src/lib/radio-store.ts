@@ -63,9 +63,24 @@ const ROTATION_POOL = [...HIFI]
  * — so the widget never advertises a voice the rotation will not play. */
 export const RADIO_ROTATION_KEYS: readonly string[] = ROTATION_POOL;
 
-export function nextRadioPosition(p: RadioPosition, surahs: SurahMeta[]): RadioPosition {
+/**
+ * Where the station goes next.
+ *
+ * `playedWholeSurah` is what the player OBSERVED, not what the reciter is
+ * expected to do, and the difference matters. Most reciters now try a whole
+ * surah file first and fall back to the per-ayah list if it is missing; if
+ * this function assumed the surah file had played whenever one was offered,
+ * a single 404 would advance past the other 285 ayah of Al-Baqarah after
+ * playing one. Passing what actually played makes an unreachable surah file
+ * degrade to exactly the old stitched behaviour instead of skipping a surah.
+ */
+export function nextRadioPosition(
+  p: RadioPosition,
+  surahs: SurahMeta[],
+  playedWholeSurah = false
+): RadioPosition {
   const rc = RECITERS.find((r) => r.key === p.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
-  if (rc.cdn === "surah") {
+  if (playedWholeSurah || rc.cdn === "surah") {
     const nextSurah = p.surahId >= 114 ? 1 : p.surahId + 1;
     return { ...p, surahId: nextSurah, ayahNumber: 1 };
   }
@@ -114,7 +129,9 @@ interface RadioState {
   start: () => void;
   stop: () => void;
   pauseLocal: () => void;
-  advance: () => void;
+  /** @param playedWholeSurah true when the source that just finished was a
+   *  one-file-per-surah recording, so the next position is the next SURAH. */
+  advance: (playedWholeSurah?: boolean) => void;
   unmuteIntent: () => void;
 }
 
@@ -168,9 +185,9 @@ export const useRadioStore = create<RadioState>((set, get) => ({
   /** Natural forward progression on the audio's 'ended' event — does NOT
    * bump gen, since this continues the current playback rather than
    * superseding it. */
-  advance: () => {
+  advance: (playedWholeSurah = false) => {
     const { position, surahs } = get();
-    let next = nextRadioPosition(position, surahs);
+    let next = nextRadioPosition(position, surahs, playedWholeSurah);
     const completedKhatam = position.surahId >= 114 && next.surahId === 1 && next.ayahNumber === 1;
     if (completedKhatam && ROTATION_POOL.length > 0) {
       const idx = Math.max(0, ROTATION_POOL.indexOf(position.reciterKey));
