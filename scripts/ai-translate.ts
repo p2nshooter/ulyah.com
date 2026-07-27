@@ -363,7 +363,23 @@ export const PREFER_GTX = new Set(["ha", "ps", "so", "uz", "ta", "sw"]);
 export function splitPool(pool: PoolKey[], n: number): PoolKey[][] {
   const slices: PoolKey[][] = Array.from({ length: Math.max(1, n) }, () => []);
   pool.forEach((k, i) => slices[i % slices.length]!.push(k));
-  return slices.filter((s) => s.length > 0);
+  const kept = slices.filter((s) => s.length > 0);
+  // An EMPTY pool must still yield workers, or nothing runs at all.
+  //
+  // Dropping every empty slice looks harmless — why start a worker with no
+  // keys? — but the caller turns slices into workers, and no slices means no
+  // workers, means Promise.all([]) resolves instantly with every result hole
+  // left undefined. The caller then reads those holes as failures. That is
+  // exactly what happened: a pass reported "failed/unchanged 32190" having
+  // made literally zero upstream calls, and the "falling back to gtx" message
+  // above it was a lie, because gtx lives INSIDE the worker that was never
+  // started.
+  //
+  // A keyless worker is not useless: translateBatch skips the pool when its
+  // slice is empty and goes straight to gtx, which is precisely the fallback
+  // this job is supposed to have. Four of them, not sixteen — gtx is a free
+  // public endpoint and the fallback should not hammer it.
+  return kept.length > 0 ? kept : [[], [], [], []];
 }
 
 /**
