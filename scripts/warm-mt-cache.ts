@@ -327,12 +327,31 @@ async function translateBatch(
 ): Promise<(string | null)[]> {
   // A language the pool is worse at goes straight to gtx — see PREFER_GTX.
   if (pool.length > 0 && !PREFER_GTX.has(tl)) {
+    upstream.poolTried++;
     const ai = await aiTranslateBatch(pool, texts, tl, sl);
     rotate(pool);
-    if (ai) return ai;
+    if (ai) {
+      upstream.poolAnswered++;
+      return ai;
+    }
   }
-  return gtxBatch(texts, tl, sl);
+  upstream.gtxTried++;
+  const out = await gtxBatch(texts, tl, sl);
+  if (out.some((v) => v)) upstream.gtxAnswered++;
+  return out;
 }
+
+/**
+ * Which upstream actually answered, counted per batch.
+ *
+ * The three-way failure breakdown said "32191 came back empty (both the pool
+ * and gtx refused)" for every single string — no echoes, no lost sentinels.
+ * That is one fault, not three, but "both refused" still covers two very
+ * different worlds: a key pool that cannot be used from this runner, and a
+ * Google endpoint that has started refusing GitHub's IP ranges. The fix is not
+ * the same in each case, so count them apart.
+ */
+const upstream = { poolTried: 0, poolAnswered: 0, gtxTried: 0, gtxAnswered: 0 };
 
 /** Translate MANY short-ish texts in one gtx call via newline batching (gtx
  * preserves line breaks). Returns an array aligned to `texts`; on a segment
@@ -946,6 +965,10 @@ async function main() {
       `Of the ${failed} that failed: ${why.noResult} came back empty (both the pool ` +
         `and gtx refused), ${why.echoed} came back identical to the source, ` +
         `${why.sentinel} lost a @@n@@ sentinel and were rejected to protect the scripture.`
+    );
+    console.log(
+      `Upstream: the pool answered ${upstream.poolAnswered} of ${upstream.poolTried} batch(es), ` +
+        `gtx answered ${upstream.gtxAnswered} of ${upstream.gtxTried}.`
     );
   }
   if (totals.oversize > 0) {
