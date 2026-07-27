@@ -1,15 +1,15 @@
 {
   "_comment": "Measured content coverage per language: rows in D1 mt_cache whose TARGET is that language, as a percentage of the best-covered language. Refresh with `pnpm gen:locale-content` (queries D1 through the same Cloudflare credentials the warm job uses) and re-run `pnpm gen:locale-readiness`. Source languages carry no mt_cache rows because nothing is translated INTO them: Indonesian is what the site is written in, and Arabic is the Qur'an and hadith themselves.",
-  "_measuredAt": "2026-07-26",
+  "_measuredAt": "2026-07-27",
   "_sourceLanguages": [
     "id",
     "ar"
   ],
   "rows": {
     "en": 85783,
-    "fr": 82988,
-    "de": 82126,
-    "es": 52259,
+    "fr": 83060,
+    "de": 82131,
+    "es": 54090,
     "hi": 16403,
     "ja": 3954,
     "ru": 1504,
