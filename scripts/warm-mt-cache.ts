@@ -35,6 +35,9 @@ import {
 // to a translator and comes back exactly as it went in.
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { maskProtected } from "./mt-key.mjs";
+// Sentinel transport for gtx — see gtx-tokens.ts for why the @@n@@ format
+// itself cannot change.
+import { toGtxTokens, fromGtxTokens } from "./gtx-tokens.js";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -299,14 +302,16 @@ function d1Json<T>(sql: string): T[] {
 }
 
 async function gtx(text: string, tl: string, sl = "id"): Promise<string | null> {
-  const url = `${GTX_BASE}?client=gtx&sl=${toGoogleLang(sl)}&tl=${toGoogleLang(tl)}&dt=t&q=${encodeURIComponent(text)}`;
+  const url = `${GTX_BASE}?client=gtx&sl=${toGoogleLang(sl)}&tl=${toGoogleLang(tl)}&dt=t&q=${encodeURIComponent(toGtxTokens(text))}`;
   try {
     const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (compatible; ulyah.com/1.0)" } });
     if (!res.ok) return null;
     const data = (await res.json()) as unknown;
     if (!Array.isArray(data) || !Array.isArray(data[0])) return null;
     const out = (data[0] as unknown[]).map((seg) => (Array.isArray(seg) ? String(seg[0] ?? "") : "")).join("");
-    return out.trim() || null;
+    // Put our own markers back before anyone else sees the string: the caller's
+    // sentinel count, the unmask and the stored value all speak @@n@@.
+    return fromGtxTokens(out).trim() || null;
   } catch {
     return null;
   }
