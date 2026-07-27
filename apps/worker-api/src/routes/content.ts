@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { Context } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { coverSvg } from "@ulyah/shared/cover-art";
+import { readStoryBody } from "../lib/story-body.js";
 import { translateText, translateCachedOnly, localizeBatch, localizeBatchProtected } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
@@ -378,6 +379,16 @@ contentRoute.get("/stories", async (c) => {
       ).bind(lang, pageSize, offset);
 
   const { results } = await query.all<Record<string, unknown>>();
+  // A listing shows titles. It was selecting st.* and shipping every body with
+  // it — twenty rows at 37 KB is 740 KB of payload nobody reads, and it is the
+  // same bulk that filled D1. Keep a short excerpt for the card and drop the
+  // rest; the body now lives in R2 anyway and is fetched per story.
+  for (const r of results) {
+    const body = typeof r.body === "string" ? r.body : "";
+    if (r.excerpt === undefined) r.excerpt = body.slice(0, 200);
+    delete r.body;
+    delete r.body_r2_key;
+  }
   if (!authored && results.length) {
     // Protected localize so "Bukhari/Muslim/no." in audiobook titles are not
     // mangled by the translator on sibling sites.
@@ -426,6 +437,13 @@ contentRoute.get("/stories/:slug", async (c) => {
     fallbackUsed = !!story;
   }
   if (!story) return c.json({ error: "Story not found" }, 404);
+
+  // The text is in R2 when body_r2_key is set, otherwise still in the column.
+  // readStoryBody keeps the fallback so a story is never served blank.
+  (story as Record<string, unknown>).body = await readStoryBody(
+    c.env,
+    story as { body?: string | null; body_r2_key?: string | null }
+  );
 
   const { results: transcript } = await c.env.DB.prepare(
     "SELECT * FROM audio_transcript_sync WHERE story_id = ? ORDER BY sentence_index"

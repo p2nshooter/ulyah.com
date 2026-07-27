@@ -1,0 +1,100 @@
+name: D1 Maintenance (free space)
+
+# The database filled up and stopped accepting writes.
+#
+# Cloudflare caps a D1 database at 500 MB on the Workers Free plan. ulyah-db
+# reached 509.95 MB, and every write began failing — including the admin's own
+# two-step verification, so the owner could not log in. Reads were unaffected,
+# which is why the sites looked healthy while nothing could be saved.
+#
+# Two jobs, both run by hand, because freeing space is not something that
+# should happen on a schedule without somebody watching:
+#
+#   prune-logs   deletes old key-pool validation rows. Pure churn, no content.
+#   move-bodies  moves story bodies to R2 and leaves the key in D1.
+#
+# D1 writes go through wrangler here rather than through the dashboard or an
+# API client, because that is this repository's normal path for them and it
+# leaves a run log of exactly what was executed.
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "What to run"
+        required: true
+        type: choice
+        options: [prune-logs, move-bodies, both]
+        default: both
+      limit:
+        description: "How many story bodies to move this run"
+        required: false
+        default: "200"
+      keep_days:
+        description: "Days of key-validation log to keep"
+        required: false
+        default: "3"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Resolve provisioned resource IDs
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+
+      - name: Size before
+        run: |
+          cd apps/worker-api
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '' UNION ALL SELECT 'key_validation_log', COUNT(*), NULL FROM key_validation_log;"
+
+      # Old key-pool validation rows. This table records whether a donated API
+      # key answered a test — useful for a few days, meaningless after that,
+      # and it had grown to 35,049 rows. Deleting them frees pages immediately;
+      # SQLite reuses freed pages, so writes start working again without the
+      # file having to shrink.
+      - name: Prune the key validation log
+        if: ${{ inputs.job == 'prune-logs' || inputs.job == 'both' }}
+        run: |
+          cd apps/worker-api
+          npx wrangler d1 execute ulyah-db --remote \
+            --command="DELETE FROM key_validation_log WHERE created_at < datetime('now','-${{ inputs.keep_days }} days');"
+
+      # Story bodies to R2. The script verifies every upload by reading it back
+      # and comparing before it clears the column — see the note there.
+      - name: Move story bodies to R2
+        if: ${{ inputs.job == 'move-bodies' || inputs.job == 'both' }}
+        run: npx tsx scripts/move-story-bodies-to-r2.ts --limit=${{ inputs.limit }}
+
+      - name: Size after
+        if: always()
+        run: |
+          cd apps/worker-api
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories still in D1' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '' UNION ALL SELECT 'moved to R2', COUNT(*), NULL FROM stories WHERE body_r2_key IS NOT NULL;"
