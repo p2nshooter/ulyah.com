@@ -85,6 +85,14 @@ jobs:
       - name: Check the warm job's parity decision
         run: node scripts/check-warm-parity.mjs
 
+      # The pool is optional by design — no keys means gtx does the work. That
+      # promise was broken silently: with an empty pool the parallel runner
+      # built no workers, so no batch was ever attempted and every string came
+      # back counted as a failure. A whole pass reported 32,190 failures having
+      # made zero upstream calls. The check runs the keyless path end to end.
+      - name: Check the gtx fallback still runs with no keys
+        run: npx tsx scripts/check-empty-pool.mjs
+
       # Hand-written translations are stored under a key derived from the text.
       # The Worker derives it in mt.ts; scripts/mt-key.mjs derives it again so
       # translations can be written offline. If the two ever disagree the Worker
