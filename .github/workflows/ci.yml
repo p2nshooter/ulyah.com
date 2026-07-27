@@ -93,6 +93,14 @@ jobs:
       - name: Check the gtx fallback still runs with no keys
         run: npx tsx scripts/check-empty-pool.mjs
 
+      # The @@n@@ sentinels are what stop a hadith's matn being paraphrased, and
+      # gtx mangles them: a Spanish pass had gtx answer 394 of 401 batches and
+      # threw away 1,619 answers for lost sentinels. They are swapped for a
+      # token gtx leaves alone and swapped back on return — the format itself
+      # cannot change, since the cache key is hash(mask(text)).
+      - name: Check the @@n@@ sentinels survive gtx
+        run: npx tsx scripts/check-gtx-sentinel.mjs
+
       # The admin credential panel renders group by group, so a setting with no
       # group vanishes from the page instead of erroring — the worst way for a
       # credential field to break. This also holds the AliExpress rows to

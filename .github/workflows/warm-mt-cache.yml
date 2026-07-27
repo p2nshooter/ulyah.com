@@ -157,7 +157,7 @@ jobs:
             echo "### Warm pass"
             echo ""
             echo '```'
-            grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Of the |^Upstream: |^AI pool: |^Collected |^--one:' /tmp/warm.log || true
+            grep -E '^\s+(hadith|stories) [a-z]+→|^\s+id→[a-z]+:|^Translated |^Of the |^Upstream: |^AI pool: |^Collected |^--one:' /tmp/warm.log || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -350,5 +350,5 @@ jobs:
         if: ${{ always() }}
         run: |
           echo "── warm tally ─────────────────────────────"
-          grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Of the |^Upstream: |^AI pool: |^Collected |^--one:' /tmp/warm.log || echo "(no tally — the warm step did not get that far)"
+          grep -E '^\s+(hadith|stories) [a-z]+→|^\s+id→[a-z]+:|^Translated |^Of the |^Upstream: |^AI pool: |^Collected |^--one:' /tmp/warm.log || echo "(no tally — the warm step did not get that far)"
           echo "───────────────────────────────────────────"
