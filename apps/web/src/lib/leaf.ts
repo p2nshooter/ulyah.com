@@ -22,14 +22,29 @@ export interface LeafItem {
   translation_id?: string | null;
 }
 
-/** Every leaf is a run of consecutive passages — order is never rearranged. */
-export function paginateLeaves<T extends LeafItem>(items: T[], ink = LEAF_INK): T[][] {
+/** What one passage costs a leaf, when it does not carry `translation_id`. */
+export function defaultCost(item: LeafItem): number {
+  return (item.text_ar?.length ?? 0) + (item.translation_id?.length ?? 0);
+}
+
+/**
+ * Every leaf is a run of consecutive passages — order is never rearranged.
+ *
+ * `costOf` is for the readers whose translation lives under another name: the
+ * hadith corpus calls it `text_id`, and a leaf that measured only the Arabic
+ * would be set half as full as it looks.
+ */
+export function paginateLeaves<T extends LeafItem>(
+  items: T[],
+  ink = LEAF_INK,
+  costOf: (item: T) => number = defaultCost
+): T[][] {
   const leaves: T[][] = [];
   let leaf: T[] = [];
   let used = 0;
 
   for (const item of items) {
-    const cost = (item.text_ar?.length ?? 0) + (item.translation_id?.length ?? 0);
+    const cost = costOf(item);
     // Start a new leaf once this one is full — but never emit an empty leaf,
     // so a single passage longer than the budget still gets a page of its own.
     if (leaf.length >= LEAF_MIN_ITEMS && used + cost > ink) {

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { HaditsLabels } from "@/lib/hadits-labels";
 import { gradeInfo } from "@/lib/hadith-grade";
+import LeafPager from "@/components/LeafPager";
 
 export interface HaditsItem {
   id: number;
@@ -66,8 +67,8 @@ export function HaditsReader({
     setPlaying(true);
     for (let i = start; i < hadits.length; i++) {
       if (stopRef.current) break;
+      // The leaf pager turns the page to this hadith and scrolls it into view.
       setActive(i);
-      document.getElementById(`hadits-${i}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
       const h = hadits[i]!;
       for (const [text, l] of [
         [h.text_ar, "ar"],
@@ -102,52 +103,67 @@ export function HaditsReader({
         </button>
       )}
 
-      <div className="space-y-5">
-        {hadits.map((h, i) => (
-          <article
-            key={h.id}
-            id={`hadits-${i}`}
-            onClick={() => {
-              stop();
-              playFrom(i);
-            }}
-            className={`cursor-pointer rounded-2xl border p-5 transition-colors sm:p-6 ${
-              i === active
-                ? "border-accent bg-accent/10"
-                : "border-[var(--color-border)] bg-[var(--color-card)] hover:border-accent/50"
-            }`}
-          >
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-xs font-semibold text-accent">
+      {/* Leaves, not a scroll: a hadith book is a book. The leaf follows the
+          reciter, so the page turns itself as playback moves down the page and
+          on to the next leaf. */}
+      <LeafPager
+        items={hadits}
+        activeId={active >= 0 ? (hadits[active]?.id ?? null) : null}
+        activePart="ar"
+        labels={{
+          leafOf: (n, total) => `${labels.page} ${n} ${labels.of} ${total}`,
+          prev: `‹ ${labels.prev}`,
+          next: `${labels.next} ›`,
+          // No heading over the terjemah here: it sits under its own rule and
+          // the hadith labels carry no word for it, and inventing one would
+          // put English on the sibling sites.
+          translation: "",
+        }}
+        cost={(h) => h.text_ar.length + h.text_id.length}
+        hasTranslation={(h) => !!h.text_id?.trim()}
+        onSelect={(h) => {
+          const i = hadits.findIndex((x) => x.id === h.id);
+          if (i < 0) return;
+          stop();
+          playFrom(i);
+        }}
+        renderMatn={(h) => (
+          <>
+            <span className="mb-2 flex items-center justify-between gap-3 text-xs" dir="ltr">
+              <span className="font-semibold text-accent">
                 {labels.hadithNo} {h.hadith_number.toLocaleString(lang)}
               </span>
-              <span className="text-[11px] text-[var(--color-text-secondary)]">{h.source}</span>
+              <span className="opacity-70">{h.source}</span>
+            </span>
+            {h.text_ar}
+          </>
+        )}
+        renderTranslation={(h) => h.text_id}
+        renderFooter={(h) =>
+          h.narrator || h.grade ? (
+            <div className="flex flex-wrap items-center gap-2 text-xs opacity-80">
+              {h.narrator ? (
+                <span>
+                  {labels.narrator}: {h.narrator}
+                </span>
+              ) : null}
+              {h.grade
+                ? (() => {
+                    const g = gradeInfo(h.grade);
+                    return (
+                      <span
+                        title={`${g.meaning}${h.grade && g.label.toLowerCase() !== h.grade.toLowerCase() ? ` (sumber: ${h.grade})` : ""}`}
+                        className={`rounded-full border px-2 py-0.5 text-[11px] font-medium ${g.className}`}
+                      >
+                        {g.label}
+                      </span>
+                    );
+                  })()
+                : null}
             </div>
-            <p dir="rtl" className="font-arabic mt-3 text-xl leading-loose text-[var(--color-text-primary)]">
-              {h.text_ar}
-            </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{h.text_id}</p>
-            {(h.narrator || h.grade) && (
-              <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] pt-3 text-xs text-[var(--color-text-secondary)]">
-                {h.narrator ? <span>{labels.narrator}: {h.narrator}</span> : null}
-                {h.grade
-                  ? (() => {
-                      const g = gradeInfo(h.grade);
-                      return (
-                        <span
-                          title={`${g.meaning}${h.grade && g.label.toLowerCase() !== h.grade.toLowerCase() ? ` (sumber: ${h.grade})` : ""}`}
-                          className={`rounded-full border px-2 py-0.5 text-[11px] font-medium ${g.className}`}
-                        >
-                          {g.label}
-                        </span>
-                      );
-                    })()
-                  : null}
-              </div>
-            )}
-          </article>
-        ))}
-      </div>
+          ) : null
+        }
+      />
 
       {translatedNote && (
         <p className="mt-6 text-center text-xs italic text-[var(--color-text-secondary)]">{labels.translatedNote}</p>
