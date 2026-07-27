@@ -258,11 +258,34 @@ export async function resolveAyahAudioSources(qoriKey: string, surah: number, ay
   return sources;
 }
 
-/** Whole-surah recitation URL for surah-mode reciters (e.g. Muammar ZA) — one
- * continuous file per surah rather than a per-ayah split. Used by the Radio
- * Qori widget so these reciters are actually playable (previously `surahFn`
- * was defined but nothing ever called it). */
-export function resolveSurahAudioUrl(qoriKey: string, surah: number): string | null {
+/**
+ * One continuous file for a whole surah, for the RADIO.
+ *
+ * Owner: "radio bisa g bacanya jgn yg per ayat… jd putus2 dengernya kurang
+ * bagus". The radio was stitching one ayah at a time — thirty-two of the
+ * thirty-three reciters have only per-ayah audio — and every join is a fetch,
+ * a decode and a gap. Six short ayah in a row is six gaps, which is what makes
+ * it sound broken rather than recited.
+ *
+ * A surah file has no joins at all. islamic.network publishes `audio-surah`
+ * beside the `audio` path the per-ayah URLs already come from, cut from the
+ * same masters, so every alquran.cloud reciter has one at the same 128 kbps.
+ *
+ * This URL is NOT verified from CI — outbound audio fetches are blocked here,
+ * including the per-ayah URL that is known to work — so the caller must treat
+ * it as a source that MIGHT 404 and keep the per-ayah list behind it. The
+ * player does exactly that, and decides how far to advance from which source
+ * actually played rather than from this function's existence.
+ */
+export function resolveRadioSurahUrl(qoriKey: string, surah: number): string | null {
   const rc = RECITERS.find((r) => r.key === qoriKey);
-  return rc?.cdn === "surah" && rc.surahFn ? rc.surahFn(surah) : null;
+  if (!rc) return null;
+  if (rc.cdn === "surah" && rc.surahFn) return rc.surahFn(surah);
+  // Same host and bitrate as the per-ayah path this reciter already uses, so
+  // nothing new has to be reachable for it to work.
+  if (rc.cdn === "aqc" && rc.aqcEdition) {
+    return `https://cdn.islamic.network/quran/audio-surah/128/${rc.aqcEdition}/${surah}.mp3`;
+  }
+  // everyayah publishes per-ayah only — those reciters keep the stitched mode.
+  return null;
 }

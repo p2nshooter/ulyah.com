@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { RECITERS, resolveAyahAudioSources, resolveSurahAudioUrl } from "@/lib/qori-cdn";
+import { RECITERS, resolveAyahAudioSources, resolveRadioSurahUrl } from "@/lib/qori-cdn";
 import { computeKhatamIndex } from "@/lib/radio-clock";
 import { usePlayerStore } from "@/lib/player-store";
 import { useRadioStore, ensureSurahsLoaded, nextRadioPosition } from "@/lib/radio-store";
@@ -42,6 +42,10 @@ function prefetchNextAyah() {
 export function GlobalRadioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const autoStartedRef = useRef(false);
+  // Whether the source currently playing is a whole-surah recording. Read on
+  // "ended" to know whether the next position is the next surah or the next
+  // ayah — see nextRadioPosition.
+  const wholeSurahRef = useRef(false);
   const tabIdRef = useRef<string>("");
 
   const surahs = useRadioStore((s) => s.surahs);
@@ -120,15 +124,30 @@ export function GlobalRadioPlayer() {
     let retryTimer: ReturnType<typeof setTimeout> | null = null;
     (async () => {
       const rc = RECITERS.find((r) => r.key === position.reciterKey);
-      // R2 first, source CDN as fallback (see qori-cdn.ts) — the player walks
-      // the list on load failure so one bad source never silences the radio.
-      const sources =
+      // A WHOLE SURAH first, then R2, then the reciter's own CDN per ayah —
+      // the player walks the list on load failure, so one bad source never
+      // silences the radio.
+      //
+      // Owner: "radio bisa g bacanya jgn yg per ayat… jd putus2". One file per
+      // surah has no joins; the stitched mode has one gap per ayah, and short
+      // ayah make that constant. So the surah recording leads, and the ayah
+      // list stays behind it because the surah file is the one source here
+      // that has never been reachable from CI to verify.
+      //
+      // Which one WINS is remembered, because the two advance differently: a
+      // finished surah file means jump to the next surah, a finished ayah
+      // means the next ayah. Guessing from the reciter instead of from what
+      // played would skip the rest of Al-Baqarah on a single 404.
+      const surahUrl = position.ayahNumber === 1 ? resolveRadioSurahUrl(position.reciterKey, position.surahId) : null;
+      const ayahSources =
         rc?.cdn === "surah"
-          ? [resolveSurahAudioUrl(position.reciterKey, position.surahId)].filter((s): s is string => !!s)
+          ? []
           : await resolveAyahAudioSources(position.reciterKey, position.surahId, position.ayahNumber);
+      const sources = [...(surahUrl ? [surahUrl] : []), ...ayahSources];
       if (cancelled) return;
       if (sources.length === 0) {
         // Nothing playable here — skip straight to the next position.
+        wholeSurahRef.current = false;
         useRadioStore.getState().advance();
         return;
       }
@@ -143,12 +162,17 @@ export function GlobalRadioPlayer() {
         if (cancelled) return;
         audio.src = src;
         audio.muted = false;
+        const isWholeSurah = src === surahUrl;
         try {
           await audio.play();
           if (cancelled) return;
+          wholeSurahRef.current = isWholeSurah;
           useRadioStore.getState().setPlaybackState({ playing: true, needsInteraction: false, muted: false });
           usePlayerStore.getState().pause(); // never two audio streams at once
-          prefetchNextAyah();
+          // A surah file already contains every ayah after this one; the next
+          // fetch is a whole surah away, so prefetching an ayah would warm a
+          // file this station is not going to ask for.
+          if (!isWholeSurah) prefetchNextAyah();
           return;
         } catch (err) {
           if (cancelled) return;
@@ -160,6 +184,7 @@ export function GlobalRadioPlayer() {
         try {
           await audio.play();
           if (cancelled) return;
+          wholeSurahRef.current = isWholeSurah;
           useRadioStore.getState().setPlaybackState({ needsInteraction: false, muted: true });
           usePlayerStore.getState().pause();
           return;
@@ -248,7 +273,7 @@ export function GlobalRadioPlayer() {
       if (!useRadioStore.getState().playing) useRadioStore.getState().start();
     });
     navigator.mediaSession.setActionHandler("pause", () => useRadioStore.getState().stop());
-    navigator.mediaSession.setActionHandler("nexttrack", () => useRadioStore.getState().advance());
+    navigator.mediaSession.setActionHandler("nexttrack", () => useRadioStore.getState().advance(wholeSurahRef.current));
   }, [position.reciterKey]);
 
   useEffect(() => {
@@ -260,7 +285,7 @@ export function GlobalRadioPlayer() {
     <>
       <audio
         ref={audioRef}
-        onEnded={() => useRadioStore.getState().advance()}
+        onEnded={() => useRadioStore.getState().advance(wholeSurahRef.current)}
         // Presence heartbeat that survives screen-lock: timeupdate keeps firing
         // while the audio actually plays, even after the tab is hidden and
         // plain JS timers are frozen — so a listener who only keeps the Qur'an

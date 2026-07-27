@@ -158,6 +158,13 @@ jobs:
       - name: Check the kitab leaves never split a passage
         run: npx tsx apps/web/src/lib/leaf.test.mjs
 
+      # The radio tries a whole-surah recording before the per-ayah stitch, and
+      # the two advance differently. If a missing surah file were still treated
+      # as "a surah played", one 404 on Al-Baqarah would play ayah 1 and skip
+      # the other 285 — silently, and only on the reciters people actually use.
+      - name: Check the radio advances by what actually played
+        run: npx tsx apps/web/src/lib/radio-position.test.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 
