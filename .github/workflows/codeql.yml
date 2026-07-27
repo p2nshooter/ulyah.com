@@ -1,0 +1,54 @@
+name: CodeQL
+
+# Static analysis for the whole ecosystem — the five sites and the Worker all
+# live in this one repository, so a flaw found here is a flaw on all of them.
+#
+# Deliberately NOT on `push: branches: ["**"]` the way ci.yml is. CodeQL takes
+# minutes, and running it on every push to every working branch would sit in
+# the queue in front of the checks that actually gate a merge. Pull requests
+# into main and a weekly sweep catch the same things without that cost.
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    # Monday 02:40 UTC — off the hour, so it does not start alongside the
+    # scheduled warm pass and fight it for a runner.
+    - cron: "40 2 * * 1"
+  workflow_dispatch: {}
+
+# Least privilege: CodeQL needs to WRITE its findings and READ the code. It is
+# given nothing else — in particular no write access to the repository
+# contents, so an analysis run can never modify the tree it is analysing.
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze javascript-typescript
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialise CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          # JavaScript and TypeScript are analysed from source; there is
+          # nothing to compile, so no build runs here. That also means CodeQL
+          # never executes this repository's own scripts — which matters,
+          # because several of them talk to D1 and would be a strange thing
+          # for an analysis job to do.
+          build-mode: none
+          queries: security-and-quality
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"
