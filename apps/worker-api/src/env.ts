@@ -28,6 +28,20 @@ export interface Env {
   NOWPAYMENTS_API_KEY: string;
   NOWPAYMENTS_IPN_SECRET?: string;
 
+  // AliExpress affiliate (open platform). All three are OPTIONAL and all three
+  // are unset today: the app is still under review, and the key and secret are
+  // only issued once it passes. Nothing reads them yet — they exist so the
+  // credentials have somewhere to land the moment they arrive, entered through
+  // the admin portal rather than committed anywhere.
+  //
+  // The tracking id is NOT the app key. The key identifies the application, the
+  // tracking id identifies the traffic; a link built without it still works and
+  // still sends the visitor to AliExpress, but the sale is attributed to nobody
+  // and earns nothing — the same trap as a US Amazon tag on amazon.de.
+  ALIEXPRESS_APP_KEY?: string;
+  ALIEXPRESS_APP_SECRET?: string;
+  ALIEXPRESS_TRACKING_ID?: string;
+
   // Outreach email (Grant & Fundraising Worker). RESEND_API_KEY is the
   // serverless-friendly sender that works with a DNS-verified domain; the
   // "From" defaults to salam@ulyah.com. If unset, drafting still works and

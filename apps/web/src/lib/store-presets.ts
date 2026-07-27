@@ -92,6 +92,86 @@ const EN: ShelfPreset[] = [
     keywords: "islamic wall art arabic calligraphy ramadan lantern",
     department: "",
   },
+  {
+    icon: "🌙",
+    label: "Ramadan and Eid",
+    blurb:
+      "Lanterns, wall decorations, gift boxes and countdown calendars — the things that come out of the cupboard once a year and make the house feel like it knows what month it is.",
+    keywords: "ramadan decorations eid gift box lantern countdown calendar",
+    department: "",
+  },
+  {
+    icon: "🪔",
+    label: "Bakhoor, oud and incense",
+    blurb:
+      "Bakhoor, oud chips and the burners to put them on, electric or charcoal — the scent most Muslim homes reach for when guests are expected.",
+    keywords: "bakhoor oud incense burner electric mabkhara",
+    department: "",
+  },
+  {
+    icon: "💧",
+    label: "Wudu and travel purification",
+    blurb:
+      "Portable bidet bottles, travel lotas, wudu-friendly socks and small basins — the practical side of staying clean away from home.",
+    keywords: "portable bidet travel lota wudu socks khuff",
+    department: "",
+  },
+  {
+    icon: "🪒",
+    label: "Beard care and grooming",
+    blurb:
+      "Combs, trimmers, alcohol-free balms and oils — for keeping a beard neat rather than merely long.",
+    keywords: "beard oil alcohol free balm comb trimmer grooming kit",
+    department: "beauty",
+  },
+  {
+    icon: "🏹",
+    label: "Archery, swimming and riding",
+    blurb:
+      "Bows and targets, goggles and swim gear, riding gloves and helmets — the three sports Muslim families have long made a point of teaching their children.",
+    keywords: "archery bow target swimming goggles horse riding helmet",
+    department: "sporting",
+  },
+  {
+    icon: "🧩",
+    label: "Educational toys and games",
+    blurb:
+      "Arabic letter blocks, puzzles, prayer-teaching toys and board games — the kind of play that leaves something behind when it is over.",
+    keywords: "arabic alphabet toys islamic educational games kids puzzle",
+    department: "toys-and-games",
+  },
+  {
+    icon: "🎁",
+    label: "Wedding and walima gifts",
+    blurb:
+      "Gift sets, decorated Qur'an cases, dinnerware and keepsakes — for the invitations that arrive with a date on them and a month to prepare.",
+    keywords: "islamic wedding gift set nikah walima present",
+    department: "",
+  },
+  {
+    icon: "✏️",
+    label: "School and study stationery",
+    blurb:
+      "Notebooks, pens, Arabic ruled paper, desk lamps and folders — for the madrasah year, and for anyone memorising something long.",
+    keywords: "arabic notebook pen desk lamp study stationery folder",
+    department: "office-products",
+  },
+  {
+    icon: "🍲",
+    label: "Kitchen and hospitality",
+    blurb:
+      "Tagines, pressure cookers, dallah coffee pots, tea glasses and serving trays — the equipment behind the meals people are actually invited to.",
+    keywords: "tagine arabic coffee dallah tea glasses serving tray cookware",
+    department: "kitchen",
+  },
+  {
+    icon: "🏃",
+    label: "Modest sportswear and swimwear",
+    blurb:
+      "Burkinis, long-sleeved sports tops, sports hijabs and loose trousers — so that covering up and moving properly are not two separate decisions.",
+    keywords: "burkini modest swimwear sports hijab long sleeve activewear",
+    department: "fashion",
+  },
 ];
 
 const FR: ShelfPreset[] = [
@@ -158,6 +238,86 @@ const FR: ShelfPreset[] = [
       "Calligraphie arabe murale, lanternes de Ramadan et coffrets cadeaux — pour la maison, et pour les occasions où il faut offrir quelque chose.",
     keywords: "calligraphie arabe décoration murale lanterne ramadan",
     department: "",
+  },
+  {
+    icon: "🌙",
+    label: "Ramadan et Aïd",
+    blurb:
+      "Lanternes, décorations murales, coffrets cadeaux et calendriers du compte à rebours — ce qu'on sort du placard une fois par an et qui fait que la maison sait quel mois on est.",
+    keywords: "decoration ramadan aid coffret cadeau lanterne calendrier",
+    department: "",
+  },
+  {
+    icon: "🪔",
+    label: "Bakhoor, oud et encens",
+    blurb:
+      "Bakhoor, copeaux d'oud et les brûleurs qui vont avec, électriques ou à charbon — le parfum vers lequel se tourne la plupart des foyers musulmans quand on attend des invités.",
+    keywords: "bakhoor oud encens brule encens electrique mabkhara",
+    department: "",
+  },
+  {
+    icon: "💧",
+    label: "Ablutions et hygiène en voyage",
+    blurb:
+      "Douchettes portatives, bouteilles d'istinja, chaussettes pour les ablutions et petites bassines — le côté pratique de rester propre loin de chez soi.",
+    keywords: "douchette portative bouteille istinja chaussettes ablution bassine",
+    department: "",
+  },
+  {
+    icon: "🪒",
+    label: "Soin de la barbe",
+    blurb:
+      "Peignes, tondeuses, baumes et huiles sans alcool — pour entretenir une barbe plutôt que simplement la laisser pousser.",
+    keywords: "huile barbe sans alcool baume peigne tondeuse coffret",
+    department: "beauty",
+  },
+  {
+    icon: "🏹",
+    label: "Tir à l'arc, natation et équitation",
+    blurb:
+      "Arcs et cibles, lunettes et maillots, gants et casques d'équitation — les trois sports que les familles musulmanes tiennent depuis longtemps à transmettre.",
+    keywords: "tir arc cible natation lunettes equitation casque gants",
+    department: "sporting",
+  },
+  {
+    icon: "🧩",
+    label: "Jeux éducatifs pour enfants",
+    blurb:
+      "Cubes de lettres arabes, puzzles, jouets pour apprendre la prière et jeux de société — le genre de jeu qui laisse quelque chose une fois rangé.",
+    keywords: "jeu educatif arabe alphabet enfant puzzle jouet islamique",
+    department: "toys-and-games",
+  },
+  {
+    icon: "🎁",
+    label: "Cadeaux de mariage et walima",
+    blurb:
+      "Coffrets, étuis à Coran décorés, vaisselle et souvenirs — pour les invitations qui arrivent avec une date dessus et un mois pour s'organiser.",
+    keywords: "cadeau mariage musulman coffret nikah walima etui coran",
+    department: "",
+  },
+  {
+    icon: "✏️",
+    label: "Papeterie et fournitures d'étude",
+    blurb:
+      "Cahiers, stylos, papier réglé pour l'arabe, lampes de bureau et classeurs — pour l'année de madrasa, et pour quiconque mémorise quelque chose de long.",
+    keywords: "cahier arabe stylo lampe bureau fournitures scolaires classeur",
+    department: "office-products",
+  },
+  {
+    icon: "🍲",
+    label: "Cuisine et art de recevoir",
+    blurb:
+      "Tajines, autocuiseurs, dallah à café, verres à thé et plateaux de service — le matériel derrière les repas auxquels on est réellement invité.",
+    keywords: "tajine cafetiere dallah verres the plateau service ustensiles",
+    department: "kitchen",
+  },
+  {
+    icon: "🏃",
+    label: "Sport et natation couvrants",
+    blurb:
+      "Burkinis, hauts de sport à manches longues, hijabs de sport et pantalons amples — pour que se couvrir et bouger correctement ne soient pas deux décisions séparées.",
+    keywords: "burkini maillot couvrant hijab sport manches longues legging",
+    department: "fashion",
   },
 ];
 
@@ -226,6 +386,86 @@ const DE: ShelfPreset[] = [
     keywords: "arabische kalligrafie wandbild ramadan laterne geschenkset",
     department: "",
   },
+  {
+    icon: "🌙",
+    label: "Ramadan und Eid",
+    blurb:
+      "Laternen, Wanddekoration, Geschenkboxen und Countdown-Kalender — was einmal im Jahr aus dem Schrank kommt und dem Haus ansehen lässt, welcher Monat gerade ist.",
+    keywords: "ramadan deko eid geschenkbox laterne countdown kalender",
+    department: "",
+  },
+  {
+    icon: "🪔",
+    label: "Bakhoor, Oud und Räucherwerk",
+    blurb:
+      "Bakhoor, Oud-Späne und die passenden Brenner, elektrisch oder mit Kohle — der Duft, zu dem die meisten muslimischen Haushalte greifen, wenn Gäste erwartet werden.",
+    keywords: "bakhoor oud raeucherwerk raeucherbrenner elektrisch mabkhara",
+    department: "",
+  },
+  {
+    icon: "💧",
+    label: "Wudu und Hygiene unterwegs",
+    blurb:
+      "Reisebidets, Istinja-Flaschen, wudu-taugliche Socken und kleine Schüsseln — die praktische Seite davon, auch außer Haus sauber zu bleiben.",
+    keywords: "reisebidet istinja flasche wudu socken waschschuessel",
+    department: "",
+  },
+  {
+    icon: "🪒",
+    label: "Bartpflege",
+    blurb:
+      "Kämme, Trimmer, alkoholfreie Balsame und Öle — um einen Bart zu pflegen, statt ihn nur wachsen zu lassen.",
+    keywords: "bartoel alkoholfrei balsam kamm trimmer bartpflege set",
+    department: "beauty",
+  },
+  {
+    icon: "🏹",
+    label: "Bogenschießen, Schwimmen und Reiten",
+    blurb:
+      "Bögen und Zielscheiben, Brillen und Badesachen, Reithandschuhe und Helme — die drei Sportarten, die muslimische Familien ihren Kindern seit jeher beibringen.",
+    keywords: "bogenschiessen zielscheibe schwimmbrille reiten helm handschuhe",
+    department: "sporting",
+  },
+  {
+    icon: "🧩",
+    label: "Lernspielzeug für Kinder",
+    blurb:
+      "Buchstabenwürfel, Puzzles, Spielzeug zum Gebet-Lernen und Gesellschaftsspiele — die Art Spiel, die etwas zurücklässt, wenn sie vorbei ist.",
+    keywords: "lernspielzeug arabisch alphabet kinder puzzle islamisch spiel",
+    department: "toys-and-games",
+  },
+  {
+    icon: "🎁",
+    label: "Hochzeits- und Walima-Geschenke",
+    blurb:
+      "Geschenksets, verzierte Koran-Etuis, Geschirr und Andenken — für die Einladungen, die mit einem Datum kommen und einem Monat Vorlauf.",
+    keywords: "hochzeitsgeschenk muslimisch geschenkset nikah walima koran etui",
+    department: "",
+  },
+  {
+    icon: "✏️",
+    label: "Schreibwaren und Lernbedarf",
+    blurb:
+      "Hefte, Stifte, liniertes Papier für Arabisch, Schreibtischlampen und Ordner — für das Madrasa-Jahr, und für jeden, der etwas Langes auswendig lernt.",
+    keywords: "heft arabisch stift schreibtischlampe schreibwaren ordner",
+    department: "office-products",
+  },
+  {
+    icon: "🍲",
+    label: "Küche und Gastfreundschaft",
+    blurb:
+      "Tajines, Schnellkochtöpfe, Dallah-Kannen, Teegläser und Serviertabletts — das Gerät hinter den Essen, zu denen man tatsächlich eingeladen wird.",
+    keywords: "tajine schnellkochtopf dallah kanne teeglaeser serviertablett",
+    department: "kitchen",
+  },
+  {
+    icon: "🏃",
+    label: "Bedeckende Sport- und Badebekleidung",
+    blurb:
+      "Burkinis, langärmelige Sportoberteile, Sport-Hijabs und weite Hosen — damit Bedecken und richtiges Bewegen nicht zwei getrennte Entscheidungen sind.",
+    keywords: "burkini badebekleidung bedeckt sport hijab langarm leggings",
+    department: "fashion",
+  },
 ];
 
 const ES: ShelfPreset[] = [
@@ -292,6 +532,86 @@ const ES: ShelfPreset[] = [
       "Caligrafía árabe para la pared, farolillos de Ramadán y sets de regalo — para la casa, y para las ocasiones en que hay que regalar algo.",
     keywords: "caligrafia arabe cuadro pared farol ramadan set regalo",
     department: "",
+  },
+  {
+    icon: "🌙",
+    label: "Ramadán y Eid",
+    blurb:
+      "Farolillos, decoración de pared, cajas de regalo y calendarios de cuenta atrás — lo que sale del armario una vez al año y hace que la casa sepa en qué mes está.",
+    keywords: "decoracion ramadan eid caja regalo farolillo calendario",
+    department: "",
+  },
+  {
+    icon: "🪔",
+    label: "Bajur, oud e incienso",
+    blurb:
+      "Bajur, virutas de oud y los quemadores que los acompañan, eléctricos o de carbón — el aroma al que recurre la mayoría de las casas musulmanas cuando se espera visita.",
+    keywords: "bakhoor oud incienso quemador electrico mabkhara",
+    department: "",
+  },
+  {
+    icon: "💧",
+    label: "Ablución e higiene en viaje",
+    blurb:
+      "Duchas portátiles, botellas de istinya, calcetines aptos para el wudu y palanganas pequeñas — el lado práctico de mantenerse limpio fuera de casa.",
+    keywords: "ducha portatil botella istinya calcetines wudu palangana",
+    department: "",
+  },
+  {
+    icon: "🪒",
+    label: "Cuidado de la barba",
+    blurb:
+      "Peines, recortadoras, bálsamos y aceites sin alcohol — para cuidar una barba en lugar de simplemente dejarla crecer.",
+    keywords: "aceite barba sin alcohol balsamo peine recortadora kit",
+    department: "beauty",
+  },
+  {
+    icon: "🏹",
+    label: "Tiro con arco, natación y equitación",
+    blurb:
+      "Arcos y dianas, gafas y bañadores, guantes y cascos de montar — los tres deportes que las familias musulmanas llevan mucho tiempo empeñadas en enseñar.",
+    keywords: "tiro con arco diana natacion gafas equitacion casco guantes",
+    department: "sporting",
+  },
+  {
+    icon: "🧩",
+    label: "Juguetes educativos para niños",
+    blurb:
+      "Cubos de letras árabes, puzles, juguetes para aprender la oración y juegos de mesa — el tipo de juego que deja algo cuando se recoge.",
+    keywords: "juguete educativo arabe alfabeto ninos puzle islamico juego",
+    department: "toys-and-games",
+  },
+  {
+    icon: "🎁",
+    label: "Regalos de boda y walima",
+    blurb:
+      "Sets de regalo, estuches de Corán decorados, vajilla y recuerdos — para las invitaciones que llegan con una fecha encima y un mes para prepararse.",
+    keywords: "regalo boda musulmana set nikah walima estuche coran",
+    department: "",
+  },
+  {
+    icon: "✏️",
+    label: "Papelería y material de estudio",
+    blurb:
+      "Cuadernos, bolígrafos, papel pautado para árabe, flexos y archivadores — para el curso de madrasa, y para quien memoriza algo largo.",
+    keywords: "cuaderno arabe boligrafo flexo material escolar archivador",
+    department: "office-products",
+  },
+  {
+    icon: "🍲",
+    label: "Cocina y hospitalidad",
+    blurb:
+      "Tayines, ollas a presión, dallahs de café, vasos de té y bandejas — el equipo detrás de las comidas a las que de verdad te invitan.",
+    keywords: "tajin olla presion dallah cafe vasos te bandeja utensilios",
+    department: "kitchen",
+  },
+  {
+    icon: "🏃",
+    label: "Ropa deportiva y de baño modesta",
+    blurb:
+      "Burkinis, camisetas deportivas de manga larga, hiyabs deportivos y pantalones holgados — para que cubrirse y moverse bien no sean dos decisiones distintas.",
+    keywords: "burkini bano modesto hiyab deportivo manga larga mallas",
+    department: "fashion",
   },
 ];
 
