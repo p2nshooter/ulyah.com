@@ -1,3 +1,4 @@
+import { mtR2Get, mtR2GetMany } from "./mt-r2.js";
 import type { Env } from "../env.js";
 
 // Free, keyless Google Translate ("gtx") endpoint — much more reliable and
@@ -166,10 +167,14 @@ function memSet(key: string, value: string): void {
 async function mtDbGet(env: Env, key: string): Promise<string | null> {
   try {
     const row = await env.DB.prepare("SELECT v FROM mt_cache WHERE k = ?").bind(key).first<{ v: string }>();
-    return row ? row.v : null;
+    if (row) return row.v;
   } catch {
-    return null;
+    /* fall through to R2 — a D1 hiccup should not cost a translation */
   }
+  // D1 holds what the Worker itself translated; R2 holds the warm job's
+  // output, which is the bulk of it and the part that survives a full D1.
+  // See mt-r2.ts: the warm job is the only writer, Workers only read.
+  return mtR2Get(env, key);
 }
 
 async function mtDbGetMany(env: Env, keys: string[]): Promise<Map<string, string>> {
@@ -184,8 +189,16 @@ async function mtDbGetMany(env: Env, keys: string[]): Promise<Map<string, string
         .all<{ k: string; v: string }>();
       for (const r of results) map.set(r.k, r.v);
     } catch {
-      /* ignore — misses just get retranslated */
+      /* ignore — the R2 pass below still has a chance at these */
     }
+  }
+  // Whatever D1 did not have, look for in the warm job's R2 shards. Grouped
+  // by shard, so a page asking for fifty strings costs a handful of fetches,
+  // each one cached for the life of the isolate.
+  const missing = uniq.filter((k) => !map.has(k));
+  if (missing.length > 0) {
+    const fromR2 = await mtR2GetMany(env, missing);
+    for (const [k, v] of fromR2) map.set(k, v);
   }
   return map;
 }

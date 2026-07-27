@@ -137,6 +137,7 @@ jobs:
           set -o pipefail
           npx tsx scripts/warm-mt-cache.ts \
             --langs=${{ inputs.langs }} \
+            --skip=${{ inputs.skip }} \
             ${{ (github.event_name != 'workflow_dispatch' || inputs.one) && '--one' || '' }} \
             | tee /tmp/warm.log
           # Keep the run's own answer. Absent (a mode that does not print it)
@@ -176,6 +177,18 @@ jobs:
       # Kept so the chaining step below can tell whether this pass actually
       # moved anything, and refuse to chain into a loop that is achieving
       # nothing (Google occasionally rate-limits the runner).
+      # Hand the pass's output to R2 before anything else can go wrong with it.
+      #
+      # D1 filling up is what made translations look lost: the warm job wrote
+      # into a full database, the writes failed, and the run reported success
+      # having stored nothing. R2 has no such ceiling, and the Worker reads
+      # from it when D1 misses (see mt-r2.ts). The publisher MERGES into the
+      # existing shards — it reads what is already there first — so this never
+      # erases earlier passes.
+      - name: Publish translations to R2
+        if: always()
+        run: npx tsx scripts/mt-r2-publish.ts
+
       - name: Snapshot coverage before re-measuring
         if: ${{ !cancelled() }}
         run: cp scripts/locale-content.json /tmp/locale-content.before.json

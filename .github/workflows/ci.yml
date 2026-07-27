@@ -101,6 +101,13 @@ jobs:
       - name: Check when an unchanged translation may be stored
         run: npx tsx scripts/check-echo-faithful.mjs
 
+      # A workflow input that never reaches the script is invisible from both
+      # ends: the UI offers it, the script defaults it away, and the run
+      # reports success having ignored it. That happened to `skip` — the line
+      # passing it was written at the wrong indentation and matched nothing.
+      - name: Check every warm workflow input reaches the script
+        run: node scripts/check-warm-inputs.mjs
+
       # The @@n@@ sentinels are what stop a hadith's matn being paraphrased, and
       # gtx mangles them: a Spanish pass had gtx answer 394 of 401 batches and
       # threw away 1,619 answers for lost sentinels. They are swapped for a
