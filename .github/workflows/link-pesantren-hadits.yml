@@ -32,6 +32,11 @@ on:
         description: "Print this many matched pairs side by side, to read by eye"
         required: false
         default: "0"
+      reset:
+        description: "Clear terjemah this script wrote before re-filling (its own citations only)"
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   link:
@@ -72,12 +77,14 @@ jobs:
           set -eu
           DRY_FLAG=""
           if [ "${{ inputs.dry }}" = "true" ]; then DRY_FLAG="--dry"; fi
+          RESET_FLAG=""
+          if [ "${{ inputs.reset }}" = "true" ]; then RESET_FLAG="--reset"; fi
           npx tsx scripts/link-pesantren-hadits.ts \
             --kitab="${{ inputs.kitab || 'arbainnawawi,bulughulmaram' }}" \
             --min="${{ inputs.min || '0.55' }}" \
             --margin="${{ inputs.margin || '0.10' }}" \
             --sample="${{ inputs.sample || '0' }}" \
-            $DRY_FLAG
+            $RESET_FLAG $DRY_FLAG
 
       - name: Report what the kitab look like now
         if: ${{ inputs.dry != true }}

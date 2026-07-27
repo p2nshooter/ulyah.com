@@ -67,6 +67,7 @@ function parseArgs() {
     margin: Number(args.margin ?? 0.1),
     dry: args.dry === "true",
     sample: Number(args.sample ?? 0),
+    reset: args.reset === "true",
   };
 }
 
@@ -171,9 +172,11 @@ export interface MatchResult {
 export function buildMatcher(corpusArabic: string[]) {
   const index = new Map<string, number[]>();
   const own: Set<string>[] = [];
+  const size: number[] = [];
   for (let i = 0; i < corpusArabic.length; i++) {
     const words = normalizeArabic(corpusArabic[i]).split(" ").filter(Boolean);
     own.push(new Set(shingles(words, 1)));
+    size.push(words.length);
     for (const sh of shingles(words, INDEX_STRIDE)) {
       const bucket = index.get(sh);
       if (bucket) bucket.push(i);
@@ -187,6 +190,17 @@ export function buildMatcher(corpusArabic: string[]) {
   const commonDf = Math.max(50, Math.floor(corpusArabic.length * 0.005));
   /** A match built only out of boilerplate is not a match. */
   const MIN_RARE = 4;
+  /**
+   * A candidate may be somewhat longer than the matn — the corpus keeps the
+   * full isnad where a compilation trims it — but not many times longer.
+   *
+   * Without this, Riyadhus Shalihin wins everything it touches: its rows are
+   * whole bab, heading and Qur'anic proof-texts and several hadith together,
+   * so any matn inside one is contained in it at score 1.0. Ninety-seven rows
+   * were filled that way, and what they got was "Bab 185. Keutamaan Berwudhu'
+   * …" — a chapter title, under a hadith.
+   */
+  const MAX_LEN_RATIO = 3;
 
   /**
    * The best candidate and its score, with no threshold applied — so a run can
@@ -212,7 +226,11 @@ export function buildMatcher(corpusArabic: string[]) {
 
     // Score the few plausible candidates properly: what share of the passage
     // does this entry actually contain?
-    const shortlist = [...seen.entries()].sort((a, b) => b[1] - a[1]).slice(0, 20);
+    const maxWords = words.length * MAX_LEN_RATIO;
+    const shortlist = [...seen.entries()]
+      .filter(([ci]) => size[ci] <= maxWords)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 20);
     let winner = -1;
     let bestScore = 0;
     let bestShared = 0;
@@ -282,7 +300,29 @@ function citation(h: HadithRow): string {
 }
 
 async function main() {
-  const { kitab, min, margin, dry, sample } = parseArgs();
+  const { kitab, min, margin, dry, sample, reset } = parseArgs();
+
+  // Undo what this script wrote before, and only that. Every row it fills ends
+  // in its own citation, so that suffix is the marker: a hand-written terjemah
+  // has no "(HR. … no. …)" tail and is never touched.
+  if (reset) {
+    const marked = d1Json<{ n: number }>(
+      `SELECT COUNT(*) AS n FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id ` +
+        `WHERE b.kitab_slug IN (${kitab.map(sq).join(",")}) AND m.translation_id LIKE '%(HR. %no. %)';`
+    );
+    console.log(`${marked[0]?.n ?? 0} previously-linked terjemah to clear.`);
+    if (!dry) {
+      const tmp = mkdtempSync(join(tmpdir(), "ulyah-pes-reset-"));
+      d1File(
+        `UPDATE pesantren_matn SET translation_id = NULL WHERE id IN (` +
+          `SELECT m.id FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id ` +
+          `WHERE b.kitab_slug IN (${kitab.map(sq).join(",")}) AND m.translation_id LIKE '%(HR. %no. %)');`,
+        tmp
+      );
+      rmSync(tmp, { recursive: true, force: true });
+      console.log("Cleared.");
+    }
+  }
   console.log(`Linking terjemah for: ${kitab.join(", ")} (min=${min}, margin=${margin}${dry ? ", dry" : ""})`);
 
   const matns = d1Json<MatnRow>(

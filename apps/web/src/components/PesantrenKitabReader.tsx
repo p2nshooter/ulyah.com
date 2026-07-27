@@ -12,6 +12,7 @@ import { AdSlot } from "@/components/AdSlot";
 import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
 import { fillLabels } from "@/lib/fill-labels";
+import LeafPager from "@/components/LeafPager";
 
 interface QuranRef {
   s: number;
@@ -57,6 +58,13 @@ const FONT_SIZE_CLASS: Record<FontSize, string> = {
   lg: "text-3xl leading-[2.4]",
   xl: "text-4xl leading-[2.5]",
 };
+/** The leaf sets its own Arabic size in CSS; this is the same scale by name. */
+const LEAF_SIZE: Record<FontSize, "s" | "m" | "l" | "xl"> = {
+  sm: "s",
+  md: "m",
+  lg: "l",
+  xl: "xl",
+};
 // Inline styles, not Tailwind classes: .card-premium-static's own
 // background-color rule sits below `@tailwind utilities` in globals.css, so
 // it wins the cascade over same-specificity utility classes and would
@@ -92,6 +100,11 @@ interface ReaderLabels {
   stopReading: string;
   reading: string;
   nextBook: string;
+  leafView: string;
+  scrollView: string;
+  leafOf: (n: number, total: number) => string;
+  prevLeaf: string;
+  nextLeaf: string;
 }
 const READER_L: Record<string, ReaderLabels> = {
   id: {
@@ -116,6 +129,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ Berhenti",
     reading: "Sedang membacakan… halaman & bab berpindah otomatis sampai dihentikan.",
     nextBook: "Kitab selesai — berpindah ke kitab berikutnya…",
+    leafView: "📖 Lembaran",
+    scrollView: "📜 Gulir",
+    leafOf: (n, total) => `Lembar ${n} / ${total}`,
+    prevLeaf: "‹ Lembar sebelumnya",
+    nextLeaf: "Lembar berikutnya ›",
   },
   en: {
     back: "← Classical Texts",
@@ -139,6 +157,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ Stop",
     reading: "Reading aloud… pages & chapters advance automatically until stopped.",
     nextBook: "Book finished — moving to the next book…",
+    leafView: "📖 Leaves",
+    scrollView: "📜 Scroll",
+    leafOf: (n, total) => `Leaf ${n} of ${total}`,
+    prevLeaf: "‹ Previous leaf",
+    nextLeaf: "Next leaf ›",
   },
   zh: {
     back: "← 古典典籍",
@@ -162,6 +185,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ 停止",
     reading: "正在朗读… 页面与章节会自动翻进，直至停止。",
     nextBook: "本书已读完 — 正在切换到下一部…",
+    leafView: "📖 书页",
+    scrollView: "📜 滚动",
+    leafOf: (n, total) => `第 ${n} 页 / 共 ${total} 页`,
+    prevLeaf: "‹ 上一页",
+    nextLeaf: "下一页 ›",
   },
   ar: {
     back: "← النصوص الكلاسيكية",
@@ -185,6 +213,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ إيقاف",
     reading: "جارٍ القراءة… تنتقل الصفحات والأبواب تلقائيًا حتى الإيقاف.",
     nextBook: "انتهى الكتاب — الانتقال إلى الكتاب التالي…",
+    leafView: "📖 صفحات",
+    scrollView: "📜 تمرير",
+    leafOf: (n, total) => `صفحة ${n} من ${total}`,
+    prevLeaf: "‹ الصفحة السابقة",
+    nextLeaf: "الصفحة التالية ›",
   },
   ru: {
     back: "← Классические тексты",
@@ -208,6 +241,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ Стоп",
     reading: "Идёт чтение… страницы и главы перелистываются автоматически до остановки.",
     nextBook: "Книга завершена — переход к следующей книге…",
+    leafView: "📖 Страницы",
+    scrollView: "📜 Прокрутка",
+    leafOf: (n, total) => `Страница ${n} из ${total}`,
+    prevLeaf: "‹ Предыдущая страница",
+    nextLeaf: "Следующая страница ›",
   },
   ja: {
     back: "← 古典文献",
@@ -231,6 +269,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ 停止",
     reading: "読み上げ中… 停止するまでページと章が自動で進みます。",
     nextBook: "本を読み終えました — 次の本へ移動します…",
+    leafView: "📖 ページ",
+    scrollView: "📜 スクロール",
+    leafOf: (n, total) => `${total} ページ中 ${n} ページ`,
+    prevLeaf: "‹ 前のページ",
+    nextLeaf: "次のページ ›",
   },
   fr: {
     back: "← Textes Classiques",
@@ -254,6 +297,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ Arrêter",
     reading: "Lecture en cours… pages et chapitres avancent automatiquement jusqu'à l'arrêt.",
     nextBook: "Livre terminé — passage au livre suivant…",
+    leafView: "📖 Feuillets",
+    scrollView: "📜 Défilement",
+    leafOf: (n, total) => `Feuillet ${n} sur ${total}`,
+    prevLeaf: "‹ Feuillet précédent",
+    nextLeaf: "Feuillet suivant ›",
   },
   de: {
     back: "← Klassische Werke",
@@ -277,6 +325,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ Stopp",
     reading: "Vorlesen läuft… Seiten & Kapitel wechseln automatisch bis zum Stopp.",
     nextBook: "Buch beendet — weiter zum nächsten Buch…",
+    leafView: "📖 Blätter",
+    scrollView: "📜 Scrollen",
+    leafOf: (n, total) => `Blatt ${n} von ${total}`,
+    prevLeaf: "‹ Vorheriges Blatt",
+    nextLeaf: "Nächstes Blatt ›",
   },
   es: {
     back: "← Textos Clásicos",
@@ -300,6 +353,11 @@ const READER_L: Record<string, ReaderLabels> = {
     stopReading: "⏹ Detener",
     reading: "Leyendo en voz alta… páginas y capítulos avanzan automáticamente hasta detenerse.",
     nextBook: "Libro terminado — pasando al siguiente libro…",
+    leafView: "📖 Hojas",
+    scrollView: "📜 Desplazar",
+    leafOf: (n, total) => `Hoja ${n} de ${total}`,
+    prevLeaf: "‹ Hoja anterior",
+    nextLeaf: "Hoja siguiente ›",
   },
 };
 function readerLabels(locale: string): ReaderLabels {
@@ -389,6 +447,9 @@ export function PesantrenKitabReader({
   const [theme, setTheme] = useState<Theme>("light");
   const [showPrefs, setShowPrefs] = useState(false);
   const [pageTurn, setPageTurn] = useState(false);
+  // Leaves by default: a kitab is a book, and it is read a page at a time.
+  // The endless scroll stays available for anyone who prefers it.
+  const [view, setView] = useState<"leaf" | "scroll">("leaf");
 
   // Restore reading preferences + bookmark for THIS kitab only, once, after
   // mount (client-only — avoids an SSR/CSR hydration mismatch).
@@ -396,9 +457,10 @@ export function PesantrenKitabReader({
     try {
       const savedPrefs = window.localStorage.getItem(prefsKey(kitab.slug));
       if (savedPrefs) {
-        const parsed = JSON.parse(savedPrefs) as { fontSize?: FontSize; theme?: Theme };
+        const parsed = JSON.parse(savedPrefs) as { fontSize?: FontSize; theme?: Theme; view?: "leaf" | "scroll" };
         if (parsed.fontSize) setFontSize(parsed.fontSize);
         if (parsed.theme) setTheme(parsed.theme);
+        if (parsed.view) setView(parsed.view);
       }
       const savedBab = window.localStorage.getItem(bookmarkKey(kitab.slug));
       if (savedBab) {
@@ -414,8 +476,8 @@ export function PesantrenKitabReader({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kitab.slug]);
 
-  function persistPrefs(next: { fontSize?: FontSize; theme?: Theme }) {
-    const merged = { fontSize, theme, ...next };
+  function persistPrefs(next: { fontSize?: FontSize; theme?: Theme; view?: "leaf" | "scroll" }) {
+    const merged = { fontSize, theme, view, ...next };
     try {
       window.localStorage.setItem(prefsKey(kitab.slug), JSON.stringify(merged));
     } catch {
@@ -769,9 +831,61 @@ export function PesantrenKitabReader({
                       </button>
                     ))}
                   </div>
+                  <div className="flex items-center gap-1.5">
+                    {(["leaf", "scroll"] as const).map((v) => (
+                      <button
+                        key={v}
+                        onClick={() => {
+                          setView(v);
+                          persistPrefs({ view: v });
+                        }}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] ${view === v ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
+                      >
+                        {v === "leaf" ? t.leafView : t.scrollView}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
 
+              {/* The kitab as leaves: matn on the page, terjemah beneath it,
+                  and the leaf turning itself as the narration moves on — it
+                  follows readingPos, so the page keeps step with the voice for
+                  free. */}
+              {view === "leaf" ? (
+                <div className={`mt-5 transition-opacity duration-200 ${pageTurn ? "opacity-0" : "opacity-100"}`}>
+                  <LeafPager
+                    items={current.matn}
+                    activeId={readingPos?.matnId ?? null}
+                    activePart={
+                      readingPos?.part === "ar" || readingPos?.part === "tr" ? readingPos.part : null
+                    }
+                    mode={theme === "dark" ? "night" : theme === "sepia" ? "sepia" : "light"}
+                    size={LEAF_SIZE[fontSize]}
+                    labels={{
+                      leafOf: t.leafOf,
+                      prev: t.prevLeaf,
+                      next: t.nextLeaf,
+                      translation: t.translation,
+                    }}
+                    renderMatn={(m, active) => (
+                      <SpokenText
+                        text={m.text_ar}
+                        dir="rtl"
+                        active={active}
+                        charIndex={active ? (readingPos?.charIndex ?? -1) : -1}
+                      />
+                    )}
+                    renderTranslation={(m, active) => (
+                      <SpokenText
+                        text={m.translation_id ?? ""}
+                        active={active}
+                        charIndex={active ? (readingPos?.charIndex ?? -1) : -1}
+                      />
+                    )}
+                  />
+                </div>
+              ) : (
               <div
                 className={`mt-5 space-y-5 rounded-2xl transition-opacity duration-200 ${pageTurn ? "opacity-0" : "opacity-100"} ${theme !== "light" ? "p-4" : ""}`}
                 style={THEME_STYLE[theme]}
@@ -890,6 +1004,7 @@ export function PesantrenKitabReader({
 
                 {/* Ad at the end of the bab, before prev/next (per plan) */}
               </div>
+              )}
 
               {/* Prev / next chapter */}
               <div className="mt-6 flex items-center justify-between gap-3">
