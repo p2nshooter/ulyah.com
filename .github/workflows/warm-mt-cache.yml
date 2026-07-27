@@ -29,24 +29,34 @@ on:
         required: false
         type: boolean
         default: true
-  schedule:
+  # DISABLED. Owner: "terjemahin aja manual jgn make mesin".
+  #
+  # Machine translation is switched off across the ecosystem. The schedule, the
+  # after-deploy trigger and the self-chaining all stop here; the workflow is
+  # kept dispatchable so the tooling is not lost, but nothing starts it by
+  # itself any more.
+  #
+  # This also takes the write pressure off D1. The job was the largest writer
+  # in the ecosystem, and the database is on the 500 MB free-plan cap.
+  #
+  # schedule:
     # Every three hours, not once at night. A single nightly pass could never
     # close the gap: the twenty-two switched-off languages were 15,000 strings
     # each behind French, and one pass tops up only what it has time for
     # (owner: "bikin warm nyambung terus jangan cuma malam"). The runs also
     # chain — see the last step — so this schedule is really just a safety net
     # in case a chain ever breaks.
-    - cron: "45 */3 * * *"
+    # - cron: "45 */3 * * *"
   # Run automatically after every successful deploy, so content added and
   # imported by that deploy gets its sibling-language translations right away
   # instead of waiting for the nightly run. The script skips strings already in
   # the D1 mt_cache, so an unchanged corpus costs zero upstream calls — only
   # genuinely new content is translated. (default branch is main, so this
   # registers correctly.)
-  workflow_run:
-    workflows: ["Deploy to Cloudflare"]
-    types: [completed]
-    branches: [main]
+  # workflow_run:
+  #   workflows: ["Deploy to Cloudflare"]
+  #   types: [completed]
+  #   branches: [main]
 
 # Queue rather than cancel, so a long warm always finishes — but keep each
 # TRIGGER in its own lane.
