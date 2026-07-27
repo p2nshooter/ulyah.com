@@ -307,3 +307,18 @@ jobs:
               echo "Work remains — starting the next pass."
               gh workflow run warm-mt-cache.yml --ref main -f langs= -f one=true -f chain=true ;;
           esac
+
+      # The per-phase tally, printed LAST so it is the tail of the log.
+      #
+      # The step summary added above is readable in the browser, but GitHub does
+      # not return it through the API — so from a terminal the tally was still
+      # buried behind the chaining step's inlined script. Printing it as the
+      # final step puts it where `gh run view --log`, and any API tail, lands
+      # first. Same three lines, third place they now appear; none of them costs
+      # a query.
+      - name: Warm tally
+        if: ${{ always() }}
+        run: |
+          echo "── warm tally ─────────────────────────────"
+          grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Collected |^--one:' /tmp/warm.log || echo "(no tally — the warm step did not get that far)"
+          echo "───────────────────────────────────────────"
