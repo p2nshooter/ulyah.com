@@ -1,0 +1,62 @@
+# Dependency updates, deliberately quiet.
+#
+# CI here runs on `push: branches: ["**"]` AND on pull_request, so every
+# Dependabot branch costs two CI runs. Left on its defaults Dependabot opens a
+# pull request per package per week; on a workspace this size that is a wall of
+# PRs nobody reads and a CI queue nothing else can get through. So: weekly, and
+# everything routine arrives as ONE pull request per ecosystem.
+#
+# Deploying is not a risk here — deploy.yml only fires on push to main, so a
+# Dependabot branch can never reach production on its own.
+version: 2
+
+updates:
+  # One entry covers the whole pnpm workspace: Dependabot reads the root
+  # pnpm-workspace.yaml and follows it into apps/* and packages/*.
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "02:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 3
+    groups:
+      # Everything routine in one PR. A grouped patch bump is one review and
+      # one CI run instead of thirty.
+      routine:
+        applies-to: version-updates
+        update-types: [minor, patch]
+      # Security fixes travel on their own so they are never held up behind a
+      # routine bump that failed CI.
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+    ignore:
+      # A major on any of these is a migration, not a dependency bump: Next,
+      # the Cloudflare adapter and wrangler move together, and the build only
+      # works on a combination that has been chosen on purpose. Dependabot
+      # opening that as a routine PR would be noise at best and a broken
+      # deploy at worst. Security updates are NOT affected by this — the
+      # ignore applies to version updates only.
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@opennextjs/cloudflare"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "wrangler"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+
+  # The actions in .github/workflows. These pin to major tags (actions/checkout@v4)
+  # and go stale quietly — the Node 20 deprecation warning on every run is this.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      actions:
+        patterns: ["*"]
