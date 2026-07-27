@@ -38,6 +38,9 @@ import { maskProtected } from "./mt-key.mjs";
 // Sentinel transport for gtx — see gtx-tokens.ts for why the @@n@@ format
 // itself cannot change.
 import { toGtxTokens, fromGtxTokens } from "./gtx-tokens.js";
+// When an unchanged answer is a faithful translation rather than a refusal.
+// Strict on purpose — see echo-faithful.ts. Never used on the Arabic phase.
+import { echoIsFaithful } from "./echo-faithful.js";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
@@ -723,7 +726,13 @@ async function main() {
       const outs = idResults[bi] ?? [];
       batch.forEach((src, k) => {
         const v = outs[k];
-        if (v && v !== src) {
+        // An unchanged answer is usually a refusal, but for a proper noun it
+        // is the correct translation — "Nabi Adam" is "Nabi Adam" in Spanish.
+        // Rejecting those meant the same ~894 strings failed every pass, so
+        // this language never filled and the queue never moved past it.
+        // echoIsFaithful is deliberately narrow and refuses anything with
+        // Arabic or a sentinel in it.
+        if (v && (v !== src || echoIsFaithful(src))) {
           pairs.push({ key: `mt:id-${lang}:${hashKey(src)}`, value: v });
           translated++;
         } else {
@@ -939,7 +948,7 @@ async function main() {
             // pass retries the paragraph.
             const want = (src.match(/@@\d+@@/g) ?? []).length;
             const got = v ? (v.match(/@@\d+@@/g) ?? []).length : 0;
-            if (v && v !== src && got === want) {
+            if (v && got === want && (v !== src || echoIsFaithful(src))) {
               pairs.push({ key: `mt:en-${lang}:${hashKey(src)}`, value: v });
               translated++;
               done++;
