@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { paginateLeaves, leafOf, type LeafItem } from "@/lib/leaf";
+import { paginateLeaves, leafOf, LEAF_INK, type LeafItem } from "@/lib/leaf";
 
 /**
  * A bab set as leaves of a printed kitab: the matn on the page, the terjemah
@@ -22,6 +22,7 @@ interface Labels {
   leafOf: (n: number, total: number) => string;
   prev: string;
   next: string;
+  /** Heading over the terjemah; empty to show none. */
   translation: string;
 }
 
@@ -38,6 +39,15 @@ interface Props<T extends LeafItem> {
   renderMatn: (item: T, active: boolean) => React.ReactNode;
   /** Renders the terjemah, or nothing when the kitab has none for this matn. */
   renderTranslation?: (item: T, active: boolean) => React.ReactNode;
+  /** Whether this passage has a terjemah at all — hadits keep it under a
+   *  different column name than the kitab do. */
+  hasTranslation?: (item: T) => boolean;
+  /** Anything that belongs under the passage: narrator, grade, source. */
+  renderFooter?: (item: T) => React.ReactNode;
+  /** How much of a leaf one passage fills, when it is not `translation_id`. */
+  cost?: (item: T) => number;
+  /** Tapping a passage — used to start reading from it. */
+  onSelect?: (item: T) => void;
   /** Told whenever the leaf changes, so the caller can remember the place. */
   onLeafChange?: (index: number, total: number) => void;
 }
@@ -54,9 +64,13 @@ export default function LeafPager<T extends LeafItem>({
   labels,
   renderMatn,
   renderTranslation,
+  hasTranslation,
+  renderFooter,
+  cost,
+  onSelect,
   onLeafChange,
 }: Props<T>) {
-  const leaves = paginateLeaves(items);
+  const leaves = paginateLeaves(items, LEAF_INK, cost);
   const [index, setIndex] = useState(0);
   const [flipPhase, setFlipPhase] = useState<FlipPhase>("idle");
   const [flipDirection, setFlipDirection] = useState<FlipDirection>("next");
@@ -125,21 +139,25 @@ export default function LeafPager<T extends LeafItem>({
             <article
               key={item.id}
               id={`leaf-passage-${item.id}`}
-              className={`leaf-passage ${active ? "leaf-passage-active px-2 py-1" : ""}`}
+              onClick={onSelect ? () => onSelect(item) : undefined}
+              className={`leaf-passage ${active ? "leaf-passage-active px-2 py-1" : ""} ${onSelect ? "cursor-pointer" : ""}`}
             >
               <div dir="rtl" className="leaf-matn font-arabic" data-size={size}>
                 {renderMatn(item, active && activePart === "ar")}
               </div>
-              {renderTranslation && item.translation_id?.trim() ? (
+              {renderTranslation && (hasTranslation ? hasTranslation(item) : item.translation_id?.trim()) ? (
                 <div className="leaf-tarjamah">
-                  <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide opacity-60">
-                    {labels.translation}
-                  </p>
+                  {labels.translation ? (
+                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide opacity-60">
+                      {labels.translation}
+                    </p>
+                  ) : null}
                   <div className="text-sm leading-relaxed">
                     {renderTranslation(item, active && activePart === "tr")}
                   </div>
                 </div>
               ) : null}
+              {renderFooter ? <div className="mt-3">{renderFooter(item)}</div> : null}
             </article>
           );
         })}

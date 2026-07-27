@@ -7,7 +7,7 @@
  * Sizes here are the real ones: an Alfiyah bait is ~45 characters, a passage of
  * Minhajut Thalibin runs to 12,517.
  */
-import { paginateLeaves, leafOf, LEAF_INK } from "./leaf.ts";
+import { paginateLeaves, leafOf, defaultCost, LEAF_INK } from "./leaf.ts";
 
 let failed = 0;
 function ok(cond, label) {
@@ -70,6 +70,22 @@ for (const m of many) {
 eq(leafOf(leaves, many[0].id), 0, "the first passage is on the first leaf");
 eq(leafOf(leaves, 99999), -1, "an unknown passage reports no leaf rather than guessing 0");
 eq(leafOf(leaves, null), -1, "nothing being read reports no leaf");
+
+// --- a reader whose translation lives under another name -----------------
+// The hadith corpus calls it text_id, not translation_id. Measured by the
+// default cost the leaf would count only the Arabic and be set twice as full
+// as it looks, so the caller passes its own cost.
+const hadith = (id) => ({ id, text_ar: "ح".repeat(400), text_id: "t".repeat(1200) });
+const hadiths = Array.from({ length: 10 }, (_, i) => hadith(i + 1));
+const byArabicOnly = paginateLeaves(hadiths);
+const byBoth = paginateLeaves(hadiths, LEAF_INK, (h) => h.text_ar.length + h.text_id.length);
+ok(
+  byBoth.length > byArabicOnly.length,
+  `counting the terjemah fills more leaves (${byBoth.length} vs ${byArabicOnly.length})`
+);
+eq(byBoth.reduce((n, l) => n + l.length, 0), 10, "a custom cost still loses nothing");
+eq(defaultCost({ id: 1, text_ar: "abc", translation_id: "de" }), 5, "the default cost is ar + terjemah");
+eq(defaultCost({ id: 1, text_ar: "abc" }), 3, "a passage with no terjemah costs only its Arabic");
 
 // --- degenerate input ---------------------------------------------------
 eq(paginateLeaves([]).length, 1, "an empty bab still renders one (blank) leaf");
