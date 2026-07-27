@@ -7,9 +7,29 @@ interface SettingStatus {
   key: string;
   label: string;
   secret: boolean;
+  /** Which heading this credential sits under. The Worker decides the set —
+   *  a group with nothing in it simply does not render, which is how the
+   *  AliExpress block stays out of sight until its keys are issued. */
+  group: "payment" | "affiliate";
   source: "database" | "env" | "unset";
   preview: string | null;
 }
+
+// Order of the panels, and the words above each. Affiliate sits AFTER payment
+// because payment is what someone opening this page is usually here to fix.
+const GROUPS: { id: SettingStatus["group"]; title: string; blurb: string }[] = [
+  {
+    id: "payment",
+    title: "Pembayaran & donasi",
+    blurb: "Kredensial PayPal dan NOWPayments yang dipakai halaman donasi.",
+  },
+  {
+    id: "affiliate",
+    title: "Afiliasi AliExpress",
+    blurb:
+      "App Key, App Secret dan Tracking ID dari AliExpress Open Platform. Ketiganya disimpan terenkripsi, termasuk Tracking ID.",
+  },
+];
 
 const SOURCE_LABEL: Record<SettingStatus["source"], string> = {
   database: "Tersimpan (terenkripsi)",
@@ -81,8 +101,17 @@ export function SettingsTab() {
       </p>
       {message && <p className="text-xs text-accent">{message}</p>}
 
-      <div className="space-y-2">
-        {settings.map((s) => (
+      {GROUPS.map((g) => {
+        const rows = settings.filter((s) => s.group === g.id);
+        // An empty group renders nothing at all — no heading, no empty box.
+        if (rows.length === 0) return null;
+        return (
+          <section key={g.id} className="space-y-2">
+            <div className="pt-2">
+              <h3 className="text-sm font-semibold">{g.title}</h3>
+              <p className="text-[11px] text-[var(--color-text-secondary)]">{g.blurb}</p>
+            </div>
+            {rows.map((s) => (
           <div key={s.key} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
@@ -120,8 +149,10 @@ export function SettingsTab() {
               )}
             </div>
           </div>
-        ))}
-      </div>
+            ))}
+          </section>
+        );
+      })}
     </div>
   );
 }

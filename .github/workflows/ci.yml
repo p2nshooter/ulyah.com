@@ -93,6 +93,13 @@ jobs:
       - name: Check the gtx fallback still runs with no keys
         run: npx tsx scripts/check-empty-pool.mjs
 
+      # The admin credential panel renders group by group, so a setting with no
+      # group vanishes from the page instead of erroring — the worst way for a
+      # credential field to break. This also holds the AliExpress rows to
+      # "prepared but not offered" until ALIEXPRESS_READY is flipped.
+      - name: Check the admin settings panel keeps its promises
+        run: npx tsx scripts/check-managed-settings.mjs
+
       # Hand-written translations are stored under a key derived from the text.
       # The Worker derives it in mt.ts; scripts/mt-key.mjs derives it again so
       # translations can be written offline. If the two ever disagree the Worker
