@@ -294,8 +294,16 @@ jobs:
             );
             for (const [l, n] of shortFromMeasure.slice(0, 5)) console.error(`  lowest: ${l} ${n} (${pct(n)}%)`);
             const left = known ? remaining.length : shortFromMeasure.length;
+            // A pass that gained almost nothing is not progress worth chaining
+            // into — it is a hot loop. The chain was firing every four minutes,
+            // and each pass throws tens of thousands of requests at the same
+            // upstream; the reply to that is a rate limit, which guarantees the
+            // NEXT pass gains nothing either. A run that moved fewer than fifty
+            // strings has hit something it will not translate its way out of in
+            // the next four minutes, so let the 3-hourly schedule take it.
+            const FLOOR = 50;
             if (left === 0) console.log("done");
-            else if (gained <= 0) console.log("stalled");
+            else if (gained < FLOOR) console.log("stalled");
             else console.log("chain");
           ')
           case "$decision" in
