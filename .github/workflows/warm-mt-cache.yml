@@ -137,6 +137,7 @@ jobs:
           set -o pipefail
           npx tsx scripts/warm-mt-cache.ts \
             --langs=${{ inputs.langs }} \
+            --skip=${{ inputs.skip }} \
             ${{ (github.event_name != 'workflow_dispatch' || inputs.one) && '--one' || '' }} \
             | tee /tmp/warm.log
           # Keep the run's own answer. Absent (a mode that does not print it)
