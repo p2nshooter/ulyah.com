@@ -137,7 +137,12 @@ async function main() {
   let passes = 0;
   while (bulk.mb > low && bulk.rows > 0) {
     passes++;
-    execFileSync("npx", ["tsx", "scripts/move-story-bodies-to-r2.ts", `--limit=${batch}`], {
+    // The batch size is argv-derived, so it is reduced to an integer here, at
+    // the point it becomes part of a command line, rather than trusted from
+    // parseArgs two functions away. Same reasoning as the mover's SQL guards:
+    // the proof belongs where the string is built.
+    const safeBatch = Math.max(1, Math.min(1000, Math.trunc(Number(batch) || 0) || 100));
+    execFileSync("npx", ["tsx", "scripts/move-story-bodies-to-r2.ts", `--limit=${safeBatch}`], {
       cwd: join(import.meta.dirname, ".."),
       stdio: "inherit",
     });
