@@ -140,6 +140,9 @@ jobs:
           # "unknown", the second means "finished", and treating them alike
           # would silently stop the chain.
           grep -E '^WARM_NEXT=' /tmp/warm.log | tail -1 > /tmp/warm-next.txt || true
+          # And its own count of what it translated, which is what decides
+          # whether chaining into another pass is progress or a hot loop.
+          grep -E '^WARM_TRANSLATED=' /tmp/warm.log | tail -1 > /tmp/warm-translated.txt || true
 
           # Put the per-phase tally on the run's summary page.
           #
@@ -154,7 +157,7 @@ jobs:
             echo "### Warm pass"
             echo ""
             echo '```'
-            grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Collected |^--one:' /tmp/warm.log || true
+            grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Of the |^Collected |^--one:' /tmp/warm.log || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -268,7 +271,16 @@ jobs:
             next=""
             known=0
           fi
-          decision=$(WARM_NEXT="$next" WARM_NEXT_KNOWN="$known" node -e '
+          # How many strings the run itself says it translated. Absent means an
+          # older script or a run that died before printing it; -1 marks that as
+          # "unknown" so the floor cannot mistake it for zero and stop a chain
+          # that should have continued.
+          if [ -s /tmp/warm-translated.txt ]; then
+            did=$(sed -n 's/^WARM_TRANSLATED=//p' /tmp/warm-translated.txt)
+          else
+            did=-1
+          fi
+          decision=$(WARM_NEXT="$next" WARM_NEXT_KNOWN="$known" WARM_TRANSLATED="$did" node -e '
             const fs = require("fs");
             const read = (p) => { try { return JSON.parse(fs.readFileSync(p, "utf8")).rows ?? {}; } catch { return {}; } };
             const before = read("/tmp/locale-content.before.json");
@@ -286,7 +298,11 @@ jobs:
             const shortFromMeasure = Object.entries(after)
               .filter(([, n]) => Number(n) < best * 0.99)
               .sort((a, b) => Number(a[1]) - Number(b[1]));
+            // What the run says it translated, which is a different number from
+            // `gained` and the one the chain decision belongs to.
+            const did = Number(process.env.WARM_TRANSLATED ?? -1);
             console.error(`gained ${gained} strings this pass; corpus is ${best}`);
+            console.error(did < 0 ? "run did not report a translated count" : `run translated ${did} string(s)`);
             console.error(
               known
                 ? `still queued: ${remaining.length} — ${remaining.slice(0, 8).join(", ")}`
@@ -294,16 +310,22 @@ jobs:
             );
             for (const [l, n] of shortFromMeasure.slice(0, 5)) console.error(`  lowest: ${l} ${n} (${pct(n)}%)`);
             const left = known ? remaining.length : shortFromMeasure.length;
-            // A pass that gained almost nothing is not progress worth chaining
-            // into — it is a hot loop. The chain was firing every four minutes,
-            // and each pass throws tens of thousands of requests at the same
-            // upstream; the reply to that is a rate limit, which guarantees the
-            // NEXT pass gains nothing either. A run that moved fewer than fifty
-            // strings has hit something it will not translate its way out of in
-            // the next four minutes, so let the 3-hourly schedule take it.
+            // A pass that translated almost nothing is not progress worth
+            // chaining into — it is a hot loop. The chain was firing every four
+            // minutes, each pass throwing tens of thousands of requests at the
+            // upstream that had just refused the last one; the reply to that is
+            // a rate limit, which guarantees the next pass gains nothing either.
+            //
+            // The test is the run OWN translated count, not `gained`. That was
+            // the mistake in the first version of this floor: a pass that warmed
+            // Spanish and translated literally nothing still measured "gained
+            // 1287", because `gained` counts content rows across all
+            // twenty-eight languages and those move for reasons of their own. It
+            // would have chained on anyway. A run that reported no count at all
+            // (did < 0) is unknown rather than idle, and still chains.
             const FLOOR = 50;
             if (left === 0) console.log("done");
-            else if (gained < FLOOR) console.log("stalled");
+            else if (did >= 0 && did < FLOOR) console.log("stalled");
             else console.log("chain");
           ')
           case "$decision" in
@@ -328,5 +350,5 @@ jobs:
         if: ${{ always() }}
         run: |
           echo "── warm tally ─────────────────────────────"
-          grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Collected |^--one:' /tmp/warm.log || echo "(no tally — the warm step did not get that far)"
+          grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Of the |^Collected |^--one:' /tmp/warm.log || echo "(no tally — the warm step did not get that far)"
           echo "───────────────────────────────────────────"

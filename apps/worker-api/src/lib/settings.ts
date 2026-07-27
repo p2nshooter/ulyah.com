@@ -21,6 +21,21 @@ export const MANAGED_SETTINGS: SettingDef[] = [
   { key: "PAYPAL_WEBHOOK_ID", label: "PayPal Webhook ID", secret: false, envFallback: (e) => e.PAYPAL_WEBHOOK_ID },
   { key: "NOWPAYMENTS_API_KEY", label: "NOWPayments API Key", secret: true, envFallback: (e) => e.NOWPAYMENTS_API_KEY },
   { key: "NOWPAYMENTS_IPN_SECRET", label: "NOWPayments IPN Secret", secret: true, envFallback: (e) => e.NOWPAYMENTS_IPN_SECRET },
+
+  // AliExpress affiliate. Listed here BEFORE anything reads them, on purpose:
+  // the app is still under review, and this is what "prepare it so I can fill
+  // it in from the portal later" means in code. A setting in this list is
+  // CRUD-able immediately — encrypted into admin_settings, masked in the UI,
+  // no deploy — so when the key and secret are finally issued they can be
+  // pasted in and are live at once.
+  //
+  // Only the secret is marked secret. The app key and the tracking id travel in
+  // plain sight inside every affiliate URL, so masking them in the admin would
+  // hide them from the one person allowed to see them while changing nothing
+  // about who else can.
+  { key: "ALIEXPRESS_APP_KEY", label: "AliExpress App Key", secret: false, envFallback: (e) => e.ALIEXPRESS_APP_KEY },
+  { key: "ALIEXPRESS_APP_SECRET", label: "AliExpress App Secret", secret: true, envFallback: (e) => e.ALIEXPRESS_APP_SECRET },
+  { key: "ALIEXPRESS_TRACKING_ID", label: "AliExpress Tracking ID", secret: false, envFallback: (e) => e.ALIEXPRESS_TRACKING_ID },
 ];
 
 const managedByKey = new Map(MANAGED_SETTINGS.map((d) => [d.key, d]));

@@ -955,6 +955,17 @@ async function main() {
     );
   }
   if (totals.failedFiles > 0) console.warn(`  ${totals.failedFiles} batch(es) failed; the rest were written.`);
+  // What this pass actually achieved, for the chaining step to decide on.
+  //
+  // It used to decide from the corpus measurement taken before and after the
+  // run, and that number answers a different question. A pass that warmed
+  // Spanish and translated NOTHING still reported "gained 1287 strings",
+  // because the measurement counts content rows across all twenty-eight
+  // languages and those move for their own reasons. Chaining on it meant
+  // chaining on noise — a new pass every four minutes, each one hammering the
+  // upstream that had just refused the last. This is the run's own count of
+  // strings it translated, which is the thing the decision is actually about.
+  console.log(`WARM_TRANSLATED=${translated}`);
   console.log("Done — sibling sites now serve these from D1 with no runtime translate call, no KV write cap.");
 }
 
