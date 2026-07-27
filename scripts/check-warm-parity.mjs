@@ -110,6 +110,43 @@ const shortDone = [
 ok("FIXED: once Spanish fills, a switched-off language is next",
    shortDone[0] === "ha", `next=${shortDone[0]}`);
 
+// ── Yielding a turn when a language cannot progress ────────────────────────
+//
+// Capping parity was not enough. Spanish still lags by ~837 strings, and ~831
+// of those are answers the echo rule refuses ON PURPOSE — prose, or text with
+// Arabic in it. They will never succeed, so Spanish can never reach parity and
+// took every pass anyway. The chain now passes over whatever the last pass
+// warmed without gaining anything.
+function decideWithSkip(collectable, skip) {
+  const cached = new Map(Object.entries(LIVE));
+  const best = Math.min(Math.max(0, ...cached.values()), collectable || Number.POSITIVE_INFINITY);
+  const queue = [...cached.keys()].sort((a, b) => cached.get(a) - cached.get(b));
+  const stillShort = queue.filter((l) => cached.get(l) < best * PARITY_RATIO);
+  const passedOver = stillShort.filter((l) => skip.includes(l));
+  const eligible = stillShort.filter((l) => !skip.includes(l));
+  return [
+    ...eligible.filter((l) => LIVE_SITE.has(l)),
+    ...eligible.filter((l) => !LIVE_SITE.has(l)),
+    ...passedOver,
+  ];
+}
+
+const spinning = decideWithSkip(COLLECTABLE, []);
+ok("SPIN: with nothing skipped, Spanish takes the pass again",
+   spinning[0] === "es", `picked=${spinning[0]}`);
+
+const yielded = decideWithSkip(COLLECTABLE, ["es"]);
+ok("YIELD: after a pass that gained nothing, Hausa gets the turn",
+   yielded[0] === "ha", `picked=${yielded[0]}`);
+ok("YIELD: Spanish is only moved to the back, never dropped",
+   yielded.includes("es") && yielded[yielded.length - 1] === "es", yielded.join(","));
+
+// If EVERY remaining language is skipped, warming one of them still beats
+// warming nothing at all.
+const allSkipped = decideWithSkip(COLLECTABLE, ["es", "ha", "th"]);
+ok("YIELD: when everyone is skipped the run still picks somebody",
+   allSkipped.length > 0 && allSkipped[0] != null, allSkipped.join(","));
+
 const failed = bad > 0;
 console.log(failed ? `parity check FAILED (${bad})` : "parity check: ok");
 if (failed) process.exit(1);

@@ -63,6 +63,10 @@ function parseArgs() {
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean),
+    // Languages to pass over this run. The chain sets it to whatever the last
+    // pass warmed WITHOUT gaining anything, so a language whose remaining work
+    // cannot succeed yields its turn instead of taking every pass forever.
+    skip: ((args.skip as string) || "").split(",").map((s) => s.trim()).filter(Boolean),
     dry: args.dry === "true",
     behind: args.behind === "true",
     one: args.one === "true",
@@ -469,7 +473,7 @@ function collectStrings(): string[] {
 }
 
 async function main() {
-  const { langs, dry, behind, one, minutes } = parseArgs();
+  const { langs, dry, behind, one, minutes, skip } = parseArgs();
   deadlineMs = minutes * 60_000;
 
   // Ensure the cache table exists up front so the "already cached?" query below
@@ -637,9 +641,30 @@ async function main() {
       const collectable = strings.length;
       const best = Math.min(Math.max(0, ...cachedPerLang.values()), collectable || Number.POSITIVE_INFINITY);
       const short = queue.filter((l) => (cachedPerLang.get(l) ?? 0) < best * PARITY_RATIO);
-      const inUse = short.filter((l) => LOCALE_SITE[l]);
-      const locked = short.filter((l) => !LOCALE_SITE[l]);
-      const order = [...inUse, ...locked];
+      // A language that had its turn and gained nothing yields the next one.
+      //
+      // Capping parity was not enough on its own. Spanish still lags by ~837
+      // strings, and ~831 of those are answers the echo rule refuses on
+      // purpose — prose, or text with Arabic in it, where an unchanged reply
+      // means it was not translated. Those will never succeed, so Spanish can
+      // never reach parity, so it took every pass and the chain still went
+      // nowhere. The answer is NOT to loosen that rule: it is the one guarding
+      // scripture. It is to stop demanding perfection before moving on.
+      //
+      // The chain passes --skip=<lang> when the previous pass translated zero.
+      // One pass of memory is enough to break the spin, and the 3-hourly
+      // schedule starts clean, so a language that was merely rate-limited gets
+      // picked up again rather than being abandoned.
+      const passedOver = short.filter((l) => skip.includes(l));
+      const eligible = short.filter((l) => !skip.includes(l));
+      const inUse = eligible.filter((l) => LOCALE_SITE[l]);
+      const locked = eligible.filter((l) => !LOCALE_SITE[l]);
+      // Skipped languages are not dropped, only sent to the back: if they are
+      // all that is left, one of them is still better than warming nothing.
+      const order = [...inUse, ...locked, ...passedOver];
+      if (passedOver.length > 0) {
+        console.log(`--one: passing over ${passedOver.join(", ")} — last pass gained nothing there.`);
+      }
       const pct = (l: string) => (best ? Math.round(((cachedPerLang.get(l) ?? 0) / best) * 100) : 0);
       if (order.length === 0) {
         console.log("--one: every language is at parity. Nothing to warm.");
@@ -652,8 +677,10 @@ async function main() {
           `Queue after this: ${order.slice(1, 6).map((l) => `${l} ${pct(l)}%`).join(", ")}` +
           (order.length > 6 ? ` … +${order.length - 6}` : "")
       );
-      // The workflow reads this line to decide whether to chain again.
+      // The workflow reads these to decide whether to chain, and who to pass
+      // over next time if this pass turns out to gain nothing.
       console.log(`WARM_NEXT=${order.slice(1).join(",")}`);
+      console.log(`WARM_PICKED=${pick}`);
       queue = [pick];
     } else if (behind) {
       const best = Math.max(0, ...cachedPerLang.values());

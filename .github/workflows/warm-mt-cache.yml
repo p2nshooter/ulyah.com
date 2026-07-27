@@ -20,6 +20,10 @@ on:
         required: false
         type: boolean
         default: true
+      skip:
+        description: "Languages to pass over this run (set automatically by the chain)"
+        required: false
+        default: ""
       chain:
         description: "Re-dispatch this workflow when the pass finishes and work remains"
         required: false
@@ -143,6 +147,9 @@ jobs:
           # And its own count of what it translated, which is what decides
           # whether chaining into another pass is progress or a hot loop.
           grep -E '^WARM_TRANSLATED=' /tmp/warm.log | tail -1 > /tmp/warm-translated.txt || true
+          # And WHICH language it warmed, so a pass that gained nothing there
+          # can hand the next turn to somebody else.
+          grep -E '^WARM_PICKED=' /tmp/warm.log | tail -1 > /tmp/warm-picked.txt || true
 
           # Put the per-phase tally on the run's summary page.
           #
@@ -328,6 +335,16 @@ jobs:
             else if (did >= 0 && did < FLOOR) console.log("stalled");
             else console.log("chain");
           ')
+          # A language that had its turn and gained nothing is passed over on the
+          # next pass. Not banned — Spanish lags by ~837 strings that the echo
+          # rule refuses on purpose, so it can never reach parity and was taking
+          # every single pass. One pass of memory breaks that spin, and the
+          # 3-hourly schedule starts clean so nothing is abandoned for long.
+          carry=""
+          if [ "$did" = "0" ] && [ -s /tmp/warm-picked.txt ]; then
+            carry=$(sed -n 's/^WARM_PICKED=//p' /tmp/warm-picked.txt)
+            [ -n "$carry" ] && echo "::notice::$carry gained nothing this pass; the next pass will start elsewhere."
+          fi
           case "$decision" in
             done)
               echo "Every language has reached parity — nothing left to warm." ;;
@@ -335,7 +352,7 @@ jobs:
               echo "::warning::This pass gained no new translations; not chaining. The 3-hourly schedule will retry." ;;
             chain)
               echo "Work remains — starting the next pass."
-              gh workflow run warm-mt-cache.yml --ref main -f langs= -f one=true -f chain=true ;;
+              gh workflow run warm-mt-cache.yml --ref main -f langs= -f one=true -f chain=true -f skip="$carry" ;;
           esac
 
       # The per-phase tally, printed LAST so it is the tail of the log.
