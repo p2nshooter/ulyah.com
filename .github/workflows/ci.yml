@@ -144,6 +144,12 @@ jobs:
       - name: Check kitab citations survive translation to the sibling sites
         run: npx tsx scripts/check-pesantren-mask.mjs
 
+      # A leaf that splits a matn in half loses the sentence and stops the
+      # reciter mid-word, and a passage the pager cannot find would freeze the
+      # page while the voice carried on.
+      - name: Check the kitab leaves never split a passage
+        run: npx tsx apps/web/src/lib/leaf.test.mjs
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

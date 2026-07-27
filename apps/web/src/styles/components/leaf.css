@@ -1,0 +1,140 @@
+/* ── Kitab leaf (lembaran) ────────────────────────────────────────────────
+   The kitab pesantren, tafsir and hadits set as leaves of a printed book
+   rather than one long scroll: Arabic on the page, terjemah beneath it, and
+   the leaf turning by itself as the reciter reaches the next one.
+
+   The turn is the same physical idea as the mushaf's — the spine sits on the
+   RIGHT, because an Arabic book advances left-to-right physically — split into
+   two quarter-turns about that edge so the swap happens while the leaf is
+   perpendicular and invisible. Kept separate from mushaf.css: the mushaf is a
+   single fixed page geometry, a kitab leaf grows with its content. */
+.leaf-flip-next-out {
+  transform-origin: right center;
+  animation: leaf-flip-out-next 420ms cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+}
+.leaf-flip-next-in {
+  transform-origin: right center;
+  animation: leaf-flip-in-next 460ms cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
+}
+.leaf-flip-prev-out {
+  transform-origin: left center;
+  animation: leaf-flip-out-prev 420ms cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+}
+.leaf-flip-prev-in {
+  transform-origin: left center;
+  animation: leaf-flip-in-prev 460ms cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
+}
+@keyframes leaf-flip-out-next {
+  from { transform: perspective(1800px) rotateY(0deg); }
+  to { transform: perspective(1800px) rotateY(88deg); }
+}
+@keyframes leaf-flip-in-next {
+  from { transform: perspective(1800px) rotateY(-88deg); }
+  to { transform: perspective(1800px) rotateY(0deg); }
+}
+@keyframes leaf-flip-out-prev {
+  from { transform: perspective(1800px) rotateY(0deg); }
+  to { transform: perspective(1800px) rotateY(-88deg); }
+}
+@keyframes leaf-flip-in-prev {
+  from { transform: perspective(1800px) rotateY(88deg); }
+  to { transform: perspective(1800px) rotateY(0deg); }
+}
+/* Readers who ask for less motion get the page, not the theatre. */
+@media (prefers-reduced-motion: reduce) {
+  .leaf-flip-next-out,
+  .leaf-flip-next-in,
+  .leaf-flip-prev-out,
+  .leaf-flip-prev-in {
+    animation: none;
+  }
+}
+
+/* The paper. Gradients only — a printed-kitab feel that downloads nothing.
+   `data-mode` re-skins every layer from one attribute, as in the mushaf. */
+.leaf-paper {
+  position: relative;
+  --lf-paper: #fdf8ec;
+  --lf-paper-2: #f5ecd6;
+  --lf-ink: #1a1408;
+  --lf-rule: rgba(184, 137, 43, 0.5);
+  --lf-accent: #7a1f2b;
+  color: var(--lf-ink);
+  border: 1px solid var(--lf-rule);
+  border-radius: 0.9rem;
+  background:
+    repeating-linear-gradient(0deg, rgba(122, 31, 43, 0.02) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at top left, rgba(184, 137, 43, 0.06), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(184, 137, 43, 0.06), transparent 55%),
+    linear-gradient(160deg, var(--lf-paper), var(--lf-paper-2));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+.leaf-paper[data-mode="sepia"] {
+  --lf-paper: #f2e3c8;
+  --lf-paper-2: #e8d5b0;
+  --lf-ink: #3b2a12;
+}
+.leaf-paper[data-mode="night"] {
+  --lf-paper: #14100a;
+  --lf-paper-2: #1d1710;
+  --lf-ink: #f0e6d2;
+  --lf-rule: rgba(212, 175, 90, 0.4);
+  --lf-accent: #d4af4a;
+}
+/* The inner hairline every printed page carries. */
+.leaf-paper::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid var(--lf-rule);
+  border-radius: 0.6rem;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* One passage: matn above, terjemah below, divided by a rule rather than a
+   box — the page should read as one sheet, not a stack of cards. */
+.leaf-passage + .leaf-passage {
+  margin-top: 1.35rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--lf-rule);
+}
+.leaf-matn {
+  text-align: justify;
+  text-align-last: right;
+}
+.leaf-tarjamah {
+  margin-top: 0.7rem;
+  padding-inline-start: 0.85rem;
+  border-inline-start: 2px solid var(--lf-accent);
+  opacity: 0.92;
+}
+/* The passage being recited. Same gold wash as the mushaf's live ayah, so the
+   two readers feel like one book. */
+.leaf-passage-active {
+  background: linear-gradient(to left, rgba(184, 137, 43, 0.18), rgba(184, 137, 43, 0.05));
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 0 rgba(184, 137, 43, 0.5);
+}
+
+/* Bottom-centre leaf-number medallion, like a printed kitab's folio. */
+.leaf-medallion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4rem;
+  height: 2.4rem;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  border: 2px solid #b8892b;
+  box-shadow: 0 0 0 3px var(--lf-paper);
+  background: radial-gradient(circle at 35% 30%, #fffbe9, #f4e8c8);
+  color: #7a1f2b;
+  font-weight: 600;
+}
+
+/* Reader-controlled Arabic size for the leaf, mirroring the mushaf's. */
+.leaf-matn[data-size="s"] { font-size: 1.15rem; line-height: 2.1; }
+.leaf-matn[data-size="m"] { font-size: 1.4rem; line-height: 2.3; }
+.leaf-matn[data-size="l"] { font-size: 1.7rem; line-height: 2.4; }
+.leaf-matn[data-size="xl"] { font-size: 2rem; line-height: 2.5; }
