@@ -86,7 +86,7 @@ async function main() {
   const pending = d1Json<{ id: number; slug: string; body: string }>(
     `SELECT id, slug, body FROM stories
       WHERE body_r2_key IS NULL AND body IS NOT NULL AND body <> ''
-      ORDER BY LENGTH(body) DESC LIMIT ${limit};`
+      ORDER BY LENGTH(body) DESC LIMIT ${Number(limit) | 0};`
   );
   if (pending.length === 0) {
     console.log("Nothing left to move — every story body is already in R2.");
@@ -101,8 +101,9 @@ async function main() {
   let failed = 0;
   try {
     for (const row of pending) {
-      const key = keyFor(row.id);
-      const file = join(dir, `${row.id}.md`);
+      const id = Number(row.id);
+      const key = keyFor(id);
+      const file = join(dir, `${id}.md`);
       writeFileSync(file, row.body, "utf8");
 
       if (dry) {
@@ -121,7 +122,7 @@ async function main() {
 
       // Read it back before clearing anything. An upload that did not land,
       // or landed truncated, must not cost the story its text.
-      const back = join(dir, `${row.id}.check.md`);
+      const back = join(dir, `${id}.check.md`);
       try {
         wrangler(["r2", "object", "get", `${BUCKET}/${key}`, `--file=${back}`, "--remote"], true);
       } catch (e) {
@@ -141,12 +142,29 @@ async function main() {
 
       // Only now is it safe. Clearing to '' rather than NULL because the
       // column is NOT NULL, and the reader treats empty as "look in R2".
+      //
+      // Both values are re-checked rather than trusted on their way into SQL.
+      // They come from our own database and our own key function, so this
+      // looks redundant — but `row.id` arrives through JSON.parse of the
+      // wrangler output, which is a string boundary, and an id that was not a
+      // number would end up spliced into an UPDATE. The cost of proving it is
+      // one comparison; the cost of being wrong is an UPDATE with no WHERE.
+      if (!Number.isInteger(id) || id <= 0) {
+        console.error(`  refusing to update a non-integer story id: ${JSON.stringify(row.id)}`);
+        failed++;
+        continue;
+      }
+      if (!/^stories\/body\/\d+\.md$/.test(key)) {
+        console.error(`  refusing to store an unexpected R2 key: ${JSON.stringify(key)}`);
+        failed++;
+        continue;
+      }
       wrangler([
         "d1",
         "execute",
         "ulyah-db",
         "--remote",
-        `--command=UPDATE stories SET body_r2_key = '${esc(key)}', body = '' WHERE id = ${row.id};`,
+        `--command=UPDATE stories SET body_r2_key = '${esc(key)}', body = '' WHERE id = ${id};`,
       ], true);
       moved++;
       freed += row.body.length;
