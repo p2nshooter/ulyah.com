@@ -19,12 +19,21 @@ import type { Env } from "../env.js";
  * AFTER the object is confirmed in R2, so at no point is a story's text in
  * neither place.
  */
+/** The only shape a story-body key may have. Mirrors storyBodyKey below. */
+const STORY_BODY_KEY = /^stories\/body\/\d+\.md$/;
+
 export async function readStoryBody(
   env: Env,
   story: { body?: string | null; body_r2_key?: string | null }
 ): Promise<string> {
   const key = story.body_r2_key;
-  if (key) {
+  // The key comes out of the database, and a database value is not a safe
+  // path. Anything that could write a row — a compromised admin, a bad
+  // migration, a bug in the mover — could otherwise point this at any object
+  // in the bucket, and the Worker would fetch it and serve it as a kisah.
+  // Only the exact shape the mover writes is honoured; anything else falls
+  // through to the column, which is the safe direction.
+  if (key && STORY_BODY_KEY.test(key)) {
     try {
       const obj = await env.MEDIA_R2.get(key);
       if (obj) return await obj.text();
@@ -33,6 +42,8 @@ export async function readStoryBody(
       console.error(`story body unreadable from R2: ${key}`, e);
     }
     // Fall through: whatever is still in the column beats an empty page.
+  } else if (key) {
+    console.error(`refusing an unexpected story body key: ${JSON.stringify(key)}`);
   }
   return story.body ?? "";
 }
