@@ -141,6 +141,23 @@ jobs:
           # would silently stop the chain.
           grep -E '^WARM_NEXT=' /tmp/warm.log | tail -1 > /tmp/warm-next.txt || true
 
+          # Put the per-phase tally on the run's summary page.
+          #
+          # These lines already existed — "hadith ar→es: 40 new, 48746 already
+          # cached", "stories en→es: 0 new" — and they are exactly what tells
+          # you WHICH phase is not producing. But they were unreadable in
+          # practice: the chaining step below inlines a forty-line node script,
+          # which the log viewer echoes, so the tail of the log is that script
+          # rather than any of this. Diagnosing a stuck language meant fishing
+          # for a hundred lines of log to find three.
+          {
+            echo "### Warm pass"
+            echo ""
+            echo '```'
+            grep -E '^\s+(hadith|stories) [a-z]+→|^Translated |^Collected |^--one:' /tmp/warm.log || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       # Close the loop: re-measure how much of the site's writing now exists in
       # each language and regenerate the readiness table. A language that has
       # reached 100% unlocks itself on the next deploy instead of waiting for
