@@ -93,6 +93,14 @@ jobs:
       - name: Check the gtx fallback still runs with no keys
         run: npx tsx scripts/check-empty-pool.mjs
 
+      # A translator returning text unchanged is usually a refusal, but for a
+      # proper noun it is the right answer. Storing the wrong one writes
+      # Indonesian into a Spanish key permanently, on a site read as religion —
+      # so the rule refuses anything with Arabic or a sentinel in it, whatever
+      # its length, and this pins that down.
+      - name: Check when an unchanged translation may be stored
+        run: npx tsx scripts/check-echo-faithful.mjs
+
       # The @@n@@ sentinels are what stop a hadith's matn being paraphrased, and
       # gtx mangles them: a Spanish pass had gtx answer 394 of 401 batches and
       # threw away 1,619 answers for lost sentinels. They are swapped for a
