@@ -25,9 +25,10 @@
  * Idempotent and resumable: it only ever looks at rows where body_r2_key IS
  * NULL, so re-running continues where it stopped.
  *
- * Usage: npx tsx scripts/move-story-bodies-to-r2.ts [--limit=200] [--minutes=45] [--dry]
+ * Usage: npx tsx scripts/move-story-bodies-to-r2.ts [--limit=200] [--minutes=45] [--concurrency=6] [--dry]
  */
-import { execFileSync } from "node:child_process";
+import { execFile, execFileSync } from "node:child_process";
+import { promisify } from "node:util";
 import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -59,6 +60,14 @@ function parseArgs() {
     // into a green run that says how far it got and how much is left, which
     // is the difference between a resumable job and one that silently stalls.
     minutes: num(args.minutes, 45),
+    // How many bodies are in flight at once. Six is deliberate rather than
+    // maximal: each one is two Cloudflare API calls, and the account limit is
+    // a few requests a second, so pushing higher trades throughput for 429s
+    // that would show up here as failed uploads. A body that fails simply
+    // keeps its text in D1 and is retried next run, so the cost of being too
+    // eager is wasted time, not lost content — but wasted time is the thing
+    // this change exists to remove.
+    concurrency: Math.min(12, num(args.concurrency, 6)),
   };
 }
 
@@ -70,6 +79,25 @@ function wrangler(args: string[], capture = false): string {
     maxBuffer: 128 * 1024 * 1024,
   });
   return out ?? "";
+}
+
+/**
+ * The same call, awaited rather than blocking.
+ *
+ * The first full run managed 721 bodies in sixty minutes — five seconds each —
+ * and almost none of that was network. Every body spawned `npx wrangler` three
+ * times, and process start-up dominates: the uploads themselves are tens of
+ * kilobytes. Overlapping the round trips is what makes the difference, and it
+ * is safe to overlap because bodies are independent — different R2 key,
+ * different row, no shared state.
+ */
+const execFileAsync = promisify(execFile);
+async function wranglerAsync(args: string[]): Promise<void> {
+  await execFileAsync("npx", ["wrangler", ...args], {
+    cwd: WORKER_CWD,
+    encoding: "utf8",
+    maxBuffer: 128 * 1024 * 1024,
+  });
 }
 
 function d1Json<T>(sql: string): T[] {
@@ -92,7 +120,7 @@ const keyFor = storyBodyKey;
 const esc = (s: string) => s.replace(/'/g, "''");
 
 async function main() {
-  const { dry, limit, minutes } = parseArgs();
+  const { dry, limit, minutes, concurrency } = parseArgs();
   const deadline = Date.now() + minutes * 60_000;
 
   const pending = d1Json<{ id: number; slug: string; body: string }>(
@@ -111,9 +139,70 @@ async function main() {
   let moved = 0;
   let freed = 0;
   let failed = 0;
+  /**
+   * One body, all the way through, or null if any step did not prove itself.
+   *
+   * The ORDER inside here is the whole safety of the script and is unchanged
+   * by making it concurrent: upload, read back, compare, and only then report
+   * the row as safe to clear. What runs in parallel is whole bodies, never the
+   * steps within one.
+   */
+  async function upload(row: { id: number; slug: string; body: string }): Promise<typeof row | null> {
+    const id = Number(row.id);
+    const key = keyFor(id);
+    const file = join(dir, `${id}.md`);
+    writeFileSync(file, row.body, "utf8");
+
+    if (dry) {
+      console.log(`  --dry: ${row.slug} → ${key} (${(row.body.length / 1024).toFixed(0)} KB)`);
+      return row;
+    }
+
+    try {
+      await wranglerAsync(["r2", "object", "put", `${BUCKET}/${key}`, `--file=${file}`, "--remote"]);
+    } catch (e) {
+      console.error(`  PUT failed for ${row.slug} (${key}) — body left in D1:`, e instanceof Error ? e.message : e);
+      return null;
+    }
+
+    // Read it back before clearing anything. An upload that did not land,
+    // or landed truncated, must not cost the story its text.
+    const back = join(dir, `${id}.check.md`);
+    try {
+      await wranglerAsync(["r2", "object", "get", `${BUCKET}/${key}`, `--file=${back}`, "--remote"]);
+    } catch (e) {
+      console.error(`  GET-back failed for ${row.slug} — body left in D1:`, e instanceof Error ? e.message : e);
+      return null;
+    }
+    const roundTripped = readFileSync(back, "utf8");
+    if (roundTripped !== row.body) {
+      console.error(
+        `  MISMATCH for ${row.slug}: R2 has ${roundTripped.length} chars, D1 has ${row.body.length}. ` +
+          `Body left in D1.`
+      );
+      return null;
+    }
+
+    // Both values are re-checked rather than trusted on their way into SQL.
+    // They come from our own database and our own key function, so this looks
+    // redundant — but `row.id` arrives through JSON.parse of the wrangler
+    // output, which is a string boundary, and an id that was not a number
+    // would end up spliced into an UPDATE. The cost of proving it is one
+    // comparison; the cost of being wrong is an UPDATE with no WHERE.
+    if (!Number.isInteger(id) || id <= 0) {
+      console.error(`  refusing to update a non-integer story id: ${JSON.stringify(row.id)}`);
+      return null;
+    }
+    if (!/^stories\/body\/\d+\.md$/.test(key)) {
+      console.error(`  refusing to store an unexpected R2 key: ${JSON.stringify(key)}`);
+      return null;
+    }
+    return row;
+  }
+
   try {
-    for (const row of pending) {
-      // Checked between bodies, never during one: a body is only safe to clear
+    for (let i = 0; i < pending.length; i += concurrency) {
+      // Checked between groups, never inside one: a body is only safe to clear
       // from D1 after its upload has been read back and compared, so stopping
       // halfway through that sequence is the one thing that could lose text.
       if (Date.now() > deadline) {
@@ -123,74 +212,28 @@ async function main() {
         );
         break;
       }
-      const id = Number(row.id);
-      const key = keyFor(id);
-      const file = join(dir, `${id}.md`);
-      writeFileSync(file, row.body, "utf8");
+      const group = pending.slice(i, i + concurrency);
+      const settled = await Promise.all(group.map(upload));
+      const verified = settled.filter((r): r is (typeof group)[number] => r !== null);
+      failed += group.length - verified.length;
+      if (verified.length === 0) continue;
 
-      if (dry) {
-        console.log(`  --dry: ${row.slug} → ${key} (${(row.body.length / 1024).toFixed(0)} KB)`);
-        moved++;
-        continue;
+      if (!dry) {
+        // Now — and only now — the column may be cleared, for exactly the rows
+        // that proved themselves above. Clearing to '' rather than NULL because
+        // the column is NOT NULL and the reader treats empty as "look in R2".
+        //
+        // One statement per group rather than per body: this used to be a third
+        // `npx wrangler` spawn for every single story, and start-up cost, not
+        // the database, was most of the time it took.
+        const sql = verified
+          .map((r) => `UPDATE stories SET body_r2_key = '${esc(keyFor(Number(r.id)))}', body = '' WHERE id = ${Number(r.id)};`)
+          .join(" ");
+        wrangler(["d1", "execute", "ulyah-db", "--remote", `--command=${sql}`], true);
       }
-
-      try {
-        wrangler(["r2", "object", "put", `${BUCKET}/${key}`, `--file=${file}`, "--remote"], true);
-      } catch (e) {
-        console.error(`  PUT failed for ${row.slug} (${key}) — body left in D1:`, e instanceof Error ? e.message : e);
-        failed++;
-        continue;
-      }
-
-      // Read it back before clearing anything. An upload that did not land,
-      // or landed truncated, must not cost the story its text.
-      const back = join(dir, `${id}.check.md`);
-      try {
-        wrangler(["r2", "object", "get", `${BUCKET}/${key}`, `--file=${back}`, "--remote"], true);
-      } catch (e) {
-        console.error(`  GET-back failed for ${row.slug} — body left in D1:`, e instanceof Error ? e.message : e);
-        failed++;
-        continue;
-      }
-      const roundTripped = readFileSync(back, "utf8");
-      if (roundTripped !== row.body) {
-        console.error(
-          `  MISMATCH for ${row.slug}: R2 has ${roundTripped.length} chars, D1 has ${row.body.length}. ` +
-            `Body left in D1.`
-        );
-        failed++;
-        continue;
-      }
-
-      // Only now is it safe. Clearing to '' rather than NULL because the
-      // column is NOT NULL, and the reader treats empty as "look in R2".
-      //
-      // Both values are re-checked rather than trusted on their way into SQL.
-      // They come from our own database and our own key function, so this
-      // looks redundant — but `row.id` arrives through JSON.parse of the
-      // wrangler output, which is a string boundary, and an id that was not a
-      // number would end up spliced into an UPDATE. The cost of proving it is
-      // one comparison; the cost of being wrong is an UPDATE with no WHERE.
-      if (!Number.isInteger(id) || id <= 0) {
-        console.error(`  refusing to update a non-integer story id: ${JSON.stringify(row.id)}`);
-        failed++;
-        continue;
-      }
-      if (!/^stories\/body\/\d+\.md$/.test(key)) {
-        console.error(`  refusing to store an unexpected R2 key: ${JSON.stringify(key)}`);
-        failed++;
-        continue;
-      }
-      wrangler([
-        "d1",
-        "execute",
-        "ulyah-db",
-        "--remote",
-        `--command=UPDATE stories SET body_r2_key = '${esc(key)}', body = '' WHERE id = ${id};`,
-      ], true);
-      moved++;
-      freed += row.body.length;
-      if (moved % 25 === 0) console.log(`  … ${moved} moved, ${(freed / 1048576).toFixed(1)} MB freed`);
+      moved += verified.length;
+      freed += verified.reduce((n, r) => n + r.body.length, 0);
+      console.log(`  … ${moved} moved, ${(freed / 1048576).toFixed(1)} MB freed`);
     }
   } finally {
     rmSync(dir, { recursive: true, force: true });
