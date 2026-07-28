@@ -7,8 +7,9 @@ name: D1 Maintenance (free space)
 # two-step verification, so the owner could not log in. Reads were unaffected,
 # which is why the sites looked healthy while nothing could be saved.
 #
-# Two jobs, both run by hand, because freeing space is not something that
-# should happen on a schedule without somebody watching:
+# The jobs, all available by hand; the nightly schedule runs prune-mt-ar and
+# then the spill, in that order, so the space is free before anything needs to
+# write into it:
 #
 #   prune-logs   deletes old key-pool validation rows. Pure churn, no content.
 #   move-bodies  moves story bodies to R2 and leaves the key in D1.
@@ -108,11 +109,23 @@ jobs:
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '' UNION ALL SELECT 'key_validation_log', COUNT(*), NULL FROM key_validation_log;"
 
-      # Old key-pool validation rows. This table records whether a donated API
-      # key answered a test — useful for a few days, meaningless after that,
-      # and it had grown to 35,049 rows. Deleting them frees pages immediately;
-      # SQLite reuses freed pages, so writes start working again without the
-      # file having to shrink.
+      # Machine translations made from Arabic. This is the one step that frees
+      # space by removing something that should never have been stored, so it
+      # needs no R2 round trip first — there is nothing here worth keeping.
+      #
+      # It runs on the SCHEDULE too, and before the spill, because 310,731 rows
+      # cannot go in one day: the free plan allows 100,000 row writes and a
+      # delete is a write. The first run took 90,000 and left 220,731. A nightly
+      # pass drains the rest in three more nights with nobody having to
+      # remember, and the script's own budget stops before it eats the allowance
+      # the spill and the sites' own writes need. Once the table is empty the
+      # script says so and exits.
+      - name: Delete machine translations made from Arabic
+        if: ${{ github.event_name == 'schedule' || inputs.job == 'prune-mt-arabic' || inputs.job == 'both' }}
+        env:
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+        run: npx tsx scripts/prune-mt-arabic.ts --budget=${{ inputs.budget || '60000' }}
+
       # The watermark: measure, and spill to R2 only if there is too much bulk
       # sitting in D1. This is the step the schedule exists for.
       - name: Spill to R2 if D1 is filling up
@@ -124,21 +137,17 @@ jobs:
             --high=${{ inputs.high_mb || '40' }} \
             --low=${{ inputs.low_mb || '15' }}
 
+      # Old key-pool validation rows. This table records whether a donated API
+      # key answered a test — useful for a few days, meaningless after that,
+      # and it had grown to 35,049 rows. Deleting them frees pages immediately;
+      # SQLite reuses freed pages, so writes start working again without the
+      # file having to shrink.
       - name: Prune the key validation log
         if: ${{ inputs.job == 'prune-logs' || inputs.job == 'both' }}
         run: |
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote \
             --command="DELETE FROM key_validation_log WHERE created_at < datetime('now','-${{ inputs.keep_days }} days');"
-
-      # Machine translations made from Arabic. This is the one step that frees
-      # space by removing something that should never have been stored, so it
-      # needs no R2 round trip first — there is nothing here worth keeping.
-      - name: Delete machine translations made from Arabic
-        if: ${{ inputs.job == 'prune-mt-arabic' || inputs.job == 'both' }}
-        env:
-          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
-        run: npx tsx scripts/prune-mt-arabic.ts --budget=${{ inputs.budget || '60000' }}
 
       # Story bodies to R2. The script verifies every upload by reading it back
       # and comparing before it clears the column — see the note there.
