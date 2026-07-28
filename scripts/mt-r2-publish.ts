@@ -161,4 +161,12 @@ async function main() {
   );
 }
 
-await main();
+// tsx compiles these scripts to CommonJS (the workspace root is not
+// "type": "module"), and CommonJS has no top-level await — `await main()` dies
+// at transform time with "Top-level await is currently not supported", before
+// a single line runs. It failed exactly that way in D1 Maintenance run
+// 30382603040, so the entry point is a .catch() instead.
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

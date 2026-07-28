@@ -30,6 +30,13 @@ jobs:
       - name: Check no script imports by absolute path
         run: node scripts/check-no-absolute-imports.mjs
 
+      # Same class of failure, same place in the run: a script that cannot even
+      # be transformed. tsx compiles scripts/ to CommonJS, which has no
+      # top-level await, so `await main();` dies before line one — that is what
+      # took down the D1 Maintenance run that was meant to free the database.
+      - name: Check no script uses top-level await
+        run: node scripts/check-script-entrypoints.mjs
+
       - name: Audit i18n consistency (no sibling site left in the wrong language)
         run: npx tsx scripts/audit-i18n-consistency.ts
 
@@ -150,6 +157,16 @@ jobs:
       # before a single hadith is mangled in production.
       - name: Check a hadith survives a hostile translator
         run: node scripts/check-scripture-survives.mjs
+
+      # Masking protects Arabic embedded in a translated paragraph. It cannot
+      # help when the Arabic IS the input: 310,731 rows were written that way
+      # before anyone read them, and they say "atas wewenang Abu Dzar" for عن
+      # أبي ذر and "Bunda Al-Qur'an" for أم القرآن. Hadits and asbabun nuzul are
+      # now carried from the curated English/Indonesian instead, and this holds
+      # that line — a wrong hadith translation is invisible to the reader it
+      # misleads.
+      - name: Check scripture is never machine-translated out of Arabic
+        run: node scripts/check-no-arabic-mt.mjs
 
       # Concurrency has two silent failures: a translation paired to the wrong
       # paragraph reads perfectly, and two workers sharing a key make 489 keys
