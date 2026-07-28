@@ -1,6 +1,7 @@
 import type { Env } from "../env.js";
 import { orchestrate } from "./orchestra.js";
 import { extractJson } from "@ulyah/ai-engine";
+import { countWords, readingMinutes, MIN_WORDS, MIN_WORDS_PER_LANG } from "./article-depth.js";
 
 /**
  * Autonomous content bot — "biar g ada AI yg nganggur".
@@ -154,11 +155,21 @@ async function readAutoFile(env: Env, site: AutoSite): Promise<GhFile | null> {
 function buildPrompt(site: AutoSite, existingTitles: string[]): string {
   const avoid = existingTitles.slice(-40).join(" | ") || "(none yet)";
   const cats = site.categories.map((c) => `"${c}"`).join(", ");
+  // LENGTH IS STATED, NOT SUGGESTED. Asked for "substantial", the model wrote
+  // a median of 429 words and called it a 7-minute read, 32 times, and AdSense
+  // came back with "Low value content". Anything under MIN_WORDS is now thrown
+  // away by normalise(), so the prompt says the number and says what to fill it
+  // with — depth, not padding. Nothing here loosens the honesty rules: an
+  // invented benchmark would be worse than a short article.
   const common =
     `You are the editor of ${site.about}.\n` +
     `Write ONE brand-new, original, factual, evergreen article a real editor would be proud to publish.\n` +
-    `Rules: 100% original prose; do NOT fabricate statistics, quotes, prices or news; nothing illegal, defamatory, or unsafe; ` +
-    `substantial and genuinely useful (4-5 sections). Do NOT repeat these already-published titles: ${avoid}.\n` +
+    `LENGTH: at least ${MIN_WORDS} words of body prose. Articles below this are rejected and not published.\n` +
+    `Reach that length with substance, never padding: explain the mechanism behind each claim, walk through a ` +
+    `concrete worked example, name the trade-off, and say plainly when the advice does NOT apply. ` +
+    `Assume the reader has already read the obvious introductory take and wants the part that is usually left out.\n` +
+    `Rules: 100% original prose; do NOT fabricate statistics, quotes, prices or news; nothing illegal, defamatory, or unsafe. ` +
+    `Do NOT repeat these already-published titles: ${avoid}.\n` +
     `Category MUST be exactly one of: [${cats}].\n` +
     `Output STRICT JSON ONLY — no markdown fences, no commentary before or after.\n`;
 
@@ -166,9 +177,10 @@ function buildPrompt(site: AutoSite, existingTitles: string[]): string {
     return (
       common +
       `JSON shape: {"slug": "kebab-case-unique", "title": "...", "description": "one-sentence summary", ` +
-      `"tag": one of [${cats}], "minutes": integer 5-8, ` +
+      `"tag": one of [${cats}], ` +
       `"body": ["intro paragraph", "## Section heading", "paragraph", "## Another heading", "paragraph", ...]} ` +
-      `where any array item beginning with "## " is a section heading. 8-12 body items.`
+      `where any array item beginning with "## " is a section heading. 12-18 body items. ` +
+      `Reading time is measured from the text, so do not supply it.`
     );
   }
   if (site.schema === "bilingual") {
@@ -176,19 +188,21 @@ function buildPrompt(site: AutoSite, existingTitles: string[]): string {
       common +
       `Write it in BOTH ${site.lang} and English, fully mirrored. ` +
       `JSON shape: {"slug": "kebab-case-unique", "category": one of [${cats}], ` +
-      `"titleHi": "...", "titleEn": "...", "excerptHi": "...", "excerptEn": "...", "minutes": integer 5-7, ` +
+      `"titleHi": "...", "titleEn": "...", "excerptHi": "...", "excerptEn": "...", ` +
       `"sections": [{"hHi": "", "hEn": "", "pHi": ["para", "para"], "pEn": ["para", "para"]}, ` +
       `{"hHi": "${site.lang} heading", "hEn": "English heading", "pHi": [...], "pEn": [...]}]} ` +
-      `First section uses empty headings (the intro). 3-4 sections, 2 paragraphs each per language.`
+      `First section uses empty headings (the intro). 5-6 sections, 3 paragraphs each per language, ` +
+      `each language reaching at least ${MIN_WORDS_PER_LANG} words on its own. Reading time is measured, so do not supply it.`
     );
   }
   // "article"
   return (
     common +
     `JSON shape: {"slug": "kebab-case-unique", "category": one of [${cats}], "title": "...", ` +
-    `"excerpt": "one-sentence hook", "minutes": integer 5-8, "author": "${site.author}", ` +
+    `"excerpt": "one-sentence hook", "author": "${site.author}", ` +
     `"sections": [{"h": "", "p": ["intro para", "intro para"]}, {"h": "Section heading", "p": ["para", "para"]}]} ` +
-    `First section uses h:"" (the intro). 4-5 sections, ~2 paragraphs each.`
+    `First section uses h:"" (the intro). 5-6 sections, 3 substantial paragraphs each. ` +
+    `Reading time is measured from the text, so do not supply it.`
   );
 }
 
@@ -201,19 +215,21 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
   let slug = slugify(String(raw.slug ?? title));
   if (!slug) return null;
   if (existingSlugs.has(slug)) slug = `${slug}-${Date.now().toString(36).slice(-4)}`;
-  const minutes = Math.max(3, Math.min(12, Number(raw.minutes) || 6));
 
   if (site.schema === "blog") {
     if (!title || !Array.isArray(raw.body) || raw.body.length < 4) return null;
     const tag = okCat(raw.tag) ? raw.tag : site.categories[0];
+    const body = raw.body.map((s: unknown) => String(s)).filter(Boolean);
+    const words = countWords(body);
+    if (words < MIN_WORDS) return null;
     return {
       slug,
       title,
       description: String(raw.description ?? "").slice(0, 300),
       date: today,
       tag,
-      minutes,
-      body: raw.body.map((s: unknown) => String(s)).filter(Boolean),
+      minutes: readingMinutes(words),
+      body,
     };
   }
   if (site.schema === "bilingual") {
@@ -227,6 +243,11 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
         pEn: s.pEn.map((p: unknown) => String(p)).filter(Boolean),
       }));
     if (sections.length < 2) return null;
+    // Both halves have to stand on their own — a full article in one language
+    // and a sketch in the other is a thin page for half the readers.
+    const wordsHi = countWords(sections.flatMap((s: any) => [s.hHi, ...s.pHi]));
+    const wordsEn = countWords(sections.flatMap((s: any) => [s.hEn, ...s.pEn]));
+    if (wordsHi < MIN_WORDS_PER_LANG || wordsEn < MIN_WORDS_PER_LANG) return null;
     return {
       slug,
       category: okCat(raw.category) ? raw.category : site.categories[0],
@@ -235,7 +256,8 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
       excerptHi: String(raw.excerptHi ?? ""),
       excerptEn: String(raw.excerptEn ?? ""),
       date: today,
-      minutes,
+      // A reader reads one language, not both, so the time is for one pass.
+      minutes: readingMinutes(Math.max(wordsHi, wordsEn)),
       sections,
     };
   }
@@ -245,13 +267,15 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
     .filter((s: any) => Array.isArray(s?.p))
     .map((s: any) => ({ h: String(s.h ?? ""), p: s.p.map((p: unknown) => String(p)).filter(Boolean) }));
   if (sections.length < 2) return null;
+  const words = countWords(sections.flatMap((s: any) => [s.h, ...s.p]));
+  if (words < MIN_WORDS) return null;
   return {
     slug,
     category: okCat(raw.category) ? raw.category : site.categories[0],
     title,
     excerpt: String(raw.excerpt ?? "").slice(0, 300),
     date: today,
-    minutes,
+    minutes: readingMinutes(words),
     author: site.author ?? "Editorial Desk",
     sections,
   };

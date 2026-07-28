@@ -37,6 +37,14 @@ jobs:
       - name: Check no script uses top-level await
         run: node scripts/check-script-entrypoints.mjs
 
+      # AdSense refused axto.dev with "Low value content" while it carried 102
+      # articles, so the count was never the problem — the depth was. The bot
+      # wrote a median of 429 words and declared "7 min" every time, because it
+      # was asked for a number in a range. Both are now measured, and the
+      # thresholds are asserted against the real figures from that library.
+      - name: Check the content bot rejects thin articles and measures reading time
+        run: npx tsx scripts/check-article-depth.ts
+
       - name: Audit i18n consistency (no sibling site left in the wrong language)
         run: npx tsx scripts/audit-i18n-consistency.ts
 
