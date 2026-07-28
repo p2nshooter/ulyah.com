@@ -214,23 +214,42 @@ export async function fetchTafsirByEdition(
   if (!text || text.length < 20) return null;
 
   const nativeLocale = SPA5K_LANG_TO_LOCALE[ed.lang] ?? ed.lang;
-  if (uiLang && uiLang !== nativeLocale && (nativeLocale === "en" || nativeLocale === "ar")) {
-    const translated = await translateText(env, text, uiLang, nativeLocale === "en" ? "en" : undefined);
+  // English editions are machine-translated for other locales; ARABIC ONES ARE
+  // NOT. An Arabic tafsir is scholarship on scripture written in the idiom of
+  // scripture, and machine translation does not survive contact with it — the
+  // same pass that produced "Bunda Al-Qur'an" for أم القرآن was translating
+  // this. Owner: "alquran jgn d terjemahin sembarangan, krn alquran udah punya
+  // tafsirnya sendiri." A reader who picked an Arabic edition by name gets the
+  // Arabic, labelled `lang: "ar"` so the panel renders it right-to-left.
+  if (uiLang && uiLang !== nativeLocale && nativeLocale === "en") {
+    const translated = await translateText(env, text, uiLang, "en");
     if (translated) return { text: translated, source: `${ed.name} (diterjemahkan)`, lang: uiLang };
     return null; // don't leak a foreign-language wall of text into the panel
   }
   return { text, source: ed.name, lang: nativeLocale };
 }
 
-/** Sahih Asbab al-Nuzul for one ayah — authentic Arabic, translated to the
- * reader's language on demand (never leaking raw Arabic into a non-Arabic
- * panel). An entry can cover a range of ayat via its `ayahs` array. */
+/**
+ * Sahih Asbab al-Nuzul for one ayah — authentic Arabic. An entry can cover a
+ * range of ayat via its `ayahs` array.
+ *
+ * ARABIC READERS ONLY. This used to be machine-translated on demand for every
+ * locale, and that is where a large part of the damage came from: an occasion
+ * of revelation is a narration with a chain, and machine translation flattens
+ * the chain's idiom into nonsense ("عن أبي ذر" → "atas wewenang Abu Dzar").
+ * Wrong is worse than absent here, because the reader has no way to tell.
+ *
+ * For every other locale this returns null, and the caller falls through to
+ * the Al-Wahidi English edition, which is a real translation done by people
+ * and can be carried into other languages from there.
+ */
 async function fetchSahihAsbab(
   env: Env,
   surah: number,
   ayahNumber: number,
   lang: string | null
 ): Promise<{ text: string; source: string } | null> {
+  if (lang !== "ar") return null;
   const padded = String(surah).padStart(3, "0");
   const data = await fetchJsonCached<{ ayahs: number[]; occasions: string[] }[]>(
     env,
@@ -240,13 +259,7 @@ async function fetchSahihAsbab(
   const hit = data?.find((e) => Array.isArray(e.ayahs) && e.ayahs.includes(ayahNumber));
   const arabic = hit?.occasions?.map((o) => o.trim()).filter(Boolean).join("\n\n").trim();
   if (!arabic || arabic.length < 40) return null;
-
-  if (lang === "ar") return { text: arabic, source: SAHIH_ASBAB_SOURCE };
-  const translated = await translateText(env, arabic, lang ?? "id", "ar");
-  if (translated) return { text: translated, source: `${SAHIH_ASBAB_SOURCE} ${translatedSuffix(lang)}` };
-  // Translation genuinely failed — better to fall through to another source
-  // than to dump untranslated Arabic into, say, an Indonesian panel.
-  return null;
+  return { text: arabic, source: SAHIH_ASBAB_SOURCE };
 }
 
 /**

@@ -12,6 +12,12 @@ name: D1 Maintenance (free space)
 #
 #   prune-logs   deletes old key-pool validation rows. Pure churn, no content.
 #   move-bodies  moves story bodies to R2 and leaves the key in D1.
+#   prune-mt-ar  deletes machine translations made FROM Arabic — 69% of the
+#                cache, and wrong: "عن أبي ذر" came out as "atas wewenang Abu
+#                Dzar", "أم القرآن" as "Bunda Al-Qur'an". The reader falls back
+#                to the curated hadits.text_id / text_en, which are sourced.
+#                See scripts/prune-mt-arabic.ts for why this is a content fix
+#                first and a space fix second.
 #
 # D1 writes go through wrangler here rather than through the dashboard or an
 # API client, because that is this repository's normal path for them and it
@@ -34,8 +40,12 @@ on:
         description: "What to run"
         required: true
         type: choice
-        options: [spill, prune-logs, move-bodies, both]
+        options: [spill, prune-logs, move-bodies, prune-mt-arabic, both]
         default: spill
+      budget:
+        description: "Max rows to delete this run (free plan allows 100,000/day)"
+        required: false
+        default: "60000"
       limit:
         description: "How many story bodies to move this run"
         required: false
@@ -121,14 +131,29 @@ jobs:
           npx wrangler d1 execute ulyah-db --remote \
             --command="DELETE FROM key_validation_log WHERE created_at < datetime('now','-${{ inputs.keep_days }} days');"
 
+      # Machine translations made from Arabic. This is the one step that frees
+      # space by removing something that should never have been stored, so it
+      # needs no R2 round trip first — there is nothing here worth keeping.
+      - name: Delete machine translations made from Arabic
+        if: ${{ inputs.job == 'prune-mt-arabic' || inputs.job == 'both' }}
+        env:
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+        run: npx tsx scripts/prune-mt-arabic.ts --budget=${{ inputs.budget || '60000' }}
+
       # Story bodies to R2. The script verifies every upload by reading it back
       # and comparing before it clears the column — see the note there.
       - name: Move story bodies to R2
         if: ${{ inputs.job == 'move-bodies' || inputs.job == 'both' }}
         run: npx tsx scripts/move-story-bodies-to-r2.ts --limit=${{ inputs.limit }}
 
+      # `body_r2_key` only exists once migration 0054 has been applied, and the
+      # deploy that applies it is itself blocked while D1 is full. Reporting is
+      # not worth failing a run that just freed the space, so this step is
+      # allowed to come back empty.
       - name: Size after
         if: always()
+        continue-on-error: true
         run: |
           cd apps/worker-api
-          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories still in D1' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '' UNION ALL SELECT 'moved to R2', COUNT(*), NULL FROM stories WHERE body_r2_key IS NOT NULL;"
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories still in D1' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '';"
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt from Arabic (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:ar-__:%';"

@@ -851,20 +851,39 @@ contentRoute.get("/hadits/:collection", async (c) => {
 
   // `text_id` is the field the reader displays/narrates as "the translated
   // line" for whatever locale was requested — it must actually BE that
-  // locale's text, not always literal Indonesian. Previously any locale
-  // other than "id" got the raw Indonesian column back untouched (even
-  // English readers), narrated in the wrong voice. Now: Indonesian readers
-  // get the native column (or an on-demand translation for collections that
-  // don't have one, e.g. Arba'in/Qudsi); English readers reuse the stored
-  // text_en when present (no wasted call); every other locale (ar/ru/de/fr/
-  // zh/ja) is translated on demand from Arabic, KV-cached forever after.
+  // locale's text, not always literal Indonesian. Indonesian readers get the
+  // native column (or an on-demand translation for collections that don't
+  // have one, e.g. Arba'in/Qudsi); English readers reuse the stored text_en
+  // when present (no wasted call); every other locale is translated on demand
+  // and cached.
+  //
+  // NEVER FROM `text_ar`. That is what this used to do, and the cache filled
+  // with 300,000 rows of it before anyone read the output:
+  //
+  //   عن أبي ذر الغفاري   → "Atas wewenang Abu Dzar al-Ghifari"
+  //   أم القرآن           → "Bunda Al-Qur'an"
+  //
+  // "عن" in a chain of narration means "dari" — who heard it from whom.
+  // "Atas wewenang" claims the hadith was transmitted on someone's authority,
+  // which is a different statement about the sanad. "أم القرآن" is a name for
+  // Al-Fatihah, not a mother. Machine translation has no purchase on this
+  // idiom, and a wrong hadith translation is worse than none because the
+  // reader cannot see that it is wrong. Owner: "alquran jgn d terjemahin
+  // sembarangan"; hadits matn falls under the same rule.
+  //
+  // So the source is the curated column — text_en where a real English
+  // translation exists, otherwise text_id. Those were translated by people
+  // from the Arabic, and carrying one of them into French or German is a
+  // problem machine translation can actually do.
   let hadits = rows.results;
   if (locale !== "ar") {
     hadits = await Promise.all(
       hadits.map(async (h) => {
         if (locale === "id" && coll.has_native_id === 1) return h;
         if (locale === "en" && h.text_en) return { ...h, text_id: h.text_en };
-        const translated = await translateText(c.env, h.text_ar, locale);
+        const from = h.text_en ? ("en" as const) : ("id" as const);
+        const source = h.text_en ?? h.text_id;
+        const translated = source ? await translateText(c.env, source, locale, from) : null;
         return { ...h, text_id: translated ?? h.text_en ?? h.text_id };
       })
     );
