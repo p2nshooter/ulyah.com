@@ -29,13 +29,30 @@
  */
 import { execFile, execFileSync } from "node:child_process";
 import { promisify } from "node:util";
-import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { storyBodyKey } from "../apps/worker-api/src/lib/story-body.js";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const BUCKET = "ulyah-media";
+
+/**
+ * Call the installed wrangler directly rather than through `npx`.
+ *
+ * `npx` is not safe to run several times at once: each invocation touches the
+ * same npm cache and _npx directory, and concurrent ones race there. One call
+ * at a time never noticed. Six did — the first concurrent run died inside a
+ * minute. Resolving the binary once removes the shared resource entirely, and
+ * as a side effect drops npx's own start-up from every single call.
+ *
+ * Falls back to `npx wrangler` when the binary is not where it should be, so
+ * this cannot become a new way for the script to fail.
+ */
+const LOCAL_WRANGLER = join(WORKER_CWD, "node_modules", ".bin", "wrangler");
+const [WRANGLER_CMD, WRANGLER_PREFIX] = existsSync(LOCAL_WRANGLER)
+  ? [LOCAL_WRANGLER, [] as string[]]
+  : ["npx", ["wrangler"]];
 
 function parseArgs() {
   const args = Object.fromEntries(
@@ -72,7 +89,7 @@ function parseArgs() {
 }
 
 function wrangler(args: string[], capture = false): string {
-  const out = execFileSync("npx", ["wrangler", ...args], {
+  const out = execFileSync(WRANGLER_CMD, [...WRANGLER_PREFIX, ...args], {
     cwd: WORKER_CWD,
     encoding: "utf8",
     stdio: capture ? ["ignore", "pipe", "pipe"] : "inherit",
@@ -93,7 +110,7 @@ function wrangler(args: string[], capture = false): string {
  */
 const execFileAsync = promisify(execFile);
 async function wranglerAsync(args: string[]): Promise<void> {
-  await execFileAsync("npx", ["wrangler", ...args], {
+  await execFileAsync(WRANGLER_CMD, [...WRANGLER_PREFIX, ...args], {
     cwd: WORKER_CWD,
     encoding: "utf8",
     maxBuffer: 128 * 1024 * 1024,
@@ -213,7 +230,15 @@ async function main() {
         break;
       }
       const group = pending.slice(i, i + concurrency);
-      const settled = await Promise.all(group.map(upload));
+      // Nothing a single group does may end the run. Every failure inside
+      // upload() already leaves that body in D1 for the next pass, so the only
+      // thing an exception here could add is stopping the other 1,100 bodies
+      // from being tried — which is exactly what happened when the first
+      // concurrent run threw and exited: 39 seconds, zero moved, no report.
+      const settled = await Promise.all(group.map((r) => upload(r).catch((e) => {
+        console.error(`  ${r.slug} failed unexpectedly — body left in D1:`, e instanceof Error ? e.message : e);
+        return null;
+      })));
       const verified = settled.filter((r): r is (typeof group)[number] => r !== null);
       failed += group.length - verified.length;
       if (verified.length === 0) continue;
@@ -226,10 +251,25 @@ async function main() {
         // One statement per group rather than per body: this used to be a third
         // `npx wrangler` spawn for every single story, and start-up cost, not
         // the database, was most of the time it took.
-        const sql = verified
-          .map((r) => `UPDATE stories SET body_r2_key = '${esc(keyFor(Number(r.id)))}', body = '' WHERE id = ${Number(r.id)};`)
-          .join(" ");
-        wrangler(["d1", "execute", "ulyah-db", "--remote", `--command=${sql}`], true);
+        const stmt = (r: { id: number }) =>
+          `UPDATE stories SET body_r2_key = '${esc(keyFor(Number(r.id)))}', body = '' WHERE id = ${Number(r.id)};`;
+        try {
+          wrangler(["d1", "execute", "ulyah-db", "--remote", `--command=${verified.map(stmt).join(" ")}`], true);
+        } catch (e) {
+          // The batch is an optimisation, not a requirement. If D1 refuses the
+          // multi-statement form, fall back to what worked before rather than
+          // abandoning bodies that are already verified in R2 — they would
+          // otherwise be re-uploaded from scratch on the next run.
+          console.error("  batched update refused; falling back to one statement per body:", e instanceof Error ? e.message : e);
+          for (const r of verified) {
+            try {
+              wrangler(["d1", "execute", "ulyah-db", "--remote", `--command=${stmt(r)}`], true);
+            } catch (e2) {
+              console.error(`  update failed for id ${r.id} — body left in D1:`, e2 instanceof Error ? e2.message : e2);
+              failed++;
+            }
+          }
+        }
       }
       moved += verified.length;
       freed += verified.reduce((n, r) => n + r.body.length, 0);
