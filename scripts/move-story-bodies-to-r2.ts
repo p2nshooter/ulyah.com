@@ -25,7 +25,7 @@
  * Idempotent and resumable: it only ever looks at rows where body_r2_key IS
  * NULL, so re-running continues where it stopped.
  *
- * Usage: npx tsx scripts/move-story-bodies-to-r2.ts [--limit=200] [--dry]
+ * Usage: npx tsx scripts/move-story-bodies-to-r2.ts [--limit=200] [--minutes=45] [--dry]
  */
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
@@ -43,11 +43,22 @@ function parseArgs() {
       return [k, v ?? "true"];
     })
   );
+  const num = (v: unknown, d: number) =>
+    Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : d;
   return {
     dry: args.dry === "true",
     // Kept modest by default: every body is a separate R2 round trip, and a
     // run that is interrupted has still banked everything it finished.
-    limit: Number.isFinite(Number(args.limit)) && Number(args.limit) > 0 ? Number(args.limit) : 200,
+    limit: num(args.limit, 200),
+    // A wall-clock budget, because --limit alone cannot express the real
+    // constraint. Each body is a PUT, a GET-back and a D1 UPDATE — a few
+    // seconds — so 2,300 of them take about two hours, and the workflow job
+    // is capped at sixty minutes. The first full run was therefore killed
+    // mid-body and reported "cancelled": not a failure anyone would notice,
+    // and not a success either. Stopping ourselves a little early turns that
+    // into a green run that says how far it got and how much is left, which
+    // is the difference between a resumable job and one that silently stalls.
+    minutes: num(args.minutes, 45),
   };
 }
 
@@ -81,7 +92,8 @@ const keyFor = storyBodyKey;
 const esc = (s: string) => s.replace(/'/g, "''");
 
 async function main() {
-  const { dry, limit } = parseArgs();
+  const { dry, limit, minutes } = parseArgs();
+  const deadline = Date.now() + minutes * 60_000;
 
   const pending = d1Json<{ id: number; slug: string; body: string }>(
     `SELECT id, slug, body FROM stories
@@ -101,6 +113,16 @@ async function main() {
   let failed = 0;
   try {
     for (const row of pending) {
+      // Checked between bodies, never during one: a body is only safe to clear
+      // from D1 after its upload has been read back and compared, so stopping
+      // halfway through that sequence is the one thing that could lose text.
+      if (Date.now() > deadline) {
+        console.log(
+          `  time budget of ${minutes} min reached — stopping cleanly with ${moved} moved. ` +
+            `The remaining bodies are untouched; run again to continue.`
+        );
+        break;
+      }
       const id = Number(row.id);
       const key = keyFor(id);
       const file = join(dir, `${id}.md`);
