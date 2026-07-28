@@ -27,9 +27,10 @@
  * than trimming to a single line. Spilling one story every run to sit exactly
  * at a threshold would mean an R2 round trip on every scheduled pass forever.
  *
- * Usage: npx tsx scripts/d1-watermark.ts [--high=40] [--low=15] [--batch=100] [--dry]
- *   --high  MB of story bodies in D1 that triggers a spill
- *   --low   MB to spill down to once triggered
+ * Usage: npx tsx scripts/d1-watermark.ts [--high=40] [--low=15] [--batch=100] [--minutes=45] [--dry]
+ *   --high     MB of story bodies in D1 that triggers a spill
+ *   --low      MB to spill down to once triggered
+ *   --minutes  wall-clock budget for the whole spill, shared across passes
  */
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
@@ -53,6 +54,13 @@ function parseArgs() {
     high: num(args.high, 40),
     low: num(args.low, 15),
     batch: num(args.batch, 100),
+    // The whole spill's wall-clock budget, shared out across passes. Moving
+    // one body is a PUT, a GET-back and a D1 UPDATE, so a large backlog runs
+    // for hours while the workflow job is capped at sixty minutes. Without a
+    // budget the job is killed mid-pass and reports "cancelled" — which is
+    // neither a failure anyone investigates nor a success. With one, it ends
+    // green and says how much is left.
+    minutes: num(args.minutes, 45),
   };
 }
 
@@ -107,7 +115,8 @@ async function fileSizeMb(): Promise<number | null> {
 }
 
 async function main() {
-  const { dry, high, low, batch } = parseArgs();
+  const { dry, high, low, batch, minutes } = parseArgs();
+  const deadline = Date.now() + minutes * 60_000;
   if (low > high) {
     console.error(`--low (${low}) must not exceed --high (${high}).`);
     process.exit(1);
@@ -136,16 +145,24 @@ async function main() {
   // as freed.
   let passes = 0;
   while (bulk.mb > low && bulk.rows > 0) {
+    const minutesLeft = Math.floor((deadline - Date.now()) / 60_000);
+    if (minutesLeft < 1) {
+      console.log(`  ${minutes} min budget spent; ${bulk.mb} MB still in D1. The next run continues.`);
+      break;
+    }
     passes++;
     // The batch size is argv-derived, so it is reduced to an integer here, at
     // the point it becomes part of a command line, rather than trusted from
     // parseArgs two functions away. Same reasoning as the mover's SQL guards:
     // the proof belongs where the string is built.
     const safeBatch = Math.max(1, Math.min(1000, Math.trunc(Number(batch) || 0) || 100));
-    execFileSync("npx", ["tsx", "scripts/move-story-bodies-to-r2.ts", `--limit=${safeBatch}`], {
-      cwd: join(import.meta.dirname, ".."),
-      stdio: "inherit",
-    });
+    // The mover gets whatever is left of the shared budget, so the last pass
+    // stops itself rather than being killed with the job.
+    execFileSync(
+      "npx",
+      ["tsx", "scripts/move-story-bodies-to-r2.ts", `--limit=${safeBatch}`, `--minutes=${minutesLeft}`],
+      { cwd: join(import.meta.dirname, ".."), stdio: "inherit" }
+    );
     const before = bulk;
     bulk = bulkInD1();
     console.log(`  pass ${passes}: ${before.mb} MB → ${bulk.mb} MB`);
