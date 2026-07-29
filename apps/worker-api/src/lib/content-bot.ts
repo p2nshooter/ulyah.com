@@ -201,7 +201,7 @@ function buildPrompt(site: AutoSite, existingTitles: string[]): string {
       `JSON shape: {"slug": "kebab-case-unique", "title": "...", "description": "one-sentence summary", ` +
       `"tag": one of [${cats}], ` +
       `"body": ["intro paragraph", "## Section heading", "paragraph", "## Another heading", "paragraph", ...]} ` +
-      `where any array item beginning with "## " is a section heading. 12-18 body items. ` +
+      `where any array item beginning with "## " is a section heading. 22-30 body items. ` +
       `Reading time is measured from the text, so do not supply it.`
     );
   }
@@ -213,7 +213,7 @@ function buildPrompt(site: AutoSite, existingTitles: string[]): string {
       `"titleHi": "...", "titleEn": "...", "excerptHi": "...", "excerptEn": "...", ` +
       `"sections": [{"hHi": "", "hEn": "", "pHi": ["para", "para"], "pEn": ["para", "para"]}, ` +
       `{"hHi": "${site.lang} heading", "hEn": "English heading", "pHi": [...], "pEn": [...]}]} ` +
-      `First section uses empty headings (the intro). 5-6 sections, 3 paragraphs each per language, ` +
+      `First section uses empty headings (the intro). 9-11 sections, 3-4 paragraphs each per language, ` +
       `each language reaching at least ${MIN_WORDS_PER_LANG} words on its own. Reading time is measured, so do not supply it.`
     );
   }
@@ -223,7 +223,8 @@ function buildPrompt(site: AutoSite, existingTitles: string[]): string {
     `JSON shape: {"slug": "kebab-case-unique", "category": one of [${cats}], "title": "...", ` +
     `"excerpt": "one-sentence hook", "author": "${site.author}", ` +
     `"sections": [{"h": "", "p": ["intro para", "intro para"]}, {"h": "Section heading", "p": ["para", "para"]}]} ` +
-    `First section uses h:"" (the intro). 5-6 sections, 3 substantial paragraphs each. ` +
+    `First section uses h:"" (the intro). 9-11 sections, 3-4 substantial paragraphs each, ` +
+    `every paragraph a full one of 90-130 words. ` +
     `Reading time is measured from the text, so do not supply it.`
   );
 }

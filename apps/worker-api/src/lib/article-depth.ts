@@ -36,10 +36,10 @@ export function countWords(parts: readonly string[]): number {
  * roughly where a piece has room to make a claim, show it, and say when it
  * does not apply.
  */
-export const MIN_WORDS = 900;
+export const MIN_WORDS = 1800;
 
 /** Mirrored articles are written twice, so each language is held to its own bar. */
-export const MIN_WORDS_PER_LANG = 550;
+export const MIN_WORDS_PER_LANG = 1100;
 
 /** 200 words a minute — the usual figure for ordinary adult prose. */
 export function readingMinutes(words: number): number {
