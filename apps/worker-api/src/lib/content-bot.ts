@@ -107,18 +107,16 @@ const SITES: AutoSite[] = [
 /**
  * How long a site waits between articles.
  *
- * Three hours meant eight a day. axto.dev needs about a hundred pieces at the
- * new length before its library stops being mostly thin, and at eight a day
- * that is a fortnight — with an AdSense review waiting on it. Forty-five
- * minutes gives roughly thirty-two a day per site, which brings it inside a
- * week.
+ * Back to three hours. I had cut this to forty-five minutes to fill axto.dev
+ * inside a week, and the owner's answer was "jgn andelin mesin, lu sendiri yg
+ * ngetik" — do not lean on the machine, write it yourself. The speed-up existed
+ * precisely to avoid writing by hand, so it goes.
  *
- * Not lower than that, deliberately. Each article is one Orchestra call and a
- * commit that triggers a deploy, so the floor is set by how fast a site can
- * sensibly rebuild, not by how fast text can be produced. And a site that
- * gains a hundred articles in a day looks exactly like what it would be.
+ * The bot still runs. It is a steady trickle on seven sites rather than the way
+ * a library gets built, which is what it was for before I pressed it into
+ * service as a substitute for the work.
  */
-const THROTTLE_MS = 45 * 60 * 1000;
+const THROTTLE_MS = 3 * 60 * 60 * 1000;
 const GH_API = "https://api.github.com";
 
 const b64encodeUtf8 = (s: string): string => {
