@@ -35,11 +35,13 @@ check(countWords(["line\none\ttwo"]) === 3, "newlines and tabs separate words");
 
 // ── the bar ─────────────────────────────────────────────────────────────────
 // The real medians from the axto.dev library, which must not pass.
-check(MIN_WORDS >= 900, `MIN_WORDS is at least 900 (is ${MIN_WORDS})`);
+check(MIN_WORDS >= 1800, `MIN_WORDS is at least 1800 (is ${MIN_WORDS})`);
 check(429 < MIN_WORDS, "the generated median of 429 words is rejected");
 check(95 < MIN_WORDS, "the shortest generated article, 95 words, is rejected");
 check(360 < MIN_WORDS, "the hand-written median of 360 words is rejected");
-check(1200 >= MIN_WORDS, "a genuinely developed 1,200-word article is accepted");
+check(900 < MIN_WORDS, "the old 900-word floor no longer passes");
+check(1200 < MIN_WORDS, "a 1,200-word article is now too short");
+check(2000 >= MIN_WORDS, "a fully developed 2,000-word article is accepted");
 check(
   MIN_WORDS_PER_LANG > 0 && MIN_WORDS_PER_LANG < MIN_WORDS,
   "a mirrored article's per-language bar sits below the single-language one",
@@ -54,6 +56,7 @@ check(readingMinutes(429) === 2, "the generated median reads as 2 min, not 7");
 check(readingMinutes(0) === 1, "an empty article never reads as 0 min");
 check(readingMinutes(1) === 1, "one word never reads as 0 min");
 check(readingMinutes(1400) === 7, "1,400 words genuinely is a 7-minute read");
+check(readingMinutes(1800) === 9, "the new floor reads as a 9-minute article");
 // Monotonic: a longer article can never show a shorter time.
 let monotonic = true;
 for (let w = 0; w < 4000; w += 37) {
