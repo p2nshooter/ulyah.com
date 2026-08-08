@@ -371,7 +371,7 @@ export function NetworkAd({
     const b = inv.sky ?? inv.rect;
     if (!b) return null;
     return (
-      <aside className={`flex flex-col items-center ${className}`} aria-label={label}>
+      <aside className={`flex flex-col items-center ${className}`} aria-label={label} data-network-ad="">
         <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
       </aside>
     );
@@ -380,7 +380,7 @@ export function NetworkAd({
   if (unit === "rectangle") {
     if (!inv.rect) return null;
     return (
-      <aside className={wrap} aria-label={label}>
+      <aside className={wrap} aria-label={label} data-network-ad="">
         {filled && framed && tag}
         <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onFill={onFill} />
       </aside>
@@ -390,7 +390,7 @@ export function NetworkAd({
   if (unit === "native") {
     if (!inv.native) return null;
     return (
-      <aside className={`${wrap}`} aria-label={label}>
+      <aside className={`${wrap}`} aria-label={label} data-network-ad="">
         {filled && framed && tag}
         <div className="w-full max-w-3xl">
           <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onFill={onFill} />
@@ -406,7 +406,7 @@ export function NetworkAd({
   const b = wide ? desktop : mobile;
   if (!b) return null;
   return (
-    <aside className={wrap} aria-label={label}>
+    <aside className={wrap} aria-label={label} data-network-ad="">
       {filled && framed && tag}
       {wide === null ? null : (
         <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />

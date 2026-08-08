@@ -6,67 +6,56 @@ import { usePathname } from "next/navigation";
 import { NetworkAd, tenantHasNetworkAds, type NetworkAdUnit } from "@/components/NetworkAd";
 
 /**
- * In-content ad placement for EVERY page, without touching a single page file.
+ * Guarantees every page and every link carries a full set of Adsterra units,
+ * placed at the top, through the middle and at the bottom.
  *
- * The owner asked for 4–5 ads on every page and link, "tp yg elegan, posisi yg
- * pas, indah dan elegan". Two ads bolted together above the footer is neither
- * five nor elegant, and editing ~50 page files by hand would drift apart the
- * moment a new page is added. So this component reads the page that actually
- * rendered and places the units itself:
+ * The owner's rule is "per halaman per link wajib ada adsterra dengan posisi
+ * atas bawah tengah, minimal 6 iklan per page". Hard-coding that into each
+ * template does not hold: the article template already carried seven units,
+ * while home, category, about, contact, privacy and terms carried three or
+ * four — and any page added later would start from zero.
  *
- *   - it measures <main> and works out how many slots the page can carry
- *     without crowding — roughly one per 900 px of content, capped at 3 — so a
- *     short page never gets the same load as a long reading page;
- *   - it spreads them evenly down the usable height instead of using one fixed
- *     gap, so a 1,700 px page and a 6,000 px page both look deliberate;
- *   - it only ever inserts BETWEEN top-level blocks (after a section, never
- *     inside one), so an ad can never land mid-sentence or split a card grid;
- *   - it leaves the tail of the page alone — the footer cluster is already
- *     there and two ads back to back read as a wall;
- *   - it rotates native → rectangle → banner so the page does not read as
- *     three identical grey boxes.
+ * So this works from what the page ACTUALLY rendered:
  *
- * MEASURING MORE THAN ONCE MATTERS. Many pages here (kisah, hadits, kitab,
- * anak…) fetch their content from api.ulyah.com after mount, so <main> is still
- * a min-h-screen skeleton for the first second or two. A single early
- * measurement saw an empty page and placed nothing. So placement retries on a
- * schedule and watches <main> for growth, and it only ever ADDS slots below the
- * ones already placed — an ad that has started loading is never moved or
- * remounted, which would burn the impression and flicker.
+ *   1. it finds the units already on the page ([data-network-ad]) and sorts them into
+ *      top / middle / bottom, so a template that places its own ads is never
+ *      doubled up;
+ *   2. it fills each region up to QUOTA, which is what makes "atas tengah
+ *      bawah" true on every route rather than only on articles;
+ *   3. middles go on spaced section boundaries, never straight after a heading
+ *      and never inside a block, so an ad cannot split a heading from its text.
  *
- * Anchors are plain sibling nodes appended after a block and removed on
- * cleanup, and every DOM call is guarded, so a page whose markup does not suit
- * injection simply gets no in-content ads rather than an error.
+ * REGIONS ARE DECIDED BY DOM POSITION, NOT BY PIXELS. An earlier version cut
+ * the page into percentage bands of its height. That looked right until the
+ * ads themselves loaded: each one made the page taller, the bands slid under
+ * the units already placed, and a page could end up reporting five "bottom"
+ * ads and no middle at all. Document order does not move when an iframe grows,
+ * so the quota stays true however the page reflows.
  *
- * Together with the banner + native pair the layout renders before the footer,
- * a normal content page ends up with 5 units and a genuinely short one with 3.
+ * Placement is measured after paint and retried, because several pages settle
+ * their height late (fonts, images, client data). Slots are only ever ADDED,
+ * never moved, so an ad that has begun loading is never remounted.
  */
 
-/** Roughly how much content earns one in-content slot. Deliberately generous
- *  (ceil, not round) so a medium page still gets two rather than one — the
- *  owner asked for 4–5 units per page, and the footer pair only supplies two. */
-const PX_PER_SLOT = 900;
-/** Never more than this many injected units, however long the page. */
-const MAX_SLOTS = 3;
-/** A block shorter than this is a caption or a one-line note; putting an ad
- *  after it looks arbitrary. */
+/** Units per region. Six per page, weighted towards the reading middle. */
+const QUOTA = { top: 1, middle: 3, bottom: 2 } as const;
+/** Ceiling, so a rich article template is not turned into a wall. */
+const MAX_TOTAL = 8;
+
+/** A block shorter than this is a caption; an ad after it looks arbitrary. */
 const MIN_BLOCK_PX = 60;
-/** A level of the tree needs at least this many real blocks before we accept
- *  it as the place where the page is actually divided into sections. */
+/** When a page is one atomic block, fall back to this smaller threshold so
+ *  paragraph-level boundaries become usable rather than placing nothing. */
+const FALLBACK_BLOCK_PX = 24;
+/** A level needs this many real blocks to count as the page's section level. */
 const MIN_CANDIDATES = 3;
-/** Below this many in-content units, add one more to the closing cluster. */
-const TAIL_TOPUP_BELOW = 2;
-/** Absolute floor for the gap between two injected units. */
-const MIN_SEP_PX = 450;
-/** Re-measure at these delays, then stop. Covers server-rendered pages (the
- *  first tick) through to slow client-side data (the last). */
-const RETRY_MS = [350, 1200, 2600, 5000, 9000];
+/** Keep injected middles at least this many blocks apart. */
+const MIN_BLOCK_STRIDE = 2;
 
-/** Formats in the order they are used down the page. */
-const ROTATION: NetworkAdUnit[] = ["native", "rectangle", "banner"];
+const RETRY_MS = [300, 1100, 2400, 4500, 8000];
 
-/** Pages where an injected ad would get in the way of a focused task. The
- *  footer pair still runs on these; only the in-content ones are skipped. */
+/** Routes where an injected ad would get in the way of a focused task. The
+ *  closing cluster in the layout still runs on these. */
 const SKIP = [
   "/admin",
   "/masuk",
@@ -78,29 +67,33 @@ const SKIP = [
   "/quran-flipbook",
 ];
 
-/** Elements an ad must never be placed directly after: a heading belongs with
- *  the text underneath it, and splitting the two reads as a mistake. */
+/** Elements an ad must never follow — a heading belongs with its text. */
 const NEVER_AFTER = new Set(["H1", "H2", "H3", "H4", "H5", "H6"]);
 
-function realBlocks(node: HTMLElement): HTMLElement[] {
+type Kind = "top" | "middle" | "bottom";
+interface Slot {
+  host: HTMLElement;
+  kind: Kind;
+  i: number;
+}
+
+function realBlocks(node: HTMLElement, minPx = MIN_BLOCK_PX): HTMLElement[] {
   return Array.from(node.children).filter(
     (c): c is HTMLElement =>
       c instanceof HTMLElement &&
-      c.offsetHeight >= MIN_BLOCK_PX &&
+      c.offsetHeight >= minPx &&
       !NEVER_AFTER.has(c.tagName) &&
-      !c.hasAttribute("data-ulyah-ad-anchor")
+      !c.hasAttribute("data-ulyah-ad-anchor") &&
+      !c.hasAttribute("data-network-ad")
   );
 }
 
 /**
- * Find the level of the tree where the page is actually divided into sections.
- *
- * Most pages here wrap everything in one or two centring divs, and several
- * (waris, zakat, kebijakan-privasi) then put the ENTIRE body inside a single
- * tall child — so the top level offers exactly one candidate and there is
- * nowhere to place anything. So instead of only drilling through single-child
- * wrappers, keep descending into the dominant child until a level offers enough
- * real blocks to choose boundaries from.
+ * Find the level of the tree where the page is really divided into sections.
+ * Most templates wrap everything in one or two centring divs and then put the
+ * whole body inside a single tall child, so the top level offers one candidate
+ * and there is nowhere to place anything. Keep descending into the dominant
+ * child until a level offers enough blocks to choose boundaries from.
  */
 function candidateBlocks(main: HTMLElement): HTMLElement[] {
   let node: HTMLElement = main;
@@ -109,98 +102,129 @@ function candidateBlocks(main: HTMLElement): HTMLElement[] {
     const blocks = realBlocks(node);
     if (blocks.length > best.length) best = blocks;
     if (blocks.length >= MIN_CANDIDATES) return blocks;
-    // Descend into the child that holds essentially the whole level — that is
-    // the wrapper hiding the real sections.
     const kids = Array.from(node.children).filter((c): c is HTMLElement => c instanceof HTMLElement);
     let dominant: HTMLElement | null = null;
-    for (const k of kids) {
-      if (!dominant || k.offsetHeight > dominant.offsetHeight) dominant = k;
-    }
+    for (const k of kids) if (!dominant || k.offsetHeight > dominant.offsetHeight) dominant = k;
     if (!dominant || dominant.offsetHeight < node.offsetHeight * 0.35) break;
     node = dominant;
+  }
+  // A page built as one atomic block (a single long prose column, a table)
+  // offers no section boundaries at the normal threshold. Rather than give up
+  // and leave the middle empty, accept paragraph-sized boundaries.
+  if (best.length < 2) {
+    const loose = realBlocks(node, FALLBACK_BLOCK_PX);
+    if (loose.length > best.length) best = loose;
   }
   return best;
 }
 
+function makeAnchor(): HTMLElement {
+  const el = document.createElement("div");
+  el.setAttribute("data-ulyah-ad-anchor", "");
+  return el;
+}
+
+/** True when `b` comes after `a` in document order. */
+function before(a: Node, b: Node): boolean {
+  return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+}
+
 export function PageAds() {
   const pathname = usePathname();
-  const [anchors, setAnchors] = useState<HTMLElement[]>([]);
-  /** Where the extra closing unit goes when the page was too short to carry
-   *  two in-content slots. Null means the cluster in the layout is enough. */
-  const [tail, setTail] = useState<HTMLElement | null>(null);
+  const [slots, setSlots] = useState<Slot[]>([]);
 
   useEffect(() => {
+    // NetworkAd itself obeys the central ulyah.com switch and renders nothing
+    // when it is off, so an anchor left behind is simply an empty div.
     if (!tenantHasNetworkAds()) return;
     if (SKIP.some((p) => pathname?.includes(p))) return;
 
-    const created: HTMLElement[] = [];
-    /** Y of the lowest anchor placed so far, relative to the top of <main>. */
-    let lastY = 0;
+    const created: Slot[] = [];
     let cancelled = false;
     const timers: number[] = [];
     let observer: ResizeObserver | null = null;
     let growDebounce = 0;
 
-    /** Add whatever slots the page can now carry, below the ones already there. */
     const place = () => {
-      if (cancelled || created.length >= MAX_SLOTS) return;
+      if (cancelled) return;
       try {
         const main = document.querySelector("main");
         if (!(main instanceof HTMLElement)) return;
-
-        const total = main.offsetHeight;
-        if (total < MIN_SEP_PX) return;
+        if (document.body.scrollHeight < 400) return;
 
         const blocks = candidateBlocks(main);
-        if (blocks.length < 2) return;
+        const firstBlock = blocks[0] ?? null;
 
-        // How many the page has earned, and how far apart they should sit.
-        const want = Math.min(MAX_SLOTS, Math.max(1, Math.ceil(total / PX_PER_SLOT)));
-        if (created.length >= want) return;
-        // Leave the last stretch to the footer cluster — proportional, so a
-        // medium page is not squeezed out by a fixed reserve.
-        const usable = total - Math.min(500, total * 0.15);
-        const sep = Math.max(MIN_SEP_PX, usable / (want + 1));
+        // Sort every unit already on the page into a region by DOM position.
+        const have: Record<Kind, number> = { top: 0, middle: 0, bottom: 0 };
+        const wraps = Array.from(document.querySelectorAll("[data-network-ad]")).filter(
+          (e): e is HTMLElement => e instanceof HTMLElement
+        );
+        for (const w of wraps) {
+          if (!main.contains(w)) have.bottom += 1;
+          else if (firstBlock && before(w, firstBlock)) have.top += 1;
+          else have.middle += 1;
+        }
+        let total = wraps.length;
 
-        const mainTop = main.getBoundingClientRect().top + window.scrollY;
-        const last = blocks[blocks.length - 1];
+        const add = (host: HTMLElement, kind: Kind) => {
+          created.push({ host, kind, i: created.length });
+          have[kind] += 1;
+          total += 1;
+        };
+        const room = () => total < MAX_TOTAL;
 
-        for (const block of blocks) {
-          if (created.length >= want) break;
-          if (block === last) break; // never after the final block
-          const bottom = block.getBoundingClientRect().bottom + window.scrollY - mainTop;
-          if (bottom > usable) break;
-          if (bottom - lastY < sep) continue;
-
-          const anchor = document.createElement("div");
-          anchor.setAttribute("data-ulyah-ad-anchor", "");
-          anchor.className = "w-full";
-          block.insertAdjacentElement("afterend", anchor);
-          created.push(anchor);
-          lastY = bottom;
+        // 1. TOP — one unit above the first real block, so it sits under the
+        //    site header and over the content.
+        if (have.top < QUOTA.top && firstBlock && room()) {
+          const anchor = makeAnchor();
+          firstBlock.insertAdjacentElement("beforebegin", anchor);
+          add(anchor, "top");
         }
 
-        if (created.length && !cancelled) setAnchors([...created]);
+        // 2. MIDDLE — spread across the section boundaries. Positions come from
+        //    the block list, not from pixels, so they stay put as ads load.
+        const midNeed = QUOTA.middle - have.middle;
+        if (midNeed > 0 && blocks.length >= 2) {
+          const usable = blocks.slice(0, -1); // never after the final block
+          const picked: number[] = [];
+          for (let n = 1; n <= midNeed && usable.length; n += 1) {
+            if (!room()) break;
+            const ideal = Math.min(usable.length - 1, Math.round((usable.length * n) / (midNeed + 1)));
+            // Walk outwards from the ideal index for a slot far enough from
+            // the ones already taken.
+            let chosen = -1;
+            for (let d = 0; d < usable.length && chosen < 0; d += 1) {
+              for (const idx of [ideal + d, ideal - d]) {
+                if (idx < 0 || idx >= usable.length) continue;
+                if (picked.some((p) => Math.abs(p - idx) < MIN_BLOCK_STRIDE)) continue;
+                chosen = idx;
+                break;
+              }
+            }
+            if (chosen < 0) break;
+            picked.push(chosen);
+            const anchor = makeAnchor();
+            usable[chosen]!.insertAdjacentElement("afterend", anchor);
+            add(anchor, "middle");
+          }
+        }
+
+        // 3. BOTTOM — siblings after <main>, before the footer.
+        while (have.bottom < QUOTA.bottom && room() && main.parentElement) {
+          const anchor = makeAnchor();
+          main.insertAdjacentElement("afterend", anchor);
+          add(anchor, "bottom");
+        }
+
+        if (created.length && !cancelled) setSlots([...created]);
       } catch {
-        /* markup we cannot place into — the footer cluster still runs */
+        /* markup we cannot place into — the template's own ads still run */
       }
     };
 
-    for (const delay of RETRY_MS) timers.push(window.setTimeout(place, delay));
+    for (const d of RETRY_MS) timers.push(window.setTimeout(place, d));
 
-    // After the last retry, settle the page's total. A page that could only
-    // take 0–1 in-content units would otherwise close on just the layout's
-    // banner + native pair; give it one more so it still reads as a proper set.
-    timers.push(
-      window.setTimeout(() => {
-        if (cancelled || created.length >= TAIL_TOPUP_BELOW) return;
-        const host = document.getElementById("ulyah-ad-tail");
-        if (host instanceof HTMLElement) setTail(host);
-      }, RETRY_MS[RETRY_MS.length - 1]! + 600)
-    );
-
-    // Content that arrives late (client-side fetches) grows <main>; re-run then
-    // too, so those pages get their slots as soon as they have the height.
     try {
       const main = document.querySelector("main");
       if (main instanceof HTMLElement && typeof ResizeObserver !== "undefined") {
@@ -211,7 +235,7 @@ export function PageAds() {
         observer.observe(main);
       }
     } catch {
-      /* no ResizeObserver — the retry schedule still covers most pages */
+      /* retry schedule still covers most pages */
     }
 
     return () => {
@@ -219,14 +243,12 @@ export function PageAds() {
       for (const t of timers) window.clearTimeout(t);
       window.clearTimeout(growDebounce);
       observer?.disconnect();
-      setAnchors([]);
-      setTail(null);
-      // Let React unmount the portals before the containers go away.
-      const doomed = [...created];
+      setSlots([]);
+      const doomed = created.map((s) => s.host);
       window.setTimeout(() => {
-        for (const a of doomed) {
+        for (const h of doomed) {
           try {
-            a.remove();
+            h.remove();
           } catch {
             /* already gone with the route change */
           }
@@ -235,18 +257,19 @@ export function PageAds() {
     };
   }, [pathname]);
 
-  if (!anchors.length && !tail) return null;
+  if (!slots.length) return null;
 
-  return (
-    <>
-      {anchors.map((anchor, i) =>
-        createPortal(
-          <NetworkAd unit={ROTATION[i % ROTATION.length]} className="my-2" />,
-          anchor,
-          `ulyah-ad-${i}`
-        )
-      )}
-      {tail ? createPortal(<NetworkAd unit="rectangle" />, tail, "ulyah-ad-tail") : null}
-    </>
-  );
+  return <>{slots.map((s) => createPortal(unitFor(s), s.host, `pa-${s.i}`))}</>;
+}
+
+/**
+ * Which format each injected slot uses. A leaderboard reads best across the
+ * top, the middle rotates so the page is not three identical grey boxes, and
+ * the bottom closes with a native block and a clearly-labelled partner card.
+ */
+function unitFor(s: Slot) {
+  if (s.kind === "top") return <NetworkAd unit="banner" />;
+  if (s.kind === "bottom") return <NetworkAd unit={s.i % 2 === 0 ? "native" : "rectangle"} />;
+  const mid: NetworkAdUnit[] = ["native", "rectangle", "banner"];
+  return <NetworkAd unit={mid[s.i % mid.length]!} />;
 }

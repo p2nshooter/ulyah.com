@@ -325,9 +325,11 @@ export default async function LocaleLayout({
               BETWEEN content blocks by <PageAds/> below, which measures the
               rendered page so each one lands on a real section boundary. */}
           <main className="min-h-screen pb-24">{children}</main>
-          {/* Reads the rendered <main> and portals 2–3 in-content units onto
-              well-spaced section boundaries. Skips focused pages (mushaf,
-              kiblat, sign-in) and any tenant without Adsterra inventory. */}
+          {/* Reads the rendered <main> and fills the page up to the owner's
+              quota — one unit above the content, three through the middle on
+              real section boundaries, two in the closing cluster below. Skips
+              focused pages (mushaf, kiblat, sign-in) and any tenant with no
+              Adsterra inventory. */}
           <PageAds />
           {/* The closing cluster, right before the footer. Renders only on
               tenants that have units; collapses cleanly when the network has no
@@ -336,10 +338,6 @@ export default async function LocaleLayout({
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
             <NetworkAd unit="banner" />
             <NetworkAd unit="native" />
-            {/* PageAds tops this cluster up with one more unit when the page was
-                too short to carry in-content slots, so even a brief page still
-                closes with a reasonable set instead of just two. */}
-            <div id="ulyah-ad-tail" />
             <AdSlot placement="footer" />
           </div>
           <Footer locale={locale} dict={dict} />
