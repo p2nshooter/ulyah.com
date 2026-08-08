@@ -1,25 +1,38 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 /**
  * Adsterra ad placement — visitor-first.
  *
- * Owner supplied Adsterra banner + native units for TWO sites only (dawa.es
- * and ulyah.com); every other tenant renders nothing. Design rules, all in
- * service of "yg penting pengunjung tetep nyaman":
+ * Owner supplied Adsterra banner + native units per tenant; a tenant with no
+ * inventory renders nothing. Design rules, all in service of "yg penting
+ * pengunjung tetep nyaman":
  *   - each unit lives in its OWN sandboxed <iframe> (srcdoc). This isolates
  *     Adsterra's global `atOptions` so several banner sizes can coexist on one
  *     page, AND — critically — the sandbox omits `allow-top-navigation`, so an
  *     ad can never hijack or redirect the page the visitor is reading;
- *   - the slot reserves its exact height up front, so content never shifts
- *     under the reader when the ad loads (no layout jump);
+ *   - the slot reserves its exact height while the ad loads, so content never
+ *     shifts under the reader AND the ad script has a real viewport to paint
+ *     into (a zero-height frame is what stopped ads rendering at all);
  *   - the iframe only mounts when it scrolls near the viewport (lazy), so ads
  *     never slow the first paint or the reading experience;
- *   - a small, muted "Iklan/Publicidad" label keeps it honest and unobtrusive;
+ *   - a small, muted label between two hairlines keeps it honest and reads as
+ *     a deliberate section divider rather than a bolted-on box;
  *   - only banner + native formats are used — never popunder, interstitial or
  *     sticky bars.
+ *
+ * WHY THE LOAD LOGIC LOOKS THE WAY IT DOES. An earlier version kept the slot
+ * (and the iframe) at height 0 until it could prove an ad had painted, and it
+ * gave up after six 700 ms polls. Two things went wrong with that, and together
+ * they are why Adsterra "ga muncul":
+ *   1. the ad script was asked to render into a 0 px viewport, which suppresses
+ *      fill and viewability on most networks;
+ *   2. ~4.2 s is far too short — any slower response locked the slot shut
+ *      permanently, with no retry.
+ * So now the frame carries its real height from the moment it mounts, and the
+ * emptiness check is patient (up to ~25 s) before it collapses anything.
  */
 
 const TENANT = (process.env.NEXT_PUBLIC_TENANT ?? "ulyah") as string;
@@ -50,7 +63,7 @@ function fetchAdsterraMaster(): Promise<boolean> {
     // no-store: always read the CURRENT switch state, never a cached copy, so an
     // admin OFF hides ads on the next refresh instead of up to a minute later.
     _adsterraPromise = fetch(`${API_BASE}/content/ad-config?site=${TENANT}`, { cache: "no-store" })
-      .then((r) => r.json())
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((d: { adsterra?: boolean }) => {
         const on = d?.adsterra !== false;
         _adsterraMaster = on;
@@ -124,6 +137,11 @@ const INVENTORY: Record<string, TenantAds> = {
   },
 };
 
+/** True when this tenant has any Adsterra inventory at all. */
+export function tenantHasNetworkAds(): boolean {
+  return !!INVENTORY[TENANT];
+}
+
 // Ad label in each site's own language.
 const LABEL: Record<string, string> = {
   ulyah: "Iklan",
@@ -158,88 +176,97 @@ function nativeDoc(n: Native): string {
 
 const SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
 
+/** How long we let a unit try to paint before we accept it is a no-fill and
+ *  collapse the slot. Generous on purpose: the old 4.2 s cutoff silently
+ *  killed every ad that answered slowly. */
+const FILL_GRACE_MS = 25_000;
+
 function AdFrame({
   doc,
   width,
   height,
   title,
-  onEmpty,
+  onFill,
 }: {
   doc: string;
   width: number | string;
   height: number;
   title: string;
-  onEmpty?: (empty: boolean) => void;
+  onFill?: (filled: boolean) => void;
 }) {
   const holderRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLIFrameElement | null>(null);
-  const [show, setShow] = useState(false);
-  // Until an ad actually paints we do NOT reserve the full height — an unfilled
-  // network (e.g. while the Adsterra domain is still being verified) would
-  // otherwise leave a large empty labelled box on every page ("css ganjil").
-  const [filled, setFilled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  // `null` = still loading (keep the space reserved so the ad has somewhere to
+  // paint), `true` = an ad painted, `false` = confirmed no-fill, collapse.
+  const [filled, setFilled] = useState<boolean | null>(null);
 
   // Lazy-mount: only build the ad iframe when the slot nears the viewport.
   useEffect(() => {
     const el = holderRef.current;
-    if (!el || show) return;
+    if (!el || mounted) return;
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          setShow(true);
+          setMounted(true);
           io.disconnect();
         }
       },
-      { rootMargin: "500px 0px" }
+      { rootMargin: "800px 0px" }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [show]);
+  }, [mounted]);
 
-  // After the sandboxed (same-origin srcdoc) iframe loads, poll its content a
-  // few times — ad scripts inject asynchronously. If nothing paints, collapse
-  // the slot so no empty gap or lonely "Iklan" label is left behind.
+  // Patient fill watch. The frame already has its real height, so the ad script
+  // renders into a proper viewport; this only decides whether to KEEP the space.
   useEffect(() => {
-    if (!show) return;
-    let tries = 0;
-    let done = false;
-    const check = () => {
-      if (done) return;
-      tries += 1;
+    if (!mounted) return;
+    let stopped = false;
+    const startedAt = Date.now();
+    const tick = () => {
+      if (stopped) return;
       let has = false;
       try {
         const body = frameRef.current?.contentDocument?.body;
-        has = !!body && body.scrollHeight > 10 && body.childElementCount > 0;
+        // scrollHeight is the one signal that works for both the banner iframe
+        // and the native container; the srcdoc body is 0-high until something
+        // actually paints (the two <script> tags contribute no height).
+        has = !!body && body.scrollHeight > 12;
       } catch {
         // Cross-origin read blocked → assume it may have filled; keep it.
         has = true;
       }
       if (has) {
-        done = true;
         setFilled(true);
-        onEmpty?.(false);
-      } else if (tries >= 6) {
-        done = true;
-        setFilled(false);
-        onEmpty?.(true);
-      } else {
-        window.setTimeout(check, 700);
+        onFill?.(true);
+        return; // settled — an ad is there, stop polling
       }
+      if (Date.now() - startedAt > FILL_GRACE_MS) {
+        setFilled(false);
+        onFill?.(false);
+        return; // genuine no-fill — collapse and stop
+      }
+      window.setTimeout(tick, 900);
     };
-    const id = window.setTimeout(check, 700);
+    const id = window.setTimeout(tick, 1200);
     return () => {
-      done = true;
+      stopped = true;
       window.clearTimeout(id);
     };
-  }, [show, onEmpty]);
+  }, [mounted, onFill]);
+
+  // Reserve the height while loading and once filled; only a confirmed
+  // no-fill collapses to nothing.
+  const reserved = filled === false ? 0 : height;
 
   return (
     <div
       ref={holderRef}
-      style={{ minHeight: filled ? height : 0 }}
-      className="flex w-full justify-center overflow-hidden transition-[min-height] duration-300"
+      style={{ minHeight: reserved }}
+      className="flex w-full justify-center overflow-hidden transition-[min-height] duration-500"
     >
-      {show ? (
+      {mounted ? (
         <iframe
           ref={frameRef}
           title={title}
@@ -253,7 +280,7 @@ function AdFrame({
             border: "0",
             width: typeof width === "number" ? width : "100%",
             maxWidth: "100%",
-            height: filled ? height : 0,
+            height: reserved,
             display: "block",
             overflow: "hidden",
           }}
@@ -263,19 +290,27 @@ function AdFrame({
   );
 }
 
+export type NetworkAdUnit = "banner" | "rectangle" | "native" | "sidebar";
+
 /**
  * A network ad slot.
- *   - "banner"  responsive top/section banner (leaderboard on desktop,
- *     320x50 on mobile)
+ *   - "banner"    responsive top/section banner (leaderboard on desktop,
+ *                 320x50 on mobile)
  *   - "rectangle" 300x250 in-content block
- *   - "native"  wide native banner (auto content, reserved height)
+ *   - "native"    wide native banner (auto content, reserved height)
+ *   - "sidebar"   tall unit for a desktop margin rail (skyscraper where the
+ *                 tenant has one, otherwise the 300x250 rectangle)
  */
 export function NetworkAd({
   unit = "banner",
   className = "",
+  framed = true,
 }: {
-  unit?: "banner" | "rectangle" | "native";
+  unit?: NetworkAdUnit;
   className?: string;
+  /** Draw the hairline + label divider around the unit. Off for rail units,
+   *  where a bare block sits better in the margin. */
+  framed?: boolean;
 }) {
   const inv = INVENTORY[TENANT];
   const pathname = usePathname();
@@ -293,11 +328,12 @@ export function NetworkAd({
       alive = false;
     };
   }, []);
-  // Nothing is shown — no label, no reserved gap — until an ad actually paints.
-  // This keeps the page clean when the network has no fill (e.g. while the
-  // Adsterra domain is still being verified) instead of leaving an empty box.
+  // The label appears only once an ad has actually painted, so a no-fill never
+  // leaves a lonely "Iklan" caption behind.
   const [filled, setFilled] = useState(false);
-  const onEmpty = (isEmpty: boolean) => setFilled(!isEmpty);
+  // Memoised: an inline arrow here re-ran AdFrame's watch effect on every
+  // parent render, restarting the poll chain from zero each time.
+  const onFill = useCallback((isFilled: boolean) => setFilled(isFilled), []);
   // Desktop-vs-mobile is decided after mount so we load ONLY the size shown.
   const [wide, setWide] = useState<boolean | null>(null);
   useEffect(() => {
@@ -314,19 +350,39 @@ export function NetworkAd({
   if (pathname?.includes("/admin")) return null; // never in the admin portal
 
   const label = LABEL[TENANT] ?? "Ad";
-  const wrap = `${filled ? "my-6" : "my-0"} flex flex-col items-center gap-1 ${className}`;
+  const wrap = `${filled ? "my-8" : "my-0"} flex w-full flex-col items-center ${className}`;
+
+  // A hairline rule either side of a very small caption. Reads as a section
+  // divider the page meant to have, not as a box bolted onto the layout.
   const tag = (
-    <span className="select-none text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)] opacity-50">
-      {label}
-    </span>
+    <div
+      aria-hidden
+      className="mb-2 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45"
+    >
+      <span className="h-px flex-1 bg-[var(--color-border-gold)]" />
+      <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-secondary)]">
+        {label}
+      </span>
+      <span className="h-px flex-1 bg-[var(--color-border-gold)]" />
+    </div>
   );
+
+  if (unit === "sidebar") {
+    const b = inv.sky ?? inv.rect;
+    if (!b) return null;
+    return (
+      <aside className={`flex flex-col items-center ${className}`} aria-label={label}>
+        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
+      </aside>
+    );
+  }
 
   if (unit === "rectangle") {
     if (!inv.rect) return null;
     return (
       <aside className={wrap} aria-label={label}>
-        {filled && tag}
-        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onEmpty={onEmpty} />
+        {filled && framed && tag}
+        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onFill={onFill} />
       </aside>
     );
   }
@@ -334,10 +390,10 @@ export function NetworkAd({
   if (unit === "native") {
     if (!inv.native) return null;
     return (
-      <aside className={`${wrap} w-full`} aria-label={label}>
-        {filled && tag}
+      <aside className={`${wrap}`} aria-label={label}>
+        {filled && framed && tag}
         <div className="w-full max-w-3xl">
-          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onEmpty={onEmpty} />
+          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onFill={onFill} />
         </div>
       </aside>
     );
@@ -349,13 +405,11 @@ export function NetworkAd({
   const mobile = inv.mobile ?? inv.rect ?? inv.wide;
   const b = wide ? desktop : mobile;
   if (!b) return null;
-  // Reserve the taller of the two candidates before we know the breakpoint,
-  // so there is never a layout jump on first paint.
   return (
     <aside className={wrap} aria-label={label}>
-      {filled && tag}
+      {filled && framed && tag}
       {wide === null ? null : (
-        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onEmpty={onEmpty} />
+        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
       )}
     </aside>
   );
