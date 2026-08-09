@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "quran-json": "^3.1.2",
-    "tsx": "^4.19.2",
+    "tsx": "^4.23.9",
     "typescript": "^5.7.3"
   }
 }
