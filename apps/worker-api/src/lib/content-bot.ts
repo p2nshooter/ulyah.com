@@ -119,6 +119,16 @@ const SITES: AutoSite[] = [
 const THROTTLE_MS = 3 * 60 * 60 * 1000;
 const GH_API = "https://api.github.com";
 
+/**
+ * How many times a short draft may be continued before it is abandoned.
+ *
+ * Two is deliberate. One is often not enough — a draft that lands at 1,100
+ * words needs a substantial addition, and models undershoot a stated target.
+ * Beyond two the returns fall off and the additions start circling material
+ * the article already covers, which is worse than publishing nothing.
+ */
+const MAX_CONTINUATIONS = 2;
+
 const b64encodeUtf8 = (s: string): string => {
   const bytes = new TextEncoder().encode(s);
   let bin = "";
@@ -227,8 +237,96 @@ function buildPrompt(site: AutoSite, existingTitles: string[]): string {
   );
 }
 
-/** Validate + normalise a generated article. Returns null if unusable. */
-function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | null {
+/**
+ * Ask for the sections a short draft is missing.
+ *
+ * The floor moved from 900 words to 1,800 and the bot went silent for eleven
+ * days, because one call was being asked to clear a bar it could not reach and
+ * the result was thrown away whole. A short draft is not a bad draft — it is an
+ * unfinished one — so it gets continued rather than discarded. The existing
+ * headings go into the prompt so the continuation extends the piece instead of
+ * restating it.
+ */
+function buildContinuePrompt(site: AutoSite, article: any, deficit: number): string {
+  const headings: string[] =
+    site.schema === "blog"
+      ? (article.body as string[]).filter((s) => s.startsWith("## ")).map((s) => s.slice(3))
+      : (article.sections as any[]).map((s) => String(s.hEn ?? s.h ?? "")).filter(Boolean);
+  const title = String(article.title ?? article.titleEn ?? "");
+  const common =
+    `You are continuing an article you already wrote for ${site.about}.\n` +
+    `TITLE: ${title}\n` +
+    `SECTIONS ALREADY WRITTEN: ${headings.join(" | ") || "(intro only)"}\n` +
+    `Write ONLY the additional sections needed to finish it — at least ${deficit} more words. ` +
+    `Do NOT restate, summarise or rewrite anything above; go further into the subject: the mechanism ` +
+    `behind a claim, a worked example, the trade-off, the case where it does not apply, what a reader ` +
+    `should do differently on Monday morning.\n` +
+    `Same rules as before: 100% original prose; no invented statistics, quotes, prices or news.\n` +
+    `Output STRICT JSON ONLY — no markdown fences, no commentary.\n`;
+
+  if (site.schema === "blog") {
+    return (
+      common +
+      `JSON shape: {"body": ["## New heading", "paragraph", "## Another heading", "paragraph", ...]} ` +
+      `— continuation items only, each heading prefixed "## ".`
+    );
+  }
+  if (site.schema === "bilingual") {
+    return (
+      common +
+      `Write both ${site.lang} and English, fully mirrored, each language carrying at least ${deficit} more words. ` +
+      `JSON shape: {"sections": [{"hHi": "${site.lang} heading", "hEn": "English heading", ` +
+      `"pHi": ["para", "para"], "pEn": ["para", "para"]}, ...]} — new sections only.`
+    );
+  }
+  return (
+    common +
+    `JSON shape: {"sections": [{"h": "Section heading", "p": ["para", "para"]}, ...]} — new sections only, ` +
+    `every paragraph a full one of 90-130 words.`
+  );
+}
+
+/** How long the piece is, measured against the bar that applies to its schema. */
+function articleLength(site: AutoSite, article: any): { words: number; need: number } {
+  if (site.schema === "blog") {
+    return { words: countWords(article.body), need: MIN_WORDS };
+  }
+  if (site.schema === "bilingual") {
+    const hi = countWords(article.sections.flatMap((s: any) => [s.hHi, ...s.pHi]));
+    const en = countWords(article.sections.flatMap((s: any) => [s.hEn, ...s.pEn]));
+    // The shorter language is the one that decides — a full article in one and
+    // a sketch in the other is a thin page for half the readers.
+    return { words: Math.min(hi, en), need: MIN_WORDS_PER_LANG };
+  }
+  return { words: countWords(article.sections.flatMap((s: any) => [s.h, ...s.p])), need: MIN_WORDS };
+}
+
+/** Graft a continuation onto the raw draft. Returns false if it carried nothing usable. */
+function appendContinuation(site: AutoSite, raw: any, extra: any): boolean {
+  if (!extra || typeof extra !== "object") return false;
+  if (site.schema === "blog") {
+    const add = Array.isArray(extra.body) ? extra.body.map((s: unknown) => String(s)).filter(Boolean) : [];
+    if (!add.length) return false;
+    raw.body = [...(Array.isArray(raw.body) ? raw.body : []), ...add];
+    return true;
+  }
+  const add = Array.isArray(extra.sections) ? extra.sections : [];
+  const usable = add.filter((s: any) =>
+    site.schema === "bilingual" ? Array.isArray(s?.pHi) && Array.isArray(s?.pEn) : Array.isArray(s?.p)
+  );
+  if (!usable.length) return false;
+  raw.sections = [...(Array.isArray(raw.sections) ? raw.sections : []), ...usable];
+  return true;
+}
+
+/**
+ * Validate + normalise a generated article. Returns null if unusable.
+ *
+ * `lenient` skips only the length gate, so a draft can be measured and
+ * continued before it is judged. Everything else — shape, category, slug —
+ * is checked exactly the same way in both modes.
+ */
+function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>, lenient = false): any | null {
   if (!raw || typeof raw !== "object") return null;
   const today = new Date().toISOString().slice(0, 10);
   const okCat = (c: unknown) => typeof c === "string" && site.categories.includes(c);
@@ -242,7 +340,7 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
     const tag = okCat(raw.tag) ? raw.tag : site.categories[0];
     const body = raw.body.map((s: unknown) => String(s)).filter(Boolean);
     const words = countWords(body);
-    if (words < MIN_WORDS) return null;
+    if (!lenient && words < MIN_WORDS) return null;
     return {
       slug,
       title,
@@ -268,7 +366,7 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
     // and a sketch in the other is a thin page for half the readers.
     const wordsHi = countWords(sections.flatMap((s: any) => [s.hHi, ...s.pHi]));
     const wordsEn = countWords(sections.flatMap((s: any) => [s.hEn, ...s.pEn]));
-    if (wordsHi < MIN_WORDS_PER_LANG || wordsEn < MIN_WORDS_PER_LANG) return null;
+    if (!lenient && (wordsHi < MIN_WORDS_PER_LANG || wordsEn < MIN_WORDS_PER_LANG)) return null;
     return {
       slug,
       category: okCat(raw.category) ? raw.category : site.categories[0],
@@ -289,7 +387,7 @@ function normalise(site: AutoSite, raw: any, existingSlugs: Set<string>): any | 
     .map((s: any) => ({ h: String(s.h ?? ""), p: s.p.map((p: unknown) => String(p)).filter(Boolean) }));
   if (sections.length < 2) return null;
   const words = countWords(sections.flatMap((s: any) => [s.h, ...s.p]));
-  if (words < MIN_WORDS) return null;
+  if (!lenient && words < MIN_WORDS) return null;
   return {
     slug,
     category: okCat(raw.category) ? raw.category : site.categories[0],
@@ -312,8 +410,13 @@ async function writeForSite(env: Env, site: AutoSite): Promise<string> {
   const r = await orchestrate(env, {
     capability: "content",
     prompt: buildPrompt(site, existingTitles),
-    maxTokens: 2200,
-    timeoutMs: 45_000,
+    // 1,800 words of prose is roughly 2,400 tokens before the JSON scaffolding,
+    // and a bilingual piece carries two of them. The old ceiling of 2,200 made
+    // the floor unreachable: the reply was cut off mid-article, normalise()
+    // discarded it for being short, and the bot published nothing at all for
+    // eleven days. The ceiling has to sit above the bar it is measured against.
+    maxTokens: site.schema === "bilingual" ? 8000 : 6000,
+    timeoutMs: 60_000,
   });
   if (!r.ok || !r.text) return `${site.key}: no healthy key / generation failed`;
 
@@ -323,7 +426,46 @@ async function writeForSite(env: Env, site: AutoSite): Promise<string> {
   } catch {
     return `${site.key}: model output was not valid JSON`;
   }
-  const article = normalise(site, parsed, existingSlugs);
+  // Measure first, judge last. A draft that is well-formed but short gets
+  // continued; only a draft that is still short after the continuations is
+  // thrown away, which is what the length floor was always meant to catch.
+  let article = normalise(site, parsed, existingSlugs, true);
+  if (!article) return `${site.key}: generated article failed validation`;
+  // Pin the slug so the continuation rounds cannot re-roll its collision suffix.
+  parsed.slug = article.slug;
+
+  for (let round = 0; round < MAX_CONTINUATIONS; round += 1) {
+    const { words, need } = articleLength(site, article);
+    if (words >= need) break;
+    const cont = await orchestrate(env, {
+      capability: "content",
+      prompt: buildContinuePrompt(site, article, need - words),
+      maxTokens: site.schema === "bilingual" ? 6000 : 4000,
+      timeoutMs: 60_000,
+    });
+    if (!cont.ok || !cont.text) break;
+    let extra: any;
+    try {
+      extra = extractJson(cont.text);
+    } catch {
+      break;
+    }
+    const before = article;
+    if (!appendContinuation(site, parsed, extra)) break;
+    const grown = normalise(site, parsed, existingSlugs, true);
+    // A continuation that broke the shape, or added nothing, ends the loop
+    // rather than burning another key on the same ground.
+    if (!grown || articleLength(site, grown).words <= articleLength(site, before).words) break;
+    article = grown;
+  }
+
+  const measured = articleLength(site, article);
+  if (measured.words < measured.need) {
+    return `${site.key}: still ${measured.need - measured.words} words short after ${MAX_CONTINUATIONS} continuations — not published`;
+  }
+  // Re-normalise strictly, so the committed article goes through exactly the
+  // same gate as before this change.
+  article = normalise(site, parsed, existingSlugs);
   if (!article) return `${site.key}: generated article failed validation`;
 
   const next = [...existing.content, article];
