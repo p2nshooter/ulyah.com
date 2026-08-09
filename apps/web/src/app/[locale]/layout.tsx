@@ -11,6 +11,7 @@ import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { AdSlot } from "@/components/AdSlot";
 import { NetworkAd } from "@/components/NetworkAd";
+import { PageAds } from "@/components/PageAds";
 import { EcoOrnaments } from "@/components/EcosystemDecor";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
@@ -318,15 +319,22 @@ export default async function LocaleLayout({
           {/* Soft ambient ornaments behind every page (ulyah/1fr/tilawa). */}
           <EcoOrnaments />
           <Header locale={locale} dict={dict} />
-          {/* Owner request ("iklan adsterra pindahkan di posisi paling bawah
-              aja sebelum footer biar ga menggang di atas"): NO network ad at
-              the top — the reader meets content first. All Adsterra units live
-              together at the very bottom, just before the footer. */}
+          {/* Still NO network ad above the content — the reader meets the page
+              first, exactly as the owner asked earlier ("biar ga menggang di
+              atas"). The 4–5 units per page the owner then asked for are placed
+              BETWEEN content blocks by <PageAds/> below, which measures the
+              rendered page so each one lands on a real section boundary. */}
           <main className="min-h-screen pb-24">{children}</main>
-          {/* All ecosystem Adsterra ads consolidated here, right before the
-              footer. Renders only on tenants that have units; collapses cleanly
-              when the network has no fill. AdSlot (AdSense) stays dormant until
-              enabled centrally from the ulyah.com admin. */}
+          {/* Reads the rendered <main> and fills the page up to the owner's
+              quota — one unit above the content, three through the middle on
+              real section boundaries, two in the closing cluster below. Skips
+              focused pages (mushaf, kiblat, sign-in) and any tenant with no
+              Adsterra inventory. */}
+          <PageAds />
+          {/* The closing cluster, right before the footer. Renders only on
+              tenants that have units; collapses cleanly when the network has no
+              fill. AdSlot (AdSense) stays dormant until enabled centrally from
+              the ulyah.com admin. */}
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
             <NetworkAd unit="banner" />
             <NetworkAd unit="native" />
