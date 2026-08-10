@@ -79,7 +79,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
             <span aria-hidden>🌍</span> {kl.worldwide}
             <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{channels.length}</span>
           </h2>
-          <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+          <p className="mt-1 text-xs text-text-secondary">
 {kl.worldwideDesc}
           </p>
           <div className="reveal-stagger mt-4 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
@@ -100,7 +100,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
                 ) : (
                   <button
                     onClick={() => setPlayingChannel(ch.id)}
-                    className="group relative grid aspect-video w-full place-items-center overflow-hidden rounded-xl bg-gradient-to-b from-[var(--panel-bg2)] to-[var(--panel-bg)]"
+                    className="group relative grid aspect-video w-full place-items-center overflow-hidden rounded-xl bg-linear-to-b from-(--panel-bg2) to-(--panel-bg)"
                     aria-label={`${kl.play}: ${ch.title}`}
                   >
                     <span className="grid h-14 w-14 place-items-center rounded-full bg-accent text-2xl text-primary shadow-xl transition group-hover:scale-110">

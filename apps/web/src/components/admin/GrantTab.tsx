@@ -314,13 +314,13 @@ salam@ulyah.com · https://ulyah.com`;
     }
   }
 
-  const field = "w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm";
+  const field = "w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm";
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-lg">🤝 Grant &amp; Fundraising</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           Cari donatur, buat proposal dari data live ULYAH.COM (unduh DOC berlogo / cetak PDF), lalu susun email di komposer
           ala Gmail — lampirkan proposal, tinjau isi persisnya, kirim tinjauan ke diri sendiri dulu, baru kirim ke donatur
           dari <b>salam@ulyah.com</b>. AI menulis, Anda meninjau sebelum kirim.
@@ -328,8 +328,8 @@ salam@ulyah.com · https://ulyah.com`;
         {dash && (
           <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
             <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-accent">Donatur: {dash.totals.donors}</span>
-            <span className="rounded-full border border-[var(--color-border)] px-3 py-1">Proposal: {dash.totals.proposals}</span>
-            <span className="rounded-full border border-[var(--color-border)] px-3 py-1">Email terkirim: {dash.totals.emailsSent}</span>
+            <span className="rounded-full border border-(--color-border) px-3 py-1">Proposal: {dash.totals.proposals}</span>
+            <span className="rounded-full border border-(--color-border) px-3 py-1">Email terkirim: {dash.totals.emailsSent}</span>
             <span className={`rounded-full border px-3 py-1 ${dash.emailConfigured ? "border-success/40 bg-success/10 text-success" : "border-warning/40 bg-warning/10 text-warning"}`}>
               {dash.emailConfigured ? "Email siap kirim (Resend aktif)" : "Email BELUM aktif — set RESEND_API_KEY"}
             </span>
@@ -341,7 +341,7 @@ salam@ulyah.com · https://ulyah.com`;
 
       {/* Add donor + AI suggest */}
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
           <p className="text-sm font-medium">➕ Tambah donatur</p>
           <div className="mt-2 grid gap-2">
             <input className={field} placeholder="Nama organisasi *" value={newDonor.org_name} onChange={(e) => setNewDonor({ ...newDonor, org_name: e.target.value })} />
@@ -355,9 +355,9 @@ salam@ulyah.com · https://ulyah.com`;
           </div>
         </div>
 
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
           <p className="text-sm font-medium">🔎 Cari donatur (AI)</p>
-          <p className="text-[11px] text-[var(--color-text-secondary)]">AI mengusulkan kandidat organisasi — WAJIB diverifikasi (bukan fakta live).</p>
+          <p className="text-[11px] text-text-secondary">AI mengusulkan kandidat organisasi — WAJIB diverifikasi (bukan fakta live).</p>
           <div className="mt-2 grid gap-2">
             <div className="grid grid-cols-2 gap-2">
               <input className={field} placeholder="Negara (mis. Qatar)" value={suggest.country} onChange={(e) => setSuggest({ ...suggest, country: e.target.value })} />
@@ -372,24 +372,24 @@ salam@ulyah.com · https://ulyah.com`;
       </div>
 
       {/* Donor list */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">📇 Daftar donatur ({donors.length})</p>
         <div className="mt-2 max-h-52 space-y-1 overflow-y-auto">
           {donors.map((d) => (
             <label key={d.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-xs hover:bg-black/5">
               <input type="radio" name="donor" checked={selDonor === d.id} onChange={() => setSelDonor(d.id)} />
               <span className="font-medium">{d.org_name}</span>
-              <span className="text-[var(--color-text-secondary)]">{d.country ?? ""} · {d.language ?? "en"} · {d.status}</span>
+              <span className="text-text-secondary">{d.country ?? ""} · {d.language ?? "en"} · {d.status}</span>
               {d.drive_proposal_url && <span title="Proposal tersedia di Drive">📁</span>}
-              {!d.email && <span className="rounded bg-warning/15 px-1 text-[9px] text-warning" title="Email kontak belum diisi">email?</span>}
+              {!d.email && <span className="rounded-sm bg-warning/15 px-1 text-[9px] text-warning" title="Email kontak belum diisi">email?</span>}
             </label>
           ))}
-          {donors.length === 0 && <p className="text-xs text-[var(--color-text-secondary)]">Belum ada donatur.</p>}
+          {donors.length === 0 && <p className="text-xs text-text-secondary">Belum ada donatur.</p>}
         </div>
         {selectedDonor && (
           <div className="mt-3 rounded-lg border border-accent/30 bg-accent/5 p-3 text-xs">
             <p className="font-medium">{selectedDonor.org_name}</p>
-            <p className="mt-1 text-[var(--color-text-secondary)]">
+            <p className="mt-1 text-text-secondary">
               {selectedDonor.org_type ?? "—"} · {selectedDonor.country ?? "—"} · bahasa: {selectedDonor.language ?? "en"} ·
               email: {selectedDonor.email || "BELUM DIISI — lengkapi dulu sebelum kirim"}
             </p>
@@ -404,7 +404,7 @@ salam@ulyah.com · https://ulyah.com`;
                   📁 Buka proposal di Drive ↗
                 </a>
               )}
-              <span className="text-[var(--color-text-secondary)]">
+              <span className="text-text-secondary">
                 Alur 1-klik: pilih donatur → ✨ Isi otomatis (AI menulis dalam bahasa Inggris + bahasa negaranya) →
                 proposal terlampir otomatis → Kirim. PDF Drive bisa diunduh lalu dilampirkan lewat “+ Unggah lampiran”.
               </span>
@@ -414,10 +414,10 @@ salam@ulyah.com · https://ulyah.com`;
       </div>
 
       {/* Proposal */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">📄 Proposal (data live + AI)</p>
         <div className="mt-2 flex flex-wrap items-center gap-2">
-          <input className="w-28 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-xs" placeholder="Bahasa" value={propLang} onChange={(e) => setPropLang(e.target.value)} />
+          <input className="w-28 rounded-lg border border-(--color-border) bg-transparent px-3 py-1.5 text-xs" placeholder="Bahasa" value={propLang} onChange={(e) => setPropLang(e.target.value)} />
           <button onClick={genProposal} disabled={busy === "proposal"} className="rounded-full bg-accent px-4 py-1.5 text-xs font-medium text-white disabled:opacity-50">
             {busy === "proposal" ? "Menulis proposal…" : selDonor ? "Buat proposal untuk donatur terpilih" : "Buat proposal umum"}
           </button>
@@ -434,7 +434,7 @@ salam@ulyah.com · https://ulyah.com`;
         </div>
         {proposal && (
           <textarea
-            className="mt-3 h-56 w-full rounded-lg border border-[var(--color-border)] bg-transparent p-3 text-xs leading-relaxed"
+            className="mt-3 h-56 w-full rounded-lg border border-(--color-border) bg-transparent p-3 text-xs leading-relaxed"
             value={proposal.body}
             onChange={(e) => setProposal({ ...proposal, body: e.target.value })}
           />
@@ -442,7 +442,7 @@ salam@ulyah.com · https://ulyah.com`;
       </div>
 
       {/* ── Gmail-style composer ─────────────────────────────────────────── */}
-      <div className="overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-(--color-border) bg-(--color-card) shadow-xs">
         <div className="flex items-center justify-between bg-[#0B3D2E] px-4 py-2.5 text-[#f4efe3]">
           <span className="flex items-center gap-2 text-sm font-medium">✉️ Pesan Baru</span>
           <div className="flex items-center gap-2">
@@ -460,43 +460,43 @@ salam@ulyah.com · https://ulyah.com`;
 
         {preview ? (
           <div className="space-y-3 p-5">
-            <div className="text-xs text-[var(--color-text-secondary)]">
+            <div className="text-xs text-text-secondary">
               <p><b>Dari:</b> ULYAH.COM &lt;salam@ulyah.com&gt;</p>
               <p><b>Kepada:</b> {email.to || "—"}</p>
               <p><b>Subjek:</b> {email.subject || "—"}</p>
             </div>
-            <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-4 text-sm leading-relaxed dark:bg-white/[0.02]">
+            <div className="rounded-lg border border-(--color-border) bg-surface/50 p-4 text-sm leading-relaxed dark:bg-white/2">
               <p className="whitespace-pre-wrap">{email.bodyTarget || "(isi email kosong)"}</p>
-              <div className="mt-4 border-t border-[var(--color-border)] pt-2 text-[11px] text-[var(--color-text-secondary)]">
+              <div className="mt-4 border-t border-(--color-border) pt-2 text-[11px] text-text-secondary">
                 Yusron Efendi · https://ulyah.com · salam@ulyah.com
               </div>
             </div>
             {attachments.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {attachments.map((a) => (
-                  <span key={a.filename} className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] px-2 py-1 text-[11px]">
-                    📎 {a.filename} <span className="text-[var(--color-text-secondary)]">({humanSize(a.size)})</span>
+                  <span key={a.filename} className="flex items-center gap-1 rounded-lg border border-(--color-border) px-2 py-1 text-[11px]">
+                    📎 {a.filename} <span className="text-text-secondary">({humanSize(a.size)})</span>
                   </span>
                 ))}
               </div>
             )}
           </div>
         ) : (
-          <div className="divide-y divide-[var(--color-border)]">
+          <div className="divide-y divide-(--color-border)">
             <div className="flex items-center gap-2 px-4 py-2 text-sm">
-              <span className="w-16 shrink-0 text-xs text-[var(--color-text-secondary)]">Dari</span>
-              <span className="text-[var(--color-text-secondary)]">ULYAH.COM &lt;salam@ulyah.com&gt;</span>
+              <span className="w-16 shrink-0 text-xs text-text-secondary">Dari</span>
+              <span className="text-text-secondary">ULYAH.COM &lt;salam@ulyah.com&gt;</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-1.5">
-              <span className="w-16 shrink-0 text-xs text-[var(--color-text-secondary)]">Kepada</span>
-              <input className="flex-1 bg-transparent py-1 text-sm outline-none" placeholder="email donatur" value={email.to} onChange={(e) => setEmail({ ...email, to: e.target.value })} />
+              <span className="w-16 shrink-0 text-xs text-text-secondary">Kepada</span>
+              <input className="flex-1 bg-transparent py-1 text-sm outline-hidden" placeholder="email donatur" value={email.to} onChange={(e) => setEmail({ ...email, to: e.target.value })} />
             </div>
             <div className="flex items-center gap-2 px-4 py-1.5">
-              <span className="w-16 shrink-0 text-xs text-[var(--color-text-secondary)]">Subjek</span>
-              <input className="flex-1 bg-transparent py-1 text-sm outline-none" placeholder="judul email" value={email.subject} onChange={(e) => setEmail({ ...email, subject: e.target.value })} />
+              <span className="w-16 shrink-0 text-xs text-text-secondary">Subjek</span>
+              <input className="flex-1 bg-transparent py-1 text-sm outline-hidden" placeholder="judul email" value={email.subject} onChange={(e) => setEmail({ ...email, subject: e.target.value })} />
             </div>
             <textarea
-              className="min-h-[180px] w-full resize-y bg-transparent px-4 py-3 text-sm leading-relaxed outline-none"
+              className="min-h-[180px] w-full resize-y bg-transparent px-4 py-3 text-sm leading-relaxed outline-hidden"
               placeholder="Tulis pesan… (atau tekan ✨ Isi otomatis)"
               value={email.bodyTarget}
               onChange={(e) => setEmail({ ...email, bodyTarget: e.target.value })}
@@ -505,23 +505,23 @@ salam@ulyah.com · https://ulyah.com`;
         )}
 
         {/* Attachments row */}
-        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] px-4 py-2.5">
+        <div className="flex flex-wrap items-center gap-2 border-t border-(--color-border) px-4 py-2.5">
           {attachments.map((a) => (
-            <span key={a.filename} className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-2 py-1 text-[11px] dark:bg-white/[0.02]">
+            <span key={a.filename} className="flex items-center gap-1.5 rounded-lg border border-(--color-border) bg-surface/50 px-2 py-1 text-[11px] dark:bg-white/2">
               📎 {a.filename}
-              <span className="text-[var(--color-text-secondary)]">{humanSize(a.size)}</span>
+              <span className="text-text-secondary">{humanSize(a.size)}</span>
               <button onClick={() => downloadAttachment(a)} title="Unduh" className="text-accent hover:underline">⬇</button>
               <button onClick={() => setAttachments((x) => x.filter((y) => y.filename !== a.filename))} title="Hapus" className="text-danger">✕</button>
             </span>
           ))}
-          <label className="cursor-pointer rounded-lg border border-dashed border-[var(--color-border)] px-3 py-1 text-[11px] text-[var(--color-text-secondary)] hover:border-accent">
+          <label className="cursor-pointer rounded-lg border border-dashed border-(--color-border) px-3 py-1 text-[11px] text-text-secondary hover:border-accent">
             + Unggah lampiran
             <input type="file" multiple className="hidden" onChange={(e) => onUpload(e.target.files)} />
           </label>
         </div>
 
         {/* Actions */}
-        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] px-4 py-3">
+        <div className="flex flex-wrap items-center gap-2 border-t border-(--color-border) px-4 py-3">
           <button onClick={() => sendEmail(false)} disabled={busy === "send"} className="rounded-full bg-accent px-5 py-2 text-xs font-medium text-white disabled:opacity-50">
             {busy === "send" ? "Mengirim…" : "➤ Kirim ke Donatur"}
           </button>
@@ -529,7 +529,7 @@ salam@ulyah.com · https://ulyah.com`;
             {busy === "review" ? "Mengirim…" : "📋 Kirim Tinjauan ke saya"}
           </button>
           <input
-            className="w-52 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-xs"
+            className="w-52 rounded-lg border border-(--color-border) bg-transparent px-3 py-1.5 text-xs"
             placeholder="email tinjauan (opsional)"
             value={reviewTo}
             onChange={(e) => setReviewTo(e.target.value)}
@@ -537,9 +537,9 @@ salam@ulyah.com · https://ulyah.com`;
         </div>
 
         {email.bodyId && (
-          <div className="border-t border-[var(--color-border)] p-4">
-            <p className="mb-1 text-[11px] font-medium text-[var(--color-text-secondary)]">Versi Bahasa Indonesia (untuk ditinjau — tidak dikirim):</p>
-            <textarea className="h-24 w-full rounded-lg border border-[var(--color-border)] bg-black/5 p-2 text-xs" value={email.bodyId} readOnly />
+          <div className="border-t border-(--color-border) p-4">
+            <p className="mb-1 text-[11px] font-medium text-text-secondary">Versi Bahasa Indonesia (untuk ditinjau — tidak dikirim):</p>
+            <textarea className="h-24 w-full rounded-lg border border-(--color-border) bg-black/5 p-2 text-xs" value={email.bodyId} readOnly />
           </div>
         )}
       </div>

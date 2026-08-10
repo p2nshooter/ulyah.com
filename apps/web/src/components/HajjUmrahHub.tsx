@@ -129,7 +129,7 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
     return (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="h-72 animate-pulse rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/40" />
+          <div key={i} className="h-72 animate-pulse rounded-2xl border border-(--color-border) bg-surface/40" />
         ))}
       </div>
     );
@@ -138,13 +138,13 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
   // Elegant, courteous rental invitation — shown whether or not any package
   // is listed, so the $1/day offer to Hajj & Umrah partners is always present.
   const rentInvite = (
-    <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 p-6 text-center sm:p-8">
+    <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-linear-to-br from-accent/10 via-transparent to-accent/5 p-6 text-center sm:p-8">
       <p className="text-3xl">🕋</p>
       <h2 className="mt-2 font-heading text-xl sm:text-2xl">{t.rentTitle}</h2>
-      <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-text-secondary)]">{t.rentBody}</p>
+      <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-text-secondary">{t.rentBody}</p>
       <a
         href="mailto:salam@ulyah.com"
-        className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow transition hover:brightness-110"
+        className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
       >
         ✉️ {t.rentCta}
       </a>
@@ -155,7 +155,7 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
     return (
       <div>
         {rentInvite}
-        <div className="rounded-2xl border border-dashed border-[var(--color-border)] px-6 py-16 text-center text-[var(--color-text-secondary)]">
+        <div className="rounded-2xl border border-dashed border-(--color-border) px-6 py-16 text-center text-text-secondary">
           {t.empty}
         </div>
       </div>
@@ -173,8 +173,8 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
               onClick={() => setFilter(k)}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
                 filter === k
-                  ? "bg-accent text-white shadow"
-                  : "border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-accent"
+                  ? "bg-accent text-white shadow-sm"
+                  : "border border-(--color-border) text-text-secondary hover:border-accent"
               }`}
             >
               {k === "all" ? t.all : k === "hajj" ? t.hajj : t.umrah}
@@ -187,20 +187,20 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
         {shown.map((p) => (
           <article
             key={p.id}
-            className="group relative flex flex-col overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-surface shadow-xs transition hover:-translate-y-0.5 hover:shadow-lg"
           >
-            <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-primary/80 to-accent/60">
+            <div className="relative aspect-video overflow-hidden bg-linear-to-br from-primary/80 to-accent/60">
               {p.image_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={p.image_url} alt={p.title} className="h-full w-full object-cover" loading="lazy" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-5xl opacity-90">🕋</div>
               )}
-              <span className="absolute left-3 top-3 rounded-full bg-black/45 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white backdrop-blur">
+              <span className="absolute left-3 top-3 rounded-full bg-black/45 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
                 {p.kind === "hajj" ? t.hajj : t.umrah}
               </span>
               {p.badge && (
-                <span className="absolute right-3 top-3 rounded-full bg-accent px-2.5 py-0.5 text-[11px] font-bold text-white shadow">
+                <span className="absolute right-3 top-3 rounded-full bg-accent px-2.5 py-0.5 text-[11px] font-bold text-white shadow-sm">
                   {p.badge}
                 </span>
               )}
@@ -208,8 +208,8 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
 
             <div className="flex flex-1 flex-col p-5">
               <h3 className="font-heading text-lg leading-snug">{p.title}</h3>
-              {p.provider && <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">{p.provider}</p>}
-              {p.description && <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{p.description}</p>}
+              {p.provider && <p className="mt-0.5 text-xs text-text-secondary">{p.provider}</p>}
+              {p.description && <p className="mt-2 text-sm text-text-secondary">{p.description}</p>}
 
               {p.features.length > 0 && (
                 <ul className="mt-3 space-y-1.5">
@@ -222,17 +222,17 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
                 </ul>
               )}
 
-              <dl className="mt-4 grid grid-cols-2 gap-2 border-t border-[var(--color-border)] pt-3 text-xs text-[var(--color-text-secondary)]">
+              <dl className="mt-4 grid grid-cols-2 gap-2 border-t border-(--color-border) pt-3 text-xs text-text-secondary">
                 {p.duration && (
                   <div>
                     <dt className="opacity-70">{t.duration}</dt>
-                    <dd className="font-medium text-[var(--color-text)]">{p.duration}</dd>
+                    <dd className="font-medium text-(--color-text)">{p.duration}</dd>
                   </div>
                 )}
                 {p.departure && (
                   <div>
                     <dt className="opacity-70">{t.departure}</dt>
-                    <dd className="font-medium text-[var(--color-text)]">{p.departure}</dd>
+                    <dd className="font-medium text-(--color-text)">{p.departure}</dd>
                   </div>
                 )}
               </dl>
@@ -251,7 +251,7 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
                     href={p.contact_url}
                     target={p.contact_url.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
-                    className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow transition hover:brightness-110"
+                    className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
                   >
                     {t.contact}
                   </a>

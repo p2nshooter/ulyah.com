@@ -106,7 +106,7 @@ export default async function AudiobookPage({
           <Link
             href={`/${locale}/audiobook`}
             className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
-              !category ? "border-accent bg-accent text-primary" : "border-[var(--color-border)] hover:border-accent"
+              !category ? "border-accent bg-accent text-primary" : "border-(--color-border) hover:border-accent"
             }`}
           >
             ✦ {dict.common.all}
@@ -116,7 +116,7 @@ export default async function AudiobookPage({
               key={c.id}
               href={`/${locale}/audiobook?category=${c.slug}`}
               className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
-                category === c.slug ? "border-accent bg-accent text-primary" : "border-[var(--color-border)] hover:border-accent"
+                category === c.slug ? "border-accent bg-accent text-primary" : "border-(--color-border) hover:border-accent"
               }`}
             >
               {CATEGORY_ICON[c.slug] ?? "📚"} {c.name}
@@ -127,7 +127,7 @@ export default async function AudiobookPage({
 
       <div className="mt-8 grid gap-3 sm:grid-cols-2">
         {stories.length === 0 && (
-          <p className="col-span-2 text-center text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>
+          <p className="col-span-2 text-center text-sm text-text-secondary">{dict.reader.noContentYet}</p>
         )}
         {stories.map((s, i) => (
           <div key={s.id} className={i === 3 && stories.length > 4 ? "sm:col-span-2" : ""}>
@@ -142,7 +142,7 @@ export default async function AudiobookPage({
                     : s.category_name ?? dict.explore.audiobook.title}
                 </p>
                 <p className="mt-1 truncate font-heading text-lg">{s.title}</p>
-                <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+                <p className="mt-1 text-xs text-text-secondary">
                   {s.audio_r2_key ? `🎧 ${dict.reader.downloadAudiobook}` : `⏳ ${dict.reader.audioProcessing}`}
                 </p>
               </div>

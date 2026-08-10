@@ -143,13 +143,13 @@ export function HajjTab() {
     }
   }
 
-  const input = "w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm";
+  const input = "w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm";
   const visibleCount = rows.filter((r) => r.visible).length;
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-        <p className="font-heading text-base text-[var(--color-text-primary)]">🕋 Haji &amp; Umroh — halaman publik /haji-umroh</p>
+      <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-text-secondary">
+        <p className="font-heading text-base text-text-primary">🕋 Haji &amp; Umroh — halaman publik /haji-umroh</p>
         <p className="mt-2">
           Kelola paket haji &amp; umroh yang tampil di halaman promosi. Tulis dalam bahasa situs terkait. <b>👁 Tampil</b>{" "}
           = muncul di halaman publik, <b>🙈 Sembunyi</b> = tersimpan tapi tidak tampil. Isi <b>Poin fitur</b> satu baris
@@ -159,7 +159,7 @@ export function HajjTab() {
 
       {isUlyah && (
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-[var(--color-text-secondary)]">Situs:</span>
+          <span className="text-text-secondary">Situs:</span>
           {["ulyah", "1fr", "tilawa", "dawa"].map((t) => (
             <button
               key={t}
@@ -167,7 +167,7 @@ export function HajjTab() {
                 setTenant(t);
                 setDraft(EMPTY);
               }}
-              className={`rounded-full px-3 py-1 text-xs ${tenant === t ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
+              className={`rounded-full px-3 py-1 text-xs ${tenant === t ? "bg-accent text-white" : "border border-(--color-border)"}`}
             >
               {t === "1fr" ? "1fr.fr" : t === "tilawa" ? "tilawa.de" : t === "dawa" ? "dawa.es" : "ulyah.com"}
             </button>
@@ -178,7 +178,7 @@ export function HajjTab() {
       {note && <p className="text-sm text-accent">{note}</p>}
 
       {/* Add / edit form */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">{draft.id ? `✎ Edit paket #${draft.id}` : "+ Tambah paket"}</p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           <select
@@ -206,7 +206,7 @@ export function HajjTab() {
             {busy ? "…" : draft.id ? "Simpan perubahan" : "+ Tambah paket"}
           </button>
           {draft.id && (
-            <button onClick={() => setDraft(EMPTY)} className="rounded-full border border-[var(--color-border)] px-5 py-2 text-xs">
+            <button onClick={() => setDraft(EMPTY)} className="rounded-full border border-(--color-border) px-5 py-2 text-xs">
               Batal
             </button>
           )}
@@ -214,7 +214,7 @@ export function HajjTab() {
       </div>
 
       {/* List */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">
           🗂️ Paket ({rows.length}) — tampil {visibleCount}, tersembunyi {rows.length - visibleCount}
         </p>
@@ -222,20 +222,20 @@ export function HajjTab() {
           {rows.map((r) => (
             <div
               key={r.id}
-              className={`flex flex-wrap items-center gap-2 rounded-lg border border-[var(--color-border)] p-2 text-xs ${r.visible ? "" : "opacity-55"}`}
+              className={`flex flex-wrap items-center gap-2 rounded-lg border border-(--color-border) p-2 text-xs ${r.visible ? "" : "opacity-55"}`}
             >
               <span className="rounded-full border border-accent/40 px-2 py-0.5 text-accent">{r.kind === "hajj" ? "Haji" : "Umroh"}</span>
               <span className="min-w-0 flex-1 truncate">
                 <b>{r.title}</b>
-                {r.price && <span className="ml-2 text-[var(--color-text-secondary)]">{r.price}</span>}
-                {r.provider && <span className="ml-2 text-[var(--color-text-secondary)]">· {r.provider}</span>}
+                {r.price && <span className="ml-2 text-text-secondary">{r.price}</span>}
+                {r.provider && <span className="ml-2 text-text-secondary">· {r.provider}</span>}
               </span>
-              <button onClick={() => setDraft(toDraft(r))} className="rounded-full border border-[var(--color-border)] px-3 py-1">
+              <button onClick={() => setDraft(toDraft(r))} className="rounded-full border border-(--color-border) px-3 py-1">
                 ✎ Edit
               </button>
               <button
                 onClick={() => toggle(r)}
-                className={`rounded-full border px-3 py-1 ${r.visible ? "border-accent/50 text-accent" : "border-[var(--color-border)] text-[var(--color-text-secondary)]"}`}
+                className={`rounded-full border px-3 py-1 ${r.visible ? "border-accent/50 text-accent" : "border-(--color-border) text-text-secondary"}`}
               >
                 {r.visible ? "👁 Tampil" : "🙈 Sembunyi"}
               </button>
@@ -244,7 +244,7 @@ export function HajjTab() {
               </button>
             </div>
           ))}
-          {rows.length === 0 && <p className="text-xs text-[var(--color-text-secondary)]">Belum ada paket untuk situs ini.</p>}
+          {rows.length === 0 && <p className="text-xs text-text-secondary">Belum ada paket untuk situs ini.</p>}
         </div>
       </div>
     </div>

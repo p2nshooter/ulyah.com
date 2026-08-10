@@ -97,12 +97,12 @@ export function KidsChannelsTab() {
   }, [rows]);
 
   const visibleCount = rows.filter((r) => r.visible).length;
-  const input = "rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm";
+  const input = "rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm";
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-        <p className="font-heading text-base text-[var(--color-text-primary)]">🎬 Film Anak Muslim Dunia — halaman publik /video-anak</p>
+      <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-text-secondary">
+        <p className="font-heading text-base text-text-primary">🎬 Film Anak Muslim Dunia — halaman publik /video-anak</p>
         <p className="mt-2">
           Channel dikelompokkan per negara. <b>👁 Tampil</b> berarti muncul di halaman publik, <b>🙈 Sembunyi</b>{" "}
           berarti tidak muncul (data tetap tersimpan, bisa ditampilkan lagi kapan saja). Tambahkan channel baru dengan
@@ -113,7 +113,7 @@ export function KidsChannelsTab() {
       {note && <p className="text-sm text-accent">{note}</p>}
 
       {/* Add form */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">+ Tambah channel</p>
         <div className="mt-3 grid gap-2 sm:grid-cols-[140px_1fr_1fr_110px_auto]">
           <input className={input} placeholder="Negara (mis. Mesir)" value={draft.country} onChange={(e) => setDraft((p) => ({ ...p, country: e.target.value }))} />
@@ -127,7 +127,7 @@ export function KidsChannelsTab() {
       </div>
 
       {/* Per-country lists */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">
           🌍 Semua channel ({rows.length}) — tampil {visibleCount}, tersembunyi {rows.length - visibleCount}
         </p>
@@ -139,14 +139,14 @@ export function KidsChannelsTab() {
                 {list.map((ch) => (
                   <div
                     key={ch.id}
-                    className={`flex flex-wrap items-center gap-2 rounded-lg border border-[var(--color-border)] p-2 text-xs ${
+                    className={`flex flex-wrap items-center gap-2 rounded-lg border border-(--color-border) p-2 text-xs ${
                       ch.visible ? "" : "opacity-55"
                     }`}
                   >
                     <span className="min-w-0 flex-1 truncate">
                       <b>{ch.title}</b>
-                      {ch.language && <span className="ml-1 text-[var(--color-text-secondary)]">({ch.language})</span>}
-                      <span className="ml-2 break-all text-[var(--color-text-secondary)]">{ch.channel_id}</span>
+                      {ch.language && <span className="ml-1 text-text-secondary">({ch.language})</span>}
+                      <span className="ml-2 break-all text-text-secondary">{ch.channel_id}</span>
                     </span>
                     <button
                       onClick={() => toggle(ch)}
@@ -154,7 +154,7 @@ export function KidsChannelsTab() {
                       className={`rounded-full border px-3 py-1 disabled:opacity-50 ${
                         ch.visible
                           ? "border-accent/50 text-accent"
-                          : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                          : "border-(--color-border) text-text-secondary"
                       }`}
                     >
                       {ch.visible ? "👁 Tampil" : "🙈 Sembunyi"}
@@ -171,7 +171,7 @@ export function KidsChannelsTab() {
               </div>
             </div>
           ))}
-          {rows.length === 0 && <p className="text-xs text-[var(--color-text-secondary)]">Belum ada data.</p>}
+          {rows.length === 0 && <p className="text-xs text-text-secondary">Belum ada data.</p>}
         </div>
       </div>
     </div>

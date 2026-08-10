@@ -51,7 +51,7 @@ export function ProofsTab() {
             key={s}
             onClick={() => setStatus(s)}
             className={`rounded-full px-3 py-1.5 text-xs capitalize ${
-              status === s ? "bg-accent text-white" : "border border-[var(--color-border)]"
+              status === s ? "bg-accent text-white" : "border border-(--color-border)"
             }`}
           >
             {s}
@@ -59,20 +59,20 @@ export function ProofsTab() {
         ))}
       </div>
 
-      {proofs.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">No {status} proofs.</p>}
+      {proofs.length === 0 && <p className="text-sm text-text-secondary">No {status} proofs.</p>}
 
       <div className="space-y-3">
         {proofs.map((p) => (
-          <div key={p.id} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div key={p.id} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="font-medium">{p.sender_name}</p>
-                <p className="text-xs text-[var(--color-text-secondary)]">
+                <p className="text-xs text-text-secondary">
                   {p.client_email} · {p.method}
                   {p.amount ? ` · ${p.amount} ${p.currency ?? ""}` : ""}
                   {p.transferred_at ? ` · ${p.transferred_at}` : ""}
                 </p>
-                {p.message && <p className="mt-1 text-xs italic text-[var(--color-text-secondary)]">“{p.message}”</p>}
+                {p.message && <p className="mt-1 text-xs italic text-text-secondary">“{p.message}”</p>}
                 {p.cert_no && <p className="mt-1 text-xs text-success">Certificate: {p.cert_no}</p>}
               </div>
               <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function ProofsTab() {
                   href={`${api.base}/admin/proofs/${p.id}/file`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs hover:border-accent"
+                  className="rounded-full border border-(--color-border) px-3 py-1.5 text-xs hover:border-accent"
                 >
                   View proof
                 </a>

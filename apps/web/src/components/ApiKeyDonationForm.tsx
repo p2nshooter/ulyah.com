@@ -59,9 +59,9 @@ export function ApiKeyDonationForm({ dict }: { dict: Dictionary }) {
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+    <div className="rounded-2xl border border-(--color-border) bg-(--color-card) p-6">
       <p className="font-heading text-lg">{dict.donation.donateApiKey}</p>
-      <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{dict.donation.donateApiKeyDesc}</p>
+      <p className="mt-1 text-sm text-text-secondary">{dict.donation.donateApiKeyDesc}</p>
 
       <form onSubmit={submit} className="mt-4 space-y-3">
         <div className="grid gap-3 sm:grid-cols-2">
@@ -72,7 +72,7 @@ export function ApiKeyDonationForm({ dict }: { dict: Dictionary }) {
               setProvider(e.target.value);
               if (p) setScope(p.kind);
             }}
-            className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+            className="rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
           >
             {providers.map((p) => (
               <option key={p.id} value={p.id}>
@@ -83,7 +83,7 @@ export function ApiKeyDonationForm({ dict }: { dict: Dictionary }) {
           <select
             value={scope}
             onChange={(e) => setScope(e.target.value as typeof scope)}
-            className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+            className="rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
           >
             <option value="text">Text / LLM</option>
             <option value="tts">TTS</option>
@@ -97,21 +97,21 @@ export function ApiKeyDonationForm({ dict }: { dict: Dictionary }) {
           value={rawKey}
           onChange={(e) => setRawKey(e.target.value)}
           placeholder={dict.donation.formKey}
-          className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
         />
         <div className="grid gap-3 sm:grid-cols-2">
           <input
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder={dict.donation.formLabel}
-            className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+            className="rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
           />
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder={dict.donation.formEmail}
-            className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+            className="rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
           />
         </div>
         <textarea
@@ -119,7 +119,7 @@ export function ApiKeyDonationForm({ dict }: { dict: Dictionary }) {
           onChange={(e) => setMessage(e.target.value)}
           placeholder={dict.donation.formMessage}
           rows={2}
-          className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
         />
         {error && <p className="text-xs text-danger">{error}</p>}
         {result && (

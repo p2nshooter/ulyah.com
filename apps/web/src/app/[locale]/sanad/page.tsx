@@ -24,7 +24,7 @@ export default async function SanadPage({ params }: { params: Promise<{ locale: 
     <div className="px-4 py-14 sm:px-6">
       <div className="mx-auto max-w-4xl">
         <h1 className="font-heading text-3xl">🔗 {t.title}</h1>
-        <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{t.subtitle}</p>
+        <p className="mt-2 text-sm text-text-secondary">{t.subtitle}</p>
 
         <div className="mt-6">
         </div>

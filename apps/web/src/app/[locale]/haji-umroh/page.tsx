@@ -94,7 +94,7 @@ export default async function HajjUmrahPage({ params }: { params: Promise<{ loca
       <header className="mx-auto mb-10 max-w-3xl text-center">
         <div className="mb-3 text-5xl">🕋</div>
         <h1 className="font-heading text-3xl sm:text-4xl">{t.heading}</h1>
-        <p className="mt-3 text-[var(--color-text-secondary)]">{t.desc}</p>
+        <p className="mt-3 text-text-secondary">{t.desc}</p>
       </header>
       <HajjUmrahHub locale={locale} />
     </div>

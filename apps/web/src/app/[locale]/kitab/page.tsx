@@ -54,12 +54,12 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
           matn, bab by bab, with terjemah + penjelasan). */}
       <Link
         href={`/${locale}/kitab-pesantren`}
-        className="mt-8 flex items-center gap-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/10 to-transparent p-5 transition hover:border-accent"
+        className="mt-8 flex items-center gap-4 rounded-2xl border border-accent/40 bg-linear-to-br from-accent/10 to-transparent p-5 transition hover:border-accent"
       >
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-2xl">🏫</span>
         <div className="min-w-0">
           <p className="font-heading text-base">{t.bridgeTitle}</p>
-          <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">{t.bridgeDesc}</p>
+          <p className="mt-0.5 text-xs text-text-secondary">{t.bridgeDesc}</p>
         </div>
         <span className="ml-auto shrink-0 text-accent">→</span>
       </Link>
@@ -70,7 +70,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
           "kaya cover kitab atau model voice speaker, temanya dibacakan"). */}
       <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 desktop:grid-cols-4">
         {categories.length === 0 && (
-          <p className="col-span-full text-center text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>
+          <p className="col-span-full text-center text-sm text-text-secondary">{t.noResults}</p>
         )}
         {categories.map((c) => {
           const cv = coverFor(c.slug);
@@ -89,11 +89,11 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
               <span
                 aria-hidden
                 style={{ borderColor: cv.foil }}
-                className="pointer-events-none absolute inset-2 left-5 rounded-sm border opacity-15"
+                className="pointer-events-none absolute inset-2 left-5 rounded-xs border opacity-15"
               />
 
               <div className="relative">
-                <span className="text-2xl drop-shadow">{c.icon ?? "📖"}</span>
+                <span className="text-2xl drop-shadow-sm">{c.icon ?? "📖"}</span>
                 <p dir="rtl" style={{ color: cv.foil }} className="font-arabic mt-2 line-clamp-2 text-lg leading-snug">
                   {c.name_ar}
                 </p>
@@ -119,7 +119,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
         })}
       </div>
 
-      <p className="mt-10 text-center text-xs text-[var(--color-text-secondary)]">{t.note}</p>
+      <p className="mt-10 text-center text-xs text-text-secondary">{t.note}</p>
     </div>
   );
 }

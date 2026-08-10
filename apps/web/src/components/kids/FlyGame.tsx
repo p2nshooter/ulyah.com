@@ -149,7 +149,7 @@ export function FlyGame({
 
   if (done) {
     return (
-      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
         <p className="text-5xl">{done === "pass" ? "🏆" : "💪"}</p>
         <p className="mt-2 font-heading text-lg font-bold text-slate-800 dark:text-amber-100">
           {done === "pass" ? t.passed : t.failed}
@@ -162,7 +162,7 @@ export function FlyGame({
   }
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-4 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-4 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
         <span className="rounded-full bg-sky-100 px-3 py-1 text-sky-800 dark:bg-sky-500/20 dark:text-sky-200">
           {t.round} {round + 1}/{rules.rounds}
@@ -181,7 +181,7 @@ export function FlyGame({
         <span className="ml-2 align-middle">{target.name}</span>
       </p>
 
-      <div className="relative mt-3 h-56 overflow-hidden rounded-2xl bg-gradient-to-b from-sky-100 to-emerald-50 dark:from-slate-700 dark:to-slate-900">
+      <div className="relative mt-3 h-56 overflow-hidden rounded-2xl bg-linear-to-b from-sky-100 to-emerald-50 dark:from-slate-700 dark:to-slate-900">
         {flyers.map((f) => (
           <div
             key={`${round}-${f.key}`}

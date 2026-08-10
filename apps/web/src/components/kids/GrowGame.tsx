@@ -83,7 +83,7 @@ export function GrowGame({
 
   if (done) {
     return (
-      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
         <p className="text-5xl">{done === "pass" ? "🏆" : "💪"}</p>
         <p className="mt-2 font-heading text-lg font-bold text-slate-800 dark:text-amber-100">
           {done === "pass" ? t.passed : t.failed}
@@ -96,7 +96,7 @@ export function GrowGame({
   }
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
         <span className="rounded-full bg-sky-100 px-3 py-1 text-sky-800 dark:bg-sky-500/20 dark:text-sky-200">
           {t.round} {round + 1}/{rules.rounds}
@@ -112,7 +112,7 @@ export function GrowGame({
       {/* The growing line */}
       <div
         dir="rtl"
-        className={`mt-5 flex min-h-[6rem] flex-wrap items-center justify-center gap-1 rounded-2xl bg-emerald-50 p-4 dark:bg-emerald-500/10 ${shake ? "animate-pulse" : ""}`}
+        className={`mt-5 flex min-h-24 flex-wrap items-center justify-center gap-1 rounded-2xl bg-emerald-50 p-4 dark:bg-emerald-500/10 ${shake ? "animate-pulse" : ""}`}
       >
         {placed.length === 0 ? (
           <span className="text-xs text-slate-400">…</span>

@@ -33,13 +33,13 @@ export default async function DonasiPage({ params }: { params: Promise<{ locale:
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
       <h1 className="text-center font-heading text-3xl">{dict.donation.title}</h1>
-      <p className="mt-2 text-center text-sm text-[var(--color-text-secondary)]">{dict.donation.subtitle}</p>
+      <p className="mt-2 text-center text-sm text-text-secondary">{dict.donation.subtitle}</p>
 
       <div className="mt-8 grid grid-cols-2 gap-3 desktop:grid-cols-4">
         {impact.map(([icon, label]) => (
-          <div key={label} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-center">
+          <div key={label} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-center">
             <div className="text-xl">{icon}</div>
-            <p className="mt-2 text-xs text-[var(--color-text-secondary)]">{label}</p>
+            <p className="mt-2 text-xs text-text-secondary">{label}</p>
           </div>
         ))}
       </div>
@@ -60,7 +60,7 @@ export default async function DonasiPage({ params }: { params: Promise<{ locale:
         <ApiKeyDonationForm dict={dict} />
       </div>
 
-      <p className="mt-8 text-center text-xs text-[var(--color-text-secondary)]">{dict.donation.voluntaryNote}</p>
+      <p className="mt-8 text-center text-xs text-text-secondary">{dict.donation.voluntaryNote}</p>
     </div>
   );
 }

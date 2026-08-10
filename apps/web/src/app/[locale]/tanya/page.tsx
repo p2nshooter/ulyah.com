@@ -79,7 +79,7 @@ export default async function TanyaPage({ params }: { params: Promise<{ locale: 
   return (
     <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
       <h1 className="text-center font-heading text-3xl">💬 {aiChatLabels(locale).title}</h1>
-      <p className="mt-2 text-center text-sm text-[var(--color-text-secondary)]">{t.subtitle(TENANT.siteName)}</p>
+      <p className="mt-2 text-center text-sm text-text-secondary">{t.subtitle(TENANT.siteName)}</p>
       <div className="mt-8">
         <AiChat locale={locale} />
       </div>

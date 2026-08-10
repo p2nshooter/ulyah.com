@@ -56,7 +56,7 @@ export default async function TerimaKasihPage({ params }: { params: Promise<{ lo
       {/* Intro */}
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-lg leading-loose text-[var(--color-text-primary)] sm:text-xl">{t.intro}</p>
+          <p className="text-lg leading-loose text-text-primary sm:text-xl">{t.intro}</p>
         </div>
       </section>
 
@@ -65,13 +65,13 @@ export default async function TerimaKasihPage({ params }: { params: Promise<{ lo
         {t.sections.map((s, i) => (
           <section
             key={s.heading}
-            className={`px-4 py-14 sm:px-6 ${i % 2 === 1 ? "bg-[var(--color-surface)] dark:bg-white/[0.03]" : ""}`}
+            className={`px-4 py-14 sm:px-6 ${i % 2 === 1 ? "bg-surface dark:bg-white/3" : ""}`}
           >
             <div className="mx-auto max-w-2xl">
               <h2 className="text-center font-heading text-2xl text-primary dark:text-accent">{s.heading}</h2>
               <div className="mt-5 space-y-4">
                 {s.body.map((p, j) => (
-                  <p key={j} className="text-sm leading-relaxed text-[var(--color-text-secondary)] sm:text-base">
+                  <p key={j} className="text-sm leading-relaxed text-text-secondary sm:text-base">
                     {p}
                   </p>
                 ))}
@@ -83,9 +83,9 @@ export default async function TerimaKasihPage({ params }: { params: Promise<{ lo
 
       {/* Closing du'a */}
       <section className="px-4 py-16 sm:px-6">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-accent/30 bg-gradient-to-b from-accent/10 to-transparent p-8 text-center">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-accent/30 bg-linear-to-b from-accent/10 to-transparent p-8 text-center">
           <p className="font-arabic text-2xl text-accent">اللّٰهُمَّ آمِيْن</p>
-          <p className="mt-4 text-base leading-loose text-[var(--color-text-primary)]">{t.closingDua}</p>
+          <p className="mt-4 text-base leading-loose text-text-primary">{t.closingDua}</p>
         </div>
       </section>
     </div>

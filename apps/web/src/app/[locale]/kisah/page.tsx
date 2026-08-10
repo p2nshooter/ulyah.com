@@ -161,9 +161,9 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
         </a>
       )}
       <h1 className="font-heading text-3xl">{dict.explore.kisah.title}</h1>
-      <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{dict.explore.kisah.desc}</p>
+      <p className="mt-2 text-sm text-text-secondary">{dict.explore.kisah.desc}</p>
 
-      {!hasAnyContent && <p className="mt-8 text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>}
+      {!hasAnyContent && <p className="mt-8 text-sm text-text-secondary">{dict.reader.noContentYet}</p>}
 
       <div className="mt-10 space-y-14">
         {sections.map(({ cat, stories, persons }) => {
@@ -196,10 +196,10 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                       >
                         <span aria-hidden style={{ background: cv.spine }} className="absolute inset-y-0 left-0 w-3" />
                         <span aria-hidden style={{ background: cv.foil }} className="absolute inset-y-0 left-3 w-px opacity-40" />
-                        <span aria-hidden style={{ borderColor: cv.foil }} className="pointer-events-none absolute inset-2 left-5 rounded-sm border opacity-15" />
+                        <span aria-hidden style={{ borderColor: cv.foil }} className="pointer-events-none absolute inset-2 left-5 rounded-xs border opacity-15" />
 
                         <div className="relative">
-                          <span className="text-2xl drop-shadow">{shelfIcon}</span>
+                          <span className="text-2xl drop-shadow-sm">{shelfIcon}</span>
                           <p dir="rtl" style={{ color: cv.foil }} className="font-arabic mt-2 line-clamp-2 text-lg leading-snug">
                             {p.name_ar}
                           </p>
@@ -221,7 +221,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
               )}
 
               {stories.length === 0 && persons.length === 0 ? (
-                <p className="mt-3 text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>
+                <p className="mt-3 text-sm text-text-secondary">{dict.reader.noContentYet}</p>
               ) : stories.length > 0 ? (
                 <div className={`grid grid-cols-2 gap-4 sm:grid-cols-3 desktop:grid-cols-4 ${persons.length > 0 ? "mt-6" : "mt-4"}`}>
                   {stories.map((s) => {
@@ -236,10 +236,10 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                       >
                         <span aria-hidden style={{ background: cv.spine }} className="absolute inset-y-0 left-0 w-3" />
                         <span aria-hidden style={{ background: cv.foil }} className="absolute inset-y-0 left-3 w-px opacity-40" />
-                        <span aria-hidden style={{ borderColor: cv.foil }} className="pointer-events-none absolute inset-2 left-5 rounded-sm border opacity-15" />
+                        <span aria-hidden style={{ borderColor: cv.foil }} className="pointer-events-none absolute inset-2 left-5 rounded-xs border opacity-15" />
 
                         <div className="relative">
-                          <span className="text-2xl drop-shadow">{shelfIcon}</span>
+                          <span className="text-2xl drop-shadow-sm">{shelfIcon}</span>
                           <p style={{ color: cv.foil }} className="mt-2 text-[10px] font-semibold uppercase tracking-wide opacity-90">
                             {s.episode_number ? `${episodeLabel} ${s.episode_number}` : cat.name}
                           </p>

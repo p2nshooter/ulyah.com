@@ -30,7 +30,7 @@ type Status = "done" | "partial" | "todo" | "skip" | "concept";
 const STATUS_META: Record<Status, { label: string; cls: string }> = {
   done: { label: "✅ Selesai", cls: "border-success/40 bg-success/15 text-success" },
   partial: { label: "🟡 Sebagian", cls: "border-warning/40 bg-warning/15 text-warning" },
-  todo: { label: "⬜ Belum dikerjakan", cls: "border-[var(--color-border)] bg-black/5 text-[var(--color-text-secondary)]" },
+  todo: { label: "⬜ Belum dikerjakan", cls: "border-(--color-border) bg-black/5 text-text-secondary" },
   skip: { label: "🚫 Sengaja dilewati", cls: "border-danger/30 bg-danger/10 text-danger" },
   concept: { label: "💡 Konsep", cls: "border-accent/40 bg-accent/15 text-accent" },
 };
@@ -312,18 +312,18 @@ const AI_HADITH_IDEAS: AiIdea[] = [
 export function BacklogTab() {
   return (
     <div className="space-y-8">
-      <div className="rounded-xl border border-accent/40 bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-accent/40 bg-(--color-card) p-4">
         <div className="flex items-center gap-3">
           <Image
             src="/brand/ulyah-logo-dark.webp"
             alt="Ulyah"
             width={72}
             height={72}
-            className="h-10 w-10 shrink-0 rounded-full shadow-sm"
+            className="h-10 w-10 shrink-0 rounded-full shadow-xs"
           />
           <p className="font-heading text-lg">🗂️ Rancangan &amp; Backlog — Baca Ini Dulu</p>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-3 text-xs leading-relaxed text-text-secondary">
           Halaman ini adalah <b>satu-satunya sumber kebenaran</b> untuk status pengerjaan ULYAH.COM. Setiap AI/developer
           yang melanjutkan proyek ini wajib membaca halaman ini dulu sebelum mengerjakan apa pun — supaya tidak
           mengulang riset, tidak menduplikasi kitab/hadits yang sama, dan tahu urutan prioritas yang benar (paling
@@ -345,17 +345,17 @@ export function BacklogTab() {
       {/* ── Sumber terbuka ── */}
       <section>
         <h2 className="font-heading text-base">📚 Sumber Terbuka — Status Serapan per Kategori</h2>
-        <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-[11px] text-text-secondary">
           Berdasarkan ULYAH_Open_Source_Reference_Expanded.txt (edisi awal &amp; Revisi 3) — 130+ repo di 14 kategori.
         </p>
         <div className="mt-3 space-y-2">
           {REFERENCE_CATEGORIES.map((c) => (
-            <div key={c.key} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div key={c.key} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-sm font-medium">{c.title}</p>
                 <Pill status={c.status} />
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">{c.note}</p>
+              <p className="mt-2 text-xs leading-relaxed text-text-secondary">{c.note}</p>
             </div>
           ))}
         </div>
@@ -364,24 +364,24 @@ export function BacklogTab() {
       {/* ── Taksonomi hadits ── */}
       <section>
         <h2 className="font-heading text-base">🕌 Sistem Klasifikasi Hadits — Rancangan Taksonomi Lengkap</h2>
-        <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-[11px] text-text-secondary">
           Permintaan eksplisit pemilik produk: seluruh istilah ilmu hadits di bawah ini harus menjadi rancangan resmi.
           Baru bagian "Tingkat Penerimaan" (dasar) dan sebagian kecil "Metadata" yang sudah terpasang (lihat
-          <code className="mx-1 rounded bg-black/10 px-1">apps/web/src/lib/hadith-grade.ts</code>) — sisanya (sanad,
+          <code className="mx-1 rounded-sm bg-black/10 px-1">apps/web/src/lib/hadith-grade.ts</code>) — sisanya (sanad,
           perawi, matan, penggunaan, penilaian ulama) BELUM ADA field-nya sama sekali di skema database. Menambah
           field-field ini butuh migrasi skema baru + sumber data dengan sanad/rawi terisi (lihat AhmedElTabarani/
           dorar-hadith-api di atas) — jangan dikarang, harus dari sumber bersanad nyata.
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {HADITH_TAXONOMY.map((g) => (
-            <div key={g.group} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div key={g.group} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
               <p className="text-xs font-semibold text-primary dark:text-accent">{g.group}</p>
               <ul className="mt-2 space-y-1">
                 {g.terms.map((t) => (
                   <li key={t.term} className="flex items-center justify-between gap-2 text-[11px]">
                     <span>
                       {t.term}
-                      {t.ar && <span className="ml-1 text-[var(--color-text-secondary)]"> · {t.ar}</span>}
+                      {t.ar && <span className="ml-1 text-text-secondary"> · {t.ar}</span>}
                     </span>
                     <Pill status={t.status} />
                   </li>
@@ -395,15 +395,15 @@ export function BacklogTab() {
       {/* ── Ide fitur AI hadits ── */}
       <section>
         <h2 className="font-heading text-base">🤖 Fitur AI Hadits yang Disarankan (Belum Dikerjakan)</h2>
-        <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-[11px] text-text-secondary">
           Semua item ini butuh data sanad/rawi/penilaian-ulama terisi dulu (lihat taksonomi di atas) sebelum bisa
           dibangun — urutkan setelah taksonomi metadata sanad tersedia, bukan sebelum.
         </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {AI_HADITH_IDEAS.map((idea) => (
-            <div key={idea.title} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div key={idea.title} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
               <p className="text-sm font-medium text-accent">💡 {idea.title}</p>
-              <p className="mt-1 text-xs text-[var(--color-text-secondary)]">{idea.desc}</p>
+              <p className="mt-1 text-xs text-text-secondary">{idea.desc}</p>
             </div>
           ))}
         </div>
@@ -412,7 +412,7 @@ export function BacklogTab() {
       {/* ── Catatan untuk AI berikutnya ── */}
       <section className="rounded-xl border border-accent/40 bg-accent/5 p-4">
         <h2 className="font-heading text-base">📝 Catatan untuk AI/Developer Berikutnya — Baca Sebelum Mulai</h2>
-        <ol className="mt-3 list-decimal space-y-2 pl-5 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <ol className="mt-3 list-decimal space-y-2 pl-5 text-xs leading-relaxed text-text-secondary">
           <li>
             <b>Prioritas tertinggi saat ini:</b> perkaya taksonomi hadits (bagian "Berdasarkan Perawi", "Sandaran",
             "Ketersambungan Sanad") memakai dorar-hadith-api (MIT, punya field grade+rawi nyata) — ini yang membuka
@@ -447,7 +447,7 @@ export function BacklogTab() {
             <b>Widget Store:</b> tab ini masih katalog arsitektur (data statis), BELUM app terpisah yang benar-benar
             live dengan manifest sendiri-sendiri kecuali Jadwal Sholat. Kalau melanjutkan widget baru (Kiblat, Zakat,
             Kalender Hijriyah), ikuti pola yang sama: manifest dinamis per-locale (lihat
-            <code className="mx-1 rounded bg-black/10 px-1">manifest-sholat.webmanifest/route.ts</code>) — bukan file
+            <code className="mx-1 rounded-sm bg-black/10 px-1">manifest-sholat.webmanifest/route.ts</code>) — bukan file
             statis dengan start_url yang di-hardcode ke satu locale.
           </li>
           <li>

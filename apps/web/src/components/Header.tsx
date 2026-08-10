@@ -75,7 +75,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   return (
     <header
       ref={navRef}
-      className="sticky top-0 z-30 border-b border-accent/15 bg-[var(--color-bg)]/85 shadow-[var(--shadow-sm)] backdrop-blur-md"
+      className="sticky top-0 z-30 border-b border-accent/15 bg-(--color-bg)/85 shadow-(--ul-shadow-sm) backdrop-blur-md"
     >
       <WorldCup2026Stripe />
       <EcoTopLine />
@@ -83,7 +83,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         <div className="flex min-w-0 items-center gap-2">
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
-              <Image src={TENANT.logoIcon} alt="" width={34} height={34} className="rounded-[8px] shadow-[var(--shadow-gold)]" priority />
+              <Image src={TENANT.logoIcon} alt="" width={34} height={34} className="rounded-[8px] shadow-(--ul-shadow-gold)" priority />
               {TENANT.id === "ulyah" ? (
                 <UlyahWordmark />
               ) : TENANT.wordmark && TENANT.wordmarkGold ? (
@@ -108,7 +108,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                   />
                 </>
               ) : (
-                <span className="font-heading text-base font-semibold leading-tight tracking-wide text-[var(--color-text-primary)] sm:text-lg">
+                <span className="font-heading text-base font-semibold leading-tight tracking-wide text-text-primary sm:text-lg">
                   {TENANT.siteName}
                 </span>
               )}
@@ -129,7 +129,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           <Link
             href={`/${locale}`}
             className={`rounded-full px-3 py-1.5 text-sm transition ${
-              pathname === `/${locale}` ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+              pathname === `/${locale}` ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
             }`}
           >
             {nav.home}
@@ -143,7 +143,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                 <button
                   onClick={() => setOpenGroup(open ? null : g.key)}
                   className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition ${
-                    active || open ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+                    active || open ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
                   }`}
                 >
                   <span aria-hidden className="text-xs">{g.icon}</span>
@@ -151,7 +151,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                   <span aria-hidden className={`text-[9px] transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
                 </button>
                 {open && (
-                  <div className="absolute left-0 top-full z-40 mt-2 w-60 overflow-hidden rounded-2xl border border-accent/25 bg-[var(--color-card)] py-2 shadow-[var(--shadow-gold-lg)]">
+                  <div className="absolute left-0 top-full z-40 mt-2 w-60 overflow-hidden rounded-2xl border border-accent/25 bg-(--color-card) py-2 shadow-(--ul-shadow-gold-lg)">
                     {g.items.map((it) => (
                       <Link
                         key={it.path}
@@ -175,7 +175,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               key={it.path}
               href={`/${locale}${localizedRoute(it.path, locale)}`}
               className={`rounded-full px-3 py-1.5 text-sm transition ${
-                isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-[var(--color-text-secondary)] hover:text-accent"
+                isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
               }`}
             >
               {it.label}
@@ -187,27 +187,27 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           {/* Real search box, not a buried icon — owner request, and it's
               what visitors expect from a reference site. */}
           <form action={`/${locale}/cari`} className="hidden items-center tablet:flex">
-            <div className="flex items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-black/[0.03] py-1 pl-3 pr-1 transition focus-within:border-accent dark:bg-white/5">
+            <div className="flex items-center gap-1.5 rounded-full border border-(--color-border) bg-black/3 py-1 pl-3 pr-1 transition focus-within:border-accent dark:bg-white/5">
               <span aria-hidden className="text-sm opacity-70">🔍</span>
               <input
                 type="search"
                 name="q"
                 placeholder={dict.nav.searchPlaceholder}
-                className="w-28 bg-transparent text-xs outline-none placeholder:text-[var(--color-text-secondary)] focus:w-44 transition-all"
+                className="w-28 bg-transparent text-xs outline-hidden placeholder:text-text-secondary focus:w-44 transition-all"
               />
             </div>
           </form>
           <Link
             href={`/${locale}/cari`}
             aria-label={dict.nav.searchPlaceholder}
-            className="rounded-full border border-[var(--color-border)] p-2 tablet:hidden"
+            className="rounded-full border border-(--color-border) p-2 tablet:hidden"
           >
             🔍
           </Link>
           <button
             onClick={toggle}
             aria-label="toggle theme"
-            className="hidden rounded-full border border-[var(--color-border)] p-2 tablet:block"
+            className="hidden rounded-full border border-(--color-border) p-2 tablet:block"
           >
             {theme === "light" ? "🌙" : "☀️"}
           </button>
@@ -216,7 +216,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="menu"
-            className="rounded-full border border-[var(--color-border)] p-2 desktop:hidden"
+            className="rounded-full border border-(--color-border) p-2 desktop:hidden"
           >
             ☰
           </button>
@@ -225,21 +225,21 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
 
       {/* Mobile: accordion of the same groups */}
       {menuOpen && (
-        <nav className="max-h-[75vh] overflow-y-auto border-t border-[var(--color-border)] px-4 py-3 desktop:hidden">
+        <nav className="max-h-[75vh] overflow-y-auto border-t border-(--color-border) px-4 py-3 desktop:hidden">
           <Link
             href={`/${locale}`}
             onClick={() => setMenuOpen(false)}
-            className="block rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
+            className="block rounded-sm px-2 py-2.5 text-sm font-medium hover:bg-black/5"
           >
             🏠 {nav.home}
           </Link>
           {nav.groups.map((g) => {
             const open = openGroup === g.key;
             return (
-              <div key={g.key} className="border-t border-[var(--color-border)]/60">
+              <div key={g.key} className="border-t border-(--color-border)/60">
                 <button
                   onClick={() => setOpenGroup(open ? null : g.key)}
-                  className="flex w-full items-center justify-between rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
+                  className="flex w-full items-center justify-between rounded-sm px-2 py-2.5 text-sm font-medium hover:bg-black/5"
                 >
                   <span>
                     {g.icon} {g.label}
@@ -254,7 +254,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
                         href={`/${locale}${localizedRoute(it.path, locale)}`}
                         onClick={() => setMenuOpen(false)}
                         className={`block rounded px-2 py-2 text-sm hover:bg-black/5 ${
-                          isActive(it.path) ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"
+                          isActive(it.path) ? "font-medium text-accent" : "text-text-secondary"
                         }`}
                       >
                         {it.label}
@@ -270,7 +270,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               key={it.path}
               href={`/${locale}${localizedRoute(it.path, locale)}`}
               onClick={() => setMenuOpen(false)}
-              className="block border-t border-[var(--color-border)]/60 rounded px-2 py-2.5 text-sm font-medium hover:bg-black/5"
+              className="block border-t border-(--color-border)/60 rounded-sm px-2 py-2.5 text-sm font-medium hover:bg-black/5"
             >
               {it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}
             </Link>

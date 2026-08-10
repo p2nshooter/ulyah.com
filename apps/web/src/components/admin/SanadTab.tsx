@@ -64,24 +64,24 @@ export function SanadTab() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-accent/40 bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-accent/40 bg-(--color-card) p-4">
         <p className="font-heading text-lg">🔗 Sanad Explorer — Mata Rantai Perawi</p>
-        <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-2 text-xs leading-relaxed text-text-secondary">
           Rantai perawi di bawah ini <b>diekstrak otomatis</b> dari teks Arab hadits yang sudah ada di database
           (bukan dikarang, bukan database biografi perawi terpisah — proyek open source untuk itu belum ditemukan
           yang layak). Ekstraksi membaca kata kunci periwayatan klasik (حدثنا، أخبرنا، عن، قال) langsung dari
-          <code className="mx-1 rounded bg-black/10 px-1">text_ar</code> setiap hadits. Berguna untuk telusur cepat,
+          <code className="mx-1 rounded-sm bg-black/10 px-1">text_ar</code> setiap hadits. Berguna untuk telusur cepat,
           bukan pengganti kitab ilmu rijal.
         </p>
       </div>
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <div className="flex flex-wrap items-center gap-2">
-          <label className="text-xs font-medium text-[var(--color-text-secondary)]">Koleksi:</label>
+          <label className="text-xs font-medium text-text-secondary">Koleksi:</label>
           <select
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
-            className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-sm"
+            className="rounded-lg border border-(--color-border) bg-transparent px-3 py-1.5 text-sm"
           >
             {collections.map((c) => (
               <option key={c.slug} value={c.slug}>
@@ -97,17 +97,17 @@ export function SanadTab() {
         </div>
 
         {err && <p className="mt-3 text-xs text-danger">Gagal memuat (butuh login admin).</p>}
-        {loading && <p className="mt-3 text-xs text-[var(--color-text-secondary)]">Memuat…</p>}
+        {loading && <p className="mt-3 text-xs text-text-secondary">Memuat…</p>}
 
         {sample && (
           <div className="mt-4 space-y-3">
             {withChain.length === 0 && (
-              <p className="text-xs text-[var(--color-text-secondary)]">
+              <p className="text-xs text-text-secondary">
                 Tidak ada rantai terdeteksi pada contoh ini — koleksi ini mungkin berisi matan tanpa isnad lengkap.
               </p>
             )}
             {withChain.map((row) => (
-              <div key={row.id} className="rounded-xl border border-[var(--color-border)] p-3">
+              <div key={row.id} className="rounded-xl border border-(--color-border) p-3">
                 <p className="text-xs font-medium text-primary dark:text-accent">Hadits No. {row.hadith_number}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
                   {row.chain.map((link, i) => (
@@ -115,7 +115,7 @@ export function SanadTab() {
                       <span className="rounded-lg bg-black/5 px-2 py-1 dir-rtl font-arabic" dir="rtl">
                         {link.name}
                       </span>
-                      {i < row.chain.length - 1 && <span className="text-[var(--color-text-secondary)]">←</span>}
+                      {i < row.chain.length - 1 && <span className="text-text-secondary">←</span>}
                     </span>
                   ))}
                 </div>

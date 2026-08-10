@@ -30,7 +30,7 @@ export default async function KidsGamePage({ params }: { params: Promise<{ local
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-linear-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-3xl px-4 pt-8 sm:px-6">
         <Link href={`/${locale}/kids`} className="text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-300">
           ← Al-Qur&apos;an Kids

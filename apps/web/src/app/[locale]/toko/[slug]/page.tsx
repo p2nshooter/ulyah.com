@@ -86,7 +86,7 @@ export default async function ShelfPage({
       <PageHero icon={shelf.icon ?? "🛒"} title={shelf.label} subtitle={shelf.blurb} />
 
       <div className="mx-auto w-full max-w-3xl px-4 pb-16">
-        <p className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-xs leading-relaxed text-text-secondary">
           <b>{t.disclosure}</b> {t.noExtraCost}
         </p>
 
@@ -103,13 +103,13 @@ export default async function ShelfPage({
           target="_blank"
           // sponsored: this link is paid, and Google requires it to say so.
           rel="sponsored nofollow noopener"
-          className="mt-6 inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-bold text-white"
+          className="mt-6 inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-white"
         >
           {t.browseOnAmazon} ↗
         </a>
 
         <p className="mt-8 text-xs">
-          <Link href={storePath} className="text-[var(--color-accent)] underline">
+          <Link href={storePath} className="text-accent underline">
             ← {t.title}
           </Link>
         </p>

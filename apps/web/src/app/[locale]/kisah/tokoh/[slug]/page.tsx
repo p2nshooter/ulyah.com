@@ -132,7 +132,7 @@ export default async function KisahTokohPage({
         {categoryLabel(person.category_slug, locale)}
       </p>
       <h1 className="mt-1 font-heading text-3xl">{person.name_id}</h1>
-      <p dir="rtl" className="mt-1 font-arabic text-2xl text-[var(--color-text-secondary)]">
+      <p dir="rtl" className="mt-1 font-arabic text-2xl text-text-secondary">
         {person.name_ar}
       </p>
       {person.title_id && <p className="mt-2 text-sm text-accent">{person.title_id}</p>}

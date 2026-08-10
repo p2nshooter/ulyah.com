@@ -84,15 +84,15 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label="Change language"
-        className="flex items-center gap-1 whitespace-nowrap rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs"
+        className="flex items-center gap-1 whitespace-nowrap rounded-full border border-(--color-border) px-3 py-1.5 text-xs"
       >
         <span aria-hidden>🌐</span>
         <span className="hidden sm:inline">{current.label}</span>
         <span className="sm:hidden">{current.code.toUpperCase()}</span>
       </button>
       {open && (
-        <div className="absolute right-0 top-full z-30 mt-2 w-56 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-xl">
-          <p className="px-3 py-1.5 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">
+        <div className="absolute right-0 top-full z-30 mt-2 w-56 overflow-hidden rounded-xl border border-(--color-border) bg-(--color-card) py-1 shadow-xl">
+          <p className="px-3 py-1.5 text-[10px] uppercase tracking-wide text-text-secondary">
             {current.label}
           </p>
           {reachable.map((l) => {
@@ -106,7 +106,7 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
                   key={l.code}
                   href={site}
                   dir={l.dir}
-                  className="flex items-center justify-between gap-2 px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-black/5"
+                  className="flex items-center justify-between gap-2 px-3 py-2 text-left text-sm text-text-primary hover:bg-black/5"
                 >
                   <span>{l.label}</span>
                   <span aria-hidden className="shrink-0 text-[10px] opacity-50">
@@ -120,7 +120,7 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
                 key={l.code}
                 onClick={() => switchTo(l.code)}
                 dir={l.dir}
-                className="block w-full px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-black/5"
+                className="block w-full px-3 py-2 text-left text-sm text-text-primary hover:bg-black/5"
               >
                 {l.label}
               </button>

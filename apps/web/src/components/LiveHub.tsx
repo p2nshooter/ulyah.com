@@ -162,7 +162,7 @@ export function LiveHub({ locale }: { locale: string }) {
           <p className="flex min-w-0 items-center gap-2 text-sm font-medium">
             <span className="truncate">
               {s.title || `YouTube ${s.slot}`}
-              {s.region && <span className="ml-1.5 text-xs font-normal text-[var(--color-text-secondary)]">· {s.region}</span>}
+              {s.region && <span className="ml-1.5 text-xs font-normal text-text-secondary">· {s.region}</span>}
             </span>
             {live ? (
               <span className="flex shrink-0 items-center gap-1 rounded-full bg-red-600/15 px-2 py-0.5 text-[10px] font-semibold text-red-500">
@@ -174,7 +174,7 @@ export function LiveHub({ locale }: { locale: string }) {
                 ⏵ {t.replay}
               </span>
             ) : (
-              <span className="shrink-0 rounded-full bg-black/10 px-2 py-0.5 text-[10px] text-[var(--color-text-secondary)] dark:bg-white/10">
+              <span className="shrink-0 rounded-full bg-black/10 px-2 py-0.5 text-[10px] text-text-secondary dark:bg-white/10">
                 OFFLINE
               </span>
             )}
@@ -187,7 +187,7 @@ export function LiveHub({ locale }: { locale: string }) {
         </div>
         {player(s)}
         {s.kind === "auto" && (
-          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 px-1 text-[10px] leading-relaxed text-text-secondary">
             {!s.video_id && (
               <span>
                 ⏸ {t.notLive}
@@ -206,7 +206,7 @@ export function LiveHub({ locale }: { locale: string }) {
           </p>
         )}
         {s.kind === "auto" && (s.slot === 101 || s.slot === 102) && (
-          <p className="mt-2 px-1 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+          <p className="mt-2 px-1 text-[10px] leading-relaxed text-text-secondary">
             {t.mutedDefault}
           </p>
         )}
@@ -222,7 +222,7 @@ export function LiveHub({ locale }: { locale: string }) {
           <span aria-hidden>🕋</span> {t.autoTitle}
           <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{autos.length}</span>
         </h2>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           {t.autoDesc}
         </p>
         <div className="reveal-stagger mt-4 grid gap-5 sm:grid-cols-2">{autos.map(card)}</div>
@@ -234,7 +234,7 @@ export function LiveHub({ locale }: { locale: string }) {
           <span aria-hidden>🎥</span> {t.broadcastsTitle}
           <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{manuals.length}</span>
         </h2>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           {t.broadcastsDesc}
         </p>
         <div className="reveal-stagger mt-4 grid gap-5 sm:grid-cols-2">{manuals.map(card)}</div>

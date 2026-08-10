@@ -141,7 +141,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
           {dict.auth.logout}
         </button>
       </div>
-      <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{me.email}</p>
+      <p className="mt-1 text-sm text-text-secondary">{me.email}</p>
 
       {/* Welcome — spoken aloud automatically, once per session */}
       <div className="mt-6">
@@ -149,26 +149,26 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       </div>
 
       {/* Certificate gallery — the first thing a donor sees after logging in */}
-      <section className="mt-6 rounded-2xl border border-accent/40 bg-gradient-to-b from-accent/[0.06] to-transparent p-5">
-        <p className="text-sm leading-relaxed text-[var(--color-text-primary)]">🌙 {dict.cert.welcomeBack}</p>
+      <section className="mt-6 rounded-2xl border border-accent/40 bg-linear-to-b from-accent/6 to-transparent p-5">
+        <p className="text-sm leading-relaxed text-text-primary">🌙 {dict.cert.welcomeBack}</p>
         <h2 className="mt-4 font-heading text-lg text-primary dark:text-accent">🎗️ {dict.cert.galleryTitle}</h2>
         {certificates.length === 0 ? (
-          <p className="mt-3 text-sm text-[var(--color-text-secondary)]">{dict.cert.noCertYet}</p>
+          <p className="mt-3 text-sm text-text-secondary">{dict.cert.noCertYet}</p>
         ) : (
           <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {certificates.map((p) => (
               <a
                 key={p.id}
                 href={`/${locale}/akun/sertifikat/${p.id}`}
-                className="group relative overflow-hidden rounded-xl border border-[#C9A84C]/50 bg-[#fbf7ee] p-3 text-center text-[#232323] shadow-sm transition hover:shadow-md"
+                className="group relative overflow-hidden rounded-xl border border-[#C9A84C]/50 bg-[#fbf7ee] p-3 text-center text-text-primary shadow-xs transition hover:shadow-md"
               >
-                <div className="pointer-events-none absolute inset-1.5 rounded-sm border border-double border-[#C9A84C]/60" />
+                <div className="pointer-events-none absolute inset-1.5 rounded-xs border border-double border-[#C9A84C]/60" />
                 <p className="relative font-heading text-[10px] uppercase tracking-widest text-[#C9A84C]">{TENANT.siteName}</p>
                 <p className="relative mt-2 text-xs font-semibold text-[#0B3D2E]">
                   {p.amount ? `${p.amount} ${p.currency ?? ""}` : p.method}
                 </p>
-                <p className="relative mt-1 text-[10px] text-[#232323]/60">{p.cert_no}</p>
-                <p className="relative mt-1 text-[9px] text-[#232323]/50">
+                <p className="relative mt-1 text-[10px] text-text-primary/60">{p.cert_no}</p>
+                <p className="relative mt-1 text-[9px] text-text-primary/50">
                   {new Date(p.created_at).toLocaleDateString(locale)}
                 </p>
               </a>
@@ -206,7 +206,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       {/* Donate again, without leaving the dashboard */}
       <section className="mt-8">
         <h2 className="font-heading text-lg">{portalLabels(locale).donateSectionTitle}</h2>
-        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{portalLabels(locale).donateSectionSubtitle}</p>
+        <p className="mt-1 text-sm text-text-secondary">{portalLabels(locale).donateSectionSubtitle}</p>
         <div className="mt-4">
           <DonationButtons dict={dict} />
         </div>
@@ -219,17 +219,17 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       </section>
 
       {/* Sadaqah certificate — upload proof */}
-      <section className="mt-8 rounded-2xl border border-accent/40 bg-[var(--color-card)] p-5 shadow-[0_2px_24px_rgba(184,137,43,0.08)]">
+      <section className="mt-8 rounded-2xl border border-accent/40 bg-(--color-card) p-5 shadow-[0_2px_24px_rgba(184,137,43,0.08)]">
         <h2 className="font-heading text-lg">🎗️ {dict.cert.sectionTitle}</h2>
-        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{dict.cert.intro}</p>
+        <p className="mt-1 text-sm text-text-secondary">{dict.cert.intro}</p>
 
         <form onSubmit={submitProof} className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{dict.cert.method}</span>
+            <span className="text-text-secondary">{dict.cert.method}</span>
             <select
               value={method}
               onChange={(e) => setMethod(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             >
               {METHODS.map((m) => (
                 <option key={m} value={m}>
@@ -239,60 +239,60 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
             </select>
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{dict.cert.senderName}</span>
+            <span className="text-text-secondary">{dict.cert.senderName}</span>
             <input
               value={senderName}
               onChange={(e) => setSenderName(e.target.value)}
               required
               maxLength={80}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{dict.cert.amount}</span>
+            <span className="text-text-secondary">{dict.cert.amount}</span>
             <div className="mt-1 flex gap-2">
               <input
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 inputMode="decimal"
-                className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+                className="w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
               />
               <input
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value.toUpperCase().slice(0, 6))}
-                className="w-20 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-2 text-sm"
+                className="w-20 rounded-lg border border-(--color-border) bg-transparent px-2 py-2 text-sm"
               />
             </div>
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{dict.cert.transferDate}</span>
+            <span className="text-text-secondary">{dict.cert.transferDate}</span>
             <input
               type="date"
               value={transferredAt}
               onChange={(e) => setTransferredAt(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs sm:col-span-2">
-            <span className="text-[var(--color-text-secondary)]">{dict.cert.message}</span>
+            <span className="text-text-secondary">{dict.cert.message}</span>
             <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               maxLength={500}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs sm:col-span-2">
-            <span className="text-[var(--color-text-secondary)]">{dict.cert.file}</span>
+            <span className="text-text-secondary">{dict.cert.file}</span>
             <input
               id="proof-file"
               type="file"
               accept="image/jpeg,image/png,image/webp,application/pdf"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
               required
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm file:mr-3 file:rounded file:border-0 file:bg-accent/10 file:px-3 file:py-1 file:text-accent"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm file:mr-3 file:rounded-sm file:border-0 file:bg-accent/10 file:px-3 file:py-1 file:text-accent"
             />
-            <span className="mt-1 block text-[10px] text-[var(--color-text-secondary)]">{dict.cert.fileHint}</span>
+            <span className="mt-1 block text-[10px] text-text-secondary">{dict.cert.fileHint}</span>
           </label>
 
           {error && <p className="text-xs text-danger sm:col-span-2">{error}</p>}
@@ -312,18 +312,18 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       <section className="mt-8">
         <h2 className="text-sm font-semibold text-accent">{dict.cert.historyTitle}</h2>
         <div className="mt-2 space-y-2">
-          {me.proofs.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">—</p>}
+          {me.proofs.length === 0 && <p className="text-sm text-text-secondary">—</p>}
           {me.proofs.map((p) => (
-            <div key={p.id} className="rounded-xl border border-[var(--color-border)] p-3 text-sm">
+            <div key={p.id} className="rounded-xl border border-(--color-border) p-3 text-sm">
               <div className="flex items-center justify-between">
                 <span className="font-medium">
                   {p.sender_name} · {p.amount ? `${p.amount} ${p.currency ?? ""}` : p.method}
                 </span>
                 <span className={statusColor[p.status]}>{statusLabel[p.status]}</span>
               </div>
-              {p.review_note && <p className="mt-1 text-xs text-[var(--color-text-secondary)]">“{p.review_note}”</p>}
+              {p.review_note && <p className="mt-1 text-xs text-text-secondary">“{p.review_note}”</p>}
               {!p.review_note && (p.method === "paypal" || p.method === "nowpayments") && p.status === "approved" && (
-                <p className="mt-1 text-xs italic text-[var(--color-text-secondary)]">{dict.cert.autoIssuedNote}</p>
+                <p className="mt-1 text-xs italic text-text-secondary">{dict.cert.autoIssuedNote}</p>
               )}
               {p.status === "approved" && p.cert_no && (
                 <a
@@ -342,9 +342,9 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       <section className="mt-8">
         <h2 className="text-sm font-semibold text-accent">{dict.auth.donationHistory}</h2>
         <div className="mt-2 space-y-2">
-          {me.donations.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">—</p>}
+          {me.donations.length === 0 && <p className="text-sm text-text-secondary">—</p>}
           {me.donations.map((d) => (
-            <div key={d.id} className="flex justify-between rounded-lg border border-[var(--color-border)] p-3 text-sm">
+            <div key={d.id} className="flex justify-between rounded-lg border border-(--color-border) p-3 text-sm">
               <span>
                 {d.provider} · {d.type}
               </span>
@@ -360,9 +360,9 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
       <section className="mt-8">
         <h2 className="text-sm font-semibold text-accent">{dict.auth.keysDonated}</h2>
         <div className="mt-2 space-y-2">
-          {me.keysDonated.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">—</p>}
+          {me.keysDonated.length === 0 && <p className="text-sm text-text-secondary">—</p>}
           {me.keysDonated.map((k) => (
-            <div key={k.id} className="flex justify-between rounded-lg border border-[var(--color-border)] p-3 text-sm">
+            <div key={k.id} className="flex justify-between rounded-lg border border-(--color-border) p-3 text-sm">
               <span>{k.provider}</span>
               <span className={k.status === "active" ? "text-success" : "text-warning"}>{k.status}</span>
             </div>

@@ -162,7 +162,7 @@ export function AdminAuthModal({
           : "fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
       }
     >
-      <div className="w-full max-w-sm rounded-2xl bg-[var(--color-card)] p-6 shadow-2xl">
+      <div className="w-full max-w-sm rounded-2xl bg-(--color-card) p-6 shadow-2xl">
         <div className="mb-4 flex justify-center">
           <Image
             src={TENANT.id === "ulyah" ? "/brand/ulyah-logo-light.webp" : TENANT.logoIcon}
@@ -189,7 +189,7 @@ export function AdminAuthModal({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoFocus
-              className="w-full rounded border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="w-full rounded-sm border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
             <input
               type="password"
@@ -197,23 +197,23 @@ export function AdminAuthModal({
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="w-full rounded-sm border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
             {error && <p className="text-xs text-danger">{error}</p>}
             <div className="flex justify-end gap-2">
               {onClose ? (
-                <button type="button" onClick={onClose} className="text-sm text-[var(--color-text-secondary)]">
+                <button type="button" onClick={onClose} className="text-sm text-text-secondary">
                   Cancel
                 </button>
               ) : (
-                <Link href={`/${locale}`} className="text-sm text-[var(--color-text-secondary)]">
+                <Link href={`/${locale}`} className="text-sm text-text-secondary">
                   Cancel
                 </Link>
               )}
               <button
                 type="submit"
                 disabled={busy}
-                className="rounded bg-primary px-4 py-2 text-sm text-white disabled:opacity-50"
+                className="rounded-sm bg-primary px-4 py-2 text-sm text-white disabled:opacity-50"
               >
                 {busy ? "..." : "Continue"}
               </button>
@@ -225,7 +225,7 @@ export function AdminAuthModal({
           <form onSubmit={submitTotp} className="space-y-4">
             <h2 className="font-heading text-lg">Two-Step Verification</h2>
             {step === "totp-setup" && otpauthUrl && (
-              <div className="space-y-3 text-xs text-[var(--color-text-secondary)]">
+              <div className="space-y-3 text-xs text-text-secondary">
                 <p>Pindai QR ini dengan Google Authenticator / Authy / 2FAS, lalu masukkan kode 6 digit:</p>
                 {qrDataUrl && (
                   <div className="flex justify-center">
@@ -250,7 +250,7 @@ export function AdminAuthModal({
                 <a
                   href={qrDataUrl || undefined}
                   download="ulyah-admin-2fa-qr.png"
-                  className="block text-center text-[var(--color-text-secondary)] underline"
+                  className="block text-center text-text-secondary underline"
                 >
                   ⬇ Unduh gambar QR
                 </a>
@@ -267,7 +267,7 @@ export function AdminAuthModal({
                             setTimeout(() => setCopied(false), 1500);
                           });
                         }}
-                        className="shrink-0 rounded border border-[var(--color-border)] px-2 py-1 text-[10px]"
+                        className="shrink-0 rounded-sm border border-(--color-border) px-2 py-1 text-[10px]"
                       >
                         {copied ? "✓ Tersalin" : "Salin"}
                       </button>
@@ -285,23 +285,23 @@ export function AdminAuthModal({
               value={code}
               onChange={(e) => setCode(e.target.value)}
               autoFocus
-              className="w-full rounded border border-[var(--color-border)] bg-transparent px-3 py-2 text-center text-lg tracking-widest"
+              className="w-full rounded-sm border border-(--color-border) bg-transparent px-3 py-2 text-center text-lg tracking-widest"
             />
             {error && <p className="text-xs text-danger">{error}</p>}
             <div className="flex justify-end gap-2">
               {onClose ? (
-                <button type="button" onClick={onClose} className="text-sm text-[var(--color-text-secondary)]">
+                <button type="button" onClick={onClose} className="text-sm text-text-secondary">
                   Cancel
                 </button>
               ) : (
-                <Link href={`/${locale}`} className="text-sm text-[var(--color-text-secondary)]">
+                <Link href={`/${locale}`} className="text-sm text-text-secondary">
                   Cancel
                 </Link>
               )}
               <button
                 type="submit"
                 disabled={busy}
-                className="rounded bg-primary px-4 py-2 text-sm text-white disabled:opacity-50"
+                className="rounded-sm bg-primary px-4 py-2 text-sm text-white disabled:opacity-50"
               >
                 {busy ? "..." : "Verify"}
               </button>

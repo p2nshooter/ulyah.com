@@ -21,7 +21,7 @@ src/styles/
 ```
 
 - `app/globals.css` holds Tailwind + the design-token contract (`--color-*`,
-  `--panel-*`, `--radius-card`, `--shadow-*`) with ulyah's values as default.
+  `--panel-*`, `--radius-card`, `--ul-shadow-*`) with ulyah's values as default.
 - Each theme file scopes EVERYTHING under `html[data-tenant="…"]` — the tenant
   attribute is set at build time in `app/[locale]/layout.tsx`, so a theme can
   never leak across sites.

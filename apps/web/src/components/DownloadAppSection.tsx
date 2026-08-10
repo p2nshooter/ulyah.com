@@ -28,7 +28,7 @@ export function DownloadAppSection({ locale }: { locale: string }) {
           />
         )}
         <h2 className="text-center font-heading text-2xl sm:text-3xl">{t.downloadSectionTitle}</h2>
-        <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
+        <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-text-secondary">
           {t.downloadSectionSubtitle}
         </p>
         <div className="mx-auto mt-8 max-w-md">

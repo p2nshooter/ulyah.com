@@ -245,7 +245,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
 
   return (
     // Anchored with inset-x-0 + justify-center (NOT translate): on Chrome
-    // Android a `fixed` element combining a transform with backdrop-blur often
+    // Android a `fixed` element combining a transform with backdrop-blur-sm often
     // fails to paint until the first scroll — that was the "tombol harus
     // digeser ke bawah dulu baru muncul" bug. Raised above the mobile browser
     // toolbar + OS nav with a safe-area-aware offset so it is visible without
@@ -264,7 +264,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
           <span className="hidden text-xs font-normal opacity-90 sm:inline">· {advancing ? t.next : t.reading}</span>
         </button>
       ) : open ? (
-        <div className="flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_92%,transparent)] p-1.5 shadow-2xl backdrop-blur">
+        <div className="flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_92%,transparent)] p-1.5 shadow-2xl backdrop-blur-sm">
           <button onClick={() => void start("all")} className="rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-primary">
             {t.all}
           </button>
@@ -281,7 +281,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-4 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur transition hover:border-accent"
+          className="flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-4 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur-sm transition hover:border-accent"
         >
           {t.menu}
         </button>

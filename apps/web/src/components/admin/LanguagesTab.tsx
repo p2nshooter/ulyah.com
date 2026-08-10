@@ -28,10 +28,10 @@ function Bar({ pct, tone }: { pct: number; tone: "ui" | "content" }) {
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, pct)}%` }} />
       </div>
-      <span className="w-11 shrink-0 text-right text-[10px] tabular-nums text-[var(--color-text-secondary)]">
+      <span className="w-11 shrink-0 text-right text-[10px] tabular-nums text-text-secondary">
         {pct}%
       </span>
-      <span className="w-12 shrink-0 text-[10px] uppercase text-[var(--color-text-secondary)]">
+      <span className="w-12 shrink-0 text-[10px] uppercase text-text-secondary">
         {tone === "ui" ? "UI" : "Konten"}
       </span>
     </div>
@@ -85,7 +85,7 @@ export function LanguagesTab() {
     <section className="space-y-4">
       <div>
         <p className="font-heading text-base">🈯 Kesiapan &amp; Saklar Bahasa</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           {liveCount} dari {rows.length} bahasa aktif di ulyah.com. Bahasa yang dimatikan <b>dicoret dan tidak bisa
           diklik</b> di pemilih bahasa, dan URL-nya dialihkan ke Bahasa Indonesia — pengunjung tidak akan mendarat di
           halaman setengah bahasa A setengah bahasa B. Persentasenya <b>diukur, bukan ditaksir</b>: UI dari string kamus
@@ -102,7 +102,7 @@ export function LanguagesTab() {
             <div
               key={l.code}
               className={`rounded-xl border p-3 ${
-                live ? "border-emerald-500/40 bg-emerald-500/[0.04]" : "border-[var(--color-border)] bg-[var(--color-card)]"
+                live ? "border-emerald-500/40 bg-emerald-500/4" : "border-(--color-border) bg-(--color-card)"
               }`}
             >
               <div className="flex items-start justify-between gap-2">
@@ -110,7 +110,7 @@ export function LanguagesTab() {
                   <span dir={l.dir} className={live ? "" : "line-through opacity-60"}>
                     {l.label}
                   </span>
-                  <span className="ml-1.5 text-[10px] uppercase text-[var(--color-text-secondary)]">{l.code}</span>
+                  <span className="ml-1.5 text-[10px] uppercase text-text-secondary">{l.code}</span>
                   {l.r.overall >= 100 && !live && (
                     <span className="ml-1.5 rounded-full bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-bold text-amber-600 dark:text-amber-400">
                       siap dinyalakan
@@ -141,7 +141,7 @@ export function LanguagesTab() {
                   >
                     <span
                       className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
-                        l.on ? "left-[1.375rem]" : "left-0.5"
+                        l.on ? "left-5.5" : "left-0.5"
                       }`}
                     />
                   </button>
@@ -155,12 +155,12 @@ export function LanguagesTab() {
 
               {l.r.missing.length > 0 && (
                 <details className="mt-2">
-                  <summary className="cursor-pointer text-[10px] text-[var(--color-text-secondary)]">
+                  <summary className="cursor-pointer text-[10px] text-text-secondary">
                     {l.r.missing.length} teks UI masih berbahasa Inggris
                   </summary>
                   <ul className="mt-1 space-y-0.5">
                     {l.r.missing.map((m, i) => (
-                      <li key={i} className="truncate text-[10px] text-[var(--color-text-secondary)]">
+                      <li key={i} className="truncate text-[10px] text-text-secondary">
                         · {m}
                       </li>
                     ))}
@@ -172,7 +172,7 @@ export function LanguagesTab() {
         })}
       </div>
 
-      <p className="text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+      <p className="text-[10px] leading-relaxed text-text-secondary">
         Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, dawa.es, xad.es) tidak punya saklar: memilihnya berarti
         pindah ke situs itu, bukan menerjemahkan ulyah.com. Angka Konten mereka tetap ditampilkan apa adanya supaya
         terlihat mana yang masih perlu di-warm. Angka UI diperbarui saat <code>pnpm gen:locale-readiness</code> berjalan;

@@ -67,29 +67,29 @@ export function FloatingAiChat({ locale }: { locale: string }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? t.closeBubble : t.openBubble}
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-accent/40 bg-[var(--panel-bg)] px-4 py-3 text-sm font-medium text-[var(--panel-fg)] shadow-lg backdrop-blur transition hover:brightness-125"
+        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-accent/40 bg-(--panel-bg) px-4 py-3 text-sm font-medium text-(--panel-fg) shadow-lg backdrop-blur-sm transition hover:brightness-125"
       >
         <span aria-hidden className="text-lg">{open ? "✕" : "💬"}</span>
         {!open && <span className="hidden sm:inline">{t.bubble}</span>}
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-4 z-40 flex max-h-[70vh] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-2xl">
-          <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--panel-bg)] px-3 py-2 text-[var(--panel-fg)]">
+        <div className="fixed bottom-20 right-4 z-40 flex max-h-[70vh] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-card) shadow-2xl">
+          <div className="flex items-center gap-2 border-b border-(--color-border) bg-(--panel-bg) px-3 py-2 text-(--panel-fg)">
             <span aria-hidden>💬</span>
             <span className="text-sm font-medium">{t.title}</span>
           </div>
 
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto p-3">
             {msgs.length === 0 && (
-              <p className="text-center text-xs text-[var(--color-text-secondary)]">{t.intro(site)} 🌙</p>
+              <p className="text-center text-xs text-text-secondary">{t.intro(site)} 🌙</p>
             )}
             {msgs.map((m, i) => (
               <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
                 <div className={`inline-block max-w-[92%] rounded-2xl px-3 py-2 text-sm ${m.role === "user" ? "bg-accent/15" : "bg-black/5"}`}>
                   <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>
                   {m.sources && m.sources.length > 0 && (
-                    <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-1.5 text-[10px] text-[var(--color-text-secondary)]">
+                    <div className="mt-2 space-y-1 border-t border-(--color-border) pt-1.5 text-[10px] text-text-secondary">
                       <p className="font-medium">{t.sourcesFrom(site)}</p>
                       {m.sources.map((s, j) =>
                         s.url ? (
@@ -107,16 +107,16 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                 </div>
               </div>
             ))}
-            {busy && <p className="text-xs text-[var(--color-text-secondary)]">{t.answering}</p>}
+            {busy && <p className="text-xs text-text-secondary">{t.answering}</p>}
           </div>
 
-          <div className="flex gap-2 border-t border-[var(--color-border)] p-2">
+          <div className="flex gap-2 border-t border-(--color-border) p-2">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
               placeholder={t.placeholder}
-              className="flex-1 rounded-full border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="flex-1 rounded-full border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
             <button onClick={send} disabled={busy || !input.trim()} className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
               ➤

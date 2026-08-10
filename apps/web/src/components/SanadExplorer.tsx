@@ -68,11 +68,11 @@ export function SanadExplorer({ locale }: { locale: string }) {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center gap-2">
-        <label className="text-sm font-medium text-[var(--color-text-secondary)]">{t.chooseCollection}:</label>
+        <label className="text-sm font-medium text-text-secondary">{t.chooseCollection}:</label>
         <select
           value={selected}
           onChange={(e) => setSelected(e.target.value)}
-          className="rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+          className="rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
         >
           {collections.map((c) => (
             <option key={c.slug} value={c.slug}>
@@ -82,13 +82,13 @@ export function SanadExplorer({ locale }: { locale: string }) {
         </select>
       </div>
 
-      <p className="rounded-xl border border-accent/25 bg-accent/5 p-3 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+      <p className="rounded-xl border border-accent/25 bg-accent/5 p-3 text-xs leading-relaxed text-text-secondary">
         ℹ️ {t.disclaimer}
       </p>
 
-      {loading && <p className="text-sm text-[var(--color-text-secondary)]">…</p>}
+      {loading && <p className="text-sm text-text-secondary">…</p>}
 
-      {sample && sample.length === 0 && !loading && <p className="text-sm text-[var(--color-text-secondary)]">{t.noChain}</p>}
+      {sample && sample.length === 0 && !loading && <p className="text-sm text-text-secondary">{t.noChain}</p>}
 
       {sample && sample.length > 0 && (
         <div className="reveal-stagger grid gap-4 sm:grid-cols-2">
@@ -97,7 +97,7 @@ export function SanadExplorer({ locale }: { locale: string }) {
             return (
               <div
                 key={row.id}
-                className="card-premium overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-4"
+                className="card-premium overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-card) p-4"
               >
                 <button onClick={() => setOpenId(isOpen ? null : row.id)} className="flex w-full items-center justify-between gap-2 text-left">
                   <p className="text-xs font-medium uppercase tracking-wide text-accent">
@@ -117,7 +117,7 @@ export function SanadExplorer({ locale }: { locale: string }) {
                         {i < Math.min(row.chain.length, 4) - 1 && <span className="text-accent">←</span>}
                       </span>
                     ))}
-                    {row.chain.length > 4 && <span className="text-xs text-[var(--color-text-secondary)]">+{row.chain.length - 4}</span>}
+                    {row.chain.length > 4 && <span className="text-xs text-text-secondary">+{row.chain.length - 4}</span>}
                   </div>
                 )}
 
@@ -142,14 +142,14 @@ export function SanadExplorer({ locale }: { locale: string }) {
                           >
                             <span
                               aria-hidden
-                              className="absolute -left-6 top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-accent bg-[var(--color-card)] shadow-[0_0_10px_rgba(184,137,43,0.5)]"
+                              className="absolute -left-6 top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-accent bg-(--color-card) shadow-[0_0_10px_rgba(184,137,43,0.5)]"
                             />
-                            <div className="rounded-xl border border-accent/20 bg-gradient-to-l from-accent/[0.07] to-transparent px-3 py-2">
+                            <div className="rounded-xl border border-accent/20 bg-linear-to-l from-accent/[0.07] to-transparent px-3 py-2">
                               <p dir="rtl" className="font-arabic text-base leading-relaxed">
                                 {link.name}
                               </p>
                               {link.marker && (
-                                <p dir="rtl" className="mt-0.5 text-[11px] text-[var(--color-text-secondary)]">
+                                <p dir="rtl" className="mt-0.5 text-[11px] text-text-secondary">
                                   {link.marker}
                                 </p>
                               )}

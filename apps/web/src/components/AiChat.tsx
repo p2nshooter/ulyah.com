@@ -110,7 +110,7 @@ export function AiChat({ locale }: { locale: string }) {
             className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
               specialist === key
                 ? "border-accent bg-accent/15 text-accent"
-                : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                : "border-(--color-border) text-text-secondary"
             }`}
           >
             {t.specialists[key]}
@@ -120,21 +120,21 @@ export function AiChat({ locale }: { locale: string }) {
 
       <div
         ref={scrollRef}
-        className="max-h-[50vh] min-h-[160px] space-y-3 overflow-y-auto rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-4"
+        className="max-h-[50vh] min-h-[160px] space-y-3 overflow-y-auto rounded-2xl border border-(--color-border) bg-(--color-card) p-4"
       >
         {msgs.length === 0 && (
-          <p className="text-center text-sm text-[var(--color-text-secondary)]">{t.intro(site)}</p>
+          <p className="text-center text-sm text-text-secondary">{t.intro(site)}</p>
         )}
         {msgs.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
             <div
               className={`inline-block max-w-[90%] rounded-2xl px-3 py-2 text-sm ${
-                m.role === "user" ? "bg-accent/15 text-[var(--color-text-primary)]" : "bg-black/5"
+                m.role === "user" ? "bg-accent/15 text-text-primary" : "bg-black/5"
               }`}
             >
               <p className="whitespace-pre-wrap">{m.text}</p>
               {m.sources && m.sources.length > 0 && (
-                <div className="mt-2 space-y-1 border-t border-[var(--color-border)] pt-2 text-[11px] text-[var(--color-text-secondary)]">
+                <div className="mt-2 space-y-1 border-t border-(--color-border) pt-2 text-[11px] text-text-secondary">
                   <p className="font-medium">{t.sourcesFrom(site)}</p>
                   {m.sources.map((s, j) =>
                     s.url ? (
@@ -160,7 +160,7 @@ export function AiChat({ locale }: { locale: string }) {
             </div>
           </div>
         ))}
-        {busy && <p className="text-left text-xs text-[var(--color-text-secondary)]">{t.answering}</p>}
+        {busy && <p className="text-left text-xs text-text-secondary">{t.answering}</p>}
       </div>
 
       {notice && <p className="rounded-lg bg-warning/10 p-2 text-center text-xs text-warning">{notice}</p>}
@@ -171,7 +171,7 @@ export function AiChat({ locale }: { locale: string }) {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && send()}
           placeholder={t.placeholder}
-          className="flex-1 rounded-full border border-[var(--color-border)] bg-transparent px-4 py-2.5 text-sm"
+          className="flex-1 rounded-full border border-(--color-border) bg-transparent px-4 py-2.5 text-sm"
         />
         <button
           onClick={send}
@@ -182,7 +182,7 @@ export function AiChat({ locale }: { locale: string }) {
         </button>
       </div>
 
-      <p className="text-center text-[11px] text-[var(--color-text-secondary)]">{t.disclaimer(site)}</p>
+      <p className="text-center text-[11px] text-text-secondary">{t.disclaimer(site)}</p>
 
     </div>
   );

@@ -121,7 +121,7 @@ export function KidsFilmPlayer({
 
       <div
         key={index}
-        className="kids-caption-enter mt-4 rounded-2xl border border-accent/25 bg-[var(--color-card)] p-4 text-center text-[15px] leading-relaxed"
+        className="kids-caption-enter mt-4 rounded-2xl border border-accent/25 bg-(--color-card) p-4 text-center text-[15px] leading-relaxed"
       >
         {scene}
       </div>
@@ -153,7 +153,7 @@ export function KidsFilmPlayer({
         </button>
       </div>
 
-      <p className="mt-2 text-center text-xs text-[var(--color-text-secondary)]">
+      <p className="mt-2 text-center text-xs text-text-secondary">
         {labels.sceneOf(index + 1, scenes.length)} · <span className="sr-only">{title}</span>
       </p>
     </div>

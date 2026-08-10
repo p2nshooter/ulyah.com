@@ -166,7 +166,7 @@ export function HaditsReader({
       />
 
       {translatedNote && (
-        <p className="mt-6 text-center text-xs italic text-[var(--color-text-secondary)]">{labels.translatedNote}</p>
+        <p className="mt-6 text-center text-xs italic text-text-secondary">{labels.translatedNote}</p>
       )}
     </div>
   );

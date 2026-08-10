@@ -31,23 +31,23 @@ export function DonationsTab() {
     <div className="space-y-4">
       {stats && (
         <div className="grid grid-cols-3 gap-3">
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-3 text-center">
+          <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-3 text-center">
             <p className="font-heading text-lg">${stats.total_fiat}</p>
-            <p className="text-xs text-[var(--color-text-secondary)]">Fiat</p>
+            <p className="text-xs text-text-secondary">Fiat</p>
           </div>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-3 text-center">
+          <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-3 text-center">
             <p className="font-heading text-lg">${stats.total_crypto}</p>
-            <p className="text-xs text-[var(--color-text-secondary)]">Crypto</p>
+            <p className="text-xs text-text-secondary">Crypto</p>
           </div>
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-3 text-center">
+          <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-3 text-center">
             <p className="font-heading text-lg">{stats.total_api_key_donations}</p>
-            <p className="text-xs text-[var(--color-text-secondary)]">API Keys</p>
+            <p className="text-xs text-text-secondary">API Keys</p>
           </div>
         </div>
       )}
-      <div className="overflow-x-auto rounded-xl border border-[var(--color-border)]">
+      <div className="overflow-x-auto rounded-xl border border-(--color-border)">
         <table className="w-full text-left text-xs">
-          <thead className="bg-black/5 text-[var(--color-text-secondary)]">
+          <thead className="bg-black/5 text-text-secondary">
             <tr>
               <th className="px-3 py-2">Provider</th>
               <th className="px-3 py-2">Type</th>
@@ -58,7 +58,7 @@ export function DonationsTab() {
           </thead>
           <tbody>
             {donations.map((d) => (
-              <tr key={d.id} className="border-t border-[var(--color-border)]">
+              <tr key={d.id} className="border-t border-(--color-border)">
                 <td className="px-3 py-2">{d.provider}</td>
                 <td className="px-3 py-2">{d.type}</td>
                 <td className="px-3 py-2">{d.amount ? `${d.amount} ${d.currency ?? ""}` : "—"}</td>

@@ -1,6 +1,61 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: rgb(var(--tw-primary));
+  --color-primary-dark: rgb(var(--tw-primary-dark));
+
+  --color-accent: rgb(var(--tw-accent));
+  --color-surface: rgb(var(--tw-surface));
+  --color-text-primary: #232323;
+  --color-text-secondary: #5a5a5a;
+  --color-success: #2e7d4f;
+  --color-warning: #c79a2b;
+  --color-danger: #b23a3a;
+
+  --font-heading: Cinzel, Cambria, Georgia, serif;
+  --font-arabic: 'Scheherazade New', Amiri, 'Traditional Arabic', serif;
+  --font-body: Lato, Inter, system-ui, sans-serif;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+  --text-3xl: 36px;
+
+  /* In rem, not px, and that is load-bearing. Tailwind orders the responsive
+     blocks by breakpoint, and the later block wins where two both match. v4
+     compares the raw numbers, so a px breakpoint never interleaves with the
+     rem-based defaults — 641px, 1025px and 1537px were all emitted BEFORE
+     40rem, which handed every `sm:` rule the last word above 1025px. The
+     footer's `sm:grid-cols-2 desktop:grid-cols-6` came out as two columns on
+     a 1280px screen. These are the same widths at the 16px root: 641, 1025
+     and 1537 divided by 16. */
+  --breakpoint-tablet: 40.0625rem;
+  --breakpoint-desktop: 64.0625rem;
+  --breakpoint-ultrawide: 96.0625rem;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 /* ══════════════════════════════════════════════════════════════════════
    DESIGN-TOKEN CONTRACT — one design system, four visual identities.
@@ -36,11 +91,11 @@
   --color-border: rgba(11, 61, 46, 0.12);
   --color-border-gold: rgba(184, 137, 43, 0.28);
 
-  --shadow-sm: 0 1px 4px rgba(14, 26, 15, 0.08);
-  --shadow-md: 0 4px 20px rgba(14, 26, 15, 0.1);
-  --shadow-lg: 0 10px 40px rgba(14, 26, 15, 0.14);
-  --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.14);
-  --shadow-gold-lg: 0 10px 44px rgba(184, 137, 43, 0.2);
+  --ul-shadow-sm: 0 1px 4px rgba(14, 26, 15, 0.08);
+  --ul-shadow-md: 0 4px 20px rgba(14, 26, 15, 0.1);
+  --ul-shadow-lg: 0 10px 40px rgba(14, 26, 15, 0.14);
+  --ul-shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.14);
+  --ul-shadow-gold-lg: 0 10px 44px rgba(184, 137, 43, 0.2);
   --culture-motif: "❖";
 }
 
@@ -106,8 +161,8 @@
   --panel-bg: #281a4d; --panel-bg2: #3f2b76; --panel-fg: #f3f0f8;
   --color-border: rgba(63, 43, 118, 0.13);
   --color-border-gold: rgba(212, 167, 44, 0.3);
-  --shadow-gold: 0 4px 24px rgba(212, 167, 44, 0.16);
-  --shadow-gold-lg: 0 10px 44px rgba(212, 167, 44, 0.22);
+  --ul-shadow-gold: 0 4px 24px rgba(212, 167, 44, 0.16);
+  --ul-shadow-gold-lg: 0 10px 44px rgba(212, 167, 44, 0.22);
   --radius-card: 0.5rem; /* sharper than ulyah's 1rem — a different silhouette */
   --culture-motif: "✦";
 }
@@ -136,11 +191,11 @@
   --color-text-secondary: #c9c2b2;
   --color-border: rgba(244, 239, 227, 0.14);
   --color-border-gold: rgba(184, 137, 43, 0.32);
-  --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
-  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
-  --shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
-  --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
-  --shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
+  --ul-shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
+  --ul-shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
+  --ul-shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
+  --ul-shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
+  --ul-shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -152,11 +207,11 @@
     --color-text-secondary: #c9c2b2;
     --color-border: rgba(244, 239, 227, 0.14);
     --color-border-gold: rgba(184, 137, 43, 0.32);
-    --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
-    --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
-    --shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
-    --shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
-    --shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
+    --ul-shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.28);
+    --ul-shadow-md: 0 6px 24px rgba(0, 0, 0, 0.32);
+    --ul-shadow-lg: 0 14px 48px rgba(0, 0, 0, 0.4);
+    --ul-shadow-gold: 0 4px 24px rgba(184, 137, 43, 0.16);
+    --ul-shadow-gold-lg: 0 10px 48px rgba(184, 137, 43, 0.22);
   }
 }
 
@@ -194,7 +249,7 @@ body {
   background-color: var(--color-card);
   border: 1px solid var(--color-border-gold);
   border-radius: 1rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ul-shadow-sm);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -202,7 +257,7 @@ body {
 }
 .card-premium:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--ul-shadow-gold);
   border-color: var(--color-accent);
 }
 
@@ -213,7 +268,7 @@ body {
   background-color: var(--color-card);
   border: 1px solid var(--color-border-gold);
   border-radius: 1rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--ul-shadow-sm);
 }
 
 ::selection {

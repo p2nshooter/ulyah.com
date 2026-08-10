@@ -112,12 +112,12 @@ export function LiveStreamsTab() {
 
   const autos = rows.filter((r) => r.kind === "auto");
   const manuals = rows.filter((r) => r.kind === "manual");
-  const input = "rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm";
+  const input = "rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm";
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-        <p className="font-heading text-base text-[var(--color-text-primary)]">📡 Live Streaming — halaman publik /live</p>
+      <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-text-secondary">
+        <p className="font-heading text-base text-text-primary">📡 Live Streaming — halaman publik /live</p>
         <p className="mt-2">
           <b>Live Otomatis 24 Jam:</b> daftar channel dunia (Makkah, Madinah, Rodja TV, Madani, ARY Qtv — bisa ditambah
           sendiri di bawah dengan link channel YouTube apa pun: negara lain, kampus, masjid). Embed mengikuti siaran
@@ -130,14 +130,14 @@ export function LiveStreamsTab() {
       {note && <p className="text-sm text-accent">{note}</p>}
 
       {/* Auto world channels */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">🕋 Live Otomatis 24 Jam ({autos.length})</p>
         <div className="mt-3 space-y-2">
           {autos.map((s) => (
-            <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-lg border border-[var(--color-border)] p-2 text-xs">
+            <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-lg border border-(--color-border) p-2 text-xs">
               <span className="min-w-0 flex-1 truncate">
-                <b>{s.title}</b> {s.region && <span className="text-[var(--color-text-secondary)]">· {s.region}</span>}
-                <span className="ml-2 break-all text-[var(--color-text-secondary)]">{s.url}</span>
+                <b>{s.title}</b> {s.region && <span className="text-text-secondary">· {s.region}</span>}
+                <span className="ml-2 break-all text-text-secondary">{s.url}</span>
               </span>
               <button
                 onClick={() => toggleAuto(s)}
@@ -145,7 +145,7 @@ export function LiveStreamsTab() {
                 className={`rounded-full border px-3 py-1 disabled:opacity-50 ${
                   s.is_live
                     ? "border-accent/50 text-accent"
-                    : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                    : "border-(--color-border) text-text-secondary"
                 }`}
               >
                 {s.is_live ? "👁 Tampil" : "🙈 Sembunyi"}
@@ -172,20 +172,20 @@ export function LiveStreamsTab() {
             {saving === "new" ? "…" : "+ Tambah"}
           </button>
         </div>
-        <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
+        <p className="mt-2 text-[10px] text-text-secondary">
           Tip: pakai link CHANNEL (bukan link video) agar slot selalu mengikuti live terbaru channel itu. Makkah &amp;
           Madinah dikunci sebagai fondasi.
         </p>
       </div>
 
       {/* Manual slots */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">🎥 Siaran ULYAH — 6 slot manual</p>
         <div className="mt-3 space-y-3">
           {manuals.map((s) => {
             const d = drafts[s.id] ?? { title: "", url: "", region: "", is_live: false };
             return (
-              <div key={s.id} className="rounded-lg border border-[var(--color-border)] p-3">
+              <div key={s.id} className="rounded-lg border border-(--color-border) p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-xs font-medium">Slot {s.slot}</p>
                   <label className="flex cursor-pointer items-center gap-2 text-xs">
@@ -194,7 +194,7 @@ export function LiveStreamsTab() {
                       checked={d.is_live}
                       onChange={(e) => setDrafts((p) => ({ ...p, [s.id]: { ...d, is_live: e.target.checked } }))}
                     />
-                    <span className={d.is_live ? "font-semibold text-red-500" : "text-[var(--color-text-secondary)]"}>
+                    <span className={d.is_live ? "font-semibold text-red-500" : "text-text-secondary"}>
                       {d.is_live ? "🔴 LIVE" : "Offline"}
                     </span>
                   </label>

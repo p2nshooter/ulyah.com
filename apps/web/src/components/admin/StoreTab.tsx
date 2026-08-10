@@ -177,29 +177,29 @@ export function StoreTab() {
     <section className="space-y-5">
       <div>
         <p className="font-heading text-base">🛒 Toko Amazon</p>
-        <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs leading-relaxed text-text-secondary">
           Yang Anda buat di sini adalah <b>kategori</b>, bukan produk satu per satu. Tiap kategori membuka pencarian
           Amazon yang sudah tersaring — pembeli memilih sendiri dari ribuan produk di sana. Nama dan penjelasan
           ditulis dalam <b>bahasa marketplace-nya</b>. <b>ulyah.com tidak punya toko</b>: Amazon tidak beroperasi di
           Indonesia.
         </p>
-        <p className="mt-2 rounded-lg border border-sky-500/40 bg-sky-500/[0.06] p-3 text-xs leading-relaxed">
+        <p className="mt-2 rounded-lg border border-sky-500/40 bg-sky-500/6 p-3 text-xs leading-relaxed">
           <b>Kenapa bukan deskripsi bawaan Amazon:</b> teks itu identik di ribuan situs afiliasi lain, dan Google
           menganggapnya konten duplikat bernilai rendah — bukan menaikkan SEO, tapi menurunkannya. Kalimat yang{" "}
           <b>Anda tulis sendiri</b> tentang sebuah kategori tidak ada di situs mana pun, dan itulah satu-satunya
           bagian halaman ini yang benar-benar dihitung mesin pencari.
         </p>
-        <p className="mt-2 rounded-lg border border-amber-500/40 bg-amber-500/[0.06] p-3 text-xs leading-relaxed">
+        <p className="mt-2 rounded-lg border border-amber-500/40 bg-amber-500/6 p-3 text-xs leading-relaxed">
           <b>Aturan isi:</b> hanya kategori produk <b>fisik</b> yang halal. Tidak ada produk digital, pornografi,
           judi, forex, atau indeks/trading. Sistem tidak bisa memeriksa ini dari kata kunci — Anda yang memutuskan.
         </p>
-        {note && <p className="mt-2 text-xs text-[var(--color-accent)]">{note}</p>}
+        {note && <p className="mt-2 text-xs text-accent">{note}</p>}
       </div>
 
       {/* Tag per marketplace */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-sm">Tag Associates per marketplace</p>
-        <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">
           <code>ulyah-20</code> hanya berlaku di <b>amazon.com</b>. amazon.fr/de/es butuh akun Associates Eropa
           sendiri. Marketplace tanpa tag <b>tidak menampilkan toko sama sekali</b> — mengirim pengunjung ke Amazon
           tanpa tag berarti memberi trafik gratis.
@@ -207,7 +207,7 @@ export function StoreTab() {
         <div className="mt-3 grid gap-2 desktop:grid-cols-2">
           {MARKETPLACES.map((m) => (
             <label key={m.id} className="flex items-center gap-2 text-xs">
-              <span className="w-24 shrink-0 text-[var(--color-text-secondary)]">
+              <span className="w-24 shrink-0 text-text-secondary">
                 {m.site}
                 <span className="ml-1 opacity-60">({m.amazon})</span>
               </span>
@@ -217,7 +217,7 @@ export function StoreTab() {
                 onBlur={(e) => {
                   if (e.target.value.trim() !== (tags[m.id] ?? "")) saveTag(m.id, e.target.value.trim());
                 }}
-                className="flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5"
+                className="flex-1 rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5"
               />
             </label>
           ))}
@@ -232,8 +232,8 @@ export function StoreTab() {
             onClick={() => setMarket(m.id)}
             className={`rounded-full px-3 py-1.5 text-xs font-bold ${
               market === m.id
-                ? "bg-[var(--color-accent)] text-white"
-                : "border border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                ? "bg-accent text-white"
+                : "border border-(--color-border) text-text-secondary"
             }`}
           >
             {m.site}
@@ -248,10 +248,10 @@ export function StoreTab() {
       </div>
 
       {/* Tambah kategori */}
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-sm">
           Tambah kategori ke {current.site}{" "}
-          <span className="font-normal text-[var(--color-text-secondary)]">
+          <span className="font-normal text-text-secondary">
             — semuanya ditulis dalam bahasa {current.lang}
           </span>
         </p>
@@ -266,13 +266,13 @@ export function StoreTab() {
               value={draft.icon}
               onChange={(e) => setDraft({ ...draft, icon: e.target.value })}
               placeholder="📖"
-              className="w-16 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-center text-xs"
+              className="w-16 rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-center text-xs"
             />
             <input
               value={draft.label}
               onChange={(e) => setDraft({ ...draft, label: e.target.value })}
               placeholder={`Nama kategori (bahasa ${current.lang})`}
-              className="min-w-[14rem] flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+              className="min-w-56 flex-1 rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
             />
           </div>
           <div className="flex flex-wrap gap-2">
@@ -280,12 +280,12 @@ export function StoreTab() {
               value={draft.keywords}
               onChange={(e) => setDraft({ ...draft, keywords: e.target.value })}
               placeholder={`Kata kunci pencarian di ${current.amazon} (bahasa ${current.lang})`}
-              className="min-w-[14rem] flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+              className="min-w-56 flex-1 rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
             />
             <select
               value={draft.department}
               onChange={(e) => setDraft({ ...draft, department: e.target.value })}
-              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-2 py-1.5 text-xs"
+              className="rounded-lg border border-(--color-border) bg-(--color-card) px-2 py-1.5 text-xs"
             >
               {DEPARTMENTS.map((d) => (
                 <option key={d.value} value={d.value}>
@@ -299,10 +299,10 @@ export function StoreTab() {
             onChange={(e) => setDraft({ ...draft, blurb: e.target.value })}
             rows={3}
             placeholder={`Penjelasan kategori — minimal 40 karakter, bahasa ${current.lang}`}
-            className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+            className="w-full rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
           />
           {draft.keywords && (
-            <p className="truncate text-[11px] text-[var(--color-text-secondary)]">
+            <p className="truncate text-[11px] text-text-secondary">
               Pratinjau tautan:{" "}
               <code>{searchUrl(market, draft.keywords, tags[market] || "TAG", draft.department)}</code>
             </p>
@@ -311,14 +311,14 @@ export function StoreTab() {
             <button
               onClick={add}
               disabled={busy}
-              className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
+              className="rounded-lg bg-accent px-4 py-2 text-xs font-bold text-white disabled:opacity-40"
             >
               Tambahkan kategori
             </button>
             <button
               onClick={addPresets}
               disabled={busy}
-              className="rounded-lg border border-[var(--color-border)] px-4 py-2 text-xs font-bold disabled:opacity-40"
+              className="rounded-lg border border-(--color-border) px-4 py-2 text-xs font-bold disabled:opacity-40"
               title="Pasang set kategori siap pakai untuk situs ini"
             >
               ⚡ Pasang {shelfPresets(market).length} kategori bawaan
@@ -329,7 +329,7 @@ export function StoreTab() {
 
       {/* Daftar */}
       {mine.length === 0 ? (
-        <p className="text-xs text-[var(--color-text-secondary)]">Belum ada kategori untuk {current.site}.</p>
+        <p className="text-xs text-text-secondary">Belum ada kategori untuk {current.site}.</p>
       ) : (
         <ul className="space-y-2">
           {mine.map((s) => (
@@ -337,8 +337,8 @@ export function StoreTab() {
               key={s.id}
               className={`rounded-xl border p-3 ${
                 s.enabled
-                  ? "border-[var(--color-border)] bg-[var(--color-card)]"
-                  : "border-[var(--color-border)] bg-transparent opacity-50"
+                  ? "border-(--color-border) bg-(--color-card)"
+                  : "border-(--color-border) bg-transparent opacity-50"
               }`}
             >
               <div className="flex items-start justify-between gap-3">
@@ -347,8 +347,8 @@ export function StoreTab() {
                     {s.icon && <span className="mr-1">{s.icon}</span>}
                     {s.label}
                   </p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{s.blurb}</p>
-                  <p className="mt-1 truncate text-[11px] text-[var(--color-text-secondary)]">
+                  <p className="mt-1 text-[11px] leading-relaxed text-text-secondary">{s.blurb}</p>
+                  <p className="mt-1 truncate text-[11px] text-text-secondary">
                     🔍 <code>{s.keywords}</code>
                     {s.department && <> · {DEPARTMENTS.find((d) => d.value === s.department)?.label ?? s.department}</>}
                   </p>
@@ -358,7 +358,7 @@ export function StoreTab() {
                         📄 Punya halaman sendiri · {s.detail.length} karakter
                       </span>
                     ) : (
-                      <span className="text-[var(--color-text-secondary)]">
+                      <span className="text-text-secondary">
                         Tanpa panduan — kartu ini menautkan langsung ke Amazon
                       </span>
                     )}
@@ -370,13 +370,13 @@ export function StoreTab() {
                       setEditing(editing === s.id ? null : s.id);
                       setGuide(s.detail ?? "");
                     }}
-                    className="rounded-lg border border-[var(--color-border)] px-2 py-1 text-[11px]"
+                    className="rounded-lg border border-(--color-border) px-2 py-1 text-[11px]"
                   >
                     {s.detail ? "Edit panduan" : "Tulis panduan"}
                   </button>
                   <button
                     onClick={() => toggle(s)}
-                    className="rounded-lg border border-[var(--color-border)] px-2 py-1 text-[11px]"
+                    className="rounded-lg border border-(--color-border) px-2 py-1 text-[11px]"
                   >
                     {s.enabled ? "Sembunyikan" : "Tampilkan"}
                   </button>
@@ -390,8 +390,8 @@ export function StoreTab() {
               </div>
 
               {editing === s.id && (
-                <div className="mt-3 border-t border-[var(--color-border)] pt-3">
-                  <p className="text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+                <div className="mt-3 border-t border-(--color-border) pt-3">
+                  <p className="text-[11px] leading-relaxed text-text-secondary">
                     Panduan beli dalam <b>bahasa {current.lang}</b>: apa yang perlu diperhatikan, ukuran, bahan,
                     kesalahan yang sering terjadi. Menulis <b>minimal 400 karakter</b> membuat kategori ini punya
                     halaman sendiri yang masuk sitemap. Mengosongkannya menghapus halaman itu lagi. Pisahkan paragraf
@@ -401,19 +401,19 @@ export function StoreTab() {
                     value={guide}
                     onChange={(e) => setGuide(e.target.value)}
                     rows={10}
-                    className="mt-2 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs leading-relaxed"
+                    className="mt-2 w-full rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs leading-relaxed"
                   />
                   <div className="mt-2 flex items-center gap-2">
                     <button
                       onClick={() => saveGuide(s.id)}
                       disabled={busy}
-                      className="rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-[11px] font-bold text-white disabled:opacity-40"
+                      className="rounded-lg bg-accent px-3 py-1.5 text-[11px] font-bold text-white disabled:opacity-40"
                     >
                       Simpan panduan
                     </button>
                     <button
                       onClick={() => setEditing(null)}
-                      className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-[11px]"
+                      className="rounded-lg border border-(--color-border) px-3 py-1.5 text-[11px]"
                     >
                       Batal
                     </button>
@@ -421,7 +421,7 @@ export function StoreTab() {
                       className={`text-[11px] ${
                         guide.trim().length >= 400
                           ? "text-emerald-600 dark:text-emerald-400"
-                          : "text-[var(--color-text-secondary)]"
+                          : "text-text-secondary"
                       }`}
                     >
                       {guide.trim().length} / 400

@@ -237,7 +237,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
       </div>
 
       {categories.length === 0 && (
-        <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">{t.loadError}</p>
+        <p className="mt-10 text-center text-sm text-text-secondary">{t.loadError}</p>
       )}
 
       {categories.map((cat) => {
@@ -252,7 +252,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
                 {cat.name_id}
               </h2>
               {cat.name_ar && (
-                <span dir="rtl" className="font-arabic text-sm text-[var(--color-text-secondary)]">
+                <span dir="rtl" className="font-arabic text-sm text-text-secondary">
                   {cat.name_ar}
                 </span>
               )}
@@ -275,7 +275,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
                   <span
                     aria-hidden
                     style={{ borderColor: cv.foil }}
-                    className="pointer-events-none absolute inset-2 left-5 rounded-sm border opacity-15"
+                    className="pointer-events-none absolute inset-2 left-5 rounded-xs border opacity-15"
                   />
 
                   <div className="relative">
@@ -312,7 +312,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
         );
       })}
 
-      <p className="mt-12 text-center text-xs text-[var(--color-text-secondary)]">{t.footnote}</p>
+      <p className="mt-12 text-center text-xs text-text-secondary">{t.footnote}</p>
     </div>
   );
 }

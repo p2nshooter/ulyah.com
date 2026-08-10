@@ -151,9 +151,9 @@ function HighlightedArabic({ text, active }: { text: string; active: boolean }) 
           key={i}
           className={
             i === targetIdx
-              ? "rounded bg-accent/30 px-0.5 text-accent"
+              ? "rounded-sm bg-accent/30 px-0.5 text-accent"
               : i < targetIdx
-                ? "text-[var(--color-text-secondary)]"
+                ? "text-text-secondary"
                 : ""
           }
         >
@@ -485,13 +485,13 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       <aside className="card-premium-static p-3">
         <div className="mb-2 flex items-center justify-between">
           <p className="font-heading text-sm">{dict.nav.quran}</p>
-          <span className="text-[10px] text-[var(--color-text-secondary)]">{dict.reader.allSurah}</span>
+          <span className="text-[10px] text-text-secondary">{dict.reader.allSurah}</span>
         </div>
         <input
           value={surahFilter}
           onChange={(e) => setSurahFilter(e.target.value)}
           placeholder={dict.nav.searchPlaceholder}
-          className="mb-2 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-sm"
+          className="mb-2 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-1.5 text-sm"
         />
         <div className="scrollbar-thin max-h-72 overflow-y-auto pr-1 desktop:max-h-[620px]">
           {filteredSurahs.map((s) => (
@@ -521,7 +521,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   aria-label="previous surah"
                   onClick={() => setSelectedSurah(surahs.find((s) => s.id === selectedSurah.id - 1) ?? selectedSurah)}
                   disabled={selectedSurah.id <= 1}
-                  className="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
+                  className="grid h-8 w-8 place-items-center rounded-full border border-(--color-border) text-sm disabled:opacity-30"
                 >
                   ‹
                 </button>
@@ -529,13 +529,13 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   aria-label="next surah"
                   onClick={() => setSelectedSurah(surahs.find((s) => s.id === selectedSurah.id + 1) ?? selectedSurah)}
                   disabled={selectedSurah.id >= 114}
-                  className="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
+                  className="grid h-8 w-8 place-items-center rounded-full border border-(--color-border) text-sm disabled:opacity-30"
                 >
                   ›
                 </button>
                 <div>
                   <p className="font-heading text-lg leading-tight">{selectedSurah.name_transliteration}</p>
-                  <p className="text-xs text-[var(--color-text-secondary)]">
+                  <p className="text-xs text-text-secondary">
                     {selectedSurah.ayah_count} {dict.reader.ayahLabel} ·{" "}
                     {selectedSurah.revelation_place === "meccan" ? dict.reader.meccan : dict.reader.medinan}
                   </p>
@@ -546,7 +546,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   aria-label="jump to ayah"
                   value={focus}
                   onChange={(e) => focusAndPlay(Number(e.target.value))}
-                  className="rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+                  className="rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
                 >
                   {Array.from({ length: selectedSurah.ayah_count }, (_, i) => i + 1).map((n) => (
                     <option key={n} value={n}>
@@ -562,14 +562,14 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   aria-pressed={tajwidOn}
                   title={tw.tajwidTitle}
                   className={`rounded-lg px-3 py-1.5 text-xs transition ${
-                    tajwidOn ? "bg-accent/20 font-medium text-accent ring-1 ring-accent/40" : "border border-[var(--color-border)] hover:border-accent"
+                    tajwidOn ? "bg-accent/20 font-medium text-accent ring-1 ring-accent/40" : "border border-(--color-border) hover:border-accent"
                   }`}
                 >
                   {tw.tajwid} {tajwidOn ? "✓" : ""}
                 </button>
                 <button
                   onClick={shareAyah}
-                  className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-xs hover:border-accent"
+                  className="rounded-lg border border-(--color-border) px-3 py-1.5 text-xs hover:border-accent"
                 >
                   {copied ? "✓" : "⤴"} {dict.reader.share}
                 </button>
@@ -587,7 +587,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               className={`mt-6 cursor-pointer rounded-2xl px-2 py-6 text-center transition hover:bg-accent/5 ${isThisAyahActive && activeLayer === "ayah" ? "ayah-active-highlight" : ""}`}
             >
               {loadingAyat ? (
-                <p className="py-8 text-sm text-[var(--color-text-secondary)]">{dict.common.loading}</p>
+                <p className="py-8 text-sm text-text-secondary">{dict.common.loading}</p>
               ) : loadError || !focusRow ? (
                 <button
                   onClick={(e) => {
@@ -600,7 +600,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 </button>
               ) : (
                 <>
-                  <p dir="rtl" className="font-arabic text-3xl leading-[2.4] text-[var(--color-text-primary)] sm:text-4xl">
+                  <p dir="rtl" className="font-arabic text-3xl leading-[2.4] text-text-primary sm:text-4xl">
                     {isThisAyahActive && activeLayer === "ayah" ? (
                       <HighlightedArabic text={focusRow?.text_ar ?? ""} active />
                     ) : tajwidOn ? (
@@ -622,7 +622,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                           <button
                             key={key}
                             onClick={() => setTajwidPopup(key)}
-                            className="inline-flex items-center gap-1 text-[var(--color-text-secondary)] transition hover:text-accent"
+                            className="inline-flex items-center gap-1 text-text-secondary transition hover:text-accent"
                           >
                             <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: info.color }} />
                             {tjw[key].name}
@@ -639,11 +639,11 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                     </div>
                   )}
                   {focusRow?.translation ? (
-                    <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+                    <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-text-secondary">
                       {focusRow.translation}
                     </p>
                   ) : (
-                    <p className="mt-5 text-sm text-[var(--color-text-secondary)]">{dict.reader.translationNotAvailable}</p>
+                    <p className="mt-5 text-sm text-text-secondary">{dict.reader.translationNotAvailable}</p>
                   )}
                   <p className="mt-3 text-xs font-medium text-accent">
                     — {selectedSurah.name_transliteration} : {focus}
@@ -657,14 +657,14 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
 
             {/* Reciter (Imam) picker — country + reciter, with the imam's note
                 so the roster reads as complete (Imam Masjidil Haram, dst). */}
-            <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-3 dark:bg-white/[0.02]">
+            <div className="mt-4 rounded-xl border border-(--color-border) bg-surface/50 px-4 py-3 dark:bg-white/2">
               <p className="mb-2 text-sm font-medium">🎙️ {t.chooseReciter}</p>
               <div className="flex flex-wrap gap-2">
                 <select
                   aria-label={t.chooseCountry}
                   value={qoriCC}
                   onChange={(e) => handleCountryChange(e.target.value)}
-                  className="rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+                  className="rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
                 >
                   {COUNTRIES.map((c) => (
                     <option key={c.code} value={c.code}>
@@ -676,7 +676,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   aria-label={t.chooseReciter}
                   value={qoriId}
                   onChange={(e) => setQori(e.target.value)}
-                  className="min-w-0 flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+                  className="min-w-0 flex-1 rounded-lg border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
                 >
                   {RECITERS.filter((r) => r.cdn !== "surah" && (qoriCC === "all" || r.cc === qoriCC)).map((r) => (
                     <option key={r.key} value={r.key}>
@@ -702,14 +702,14 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                       onClick={() => playVoiceMode(m.layers)}
                       className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${
                         active
-                          ? "border-accent bg-accent/10 shadow-sm"
-                          : "border-[var(--color-border)] hover:border-accent/50"
+                          ? "border-accent bg-accent/10 shadow-xs"
+                          : "border-(--color-border) hover:border-accent/50"
                       }`}
                     >
                       <span className="text-xl">{m.icon}</span>
                       <span className="min-w-0">
                         <span className="block text-sm font-medium">{m.label(dict)}</span>
-                        <span className="block text-[11px] leading-tight text-[var(--color-text-secondary)]">
+                        <span className="block text-[11px] leading-tight text-text-secondary">
                           {m.hint(dict)}
                         </span>
                       </span>
@@ -720,12 +720,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
             </div>
 
             {/* Minimal transport — play/pause the focused ayah + step ayat. */}
-            <div className="mt-4 flex items-center justify-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-4 py-3 dark:bg-white/[0.02]">
+            <div className="mt-4 flex items-center justify-center gap-3 rounded-xl border border-(--color-border) bg-surface/50 px-4 py-3 dark:bg-white/2">
               <button
                 onClick={() => focusAndPlay(Math.max(1, focus - 1))}
                 disabled={focus <= 1}
                 aria-label="previous ayah"
-                className="grid h-9 w-9 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
+                className="grid h-9 w-9 place-items-center rounded-full border border-(--color-border) text-sm disabled:opacity-30"
               >
                 ⏮
               </button>
@@ -740,7 +740,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 onClick={() => focusAndPlay(Math.min(selectedSurah.ayah_count, focus + 1))}
                 disabled={focus >= selectedSurah.ayah_count}
                 aria-label="next ayah"
-                className="grid h-9 w-9 place-items-center rounded-full border border-[var(--color-border)] text-sm disabled:opacity-30"
+                className="grid h-9 w-9 place-items-center rounded-full border border-(--color-border) text-sm disabled:opacity-30"
               >
                 ⏭
               </button>
@@ -751,7 +751,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                 a redundant play button and could error). Pure reading — tafsir
                 with an edition picker, asbabun nuzul, supporting hadith, and a
                 link to any related story. No playback controls here. */}
-            <div className="mt-5 rounded-xl border border-[var(--color-border)]">
+            <div className="mt-5 rounded-xl border border-(--color-border)">
               <button
                 onClick={() => setShowExplanation((v) => !v)}
                 className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
@@ -760,13 +760,13 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                   <span>📖</span>
                   {dict.reader.explanationTitle}
                 </span>
-                <span className="text-xs text-[var(--color-text-secondary)]">
+                <span className="text-xs text-text-secondary">
                   {showExplanation ? `▲ ${dict.reader.hideExplanation}` : `▼ ${dict.reader.showExplanation}`}
                 </span>
               </button>
 
               {showExplanation && (
-                <div className="space-y-3 border-t border-[var(--color-border)] p-4">
+                <div className="space-y-3 border-t border-(--color-border) p-4">
                   {explanation.map((s) => {
                     const isTafsir = s.layer === "tafsir";
                     const tafsirLoading = isTafsir && tafsirEdition ? editionTafsirLoading : bundleLoading;
@@ -782,7 +782,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         ref={(el) => {
                           explRefs.current.set(s.layer, el);
                         }}
-                        className={`rounded-xl border p-3 transition ${reading ? "border-accent bg-accent/10 shadow-sm" : "border-[var(--color-border)]"}`}
+                        className={`rounded-xl border p-3 transition ${reading ? "border-accent bg-accent/10 shadow-xs" : "border-(--color-border)"}`}
                       >
                         <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
                           <span>{s.icon}</span>
@@ -796,7 +796,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                             aria-label={dict.reader.tafsirLabel}
                             value={tafsirEdition}
                             onChange={(ev) => setTafsirEdition(ev.target.value)}
-                            className="mt-1.5 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-2 py-1 text-[11px]"
+                            className="mt-1.5 w-full rounded-lg border border-(--color-border) bg-transparent px-2 py-1 text-[11px]"
                           >
                             <option value="">★ {dict.reader.tafsirLabel} — {tafsirEditions[0]?.name}</option>
                             {tafsirEditions.map((ed) => (
@@ -806,17 +806,17 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                             ))}
                           </select>
                         )}
-                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--color-text-secondary)]">
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-text-secondary">
                           {s.text ?? (tafsirLoading ? `${dict.common.loading}…` : s.empty)}
                         </p>
                         {isTafsir && sourceName && s.text && (
-                          <p className="mt-1 text-[10px] italic text-[var(--color-text-secondary)]/70">— {sourceName}</p>
+                          <p className="mt-1 text-[10px] italic text-text-secondary/70">— {sourceName}</p>
                         )}
                       </div>
                     );
                   })}
                   {bundle?.stories && bundle.stories.length > 0 && (
-                    <div className="rounded-xl border border-[var(--color-border)] p-3">
+                    <div className="rounded-xl border border-(--color-border) p-3">
                       <p className="flex items-center gap-1.5 text-xs font-medium text-primary dark:text-accent">
                         <span>✨</span>
                         {dict.reader.storyLabel}
@@ -839,7 +839,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       {/* Tajwid rule explanation — tap any coloured letter (or a legend chip). */}
       {tajwidPopup && (
         <div
-          className="tajwid-pop fixed bottom-24 left-1/2 z-40 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border-2 bg-[var(--color-card)] p-4 shadow-2xl"
+          className="tajwid-pop fixed bottom-24 left-1/2 z-40 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border-2 bg-(--color-card) p-4 shadow-2xl"
           style={{ borderColor: TAJWID_RULES[tajwidPopup].color }}
         >
           <div className="flex items-start justify-between gap-3">
@@ -854,12 +854,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
             <button
               onClick={() => setTajwidPopup(null)}
               aria-label="close"
-              className="rounded-full border border-[var(--color-border)] px-2 py-0.5 text-xs text-[var(--color-text-secondary)]"
+              className="rounded-full border border-(--color-border) px-2 py-0.5 text-xs text-text-secondary"
             >
               ✕
             </button>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+          <p className="mt-2 text-sm leading-relaxed text-text-secondary">
             {tjw[tajwidPopup].desc}
           </p>
         </div>

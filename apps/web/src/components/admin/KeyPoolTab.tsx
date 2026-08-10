@@ -179,28 +179,28 @@ export function KeyPoolTab() {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={addKey} className="grid gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 sm:grid-cols-6">
+      <form onSubmit={addKey} className="grid gap-2 rounded-xl border border-(--color-border) bg-(--color-card) p-4 sm:grid-cols-6">
         <select value={form.provider} onChange={(e) => {
           const p = providers.find((x) => x.id === e.target.value);
           setForm((f) => ({ ...f, provider: e.target.value, scope: p?.kind ?? f.scope }));
-        }} className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs">
+        }} className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs">
           {providers.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
         </select>
-        <select value={form.scope} onChange={(e) => setForm((f) => ({ ...f, scope: e.target.value }))} className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs">
+        <select value={form.scope} onChange={(e) => setForm((f) => ({ ...f, scope: e.target.value }))} className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs">
           <option value="text">text</option>
           <option value="tts">tts</option>
           <option value="gpu">gpu</option>
           <option value="image">image</option>
         </select>
-        <input value={form.donorLabel} onChange={(e) => setForm((f) => ({ ...f, donorLabel: e.target.value }))} placeholder="Kegunaan (mis. TTS suara pengumuman)" className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs" />
-        <input required type="password" value={form.rawKey} onChange={(e) => setForm((f) => ({ ...f, rawKey: e.target.value }))} placeholder="API key" className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs sm:col-span-2" />
-        <button disabled={busy} className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
+        <input value={form.donorLabel} onChange={(e) => setForm((f) => ({ ...f, donorLabel: e.target.value }))} placeholder="Kegunaan (mis. TTS suara pengumuman)" className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs" />
+        <input required type="password" value={form.rawKey} onChange={(e) => setForm((f) => ({ ...f, rawKey: e.target.value }))} placeholder="API key" className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs sm:col-span-2" />
+        <button disabled={busy} className="rounded-sm bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
           {busy ? "..." : "+ Add"}
         </button>
       </form>
-      {message && <p className="text-xs text-[var(--color-text-secondary)]">{message}</p>}
+      {message && <p className="text-xs text-text-secondary">{message}</p>}
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <button
           onClick={() => setBulkOpen((v) => !v)}
           className="text-xs font-medium text-accent"
@@ -209,26 +209,26 @@ export function KeyPoolTab() {
         </button>
         {bulkOpen && (
           <form onSubmit={addBulk} className="mt-3 space-y-2">
-            <p className="text-[11px] text-[var(--color-text-secondary)]">
+            <p className="text-[11px] text-text-secondary">
               <b>Tempel apa adanya</b> isi file API key Anda (format WhatsApp/catatan pun boleh) — sistem otomatis
-              mengenali key <code className="rounded bg-black/10 px-1">nvapi-…</code> (NVIDIA) &{" "}
-              <code className="rounded bg-black/10 px-1">sk-or-…</code> (OpenRouter) beserta labelnya. Key langsung
+              mengenali key <code className="rounded-sm bg-black/10 px-1">nvapi-…</code> (NVIDIA) &{" "}
+              <code className="rounded-sm bg-black/10 px-1">sk-or-…</code> (OpenRouter) beserta labelnya. Key langsung
               aktif &amp; dienkripsi (dites otomatis di latar belakang). Format baris{" "}
-              <code className="rounded bg-black/10 px-1">provider,scope,label,apiKey</code> juga tetap didukung.
+              <code className="rounded-sm bg-black/10 px-1">provider,scope,label,apiKey</code> juga tetap didukung.
             </p>
             <textarea
               value={bulkText}
               onChange={(e) => setBulkText(e.target.value)}
               placeholder={"Tempel isi file key di sini…\n\nNVIDIA_KEY_MAIN\nValue: nvapi-xxxx\n\nOPENROUTER_KEY\nsk-or-v1-yyyy"}
               rows={7}
-              className="w-full rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 font-mono text-xs"
             />
-            <button disabled={bulkBusy || !bulkText.trim()} className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
+            <button disabled={bulkBusy || !bulkText.trim()} className="rounded-sm bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary">
               {bulkBusy ? "Memproses..." : "Proses semua"}
             </button>
             {bulkResults && (
               <ul className="mt-2 space-y-1 text-[11px]">
-                <li className="font-medium text-[var(--color-text-primary)]">
+                <li className="font-medium text-text-primary">
                   {bulkResults.filter((r) => r.ok).length} key diproses dari {bulkResults.length} terdeteksi
                 </li>
                 {bulkResults.map((r, i) => (
@@ -245,12 +245,12 @@ export function KeyPoolTab() {
       {/* Summary cards — one glance: berapa hidup, berapa cuma kena limit, berapa mati. */}
       <div className="grid gap-3 sm:grid-cols-3">
         {BUCKETS.map((b) => (
-          <div key={b.id} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div key={b.id} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <div className="flex items-baseline justify-between">
               <span className={`text-sm font-semibold ${b.accent}`}>{b.title}</span>
               <span className={`text-2xl font-bold ${b.accent}`}>{grouped[b.id].total}</span>
             </div>
-            <p className="mt-1 text-[10px] leading-snug text-[var(--color-text-secondary)]">{b.note}</p>
+            <p className="mt-1 text-[10px] leading-snug text-text-secondary">{b.note}</p>
           </div>
         ))}
       </div>
@@ -259,14 +259,14 @@ export function KeyPoolTab() {
         <button
           onClick={testAll}
           disabled={testAllBusy}
-          className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary"
+          className="rounded-sm bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary"
         >
           {testAllBusy ? "Menguji semua…" : "Test semua key"}
         </button>
-        {testAllMsg && <span className="text-[11px] text-[var(--color-text-secondary)]">{testAllMsg}</span>}
+        {testAllMsg && <span className="text-[11px] text-text-secondary">{testAllMsg}</span>}
       </div>
 
-      <div className="flex flex-wrap gap-x-4 gap-y-1 rounded-lg bg-black/5 px-3 py-2 text-[10px] text-[var(--color-text-secondary)]">
+      <div className="flex flex-wrap gap-x-4 gap-y-1 rounded-lg bg-black/5 px-3 py-2 text-[10px] text-text-secondary">
         {Object.entries(STATUS_LABEL_ID).map(([status, label]) => (
           <span key={status}>
             <span className={STATUS_COLOR[status] ?? ""}>●</span> {status} = {label}
@@ -279,26 +279,26 @@ export function KeyPoolTab() {
         const g = grouped[b.id];
         const providerLines = Object.entries(g.byProvider).sort((a, z) => z[1].length - a[1].length);
         return (
-          <div key={b.id} className="rounded-xl border border-[var(--color-border)]">
+          <div key={b.id} className="rounded-xl border border-(--color-border)">
             <button
               onClick={() => setOpen((o) => ({ ...o, [b.id]: !o[b.id] }))}
               className="flex w-full items-center justify-between px-4 py-2.5 text-left"
             >
               <span className={`text-sm font-semibold ${b.accent}`}>
-                {open[b.id] ? "▾" : "▸"} {b.title} <span className="text-[var(--color-text-secondary)]">({g.total})</span>
+                {open[b.id] ? "▾" : "▸"} {b.title} <span className="text-text-secondary">({g.total})</span>
               </span>
               <span className="flex flex-wrap justify-end gap-1">
                 {providerLines.slice(0, 5).map(([label, rows]) => (
-                  <span key={label} className="rounded bg-black/5 px-1.5 py-0.5 text-[10px] text-[var(--color-text-secondary)]">
+                  <span key={label} className="rounded-sm bg-black/5 px-1.5 py-0.5 text-[10px] text-text-secondary">
                     {label.split(" · ")[0]} {rows.length}
                   </span>
                 ))}
               </span>
             </button>
             {open[b.id] && (
-              <div className="overflow-x-auto border-t border-[var(--color-border)]">
+              <div className="overflow-x-auto border-t border-(--color-border)">
                 {g.total === 0 ? (
-                  <p className="px-4 py-3 text-xs text-[var(--color-text-secondary)]">Tidak ada key di grup ini.</p>
+                  <p className="px-4 py-3 text-xs text-text-secondary">Tidak ada key di grup ini.</p>
                 ) : (
                   <table className="w-full text-left text-xs">
                     <tbody>
@@ -340,17 +340,17 @@ function ProviderGroup({
   const [expanded, setExpanded] = useState(false);
   return (
     <>
-      <tr className="border-t border-[var(--color-border)] bg-black/[0.03]">
+      <tr className="border-t border-(--color-border) bg-black/3">
         <td colSpan={5} className="px-3 py-1.5">
           <button onClick={() => setExpanded((v) => !v)} className="font-medium text-accent">
-            {expanded ? "▾" : "▸"} {label} <span className="text-[var(--color-text-secondary)]">· {rows.length} key</span>
+            {expanded ? "▾" : "▸"} {label} <span className="text-text-secondary">· {rows.length} key</span>
           </button>
         </td>
       </tr>
       {expanded &&
         rows.map((k) => (
-          <tr key={k.id} className="border-t border-[var(--color-border)]">
-            <td className="px-3 py-2 text-[var(--color-text-secondary)]">#{k.id}</td>
+          <tr key={k.id} className="border-t border-(--color-border)">
+            <td className="px-3 py-2 text-text-secondary">#{k.id}</td>
             <td className={`px-3 py-2 ${STATUS_COLOR[k.status] ?? ""}`} title={STATUS_LABEL_ID[k.status] ?? k.status}>
               {k.status}
             </td>

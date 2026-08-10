@@ -163,9 +163,9 @@ export function KidsGames({ locale }: { locale: string }) {
                   setGame(g.id);
                   setTier(null);
                 }}
-                className="flex items-center gap-3 rounded-2xl border-2 border-amber-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md dark:border-slate-700 dark:bg-slate-800"
+                className="flex items-center gap-3 rounded-2xl border-2 border-amber-200 bg-white p-4 text-left shadow-xs transition hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md dark:border-slate-700 dark:bg-slate-800"
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-amber-200 to-sky-200 text-2xl dark:from-amber-500/30 dark:to-sky-500/30">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-linear-to-br from-amber-200 to-sky-200 text-2xl dark:from-amber-500/30 dark:to-sky-500/30">
                   {g.icon}
                 </span>
                 <span className="min-w-0">
@@ -204,7 +204,7 @@ export function KidsGames({ locale }: { locale: string }) {
         <button onClick={() => setGame(null)} className="mb-3 text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-300">
           ← {t.back}
         </button>
-        <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
           <p className="text-4xl">{entry.icon}</p>
           <h3 className="mt-1 font-heading text-xl font-extrabold text-slate-800 dark:text-amber-100">{entry.name}</h3>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{entry.desc}</p>
@@ -301,7 +301,7 @@ function Board({ t, round, rounds, lives, score }: { t: T; round: number; rounds
 
 function Verdict({ t, passed, score }: { t: T; passed: boolean; score: number }) {
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <p className="text-5xl">{passed ? "🏆" : "💪"}</p>
       <p className="mt-2 font-heading text-lg font-bold text-slate-800 dark:text-amber-100">{passed ? t.passed : t.failed}</p>
       <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
@@ -393,10 +393,10 @@ function QuizGame({
   if (done !== null) return <Verdict t={t} passed={done} score={score} />;
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <Board t={t} round={round} rounds={rules.rounds} lives={livesLeft} score={score} />
 
-      <div className="mt-5 grid min-h-[7rem] place-items-center">
+      <div className="mt-5 grid min-h-28 place-items-center">
         {mode === "letter" ? (
           <span className="font-arabic text-7xl leading-none text-emerald-700 dark:text-emerald-300">{q.answer.ar}</span>
         ) : (
@@ -485,7 +485,7 @@ function MatchGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score: 
   if (done !== null) return <Verdict t={t} passed={done} score={found.length * (tier + 1) * 10} />;
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
         <span className="rounded-full bg-rose-100 px-3 py-1 text-rose-700 dark:bg-rose-500/20 dark:text-rose-200">
           ❤️ {budget - misses}
@@ -505,7 +505,7 @@ function MatchGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score: 
               className={`grid h-16 place-items-center rounded-xl border-2 text-lg font-bold transition ${
                 shown
                   ? "border-emerald-400 bg-emerald-50 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-100"
-                  : "border-slate-200 bg-gradient-to-br from-sky-200 to-amber-200 text-transparent dark:border-slate-600 dark:from-slate-600 dark:to-slate-700"
+                  : "border-slate-200 bg-linear-to-br from-sky-200 to-amber-200 text-transparent dark:border-slate-600 dark:from-slate-600 dark:to-slate-700"
               }`}
             >
               {shown ? <span className={c.arabic ? "font-arabic text-3xl" : "text-sm"}>{c.face}</span> : "؟"}
@@ -557,13 +557,13 @@ function OrderGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score: 
   if (done !== null) return <Verdict t={t} passed={done} score={score} />;
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <Board t={t} round={round} rounds={rounds} lives={livesLeft} score={score} />
       <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-400">{t.orderHint}</p>
 
-      <div className="mt-3 flex min-h-[4.5rem] flex-wrap items-center justify-center gap-2 rounded-2xl bg-emerald-50 p-3 dark:bg-emerald-500/10" dir="rtl">
+      <div className="mt-3 flex min-h-18 flex-wrap items-center justify-center gap-2 rounded-2xl bg-emerald-50 p-3 dark:bg-emerald-500/10" dir="rtl">
         {placed.map((h) => (
-          <span key={h.name} className="font-arabic rounded-lg bg-white px-3 py-1 text-3xl text-emerald-700 shadow-sm dark:bg-slate-700 dark:text-emerald-200">
+          <span key={h.name} className="font-arabic rounded-lg bg-white px-3 py-1 text-3xl text-emerald-700 shadow-xs dark:bg-slate-700 dark:text-emerald-200">
             {h.ar}
           </span>
         ))}
@@ -647,7 +647,7 @@ function MemoryGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score:
   if (done !== null) return <Verdict t={t} passed={done} score={score} />;
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <Board t={t} round={round} rounds={rounds} lives={livesLeft} score={score} />
 
       <p className="mt-3 h-5 text-sm font-bold text-slate-600 dark:text-slate-300">
@@ -731,7 +731,7 @@ function SpeedGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score: 
 
   if (!running) {
     return (
-      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-3xl border-2 border-amber-200 bg-white p-8 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
         <p className="text-5xl">⚡</p>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t.speedDesc}</p>
         <p className="mt-2 text-sm font-bold text-emerald-700 dark:text-emerald-300">
@@ -745,7 +745,7 @@ function SpeedGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score: 
   }
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-bold">
         <span className={`rounded-full px-3 py-1 ${left <= 5 ? "bg-rose-100 text-rose-700" : "bg-sky-100 text-sky-800 dark:bg-sky-500/20 dark:text-sky-200"}`}>
           ⏱ {t.timeLeft}: {left}
@@ -754,7 +754,7 @@ function SpeedGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score: 
           {t.score}: {score}/{target}
         </span>
       </div>
-      <div className="mt-5 grid min-h-[6rem] place-items-center">
+      <div className="mt-5 grid min-h-24 place-items-center">
         <span className="font-arabic text-7xl leading-none text-emerald-700 dark:text-emerald-300">{q.answer.ar}</span>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2">
@@ -820,10 +820,10 @@ function HarakatGame({ t, tier, onFinish }: { t: T; tier: Tier; onFinish: (score
   if (done !== null) return <Verdict t={t} passed={done} score={score} />;
 
   return (
-    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="rounded-3xl border-2 border-amber-200 bg-white p-5 text-center shadow-xs dark:border-slate-700 dark:bg-slate-800">
       <Board t={t} round={round} rounds={rules.rounds} lives={livesLeft} score={score} />
       <p className="mt-3 text-sm font-bold text-slate-600 dark:text-slate-300">{t.whichHarakat}</p>
-      <div className="mt-3 grid min-h-[7rem] place-items-center">
+      <div className="mt-3 grid min-h-28 place-items-center">
         <span className="font-arabic text-7xl leading-none text-emerald-700 dark:text-emerald-300">{q.letter.ar + q.m.mark}</span>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2">

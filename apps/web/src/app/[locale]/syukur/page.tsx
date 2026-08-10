@@ -87,19 +87,19 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
       {/* Gratitude prose */}
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-lg leading-loose text-[var(--color-text-primary)] sm:text-xl">{s.intro}</p>
+          <p className="text-lg leading-loose text-text-primary sm:text-xl">{s.intro}</p>
         </div>
       </section>
 
       {/* Family */}
-      <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
+      <section className="bg-surface px-4 py-16 dark:bg-white/3 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-2xl">{s.familyTitle}</h2>
-          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{s.foundersLabel}</p>
+          <p className="mt-2 text-sm text-text-secondary">{s.foundersLabel}</p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {FOUNDERS.map((f) => (
-              <div key={f.name} className="rounded-2xl border border-accent/30 bg-[var(--color-card)] p-6">
+              <div key={f.name} className="rounded-2xl border border-accent/30 bg-(--color-card) p-6">
                 {mediaSet[f.mediaKey] && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -109,7 +109,7 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
                   />
                 )}
                 <p className="font-heading text-xl text-primary dark:text-accent">{f.name}</p>
-                <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{f.lineage}</p>
+                <p className="mt-1 text-sm text-text-secondary">{f.lineage}</p>
               </div>
             ))}
           </div>
@@ -119,7 +119,7 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
             {CHILDREN.map((c, i) => (
               <li
                 key={c}
-                className="flex items-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3"
+                className="flex items-center gap-3 rounded-xl border border-(--color-border) bg-(--color-card) px-4 py-3"
               >
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent/15 text-xs font-medium text-accent">
                   {i + 1}
@@ -133,9 +133,9 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
 
       {/* Closing du'a */}
       <section className="px-4 py-16 sm:px-6">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-accent/30 bg-gradient-to-b from-accent/10 to-transparent p-8 text-center">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-accent/30 bg-linear-to-b from-accent/10 to-transparent p-8 text-center">
           <p className="font-arabic text-2xl text-accent">اللّٰهُمَّ آمِيْن</p>
-          <p className="mt-4 text-base leading-loose text-[var(--color-text-primary)]">{s.dua}</p>
+          <p className="mt-4 text-base leading-loose text-text-primary">{s.dua}</p>
           <div className="mt-6 flex justify-center">
             <NarrateButton paragraphs={[s.dua]} listenLabel={s.listen} stopLabel={s.stop} lang={locale} />
           </div>
@@ -166,7 +166,7 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
             {s.karyaAbadiDedicationIntro}
           </p>
 
-          <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-accent/30 bg-white/[0.03] p-6">
+          <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-accent/30 bg-white/3 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               {s.karyaAbadiDedicationLabel}
             </p>

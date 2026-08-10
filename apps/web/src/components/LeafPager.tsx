@@ -172,18 +172,18 @@ export default function LeafPager<T extends LeafItem>({
           type="button"
           onClick={() => turnTo(index - 1)}
           disabled={index <= 0 || flipPhase !== "idle"}
-          className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm disabled:opacity-40"
+          className="rounded-full border border-(--color-border) px-4 py-2 text-sm disabled:opacity-40"
         >
           {labels.prev}
         </button>
-        <span className="text-xs text-[var(--color-text-secondary)]">
+        <span className="text-xs text-text-secondary">
           {labels.leafOf(index + 1, leaves.length)}
         </span>
         <button
           type="button"
           onClick={() => turnTo(index + 1)}
           disabled={index >= leaves.length - 1 || flipPhase !== "idle"}
-          className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm disabled:opacity-40"
+          className="rounded-full border border-(--color-border) px-4 py-2 text-sm disabled:opacity-40"
         >
           {labels.next}
         </button>

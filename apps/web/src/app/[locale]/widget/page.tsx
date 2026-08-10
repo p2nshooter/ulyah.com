@@ -183,7 +183,7 @@ export default async function WidgetHubPage({ params }: { params: Promise<{ loca
         <div className="text-center">
           <p className="text-4xl">🕌 ✨ 🕋</p>
           <h1 className="mt-3 font-heading text-3xl sm:text-4xl">{t.heading(TENANT.siteName)}</h1>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-[var(--color-text-secondary)]">{t.intro}</p>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-text-secondary">{t.intro}</p>
         </div>
 
         <div className="mt-6">
@@ -194,7 +194,7 @@ export default async function WidgetHubPage({ params }: { params: Promise<{ loca
             <Link
               key={w.href}
               href={`/${locale}/${w.href}`}
-              className="group relative overflow-hidden rounded-3xl border border-accent/25 bg-gradient-to-br from-[var(--panel-bg)] to-[var(--panel-bg2)] p-6 text-[var(--panel-fg)] shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              className="group relative overflow-hidden rounded-3xl border border-accent/25 bg-linear-to-br from-(--panel-bg) to-(--panel-bg2) p-6 text-(--panel-fg) shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div
@@ -203,7 +203,7 @@ export default async function WidgetHubPage({ params }: { params: Promise<{ loca
               />
               <span className="text-4xl transition duration-300 group-hover:scale-110">{w.emoji}</span>
               <p className="mt-3 font-heading text-lg">{pick(w.title, locale)}</p>
-              <p className="mt-1 text-xs leading-relaxed text-[var(--panel-fg)]/70">{pick(w.desc, locale)}</p>
+              <p className="mt-1 text-xs leading-relaxed text-(--panel-fg)/70">{pick(w.desc, locale)}</p>
               <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-accent">
                 {t.open}
                 <span className="transition group-hover:translate-x-1">→</span>

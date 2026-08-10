@@ -136,7 +136,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
             className={`rounded-full border px-4 py-2 text-sm transition ${
               group === g.key
                 ? "border-accent bg-accent text-primary"
-                : "border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-accent/50"
+                : "border-(--color-border) text-text-secondary hover:border-accent/50"
             }`}
           >
             {g.icon} {g.label}
@@ -159,7 +159,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                 >
                   <span>{c.icon ?? "•"}</span>
                   <span className="min-w-0 flex-1 truncate">{c.name_id}</span>
-                  <span className="text-[10px] text-[var(--color-text-secondary)]">{c.items.length}</span>
+                  <span className="text-[10px] text-text-secondary">{c.items.length}</span>
                 </button>
               </li>
             ))}
@@ -176,19 +176,19 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                     {current.icon} {current.name_id}
                   </h2>
                   {current.name_ar && (
-                    <p dir="rtl" className="font-arabic text-sm text-[var(--color-text-secondary)]">
+                    <p dir="rtl" className="font-arabic text-sm text-text-secondary">
                       {current.name_ar}
                     </p>
                   )}
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <div className="inline-flex gap-1 rounded-full border border-[var(--color-border)] p-1">
+                  <div className="inline-flex gap-1 rounded-full border border-(--color-border) p-1">
                     {AUDIO_MODES.map((m) => (
                       <button
                         key={m.key}
                         onClick={() => setAudioMode(m.key)}
                         className={`rounded-full px-2.5 py-1 text-[11px] transition ${
-                          audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)]"
+                          audioMode === m.key ? "bg-accent text-primary" : "text-text-secondary"
                         }`}
                       >
                         {m.label}
@@ -200,7 +200,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                     (seqIdx === null ? (
                       <button
                         onClick={() => setSeqIdx(0)}
-                        className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary shadow transition hover:brightness-110"
+                        className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary shadow-sm transition hover:brightness-110"
                       >
                         {t.playSequence}
                       </button>
@@ -221,7 +221,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                     key={it.item_order}
                     id={`amalan-item-${idx}`}
                     className={`card-premium-static p-5 transition ${
-                      seqIdx === idx ? "ring-2 ring-accent shadow-[var(--shadow-gold)]" : ""
+                      seqIdx === idx ? "ring-2 ring-accent shadow-(--ul-shadow-gold)" : ""
                     }`}
                   >
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -234,23 +234,23 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                     </div>
 
                     {it.arabic && (
-                      <p dir="rtl" className="font-arabic mt-3 text-2xl leading-[2.2] text-[var(--color-text-primary)]">
+                      <p dir="rtl" className="font-arabic mt-3 text-2xl leading-[2.2] text-text-primary">
                         {it.arabic}
                       </p>
                     )}
-                    {it.latin && <p className="mt-2 text-sm italic text-[var(--color-text-secondary)]">{it.latin}</p>}
+                    {it.latin && <p className="mt-2 text-sm italic text-text-secondary">{it.latin}</p>}
                     {it.translation_id && <p className="mt-2 text-sm leading-relaxed">{it.translation_id}</p>}
 
                     {it.note_id && (
-                      <div className="mt-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-3 dark:bg-white/[0.02]">
+                      <div className="mt-3 rounded-xl border border-(--color-border) bg-surface/50 p-3 dark:bg-white/2">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.note}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">{it.note_id}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-text-secondary">{it.note_id}</p>
                       </div>
                     )}
 
                     <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                       {it.source && (
-                        <p className="text-[11px] italic text-[var(--color-text-secondary)]/70">📖 {it.source}</p>
+                        <p className="text-[11px] italic text-text-secondary/70">📖 {it.source}</p>
                       )}
                       {(it.arabic || it.translation_id || it.note_id) && (
                         <NarrateButton

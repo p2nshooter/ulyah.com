@@ -72,7 +72,7 @@ export function LivePresenceBar() {
   const secondsAgo = at ? Math.max(0, Math.round((nowTick - at) / 1000)) : null;
 
   return (
-    <section className="rounded-xl border border-emerald-500/25 bg-emerald-500/[0.04] p-4">
+    <section className="rounded-xl border border-emerald-500/25 bg-emerald-500/4 p-4">
       <p className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-heading text-base">
         ⚡ Live sekarang
         <span
@@ -83,7 +83,7 @@ export function LivePresenceBar() {
           <span className={`inline-block h-1.5 w-1.5 rounded-full ${failed ? "bg-red-500" : "animate-pulse bg-emerald-500"}`} />
           {failed ? "terputus — mencoba lagi…" : "LIVE"}
         </span>
-        <span className="text-[10px] font-normal text-[var(--color-text-secondary)]">
+        <span className="text-[10px] font-normal text-text-secondary">
           diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 2 dtk
         </span>
       </p>
@@ -104,25 +104,25 @@ export function LivePresenceBar() {
         {cards.map((r) => {
           const m = META[r.tenant] ?? { name: r.tenant, icon: "🌍" };
           return (
-            <div key={r.tenant} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2">
-              <p className="truncate text-[11px] text-[var(--color-text-secondary)]">
+            <div key={r.tenant} className="rounded-lg border border-(--color-border) bg-(--color-card) px-3 py-2">
+              <p className="truncate text-[11px] text-text-secondary">
                 {m.icon} {m.name}
               </p>
               <p className="mt-0.5 text-sm">
-                <span className={`font-heading ${r.online > 0 ? "text-emerald-500" : "text-[var(--color-text-secondary)]"}`}>{r.online}</span>
-                <span className="text-[10px] text-[var(--color-text-secondary)]"> online</span>
+                <span className={`font-heading ${r.online > 0 ? "text-emerald-500" : "text-text-secondary"}`}>{r.online}</span>
+                <span className="text-[10px] text-text-secondary"> online</span>
                 {(r.listening ?? 0) > 0 && (
                   <span className="ml-2 text-[10px] text-sky-500">· {r.listening} 🎧</span>
                 )}
                 {r.closed > 0 && (
-                  <span className="ml-2 text-[10px] text-[var(--color-text-secondary)]">· {r.closed} baru keluar</span>
+                  <span className="ml-2 text-[10px] text-text-secondary">· {r.closed} baru keluar</span>
                 )}
               </p>
             </div>
           );
         })}
       </div>
-      <p className="mt-2 text-[10px] text-[var(--color-text-secondary)]">
+      <p className="mt-2 text-[10px] text-text-secondary">
         Perangkat NYATA (bukan page view), dari heartbeat tiap 3 detik. &quot;Online&quot; = aktif ≤5 detik terakhir (kondisi
         detik ini — turun/naik dalam ≤5 detik); &quot;closed&quot; = sempat aktif lalu menutup/pindah tab dalam 2 menit terakhir.
         🎧 = bagian dari &quot;online&quot; yang sedang memutar Qur&apos;an. Pendengar TETAP terhitung online walau pindah ke

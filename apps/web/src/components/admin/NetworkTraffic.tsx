@@ -108,7 +108,7 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
   const heading = scope === "ecosystem" ? "🌐 Trafik Jaringan (ekosistem ulyah.com)" : "🌍 Trafik Situs Luar Ekosistem";
 
   return (
-    <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+    <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="flex items-center gap-2 font-heading text-base">
           {heading}
@@ -122,21 +122,21 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
             <button
               key={d}
               onClick={() => setDays(d)}
-              className={`rounded-full px-3 py-1 ${days === d ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
+              className={`rounded-full px-3 py-1 ${days === d ? "bg-accent text-white" : "border border-(--color-border)"}`}
             >
               {d}h
             </button>
           ))}
         </div>
       </div>
-      <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+      <p className="mt-1 text-xs text-text-secondary">
         Total {grand.toLocaleString()} tampilan halaman dalam {data.days} hari terakhir ·{" "}
         <span className="font-medium text-emerald-500">{liveTotal.toLocaleString()} online sekarang</span>
-        <span className="text-[var(--color-text-secondary)]"> (perangkat aktif ≤5 detik)</span>
+        <span className="text-text-secondary"> (perangkat aktif ≤5 detik)</span>
       </p>
 
       {totals.length === 0 ? (
-        <p className="mt-3 text-sm text-[var(--color-text-secondary)]">
+        <p className="mt-3 text-sm text-text-secondary">
           Belum ada data — trafik muncul di sini begitu situs mulai dikunjungi.
         </p>
       ) : (
@@ -147,14 +147,14 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
             return (
               <div key={t.site} className="flex items-center gap-2 text-sm">
                 <span className="w-24 shrink-0 truncate">{SITE_LABEL[t.site] ?? t.site}</span>
-                <div className="h-4 flex-1 overflow-hidden rounded bg-black/5">
-                  <div className="h-full rounded bg-accent" style={{ width: `${(t.views / max) * 100}%` }} />
+                <div className="h-4 flex-1 overflow-hidden rounded-sm bg-black/5">
+                  <div className="h-full rounded-sm bg-accent" style={{ width: `${(t.views / max) * 100}%` }} />
                 </div>
                 {/* Live "online sekarang" per situs (≤5s presence), updated every
                     poll — the ▲/▼ shows visitors rising or falling vs the last tick. */}
                 <span
                   className={`w-16 shrink-0 text-right text-xs tabular-nums ${
-                    delta > 0 ? "text-emerald-500" : delta < 0 ? "text-rose-500" : "text-[var(--color-text-secondary)]"
+                    delta > 0 ? "text-emerald-500" : delta < 0 ? "text-rose-500" : "text-text-secondary"
                   }`}
                   title="Online sekarang — perangkat aktif ≤5 detik"
                 >
@@ -169,8 +169,8 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
 
       {topPages.length > 0 && (
         <div className="mt-4">
-          <p className="text-xs font-semibold text-[var(--color-text-secondary)]">Halaman teratas</p>
-          <ul className="mt-1.5 space-y-1 text-xs text-[var(--color-text-secondary)]">
+          <p className="text-xs font-semibold text-text-secondary">Halaman teratas</p>
+          <ul className="mt-1.5 space-y-1 text-xs text-text-secondary">
             {topPages.slice(0, 12).map((p, i) => (
               <li key={i} className="flex justify-between gap-2">
                 <span className="truncate">

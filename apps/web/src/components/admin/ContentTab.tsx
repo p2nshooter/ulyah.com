@@ -40,11 +40,11 @@ function EnginePanel() {
   }
 
   return (
-    <div className="rounded-xl border border-accent/40 bg-[var(--color-card)] p-4">
+    <div className="rounded-xl border border-accent/40 bg-(--color-card) p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="font-heading text-base">⚙️ Auto Content Engine</p>
-          <p className="text-xs text-[var(--color-text-secondary)]">
+          <p className="text-xs text-text-secondary">
             Compiles sourced Tadabbur articles from the DB every 15 min — runs with or without AI keys, and only
             stops here.
           </p>
@@ -72,7 +72,7 @@ function EnginePanel() {
         </div>
       )}
       {status && status.recent.length > 0 && (
-        <ul className="mt-2 space-y-1 text-[11px] text-[var(--color-text-secondary)]">
+        <ul className="mt-2 space-y-1 text-[11px] text-text-secondary">
           {status.recent.map((r, i) => (
             <li key={i}>
               · {r.title} <span className="uppercase">[{r.lang}]</span>
@@ -103,7 +103,7 @@ function LibraryStatsPanel() {
   const radioInstalls = stats.installs.byApp.find((a) => a.app === "radio")?.n ?? 0;
 
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+    <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
       <p className="font-heading text-base">📚 Perpustakaan Kitab & Pemasangan Aplikasi</p>
 
       <div className="mt-3 flex flex-wrap gap-4 text-xs">
@@ -114,12 +114,12 @@ function LibraryStatsPanel() {
         <span>App Radio Qur'an: <b>{radioInstalls.toLocaleString("id")}</b></span>
       </div>
 
-      <p className="mt-4 text-xs font-semibold text-[var(--color-text-secondary)]">Kitab per kategori</p>
+      <p className="mt-4 text-xs font-semibold text-text-secondary">Kitab per kategori</p>
       <div className="mt-2 max-h-64 overflow-y-auto">
         <table className="w-full text-left text-[11px]">
           <tbody>
             {stats.kitab.byCategory.map((c) => (
-              <tr key={c.slug} className="border-t border-[var(--color-border)]">
+              <tr key={c.slug} className="border-t border-(--color-border)">
                 <td className="py-1 pr-2">{c.name_id}</td>
                 <td className="py-1 text-right font-medium">{c.n.toLocaleString("id")}</td>
               </tr>
@@ -157,32 +157,32 @@ export function ContentTab() {
     <div className="space-y-4">
       <EnginePanel />
       <LibraryStatsPanel />
-      <div className="flex items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="flex items-center gap-2 rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <input
           type="number"
           min={1}
           max={50}
           value={scheduleCount}
           onChange={(e) => setScheduleCount(Number(e.target.value))}
-          className="w-20 rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+          className="w-20 rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
         />
-        <button onClick={scheduleBatch} className="rounded bg-primary px-3 py-1.5 text-xs text-white dark:bg-accent dark:text-primary">
+        <button onClick={scheduleBatch} className="rounded-sm bg-primary px-3 py-1.5 text-xs text-white dark:bg-accent dark:text-primary">
           Schedule new kisah drafts
         </button>
-        <span className="text-xs text-[var(--color-text-secondary)]">Zero-hand pipeline picks ayat without a story yet, queues generation_jobs.</span>
+        <span className="text-xs text-text-secondary">Zero-hand pipeline picks ayat without a story yet, queues generation_jobs.</span>
       </div>
 
-      {queue.length === 0 && <p className="text-sm text-[var(--color-text-secondary)]">No content pending review.</p>}
+      {queue.length === 0 && <p className="text-sm text-text-secondary">No content pending review.</p>}
       {queue.map((item) => (
-        <div key={item.id} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <div key={item.id} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
           <div className="flex items-center justify-between">
             <p className="font-heading text-base">{item.title}</p>
-            <span className="text-xs text-[var(--color-text-secondary)]">confidence: {item.confidence_score ?? "—"}</span>
+            <span className="text-xs text-text-secondary">confidence: {item.confidence_score ?? "—"}</span>
           </div>
-          <p className="mt-2 max-h-32 overflow-y-auto text-xs text-[var(--color-text-secondary)]">{item.body}</p>
+          <p className="mt-2 max-h-32 overflow-y-auto text-xs text-text-secondary">{item.body}</p>
           <div className="mt-3 flex gap-2">
-            <button onClick={() => approve(item.id)} className="rounded bg-success px-3 py-1 text-xs text-white">Approve</button>
-            <button onClick={() => reject(item.id)} className="rounded bg-danger px-3 py-1 text-xs text-white">Reject</button>
+            <button onClick={() => approve(item.id)} className="rounded-sm bg-success px-3 py-1 text-xs text-white">Approve</button>
+            <button onClick={() => reject(item.id)} className="rounded-sm bg-danger px-3 py-1 text-xs text-white">Reject</button>
           </div>
         </div>
       ))}

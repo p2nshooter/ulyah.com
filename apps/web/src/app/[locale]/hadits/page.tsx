@@ -72,7 +72,7 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
           and a gold-foil Arabic title instead of a plain card). */}
       <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 desktop:grid-cols-4">
         {collections.length === 0 && (
-          <p className="col-span-full text-center text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>
+          <p className="col-span-full text-center text-sm text-text-secondary">{t.noResults}</p>
         )}
         {collections.map((c) => {
           const cv = coverFor(c.slug);
@@ -90,11 +90,11 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
               <span
                 aria-hidden
                 style={{ borderColor: cv.foil }}
-                className="pointer-events-none absolute inset-2 left-5 rounded-sm border opacity-15"
+                className="pointer-events-none absolute inset-2 left-5 rounded-xs border opacity-15"
               />
 
               <div className="relative">
-                <span className="text-2xl drop-shadow">📖</span>
+                <span className="text-2xl drop-shadow-sm">📖</span>
                 <p dir="rtl" style={{ color: cv.foil }} className="font-arabic mt-2 line-clamp-2 text-lg leading-snug">
                   {c.name_ar}
                 </p>

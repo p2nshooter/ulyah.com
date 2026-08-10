@@ -36,7 +36,7 @@ export function DonationVirtues({ dict, locale }: { dict: Dictionary; locale: st
               className={`rounded-2xl border p-5 text-[15px] leading-relaxed transition ${
                 active === i
                   ? "border-accent bg-accent/15 shadow-[inset_0_-2px_0_#B8892B]"
-                  : "border-[#f4efe3]/12 bg-white/[0.03]"
+                  : "border-[#f4efe3]/12 bg-white/3"
               }`}
             >
               {v}

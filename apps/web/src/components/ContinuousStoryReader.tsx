@@ -180,7 +180,7 @@ export function ContinuousStoryReader({
           text={summary}
           active={isActive("summary")}
           charIndex={charOf("summary")}
-          className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]"
+          className="whitespace-pre-wrap text-[15px] leading-relaxed text-text-primary"
         />
       </div>
 
@@ -206,7 +206,7 @@ export function ContinuousStoryReader({
                   text={s.body_id}
                   active={isActive(`sec-${s.section_order}-b`)}
                   charIndex={charOf(`sec-${s.section_order}-b`)}
-                  className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]"
+                  className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-text-primary"
                 />
               </div>
               {s.quran_refs && (

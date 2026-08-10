@@ -75,7 +75,7 @@ export function SpokenText({
           <span
             key={i}
             ref={i === activeWord ? activeRef : undefined}
-            className={i === activeWord ? "rounded bg-accent px-0.5 text-primary shadow-sm" : undefined}
+            className={i === activeWord ? "rounded-sm bg-accent px-0.5 text-primary shadow-xs" : undefined}
           >
             {t.text}
           </span>

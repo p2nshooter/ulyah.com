@@ -78,7 +78,7 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={dict.nav.searchPlaceholder}
-          className="w-full rounded-full border border-accent/30 bg-transparent px-4 py-2.5 text-sm focus:border-accent focus:outline-none"
+          className="w-full rounded-full border border-accent/30 bg-transparent px-4 py-2.5 text-sm focus:border-accent focus:outline-hidden"
         />
         <button
           type="submit"
@@ -88,9 +88,9 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
         </button>
       </form>
 
-      {loading && <p className="mt-6 text-center text-sm text-[var(--color-text-secondary)]">{dict.common.loading}</p>}
+      {loading && <p className="mt-6 text-center text-sm text-text-secondary">{dict.common.loading}</p>}
       {searched && !loading && totalResults === 0 && (
-        <p className="mt-6 text-center text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>
+        <p className="mt-6 text-center text-sm text-text-secondary">{dict.reader.noContentYet}</p>
       )}
 
       {results.ayah && results.ayah.length > 0 && (
@@ -100,7 +100,7 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
             {results.ayah.map((r, i) => (
               <div
                 key={i}
-                className="flex items-start justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-3.5 text-sm"
+                className="flex items-start justify-between gap-3 rounded-xl border border-(--color-border) bg-(--color-card) p-3.5 text-sm"
               >
                 <p>
                   <span className="font-medium text-accent">
@@ -130,11 +130,11 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
               return (
                 <div
                   key={r.id}
-                  className="flex items-start justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-3.5 text-sm"
+                  className="flex items-start justify-between gap-3 rounded-xl border border-(--color-border) bg-(--color-card) p-3.5 text-sm"
                 >
                   <p>
                     {text}
-                    <span className="ml-1 text-xs text-[var(--color-text-secondary)]">({r.source})</span>
+                    <span className="ml-1 text-xs text-text-secondary">({r.source})</span>
                   </p>
                   <NarrateButton
                     paragraphs={[text ?? ""]}
@@ -158,7 +158,7 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
               <Link
                 key={r.slug}
                 href={`/${locale}/kisah/${r.slug}`}
-                className="block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-3.5 text-sm hover:border-accent"
+                className="block rounded-xl border border-(--color-border) bg-(--color-card) p-3.5 text-sm hover:border-accent"
               >
                 🎧 {r.title}
               </Link>

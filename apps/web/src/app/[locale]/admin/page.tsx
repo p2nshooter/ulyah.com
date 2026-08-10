@@ -125,14 +125,14 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
             alt="Ulyah"
             width={72}
             height={72}
-            className="block h-9 w-9 rounded-full shadow-sm dark:hidden"
+            className="block h-9 w-9 rounded-full shadow-xs dark:hidden"
           />
           <Image
             src="/brand/ulyah-logo-dark.webp"
             alt="Ulyah"
             width={72}
             height={72}
-            className="hidden h-9 w-9 rounded-full shadow-sm dark:block"
+            className="hidden h-9 w-9 rounded-full shadow-xs dark:block"
           />
           <h1 className="font-heading text-2xl">{dict.admin.dashboardTitle}</h1>
         </div>
@@ -147,12 +147,12 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap gap-2 border-b border-[var(--color-border)] pb-3">
+      <div className="mt-4 flex flex-wrap gap-2 border-b border-(--color-border) pb-3">
         {tabs.map(([key, label]) => (
           <button
             key={key}
             onClick={() => setTab(key)}
-            className={`rounded-full px-3 py-1.5 text-xs ${tab === key ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
+            className={`rounded-full px-3 py-1.5 text-xs ${tab === key ? "bg-accent text-white" : "border border-(--color-border)"}`}
           >
             {label}
           </button>
@@ -180,7 +180,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
           <div className="space-y-4">
             <div>
               <h2 className="font-heading text-lg">🌍 Trafik Situs di Luar Ekosistem ulyah.com</h2>
-              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+              <p className="mt-1 text-sm text-text-secondary">
                 Menu terpisah untuk memantau trafik situs non-dakwah (axto, profity, oldco, xaa, xad, jai, lie).
                 Semua layanan iklan AdSense &amp; fitur worker AI/non-AI situs ini tetap dikendalikan dari portal
                 admin ulyah.com ini (tab 💰 AdSense, 🎻 Orchestra Core, KeyPool, Scaling).
@@ -217,9 +217,9 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
 
 function Tile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+    <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
       <p className="font-heading text-xl">{value}</p>
-      <p className="mt-1 text-xs text-[var(--color-text-secondary)]">{label}</p>
+      <p className="mt-1 text-xs text-text-secondary">{label}</p>
     </div>
   );
 }

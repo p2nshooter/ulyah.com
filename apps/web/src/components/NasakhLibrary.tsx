@@ -55,7 +55,7 @@ export function NasakhLibrary({ locale, entries }: { locale: string; entries: Na
 
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {/* Mansukh (abrogated) */}
-                <div className="rounded-xl border border-orange-500/30 bg-orange-500/[0.06] p-3">
+                <div className="rounded-xl border border-orange-500/30 bg-orange-500/6 p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-orange-600 dark:text-orange-300">
                     Mansukh (dihapus) {e.mansukh_ref ? `· ${e.mansukh_ref}` : ""}
                   </p>
@@ -65,11 +65,11 @@ export function NasakhLibrary({ locale, entries }: { locale: string; entries: Na
                     </p>
                   )}
                   {e.mansukh_id && (
-                    <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">{e.mansukh_id}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-text-secondary">{e.mansukh_id}</p>
                   )}
                 </div>
                 {/* Nasikh (abrogating) */}
-                <div className="rounded-xl border border-green-500/30 bg-green-500/[0.06] p-3">
+                <div className="rounded-xl border border-green-500/30 bg-green-500/6 p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-green-600 dark:text-green-300">
                     Nasikh (pengganti) {e.nasikh_ref ? `· ${e.nasikh_ref}` : ""}
                   </p>
@@ -79,20 +79,20 @@ export function NasakhLibrary({ locale, entries }: { locale: string; entries: Na
                     </p>
                   )}
                   {e.nasikh_id && (
-                    <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">{e.nasikh_id}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-text-secondary">{e.nasikh_id}</p>
                   )}
                 </div>
               </div>
 
               {e.explanation_id && (
-                <div className="mt-3 rounded-xl border border-[var(--color-border)] p-3">
+                <div className="mt-3 rounded-xl border border-(--color-border) p-3">
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">Penjelasan</p>
-                  <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">{e.explanation_id}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-text-secondary">{e.explanation_id}</p>
                 </div>
               )}
 
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                {e.source && <p className="text-[11px] italic text-[var(--color-text-secondary)]/70">📖 {e.source}</p>}
+                {e.source && <p className="text-[11px] italic text-text-secondary/70">📖 {e.source}</p>}
                 <NarrateButton paragraphs={narration} listenLabel={narrateLabels(locale).listen} stopLabel={narrateLabels(locale).stop} lang={locale} />
               </div>
             </article>
@@ -100,7 +100,7 @@ export function NasakhLibrary({ locale, entries }: { locale: string; entries: Na
         })}
       </div>
 
-      <p className="mt-8 text-center text-xs text-[var(--color-text-secondary)]">
+      <p className="mt-8 text-center text-xs text-text-secondary">
         Ilmu nasakh-mansukh termasuk pembahasan Ulumul Qur'an. Sebagian kasus disepakati ulama, sebagian lain
         diperdebatkan cakupannya —{" "}
         <Link href={`/${locale}/kitab`} className="text-accent hover:underline">

@@ -186,13 +186,13 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
             alt={TENANT.siteName}
             width={1200}
             height={480}
-            className="mx-auto mb-8 h-auto w-full max-w-2xl rounded-2xl shadow-[var(--shadow-gold)]"
+            className="mx-auto mb-8 h-auto w-full max-w-2xl rounded-2xl shadow-(--ul-shadow-gold)"
             priority
           />
         )}
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">💎 {TENANT.siteName}</p>
         <h1 className="mt-3 font-heading text-3xl sm:text-4xl">{c.title}</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{c.intro}</p>
+        <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-text-secondary">{c.intro}</p>
       </div>
 
       <section className="reveal-stagger mt-12">
@@ -209,23 +209,23 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
 
       <section className="mt-12 rounded-2xl border border-accent/30 bg-accent/5 p-6">
         <h2 className="font-heading text-xl">🔍 {c.demoTitle}</h2>
-        <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{c.demo}</p>
+        <p className="mt-2 text-[15px] leading-relaxed text-text-secondary">{c.demo}</p>
       </section>
 
-      <section className="hero-entrance mt-12 rounded-2xl bg-gradient-to-b from-[var(--panel-bg2)] to-[var(--panel-bg)] p-8 text-center text-[var(--panel-fg)]">
+      <section className="hero-entrance mt-12 rounded-2xl bg-linear-to-b from-(--panel-bg2) to-(--panel-bg) p-8 text-center text-(--panel-fg)">
         <h2 className="font-heading text-2xl text-accent">✉️ {c.contactTitle}</h2>
-        <p className="mt-3 text-sm text-[var(--panel-fg)]/80">{c.contact}</p>
+        <p className="mt-3 text-sm text-(--panel-fg)/80">{c.contact}</p>
         <p className="mx-auto mt-3 inline-block rounded-full border border-accent/60 bg-accent/15 px-5 py-1.5 text-sm font-semibold tracking-wide text-accent">
           {(c as { minOffer?: string }).minOffer}
         </p>
         <br />
         <a
           href={`mailto:${TENANT.acquisitionEmail}`}
-          className="mt-4 inline-block rounded-full bg-accent px-8 py-3 font-heading text-lg font-semibold text-primary shadow-[var(--shadow-gold)] transition hover:scale-105"
+          className="mt-4 inline-block rounded-full bg-accent px-8 py-3 font-heading text-lg font-semibold text-primary shadow-(--ul-shadow-gold) transition hover:scale-105"
         >
           {TENANT.acquisitionEmail}
         </a>
-        <p className="mt-6 text-xs text-[var(--panel-fg)]/60">{c.donateNote}</p>
+        <p className="mt-6 text-xs text-(--panel-fg)/60">{c.donateNote}</p>
         <Link href={`/${locale}/donasi`} className="mt-2 inline-block rounded-full border border-accent/50 px-6 py-2 text-sm text-accent transition hover:bg-accent/10">
           🤲 {c.donateCta}
         </Link>

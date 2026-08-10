@@ -50,13 +50,13 @@ export function MainAppInstallCard({ locale }: { locale: string }) {
         </div>
       )}
       {installed ? (
-        <p className="text-sm text-[var(--color-text-secondary)]">
+        <p className="text-sm text-text-secondary">
           🕋 {t.mainAppName} · <span className="text-success">✓ {t.installedBadge}</span>
         </p>
       ) : (
         <>
           <p className="font-heading text-lg">🕋 {t.mainAppName}</p>
-          <p className="text-sm text-[var(--color-text-secondary)]">{t.mainAppDesc}</p>
+          <p className="text-sm text-text-secondary">{t.mainAppDesc}</p>
           <InstallAppButton app="main" labeled />
         </>
       )}

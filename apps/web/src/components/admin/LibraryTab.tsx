@@ -24,7 +24,7 @@ const GRADE_META: Record<string, { label: string; cls: string }> = {
   hasan: { label: "Hasan", cls: "text-amber-600 dark:text-amber-300" },
   dhaif: { label: "Lemah (Dhaif)", cls: "text-orange-600 dark:text-orange-300" },
   maudhu: { label: "Palsu (Maudhu')", cls: "text-red-600 dark:text-red-300" },
-  lain: { label: "Perlu Ditinjau", cls: "text-[var(--color-text-secondary)]" },
+  lain: { label: "Perlu Ditinjau", cls: "text-text-secondary" },
 };
 const GRADE_ORDER = ["mutawatir", "shahih", "hasan", "dhaif", "maudhu", "lain"];
 const AMALAN_LABEL: Record<string, string> = {
@@ -53,7 +53,7 @@ export function LibraryTab() {
   }, []);
 
   if (error) return <p className="text-sm text-danger">Gagal memuat statistik perpustakaan.</p>;
-  if (!stats) return <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>;
+  if (!stats) return <p className="text-sm text-text-secondary">Memuat…</p>;
 
   const gradeMap = Object.fromEntries(stats.hadits.byGrade.map((g) => [g.bucket, g.n]));
   const amalanTotal = stats.amalan.reduce((s, a) => s + a.n, 0);
@@ -73,30 +73,30 @@ export function LibraryTab() {
       </div>
 
       {/* Hadith by grade */}
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">Hadits menurut derajat</p>
-        <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-0.5 text-xs text-text-secondary">
           Semua tetap disimpan & ditampilkan, tapi jelas berlabel — termasuk yang palsu/lemah sebagai peringatan.
         </p>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 desktop:grid-cols-6">
           {GRADE_ORDER.map((g) => (
-            <div key={g} className="rounded-lg border border-[var(--color-border)] p-3 text-center">
+            <div key={g} className="rounded-lg border border-(--color-border) p-3 text-center">
               <p className={`font-heading text-xl ${GRADE_META[g].cls}`}>{(gradeMap[g] ?? 0).toLocaleString("id")}</p>
-              <p className="mt-0.5 text-[11px] text-[var(--color-text-secondary)]">{GRADE_META[g].label}</p>
+              <p className="mt-0.5 text-[11px] text-text-secondary">{GRADE_META[g].label}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Hadith collections */}
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">Kitab Hadits</p>
         <div className="mt-3 space-y-1.5">
           {stats.hadits.collections.map((col) => (
             <div key={col.slug} className="flex items-center justify-between gap-3 text-sm">
               <span>
                 {col.name_id}
-                {col.author ? <span className="text-[var(--color-text-secondary)]"> · {col.author}</span> : null}
+                {col.author ? <span className="text-text-secondary"> · {col.author}</span> : null}
               </span>
               <span className="font-heading tabular-nums text-accent">{col.n.toLocaleString("id")}</span>
             </div>
@@ -105,25 +105,25 @@ export function LibraryTab() {
       </section>
 
       {/* Amalan breakdown */}
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">Amalan Harian per kelompok</p>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {stats.amalan.map((a) => (
-            <div key={a.grp} className="rounded-lg border border-[var(--color-border)] p-3 text-center">
+            <div key={a.grp} className="rounded-lg border border-(--color-border) p-3 text-center">
               <p className="font-heading text-xl text-accent">{a.n}</p>
-              <p className="mt-0.5 text-[11px] text-[var(--color-text-secondary)]">{AMALAN_LABEL[a.grp] ?? a.grp}</p>
+              <p className="mt-0.5 text-[11px] text-text-secondary">{AMALAN_LABEL[a.grp] ?? a.grp}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Kitab catalogue by category */}
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">Katalog Kitab per bidang</p>
         <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3">
           {stats.kitab.byCategory.map((cat) => (
             <div key={cat.name_id} className="flex items-center justify-between gap-2 text-sm">
-              <span className="truncate text-[var(--color-text-secondary)]">{cat.name_id}</span>
+              <span className="truncate text-text-secondary">{cat.name_id}</span>
               <span className="font-heading tabular-nums text-accent">{cat.n.toLocaleString("id")}</span>
             </div>
           ))}
@@ -135,9 +135,9 @@ export function LibraryTab() {
 
 function Tile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+    <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
       <p className="font-heading text-lg">{value}</p>
-      <p className="mt-1 text-xs text-[var(--color-text-secondary)]">{label}</p>
+      <p className="mt-1 text-xs text-text-secondary">{label}</p>
     </div>
   );
 }

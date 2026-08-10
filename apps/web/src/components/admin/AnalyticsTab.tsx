@@ -42,9 +42,9 @@ interface Analytics {
 
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-center">
+    <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-center">
       <p className="font-heading text-2xl text-accent">{value}</p>
-      <p className="mt-1 text-xs text-[var(--color-text-secondary)]">{label}</p>
+      <p className="mt-1 text-xs text-text-secondary">{label}</p>
     </div>
   );
 }
@@ -52,7 +52,7 @@ function Stat({ label, value }: { label: string; value: number | string }) {
 function CountryList({ rows, total }: { rows: CountryRow[]; total: number }) {
   return (
     <div className="space-y-1.5">
-      {rows.length === 0 && <p className="text-xs text-[var(--color-text-secondary)]">—</p>}
+      {rows.length === 0 && <p className="text-xs text-text-secondary">—</p>}
       {rows.map((r) => (
         <div key={r.country} className="flex items-center gap-2 text-xs">
           <span className="w-6">{countryFlag(r.country)}</span>
@@ -63,7 +63,7 @@ function CountryList({ rows, total }: { rows: CountryRow[]; total: number }) {
               style={{ width: `${total ? Math.round((r.n / total) * 100) : 0}%` }}
             />
           </div>
-          <span className="w-10 text-right tabular-nums text-[var(--color-text-secondary)]">{r.n}</span>
+          <span className="w-10 text-right tabular-nums text-text-secondary">{r.n}</span>
         </div>
       ))}
     </div>
@@ -87,7 +87,7 @@ export function AnalyticsTab() {
     };
   }, []);
 
-  if (!data) return <p className="text-sm text-[var(--color-text-secondary)]">Loading…</p>;
+  if (!data) return <p className="text-sm text-text-secondary">Loading…</p>;
 
   const chart = data.visitors[tf].map((b) => ({ label: b.bucket.slice(5) || b.bucket, value: b.n }));
 
@@ -116,13 +116,13 @@ export function AnalyticsTab() {
           <Stat label="Sepanjang waktu" value={data.visitors.allTime} />
         </div>
 
-        <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <div className="mt-4 rounded-xl border border-(--color-border) bg-(--color-card) p-4">
           <div className="mb-2 flex gap-1.5">
             {(["daily", "weekly", "monthly", "yearly"] as const).map((k) => (
               <button
                 key={k}
                 onClick={() => setTf(k)}
-                className={`rounded-full px-2.5 py-1 text-[11px] ${tf === k ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
+                className={`rounded-full px-2.5 py-1 text-[11px] ${tf === k ? "bg-accent text-white" : "border border-(--color-border)"}`}
               >
                 {k === "daily" ? "Harian" : k === "weekly" ? "Mingguan" : k === "monthly" ? "Bulanan" : "Tahunan"}
               </button>
@@ -135,7 +135,7 @@ export function AnalyticsTab() {
       {/* Visitor countries */}
       <section>
         <p className="mb-2 font-heading text-base">Negara Pengunjung</p>
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+        <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
           <CountryList rows={data.visitors.countries} total={data.visitors.allTime} />
         </div>
       </section>
@@ -145,7 +145,7 @@ export function AnalyticsTab() {
         <p className="mb-2 font-heading text-base">Member Terdaftar</p>
         <div className="grid gap-3 desktop:grid-cols-[160px_1fr]">
           <Stat label="Total member" value={data.members.total} />
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <CountryList rows={data.members.countries} total={data.members.total} />
           </div>
         </div>
@@ -156,13 +156,13 @@ export function AnalyticsTab() {
         <p className="mb-2 font-heading text-base">Sertifikat Sedekah Diterbitkan</p>
         <div className="grid gap-3 desktop:grid-cols-[160px_1fr]">
           <Stat label="Total sertifikat" value={data.certificates.total} />
-          <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <CountryList rows={data.certificates.countries} total={data.certificates.total} />
           </div>
         </div>
-        <div className="mt-3 max-h-72 overflow-y-auto rounded-xl border border-[var(--color-border)]">
+        <div className="mt-3 max-h-72 overflow-y-auto rounded-xl border border-(--color-border)">
           <table className="w-full text-left text-xs">
-            <thead className="sticky top-0 bg-[var(--color-card)] text-[var(--color-text-secondary)]">
+            <thead className="sticky top-0 bg-(--color-card) text-text-secondary">
               <tr>
                 <th className="px-3 py-2">No. Sertifikat</th>
                 <th className="px-3 py-2">Nama</th>
@@ -173,7 +173,7 @@ export function AnalyticsTab() {
             </thead>
             <tbody>
               {data.certificates.recent.map((r) => (
-                <tr key={r.cert_no} className="border-t border-[var(--color-border)]">
+                <tr key={r.cert_no} className="border-t border-(--color-border)">
                   <td className="px-3 py-2 font-medium text-accent">{r.cert_no}</td>
                   <td className="px-3 py-2">{r.sender_name}</td>
                   <td className="px-3 py-2">
@@ -185,7 +185,7 @@ export function AnalyticsTab() {
               ))}
               {data.certificates.recent.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-3 py-4 text-center text-[var(--color-text-secondary)]">
+                  <td colSpan={5} className="px-3 py-4 text-center text-text-secondary">
                     Belum ada sertifikat diterbitkan.
                   </td>
                 </tr>

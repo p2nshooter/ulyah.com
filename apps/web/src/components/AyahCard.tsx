@@ -30,7 +30,7 @@ export function AyahCard({
   return (
     <article
       id={`ayah-${ayah.number}`}
-      className={`scroll-mt-24 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition ${
+      className={`scroll-mt-24 rounded-2xl border border-(--color-border) bg-(--color-card) p-5 transition ${
         isActive ? "ayah-active-highlight ring-1 ring-accent" : ""
       }`}
     >
@@ -42,42 +42,42 @@ export function AyahCard({
       </p>
 
       {translation && (
-        <p className="text-[15px] leading-relaxed text-[var(--color-text-primary)]">{translation.text}</p>
+        <p className="text-[15px] leading-relaxed text-text-primary">{translation.text}</p>
       )}
 
       {tafsir.length > 0 && (
-        <details className="mt-4 border-t border-[var(--color-border)] pt-3" open>
+        <details className="mt-4 border-t border-(--color-border) pt-3" open>
           <summary className="cursor-pointer text-sm font-medium text-primary dark:text-accent">
             {dict.reader.tafsirLabel}
           </summary>
-          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{tafsir[0]!.text}</p>
+          <p className="mt-2 text-sm text-text-secondary">{tafsir[0]!.text}</p>
         </details>
       )}
 
       {asbabun_nuzul.length > 0 && (
-        <details className="mt-3 border-t border-[var(--color-border)] pt-3">
+        <details className="mt-3 border-t border-(--color-border) pt-3">
           <summary className="cursor-pointer text-sm font-medium text-primary dark:text-accent">
             {dict.reader.asbabunNuzulLabel}
           </summary>
-          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{asbabun_nuzul[0]!.text}</p>
+          <p className="mt-2 text-sm text-text-secondary">{asbabun_nuzul[0]!.text}</p>
         </details>
       )}
 
       {showHadits && hadits && hadits.length > 0 && (
-        <details className="mt-3 border-t border-[var(--color-border)] pt-3">
+        <details className="mt-3 border-t border-(--color-border) pt-3">
           <summary className="cursor-pointer text-sm font-medium text-primary dark:text-accent">
             {dict.reader.haditsLabel}
           </summary>
-          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
+          <p className="mt-2 text-sm text-text-secondary">
             “{hadits[0]!.text_id}” — {hadits[0]!.narrator ?? ""} ({hadits[0]!.source})
           </p>
         </details>
       )}
 
       {stories && stories.length > 0 && (
-        <div className="mt-3 border-t border-[var(--color-border)] pt-3">
+        <div className="mt-3 border-t border-(--color-border) pt-3">
           <p className="text-sm font-medium text-primary dark:text-accent">{dict.reader.storyLabel}</p>
-          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{stories[0]!.title}</p>
+          <p className="mt-1 text-sm text-text-secondary">{stories[0]!.title}</p>
         </div>
       )}
     </article>

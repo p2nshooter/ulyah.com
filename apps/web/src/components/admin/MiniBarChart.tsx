@@ -10,7 +10,7 @@ export function MiniBarChart({
   height?: number;
   barColor?: string;
 }) {
-  if (data.length === 0) return <p className="text-xs text-[var(--color-text-secondary)]">—</p>;
+  if (data.length === 0) return <p className="text-xs text-text-secondary">—</p>;
   const max = Math.max(1, ...data.map((d) => d.value));
   const barWidth = 100 / data.length;
 
@@ -34,7 +34,7 @@ export function MiniBarChart({
           );
         })}
       </svg>
-      <div className="mt-1 flex justify-between text-[9px] text-[var(--color-text-secondary)]">
+      <div className="mt-1 flex justify-between text-[9px] text-text-secondary">
         <span>{data[0]?.label}</span>
         {data.length > 1 && <span>{data[data.length - 1]?.label}</span>}
       </div>

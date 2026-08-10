@@ -187,18 +187,18 @@ const REFERENCE_REPOS: { url: string; use: string }[] = [
 export function WidgetStoreTab() {
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <div className="flex items-center gap-3">
           <Image
             src="/brand/ulyah-logo-dark.webp"
             alt="Ulyah"
             width={72}
             height={72}
-            className="h-10 w-10 shrink-0 rounded-full shadow-sm"
+            className="h-10 w-10 shrink-0 rounded-full shadow-xs"
           />
           <p className="font-heading text-lg">🧩 Widget Store — Sumber Tunggal</p>
         </div>
-        <p className="mt-3 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-3 text-xs text-text-secondary">
           Semua widget (yang sudah live &amp; yang akan datang) terdaftar di sini. Landing "koleksi widget" nanti
           tampil dari daftar ini. Tiap widget dirancang sebagai <b>app terpisah</b> (manifest &amp; identitas install
           sendiri) — jadi tidak perlu saling tahu apakah widget lain sudah dipasang, dan masing-masing terindeks
@@ -207,7 +207,7 @@ export function WidgetStoreTab() {
       </div>
 
       {WIDGETS.map((w) => (
-        <div key={w.key} className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+        <div key={w.key} className="rounded-2xl border border-(--color-border) bg-(--color-card) p-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="font-heading text-lg">
               {w.emoji} {w.name}
@@ -216,11 +216,11 @@ export function WidgetStoreTab() {
               {STATUS[w.status].label}
             </span>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">{w.summary}</p>
+          <p className="mt-2 text-sm leading-relaxed text-text-secondary">{w.summary}</p>
           <div className="mt-3 grid gap-2 text-xs sm:grid-cols-2">
             <p>
               <span className="font-semibold text-primary dark:text-accent">Rute:</span>{" "}
-              <code className="rounded bg-black/10 px-1">{w.route}</code>
+              <code className="rounded-sm bg-black/10 px-1">{w.route}</code>
             </p>
             <p>
               <span className="font-semibold text-primary dark:text-accent">Manifest:</span> {w.manifest}
@@ -230,7 +230,7 @@ export function WidgetStoreTab() {
             <p className="text-[11px] font-semibold text-primary dark:text-accent">Sumber / referensi:</p>
             <ul className="mt-1 space-y-0.5">
               {w.sources.map((s) => (
-                <li key={s} className="text-[11px] text-[var(--color-text-secondary)]">
+                <li key={s} className="text-[11px] text-text-secondary">
                   • {s}
                 </li>
               ))}
@@ -239,17 +239,17 @@ export function WidgetStoreTab() {
         </div>
       ))}
 
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+      <div className="rounded-2xl border border-(--color-border) bg-(--color-card) p-5">
         <p className="font-heading text-base">📦 Repo referensi (arsitektur)</p>
-        <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-0.5 text-xs text-text-secondary">
           Bahan open-source yang dipelajari untuk membangun widget. Konten kitab tetap disaring sesuai
           docs/CONTENT-POLICY.md; UI diberi identitas ulyah.com agar tidak mirip aslinya.
         </p>
         <div className="mt-3 space-y-1.5">
           {REFERENCE_REPOS.map((r) => (
             <div key={r.url} className="text-xs">
-              <code className="rounded bg-black/10 px-1 text-accent">{r.url}</code>{" "}
-              <span className="text-[var(--color-text-secondary)]">— {r.use}</span>
+              <code className="rounded-sm bg-black/10 px-1 text-accent">{r.url}</code>{" "}
+              <span className="text-text-secondary">— {r.use}</span>
             </div>
           ))}
         </div>

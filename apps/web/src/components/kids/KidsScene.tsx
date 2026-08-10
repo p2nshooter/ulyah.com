@@ -49,10 +49,10 @@ export function KidsScene({
 
   return (
     <div
-      className={`relative aspect-[3/2] w-full overflow-hidden rounded-[2rem] shadow-2xl ${
+      className={`relative aspect-3/2 w-full overflow-hidden rounded-4xl shadow-2xl ${
         isNight
-          ? "bg-gradient-to-b from-[#1a5f45] via-[var(--color-primary)] to-[var(--color-primary-dark)]"
-          : "bg-gradient-to-b from-[#7ec8e3] via-[#a9dfc7] to-[#e8f5df]"
+          ? "bg-linear-to-b from-[#1a5f45] via-primary to-primary-dark"
+          : "bg-linear-to-b from-[#7ec8e3] via-[#a9dfc7] to-[#e8f5df]"
       }`}
     >
       {isNight ? (
@@ -106,8 +106,8 @@ export function KidsScene({
       <div
         className={`absolute inset-x-0 bottom-0 h-[18%] ${
           isNight
-            ? "bg-gradient-to-b from-[#2c6b4d] to-[#123d2b]"
-            : "bg-gradient-to-b from-[#8fcf7a] to-[#5aa855]"
+            ? "bg-linear-to-b from-[#2c6b4d] to-[#123d2b]"
+            : "bg-linear-to-b from-[#8fcf7a] to-[#5aa855]"
         }`}
       />
 

@@ -34,11 +34,11 @@ export default async function KontakPage({ params }: { params: Promise<{ locale:
   return (
     <div className="mx-auto max-w-xl px-4 py-14 sm:px-6">
       <h1 className="text-center font-heading text-3xl">{t.title}</h1>
-      <p className="mt-2 text-center text-sm text-[var(--color-text-secondary)]">{t.subtitle}</p>
+      <p className="mt-2 text-center text-sm text-text-secondary">{t.subtitle}</p>
 
-      <p className="mt-8 text-center text-[15px] leading-relaxed text-[var(--color-text-primary)]">{t.intro}</p>
+      <p className="mt-8 text-center text-[15px] leading-relaxed text-text-primary">{t.intro}</p>
 
-      <div className="mt-8 rounded-2xl border border-accent/30 bg-[var(--color-card)] p-6 text-center">
+      <div className="mt-8 rounded-2xl border border-accent/30 bg-(--color-card) p-6 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-accent">{t.emailLabel}</p>
         <a
           href={`mailto:${EMAIL}`}
@@ -48,18 +48,18 @@ export default async function KontakPage({ params }: { params: Promise<{ locale:
         </a>
       </div>
 
-      <p className="mt-4 text-center text-xs text-[var(--color-text-secondary)]">{t.responseNote}</p>
+      <p className="mt-4 text-center text-xs text-text-secondary">{t.responseNote}</p>
 
       {/* Dedication — the tone matches /syukur, kept brief for a contact page */}
-      <div className="mt-10 rounded-2xl border border-accent/20 bg-gradient-to-b from-accent/[0.06] to-transparent p-6 text-center">
+      <div className="mt-10 rounded-2xl border border-accent/20 bg-linear-to-b from-accent/6 to-transparent p-6 text-center">
         <p className="font-arabic text-xl text-accent">بِسْمِ اللّٰهِ</p>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-text-secondary">
           {t.dedication}
         </p>
       </div>
 
       <div className="mt-10">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.15em] text-[var(--color-text-secondary)]">
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.15em] text-text-secondary">
           {t.otherLinksLabel}
         </p>
         <div className="mt-3 flex flex-wrap justify-center gap-3">
@@ -67,7 +67,7 @@ export default async function KontakPage({ params }: { params: Promise<{ locale:
             <Link
               key={href}
               href={href}
-              className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm hover:border-accent hover:text-accent"
+              className="rounded-full border border-(--color-border) px-4 py-2 text-sm hover:border-accent hover:text-accent"
             >
               {label}
             </Link>
