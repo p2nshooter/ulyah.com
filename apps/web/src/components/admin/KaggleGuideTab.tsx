@@ -86,18 +86,18 @@ function KaggleOrchestraConnect() {
   const servedByKaggle = test?.servedBy?.startsWith("kaggle");
 
   return (
-    <div className="rounded-xl border border-accent/40 bg-[var(--color-card)] p-4">
+    <div className="rounded-xl border border-accent/40 bg-(--color-card) p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="font-heading text-base">⚡ Endpoint GPU Gratis Kaggle → Orchestra Core</p>
         <span
           className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
-            live ? "bg-success/15 text-success" : "bg-black/10 text-[var(--color-text-secondary)]"
+            live ? "bg-success/15 text-success" : "bg-black/10 text-text-secondary"
           }`}
         >
           {status == null ? "…" : live ? "● Terhubung" : "○ Belum aktif"}
         </span>
       </div>
-      <p className="mt-1 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+      <p className="mt-1 text-xs leading-relaxed text-text-secondary">
         Jalankan notebook Kaggle di bawah (SEL SERVER), lalu tempel URL tunnel + token yang tercetak ke sini.
         Saat aktif, seluruh ekosistem (ulyah.com, situs saudara, axto) memakai GPU gratis ini lebih dulu, dan
         otomatis balik ke API key donasi begitu notebook berhenti. <b>Status di atas nyata</b> — tekan “Tes
@@ -109,20 +109,20 @@ function KaggleOrchestraConnect() {
           value={form.url}
           onChange={(e) => setForm((f) => ({ ...f, url: e.target.value }))}
           placeholder="https://xxxx.trycloudflare.com/v1/chat/completions"
-          className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs sm:col-span-2"
+          className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs sm:col-span-2"
         />
         <input
           value={form.model}
           onChange={(e) => setForm((f) => ({ ...f, model: e.target.value }))}
           placeholder="Model (mis. Qwen/Qwen2.5-3B-Instruct)"
-          className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+          className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
         />
         <input
           type="password"
           value={form.token}
           onChange={(e) => setForm((f) => ({ ...f, token: e.target.value }))}
           placeholder={status?.hasToken ? "Token tersimpan — isi untuk ganti" : "Token bearer (opsional)"}
-          className="rounded border border-[var(--color-border)] bg-transparent px-2 py-1.5 text-xs"
+          className="rounded-sm border border-(--color-border) bg-transparent px-2 py-1.5 text-xs"
         />
         <label className="flex items-center gap-2 text-xs">
           <input
@@ -135,7 +135,7 @@ function KaggleOrchestraConnect() {
         <div className="flex items-center gap-2">
           <button
             disabled={saving}
-            className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary"
+            className="rounded-sm bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-50 dark:bg-accent dark:text-primary"
           >
             {saving ? "Menyimpan…" : "Simpan"}
           </button>
@@ -143,13 +143,13 @@ function KaggleOrchestraConnect() {
             type="button"
             onClick={runTest}
             disabled={testing || !status?.configured}
-            className="rounded border border-accent px-3 py-1.5 text-xs text-accent disabled:opacity-40"
+            className="rounded-sm border border-accent px-3 py-1.5 text-xs text-accent disabled:opacity-40"
           >
             {testing ? "Menguji…" : "Tes sekarang"}
           </button>
         </div>
       </form>
-      {msg && <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]">{msg}</p>}
+      {msg && <p className="mt-2 text-[11px] text-text-secondary">{msg}</p>}
 
       {test && (
         <div
@@ -305,9 +305,9 @@ export function KaggleGuideTab() {
       {/* FUNCTIONAL: register + live-test the free-GPU inference endpoint. */}
       <KaggleOrchestraConnect />
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">SEL SERVER — sajikan LLM gratis lalu tempel URL &amp; Token ke panel di atas</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           Notebook GPU T4 ON + Internet ON. Setelah tercetak <code>URL</code>/<code>Token</code>, isi panel di atas
           dan tekan Simpan → Tes sekarang. Notebook harus tetap berjalan agar endpoint hidup.
         </p>
@@ -316,7 +316,7 @@ export function KaggleGuideTab() {
 
       <div className="rounded-xl border border-accent/40 bg-accent/5 p-4">
         <p className="font-heading text-lg">🎓 Panduan Kaggle GPU — Aset Film Anak &amp; Stream</p>
-        <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="mt-2 text-xs leading-relaxed text-text-secondary">
           Akun Kaggle Anda memberi GPU gratis (±30 jam/minggu). Panduan ini memakainya untuk dua kebutuhan nyata
           ULYAH.COM: <b>(A)</b> suara narasi berkualitas tinggi untuk Film Animasi Anak, dan <b>(B)</b> video pengisi
           offline yang elegan untuk slot Live Streaming. Semua kode di bawah tinggal salin-tempel ke notebook Kaggle
@@ -324,29 +324,29 @@ export function KaggleGuideTab() {
         </p>
       </div>
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">Langkah 0 — Siapkan notebook</p>
         <CodeBlock code={STEP_SETUP} />
       </div>
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">A. Suara narasi Film Anak (TTS GPU, bahasa Indonesia)</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           Model MMS-TTS Indonesia dari Meta (open source, bebas dipakai). Ganti isi <code>adegan</code> dengan teks
           adegan kisah dari tab Konten.
         </p>
         <CodeBlock code={STEP_TTS} />
       </div>
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">B. Video pengisi offline untuk slot Live</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           Membuat MP4 branded (logo + kontak Yusron Efendi) siap unggah ke YouTube sebagai video pengisi.
         </p>
         <CodeBlock code={STEP_VIDEO} />
       </div>
 
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="text-sm font-medium">C. Memasang hasilnya di situs</p>
         <CodeBlock code={STEP_UPLOAD} />
       </div>

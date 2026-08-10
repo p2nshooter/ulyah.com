@@ -19,7 +19,7 @@ export function PaypalCaptureStatus({ dict }: { dict: Dictionary }) {
       .catch(() => setStatus("error"));
   }, [searchParams]);
 
-  if (status === "capturing") return <p className="mt-4 text-xs text-[var(--color-text-secondary)]">{dict.common.loading}</p>;
+  if (status === "capturing") return <p className="mt-4 text-xs text-text-secondary">{dict.common.loading}</p>;
   if (status === "error") return <p className="mt-4 text-xs text-danger">{dict.common.error}</p>;
   return null;
 }

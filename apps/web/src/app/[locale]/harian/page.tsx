@@ -54,17 +54,17 @@ function DailyCard({
   stopLabel: string;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-b from-accent/[0.05] to-transparent p-6 shadow-[0_2px_24px_rgba(184,137,43,0.08)] sm:p-8">
-      <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 text-8xl text-accent/[0.06]">
+    <div className="relative overflow-hidden rounded-2xl border border-accent/30 bg-linear-to-b from-accent/5 to-transparent p-6 shadow-[0_2px_24px_rgba(184,137,43,0.08)] sm:p-8">
+      <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 text-8xl text-accent/6">
         ✦
       </div>
       <p className="text-xs font-medium uppercase tracking-[0.15em] text-accent">{eyebrow}</p>
-      <p dir="rtl" className="font-arabic mt-4 text-right text-2xl leading-loose text-[var(--color-text-primary)] sm:text-3xl">
+      <p dir="rtl" className="font-arabic mt-4 text-right text-2xl leading-loose text-text-primary sm:text-3xl">
         {arabic}
       </p>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{body}</p>
+      <p className="mt-4 text-[15px] leading-relaxed text-text-secondary">{body}</p>
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-accent/10 pt-4">
-        <p className="text-xs text-[var(--color-text-secondary)]/70">{footer}</p>
+        <p className="text-xs text-text-secondary/70">{footer}</p>
         <NarrateButton
           paragraphs={[narrateText]}
           listenLabel={listenLabel}
@@ -101,7 +101,7 @@ export default async function HarianPage({ params }: { params: Promise<{ locale:
   return (
     <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
       <h1 className="text-center font-heading text-3xl">{dict.explore.daily.title}</h1>
-      <p className="mx-auto mt-2 max-w-md text-center text-sm text-[var(--color-text-secondary)]">
+      <p className="mx-auto mt-2 max-w-md text-center text-sm text-text-secondary">
         {dict.explore.daily.desc}
       </p>
 
@@ -138,7 +138,7 @@ export default async function HarianPage({ params }: { params: Promise<{ locale:
         )}
 
         {!ayah && !hadits && (
-          <p className="text-center text-sm text-[var(--color-text-secondary)]">{dict.reader.noContentYet}</p>
+          <p className="text-center text-sm text-text-secondary">{dict.reader.noContentYet}</p>
         )}
       </div>
     </div>

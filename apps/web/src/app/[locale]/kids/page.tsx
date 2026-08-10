@@ -41,7 +41,7 @@ function SurahGrid({ locale, ids, byId }: { locale: string; ids: number[]; byId:
           <Link
             key={id}
             href={`/${locale}/kids/${id}`}
-            className={`group relative flex min-h-[112px] flex-col justify-between rounded-3xl bg-gradient-to-br ${
+            className={`group relative flex min-h-[112px] flex-col justify-between rounded-3xl bg-linear-to-br ${
               CARD_TINTS[i % CARD_TINTS.length]
             } p-4 text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl`}
           >
@@ -50,7 +50,7 @@ function SurahGrid({ locale, ids, byId }: { locale: string; ids: number[]; byId:
               <span aria-hidden className="text-lg opacity-90 transition group-hover:scale-110">🔊</span>
             </div>
             <div>
-              <p dir="rtl" className="font-arabic text-2xl leading-tight drop-shadow-sm">{s.name_ar}</p>
+              <p dir="rtl" className="font-arabic text-2xl leading-tight drop-shadow-xs">{s.name_ar}</p>
               <p className="mt-0.5 text-sm font-semibold">{s.name_transliteration}</p>
             </div>
           </Link>
@@ -97,9 +97,9 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-linear-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <header className="mx-auto max-w-4xl px-4 pt-12 text-center sm:px-6">
-        <div className="mx-auto mb-3 grid h-20 w-20 place-items-center rounded-3xl bg-gradient-to-br from-amber-300 to-rose-400 text-5xl shadow-lg">
+        <div className="mx-auto mb-3 grid h-20 w-20 place-items-center rounded-3xl bg-linear-to-br from-amber-300 to-rose-400 text-5xl shadow-lg">
           🧒
         </div>
         <h1 className="font-heading text-3xl font-extrabold text-slate-800 sm:text-4xl dark:text-amber-100">{t.title}</h1>
@@ -112,7 +112,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
         <SectionHead icon="📖" title={t.iqroTitle} desc={t.iqroDesc} count={`${IQRO_COUNT} ${t.jilid}`} />
         <Link
           href={`/${locale}/kids/iqro`}
-          className="flex items-center justify-between rounded-3xl bg-gradient-to-br from-emerald-400 to-sky-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
+          className="flex items-center justify-between rounded-3xl bg-linear-to-br from-emerald-400 to-sky-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
         >
           <span className="font-heading text-lg font-bold">📖 {t.iqroTitle}</span>
           <span aria-hidden className="text-2xl">→</span>
@@ -129,7 +129,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
         />
         <Link
           href={`/${locale}/kids/game`}
-          className="flex items-center justify-between rounded-3xl bg-gradient-to-br from-amber-400 to-rose-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
+          className="flex items-center justify-between rounded-3xl bg-linear-to-br from-amber-400 to-rose-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
         >
           <span className="font-heading text-lg font-bold">🎮 {t.gamesCta}</span>
           <span aria-hidden className="text-2xl">→</span>

@@ -32,7 +32,7 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
     <div className="px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-7xl">
         <h1 className="hero-entrance font-heading text-2xl sm:text-3xl">{dict.reader.allSurah}</h1>
-        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{dict.reader.sectionSubtitle}</p>
+        <p className="mt-1 text-sm text-text-secondary">{dict.reader.sectionSubtitle}</p>
 
         {/* Mushaf Utsmani — the flagship Qur'an experience, promoted at the top
             of the Qur'an page (explicit owner request: key services must be
@@ -45,7 +45,7 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
             <p className="flex items-center gap-2 font-heading text-lg">
               <span className="float-soft inline-block">📖</span> {mushafT.title}
             </p>
-            <p className="mt-1 max-w-xl text-sm text-[var(--color-text-secondary)]">{mushafT.subtitle}</p>
+            <p className="mt-1 max-w-xl text-sm text-text-secondary">{mushafT.subtitle}</p>
           </div>
           <span className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg">
             {mushafT.navLabel} →

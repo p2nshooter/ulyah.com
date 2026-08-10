@@ -228,7 +228,7 @@ export function AdhanReminder({ locale }: { locale: string }) {
     <>
       {firedBanner && (
         <div className="fixed inset-x-0 top-3 z-50 flex justify-center px-4">
-          <div className="flex items-center gap-3 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_92%,transparent)] px-5 py-2.5 text-sm font-medium text-[#f4efe3] shadow-2xl backdrop-blur">
+          <div className="flex items-center gap-3 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_92%,transparent)] px-5 py-2.5 text-sm font-medium text-[#f4efe3] shadow-2xl backdrop-blur-sm">
             <span className="text-lg" aria-hidden>🕌</span>
             <span>{t.time(prayerName(firedBanner.key))}</span>
             <button
@@ -253,7 +253,7 @@ export function AdhanReminder({ locale }: { locale: string }) {
         onClick={() => setEnabled(!enabled)}
         aria-label={enabled ? t.on : t.off}
         title={enabled ? t.disable : t.enable}
-        className="fixed bottom-16 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur transition hover:border-accent hover:bg-[var(--color-primary)]"
+        className="fixed bottom-16 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur-sm transition hover:border-accent hover:bg-primary"
       >
         <span aria-hidden>🕌</span>
         {enabled ? (

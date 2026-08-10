@@ -99,7 +99,7 @@ export default async function LivePage({ params }: { params: Promise<{ locale: s
         <div className="hero-entrance text-center">
           <span aria-hidden className="float-soft inline-block text-5xl">📡</span>
           <h1 className="mt-2 font-heading text-3xl sm:text-4xl">{t.heading}</h1>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-[var(--color-text-secondary)]">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-text-secondary">
             {t.desc}
           </p>
         </div>

@@ -29,17 +29,17 @@ export default async function IqroIndexPage({ params }: { params: Promise<{ loca
   const t = kidsLabels(locale);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-linear-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-3xl px-4 pt-8 sm:px-6">
         <Link
           href={`/${locale}/kids`}
-          className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
+          className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-xs ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
         >
           ← {t.back}
         </Link>
 
         <header className="mt-6 text-center">
-          <div className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-3xl bg-gradient-to-br from-emerald-300 to-sky-400 text-4xl shadow-lg">
+          <div className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-3xl bg-linear-to-br from-emerald-300 to-sky-400 text-4xl shadow-lg">
             📖
           </div>
           <h1 className="font-heading text-2xl font-extrabold text-slate-800 sm:text-3xl dark:text-amber-100">{t.iqroTitle}</h1>
@@ -51,7 +51,7 @@ export default async function IqroIndexPage({ params }: { params: Promise<{ loca
             <Link
               key={no}
               href={`/${locale}/kids/iqro/${no}`}
-              className={`flex min-h-[120px] flex-col justify-between rounded-3xl bg-gradient-to-br ${
+              className={`flex min-h-[120px] flex-col justify-between rounded-3xl bg-linear-to-br ${
                 TINTS[i % TINTS.length]
               } p-4 text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl`}
             >

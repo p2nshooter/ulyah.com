@@ -208,7 +208,7 @@ export function QiblaCompass({ locale }: { locale: string }) {
   }
 
   if (loading) {
-    return <p className="text-center text-sm text-[var(--color-text-secondary)]">{t.locating}</p>;
+    return <p className="text-center text-sm text-text-secondary">{t.locating}</p>;
   }
   if (failed || !coords) {
     return <p className="text-center text-sm text-danger">{t.errorLabel}</p>;
@@ -229,16 +229,16 @@ export function QiblaCompass({ locale }: { locale: string }) {
   return (
     <div className="space-y-6">
       {cityLabel && (
-        <p className="text-center text-xs text-[var(--color-text-secondary)]">
-          {t.locationLabel}: <span className="font-medium text-[var(--color-text-primary)]">{cityLabel}</span>
+        <p className="text-center text-xs text-text-secondary">
+          {t.locationLabel}: <span className="font-medium text-text-primary">{cityLabel}</span>
         </p>
       )}
 
       <div className="mx-auto flex w-full max-w-[280px] items-center justify-center">
         <div className="relative aspect-square w-full">
           {/* Fixed forward marker at the top — the phone's own "ahead" line. */}
-          <div className="absolute left-1/2 top-0 z-10 h-0 w-0 -translate-x-1/2 -translate-y-1 border-x-[8px] border-t-[12px] border-x-transparent border-t-accent" />
-          <div className="relative aspect-square w-full rounded-full border-4 border-accent/40 bg-gradient-to-br from-[var(--color-primary-dark)] to-[var(--color-primary)] shadow-xl">
+          <div className="absolute left-1/2 top-0 z-10 h-0 w-0 -translate-x-1/2 -translate-y-1 border-x-8 border-t-12 border-x-transparent border-t-accent" />
+          <div className="relative aspect-square w-full rounded-full border-4 border-accent/40 bg-linear-to-br from-primary-dark to-primary shadow-xl">
             {/* Rotating dial */}
             <div
               className="absolute inset-0"
@@ -267,7 +267,7 @@ export function QiblaCompass({ locale }: { locale: string }) {
               >
                 <div className={`h-full w-full rounded-full shadow-[0_0_12px_rgba(184,137,43,0.8)] ${facing ? "bg-green-400" : "bg-accent"}`} />
                 <div
-                  className={`absolute -top-2 left-1/2 h-0 w-0 -translate-x-1/2 border-x-[7px] border-b-[12px] border-x-transparent ${facing ? "border-b-green-400" : "border-b-accent"}`}
+                  className={`absolute -top-2 left-1/2 h-0 w-0 -translate-x-1/2 border-x-[7px] border-b-12 border-x-transparent ${facing ? "border-b-green-400" : "border-b-accent"}`}
                 />
               </div>
             </div>
@@ -290,24 +290,24 @@ export function QiblaCompass({ locale }: { locale: string }) {
           >
             🧭 {t.enableCompass}
           </button>
-          {unsupported && <p className="mt-2 text-xs text-[var(--color-text-secondary)]">{t.compassUnsupported}</p>}
+          {unsupported && <p className="mt-2 text-xs text-text-secondary">{t.compassUnsupported}</p>}
         </div>
       )}
-      {live && <p className="text-center text-[11px] text-[var(--color-text-secondary)]">{t.compassHint}</p>}
+      {live && <p className="text-center text-[11px] text-text-secondary">{t.compassHint}</p>}
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-center">
-          <p className="text-[11px] text-[var(--color-text-secondary)]">{t.bearingLabel}</p>
+        <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-center">
+          <p className="text-[11px] text-text-secondary">{t.bearingLabel}</p>
           <p className="mt-1 font-heading text-2xl text-accent tabular-nums">{bearing.toFixed(1)}°</p>
         </div>
-        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-center">
-          <p className="text-[11px] text-[var(--color-text-secondary)]">{t.distanceLabel}</p>
+        <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-center">
+          <p className="text-[11px] text-text-secondary">{t.distanceLabel}</p>
           <p className="mt-1 font-heading text-2xl text-accent tabular-nums">{Math.round(distanceKm).toLocaleString()} km</p>
         </div>
       </div>
 
-      <p className="text-center text-xs leading-relaxed text-[var(--color-text-secondary)]">{t.howToUse}</p>
-      <p className="text-center text-[11px] text-[var(--color-text-secondary)]/70">{t.manualNote}</p>
+      <p className="text-center text-xs leading-relaxed text-text-secondary">{t.howToUse}</p>
+      <p className="text-center text-[11px] text-text-secondary/70">{t.manualNote}</p>
 
     </div>
   );

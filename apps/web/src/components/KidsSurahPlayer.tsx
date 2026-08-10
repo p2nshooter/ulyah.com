@@ -104,11 +104,11 @@ export function KidsSurahPlayer({
   }, [current, ayat]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-24 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-linear-to-b from-sky-50 via-amber-50 to-rose-50 pb-24 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6">
         <Link
           href={`/${locale}/kids`}
-          className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
+          className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-xs ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
         >
           ← {labels.back}
         </Link>
@@ -124,7 +124,7 @@ export function KidsSurahPlayer({
         <div className="sticky top-2 z-10 mt-5 flex items-center justify-center gap-3">
           <button
             onClick={togglePlay}
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-emerald-400 to-lime-400 px-5 py-2.5 text-sm font-bold text-white shadow-lg ring-1 ring-black/10 transition hover:brightness-105"
+            className="inline-flex items-center gap-2 rounded-full bg-linear-to-br from-emerald-400 to-lime-400 px-5 py-2.5 text-sm font-bold text-white shadow-lg ring-1 ring-black/10 transition hover:brightness-105"
           >
             <span aria-hidden>{playing ? "⏸" : "▶️"}</span>
             {playing ? labels.pause : labels.playAll}
@@ -132,7 +132,7 @@ export function KidsSurahPlayer({
           <button
             onClick={() => setRepeat((v) => !v)}
             aria-pressed={repeat}
-            className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold shadow-sm ring-1 transition ${
+            className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold shadow-xs ring-1 transition ${
               repeat
                 ? "bg-amber-400 text-white ring-black/10"
                 : "bg-white/70 text-slate-600 ring-black/5 dark:bg-white/10 dark:text-slate-300"
@@ -149,7 +149,7 @@ export function KidsSurahPlayer({
             <li
               key={a.number}
               id={`kids-ayah-${a.number}`}
-              className={`scroll-mt-24 rounded-3xl p-4 shadow-sm ring-1 transition ${
+              className={`scroll-mt-24 rounded-3xl p-4 shadow-xs ring-1 transition ${
                 current === i
                   ? "bg-amber-100 ring-amber-300 dark:bg-amber-500/20 dark:ring-amber-400/40"
                   : "bg-white/80 ring-black/5 dark:bg-white/5"

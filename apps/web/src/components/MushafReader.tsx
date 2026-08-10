@@ -331,7 +331,7 @@ export function MushafReader({ locale }: { locale: string }) {
         : "";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[var(--color-primary-dark)] via-[var(--color-primary)] to-[var(--color-primary-dark)] px-3 py-6 sm:px-6 sm:py-10">
+    <div className="min-h-screen bg-linear-to-b from-primary-dark via-primary to-primary-dark px-3 py-6 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <h1 className="font-heading text-3xl text-accent sm:text-4xl">{t.title}</h1>
@@ -339,7 +339,7 @@ export function MushafReader({ locale }: { locale: string }) {
         </div>
 
         {/* Controls bar */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-accent/25 bg-[color-mix(in_srgb,var(--color-primary)_60%,transparent)] p-3 backdrop-blur-sm">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-accent/25 bg-[color-mix(in_srgb,var(--color-primary)_60%,transparent)] p-3 backdrop-blur-xs">
           <button
             onClick={playPage}
             className="rounded-full bg-accent px-4 py-2 text-xs font-medium text-primary shadow-lg transition hover:brightness-110"
@@ -438,7 +438,7 @@ export function MushafReader({ locale }: { locale: string }) {
             value={mushafQori}
             onChange={(e) => chooseMushafQori(e.target.value)}
             aria-label="qori"
-            className="max-w-[13rem] rounded-full border border-accent/40 bg-transparent px-3 py-2 text-xs text-accent"
+            className="max-w-52 rounded-full border border-accent/40 bg-transparent px-3 py-2 text-xs text-accent"
           >
             {MUSHAF_RECITERS.filter((r) => mushafCC === "all" || r.cc === mushafCC).map((r) => (
               <option key={r.key} value={r.key} className="text-primary">
@@ -669,7 +669,7 @@ export function MushafReader({ locale }: { locale: string }) {
           keeps going, the reader keeps scrolling. Stays until closed manually
           or the page turns (see the pageNumber effect). */}
       {tajwidPopup && (
-        <div className="tajwid-pop fixed bottom-24 left-1/2 z-40 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border-2 bg-[var(--color-card)] p-4 shadow-2xl"
+        <div className="tajwid-pop fixed bottom-24 left-1/2 z-40 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border-2 bg-(--color-card) p-4 shadow-2xl"
           style={{ borderColor: TAJWID_RULES[tajwidPopup].color }}
         >
           <div className="flex items-start justify-between gap-3">
@@ -684,12 +684,12 @@ export function MushafReader({ locale }: { locale: string }) {
             <button
               onClick={() => setTajwidPopup(null)}
               aria-label={t.closeButton}
-              className="rounded-full border border-[var(--color-border)] px-2 py-0.5 text-xs text-[var(--color-text-secondary)]"
+              className="rounded-full border border-(--color-border) px-2 py-0.5 text-xs text-text-secondary"
             >
               ✕
             </button>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+          <p className="mt-2 text-sm leading-relaxed text-text-secondary">
             {tjw[tajwidPopup].desc}
           </p>
         </div>
@@ -701,14 +701,14 @@ export function MushafReader({ locale }: { locale: string }) {
           onClick={() => setTafsirFor(null)}
         >
           <div
-            className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-accent/30 bg-[var(--color-card)] p-5 sm:rounded-3xl"
+            className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-accent/30 bg-(--color-card) p-5 sm:rounded-3xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-2">
               <p className="font-heading text-lg">
                 {t.tafsirTitle} — {tafsirFor.surahId}:{tafsirFor.number}
               </p>
-              <button onClick={() => setTafsirFor(null)} className="text-sm text-[var(--color-text-secondary)]">
+              <button onClick={() => setTafsirFor(null)} className="text-sm text-text-secondary">
                 {t.closeButton} ✕
               </button>
             </div>
@@ -719,7 +719,7 @@ export function MushafReader({ locale }: { locale: string }) {
                   setTafsirEdition(e.target.value);
                   loadTafsirText(e.target.value, tafsirFor.surahId, tafsirFor.number);
                 }}
-                className="mt-3 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+                className="mt-3 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
               >
                 {tafsirEditions.map((ed) => (
                   <option key={ed.slug} value={ed.slug}>
@@ -730,16 +730,16 @@ export function MushafReader({ locale }: { locale: string }) {
             )}
             <div className="mt-4 text-sm leading-relaxed">
               {tafsirText === "loading" ? (
-                <p className="text-[var(--color-text-secondary)]">{t.tafsirLoading}</p>
+                <p className="text-text-secondary">{t.tafsirLoading}</p>
               ) : tafsirText ? (
                 <>
                   <p>{tafsirText.text}</p>
-                  <p className="mt-3 text-xs text-[var(--color-text-secondary)]">
+                  <p className="mt-3 text-xs text-text-secondary">
                     {t.tafsirSource}: {tafsirText.source}
                   </p>
                 </>
               ) : (
-                <p className="text-[var(--color-text-secondary)]">{t.tafsirEmpty}</p>
+                <p className="text-text-secondary">{t.tafsirEmpty}</p>
               )}
             </div>
           </div>

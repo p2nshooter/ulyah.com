@@ -23,7 +23,7 @@ export default async function ImsakiyahPage({ params }: { params: Promise<{ loca
   return (
     <div className="mx-auto max-w-xl px-4 py-14 sm:px-6">
       <h1 className="text-center font-heading text-3xl">🌙 {t.title}</h1>
-      <p className="mt-2 text-center text-sm text-[var(--color-text-secondary)]">{t.subtitle}</p>
+      <p className="mt-2 text-center text-sm text-text-secondary">{t.subtitle}</p>
 
       <div className="mt-8">
         <ImsakiyahCalendar locale={locale} />

@@ -36,7 +36,7 @@ export default async function RadioPage({
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="font-heading text-2xl sm:text-3xl">📻 {t.title}</h1>
-            <p className="mt-1 max-w-xl text-sm text-[var(--color-text-secondary)]">{t.pageIntro}</p>
+            <p className="mt-1 max-w-xl text-sm text-text-secondary">{t.pageIntro}</p>
           </div>
         </div>
 

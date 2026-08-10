@@ -26,12 +26,12 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
 
   return (
     <footer
-      className="border-t border-[var(--color-border)] bg-primary px-4 py-12 text-[var(--panel-fg)] sm:px-6"
+      className="border-t border-(--color-border) bg-primary px-4 py-12 text-(--panel-fg) sm:px-6"
     >
       <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 desktop:grid-cols-6">
         <div className="sm:col-span-2 desktop:col-span-2">
           <div className="flex items-center gap-2.5">
-            <Image src={TENANT.logoIcon} alt="" width={38} height={38} className="rounded-[9px] shadow-[var(--shadow-gold)]" />
+            <Image src={TENANT.logoIcon} alt="" width={38} height={38} className="rounded-[9px] shadow-(--ul-shadow-gold)" />
             {TENANT.wordmarkGold ? (
               /* Footer is always the dark-green brand background, so the
                  pure-gold wordmark (not the theme-aware pair) always applies. */

@@ -22,7 +22,7 @@ html[data-tenant="ulyah"][data-theme="dark"] body {
 
 /* Gold divider glyph + soft gold hover glow are ulyah's signature. */
 html[data-tenant="ulyah"] .card-premium:hover {
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--ul-shadow-gold);
 }
 
 /* ── NUANSA MASJID — structural identity, not just colour ──────────────────

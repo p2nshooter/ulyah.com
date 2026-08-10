@@ -45,7 +45,7 @@ export function StoryDownloads({
           🎧 {dict.reader.downloadAudiobook}
         </a>
       ) : (
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-4 py-2 text-xs text-[var(--color-text-secondary)]">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-(--color-border) px-4 py-2 text-xs text-text-secondary">
           ⏳ {dict.reader.audioProcessing}
         </span>
       )}
@@ -53,7 +53,7 @@ export function StoryDownloads({
       {pdfEbookId && (
         <a
           href={ebookDownloadUrl(pdfEbookId)}
-          className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm transition hover:border-accent"
+          className="inline-flex items-center gap-1.5 rounded-full border border-(--color-border) px-4 py-2 text-sm transition hover:border-accent"
         >
           📄 PDF
         </a>
@@ -61,7 +61,7 @@ export function StoryDownloads({
 
       <button
         onClick={downloadText}
-        className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm transition hover:border-accent"
+        className="inline-flex items-center gap-1.5 rounded-full border border-(--color-border) px-4 py-2 text-sm transition hover:border-accent"
       >
         📝 {dict.reader.downloadText}
       </button>

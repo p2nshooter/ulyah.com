@@ -93,7 +93,7 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
   }
 
   return (
-    <div className="mt-5 rounded-xl border border-[var(--color-border)]">
+    <div className="mt-5 rounded-xl border border-(--color-border)">
       <button
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
@@ -102,19 +102,19 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
           <span aria-hidden>🔤</span>
           {t.title}
         </span>
-        <span className="text-xs text-[var(--color-text-secondary)]">{open ? `▲ ${t.hide}` : `▼ ${t.show}`}</span>
+        <span className="text-xs text-text-secondary">{open ? `▲ ${t.hide}` : `▼ ${t.show}`}</span>
       </button>
 
       {open && (
-        <div className="border-t border-[var(--color-border)] p-4">
+        <div className="border-t border-(--color-border) p-4">
           {words === null ? (
-            <p className="text-sm text-[var(--color-text-secondary)]">…</p>
+            <p className="text-sm text-text-secondary">…</p>
           ) : words.length === 0 ? (
-            <p className="text-sm text-[var(--color-text-secondary)]">{t.none}</p>
+            <p className="text-sm text-text-secondary">{t.none}</p>
           ) : (
             <>
               <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-[var(--color-text-secondary)]">
+                <span className="text-[11px] text-text-secondary">
                   {words.length} {t.word.toLowerCase()}
                 </span>
                 <button
@@ -134,19 +134,19 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
                   return (
                     <div
                       key={w.word}
-                      className="min-w-[8rem] flex-1 basis-[8rem] rounded-lg border border-[var(--color-border)] bg-black/[0.02] p-2.5 dark:bg-white/[0.03]"
+                      className="min-w-32 flex-1 basis-32 rounded-lg border border-(--color-border) bg-black/2 p-2.5 dark:bg-white/3"
                     >
-                      <p className="font-arabic text-2xl leading-tight text-[var(--color-text-primary)]">{w.arabic}</p>
+                      <p className="font-arabic text-2xl leading-tight text-text-primary">{w.arabic}</p>
                       <p className="mt-1 text-[11px] font-medium text-accent" dir={isId ? "ltr" : "ltr"}>
                         {st.posLabel[lang]}
                         {st.root ? ` · ${t.root} ${st.root}` : ""}
                       </p>
-                      <p className="mt-0.5 text-[11px] leading-snug text-[var(--color-text-secondary)]" dir="ltr">
+                      <p className="mt-0.5 text-[11px] leading-snug text-text-secondary" dir="ltr">
                         {st.explanation[lang]}
                       </p>
                       {/* affixes (prefixes/suffixes) that carry their own meaning */}
                       {w.segments.filter((s) => s !== st && (s.isPrefix || s.isSuffix)).length > 0 && (
-                        <p className="mt-1 text-[10px] text-[var(--color-text-secondary)]/80" dir="ltr">
+                        <p className="mt-1 text-[10px] text-text-secondary/80" dir="ltr">
                           {w.segments
                             .filter((s) => s !== st && (s.isPrefix || s.isSuffix))
                             .map((s) => `${s.isPrefix ? t.prefix : t.suffix}: ${s.posLabel[lang]}`)
@@ -159,7 +159,7 @@ export function NahwuShorofPanel({ surah, ayah, locale }: { surah: number; ayah:
               </div>
 
               {source && (
-                <p className="mt-3 text-[10px] italic text-[var(--color-text-secondary)]/70" dir="ltr">
+                <p className="mt-3 text-[10px] italic text-text-secondary/70" dir="ltr">
                   {t.src}: {source}
                 </p>
               )}

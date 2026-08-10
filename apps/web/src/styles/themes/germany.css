@@ -14,13 +14,14 @@ html[data-tenant="tilawa"] {
   --panel-bg2: #171d38;
   --panel-fg: #eceefb;
   --radius-card: 0.35rem;
-  --shadow-gold: 0 2px 22px rgba(124, 92, 255, 0.35);
+  --ul-shadow-gold: 0 2px 22px rgba(124, 92, 255, 0.35);
   --color-border-gold: rgba(124, 92, 255, 0.36);
   --shimmer-tint: rgba(203, 184, 255, 0.35);
   --tw-primary: 21 26 46;
   --tw-primary-dark: 12 14 24;
   --tw-accent: 124 92 255;
   --tw-surface: 233 233 247;
+  --color-surface: #e9e9f7;
 }
 html[data-tenant="tilawa"][data-theme="dark"] {
   --color-bg: #0c0e18;               /* near-black navy */

@@ -49,7 +49,7 @@ export function IqroReader({ rows, tapHint, filled = [] }: { rows: IqroUnit[][];
                 onClick={() => tap(u)}
                 title={`${tapHint}: ${u.latin}`}
                 aria-label={u.latin}
-                className={`flex aspect-square flex-col items-center justify-center rounded-2xl ${tint} shadow-sm ring-1 ring-black/5 transition-transform duration-150 hover:scale-105 ${
+                className={`flex aspect-square flex-col items-center justify-center rounded-2xl ${tint} shadow-xs ring-1 ring-black/5 transition-transform duration-150 hover:scale-105 ${
                   active === u.ar ? "scale-110" : ""
                 }`}
               >

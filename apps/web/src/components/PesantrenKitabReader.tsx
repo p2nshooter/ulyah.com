@@ -53,7 +53,7 @@ type Theme = "light" | "sepia" | "dark";
 type AudioMode = "semua" | "arab" | "arti";
 
 const FONT_SIZE_CLASS: Record<FontSize, string> = {
-  sm: "text-lg leading-[2]",
+  sm: "text-lg leading-loose",
   md: "text-2xl leading-[2.3]",
   lg: "text-3xl leading-[2.4]",
   xl: "text-4xl leading-[2.5]",
@@ -751,7 +751,7 @@ export function PesantrenKitabReader({
                   {t.chapter} {current.order}: {current.name_id}
                 </h2>
                 {current.name_ar && (
-                  <span dir="rtl" className="font-arabic text-lg text-[var(--color-text-secondary)]">
+                  <span dir="rtl" className="font-arabic text-lg text-text-secondary">
                     {current.name_ar}
                   </span>
                 )}
@@ -759,14 +759,14 @@ export function PesantrenKitabReader({
 
               {/* Voice mode + continuous auto-read + reading preferences */}
               <div className="mt-3 flex flex-wrap items-center gap-2">
-                <div className="inline-flex flex-wrap gap-1.5 rounded-full border border-[var(--color-border)] p-1">
+                <div className="inline-flex flex-wrap gap-1.5 rounded-full border border-(--color-border) p-1">
                   {AUDIO_MODES.map((m) => (
                     <button
                       key={m.key}
                       onClick={() => setAudioMode(m.key)}
                       disabled={autoReading}
                       className={`rounded-full px-3 py-1 text-xs transition ${
-                        audioMode === m.key ? "bg-accent text-primary" : "text-[var(--color-text-secondary)] hover:text-accent"
+                        audioMode === m.key ? "bg-accent text-primary" : "text-text-secondary hover:text-accent"
                       } ${autoReading ? "opacity-60" : ""}`}
                     >
                       {m.label}
@@ -787,7 +787,7 @@ export function PesantrenKitabReader({
                 )}
                 <button
                   onClick={() => setShowPrefs((v) => !v)}
-                  className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs transition hover:border-accent"
+                  className="rounded-full border border-(--color-border) px-3 py-1.5 text-xs transition hover:border-accent"
                 >
                   {t.display}
                 </button>
@@ -800,9 +800,9 @@ export function PesantrenKitabReader({
               )}
 
               {showPrefs && (
-                <div className="mt-2 flex flex-wrap items-center gap-4 rounded-xl border border-[var(--color-border)] bg-black/5 p-3">
+                <div className="mt-2 flex flex-wrap items-center gap-4 rounded-xl border border-(--color-border) bg-black/5 p-3">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] text-[var(--color-text-secondary)]">{t.fontSize}</span>
+                    <span className="text-[11px] text-text-secondary">{t.fontSize}</span>
                     {(Object.keys(t.sizes) as FontSize[]).map((fs) => (
                       <button
                         key={fs}
@@ -810,14 +810,14 @@ export function PesantrenKitabReader({
                           setFontSize(fs);
                           persistPrefs({ fontSize: fs });
                         }}
-                        className={`rounded-full border px-2.5 py-1 text-[11px] ${fontSize === fs ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] ${fontSize === fs ? "border-accent bg-accent/15 text-accent" : "border-(--color-border)"}`}
                       >
                         {t.sizes[fs]}
                       </button>
                     ))}
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] text-[var(--color-text-secondary)]">{t.theme}</span>
+                    <span className="text-[11px] text-text-secondary">{t.theme}</span>
                     {(Object.keys(t.themes) as Theme[]).map((th) => (
                       <button
                         key={th}
@@ -825,7 +825,7 @@ export function PesantrenKitabReader({
                           setTheme(th);
                           persistPrefs({ theme: th });
                         }}
-                        className={`rounded-full border px-2.5 py-1 text-[11px] ${theme === th ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] ${theme === th ? "border-accent bg-accent/15 text-accent" : "border-(--color-border)"}`}
                       >
                         {t.themes[th]}
                       </button>
@@ -839,7 +839,7 @@ export function PesantrenKitabReader({
                           setView(v);
                           persistPrefs({ view: v });
                         }}
-                        className={`rounded-full border px-2.5 py-1 text-[11px] ${view === v ? "border-accent bg-accent/15 text-accent" : "border-[var(--color-border)]"}`}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] ${view === v ? "border-accent bg-accent/15 text-accent" : "border-(--color-border)"}`}
                       >
                         {v === "leaf" ? t.leafView : t.scrollView}
                       </button>
@@ -900,10 +900,10 @@ export function PesantrenKitabReader({
                     style={THEME_STYLE[theme]}
                   >
                     {(m.title_id || m.title_ar) && (
-                      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--color-border)] pb-2">
+                      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 border-b border-(--color-border) pb-2">
                         {m.title_id && <p className="font-heading text-sm text-primary dark:text-accent">{m.title_id}</p>}
                         {m.title_ar && (
-                          <p dir="rtl" className="font-arabic text-sm text-[var(--color-text-secondary)]">
+                          <p dir="rtl" className="font-arabic text-sm text-text-secondary">
                             {m.title_ar}
                           </p>
                         )}
@@ -924,7 +924,7 @@ export function PesantrenKitabReader({
 
                     {/* Translation */}
                     {m.translation_id && (
-                      <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-3 dark:bg-white/[0.02]">
+                      <div className="mt-4 rounded-xl border border-(--color-border) bg-surface/50 p-3 dark:bg-white/2">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.translation}</p>
                         <SpokenText
                           text={m.translation_id}
@@ -937,13 +937,13 @@ export function PesantrenKitabReader({
 
                     {/* Commentary */}
                     {m.explanation_id && (
-                      <div className="mt-3 rounded-xl border border-[var(--color-border)] p-3">
+                      <div className="mt-3 rounded-xl border border-(--color-border) p-3">
                         <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.explanation}</p>
                         <SpokenText
                           text={m.explanation_id}
                           active={readingPos?.matnId === m.id && readingPos.part === "ex"}
                           charIndex={readingPos?.part === "ex" && readingPos.matnId === m.id ? readingPos.charIndex : -1}
-                          className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]"
+                          className="mt-1 text-sm leading-relaxed text-text-secondary"
                         />
                       </div>
                     )}
@@ -964,7 +964,7 @@ export function PesantrenKitabReader({
                         {m.hadits_refs.map((h, i) => (
                           <span
                             key={`h${i}`}
-                            className="rounded-full border border-[var(--color-border)] px-3 py-1 text-[11px] text-[var(--color-text-secondary)]"
+                            className="rounded-full border border-(--color-border) px-3 py-1 text-[11px] text-text-secondary"
                           >
                             🕌 {h}
                           </span>
@@ -1037,7 +1037,7 @@ function BabNav({
   return (
     <button
       onClick={() => onGo(target.id)}
-      className="rounded-full border border-[var(--color-border)] px-4 py-2 text-xs hover:border-accent"
+      className="rounded-full border border-(--color-border) px-4 py-2 text-xs hover:border-accent"
     >
       {dir === "prev" ? "← " : ""}
       {dir === "prev" ? labels.prevChapter : labels.nextChapter}

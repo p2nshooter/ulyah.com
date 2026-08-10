@@ -15,7 +15,7 @@ export default function NotFound() {
     <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-28 text-center sm:px-6">
       <p className="font-heading text-6xl text-accent">404</p>
       <h1 className="mt-4 font-heading text-2xl">{dict.common.notFoundTitle}</h1>
-      <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{dict.common.notFoundBody}</p>
+      <p className="mt-2 text-sm text-text-secondary">{dict.common.notFoundBody}</p>
       <Link
         href={`/${DEFAULT_LOCALE}`}
         className="mt-8 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-white dark:bg-accent dark:text-primary"

@@ -13,7 +13,9 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
-/** tailwind.config.ts sets darkMode: "class" — the `dark:` variant used across
+/** globals.css declares `@custom-variant dark (&:is(.dark *))` — the Tailwind 4
+ * spelling of what tailwind.config.ts used to say as darkMode: "class". The
+ * `dark:` variant used across
  * ~30 components only activates when the `dark` class is present on <html>.
  * Previously only `data-theme` was set (drives the CSS custom properties in
  * globals.css), so every `dark:` utility class was permanently dead — the

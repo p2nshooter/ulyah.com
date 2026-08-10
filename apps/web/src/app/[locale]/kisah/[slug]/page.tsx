@@ -203,9 +203,9 @@ export default async function KisahDetailPage({
       {nextEpisode && (
         <Link
           href={`/${locale}/kisah/${nextEpisode.slug}`}
-          className="mt-10 block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
+          className="mt-10 block rounded-xl border border-(--color-border) bg-(--color-card) p-4 hover:border-accent"
         >
-          <p className="text-xs text-[var(--color-text-secondary)]">Next →</p>
+          <p className="text-xs text-text-secondary">Next →</p>
           <p className="mt-1 font-heading text-lg">{nextEpisode.title}</p>
         </Link>
       )}

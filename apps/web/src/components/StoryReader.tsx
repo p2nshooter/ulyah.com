@@ -104,7 +104,7 @@ export function StoryReader({
           {dict.reader.storyLabel} 🔊
         </button>
       )}
-      <div className="space-y-1 text-[16px] leading-[1.9] text-[var(--color-text-primary)]">
+      <div className="space-y-1 text-[16px] leading-[1.9] text-text-primary">
         {sentences.map((s, i) => (
           <span
             key={i}
@@ -114,7 +114,7 @@ export function StoryReader({
               playFrom(i);
             }}
             className={`cursor-pointer rounded px-0.5 transition-colors duration-300 ${
-              i === active ? "bg-accent/25 text-[var(--color-text-primary)] shadow-[inset_0_-2px_0_#B8892B]" : ""
+              i === active ? "bg-accent/25 text-text-primary shadow-[inset_0_-2px_0_#B8892B]" : ""
             }`}
           >
             {s}{" "}

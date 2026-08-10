@@ -36,7 +36,7 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
     <div className="px-4 py-10 sm:px-6">
       <div className="mx-auto max-w-4xl">
         <h1 className="hero-entrance font-heading text-2xl sm:text-3xl">{p.title}</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-text-secondary)]">{p.subtitle}</p>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">{p.subtitle}</p>
 
         {/* Colour legend — every rule the Mushaf actually paints. */}
         <section className="card-premium mt-6 p-5">
@@ -45,7 +45,7 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
             {coloredRules.map((r) => (
               <span
                 key={r.key}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1 text-xs"
+                className="inline-flex items-center gap-1.5 rounded-full border border-(--color-border) px-3 py-1 text-xs"
               >
                 <span aria-hidden className="h-3 w-3 rounded-full" style={{ backgroundColor: r.color }} />
                 {tr(r.name)}
@@ -59,13 +59,13 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
           {TAJWID_GUIDE.map((g) => (
             <section key={g.key}>
               <h2 className="font-heading text-xl text-accent">{tr(g.title)}</h2>
-              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{tr(g.intro)}</p>
+              <p className="mt-1 text-sm text-text-secondary">{tr(g.intro)}</p>
 
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {g.rules.map((r) => (
                   <article
                     key={r.key}
-                    className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-4"
+                    className="rounded-2xl border border-(--color-border) bg-(--color-card) p-4"
                     style={r.colored && r.color ? { borderInlineStartWidth: 4, borderInlineStartColor: r.color } : undefined}
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -76,13 +76,13 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
                           )}
                           {tr(r.name)}
                         </p>
-                        <p className="font-arabic mt-0.5 text-lg text-[var(--color-text-secondary)]" dir="rtl">
+                        <p className="font-arabic mt-0.5 text-lg text-text-secondary" dir="rtl">
                           {r.ar}
                         </p>
                       </div>
                       <span
                         className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] ${
-                          r.colored ? "bg-accent/15 text-accent" : "border border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                          r.colored ? "bg-accent/15 text-accent" : "border border-(--color-border) text-text-secondary"
                         }`}
                       >
                         {r.colored ? p.coloredBadge : p.explainedBadge}
@@ -93,7 +93,7 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
 
                     {r.huruf && (
                       <p className="mt-2 text-sm">
-                        <span className="text-[var(--color-text-secondary)]">{p.huruf}: </span>
+                        <span className="text-text-secondary">{p.huruf}: </span>
                         <span className="font-arabic text-lg" dir="rtl">
                           {r.huruf}
                         </span>
@@ -101,20 +101,20 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
                     )}
 
                     <p className="mt-1 text-sm">
-                      <span className="text-[var(--color-text-secondary)]">{p.cara}: </span>
+                      <span className="text-text-secondary">{p.cara}: </span>
                       {tr(r.cara)}
                     </p>
 
                     {r.examples.length > 0 && (
-                      <div className="mt-3 rounded-xl bg-black/[0.03] p-3 dark:bg-white/[0.04]">
-                        <p className="text-[11px] font-medium uppercase tracking-wide text-[var(--color-text-secondary)]">{p.contoh}</p>
+                      <div className="mt-3 rounded-xl bg-black/3 p-3 dark:bg-white/4">
+                        <p className="text-[11px] font-medium uppercase tracking-wide text-text-secondary">{p.contoh}</p>
                         <ul className="mt-1.5 space-y-1.5">
                           {r.examples.map((ex, i) => (
                             <li key={i} className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
                               <span className="font-arabic text-xl" dir="rtl" style={r.colored && r.color ? { color: r.color } : undefined}>
                                 {ex.ar}
                               </span>
-                              <span className="text-xs text-[var(--color-text-secondary)]">
+                              <span className="text-xs text-text-secondary">
                                 {ex.latin}
                                 {ex.ref && ex.ref !== "—" ? ` · ${ex.ref}` : ""}
                               </span>
@@ -125,7 +125,7 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
                     )}
 
                     {r.note && (
-                      <p className="mt-2 text-xs italic text-[var(--color-text-secondary)]">
+                      <p className="mt-2 text-xs italic text-text-secondary">
                         {p.note}: {tr(r.note)}
                       </p>
                     )}
@@ -145,7 +145,7 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
             <p className="flex items-center gap-2 font-heading text-lg">
               <span className="float-soft inline-block">📖</span> {p.tryTitle}
             </p>
-            <p className="mt-1 max-w-xl text-sm text-[var(--color-text-secondary)]">{p.trySub}</p>
+            <p className="mt-1 max-w-xl text-sm text-text-secondary">{p.trySub}</p>
           </div>
           <span className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-primary shadow-lg">{p.tryCta} →</span>
         </Link>

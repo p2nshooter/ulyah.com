@@ -34,7 +34,7 @@ export default async function AmalanPage({ params }: { params: Promise<{ locale:
       </div>
 
       {categories.length === 0 ? (
-        <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">{t.loadError}</p>
+        <p className="mt-10 text-center text-sm text-text-secondary">{t.loadError}</p>
       ) : (
         <AmalanLibrary locale={locale} categories={categories} />
       )}

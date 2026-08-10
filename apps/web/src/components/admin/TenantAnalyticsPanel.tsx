@@ -126,7 +126,7 @@ export function TenantAnalyticsPanel() {
           <span className={`inline-block h-1.5 w-1.5 rounded-full ${failed ? "bg-red-500" : "animate-pulse bg-emerald-500"}`} />
           {failed ? "koneksi terputus — mencoba lagi…" : "LIVE"}
         </span>
-        <span className="align-middle text-[10px] font-normal text-[var(--color-text-secondary)]">
+        <span className="align-middle text-[10px] font-normal text-text-secondary">
           statistik historis · diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk (untuk
           &quot;online sekarang&quot; real-time lihat bar ⚡ Live di atas)
         </span>
@@ -141,13 +141,13 @@ export function TenantAnalyticsPanel() {
           const bots = r.bots ?? ZERO;
           const unclassified = r.unclassified ?? ZERO;
           return (
-            <div key={r.tenant} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div key={r.tenant} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
               <div className="flex items-center justify-between">
                 <p className="font-heading text-sm">
                   <span className="mr-1">{m.icon}</span>
                   {m.name}
                 </p>
-                <span className="text-[11px] text-[var(--color-text-secondary)]">{m.site}</span>
+                <span className="text-[11px] text-text-secondary">{m.site}</span>
               </div>
 
               {/* Every window shows the same three numbers, and they add up:
@@ -162,15 +162,15 @@ export function TenantAnalyticsPanel() {
                     ["Total", r.visitors.allTime, humans.allTime, bots.allTime, unclassified.allTime, readers.allTime],
                   ] as [string, number, number, number, number, number][]
                 ).map(([label, traffic, human, bot, unknown, dev]) => (
-                  <div key={label} className="rounded-lg bg-black/[0.03] py-2 dark:bg-white/[0.03]">
+                  <div key={label} className="rounded-lg bg-black/3 py-2 dark:bg-white/3">
                     <p className="font-heading text-lg text-accent" title="Trafik: manusia + belum terpilah">
                       {traffic}
                     </p>
-                    <p className="text-[10px] font-medium text-[var(--color-text-secondary)]">{label}</p>
+                    <p className="text-[10px] font-medium text-text-secondary">{label}</p>
                     <p className="mt-1 text-[10px] text-emerald-600 dark:text-emerald-400" title="Manusia terkonfirmasi">
                       🧑 {human}
                     </p>
-                    <p className="text-[10px] text-[var(--color-text-secondary)]" title="Crawler terkonfirmasi — di luar trafik">
+                    <p className="text-[10px] text-text-secondary" title="Crawler terkonfirmasi — di luar trafik">
                       🤖 {bot}
                     </p>
                     {unknown > 0 && (
@@ -187,14 +187,14 @@ export function TenantAnalyticsPanel() {
                   </div>
                 ))}
               </div>
-              <p className="mt-1 text-center text-[10px] text-[var(--color-text-secondary)]">
+              <p className="mt-1 text-center text-[10px] text-text-secondary">
                 trafik · 🧑 manusia · 🤖 bot · ❔ belum terpilah · 📲 perangkat — <b>jendela waktu yang sama</b>, hari
                 Jakarta (UTC+7)
               </p>
 
               {chart.length > 0 && (
                 <div className="mt-3">
-                  <p className="mb-1 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">30 hari terakhir</p>
+                  <p className="mb-1 text-[10px] uppercase tracking-wide text-text-secondary">30 hari terakhir</p>
                   <MiniBarChart data={chart} />
                 </div>
               )}
@@ -206,18 +206,18 @@ export function TenantAnalyticsPanel() {
                 <span>
                   🗑️ Uninstall (perangkat)*: <b>{r.uninstalledDevices}</b>
                 </span>
-                <span className="text-[var(--color-text-secondary)]">
+                <span className="text-text-secondary">
                   riwayat: {r.installs}× install · {r.uninstalls}× uninstall
                 </span>
               </div>
 
               {r.topPages.length > 0 && (
                 <div className="mt-3">
-                  <p className="mb-1 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">Halaman terpopuler</p>
+                  <p className="mb-1 text-[10px] uppercase tracking-wide text-text-secondary">Halaman terpopuler</p>
                   <ul className="space-y-0.5 text-[11px]">
                     {r.topPages.slice(0, 5).map((p) => (
                       <li key={p.path} className="flex justify-between gap-2">
-                        <span className="truncate text-[var(--color-text-secondary)]">{p.path}</span>
+                        <span className="truncate text-text-secondary">{p.path}</span>
                         <span className="shrink-0 tabular-nums">
                           {p.n}
                           {p.d ? ` · ${p.d} pembaca` : ""}
@@ -230,11 +230,11 @@ export function TenantAnalyticsPanel() {
 
               {(r.topReferers?.length ?? 0) > 0 && (
                 <div className="mt-3">
-                  <p className="mb-1 text-[10px] uppercase tracking-wide text-[var(--color-text-secondary)]">Datang dari</p>
+                  <p className="mb-1 text-[10px] uppercase tracking-wide text-text-secondary">Datang dari</p>
                   <ul className="space-y-0.5 text-[11px]">
                     {r.topReferers!.slice(0, 5).map((f) => (
                       <li key={f.host} className="flex justify-between gap-2">
-                        <span className="truncate text-[var(--color-text-secondary)]">{f.host}</span>
+                        <span className="truncate text-text-secondary">{f.host}</span>
                         <span className="shrink-0 tabular-nums">{f.n}</span>
                       </li>
                     ))}
@@ -245,7 +245,7 @@ export function TenantAnalyticsPanel() {
           );
         })}
       </div>
-      <p className="mt-2 text-[10px] leading-relaxed text-[var(--color-text-secondary)]">
+      <p className="mt-2 text-[10px] leading-relaxed text-text-secondary">
         <b>Angka ini nyata, bukan asumsi.</b> Semuanya dari beacon perangkat yang benar-benar merender halaman.
         <b> Trafik</b> = semua kunjungan yang <i>bukan</i> crawler yang terdeteksi — termasuk yang tercatat sebelum
         pemilahan bot ada, karena kunjungan itu memang terjadi dan menghapusnya berarti menghapus sejarah situs.

@@ -107,19 +107,19 @@ export function SitePagesTab() {
 
   return (
     <div className="mt-6 space-y-5">
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <h2 className="font-heading text-lg">🧭 Dynamic Pages — show / hide / rename</h2>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           Turn any page off to remove it from the navigation and 404 it, or give it a custom name. Nothing is hardcoded.
         </p>
         {isUlyah && (
           <div className="mt-3 flex items-center gap-2 text-sm">
-            <span className="text-[var(--color-text-secondary)]">Site:</span>
+            <span className="text-text-secondary">Site:</span>
             {["1fr", "tilawa", "dawa"].map((t) => (
               <button
                 key={t}
                 onClick={() => setTenant(t)}
-                className={`rounded-full px-3 py-1 text-xs ${tenant === t ? "bg-accent text-white" : "border border-[var(--color-border)]"}`}
+                className={`rounded-full px-3 py-1 text-xs ${tenant === t ? "bg-accent text-white" : "border border-(--color-border)"}`}
               >
                 {t === "1fr" ? "1fr.fr" : t === "tilawa" ? "tilawa.de" : "dawa.es"}
               </button>
@@ -133,10 +133,10 @@ export function SitePagesTab() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-[var(--color-text-secondary)]">Loading…</p>
+        <p className="text-sm text-text-secondary">Loading…</p>
       ) : (
         groups.map((g) => (
-          <div key={g} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div key={g} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-accent">{g}</p>
             <div className="space-y-2">
               {CATALOG.filter((c) => c.group === g).map((c) => {
@@ -144,7 +144,7 @@ export function SitePagesTab() {
                 const visible = ov ? ov.visible : true;
                 const label = drafts[c.path] ?? ov?.label ?? "";
                 return (
-                  <div key={c.path} className="flex flex-wrap items-center gap-2 rounded-lg border border-[var(--color-border)]/60 p-2">
+                  <div key={c.path} className="flex flex-wrap items-center gap-2 rounded-lg border border-(--color-border)/60 p-2">
                     <label className="flex items-center gap-2 text-sm">
                       <input
                         type="checkbox"
@@ -152,14 +152,14 @@ export function SitePagesTab() {
                         onChange={(e) => save(c.path, e.target.checked, ov?.label ?? null)}
                       />
                       <span className={visible ? "" : "line-through opacity-60"}>{c.label}</span>
-                      <code className="text-[10px] text-[var(--color-text-secondary)]">{c.path}</code>
+                      <code className="text-[10px] text-text-secondary">{c.path}</code>
                     </label>
                     <div className="ml-auto flex items-center gap-2">
                       <input
                         value={label}
                         onChange={(e) => setDrafts((d) => ({ ...d, [c.path]: e.target.value }))}
                         placeholder="custom name (optional)"
-                        className="w-44 rounded-md border border-[var(--color-border)] bg-transparent px-2 py-1 text-xs"
+                        className="w-44 rounded-md border border-(--color-border) bg-transparent px-2 py-1 text-xs"
                       />
                       <button
                         onClick={() => save(c.path, visible, label.trim() || null)}
@@ -170,7 +170,7 @@ export function SitePagesTab() {
                       {ov && (
                         <button
                           onClick={() => reset(c.path)}
-                          className="rounded-md border border-[var(--color-border)] px-2.5 py-1 text-xs"
+                          className="rounded-md border border-(--color-border) px-2.5 py-1 text-xs"
                         >
                           Reset
                         </button>

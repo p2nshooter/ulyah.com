@@ -57,20 +57,20 @@ export function MediaTab() {
     }
   }
 
-  if (loading) return <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>;
+  if (loading) return <p className="text-sm text-text-secondary">Memuat…</p>;
 
   return (
     <div className="space-y-3">
-      <p className="text-xs text-[var(--color-text-secondary)]">
+      <p className="text-xs text-text-secondary">
         Gambar di sini disimpan di R2 dan tampil langsung di halaman publik (mis. /syukur) — tanpa perlu deploy ulang.
       </p>
       {message && <p className="text-xs text-accent">{message}</p>}
 
       <div className="grid gap-3 sm:grid-cols-2">
         {media.map((m) => (
-          <div key={m.key} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div key={m.key} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <p className="text-sm font-medium">{m.label}</p>
-            <p className="text-[11px] text-[var(--color-text-secondary)]">{m.key}</p>
+            <p className="text-[11px] text-text-secondary">{m.key}</p>
 
             {m.set ? (
               <img
@@ -79,7 +79,7 @@ export function MediaTab() {
                 className="mt-3 h-32 w-32 rounded-lg object-cover"
               />
             ) : (
-              <p className="mt-3 text-xs italic text-[var(--color-text-secondary)]">Belum diunggah.</p>
+              <p className="mt-3 text-xs italic text-text-secondary">Belum diunggah.</p>
             )}
 
             <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -92,13 +92,13 @@ export function MediaTab() {
                   if (file) upload(m.key, file);
                   e.target.value = "";
                 }}
-                className="min-w-0 flex-1 text-xs file:mr-2 file:rounded file:border-0 file:bg-accent/10 file:px-2 file:py-1 file:text-accent"
+                className="min-w-0 flex-1 text-xs file:mr-2 file:rounded-sm file:border-0 file:bg-accent/10 file:px-2 file:py-1 file:text-accent"
               />
               {m.set && (
                 <button
                   disabled={busyKey === m.key}
                   onClick={() => remove(m.key)}
-                  className="rounded border border-[var(--color-border)] px-3 py-1.5 text-xs disabled:opacity-40"
+                  className="rounded-sm border border-(--color-border) px-3 py-1.5 text-xs disabled:opacity-40"
                 >
                   Hapus
                 </button>

@@ -37,7 +37,7 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
   if (error)
     return (
       <div className="px-6 py-20 text-center">
-        <p className="text-sm text-[var(--color-text-secondary)]">{c.registerFirst}</p>
+        <p className="text-sm text-text-secondary">{c.registerFirst}</p>
         <button onClick={() => router.push(`/${locale}/akun`)} className="mt-4 text-sm text-accent">
           ← {dict.auth.myDashboard}
         </button>
@@ -52,11 +52,11 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
   });
 
   return (
-    <div className="bg-[var(--color-surface)] px-4 py-10 dark:bg-black/40 sm:px-6 print:bg-white print:py-0">
+    <div className="bg-surface px-4 py-10 dark:bg-black/40 sm:px-6 print:bg-white print:py-0">
       <div className="mx-auto max-w-3xl">
         {/* toolbar — hidden when printing */}
         <div className="mb-4 flex items-center justify-between print:hidden">
-          <button onClick={() => router.push(`/${locale}/akun`)} className="text-sm text-[var(--color-text-secondary)]">
+          <button onClick={() => router.push(`/${locale}/akun`)} className="text-sm text-text-secondary">
             ← {dict.auth.myDashboard}
           </button>
           <button
@@ -66,12 +66,12 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
             ⬇ {c.printButton}
           </button>
         </div>
-        <p className="mb-4 text-center text-xs text-[var(--color-text-secondary)] print:hidden">{c.printHint}</p>
+        <p className="mb-4 text-center text-xs text-text-secondary print:hidden">{c.printHint}</p>
 
         {/* The certificate */}
-        <article className="certificate relative overflow-hidden rounded-none bg-[#fbf7ee] p-10 text-center text-[#232323] shadow-2xl sm:p-14 print:shadow-none">
-          <div className="pointer-events-none absolute inset-3 rounded-sm border-[3px] border-double border-[#C9A84C]" />
-          <div className="pointer-events-none absolute inset-5 rounded-sm border border-[#C9A84C]/50" />
+        <article className="certificate relative overflow-hidden rounded-none bg-[#fbf7ee] p-10 text-center text-text-primary shadow-2xl sm:p-14 print:shadow-none">
+          <div className="pointer-events-none absolute inset-3 rounded-xs border-[3px] border-double border-[#C9A84C]" />
+          <div className="pointer-events-none absolute inset-5 rounded-xs border border-[#C9A84C]/50" />
 
           <div className="relative">
             <p className="font-arabic text-3xl text-[#0B3D2E]">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
@@ -79,26 +79,26 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
             <p className="text-[11px] uppercase tracking-[0.3em] text-[#0B3D2E]/60">{tenantTagline(locale, "Listen to Islam")}</p>
 
             <h1 className="mt-8 font-heading text-3xl text-[#0B3D2E] sm:text-4xl">{c.certTitle}</h1>
-            <p className="mt-6 text-sm text-[#232323]/70">{c.certPresentedTo}</p>
+            <p className="mt-6 text-sm text-text-primary/70">{c.certPresentedTo}</p>
             <p className="mt-2 font-heading text-2xl text-[#0B3D2E] sm:text-3xl">{cert.sender_name}</p>
 
-            <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-[#232323]/80">{c.certBody}</p>
+            <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-text-primary/80">{c.certBody}</p>
 
             <div className="mx-auto mt-8 grid max-w-md grid-cols-3 gap-3 text-xs">
               {cert.amount != null && (
                 <div>
-                  <p className="text-[#232323]/50">{c.certAmountLabel}</p>
+                  <p className="text-text-primary/50">{c.certAmountLabel}</p>
                   <p className="mt-0.5 font-semibold text-[#0B3D2E]">
                     {cert.amount} {cert.currency ?? ""}
                   </p>
                 </div>
               )}
               <div>
-                <p className="text-[#232323]/50">{c.certDateLabel}</p>
+                <p className="text-text-primary/50">{c.certDateLabel}</p>
                 <p className="mt-0.5 font-semibold text-[#0B3D2E]">{dateStr}</p>
               </div>
               <div>
-                <p className="text-[#232323]/50">{c.certNoLabel}</p>
+                <p className="text-text-primary/50">{c.certNoLabel}</p>
                 <p className="mt-0.5 font-semibold text-[#0B3D2E]">{cert.cert_no}</p>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
               {c.certDua}
             </p>
 
-            <p className="mt-8 text-[11px] uppercase tracking-widest text-[#232323]/50">{c.certIssuedBy}</p>
+            <p className="mt-8 text-[11px] uppercase tracking-widest text-text-primary/50">{c.certIssuedBy}</p>
           </div>
         </article>
       </div>

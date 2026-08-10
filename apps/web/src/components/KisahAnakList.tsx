@@ -144,7 +144,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
         return (
           <div
             key={ep.slug}
-            className="card-premium overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)]"
+            className="card-premium overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-card)"
           >
             <button onClick={() => open(ep.slug)} className="flex w-full items-center gap-3 p-4 text-left">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-accent/40 bg-accent/10 text-lg">
@@ -155,7 +155,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
                   {ep.episode_order}. {ep.title ?? (isId ? ep.title_id : ep.title_en ?? ep.title_id)}
                 </span>
                 {(ep.moral ?? ep.moral_id) && (
-                  <span className="block truncate text-xs text-[var(--color-text-secondary)]">
+                  <span className="block truncate text-xs text-text-secondary">
                     {ep.moral ?? (isId ? ep.moral_id : ep.moral_en)}
                   </span>
                 )}
@@ -166,8 +166,8 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
             </button>
 
             {isOpen && (
-              <div className="space-y-4 border-t border-[var(--color-border)] p-4">
-                {loading && <p className="text-sm text-[var(--color-text-secondary)]">…</p>}
+              <div className="space-y-4 border-t border-(--color-border) p-4">
+                {loading && <p className="text-sm text-text-secondary">…</p>}
                 {detail && detail.slug === ep.slug && (
                   <>
                     <KidsFilmPlayer
@@ -185,7 +185,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
                       {showText ? labels.hideText : labels.readText}
                     </button>
                     {showText && (
-                      <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--color-text-primary)]">
+                      <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-text-primary">
                         {detail.body ?? (isId ? detail.body_id : detail.body_en ?? detail.body_id)}
                       </p>
                     )}

@@ -48,9 +48,9 @@ export default function DaftarPage({ params }: { params: Promise<{ locale: strin
     <div className="mx-auto max-w-sm px-4 py-20 sm:px-6">
       <h1 className="font-heading text-2xl">{dict.auth.registerTitle}</h1>
       <form onSubmit={submit} className="mt-6 space-y-3">
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder={dict.auth.name} className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm" />
-        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={dict.auth.email} className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm" />
-        <input required type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={dict.auth.password} className="w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm" />
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder={dict.auth.name} className="w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm" />
+        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={dict.auth.email} className="w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm" />
+        <input required type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={dict.auth.password} className="w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm" />
         {error && <p className="text-xs text-danger">{error}</p>}
         {alreadyExists && (
           <Link
@@ -64,7 +64,7 @@ export default function DaftarPage({ params }: { params: Promise<{ locale: strin
           {busy ? "..." : dict.auth.registerButton}
         </button>
       </form>
-      <p className="mt-4 text-center text-xs text-[var(--color-text-secondary)]">
+      <p className="mt-4 text-center text-xs text-text-secondary">
         {dict.auth.hasAccount}{" "}
         <Link href={`/${locale}/masuk`} className="text-accent hover:underline">
           {dict.auth.loginButton}

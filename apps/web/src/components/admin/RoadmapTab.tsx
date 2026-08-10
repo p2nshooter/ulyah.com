@@ -80,9 +80,9 @@ const STATUS_LABEL: Record<Status, string> = {
 export function RoadmapTab() {
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-lg">🗺️ Konsep & Fitur yang Akan Datang</p>
-        <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-xs text-text-secondary">
           Papan rencana internal. Setiap kartu adalah fitur yang sudah dirancang tetapi belum dibangun — supaya rencananya
           tersimpan di dalam produk, bukan hanya di percakapan. Saat sebuah konsep siap dikerjakan, statusnya berubah jadi
           "Sedang dibangun".
@@ -90,7 +90,7 @@ export function RoadmapTab() {
       </div>
 
       {CONCEPTS.map((c) => (
-        <div key={c.key} className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+        <div key={c.key} className="rounded-2xl border border-(--color-border) bg-(--color-card) p-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="font-heading text-xl">
               {c.emoji} {c.title}
@@ -100,16 +100,16 @@ export function RoadmapTab() {
             </span>
           </div>
           <p className="mt-1 text-xs text-accent">{c.audience}</p>
-          <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-secondary)]">{c.summary}</p>
+          <p className="mt-3 text-sm leading-relaxed text-text-secondary">{c.summary}</p>
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-xl border border-[var(--color-border)] p-3">
+            <div className="rounded-xl border border-(--color-border) p-3">
               <p className="text-xs font-semibold text-primary dark:text-accent">📂 Menu terpisah</p>
-              <p className="mt-1 text-xs text-[var(--color-text-secondary)]">{c.separateMenu}</p>
+              <p className="mt-1 text-xs text-text-secondary">{c.separateMenu}</p>
             </div>
-            <div className="rounded-xl border border-[var(--color-border)] p-3">
+            <div className="rounded-xl border border-(--color-border) p-3">
               <p className="text-xs font-semibold text-primary dark:text-accent">🧩 Widget khusus</p>
-              <p className="mt-1 text-xs text-[var(--color-text-secondary)]">{c.widget}</p>
+              <p className="mt-1 text-xs text-text-secondary">{c.widget}</p>
             </div>
           </div>
 
@@ -117,8 +117,8 @@ export function RoadmapTab() {
             <p className="text-xs font-semibold text-primary dark:text-accent">📚 Sumber database (untuk diserap)</p>
             <ul className="mt-2 space-y-1">
               {c.sources.map((s) => (
-                <li key={s.label} className="text-xs text-[var(--color-text-secondary)]">
-                  <code className="rounded bg-black/10 px-1">{s.label}</code> — {s.note}
+                <li key={s.label} className="text-xs text-text-secondary">
+                  <code className="rounded-sm bg-black/10 px-1">{s.label}</code> — {s.note}
                 </li>
               ))}
             </ul>
@@ -128,7 +128,7 @@ export function RoadmapTab() {
             <p className="text-xs font-semibold text-primary dark:text-accent">🎬 Rencana konten & video</p>
             <ol className="mt-2 list-decimal space-y-1 pl-5">
               {c.contentPlan.map((p, i) => (
-                <li key={i} className="text-xs text-[var(--color-text-secondary)]">
+                <li key={i} className="text-xs text-text-secondary">
                   {p}
                 </li>
               ))}
@@ -139,7 +139,7 @@ export function RoadmapTab() {
             <p className="text-xs font-semibold text-primary dark:text-accent">🛡️ Prinsip keamanan konten anak</p>
             <ul className="mt-2 space-y-1">
               {c.safety.map((s, i) => (
-                <li key={i} className="text-xs text-[var(--color-text-secondary)]">
+                <li key={i} className="text-xs text-text-secondary">
                   • {s}
                 </li>
               ))}

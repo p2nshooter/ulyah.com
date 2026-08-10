@@ -18,13 +18,14 @@ html[data-tenant="dawa"] {
   --panel-bg2: #8a3b12;
   --panel-fg: #fff3e6;
   --radius-card: 1.25rem;            /* generous Mediterranean rounding */
-  --shadow-gold: 0 6px 26px rgba(211, 84, 0, 0.20);
+  --ul-shadow-gold: 0 6px 26px rgba(211, 84, 0, 0.20);
   --color-border-gold: rgba(211, 84, 0, 0.28);
   --shimmer-tint: rgba(255, 220, 180, 0.45);
   --tw-primary: 138 59 18;
   --tw-primary-dark: 95 42 12;
   --tw-accent: 211 84 0;
   --tw-surface: 253 238 222;
+  --color-surface: #fdeede;
 }
 html[data-tenant="dawa"][data-theme="light"] {
   --color-bg: #fff8f1;               /* warm cream */

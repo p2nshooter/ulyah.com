@@ -72,30 +72,30 @@ export default async function StorePage({ params }: { params: Promise<{ locale: 
       <div className="mx-auto w-full max-w-4xl px-4 pb-16">
         {/* Amazon requires the disclosure, and a reader deserves it before the
             first link rather than in a footnote after it. */}
-        <p className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+        <p className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-xs leading-relaxed text-text-secondary">
           <b>{t.disclosure}</b> {t.noExtraCost}
         </p>
 
         {shelves.length === 0 ? (
-          <p className="mt-8 text-center text-sm text-[var(--color-text-secondary)]">{t.empty}</p>
+          <p className="mt-8 text-center text-sm text-text-secondary">{t.empty}</p>
         ) : (
           <ul className="mt-6 grid gap-3 desktop:grid-cols-2">
             {shelves.map((s) => (
               <li
                 key={s.id}
-                className="flex flex-col rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4"
+                className="flex flex-col rounded-xl border border-(--color-border) bg-(--color-card) p-4"
               >
                 <h2 className="font-heading text-base leading-snug">
                   {s.icon && <span className="mr-1.5">{s.icon}</span>}
                   {s.label}
                 </h2>
-                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-text-secondary">
                   {s.blurb}
                 </p>
                 {hasPage(s) ? (
                   <Link
                     href={`${storePath}/${s.slug}`}
-                    className="mt-3 inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-3 py-2 text-xs font-bold text-white"
+                    className="mt-3 inline-flex items-center justify-center rounded-lg bg-accent px-3 py-2 text-xs font-bold text-white"
                   >
                     {t.readGuide} →
                   </Link>
@@ -108,7 +108,7 @@ export default async function StorePage({ params }: { params: Promise<{ locale: 
                     // violation, which would undo the indexing work rather than
                     // add to it.
                     rel="sponsored nofollow noopener"
-                    className="mt-3 inline-flex items-center justify-center rounded-lg bg-[var(--color-accent)] px-3 py-2 text-xs font-bold text-white"
+                    className="mt-3 inline-flex items-center justify-center rounded-lg bg-accent px-3 py-2 text-xs font-bold text-white"
                   >
                     {t.browseOnAmazon} ↗
                   </a>

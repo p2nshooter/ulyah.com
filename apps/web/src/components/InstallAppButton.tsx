@@ -203,7 +203,7 @@ export function InstallAppButton({
   const hintText = isIOS ? t.iosHint : t.manualHint;
 
   // Fixed, theme-independent tooltip colors. The old classes used
-  // bg-[var(--color-surface)] + text-[var(--color-text-primary)] — but in
+  // bg-surface + text-text-primary — but in
   // dark mode --color-text-primary flips to cream while --color-surface is
   // never overridden and STAYS cream, so the hint rendered as cream text on
   // a cream box: a blank rectangle ("g bisa download"). A dark-green tooltip

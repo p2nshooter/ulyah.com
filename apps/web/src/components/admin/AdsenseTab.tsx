@@ -141,7 +141,7 @@ export function AdsenseTab() {
     persist(next, adsterra);
   }
 
-  if (!config) return <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>;
+  if (!config) return <p className="text-sm text-text-secondary">Memuat…</p>;
 
   const hasRealId = !!masterId.replace(/[^0-9]/g, "");
   const onCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled).length;
@@ -157,13 +157,13 @@ export function AdsenseTab() {
           ≤1 menit as each site re-reads /content/ad-config. */}
       <section
         className={`rounded-xl border p-4 ${
-          adsterra ? "border-emerald-500/40 bg-emerald-500/[0.06]" : "border-rose-500/40 bg-rose-500/[0.06]"
+          adsterra ? "border-emerald-500/40 bg-emerald-500/6" : "border-rose-500/40 bg-rose-500/6"
         }`}
       >
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="font-heading text-base">📣 Iklan Adsterra — Sakelar Utama</p>
-            <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+            <p className="mt-0.5 text-xs text-text-secondary">
               {adsterra
                 ? "Iklan Adsterra AKTIF di semua situs. Matikan untuk menyembunyikan SEMUA iklan Adsterra tanpa kecuali."
                 : "Iklan Adsterra MATI — tidak ada satu pun unit Adsterra yang tampil di situs mana pun."}
@@ -183,7 +183,7 @@ export function AdsenseTab() {
             }`}
           >
             <span
-              className={`absolute inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-[var(--color-text-primary)] shadow transition-all ${
+              className={`absolute inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-text-primary shadow transition-all ${
                 adsterra ? "left-[calc(100%-1.85rem)]" : "left-1"
               }`}
             >
@@ -200,11 +200,11 @@ export function AdsenseTab() {
           situs"). A site shows Adsterra only when the master switch above AND
           its own toggle here are both ON. Only the five ecosystem sites that
           carry Adsterra inventory are listed. */}
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <p className="font-heading text-base">📣 Adsterra per Situs — Checklist ON/OFF</p>
-            <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+            <p className="mt-0.5 text-xs text-text-secondary">
               Matikan Adsterra untuk satu situs → semua halaman situs itu tidak menampilkan iklan Adsterra.{" "}
               {adsterra
                 ? "Sakelar utama menyala, jadi setelan per-situs di bawah berlaku."
@@ -212,10 +212,10 @@ export function AdsenseTab() {
             </p>
           </div>
           <div className="flex flex-wrap gap-2 text-xs">
-            <button onClick={() => setAllAdsterra(true)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
+            <button onClick={() => setAllAdsterra(true)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua ON
             </button>
-            <button onClick={() => setAllAdsterra(false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
+            <button onClick={() => setAllAdsterra(false)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua OFF
             </button>
           </div>
@@ -229,7 +229,7 @@ export function AdsenseTab() {
                 onClick={() => toggleAdsterra(key)}
                 disabled={busy}
                 className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-left text-sm transition disabled:opacity-60 ${
-                  on ? "border-emerald-500/50 bg-emerald-500/10" : "border-rose-500/40 bg-rose-500/[0.06]"
+                  on ? "border-emerald-500/50 bg-emerald-500/10" : "border-rose-500/40 bg-rose-500/6"
                 }`}
               >
                 <span>🕌 {labelOf(key)}</span>
@@ -244,15 +244,15 @@ export function AdsenseTab() {
             );
           })}
         </div>
-        <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/70">
+        <p className="mt-2 text-[11px] text-text-secondary/70">
           {adsterraOnCount} dari {ADSTERRA_SITES.length} situs menyalakan Adsterra. Setiap perubahan{" "}
           <b>otomatis tersimpan</b> dan berlaku ≤1 menit di situs. Situs lain (AXTO, artikel) tidak memakai Adsterra.
         </p>
       </section>
 
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">Kontrol Iklan Jaringan</p>
-        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-sm text-text-secondary">
           Satu tempat mengatur iklan untuk <b>seluruh situs</b> (ulyah.com + saudara, AXTO, dan situs artikel:
           profity.in, oldco.in, xaa.es, xad.es, jai.lat, lie.skin). Bawaan semua <b>mati</b>. Nyalakan situs untuk
           melihat posisi iklan (kotak putus-putus), isi ID unit iklan asli sekali, lalu <b>centang “ACC”</b> hanya
@@ -261,10 +261,10 @@ export function AdsenseTab() {
         </p>
       </section>
 
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">1 · ID Unit Iklan AdSense</p>
-        <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-          Publisher: <code className="rounded bg-black/10 px-1">{config.clientId}</code>. Tempel ID unit iklan
+        <p className="mt-0.5 text-xs text-text-secondary">
+          Publisher: <code className="rounded-sm bg-black/10 px-1">{config.clientId}</code>. Tempel ID unit iklan
           responsif (angka saja) — dipakai semua posisi (in-article, sidebar, footer, dst.) di semua situs yang ACC.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -273,27 +273,27 @@ export function AdsenseTab() {
             onChange={(e) => setMasterId(e.target.value)}
             placeholder="mis. 1234567890"
             inputMode="numeric"
-            className="w-52 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+            className="w-52 rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
           />
           <span
-            className={`rounded-full px-2.5 py-1 text-xs ${hasRealId ? "bg-success/15 text-success" : "bg-black/10 text-[var(--color-text-secondary)]"}`}
+            className={`rounded-full px-2.5 py-1 text-xs ${hasRealId ? "bg-success/15 text-success" : "bg-black/10 text-text-secondary"}`}
           >
             {hasRealId ? "● Ada ID — situs ON+ACC menayangkan iklan asli" : "○ Belum ada ID — situs ON tampil pratinjau"}
           </span>
         </div>
       </section>
 
-      <section className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="font-heading text-base">2 · Aktif (tampil) & ACC (iklan asli) per Situs</p>
           <div className="flex flex-wrap gap-2 text-xs">
-            <button onClick={() => setAll("enabled", true)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
+            <button onClick={() => setAll("enabled", true)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua ON
             </button>
-            <button onClick={() => setAll("enabled", false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
+            <button onClick={() => setAll("enabled", false)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
               Semua OFF
             </button>
-            <button onClick={() => setAll("approved", false)} disabled={busy} className="rounded-full border border-[var(--color-border)] px-3 py-1 hover:border-accent disabled:opacity-50">
+            <button onClick={() => setAll("approved", false)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
               Hapus semua ACC
             </button>
           </div>
@@ -305,12 +305,12 @@ export function AdsenseTab() {
               <div
                 key={key}
                 className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm transition ${
-                  st.enabled ? "border-accent bg-accent/10" : "border-[var(--color-border)]"
+                  st.enabled ? "border-accent bg-accent/10" : "border-(--color-border)"
                 }`}
               >
                 <button onClick={() => toggle(key)} disabled={busy} className="flex items-center gap-2 text-left disabled:opacity-60">
                   <span>{groupIcon(group)} {label}</span>
-                  <span className={st.enabled ? "font-medium text-accent" : "text-[var(--color-text-secondary)]"}>
+                  <span className={st.enabled ? "font-medium text-accent" : "text-text-secondary"}>
                     {st.enabled ? "ON" : "OFF"}
                   </span>
                 </button>
@@ -320,7 +320,7 @@ export function AdsenseTab() {
                     checked={st.approved}
                     disabled={!st.enabled || busy}
                     onChange={() => toggleApproved(key)}
-                    className="h-4 w-4 accent-[var(--color-accent)]"
+                    className="h-4 w-4 accent-accent"
                   />
                   ACC{st.enabled && st.approved && hasRealId ? " ✓ live" : ""}
                 </label>
@@ -328,7 +328,7 @@ export function AdsenseTab() {
             );
           })}
         </div>
-        <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/70">
+        <p className="mt-2 text-[11px] text-text-secondary/70">
           {onCount} situs aktif · {liveCount} situs menayangkan iklan asli.
         </p>
       </section>

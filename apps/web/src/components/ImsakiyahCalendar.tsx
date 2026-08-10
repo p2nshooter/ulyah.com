@@ -98,12 +98,12 @@ export function ImsakiyahCalendar({ locale }: { locale: string }) {
         📍 {locating ? t.locating : `${country.flag} ${cityLabel ?? country.city}`}
       </p>
 
-      {!alreadyStarted && <p className="text-center text-xs text-[var(--color-text-secondary)]">{t.countingDown}</p>}
+      {!alreadyStarted && <p className="text-center text-xs text-text-secondary">{t.countingDown}</p>}
 
-      <div className="overflow-x-auto rounded-2xl border border-[var(--color-border)]">
+      <div className="overflow-x-auto rounded-2xl border border-(--color-border)">
         <table className="w-full min-w-[420px] text-sm">
           <thead>
-            <tr className="border-b border-[var(--color-border)] bg-black/5 text-xs">
+            <tr className="border-b border-(--color-border) bg-black/5 text-xs">
               <th className="px-3 py-2 text-left font-medium">{t.dayLabel}</th>
               <th className="px-3 py-2 text-right font-medium">{t.imsakLabel}</th>
               <th className="px-3 py-2 text-right font-medium">{t.fajrLabel}</th>
@@ -112,7 +112,7 @@ export function ImsakiyahCalendar({ locale }: { locale: string }) {
           </thead>
           <tbody>
             {days.map((d) => (
-              <tr key={d.date.toDateString()} className="border-b border-[var(--color-border)] last:border-0">
+              <tr key={d.date.toDateString()} className="border-b border-(--color-border) last:border-0">
                 <td className="px-3 py-2 tabular-nums">{d.hijriDay}</td>
                 <td className="px-3 py-2 text-right tabular-nums text-accent">{hmIn(country.tz, d.imsak)}</td>
                 <td className="px-3 py-2 text-right tabular-nums">{hmIn(country.tz, d.fajr)}</td>
@@ -124,7 +124,7 @@ export function ImsakiyahCalendar({ locale }: { locale: string }) {
       </div>
 
 
-      <p className="text-center text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{t.disclaimer}</p>
+      <p className="text-center text-[11px] leading-relaxed text-text-secondary">{t.disclaimer}</p>
     </div>
   );
 }

@@ -66,7 +66,7 @@ export default async function KitabCategoryPage({
   if (!category) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-        <p className="text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>
+        <p className="text-sm text-text-secondary">{t.noResults}</p>
         <Link href={`/${locale}/kitab`} className="mt-4 inline-block text-sm text-accent hover:underline">
           ← {t.backToCategories}
         </Link>
@@ -90,7 +90,7 @@ export default async function KitabCategoryPage({
         </span>
         <div>
           <h1 className="font-heading text-2xl sm:text-3xl">{category.name}</h1>
-          <p dir="rtl" className="font-arabic mt-1 text-[var(--color-text-secondary)]">
+          <p dir="rtl" className="font-arabic mt-1 text-text-secondary">
             {category.name_ar}
           </p>
           <p className="mt-1 text-xs font-medium text-accent">
@@ -105,7 +105,7 @@ export default async function KitabCategoryPage({
           name="q"
           defaultValue={q}
           placeholder={t.searchPlaceholder}
-          className="w-full rounded-xl border border-[var(--color-border)] bg-transparent px-4 py-2.5 text-sm"
+          className="w-full rounded-xl border border-(--color-border) bg-transparent px-4 py-2.5 text-sm"
         />
       </form>
 
@@ -113,7 +113,7 @@ export default async function KitabCategoryPage({
           the left edge and a "listen" cue, so the list still reads like a row
           of books from the same collection. */}
       <div className="mt-6 grid gap-3">
-        {books.length === 0 && <p className="text-center text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>}
+        {books.length === 0 && <p className="text-center text-sm text-text-secondary">{t.noResults}</p>}
         {books.map((b) => (
           <div key={b.id}>
             <Link
@@ -125,25 +125,25 @@ export default async function KitabCategoryPage({
                 <div className="min-w-0">
                   {b.title_translated ? (
                     <>
-                      <p className="text-base font-medium leading-snug text-[var(--color-text-primary)]">
+                      <p className="text-base font-medium leading-snug text-text-primary">
                         {b.title_translated}
                       </p>
-                      <p dir="rtl" className="font-arabic mt-0.5 text-sm text-[var(--color-text-secondary)]">
+                      <p dir="rtl" className="font-arabic mt-0.5 text-sm text-text-secondary">
                         {b.title_ar}
                       </p>
                     </>
                   ) : (
-                    <p dir="rtl" className="font-arabic text-lg leading-snug text-[var(--color-text-primary)]">
+                    <p dir="rtl" className="font-arabic text-lg leading-snug text-text-primary">
                       {b.title_ar}
                     </p>
                   )}
                   {b.author && (
-                    <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+                    <p className="mt-1 text-xs text-text-secondary">
                       {t.author}: {b.author}
                       {b.author_death_year ? ` (${t.died} ${b.author_death_year})` : ""}
                     </p>
                   )}
-                  {b.excerpt && <p dir="rtl" className="font-arabic mt-2 line-clamp-2 text-sm text-[var(--color-text-secondary)]">{b.excerpt}</p>}
+                  {b.excerpt && <p dir="rtl" className="font-arabic mt-2 line-clamp-2 text-sm text-text-secondary">{b.excerpt}</p>}
                 </div>
                 <span className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 text-[10px] text-accent">
                   <span aria-hidden>🔊</span>
@@ -158,15 +158,15 @@ export default async function KitabCategoryPage({
       {totalPages > 1 && (
         <div className="mt-8 flex items-center justify-center gap-3 text-sm">
           {page > 1 && (
-            <Link href={`/${locale}/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page - 1}`} className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 hover:border-accent">
+            <Link href={`/${locale}/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page - 1}`} className="rounded-lg border border-(--color-border) px-3 py-1.5 hover:border-accent">
               ← {t.prev}
             </Link>
           )}
-          <span className="text-[var(--color-text-secondary)]">
+          <span className="text-text-secondary">
             {t.page} {page}/{totalPages}
           </span>
           {page < totalPages && (
-            <Link href={`/${locale}/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page + 1}`} className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 hover:border-accent">
+            <Link href={`/${locale}/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page + 1}`} className="rounded-lg border border-(--color-border) px-3 py-1.5 hover:border-accent">
               {t.next} →
             </Link>
           )}

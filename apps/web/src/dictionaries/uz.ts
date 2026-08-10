@@ -72,7 +72,7 @@ const uz: Dictionary = {
     sectionTitle: "Interaktiv Qur'on: Bir sahifada tinglang va tushuning",
     sectionSubtitle: "Qur'onning har bir oyatini o'z ehtiyojlaringizga moslab tushunishning eng yaxshi usulini tanlang.",
     allSurah: "Qur'on",
-    viewAllSurah: "Barcha suralarni ko'ring",
+    viewAllSurah: "Barcha suralarni ko'ring-3",
     ayahSummaryTitle: "Ushbu oyatning qisqacha mazmuni",
     translationLabel: "Tarjima",
     tafsirLabel: "Qisqacha tafsir",

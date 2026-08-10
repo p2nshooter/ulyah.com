@@ -38,7 +38,7 @@ const SOURCE_LABEL: Record<SettingStatus["source"], string> = {
 };
 const SOURCE_COLOR: Record<SettingStatus["source"], string> = {
   database: "text-accent",
-  env: "text-[var(--color-text-secondary)]",
+  env: "text-text-secondary",
   unset: "text-danger",
 };
 
@@ -91,11 +91,11 @@ export function SettingsTab() {
     }
   }
 
-  if (loading) return <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>;
+  if (loading) return <p className="text-sm text-text-secondary">Memuat…</p>;
 
   return (
     <div className="space-y-3">
-      <p className="text-xs text-[var(--color-text-secondary)]">
+      <p className="text-xs text-text-secondary">
         Kredensial di sini disimpan terenkripsi (AES-256-GCM) di database, bukan teks polos. Mengisi nilai di sini
         langsung menggantikan GitHub Secret dengan nama yang sama — tanpa perlu deploy ulang.
       </p>
@@ -109,19 +109,19 @@ export function SettingsTab() {
           <section key={g.id} className="space-y-2">
             <div className="pt-2">
               <h3 className="text-sm font-semibold">{g.title}</h3>
-              <p className="text-[11px] text-[var(--color-text-secondary)]">{g.blurb}</p>
+              <p className="text-[11px] text-text-secondary">{g.blurb}</p>
             </div>
             {rows.map((s) => (
-          <div key={s.key} className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+          <div key={s.key} className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="text-sm font-medium">{s.label}</p>
-                <p className="text-[11px] text-[var(--color-text-secondary)]">{s.key}</p>
+                <p className="text-[11px] text-text-secondary">{s.key}</p>
               </div>
               <span className={`text-[11px] font-medium ${SOURCE_COLOR[s.source]}`}>{SOURCE_LABEL[s.source]}</span>
             </div>
             {s.preview && (
-              <p className="mt-2 rounded bg-black/5 px-2 py-1 font-mono text-xs dark:bg-white/5">{s.preview}</p>
+              <p className="mt-2 rounded-sm bg-black/5 px-2 py-1 font-mono text-xs dark:bg-white/5">{s.preview}</p>
             )}
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <input
@@ -129,12 +129,12 @@ export function SettingsTab() {
                 placeholder={`Nilai baru untuk ${s.key}`}
                 value={drafts[s.key] ?? ""}
                 onChange={(e) => setDrafts((d) => ({ ...d, [s.key]: e.target.value }))}
-                className="min-w-0 flex-1 rounded border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-xs"
+                className="min-w-0 flex-1 rounded-sm border border-(--color-border) bg-transparent px-3 py-1.5 text-xs"
               />
               <button
                 disabled={busyKey === s.key || !drafts[s.key]?.trim()}
                 onClick={() => save(s.key)}
-                className="rounded bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-40 dark:bg-accent dark:text-primary"
+                className="rounded-sm bg-primary px-3 py-1.5 text-xs text-white disabled:opacity-40 dark:bg-accent dark:text-primary"
               >
                 Simpan
               </button>
@@ -142,7 +142,7 @@ export function SettingsTab() {
                 <button
                   disabled={busyKey === s.key}
                   onClick={() => revert(s.key)}
-                  className="rounded border border-[var(--color-border)] px-3 py-1.5 text-xs disabled:opacity-40"
+                  className="rounded-sm border border-(--color-border) px-3 py-1.5 text-xs disabled:opacity-40"
                 >
                   Kembalikan ke env
                 </button>

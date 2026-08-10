@@ -77,7 +77,7 @@ export function KidsCertificate({
       </div>
 
       {/* The certificate itself */}
-      <div className="kitab-cover rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 p-8 text-center text-[#4a3a12] shadow-lg print:shadow-none">
+      <div className="kitab-cover rounded-2xl bg-linear-to-br from-amber-50 to-amber-100 p-8 text-center text-[#4a3a12] shadow-lg print:shadow-none">
         <span aria-hidden className="kitab-cover-frame" />
         <p className="text-5xl">🏅</p>
         <p className="mt-3 font-heading text-xl font-extrabold">{t.certTitle}</p>

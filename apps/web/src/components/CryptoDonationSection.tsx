@@ -92,17 +92,17 @@ export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; loca
   return (
     <div className="space-y-8">
       {/* Bank transfer — wondr by BNI */}
-      <div className="rounded-2xl border border-accent/40 bg-[var(--color-card)] p-6 shadow-[0_2px_24px_rgba(184,137,43,0.08)]">
+      <div className="rounded-2xl border border-accent/40 bg-(--color-card) p-6 shadow-[0_2px_24px_rgba(184,137,43,0.08)]">
         <p className="font-heading text-lg">🏦 Bank Transfer — BNI (wondr multicurrency)</p>
 
         {/* Full bank identity — required for international / SWIFT transfers */}
-        <dl className="mt-3 grid gap-x-4 gap-y-1.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-4 text-sm sm:grid-cols-2 dark:bg-white/[0.02]">
+        <dl className="mt-3 grid gap-x-4 gap-y-1.5 rounded-xl border border-(--color-border) bg-surface/50 p-4 text-sm sm:grid-cols-2 dark:bg-white/2">
           <div className="flex justify-between gap-2 sm:col-span-2">
-            <dt className="text-[var(--color-text-secondary)]">Bank</dt>
+            <dt className="text-text-secondary">Bank</dt>
             <dd className="text-right font-medium">PT Bank Negara Indonesia (Persero) Tbk.</dd>
           </div>
           <div className="flex justify-between gap-2">
-            <dt className="text-[var(--color-text-secondary)]">SWIFT / BIC</dt>
+            <dt className="text-text-secondary">SWIFT / BIC</dt>
             <dd>
               <button
                 onClick={() => copy("BNINIDJA", "swift")}
@@ -113,16 +113,16 @@ export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; loca
             </dd>
           </div>
           <div className="flex justify-between gap-2">
-            <dt className="text-[var(--color-text-secondary)]">{dict.crypto.network === "Network" ? "Bank code" : "Kode Bank"}</dt>
+            <dt className="text-text-secondary">{dict.crypto.network === "Network" ? "Bank code" : "Kode Bank"}</dt>
             <dd className="font-medium tabular-nums">009</dd>
           </div>
           <div className="flex justify-between gap-2 sm:col-span-2">
-            <dt className="text-[var(--color-text-secondary)]">{dict.cert.senderName === "Name on the certificate" ? "Beneficiary" : "Penerima"}</dt>
+            <dt className="text-text-secondary">{dict.cert.senderName === "Name on the certificate" ? "Beneficiary" : "Penerima"}</dt>
             <dd className="text-right font-medium">YUSRON EFENDI</dd>
           </div>
         </dl>
 
-        <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-[var(--color-text-secondary)]">
+        <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-text-secondary">
           {howto.map((step, i) => (
             <li key={i}>{step}</li>
           ))}
@@ -132,11 +132,11 @@ export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; loca
             <button
               key={acc.ccy}
               onClick={() => copy(acc.number, acc.ccy)}
-              className="rounded-lg border border-[var(--color-border)] px-3 py-2 text-left text-xs hover:border-accent"
+              className="rounded-lg border border-(--color-border) px-3 py-2 text-left text-xs hover:border-accent"
             >
               <span className="font-semibold text-accent">{acc.ccy}</span>
               <span className="mt-0.5 block tabular-nums">{acc.number}</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">
+              <span className="text-[10px] text-text-secondary">
                 {copied === acc.ccy ? dict.crypto.copied : "a.n. YUSRON EFENDI"}
               </span>
             </button>
@@ -145,16 +145,16 @@ export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; loca
       </div>
 
       {/* Direct crypto */}
-      <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+      <div className="rounded-2xl border border-(--color-border) bg-(--color-card) p-6">
         <p className="font-heading text-lg">🪙 {dict.crypto.title}</p>
-        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{dict.crypto.desc}</p>
+        <p className="mt-1 text-sm text-text-secondary">{dict.crypto.desc}</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {WALLETS.map((w) => (
             <button
               key={w.id}
               onClick={() => setOpenWallet(w.id)}
               className={`rounded-full border px-4 py-1.5 text-sm ${
-                openWallet === w.id ? "border-accent bg-accent/10 text-accent" : "border-[var(--color-border)]"
+                openWallet === w.id ? "border-accent bg-accent/10 text-accent" : "border-(--color-border)"
               }`}
             >
               {w.symbol}
@@ -167,7 +167,7 @@ export function CryptoDonationSection({ dict, locale }: { dict: Dictionary; loca
             <img src={`/donate/qr-${w.id}.svg`} alt={`${w.coin} QR`} className="h-44 w-44 rounded-xl bg-white p-2" />
             <div className="min-w-0 flex-1 text-center sm:text-left">
               <p className="font-medium">{w.coin} ({w.symbol})</p>
-              <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+              <p className="mt-1 text-xs text-text-secondary">
                 {dict.crypto.network}: <span className="font-semibold text-warning">{w.network}</span>
               </p>
               <code className="mt-3 block break-all rounded-lg bg-black/5 p-3 text-xs dark:bg-white/10">{w.address}</code>

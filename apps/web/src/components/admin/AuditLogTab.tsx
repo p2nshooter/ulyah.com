@@ -21,12 +21,12 @@ export function AuditLogTab() {
   return (
     <div className="space-y-2">
       {log.map((entry) => (
-        <div key={entry.id} className="rounded-lg border border-[var(--color-border)] p-3 text-xs">
+        <div key={entry.id} className="rounded-lg border border-(--color-border) p-3 text-xs">
           <div className="flex justify-between">
             <span className="font-medium">{entry.action}</span>
-            <span className="text-[var(--color-text-secondary)]">{new Date(entry.created_at).toLocaleString()}</span>
+            <span className="text-text-secondary">{new Date(entry.created_at).toLocaleString()}</span>
           </div>
-          <p className="mt-1 text-[var(--color-text-secondary)]">{entry.actor}</p>
+          <p className="mt-1 text-text-secondary">{entry.actor}</p>
         </div>
       ))}
     </div>

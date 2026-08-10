@@ -70,12 +70,12 @@ export function WarisCalculator({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+      <section className="rounded-2xl border border-(--color-border) bg-(--color-card) p-5">
         <p className="font-heading text-lg">👪 {t.title}</p>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.deceasedGenderLabel}</span>
+            <span className="text-text-secondary">{t.deceasedGenderLabel}</span>
             <div className="mt-1 flex gap-2">
               {(["male", "female"] as const).map((g) => (
                 <button
@@ -84,7 +84,7 @@ export function WarisCalculator({ locale }: { locale: string }) {
                   className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
                     deceasedGender === g
                       ? "border-accent bg-accent/15 text-accent"
-                      : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                      : "border-(--color-border) text-text-secondary"
                   }`}
                 >
                   {g === "male" ? t.male : t.female}
@@ -95,17 +95,17 @@ export function WarisCalculator({ locale }: { locale: string }) {
 
           {deceasedGender === "male" ? (
             <label className="text-xs">
-              <span className="text-[var(--color-text-secondary)]">{t.wivesCountLabel}</span>
+              <span className="text-text-secondary">{t.wivesCountLabel}</span>
               <input
                 inputMode="numeric"
                 value={wivesCount}
                 onChange={(e) => setWivesCount(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
               />
             </label>
           ) : (
             <label className="text-xs">
-              <span className="text-[var(--color-text-secondary)]">{t.hasHusbandLabel}</span>
+              <span className="text-text-secondary">{t.hasHusbandLabel}</span>
               <div className="mt-1 flex gap-2">
                 {[true, false].map((v) => (
                   <button
@@ -114,7 +114,7 @@ export function WarisCalculator({ locale }: { locale: string }) {
                     className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
                       hasHusband === v
                         ? "border-accent bg-accent/15 text-accent"
-                        : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                        : "border-(--color-border) text-text-secondary"
                     }`}
                   >
                     {v ? t.yes : t.no}
@@ -125,21 +125,21 @@ export function WarisCalculator({ locale }: { locale: string }) {
           )}
 
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.sonsLabel}</span>
+            <span className="text-text-secondary">{t.sonsLabel}</span>
             <input
               inputMode="numeric"
               value={sons}
               onChange={(e) => setSons(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.daughtersLabel}</span>
+            <span className="text-text-secondary">{t.daughtersLabel}</span>
             <input
               inputMode="numeric"
               value={daughters}
               onChange={(e) => setDaughters(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
 
@@ -148,7 +148,7 @@ export function WarisCalculator({ locale }: { locale: string }) {
             { label: t.motherAliveLabel, value: motherAlive, set: setMotherAlive },
           ].map((f) => (
             <label key={f.label} className="text-xs">
-              <span className="text-[var(--color-text-secondary)]">{f.label}</span>
+              <span className="text-text-secondary">{f.label}</span>
               <div className="mt-1 flex gap-2">
                 {[true, false].map((v) => (
                   <button
@@ -157,7 +157,7 @@ export function WarisCalculator({ locale }: { locale: string }) {
                     className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
                       f.value === v
                         ? "border-accent bg-accent/15 text-accent"
-                        : "border-[var(--color-border)] text-[var(--color-text-secondary)]"
+                        : "border-(--color-border) text-text-secondary"
                     }`}
                   >
                     {v ? t.yes : t.no}
@@ -170,33 +170,33 @@ export function WarisCalculator({ locale }: { locale: string }) {
 
         {kalalah && (
           <div className="mt-4 rounded-xl bg-black/5 p-4">
-            <p className="text-[11px] text-[var(--color-text-secondary)]">{t.kalalahHint}</p>
+            <p className="text-[11px] text-text-secondary">{t.kalalahHint}</p>
             <div className="mt-3 grid gap-3 sm:grid-cols-3">
               <label className="text-xs">
-                <span className="text-[var(--color-text-secondary)]">{t.fullBrothersLabel}</span>
+                <span className="text-text-secondary">{t.fullBrothersLabel}</span>
                 <input
                   inputMode="numeric"
                   value={fullBrothers}
                   onChange={(e) => setFullBrothers(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
                 />
               </label>
               <label className="text-xs">
-                <span className="text-[var(--color-text-secondary)]">{t.fullSistersLabel}</span>
+                <span className="text-text-secondary">{t.fullSistersLabel}</span>
                 <input
                   inputMode="numeric"
                   value={fullSisters}
                   onChange={(e) => setFullSisters(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
                 />
               </label>
               <label className="text-xs">
-                <span className="text-[var(--color-text-secondary)]">{t.uterineSiblingsLabel}</span>
+                <span className="text-text-secondary">{t.uterineSiblingsLabel}</span>
                 <input
                   inputMode="numeric"
                   value={uterineSiblings}
                   onChange={(e) => setUterineSiblings(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
                 />
               </label>
             </div>
@@ -204,68 +204,68 @@ export function WarisCalculator({ locale }: { locale: string }) {
         )}
       </section>
 
-      <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+      <section className="rounded-2xl border border-(--color-border) bg-(--color-card) p-5">
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.estateLabel}</span>
+            <span className="text-text-secondary">{t.estateLabel}</span>
             <input
               inputMode="decimal"
               value={estate}
               onChange={(e) => setEstate(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.debtLabel}</span>
+            <span className="text-text-secondary">{t.debtLabel}</span>
             <input
               inputMode="decimal"
               value={debt}
               onChange={(e) => setDebt(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.funeralCostLabel}</span>
+            <span className="text-text-secondary">{t.funeralCostLabel}</span>
             <input
               inputMode="decimal"
               value={funeralCost}
               onChange={(e) => setFuneralCost(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
           <label className="text-xs">
-            <span className="text-[var(--color-text-secondary)]">{t.willLabel}</span>
+            <span className="text-text-secondary">{t.willLabel}</span>
             <input
               inputMode="decimal"
               value={will}
               onChange={(e) => setWill(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
             />
           </label>
         </div>
         {toNumber(will) > willCap && willCap > 0 && (
-          <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]">{t.willCapNote}</p>
+          <p className="mt-2 text-[11px] text-text-secondary">{t.willCapNote}</p>
         )}
 
         <div className="mt-4 flex items-center justify-between rounded-xl bg-black/5 p-4 text-sm">
-          <span className="text-[var(--color-text-secondary)]">{t.netEstateLabel}</span>
+          <span className="text-text-secondary">{t.netEstateLabel}</span>
           <span className="font-heading text-lg text-accent tabular-nums">{fmt(netEstate)}</span>
         </div>
       </section>
 
 
-      <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+      <section className="rounded-2xl border border-(--color-border) bg-(--color-card) p-5">
         <p className="font-heading text-lg">{t.resultsTitle}</p>
 
         {result.noRecognizedHeir ? (
-          <p className="mt-3 text-sm text-[var(--color-text-secondary)]">{t.noRecognizedHeir}</p>
+          <p className="mt-3 text-sm text-text-secondary">{t.noRecognizedHeir}</p>
         ) : (
           <div className="mt-3 space-y-2">
             {result.heirs.map((h) => (
-              <div key={h.key} className="flex items-center justify-between border-b border-[var(--color-border)] pb-2 text-sm">
+              <div key={h.key} className="flex items-center justify-between border-b border-(--color-border) pb-2 text-sm">
                 <span>{t.heirNames[h.key] ?? h.key}</span>
                 <span className="text-right">
-                  <span className="text-[var(--color-text-secondary)]">{(h.fraction * 100).toFixed(2)}%</span>
+                  <span className="text-text-secondary">{(h.fraction * 100).toFixed(2)}%</span>
                   {netEstate > 0 && (
                     <span className="ml-3 font-heading tabular-nums text-accent">{fmt(h.fraction * netEstate)}</span>
                   )}
@@ -276,7 +276,7 @@ export function WarisCalculator({ locale }: { locale: string }) {
         )}
 
         {(result.umariyyatain || result.aul || result.radd) && (
-          <div className="mt-4 space-y-1.5 rounded-xl bg-accent/10 p-3 text-[11px] leading-relaxed text-[var(--color-text-secondary)]">
+          <div className="mt-4 space-y-1.5 rounded-xl bg-accent/10 p-3 text-[11px] leading-relaxed text-text-secondary">
             {result.umariyyatain && <p>{t.umariyyatainNote}</p>}
             {result.aul && <p>{t.aulNote}</p>}
             {result.radd && <p>{t.raddNote}</p>}
@@ -284,7 +284,7 @@ export function WarisCalculator({ locale }: { locale: string }) {
         )}
       </section>
 
-      <p className="text-center text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{t.disclaimer}</p>
+      <p className="text-center text-[11px] leading-relaxed text-text-secondary">{t.disclaimer}</p>
     </div>
   );
 }

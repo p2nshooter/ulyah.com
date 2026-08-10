@@ -45,7 +45,7 @@ export function DonationButtons({ dict }: { dict: Dictionary }) {
                 setCustomAmount("");
               }}
               className={`rounded-full border px-4 py-2 text-sm ${
-                amount === a && !customAmount ? "border-accent bg-accent/10 text-accent" : "border-[var(--color-border)]"
+                amount === a && !customAmount ? "border-accent bg-accent/10 text-accent" : "border-(--color-border)"
               }`}
             >
               ${a}
@@ -55,7 +55,7 @@ export function DonationButtons({ dict }: { dict: Dictionary }) {
             value={customAmount}
             onChange={(e) => setCustomAmount(e.target.value.replace(/[^0-9.]/g, ""))}
             placeholder={dict.donation.customAmount}
-            className="w-32 rounded-full border border-[var(--color-border)] bg-transparent px-3 py-2 text-center text-sm"
+            className="w-32 rounded-full border border-(--color-border) bg-transparent px-3 py-2 text-center text-sm"
           />
         </div>
       </div>

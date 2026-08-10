@@ -100,7 +100,7 @@ export function AdSlot({
   const stateNote = slotId ? adL.waiting : adL.noId;
   return (
     <div
-      className={`my-8 flex min-h-[90px] flex-col items-center justify-center gap-0.5 rounded-xl border border-dashed border-accent/50 bg-accent/5 text-center text-xs text-[var(--color-text-secondary)] ${className}`}
+      className={`my-8 flex min-h-[90px] flex-col items-center justify-center gap-0.5 rounded-xl border border-dashed border-accent/50 bg-accent/5 text-center text-xs text-text-secondary ${className}`}
       data-ad-placeholder={placement}
     >
       <span className="font-medium opacity-80">▭ {label ?? adL.label}</span>

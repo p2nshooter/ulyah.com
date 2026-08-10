@@ -56,7 +56,7 @@ export default async function NasakhPage({ params }: { params: Promise<{ locale:
       </div>
 
       {entries.length === 0 ? (
-        <p className="mt-10 text-center text-sm text-[var(--color-text-secondary)]">
+        <p className="mt-10 text-center text-sm text-text-secondary">
           {t("kitabLoadError", locale)}
         </p>
       ) : (

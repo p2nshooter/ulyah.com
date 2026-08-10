@@ -73,7 +73,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <div>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="hero-main pattern-islamic bg-[var(--color-bg)] px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
+      <section className="hero-main pattern-islamic bg-(--color-bg) px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
         <div className="mx-auto grid max-w-7xl items-center gap-10 desktop:grid-cols-2">
           <div className="hero-entrance">
             <h1 className="font-heading text-4xl leading-[1.15] tracking-tight sm:text-5xl desktop:text-6xl">
@@ -83,7 +83,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               <br />
               {dict.hero.titleLine3}
             </h1>
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-text-secondary">
               {dict.hero.description}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -95,7 +95,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               </Link>
               <Link
                 href={`/${locale}/quran`}
-                className="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-medium transition hover:border-accent"
+                className="rounded-full border border-(--color-border) px-6 py-3 text-sm font-medium transition hover:border-accent"
               >
                 {dict.hero.ctaSecondary}
               </Link>
@@ -106,7 +106,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
                   <div className="mx-auto grid h-11 w-11 place-items-center rounded-2xl border border-accent/30 bg-accent/5 text-lg transition group-hover:border-accent group-hover:bg-accent/15">
                     {icon}
                   </div>
-                  <p className="mx-auto mt-1.5 max-w-[72px] text-[10px] leading-tight text-[var(--color-text-secondary)] transition group-hover:text-accent">
+                  <p className="mx-auto mt-1.5 max-w-[72px] text-[10px] leading-tight text-text-secondary transition group-hover:text-accent">
                     {label}
                   </p>
                 </Link>
@@ -116,10 +116,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
           {/* Quote + brand visual */}
           <div className="hero-entrance relative" style={{ animationDelay: "180ms" }}>
-            <div className="overflow-hidden rounded-3xl bg-[var(--panel-bg)] p-8 text-[var(--panel-fg)] shadow-2xl">
+            <div className="overflow-hidden rounded-3xl bg-(--panel-bg) p-8 text-(--panel-fg) shadow-2xl">
               <blockquote>
                 <span className="font-heading text-5xl leading-none text-accent">“</span>
-                <p className="mt-2 font-heading text-xl leading-relaxed italic text-[var(--panel-fg)]">{dict.hero.quote}</p>
+                <p className="mt-2 font-heading text-xl leading-relaxed italic text-(--panel-fg)">{dict.hero.quote}</p>
                 <cite className="mt-3 block text-xs not-italic text-accent">{dict.hero.quoteSource}</cite>
               </blockquote>
               <div className="mt-6 flex justify-center">
@@ -138,7 +138,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* ── Stats bar ────────────────────────────────────────── */}
-      <section className="bg-[var(--panel-bg)] px-4 py-7 text-[var(--panel-fg)] sm:px-6">
+      <section className="bg-(--panel-bg) px-4 py-7 text-(--panel-fg) sm:px-6">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 sm:grid-cols-5">
           {stats.map(([icon, value, label]) => (
             <div key={label} className="flex items-center justify-center gap-3">
@@ -158,12 +158,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           <div className="mx-auto max-w-4xl">
             <Link
               href={`/${locale}/kitab`}
-              className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-accent/10 via-accent/5 to-transparent p-5 shadow-[var(--shadow-gold)] transition hover:border-accent sm:flex-row sm:items-center"
+              className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-linear-to-br from-accent/10 via-accent/5 to-transparent p-5 shadow-(--ul-shadow-gold) transition hover:border-accent sm:flex-row sm:items-center"
             >
               <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-accent/15 text-3xl">📚</span>
               <div className="min-w-0 flex-1">
                 <p className="font-heading text-lg">{t.kitabTitle}</p>
-                <p className="mt-0.5 text-sm text-[var(--color-text-secondary)]">
+                <p className="mt-0.5 text-sm text-text-secondary">
                   {t.kitabDesc}
                 </p>
                 {/* Counts are digits, not language — safe to render directly. */}
@@ -186,12 +186,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <div className="mx-auto grid max-w-4xl gap-4 desktop:grid-cols-[1.4fr_1fr]">
           <Link
             href={`/${locale}/kids`}
-            className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-gradient-to-br from-sky-400/10 via-accent/5 to-transparent p-5 transition hover:border-accent sm:flex-row sm:items-center"
+            className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-linear-to-br from-sky-400/10 via-accent/5 to-transparent p-5 transition hover:border-accent sm:flex-row sm:items-center"
           >
             <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-accent/15 text-3xl">🧒</span>
             <div className="min-w-0 flex-1">
               <p className="font-heading text-lg">{t.kidsTitle}</p>
-              <p className="mt-0.5 text-sm text-[var(--color-text-secondary)]">{t.kidsDesc}</p>
+              <p className="mt-0.5 text-sm text-text-secondary">{t.kidsDesc}</p>
               <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-accent/40 px-2.5 py-0.5 text-[11px] font-medium text-accent">
                 📗 {IQRO_COUNT} {t.kidsIqro}
               </span>
@@ -203,7 +203,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
           <div>
             <MainAppInstallCard locale={locale} />
-            <p className="mt-2 text-center text-[11px] text-[var(--color-text-secondary)]">{t.install}</p>
+            <p className="mt-2 text-center text-[11px] text-text-secondary">{t.install}</p>
           </div>
         </div>
       </section>
@@ -227,7 +227,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <div className="mx-auto max-w-7xl">
           <div className="section-divider mb-4"><span>✿</span></div>
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{dict.reader.sectionTitle}</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
+          <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-text-secondary">
             {dict.reader.sectionSubtitle}
           </p>
           <div className="mt-8">
@@ -245,11 +245,11 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       </section>
 
       {/* ── Explore cards ────────────────────────────────────── */}
-      <section className="bg-[var(--color-surface)] px-4 py-16 dark:bg-white/[0.03] sm:px-6">
+      <section className="bg-surface px-4 py-16 dark:bg-white/3 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="section-divider mb-4"><span>✿</span></div>
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{dict.explore.title}</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-[var(--color-text-secondary)]">
+          <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-text-secondary">
             {dict.explore.subtitle}
           </p>
           <div className="reveal-stagger mt-8 grid gap-4 sm:grid-cols-2 desktop:grid-cols-4">
@@ -257,7 +257,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
               <Link key={item.title} href={href} className="card-premium group relative overflow-hidden p-6">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent/10 text-2xl">{icon}</div>
                 <p className="mt-4 font-heading text-lg">{item.title}</p>
-                <p className="mt-1 text-sm text-[var(--color-text-secondary)]">{item.desc}</p>
+                <p className="mt-1 text-sm text-text-secondary">{item.desc}</p>
                 <span className="mt-3 inline-block text-sm font-medium text-accent group-hover:underline">
                   {item.cta} →
                 </span>
@@ -269,7 +269,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
       {/* ── CTA banner ───────────────────────────────────────── */}
       <section className="px-4 py-16 sm:px-6">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-[var(--panel-bg)] px-6 py-14 text-center text-[var(--panel-fg)]">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-(--panel-bg) px-6 py-14 text-center text-(--panel-fg)">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-20"

@@ -68,19 +68,19 @@ export function HijriCalendar({ locale }: { locale: string }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <button onClick={() => shiftMonth(-1)} className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs hover:border-accent">
+        <button onClick={() => shiftMonth(-1)} className="rounded-full border border-(--color-border) px-3 py-1.5 text-xs hover:border-accent">
           {t.prev}
         </button>
         <div className="text-center">
           <p className="font-heading text-lg">{gregorianLabel}</p>
           <p className="text-xs text-accent">{hijriHeader.join(" – ")}</p>
         </div>
-        <button onClick={() => shiftMonth(1)} className="rounded-full border border-[var(--color-border)] px-3 py-1.5 text-xs hover:border-accent">
+        <button onClick={() => shiftMonth(1)} className="rounded-full border border-(--color-border) px-3 py-1.5 text-xs hover:border-accent">
           {t.next}
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold text-[var(--color-text-secondary)]">
+      <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold text-text-secondary">
         {weekdays.map((d) => (
           <div key={d}>{d}</div>
         ))}
@@ -96,20 +96,20 @@ export function HijriCalendar({ locale }: { locale: string }) {
                 isToday
                   ? "border-accent bg-accent/15"
                   : c.inMonth
-                    ? "border-[var(--color-border)] bg-[var(--color-card)]"
+                    ? "border-(--color-border) bg-(--color-card)"
                     : "border-transparent opacity-30"
               }`}
               title={isToday ? t.todayLabel : undefined}
             >
               <p className="text-xs font-medium">{c.date.getDate()}</p>
-              <p className="text-[9px] text-[var(--color-text-secondary)]">{c.hijri.day}</p>
+              <p className="text-[9px] text-text-secondary">{c.hijri.day}</p>
             </div>
           );
         })}
       </div>
 
 
-      <p className="text-center text-[11px] leading-relaxed text-[var(--color-text-secondary)]">{t.disclaimer}</p>
+      <p className="text-center text-[11px] leading-relaxed text-text-secondary">{t.disclaimer}</p>
     </div>
   );
 }

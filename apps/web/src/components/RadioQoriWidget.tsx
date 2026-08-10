@@ -119,7 +119,7 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
                 onClick={() => setShowLineup(false)}
                 className="fixed inset-0 z-40 cursor-default bg-black/40"
               />
-              <div className="fixed left-1/2 top-1/2 z-50 max-h-[70vh] w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-accent/25 bg-[var(--color-primary)] p-2 shadow-2xl">
+              <div className="fixed left-1/2 top-1/2 z-50 max-h-[70vh] w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl border border-accent/25 bg-primary p-2 shadow-2xl">
                 <div className="flex items-center justify-between px-2 py-1">
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-accent">{t.featuredGroup}</p>
                   <button onClick={() => setShowLineup(false)} aria-label="close" className="p-1 text-xs opacity-70 hover:opacity-100">

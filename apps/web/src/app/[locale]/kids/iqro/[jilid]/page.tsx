@@ -47,11 +47,11 @@ export default async function IqroJilidPage({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-linear-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-2xl px-4 pt-8 sm:px-6">
         <Link
           href={`/${locale}/kids/iqro`}
-          className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
+          className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-xs ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
         >
           ← {t.iqroTitle}
         </Link>
@@ -72,7 +72,7 @@ export default async function IqroJilidPage({
           <div className="mt-8 text-center">
             <Link
               href={`/${locale}/kids/iqro/${next.no}`}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-emerald-400 to-lime-400 px-5 py-2.5 text-sm font-bold text-white shadow-lg ring-1 ring-black/10 hover:brightness-105"
+              className="inline-flex items-center gap-2 rounded-full bg-linear-to-br from-emerald-400 to-lime-400 px-5 py-2.5 text-sm font-bold text-white shadow-lg ring-1 ring-black/10 hover:brightness-105"
             >
               {t.jilid} {next.no} →
             </Link>

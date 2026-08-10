@@ -92,7 +92,7 @@ export default async function HaditsCollectionPage({
   if (!data) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-        <p className="text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>
+        <p className="text-sm text-text-secondary">{t.noResults}</p>
         <Link href={`/${locale}/hadits`} className="mt-4 inline-block text-sm text-accent hover:underline">
           ← {t.backToBooks}
         </Link>
@@ -161,8 +161,8 @@ export default async function HaditsCollectionPage({
         />
         <div>
           <h1 className="font-heading text-2xl">{meta.name_id}</h1>
-          <p dir="rtl" className="font-arabic mt-1 text-2xl leading-snug text-[var(--color-text-primary)]">{meta.name_ar}</p>
-          <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
+          <p dir="rtl" className="font-arabic mt-1 text-2xl leading-snug text-text-primary">{meta.name_ar}</p>
+          <p className="mt-2 text-xs text-text-secondary">
             {meta.author ? `${t.author}: ${meta.author} · ` : ""}
             {total.toLocaleString(locale)} {t.hadithCount}
           </p>
@@ -185,17 +185,17 @@ export default async function HaditsCollectionPage({
 
       <nav className="mt-8 flex items-center justify-between gap-3 text-sm">
         {page > 1 ? (
-          <Link href={`${base}?page=${page - 1}`} className="rounded-lg border border-[var(--color-border)] px-4 py-2 hover:border-accent">
+          <Link href={`${base}?page=${page - 1}`} className="rounded-lg border border-(--color-border) px-4 py-2 hover:border-accent">
             ← {t.prev}
           </Link>
         ) : (
           <span />
         )}
-        <span className="text-xs text-[var(--color-text-secondary)]">
+        <span className="text-xs text-text-secondary">
           {t.page} {page.toLocaleString(locale)} {t.of} {totalPages.toLocaleString(locale)}
         </span>
         {page < totalPages ? (
-          <Link href={`${base}?page=${page + 1}`} className="rounded-lg border border-[var(--color-border)] px-4 py-2 hover:border-accent">
+          <Link href={`${base}?page=${page + 1}`} className="rounded-lg border border-(--color-border) px-4 py-2 hover:border-accent">
             {t.next} →
           </Link>
         ) : (

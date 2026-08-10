@@ -363,11 +363,11 @@ export function NetworkAd({
       aria-hidden
       className="mb-2 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45"
     >
-      <span className="h-px flex-1 bg-[var(--color-border-gold)]" />
-      <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-secondary)]">
+      <span className="h-px flex-1 bg-(--color-border-gold)" />
+      <span className="text-[10px] uppercase tracking-[0.18em] text-text-secondary">
         {label}
       </span>
-      <span className="h-px flex-1 bg-[var(--color-border-gold)]" />
+      <span className="h-px flex-1 bg-(--color-border-gold)" />
     </div>
   );
 

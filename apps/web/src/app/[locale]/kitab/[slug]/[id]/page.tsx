@@ -116,7 +116,7 @@ export default async function KitabBookPage({
   if (!book) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-        <p className="text-sm text-[var(--color-text-secondary)]">{t.noResults}</p>
+        <p className="text-sm text-text-secondary">{t.noResults}</p>
         <Link href={`/${locale}/kitab`} className="mt-4 inline-block text-sm text-accent hover:underline">
           ← {t.backToCategories}
         </Link>
@@ -160,21 +160,21 @@ export default async function KitabBookPage({
         </p>
         {book.title_translated ? (
           <>
-            <h1 className="mt-3 font-heading text-2xl leading-relaxed text-[var(--color-text-primary)] sm:text-3xl">
+            <h1 className="mt-3 font-heading text-2xl leading-relaxed text-text-primary sm:text-3xl">
               {book.title_translated}
             </h1>
-            <p dir="rtl" className="font-arabic mt-1 text-lg text-[var(--color-text-secondary)]">
+            <p dir="rtl" className="font-arabic mt-1 text-lg text-text-secondary">
               {book.title_ar}
             </p>
           </>
         ) : (
-          <h1 dir="rtl" className="font-arabic mt-3 text-2xl leading-relaxed text-[var(--color-text-primary)] sm:text-3xl">
+          <h1 dir="rtl" className="font-arabic mt-3 text-2xl leading-relaxed text-text-primary sm:text-3xl">
             {book.title_ar}
           </h1>
         )}
         {book.author && (
-          <p className="mt-3 text-sm text-[var(--color-text-secondary)]">
-            {t.author}: <span className="font-medium text-[var(--color-text-primary)]">{book.author}</span>
+          <p className="mt-3 text-sm text-text-secondary">
+            {t.author}: <span className="font-medium text-text-primary">{book.author}</span>
             {book.author_death_year ? ` (${t.died} ${book.author_death_year})` : ""}
           </p>
         )}
@@ -192,15 +192,15 @@ export default async function KitabBookPage({
               />
             </div>
             {!book.description_translated && t.arabicOnlyNote && (
-              <p className="mt-2 text-xs italic text-[var(--color-text-secondary)]">{t.arabicOnlyNote}</p>
+              <p className="mt-2 text-xs italic text-text-secondary">{t.arabicOnlyNote}</p>
             )}
-            <p dir="rtl" className="font-arabic mt-3 text-lg leading-loose text-[var(--color-text-primary)]">
+            <p dir="rtl" className="font-arabic mt-3 text-lg leading-loose text-text-primary">
               {book.description_ar}
             </p>
             {book.description_translated && (
-              <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle,transparent)] p-4">
+              <div className="mt-4 rounded-lg border border-(--color-border) bg-(--color-bg-subtle,transparent) p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-accent">{t.translationLabel}</p>
-                <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+                <p className="mt-2 text-[15px] leading-relaxed text-text-secondary">
                   {book.description_translated}
                 </p>
               </div>
@@ -211,7 +211,7 @@ export default async function KitabBookPage({
         {book.topics.length > 0 && (
           <div className="mt-6">
             <p className="text-sm font-semibold">{t.topics}</p>
-            <ul className="mt-3 space-y-1.5 text-[var(--color-text-secondary)]">
+            <ul className="mt-3 space-y-1.5 text-text-secondary">
               {book.topics.map((topic, i) => {
                 const translated = book.topics_translated?.[i];
                 return (
@@ -230,7 +230,7 @@ export default async function KitabBookPage({
         )}
 
         {book.source && (
-          <p className="mt-6 border-t border-[var(--color-border)] pt-4 text-xs text-[var(--color-text-secondary)]">
+          <p className="mt-6 border-t border-(--color-border) pt-4 text-xs text-text-secondary">
             {t.source}: {book.source}
           </p>
         )}
@@ -240,9 +240,9 @@ export default async function KitabBookPage({
       {nextBook && (
         <Link
           href={`/${locale}/kitab/${slug}/${nextBook.id}`}
-          className="mt-6 block rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-accent"
+          className="mt-6 block rounded-xl border border-(--color-border) bg-(--color-card) p-4 hover:border-accent"
         >
-          <p className="text-xs text-[var(--color-text-secondary)]">{t.next} →</p>
+          <p className="text-xs text-text-secondary">{t.next} →</p>
           <p dir="rtl" className="font-arabic mt-1 text-lg">{nextBook.title_ar}</p>
         </Link>
       )}

@@ -15,7 +15,7 @@ export default function ThankYouPage({ params }: { params: Promise<{ locale: str
     <div className="mx-auto max-w-lg px-4 py-24 text-center sm:px-6">
       <div className="text-5xl">🤲</div>
       <h1 className="mt-4 font-heading text-2xl">{dict.donation.thankYouTitle}</h1>
-      <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{dict.donation.thankYouDesc}</p>
+      <p className="mt-2 text-sm text-text-secondary">{dict.donation.thankYouDesc}</p>
       <Suspense fallback={null}>
         <PaypalCaptureStatus dict={dict} />
       </Suspense>

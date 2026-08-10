@@ -235,17 +235,17 @@ export function KidsAudioTab() {
     return (
       <div
         className={`flex flex-col gap-1 rounded-xl border p-2 text-center ${
-          has ? "border-emerald-400/50 bg-emerald-500/5" : "border-[var(--color-border)]"
+          has ? "border-emerald-400/50 bg-emerald-500/5" : "border-(--color-border)"
         }`}
       >
-        {label && <span className="text-[10px] font-medium text-[var(--color-text-secondary)]">{label}</span>}
+        {label && <span className="text-[10px] font-medium text-text-secondary">{label}</span>}
         <span dir="rtl" className="font-arabic text-2xl leading-none">{slot.ar}</span>
-        <span className="text-[10px] text-[var(--color-text-secondary)]">
+        <span className="text-[10px] text-text-secondary">
           {slot.latin} {has ? "✓" : "•"}
         </span>
         <div className="mt-1 flex flex-wrap items-center justify-center gap-1">
           {has && (
-            <button onClick={() => preview(slot.code)} title="Putar" className="rounded px-1.5 py-0.5 text-xs hover:bg-black/5">
+            <button onClick={() => preview(slot.code)} title="Putar" className="rounded-sm px-1.5 py-0.5 text-xs hover:bg-black/5">
               ▶
             </button>
           )}
@@ -253,11 +253,11 @@ export function KidsAudioTab() {
             onClick={() => startRecord(slot.code)}
             disabled={isBusy || !!rec}
             title="Rekam"
-            className="rounded px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
+            className="rounded-sm px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
           >
             ●
           </button>
-          <label title="Unggah" className="cursor-pointer rounded px-1.5 py-0.5 text-xs hover:bg-black/5">
+          <label title="Unggah" className="cursor-pointer rounded-sm px-1.5 py-0.5 text-xs hover:bg-black/5">
             ⬆
             <input
               type="file"
@@ -273,7 +273,7 @@ export function KidsAudioTab() {
             onClick={() => importUrl(slot.code)}
             disabled={isBusy || !!rec}
             title="Impor dari URL (mis. Wikimedia)"
-            className="rounded px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
+            className="rounded-sm px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
           >
             🔗
           </button>
@@ -282,13 +282,13 @@ export function KidsAudioTab() {
               onClick={() => openWiki(slot)}
               disabled={isBusy || !!rec}
               title="Cari audio di Wikimedia Commons"
-              className="rounded px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
+              className="rounded-sm px-1.5 py-0.5 text-xs hover:bg-black/5 disabled:opacity-40"
             >
               🔎
             </button>
           )}
           {has && (
-            <button onClick={() => del(slot.code)} disabled={isBusy} title="Hapus" className="rounded px-1.5 py-0.5 text-xs text-danger hover:bg-danger/10 disabled:opacity-40">
+            <button onClick={() => del(slot.code)} disabled={isBusy} title="Hapus" className="rounded-sm px-1.5 py-0.5 text-xs text-danger hover:bg-danger/10 disabled:opacity-40">
               🗑
             </button>
           )}
@@ -301,7 +301,7 @@ export function KidsAudioTab() {
     <div className="space-y-6">
       <div>
         <h2 className="font-heading text-lg">🧒 Al-Qur'an Kids — Audio</h2>
-        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+        <p className="mt-1 text-sm text-text-secondary">
           Isi audio asli untuk huruf hijaiyah & suku kata Iqro — unggah file atau rekam langsung dari mikrofon (bisa
           didengarkan dulu sebelum disimpan). Slot kosong otomatis pakai suara Arab (TTS) sampai diisi.
         </p>
@@ -309,7 +309,7 @@ export function KidsAudioTab() {
           <span className="rounded-full bg-accent/15 px-3 py-1 text-sm font-medium text-accent">
             {done} / {total} terisi
           </span>
-          <button onClick={() => void load()} className="text-xs text-[var(--color-text-secondary)] underline">
+          <button onClick={() => void load()} className="text-xs text-text-secondary underline">
             Muat ulang
           </button>
         </div>
@@ -317,7 +317,7 @@ export function KidsAudioTab() {
       </div>
 
       {loading ? (
-        <p className="text-sm text-[var(--color-text-secondary)]">Memuat…</p>
+        <p className="text-sm text-text-secondary">Memuat…</p>
       ) : (
         <>
           <section>
@@ -350,7 +350,7 @@ export function KidsAudioTab() {
       {/* Recorder overlay */}
       {rec && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-[var(--color-card)] p-5 text-center shadow-xl">
+          <div className="w-full max-w-sm rounded-2xl bg-(--color-card) p-5 text-center shadow-xl">
             <p className="font-heading text-base">Rekam: {rec.code}</p>
             {rec.status === "recording" ? (
               <>
@@ -359,7 +359,7 @@ export function KidsAudioTab() {
                   <button onClick={stopRecord} className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-primary">
                     ⏹ Selesai
                   </button>
-                  <button onClick={cancelRecord} className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm">
+                  <button onClick={cancelRecord} className="rounded-full border border-(--color-border) px-4 py-2 text-sm">
                     Batal
                   </button>
                 </div>
@@ -378,10 +378,10 @@ export function KidsAudioTab() {
                   >
                     ✓ Simpan
                   </button>
-                  <button onClick={() => startRecord(rec.code)} className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm">
+                  <button onClick={() => startRecord(rec.code)} className="rounded-full border border-(--color-border) px-4 py-2 text-sm">
                     ↺ Rekam ulang
                   </button>
-                  <button onClick={cancelRecord} className="rounded-full border border-[var(--color-border)] px-4 py-2 text-sm">
+                  <button onClick={cancelRecord} className="rounded-full border border-(--color-border) px-4 py-2 text-sm">
                     Batal
                   </button>
                 </div>
@@ -394,26 +394,26 @@ export function KidsAudioTab() {
       {/* Wikimedia Commons picker */}
       {wiki && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-[var(--color-card)] p-5 shadow-xl">
+          <div className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-(--color-card) p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="font-heading text-base">
                 Wikimedia — {wiki.slot.latin} <span dir="rtl" className="font-arabic">{wiki.slot.ar}</span>
               </p>
-              <button onClick={() => setWiki(null)} className="text-sm text-[var(--color-text-secondary)]">✕</button>
+              <button onClick={() => setWiki(null)} className="text-sm text-text-secondary">✕</button>
             </div>
             <div className="mt-3 flex gap-2">
               <input
                 value={wiki.query}
                 onChange={(e) => setWiki((w) => (w ? { ...w, query: e.target.value } : w))}
                 onKeyDown={(e) => e.key === "Enter" && void runWikiSearch()}
-                className="flex-1 rounded-lg border border-[var(--color-border)] bg-transparent px-3 py-1.5 text-sm"
+                className="flex-1 rounded-lg border border-(--color-border) bg-transparent px-3 py-1.5 text-sm"
                 placeholder="cari audio…"
               />
               <button onClick={() => void runWikiSearch()} className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-primary">
                 Cari
               </button>
             </div>
-            <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
+            <p className="mt-2 text-xs text-text-secondary">
               Dengarkan dulu, pastikan pengucapannya benar & lisensinya boleh dipakai (CC/PD) sebelum dipakai.
               File OGG mungkin tak berbunyi di iPhone — utamakan MP3.
             </p>
@@ -421,9 +421,9 @@ export function KidsAudioTab() {
             {wiki.loading && <p className="mt-3 text-sm">Mencari…</p>}
             <div className="mt-3 space-y-2">
               {wiki.results.map((h) => (
-                <div key={h.url} className="rounded-xl border border-[var(--color-border)] p-2">
+                <div key={h.url} className="rounded-xl border border-(--color-border) p-2">
                   <p className="truncate text-xs font-medium" title={h.title}>{h.title}</p>
-                  <p className="text-[10px] text-[var(--color-text-secondary)]">
+                  <p className="text-[10px] text-text-secondary">
                     {h.mime} · {h.license}
                     {h.author ? ` · ${h.author}` : ""}
                   </p>
@@ -439,7 +439,7 @@ export function KidsAudioTab() {
                 </div>
               ))}
               {!wiki.loading && wiki.results.length === 0 && !wiki.err && (
-                <p className="text-sm text-[var(--color-text-secondary)]">Klik “Cari” untuk mencari audio.</p>
+                <p className="text-sm text-text-secondary">Klik “Cari” untuk mencari audio.</p>
               )}
             </div>
           </div>

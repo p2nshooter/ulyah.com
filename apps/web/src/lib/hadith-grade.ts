@@ -44,7 +44,7 @@ const BUCKETS: Record<GradeBucket, Omit<GradeInfo, "bucket">> = {
   },
   lain: {
     label: "Perlu Ditinjau",
-    className: "border-[var(--color-border)] bg-black/5 text-[var(--color-text-secondary)]",
+    className: "border-(--color-border) bg-black/5 text-text-secondary",
     meaning: "Derajat belum terverifikasi.",
   },
 };

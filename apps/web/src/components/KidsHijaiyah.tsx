@@ -47,7 +47,7 @@ export function KidsHijaiyah({ tapHint, filled = [] }: { tapHint: string; filled
           aria-label={h.name}
           className={`flex aspect-square flex-col items-center justify-center rounded-2xl ${
             TINTS[i % TINTS.length]
-          } shadow-sm ring-1 ring-black/5 transition-transform duration-150 hover:scale-105 ${
+          } shadow-xs ring-1 ring-black/5 transition-transform duration-150 hover:scale-105 ${
             active === i ? "scale-110" : ""
           }`}
         >

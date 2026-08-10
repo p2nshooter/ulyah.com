@@ -54,10 +54,10 @@ export function MonitorTab({ locale }: { locale: string }) {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <div>
           <p className="font-heading text-lg">🖥️ Monitor Semua Menu</p>
-          <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
+          <p className="mt-0.5 text-xs text-text-secondary">
             Status setiap fitur/menu situs dalam satu layar.
             {checkedAt ? ` Dicek: ${new Date(checkedAt).toLocaleString("id-ID")}` : ""}
           </p>
@@ -89,10 +89,10 @@ export function MonitorTab({ locale }: { locale: string }) {
                   key={f.key}
                   className={`rounded-xl border p-4 ${
                     f.status === "error"
-                      ? "border-danger/40 bg-danger/[0.05]"
+                      ? "border-danger/40 bg-danger/5"
                       : f.status === "warn"
-                        ? "border-warning/40 bg-warning/[0.05]"
-                        : "border-[var(--color-border)] bg-[var(--color-card)]"
+                        ? "border-warning/40 bg-warning/5"
+                        : "border-(--color-border) bg-(--color-card)"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -105,7 +105,7 @@ export function MonitorTab({ locale }: { locale: string }) {
                   <p className="mt-1 font-heading text-2xl tabular-nums">
                     {f.count >= 0 ? f.count.toLocaleString("id") : "—"}
                   </p>
-                  {f.note && <p className="mt-0.5 text-[11px] text-[var(--color-text-secondary)]">{f.note}</p>}
+                  {f.note && <p className="mt-0.5 text-[11px] text-text-secondary">{f.note}</p>}
                   {f.route && (
                     <a
                       href={`/${locale}${f.route}`}
@@ -128,9 +128,9 @@ export function MonitorTab({ locale }: { locale: string }) {
 
 function Summary({ n, label, cls }: { n: number; label: string; cls: string }) {
   return (
-    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-4 text-center">
+    <div className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-center">
       <p className={`font-heading text-2xl ${cls}`}>{n}</p>
-      <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">{label}</p>
+      <p className="mt-0.5 text-xs text-text-secondary">{label}</p>
     </div>
   );
 }

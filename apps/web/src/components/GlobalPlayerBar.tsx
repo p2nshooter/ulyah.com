@@ -299,7 +299,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
           <div className="flex items-center gap-2">
             <p className="truncate text-sm font-medium">{title}</p>
             {activeLayer && (
-              <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-[var(--color-primary-dark)]">
+              <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-primary-dark">
                 🔊 {layerLabelMap[activeLayer]}
               </span>
             )}
@@ -329,7 +329,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
           <button
             aria-label={isPlaying ? "pause" : "play"}
             onClick={toggle}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-lg text-[var(--color-primary-dark)] shadow-lg transition hover:scale-105"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-lg text-primary-dark shadow-lg transition hover:scale-105"
           >
             {isPlaying ? "⏸" : "▶"}
           </button>
@@ -352,9 +352,9 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
                 </span>
               </button>
               {showQoriMenu && (
-                <div className="absolute bottom-full right-0 mb-2 max-h-96 w-72 overflow-y-auto rounded-lg border border-accent/20 bg-[var(--color-primary)] shadow-xl">
+                <div className="absolute bottom-full right-0 mb-2 max-h-96 w-72 overflow-y-auto rounded-lg border border-accent/20 bg-primary shadow-xl">
                   {/* Per-country filter tabs (imam setiap negara) */}
-                  <div className="sticky top-0 flex flex-wrap gap-1 border-b border-accent/15 bg-[var(--color-primary)] p-2">
+                  <div className="sticky top-0 flex flex-wrap gap-1 border-b border-accent/15 bg-primary p-2">
                     {COUNTRIES.map((c) => {
                       const count = c.code === "all" ? RECITERS.length : RECITERS.filter((r) => r.cc === c.code).length;
                       if (count === 0) return null;
@@ -396,10 +396,10 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
             aria-label="playback speed"
             value={playbackRate}
             onChange={(e) => setPlaybackRate(Number(e.target.value))}
-            className="hidden rounded border border-accent/30 bg-transparent px-1 py-1 text-xs sm:block"
+            className="hidden rounded-sm border border-accent/30 bg-transparent px-1 py-1 text-xs sm:block"
           >
             {[0.75, 1, 1.25, 1.5, 2].map((r) => (
-              <option key={r} value={r} className="text-[#232323]">
+              <option key={r} value={r} className="text-text-primary">
                 {r}x
               </option>
             ))}
