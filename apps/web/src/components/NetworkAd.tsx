@@ -9,10 +9,14 @@ import { usePathname } from "next/navigation";
  * Owner supplied Adsterra banner + native units per tenant; a tenant with no
  * inventory renders nothing. Design rules, all in service of "yg penting
  * pengunjung tetep nyaman":
- *   - each unit lives in its OWN sandboxed <iframe> (srcdoc). This isolates
- *     Adsterra's global `atOptions` so several banner sizes can coexist on one
- *     page, AND — critically — the sandbox omits `allow-top-navigation`, so an
- *     ad can never hijack or redirect the page the visitor is reading;
+ *   - each unit lives in its OWN sandboxed <iframe>, loaded from /ads/frame.html
+ *     on this site's own origin. This isolates Adsterra's global `atOptions` so
+ *     several banner sizes can coexist on one page, AND — critically — the
+ *     sandbox omits `allow-top-navigation`, so an ad can never hijack or
+ *     redirect the page the visitor is reading. It must be a real file rather
+ *     than `srcdoc`: an about:srcdoc document has no hostname, an opaque origin
+ *     and no referrer, which is exactly the identity the network needs to match
+ *     the request to a registered site;
  *   - the slot reserves its exact height while the ad loads, so content never
  *     shifts under the reader AND the ad script has a real viewport to paint
  *     into (a zero-height frame is what stopped ads rendering at all);
@@ -155,27 +159,23 @@ const LABEL: Record<string, string> = {
   xad: "Sponsored",
 };
 
-function bannerDoc(b: Banner): string {
-  // Isolated document: its own atOptions + invoke.js, transparent, no scroll.
-  return (
-    `<!doctype html><html><head><meta charset="utf-8">` +
-    `<meta name="viewport" content="width=${b.w}, initial-scale=1">` +
-    `<style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}` +
-    `body{display:flex;align-items:center;justify-content:center}</style></head><body>` +
-    `<script type="text/javascript">atOptions={'key':'${b.key}','format':'iframe','height':${b.h},'width':${b.w},'params':{}};</script>` +
-    `<script type="text/javascript" src="//www.highperformanceformat.com/${b.key}/invoke.js"></script>` +
-    `</body></html>`
-  );
+/**
+ * The URL of the isolated frame for one unit.
+ *
+ * These used to be inline `srcdoc` documents. That gave each unit its own
+ * document — which invoke.js needs, since it reads one global `atOptions` —
+ * but at the cost of the document's identity: inside `about:srcdoc` the
+ * hostname is empty, the origin is the string "null" and the referrer is
+ * empty. The ad network matches a request to a registered site by domain and
+ * referrer, so with none of the three it returned no ad at all, on every
+ * tenant, for every unit. See public/ads/frame.html.
+ */
+function bannerSrc(b: Banner): string {
+  return `/ads/frame.html?key=${encodeURIComponent(b.key)}&w=${b.w}&h=${b.h}`;
 }
 
-function nativeDoc(n: Native): string {
-  return (
-    `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` +
-    `<style>html,body{margin:0;padding:0;background:transparent}</style></head><body>` +
-    `<script async data-cfasync="false" src="//${n.pl}.effectivecpmnetwork.com/${n.container}/invoke.js"></script>` +
-    `<div id="container-${n.container}"></div>` +
-    `</body></html>`
-  );
+function nativeSrc(n: Native): string {
+  return `/ads/frame.html?pl=${encodeURIComponent(n.pl)}&container=${encodeURIComponent(n.container)}`;
 }
 
 const SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox";
@@ -186,13 +186,13 @@ const SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-es
 const FILL_GRACE_MS = 25_000;
 
 function AdFrame({
-  doc,
+  src,
   width,
   height,
   title,
   onFill,
 }: {
-  doc: string;
+  src: string;
   width: number | string;
   height: number;
   title: string;
@@ -234,7 +234,7 @@ function AdFrame({
       try {
         const body = frameRef.current?.contentDocument?.body;
         // scrollHeight is the one signal that works for both the banner iframe
-        // and the native container; the srcdoc body is 0-high until something
+        // and the native container; the frame body is 0-high until something
         // actually paints (the two <script> tags contribute no height).
         has = !!body && body.scrollHeight > 12;
       } catch {
@@ -274,7 +274,7 @@ function AdFrame({
         <iframe
           ref={frameRef}
           title={title}
-          srcDoc={doc}
+          src={src}
           width={typeof width === "number" ? width : undefined}
           height={height}
           scrolling="no"
@@ -376,7 +376,7 @@ export function NetworkAd({
     if (!b) return null;
     return (
       <aside className={`flex flex-col items-center ${className}`} aria-label={label} data-network-ad="">
-        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
+        <AdFrame src={bannerSrc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
       </aside>
     );
   }
@@ -386,7 +386,7 @@ export function NetworkAd({
     return (
       <aside className={wrap} aria-label={label} data-network-ad="">
         {filled && framed && tag}
-        <AdFrame doc={bannerDoc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onFill={onFill} />
+        <AdFrame src={bannerSrc(inv.rect)} width={inv.rect.w} height={inv.rect.h} title={`${label} 300x250`} onFill={onFill} />
       </aside>
     );
   }
@@ -397,7 +397,7 @@ export function NetworkAd({
       <aside className={`${wrap}`} aria-label={label} data-network-ad="">
         {filled && framed && tag}
         <div className="w-full max-w-3xl">
-          <AdFrame doc={nativeDoc(inv.native)} width="100%" height={260} title={`${label} native`} onFill={onFill} />
+          <AdFrame src={nativeSrc(inv.native)} width="100%" height={260} title={`${label} native`} onFill={onFill} />
         </div>
       </aside>
     );
@@ -413,7 +413,7 @@ export function NetworkAd({
     <aside className={wrap} aria-label={label} data-network-ad="">
       {filled && framed && tag}
       {wide === null ? null : (
-        <AdFrame doc={bannerDoc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
+        <AdFrame src={bannerSrc(b)} width={b.w} height={b.h} title={`${label} ${b.w}x${b.h}`} onFill={onFill} />
       )}
     </aside>
   );
