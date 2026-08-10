@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { TENANT, tenantTagline } from "@/lib/tenant";
+import { jsonLdHtml } from "@/lib/structured-data";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -249,7 +250,7 @@ export default async function LocaleLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdHtml({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: TENANT.siteName,
@@ -279,7 +280,7 @@ export default async function LocaleLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: jsonLdHtml({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: TENANT.siteName,

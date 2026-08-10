@@ -153,10 +153,35 @@ export function faq(items: { question: string; answer: string }[]) {
   };
 }
 
+/**
+ * Serialise JSON-LD for embedding in a `<script>` element.
+ *
+ * `JSON.stringify` produces valid JSON, and valid JSON is not automatically
+ * safe inside HTML. The HTML parser does not parse the script body — it scans
+ * it for the literal `</script`, and stops the element there, whatever the JSON
+ * meant. So a title carrying that string ends the block early and everything
+ * after it is parsed as markup:
+ *
+ *   headline: "Kisah </script><script>…</script>"
+ *
+ * That is not a hypothetical value here. Titles and descriptions reach these
+ * blocks from D1 — written by the content bot and rewritten by the translation
+ * pool — so the text in them is model output, not something a person typed and
+ * checked. One title like that would break the page for every reader of it and
+ * run whatever followed.
+ *
+ * Escaping every `<` as its `\u003c` unicode escape closes it. It is still the same JSON — `JSON.parse`
+ * returns the original string — and neither `</script` nor `<!--` can survive
+ * it. Every JSON-LD block on the site goes through here.
+ */
+export function jsonLdHtml(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
 /** Render one or more JSON-LD blocks. */
 export function jsonLdProps(data: unknown) {
   return {
     type: "application/ld+json" as const,
-    dangerouslySetInnerHTML: { __html: JSON.stringify(data) },
+    dangerouslySetInnerHTML: { __html: jsonLdHtml(data) },
   };
 }

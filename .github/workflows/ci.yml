@@ -138,6 +138,15 @@ jobs:
       - name: Check the admin settings panel keeps its promises
         run: npx tsx scripts/check-managed-settings.mjs
 
+      # Structured data is JSON inside HTML, and JSON.stringify does not know
+      # that. The parser scans a script body for the literal `</script` and ends
+      # the element there — so a title carrying it closes the block early and
+      # the rest is parsed as markup. Those titles come from D1, written by the
+      # content bot and rewritten by the translation pool, so they are model
+      # output. Every JSON-LD block must go through jsonLdHtml().
+      - name: Check JSON-LD cannot break out of its script element
+        run: node scripts/check-jsonld-escaping.mjs
+
       # Hand-written translations are stored under a key derived from the text.
       # The Worker derives it in mt.ts; scripts/mt-key.mjs derives it again so
       # translations can be written offline. If the two ever disagree the Worker
