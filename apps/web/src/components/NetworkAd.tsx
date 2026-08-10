@@ -105,6 +105,10 @@ interface TenantAds {
 // One Adsterra inventory per tenant; every site now monetises with the network.
 const INVENTORY: Record<string, TenantAds> = {
   ulyah: {
+    // 728x90 was missing entirely: the unit exists in the Adsterra dashboard
+    // and nothing here referenced it, so every desktop banner slot on ulyah.com
+    // fell back to the 468x60 and the widest inventory went unused.
+    lead: { key: "594fdae1d663886caf58661e9e8c3f22", w: 728, h: 90 },
     wide: { key: "43de5175051326c3521298136c0b8fb0", w: 468, h: 60 },
     mobile: { key: "c7a89c9467cee8902928e404f04a5925", w: 320, h: 50 },
     rect: { key: "96123a4a53798c8bf60792bffec51a90", w: 300, h: 250 },
