@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ad unit check</title>
+<style>
+  body{font:14px/1.5 system-ui,sans-serif;margin:0;padding:16px;background:#fafafa;color:#111}
+  h1{font-size:18px;margin:0 0 4px}
+  .meta{color:#666;margin-bottom:16px}
+  table{border-collapse:collapse;width:100%;max-width:900px;margin-bottom:24px}
+  th,td{border:1px solid #ddd;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f0f0f0;font-weight:600}
+  code{font:12px/1.4 ui-monospace,monospace;word-break:break-all}
+  .ok{color:#0a6b2e;font-weight:600}
+  .bad{color:#a11;font-weight:600}
+  .wait{color:#888}
+  .units{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+  .unit{border:1px dashed #bbb;padding:4px;background:#fff}
+  .unit b{display:block;font-size:11px;color:#555;margin-bottom:2px}
+  iframe{border:0;display:block}
+</style>
+</head>
+<body>
+<h1>Ad unit check</h1>
+<div class="meta">
+  <span id="host"></span> &middot; <span id="when"></span><br>
+  Every unit configured for THIS domain is rendered below and reported on.
+  Nothing here is shown to readers &mdash; this page is noindex and linked from nowhere.
+</div>
+
+<table id="report"><thead><tr>
+  <th>unit</th><th>key</th><th>size</th><th>result</th><th>detail</th>
+</tr></thead><tbody></tbody></table>
+
+<div class="units" id="units"></div>
+
+<script>
+var INVENTORY = {
+  "ulyah": {
+    "banners": [
+      {
+        "slot": "lead",
+        "key": "594fdae1d663886caf58661e9e8c3f22",
+        "w": 728,
+        "h": 90
+      },
+      {
+        "slot": "wide",
+        "key": "43de5175051326c3521298136c0b8fb0",
+        "w": 468,
+        "h": 60
+      },
+      {
+        "slot": "mobile",
+        "key": "c7a89c9467cee8902928e404f04a5925",
+        "w": 320,
+        "h": 50
+      },
+      {
+        "slot": "rect",
+        "key": "96123a4a53798c8bf60792bffec51a90",
+        "w": 300,
+        "h": 250
+      }
+    ],
+    "native": {
+      "pl": "pl30370139",
+      "container": "f1bb94c167450510581bdb45f60c9547"
+    }
+  },
+  "dawa": {
+    "banners": [
+      {
+        "slot": "lead",
+        "key": "0edfdb3a49a2fe7806e3fad5a024f255",
+        "w": 728,
+        "h": 90
+      },
+      {
+        "slot": "mobile",
+        "key": "5cd1db88d80f04e3013aa4740e58290a",
+        "w": 320,
+        "h": 50
+      },
+      {
+        "slot": "rect",
+        "key": "9f9666d9859c7821548cbe92829722f5",
+        "w": 300,
+        "h": 250
+      }
+    ],
+    "native": {
+      "pl": "pl30477122",
+      "container": "838f097f32d8d1cec906187de951db18"
+    }
+  },
+  "1fr": {
+    "banners": [
+      {
+        "slot": "lead",
+        "key": "522efc4634b8157053ada057e9c5372b",
+        "w": 728,
+        "h": 90
+      },
+      {
+        "slot": "wide",
+        "key": "4a228d4a4ac4b9aa0d85afa4b8df15ac",
+        "w": 468,
+        "h": 60
+      },
+      {
+        "slot": "rect",
+        "key": "ac7d9a34efbdb15afe2170c5f7e0fec7",
+        "w": 300,
+        "h": 250
+      }
+    ],
+    "native": {
+      "pl": "pl30460827",
+      "container": "eeb62eb94066800f48ec6f3dcc6eb93a"
+    }
+  },
+  "tilawa": {
+    "banners": [
+      {
+        "slot": "wide",
+        "key": "0b779fe2b8580c718b63255eb0ab94c0",
+        "w": 468,
+        "h": 60
+      },
+      {
+        "slot": "mobile",
+        "key": "75a9f0c7d69ebfbec7aadf4d3ca66c18",
+        "w": 320,
+        "h": 50
+      },
+      {
+        "slot": "rect",
+        "key": "6599067e75afd3b869159c0b094fe5f3",
+        "w": 300,
+        "h": 250
+      }
+    ],
+    "native": {
+      "pl": "pl30477239",
+      "container": "7ba2bc8ee8c8868ae6028d0d358ef52e"
+    }
+  },
+  "xad": {
+    "banners": [
+      {
+        "slot": "lead",
+        "key": "e3d8fa05b18b4a40d6b861f6dca5561d",
+        "w": 728,
+        "h": 90
+      },
+      {
+        "slot": "mobile",
+        "key": "8e92c2a078eb7f3eed217eb891fc9fe6",
+        "w": 320,
+        "h": 50
+      },
+      {
+        "slot": "rect",
+        "key": "9748f45401ddd3f96c910486f3a71623",
+        "w": 300,
+        "h": 250
+      },
+      {
+        "slot": "sky",
+        "key": "95044feb7a28fdd0e449b3edc1d52fdf",
+        "w": 160,
+        "h": 600
+      }
+    ],
+    "native": {
+      "pl": "pl30477257",
+      "container": "de9149dd93fc5a1803fe9c6ad380875b"
+    }
+  }
+};
+var BY_HOST = {
+  "ulyah.com": "ulyah", "www.ulyah.com": "ulyah",
+  "dawa.es": "dawa", "www.dawa.es": "dawa",
+  "1fr.fr": "1fr", "www.1fr.fr": "1fr",
+  "tilawa.de": "tilawa", "www.tilawa.de": "tilawa",
+  "xad.es": "xad", "www.xad.es": "xad"
+};
+// This page is one file served by five tenant builds, so the inventory is
+// chosen by the domain it was loaded from rather than baked in.
+var TENANT = BY_HOST[location.hostname] || "ulyah";
+var CFG = INVENTORY[TENANT];
+CFG.socialBar = null;  // the monorepo tenants run banners + native only
+document.getElementById('host').textContent = location.hostname + '  (tenant: ' + TENANT + ')';
+document.getElementById('when').textContent = new Date().toISOString();
+
+var tbody = document.querySelector('#report tbody');
+var units = document.getElementById('units');
+var rows = {};
+
+function row(name, key, size) {
+  var tr = document.createElement('tr');
+  tr.innerHTML = '<td>' + name + '</td><td><code>' + key + '</code></td><td>' + size +
+    '</td><td class="wait">checking…</td><td class="detail"></td>';
+  tbody.appendChild(tr);
+  rows[name] = tr;
+  return tr;
+}
+function verdict(name, ok, detail) {
+  var tr = rows[name]; if (!tr) return;
+  var cell = tr.children[3];
+  cell.className = ok ? 'ok' : 'bad';
+  cell.textContent = ok ? 'FILLED' : 'EMPTY';
+  tr.querySelector('.detail').textContent = detail || '';
+}
+
+// ── Banners ──────────────────────────────────────────────────────────────────
+CFG.banners.forEach(function (b) {
+  row(b.slot, b.key, b.w + '×' + b.h);
+  var wrap = document.createElement('div');
+  wrap.className = 'unit';
+  wrap.innerHTML = '<b>' + b.slot + ' ' + b.w + '×' + b.h + '</b>';
+  var f = document.createElement('iframe');
+  f.width = b.w; f.height = b.h;
+  f.src = '/ads/frame.html?key=' + b.key + '&w=' + b.w + '&h=' + b.h;
+  wrap.appendChild(f);
+  units.appendChild(wrap);
+
+  setTimeout(function () {
+    var doc = null;
+    try { doc = f.contentDocument; } catch (e) { /* cross-origin: cannot happen here */ }
+    if (!doc) { verdict(b.slot, false, 'frame document unreadable'); return; }
+    if (doc.title !== 'Advertisement') {
+      verdict(b.slot, false, 'frame.html NOT DEPLOYED on this domain (got "' + doc.title + '")');
+      return;
+    }
+    // invoke.js injects its creative as a nested iframe, image or ins element.
+    var painted = doc.body.querySelector('iframe, img, ins, a');
+    verdict(b.slot, !!painted,
+      painted ? painted.tagName.toLowerCase() + ' rendered'
+              : 'frame served, script ran, no creative returned (no fill / domain not approved / wrong key)');
+  }, 8000);
+});
+
+// ── Native banner ────────────────────────────────────────────────────────────
+if (CFG.native) {
+  row('native', CFG.native.container, CFG.native.pl);
+  var nwrap = document.createElement('div');
+  nwrap.className = 'unit';
+  nwrap.innerHTML = '<b>native</b>';
+  var nf = document.createElement('iframe');
+  nf.width = 336; nf.height = 300;
+  nf.src = '/ads/frame.html?pl=' + CFG.native.pl + '&container=' + CFG.native.container;
+  nwrap.appendChild(nf);
+  units.appendChild(nwrap);
+
+  setTimeout(function () {
+    var doc = null;
+    try { doc = nf.contentDocument; } catch (e) {}
+    if (!doc) { verdict('native', false, 'frame document unreadable'); return; }
+    if (doc.title !== 'Advertisement') {
+      verdict('native', false, 'frame.html NOT DEPLOYED on this domain');
+      return;
+    }
+    var box = doc.getElementById('container-' + CFG.native.container);
+    if (!box) { verdict('native', false, 'container div never created — pl/container rejected by frame validation'); return; }
+    verdict('native', box.childElementCount > 0,
+      box.childElementCount > 0 ? box.childElementCount + ' child nodes'
+                                : 'frame served, script ran, container still empty (no fill / domain not approved)');
+  }, 8000);
+}
+
+// ── Social bar ───────────────────────────────────────────────────────────────
+if (CFG.socialBar) {
+  row('socialBar', CFG.socialBar.split('/').pop(), '—');
+  var sb = document.createElement('script');
+  sb.async = true; sb.setAttribute('data-cfasync', 'false');
+  sb.src = CFG.socialBar;
+  sb.onload = function () { verdict('socialBar', true, 'script loaded (watch for the floating bar)'); };
+  sb.onerror = function () { verdict('socialBar', false, 'script FAILED to load — blocked by the browser, an extension, or DNS'); };
+  document.body.appendChild(sb);
+  setTimeout(function () {
+    if (rows['socialBar'].children[3].className === 'wait') {
+      verdict('socialBar', false, 'no load and no error after 8s');
+    }
+  }, 8000);
+}
+</script>
+</body>
+</html>
