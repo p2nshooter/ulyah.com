@@ -8,6 +8,7 @@ import { StoryReader } from "@/components/StoryReader";
 import { StoryDownloads } from "@/components/StoryDownloads";
 import { localePath } from "@/lib/paths";
 import { ogCoverUrl } from "@/lib/og";
+import { jsonLdHtml } from "@/lib/structured-data";
 
 /**
  * Served from cache instead of rebuilt per request.
@@ -132,7 +133,7 @@ export default async function KisahDetailPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdHtml({
             "@context": "https://schema.org",
             "@graph": [
               {

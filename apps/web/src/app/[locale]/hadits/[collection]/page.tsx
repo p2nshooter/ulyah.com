@@ -7,7 +7,7 @@ import { TENANT } from "@/lib/tenant";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
 import { localePath } from "@/lib/paths";
-import { breadcrumbs, jsonLdProps } from "@/lib/structured-data";
+import { breadcrumbs, jsonLdHtml, jsonLdProps } from "@/lib/structured-data";
 
 /**
  * Served from cache instead of rebuilt per request.
@@ -130,7 +130,7 @@ export default async function HaditsCollectionPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdHtml({
             "@context": "https://schema.org",
             "@type": "Book",
             name: meta.name_id,
