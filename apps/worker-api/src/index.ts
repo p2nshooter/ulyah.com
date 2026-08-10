@@ -12,6 +12,7 @@ import { clientRoute } from "./routes/client.js";
 import { analyticsRoute } from "./routes/analytics.js";
 import { geoRoute } from "./routes/geo.js";
 import { grantRoute } from "./routes/grant.js";
+import { aliexpressRoute, aliexpressAuthRoute } from "./routes/aliexpress.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
 import { contentBotTick } from "./lib/content-bot.js";
@@ -132,6 +133,10 @@ app.route("/client", clientRoute);
 app.route("/analytics", analyticsRoute);
 app.route("/geo", geoRoute);
 app.route("/grant", grantRoute);
+// One door to AliExpress for all twelve sites: the app secret and the access
+// token live only here, and the sites call the cached read-only endpoints.
+app.route("/aliexpress", aliexpressRoute);
+app.route("/auth/aliexpress", aliexpressAuthRoute);
 
 // WebSocket gateway to the singleton KeyPoolCoordinator (§13.1)
 app.get("/keypool/connect", async (c) => {
