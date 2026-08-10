@@ -49,6 +49,16 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "react-dom"
         update-types: ["version-update:semver-major"]
+      # TypeScript 7 is the native rewrite, and its npm package no longer ships
+      # the classic JS API — `exports["."]` now points at lib/version.cjs, so
+      # `require("typescript")` returns a version string and nothing else.
+      # Next reads tsconfig through that API. Measured on 7.0.2: both
+      # `tsc --noEmit` runs pass, then `next build` cannot see `compilerOptions
+      # .paths` and dies with "Can't resolve '@/dictionaries'" on the first
+      # aliased import it meets. Nothing in this repo can fix that; it lifts
+      # when Next ships support. Security updates are unaffected.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   # The actions in .github/workflows. These pin to major tags (actions/checkout@v4)
   # and go stale quietly — the Node 20 deprecation warning on every run is this.
