@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Advertisement</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      One ad unit, in its own document on this site's own origin.
+
+      WHY A REAL FILE INSTEAD OF srcdoc. Every unit needs a private document,
+      because invoke.js reads a single global `atOptions` and two banners on one
+      page would clobber each other. The obvious way to get one is an `srcdoc`
+      iframe — and it was, and it silently broke every unit on every site in the
+      network for as long as the ads have existed.
+
+      Inside `about:srcdoc` a document has no identity:
+
+        location.hostname   ""            (empty)
+        location.origin     "null"        (an opaque origin)
+        document.referrer   ""            (empty)
+
+      The ad network identifies the publisher by domain and referrer. Given
+      none of the three it cannot match the request to a registered website, so
+      it returns no ad. The slot loads, the script runs, nothing paints — which
+      looks exactly like "no fill" and is not.
+
+      Loaded as a real file from our own origin the frame reports the true
+      hostname, origin and referrer, and the isolation is unchanged: each frame
+      is still its own document with its own `atOptions`.
+
+      Serves both formats so there is one file to keep correct:
+        banner  ?key=<32 hex>&w=<px>&h=<px>
+        native  ?pl=<plNNNNNNNN>&container=<32 hex>
+    -->
+    <script>
+      (function () {
+        var q = new URLSearchParams(location.search);
+
+        // The query string is attacker-controllable — this page is reachable by
+        // URL. Nothing unvalidated may reach a script src, or the page becomes
+        // a way to run arbitrary third-party JavaScript on our own origin.
+        var HEX32 = /^[0-9a-f]{32}$/;
+        var PL = /^pl[0-9]{5,12}$/;
+
+        function add(src) {
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.src = src;
+          document.body.appendChild(s);
+        }
+
+        var container = (q.get('container') || '').toLowerCase();
+        var pl = (q.get('pl') || '').toLowerCase();
+        if (container && pl) {
+          if (!HEX32.test(container) || !PL.test(pl)) return;
+          var div = document.createElement('div');
+          div.id = 'container-' + container;
+          document.body.appendChild(div);
+          var s = document.createElement('script');
+          s.async = true;
+          s.setAttribute('data-cfasync', 'false');
+          s.src = 'https://' + pl + '.effectivecpmnetwork.com/' + container + '/invoke.js';
+          document.body.appendChild(s);
+          return;
+        }
+
+        var key = (q.get('key') || '').toLowerCase();
+        var w = parseInt(q.get('w'), 10);
+        var h = parseInt(q.get('h'), 10);
+        if (!HEX32.test(key)) return;
+        if (!(w > 0 && w <= 2000) || !(h > 0 && h <= 2000)) return;
+        window.atOptions = { key: key, format: 'iframe', height: h, width: w, params: {} };
+        add('https://www.highperformanceformat.com/' + key + '/invoke.js');
+      })();
+    </script>
+  </body>
+</html>
