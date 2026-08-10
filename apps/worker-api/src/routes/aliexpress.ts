@@ -146,23 +146,57 @@ async function writeToken(env: Env, t: StoredToken): Promise<void> {
   await env.CACHE_KV.put(KV_TOKEN, JSON.stringify(t)).catch(() => {});
 }
 
-/** Read the token response in either of the two shapes the API returns it in. */
+/** Anything past this is an absolute epoch-millisecond timestamp, not a duration. */
+const EPOCH_MS_FLOOR = 1e12;
+
+/**
+ * Turn the token response into a stored token.
+ *
+ * The payload carries the same two deadlines twice over, in different units,
+ * and the pair disagree:
+ *
+ *   expire_time               1437129035362   absolute, epoch ms
+ *   expires_in                10              a duration
+ *   refresh_token_valid_time  1437129035362   absolute, epoch ms
+ *   refresh_expires_in        60              a duration
+ *
+ * The absolute fields are the ones to trust. Reading `expires_in` alone and
+ * treating it as seconds would have set this token to expire ten seconds after
+ * it arrived, and every later request would then have burned a refresh call
+ * before doing anything useful — a self-inflicted rate limit that would have
+ * looked like an AliExpress fault.
+ *
+ * So: absolute first, duration second, and a duration is read as milliseconds
+ * only when it is too large to be a plausible number of seconds.
+ */
+function readDeadline(body: Record<string, unknown>, absKey: string, relKey: string, now: number): number | null {
+  const abs = Number(body[absKey] ?? 0);
+  if (abs > EPOCH_MS_FLOOR) return abs;
+  const rel = Number(body[relKey] ?? 0);
+  if (rel > 0) return now + (rel > 315_360_000 ? rel : rel * 1000);
+  return null;
+}
+
 function parseTokenPayload(j: Record<string, unknown>): StoredToken | null {
+  // Some endpoints wrap the payload in `data`, some return it flat.
   const body = (j.data as Record<string, unknown> | undefined) ?? j;
+
+  // `code` is "0" on success. A non-zero code with no token is a failure the
+  // caller reports verbatim; a non-zero code WITH a token has never been seen
+  // and is not worth guessing about, so the token wins.
   const accessToken = String(body.access_token ?? "");
   const refreshToken = String(body.refresh_token ?? "");
   if (!accessToken || !refreshToken) return null;
+
   const now = Date.now();
-  // expires_in is documented in seconds but has been observed in milliseconds.
-  // Anything larger than a decade of seconds is milliseconds.
-  const rawExpiry = Number(body.expires_in ?? 0);
-  const ms = rawExpiry > 315_360_000 ? rawExpiry : rawExpiry * 1000;
-  const rawRefresh = Number(body.refresh_token_valid_time ?? 0);
   return {
     accessToken,
     refreshToken,
-    expiresAt: now + (ms > 0 ? ms : 24 * 60 * 60 * 1000),
-    refreshExpiresAt: rawRefresh > 0 ? (rawRefresh > 1e12 ? rawRefresh : now + rawRefresh * 1000) : undefined,
+    // One day is the fallback when the response carries no usable deadline at
+    // all. It is deliberately short: an over-long guess would keep a dead
+    // token in play, while a short one merely refreshes earlier than needed.
+    expiresAt: readDeadline(body, "expire_time", "expires_in", now) ?? now + 24 * 60 * 60 * 1000,
+    refreshExpiresAt: readDeadline(body, "refresh_token_valid_time", "refresh_expires_in", now) ?? undefined,
     obtainedAt: now,
   };
 }
