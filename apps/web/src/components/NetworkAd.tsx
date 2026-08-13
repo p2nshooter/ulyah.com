@@ -185,6 +185,26 @@ const SANDBOX = "allow-scripts allow-same-origin allow-popups allow-popups-to-es
  *  killed every ad that answered slowly. */
 const FILL_GRACE_MS = 25_000;
 
+/**
+ * The <title> of public/ads/frame.html. Load-bearing, and it must stay in step
+ * with that file.
+ *
+ * The fill watch below used to ask only whether the frame's body had any
+ * height. If /ads/frame.html is not being served, the iframe loads THIS SITE'S
+ * OWN 404 PAGE instead — same origin, perfectly readable, and full of content —
+ * so the height test read a 404 as a filled ad. Measured in Chromium against
+ * the real build:
+ *
+ *   frame present, no ad   title "Advertisement"                 scrollHeight 0   → no-fill  ✓
+ *   frame missing (404)    title "404: This page could not…"     scrollHeight 90  → FILLED   ✗
+ *
+ * The second row is what a reader sees as an "Iklan" rule with a 90-250px hole
+ * under it on every page — the slot reserved space for an ad that was never
+ * there and could never arrive. Checking the title first is what tells our own
+ * frame apart from whatever else the server decided to return.
+ */
+const FRAME_TITLE = "Advertisement";
+
 function AdFrame({
   src,
   width,
@@ -232,14 +252,29 @@ function AdFrame({
       if (stopped) return;
       let has = false;
       try {
-        const body = frameRef.current?.contentDocument?.body;
-        // scrollHeight is the one signal that works for both the banner iframe
-        // and the native container; the frame body is 0-high until something
-        // actually paints (the two <script> tags contribute no height).
-        has = !!body && body.scrollHeight > 12;
+        const doc = frameRef.current?.contentDocument;
+        // Our frame, or nothing. A missing frame.html means the iframe is
+        // showing this site's 404 page, which is same-origin and full of
+        // content — see FRAME_TITLE. An empty title is the frame still
+        // loading, which is not a fill either; the next tick will look again.
+        if (doc && doc.title === FRAME_TITLE) {
+          const body = doc.body;
+          // invoke.js paints by injecting an element. Its presence is the
+          // direct signal; scrollHeight stays as a backstop for a creative
+          // that renders in some way this list does not name. The frame body
+          // is 0-high until something paints — the two <script> tags
+          // contribute no height.
+          has =
+            !!body &&
+            (!!body.querySelector("iframe, img, ins, a") || body.scrollHeight > 12);
+        }
       } catch {
-        // Cross-origin read blocked → assume it may have filled; keep it.
-        has = true;
+        // Unreadable, so nothing can be confirmed. This fails CLOSED on
+        // purpose: collapsing an ad that did arrive costs one impression,
+        // while reserving a hole that never fills costs the reader on every
+        // page. The frame is same-origin, so this branch should not be
+        // reachable at all.
+        has = false;
       }
       if (has) {
         setFilled(true);

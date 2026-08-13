@@ -138,6 +138,16 @@ jobs:
       - name: Check the admin settings panel keeps its promises
         run: npx tsx scripts/check-managed-settings.mjs
 
+      # Every ad unit loads public/ads/frame.html, and NetworkAd decides whether
+      # a slot filled by reading that frame's <title>. If the file stops being
+      # deployed the iframe quietly loads this site's own 404 page instead —
+      # same origin, full of content — which the fill watch would read as a
+      # filled ad and reserve 90-250px of empty space for, under an "Iklan"
+      # rule, on every page. Both halves are asserted: the file exists, and the
+      # two copies of the title agree.
+      - name: Check the ad frame is present and still recognisable
+        run: node scripts/check-ad-frame.mjs
+
       # Structured data is JSON inside HTML, and JSON.stringify does not know
       # that. The parser scans a script body for the literal `</script` and ends
       # the element there — so a title carrying it closes the block early and
