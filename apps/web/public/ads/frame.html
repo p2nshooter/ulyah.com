@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- This title is load-bearing. NetworkAd's fill watch reads it to tell
+         our frame apart from whatever else the server might return for this
+         path — without it, a 404 page reads as a filled ad and every slot
+         reserves an empty hole. scripts/check-ad-frame.mjs keeps the two in
+         step; change one and CI fails. -->
     <title>Advertisement</title>
     <style>
       html,
