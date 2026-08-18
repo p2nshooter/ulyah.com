@@ -17,6 +17,7 @@ export default async function UsersPage() {
     .select({
       id: users.id,
       name: users.name,
+      username: users.username,
       email: users.email,
       role: users.role,
       active: users.active,

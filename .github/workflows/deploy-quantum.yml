@@ -124,8 +124,12 @@ jobs:
       # berkasnya dibuat ulang di sini setiap deploy.
       - name: Generate seed file
         env:
+          ADMIN_BOOTSTRAP_USERNAME: ${{ secrets.QUANTUM_ADMIN_USERNAME }}
           ADMIN_BOOTSTRAP_EMAIL: ${{ secrets.QUANTUM_ADMIN_EMAIL }}
           ADMIN_BOOTSTRAP_PASSWORD: ${{ secrets.QUANTUM_ADMIN_PASSWORD }}
+          OWNER_BOOTSTRAP_USERNAME: ${{ secrets.QUANTUM_OWNER_USERNAME }}
+          OWNER_BOOTSTRAP_EMAIL: ${{ secrets.QUANTUM_OWNER_EMAIL }}
+          OWNER_BOOTSTRAP_PASSWORD: ${{ secrets.QUANTUM_OWNER_PASSWORD }}
         run: npm run generate:seed
 
       # SQL biasa, bukan migrasi terlacak, supaya diterapkan ulang tiap deploy.

@@ -19,6 +19,7 @@ export const GET = withErrorHandling(async () => {
     .select({
       id: users.id,
       name: users.name,
+      username: users.username,
       email: users.email,
       role: users.role,
       active: users.active,
@@ -46,18 +47,24 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
     await db.insert(users).values({
       id,
       name: parsed.data.name,
+      username: parsed.data.username,
       email: parsed.data.email,
       role: parsed.data.role,
       passwordHash
     });
   } catch (err) {
-    if (/UNIQUE constraint failed/i.test(err instanceof Error ? err.message : String(err))) {
-      return NextResponse.json({ error: 'Email tersebut sudah terdaftar.' }, { status: 409 });
+    const message = err instanceof Error ? err.message : String(err);
+    if (/UNIQUE constraint failed/i.test(message)) {
+      // Sebutkan kolom mana yang bentrok — "sudah terdaftar" saja membuat
+      // admin menebak-nebak apakah masalahnya di email atau nama penggunanya.
+      const field = /username/i.test(message) ? 'Nama pengguna' : 'Email';
+      return NextResponse.json({ error: `${field} tersebut sudah dipakai akun lain.` }, { status: 409 });
     }
     throw err;
   }
 
   await logAction(guard.user.id, 'user.create', 'user', id, {
+    username: parsed.data.username,
     email: parsed.data.email,
     role: parsed.data.role
   });

@@ -54,6 +54,25 @@ plus halaman publik agar pelanggan bisa melacak sendiri progres unitnya.
 5. Pelanggan memantau progres yang sama di `/lacak` — tanpa melihat nilai kontrak maupun
    pembayaran.
 
+### Masuk ke sistem (kode ketuk)
+
+Tidak ada tautan "Panel Internal" di halaman publik. Pintunya dibuka dengan **mengetuk lambang**:
+
+| Pintu | Cara | Tujuan |
+|---|---|---|
+| Panel staf | Ketuk lambang di **kaki halaman publik 5×** | `/login` |
+| Portal pemilik | Di halaman login staf, ketuk lambang **4×** | `/login/owner` |
+
+Ketukan harus beruntun; kalau jeda antar ketukan lebih dari 1,2 detik hitungannya kembali nol.
+Titik kecil di bawah lambang muncul sebagai penanda setelah ketukan pertama — sengaja tidak
+ditampilkan sebelum itu supaya pengunjung biasa tidak tahu ada pintu di sana.
+
+> Ini menyembunyikan pintunya, **bukan menguncinya**. Alamat `/login` tetap bisa dibuka langsung
+> oleh siapa pun yang tahu — dan memang harus begitu, supaya pemilik tidak pernah terkunci di luar
+> hanya karena lupa jumlah ketukan. Yang menjaga sistem tetap password dan peran pengguna.
+
+Login memakai **nama pengguna** (mis. `admin.quantum`), dan alamat email juga tetap diterima.
+
 ### Peran pengguna
 
 | Peran | Wewenang |
@@ -123,8 +142,13 @@ Secret opsional khusus Quantum:
 
 | Secret | Keterangan |
 |---|---|
-| `QUANTUM_ADMIN_EMAIL` | Email admin pertama (bawaan: `admin@quantumkaryabersama.co.id`) |
-| `QUANTUM_ADMIN_PASSWORD` | Password admin pertama — hanya hash PBKDF2-nya yang masuk database |
+| `QUANTUM_ADMIN_USERNAME` / `QUANTUM_ADMIN_EMAIL` / `QUANTUM_ADMIN_PASSWORD` | Akun admin pertama |
+| `QUANTUM_OWNER_USERNAME` / `QUANTUM_OWNER_EMAIL` / `QUANTUM_OWNER_PASSWORD` | Akun pemilik pertama |
+
+Kalau tidak diisi, seed memakai akun bawaan `admin.quantum` dan `bos.quantum`. Yang tersimpan di
+repositori hanya **hash PBKDF2**-nya; password aslinya diserahkan langsung ke pemilik bengkel.
+Skrip seed sengaja tidak pernah mencetak password ke layar — repositori ini publik, dan log GitHub
+Actions ikut publik.
 
 **Dari komputer sendiri**
 

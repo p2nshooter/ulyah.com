@@ -1,18 +1,24 @@
 /**
  * Menghasilkan `seed/seed.sql` berisi:
- *   1. katalog model bodi bawaan, dan
- *   2. satu akun administrator awal.
+ *   1. katalog model bodi & barang bawaan,
+ *   2. satu akun administrator, dan
+ *   3. satu akun pemilik (peran `bos`).
  *
- * Password admin di-hash PBKDF2 dengan parameter yang sama persis seperti
+ * Password di-hash PBKDF2 dengan parameter yang sama persis seperti
  * `src/lib/auth/password.ts` (versi Web Crypto) — kalau parameter di sana
  * berubah, ubah juga di sini. Password plaintext tidak pernah masuk ke file.
  *
- * Sumber password:
- *   - env `ADMIN_BOOTSTRAP_EMAIL` + `ADMIN_BOOTSTRAP_PASSWORD` bila diisi, atau
- *   - password acak yang dicetak sekali ke terminal dan tidak disimpan di mana pun.
+ * Sumber password, berurutan:
+ *   1. env `ADMIN_BOOTSTRAP_PASSWORD` / `OWNER_BOOTSTRAP_PASSWORD` bila diisi;
+ *   2. hash bawaan di bawah, yang plaintext-nya diserahkan langsung ke pemilik.
+ *
+ * Sengaja TIDAK ADA lagi jalur "password acak dicetak ke layar": repositori ini
+ * publik, dan log GitHub Actions ikut publik — password yang tercetak di sana
+ * sama saja dengan dibocorkan. Karena itu yang tersimpan di repo hanya hash.
  *
  * Seluruh INSERT memakai `OR IGNORE` sehingga menjalankan seed berulang kali
- * (mis. tiap deploy) tidak menimpa data yang sudah diubah lewat panel.
+ * (mis. tiap deploy) tidak menimpa data yang sudah diubah lewat panel —
+ * termasuk password yang sudah diganti sendiri oleh pemiliknya.
  */
 import { pbkdf2Sync, randomBytes } from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -36,15 +42,62 @@ function sqlString(value: string | null): string {
   return `'${value.replace(/'/g, "''")}'`;
 }
 
-function main() {
-  const email = (process.env.ADMIN_BOOTSTRAP_EMAIL || 'admin@quantumkaryabersama.co.id').trim().toLowerCase();
-  const providedPassword = process.env.ADMIN_BOOTSTRAP_PASSWORD?.trim();
-  const password = providedPassword || randomBytes(12).toString('base64url');
-  const passwordHash = hashPassword(password);
+/**
+ * Hash bawaan untuk dua akun pertama. Aman berada di repositori publik: ini
+ * PBKDF2-SHA256 100.000 iterasi dengan garam acak, dan plaintext-nya panjang
+ * serta acak. Plaintext-nya diserahkan langsung ke pemilik bengkel, tidak
+ * pernah ditulis di sini maupun di log.
+ */
+const DEFAULT_ADMIN_HASH =
+  'pbkdf2$100000$E5zkZUdwakqMQEuUF8XPBw==$2rdBxNhY66C/xH5/2/muCKosozOTlqtVcQtlq5RLXfw=';
+const DEFAULT_OWNER_HASH =
+  'pbkdf2$100000$Jj+DgdbbernP4zSwI0lI+A==$TMcpmqZmRvfrNzjKoGvU+ew8T8UarP2UUkdC4PBwFjY=';
 
+type SeedAccount = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  role: 'admin' | 'bos';
+  passwordHash: string;
+};
+
+function accountFromEnv(
+  prefix: 'ADMIN' | 'OWNER',
+  fallback: Omit<SeedAccount, 'passwordHash'> & { defaultHash: string }
+): SeedAccount {
+  const password = process.env[`${prefix}_BOOTSTRAP_PASSWORD`]?.trim();
+  return {
+    id: fallback.id,
+    name: fallback.name,
+    username: (process.env[`${prefix}_BOOTSTRAP_USERNAME`] || fallback.username).trim().toLowerCase(),
+    email: (process.env[`${prefix}_BOOTSTRAP_EMAIL`] || fallback.email).trim().toLowerCase(),
+    role: fallback.role,
+    passwordHash: password ? hashPassword(password) : fallback.defaultHash
+  };
+}
+
+function main() {
   // Id tetap agar seed yang dijalankan ulang mengenali baris yang sama dan
-  // OR IGNORE benar-benar melewatinya, bukan membuat admin kedua.
-  const adminId = 'usr_bootstrap_admin';
+  // OR IGNORE benar-benar melewatinya, bukan membuat akun kedua.
+  const accounts: SeedAccount[] = [
+    accountFromEnv('ADMIN', {
+      id: 'usr_bootstrap_admin',
+      name: 'Administrator',
+      username: 'admin.quantum',
+      email: 'admin@quantumkaryabersama.co.id',
+      role: 'admin',
+      defaultHash: DEFAULT_ADMIN_HASH
+    }),
+    accountFromEnv('OWNER', {
+      id: 'usr_bootstrap_owner',
+      name: 'Pemilik',
+      username: 'bos.quantum',
+      email: 'bos@quantumkaryabersama.co.id',
+      role: 'bos',
+      defaultHash: DEFAULT_OWNER_HASH
+    })
+  ];
 
   const lines: string[] = [
     '-- Dihasilkan oleh `npm run generate:seed`. Jangan diedit manual.',
@@ -52,12 +105,16 @@ function main() {
     ''
   ];
 
-  lines.push('-- Akun administrator awal');
-  lines.push(
-    `INSERT OR IGNORE INTO users (id, name, email, password_hash, role, active) VALUES (${sqlString(adminId)}, ${sqlString(
-      'Administrator'
-    )}, ${sqlString(email)}, ${sqlString(passwordHash)}, 'admin', 1);`
-  );
+  lines.push('-- Akun awal: administrator + pemilik');
+  for (const account of accounts) {
+    lines.push(
+      `INSERT OR IGNORE INTO users (id, name, username, email, password_hash, role, active) VALUES (${sqlString(
+        account.id
+      )}, ${sqlString(account.name)}, ${sqlString(account.username)}, ${sqlString(account.email)}, ${sqlString(
+        account.passwordHash
+      )}, ${sqlString(account.role)}, 1);`
+    );
+  }
   lines.push('');
 
   lines.push('-- Katalog model bodi bawaan');
@@ -93,14 +150,12 @@ function main() {
   writeFileSync(outPath, lines.join('\n'), 'utf8');
 
   console.log(
-    `✔ seed/seed.sql dibuat (${BODY_MODEL_PRESETS.length} model bodi + ${ITEM_PRESETS.length} barang/jasa + 1 akun admin).`
+    `✔ seed/seed.sql dibuat (${BODY_MODEL_PRESETS.length} model bodi + ${ITEM_PRESETS.length} barang/jasa + ${accounts.length} akun).`
   );
-  console.log(`  Email admin : ${email}`);
-  if (providedPassword) {
-    console.log('  Password    : diambil dari ADMIN_BOOTSTRAP_PASSWORD (tidak dicetak).');
-  } else {
-    console.log(`  Password    : ${password}`);
-    console.log('  ^ Password acak ini HANYA dicetak sekali. Simpan sekarang, lalu ganti lewat Panel → Akun Saya.');
+  for (const account of accounts) {
+    // Yang dicetak hanya identitas akunnya. Password tidak pernah dicetak,
+    // karena keluaran ini ikut tersimpan di log GitHub Actions yang publik.
+    console.log(`  ${account.role.padEnd(5)} : ${account.username} (${account.email})`);
   }
 }
 

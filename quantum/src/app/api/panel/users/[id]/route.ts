@@ -15,7 +15,7 @@ export const PATCH = withErrorHandling(async (req: NextRequest, { params }: { pa
 
   const parsed = await parseBody(req, userUpdateSchema);
   if ('error' in parsed) return parsed.error;
-  const { name, role, active, password } = parsed.data;
+  const { name, username, role, active, password } = parsed.data;
 
   const db = await getDb();
 
@@ -40,11 +40,20 @@ export const PATCH = withErrorHandling(async (req: NextRequest, { params }: { pa
 
   const updates: Record<string, unknown> = { updatedAt: new Date() };
   if (name !== undefined) updates.name = name;
+  if (username !== undefined) updates.username = username;
   if (role !== undefined) updates.role = role;
   if (active !== undefined) updates.active = active;
   if (password !== undefined) updates.passwordHash = await hashPassword(password);
 
-  await db.update(users).set(updates).where(eq(users.id, id));
+  try {
+    await db.update(users).set(updates).where(eq(users.id, id));
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    if (/UNIQUE constraint failed/i.test(message)) {
+      return NextResponse.json({ error: 'Nama pengguna tersebut sudah dipakai akun lain.' }, { status: 409 });
+    }
+    throw err;
+  }
 
   // Reset password oleh admin atau penonaktifan akun harus langsung memutus
   // sesi milik user tersebut, bukan menunggu cookie-nya kedaluwarsa.
@@ -54,6 +63,7 @@ export const PATCH = withErrorHandling(async (req: NextRequest, { params }: { pa
 
   await logAction(guard.user.id, 'user.update', 'user', id, {
     name,
+    username,
     role,
     active,
     passwordReset: password !== undefined

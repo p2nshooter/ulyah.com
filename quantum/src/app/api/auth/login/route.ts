@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
 import { users } from '@/lib/db/schema';
 import { verifyPassword } from '@/lib/auth/password';
@@ -13,12 +13,17 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
   if ('error' in parsed) return parsed.error;
 
   const db = await getDb();
-  const rows = await db.select().from(users).where(eq(users.email, parsed.data.email)).limit(1);
+  const identifier = parsed.data.identifier;
+  const rows = await db
+    .select()
+    .from(users)
+    .where(or(eq(users.username, identifier), eq(users.email, identifier)))
+    .limit(1);
   const user = rows[0];
 
-  // Pesan error sengaja sama untuk email tak dikenal maupun password salah,
-  // supaya form login tidak bisa dipakai menebak email mana yang terdaftar.
-  const invalid = NextResponse.json({ error: 'Email atau password salah.' }, { status: 401 });
+  // Pesan error sengaja sama untuk akun tak dikenal maupun password salah,
+  // supaya form login tidak bisa dipakai menebak akun mana yang terdaftar.
+  const invalid = NextResponse.json({ error: 'Nama pengguna atau password salah.' }, { status: 401 });
   if (!user) return invalid;
 
   const ok = await verifyPassword(parsed.data.password, user.passwordHash);
@@ -34,6 +39,6 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
 
   return NextResponse.json({
     ok: true,
-    user: { id: user.id, name: user.name, email: user.email, role: user.role }
+    user: { id: user.id, name: user.name, username: user.username, email: user.email, role: user.role }
   });
 });

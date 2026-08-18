@@ -7,6 +7,7 @@ import { USER_ROLES, USER_ROLE_LABEL, type UserRole } from '@/lib/karoseri/const
 type PanelUser = {
   id: string;
   name: string;
+  username: string;
   email: string;
   role: UserRole;
   active: boolean;
@@ -15,7 +16,13 @@ type PanelUser = {
 
 export function UsersClient({ initialUsers, currentUserId }: { initialUsers: PanelUser[]; currentUserId: string }) {
   const [users, setUsers] = useState(initialUsers);
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'produksi' as UserRole });
+  const [form, setForm] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    role: 'produksi' as UserRole
+  });
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -35,10 +42,18 @@ export function UsersClient({ initialUsers, currentUserId }: { initialUsers: Pan
       if (!res.ok || !data.id) throw new Error(data.error || 'Gagal menambah pengguna.');
 
       setUsers((prev) => [
-        { id: data.id!, name: form.name, email: form.email, role: form.role, active: true, lastLoginAt: null },
+        {
+          id: data.id!,
+          name: form.name,
+          username: form.username,
+          email: form.email,
+          role: form.role,
+          active: true,
+          lastLoginAt: null
+        },
         ...prev
       ]);
-      setForm({ name: '', email: '', password: '', role: 'produksi' });
+      setForm({ name: '', username: '', email: '', password: '', role: 'produksi' });
       setNotice('Pengguna dibuat. Sampaikan passwordnya lewat jalur pribadi, bukan grup.');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Gagal menambah pengguna.');
@@ -93,13 +108,23 @@ export function UsersClient({ initialUsers, currentUserId }: { initialUsers: Pan
       <form onSubmit={addUser} className="card space-y-4">
         <h2 className="font-bold text-slate-900 dark:text-white">Tambah pengguna</h2>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <input
             className="input"
             required
             placeholder="Nama *"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+          <input
+            className="input lowercase"
+            required
+            minLength={3}
+            pattern="[a-z0-9._-]+"
+            title="Huruf kecil, angka, titik, garis bawah, atau tanda hubung."
+            placeholder="Nama pengguna *"
+            value={form.username}
+            onChange={(e) => setForm({ ...form, username: e.target.value.toLowerCase() })}
           />
           <input
             type="email"
@@ -150,7 +175,7 @@ export function UsersClient({ initialUsers, currentUserId }: { initialUsers: Pan
           <thead>
             <tr>
               <th>Nama</th>
-              <th>Email</th>
+              <th>Akun</th>
               <th>Peran</th>
               <th>Login terakhir</th>
               <th>Status</th>
@@ -164,7 +189,10 @@ export function UsersClient({ initialUsers, currentUserId }: { initialUsers: Pan
                   {user.name}
                   {user.id === currentUserId && <span className="ml-2 text-xs text-slate-400">(Anda)</span>}
                 </td>
-                <td className="text-slate-500 dark:text-slate-400">{user.email}</td>
+                <td>
+                  <div className="font-mono text-xs text-slate-700 dark:text-slate-200">{user.username}</div>
+                  <div className="text-xs text-slate-400">{user.email}</div>
+                </td>
                 <td>
                   <select
                     className="input input-inline h-9 py-1 text-xs"
