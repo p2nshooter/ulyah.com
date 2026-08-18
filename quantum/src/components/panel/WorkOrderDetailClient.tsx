@@ -389,7 +389,7 @@ function PaymentSection({
           <input
             type="number"
             min={1}
-            step={1000}
+            step={1}
             className="input"
             required
             placeholder="Nominal"

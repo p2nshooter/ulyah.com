@@ -3,10 +3,12 @@ import { getDb } from '@/lib/db/client';
 import { items } from '@/lib/db/schema';
 import { getCurrentUser } from '@/lib/auth/session';
 import { ItemsClient } from '@/components/panel/ItemsClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ItemsPage() {
+  await guardPanelPage('/panel/barang');
   const db = await getDb();
   const [user, rows] = await Promise.all([
     getCurrentUser(),

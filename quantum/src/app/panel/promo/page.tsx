@@ -2,10 +2,12 @@ import { asc } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
 import { promos } from '@/lib/db/schema';
 import { PromosClient } from '@/components/panel/PromosClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function PromoPage() {
+  await guardPanelPage('/panel/promo');
   const db = await getDb();
   const rows = await db.select().from(promos).orderBy(asc(promos.sortOrder));
 

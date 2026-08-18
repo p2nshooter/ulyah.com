@@ -3,6 +3,7 @@ import { listWorkOrders } from '@/lib/data/work-orders';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { PriorityBadge, StatusBadge } from '@/components/ui/Badge';
 import { daysUntil, formatDate, formatIdrShort } from '@/lib/format';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 import {
   UNIT_TYPE_LABEL,
   WORK_ORDER_STATUSES,
@@ -17,6 +18,7 @@ export default async function WorkOrderListPage({
 }: {
   searchParams: Promise<{ status?: string; q?: string }>;
 }) {
+  await guardPanelPage('/panel/spk');
   const params = await searchParams;
   const status = isStatus(params.status) ? params.status : undefined;
   const search = params.q?.trim() || undefined;

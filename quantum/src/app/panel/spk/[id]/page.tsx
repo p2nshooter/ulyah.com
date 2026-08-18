@@ -8,10 +8,12 @@ import { daysUntil, formatDate, formatIdr } from '@/lib/format';
 import { UNIT_TYPE_LABEL } from '@/lib/karoseri/constants';
 import { COMPANY } from '@/lib/company';
 import { PrintMenu } from '@/components/panel/PrintMenu';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function WorkOrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  await guardPanelPage('/panel/spk');
   const { id } = await params;
   const [detail, user] = await Promise.all([getWorkOrderDetail(id), getCurrentUser()]);
   if (!detail) notFound();

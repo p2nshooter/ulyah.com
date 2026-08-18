@@ -174,7 +174,7 @@ export function PromosClient({ initialPromos }: { initialPromos: PromoRow[] }) {
           <input
             type="number"
             min={0}
-            step={10000}
+            step={1}
             className="input"
             placeholder="Harga normal (Rp)"
             value={form.normalPriceIdr}
@@ -183,7 +183,7 @@ export function PromosClient({ initialPromos }: { initialPromos: PromoRow[] }) {
           <input
             type="number"
             min={0}
-            step={10000}
+            step={1}
             className="input"
             placeholder="Harga promo (Rp)"
             value={form.promoPriceIdr}

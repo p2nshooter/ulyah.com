@@ -3,10 +3,12 @@ import { getDb } from '@/lib/db/client';
 import { bodyModels } from '@/lib/db/schema';
 import { getCurrentUser } from '@/lib/auth/session';
 import { ModelsClient } from '@/components/panel/ModelsClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ModelsPage() {
+  await guardPanelPage('/panel/model');
   const db = await getDb();
   const [rows, user] = await Promise.all([
     db.select().from(bodyModels).orderBy(asc(bodyModels.code)),

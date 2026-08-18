@@ -247,7 +247,7 @@ export function PayrollClient({
             <input className="input" placeholder="Bagian" value={newEmployee.division} onChange={(e) => setNewEmployee({ ...newEmployee, division: e.target.value })} />
             <input className="input" placeholder="No. induk karyawan" value={newEmployee.employeeNumber} onChange={(e) => setNewEmployee({ ...newEmployee, employeeNumber: e.target.value })} />
             <input className="input" placeholder="No. rekening" value={newEmployee.bankAccount} onChange={(e) => setNewEmployee({ ...newEmployee, bankAccount: e.target.value })} />
-            <input type="number" min={0} step={1000} className="input" placeholder="Gaji pokok (Rp)" value={newEmployee.baseSalaryIdr} onChange={(e) => setNewEmployee({ ...newEmployee, baseSalaryIdr: e.target.value })} />
+            <input type="number" min={0} step={1} className="input" placeholder="Gaji pokok (Rp)" value={newEmployee.baseSalaryIdr} onChange={(e) => setNewEmployee({ ...newEmployee, baseSalaryIdr: e.target.value })} />
             <button type="submit" className="btn-primary sm:col-span-3">
               Simpan karyawan
             </button>
@@ -447,7 +447,7 @@ function ComponentGroup({
               <input
                 type="number"
                 min={0}
-                step={1000}
+                step={1}
                 disabled={!current.enabled}
                 className="input input-inline h-9 w-36 py-1 text-right text-sm"
                 placeholder="0"

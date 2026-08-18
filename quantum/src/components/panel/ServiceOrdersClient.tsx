@@ -276,7 +276,7 @@ export function ServiceOrdersClient({
             <input
               type="number"
               min={0}
-              step={10000}
+              step={1}
               className="input"
               placeholder="Diskon (Rp)"
               value={form.discountIdr}
@@ -347,7 +347,7 @@ export function ServiceOrdersClient({
                 <input
                   type="number"
                   min={0}
-                  step={1000}
+                  step={1}
                   className="input sm:col-span-2"
                   placeholder="Harga satuan"
                   value={line.unitPriceIdr}

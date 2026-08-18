@@ -242,7 +242,7 @@ function ExpensesTab({ initialRows, canWrite }: { initialRows: ExpenseRow[]; can
             <input
               type="number"
               min={1}
-              step={1000}
+              step={1}
               className="input"
               required
               placeholder="Nominal (Rp) *"
@@ -471,7 +471,7 @@ function CapitalTab({ initialRows, canWrite }: { initialRows: CapitalRow[]; canW
             <input
               type="number"
               min={1}
-              step={100000}
+              step={1}
               className="input"
               required
               placeholder="Nominal (Rp) *"
@@ -789,7 +789,7 @@ function PurchasesTab({
               <input
                 type="number"
                 min={0}
-                step={10000}
+                step={1}
                 className="input mt-1"
                 value={form.paidIdr}
                 onChange={(e) => setForm({ ...form, paidIdr: e.target.value })}
@@ -807,7 +807,10 @@ function PurchasesTab({
                   onChange={(e) => pickItem(index, e.target.value)}
                   aria-label="Barang master"
                 >
-                  <option value="">— Barang baru —</option>
+                  {/* Baris tanpa barang master memang TIDAK menambah stok —
+                      lihat route pembelian. Labelnya harus mengatakan itu:
+                      "Barang baru" membuat orang mengira stoknya ikut tercatat. */}
+                  <option value="">— Tanpa catat stok —</option>
                   {itemOptions.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.code} · {item.name}
@@ -836,7 +839,7 @@ function PurchasesTab({
                 <input
                   type="number"
                   min={0}
-                  step={1000}
+                  step={1}
                   className="input sm:col-span-2"
                   placeholder="Harga satuan"
                   value={line.unitCostIdr}
@@ -862,6 +865,15 @@ function PurchasesTab({
             >
               + Baris barang
             </button>
+            <p className="text-xs text-slate-400">
+              Pilih barang dari master supaya stoknya bertambah dan harga modalnya ikut terbarui. Barang yang belum
+              ada, daftarkan dulu di menu Barang &amp; Jasa.{' '}
+              <span className="text-amber-600">
+                Baris &ldquo;Tanpa catat stok&rdquo; hanya melengkapi nota supplier: nilainya masuk utang dan arus
+                kas, tapi <strong>tidak</strong> masuk laba rugi. Untuk bahan habis pakai (amplas, thinner, dan
+                sejenisnya) catat lewat tab Biaya operasional supaya ikut terhitung di laba rugi.
+              </span>
+            </p>
           </div>
 
           <input

@@ -5,10 +5,12 @@ import { getCurrentUser } from '@/lib/auth/session';
 import { getSettings } from '@/lib/settings';
 import { listServiceOrders } from '@/lib/data/service-orders';
 import { ServiceOrdersClient } from '@/components/panel/ServiceOrdersClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ServiceOrdersPage() {
+  await guardPanelPage('/panel/servis');
   const db = await getDb();
   const [user, orders, customerRows, itemRows, settings] = await Promise.all([
     getCurrentUser(),

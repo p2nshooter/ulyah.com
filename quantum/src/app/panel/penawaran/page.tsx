@@ -2,10 +2,12 @@ import { desc } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
 import { leads } from '@/lib/db/schema';
 import { LeadsClient } from '@/components/panel/LeadsClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function LeadsPage() {
+  await guardPanelPage('/panel/penawaran');
   const db = await getDb();
   const rows = await db.select().from(leads).orderBy(desc(leads.createdAt)).limit(200);
 

@@ -5,10 +5,12 @@ import { getDb } from '@/lib/db/client';
 import { bodyModels, customers } from '@/lib/db/schema';
 import { getCurrentUser } from '@/lib/auth/session';
 import { WorkOrderForm } from '@/components/panel/WorkOrderForm';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function NewWorkOrderPage() {
+  await guardPanelPage('/panel/spk');
   const user = await getCurrentUser();
   // Keuangan boleh melihat SPK, tapi yang menerbitkan SPK adalah produksi/admin.
   if (user && user.role === 'keuangan') redirect('/panel/spk');
