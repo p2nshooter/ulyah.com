@@ -14,6 +14,7 @@ import {
   PROMO_KINDS,
   SERVICE_STATUSES,
   STAGE_STATUSES,
+  STOCK_CHECK_PERIODS,
   STOCK_MOVE_TYPES,
   UNIT_TYPES,
   USER_ROLES,
@@ -424,6 +425,30 @@ export const payrollSchema = z.object({
   notes: optionalText(300),
   /** Hanya komponen yang dicentang yang dikirim ke sini. */
   components: z.array(payrollComponentSchema).min(1, 'Pilih minimal satu komponen gaji').max(30)
+});
+
+/* --- Pemeriksaan stok (opname) ------------------------------------------- */
+
+export const stockCheckCreateSchema = z.object({
+  period: z.enum(STOCK_CHECK_PERIODS).default('mingguan'),
+  checkedAt: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, 'Tanggal pemeriksaan wajib diisi'),
+  checkedBy: optionalText(80),
+  notes: optionalText(300)
+});
+
+export const stockCheckLineSchema = z.object({
+  id: z.string().trim().min(1),
+  physicalQty: z.number().int().min(0).max(1_000_000),
+  damagedQty: z.number().int().min(0).max(1_000_000),
+  lostQty: z.number().int().min(0).max(1_000_000),
+  checked: z.boolean().default(false),
+  notes: optionalText(200)
+});
+
+export const stockCheckUpdateSchema = z.object({
+  checkedBy: patchText(80),
+  notes: patchText(300),
+  lines: z.array(stockCheckLineSchema).max(500).optional()
 });
 
 /* --- Konten publik & pengaturan ------------------------------------------ */

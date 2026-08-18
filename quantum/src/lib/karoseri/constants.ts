@@ -127,13 +127,15 @@ export const ITEM_KIND_LABEL: Record<ItemKind, string> = {
   jasa: 'Jasa'
 };
 
-export const STOCK_MOVE_TYPES = ['masuk', 'keluar', 'penyesuaian'] as const;
+export const STOCK_MOVE_TYPES = ['masuk', 'keluar', 'penyesuaian', 'rusak', 'hilang'] as const;
 export type StockMoveType = (typeof STOCK_MOVE_TYPES)[number];
 
 export const STOCK_MOVE_TYPE_LABEL: Record<StockMoveType, string> = {
   masuk: 'Barang Masuk',
   keluar: 'Barang Keluar',
-  penyesuaian: 'Penyesuaian Stok'
+  penyesuaian: 'Penyesuaian Stok',
+  rusak: 'Barang Rusak',
+  hilang: 'Barang Hilang'
 };
 
 /* --- Keuangan ------------------------------------------------------------ */
@@ -167,6 +169,7 @@ export const EXPENSE_CATEGORIES = [
   'transport',
   'perizinan_pajak',
   'pemasaran',
+  'kerugian_stok',
   'lainnya'
 ] as const;
 export type ExpenseCategory = (typeof EXPENSE_CATEGORIES)[number];
@@ -180,6 +183,7 @@ export const EXPENSE_CATEGORY_LABEL: Record<ExpenseCategory, string> = {
   transport: 'Transport & BBM',
   perizinan_pajak: 'Perizinan & Pajak',
   pemasaran: 'Pemasaran',
+  kerugian_stok: 'Kerugian Persediaan (rusak/hilang)',
   lainnya: 'Lain-lain'
 };
 
@@ -201,6 +205,41 @@ export type CapitalType = (typeof CAPITAL_TYPES)[number];
 export const CAPITAL_TYPE_LABEL: Record<CapitalType, string> = {
   setoran: 'Setoran Modal',
   penarikan: 'Penarikan / Prive'
+};
+
+/* --- Pemeriksaan stok (opname) ------------------------------------------- */
+
+export const STOCK_CHECK_PERIODS = ['mingguan', 'bulanan', 'insidental'] as const;
+export type StockCheckPeriod = (typeof STOCK_CHECK_PERIODS)[number];
+
+export const STOCK_CHECK_PERIOD_LABEL: Record<StockCheckPeriod, string> = {
+  mingguan: 'Mingguan',
+  bulanan: 'Bulanan',
+  insidental: 'Insidental'
+};
+
+/**
+ * Opname berjalan dua tahap. Selama `draft` hitungannya masih bisa dikoreksi
+ * dan stok belum disentuh; begitu `selesai`, selisihnya diterapkan ke stok dan
+ * kerugiannya masuk pembukuan — karena itu sesi yang sudah selesai tidak bisa
+ * diubah lagi, hanya dibaca.
+ */
+export const STOCK_CHECK_STATUSES = ['draft', 'selesai'] as const;
+export type StockCheckStatus = (typeof STOCK_CHECK_STATUSES)[number];
+
+export const STOCK_CHECK_STATUS_LABEL: Record<StockCheckStatus, string> = {
+  draft: 'Sedang diperiksa',
+  selesai: 'Selesai & diterapkan'
+};
+
+/** Kondisi barang saat dihitung ulang di gudang. */
+export const ITEM_CONDITIONS = ['ada', 'rusak', 'hilang'] as const;
+export type ItemCondition = (typeof ITEM_CONDITIONS)[number];
+
+export const ITEM_CONDITION_LABEL: Record<ItemCondition, string> = {
+  ada: 'Ada & layak pakai',
+  rusak: 'Rusak',
+  hilang: 'Hilang'
 };
 
 /* --- Kepegawaian --------------------------------------------------------- */

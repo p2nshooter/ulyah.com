@@ -28,6 +28,7 @@ const MENU: Record<string, { label: string; icon: string }> = {
   '/panel/pelanggan': { label: 'Pelanggan', icon: '🤝' },
   '/panel/model': { label: 'Model Bodi', icon: '📐' },
   '/panel/barang': { label: 'Barang & Jasa', icon: '🧰' },
+  '/panel/opname': { label: 'Persediaan & Opname', icon: '📦' },
   '/panel/keuangan': { label: 'Kas & Pembelian', icon: '💳' },
   '/panel/penawaran': { label: 'Permintaan Penawaran', icon: '📨' },
   '/panel/karyawan': { label: 'Karyawan', icon: '🧑‍🔧' },

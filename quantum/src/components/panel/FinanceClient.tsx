@@ -867,12 +867,10 @@ function PurchasesTab({
             </button>
             <p className="text-xs text-slate-400">
               Pilih barang dari master supaya stoknya bertambah dan harga modalnya ikut terbarui. Barang yang belum
-              ada, daftarkan dulu di menu Barang &amp; Jasa.{' '}
-              <span className="text-amber-600">
-                Baris &ldquo;Tanpa catat stok&rdquo; hanya melengkapi nota supplier: nilainya masuk utang dan arus
-                kas, tapi <strong>tidak</strong> masuk laba rugi. Untuk bahan habis pakai (amplas, thinner, dan
-                sejenisnya) catat lewat tab Biaya operasional supaya ikut terhitung di laba rugi.
-              </span>
+              ada, daftarkan dulu di menu Barang &amp; Jasa. Baris &ldquo;Tanpa catat stok&rdquo; otomatis menjadi{' '}
+              <strong>nota manual</strong> di tab Biaya operasional — nilainya masuk laba rugi dan tercatat sebagai
+              tagihan supplier sampai ditandai lunas di sana. Kolom &ldquo;Dibayar sekarang&rdquo; hanya berlaku
+              untuk barang berstok.
             </p>
           </div>
 
