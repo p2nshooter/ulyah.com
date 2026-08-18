@@ -14,6 +14,7 @@ import {
   PROMO_KINDS,
   SERVICE_STATUSES,
   STAGE_STATUSES,
+  STOCK_CHECK_PERIODS,
   STOCK_MOVE_TYPES,
   UNIT_TYPES,
   USER_ROLES,
@@ -426,6 +427,30 @@ export const payrollSchema = z.object({
   components: z.array(payrollComponentSchema).min(1, 'Pilih minimal satu komponen gaji').max(30)
 });
 
+/* --- Pemeriksaan stok (opname) ------------------------------------------- */
+
+export const stockCheckCreateSchema = z.object({
+  period: z.enum(STOCK_CHECK_PERIODS).default('mingguan'),
+  checkedAt: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, 'Tanggal pemeriksaan wajib diisi'),
+  checkedBy: optionalText(80),
+  notes: optionalText(300)
+});
+
+export const stockCheckLineSchema = z.object({
+  id: z.string().trim().min(1),
+  physicalQty: z.number().int().min(0).max(1_000_000),
+  damagedQty: z.number().int().min(0).max(1_000_000),
+  lostQty: z.number().int().min(0).max(1_000_000),
+  checked: z.boolean().default(false),
+  notes: optionalText(200)
+});
+
+export const stockCheckUpdateSchema = z.object({
+  checkedBy: patchText(80),
+  notes: patchText(300),
+  lines: z.array(stockCheckLineSchema).max(500).optional()
+});
+
 /* --- Konten publik & pengaturan ------------------------------------------ */
 
 export const promoSchema = z.object({
@@ -467,4 +492,67 @@ export const settingsSchema = z.object({
   reportAddress: z.string().trim().max(300).optional(),
   reportFooterNote: z.string().trim().max(300).optional(),
   openingCashIdr: z.number().int().min(0).max(1_000_000_000_000).optional()
+});
+
+export const landingServiceSchema = z.object({
+  icon: z.string().trim().min(1, 'Ikon tidak boleh kosong').max(8).default('🔧'),
+  title: z.string().trim().min(2, 'Judul minimal 2 karakter').max(80),
+  summary: z.string().trim().max(200).default(''),
+  /** Satu poin per baris; baris kosong dibuang agar daftarnya tetap rapi. */
+  bullets: z
+    .string()
+    .max(1000)
+    .default('')
+    .transform((value) =>
+      value
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .slice(0, 20)
+        .join('\n')
+    ),
+  priceIdr: z
+    .number()
+    .int()
+    .min(0)
+    .max(100_000_000_000)
+    .optional()
+    .nullable()
+    .transform((v) => (v === undefined ? null : v)),
+  priceLabel: z.string().trim().max(30).default('Mulai dari'),
+  priceNote: z.string().trim().max(80).default(''),
+  sortOrder: z.number().int().min(0).max(999).default(0),
+  active: z.boolean().default(true)
+});
+
+/**
+ * Semua kolom opsional: panel mengirim hanya bagian yang diubah, dan string
+ * kosong adalah nilai sah (mis. menghapus email agar barisnya hilang).
+ */
+export const siteContentSchema = z.object({
+  heroTitle: z.string().trim().max(160).optional(),
+  heroAccent: z.string().trim().max(160).optional(),
+  heroPitch: z.string().trim().max(400).optional(),
+  servicesTitle: z.string().trim().max(120).optional(),
+  servicesText: z.string().trim().max(400).optional(),
+  catalogTitle: z.string().trim().max(120).optional(),
+  catalogText: z.string().trim().max(400).optional(),
+  priceTitle: z.string().trim().max(120).optional(),
+  priceText: z.string().trim().max(400).optional(),
+  promoTitle: z.string().trim().max(120).optional(),
+  promoText: z.string().trim().max(400).optional(),
+  contactPhone: z.string().trim().max(40).optional(),
+  contactWhatsapp: z
+    .string()
+    .trim()
+    .max(20)
+    .regex(/^[0-9]*$/, 'Nomor WhatsApp hanya boleh angka, mis. 6285886692214')
+    .optional(),
+  contactEmail: z.union([z.literal(''), z.string().trim().email('Format email tidak valid').max(120)]).optional(),
+  workingHours: z.string().trim().max(120).optional(),
+  addressLine: z.string().trim().max(200).optional(),
+  addressRegion: z.string().trim().max(200).optional(),
+  mapsUrl: z
+    .union([z.literal(''), z.string().trim().url('Tautan peta harus berupa URL lengkap').max(500)])
+    .optional()
 });

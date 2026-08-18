@@ -1,45 +1,16 @@
 import Link from 'next/link';
 import { and, asc, eq } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
-import { bodyModels, items, promos } from '@/lib/db/schema';
+import { bodyModels, items, landingServices, promos } from '@/lib/db/schema';
 import { SiteFooter, SiteNav } from '@/components/site/SiteNav';
 import { QuoteForm } from '@/components/site/QuoteForm';
-import { COMPANY, whatsappLink } from '@/lib/company';
+import { COMPANY } from '@/lib/company';
+import { getSiteContent, siteWhatsappLink } from '@/lib/site-content';
 import { LogoMark } from '@/components/ui/Logo';
 import { formatIdr, formatIdrShort } from '@/lib/format';
 import { ITEM_KIND_LABEL, PROMO_KIND_LABEL, STAGE_TEMPLATES, UNIT_TYPE_LABEL, type PromoKind } from '@/lib/karoseri/constants';
 
 export const dynamic = 'force-dynamic';
-
-/** Tiga lini pekerjaan bengkel, sesuai papan nama dan spanduk di lokasi. */
-const SERVICE_GROUPS = [
-  {
-    icon: '🚌',
-    title: 'Karoseri',
-    text: 'Pembuatan bodi di atas chassis pilihan Anda.',
-    items: ['Bodi bus besar & medium', 'Microbus', 'Box besi & aluminium', 'Wingbox', 'Dump', 'Tangki']
-  },
-  {
-    icon: '🎨',
-    title: 'Body Repair',
-    text: 'Perbaikan dan pengecatan bodi kendaraan.',
-    items: ['Body repair', 'Cat mobil', 'Repaint', 'Refinishing', 'Poles body']
-  },
-  {
-    icon: '🔧',
-    title: 'Service Mobil',
-    text: 'Perawatan berkala sampai perbaikan besar.',
-    items: [
-      'Service mesin & turun mesin',
-      'Tune up',
-      'Ganti oli',
-      'Rem & kaki-kaki',
-      'Transmisi MT/AT',
-      'Service AC',
-      'Scanner mobil'
-    ]
-  }
-];
 
 const ADVANTAGES = [
   {
@@ -67,7 +38,8 @@ export default async function HomePage() {
   const db = await getDb();
   const now = new Date();
 
-  const [models, promoRows, priceRows] = await Promise.all([
+  const [content, models, promoRows, priceRows, serviceRows] = await Promise.all([
+    getSiteContent(),
     db.select().from(bodyModels).where(eq(bodyModels.active, true)).orderBy(asc(bodyModels.code)).limit(9),
     db.select().from(promos).where(eq(promos.active, true)).orderBy(asc(promos.sortOrder)).limit(12),
     db
@@ -75,8 +47,21 @@ export default async function HomePage() {
       .from(items)
       .where(and(eq(items.active, true), eq(items.showOnLanding, true)))
       .orderBy(asc(items.kind), asc(items.name))
-      .limit(24)
+      .limit(24),
+    db
+      .select()
+      .from(landingServices)
+      .where(eq(landingServices.active, true))
+      .orderBy(asc(landingServices.sortOrder))
+      .limit(12)
   ]);
+
+  // Poin kartu layanan disimpan satu baris satu poin agar admin bisa
+  // menyuntingnya di kotak teks biasa, bukan lewat penyuntingan JSON.
+  const services = serviceRows.map((service) => ({
+    ...service,
+    lines: service.bullets.split('\n').map((line) => line.trim()).filter(Boolean)
+  }));
 
   // Masa berlaku disaring di sini, bukan di query: tanggalnya boleh kosong
   // (promo tanpa batas waktu) dan SQL-nya jadi jauh lebih ribet tanpa manfaat.
@@ -103,10 +88,10 @@ export default async function HomePage() {
                 </span>
               </span>
               <h1 className="mt-5 text-4xl font-black leading-tight sm:text-5xl">
-                Karoseri, body repair &amp; service mobil —{' '}
-                <span className="text-gold-400">solusi tepat untuk mobil Anda.</span>
+                {content.heroTitle}{' '}
+                <span className="text-gold-400">{content.heroAccent}</span>
               </h1>
-              <p className="mt-5 max-w-xl text-base text-slate-300">{COMPANY.pitch}</p>
+              <p className="mt-5 max-w-xl text-base text-slate-300">{content.heroPitch}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href="#penawaran" className="btn-accent">
                   Minta penawaran
@@ -154,10 +139,8 @@ export default async function HomePage() {
         {activePromos.length > 0 && (
           <section id="promo" className="border-b border-slate-200 bg-white py-16 dark:border-slate-800 dark:bg-slate-900">
             <div className="container-page">
-              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Promo &amp; info terbaru</h2>
-              <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">
-                Penawaran yang sedang berjalan di bengkel kami.
-              </p>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">{content.promoTitle}</h2>
+              <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">{content.promoText}</p>
 
               <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {activePromos.map((promo) => (
@@ -190,7 +173,7 @@ export default async function HomePage() {
                     )}
 
                     <a
-                      href={whatsappLink(`Halo, saya tertarik dengan ${promo.title}.`)}
+                      href={siteWhatsappLink(content, `Halo, saya tertarik dengan ${promo.title}.`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-4 inline-flex w-fit rounded-xl bg-quantum-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-quantum-700"
@@ -204,44 +187,67 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Layanan */}
-        <section id="layanan" className="py-20">
-          <div className="container-page">
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Layanan kami</h2>
-            <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">
-              Satu bengkel untuk tiga kebutuhan: membangun bodi, memperbaiki bodi, dan merawat mesin.
-            </p>
+        {/* Layanan — kartu & harganya dikelola admin lewat Panel → Layanan Halaman Depan */}
+        {services.length > 0 && (
+          <section id="layanan" className="py-20">
+            <div className="container-page">
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">{content.servicesTitle}</h2>
+              <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">{content.servicesText}</p>
 
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {SERVICE_GROUPS.map((service) => (
-                <div key={service.title} className="card">
-                  <span className="text-3xl">{service.icon}</span>
-                  <h3 className="mt-3 text-lg font-bold text-slate-900 dark:text-white">{service.title}</h3>
-                  <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{service.text}</p>
-                  <ul className="mt-4 space-y-1.5 border-t border-slate-100 pt-4 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">
-                    {service.items.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span className="text-gold-500" aria-hidden="true">
-                          ✓
-                        </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div className="mt-10 grid gap-5 md:grid-cols-3">
+                {services.map((service) => (
+                  <div key={service.id} className="card flex flex-col">
+                    <span className="text-3xl">{service.icon}</span>
+                    <h3 className="mt-3 text-lg font-bold text-slate-900 dark:text-white">{service.title}</h3>
+                    {service.summary && (
+                      <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{service.summary}</p>
+                    )}
+
+                    {service.lines.length > 0 && (
+                      <ul className="mt-4 flex-1 space-y-1.5 border-t border-slate-100 pt-4 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">
+                        {service.lines.map((line) => (
+                          <li key={line} className="flex gap-2">
+                            <span className="text-gold-500" aria-hidden="true">
+                              ✓
+                            </span>
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {service.priceIdr !== null && (
+                      <div className="mt-4 border-t border-slate-100 pt-4 dark:border-slate-800">
+                        <p className="text-xs text-slate-400">{service.priceLabel}</p>
+                        <p className="text-xl font-black text-slate-900 dark:text-white">
+                          {formatIdrShort(service.priceIdr)}
+                          {service.priceNote && (
+                            <span className="ml-1.5 text-xs font-normal text-slate-400">{service.priceNote}</span>
+                          )}
+                        </p>
+                      </div>
+                    )}
+
+                    <a
+                      href={siteWhatsappLink(content, `Halo, saya ingin tanya soal layanan ${service.title}.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex w-fit rounded-xl border border-quantum-200 px-4 py-2 text-sm font-semibold text-quantum-700 transition hover:bg-quantum-50 dark:border-quantum-800 dark:text-quantum-300 dark:hover:bg-quantum-950/40"
+                    >
+                      Tanya harga
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Katalog model */}
         <section id="katalog" className="border-y border-slate-200 bg-white py-20 dark:border-slate-800 dark:bg-slate-900">
           <div className="container-page">
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Katalog model bodi</h2>
-            <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">
-              Harga di bawah adalah estimasi awal per unit dan masih menyesuaikan spesifikasi, chassis, serta material
-              pilihan Anda.
-            </p>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">{content.catalogTitle}</h2>
+            <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">{content.catalogText}</p>
 
             {models.length === 0 ? (
               <p className="mt-10 rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700">
@@ -283,11 +289,8 @@ export default async function HomePage() {
         {priceRows.length > 0 && (
           <section id="harga" className="py-20">
             <div className="container-page">
-              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Daftar harga servis</h2>
-              <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">
-                Harga jasa dan sparepart yang paling sering dikerjakan. Harga dapat berubah menyesuaikan kondisi
-                kendaraan dan ketersediaan barang.
-              </p>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">{content.priceTitle}</h2>
+              <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">{content.priceText}</p>
 
               <div className="mt-8 overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
                 <table className="w-full text-sm">
@@ -384,46 +387,48 @@ export default async function HomePage() {
                 Isi kebutuhan Anda, tim kami menyiapkan rincian harga dan estimasi waktu pengerjaan.
               </p>
 
-              {/* Kontak yang belum diisi di src/lib/company.ts disembunyikan, bukan ditampilkan kosong. */}
+              {/* Kontak yang dikosongkan admin disembunyikan, bukan ditampilkan kosong. */}
               <dl className="mt-8 space-y-4 text-sm">
                 <div>
                   <dt className="font-semibold text-slate-900 dark:text-white">Telepon / WhatsApp</dt>
-                  <dd className="text-slate-500 dark:text-slate-400">{COMPANY.phone}</dd>
+                  <dd className="text-slate-500 dark:text-slate-400">{content.contactPhone}</dd>
                 </div>
-                {COMPANY.email && (
+                {content.contactEmail && (
                   <div>
                     <dt className="font-semibold text-slate-900 dark:text-white">Email</dt>
-                    <dd className="text-slate-500 dark:text-slate-400">{COMPANY.email}</dd>
+                    <dd className="text-slate-500 dark:text-slate-400">{content.contactEmail}</dd>
                   </div>
                 )}
                 <div>
                   <dt className="font-semibold text-slate-900 dark:text-white">Bengkel</dt>
                   <dd className="text-slate-500 dark:text-slate-400">
-                    {COMPANY.addressLine}
+                    {content.addressLine}
                     <br />
-                    {COMPANY.addressRegion}
+                    {content.addressRegion}
                   </dd>
-                  <dd className="mt-1">
-                    <a
-                      href={COMPANY.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-quantum-600 hover:underline"
-                    >
-                      Buka di Google Maps →
-                    </a>
-                  </dd>
+                  {content.mapsUrl && (
+                    <dd className="mt-1">
+                      <a
+                        href={content.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-quantum-600 hover:underline"
+                      >
+                        Buka di Google Maps →
+                      </a>
+                    </dd>
+                  )}
                 </div>
-                {COMPANY.workingHours && (
+                {content.workingHours && (
                   <div>
                     <dt className="font-semibold text-slate-900 dark:text-white">Jam kerja</dt>
-                    <dd className="text-slate-500 dark:text-slate-400">{COMPANY.workingHours}</dd>
+                    <dd className="text-slate-500 dark:text-slate-400">{content.workingHours}</dd>
                   </div>
                 )}
               </dl>
 
               <a
-                href={whatsappLink('Halo, saya ingin konsultasi pengerjaan mobil di Bengkel Quantum.')}
+                href={siteWhatsappLink(content, 'Halo, saya ingin konsultasi pengerjaan mobil di Bengkel Quantum.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-accent mt-6"
@@ -432,7 +437,7 @@ export default async function HomePage() {
               </a>
             </div>
 
-            <QuoteForm />
+            <QuoteForm content={content} />
           </div>
         </section>
       </main>

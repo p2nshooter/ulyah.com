@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { desc, eq, inArray, like, sql } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
-import { items, purchaseItems, purchases, stockMoves, suppliers } from '@/lib/db/schema';
+import { expenses, items, purchaseItems, purchases, stockMoves, suppliers } from '@/lib/db/schema';
 import { requireRole } from '@/lib/auth/guards';
 import { purchaseSchema } from '@/lib/validation';
 import { parseBody, withErrorHandling } from '@/lib/api-handler';
@@ -59,9 +59,29 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
   if ('error' in parsed) return parsed.error;
   const input = parsed.data;
 
-  const totalIdr = input.items.reduce((sum, item) => sum + item.qty * item.unitCostIdr, 0);
+  // Nota dipecah dua. Baris yang menunjuk barang master masuk persediaan;
+  // baris tanpa barang master menjadi "nota manual" berupa catatan biaya.
+  //
+  // Sebelumnya keduanya dicatat sebagai satu pembelian, dan baris tanpa stok
+  // menghilang begitu saja: nilainya jadi utang dan arus kas keluar, tapi tidak
+  // pernah sampai ke laba rugi maupun ke gudang. Uang keluar tanpa jejak biaya.
+  // Dengan dipisah, tiap baris hidup tepat di satu tempat dan tidak ada yang
+  // terhitung dua kali.
+  const stockLines = input.items.filter((item) => item.itemId);
+  const manualLines = input.items.filter((item) => !item.itemId);
+
+  const totalIdr = stockLines.reduce((sum, item) => sum + item.qty * item.unitCostIdr, 0);
+  const manualTotalIdr = manualLines.reduce((sum, item) => sum + item.qty * item.unitCostIdr, 0);
+
   if (input.paidIdr > totalIdr) {
-    return NextResponse.json({ error: 'Jumlah dibayar melebihi total pembelian.' }, { status: 400 });
+    return NextResponse.json(
+      {
+        error: manualLines.length
+          ? 'Jumlah dibayar melebihi nilai barang berstok. Baris tanpa catat stok jadi nota manual dan dilunasi lewat menu Biaya.'
+          : 'Jumlah dibayar melebihi total pembelian.'
+      },
+      { status: 400 }
+    );
   }
 
   const db = await getDb();
@@ -88,7 +108,7 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
       });
 
       await db.insert(purchaseItems).values(
-        input.items.map((item) => ({
+        stockLines.map((item) => ({
           id: newId('pit'),
           purchaseId: id,
           itemId: item.itemId,
@@ -101,7 +121,7 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
 
       // Stok bertambah dan harga modal master ikut diperbarui ke harga beli
       // terakhir, supaya HPP transaksi berikutnya memakai angka yang benar.
-      for (const item of input.items) {
+      for (const item of stockLines) {
         if (!item.itemId) continue;
         await db
           .update(items)
@@ -125,8 +145,43 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
         });
       }
 
-      await logAction(guard.user.id, 'purchase.create', 'purchase', id, { purchaseNumber, totalIdr });
-      return NextResponse.json({ ok: true, id, purchaseNumber, totalIdr });
+      // Nota manual: satu catatan biaya per baris tanpa stok, dengan nomor
+      // pembelian dan nama supplier ikut tertulis supaya jejaknya ke nota fisik
+      // tetap jelas. Sengaja belum ditandai lunas — pelunasannya lewat menu
+      // Biaya, sama seperti tagihan lain.
+      const manualExpenseIds: string[] = [];
+      for (const item of manualLines) {
+        const expenseId = newId('exp');
+        manualExpenseIds.push(expenseId);
+        await db.insert(expenses).values({
+          id: expenseId,
+          category: 'bahan_produksi',
+          description: `${item.name}${item.qty > 1 ? ` (${item.qty}x)` : ''} — nota ${purchaseNumber}`,
+          amountIdr: item.qty * item.unitCostIdr,
+          vendorName: input.supplierName,
+          spentAt: purchasedAt,
+          paidAt: null,
+          dueDate: dueMs === null ? null : new Date(dueMs),
+          notes: input.invoiceNumber ? `Nota supplier ${input.invoiceNumber}` : 'Nota manual tanpa catat stok',
+          createdBy: guard.user.id
+        });
+      }
+
+      await logAction(guard.user.id, 'purchase.create', 'purchase', id, {
+        purchaseNumber,
+        totalIdr,
+        manualNotes: manualLines.length,
+        manualTotalIdr
+      });
+      return NextResponse.json({
+        ok: true,
+        id,
+        purchaseNumber,
+        totalIdr,
+        manualTotalIdr,
+        manualCount: manualLines.length,
+        manualExpenseIds
+      });
     } catch (err) {
       lastError = err;
       if (!/UNIQUE constraint failed/i.test(err instanceof Error ? err.message : String(err))) throw err;

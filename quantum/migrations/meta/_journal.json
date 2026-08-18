@@ -29,6 +29,20 @@
       "when": 1787028542587,
       "tag": "0003_username",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1787038019253,
+      "tag": "0004_stock_checks",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1787124000000,
+      "tag": "0005_landing_content",
+      "breakpoints": true
     }
   ]
 }

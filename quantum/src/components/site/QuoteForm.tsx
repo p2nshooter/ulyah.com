@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { UNIT_TYPES, UNIT_TYPE_LABEL, type UnitType } from '@/lib/karoseri/constants';
-import { COMPANY, whatsappLink } from '@/lib/company';
+import { COMPANY } from '@/lib/company';
+import { siteWhatsappLink, type SiteContent } from '@/lib/site-content';
 
 type FormState = {
   name: string;
@@ -24,7 +25,7 @@ const EMPTY: FormState = {
   message: ''
 };
 
-export function QuoteForm() {
+export function QuoteForm({ content }: { content: SiteContent }) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -63,12 +64,12 @@ export function QuoteForm() {
         <p className="text-3xl">✅</p>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-white">Permintaan Anda terkirim</h3>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          Tim kami akan menghubungi Anda pada jam kerja{COMPANY.workingHours ? ` (${COMPANY.workingHours})` : ''}. Butuh
+          Tim kami akan menghubungi Anda pada jam kerja{content.workingHours ? ` (${content.workingHours})` : ''}. Butuh
           lebih cepat? Hubungi kami langsung lewat WhatsApp.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <a
-            href={whatsappLink('Halo, saya baru mengirim permintaan penawaran lewat website.')}
+            href={siteWhatsappLink(content, 'Halo, saya baru mengirim permintaan penawaran lewat website.')}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-accent"
@@ -191,7 +192,7 @@ export function QuoteForm() {
           {status === 'sending' ? 'Mengirim…' : 'Kirim permintaan penawaran'}
         </button>
         <a
-          href={whatsappLink('Halo, saya ingin bertanya soal layanan Bengkel Quantum.')}
+          href={siteWhatsappLink(content, 'Halo, saya ingin bertanya soal layanan Bengkel Quantum.')}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-secondary"

@@ -14,6 +14,8 @@ import type {
   PromoKind,
   ServiceStatus,
   StageStatus,
+  StockCheckPeriod,
+  StockCheckStatus,
   StockMoveType,
   UnitType,
   UserRole,
@@ -574,6 +576,70 @@ export const promos = sqliteTable(
   })
 );
 
+/* --- Pemeriksaan stok (opname) ------------------------------------------- */
+
+/**
+ * Satu sesi hitung ulang gudang. Selama `draft` isinya masih bisa dikoreksi dan
+ * stok belum disentuh sama sekali; penerapannya terjadi sekali saat sesi
+ * ditutup, supaya perhitungan yang setengah jalan tidak pernah mengubah stok.
+ */
+export const stockChecks = sqliteTable(
+  'stock_checks',
+  {
+    id: text('id').primaryKey(),
+    /** Nomor opname, format OPN/YYYYMM/NNN. */
+    checkNumber: text('check_number').notNull().unique(),
+    period: text('period').$type<StockCheckPeriod>().notNull().default('mingguan'),
+    status: text('status').$type<StockCheckStatus>().notNull().default('draft'),
+    checkedAt: integer('checked_at', { mode: 'timestamp_ms' }).notNull(),
+    /** Diisi saat sesi ditutup; sekaligus penanda bahwa stok sudah disesuaikan. */
+    appliedAt: integer('applied_at', { mode: 'timestamp_ms' }),
+    /** Ringkasan hasil, disimpan agar laporan lama tidak berubah kalau harga modal naik. */
+    itemCount: integer('item_count').notNull().default(0),
+    diffCount: integer('diff_count').notNull().default(0),
+    damagedQty: integer('damaged_qty').notNull().default(0),
+    lostQty: integer('lost_qty').notNull().default(0),
+    lossValueIdr: integer('loss_value_idr').notNull().default(0),
+    /** Biaya kerugian yang dibuat otomatis saat sesi ditutup. */
+    expenseId: text('expense_id').references(() => expenses.id),
+    checkedBy: text('checked_by'),
+    notes: text('notes'),
+    createdBy: text('created_by').references(() => users.id),
+    ...timestamps
+  },
+  (t) => ({
+    checkedIdx: index('stock_checks_checked_idx').on(t.checkedAt),
+    statusIdx: index('stock_checks_status_idx').on(t.status)
+  })
+);
+
+export const stockCheckItems = sqliteTable(
+  'stock_check_items',
+  {
+    id: text('id').primaryKey(),
+    stockCheckId: text('stock_check_id')
+      .notNull()
+      .references(() => stockChecks.id, { onDelete: 'cascade' }),
+    itemId: text('item_id')
+      .notNull()
+      .references(() => items.id, { onDelete: 'cascade' }),
+    /** Stok menurut sistem saat sesi dibuat — dibekukan agar selisihnya jujur. */
+    systemQty: integer('system_qty').notNull().default(0),
+    /** Hasil hitung fisik: yang layak pakai, yang rusak, dan yang tidak ketemu. */
+    physicalQty: integer('physical_qty').notNull().default(0),
+    damagedQty: integer('damaged_qty').notNull().default(0),
+    lostQty: integer('lost_qty').notNull().default(0),
+    /** Harga modal saat opname, disalin supaya nilai kerugian tidak berubah nanti. */
+    unitCostIdr: integer('unit_cost_idr').notNull().default(0),
+    checked: integer('checked', { mode: 'boolean' }).notNull().default(false),
+    notes: text('notes')
+  },
+  (t) => ({
+    checkIdx: index('stock_check_items_check_idx').on(t.stockCheckId),
+    itemIdx: index('stock_check_items_item_idx').on(t.itemId)
+  })
+);
+
 /* --- Pengaturan sistem --------------------------------------------------- */
 
 /**
@@ -589,6 +655,35 @@ export const settings = sqliteTable('settings', {
     .default(sql`(unixepoch() * 1000)`),
   updatedBy: text('updated_by').references(() => users.id)
 });
+
+/* --- Konten halaman depan ------------------------------------------------ */
+
+/**
+ * Kartu layanan di halaman depan. Dulu tiga kartu ini ditulis langsung di
+ * kode, jadi mengubah satu kalimat atau satu angka harga berarti deploy
+ * ulang. Sekarang isinya data biasa yang bisa diubah admin lewat panel.
+ */
+export const landingServices = sqliteTable(
+  'landing_services',
+  {
+    id: text('id').primaryKey(),
+    icon: text('icon').notNull().default('🔧'),
+    title: text('title').notNull(),
+    summary: text('summary').notNull().default(''),
+    /** Poin-poin di bawah kartu, disimpan satu baris per poin. */
+    bullets: text('bullets').notNull().default(''),
+    /** Kosongkan bila kartu memang tidak menampilkan harga. */
+    priceIdr: integer('price_idr'),
+    priceLabel: text('price_label').notNull().default('Mulai dari'),
+    priceNote: text('price_note').notNull().default(''),
+    sortOrder: integer('sort_order').notNull().default(0),
+    active: integer('active', { mode: 'boolean' }).notNull().default(true),
+    ...timestamps
+  },
+  (t) => ({
+    sortIdx: index('landing_services_sort_idx').on(t.sortOrder)
+  })
+);
 
 /* --- Jejak audit --------------------------------------------------------- */
 

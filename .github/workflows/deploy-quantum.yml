@@ -7,7 +7,8 @@ name: Deploy Quantum
 # sendiri, dan dependensi sendiri di luar pnpm workspace — sehingga `pnpm -r`
 # maupun `pnpm install --frozen-lockfile` milik ulyah tidak pernah menyentuhnya.
 #
-# Belum punya domain, jadi alamatnya memakai URL workers.dev bawaan.
+# Alamat publiknya adalah domain sendiri (repo Variable QUANTUM_DOMAIN,
+# bawaannya xaa.es). URL workers.dev tetap hidup sebagai cadangan.
 
 on:
   push:
@@ -116,6 +117,45 @@ jobs:
           echo "KV id: $KV_ID"
           echo "QUANTUM_KV_ID=$KV_ID" >> "$GITHUB_ENV"
 
+      # Domain hanya dipasang kalau zonanya benar-benar sudah ada di akun ini.
+      # Kalau langsung ditulis di wrangler.jsonc, satu zona yang belum aktif
+      # membuat `wrangler deploy` gagal — dan situs yang tadinya jalan di
+      # workers.dev ikut berhenti diperbarui hanya karena domain baru.
+      - name: Attach custom domain when its zone is ready
+        env:
+          QUANTUM_DOMAIN: ${{ vars.QUANTUM_DOMAIN || 'xaa.es' }}
+        run: |
+          set -eu
+          if [ -z "${QUANTUM_DOMAIN:-}" ]; then
+            echo "QUANTUM_DOMAIN kosong — tetap memakai URL workers.dev."
+            exit 0
+          fi
+
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_RESP=$(curl -s -H "$AUTH" \
+            "https://api.cloudflare.com/client/v4/zones?name=${QUANTUM_DOMAIN}&account.id=${CLOUDFLARE_ACCOUNT_ID}" || true)
+          ZONE_ID=$(echo "$ZONE_RESP" | jq -r '.result[0]?.id // empty' 2>/dev/null || true)
+          ZONE_STATUS=$(echo "$ZONE_RESP" | jq -r '.result[0]?.status // empty' 2>/dev/null || true)
+
+          if [ -z "$ZONE_ID" ]; then
+            echo "$ZONE_RESP" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' 2>/dev/null || true
+            echo "::warning::Zona ${QUANTUM_DOMAIN} belum ada di akun Cloudflare ini. Tambahkan domainnya di dashboard Cloudflare (Websites > Add a site), arahkan nameserver-nya, lalu jalankan deploy ini lagi. Sementara itu situs tetap online di URL workers.dev."
+            exit 0
+          fi
+          if [ "$ZONE_STATUS" != "active" ]; then
+            echo "::warning::Zona ${QUANTUM_DOMAIN} ditemukan tapi statusnya '${ZONE_STATUS}', belum 'active'. Selesaikan pemindahan nameserver-nya dulu, lalu deploy lagi."
+            exit 0
+          fi
+
+          echo "Zona ${QUANTUM_DOMAIN} aktif (id: ${ZONE_ID}). Memasang sebagai custom domain."
+          ROUTES='"routes": [{ "pattern": "'"${QUANTUM_DOMAIN}"'", "custom_domain": true }, { "pattern": "www.'"${QUANTUM_DOMAIN}"'", "custom_domain": true }],'
+          # Ditulis ke berkas terpisah dulu supaya tanda kutip di dalam JSON
+          # tidak perlu di-escape untuk sed.
+          printf '%s\n' "$ROUTES" > /tmp/routes.txt
+          sed -i "/__CUSTOM_DOMAIN_ROUTES__/r /tmp/routes.txt" wrangler.jsonc
+          sed -i "/__CUSTOM_DOMAIN_ROUTES__/d" wrangler.jsonc
+          echo "QUANTUM_PUBLIC_URL=https://${QUANTUM_DOMAIN}" >> "$GITHUB_ENV"
+
       - name: Substitute wrangler resource IDs
         run: |
           set -eu
@@ -168,14 +208,18 @@ jobs:
             echo "Deploy tidak sampai berjalan — lihat langkah yang gagal di atas." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
-          URL="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1 || true)"
-          if [ -n "$URL" ]; then
+          WORKERS_URL="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1 || true)"
+          MAIN_URL="${QUANTUM_PUBLIC_URL:-$WORKERS_URL}"
+          if [ -n "$MAIN_URL" ]; then
             {
               echo "## Quantum sudah online"
               echo ""
-              echo "- Situs publik: $URL"
-              echo "- Panel internal: $URL/login"
+              echo "- Situs publik: $MAIN_URL"
+              echo "- Panel internal: $MAIN_URL/login"
+              if [ -n "$WORKERS_URL" ] && [ "$WORKERS_URL" != "$MAIN_URL" ]; then
+                echo "- Alamat cadangan: $WORKERS_URL"
+              fi
             } >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "URL workers.dev tidak ditemukan di log deploy." >> "$GITHUB_STEP_SUMMARY"
+            echo "URL tidak ditemukan di log deploy." >> "$GITHUB_STEP_SUMMARY"
           fi

@@ -2,12 +2,16 @@ import type { Metadata } from 'next';
 import { SiteFooter, SiteNav } from '@/components/site/SiteNav';
 import { TrackClient } from './TrackClient';
 
+// Kaki halaman membaca kontak dari basis data, jadi halaman ini tidak boleh
+// dibekukan saat build.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Lacak Progres Unit',
   description: 'Pantau tahapan pengerjaan unit karoseri Anda dengan nomor SPK dan nomor rangka.'
 };
 
-export default function TrackPage() {
+export default async function TrackPage() {
   return (
     <>
       <SiteNav />
