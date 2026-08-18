@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { eq } from 'drizzle-orm';
+import { getDb } from '@/lib/db/client';
+import { customers } from '@/lib/db/schema';
 import { requireRole } from '@/lib/auth/guards';
 import { serviceOrderCreateSchema } from '@/lib/validation';
 import { parseBody, withErrorHandling } from '@/lib/api-handler';
@@ -34,6 +37,19 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
 
   const parsed = await parseBody(req, serviceOrderCreateSchema);
   if ('error' in parsed) return parsed.error;
+
+  // Pelanggannya dicek lebih dulu. Tanpa ini, id yang tidak ada baru ketahuan
+  // saat INSERT dan muncul sebagai galat foreign key mentah berstatus 500 —
+  // padahal ini kesalahan input biasa yang pantas dijawab 400 dengan sebabnya.
+  const db = await getDb();
+  const customer = await db
+    .select({ id: customers.id })
+    .from(customers)
+    .where(eq(customers.id, parsed.data.customerId))
+    .limit(1);
+  if (customer.length === 0) {
+    return NextResponse.json({ error: 'Pelanggan tidak ditemukan.' }, { status: 400 });
+  }
 
   const created = await createServiceOrder(parsed.data, guard.user.id);
   await logAction(guard.user.id, 'service_order.create', 'service_order', created.id, {

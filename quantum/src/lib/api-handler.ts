@@ -11,10 +11,13 @@ export function withErrorHandling<T extends (...args: any[]) => Promise<Response
     try {
       return await handler(...args);
     } catch (err) {
-      const detail = err instanceof Error ? err.message : String(err);
+      // Rinciannya hanya ke log server. Sebelum ini pesan asli ikut dikirim ke
+      // browser, sehingga pengunjung mana pun bisa memancing keluar galat
+      // seperti "FOREIGN KEY constraint failed" beserta nama tabelnya — peta
+      // gratis isi database untuk siapa pun yang iseng.
       console.error('API route error:', err);
       return NextResponse.json(
-        { error: 'Terjadi kesalahan di server. Silakan coba lagi.', detail },
+        { error: 'Terjadi kesalahan di server. Silakan coba lagi.' },
         { status: 500 }
       );
     }

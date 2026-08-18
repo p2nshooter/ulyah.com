@@ -17,6 +17,7 @@ export function KnockGate({
   taps,
   href,
   label,
+  resetMs = 3000,
   children
 }: {
   /** Berapa kali harus diketuk. */
@@ -25,6 +26,15 @@ export function KnockGate({
   href: string;
   /** Keterangan untuk pembaca layar. */
   label: string;
+  /**
+   * Jeda maksimum antar ketukan sebelum hitungan kembali nol.
+   *
+   * Semula 1,2 detik dan itu terlalu ketat: diuji dengan sentuhan berjeda 1,5
+   * detik — kecepatan wajar orang yang mengetuk sambil memperhatikan layar —
+   * pintunya tidak pernah terbuka. 3 detik memberi kelonggaran tanpa membuat
+   * ketukan tak sengaja menumpuk.
+   */
+  resetMs?: number;
   children: React.ReactNode;
 }) {
   const router = useRouter();
@@ -49,7 +59,7 @@ export function KnockGate({
       return;
     }
     setCount(next);
-    timer.current = setTimeout(() => setCount(0), 1200);
+    timer.current = setTimeout(() => setCount(0), resetMs);
   }
 
   const remaining = taps - count;
@@ -69,8 +79,8 @@ export function KnockGate({
       role="button"
       tabIndex={0}
       aria-label={label}
-      className="relative inline-flex cursor-pointer select-none items-center"
-      style={{ WebkitTapHighlightColor: 'transparent' }}
+      className="relative -m-2 inline-flex cursor-pointer select-none items-center p-2"
+      style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
     >
       {children}
 
@@ -79,12 +89,12 @@ export function KnockGate({
       {count > 0 && (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-3 left-1/2 flex -translate-x-1/2 gap-1"
+          className="pointer-events-none absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-1.5"
         >
           {Array.from({ length: taps }).map((_, i) => (
             <span
               key={i}
-              className={`h-1 w-1 rounded-full transition ${
+              className={`h-1.5 w-1.5 rounded-full transition ${
                 i < count ? 'bg-quantum-500' : 'bg-slate-300 dark:bg-slate-600'
               }`}
             />

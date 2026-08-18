@@ -27,6 +27,12 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   const { id } = await params;
 
   const db = await getDb();
+  // Id yang tidak ada dijawab 404, bukan 200. Menjawab "berhasil" untuk
+  // baris yang tidak pernah ada membuat panel menghapus barisnya dari layar
+  // dan menyembunyikan bahwa daftarnya sudah basi.
+  const existing = await db.select({ id: expenses.id }).from(expenses).where(eq(expenses.id, id)).limit(1);
+  if (existing.length === 0) return NextResponse.json({ error: 'Biaya tidak ditemukan.' }, { status: 404 });
+
   // Biaya yang lahir dari slip gaji tidak boleh dihapus lepas dari slipnya —
   // kalau tidak, laporan dan arsip gaji jadi tidak cocok.
   const linked = await db.select({ id: payrolls.id }).from(payrolls).where(eq(payrolls.expenseId, id)).limit(1);

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
-import { workOrders } from '@/lib/db/schema';
+import { expenses, payments, workOrders } from '@/lib/db/schema';
 import { requireAdmin, requireRole } from '@/lib/auth/guards';
 import { workOrderUpdateSchema } from '@/lib/validation';
 import { parseBody, withErrorHandling } from '@/lib/api-handler';
@@ -56,10 +56,27 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   if ('error' in guard) return guard.error;
   const { id } = await params;
 
-  // Tahapan dan pembayaran ikut terhapus lewat ON DELETE CASCADE.
   const db = await getDb();
+  const target = (await db.select().from(workOrders).where(eq(workOrders.id, id)).limit(1))[0];
+  if (!target) return NextResponse.json({ error: 'SPK tidak ditemukan.' }, { status: 404 });
+
+  // Pembayaran TIDAK ikut cascade: tabelnya polimorfik (ref_type + ref_id) dan
+  // sengaja tanpa foreign key, jadi harus dihapus sendiri. Sebelum ini
+  // pembayaran SPK yang dihapus tetap tertinggal dan masih terhitung sebagai
+  // uang masuk di arus kas maupun buku kas.
+  await db.delete(payments).where(and(eq(payments.refType, 'work_order'), eq(payments.refId, id)));
+
+  // Biaya yang terkait dilepas kaitannya, bukan dihapus: uangnya memang benar
+  // keluar, jadi menghapusnya akan memalsukan laba rugi. Tanpa langkah ini
+  // penghapusan malah gagal total — foreign key-nya ON DELETE no action.
+  await db.update(expenses).set({ workOrderId: null }).where(eq(expenses.workOrderId, id));
+
+  // Tahapan ikut terhapus lewat ON DELETE cascade miliknya sendiri.
   await db.delete(workOrders).where(eq(workOrders.id, id));
-  await logAction(guard.user.id, 'work_order.delete', 'work_order', id);
+  await logAction(guard.user.id, 'work_order.delete', 'work_order', id, {
+    spkNumber: target.spkNumber,
+    contractValueIdr: target.contractValueIdr
+  });
 
   return NextResponse.json({ ok: true });
 });
