@@ -32,7 +32,7 @@ plus halaman publik agar pelanggan bisa melacak sendiri progres unitnya.
 | Pelanggan | Data PO/perusahaan/perorangan |
 | Model Bodi | Katalog model, harga dasar, estimasi hari kerja, tampil/tidak di katalog publik |
 | Barang & Jasa | Master sparepart & jasa: harga modal, harga jual, stok, stok minimum, stok opname, tampil/tidak di daftar harga publik |
-| Kas & Pembelian | Biaya operasional (termasuk yang masih utang), setoran/penarikan modal, pembelian barang ke supplier beserta cicilan utangnya. Baris nota yang tidak dikaitkan ke barang stok otomatis jadi biaya operasional, jadi nota campuran cukup dicatat sekali |
+| Kas & Pembelian | Biaya operasional (termasuk yang masih utang), setoran/penarikan modal, pembelian barang ke supplier beserta cicilan utangnya. Baris nota yang tidak dikaitkan ke barang stok otomatis jadi biaya operasional, jadi nota campuran cukup dicatat sekali. Nota yang **seluruh** barisnya tanpa catat stok tidak membuat baris pembelian sama sekali — isinya murni catatan biaya, dan layar menyebutkan ke mana uangnya masuk |
 | Persediaan & Opname | Nilai & sisa stok seluruh barang, daftar barang menipis/habis, dan pengecekan stok mingguan berbentuk checklist (ada / rusak / hilang). Sesi opname yang ditutup langsung menyesuaikan stok, menulis kartu stok, dan membukukan kerugian barang rusak/hilang sebagai biaya `kerugian_stok` |
 | Permintaan Penawaran | Lead dari form publik, status tindak lanjut, catatan internal, tombol WhatsApp |
 | Karyawan | Bagian/divisi, data karyawan, gaji pokok, jenis & masa kontrak, cetak surat perjanjian kerja |

@@ -71,6 +71,11 @@ export default async function HomePage() {
 
   const busProcess = STAGE_TEMPLATES.bus_besar;
 
+  // Tombol WhatsApp disembunyikan seluruhnya kalau nomornya dikosongkan admin,
+  // bukan ditampilkan sebagai tautan buntu.
+  const whatsapp = (message: string) => siteWhatsappLink(content, message);
+  const consultLink = whatsapp('Halo, saya ingin konsultasi pengerjaan mobil di Bengkel Quantum.');
+
   return (
     <>
       <SiteNav />
@@ -172,14 +177,16 @@ export default async function HomePage() {
                       </p>
                     )}
 
-                    <a
-                      href={siteWhatsappLink(content, `Halo, saya tertarik dengan ${promo.title}.`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex w-fit rounded-xl bg-quantum-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-quantum-700"
-                    >
-                      {promo.ctaLabel || 'Tanya via WhatsApp'}
-                    </a>
+                    {whatsapp(`Halo, saya tertarik dengan ${promo.title}.`) && (
+                      <a
+                        href={whatsapp(`Halo, saya tertarik dengan ${promo.title}.`)!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex w-fit rounded-xl bg-quantum-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-quantum-700"
+                      >
+                        {promo.ctaLabel || 'Tanya via WhatsApp'}
+                      </a>
+                    )}
                   </article>
                 ))}
               </div>
@@ -205,8 +212,10 @@ export default async function HomePage() {
 
                     {service.lines.length > 0 && (
                       <ul className="mt-4 flex-1 space-y-1.5 border-t border-slate-100 pt-4 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">
-                        {service.lines.map((line) => (
-                          <li key={line} className="flex gap-2">
+                        {/* Kunci memakai posisi baris: admin boleh saja menulis poin
+                            yang sama dua kali, dan teksnya sendiri bukan penanda unik. */}
+                        {service.lines.map((line, index) => (
+                          <li key={`${index}-${line}`} className="flex gap-2">
                             <span className="text-gold-500" aria-hidden="true">
                               ✓
                             </span>
@@ -228,14 +237,16 @@ export default async function HomePage() {
                       </div>
                     )}
 
-                    <a
-                      href={siteWhatsappLink(content, `Halo, saya ingin tanya soal layanan ${service.title}.`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex w-fit rounded-xl border border-quantum-200 px-4 py-2 text-sm font-semibold text-quantum-700 transition hover:bg-quantum-50 dark:border-quantum-800 dark:text-quantum-300 dark:hover:bg-quantum-950/40"
-                    >
-                      Tanya harga
-                    </a>
+                    {whatsapp(`Halo, saya ingin tanya soal layanan ${service.title}.`) && (
+                      <a
+                        href={whatsapp(`Halo, saya ingin tanya soal layanan ${service.title}.`)!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex w-fit rounded-xl border border-quantum-200 px-4 py-2 text-sm font-semibold text-quantum-700 transition hover:bg-quantum-50 dark:border-quantum-800 dark:text-quantum-300 dark:hover:bg-quantum-950/40"
+                      >
+                        Tanya harga
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
@@ -427,14 +438,11 @@ export default async function HomePage() {
                 )}
               </dl>
 
-              <a
-                href={siteWhatsappLink(content, 'Halo, saya ingin konsultasi pengerjaan mobil di Bengkel Quantum.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-accent mt-6"
-              >
-                Chat WhatsApp
-              </a>
+              {consultLink && (
+                <a href={consultLink} target="_blank" rel="noopener noreferrer" className="btn-accent mt-6">
+                  Chat WhatsApp
+                </a>
+              )}
             </div>
 
             <QuoteForm content={content} />

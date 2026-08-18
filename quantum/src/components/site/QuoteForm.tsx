@@ -26,6 +26,10 @@ const EMPTY: FormState = {
 };
 
 export function QuoteForm({ content }: { content: SiteContent }) {
+  // Tombol WhatsApp disembunyikan kalau nomornya dikosongkan admin, bukan
+  // ditampilkan sebagai tautan buntu.
+  const sentLink = siteWhatsappLink(content, 'Halo, saya baru mengirim permintaan penawaran lewat website.');
+  const askLink = siteWhatsappLink(content, 'Halo, saya ingin bertanya soal layanan Bengkel Quantum.');
   const [form, setForm] = useState<FormState>(EMPTY);
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -64,18 +68,15 @@ export function QuoteForm({ content }: { content: SiteContent }) {
         <p className="text-3xl">✅</p>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-white">Permintaan Anda terkirim</h3>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          Tim kami akan menghubungi Anda pada jam kerja{content.workingHours ? ` (${content.workingHours})` : ''}. Butuh
-          lebih cepat? Hubungi kami langsung lewat WhatsApp.
+          Tim kami akan menghubungi Anda pada jam kerja{content.workingHours ? ` (${content.workingHours})` : ''}.
+          {sentLink && ' Butuh lebih cepat? Hubungi kami langsung lewat WhatsApp.'}
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          <a
-            href={siteWhatsappLink(content, 'Halo, saya baru mengirim permintaan penawaran lewat website.')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-accent"
-          >
-            Chat WhatsApp
-          </a>
+          {sentLink && (
+            <a href={sentLink} target="_blank" rel="noopener noreferrer" className="btn-accent">
+              Chat WhatsApp
+            </a>
+          )}
           <button onClick={() => setStatus('idle')} className="btn-secondary">
             Kirim permintaan lain
           </button>
@@ -191,14 +192,11 @@ export function QuoteForm({ content }: { content: SiteContent }) {
         <button type="submit" disabled={status === 'sending'} className="btn-primary">
           {status === 'sending' ? 'Mengirim…' : 'Kirim permintaan penawaran'}
         </button>
-        <a
-          href={siteWhatsappLink(content, 'Halo, saya ingin bertanya soal layanan Bengkel Quantum.')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-secondary"
-        >
-          Tanya via WhatsApp
-        </a>
+        {askLink && (
+          <a href={askLink} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+            Tanya via WhatsApp
+          </a>
+        )}
       </div>
       <p className="text-xs text-slate-400">
         Data yang Anda kirim hanya dipakai tim {COMPANY.shortName} untuk menyiapkan penawaran.

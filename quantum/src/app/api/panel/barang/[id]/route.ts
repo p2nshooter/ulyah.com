@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { and, eq, ne } from 'drizzle-orm';
 import { getDb } from '@/lib/db/client';
-import { items, serviceOrderItems } from '@/lib/db/schema';
+import { items, purchaseItems, serviceOrderItems, stockCheckItems, stockMoves } from '@/lib/db/schema';
 import { requireRole } from '@/lib/auth/guards';
 import { itemSchema } from '@/lib/validation';
 import { parseBody, withErrorHandling } from '@/lib/api-handler';
@@ -44,21 +44,36 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   const current = (await db.select().from(items).where(eq(items.id, id)).limit(1))[0];
   if (!current) return NextResponse.json({ error: 'Barang tidak ditemukan.' }, { status: 404 });
 
-  // Barang yang pernah dipakai di order servis tidak dihapus, hanya dinonaktifkan:
-  // menghapusnya akan memutus harga modal yang jadi dasar HPP laporan lama.
-  const used = await db
-    .select({ id: serviceOrderItems.id })
-    .from(serviceOrderItems)
-    .where(eq(serviceOrderItems.itemId, id))
-    .limit(1);
+  // Barang yang sudah punya riwayat tidak pernah dihapus, hanya dinonaktifkan.
+  //
+  // Sebelumnya hanya order servis yang diperiksa, dan itu meninggalkan dua
+  // lubang. Barang yang tercantum di nota pembelian membuat penghapusan gagal
+  // dengan galat kunci asing — kasir hanya melihat "kesalahan di server" tanpa
+  // tahu sebabnya. Sementara barang yang punya kartu stok atau pernah masuk
+  // sesi opname justru terhapus mulus, dan menyeret baris-baris riwayatnya ikut
+  // hilang: sesi opname yang sudah ditutup kehilangan rinciannya sementara
+  // ringkasan kerugiannya tetap tertulis, sehingga angka itu tidak lagi bisa
+  // dijelaskan oleh isinya sendiri.
+  const [usedInService, usedInPurchase, usedInStockCheck, hasStockCard] = await Promise.all([
+    db.select({ id: serviceOrderItems.id }).from(serviceOrderItems).where(eq(serviceOrderItems.itemId, id)).limit(1),
+    db.select({ id: purchaseItems.id }).from(purchaseItems).where(eq(purchaseItems.itemId, id)).limit(1),
+    db.select({ id: stockCheckItems.id }).from(stockCheckItems).where(eq(stockCheckItems.itemId, id)).limit(1),
+    db.select({ id: stockMoves.id }).from(stockMoves).where(eq(stockMoves.itemId, id)).limit(1)
+  ]);
 
-  if (used.length > 0) {
+  const reasons: string[] = [];
+  if (usedInService.length > 0) reasons.push('dipakai di order servis');
+  if (usedInPurchase.length > 0) reasons.push('tercantum di nota pembelian');
+  if (usedInStockCheck.length > 0) reasons.push('masuk sesi opname');
+  if (hasStockCard.length > 0) reasons.push('punya riwayat kartu stok');
+
+  if (reasons.length > 0) {
     await db.update(items).set({ active: false, updatedAt: new Date() }).where(eq(items.id, id));
-    await logAction(guard.user.id, 'item.deactivate', 'item', id, { code: current.code });
+    await logAction(guard.user.id, 'item.deactivate', 'item', id, { code: current.code, reasons });
     return NextResponse.json({
       ok: true,
       deactivated: true,
-      message: `${current.name} sudah dipakai di order servis, jadi hanya dinonaktifkan.`
+      message: `${current.name} sudah ${reasons.join(', ')}, jadi hanya dinonaktifkan — riwayatnya tetap utuh.`
     });
   }
 
