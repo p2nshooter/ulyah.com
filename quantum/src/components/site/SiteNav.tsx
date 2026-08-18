@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { COMPANY } from '@/lib/company';
 import { LogoWordmark } from '@/components/ui/Logo';
+import { KnockGate } from '@/components/ui/KnockGate';
 
 export function SiteNav() {
   return (
@@ -46,7 +47,12 @@ export function SiteFooter() {
     <footer className="border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
       <div className="container-page grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
-          <LogoWordmark />
+          {/* Ketuk lambang 5x untuk membuka halaman masuk staf. Logo di header
+              sengaja tidak dipakai — di sana lambang itu tautan ke beranda,
+              dan mengubahnya akan merusak kebiasaan pengunjung biasa. */}
+          <KnockGate taps={5} href="/login" label={COMPANY.legalName}>
+            <LogoWordmark />
+          </KnockGate>
           <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">{COMPANY.legalName}</p>
           <p className="mt-2 max-w-md text-sm text-slate-500 dark:text-slate-400">{COMPANY.description}</p>
         </div>
@@ -78,9 +84,6 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {COMPANY.legalName}. Seluruh hak cipta dilindungi.
           </p>
-          <Link href="/login" className="hover:text-quantum-600">
-            Panel Internal
-          </Link>
         </div>
       </div>
     </footer>

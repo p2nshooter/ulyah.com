@@ -64,8 +64,21 @@ const patchDate = z
   .transform((v) => (v ? v : null))
   .optional();
 
+/** Aturan nama pengguna: huruf kecil, angka, titik, garis bawah, tanda hubung. */
+export const USERNAME_PATTERN = /^[a-z0-9._-]+$/;
+
+export const usernameField = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .min(3, 'Nama pengguna minimal 3 karakter')
+  .max(40)
+  .regex(USERNAME_PATTERN, 'Nama pengguna hanya boleh huruf kecil, angka, titik, dan tanda hubung.');
+
 export const loginSchema = z.object({
-  email: z.string().trim().toLowerCase().email('Email tidak valid'),
+  // Satu kolom untuk dua bentuk: staf bengkel mengetik username pendek, sedangkan
+  // akun lama yang belum punya username tetap bisa masuk memakai emailnya.
+  identifier: z.string().trim().toLowerCase().min(3, 'Nama pengguna atau email wajib diisi').max(120),
   password: z.string().min(1, 'Password wajib diisi')
 });
 
@@ -76,6 +89,7 @@ export const changePasswordSchema = z.object({
 
 export const userCreateSchema = z.object({
   name: z.string().trim().min(2, 'Nama minimal 2 karakter').max(80),
+  username: usernameField,
   email: z.string().trim().toLowerCase().email('Email tidak valid'),
   password: z.string().min(8, 'Password minimal 8 karakter').max(200),
   role: z.enum(USER_ROLES)
@@ -83,6 +97,7 @@ export const userCreateSchema = z.object({
 
 export const userUpdateSchema = z.object({
   name: z.string().trim().min(2).max(80).optional(),
+  username: usernameField.optional(),
   role: z.enum(USER_ROLES).optional(),
   active: z.boolean().optional(),
   password: z.string().min(8, 'Password minimal 8 karakter').max(200).optional()

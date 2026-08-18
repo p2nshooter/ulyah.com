@@ -36,6 +36,12 @@ export const users = sqliteTable(
   {
     id: text('id').primaryKey(),
     name: text('name').notNull(),
+    /**
+     * Nama pengguna untuk masuk. Dipakai berdampingan dengan email — keduanya
+     * bisa dipakai login, karena staf bengkel lebih hafal username pendek
+     * ketimbang alamat email panjang.
+     */
+    username: text('username').notNull(),
     email: text('email').notNull(),
     passwordHash: text('password_hash').notNull(),
     role: text('role').$type<UserRole>().notNull().default('produksi'),
@@ -44,7 +50,8 @@ export const users = sqliteTable(
     ...timestamps
   },
   (t) => ({
-    emailIdx: uniqueIndex('users_email_idx').on(t.email)
+    emailIdx: uniqueIndex('users_email_idx').on(t.email),
+    usernameIdx: uniqueIndex('users_username_idx').on(t.username)
   })
 );
 
