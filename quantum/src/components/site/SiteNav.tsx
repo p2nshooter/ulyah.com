@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { COMPANY } from '@/lib/company';
+import { getSiteContent } from '@/lib/site-content';
 import { LogoWordmark } from '@/components/ui/Logo';
 import { KnockGate } from '@/components/ui/KnockGate';
 import { HeaderLogo } from '@/components/site/HeaderLogo';
@@ -41,7 +42,14 @@ export function SiteNav() {
   );
 }
 
-export function SiteFooter() {
+/**
+ * Kaki halaman membaca kontaknya sendiri dari basis data, bukan menerimanya
+ * lewat prop. Kalau lewat prop, setiap halaman publik baru wajib ingat
+ * mengoperkannya — dan yang lupa akan menampilkan nomor telepon lama.
+ */
+export async function SiteFooter() {
+  const content = await getSiteContent();
+
   return (
     <footer className="border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
       <div className="container-page grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -59,18 +67,18 @@ export function SiteFooter() {
         <div>
           <p className="text-sm font-semibold text-slate-900 dark:text-white">Kontak</p>
           <ul className="mt-3 space-y-2 text-sm text-slate-500 dark:text-slate-400">
-            <li>{COMPANY.phone}</li>
-            {COMPANY.email && <li>{COMPANY.email}</li>}
-            {COMPANY.workingHours && <li>{COMPANY.workingHours}</li>}
+            <li>{content.contactPhone}</li>
+            {content.contactEmail && <li>{content.contactEmail}</li>}
+            {content.workingHours && <li>{content.workingHours}</li>}
           </ul>
         </div>
 
         <div>
           <p className="text-sm font-semibold text-slate-900 dark:text-white">Alamat</p>
           <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
-            {COMPANY.addressLine}
+            {content.addressLine}
             <br />
-            {COMPANY.addressRegion}
+            {content.addressRegion}
           </p>
           <Link href="/lacak" className="mt-3 inline-block text-sm font-semibold text-quantum-600 hover:underline">
             Lacak progres unit →

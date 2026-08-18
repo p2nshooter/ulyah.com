@@ -25,6 +25,8 @@ export const PANEL_ACCESS: { path: string; roles?: UserRole[]; exact?: boolean }
   { path: '/panel/karyawan', roles: ['admin', 'keuangan', 'bos', 'produksi'] },
   { path: '/panel/penggajian', roles: ['admin', 'keuangan'] },
   { path: '/panel/promo', roles: ['admin', 'produksi', 'keuangan'] },
+  { path: '/panel/layanan', roles: ['admin'] },
+  { path: '/panel/tampilan', roles: ['admin'] },
   { path: '/panel/pengguna', roles: ['admin'] },
   { path: '/panel/pengaturan', roles: ['admin'] },
   { path: '/panel/aktivitas', roles: ['admin'] },

@@ -4,9 +4,12 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  // Memberi URL publik gratis https://quantum-karoseri.<subdomain>.workers.dev
-  // sehingga sistem bisa dipakai online sebelum domain sendiri dibeli.
+  // Tetap dinyalakan walau domain sendiri sudah terpasang: URL workers.dev
+  // jadi alamat cadangan kalau ada yang salah dengan zona domainnya.
   "workers_dev": true,
+  // Domain sendiri disisipkan saat deploy, hanya kalau zonanya memang sudah
+  // ada di akun Cloudflare — lihat .github/workflows/deploy-quantum.yml.
+  // __CUSTOM_DOMAIN_ROUTES__
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"

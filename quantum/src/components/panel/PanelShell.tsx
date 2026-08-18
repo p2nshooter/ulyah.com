@@ -34,6 +34,8 @@ const MENU: Record<string, { label: string; icon: string }> = {
   '/panel/karyawan': { label: 'Karyawan', icon: '🧑‍🔧' },
   '/panel/penggajian': { label: 'Penggajian', icon: '💰' },
   '/panel/promo': { label: 'Promo & Event', icon: '📣' },
+  '/panel/layanan': { label: 'Layanan Halaman Depan', icon: '🪧' },
+  '/panel/tampilan': { label: 'Tampilan Halaman Depan', icon: '🎨' },
   '/panel/pengguna': { label: 'Pengguna', icon: '👥' },
   '/panel/pengaturan': { label: 'Pengaturan', icon: '🛠️' },
   '/panel/aktivitas': { label: 'Log Aktivitas', icon: '🧾' },

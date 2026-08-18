@@ -656,6 +656,35 @@ export const settings = sqliteTable('settings', {
   updatedBy: text('updated_by').references(() => users.id)
 });
 
+/* --- Konten halaman depan ------------------------------------------------ */
+
+/**
+ * Kartu layanan di halaman depan. Dulu tiga kartu ini ditulis langsung di
+ * kode, jadi mengubah satu kalimat atau satu angka harga berarti deploy
+ * ulang. Sekarang isinya data biasa yang bisa diubah admin lewat panel.
+ */
+export const landingServices = sqliteTable(
+  'landing_services',
+  {
+    id: text('id').primaryKey(),
+    icon: text('icon').notNull().default('🔧'),
+    title: text('title').notNull(),
+    summary: text('summary').notNull().default(''),
+    /** Poin-poin di bawah kartu, disimpan satu baris per poin. */
+    bullets: text('bullets').notNull().default(''),
+    /** Kosongkan bila kartu memang tidak menampilkan harga. */
+    priceIdr: integer('price_idr'),
+    priceLabel: text('price_label').notNull().default('Mulai dari'),
+    priceNote: text('price_note').notNull().default(''),
+    sortOrder: integer('sort_order').notNull().default(0),
+    active: integer('active', { mode: 'boolean' }).notNull().default(true),
+    ...timestamps
+  },
+  (t) => ({
+    sortIdx: index('landing_services_sort_idx').on(t.sortOrder)
+  })
+);
+
 /* --- Jejak audit --------------------------------------------------------- */
 
 export const auditLog = sqliteTable(

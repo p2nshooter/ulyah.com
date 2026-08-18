@@ -38,6 +38,8 @@ plus halaman publik agar pelanggan bisa melacak sendiri progres unitnya.
 | Karyawan | Bagian/divisi, data karyawan, gaji pokok, jenis & masa kontrak, cetak surat perjanjian kerja |
 | Penggajian | Slip gaji dengan komponen yang dipilih lewat checklist; slip yang disimpan otomatis jadi biaya `gaji_upah` |
 | Promo & Event | Konten promo/event/pengumuman halaman depan beserta harga coret, tombol CTA, dan masa berlakunya |
+| Layanan Halaman Depan | Kartu layanan di halaman depan: ikon, judul, poin pekerjaan, dan **harganya** — urutan serta tampil/tidaknya diatur di sini *(admin)* |
+| Tampilan Halaman Depan | Judul, kalimat pengantar tiap bagian, nomor telepon/WhatsApp, email, jam kerja, dan alamat yang dilihat pengunjung *(admin)* |
 | Pengguna | Kelola akun staf & peran *(admin)* |
 | Pengaturan | Tarif PPN & PPh, dasar pengenaan PPh, identitas kop surat, saldo kas awal *(admin)* |
 | Log Aktivitas | 100 perubahan data terakhir beserta pelakunya *(admin)* |
@@ -129,8 +131,15 @@ dan `packages`. Perubahan di satu sisi tidak bisa membuat sisi lain merah.
 
 ## Membuat sistem online
 
-Belum ada domain sendiri, jadi alamatnya memakai URL gratis bawaan Cloudflare:
-`https://quantum-karoseri.<subdomain>.workers.dev`.
+Alamat utamanya adalah domain sendiri — bawaannya **xaa.es** (beserta `www.xaa.es`), dan bisa
+diganti lewat repo Variable `QUANTUM_DOMAIN`. URL gratis Cloudflare
+`https://quantum-karoseri.<subdomain>.workers.dev` tetap hidup sebagai alamat cadangan.
+
+Domain hanya dipasang kalau zonanya sudah **aktif** di akun Cloudflare yang sama. Kalau belum,
+deploy tidak digagalkan: workflow menulis peringatan, situsnya tetap terbit di alamat workers.dev,
+dan domainnya menempel sendiri pada deploy berikutnya setelah zonanya aktif. Untuk mengaktifkan
+zona: dashboard Cloudflare → **Websites** → **Add a site** → masukkan `xaa.es` → arahkan nameserver
+domainnya ke yang Cloudflare berikan.
 
 **Lewat GitHub Actions (jalur utama)**
 
@@ -171,8 +180,10 @@ itu dibuat ulang di CI setiap deploy.
 
 ## Identitas & data perusahaan
 
-Semua teks identitas ada di satu berkas: `src/lib/company.ts` — nama, kontak, alamat, dan daftar
-keunggulan. Data yang sekarang terisi diambil dari papan nama dan spanduk bengkel:
+Kontak dan teks halaman depan **diatur dari panel**, bukan dari kode: Panel → **Tampilan Halaman
+Depan**. Nilai di `src/lib/company.ts` hanya dipakai sebagai nilai awal ketika panel belum pernah
+diisi, ditambah nama badan usaha yang juga dipakai judul halaman dan kop laporan. Data awalnya
+diambil dari papan nama dan spanduk bengkel:
 
 - **CV. Quantum Karya Bersama** — Bengkel Karoseri, Body Repair & Service Mobil
 - Telepon/WhatsApp **0858-8669-2214**
@@ -183,8 +194,8 @@ Logo digambar sebagai SVG inline di `src/components/ui/Logo.tsx` (sabit tiga war
 dengan ekor berkobar) dan dipakai ulang untuk favicon di `src/app/icon.svg`. Karena SVG, logo tetap
 tajam di segala ukuran dan tidak menambah request gambar.
 
-**Masih kosong dan perlu diisi:** `email` dan `workingHours` di `src/lib/company.ts`. Keduanya
-sengaja dibiarkan kosong — halaman otomatis menyembunyikan baris tersebut alih-alih menampilkan
+**Masih kosong dan perlu diisi lewat Panel → Tampilan Halaman Depan:** email dan jam operasional.
+Keduanya sengaja dibiarkan kosong — halaman otomatis menyembunyikan barisnya alih-alih menampilkan
 tebakan yang salah.
 
 ## Struktur proyek
