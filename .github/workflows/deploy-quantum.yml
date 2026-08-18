@@ -1,0 +1,159 @@
+name: Deploy Quantum
+
+# Sistem karoseri CV. Quantum Karya Bersama (folder `quantum/`).
+#
+# Berbagi akun Cloudflare dan repositori dengan ulyah.com, tapi tidak berbagi
+# apa pun yang lain: Worker sendiri, database D1 sendiri (`quantum-db`), KV
+# sendiri, dan dependensi sendiri di luar pnpm workspace — sehingga `pnpm -r`
+# maupun `pnpm install --frozen-lockfile` milik ulyah tidak pernah menyentuhnya.
+#
+# Belum punya domain, jadi alamatnya memakai URL workers.dev bawaan.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'quantum/**'
+      - '.github/workflows/deploy-quantum.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-quantum
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: quantum
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Verify Cloudflare secrets are present
+        run: |
+          set -eu
+          missing=""
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name:-}" ]; then missing="$missing $name"; fi
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Secret GitHub yang belum diisi:$missing"
+            exit 1
+          fi
+
+      # npm, bukan pnpm: proyek ini di luar pnpm workspace ulyah supaya
+      # lockfile keduanya tidak pernah saling mengunci.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      # Provisioning lewat REST API, bukan wrangler CLI: keluaran JSON-nya
+      # bersih dan pesan galatnya menyebut izin token yang kurang secara
+      # spesifik, alih-alih "Failed to resolve id".
+      - name: Self-provision D1 & KV if missing
+        env:
+          VAR_D1_ID: ${{ vars.QUANTUM_D1_DATABASE_ID }}
+          VAR_KV_ID: ${{ vars.QUANTUM_KV_NAMESPACE_ID }}
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          JSON="Content-Type: application/json"
+          show_err() { echo "$1" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' 2>/dev/null || true; }
+
+          echo "--- D1 database 'quantum-db' ---"
+          D1_RESP=$(curl -s -H "$AUTH" "$CF/d1/database?name=quantum-db&per_page=100" || true)
+          D1_ID=$(echo "$D1_RESP" | jq -r '.result[]? | select(.name=="quantum-db") | .uuid' 2>/dev/null | head -n1 || true)
+          if [ -z "$D1_ID" ] && [ -n "${VAR_D1_ID:-}" ]; then D1_ID="$VAR_D1_ID"; fi
+          if [ -z "$D1_ID" ]; then
+            show_err "$D1_RESP"
+            echo "Membuat database quantum-db..."
+            D1_CREATE=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"name":"quantum-db"}' "$CF/d1/database" || true)
+            D1_ID=$(echo "$D1_CREATE" | jq -r '.result.uuid // empty' 2>/dev/null || true)
+            [ -z "$D1_ID" ] && show_err "$D1_CREATE"
+          fi
+          if [ -z "$D1_ID" ] || [ "$D1_ID" = "null" ]; then
+            echo "::error::Tidak bisa menyiapkan D1. Tambahkan izin 'Account > D1 : Edit' pada CLOUDFLARE_API_TOKEN, atau isi repo Variable QUANTUM_D1_DATABASE_ID."
+            exit 1
+          fi
+          echo "D1 id: $D1_ID"
+          echo "QUANTUM_D1_ID=$D1_ID" >> "$GITHUB_ENV"
+
+          echo "--- KV namespace 'quantum-kv' ---"
+          KV_RESP=$(curl -s -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" || true)
+          KV_ID=$(echo "$KV_RESP" | jq -r '.result[]? | select(.title=="quantum-kv") | .id' 2>/dev/null | head -n1 || true)
+          if [ -z "$KV_ID" ] && [ -n "${VAR_KV_ID:-}" ]; then KV_ID="$VAR_KV_ID"; fi
+          if [ -z "$KV_ID" ]; then
+            show_err "$KV_RESP"
+            echo "Membuat namespace quantum-kv..."
+            KV_CREATE=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"title":"quantum-kv"}' "$CF/storage/kv/namespaces" || true)
+            KV_ID=$(echo "$KV_CREATE" | jq -r '.result.id // empty' 2>/dev/null || true)
+            [ -z "$KV_ID" ] && show_err "$KV_CREATE"
+          fi
+          if [ -z "$KV_ID" ] || [ "$KV_ID" = "null" ]; then
+            echo "::error::Tidak bisa menyiapkan KV. Tambahkan izin 'Account > Workers KV Storage : Edit', atau isi repo Variable QUANTUM_KV_NAMESPACE_ID."
+            exit 1
+          fi
+          echo "KV id: $KV_ID"
+          echo "QUANTUM_KV_ID=$KV_ID" >> "$GITHUB_ENV"
+
+      - name: Substitute wrangler resource IDs
+        run: |
+          set -eu
+          sed -i "s/__D1_DATABASE_ID__/${QUANTUM_D1_ID}/" wrangler.jsonc
+          sed -i "s/__KV_NAMESPACE_ID__/${QUANTUM_KV_ID}/" wrangler.jsonc
+
+      - name: Build for Cloudflare
+        run: npm run cf:build
+
+      - name: Apply D1 migrations
+        run: npx wrangler d1 migrations apply quantum-db --remote
+
+      # seed.sql tidak pernah masuk repo karena memuat hash password admin;
+      # berkasnya dibuat ulang di sini setiap deploy.
+      - name: Generate seed file
+        env:
+          ADMIN_BOOTSTRAP_EMAIL: ${{ secrets.QUANTUM_ADMIN_EMAIL }}
+          ADMIN_BOOTSTRAP_PASSWORD: ${{ secrets.QUANTUM_ADMIN_PASSWORD }}
+        run: npm run generate:seed
+
+      # SQL biasa, bukan migrasi terlacak, supaya diterapkan ulang tiap deploy.
+      # Semua INSERT memakai OR IGNORE dengan id tetap, jadi data yang sudah
+      # diubah lewat panel tidak tertimpa — termasuk password admin yang sudah
+      # diganti sendiri.
+      - name: Seed master data
+        run: npx wrangler d1 execute quantum-db --remote --file=./seed/seed.sql
+
+      - name: Deploy Worker
+        run: npx wrangler deploy | tee deploy.log
+
+      - name: Publish URL to summary
+        if: always()
+        run: |
+          set -eu
+          if [ ! -f deploy.log ]; then
+            echo "Deploy tidak sampai berjalan — lihat langkah yang gagal di atas." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          URL="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1 || true)"
+          if [ -n "$URL" ]; then
+            {
+              echo "## Quantum sudah online"
+              echo ""
+              echo "- Situs publik: $URL"
+              echo "- Panel internal: $URL/login"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "URL workers.dev tidak ditemukan di log deploy." >> "$GITHUB_STEP_SUMMARY"
+          fi
