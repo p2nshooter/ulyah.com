@@ -51,6 +51,47 @@ async function generatePurchaseNumber(date: Date, offset = 0): Promise<string> {
   return `${prefix}${String((Number.isFinite(last) ? last : 0) + 1 + offset).padStart(3, '0')}`;
 }
 
+type ManualLine = { name: string; qty: number; unitCostIdr: number };
+
+/**
+ * Baris nota yang tidak dikaitkan ke barang stok dicatat sebagai biaya
+ * operasional, satu catatan per baris, dengan rujukan ke nota fisiknya.
+ *
+ * Sengaja belum ditandai lunas: pelunasannya lewat menu Biaya, sama seperti
+ * tagihan lain, sehingga baris ini muncul di laporan utang selama belum dibayar.
+ */
+async function recordManualLines(
+  db: Awaited<ReturnType<typeof getDb>>,
+  lines: ManualLine[],
+  ref: {
+    reference: string;
+    supplierName: string | null;
+    invoiceNumber: string | null;
+    spentAt: Date;
+    dueDate: Date | null;
+    actorUserId: string;
+  }
+): Promise<string[]> {
+  const ids: string[] = [];
+  for (const line of lines) {
+    const expenseId = newId('exp');
+    ids.push(expenseId);
+    await db.insert(expenses).values({
+      id: expenseId,
+      category: 'bahan_produksi',
+      description: `${line.name}${line.qty > 1 ? ` (${line.qty}x)` : ''} — ${ref.reference}`,
+      amountIdr: line.qty * line.unitCostIdr,
+      vendorName: ref.supplierName,
+      spentAt: ref.spentAt,
+      paidAt: null,
+      dueDate: ref.dueDate,
+      notes: ref.invoiceNumber ? `Nota supplier ${ref.invoiceNumber}` : 'Nota manual tanpa catat stok',
+      createdBy: ref.actorUserId
+    });
+  }
+  return ids;
+}
+
 export const POST = withErrorHandling(async (req: NextRequest) => {
   const guard = await requireRole('keuangan');
   if ('error' in guard) return guard.error;
@@ -87,7 +128,42 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
   const db = await getDb();
   const purchasedAt = new Date(parseDateInput(input.purchasedAt)!);
   const dueMs = parseDateInput(input.dueDate);
+  const dueDate = dueMs === null ? null : new Date(dueMs);
   const id = newId('pur');
+
+  // Nota yang seluruh barisnya tanpa catat stok bukan pembelian persediaan —
+  // isinya bahan habis pakai. Nota seperti ini tidak membuat baris pembelian
+  // sama sekali: baris pembelian bernilai Rp 0 tanpa satu pun barang hanya
+  // mengotori daftar dan membuat kasir mengira notanya gagal tersimpan.
+  if (stockLines.length === 0) {
+    const reference = input.invoiceNumber
+      ? `nota ${input.invoiceNumber}`
+      : `nota manual ${input.purchasedAt}`;
+    const manualExpenseIds = await recordManualLines(db, manualLines, {
+      reference,
+      supplierName: input.supplierName,
+      invoiceNumber: input.invoiceNumber,
+      spentAt: purchasedAt,
+      dueDate,
+      actorUserId: guard.user.id
+    });
+
+    await logAction(guard.user.id, 'purchase.manual', 'expense', manualExpenseIds[0], {
+      reference,
+      manualNotes: manualLines.length,
+      manualTotalIdr
+    });
+
+    return NextResponse.json({
+      ok: true,
+      id: null,
+      purchaseNumber: null,
+      totalIdr: 0,
+      manualTotalIdr,
+      manualCount: manualLines.length,
+      manualExpenseIds
+    });
+  }
 
   let lastError: unknown = null;
   for (let attempt = 0; attempt < 5; attempt++) {
@@ -102,7 +178,7 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
         totalIdr,
         paidIdr: input.paidIdr,
         purchasedAt,
-        dueDate: dueMs === null ? null : new Date(dueMs),
+        dueDate,
         notes: input.notes,
         createdBy: guard.user.id
       });
@@ -145,27 +221,14 @@ export const POST = withErrorHandling(async (req: NextRequest) => {
         });
       }
 
-      // Nota manual: satu catatan biaya per baris tanpa stok, dengan nomor
-      // pembelian dan nama supplier ikut tertulis supaya jejaknya ke nota fisik
-      // tetap jelas. Sengaja belum ditandai lunas — pelunasannya lewat menu
-      // Biaya, sama seperti tagihan lain.
-      const manualExpenseIds: string[] = [];
-      for (const item of manualLines) {
-        const expenseId = newId('exp');
-        manualExpenseIds.push(expenseId);
-        await db.insert(expenses).values({
-          id: expenseId,
-          category: 'bahan_produksi',
-          description: `${item.name}${item.qty > 1 ? ` (${item.qty}x)` : ''} — nota ${purchaseNumber}`,
-          amountIdr: item.qty * item.unitCostIdr,
-          vendorName: input.supplierName,
-          spentAt: purchasedAt,
-          paidAt: null,
-          dueDate: dueMs === null ? null : new Date(dueMs),
-          notes: input.invoiceNumber ? `Nota supplier ${input.invoiceNumber}` : 'Nota manual tanpa catat stok',
-          createdBy: guard.user.id
-        });
-      }
+      const manualExpenseIds = await recordManualLines(db, manualLines, {
+        reference: `nota ${purchaseNumber}`,
+        supplierName: input.supplierName,
+        invoiceNumber: input.invoiceNumber,
+        spentAt: purchasedAt,
+        dueDate,
+        actorUserId: guard.user.id
+      });
 
       await logAction(guard.user.id, 'purchase.create', 'purchase', id, {
         purchaseNumber,

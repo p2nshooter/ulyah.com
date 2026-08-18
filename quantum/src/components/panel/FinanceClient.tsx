@@ -609,6 +609,7 @@ function PurchasesTab({
   });
   const [lines, setLines] = useState<PurchaseLine[]>([{ ...EMPTY_LINE }]);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   const total = useMemo(
@@ -638,6 +639,7 @@ function PurchasesTab({
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    setNotice(null);
     setSaving(true);
     try {
       const res = await fetch('/api/panel/pembelian', {
@@ -661,22 +663,47 @@ function PurchasesTab({
             }))
         })
       });
-      const data = (await res.json()) as { id?: string; purchaseNumber?: string; totalIdr?: number; error?: string };
+      const data = (await res.json()) as {
+        id?: string | null;
+        purchaseNumber?: string | null;
+        totalIdr?: number;
+        manualTotalIdr?: number;
+        manualCount?: number;
+        error?: string;
+      };
       if (!res.ok) throw new Error(data.error || 'Gagal menyimpan pembelian.');
 
-      setRows((prev) => [
-        {
-          id: data.id!,
-          purchaseNumber: data.purchaseNumber!,
-          invoiceNumber: form.invoiceNumber || null,
-          supplierName: form.supplierName || supplierOptions.find((s) => s.id === form.supplierId)?.name || null,
-          totalIdr: data.totalIdr ?? total,
-          paidIdr: Number(form.paidIdr || 0),
-          purchasedAt: form.purchasedAt,
-          dueDate: form.dueDate || null
-        },
-        ...prev
-      ]);
+      // Baris tanpa barang stok tidak masuk daftar pembelian — nilainya jadi
+      // catatan biaya. Tanpa pemberitahuan ini kasir melihat angka yang lebih
+      // kecil dari notanya dan mengira sebagian entrinya hilang.
+      const manualCount = data.manualCount ?? 0;
+      const manualTotalIdr = data.manualTotalIdr ?? 0;
+      if (data.id && data.purchaseNumber) {
+        setRows((prev) => [
+          {
+            id: data.id!,
+            purchaseNumber: data.purchaseNumber!,
+            invoiceNumber: form.invoiceNumber || null,
+            supplierName: form.supplierName || supplierOptions.find((s) => s.id === form.supplierId)?.name || null,
+            totalIdr: data.totalIdr ?? total,
+            paidIdr: Number(form.paidIdr || 0),
+            purchasedAt: form.purchasedAt,
+            dueDate: form.dueDate || null
+          },
+          ...prev
+        ]);
+        setNotice(
+          manualCount > 0
+            ? `Nota ${data.purchaseNumber} tersimpan. ${formatIdr(data.totalIdr ?? total)} masuk persediaan; ` +
+              `${manualCount} baris tanpa catat stok senilai ${formatIdr(manualTotalIdr)} dicatat sebagai biaya di tab Biaya Operasional.`
+            : `Nota ${data.purchaseNumber} tersimpan.`
+        );
+      } else {
+        setNotice(
+          `Seluruh baris nota ini tanpa catat stok, jadi tidak masuk daftar pembelian. ` +
+            `${manualCount} catatan biaya senilai ${formatIdr(manualTotalIdr)} dibuat di tab Biaya Operasional dan menunggu pelunasan.`
+        );
+      }
       setForm({ ...form, supplierId: '', supplierName: '', invoiceNumber: '', paidIdr: '', notes: '' });
       setLines([{ ...EMPTY_LINE }]);
       setOpen(false);
@@ -899,6 +926,14 @@ function PurchasesTab({
       )}
 
       {error && !open && <p className="text-sm text-red-600">{error}</p>}
+
+      {/* Formulir menutup sendiri setelah tersimpan, jadi keterangan hasilnya
+          ditaruh di luar formulir supaya kasir sempat membacanya. */}
+      {notice && (
+        <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300">
+          {notice}
+        </p>
+      )}
 
       <div className="card overflow-x-auto">
         <table className="table-base">

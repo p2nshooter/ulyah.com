@@ -129,9 +129,21 @@ export async function saveSiteContent(patch: Partial<SiteContent>, actorUserId: 
   }
 }
 
-/** Tautan WhatsApp memakai nomor dari panel, bukan dari konstanta di kode. */
-export function siteWhatsappLink(content: Pick<SiteContent, 'contactWhatsapp'>, message: string): string {
-  return `https://wa.me/${content.contactWhatsapp}?text=${encodeURIComponent(message)}`;
+/**
+ * Tautan WhatsApp memakai nomor dari panel, bukan dari konstanta di kode.
+ *
+ * Mengembalikan null kalau nomornya kosong. Tanpa itu tautannya jadi
+ * `https://wa.me/?text=...` — tombol yang tetap terlihat mengundang diklik tapi
+ * tidak mengantar ke mana pun, dan pengunjung menyimpulkan bengkelnya yang
+ * tidak bisa dihubungi.
+ */
+export function siteWhatsappLink(
+  content: Pick<SiteContent, 'contactWhatsapp'>,
+  message: string
+): string | null {
+  const number = content.contactWhatsapp.trim();
+  if (!number) return null;
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
 export const siteAddress = (content: Pick<SiteContent, 'addressLine' | 'addressRegion'>): string =>
