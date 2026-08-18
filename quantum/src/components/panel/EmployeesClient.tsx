@@ -390,11 +390,11 @@ export function EmployeesClient({
               </div>
               <div>
                 <label className="label text-xs">{isMonthly ? 'Gaji pokok / bulan' : 'Gaji pokok (opsional)'}</label>
-                <input type="number" min={0} step={1000} className="input" value={form.baseSalaryIdr} onChange={(e) => setForm({ ...form, baseSalaryIdr: e.target.value })} />
+                <input type="number" min={0} step={1} className="input" value={form.baseSalaryIdr} onChange={(e) => setForm({ ...form, baseSalaryIdr: e.target.value })} />
               </div>
               <div>
                 <label className="label text-xs">{isMonthly ? 'Upah harian (opsional)' : 'Upah harian / borongan'}</label>
-                <input type="number" min={0} step={1000} className="input" value={form.dailyRateIdr} onChange={(e) => setForm({ ...form, dailyRateIdr: e.target.value })} />
+                <input type="number" min={0} step={1} className="input" value={form.dailyRateIdr} onChange={(e) => setForm({ ...form, dailyRateIdr: e.target.value })} />
               </div>
               <input className="input lg:col-span-2" placeholder="No. rekening" value={form.bankAccount} onChange={(e) => setForm({ ...form, bankAccount: e.target.value })} />
               <input className="input lg:col-span-2" placeholder="Catatan" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />

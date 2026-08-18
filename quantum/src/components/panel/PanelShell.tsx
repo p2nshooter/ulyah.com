@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import type { SessionUser } from '@/lib/auth/session';
-import { REPORT_ROLES, USER_ROLE_LABEL, type UserRole } from '@/lib/karoseri/constants';
+import { USER_ROLE_LABEL, type UserRole } from '@/lib/karoseri/constants';
+import { PANEL_ACCESS } from '@/lib/karoseri/panel-access';
 import { LogoMark } from '@/components/ui/Logo';
 
 type NavItem = {
@@ -16,24 +17,35 @@ type NavItem = {
   exact?: boolean;
 };
 
-const NAV: NavItem[] = [
-  { href: '/panel', label: 'Dashboard', icon: '📊', exact: true, roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/laporan', label: 'Laporan Keuangan', icon: '📈', roles: REPORT_ROLES },
-  { href: '/panel/spk', label: 'SPK & Unit', icon: '🚌', roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/servis', label: 'Order Servis', icon: '🔧', roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/pelanggan', label: 'Pelanggan', icon: '🤝', roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/model', label: 'Model Bodi', icon: '📐', roles: ['admin', 'produksi'] },
-  { href: '/panel/barang', label: 'Barang & Jasa', icon: '🧰', roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/keuangan', label: 'Kas & Pembelian', icon: '💳', roles: ['admin', 'keuangan', 'bos'] },
-  { href: '/panel/penawaran', label: 'Permintaan Penawaran', icon: '📨', roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/karyawan', label: 'Karyawan', icon: '🧑‍🔧', roles: ['admin', 'keuangan', 'bos', 'produksi'] },
-  { href: '/panel/penggajian', label: 'Penggajian', icon: '💰', roles: ['admin', 'keuangan'] },
-  { href: '/panel/promo', label: 'Promo & Event', icon: '📣', roles: ['admin', 'produksi', 'keuangan'] },
-  { href: '/panel/pengguna', label: 'Pengguna', icon: '👥', roles: ['admin'] },
-  { href: '/panel/pengaturan', label: 'Pengaturan', icon: '🛠️', roles: ['admin'] },
-  { href: '/panel/aktivitas', label: 'Log Aktivitas', icon: '🧾', roles: ['admin'] },
-  { href: '/panel/akun', label: 'Akun Saya', icon: '⚙️' }
-];
+/** Label & ikon menu. Izin perannya diambil dari PANEL_ACCESS, bukan ditulis
+ *  ulang di sini — dulu keduanya terpisah dan sempat berbeda: menu sudah
+ *  menyembunyikan SPK dari pemilik sementara halamannya masih terbuka. */
+const MENU: Record<string, { label: string; icon: string }> = {
+  '/panel': { label: 'Dashboard', icon: '📊' },
+  '/panel/laporan': { label: 'Laporan Keuangan', icon: '📈' },
+  '/panel/spk': { label: 'SPK & Unit', icon: '🚌' },
+  '/panel/servis': { label: 'Order Servis', icon: '🔧' },
+  '/panel/pelanggan': { label: 'Pelanggan', icon: '🤝' },
+  '/panel/model': { label: 'Model Bodi', icon: '📐' },
+  '/panel/barang': { label: 'Barang & Jasa', icon: '🧰' },
+  '/panel/keuangan': { label: 'Kas & Pembelian', icon: '💳' },
+  '/panel/penawaran': { label: 'Permintaan Penawaran', icon: '📨' },
+  '/panel/karyawan': { label: 'Karyawan', icon: '🧑‍🔧' },
+  '/panel/penggajian': { label: 'Penggajian', icon: '💰' },
+  '/panel/promo': { label: 'Promo & Event', icon: '📣' },
+  '/panel/pengguna': { label: 'Pengguna', icon: '👥' },
+  '/panel/pengaturan': { label: 'Pengaturan', icon: '🛠️' },
+  '/panel/aktivitas': { label: 'Log Aktivitas', icon: '🧾' },
+  '/panel/akun': { label: 'Akun Saya', icon: '⚙️' }
+};
+
+const NAV: NavItem[] = PANEL_ACCESS.filter((entry) => MENU[entry.path]).map((entry) => ({
+  href: entry.path,
+  label: MENU[entry.path].label,
+  icon: MENU[entry.path].icon,
+  roles: entry.roles,
+  exact: entry.exact
+}));
 
 export function PanelShell({ user, children }: { user: SessionUser; children: React.ReactNode }) {
   const pathname = usePathname();

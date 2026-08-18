@@ -2,10 +2,12 @@ import { notFound } from 'next/navigation';
 import { getCurrentUser } from '@/lib/auth/session';
 import { getServiceOrderDetail } from '@/lib/data/service-orders';
 import { ServiceOrderDetailClient, type ServiceOrderDetail } from '@/components/panel/ServiceOrderDetailClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ServiceOrderPage({ params }: { params: Promise<{ id: string }> }) {
+  await guardPanelPage('/panel/servis');
   const { id } = await params;
   const [user, detail] = await Promise.all([getCurrentUser(), getServiceOrderDetail(id)]);
   if (!detail) notFound();

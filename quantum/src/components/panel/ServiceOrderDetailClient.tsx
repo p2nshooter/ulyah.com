@@ -306,7 +306,7 @@ export function ServiceOrderDetailClient({
                 <input
                   type="number"
                   min={1}
-                  step={10000}
+                  step={1}
                   className="input sm:col-span-3"
                   required
                   placeholder="Nominal"

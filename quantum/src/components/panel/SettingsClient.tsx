@@ -182,7 +182,7 @@ export function SettingsClient({ initialSettings }: { initialSettings: AppSettin
         <input
           type="number"
           min={0}
-          step={100000}
+          step={1}
           className="input"
           value={form.openingCashIdr}
           onChange={(e) => setForm({ ...form, openingCashIdr: e.target.value })}

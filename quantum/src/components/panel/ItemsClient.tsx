@@ -232,7 +232,7 @@ export function ItemsClient({ initialItems, canWrite }: { initialItems: ItemRow[
             <input
               type="number"
               min={0}
-              step={1000}
+              step={1}
               className="input"
               placeholder="Harga modal (Rp)"
               value={form.costPriceIdr}
@@ -241,7 +241,7 @@ export function ItemsClient({ initialItems, canWrite }: { initialItems: ItemRow[
             <input
               type="number"
               min={0}
-              step={1000}
+              step={1}
               className="input"
               placeholder="Harga jual (Rp)"
               value={form.sellPriceIdr}

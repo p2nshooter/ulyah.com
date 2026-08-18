@@ -384,7 +384,7 @@ export function WorkOrderForm({
                 id="contractValue"
                 type="number"
                 min={0}
-                step={1000}
+                step={1}
                 className="input"
                 value={form.contractValueIdr}
                 onChange={(e) => setForm({ ...form, contractValueIdr: e.target.value })}

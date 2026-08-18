@@ -3,10 +3,12 @@ import { getDb } from '@/lib/db/client';
 import { customers } from '@/lib/db/schema';
 import { getCurrentUser } from '@/lib/auth/session';
 import { CustomersClient } from '@/components/panel/CustomersClient';
+import { guardPanelPage } from '@/lib/auth/panel-guard';
 
 export const dynamic = 'force-dynamic';
 
 export default async function CustomersPage() {
+  await guardPanelPage('/panel/pelanggan');
   const db = await getDb();
   const [rows, user] = await Promise.all([
     db.select().from(customers).orderBy(desc(customers.createdAt)).limit(500),
