@@ -1,0 +1,51 @@
+{
+  "name": "quantum-karoseri",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sistem manajemen produksi karoseri CV. Quantum Karya Bersama",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply quantum-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply quantum-db --remote",
+    "db:seed:local": "wrangler d1 execute quantum-db --local --file=./seed/seed.sql",
+    "db:seed:remote": "wrangler d1 execute quantum-db --remote --file=./seed/seed.sql",
+    "generate:seed": "tsx scripts/generate-seed.ts",
+    "generate:demo": "tsx scripts/generate-demo-seed.ts",
+    "generate:templates": "python3 scripts/generate-office-templates.py && node scripts/generate-word-templates.js",
+    "db:demo:local": "wrangler d1 execute quantum-db --local --file=./seed/demo.sql",
+    "db:demo:remote": "wrangler d1 execute quantum-db --remote --file=./seed/demo.sql"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.33.0",
+    "nanoid": "5.0.7",
+    "next": "15.5.20",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20260702.1",
+    "@opennextjs/cloudflare": "1.20.1",
+    "@types/node": "20.16.11",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "10.4.20",
+    "drizzle-kit": "0.24.2",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.5.20",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.13",
+    "tsx": "4.19.1",
+    "typescript": "5.6.3",
+    "wrangler": "4.107.0"
+  }
+}
