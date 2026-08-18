@@ -17,13 +17,17 @@ export const COMPANY = {
 
   phone: '0858-8669-2214',
   whatsapp: '6285886692214',
-  /** Belum ada di papan nama — isi kalau sudah punya email resmi. */
+  /**
+   * Bengkel belum punya email resmi. Sengaja dibiarkan kosong, bukan diisi
+   * tebakan: halaman menyembunyikan barisnya sendiri, sementara alamat yang
+   * tidak ada pembacanya membuat pelanggan mengirim surat ke ruang kosong.
+   * Isi lewat Panel > Tampilan Halaman Depan kalau sudah punya.
+   */
   email: '',
   addressLine: 'Jl. Raya Sukakarya–Sukatani, Kp. Tenjo Laut No. 1, RT 01/01',
   addressRegion: 'Desa Sukakarya, Kec. Sukakarya, Kabupaten Bekasi, Jawa Barat',
   mapsUrl: 'https://maps.app.goo.gl/xZRfZcXzmrjXGFuA7',
-  /** GANTI: isi jam operasional yang benar, mis. 'Senin–Sabtu, 08.00–17.00 WIB'. */
-  workingHours: '',
+  workingHours: 'Setiap hari, 08.00–17.00 WIB',
 
   /** Keunggulan yang tercantum di papan nama bengkel. */
   highlights: [

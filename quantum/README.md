@@ -194,9 +194,11 @@ Logo digambar sebagai SVG inline di `src/components/ui/Logo.tsx` (sabit tiga war
 dengan ekor berkobar) dan dipakai ulang untuk favicon di `src/app/icon.svg`. Karena SVG, logo tetap
 tajam di segala ukuran dan tidak menambah request gambar.
 
-**Masih kosong dan perlu diisi lewat Panel → Tampilan Halaman Depan:** email dan jam operasional.
-Keduanya sengaja dibiarkan kosong — halaman otomatis menyembunyikan barisnya alih-alih menampilkan
-tebakan yang salah.
+Jam operasional: **setiap hari, 08.00–17.00 WIB**.
+
+**Masih kosong:** email resmi. Sengaja dibiarkan kosong alih-alih diisi tebakan — halaman
+menyembunyikan barisnya sendiri, sementara alamat yang tidak ada pembacanya membuat pelanggan
+mengirim surat ke ruang kosong. Isi lewat Panel → Tampilan Halaman Depan begitu ada.
 
 ## Struktur proyek
 
