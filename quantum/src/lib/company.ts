@@ -21,7 +21,7 @@ export const COMPANY = {
   email: '',
   addressLine: 'Jl. Raya Sukakarya–Sukatani, Kp. Tenjo Laut No. 1, RT 01/01',
   addressRegion: 'Desa Sukakarya, Kec. Sukakarya, Kabupaten Bekasi, Jawa Barat',
-  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Bengkel+Quantum+Tenjo+Laut+Sukakarya+Bekasi',
+  mapsUrl: 'https://maps.app.goo.gl/xZRfZcXzmrjXGFuA7',
   /** GANTI: isi jam operasional yang benar, mis. 'Senin–Sabtu, 08.00–17.00 WIB'. */
   workingHours: '',
 
