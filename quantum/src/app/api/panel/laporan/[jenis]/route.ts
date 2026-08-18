@@ -28,7 +28,13 @@ export const GET = withErrorHandling(async (req: NextRequest, { params }: { para
   }
 
   const url = new URL(req.url);
-  const format = url.searchParams.get('format') === 'pdf' ? 'pdf' : 'doc';
+  // Format asing ditolak alih-alih diam-diam dijadikan Word: `?format=xls`
+  // dulu mengunduh berkas Word bernama .doc, yang menyesatkan pemakainya.
+  const requested = url.searchParams.get('format') ?? 'doc';
+  if (requested !== 'pdf' && requested !== 'doc') {
+    return NextResponse.json({ error: 'Format hanya boleh pdf atau doc.' }, { status: 400 });
+  }
+  const format = requested;
   const period = periodFromParams(
     url.searchParams.get('from') ?? undefined,
     url.searchParams.get('to') ?? undefined

@@ -40,6 +40,12 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   const { id } = await params;
 
   const db = await getDb();
+  // Id yang tidak ada dijawab 404, bukan 200. Menjawab "berhasil" untuk
+  // baris yang tidak pernah ada membuat panel menghapus barisnya dari layar
+  // dan menyembunyikan bahwa daftarnya sudah basi.
+  const existing = await db.select({ id: promos.id }).from(promos).where(eq(promos.id, id)).limit(1);
+  if (existing.length === 0) return NextResponse.json({ error: 'Konten tidak ditemukan.' }, { status: 404 });
+
   await db.delete(promos).where(eq(promos.id, id));
   await logAction(guard.user.id, 'promo.delete', 'promo', id);
   return NextResponse.json({ ok: true });

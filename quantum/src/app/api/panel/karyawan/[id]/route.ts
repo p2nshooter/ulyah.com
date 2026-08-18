@@ -34,6 +34,12 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   const { id } = await params;
 
   const db = await getDb();
+  // Id yang tidak ada dijawab 404, bukan 200. Menjawab "berhasil" untuk
+  // baris yang tidak pernah ada membuat panel menghapus barisnya dari layar
+  // dan menyembunyikan bahwa daftarnya sudah basi.
+  const existing = await db.select({ id: employees.id }).from(employees).where(eq(employees.id, id)).limit(1);
+  if (existing.length === 0) return NextResponse.json({ error: 'Karyawan tidak ditemukan.' }, { status: 404 });
+
   // Karyawan yang pernah digaji tidak dihapus — slip gaji lama harus tetap utuh.
   // Nonaktifkan saja; datanya tetap ada untuk arsip dan laporan.
   const used = await db

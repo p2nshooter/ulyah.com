@@ -38,6 +38,12 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   const { id } = await params;
 
   const db = await getDb();
+  // Id yang tidak ada dijawab 404, bukan 200. Menjawab "berhasil" untuk
+  // baris yang tidak pernah ada membuat panel menghapus barisnya dari layar
+  // dan menyembunyikan bahwa daftarnya sudah basi.
+  const existing = await db.select({ id: bodyModels.id }).from(bodyModels).where(eq(bodyModels.id, id)).limit(1);
+  if (existing.length === 0) return NextResponse.json({ error: 'Model bodi tidak ditemukan.' }, { status: 404 });
+
   // Model yang pernah dipakai SPK cukup dinonaktifkan, jangan dihapus, supaya
   // SPK lama tetap menunjukkan model apa yang dikerjakan.
   const used = await db.select({ id: workOrders.id }).from(workOrders).where(eq(workOrders.bodyModelId, id)).limit(1);

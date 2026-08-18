@@ -2,14 +2,13 @@ import Link from 'next/link';
 import { COMPANY } from '@/lib/company';
 import { LogoWordmark } from '@/components/ui/Logo';
 import { KnockGate } from '@/components/ui/KnockGate';
+import { HeaderLogo } from '@/components/site/HeaderLogo';
 
 export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label={COMPANY.legalName}>
-          <LogoWordmark />
-        </Link>
+        <HeaderLogo />
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex dark:text-slate-300">
           <Link href="/#layanan" className="hover:text-quantum-600">

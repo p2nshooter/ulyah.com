@@ -31,6 +31,12 @@ export const DELETE = withErrorHandling(async (_req: NextRequest, { params }: { 
   const { id } = await params;
 
   const db = await getDb();
+  // Id yang tidak ada dijawab 404, bukan 200. Menjawab "berhasil" untuk
+  // baris yang tidak pernah ada membuat panel menghapus barisnya dari layar
+  // dan menyembunyikan bahwa daftarnya sudah basi.
+  const existing = await db.select({ id: customers.id }).from(customers).where(eq(customers.id, id)).limit(1);
+  if (existing.length === 0) return NextResponse.json({ error: 'Pelanggan tidak ditemukan.' }, { status: 404 });
+
   // Pelanggan yang masih punya SPK tidak dihapus — riwayat produksi harus utuh.
   const used = await db.select({ id: workOrders.id }).from(workOrders).where(eq(workOrders.customerId, id)).limit(1);
   if (used.length > 0) {
