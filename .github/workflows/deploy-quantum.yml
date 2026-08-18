@@ -15,7 +15,15 @@ on:
     paths:
       - 'quantum/**'
       - '.github/workflows/deploy-quantum.yml'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      reset_accounts:
+        description: >-
+          Kembalikan username & password akun bawaan (admin + pemilik) ke nilai
+          di kode. Pakai hanya kalau kredensialnya tidak cocok lagi — ini
+          menimpa password yang mungkin sudah diganti sendiri lewat panel.
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-quantum
@@ -130,6 +138,7 @@ jobs:
           OWNER_BOOTSTRAP_USERNAME: ${{ secrets.QUANTUM_OWNER_USERNAME }}
           OWNER_BOOTSTRAP_EMAIL: ${{ secrets.QUANTUM_OWNER_EMAIL }}
           OWNER_BOOTSTRAP_PASSWORD: ${{ secrets.QUANTUM_OWNER_PASSWORD }}
+          RESET_BOOTSTRAP_ACCOUNTS: ${{ inputs.reset_accounts && '1' || '0' }}
         run: npm run generate:seed
 
       # SQL biasa, bukan migrasi terlacak, supaya diterapkan ulang tiap deploy.
@@ -138,6 +147,15 @@ jobs:
       # diganti sendiri.
       - name: Seed master data
         run: npx wrangler d1 execute quantum-db --remote --file=./seed/seed.sql
+
+      # Daftar akun dicetak setelah seed supaya ketidakcocokan identitas
+      # ketahuan di sini, bukan nanti ketika orang gagal masuk. Hanya nama
+      # pengguna, email, dan peran — hash password tidak pernah ikut.
+      - name: Verify accounts
+        run: |
+          set -eu
+          npx wrangler d1 execute quantum-db --remote \
+            --command "SELECT username, email, role, active FROM users ORDER BY role;"
 
       - name: Deploy Worker
         run: npx wrangler deploy | tee deploy.log

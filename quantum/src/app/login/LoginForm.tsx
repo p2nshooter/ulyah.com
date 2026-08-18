@@ -19,6 +19,7 @@ export function LoginForm({
   const router = useRouter();
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -76,15 +77,34 @@ export function LoginForm({
         <label className={label} htmlFor="password">
           Password
         </label>
-        <input
-          id="password"
-          type="password"
-          autoComplete="current-password"
-          className="input"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        {/* Password diketik di HP, dan password kuat penuh simbol gampang salah
+            ketik tanpa bisa dilihat. Tombolnya di dalam kolom supaya tidak
+            memakan baris sendiri di layar sempit. */}
+        <div className="relative">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            autoComplete="current-password"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            className="input pr-16"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((v) => !v)}
+            aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
+            aria-pressed={showPassword}
+            className={`absolute inset-y-0 right-0 px-3 text-xs font-semibold ${
+              tone === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-500 hover:text-quantum-600'
+            }`}
+          >
+            {showPassword ? 'Sembunyikan' : 'Lihat'}
+          </button>
+        </div>
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
