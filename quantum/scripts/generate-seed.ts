@@ -105,6 +105,15 @@ function main() {
     ''
   ];
 
+  // OR IGNORE menjaga password yang sudah diganti sendiri lewat panel agar tidak
+  // tertimpa setiap deploy. Konsekuensinya: perubahan identitas akun bawaan
+  // (username/email/password baru di berkas ini) TIDAK pernah sampai ke database
+  // yang barisnya sudah ada — persis yang terjadi di produksi, ketika akun admin
+  // tetap memakai password acak deploy pertama sementara berkas ini sudah
+  // menyebut yang lain. RESET_BOOTSTRAP_ACCOUNTS=1 adalah pintu darurat untuk
+  // itu: sekali jalan, disengaja, dan tidak pernah aktif pada deploy biasa.
+  const resetAccounts = process.env.RESET_BOOTSTRAP_ACCOUNTS === '1';
+
   lines.push('-- Akun awal: administrator + pemilik');
   for (const account of accounts) {
     lines.push(
@@ -116,6 +125,25 @@ function main() {
     );
   }
   lines.push('');
+
+  if (resetAccounts) {
+    lines.push('-- RESET_BOOTSTRAP_ACCOUNTS=1: kembalikan identitas & password akun bawaan.');
+    lines.push('-- UPDATE, bukan INSERT OR REPLACE: barisnya harus tetap baris yang sama');
+    lines.push('-- supaya sesi, log aktivitas, dan data lain yang menunjuk ke id ini tidak putus.');
+    for (const account of accounts) {
+      lines.push(
+        `UPDATE users SET name = ${sqlString(account.name)}, username = ${sqlString(
+          account.username
+        )}, email = ${sqlString(account.email)}, password_hash = ${sqlString(
+          account.passwordHash
+        )}, role = ${sqlString(account.role)}, active = 1 WHERE id = ${sqlString(account.id)};`
+      );
+      // Sesi lama dicabut: kalau tidak, peramban yang masih memegang cookie
+      // tetap masuk memakai password yang baru saja diganti.
+      lines.push(`DELETE FROM sessions WHERE user_id = ${sqlString(account.id)};`);
+    }
+    lines.push('');
+  }
 
   lines.push('-- Katalog model bodi bawaan');
   for (const preset of BODY_MODEL_PRESETS) {
@@ -156,6 +184,9 @@ function main() {
     // Yang dicetak hanya identitas akunnya. Password tidak pernah dicetak,
     // karena keluaran ini ikut tersimpan di log GitHub Actions yang publik.
     console.log(`  ${account.role.padEnd(5)} : ${account.username} (${account.email})`);
+  }
+  if (resetAccounts) {
+    console.log('  RESET_BOOTSTRAP_ACCOUNTS=1 — identitas & password kedua akun di atas dikembalikan.');
   }
 }
 
