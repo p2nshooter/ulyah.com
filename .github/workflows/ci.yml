@@ -58,6 +58,15 @@ jobs:
       - name: Check which languages may be machine-translated into
         run: npx tsx scripts/check-mt-targets.ts
 
+      # An occasion of revelation that exists is always shown. The reader
+      # renders an empty asbabun panel as "no specific occasion is narrated for
+      # this ayah" — a claim about scholarship, and a false one when the real
+      # cause was a translator that failed for a second. Worse, the ayah bundle
+      # caches for thirty days, so that second becomes a month. This runs the
+      # real resolver with every translator broken.
+      - name: Check the asbabun nuzul panel never empties itself
+        run: npx tsx scripts/check-asbabun-never-empty.ts
+
       # The Worker is capped at 3 MiB by Cloudflare and this table ships inside
       # it. Regenerating it for all 26 languages once took it from 471 KB to
       # 813 KB gzipped and the deploy was rejected outright — after the build

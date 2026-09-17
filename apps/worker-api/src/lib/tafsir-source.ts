@@ -34,14 +34,35 @@ const SPA5K_TAFSIR: Record<string, { edition: string; source: string }> = {
 const ASBAB_EDITION = "en-asbab-al-nuzul-by-al-wahidi";
 const ASBAB_SOURCE = "Asbab An-Nuzul by Al-Wahidi";
 
+/**
+ * Fetch an upstream JSON edition, KV-cached, and NEVER throw.
+ *
+ * Every tafsir and asbabun source behind this lives on somebody else's host
+ * (equran.id, raw.githubusercontent). The callers all treat null as "this
+ * source has nothing for this ayah" and move to the next one — but a rejected
+ * fetch is not null, it is an exception, and it used to escape all the way out:
+ * the ayah bundle builds its parts with Promise.all, so one unreachable host
+ * did not cost the tafsir panel, it cost the whole ayah — a 500 where the
+ * Arabic, the translation and the hadits were all already in hand.
+ *
+ * A source being down is ordinary and must read as "nothing from here".
+ */
 async function fetchJsonCached<T>(env: Env, kvKey: string, url: string): Promise<T | null> {
-  const cached = await safeKvGet(env, kvKey);
-  if (cached) return JSON.parse(cached) as T;
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) return null;
-  const data = (await res.json()) as T;
-  await safeKvPut(env, kvKey, JSON.stringify(data), { expirationTtl: KV_TTL });
-  return data;
+  try {
+    const cached = await safeKvGet(env, kvKey);
+    if (cached) return JSON.parse(cached) as T;
+  } catch {
+    /* a poisoned/garbled cache entry is a miss, not a failure */
+  }
+  try {
+    const res = await fetch(url, { headers: { Accept: "application/json" } });
+    if (!res.ok) return null;
+    const data = (await res.json()) as T;
+    await safeKvPut(env, kvKey, JSON.stringify(data), { expirationTtl: KV_TTL });
+    return data;
+  } catch {
+    return null;
+  }
 }
 
 interface EquranTafsir {
@@ -267,29 +288,48 @@ async function fetchSahihAsbab(
  * dataset (Al-Wahidi & As-Suyuthi) — a `null` entry there is an explicit "no
  * specific occasion" and is respected; then the authentic Sahih Asbab al-Nuzul
  * (Arabic, translated on demand); then the spa5k Al-Wahidi (English) edition.
+ *
+ * AN OCCASION THAT EXISTS IS ALWAYS SHOWN. Owner: "jgn sampe hilang panel
+ * asbabun nuzul." This used to return null whenever the on-demand translation
+ * failed, and the reader then rendered its "no specific occasion is narrated
+ * for this ayah" state — which is not a degraded panel, it is a false
+ * statement: the occasion IS narrated, we simply could not translate it that
+ * second. A missed translation is transient (upstream rate limit, a blocked
+ * Worker egress); the sentence it replaced was wrong and cached.
+ *
+ * So the last resort is the text we actually have, labelled with the language
+ * it is in, and the panel keeps its content. `lang` tells the reader what it
+ * received: it is the display language when the text was translated, and the
+ * source's own language when it was not — the caller renders `dir` from it and
+ * the source label carries the rest.
  */
 export async function fetchAsbabunNuzul(
   env: Env,
   surah: number,
   ayahNumber: number,
   lang: string | null = "id"
-): Promise<{ text: string; source: string } | null> {
+): Promise<{ text: string; source: string; lang: string } | null> {
+  const want = lang ?? "id";
+  // The best untranslated answer seen so far. Only ever used if every
+  // translation attempt below fails — never in place of one that worked.
+  let asIs: { text: string; source: string; lang: string } | null = null;
+
   const key = `${surah}_${ayahNumber}`;
   if (key in ASBAB_DATA) {
     const text = ASBAB_DATA[key];
-    if (!text) return null;
+    if (!text) return null; // curated "no specific occasion" — a real answer
     // The curated dataset is authored in Indonesian — translate it for any
     // other UI language rather than leaking Indonesian onto a sibling site.
-    if (!lang || lang === "id") return { text, source: "Asbabun Nuzul — Al-Wahidi & As-Suyuthi" };
-    const translated = await translateText(env, text, lang, "id");
-    if (translated) {
-      return { text: translated, source: `Asbabun Nuzul — Al-Wahidi & As-Suyuthi ${translatedSuffix(lang)}` };
-    }
-    // fall through to the other sources below rather than serving Indonesian
+    const curated = "Asbabun Nuzul — Al-Wahidi & As-Suyuthi";
+    if (want === "id") return { text, source: curated, lang: "id" };
+    const translated = await translateText(env, text, want, "id");
+    if (translated) return { text: translated, source: `${curated} ${translatedSuffix(want)}`, lang: want };
+    // Hold it, try the other sources, and fall back to it only at the end.
+    asIs = { text, source: `${curated} (Bahasa Indonesia)`, lang: "id" };
   }
 
   const sahih = await fetchSahihAsbab(env, surah, ayahNumber, lang);
-  if (sahih) return sahih;
+  if (sahih) return { ...sahih, lang: "ar" };
 
   const data = await fetchJsonCached<{ ayahs?: { ayah: number; text: string }[] }>(
     env,
@@ -298,16 +338,13 @@ export async function fetchAsbabunNuzul(
   );
   const hit = data?.ayahs?.find((a) => a.ayah === ayahNumber);
   const text = hit?.text?.trim();
-  if (!text || text.length < 40) return null;
+  if (!text || text.length < 40) return asIs;
 
-  // This fallback edition is English-only. Surfacing raw English in any
-  // non-English UI reads as a broken/inconsistent page (and mixes languages
-  // on the single-language sibling sites), so translate it on demand and
-  // cache the result forever. If translation genuinely fails, return null so
-  // the reader shows its honest "no specific occasion" state — NEVER leak
-  // the wrong language.
-  if (lang === "en") return { text, source: ASBAB_SOURCE };
-  const target = lang ?? "id";
-  const translatedEn = await translateText(env, text, target, "en");
-  return translatedEn ? { text: translatedEn, source: `${ASBAB_SOURCE} ${translatedSuffix(target)}` } : null;
+  // This fallback edition is English-only, so it is translated on demand and
+  // cached forever. If the translation fails, the English is shown as English
+  // rather than the panel claiming no occasion exists.
+  if (want === "en") return { text, source: ASBAB_SOURCE, lang: "en" };
+  const translatedEn = await translateText(env, text, want, "en");
+  if (translatedEn) return { text: translatedEn, source: `${ASBAB_SOURCE} ${translatedSuffix(want)}`, lang: want };
+  return asIs ?? { text, source: `${ASBAB_SOURCE} (English)`, lang: "en" };
 }

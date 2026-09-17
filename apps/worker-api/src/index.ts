@@ -156,23 +156,37 @@ app.onError((err, c) => {
   return c.json({ error: "Internal server error", detail: detail.slice(0, 300) }, 500);
 });
 
-// The ORIGINAL audio/qori/ R2 library predates the 128 kbps importer fixes,
-// so much of its ~17 GB is low-bitrate, muffled audio the owner called dead
-// weight ("cuma jadi beban"). Playback now lives exclusively under the clean
-// audio/qori2/ prefix (see routes/audio.ts), so the legacy objects are
-// unreachable — delete them a bounded slice per tick until done, guarded by
-// a KV flag. NOTE: list({ prefix: "audio/qori/" }) cannot match
-// "audio/qori2/…" — the trailing slash protects the HiFi library.
-const LEGACY_MUROTTAL_PREFIX = "audio/qori/";
-const LEGACY_PURGE_DONE_FLAG = "cleanup:r2-murottal-legacy-lowbitrate-done";
+// ── Deleting the stored murottal library ─────────────────────────────────
+//
+// Owner: "hilangin audio2 alquran murottal ganti dengan cdn." Recitation is
+// played from the reciters' own CDNs now (apps/web/src/lib/qori-cdn.ts, and
+// routes/audio.ts redirects rather than serving bytes), so NOTHING reads these
+// objects. They are ~17 GB of R2 the owner already called dead weight ("cuma
+// jadi beban") when only the legacy half was unreachable.
+//
+// Both prefixes go, each with its own flag so one finishing never stops the
+// other:
+//   audio/qori/   the original library, pre-128 kbps, muffled;
+//   audio/qori2/  the HiFi library that replaced it.
+//
+// NOTE the trailing slashes, and that they are why this is safe: a list on
+// "audio/qori/" cannot match "audio/qori2/…", and neither can match the kids
+// audio, the story narration or anything else in the bucket. A slice per tick,
+// bounded, so a 15-minute heartbeat is never spent on this alone; the flag is
+// written when a prefix is empty so the work stops for good rather than
+// listing an empty prefix every quarter hour, forever.
+const MUROTTAL_PREFIXES: { prefix: string; flag: string; what: string }[] = [
+  { prefix: "audio/qori/", flag: "cleanup:r2-murottal-legacy-lowbitrate-done", what: "legacy low-bitrate" },
+  { prefix: "audio/qori2/", flag: "cleanup:r2-murottal-qori2-done", what: "HiFi" },
+];
 
-async function purgeLegacyMurottal(env: Env): Promise<void> {
-  const done = await env.CACHE_KV.get(LEGACY_PURGE_DONE_FLAG).catch(() => null);
+async function purgeMurottalPrefix(env: Env, { prefix, flag, what }: (typeof MUROTTAL_PREFIXES)[number]): Promise<void> {
+  const done = await env.CACHE_KV.get(flag).catch(() => null);
   if (done) return;
   let cursor: string | undefined;
   let deleted = 0;
   for (let page = 0; page < 20; page++) {
-    const listing = await env.MEDIA_R2.list({ prefix: LEGACY_MUROTTAL_PREFIX, cursor, limit: 1000 });
+    const listing = await env.MEDIA_R2.list({ prefix, cursor, limit: 1000 });
     const keys = listing.objects.map((o) => o.key);
     if (keys.length > 0) {
       await env.MEDIA_R2.delete(keys);
@@ -181,12 +195,40 @@ async function purgeLegacyMurottal(env: Env): Promise<void> {
     if (listing.truncated) {
       cursor = listing.cursor;
     } else {
-      await env.CACHE_KV.put(LEGACY_PURGE_DONE_FLAG, `1:${deleted}`).catch(() => {});
-      console.log(`Legacy murottal purge complete — removed ${deleted} low-bitrate objects.`);
+      await env.CACHE_KV.put(flag, `1:${deleted}`).catch(() => {});
+      console.log(`Murottal purge (${what}) complete — removed ${deleted} object(s) under ${prefix}.`);
       return;
     }
   }
-  console.log(`Legacy murottal purge: removed ${deleted} objects this tick, more remain — continuing next tick.`);
+  console.log(`Murottal purge (${what}): removed ${deleted} object(s) this tick, more remain — continuing next tick.`);
+}
+
+/**
+ * The catalogue rows that pointed at those objects. `audio_cache` existed to
+ * record which ayah of which qori was already in R2; with the library gone it
+ * describes nothing, and it is D1 rows, which is the resource the platform
+ * actually runs out of. Bounded per tick like the objects above, and it stops
+ * as soon as the table is empty.
+ */
+async function purgeMurottalCatalogue(env: Env): Promise<void> {
+  const flag = "cleanup:d1-audio-cache-done";
+  const done = await env.CACHE_KV.get(flag).catch(() => null);
+  if (done) return;
+  const res = await env.DB.prepare(
+    "DELETE FROM audio_cache WHERE rowid IN (SELECT rowid FROM audio_cache LIMIT 2000)"
+  ).run();
+  // D1 reports what it changed; nothing changed means the table is empty.
+  if (!res.meta?.changes) {
+    await env.CACHE_KV.put(flag, "1").catch(() => {});
+    console.log("Murottal catalogue purge complete — audio_cache is empty.");
+  }
+}
+
+async function purgeMurottalLibrary(env: Env): Promise<void> {
+  for (const p of MUROTTAL_PREFIXES) {
+    await purgeMurottalPrefix(env, p).catch((e) => console.error(`murottal purge ${p.prefix} failed`, e));
+  }
+  await purgeMurottalCatalogue(env).catch((e) => console.error("audio_cache purge failed", e));
 }
 
 export default {
@@ -208,7 +250,7 @@ export default {
         env.DB.prepare("DELETE FROM site_hits WHERE ts < strftime('%s','now') - 1800")
           .run()
           .catch((e) => console.error("site-hits prune failed", e)),
-        purgeLegacyMurottal(env).catch((e) => console.error("legacy-murottal purge failed", e)),
+        purgeMurottalLibrary(env).catch((e) => console.error("murottal purge failed", e)),
         orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
         // Autonomous content bot: the Orchestra writes + auto-publishes one
         // article per tick to an eligible article site (inert until

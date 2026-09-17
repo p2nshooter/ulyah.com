@@ -1,15 +1,13 @@
 /**
- * Murottal source registry — the ONE mapping from an R2 folder
- * (audio/qori/<folder>/) to where that reciter's per-ayah 128 kbps MP3s can
- * be fetched when a file is not (yet) in R2.
+ * Murottal source registry — the ONE mapping from a reciter's folder name to
+ * where that reciter's per-ayah 128 kbps MP3s actually live.
  *
- * The owner's decision: R2 is the PRIMARY player source for the radio, the
- * per-ayah Qur'an reader and the Mushaf Utsmani ("rencana menggunakan R2
- * sebagai pemutar suara radio, alquran per ayat dan alquran usmani"). The
- * bulk importer (scripts/import-murottal.mjs) fills the library to 100%;
- * this registry additionally lets the /audio/qori route self-heal any gap
- * on demand: R2 miss → fetch from the source CDN below → stream to the
- * listener AND store into R2 so the next play is served from R2.
+ * The owner's decision: "hilangin audio2 alquran murottal ganti dengan cdn."
+ * There is no stored library any more — the players go to these CDNs directly
+ * (apps/web/src/lib/qori-cdn.ts) and /audio/qori2/… redirects here rather than
+ * serving bytes of ours. The folder names outlive the R2 prefix they were named
+ * after, because they are also what the old urls carry and what the redirect
+ * resolves with.
  *
  *   kind "aqc" — cdn.islamic.network (alquran.cloud), addressed by GLOBAL
  *                ayah number 1..6236, preferring the 128 kbps path (the
@@ -29,8 +27,9 @@ export interface MurottalSource {
 }
 
 // Folder → source. Folders match qori.audio_base_path ('audio/qori/<folder>')
-// and the r2Folder values in apps/web/src/lib/qori-cdn.ts. Keep the three in
-// sync when adding a reciter.
+// in D1 and the r2Folder values in apps/web/src/lib/qori-cdn.ts. Keep the three
+// in sync when adding a reciter: the pair is what turns an old /audio/qori2/…
+// url into a CDN file.
 export const MUROTTAL_SOURCES: Record<string, MurottalSource> = {
   alafasy: { kind: "aqc", edition: "ar.alafasy", name: "Mishary Rashid Alafasy" },
   sudais: { kind: "aqc", edition: "ar.abdurrahmaansudais", name: "Abdul Rahman Al-Sudais" },
@@ -119,13 +118,11 @@ export function sourceUrlCandidates(folder: string, surah: number, ayah: number)
   return [];
 }
 
-/** The bitrate (kbps) this reciter's TOP source publishes — i.e. what a
- * permanently-stored R2 object under audio/qori2/<folder>/ is supposed to
- * be. aqc reciters are always imported through the forced 128 kbps path;
- * ey reciters carry their bitrate in the everyayah folder name (a few
- * voices only exist at 40/64 kbps — that IS their HiFi, never "poisoned").
- * Used by the audio route's self-audit to spot low-bitrate objects that
- * slipped into the HiFi library and must be re-fetched. */
+/** The bitrate (kbps) this reciter's TOP source publishes. aqc reciters are
+ * addressed through the forced 128 kbps path; ey reciters carry their bitrate
+ * in the everyayah folder name (a few voices only exist at 40/64 kbps — that IS
+ * their HiFi, never "poisoned"). Used by the bulk importer, which is the only
+ * thing left that can write an audio file anywhere. */
 export function expectedHiFiKbps(folder: string): number | null {
   const src = MUROTTAL_SOURCES[folder];
   if (!src) return null;

@@ -7,18 +7,22 @@ name: Import murottal to R2 (complete the library)
 # subrequest/time budget. Idempotent + resumable — re-running only fetches the
 # gaps, so start with one reciter, verify, then do the rest.
 #
-# HELD, and it needs a deliberate hand to run. Owner: "live idn aja jgn
-# download." The Worker no longer stores anything it streams either (see the
-# tier-3 note in apps/worker-api/src/routes/audio.ts) — an ayah that is not
-# already in R2 is played live from the reciter's own CDN and nothing is kept.
+# HELD, and nothing reads what it writes. Owner: "live idn aja jgn download …
+# hilangin audio2 alquran murottal ganti dengan cdn."
+#
+# The library this job fills is being DELETED: the Worker's scheduled tick drains
+# audio/qori/ and audio/qori2/ out of R2 (see apps/worker-api/src/index.ts), the
+# players fetch from the reciters' own CDNs, and /audio/qori2/… redirects there
+# rather than serving bytes. So an import today would refill a bucket prefix that
+# no page ever asks for.
 #
 # The reason is arithmetic: one reciter's complete per-ayah library is 6,236
 # files, twenty-two reciters is ~137,000, and that is storage that only ever
 # grows, for audio the source CDNs already serve for free.
 #
-# The tooling stays — a reciter whose CDN goes dark is exactly when you want it
-# back — but it can no longer be started by a stray click: `confirm` must say
-# `download` or the job stops before fetching a single file.
+# The tooling stays for the day a reciter's CDN goes dark and a mirror is worth
+# having again — that is a decision with a route change behind it, not a click.
+# `confirm` must say `download` or the job stops before fetching a single file.
 
 on:
   workflow_dispatch:

@@ -1,18 +1,20 @@
 /**
- * Murottal (Qur'an recitation) audio — R2 FIRST, public CDN as fallback.
+ * Murottal (Qur'an recitation) audio — straight from the reciters' CDNs.
  *
- * Owner decision: the radio, the per-ayah Qur'an reader and the Mushaf
- * Utsmani all stream from OUR OWN Cloudflare R2 library via
- * api.ulyah.com/audio/qori/<folder>/<SSS><AAA>.mp3 ("rencana menggunakan R2
- * sebagai pemutar suara radio, alquran per ayat dan alquran usmani"). R2 has
- * free egress, sits behind Cloudflare's edge cache, and can't go silent or
- * throttle us the way third-party CDNs did (the "radio bisu"/"mendem"
- * reports). The API route self-heals: an R2 miss transparently pulls the
- * 128 kbps file from the reciter's own CDN, serves it, and stores it into R2
- * so the library completes itself from real listening.
+ * Owner decision: "hilangin audio2 alquran murottal ganti dengan cdn." The
+ * radio, the per-ayah Qur'an reader and the Mushaf Utsmani all play from the
+ * reciter's own CDN now. We store no recitation of our own: the previous
+ * design mirrored the whole library into R2 (6,236 files per reciter, twenty-
+ * two reciters) and completed itself from real listening, which is storage
+ * that grows with traffic, forever, for audio these CDNs already serve.
  *
- * The direct source CDNs stay as the LAST-RESORT fallback (used only if
- * api.ulyah.com itself is unreachable):
+ * api.ulyah.com/audio/qori2/… stays in the list, LAST, and is no longer a
+ * library: it redirects to the same CDN file (see worker-api routes/audio.ts).
+ * It earns its place for the alquran.cloud reciters, whose direct URL needs a
+ * metadata lookup that can fail — the redirect is a pure formula and needs
+ * none, so a reciter is never silent because an API was slow.
+ *
+ * The source CDNs:
  *   - "aqc"   api.alquran.cloud — JSON audio URL per ayah, forced to the
  *             128 kbps islamic.network path (low bitrates sound muffled).
  *   - "ey"    everyayah.com — pure URL formula, no fetch needed.
@@ -37,8 +39,10 @@ export interface QoriDef {
   aqcEdition?: string;
   eyId?: string;
   surahFn?: (surah: number) => string;
-  /** R2 folder under audio/qori/ — the PRIMARY per-ayah source. Must match
-   * qori.audio_base_path in D1 and MUROTTAL_SOURCES in the worker. */
+  /** The reciter's folder name in the api.ulyah.com redirect path (a leftover
+   * of the deleted R2 library, kept because it is also the key of
+   * MUROTTAL_SOURCES in the worker, which is what the redirect resolves with).
+   * A reciter without one simply has no backstop URL — it plays from its CDN. */
   r2Folder?: string;
 }
 
@@ -194,24 +198,26 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
   return promise;
 }
 
-// Cache-bust token for murottal audio. Audio is served immutable (1-year)
-// for speed, so a file that was ever cached at a low bitrate — in the browser
-// OR at Cloudflare's edge — can NEVER be corrected in place; only a NEW URL
-// escapes it. The worker folds this token into its edge-cache key too (see
-// routes/audio.ts), so BUMPING THIS NUMBER instantly invalidates every
-// poisoned browser + edge entry network-wide and re-reads the corrected R2
-// file. Bump it whenever muffled audio is reported after a library fix.
-// v4: the worker now audits the real MP3 bitrate of every R2 object before
-// serving (see worker-api routes/audio.ts) — poisoned low-bitrate objects
-// stored during the #98→#100 window are re-fetched at 128 kbps. Bumping to 4
-// abandons every edge/browser entry that may hold those muffled bytes, so the
-// verified-HiFi files are what get cached from now on.
-export const MUROTTAL_VERSION = 4;
+// Cache-bust token for the api.ulyah.com murottal URL. Bytes served under it
+// during the R2 era went out immutable (1-year), in browsers and at
+// Cloudflare's edge, and an immutable entry can never be corrected in place —
+// only a NEW URL escapes it. So this token is how a muffled copy is abandoned.
+// v5: that URL no longer serves bytes at all, it redirects to the reciter's own
+// CDN (see worker-api routes/audio.ts). Bumping past 4 walks away from every
+// entry still holding the old library's audio, including the low-bitrate
+// objects stored during the #98→#100 window.
+export const MUROTTAL_VERSION = 5;
 
-/** PRIMARY per-ayah URL: our own R2 library behind api.ulyah.com. Pure URL
- * formula — zero metadata fetches, so starting playback is instant. The
- * ?v token busts stale immutable caches without changing the R2 object key. */
-export function r2AyahAudioUrl(qoriKey: string, surah: number, ayah: number): string | null {
+/**
+ * Pure-formula per-ayah URL through api.ulyah.com, which redirects to the
+ * reciter's CDN. Zero metadata fetches, so it always resolves — that is why it
+ * stays in the source list as the BACKSTOP behind the direct CDN URLs, not
+ * because anything of ours is stored behind it any more.
+ *
+ * The ?v token is kept: old browser and edge entries under this URL may still
+ * hold bytes from the R2 era, and only a new URL escapes an immutable cache.
+ */
+export function apiAyahAudioUrl(qoriKey: string, surah: number, ayah: number): string | null {
   const rc = RECITERS.find((r) => r.key === qoriKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   if (!rc.r2Folder) return null;
   return `${API_BASE}/audio/qori2/${rc.r2Folder}/${pad3(surah)}${pad3(ayah)}.mp3?v=${MUROTTAL_VERSION}`;
@@ -221,8 +227,8 @@ export function r2AyahAudioUrl(qoriKey: string, surah: number, ayah: number): st
  * reciter doesn't publish per-ayah audio (surah-mode reciters). Callers
  * already treat null the same as "not available" and fall through to the
  * narrated layers, so no reciter ever leaves the player silently stuck.
- * NOTE: this is the DIRECT-CDN resolver — players should call
- * resolveAyahAudioSources() instead, which puts the R2 library first. */
+ * This is the DIRECT-CDN resolver, and it is what players get FIRST — see
+ * resolveAyahAudioSources(). */
 export async function resolveAyahAudioUrl(qoriKey: string, surah: number, ayah: number): Promise<string | null> {
   const rc = RECITERS.find((r) => r.key === qoriKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   if (rc.cdn === "ey" && rc.eyId) return buildEyUrl(rc.eyId, surah, ayah);
@@ -242,19 +248,28 @@ export async function resolveAyahAudioUrl(qoriKey: string, surah: number, ayah: 
   return null; // surah-mode: no per-ayah URL
 }
 
-/** Ordered playable sources for one ayah: R2 first (fast, self-hosted, can't
- * be blocked), then the reciter's own CDN as last resort. Players walk the
- * list on error, so a single bad source never silences playback. */
+/**
+ * Ordered playable sources for one ayah: the reciter's own CDN first, then the
+ * api.ulyah.com redirect as a backstop. Players walk the list on error, so a
+ * single bad source never silences playback.
+ *
+ * The order is the reverse of what it used to be. Our R2 copy came first for
+ * years because the direct CDNs had gone quiet on us before ("radio bisu"); the
+ * copy is being deleted (owner: "hilangin audio2 alquran murottal ganti dengan
+ * cdn"), so the CDN leads and the redirect covers the case the copy used to
+ * cover — an alquran.cloud metadata lookup that fails or is slow, where the
+ * redirect still resolves from a pure formula.
+ */
 export async function resolveAyahAudioSources(qoriKey: string, surah: number, ayah: number): Promise<string[]> {
   const sources: string[] = [];
-  const r2 = r2AyahAudioUrl(qoriKey, surah, ayah);
-  if (r2) sources.push(r2);
   try {
     const cdn = await resolveAyahAudioUrl(qoriKey, surah, ayah);
-    if (cdn && !sources.includes(cdn)) sources.push(cdn);
+    if (cdn) sources.push(cdn);
   } catch {
-    /* R2 source alone is fine */
+    /* the backstop below still resolves */
   }
+  const viaApi = apiAyahAudioUrl(qoriKey, surah, ayah);
+  if (viaApi && !sources.includes(viaApi)) sources.push(viaApi);
   return sources;
 }
 

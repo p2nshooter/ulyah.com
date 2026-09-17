@@ -96,7 +96,11 @@ Watched nightly by `.github/workflows/db-maintenance.yml`:
   target, a red run past the 10 GB ceiling — because a full D1 stops accepting
   writes rather than slowing down, and the first symptom is the admin being
   unable to log in.
-- **Media is streamed, not stored.** Murottal that is not already in R2 is
-  played live from the reciter's own CDN and nothing is kept
-  (`apps/worker-api/src/routes/audio.ts`); the bulk importer still exists but
-  refuses to run without an explicit `confirm=download`.
+- **Murottal comes from the reciters' CDNs.** We store no recitation at all:
+  the players resolve the reciter's own CDN URL
+  (`apps/web/src/lib/qori-cdn.ts`), `/audio/qori2/…` redirects there instead of
+  serving bytes (`apps/worker-api/src/routes/audio.ts`), and the Worker's
+  scheduled tick drains the old `audio/qori/` + `audio/qori2/` libraries out of
+  R2 along with the `audio_cache` rows that catalogued them. The bulk importer
+  still exists for the day a mirror is worth having again, but refuses to run
+  without an explicit `confirm=download`.

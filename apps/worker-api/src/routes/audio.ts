@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import type { Env } from "../env.js";
-import { MUROTTAL_SOURCES, sourceUrlCandidates, expectedHiFiKbps } from "../lib/murottal-sources.js";
-import { sniffMp3Kbps } from "../lib/mp3-bitrate.js";
+import { MUROTTAL_SOURCES, sourceUrlCandidates } from "../lib/murottal-sources.js";
 
 export const audioRoute = new Hono<{ Bindings: Env }>();
 
@@ -54,200 +53,68 @@ audioRoute.get("/kids/:code", async (c) => {
   return streamR2Object(c, row.r2_key);
 });
 
-// ── Murottal: R2 first, then live from the reciter's CDN ────────────────
+// ── Murottal: a redirect to the reciter's CDN ─────────────────────────────
 //
 // GET /audio/qori2/:folder/:file  (file = <SSS><AAA>.mp3)
 //
-// Serves the murottal library: radio, per-ayah Qur'an reader and Mushaf
-// Utsmani all point here first (apps/web/src/lib/qori-cdn.ts). Three tiers, and
-// none of them writes anything:
-//   1. Cloudflare edge cache (per-colo, free) — repeat plays of the same ayah
-//      in a colo never touch R2 at all;
-//   2. R2 — what the library already holds, served as-is;
-//   3. source CDN, LIVE — an R2 miss is streamed straight from the reciter's
-//      own CDN to the listener and nothing is kept.
+// Owner: "hilangin audio2 alquran murottal ganti dengan cdn." We keep no
+// recitation of our own any more. This route used to BE the library — R2 first,
+// filled by a bulk importer and topped up from real listening — and the players
+// asked it before anything else. Now the players go straight to the reciter's
+// CDN (apps/web/src/lib/qori-cdn.ts) and this URL answers 302 to the same file.
 //
-// Tier 3 used to also WRITE what it fetched: the object into R2 and a row into
-// audio_cache, so the library "healed itself" from real listening. That is off
-// (owner: "live idn aja jgn download"). A complete per-ayah library is 6,236
-// files per reciter across 22 reciters, and every play of an ayah nobody had
-// played before added another one — storage that grows with traffic, forever,
-// for files the source CDN already serves for free.
+// Why keep it at all, rather than delete the route:
+//   · every page, bookmark and cached JS bundle from the R2 era still asks for
+//     this URL, and a 404 is a silent player;
+//   · it is the one per-ayah URL that resolves from a pure formula for the
+//     alquran.cloud reciters, whose direct URL otherwise needs a metadata
+//     lookup — so the web player keeps it as the backstop behind the CDN.
 //
-// What this costs: an ayah not already in R2 is one upstream fetch per colo per
-// cache lifetime instead of one ever. What it buys: storage that stops growing,
-// and no writes to D1 on the playback path at all. The edge cache stays — it is
-// not storage, it expires by itself, and it is what keeps the hot path fast.
-//
-// WHY "qori2": the ORIGINAL audio/qori/ library was filled before the
-// 128 kbps importer fixes (#93/#94), so a large share of it is low-bitrate,
-// muffled audio ("mendem, kaya kaset kusut"). Serving R2-first from that
-// prefix made the muffled files the PRIMARY source — and worse, they were
-// then stamped into edge and browser caches with a one-year immutable
-// Cache-Control. Bytes behind an immutable URL can never be repaired in
-// place; only a NEW URL escapes every stale cache. audio/qori2/ is that
-// clean-slate library: HiFi-only from day one, self-healing at 128 kbps.
-// The legacy prefix is purged in the background (see index.ts scheduled).
-const MUROTTAL_PREFIX = "audio/qori2/";
+// A redirect costs the Worker no bytes, no R2 read, no D1 write and no storage:
+// the listener fetches from the CDN, with its Range handling and its own edge.
+// The legacy /audio/qori/ alias points here too, so the poisoned low-bitrate
+// objects from the old library can never be served again by either path.
+const MUROTTAL_CACHE_SECONDS = 86400;
 
-async function serveMurottal(c: any, folder: string, file: string) {
+function serveMurottal(c: any, folder: string, file: string) {
   if (!MUROTTAL_SOURCES[folder] || !/^\d{6}\.mp3$/.test(file)) {
     return c.json({ error: "Unknown murottal path" }, 404);
   }
   const surah = Number(file.slice(0, 3));
   const ayah = Number(file.slice(3, 6));
-  const key = `${MUROTTAL_PREFIX}${folder}/${file}`;
 
-  const rangeHeader = c.req.header("range");
-  const rangeStart = rangeHeader ? Number(/bytes=(\d+)-/.exec(rangeHeader)?.[1] ?? 0) : 0;
-  // The files are one-ayah MP3s (tiny). Only a nonzero-offset seek needs a
-  // real 206; a plain load or a bytes=0- probe is happily served the full
-  // 200 body, which lets the edge cache carry the hot path.
-  const cacheable = rangeStart === 0;
-  const cache = (caches as unknown as { default: Cache }).default;
-  // Canonical cache key on the qori2 URL no matter which route matched — the
-  // legacy /audio/qori/ alias must never read the poisoned low-bitrate
-  // entries cached under its own URL. The ?v cache-bust token (set by the web
-  // player, see qori-cdn.ts MUROTTAL_VERSION) is KEPT in the key: a bumped
-  // version is a brand-new edge key, so poisoned immutable entries under the
-  // old version are bypassed entirely and the corrected R2 file is re-read.
-  const incoming = new URL(c.req.url);
-  const canonical = new URL(c.req.url);
-  canonical.pathname = `/audio/qori2/${folder}/${file}`;
-  canonical.search = incoming.searchParams.has("v") ? `?v=${incoming.searchParams.get("v")}` : "";
-  const cacheKey = new Request(canonical.toString(), { method: "GET" });
+  // Candidates are ordered best-bitrate-first; the top one is what the
+  // importer used to store, so a listener gets exactly the audio the library
+  // would have held.
+  const url = sourceUrlCandidates(folder, surah, ayah)[0];
+  if (!url) return c.json({ error: "Audio not found" }, 404);
 
-  if (cacheable) {
-    const hit = await cache.match(cacheKey).catch(() => undefined);
-    if (hit) {
-      const res = new Response(hit.body, hit);
-      res.headers.set("X-Murottal-Source", "edge");
-      return res;
-    }
-  }
-
-  // `immutable` (default) is for the permanent, top-quality file. A fallback
-  // (lower-bitrate) fill is served with SHORT freshness so it is retried at
-  // the HiFi source soon and never becomes the muffled-forever copy.
-  const audioHeaders = (durable = true) => {
-    const h = new Headers();
-    h.set("content-type", "audio/mpeg");
-    h.set("accept-ranges", "bytes");
-    h.set("cache-control", durable ? "public, max-age=31536000, immutable" : "public, max-age=3600");
-    // Audio is public and non-credentialed — let every sibling domain play it.
-    h.set("access-control-allow-origin", "*");
-    return h;
-  };
-
-  // Tier 2 — R2, WITH a bitrate self-audit. R2 bytes used to be trusted
-  // blindly, but the library briefly persisted low-bitrate fallback fills
-  // (fixed in #100) — and a poisoned object behind an immutable URL keeps
-  // sounding "mendem kaya kaset kusut" forever, no matter how many cache
-  // versions are bumped, because the BYTES in R2 are wrong. So: sniff the
-  // real MP3 frame bitrate before serving; an object below this reciter's
-  // published HiFi bitrate is treated as a MISS, so tier 3 streams the true
-  // 128 kbps file live instead. The poisoned object is no longer overwritten —
-  // nothing writes to R2 from here any more — it is simply never served while a
-  // source CDN answers, and the bulk importer is what repairs the library.
-  const options: R2GetOptions = {};
-  if (rangeStart > 0) options.range = { offset: rangeStart };
-  const obj = await c.env.MEDIA_R2.get(key, options).catch(() => null);
-  let poisonedBytes: ArrayBuffer | null = null; // last-resort if every source is down
-  if (obj) {
-    if (rangeStart > 0) {
-      // Nonzero seek (rare): serve as-is — the offset-0 load that started
-      // playback already audited (or will audit) this object.
-      const headers = audioHeaders();
-      headers.set("etag", obj.httpEtag);
-      headers.set("X-Murottal-Source", "r2");
-      const total = obj.size;
-      headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
-      return new Response(obj.body, { status: 206, headers });
-    }
-    const bytes = await obj.arrayBuffer();
-    const realKbps = sniffMp3Kbps(bytes);
-    const wantKbps = expectedHiFiKbps(folder);
-    // Only a POSITIVE sniff below the published bitrate marks poison — an
-    // unparseable buffer must serve normally or healthy files would refetch
-    // on every play.
-    if (realKbps !== null && wantKbps !== null && realKbps < wantKbps) {
-      poisonedBytes = bytes; // fall through to tier 3 (live), keep as last resort
-    } else {
-      const headers = audioHeaders();
-      headers.set("etag", obj.httpEtag);
-      headers.set("X-Murottal-Source", "r2");
-      c.executionCtx.waitUntil(
-        cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {})
-      );
-      return new Response(bytes, { status: 200, headers });
-    }
-  }
-
-  // Tier 3 — stream LIVE from the source CDN, storing nothing.
-  // `sourceUrlCandidates` lists the BEST source first (128 kbps for aqc; the
-  // reciter's HiFi folder for ey), then lower-bitrate fallbacks. We still track
-  // WHICH candidate answered, because only the top one (index 0) is HiFi and
-  // may be cached at the edge for long: a momentary 128 kbps blip must not
-  // freeze a muffled copy under this URL for a year, which is exactly the
-  // "mendem kaya kaset kusut" bug this route exists to avoid.
-  let buf: ArrayBuffer | null = null;
-  let usedIndex = -1;
-  const candidates = sourceUrlCandidates(folder, surah, ayah);
-  for (let ci = 0; ci < candidates.length; ci++) {
-    try {
-      const res = await fetch(candidates[ci]!, { headers: { "User-Agent": "ulyah.com murottal" } });
-      if (res.ok) {
-        const b = await res.arrayBuffer();
-        if (b.byteLength > 2000) {
-          buf = b;
-          usedIndex = ci;
-          break;
-        }
-      }
-    } catch {
-      /* try the next bitrate/source */
-    }
-  }
-  if (!buf) {
-    if (poisonedBytes) {
-      // Every source CDN is unreachable — the low-bitrate copy is still
-      // better than silence. Serve it with SHORT freshness and no edge
-      // cache, so the very next play retries the HiFi repair.
-      const headers = audioHeaders(false);
-      headers.set("X-Murottal-Source", "r2-lowbitrate-pending-repair");
-      return new Response(poisonedBytes, { status: 200, headers });
-    }
-    return c.json({ error: "Audio not found" }, 404);
-  }
-  // Top-quality source AND the bytes really carry the published bitrate —
-  // belt-and-braces so a throttled/duff "HiFi" response can never be stored
-  // permanently and poison the library again.
-  const fillKbps = sniffMp3Kbps(buf);
-  const hifiKbps = expectedHiFiKbps(folder);
-  const isHiFi = usedIndex === 0 && !(fillKbps !== null && hifiKbps !== null && fillKbps < hifiKbps);
-
-  const bytes = buf;
-
-  const headers = audioHeaders(isHiFi);
-  headers.set("X-Murottal-Source", isHiFi ? "cdn-live-hifi" : "cdn-live-fallback");
-  if (rangeStart > 0) {
-    const total = bytes.byteLength;
-    const body = bytes.slice(rangeStart);
-    headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
-    return new Response(body, { status: 206, headers });
-  }
-  // Only edge-cache the HiFi stream; a fallback must stay uncached so the next
-  // play re-attempts the 128 kbps source.
-  if (isHiFi) {
-    c.executionCtx.waitUntil(cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {}));
-  }
-  return new Response(bytes, { status: 200, headers });
+  // A hand-built Response, not c.redirect(): Hono's helper takes a location and
+  // a status and nothing else, so the cache and CORS headers below would have
+  // been dropped on the floor — silently, because `c` is untyped here.
+  //
+  // 302, not 301: which CDN and which bitrate answers for a reciter is a
+  // decision we may revisit (a source going quiet is the reason the R2 mirror
+  // existed), and a permanent redirect cached in browsers would outlive it.
+  // A day of freshness is plenty to keep the hop off the hot path.
+  return new Response(null, {
+    status: 302,
+    headers: {
+      location: url,
+      "cache-control": `public, max-age=${MUROTTAL_CACHE_SECONDS}`,
+      // The redirect itself is cross-origin readable; the audio bytes carry the
+      // CDN's own CORS headers, which is what a crossorigin player reads.
+      "access-control-allow-origin": "*",
+      "X-Murottal-Source": "cdn-redirect",
+    },
+  });
 }
 
 // Canonical HiFi route.
 audioRoute.get("/qori2/:folder/:file", (c) => serveMurottal(c, c.req.param("folder"), c.req.param("file")));
-// Legacy alias — old cached pages/JS keep working, but they too are served
-// the fresh HiFi bytes (never the poisoned legacy library).
+// Legacy alias — old cached pages/JS keep working, and they are redirected to
+// the same CDN file, so the poisoned low-bitrate objects the old library held
+// under this prefix can never be served again.
 audioRoute.get("/qori/:folder/:file", (c) => serveMurottal(c, c.req.param("folder"), c.req.param("file")));
 
 // CORS preflight for the audio paths (some browsers preflight crossorigin
