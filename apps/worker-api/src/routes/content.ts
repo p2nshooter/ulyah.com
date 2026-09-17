@@ -261,15 +261,18 @@ contentRoute.get("/sitemap", async (c) => {
   return c.body(body, 200, { "content-type": "application/json" });
 });
 
-// GET /content/locales — which languages the site currently offers. Public,
-// because the language control and the edge middleware both need it on every
-// request. Deliberately tiny (a list of two-letter codes) and cached at the
-// edge for a minute, so asking is essentially free.
+// GET /content/locales — what `locale_settings` says, for the admin portal.
 //
-// Fails CLOSED, unlike site-pages above: if the table cannot be read we return
-// no languages rather than all of them, and the caller falls back to its own
-// built-in default. Failing open here would briefly re-expose the
-// half-translated languages this switch exists to keep hidden.
+// It is no longer a gate. The sites decide what they serve from the build
+// itself: ulyah.com is Indonesian, each sibling is its domain's language, and
+// nothing renders a language by machine translation any more (see
+// MT_TARGET_LANGS in @ulyah/shared/i18n). The middleware, the language control
+// and the sitemap used to ask this on every request and widen themselves by the
+// answer; they do not ask any more, so a row in this table can no longer put a
+// half-translated language in front of a reader.
+//
+// Kept because it is a public, cached, two-letter-code endpoint that costs
+// nothing and still reports the stored state. Fails CLOSED, as before.
 contentRoute.get("/locales", async (c) => {
   c.header("Access-Control-Allow-Origin", "*");
   try {

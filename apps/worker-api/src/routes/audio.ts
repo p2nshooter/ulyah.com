@@ -54,21 +54,30 @@ audioRoute.get("/kids/:code", async (c) => {
   return streamR2Object(c, row.r2_key);
 });
 
-// ── Murottal from R2 (owner: R2 is the PRIMARY player source) ─────────────
+// ── Murottal: R2 first, then live from the reciter's CDN ────────────────
 //
 // GET /audio/qori2/:folder/:file  (file = <SSS><AAA>.mp3)
 //
-// Serves the self-hosted murottal library: radio, per-ayah Qur'an reader and
-// Mushaf Utsmani all point here first (apps/web/src/lib/qori-cdn.ts). Three
-// tiers keep it fast and self-completing:
+// Serves the murottal library: radio, per-ayah Qur'an reader and Mushaf
+// Utsmani all point here first (apps/web/src/lib/qori-cdn.ts). Three tiers, and
+// none of them writes anything:
 //   1. Cloudflare edge cache (per-colo, free) — repeat plays of the same ayah
 //      in a colo never touch R2 at all;
-//   2. R2 — the permanent library (filled by the bulk importer and by tier 3);
-//   3. source-CDN fill — an R2 miss transparently fetches the 128 kbps file
-//      from the reciter's own CDN, streams it to the listener AND stores it
-//      into R2 + audio_cache in the background, so every gap heals itself the
-//      first time anyone plays it. Playback is never blocked on the import
-//      workflow finishing.
+//   2. R2 — what the library already holds, served as-is;
+//   3. source CDN, LIVE — an R2 miss is streamed straight from the reciter's
+//      own CDN to the listener and nothing is kept.
+//
+// Tier 3 used to also WRITE what it fetched: the object into R2 and a row into
+// audio_cache, so the library "healed itself" from real listening. That is off
+// (owner: "live idn aja jgn download"). A complete per-ayah library is 6,236
+// files per reciter across 22 reciters, and every play of an ayah nobody had
+// played before added another one — storage that grows with traffic, forever,
+// for files the source CDN already serves for free.
+//
+// What this costs: an ayah not already in R2 is one upstream fetch per colo per
+// cache lifetime instead of one ever. What it buys: storage that stops growing,
+// and no writes to D1 on the playback path at all. The edge cache stays — it is
+// not storage, it expires by itself, and it is what keeps the hot path fast.
 //
 // WHY "qori2": the ORIGINAL audio/qori/ library was filled before the
 // 128 kbps importer fixes (#93/#94), so a large share of it is low-bitrate,
@@ -136,8 +145,10 @@ async function serveMurottal(c: any, folder: string, file: string) {
   // sounding "mendem kaya kaset kusut" forever, no matter how many cache
   // versions are bumped, because the BYTES in R2 are wrong. So: sniff the
   // real MP3 frame bitrate before serving; an object below this reciter's
-  // published HiFi bitrate is treated as a MISS, letting tier 3 re-fetch the
-  // true 128 kbps file and overwrite the poisoned object in place.
+  // published HiFi bitrate is treated as a MISS, so tier 3 streams the true
+  // 128 kbps file live instead. The poisoned object is no longer overwritten —
+  // nothing writes to R2 from here any more — it is simply never served while a
+  // source CDN answers, and the bulk importer is what repairs the library.
   const options: R2GetOptions = {};
   if (rangeStart > 0) options.range = { offset: rangeStart };
   const obj = await c.env.MEDIA_R2.get(key, options).catch(() => null);
@@ -160,7 +171,7 @@ async function serveMurottal(c: any, folder: string, file: string) {
     // unparseable buffer must serve normally or healthy files would refetch
     // on every play.
     if (realKbps !== null && wantKbps !== null && realKbps < wantKbps) {
-      poisonedBytes = bytes; // fall through to tier 3, which overwrites R2
+      poisonedBytes = bytes; // fall through to tier 3 (live), keep as last resort
     } else {
       const headers = audioHeaders();
       headers.set("etag", obj.httpEtag);
@@ -172,13 +183,13 @@ async function serveMurottal(c: any, folder: string, file: string) {
     }
   }
 
-  // Tier 3 — fill from the source CDN. `sourceUrlCandidates` lists the BEST
-  // source first (128 kbps for aqc; the reciter's HiFi folder for ey), then
-  // lower-bitrate fallbacks. We track WHICH candidate answered: only the
-  // top one (index 0) is HiFi and may be stored permanently. A fallback is
-  // played but never persisted to R2 nor immutably cached — otherwise a
-  // momentary 128 kbps blip would freeze a muffled copy under this URL for a
-  // year, which is exactly the "mendem kaya kaset kusut" bug we are killing.
+  // Tier 3 — stream LIVE from the source CDN, storing nothing.
+  // `sourceUrlCandidates` lists the BEST source first (128 kbps for aqc; the
+  // reciter's HiFi folder for ey), then lower-bitrate fallbacks. We still track
+  // WHICH candidate answered, because only the top one (index 0) is HiFi and
+  // may be cached at the edge for long: a momentary 128 kbps blip must not
+  // freeze a muffled copy under this URL for a year, which is exactly the
+  // "mendem kaya kaset kusut" bug this route exists to avoid.
   let buf: ArrayBuffer | null = null;
   let usedIndex = -1;
   const candidates = sourceUrlCandidates(folder, surah, ayah);
@@ -216,36 +227,17 @@ async function serveMurottal(c: any, folder: string, file: string) {
   const isHiFi = usedIndex === 0 && !(fillKbps !== null && hifiKbps !== null && fillKbps < hifiKbps);
 
   const bytes = buf;
-  if (isHiFi) {
-    c.executionCtx.waitUntil(
-      (async () => {
-        await c.env.MEDIA_R2.put(key, bytes, { httpMetadata: { contentType: "audio/mpeg" } }).catch(() => {});
-        // Catalog row so the importer/admin can see true completeness; the
-        // subselects resolve ids without an extra read round-trip. Upsert: a
-        // legacy low-bitrate row must not block recording the fresh HiFi key.
-        await c.env.DB.prepare(
-          `INSERT INTO audio_cache (ayah_id, qori_id, r2_key)
-           SELECT a.id, q.id, ?3 FROM ayah a, qori q
-           WHERE a.surah_id = ?1 AND a.number = ?2 AND q.audio_base_path = ?4
-           ON CONFLICT(ayah_id, qori_id) DO UPDATE SET r2_key = excluded.r2_key`
-        )
-          .bind(surah, ayah, key, `audio/qori/${folder}`)
-          .run()
-          .catch(() => {});
-      })()
-    );
-  }
 
   const headers = audioHeaders(isHiFi);
-  headers.set("X-Murottal-Source", isHiFi ? "cdn-fill-hifi" : "cdn-fill-fallback");
+  headers.set("X-Murottal-Source", isHiFi ? "cdn-live-hifi" : "cdn-live-fallback");
   if (rangeStart > 0) {
     const total = bytes.byteLength;
     const body = bytes.slice(rangeStart);
     headers.set("content-range", `bytes ${rangeStart}-${total - 1}/${total}`);
     return new Response(body, { status: 206, headers });
   }
-  // Only edge-cache the durable HiFi fill; a fallback must stay uncached so
-  // the next play re-attempts the 128 kbps source.
+  // Only edge-cache the HiFi stream; a fallback must stay uncached so the next
+  // play re-attempts the 128 kbps source.
   if (isHiFi) {
     c.executionCtx.waitUntil(cache.put(cacheKey, new Response(bytes.slice(0), { status: 200, headers: new Headers(headers) })).catch(() => {}));
   }

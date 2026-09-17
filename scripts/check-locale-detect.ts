@@ -28,8 +28,11 @@ type Case = {
   why: string;
 };
 
-// ulyah.com: Indonesian hub. en/fr/de/es have their own domains; every other
-// language is switched off (IN_PLACE_LANGUAGES = false).
+// ulyah.com: the Indonesian hub, and Indonesian is the whole of it. en/fr/de/es
+// have their own domains and are reachable only as outbound links; every other
+// language is off at the source (owner: "stop auto translate di ulyah.com"),
+// which no runtime list can undo — the `enabled` field below is carried by the
+// cases only to prove it no longer changes the answer.
 const ULYAH: Case[] = [
   {
     what: "Googlebot (US, no cookie)",
@@ -74,22 +77,22 @@ const ULYAH: Case[] = [
     why: "owner: kembaliin dulu default webnya ke bahasa Indonesia",
   },
   {
-    what: "cookie for a language the owner switched ON (ar)",
+    what: "cookie for a language the admin list used to be able to switch ON (ar)",
     signals: { cookie: "ar", enabled: ["ar"], tenant: "ulyah" },
-    expect: "ar",
-    why: "an explicit choice, in a language ulyah.com really does serve in place",
+    expect: "id",
+    why: "serving Arabic in place meant machine-translating the hub into it — off for good, list or no list",
   },
   {
-    what: "reader in Saudi Arabia, Arabic switched on",
+    what: "reader in Saudi Arabia",
     signals: { country: "SA", enabled: ["ar"], tenant: "ulyah" },
-    expect: "ar",
-    why: "Arabic has no domain of its own, so the hub serves it — geo may pick it",
+    expect: "id",
+    why: "ulyah.com is written in Indonesian; Arabic here is scripture, not a UI language",
   },
   {
-    what: "reader in Saudi Arabia, Arabic switched off",
+    what: "reader in Saudi Arabia, nothing switched on",
     signals: { country: "SA", enabled: [], tenant: "ulyah" },
     expect: "id",
-    why: "a language the owner has not switched on is not served to anyone",
+    why: "same answer either way now — the hub has exactly one language",
   },
 ];
 

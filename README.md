@@ -52,22 +52,44 @@ Fully automatic — see `docs/SETUP.md` for the GitHub Secrets required, then
 push to `main`. No manual Cloudflare console steps beyond having the
 `ulyah.com` zone active and adding those secrets.
 
-## Multi-tenant & multi-language
+## Multi-tenant & one language per site
 
-ONE codebase serves four sites, each with its own visual identity
-(`src/styles/themes/`) and its own single native language:
+ONE codebase serves five sites, each with its own visual identity
+(`src/styles/themes/`) and exactly one native language — the language of its
+own domain extension:
 
 | Domain | Worker | Language | Identity |
 |---|---|---|---|
-| ulyah.com | ulyah-web | Indonesian (+8 UI languages) | Modern Islamic Premium |
+| ulyah.com | ulyah-web | Indonesian only | Modern Islamic Premium |
+| xad.es | xad-web | English only | — |
 | 1fr.fr | onefaith-web | French only | French Editorial Luxury |
 | tilawa.de | tilawa-web | German only | German Modern Tech |
 | dawa.es | dawa-web | Spanish only | Spanish Warm Mediterranean |
 
-ulyah.com keeps 9 UI languages (id/en/ru/de/fr/es/ar/zh/ja) with geo-IP +
-`Accept-Language` auto-detection (Indonesian IPs always get Indonesian).
+**No site translates itself.** ulyah.com is written in Indonesian and serves
+Indonesian: no geo-IP or `Accept-Language` switching into another language, no
+`/<code>` prefixes, and no machine translation of its pages. The language
+control offers the four sibling domains and nothing else — choosing one leaves
+for that site rather than translating this one. Machine translation is confined
+to those four sites by a single gate (`MT_TARGET_LANGS` in
+`packages/shared/src/i18n.ts`, enforced in `apps/worker-api/src/lib/mt.ts`),
+which is also what stops D1 filling up with cache rows nothing reads.
+
 Qur'an translations exist natively in 11 languages — quran-json (CC-BY-4.0)
 for id/en/ru/fr/zh/es/bn/sv/tr/ur plus German (Abu Rida via
-fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`); only Japanese
-still falls back to English with a visible notice rather than
-machine-translating scripture. See `packages/shared/src/i18n.ts`.
+fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`). Scripture is
+reproduced, never machine-translated.
+
+## Storage discipline
+
+Two ceilings, both watched by `.github/workflows/db-maintenance.yml`:
+
+- **D1 under 10 GB.** The nightly run prunes machine translations that are
+  wrong (`prune-mt-arabic`) or unread (`prune-mt-unserved`), spills bulk text
+  to R2, and ends with `scripts/d1-ceiling.ts` — a warning past 75% and a red
+  run over the line, because a full D1 stops accepting writes rather than
+  slowing down.
+- **Media is streamed, not stored.** Murottal that is not already in R2 is
+  played live from the reciter's own CDN and nothing is kept
+  (`apps/worker-api/src/routes/audio.ts`); the bulk importer still exists but
+  refuses to run without an explicit `confirm=download`.

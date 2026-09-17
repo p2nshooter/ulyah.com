@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
+import { SERVED_LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { TENANT, tenantTagline } from "@/lib/tenant";
 import { jsonLdHtml } from "@/lib/structured-data";
@@ -52,7 +52,11 @@ import "@/styles/themes/xad.css";
 // routes, built from the same helper, so the two always agree.
 
 export function generateStaticParams() {
-  return LOCALES.map((l) => ({ locale: l.code }));
+  // The site's own language, and only that: the middleware never routes a
+  // request for any other locale into this tree (a language with its own domain
+  // is redirected there, everything else back to the bare path), so generating
+  // them produced pages nothing could ever reach.
+  return SERVED_LOCALES.map((l) => ({ locale: l.code }));
 }
 
 export async function generateMetadata({
@@ -265,7 +269,11 @@ export default async function LocaleLayout({
                         ? "XAD — Listen to Islam"
                         : "Ulyah — Listen to Islam",
               url: TENANT.siteUrl,
-              inLanguage: LOCALES.map((l) => l.code),
+              // What this site is written in — one language. Listing the
+              // whole registry told Google the hub existed in 28 languages,
+              // which was only ever true of the machine translations that are
+              // now switched off.
+              inLanguage: SERVED_LOCALES.map((l) => l.code),
               publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
               potentialAction: {
                 "@type": "SearchAction",

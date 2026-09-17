@@ -6,6 +6,19 @@ name: Import murottal to R2 (complete the library)
 # whole-library import (up to 6236 ayat × 22 qori) far exceeds a Worker's
 # subrequest/time budget. Idempotent + resumable — re-running only fetches the
 # gaps, so start with one reciter, verify, then do the rest.
+#
+# HELD, and it needs a deliberate hand to run. Owner: "live idn aja jgn
+# download." The Worker no longer stores anything it streams either (see the
+# tier-3 note in apps/worker-api/src/routes/audio.ts) — an ayah that is not
+# already in R2 is played live from the reciter's own CDN and nothing is kept.
+#
+# The reason is arithmetic: one reciter's complete per-ayah library is 6,236
+# files, twenty-two reciters is ~137,000, and that is storage that only ever
+# grows, for audio the source CDNs already serve for free.
+#
+# The tooling stays — a reciter whose CDN goes dark is exactly when you want it
+# back — but it can no longer be started by a stray click: `confirm` must say
+# `download` or the job stops before fetching a single file.
 
 on:
   workflow_dispatch:
@@ -22,6 +35,10 @@ on:
         description: "Parallel downloads"
         required: false
         default: "12"
+      confirm:
+        description: "Type 'download' to confirm — the library is otherwise streamed live, not stored"
+        required: true
+        default: ""
 
 concurrency:
   group: import-murottal
@@ -32,6 +49,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 350
     steps:
+      # The hold. Cheapest possible first step: nothing is checked out, no
+      # runner minutes are spent, and the run's own log says why it stopped.
+      - name: Confirm this import is wanted
+        run: |
+          if [ "${{ inputs.confirm }}" != "download" ]; then
+            echo "::error::Murottal is streamed live from the reciters' CDNs (owner: \"live idn aja jgn download\")."
+            echo "Re-run with confirm=download only if this library really has to be stored in R2."
+            exit 1
+          fi
+          echo "Confirmed — importing into R2."
+
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
         with:

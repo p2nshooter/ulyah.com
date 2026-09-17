@@ -19,6 +19,17 @@ name: D1 Maintenance (free space)
 #                to the curated hadits.text_id / text_en, which are sourced.
 #                See scripts/prune-mt-arabic.ts for why this is a content fix
 #                first and a space fix second.
+#   prune-mt-off deletes machine translations INTO languages the ecosystem no
+#                longer serves. ulyah.com is Indonesian and each sibling site is
+#                its own language (owner: "stop auto translate di ulyah.com"),
+#                so only en/de/es/fr rows are ever read now — the other
+#                twenty-four languages are dead rows in the one place we cannot
+#                afford to run out of.
+#
+# And the ceiling: every run ends by measuring the whole database file against
+# the 10 GB limit (owner: "pastikan database di bawah 10gb") and going red if it
+# is over, because a full D1 is otherwise discovered by a locked-out admin login
+# rather than by a workflow.
 #
 # D1 writes go through wrangler here rather than through the dashboard or an
 # API client, because that is this repository's normal path for them and it
@@ -41,10 +52,10 @@ on:
         description: "What to run"
         required: true
         type: choice
-        options: [spill, prune-logs, move-bodies, prune-mt-arabic, both]
+        options: [spill, prune-logs, move-bodies, prune-mt-arabic, prune-mt-unserved, both]
         default: spill
       budget:
-        description: "Max rows to delete this run (free plan allows 100,000/day)"
+        description: "Max rows to delete this run (free plan allows 100,000/day; the schedule splits it 40k+40k)"
         required: false
         default: "60000"
       limit:
@@ -127,7 +138,19 @@ jobs:
         if: ${{ github.event_name == 'schedule' || inputs.job == 'prune-mt-arabic' || inputs.job == 'both' }}
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
-        run: npx tsx scripts/prune-mt-arabic.ts --budget=${{ inputs.budget || '60000' }}
+        # 40,000 on the schedule, not 60,000: this now shares the day's
+        # 100,000 row-write allowance with the unserved-language prune below.
+        # Together they take 80,000 and leave the rest for the deploy's own
+        # migration and for whatever the sites write while this runs. A manual
+        # dispatch still gets the input's 60,000, because only one job runs then.
+        run: npx tsx scripts/prune-mt-arabic.ts --budget=${{ inputs.budget || '40000' }}
+
+      # Machine translations into languages nothing serves any more. Same
+      # shape as the step above — bounded by the daily row-write allowance, run
+      # on the schedule, drains over as many nights as it takes, and says so.
+      - name: Delete machine translations into unserved languages
+        if: ${{ github.event_name == 'schedule' || inputs.job == 'prune-mt-unserved' || inputs.job == 'both' }}
+        run: npx tsx scripts/prune-mt-unserved.ts --budget=${{ inputs.budget || '40000' }}
 
       # The watermark: measure, and spill to R2 only if there is too much bulk
       # sitting in D1. This is the step the schedule exists for.
@@ -171,3 +194,14 @@ jobs:
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories still in D1' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '';"
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt from Arabic (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:ar-__:%';"
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt into unserved languages (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:__-__:%' AND substr(k,7,2) NOT IN ('en','de','es','fr');"
+
+      # The ceiling, LAST and never skipped: whatever the steps above did or did
+      # not do, this is the number that decides whether the platform can still
+      # write. Red run = act now; a warning annotation = decide what moves to R2
+      # next; silence = there is room.
+      - name: Check the 10 GB ceiling
+        if: always()
+        env:
+          D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
+        run: npx tsx scripts/d1-ceiling.ts

@@ -136,6 +136,63 @@ export function isValidLocale(code: string): boolean {
 const IN_PLACE_LANGUAGES = false;
 
 /**
+ * The ONLY languages a machine translator may ever be pointed at.
+ *
+ * Owner decision: "stop auto translate di ulyah.com — cukup ulyah.com
+ * menggunakan bahasa Indonesia dan ekosistem situs yg lain menggunakan bahasa
+ * extensi situsnya masing-masing."
+ *
+ * ulyah.com is written in Indonesian. Nothing on it is machine-translated any
+ * more: not the UI, not the kisah, not an Arabic kitab title into Indonesian.
+ * A reader on the hub gets what was actually written, in the language it was
+ * written in — Indonesian for our own writing, Arabic for scripture, with the
+ * curated translations (hadits.text_id, the licensed Qur'an translations) doing
+ * the rest. That is the same rule scripts/prune-mt-arabic.ts already applies to
+ * Arabic: a machine rendering of religious prose that the reader cannot check
+ * is worse than the source text.
+ *
+ * The four sibling sites are the exception, because each of them IS a
+ * single-language site whose language is the point (1fr.fr French, tilawa.de
+ * German, dawa.es Spanish, xad.es English). They are exactly the keys of
+ * LOCALE_SITE, so this list can never drift away from "the sites that exist".
+ *
+ * This is also the cheapest thing that keeps D1 small. Every runtime
+ * translation writes a mt_cache row; warming 24 hub languages is what filled
+ * the database in the first place. With the gate closed, the only rows that can
+ * ever be written are the four the ecosystem actually serves.
+ */
+export const MT_TARGET_LANGS: readonly string[] = Object.freeze(Object.keys(LOCALE_SITE));
+
+/**
+ * May this (source → target) pair be machine-translated at all?
+ *
+ * Checked at the single entry point of every translator (apps/worker-api
+ * lib/mt.ts), so there is one answer for the whole ecosystem and no route can
+ * quietly get its own. Same language in and out is not a translation, and a
+ * target outside the four sibling sites is refused — the caller keeps the
+ * source text.
+ */
+export function machineTranslationAllowed(targetLang: string, sourceLang?: string): boolean {
+  if (!targetLang) return false;
+  if (sourceLang && sourceLang === targetLang) return false;
+  return MT_TARGET_LANGS.includes(targetLang);
+}
+
+/**
+ * Is this language served IN PLACE by this build — rendered here, by us?
+ *
+ * Only the site's own language is. On ulyah.com that is Indonesian and nothing
+ * else: the four ecosystem languages are reachable from the switcher, but
+ * choosing one is a trip to that site, not a translation of this one. Every
+ * other language is off at the source, not merely hidden — the owner switch in
+ * the admin portal can no longer bring one back, because bringing one back
+ * means machine-translating the hub, which is precisely what is switched off.
+ */
+export function isServedInPlace(code: string): boolean {
+  return code === DEFAULT_LOCALE;
+}
+
+/**
  * Is this language finished enough to offer a visitor?
  *
  * Owner rule: a half-translated language must NOT be selectable — "kesian
@@ -170,6 +227,17 @@ export function localeReadiness(code: string): LocaleReadiness {
 
 /** The languages a visitor may actually be sent to right now. */
 export const READY_LOCALES: LocaleDef[] = LOCALES.filter((l) => isLocaleReady(l.code));
+
+/**
+ * The languages this build actually RENDERS — one, always: its own.
+ *
+ * Every other language either lives on its own domain or is not served at all,
+ * and the middleware redirects both away before a page is ever rendered. So
+ * prerendering the whole locale registry produced a copy of every static page in
+ * 28 languages, 27 of which nothing could reach: not linked, not crawlable (the
+ * middleware bounces the crawler too), and carried in the deploy regardless.
+ */
+export const SERVED_LOCALES: LocaleDef[] = LOCALES.filter((l) => isServedInPlace(l.code));
 
 export function getLocale(code: string): LocaleDef {
   return LOCALES.find((l) => l.code === code) ?? LOCALES[0]!;
