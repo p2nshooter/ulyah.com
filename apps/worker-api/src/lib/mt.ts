@@ -3,18 +3,21 @@ import { mtR2Get, mtR2GetMany } from "./mt-r2.js";
 import type { Env } from "../env.js";
 
 /**
- * THE GATE. Machine translation happens for the four sibling sites and nowhere
- * else — see MT_TARGET_LANGS in packages/shared/src/i18n.ts for why.
+ * THE GATE. A page may be translated into the language of the site showing it —
+ * Indonesian on ulyah.com, French on 1fr.fr, German on tilawa.de, Spanish on
+ * dawa.es, English on xad.es — and into nothing else. See MT_TARGET_LANGS in
+ * packages/shared/src/i18n.ts for why.
+ *
+ * So an English tafsir edition still reaches an Indonesian reader in
+ * Indonesian. What is refused is the other twenty-four languages the hub used
+ * to render itself in: those rows had no reader, and writing them is what
+ * filled D1.
  *
  * It sits at the four public entry points below rather than at the call sites,
  * because there are two dozen call sites in routes/content.ts alone and a rule
  * enforced in twenty-four places is a rule with twenty-four ways to be
  * forgotten. A refused pair is not an error: the caller already knows how to
- * render the source text (that is what a cache miss has always done), so the
- * reader gets Indonesian on ulyah.com and Arabic where the source is Arabic.
- *
- * Refusing here also closes the only remaining writer of mt_cache rows outside
- * the four ecosystem languages, which is what keeps D1 from filling up again.
+ * render the source text, which is what a cache miss has always produced.
  */
 function mtAllowed(targetLang: string, sourceLang: string): boolean {
   return machineTranslationAllowed(targetLang, sourceLang);

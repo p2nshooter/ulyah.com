@@ -48,6 +48,16 @@ jobs:
       - name: Audit i18n consistency (no sibling site left in the wrong language)
         run: npx tsx scripts/audit-i18n-consistency.ts
 
+      # One language per site, in both directions. The gate that says which
+      # languages may be translated INTO is enforced in a single function, read
+      # by the Worker, the warm job, the R2 publisher and the nightly prune — and
+      # widening it back to the twenty-four languages the hub used to render
+      # itself in would break nothing visible. It would just start filling D1
+      # with rows nobody reads, and the first symptom is a database that stops
+      # accepting writes.
+      - name: Check which languages may be machine-translated into
+        run: npx tsx scripts/check-mt-targets.ts
+
       # The Worker is capped at 3 MiB by Cloudflare and this table ships inside
       # it. Regenerating it for all 26 languages once took it from 471 KB to
       # 813 KB gzipped and the deploy was rejected outright — after the build

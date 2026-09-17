@@ -1,24 +1,24 @@
 /**
- * Is the database still comfortably under its ceiling?
+ * Is the database still where the owner wants it?
  *
- * Owner: "pastikan database di bawah 10gb." 10 GB is Cloudflare's hard limit for
- * one D1 database on a paid plan (the free plan stops at 500 MB), and a D1 that
- * reaches its limit does not slow down — it stops. Every write fails, including
- * the admin's own two-step verification, which is how the last fill-up surfaced:
- * the owner could not log in, while the sites looked perfectly healthy because
- * reads were unaffected.
+ * Owner: "pastikan database di bawah 10gb, sekitar 5gb saja." Two lines, and
+ * they mean different things:
  *
- * So the ceiling is measured on every maintenance run and reported out loud,
- * with three bands:
+ *   TARGET, 5 GB   — where the database is supposed to sit. Crossing it is not
+ *                    a failure, it is the moment to decide what moves to R2
+ *                    next, while there is still half the file to work with.
+ *   CEILING, 10 GB — Cloudflare's hard limit for one D1 database on a paid plan
+ *                    (the free plan stops at 500 MB). Reaching it is not a
+ *                    slowdown: every write fails, including the admin's own
+ *                    two-step verification, which is how the last fill-up
+ *                    surfaced — the owner could not log in, while the sites
+ *                    looked healthy because reads were unaffected.
  *
- *   under the warn line   → fine, one line of output, exit 0
- *   over the warn line    → a GitHub warning annotation, exit 0. There is still
- *                           room; this is the point at which somebody should
- *                           decide what to move to R2 next.
- *   over the ceiling      → exit 1, so the run goes red. Not because failing a
- *                           job fixes anything, but because a silent green run
- *                           is exactly how a full database is discovered by a
- *                           locked-out login instead of by a workflow.
+ * So: under target, one line and exit 0. Over target, a GitHub warning
+ * annotation and exit 0 — there is room, but the gap is now somebody's job.
+ * Over ceiling, exit 1 so the run goes red, because a silent green run is
+ * exactly how a full database gets discovered by a locked-out login instead of
+ * by a workflow.
  *
  * It measures the WHOLE FILE (Cloudflare's own `file_size`), not the live rows.
  * SQLite does not return freed pages to the file and D1 offers no VACUUM, so the
@@ -26,7 +26,7 @@
  * by later writes, but it does mean the file size is the number that must stay
  * under the limit, and the only number worth checking here.
  *
- * Usage: npx tsx scripts/d1-ceiling.ts [--ceiling-mb=10240] [--warn-pct=75]
+ * Usage: npx tsx scripts/d1-ceiling.ts [--target-mb=5120] [--ceiling-mb=10240]
  *   Requires CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN and D1_DATABASE_ID —
  *   the same three the maintenance workflow already resolves.
  */
@@ -43,10 +43,10 @@ function parseArgs() {
     return Number.isFinite(n) && n >= lo && n <= hi ? n : d;
   };
   return {
-    // 10 GB, expressed in MB so it can be dialled down to 500 on the free plan
-    // without the script having to know which plan it is running against.
+    // Both in MB, so either can be dialled down (500 on the free plan) without
+    // the script having to know which plan it is running against.
+    targetMb: num(args["target-mb"] ?? process.env.D1_TARGET_MB, 5120, 1, 1_048_576),
     ceilingMb: num(args["ceiling-mb"] ?? process.env.D1_CEILING_MB, 10240, 1, 1_048_576),
-    warnPct: num(args["warn-pct"], 75, 1, 100),
   };
 }
 
@@ -67,25 +67,29 @@ async function fileSizeMb(): Promise<number | null> {
 const gb = (mb: number) => `${(mb / 1024).toFixed(2)} GB`;
 
 async function main() {
-  const { ceilingMb, warnPct } = parseArgs();
+  const { targetMb, ceilingMb } = parseArgs();
   const sizeMb = await fileSizeMb();
 
   if (sizeMb === null) {
     // Not a failure: a fork, or a run without the secrets. Say so plainly
     // rather than reporting a size nobody measured.
-    console.log("D1 size not available (missing CLOUDFLARE_* / D1_DATABASE_ID) — ceiling not checked.");
+    console.log("D1 size not available (missing CLOUDFLARE_* / D1_DATABASE_ID) — size not checked.");
     return;
   }
 
-  const pct = Math.round((sizeMb / ceilingMb) * 1000) / 10;
-  const line = `D1 ulyah-db: ${gb(sizeMb)} of ${gb(ceilingMb)} (${pct}%), ${gb(Math.max(0, ceilingMb - sizeMb))} free.`;
+  const line =
+    `D1 ulyah-db: ${gb(sizeMb)} — target ${gb(targetMb)}, ceiling ${gb(ceilingMb)}, ` +
+    `${gb(Math.max(0, ceilingMb - sizeMb))} below the ceiling.`;
 
   if (sizeMb >= ceilingMb) {
-    console.log(`::error::${line} Over the ceiling — writes are at risk. Prune or spill to R2 now.`);
+    console.log(`::error::${line} Over the CEILING — writes are at risk. Prune or spill to R2 now.`);
     process.exit(1);
   }
-  if (pct >= warnPct) {
-    console.log(`::warning::${line} Past ${warnPct}% — decide what moves to R2 before it becomes urgent.`);
+  if (sizeMb >= targetMb) {
+    console.log(
+      `::warning::${line} Over the ${gb(targetMb)} target — ` +
+        `${gb(sizeMb - targetMb)} to move to R2 before it becomes urgent.`
+    );
     return;
   }
   console.log(line);

@@ -53,17 +53,22 @@ function parseArgs() {
     })
   );
   return {
-    // The four sibling sites, and nothing else. It used to be twenty-seven
-    // languages — the siblings plus everything ulyah.com rendered in place —
-    // and warming those was, by this job's own account, the largest writer in
-    // the ecosystem and the reason D1 filled up.
+    // The four sibling sites by default. It used to be twenty-seven languages —
+    // the siblings plus everything ulyah.com rendered in place — and warming
+    // those was, by this job's own account, the largest writer in the ecosystem
+    // and the reason D1 filled up. Those languages are no longer served, so the
+    // rows had no reader: the gate in worker-api lib/mt.ts refuses every target
+    // outside MT_TARGET_LANGS on the read path too.
     //
-    // ulyah.com no longer translates itself (owner: "stop auto translate di
-    // ulyah.com"), so those rows have no reader: the gate in worker-api
-    // lib/mt.ts refuses every target outside MT_TARGET_LANGS on the read path
-    // too. Anything asked for beyond that list is dropped below rather than
-    // warmed, whoever asks and however the workflow is dispatched.
-    langs: ((args.langs as string) || MT_TARGET_LANGS.join(","))
+    // Indonesian is a legal target (ulyah.com is translated INTO Indonesian —
+    // owner: "tetep terjemahkan ke bahasa Indonesia untuk ulyah.com") but not a
+    // default one: this job's phases translate FROM Indonesian, so a default
+    // pass over `id` would spend its budget on id→id. Ask for it explicitly
+    // (`--langs=id`) to warm the Arabic- and English-sourced material.
+    //
+    // Anything outside MT_TARGET_LANGS is dropped below rather than warmed,
+    // whoever asks and however the workflow is dispatched.
+    langs: ((args.langs as string) || Object.keys(LOCALE_SITE).join(","))
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean)

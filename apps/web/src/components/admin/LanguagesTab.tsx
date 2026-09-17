@@ -54,12 +54,14 @@ export function LanguagesTab() {
       <div>
         <p className="font-heading text-base">🈯 Kesiapan Bahasa</p>
         <p className="mt-1 text-xs text-text-secondary">
-          <b>Terjemahan mesin di ulyah.com dimatikan.</b> ulyah.com berbahasa Indonesia, dan {liveCount - 1} bahasa
-          ekosistem punya situsnya sendiri — memilihnya berarti pindah ke situs itu, bukan menerjemahkan halaman ini.
-          Bahasa lain tidak lagi disajikan: URL-nya dialihkan ke Bahasa Indonesia dan tidak muncul di pemilih bahasa,
-          jadi tidak ada lagi halaman setengah bahasa A setengah bahasa B. Persentase di bawah <b>diukur, bukan
-          ditaksir</b> (UI dari string kamus yang masih berbahasa Inggris, Konten dari tulisan situs yang sempat
-          diterjemahkan dan tersimpan di D1) dan disimpan sebagai catatan sejauh mana tiap bahasa pernah sampai.
+          <b>ulyah.com hanya disajikan dalam Bahasa Indonesia.</b> Konten yang sumbernya bahasa lain tetap
+          diterjemahkan ke Indonesia seperti biasa — yang berhenti adalah menerjemahkan ulyah.com <i>ke</i> bahasa
+          lain. {liveCount - 1} bahasa ekosistem punya situsnya sendiri dan memakai bahasa induk ekstensi domainnya;
+          memilihnya berarti pindah ke situs itu. Bahasa selebihnya tidak disajikan: URL-nya dialihkan ke Bahasa
+          Indonesia dan tidak muncul di pemilih bahasa, jadi tidak ada lagi halaman setengah bahasa A setengah bahasa
+          B. Persentase di bawah <b>diukur, bukan ditaksir</b> (UI dari string kamus yang masih berbahasa Inggris,
+          Konten dari tulisan situs yang sempat diterjemahkan dan tersimpan di D1) dan disimpan sebagai catatan sejauh
+          mana tiap bahasa pernah sampai.
         </p>
       </div>
 

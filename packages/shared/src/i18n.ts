@@ -138,30 +138,29 @@ const IN_PLACE_LANGUAGES = false;
 /**
  * The ONLY languages a machine translator may ever be pointed at.
  *
- * Owner decision: "stop auto translate di ulyah.com — cukup ulyah.com
- * menggunakan bahasa Indonesia dan ekosistem situs yg lain menggunakan bahasa
- * extensi situsnya masing-masing."
+ * One language per site, and that is the whole list: Indonesian for the hub,
+ * and the four languages that own a domain (1fr.fr French, tilawa.de German,
+ * dawa.es Spanish, xad.es English). Owner: "stop auto translate di ulyah.com,
+ * cukup ulyah.com menggunakan bahasa Indonesia dan ekosistem situs yg lain
+ * menggunakan bahasa extensi situsnya masing-masing … tetep terjemahkan ke
+ * bahasa Indonesia untuk ulyah.com dan bahasa masing-masing dr ekosistem."
  *
- * ulyah.com is written in Indonesian. Nothing on it is machine-translated any
- * more: not the UI, not the kisah, not an Arabic kitab title into Indonesian.
- * A reader on the hub gets what was actually written, in the language it was
- * written in — Indonesian for our own writing, Arabic for scripture, with the
- * curated translations (hadits.text_id, the licensed Qur'an translations) doing
- * the rest. That is the same rule scripts/prune-mt-arabic.ts already applies to
- * Arabic: a machine rendering of religious prose that the reader cannot check
- * is worse than the source text.
+ * So the rule is about WHICH LANGUAGE A SITE IS IN, not about refusing to
+ * translate. Source material that arrives in another language — an English
+ * tafsir edition, an English occasion-of-revelation, an Arabic kitab title —
+ * is still rendered into the language of the site that shows it. What stopped
+ * is translating ulyah.com INTO twenty-four other languages: that is what the
+ * hub used to do, what filled D1 with cache rows nobody read, and what put
+ * half-translated pages in front of readers.
  *
- * The four sibling sites are the exception, because each of them IS a
- * single-language site whose language is the point (1fr.fr French, tilawa.de
- * German, dawa.es Spanish, xad.es English). They are exactly the keys of
- * LOCALE_SITE, so this list can never drift away from "the sites that exist".
+ * Derived from HUB_DEFAULT plus the keys of LOCALE_SITE, so the list can never
+ * drift away from "the sites that exist".
  *
- * This is also the cheapest thing that keeps D1 small. Every runtime
- * translation writes a mt_cache row; warming 24 hub languages is what filled
- * the database in the first place. With the gate closed, the only rows that can
- * ever be written are the four the ecosystem actually serves.
+ * (Scripture is a separate rule and a stricter one: the Qur'an and hadith matn
+ * are reproduced, never machine-translated — see the Arabic masking in
+ * apps/worker-api/src/lib/mt.ts and scripts/prune-mt-arabic.ts.)
  */
-export const MT_TARGET_LANGS: readonly string[] = Object.freeze(Object.keys(LOCALE_SITE));
+export const MT_TARGET_LANGS: readonly string[] = Object.freeze([HUB_DEFAULT, ...Object.keys(LOCALE_SITE)]);
 
 /**
  * May this (source → target) pair be machine-translated at all?
@@ -169,8 +168,8 @@ export const MT_TARGET_LANGS: readonly string[] = Object.freeze(Object.keys(LOCA
  * Checked at the single entry point of every translator (apps/worker-api
  * lib/mt.ts), so there is one answer for the whole ecosystem and no route can
  * quietly get its own. Same language in and out is not a translation, and a
- * target outside the four sibling sites is refused — the caller keeps the
- * source text.
+ * target outside the five ecosystem languages is refused — the caller keeps the
+ * source text, which is what a cache miss has always produced.
  */
 export function machineTranslationAllowed(targetLang: string, sourceLang?: string): boolean {
   if (!targetLang) return false;
@@ -186,7 +185,8 @@ export function machineTranslationAllowed(targetLang: string, sourceLang?: strin
  * choosing one is a trip to that site, not a translation of this one. Every
  * other language is off at the source, not merely hidden — the owner switch in
  * the admin portal can no longer bring one back, because bringing one back
- * means machine-translating the hub, which is precisely what is switched off.
+ * means rendering the whole hub in a language it is not written in, which is
+ * precisely what was switched off.
  */
 export function isServedInPlace(code: string): boolean {
   return code === DEFAULT_LOCALE;

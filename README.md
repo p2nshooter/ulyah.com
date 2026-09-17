@@ -66,29 +66,36 @@ own domain extension:
 | tilawa.de | tilawa-web | German only | German Modern Tech |
 | dawa.es | dawa-web | Spanish only | Spanish Warm Mediterranean |
 
-**No site translates itself.** ulyah.com is written in Indonesian and serves
-Indonesian: no geo-IP or `Accept-Language` switching into another language, no
-`/<code>` prefixes, and no machine translation of its pages. The language
-control offers the four sibling domains and nothing else — choosing one leaves
-for that site rather than translating this one. Machine translation is confined
-to those four sites by a single gate (`MT_TARGET_LANGS` in
-`packages/shared/src/i18n.ts`, enforced in `apps/worker-api/src/lib/mt.ts`),
-which is also what stops D1 filling up with cache rows nothing reads.
+**One language per site, in both directions.** ulyah.com is written in
+Indonesian and serves Indonesian: no geo-IP or `Accept-Language` switching into
+another language, no `/<code>` prefixes, no in-place translation of the hub into
+anything else. The language control offers the four sibling domains and nothing
+else — choosing one leaves for that site rather than translating this one.
+
+Material that arrives in another language is still rendered into the language of
+the site showing it (an English tafsir edition reaches an Indonesian reader in
+Indonesian). A single gate decides: `MT_TARGET_LANGS` in
+`packages/shared/src/i18n.ts` — `id`, `en`, `de`, `es`, `fr`, one per site —
+enforced at the four entry points of `apps/worker-api/src/lib/mt.ts`, on the
+read path as well as the write path. The twenty-four languages the hub used to
+render itself in are refused, which is also what stops D1 filling up with cache
+rows nothing reads. Scripture is stricter still: the Qur'an and hadith matn are
+reproduced, never machine-translated.
 
 Qur'an translations exist natively in 11 languages — quran-json (CC-BY-4.0)
 for id/en/ru/fr/zh/es/bn/sv/tr/ur plus German (Abu Rida via
-fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`). Scripture is
-reproduced, never machine-translated.
+fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`).
 
 ## Storage discipline
 
-Two ceilings, both watched by `.github/workflows/db-maintenance.yml`:
+Watched nightly by `.github/workflows/db-maintenance.yml`:
 
-- **D1 under 10 GB.** The nightly run prunes machine translations that are
-  wrong (`prune-mt-arabic`) or unread (`prune-mt-unserved`), spills bulk text
-  to R2, and ends with `scripts/d1-ceiling.ts` — a warning past 75% and a red
-  run over the line, because a full D1 stops accepting writes rather than
-  slowing down.
+- **D1 around 5 GB, never over 10.** The run prunes machine translations that
+  are wrong (`prune-mt-arabic`) or unread (`prune-mt-unserved`), spills bulk
+  text to R2, and ends with `scripts/d1-ceiling.ts`: a warning past the 5 GB
+  target, a red run past the 10 GB ceiling — because a full D1 stops accepting
+  writes rather than slowing down, and the first symptom is the admin being
+  unable to log in.
 - **Media is streamed, not stored.** Murottal that is not already in R2 is
   played live from the reciter's own CDN and nothing is kept
   (`apps/worker-api/src/routes/audio.ts`); the bulk importer still exists but

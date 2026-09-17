@@ -11,15 +11,16 @@
  * ulyah.com, cukup ulyah.com menggunakan bahasa Indonesia dan ekosistem situs yg
  * lain menggunakan bahasa extensi situsnya masing-masing." Nothing reads these
  * rows any more: the gate in apps/worker-api/src/lib/mt.ts refuses every target
- * outside the four sibling sites, on the read path as well as the write path. So
- * they are not a cache — they are dead weight sitting in the one place the whole
- * platform cannot afford to run out of.
+ * that is not some site's own language, on the read path as well as the write
+ * path. So they are not a cache — they are dead weight sitting in the one place
+ * the whole platform cannot afford to run out of.
  *
  * WHICH ROWS SURVIVE. A key is `mt:<src>-<tgt>:<hash>`, so the target language
  * is two characters at a fixed offset. Everything whose target is one of the
- * four ecosystem languages (en/de/es/fr — MT_TARGET_LANGS, derived from the
- * sites that actually exist) stays: 1fr.fr, tilawa.de, dawa.es and xad.es read
- * those on every page.
+ * five ecosystem languages (id/en/de/es/fr — MT_TARGET_LANGS, derived from the
+ * sites that actually exist) stays: each of those is the language some site is
+ * written in, and is read on every page of it. Indonesian included — ulyah.com
+ * still renders foreign-source material into Indonesian.
  *
  * BOUNDED ON PURPOSE, exactly like prune-mt-arabic.ts: a delete is a row write,
  * the free plan allows 100,000 a day, and spending the whole allowance here
@@ -106,7 +107,7 @@ function main() {
   const { dry, budget, chunk } = parseArgs();
 
   const before = remaining();
-  console.log(`Serving translations into: ${MT_TARGET_LANGS.join(", ")} (the four ecosystem sites).`);
+  console.log(`Serving translations into: ${MT_TARGET_LANGS.join(", ")} (one per ecosystem site).`);
   console.log(`Machine translation into every OTHER language, still in D1: ${before.rows} row(s), ${before.mb} MB.`);
   for (const r of byLanguage()) console.log(`    →${r.lang}: ${r.rows} row(s), ${r.mb} MB`);
 

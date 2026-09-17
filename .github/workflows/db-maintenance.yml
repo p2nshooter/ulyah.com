@@ -20,16 +20,15 @@ name: D1 Maintenance (free space)
 #                See scripts/prune-mt-arabic.ts for why this is a content fix
 #                first and a space fix second.
 #   prune-mt-off deletes machine translations INTO languages the ecosystem no
-#                longer serves. ulyah.com is Indonesian and each sibling site is
-#                its own language (owner: "stop auto translate di ulyah.com"),
-#                so only en/de/es/fr rows are ever read now — the other
-#                twenty-four languages are dead rows in the one place we cannot
-#                afford to run out of.
+#                longer serves. Each site is written in one language — ulyah.com
+#                Indonesian, the siblings their own — so only id/en/de/es/fr
+#                rows are ever read now; the other twenty-four languages are
+#                dead rows in the one place we cannot afford to run out of.
 #
-# And the ceiling: every run ends by measuring the whole database file against
-# the 10 GB limit (owner: "pastikan database di bawah 10gb") and going red if it
-# is over, because a full D1 is otherwise discovered by a locked-out admin login
-# rather than by a workflow.
+# And the size: every run ends by measuring the whole database file against two
+# lines (owner: "pastikan database di bawah 10gb, sekitar 5gb saja") — a warning
+# past the 5 GB target, a red run past the 10 GB ceiling. A full D1 is otherwise
+# discovered by a locked-out admin login rather than by a workflow.
 #
 # D1 writes go through wrangler here rather than through the dashboard or an
 # API client, because that is this repository's normal path for them and it
@@ -194,13 +193,14 @@ jobs:
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories still in D1' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '';"
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt from Arabic (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:ar-__:%';"
-          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt into unserved languages (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:__-__:%' AND substr(k,7,2) NOT IN ('en','de','es','fr');"
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt into unserved languages (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:__-__:%' AND substr(k,7,2) NOT IN ('id','en','de','es','fr');"
 
-      # The ceiling, LAST and never skipped: whatever the steps above did or did
+      # The size, LAST and never skipped: whatever the steps above did or did
       # not do, this is the number that decides whether the platform can still
-      # write. Red run = act now; a warning annotation = decide what moves to R2
-      # next; silence = there is room.
-      - name: Check the 10 GB ceiling
+      # write. Red run = act now; a warning annotation = past the 5 GB the
+      # database is meant to sit at, so decide what moves to R2 next; silence =
+      # there is room.
+      - name: Check the size target (5 GB) and ceiling (10 GB)
         if: always()
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
