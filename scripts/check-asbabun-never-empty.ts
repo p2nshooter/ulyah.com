@@ -14,9 +14,16 @@
  * So the rule is: a translation that fails downgrades the LANGUAGE, never the
  * content. The panel keeps the text and says which language it is in.
  *
- * The check runs the real function with a translator that cannot work (no
- * network, a DB stub that throws), which is exactly the production failure, and
- * asserts it still answers.
+ * The check runs the real function with a translator that CANNOT work, which is
+ * exactly the production failure, and asserts it still answers.
+ *
+ * "Cannot work" has to be forced, not assumed. The first version of this check
+ * relied on the sandbox having no network — and passed for that reason. Run
+ * somewhere that CAN reach translate.googleapis.com, the translation succeeded,
+ * the fallback path was never taken, and the check reported on a code path it
+ * had not exercised. A check whose result depends on the runner's egress rules
+ * tells you about the runner. So `fetch` is stubbed to reject, every storage
+ * binding throws, and the failure is the same one every time.
  *
  *   npx tsx scripts/check-asbabun-never-empty.ts
  */
@@ -45,6 +52,16 @@ const brokenEnv = {
   },
   MEDIA_R2: { get: async () => null },
 } as never;
+
+/**
+ * No upstream, deterministically. Every translator in lib/mt.ts goes through
+ * `fetch` (gtx, MyMemory) or `env.AI` (Workers AI, stubbed to throw above), so
+ * this closes all of them — and closes the tafsir/asbabun source fetches too,
+ * which is the second half of the production failure being reproduced.
+ */
+globalThis.fetch = (async () => {
+  throw new Error("offline: this check forbids upstream calls");
+}) as typeof fetch;
 
 let failed = 0;
 function check(what: string, ok: boolean, detail: string) {

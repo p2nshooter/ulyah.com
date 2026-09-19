@@ -6,6 +6,7 @@ import { kitabLabels } from "@/lib/kitab-labels";
 import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
 import { ogCoverUrl } from "@/lib/og";
 import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
+import { routePath } from "@/lib/paths";
 
 /**
  * A day, because this is the page that took the whole ecosystem down.
@@ -117,7 +118,7 @@ export default async function KitabBookPage({
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
         <p className="text-sm text-text-secondary">{t.noResults}</p>
-        <Link href={`/${locale}/kitab`} className="mt-4 inline-block text-sm text-accent hover:underline">
+        <Link href={routePath(locale, `/kitab`)} className="mt-4 inline-block text-sm text-accent hover:underline">
           ← {t.backToCategories}
         </Link>
       </div>
@@ -149,7 +150,7 @@ export default async function KitabBookPage({
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
       <script {...jsonLdProps(ld)} />
-      <Link href={`/${locale}/kitab/${slug}`} className="text-sm text-accent hover:underline">
+      <Link href={routePath(locale, `/kitab/${slug}`)} className="text-sm text-accent hover:underline">
         ← {t.backToCategory}
       </Link>
 
@@ -188,7 +189,7 @@ export default async function KitabBookPage({
                 listenLabel={t.listen}
                 stopLabel={t.stop}
                 lang={book.description_translated ? locale : "ar"}
-                nextHref={nextBook ? `/${locale}/kitab/${slug}/${nextBook.id}` : null}
+                nextHref={nextBook ? routePath(locale, `/kitab/${slug}/${nextBook.id}`) : null}
               />
             </div>
             {!book.description_translated && t.arabicOnlyNote && (
@@ -239,7 +240,7 @@ export default async function KitabBookPage({
 
       {nextBook && (
         <Link
-          href={`/${locale}/kitab/${slug}/${nextBook.id}`}
+          href={routePath(locale, `/kitab/${slug}/${nextBook.id}`)}
           className="mt-6 block rounded-xl border border-(--color-border) bg-(--color-card) p-4 hover:border-accent"
         >
           <p className="text-xs text-text-secondary">{t.next} →</p>

@@ -11,6 +11,7 @@ import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 import { NahwuShorofPanel } from "@/components/NahwuShorofPanel";
 import type { Dictionary } from "@/dictionaries";
 import { fillLabels } from "@/lib/fill-labels";
+import { routePath } from "@/lib/paths";
 
 interface SurahMeta {
   id: number;
@@ -645,7 +646,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         )
                       )}
                       <a
-                        href={`/${locale}/quran/tajwid`}
+                        href={routePath(locale, `/quran/tajwid`)}
                         onClick={(ev) => ev.stopPropagation()}
                         className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 font-medium text-accent transition hover:bg-accent/10"
                       >
@@ -841,7 +842,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         {dict.reader.storyLabel}
                       </p>
                       <a
-                        href={`/${locale}/kisah/${bundle.stories[0]!.slug}`}
+                        href={routePath(locale, `/kisah/${bundle.stories[0]!.slug}`)}
                         className="mt-1 block text-xs text-accent hover:underline"
                       >
                         {bundle.stories[0]!.title}

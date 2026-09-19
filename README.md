@@ -86,6 +86,30 @@ Qur'an translations exist natively in 11 languages — quran-json (CC-BY-4.0)
 for id/en/ru/fr/zh/es/bn/sv/tr/ur plus German (Abu Rida via
 fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`).
 
+## Ads
+
+Two networks, one control point. Every site reads `GET /content/ad-config` from
+api.ulyah.com and the **ulyah.com admin portal is the only place that edits it**
+(AdSense tab):
+
+- **Google AdSense** serves on a site that is `enabled` + `approved` (the
+  owner's "Google accepted THIS domain" tick) **and** has an ad-unit id pasted.
+  Missing any of the three, the site shows no AdSense at all — the admin now
+  says so per site instead of leaving every switch green and the page empty.
+  dawa.es was switched on by a one-time migration after its approval
+  (`activateDawaAdsense` in the Worker's scheduled tick; the KV flag keeps it
+  one-time, so turning it off in the admin sticks).
+- **Adsterra** has a master switch plus a per-site toggle, and its own
+  per-tenant inventory (`NetworkAd`).
+
+`PageAds` measures the rendered page and fills it to the owner's quota — one
+unit above the content, three through the middle on real section boundaries,
+two in the closing cluster. Where AdSense is live the middles alternate between
+the two networks, so no two consecutive slots come from the same one.
+
+Position markers are an **owner tool**: add `?ads=preview` to any URL to see
+where each unit will land. Visitors never see them.
+
 ## Storage discipline
 
 Watched nightly by `.github/workflows/db-maintenance.yml`:

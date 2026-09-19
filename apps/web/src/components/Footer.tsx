@@ -9,6 +9,7 @@ import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
 import { TENANT } from "@/lib/tenant";
 import { usePageOverrides } from "@/lib/site-pages";
+import { routePath } from "@/lib/paths";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -76,32 +77,32 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
         <div>
           <p className="text-sm font-semibold text-accent">{dict.footer.info}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/tentang`} className="transition hover:text-accent">{dict.nav.about}</Link></li>
+            <li><Link href={routePath(locale, `/tentang`)} className="transition hover:text-accent">{dict.nav.about}</Link></li>
             {TENANT.id === "ulyah" && (
-              <li><Link href={`/${locale}/syukur`} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
+              <li><Link href={routePath(locale, `/syukur`)} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
             )}
-            <li><Link href={`/${locale}/terima-kasih`} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
+            <li><Link href={routePath(locale, `/terima-kasih`)} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
           </ul>
         </div>
         <div>
           <p className="text-sm font-semibold text-accent">{contactLabels(locale).navLabel}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/kontak`} className="transition hover:text-accent">{contactLabels(locale).navLabel}</Link></li>
-            <li><Link href={`/${locale}/tanya`} className="transition hover:text-accent">{aiChatLabels(locale).bubble}</Link></li>
+            <li><Link href={routePath(locale, `/kontak`)} className="transition hover:text-accent">{contactLabels(locale).navLabel}</Link></li>
+            <li><Link href={routePath(locale, `/tanya`)} className="transition hover:text-accent">{aiChatLabels(locale).bubble}</Link></li>
           </ul>
         </div>
         <div>
           <p className="text-sm font-semibold text-accent">{dict.auth.loginTitle}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/daftar`} className="transition hover:text-accent">{dict.auth.registerTitle}</Link></li>
-            <li><Link href={`/${locale}/masuk`} className="transition hover:text-accent">{dict.auth.loginTitle}</Link></li>
+            <li><Link href={routePath(locale, `/daftar`)} className="transition hover:text-accent">{dict.auth.registerTitle}</Link></li>
+            <li><Link href={routePath(locale, `/masuk`)} className="transition hover:text-accent">{dict.auth.loginTitle}</Link></li>
           </ul>
         </div>
         <div>
           <p className="text-sm font-semibold text-accent">{dict.footer.help}</p>
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
-            <li><Link href={`/${locale}/donasi`} className="transition hover:text-accent">{dict.nav.donate}</Link></li>
-            <li><Link href={`/${locale}/kebijakan-privasi`} className="transition hover:text-accent">{dict.footer.privacyPolicy}</Link></li>
+            <li><Link href={routePath(locale, `/donasi`)} className="transition hover:text-accent">{dict.nav.donate}</Link></li>
+            <li><Link href={routePath(locale, `/kebijakan-privasi`)} className="transition hover:text-accent">{dict.footer.privacyPolicy}</Link></li>
           </ul>
         </div>
       </div>

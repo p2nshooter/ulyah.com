@@ -11,6 +11,7 @@ import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { MainAppInstallCard } from "@/components/AppInstallCard";
 import { IQRO_COUNT } from "@/lib/iqro";
 import { homeLabels } from "@/lib/home-labels";
+import { routePath } from "@/lib/paths";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -39,20 +40,20 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   // Quick-access tiles — each links straight to the feature it names, so the
   // hero row doubles as real navigation instead of being purely decorative.
   const featureIcons: [string, string, string][] = [
-    ["📖", dict.featureIcons.quranComplete, `/${locale}/quran`],
-    ["📝", dict.featureIcons.tafsirTranslation, `/${locale}/quran`],
-    ["📜", dict.featureIcons.asbabunNuzul, `/${locale}/quran`],
-    ["🕌", dict.featureIcons.haditsSupport, `/${locale}/hadits`],
-    ["📗", dict.featureIcons.kitabLibrary, `/${locale}/kitab`],
-    ["✨", dict.featureIcons.storiesWisdom, `/${locale}/kisah`],
-    ["🕋", dict.featureIcons.prayerSchedule, `/${locale}/jadwal-sholat`],
-    ["🎙️", dict.featureIcons.qualityAudio, `/${locale}/audiobook`],
-    ["💰", dict.featureIcons.zakatCalculator, `/${locale}/zakat`],
-    ["🧭", dict.featureIcons.qiblaDirection, `/${locale}/kiblat`],
-    ["📅", dict.featureIcons.hijriCalendar, `/${locale}/kalender-hijriyah`],
-    ["👪", dict.featureIcons.warisCalculator, `/${locale}/waris`],
-    ["🌙", dict.featureIcons.imsakiyahRamadhan, `/${locale}/imsakiyah`],
-    ["💬", dict.featureIcons.aiChat, `/${locale}/tanya`],
+    ["📖", dict.featureIcons.quranComplete, routePath(locale, `/quran`)],
+    ["📝", dict.featureIcons.tafsirTranslation, routePath(locale, `/quran`)],
+    ["📜", dict.featureIcons.asbabunNuzul, routePath(locale, `/quran`)],
+    ["🕌", dict.featureIcons.haditsSupport, routePath(locale, `/hadits`)],
+    ["📗", dict.featureIcons.kitabLibrary, routePath(locale, `/kitab`)],
+    ["✨", dict.featureIcons.storiesWisdom, routePath(locale, `/kisah`)],
+    ["🕋", dict.featureIcons.prayerSchedule, routePath(locale, `/jadwal-sholat`)],
+    ["🎙️", dict.featureIcons.qualityAudio, routePath(locale, `/audiobook`)],
+    ["💰", dict.featureIcons.zakatCalculator, routePath(locale, `/zakat`)],
+    ["🧭", dict.featureIcons.qiblaDirection, routePath(locale, `/kiblat`)],
+    ["📅", dict.featureIcons.hijriCalendar, routePath(locale, `/kalender-hijriyah`)],
+    ["👪", dict.featureIcons.warisCalculator, routePath(locale, `/waris`)],
+    ["🌙", dict.featureIcons.imsakiyahRamadhan, routePath(locale, `/imsakiyah`)],
+    ["💬", dict.featureIcons.aiChat, routePath(locale, `/tanya`)],
   ];
 
   const stats: [string, string, string][] = [
@@ -64,10 +65,10 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   ];
 
   const explore: [string, { title: string; desc: string; cta: string }, string][] = [
-    ["🎧", dict.explore.audiobook, `/${locale}/audiobook`],
-    ["📗", dict.explore.kitab, `/${locale}/kitab`],
-    ["🕌", dict.explore.kisah, `/${locale}/kisah`],
-    ["🗓️", dict.explore.daily, `/${locale}/harian`],
+    ["🎧", dict.explore.audiobook, routePath(locale, `/audiobook`)],
+    ["📗", dict.explore.kitab, routePath(locale, `/kitab`)],
+    ["🕌", dict.explore.kisah, routePath(locale, `/kisah`)],
+    ["🗓️", dict.explore.daily, routePath(locale, `/harian`)],
   ];
 
   return (
@@ -88,13 +89,13 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href={`/${locale}/quran`}
+                href={routePath(locale, `/quran`)}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-white shadow-lg transition hover:brightness-110 dark:bg-accent dark:text-primary"
               >
                 ▶ {dict.hero.ctaPrimary}
               </Link>
               <Link
-                href={`/${locale}/quran`}
+                href={routePath(locale, `/quran`)}
                 className="rounded-full border border-(--color-border) px-6 py-3 text-sm font-medium transition hover:border-accent"
               >
                 {dict.hero.ctaSecondary}
@@ -157,7 +158,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
         <section className="px-4 pt-6 sm:px-6">
           <div className="mx-auto max-w-4xl">
             <Link
-              href={`/${locale}/kitab`}
+              href={routePath(locale, `/kitab`)}
               className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-linear-to-br from-accent/10 via-accent/5 to-transparent p-5 shadow-(--ul-shadow-gold) transition hover:border-accent sm:flex-row sm:items-center"
             >
               <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-accent/15 text-3xl">📚</span>
@@ -185,7 +186,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       <section className="px-4 pt-6 sm:px-6">
         <div className="mx-auto grid max-w-4xl gap-4 desktop:grid-cols-[1.4fr_1fr]">
           <Link
-            href={`/${locale}/kids`}
+            href={routePath(locale, `/kids`)}
             className="group flex flex-col items-start gap-4 rounded-2xl border border-accent/40 bg-linear-to-br from-sky-400/10 via-accent/5 to-transparent p-5 transition hover:border-accent sm:flex-row sm:items-center"
           >
             <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-accent/15 text-3xl">🧒</span>
@@ -235,7 +236,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
           </div>
           <div className="mt-6 text-center">
             <Link
-              href={`/${locale}/quran`}
+              href={routePath(locale, `/quran`)}
               className="text-sm font-medium text-accent hover:underline"
             >
               {dict.reader.viewAllSurah} →
@@ -282,7 +283,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
             <h2 className="font-heading text-2xl sm:text-3xl">{dict.ctaBanner.title}</h2>
             <p className="mx-auto mt-3 max-w-xl text-sm text-[#f4efe3]/80">{dict.ctaBanner.desc}</p>
             <Link
-              href={`/${locale}/quran`}
+              href={routePath(locale, `/quran`)}
               className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-primary shadow-lg transition hover:brightness-105"
             >
               ▶ {dict.ctaBanner.button}

@@ -150,8 +150,26 @@ export function AdsenseTab() {
   const labelOf = (key: string) => SITE_LABELS.find((s) => s.key === key)?.label ?? key;
   const groupIcon = (g: string) => (g === "axto" ? "🛰️" : g === "es" ? "📰" : "🕌");
 
+  // Sites the owner has fully approved but that cannot serve a single ad,
+  // because no unit id has been pasted. This is the one failure mode that looks
+  // like success from here: every switch is green and the site shows nothing.
+  const blockedByMissingId = hasRealId
+    ? []
+    : SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved);
+
   return (
     <div className="space-y-6">
+      {blockedByMissingId.length > 0 && (
+        <section className="rounded-xl border border-amber-500/50 bg-amber-500/10 p-4">
+          <p className="font-heading text-base">⚠️ ID unit iklan masih kosong</p>
+          <p className="mt-1 text-sm text-text-secondary">
+            {blockedByMissingId.map((s) => s.label).join(", ")} sudah <b>ON + ACC</b>, tapi AdSense tidak bisa
+            menayangkan apa pun tanpa ID unit. Ambil ID unit iklan responsif dari dashboard AdSense (angka saja),
+            tempel di kotak <b>“1 · ID Unit Iklan AdSense”</b> di bawah, lalu simpan — iklan langsung tayang di situs
+            itu dalam ≤1 menit. Iklan Adsterra tetap jalan seperti biasa selama menunggu.
+          </p>
+        </section>
+      )}
       {/* Master ON/OFF for the Adsterra network ads across every site. OFF =
           every Adsterra unit hidden everywhere, no exception. Applies within
           ≤1 menit as each site re-reads /content/ad-config. */}
@@ -254,10 +272,15 @@ export function AdsenseTab() {
         <p className="font-heading text-base">Kontrol Iklan Jaringan</p>
         <p className="mt-1 text-sm text-text-secondary">
           Satu tempat mengatur iklan untuk <b>seluruh situs</b> (ulyah.com + saudara, AXTO, dan situs artikel:
-          profity.in, oldco.in, xaa.es, xad.es, jai.lat, lie.skin). Bawaan semua <b>mati</b>. Nyalakan situs untuk
-          melihat posisi iklan (kotak putus-putus), isi ID unit iklan asli sekali, lalu <b>centang “ACC”</b> hanya
-          pada situs yang sudah diterima AdSense — cuma situs ON + ACC yang menayangkan iklan asli, jadi tidak semua
-          langsung aktif. Iklan tidak pernah muncul di portal admin.
+          profity.in, oldco.in, xaa.es, xad.es, jai.lat, lie.skin). Bawaan semua <b>mati</b>. Isi ID unit iklan sekali,
+          nyalakan situsnya, lalu <b>centang “ACC”</b> hanya pada situs yang sudah diterima AdSense — cuma situs
+          ON + ACC + ada ID yang menayangkan iklan. Iklan tidak pernah muncul di portal admin.
+        </p>
+        <p className="mt-2 rounded-lg bg-black/5 px-3 py-2 text-xs text-text-secondary dark:bg-white/5">
+          <b>Mau lihat posisi iklannya dulu?</b> Tambahkan <code className="rounded-sm bg-black/10 px-1">?ads=preview</code>{" "}
+          di URL halaman mana pun (mis. <code className="rounded-sm bg-black/10 px-1">dawa.es/libros?ads=preview</code>) —
+          kotak putus-putus penanda posisi hanya muncul untuk Anda, bukan untuk pengunjung. Dulu penanda ini tampil ke
+          semua orang di situs yang ON tapi belum ACC; sekarang tidak lagi.
         </p>
       </section>
 
@@ -322,7 +345,17 @@ export function AdsenseTab() {
                     onChange={() => toggleApproved(key)}
                     className="h-4 w-4 accent-accent"
                   />
-                  ACC{st.enabled && st.approved && hasRealId ? " ✓ live" : ""}
+                  ACC
+                  {st.enabled && st.approved && (
+                    <span
+                      className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
+                        hasRealId ? "bg-emerald-500 text-white" : "bg-amber-500 text-white"
+                      }`}
+                      title={hasRealId ? "Menayangkan iklan AdSense" : "ACC, tapi ID unit iklan masih kosong"}
+                    >
+                      {hasRealId ? "LIVE" : "butuh ID"}
+                    </span>
+                  )}
                 </label>
               </div>
             );

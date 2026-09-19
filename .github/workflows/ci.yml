@@ -98,6 +98,19 @@ jobs:
             NEXT_PUBLIC_TENANT=$t pnpm check:locale
           done
 
+      # Internal links must point at the url the site serves, not at one that
+      # redirects to it. A hand-written `/${locale}/kitab` still works — by
+      # being redirected twice on every click and every crawl of every link on
+      # a sibling site. Checked per tenant, because each one inlines its own
+      # slugs at build time.
+      - name: Check internal links resolve without a redirect (all five sites)
+        run: |
+          set -eu
+          for t in ulyah dawa 1fr tilawa xad; do
+            echo "--- $t ---"
+            NEXT_PUBLIC_TENANT=$t npx tsx scripts/check-internal-links.ts
+          done
+
       # One url per page across the five sites, and an hreflang graph that
       # points both ways. Non-reciprocal hreflang is discarded silently, and a
       # page reachable at two urls splits its own ranking — neither shows up in

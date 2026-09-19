@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
+import { routePath } from "@/lib/paths";
 
 interface NasakhEntry {
   id: number;
@@ -103,7 +104,7 @@ export function NasakhLibrary({ locale, entries }: { locale: string; entries: Na
       <p className="mt-8 text-center text-xs text-text-secondary">
         Ilmu nasakh-mansukh termasuk pembahasan Ulumul Qur'an. Sebagian kasus disepakati ulama, sebagian lain
         diperdebatkan cakupannya —{" "}
-        <Link href={`/${locale}/kitab`} className="text-accent hover:underline">
+        <Link href={routePath(locale, `/kitab`)} className="text-accent hover:underline">
           pelajari lebih dalam di perpustakaan kitab
         </Link>
         .

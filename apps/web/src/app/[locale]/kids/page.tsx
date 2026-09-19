@@ -6,6 +6,7 @@ import { kidsLabels } from "@/lib/kids-labels";
 import { KidsHijaiyah } from "@/components/KidsHijaiyah";
 import { JUZ30, JUZ29, PILIHAN } from "@/lib/kids-surahs";
 import { IQRO_COUNT } from "@/lib/iqro";
+import { routePath } from "@/lib/paths";
 
 export const revalidate = 86400;
 
@@ -40,7 +41,7 @@ function SurahGrid({ locale, ids, byId }: { locale: string; ids: number[]; byId:
         return (
           <Link
             key={id}
-            href={`/${locale}/kids/${id}`}
+            href={routePath(locale, `/kids/${id}`)}
             className={`group relative flex min-h-[112px] flex-col justify-between rounded-3xl bg-linear-to-br ${
               CARD_TINTS[i % CARD_TINTS.length]
             } p-4 text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl`}
@@ -111,7 +112,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto mt-10 max-w-4xl px-4 sm:px-6">
         <SectionHead icon="📖" title={t.iqroTitle} desc={t.iqroDesc} count={`${IQRO_COUNT} ${t.jilid}`} />
         <Link
-          href={`/${locale}/kids/iqro`}
+          href={routePath(locale, `/kids/iqro`)}
           className="flex items-center justify-between rounded-3xl bg-linear-to-br from-emerald-400 to-sky-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
         >
           <span className="font-heading text-lg font-bold">📖 {t.iqroTitle}</span>
@@ -128,7 +129,7 @@ export default async function KidsPage({ params }: { params: Promise<{ locale: s
           count="7"
         />
         <Link
-          href={`/${locale}/kids/game`}
+          href={routePath(locale, `/kids/game`)}
           className="flex items-center justify-between rounded-3xl bg-linear-to-br from-amber-400 to-rose-400 p-5 text-white shadow-md ring-1 ring-black/5 transition-transform hover:-translate-y-0.5 hover:shadow-xl"
         >
           <span className="font-heading text-lg font-bold">🎮 {t.gamesCta}</span>

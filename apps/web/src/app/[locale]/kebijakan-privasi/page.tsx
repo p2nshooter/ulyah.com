@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { privacyLabels } from "@/lib/privacy-labels";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.intro,
-    alternates: { canonical: localePath(locale, `/kebijakan-privasi`) },
+    alternates: { canonical: routePath(locale, `/kebijakan-privasi`) },
   };
 }
 

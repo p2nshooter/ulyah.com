@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
 import { api } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
+import { routePath } from "@/lib/paths";
 
 const CLICK_THRESHOLD = 5;
 const WINDOW_MS = 4000;
@@ -56,7 +57,7 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
             // stayed open on top of the dashboard after login ("form login g
             // ke close padahal sudah masuk").
             setShowModal(false);
-            router.push(`/${locale}/admin`);
+            router.push(routePath(locale, `/admin`));
           }}
         />
       )}

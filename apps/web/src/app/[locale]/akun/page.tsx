@@ -12,6 +12,7 @@ import { DonationButtons } from "@/components/DonationButtons";
 import { CryptoDonationSection } from "@/components/CryptoDonationSection";
 import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
 import { portalLabels } from "@/lib/portal-labels";
+import { routePath } from "@/lib/paths";
 
 interface Proof {
   id: number;
@@ -68,7 +69,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
     api
       .get<Me>("/client/me")
       .then((data) => setMe(data))
-      .catch(() => router.push(`/${locale}/masuk`))
+      .catch(() => router.push(routePath(locale, `/masuk`)))
       .finally(() => setLoading(false));
   }
 
@@ -159,7 +160,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
             {certificates.map((p) => (
               <a
                 key={p.id}
-                href={`/${locale}/akun/sertifikat/${p.id}`}
+                href={routePath(locale, `/akun/sertifikat/${p.id}`)}
                 className="group relative overflow-hidden rounded-xl border border-[#C9A84C]/50 bg-[#fbf7ee] p-3 text-center text-text-primary shadow-xs transition hover:shadow-md"
               >
                 <div className="pointer-events-none absolute inset-1.5 rounded-xs border border-double border-[#C9A84C]/60" />
@@ -327,7 +328,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
               )}
               {p.status === "approved" && p.cert_no && (
                 <a
-                  href={`/${locale}/akun/sertifikat/${p.id}`}
+                  href={routePath(locale, `/akun/sertifikat/${p.id}`)}
                   className="mt-2 inline-block rounded-full bg-accent px-4 py-1.5 text-xs font-medium text-primary"
                 >
                   🎗️ {dict.cert.download} · {p.cert_no}

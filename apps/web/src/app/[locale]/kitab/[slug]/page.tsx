@@ -3,6 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { coverFor } from "@/lib/book-cover";
+import { routePath } from "@/lib/paths";
 
 /**
  * Served from cache instead of rebuilt per request.
@@ -67,7 +68,7 @@ export default async function KitabCategoryPage({
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
         <p className="text-sm text-text-secondary">{t.noResults}</p>
-        <Link href={`/${locale}/kitab`} className="mt-4 inline-block text-sm text-accent hover:underline">
+        <Link href={routePath(locale, `/kitab`)} className="mt-4 inline-block text-sm text-accent hover:underline">
           ← {t.backToCategories}
         </Link>
       </div>
@@ -80,7 +81,7 @@ export default async function KitabCategoryPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <Link href={`/${locale}/kitab`} className="text-sm text-accent hover:underline">
+      <Link href={routePath(locale, `/kitab`)} className="text-sm text-accent hover:underline">
         ← {t.backToCategories}
       </Link>
 
@@ -99,7 +100,7 @@ export default async function KitabCategoryPage({
         </div>
       </div>
 
-      <form action={`/${locale}/kitab/${slug}`} className="mt-6">
+      <form action={routePath(locale, `/kitab/${slug}`)} className="mt-6">
         <input
           type="search"
           name="q"
@@ -117,7 +118,7 @@ export default async function KitabCategoryPage({
         {books.map((b) => (
           <div key={b.id}>
             <Link
-              href={`/${locale}/kitab/${slug}/${b.id}`}
+              href={routePath(locale, `/kitab/${slug}/${b.id}`)}
               className="card-premium relative block overflow-hidden p-4 pl-5 transition hover:-translate-y-0.5"
             >
               <span aria-hidden style={{ background: cv.cover }} className="absolute inset-y-0 left-0 w-1.5" />
@@ -158,7 +159,7 @@ export default async function KitabCategoryPage({
       {totalPages > 1 && (
         <div className="mt-8 flex items-center justify-center gap-3 text-sm">
           {page > 1 && (
-            <Link href={`/${locale}/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page - 1}`} className="rounded-lg border border-(--color-border) px-3 py-1.5 hover:border-accent">
+            <Link href={routePath(locale, `/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page - 1}`)} className="rounded-lg border border-(--color-border) px-3 py-1.5 hover:border-accent">
               ← {t.prev}
             </Link>
           )}
@@ -166,7 +167,7 @@ export default async function KitabCategoryPage({
             {t.page} {page}/{totalPages}
           </span>
           {page < totalPages && (
-            <Link href={`/${locale}/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page + 1}`} className="rounded-lg border border-(--color-border) px-3 py-1.5 hover:border-accent">
+            <Link href={routePath(locale, `/kitab/${slug}?${q ? `q=${encodeURIComponent(q)}&` : ""}page=${page + 1}`)} className="rounded-lg border border-(--color-border) px-3 py-1.5 hover:border-accent">
               {t.next} →
             </Link>
           )}

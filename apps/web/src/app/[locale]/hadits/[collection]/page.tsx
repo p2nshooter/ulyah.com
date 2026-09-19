@@ -6,7 +6,7 @@ import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { HaditsReader, type HaditsItem } from "@/components/HaditsReader";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { breadcrumbs, jsonLdHtml, jsonLdProps } from "@/lib/structured-data";
 
 /**
@@ -69,7 +69,7 @@ export async function generateMetadata({
     title: `${data.collection.name_id}${suffix}`,
     description: `${data.collection.name_id} (${data.collection.name_ar}) — ${data.total.toLocaleString(locale)} ${t.hadithCount}. ${t.subtitle}`,
     alternates: {
-      canonical: localePath(locale, page > 1 ? `/hadits/${collection}?page=${page}` : `/hadits/${collection}`),
+      canonical: routePath(locale, page > 1 ? `/hadits/${collection}?page=${page}` : `/hadits/${collection}`),
     },
   };
 }
@@ -93,7 +93,7 @@ export default async function HaditsCollectionPage({
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
         <p className="text-sm text-text-secondary">{t.noResults}</p>
-        <Link href={`/${locale}/hadits`} className="mt-4 inline-block text-sm text-accent hover:underline">
+        <Link href={routePath(locale, `/hadits`)} className="mt-4 inline-block text-sm text-accent hover:underline">
           ← {t.backToBooks}
         </Link>
       </div>
@@ -101,7 +101,7 @@ export default async function HaditsCollectionPage({
   }
 
   const { collection: meta, hadits, total, totalPages } = data;
-  const base = `/${locale}/hadits/${collection}`;
+  const base = routePath(locale, `/hadits/${collection}`);
 
   // Auto-next target once this page finishes narrating: next page in this
   // book, or if this was the last page, the first page of the next book in
@@ -112,7 +112,7 @@ export default async function HaditsCollectionPage({
   } else {
     const idx = COLLECTION_ORDER.indexOf(collection);
     const nextSlug = idx >= 0 ? COLLECTION_ORDER[idx + 1] : undefined;
-    if (nextSlug) nextPageHref = `/${locale}/hadits/${nextSlug}?autoplay=1`;
+    if (nextSlug) nextPageHref = routePath(locale, `/hadits/${nextSlug}?autoplay=1`);
   }
 
   return (
@@ -143,7 +143,7 @@ export default async function HaditsCollectionPage({
         }}
       />
 
-      <Link href={`/${locale}/hadits`} className="text-sm text-accent hover:underline">
+      <Link href={routePath(locale, `/hadits`)} className="text-sm text-accent hover:underline">
         ← {t.backToBooks}
       </Link>
 

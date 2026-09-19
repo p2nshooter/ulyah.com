@@ -8,6 +8,7 @@ import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
+import { routePath } from "@/lib/paths";
 
 interface MushafAyahDTO {
   surahId: number;
@@ -542,7 +543,7 @@ export function MushafReader({ locale }: { locale: string }) {
               </button>
             ))}
             <a
-              href={`/${locale}/quran/tajwid`}
+              href={routePath(locale, `/quran/tajwid`)}
               className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2.5 py-0.5 font-medium text-accent transition hover:bg-accent/10"
             >
               🎨 {tw.guideFull} →

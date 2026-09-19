@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { kidsLabels } from "@/lib/kids-labels";
 import { JILID_NUMBERS } from "@/lib/iqro";
 import { iqroFocus } from "@/lib/iqro-labels";
+import { routePath } from "@/lib/paths";
 
 export const revalidate = 86400;
 
@@ -32,7 +33,7 @@ export default async function IqroIndexPage({ params }: { params: Promise<{ loca
     <div className="min-h-screen bg-linear-to-b from-sky-50 via-amber-50 to-rose-50 pb-16 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
       <div className="mx-auto max-w-3xl px-4 pt-8 sm:px-6">
         <Link
-          href={`/${locale}/kids`}
+          href={routePath(locale, `/kids`)}
           className="inline-flex items-center gap-1 rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-xs ring-1 ring-black/5 hover:bg-white dark:bg-white/10 dark:text-slate-200"
         >
           ← {t.back}
@@ -50,7 +51,7 @@ export default async function IqroIndexPage({ params }: { params: Promise<{ loca
           {JILID_NUMBERS.map((no, i) => (
             <Link
               key={no}
-              href={`/${locale}/kids/iqro/${no}`}
+              href={routePath(locale, `/kids/iqro/${no}`)}
               className={`flex min-h-[120px] flex-col justify-between rounded-3xl bg-linear-to-br ${
                 TINTS[i % TINTS.length]
               } p-4 text-white shadow-md ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-1 hover:shadow-xl`}

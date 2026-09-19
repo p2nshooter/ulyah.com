@@ -13,6 +13,7 @@ import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
 import { fillLabels } from "@/lib/fill-labels";
 import LeafPager from "@/components/LeafPager";
+import { routePath } from "@/lib/paths";
 
 interface QuranRef {
   s: number;
@@ -590,7 +591,7 @@ export function PesantrenKitabReader({
         }
         // Soft App-Router navigation: same document, so speech permission and
         // the reading session survive into the next book.
-        router.push(`/${locale}/kitab-pesantren/${next}?autoread=1&mode=${mode}`);
+        router.push(routePath(locale, `/kitab-pesantren/${next}?autoread=1&mode=${mode}`));
         return;
       }
     } catch {
@@ -674,7 +675,7 @@ export function PesantrenKitabReader({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6" data-native-reader>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <Link href={`/${locale}/kitab-pesantren`} className="text-xs text-accent hover:underline">
+        <Link href={routePath(locale, `/kitab-pesantren`)} className="text-xs text-accent hover:underline">
           {t.back}
         </Link>
       </div>
@@ -954,7 +955,7 @@ export function PesantrenKitabReader({
                         {m.quran_refs.map((q, i) => (
                           <Link
                             key={`q${i}`}
-                            href={`/${locale}/quran?s=${q.s}&a=${q.v}`}
+                            href={routePath(locale, `/quran?s=${q.s}&a=${q.v}`)}
                             className="rounded-full border border-accent/30 bg-accent/5 px-3 py-1 text-[11px] text-accent hover:bg-accent/10"
                           >
                             📖 QS {q.s}:{q.v}

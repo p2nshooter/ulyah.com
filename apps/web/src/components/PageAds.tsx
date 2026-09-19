@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { NetworkAd, tenantHasNetworkAds, type NetworkAdUnit } from "@/components/NetworkAd";
+import { AdSlot } from "@/components/AdSlot";
+import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { localizedRoute } from "@ulyah/shared/routes";
+import { fetchAdView } from "@/lib/ad-config";
 
 /**
  * Guarantees every page and every link carries a full set of Adsterra units,
@@ -54,9 +58,22 @@ const MIN_BLOCK_STRIDE = 2;
 
 const RETRY_MS = [300, 1100, 2400, 4500, 8000];
 
-/** Routes where an injected ad would get in the way of a focused task. The
- *  closing cluster in the layout still runs on these. */
-const SKIP = [
+/**
+ * Routes where an injected ad would get in the way of a focused task. The
+ * closing cluster in the layout still runs on these.
+ *
+ * EVERY SITE'S SPELLING, not just this repo's. The paths are written here as
+ * the routes exist on disk — Indonesian, like every folder — but a sibling site
+ * serves them in its own language, and `usePathname()` returns what the browser
+ * shows. So on dawa.es the compass is /quibla and the mushaf is /coran/mushaf,
+ * neither of which contains "/kiblat" or "/quran/mushaf": the list matched
+ * nothing, and ads were being injected into exactly the pages this list exists
+ * to protect — the live qibla compass and the page-turning reader.
+ *
+ * Expanding through localizedRoute at module load keeps one list while making
+ * it true on all five domains.
+ */
+const SKIP_ROUTES = [
   "/admin",
   "/masuk",
   "/daftar",
@@ -66,6 +83,7 @@ const SKIP = [
   "/quran/mushaf", // page-turning reader
   "/quran-flipbook",
 ];
+const SKIP = [...new Set(SKIP_ROUTES.flatMap((r) => [r, localizedRoute(r, DEFAULT_LOCALE)]))];
 
 /** Elements an ad must never follow — a heading belongs with its text. */
 const NEVER_AFTER = new Set(["H1", "H2", "H3", "H4", "H5", "H6"]);
@@ -132,6 +150,29 @@ function before(a: Node, b: Node): boolean {
 export function PageAds() {
   const pathname = usePathname();
   const [slots, setSlots] = useState<Slot[]>([]);
+  /**
+   * Is Google AdSense live for THIS site — accepted by Google, ticked in the
+   * ulyah.com admin, and carrying a unit id?
+   *
+   * When it is, the injected slots are shared between the two networks instead
+   * of being all Adsterra: AdSense takes the in-content positions, which are
+   * the ones it fills best, and the network keeps the rest. When it is not, the
+   * page is exactly what it was — AdSlot renders nothing on a site that is not
+   * live, so a mixed page can never appear on a site awaiting approval.
+   */
+  const [adsense, setAdsense] = useState(false);
+
+  useEffect(() => {
+    let alive = true;
+    fetchAdView().then((v) => {
+      if (!alive) return;
+      const hasUnit = Boolean(v.slots?.in_article_1 || v.slots?.in_article || v.slots?.in_article_2);
+      setAdsense(Boolean(v.enabled && v.approved && v.clientId && hasUnit));
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     // NetworkAd itself obeys the central ulyah.com switch and renders nothing
@@ -259,17 +300,32 @@ export function PageAds() {
 
   if (!slots.length) return null;
 
-  return <>{slots.map((s) => createPortal(unitFor(s), s.host, `pa-${s.i}`))}</>;
+  return <>{slots.map((s) => createPortal(unitFor(s, adsense), s.host, `pa-${s.i}`))}</>;
 }
 
 /**
- * Which format each injected slot uses. A leaderboard reads best across the
- * top, the middle rotates so the page is not three identical grey boxes, and
- * the bottom closes with a native block and a clearly-labelled partner card.
+ * Which unit each injected slot renders.
+ *
+ * The top is a leaderboard, the middles rotate so the page is not three
+ * identical grey boxes, and the bottom closes with a native block.
+ *
+ * When AdSense is live for this site, the middles alternate between the two
+ * networks — AdSense on the odd ones, the network on the rest. Two reasons for
+ * alternating rather than switching wholesale: no two consecutive slots come
+ * from the same network, so a page never reads as a stack of one thing; and if
+ * one network has no fill that day, the page still carries ads from the other
+ * rather than collapsing every slot at once.
+ *
+ * `in_article_1` / `in_article_2` are separate placements on purpose: they get
+ * their own unit ids in the admin when the owner wants per-position reporting,
+ * and fall back to the one master id when they are left empty.
  */
-function unitFor(s: Slot) {
+function unitFor(s: Slot, adsense: boolean) {
   if (s.kind === "top") return <NetworkAd unit="banner" />;
   if (s.kind === "bottom") return <NetworkAd unit={s.i % 2 === 0 ? "native" : "rectangle"} />;
+  if (adsense && s.i % 2 === 1) {
+    return <AdSlot placement={s.i % 4 === 1 ? "in_article_1" : "in_article_2"} />;
+  }
   const mid: NetworkAdUnit[] = ["native", "rectangle", "banner"];
   return <NetworkAd unit={mid[s.i % mid.length]!} />;
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.nav.about}`,
     description: dict.hero.description,
-    alternates: { canonical: localePath(locale, `/tentang`) },
+    alternates: { canonical: routePath(locale, `/tentang`) },
   };
 }
 
@@ -38,7 +38,7 @@ export default async function TentangPage({ params }: { params: Promise<{ locale
         <p className="mt-4 text-xs italic leading-relaxed text-text-secondary">
           “{s.karyaAbadiQuote}”
         </p>
-        <Link href={`/${locale}/syukur`} className="mt-5 inline-block text-xs font-medium text-accent hover:underline">
+        <Link href={routePath(locale, `/syukur`)} className="mt-5 inline-block text-xs font-medium text-accent hover:underline">
           {s.navLabel} →
         </Link>
       </div>

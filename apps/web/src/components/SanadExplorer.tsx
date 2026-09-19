@@ -5,6 +5,7 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { sanadLabels } from "@/lib/sanad-labels";
 import { NarrateButton } from "@/components/NarrateButton";
+import { routePath } from "@/lib/paths";
 
 interface Collection {
   slug: string;
@@ -162,7 +163,7 @@ export function SanadExplorer({ locale }: { locale: string }) {
                 )}
 
                 <Link
-                  href={`/${locale}/hadits/${selected}`}
+                  href={routePath(locale, `/hadits/${selected}`)}
                   className="mt-3 inline-block text-xs font-medium text-accent hover:underline"
                 >
                   {t.viewFull}

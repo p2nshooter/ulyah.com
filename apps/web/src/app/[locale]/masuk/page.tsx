@@ -6,6 +6,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api, ApiError } from "@/lib/api";
+import { routePath } from "@/lib/paths";
 
 export default function MasukPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = usePromise(params);
@@ -34,7 +35,7 @@ export default function MasukPage({ params }: { params: Promise<{ locale: string
     setBusy(true);
     try {
       await api.post("/client/login", { email, password });
-      router.push(`/${locale}/akun`);
+      router.push(routePath(locale, `/akun`));
     } catch (err) {
       if (err instanceof ApiError && err.code === "email_not_found") setNotRegistered(true);
       setError(err instanceof Error ? err.message : dict.common.error);
@@ -52,7 +53,7 @@ export default function MasukPage({ params }: { params: Promise<{ locale: string
         {error && <p className="text-xs text-danger">{error}</p>}
         {notRegistered && (
           <Link
-            href={`/${locale}/daftar?email=${encodeURIComponent(email)}`}
+            href={routePath(locale, `/daftar?email=${encodeURIComponent(email)}`)}
             className="block rounded-lg border border-accent bg-accent/10 px-4 py-2.5 text-center text-sm font-medium text-accent"
           >
             {dict.auth.registerButton} →
@@ -64,7 +65,7 @@ export default function MasukPage({ params }: { params: Promise<{ locale: string
       </form>
       <p className="mt-4 text-center text-xs text-text-secondary">
         {dict.auth.noAccount}{" "}
-        <Link href={`/${locale}/daftar`} className="text-accent hover:underline">
+        <Link href={routePath(locale, `/daftar`)} className="text-accent hover:underline">
           {dict.auth.registerButton}
         </Link>
       </p>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 /**
  * Acquisition page — 1fr.fr tenant only (404 on ulyah.com). Owner brief: the
@@ -164,9 +164,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const c = copyFor(locale);
   return {
-    title: `${c.title} — ${TENANT.siteName}`,
+    // The layout's title template already appends " — <site>".
+    title: c.title,
     description: c.intro.slice(0, 160),
-    alternates: { canonical: localePath(locale, `/acquisition`) },
+    alternates: { canonical: routePath(locale, `/acquisition`) },
   };
 }
 
@@ -226,7 +227,7 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
           {TENANT.acquisitionEmail}
         </a>
         <p className="mt-6 text-xs text-(--panel-fg)/60">{c.donateNote}</p>
-        <Link href={`/${locale}/donasi`} className="mt-2 inline-block rounded-full border border-accent/50 px-6 py-2 text-sm text-accent transition hover:bg-accent/10">
+        <Link href={routePath(locale, `/donasi`)} className="mt-2 inline-block rounded-full border border-accent/50 px-6 py-2 text-sm text-accent transition hover:bg-accent/10">
           🤲 {c.donateCta}
         </Link>
       </section>

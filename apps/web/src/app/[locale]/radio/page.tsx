@@ -4,7 +4,7 @@ import Image from "next/image";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { radioLabels } from "@/lib/radio-labels";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { TENANT } from "@/lib/tenant";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: localePath(locale, `/radio`) },
+    alternates: { canonical: routePath(locale, `/radio`) },
   };
 }
 
