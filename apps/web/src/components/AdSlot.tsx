@@ -23,14 +23,16 @@ import { fetchAdView, type AdView } from "@/lib/ad-config";
  *     page — our workflow, printed into their reading;
  *   · an AdSense unit that gets no fill collapses to zero height, but the
  *     wrapper kept its margins and min-height, leaving a labelled hole;
- *   · it looked nothing like the network units beside it, so a page carrying
- *     both read as two bolted-on systems rather than one design.
+ *   · it looked bolted on rather than part of the page.
  *
- * So now: the unit shares the hairline-and-caption treatment the network slots
- * use (NetworkAd), the caption appears only once something has actually
- * painted, the space collapses on a confirmed no-fill, and the position marker
- * is an OWNER TOOL — it appears only on a URL carrying `?ads=preview`, never
- * for an ordinary visitor.
+ * So now: a hairline rule either side of a very small caption, which reads as a
+ * section divider the page meant to have; the caption appears only once
+ * something has actually painted; the space collapses on a confirmed no-fill;
+ * and the position marker is an OWNER TOOL — it appears only on a URL carrying
+ * `?ads=preview`, never for an ordinary visitor.
+ *
+ * This is the ecosystem's only ad network now (owner: "ganti dengan adsense
+ * aja"), so every unit on every page comes through here.
  */
 
 /** Ad caption + owner-tool wording, per site language. */
@@ -170,9 +172,8 @@ export function AdSlot({
         aria-label={caption}
         data-adsense-slot={placement}
       >
-        {/* The caption only exists once there is something to caption — the
-            same rule the network units follow, so a page never shows a label
-            floating over nothing. */}
+        {/* The caption only exists once there is something to caption, so a
+            page never shows an "Iklan" rule floating over nothing. */}
         {filled === true && (
           <div aria-hidden className="mb-2 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45">
             <span className="h-px flex-1 bg-(--color-border-gold)" />

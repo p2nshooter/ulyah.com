@@ -3,27 +3,34 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { NetworkAd, tenantHasNetworkAds, type NetworkAdUnit } from "@/components/NetworkAd";
 import { AdSlot } from "@/components/AdSlot";
 import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { localizedRoute } from "@ulyah/shared/routes";
 import { fetchAdView } from "@/lib/ad-config";
 
 /**
- * Guarantees every page and every link carries a full set of Adsterra units,
- * placed at the top, through the middle and at the bottom.
+ * Places this site's AdSense units on the page — at the top, through the middle
+ * and at the bottom — wherever the page's own template does not already carry
+ * one.
  *
- * The owner's rule is "per halaman per link wajib ada adsterra dengan posisi
- * atas bawah tengah, minimal 6 iklan per page". Hard-coding that into each
- * template does not hold: the article template already carried seven units,
- * while home, category, about, contact, privacy and terms carried three or
- * four — and any page added later would start from zero.
+ * ONE NETWORK NOW. This used to inject Adsterra units, and later a mix of the
+ * two. Adsterra is gone from the ecosystem (owner: "hapus iklan adsterra di
+ * ekosistem ulyah.com, ganti dengan adsense aja"), so every slot here is an
+ * AdSense unit and a site that is not live for AdSense gets nothing — which is
+ * the correct behaviour either way: AdSlot renders null until the site is
+ * enabled, approved and carrying a unit id.
+ *
+ * The owner's rule was "per halaman per link wajib ada iklan dengan posisi atas
+ * bawah tengah". Hard-coding that into each template does not hold: the article
+ * template already carried several units while home, category, about, contact,
+ * privacy and terms carried three or four — and any page added later would
+ * start from zero.
  *
  * So this works from what the page ACTUALLY rendered:
  *
- *   1. it finds the units already on the page ([data-network-ad]) and sorts them into
- *      top / middle / bottom, so a template that places its own ads is never
- *      doubled up;
+ *   1. it finds the units already on the page ([data-adsense-slot]) and sorts
+ *      them into top / middle / bottom, so a template that places its own ads
+ *      is never doubled up;
  *   2. it fills each region up to QUOTA, which is what makes "atas tengah
  *      bawah" true on every route rather than only on articles;
  *   3. middles go on spaced section boundaries, never straight after a heading
@@ -33,7 +40,7 @@ import { fetchAdView } from "@/lib/ad-config";
  * the page into percentage bands of its height. That looked right until the
  * ads themselves loaded: each one made the page taller, the bands slid under
  * the units already placed, and a page could end up reporting five "bottom"
- * ads and no middle at all. Document order does not move when an iframe grows,
+ * ads and no middle at all. Document order does not move when a unit grows,
  * so the quota stays true however the page reflows.
  *
  * Placement is measured after paint and retried, because several pages settle
@@ -41,10 +48,22 @@ import { fetchAdView } from "@/lib/ad-config";
  * never moved, so an ad that has begun loading is never remounted.
  */
 
-/** Units per region. Six per page, weighted towards the reading middle. */
-const QUOTA = { top: 1, middle: 3, bottom: 2 } as const;
-/** Ceiling, so a rich article template is not turned into a wall. */
-const MAX_TOTAL = 8;
+/**
+ * Units per region.
+ *
+ * Six-to-eight was a two-network number: Adsterra filled most of them and
+ * AdSense took a couple. With one network the same count would be eight AdSense
+ * units on a page, and "ads must not exceed the content" is a policy a site
+ * gets measured against — worst case for a domain that was only just accepted.
+ *
+ * Four, weighted to the reading middle, is what a long article carries
+ * comfortably: one above the content, two between sections, one after it. Short
+ * pages take fewer, because the middles need real section boundaries to land
+ * on and there simply are not four of them.
+ */
+const QUOTA = { top: 1, middle: 2, bottom: 1 } as const;
+/** Ceiling, counting the units a template placed itself. */
+const MAX_TOTAL = 5;
 
 /** A block shorter than this is a caption; an ad after it looks arbitrary. */
 const MIN_BLOCK_PX = 60;
@@ -102,7 +121,7 @@ function realBlocks(node: HTMLElement, minPx = MIN_BLOCK_PX): HTMLElement[] {
       c.offsetHeight >= minPx &&
       !NEVER_AFTER.has(c.tagName) &&
       !c.hasAttribute("data-ulyah-ad-anchor") &&
-      !c.hasAttribute("data-network-ad")
+      !c.hasAttribute("data-adsense-slot")
   );
 }
 
@@ -175,9 +194,10 @@ export function PageAds() {
   }, []);
 
   useEffect(() => {
-    // NetworkAd itself obeys the central ulyah.com switch and renders nothing
-    // when it is off, so an anchor left behind is simply an empty div.
-    if (!tenantHasNetworkAds()) return;
+    // Nothing to place until this site is actually serving AdSense. AdSlot
+    // renders null when it is not, so an anchor placed early would be an empty
+    // div — harmless, but the measurement would count it as a filled region.
+    if (!adsense) return;
     if (SKIP.some((p) => pathname?.includes(p))) return;
 
     const created: Slot[] = [];
@@ -198,7 +218,7 @@ export function PageAds() {
 
         // Sort every unit already on the page into a region by DOM position.
         const have: Record<Kind, number> = { top: 0, middle: 0, bottom: 0 };
-        const wraps = Array.from(document.querySelectorAll("[data-network-ad]")).filter(
+        const wraps = Array.from(document.querySelectorAll("[data-adsense-slot]")).filter(
           (e): e is HTMLElement => e instanceof HTMLElement
         );
         for (const w of wraps) {
@@ -296,36 +316,24 @@ export function PageAds() {
         }
       }, 0);
     };
-  }, [pathname]);
+  }, [pathname, adsense]);
 
   if (!slots.length) return null;
 
-  return <>{slots.map((s) => createPortal(unitFor(s, adsense), s.host, `pa-${s.i}`))}</>;
+  return <>{slots.map((s) => createPortal(unitFor(s), s.host, `pa-${s.i}`))}</>;
 }
 
 /**
- * Which unit each injected slot renders.
+ * Which placement each injected slot uses.
  *
- * The top is a leaderboard, the middles rotate so the page is not three
- * identical grey boxes, and the bottom closes with a native block.
- *
- * When AdSense is live for this site, the middles alternate between the two
- * networks — AdSense on the odd ones, the network on the rest. Two reasons for
- * alternating rather than switching wholesale: no two consecutive slots come
- * from the same network, so a page never reads as a stack of one thing; and if
- * one network has no fill that day, the page still carries ads from the other
- * rather than collapsing every slot at once.
- *
- * `in_article_1` / `in_article_2` are separate placements on purpose: they get
- * their own unit ids in the admin when the owner wants per-position reporting,
- * and fall back to the one master id when they are left empty.
+ * Distinct placement names rather than one repeated: they are what the admin
+ * can give separate unit ids to when the owner wants per-position reporting,
+ * and until then they all resolve to the same master id. The top of the page
+ * and the closing slot read differently from the in-content ones, so they get
+ * their own names too.
  */
-function unitFor(s: Slot, adsense: boolean) {
-  if (s.kind === "top") return <NetworkAd unit="banner" />;
-  if (s.kind === "bottom") return <NetworkAd unit={s.i % 2 === 0 ? "native" : "rectangle"} />;
-  if (adsense && s.i % 2 === 1) {
-    return <AdSlot placement={s.i % 4 === 1 ? "in_article_1" : "in_article_2"} />;
-  }
-  const mid: NetworkAdUnit[] = ["native", "rectangle", "banner"];
-  return <NetworkAd unit={mid[s.i % mid.length]!} />;
+function unitFor(s: Slot) {
+  if (s.kind === "top") return <AdSlot placement="list" />;
+  if (s.kind === "bottom") return <AdSlot placement="footer" />;
+  return <AdSlot placement={s.i % 2 === 0 ? "in_article_1" : "in_article_2"} />;
 }

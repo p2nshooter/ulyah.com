@@ -58,6 +58,14 @@ jobs:
       - name: Check which languages may be machine-translated into
         run: npx tsx scripts/check-mt-targets.ts
 
+      # One ad network. Removing Adsterra was not only deleting a component: its
+      # flags live in a row of JSON in D1 that is read back on every save, and a
+      # leftover `adsterra: true` there is invisible in review. This pins the
+      # round trip (an old row still reads, the dead flag does not survive it)
+      # and that no file has gone back to wiring the component up.
+      - name: Check the ecosystem runs one ad network
+        run: npx tsx scripts/check-ads.ts
+
       # An occasion of revelation that exists is always shown. The reader
       # renders an empty asbabun panel as "no specific occasion is narrated for
       # this ayah" — a claim about scholarship, and a false one when the real
@@ -169,16 +177,6 @@ jobs:
       # "prepared but not offered" until ALIEXPRESS_READY is flipped.
       - name: Check the admin settings panel keeps its promises
         run: npx tsx scripts/check-managed-settings.mjs
-
-      # Every ad unit loads public/ads/frame.html, and NetworkAd decides whether
-      # a slot filled by reading that frame's <title>. If the file stops being
-      # deployed the iframe quietly loads this site's own 404 page instead —
-      # same origin, full of content — which the fill watch would read as a
-      # filled ad and reserve 90-250px of empty space for, under an "Iklan"
-      # rule, on every page. Both halves are asserted: the file exists, and the
-      # two copies of the title agree.
-      - name: Check the ad frame is present and still recognisable
-        run: node scripts/check-ad-frame.mjs
 
       # Structured data is JSON inside HTML, and JSON.stringify does not know
       # that. The parser scans a script body for the literal `</script` and ends

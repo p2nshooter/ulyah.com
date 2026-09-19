@@ -1023,25 +1023,20 @@ adminRoute.get("/site-analytics", async (c) => {
 // ads (4 ulyah tenants + 3 AXTO sites). Saves per-site show/hide + the real
 // ad-unit ids; every site polls /content/ad-config and updates within a minute.
 adminRoute.post("/adsense-config", async (c) => {
+  // `adsterra` is still accepted in the body and ignored: an admin page cached
+  // in someone's browser from before the network was removed must not 400.
   const body = await c.req.json<{
     slots?: Record<string, string>;
-    sites?: Record<string, { enabled?: boolean; approved?: boolean; adsterra?: boolean } | boolean>;
-    adsterra?: boolean;
+    sites?: Record<string, { enabled?: boolean; approved?: boolean } | boolean>;
   }>();
   const current = await getAdConfig(c.env, true); // merge onto the consistent current state
-  const mergedSites: Record<string, { enabled: boolean; approved: boolean; adsterra: boolean }> = { ...current.sites };
+  const mergedSites: Record<string, { enabled: boolean; approved: boolean }> = { ...current.sites };
   for (const [k, v] of Object.entries(body.sites ?? {})) {
     if (typeof v === "boolean") {
-      // legacy boolean form only carried "enabled"; keep the site's existing
-      // adsterra flag rather than resetting it.
-      mergedSites[k] = { enabled: v, approved: false, adsterra: current.sites[k]?.adsterra !== false };
+      // The legacy boolean form only ever carried "enabled".
+      mergedSites[k] = { enabled: v, approved: false };
     } else if (v && typeof v === "object") {
-      mergedSites[k] = {
-        enabled: v.enabled === true,
-        approved: v.approved === true,
-        // adsterra defaults ON unless the client explicitly sends false.
-        adsterra: v.adsterra !== false,
-      };
+      mergedSites[k] = { enabled: v.enabled === true, approved: v.approved === true };
     }
   }
   // Use the config saveAdConfig actually wrote — never re-read from KV here
@@ -1051,8 +1046,6 @@ adminRoute.post("/adsense-config", async (c) => {
     clientId: current.clientId,
     slots: { ...current.slots, ...(body.slots ?? {}) },
     sites: mergedSites,
-    // Master Adsterra ON/OFF — only changed when the key is present in the body.
-    adsterra: typeof body.adsterra === "boolean" ? body.adsterra : current.adsterra,
   });
   const admin = c.get("admin" as never) as { email: string };
   const liveSlots = Object.values(saved.slots).filter(Boolean).length;

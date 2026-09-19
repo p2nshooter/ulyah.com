@@ -237,8 +237,7 @@ async function purgeMurottalCatalogue(env: Env): Promise<void> {
  * A deploy cannot edit data, so this does it on the next scheduled tick, and
  * the KV flag makes it a ONE-TIME event rather than a policy: if the owner ever
  * turns dawa off again in the admin, this must not quietly turn it back on at
- * the next tick. That is also why it does not touch any other site, and why it
- * leaves the Adsterra flag exactly as it found it.
+ * the next tick. That is also why it does not touch any other site.
  */
 const DAWA_ADSENSE_FLAG = "ads:dawa-adsense-approved-applied";
 
@@ -254,7 +253,7 @@ async function activateDawaAdsense(env: Env): Promise<void> {
     await env.CACHE_KV.put(DAWA_ADSENSE_FLAG, "1:already-on").catch(() => {});
     return;
   }
-  cfg.sites.dawa = { enabled: true, approved: true, adsterra: before?.adsterra !== false };
+  cfg.sites.dawa = { enabled: true, approved: true };
   await saveAdConfig(env, cfg);
   await env.CACHE_KV.put(DAWA_ADSENSE_FLAG, "1:applied").catch(() => {});
   console.log("dawa.es: AdSense enabled + approved in the central ad config.");

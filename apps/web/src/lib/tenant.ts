@@ -37,7 +37,7 @@ export interface TenantConfig {
   wordmarkGold: string | null;
   acquisitionEmail: string | null;
   features: {
-    /** Ad slots (AdSense/Adsterra) allowed at all. */
+    /** AdSense slots allowed at all. */
     ads: boolean;
     /** Donation CTA promoted into the header + hero. */
     donationForward: boolean;

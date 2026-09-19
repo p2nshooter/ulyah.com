@@ -88,27 +88,32 @@ fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`).
 
 ## Ads
 
-Two networks, one control point. Every site reads `GET /content/ad-config` from
-api.ulyah.com and the **ulyah.com admin portal is the only place that edits it**
-(AdSense tab):
+**Google AdSense, and nothing else.** Adsterra was removed from the ecosystem
+(owner: "hapus iklan adsterra di ekosistem ulyah.com, ganti dengan adsense
+aja") — its component, its per-tenant inventory, its sandboxed ad frame, the
+master switch and the per-site toggles are all gone.
 
-- **Google AdSense** serves on a site that is `enabled` + `approved` (the
-  owner's "Google accepted THIS domain" tick) **and** has an ad-unit id pasted.
-  Missing any of the three, the site shows no AdSense at all — the admin now
-  says so per site instead of leaving every switch green and the page empty.
-  dawa.es was switched on by a one-time migration after its approval
-  (`activateDawaAdsense` in the Worker's scheduled tick; the KV flag keeps it
-  one-time, so turning it off in the admin sticks).
-- **Adsterra** has a master switch plus a per-site toggle, and its own
-  per-tenant inventory (`NetworkAd`).
+Every site reads `GET /content/ad-config` from api.ulyah.com and the
+**ulyah.com admin portal is the only place that edits it** (AdSense tab). A
+site serves ads when it is `enabled` + `approved` (the owner's "Google accepted
+THIS domain" tick) **and** an ad-unit id has been pasted. Missing any of the
+three, the site shows nothing — and the admin now says so per site rather than
+leaving every switch green and the page empty.
 
-`PageAds` measures the rendered page and fills it to the owner's quota — one
-unit above the content, three through the middle on real section boundaries,
-two in the closing cluster. Where AdSense is live the middles alternate between
-the two networks, so no two consecutive slots come from the same one.
+dawa.es is switched on by a one-time migration after its approval
+(`activateDawaAdsense` in the Worker's scheduled tick; the KV flag keeps it
+one-time, so turning it off in the admin sticks).
 
-Position markers are an **owner tool**: add `?ads=preview` to any URL to see
-where each unit will land. Visitors never see them.
+`PageAds` measures the rendered page and places what the template did not: one
+unit above the content, two through the middle on real section boundaries, one
+in the closing cluster — four, sized for a single network, since "ads must not
+exceed content" is what a site gets measured against. Focused pages (mushaf,
+qibla, sign-in, donate) are skipped, in every site's own spelling.
+
+A unit that gets no fill collapses to nothing (`data-ad-status`), so a page
+never carries a labelled empty band. Position markers are an **owner tool**:
+add `?ads=preview` to any URL to see where each unit will land. Visitors never
+see them.
 
 ## Storage discipline
 

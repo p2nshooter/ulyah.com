@@ -6,13 +6,11 @@ import { api } from "@/lib/api";
 interface SiteState {
   enabled: boolean;
   approved: boolean;
-  adsterra: boolean;
 }
 interface Config {
   clientId: string;
   slots: Record<string, string>;
   sites: Record<string, SiteState>;
-  adsterra?: boolean;
 }
 
 // One responsive unit id can drive every placement the network uses.
@@ -37,36 +35,31 @@ const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" | "es" 
   { key: "lie-skin", label: "lie.skin", group: "es" },
 ];
 
-// Only these ecosystem sites actually carry Adsterra inventory (matches the
-// INVENTORY map in NetworkAd.tsx). The AXTO + article sites monetise with
-// AdSense only, so an Adsterra toggle for them would do nothing — we list just
-// the sites where the switch has a real effect.
-const ADSTERRA_SITES = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
-
 function coerce(v: unknown): SiteState {
-  // adsterra defaults ON so a site whose stored config predates the per-site
-  // Adsterra toggle keeps showing its network ads until the owner turns it off.
-  if (typeof v === "boolean") return { enabled: v, approved: false, adsterra: true };
+  if (typeof v === "boolean") return { enabled: v, approved: false };
   if (v && typeof v === "object") {
     const o = v as Record<string, unknown>;
-    return { enabled: o.enabled === true, approved: o.approved === true, adsterra: o.adsterra !== false };
+    return { enabled: o.enabled === true, approved: o.approved === true };
   }
-  return { enabled: false, approved: false, adsterra: true };
+  return { enabled: false, approved: false };
 }
 
 /**
- * Central ad control for the WHOLE network. Every site reads /content/ad-config
- * from api.ulyah.com, so what is set here governs all of them. Flow the owner
- * asked for: (1) paste the ONE real ad-unit id once; (2) turn a site ON to
- * preview ad positions even before approval; (3) tick "ACC" on the sites
- * AdSense has approved — only ON + ACC sites serve live ads, so approving one
- * site never switches them all on at once. Ads never appear in any admin.
+ * Central ad control for the WHOLE network — one network now. Adsterra was
+ * removed from the ecosystem (owner: "hapus iklan adsterra di ekosistem
+ * ulyah.com, ganti dengan adsense aja"), and its master switch and per-site
+ * checklist went with it; what is left is the AdSense flow and nothing else.
+ *
+ * Every site reads /content/ad-config from api.ulyah.com, so what is set here
+ * governs all of them: (1) paste the ONE real ad-unit id once; (2) turn a site
+ * ON; (3) tick "ACC" on the sites AdSense has approved — only ON + ACC + an id
+ * serves ads, so approving one site never switches them all on at once. Ads
+ * never appear in any admin.
  */
 export function AdsenseTab() {
   const [config, setConfig] = useState<Config | null>(null);
   const [masterId, setMasterId] = useState("");
   const [sites, setSites] = useState<Record<string, SiteState>>({});
-  const [adsterra, setAdsterra] = useState(true);
   const [saved, setSaved] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -76,7 +69,6 @@ export function AdsenseTab() {
       .then((cfg) => {
         setConfig(cfg);
         setMasterId(cfg.slots?.in_article ?? cfg.slots?.in_article_1 ?? "");
-        setAdsterra(cfg.adsterra !== false);
         const s: Record<string, SiteState> = {};
         for (const { key } of SITE_LABELS) s[key] = coerce(cfg.sites?.[key]);
         setSites(s);
@@ -84,19 +76,18 @@ export function AdsenseTab() {
       .catch(() => {});
   }, []);
 
-  // The one write path. Persists an EXPLICIT sites snapshot + adsterra value so
-  // an auto-save never races React's async state (using the closure `sites`
-  // right after setSites would post the STALE value). Every toggle calls this,
-  // so a change is saved the instant it's made — no "refresh reverts it".
-  async function persist(nextSites: Record<string, SiteState>, adsterraNext: boolean) {
+  // The one write path. Persists an EXPLICIT sites snapshot so an auto-save
+  // never races React's async state (using the closure `sites` right after
+  // setSites would post the STALE value). Every toggle calls this, so a change
+  // is saved the instant it's made — no "refresh reverts it".
+  async function persist(nextSites: Record<string, SiteState>) {
     setBusy(true);
     const id = masterId.replace(/[^0-9]/g, "").slice(0, 20);
     const slots: Record<string, string> = {};
     for (const p of PLACEMENTS) slots[p] = id;
     try {
-      const next = await api.post<Config>("/admin/adsense-config", { slots, sites: nextSites, adsterra: adsterraNext });
+      const next = await api.post<Config>("/admin/adsense-config", { slots, sites: nextSites });
       setConfig(next);
-      setAdsterra(next.adsterra !== false);
       const s: Record<string, SiteState> = {};
       for (const { key } of SITE_LABELS) s[key] = coerce(next.sites?.[key]);
       setSites(s);
@@ -108,37 +99,26 @@ export function AdsenseTab() {
   }
 
   // The explicit "Simpan" button (also saves the typed ad-unit id).
-  function save(overrides?: { adsterra?: boolean }) {
-    return persist(sites, overrides?.adsterra ?? adsterra);
+  function save() {
+    return persist(sites);
   }
 
   // Each toggle computes the next snapshot, updates the UI, AND auto-saves it.
   function toggle(key: string) {
     const next = { ...sites, [key]: { ...coerce(sites[key]), enabled: !coerce(sites[key]).enabled } };
     setSites(next);
-    persist(next, adsterra);
+    persist(next);
   }
   function toggleApproved(key: string) {
     const next = { ...sites, [key]: { ...coerce(sites[key]), approved: !coerce(sites[key]).approved } };
     setSites(next);
-    persist(next, adsterra);
-  }
-  function toggleAdsterra(key: string) {
-    const next = { ...sites, [key]: { ...coerce(sites[key]), adsterra: !coerce(sites[key]).adsterra } };
-    setSites(next);
-    persist(next, adsterra);
+    persist(next);
   }
   function setAll(field: "enabled" | "approved", v: boolean) {
     const next = { ...sites };
     for (const { key } of SITE_LABELS) next[key] = { ...coerce(next[key]), [field]: v };
     setSites(next);
-    persist(next, adsterra);
-  }
-  function setAllAdsterra(v: boolean) {
-    const next = { ...sites };
-    for (const key of ADSTERRA_SITES) next[key] = { ...coerce(next[key]), adsterra: v };
-    setSites(next);
-    persist(next, adsterra);
+    persist(next);
   }
 
   if (!config) return <p className="text-sm text-text-secondary">Memuat…</p>;
@@ -146,7 +126,6 @@ export function AdsenseTab() {
   const hasRealId = !!masterId.replace(/[^0-9]/g, "");
   const onCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled).length;
   const liveCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved).length;
-  const adsterraOnCount = ADSTERRA_SITES.filter((k) => coerce(sites[k]).adsterra).length;
   const labelOf = (key: string) => SITE_LABELS.find((s) => s.key === key)?.label ?? key;
   const groupIcon = (g: string) => (g === "axto" ? "🛰️" : g === "es" ? "📰" : "🕌");
 
@@ -157,8 +136,31 @@ export function AdsenseTab() {
     ? []
     : SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved);
 
+  // The five ecosystem sites used to carry Adsterra whatever their AdSense
+  // state. With that network gone, a site that is not ON + ACC now shows
+  // NOTHING — which is correct (we may not serve AdSense on a domain Google has
+  // not accepted) but is a change worth seeing rather than discovering in the
+  // earnings report.
+  const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
+  const silent = ECOSYSTEM.filter((k) => {
+    const st = coerce(sites[k]);
+    return !(st.enabled && st.approved && hasRealId);
+  });
+
   return (
     <div className="space-y-6">
+      {silent.length > 0 && (
+        <section className="rounded-xl border border-sky-500/40 bg-sky-500/10 p-4">
+          <p className="font-heading text-base">ℹ️ Situs ekosistem yang belum menayangkan iklan</p>
+          <p className="mt-1 text-sm text-text-secondary">
+            Adsterra sudah dicabut, jadi sekarang setiap situs bergantung sepenuhnya pada AdSense.{" "}
+            <b>{silent.map((k) => labelOf(k)).join(", ")}</b> belum menayangkan iklan apa pun karena belum{" "}
+            <b>ON + ACC</b>{hasRealId ? "" : " dan ID unit iklan masih kosong"}. Ini memang benar — AdSense tidak boleh
+            ditayangkan di domain yang belum diterima Google — tapi artinya situs itu untuk sementara tanpa iklan.
+            Daftarkan domainnya di AdSense, lalu centang ACC di sini begitu diterima.
+          </p>
+        </section>
+      )}
       {blockedByMissingId.length > 0 && (
         <section className="rounded-xl border border-amber-500/50 bg-amber-500/10 p-4">
           <p className="font-heading text-base">⚠️ ID unit iklan masih kosong</p>
@@ -166,112 +168,15 @@ export function AdsenseTab() {
             {blockedByMissingId.map((s) => s.label).join(", ")} sudah <b>ON + ACC</b>, tapi AdSense tidak bisa
             menayangkan apa pun tanpa ID unit. Ambil ID unit iklan responsif dari dashboard AdSense (angka saja),
             tempel di kotak <b>“1 · ID Unit Iklan AdSense”</b> di bawah, lalu simpan — iklan langsung tayang di situs
-            itu dalam ≤1 menit. Iklan Adsterra tetap jalan seperti biasa selama menunggu.
+            itu dalam ≤1 menit.
           </p>
         </section>
       )}
-      {/* Master ON/OFF for the Adsterra network ads across every site. OFF =
-          every Adsterra unit hidden everywhere, no exception. Applies within
-          ≤1 menit as each site re-reads /content/ad-config. */}
-      <section
-        className={`rounded-xl border p-4 ${
-          adsterra ? "border-emerald-500/40 bg-emerald-500/6" : "border-rose-500/40 bg-rose-500/6"
-        }`}
-      >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="font-heading text-base">📣 Iklan Adsterra — Sakelar Utama</p>
-            <p className="mt-0.5 text-xs text-text-secondary">
-              {adsterra
-                ? "Iklan Adsterra AKTIF di semua situs. Matikan untuk menyembunyikan SEMUA iklan Adsterra tanpa kecuali."
-                : "Iklan Adsterra MATI — tidak ada satu pun unit Adsterra yang tampil di situs mana pun."}
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              const next = !adsterra;
-              setAdsterra(next);
-              save({ adsterra: next });
-            }}
-            disabled={busy}
-            role="switch"
-            aria-checked={adsterra}
-            className={`relative inline-flex h-9 w-20 shrink-0 items-center rounded-full px-1 text-xs font-bold transition disabled:opacity-60 ${
-              adsterra ? "bg-emerald-500 text-white" : "bg-rose-500/80 text-white"
-            }`}
-          >
-            <span
-              className={`absolute inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-text-primary shadow transition-all ${
-                adsterra ? "left-[calc(100%-1.85rem)]" : "left-1"
-              }`}
-            >
-              {adsterra ? "ON" : "OFF"}
-            </span>
-            <span className={adsterra ? "pl-1.5" : "ml-auto pr-1.5"}>{adsterra ? "ON" : "OFF"}</span>
-          </button>
-        </div>
-      </section>
-
-      {/* Per-site Adsterra checklist — the owner asked for the SAME on/off
-          checklist Adsterra has that AdSense already has ("adsterra harus punya
-          checklist on/off per situs… semua halaman ga muncul klo di off di satu
-          situs"). A site shows Adsterra only when the master switch above AND
-          its own toggle here are both ON. Only the five ecosystem sites that
-          carry Adsterra inventory are listed. */}
       <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div>
-            <p className="font-heading text-base">📣 Adsterra per Situs — Checklist ON/OFF</p>
-            <p className="mt-0.5 text-xs text-text-secondary">
-              Matikan Adsterra untuk satu situs → semua halaman situs itu tidak menampilkan iklan Adsterra.{" "}
-              {adsterra
-                ? "Sakelar utama menyala, jadi setelan per-situs di bawah berlaku."
-                : "Sakelar utama MATI, jadi semua Adsterra tetap tersembunyi apa pun setelan di bawah."}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2 text-xs">
-            <button onClick={() => setAllAdsterra(true)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
-              Semua ON
-            </button>
-            <button onClick={() => setAllAdsterra(false)} disabled={busy} className="rounded-full border border-(--color-border) px-3 py-1 hover:border-accent disabled:opacity-50">
-              Semua OFF
-            </button>
-          </div>
-        </div>
-        <div className={`mt-3 grid gap-2 sm:grid-cols-2 ${adsterra ? "" : "opacity-50"}`}>
-          {ADSTERRA_SITES.map((key) => {
-            const on = coerce(sites[key]).adsterra;
-            return (
-              <button
-                key={key}
-                onClick={() => toggleAdsterra(key)}
-                disabled={busy}
-                className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-left text-sm transition disabled:opacity-60 ${
-                  on ? "border-emerald-500/50 bg-emerald-500/10" : "border-rose-500/40 bg-rose-500/6"
-                }`}
-              >
-                <span>🕌 {labelOf(key)}</span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-xs font-bold ${
-                    on ? "bg-emerald-500 text-white" : "bg-rose-500/80 text-white"
-                  }`}
-                >
-                  {on ? "ON" : "OFF"}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="mt-2 text-[11px] text-text-secondary/70">
-          {adsterraOnCount} dari {ADSTERRA_SITES.length} situs menyalakan Adsterra. Setiap perubahan{" "}
-          <b>otomatis tersimpan</b> dan berlaku ≤1 menit di situs. Situs lain (AXTO, artikel) tidak memakai Adsterra.
-        </p>
-      </section>
-
-      <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
-        <p className="font-heading text-base">Kontrol Iklan Jaringan</p>
+        <p className="font-heading text-base">Kontrol Iklan — Google AdSense</p>
         <p className="mt-1 text-sm text-text-secondary">
-          Satu tempat mengatur iklan untuk <b>seluruh situs</b> (ulyah.com + saudara, AXTO, dan situs artikel:
+          <b>Adsterra sudah dihapus dari seluruh ekosistem</b> — sekarang hanya AdSense. Satu tempat mengatur iklan
+          untuk <b>seluruh situs</b> (ulyah.com + saudara, AXTO, dan situs artikel:
           profity.in, oldco.in, xaa.es, xad.es, jai.lat, lie.skin). Bawaan semua <b>mati</b>. Isi ID unit iklan sekali,
           nyalakan situsnya, lalu <b>centang “ACC”</b> hanya pada situs yang sudah diterima AdSense — cuma situs
           ON + ACC + ada ID yang menayangkan iklan. Iklan tidak pernah muncul di portal admin.

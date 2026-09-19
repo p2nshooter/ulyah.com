@@ -6,7 +6,13 @@ import { safeKvGet, safeKvPut } from "./kv-safe.js";
  * from api.ulyah.com, and the ulyah.com admin portal is the only place that
  * edits it (owner: "semua dikontrol dari portal admin ulyah.com").
  *
- * Model (v2 — per-site approval checklist):
+ * ONE NETWORK. Adsterra is gone from the ecosystem (owner: "hapus iklan
+ * adsterra di ekosistem ulyah.com, ganti dengan adsense aja"), so the master
+ * switch and the per-site Adsterra toggles went with it. A stored config that
+ * still carries those fields simply loses them on the next read — they are not
+ * read, not written, and not returned to any site.
+ *
+ * Model (v3 — AdSense only, per-site approval checklist):
  *  - `slots`: placement → the ONE real AdSense ad-unit id, pasted once by the
  *    owner after AdSense approval. While empty, enabled sites show a tasteful
  *    PREVIEW box so ad positions/spacing can be checked before going live.
@@ -49,50 +55,38 @@ export type AdPlacement = (typeof AD_PLACEMENTS)[number];
 export interface SiteAdState {
   enabled: boolean;
   approved: boolean;
-  /** Per-site Adsterra ON/OFF (owner: "adsterra harus punya checklist on/off
-   *  per situs… semua halaman ga muncul klo di off di satu situs"). Default ON
-   *  so existing sites keep their Adsterra until the owner unchecks one. A site
-   *  serves Adsterra only when BOTH the master switch and this per-site flag are
-   *  on. Independent of the AdSense enabled/approved fields above. */
-  adsterra: boolean;
 }
 
 export interface AdConfig {
   clientId: string;
   slots: Record<string, string>;
   sites: Record<string, SiteAdState>;
-  /** Master ON/OFF for the Adsterra network ads across EVERY site (owner:
-   *  "kontrol iklan adsterra dengan tombol ON & OFF, kalau OFF semua iklan
-   *  hidden tanpa kecuali"). Default ON. When false, NetworkAd renders nothing
-   *  anywhere — no exception. */
-  adsterra: boolean;
 }
 
 const KV_KEY = "ads:cfg:v1";
 
 export function defaultAdConfig(): AdConfig {
   const sites: Record<string, SiteAdState> = {};
-  for (const s of AD_SITES) sites[s] = { enabled: false, approved: false, adsterra: true };
+  for (const s of AD_SITES) sites[s] = { enabled: false, approved: false };
   const slots: Record<string, string> = {};
   for (const p of AD_PLACEMENTS) slots[p] = "";
-  return { clientId: AD_CLIENT_ID, slots, sites, adsterra: true };
+  return { clientId: AD_CLIENT_ID, slots, sites };
 }
 
-/** Coerce a stored site value that may be the old boolean form OR the new
- * { enabled, approved } object into the new shape. */
+/**
+ * Coerce a stored site value into the current shape. Three generations of it
+ * are in the database — a bare boolean, { enabled, approved }, and the same
+ * plus an `adsterra` flag — and all three have to read cleanly, because the
+ * config is one row that is only ever rewritten in full. Anything unknown
+ * (including that dead `adsterra` field) is dropped.
+ */
 function coerceSite(v: unknown): SiteAdState {
-  // adsterra defaults to true (ON) whenever the stored value predates the
-  // per-site Adsterra field, so upgrading never silently hides existing ads.
-  if (typeof v === "boolean") return { enabled: v, approved: false, adsterra: true };
+  if (typeof v === "boolean") return { enabled: v, approved: false };
   if (v && typeof v === "object") {
     const o = v as Record<string, unknown>;
-    return {
-      enabled: o.enabled === true,
-      approved: o.approved === true,
-      adsterra: o.adsterra !== false,
-    };
+    return { enabled: o.enabled === true, approved: o.approved === true };
   }
-  return { enabled: false, approved: false, adsterra: true };
+  return { enabled: false, approved: false };
 }
 
 function normalizeAdConfig(parsed: Partial<AdConfig>): AdConfig {
@@ -103,7 +97,6 @@ function normalizeAdConfig(parsed: Partial<AdConfig>): AdConfig {
     clientId: AD_CLIENT_ID, // never trust a stored client id
     slots: { ...def.slots, ...(parsed.slots ?? {}) },
     sites,
-    adsterra: parsed.adsterra !== false, // default ON unless explicitly turned off
   };
 }
 
@@ -143,7 +136,7 @@ export async function getAdConfig(env: Env, consistent = false): Promise<AdConfi
 }
 
 export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<AdConfig> {
-  const clean: AdConfig = { clientId: AD_CLIENT_ID, slots: {}, sites: {}, adsterra: cfg.adsterra !== false };
+  const clean: AdConfig = { clientId: AD_CLIENT_ID, slots: {}, sites: {} };
   for (const p of AD_PLACEMENTS) {
     // slot ids are digits only, ≤20 chars
     clean.slots[p] = String(cfg.slots?.[p] ?? "").replace(/[^0-9]/g, "").slice(0, 20);
@@ -179,9 +172,5 @@ export function publicAdView(cfg: AdConfig, site: string) {
     approved: st.approved,
     clientId: cfg.clientId,
     slots: st.enabled ? cfg.slots : {},
-    // Effective Adsterra flag for THIS site: on only when BOTH the master
-    // switch and this site's per-site toggle are on. NetworkAd reads this one
-    // value and hides every unit on the site when it is false. Default ON.
-    adsterra: cfg.adsterra !== false && st.adsterra !== false,
   };
 }

@@ -11,7 +11,6 @@ import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { AdSlot } from "@/components/AdSlot";
-import { NetworkAd } from "@/components/NetworkAd";
 import { PageAds } from "@/components/PageAds";
 import { EcoOrnaments } from "@/components/EcosystemDecor";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
@@ -335,18 +334,15 @@ export default async function LocaleLayout({
               rendered page so each one lands on a real section boundary. */}
           <main className="min-h-screen pb-24">{children}</main>
           {/* Reads the rendered <main> and fills the page up to the owner's
-              quota — one unit above the content, three through the middle on
-              real section boundaries, two in the closing cluster below. Skips
-              focused pages (mushaf, kiblat, sign-in) and any tenant with no
-              Adsterra inventory. */}
+              quota — one unit above the content, two through the middle on real
+              section boundaries, one in the closing cluster below. Skips
+              focused pages (mushaf, kiblat, sign-in) and does nothing at all
+              until this site is live for AdSense. */}
           <PageAds />
-          {/* The closing cluster, right before the footer. Renders only on
-              tenants that have units; collapses cleanly when the network has no
-              fill. AdSlot (AdSense) stays dormant until enabled centrally from
-              the ulyah.com admin. */}
+          {/* The closing unit, right before the footer. Dormant until the site
+              is enabled + approved centrally from the ulyah.com admin, and it
+              collapses to nothing on a no-fill rather than leaving a gap. */}
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <NetworkAd unit="banner" />
-            <NetworkAd unit="native" />
             <AdSlot placement="footer" />
           </div>
           <Footer locale={locale} dict={dict} />
