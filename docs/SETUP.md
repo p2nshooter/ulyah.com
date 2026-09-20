@@ -93,12 +93,14 @@ D1/KV/R2 provisioning, schema migrations, Qur'an text + 10-language
 translation seed, Kisah Nabi Yusuf series + PDFs, Worker secrets, both
 Worker deploys, health-check smoke test.
 
-**Needs a one-time manual trigger** (real audio files are large and this
-sandbox's build environment has no general internet access to fetch them
-from everyayah.com — see `scripts/import-murottal-audio.ts`):
-run the **"Import Murottal Audio"** workflow from the Actions tab, pick a
-qori and surah range. Until this runs, ayah pages show text +
-translation but murottal playback for that qori/surah returns 404.
+**Murottal needs nothing at all.** We store no recitation: the players
+resolve the reciter's own CDN url (`apps/web/src/lib/qori-cdn.ts`) and
+`/audio/qori2/…` answers a redirect to the same file rather than serving
+bytes (owner: "hilangin audio2 alquran murottal ganti dengan cdn"). The
+bulk importer (`scripts/import-murottal.mjs`, the "Import murottal to R2"
+workflow) still exists for the day a mirror is worth having again, but it
+refuses to run without an explicit `confirm=download` — and the Worker's
+scheduled tick is draining what it used to write.
 
 **Needs a one-time manual trigger:**
 TTS narration for the Kisah Nabi Yusuf series and any other kisah requires
