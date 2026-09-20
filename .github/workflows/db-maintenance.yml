@@ -116,11 +116,30 @@ jobs:
           # controls, and needs the id to ask for it.
           echo "D1_DATABASE_ID=${D1_ID}" >> "$GITHUB_ENV"
 
+      # A DIAGNOSTIC, and diagnostics do not get to cancel the night's work.
+      #
+      # This printed a baseline and nothing else — and for at least three nights
+      # running (#60, #61, #62) its failure took the whole job down with it:
+      # every step after it was skipped, so prune-mt-arabic, prune-mt-unserved
+      # and the R2 spill simply never ran. The database the owner asked to be
+      # held near 5 GB was left to grow, and the run reported the failure of a
+      # SELECT that prints a number, which reads like nothing important.
+      #
+      # `Size after` already carries this flag, with a comment explaining that
+      # reporting is not worth failing a run that just freed space. The same is
+      # true before, and more so: nothing has been freed yet.
       - name: Size before
         if: always()
+        continue-on-error: true
         run: |
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '' UNION ALL SELECT 'key_validation_log', COUNT(*), NULL FROM key_validation_log;"
+
+      # Every task below is INDEPENDENT of the ones before it, and says so with
+      # `!cancelled()`: a step that fails — a quota refused, one table missing a
+      # column — no longer skips the rest of the night. The whole point of the
+      # job is that it frees what it can, every night, unattended. It still
+      # stops the moment the run is cancelled.
 
       # Machine translations made from Arabic. This is the one step that frees
       # space by removing something that should never have been stored, so it
@@ -134,7 +153,7 @@ jobs:
       # the spill and the sites' own writes need. Once the table is empty the
       # script says so and exits.
       - name: Delete machine translations made from Arabic
-        if: ${{ github.event_name == 'schedule' || inputs.job == 'prune-mt-arabic' || inputs.job == 'both' }}
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.job == 'prune-mt-arabic' || inputs.job == 'both') }}
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
         # 40,000 on the schedule, not 60,000: this now shares the day's
@@ -148,13 +167,13 @@ jobs:
       # shape as the step above — bounded by the daily row-write allowance, run
       # on the schedule, drains over as many nights as it takes, and says so.
       - name: Delete machine translations into unserved languages
-        if: ${{ github.event_name == 'schedule' || inputs.job == 'prune-mt-unserved' || inputs.job == 'both' }}
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.job == 'prune-mt-unserved' || inputs.job == 'both') }}
         run: npx tsx scripts/prune-mt-unserved.ts --budget=${{ inputs.budget || '40000' }}
 
       # The watermark: measure, and spill to R2 only if there is too much bulk
       # sitting in D1. This is the step the schedule exists for.
       - name: Spill to R2 if D1 is filling up
-        if: ${{ github.event_name == 'schedule' || inputs.job == 'spill' }}
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.job == 'spill') }}
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
         run: |
@@ -168,7 +187,7 @@ jobs:
       # SQLite reuses freed pages, so writes start working again without the
       # file having to shrink.
       - name: Prune the key validation log
-        if: ${{ inputs.job == 'prune-logs' || inputs.job == 'both' }}
+        if: ${{ !cancelled() && (inputs.job == 'prune-logs' || inputs.job == 'both') }}
         run: |
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote \
@@ -177,7 +196,7 @@ jobs:
       # Story bodies to R2. The script verifies every upload by reading it back
       # and comparing before it clears the column — see the note there.
       - name: Move story bodies to R2
-        if: ${{ inputs.job == 'move-bodies' || inputs.job == 'both' }}
+        if: ${{ !cancelled() && (inputs.job == 'move-bodies' || inputs.job == 'both') }}
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
         run: npx tsx scripts/move-story-bodies-to-r2.ts --limit=${{ inputs.limit }} --minutes=50
