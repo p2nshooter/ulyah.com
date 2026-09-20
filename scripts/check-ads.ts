@@ -132,6 +132,25 @@ check(
   `AD_PLACEMENTS is ${AD_PLACEMENTS.join(", ")}`
 );
 
+console.log("\n=== the ad config is fetched without credentials ===");
+// The bug this pins: `api.get` sends `credentials: "include"` on everything,
+// and the route answers `Access-Control-Allow-Origin: *`. A credentialed
+// cross-origin request with a wildcard origin is not merely refused — the
+// browser discards the response before any code runs, so `fetchAdView` catches
+// nothing, returns an empty config, and every slot on every site concludes the
+// site is switched off. Silent, total, and identical to "ads not enabled".
+const adClient = readFileSync(join(import.meta.dirname, "..", "apps/web/src/lib/ad-config.ts"), "utf8");
+check(
+  "it does not go through the credentialed api helper",
+  !/\bapi\s*\n?\s*\.get\b|\bapi\.get</.test(adClient),
+  "fetchAdView uses api.get, which sends credentials — the response will be blocked"
+);
+check(
+  "it asks for a fresh copy",
+  /cache:\s*"no-store"/.test(adClient),
+  "an admin toggle has to take effect on the next refresh, not a minute later"
+);
+
 console.log("\n=== nothing references the removed network ===");
 const ROOTS = ["apps/web/src", "apps/worker-api/src"];
 

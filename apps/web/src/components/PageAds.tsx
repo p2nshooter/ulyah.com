@@ -155,9 +155,22 @@ function candidateBlocks(main: HTMLElement): HTMLElement[] {
   return best;
 }
 
-function makeAnchor(): HTMLElement {
+/**
+ * A host for one injected unit, carrying the region it was placed for.
+ *
+ * The region is WRITTEN DOWN rather than inferred later, and that is the whole
+ * point of the attribute. Regions are otherwise read from position — is this
+ * unit before the first block, inside the content, or after <main> — and the
+ * lead unit sits AFTER the first block by design, so a positional reading files
+ * it under "middle". `have.top` then stays 0, and since placement is retried
+ * five times as the page settles, every retry added another leaderboard: three
+ * of them on a long page, until the total cap stopped it. Measured in Chromium,
+ * not reasoned about.
+ */
+function makeAnchor(kind: Kind): HTMLElement {
   const el = document.createElement("div");
   el.setAttribute("data-ulyah-ad-anchor", "");
+  el.setAttribute("data-ad-region", kind);
   return el;
 }
 
@@ -221,17 +234,31 @@ export function PageAds() {
         const blocks = candidateBlocks(main);
         const firstBlock = blocks[0] ?? null;
 
-        // Sort every unit already on the page into a region by DOM position.
+        // What the page already carries, by region.
+        //
+        // Two kinds of unit, counted two ways. The ones WE injected know their
+        // own region (the anchor says so), which is what keeps a retry from
+        // re-placing a region it already filled. The ones the template placed
+        // itself have to be read from position, which is all we can know about
+        // them.
         const have: Record<Kind, number> = { top: 0, middle: 0, bottom: 0 };
+        let total = 0;
+
+        for (const a of document.querySelectorAll<HTMLElement>("[data-ulyah-ad-anchor]")) {
+          const kind = (a.getAttribute("data-ad-region") as Kind | null) ?? "middle";
+          have[kind] += 1;
+          total += 1;
+        }
+
         const wraps = Array.from(document.querySelectorAll("[data-adsense-slot]")).filter(
-          (e): e is HTMLElement => e instanceof HTMLElement
+          (e): e is HTMLElement => e instanceof HTMLElement && !e.closest("[data-ulyah-ad-anchor]")
         );
         for (const w of wraps) {
           if (!main.contains(w)) have.bottom += 1;
           else if (firstBlock && before(w, firstBlock)) have.top += 1;
           else have.middle += 1;
         }
-        let total = wraps.length;
+        total += wraps.length;
 
         const add = (host: HTMLElement, kind: Kind) => {
           created.push({ host, kind, i: created.length });
@@ -254,7 +281,7 @@ export function PageAds() {
         //    It falls back to the very top only when the page has ONE block and
         //    there is no "after the first" to speak of.
         if (have.top < QUOTA.top && firstBlock && room()) {
-          const anchor = makeAnchor();
+          const anchor = makeAnchor("top");
           if (blocks.length > 1) firstBlock.insertAdjacentElement("afterend", anchor);
           else firstBlock.insertAdjacentElement("beforebegin", anchor);
           add(anchor, "top");
@@ -282,7 +309,7 @@ export function PageAds() {
             }
             if (chosen < 0) break;
             picked.push(chosen);
-            const anchor = makeAnchor();
+            const anchor = makeAnchor("middle");
             usable[chosen]!.insertAdjacentElement("afterend", anchor);
             add(anchor, "middle");
           }
@@ -290,7 +317,7 @@ export function PageAds() {
 
         // 3. BOTTOM — siblings after <main>, before the footer.
         while (have.bottom < QUOTA.bottom && room() && main.parentElement) {
-          const anchor = makeAnchor();
+          const anchor = makeAnchor("bottom");
           main.insertAdjacentElement("afterend", anchor);
           add(anchor, "bottom");
         }
