@@ -6,6 +6,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api, ApiError } from "@/lib/api";
+import { routePath } from "@/lib/paths";
 
 export default function DaftarPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = usePromise(params);
@@ -35,7 +36,7 @@ export default function DaftarPage({ params }: { params: Promise<{ locale: strin
     setBusy(true);
     try {
       await api.post("/client/register", { name, email, password });
-      router.push(`/${locale}/akun`);
+      router.push(routePath(locale, `/akun`));
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) setAlreadyExists(true);
       setError(err instanceof Error ? err.message : dict.common.error);
@@ -54,7 +55,7 @@ export default function DaftarPage({ params }: { params: Promise<{ locale: strin
         {error && <p className="text-xs text-danger">{error}</p>}
         {alreadyExists && (
           <Link
-            href={`/${locale}/masuk?email=${encodeURIComponent(email)}`}
+            href={routePath(locale, `/masuk?email=${encodeURIComponent(email)}`)}
             className="block rounded-lg border border-accent bg-accent/10 px-4 py-2.5 text-center text-sm font-medium text-accent"
           >
             {dict.auth.loginButton} →
@@ -66,7 +67,7 @@ export default function DaftarPage({ params }: { params: Promise<{ locale: strin
       </form>
       <p className="mt-4 text-center text-xs text-text-secondary">
         {dict.auth.hasAccount}{" "}
-        <Link href={`/${locale}/masuk`} className="text-accent hover:underline">
+        <Link href={routePath(locale, `/masuk`)} className="text-accent hover:underline">
           {dict.auth.loginButton}
         </Link>
       </p>

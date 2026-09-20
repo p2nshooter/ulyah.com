@@ -136,6 +136,63 @@ export function isValidLocale(code: string): boolean {
 const IN_PLACE_LANGUAGES = false;
 
 /**
+ * The ONLY languages a machine translator may ever be pointed at.
+ *
+ * One language per site, and that is the whole list: Indonesian for the hub,
+ * and the four languages that own a domain (1fr.fr French, tilawa.de German,
+ * dawa.es Spanish, xad.es English). Owner: "stop auto translate di ulyah.com,
+ * cukup ulyah.com menggunakan bahasa Indonesia dan ekosistem situs yg lain
+ * menggunakan bahasa extensi situsnya masing-masing … tetep terjemahkan ke
+ * bahasa Indonesia untuk ulyah.com dan bahasa masing-masing dr ekosistem."
+ *
+ * So the rule is about WHICH LANGUAGE A SITE IS IN, not about refusing to
+ * translate. Source material that arrives in another language — an English
+ * tafsir edition, an English occasion-of-revelation, an Arabic kitab title —
+ * is still rendered into the language of the site that shows it. What stopped
+ * is translating ulyah.com INTO twenty-four other languages: that is what the
+ * hub used to do, what filled D1 with cache rows nobody read, and what put
+ * half-translated pages in front of readers.
+ *
+ * Derived from HUB_DEFAULT plus the keys of LOCALE_SITE, so the list can never
+ * drift away from "the sites that exist".
+ *
+ * (Scripture is a separate rule and a stricter one: the Qur'an and hadith matn
+ * are reproduced, never machine-translated — see the Arabic masking in
+ * apps/worker-api/src/lib/mt.ts and scripts/prune-mt-arabic.ts.)
+ */
+export const MT_TARGET_LANGS: readonly string[] = Object.freeze([HUB_DEFAULT, ...Object.keys(LOCALE_SITE)]);
+
+/**
+ * May this (source → target) pair be machine-translated at all?
+ *
+ * Checked at the single entry point of every translator (apps/worker-api
+ * lib/mt.ts), so there is one answer for the whole ecosystem and no route can
+ * quietly get its own. Same language in and out is not a translation, and a
+ * target outside the five ecosystem languages is refused — the caller keeps the
+ * source text, which is what a cache miss has always produced.
+ */
+export function machineTranslationAllowed(targetLang: string, sourceLang?: string): boolean {
+  if (!targetLang) return false;
+  if (sourceLang && sourceLang === targetLang) return false;
+  return MT_TARGET_LANGS.includes(targetLang);
+}
+
+/**
+ * Is this language served IN PLACE by this build — rendered here, by us?
+ *
+ * Only the site's own language is. On ulyah.com that is Indonesian and nothing
+ * else: the four ecosystem languages are reachable from the switcher, but
+ * choosing one is a trip to that site, not a translation of this one. Every
+ * other language is off at the source, not merely hidden — the owner switch in
+ * the admin portal can no longer bring one back, because bringing one back
+ * means rendering the whole hub in a language it is not written in, which is
+ * precisely what was switched off.
+ */
+export function isServedInPlace(code: string): boolean {
+  return code === DEFAULT_LOCALE;
+}
+
+/**
  * Is this language finished enough to offer a visitor?
  *
  * Owner rule: a half-translated language must NOT be selectable — "kesian
@@ -170,6 +227,17 @@ export function localeReadiness(code: string): LocaleReadiness {
 
 /** The languages a visitor may actually be sent to right now. */
 export const READY_LOCALES: LocaleDef[] = LOCALES.filter((l) => isLocaleReady(l.code));
+
+/**
+ * The languages this build actually RENDERS — one, always: its own.
+ *
+ * Every other language either lives on its own domain or is not served at all,
+ * and the middleware redirects both away before a page is ever rendered. So
+ * prerendering the whole locale registry produced a copy of every static page in
+ * 28 languages, 27 of which nothing could reach: not linked, not crawlable (the
+ * middleware bounces the crawler too), and carried in the deploy regardless.
+ */
+export const SERVED_LOCALES: LocaleDef[] = LOCALES.filter((l) => isServedInPlace(l.code));
 
 export function getLocale(code: string): LocaleDef {
   return LOCALES.find((l) => l.code === code) ?? LOCALES[0]!;

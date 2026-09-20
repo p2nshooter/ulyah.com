@@ -5,7 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 // Self-contained labels (radio-labels pattern) for the install banner below
 // the reader — the installable Mushaf app (same MushafReader engine as
@@ -16,9 +16,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
   return {
-    title: `${dict.reader.allSurah} — ${TENANT.siteName}`,
+    // The layout's title template already appends " — <site>".
+    title: dict.reader.allSurah,
     description: dict.reader.sectionSubtitle,
-    alternates: { canonical: localePath(locale, `/quran`) },
+    alternates: { canonical: routePath(locale, `/quran`) },
   };
 }
 
@@ -38,7 +39,7 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
             of the Qur'an page (explicit owner request: key services must be
             visible, never buried). */}
         <Link
-          href={`/${locale}/quran/mushaf`}
+          href={routePath(locale, `/quran/mushaf`)}
           className="card-premium shimmer-gold mt-6 flex flex-col items-start justify-between gap-4 p-5 sm:flex-row sm:items-center"
         >
           <div>
@@ -54,7 +55,7 @@ export default async function QuranPage({ params }: { params: Promise<{ locale: 
 
         {/* Complete tajwid reference — pairs with the coloured Mushaf. */}
         <Link
-          href={`/${locale}/quran/tajwid`}
+          href={routePath(locale, `/quran/tajwid`)}
           className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-accent/30 bg-accent/5 p-4 transition hover:border-accent"
         >
           <span className="flex items-center gap-2 text-sm font-medium">

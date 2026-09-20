@@ -5,7 +5,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { prayerLabels } from "@/lib/prayer-labels";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { TENANT } from "@/lib/tenant";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: localePath(locale, `/jadwal-sholat`) },
+    alternates: { canonical: routePath(locale, `/jadwal-sholat`) },
   };
 }
 

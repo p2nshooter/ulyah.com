@@ -30,6 +30,7 @@ import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { mtShardKey } from "../apps/worker-api/src/lib/mt-r2.js";
+import { MT_TARGET_LANGS } from "../packages/shared/src/i18n";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const BUCKET = "ulyah-media";
@@ -75,13 +76,34 @@ function d1Json<T>(sql: string): T[] {
 /** A pair name is only ever built from this, so it can never carry SQL. */
 const safePair = (p: string) => /^[a-z]{2}-[a-z]{2}$/.test(p);
 
+/**
+ * Is this pair worth publishing — i.e. will anything ever read it?
+ *
+ * Only translations INTO a site's own language are read now (MT_TARGET_LANGS):
+ * the gate in worker-api lib/mt.ts refuses every other target, R2 fallback
+ * included. Without
+ * this filter the publisher would copy rows that the nightly prune
+ * (scripts/prune-mt-unserved.ts) is deleting from D1 — and R2 shards are never
+ * pruned, so a dead language would survive in storage permanently, which is the
+ * opposite of what both changes are for.
+ */
+const servedPair = (p: string) => MT_TARGET_LANGS.includes(p.slice(3));
+
 async function main() {
   const { dry, pairs } = parseArgs();
 
-  const found = d1Json<{ pair: string; n: number }>(
+  const all = d1Json<{ pair: string; n: number }>(
     `SELECT substr(k,4,5) AS pair, COUNT(*) AS n FROM mt_cache
       WHERE k LIKE 'mt:__-__:%' GROUP BY pair ORDER BY n DESC;`
   ).filter((r) => safePair(r.pair));
+  const found = all.filter((r) => servedPair(r.pair));
+  const dropped = all.filter((r) => !servedPair(r.pair));
+  if (dropped.length > 0) {
+    console.log(
+      `Skipping ${dropped.length} pair(s) into languages nothing serves: ` +
+        dropped.map((r) => `${r.pair} (${r.n})`).join(", ")
+    );
+  }
   const todo = pairs.length ? found.filter((r) => pairs.includes(r.pair)) : found;
   if (todo.length === 0) {
     console.log("No language pairs found in mt_cache.");

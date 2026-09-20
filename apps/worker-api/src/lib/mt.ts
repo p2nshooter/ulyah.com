@@ -1,5 +1,27 @@
+import { machineTranslationAllowed } from "@ulyah/shared/i18n";
 import { mtR2Get, mtR2GetMany } from "./mt-r2.js";
 import type { Env } from "../env.js";
+
+/**
+ * THE GATE. A page may be translated into the language of the site showing it —
+ * Indonesian on ulyah.com, French on 1fr.fr, German on tilawa.de, Spanish on
+ * dawa.es, English on xad.es — and into nothing else. See MT_TARGET_LANGS in
+ * packages/shared/src/i18n.ts for why.
+ *
+ * So an English tafsir edition still reaches an Indonesian reader in
+ * Indonesian. What is refused is the other twenty-four languages the hub used
+ * to render itself in: those rows had no reader, and writing them is what
+ * filled D1.
+ *
+ * It sits at the four public entry points below rather than at the call sites,
+ * because there are two dozen call sites in routes/content.ts alone and a rule
+ * enforced in twenty-four places is a rule with twenty-four ways to be
+ * forgotten. A refused pair is not an error: the caller already knows how to
+ * render the source text, which is what a cache miss has always produced.
+ */
+function mtAllowed(targetLang: string, sourceLang: string): boolean {
+  return machineTranslationAllowed(targetLang, sourceLang);
+}
 
 // Free, keyless Google Translate ("gtx") endpoint — much more reliable and
 // higher-limit than MyMemory, and handles long text in one request. Used as
@@ -264,7 +286,7 @@ export async function translateCachedOnly(
   sourceLang: string = "ar"
 ): Promise<string | null> {
   const trimmed = text.trim();
-  if (!trimmed || sourceLang === targetLang) return null;
+  if (!trimmed || !mtAllowed(targetLang, sourceLang)) return null;
   const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
   const mem = memGet(kvKey);
   if (mem !== undefined) return mem || null;
@@ -280,7 +302,7 @@ export async function translateText(
   sourceLang: string = "ar"
 ): Promise<string | null> {
   const trimmed = text.trim();
-  if (!trimmed || sourceLang === targetLang) return null;
+  if (!trimmed || !mtAllowed(targetLang, sourceLang)) return null;
 
   const kvKey = `mt:${sourceLang}-${targetLang}:${hashKey(trimmed)}`;
   const mem = memGet(kvKey);
@@ -406,7 +428,7 @@ export async function localizeBatchProtected(
   targetLang: string,
   sourceLang = "en"
 ): Promise<(string | null)[]> {
-  if (targetLang === sourceLang) return texts.map((t) => t ?? null);
+  if (!mtAllowed(targetLang, sourceLang)) return texts.map((t) => t ?? null);
   const maps: (string[] | null)[] = [];
   const masked = texts.map((t) => {
     if (!t) {
@@ -427,7 +449,7 @@ export async function localizeBatch(
   targetLang: string,
   sourceLang = "id"
 ): Promise<(string | null)[]> {
-  if (targetLang === sourceLang) return texts.map((t) => t ?? null);
+  if (!mtAllowed(targetLang, sourceLang)) return texts.map((t) => t ?? null);
 
   const out: (string | null)[] = new Array(texts.length).fill(null);
   const misses: { idx: number; text: string; kvKey: string }[] = [];

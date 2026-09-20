@@ -3,7 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { NarrateButton } from "@/components/NarrateButton";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.explore.daily.title}`,
     description: dict.explore.daily.desc,
-    alternates: { canonical: localePath(locale, `/harian`) },
+    alternates: { canonical: routePath(locale, `/harian`) },
   };
 }
 
@@ -89,8 +89,8 @@ export default async function HarianPage({ params }: { params: Promise<{ locale:
       api.get<{ ayah: RandomAyah }>(`/quran/random?lang=${locale}`),
       api.get<{ hadits: DailyHadits | null }>(`/quran/hadits-of-day?lang=${locale}`),
     ]);
-    ayah = ayahRes.ayah;
-    hadits = haditsRes.hadits;
+    ayah = ayahRes.ayah ?? null;
+    hadits = haditsRes.hadits ?? null;
   } catch {
     ayah = null;
     hadits = null;

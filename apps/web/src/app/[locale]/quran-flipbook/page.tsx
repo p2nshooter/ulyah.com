@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { routePath } from "@/lib/paths";
 
 // The install-app surfaces were removed sitewide (owner: only the header
 // install button remains), which made this page a duplicate of the real
@@ -9,5 +10,5 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 export default async function QuranFlipbookRedirect({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  redirect(`/${locale}/quran/mushaf`);
+  redirect(routePath(locale, `/quran/mushaf`));
 }

@@ -6,6 +6,7 @@ import { TENANT } from "@/lib/tenant";
 import Link from "next/link";
 import { portalLabels } from "@/lib/portal-labels";
 import { speak, speechAvailable } from "@/lib/speech";
+import { routePath } from "@/lib/paths";
 
 const WELCOMED_KEY = "ulyah_akun_welcomed";
 
@@ -53,7 +54,7 @@ export function PortalWelcome({ locale }: { locale: string }) {
         </div>
       </div>
       <div className="relative mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-xs">
-        <Link href={`/${locale}/terima-kasih`} className="text-accent hover:underline">
+        <Link href={routePath(locale, `/terima-kasih`)} className="text-accent hover:underline">
           {t.linkThanks}
         </Link>
         <a href="#janji-pahala" className="text-accent hover:underline">

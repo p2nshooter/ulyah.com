@@ -1,4 +1,4 @@
-import { LOCALE_SITE, DEFAULT_LOCALE, isValidLocale, isLocaleReady } from "@ulyah/shared/i18n";
+import { LOCALE_SITE, DEFAULT_LOCALE, isValidLocale, isServedInPlace } from "@ulyah/shared/i18n";
 
 /**
  * Which language a visitor gets, decided from signals alone.
@@ -58,14 +58,26 @@ export function localeFromAcceptLanguage(header: string | null | undefined): str
   return null;
 }
 
-/** In this build AND switched on by the owner. `enabled` is the admin list, or
- *  null when it could not be read — then the built-in readiness gate decides. */
-export function isUsable(code: string, enabled: string[] | null): boolean {
+/**
+ * Reachable from this site at all.
+ *
+ * Two kinds of language qualify, and there is no third:
+ *   · this site's own language, which is what it is written in;
+ *   · a language with its OWN domain, which is reachable the way any outbound
+ *     link is — choosing it leaves for that site and translates nothing here.
+ *
+ * `enabled` (the admin portal's list) is no longer consulted. It used to be
+ * able to switch an extra language ON for the hub, and switching one on meant
+ * machine-translating ulyah.com into it — which is exactly what the owner
+ * stopped: "stop auto translate di ulyah.com, cukup ulyah.com menggunakan
+ * bahasa Indonesia dan ekosistem situs yg lain menggunakan bahasa extensi
+ * situsnya masing-masing." A switch that can only re-open the thing that was
+ * closed is not a switch worth keeping, so the rule is structural now and the
+ * parameter stays only so the many call sites need no edit.
+ */
+export function isUsable(code: string, _enabled?: string[] | null): boolean {
   if (!isValidLocale(code)) return false;
-  // A language with its own site is always REACHABLE — choosing it leaves for
-  // that domain rather than translating anything here.
-  if (code === DEFAULT_LOCALE || LOCALE_SITE[code]) return true;
-  return enabled ? enabled.includes(code) : isLocaleReady(code);
+  return code === DEFAULT_LOCALE || Boolean(LOCALE_SITE[code]);
 }
 
 /**
@@ -76,17 +88,17 @@ export function isUsable(code: string, enabled: string[] | null): boolean {
  * served by xad.es. Only a language that is genuinely rendered here may be
  * picked for someone who never asked.
  */
-export function servedInPlace(code: string, enabled: string[] | null): boolean {
+export function servedInPlace(code: string, enabled?: string[] | null): boolean {
   if (!isUsable(code, enabled)) return false;
-  return code === DEFAULT_LOCALE || !LOCALE_SITE[code];
+  return isServedInPlace(code);
 }
 
 export type LocaleSignals = {
   cookie?: string | null;
   country?: string | null;
   acceptLanguage?: string | null;
-  /** Codes switched on in the admin portal, or null if the list is unavailable. */
-  enabled: string[] | null;
+  /** Kept for the existing callers; ignored — see isUsable above. */
+  enabled?: string[] | null;
   /** NEXT_PUBLIC_TENANT — a single-language site never detects. */
   tenant: string;
 };

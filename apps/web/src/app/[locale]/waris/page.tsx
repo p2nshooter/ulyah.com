@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { warisLabels } from "@/lib/waris-labels";
 import { WarisCalculator } from "@/components/WarisCalculator";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: localePath(locale, `/waris`) },
+    alternates: { canonical: routePath(locale, `/waris`) },
   };
 }
 

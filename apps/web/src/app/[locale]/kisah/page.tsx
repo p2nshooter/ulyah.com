@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
@@ -5,6 +6,7 @@ import { api } from "@/lib/api";
 import { coverFor } from "@/lib/book-cover";
 import { AdSlot } from "@/components/AdSlot";
 import { fillLabels } from "@/lib/fill-labels";
+import { routePath } from "@/lib/paths";
 
 /**
  * Served from cache instead of rebuilt per request.
@@ -18,6 +20,26 @@ import { fillLabels } from "@/lib/fill-labels";
  * from the common path.
  */
 export const revalidate = 3600;
+
+/**
+ * The story index had no metadata of its own, so it inherited the site's
+ * default title — the same `<title>` as the home page, on one of the two
+ * biggest indexes the site has. Duplicate titles are how a page gets filed as
+ * a near-duplicate of the home page and quietly dropped from the index; the
+ * canonical below also has to name the url this site really serves
+ * (/historias on dawa.es), not the route as it is spelled on disk.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(locale);
+  return {
+    // The layout's title template already appends " — <site>".
+    title: dict.explore.kisah.title,
+    description: dict.explore.kisah.desc,
+    alternates: { canonical: routePath(locale, "/kisah") },
+  };
+}
 
 interface StoryRow {
   id: number;
@@ -105,7 +127,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   let categories: CategoryRow[] = [];
   try {
     const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${locale}`, 3600);
-    categories = res.categories;
+    categories = res.categories ?? [];
   } catch {
     categories = [];
   }
@@ -140,7 +162,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   // The first readable figure — "Baca Semua" reads this list's titles then
   // dives into this figure's full story and chains through the rest of the menu.
   const firstSection = sections.find((s) => s.persons.length > 0);
-  const firstReadHref = firstSection ? `/${locale}/kisah/tokoh/${firstSection.persons[0]!.slug}?autoread=1` : null;
+  const firstReadHref = firstSection ? routePath(locale, `/kisah/tokoh/${firstSection.persons[0]!.slug}?autoread=1`) : null;
 
   // The gold "listen" chip that sits on the bottom edge of every cover.
   const listenChip = (foil: string, ink: string) => (
@@ -189,7 +211,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                     return (
                       <Link
                         key={p.slug}
-                        href={p.full_story_slug ? `/${locale}/kisah/${p.full_story_slug}` : `/${locale}/kisah/tokoh/${p.slug}`}
+                        href={p.full_story_slug ? routePath(locale, `/kisah/${p.full_story_slug}`) : routePath(locale, `/kisah/tokoh/${p.slug}`)}
                         aria-label={p.name_id}
                         style={{ background: cv.cover }}
                         className="group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-r-lg rounded-l-sm p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"
@@ -229,7 +251,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                     return (
                       <Link
                         key={s.id}
-                        href={`/${locale}/kisah/${s.slug}`}
+                        href={routePath(locale, `/kisah/${s.slug}`)}
                         aria-label={s.title}
                         style={{ background: cv.cover }}
                         className="group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-r-lg rounded-l-sm p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"

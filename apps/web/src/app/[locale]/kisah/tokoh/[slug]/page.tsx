@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { ContinuousStoryReader, type StorySection } from "@/components/ContinuousStoryReader";
 import { fillLabels } from "@/lib/fill-labels";
 import { person as personLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
@@ -67,7 +67,7 @@ async function fetchPerson(slug: string, locale: string): Promise<{ person: Pers
 async function nextPersonSlug(category: string, currentSlug: string): Promise<string | null> {
   try {
     const r = await api.getCached<{ persons: { slug: string }[] }>(`/content/kisah-tokoh?category=${category}`, 3600);
-    const slugs = r.persons.map((p) => p.slug);
+    const slugs = (r.persons ?? []).map((p) => p.slug);
     const i = slugs.indexOf(currentSlug);
     if (i < 0) return null;
     return slugs[(i + 1) % slugs.length] ?? null;
@@ -88,7 +88,7 @@ export async function generateMetadata({
   return {
     title: `${data.person.name_id} — ${categoryLabel(data.person.category_slug, locale)}`,
     description: data.person.summary_id.slice(0, 160),
-    alternates: { canonical: localePath(locale, `/kisah/tokoh/${slug}`) },
+    alternates: { canonical: routePath(locale, `/kisah/tokoh/${slug}`) },
   };
 }
 
@@ -107,7 +107,7 @@ export default async function KisahTokohPage({
   const { person, sections } = data;
 
   const nextSlug = await nextPersonSlug(person.category_slug, slug);
-  const nextHref = nextSlug ? `${localePath(locale, `/kisah/tokoh/${nextSlug}`)}?autoread=1` : undefined;
+  const nextHref = nextSlug ? `${routePath(locale, `/kisah/tokoh/${nextSlug}`)}?autoread=1` : undefined;
 
   // A biography page: tell Google it is about a PERSON, and where it sits.
   const ld = [

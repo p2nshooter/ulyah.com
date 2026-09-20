@@ -1,22 +1,20 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
-import { api } from "@/lib/api";
 import { ALL_LOCALES, LOCALE_SITE, DEFAULT_LOCALE, localeReadiness } from "@ulyah/shared/i18n";
 
 /**
- * How finished each of the 28 languages actually is.
+ * Where each language stands — a report, not a control panel.
  *
- * A language is only offered to visitors once it reaches 100% — a page that is
- * Thai in the header and English in the article is worse for a reader than not
- * having Thai at all. This tab is where that gate becomes visible: what is
- * live, what is still being worked on, and exactly which strings are holding a
- * language back.
+ * The switches are gone, and that is the point. Turning a language on here used
+ * to mean rendering ulyah.com in it by machine translation, and the owner ended
+ * that: "stop auto translate di ulyah.com, cukup ulyah.com menggunakan bahasa
+ * Indonesia dan ekosistem situs yg lain menggunakan bahasa extensi situsnya
+ * masing-masing." The hub is Indonesian; the four ecosystem languages are their
+ * own sites. Nothing in between is served, so there is nothing here to switch.
  *
- * The percentages are MEASURED, not declared (scripts/generate-locale-readiness.ts):
+ * The measurement stays, because it is worth knowing how far a language got
+ * (scripts/generate-locale-readiness.ts):
  *  · UI      — dictionary strings that are genuinely in this language
  *  · Konten  — how much of the site's own writing (tafsir, kisah, kitab, hadits)
- *              has been translated and cached in D1
+ *              was translated and cached in D1
  *  · Total   — the LOWER of the two, because a perfect menu over untranslated
  *              articles is still a mixed-language page
  */
@@ -39,65 +37,37 @@ function Bar({ pct, tone }: { pct: number; tone: "ui" | "content" }) {
 }
 
 export function LanguagesTab() {
-  // The switches live in the database, not in the code — turning a language on
-  // is the owner's call and takes effect without a deploy.
-  const [enabled, setEnabled] = useState<Record<string, boolean> | null>(null);
-  const [saving, setSaving] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const load = useCallback(() => {
-    api
-      .get<{ locales: { code: string; enabled: boolean }[] }>("/admin/locales")
-      .then((r) => {
-        const map: Record<string, boolean> = {};
-        for (const l of r.locales) map[l.code] = l.enabled;
-        setEnabled(map);
-      })
-      .catch(() => setError("Gagal memuat status bahasa."));
-  }, []);
-
-  useEffect(load, [load]);
-
-  async function toggle(code: string, next: boolean) {
-    setSaving(code);
-    setError(null);
-    try {
-      await api.post("/admin/locales", { code, enabled: next });
-      setEnabled((e) => ({ ...(e ?? {}), [code]: next }));
-    } catch {
-      setError(`Gagal mengubah ${code}.`);
-    } finally {
-      setSaving(null);
-    }
-  }
-
   const rows = ALL_LOCALES.map((l) => ({
     ...l,
     own: Boolean(LOCALE_SITE[l.code]),
     isDefault: l.code === DEFAULT_LOCALE,
-    on: l.code === DEFAULT_LOCALE || Boolean(enabled?.[l.code]),
+    // Live means: somebody is actually served this language. The site's own
+    // language, and the four that have a site of their own. Nothing else.
+    on: l.code === DEFAULT_LOCALE || Boolean(LOCALE_SITE[l.code]),
     r: localeReadiness(l.code),
   })).sort((a, b) => Number(b.on) - Number(a.on) || b.r.overall - a.r.overall);
 
-  const liveCount = rows.filter((r) => r.on || r.own).length;
+  const liveCount = rows.filter((r) => r.on).length;
 
   return (
     <section className="space-y-4">
       <div>
-        <p className="font-heading text-base">🈯 Kesiapan &amp; Saklar Bahasa</p>
+        <p className="font-heading text-base">🈯 Kesiapan Bahasa</p>
         <p className="mt-1 text-xs text-text-secondary">
-          {liveCount} dari {rows.length} bahasa aktif di ulyah.com. Bahasa yang dimatikan <b>dicoret dan tidak bisa
-          diklik</b> di pemilih bahasa, dan URL-nya dialihkan ke Bahasa Indonesia — pengunjung tidak akan mendarat di
-          halaman setengah bahasa A setengah bahasa B. Persentasenya <b>diukur, bukan ditaksir</b>: UI dari string kamus
-          yang masih berbahasa Inggris, Konten dari berapa banyak tulisan situs yang sudah diterjemahkan dan tersimpan di
-          D1. Keputusan menyalakannya tetap di tangan Anda — sistem tidak pernah menyalakan sendiri.
+          <b>ulyah.com hanya disajikan dalam Bahasa Indonesia.</b> Konten yang sumbernya bahasa lain tetap
+          diterjemahkan ke Indonesia seperti biasa — yang berhenti adalah menerjemahkan ulyah.com <i>ke</i> bahasa
+          lain. {liveCount - 1} bahasa ekosistem punya situsnya sendiri dan memakai bahasa induk ekstensi domainnya;
+          memilihnya berarti pindah ke situs itu. Bahasa selebihnya tidak disajikan: URL-nya dialihkan ke Bahasa
+          Indonesia dan tidak muncul di pemilih bahasa, jadi tidak ada lagi halaman setengah bahasa A setengah bahasa
+          B. Persentase di bawah <b>diukur, bukan ditaksir</b> (UI dari string kamus yang masih berbahasa Inggris,
+          Konten dari tulisan situs yang sempat diterjemahkan dan tersimpan di D1) dan disimpan sebagai catatan sejauh
+          mana tiap bahasa pernah sampai.
         </p>
-        {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
       </div>
 
       <div className="grid gap-2 desktop:grid-cols-2">
         {rows.map((l) => {
-          const live = l.on || l.own;
+          const live = l.on;
           return (
             <div
               key={l.code}
@@ -111,11 +81,7 @@ export function LanguagesTab() {
                     {l.label}
                   </span>
                   <span className="ml-1.5 text-[10px] uppercase text-text-secondary">{l.code}</span>
-                  {l.r.overall >= 100 && !live && (
-                    <span className="ml-1.5 rounded-full bg-amber-500/15 px-1.5 py-0.5 text-[10px] font-bold text-amber-600 dark:text-amber-400">
-                      siap dinyalakan
-                    </span>
-                  )}
+
                 </p>
 
                 {l.isDefault ? (
@@ -130,21 +96,12 @@ export function LanguagesTab() {
                     ↗ {LOCALE_SITE[l.code]!.replace("https://", "")}
                   </span>
                 ) : (
-                  <button
-                    onClick={() => toggle(l.code, !l.on)}
-                    disabled={saving === l.code || enabled === null}
-                    aria-pressed={l.on}
-                    className={`relative h-6 w-11 shrink-0 rounded-full transition disabled:opacity-40 ${
-                      l.on ? "bg-emerald-500" : "bg-black/20 dark:bg-white/20"
-                    }`}
-                    title={l.on ? "Matikan bahasa ini" : "Nyalakan bahasa ini"}
+                  <span
+                    className="shrink-0 rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-bold text-text-secondary dark:bg-white/10"
+                    title="Tidak disajikan — ulyah.com tidak menerjemahkan halamannya dengan mesin"
                   >
-                    <span
-                      className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
-                        l.on ? "left-5.5" : "left-0.5"
-                      }`}
-                    />
-                  </button>
+                    tidak disajikan
+                  </span>
                 )}
               </div>
 
@@ -173,10 +130,10 @@ export function LanguagesTab() {
       </div>
 
       <p className="text-[10px] leading-relaxed text-text-secondary">
-        Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, dawa.es, xad.es) tidak punya saklar: memilihnya berarti
-        pindah ke situs itu, bukan menerjemahkan ulyah.com. Angka Konten mereka tetap ditampilkan apa adanya supaya
-        terlihat mana yang masih perlu di-warm. Angka UI diperbarui saat <code>pnpm gen:locale-readiness</code> berjalan;
-        angka Konten diukur ulang otomatis setiap kali workflow warm selesai.
+        Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, dawa.es, xad.es) dikerjakan di situsnya masing-masing,
+        memakai bahasa induk ekstensi domainnya. Bahasa selebihnya berhenti di angka terakhirnya — kalau suatu saat mau
+        dihidupkan lagi, jalannya lewat terjemahan manusia, bukan mesin. Angka UI diperbarui saat{" "}
+        <code>pnpm gen:locale-readiness</code> berjalan.
       </p>
     </section>
   );

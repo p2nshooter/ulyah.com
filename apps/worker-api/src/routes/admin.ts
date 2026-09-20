@@ -10,7 +10,6 @@ import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
-import { getAdConfig, saveAdConfig } from "../lib/ad-config.js";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -967,18 +966,6 @@ adminRoute.get("/health", async (c) => {
   return c.json({ features, checkedAt: new Date().toISOString() });
 });
 
-// ── AdSense: verification status only ─────────────────────────────────────
-// No ad ever renders on the site (zero ads, from any network, until further
-// notice). This just lets the owner note the eventual ad-unit id once
-// AdSense approves the account, for a developer to wire back up later — it
-// does not control anything visible to visitors today.
-
-// GET /admin/adsense-config — verification status + the noted ad-unit id (if any).
-adminRoute.get("/adsense-config", async (c) => {
-  const cfg = await getAdConfig(c.env, true); // consistent read so a refresh shows the saved state
-  return c.json(cfg);
-});
-
 // GET /admin/site-analytics — per-site traffic for the whole network, last N
 // days, from the cookieless /track beacon. Powers the admin traffic panel
 // (owner: "semua website wajib punya analisa trafic di portal admin").
@@ -1017,53 +1004,6 @@ adminRoute.get("/site-analytics", async (c) => {
   } catch {
     return c.json({ days, totals: [], daily: [], topPages: [], liveNow: [], at: Date.now() });
   }
-});
-
-// POST /admin/adsense-config — the single control point for the WHOLE network's
-// ads (4 ulyah tenants + 3 AXTO sites). Saves per-site show/hide + the real
-// ad-unit ids; every site polls /content/ad-config and updates within a minute.
-adminRoute.post("/adsense-config", async (c) => {
-  const body = await c.req.json<{
-    slots?: Record<string, string>;
-    sites?: Record<string, { enabled?: boolean; approved?: boolean; adsterra?: boolean } | boolean>;
-    adsterra?: boolean;
-  }>();
-  const current = await getAdConfig(c.env, true); // merge onto the consistent current state
-  const mergedSites: Record<string, { enabled: boolean; approved: boolean; adsterra: boolean }> = { ...current.sites };
-  for (const [k, v] of Object.entries(body.sites ?? {})) {
-    if (typeof v === "boolean") {
-      // legacy boolean form only carried "enabled"; keep the site's existing
-      // adsterra flag rather than resetting it.
-      mergedSites[k] = { enabled: v, approved: false, adsterra: current.sites[k]?.adsterra !== false };
-    } else if (v && typeof v === "object") {
-      mergedSites[k] = {
-        enabled: v.enabled === true,
-        approved: v.approved === true,
-        // adsterra defaults ON unless the client explicitly sends false.
-        adsterra: v.adsterra !== false,
-      };
-    }
-  }
-  // Use the config saveAdConfig actually wrote — never re-read from KV here
-  // (KV is eventually consistent; an immediate get() returns the stale value
-  // and made every saved toggle snap back to OFF in the admin panel).
-  const saved = await saveAdConfig(c.env, {
-    clientId: current.clientId,
-    slots: { ...current.slots, ...(body.slots ?? {}) },
-    sites: mergedSites,
-    // Master Adsterra ON/OFF — only changed when the key is present in the body.
-    adsterra: typeof body.adsterra === "boolean" ? body.adsterra : current.adsterra,
-  });
-  const admin = c.get("admin" as never) as { email: string };
-  const liveSlots = Object.values(saved.slots).filter(Boolean).length;
-  const onSites = Object.entries(saved.sites).filter(([, v]) => v.enabled).map(([k]) => k);
-  const liveSites = Object.entries(saved.sites).filter(([, v]) => v.enabled && v.approved).map(([k]) => k);
-  await logAdminAction(c.env, "adsense_config_updated", admin.email, c.req.header("cf-connecting-ip") ?? null, {
-    liveSlots,
-    sitesOn: onSites.join(",") || "(none)",
-    sitesLive: liveSites.join(",") || "(none)",
-  });
-  return c.json(saved);
 });
 
 // ── Clients / registered donors ──────────────────────────────────────────

@@ -8,30 +8,10 @@ import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
 import { tenantFromReq } from "./analytics.js";
-import { getAdConfig, publicAdView } from "../lib/ad-config.js";
 import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
-
-// GET /content/ad-config?site=<id> — the ONE public ad config every site reads
-// (the four ulyah tenants + the three AXTO sites) to decide whether/what ads to
-// render. Editable only from the ulyah.com admin portal. Public + non-secret;
-// served CORS-open and never edge-cached long so an admin toggle propagates in
-// under a minute.
-contentRoute.get("/ad-config", async (c) => {
-  const site = c.req.query("site") || tenantFromReq(c) || "ulyah";
-  const cfg = await getAdConfig(c.env);
-  c.header("Access-Control-Allow-Origin", "*");
-  c.header("X-No-Edge-Cache", "1");
-  // NEVER browser-cache the ad config. The owner's Adsterra kill switch has to
-  // take effect on the very next refresh — a 60s max-age meant an OFF toggle
-  // kept serving the stale "adsterra:true" for up to a minute, so ads "came
-  // back alive on refresh" (owner: "udah sy off, pas di-refresh hidup lagi").
-  // It's one tiny KV read per page load, so no-store is cheap and correct.
-  c.header("Cache-Control", "no-store");
-  return c.json(publicAdView(cfg, site));
-});
 
 // POST /track — cookieless pageview beacon from every site in the network.
 // Body: { site, path, ref }. Aggregated into site_pageviews (site+day+path) so
@@ -261,15 +241,18 @@ contentRoute.get("/sitemap", async (c) => {
   return c.body(body, 200, { "content-type": "application/json" });
 });
 
-// GET /content/locales — which languages the site currently offers. Public,
-// because the language control and the edge middleware both need it on every
-// request. Deliberately tiny (a list of two-letter codes) and cached at the
-// edge for a minute, so asking is essentially free.
+// GET /content/locales — what `locale_settings` says, for the admin portal.
 //
-// Fails CLOSED, unlike site-pages above: if the table cannot be read we return
-// no languages rather than all of them, and the caller falls back to its own
-// built-in default. Failing open here would briefly re-expose the
-// half-translated languages this switch exists to keep hidden.
+// It is no longer a gate. The sites decide what they serve from the build
+// itself: ulyah.com is Indonesian, each sibling is its domain's language, and
+// nothing renders a language by machine translation any more (see
+// MT_TARGET_LANGS in @ulyah/shared/i18n). The middleware, the language control
+// and the sitemap used to ask this on every request and widen themselves by the
+// answer; they do not ask any more, so a row in this table can no longer put a
+// half-translated language in front of a reader.
+//
+// Kept because it is a public, cached, two-letter-code endpoint that costs
+// nothing and still reports the stored state. Fails CLOSED, as before.
 contentRoute.get("/locales", async (c) => {
   c.header("Access-Control-Allow-Origin", "*");
   try {

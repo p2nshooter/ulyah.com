@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
 interface WidgetCard {
@@ -160,7 +160,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = labels(locale);
-  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc(TENANT.siteName), alternates: { canonical: localePath(locale, `/widget`) } };
+  return { title: { absolute: t.metaTitle(TENANT.siteName) }, description: t.metaDesc(TENANT.siteName), alternates: { canonical: routePath(locale, `/widget`) } };
 }
 
 export default async function WidgetHubPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -193,7 +193,7 @@ export default async function WidgetHubPage({ params }: { params: Promise<{ loca
           {WIDGETS.map((w, i) => (
             <Link
               key={w.href}
-              href={`/${locale}/${w.href}`}
+              href={routePath(locale, `/${w.href}`)}
               className="group relative overflow-hidden rounded-3xl border border-accent/25 bg-linear-to-br from-(--panel-bg) to-(--panel-bg2) p-6 text-(--panel-fg) shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
               style={{ animationDelay: `${i * 80}ms` }}
             >

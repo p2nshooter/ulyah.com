@@ -4,7 +4,7 @@ import { api } from "@/lib/api";
 import { KisahAnakList } from "@/components/KisahAnakList";
 import { VideoAnakGrid } from "@/components/kids/VideoAnakGrid";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
 /**
@@ -124,7 +124,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = labels(locale);
-  return { title: t.metaTitle(TENANT.siteName), description: t.metaDesc, alternates: { canonical: localePath(locale, `/anak`) } };
+  return { title: { absolute: t.metaTitle(TENANT.siteName) }, description: t.metaDesc, alternates: { canonical: routePath(locale, `/anak`) } };
 }
 
 export default async function KisahAnakPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -135,7 +135,7 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
   let episodes: EpisodeRow[] = [];
   try {
     const r = await api.getCached<{ episodes: EpisodeRow[] }>(`/content/kisah-anak?lang=${locale}`, 3600);
-    episodes = r.episodes;
+    episodes = r.episodes ?? [];
   } catch {
     episodes = [];
   }

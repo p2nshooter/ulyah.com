@@ -25,7 +25,7 @@ import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { LOCALE_SITE } from "../packages/shared/src/i18n";
+import { LOCALE_SITE, MT_TARGET_LANGS } from "../packages/shared/src/i18n";
 import {
   loadPool, aiTranslateBatch, rotate, rankPool, poolSummary, PREFER_GTX,
   translateBatchesParallel, concurrencyFor, type PoolKey,
@@ -53,16 +53,30 @@ function parseArgs() {
     })
   );
   return {
-    // Every non-Indonesian ecosystem language: the four domain sibling sites
-    // (en/de/es/fr) plus every language served on ulyah.com itself. Content is
-    // translated + cached in D1 per language ("D1 kumplit dulu perbahasa").
-    langs: (
-      (args.langs as string) ||
-      "en,de,es,fr,ru,ar,zh,ja,ur,hi,bn,tr,fa,ms,sw,pt,nl,it,ta,ha,ps,th,ko,vi,uz,so,pl"
-    )
+    // The four sibling sites by default. It used to be twenty-seven languages —
+    // the siblings plus everything ulyah.com rendered in place — and warming
+    // those was, by this job's own account, the largest writer in the ecosystem
+    // and the reason D1 filled up. Those languages are no longer served, so the
+    // rows had no reader: the gate in worker-api lib/mt.ts refuses every target
+    // outside MT_TARGET_LANGS on the read path too.
+    //
+    // Indonesian is a legal target (ulyah.com is translated INTO Indonesian —
+    // owner: "tetep terjemahkan ke bahasa Indonesia untuk ulyah.com") but not a
+    // default one: this job's phases translate FROM Indonesian, so a default
+    // pass over `id` would spend its budget on id→id. Ask for it explicitly
+    // (`--langs=id`) to warm the Arabic- and English-sourced material.
+    //
+    // Anything outside MT_TARGET_LANGS is dropped below rather than warmed,
+    // whoever asks and however the workflow is dispatched.
+    langs: ((args.langs as string) || Object.keys(LOCALE_SITE).join(","))
       .split(",")
       .map((s) => s.trim())
-      .filter(Boolean),
+      .filter(Boolean)
+      .filter((l) => {
+        if (MT_TARGET_LANGS.includes(l)) return true;
+        console.log(`  skipping ${l}: not a language the ecosystem serves — nothing would ever read it.`);
+        return false;
+      }),
     // Languages to pass over this run. The chain sets it to whatever the last
     // pass warmed WITHOUT gaining anything, so a language whose remaining work
     // cannot succeed yields its turn instead of taking every pass forever.

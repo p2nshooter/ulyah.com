@@ -5,7 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { NarrateButton } from "@/components/NarrateButton";
 import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 // Without this, Next statically prerenders this page once at build time
 // (this route has no dynamic segments and the locale layout's
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.syukur.title} — ${dict.common.siteName}`,
     description: dict.syukur.subtitle,
-    alternates: { canonical: localePath(locale, `/syukur`) },
+    alternates: { canonical: routePath(locale, `/syukur`) },
   };
 }
 
@@ -57,7 +57,7 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
   let mediaSet: Record<string, boolean> = {};
   try {
     const res = await api.get<{ media: Record<string, boolean> }>("/content/media-status");
-    mediaSet = res.media;
+    mediaSet = res.media ?? {};
   } catch {
     mediaSet = {};
   }

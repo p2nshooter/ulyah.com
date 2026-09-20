@@ -3,7 +3,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { coverFor } from "@/lib/book-cover";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { fillLabels } from "@/lib/fill-labels";
@@ -193,7 +193,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t.metaTitle,
     description: t.metaDesc,
-    alternates: { canonical: localePath(locale, "/kitab-pesantren") },
+    alternates: { canonical: routePath(locale, "/kitab-pesantren") },
   };
 }
 
@@ -210,8 +210,8 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
       api.get<{ categories: Category[] }>(`/content/pesantren/categories?lang=${locale}`),
       api.get<{ kitab: Kitab[] }>(`/content/pesantren/kitab?lang=${locale}`),
     ]);
-    categories = cRes.categories;
-    kitab = kRes.kitab;
+    categories = cRes.categories ?? [];
+    kitab = kRes.kitab ?? [];
   } catch {
     categories = [];
     kitab = [];
@@ -222,7 +222,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
   // First kitab in the library — "Baca Semua" reads this list then dives into
   // it and auto-advances through every book to the end of the menu.
   const firstKitab = categories.map((c) => kitab.find((k) => k.category_slug === c.slug)).find(Boolean);
-  const firstReadHref = firstKitab ? `/${locale}/kitab-pesantren/${firstKitab.slug}?autoread=1&mode=semua` : null;
+  const firstReadHref = firstKitab ? routePath(locale, `/kitab-pesantren/${firstKitab.slug}?autoread=1&mode=semua`) : null;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
@@ -265,7 +265,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
               {inCat.map((k) => (
                 <Link
                   key={k.slug}
-                  href={`/${locale}/kitab-pesantren/${k.slug}`}
+                  href={routePath(locale, `/kitab-pesantren/${k.slug}`)}
                   aria-label={k.title_id}
                   style={{ background: cv.cover }}
                   className="group relative flex min-h-[210px] flex-col overflow-hidden rounded-r-lg rounded-l-sm p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"

@@ -4,7 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { PageHero } from "@/components/PageHero";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
 /**
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.explore.audiobook.title}`,
     description: dict.explore.audiobook.desc,
-    alternates: { canonical: localePath(locale, `/audiobook`) },
+    alternates: { canonical: routePath(locale, `/audiobook`) },
   };
 }
 
@@ -90,8 +90,8 @@ export default async function AudiobookPage({
       , 3600),
       api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${storyLang}&countedOnly=1`, 3600),
     ]);
-    stories = storiesRes.stories;
-    categories = catRes.categories;
+    stories = storiesRes.stories ?? [];
+    categories = catRes.categories ?? [];
   } catch {
     stories = [];
     categories = [];
@@ -104,7 +104,7 @@ export default async function AudiobookPage({
       {categories.length > 0 && (
         <div className="mt-8 flex flex-wrap justify-center gap-2">
           <Link
-            href={`/${locale}/audiobook`}
+            href={routePath(locale, `/audiobook`)}
             className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
               !category ? "border-accent bg-accent text-primary" : "border-(--color-border) hover:border-accent"
             }`}
@@ -114,7 +114,7 @@ export default async function AudiobookPage({
           {categories.map((c) => (
             <Link
               key={c.id}
-              href={`/${locale}/audiobook?category=${c.slug}`}
+              href={routePath(locale, `/audiobook?category=${c.slug}`)}
               className={`rounded-full border px-4 py-1.5 text-xs font-medium transition ${
                 category === c.slug ? "border-accent bg-accent text-primary" : "border-(--color-border) hover:border-accent"
               }`}
@@ -132,7 +132,7 @@ export default async function AudiobookPage({
         {stories.map((s, i) => (
           <div key={s.id} className={i === 3 && stories.length > 4 ? "sm:col-span-2" : ""}>
             <Link
-              href={`/${locale}/kisah/${s.slug}`}
+              href={routePath(locale, `/kisah/${s.slug}`)}
               className="card-premium relative flex items-center justify-between gap-3 overflow-hidden p-4"
             >
               <div className="min-w-0">

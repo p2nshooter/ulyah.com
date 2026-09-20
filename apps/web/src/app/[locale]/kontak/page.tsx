@@ -3,7 +3,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { contactLabels } from "@/lib/contact-labels";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 const EMAIL = "salam@ulyah.com";
 
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: localePath(locale, `/kontak`) },
+    alternates: { canonical: routePath(locale, `/kontak`) },
   };
 }
 
@@ -25,10 +25,10 @@ export default async function KontakPage({ params }: { params: Promise<{ locale:
   const t = contactLabels(locale);
 
   const otherLinks: [string, string][] = [
-    [dict.nav.donate, `/${locale}/donasi`],
-    [dict.nav.thanks, `/${locale}/terima-kasih`],
-    [dict.footer.privacyPolicy, `/${locale}/kebijakan-privasi`],
-    [dict.nav.about, `/${locale}/tentang`],
+    [dict.nav.donate, routePath(locale, `/donasi`)],
+    [dict.nav.thanks, routePath(locale, `/terima-kasih`)],
+    [dict.footer.privacyPolicy, routePath(locale, `/kebijakan-privasi`)],
+    [dict.nav.about, routePath(locale, `/tentang`)],
   ];
 
   return (

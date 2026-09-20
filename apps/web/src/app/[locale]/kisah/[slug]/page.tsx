@@ -6,7 +6,7 @@ import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
 import { StoryReader } from "@/components/StoryReader";
 import { StoryDownloads } from "@/components/StoryDownloads";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { ogCoverUrl } from "@/lib/og";
 import { jsonLdHtml } from "@/lib/structured-data";
 
@@ -75,13 +75,13 @@ export async function generateMetadata({
     return {
       title: `${data.story.title}`,
       description,
-      alternates: { canonical: localePath(locale, `/kisah/${slug}`) },
+      alternates: { canonical: routePath(locale, `/kisah/${slug}`) },
       openGraph: {
         title: data.story.title,
         description,
         type: "article",
         publishedTime: data.story.published_at ?? undefined,
-        url: `${TENANT.siteUrl}${localePath(locale, `/kisah/${slug}`)}`,
+        url: `${TENANT.siteUrl}${routePath(locale, `/kisah/${slug}`)}`,
         siteName: TENANT.siteName,
         images: [{ url: cover, width: 1200, height: 630, alt: data.story.title }],
       },
@@ -124,7 +124,7 @@ export default async function KisahDetailPage({
   // (that would split link equity to ulyah.com and mislead crawlers on xad.es,
   // dawa.es, 1fr.fr, tilawa.de). A full Article + BreadcrumbList, both eligible
   // for rich results.
-  const pageUrl = `${TENANT.siteUrl}${localePath(locale, `/kisah/${slug}`)}`;
+  const pageUrl = `${TENANT.siteUrl}${routePath(locale, `/kisah/${slug}`)}`;
   const logoUrl = `${TENANT.siteUrl}${TENANT.id === "ulyah" ? "/icon-512.png" : TENANT.logoIcon}`;
   const wordCount = story.body.split(/\s+/).filter(Boolean).length;
 
@@ -163,7 +163,7 @@ export default async function KisahDetailPage({
                 "@type": "BreadcrumbList",
                 itemListElement: [
                   { "@type": "ListItem", position: 1, name: TENANT.siteName, item: TENANT.siteUrl },
-                  { "@type": "ListItem", position: 2, name: "Kisah", item: `${TENANT.siteUrl}${localePath(locale, "/kisah")}` },
+                  { "@type": "ListItem", position: 2, name: "Kisah", item: `${TENANT.siteUrl}${routePath(locale, "/kisah")}` },
                   { "@type": "ListItem", position: 3, name: story.title, item: pageUrl },
                 ],
               },
@@ -194,7 +194,7 @@ export default async function KisahDetailPage({
           body={story.body}
           lang={storyLang}
           dict={dict}
-          nextHref={nextEpisode ? `/${locale}/kisah/${nextEpisode.slug}?autoplay=1` : null}
+          nextHref={nextEpisode ? routePath(locale, `/kisah/${nextEpisode.slug}?autoplay=1`) : null}
         />
       </div>
 
@@ -203,7 +203,7 @@ export default async function KisahDetailPage({
 
       {nextEpisode && (
         <Link
-          href={`/${locale}/kisah/${nextEpisode.slug}`}
+          href={routePath(locale, `/kisah/${nextEpisode.slug}`)}
           className="mt-10 block rounded-xl border border-(--color-border) bg-(--color-card) p-4 hover:border-accent"
         >
           <p className="text-xs text-text-secondary">Next →</p>

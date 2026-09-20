@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { TAJWID_GUIDE, type GuideRule } from "@/lib/tajwid-guide";
 import { tajwidPageLabels } from "@/lib/tajwid-labels";
 
@@ -13,9 +13,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const p = tajwidPageLabels(locale);
   return {
-    title: `${p.title} — ${TENANT.siteName}`,
+    // The layout's title template already appends " — <site>".
+    title: p.title,
     description: p.subtitle,
-    alternates: { canonical: localePath(locale, `/quran/tajwid`) },
+    alternates: { canonical: routePath(locale, `/quran/tajwid`) },
   };
 }
 
@@ -138,7 +139,7 @@ export default async function TajwidGuidePage({ params }: { params: Promise<{ lo
 
         {/* Try-it CTA into the live Mushaf. */}
         <Link
-          href={`/${locale}/quran/mushaf`}
+          href={routePath(locale, `/quran/mushaf`)}
           className="card-premium shimmer-gold mt-10 flex flex-col items-start justify-between gap-4 p-5 sm:flex-row sm:items-center"
         >
           <div>

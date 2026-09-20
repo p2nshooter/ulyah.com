@@ -25,6 +25,8 @@
     "seo:notify": "tsx scripts/notify-search-engines.ts",
     "check:locale": "tsx scripts/check-locale-detect.ts",
     "check:urls": "tsx scripts/check-canonical-urls.ts",
+    "check:links": "tsx scripts/check-internal-links.ts",
+    "check:ads": "tsx scripts/check-ads.ts",
     "check:translate": "tsx scripts/check-ai-translate.ts"
   },
   "devDependencies": {

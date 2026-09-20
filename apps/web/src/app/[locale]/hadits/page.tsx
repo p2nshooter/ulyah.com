@@ -4,7 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { haditsLabels } from "@/lib/hadits-labels";
 import { PageHero } from "@/components/PageHero";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { coverFor } from "@/lib/book-cover";
 
 /**
@@ -40,7 +40,7 @@ export async function generateMetadata({
   return {
     title: `${t.title}`,
     description: t.subtitle,
-    alternates: { canonical: localePath(locale, `/hadits`) },
+    alternates: { canonical: routePath(locale, `/hadits`) },
   };
 }
 
@@ -52,7 +52,7 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
   let collections: CollectionRow[] = [];
   try {
     const res = await api.getCached<{ collections: CollectionRow[] }>(`/content/hadits/collections?lang=${locale}`, 86400);
-    collections = res.collections;
+    collections = res.collections ?? [];
   } catch {
     collections = [];
   }
@@ -79,7 +79,7 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
           return (
             <Link
               key={c.slug}
-              href={`/${locale}/hadits/${c.slug}`}
+              href={routePath(locale, `/hadits/${c.slug}`)}
               aria-label={c.name || c.name_id}
               style={{ background: cv.cover }}
               className="group relative flex min-h-[196px] flex-col justify-between overflow-hidden rounded-l-sm rounded-r-lg p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"

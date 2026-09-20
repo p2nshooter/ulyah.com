@@ -3,7 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { AiChat } from "@/components/AiChat";
 import { TENANT } from "@/lib/tenant";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
 // Native per-locale page chrome — siblings render their own language (fr/de),
@@ -65,9 +65,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = labels(locale);
   return {
-    title: t.metaTitle(TENANT.siteName),
+    // This title already names the site, so it opts out of the layout's
+    // "%s — <site>" template rather than printing the name twice.
+    title: { absolute: t.metaTitle(TENANT.siteName) },
     description: t.metaDesc(TENANT.siteName),
-    alternates: { canonical: localePath(locale, `/tanya`) },
+    alternates: { canonical: routePath(locale, `/tanya`) },
   };
 }
 

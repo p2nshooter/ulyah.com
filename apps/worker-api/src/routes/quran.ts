@@ -79,7 +79,14 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   // only briefly so they self-heal, rich bundles cached for 30 days to stay
   // far under Cloudflare's free-tier KV write budget (the 15-min TTL used
   // before re-wrote every popular ayah ~96×/day and helped exhaust it).
-  const cacheKey = `quran:ayah:v7:${surahId}:${number}:${requested}`;
+  //
+  // v8 = an occasion of revelation that exists is never dropped (see
+  // fetchAsbabunNuzul). This bump matters more than most: a bundle whose
+  // translation and tafsir resolved counts as "rich" and is cached for THIRTY
+  // DAYS, so every ayah whose asbabun translation happened to fail is holding a
+  // month-long "no specific occasion is narrated" — a sentence that is not
+  // true. The old keys are abandoned rather than waited out.
+  const cacheKey = `quran:ayah:v8:${surahId}:${number}:${requested}`;
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 

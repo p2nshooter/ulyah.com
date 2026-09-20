@@ -11,6 +11,7 @@ import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 import { NahwuShorofPanel } from "@/components/NahwuShorofPanel";
 import type { Dictionary } from "@/dictionaries";
 import { fillLabels } from "@/lib/fill-labels";
+import { routePath } from "@/lib/paths";
 
 interface SurahMeta {
   id: number;
@@ -32,7 +33,7 @@ interface AyatRow {
 interface Bundle {
   translation: { text: string } | null;
   tafsir: { text: string; source: string }[];
-  asbabun_nuzul: { text: string; source: string }[];
+  asbabun_nuzul: { text: string; source: string; lang?: string }[];
   hadits: { text_id: string; narrator: string | null; source: string }[];
   stories: { id: number; title: string; slug: string }[];
 }
@@ -473,9 +474,24 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   // Deeper study material for the collapsible "Tafsir & Penjelasan" panel.
   // Translation is intentionally NOT here — it's already shown large with the
   // Arabic verse — so the panel stays focused on tafsir, asbabun & hadits.
-  const explanation: { layer: Layer; icon: string; label: string; text: string | null; empty: string }[] = [
+  const asbab = bundle?.asbabun_nuzul[0];
+  const explanation: {
+    layer: Layer;
+    icon: string;
+    label: string;
+    text: string | null;
+    empty: string;
+    /** The language the TEXT is in, when it is not the display language — an
+     *  occasion is always shown, even if the on-demand translation failed, so
+     *  the panel has to be able to say which language the reader is looking at
+     *  (and get `dir` right for Arabic). */
+    lang?: string;
+    /** Where it came from. Shown under the text, so a fallback explains itself
+     *  instead of looking like a bug. */
+    source?: string;
+  }[] = [
     { layer: "tafsir", icon: LAYER_ICON.tafsir, label: dict.reader.tafsirLabel, text: (tafsirEdition ? editionTafsir?.text : bundle?.tafsir[0]?.text) ?? null, empty: e.tafsir },
-    { layer: "asbabun", icon: LAYER_ICON.asbabun, label: dict.reader.asbabunNuzulLabel, text: bundle?.asbabun_nuzul[0]?.text ?? null, empty: e.asbabun },
+    { layer: "asbabun", icon: LAYER_ICON.asbabun, label: dict.reader.asbabunNuzulLabel, text: asbab?.text ?? null, empty: e.asbabun, lang: asbab?.lang, source: asbab?.source },
     { layer: "hadits", icon: LAYER_ICON.hadits, label: dict.reader.haditsLabel, text: bundle?.hadits[0] ? `“${bundle.hadits[0].text_id}” — ${bundle.hadits[0].narrator ?? ""} (${bundle.hadits[0].source})` : null, empty: e.hadits },
   ];
 
@@ -630,7 +646,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         )
                       )}
                       <a
-                        href={`/${locale}/quran/tajwid`}
+                        href={routePath(locale, `/quran/tajwid`)}
                         onClick={(ev) => ev.stopPropagation()}
                         className="inline-flex items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 font-medium text-accent transition hover:bg-accent/10"
                       >
@@ -806,11 +822,15 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                             ))}
                           </select>
                         )}
-                        <p className="mt-1.5 text-[13px] leading-relaxed text-text-secondary">
+                        <p
+                          className="mt-1.5 text-[13px] leading-relaxed text-text-secondary"
+                          lang={s.text && s.lang ? s.lang : undefined}
+                          dir={s.text && s.lang === "ar" ? "rtl" : undefined}
+                        >
                           {s.text ?? (tafsirLoading ? `${dict.common.loading}…` : s.empty)}
                         </p>
-                        {isTafsir && sourceName && s.text && (
-                          <p className="mt-1 text-[10px] italic text-text-secondary/70">— {sourceName}</p>
+                        {s.text && (sourceName || s.source) && (
+                          <p className="mt-1 text-[10px] italic text-text-secondary/70">— {isTafsir ? sourceName : s.source}</p>
                         )}
                       </div>
                     );
@@ -822,7 +842,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                         {dict.reader.storyLabel}
                       </p>
                       <a
-                        href={`/${locale}/kisah/${bundle.stories[0]!.slug}`}
+                        href={routePath(locale, `/kisah/${bundle.stories[0]!.slug}`)}
                         className="mt-1 block text-xs text-accent hover:underline"
                       >
                         {bundle.stories[0]!.title}

@@ -6,6 +6,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { TENANT, tenantTagline } from "@/lib/tenant";
+import { routePath } from "@/lib/paths";
 
 interface Certificate {
   id: number;
@@ -38,7 +39,7 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
     return (
       <div className="px-6 py-20 text-center">
         <p className="text-sm text-text-secondary">{c.registerFirst}</p>
-        <button onClick={() => router.push(`/${locale}/akun`)} className="mt-4 text-sm text-accent">
+        <button onClick={() => router.push(routePath(locale, `/akun`))} className="mt-4 text-sm text-accent">
           ← {dict.auth.myDashboard}
         </button>
       </div>
@@ -56,7 +57,7 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
       <div className="mx-auto max-w-3xl">
         {/* toolbar — hidden when printing */}
         <div className="mb-4 flex items-center justify-between print:hidden">
-          <button onClick={() => router.push(`/${locale}/akun`)} className="text-sm text-text-secondary">
+          <button onClick={() => router.push(routePath(locale, `/akun`))} className="text-sm text-text-secondary">
             ← {dict.auth.myDashboard}
           </button>
           <button

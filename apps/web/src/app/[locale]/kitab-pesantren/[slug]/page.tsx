@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { PesantrenKitabReader, type KitabDetail } from "@/components/PesantrenKitabReader";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
@@ -80,7 +80,7 @@ export async function generateMetadata({
   return {
     title: `${k.title_id} — ${m.section}`,
     description: `${k.title_id} (${k.title_ar}) ${m.by} ${k.author ?? "—"}. ${k.description_id ?? ""}`.trim(),
-    alternates: { canonical: localePath(locale, `/kitab-pesantren/${slug}`) },
+    alternates: { canonical: routePath(locale, `/kitab-pesantren/${slug}`) },
   };
 }
 

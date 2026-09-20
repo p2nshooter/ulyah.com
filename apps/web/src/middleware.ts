@@ -52,43 +52,23 @@ function pathIsHidden(hidden: string[], pageless: string): boolean {
 }
 
 /**
- * Which languages the owner has switched ON, from the admin portal.
+ * Which languages this site serves.
  *
- * Same non-blocking shape as the hidden-page lookup above: answers instantly
- * from a per-isolate cache and refreshes in the background at most once a
- * minute, so this costs the edge nothing per request (awaiting a cross-worker
- * fetch inside middleware is exactly what invites Error 1102).
+ * There used to be a per-request lookup here (`GET /content/locales`, the admin
+ * portal's switch list) that could add languages to the ones the build ships.
+ * It is gone, and deliberately: adding a language to ulyah.com meant machine-
+ * translating ulyah.com into it, and that is switched off for good — the hub is
+ * written in Indonesian and the ecosystem languages live on their own domains
+ * (owner: "cukup ulyah.com menggunakan bahasa Indonesia dan ekosistem situs yg
+ * lain menggunakan bahasa extensi situsnya masing-masing").
  *
- * Until the first refresh lands — and if the API is unreachable — we fall back
- * to the built-in gate, which offers only the site's own language and the
- * sibling domains. That fallback is deliberately the RESTRICTIVE one: a blip
- * must never re-expose a half-translated language.
+ * Two things follow. The rule is now structural — no runtime answer, no cache,
+ * no fail-open window in which a machine-translated language could reappear —
+ * and every request to every page is one cross-worker fetch cheaper, which is
+ * the diet that keeps Error 1102 away.
  */
-let localeCache: { codes: string[]; at: number } | null = null;
-let localeRefreshing = false;
-
-function enabledLocales(): string[] | null {
-  const now = Date.now();
-  if ((!localeCache || now - localeCache.at >= 60_000) && !localeRefreshing) {
-    localeRefreshing = true;
-    fetch(`${API_BASE}/content/locales`)
-      .then(async (res) => {
-        if (!res.ok) return;
-        const j = (await res.json()) as { enabled?: string[]; ok?: boolean };
-        if (j.ok && Array.isArray(j.enabled)) localeCache = { codes: j.enabled, at: Date.now() };
-      })
-      .catch(() => {
-        /* keep the previous answer, or the built-in gate */
-      })
-      .finally(() => {
-        localeRefreshing = false;
-      });
-  }
-  return localeCache?.codes ?? null;
-}
-
-/** A language may only be served if it is in this build AND switched on. */
-const usable = (code: string) => isUsable(code, enabledLocales());
+/** A language may only be served if this build ships it. */
+const usable = (code: string) => isUsable(code);
 
 /** The decision itself lives in lib/locale-detect so it can be run and checked
  *  outside a request — see scripts/check-locale-detect.ts. */
@@ -98,7 +78,6 @@ function detectLocale(req: NextRequest): string {
     // Cloudflare appends this at the edge — no geo-IP service needed.
     country: req.headers.get("cf-ipcountry"),
     acceptLanguage: req.headers.get("accept-language"),
-    enabled: enabledLocales(),
     tenant: TENANT_ID,
   });
 }
@@ -119,10 +98,11 @@ function detectLocale(req: NextRequest): string {
  * slug in its own language: the French alternate of /jadwal-sholat is
  * 1fr.fr/horaires-priere.
  */
-// Indonesian and the four languages that own a domain are always live. Any
-// other language joins the moment the owner switches it on in the admin portal
-// — the same list the routing above acts on, so a language is never served
-// without being announced, or announced without being served.
+// The five sites in the ecosystem, and the whole list: Indonesian on the hub
+// plus the four languages that own a domain. Nothing else is announced, because
+// nothing else is served — a machine-translated language was announced here
+// once, and an hreflang pointing at a page we no longer render is a promise to
+// Google we cannot keep.
 const ALWAYS_LIVE = ["id", "en", "fr", "de", "es"];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {
@@ -137,9 +117,7 @@ function withHreflang(res: NextResponse, route: string): NextResponse {
   // it — /toko lives on the four sites with an Amazon, and declaring an
   // Indonesian alternate would point Google at a 404 on ulyah.com.
   const only = routeLocales(clean);
-  const codes = [...ALWAYS_LIVE, ...(enabledLocales() ?? []).filter((c) => !ALWAYS_LIVE.includes(c))].filter(
-    (c) => !only || only.includes(c)
-  );
+  const codes = ALWAYS_LIVE.filter((c) => !only || only.includes(c));
   if (codes.length === 0) return res;
   const parts = codes.map(
     (code) => `<${localeCanonicalUrl(code, localizedRoute(clean, code))}>; rel="alternate"; hreflang="${code}"`

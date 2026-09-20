@@ -5,7 +5,7 @@ import { DonationButtons } from "@/components/DonationButtons";
 import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
 import { CryptoDonationSection } from "@/components/CryptoDonationSection";
 import { DonationVirtues } from "@/components/DonationVirtues";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${dict.donation.title}`,
     description: dict.donation.subtitle,
-    alternates: { canonical: localePath(locale, `/donasi`) },
+    alternates: { canonical: routePath(locale, `/donasi`) },
   };
 }
 

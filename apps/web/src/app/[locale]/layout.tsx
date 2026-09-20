@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
+import { SERVED_LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+import { AD_CLIENT_ID } from "@/lib/ad-config";
 import { TENANT, tenantTagline } from "@/lib/tenant";
 import { jsonLdHtml } from "@/lib/structured-data";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -11,7 +12,6 @@ import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
 import { AdSlot } from "@/components/AdSlot";
-import { NetworkAd } from "@/components/NetworkAd";
 import { PageAds } from "@/components/PageAds";
 import { EcoOrnaments } from "@/components/EcosystemDecor";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
@@ -52,7 +52,11 @@ import "@/styles/themes/xad.css";
 // routes, built from the same helper, so the two always agree.
 
 export function generateStaticParams() {
-  return LOCALES.map((l) => ({ locale: l.code }));
+  // The site's own language, and only that: the middleware never routes a
+  // request for any other locale into this tree (a language with its own domain
+  // is redirected there, everything else back to the bare path), so generating
+  // them produced pages nothing could ever reach.
+  return SERVED_LOCALES.map((l) => ({ locale: l.code }));
 }
 
 export async function generateMetadata({
@@ -265,7 +269,11 @@ export default async function LocaleLayout({
                         ? "XAD — Listen to Islam"
                         : "Ulyah — Listen to Islam",
               url: TENANT.siteUrl,
-              inLanguage: LOCALES.map((l) => l.code),
+              // What this site is written in — one language. Listing the
+              // whole registry told Google the hub existed in 28 languages,
+              // which was only ever true of the machine translations that are
+              // now switched off.
+              inLanguage: SERVED_LOCALES.map((l) => l.code),
               publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
               potentialAction: {
                 "@type": "SearchAction",
@@ -303,11 +311,15 @@ export default async function LocaleLayout({
           }}
         />
         {/* Google AdSense on EVERY page of EVERY site (owner: Update Global
-            Seluruh Portal §2). The async loader never blocks rendering. */}
-        <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
+            Seluruh Portal §2). The async loader never blocks rendering.
+
+            The publisher id comes from the same constant the units carry, so
+            the loader and the <ins> elements can never disagree about which
+            account is being served. */}
+        <meta name="google-adsense-account" content={AD_CLIENT_ID} />
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT_ID}`}
           crossOrigin="anonymous"
         />
       </head>
@@ -327,18 +339,15 @@ export default async function LocaleLayout({
               rendered page so each one lands on a real section boundary. */}
           <main className="min-h-screen pb-24">{children}</main>
           {/* Reads the rendered <main> and fills the page up to the owner's
-              quota — one unit above the content, three through the middle on
-              real section boundaries, two in the closing cluster below. Skips
-              focused pages (mushaf, kiblat, sign-in) and any tenant with no
-              Adsterra inventory. */}
+              quota — one unit above the content, two through the middle on real
+              section boundaries, one in the closing cluster below. Skips
+              focused pages (mushaf, kiblat, sign-in) and does nothing at all
+              until this site is live for AdSense. */}
           <PageAds />
-          {/* The closing cluster, right before the footer. Renders only on
-              tenants that have units; collapses cleanly when the network has no
-              fill. AdSlot (AdSense) stays dormant until enabled centrally from
-              the ulyah.com admin. */}
+          {/* The closing unit, right before the footer. Dormant until the site
+              is enabled + approved centrally from the ulyah.com admin, and it
+              collapses to nothing on a no-fill rather than leaving a gap. */}
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <NetworkAd unit="banner" />
-            <NetworkAd unit="native" />
             <AdSlot placement="footer" />
           </div>
           <Footer locale={locale} dict={dict} />

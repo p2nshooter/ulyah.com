@@ -16,6 +16,7 @@ import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
 import { SurahFlipbook } from "@/components/SurahFlipbook";
 import { localizedRoute } from "@ulyah/shared/routes";
+import { routePath } from "@/lib/paths";
 
 /**
  * Grouped navigation. The old header was a flat run of 13 links that
@@ -186,7 +187,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
         <div className="flex items-center gap-2">
           {/* Real search box, not a buried icon — owner request, and it's
               what visitors expect from a reference site. */}
-          <form action={`/${locale}/cari`} className="hidden items-center tablet:flex">
+          <form action={routePath(locale, `/cari`)} className="hidden items-center tablet:flex">
             <div className="flex items-center gap-1.5 rounded-full border border-(--color-border) bg-black/3 py-1 pl-3 pr-1 transition focus-within:border-accent dark:bg-white/5">
               <span aria-hidden className="text-sm opacity-70">🔍</span>
               <input
@@ -198,7 +199,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
             </div>
           </form>
           <Link
-            href={`/${locale}/cari`}
+            href={routePath(locale, `/cari`)}
             aria-label={dict.nav.searchPlaceholder}
             className="rounded-full border border-(--color-border) p-2 tablet:hidden"
           >

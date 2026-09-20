@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { HajjUmrahHub } from "@/components/HajjUmrahHub";
 import { TENANT } from "@/lib/tenant";
-import { localePath } from "@/lib/paths";
+import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 
 // Native per-locale copy — every site renders its own language (fr/de), never
@@ -80,7 +80,7 @@ export async function generateMetadata({
   return {
     title: t.metaTitle,
     description: t.metaDesc(TENANT.siteName),
-    alternates: { canonical: localePath(locale, `/haji-umroh`) },
+    alternates: { canonical: routePath(locale, `/haji-umroh`) },
   };
 }
 

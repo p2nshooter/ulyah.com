@@ -7,6 +7,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { NarrateButton } from "@/components/NarrateButton";
+import { routePath } from "@/lib/paths";
 
 interface SearchResults {
   ayah?: { surah_id: number; number: number; translation: string; surah_name: string }[];
@@ -157,7 +158,7 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
             {results.kisah.map((r) => (
               <Link
                 key={r.slug}
-                href={`/${locale}/kisah/${r.slug}`}
+                href={routePath(locale, `/kisah/${r.slug}`)}
                 className="block rounded-xl border border-(--color-border) bg-(--color-card) p-3.5 text-sm hover:border-accent"
               >
                 🎧 {r.title}

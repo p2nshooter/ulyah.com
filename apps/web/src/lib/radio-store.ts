@@ -12,7 +12,7 @@
 import { create } from "zustand";
 import { api } from "./api";
 import { usePlayerStore } from "./player-store";
-import { RECITERS, DEFAULT_QORI_KEY, TENANT_RADIO_CDN } from "./qori-cdn";
+import { RECITERS, DEFAULT_QORI_KEY, TENANT_RADIO_CDN, TENANT_RADIO_ROSTER } from "./qori-cdn";
 import { computeLivePosition, computeLiveBroadcast } from "./radio-clock";
 
 export interface SurahMeta {
@@ -33,28 +33,25 @@ export interface RadioPosition {
 // "imam nya jgn bisa d klik, biarkan saja berjalan berurutan" (the imam must
 // not be clickable, just let it run in sequence). The widget only ever shows
 // who is in the rotation and who is reading right now, never a picker.
-// HiFi only — and ONE proven audio path for every site. ulyah.com's radio
-// sounds clean; dawa.es & xad.es came through muffled/warbly ("mendem, kaya
-// kaset kusut") because their "everyayah-first" rotation put ey.juhany at the
-// head of the pool: his R2 library is nearly empty (≈55 of 6236 ayat), so
-// most of his broadcast streamed live from everyayah.com — a host that
-// throttles — while ulyah.com was happily on an alquran.cloud reciter served
-// from R2. (A second strike against everyayah on the broadcast: some of its
-// "128kbps" archives are digitised from old cassette masters — e.g. Juhany's
-// taraweeh rips — so they hiss and warble at ANY encode bitrate.) Owner's
-// call: "pelajarin ulyah.com muter radio apakah make CDN atau R2 — itu lu
-// ikutin". So the rotation now contains ONLY the aqc (alquran.cloud 128 kbps)
-// world-renowned reciters that ulyah.com's clean broadcast plays, streamed
-// the identical way on every tenant: our R2 library first (api.ulyah.com,
-// bitrate-audited), islamic.network 128 kbps as the self-healing fill.
-// everyayah voices stay selectable in the reader/picker but never drive the
-// always-on radio again.
-// Per-tenant variety is kept via reciter ORDER (sites that used to lead with
-// everyayah keep a reversed order) and each site's own broadcast epoch, so
-// no two domains sit on the same reciter+ayah at the same moment.
+// HiFi only — and ONE audio path for every site. dawa.es & xad.es used to come
+// through muffled and warbly ("mendem, kaya kaset kusut") because their
+// everyayah-first rotation put ey.juhany at the head of the pool, and some of
+// everyayah's "128kbps" archives are digitised from old cassette masters —
+// they hiss at ANY encode bitrate. Owner's call: "pelajarin ulyah.com muter
+// radio apakah make CDN atau R2 — itu lu ikutin". So the rotation contains
+// ONLY the aqc voices (alquran.cloud, 128 kbps, cdn.islamic.network), streamed
+// identically on every tenant. everyayah voices stay selectable in the
+// reader's picker but never drive the always-on radio again.
+//
+// HOW MANY of those voices a site rotates is per-tenant: dawa.es runs the full
+// seventeen, everyone else the six marked `featured` (see
+// TENANT_RADIO_ROSTER). Per-tenant variety on top of that comes from reciter
+// ORDER and each site's own broadcast epoch, so no two domains sit on the same
+// reciter+ayah at the same moment.
 const TENANT = (process.env.NEXT_PUBLIC_TENANT ?? "ulyah") as keyof typeof TENANT_RADIO_CDN;
 const CDN_ORDER = TENANT_RADIO_CDN[TENANT] ?? TENANT_RADIO_CDN.ulyah!;
-const HIFI = RECITERS.filter((r) => r.featured && r.cdn === "aqc");
+const FULL_ROSTER = TENANT_RADIO_ROSTER[TENANT] === "full";
+const HIFI = RECITERS.filter((r) => r.cdn === "aqc" && (FULL_ROSTER || r.featured));
 const ROTATION_POOL = [...HIFI]
   .sort((a, b) => (CDN_ORDER[0] === "ey" ? b.key.localeCompare(a.key) : a.key.localeCompare(b.key)))
   .map((r) => r.key);

@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { coverFor } from "@/lib/book-cover";
 import { PageHero } from "@/components/PageHero";
+import { routePath } from "@/lib/paths";
 
 /**
  * Served from cache instead of rebuilt per request.
@@ -16,6 +18,27 @@ import { PageHero } from "@/components/PageHero";
  * The library index changes only when a new import runs.
  */
 export const revalidate = 86400;
+
+/**
+ * The library index had no metadata of its own: its `<title>` was the site
+ * default, identical to the home page's, on the section the owner cares most
+ * about ("pastikan kitab2nya … berfungsi 100%"). Two pages with one title is
+ * how the smaller of them stops being indexed.
+ *
+ * The canonical names the url this site actually serves — /libros on dawa.es —
+ * rather than the route's name on disk, which only redirects there.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const t = kitabLabels(locale);
+  return {
+    // The layout's title template already appends " — <site>".
+    title: t.title,
+    description: t.subtitle,
+    alternates: { canonical: routePath(locale, "/kitab") },
+  };
+}
 
 interface CategoryRow {
   slug: string;
@@ -34,7 +57,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
   let categories: CategoryRow[] = [];
   try {
     const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/kitab/categories?lang=${locale}`, 86400);
-    categories = res.categories;
+    categories = res.categories ?? [];
   } catch {
     categories = [];
   }
@@ -53,7 +76,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
           is breadth (metadata for ~5k works); this is depth (full readable
           matn, bab by bab, with terjemah + penjelasan). */}
       <Link
-        href={`/${locale}/kitab-pesantren`}
+        href={routePath(locale, `/kitab-pesantren`)}
         className="mt-8 flex items-center gap-4 rounded-2xl border border-accent/40 bg-linear-to-br from-accent/10 to-transparent p-5 transition hover:border-accent"
       >
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/15 text-2xl">🏫</span>
@@ -77,7 +100,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
           return (
             <Link
               key={c.slug}
-              href={`/${locale}/kitab/${c.slug}`}
+              href={routePath(locale, `/kitab/${c.slug}`)}
               aria-label={c.name}
               style={{ background: cv.cover }}
               className="group relative flex min-h-[196px] flex-col justify-between overflow-hidden rounded-r-lg rounded-l-sm p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"
