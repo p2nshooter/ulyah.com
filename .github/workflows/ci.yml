@@ -278,6 +278,16 @@ jobs:
       - name: Check the radio advances by what actually played
         run: npx tsx apps/web/src/lib/radio-position.test.mjs
 
+      # A 200 is not a promise about the SHAPE of the body. A type annotation on
+      # api.get is a claim, not a check: a missing key puts `undefined` into
+      # state, the .catch never runs because the promise resolved, and the page
+      # dies later at a line that looks innocent. That killed the kids-films
+      # route on ALL FIVE sites at once — a blank page, HTTP 200, no <html lang>.
+      # The server half of this was swept once already; this is the guard so
+      # there is no third time.
+      - name: Check no response field reaches state unchecked
+        run: npx tsx scripts/check-api-shape-guards.ts
+
       # Five domains, one seventeen-voice roster, one shared rotation clock. The
       # separation the owner asked for ("masing-masing situs narik CDN-nya
       # terpisah agar tidak ada duplikat") is a property of five integers, and

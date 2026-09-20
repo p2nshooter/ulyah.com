@@ -24,7 +24,7 @@ export function ScalingTab() {
 
   useEffect(() => {
     api.get<ScalingData>("/admin/scaling").then(setData);
-    api.get<{ settings: Settings }>("/admin/scaling/settings").then((r) => setSettings(r.settings));
+    api.get<{ settings: Settings }>("/admin/scaling/settings").then((r) => setSettings(r.settings ?? null));
   }, []);
 
   async function save() {

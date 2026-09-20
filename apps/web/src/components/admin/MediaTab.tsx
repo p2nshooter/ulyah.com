@@ -20,7 +20,7 @@ export function MediaTab() {
     setLoading(true);
     api
       .get<{ media: MediaStatus[] }>("/admin/media")
-      .then((r) => setMedia(r.media))
+      .then((r) => setMedia(r.media ?? []))
       .catch(() => {})
       .finally(() => setLoading(false));
   }

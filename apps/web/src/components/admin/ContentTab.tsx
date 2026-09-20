@@ -136,7 +136,7 @@ export function ContentTab() {
   const [scheduleCount, setScheduleCount] = useState(5);
 
   function load() {
-    api.get<{ queue: ReviewItem[] }>("/admin/content/review-queue").then((r) => setQueue(r.queue));
+    api.get<{ queue: ReviewItem[] }>("/admin/content/review-queue").then((r) => setQueue(r.queue ?? []));
   }
   useEffect(load, []);
 

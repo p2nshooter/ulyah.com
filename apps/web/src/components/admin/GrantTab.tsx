@@ -108,7 +108,7 @@ export function GrantTab() {
 
   function refresh() {
     api.get<Dashboard>("/grant/dashboard").then(setDash).catch(() => {});
-    api.get<{ donors: Donor[] }>("/grant/donors").then((d) => setDonors(d.donors)).catch(() => {});
+    api.get<{ donors: Donor[] }>("/grant/donors").then((d) => setDonors(d.donors ?? [])).catch(() => {});
   }
   useEffect(refresh, []);
 
@@ -142,7 +142,7 @@ export function GrantTab() {
     setSuggestOut(null);
     try {
       const r = await api.post<{ raw: string }>("/grant/donors/suggest", suggest);
-      setSuggestOut(r.raw);
+      setSuggestOut(r.raw ?? null);
     } catch {
       setSuggestOut("AI belum aktif — isi key di Key Pool.");
     } finally {

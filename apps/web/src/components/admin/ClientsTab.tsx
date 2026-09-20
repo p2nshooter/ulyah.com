@@ -16,7 +16,7 @@ export function ClientsTab() {
   const [clients, setClients] = useState<ClientRow[]>([]);
 
   useEffect(() => {
-    api.get<{ clients: ClientRow[] }>("/admin/clients").then((r) => setClients(r.clients));
+    api.get<{ clients: ClientRow[] }>("/admin/clients").then((r) => setClients(r.clients ?? []));
   }, []);
 
   return (

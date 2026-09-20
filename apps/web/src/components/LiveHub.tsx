@@ -110,7 +110,7 @@ export function LiveHub({ locale }: { locale: string }) {
     const load = () =>
       api
         .get<{ streams: StreamRow[] }>(`/content/live-streams?lang=${encodeURIComponent(locale)}`)
-        .then((r) => alive && setStreams(r.streams))
+        .then((r) => alive && setStreams(r.streams ?? []))
         .catch(() => alive && setStreams((prev) => prev));
     load();
     const id = window.setInterval(load, 60000);

@@ -53,7 +53,7 @@ export function SettingsTab() {
     setLoading(true);
     api
       .get<{ settings: SettingStatus[] }>("/admin/settings")
-      .then((r) => setSettings(r.settings))
+      .then((r) => setSettings(r.settings ?? []))
       .catch(() => {})
       .finally(() => setLoading(false));
   }

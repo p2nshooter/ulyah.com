@@ -31,7 +31,7 @@ export default function CertificatePage({ params }: { params: Promise<{ locale: 
   useEffect(() => {
     api
       .get<{ certificate: Certificate }>(`/client/certificate/${id}`)
-      .then((r) => setCert(r.certificate))
+      .then((r) => setCert(r.certificate ?? null))
       .catch(() => setError(true));
   }, [id]);
 

@@ -31,7 +31,7 @@ export function LiveStreamsTab() {
   async function load() {
     try {
       const r = await api.get<{ streams: StreamRow[] }>("/admin/live-streams");
-      setRows(r.streams);
+      setRows(r.streams ?? []);
       const d: typeof drafts = {};
       for (const s of r.streams)
         d[s.id] = { title: s.title ?? "", url: s.url ?? "", region: s.region ?? "", is_live: !!s.is_live };

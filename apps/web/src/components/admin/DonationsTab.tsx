@@ -22,8 +22,8 @@ export function DonationsTab() {
     api
       .get<{ donations: DonationRow[]; stats: typeof stats }>("/admin/donations")
       .then((r) => {
-        setDonations(r.donations);
-        setStats(r.stats);
+        setDonations(r.donations ?? []);
+        setStats(r.stats ?? null);
       });
   }, []);
 

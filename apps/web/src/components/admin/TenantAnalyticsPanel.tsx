@@ -83,7 +83,7 @@ export function TenantAnalyticsPanel() {
         .get<{ tenants: TenantStat[] }>("/admin/tenant-analytics")
         .then((r) => {
           if (!alive) return;
-          setRows(r.tenants);
+          setRows(r.tenants ?? null);
           setRefreshedAt(new Date());
           setFailed(false);
         })

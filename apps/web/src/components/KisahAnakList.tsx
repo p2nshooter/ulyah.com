@@ -129,7 +129,7 @@ export function KisahAnakList({ locale, episodes }: { locale: string; episodes: 
     setLoading(true);
     try {
       const r = await api.get<{ episode: EpisodeDetail }>(`/content/kisah-anak/${slug}?lang=${locale}`);
-      setDetail(r.episode);
+      setDetail(r.episode ?? null);
     } catch {
       setDetail(null);
     } finally {

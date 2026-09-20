@@ -52,7 +52,7 @@ function LiveHealth({ registry }: { registry: Record<string, ProviderStep[]> | n
   function loadHealth() {
     api
       .get<{ health: HealthRow[] }>("/ai/orchestra/health")
-      .then((d) => setRows(d.health))
+      .then((d) => setRows(d.health ?? []))
       .catch(() => setErr(true));
   }
   useEffect(loadHealth, []);
@@ -276,7 +276,7 @@ function WorkerRegistry() {
   useEffect(() => {
     api
       .get<{ workers: WorkerDef[] }>("/ai/orchestra/workers")
-      .then((d) => setWorkers(d.workers))
+      .then((d) => setWorkers(d.workers ?? []))
       .catch(() => setErr(true));
   }, []);
 
@@ -462,7 +462,7 @@ export function OrchestraTab() {
   useEffect(() => {
     api
       .get<{ registry: Record<string, ProviderStep[]> }>("/ai/orchestra/health")
-      .then((d) => setRegistry(d.registry))
+      .then((d) => setRegistry(d.registry ?? {}))
       .catch(() => {});
   }, []);
 
