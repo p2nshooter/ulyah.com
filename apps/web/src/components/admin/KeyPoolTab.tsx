@@ -93,8 +93,8 @@ export function KeyPoolTab() {
 
   function load() {
     api.get<{ keys: KeyRow[]; providers: ProviderDef[] }>("/admin/keys").then((r) => {
-      setKeys(r.keys);
-      setProviders(r.providers);
+      setKeys(r.keys ?? []);
+      setProviders(r.providers ?? []);
       if (!form.provider && r.providers[0]) setForm((f) => ({ ...f, provider: r.providers[0]!.id, scope: r.providers[0]!.kind }));
     });
   }

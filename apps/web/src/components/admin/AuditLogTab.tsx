@@ -15,7 +15,7 @@ export function AuditLogTab() {
   const [log, setLog] = useState<LogRow[]>([]);
 
   useEffect(() => {
-    api.get<{ log: LogRow[] }>("/admin/audit-log").then((r) => setLog(r.log));
+    api.get<{ log: LogRow[] }>("/admin/audit-log").then((r) => setLog(r.log ?? []));
   }, []);
 
   return (

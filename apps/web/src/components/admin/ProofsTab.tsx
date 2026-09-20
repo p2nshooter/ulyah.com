@@ -23,7 +23,7 @@ export function ProofsTab() {
   const [busy, setBusy] = useState<number | null>(null);
 
   function load(s: typeof status) {
-    api.get<{ proofs: ProofRow[] }>(`/admin/proofs?status=${s}`).then((r) => setProofs(r.proofs)).catch(() => {});
+    api.get<{ proofs: ProofRow[] }>(`/admin/proofs?status=${s}`).then((r) => setProofs(r.proofs ?? [])).catch(() => {});
   }
 
   useEffect(() => {

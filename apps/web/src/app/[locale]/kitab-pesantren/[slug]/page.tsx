@@ -58,9 +58,19 @@ const META: Record<string, { section: string; by: string }> = {
 // Always request the reader's own language — the API localizes the matn
 // translation/explanation server-side (pre-translated strings in D1), so a
 // sibling site never shows Indonesian (owner rule + AdSense language purity).
+/**
+ * Null means "not usable", not merely "threw".
+ *
+ * `api.get<T>` annotates what the endpoint is SUPPOSED to answer and checks
+ * nothing. A 200 carrying `{}` resolves, and `{}` is truthy — so `if (!data)`
+ * waves it through and the page dies on the first nested read, as an HTTP 500
+ * caused by a request that succeeded. Checking the shape once, here, is what
+ * lets every line below it read `data.x.y` without a second thought.
+ */
 async function fetchKitab(slug: string, locale: string): Promise<KitabResponse | null> {
   try {
-    return await api.getCached<KitabResponse>(`/content/pesantren/kitab/${slug}?lang=${locale}`, 300);
+    const r = await api.getCached<KitabResponse>(`/content/pesantren/kitab/${slug}?lang=${locale}`, 300);
+    return r?.kitab && Array.isArray(r.chapters) ? r : null;
   } catch {
     return null;
   }

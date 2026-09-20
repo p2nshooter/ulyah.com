@@ -42,7 +42,7 @@ export function SanadTab() {
     api
       .get<{ collections: Collection[] }>("/content/hadits/collections")
       .then((r) => {
-        setCollections(r.collections);
+        setCollections(r.collections ?? []);
         if (r.collections.length) setSelected(r.collections[0]!.slug);
       })
       .catch(() => setErr(true));
@@ -54,7 +54,7 @@ export function SanadTab() {
     setSample(null);
     api
       .get<{ sample: SampleRow[] }>(`/content/hadits/${selected}/sanad-sample?limit=20`)
-      .then((r) => setSample(r.sample))
+      .then((r) => setSample(r.sample ?? []))
       .catch(() => setErr(true))
       .finally(() => setLoading(false));
   }, [selected]);

@@ -32,6 +32,29 @@ const RADIO_EPOCHS: Record<string, number> = {
 };
 const RADIO_EPOCH_MS = RADIO_EPOCHS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? RADIO_EPOCHS.ulyah!;
 
+/**
+ * The clock that picks the VOICE — shared by every domain, unlike the epochs
+ * above.
+ *
+ * The counter and the voice answer to two different promises. The counter is
+ * each site's own ("radio quran harus mulai dari 0 masing-masing"), so it keeps
+ * counting from that domain's launch. The voice answers the separation rule
+ * ("masing-masing situs narik CDN-nya terpisah agar tidak ada duplikat"), and
+ * that one is about the sites RELATIVE to each other — which a per-site clock
+ * cannot express.
+ *
+ * It used to try: each site read its own khatam index into its own pool order.
+ * The indices drift apart by whole khatam as the epochs differ, the pools were
+ * only two distinct orders, and the result was 149 days in a year when two
+ * domains were reciting in the same voice. Nobody would ever notice, because
+ * noticing means listening to two domains at once.
+ *
+ * Against one shared clock, every site reads the same list at the same index
+ * plus its own start offset, so the distance between any two stations is fixed
+ * and non-zero forever. Proven in scripts/check-radio-separation.ts.
+ */
+const ROTATION_EPOCH_MS = Date.UTC(2026, 6, 10, 0, 0, 0);
+
 // Rough average tarteel pace. Not exact (individual ayah lengths vary a
 // lot), but tuned so a full khatam (one loop through all ayah) takes
 // roughly 9-10 hours — about 2-3 khatam every 24 hours, matching a mosque
@@ -105,8 +128,15 @@ export function computeLiveBroadcast(surahs: AyahCountMeta[], reciterPool: strin
   const elapsedSeconds = Math.max(0, (Date.now() - RADIO_EPOCH_MS) / 1000);
   const withinKhatamSeconds = elapsedSeconds - khatamIndex * khatamDurationSeconds;
   const globalIndex = Math.floor(withinKhatamSeconds / AVG_SECONDS_PER_AYAH) % total;
-  // Wraps back to reciterPool[0] once khatamIndex passes the last reciter —
-  // "seluruh qori sudah baca -> balik ke yang paling atas, begitu selamanya".
-  const reciterKey = reciterPool[khatamIndex % reciterPool.length]!;
+  // The voice comes off the SHARED clock, not this site's — see
+  // ROTATION_EPOCH_MS. The pool each site passes is already rotated to its own
+  // starting voice, so the same index lands on a different reciter on every
+  // domain, always. It still wraps back to reciterPool[0] once the list is
+  // exhausted: "seluruh qori sudah baca -> balik ke yang paling atas, begitu
+  // selamanya".
+  const rotationIndex = Math.floor(
+    Math.max(0, (Date.now() - ROTATION_EPOCH_MS) / 1000) / khatamDurationSeconds
+  );
+  const reciterKey = reciterPool[rotationIndex % reciterPool.length]!;
   return { reciterKey, khatamIndex, ...ayahAtGlobalIndex(surahs, globalIndex) };
 }

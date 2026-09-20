@@ -125,42 +125,35 @@ export const RECITERS: QoriDef[] = [
 export const DEFAULT_QORI_KEY = "ar.alafasy";
 
 /**
- * Per-site CDN separation for the always-on radio (owner: "masing-masing situs
- * narik CDN-nya terpisah agar tidak ada duplikat"). Each domain leads its
- * rotation with a DIFFERENT source CDN, so the four sites never pull the exact
- * same file from the exact same host at the same moment — which both honours
- * the request and spreads load so no single CDN throttles us into choppy,
- * "kaset kusut" audio. Only 128 kbps / alquran.cloud voices are eligible (the
- * low-bitrate everyayah folders are what sounded muffled), so separation never
- * costs audio quality. Every pool still contains the same world-renowned
- * reciters — only the ORDER and the leading CDN differ per site.
- */
-export const TENANT_RADIO_CDN: Record<string, ("aqc" | "ey")[]> = {
-  ulyah: ["aqc", "ey"], // Indonesia flagship — alquran.cloud first
-  "1fr": ["ey", "aqc"], // France — everyayah first
-  tilawa: ["aqc", "ey"], // Germany — alquran.cloud first, reversed reciter order
-  dawa: ["ey", "aqc"], // Spain — everyayah first, reversed reciter order
-  xad: ["ey", "aqc"], // England-facing English site — everyayah first
-};
-
-/**
- * How WIDE each site's radio rotation is.
+ * Where each site's rotation STARTS in the shared roster.
  *
- * The station plays the alquran.cloud voices, all published at 128 kbps and
- * all streamed from cdn.islamic.network — seventeen of them. Most sites rotate
- * only the six marked `featured`, which was a curation decision from the era
- * when a voice had to be mirrored into R2 before it sounded reliable.
+ * Every site runs the whole alquran.cloud roster — seventeen voices, all
+ * published at 128 kbps, all streamed from cdn.islamic.network (owner:
+ * "maximalin aja … bukan cuma dawa.es tp seluruhnya"). Six was the ceiling
+ * everywhere until now, a curation from the era when a voice had to be
+ * mirrored into R2 before it sounded reliable; there is no mirror any more, so
+ * eleven more voices is eleven more urls on a CDN already serving the six.
  *
- * dawa.es takes the lot (owner: "maximalin aja dawa.es dr cdn"). Nothing is
- * stored to make that possible and nothing is downloaded: eleven more voices
- * is eleven more urls on a CDN that already serves the six. It costs us
- * nothing and it is the difference between a station that repeats a voice
- * every six khatam and one that does so every seventeen.
+ * THIS NUMBER IS THE WHOLE OF THE SEPARATION RULE — "masing-masing situs narik
+ * CDN-nya terpisah agar tidak ada duplikat". Every domain walks the same list
+ * in the same order on the same shared clock (see radio-clock.ts), and the
+ * only thing that differs is where it begins. Two stations therefore read
+ * different reciters at every moment, for as long as these numbers stay
+ * distinct — which is a property you can check by reading five integers.
+ *
+ * It replaces an arrangement that only looked separated: a reversed sort, which
+ * gave five domains TWO distinct orders, plus each site's own launch epoch.
+ * Measured over a year, that produced 149 moments where two sites were reciting
+ * in the same voice (scripts/check-radio-separation.ts, which now proves the
+ * opposite).
  */
-export const TENANT_RADIO_ROSTER: Record<string, "featured" | "full"> = {
-  dawa: "full",
+export const TENANT_RADIO_START: Record<string, number> = {
+  ulyah: 0,
+  "1fr": 3,
+  tilawa: 7,
+  dawa: 11,
+  xad: 14,
 };
-
 function buildEyUrl(eyId: string, surah: number, ayah: number): string {
   return `https://everyayah.com/data/${eyId}/${pad3(surah)}${pad3(ayah)}.mp3`;
 }

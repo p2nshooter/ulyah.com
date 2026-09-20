@@ -45,7 +45,7 @@ function CariPageInner({ params }: { params: Promise<{ locale: string }> }) {
       const res = await api.get<{ results: SearchResults }>(
         `/quran/search?q=${encodeURIComponent(query)}&lang=${locale}`
       );
-      setResults(res.results);
+      setResults(res.results ?? {});
       setSearched(true);
     } finally {
       setLoading(false);

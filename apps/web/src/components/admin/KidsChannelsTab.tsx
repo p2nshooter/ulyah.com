@@ -29,7 +29,7 @@ export function KidsChannelsTab() {
   async function load() {
     try {
       const r = await api.get<{ channels: ChannelRow[] }>("/admin/kids-channels");
-      setRows(r.channels);
+      setRows(r.channels ?? []);
     } catch {
       setNote("Gagal memuat data.");
     }

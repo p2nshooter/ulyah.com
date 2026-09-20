@@ -26,7 +26,7 @@ export function ApiKeyDonationForm({ dict }: { dict: Dictionary }) {
     api
       .get<{ providers: ProviderDef[] }>("/donate/api-key/providers")
       .then((r) => {
-        setProviders(r.providers);
+        setProviders(r.providers ?? []);
         if (r.providers[0]) {
           setProvider(r.providers[0].id);
           setScope(r.providers[0].kind);

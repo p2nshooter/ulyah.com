@@ -63,7 +63,7 @@ export function SanadExplorer({ locale }: { locale: string }) {
     api
       .get<{ collections: Collection[] }>("/content/hadits/collections")
       .then((r) => {
-        setCollections(r.collections);
+        setCollections(r.collections ?? []);
         if (r.collections.length) setSelected(r.collections[0]!.slug);
       })
       .catch(() => {});

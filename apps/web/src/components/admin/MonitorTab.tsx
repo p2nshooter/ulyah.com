@@ -35,8 +35,8 @@ export function MonitorTab({ locale }: { locale: string }) {
     setError(false);
     try {
       const r = await api.get<{ features: Feature[]; checkedAt: string }>("/admin/health");
-      setFeatures(r.features);
-      setCheckedAt(r.checkedAt);
+      setFeatures(r.features ?? null);
+      setCheckedAt(r.checkedAt ?? "");
     } catch {
       setError(true);
     } finally {

@@ -54,7 +54,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
     api
       .get<{ videos: VideoRow[]; channels?: ChannelRow[] }>("/content/video-anak")
       .then((r) => {
-        setVideos(r.videos);
+        setVideos(r.videos ?? []);
         setChannels(r.channels ?? []);
       })
       .catch(() => setVideos([]));

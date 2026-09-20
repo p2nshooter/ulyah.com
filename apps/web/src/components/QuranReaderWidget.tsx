@@ -315,7 +315,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
       .then((r) => {
         // Ignore a response for a surah the user already navigated away from.
         if (cancelled || r.surah?.id !== wantId) return;
-        setAyat(r.ayat);
+        setAyat(r.ayat ?? []);
       })
       .catch(() => {
         if (!cancelled) setLoadError(true);
@@ -354,7 +354,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   useEffect(() => {
     api
       .get<{ editions: { slug: string; name: string; author: string }[] }>(`/quran/tafsir-editions?lang=${locale}`)
-      .then((r) => setTafsirEditions(r.editions))
+      .then((r) => setTafsirEditions(r.editions ?? []))
       .catch(() => {});
   }, [locale]);
 
@@ -374,7 +374,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
         `/quran/tafsir/${tafsirEdition}/${selectedSurah.id}/${focus}?lang=${locale}`
       )
       .then((r) => {
-        if (!cancelled) setEditionTafsir(r.tafsir);
+        if (!cancelled) setEditionTafsir(r.tafsir ?? null);
       })
       .catch(() => {
         if (!cancelled) setEditionTafsir(null);

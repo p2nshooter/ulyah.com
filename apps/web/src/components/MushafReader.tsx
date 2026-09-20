@@ -161,7 +161,10 @@ export function MushafReader({ locale }: { locale: string }) {
   const fetchPage = useCallback(
     async (n: number): Promise<MushafPageResponse | null> => {
       try {
-        return await api.get<MushafPageResponse>(`/quran/mushaf/page/${n}?lang=${translationLocale}`);
+        // A page without `ayahs` is not a page: `{}` would satisfy every
+        // `if (data)` below and then break the reader on the first render.
+        const r = await api.get<MushafPageResponse>(`/quran/mushaf/page/${n}?lang=${translationLocale}`);
+        return Array.isArray(r?.ayahs) ? r : null;
       } catch {
         return null;
       }
@@ -211,7 +214,7 @@ export function MushafReader({ locale }: { locale: string }) {
   useEffect(() => {
     api
       .get<{ surah: SurahMeta[] }>("/quran/surah")
-      .then((d) => setSurahList(d.surah))
+      .then((d) => setSurahList(d.surah ?? []))
       .catch(() => {});
   }, []);
 
@@ -303,7 +306,7 @@ export function MushafReader({ locale }: { locale: string }) {
     api
       .get<{ editions: { slug: string; name: string; author: string }[] }>(`/quran/tafsir-editions?lang=${locale}`)
       .then((d) => {
-        setTafsirEditions(d.editions);
+        setTafsirEditions(d.editions ?? []);
         const first = d.editions[0]?.slug ?? null;
         setTafsirEdition(first);
         if (first) loadTafsirText(first, surahId, number);
@@ -316,7 +319,7 @@ export function MushafReader({ locale }: { locale: string }) {
     setTafsirText("loading");
     api
       .get<{ tafsir: { text: string; source: string } | null }>(`/quran/tafsir/${edition}/${surahId}/${number}?lang=${locale}`)
-      .then((d) => setTafsirText(d.tafsir))
+      .then((d) => setTafsirText(d.tafsir ?? null))
       .catch(() => setTafsirText(null));
   }
 
