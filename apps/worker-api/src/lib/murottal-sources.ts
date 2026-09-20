@@ -58,8 +58,8 @@ export const MUROTTAL_SOURCES: Record<string, MurottalSource> = {
   matroud: { kind: "ey", folder: "Abdullah_Matroud_128kbps", name: "Abdullah Al-Matroud" },
   juhany: { kind: "ey", folder: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", name: "Abdullah Awad Al-Juhany" },
   // 128 kbps is not published for these voices — their native bitrate is the
-  // best that exists anywhere; still self-hosted so playback never depends on
-  // a third-party CDN staying up.
+  // best that exists anywhere, so a lower number here is not a poisoned file.
+  // (They are served by everyayah like the rest; nothing is self-hosted now.)
   ghamdi: { kind: "ey", folder: "Ghamadi_40kbps", name: "Saad Al-Ghamdi" },
   fares: { kind: "ey", folder: "Fares_Abbad_64kbps", name: "Fares Abbad" },
   alijaber: { kind: "ey", folder: "Ali_Jaber_64kbps", name: "Ali Jaber" },

@@ -75,6 +75,15 @@ jobs:
       - name: Check the asbabun nuzul panel never empties itself
         run: npx tsx scripts/check-asbabun-never-empty.ts
 
+      # We keep no recitation of our own any more: /audio/qori2/… redirects to
+      # the reciter's CDN instead of serving bytes. One `streamR2Object` put
+      # back on that path — the shape every other route on the file uses — and
+      # the Worker is a media host again, filling a bucket nobody decided to
+      # fill. This drives the real route with storage that throws on contact,
+      # and holds the web's reciter list and the Worker's registry together.
+      - name: Check murottal is served from the CDN, never from our storage
+        run: npx tsx scripts/check-murottal-cdn.ts
+
       # The Worker is capped at 3 MiB by Cloudflare and this table ships inside
       # it. Regenerating it for all 26 languages once took it from 471 KB to
       # 813 KB gzipped and the deploy was rejected outright — after the build

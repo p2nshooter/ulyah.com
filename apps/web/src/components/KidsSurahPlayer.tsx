@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { routePath } from "@/lib/paths";
+import { ayahAudioSourcesSync } from "@/lib/qori-cdn";
 
 export interface KidsAyah {
   number: number;
@@ -19,13 +20,20 @@ interface Labels {
   ayahMeaning: string;
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
-const pad3 = (n: number) => String(n).padStart(3, "0");
 // Mishary Al-Afasy — clear, gentle tartil, a good first voice for children.
-// The audio API self-heals from R2 → the reciter's CDN, so this always plays.
-const RECITER = "alafasy";
-const audioUrl = (surah: number, ayah: number) =>
-  `${API_BASE}/audio/qori/${RECITER}/${pad3(surah)}${pad3(ayah)}.mp3`;
+//
+// It plays from the reciter's own CDN, like every other player on the site
+// (owner: "hilangin audio2 alquran murottal ganti dengan cdn"). This page was
+// the last one still asking api.ulyah.com for the bytes, and asking through
+// the LEGACY /audio/qori/ path with no version token — the one prefix whose
+// old objects were the muffled low-bitrate encodes. Nothing serves those any
+// more, but a browser or edge entry cached under that exact url can, and a
+// child's page is the last place to discover it.
+const RECITER_KEY = "ar.alafasy";
+/** Give up on an ayah after this many sources fail, and on the surah after
+ *  this many ayat fail in a row — a repeat loop must never spin on a network
+ *  that is simply down. */
+const MAX_FAIL_STREAK = 3;
 
 // A bright, child-safe surah player: big Arabic, simple meaning, and a
 // play-all with a "repeat" mode for memorization (the concept's Modul 1 —
@@ -49,8 +57,39 @@ export function KidsSurahPlayer({
   const [repeat, setRepeat] = useState(true);
   const [current, setCurrent] = useState<number>(-1);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  /** The sources for the ayah playing now, and which one is being tried. */
+  const sourcesRef = useRef<string[]>([]);
+  const sourceIdxRef = useRef(0);
+  const failStreakRef = useRef(0);
+
+  /** Point the element at the source being tried and start it. */
+  function playSource() {
+    const el = audioRef.current;
+    const src = sourcesRef.current[sourceIdxRef.current];
+    if (!el || !src) {
+      setPlaying(false);
+      return;
+    }
+    el.src = src;
+    el.play().catch((err: unknown) => {
+      // WHICH rejection this is decides everything.
+      //
+      // NotAllowedError means the browser wants a gesture: stop, and let the
+      // child press play. Everything else is a source that will not load —
+      // and the element fires its own `error` for that, which is already
+      // moving to the next source. Calling setPlaying(false) on those would
+      // leave the button saying "play" over audio that is playing. (AbortError
+      // is the most ordinary of them: it is what a pending play() rejects with
+      // when the fallback sets a new src.)
+      if ((err as { name?: string })?.name === "NotAllowedError") setPlaying(false);
+    });
+  }
 
   // Play ayah at index i (or stop when past the end / restart when repeating).
+  //
+  // Synchronous on purpose: the sources come from a formula, so `src` is set
+  // and `play()` called inside the tap that asked for it. An await here would
+  // spend the gesture and the browser would refuse the first play.
   function playIndex(i: number) {
     if (i >= ayat.length) {
       if (repeat) {
@@ -62,13 +101,9 @@ export function KidsSurahPlayer({
       }
     }
     setCurrent(i);
-    const el = audioRef.current;
-    if (!el) return;
-    el.src = audioUrl(surahId, ayat[i]!.number);
-    el.play().catch(() => {
-      // Autoplay/network hiccup — skip to the next ayah rather than stall.
-      setPlaying(false);
-    });
+    sourcesRef.current = ayahAudioSourcesSync(RECITER_KEY, surahId, ayat[i]!.number);
+    sourceIdxRef.current = 0;
+    playSource();
   }
 
   function togglePlay() {
@@ -84,9 +119,39 @@ export function KidsSurahPlayer({
   useEffect(() => {
     const el = audioRef.current;
     if (!el) return;
-    const onEnded = () => playIndex(current + 1);
+    const onEnded = () => {
+      failStreakRef.current = 0;
+      playIndex(current + 1);
+    };
+    /**
+     * A source that will not load.
+     *
+     * Nothing handled this before, and `error` is the one media event that
+     * does not lead to `ended`: a single 404 left the play-all stopped on that
+     * ayah with no way to tell it had. Now the next source is tried, then the
+     * next ayah — a voice missing one file never ends the session, and a
+     * network that is down stops the loop instead of spinning on it.
+     */
+    const onError = () => {
+      sourceIdxRef.current += 1;
+      if (sourceIdxRef.current < sourcesRef.current.length) {
+        playSource();
+        return;
+      }
+      failStreakRef.current += 1;
+      if (failStreakRef.current >= MAX_FAIL_STREAK) {
+        setPlaying(false);
+        setCurrent(-1);
+        return;
+      }
+      playIndex(current + 1);
+    };
     el.addEventListener("ended", onEnded);
-    return () => el.removeEventListener("ended", onEnded);
+    el.addEventListener("error", onError);
+    return () => {
+      el.removeEventListener("ended", onEnded);
+      el.removeEventListener("error", onError);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, repeat, ayat.length]);
 

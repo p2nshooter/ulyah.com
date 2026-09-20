@@ -274,6 +274,29 @@ export async function resolveAyahAudioSources(qoriKey: string, surah: number, ay
 }
 
 /**
+ * The same ordered list, resolved WITHOUT waiting for anything.
+ *
+ * A browser only lets audio start inside the gesture that asked for it. The
+ * moment a player awaits a metadata lookup before setting `src`, the tap that
+ * started it has expired and the first play is blocked — on a page built for
+ * children, that is a play button that does nothing.
+ *
+ * So this returns only the sources that come from a formula: the reciter's
+ * everyayah URL when they have one, then the api.ulyah.com redirect, which is
+ * a formula too (and, being a redirect, still ends at the reciter's CDN). A
+ * reciter published solely through alquran.cloud has just the redirect — which
+ * is exactly the case the redirect was kept for.
+ */
+export function ayahAudioSourcesSync(qoriKey: string, surah: number, ayah: number): string[] {
+  const rc = RECITERS.find((r) => r.key === qoriKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
+  const out: string[] = [];
+  if (rc.eyId) out.push(buildEyUrl(rc.eyId, surah, ayah));
+  const viaApi = apiAyahAudioUrl(rc.key, surah, ayah);
+  if (viaApi && !out.includes(viaApi)) out.push(viaApi);
+  return out;
+}
+
+/**
  * One continuous file for a whole surah, for the RADIO.
  *
  * Owner: "radio bisa g bacanya jgn yg per ayat… jd putus2 dengernya kurang

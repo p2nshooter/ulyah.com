@@ -74,6 +74,17 @@ const FALLBACK_BLOCK_PX = 24;
 const MIN_CANDIDATES = 3;
 /** Keep injected middles at least this many blocks apart. */
 const MIN_BLOCK_STRIDE = 2;
+/**
+ * And at least this far, in pixels, from every other ad on the page.
+ *
+ * Blocks are not a length: three list rows can be 90px, and two units placed
+ * one block apart then sit almost on top of each other. Measured on the hub's
+ * kitab index: in-content units at y=448 and y=547, 99px apart, on a page
+ * 1714px tall. That reads as a page built around its ads, which is both the
+ * thing readers resent and the thing "ads must not exceed the content" is
+ * measured on.
+ */
+const MIN_GAP_PX = 500;
 
 const RETRY_MS = [300, 1100, 2400, 4500, 8000];
 
@@ -132,13 +143,13 @@ function realBlocks(node: HTMLElement, minPx = MIN_BLOCK_PX): HTMLElement[] {
  * and there is nowhere to place anything. Keep descending into the dominant
  * child until a level offers enough blocks to choose boundaries from.
  */
-function candidateBlocks(main: HTMLElement): HTMLElement[] {
+function candidateBlocks(main: HTMLElement): { host: HTMLElement; blocks: HTMLElement[] } {
   let node: HTMLElement = main;
-  let best: HTMLElement[] = [];
+  let best: { host: HTMLElement; blocks: HTMLElement[] } = { host: main, blocks: [] };
   for (let depth = 0; depth < 5; depth += 1) {
     const blocks = realBlocks(node);
-    if (blocks.length > best.length) best = blocks;
-    if (blocks.length >= MIN_CANDIDATES) return blocks;
+    if (blocks.length > best.blocks.length) best = { host: node, blocks };
+    if (blocks.length >= MIN_CANDIDATES) return { host: node, blocks };
     const kids = Array.from(node.children).filter((c): c is HTMLElement => c instanceof HTMLElement);
     let dominant: HTMLElement | null = null;
     for (const k of kids) if (!dominant || k.offsetHeight > dominant.offsetHeight) dominant = k;
@@ -148,11 +159,16 @@ function candidateBlocks(main: HTMLElement): HTMLElement[] {
   // A page built as one atomic block (a single long prose column, a table)
   // offers no section boundaries at the normal threshold. Rather than give up
   // and leave the middle empty, accept paragraph-sized boundaries.
-  if (best.length < 2) {
+  if (best.blocks.length < 2) {
     const loose = realBlocks(node, FALLBACK_BLOCK_PX);
-    if (loose.length > best.length) best = loose;
+    if (loose.length > best.blocks.length) best = { host: node, blocks: loose };
   }
   return best;
+}
+
+/** Where an element sits in the document, in page coordinates. */
+function pageTop(el: HTMLElement): number {
+  return el.getBoundingClientRect().top + window.scrollY;
 }
 
 /**
@@ -223,6 +239,21 @@ export function PageAds() {
     const timers: number[] = [];
     let observer: ResizeObserver | null = null;
     let growDebounce = 0;
+    /**
+     * The level of the tree this route's sections live at, decided once.
+     *
+     * Placement is retried as the page settles, and `candidateBlocks` descends
+     * by HEIGHT — so the level it picks can change between two runs, for the
+     * most ordinary reason there is: the first unit loaded and made its branch
+     * taller. The second run then measures a different list, whose first block
+     * is somewhere else entirely, and inserts against it. That is how the hub
+     * ended up with the leaderboard BELOW the two in-content units it is
+     * supposed to lead: each was placed correctly, against a different page.
+     *
+     * Deciding once and re-reading the same host keeps every retry talking
+     * about the same page.
+     */
+    let sectionHost: HTMLElement | null = null;
 
     const place = () => {
       if (cancelled) return;
@@ -231,7 +262,13 @@ export function PageAds() {
         if (!(main instanceof HTMLElement)) return;
         if (document.body.scrollHeight < 400) return;
 
-        const blocks = candidateBlocks(main);
+        let blocks: HTMLElement[] = [];
+        if (sectionHost && document.contains(sectionHost)) blocks = realBlocks(sectionHost);
+        if (blocks.length < 2) {
+          const found = candidateBlocks(main);
+          sectionHost = found.host;
+          blocks = found.blocks;
+        }
         const firstBlock = blocks[0] ?? null;
 
         // What the page already carries, by region.
@@ -253,10 +290,16 @@ export function PageAds() {
         const wraps = Array.from(document.querySelectorAll("[data-adsense-slot]")).filter(
           (e): e is HTMLElement => e instanceof HTMLElement && !e.closest("[data-ulyah-ad-anchor]")
         );
+        // The template's own lead unit, if it placed one — the ordering rule
+        // below is about what the READER sees, so it has to respect a unit we
+        // did not put there.
+        let leadUnit: HTMLElement | null = null;
         for (const w of wraps) {
           if (!main.contains(w)) have.bottom += 1;
-          else if (firstBlock && before(w, firstBlock)) have.top += 1;
-          else have.middle += 1;
+          else if (firstBlock && before(w, firstBlock)) {
+            have.top += 1;
+            if (!leadUnit) leadUnit = w;
+          } else have.middle += 1;
         }
         total += wraps.length;
 
@@ -285,32 +328,52 @@ export function PageAds() {
           if (blocks.length > 1) firstBlock.insertAdjacentElement("afterend", anchor);
           else firstBlock.insertAdjacentElement("beforebegin", anchor);
           add(anchor, "top");
+          leadUnit = anchor;
         }
+        leadUnit ??= document.querySelector<HTMLElement>('[data-ad-region="top"]');
 
         // 2. MIDDLE — spread across the section boundaries. Positions come from
         //    the block list, not from pixels, so they stay put as ads load.
         const midNeed = QUOTA.middle - have.middle;
         if (midNeed > 0 && blocks.length >= 2) {
-          const usable = blocks.slice(0, -1); // never after the final block
+          // Never above the lead unit. A middle that lands before the
+          // leaderboard is not a smaller mistake than a missing one: the
+          // reader meets an in-content ad first and the page reads as
+          // ad-first, which is the impression the whole layout is arranged to
+          // avoid.
+          const usable = blocks
+            .slice(0, -1) // never after the final block
+            .filter((b) => !leadUnit || before(leadUnit, b));
+          // Every ad already on the page, in page coordinates — what the new
+          // one has to keep MIN_GAP_PX away from.
+          const taken = Array.from(
+            document.querySelectorAll<HTMLElement>("[data-adsense-slot],[data-ulyah-ad-anchor]")
+          ).map(pageTop);
           const picked: number[] = [];
           for (let n = 1; n <= midNeed && usable.length; n += 1) {
             if (!room()) break;
             const ideal = Math.min(usable.length - 1, Math.round((usable.length * n) / (midNeed + 1)));
             // Walk outwards from the ideal index for a slot far enough from
-            // the ones already taken.
+            // the ones already taken — in blocks AND in pixels.
             let chosen = -1;
             for (let d = 0; d < usable.length && chosen < 0; d += 1) {
               for (const idx of [ideal + d, ideal - d]) {
                 if (idx < 0 || idx >= usable.length) continue;
                 if (picked.some((p) => Math.abs(p - idx) < MIN_BLOCK_STRIDE)) continue;
+                const y = pageTop(usable[idx]!) + usable[idx]!.offsetHeight;
+                if (taken.some((t) => Math.abs(t - y) < MIN_GAP_PX)) continue;
                 chosen = idx;
                 break;
               }
             }
+            // Nowhere left with room around it. A page that cannot hold
+            // another unit politely simply carries fewer — the quota is a
+            // ceiling, never a target to be met at the reader's expense.
             if (chosen < 0) break;
             picked.push(chosen);
             const anchor = makeAnchor("middle");
             usable[chosen]!.insertAdjacentElement("afterend", anchor);
+            taken.push(pageTop(anchor));
             add(anchor, "middle");
           }
         }
