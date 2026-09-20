@@ -135,7 +135,7 @@ export default async function KisahAnakPage({ params }: { params: Promise<{ loca
   let episodes: EpisodeRow[] = [];
   try {
     const r = await api.getCached<{ episodes: EpisodeRow[] }>(`/content/kisah-anak?lang=${locale}`, 3600);
-    episodes = r.episodes;
+    episodes = r.episodes ?? [];
   } catch {
     episodes = [];
   }

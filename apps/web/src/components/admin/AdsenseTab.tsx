@@ -55,6 +55,9 @@ function coerce(v: unknown): SiteState {
  * dead end.
  */
 const PUB = "pub-6371903555702163";
+/** Mirrors AD_DEFAULT_SLOT in the worker: the account's "Horizontal" responsive
+ *  unit, used by every placement that has nothing pasted for it. */
+const DEFAULT_SLOT = "4702981509";
 const ADSENSE = {
   autoAdsPerSite: `https://www.google.com/adsense/new/u/0/${PUB}/myads/sites`,
   adUnits: `https://www.google.com/adsense/new/u/0/${PUB}/myads/units`,
@@ -146,21 +149,16 @@ export function AdsenseTab() {
 
   if (!config) return <p className="text-sm text-text-secondary">Memuat…</p>;
 
-  const hasRealId = !!masterId.replace(/[^0-9]/g, "");
+  // A placement always resolves to a unit: what is typed here, or the account's
+  // responsive unit built into the code. So the question is no longer "is there
+  // an id" but "which one".
+  const typedId = masterId.replace(/[^0-9]/g, "");
+  const effectiveId = typedId || DEFAULT_SLOT;
+  const usingDefault = !typedId;
   const onCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled).length;
   const liveCount = SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved).length;
   const labelOf = (key: string) => SITE_LABELS.find((s) => s.key === key)?.label ?? key;
   const groupIcon = (g: string) => (g === "axto" ? "🛰️" : g === "es" ? "📰" : "🕌");
-
-  // Sites the owner has fully approved but that cannot serve a single ad,
-  // because no unit id has been pasted. This is the one failure mode that looks
-  // like success from here: every switch is green and the site shows nothing.
-  const blockedByMissingId = hasRealId
-    ? []
-    : SITE_LABELS.filter(({ key }) => {
-        const st = coerce(sites[key]);
-        return st.enabled && st.approved && !st.autoAds;
-      });
 
   // The five ecosystem sites used to carry Adsterra whatever their AdSense
   // state. With that network gone, a site that is not ON + ACC now shows
@@ -168,11 +166,11 @@ export function AdsenseTab() {
   // not accepted) but is a change worth seeing rather than discovering in the
   // earnings report.
   const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
+  // With a unit always available, the only thing that keeps a site blank is the
+  // owner's own two switches.
   const silent = ECOSYSTEM.filter((k) => {
     const st = coerce(sites[k]);
-    if (!(st.enabled && st.approved)) return true;
-    // On Auto ads the unit id is irrelevant — Google places the ads itself.
-    return !st.autoAds && !hasRealId;
+    return !(st.enabled && st.approved);
   });
 
   return (
@@ -183,20 +181,9 @@ export function AdsenseTab() {
           <p className="mt-1 text-sm text-text-secondary">
             Adsterra sudah dicabut, jadi sekarang setiap situs bergantung sepenuhnya pada AdSense.{" "}
             <b>{silent.map((k) => labelOf(k)).join(", ")}</b> belum menayangkan iklan apa pun karena belum{" "}
-            <b>ON + ACC</b>{hasRealId ? "" : " dan ID unit iklan masih kosong"}. Ini memang benar — AdSense tidak boleh
-            ditayangkan di domain yang belum diterima Google — tapi artinya situs itu untuk sementara tanpa iklan.
-            Daftarkan domainnya di AdSense, lalu centang ACC di sini begitu diterima.
-          </p>
-        </section>
-      )}
-      {blockedByMissingId.length > 0 && (
-        <section className="rounded-xl border border-amber-500/50 bg-amber-500/10 p-4">
-          <p className="font-heading text-base">⚠️ ID unit iklan masih kosong</p>
-          <p className="mt-1 text-sm text-text-secondary">
-            {blockedByMissingId.map((s) => s.label).join(", ")} sudah <b>ON + ACC</b>, tapi AdSense tidak bisa
-            menayangkan apa pun tanpa ID unit. Ambil ID unit iklan responsif dari dashboard AdSense (angka saja),
-            tempel di kotak <b>“1 · ID Unit Iklan AdSense”</b> di bawah, lalu simpan — iklan langsung tayang di situs
-            itu dalam ≤1 menit.
+            <b>ON + ACC</b>. Unit iklannya sudah siap — yang kurang hanya centangnya. Ini memang benar: AdSense tidak
+            boleh ditayangkan di domain yang belum diterima Google. Daftarkan domainnya di AdSense, lalu centang ACC di
+            sini begitu diterima.
           </p>
         </section>
       )}
@@ -220,8 +207,10 @@ export function AdsenseTab() {
       <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
         <p className="font-heading text-base">1 · ID Unit Iklan AdSense</p>
         <p className="mt-0.5 text-xs text-text-secondary">
-          Publisher: <code className="rounded-sm bg-black/10 px-1">{config.clientId}</code>. Tempel ID unit iklan
-          responsif (angka saja) — dipakai semua posisi (in-article, sidebar, footer, dst.) di semua situs yang ACC.
+          Publisher: <code className="rounded-sm bg-black/10 px-1">{config.clientId}</code>. Sudah ada unit bawaan —{" "}
+          <code className="rounded-sm bg-black/10 px-1">{DEFAULT_SLOT}</code> (unit responsif “Horizontal”) — jadi kotak
+          ini <b>boleh dikosongkan</b>. Isi hanya kalau ingin memakai unit lain; yang diisi di sini akan dipakai semua
+          posisi (atas, dalam artikel, footer, sidebar) di semua situs yang ACC.
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <input
@@ -231,16 +220,15 @@ export function AdsenseTab() {
             inputMode="numeric"
             className="w-52 rounded-lg border border-(--color-border) bg-transparent px-3 py-2 text-sm"
           />
-          <span
-            className={`rounded-full px-2.5 py-1 text-xs ${hasRealId ? "bg-success/15 text-success" : "bg-black/10 text-text-secondary"}`}
-          >
-            {hasRealId ? "● Ada ID — situs ON+ACC menayangkan iklan asli" : "○ Belum ada ID unit iklan"}
+          <span className="rounded-full bg-success/15 px-2.5 py-1 text-xs text-success">
+            ● Unit dipakai: <code>{effectiveId}</code>
+            {usingDefault ? " (bawaan)" : " (dari kotak ini)"}
           </span>
         </div>
 
-        <details className="mt-4 rounded-lg bg-black/5 p-3 text-xs text-text-secondary dark:bg-white/5" open={!hasRealId}>
+        <details className="mt-4 rounded-lg bg-black/5 p-3 text-xs text-text-secondary dark:bg-white/5">
           <summary className="cursor-pointer font-medium text-text-primary">
-            Di mana mencari ID unit iklan (data-ad-slot)?
+            Mau pakai unit lain? Di mana mencari ID unit iklan (data-ad-slot)
           </summary>
           <p className="mt-2">
             <b>Yang ada di ads.txt bukan ini.</b> Itu <i>publisher ID</i> (<code className="rounded-sm bg-black/10 px-1">{PUB}</code>) —
@@ -334,18 +322,14 @@ export function AdsenseTab() {
                   ACC
                   {st.enabled && st.approved && (
                     <span
-                      className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
-                        st.autoAds || hasRealId ? "bg-emerald-500 text-white" : "bg-amber-500 text-white"
-                      }`}
+                      className="rounded-full bg-emerald-500 px-1.5 py-0.5 text-[10px] font-bold text-white"
                       title={
                         st.autoAds
                           ? "Auto ads — Google yang menaruh iklannya, tanpa ID unit"
-                          : hasRealId
-                            ? "Menayangkan iklan AdSense"
-                            : "ACC, tapi ID unit iklan masih kosong"
+                          : `Menayangkan iklan AdSense (unit ${effectiveId})`
                       }
                     >
-                      {st.autoAds ? "AUTO" : hasRealId ? "LIVE" : "butuh ID"}
+                      {st.autoAds ? "AUTO" : "LIVE"}
                     </span>
                   )}
                 </label>

@@ -90,8 +90,8 @@ export default async function AudiobookPage({
       , 3600),
       api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${storyLang}&countedOnly=1`, 3600),
     ]);
-    stories = storiesRes.stories;
-    categories = catRes.categories;
+    stories = storiesRes.stories ?? [];
+    categories = catRes.categories ?? [];
   } catch {
     stories = [];
     categories = [];

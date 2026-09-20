@@ -38,7 +38,7 @@ export default async function NasakhPage({ params }: { params: Promise<{ locale:
   let entries: NasakhEntry[] = [];
   try {
     const res = await api.get<{ entries: NasakhEntry[] }>("/content/nasakh");
-    entries = res.entries;
+    entries = res.entries ?? [];
   } catch {
     entries = [];
   }

@@ -19,7 +19,7 @@
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { defaultAdConfig, publicAdView, AD_PLACEMENTS } from "../apps/worker-api/src/lib/ad-config";
+import { defaultAdConfig, publicAdView, AD_PLACEMENTS, AD_DEFAULT_SLOT } from "../apps/worker-api/src/lib/ad-config";
 
 let failed = 0;
 function check(what: string, ok: boolean, detail = "") {
@@ -65,6 +65,40 @@ check("an old row's enabled + approved survive", fromLegacy.enabled === true && 
 check("its adsterra flag does not", !("adsterra" in fromLegacy));
 const legacyBool = publicAdView(legacy, "dawa") as Record<string, unknown>;
 check("the oldest boolean form still means 'enabled'", legacyBool.enabled === true && legacyBool.approved === false);
+
+console.log("\n=== a placement always resolves to a real unit ===");
+// The failure this prevents: enabled, approved, every switch green, and not one
+// ad on the page because the id box was never filled in. A placement falls back
+// to the account's responsive unit, so "live" means live.
+const fresh = {
+  clientId: "ca-pub-000",
+  slots: {}, // nothing ever pasted
+  sites: { dawa: { enabled: true, approved: true, autoAds: false } },
+} as unknown as Parameters<typeof publicAdView>[0];
+const freshView = publicAdView(fresh, "dawa");
+check(
+  "every placement gets the default unit when nothing is stored",
+  AD_PLACEMENTS.every((p) => freshView.slots[p] === AD_DEFAULT_SLOT),
+  `got ${JSON.stringify(freshView.slots)}`
+);
+check("the default is the account's real unit", /^\d{6,20}$/.test(AD_DEFAULT_SLOT), AD_DEFAULT_SLOT);
+
+const stored = {
+  clientId: "ca-pub-000",
+  slots: { in_article_1: "9999999999" },
+  sites: { dawa: { enabled: true, approved: true, autoAds: false } },
+} as unknown as Parameters<typeof publicAdView>[0];
+const storedView = publicAdView(stored, "dawa");
+check("a pasted id wins for its own placement", storedView.slots.in_article_1 === "9999999999");
+check("the others still fall back", storedView.slots.footer === AD_DEFAULT_SLOT);
+
+// A site that is off must not be handed unit ids at all.
+const off = {
+  clientId: "ca-pub-000",
+  slots: {},
+  sites: { dawa: { enabled: false, approved: false, autoAds: false } },
+} as unknown as Parameters<typeof publicAdView>[0];
+check("a site that is off gets no units", Object.keys(publicAdView(off, "dawa").slots).length === 0);
 
 console.log("\n=== auto ads stands our own units down ===");
 // The two must never be on at once: Google inserts its own placements, and ours

@@ -57,7 +57,7 @@ export default async function KitabPage({ params }: { params: Promise<{ locale: 
   let categories: CategoryRow[] = [];
   try {
     const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/kitab/categories?lang=${locale}`, 86400);
-    categories = res.categories;
+    categories = res.categories ?? [];
   } catch {
     categories = [];
   }

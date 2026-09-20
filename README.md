@@ -94,11 +94,18 @@ aja") — its component, its per-tenant inventory, its sandboxed ad frame, the
 master switch and the per-site toggles are all gone.
 
 Every site reads `GET /content/ad-config` from api.ulyah.com and the
-**ulyah.com admin portal is the only place that edits it** (AdSense tab). A
-site serves ads when it is `enabled` + `approved` (the owner's "Google accepted
-THIS domain" tick) **and** an ad-unit id has been pasted. Missing any of the
-three, the site shows nothing — and the admin now says so per site rather than
-leaving every switch green and the page empty.
+**ulyah.com admin portal is the only place that edits it** (AdSense tab). A site
+serves ads when it is `enabled` + `approved` — the owner's "Google accepted THIS
+domain" tick. The unit id is no longer a third condition: every placement falls
+back to the account's responsive unit (`AD_DEFAULT_SLOT`), so a site is never
+silently blank because a box was left empty. Pasting an id in the admin still
+overrides it, per placement.
+
+One unit, shaped to where it sits: a leaderboard above the content and at the
+foot (`format: horizontal`), a block between sections in the reading column
+(`auto`), a tall one in a margin rail (`vertical`). The reserved height is held
+only until the ad paints, then released — holding it after is how a 90px banner
+ends up in a 250px slab.
 
 dawa.es is switched on by a one-time migration after its approval
 (`activateDawaAdsense` in the Worker's scheduled tick; the KV flag keeps it

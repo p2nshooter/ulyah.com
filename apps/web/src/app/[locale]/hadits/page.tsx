@@ -52,7 +52,7 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
   let collections: CollectionRow[] = [];
   try {
     const res = await api.getCached<{ collections: CollectionRow[] }>(`/content/hadits/collections?lang=${locale}`, 86400);
-    collections = res.collections;
+    collections = res.collections ?? [];
   } catch {
     collections = [];
   }

@@ -30,8 +30,9 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   let kitabCats = 0;
   try {
     const res = await api.get<{ categories: { book_count: number }[] }>(`/content/kitab/categories`);
-    kitabCats = res.categories.length;
-    kitabTotal = res.categories.reduce((n, c) => n + (c.book_count ?? 0), 0);
+    const cats = res.categories ?? [];
+    kitabCats = cats.length;
+    kitabTotal = cats.reduce((n, c) => n + (c.book_count ?? 0), 0);
   } catch {
     kitabTotal = 0;
   }

@@ -210,8 +210,8 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
       api.get<{ categories: Category[] }>(`/content/pesantren/categories?lang=${locale}`),
       api.get<{ kitab: Kitab[] }>(`/content/pesantren/kitab?lang=${locale}`),
     ]);
-    categories = cRes.categories;
-    kitab = kRes.kitab;
+    categories = cRes.categories ?? [];
+    kitab = kRes.kitab ?? [];
   } catch {
     categories = [];
     kitab = [];

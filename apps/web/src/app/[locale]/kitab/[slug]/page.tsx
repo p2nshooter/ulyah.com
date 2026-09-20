@@ -57,9 +57,9 @@ export default async function KitabCategoryPage({
     if (q) qs.set("q", q);
     const res = await api.getCached<{ category: CategoryDetail; books: BookRow[]; total: number }>(
       `/content/kitab/category/${slug}?${qs.toString()}`, 86400);
-    category = res.category;
-    books = res.books;
-    total = res.total;
+    category = res.category ?? null;
+    books = res.books ?? [];
+    total = res.total ?? 0;
   } catch {
     category = null;
   }

@@ -240,11 +240,23 @@ export function PageAds() {
         };
         const room = () => total < MAX_TOTAL;
 
-        // 1. TOP — one unit above the first real block, so it sits under the
-        //    site header and over the content.
+        // 1. LEAD — one unit at the first natural pause, which is AFTER the
+        //    opening block, not above it.
+        //
+        //    Two reasons, and they point the same way. The reader meets the
+        //    page first — the owner's long-standing rule, "biar ga mengganggu
+        //    di atas" — and an ad in the first screenful that arrives before
+        //    the content is the one people scroll past on reflex. A unit that
+        //    sits where the eye already stops, at the end of the first section,
+        //    is both less rude and more looked-at; viewability is what a
+        //    display unit is paid on.
+        //
+        //    It falls back to the very top only when the page has ONE block and
+        //    there is no "after the first" to speak of.
         if (have.top < QUOTA.top && firstBlock && room()) {
           const anchor = makeAnchor();
-          firstBlock.insertAdjacentElement("beforebegin", anchor);
+          if (blocks.length > 1) firstBlock.insertAdjacentElement("afterend", anchor);
+          else firstBlock.insertAdjacentElement("beforebegin", anchor);
           add(anchor, "top");
         }
 

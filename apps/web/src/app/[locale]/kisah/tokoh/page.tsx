@@ -138,7 +138,7 @@ export default async function TokohIndexPage({ params }: { params: Promise<{ loc
   let categories: CategoryRow[] = [];
   try {
     const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${locale}`, 3600);
-    categories = res.categories;
+    categories = res.categories ?? [];
   } catch {
     categories = [];
   }
@@ -154,7 +154,7 @@ export default async function TokohIndexPage({ params }: { params: Promise<{ loc
       cat,
       persons: await api
         .getCached<{ persons: PersonRow[] }>(`/content/kisah-tokoh?category=${cat.slug}&lang=${locale}`, 3600)
-        .then((r) => r.persons)
+        .then((r) => r.persons ?? [])
         .catch(() => [] as PersonRow[]),
     }))
   );

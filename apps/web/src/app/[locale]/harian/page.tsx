@@ -89,8 +89,8 @@ export default async function HarianPage({ params }: { params: Promise<{ locale:
       api.get<{ ayah: RandomAyah }>(`/quran/random?lang=${locale}`),
       api.get<{ hadits: DailyHadits | null }>(`/quran/hadits-of-day?lang=${locale}`),
     ]);
-    ayah = ayahRes.ayah;
-    hadits = haditsRes.hadits;
+    ayah = ayahRes.ayah ?? null;
+    hadits = haditsRes.hadits ?? null;
   } catch {
     ayah = null;
     hadits = null;

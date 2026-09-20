@@ -67,7 +67,7 @@ async function fetchPerson(slug: string, locale: string): Promise<{ person: Pers
 async function nextPersonSlug(category: string, currentSlug: string): Promise<string | null> {
   try {
     const r = await api.getCached<{ persons: { slug: string }[] }>(`/content/kisah-tokoh?category=${category}`, 3600);
-    const slugs = r.persons.map((p) => p.slug);
+    const slugs = (r.persons ?? []).map((p) => p.slug);
     const i = slugs.indexOf(currentSlug);
     if (i < 0) return null;
     return slugs[(i + 1) % slugs.length] ?? null;

@@ -57,7 +57,7 @@ export default async function SyukurPage({ params }: { params: Promise<{ locale:
   let mediaSet: Record<string, boolean> = {};
   try {
     const res = await api.get<{ media: Record<string, boolean> }>("/content/media-status");
-    mediaSet = res.media;
+    mediaSet = res.media ?? {};
   } catch {
     mediaSet = {};
   }

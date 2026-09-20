@@ -108,8 +108,8 @@ export default async function KitabBookPage({
   try {
     const res = await api.getCached<{ book: BookDetail; next_book: { id: number; title_ar: string } | null }>(
       `/content/kitab/book/${id}?lang=${locale}`, 86400);
-    book = res.book;
-    nextBook = res.next_book;
+    book = res.book ?? null;
+    nextBook = res.next_book ?? null;
   } catch {
     book = null;
   }

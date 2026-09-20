@@ -31,6 +31,26 @@ import { safeKvGet, safeKvPut } from "./kv-safe.js";
  */
 export const AD_CLIENT_ID = "ca-pub-6371903555702163";
 
+/**
+ * The ad unit every placement falls back to — the owner's responsive display
+ * unit, named "Horizontal" in their AdSense account.
+ *
+ * It lives in code rather than only in the database because the database is
+ * where it kept NOT being: creating the unit and finding its id is the step
+ * that stalled going live twice ("sy ga tau nyari nya di mana di situs
+ * adsense"), and a site that is enabled and approved but has an empty slot
+ * renders nothing at all while every switch reads green.
+ *
+ * Nothing is leaked by having it here: a `data-ad-slot` is public by
+ * construction — it ships inside the HTML of every page that carries the unit,
+ * exactly like the publisher id above.
+ *
+ * It is a DEFAULT, not a constant: anything pasted in the admin still wins, per
+ * placement, so per-position units can be introduced later without touching
+ * this file.
+ */
+export const AD_DEFAULT_SLOT = "4702981509";
+
 export type AdSite =
   | "ulyah" | "1fr" | "tilawa" | "dawa" | "xad"
   | "axto-io" | "axto-dev" | "axto-us"
@@ -86,6 +106,12 @@ export function defaultAdConfig(): AdConfig {
   const slots: Record<string, string> = {};
   for (const p of AD_PLACEMENTS) slots[p] = "";
   return { clientId: AD_CLIENT_ID, slots, sites };
+}
+
+/** The unit id a placement actually renders: what the admin stored, or the
+ *  account's responsive unit when that is empty. */
+export function effectiveSlot(slots: Record<string, string>, placement: string): string {
+  return slots[placement]?.trim() || AD_DEFAULT_SLOT;
 }
 
 /**
@@ -182,6 +208,13 @@ export async function saveAdConfig(env: Env, cfg: AdConfig): Promise<AdConfig> {
  * id present). The AdSlot component gates the real ad on `approved`. */
 export function publicAdView(cfg: AdConfig, site: string) {
   const st = coerceSite(cfg.sites[site]);
+  // Every placement resolves to a real unit: the one the admin stored for it, or
+  // the account's responsive unit. An enabled, approved site is therefore never
+  // silently blank because a box was left empty.
+  const slots: Record<string, string> = {};
+  if (st.enabled && !st.autoAds) {
+    for (const p of AD_PLACEMENTS) slots[p] = effectiveSlot(cfg.slots, p);
+  }
   return {
     enabled: st.enabled,
     approved: st.approved,
@@ -189,6 +222,6 @@ export function publicAdView(cfg: AdConfig, site: string) {
     clientId: cfg.clientId,
     // Auto ads needs no unit ids, and sending them would only invite a second
     // set of placements on a page Google is already filling.
-    slots: st.enabled && !st.autoAds ? cfg.slots : {},
+    slots,
   };
 }

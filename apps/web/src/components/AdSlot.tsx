@@ -48,20 +48,37 @@ const AD_L: Record<string, { label: string; pos: string; waiting: string; noId: 
 export type AdPlacement = "in_article" | "in_article_1" | "in_article_2" | "list" | "footer" | "sidebar";
 
 /**
- * Reserved height per placement while the unit loads.
+ * How each placement asks to be filled, and how much room to hold for it.
  *
- * Reserving the WRONG height is its own bug: too little and the page jumps when
- * the ad paints (the thing Core Web Vitals measures), too much and a no-fill
- * leaves a gap for the seconds before the watch below collapses it. These are
- * the usual rendered heights of a responsive unit in each position.
+ * ONE UNIT, SHAPED TO THE CONTENT. The account has a single responsive display
+ * unit, so the shape comes from `data-ad-format` rather than from having six
+ * units: a wide, short banner where the page wants a rule across it (above the
+ * content, and again at the foot), a block that sits in a column of prose
+ * between sections, and a tall one in a margin rail. Google picks the creative
+ * within whatever shape it is given.
+ *
+ * `reserve` is held only while the ad is on its way — see the render below,
+ * which releases it the moment the unit paints. Reserving the WRONG amount is
+ * its own bug: too little and the page jumps when the ad arrives (the thing
+ * Core Web Vitals measures), too much and a slow fill shows a gap. These are
+ * the usual rendered heights of a responsive unit in each shape.
  */
-const RESERVED: Record<AdPlacement, number> = {
-  in_article: 250,
-  in_article_1: 250,
-  in_article_2: 250,
-  list: 250,
-  footer: 120,
-  sidebar: 600,
+const PLACEMENT: Record<
+  AdPlacement,
+  { format: string; reserve: number; responsive: boolean; maxWidth?: number; framed?: boolean }
+> = {
+  // Above the content: a leaderboard, never a block — a 250px slab between the
+  // header and the first paragraph is the layout readers complain about.
+  list: { format: "horizontal", reserve: 110, responsive: true },
+  // Between sections, in the reading column.
+  in_article: { format: "auto", reserve: 250, responsive: true, framed: true },
+  in_article_1: { format: "auto", reserve: 250, responsive: true, framed: true },
+  in_article_2: { format: "auto", reserve: 250, responsive: true, framed: true },
+  // The closing unit, under the last section and above the footer.
+  footer: { format: "horizontal", reserve: 110, responsive: true },
+  // A margin rail: fixed width, tall, and never full-width-responsive or it
+  // would try to span the page it is sitting beside.
+  sidebar: { format: "vertical", reserve: 600, responsive: false, maxWidth: 300 },
 };
 
 /** How long to let AdSense answer before treating silence as a no-fill. */
@@ -183,17 +200,38 @@ export function AdSlot({
      * paints and takes its own height (true), and collapse to nothing on a
      * confirmed no-fill (false).
      */
-    const reserved = filled === null ? RESERVED[placement] : 0;
+    const spec = PLACEMENT[placement];
+    const reserved = filled === null ? spec.reserve : 0;
     return (
       <aside
-        className={`${filled === false ? "my-0" : "my-8"} flex w-full flex-col items-center ${className}`}
+        className={
+          `${filled === false ? "my-0" : "my-10"} flex w-full flex-col items-center ${className} ` +
+          // An in-content unit is given the same quiet card the rest of the
+          // page uses for its own blocks — a hairline, a soft radius, a barely
+          // tinted ground. It is not decoration: a unit floating loose in a
+          // column of prose reads as something that fell onto the page, and a
+          // reader's eye files it as debris rather than as an offer. Framed, it
+          // reads as part of the design and gets looked at.
+          //
+          // The banner shapes stay unframed on purpose: a full-width rule ABOVE
+          // a card would box the page in, and the hairline caption is already
+          // the frame they need.
+          (filled === true && spec.framed
+            ? "rounded-2xl border border-(--color-border) bg-(--color-card)/60 px-3 py-4 sm:px-5"
+            : "")
+        }
         aria-label={caption}
         data-adsense-slot={placement}
       >
         {/* The caption only exists once there is something to caption, so a
-            page never shows an "Iklan" rule floating over nothing. */}
+            page never shows an "Iklan" rule floating over nothing.
+
+            It is also not negotiable: an ad a reader cannot tell apart from the
+            article is the one policy line that costs an account, and it is the
+            same line that makes the ads worth having — somebody who clicks
+            knowing what it is, is a click the advertiser actually wanted. */}
         {filled === true && (
-          <div aria-hidden className="mb-2 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45">
+          <div aria-hidden className="mb-2.5 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45">
             <span className="h-px flex-1 bg-(--color-border-gold)" />
             <span className="text-[10px] uppercase tracking-[0.18em] text-text-secondary">{caption}</span>
             <span className="h-px flex-1 bg-(--color-border-gold)" />
@@ -202,11 +240,11 @@ export function AdSlot({
         <ins
           ref={insRef}
           className="adsbygoogle block w-full transition-[min-height] duration-500"
-          style={{ display: "block", width: "100%", minHeight: reserved, maxWidth: placement === "sidebar" ? 300 : undefined }}
+          style={{ display: "block", width: "100%", minHeight: reserved, maxWidth: spec.maxWidth }}
           data-ad-client={view.clientId}
           data-ad-slot={slotId}
-          data-ad-format={placement === "sidebar" ? "vertical" : "auto"}
-          data-full-width-responsive={placement === "sidebar" ? "false" : "true"}
+          data-ad-format={spec.format}
+          data-full-width-responsive={spec.responsive ? "true" : "false"}
         />
       </aside>
     );

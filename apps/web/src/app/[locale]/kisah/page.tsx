@@ -127,7 +127,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   let categories: CategoryRow[] = [];
   try {
     const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/categories?lang=${locale}`, 3600);
-    categories = res.categories;
+    categories = res.categories ?? [];
   } catch {
     categories = [];
   }
