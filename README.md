@@ -93,13 +93,25 @@ fawazahmed0/quran-api, `scripts/generate-quran-de-seed.ts`).
 aja") — its component, its per-tenant inventory, its sandboxed ad frame, the
 master switch and the per-site toggles are all gone.
 
-Every site reads `GET /content/ad-config` from api.ulyah.com and the
-**ulyah.com admin portal is the only place that edits it** (AdSense tab). A site
-serves ads when it is `enabled` + `approved` — the owner's "Google accepted THIS
-domain" tick. The unit id is no longer a third condition: every placement falls
-back to the account's responsive unit (`AD_DEFAULT_SLOT`), so a site is never
-silently blank because a box was left empty. Pasting an id in the admin still
-overrides it, per placement.
+**There is no ad configuration.** Owner: "langsung online aja AdSense dan apus
+settingan AdSense di dawa.es dan ekosistem ulyah.com, pokoknya ketika ads di
+pasang langsung online." The central config — a D1 row mirrored to KV, fetched
+by every site on every page load, gated on `enabled` + `approved` + `autoAds`
+per site, edited from an admin tab — is gone. A slot in the code is a live ad,
+on every site, immediately.
+
+That is not a simplification for its own sake: every one of those gates was a
+way for the ads to be silently off, and each one happened. A wildcard CORS
+header made the config unreadable, so every site read "switched off" for weeks.
+Before that, an empty unit-id box meant enabled, approved, all green, and
+nothing on the page. None of it errored.
+
+The account (`AD_CLIENT_ID`) and the unit (`AD_SLOT`) are constants in
+`apps/web/src/lib/ad-config.ts`; the loader script in the layout reads the same
+constant, so the page and its `<ins>` elements can never name different
+accounts. An AdSense unit only fills on a domain Google has accepted — on a site
+still under review the markup is simply there and does not fill, which looks
+exactly like no ad, and needs no switching on when approval arrives.
 
 One unit, shaped to where it sits: a leaderboard above the content and at the
 foot (`format: horizontal`), a block between sections in the reading column
@@ -107,28 +119,18 @@ foot (`format: horizontal`), a block between sections in the reading column
 only until the ad paints, then released — holding it after is how a 90px banner
 ends up in a 250px slab.
 
-dawa.es is switched on by a one-time migration after its approval
-(`activateDawaAdsense` in the Worker's scheduled tick; the KV flag keeps it
-one-time, so turning it off in the admin sticks).
-
-**Auto ads** is the other route, per site: tick "Auto" in the admin and turn it
-on in the AdSense dashboard, and no unit id is needed at all — the loader script
-already on every page is the whole integration and Google chooses the
-placements. Our own units then stand down (AdSlot renders nothing, PageAds
-places nothing, and the config withholds the unit ids), because two sets of
-placements on one page is how a site becomes ad-heavy. The admin tab carries the
-dashboard links and the steps, so finding the `data-ad-slot` is not a hunt.
-
-With manual units, `PageAds` measures the rendered page and places what the template did not: one
-unit above the content, two through the middle on real section boundaries, one
-in the closing cluster — four, sized for a single network, since "ads must not
-exceed content" is what a site gets measured against. Focused pages (mushaf,
+`PageAds` measures the rendered page and places what the template did not: one
+unit at the first natural pause, two through the middle on real section
+boundaries, one in the closing cluster — four, sized for a single network, since
+"ads must not exceed content" is what a site gets measured against. The middles
+are never placed above the lead unit and never within 500px of another ad, so a
+short page carries fewer rather than a crowded four. Focused pages (mushaf,
 qibla, sign-in, donate) are skipped, in every site's own spelling.
 
 A unit that gets no fill collapses to nothing (`data-ad-status`), so a page
-never carries a labelled empty band. Position markers are an **owner tool**:
-add `?ads=preview` to any URL to see where each unit will land. Visitors never
-see them.
+never carries a labelled empty band. Every unit keeps its caption — a reader can
+always tell an ad from the article, which is both the policy line that costs an
+account and the only reason a click is worth anything to the advertiser.
 
 ## Storage discipline
 
@@ -147,4 +149,8 @@ Watched nightly by `.github/workflows/db-maintenance.yml`:
   scheduled tick drains the old `audio/qori/` + `audio/qori2/` libraries out of
   R2 along with the `audio_cache` rows that catalogued them. The bulk importer
   still exists for the day a mirror is worth having again, but refuses to run
-  without an explicit `confirm=download`.
+  without an explicit `confirm=download`. `scripts/check-murottal-cdn.ts` holds
+  the line in CI by driving the audio route with storage bindings that throw on
+  contact. Because none of it costs us anything, dawa.es rotates the FULL
+  seventeen-voice alquran.cloud roster on its radio (owner: "maximalin aja
+  dawa.es dr cdn") where the other sites rotate six.

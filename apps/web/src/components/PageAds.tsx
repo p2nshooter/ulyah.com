@@ -6,19 +6,19 @@ import { usePathname } from "next/navigation";
 import { AdSlot } from "@/components/AdSlot";
 import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { localizedRoute } from "@ulyah/shared/routes";
-import { fetchAdView } from "@/lib/ad-config";
 
 /**
  * Places this site's AdSense units on the page — at the top, through the middle
  * and at the bottom — wherever the page's own template does not already carry
  * one.
  *
- * ONE NETWORK NOW. This used to inject Adsterra units, and later a mix of the
- * two. Adsterra is gone from the ecosystem (owner: "hapus iklan adsterra di
- * ekosistem ulyah.com, ganti dengan adsense aja"), so every slot here is an
- * AdSense unit and a site that is not live for AdSense gets nothing — which is
- * the correct behaviour either way: AdSlot renders null until the site is
- * enabled, approved and carrying a unit id.
+ * ONE NETWORK, NO SWITCHES. This used to inject Adsterra units, and later a mix
+ * of the two; Adsterra is gone from the ecosystem (owner: "hapus iklan adsterra
+ * … ganti dengan adsense aja") and the per-site config that gated the rest went
+ * with it ("pokoknya ketika ads di pasang langsung online"). So every slot here
+ * is an AdSense unit and it is placed on every site, immediately. A domain
+ * Google has not accepted yet simply does not fill, and AdSlot collapses the
+ * space it was holding.
  *
  * The owner's rule was "per halaman per link wajib ada iklan dengan posisi atas
  * bawah tengah". Hard-coding that into each template does not hold: the article
@@ -198,40 +198,13 @@ function before(a: Node, b: Node): boolean {
 export function PageAds() {
   const pathname = usePathname();
   const [slots, setSlots] = useState<Slot[]>([]);
-  /**
-   * Is AdSense live for THIS site — accepted by Google, ticked in the ulyah.com
-   * admin, and carrying a unit id?
-   *
-   * Nothing is placed until it is. That is not only an optimisation: AdSlot
-   * renders null on a site that is not live, so an anchor injected early would
-   * hold an empty div AND count as a filled region in the measurement below,
-   * which is how a page ends up with its quota "met" by nothing at all.
-   *
-   * It reads the same module-cached fetch every AdSlot on the page uses, so the
-   * slots the template placed itself are in the DOM by the time the first
-   * measurement runs and are counted rather than duplicated.
-   */
-  const [adsense, setAdsense] = useState(false);
 
   useEffect(() => {
-    let alive = true;
-    fetchAdView().then((v) => {
-      if (!alive) return;
-      const hasUnit = Boolean(v.slots?.in_article_1 || v.slots?.in_article || v.slots?.in_article_2);
-      // Auto ads places its own units; ours would be a second set on the same
-      // page, so this engine stands down entirely.
-      setAdsense(Boolean(v.enabled && v.approved && !v.autoAds && v.clientId && hasUnit));
-    });
-    return () => {
-      alive = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    // Nothing to place until this site is actually serving AdSense. AdSlot
-    // renders null when it is not, so an anchor placed early would be an empty
-    // div — harmless, but the measurement would count it as a filled region.
-    if (!adsense) return;
+    // The ads are live wherever the code puts them (owner: "pokoknya ketika ads
+    // di pasang langsung online"), so placement starts with the page rather
+    // than with a config fetch. This used to wait on one, which also meant that
+    // whenever the fetch failed — and for weeks it always did, blocked by a CORS
+    // header nobody could see — not one unit was placed on any page.
     if (SKIP.some((p) => pathname?.includes(p))) return;
 
     const created: Slot[] = [];
@@ -423,7 +396,7 @@ export function PageAds() {
         }
       }, 0);
     };
-  }, [pathname, adsense]);
+  }, [pathname]);
 
   if (!slots.length) return null;
 

@@ -143,6 +143,24 @@ export const TENANT_RADIO_CDN: Record<string, ("aqc" | "ey")[]> = {
   xad: ["ey", "aqc"], // England-facing English site — everyayah first
 };
 
+/**
+ * How WIDE each site's radio rotation is.
+ *
+ * The station plays the alquran.cloud voices, all published at 128 kbps and
+ * all streamed from cdn.islamic.network — seventeen of them. Most sites rotate
+ * only the six marked `featured`, which was a curation decision from the era
+ * when a voice had to be mirrored into R2 before it sounded reliable.
+ *
+ * dawa.es takes the lot (owner: "maximalin aja dawa.es dr cdn"). Nothing is
+ * stored to make that possible and nothing is downloaded: eleven more voices
+ * is eleven more urls on a CDN that already serves the six. It costs us
+ * nothing and it is the difference between a station that repeats a voice
+ * every six khatam and one that does so every seventeen.
+ */
+export const TENANT_RADIO_ROSTER: Record<string, "featured" | "full"> = {
+  dawa: "full",
+};
+
 function buildEyUrl(eyId: string, surah: number, ayah: number): string {
   return `https://everyayah.com/data/${eyId}/${pad3(surah)}${pad3(ayah)}.mp3`;
 }

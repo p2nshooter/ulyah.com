@@ -1,174 +1,114 @@
 /**
- * One ad network, and a config that cannot smuggle the old one back.
+ * One ad network, and nothing between a placement and the page.
  *
- * Adsterra was removed from the ecosystem (owner: "hapus iklan adsterra di
- * ekosistem ulyah.com, ganti dengan adsense aja"). Removing a network is not
- * only deleting a component: its flags live in a row of JSON in D1 that is read
- * back on every save, and the sites read a derived view of that row on every
- * page. A leftover `adsterra: true` in the stored config is invisible in code
- * review and would come back the moment anything re-read it.
+ * Two owner decisions are held here, and both are the kind that rot quietly.
  *
- * So three things are pinned here:
- *   1. a stored config from BEFORE the removal reads cleanly, and the dead flag
- *      does not survive the round trip;
- *   2. what the sites are served carries no trace of it either;
- *   3. no source file has gone back to referencing the network or its
- *      component, which is what would resurrect the markup.
+ * ONE NETWORK. Adsterra was removed from the ecosystem ("hapus iklan adsterra
+ * di ekosistem ulyah.com, ganti dengan adsense aja"). Removing a network is not
+ * only deleting a component: a reference put back anywhere — the component, a
+ * flag named after it, a key in a payload — resurrects the markup, and that is
+ * invisible in review.
+ *
+ * NO CONFIGURATION. "Langsung online aja AdSense dan apus settingan AdSense di
+ * dawa.es dan ekosistem ulyah.com, pokoknya ketika ads di pasang langsung
+ * online." The central config is gone: no D1 row, no KV mirror, no per-site
+ * enabled/approved/autoAds, no admin tab, no fetch on page load. An ad slot in
+ * the code IS a live ad.
+ *
+ * That last one is worth a check of its own because of how it failed before.
+ * Every gate was a way for the ads to be silently off, and each one happened:
+ * a wildcard CORS header made the config unreadable, so every site read
+ * "switched off" for weeks; before that, an empty unit-id box meant enabled,
+ * approved, all green, and nothing on the page. None of it errored. The only
+ * durable fix is that there is nothing left to be off — so this asserts the
+ * absence, which is the thing a future edit would undo.
  *
  *   npx tsx scripts/check-ads.ts
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { defaultAdConfig, publicAdView, AD_PLACEMENTS, AD_DEFAULT_SLOT } from "../apps/worker-api/src/lib/ad-config";
 
+const ROOT = join(import.meta.dirname, "..");
 let failed = 0;
 function check(what: string, ok: boolean, detail = "") {
   if (!ok) failed++;
   console.log(`  ${ok ? "ok  " : "FAIL"}  ${what}`);
   if (!ok && detail) console.log(`        ${detail}`);
 }
+const read = (rel: string) => readFileSync(join(ROOT, rel), "utf8");
+/** Source with comments stripped: an explanation of a removal is not a use. */
+const code = (src: string) => src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
 
-console.log("=== the config the sites are served ===");
-const cfg = defaultAdConfig();
-const view = publicAdView(cfg, "dawa") as Record<string, unknown>;
+console.log("=== the account and the unit are constants ===");
+const adConfig = read("apps/web/src/lib/ad-config.ts");
+const client = /AD_CLIENT_ID\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
+const slot = /AD_SLOT\s*=\s*"(\d{6,20})"/.exec(adConfig);
+check("a real publisher id is exported", Boolean(client), adConfig.slice(0, 200));
+check("a real ad-unit id is exported", Boolean(slot), "AD_SLOT must be the data-ad-slot from the unit's snippet");
+
+// The loader script and the units must name the SAME account, or every <ins>
+// on the site asks an account the page never loaded.
+const layout = read("apps/web/src/app/[locale]/layout.tsx");
 check(
-  "the public view has exactly the fields a site needs",
-  JSON.stringify(Object.keys(view).sort()) === JSON.stringify(["approved", "autoAds", "clientId", "enabled", "slots"]),
-  `got ${JSON.stringify(Object.keys(view).sort())}`
-);
-check("no adsterra flag in the public view", !("adsterra" in view));
-check("no adsterra flag in the config itself", !("adsterra" in (cfg as Record<string, unknown>)));
-check(
-  "no adsterra flag on a site's state",
-  Object.values(cfg.sites).every((st) => !("adsterra" in (st as Record<string, unknown>))),
-  "a per-site adsterra flag is still being produced"
-);
-
-console.log("\n=== a config stored BEFORE the removal still reads ===");
-// Exactly the shape the live row carries today: a master flag, and per-site
-// state with the old boolean form alongside the newer object form.
-const legacy = {
-  clientId: "ca-pub-000",
-  adsterra: true,
-  slots: { in_article: "123" },
-  sites: {
-    ulyah: { enabled: true, approved: true, adsterra: true },
-    dawa: true,
-    tilawa: { enabled: false, approved: false, adsterra: false },
-  },
-} as unknown as Parameters<typeof publicAdView>[0];
-
-// normalizeAdConfig is internal; publicAdView exercises the same coercion,
-// which is the path every site's render actually takes.
-const fromLegacy = publicAdView(legacy, "ulyah") as Record<string, unknown>;
-check("an old row's enabled + approved survive", fromLegacy.enabled === true && fromLegacy.approved === true);
-check("its adsterra flag does not", !("adsterra" in fromLegacy));
-const legacyBool = publicAdView(legacy, "dawa") as Record<string, unknown>;
-check("the oldest boolean form still means 'enabled'", legacyBool.enabled === true && legacyBool.approved === false);
-
-console.log("\n=== a placement always resolves to a real unit ===");
-// The failure this prevents: enabled, approved, every switch green, and not one
-// ad on the page because the id box was never filled in. A placement falls back
-// to the account's responsive unit, so "live" means live.
-const fresh = {
-  clientId: "ca-pub-000",
-  slots: {}, // nothing ever pasted
-  sites: { dawa: { enabled: true, approved: true, autoAds: false } },
-} as unknown as Parameters<typeof publicAdView>[0];
-const freshView = publicAdView(fresh, "dawa");
-check(
-  "every placement gets the default unit when nothing is stored",
-  AD_PLACEMENTS.every((p) => freshView.slots[p] === AD_DEFAULT_SLOT),
-  `got ${JSON.stringify(freshView.slots)}`
-);
-check("the default is the account's real unit", /^\d{6,20}$/.test(AD_DEFAULT_SLOT), AD_DEFAULT_SLOT);
-
-const stored = {
-  clientId: "ca-pub-000",
-  slots: { in_article_1: "9999999999" },
-  sites: { dawa: { enabled: true, approved: true, autoAds: false } },
-} as unknown as Parameters<typeof publicAdView>[0];
-const storedView = publicAdView(stored, "dawa");
-check("a pasted id wins for its own placement", storedView.slots.in_article_1 === "9999999999");
-check("the others still fall back", storedView.slots.footer === AD_DEFAULT_SLOT);
-
-// A site that is off must not be handed unit ids at all.
-const off = {
-  clientId: "ca-pub-000",
-  slots: {},
-  sites: { dawa: { enabled: false, approved: false, autoAds: false } },
-} as unknown as Parameters<typeof publicAdView>[0];
-check("a site that is off gets no units", Object.keys(publicAdView(off, "dawa").slots).length === 0);
-
-console.log("\n=== auto ads stands our own units down ===");
-// The two must never be on at once: Google inserts its own placements, and ours
-// would be a second set on the same page. The config enforces it by withholding
-// the unit ids, so there is nothing for AdSlot to render even if it tried.
-const auto = {
-  clientId: "ca-pub-000",
-  slots: { in_article: "123", footer: "123" },
-  sites: { dawa: { enabled: true, approved: true, autoAds: true } },
-} as unknown as Parameters<typeof publicAdView>[0];
-const autoView = publicAdView(auto, "dawa");
-check("the site is still live", autoView.enabled === true && autoView.approved === true);
-check("autoAds is reported to the site", autoView.autoAds === true);
-check(
-  "no unit ids are sent while Google is placing",
-  Object.keys(autoView.slots).length === 0,
-  `got ${JSON.stringify(autoView.slots)}`
-);
-const manual = {
-  ...auto,
-  sites: { dawa: { enabled: true, approved: true, autoAds: false } },
-} as unknown as Parameters<typeof publicAdView>[0];
-check("with auto ads off, the ids are sent again", Object.keys(publicAdView(manual, "dawa").slots).length > 0);
-
-console.log("\n=== the placements the admin can give an id ===");
-check(
-  "every placement AdSlot uses is configurable",
-  ["in_article", "in_article_1", "in_article_2", "list", "footer", "sidebar"].every((p) =>
-    (AD_PLACEMENTS as readonly string[]).includes(p)
-  ),
-  `AD_PLACEMENTS is ${AD_PLACEMENTS.join(", ")}`
+  "the loader script uses that same constant",
+  /AD_CLIENT_ID/.test(layout) && !/ca-pub-\d/.test(code(layout)),
+  "the layout still hard-codes a publisher id — it must import AD_CLIENT_ID"
 );
 
-console.log("\n=== the ad config is fetched without credentials ===");
-// The bug this pins: `api.get` sends `credentials: "include"` on everything,
-// and the route answers `Access-Control-Allow-Origin: *`. A credentialed
-// cross-origin request with a wildcard origin is not merely refused — the
-// browser discards the response before any code runs, so `fetchAdView` catches
-// nothing, returns an empty config, and every slot on every site concludes the
-// site is switched off. Silent, total, and identical to "ads not enabled".
-const adClient = readFileSync(join(import.meta.dirname, "..", "apps/web/src/lib/ad-config.ts"), "utf8");
+const adSlot = read("apps/web/src/components/AdSlot.tsx");
 check(
-  "it does not go through the credentialed api helper",
-  !/\bapi\s*\n?\s*\.get\b|\bapi\.get</.test(adClient),
-  "fetchAdView uses api.get, which sends credentials — the response will be blocked"
+  "the unit renders the constants",
+  /data-ad-client=\{AD_CLIENT_ID\}/.test(adSlot) && /data-ad-slot=\{AD_SLOT\}/.test(adSlot)
+);
+
+console.log("\n=== nothing gates a placement ===");
+// The words that would bring the switches back. Checked on code, not comments,
+// so the files can still explain what was removed.
+const GATES = [/\benabled\b/, /\bapproved\b/, /\bautoAds\b/, /fetchAdView/, /ad-config\?site/];
+for (const file of ["apps/web/src/components/AdSlot.tsx", "apps/web/src/components/PageAds.tsx"]) {
+  const src = code(read(file));
+  const found = GATES.filter((re) => re.test(src)).map(String);
+  check(`${file.split("/").pop()} has no config gate`, found.length === 0, found.join(", "));
+}
+check(
+  "nothing fetches an ad config any more",
+  !/fetch\(.*ad-config/.test(code(adConfig)) && !/fetchAdView/.test(code(adConfig)),
+  "lib/ad-config.ts is a constants module now — no request, no cache, no fallback"
 );
 check(
-  "it asks for a fresh copy",
-  /cache:\s*"no-store"/.test(adClient),
-  "an admin toggle has to take effect on the next refresh, not a minute later"
+  "the admin has no AdSense tab",
+  !existsSync(join(ROOT, "apps/web/src/components/admin/AdsenseTab.tsx")) &&
+    !/AdsenseTab/.test(read("apps/web/src/app/[locale]/admin/page.tsx"))
+);
+check(
+  "the worker has no ad config module",
+  !existsSync(join(ROOT, "apps/worker-api/src/lib/ad-config.ts"))
+);
+for (const [file, what] of [
+  ["apps/worker-api/src/routes/content.ts", "the public ad-config endpoint"],
+  ["apps/worker-api/src/routes/admin.ts", "the admin ad-config endpoints"],
+  ["apps/worker-api/src/index.ts", "the one-time dawa activation"],
+] as const) {
+  check(`${what} is gone`, !/ad-config|adsense-config|activateDawaAdsense/.test(code(read(file))));
+}
+
+console.log("\n=== the label stays on every unit ===");
+// The one thing that is NOT negotiable when the ads go live everywhere: a
+// reader can always tell an ad from the article. It is the policy line that
+// costs an account, and the reason a click is worth anything to the advertiser.
+check(
+  "a caption is rendered with the unit",
+  /caption/.test(adSlot) && /AD_L/.test(adSlot),
+  "AdSlot must keep its per-language ad label"
+);
+check(
+  "no unit is dressed as content",
+  !/data-ad-placeholder/.test(adSlot),
+  "the preview scaffolding must not be shown to readers"
 );
 
 console.log("\n=== nothing references the removed network ===");
-const ROOTS = ["apps/web/src", "apps/worker-api/src"];
-
-/**
- * What counts as a reference.
- *
- * The WORD is fine — the admin panel says, in so many words, that the network
- * was removed, and the comments explaining the removal would be worse without
- * it. What must not come back is the wiring: the component, a property named
- * after the flag, a read of it, or its string key in a payload. So the test is
- * on the shapes code uses, not on the prose.
- */
-const WIRING = [
-  /\bNetworkAd\b/,
-  /\badsterra\s*[:?]/i, // a property definition or optional field
-  /\.adsterra\b/i, // a read
-  /["'`]adsterra["'`]/i, // a key in a payload or a storage key
-];
+const WIRING = [/\bNetworkAd\b/, /\badsterra\s*[:?]/i, /\.adsterra\b/i, /["'`]adsterra["'`]/i];
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
@@ -178,24 +118,16 @@ function walk(dir: string, out: string[] = []): string[] {
   return out;
 }
 const offenders: string[] = [];
-for (const root of ROOTS) {
-  for (const f of walk(join(import.meta.dirname, "..", root))) {
-    const src = readFileSync(f, "utf8");
-    // Comments are stripped first: an explanation of the removal is not a
-    // reference to it.
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
-    if (WIRING.some((re) => re.test(code))) offenders.push(f.slice(f.indexOf("apps/")));
+for (const root of ["apps/web/src", "apps/worker-api/src"]) {
+  for (const f of walk(join(ROOT, root))) {
+    if (WIRING.some((re) => re.test(code(readFileSync(f, "utf8"))))) offenders.push(f.slice(f.indexOf("apps/")));
   }
 }
-check(
-  "no live code mentions the old network or its component",
-  offenders.length === 0,
-  offenders.join(", ")
-);
+check("no live code mentions the old network or its component", offenders.length === 0, offenders.join(", "));
 check(
   "the sandboxed ad frame is gone with it",
-  !existsSync(join(import.meta.dirname, "..", "apps/web/public/ads/frame.html")),
-  "public/ads/frame.html still exists — it only ever served the old network"
+  !existsSync(join(ROOT, "apps/web/public/ads/frame.html")),
+  "public/ads/frame.html only ever served the old network"
 );
 
 console.log(failed === 0 ? "\nALL OK" : `\n${failed} FAILED`);

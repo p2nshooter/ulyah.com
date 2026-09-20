@@ -1,55 +1,34 @@
-"use client";
+/**
+ * The AdSense account, and the unit every placement renders.
+ *
+ * THERE IS NO AD CONFIGURATION ANY MORE. Owner: "langsung online aja AdSense
+ * dan apus settingan AdSense di dawa.es dan ekosistem ulyah.com, pokoknya
+ * ketika ads di pasang langsung online." So an ad slot in the code IS a live
+ * ad: nothing is fetched, nothing is toggled, and no switch in an admin panel
+ * stands between a placement and the page.
+ *
+ * What that replaces was a central row in D1, mirrored to KV, read by every
+ * site on every page load through a CORS request, gated on three booleans per
+ * site. Every one of those was a way for the ads to be silently off — and each
+ * one actually happened: a wildcard CORS header made the response unreadable,
+ * so every site read "switched off" for weeks; before that, an empty unit-id
+ * box meant enabled, approved, all green, and nothing rendered. The whole
+ * apparatus existed to answer a question the code can answer by itself.
+ *
+ * Practical consequence of going straight live, said plainly: an AdSense unit
+ * only fills on a domain Google has accepted. On a site still awaiting review
+ * the markup is there and simply does not fill — AdSlot watches for that and
+ * collapses the space, so the page looks exactly as it would with no ad. It is
+ * not an error, and nothing needs switching on when approval arrives.
+ */
 
-import { TENANT } from "@/lib/tenant";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
-
-export interface AdView {
-  enabled: boolean;
-  approved: boolean;
-  /** Google places the ads itself — our own units stand down. See SiteAdState. */
-  autoAds: boolean;
-  clientId: string;
-  slots: Record<string, string>;
-}
-
-const EMPTY: AdView = { enabled: false, approved: false, autoAds: false, clientId: "", slots: {} };
+/** The publisher account. Also what the loader script in the layout carries. */
+export const AD_CLIENT_ID = "ca-pub-6371903555702163";
 
 /**
- * One fetch per page load, shared by every AdSlot (the config is tiny and
- * identical for all slots on the page). Always api.ulyah.com, so every tenant
- * reads the SAME central config edited from the ulyah admin.
- *
- * A PLAIN fetch, deliberately — not the `api` helper, which sends
- * `credentials: "include"` and a JSON content-type on everything.
- *
- * That combination is why no site could read this. A credentialed cross-origin
- * request is refused by the browser unless the server answers with the caller's
- * exact origin; `/content/ad-config` answers `Access-Control-Allow-Origin: *`
- * (the route sets it explicitly, overwriting what the CORS middleware echoed).
- * `*` with credentials is not a weaker rule, it is an invalid one: the response
- * is thrown away before any code sees it, `fetchAdView` falls into its catch,
- * and every AdSlot on every page decides the site is switched off. No error, no
- * warning — just no ads, everywhere, forever.
- *
- * There is nothing to send credentials FOR: the ad config is public, the same
- * for every visitor, and carries no cookie. So this asks for it the way it
- * should always have been asked for. `no-store` keeps an admin toggle
- * effective on the very next refresh.
+ * The account's responsive display unit ("Horizontal"), used by every
+ * placement — the shape comes from `data-ad-format`, not from having six
+ * separate units. A data-ad-slot is public by nature: it ships in the HTML of
+ * every page that carries the unit, exactly like the publisher id beside it.
  */
-let cached: Promise<AdView> | null = null;
-
-export function fetchAdView(): Promise<AdView> {
-  if (cached) return cached;
-  cached = fetch(`${API_BASE}/content/ad-config?site=${encodeURIComponent(TENANT.id)}`, { cache: "no-store" })
-    .then((r) => (r.ok ? (r.json() as Promise<AdView>) : Promise.reject(new Error(String(r.status)))))
-    .then((v) => ({
-      enabled: !!v.enabled,
-      approved: !!v.approved,
-      autoAds: !!v.autoAds,
-      clientId: v.clientId ?? "",
-      slots: v.slots ?? {},
-    }))
-    .catch(() => EMPTY);
-  return cached;
-}
+export const AD_SLOT = "4702981509";

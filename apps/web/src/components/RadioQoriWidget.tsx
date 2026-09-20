@@ -48,10 +48,11 @@ export function RadioQoriWidget({ locale }: { locale: string }) {
     RECITERS.find((r) => r.key === pos.reciterKey) ?? RECITERS.find((r) => r.key === DEFAULT_QORI_KEY)!;
   const surahMeta = (surahs ?? []).find((s) => s.id === pos.surahId);
 
-  // Show the ACTUAL rotation, in its playing order — not every featured
-  // reciter. The radio only rotates the aqc/128kbps voices (same proven
-  // R2-first path ulyah.com plays), so the lineup must match what the
-  // station will really broadcast.
+  // Show the ACTUAL rotation, in its playing order. The radio rotates the
+  // aqc/128kbps voices from cdn.islamic.network, and HOW MANY of them is
+  // per-site (dawa.es runs all seventeen), so the lineup is read from the
+  // rotation itself rather than re-derived — it can never advertise a voice
+  // the station will not play, or hide one it will.
   const featured = RADIO_ROTATION_KEYS.map((k) => RECITERS.find((r) => r.key === k)).filter(
     (r): r is (typeof RECITERS)[number] => !!r
   );

@@ -3,46 +3,53 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { fetchAdView, type AdView } from "@/lib/ad-config";
+import { AD_CLIENT_ID, AD_SLOT } from "@/lib/ad-config";
 
 /**
  * One Google AdSense placement.
  *
- * Reads the central config (edited only from the ulyah.com admin, so every site
- * in the network is governed from one place) and renders the real unit when
- * THIS site is enabled, ticked as approved, and an ad-unit id has been pasted.
+ * It renders. There is no config to read and no switch to be off: a slot in the
+ * code is a live unit (owner: "pokoknya ketika ads di pasang langsung online").
+ * The account and the unit id are constants — see lib/ad-config.ts, which also
+ * explains what this replaced and why an unapproved domain simply does not
+ * fill rather than erroring.
  *
  * ── The redesign, and why ────────────────────────────────────────────────
  *
  * It used to be a bordered box with `my-8` and a permanent 90px floor, plus a
- * dashed "▭ Ruang Iklan / posisi iklan «footer»" placeholder shown to ANY
- * visitor of a site that was enabled but not yet approved. Three problems, all
- * visible to readers:
+ * dashed "▭ Ruang Iklan / posisi iklan «footer»" placeholder printed on every
+ * page of a site awaiting approval. Three problems, all visible to readers:
  *
- *   · a reader on a site awaiting approval saw internal scaffolding on every
- *     page — our workflow, printed into their reading;
+ *   · a reader saw our internal workflow printed into their reading;
  *   · an AdSense unit that gets no fill collapses to zero height, but the
  *     wrapper kept its margins and min-height, leaving a labelled hole;
  *   · it looked bolted on rather than part of the page.
  *
  * So now: a hairline rule either side of a very small caption, which reads as a
  * section divider the page meant to have; the caption appears only once
- * something has actually painted; the space collapses on a confirmed no-fill;
- * and the position marker is an OWNER TOOL — it appears only on a URL carrying
- * `?ads=preview`, never for an ordinary visitor.
+ * something has actually painted; and the space collapses on a confirmed
+ * no-fill, which is also what an unapproved domain looks like — nothing, rather
+ * than a hole with a label over it. The scaffolding is gone entirely.
  *
  * This is the ecosystem's only ad network now (owner: "ganti dengan adsense
  * aja"), so every unit on every page comes through here.
  */
 
-/** Ad caption + owner-tool wording, per site language. */
-const AD_L: Record<string, { label: string; pos: string; waiting: string; noId: string }> = {
-  id: { label: "Iklan", pos: "posisi iklan", waiting: "menunggu ACC AdSense", noId: "belum ada ID iklan" },
-  en: { label: "Sponsored", pos: "ad position", waiting: "awaiting AdSense approval", noId: "no ad ID yet" },
-  fr: { label: "Publicité", pos: "emplacement", waiting: "en attente d'approbation AdSense", noId: "pas encore d'ID d'annonce" },
-  de: { label: "Werbung", pos: "Anzeigenplatz", waiting: "wartet auf AdSense-Freigabe", noId: "noch keine Anzeigen-ID" },
-  es: { label: "Publicidad", pos: "posición del anuncio", waiting: "esperando aprobación de AdSense", noId: "aún sin ID de anuncio" },
-  ar: { label: "إعلان", pos: "موضع الإعلان", waiting: "بانتظار موافقة AdSense", noId: "لا يوجد معرّف إعلان بعد" },
+/**
+ * The caption over each unit, per site language.
+ *
+ * It is not decoration and it is not negotiable: an ad a reader cannot tell
+ * apart from the article is the one policy line that costs an account, and it
+ * is also what makes the ads worth having — a click from somebody who knew
+ * what they were clicking is the only kind an advertiser pays for.
+ */
+const AD_L: Record<string, { label: string }> = {
+  id: { label: "Iklan" },
+  en: { label: "Sponsored" },
+  fr: { label: "Publicité" },
+  de: { label: "Werbung" },
+  es: { label: "Publicidad" },
+  ar: { label: "إعلان" },
 };
 
 export type AdPlacement = "in_article" | "in_article_1" | "in_article_2" | "list" | "footer" | "sidebar";
@@ -95,45 +102,22 @@ export function AdSlot({
 }) {
   const adL = AD_L[DEFAULT_LOCALE] ?? AD_L.en!;
   const pathname = usePathname();
-  const [view, setView] = useState<AdView | null>(null);
   const insRef = useRef<HTMLModElement | null>(null);
   const pushedRef = useRef(false);
   /** null = still waiting, true = an ad painted, false = confirmed no-fill. */
   const [filled, setFilled] = useState<boolean | null>(null);
-  /** The owner's position marker: opt-in through the URL, never automatic. */
-  const [preview, setPreview] = useState(false);
 
-  useEffect(() => {
-    let alive = true;
-    if (typeof window === "undefined") return;
-    // Never inside the admin portal — the owner is working there, not reading.
-    if (window.location.pathname.includes("/admin")) return;
-    try {
-      setPreview(new URLSearchParams(window.location.search).get("ads") === "preview");
-    } catch {
-      /* no search params — no preview */
-    }
-    fetchAdView().then((v) => {
-      if (alive) setView(v);
-    });
-    return () => {
-      alive = false;
-    };
-  }, []);
-
-  const slotId = view?.slots?.[placement] || "";
-  // A real ad needs all three: the site is live for AdSense (the owner ticked
-  // "approved" after Google accepted THIS domain), a unit id exists, and we
-  // know the publisher id.
-  //
-  // Auto ads is the fourth condition, and it works the other way round: when
-  // Google is placing the ads itself, our units must NOT also render, or the
-  // page carries two sets of placements.
-  const live = !!view?.enabled && !!view?.approved && !view?.autoAds && !!slotId && !!view?.clientId;
+  /**
+   * The one place a unit does NOT render: the admin portal. The owner is
+   * working there, not reading, and an ad in a control panel is nobody's
+   * impression. It is read from `pathname` rather than a config, because it is
+   * a property of the page, not a setting.
+   */
+  const inAdmin = pathname?.includes("/admin") ?? false;
 
   // Ask AdSense to fill the unit, once.
   useEffect(() => {
-    if (!live || pushedRef.current) return;
+    if (inAdmin || pushedRef.current) return;
     pushedRef.current = true;
     try {
       // The loader script in <head> creates this array.
@@ -141,7 +125,7 @@ export function AdSlot({
     } catch {
       /* blocked or not ready — the fill watch below collapses the space */
     }
-  }, [live]);
+  }, [inAdmin]);
 
   /**
    * Did an ad actually arrive?
@@ -154,7 +138,7 @@ export function AdSlot({
    * still caught by the height check.
    */
   useEffect(() => {
-    if (!live) return;
+    if (inAdmin) return;
     const el = insRef.current;
     if (!el) return;
     let stopped = false;
@@ -177,94 +161,69 @@ export function AdSlot({
       stopped = true;
       window.clearTimeout(id);
     };
-  }, [live]);
+  }, [inAdmin]);
 
-  if (pathname?.includes("/admin")) return null;
-  if (!view || !view.enabled) return null;
-  // Auto ads: the loader script in <head> is the whole integration and Google
-  // decides where the ads go. Nothing for this component to draw, not even the
-  // owner's position marker — the positions are not ours to show.
-  if (view.autoAds) return null;
+  if (inAdmin) return null;
 
   const caption = label ?? adL.label;
 
-  if (live) {
-    /**
-     * The reserved height exists for exactly one moment: between the unit being
-     * asked for and the ad arriving. Hold it after that and it becomes the
-     * opposite of the bug it prevents — a 90px leaderboard inside a 250px floor
-     * leaves 160px of white space under every filled ad, permanently, which is
-     * worse than the layout shift the floor was there to stop.
-     *
-     * So: reserve while waiting (filled === null), release the moment an ad
-     * paints and takes its own height (true), and collapse to nothing on a
-     * confirmed no-fill (false).
-     */
-    const spec = PLACEMENT[placement];
-    const reserved = filled === null ? spec.reserve : 0;
-    return (
-      <aside
-        className={
-          `${filled === false ? "my-0" : "my-10"} flex w-full flex-col items-center ${className} ` +
-          // An in-content unit is given the same quiet card the rest of the
-          // page uses for its own blocks — a hairline, a soft radius, a barely
-          // tinted ground. It is not decoration: a unit floating loose in a
-          // column of prose reads as something that fell onto the page, and a
-          // reader's eye files it as debris rather than as an offer. Framed, it
-          // reads as part of the design and gets looked at.
-          //
-          // The banner shapes stay unframed on purpose: a full-width rule ABOVE
-          // a card would box the page in, and the hairline caption is already
-          // the frame they need.
-          (filled === true && spec.framed
-            ? "rounded-2xl border border-(--color-border) bg-(--color-card)/60 px-3 py-4 sm:px-5"
-            : "")
-        }
-        aria-label={caption}
-        data-adsense-slot={placement}
-      >
-        {/* The caption only exists once there is something to caption, so a
-            page never shows an "Iklan" rule floating over nothing.
-
-            It is also not negotiable: an ad a reader cannot tell apart from the
-            article is the one policy line that costs an account, and it is the
-            same line that makes the ads worth having — somebody who clicks
-            knowing what it is, is a click the advertiser actually wanted. */}
-        {filled === true && (
-          <div aria-hidden className="mb-2.5 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45">
-            <span className="h-px flex-1 bg-(--color-border-gold)" />
-            <span className="text-[10px] uppercase tracking-[0.18em] text-text-secondary">{caption}</span>
-            <span className="h-px flex-1 bg-(--color-border-gold)" />
-          </div>
-        )}
-        <ins
-          ref={insRef}
-          className="adsbygoogle block w-full transition-[min-height] duration-500"
-          style={{ display: "block", width: "100%", minHeight: reserved, maxWidth: spec.maxWidth }}
-          data-ad-client={view.clientId}
-          data-ad-slot={slotId}
-          data-ad-format={spec.format}
-          data-full-width-responsive={spec.responsive ? "true" : "false"}
-        />
-      </aside>
-    );
-  }
-
-  // ── Owner tool ───────────────────────────────────────────────────────────
-  // The position marker, drawn ONLY on a URL carrying ?ads=preview. It is how
-  // the owner checks where each unit will land before a site goes live; a
-  // visitor must never be shown the scaffolding, which is what used to happen
-  // on every enabled-but-unapproved site.
-  if (!preview) return null;
+  /**
+   * The reserved height exists for exactly one moment: between the unit being
+   * asked for and the ad arriving. Hold it after that and it becomes the
+   * opposite of the bug it prevents — a 90px leaderboard inside a 250px floor
+   * leaves 160px of white space under every filled ad, permanently, which is
+   * worse than the layout shift the floor was there to stop.
+   *
+   * So: reserve while waiting (filled === null), release the moment an ad
+   * paints and takes its own height (true), and collapse to nothing on a
+   * confirmed no-fill (false).
+   */
+  const spec = PLACEMENT[placement];
+  const reserved = filled === null ? spec.reserve : 0;
   return (
-    <div
-      className={`my-8 flex min-h-[90px] flex-col items-center justify-center gap-0.5 rounded-xl border border-dashed border-accent/50 bg-accent/5 text-center text-xs text-text-secondary ${className}`}
-      data-ad-placeholder={placement}
+    <aside
+      className={
+        `${filled === false ? "my-0" : "my-10"} flex w-full flex-col items-center ${className} ` +
+        // An in-content unit is given the same quiet card the rest of the
+        // page uses for its own blocks — a hairline, a soft radius, a barely
+        // tinted ground. It is not decoration: a unit floating loose in a
+        // column of prose reads as something that fell onto the page, and a
+        // reader's eye files it as debris rather than as an offer. Framed, it
+        // reads as part of the design and gets looked at.
+        //
+        // The banner shapes stay unframed on purpose: a full-width rule ABOVE
+        // a card would box the page in, and the hairline caption is already
+        // the frame they need.
+        (filled === true && spec.framed
+          ? "rounded-2xl border border-(--color-border) bg-(--color-card)/60 px-3 py-4 sm:px-5"
+          : "")
+      }
+      aria-label={caption}
+      data-adsense-slot={placement}
     >
-      <span className="font-medium opacity-80">▭ {caption}</span>
-      <span className="text-[10px] opacity-60">
-        {adL.pos} «{placement}» · {slotId ? adL.waiting : adL.noId}
-      </span>
-    </div>
+      {/* The caption only exists once there is something to caption, so a
+          page never shows an "Iklan" rule floating over nothing.
+
+          It is also not negotiable: an ad a reader cannot tell apart from the
+          article is the one policy line that costs an account, and it is the
+          same line that makes the ads worth having — somebody who clicks
+          knowing what it is, is a click the advertiser actually wanted. */}
+      {filled === true && (
+        <div aria-hidden className="mb-2.5 flex w-full max-w-3xl select-none items-center gap-3 px-2 opacity-45">
+          <span className="h-px flex-1 bg-(--color-border-gold)" />
+          <span className="text-[10px] uppercase tracking-[0.18em] text-text-secondary">{caption}</span>
+          <span className="h-px flex-1 bg-(--color-border-gold)" />
+        </div>
+      )}
+      <ins
+        ref={insRef}
+        className="adsbygoogle block w-full transition-[min-height] duration-500"
+        style={{ display: "block", width: "100%", minHeight: reserved, maxWidth: spec.maxWidth }}
+        data-ad-client={AD_CLIENT_ID}
+        data-ad-slot={AD_SLOT}
+        data-ad-format={spec.format}
+        data-full-width-responsive={spec.responsive ? "true" : "false"}
+      />
+    </aside>
   );
 }

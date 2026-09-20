@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SERVED_LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
+import { AD_CLIENT_ID } from "@/lib/ad-config";
 import { TENANT, tenantTagline } from "@/lib/tenant";
 import { jsonLdHtml } from "@/lib/structured-data";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -310,11 +311,15 @@ export default async function LocaleLayout({
           }}
         />
         {/* Google AdSense on EVERY page of EVERY site (owner: Update Global
-            Seluruh Portal §2). The async loader never blocks rendering. */}
-        <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
+            Seluruh Portal §2). The async loader never blocks rendering.
+
+            The publisher id comes from the same constant the units carry, so
+            the loader and the <ins> elements can never disagree about which
+            account is being served. */}
+        <meta name="google-adsense-account" content={AD_CLIENT_ID} />
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT_ID}`}
           crossOrigin="anonymous"
         />
       </head>

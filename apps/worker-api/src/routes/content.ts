@@ -8,30 +8,10 @@ import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
 import { tenantFromReq } from "./analytics.js";
-import { getAdConfig, publicAdView } from "../lib/ad-config.js";
 import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
-
-// GET /content/ad-config?site=<id> — the ONE public ad config every site reads
-// (the four ulyah tenants + the three AXTO sites) to decide whether/what ads to
-// render. Editable only from the ulyah.com admin portal. Public + non-secret;
-// served CORS-open and never edge-cached long so an admin toggle propagates in
-// under a minute.
-contentRoute.get("/ad-config", async (c) => {
-  const site = c.req.query("site") || tenantFromReq(c) || "ulyah";
-  const cfg = await getAdConfig(c.env);
-  c.header("Access-Control-Allow-Origin", "*");
-  c.header("X-No-Edge-Cache", "1");
-  // NEVER browser-cache the ad config. A switch thrown in the admin has to take
-  // effect on the very next refresh — a 60s max-age meant an OFF toggle kept
-  // serving the stale value for up to a minute, so ads "came back alive on
-  // refresh" (owner: "udah sy off, pas di-refresh hidup lagi"). It is one tiny
-  // KV read per page load, so no-store is cheap and correct.
-  c.header("Cache-Control", "no-store");
-  return c.json(publicAdView(cfg, site));
-});
 
 // POST /track — cookieless pageview beacon from every site in the network.
 // Body: { site, path, ref }. Aggregated into site_pageviews (site+day+path) so

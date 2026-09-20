@@ -16,7 +16,6 @@ import { aliexpressRoute, aliexpressAuthRoute } from "./routes/aliexpress.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
 import { contentBotTick } from "./lib/content-bot.js";
-import { getAdConfig, saveAdConfig } from "./lib/ad-config.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -225,40 +224,6 @@ async function purgeMurottalCatalogue(env: Env): Promise<void> {
   }
 }
 
-/**
- * dawa.es has been accepted by AdSense — switch its ads on, once.
- *
- * The network's ad configuration is DATA (one row in D1, mirrored to KV), not
- * code, and it is edited from the ulyah.com admin. A site serves live AdSense
- * only when it is both `enabled` and `approved`, and dawa.es shipped with both
- * off like every other site. Owner: "dawa.es sudah diterima di AdSense …
- * aktifkan semua iklannya."
- *
- * A deploy cannot edit data, so this does it on the next scheduled tick, and
- * the KV flag makes it a ONE-TIME event rather than a policy: if the owner ever
- * turns dawa off again in the admin, this must not quietly turn it back on at
- * the next tick. That is also why it does not touch any other site.
- */
-const DAWA_ADSENSE_FLAG = "ads:dawa-adsense-approved-applied";
-
-async function activateDawaAdsense(env: Env): Promise<void> {
-  const done = await env.CACHE_KV.get(DAWA_ADSENSE_FLAG).catch(() => null);
-  if (done) return;
-  // The consistent read: the admin's own source of truth, so this never acts on
-  // a stale KV copy of the switches.
-  const cfg = await getAdConfig(env, true);
-  const before = cfg.sites.dawa;
-  if (before?.enabled === true && before?.approved === true) {
-    // Already on — the owner got there first. Record that and never look again.
-    await env.CACHE_KV.put(DAWA_ADSENSE_FLAG, "1:already-on").catch(() => {});
-    return;
-  }
-  cfg.sites.dawa = { enabled: true, approved: true, autoAds: before?.autoAds === true };
-  await saveAdConfig(env, cfg);
-  await env.CACHE_KV.put(DAWA_ADSENSE_FLAG, "1:applied").catch(() => {});
-  console.log("dawa.es: AdSense enabled + approved in the central ad config.");
-}
-
 async function purgeMurottalLibrary(env: Env): Promise<void> {
   for (const p of MUROTTAL_PREFIXES) {
     await purgeMurottalPrefix(env, p).catch((e) => console.error(`murottal purge ${p.prefix} failed`, e));
@@ -286,7 +251,6 @@ export default {
           .run()
           .catch((e) => console.error("site-hits prune failed", e)),
         purgeMurottalLibrary(env).catch((e) => console.error("murottal purge failed", e)),
-        activateDawaAdsense(env).catch((e) => console.error("dawa adsense activation failed", e)),
         orchestraMaintenance(env).catch((e) => console.error("orchestra-maintenance failed", e)),
         // Autonomous content bot: the Orchestra writes + auto-publishes one
         // article per tick to an eligible article site (inert until
