@@ -12,7 +12,7 @@
 import { create } from "zustand";
 import { api } from "./api";
 import { usePlayerStore } from "./player-store";
-import { RECITERS, DEFAULT_QORI_KEY, TENANT_RADIO_CDN, TENANT_RADIO_ROSTER } from "./qori-cdn";
+import { RECITERS, DEFAULT_QORI_KEY, TENANT_RADIO_START } from "./qori-cdn";
 import { computeLivePosition, computeLiveBroadcast } from "./radio-clock";
 
 export interface SurahMeta {
@@ -43,18 +43,21 @@ export interface RadioPosition {
 // identically on every tenant. everyayah voices stay selectable in the
 // reader's picker but never drive the always-on radio again.
 //
-// HOW MANY of those voices a site rotates is per-tenant: dawa.es runs the full
-// seventeen, everyone else the six marked `featured` (see
-// TENANT_RADIO_ROSTER). Per-tenant variety on top of that comes from reciter
-// ORDER and each site's own broadcast epoch, so no two domains sit on the same
-// reciter+ayah at the same moment.
-const TENANT = (process.env.NEXT_PUBLIC_TENANT ?? "ulyah") as keyof typeof TENANT_RADIO_CDN;
-const CDN_ORDER = TENANT_RADIO_CDN[TENANT] ?? TENANT_RADIO_CDN.ulyah!;
-const FULL_ROSTER = TENANT_RADIO_ROSTER[TENANT] === "full";
-const HIFI = RECITERS.filter((r) => r.cdn === "aqc" && (FULL_ROSTER || r.featured));
-const ROTATION_POOL = [...HIFI]
-  .sort((a, b) => (CDN_ORDER[0] === "ey" ? b.key.localeCompare(a.key) : a.key.localeCompare(b.key)))
-  .map((r) => r.key);
+// EVERY site runs the whole roster — all seventeen aqc voices, not the six that
+// used to be the ceiling.
+//
+// ONE list, in ONE order, on every domain: the separation is the site's START
+// in it and nothing else (TENANT_RADIO_START), read against a clock every
+// domain shares (radio-clock.ts). Two stations are therefore always that many
+// voices apart, which is a guarantee rather than an outcome — the previous
+// arrangement varied the SORT per site and leaned on each site's own epoch,
+// and put two domains in the same voice on 149 days of a year.
+const TENANT = process.env.NEXT_PUBLIC_TENANT ?? "ulyah";
+const CANONICAL = RECITERS.filter((r) => r.cdn === "aqc")
+  .map((r) => r.key)
+  .sort((a, b) => a.localeCompare(b));
+const START = (TENANT_RADIO_START[TENANT] ?? 0) % (CANONICAL.length || 1);
+const ROTATION_POOL = [...CANONICAL.slice(START), ...CANONICAL.slice(0, START)];
 
 /** The station's actual playing order, for display (RadioQoriWidget lineup)
  * — so the widget never advertises a voice the rotation will not play. */
