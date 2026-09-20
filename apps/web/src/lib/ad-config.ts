@@ -6,11 +6,13 @@ import { TENANT } from "@/lib/tenant";
 export interface AdView {
   enabled: boolean;
   approved: boolean;
+  /** Google places the ads itself — our own units stand down. See SiteAdState. */
+  autoAds: boolean;
   clientId: string;
   slots: Record<string, string>;
 }
 
-const EMPTY: AdView = { enabled: false, approved: false, clientId: "", slots: {} };
+const EMPTY: AdView = { enabled: false, approved: false, autoAds: false, clientId: "", slots: {} };
 
 // One fetch per page load, shared by every AdSlot (the config is tiny and
 // identical for all slots on the page). api.base = https://api.ulyah.com, so
@@ -21,7 +23,13 @@ export function fetchAdView(): Promise<AdView> {
   if (cached) return cached;
   cached = api
     .get<AdView>(`/content/ad-config?site=${encodeURIComponent(TENANT.id)}`)
-    .then((v) => ({ enabled: !!v.enabled, approved: !!v.approved, clientId: v.clientId ?? "", slots: v.slots ?? {} }))
+    .then((v) => ({
+      enabled: !!v.enabled,
+      approved: !!v.approved,
+      autoAds: !!v.autoAds,
+      clientId: v.clientId ?? "",
+      slots: v.slots ?? {},
+    }))
     .catch(() => EMPTY);
   return cached;
 }

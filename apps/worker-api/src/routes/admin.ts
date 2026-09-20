@@ -1027,16 +1027,16 @@ adminRoute.post("/adsense-config", async (c) => {
   // in someone's browser from before the network was removed must not 400.
   const body = await c.req.json<{
     slots?: Record<string, string>;
-    sites?: Record<string, { enabled?: boolean; approved?: boolean } | boolean>;
+    sites?: Record<string, { enabled?: boolean; approved?: boolean; autoAds?: boolean } | boolean>;
   }>();
   const current = await getAdConfig(c.env, true); // merge onto the consistent current state
-  const mergedSites: Record<string, { enabled: boolean; approved: boolean }> = { ...current.sites };
+  const mergedSites: Record<string, { enabled: boolean; approved: boolean; autoAds: boolean }> = { ...current.sites };
   for (const [k, v] of Object.entries(body.sites ?? {})) {
     if (typeof v === "boolean") {
       // The legacy boolean form only ever carried "enabled".
-      mergedSites[k] = { enabled: v, approved: false };
+      mergedSites[k] = { enabled: v, approved: false, autoAds: false };
     } else if (v && typeof v === "object") {
-      mergedSites[k] = { enabled: v.enabled === true, approved: v.approved === true };
+      mergedSites[k] = { enabled: v.enabled === true, approved: v.approved === true, autoAds: v.autoAds === true };
     }
   }
   // Use the config saveAdConfig actually wrote — never re-read from KV here

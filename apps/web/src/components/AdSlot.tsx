@@ -108,7 +108,11 @@ export function AdSlot({
   // A real ad needs all three: the site is live for AdSense (the owner ticked
   // "approved" after Google accepted THIS domain), a unit id exists, and we
   // know the publisher id.
-  const live = !!view?.enabled && !!view?.approved && !!slotId && !!view?.clientId;
+  //
+  // Auto ads is the fourth condition, and it works the other way round: when
+  // Google is placing the ads itself, our units must NOT also render, or the
+  // page carries two sets of placements.
+  const live = !!view?.enabled && !!view?.approved && !view?.autoAds && !!slotId && !!view?.clientId;
 
   // Ask AdSense to fill the unit, once.
   useEffect(() => {
@@ -160,15 +164,29 @@ export function AdSlot({
 
   if (pathname?.includes("/admin")) return null;
   if (!view || !view.enabled) return null;
+  // Auto ads: the loader script in <head> is the whole integration and Google
+  // decides where the ads go. Nothing for this component to draw, not even the
+  // owner's position marker — the positions are not ours to show.
+  if (view.autoAds) return null;
 
   const caption = label ?? adL.label;
 
   if (live) {
-    // Collapse a confirmed no-fill entirely: no margins, no caption, no gap.
-    const reserved = filled === false ? 0 : RESERVED[placement];
+    /**
+     * The reserved height exists for exactly one moment: between the unit being
+     * asked for and the ad arriving. Hold it after that and it becomes the
+     * opposite of the bug it prevents — a 90px leaderboard inside a 250px floor
+     * leaves 160px of white space under every filled ad, permanently, which is
+     * worse than the layout shift the floor was there to stop.
+     *
+     * So: reserve while waiting (filled === null), release the moment an ad
+     * paints and takes its own height (true), and collapse to nothing on a
+     * confirmed no-fill (false).
+     */
+    const reserved = filled === null ? RESERVED[placement] : 0;
     return (
       <aside
-        className={`${filled === false ? "my-0" : "my-8"} flex w-full flex-col items-center transition-[min-height] duration-500 ${className}`}
+        className={`${filled === false ? "my-0" : "my-8"} flex w-full flex-col items-center ${className}`}
         aria-label={caption}
         data-adsense-slot={placement}
       >
@@ -183,7 +201,7 @@ export function AdSlot({
         )}
         <ins
           ref={insRef}
-          className="adsbygoogle block w-full"
+          className="adsbygoogle block w-full transition-[min-height] duration-500"
           style={{ display: "block", width: "100%", minHeight: reserved, maxWidth: placement === "sidebar" ? 300 : undefined }}
           data-ad-client={view.clientId}
           data-ad-slot={slotId}

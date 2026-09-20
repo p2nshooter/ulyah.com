@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 interface SiteState {
   enabled: boolean;
   approved: boolean;
+  autoAds: boolean;
 }
 interface Config {
   clientId: string;
@@ -36,13 +37,30 @@ const SITE_LABELS: { key: string; label: string; group: "ulyah" | "axto" | "es" 
 ];
 
 function coerce(v: unknown): SiteState {
-  if (typeof v === "boolean") return { enabled: v, approved: false };
+  if (typeof v === "boolean") return { enabled: v, approved: false, autoAds: false };
   if (v && typeof v === "object") {
     const o = v as Record<string, unknown>;
-    return { enabled: o.enabled === true, approved: o.approved === true };
+    return { enabled: o.enabled === true, approved: o.approved === true, autoAds: o.autoAds === true };
   }
-  return { enabled: false, approved: false };
+  return { enabled: false, approved: false, autoAds: false };
 }
+
+/**
+ * Deep links into the AdSense dashboard, built from the publisher id.
+ *
+ * They are here because the owner should not have to hunt for them: "sy ga tau
+ * nyari nya di mana di situs adsense". `/u/0/` is the first Google account
+ * signed in — on a second account it becomes /u/1/, and AdSense redirects to
+ * its home page if a path ever moves, so a stale link costs a click, not a
+ * dead end.
+ */
+const PUB = "pub-6371903555702163";
+const ADSENSE = {
+  autoAdsPerSite: `https://www.google.com/adsense/new/u/0/${PUB}/myads/sites`,
+  adUnits: `https://www.google.com/adsense/new/u/0/${PUB}/myads/units`,
+  sites: `https://www.google.com/adsense/new/u/0/${PUB}/sites`,
+  account: `https://www.google.com/adsense/new/u/0/${PUB}/account/information`,
+};
 
 /**
  * Central ad control for the WHOLE network — one network now. Adsterra was
@@ -114,6 +132,11 @@ export function AdsenseTab() {
     setSites(next);
     persist(next);
   }
+  function toggleAutoAds(key: string) {
+    const next = { ...sites, [key]: { ...coerce(sites[key]), autoAds: !coerce(sites[key]).autoAds } };
+    setSites(next);
+    persist(next);
+  }
   function setAll(field: "enabled" | "approved", v: boolean) {
     const next = { ...sites };
     for (const { key } of SITE_LABELS) next[key] = { ...coerce(next[key]), [field]: v };
@@ -134,7 +157,10 @@ export function AdsenseTab() {
   // like success from here: every switch is green and the site shows nothing.
   const blockedByMissingId = hasRealId
     ? []
-    : SITE_LABELS.filter(({ key }) => coerce(sites[key]).enabled && coerce(sites[key]).approved);
+    : SITE_LABELS.filter(({ key }) => {
+        const st = coerce(sites[key]);
+        return st.enabled && st.approved && !st.autoAds;
+      });
 
   // The five ecosystem sites used to carry Adsterra whatever their AdSense
   // state. With that network gone, a site that is not ON + ACC now shows
@@ -144,7 +170,9 @@ export function AdsenseTab() {
   const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
   const silent = ECOSYSTEM.filter((k) => {
     const st = coerce(sites[k]);
-    return !(st.enabled && st.approved && hasRealId);
+    if (!(st.enabled && st.approved)) return true;
+    // On Auto ads the unit id is irrelevant — Google places the ads itself.
+    return !st.autoAds && !hasRealId;
   });
 
   return (
@@ -206,9 +234,56 @@ export function AdsenseTab() {
           <span
             className={`rounded-full px-2.5 py-1 text-xs ${hasRealId ? "bg-success/15 text-success" : "bg-black/10 text-text-secondary"}`}
           >
-            {hasRealId ? "● Ada ID — situs ON+ACC menayangkan iklan asli" : "○ Belum ada ID — situs ON tampil pratinjau"}
+            {hasRealId ? "● Ada ID — situs ON+ACC menayangkan iklan asli" : "○ Belum ada ID unit iklan"}
           </span>
         </div>
+
+        <details className="mt-4 rounded-lg bg-black/5 p-3 text-xs text-text-secondary dark:bg-white/5" open={!hasRealId}>
+          <summary className="cursor-pointer font-medium text-text-primary">
+            Di mana mencari ID unit iklan (data-ad-slot)?
+          </summary>
+          <p className="mt-2">
+            <b>Yang ada di ads.txt bukan ini.</b> Itu <i>publisher ID</i> (<code className="rounded-sm bg-black/10 px-1">{PUB}</code>) —
+            sudah terpasang otomatis di semua halaman, tidak perlu disalin ke mana-mana. Yang dibutuhkan di kotak atas
+            adalah <i>ID unit iklan</i>: angka ±10 digit yang baru ada setelah Anda membuat satu unit iklan.
+          </p>
+          <ol className="mt-2 list-decimal space-y-1 pl-5">
+            <li>
+              Buka{" "}
+              <a href={ADSENSE.adUnits} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+                AdSense → Iklan → Menurut unit iklan
+              </a>
+              .
+            </li>
+            <li>Klik <b>Iklan display</b>, beri nama (mis. “ulyah-responsif”), pilih <b>Responsif</b>, lalu <b>Buat</b>.</li>
+            <li>
+              Google menampilkan potongan kode. Di dalamnya ada{" "}
+              <code className="rounded-sm bg-black/10 px-1">data-ad-slot=&quot;1234567890&quot;</code> — <b>angka itulah</b> yang
+              ditempel di kotak atas. Sisa kodenya tidak perlu, halaman kita sudah punya.
+            </li>
+            <li>Unit yang sama dipakai semua situs dan semua posisi, jadi cukup dibuat sekali.</li>
+          </ol>
+          <p className="mt-2">
+            <b>Tidak mau repot?</b> Pakai <b>Auto ads</b>: centang kolom “Auto” pada situsnya di bawah, lalu nyalakan di{" "}
+            <a href={ADSENSE.autoAdsPerSite} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+              AdSense → Iklan → Menurut situs
+            </a>{" "}
+            (pilih domainnya → aktifkan Auto ads → Terapkan). Tanpa ID unit sama sekali — Google yang memilih posisinya,
+            dan penempatan manual kita otomatis berhenti supaya tidak dobel.
+          </p>
+          <p className="mt-2">
+            Link lain:{" "}
+            <a href={ADSENSE.sites} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+              daftar situs &amp; status ACC
+            </a>{" "}
+            ·{" "}
+            <a href={ADSENSE.account} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+              info akun (publisher ID)
+            </a>
+            . Kalau akun Google Anda lebih dari satu, ganti <code className="rounded-sm bg-black/10 px-1">/u/0/</code> di URL
+            menjadi <code className="rounded-sm bg-black/10 px-1">/u/1/</code> dan seterusnya.
+          </p>
+        </details>
       </section>
 
       <section className="rounded-xl border border-(--color-border) bg-(--color-card) p-4">
@@ -254,13 +329,32 @@ export function AdsenseTab() {
                   {st.enabled && st.approved && (
                     <span
                       className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
-                        hasRealId ? "bg-emerald-500 text-white" : "bg-amber-500 text-white"
+                        st.autoAds || hasRealId ? "bg-emerald-500 text-white" : "bg-amber-500 text-white"
                       }`}
-                      title={hasRealId ? "Menayangkan iklan AdSense" : "ACC, tapi ID unit iklan masih kosong"}
+                      title={
+                        st.autoAds
+                          ? "Auto ads — Google yang menaruh iklannya, tanpa ID unit"
+                          : hasRealId
+                            ? "Menayangkan iklan AdSense"
+                            : "ACC, tapi ID unit iklan masih kosong"
+                      }
                     >
-                      {hasRealId ? "LIVE" : "butuh ID"}
+                      {st.autoAds ? "AUTO" : hasRealId ? "LIVE" : "butuh ID"}
                     </span>
                   )}
+                </label>
+                <label
+                  className={`flex cursor-pointer items-center gap-1.5 text-xs ${st.enabled ? "" : "opacity-40"}`}
+                  title="Auto ads: Google memilih sendiri posisi iklannya. Tidak perlu ID unit, dan penempatan manual kita berhenti agar tidak dobel."
+                >
+                  <input
+                    type="checkbox"
+                    checked={st.autoAds}
+                    disabled={!st.enabled || busy}
+                    onChange={() => toggleAutoAds(key)}
+                    className="h-4 w-4 accent-accent"
+                  />
+                  Auto
                 </label>
               </div>
             );

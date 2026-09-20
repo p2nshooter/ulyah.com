@@ -32,8 +32,8 @@ console.log("=== the config the sites are served ===");
 const cfg = defaultAdConfig();
 const view = publicAdView(cfg, "dawa") as Record<string, unknown>;
 check(
-  "the public view has exactly the four fields a site needs",
-  JSON.stringify(Object.keys(view).sort()) === JSON.stringify(["approved", "clientId", "enabled", "slots"]),
+  "the public view has exactly the fields a site needs",
+  JSON.stringify(Object.keys(view).sort()) === JSON.stringify(["approved", "autoAds", "clientId", "enabled", "slots"]),
   `got ${JSON.stringify(Object.keys(view).sort())}`
 );
 check("no adsterra flag in the public view", !("adsterra" in view));
@@ -65,6 +65,29 @@ check("an old row's enabled + approved survive", fromLegacy.enabled === true && 
 check("its adsterra flag does not", !("adsterra" in fromLegacy));
 const legacyBool = publicAdView(legacy, "dawa") as Record<string, unknown>;
 check("the oldest boolean form still means 'enabled'", legacyBool.enabled === true && legacyBool.approved === false);
+
+console.log("\n=== auto ads stands our own units down ===");
+// The two must never be on at once: Google inserts its own placements, and ours
+// would be a second set on the same page. The config enforces it by withholding
+// the unit ids, so there is nothing for AdSlot to render even if it tried.
+const auto = {
+  clientId: "ca-pub-000",
+  slots: { in_article: "123", footer: "123" },
+  sites: { dawa: { enabled: true, approved: true, autoAds: true } },
+} as unknown as Parameters<typeof publicAdView>[0];
+const autoView = publicAdView(auto, "dawa");
+check("the site is still live", autoView.enabled === true && autoView.approved === true);
+check("autoAds is reported to the site", autoView.autoAds === true);
+check(
+  "no unit ids are sent while Google is placing",
+  Object.keys(autoView.slots).length === 0,
+  `got ${JSON.stringify(autoView.slots)}`
+);
+const manual = {
+  ...auto,
+  sites: { dawa: { enabled: true, approved: true, autoAds: false } },
+} as unknown as Parameters<typeof publicAdView>[0];
+check("with auto ads off, the ids are sent again", Object.keys(publicAdView(manual, "dawa").slots).length > 0);
 
 console.log("\n=== the placements the admin can give an id ===");
 check(

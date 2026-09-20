@@ -55,6 +55,21 @@ export type AdPlacement = (typeof AD_PLACEMENTS)[number];
 export interface SiteAdState {
   enabled: boolean;
   approved: boolean;
+  /**
+   * AUTO ADS — let Google place the ads itself.
+   *
+   * The manual path needs an ad-unit id (`data-ad-slot`), which only exists
+   * after somebody creates a unit in the AdSense dashboard. Auto ads needs no
+   * id at all: the same loader script this site already carries on every page
+   * is the whole integration, and Google decides the placements from a setting
+   * in the dashboard.
+   *
+   * When this is on, our own units stand down — AdSlot renders nothing and the
+   * page-fill engine places nothing — because Google is already inserting its
+   * own and two sets of placements on one page is how a site ends up ad-heavy.
+   * So: `autoAds` on = Google's placements only; off = ours only.
+   */
+  autoAds: boolean;
 }
 
 export interface AdConfig {
@@ -67,7 +82,7 @@ const KV_KEY = "ads:cfg:v1";
 
 export function defaultAdConfig(): AdConfig {
   const sites: Record<string, SiteAdState> = {};
-  for (const s of AD_SITES) sites[s] = { enabled: false, approved: false };
+  for (const s of AD_SITES) sites[s] = { enabled: false, approved: false, autoAds: false };
   const slots: Record<string, string> = {};
   for (const p of AD_PLACEMENTS) slots[p] = "";
   return { clientId: AD_CLIENT_ID, slots, sites };
@@ -81,12 +96,12 @@ export function defaultAdConfig(): AdConfig {
  * (including that dead `adsterra` field) is dropped.
  */
 function coerceSite(v: unknown): SiteAdState {
-  if (typeof v === "boolean") return { enabled: v, approved: false };
+  if (typeof v === "boolean") return { enabled: v, approved: false, autoAds: false };
   if (v && typeof v === "object") {
     const o = v as Record<string, unknown>;
-    return { enabled: o.enabled === true, approved: o.approved === true };
+    return { enabled: o.enabled === true, approved: o.approved === true, autoAds: o.autoAds === true };
   }
-  return { enabled: false, approved: false };
+  return { enabled: false, approved: false, autoAds: false };
 }
 
 function normalizeAdConfig(parsed: Partial<AdConfig>): AdConfig {
@@ -170,7 +185,10 @@ export function publicAdView(cfg: AdConfig, site: string) {
   return {
     enabled: st.enabled,
     approved: st.approved,
+    autoAds: st.autoAds,
     clientId: cfg.clientId,
-    slots: st.enabled ? cfg.slots : {},
+    // Auto ads needs no unit ids, and sending them would only invite a second
+    // set of placements on a page Google is already filling.
+    slots: st.enabled && !st.autoAds ? cfg.slots : {},
   };
 }

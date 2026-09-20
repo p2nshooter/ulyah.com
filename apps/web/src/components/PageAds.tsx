@@ -170,14 +170,17 @@ export function PageAds() {
   const pathname = usePathname();
   const [slots, setSlots] = useState<Slot[]>([]);
   /**
-   * Is Google AdSense live for THIS site — accepted by Google, ticked in the
-   * ulyah.com admin, and carrying a unit id?
+   * Is AdSense live for THIS site — accepted by Google, ticked in the ulyah.com
+   * admin, and carrying a unit id?
    *
-   * When it is, the injected slots are shared between the two networks instead
-   * of being all Adsterra: AdSense takes the in-content positions, which are
-   * the ones it fills best, and the network keeps the rest. When it is not, the
-   * page is exactly what it was — AdSlot renders nothing on a site that is not
-   * live, so a mixed page can never appear on a site awaiting approval.
+   * Nothing is placed until it is. That is not only an optimisation: AdSlot
+   * renders null on a site that is not live, so an anchor injected early would
+   * hold an empty div AND count as a filled region in the measurement below,
+   * which is how a page ends up with its quota "met" by nothing at all.
+   *
+   * It reads the same module-cached fetch every AdSlot on the page uses, so the
+   * slots the template placed itself are in the DOM by the time the first
+   * measurement runs and are counted rather than duplicated.
    */
   const [adsense, setAdsense] = useState(false);
 
@@ -186,7 +189,9 @@ export function PageAds() {
     fetchAdView().then((v) => {
       if (!alive) return;
       const hasUnit = Boolean(v.slots?.in_article_1 || v.slots?.in_article || v.slots?.in_article_2);
-      setAdsense(Boolean(v.enabled && v.approved && v.clientId && hasUnit));
+      // Auto ads places its own units; ours would be a second set on the same
+      // page, so this engine stands down entirely.
+      setAdsense(Boolean(v.enabled && v.approved && !v.autoAds && v.clientId && hasUnit));
     });
     return () => {
       alive = false;

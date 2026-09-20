@@ -104,7 +104,15 @@ dawa.es is switched on by a one-time migration after its approval
 (`activateDawaAdsense` in the Worker's scheduled tick; the KV flag keeps it
 one-time, so turning it off in the admin sticks).
 
-`PageAds` measures the rendered page and places what the template did not: one
+**Auto ads** is the other route, per site: tick "Auto" in the admin and turn it
+on in the AdSense dashboard, and no unit id is needed at all — the loader script
+already on every page is the whole integration and Google chooses the
+placements. Our own units then stand down (AdSlot renders nothing, PageAds
+places nothing, and the config withholds the unit ids), because two sets of
+placements on one page is how a site becomes ad-heavy. The admin tab carries the
+dashboard links and the steps, so finding the `data-ad-slot` is not a hunt.
+
+With manual units, `PageAds` measures the rendered page and places what the template did not: one
 unit above the content, two through the middle on real section boundaries, one
 in the closing cluster — four, sized for a single network, since "ads must not
 exceed content" is what a site gets measured against. Focused pages (mushaf,

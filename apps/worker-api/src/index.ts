@@ -253,7 +253,7 @@ async function activateDawaAdsense(env: Env): Promise<void> {
     await env.CACHE_KV.put(DAWA_ADSENSE_FLAG, "1:already-on").catch(() => {});
     return;
   }
-  cfg.sites.dawa = { enabled: true, approved: true };
+  cfg.sites.dawa = { enabled: true, approved: true, autoAds: before?.autoAds === true };
   await saveAdConfig(env, cfg);
   await env.CACHE_KV.put(DAWA_ADSENSE_FLAG, "1:applied").catch(() => {});
   console.log("dawa.es: AdSense enabled + approved in the central ad config.");
