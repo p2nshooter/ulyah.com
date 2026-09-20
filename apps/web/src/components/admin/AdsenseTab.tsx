@@ -247,13 +247,19 @@ export function AdsenseTab() {
             sudah terpasang otomatis di semua halaman, tidak perlu disalin ke mana-mana. Yang dibutuhkan di kotak atas
             adalah <i>ID unit iklan</i>: angka ±10 digit yang baru ada setelah Anda membuat satu unit iklan.
           </p>
+          <p className="mt-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2">
+            <b>Jangan tertukar.</b> Di halaman <i>Informasi akun</i> ada <b>ID Pelanggan</b> — juga 10 digit, tapi itu
+            nomor penagihan, bukan ID unit iklan. Kalau nomor itu yang ditempel di sini, tidak ada error apa pun:
+            iklannya hanya tidak pernah muncul. ID yang benar selalu datang dari halaman <b>unit iklan</b>, di dalam
+            potongan kode, tertulis sebagai <code className="rounded-sm bg-black/10 px-1">data-ad-slot</code>.
+          </p>
           <ol className="mt-2 list-decimal space-y-1 pl-5">
             <li>
               Buka{" "}
               <a href={ADSENSE.adUnits} target="_blank" rel="noopener noreferrer" className="text-accent underline">
                 AdSense → Iklan → Menurut unit iklan
               </a>
-              .
+              . Di HP, menunya ada di balik ikon <b>☰</b> kiri atas → <b>Iklan</b> → tab <b>Menurut unit iklan</b>.
             </li>
             <li>Klik <b>Iklan display</b>, beri nama (mis. “ulyah-responsif”), pilih <b>Responsif</b>, lalu <b>Buat</b>.</li>
             <li>
