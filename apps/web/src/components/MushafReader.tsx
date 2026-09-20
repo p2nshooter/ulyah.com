@@ -161,7 +161,10 @@ export function MushafReader({ locale }: { locale: string }) {
   const fetchPage = useCallback(
     async (n: number): Promise<MushafPageResponse | null> => {
       try {
-        return await api.get<MushafPageResponse>(`/quran/mushaf/page/${n}?lang=${translationLocale}`);
+        // A page without `ayahs` is not a page: `{}` would satisfy every
+        // `if (data)` below and then break the reader on the first render.
+        const r = await api.get<MushafPageResponse>(`/quran/mushaf/page/${n}?lang=${translationLocale}`);
+        return Array.isArray(r?.ayahs) ? r : null;
       } catch {
         return null;
       }

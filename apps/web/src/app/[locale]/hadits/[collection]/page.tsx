@@ -42,9 +42,19 @@ interface PageData {
   totalPages: number;
 }
 
+/**
+ * Null means "not usable", not merely "threw".
+ *
+ * `api.get<T>` annotates what the endpoint is SUPPOSED to answer and checks
+ * nothing. A 200 carrying `{}` resolves, and `{}` is truthy — so `if (!data)`
+ * waves it through and the page dies on the first nested read, as an HTTP 500
+ * caused by a request that succeeded. Checking the shape once, here, is what
+ * lets every line below it read `data.x.y` without a second thought.
+ */
 async function load(slug: string, page: number, locale: string): Promise<PageData | null> {
   try {
-    return await api.getCached<PageData>(`/content/hadits/${slug}?page=${page}&lang=${locale}`, 86400);
+    const r = await api.getCached<PageData>(`/content/hadits/${slug}?page=${page}&lang=${locale}`, 86400);
+    return r?.collection && Array.isArray(r.hadits) ? r : null;
   } catch {
     return null;
   }
