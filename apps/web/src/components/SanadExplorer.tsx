@@ -44,6 +44,21 @@ export function SanadExplorer({ locale }: { locale: string }) {
   const [loading, setLoading] = useState(false);
   const [openId, setOpenId] = useState<number | null>(null);
 
+  /**
+   * The chosen collection, proven to be a slug before it goes into a url.
+   *
+   * `selected` is read straight off a <select>, which makes it DOM text: to
+   * any analysis — and to anyone who later feeds that option list from
+   * somewhere else — it is untrusted. It then lands in two urls, an API path
+   * and a link's href, and a value carrying `?`, `#`, `..` or a scheme would
+   * mean something quite different in each. CodeQL flags exactly this flow
+   * (js/xss-through-dom, on the href).
+   *
+   * A hadith collection slug is letters, digits and hyphens. Anything else is
+   * not a collection, so it addresses nothing and links nowhere.
+   */
+  const slug = /^[a-z0-9-]{1,64}$/i.test(selected) ? selected : "";
+
   useEffect(() => {
     api
       .get<{ collections: Collection[] }>("/content/hadits/collections")
@@ -55,16 +70,16 @@ export function SanadExplorer({ locale }: { locale: string }) {
   }, []);
 
   useEffect(() => {
-    if (!selected) return;
+    if (!slug) return;
     setLoading(true);
     setSample(null);
     setOpenId(null);
     api
-      .get<{ sample: SampleRow[] }>(`/content/hadits/${selected}/sanad-sample?limit=25`)
+      .get<{ sample: SampleRow[] }>(`/content/hadits/${slug}/sanad-sample?limit=25`)
       .then((r) => setSample(r.sample.filter((s) => s.chain.length > 0)))
       .catch(() => setSample([]))
       .finally(() => setLoading(false));
-  }, [selected]);
+  }, [slug]);
 
   return (
     <div className="space-y-6">
@@ -162,12 +177,14 @@ export function SanadExplorer({ locale }: { locale: string }) {
                   </div>
                 )}
 
-                <Link
-                  href={routePath(locale, `/hadits/${selected}`)}
-                  className="mt-3 inline-block text-xs font-medium text-accent hover:underline"
-                >
-                  {t.viewFull}
-                </Link>
+                {slug && (
+                  <Link
+                    href={routePath(locale, `/hadits/${slug}`)}
+                    className="mt-3 inline-block text-xs font-medium text-accent hover:underline"
+                  >
+                    {t.viewFull}
+                  </Link>
+                )}
               </div>
             );
           })}

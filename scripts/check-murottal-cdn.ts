@@ -67,9 +67,22 @@ async function main() {
     const res = await audioRoute.request(path, undefined, noStorage);
     const loc = res.headers.get("location") ?? "";
     check(`${path} answers 302`, res.status === 302, `status ${res.status}`);
+    // The HOST is what this asserts, so the host is what it reads. Matching
+    // /ulyah\.com/ against the whole url would have been happy with
+    // https://ulyah.com.cdn.example/… and unhappy with a perfectly good
+    // https://cdn.islamic.network/?from=ulyah.com — neither of which is the
+    // question being asked. (CodeQL calls this one out by name: a regex with
+    // no anchors, used on a url.)
+    let target: URL | null = null;
+    try {
+      target = new URL(loc);
+    } catch {
+      /* not a url at all — the check below says so */
+    }
+    const ours = target !== null && (target.hostname === "ulyah.com" || target.hostname.endsWith(".ulyah.com"));
     check(
       "…to a url that is not ours",
-      /^https:\/\//.test(loc) && !/ulyah\.com/.test(loc),
+      target?.protocol === "https:" && !ours,
       `location ${JSON.stringify(loc)}`
     );
     check("…and serves no bytes of its own", (await res.arrayBuffer()).byteLength === 0);
