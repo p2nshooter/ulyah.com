@@ -1,4 +1,4 @@
-name: Delete the stored murottal from R2
+name: R2 storage — inventory and purge
 
 # Owner: "delete aja audio yg d download."
 #
@@ -19,9 +19,9 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: "Type 'delete' to remove the objects, or 'measure' to only count them"
+        description: "'inventory' = what is in the bucket, 'measure' = count the murottal, 'delete' = remove it"
         required: true
-        default: "measure"
+        default: "inventory"
 
 concurrency:
   group: purge-murottal-r2
@@ -59,16 +59,23 @@ jobs:
             exit 1
           fi
 
-      - name: Delete (or measure) the murottal prefixes
+      - name: Inventory, measure or delete
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
           set -eu
-          if [ "${{ inputs.confirm }}" = "delete" ]; then
-            node scripts/purge-murottal-r2.mjs
-          else
-            echo "confirm was '${{ inputs.confirm }}' — measuring only, nothing will be deleted."
-            node scripts/purge-murottal-r2.mjs --dry
-          fi
+          case "${{ inputs.confirm }}" in
+            delete)
+              node scripts/purge-murottal-r2.mjs
+              echo "--- what is left in the bucket ---"
+              node scripts/r2-inventory.mjs
+              ;;
+            measure)
+              node scripts/purge-murottal-r2.mjs --dry
+              ;;
+            *)
+              node scripts/r2-inventory.mjs
+              ;;
+          esac
