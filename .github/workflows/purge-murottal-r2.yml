@@ -1,0 +1,81 @@
+name: R2 storage — inventory and purge
+
+# Owner: "delete aja audio yg d download."
+#
+# The Worker's scheduled tick already drains these prefixes — but a Worker job
+# only runs once a deploy lands, and deploys were being refused for days by an
+# unrelated D1 quota while the objects sat there. This does it directly over
+# R2's S3 API: no Worker, no deploy, and no D1, which is the one resource that
+# was exhausted.
+#
+# Nothing is lost. Every object is a copy of a recording the reciter's own CDN
+# serves, and every player already reads from there
+# (apps/web/src/lib/qori-cdn.ts); /audio/qori2/… answers a redirect rather than
+# bytes. This removes our duplicate.
+#
+# Run it with confirm=measure first if you want the number before the deletion.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "'inventory' = what is in the bucket, 'measure' = count the murottal, 'delete' = remove it"
+        required: true
+        default: "inventory"
+
+concurrency:
+  group: purge-murottal-r2
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Install the R2 S3 signer (aws4fetch)
+        run: pnpm add -w --save-dev aws4fetch
+
+      - name: Check the R2 S3 credentials are present
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          set -eu
+          if [ -z "${R2_ACCESS_KEY_ID:-}" ] || [ -z "${R2_SECRET_ACCESS_KEY:-}" ]; then
+            echo "::error::R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY are not set."
+            echo "Make an R2 S3 API token at Cloudflare → R2 → Manage API Tokens and add both as repo secrets."
+            exit 1
+          fi
+
+      - name: Inventory, measure or delete
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          set -eu
+          case "${{ inputs.confirm }}" in
+            delete)
+              node scripts/purge-murottal-r2.mjs
+              echo "--- what is left in the bucket ---"
+              node scripts/r2-inventory.mjs
+              ;;
+            measure)
+              node scripts/purge-murottal-r2.mjs --dry
+              ;;
+            *)
+              node scripts/r2-inventory.mjs
+              ;;
+          esac

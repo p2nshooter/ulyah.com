@@ -1,0 +1,27 @@
+-- The heartbeat was reading the database five million times a day.
+--
+-- Owner: "hemat D1". The free plan allows 5,000,000 row reads per day, and the
+-- account was exhausting them so reliably that three deploys in a row were
+-- refused with code 7500 — a deploy cannot even apply a migration once the
+-- day's reads are gone.
+--
+-- Where they went: the autonomous heartbeat runs every fifteen minutes, which
+-- is ninety-six times a day, and each run asked D1 three questions that have
+-- no index to answer them with.
+--
+--   SELECT COUNT(*) FROM ayah                       -- 6,236 rows, every time
+--   SELECT COUNT(DISTINCT related_ayah_id)
+--     FROM stories WHERE related_ayah_id IS NOT NULL -- the whole table
+--   SELECT a.id FROM ayah a
+--     LEFT JOIN stories s ON s.related_ayah_id = a.id
+--    WHERE s.id IS NULL ORDER BY RANDOM() LIMIT ?    -- both tables, entirely
+--
+-- The last one is the worst of the three twice over: `stories.related_ayah_id`
+-- has never been indexed, so the join probes the whole table for every ayah,
+-- and ORDER BY RANDOM() cannot stop early — it must materialise every matching
+-- row before picking the few it wants. LIMIT does not bound it.
+--
+-- Two of those three are answered by this index. The third — the coverage
+-- count — is a statistic that moves one story at a time, and it is cached in
+-- KV now rather than recomputed ninety-six times a day (see lib/scaling.ts).
+CREATE INDEX IF NOT EXISTS idx_stories_related_ayah ON stories (related_ayah_id);

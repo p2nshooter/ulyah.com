@@ -41,6 +41,52 @@ async function getSettings(env: Env): Promise<ScalingSettings> {
  *      instead of just accumulating an ever-larger backlog.
  *   4. Record scaling_metrics for the admin dashboard's smart-scaling view.
  */
+
+/**
+ * The mushaf's ayah count, as a constant.
+ *
+ * `SELECT COUNT(*) FROM ayah` reads all 6,236 rows to return a number that has
+ * not changed since the seventh century and cannot change without a migration.
+ * At ninety-six heartbeats a day that was six hundred thousand row reads for a
+ * fact that is safe to write down.
+ */
+const TOTAL_AYAH = 6236;
+
+/** Six hours — the coverage figure moves one story at a time. */
+const COVERAGE_TTL_SECONDS = 21_600;
+const COVERAGE_KEY = "scaling:coverage:v1";
+
+interface Coverage {
+  total_ayah: number;
+  ayah_with_story: number;
+}
+
+/**
+ * How much of the Qur'an already has a story attached.
+ *
+ * Read through KV, because the query behind it is expensive and the answer is
+ * not urgent: it is written to scaling_metrics for a chart, and used nowhere
+ * that a six-hour-old number would mislead. A KV miss pays for the scan once.
+ */
+async function cachedCoverage(env: Env): Promise<Coverage | null> {
+  try {
+    const hit = await env.CACHE_KV.get(COVERAGE_KEY, "json");
+    if (hit && typeof hit === "object") return hit as Coverage;
+  } catch {
+    /* KV unavailable — fall through and measure */
+  }
+  const row = await env.DB.prepare(
+    `SELECT ? AS total_ayah,
+            (SELECT COUNT(DISTINCT related_ayah_id) FROM stories WHERE related_ayah_id IS NOT NULL) AS ayah_with_story`
+  )
+    .bind(TOTAL_AYAH)
+    .first<Coverage>();
+  if (row) {
+    await env.CACHE_KV.put(COVERAGE_KEY, JSON.stringify(row), { expirationTtl: COVERAGE_TTL_SECONDS }).catch(() => {});
+  }
+  return row;
+}
+
 export async function runScalingTick(env: Env): Promise<{
   queued: number;
   executed: number;
@@ -69,11 +115,12 @@ export async function runScalingTick(env: Env): Promise<{
     console.error("deterministic-compile failed", e);
   }
 
-  const coverage = await env.DB.prepare(
-    `SELECT
-       (SELECT COUNT(*) FROM ayah) AS total_ayah,
-       (SELECT COUNT(DISTINCT related_ayah_id) FROM stories WHERE related_ayah_id IS NOT NULL) AS ayah_with_story`
-  ).first<{ total_ayah: number; ayah_with_story: number }>();
+  // Coverage is a STATISTIC, and it moves one story at a time. Asked fresh it
+  // costs a full count of `ayah` (6,236 rows) plus a full scan of `stories`,
+  // and the heartbeat asks ninety-six times a day — around a million row reads
+  // daily to redraw a number that barely changes, out of a free-plan allowance
+  // of five million. Cached for six hours it costs four.
+  const coverage = await cachedCoverage(env);
 
   const queueDepthRow = await env.DB.prepare(
     "SELECT COUNT(*) AS n FROM generation_jobs WHERE status IN ('queued','running')"
@@ -84,14 +131,40 @@ export async function runScalingTick(env: Env): Promise<{
   if (settings.autoThrottleEnabled ? true : true) {
     const deficit = Math.max(0, settings.targetJobsPerTick - queueDepth);
     if (deficit > 0) {
-      const { results: gaps } = await env.DB.prepare(
-        `SELECT a.id FROM ayah a
-         LEFT JOIN stories s ON s.related_ayah_id = a.id
-         WHERE s.id IS NULL
-         ORDER BY RANDOM() LIMIT ?`
-      )
-        .bind(deficit)
-        .all<{ id: number }>();
+      // Which ayah still has no story?
+      //
+      // This used to be a LEFT JOIN over both tables with ORDER BY RANDOM().
+      // Every part of that is unbounded: `stories.related_ayah_id` had no
+      // index, so the join probed the whole table for each of the 6,236 ayah,
+      // and ORDER BY RANDOM() cannot stop early — it materialises every
+      // matching row before picking a few, so the LIMIT bounds the RESULT and
+      // not the work. Ninety-six times a day, that was the single largest
+      // consumer of the free plan's five million daily row reads, and the
+      // reason three deploys in a row were refused with code 7500.
+      //
+      // Now: start at a random ayah id and walk FORWARD, checking each
+      // candidate against the new index (0055) and stopping at `deficit`
+      // hits. The scan is bounded by what it finds rather than by the size of
+      // the tables. Randomising the start still spreads the work across the
+      // mushaf — and wrapping once at the end means the tail is not starved
+      // when the only gaps left are below the starting point.
+      const from = 1 + Math.floor(Math.random() * TOTAL_AYAH);
+      const gapQuery = (lo: number, hi: number, n: number) =>
+        env.DB.prepare(
+          `SELECT a.id FROM ayah a
+            WHERE a.id >= ? AND a.id <= ?
+              AND NOT EXISTS (SELECT 1 FROM stories s WHERE s.related_ayah_id = a.id)
+            ORDER BY a.id LIMIT ?`
+        )
+          .bind(lo, hi, n)
+          .all<{ id: number }>();
+
+      const { results: first } = await gapQuery(from, TOTAL_AYAH, deficit);
+      const gaps = [...first];
+      if (gaps.length < deficit && from > 1) {
+        const { results: wrapped } = await gapQuery(1, from - 1, deficit - gaps.length);
+        gaps.push(...wrapped);
+      }
 
       if (gaps.length) {
         const stmts = gaps.map((g) =>
