@@ -1406,8 +1406,13 @@ jobs:
       # lost by that which is not already lost: with R2 disabled the bucket
       # cannot be read either. The Worker treats a missing MEDIA_R2 as "file not
       # available" (see apps/worker-api/src/env.ts), and OpenNext renders pages
-      # live when its cache bucket is absent. When R2 comes back, R2_OK is true,
-      # this step does nothing, and the bindings return on their own.
+      # live when its cache bucket is absent. OpenNext's deploy, though, refuses
+      # to start when its config names the R2 page cache and the binding is
+      # gone ("No R2 binding NEXT_INC_CACHE_R2_BUCKET found", deploy #461), so
+      # the web is also built without that cache — the same live rendering the
+      # runtime would fall back to anyway. When R2 comes back, R2_OK is true,
+      # this step does nothing, and the bindings and the cache return on their
+      # own.
       - name: Leave R2 out while it is not enabled
         if: env.R2_OK != 'true'
         run: |
@@ -1424,6 +1429,13 @@ jobs:
           w2 = re.sub(r'\n\s*"r2_buckets"\s*:\s*\[.*?\]\s*,', '', w, flags=re.S)
           web.write_text(w2)
           print("web: R2 binding", "removed" if w2 != w else "not present")
+          pathlib.Path("apps/web/open-next.config.ts").write_text(
+              'import { defineCloudflareConfig } from "@opennextjs/cloudflare";\n'
+              "\n"
+              "// R2 is off on the account: no incremental cache (see deploy.yml).\n"
+              "export default defineCloudflareConfig({});\n"
+          )
+          print("web: R2 page cache left out of the OpenNext build")
           PYEOF
 
       - name: Deploy worker-api
