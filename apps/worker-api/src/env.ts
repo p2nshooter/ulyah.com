@@ -2,7 +2,16 @@ export interface Env {
   // Bindings
   DB: D1Database;
   CACHE_KV: KVNamespace;
-  MEDIA_R2: R2Bucket;
+  /**
+   * OPTIONAL, and typed that way on purpose. Cloudflare refuses to upload a
+   * Worker bound to R2 while R2 is not enabled on the account — and it was
+   * switched off after 2026-08-18, which is why no deploy succeeded for five
+   * weeks: every fix sat on main behind "R2 binding error … Please enable R2"
+   * (code 10136). The deploy now leaves the binding out when R2 is unavailable,
+   * so everything here must work without it; the compiler holds every use to
+   * that.
+   */
+  MEDIA_R2?: R2Bucket;
   AI: Ai;
   KEY_POOL: DurableObjectNamespace;
 

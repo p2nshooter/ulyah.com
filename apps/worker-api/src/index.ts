@@ -186,13 +186,16 @@ const MUROTTAL_PREFIXES: { prefix: string; flag: string; what: string }[] = [
 async function purgeMurottalPrefix(env: Env, { prefix, flag, what }: (typeof MUROTTAL_PREFIXES)[number]): Promise<void> {
   const done = await env.CACHE_KV.get(flag).catch(() => null);
   if (done) return;
+  // No R2 on the account: there is nothing stored to drain.
+  const bucket = env.MEDIA_R2;
+  if (!bucket) return;
   let cursor: string | undefined;
   let deleted = 0;
   for (let page = 0; page < 20; page++) {
-    const listing = await env.MEDIA_R2.list({ prefix, cursor, limit: 1000 });
+    const listing = await bucket.list({ prefix, cursor, limit: 1000 });
     const keys = listing.objects.map((o) => o.key);
     if (keys.length > 0) {
-      await env.MEDIA_R2.delete(keys);
+      await bucket.delete(keys);
       deleted += keys.length;
     }
     if (listing.truncated) {

@@ -388,7 +388,7 @@ contentRoute.get("/media/:key", async (c) => {
     .bind(key)
     .first<{ r2_key: string; content_type: string }>();
   if (!row) return c.json({ error: "not found" }, 404);
-  const obj = await c.env.MEDIA_R2.get(row.r2_key);
+  const obj = await c.env.MEDIA_R2?.get(row.r2_key);
   if (!obj) return c.json({ error: "file missing from storage" }, 404);
   return new Response(obj.body, {
     headers: { "Content-Type": row.content_type, "Cache-Control": "public, max-age=86400" },
@@ -562,7 +562,7 @@ contentRoute.get("/stories/:id/audio", async (c) => {
     .first<{ title: string; audio_r2_key: string | null }>();
   if (!story?.audio_r2_key) return c.json({ error: "Audiobook not synthesised yet for this article" }, 404);
 
-  const obj = await c.env.MEDIA_R2.get(story.audio_r2_key);
+  const obj = await c.env.MEDIA_R2?.get(story.audio_r2_key);
   if (!obj) return c.json({ error: "Audio missing in storage" }, 404);
 
   const headers = new Headers();
@@ -954,7 +954,7 @@ contentRoute.get("/ebooks/:id/download", async (c) => {
     .first<{ r2_key: string; title: string }>();
   if (!ebook) return c.json({ error: "E-book not found or not cleared for download" }, 404);
 
-  const obj = await c.env.MEDIA_R2.get(ebook.r2_key);
+  const obj = await c.env.MEDIA_R2?.get(ebook.r2_key);
   if (!obj) return c.json({ error: "File missing in storage" }, 404);
 
   const headers = new Headers();

@@ -155,7 +155,17 @@ export function AdSlot({
     const tick = () => {
       if (stopped) return;
       const status = el.getAttribute("data-ad-status");
-      if (status === "filled" || el.offsetHeight > 20) {
+      // The fallback measures the CREATIVE, not the box. `el.offsetHeight` was
+      // checked here, and while a unit waits it deliberately holds 110-250px of
+      // reserved height — so every unit read as "filled" on the first tick,
+      // ad or no ad. On a site awaiting approval that printed the "Iklan"
+      // caption over an empty box, and it would have counted phantom
+      // impressions into the revenue estimate. AdSense fills by injecting an
+      // iframe; its height is the honest signal when the status attribute is
+      // missing.
+      const creative = el.querySelector("iframe");
+      const painted = status !== "unfilled" && (creative?.getBoundingClientRect().height ?? 0) > 20;
+      if (status === "filled" || painted) {
         setFilled(true);
         // The impression Google pays on. Only an approved domain gets here.
         noteFilled(unit);

@@ -1,4 +1,5 @@
 import { Hono, type Context } from "hono";
+import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { decryptApiKey } from "@ulyah/shared/crypto";
 import { testApiKey } from "@ulyah/key-pool";
 import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
@@ -443,7 +444,7 @@ adminRoute.get("/proofs/:id/file", async (c) => {
   // Auto-issued certs (PayPal/NOWPayments) have no uploaded receipt — the
   // payment processor's own confirmation was the proof, nothing to view.
   if (!row.proof_r2_key) return c.json({ error: "No file — this donation was auto-verified by the payment processor." }, 404);
-  const obj = await c.env.MEDIA_R2.get(row.proof_r2_key);
+  const obj = await c.env.MEDIA_R2?.get(row.proof_r2_key);
   if (!obj) return c.json({ error: "file missing from storage" }, 404);
   return new Response(obj.body, {
     headers: {
@@ -1202,6 +1203,7 @@ const uploadMedia = async (c: Context<{ Bindings: Env }>) => {
   if (file.size > 5 * 1024 * 1024) return c.json({ error: "file too large (max 5MB)" }, 400);
 
   const r2Key = `media/site/${key}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
 
   const admin = c.get("admin" as never) as { email: string };
@@ -1269,6 +1271,7 @@ const uploadKidsAudio = async (c: Context<{ Bindings: Env }>) => {
 
   const source = typeof form.get("source") === "string" ? String(form.get("source")) : "upload";
   const r2Key = `kids-audio/${code}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: mime } });
 
   const admin = c.get("admin" as never) as { email: string };
@@ -1311,6 +1314,7 @@ adminRoute.post("/kids-audio/:code/import", async (c) => {
   if (buf.byteLength === 0 || buf.byteLength > 3 * 1024 * 1024) return c.json({ error: "audio empty or too large (max 3MB)" }, 400);
 
   const r2Key = `kids-audio/${code}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, buf, { httpMetadata: { contentType: mime } });
   const admin = c.get("admin" as never) as { email: string };
   await c.env.DB.prepare(
@@ -1330,7 +1334,7 @@ adminRoute.delete("/kids-audio/:code", async (c) => {
   if (!isKidsAudioCode(code)) return c.json({ error: "bad code" }, 400);
   const row = await c.env.DB.prepare("SELECT r2_key FROM kids_audio WHERE code = ?").bind(code).first<{ r2_key: string }>();
   if (row) {
-    await c.env.MEDIA_R2.delete(row.r2_key).catch(() => {});
+    await c.env.MEDIA_R2?.delete(row.r2_key).catch(() => {});
     await c.env.DB.prepare("DELETE FROM kids_audio WHERE code = ?").bind(code).run();
   }
   const admin = c.get("admin" as never) as { email: string };

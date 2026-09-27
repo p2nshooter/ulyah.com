@@ -18,7 +18,8 @@ async function streamR2Object(c: any, key: string) {
     }
   }
 
-  const obj = await c.env.MEDIA_R2.get(key, options);
+  // `c` is untyped here, so the compiler cannot catch an absent binding.
+  const obj = await c.env.MEDIA_R2?.get(key, options);
   if (!obj) return c.json({ error: "Audio not found" }, 404);
 
   const headers = new Headers();

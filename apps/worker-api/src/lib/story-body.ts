@@ -35,7 +35,7 @@ export async function readStoryBody(
   // through to the column, which is the safe direction.
   if (key && STORY_BODY_KEY.test(key)) {
     try {
-      const obj = await env.MEDIA_R2.get(key);
+      const obj = await env.MEDIA_R2?.get(key);
       if (obj) return await obj.text();
       console.error(`story body missing from R2: ${key}`);
     } catch (e) {
