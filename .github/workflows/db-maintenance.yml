@@ -39,12 +39,21 @@ on:
   # dialog. Owner: "D1 di jadiin write awal, klo penuh pindahin ke R2, dan
   # ngebacanya dari R2, begitu seterusnya, jd D1 selalu luas."
   #
-  # Daily at 19:40 UTC (02:40 Jakarta) — off the hour so it does not collide
-  # with the warm passes, and while the sites are quiet. The spill only acts
-  # when the bulk in D1 is over the high-water mark, so on most days this
-  # measures, says "D1 has room", and exits.
+  # Daily at 00:20 UTC — twenty minutes after D1's daily quotas reset.
+  #
+  # It used to run at 19:40 UTC, which GitHub's scheduler routinely started at
+  # 22:10-22:50: the END of the UTC day, by which time the Worker's own traffic
+  # had spent the free plan's five million row reads. So every nightly run
+  # failed on its first query — seven nights running (#64-#70), all with code
+  # 7500 — and the prune that exists to keep the database under its 500 MB cap
+  # never deleted a single row. The database filled; on 2026-09-27 the deploy
+  # itself was refused with "Exceeded maximum DB size".
+  #
+  # A maintenance job that reads and deletes has to go FIRST in the quota day,
+  # not last. Twenty minutes in leaves the reset time to settle and still runs
+  # before the heartbeat and the sites have spent anything worth mentioning.
   schedule:
-    - cron: "40 19 * * *"
+    - cron: "20 0 * * *"
   workflow_dispatch:
     inputs:
       job:
@@ -223,7 +232,7 @@ jobs:
       # that is the plan this account is on. Measured 2026-09-21: 0.47 GB, which
       # this step used to call "9.53 GB below the ceiling" while the database
       # was at 94% of the limit that actually applies to it. On a paid plan set
-      # D1_TARGET_MB=5120 and D1_CEILING_MB=10240 here and the owner's original
+      # D1_TARGET_MB=5000 and D1_CEILING_MB=10000 here and the owner's original
       # "5 GB, never 10" is restored.
       - name: Check the size target and ceiling for this plan
         if: always()

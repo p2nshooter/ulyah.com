@@ -21,7 +21,7 @@
  *                     in, while the sites looked healthy because reads were
  *                     unaffected.
  *
- * On a paid plan, pass --target-mb=5120 --ceiling-mb=10240 (or set
+ * On a paid plan, pass --target-mb=5000 --ceiling-mb=10000 (or set
  * D1_TARGET_MB / D1_CEILING_MB) and the owner's original numbers apply.
  *
  * So: under target, one line and exit 0. Over target, a GitHub warning
@@ -36,7 +36,7 @@
  * by later writes, but it does mean the file size is the number that must stay
  * under the limit, and the only number worth checking here.
  *
- * Usage: npx tsx scripts/d1-ceiling.ts [--target-mb=5120] [--ceiling-mb=10240]
+ * Usage: npx tsx scripts/d1-ceiling.ts [--target-mb=5000] [--ceiling-mb=10000]
  *   Requires CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN and D1_DATABASE_ID —
  *   the same three the maintenance workflow already resolves.
  */
@@ -72,7 +72,13 @@ async function fileSizeMb(): Promise<number | null> {
   if (!res.ok) return null;
   const j = (await res.json()) as { result?: { file_size?: number } };
   const bytes = j.result?.file_size;
-  return typeof bytes === "number" ? Math.round((bytes / 1048576) * 10) / 10 : null;
+  // DECIMAL megabytes, because that is how Cloudflare states the cap: 500 MB
+  // is 500,000,000 bytes. Dividing by 1,048,576 instead reported the database
+  // as "478 MB — 22 MB below the ceiling" on the night it was already over the
+  // limit (501 MB decimal) and the next deploy was refused with "Exceeded
+  // maximum DB size". A ceiling measured in the wrong unit is a ceiling that
+  // says there is room when there is none.
+  return typeof bytes === "number" ? Math.round((bytes / 1_000_000) * 10) / 10 : null;
 }
 
 /**
@@ -80,7 +86,7 @@ async function fileSizeMb(): Promise<number | null> {
  * is the same fact as "30 MB left" and communicates none of it — and 30 MB is
  * roughly one day of writing.
  */
-const gb = (mb: number) => (mb < 1024 ? `${Math.round(mb)} MB` : `${(mb / 1024).toFixed(2)} GB`);
+const gb = (mb: number) => (mb < 1000 ? `${Math.round(mb)} MB` : `${(mb / 1000).toFixed(2)} GB`);
 
 async function main() {
   const { targetMb, ceilingMb } = parseArgs();
