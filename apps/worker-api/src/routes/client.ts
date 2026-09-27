@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { setCookie, deleteCookie, getCookie } from "hono/cookie";
 import { hashPassword, verifyPassword } from "@ulyah/shared/crypto";
 import type { Env } from "../env.js";
@@ -189,6 +190,7 @@ clientRoute.post("/proofs", requireClient, async (c) => {
   if (amount !== null && (!Number.isFinite(amount) || amount < 0)) return c.json({ error: "invalid amount" }, 400);
 
   const r2Key = `proofs/${session.id}/${crypto.randomUUID()}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
 
   const row = await c.env.DB.prepare(

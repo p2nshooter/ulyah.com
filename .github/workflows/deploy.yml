@@ -156,6 +156,19 @@ jobs:
             curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"name":"ulyah-next-cache"}' "$CF/r2/buckets" | jq -r '.success' || true
           fi
 
+          # Is R2 usable on this account at all? The bucket listing answers
+          # success:false (code 10042, "Please enable R2 through the Cloudflare
+          # Dashboard") when it is not — and a Worker BOUND to R2 is then refused
+          # at upload with code 10136. That refusal is why no deploy succeeded
+          # between 2026-08-18 and 2026-09-27: R2 was switched off on the account
+          # and every fix sat on main behind it. Decided once here, acted on by
+          # "Leave R2 out while it is not enabled" below.
+          R2_OK=$(curl -s -H "$AUTH" "$CF/r2/buckets?per_page=1" | jq -r '.success // false' 2>/dev/null || echo false)
+          echo "R2_OK=$R2_OK" >> "$GITHUB_ENV"
+          if [ "$R2_OK" != "true" ]; then
+            echo "::warning title=R2 is not enabled::R2 is switched off on the Cloudflare account (usually a missing or expired payment method — R2 needs one on file even inside its free tier). Deploying WITHOUT R2 bindings: uploads answer 503, story audio/PDF downloads 404, and pages render uncached. Re-enable R2 in the dashboard and the next deploy restores all of it automatically."
+          fi
+
       - name: Substitute wrangler.toml resource IDs
         run: |
           set -eu
@@ -1387,6 +1400,31 @@ jobs:
           clean_zone tilawa.de tilawa.de www.tilawa.de
           clean_zone dawa.es dawa.es www.dawa.es
           clean_zone xad.es xad.es www.xad.es
+
+      # Cloudflare will not upload a Worker bound to R2 while R2 is off, so the
+      # bindings go — both of them — for as long as it stays off. Nothing is
+      # lost by that which is not already lost: with R2 disabled the bucket
+      # cannot be read either. The Worker treats a missing MEDIA_R2 as "file not
+      # available" (see apps/worker-api/src/env.ts), and OpenNext renders pages
+      # live when its cache bucket is absent. When R2 comes back, R2_OK is true,
+      # this step does nothing, and the bindings return on their own.
+      - name: Leave R2 out while it is not enabled
+        if: env.R2_OK != 'true'
+        run: |
+          set -eu
+          python3 - <<'PYEOF'
+          import pathlib, re
+          toml = pathlib.Path("apps/worker-api/wrangler.toml")
+          t = toml.read_text()
+          t2 = re.sub(r'\n\[\[r2_buckets\]\]\n(?:[a-z_]+ = [^\n]*\n)+', '\n', t)
+          toml.write_text(t2)
+          print("worker-api: R2 binding", "removed" if t2 != t else "not present")
+          web = pathlib.Path("apps/web/wrangler.jsonc")
+          w = web.read_text()
+          w2 = re.sub(r'\n\s*"r2_buckets"\s*:\s*\[.*?\]\s*,', '', w, flags=re.S)
+          web.write_text(w2)
+          print("web: R2 binding", "removed" if w2 != w else "not present")
+          PYEOF
 
       - name: Deploy worker-api
         working-directory: apps/worker-api

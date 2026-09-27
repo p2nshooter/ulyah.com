@@ -52,7 +52,7 @@ function loadShard(env: Env, shardKey: string): Promise<Record<string, string>> 
   if (held) return held;
   const p = (async () => {
     try {
-      const obj = await env.MEDIA_R2.get(shardKey);
+      const obj = await env.MEDIA_R2?.get(shardKey);
       if (!obj) return {};
       const parsed = JSON.parse(await obj.text()) as unknown;
       // A shard that is not a flat object is a shard we do not understand;

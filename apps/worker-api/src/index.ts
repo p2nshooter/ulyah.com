@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import type { Env } from "./env.js";
 import { quranRoute } from "./routes/quran.js";
 import { audioRoute } from "./routes/audio.js";
-import { contentRoute, trackBeacon, trackOptions, trackPing, trackLeave } from "./routes/content.js";
+import { contentRoute, trackBeacon, trackAdsBeacon, trackOptions, trackPing, trackLeave } from "./routes/content.js";
 import { aiRoute } from "./routes/ai.js";
 import { donateRoute } from "./routes/donate.js";
 import { adminAuthRoute } from "./routes/admin-auth.js";
@@ -119,6 +119,9 @@ app.route("/content", contentRoute);
 // so without this alias every hit 404s and the admin traffic panel stays at 0.
 app.post("/track", trackBeacon);
 app.options("/track", trackOptions);
+// Ad tally, one beacon per page — see trackAdsBeacon.
+app.post("/track/ads", trackAdsBeacon);
+app.options("/track/ads", trackOptions);
 // External-site presence heartbeat (SiteBeacon) → same live_presence table as
 // the ecosystem, so "online sekarang" is ≤5s real-time for every site alike.
 app.post("/track/ping", trackPing);
@@ -183,13 +186,16 @@ const MUROTTAL_PREFIXES: { prefix: string; flag: string; what: string }[] = [
 async function purgeMurottalPrefix(env: Env, { prefix, flag, what }: (typeof MUROTTAL_PREFIXES)[number]): Promise<void> {
   const done = await env.CACHE_KV.get(flag).catch(() => null);
   if (done) return;
+  // No R2 on the account: there is nothing stored to drain.
+  const bucket = env.MEDIA_R2;
+  if (!bucket) return;
   let cursor: string | undefined;
   let deleted = 0;
   for (let page = 0; page < 20; page++) {
-    const listing = await env.MEDIA_R2.list({ prefix, cursor, limit: 1000 });
+    const listing = await bucket.list({ prefix, cursor, limit: 1000 });
     const keys = listing.objects.map((o) => o.key);
     if (keys.length > 0) {
-      await env.MEDIA_R2.delete(keys);
+      await bucket.delete(keys);
       deleted += keys.length;
     }
     if (listing.truncated) {

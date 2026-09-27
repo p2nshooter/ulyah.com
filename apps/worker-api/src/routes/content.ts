@@ -53,6 +53,68 @@ export async function trackBeacon(c: Context<{ Bindings: Env }>) {
   c.header("Access-Control-Allow-Origin", "*");
   return c.body(null, 204);
 }
+/**
+ * POST /track/ads — one page's ad tally, sent once when the reader leaves.
+ *
+ * Body: { site, banner: {shown, filled, clicked}, flex: {shown, filled, clicked} }
+ * from apps/web/src/lib/ad-stats.ts. It lands as ONE upsert on a
+ * one-row-per-site-per-day table, because this database is on the free plan
+ * and has run out of room and of writes before; a row per impression would be
+ * the fastest-growing thing in it.
+ *
+ * The numbers are checked, not trusted. This is a public, unauthenticated
+ * endpoint and it feeds a revenue estimate, so a crafted beacon must not be
+ * able to invent a good day: the site has to be one of the ecosystem's five,
+ * every count is clamped to what one page can honestly produce, and a click is
+ * never allowed to exceed what was shown. Crawlers are ignored, as they are
+ * for pageviews.
+ */
+const AD_SITES = new Set(["ulyah", "1fr", "tilawa", "dawa", "xad"]);
+/** The most units a page carries (QUOTA + a template's own), with room to spare. */
+const MAX_UNITS_PER_PAGE = 8;
+
+function clampTally(v: unknown): { shown: number; filled: number; clicked: number } {
+  const o = (v && typeof v === "object" ? v : {}) as Record<string, unknown>;
+  const n = (x: unknown, max: number) => {
+    const k = Math.floor(Number(x));
+    return Number.isFinite(k) && k > 0 ? Math.min(k, max) : 0;
+  };
+  const shown = n(o.shown, MAX_UNITS_PER_PAGE);
+  const filled = Math.min(n(o.filled, MAX_UNITS_PER_PAGE), shown);
+  const clicked = Math.min(n(o.clicked, MAX_UNITS_PER_PAGE), shown);
+  return { shown, filled, clicked };
+}
+
+export async function trackAdsBeacon(c: Context<{ Bindings: Env }>) {
+  c.header("Access-Control-Allow-Origin", "*");
+  try {
+    if (isBotUA(c.req.header("user-agent"))) return c.body(null, 204);
+    const body = JSON.parse((await c.req.text()) || "{}") as Record<string, unknown>;
+    const site = String(body.site ?? "");
+    if (!AD_SITES.has(site)) return c.body(null, 204);
+    const b = clampTally(body.banner);
+    const f = clampTally(body.flex);
+    if (!b.shown && !f.shown && !b.clicked && !f.clicked) return c.body(null, 204);
+    const day = new Date().toISOString().slice(0, 10);
+    await c.env.DB.prepare(
+      `INSERT INTO ad_daily (site, day, banner_shown, banner_filled, banner_clicked, flex_shown, flex_filled, flex_clicked)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(site, day) DO UPDATE SET
+         banner_shown   = banner_shown   + excluded.banner_shown,
+         banner_filled  = banner_filled  + excluded.banner_filled,
+         banner_clicked = banner_clicked + excluded.banner_clicked,
+         flex_shown     = flex_shown     + excluded.flex_shown,
+         flex_filled    = flex_filled    + excluded.flex_filled,
+         flex_clicked   = flex_clicked   + excluded.flex_clicked`
+    )
+      .bind(site, day, b.shown, b.filled, b.clicked, f.shown, f.filled, f.clicked)
+      .run();
+  } catch {
+    /* analytics is best-effort — never error the beacon */
+  }
+  return c.body(null, 204);
+}
+
 export function trackOptions(c: Context<{ Bindings: Env }>) {
   c.header("Access-Control-Allow-Origin", "*");
   c.header("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -326,7 +388,7 @@ contentRoute.get("/media/:key", async (c) => {
     .bind(key)
     .first<{ r2_key: string; content_type: string }>();
   if (!row) return c.json({ error: "not found" }, 404);
-  const obj = await c.env.MEDIA_R2.get(row.r2_key);
+  const obj = await c.env.MEDIA_R2?.get(row.r2_key);
   if (!obj) return c.json({ error: "file missing from storage" }, 404);
   return new Response(obj.body, {
     headers: { "Content-Type": row.content_type, "Cache-Control": "public, max-age=86400" },
@@ -500,7 +562,7 @@ contentRoute.get("/stories/:id/audio", async (c) => {
     .first<{ title: string; audio_r2_key: string | null }>();
   if (!story?.audio_r2_key) return c.json({ error: "Audiobook not synthesised yet for this article" }, 404);
 
-  const obj = await c.env.MEDIA_R2.get(story.audio_r2_key);
+  const obj = await c.env.MEDIA_R2?.get(story.audio_r2_key);
   if (!obj) return c.json({ error: "Audio missing in storage" }, 404);
 
   const headers = new Headers();
@@ -892,7 +954,7 @@ contentRoute.get("/ebooks/:id/download", async (c) => {
     .first<{ r2_key: string; title: string }>();
   if (!ebook) return c.json({ error: "E-book not found or not cleared for download" }, 404);
 
-  const obj = await c.env.MEDIA_R2.get(ebook.r2_key);
+  const obj = await c.env.MEDIA_R2?.get(ebook.r2_key);
   if (!obj) return c.json({ error: "File missing in storage" }, 404);
 
   const headers = new Headers();

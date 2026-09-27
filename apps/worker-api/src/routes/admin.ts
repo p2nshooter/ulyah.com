@@ -1,4 +1,5 @@
 import { Hono, type Context } from "hono";
+import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { decryptApiKey } from "@ulyah/shared/crypto";
 import { testApiKey } from "@ulyah/key-pool";
 import { getProvider, AI_PROVIDERS } from "@ulyah/shared/providers";
@@ -443,7 +444,7 @@ adminRoute.get("/proofs/:id/file", async (c) => {
   // Auto-issued certs (PayPal/NOWPayments) have no uploaded receipt — the
   // payment processor's own confirmation was the proof, nothing to view.
   if (!row.proof_r2_key) return c.json({ error: "No file — this donation was auto-verified by the payment processor." }, 404);
-  const obj = await c.env.MEDIA_R2.get(row.proof_r2_key);
+  const obj = await c.env.MEDIA_R2?.get(row.proof_r2_key);
   if (!obj) return c.json({ error: "file missing from storage" }, 404);
   return new Response(obj.body, {
     headers: {
@@ -966,6 +967,38 @@ adminRoute.get("/health", async (c) => {
   return c.json({ features, checkedAt: new Date().toISOString() });
 });
 
+// GET /admin/ad-stats?days=30 — how often the ads were shown, filled and
+// clicked, per site and per day, from the one-row-per-site-per-day tally the
+// pages report (see trackAdsBeacon). Raw counts only: the revenue ESTIMATE is
+// made in the panel, next to the assumptions it rests on, so nobody mistakes
+// it for AdSense's own figure. At most five rows a day, so this reads a few
+// hundred rows even over three months.
+adminRoute.get("/ad-stats", async (c) => {
+  const days = Math.min(90, Math.max(1, Number(c.req.query("days")) || 30));
+  const since = new Date(Date.now() - days * 86400_000).toISOString().slice(0, 10);
+  try {
+    const { results } = await c.env.DB.prepare(
+      `SELECT site, day, banner_shown, banner_filled, banner_clicked, flex_shown, flex_filled, flex_clicked
+         FROM ad_daily WHERE day >= ? ORDER BY day`
+    )
+      .bind(since)
+      .all<{
+        site: string;
+        day: string;
+        banner_shown: number;
+        banner_filled: number;
+        banner_clicked: number;
+        flex_shown: number;
+        flex_filled: number;
+        flex_clicked: number;
+      }>();
+    return c.json({ days, rows: results ?? [], at: Date.now() });
+  } catch {
+    // Before migration 0056 has been applied the table does not exist yet.
+    return c.json({ days, rows: [], at: Date.now() });
+  }
+});
+
 // GET /admin/site-analytics — per-site traffic for the whole network, last N
 // days, from the cookieless /track beacon. Powers the admin traffic panel
 // (owner: "semua website wajib punya analisa trafic di portal admin").
@@ -1170,6 +1203,7 @@ const uploadMedia = async (c: Context<{ Bindings: Env }>) => {
   if (file.size > 5 * 1024 * 1024) return c.json({ error: "file too large (max 5MB)" }, 400);
 
   const r2Key = `media/site/${key}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
 
   const admin = c.get("admin" as never) as { email: string };
@@ -1237,6 +1271,7 @@ const uploadKidsAudio = async (c: Context<{ Bindings: Env }>) => {
 
   const source = typeof form.get("source") === "string" ? String(form.get("source")) : "upload";
   const r2Key = `kids-audio/${code}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, await file.arrayBuffer(), { httpMetadata: { contentType: mime } });
 
   const admin = c.get("admin" as never) as { email: string };
@@ -1279,6 +1314,7 @@ adminRoute.post("/kids-audio/:code/import", async (c) => {
   if (buf.byteLength === 0 || buf.byteLength > 3 * 1024 * 1024) return c.json({ error: "audio empty or too large (max 3MB)" }, 400);
 
   const r2Key = `kids-audio/${code}.${ext}`;
+  if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
   await c.env.MEDIA_R2.put(r2Key, buf, { httpMetadata: { contentType: mime } });
   const admin = c.get("admin" as never) as { email: string };
   await c.env.DB.prepare(
@@ -1298,7 +1334,7 @@ adminRoute.delete("/kids-audio/:code", async (c) => {
   if (!isKidsAudioCode(code)) return c.json({ error: "bad code" }, 400);
   const row = await c.env.DB.prepare("SELECT r2_key FROM kids_audio WHERE code = ?").bind(code).first<{ r2_key: string }>();
   if (row) {
-    await c.env.MEDIA_R2.delete(row.r2_key).catch(() => {});
+    await c.env.MEDIA_R2?.delete(row.r2_key).catch(() => {});
     await c.env.DB.prepare("DELETE FROM kids_audio WHERE code = ?").bind(code).run();
   }
   const admin = c.get("admin" as never) as { email: string };
