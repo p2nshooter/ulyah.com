@@ -966,6 +966,38 @@ adminRoute.get("/health", async (c) => {
   return c.json({ features, checkedAt: new Date().toISOString() });
 });
 
+// GET /admin/ad-stats?days=30 — how often the ads were shown, filled and
+// clicked, per site and per day, from the one-row-per-site-per-day tally the
+// pages report (see trackAdsBeacon). Raw counts only: the revenue ESTIMATE is
+// made in the panel, next to the assumptions it rests on, so nobody mistakes
+// it for AdSense's own figure. At most five rows a day, so this reads a few
+// hundred rows even over three months.
+adminRoute.get("/ad-stats", async (c) => {
+  const days = Math.min(90, Math.max(1, Number(c.req.query("days")) || 30));
+  const since = new Date(Date.now() - days * 86400_000).toISOString().slice(0, 10);
+  try {
+    const { results } = await c.env.DB.prepare(
+      `SELECT site, day, banner_shown, banner_filled, banner_clicked, flex_shown, flex_filled, flex_clicked
+         FROM ad_daily WHERE day >= ? ORDER BY day`
+    )
+      .bind(since)
+      .all<{
+        site: string;
+        day: string;
+        banner_shown: number;
+        banner_filled: number;
+        banner_clicked: number;
+        flex_shown: number;
+        flex_filled: number;
+        flex_clicked: number;
+      }>();
+    return c.json({ days, rows: results ?? [], at: Date.now() });
+  } catch {
+    // Before migration 0056 has been applied the table does not exist yet.
+    return c.json({ days, rows: [], at: Date.now() });
+  }
+});
+
 // GET /admin/site-analytics — per-site traffic for the whole network, last N
 // days, from the cookieless /track beacon. Powers the admin traffic panel
 // (owner: "semua website wajib punya analisa trafic di portal admin").

@@ -26,9 +26,33 @@
 export const AD_CLIENT_ID = "ca-pub-6371903555702163";
 
 /**
- * The account's responsive display unit ("Horizontal"), used by every
- * placement — the shape comes from `data-ad-format`, not from having six
- * separate units. A data-ad-slot is public by nature: it ships in the HTML of
- * every page that carries the unit, exactly like the publisher id beside it.
+ * The account's two display units, and which positions each one serves.
+ *
+ * Owner: "design ulang posisi nya, dasar nya dr data ad slot dari dawa.es dan
+ * yg baru ini xad.es." An ad unit belongs to the publisher ACCOUNT, not to a
+ * domain — both run on every site the account has had approved, and neither
+ * fills on a site that has not. So the two units are not "dawa's" and "xad's";
+ * they are two KINDS of position, and splitting the page between them is what
+ * makes AdSense's own per-unit report say which kind earns:
+ *
+ *   banner  4702981509  "Horizontal" (created for dawa.es)
+ *                       the lead unit at the first pause, and the closing one —
+ *                       wide, short, across the page.
+ *   flex    1209764526  "bebas" (created for xad.es), format auto
+ *                       the units inside the reading column and the margin
+ *                       rail, where Google is given room to pick the shape.
+ *
+ * A data-ad-slot is public by nature: it ships in the HTML of every page that
+ * carries the unit, exactly like the publisher id beside it.
  */
-export const AD_SLOT = "4702981509";
+export const AD_UNITS = {
+  banner: "4702981509",
+  flex: "1209764526",
+} as const;
+
+export type AdUnitKind = keyof typeof AD_UNITS;
+
+/** Which unit a placement uses. Positions, not pages, decide it. */
+export function unitForPlacement(placement: string): AdUnitKind {
+  return placement === "list" || placement === "footer" ? "banner" : "flex";
+}

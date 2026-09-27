@@ -27,6 +27,7 @@
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { unitForPlacement } from "../apps/web/src/lib/ad-config";
 
 const ROOT = join(import.meta.dirname, "..");
 let failed = 0;
@@ -42,9 +43,19 @@ const code = (src: string) => src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*
 console.log("=== the account and the unit are constants ===");
 const adConfig = read("apps/web/src/lib/ad-config.ts");
 const client = /AD_CLIENT_ID\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
-const slot = /AD_SLOT\s*=\s*"(\d{6,20})"/.exec(adConfig);
+const banner = /banner:\s*"(\d{6,20})"/.exec(adConfig);
+const flex = /flex:\s*"(\d{6,20})"/.exec(adConfig);
 check("a real publisher id is exported", Boolean(client), adConfig.slice(0, 200));
-check("a real ad-unit id is exported", Boolean(slot), "AD_SLOT must be the data-ad-slot from the unit's snippet");
+check(
+  "both ad units are real ids",
+  Boolean(banner) && Boolean(flex),
+  "AD_UNITS.banner and AD_UNITS.flex must be the data-ad-slot values from each unit's snippet"
+);
+check(
+  "the two units are different units",
+  Boolean(banner && flex) && banner![1] !== flex![1],
+  "splitting positions between one unit twice would make AdSense's per-unit report meaningless"
+);
 
 // The loader script and the units must name the SAME account, or every <ins>
 // on the site asks an account the page never loaded.
@@ -58,8 +69,28 @@ check(
 const adSlot = read("apps/web/src/components/AdSlot.tsx");
 check(
   "the unit renders the constants",
-  /data-ad-client=\{AD_CLIENT_ID\}/.test(adSlot) && /data-ad-slot=\{AD_SLOT\}/.test(adSlot)
+  /data-ad-client=\{AD_CLIENT_ID\}/.test(adSlot) && /data-ad-slot=\{AD_UNITS\[unit\]\}/.test(adSlot)
 );
+
+console.log("\n=== each position uses the unit meant for it ===");
+{
+  // Run the real mapping rather than reading its source: this is the decision
+  // the owner's redesign rests on, and a regex would pass a typo.
+  const expect: Record<string, string> = {
+    list: "banner",
+    footer: "banner",
+    in_article: "flex",
+    in_article_1: "flex",
+    in_article_2: "flex",
+    sidebar: "flex",
+  };
+  const wrong = Object.entries(expect).filter(([p, u]) => unitForPlacement(p) !== u);
+  check(
+    "lead and closing are banners, everything in the reading column is flex",
+    wrong.length === 0,
+    wrong.map(([p, u]) => `${p} → ${unitForPlacement(p)} (expected ${u})`).join(", ")
+  );
+}
 
 console.log("\n=== nothing gates a placement ===");
 // The words that would bring the switches back. Checked on code, not comments,

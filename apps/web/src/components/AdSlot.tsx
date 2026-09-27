@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { AD_CLIENT_ID, AD_SLOT } from "@/lib/ad-config";
+import { AD_CLIENT_ID, AD_UNITS, unitForPlacement } from "@/lib/ad-config";
+import { noteShown, noteFilled, flushAdStats } from "@/lib/ad-stats";
 
 /**
  * One Google AdSense placement.
@@ -114,18 +115,26 @@ export function AdSlot({
    * a property of the page, not a setting.
    */
   const inAdmin = pathname?.includes("/admin") ?? false;
+  /** Banner positions and in-content positions run different units — see AD_UNITS. */
+  const unit = unitForPlacement(placement);
 
-  // Ask AdSense to fill the unit, once.
+  // Ask AdSense to fill the unit, once — and count that it was shown. "Shown"
+  // is counted on every site, approved or not: on a site Google has not
+  // accepted yet, it is the inventory approval would turn into money.
   useEffect(() => {
     if (inAdmin || pushedRef.current) return;
     pushedRef.current = true;
+    noteShown(unit);
     try {
       // The loader script in <head> creates this array.
       ((window as unknown as { adsbygoogle?: unknown[] }).adsbygoogle ??= []).push({});
     } catch {
       /* blocked or not ready — the fill watch below collapses the space */
     }
-  }, [inAdmin]);
+    // A route change inside the site fires no browser event, so the tally for
+    // the page being left goes out as its units leave with it.
+    return () => flushAdStats();
+  }, [inAdmin, unit]);
 
   /**
    * Did an ad actually arrive?
@@ -148,6 +157,8 @@ export function AdSlot({
       const status = el.getAttribute("data-ad-status");
       if (status === "filled" || el.offsetHeight > 20) {
         setFilled(true);
+        // The impression Google pays on. Only an approved domain gets here.
+        noteFilled(unit);
         return;
       }
       if (status === "unfilled" || Date.now() - startedAt > FILL_GRACE_MS) {
@@ -161,7 +172,7 @@ export function AdSlot({
       stopped = true;
       window.clearTimeout(id);
     };
-  }, [inAdmin]);
+  }, [inAdmin, unit]);
 
   if (inAdmin) return null;
 
@@ -200,6 +211,7 @@ export function AdSlot({
       }
       aria-label={caption}
       data-adsense-slot={placement}
+      data-ad-unit={unit}
     >
       {/* The caption only exists once there is something to caption, so a
           page never shows an "Iklan" rule floating over nothing.
@@ -220,7 +232,7 @@ export function AdSlot({
         className="adsbygoogle block w-full transition-[min-height] duration-500"
         style={{ display: "block", width: "100%", minHeight: reserved, maxWidth: spec.maxWidth }}
         data-ad-client={AD_CLIENT_ID}
-        data-ad-slot={AD_SLOT}
+        data-ad-slot={AD_UNITS[unit]}
         data-ad-format={spec.format}
         data-full-width-responsive={spec.responsive ? "true" : "false"}
       />

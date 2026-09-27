@@ -14,6 +14,7 @@ import { AuditLogTab } from "@/components/admin/AuditLogTab";
 import { ClientsTab } from "@/components/admin/ClientsTab";
 import { ScalingTab } from "@/components/admin/ScalingTab";
 import { AccountTab } from "@/components/admin/AccountTab";
+import { AdStatsPanel } from "@/components/admin/AdStatsPanel";
 import { AnalyticsTab } from "@/components/admin/AnalyticsTab";
 import { NetworkTraffic } from "@/components/admin/NetworkTraffic";
 import { SettingsTab } from "@/components/admin/SettingsTab";
@@ -36,7 +37,7 @@ import { SitePagesTab } from "@/components/admin/SitePagesTab";
 import { LanguagesTab } from "@/components/admin/LanguagesTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "store";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "ads" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "store";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -90,6 +91,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     ["grant", "🤝 Grant & Donatur"],
     ["monitor", "🖥️ Monitor"],
     ["analytics", "Analytics"],
+    ["ads", "💰 Iklan"],
     ["traffic-ext", "🌍 Trafik Luar Ekosistem"],
     ["languages", "🈯 Kesiapan Bahasa"],
     ["keys", dict.admin.keyPool],
@@ -173,6 +175,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "grant" && <GrantTab />}
         {tab === "monitor" && <MonitorTab locale={locale} />}
         {tab === "analytics" && <AnalyticsTab />}
+        {tab === "ads" && <AdStatsPanel />}
         {tab === "languages" && <LanguagesTab />}
         {tab === "traffic-ext" && (
           <div className="space-y-4">
