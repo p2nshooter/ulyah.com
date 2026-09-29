@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { AdSlot } from "@/components/AdSlot";
+import { SHOWS_AD_UNITS } from "@/lib/ad-config";
 import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { localizedRoute } from "@ulyah/shared/routes";
 
@@ -19,6 +20,10 @@ import { localizedRoute } from "@ulyah/shared/routes";
  * is an AdSense unit and it is placed on every site, immediately. A domain
  * Google has not accepted yet simply does not fill, and AdSlot collapses the
  * space it was holding.
+ *
+ * The one exception is a build-time fact, not a setting: xad.es is being
+ * verified afresh on its own account and carries no placement at all until
+ * then (SHOWS_AD_UNITS in lib/ad-config.ts).
  *
  * The owner's rule was "per halaman per link wajib ada iklan dengan posisi atas
  * bawah tengah". Hard-coding that into each template does not hold: the article
@@ -200,6 +205,10 @@ export function PageAds() {
   const [slots, setSlots] = useState<Slot[]>([]);
 
   useEffect(() => {
+    // xad.es is verified afresh on its own AdSense account and carries no unit
+    // until then (SHOWS_AD_UNITS in lib/ad-config.ts) — so no anchors either:
+    // nothing is measured and nothing is inserted into the page.
+    if (!SHOWS_AD_UNITS) return;
     // The ads are live wherever the code puts them (owner: "pokoknya ketika ads
     // di pasang langsung online"), so placement starts with the page rather
     // than with a config fetch. This used to wait on one, which also meant that

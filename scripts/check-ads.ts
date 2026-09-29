@@ -74,17 +74,19 @@ check(
 
 console.log("\n=== xad.es: its own account, verification code only ===");
 // Owner, 2026-09-29: xad.es is verified afresh on its own AdSense account. Its
-// loader script, meta tag and ads.txt name the new account, and it shows no
-// unit until that account has approved it — the unit ids above belong to the
-// ecosystem's account and could never fill on the new one.
+// loader script, meta tag and ads.txt name the new account, and it carries no
+// ad placement at all until that account has approved it — the unit ids above
+// belong to the ecosystem's account and could never fill on the new one.
 check(
   "xad.es has its own publisher id",
   /XAD_AD_CLIENT_ID\s*=\s*"ca-pub-2493615451319531"/.test(adConfig) &&
     /AD_CLIENT_ID\s*=\s*TENANT\.id\s*===\s*"xad"\s*\?\s*XAD_AD_CLIENT_ID\s*:\s*ECOSYSTEM_AD_CLIENT_ID/.test(adConfig)
 );
 check(
-  "xad.es renders no unit while it is verified",
-  /SHOWS_AD_UNITS\s*=\s*TENANT\.id\s*!==\s*"xad"/.test(adConfig) && /!SHOWS_AD_UNITS/.test(code(adSlot))
+  "xad.es renders no unit and places no anchor while it is verified",
+  /SHOWS_AD_UNITS\s*=\s*TENANT\.id\s*!==\s*"xad"/.test(adConfig) &&
+    /!SHOWS_AD_UNITS/.test(code(adSlot)) &&
+    /!SHOWS_AD_UNITS/.test(code(read("apps/web/src/components/PageAds.tsx")))
 );
 check(
   "ads.txt is built per site from the same constant",
@@ -180,6 +182,11 @@ check(
   "the sandboxed ad frame is gone with it",
   !existsSync(join(ROOT, "apps/web/public/ads/frame.html")),
   "public/ads/frame.html only ever served the old network"
+);
+check(
+  "the old network's unit tester page is gone too",
+  !existsSync(join(ROOT, "apps/web/public/ads/check.html")),
+  "public/ads/check.html rendered Adsterra units by key on every site"
 );
 
 console.log(failed === 0 ? "\nALL OK" : `\n${failed} FAILED`);

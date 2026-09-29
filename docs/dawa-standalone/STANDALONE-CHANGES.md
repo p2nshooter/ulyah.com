@@ -71,7 +71,6 @@ Jumlah file yang terkena tiap penggantian global tercatat di `BACKUP-INFO.md`.
 - `components/kids/KidsCertificate.tsx` — "dawa.es — Al-Qur'an Kids".
 - `components/admin/GrantTab.tsx`, `KaggleGuideTab.tsx` — logo & situs dawa.es.
 - `public/manifest.json` — ditulis ulang untuk Dawa (bahasa `es`, ikon dawa).
-- `public/ads/check.html` — host tak dikenal dianggap `dawa`.
 
 ### Workflow
 - `.github/workflows/deploy.yml` — dibuang: build/deploy/domain untuk ulyah.com,

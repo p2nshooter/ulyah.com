@@ -308,11 +308,6 @@ const SITES: AutoSite[] = [];`,
   },
   { file: "apps/web/src/components/GlobalRadioPlayer.tsx", find: `album: "ULYAH.COM",`, replace: `album: "Dawa",` },
   {
-    file: "apps/web/public/ads/check.html",
-    find: `var TENANT = BY_HOST[location.hostname] || "ulyah";`,
-    replace: `var TENANT = BY_HOST[location.hostname] || "dawa";`,
-  },
-  {
     file: "scripts/check-murottal-cdn.ts",
     find: `(target.hostname === "ulyah.com" || target.hostname.endsWith(".ulyah.com"))`,
     replace: `(target.hostname === "dawa.es" || target.hostname.endsWith(".dawa.es"))`,
