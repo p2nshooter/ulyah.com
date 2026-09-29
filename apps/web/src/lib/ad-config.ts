@@ -20,10 +20,40 @@
  * the markup is there and simply does not fill — AdSlot watches for that and
  * collapses the space, so the page looks exactly as it would with no ad. It is
  * not an error, and nothing needs switching on when approval arrives.
+ *
+ * The two constants below that differ per site are BUILD-TIME facts (TENANT is
+ * fixed when the site is built), not settings: nothing is fetched and nothing
+ * can be silently off.
  */
+import { TENANT } from "./tenant";
 
-/** The publisher account. Also what the loader script in the layout carries. */
-export const AD_CLIENT_ID = "ca-pub-6371903555702163";
+/** The ecosystem's publisher account — every site except xad.es. */
+const ECOSYSTEM_AD_CLIENT_ID = "ca-pub-6371903555702163";
+
+/**
+ * xad.es moves to its own AdSense account and is verified afresh (owner,
+ * 2026-09-29: "ubah semua verifikasi adsense nya dengan kode ini, dan hapus dulu
+ * seluruh kode iklan adsense nya karena mau di verifikasi ulang").
+ */
+const XAD_AD_CLIENT_ID = "ca-pub-2493615451319531";
+
+/**
+ * The publisher account of THIS build. The loader script and the
+ * google-adsense-account meta tag in the layout, the units, and /ads.txt all
+ * read this one constant, so they can never name different accounts.
+ */
+export const AD_CLIENT_ID = TENANT.id === "xad" ? XAD_AD_CLIENT_ID : ECOSYSTEM_AD_CLIENT_ID;
+
+/**
+ * Whether this site renders ad units at all.
+ *
+ * False only on xad.es while its new account is under review. Verification
+ * asks for the loader script, the meta tag and ads.txt — not for units — and
+ * the unit ids below belong to the ecosystem's account, so they could never
+ * fill on xad.es's new one. Once Google approves xad.es: create units in the
+ * new account, give xad.es its own AD_UNITS, and make this true again.
+ */
+export const SHOWS_AD_UNITS = TENANT.id !== "xad";
 
 /**
  * The account's two display units, and which positions each one serves.
