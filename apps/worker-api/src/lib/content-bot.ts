@@ -110,8 +110,9 @@ const SITES: AutoSite[] = [
  * On oldco.in and profity.in it produced runs of near-identical titles — eight
  * variations on "valuation of ancient Indian coins", six on "digital asset
  * liability management". The owner's rule stands: "jgn andelin mesin, lu
- * sendiri yg ngetik". Those articles have been removed from the sites, and
- * the bot stays off them (docs/ADSENSE-BLUEPRINT.md §7, 1.12).
+ * sendiri yg ngetik". The bot stays off these sites; whether the articles it
+ * already published come down is the owner's call (docs/ADSENSE-BLUEPRINT.md
+ * §7, 1.12).
  */
 const ADSENSE_HANDWRITTEN_ONLY = new Set(["jai", "lie", "axtodev", "xaa", "axto-us", "oldco", "profity"]);
 const ACTIVE_SITES = SITES.filter((s) => !ADSENSE_HANDWRITTEN_ONLY.has(s.key));
