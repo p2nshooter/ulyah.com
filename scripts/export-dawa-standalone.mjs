@@ -300,7 +300,7 @@ const SITES: AutoSite[] = [];`,
     find: `const site = (opts.site && opts.site.trim()) || "ULYAH.COM";`,
     replace: `const site = (opts.site && opts.site.trim()) || "Dawa";`,
   },
-  { file: "apps/worker-api/src/routes/grant.ts", find: /ULYAH\.COM/g, replace: "DAWA.ES" },
+  { file: "apps/worker-api/src/routes/grant.ts", find: "ULYAH.COM", replace: "DAWA.ES" },
   {
     file: "apps/web/src/components/GlobalRadioPlayer.tsx",
     find: `artist: rc?.name ?? "ULYAH.COM",`,
@@ -314,21 +314,21 @@ const SITES: AutoSite[] = [];`,
   },
   ...["yusuf-pdfs.ts", "musa-pdfs.ts", "nuh-pdfs.ts", "dzulqarnain-pdfs.ts", "ashabul-kahfi-pdfs.ts"].map((f) => ({
     file: `scripts/generate-kisah-${f}`,
-    find: /"ULYAH\.COM — /g,
+    find: "\"ULYAH.COM — ",
     replace: `"DAWA.ES — `,
   })),
 
   // --- Admin (hanya terlihat pemilik) ---------------------------------------
   {
     file: "apps/web/src/components/admin/GrantTab.tsx",
-    find: /https:\/\/ulyah\.com\/brand\/ulyah-logo-dark\.webp/g,
+    find: "https://ulyah.com/brand/ulyah-logo-dark.webp",
     replace: "https://dawa.es/brand/dawa/icon.png",
   },
-  { file: "apps/web/src/components/admin/GrantTab.tsx", find: /https:\/\/ulyah\.com/g, replace: "https://dawa.es" },
-  { file: "apps/web/src/components/admin/GrantTab.tsx", find: /ULYAH\.COM/g, replace: "DAWA.ES" },
+  { file: "apps/web/src/components/admin/GrantTab.tsx", find: "https://ulyah.com", replace: "https://dawa.es" },
+  { file: "apps/web/src/components/admin/GrantTab.tsx", find: "ULYAH.COM", replace: "DAWA.ES" },
   {
     file: "apps/web/src/components/admin/KaggleGuideTab.tsx",
-    find: /https:\/\/ulyah\.com\/brand\/ulyah-logo-dark\.webp/g,
+    find: "https://ulyah.com/brand/ulyah-logo-dark.webp",
     replace: "https://dawa.es/brand/dawa/icon.png",
   },
 
@@ -356,8 +356,8 @@ const SITES: AutoSite[] = [];`,
   },
 
   // Penerjemah konten: default hanya Spanyol (dulu fr/de/es untuk tiga situs).
-  { file: ".github/workflows/translate-content.yml", find: /fr,de,es/g, replace: "es" },
-  { file: "scripts/translate-pesantren.ts", find: /fr,de,es/g, replace: "es" },
+  { file: ".github/workflows/translate-content.yml", find: "fr,de,es", replace: "es" },
+  { file: "scripts/translate-pesantren.ts", find: "fr,de,es", replace: "es" },
   {
     file: "scripts/warm-mt-cache.ts",
     find: `const HADITH_WARM_LANGS = ["fr", "de", "es"];`,
@@ -812,17 +812,17 @@ NEXT_PUBLIC_API_URL=https://api.dawa.es
   // Laporan sisa rujukan ulyah.com di KODE (bukan komentar, bukan data).
   const leftovers = [];
   const walk = (dir) => {
-    for (const name of readdirSync(dir)) {
-      const p = join(dir, name);
+    for (const ent of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, ent.name);
       const rel = relative(PROJECT, p);
-      if (statSync(p).isDirectory()) {
+      if (ent.isDirectory()) {
         walk(p);
         continue;
       }
       if (!isText(rel) || DATA_UNTOUCHED.test(rel) || /\.md$/.test(rel)) continue;
       const lines = readFileSync(p, "utf8").split("\n");
       lines.forEach((l, i) => {
-        if (!/ulyah\.com/i.test(l)) return;
+        if (!l.toLowerCase().includes("ulyah.com")) return;
         if (/^\s*(\/\/|\*|\/\*|#|--)/.test(l)) return;
         leftovers.push(`${rel}:${i + 1}: ${l.trim().slice(0, 180)}`);
       });
@@ -834,9 +834,10 @@ NEXT_PUBLIC_API_URL=https://api.dawa.es
   const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: ROOT }).toString().trim();
   const manifest = [];
   const walkAll = (dir) => {
-    for (const name of readdirSync(dir).sort()) {
-      const p = join(dir, name);
-      if (statSync(p).isDirectory()) walkAll(p);
+    const ents = readdirSync(dir, { withFileTypes: true }).sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+    for (const ent of ents) {
+      const p = join(dir, ent.name);
+      if (ent.isDirectory()) walkAll(p);
       else manifest.push(`${sha256(readFileSync(p))}  ${relative(OUT, p)}`);
     }
   };
