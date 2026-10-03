@@ -822,7 +822,10 @@ NEXT_PUBLIC_API_URL=https://api.dawa.es
       if (!isText(rel) || DATA_UNTOUCHED.test(rel) || /\.md$/.test(rel)) continue;
       const lines = readFileSync(p, "utf8").split("\n");
       lines.forEach((l, i) => {
-        if (!l.toLowerCase().includes("ulyah.com")) return;
+        // A host match on whole tokens (ulyah.com or any *.ulyah.com), so a
+        // longer name that merely contains it is not counted.
+        const hosts = l.toLowerCase().split(/[^a-z0-9.-]+/);
+        if (!hosts.some((t) => t === "ulyah.com" || t.endsWith(".ulyah.com"))) return;
         if (/^\s*(\/\/|\*|\/\*|#|--)/.test(l)) return;
         leftovers.push(`${rel}:${i + 1}: ${l.trim().slice(0, 180)}`);
       });
