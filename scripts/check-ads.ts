@@ -42,7 +42,7 @@ const code = (src: string) => src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*
 
 console.log("=== the account and the unit are constants ===");
 const adConfig = read("apps/web/src/lib/ad-config.ts");
-const client = /ECOSYSTEM_AD_CLIENT_ID\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
+const client = /ORIGINAL_ACCOUNT\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
 const banner = /banner:\s*"(\d{6,20})"/.exec(adConfig);
 const flex = /flex:\s*"(\d{6,20})"/.exec(adConfig);
 check("a real publisher id is exported", Boolean(client), adConfig.slice(0, 200));
@@ -72,19 +72,27 @@ check(
   /data-ad-client=\{AD_CLIENT_ID\}/.test(adSlot) && /data-ad-slot=\{AD_UNITS\[unit\]\}/.test(adSlot)
 );
 
-console.log("\n=== xad.es: its own account, verification code only ===");
-// Owner, 2026-09-29: xad.es is verified afresh on its own AdSense account. Its
-// loader script, meta tag and ads.txt name the new account, and it carries no
-// ad placement at all until that account has approved it — the unit ids above
-// belong to the ecosystem's account and could never fill on the new one.
+console.log("\n=== each site declares the account the owner gave it ===");
+// docs/ADSENSE-BLUEPRINT.md §2. dawa.es and tilawa.de stay on the approved
+// original account; xad.es (2026-09-29), ulyah.com and 1fr.fr (2026-10-03)
+// are verified afresh on accounts of their own and carry no ad placement
+// until then — the unit ids above belong to the original account and could
+// never fill on another one.
+const EXPECTED: Record<string, string> = {
+  ulyah: "ca-pub-8991272269211824",
+  "1fr": "ca-pub-5944786950535069",
+  xad: "ca-pub-2493615451319531",
+};
+for (const [tenant, pub] of Object.entries(EXPECTED)) {
+  const key = tenant === "1fr" ? '"1fr"' : tenant;
+  check(`${tenant} declares ${pub}`, new RegExp(`${key}:\\s*"${pub}"`).test(adConfig));
+}
+for (const tenant of ["dawa", "tilawa"]) {
+  check(`${tenant} stays on the approved account`, new RegExp(`${tenant}:\\s*ORIGINAL_ACCOUNT`).test(adConfig));
+}
 check(
-  "xad.es has its own publisher id",
-  /XAD_AD_CLIENT_ID\s*=\s*"ca-pub-2493615451319531"/.test(adConfig) &&
-    /AD_CLIENT_ID\s*=\s*TENANT\.id\s*===\s*"xad"\s*\?\s*XAD_AD_CLIENT_ID\s*:\s*ECOSYSTEM_AD_CLIENT_ID/.test(adConfig)
-);
-check(
-  "xad.es renders no unit and places no anchor while it is verified",
-  /SHOWS_AD_UNITS\s*=\s*TENANT\.id\s*!==\s*"xad"/.test(adConfig) &&
+  "only the approved account renders units or places anchors",
+  /SHOWS_AD_UNITS\s*=\s*AD_CLIENT_ID\s*===\s*ORIGINAL_ACCOUNT/.test(adConfig) &&
     /!SHOWS_AD_UNITS/.test(code(adSlot)) &&
     /!SHOWS_AD_UNITS/.test(code(read("apps/web/src/components/PageAds.tsx")))
 );

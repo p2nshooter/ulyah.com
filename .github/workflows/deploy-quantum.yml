@@ -7,8 +7,11 @@ name: Deploy Quantum
 # sendiri, dan dependensi sendiri di luar pnpm workspace — sehingga `pnpm -r`
 # maupun `pnpm install --frozen-lockfile` milik ulyah tidak pernah menyentuhnya.
 #
-# Alamat publiknya adalah domain sendiri (repo Variable QUANTUM_DOMAIN,
-# bawaannya xaa.es). URL workers.dev tetap hidup sebagai cadangan.
+# Alamat publiknya adalah domain sendiri kalau repo Variable QUANTUM_DOMAIN
+# diisi; kalau kosong, cukup URL workers.dev. Bawaannya dulu xaa.es, tetapi
+# xaa.es sekarang dipakai studio XAA (repo p2nshooter/xaa, worker xaa-es) dan
+# sedang diajukan ke AdSense, jadi deploy ini tidak boleh merebutnya lagi
+# (docs/ADSENSE-BLUEPRINT.md §2).
 
 on:
   push:
@@ -123,13 +126,18 @@ jobs:
       # workers.dev ikut berhenti diperbarui hanya karena domain baru.
       - name: Attach custom domain when its zone is ready
         env:
-          QUANTUM_DOMAIN: ${{ vars.QUANTUM_DOMAIN || 'xaa.es' }}
+          QUANTUM_DOMAIN: ${{ vars.QUANTUM_DOMAIN || '' }}
         run: |
           set -eu
           if [ -z "${QUANTUM_DOMAIN:-}" ]; then
             echo "QUANTUM_DOMAIN kosong — tetap memakai URL workers.dev."
             exit 0
           fi
+          case "$QUANTUM_DOMAIN" in
+            xaa.es|www.xaa.es)
+              echo "::warning::xaa.es milik studio XAA (worker xaa-es). Quantum tidak memasangnya; tetap di workers.dev. Isi QUANTUM_DOMAIN dengan domain lain."
+              exit 0 ;;
+          esac
 
           AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
           ZONE_RESP=$(curl -s -H "$AUTH" \

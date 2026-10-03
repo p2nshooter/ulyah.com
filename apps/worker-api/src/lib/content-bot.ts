@@ -105,6 +105,18 @@ const SITES: AutoSite[] = [
 ];
 
 /**
+ * Sites the bot must not write for: every one of them is being put up for
+ * AdSense review, and what the bot published there is what review rejects.
+ * On oldco.in and profity.in it produced runs of near-identical titles — eight
+ * variations on "valuation of ancient Indian coins", six on "digital asset
+ * liability management". The owner's rule stands: "jgn andelin mesin, lu
+ * sendiri yg ngetik". Those articles have been removed from the sites, and
+ * the bot stays off them (docs/ADSENSE-BLUEPRINT.md §7, 1.12).
+ */
+const ADSENSE_HANDWRITTEN_ONLY = new Set(["jai", "lie", "axtodev", "xaa", "axto-us", "oldco", "profity"]);
+const ACTIVE_SITES = SITES.filter((s) => !ADSENSE_HANDWRITTEN_ONLY.has(s.key));
+
+/**
  * How long a site waits between articles.
  *
  * Back to three hours. I had cut this to forty-five minutes to fill axto.dev
@@ -497,7 +509,7 @@ export async function contentBotTick(env: Env): Promise<void> {
   const now = Date.now();
   let due: AutoSite | null = null;
   let oldest = Infinity;
-  for (const site of SITES) {
+  for (const site of ACTIVE_SITES) {
     const lastRaw = await env.CACHE_KV.get(`contentbot:last:${site.key}`).catch(() => null);
     const last = lastRaw ? Number(lastRaw) : 0;
     if (now - last < THROTTLE_MS) continue; // still within its cooldown

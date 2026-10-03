@@ -27,33 +27,41 @@
  */
 import { TENANT } from "./tenant";
 
-/** The ecosystem's publisher account — every site except xad.es. */
-const ECOSYSTEM_AD_CLIENT_ID = "ca-pub-6371903555702163";
-
 /**
- * xad.es moves to its own AdSense account and is verified afresh (owner,
- * 2026-09-29: "ubah semua verifikasi adsense nya dengan kode ini, dan hapus dulu
- * seluruh kode iklan adsense nya karena mau di verifikasi ulang").
+ * The publisher account each site belongs to.
+ *
+ * dawa.es and tilawa.de stay on the ecosystem's original account, which Google
+ * has approved. The others were each moved to an account of their own and are
+ * verified afresh: xad.es on 2026-09-29 ("ubah semua verifikasi adsense nya
+ * dengan kode ini"), ulyah.com and 1fr.fr from the owner's AdSense file of
+ * 2026-10-03 (docs/ADSENSE-BLUEPRINT.md §2).
  */
-const XAD_AD_CLIENT_ID = "ca-pub-2493615451319531";
+const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
+const AD_CLIENT_BY_TENANT: Record<string, string> = {
+  ulyah: "ca-pub-8991272269211824",
+  "1fr": "ca-pub-5944786950535069",
+  tilawa: ORIGINAL_ACCOUNT,
+  dawa: ORIGINAL_ACCOUNT,
+  xad: "ca-pub-2493615451319531",
+};
 
 /**
  * The publisher account of THIS build. The loader script and the
  * google-adsense-account meta tag in the layout, the units, and /ads.txt all
  * read this one constant, so they can never name different accounts.
  */
-export const AD_CLIENT_ID = TENANT.id === "xad" ? XAD_AD_CLIENT_ID : ECOSYSTEM_AD_CLIENT_ID;
+export const AD_CLIENT_ID = AD_CLIENT_BY_TENANT[TENANT.id] ?? ORIGINAL_ACCOUNT;
 
 /**
  * Whether this site renders ad units at all.
  *
- * False only on xad.es while its new account is under review. Verification
- * asks for the loader script, the meta tag and ads.txt — not for units — and
- * the unit ids below belong to the ecosystem's account, so they could never
- * fill on xad.es's new one. Once Google approves xad.es: create units in the
- * new account, give xad.es its own AD_UNITS, and make this true again.
+ * Only on the original account. The unit ids below belong to it, so they can
+ * never fill on another account — and a site under review needs the loader
+ * script, the meta tag and ads.txt, not units. Once Google approves a site on
+ * its own account, Auto ads in that account's dashboard place the ads; nothing
+ * in this file has to change.
  */
-export const SHOWS_AD_UNITS = TENANT.id !== "xad";
+export const SHOWS_AD_UNITS = AD_CLIENT_ID === ORIGINAL_ACCOUNT;
 
 /**
  * The account's two display units, and which positions each one serves.
