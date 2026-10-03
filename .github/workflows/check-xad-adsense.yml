@@ -1,0 +1,36 @@
+name: Check xad.es as the AdSense crawler sees it
+
+# Read-only: fetches xad.es the way Google's AdSense crawler does and prints
+# what comes back. Deploys nothing, needs no secret. Runs when this file
+# changes on this branch.
+
+on:
+  push:
+    branches: [ccr-8cac35c6-6bbbvx]
+    paths: [.github/workflows/check-xad-adsense.yml]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ads.txt, meta tag and loader as Google fetches them
+        run: |
+          MP="Mediapartners-Google"
+          GB="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          for url in https://xad.es/ads.txt https://www.xad.es/ads.txt http://xad.es/ads.txt; do
+            for ua in "$MP" "$GB"; do
+              echo "=================== $url  [$ua]"
+              curl -s -L -A "$ua" --max-time 30 -o /tmp/body.txt \
+                -w 'final=%{url_effective} status=%{http_code} redirects=%{num_redirects} type=%{content_type} bytes=%{size_download}\n' "$url" || echo "curl failed"
+              echo "--- body:"; cat /tmp/body.txt; echo
+            done
+          done
+          echo "=================== headers of https://xad.es/ads.txt"
+          curl -s -D - -o /dev/null -A "$MP" --max-time 30 https://xad.es/ads.txt || true
+          echo "=================== https://xad.es/ as $MP"
+          curl -s -L -A "$MP" --max-time 30 -o /tmp/home.html -w 'status=%{http_code} bytes=%{size_download}\n' https://xad.es/ || true
+          grep -o 'google-adsense-account" content="[^"]*"' /tmp/home.html | sort -u || echo "no meta tag"
+          grep -o 'adsbygoogle.js?client=ca-pub-[0-9]*' /tmp/home.html | sort -u || echo "no loader"
+          grep -o 'ca-pub-[0-9]*' /tmp/home.html | sort | uniq -c || true
+          echo "=================== robots.txt"
+          curl -s -A "$MP" --max-time 30 https://xad.es/robots.txt || true

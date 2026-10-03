@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { AD_CLIENT_ID, AD_UNITS, unitForPlacement } from "@/lib/ad-config";
+import { AD_CLIENT_ID, AD_UNITS, SHOWS_AD_UNITS, unitForPlacement } from "@/lib/ad-config";
 import { noteShown, noteFilled, flushAdStats } from "@/lib/ad-stats";
 
 /**
@@ -14,6 +14,10 @@ import { noteShown, noteFilled, flushAdStats } from "@/lib/ad-stats";
  * The account and the unit id are constants — see lib/ad-config.ts, which also
  * explains what this replaced and why an unapproved domain simply does not
  * fill rather than erroring.
+ *
+ * The one exception is a build-time fact, not a setting: xad.es is being
+ * verified afresh on its own account and renders no unit at all until then
+ * (SHOWS_AD_UNITS in lib/ad-config.ts).
  *
  * ── The redesign, and why ────────────────────────────────────────────────
  *
@@ -115,6 +119,11 @@ export function AdSlot({
    * a property of the page, not a setting.
    */
   const inAdmin = pathname?.includes("/admin") ?? false;
+  /**
+   * No unit here: the admin portal, or a site with no units of its own right
+   * now (xad.es while it is verified on its new account — SHOWS_AD_UNITS).
+   */
+  const off = inAdmin || !SHOWS_AD_UNITS;
   /** Banner positions and in-content positions run different units — see AD_UNITS. */
   const unit = unitForPlacement(placement);
 
@@ -122,7 +131,7 @@ export function AdSlot({
   // is counted on every site, approved or not: on a site Google has not
   // accepted yet, it is the inventory approval would turn into money.
   useEffect(() => {
-    if (inAdmin || pushedRef.current) return;
+    if (off || pushedRef.current) return;
     pushedRef.current = true;
     noteShown(unit);
     try {
@@ -134,7 +143,7 @@ export function AdSlot({
     // A route change inside the site fires no browser event, so the tally for
     // the page being left goes out as its units leave with it.
     return () => flushAdStats();
-  }, [inAdmin, unit]);
+  }, [off, unit]);
 
   /**
    * Did an ad actually arrive?
@@ -147,7 +156,7 @@ export function AdSlot({
    * still caught by the height check.
    */
   useEffect(() => {
-    if (inAdmin) return;
+    if (off) return;
     const el = insRef.current;
     if (!el) return;
     let stopped = false;
@@ -182,9 +191,9 @@ export function AdSlot({
       stopped = true;
       window.clearTimeout(id);
     };
-  }, [inAdmin, unit]);
+  }, [off, unit]);
 
-  if (inAdmin) return null;
+  if (off) return null;
 
   const caption = label ?? adL.label;
 

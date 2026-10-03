@@ -42,7 +42,7 @@ const code = (src: string) => src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*
 
 console.log("=== the account and the unit are constants ===");
 const adConfig = read("apps/web/src/lib/ad-config.ts");
-const client = /AD_CLIENT_ID\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
+const client = /ECOSYSTEM_AD_CLIENT_ID\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
 const banner = /banner:\s*"(\d{6,20})"/.exec(adConfig);
 const flex = /flex:\s*"(\d{6,20})"/.exec(adConfig);
 check("a real publisher id is exported", Boolean(client), adConfig.slice(0, 200));
@@ -70,6 +70,29 @@ const adSlot = read("apps/web/src/components/AdSlot.tsx");
 check(
   "the unit renders the constants",
   /data-ad-client=\{AD_CLIENT_ID\}/.test(adSlot) && /data-ad-slot=\{AD_UNITS\[unit\]\}/.test(adSlot)
+);
+
+console.log("\n=== xad.es: its own account, verification code only ===");
+// Owner, 2026-09-29: xad.es is verified afresh on its own AdSense account. Its
+// loader script, meta tag and ads.txt name the new account, and it carries no
+// ad placement at all until that account has approved it — the unit ids above
+// belong to the ecosystem's account and could never fill on the new one.
+check(
+  "xad.es has its own publisher id",
+  /XAD_AD_CLIENT_ID\s*=\s*"ca-pub-2493615451319531"/.test(adConfig) &&
+    /AD_CLIENT_ID\s*=\s*TENANT\.id\s*===\s*"xad"\s*\?\s*XAD_AD_CLIENT_ID\s*:\s*ECOSYSTEM_AD_CLIENT_ID/.test(adConfig)
+);
+check(
+  "xad.es renders no unit and places no anchor while it is verified",
+  /SHOWS_AD_UNITS\s*=\s*TENANT\.id\s*!==\s*"xad"/.test(adConfig) &&
+    /!SHOWS_AD_UNITS/.test(code(adSlot)) &&
+    /!SHOWS_AD_UNITS/.test(code(read("apps/web/src/components/PageAds.tsx")))
+);
+check(
+  "ads.txt is built per site from the same constant",
+  !existsSync(join(ROOT, "apps/web/public/ads.txt")) &&
+    /AD_CLIENT_ID/.test(read("apps/web/src/app/ads.txt/route.ts")),
+  "a static public/ads.txt is shared by every tenant build and would name one account on all five sites"
 );
 
 console.log("\n=== each position uses the unit meant for it ===");
@@ -159,6 +182,11 @@ check(
   "the sandboxed ad frame is gone with it",
   !existsSync(join(ROOT, "apps/web/public/ads/frame.html")),
   "public/ads/frame.html only ever served the old network"
+);
+check(
+  "the old network's unit tester page is gone too",
+  !existsSync(join(ROOT, "apps/web/public/ads/check.html")),
+  "public/ads/check.html rendered Adsterra units by key on every site"
 );
 
 console.log(failed === 0 ? "\nALL OK" : `\n${failed} FAILED`);
