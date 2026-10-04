@@ -136,6 +136,16 @@ export async function check(domain) {
   ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
   ok(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
 
+  // Deploy config: Wrangler rejects a Worker name with dots, and a name that
+  // differs from site.json would deploy to the wrong Worker. The config sits in
+  // the site folder (multi-site repo) or at the repo root (one-site repo).
+  const siteDir = join(dirname(fileURLToPath(import.meta.url)), "..", domain);
+  const wranglerFile = [join(siteDir, "wrangler.jsonc"), join(siteDir, "..", "..", "wrangler.jsonc")].find((f) => existsSync(f));
+  if (ok(Boolean(wranglerFile), "wrangler.jsonc exists")) {
+    const workerName = (readFileSync(wranglerFile, "utf8").match(/"name"\s*:\s*"([^"]*)"/) || [])[1] || "";
+    ok(/^[a-z0-9-]+$/.test(workerName) && (!site.worker || workerName === site.worker), `Worker name is valid and matches site.json ("${workerName}")`, `site.json worker: "${site.worker || ""}"`);
+  }
+
   return failed;
 }
 
