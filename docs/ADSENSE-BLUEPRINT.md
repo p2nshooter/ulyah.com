@@ -19,7 +19,8 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
    ada), `.com` (ulyah) → Indonesia, `.io` `.us` `.dev` `.skin` → Inggris.
 2. **AdSense saja.** Tidak ada Adsterra, popunder, social bar, atau jaringan
    iklan lain di situs mana pun. Setiap situs memuat persis tiga hal dari
-   akunnya sendiri: script `adsbygoogle.js?client=…` di `<head>`, meta
+   **satu akun yang sama, `ca-pub-5693981744147503`** (sejak 4 Okt 2026,
+   "jadi 1 akun saja"): script `adsbygoogle.js?client=…` di `<head>`, meta
    `google-adsense-account`, dan `/ads.txt`. Tidak ada pengaturan iklan yang
    bisa mematikannya.
 3. **Unit iklan manual hanya untuk akun yang sudah di-ACC** (ID slot milik
@@ -47,6 +48,13 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
    `prefers-reduced-motion`, dan tidak memakai gambar makhluk bernyawa
    (patung/figur).
 10. Repo **sairan** tidak disentuh.
+11. **dawa.es bukan milik pemilik lagi.** Kode AdSense, ads.txt, meta, isi,
+    traffic, Ad Manager: dawa.es dikecualikan dari SEMUA perubahan dan dari
+    semua sistem otomatis. Tenant `dawa` di apps/web hanya boleh tetap jalan
+    seperti sekarang.
+12. **Ad Manager + AI otomatis** mengikuti `docs/ADMANAGER-BLUEPRINT.md`:
+    hanya bekerja di situs yang sudah di-approve AdSense, aturan tetap
+    (deterministik), semua laporan tampil di admin ulyah.com.
 
 ---
 
@@ -56,34 +64,35 @@ Kolom "Live" berisi hasil audit Chromium sungguhan dari GitHub Actions
 (`.github/workflows/site-audit.yml`), karena container kerja tidak bisa
 membuka domain-domain ini.
 
-| Domain | Akun AdSense baru | Repo / lokasi kode | Worker | Bahasa | Live sekarang |
+| Domain | Akun AdSense (satu akun) | Repo / lokasi kode | Worker | Bahasa | Live sekarang |
 |---|---|---|---|---|---|
-| ulyah.com | ca-pub-8991272269211824 | `ulyah.com` · apps/web (tenant `ulyah`) | ulyah-web | id | 200 · akun lama 6371… · tanpa Adsterra |
-| 1fr.fr | ca-pub-5944786950535069 (4 Okt: sempat dipindah ke 8991…, dikembalikan atas permintaan pemilik) | `ulyah.com` · apps/web (tenant `1fr`) | onefaith-web | fr | 200 |
-| tilawa.de | ca-pub-8991272269211824 (4 Okt: sama dengan xaa.es; sebelumnya 6371…) | `ulyah.com` · apps/web (tenant `tilawa`) | tilawa-web | de | 200 |
-| axto.io | ca-pub-8991272269211824 | `guardian-ai` · `dashboard/` (Cloudflare Pages) | axto-dashboard | en | 200 · akun lama 6371… · **ads.txt 404** |
-| xaa.es | ca-pub-8991272269211824 | `xaa` (studio web + portal klien) | xaa-es | en → **es** | 200 · akun lama 6371… · home tanpa artikel |
-| axto.us | ca-pub-6908951782430508 | `axto.us` (perpustakaan cerita anak + blog) | axto-us | en | 200 · akun lama 6371… |
-| axto.dev | ca-pub-8469557036744946 | `axtodev` | axto-dev | en | 200 · **Adsterra aktif** · 158 artikel |
-| jai.lat | ca-pub-4548005919629272 | `jai` | jai-lat | en → **es** | 200 · **Adsterra aktif** · 77 artikel (Inggris) |
-| lie.skin | ca-pub-9666205248809954 | `lie` | lie-skin | en | 200 · **Adsterra aktif** · 88 artikel |
-| oldco.in | ca-pub-6293576511807510 | `oldco.in` | oldco-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
-| profity.in | ca-pub-6146217038829045 | `profity.in` | profity-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
-| dawo.es | ca-pub-6019445914743449 | **baru** → `ulyah.com/sites/dawo.es` | dawo-es | es | **belum ada** (DNS tidak resolve) |
-| qkb.es | ca-pub-7516944260248026 | **baru** → `ulyah.com/sites/qkb.es` | qkb-es | es | **belum ada** (DNS tidak resolve) |
-| byodd.de | ca-pub-2228462932360966 | **baru** → `ulyah.com/sites/byodd.de` | byodd-de | de | belum ada |
-| xko.es | ca-pub-6560360898389273 | **baru** → `ulyah.com/sites/xko.es` | xko-es | es | belum ada |
-| byoxy.de | ca-pub-6701063918838796 | **baru** → `ulyah.com/sites/byoxy.de` | byoxy-de | de | belum ada |
+| ulyah.com | ca-pub-5693981744147503 | `ulyah.com` · apps/web (tenant `ulyah`) | ulyah-web | id | 200 · akun lama 6371… · tanpa Adsterra |
+| 1fr.fr | ca-pub-5693981744147503 | `ulyah.com` · apps/web (tenant `1fr`) | onefaith-web | fr | 200 |
+| tilawa.de | ca-pub-5693981744147503 | `ulyah.com` · apps/web (tenant `tilawa`) | tilawa-web | de | 200 |
+| axto.io | ca-pub-5693981744147503 | `guardian-ai` · `dashboard/` (Cloudflare Pages) | axto-dashboard | en | 200 · akun lama 6371… · **ads.txt 404** |
+| xaa.es | ca-pub-5693981744147503 | `xaa` (studio web + portal klien) | xaa-es | en → **es** | 200 · akun lama 6371… · home tanpa artikel |
+| axto.us | ca-pub-5693981744147503 | `axto.us` (perpustakaan cerita anak + blog) | axto-us | en | 200 · akun lama 6371… |
+| axto.dev | ca-pub-5693981744147503 | `axtodev` | axto-dev | en | 200 · **Adsterra aktif** · 158 artikel |
+| jai.lat | ca-pub-5693981744147503 | `jai` | jai-lat | en → **es** | 200 · **Adsterra aktif** · 77 artikel (Inggris) |
+| lie.skin | ca-pub-5693981744147503 | `lie` | lie-skin | en | 200 · **Adsterra aktif** · 88 artikel |
+| oldco.in | ca-pub-5693981744147503 | `oldco.in` | oldco-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
+| profity.in | ca-pub-5693981744147503 | `profity.in` | profity-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
+| dawo.es | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/dawo.es` | dawo-es | es | **belum ada** (DNS tidak resolve) |
+| qkb.es | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/qkb.es` | qkb-es | es | **belum ada** (DNS tidak resolve) |
+| byodd.de | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/byodd.de` | byodd-de | de | belum ada |
+| xko.es | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/xko.es` | xko-es | es | belum ada |
+| byoxy.de | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/byoxy.de` | byoxy-de | de | belum ada |
 
 > **Koreksi pemilik (4 Okt):** situsnya **byodd.de**, bukan byodd.es. Kode
 > 2228462932360966 milik byodd.de. **byodd.es tidak dibuat.** Meta tag
 > `google-adsense-account`, script loader dan ads.txt dibuat otomatis oleh
 > engine dari kolom `adsense` di `site.json`. Pemilik cukup memberi nomor pub.
 
-Tidak berubah (tidak ada di file): dawa.es tetap
-6371903555702163 (sudah di-ACC), xad.es tetap 2493615451319531 (sudah live
-dari branch `ccr-8cac35c6-6bbbvx`, digabung ke main lewat pekerjaan ini supaya
-tidak tertimpa).
+**4 Okt 2026, satu akun:** semua domain di tabel ini, ditambah **xad.es**,
+memakai `ca-pub-5693981744147503`. **dawa.es tetap 6371903555702163 dan tidak
+disentuh**, karena bukan milik pemilik lagi. Sebelumnya: xad.es 2493…, 1fr.fr 5944…,
+ulyah.com/tilawa.de/axto.io/xaa.es 8991…, dan akun per situs lainnya. Semuanya
+sudah diganti; lihat `docs/ADSENSE-CODES.md`.
 
 Temuan "tersembunyi" (live berbeda dari main):
 
@@ -414,4 +423,7 @@ Usulan niche (belum final):
 | 4 Okt | Favicon/logo setiap situs harus unik | ✅ 11 favicon baru (bentuk & warna sendiri), PR di semua repo |
 | 4 Okt | Isi DNS TXT verifikasi Search Console (qarf, qulen, qurm, zavik, zevok, zuvik) | ✅ PR #291, workflow dns-records.yml menambahkan 6 TXT |
 | 4 Okt | 10 situs terakhir cukup 40 artikel per situs untuk syarat AdSense | ✅ dicatat Fase 6 |
+| 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | 🔄 ulyah.com selesai; repo partner menyusul (§2) |
+| 4 Okt | Blueprint Ad Manager + pusat AI ulyah.com: otomatis penuh, aturan tetap, hanya situs yang sudah di-approve, laporan di admin, traffic semua situs kecuali dawa.es | 🔄 `docs/ADMANAGER-BLUEPRINT.md` |
+| 4 Okt | Favicon di Search Console masih bola dunia | 🔄 penyebab: domain belum tersambung ke Worker / belum di-crawl ulang; favicon.ico + PNG ditambahkan |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |

@@ -3,11 +3,11 @@ Engine memasang ketiganya otomatis dari "adsense" di site.json; check.mjs
 menolak deploy kalau hasil build tidak sama persis dengan file ini.
 
 Cuplikan adsense (di <head> setiap halaman)
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7516944260248026"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 
 Cuplikan ads.txt (https://qkb.es/ads.txt)
-google.com, pub-7516944260248026, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman)
-<meta name="google-adsense-account" content="ca-pub-7516944260248026">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">

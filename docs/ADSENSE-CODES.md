@@ -10,56 +10,64 @@ Situs di `sites/` juga punya salinan di `sites/<domain>/ADSENSE.txt`.
 karakter saja dari file itu. Situs lain diperiksa di browser oleh
 `.github/workflows/site-audit.yml`.
 
+> **4 Okt 2026, SATU AKUN UNTUK SEMUA.** Pemilik: "sy mau focus jadi 1 akun
+> saja… Ubah seluruh website ini kode AdSense, ads.txt & tag meta nya" dan
+> "xad.es & xaa.es … samain … yg jgn di sentuh adalah dawa.es karena bukan
+> milik sy lagi". Mulai hari ini **semua situs pemilik memakai
+> `ca-pub-5693981744147503`**. Satu-satunya pengecualian adalah **dawa.es**:
+> bukan milik pemilik lagi, jadi kodenya dibiarkan apa adanya dan tidak boleh
+> disentuh oleh perubahan apa pun.
+
 | Domain | Publisher | Tempat kodenya |
 |---|---|---|
-| ulyah.com | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt |
-| axto.io | ca-pub-8991272269211824 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt |
-| xaa.es | ca-pub-8991272269211824 | xaa · site.ts + public/ads.txt |
-| 1fr.fr | ca-pub-5944786950535069 | ulyah.com · apps/web (tenant 1fr) |
-| axto.us | ca-pub-6908951782430508 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — 4 Okt: situs statis baru |
-| axto.dev | ca-pub-8469557036744946 | axtodev · site.ts + public/ads.txt |
-| jai.lat | ca-pub-4548005919629272 | Jai · site.ts + public/ads.txt |
-| lie.skin | ca-pub-9666205248809954 | Lie · site.ts + public/ads.txt |
-| oldco.in | ca-pub-6293576511807510 | oldco.in · layout + public/ads.txt |
-| profity.in | ca-pub-6146217038829045 | profity.in · layout + public/ads.txt |
-| dawo.es | ca-pub-6019445914743449 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) |
-| qkb.es | ca-pub-7516944260248026 | ulyah.com · sites/qkb.es (site.json + ADSENSE.txt) |
-| byodd.de | ca-pub-2228462932360966 | ulyah.com · sites/byodd.de (site.json + ADSENSE.txt) |
-| xko.es | ca-pub-6560360898389273 | ulyah.com · sites/xko.es (site.json + ADSENSE.txt) |
-| byoxy.de | ca-pub-6701063918838796 | ulyah.com · sites/byoxy.de (site.json + ADSENSE.txt) |
-| byoy.de | ca-pub-5693981744147503 | ulyah.com · sites/byoy.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| qarf.de | ca-pub-5693981744147503 | ulyah.com · sites/qarf.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| qulen.de | ca-pub-5693981744147503 | ulyah.com · sites/qulen.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| qurm.de | ca-pub-5693981744147503 | ulyah.com · sites/qurm.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| rubiy.de | ca-pub-5693981744147503 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| zavik.de | ca-pub-5693981744147503 | ulyah.com · sites/zavik.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| zevok.de | ca-pub-5693981744147503 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| zolun.de | ca-pub-5693981744147503 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| zufiq.de | ca-pub-5693981744147503 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| zuvik.de | ca-pub-5693981744147503 | ulyah.com · sites/zuvik.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
-| dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — sudah di-ACC, tidak diubah |
-| tilawa.de | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant tilawa) — 4 Okt: akun xaa.es |
-| xad.es | ca-pub-2493615451319531 | ulyah.com · apps/web (tenant xad) — tidak diubah |
+| ulyah.com | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt |
+| axto.io | ca-pub-5693981744147503 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt |
+| xaa.es | ca-pub-5693981744147503 | xaa · site.ts + public/ads.txt |
+| 1fr.fr | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant 1fr) |
+| axto.us | ca-pub-5693981744147503 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — 4 Okt: situs statis baru |
+| axto.dev | ca-pub-5693981744147503 | axtodev · site.ts + public/ads.txt |
+| jai.lat | ca-pub-5693981744147503 | Jai · site.ts + public/ads.txt |
+| lie.skin | ca-pub-5693981744147503 | Lie · site.ts + public/ads.txt |
+| oldco.in | ca-pub-5693981744147503 | oldco.in · layout + public/ads.txt |
+| profity.in | ca-pub-5693981744147503 | profity.in · layout + public/ads.txt |
+| dawo.es | ca-pub-5693981744147503 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) |
+| qkb.es | ca-pub-5693981744147503 | ulyah.com · sites/qkb.es (site.json + ADSENSE.txt) |
+| byodd.de | ca-pub-5693981744147503 | ulyah.com · sites/byodd.de (site.json + ADSENSE.txt) |
+| xko.es | ca-pub-5693981744147503 | ulyah.com · sites/xko.es (site.json + ADSENSE.txt) |
+| byoxy.de | ca-pub-5693981744147503 | ulyah.com · sites/byoxy.de (site.json + ADSENSE.txt) |
+| byoy.de | ca-pub-5693981744147503 | ulyah.com · sites/byoy.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| qarf.de | ca-pub-5693981744147503 | ulyah.com · sites/qarf.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| qulen.de | ca-pub-5693981744147503 | ulyah.com · sites/qulen.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| qurm.de | ca-pub-5693981744147503 | ulyah.com · sites/qurm.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| rubiy.de | ca-pub-5693981744147503 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zavik.de | ca-pub-5693981744147503 | ulyah.com · sites/zavik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zevok.de | ca-pub-5693981744147503 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zolun.de | ca-pub-5693981744147503 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zufiq.de | ca-pub-5693981744147503 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zuvik.de | ca-pub-5693981744147503 | ulyah.com · sites/zuvik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
+| tilawa.de | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant tilawa) |
+| xad.es | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant xad) |
 
 ## ulyah.com
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://ulyah.com/ads.txt)
 
 ```
-google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-8991272269211824">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## axto.io
@@ -67,20 +75,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://axto.io/ads.txt)
 
 ```
-google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-8991272269211824">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## xaa.es
@@ -88,20 +96,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://xaa.es/ads.txt)
 
 ```
-google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-8991272269211824">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## 1fr.fr
@@ -109,20 +117,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5944786950535069"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://1fr.fr/ads.txt)
 
 ```
-google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5944786950535069">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## axto.us
@@ -130,20 +138,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://axto.us/ads.txt)
 
 ```
-google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6908951782430508">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## axto.dev
@@ -151,20 +159,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8469557036744946"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://axto.dev/ads.txt)
 
 ```
-google.com, pub-8469557036744946, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-8469557036744946">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## jai.lat
@@ -172,20 +180,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://jai.lat/ads.txt)
 
 ```
-google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-4548005919629272">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## lie.skin
@@ -193,20 +201,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9666205248809954"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://lie.skin/ads.txt)
 
 ```
-google.com, pub-9666205248809954, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-9666205248809954">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## oldco.in
@@ -214,20 +222,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6293576511807510"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://oldco.in/ads.txt)
 
 ```
-google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6293576511807510">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## profity.in
@@ -235,20 +243,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://profity.in/ads.txt)
 
 ```
-google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6146217038829045">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## dawo.es
@@ -256,20 +264,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6019445914743449"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://dawo.es/ads.txt)
 
 ```
-google.com, pub-6019445914743449, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6019445914743449">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## qkb.es
@@ -277,20 +285,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7516944260248026"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://qkb.es/ads.txt)
 
 ```
-google.com, pub-7516944260248026, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-7516944260248026">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## byodd.de
@@ -298,20 +306,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228462932360966"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://byodd.de/ads.txt)
 
 ```
-google.com, pub-2228462932360966, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2228462932360966">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## xko.es
@@ -319,20 +327,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6560360898389273"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://xko.es/ads.txt)
 
 ```
-google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6560360898389273">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## byoxy.de
@@ -340,20 +348,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://byoxy.de/ads.txt)
 
 ```
-google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6701063918838796">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## byoy.de
@@ -612,20 +620,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://tilawa.de/ads.txt)
 
 ```
-google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-8991272269211824">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## xad.es
@@ -633,18 +641,18 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://xad.es/ads.txt)
 
 ```
-google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2493615451319531">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```

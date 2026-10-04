@@ -37,15 +37,18 @@ import { TENANT } from "./tenant";
  * (1fr.fr briefly moved to the xaa.es account on 2026-10-04 and was put back
  * the same day: "1fr.fr kembaliin ke semula"), and tilawa.de on 2026-10-04
  * onto the same account as xaa.es ("sama dengan xaa.es karena 1 akun").
- * docs/ADSENSE-CODES.md lists every domain.
+ * On 2026-10-04 the owner consolidated every site onto ONE account ("sy mau
+ * focus jadi 1 akun saja"): ulyah.com, 1fr.fr, tilawa.de and xad.es now all
+ * declare ca-pub-5693981744147503. dawa.es is not the owner's any more and is
+ * left exactly as it was. docs/ADSENSE-CODES.md lists every domain.
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
-  ulyah: "ca-pub-8991272269211824",
-  "1fr": "ca-pub-5944786950535069",
-  tilawa: "ca-pub-8991272269211824",
+  ulyah: "ca-pub-5693981744147503",
+  "1fr": "ca-pub-5693981744147503",
+  tilawa: "ca-pub-5693981744147503",
   dawa: ORIGINAL_ACCOUNT,
-  xad: "ca-pub-2493615451319531",
+  xad: "ca-pub-5693981744147503",
 };
 
 /**

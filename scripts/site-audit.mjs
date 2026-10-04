@@ -12,14 +12,16 @@ const domains = process.argv.slice(2);
 
 // What each domain must declare (docs/ADSENSE-CODES.md). A site missing its
 // meta tag, loader or ads.txt line is reported as such at the end.
-const EXPECTED = {
-  "ulyah.com": "8991272269211824", "axto.io": "8991272269211824", "xaa.es": "8991272269211824",
-  "1fr.fr": "5944786950535069", "axto.us": "6908951782430508", "axto.dev": "8469557036744946",
-  "jai.lat": "4548005919629272", "lie.skin": "9666205248809954", "oldco.in": "6293576511807510",
-  "profity.in": "6146217038829045", "dawo.es": "6019445914743449", "qkb.es": "7516944260248026",
-  "byodd.de": "2228462932360966", "xko.es": "6560360898389273", "byoxy.de": "6701063918838796",
-  "dawa.es": "6371903555702163", "tilawa.de": "8991272269211824", "xad.es": "2493615451319531",
-};
+// Since 2026-10-04 every owner site is on ONE account ("jadi 1 akun saja").
+// dawa.es is no longer the owner's and keeps its own account, untouched.
+const ONE_ACCOUNT = "5693981744147503";
+const EXPECTED = Object.fromEntries([
+  "ulyah.com", "axto.io", "xaa.es", "1fr.fr", "axto.us", "axto.dev", "jai.lat", "lie.skin",
+  "oldco.in", "profity.in", "dawo.es", "qkb.es", "byodd.de", "xko.es", "byoxy.de", "tilawa.de",
+  "xad.es", "byoy.de", "qarf.de", "qulen.de", "qurm.de", "rubiy.de", "zavik.de", "zevok.de",
+  "zolun.de", "zufiq.de", "zuvik.de",
+].map((d) => [d, ONE_ACCOUNT]));
+EXPECTED["dawa.es"] = "6371903555702163";
 const verdicts = [];
 
 const browser = await chromium.launch();
