@@ -1,0 +1,38 @@
+{
+  "domain": "qkb.es",
+  "name": "QKB",
+  "expansion": "Queso, Kéfir y Bollería",
+  "tagline": "El obrador casero: quesos, fermentados, pan y bollería explicados paso a paso",
+  "description": "QKB es una revista de cocina casera dedicada al obrador doméstico: quesos frescos, kéfir y fermentados, masa madre, pan, bollería española y conservas, con recetas probadas y criterios de seguridad alimentaria.",
+  "lang": "es",
+  "locale": "es-ES",
+  "ogLocale": "es_ES",
+  "adsense": "ca-pub-7516944260248026",
+  "trackId": "qkb-es",
+  "worker": "qkb-es",
+  "themeColor": "#2a1a12",
+  "email": "hola@qkb.es",
+  "author": "Obrador QKB",
+  "fonts": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap",
+  "paths": { "article": "/recetas-y-guias/", "category": "/despensa/" },
+  "categories": [
+    { "slug": "quesos-caseros", "name": "Quesos caseros", "icon": "queso", "description": "Queso fresco, requesón, mozzarella y labneh en la cocina de casa, con leche segura y técnica sencilla." },
+    { "slug": "kefir-y-fermentados", "name": "Kéfir y fermentados", "icon": "tarro", "description": "Kéfir de leche y de agua, yogur, kombucha y verduras fermentadas, con higiene y paciencia." },
+    { "slug": "masa-madre-y-pan", "name": "Masa madre y pan", "icon": "pan", "description": "Crear y cuidar una masa madre, entender las harinas y hornear hogazas, chapatas y pan de molde." },
+    { "slug": "bolleria", "name": "Bollería española", "icon": "espiral", "description": "Croissants, ensaimadas, magdalenas, roscón, torrijas y churros hechos en casa." },
+    { "slug": "conservas", "name": "Conservas y encurtidos", "icon": "frasco", "description": "Mermeladas, encurtidos, aceitunas aliñadas y conservas caseras con criterios de seguridad." },
+    { "slug": "tecnica", "name": "Técnica del obrador", "icon": "balanza", "description": "Temperatura, sal, levaduras, utensilios e higiene: la base que hace que todo salga bien." }
+  ],
+  "menu": [
+    { "label": "Sobre QKB", "href": "/sobre-nosotros/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos y condiciones", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" },
+    { "label": "Seguridad alimentaria", "href": "/seguridad-alimentaria/" }
+  ]
+}

@@ -1,6 +1,6 @@
 name: Deploy article sites (sites/)
 
-# Builds and deploys every site under sites/ (dawo.es, qkb.es, byodd.es …).
+# Builds and deploys every site under sites/ (dawo.es, qkb.es, xko.es, byodd.de, byoxy.de …).
 # Each is a static site on Cloudflare Workers Static Assets: no Worker script,
 # no D1, no R2 — so it cannot be taken down by the shared API, by the D1 read
 # quota or by R2 being off. See sites/README.md and docs/ADSENSE-BLUEPRINT.md.

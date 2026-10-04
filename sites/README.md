@@ -11,6 +11,7 @@ sites/
     lib/markdown.mjs  pengubah Markdown → HTML
   dawo.es/
     site.json         identitas: nama, kepanjangan, bahasa, akun AdSense, menu, kategori
+    ADSENSE.txt       tiga kode dari Google, ditulis manual: script, ads.txt, tag meta
     content/articles/ DATABASE artikel (Markdown + frontmatter)
     content/pages/    halaman wajib: tentang, kontak, privasi, cookie, aviso legal, …
     theme/            HTML (templates.mjs), CSS dan JS milik situs ini SAJA
@@ -58,16 +59,23 @@ Gerbang `check.mjs` menolak deploy kalau:
 - ada artikel di bawah 1.200 kata, atau rata-ratanya di bawah 1.400 kata;
 - ada judul yang dobel;
 - ada halaman wajib yang hilang;
-- akun AdSense atau ads.txt salah;
+- akun AdSense, ads.txt, atau tag meta tidak sama dengan `ADSENSE.txt`;
 - ada jaringan iklan lain;
 - ada tautan internal yang rusak.
 
 ## Situs yang belum punya akun AdSense
 
 Kosongkan atau hapus `"adsense"` di `site.json`. Situs tetap dibangun dan
-online (persiapan). Begitu kode AdSense ada, isi
-`"adsense": "ca-pub-…"`, lalu push. Meta tag, script loader dan ads.txt akan
-muncul sendiri.
+online (persiapan). Begitu kode AdSense ada:
+
+1. isi `"adsense": "ca-pub-…"` di `site.json`;
+2. tulis ketiga cuplikan dari Google (script, ads.txt, tag meta) ke
+   `ADSENSE.txt`. Contohnya ada di `sites/qkb.es/ADSENSE.txt`, dan daftar
+   semua domain ada di `docs/ADSENSE-CODES.md`;
+3. push.
+
+`check.mjs` memastikan setiap halaman memuat tag meta dan script yang sama
+persis dengan `ADSENSE.txt`, dan ads.txt berisi baris yang sama.
 
 ## Menjual sebuah situs
 

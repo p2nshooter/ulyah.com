@@ -70,10 +70,14 @@ membuka domain-domain ini.
 | profity.in | ca-pub-6146217038829045 | `profity.in` | profity-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
 | dawo.es | ca-pub-6019445914743449 | **baru** → `ulyah.com/sites/dawo.es` | dawo-es | es | **belum ada** (DNS tidak resolve) |
 | qkb.es | ca-pub-7516944260248026 | **baru** → `ulyah.com/sites/qkb.es` | qkb-es | es | **belum ada** (DNS tidak resolve) |
-| byodd.es | ca-pub-2228462932360966 | **baru** → `ulyah.com/sites/byodd.es` | byodd-es | es | **belum ada** (DNS tidak resolve) |
-| xko.es | — (persiapan) | **baru** → `ulyah.com/sites/xko.es` | xko-es | es | belum ada |
-| byodd.de | — (persiapan) | **baru** → `ulyah.com/sites/byodd.de` | byodd-de | de | belum ada |
-| byoxy.de | — (persiapan) | **baru** → `ulyah.com/sites/byoxy.de` | byoxy-de | de | belum ada |
+| byodd.de | ca-pub-2228462932360966 | **baru** → `ulyah.com/sites/byodd.de` | byodd-de | de | belum ada |
+| xko.es | ca-pub-6560360898389273 | **baru** → `ulyah.com/sites/xko.es` | xko-es | es | belum ada |
+| byoxy.de | ca-pub-6701063918838796 | **baru** → `ulyah.com/sites/byoxy.de` | byoxy-de | de | belum ada |
+
+> **Koreksi pemilik (4 Okt):** situsnya **byodd.de**, bukan byodd.es. Kode
+> 2228462932360966 milik byodd.de. **byodd.es tidak dibuat.** Meta tag
+> `google-adsense-account`, script loader dan ads.txt dibuat otomatis oleh
+> engine dari kolom `adsense` di `site.json`. Pemilik cukup memberi nomor pub.
 
 Tidak berubah (tidak ada di file): dawa.es dan tilawa.de tetap
 6371903555702163 (sudah di-ACC), xad.es tetap 2493615451319531 (sudah live
@@ -100,7 +104,6 @@ Temuan "tersembunyi" (live berbeda dari main):
 |---|---|---|
 | dawo.es | **D**eporte, **A**ctividad, **W**ellness y **O**cio | Deporte amateur y vida activa: correr, pádel, fútbol base, fuerza, movilidad, descanso, nutrición deportiva básica |
 | qkb.es | **Q**ueso, **K**éfir y **B**ollería | El obrador casero: quesos frescos, kéfir y fermentados, masa madre, panes y bollería española |
-| byodd.es | **B**ricolaje **Y** **O**rden **D**el **D**omicilio | Bricolaje, reparaciones del hogar, orden y decoración práctica |
 | xko.es | e**X**pertos en **K**ilovatios y **O**ptimización | Ahorro energético en casa: factura de la luz, potencia, autoconsumo, aislamiento |
 | byodd.de | **B**ring **Y**our **O**wn **D**IY & **D**eko | Heimwerken, Renovieren und Wohnen auf Deutsch |
 | byoxy.de | **B**ring **Y**our **OXY**gen home | Zimmerpflanzen, Balkon- und Kräutergarten auf Deutsch |
@@ -114,6 +117,29 @@ Temuan "tersembunyi" (live berbeda dari main):
 | profity.in | **Profit** + **I**nsight for **Y**ou | व्यक्तिगत वित्त / Personal finance for India |
 | 1fr.fr | One Faith France | Portail islamique (yang sudah ada) |
 | ulyah.com | — | Portal Islam berbahasa Indonesia (yang sudah ada) |
+
+### Aturan niche SEO (permintaan pemilik 4 Okt: "niche kuat & banyak, bukan sampah")
+
+1. **Satu situs = satu niche evergreen yang dicari orang setiap bulan**, dalam
+   bahasa domainnya. Tidak ada artikel di luar niche.
+2. **Kluster topik:** 5–6 kategori; tiap kategori punya 1 artikel pilar
+   (panduan lengkap) dan 5–8 artikel turunan yang saling menautkan.
+3. **Satu artikel = satu maksud pencarian** (cara membuat X, X vs Y, kesalahan
+   X, berapa/kapan/berapa lama X). Judul memuat kata kunci utama secara alami.
+4. **Tidak ada konten sampah:** tidak ada judul kembar, tidak ada artikel
+   tipis (minimal 1.200 kata, rata-rata ≥1.400), tidak ada parafrase mesin,
+   fakta dicek, keselamatan/kesehatan/keuangan ditulis hati-hati (YMYL), tanpa
+   janji palsu.
+5. **Ruang tumbuh:** setiap niche dipilih supaya bisa berkembang ke ratusan
+   artikel tanpa keluar topik.
+
+| Situs | Kluster (kategori) | Contoh kata kunci kuat |
+|---|---|---|
+| dawo.es | correr · pádel · fútbol · fuerza y movilidad · descanso y nutrición · ocio activo | plan para correr 5 km, cómo elegir pala de pádel |
+| qkb.es | quesos caseros · kéfir y fermentados · masa madre y pan · bollería · conservas · técnica | cómo hacer queso fresco, masa madre desde cero, roscón casero |
+| xko.es | factura de la luz · potencia y tarifas · autoconsumo solar · aislamiento · climatización · electrodomésticos | cómo bajar la factura de la luz, qué potencia contratar, placas solares cuánto ahorro |
+| byodd.de | Werkzeug · Wand & Boden · Holz · Bad & Küche · Dekoration · Reparaturen | Wand streichen Anleitung, Laminat verlegen, Dübel richtig setzen |
+| byoxy.de | Zimmerpflanzen · Pflege · Schädlinge · Balkon · Kräuter · Vermehrung | Monstera Pflege, Trauermücken loswerden, Kräuter auf dem Balkon |
 
 ---
 
@@ -136,7 +162,9 @@ berbagi palet, font, ornamen, atau gaya animasi menu.**
 |---|---|---|---|---|
 | dawo.es | Salón de cristal sobre el agua | safir, toska, emas pucat | Cormorant Garamond / Manrope | Ubin kaca beriak; kaustik air bergerak di bawah header |
 | qkb.es | Fuente de cobre fundido | tembaga, perunggu, krem roti | Playfair Display / Lora | Garis bawah tembaga cair mengalir; uap tipis naik dari menu aktif |
-| byodd.es | Arcos de cedro y mármol | marmer gading, kayu cedar, zamrud | Marcellus / Source Sans 3 | Item menu naik menjadi lengkung mihrab; pola zellige berputar pelan |
+| byodd.de | Zedernhalle mit Marmorbögen | marmer gading, kayu cedar, zamrud | Marcellus / Source Sans 3 | Item menu naik menjadi lengkung mihrab; pola ubin berputar pelan |
+| xko.es | Sala del sol de ámbar | ámbar, kobalt, perak | Spectral / Outfit | Percikan arus berlari di kabel emas bawah menu; bohlam menyala saat hover |
+| byoxy.de | Hängende Gärten | giok, lumut, emas | Gloock / Instrument Sans | Daun membuka di bawah item menu; embun berkilau saat hover |
 | jai.lat | Tesoro de la reina de Saba | hitam lak, daun emas | Bodoni Moda / Karla | Sapuan daun emas melintasi menu; kilau koin |
 | axto.io | Crystal throne room | obsidian, kristal, cahaya prisma | Syne / Inter Tight | Facet kristal memecah cahaya pelangi saat hover |
 | xaa.es | Trono de marfil y oro | gading, platinum, emas | Italiana / Albert Sans | Garis cetak biru berubah menjadi emas saat disentuh |
@@ -186,7 +214,7 @@ sites/
     theme/                CSS + JS milik situs ini saja
     public/               favicon, gambar
     wrangler.jsonc        Worker statis (assets) milik situs ini
-  qkb.es/  …  byodd.es/   struktur sama, isi dan tema berbeda total
+  qkb.es/  …  byodd.de/   struktur sama, isi dan tema berbeda total
 ```
 
 - **Database = folder `content/`.** Tidak ada D1, jadi kuota D1 ulyah tidak
@@ -235,12 +263,12 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 |---|---|---|
 | 2.1 | Engine statis `sites/_engine` + workflow deploy + backup | ✅ build, check, export, deploy-sites.yml |
 | 2.2 | dawo.es: tema kaca-air, 40 artikel, halaman wajib, animasi Spanyol | ✅ lulus check (40 artikel, rata-rata 1.400 kata, 8 halaman) |
-| 2.3 | qkb.es: tema tembaga, 40 artikel, halaman wajib, animasi Spanyol | ❌ |
-| 2.4 | byodd.es: tema cedar-marmer, 40 artikel, halaman wajib, animasi Spanyol | ❌ |
-| 2.5 | Domain: zona dawo.es / qkb.es / byodd.es di akun Cloudflare | 🟡 tindakan pemilik |
-| 2.6 | xko.es (persiapan, belum ada kode AdSense) | ❌ |
-| 2.7 | byodd.de (persiapan, Jerman) | ❌ |
-| 2.8 | byoxy.de (persiapan, Jerman) | ❌ |
+| 2.3 | qkb.es: tema tembaga, 40 artikel, halaman wajib, animasi Spanyol | ✅ lulus check (40 artikel, rata-rata 1.408 kata, 8 halaman) |
+| 2.4 | byodd.de (akun 2228…, Jerman): tema cedar-marmer, 40 artikel, halaman wajib (Impressum dll.), animasi Spanyol | ❌ |
+| 2.5 | Domain: zona dawo.es / qkb.es / xko.es / byodd.de / byoxy.de di akun Cloudflare | 🟡 tindakan pemilik |
+| 2.6 | xko.es (akun 6560…): tema ámbar, 40 artikel | ❌ |
+| 2.7 | ~~byodd.es~~ dibatalkan: domain yang benar byodd.de (2.4) | ➖ |
+| 2.8 | byoxy.de (akun 6701…, Jerman): tema taman gantung, 40 artikel | ❌ |
 
 ### Fase 3: desain istana + animasi Spanyol di situs yang sudah ada
 
@@ -305,5 +333,8 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 | 3 Okt | axto.io ada di repo guardian-ai; cek repo yang benar dan cocokkan dengan isi di browser | ✅ §2 |
 | 4 Okt | Perbaiki deploy yang gagal (axto.us: kuota D1; xaa.es: Google Fonts) | ✅ |
 | 4 Okt | Buat juga xko.es, byodd.de, byoxy.de (belum ada kode AdSense, untuk persiapan) | 🔄 |
+| 4 Okt | Semua situs harus mendekati 100% diterima; ubah bahasa kalau perlu | 🔄 Fase 4 |
+| 4 Okt | Koreksi: byodd.de (bukan byodd.es) memakai 2228…; kode baru xko.es 6560…, byoxy.de 6701…; meta tag dibuat otomatis | ✅ dicatat §2 |
+| 4 Okt | Setiap situs punya niche SEO yang kuat dan luas, bukan konten sampah | 🔄 §3 aturan niche |
 | 4 Okt | xaa.es isinya studio web, bukan karoseri | ✅ dikonfirmasi; quantum tidak lagi memakai xaa.es |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
