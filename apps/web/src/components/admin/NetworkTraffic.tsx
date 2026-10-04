@@ -35,7 +35,7 @@ const SITE_LABEL: Record<string, string> = {
   "profity-in": "profity.in", "oldco-in": "oldco.in",
   "xaa-es": "xaa.es", "xad-es": "xad.es (lama)", "jai-lat": "jai.lat", "lie-skin": "lie.skin",
   // Static article sites built from sites/ in this repo (docs/ADSENSE-BLUEPRINT.md).
-  "dawo-es": "dawo.es", "qkb-es": "qkb.es", "byodd-es": "byodd.es",
+  "dawo-es": "dawo.es", "qkb-es": "qkb.es",
   "xko-es": "xko.es", "byodd-de": "byodd.de", "byoxy-de": "byoxy.de",
 };
 

@@ -7,9 +7,11 @@
 // Fails (exit 1) when anything below is not true.
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { build } from "./build.mjs";
 
+const SITES = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MIN_ARTICLES = 40;
 const MIN_WORDS = 1200; // every article
 const MIN_AVG_WORDS = 1400; // the library as a whole
@@ -28,7 +30,9 @@ export async function check(domain) {
   const ok = (cond, what, detail = "") => {
     if (!cond) failed++;
     console.log(`  ${cond ? "ok  " : "FAIL"}  ${what}${!cond && detail ? `\n        ${detail}` : ""}`);
+    return cond;
   };
+  let manualSnippets = null;
   console.log(`\n=== ${domain} ===`);
   const { site, articles, categories, pages, out } = await build(domain, { quiet: true });
 
@@ -64,6 +68,25 @@ export async function check(domain) {
     const pub = site.adsense.replace(/^ca-/, "");
     ok(/^ca-pub-\d{16}$/.test(site.adsense), `AdSense account looks real (${site.adsense})`);
     ok(readFileSync(join(out, "ads.txt"), "utf8").trim() === `google.com, ${pub}, DIRECT, f08c47fec0942fa0`, "ads.txt authorises exactly that account");
+    // The three snippets as Google hands them over, kept by hand in
+    // sites/<domain>/ADSENSE.txt. The build must match them word for word.
+    const manualFile = join(SITES, domain, "ADSENSE.txt");
+    if (ok(existsSync(manualFile), "ADSENSE.txt holds the three snippets from Google")) {
+      const manual = readFileSync(manualFile, "utf8");
+      manualSnippets = {
+        meta: (manual.match(/<meta name="google-adsense-account" content="[^"]+">/) || [""])[0],
+        loader: (manual.match(/<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]+"\s+crossorigin="anonymous"><\/script>/) || [""])[0].replace(/\s+/g, " "),
+        adsTxt: (manual.match(/^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/m) || [""])[0],
+      };
+      ok(
+        manualSnippets.meta === `<meta name="google-adsense-account" content="${site.adsense}">` &&
+          manualSnippets.loader.includes(`client=${site.adsense}"`) &&
+          manualSnippets.adsTxt === `google.com, ${pub}, DIRECT, f08c47fec0942fa0`,
+        "ADSENSE.txt (meta tag, loader, ads.txt line) matches site.json",
+        JSON.stringify(manualSnippets),
+      );
+      ok(readFileSync(join(out, "ads.txt"), "utf8").trim() === manualSnippets.adsTxt, "built ads.txt is the line from ADSENSE.txt");
+    }
   } else {
     console.log("  note  no AdSense account yet — add \"adsense\" to site.json when it exists");
   }
@@ -86,6 +109,7 @@ export async function check(domain) {
     const s = readFileSync(file, "utf8");
     const rel = file.slice(out.length);
     if (site.adsense && (!s.includes(`<meta name="google-adsense-account" content="${site.adsense}">`) || !s.includes(`adsbygoogle.js?client=${site.adsense}`))) missingTag.push(rel);
+    else if (manualSnippets && (!s.includes(manualSnippets.meta) || !s.includes(manualSnippets.loader))) missingTag.push(rel);
     if (BANNED.test(s)) banned.push(rel);
     if (!new RegExp(`<html[^>]*lang="${site.lang}`).test(s)) langWrong.push(rel);
     for (const m of s.matchAll(/href="(\/[^"#?]*)/g)) {

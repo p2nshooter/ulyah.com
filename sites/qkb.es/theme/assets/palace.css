@@ -1,0 +1,348 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   QKB — Fuente de cobre fundido
+   The spring of molten copper and the cauldrons fixed in place (Saba'
+   34:12–13). Hammered copper, bronze, bread crust and warm parchment.
+   This stylesheet belongs to qkb.es alone.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --pergamino: #fbf4e7;
+  --pergamino-2: #f3e6cf;
+  --miga: #ead6b4;
+  --cobre: #b8642f;
+  --cobre-claro: #e39b5c;
+  --cobre-brillo: #ffcf94;
+  --bronce: #8a5a2b;
+  --chocolate: #2a1a12;
+  --chocolate-2: #3b2414;
+  --tinta: #33241a;
+  --tinta-suave: #6b5442;
+  --rojo-es: #c60b1e;
+  --gualda-es: #ffc400;
+  --linea: rgba(90, 55, 30, 0.18);
+  --f-titulo: "Playfair Display", "Didot", Georgia, serif;
+  --f-texto: "Lora", "Iowan Old Style", Georgia, serif;
+  --sombra: 0 2px 0 rgba(255, 255, 255, 0.6) inset, 0 16px 34px -20px rgba(59, 36, 20, 0.55);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--f-texto); font-size: 18px; line-height: 1.72; color: var(--tinta);
+  background-color: var(--pergamino);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(184, 100, 47, 0.07) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(138, 90, 43, 0.06) 0 1.5px, transparent 2.5px),
+    linear-gradient(180deg, var(--pergamino), var(--pergamino-2));
+  background-size: 34px 34px, 46px 46px, 100% 100%;
+  overflow-x: hidden;
+}
+a { color: var(--cobre); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--bronce); }
+:focus-visible { outline: 3px dashed var(--cobre); outline-offset: 3px; }
+.cobre-salto { position: absolute; left: -999px; top: 8px; z-index: 80; padding: 10px 14px; background: var(--chocolate); color: var(--cobre-brillo); }
+.cobre-salto:focus { left: 10px; }
+
+/* ── Reading: a copper thermometer fills down the right edge ──────────── */
+.cobre-termometro { position: fixed; right: 0; top: 0; bottom: 0; width: 4px; z-index: 70; background: rgba(184, 100, 47, 0.12); pointer-events: none; }
+.cobre-termometro span { display: block; width: 100%; height: calc(var(--p, 0) * 100%); background: linear-gradient(180deg, var(--cobre-brillo), var(--cobre), var(--bronce)); box-shadow: 0 0 10px rgba(227, 155, 92, 0.8); }
+
+/* ── España, campeona del mundo 2026: the copper plaque ──────────────── */
+.cobre-placa {
+  position: relative; z-index: 2;
+  background: linear-gradient(90deg, var(--chocolate), var(--chocolate-2) 50%, var(--chocolate));
+  border-bottom: 1px solid rgba(255, 207, 148, 0.25);
+}
+.cobre-placa__dentro {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 14px;
+  max-width: 1160px; margin: 0 auto; padding: 7px 18px; overflow: hidden;
+}
+.cobre-placa__faja { position: absolute; inset: 0; pointer-events: none; }
+.cobre-placa__faja i {
+  position: absolute; top: -40%; bottom: -40%; width: 60px; transform: skewX(-28deg);
+  background: linear-gradient(90deg, var(--rojo-es) 0 25%, var(--gualda-es) 25% 75%, var(--rojo-es) 75%);
+  opacity: 0.85; animation: faja-pasa 7s linear infinite;
+}
+.cobre-placa__faja i:nth-child(2) { animation-delay: -2.33s; }
+.cobre-placa__faja i:nth-child(3) { animation-delay: -4.66s; }
+@keyframes faja-pasa { from { left: -10%; } to { left: 110%; } }
+.cobre-placa__copa { position: relative; flex: none; animation: copa-brilla 2.8s ease-in-out infinite; }
+@keyframes copa-brilla { 0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 207, 148, 0.4)); } 50% { filter: drop-shadow(0 0 10px rgba(255, 207, 148, 1)); } }
+.cobre-placa__texto {
+  position: relative; margin: 0; padding: 4px 16px; border-radius: 4px;
+  font-family: var(--f-titulo); font-size: clamp(14px, 2.2vw, 18px); font-weight: 700; letter-spacing: 0.04em; color: #fff3df;
+  background: linear-gradient(180deg, rgba(184, 100, 47, 0.95), rgba(138, 90, 43, 0.95));
+  box-shadow: 0 0 0 1px rgba(255, 207, 148, 0.6), 0 6px 16px -8px #000;
+}
+.cobre-placa__texto em { font-style: italic; color: var(--gualda-es); }
+.cobre-placa__texto strong { margin-left: 4px; color: var(--chocolate); background: var(--gualda-es); padding: 0 8px; border-radius: 3px; }
+.cobre-placa__riel { position: relative; flex: none; width: 110px; height: 30px; border-bottom: 2px solid var(--cobre-claro); }
+.cobre-placa__rueda { position: absolute; left: 0; bottom: 1px; animation: rueda-va 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+.cobre-placa__rueda svg { display: block; animation: rueda-salta 0.8s cubic-bezier(0.33, 0, 0.67, 1) infinite alternate, rueda-gira 1.6s linear infinite; }
+@keyframes rueda-va { to { transform: translateX(90px); } }
+@keyframes rueda-salta { to { transform: translateY(-9px); } }
+@keyframes rueda-gira { to { rotate: 360deg; } }
+@media (max-width: 600px) { .cobre-placa__riel { display: none; } }
+
+/* ── Header: parchment with molten copper flowing along its edge ──────── */
+.cobre-cabecera { position: sticky; top: 0; z-index: 50; background: rgba(251, 244, 231, 0.94); -webkit-backdrop-filter: saturate(1.4) blur(8px); backdrop-filter: saturate(1.4) blur(8px); box-shadow: 0 8px 26px -18px rgba(59, 36, 20, 0.8); }
+.cobre-cabecera__fundido {
+  position: absolute; left: 0; right: 0; bottom: -3px; height: 3px;
+  background: linear-gradient(90deg, var(--bronce), var(--cobre), var(--cobre-brillo), var(--cobre), var(--bronce), var(--cobre), var(--cobre-brillo));
+  background-size: 300% 100%; animation: cobre-fluye 6s linear infinite;
+}
+@keyframes cobre-fluye { to { background-position: -300% 0; } }
+.cobre-cabecera__dentro { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 1160px; margin: 0 auto; padding: 14px 18px 12px; }
+.cobre-sello { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--chocolate); line-height: 1.1; }
+.cobre-sello__medalla {
+  display: inline-flex; gap: 2px; padding: 6px 14px; border-radius: 999px;
+  background: radial-gradient(circle at 30% 25%, var(--cobre-brillo), var(--cobre) 45%, var(--bronce));
+  box-shadow: 0 0 0 2px var(--pergamino), 0 0 0 3px var(--cobre), 0 8px 18px -8px rgba(59, 36, 20, 0.9);
+  font-family: var(--f-titulo); font-weight: 800; font-size: 24px; color: #fff8ec; letter-spacing: 0.12em;
+}
+.cobre-sello__medalla span { display: inline-block; animation: letra-late 5s ease-in-out infinite; }
+.cobre-sello__medalla span:nth-child(2) { animation-delay: 0.25s; }
+.cobre-sello__medalla span:nth-child(3) { animation-delay: 0.5s; }
+@keyframes letra-late { 0%, 80%, 100% { transform: translateY(0); } 88% { transform: translateY(-3px); } }
+.cobre-sello__nombre { margin-top: 6px; font-family: var(--f-titulo); font-style: italic; font-size: 19px; font-weight: 600; }
+.cobre-sello__lema { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cobre); }
+
+.cobre-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 4px; }
+.cobre-menu__item {
+  position: relative; display: inline-block; padding: 6px 12px 9px; text-decoration: none;
+  font-family: var(--f-titulo); font-size: 16px; font-weight: 600; color: var(--chocolate-2); letter-spacing: 0.01em;
+}
+.cobre-menu__item + .cobre-menu__item::before { content: "•"; position: absolute; left: -5px; top: 7px; color: var(--cobre-claro); font-size: 12px; }
+.cobre-menu__item::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 3px; height: 3px; border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--bronce), var(--cobre-brillo), var(--cobre));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.cobre-menu__item:hover, .cobre-menu__item[aria-current="page"] { color: var(--cobre); }
+.cobre-menu__item:hover::after, .cobre-menu__item[aria-current="page"]::after { transform: scaleX(1); animation: gota 1.6s ease-in-out infinite 0.5s; }
+@keyframes gota { 0%, 100% { height: 3px; } 50% { height: 5px; } }
+.cobre-menu__vapor { position: absolute; left: 50%; top: -2px; width: 6px; height: 14px; pointer-events: none; opacity: 0; }
+.cobre-menu__vapor::before, .cobre-menu__vapor::after { content: ""; position: absolute; bottom: 0; width: 6px; height: 14px; border-radius: 50%; background: radial-gradient(ellipse, rgba(184, 100, 47, 0.35), transparent 70%); filter: blur(1px); }
+.cobre-menu__item:hover .cobre-menu__vapor, .cobre-menu__item[aria-current="page"] .cobre-menu__vapor { opacity: 1; }
+.cobre-menu__item:hover .cobre-menu__vapor::before, .cobre-menu__item[aria-current="page"] .cobre-menu__vapor::before { animation: vapor 1.8s ease-out infinite; }
+.cobre-menu__item:hover .cobre-menu__vapor::after, .cobre-menu__item[aria-current="page"] .cobre-menu__vapor::after { animation: vapor 1.8s ease-out 0.9s infinite; left: 5px; }
+@keyframes vapor { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-16px) scale(1.4); opacity: 0; } }
+.cobre-menu__item--suave { font-style: italic; font-weight: 500; color: var(--tinta-suave); }
+.cobre-abrir { display: none; }
+
+@media (max-width: 860px) {
+  .cobre-cabecera__dentro { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+  .cobre-sello { align-items: flex-start; }
+  .cobre-abrir { display: inline-block; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--cobre); background: transparent; color: var(--cobre); font: 600 15px var(--f-titulo); cursor: pointer; }
+  .cobre-menu { flex-basis: 100%; flex-direction: column; align-items: stretch; max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+  .cobre-cabecera.abierta .cobre-menu { max-height: 600px; }
+  .cobre-menu__item { padding: 10px 4px; border-bottom: 1px dashed var(--linea); }
+  .cobre-menu__item + .cobre-menu__item::before { display: none; }
+}
+
+/* ── Section headings: copper rules with a rivet ─────────────────────── */
+.cobre-titular { max-width: 1160px; margin: 0 auto 28px; padding: 0 18px; text-align: center; }
+.cobre-titular__ante { margin: 0; font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--cobre); }
+.cobre-titular h2 { position: relative; display: inline-block; margin: 6px 0 0; padding: 0 0 14px; font-family: var(--f-titulo); font-size: clamp(30px, 4vw, 44px); color: var(--chocolate); }
+.cobre-titular h2::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 120px; height: 2px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, var(--cobre), transparent); }
+.cobre-titular h2::before { content: ""; position: absolute; left: 50%; bottom: -4px; width: 10px; height: 10px; transform: translateX(-50%) rotate(45deg); background: var(--cobre); box-shadow: 0 0 0 3px var(--pergamino); }
+.cobre-titular--claro .cobre-titular__ante { color: var(--cobre-brillo); }
+.cobre-titular--claro h2 { color: #fff3df; }
+.cobre-titular--claro h2::before { box-shadow: 0 0 0 3px var(--chocolate-2); }
+
+/* ── Hero: the cauldron over embers ──────────────────────────────────── */
+.caldero { position: relative; overflow: hidden; padding: 56px 0 70px; }
+.caldero__brasas { position: absolute; inset: auto 0 0 0; height: 180px; pointer-events: none; }
+.caldero__brasas i {
+  position: absolute; bottom: -40px; width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(227, 155, 92, 0.45), rgba(184, 100, 47, 0.12) 50%, transparent 70%);
+  filter: blur(6px); animation: brasa 6s ease-in-out infinite alternate;
+}
+.caldero__brasas i:nth-child(1) { left: 5%; }
+.caldero__brasas i:nth-child(2) { left: 25%; animation-delay: -1.5s; width: 220px; }
+.caldero__brasas i:nth-child(3) { left: 48%; animation-delay: -3s; }
+.caldero__brasas i:nth-child(4) { left: 68%; animation-delay: -4.5s; width: 200px; }
+.caldero__brasas i:nth-child(5) { left: 86%; animation-delay: -2s; }
+@keyframes brasa { from { transform: translateY(0) scale(1); opacity: 0.7; } to { transform: translateY(-14px) scale(1.12); opacity: 1; } }
+.caldero__dentro { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; gap: 46px; align-items: start; max-width: 1160px; margin: 0 auto; padding: 0 18px; }
+.caldero__antetitulo { margin: 0; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cobre); }
+.caldero__titulo {
+  margin: 12px 0 0; font-family: var(--f-titulo); font-weight: 800; font-size: clamp(44px, 6.5vw, 82px); line-height: 0.98; letter-spacing: -0.01em;
+  background: linear-gradient(115deg, var(--chocolate) 0 30%, var(--bronce) 42%, var(--cobre-brillo) 50%, var(--cobre) 58%, var(--chocolate) 72%);
+  background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: cobre-reflejo 8s ease-in-out infinite;
+}
+.caldero__titulo span { font-style: italic; font-weight: 600; }
+@keyframes cobre-reflejo { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0 0; } }
+.caldero__lema { margin: 18px 0 0; font-family: var(--f-titulo); font-style: italic; font-size: 22px; color: var(--bronce); }
+.caldero__entrada { margin: 14px 0 0; max-width: 54ch; color: var(--tinta-suave); }
+.caldero__botones { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 0; }
+.cobre-boton {
+  position: relative; display: inline-flex; padding: 12px 22px; border-radius: 6px; text-decoration: none; overflow: hidden;
+  font-family: var(--f-titulo); font-weight: 700; letter-spacing: 0.02em; color: #fff8ec;
+  background: linear-gradient(180deg, var(--cobre-claro), var(--cobre) 55%, var(--bronce));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 10px 22px -10px rgba(138, 90, 43, 0.95);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.cobre-boton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255, 238, 210, 0.7) 50%, transparent 65%); transform: translateX(-100%); transition: transform 0.8s; }
+.cobre-boton:hover { transform: translateY(-2px); color: #fff; }
+.cobre-boton:hover::after { transform: translateX(100%); }
+.cobre-boton--linea { background: transparent; color: var(--cobre); box-shadow: inset 0 0 0 2px var(--cobre); }
+.cobre-boton--linea:hover { color: var(--bronce); }
+.caldero__destacados { display: grid; gap: 16px; }
+.caldero__dos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ── Recipe cards ────────────────────────────────────────────────────── */
+.ficha {
+  position: relative; border-radius: 10px 10px 4px 4px; background: #fffaf1;
+  border: 1px solid var(--linea); box-shadow: var(--sombra);
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s;
+}
+.ficha::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; border-radius: 10px 10px 0 0; background: linear-gradient(90deg, var(--bronce), var(--cobre-claro), var(--bronce)); }
+.ficha:hover { transform: translateY(-5px) rotate(-0.3deg); box-shadow: 0 2px 0 #fff inset, 0 26px 40px -24px rgba(59, 36, 20, 0.7); }
+.ficha__enlace { display: flex; flex-direction: column; height: 100%; padding: 20px 20px 16px; color: inherit; text-decoration: none; }
+.ficha__pestana { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; padding: 3px 10px 3px 6px; border-radius: 999px; background: rgba(184, 100, 47, 0.1); color: var(--cobre); font: 600 12px var(--f-titulo); letter-spacing: 0.08em; text-transform: uppercase; }
+.ficha__icono { width: 20px; height: 20px; }
+.ficha__titulo { margin: 12px 0 0; font-family: var(--f-titulo); font-size: 22px; line-height: 1.2; color: var(--chocolate); }
+.ficha__resumen { margin: 8px 0 0; flex: 1; font-size: 15.5px; line-height: 1.55; color: var(--tinta-suave); }
+.ficha__pie { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--linea); font-size: 13.5px; color: var(--bronce); }
+.ficha__flecha { transition: transform 0.4s; }
+.ficha:hover .ficha__flecha { transform: translateX(6px); }
+.ficha--grande { background: linear-gradient(160deg, #fffaf1, var(--miga)); }
+.ficha--grande .ficha__enlace { padding: 28px; }
+.ficha--grande .ficha__titulo { font-size: 32px; }
+
+/* ── The six cauldrons ───────────────────────────────────────────────── */
+.ollas { padding: 60px 0 30px; }
+.ollas__fila { list-style: none; margin: 0 auto; padding: 0 18px; max-width: 1160px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.olla { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--chocolate); text-align: center; padding-top: 14px; }
+.olla__asa { position: absolute; top: 0; left: 50%; width: 70px; height: 34px; transform: translateX(-50%); border: 3px solid var(--bronce); border-bottom: 0; border-radius: 40px 40px 0 0; transition: transform 0.5s; }
+.olla__cuerpo {
+  display: grid; place-items: center; width: 108px; height: 108px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--cobre-brillo), var(--cobre) 45%, var(--bronce) 80%, var(--chocolate-2));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 -8px 16px rgba(42, 26, 18, 0.35) inset, 0 16px 26px -14px rgba(42, 26, 18, 0.9);
+  color: #fff6e6; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.olla__icono { width: 50px; height: 50px; }
+.olla__nombre { font-family: var(--f-titulo); font-weight: 700; font-size: 17px; line-height: 1.2; }
+.olla__cuenta { font-size: 13px; color: var(--cobre); }
+.olla:hover .olla__cuerpo { transform: translateY(-6px) rotate(-6deg); }
+.olla:hover .olla__asa { transform: translateX(-50%) translateY(-4px) rotate(4deg); }
+.olla:hover { color: var(--cobre); }
+
+/* ── Recipe book grid ────────────────────────────────────────────────── */
+.recetario { padding: 50px 0 40px; }
+.recetario__rejilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1160px; margin: 0 auto; padding: 0 18px; }
+.recetario--despensa { padding-top: 10px; }
+
+.indice-cobre { margin-top: 50px; padding: 70px 0 80px; background: linear-gradient(180deg, var(--chocolate-2), var(--chocolate)); color: #f3e3cc; position: relative; }
+.indice-cobre::before { content: ""; position: absolute; inset: 0; opacity: 0.08; background: repeating-linear-gradient(45deg, var(--cobre-brillo) 0 1px, transparent 1px 14px); }
+.indice-cobre__cols { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1160px; margin: 0 auto; padding: 0 18px; }
+.indice-cobre h3 { margin: 0 0 10px; font-family: var(--f-titulo); font-size: 22px; }
+.indice-cobre h3 a { display: inline-flex; align-items: center; gap: 8px; color: var(--cobre-brillo); text-decoration: none; }
+.indice-cobre__icono { width: 26px; height: 26px; }
+.indice-cobre ol { margin: 0; padding-left: 22px; font-size: 15.5px; line-height: 1.5; }
+.indice-cobre li { margin: 6px 0; }
+.indice-cobre li::marker { color: var(--cobre-claro); }
+.indice-cobre li a { color: #f3e3cc; text-decoration: none; }
+.indice-cobre li a:hover { color: var(--cobre-brillo); text-decoration: underline; }
+
+/* ── Category header ─────────────────────────────────────────────────── */
+.despensa { text-align: center; padding: 40px 18px 34px; }
+.despensa__dentro { max-width: 820px; margin: 0 auto; }
+.despensa__olla { display: inline-grid; place-items: center; width: 96px; height: 96px; margin-top: 16px; border-radius: 50%; color: #fff6e6; background: radial-gradient(circle at 35% 30%, var(--cobre-brillo), var(--cobre) 45%, var(--bronce)); box-shadow: 0 14px 26px -12px rgba(42, 26, 18, 0.9); }
+.despensa__icono { width: 50px; height: 50px; }
+.despensa h1 { margin: 12px 0 0; font-family: var(--f-titulo); font-size: clamp(38px, 5.4vw, 60px); color: var(--chocolate); }
+.despensa p { margin: 10px auto 0; max-width: 60ch; color: var(--tinta-suave); }
+.despensa__cuenta { font-family: var(--f-titulo); font-style: italic; color: var(--cobre) !important; }
+.cobre-migas { font-size: 14px; color: var(--tinta-suave); }
+.cobre-migas a { color: var(--cobre); }
+
+/* ── The recipe (article) ────────────────────────────────────────────── */
+.receta { padding: 34px 0 20px; }
+.receta__cabecera { max-width: 900px; margin: 0 auto; padding: 0 18px; text-align: center; }
+.receta__titulo { margin: 14px 0 0; font-family: var(--f-titulo); font-size: clamp(36px, 5vw, 58px); line-height: 1.06; color: var(--chocolate); }
+.receta__entrada { margin: 16px auto 0; max-width: 64ch; font-size: 20px; font-style: italic; color: var(--tinta-suave); }
+.receta__cuerpo { display: grid; grid-template-columns: 270px minmax(0, 720px); gap: 46px; justify-content: center; max-width: 1160px; margin: 40px auto 0; padding: 0 18px; }
+.receta__cuerpo--uno { grid-template-columns: minmax(0, 760px); }
+.ficha-tecnica { position: sticky; top: 150px; align-self: start; padding: 22px; border-radius: 6px; background: #fffaf1; border: 1px solid var(--linea); box-shadow: var(--sombra); }
+.ficha-tecnica::before { content: ""; position: absolute; inset: 6px; border: 1px dashed rgba(184, 100, 47, 0.35); border-radius: 4px; pointer-events: none; }
+.ficha-tecnica__titulo { margin: 0 0 10px; font-family: var(--f-titulo); font-size: 20px; font-weight: 700; color: var(--cobre); }
+.ficha-tecnica__titulo--b { margin-top: 18px; }
+.ficha-tecnica dl { margin: 0; }
+.ficha-tecnica dl div { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px dotted var(--linea); font-size: 14.5px; }
+.ficha-tecnica dt { color: var(--tinta-suave); }
+.ficha-tecnica dd { margin: 0; text-align: right; font-weight: 600; }
+.ficha-tecnica__pasos { margin: 0; padding: 0; list-style: none; counter-reset: paso; font-size: 14.5px; line-height: 1.4; }
+.ficha-tecnica__pasos li { counter-increment: paso; position: relative; padding: 5px 0 5px 32px; }
+.ficha-tecnica__pasos li::before { content: counter(paso); position: absolute; left: 0; top: 4px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font-size: 12px; font-weight: 700; color: #fff8ec; background: radial-gradient(circle at 35% 30%, var(--cobre-claro), var(--bronce)); }
+.ficha-tecnica__pasos a { color: var(--tinta); text-decoration: none; }
+.ficha-tecnica__pasos a:hover, .ficha-tecnica__pasos a.activo { color: var(--cobre); }
+.ficha-tecnica__pasos a.activo { font-weight: 700; }
+
+.receta__texto > p:first-of-type::first-letter { float: left; margin: 8px 12px 0 0; font-family: var(--f-titulo); font-weight: 800; font-size: 78px; line-height: 0.78; color: var(--cobre); text-shadow: 2px 2px 0 var(--miga); }
+.receta__texto h2 { position: relative; margin: 46px 0 14px; padding-left: 22px; font-family: var(--f-titulo); font-size: 32px; line-height: 1.15; color: var(--chocolate); scroll-margin-top: 160px; }
+.receta__texto h2::before { content: ""; position: absolute; left: 0; top: 0.3em; width: 10px; height: 10px; transform: rotate(45deg); background: var(--cobre); }
+.receta__texto h3 { margin: 30px 0 8px; font-family: var(--f-titulo); font-size: 24px; color: var(--bronce); scroll-margin-top: 160px; }
+.receta__texto p { margin: 0 0 18px; }
+.receta__texto ul { margin: 0 0 20px; padding-left: 22px; }
+.receta__texto ul li::marker { content: "◆  "; color: var(--cobre-claro); font-size: 0.75em; }
+.receta__texto ol { margin: 0 0 22px; padding: 0; list-style: none; counter-reset: n; }
+.receta__texto ol li { counter-increment: n; position: relative; margin: 10px 0; padding-left: 44px; }
+.receta__texto ol li::before { content: counter(n); position: absolute; left: 0; top: 0; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; font: 700 14px var(--f-titulo); color: #fff8ec; background: radial-gradient(circle at 35% 30%, var(--cobre-brillo), var(--cobre) 55%, var(--bronce)); box-shadow: 0 4px 8px -4px var(--chocolate); }
+.receta__texto li { margin: 6px 0; }
+.receta__texto strong { color: var(--chocolate); }
+.receta__texto blockquote { margin: 26px 0; padding: 18px 24px; background: #fffaf1; border: 1px solid var(--linea); border-left: 4px solid var(--cobre); font-style: italic; }
+.receta__texto blockquote p { margin: 0; }
+.receta__texto .table-wrap { overflow-x: auto; margin: 24px 0; border: 1px solid var(--linea); border-radius: 8px; background: #fffaf1; }
+.receta__texto table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+.receta__texto th { padding: 11px 13px; text-align: left; font-family: var(--f-titulo); color: #fff8ec; background: linear-gradient(180deg, var(--cobre), var(--bronce)); }
+.receta__texto td { padding: 10px 13px; border-top: 1px solid var(--linea); vertical-align: top; }
+.receta__texto tr:nth-child(even) td { background: rgba(234, 214, 180, 0.35); }
+.receta__texto hr { border: 0; height: 12px; margin: 30px 0; background: radial-gradient(circle, var(--cobre) 2px, transparent 3px) center / 22px 12px repeat-x; }
+.cobre-aviso { margin: 34px 0 0; padding: 18px 20px; border-radius: 8px; background: rgba(198, 11, 30, 0.05); border: 1px solid rgba(198, 11, 30, 0.25); font-size: 15.5px; line-height: 1.6; }
+.cobre-aviso p { margin: 0; }
+
+/* ── 404 ─────────────────────────────────────────────────────────────── */
+.vacio { max-width: 1000px; margin: 0 auto; padding: 60px 18px 90px; text-align: center; }
+.vacio__codigo { margin: 0; font: 800 120px/1 var(--f-titulo); color: var(--cobre); text-shadow: 4px 4px 0 var(--miga); }
+.vacio h1 { margin: 0; font-family: var(--f-titulo); font-size: 40px; color: var(--chocolate); }
+.vacio .ollas__fila { margin-top: 30px; padding: 0; }
+
+/* ── Footer: dark chocolate with copper rivets ───────────────────────── */
+.cobre-pie { position: relative; margin-top: 40px; background: var(--chocolate); color: #e8d6bd; }
+.cobre-pie__remaches { height: 14px; background: radial-gradient(circle, var(--cobre-claro) 3px, var(--bronce) 4px, transparent 5px) center / 36px 14px repeat-x, linear-gradient(180deg, var(--bronce), var(--chocolate-2)); }
+.cobre-pie__dentro { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; max-width: 1160px; margin: 0 auto; padding: 50px 18px 26px; font-size: 15.5px; }
+.cobre-pie__nombre { margin: 0; font: 800 46px/1 var(--f-titulo); letter-spacing: 0.14em; background: linear-gradient(120deg, var(--cobre-brillo), var(--cobre)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cobre-pie__expansion { margin: 6px 0 12px; font-family: var(--f-titulo); font-style: italic; color: var(--cobre-brillo); }
+.cobre-pie__titulo { margin: 0 0 10px; font: 700 19px var(--f-titulo); color: #fff3df; }
+.cobre-pie ul { margin: 0; padding: 0; list-style: none; }
+.cobre-pie li { margin: 6px 0; }
+.cobre-pie a { color: #e8d6bd; text-decoration: none; }
+.cobre-pie a:hover { color: var(--cobre-brillo); }
+.cobre-pie__nota { margin: 0; padding: 16px 18px 22px; text-align: center; font-size: 13.5px; color: rgba(232, 214, 189, 0.65); border-top: 1px solid rgba(255, 207, 148, 0.12); }
+
+/* ── Arrival ─────────────────────────────────────────────────────────── */
+.sube { opacity: 0; transform: translateY(16px) scale(0.98); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sube.listo { opacity: 1; transform: none; }
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .caldero__dentro { grid-template-columns: 1fr; }
+  .ollas__fila { grid-template-columns: repeat(3, 1fr); }
+  .recetario__rejilla, .indice-cobre__cols { grid-template-columns: 1fr 1fr; }
+  .receta__cuerpo { grid-template-columns: minmax(0, 1fr); }
+  .ficha-tecnica { position: static; }
+  .cobre-pie__dentro { grid-template-columns: 1fr 1fr; }
+  .cobre-pie__marca { grid-column: 1 / -1; }
+}
+@media (max-width: 620px) {
+  body { font-size: 17px; }
+  .caldero__dos, .recetario__rejilla, .indice-cobre__cols, .cobre-pie__dentro { grid-template-columns: 1fr; }
+  .ollas__fila { grid-template-columns: repeat(2, 1fr); }
+  .ficha--grande .ficha__titulo { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .sube { opacity: 1; transform: none; }
+}
