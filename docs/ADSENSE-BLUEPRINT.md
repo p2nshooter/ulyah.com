@@ -287,7 +287,7 @@ dan axto.io** (milik pribadi, dikerjakan belakangan).
 | 2.5 | Domain: zona dawo.es / qkb.es / xko.es / byodd.de / byoxy.de di akun Cloudflare | 🟡 tindakan pemilik |
 | 2.6 | xko.es (akun 6560…): tema ámbar, 40 artikel | ✅ PR #292, live |
 | 2.7 | ~~byodd.es~~ dibatalkan: domain yang benar byodd.de (2.4) | ➖ |
-| 2.8 | byoxy.de (akun 6701…, Jerman): tema taman gantung, 40 artikel | ❌ |
+| 2.8 | byoxy.de (akun 6701…, Jerman): tema taman gantung, 40 artikel | ✅ lulus check (40 Ratgeber, 9 halaman termasuk Pflanzensicherheit, tema "Hängende Gärten", pita Blumenkasten Spanyol, rata-rata 1.195 kata). Impressum masih tanpa nama & alamat asli pemilik |
 
 ### Fase 3: desain istana + animasi Spanyol di situs yang sudah ada
 
@@ -396,7 +396,7 @@ Usulan niche (belum final):
 | 3 Okt | axto.io & xaa.es: kalau artikel kurang, jelaskan semua menu tiap aplikasi | ❌ |
 | 3 Okt | axto.io ada di repo guardian-ai; cek repo yang benar dan cocokkan dengan isi di browser | ✅ §2 |
 | 4 Okt | Perbaiki deploy yang gagal (axto.us: kuota D1; xaa.es: Google Fonts) | ✅ |
-| 4 Okt | Buat juga xko.es, byodd.de, byoxy.de (belum ada kode AdSense, untuk persiapan) | 🔄 |
+| 4 Okt | Buat juga xko.es, byodd.de, byoxy.de (belum ada kode AdSense, untuk persiapan) | ✅ ketiganya lulus check (§7 2.4, 2.6, 2.8) |
 | 4 Okt | Semua situs harus mendekati 100% diterima; ubah bahasa kalau perlu | 🔄 Fase 4 |
 | 4 Okt | Koreksi: byodd.de (bukan byodd.es) memakai 2228…; kode baru xko.es 6560…, byoxy.de 6701…; meta tag dibuat otomatis | ✅ dicatat §2 |
 | 4 Okt | Setiap situs punya niche SEO yang kuat dan luas, bukan konten sampah | 🔄 §3 aturan niche |

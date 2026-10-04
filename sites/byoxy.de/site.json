@@ -1,0 +1,39 @@
+{
+  "domain": "byoxy.de",
+  "name": "BYOXY",
+  "expansion": "Bring Your OXYgen home",
+  "tagline": "Zimmerpflanzen, Balkon und Kräuter: grünes Wohnen, verständlich erklärt",
+  "description": "BYOXY ist ein Ratgeber für grünes Wohnen: Zimmerpflanzen auswählen und pflegen, Gießen, Licht und Erde verstehen, Schädlinge erkennen, Pflanzen vermehren und Balkon und Kräutergarten anlegen, mit erprobten Anleitungen für Anfänger und Fortgeschrittene.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-6701063918838796",
+  "trackId": "byoxy-de",
+  "worker": "byoxy-de",
+  "themeColor": "#16352a",
+  "email": "kontakt@byoxy.de",
+  "author": "BYOXY Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/ratgeber/", "category": "/gaerten/" },
+  "categories": [
+    { "slug": "zimmerpflanzen", "name": "Zimmerpflanzen", "icon": "monstera", "description": "Beliebte Zimmerpflanzen im Porträt: Standort, Pflege und typische Probleme von Monstera bis Bogenhanf." },
+    { "slug": "pflege-grundlagen", "name": "Pflege-Grundlagen", "icon": "kanne", "description": "Gießen, Licht, Erde, Dünger und Umtopfen: das Handwerkszeug, mit dem Pflanzen gesund wachsen." },
+    { "slug": "schaedlinge-und-probleme", "name": "Schädlinge & Probleme", "icon": "lupe", "description": "Trauermücken, Spinnmilben, gelbe Blätter, Wurzelfäule: Ursachen erkennen und sanft beheben." },
+    { "slug": "vermehren", "name": "Vermehren", "icon": "steckling", "description": "Stecklinge, Ableger, Teilung und Aussaat: aus einer Pflanze werden viele." },
+    { "slug": "balkon-und-terrasse", "name": "Balkon & Terrasse", "icon": "kasten", "description": "Balkonkästen, Kübelpflanzen, Sichtschutz und Überwintern: grüne Räume unter freiem Himmel." },
+    { "slug": "kraeuter-und-gemuese", "name": "Kräuter & Gemüse", "icon": "basilikum", "description": "Basilikum, Minze, Tomaten und Salat auf Fensterbank und Balkon: frisch ernten auf kleinem Raum." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Pflanzensicherheit", "href": "/pflanzensicherheit/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
