@@ -10,6 +10,7 @@ import { extractSanadChain } from "../lib/sanad.js";
 import { tenantFromReq } from "./analytics.js";
 import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
+import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
 
@@ -24,7 +25,13 @@ export async function trackBeacon(c: Context<{ Bindings: Env }>) {
     const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
     let path = String(body.path ?? "/").slice(0, 200);
     if (!path.startsWith("/")) path = "/" + path;
-    if (!site) return c.body(null, 204);
+    // A detached site (dawa.es — no longer the owner's) is answered but never
+    // stored, whatever id it sends: by its own id or by its Origin.
+    const detached = EXCLUDED_TRACK_IDS.has(site) || EXCLUDED_TRACK_IDS.has(tenantFromReq(c));
+    if (!site || detached) {
+      c.header("Access-Control-Allow-Origin", "*");
+      return c.body(null, 204);
+    }
     const day = new Date().toISOString().slice(0, 10);
     // External sites get the same honesty as the ecosystem ones: a crawler is
     // counted in its own column, never mixed into the reader number.
@@ -54,64 +61,13 @@ export async function trackBeacon(c: Context<{ Bindings: Env }>) {
   return c.body(null, 204);
 }
 /**
- * POST /track/ads — one page's ad tally, sent once when the reader leaves.
- *
- * Body: { site, banner: {shown, filled, clicked}, flex: {shown, filled, clicked} }
- * from apps/web/src/lib/ad-stats.ts. It lands as ONE upsert on a
- * one-row-per-site-per-day table, because this database is on the free plan
- * and has run out of room and of writes before; a row per impression would be
- * the fastest-growing thing in it.
- *
- * The numbers are checked, not trusted. This is a public, unauthenticated
- * endpoint and it feeds a revenue estimate, so a crafted beacon must not be
- * able to invent a good day: the site has to be one of the ecosystem's five,
- * every count is clamped to what one page can honestly produce, and a click is
- * never allowed to exceed what was shown. Crawlers are ignored, as they are
- * for pageviews.
+ * POST /track/ads — retired. It counted the manual ad units; there are none any
+ * more (owner, 4 Oct 2026: "hapus aja dan bersihkan slot AdSense nya di website
+ * manapun … cukup cuplikan AdSense, ads.txt & tag meta" — the sites run Auto
+ * ads). Old cached pages may still send it, so it answers 204 and stores nothing.
  */
-const AD_SITES = new Set(["ulyah", "1fr", "tilawa", "dawa", "xad"]);
-/** The most units a page carries (QUOTA + a template's own), with room to spare. */
-const MAX_UNITS_PER_PAGE = 8;
-
-function clampTally(v: unknown): { shown: number; filled: number; clicked: number } {
-  const o = (v && typeof v === "object" ? v : {}) as Record<string, unknown>;
-  const n = (x: unknown, max: number) => {
-    const k = Math.floor(Number(x));
-    return Number.isFinite(k) && k > 0 ? Math.min(k, max) : 0;
-  };
-  const shown = n(o.shown, MAX_UNITS_PER_PAGE);
-  const filled = Math.min(n(o.filled, MAX_UNITS_PER_PAGE), shown);
-  const clicked = Math.min(n(o.clicked, MAX_UNITS_PER_PAGE), shown);
-  return { shown, filled, clicked };
-}
-
-export async function trackAdsBeacon(c: Context<{ Bindings: Env }>) {
+export function trackAdsBeacon(c: Context<{ Bindings: Env }>) {
   c.header("Access-Control-Allow-Origin", "*");
-  try {
-    if (isBotUA(c.req.header("user-agent"))) return c.body(null, 204);
-    const body = JSON.parse((await c.req.text()) || "{}") as Record<string, unknown>;
-    const site = String(body.site ?? "");
-    if (!AD_SITES.has(site)) return c.body(null, 204);
-    const b = clampTally(body.banner);
-    const f = clampTally(body.flex);
-    if (!b.shown && !f.shown && !b.clicked && !f.clicked) return c.body(null, 204);
-    const day = new Date().toISOString().slice(0, 10);
-    await c.env.DB.prepare(
-      `INSERT INTO ad_daily (site, day, banner_shown, banner_filled, banner_clicked, flex_shown, flex_filled, flex_clicked)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-       ON CONFLICT(site, day) DO UPDATE SET
-         banner_shown   = banner_shown   + excluded.banner_shown,
-         banner_filled  = banner_filled  + excluded.banner_filled,
-         banner_clicked = banner_clicked + excluded.banner_clicked,
-         flex_shown     = flex_shown     + excluded.flex_shown,
-         flex_filled    = flex_filled    + excluded.flex_filled,
-         flex_clicked   = flex_clicked   + excluded.flex_clicked`
-    )
-      .bind(site, day, b.shown, b.filled, b.clicked, f.shown, f.filled, f.clicked)
-      .run();
-  } catch {
-    /* analytics is best-effort — never error the beacon */
-  }
   return c.body(null, 204);
 }
 

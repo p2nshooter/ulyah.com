@@ -66,6 +66,13 @@ jobs:
       - name: Check the ecosystem runs one ad network
         run: npx tsx scripts/check-ads.ts
 
+      # The AdOps rules (docs/ADMANAGER-BLUEPRINT.md) are pure functions: the
+      # inventory plan, the diff against Ad Manager, the floor hill-climb, the
+      # weak-position rule, the Google response parsers and the service-account
+      # JWT. This proves each one offline, with no Google account involved.
+      - name: Check the AdOps rules
+        run: npx tsx scripts/check-adops.ts
+
       # An occasion of revelation that exists is always shown. The reader
       # renders an empty asbabun panel as "no specific occasion is narrated for
       # this ayah" — a claim about scholarship, and a false one when the real
@@ -107,10 +114,10 @@ jobs:
       # 307 -> /en/..., a page we mark noindex on purpose. The site built,
       # typechecked and served fine — it was simply never indexed. Checked for
       # every tenant, because each one inlines its own locale list.
-      - name: Check language detection (all five sites)
+      - name: Check language detection (all four sites)
         run: |
           set -eu
-          for t in ulyah dawa 1fr tilawa xad; do
+          for t in ulyah 1fr tilawa xad; do
             echo "--- $t ---"
             NEXT_PUBLIC_TENANT=$t pnpm check:locale
           done
@@ -120,15 +127,15 @@ jobs:
       # being redirected twice on every click and every crawl of every link on
       # a sibling site. Checked per tenant, because each one inlines its own
       # slugs at build time.
-      - name: Check internal links resolve without a redirect (all five sites)
+      - name: Check internal links resolve without a redirect (all four sites)
         run: |
           set -eu
-          for t in ulyah dawa 1fr tilawa xad; do
+          for t in ulyah 1fr tilawa xad; do
             echo "--- $t ---"
             NEXT_PUBLIC_TENANT=$t npx tsx scripts/check-internal-links.ts
           done
 
-      # One url per page across the five sites, and an hreflang graph that
+      # One url per page across the four sites, and an hreflang graph that
       # points both ways. Non-reciprocal hreflang is discarded silently, and a
       # page reachable at two urls splits its own ranking — neither shows up in
       # a build or a typecheck.

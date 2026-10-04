@@ -11,9 +11,13 @@ import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
+import { registerAdopsAdmin } from "./adops.js";
+import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
+// Ad Manager + AdSense automation (docs/ADMANAGER-BLUEPRINT.md §8).
+registerAdopsAdmin(adminRoute);
 
 // GET /admin/dashboard — summary tiles for wireframe §23.1
 adminRoute.get("/dashboard", async (c) => {
@@ -496,30 +500,30 @@ adminRoute.get("/analytics", async (c) => {
     // Readers only (is_bot = 0), on Jakarta days — the same clock and the same
     // filter as /tenant-analytics, so no two cards in the portal can disagree.
     // Crawler and unclassified counts are returned separately below.
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND date(created_at, '+7 hours') = date('now', '+7 hours')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-7 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-30 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-365 days')").first<{ n: number }>(),
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND date(created_at, '+7 hours') = date('now', '+7 hours')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND created_at >= datetime('now','-7 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND created_at >= datetime('now','-30 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND created_at >= datetime('now','-365 days')").first<{ n: number }>(),
+    c.env.DB.prepare("SELECT COUNT(*) AS n FROM analytics_pageviews WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa'").first<{ n: number }>(),
     c.env.DB.prepare(
       `SELECT date(created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND created_at >= datetime('now','-30 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT strftime('%Y-W%W', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND created_at >= datetime('now','-84 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT strftime('%Y-%m', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE COALESCE(is_bot, 0) = 0 AND created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' AND created_at >= datetime('now','-365 days') GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT strftime('%Y', created_at, '+7 hours') AS bucket, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE COALESCE(is_bot, 0) = 0 GROUP BY bucket ORDER BY bucket`
+       WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' GROUP BY bucket ORDER BY bucket`
     ).all(),
     c.env.DB.prepare(
       `SELECT COALESCE(country,'??') AS country, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-       WHERE COALESCE(is_bot, 0) = 0 GROUP BY country ORDER BY n DESC LIMIT 25`
+       WHERE COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa' GROUP BY country ORDER BY n DESC LIMIT 25`
     ).all(),
     c.env.DB.prepare("SELECT COUNT(*) AS n FROM clients").first<{ n: number }>(),
     c.env.DB.prepare(
@@ -563,8 +567,9 @@ adminRoute.get("/analytics", async (c) => {
   });
 });
 
-// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de + dawa.es) ──────
-// One content DB, four sites. Each sibling's admin portal shows only its own
+// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de + xad.es) ───────
+// One content DB, four sites. dawa.es is detached (no longer the owner's) and
+// is not shown. Each sibling's admin portal shows only its own
 // tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
 adminRoute.get("/tenant-analytics", async (c) => {
@@ -600,7 +605,8 @@ adminRoute.get("/tenant-analytics", async (c) => {
   // rows are reported on their own line so it stays visible how much of the
   // total predates the classifier. That share shrinks on its own as new,
   // classified traffic fills the windows.
-  const HUMAN = "COALESCE(is_bot, 0) = 0";
+  // dawa.es is detached (no longer the owner's): its older rows are never counted.
+  const HUMAN = "COALESCE(is_bot, 0) = 0 AND COALESCE(tenant, '') <> 'dawa'";
   const BOT = "is_bot = 1";
   const UNKNOWN = "is_bot IS NULL";
   const TODAY = win("date(created_at, '@') = date('now', '@')");
@@ -712,7 +718,7 @@ adminRoute.get("/tenant-analytics", async (c) => {
       ).all<{ tenant: string; n: number }>(),
     ]);
 
-  const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad"];
+  const TENANTS = ["ulyah", "1fr", "tilawa", "xad"];
   const byTenant = TENANTS.map((t) => {
     const v = totals.results.find((r) => r.tenant === t);
     const dv = devices.results.find((r) => r.tenant === t);
@@ -960,43 +966,11 @@ adminRoute.get("/health", async (c) => {
     { key: "radio", label: "Radio Qori", route: "/jadwal-sholat", status: s(surah), count: surah, note: "streaming dari CDN qori" },
     { key: "jadwal", label: "Jadwal Sholat", route: "/jadwal-sholat", status: "ok", count: 0, note: "hitung dari lokasi (adhan)" },
     { key: "keys", label: "Smart Engine (Key Pool)", route: "", status: activeKeys < 0 ? "error" : activeKeys === 0 ? "warn" : "ok", count: activeKeys, note: `${activeKeys}/${totalKeys} key aktif` },
-    { key: "adsense", label: "Iklan", route: "", status: "ok", count: 0, note: "tidak ada iklan ditampilkan (situs bebas iklan); verifikasi AdSense tetap tertanam untuk proses ACC" },
+    { key: "adsense", label: "Iklan", route: "", status: "ok", count: 0, note: "Auto ads: hanya loader + meta + ads.txt, tanpa slot manual; AdSense menempatkan iklan sendiri setelah situs disetujui (status per situs di tab Ad Manager)" },
     { key: "installs", label: "Install App", route: "", status: "ok", count: installs, note: "total pemasangan PWA" },
   ];
 
   return c.json({ features, checkedAt: new Date().toISOString() });
-});
-
-// GET /admin/ad-stats?days=30 — how often the ads were shown, filled and
-// clicked, per site and per day, from the one-row-per-site-per-day tally the
-// pages report (see trackAdsBeacon). Raw counts only: the revenue ESTIMATE is
-// made in the panel, next to the assumptions it rests on, so nobody mistakes
-// it for AdSense's own figure. At most five rows a day, so this reads a few
-// hundred rows even over three months.
-adminRoute.get("/ad-stats", async (c) => {
-  const days = Math.min(90, Math.max(1, Number(c.req.query("days")) || 30));
-  const since = new Date(Date.now() - days * 86400_000).toISOString().slice(0, 10);
-  try {
-    const { results } = await c.env.DB.prepare(
-      `SELECT site, day, banner_shown, banner_filled, banner_clicked, flex_shown, flex_filled, flex_clicked
-         FROM ad_daily WHERE day >= ? ORDER BY day`
-    )
-      .bind(since)
-      .all<{
-        site: string;
-        day: string;
-        banner_shown: number;
-        banner_filled: number;
-        banner_clicked: number;
-        flex_shown: number;
-        flex_filled: number;
-        flex_clicked: number;
-      }>();
-    return c.json({ days, rows: results ?? [], at: Date.now() });
-  } catch {
-    // Before migration 0056 has been applied the table does not exist yet.
-    return c.json({ days, rows: [], at: Date.now() });
-  }
 });
 
 // GET /admin/site-analytics — per-site traffic for the whole network, last N
@@ -1011,7 +985,7 @@ adminRoute.get("/site-analytics", async (c) => {
         `SELECT site, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY site ORDER BY views DESC`
       ).bind(since).all<{ site: string; views: number }>(),
       c.env.DB.prepare(
-        `SELECT day, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY day ORDER BY day`
+        `SELECT day, SUM(count) AS views FROM site_pageviews WHERE day >= ? AND site <> 'dawa' GROUP BY day ORDER BY day`
       ).bind(since).all<{ day: string; views: number }>(),
       c.env.DB.prepare(
         `SELECT site, path, SUM(count) AS views FROM site_pageviews WHERE day >= ?
@@ -1026,12 +1000,15 @@ adminRoute.get("/site-analytics", async (c) => {
          WHERE last_seen >= strftime('%s','now') - 5 GROUP BY tenant`
       ).all<{ site: string; hits: number }>().catch(() => ({ results: [] as { site: string; hits: number }[] })),
     ]);
+    // dawa.es is detached (no longer the owner's): rows it wrote before the
+    // cut stay in the table but are never shown or summed here.
+    const own = <T extends { site: string }>(rows: T[] | undefined) => (rows ?? []).filter((r) => !EXCLUDED_TRACK_IDS.has(r.site));
     return c.json({
       days,
-      totals: totals.results ?? [],
+      totals: own(totals.results),
       daily: daily.results ?? [],
-      topPages: top.results ?? [],
-      liveNow: live.results ?? [],
+      topPages: own(top.results),
+      liveNow: own(live.results),
       at: Date.now(),
     });
   } catch {

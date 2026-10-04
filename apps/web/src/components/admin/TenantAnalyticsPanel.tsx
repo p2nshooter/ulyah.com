@@ -51,7 +51,6 @@ const META: Record<string, { name: string; site: string; icon: string }> = {
   ulyah: { name: "ULYAH.COM", site: "ulyah.com", icon: "🕌" },
   "1fr": { name: "One Faith France", site: "1fr.fr", icon: "🇫🇷" },
   tilawa: { name: "Tilawa", site: "tilawa.de", icon: "🇩🇪" },
-  dawa: { name: "Dawa", site: "dawa.es", icon: "🇪🇸" },
   xad: { name: "XAD", site: "xad.es", icon: "🇬🇧" },
 };
 
@@ -116,7 +115,7 @@ export function TenantAnalyticsPanel() {
   return (
     <section>
       <p className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-heading text-base">
-        {isMulti ? "🌐 Pengunjung per Situs (ulyah.com · 1fr.fr · tilawa.de · dawa.es)" : "🌐 Pengunjung Situs Ini"}
+        {isMulti ? "🌐 Pengunjung per Situs (ulyah.com · 1fr.fr · tilawa.de · xad.es)" : "🌐 Pengunjung Situs Ini"}
         <span
           className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
             failed ? "bg-red-500/15 text-red-500" : "bg-emerald-500/15 text-emerald-500"

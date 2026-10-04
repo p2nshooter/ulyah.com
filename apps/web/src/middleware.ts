@@ -98,12 +98,13 @@ function detectLocale(req: NextRequest): string {
  * slug in its own language: the French alternate of /jadwal-sholat is
  * 1fr.fr/horaires-priere.
  */
-// The five sites in the ecosystem, and the whole list: Indonesian on the hub
-// plus the four languages that own a domain. Nothing else is announced, because
-// nothing else is served — a machine-translated language was announced here
-// once, and an hreflang pointing at a page we no longer render is a promise to
-// Google we cannot keep.
-const ALWAYS_LIVE = ["id", "en", "fr", "de", "es"];
+// The sites in the ecosystem, and the whole list: Indonesian on the hub plus
+// the languages that own a domain (LOCALE_SITE). Nothing else is announced,
+// because nothing else is served — a machine-translated language was announced
+// here once, and an hreflang pointing at a page we no longer render is a
+// promise to Google we cannot keep. dawa.es (es) is detached and no longer
+// announced: it is not the owner's site any more (docs/ADSENSE-BLUEPRINT.md §10).
+const ALWAYS_LIVE = ["id", ...Object.keys(LOCALE_SITE)];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {
   const clean = route === "/" ? "" : route.replace(/\/+$/, "");

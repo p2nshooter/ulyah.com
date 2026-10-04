@@ -113,6 +113,7 @@ export async function check(domain) {
   walk(out);
   const missingTag = [];
   const banned = [];
+  const manualUnits = [];
   const brokenLinks = new Set();
   const langWrong = [];
   for (const file of html) {
@@ -121,6 +122,9 @@ export async function check(domain) {
     if (site.adsense && (!s.includes(`<meta name="google-adsense-account" content="${site.adsense}">`) || !s.includes(`adsbygoogle.js?client=${site.adsense}`))) missingTag.push(rel);
     else if (manualSnippets && (!s.includes(manualSnippets.meta) || !s.includes(manualSnippets.loader))) missingTag.push(rel);
     if (BANNED.test(s)) banned.push(rel);
+    // Auto ads only (owner, 4 Oct 2026: "cukup cuplikan AdSense, ads.txt & tag
+    // meta"): a page carries the loader and the meta tag, never a manual unit.
+    if (/<ins\b[^>]*adsbygoogle|data-ad-slot|adsbygoogle\.push|\(adsbygoogle\s*=/.test(s)) manualUnits.push(rel);
     if (!new RegExp(`<html[^>]*lang="${site.lang}`).test(s)) langWrong.push(rel);
     for (const m of s.matchAll(/href="(\/[^"#?]*)/g)) {
       const target = m[1];
@@ -133,6 +137,7 @@ export async function check(domain) {
   }
   if (site.adsense) ok(missingTag.length === 0, `all ${html.length} pages carry the AdSense meta tag and loader`, missingTag.slice(0, 5).join(", "));
   ok(banned.length === 0, "no other ad network and no placeholder text anywhere", banned.slice(0, 5).join(", "));
+  ok(manualUnits.length === 0, "no manual ad unit anywhere — AdSense loader + meta + ads.txt only (Auto ads)", manualUnits.slice(0, 5).join(", "));
   ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
   ok(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
 

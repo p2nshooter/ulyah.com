@@ -13,6 +13,8 @@ import { analyticsRoute } from "./routes/analytics.js";
 import { geoRoute } from "./routes/geo.js";
 import { grantRoute } from "./routes/grant.js";
 import { aliexpressRoute, aliexpressAuthRoute } from "./routes/aliexpress.js";
+import { adopsPublicRoute } from "./routes/adops.js";
+import { adopsTick } from "./lib/adops/runner.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
 import { contentBotTick } from "./lib/content-bot.js";
@@ -134,6 +136,8 @@ app.route("/admin/auth", adminAuthRoute);
 app.route("/admin", adminRoute);
 app.route("/client", clientRoute);
 app.route("/analytics", analyticsRoute);
+// AdOps public endpoints: Google OAuth callback + live ad slots for the build sync.
+app.route("/adops", adopsPublicRoute);
 app.route("/geo", geoRoute);
 app.route("/grant", grantRoute);
 // One door to AliExpress for all twelve sites: the app secret and the access
@@ -262,6 +266,9 @@ export default {
         // article per tick to an eligible article site (inert until
         // GH_CONTENT_TOKEN is set; throttled per site).
         contentBotTick(env).catch((e) => console.error("content-bot failed", e)),
+        // AdOps (docs/ADMANAGER-BLUEPRINT.md): runs once a day after 03:00 UTC,
+        // silent until the owner connects AdSense / Ad Manager in the admin.
+        adopsTick(env).catch((e) => console.error("adops-tick failed", e)),
       ]).then(() => undefined)
     );
   },

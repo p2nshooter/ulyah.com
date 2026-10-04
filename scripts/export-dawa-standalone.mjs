@@ -40,6 +40,10 @@
  *   node scripts/export-dawa-standalone.mjs            # -> dist/dawa-es-backup/
  *   node scripts/export-dawa-standalone.mjs --zip      # + dist/dawa-es-backup-<tgl>.zip
  *   node scripts/export-dawa-standalone.mjs --out=/path/ke/folder --zip
+ *
+ * SEJAK 4 OKT 2026 dawa.es DILEPAS dari repo ini: jalankan skrip ini dari commit
+ * 771e8976432c2e033c9db8137b66dd489589648f (keadaan terakhir saat dawa.es masih tenant),
+ * bukan dari main.
  */
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -706,6 +710,22 @@ function sha256(buf) {
 }
 
 function main() {
+  // Since 4 Oct 2026 dawa.es is DETACHED from this repo (owner: "Lepas yg
+  // terkoneksi dengan dawa.es karena bukan milik sy lagi, biarkan dawa.es
+  // mandiri"): main no longer builds it, links it or translates for it, so
+  // the edits below no longer match main. The last state in which dawa.es
+  // was a tenant is frozen at commit 771e8976432c2e033c9db8137b66dd489589648f (the last main
+  // commit before the detachment) — export from there.
+  const i18nNow = readFileSync(join(ROOT, "packages/shared/src/i18n.ts"), "utf8");
+  if (!i18nNow.includes('es: "https://dawa.es"')) {
+    console.error(
+      "dawa.es sudah dilepas dari main (docs/ADSENSE-BLUEPRINT.md §10).\n" +
+        "Backup mandiri dibuat dari commit terakhir saat dawa.es masih tenant:\n\n" +
+        "  git checkout 771e8976432c2e033c9db8137b66dd489589648f\n" +
+        "  node scripts/export-dawa-standalone.mjs --zip\n"
+    );
+    process.exit(2);
+  }
   if (!existsSync(GUIDE_SRC)) throw new Error(`Folder panduan tidak ada: ${relative(ROOT, GUIDE_SRC)}`);
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(PROJECT, { recursive: true });

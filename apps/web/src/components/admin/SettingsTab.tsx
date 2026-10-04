@@ -10,7 +10,7 @@ interface SettingStatus {
   /** Which heading this credential sits under. The Worker decides the set —
    *  a group with nothing in it simply does not render, which is how the
    *  AliExpress block stays out of sight until its keys are issued. */
-  group: "payment" | "affiliate";
+  group: "payment" | "affiliate" | "admanager";
   source: "database" | "env" | "unset";
   preview: string | null;
 }
@@ -28,6 +28,12 @@ const GROUPS: { id: SettingStatus["group"]; title: string; blurb: string }[] = [
     title: "Afiliasi AliExpress",
     blurb:
       "App Key, App Secret dan Tracking ID dari AliExpress Open Platform. Ketiganya disimpan terenkripsi, termasuk Tracking ID.",
+  },
+  {
+    id: "admanager",
+    title: "Ad Manager & AdSense (otomatis)",
+    blurb:
+      "Kredensial untuk otomasi iklan semua situs (kecuali dawa.es). Setelah diisi, buka tab Iklan & Ad Manager untuk uji koneksi dan mengaktifkan mode live.",
   },
 ];
 
