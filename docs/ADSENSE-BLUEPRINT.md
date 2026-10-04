@@ -232,8 +232,26 @@ sites/
 
 Satu repo = satu situs (jai, lie, axtodev, oldco.in, profity.in, axto.us,
 xaa, guardian-ai). Repo itu sendiri adalah paket jualnya (transfer repo).
-Isi artikel ada di `src/content/`. Situs yang memakai D1 (axto.us `axto_db`,
-xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
+Isi artikel ada di `src/content/`. Situs yang memakai D1 (xaa `xaa-portal`,
+axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
+
+- **axto.us** (4 Okt) kini situs statis dengan engine yang sama
+  (`sites/_engine` + `sites/axto.us` di repo axto.us). Tidak ada database
+  lagi: clone repo = backup lengkap. Aplikasi Next lama tersimpan di riwayat
+  git (commit `285db80`); D1 `axto_db` dan KV lama dibiarkan di akun
+  Cloudflare, tidak dihapus.
+
+### Aturan backup (permintaan pemilik 4 Okt)
+
+"Semua website harus mudah dibackup beserta databasenya; kalau dijual
+tinggal dikeluarkan." Berlaku untuk semua situs **kecuali ulyah.com, xaa.es
+dan axto.io** (milik pribadi, dikerjakan belakangan).
+
+- Situs statis (`sites/<domain>`, axto.us): isinya sudah berupa file;
+  `node sites/_engine/export.mjs <domain>` membuat satu arsip siap jual.
+- Situs repo sendiri yang memakai D1/KV: tambahkan workflow backup
+  (`wrangler d1 export` → artifact) dan dokumen serah terima. 🔄 tugas
+  berikutnya setelah situs-situs baru.
 
 ---
 
@@ -287,8 +305,47 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 | 4.1 | jai.lat jadi bahasa Spanyol: ≥40 artikel panjang | ❌ |
 | 4.2 | xaa.es: bahasa Spanyol sebagai bawaan + panduan setiap menu portal | ❌ |
 | 4.3 | axto.io: ≥40 panduan panjang, satu per menu aplikasi | ❌ |
-| 4.4 | axto.us: hapus isi yang tidak layak AdSense, perkuat blog orang tua & guru | ❌ |
-| 4.5 | Semua situs: halaman wajib lengkap (§1.5) | ❌ |
+| 4.4 | axto.us: hapus isi yang tidak layak AdSense, perkuat blog orang tua & guru | ✅ dirombak total jadi situs statis bahasa Inggris: 40 panduan membaca (rata-rata 1.420 kata), tema "perpustakaan lapis", axto.us PR #26 |
+| 4.5 | Semua situs: halaman wajib lengkap (§1.5) | ✅ apps/web PR #289, repo partner, axto.us #26 (Impressum tilawa.de menunggu data pemilik) |
+
+### Fase 6: 10 domain .de baru (4 Okt) — DIKERJAKAN NANTI
+
+Permintaan pemilik: "Yg 10 terbaru nanti aja, kerjain yg lain dulu."
+
+- Domain: byoy.de, qarf.de, qulen.de, qurm.de, rubiy.de, zavik.de, zevok.de,
+  zolun.de, zufiq.de, zuvik.de. Belum terhubung ke Cloudflare → deploy dulu
+  sebagai Worker (`*.workers.dev`); domain terpasang otomatis begitu
+  zonanya ada.
+- **Satu akun AdSense untuk kesepuluhnya: ca-pub-5693981744147503** (kode
+  lengkap di `docs/ADSENSE-CODES.md`).
+- **Dua bahasa: Jerman (utama, di `/`) dan Inggris (di `/en/`)**, dengan
+  hreflang di setiap halaman. Engine perlu mode dua bahasa (`editions`).
+- Niche beragam, **bukan selalu teknologi**:
+  - cerita rumah tangga fiktif di domain yang kepanjangannya cocok dengan
+    bahasa Jerman;
+  - cerita fiktif pelajar yang membangkitkan semangat;
+  - sisanya niche evergreen berbahasa Jerman dengan SEO kuat.
+- Target **1.000 artikel**: 10 situs × 50 artikel × 2 bahasa. Minimal 40 per
+  bahasa sebelum diajukan.
+- Setiap situs: tema istana unik, animasi Spanyol 2026 dan semua halaman
+  wajib DE/EN.
+- **Impressum** (§ 5 DDG) butuh nama dan alamat asli pemilik. Tidak boleh
+  dikarang; minta ke pemilik sebelum domain dipasang.
+
+Usulan niche (belum final):
+
+| Domain | Kepanjangan / kesan | Niche |
+|---|---|---|
+| zuvik.de | **ZU**hause, **VI**el **K**inderlachen | Cerita rumah tangga fiktif (keluarga, Alltag) |
+| qulen.de | **QU**elle des **LE**r**N**ens | Cerita fiktif pelajar yang memotivasi + tips belajar |
+| byoy.de | „bio“ | Kebun organik, balkon, kompos |
+| qarf.de | — | Kopi & teh (Zubereitung, Bohnen) |
+| qurm.de | „Turm“ / pemandangan | Wandern & jalur gunung di Jerman |
+| rubiy.de | „Rübe“ | Masakan musiman (saisonal kochen) |
+| zavik.de | — | Kucing (Katzen-Ratgeber) |
+| zevok.de | — | Tips rumah tangga: bersih-bersih, noda, cucian |
+| zolun.de | „Sonne“ | Liburan di Jerman (Nord-/Ostsee, Städtereisen) |
+| zufiq.de | „zufrieden“ | Hidup tenang: kebiasaan, keteraturan, minimalisme |
 
 ### Fase 5: setelah AdSense selesai (permintaan pemilik)
 
@@ -343,4 +400,9 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 | 4 Okt | axto.us: tambah artikel, hapus/ubah konten & desain bila perlu | 🔄 |
 | 4 Okt | Banyak situs belum punya animasi Spanyol juara 2026 | 🔄 apps/web semua tenant + 8 repo partner (pita gaya istana masing-masing) |
 | 4 Okt | xaa.es isinya studio web, bukan karoseri | ✅ dikonfirmasi; quantum tidak lagi memakai xaa.es |
+| 4 Okt | Semua situs punya about, contact, privacy, cookies, terms, disclaimer, editorial policy | ✅ §7 4.5 |
+| 4 Okt | axto.us belum ada pengguna: rombak total | ✅ axto.us PR #26 |
+| 4 Okt | Urutan: axto.io belakangan; fokus axto.us dan situs yang belum dibuat/kurang; lalu ulyah.com (hemat D1, maksimalkan R2) | 🔄 |
+| 4 Okt | Semua situs mudah dibackup beserta database, siap dijual (kecuali ulyah.com, xaa.es, axto.io) | 🔄 §6 aturan backup |
+| 4 Okt | 10 domain .de baru (akun 5693…), Worker dulu, dua bahasa DE+EN, 1.000 artikel, cerita rumah tangga & pelajar fiktif | ⏸️ §7 Fase 6, dikerjakan nanti |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
