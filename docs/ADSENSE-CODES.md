@@ -16,7 +16,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | axto.io | ca-pub-8991272269211824 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt |
 | xaa.es | ca-pub-8991272269211824 | xaa · site.ts + public/ads.txt |
 | 1fr.fr | ca-pub-5944786950535069 | ulyah.com · apps/web (tenant 1fr) |
-| axto.us | ca-pub-6908951782430508 | axto.us · site.ts + public/ads.txt |
+| axto.us | ca-pub-6908951782430508 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — 4 Okt: situs statis baru |
 | axto.dev | ca-pub-8469557036744946 | axtodev · site.ts + public/ads.txt |
 | jai.lat | ca-pub-4548005919629272 | Jai · site.ts + public/ads.txt |
 | lie.skin | ca-pub-9666205248809954 | Lie · site.ts + public/ads.txt |
@@ -27,6 +27,16 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | byodd.de | ca-pub-2228462932360966 | ulyah.com · sites/byodd.de (site.json + ADSENSE.txt) |
 | xko.es | ca-pub-6560360898389273 | ulyah.com · sites/xko.es (site.json + ADSENSE.txt) |
 | byoxy.de | ca-pub-6701063918838796 | ulyah.com · sites/byoxy.de (site.json + ADSENSE.txt) |
+| byoy.de | ca-pub-5693981744147503 | ulyah.com · sites/byoy.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| qarf.de | ca-pub-5693981744147503 | ulyah.com · sites/qarf.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| qulen.de | ca-pub-5693981744147503 | ulyah.com · sites/qulen.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| qurm.de | ca-pub-5693981744147503 | ulyah.com · sites/qurm.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| rubiy.de | ca-pub-5693981744147503 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| zavik.de | ca-pub-5693981744147503 | ulyah.com · sites/zavik.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| zevok.de | ca-pub-5693981744147503 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| zolun.de | ca-pub-5693981744147503 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| zufiq.de | ca-pub-5693981744147503 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
+| zuvik.de | ca-pub-5693981744147503 | ulyah.com · sites/zuvik.de (site.json + ADSENSE.txt) — 4 Okt: 10 domain baru, satu akun, dikerjakan nanti |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — sudah di-ACC, tidak diubah |
 | tilawa.de | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant tilawa) — 4 Okt: akun xaa.es |
 | xad.es | ca-pub-2493615451319531 | ulyah.com · apps/web (tenant xad) — tidak diubah |
@@ -344,6 +354,236 @@ Tag meta
 
 ```html
 <meta name="google-adsense-account" content="ca-pub-6701063918838796">
+```
+
+## byoy.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://byoy.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## qarf.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://qarf.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## qulen.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://qulen.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## qurm.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://qurm.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## rubiy.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://rubiy.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## zavik.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://zavik.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## zevok.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://zevok.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## zolun.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://zolun.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## zufiq.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://zufiq.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## zuvik.de
+
+Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://zuvik.de/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
 ```
 
 ## dawa.es
