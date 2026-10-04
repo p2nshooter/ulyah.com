@@ -1,0 +1,139 @@
+name: Deploy article sites (sites/)
+
+# Builds and deploys every site under sites/ (dawo.es, qkb.es, byodd.es …).
+# Each is a static site on Cloudflare Workers Static Assets: no Worker script,
+# no D1, no R2 — so it cannot be taken down by the shared API, by the D1 read
+# quota or by R2 being off. See sites/README.md and docs/ADSENSE-BLUEPRINT.md.
+#
+# A site is deployed only after it passes sites/_engine/check.mjs, the AdSense
+# readiness gate (40+ long articles, required legal pages, the right AdSense
+# account and ads.txt, no other ad network, no broken internal link).
+#
+# Its domain is attached as soon as the zone exists in this Cloudflare account;
+# until then the site is live on its workers.dev address and the run says so.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/**'
+      - '.github/workflows/deploy-sites.yml'
+  pull_request:
+    paths:
+      - 'sites/**'
+      - '.github/workflows/deploy-sites.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-sites-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      sites: ${{ steps.find.outputs.sites }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: find
+        run: |
+          sites=$(find sites -mindepth 2 -maxdepth 2 -name site.json -printf '%h\n' | sed 's#^sites/##' | sort | jq -R . | jq -sc .)
+          echo "sites=$sites" >> "$GITHUB_OUTPUT"
+          echo "Sites: $sites"
+
+  site:
+    needs: list
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      # One at a time: parallel deploys trip the Cloudflare API rate limit.
+      max-parallel: 1
+      matrix:
+        domain: ${{ fromJson(needs.list.outputs.sites) }}
+    name: ${{ matrix.domain }}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      DOMAIN: ${{ matrix.domain }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Build + AdSense readiness check
+        run: node sites/_engine/check.mjs "$DOMAIN"
+
+      - name: Deploy to Cloudflare Workers (static assets)
+        if: github.event_name != 'pull_request'
+        id: deploy
+        run: |
+          set -o pipefail
+          worker=$(node -p "JSON.parse(require('fs').readFileSync('sites/$DOMAIN/site.json','utf8')).worker")
+          echo "worker=$worker" >> "$GITHUB_OUTPUT"
+          for attempt in 1 2 3; do
+            if npx -y wrangler@4 deploy --config "sites/$DOMAIN/wrangler.jsonc" 2>&1 | tee /tmp/deploy.log; then
+              url=$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' /tmp/deploy.log | head -1)
+              echo "url=$url" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if grep -qiE "Invalid access token|code: ?9109|Authentication error" /tmp/deploy.log; then exit 1; fi
+            sleep $((attempt * 20))
+          done
+          exit 1
+
+      - name: Attach the domain when its zone is ready
+        if: github.event_name != 'pull_request'
+        env:
+          WORKER: ${{ steps.deploy.outputs.worker }}
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          zone_json=$(api "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&account.id=$CLOUDFLARE_ACCOUNT_ID")
+          zone=$(jq -r '.result[0].id // empty' <<<"$zone_json")
+          status=$(jq -r '.result[0].status // empty' <<<"$zone_json")
+          if [ -z "$zone" ]; then
+            echo "::warning title=$DOMAIN is not on Cloudflare yet::Add $DOMAIN in the Cloudflare dashboard (Websites → Add a site) and point its nameservers there. The site is live on its workers.dev address meanwhile, and the next deploy attaches the domain by itself."
+            exit 0
+          fi
+          if [ "$status" != "active" ]; then
+            echo "::warning title=$DOMAIN zone is '$status'::Finish moving the nameservers to Cloudflare; the next deploy attaches the domain."
+            exit 0
+          fi
+          failed=0
+          for host in "$DOMAIN" "www.$DOMAIN"; do
+            # A stale A / AAAA / CNAME (registrar parking) would shadow the
+            # Worker; MX and TXT records are left alone.
+            for type in A AAAA CNAME; do
+              for id in $(api "https://api.cloudflare.com/client/v4/zones/$zone/dns_records?type=$type&name=$host" | jq -r '.result[]?.id'); do
+                api -X DELETE "https://api.cloudflare.com/client/v4/zones/$zone/dns_records/$id" >/dev/null
+              done
+            done
+            resp=$(api -X PUT "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" \
+              -d "{\"hostname\":\"$host\",\"zone_id\":\"$zone\",\"service\":\"$WORKER\",\"environment\":\"production\",\"override_existing_origin\":true,\"override_existing_dns_record\":true}")
+            if [ "$(jq -r '.success' <<<"$resp")" = "true" ]; then echo "Attached $host → $WORKER"; else echo "$resp"; echo "::error::Could not attach $host"; failed=1; fi
+          done
+          exit $failed
+
+      - name: Smoke test
+        if: github.event_name != 'pull_request'
+        env:
+          URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -uo pipefail
+          base="${URL:-}"
+          [ -n "$base" ] || { echo "::warning::wrangler printed no workers.dev URL; skipping"; exit 0; }
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$base/")
+            [ "$code" = "200" ] && break
+            sleep 10
+          done
+          echo "$base/ → $code"
+          [ "$code" = "200" ] || { echo "::error::$base/ answered $code"; exit 1; }
+          pub=$(node -p "(JSON.parse(require('fs').readFileSync('sites/$DOMAIN/site.json','utf8')).adsense||'').replace(/^ca-/,'')")
+          if [ -n "$pub" ]; then
+            body=$(curl -s "$base/ads.txt")
+            echo "ads.txt: $body"
+            grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body" || { echo "::error::ads.txt does not authorise $pub"; exit 1; }
+          fi
+          echo "### $DOMAIN is live at $base" >> "$GITHUB_STEP_SUMMARY"

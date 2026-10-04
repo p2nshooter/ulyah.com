@@ -1,0 +1,38 @@
+{
+  "domain": "dawo.es",
+  "name": "DAWO",
+  "expansion": "Deporte, Actividad, Wellness y Ocio",
+  "tagline": "El deporte que se disfruta, explicado con calma",
+  "description": "DAWO es una revista independiente sobre deporte amateur y vida activa: correr, pádel, fútbol, fuerza, descanso y ocio al aire libre, explicados con rigor y sin promesas milagro.",
+  "lang": "es",
+  "locale": "es-ES",
+  "ogLocale": "es_ES",
+  "adsense": "ca-pub-6019445914743449",
+  "trackId": "dawo-es",
+  "worker": "dawo-es",
+  "themeColor": "#0a1f3c",
+  "email": "contacto@dawo.es",
+  "author": "Redacción DAWO",
+  "fonts": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/articulos/", "category": "/seccion/" },
+  "categories": [
+    { "slug": "correr", "name": "Correr", "icon": "correr", "description": "Empezar a correr, mejorar la técnica, ganar distancia y llegar a la meta sin lesiones." },
+    { "slug": "padel-y-raqueta", "name": "Pádel y raqueta", "icon": "raqueta", "description": "Pádel, tenis y bádminton para aficionados: reglas, golpes, material y prevención." },
+    { "slug": "futbol", "name": "Fútbol", "icon": "balon", "description": "Fútbol amateur, fútbol 7 y fútbol sala: técnica, preparación física y juego de equipo." },
+    { "slug": "fuerza-y-movilidad", "name": "Fuerza y movilidad", "icon": "fuerza", "description": "Entrenamiento de fuerza, movilidad y core para cualquier edad, en el gimnasio o en casa." },
+    { "slug": "descanso-y-nutricion", "name": "Descanso y nutrición", "icon": "descanso", "description": "Sueño, alimentación, hidratación y recuperación: lo que sostiene todo el entrenamiento." },
+    { "slug": "ocio-activo", "name": "Ocio activo", "icon": "montana", "description": "Senderismo, bicicleta, natación y deporte en familia para moverse disfrutando." }
+  ],
+  "menu": [
+    { "label": "Sobre DAWO", "href": "/sobre-nosotros/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos y condiciones", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" },
+    { "label": "Política editorial", "href": "/politica-editorial/" }
+  ]
+}

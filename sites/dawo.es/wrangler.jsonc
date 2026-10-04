@@ -1,0 +1,12 @@
+// dawo.es — a static site served by Cloudflare Workers Static Assets.
+// No Worker script runs: every page is a file in dist/, so requests cost no
+// Worker invocations and the site cannot go down with the shared API or D1.
+{
+  "name": "dawo-es",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

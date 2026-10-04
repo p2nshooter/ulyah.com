@@ -34,6 +34,9 @@ const SITE_LABEL: Record<string, string> = {
   "axto-io": "axto.io", "axto-dev": "axto.dev", "axto-us": "axto.us",
   "profity-in": "profity.in", "oldco-in": "oldco.in",
   "xaa-es": "xaa.es", "xad-es": "xad.es (lama)", "jai-lat": "jai.lat", "lie-skin": "lie.skin",
+  // Static article sites built from sites/ in this repo (docs/ADSENSE-BLUEPRINT.md).
+  "dawo-es": "dawo.es", "qkb-es": "qkb.es", "byodd-es": "byodd.es",
+  "xko-es": "xko.es", "byodd-de": "byodd.de", "byoxy-de": "byoxy.de",
 };
 
 // The ulyah.com ecosystem = the Islamic da'wah network that mirrors ulyah's
