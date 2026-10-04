@@ -15,6 +15,12 @@ const SITES = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MIN_ARTICLES = 40;
 const MIN_WORDS = 1200; // every article
 const MIN_AVG_WORDS = 1400; // the library as a whole
+// The same text needs fewer, longer words in some languages. German runs
+// roughly 10–15 % fewer words than English for the same content (and more
+// characters), so a German library is held to the English bar scaled by 0.85:
+// 1,020 words per article and 1,190 on average. Spanish and English keep the
+// full bar.
+const LANG_WORD_FACTOR = { de: 0.85 };
 const BANNED = /adsterra|highperformanceformat|effectivecpmnetwork|effectivegatecpm|profitableratecpm|popads|propellerads|lorem ipsum/i;
 
 /** Pages every site must have, by language. Each entry: any one of these slugs. */
@@ -38,10 +44,14 @@ export async function check(domain) {
 
   // Content
   ok(articles.length >= MIN_ARTICLES, `at least ${MIN_ARTICLES} articles (${articles.length})`);
-  const short = articles.filter((a) => a.words < MIN_WORDS);
-  ok(short.length === 0, `every article has ${MIN_WORDS}+ words`, short.map((a) => `${a.file}: ${a.words}`).join(", "));
+  const factor = LANG_WORD_FACTOR[site.lang] || 1;
+  const minWords = Math.round(MIN_WORDS * factor);
+  const minAvg = Math.round(MIN_AVG_WORDS * factor);
+  const note = factor === 1 ? "" : ` [${site.lang}: English bar × ${factor}]`;
+  const short = articles.filter((a) => a.words < minWords);
+  ok(short.length === 0, `every article has ${minWords}+ words${note}`, short.map((a) => `${a.file}: ${a.words}`).join(", "));
   const avg = Math.round(articles.reduce((n, a) => n + a.words, 0) / Math.max(1, articles.length));
-  ok(avg >= MIN_AVG_WORDS, `average length ${MIN_AVG_WORDS}+ words (${avg})`);
+  ok(avg >= minAvg, `average length ${minAvg}+ words (${avg})${note}`);
   const norm = (t) => t.toLowerCase().normalize("NFD").replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
   const titles = new Map();
   for (const a of articles) {

@@ -1,0 +1,39 @@
+{
+  "domain": "byodd.de",
+  "name": "BYODD",
+  "expansion": "Bring Your Own DIY & Deko",
+  "tagline": "Heimwerken, Renovieren und Wohnen: Schritt für Schritt erklärt, sicher und ohne Profi-Werkstatt",
+  "description": "BYODD erklärt Heimwerken und Renovieren für Mieter und Eigentümer: Werkzeug und Grundlagen, Wände und Böden, Holz und Möbel, Bad und Küche, Deko und Wohnen sowie kleine Reparaturen im Haushalt, mit klaren Anleitungen und Sicherheitshinweisen.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-2228462932360966",
+  "trackId": "byodd-de",
+  "worker": "byodd-de",
+  "themeColor": "#3b2416",
+  "email": "kontakt@byodd.de",
+  "author": "BYODD Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Marcellus&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/anleitungen/", "category": "/themen/" },
+  "categories": [
+    { "slug": "werkzeug-und-grundlagen", "name": "Werkzeug & Grundlagen", "icon": "hammer", "description": "Die richtige Grundausstattung, Bohren, Dübeln, Messen und sicheres Arbeiten: das Fundament jedes Projekts." },
+    { "slug": "waende-und-boeden", "name": "Wände & Böden", "icon": "rolle", "description": "Streichen, Tapezieren, Spachteln, Laminat, Vinyl und Fliesen: Oberflächen, die man sieht und täglich nutzt." },
+    { "slug": "holz-und-moebel", "name": "Holz & Möbel", "icon": "saege", "description": "Holz schleifen, ölen und lackieren, Möbel aufarbeiten, Regale bauen und Schrauben, die halten." },
+    { "slug": "bad-und-kueche", "name": "Bad & Küche", "icon": "tropfen", "description": "Silikonfugen, Armaturen, Abflüsse, Fliesen auffrischen und kleine Arbeiten rund um Wasser, sauber und dicht." },
+    { "slug": "deko-und-wohnen", "name": "Deko & Wohnen", "icon": "lampe", "description": "Bilder aufhängen, Licht planen, Vorhänge, Farben und kleine Räume: Wohnen mit Charakter, auch zur Miete." },
+    { "slug": "reparaturen-im-haushalt", "name": "Reparaturen im Haushalt", "icon": "schluessel", "description": "Tropfende Hähne, klemmende Türen, wackelnde Stühle und Fenster einstellen: kleine Reparaturen selbst erledigen." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Sicherheit", "href": "/sicherheitshinweise/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
