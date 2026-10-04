@@ -59,7 +59,8 @@ membuka domain-domain ini.
 | Domain | Akun AdSense baru | Repo / lokasi kode | Worker | Bahasa | Live sekarang |
 |---|---|---|---|---|---|
 | ulyah.com | ca-pub-8991272269211824 | `ulyah.com` · apps/web (tenant `ulyah`) | ulyah-web | id | 200 · akun lama 6371… · tanpa Adsterra |
-| 1fr.fr | ca-pub-5944786950535069 | `ulyah.com` · apps/web (tenant `1fr`) | onefaith-web | fr | 200 · akun lama 6371… |
+| 1fr.fr | ca-pub-8991272269211824 (4 Okt: sama dengan xaa.es; sebelumnya 5944…) | `ulyah.com` · apps/web (tenant `1fr`) | onefaith-web | fr | 200 |
+| tilawa.de | ca-pub-8991272269211824 (4 Okt: sama dengan xaa.es; sebelumnya 6371…) | `ulyah.com` · apps/web (tenant `tilawa`) | tilawa-web | de | 200 |
 | axto.io | ca-pub-8991272269211824 | `guardian-ai` · `dashboard/` (Cloudflare Pages) | axto-dashboard | en | 200 · akun lama 6371… · **ads.txt 404** |
 | xaa.es | ca-pub-8991272269211824 | `xaa` (studio web + portal klien) | xaa-es | en → **es** | 200 · akun lama 6371… · home tanpa artikel |
 | axto.us | ca-pub-6908951782430508 | `axto.us` (perpustakaan cerita anak + blog) | axto-us | en | 200 · akun lama 6371… |
@@ -79,7 +80,7 @@ membuka domain-domain ini.
 > `google-adsense-account`, script loader dan ads.txt dibuat otomatis oleh
 > engine dari kolom `adsense` di `site.json`. Pemilik cukup memberi nomor pub.
 
-Tidak berubah (tidak ada di file): dawa.es dan tilawa.de tetap
+Tidak berubah (tidak ada di file): dawa.es tetap
 6371903555702163 (sudah di-ACC), xad.es tetap 2493615451319531 (sudah live
 dari branch `ccr-8cac35c6-6bbbvx`, digabung ke main lewat pekerjaan ini supaya
 tidak tertimpa).
@@ -336,6 +337,9 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 | 4 Okt | Semua situs harus mendekati 100% diterima; ubah bahasa kalau perlu | 🔄 Fase 4 |
 | 4 Okt | Koreksi: byodd.de (bukan byodd.es) memakai 2228…; kode baru xko.es 6560…, byoxy.de 6701…; meta tag dibuat otomatis | ✅ dicatat §2 |
 | 4 Okt | Setiap situs punya niche SEO yang kuat dan luas, bukan konten sampah | 🔄 §3 aturan niche |
+| 4 Okt | tilawa.de & 1fr.fr: kode AdSense, ads.txt, meta tag sama dengan xaa.es (8991…, satu akun) | ✅ apps/web ad-config |
+| 4 Okt | axto.io masih belum bisa diverifikasi AdSense | ✅ penyebab: loader hanya disisipkan JS (next/script afterInteractive); kini di HTML server (guardian-ai PR #62); audit memeriksa HTML mentah |
+| 4 Okt | axto.us: tambah artikel, hapus/ubah konten & desain bila perlu | 🔄 |
 | 4 Okt | Banyak situs belum punya animasi Spanyol juara 2026 | 🔄 apps/web semua tenant + 8 repo partner (pita gaya istana masing-masing) |
 | 4 Okt | xaa.es isinya studio web, bukan karoseri | ✅ dikonfirmasi; quantum tidak lagi memakai xaa.es |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |

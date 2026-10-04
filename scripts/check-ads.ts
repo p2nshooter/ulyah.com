@@ -73,21 +73,22 @@ check(
 );
 
 console.log("\n=== each site declares the account the owner gave it ===");
-// docs/ADSENSE-BLUEPRINT.md §2. dawa.es and tilawa.de stay on the approved
-// original account; xad.es (2026-09-29), ulyah.com and 1fr.fr (2026-10-03)
-// are verified afresh on accounts of their own and carry no ad placement
+// docs/ADSENSE-BLUEPRINT.md §2. dawa.es stays on the approved original
+// account; xad.es (2026-09-29), ulyah.com (2026-10-03), 1fr.fr and tilawa.de
+// (2026-10-04, the xaa.es account) are verified afresh and carry no ad placement
 // until then — the unit ids above belong to the original account and could
 // never fill on another one.
 const EXPECTED: Record<string, string> = {
   ulyah: "ca-pub-8991272269211824",
-  "1fr": "ca-pub-5944786950535069",
+  "1fr": "ca-pub-8991272269211824",
+  tilawa: "ca-pub-8991272269211824",
   xad: "ca-pub-2493615451319531",
 };
 for (const [tenant, pub] of Object.entries(EXPECTED)) {
   const key = tenant === "1fr" ? '"1fr"' : tenant;
   check(`${tenant} declares ${pub}`, new RegExp(`${key}:\\s*"${pub}"`).test(adConfig));
 }
-for (const tenant of ["dawa", "tilawa"]) {
+for (const tenant of ["dawa"]) {
   check(`${tenant} stays on the approved account`, new RegExp(`${tenant}:\\s*ORIGINAL_ACCOUNT`).test(adConfig));
 }
 check(
