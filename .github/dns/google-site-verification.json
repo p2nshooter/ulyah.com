@@ -1,0 +1,11 @@
+{
+  "_comment": "Google Search Console domain verification (TXT on the zone apex). These values are public by design: anyone can read them in DNS. Source: owner's file 'Verifikasi buat DNS SEO di CF TXT', 4 Oct 2026. Applied by .github/workflows/dns-records.yml.",
+  "records": [
+    { "domain": "qarf.de",  "txt": "google-site-verification=sUxlv4QOJbcQ100cZQk--8VZWNO8EIFBjwjpeguZ1t8" },
+    { "domain": "qulen.de", "txt": "google-site-verification=GU3phVZsI04bmCN-VMYtDmhwvPLdPN8VHXZDztI30EE" },
+    { "domain": "qurm.de",  "txt": "google-site-verification=rLKORCIOH8Ag7HC6fyCPLaBqkoC7Kqps6kERnZfsu3s" },
+    { "domain": "zavik.de", "txt": "google-site-verification=GrNwrgdi7VyGnc5ROCNuaXG9ZmYC7KKJqgUe18cZ1b8" },
+    { "domain": "zevok.de", "txt": "google-site-verification=jA_2XyooPm1-AbljBYYjeMRtaIpbNItXPdn84-RXriA" },
+    { "domain": "zuvik.de", "txt": "google-site-verification=NAK5tXbvM2TceXNVzH5E04w3t09xGQpCNfbwgormToo" }
+  ]
+}
