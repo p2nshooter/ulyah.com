@@ -10,6 +10,7 @@ import { aiChatLabels } from "@/lib/ai-chat-labels";
 import { TENANT } from "@/lib/tenant";
 import { usePageOverrides } from "@/lib/site-pages";
 import { routePath } from "@/lib/paths";
+import { legalNav } from "@/lib/legal-pages";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -103,6 +104,9 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
             <li><Link href={routePath(locale, `/donasi`)} className="transition hover:text-accent">{dict.nav.donate}</Link></li>
             <li><Link href={routePath(locale, `/kebijakan-privasi`)} className="transition hover:text-accent">{dict.footer.privacyPolicy}</Link></li>
+            {legalNav(locale).map((l) => (
+              <li key={l.key}><Link href={routePath(locale, l.route)} className="transition hover:text-accent">{l.label}</Link></li>
+            ))}
           </ul>
         </div>
       </div>
