@@ -23,7 +23,7 @@ import { automatableSites, OWNER_ADSENSE_PUB, OWNER_SITES } from "@ulyah/shared/
 import { adManagerToken, adsenseToken, parseServiceAccount, type ServiceAccount } from "./google.js";
 import { adsenseReport, listAdsenseSites, type AdsenseReportRow, type AdsenseState } from "./adsense.js";
 import { adManagerClient, batchCreateAdUnits, batchSetActive, getNetwork, listAdUnits, runDailyReport, type AdManagerClient, type ReportRow } from "./admanager.js";
-import { AD_PLACEMENT, AUTO_POSITION, chunk, desiredAdUnits, diffAdUnits, POSITIONS, siteOfCode, type ActualAdUnit, type Position } from "./plan.js";
+import { AD_PLACEMENT, AUTO_POSITION, chunk, diffAdUnits, POSITIONS, siteOfCode, type ActualAdUnit, type Position } from "./plan.js";
 import { INITIAL_FLOOR, nextFloor, RETEST_AFTER_DAYS, shouldPark, tierOf, type FloorState, type SegmentMetrics, type Tier } from "./yield.js";
 import { runCheckpointed } from "./checkpoint.js";
 
