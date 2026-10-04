@@ -1,0 +1,97 @@
+name: DNS records (Search Console verification)
+
+# Adds the Google Search Console verification TXT records listed in
+# .github/dns/google-site-verification.json to each domain's Cloudflare zone.
+#
+# - It copies the format of verification records that already exist in the
+#   account (apex name, quoted or unquoted content, TTL) and prints them first,
+#   so new records look exactly like the ones Google already accepted.
+# - A record that is already there is left alone; nothing is ever deleted.
+# - A domain whose zone is not on Cloudflare yet is reported and skipped. The
+#   daily run adds its record as soon as the zone appears, with no new commit.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/dns/**'
+      - '.github/workflows/dns-records.yml'
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: dns-records
+  cancel-in-progress: false
+
+jobs:
+  txt:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Learn the format of existing verification records
+        id: learn
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          zones=$(api "https://api.cloudflare.com/client/v4/zones?per_page=50" | jq -r '.result[]? | "\(.id) \(.name)"')
+          quoted=""; ttl=""
+          echo "### Existing google-site-verification TXT records" >> "$GITHUB_STEP_SUMMARY"
+          while read -r id name; do
+            [ -n "$id" ] || continue
+            rows=$(api "https://api.cloudflare.com/client/v4/zones/$id/dns_records?type=TXT&per_page=100" \
+              | jq -r '.result[]? | select(.content | test("google-site-verification")) | "\(.name)\t\(.ttl)\t\(.content)"')
+            [ -n "$rows" ] || continue
+            while IFS=$'\t' read -r rname rttl content; do
+              echo "- $rname (TTL $rttl): \`$content\`" >> "$GITHUB_STEP_SUMMARY"
+              echo "$name: $rname ttl=$rttl $content"
+              [ -z "$ttl" ] && ttl="$rttl"
+              if [ -z "$quoted" ]; then case "$content" in \"*) quoted=yes ;; *) quoted=no ;; esac; fi
+            done <<<"$rows"
+          done <<<"$zones"
+          # Cloudflare's own recommendation is quoted content and TTL 1 (auto).
+          echo "quoted=${quoted:-yes}" >> "$GITHUB_OUTPUT"
+          echo "ttl=${ttl:-1}" >> "$GITHUB_OUTPUT"
+          echo "Using quoted=${quoted:-yes} ttl=${ttl:-1}"
+
+      - name: Add missing verification records
+        env:
+          QUOTED: ${{ steps.learn.outputs.quoted }}
+          TTL: ${{ steps.learn.outputs.ttl }}
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          echo "### Search Console TXT records" >> "$GITHUB_STEP_SUMMARY"
+          failed=0
+          while IFS=$'\t' read -r domain txt; do
+            zone=$(api "https://api.cloudflare.com/client/v4/zones?name=$domain" | jq -r '.result[0].id // empty')
+            if [ -z "$zone" ]; then
+              echo "::warning title=$domain is not on Cloudflare yet::The TXT record will be added by the daily run once the zone exists."
+              echo "- ⏳ $domain: zone not on Cloudflare yet" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            have=$(api "https://api.cloudflare.com/client/v4/zones/$zone/dns_records?type=TXT&name=$domain&per_page=100" \
+              | jq -r --arg t "$txt" '[.result[]? | select((.content | gsub("\""; "")) == $t)] | length')
+            if [ "${have:-0}" -gt 0 ]; then
+              echo "$domain: already present"
+              echo "- ✅ $domain: already present" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            content="$txt"; [ "$QUOTED" = "yes" ] && content="\"$txt\""
+            body=$(jq -nc --arg n "$domain" --arg c "$content" --argjson ttl "$TTL" \
+              '{type:"TXT", name:$n, content:$c, ttl:$ttl, comment:"Google Search Console verification (dns-records.yml)"}')
+            resp=$(api -X POST "https://api.cloudflare.com/client/v4/zones/$zone/dns_records" -d "$body")
+            if [ "$(jq -r '.success' <<<"$resp")" = "true" ]; then
+              echo "$domain: added"
+              echo "- ➕ $domain: added — click **Verify** in Search Console" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "$resp"
+              echo "::error title=$domain::Could not add the TXT record (token needs Zone → DNS → Edit on this zone)"
+              echo "- ❌ $domain: $(jq -c '.errors' <<<"$resp")" >> "$GITHUB_STEP_SUMMARY"
+              failed=1
+            fi
+          done < <(jq -r '.records[] | [.domain, .txt] | @tsv' .github/dns/google-site-verification.json)
+          exit $failed
