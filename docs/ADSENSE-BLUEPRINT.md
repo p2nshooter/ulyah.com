@@ -5,7 +5,7 @@ baru dicatat di sini dulu**, lalu statusnya diperbarui setelah diuji.
 Kontrol pusatnya ada di repo `ulyah.com`; situs yang punya repo sendiri tetap
 dicatat di sini.
 
-Terakhir diperbarui: 4 Oktober 2026.
+Terakhir diperbarui: 4 Oktober 2026 (fase 1 selesai, dawo.es selesai).
 
 Arti tanda: ✅ selesai dan lulus uji · 🟡 selesai, butuh tindakan manual atau
 belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ ditunda
@@ -71,6 +71,9 @@ membuka domain-domain ini.
 | dawo.es | ca-pub-6019445914743449 | **baru** → `ulyah.com/sites/dawo.es` | dawo-es | es | **belum ada** (DNS tidak resolve) |
 | qkb.es | ca-pub-7516944260248026 | **baru** → `ulyah.com/sites/qkb.es` | qkb-es | es | **belum ada** (DNS tidak resolve) |
 | byodd.es | ca-pub-2228462932360966 | **baru** → `ulyah.com/sites/byodd.es` | byodd-es | es | **belum ada** (DNS tidak resolve) |
+| xko.es | — (persiapan) | **baru** → `ulyah.com/sites/xko.es` | xko-es | es | belum ada |
+| byodd.de | — (persiapan) | **baru** → `ulyah.com/sites/byodd.de` | byodd-de | de | belum ada |
+| byoxy.de | — (persiapan) | **baru** → `ulyah.com/sites/byoxy.de` | byoxy-de | de | belum ada |
 
 Tidak berubah (tidak ada di file): dawa.es dan tilawa.de tetap
 6371903555702163 (sudah di-ACC), xad.es tetap 2493615451319531 (sudah live
@@ -98,6 +101,9 @@ Temuan "tersembunyi" (live berbeda dari main):
 | dawo.es | **D**eporte, **A**ctividad, **W**ellness y **O**cio | Deporte amateur y vida activa: correr, pádel, fútbol base, fuerza, movilidad, descanso, nutrición deportiva básica |
 | qkb.es | **Q**ueso, **K**éfir y **B**ollería | El obrador casero: quesos frescos, kéfir y fermentados, masa madre, panes y bollería española |
 | byodd.es | **B**ricolaje **Y** **O**rden **D**el **D**omicilio | Bricolaje, reparaciones del hogar, orden y decoración práctica |
+| xko.es | e**X**pertos en **K**ilovatios y **O**ptimización | Ahorro energético en casa: factura de la luz, potencia, autoconsumo, aislamiento |
+| byodd.de | **B**ring **Y**our **O**wn **D**IY & **D**eko | Heimwerken, Renovieren und Wohnen auf Deutsch |
+| byoxy.de | **B**ring **Y**our **OXY**gen home | Zimmerpflanzen, Balkon- und Kräutergarten auf Deutsch |
 | jai.lat | **J**unta de **A**horro e **I**nversión | Finanzas personales para Latinoamérica (educativo, sin recomendaciones) |
 | xaa.es | e**X**periencia · **A**utomatización · **A**rquitectura | Estudio web: guías de cada menú del portal y de los servicios |
 | axto.io | **A**I e**X**pert **T**oolkit **O**nline | Guides to every menu of the 7 cloud apps and 10 self-hosted editions |
@@ -208,29 +214,33 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 
 | # | Pekerjaan | Status |
 |---|---|---|
-| 1.1 | Gabungkan branch `ccr-8cac35c6-6bbbvx` (ads.txt per situs, akun xad.es) ke main | 🔄 |
-| 1.2 | apps/web: akun per tenant (ulyah 8991…, 1fr 5944…); unit manual hanya untuk akun yang sudah ACC | ❌ |
-| 1.3 | quantum: lepaskan xaa.es dari `QUANTUM_DOMAIN` bawaan | ❌ |
-| 1.4 | jai.lat: akun 4548…, hapus Adsterra, hapus artikel mesin | ❌ |
-| 1.5 | lie.skin: akun 9666…, hapus Adsterra, hapus artikel mesin | ❌ |
-| 1.6 | axto.dev: akun 8469…, hapus Adsterra, hapus artikel mesin | ❌ |
-| 1.7 | oldco.in: akun 6293…, hapus Adsterra, hapus artikel mesin dobel | ❌ |
-| 1.8 | profity.in: akun 6146…, hapus Adsterra, hapus artikel mesin dobel | ❌ |
-| 1.9 | axto.us: akun 6908…, ads.txt | ❌ |
-| 1.10 | xaa.es: akun 8991…, ads.txt | ❌ |
-| 1.11 | axto.io: akun 8991…, **buat ads.txt** | ❌ |
-| 1.12 | Matikan bot konten untuk semua situs AdSense | ❌ |
+| 1.1 | Gabungkan branch `ccr-8cac35c6-6bbbvx` (ads.txt per situs, akun xad.es) ke main | ✅ PR #283 |
+| 1.2 | apps/web: akun per tenant (ulyah 8991…, 1fr 5944…); unit manual hanya untuk akun yang sudah ACC | ✅ PR #283 (live setelah deploy berikutnya) |
+| 1.3 | quantum: lepaskan xaa.es dari `QUANTUM_DOMAIN` bawaan | ✅ PR #283 |
+| 1.4 | jai.lat: akun 4548…, hapus Adsterra | ✅ Jai PR #1, deploy sukses |
+| 1.5 | lie.skin: akun 9666…, hapus Adsterra | ✅ Lie PR #1, deploy sukses |
+| 1.6 | axto.dev: akun 8469…, hapus Adsterra | ✅ axtodev PR #10, deploy sukses |
+| 1.7 | oldco.in: akun 6293…, hapus Adsterra | ✅ oldco.in PR #2, deploy sukses |
+| 1.8 | profity.in: akun 6146…, hapus Adsterra | ✅ profity.in PR #1, deploy sukses |
+| 1.9 | axto.us: akun 6908…, ads.txt | ✅ axto.us PR #23 + #24 (deploy tahan kuota D1) |
+| 1.10 | xaa.es: akun 8991…, ads.txt, hapus Adsterra | ✅ xaa PR #1 + #2 (build tahan gangguan Google Fonts) |
+| 1.11 | axto.io: akun 8991…, **buat ads.txt** | ✅ guardian-ai PR #60 (E2E hijau) |
+| 1.12 | Matikan bot konten untuk semua situs AdSense | ✅ PR #283 |
+| 1.12b | Hapus artikel buatan mesin (judul hampir kembar di oldco.in & profity.in) | 🟡 menunggu keputusan pemilik |
 | 1.13 | Audit browser ulang: semua situs menunjuk akun yang benar, nol Adsterra | ❌ |
 
 ### Fase 2: tiga situs baru (langsung online)
 
 | # | Pekerjaan | Status |
 |---|---|---|
-| 2.1 | Engine statis `sites/_engine` + workflow deploy + backup | ❌ |
-| 2.2 | dawo.es: tema kaca-air, 40 artikel, halaman wajib, animasi Spanyol | ❌ |
+| 2.1 | Engine statis `sites/_engine` + workflow deploy + backup | ✅ build, check, export, deploy-sites.yml |
+| 2.2 | dawo.es: tema kaca-air, 40 artikel, halaman wajib, animasi Spanyol | ✅ lulus check (40 artikel, rata-rata 1.400 kata, 8 halaman) |
 | 2.3 | qkb.es: tema tembaga, 40 artikel, halaman wajib, animasi Spanyol | ❌ |
 | 2.4 | byodd.es: tema cedar-marmer, 40 artikel, halaman wajib, animasi Spanyol | ❌ |
 | 2.5 | Domain: zona dawo.es / qkb.es / byodd.es di akun Cloudflare | 🟡 tindakan pemilik |
+| 2.6 | xko.es (persiapan, belum ada kode AdSense) | ❌ |
+| 2.7 | byodd.de (persiapan, Jerman) | ❌ |
+| 2.8 | byoxy.de (persiapan, Jerman) | ❌ |
 
 ### Fase 3: desain istana + animasi Spanyol di situs yang sudah ada
 
@@ -293,4 +303,7 @@ xaa `xaa-portal`, axto.io `axto-db`) dibackup dengan `wrangler d1 export`.
 | 3 Okt | File AdSense terbaru: ulyah.com, axto.io, xaa.es ikut (akun 8991…) | 🔄 |
 | 3 Okt | axto.io & xaa.es: kalau artikel kurang, jelaskan semua menu tiap aplikasi | ❌ |
 | 3 Okt | axto.io ada di repo guardian-ai; cek repo yang benar dan cocokkan dengan isi di browser | ✅ §2 |
+| 4 Okt | Perbaiki deploy yang gagal (axto.us: kuota D1; xaa.es: Google Fonts) | ✅ |
+| 4 Okt | Buat juga xko.es, byodd.de, byoxy.de (belum ada kode AdSense, untuk persiapan) | 🔄 |
+| 4 Okt | xaa.es isinya studio web, bukan karoseri | ✅ dikonfirmasi; quantum tidak lagi memakai xaa.es |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
