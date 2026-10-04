@@ -109,6 +109,10 @@ export async function build(domain, { quiet = false } = {}) {
   // A site may be built before its AdSense account exists ("persiapan"): then
   // it carries no AdSense tag and no ads.txt until site.json gets the id.
   const pub = site.adsense ? site.adsense.replace(/^ca-/, "") : "";
+  // The favicon is cached hard by browsers; its content hash in the URL makes
+  // a new icon show up on the next visit instead of weeks later.
+  const favFile = join(publicDir, "favicon.svg");
+  const favicon = `/favicon.svg${existsSync(favFile) ? `?v=${createHash("sha256").update(readFileSync(favFile)).digest("hex").slice(0, 8)}` : ""}`;
   const asset = (name) => `/assets/${name}${assetVersion[name] ? `?v=${assetVersion[name]}` : ""}`;
   const org = { "@type": "Organization", "@id": `${base}/#org`, name: site.name, url: `${base}/`, logo: `${base}/favicon.svg` };
 
@@ -124,7 +128,7 @@ export async function build(domain, { quiet = false } = {}) {
       `<link rel="canonical" href="${url}">`,
       noindex ? `<meta name="robots" content="noindex, follow">` : `<meta name="robots" content="index, follow, max-image-preview:large">`,
       `<meta name="theme-color" content="${esc(site.themeColor || "#000000")}">`,
-      `<link rel="icon" href="/favicon.svg" type="image/svg+xml">`,
+      `<link rel="icon" href="${favicon}" type="image/svg+xml">`,
       `<link rel="alternate" type="application/rss+xml" title="${esc(site.name)}" href="${base}/feed.xml">`,
       `<meta property="og:type" content="${type}">`,
       `<meta property="og:site_name" content="${esc(site.name)}">`,
