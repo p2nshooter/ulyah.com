@@ -1,0 +1,232 @@
+/* BYODD — Zedernhalle mit Marmorbögen.
+   Cedar beams, ivory marble, emerald and gold inlay. All classes are BYODD's
+   own (zeder-, bogen-, marmor-). Motion stops under prefers-reduced-motion. */
+
+:root {
+  --zeder: #6b3f22;
+  --zeder-2: #4a2a17;
+  --zeder-3: #2b190f;
+  --marmor: #f6f1e7;
+  --marmor-2: #ece2cf;
+  --marmor-ader: #d9cbb2;
+  --smaragd: #0f6b52;
+  --smaragd-2: #0b4f3d;
+  --gold: #c9a24a;
+  --gold-2: #e2c98a;
+  --tinte: #2a211b;
+  --tinte-2: #5b4d42;
+  --rand: rgba(107, 63, 34, 0.18);
+  --schatten: 0 18px 40px -22px rgba(43, 25, 15, 0.45);
+  --titel: "Marcellus", "Palatino Linotype", Georgia, serif;
+  --text: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.zeder {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--tinte);
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(201, 162, 74, 0.10), transparent 60%),
+    linear-gradient(115deg, transparent 0 46%, rgba(217, 203, 178, 0.35) 47%, transparent 49%) 0 0 / 520px 520px,
+    var(--marmor);
+}
+a { color: var(--smaragd); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--zeder); }
+img, svg { max-width: 100%; }
+h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.2; color: var(--zeder-3); }
+
+.zeder-sprung { position: absolute; left: -999px; top: 8px; background: var(--smaragd); color: #fff; padding: 8px 14px; z-index: 100; border-radius: 6px; }
+.zeder-sprung:focus { left: 12px; }
+
+/* ── Spanien 2026: Zollstock ─────────────────────────────────────────── */
+.marmor-zollstock { background: linear-gradient(90deg, #8f1020, #c60b1e 30%, #c60b1e 70%, #8f1020); color: #fff; font-size: 14.5px; }
+.marmor-zollstock__innen { max-width: 1200px; margin: 0 auto; padding: 7px 16px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.marmor-zollstock__text { margin: 0; letter-spacing: 0.02em; }
+.marmor-zollstock__text strong { color: #ffd34d; }
+.marmor-zollstock__wimpel { width: 22px; height: 15px; background: linear-gradient(#c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75%); clip-path: polygon(0 0, 100% 50%, 0 100%); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4); }
+.marmor-zollstock__lineal { position: relative; display: inline-flex; align-items: center; height: 18px; padding: 0 6px; background: repeating-linear-gradient(90deg, #ffd34d 0 1px, #f2c230 1px 8px); color: #3b2416; border-radius: 2px; font: 700 12px/18px var(--text); transform-origin: left center; animation: zollstock-auf 2.4s cubic-bezier(.2,.9,.3,1.2) both; }
+.marmor-zollstock__lineal i { display: inline-block; width: 1px; height: 8px; margin-right: 7px; background: #3b2416; align-self: flex-start; }
+.marmor-zollstock__lineal b { margin-left: 2px; }
+.marmor-zollstock__ball { display: inline-block; animation: zollstock-ball 3.2s ease-in-out infinite; }
+.marmor-zollstock__pokal { filter: drop-shadow(0 0 6px rgba(255, 211, 77, 0.8)); animation: zollstock-glanz 2.8s ease-in-out infinite; }
+@keyframes zollstock-auf { from { transform: scaleX(0.08); } to { transform: scaleX(1); } }
+@keyframes zollstock-ball { 0%, 100% { transform: translateX(-10px) rotate(0); } 50% { transform: translateX(10px) rotate(360deg); } }
+@keyframes zollstock-glanz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15) rotate(-6deg); } }
+
+/* ── Kopf: Zedernbalken ──────────────────────────────────────────────── */
+.zeder-kopf { position: sticky; top: 0; z-index: 40; background: linear-gradient(180deg, var(--zeder-2), var(--zeder-3)); color: var(--marmor); box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.6); }
+.zeder-kopf__balken { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 9px), repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 140px); }
+.zeder-kopf__innen { position: relative; max-width: 1200px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; }
+.zeder-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.zeder-marke__bogen { width: 40px; height: 46px; border-radius: 20px 20px 3px 3px; background: linear-gradient(160deg, #fbf7ef, #e6d9c0); border: 2px solid var(--gold); display: grid; place-items: center; box-shadow: inset 0 -6px 0 rgba(15, 107, 82, 0.25); }
+.zeder-marke__bogen span { font-family: var(--titel); font-size: 22px; color: var(--zeder); padding-top: 6px; }
+.zeder-marke__texte { display: flex; flex-direction: column; line-height: 1.15; }
+.zeder-marke__name { font-family: var(--titel); font-size: 22px; letter-spacing: 0.18em; color: var(--gold-2); }
+.zeder-marke__lang { font-size: 12.5px; letter-spacing: 0.06em; color: rgba(246, 241, 231, 0.75); }
+.zeder-wasserwaage { margin-left: auto; position: relative; width: 150px; height: 16px; border-radius: 9px; background: linear-gradient(180deg, #d8f0c8, #b6dc9c); border: 2px solid var(--gold); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25); overflow: hidden; }
+.zeder-wasserwaage::before, .zeder-wasserwaage::after { content: ""; position: absolute; top: 1px; bottom: 1px; width: 1px; background: rgba(43, 25, 15, 0.55); }
+.zeder-wasserwaage::before { left: 42%; }
+.zeder-wasserwaage::after { left: 58%; }
+.zeder-wasserwaage__blase { position: absolute; top: 2px; left: calc(var(--p, 0) * (100% - 26px)); width: 26px; height: 8px; border-radius: 6px; background: radial-gradient(circle at 35% 35%, #fff, rgba(255, 255, 255, 0.55) 60%, rgba(255, 255, 255, 0.2)); transition: left 0.25s ease-out; }
+.zeder-knopf { display: none; margin-left: 8px; background: transparent; color: var(--marmor); border: 1px solid rgba(226, 201, 138, 0.6); border-radius: 18px 18px 4px 4px; padding: 6px 16px; font: 600 15px var(--text); cursor: pointer; }
+
+.zeder-menue { position: relative; max-width: 1200px; margin: 0 auto; padding: 4px 16px 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: flex-end; }
+.zeder-menue__bogen { position: relative; display: block; padding: 9px 14px 8px; color: var(--marmor); text-decoration: none; font-size: 15px; font-weight: 600; border-radius: 3px 3px 0 0; transition: color 0.3s; }
+.zeder-menue__bogen::before { content: ""; position: absolute; inset: 0; border-radius: 999px 999px 0 0; background: linear-gradient(180deg, #fbf7ef, var(--marmor-2)); border: 1px solid var(--gold); border-bottom: 0; transform: translateY(100%) scaleY(0.2); transform-origin: bottom; opacity: 0; transition: transform 0.45s cubic-bezier(.2,.9,.3,1.15), opacity 0.3s; z-index: 0; }
+.zeder-menue__bogen span { position: relative; z-index: 1; }
+.zeder-menue__bogen:hover, .zeder-menue__bogen:focus-visible, .zeder-menue__bogen[aria-current="page"] { color: var(--zeder-3); }
+.zeder-menue__bogen:hover::before, .zeder-menue__bogen:focus-visible::before, .zeder-menue__bogen[aria-current="page"]::before { transform: none; opacity: 1; }
+.zeder-menue__bogen--klein { font-weight: 400; color: var(--gold-2); }
+
+/* ── Startseite ──────────────────────────────────────────────────────── */
+.zeder-start { padding: 56px 16px 40px; }
+.zeder-start__innen { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+.zeder-dachzeile, .zeder-ueber__zeile { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--smaragd); }
+.zeder-start__titel { margin: 0 0 14px; font-size: clamp(36px, 5.2vw, 62px); }
+.zeder-start__titel em { font-style: normal; color: var(--smaragd); background: linear-gradient(transparent 62%, rgba(201, 162, 74, 0.35) 62%); }
+.zeder-start__claim { margin: 0 0 12px; font-size: 21px; color: var(--zeder); font-style: italic; }
+.zeder-start__intro { margin: 0 0 24px; color: var(--tinte-2); }
+.zeder-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.zeder-taste { display: inline-block; padding: 13px 22px; border-radius: 24px 24px 6px 6px; background: linear-gradient(180deg, var(--smaragd), var(--smaragd-2)); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 10px 22px -12px rgba(11, 79, 61, 0.9); transition: transform 0.2s; }
+.zeder-taste:hover { color: #fff; transform: translateY(-2px); }
+.zeder-taste--rahmen { background: transparent; color: var(--zeder); border: 2px solid var(--zeder); box-shadow: none; }
+.zeder-taste--rahmen:hover { color: var(--zeder-3); }
+.zeder-start__bild { filter: drop-shadow(0 24px 30px rgba(43, 25, 15, 0.25)); }
+.zeder-halle__boden { transform-origin: 180px 260px; animation: halle-boden 40s linear infinite; }
+.zeder-halle__licht { transform-origin: 180px 90px; animation: halle-licht 4s ease-in-out infinite; }
+@keyframes halle-boden { to { transform: rotate(360deg); } }
+@keyframes halle-licht { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+.zeder-ueber { max-width: 1200px; margin: 0 auto 22px; padding: 0 16px; text-align: center; }
+.zeder-ueber h2 { margin: 0; font-size: clamp(28px, 3.4vw, 38px); }
+.zeder-ueber::after { content: ""; display: block; width: 90px; height: 10px; margin: 12px auto 0; background: radial-gradient(circle, var(--gold) 3px, transparent 4px) center / 18px 10px repeat-x; }
+
+.zeder-werkstatt { padding: 30px 0 40px; }
+.zeder-werkstatt__reihe { list-style: none; margin: 0 auto; padding: 0 16px; max-width: 1200px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.zeder-nische { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 26px 10px 18px; height: 100%; border-radius: 999px 999px 10px 10px; background: linear-gradient(180deg, #fffdf8, var(--marmor-2)); border: 1px solid var(--rand); color: var(--zeder-3); text-decoration: none; text-align: center; box-shadow: var(--schatten); transition: transform 0.3s, box-shadow 0.3s; }
+.zeder-nische:hover { transform: translateY(-6px); color: var(--smaragd); box-shadow: 0 26px 40px -22px rgba(15, 107, 82, 0.55); }
+.zeder-nische__icon { width: 40px; height: 40px; color: var(--smaragd); }
+.zeder-nische__name { font-family: var(--titel); font-size: 17px; line-height: 1.25; }
+.zeder-nische__zahl { font-size: 13px; color: var(--tinte-2); }
+
+.zeder-raster { padding: 30px 0 50px; }
+.zeder-raster__karten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.bogen { position: relative; border-radius: 160px 160px 12px 12px; background: linear-gradient(180deg, #fffdf8, var(--marmor)); border: 1px solid var(--rand); box-shadow: var(--schatten); overflow: hidden; transition: transform 0.35s, box-shadow 0.35s; }
+.bogen::before { content: ""; position: absolute; inset: 8px 8px auto; height: 70%; border-radius: 150px 150px 0 0; border: 1px solid rgba(201, 162, 74, 0.55); border-bottom: 0; pointer-events: none; }
+.bogen::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.7) 45%, transparent 60%); transform: translateX(-120%); transition: transform 0.9s; pointer-events: none; }
+.bogen:hover { transform: translateY(-5px); box-shadow: 0 30px 46px -26px rgba(43, 25, 15, 0.55); }
+.bogen:hover::after { transform: translateX(120%); }
+.bogen__link { display: flex; flex-direction: column; height: 100%; padding: 46px 26px 20px; color: inherit; text-decoration: none; }
+.bogen__kopf { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 10px; }
+.bogen__icon { width: 34px; height: 34px; color: var(--smaragd); }
+.bogen__thema { font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--zeder); }
+.bogen__titel { margin: 0 0 8px; font-size: 21px; text-align: center; color: var(--zeder-3); }
+.bogen__text { margin: 0 0 14px; font-size: 15.5px; color: var(--tinte-2); flex: 1; }
+.bogen__fuss { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--tinte-2); border-top: 1px dashed var(--rand); padding-top: 10px; }
+.bogen__pfeil { color: var(--smaragd); transition: transform 0.25s; }
+.bogen:hover .bogen__pfeil { transform: translateX(5px); }
+
+.zeder-verzeichnis { padding: 50px 0 60px; background: linear-gradient(180deg, var(--zeder-2), var(--zeder-3)); color: var(--marmor); }
+.zeder-ueber--dunkel h2 { color: var(--marmor); }
+.zeder-ueber--dunkel .zeder-ueber__zeile { color: var(--gold-2); }
+.zeder-verzeichnis__spalten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.zeder-verzeichnis h3 { margin: 0 0 10px; font-size: 20px; }
+.zeder-verzeichnis h3 a { display: flex; align-items: center; gap: 8px; color: var(--gold-2); text-decoration: none; }
+.zeder-verzeichnis__icon { width: 26px; height: 26px; }
+.zeder-verzeichnis ol { margin: 0; padding-left: 20px; font-size: 15.5px; }
+.zeder-verzeichnis li { margin: 4px 0; }
+.zeder-verzeichnis li a { color: rgba(246, 241, 231, 0.88); text-decoration: none; }
+.zeder-verzeichnis li a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Themenseite ─────────────────────────────────────────────────────── */
+.zeder-thema { padding: 40px 16px 24px; text-align: center; }
+.zeder-thema__innen { max-width: 780px; margin: 0 auto; }
+.zeder-thema__icon { display: inline-grid; place-items: center; width: 84px; height: 96px; border-radius: 42px 42px 8px 8px; background: linear-gradient(180deg, #fffdf8, var(--marmor-2)); border: 2px solid var(--gold); color: var(--smaragd); }
+.zeder-thema__icon svg { width: 46px; height: 46px; }
+.zeder-thema h1 { margin: 14px 0 8px; font-size: clamp(32px, 4.5vw, 48px); }
+.zeder-thema__zahl { color: var(--zeder); font-weight: 700; }
+.zeder-pfad { font-size: 14.5px; color: var(--tinte-2); margin-bottom: 14px; }
+
+/* ── Anleitung ───────────────────────────────────────────────────────── */
+.zeder-anleitung__kopf { max-width: 880px; margin: 0 auto; padding: 40px 16px 20px; text-align: center; }
+.zeder-anleitung__titel { margin: 0 0 12px; font-size: clamp(30px, 4.2vw, 46px); }
+.zeder-anleitung__intro { margin: 0 auto; max-width: 720px; font-size: 19px; color: var(--tinte-2); font-style: italic; }
+.zeder-anleitung__koerper { max-width: 1200px; margin: 0 auto; padding: 10px 16px 30px; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 34px; align-items: start; }
+.zeder-anleitung__koerper--eins { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.zeder-werkbank { position: sticky; top: 140px; padding: 20px 18px; border-radius: 10px; background: linear-gradient(180deg, #7a4a2a, var(--zeder-2)); color: var(--marmor); box-shadow: var(--schatten); border-top: 6px solid var(--gold); }
+.zeder-werkbank__titel { margin: 0 0 8px; font-family: var(--titel); font-size: 17px; color: var(--gold-2); }
+.zeder-werkbank__titel--b { margin-top: 18px; }
+.zeder-werkbank dl { margin: 0; font-size: 14.5px; }
+.zeder-werkbank dl div { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(246, 241, 231, 0.15); }
+.zeder-werkbank dt { color: rgba(246, 241, 231, 0.7); }
+.zeder-werkbank dd { margin: 0; text-align: right; font-weight: 600; }
+.zeder-werkbank a { color: var(--gold-2); }
+.zeder-werkbank__inhalt { margin: 0; padding-left: 20px; font-size: 14.5px; max-height: 50vh; overflow: auto; }
+.zeder-werkbank__inhalt a { color: rgba(246, 241, 231, 0.85); text-decoration: none; }
+.zeder-werkbank__inhalt a.an { color: #fff; font-weight: 700; }
+.zeder-anleitung__text { background: #fffdf8; border: 1px solid var(--rand); border-radius: 14px; padding: 30px 38px; box-shadow: var(--schatten); }
+.zeder-anleitung__text h2 { position: relative; margin: 2em 0 0.6em; font-size: 28px; padding-left: 26px; }
+.zeder-anleitung__text h2::before { content: ""; position: absolute; left: 0; top: 0.2em; width: 14px; height: 22px; border-radius: 7px 7px 2px 2px; background: var(--smaragd); box-shadow: inset 0 -5px 0 var(--gold); }
+.zeder-anleitung__text h3 { margin: 1.6em 0 0.4em; font-size: 22px; color: var(--zeder); }
+.zeder-anleitung__text p, .zeder-anleitung__text li { color: var(--tinte); }
+.zeder-anleitung__text table { width: 100%; border-collapse: collapse; margin: 1.2em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.zeder-anleitung__text th { background: var(--zeder-2); color: var(--marmor); text-align: left; padding: 9px 12px; font-weight: 600; }
+.zeder-anleitung__text td { padding: 9px 12px; border-bottom: 1px solid var(--rand); vertical-align: top; }
+.zeder-anleitung__text tr:nth-child(even) td { background: rgba(236, 226, 207, 0.4); }
+.zeder-anleitung__text blockquote { margin: 1.2em 0; padding: 12px 18px; border-left: 4px solid var(--gold); background: rgba(201, 162, 74, 0.1); }
+.zeder-hinweis { margin-top: 2em; padding: 16px 20px; border-radius: 30px 30px 8px 8px; background: rgba(15, 107, 82, 0.08); border: 1px solid rgba(15, 107, 82, 0.3); font-size: 16px; }
+.zeder-hinweis p { margin: 0; }
+
+.zeder-leer { max-width: 900px; margin: 0 auto; padding: 60px 16px; text-align: center; }
+.zeder-leer__code { margin: 0; font-family: var(--titel); font-size: 96px; color: var(--gold); line-height: 1; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.zeder-fuss { position: relative; background: var(--zeder-3); color: rgba(246, 241, 231, 0.85); padding: 60px 0 20px; font-size: 15.5px; }
+.zeder-fuss__boegen { position: absolute; top: -1px; left: 0; right: 0; height: 26px; background: radial-gradient(circle at 50% 100%, transparent 18px, var(--marmor) 19px) 0 0 / 52px 26px repeat-x; transform: scaleY(-1); }
+.zeder-fuss__innen { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
+.zeder-fuss__name { margin: 0; font-family: var(--titel); font-size: 26px; letter-spacing: 0.18em; color: var(--gold-2); }
+.zeder-fuss__lang { margin: 0 0 8px; color: var(--gold); }
+.zeder-fuss__titel { margin: 0 0 8px; font-family: var(--titel); color: var(--gold-2); font-size: 18px; }
+.zeder-fuss ul { list-style: none; margin: 0; padding: 0; }
+.zeder-fuss li { margin: 4px 0; }
+.zeder-fuss a { color: rgba(246, 241, 231, 0.85); text-decoration: none; }
+.zeder-fuss a:hover { color: #fff; text-decoration: underline; }
+.zeder-fuss__hinweis { max-width: 1200px; margin: 30px auto 0; padding: 16px 16px 0; border-top: 1px solid rgba(246, 241, 231, 0.12); font-size: 13.5px; color: rgba(246, 241, 231, 0.6); }
+
+/* ── Bewegung beim Erscheinen ────────────────────────────────────────── */
+.zeder-steigt { opacity: 0; transform: translateY(18px); transition: opacity 0.6s, transform 0.6s; }
+.zeder-steigt.da { opacity: 1; transform: none; }
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1020px) {
+  .zeder-werkstatt__reihe { grid-template-columns: repeat(3, 1fr); }
+  .zeder-raster__karten, .zeder-verzeichnis__spalten { grid-template-columns: repeat(2, 1fr); }
+  .zeder-anleitung__koerper { grid-template-columns: minmax(0, 1fr); }
+  .zeder-werkbank { position: static; }
+  .zeder-wasserwaage { width: 110px; }
+}
+@media (max-width: 760px) {
+  body.zeder { font-size: 17px; }
+  .zeder-start__innen { grid-template-columns: 1fr; }
+  .zeder-start__bild { max-width: 420px; }
+  .zeder-knopf { display: inline-block; }
+  .zeder-wasserwaage { display: none; }
+  .zeder-knopf { margin-left: auto; }
+  .zeder-menue { display: none; padding-bottom: 12px; }
+  .zeder-kopf.offen .zeder-menue { display: flex; flex-direction: column; align-items: stretch; }
+  .zeder-menue__bogen { border-bottom: 1px solid rgba(246, 241, 231, 0.1); }
+  .zeder-werkstatt__reihe, .zeder-raster__karten, .zeder-verzeichnis__spalten, .zeder-fuss__innen { grid-template-columns: 1fr; }
+  .zeder-nische { border-radius: 60px 60px 10px 10px; }
+  .bogen { border-radius: 90px 90px 12px 12px; }
+  .zeder-anleitung__text { padding: 22px 18px; }
+  .marmor-zollstock__lineal, .marmor-zollstock__ball { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .zeder-steigt { opacity: 1; transform: none; }
+}

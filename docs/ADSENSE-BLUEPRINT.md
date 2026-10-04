@@ -283,9 +283,9 @@ dan axto.io** (milik pribadi, dikerjakan belakangan).
 | 2.1 | Engine statis `sites/_engine` + workflow deploy + backup | ✅ build, check, export, deploy-sites.yml |
 | 2.2 | dawo.es: tema kaca-air, 40 artikel, halaman wajib, animasi Spanyol | ✅ lulus check (40 artikel, rata-rata 1.400 kata, 8 halaman) |
 | 2.3 | qkb.es: tema tembaga, 40 artikel, halaman wajib, animasi Spanyol | ✅ lulus check (40 artikel, rata-rata 1.408 kata, 8 halaman) |
-| 2.4 | byodd.de (akun 2228…, Jerman): tema cedar-marmer, 40 artikel, halaman wajib (Impressum dll.), animasi Spanyol | ❌ |
+| 2.4 | byodd.de (akun 2228…, Jerman): tema cedar-marmer, 40 artikel, halaman wajib (Impressum dll.), animasi Spanyol | ✅ lulus check (40 anleitungen, 9 halaman, tema "Zedernhalle", pita Zollstock Spanyol). Impressum masih tanpa nama & alamat asli pemilik |
 | 2.5 | Domain: zona dawo.es / qkb.es / xko.es / byodd.de / byoxy.de di akun Cloudflare | 🟡 tindakan pemilik |
-| 2.6 | xko.es (akun 6560…): tema ámbar, 40 artikel | ❌ |
+| 2.6 | xko.es (akun 6560…): tema ámbar, 40 artikel | ✅ PR #292, live |
 | 2.7 | ~~byodd.es~~ dibatalkan: domain yang benar byodd.de (2.4) | ➖ |
 | 2.8 | byoxy.de (akun 6701…, Jerman): tema taman gantung, 40 artikel | ❌ |
 
@@ -308,6 +308,13 @@ dan axto.io** (milik pribadi, dikerjakan belakangan).
 | 4.4 | axto.us: hapus isi yang tidak layak AdSense, perkuat blog orang tua & guru | ✅ dirombak total jadi situs statis bahasa Inggris: 40 panduan membaca (rata-rata 1.420 kata), tema "perpustakaan lapis", axto.us PR #26 |
 | 4.5 | Semua situs: halaman wajib lengkap (§1.5) | ✅ apps/web PR #289, repo partner, axto.us #26 (Impressum tilawa.de menunggu data pemilik) |
 
+### Catatan panjang artikel bahasa Jerman
+
+Kata Jerman lebih panjang, jadi isi yang sama memakai sekitar 10–15 % lebih
+sedikit kata dibanding bahasa Inggris. `check.mjs` karena itu memakai batas
+× 0,85 untuk situs `de`: minimal 1.020 kata per artikel dan rata-rata 1.190.
+Spanyol dan Inggris tetap memakai 1.200 / 1.400.
+
 ### Fase 6: 10 domain .de baru (4 Okt) — DIKERJAKAN NANTI
 
 Permintaan pemilik: "Yg 10 terbaru nanti aja, kerjain yg lain dulu."
@@ -325,8 +332,7 @@ Permintaan pemilik: "Yg 10 terbaru nanti aja, kerjain yg lain dulu."
     bahasa Jerman;
   - cerita fiktif pelajar yang membangkitkan semangat;
   - sisanya niche evergreen berbahasa Jerman dengan SEO kuat.
-- Target **1.000 artikel**: 10 situs × 50 artikel × 2 bahasa. Minimal 40 per
-  bahasa sebelum diajukan.
+- ~~Target 1.000 artikel~~ → **Koreksi pemilik 4 Okt: "Yg 10 situs terakhir 40 artikel aja, buat persyaratan adsense"** — cukup 40 artikel per situs.
 - Setiap situs: tema istana unik, animasi Spanyol 2026 dan semua halaman
   wajib DE/EN.
 - **Impressum** (§ 5 DDG) butuh nama dan alamat asli pemilik. Tidak boleh
@@ -405,4 +411,7 @@ Usulan niche (belum final):
 | 4 Okt | Urutan: axto.io belakangan; fokus axto.us dan situs yang belum dibuat/kurang; lalu ulyah.com (hemat D1, maksimalkan R2) | 🔄 |
 | 4 Okt | Semua situs mudah dibackup beserta database, siap dijual (kecuali ulyah.com, xaa.es, axto.io) | 🔄 §6 aturan backup |
 | 4 Okt | 10 domain .de baru (akun 5693…), Worker dulu, dua bahasa DE+EN, 1.000 artikel, cerita rumah tangga & pelajar fiktif | ⏸️ §7 Fase 6, dikerjakan nanti |
+| 4 Okt | Favicon/logo setiap situs harus unik | ✅ 11 favicon baru (bentuk & warna sendiri), PR di semua repo |
+| 4 Okt | Isi DNS TXT verifikasi Search Console (qarf, qulen, qurm, zavik, zevok, zuvik) | ✅ PR #291, workflow dns-records.yml menambahkan 6 TXT |
+| 4 Okt | 10 situs terakhir cukup 40 artikel per situs untuk syarat AdSense | ✅ dicatat Fase 6 |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
