@@ -1,0 +1,39 @@
+{
+  "domain": "zuvik.de",
+  "name": "ZUVIK",
+  "expansion": "Zuhause, viel Kinderlachen",
+  "tagline": "Geschichten aus dem Familienalltag, die Mut machen, mit Ideen für euer eigenes Zuhause",
+  "description": "ZUVIK erzählt kurze, warmherzige Familiengeschichten aus dem deutschen Alltag: Morgenchaos und Gutenachtrituale, Geschwisterstreit und Versöhnung, Großeltern, Feste, Schule und Kita. Jede Geschichte endet mit praktischen Ideen, die Eltern direkt ausprobieren können.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "zuvik-de",
+  "worker": "zuvik-de",
+  "themeColor": "#5c1f2a",
+  "email": "kontakt@zuvik.de",
+  "author": "ZUVIK Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Young+Serif&family=Mulish:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/geschichten/", "category": "/raeume/" },
+  "categories": [
+    { "slug": "morgens-und-abends", "name": "Morgens & abends", "icon": "sonne", "description": "Aufstehen, Frühstück, Schulweg, Abendbrot und Gutenachtrituale: wie Familien die Ränder des Tages entspannter gestalten." },
+    { "slug": "geschwister", "name": "Geschwister", "icon": "haende", "description": "Streit um Spielzeug, Eifersucht auf das Baby, große Geschwister und kleine: Geschichten über Zusammenhalt und Versöhnung." },
+    { "slug": "grosseltern-und-generationen", "name": "Großeltern & Generationen", "icon": "baum", "description": "Oma, Opa und der Rest der Familie: Erinnerungen, Besuche, Abschiede und das, was Generationen voneinander lernen." },
+    { "slug": "feste-und-jahreszeiten", "name": "Feste & Jahreszeiten", "icon": "laterne", "description": "Sankt Martin, Advent, Ostern, Sommerferien und Herbstregen: wie Familien das Jahr gemeinsam erleben." },
+    { "slug": "schule-und-kita", "name": "Schule & Kita", "icon": "ranzen", "description": "Eingewöhnung, erster Schultag, Hausaufgaben, Freundschaften und schlechte Noten: Geschichten rund um Kita und Klassenzimmer." },
+    { "slug": "zusammenleben-zuhause", "name": "Zusammenleben zuhause", "icon": "haus", "description": "Taschengeld, Haushaltsdienste, Bildschirmzeit, Umzug und Familienrat: wie ein Zuhause für alle funktioniert." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "So schreiben wir", "href": "/redaktionsgrundsaetze/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
