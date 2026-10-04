@@ -15,7 +15,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | ulyah.com | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt |
 | axto.io | ca-pub-8991272269211824 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt |
 | xaa.es | ca-pub-8991272269211824 | xaa · site.ts + public/ads.txt |
-| 1fr.fr | ca-pub-5944786950535069 | ulyah.com · apps/web (tenant 1fr) |
+| 1fr.fr | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant 1fr) |
 | axto.us | ca-pub-6908951782430508 | axto.us · site.ts + public/ads.txt |
 | axto.dev | ca-pub-8469557036744946 | axtodev · site.ts + public/ads.txt |
 | jai.lat | ca-pub-4548005919629272 | Jai · site.ts + public/ads.txt |
@@ -28,7 +28,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | xko.es | ca-pub-6560360898389273 | ulyah.com · sites/xko.es (site.json + ADSENSE.txt) |
 | byoxy.de | ca-pub-6701063918838796 | ulyah.com · sites/byoxy.de (site.json + ADSENSE.txt) |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — sudah di-ACC, tidak diubah |
-| tilawa.de | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant tilawa) — sudah di-ACC, tidak diubah |
+| tilawa.de | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant tilawa) — 4 Okt: akun xaa.es |
 | xad.es | ca-pub-2493615451319531 | ulyah.com · apps/web (tenant xad) — tidak diubah |
 
 ## ulyah.com
@@ -99,20 +99,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5944786950535069"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://1fr.fr/ads.txt)
 
 ```
-google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5944786950535069">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## axto.us
@@ -372,20 +372,20 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://tilawa.de/ads.txt)
 
 ```
-google.com, pub-6371903555702163, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6371903555702163">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## xad.es

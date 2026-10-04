@@ -14,11 +14,11 @@ const domains = process.argv.slice(2);
 // meta tag, loader or ads.txt line is reported as such at the end.
 const EXPECTED = {
   "ulyah.com": "8991272269211824", "axto.io": "8991272269211824", "xaa.es": "8991272269211824",
-  "1fr.fr": "5944786950535069", "axto.us": "6908951782430508", "axto.dev": "8469557036744946",
+  "1fr.fr": "8991272269211824", "axto.us": "6908951782430508", "axto.dev": "8469557036744946",
   "jai.lat": "4548005919629272", "lie.skin": "9666205248809954", "oldco.in": "6293576511807510",
   "profity.in": "6146217038829045", "dawo.es": "6019445914743449", "qkb.es": "7516944260248026",
   "byodd.de": "2228462932360966", "xko.es": "6560360898389273", "byoxy.de": "6701063918838796",
-  "dawa.es": "6371903555702163", "tilawa.de": "6371903555702163", "xad.es": "2493615451319531",
+  "dawa.es": "6371903555702163", "tilawa.de": "8991272269211824", "xad.es": "2493615451319531",
 };
 const verdicts = [];
 
@@ -48,6 +48,18 @@ for (const domain of domains) {
     out.error = String(e.message || e).split("\n")[0];
   }
   out.adsterraRequests = [...adsterraHits];
+  // What the AdSense verification crawler reads: the HTML the server sends,
+  // before any JavaScript runs. A loader added only in the browser (for
+  // example next/script afterInteractive) passes the checks above but fails
+  // verification, so the raw HTML is checked on its own.
+  try {
+    const r = await ctx.request.get(`https://${domain}/`, { timeout: 20000 });
+    const raw = await r.text();
+    out.rawMeta = (raw.match(/<meta[^>]+name="google-adsense-account"[^>]*>/) || [null])[0];
+    out.rawLoader = [...raw.matchAll(/<script[^>]+adsbygoogle\.js\?client=(ca-pub-\d+)/g)].map((m) => m[1]);
+  } catch (e) {
+    out.rawMeta = `ERR ${String(e.message || e).split("\n")[0].slice(0, 80)}`;
+  }
   for (const path of ["/ads.txt", "/robots.txt", "/sitemap.xml"]) {
     try {
       const r = await ctx.request.get(`https://${domain}${path}`, { timeout: 20000 });
@@ -65,6 +77,8 @@ for (const domain of domains) {
     if (out.adsenseMeta !== `ca-pub-${pub}`) wrong.push(`meta=${out.adsenseMeta}`);
     if (!(out.adsenseLoader || []).includes(`ca-pub-${pub}`)) wrong.push(`loader=${JSON.stringify(out.adsenseLoader)}`);
     if (!(out.adsTxtLines || []).includes(`google.com, pub-${pub}, DIRECT, f08c47fec0942fa0`)) wrong.push("ads.txt");
+    if (!String(out.rawMeta || "").includes(`ca-pub-${pub}`)) wrong.push("meta missing from server HTML");
+    if (!(out.rawLoader || []).includes(`ca-pub-${pub}`)) wrong.push("loader missing from server HTML");
     if ((out.adsterraRequests || []).length || out.htmlAdsterra) wrong.push("adsterra");
     out.verdict = out.error ? `UNREACHABLE (${out.error.slice(0, 60)})` : wrong.length ? `WRONG: ${wrong.join(" · ")}` : `OK ca-pub-${pub}`;
     verdicts.push(`${domain.padEnd(12)} ${out.verdict}`);
@@ -74,5 +88,5 @@ for (const domain of domains) {
   await ctx.close();
 }
 await browser.close();
-console.log("\n===== AdSense verdict (meta + loader + ads.txt + no Adsterra)");
+console.log("\n===== AdSense verdict (meta + loader in server HTML and in the browser + ads.txt + no Adsterra)");
 for (const v of verdicts) console.log(v);

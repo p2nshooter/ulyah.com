@@ -30,17 +30,19 @@ import { TENANT } from "./tenant";
 /**
  * The publisher account each site belongs to.
  *
- * dawa.es and tilawa.de stay on the ecosystem's original account, which Google
- * has approved. The others were each moved to an account of their own and are
- * verified afresh: xad.es on 2026-09-29 ("ubah semua verifikasi adsense nya
- * dengan kode ini"), ulyah.com and 1fr.fr from the owner's AdSense file of
- * 2026-10-03 (docs/ADSENSE-BLUEPRINT.md §2).
+ * dawa.es stays on the ecosystem's original account, which Google has
+ * approved. The others were each moved to another account and are verified
+ * afresh: xad.es on 2026-09-29 ("ubah semua verifikasi adsense nya dengan kode
+ * ini"), ulyah.com from the owner's AdSense file of 2026-10-03, and 1fr.fr and
+ * tilawa.de on 2026-10-04 onto the same account as xaa.es ("ubah kode AdSense,
+ * ads.txt dan meta tag nya sama dengan xaa.es karena 1 akun").
+ * docs/ADSENSE-CODES.md lists every domain.
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
   ulyah: "ca-pub-8991272269211824",
-  "1fr": "ca-pub-5944786950535069",
-  tilawa: ORIGINAL_ACCOUNT,
+  "1fr": "ca-pub-8991272269211824",
+  tilawa: "ca-pub-8991272269211824",
   dawa: ORIGINAL_ACCOUNT,
   xad: "ca-pub-2493615451319531",
 };
