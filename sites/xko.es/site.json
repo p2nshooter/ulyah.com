@@ -1,0 +1,38 @@
+{
+  "domain": "xko.es",
+  "name": "XKO",
+  "expansion": "eXpertos en Kilovatios y Optimización",
+  "tagline": "Ahorro energético en casa: entiende tu factura, contrata lo justo y gasta menos",
+  "description": "XKO explica con claridad cómo funciona la factura de la luz y del gas en España, cómo elegir potencia y tarifa, cuándo compensa el autoconsumo solar y qué mejoras de aislamiento, climatización y electrodomésticos ahorran de verdad.",
+  "lang": "es",
+  "locale": "es-ES",
+  "ogLocale": "es_ES",
+  "adsense": "ca-pub-6560360898389273",
+  "trackId": "xko-es",
+  "worker": "xko-es",
+  "themeColor": "#0e1a3a",
+  "email": "hola@xko.es",
+  "author": "Redacción XKO",
+  "fonts": "https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Outfit:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/guias/", "category": "/temas/" },
+  "categories": [
+    { "slug": "factura-de-la-luz", "name": "Factura de la luz", "icon": "factura", "description": "Cómo leer la factura eléctrica, qué es cada concepto y dónde se esconde el gasto que sí puedes reducir." },
+    { "slug": "potencia-y-tarifas", "name": "Potencia y tarifas", "icon": "rayo", "description": "Potencia contratada, tramos horarios, PVPC frente a mercado libre y bono social, explicados sin letra pequeña." },
+    { "slug": "autoconsumo-solar", "name": "Autoconsumo solar", "icon": "sol", "description": "Placas solares en vivienda y comunidad: dimensionado, compensación de excedentes, baterías, trámites y rentabilidad." },
+    { "slug": "aislamiento-y-ventanas", "name": "Aislamiento y ventanas", "icon": "casa", "description": "Ventanas, burletes, aislamiento de fachada y cubierta, puentes térmicos y certificado energético." },
+    { "slug": "climatizacion", "name": "Calefacción y climatización", "icon": "termo", "description": "Aerotermia, bomba de calor, calderas, aire acondicionado y termostatos: qué consume cada sistema y cómo usarlo mejor." },
+    { "slug": "electrodomesticos-e-iluminacion", "name": "Electrodomésticos e iluminación", "icon": "bombilla", "description": "Etiqueta energética, consumo real de cada aparato, standby, LED y hábitos que se notan en la factura." }
+  ],
+  "menu": [
+    { "label": "Sobre XKO", "href": "/sobre-nosotros/" },
+    { "label": "Cómo calculamos", "href": "/metodologia/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos y condiciones", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" }
+  ]
+}
