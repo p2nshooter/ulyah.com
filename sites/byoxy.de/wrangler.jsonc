@@ -1,6 +1,6 @@
 // byoxy.de — static site on Cloudflare Workers Static Assets (no Worker script).
 {
-  "name": "byoxy.de",
+  "name": "byoxy-de",
   "compatibility_date": "2026-09-01",
   "assets": {
     "directory": "./dist",
