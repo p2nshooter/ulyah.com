@@ -1,0 +1,9 @@
+Cuplikan adsense (di <head> setiap halaman)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796"
+     crossorigin="anonymous"></script>
+
+Cuplikan ads.txt (https://byoxy.de/ads.txt)
+google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0
+
+Tag meta (di <head> setiap halaman)
+<meta name="google-adsense-account" content="ca-pub-6701063918838796">

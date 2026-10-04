@@ -1,0 +1,232 @@
+/* BYOXY — Hängende Gärten.
+   Jade terraces, moss and gold. All classes are BYOXY's own (garten-, blatt-,
+   ranke-). Motion stops under prefers-reduced-motion. */
+
+:root {
+  --jade: #1f5a43;
+  --jade-2: #16352a;
+  --jade-3: #0d221b;
+  --moos: #2f8f5b;
+  --blatt: #7cc576;
+  --tau: #d9f2e2;
+  --gold: #d9b55a;
+  --gold-2: #f0d899;
+  --papier: #f5f2e8;
+  --papier-2: #e9e3d0;
+  --tinte: #1c2a24;
+  --tinte-2: #4b5d55;
+  --rand: rgba(31, 90, 67, 0.18);
+  --schatten: 0 20px 44px -26px rgba(13, 34, 27, 0.55);
+  --titel: "Gloock", "Georgia", serif;
+  --text: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body.garten {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--tinte);
+  background:
+    radial-gradient(900px 500px at 0% 0%, rgba(124, 197, 118, 0.12), transparent 60%),
+    radial-gradient(900px 600px at 100% 30%, rgba(217, 181, 90, 0.10), transparent 60%),
+    var(--papier);
+}
+a { color: var(--jade); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--moos); }
+img, svg { max-width: 100%; }
+h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.18; color: var(--jade-3); }
+
+.garten-sprung { position: absolute; left: -999px; top: 8px; background: var(--jade); color: #fff; padding: 8px 14px; z-index: 100; border-radius: 0 14px 0 14px; }
+.garten-sprung:focus { left: 12px; }
+
+/* ── Spanien 2026: Blumenkasten ──────────────────────────────────────── */
+.ranke-blumenkasten { background: linear-gradient(90deg, #0d221b, #16352a 50%, #0d221b); color: var(--papier); font-size: 14.5px; border-bottom: 3px solid #c60b1e; }
+.ranke-blumenkasten__innen { max-width: 1200px; margin: 0 auto; padding: 7px 16px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.ranke-blumenkasten__text { margin: 0; }
+.ranke-blumenkasten__text strong { color: #ffc400; }
+.ranke-blumenkasten__beet { display: inline-flex; align-items: flex-end; gap: 4px; height: 22px; padding: 0 6px 2px; border-bottom: 5px solid #8a5a2b; border-radius: 0 0 4px 4px; }
+.ranke-blumenkasten__beet i { width: 9px; height: 9px; border-radius: 50%; background: #c60b1e; box-shadow: 0 0 0 2px #ffc400 inset; transform: scale(0); animation: kasten-bluehen 0.6s cubic-bezier(.2,1.6,.4,1) forwards; }
+.ranke-blumenkasten__beet i:nth-child(2) { background: #ffc400; box-shadow: 0 0 0 2px #c60b1e inset; animation-delay: 0.25s; }
+.ranke-blumenkasten__beet i:nth-child(3) { animation-delay: 0.5s; }
+.ranke-blumenkasten__beet i:nth-child(4) { background: #ffc400; box-shadow: 0 0 0 2px #c60b1e inset; animation-delay: 0.75s; }
+.ranke-blumenkasten__beet b { font-size: 12px; color: #ffc400; margin-left: 4px; opacity: 0; animation: kasten-text 0.6s 1s forwards; }
+.ranke-blumenkasten__ball { display: inline-block; animation: kasten-ball 3s ease-in-out infinite; }
+.ranke-blumenkasten__pokal { filter: drop-shadow(0 0 6px rgba(255, 196, 0, 0.8)); animation: kasten-glanz 2.6s ease-in-out infinite; }
+@keyframes kasten-bluehen { to { transform: scale(1); } }
+@keyframes kasten-text { to { opacity: 1; } }
+@keyframes kasten-ball { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px) rotate(180deg); } }
+@keyframes kasten-glanz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+/* ── Kopf: Terrasse mit hängenden Ranken ─────────────────────────────── */
+.garten-kopf { position: sticky; top: 0; z-index: 40; background: linear-gradient(180deg, var(--jade), var(--jade-2)); color: var(--papier); box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.7); }
+.garten-kopf__ranken { position: absolute; left: 0; right: 0; bottom: -18px; height: 18px; pointer-events: none; background:
+  radial-gradient(circle at 10px 14px, var(--blatt) 4px, transparent 5px) 0 0 / 46px 18px repeat-x,
+  linear-gradient(90deg, transparent 0 21px, rgba(124, 197, 118, 0.7) 21px 23px, transparent 23px) 0 0 / 46px 12px repeat-x;
+  opacity: 0.75; animation: ranken-wiegen 6s ease-in-out infinite; transform-origin: top; }
+@keyframes ranken-wiegen { 0%, 100% { transform: skewX(0); } 50% { transform: skewX(4deg); } }
+.garten-kopf__innen { position: relative; max-width: 1200px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 16px; }
+.garten-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.garten-marke__kuppel { width: 44px; height: 44px; border-radius: 50% 50% 8px 8px; background: radial-gradient(circle at 50% 30%, var(--blatt), var(--moos)); border: 2px solid var(--gold); display: grid; place-items: center; color: var(--jade-3); font-size: 22px; }
+.garten-marke__texte { display: flex; flex-direction: column; line-height: 1.15; }
+.garten-marke__name { font-family: var(--titel); font-size: 24px; letter-spacing: 0.14em; color: var(--gold-2); }
+.garten-marke__lang { font-size: 12.5px; letter-spacing: 0.05em; color: rgba(245, 242, 232, 0.75); }
+.garten-ranke { position: fixed; left: 0; top: 0; bottom: 0; width: 6px; z-index: 50; background: rgba(31, 90, 67, 0.12); pointer-events: none; }
+.garten-ranke__spitze { position: absolute; left: 0; top: 0; width: 6px; height: calc(var(--p, 0) * 100%); background: linear-gradient(180deg, var(--moos), var(--blatt)); border-radius: 0 0 6px 6px; transition: height 0.2s ease-out; }
+.garten-ranke__spitze::after { content: ""; position: absolute; bottom: -10px; left: -5px; width: 16px; height: 12px; border-radius: 0 12px 0 12px; background: var(--blatt); }
+.garten-knopf { display: none; margin-left: auto; background: transparent; color: var(--papier); border: 1px solid rgba(240, 216, 153, 0.6); border-radius: 0 16px 0 16px; padding: 6px 16px; font: 600 15px var(--text); cursor: pointer; }
+
+.garten-menue { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 16px 10px; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.garten-menue__blatt { position: relative; display: block; padding: 8px 14px 10px; color: var(--papier); text-decoration: none; font-size: 15px; font-weight: 600; }
+.garten-menue__blatt::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 26px; height: 12px; margin-left: -13px; border-radius: 0 14px 0 14px; background: var(--blatt); transform: scale(0) rotate(-40deg); transform-origin: 0 100%; transition: transform 0.4s cubic-bezier(.2,1.5,.4,1); }
+.garten-menue__blatt:hover, .garten-menue__blatt:focus-visible, .garten-menue__blatt[aria-current="page"] { color: var(--gold-2); }
+.garten-menue__blatt:hover::after, .garten-menue__blatt:focus-visible::after, .garten-menue__blatt[aria-current="page"]::after { transform: scale(1) rotate(0); }
+.garten-menue__blatt--klein { font-weight: 400; color: rgba(240, 216, 153, 0.85); }
+
+/* ── Startseite ──────────────────────────────────────────────────────── */
+.garten-start { padding: 60px 16px 40px; }
+.garten-start__innen { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+.garten-dachzeile, .garten-ueber__zeile { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--moos); }
+.garten-start__titel { margin: 0 0 14px; font-size: clamp(38px, 5.4vw, 64px); }
+.garten-start__titel em { font-style: italic; color: var(--moos); }
+.garten-start__claim { margin: 0 0 12px; font-size: 21px; color: var(--jade); }
+.garten-start__intro { margin: 0 0 24px; color: var(--tinte-2); }
+.garten-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.garten-taste { display: inline-block; padding: 13px 22px; border-radius: 0 22px 0 22px; background: linear-gradient(135deg, var(--moos), var(--jade)); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 12px 24px -14px rgba(31, 90, 67, 0.9); transition: transform 0.2s, border-radius 0.3s; }
+.garten-taste:hover { color: #fff; transform: translateY(-2px); border-radius: 22px 0 22px 0; }
+.garten-taste--rahmen { background: transparent; color: var(--jade); border: 2px solid var(--jade); box-shadow: none; }
+.garten-taste--rahmen:hover { color: var(--jade-3); }
+.garten-start__bild { filter: drop-shadow(0 24px 30px rgba(13, 34, 27, 0.3)); }
+.garten-terrassen__ranken path { transform-origin: top; animation: ranken-wiegen 5s ease-in-out infinite; }
+.garten-terrassen__ranken path:nth-child(even) { animation-delay: -2.5s; }
+.garten-terrassen__tau circle { animation: tau-glitzern 3s ease-in-out infinite; }
+.garten-terrassen__tau circle:nth-child(2) { animation-delay: 1s; }
+.garten-terrassen__tau circle:nth-child(3) { animation-delay: 2s; }
+@keyframes tau-glitzern { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(4px); } }
+
+.garten-ueber { max-width: 1200px; margin: 0 auto 22px; padding: 0 16px; text-align: center; }
+.garten-ueber h2 { margin: 0; font-size: clamp(28px, 3.4vw, 40px); }
+.garten-ueber::after { content: ""; display: block; width: 60px; height: 14px; margin: 12px auto 0; background: radial-gradient(ellipse at 30% 50%, var(--blatt) 0 6px, transparent 7px), radial-gradient(ellipse at 70% 50%, var(--moos) 0 6px, transparent 7px); }
+
+.garten-beete { padding: 30px 0 40px; }
+.garten-beete__reihe { list-style: none; margin: 0 auto; padding: 0 16px; max-width: 1200px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.garten-terrasse { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 24px 10px 18px; height: 100%; border-radius: 0 40px 0 40px; background: linear-gradient(180deg, #fffdf6, var(--papier-2)); border: 1px solid var(--rand); color: var(--jade-3); text-decoration: none; text-align: center; box-shadow: var(--schatten); transition: transform 0.3s, border-radius 0.4s, box-shadow 0.3s; }
+.garten-terrasse:hover { transform: translateY(-6px); border-radius: 40px 0 40px 0; color: var(--moos); box-shadow: 0 26px 40px -22px rgba(47, 143, 91, 0.6); }
+.garten-terrasse__icon { width: 40px; height: 40px; color: var(--moos); }
+.garten-terrasse__name { font-family: var(--titel); font-size: 17px; line-height: 1.25; }
+.garten-terrasse__zahl { font-size: 13px; color: var(--tinte-2); }
+
+.garten-raster { padding: 30px 0 50px; }
+.garten-raster__karten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.blatt { position: relative; border-radius: 0 56px 0 56px; background: #fffdf6; border: 1px solid var(--rand); box-shadow: var(--schatten); overflow: hidden; transition: transform 0.35s, box-shadow 0.35s; }
+.blatt::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--moos), var(--blatt), var(--gold)); }
+.blatt::after { content: ""; position: absolute; top: 16px; right: 22px; width: 8px; height: 8px; border-radius: 50%; background: var(--tau); box-shadow: 0 0 0 2px rgba(124, 197, 118, 0.4); opacity: 0; transition: opacity 0.4s, transform 0.6s; }
+.blatt:hover { transform: translateY(-5px); box-shadow: 0 30px 46px -26px rgba(13, 34, 27, 0.6); }
+.blatt:hover::after { opacity: 1; transform: translateY(8px); }
+.blatt__link { display: flex; flex-direction: column; height: 100%; padding: 26px 26px 20px; color: inherit; text-decoration: none; }
+.blatt__kopf { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.blatt__icon { width: 32px; height: 32px; color: var(--moos); }
+.blatt__thema { font-size: 12.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--jade); }
+.blatt__titel { margin: 0 0 8px; font-size: 21px; color: var(--jade-3); }
+.blatt__text { margin: 0 0 14px; font-size: 15.5px; color: var(--tinte-2); flex: 1; }
+.blatt__fuss { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--tinte-2); border-top: 1px dotted var(--rand); padding-top: 10px; }
+.blatt__pfeil { color: var(--moos); transition: transform 0.25s; }
+.blatt:hover .blatt__pfeil { transform: translateX(5px); }
+
+.garten-verzeichnis { padding: 50px 0 60px; background: linear-gradient(180deg, var(--jade-2), var(--jade-3)); color: var(--papier); }
+.garten-ueber--dunkel h2 { color: var(--papier); }
+.garten-ueber--dunkel .garten-ueber__zeile { color: var(--gold-2); }
+.garten-verzeichnis__spalten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.garten-verzeichnis h3 { margin: 0 0 10px; font-size: 20px; }
+.garten-verzeichnis h3 a { display: flex; align-items: center; gap: 8px; color: var(--gold-2); text-decoration: none; }
+.garten-verzeichnis__icon { width: 26px; height: 26px; }
+.garten-verzeichnis ol { margin: 0; padding-left: 20px; font-size: 15.5px; }
+.garten-verzeichnis li { margin: 4px 0; }
+.garten-verzeichnis li a { color: rgba(245, 242, 232, 0.88); text-decoration: none; }
+.garten-verzeichnis li a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Themenseite ─────────────────────────────────────────────────────── */
+.garten-thema { padding: 40px 16px 24px; text-align: center; }
+.garten-thema__innen { max-width: 780px; margin: 0 auto; }
+.garten-thema__icon { display: inline-grid; place-items: center; width: 90px; height: 90px; border-radius: 0 45px 0 45px; background: linear-gradient(135deg, #fffdf6, var(--papier-2)); border: 2px solid var(--gold); color: var(--moos); }
+.garten-thema__icon svg { width: 46px; height: 46px; }
+.garten-thema h1 { margin: 14px 0 8px; font-size: clamp(32px, 4.5vw, 50px); }
+.garten-thema__zahl { color: var(--jade); font-weight: 700; }
+.garten-pfad { font-size: 14.5px; color: var(--tinte-2); margin-bottom: 14px; }
+
+/* ── Ratgeber ────────────────────────────────────────────────────────── */
+.garten-ratgeber__kopf { max-width: 880px; margin: 0 auto; padding: 40px 16px 20px; text-align: center; }
+.garten-ratgeber__titel { margin: 0 0 12px; font-size: clamp(30px, 4.2vw, 48px); }
+.garten-ratgeber__intro { margin: 0 auto; max-width: 720px; font-size: 19px; color: var(--tinte-2); }
+.garten-ratgeber__koerper { max-width: 1200px; margin: 0 auto; padding: 10px 16px 30px; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 34px; align-items: start; }
+.garten-ratgeber__koerper--eins { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.garten-pflanzschild { position: sticky; top: 150px; padding: 22px 18px; border-radius: 0 30px 0 30px; background: linear-gradient(160deg, var(--jade), var(--jade-2)); color: var(--papier); box-shadow: var(--schatten); }
+.garten-pflanzschild::before { content: ""; position: absolute; left: 50%; bottom: -26px; width: 6px; height: 26px; margin-left: -3px; background: #8a5a2b; border-radius: 0 0 3px 3px; }
+.garten-pflanzschild__titel { margin: 0 0 8px; font-family: var(--titel); font-size: 18px; color: var(--gold-2); }
+.garten-pflanzschild__titel--b { margin-top: 18px; }
+.garten-pflanzschild dl { margin: 0; font-size: 14.5px; }
+.garten-pflanzschild dl div { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(245, 242, 232, 0.15); }
+.garten-pflanzschild dt { color: rgba(245, 242, 232, 0.7); }
+.garten-pflanzschild dd { margin: 0; text-align: right; font-weight: 600; }
+.garten-pflanzschild a { color: var(--gold-2); }
+.garten-pflanzschild__inhalt { margin: 0; padding-left: 20px; font-size: 14.5px; max-height: 50vh; overflow: auto; }
+.garten-pflanzschild__inhalt a { color: rgba(245, 242, 232, 0.85); text-decoration: none; }
+.garten-pflanzschild__inhalt a.an { color: var(--blatt); font-weight: 700; }
+.garten-ratgeber__text { background: #fffdf6; border: 1px solid var(--rand); border-radius: 0 40px 0 40px; padding: 30px 38px; box-shadow: var(--schatten); }
+.garten-ratgeber__text h2 { position: relative; margin: 2em 0 0.6em; font-size: 28px; padding-left: 30px; }
+.garten-ratgeber__text h2::before { content: ""; position: absolute; left: 0; top: 0.25em; width: 20px; height: 14px; border-radius: 0 12px 0 12px; background: var(--moos); }
+.garten-ratgeber__text h3 { margin: 1.6em 0 0.4em; font-size: 22px; color: var(--jade); }
+.garten-ratgeber__text table { width: 100%; border-collapse: collapse; margin: 1.2em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.garten-ratgeber__text th { background: var(--jade); color: var(--papier); text-align: left; padding: 9px 12px; font-weight: 600; }
+.garten-ratgeber__text td { padding: 9px 12px; border-bottom: 1px solid var(--rand); vertical-align: top; }
+.garten-ratgeber__text tr:nth-child(even) td { background: rgba(124, 197, 118, 0.08); }
+.garten-ratgeber__text blockquote { margin: 1.2em 0; padding: 12px 18px; border-left: 4px solid var(--gold); background: rgba(217, 181, 90, 0.1); }
+.garten-hinweis { margin-top: 2em; padding: 16px 20px; border-radius: 0 24px 0 24px; background: rgba(47, 143, 91, 0.08); border: 1px solid rgba(47, 143, 91, 0.3); font-size: 16px; }
+.garten-hinweis p { margin: 0; }
+
+.garten-leer { max-width: 900px; margin: 0 auto; padding: 60px 16px; text-align: center; }
+.garten-leer__code { margin: 0; font-family: var(--titel); font-size: 96px; color: var(--moos); line-height: 1; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.garten-fuss { position: relative; background: var(--jade-3); color: rgba(245, 242, 232, 0.85); padding: 60px 0 20px; font-size: 15.5px; }
+.garten-fuss__blaetter { position: absolute; top: -14px; left: 0; right: 0; height: 28px; background: radial-gradient(ellipse 14px 10px at 50% 50%, var(--moos) 98%, transparent) 0 0 / 40px 28px repeat-x; opacity: 0.8; }
+.garten-fuss__innen { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
+.garten-fuss__name { margin: 0; font-family: var(--titel); font-size: 28px; letter-spacing: 0.14em; color: var(--gold-2); }
+.garten-fuss__lang { margin: 0 0 8px; color: var(--blatt); }
+.garten-fuss__titel { margin: 0 0 8px; font-family: var(--titel); color: var(--gold-2); font-size: 18px; }
+.garten-fuss ul { list-style: none; margin: 0; padding: 0; }
+.garten-fuss li { margin: 4px 0; }
+.garten-fuss a { color: rgba(245, 242, 232, 0.85); text-decoration: none; }
+.garten-fuss a:hover { color: #fff; text-decoration: underline; }
+.garten-fuss__hinweis { max-width: 1200px; margin: 30px auto 0; padding: 16px 16px 0; border-top: 1px solid rgba(245, 242, 232, 0.12); font-size: 13.5px; color: rgba(245, 242, 232, 0.6); }
+
+.garten-steigt { opacity: 0; transform: translateY(18px) rotate(-1deg); transition: opacity 0.6s, transform 0.6s; }
+.garten-steigt.da { opacity: 1; transform: none; }
+
+@media (max-width: 1020px) {
+  .garten-beete__reihe { grid-template-columns: repeat(3, 1fr); }
+  .garten-raster__karten, .garten-verzeichnis__spalten { grid-template-columns: repeat(2, 1fr); }
+  .garten-ratgeber__koerper { grid-template-columns: minmax(0, 1fr); }
+  .garten-pflanzschild { position: static; }
+  .garten-pflanzschild::before { display: none; }
+}
+@media (max-width: 760px) {
+  body.garten { font-size: 17px; }
+  .garten-start__innen { grid-template-columns: 1fr; }
+  .garten-start__bild { max-width: 420px; }
+  .garten-knopf { display: inline-block; }
+  .garten-menue { display: none; }
+  .garten-kopf.offen .garten-menue { display: flex; flex-direction: column; }
+  .garten-menue__blatt { border-bottom: 1px solid rgba(245, 242, 232, 0.1); }
+  .garten-beete__reihe, .garten-raster__karten, .garten-verzeichnis__spalten, .garten-fuss__innen { grid-template-columns: 1fr; }
+  .garten-ratgeber__text { padding: 22px 18px; border-radius: 0 24px 0 24px; }
+  .ranke-blumenkasten__beet, .ranke-blumenkasten__ball { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .garten-steigt { opacity: 1; transform: none; }
+  .ranke-blumenkasten__beet i { transform: none; }
+  .ranke-blumenkasten__beet b { opacity: 1; }
+}
