@@ -14,7 +14,7 @@ const domains = process.argv.slice(2);
 // meta tag, loader or ads.txt line is reported as such at the end.
 const EXPECTED = {
   "ulyah.com": "8991272269211824", "axto.io": "8991272269211824", "xaa.es": "8991272269211824",
-  "1fr.fr": "8991272269211824", "axto.us": "6908951782430508", "axto.dev": "8469557036744946",
+  "1fr.fr": "5944786950535069", "axto.us": "6908951782430508", "axto.dev": "8469557036744946",
   "jai.lat": "4548005919629272", "lie.skin": "9666205248809954", "oldco.in": "6293576511807510",
   "profity.in": "6146217038829045", "dawo.es": "6019445914743449", "qkb.es": "7516944260248026",
   "byodd.de": "2228462932360966", "xko.es": "6560360898389273", "byoxy.de": "6701063918838796",

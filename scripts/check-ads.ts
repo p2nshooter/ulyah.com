@@ -74,13 +74,13 @@ check(
 
 console.log("\n=== each site declares the account the owner gave it ===");
 // docs/ADSENSE-BLUEPRINT.md §2. dawa.es stays on the approved original
-// account; xad.es (2026-09-29), ulyah.com (2026-10-03), 1fr.fr and tilawa.de
-// (2026-10-04, the xaa.es account) are verified afresh and carry no ad placement
+// account; xad.es (2026-09-29), ulyah.com and 1fr.fr (2026-10-03) and
+// tilawa.de (2026-10-04, the xaa.es account) are verified afresh and carry no ad placement
 // until then — the unit ids above belong to the original account and could
 // never fill on another one.
 const EXPECTED: Record<string, string> = {
   ulyah: "ca-pub-8991272269211824",
-  "1fr": "ca-pub-8991272269211824",
+  "1fr": "ca-pub-5944786950535069",
   tilawa: "ca-pub-8991272269211824",
   xad: "ca-pub-2493615451319531",
 };
