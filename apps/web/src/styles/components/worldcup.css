@@ -1,10 +1,10 @@
-/* ── World Cup 2026 header festoon — dawa.es & xad.es only ────────────────
-   Owner request: "kasih ornamen dan animasi Piala Dunia 2026 … bola
-   mantul-mantul bolak-balik samping logo header sama tropi piala dunia".
-   The component (WorldCup2026.tsx) renders nothing on other tenants; these
-   rules only ever match under html[data-tenant="dawa"|"xad"] anyway, so the
-   sibling sites keep their untouched identity. Pure CSS animation — no JS
-   timers, no layout thrash (transform/filter only), and it fully respects
+/* ── World Cup 2026 header festoon: Spain, world champion ─────────────────
+   Owner requests: "kasih ornamen dan animasi Piala Dunia 2026 … bola
+   mantul-mantul bolak-balik samping logo header sama tropi piala dunia"
+   (dawa.es, xad.es), then "seluruh website … animasi pemenang piala Dunia
+   2026 Spanyol". dawa.es is the original; ulyah, 1fr and tilawa each dress
+   it in their own palace style below. Pure CSS animation — no JS timers, no
+   layout thrash (transform/filter only), and it fully respects
    prefers-reduced-motion. */
 
 /* Festive top stripe over the sticky header: host-nation tricolour (Mexico
@@ -114,6 +114,101 @@ html[data-tenant="xad"] .wc26-stripe {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
 }
 
+/* The Spanish flag inside the chip: rojigualda, drawn in CSS so it looks the
+   same on every OS (emoji flags render as letters on Windows). */
+.wc26-flag {
+  display: inline-block;
+  width: 11px;
+  height: 7px;
+  margin-right: 3px;
+  vertical-align: 0;
+  border-radius: 1.5px;
+  background: linear-gradient(#c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.25);
+}
+
+/* ── ulyah.com: gold ink on marble. The stripe is a calligrapher's stroke of
+   Spanish red and gold drawn across the header, then lifted; the trophy
+   glows like gilded script. */
+html[data-tenant="ulyah"] .wc26-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #c60b1e 12%, #ffc400 38%, #d4a64a 62%, #c60b1e 88%, transparent);
+  transform-origin: 0 50%;
+  animation: wc26-ink 9s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+@keyframes wc26-ink {
+  0% { transform: scaleX(0); opacity: 1; }
+  45%, 80% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+html[data-tenant="ulyah"] .wc26-trophy { filter: drop-shadow(0 0 6px rgba(212, 166, 74, 0.75)); }
+html[data-tenant="ulyah"] .wc26-badge {
+  color: #0d3b2e;
+  background: linear-gradient(120deg, #f7e6b0, #d4a64a 45%, #fff3c9 55%, #d4a64a);
+  background-size: 220% 100%;
+  animation: wc26-glint 4.5s ease-in-out infinite;
+}
+
+/* ── 1fr.fr: a hall of mirrors. A light sweep runs across the chip and a
+   reflected band of red-gold-red glides along the top, like light moving
+   over Moorish mirrors. */
+html[data-tenant="1fr"] .wc26-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  pointer-events: none;
+  background:
+    linear-gradient(100deg, transparent 40%, rgba(255, 255, 255, 0.9) 50%, transparent 60%) 0 0 / 300% 100%,
+    linear-gradient(90deg, #c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
+  animation: wc26-mirror 6s ease-in-out infinite;
+}
+@keyframes wc26-mirror {
+  from { background-position: 100% 0, 0 0; }
+  to { background-position: -200% 0, 0 0; }
+}
+html[data-tenant="1fr"] .wc26-trophy { filter: drop-shadow(0 0 5px rgba(120, 160, 255, 0.55)); }
+html[data-tenant="1fr"] .wc26-badge {
+  color: #f9e7b5;
+  background: linear-gradient(120deg, #142a5c, #1e3d82 45%, #8fb0ff 50%, #1e3d82 55%, #142a5c);
+  background-size: 260% 100%;
+  animation: wc26-glint 5s ease-in-out infinite;
+}
+
+/* ── tilawa.de: dark night hall. The stripe breathes in Spanish red and gold
+   like embers, and the trophy carries a warm red halo. */
+html[data-tenant="tilawa"] .wc26-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg, #c60b1e, #ffc400, #c60b1e, #ffc400, #c60b1e);
+  background-size: 300% 100%;
+  animation: wc26-ember 7s ease-in-out infinite alternate;
+}
+@keyframes wc26-ember {
+  from { background-position: 0 0; opacity: 0.6; }
+  to { background-position: 100% 0; opacity: 1; }
+}
+html[data-tenant="tilawa"] .wc26-trophy { filter: drop-shadow(0 0 6px rgba(198, 11, 30, 0.65)); }
+html[data-tenant="tilawa"] .wc26-badge {
+  color: #ffe9a8;
+  background: linear-gradient(135deg, #7d0612, #c60b1e 60%, #7d0612);
+}
+
+@keyframes wc26-glint {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0 0; }
+}
+
 /* Ultra-narrow phones: the header row is already tight with logo + burger —
    shorten the pitch instead of wrapping the row. */
 @media (max-width: 400px) {
@@ -124,9 +219,15 @@ html[data-tenant="xad"] .wc26-stripe {
   }
 }
 
+/* ulyah.com's header also holds the Arabic wordmark and the surah book: on
+   small phones the festoon keeps only trophy + chip. */
+@media (max-width: 420px) {
+  html[data-tenant="ulyah"] .wc26-lane { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html[data-tenant="dawa"] .wc26-stripe,
-  html[data-tenant="xad"] .wc26-stripe,
+  .wc26-stripe,
+  .wc26-badge,
   .wc26-trophy,
   .wc26-ball-x,
   .wc26-ball {
