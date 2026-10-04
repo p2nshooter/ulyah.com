@@ -76,6 +76,10 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
     de: "/datenschutz",
     es: "/politica-de-privacidad",
   },
+  "/syarat-ketentuan": { en: "/terms", fr: "/conditions-utilisation", de: "/nutzungsbedingungen", es: "/terminos-y-condiciones" },
+  "/kebijakan-cookie": { en: "/cookie-policy", fr: "/politique-cookies", de: "/cookie-richtlinie", es: "/politica-de-cookies" },
+  "/penafian": { en: "/disclaimer", fr: "/avertissement", de: "/haftungsausschluss", es: "/aviso-de-responsabilidad" },
+  "/kebijakan-editorial": { en: "/editorial-policy", fr: "/politique-editoriale", de: "/redaktionelle-richtlinien", es: "/politica-editorial" },
   "/widget": { en: "/widget", fr: "/widget", de: "/widget", es: "/widget" },
   // The Amazon shelf. ulyah.com has no entry because Amazon does not operate in
   // Indonesia and the store is not published there at all — the folder is named
