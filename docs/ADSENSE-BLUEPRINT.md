@@ -17,6 +17,9 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
 1. **Satu situs, satu bahasa, sesuai ekstensi domain**: `.es` dan `.lat` →
    Spanyol, `.fr` → Prancis, `.in` → Hindi + Inggris (bilingual yang sudah
    ada), `.com` (ulyah) → Indonesia, `.io` `.us` `.dev` `.skin` → Inggris.
+   **Pengecualian (keputusan pemilik 4 Okt):** jai.lat tetap **Inggris** dengan
+   72 artikel tulisan tangannya, ditambah desk **"En español"** berisi 10 artikel
+   Spanyol (`lang="es"` per halaman).
 2. **AdSense saja.** Tidak ada Adsterra, popunder, social bar, atau jaringan
    iklan lain di situs mana pun. Setiap situs memuat persis tiga hal dari
    **satu akun yang sama, `ca-pub-5693981744147503`** (sejak 4 Okt 2026,
@@ -183,7 +186,7 @@ berbagi palet, font, ornamen, atau gaya animasi menu.**
 | byoxy.de | Hängende Gärten | giok, lumut, emas | Gloock / Instrument Sans | Daun membuka di bawah item menu; embun berkilau saat hover |
 | jai.lat | Tesoro de la reina de Saba | hitam lak, daun emas | Bodoni Moda / Karla | Sapuan daun emas melintasi menu; kilau koin |
 | axto.io | Crystal throne room | obsidian, kristal, cahaya prisma | Syne / Inter Tight | Facet kristal memecah cahaya pelangi saat hover |
-| xaa.es | Trono de marfil y oro | gading, platinum, emas | Italiana / Albert Sans | Garis cetak biru berubah menjadi emas saat disentuh |
+| xaa.es | — *(dikecualikan)* | **tetap biru bisnis** (putih, biru, slate) | Plus Jakarta Sans / Inter | — · Pemilik 4 Okt: "warna xaa.es ga nyambung, xaa.es tetep bisnis app" |
 | axto.us | Lapis library of cedar | lapis lazuli, cedar, emas | Cinzel / Nunito | Menu berupa punggung buku yang miring dan terbuka |
 | axto.dev | Brass observatory | biru tengah malam, kuningan | Fraunces / JetBrains Mono | Cincin astrolab berputar; garis rasi bintang saat hover |
 | lie.skin | Pearl basins & rosewater | mutiara iridesen, merah muda, perak | DM Serif Display / Figtree | Riak cincin air dari titik sentuh |
@@ -435,6 +438,11 @@ Usulan niche (belum final):
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
 | 4 Okt | Lepas semua yang terhubung dengan dawa.es, biarkan mandiri, WAJIB dicatat | ✅ §10 (CORS + cache Spanyol menunggu tanggal putus dari pemilik) |
 | 4 Okt | Hapus & bersihkan slot AdSense di semua situs (kecuali dawa.es); cukup cuplikan, ads.txt, tag meta — 27 situs masih pengajuan | ✅ aturan 3; apps/web, situs statis & repo partner; dijaga CI + audit live |
+| 4 Okt | jai.lat: pertahankan 77 artikel Inggris; 10 artikel Spanyol tetap tampil sebagai tambahan | ✅ Jai #6: desk "En español", 5 artikel mesin dihapus (301) |
+| 4 Okt | Semua CSS yang belum sesuai blueprint §4 dirombak | ✅ jai.lat (Saba), lie.skin (mutiara), axto.dev (observatorium) live; pemilik: "biarkan seperti skrg" |
+| 4 Okt | xaa.es tetap aplikasi bisnis, warna istana tidak cocok | ✅ xaa.es dikecualikan dari §4; tetap biru |
+| 4 Okt | Artikel mesin kembar/tipis (aturan 4) | ✅ dihapus + 301: lie.skin 16, axto.dev 43 (judul kembar; 33 yang sudah diperpanjang tetap), xaa.es 76, oldco.in 23, profity.in 16 |
+| 4 Okt | Logo "AXTO.dev.dev" | ✅ jadi "AXTO.dev" (axtodev #15) |
 
 ---
 
