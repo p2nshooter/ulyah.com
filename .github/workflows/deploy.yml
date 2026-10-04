@@ -188,11 +188,15 @@ jobs:
       # not need D1, so every D1 step below is skipped with a warning and the
       # sites still deploy. A push that DOES change packages/db-schema fails
       # here, because the new code may depend on the new schema.
-      - name: D1 quota gate
+      #
+      # The gate IS the migration run: a probe like "SELECT 1" reads no rows,
+      # so it passes even when the row-read quota is gone (first version of
+      # this gate, 2026-10-04) and the real failure only came at the next step.
+      - name: D1 quota gate + apply D1 migrations
         working-directory: apps/worker-api
         run: |
           set -o pipefail
-          if npx wrangler d1 execute ulyah-db --remote --command="SELECT 1;" 2>&1 | tee /tmp/d1-probe.log; then exit 0; fi
+          if npx wrangler d1 migrations apply ulyah-db --remote 2>&1 | tee /tmp/d1-probe.log; then exit 0; fi
           if grep -q "code: 7500" /tmp/d1-probe.log; then
             if git diff --quiet HEAD~1 HEAD -- ../../packages/db-schema; then
               echo "::warning::D1 daily read quota is spent (7500) and this push changes no schema or seed: deploying without touching D1."
@@ -202,11 +206,6 @@ jobs:
             echo "::error::D1 daily read quota is spent (7500) and this push changes packages/db-schema: retry after midnight UTC."
           fi
           exit 1
-
-      - name: Apply D1 migrations (schema + language-independent seed)
-        if: env.D1_SKIP != 'true'
-        working-directory: apps/worker-api
-        run: npx wrangler d1 migrations apply ulyah-db --remote
 
       - name: Ingest AI keys from secret into the pool (secure, idempotent)
         if: env.D1_SKIP != 'true'
