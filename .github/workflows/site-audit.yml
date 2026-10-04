@@ -1,0 +1,43 @@
+name: Site audit (real browser)
+
+# Opens every site of the ecosystem in Chromium and prints what is actually
+# live — the AdSense account each page declares, ads.txt, the menu, how many
+# articles the home page links to, and any Adsterra host still loading — so
+# the live sites can be compared with their repos. Read-only: it changes
+# nothing anywhere.
+#
+# Runs on demand, every Monday, and whenever this file or the script changes
+# on the working branch (workflow_dispatch only registers from main).
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "17 3 * * 1"
+  push:
+    branches: [main, claude/disable-auto-translate-ulyagh-p7sbb7]
+    paths:
+      - '.github/workflows/site-audit.yml'
+      - 'scripts/site-audit.mjs'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Install Chromium
+        run: |
+          mkdir -p /tmp/audit && cd /tmp/audit
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright@1.55.0 >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Open every site
+        run: |
+          cp scripts/site-audit.mjs /tmp/audit/
+          cd /tmp/audit
+          node site-audit.mjs \
+            ulyah.com 1fr.fr axto.io xaa.es axto.us axto.dev jai.lat lie.skin \
+            oldco.in profity.in dawo.es qkb.es byodd.es dawa.es xad.es tilawa.de
