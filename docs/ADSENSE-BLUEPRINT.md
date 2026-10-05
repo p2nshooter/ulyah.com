@@ -196,6 +196,14 @@ berbagi palet, font, ornamen, atau gaya animasi menu.**
 | ulyah.com | Pelataran marmer & kaligrafi emas | marmer gading, zamrud, emas | (lapisan tenant di apps/web) | Garis emas tergores seperti tinta kaligrafi |
 | zuvik.de | Hof der Granatäpfel (halaman rumah delima) | merah delima, safran, pasir | Young Serif / Mulish | Menu berupa jendela rumah yang menyala; biji delima jatuh saat perayaan juara |
 | zavik.de | Löwenstufen (enam anak tangga takhta gading) | ungu malam, amber, gading, batu bulan | Libre Caslon Display / Work Sans | Menu berupa anak tangga; sepasang mata kucing membuka dengan kedipan pelan; jejak kaki merah-emas saat perayaan juara |
+| rubiy.de | Die königliche Speisekammer (1 Raj 4:22) | merah bit, tembaga, madu, sage, krem | Prata / Lexend | Menu = toples; tutup berputar & isi warna musim naik dari bawah; ristra paprika-lemon Spanyol |
+| byoy.de | Kebun anggur Baal-Hamon (Kid 8:11) | hijau anggur, ungu anggur, terakota, gading kapur | Alegreya / Alegreya Sans | Sulur anggur tumbuh & daun membuka di bawah menu; untaian tomat merah-kuning |
+| qurm.de | Menara di Libanon (Kid 7:5) | granit, hijau aras, aprikot fajar, salju | Zilla Slab / IBM Plex Sans | Menu = papan penunjuk jalur yang miring + profil ketinggian tergambar; bendera puncak Spanyol |
+| qarf.de | Karavan rempah Ratu Saba (1 Raj 10:10) | espreso, kapulaga, saffron, porselen, nila | Gilda Display / Jost | Menu = gelas teh terisi amber + uap naik; biji kopi merah-kuning |
+| zufiq.de | Rumah tanpa bunyi palu (1 Raj 6:7) | batu kapur, tinta, zaitun, emas lembut | EB Garamond / Red Hat Text | Garis cahaya emas tergambar pelan di atas ubin batu; pita merah-emas pelan |
+| zevok.de | Laut tembaga (1 Raj 7:23) | perunggu, aqua, linen, navy | Petrona / Urbanist | Air naik bergelombang + gelembung di menu; gelembung sabun merah-kuning |
+| zolun.de | Kapal-kapal Tarsis (1 Raj 10:22) | laut dalam, pasir, koral senja, kuningan | Old Standard TT / Sora | Jarum kompas berayun + rute titik tergambar; panji sinyal kapal Spanyol |
+| qulen.de | Hati yang mendengar (1 Raj 3:9) | teal malam, perkamen, tinta vermilion, emas | Crimson Pro / Atkinson Hyperlegible | Tab buku catatan + garis tinta tulisan tangan + bintang emas; pesawat kertas merah-kuning |
 
 ---
 
@@ -372,7 +380,7 @@ Status per situs:
   Impressum/Über uns = **p2nshooter** + email situs, sama seperti ulyah.com
   dan xaa.es (hanya merek + email). Tidak memakai orang/alamat palsu.
   Catatan risiko: hukum Jerman (§ 5 DDG) idealnya meminta nama & alamat asli.
-- Berikutnya berurutan: rubiy, byoy, qurm, qarf, zufiq, zevok, zolun, qulen.
+- **5 Okt — permintaan pemilik: "Kerjakan secara bersamaan sisa web … tetep unik, tidak ada duplikat, tetep mewah"** → 8 situs dikerjakan paralel (satu agen per situs), masing-masing konsep, palet, font, animasi menu dan motif Spanyol sendiri (lihat tabel §4). Topik dijaga tidak tumpang tindih: byoy = kebun luar ruang (byoxy = tanaman hias/balkon/kräuter), zolun = liburan tanpa panduan jalur (qurm = hiking), zufiq ≠ zevok (ketenangan vs. bersih-bersih), qulen = cerita belajar (zuvik = cerita keluarga).
 
 Usulan niche (belum final):
 
@@ -451,6 +459,9 @@ Usulan niche (belum final):
 | 4 Okt | Isi DNS TXT verifikasi Search Console (qarf, qulen, qurm, zavik, zevok, zuvik) | ✅ PR #291, workflow dns-records.yml menambahkan 6 TXT |
 | 4 Okt | 10 situs terakhir cukup 40 artikel per situs untuk syarat AdSense | ✅ dicatat Fase 6 |
 | 5 Okt | "Ga perlu tanggal putus dawa.es, nanti di putus manual" | ✅ dicatat §10 |
+| 5 Okt | "Kerjakan secara bersamaan sisa web … tetep unik, tidak ada duplikat, tetep mewah" | 🔄 8 situs .de paralel (§4, Fase 6) |
+| 5 Okt | "Sekalian kerjakan ekosistem ulyah.com, axto.io banyak aplikasi yg hilang, xaa.es banyak yg blm dibuat" | 🔄 §11 — audit + PR per repo (ulyah.com, guardian-ai, xaa) |
+| 5 Okt | "Database CF masih tinggi, sy pengen seluruhnya di bawah 10 GB biar tetep free dan hemat D1" | 🔄 §11 — target total penyimpanan Cloudflare < 10 GB |
 | 4 Okt | "Fokus konten kualitas tinggi untuk AdSense, dengan CSS mewah … agar mendekati 100% approve" | 🔄 zuvik.de selesai (40 cerita tulisan tangan); 9 situs .de berikutnya menyusul |
 | 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | ✅ audit live 4 Okt: 17 situs OK 5693…, dawa.es tetap 6371… |
 | 4 Okt | Blueprint Ad Manager + pusat AI ulyah.com: otomatis penuh, aturan tetap, hanya situs yang sudah di-approve, laporan di admin, traffic semua situs kecuali dawa.es | 🔄 `docs/ADMANAGER-BLUEPRINT.md` |
@@ -514,3 +525,34 @@ node scripts/export-dawa-standalone.mjs --zip
 ```
 
 Sudah diuji 4 Okt: 1.104 file, zip 42,7 MB (dipecah 3 bagian).
+
+---
+
+## 11. Ekosistem & penyimpanan Cloudflare < 10 GB (permintaan pemilik 5 Okt)
+
+Pemilik, 5 Okt 2026: **"Database CF juga masih tinggi, sy pengen seluruhnya di
+bawah 10 GB biar tetep free dan hemat D1, catet blueprint ini."**
+
+### Aturan tetap
+
+1. **Total penyimpanan Cloudflare (semua D1 + R2) < 10 GB.** Setiap PR yang
+   menambah data besar wajib menyebut dampaknya terhadap angka ini.
+2. **Hemat D1:** baca/tulis seminimal mungkin. Data statis (teks kitab, audio,
+   terjemahan jadi) disajikan sebagai file statis/cache, bukan dibaca dari D1
+   per permintaan. Query tanpa indeks dan scan tabel penuh dilarang.
+3. **Tidak ada data milik pemilik yang dihapus tanpa izin tertulis.** Yang boleh
+   dibersihkan tanpa izin hanya data turunan yang bisa dibuat ulang (cache
+   terjemahan mesin, log lama, duplikat persis). Semua yang lain: usulan dulu,
+   backup (`wrangler d1 export`) dulu, baru eksekusi setelah pemilik setuju.
+4. **Kunci API pemilik (ai_key_pool / admin_settings) tidak pernah dihapus.**
+5. dawa.es tetap tidak disentuh.
+
+### Pekerjaan (5 Okt, dikerjakan paralel)
+
+| Bagian | Repo | Isi | Status |
+|---|---|---|---|
+| 11.1 Audit penyimpanan D1/R2 + rencana < 10 GB | ulyah.com, guardian-ai | ukuran per database/tabel, apa yang bisa dipindah/dipadatkan/dibuang, migrasi aman | 🔄 |
+| 11.2 Ekosistem ulyah.com | ulyah.com | kitab hilang/tidak konsisten, audio hilang, tautan & halaman rusak | 🔄 |
+| 11.3 axto.io: aplikasi yang hilang | guardian-ai | bandingkan daftar aplikasi (7 cloud + 10 self-hosted) dengan yang hidup; pulihkan | 🔄 |
+| 11.4 xaa.es: bagian yang belum dibuat | xaa | menu/fitur/halaman yang masih kosong atau placeholder; tetap biru bisnis | 🔄 |
+
