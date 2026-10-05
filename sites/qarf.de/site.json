@@ -1,0 +1,39 @@
+{
+  "domain": "qarf.de",
+  "name": "QARF",
+  "expansion": "Quelle aromatischer Röstungen & feiner Tees",
+  "tagline": "Der Ratgeber für Kaffee und Tee zu Hause: Bohnen, Blätter, Wasser und Zeit, gründlich und gelassen erklärt",
+  "description": "QARF erklärt Kaffee und Tee für zu Hause: Bohnen und Röstung, Handfilter, French Press, Espressokocher, Siebträger und Cold Brew, Mühlen und Wasser, Teesorten, Ziehzeiten sowie Koffein, Lagerung, Herkunft und Siegel.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "qarf-de",
+  "worker": "qarf-de",
+  "themeColor": "#3b2416",
+  "email": "kontakt@qarf.de",
+  "author": "QARF Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Gilda+Display&family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/ratgeber/", "category": "/themen/" },
+  "categories": [
+    { "slug": "bohnen-und-roestung", "name": "Bohnen & Röstung", "icon": "bohne", "description": "Arabica und Robusta, Aufbereitung, Röstgrade, Röstdatum und Herkunftskaffees: was in der Bohne steckt, bevor du sie mahlst." },
+    { "slug": "kaffee-zubereiten", "name": "Kaffee zubereiten", "icon": "kanne", "description": "Handfilter, Filtermaschine, French Press, Espressokocher, Siebträger, Cold Brew und Mokka: jede Methode Schritt für Schritt." },
+    { "slug": "muehlen-und-wasser", "name": "Mühlen & Wasser", "icon": "muehle", "description": "Mahlwerke, Mahlgrad, Mühlenpflege, Wasserhärte, Entkalken und Extraktion: die stillen Hebel hinter jeder guten Tasse." },
+    { "slug": "teesorten", "name": "Teesorten", "icon": "blatt", "description": "Grüntee, Schwarztee, Oolong, weißer Tee, Matcha, Pu-Erh und Kräutertee: woher sie kommen, wie sie entstehen und schmecken." },
+    { "slug": "tee-zubereiten", "name": "Tee zubereiten", "icon": "teekanne", "description": "Ziehzeiten und Temperaturen, Zubehör, Gongfu Cha, Eistee, Chai und ostfriesische Teekultur: Tee ohne Bitterkeit aufgießen." },
+    { "slug": "genuss-und-wissen", "name": "Genuss & Wissen", "icon": "laterne", "description": "Koffein, Lagerung, Anbauländer, Siegel, entkoffeinierter Kaffee und Verkostung: Hintergrundwissen für bewussten Genuss." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Brühtabelle", "href": "/bruehtabelle/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
