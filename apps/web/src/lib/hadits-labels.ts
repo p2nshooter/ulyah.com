@@ -24,6 +24,9 @@ export interface HaditsLabels {
   of: string;
   translatedNote: string;
   noResults: string;
+  /** Shown when the library could not be loaded right now (error boundary). */
+  unavailable: string;
+  retry: string;
 }
 
 const EN: HaditsLabels = {
@@ -48,6 +51,8 @@ const EN: HaditsLabels = {
   of: "of",
   translatedNote: "Indonesian translation generated automatically from the Arabic.",
   noResults: "No hadith found.",
+  unavailable: "The hadith library could not be loaded just now. Please try again in a moment.",
+  retry: "Try again",
 };
 
 const ID: HaditsLabels = {
@@ -72,6 +77,8 @@ const ID: HaditsLabels = {
   of: "dari",
   translatedNote: "Terjemahan Indonesia dihasilkan otomatis dari teks Arab.",
   noResults: "Tidak ada hadits ditemukan.",
+  unavailable: "Perpustakaan hadits sedang tidak dapat dimuat. Silakan coba lagi sebentar lagi.",
+  retry: "Coba lagi",
 };
 
 const AR: HaditsLabels = {
@@ -95,6 +102,8 @@ const AR: HaditsLabels = {
   of: "من",
   translatedNote: "",
   noResults: "لا توجد أحاديث.",
+  unavailable: "تعذّر تحميل مكتبة الحديث الآن. يرجى المحاولة بعد قليل.",
+  retry: "أعد المحاولة",
 };
 
 const FR: HaditsLabels = {
@@ -119,6 +128,8 @@ const FR: HaditsLabels = {
   of: "sur",
   translatedNote: "Traduction générée automatiquement à partir de l'arabe.",
   noResults: "Aucun hadith trouvé.",
+  unavailable: "La bibliothèque de hadiths n’a pas pu être chargée pour le moment. Veuillez réessayer dans un instant.",
+  retry: "Réessayer",
 };
 
 const DE: HaditsLabels = {
@@ -143,6 +154,8 @@ const DE: HaditsLabels = {
   of: "von",
   translatedNote: "Übersetzung automatisch aus dem Arabischen erstellt.",
   noResults: "Keine Hadithe gefunden.",
+  unavailable: "Die Hadith-Bibliothek konnte gerade nicht geladen werden. Bitte versuchen Sie es gleich noch einmal.",
+  retry: "Erneut versuchen",
 };
 
 const ES: HaditsLabels = {
@@ -167,6 +180,8 @@ const ES: HaditsLabels = {
   of: "de",
   translatedNote: "Traducción generada automáticamente a partir del árabe.",
   noResults: "No se encontraron hadices.",
+  unavailable: "No se pudo cargar la biblioteca de hadices en este momento. Inténtelo de nuevo en un instante.",
+  retry: "Reintentar",
 };
 
 const MAP: Record<string, HaditsLabels> = { en: EN, id: ID, ar: AR, fr: FR, de: DE, es: ES };

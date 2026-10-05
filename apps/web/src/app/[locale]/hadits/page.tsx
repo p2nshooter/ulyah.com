@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { unstable_noStore as noStore } from "next/cache";
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { api } from "@/lib/api";
@@ -49,12 +50,25 @@ export default async function HaditsPage({ params }: { params: Promise<{ locale:
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = haditsLabels(locale);
 
+  // No catch-and-render-empty here. This page is cached for a day; an empty
+  // shelf rendered while the API was down (most often: the shared D1 read
+  // quota spent) used to BE the page for that whole day — every hadith book
+  // gone. Throwing instead makes Next keep serving the last good render.
+  //
+  // noStore() first, because this page is also prerendered by `next build`: a
+  // deploy made while the quota is spent used to bake the empty shelf into the
+  // release itself. On failure the build now leaves the page to render on
+  // request instead of failing or shipping it empty.
   let collections: CollectionRow[] = [];
   try {
-    const res = await api.getCached<{ collections: CollectionRow[] }>(`/content/hadits/collections?lang=${locale}`, 86400);
-    collections = res.collections ?? [];
+    const res = await api.getCached<{ collections?: CollectionRow[] }>(`/content/hadits/collections?lang=${locale}`, 86400);
+    collections = Array.isArray(res.collections) ? res.collections : [];
   } catch {
     collections = [];
+  }
+  if (collections.length === 0) {
+    noStore();
+    throw new Error("hadits collections unavailable — keeping the last good page");
   }
 
   const total = collections.reduce((n, c) => n + c.total, 0);
