@@ -40,7 +40,7 @@ Dazu kommen die Signalwörter „Achtung“ und das stärkere „Gefahr“. Lies
 
 ## Richtig aufbewahren
 
-Bewahre Reiniger immer in der Originalverpackung auf, damit Etikett und Warnhinweise erhalten bleiben. Fülle sie niemals in Getränkeflaschen, Gläser oder Becher um. Verwechslungen mit Getränken gehören zu den häufigsten Ursachen für Vergiftungen bei Kindern. Lagere Putzmittel hoch oder hinter einer Tür mit Kindersicherung, und schließe Flaschen nach jedem Gebrauch sofort wieder. Flüssigwaschmittel in kleinen Kissen oder Kapseln sehen für Kinder aus wie Süßigkeiten; sie gehören ebenfalls außer Reichweite.
+Bewahre Reiniger immer in der Originalverpackung auf, damit Etikett und Warnhinweise erhalten bleiben. Fülle sie niemals in Getränkeflaschen, Gläser oder Becher um. Verwechslungen mit Getränken sind eine bekannte Ursache für Vergiftungsunfälle, gerade bei Kindern. Lagere Putzmittel hoch oder hinter einer Tür mit Kindersicherung, und schließe Flaschen nach jedem Gebrauch sofort wieder. Flüssigwaschmittel in kleinen Kissen oder Kapseln sehen für Kinder aus wie Süßigkeiten; sie gehören ebenfalls außer Reichweite.
 
 ## Auch Hausmittel brauchen Respekt
 
