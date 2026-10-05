@@ -1,0 +1,39 @@
+{
+  "domain": "qurm.de",
+  "name": "QURM",
+  "expansion": "Quellen, Urwald, Rucksack, Morgenrot",
+  "tagline": "Wandern in Deutschland: große Wege, schöne Gipfel und ehrliches Wissen über Ausrüstung, Wetter und Sicherheit",
+  "description": "QURM ist ein Wanderratgeber für Deutschland: Fernwanderwege wie Rennsteig, Malerweg, Rheinsteig und Westweg, Tagestouren von der Sächsischen Schweiz bis ins Allgäu, dazu Ausrüstung, Sicherheit und Wetter, Planung und Navigation sowie Wandern mit Kindern und Hund.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "qurm-de",
+  "worker": "qurm-de",
+  "themeColor": "#1f4d3a",
+  "email": "kontakt@qurm.de",
+  "author": "QURM Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Zilla+Slab:ital,wght@0,500;0,600;0,700;1,500&display=swap",
+  "paths": { "article": "/ratgeber/", "category": "/wegweiser/" },
+  "categories": [
+    { "slug": "fernwanderwege", "name": "Fernwanderwege", "icon": "wegweiser", "description": "Rennsteig, Malerweg, Rheinsteig, Westweg, Eifelsteig und Harzer Hexenstieg: Verlauf, Etappen und Charakter der großen Wege, ehrlich beschrieben." },
+    { "slug": "berge-und-tagestouren", "name": "Berge & Tagestouren", "icon": "gipfel", "description": "Zugspitze, Allgäu, Berchtesgaden, Sächsische Schweiz, Bayerischer Wald und Pfälzerwald: Gipfel, Klammen und Touren für einen Tag." },
+    { "slug": "ausruestung", "name": "Ausrüstung", "icon": "rucksack", "description": "Wanderschuhe, Rucksack, Kleidung im Zwiebelprinzip, Stöcke, Erste Hilfe und Proviant: was du wirklich brauchst und worauf es ankommt." },
+    { "slug": "sicherheit-und-wetter", "name": "Sicherheit & Wetter", "icon": "wetter", "description": "Gewitter, Hitze, Kälte, Zecken, Notruf und Bergwetter: Gefahren früh erkennen, richtig reagieren und sicher wieder ankommen." },
+    { "slug": "planung-und-navigation", "name": "Planung & Navigation", "icon": "kompass", "description": "Tourenplanung, Gehzeit, Karte und Kompass, Apps und GPX, Wegzeichen sowie Übernachten auf Hütten und Trekkingplätzen." },
+    { "slug": "kinder-und-hund", "name": "Mit Kindern & Hund", "icon": "spuren", "description": "Mit Baby, Kleinkind und Schulkind unterwegs, die erste Hüttennacht als Familie und Touren mit Hund: Tipps für entspannte Wandertage." }
+  ],
+  "menu": [
+    { "label": "Sicher unterwegs", "href": "/sicher-unterwegs/" },
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
