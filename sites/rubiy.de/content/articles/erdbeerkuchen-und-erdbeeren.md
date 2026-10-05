@@ -6,7 +6,7 @@ date: 2026-08-01
 ---
 Die ersten Erdbeeren aus der Region sind für viele das eigentliche Zeichen, dass der Sommer kommt. Wenn im Mai die Verkaufshäuschen in Erdbeerform an den Straßenrändern aufgestellt werden und die Felder zum Selbstpflücken öffnen, beginnt eine kurze, intensive Saison. Freilanderdbeeren aus Deutschland gibt es meist von Ende Mai bis Juli. Aus Folientunneln und Gewächshäusern kommen die ersten Früchte schon im April, und sogenannte remontierende oder immertragende Sorten liefern kleinere Mengen bis in den Herbst.
 
-Wer einmal eine sonnenwarme, voll ausgereifte Erdbeer direkt vom Feld gegessen hat, weiß, wie viel Unterschied Reife und Frische ausmachen. Dieser Beitrag hilft dir, gute Erdbeeren zu erkennen, sie richtig zu behandeln und daraus einen klassischen Erdbeerkuchen zu backen.
+Wer einmal eine sonnenwarme, voll ausgereifte Erdbeere direkt vom Feld gegessen hat, weiß, wie viel Unterschied Reife und Frische ausmachen. Dieser Beitrag hilft dir, gute Erdbeeren zu erkennen, sie richtig zu behandeln und daraus einen klassischen Erdbeerkuchen zu backen.
 
 > **Das Wichtigste in Kürze**
 >
