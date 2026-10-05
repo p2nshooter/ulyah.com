@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "kitab:data": "tsx ../../scripts/build-kitab-static.ts",
+    "build": "pnpm run kitab:data && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "next lint --no-cache || true",

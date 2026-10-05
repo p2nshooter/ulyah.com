@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { api } from "@/lib/api";
+import { api, ApiError } from "@/lib/api";
+import { pesantrenKitab } from "@/lib/kitab-data";
 import { PesantrenKitabReader, type KitabDetail } from "@/components/PesantrenKitabReader";
 import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
 import { book as bookLd, breadcrumbs, jsonLdProps } from "@/lib/structured-data";
 
-export const revalidate = 300;
+// A kitab changes only when a seed or a maintenance job changes it, so a day.
+// It was 300 s: every kitab re-read all of its matn from D1 every five minutes
+// per site — Bulughul Maram alone is 1,577 rows a render.
+export const revalidate = 86400;
 
 /**
  * Empty on purpose — and required, or `revalidate` above does nothing.
@@ -68,12 +72,24 @@ const META: Record<string, { section: string; by: string }> = {
  * lets every line below it read `data.x.y` without a second thought.
  */
 async function fetchKitab(slug: string, locale: string): Promise<KitabResponse | null> {
+  // D1 first: it holds what the seeds do not — the terjemah of Bulughul Maram
+  // and Arba'in matched from the hadith corpus, and the sibling sites' wording.
+  let missingUpstream = false;
   try {
-    const r = await api.getCached<KitabResponse>(`/content/pesantren/kitab/${slug}?lang=${locale}`, 300);
-    return r?.kitab && Array.isArray(r.chapters) ? r : null;
-  } catch {
-    return null;
+    const r = await api.getCached<KitabResponse>(`/content/pesantren/kitab/${slug}?lang=${locale}`, 86400);
+    if (r?.kitab && Array.isArray(r.chapters) && r.chapters.length > 0) return r;
+  } catch (err) {
+    missingUpstream = err instanceof ApiError && err.status === 404;
   }
+  // The API failed — most often the shared D1 read quota is spent — or does
+  // not have this kitab. The static copy (lib/kitab-data.ts, built from the
+  // same seeds) is the whole kitab, so the reader never comes up empty again.
+  const local = await pesantrenKitab<KitabResponse>(slug);
+  if (!local?.kitab || !Array.isArray(local.chapters)) return null;
+  // On a sibling site the static copy is Indonesian: let the reader fetch the
+  // translation from the browser once the API answers again.
+  const sibling = locale !== "id" && locale !== "ar";
+  return { ...local, translationPending: sibling && !missingUpstream };
 }
 
 export async function generateMetadata({

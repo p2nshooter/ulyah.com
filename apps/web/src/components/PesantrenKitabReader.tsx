@@ -578,7 +578,11 @@ export function PesantrenKitabReader({
   async function advanceToNextKitab(mode: AudioMode) {
     setSwitchingBook(true);
     try {
-      const res = await api.get<{ kitab: { slug: string }[] }>(`/content/pesantren/kitab?lang=${locale}`);
+      // The library order is a static file of this site (scripts/build-kitab-static.ts):
+      // no Worker request, no D1 read. The API stays as the fallback.
+      const res = await fetch("/kitab-data/pesantren/index.json")
+        .then((r) => (r.ok ? (r.json() as Promise<{ kitab: { slug: string }[] }>) : Promise.reject(r.status)))
+        .catch(() => api.get<{ kitab: { slug: string }[] }>(`/content/pesantren/kitab?lang=${locale}`));
       const slugs = res.kitab.map((k) => k.slug);
       const cur = slugs.indexOf(kitab.slug);
       const next = slugs[(cur + 1) % slugs.length];

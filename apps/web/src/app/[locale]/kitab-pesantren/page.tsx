@@ -7,10 +7,13 @@ import { routePath } from "@/lib/paths";
 import { coverFor } from "@/lib/book-cover";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { fillLabels } from "@/lib/fill-labels";
+import { pesantrenIndex } from "@/lib/kitab-data";
 
-// Revalidate periodically so newly-imported kitab appear without a redeploy,
-// while still serving a cached page most of the time.
-export const revalidate = 300;
+// The shelf is read from this site's static files (lib/kitab-data.ts),
+// generated from the same seeds D1 was loaded from, so it no longer goes empty
+// when the shared D1 read quota runs out. A new kitab arrives with a new seed,
+// i.e. with a deploy, so a day of page cache loses nothing.
+export const revalidate = 86400;
 
 interface Category {
   slug: string;
@@ -28,6 +31,27 @@ interface Kitab {
   author_death_year: string | null;
   description_id: string | null;
   bab_count: number;
+}
+
+/**
+ * The sibling sites' names and titles, pre-translated in D1 (pes_i18n). Only
+ * the WORDING comes from the API; which kitab exist comes from static data, so
+ * a failed call can no longer empty the shelf. Null when unavailable.
+ */
+async function siblingWording(locale: string) {
+  try {
+    const [c, k] = await Promise.all([
+      api.getCached<{ categories?: Category[] }>(`/content/pesantren/categories?lang=${locale}`, 86400),
+      api.getCached<{ kitab?: Kitab[] }>(`/content/pesantren/kitab?lang=${locale}`, 86400),
+    ]);
+    if (!Array.isArray(c.categories) || !Array.isArray(k.kitab)) return null;
+    return {
+      cat: new Map(c.categories.map((x) => [x.slug, x.name_id])),
+      kitab: new Map(k.kitab.map((x) => [x.slug, { title: x.title_id, desc: x.description_id }])),
+    };
+  } catch {
+    return null;
+  }
 }
 
 // Every visible UI string on this page, per site language — a sibling site
@@ -203,18 +227,23 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
   const t = labels(locale);
   const listenLabel = kitabLabels(locale).listen; // reuse the library's localized "Listen"
 
-  let categories: Category[] = [];
-  let kitab: Kitab[] = [];
-  try {
-    const [cRes, kRes] = await Promise.all([
-      api.get<{ categories: Category[] }>(`/content/pesantren/categories?lang=${locale}`),
-      api.get<{ kitab: Kitab[] }>(`/content/pesantren/kitab?lang=${locale}`),
-    ]);
-    categories = cRes.categories ?? [];
-    kitab = kRes.kitab ?? [];
-  } catch {
-    categories = [];
-    kitab = [];
+  const data = await pesantrenIndex();
+  let categories: Category[] = data.categories;
+  let kitab: Kitab[] = data.kitab;
+  // Indonesian is what the library is written in. Elsewhere the Indonesian
+  // wording must not leak onto the page (owner rule: one language per site):
+  // use the translated wording, or, when it cannot be had, the Arabic alone.
+  let showLatin = locale === "id";
+  if (locale !== "id") {
+    const w = locale === "ar" ? null : await siblingWording(locale);
+    if (w) {
+      showLatin = true;
+      categories = categories.map((c) => ({ ...c, name_id: w.cat.get(c.slug) ?? c.name_id }));
+      kitab = kitab.map((k) => {
+        const tr = w.kitab.get(k.slug);
+        return tr ? { ...k, title_id: tr.title || k.title_id, description_id: tr.desc ?? k.description_id } : k;
+      });
+    }
   }
 
   const total = kitab.length;
@@ -233,9 +262,6 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
       )}
       <PageHero icon="🏫" title={t.title} subtitle={t.subtitle(total)} />
 
-      <div className="mt-6">
-      </div>
-
       {categories.length === 0 && (
         <p className="mt-10 text-center text-sm text-text-secondary">{t.loadError}</p>
       )}
@@ -249,9 +275,9 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
             <div className="flex items-baseline justify-between gap-3 border-b border-accent/20 pb-2">
               <h2 className="font-heading text-xl">
                 <span className="mr-2">{cat.icon ?? "📗"}</span>
-                {cat.name_id}
+                {showLatin ? cat.name_id : cat.name_ar ?? cat.name_id}
               </h2>
-              {cat.name_ar && (
+              {showLatin && cat.name_ar && (
                 <span dir="rtl" className="font-arabic text-sm text-text-secondary">
                   {cat.name_ar}
                 </span>
@@ -266,7 +292,7 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
                 <Link
                   key={k.slug}
                   href={routePath(locale, `/kitab-pesantren/${k.slug}`)}
-                  aria-label={k.title_id}
+                  aria-label={showLatin ? k.title_id : k.title_ar}
                   style={{ background: cv.cover }}
                   className="group relative flex min-h-[210px] flex-col overflow-hidden rounded-r-lg rounded-l-sm p-4 pl-6 shadow-[0_10px_24px_-8px_rgba(0,0,0,0.5)] ring-1 ring-black/20 transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_-10px_rgba(0,0,0,0.6)]"
                 >
@@ -282,9 +308,11 @@ export default async function KitabPesantrenPage({ params }: { params: Promise<{
                     <p dir="rtl" style={{ color: cv.foil }} className="font-arabic text-lg leading-tight">
                       {k.title_ar}
                     </p>
-                    <p style={{ color: cv.ink }} className="mt-1 font-heading text-sm leading-snug">
-                      {k.title_id}
-                    </p>
+                    {showLatin && (
+                      <p style={{ color: cv.ink }} className="mt-1 font-heading text-sm leading-snug">
+                        {k.title_id}
+                      </p>
+                    )}
                     {k.author && (
                       <p style={{ color: cv.ink }} className="mt-1.5 text-[11px] opacity-80">
                         ✍️ {k.author}

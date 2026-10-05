@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
+import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
+import { libraryBook, libraryIndex, categoryName } from "@/lib/kitab-data";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
 import { ogCoverUrl } from "@/lib/og";
@@ -29,6 +31,12 @@ import { routePath } from "@/lib/paths";
  * description imported once and not edited since. Serving it from cache for a
  * day costs nothing in freshness and removes both API calls from the common
  * path.
+ *
+ * The record itself now comes from this site's static files
+ * (lib/kitab-data.ts), so the page exists whether or not D1 does. Only the
+ * translation of the Arabic title/description/topics is asked of the API, and
+ * that is an enhancement: if it fails, the reader still gets the whole work in
+ * Arabic rather than "Tidak ada hasil".
  */
 export const revalidate = 86400;
 
@@ -70,6 +78,44 @@ interface BookDetail {
   category_icon: string | null;
 }
 
+type Translations = Pick<BookDetail, "title_translated" | "description_translated" | "topics_translated">;
+
+/** Best-effort: the API's cached translation of this work, or nothing. */
+async function translations(id: number, locale: string): Promise<Translations | null> {
+  if (locale === "ar") return null;
+  try {
+    const { book } = await api.getCached<{ book?: Partial<Translations> }>(`/content/kitab/book/${id}?lang=${locale}`, 86400);
+    if (!book) return null;
+    return {
+      title_translated: book.title_translated ?? null,
+      description_translated: book.description_translated ?? null,
+      topics_translated: Array.isArray(book.topics_translated) ? book.topics_translated : null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** The work from static data, with its translation layered on when available. */
+async function loadBook(rawId: string, locale: string) {
+  const id = Number(rawId);
+  const [record, index] = await Promise.all([libraryBook(id), libraryIndex()]);
+  if (!record) return null;
+  const cat = index.categories.find((c) => c.slug === record.category_slug);
+  const tr = await translations(id, locale);
+  const book: BookDetail = {
+    ...record,
+    title_translated: tr?.title_translated ?? null,
+    description_translated: tr?.description_translated ?? null,
+    description_lang: tr?.description_translated ? locale : "ar",
+    topics_translated: tr?.topics_translated ?? null,
+    category_name: cat ? categoryName(cat, locale) : null,
+    category_name_ar: cat?.name_ar ?? null,
+    category_icon: cat?.icon ?? null,
+  };
+  return { book, nextBook: record.next };
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -77,8 +123,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: raw, slug, id } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
-  try {
-    const { book } = await api.getCached<{ book: BookDetail }>(`/content/kitab/book/${id}?lang=${locale}`, 86400);
+  const data = await loadBook(id, locale);
+  if (!data) return {};
+  {
+    const { book } = data;
     // Arabic title is the language-neutral hero (matches the shelf card); the
     // localized latin title rides underneath. The cover uses the category slug
     // so the share image shares its shelf's binding colour.
@@ -89,8 +137,6 @@ export async function generateMetadata({
       openGraph: { title, type: "book", images: [{ url: cover, width: 1200, height: 630, alt: title }] },
       twitter: { card: "summary_large_image", title, images: [cover] },
     };
-  } catch {
-    return {};
   }
 }
 
@@ -103,27 +149,9 @@ export default async function KitabBookPage({
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = kitabLabels(locale);
 
-  let book: BookDetail | null = null;
-  let nextBook: { id: number; title_ar: string } | null = null;
-  try {
-    const res = await api.getCached<{ book: BookDetail; next_book: { id: number; title_ar: string } | null }>(
-      `/content/kitab/book/${id}?lang=${locale}`, 86400);
-    book = res.book ?? null;
-    nextBook = res.next_book ?? null;
-  } catch {
-    book = null;
-  }
-
-  if (!book) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-        <p className="text-sm text-text-secondary">{t.noResults}</p>
-        <Link href={routePath(locale, `/kitab`)} className="mt-4 inline-block text-sm text-accent hover:underline">
-          ← {t.backToCategories}
-        </Link>
-      </div>
-    );
-  }
+  const data = await loadBook(id, locale);
+  if (!data) notFound();
+  const { book, nextBook } = data;
 
   // What this page IS, for the search engine: a book, and where it sits in the
   // library. 4,967 catalogue pages had no structured data at all, which is most
