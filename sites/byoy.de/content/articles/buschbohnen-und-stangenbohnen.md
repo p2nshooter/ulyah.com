@@ -85,6 +85,25 @@ Viele dieser Sorten sind samenfest. Bohnen sind Selbstbefruchter und eignen sich
 
 Bohnen gehen eine Partnerschaft mit Knöllchenbakterien ein, die an ihren Wurzeln sitzen und Luftstickstoff binden. Schneide die Pflanzen nach der Ernte am Boden ab und lass die Wurzeln im Beet. So bleibt ein Teil des gebundenen Stickstoffs für die nächste Kultur erhalten. Eine Anbaupause von drei bis vier Jahren für Hülsenfrüchte auf demselben Beet beugt Krankheiten vor.
 
+## Ernte verarbeiten und haltbar machen
+
+In guten Jahren tragen Bohnen mehr, als man frisch essen kann. Die bewährtesten Methoden:
+
+- **Einfrieren:** Bohnen putzen, in Stücke schneiden, drei Minuten in kochendem Wasser blanchieren, in Eiswasser abschrecken, abtropfen lassen und portionsweise einfrieren. So halten sie etwa ein Jahr.
+- **Einkochen:** Blanchierte Bohnen in Gläsern mit leicht gesalzenem Wasser einkochen. Bohnen sind eiweißreich und arm an Säure, deshalb muss das Einkochen gründlich und nach einer zuverlässigen Anleitung erfolgen, oft zweimal an aufeinanderfolgenden Tagen.
+- **Milchsauer einlegen:** Die traditionelle Schnippelbohne wird wie Sauerkraut mit Salz fermentiert. Vor dem Essen müssen auch fermentierte Bohnen gekocht werden.
+- **Trocknen:** Reife Kerne von Trockenbohnen dunkel, trocken und luftdicht lagern. Einige Tage im Gefrierschrank vor dem Einlagern töten eventuell vorhandene Bohnenkäfer ab.
+
+## Typische Probleme auf einen Blick
+
+| Problem | Wahrscheinliche Ursache | Was hilft |
+|---|---|---|
+| Samen keimen nicht, faulen | Boden zu kalt und nass | später säen, Bodentemperatur prüfen |
+| Keimlinge mit zerfressenen Keimblättern | Bohnenfliege | warmen Boden abwarten, keinen frischen Mist |
+| Blüten fallen ab | Trockenheit oder große Hitze | gleichmäßig gießen, mulchen |
+| Rostbraune Pusteln auf Blättern | Bohnenrost | Laub trocken halten, Pflanzenreste entfernen |
+| Kolonien schwarzer Läuse | Schwarze Bohnenlaus | Nützlinge abwarten, Triebspitzen entfernen |
+
 ## Häufige Fragen
 
 ### Warum sind rohe Bohnen giftig?

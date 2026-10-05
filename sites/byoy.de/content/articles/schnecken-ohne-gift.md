@@ -79,6 +79,24 @@ Schnecken haben Vorlieben. Besonders gefährdet sind Salat, Keimlinge von Bohnen
 
 Setze kräftige, vorgezogene Jungpflanzen statt winziger Sämlinge. Je größer und robuster eine Pflanze beim Auspflanzen ist, desto eher übersteht sie einen Fraßschaden.
 
+## Ein Schneckenjahr im Überblick
+
+Wer die Maßnahmen über das Jahr verteilt, braucht im Sommer viel weniger Zeit für die Schneckenjagd.
+
+| Zeitraum | Was zu tun ist |
+|---|---|
+| März bis April | Bretter auslegen, Jungschnecken täglich absammeln, Schneckenzaun um Anzuchtbeete setzen |
+| Mai bis Juni | kräftige Jungpflanzen setzen, morgens gießen, abends mit der Lampe kontrollieren |
+| Juli bis August | Mulch dünn halten, Verstecke kontrollieren, erste Gelege suchen |
+| September bis Oktober | Boden flach hacken, Gelege unter Brettern und im Mulch absammeln, Igelquartiere anlegen |
+| November bis Februar | Laub- und Reisighaufen für Igel und Kröten ruhen lassen |
+
+Viele Gärtnerinnen berichten, dass sich nach zwei bis drei Jahren konsequenter Arbeit im Frühjahr und Herbst die Zahl der Nacktschnecken deutlich verringert, vor allem wenn Nützlinge im Garten heimisch geworden sind.
+
+## Gemeinsam mit den Nachbarn
+
+Schnecken halten sich nicht an Gartengrenzen. Wenn dein Garten an eine feuchte Wiese, einen Bachlauf oder einen ungepflegten Nachbargarten grenzt, wandern ständig neue Tiere ein. Ein Schneckenzaun entlang der gefährdeten Seite oder ein trockener, gemähter Streifen von einem Meter Breite kann diesen Zuzug bremsen. In Kleingartenanlagen lohnt es sich, Maßnahmen wie das herbstliche Absammeln der Gelege gemeinsam zu organisieren.
+
 ## Was nicht hilft
 
 **Bierfallen** fangen zwar viele Schnecken, locken sie aber über große Entfernungen an, auch aus den Nachbargärten. Steht die Falle nicht weit genug vom Beet entfernt, fressen viele Tiere auf dem Weg dorthin dein Gemüse. Außerdem ertrinken darin auch Laufkäfer.

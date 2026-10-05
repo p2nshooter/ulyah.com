@@ -86,6 +86,23 @@ Die Reihen stehen jeweils etwa 20 bis 25 cm auseinander. Bohnen und Zwiebeln lie
 
 Die Gärtnerin Gertrud Franck entwickelte ab den 1950er-Jahren ein System, das bis heute viele Biogärtner nutzen. Ihr Kern: Alle 50 cm wird quer über alle Beete eine Reihe Spinat gesät. Der Spinat beschattet den Boden früh im Jahr, wird später abgeschnitten und bleibt als Mulch liegen. Zwischen den Spinatreihen stehen abwechselnd hohe und niedrige, lange und kurze Kulturen. Das System erfordert etwas Planung, bietet aber eine durchgehende Bodenbedeckung und eine gute Nutzung des Platzes.
 
+## Mischkultur im Hochbeet und auf kleinen Flächen
+
+Im Hochbeet oder in einem schmalen Gemüsestreifen ist Mischkultur nicht nur sinnvoll, sondern fast unvermeidlich. Auf 1,2 bis 2 Quadratmetern sollen möglichst viele verschiedene Gemüse wachsen. Hier zahlt sich die Kombination von schnellen und langsamen Kulturen besonders aus.
+
+Ein Beispiel für ein Hochbeet von 1 mal 2 m im ersten Jahr: In der Mitte stehen zwei Tomaten oder eine Zucchini als Starkzehrer, die den frischen, nährstoffreichen Aufbau nutzen. Rundherum wachsen Kohlrabi, Pflücksalat und Radieschen, die bis Juni geerntet sind. An den Rändern stehen Kapuzinerkresse, die über die Kante rankt, und einige Zwiebeln oder Lauchpflanzen. Nach der Salaternte im Juni ist Platz für Buschbohnen, die bis Anfang Juli gesät werden können.
+
+Wichtig auf kleinem Raum:
+
+- **Höhe planen:** Hohe Pflanzen an die Nordseite, niedrige an die Südseite, damit alle genug Licht bekommen.
+- **Zeit nutzen:** Jede Lücke, die durch eine Ernte entsteht, sofort neu besetzen, etwa mit Salat, Radieschen oder Spinat.
+- **Nicht übertreiben:** Zu viele Arten auf engem Raum machen die Pflege unübersichtlich. Vier bis sechs Kulturen pro Beet sind ein guter Rahmen.
+- **Aufschreiben:** Eine Skizze mit den Kulturen hilft dir im nächsten Jahr bei der Fruchtfolge.
+
+## Was die Forschung sagt
+
+Mischkultur ist im Erwerbsgemüsebau weniger verbreitet als im Hausgarten, weil Maschinen mit einheitlichen Reihen besser arbeiten. Untersuchungen zu Gemengen, etwa von Getreide mit Hülsenfrüchten im Ackerbau, zeigen aber, dass Mischbestände Flächen oft effizienter nutzen als Reinkulturen. Für einzelne Gartenpaare wie Möhre und Zwiebel ist der Schutz vor Schädlingen nachweisbar, aber kleiner, als viele Gartenbücher versprechen. Das wichtigste Argument für die Mischkultur im Hausgarten bleibt deshalb ein praktisches: Ein vielfältiges Beet ist widerstandsfähiger, nutzt den Platz besser und bietet Nützlingen mehr Lebensraum.
+
 ## Häufige Fragen
 
 ### Muss ich mich streng an Mischkultur-Tabellen halten?

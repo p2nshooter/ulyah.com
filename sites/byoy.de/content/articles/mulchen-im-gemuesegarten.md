@@ -73,6 +73,17 @@ Das bedeutet nicht, dass du auf Mulch verzichten musst. Passe die Methode an:
 
 Gleichzeitig fördert Mulch auch Laufkäfer, Spitzmäuse und Blindschleichen, die Schnecken und ihre Eier fressen. Langfristig verschiebt sich das Gleichgewicht oft zugunsten der Nützlinge.
 
+## Mulch für einzelne Kulturen
+
+Jede Kultur hat etwas andere Vorlieben. Ein paar Erfahrungswerte:
+
+- **Tomaten:** Rasenschnitt oder gehackte Brennnesseln, sobald die Pflanzen eingewachsen sind. Der Mulch verhindert Spritzwasser und damit die Übertragung der Braunfäule vom Boden auf die unteren Blätter.
+- **Kohl:** Kohl liebt nährstoffreichen Mulch. Rasenschnitt hält den Boden gleichmäßig feucht, was gegen das Platzen von Kohlköpfen und Kohlrabi hilft.
+- **Kartoffeln:** Eine dicke Strohschicht kann das Anhäufeln teilweise ersetzen. Knollen, die unter Stroh wachsen, bleiben sauber, müssen aber vollständig bedeckt sein, damit sie nicht grün werden.
+- **Zwiebeln und Knoblauch:** Nur dünn oder gar nicht mulchen. Die Zwiebeln reifen besser, wenn die Oberfläche im Sommer abtrocknet.
+- **Möhren:** Mulch zwischen den Reihen, sobald das Laub etwa 10 cm hoch ist. Er verhindert, dass die Möhrenköpfe grün werden.
+- **Beerensträucher:** Laub, Stroh oder Häcksel aus Strauchschnitt. Johannis- und Himbeeren wurzeln flach und sind für eine dauerhafte Mulchdecke sehr dankbar.
+
 ## Häufige Fehler beim Mulchen
 
 - **Zu früh im Jahr:** Kalter Boden bleibt kalt, die Pflanzen stocken.

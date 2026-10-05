@@ -84,6 +84,23 @@ Im biologischen Gartenbau werden traditionell Pflanzenauszüge eingesetzt, um Pf
 
 Mittel mit Kupfer oder Schwefel sind zwar teilweise im ökologischen Landbau zugelassen, Kupfer reichert sich aber im Boden an und schadet Regenwürmern. Im Hausgarten empfehlen wir, darauf zu verzichten und auf Vorbeugung und Sortenwahl zu setzen.
 
+## Obstgarten: Schorf, Monilia und Kräuselkrankheit im Jahreslauf
+
+Im Obstgarten lohnt es sich, die Vorbeugung über das ganze Jahr zu verteilen, denn viele Erreger infizieren zu einem ganz bestimmten Zeitpunkt.
+
+**Apfelschorf** überwintert auf dem Falllaub. Im Frühjahr, etwa vom Austrieb bis Anfang Juni, schleudert der Pilz bei jedem Regen Sporen auf die jungen Blätter. In dieser Phase entscheidet sich, wie stark ein Baum befallen wird. Ein luftiger Kronenaufbau, der nach dem Regen schnell abtrocknet, ist deshalb das beste Mittel. Schneide im Winter nach innen wachsende und sich kreuzende Äste heraus, damit die Krone licht wird. Befallene Früchte sind zwar unansehnlich und weniger lagerfähig, aber essbar.
+
+**Monilia** zeigt sich auf zwei Arten. Bei der Spitzendürre dringt der Pilz während der Blüte in die Blüten ein, vor allem bei Sauerkirschen wie ‚Schattenmorelle' und bei Aprikosen. Die Triebspitzen welken kurz nach der Blüte plötzlich. Schneide sie sofort bis weit ins gesunde Holz zurück, etwa 15 bis 20 cm unterhalb der welken Stelle. Bei der Fruchtfäule dringt der Pilz über kleine Verletzungen, etwa Wespen- oder Hagelschäden, in reifende Früchte ein. Sammle faule Früchte laufend ab und entferne im Winter alle Fruchtmumien, die noch am Baum hängen.
+
+**Kräuselkrankheit** am Pfirsich infiziert in einem sehr kurzen Zeitfenster: beim Anschwellen der Knospen im späten Winter, oft schon im Februar. Wenn du die Blätter im April gekräuselt siehst, ist es für Maßnahmen zu spät. Ein Regenschutz über kleinen Pfirsichbäumen an einer Hauswand, von Januar bis zum vollständigen Blattaustrieb, verhindert die Infektion zuverlässig, weil die Sporen Nässe brauchen. Befallene Blätter fallen ab, der Baum treibt danach neu aus. Entscheidend ist dann, ihn gut mit Wasser und Kompost zu versorgen, damit er sich erholt.
+
+| Monat | Maßnahme im Obstgarten |
+|---|---|
+| Januar bis Februar | Fruchtmumien entfernen, Krone auslichten, Pfirsich vor Regen schützen |
+| März bis Mai | Spitzendürre an Kirschen sofort zurückschneiden, Baumscheibe mulchen |
+| Juni bis August | faule Früchte absammeln, Sommerschnitt für luftige Kronen |
+| Oktober bis November | Falllaub unter Apfelbäumen zerkleinern oder entfernen |
+
 ## Wenn es doch passiert ist
 
 Entdeckst du eine Pilzkrankheit, handle zügig, aber ohne Panik:

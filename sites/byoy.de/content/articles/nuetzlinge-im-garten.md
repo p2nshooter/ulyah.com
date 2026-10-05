@@ -79,6 +79,24 @@ Die meisten Nützlinge überwintern im Garten selbst: Marienkäfer unter Laub un
 
 Auch Pflanzenschutzmittel, die im ökologischen Landbau zugelassen sind, etwa mit Pyrethrinen, Neem oder Rapsöl, wirken nicht nur auf Schädlinge. Sie treffen Marienkäferlarven, Schwebfliegenlarven und Schlupfwespen genauso. Im Hausgarten lohnt es sich fast immer, ganz darauf zu verzichten und dem natürlichen Gleichgewicht Zeit zu geben.
 
+## Vögel, Igel und andere größere Helfer
+
+Neben den Insekten sind auch Wirbeltiere wichtige Verbündete im Bio-Garten. Ein Meisenpaar braucht zur Aufzucht seiner Brut viele tausend Raupen und Insekten, ein großer Teil davon stammt aus Obstbäumen und Hecken. Nistkästen für Blau- und Kohlmeisen mit einem Einflugloch von 26 bis 28 mm beziehungsweise 32 mm, in 2 bis 3 m Höhe und nicht in praller Sonne aufgehängt, werden meist schnell angenommen. Reinige sie im Herbst, damit Parasiten aus dem alten Nest nicht die nächste Brut belasten.
+
+Igel, Kröten, Blindschleichen und Spitzmäuse fressen Schnecken, Käferlarven und andere Bodenbewohner. Sie brauchen Verstecke wie Laub- und Reisighaufen, Durchschlupfe im Zaun von etwa 13 mal 13 cm und einen Garten ohne Schneckenkorn mit gefährlichen Wirkstoffen. Fledermäuse jagen nachts Nachtfalter, darunter auch die Falter von Apfelwickler und Kohleule. Ein Garten mit Teich und vielen Insekten zieht sie an.
+
+## Ein Jahr im Nützlingsgarten
+
+| Jahreszeit | Was du für Nützlinge tun kannst |
+|---|---|
+| Frühjahr | Stauden erst ab April zurückschneiden, wenn die Überwinterer aktiv sind; erste Blüten wie Weiden und Wildobst anbieten |
+| Frühsommer | Blattlauskolonien beobachten statt spritzen; Doldenblütler blühen lassen |
+| Hochsommer | Wasserstellen flach anlegen; Blühstreifen nicht vollständig mähen |
+| Herbst | Laubhaufen anlegen, hohle Stängel stehen lassen, Florfliegenkasten aufstellen |
+| Winter | Nistkästen reinigen und neue aufhängen, Totholz liegen lassen |
+
+Diese kleinen Schritte kosten kaum Zeit, verändern das Gleichgewicht im Garten aber nachhaltig. Nach einigen Jahren wirst du feststellen, dass Blattlausplagen seltener werden und schneller von selbst zusammenbrechen.
+
 ## Nützlinge kaufen?
 
 Im Fachhandel kannst du Florfliegenlarven, Marienkäferlarven, Schlupfwespen oder Nematoden kaufen. Im Gewächshaus sind sie sehr wirksam, weil sie dort bleiben. Im Freiland wandern viele Tiere ab, und der Erfolg hängt stark vom Wetter ab. Eine Ausnahme sind Nematoden gegen Dickmaulrüssler- oder Gartenlaubkäferlarven, die im Boden gut wirken, sofern die Bodentemperatur stimmt, meist über 12 °C. Für den Gemüsegarten im Freiland ist es nachhaltiger, die heimischen Nützlinge zu fördern.

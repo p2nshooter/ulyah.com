@@ -82,6 +82,21 @@ Die Regel ist einfach: **Probiere vor dem Kochen ein winziges Stück roh. Schmec
 
 Lass Kürbisse nach der Ernte etwa zwei Wochen an einem warmen, trockenen Ort bei 20 bis 25 °C nachreifen. Dabei härtet die Schale aus. Danach lagerst du sie bei 10 bis 15 °C, trocken und luftig, am besten auf Holzlatten oder einem Regal, nicht auf Beton und nicht übereinander. Ein kalter Keller unter 10 °C ist für Kürbisse zu kalt und lässt sie schneller faulen. Kontrolliere die Vorräte regelmäßig und verbrauche angeschlagene Früchte zuerst.
 
+## Sorten für den Hausgarten
+
+Die Auswahl an Kürbisgewächsen ist riesig. Einige bewährte Beispiele:
+
+- **Zucchini:** ‚Black Beauty' ist eine alte, samenfeste Sorte mit dunkelgrünen Früchten. ‚Defender' F1 gilt als tolerant gegenüber Viruskrankheiten, ‚Gold Rush' trägt gelbe Früchte, die man zwischen den Blättern gut findet. Runde Sorten wie ‚Tondo di Piacenza' eignen sich zum Füllen.
+- **Hokkaido:** ‚Uchiki Kuri' ist der klassische orange Hokkaido, dessen Schale mitgegessen werden kann. ‚Blue Kuri' hat eine graublaue Schale und festes Fleisch.
+- **Butternut:** ‚Waltham Butternut' ist verbreitet, braucht aber Wärme. Kompakte Sorten wie ‚Butterbush' reifen etwas früher und brauchen weniger Platz.
+- **Spaghettikürbis:** Das Fruchtfleisch zerfällt nach dem Garen in Fäden.
+
+Wenn du Saatgut selbst gewinnen möchtest, baue pro Art nur eine Sorte an oder bestäube von Hand und verschließe die Blüten. Sonst kreuzen sich Zucchini mit Zierkürbissen oder anderen Gartenkürbissen, und die Nachkommen können Bitterstoffe enthalten.
+
+## Kürbisgewächse in der Fruchtfolge und Mischkultur
+
+Als Starkzehrer stehen Zucchini und Kürbis am Anfang der Fruchtfolge, auf einem Beet, das reichlich Kompost bekommen hat. Danach folgen Mittelzehrer wie Möhren oder Zwiebeln. Gute Nachbarn sind Mais und Stangenbohnen, die zusammen mit dem Kürbis die traditionelle „Drei Schwestern"-Mischkultur bilden: Der Mais dient als Rankhilfe, die Bohne liefert Stickstoff, der Kürbis beschattet den Boden. Auch Kapuzinerkresse, Ringelblumen und Borretsch passen gut, weil sie Bestäuber anlocken, die für den Fruchtansatz unentbehrlich sind. Ungünstig sind Kartoffeln in direkter Nähe, die ebenfalls viel Wasser und Nährstoffe beanspruchen.
+
 ## Häufige Fragen
 
 ### Wie viele Zucchinipflanzen brauche ich?
