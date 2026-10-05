@@ -74,6 +74,10 @@ Eine Besonderheit ist das Übernachten in sogenannten **Boofen**, also unter Fel
 
 Im Sommer 2022 brannte es auf beiden Seiten der Grenze in der Böhmischen und Sächsischen Schweiz. Auf deutscher Seite waren vor allem Gebiete in der hinteren Sächsischen Schweiz betroffen. In der Folge wurden zahlreiche Wege gesperrt, teils wegen Schäden, teils wegen umsturzgefährdeter Bäume. Einige Sperrungen wurden inzwischen aufgehoben, andere Wege wurden verlegt. Weil sich die Lage ändert, solltest du dich vor jeder Tour auf den Seiten der Nationalparkverwaltung informieren.
 
+## Tipps gegen den Andrang
+
+Die Sächsische Schweiz ist an schönen Wochenenden sehr gut besucht. Mit ein paar einfachen Regeln findest du trotzdem ruhige Wege: Starte früh, idealerweise mit einer der ersten S-Bahnen. Besuche die bekannten Aussichtspunkte am frühen Morgen oder am späten Nachmittag. Weiche auf die linkselbischen Tafelberge aus, die oft deutlich ruhiger sind als die Bastei. Und plane an Feiertagen lieber eine Tour abseits der großen Namen, etwa durch einen der vielen stillen Gründe.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für die Sächsische Schweiz?

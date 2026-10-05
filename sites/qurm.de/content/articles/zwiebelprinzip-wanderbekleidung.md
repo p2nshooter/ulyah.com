@@ -82,6 +82,16 @@ Die beste Ausrüstung nützt wenig, wenn du sie falsch einsetzt. Ein paar Regeln
 4. **Wind ernst nehmen.** Schon leichter Wind lässt die gefühlte Temperatur deutlich sinken. Am Grat ist die Windjacke oft wichtiger als eine dicke Fleecejacke.
 5. **Nasses wechseln.** Auf längeren Touren kann ein trockenes Shirt für den Gipfel oder die Pause sehr angenehm sein.
 
+## Kleidung als Sonnenschutz
+
+Im Hochsommer und in den Bergen ist Kleidung nicht nur Wärmeschutz, sondern auch Sonnenschutz. Mit zunehmender Höhe nimmt die UV-Strahlung zu, und auf Schneefeldern oder hellem Kalkgestein wird sie zusätzlich reflektiert. Ein leichtes, langärmliges Funktionsshirt in heller Farbe ist an sonnigen Tagen oft angenehmer als ein Träger-Top mit dicker Schicht Sonnencreme. Eine Kappe mit Nackenschutz oder ein Hut mit Krempe schützen Gesicht, Ohren und Nacken, die sonst schnell verbrennen. Achte darauf, dass die Kleidung locker sitzt und Luft durchlässt, damit du trotzdem nicht überhitzt.
+
+## Pflege, damit die Funktion erhalten bleibt
+
+Funktionskleidung hält viele Jahre, wenn du sie richtig behandelst. Wasch sie mit einem milden Waschmittel und verzichte auf Weichspüler, denn er verklebt die Fasern und verschlechtert den Feuchtigkeitstransport. Merino wäschst du im Wollprogramm oder per Hand und trocknest es liegend, damit es nicht verfilzt oder ausleiert.
+
+Regenjacken mit Membran solltest du ebenfalls regelmäßig waschen. Schmutz und Hautfett beeinträchtigen die Atmungsaktivität. Lässt die Außenseite Wasser nicht mehr abperlen, sondern saugt sich voll, hilft eine Nachimprägnierung, je nach Herstellerangabe als Waschimprägnierung oder als Spray. Manche Jacken reagieren auch auf Wärme, etwa durch einen kurzen Gang in den Trockner, wenn das Etikett das erlaubt.
+
 ## Beispiel: Was in den Rucksack gehört
 
 | Tour | Am Körper | Im Rucksack |

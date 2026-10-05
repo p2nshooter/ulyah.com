@@ -88,6 +88,12 @@ Bei Gewittergefahr wählst du kurze Touren mit Schutzmöglichkeiten oder verschi
 
 Nach jeder Wanderung durch Wiesen und Wald suchst du das Kind abends gründlich nach Zecken ab, besonders an Kopf, Hals, hinter den Ohren, in den Kniekehlen und im Windelbereich. Lange, helle Kleidung hilft, Zecken früher zu entdecken. Ein kleines Erste-Hilfe-Set mit Pflastern, Desinfektion und einer Zeckenkarte gehört bei Touren mit Kindern immer dazu.
 
+## Was sich als Ziel besonders bewährt hat
+
+Viele Familien machen ähnliche Erfahrungen, welche Landschaften bei kleinen Kindern gut ankommen. Bachtäler mit flachen Uferstellen stehen ganz oben auf der Liste, dicht gefolgt von Felsenlandschaften mit kleinen Höhlen und Spalten, wie es sie im Pfälzerwald, in der Fränkischen Schweiz oder im Elbsandsteingebirge gibt. Auch kurze Wege zu einem Aussichtsturm funktionieren gut, weil das Treppensteigen selbst schon ein Erlebnis ist. Weniger begeistert sind Kleinkinder meist von langen, gleichförmigen Wegen durch dichten Fichtenwald oder über offene Felder ohne Abwechslung.
+
+Ein Ausflugslokal oder eine Hütte mit Spielplatz am Ziel ist für viele Familien die perfekte Belohnung. Plane dort eine lange Pause ein. Für das Kind ist das oft der schönste Teil des Tages, und für dich die Gelegenheit, die Kraftreserven für den Rückweg aufzufüllen.
+
 ## Häufige Fragen
 
 ### Ab wann kann mein Kind selbst wandern?

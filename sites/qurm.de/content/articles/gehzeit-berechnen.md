@@ -86,6 +86,10 @@ Eine einfache Struktur für eine Tagestour könnte so aussehen:
 
 Die **Umkehrzeit** ist das wichtigste Element. Sie legt fest, wann du spätestens umkehrst, auch wenn du dein Ziel noch nicht erreicht hast. Wer das vorher festlegt, muss am Berg nicht diskutieren.
 
+## Tageslicht nicht vergessen
+
+Gerade im Frühjahr und Herbst unterschätzen viele, wie früh es dunkel wird. Ende Oktober geht die Sonne in Deutschland je nach Region schon zwischen etwa 16:30 und 17:00 Uhr unter, im tiefen Wald oder an Osthängen wird es noch früher schummrig. Vergleiche deshalb die berechnete Gesamtzeit inklusive Pausen mit der Zeit bis zum Sonnenuntergang und behalte mindestens eine Stunde Reserve. Eine Stirnlampe gehört trotzdem in jeden Rucksack, denn auch gut geplante Touren dauern manchmal länger.
+
 ## Das eigene Tempo kennenlernen
 
 Formeln sind Durchschnittswerte. Manche Menschen gehen deutlich schneller bergauf, andere sind im Abstieg langsamer, weil sie vorsichtig sind oder Knieprobleme haben. Notier dir nach einigen Touren, wie lange du für bestimmte Abschnitte gebraucht hast, oder nutz die Aufzeichnung einer Wander-App. Nach ein paar Wochen weißt du, ob du die Richtwerte mit einem Faktor korrigieren musst, etwa „bergauf zehn Prozent schneller, bergab zwanzig Prozent langsamer“.

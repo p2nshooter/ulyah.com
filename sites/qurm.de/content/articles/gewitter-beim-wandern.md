@@ -82,6 +82,12 @@ Menschen, die vom Blitz getroffen wurden, tragen keine elektrische Ladung und d�
 
 Gewitter bringen oft Starkregen. Wege können in kurzer Zeit zu Bächen werden, Steine werden glatt, kleine Rinnsale schwellen an. Prüf beim Weitergehen, ob Bäche gefahrlos zu queren sind, und meide steile, schlammige Hänge. In Klammen und engen Tälern kann das Wasser auch nach dem eigentlichen Regen noch steigen. Wenn ein Weg nicht mehr sicher wirkt, wähl die Alternative oder warte ab.
 
+## Gewitter auf Mehrtagestouren
+
+Auf einer Fernwanderung oder Hüttentour kannst du Gewittern nicht immer ausweichen, indem du einfach zu Hause bleibst. Umso wichtiger ist es, die Tagesetappen flexibel zu halten. Starte an Tagen mit Gewitterwarnung besonders früh und plane die exponierten Abschnitte für den Vormittag ein. Wenn das Wetter schlecht aussieht, ist ein Ruhetag in der Unterkunft oder auf der Hütte keine verlorene Zeit, sondern eine kluge Entscheidung. Hüttenwirtsleute kennen das lokale Wetter oft besser als jede App. Frag sie am Abend, wie sie den nächsten Tag einschätzen.
+
+Ein Regenradar auf dem Handy hilft dir unterwegs, die Zugrichtung von Gewitterzellen zu verfolgen. Verlass dich aber nicht allein darauf: Im Gebirge ist der Empfang oft schwach, und Gewitter können sich innerhalb kurzer Zeit direkt über dir neu bilden, ohne vorher auf dem Radar zu erscheinen.
+
 ## Häufige Fragen
 
 ### Schützt mich der Wald vor Blitzen?

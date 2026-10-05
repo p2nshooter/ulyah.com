@@ -61,6 +61,12 @@ Wildes Zelten ist im Nationalpark verboten. Das traditionelle Übernachten in Bo
 
 Der Malerweg ist für Bahnreisende ideal. Pirna liegt an der S-Bahn-Linie von Dresden durch das Elbtal, die weiter bis Bad Schandau und Schöna fährt. Mehrere Etappenorte erreichst du mit S-Bahn, Fähre, Bus oder der Kirnitzschtalbahn. Dadurch kannst du einzelne Etappen auch als Tagestouren gehen oder bei schlechtem Wetter eine Etappe abkürzen.
 
+## Woher der Name kommt
+
+Dass die Gegend heute Sächsische Schweiz heißt, geht der Überlieferung nach auf zwei Schweizer Künstler zurück, die im 18. Jahrhundert an der Dresdner Kunstakademie wirkten: den Maler Anton Graff und den Kupferstecher Adrian Zingg. Die Felsenlandschaft erinnerte sie an ihre Heimat, und ihre Ansichten machten die Region bei Künstlern und Reisenden bekannt. In der Romantik folgten viele weitere, und aus ihren Streifzügen entstand nach und nach ein Netz von Wegen, die heute als Vorbild für den Malerweg gelten.
+
+Unterwegs lohnt es sich, gelegentlich innezuhalten und die Landschaft mit den Augen dieser Zeit zu betrachten: die Felsen im Morgennebel, die Silhouette eines Tafelbergs im Gegenlicht, die tiefen Gründe mit ihren alten Buchen. Viele Aussichtspunkte tragen heute noch Namen, die an diese Epoche erinnern.
+
 ## Ausrüstung
 
 - Wanderschuhe mit griffiger Sohle; viele Stufen sind aus Sandstein und bei Nässe glatt
@@ -73,6 +79,16 @@ Der Malerweg ist für Bahnreisende ideal. Pirna liegt an der S-Bahn-Linie von Dr
 ## Die beste Jahreszeit
 
 Frühling und Herbst sind ideal. Im April und Mai blühen die Bäume, die Gründe sind grün und kühl. Im Oktober leuchten die Buchen, und das Licht ist besonders schön. Im Sommer kann es auf den Felsen sehr heiß werden, gleichzeitig ist dann am meisten los. Im Winter sind viele Stufen und Stiegen vereist; dann ist der Malerweg nur für erfahrene Wandernde mit Grödeln sinnvoll.
+
+## Typische Fehler bei der Planung
+
+**Zu knappe Zeitplanung:** Weil die Etappen kurz aussehen, planen manche Wandernde nachmittags noch Besichtigungen oder lange Anreisen ein. Die vielen Stufen und Fotostopps kosten aber mehr Zeit als gedacht. Gönn dir an jeder Etappe einen großzügigen Puffer.
+
+**Die Knie vergessen:** Die langen Treppenabstiege, etwa vom Brand oder von den Tafelbergen, gehen auf die Gelenke. Wer zu Knieproblemen neigt, sollte Stöcke mitnehmen und bergab bewusst langsam gehen.
+
+**Nicht nach Sperrungen schauen:** Nach Unwettern, Stürmen und dem Waldbrand 2022 sind einzelne Abschnitte zeitweise gesperrt oder umgeleitet worden. Ein kurzer Blick auf die Seiten der Nationalparkverwaltung und des regionalen Tourismusverbands vor dem Start erspart böse Überraschungen.
+
+**Am Wochenende auf die Bastei:** Wer die zweite Etappe an einem sonnigen Samstag mittags geht, teilt die Basteibrücke mit sehr vielen Menschen. Leg die Etappe wenn möglich auf einen Wochentag oder starte früh.
 
 ## Häufige Fragen
 
