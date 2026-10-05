@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="nacht" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d2129"/><stop offset="1" stop-color="#12151b"/></linearGradient>
+    <linearGradient id="kalk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#faf6ec"/><stop offset="1" stop-color="#e2d8c2"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8924a" stop-opacity="0"/><stop offset=".2" stop-color="#d9b25c"/><stop offset=".5" stop-color="#fff0c2"/><stop offset=".8" stop-color="#d9b25c"/><stop offset="1" stop-color="#b8924a" stop-opacity="0"/></linearGradient>
+    <linearGradient id="olive" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3f4724"/><stop offset=".5" stop-color="#5b6534"/><stop offset="1" stop-color="#3f4724"/></linearGradient>
+    <radialGradient id="schein" cx=".75" cy=".1" r=".7"><stop offset="0" stop-color="#e3c88a" stop-opacity=".22"/><stop offset="1" stop-color="#e3c88a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#nacht)"/>
+  <rect width="1200" height="630" fill="url(#schein)"/>
+  <g stroke="#e3c88a" stroke-opacity=".08" fill="none"><path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/></g>
+  <rect x="34" y="34" width="1132" height="562" rx="6" fill="none" stroke="#e3c88a" stroke-opacity=".55" stroke-width="2"/>
+  <rect x="46" y="46" width="1108" height="538" rx="4" fill="none" stroke="#e3c88a" stroke-opacity=".2" stroke-width="1.5"/>
+  <g transform="translate(700 120)" stroke="#cdbf9f" stroke-width="1.4">
+    <rect x="0" y="0" width="128" height="62" rx="2" fill="url(#kalk)"/><rect x="134" y="0" width="128" height="62" rx="2" fill="url(#kalk)"/><rect x="268" y="0" width="132" height="62" rx="2" fill="url(#kalk)"/>
+    <rect x="0" y="68" width="62" height="62" rx="2" fill="url(#kalk)"/><rect x="68" y="68" width="128" height="62" rx="2" fill="url(#kalk)"/><rect x="202" y="68" width="128" height="62" rx="2" fill="url(#kalk)"/><rect x="336" y="68" width="64" height="62" rx="2" fill="url(#kalk)"/>
+    <rect x="0" y="136" width="128" height="62" rx="2" fill="url(#kalk)"/><rect x="268" y="136" width="132" height="62" rx="2" fill="url(#kalk)"/>
+    <rect x="0" y="204" width="62" height="62" rx="2" fill="url(#kalk)"/><rect x="68" y="204" width="60" height="62" rx="2" fill="url(#kalk)"/><rect x="268" y="204" width="62" height="62" rx="2" fill="url(#kalk)"/><rect x="336" y="204" width="64" height="62" rx="2" fill="url(#kalk)"/>
+    <rect x="0" y="272" width="128" height="62" rx="2" fill="url(#kalk)"/><rect x="268" y="272" width="132" height="62" rx="2" fill="url(#kalk)"/>
+  </g>
+  <g transform="translate(700 120)">
+    <path d="M134 334V170l66-44 66 44v164z" fill="#e9dfca" stroke="#b8924a" stroke-width="3"/>
+    <path d="M148 334V176l52-34 52 34v158z" fill="url(#olive)"/>
+    <path d="M200 142v192" stroke="#2c3218" stroke-width="3"/>
+    <g fill="none" stroke="#d9b25c" stroke-width="2"><path d="M160 190h30v56h-30zM210 190h30v56h-30zM160 258h30v64h-30zM210 258h30v64h-30z"/><path d="M175 202l9 16-9 16-9-16zM225 202l9 16-9 16-9-16z"/></g>
+    <path d="M-10 201h420" stroke="#f3d98f" stroke-opacity=".45" stroke-width="9"/>
+    <path d="M-10 201h420" stroke="url(#gold)" stroke-width="3"/>
+  </g>
+  <text x="96" y="250" font-family="'EB Garamond', Garamond, Georgia, serif" font-size="128" letter-spacing="22" fill="#f6eedb">ZUFIQ</text>
+  <path d="M100 286h420" stroke="url(#gold)" stroke-width="3"/>
+  <text x="98" y="344" font-family="'EB Garamond', Garamond, Georgia, serif" font-style="italic" font-size="34" fill="#e3c88a">Zufrieden leben, findig ordnen,</text>
+  <text x="98" y="386" font-family="'EB Garamond', Garamond, Georgia, serif" font-style="italic" font-size="34" fill="#e3c88a">Qualität statt Menge</text>
+  <text x="98" y="462" font-family="'Red Hat Text', 'Segoe UI', Arial, sans-serif" font-size="26" fill="#d8d0bd">Gewohnheiten · Ordnung · Minimalismus</text>
+  <text x="98" y="500" font-family="'Red Hat Text', 'Segoe UI', Arial, sans-serif" font-size="26" fill="#d8d0bd">Digitale Ruhe · Bewusster Konsum · Schlaf</text>
+  <text x="98" y="556" font-family="'Red Hat Text', 'Segoe UI', Arial, sans-serif" font-size="22" letter-spacing="3" fill="#a3a874">zufiq.de</text>
+</svg>

@@ -1,0 +1,39 @@
+{
+  "domain": "zevok.de",
+  "name": "ZEVOK",
+  "expansion": "Zuverlässig erklärt, von Ofen bis Kragen",
+  "tagline": "Gründliche Anleitungen für Putzen, Flecken und Wäsche: verständlich, materialschonend und sicher",
+  "description": "ZEVOK ist ein Haushalts-Ratgeber: Putzen mit System und Putzpläne, Flecken entfernen nach Fleckart und Material, Wäsche waschen, trocknen und pflegen, Küche und Bad sauber halten und Hausmittel wie Essig, Natron oder Soda sicher einsetzen.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "zevok-de",
+  "worker": "zevok-de",
+  "themeColor": "#0f1f36",
+  "email": "kontakt@zevok.de",
+  "author": "ZEVOK Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/ratgeber/", "category": "/themen/" },
+  "categories": [
+    { "slug": "putzen-mit-system", "name": "Putzen mit System", "icon": "eimer", "description": "Putzpläne, die richtige Reihenfolge, gutes Werkzeug und Techniken für Böden, Fenster und Staub: so wird Putzen planbar, gründlich und spürbar schneller." },
+    { "slug": "flecken-entfernen", "name": "Flecken entfernen", "icon": "tropfen", "description": "Rotwein, Fett, Blut, Gras oder Kugelschreiber: Flecken nach Fleckart und Material behandeln, auf Kleidung, Teppich und Polster, sicher Schritt für Schritt." },
+    { "slug": "waesche-und-pflege", "name": "Wäsche & Pflege", "icon": "trommel", "description": "Sortieren, Temperatur, Dosierung, Pflegesymbole, Trocknen und Bügeln: Wäsche so waschen und pflegen, dass Kleidung, Handtücher und Bettwäsche lange schön bleiben." },
+    { "slug": "kueche-reinigen", "name": "Küche reinigen", "icon": "herd", "description": "Backofen, Kühlschrank, Spüle, Dunstabzug, Wasserkocher und Schneidebretter: die Küche hygienisch sauber halten, ohne Oberflächen und Geräte zu beschädigen." },
+    { "slug": "bad-und-wc", "name": "Bad & WC", "icon": "wanne", "description": "Kalk an Armaturen und Duschwand, Fugen, Urinstein, Abfluss und Schimmelvorsorge: Bad und WC gründlich reinigen und empfindliche Materialien dabei schonen." },
+    { "slug": "hausmittel", "name": "Hausmittel", "icon": "flasche", "description": "Essig, Natron, Zitronensäure, Soda und Gallseife: was jedes Hausmittel wirklich kann, wo es Schaden anrichtet und warum man Reiniger niemals mischen darf." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Sicher putzen", "href": "/sicherheit-beim-putzen/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}

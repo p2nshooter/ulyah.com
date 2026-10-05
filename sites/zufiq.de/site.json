@@ -1,0 +1,39 @@
+{
+  "domain": "zufiq.de",
+  "name": "ZUFIQ",
+  "expansion": "Zufrieden leben, findig ordnen, Qualität statt Menge",
+  "tagline": "Der Ratgeber für einen ruhigen Alltag: gute Gewohnheiten, weniger Ballast und mehr Zeit für das, was dir wichtig ist",
+  "description": "ZUFIQ ist ein Ratgeber für ein ruhiges, zufriedenes Leben: Routinen für Morgen und Abend, Ausmisten und Ordnungssysteme, digitale Ruhe, bewusster Konsum, Zeit- und Energieeinteilung und Schlaf als Gewohnheit, erklärt in gründlichen, alltagstauglichen Anleitungen.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "zufiq-de",
+  "worker": "zufiq-de",
+  "themeColor": "#1d2129",
+  "email": "kontakt@zufiq.de",
+  "author": "ZUFIQ Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/ratgeber/", "category": "/themen/" },
+  "categories": [
+    { "slug": "gewohnheiten-und-routinen", "name": "Gewohnheiten & Routinen", "icon": "sonne", "description": "Morgenroutine und Abendroutine, neue Gewohnheiten aufbauen, alte loslassen und einen Wochenrhythmus finden: kleine Schritte, die den Alltag leiser und verlässlicher machen." },
+    { "slug": "ausmisten-und-minimalismus", "name": "Ausmisten & Minimalismus", "icon": "kiste", "description": "Ausmisten Raum für Raum, Kleiderschrank, Erinnerungsstücke und Geschenke: Minimalismus ohne Dogma, damit bleibt, was du wirklich nutzt, brauchst oder liebst." },
+    { "slug": "ordnung-und-papierkram", "name": "Ordnung & Papierkram", "icon": "regal", "description": "Ordnungssysteme für Küche, Flur, Bad und Abstellraum, feste Plätze und Beschriftungen sowie eine Ablage für Papierkram und Unterlagen, die auch im vollen Alltag hält." },
+    { "slug": "digitale-ruhe", "name": "Digitale Ruhe", "icon": "telefon", "description": "Weniger Bildschirmzeit, stille Benachrichtigungen, ein aufgeräumtes E-Mail-Postfach und Ordnung bei Fotos und Dateien: Wege zu einem gelassenen Umgang mit Handy und Computer." },
+    { "slug": "bewusster-konsum", "name": "Bewusster Konsum", "icon": "waage", "description": "Kaufentscheidungen in Ruhe treffen, Spontankäufe bremsen, Abos prüfen, Dinge pflegen und weitergeben: bewusst konsumieren, ohne Verzicht als Strafe zu erleben." },
+    { "slug": "zeit-energie-und-schlaf", "name": "Zeit, Energie & Schlaf", "icon": "mond", "description": "Den Tag realistisch planen, Prioritäten setzen, Pausen einbauen, Kräfte einteilen und Schlaf als Gewohnheit pflegen: für Tage mit mehr Luft und Abende mit echter Ruhe." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Hilfe & Anlaufstellen", "href": "/hilfe-und-anlaufstellen/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}

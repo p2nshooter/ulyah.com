@@ -1,0 +1,39 @@
+{
+  "domain": "qulen.de",
+  "name": "QULEN",
+  "expansion": "Quelle des Lernens",
+  "tagline": "Erfundene Mutmachgeschichten vom Lernen und praktische Wege, die dir in Schule, Ausbildung und Studium wirklich weiterhelfen",
+  "description": "QULEN erzählt frei erfundene, ermutigende Geschichten von Schülerinnen und Schülern, Auszubildenden und Studierenden. Jede Geschichte endet mit einem Praxisteil: Lernplan, Prüfungsangst, Konzentration, Vokabeln, Mathe-Lücken, Referate und Motivation.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "qulen-de",
+  "worker": "qulen-de",
+  "themeColor": "#0b2c30",
+  "email": "kontakt@qulen.de",
+  "author": "QULEN Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+  "paths": { "article": "/lerngeschichten/", "category": "/themen/" },
+  "categories": [
+    { "slug": "lernplan-und-hausaufgaben", "name": "Lernplan & Hausaufgaben", "icon": "kalender", "description": "Lernplan erstellen, Wochenroutine finden, Aufschieben überwinden und Hausaufgaben ohne Streit erledigen: Geschichten und Anleitungen für einen Lernalltag mit Struktur." },
+    { "slug": "pruefungen-und-pruefungsangst", "name": "Prüfungen & Prüfungsangst", "icon": "sanduhr", "description": "Klassenarbeiten, Klausuren, Abitur und Abschlussprüfungen in Ausbildung und Studium: gut vorbereiten, mit Prüfungsangst umgehen und einen Blackout auffangen." },
+    { "slug": "konzentration-und-motivation", "name": "Konzentration & Motivation", "icon": "lampe", "description": "Ablenkung durch das Handy, der passende Lernort, Durchhalten nach Rückschlägen und Fehler als Lernchance: Motivation, die nicht nach Kalenderspruch klingt." },
+    { "slug": "vokabeln-und-lernmethoden", "name": "Vokabeln & Lernmethoden", "icon": "karteikarten", "description": "Vokabeln dauerhaft behalten, Karteikarten, verteiltes Wiederholen, Zusammenfassungen und Mindmaps: Lernmethoden, die dein Gedächtnis unterstützen statt es zu überfordern." },
+    { "slug": "mathe-und-lernluecken", "name": "Mathe & Lernlücken", "icon": "zirkel", "description": "Mathe-Lücken finden und schließen, Textaufgaben verstehen, Grundlagen nachholen und sinnvoll üben: wie Lernende wieder festen Boden unter die Füße bekommen." },
+    { "slug": "referate-und-praesentieren", "name": "Referate & Präsentieren", "icon": "tafel", "description": "Referate vorbereiten, Folien gestalten, frei sprechen, Lampenfieber zähmen und mündlich mitarbeiten: Schritt für Schritt vom leeren Blatt bis zum sicheren Vortrag." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Hilfe & Beratung", "href": "/hilfe-und-beratung/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}

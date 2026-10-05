@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#081325"/><stop offset=".6" stop-color="#13284a"/><stop offset="1" stop-color="#1e3c63"/></linearGradient>
+    <radialGradient id="s" cx=".72" cy=".42" r=".5"><stop offset="0" stop-color="#9fe3dc" stop-opacity=".35"/><stop offset="1" stop-color="#9fe3dc" stop-opacity="0"/></radialGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a2c12"/><stop offset=".25" stop-color="#9a6630"/><stop offset=".42" stop-color="#e9be7d"/><stop offset=".58" stop-color="#b47a3c"/><stop offset=".86" stop-color="#7a4b22"/><stop offset="1" stop-color="#3f250e"/></linearGradient>
+    <linearGradient id="l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4d9a8"/><stop offset="1" stop-color="#b47a3c"/></linearGradient>
+    <radialGradient id="w" cx=".42" cy=".4" r=".75"><stop offset="0" stop-color="#d8f6f1"/><stop offset=".45" stop-color="#6fd3cd"/><stop offset="1" stop-color="#1d8a8f"/></radialGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9a25f"/><stop offset=".5" stop-color="#fff1d0"/><stop offset="1" stop-color="#d9a25f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#h)"/>
+  <rect width="1200" height="630" fill="url(#s)"/>
+  <g fill="none" stroke="#d9a25f" opacity=".14"><circle cx="860" cy="270" r="80"/><circle cx="860" cy="270" r="130"/><circle cx="860" cy="270" r="180"/><circle cx="860" cy="270" r="230"/><circle cx="860" cy="270" r="280"/><circle cx="860" cy="270" r="330"/></g>
+  <rect x="24" y="24" width="1152" height="582" rx="26" fill="none" stroke="#d9a25f" stroke-width="2" opacity=".7"/>
+  <rect x="36" y="36" width="1128" height="558" rx="20" fill="none" stroke="#d9a25f" stroke-width="1" opacity=".35"/>
+  <g transform="translate(860 300)">
+    <g fill="url(#l)" stroke="#7a4b22" stroke-width="1.2">
+      <path d="M-190 0c-30-14-40-40-28-64 28 12 38 38 28 64z"/><path d="M190 0c30-14 40-40 28-64-28 12-38 38-28 64z"/>
+      <path d="M-120-32c-14-24-8-50 14-64 12 24 6 50-14 64z"/><path d="M120-32c14-24 8-50-14-64-12 24-6 50 14 64z"/>
+      <path d="M0-40c-14-26-12-54 0-74 12 20 14 48 0 74z"/>
+    </g>
+    <path d="M-196 0C-188 110-104 176-50 182H50C104 176 188 110 196 0z" fill="url(#b)"/>
+    <g fill="#f4d9a8" stroke="#6e4420" opacity=".9"><circle cx="-150" cy="56" r="6"/><circle cx="-112" cy="70" r="6"/><circle cx="-74" cy="78" r="6"/><circle cx="-36" cy="82" r="6"/><circle cx="0" cy="83" r="6"/><circle cx="36" cy="82" r="6"/><circle cx="74" cy="78" r="6"/><circle cx="112" cy="70" r="6"/><circle cx="150" cy="56" r="6"/></g>
+    <ellipse cx="0" cy="0" rx="200" ry="42" fill="url(#l)" stroke="#7a4b22" stroke-width="1.5"/>
+    <ellipse cx="0" cy="2" rx="182" ry="32" fill="url(#w)"/>
+    <path d="M-140-6c50-12 110-14 170-8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+    <g fill="none" stroke="#c9f1ec" stroke-width="2"><circle cx="-60" cy="-40" r="9"/><circle cx="20" cy="-70" r="6"/><circle cx="60" cy="-36" r="7"/></g>
+    <path d="M-70 182h140v20H-70z" fill="#6e4420"/><ellipse cx="0" cy="214" rx="120" ry="12" fill="#b47a3c"/>
+  </g>
+  <text x="96" y="236" font-family="Petrona, Georgia, serif" font-size="118" font-weight="700" letter-spacing="14" fill="url(#g)">ZEVOK</text>
+  <text x="100" y="292" font-family="Urbanist, Arial, sans-serif" font-size="30" fill="#9fe3dc">Zuverlässig erklärt, von Ofen bis Kragen</text>
+  <path d="M100 330h420" stroke="#d9a25f" stroke-width="2" opacity=".6"/>
+  <text x="100" y="392" font-family="Petrona, Georgia, serif" font-size="44" fill="#f5efe3">Haushalt leicht gemacht</text>
+  <text x="100" y="446" font-family="Urbanist, Arial, sans-serif" font-size="27" fill="#f5efe3" opacity=".85">Putzen mit System · Flecken entfernen</text>
+  <text x="100" y="484" font-family="Urbanist, Arial, sans-serif" font-size="27" fill="#f5efe3" opacity=".85">Wäsche &amp; Pflege · Hausmittel sicher nutzen</text>
+  <text x="100" y="556" font-family="Urbanist, Arial, sans-serif" font-size="24" font-weight="600" letter-spacing="3" fill="#d9a25f">ZEVOK.DE</text>
+</svg>
