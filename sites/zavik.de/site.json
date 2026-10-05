@@ -1,0 +1,39 @@
+{
+  "domain": "zavik.de",
+  "name": "ZAVIK",
+  "expansion": "Zarte Vierbeiner, kluge Katzenpflege",
+  "tagline": "Der Katzen-Ratgeber für ein gutes Leben mit Katze: verständlich, gründlich und mit Herz",
+  "description": "ZAVIK ist ein Ratgeber für Katzenhalterinnen und Katzenhalter: Einzug und Eingewöhnung, Ernährung, Gesundheit und Tierarztbesuch, Körpersprache und Verhalten, Wohnung und Freigang, Fellpflege und Alltag, erklärt in gründlichen Anleitungen für Anfänger und Erfahrene.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "zavik-de",
+  "worker": "zavik-de",
+  "themeColor": "#241a33",
+  "email": "kontakt@zavik.de",
+  "author": "ZAVIK Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/katzenwissen/", "category": "/themen/" },
+  "categories": [
+    { "slug": "einzug-und-eingewoehnung", "name": "Einzug & Eingewöhnung", "icon": "korb", "description": "Adoption aus dem Tierheim, Erstausstattung, die ersten Tage, Zweitkatze, Kinder und Hund: so gelingt der Start mit Katze." },
+    { "slug": "ernaehrung", "name": "Ernährung", "icon": "napf", "description": "Nassfutter und Trockenfutter, Trinken, Futterumstellung, Übergewicht und Etiketten: was Katzen wirklich brauchen." },
+    { "slug": "gesundheit", "name": "Gesundheit", "icon": "herz", "description": "Impfungen, Kastration, Parasiten, Zähne, Nieren und Warnzeichen: Gesundheitsvorsorge verständlich erklärt." },
+    { "slug": "verhalten", "name": "Verhalten", "icon": "ohr", "description": "Körpersprache, Schnurren, Miauen, Kratzen, Unsauberkeit und nächtliches Toben: Katzen besser verstehen." },
+    { "slug": "wohnung-und-freigang", "name": "Wohnung & Freigang", "icon": "fenster", "description": "Wohnungshaltung, Balkonnetz, Katzentoilette, Kratzbaum, giftige Pflanzen und der erste Freigang." },
+    { "slug": "pflege-und-alltag", "name": "Pflege & Alltag", "icon": "buerste", "description": "Fellpflege, Krallen, Spielen, Transportbox, Medikamente und Urlaub: der Alltag mit Katze, Schritt für Schritt." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Notfall & Tierarzt", "href": "/notfall-und-tierarzt/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}

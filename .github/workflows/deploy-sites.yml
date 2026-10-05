@@ -132,7 +132,14 @@ jobs:
           [ "$code" = "200" ] || { echo "::error::$base/ answered $code"; exit 1; }
           pub=$(node -p "(JSON.parse(require('fs').readFileSync('sites/$DOMAIN/site.json','utf8')).adsense||'').replace(/^ca-/,'')")
           if [ -n "$pub" ]; then
-            body=$(curl -s "$base/ads.txt")
+            # A brand-new Worker can answer "/" before every edge serves its
+            # other assets (Cloudflare error 1042), so give ads.txt the same
+            # patience as the front page.
+            for i in 1 2 3 4 5 6; do
+              body=$(curl -s "$base/ads.txt")
+              grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body" && break
+              sleep 10
+            done
             echo "ads.txt: $body"
             grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body" || { echo "::error::ads.txt does not authorise $pub"; exit 1; }
           fi
