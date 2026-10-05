@@ -465,6 +465,7 @@ Usulan niche (belum final):
 | 5 Okt | "Kerjakan secara bersamaan sisa web … tetep unik, tidak ada duplikat, tetep mewah" | 🔄 8 situs .de paralel (§4, Fase 6) |
 | 5 Okt | "Sekalian kerjakan ekosistem ulyah.com, axto.io banyak aplikasi yg hilang, xaa.es banyak yg blm dibuat" | 🔄 §11 — audit + PR per repo (ulyah.com, guardian-ai, xaa) |
 | 5 Okt | "Cari progres web .de pengajuan AdSense, lanjutkan, kalau selesai langsung deploy; perhatikan cuplikan AdSense, ads.txt & tag meta — khususnya yang masih kuning" | 🔄 Fase 6: 8 situs (rubiy, byoy, qurm, qarf, zufiq, zevok, zolun, qulen) |
+| 5 Okt | "Ini untuk persyaratan AdSense, pastikan mendekati 100% approve, CSS mewah, artikel tidak duplikat dan kualitas tinggi, penuhi persyaratan AdSense" | 🔄 gerbang tambahan sebelum deploy: cek duplikat lintas situs (kemiripan isi + judul), audit ala peninjau AdSense per situs, uji browser desktop + mobile |
 | 5 Okt | "Database CF masih tinggi, sy pengen seluruhnya di bawah 10 GB biar tetep free dan hemat D1" | 🔄 §11 — target total penyimpanan Cloudflare < 10 GB |
 | 4 Okt | "Fokus konten kualitas tinggi untuk AdSense, dengan CSS mewah … agar mendekati 100% approve" | 🔄 zuvik.de selesai (40 cerita tulisan tangan); 9 situs .de berikutnya menyusul |
 | 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | ✅ audit live 4 Okt: 17 situs OK 5693…, dawa.es tetap 6371… |
