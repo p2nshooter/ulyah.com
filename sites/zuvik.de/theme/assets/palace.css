@@ -1,0 +1,245 @@
+/* ZUVIK — Hof der Granatäpfel.
+   Lime-washed walls, pomegranate red, saffron light, terracotta tiles and an
+   olive tree's green. All classes are ZUVIK's own (hof-, fenster-, granat-).
+   Motion stops under prefers-reduced-motion. */
+
+:root {
+  --granat: #9e2b3c;
+  --granat-2: #6e1a28;
+  --granat-3: #3f0f17;
+  --safran: #e3a72f;
+  --safran-2: #f3cf7a;
+  --sand: #fbf4e6;
+  --sand-2: #f2e5cc;
+  --kalk: #fffaf1;
+  --lehm: #c97b52;
+  --lehm-2: #9d5b38;
+  --oliv: #5f7032;
+  --tinte: #2e1c1c;
+  --tinte-2: #5e4646;
+  --rand: rgba(110, 26, 40, 0.16);
+  --schatten: 0 18px 40px -22px rgba(63, 15, 23, 0.45);
+  --titel: "Young Serif", "Georgia", serif;
+  --text: "Mulish", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body.hof {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--tinte);
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(227, 167, 47, 0.16), transparent 60%),
+    radial-gradient(800px 500px at 100% 10%, rgba(158, 43, 60, 0.08), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%239e2b3c' stroke-opacity='.05' stroke-width='1.2'%3E%3Ccircle cx='60' cy='60' r='26'/%3E%3Cpath d='M60 20v80M20 60h80'/%3E%3C/g%3E%3C/svg%3E"),
+    var(--sand);
+}
+a { color: var(--granat); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--granat-2); }
+img, svg { max-width: 100%; }
+h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.22; color: var(--granat-3); }
+
+.hof-sprung { position: absolute; left: -999px; top: 8px; background: var(--granat); color: #fff; padding: 8px 14px; z-index: 100; border-radius: 6px; }
+.hof-sprung:focus { left: 12px; }
+
+/* ── Spanien 2026: Wimpelkette ───────────────────────────────────────── */
+.hof-wimpel { position: relative; background: linear-gradient(180deg, var(--granat-3), #2a0a10); color: #fff; overflow: hidden; }
+.hof-wimpel__schnur { position: absolute; left: 0; right: 0; top: 0; height: 22px; display: flex; justify-content: space-around; border-top: 1px solid rgba(243, 207, 122, 0.6); pointer-events: none; }
+.hof-wimpel__schnur i { display: block; width: 18px; height: 16px; clip-path: polygon(0 0, 100% 0, 50% 100%); background: linear-gradient(90deg, #c60b1e 0 33%, #ffc400 33% 66%, #c60b1e 66%); transform-origin: 50% 0; animation: wimpel-wehen 3.4s ease-in-out infinite; animation-delay: calc(var(--i) * -0.4s); opacity: 0.9; }
+.hof-wimpel__schnur i:nth-child(even) { background: #ffc400; }
+.hof-wimpel__text { position: relative; margin: 0; padding: 18px 16px 7px; text-align: center; font-size: 14.5px; letter-spacing: 0.02em; }
+.hof-wimpel__text strong { color: var(--safran-2); }
+.hof-wimpel__pokal { display: inline-block; filter: drop-shadow(0 0 6px rgba(255, 196, 0, 0.8)); animation: wimpel-glanz 2.8s ease-in-out infinite; }
+.hof-wimpel__ball { display: inline-block; animation: wimpel-ball 3s ease-in-out infinite; }
+@keyframes wimpel-wehen { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
+@keyframes wimpel-glanz { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18) rotate(-8deg); } }
+@keyframes wimpel-ball { 0%, 100% { transform: translateY(0) rotate(0); } 40% { transform: translateY(-5px) rotate(180deg); } 60% { transform: translateY(0) rotate(240deg); } }
+
+/* ── Kopf: Hoftor und Fenster ────────────────────────────────────────── */
+.hof-kopf { position: sticky; top: 0; z-index: 40; background: linear-gradient(180deg, var(--granat-2), var(--granat-3)); color: var(--sand); box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.55); }
+.hof-kopf::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: repeating-linear-gradient(90deg, var(--safran) 0 18px, var(--lehm) 18px 22px); }
+.hof-kopf__innen { position: relative; max-width: 1200px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; }
+.hof-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.hof-marke__frucht { width: 46px; height: 46px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35)); transition: transform 0.6s cubic-bezier(.2,.9,.3,1.3); }
+.hof-marke:hover .hof-marke__frucht { transform: rotate(-12deg) scale(1.06); }
+.hof-marke__texte { display: flex; flex-direction: column; line-height: 1.15; }
+.hof-marke__name { font-family: var(--titel); font-size: 24px; letter-spacing: 0.16em; color: var(--safran-2); }
+.hof-marke__lang { font-size: 12.5px; letter-spacing: 0.05em; color: rgba(251, 244, 230, 0.78); font-style: italic; }
+.hof-lesekerze { margin-left: auto; position: relative; width: 150px; height: 12px; border-radius: 6px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(243, 207, 122, 0.55); overflow: hidden; }
+.hof-lesekerze__licht { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--safran), #fff3c4); box-shadow: 0 0 12px rgba(243, 207, 122, 0.9); transition: transform 0.25s ease-out; }
+.hof:not(.hof--geschichte) .hof-lesekerze { visibility: hidden; }
+.hof-knopf { display: none; margin-left: 8px; background: transparent; color: var(--sand); border: 1px solid rgba(243, 207, 122, 0.6); border-radius: 16px 16px 4px 4px; padding: 6px 16px; font: 700 15px var(--text); cursor: pointer; }
+
+.hof-menue { position: relative; max-width: 1200px; margin: 0 auto; padding: 2px 16px 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+/* A menu item is a window in the evening wall: dark until you come near,
+   then the lamp inside comes on — warm saffron glow behind the mullions. */
+.fenster { position: relative; display: block; padding: 8px 16px; color: rgba(251, 244, 230, 0.92); text-decoration: none; font-size: 15px; font-weight: 700; border-radius: 16px 16px 4px 4px; border: 1px solid rgba(243, 207, 122, 0.35); background: rgba(0, 0, 0, 0.18); overflow: hidden; transition: color 0.35s, border-color 0.35s, box-shadow 0.35s; }
+.fenster::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 75%, #fff3c4, var(--safran) 55%, #c9821c); opacity: 0; transition: opacity 0.45s ease; }
+.fenster::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent calc(50% - 1px), rgba(110, 26, 40, 0.55) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(0deg, transparent calc(50% - 1px), rgba(110, 26, 40, 0.55) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); opacity: 0; transition: opacity 0.45s ease; }
+.fenster span { position: relative; z-index: 1; }
+.fenster:hover, .fenster:focus-visible, .fenster[aria-current="page"] { color: var(--granat-3); border-color: var(--safran-2); box-shadow: 0 0 18px rgba(243, 207, 122, 0.55); }
+.fenster:hover::before, .fenster:focus-visible::before, .fenster[aria-current="page"]::before { opacity: 1; }
+.fenster:hover::after, .fenster:focus-visible::after, .fenster[aria-current="page"]::after { opacity: 0.35; }
+.fenster--klein { font-weight: 400; color: var(--safran-2); }
+
+/* ── Startseite ──────────────────────────────────────────────────────── */
+.hof-start { padding: 56px 16px 40px; }
+.hof-start__innen { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 44px; align-items: center; }
+.hof-dachzeile, .hof-ueber__zeile { margin: 0 0 8px; font-size: 13px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lehm-2); }
+.hof-start__titel { margin: 0 0 14px; font-size: clamp(34px, 4.8vw, 58px); }
+.hof-start__titel em { font-style: normal; color: var(--granat); background: linear-gradient(transparent 64%, rgba(227, 167, 47, 0.4) 64%); }
+.hof-start__claim { margin: 0 0 12px; font-size: 21px; color: var(--granat-2); font-style: italic; }
+.hof-start__intro { margin: 0 0 24px; color: var(--tinte-2); }
+.hof-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.hof-taste { display: inline-block; padding: 13px 22px; border-radius: 22px 22px 6px 6px; background: linear-gradient(180deg, var(--granat), var(--granat-2)); color: #fff; font-weight: 800; text-decoration: none; box-shadow: 0 10px 22px -12px rgba(63, 15, 23, 0.9), inset 0 -3px 0 rgba(227, 167, 47, 0.6); transition: transform 0.2s; }
+.hof-taste:hover { color: #fff; transform: translateY(-2px); }
+.hof-taste--rahmen { background: transparent; color: var(--granat-2); border: 2px solid var(--granat-2); box-shadow: none; }
+.hof-taste--rahmen:hover { color: var(--granat-3); background: rgba(227, 167, 47, 0.15); }
+.hof-start__bild { filter: drop-shadow(0 24px 30px rgba(63, 15, 23, 0.3)); }
+.hof-bild__fenster path { fill: #4a1a22; transition: fill 0.6s; }
+.hof-bild__fenster .f1 { animation: licht-an 9s ease-in-out infinite; }
+.hof-bild__fenster .f2 { animation: licht-an 9s ease-in-out 1.6s infinite; }
+.hof-bild__fenster .f3 { animation: licht-an 9s ease-in-out 3.2s infinite; }
+.hof-bild__fenster .f4 { animation: licht-an 9s ease-in-out 4.8s infinite; }
+.hof-bild__baum { transform-origin: 300px 248px; animation: baum-wiegen 7s ease-in-out infinite; }
+.hof-bild__brunnen { animation: brunnen 2.4s ease-in-out infinite; }
+@keyframes licht-an { 0%, 15% { fill: #4a1a22; } 25%, 80% { fill: #f3cf7a; } 92%, 100% { fill: #4a1a22; } }
+@keyframes baum-wiegen { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+@keyframes brunnen { 0%, 100% { opacity: 0.45; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+.hof-ueber { max-width: 1200px; margin: 0 auto 22px; padding: 0 16px; text-align: center; }
+.hof-ueber h2 { margin: 0; font-size: clamp(27px, 3.3vw, 38px); }
+.hof-ueber::after { content: ""; display: block; width: 110px; height: 12px; margin: 12px auto 0; background: radial-gradient(circle at 50% 50%, var(--granat) 4px, transparent 5px) center / 22px 12px repeat-x; }
+
+.hof-raeume { padding: 30px 0 40px; }
+.hof-raeume__reihe { list-style: none; margin: 0 auto; padding: 0 16px; max-width: 1200px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.hof-tuer { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 28px 10px 18px; height: 100%; border-radius: 80px 80px 10px 10px; background: linear-gradient(180deg, var(--kalk), var(--sand-2)); border: 1px solid var(--rand); color: var(--granat-3); text-decoration: none; text-align: center; box-shadow: var(--schatten); transition: transform 0.3s, box-shadow 0.3s; overflow: hidden; }
+.hof-tuer::before { content: ""; position: absolute; left: 50%; top: 0; width: 140%; height: 70%; transform: translateX(-50%); background: radial-gradient(ellipse at 50% 0%, rgba(243, 207, 122, 0.55), transparent 70%); opacity: 0; transition: opacity 0.4s; }
+.hof-tuer:hover { transform: translateY(-6px); color: var(--granat); box-shadow: 0 26px 40px -22px rgba(158, 43, 60, 0.55); }
+.hof-tuer:hover::before { opacity: 1; }
+.hof-tuer__icon { position: relative; width: 40px; height: 40px; color: var(--granat); }
+.hof-tuer__name { position: relative; font-family: var(--titel); font-size: 17px; line-height: 1.25; }
+.hof-tuer__zahl { position: relative; font-size: 13px; color: var(--tinte-2); }
+
+.hof-raster { padding: 30px 0 50px; }
+.hof-raster__karten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.granat-karte { position: relative; border-radius: 26px 26px 12px 12px; background: linear-gradient(180deg, var(--kalk), var(--sand)); border: 1px solid var(--rand); box-shadow: var(--schatten); overflow: hidden; transition: transform 0.35s, box-shadow 0.35s; }
+.granat-karte::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(243, 207, 122, 0.42), transparent 55%); opacity: 0.35; transition: opacity 0.5s; pointer-events: none; }
+.granat-karte:hover { transform: translateY(-5px); box-shadow: 0 30px 46px -26px rgba(63, 15, 23, 0.55); }
+.granat-karte:hover::before { opacity: 1; }
+.granat-karte__link { position: relative; display: flex; flex-direction: column; height: 100%; padding: 22px 24px 18px; color: inherit; text-decoration: none; }
+.granat-karte__bogen { align-self: flex-start; display: grid; place-items: center; width: 54px; height: 62px; border-radius: 27px 27px 6px 6px; background: linear-gradient(180deg, var(--granat), var(--granat-2)); color: var(--safran-2); box-shadow: inset 0 -5px 0 var(--safran); margin-bottom: 12px; }
+.granat-karte__icon { width: 30px; height: 30px; }
+.granat-karte__raum { font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lehm-2); }
+.granat-karte__titel { margin: 6px 0 8px; font-size: 21px; color: var(--granat-3); }
+.granat-karte__text { margin: 0 0 14px; font-size: 15.5px; color: var(--tinte-2); flex: 1; }
+.granat-karte__fuss { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--tinte-2); border-top: 1px dashed var(--rand); padding-top: 10px; }
+.granat-karte__pfeil { color: var(--granat); transition: transform 0.25s; }
+.granat-karte:hover .granat-karte__pfeil { transform: translateX(5px); }
+
+.hof-verzeichnis { padding: 50px 0 60px; background: linear-gradient(180deg, var(--granat-2), var(--granat-3)); color: var(--sand); }
+.hof-ueber--dunkel h2 { color: var(--sand); }
+.hof-ueber--dunkel .hof-ueber__zeile { color: var(--safran-2); }
+.hof-ueber--dunkel::after { background-image: radial-gradient(circle at 50% 50%, var(--safran) 4px, transparent 5px); }
+.hof-verzeichnis__spalten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.hof-verzeichnis h3 { margin: 0 0 10px; font-size: 20px; }
+.hof-verzeichnis h3 a { display: flex; align-items: center; gap: 8px; color: var(--safran-2); text-decoration: none; }
+.hof-verzeichnis__icon { width: 26px; height: 26px; }
+.hof-verzeichnis ol { margin: 0; padding-left: 20px; font-size: 15.5px; }
+.hof-verzeichnis li { margin: 4px 0; }
+.hof-verzeichnis li a { color: rgba(251, 244, 230, 0.88); text-decoration: none; }
+.hof-verzeichnis li a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Raum (Kategorie) ────────────────────────────────────────────────── */
+.hof-raum { padding: 40px 16px 24px; text-align: center; }
+.hof-raum__innen { max-width: 780px; margin: 0 auto; }
+.hof-raum__icon { display: inline-grid; place-items: center; width: 86px; height: 98px; border-radius: 43px 43px 8px 8px; background: linear-gradient(180deg, var(--granat), var(--granat-2)); color: var(--safran-2); box-shadow: inset 0 -7px 0 var(--safran), var(--schatten); }
+.hof-raum__icon svg { width: 46px; height: 46px; }
+.hof-raum h1 { margin: 14px 0 8px; font-size: clamp(32px, 4.5vw, 48px); }
+.hof-raum__zahl { color: var(--granat); font-weight: 800; }
+.hof-pfad { font-size: 14.5px; color: var(--tinte-2); margin-bottom: 14px; }
+
+/* ── Geschichte ──────────────────────────────────────────────────────── */
+.hof-geschichte__kopf { max-width: 880px; margin: 0 auto; padding: 40px 16px 20px; text-align: center; }
+.hof-geschichte__titel { margin: 0 0 12px; font-size: clamp(30px, 4.2vw, 46px); }
+.hof-geschichte__intro { margin: 0 auto; max-width: 720px; font-size: 19px; color: var(--tinte-2); font-style: italic; }
+.hof-geschichte__koerper { max-width: 1200px; margin: 0 auto; padding: 10px 16px 30px; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 34px; align-items: start; }
+.hof-geschichte__koerper--eins { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.hof-sims { position: sticky; top: 150px; padding: 20px 18px; border-radius: 20px 20px 10px 10px; background: linear-gradient(180deg, var(--granat-2), var(--granat-3)); color: var(--sand); box-shadow: var(--schatten); border-top: 6px solid var(--safran); }
+.hof-sims__titel { margin: 0 0 8px; font-family: var(--titel); font-size: 17px; color: var(--safran-2); }
+.hof-sims__titel--b { margin-top: 18px; }
+.hof-sims dl { margin: 0; font-size: 14.5px; }
+.hof-sims dl div { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(251, 244, 230, 0.15); }
+.hof-sims dt { color: rgba(251, 244, 230, 0.7); }
+.hof-sims dd { margin: 0; text-align: right; font-weight: 700; }
+.hof-sims a { color: var(--safran-2); }
+.hof-sims__inhalt { margin: 0; padding-left: 20px; font-size: 14.5px; max-height: 50vh; overflow: auto; }
+.hof-sims__inhalt a { color: rgba(251, 244, 230, 0.85); text-decoration: none; }
+.hof-sims__inhalt a.an { color: #fff; font-weight: 800; }
+.hof-geschichte__text { background: var(--kalk); border: 1px solid var(--rand); border-radius: 18px; padding: 32px 40px; box-shadow: var(--schatten); }
+.hof-geschichte__text > p:first-child::first-letter { float: left; font-family: var(--titel); font-size: 3.4em; line-height: 0.82; padding: 6px 10px 0 0; color: var(--granat); }
+.hof-geschichte__text h2 { position: relative; margin: 2em 0 0.6em; font-size: 28px; padding-left: 30px; }
+.hof-geschichte__text h2::before { content: ""; position: absolute; left: 0; top: 0.22em; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #d84a5e, var(--granat-2)); box-shadow: 0 -5px 0 -3px var(--safran); }
+.hof-geschichte__text h3 { margin: 1.6em 0 0.4em; font-size: 22px; color: var(--granat-2); }
+.hof-geschichte__text p, .hof-geschichte__text li { color: var(--tinte); }
+.hof-geschichte__text ul, .hof-geschichte__text ol { padding-left: 24px; }
+.hof-geschichte__text li { margin: 0.35em 0; }
+.hof-geschichte__text li::marker { color: var(--granat); }
+.hof-geschichte__text table { width: 100%; border-collapse: collapse; margin: 1.2em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.hof-geschichte__text th { background: var(--granat-2); color: var(--sand); text-align: left; padding: 9px 12px; font-weight: 700; }
+.hof-geschichte__text td { padding: 9px 12px; border-bottom: 1px solid var(--rand); vertical-align: top; }
+.hof-geschichte__text tr:nth-child(even) td { background: rgba(242, 229, 204, 0.5); }
+.hof-geschichte__text blockquote { margin: 1.4em 0; padding: 14px 20px; border-left: 4px solid var(--safran); border-radius: 0 14px 14px 0; background: rgba(227, 167, 47, 0.12); font-style: italic; }
+.hof-hinweis { margin-top: 2em; padding: 16px 20px; border-radius: 22px 22px 8px 8px; background: rgba(95, 112, 50, 0.1); border: 1px solid rgba(95, 112, 50, 0.35); font-size: 16px; }
+.hof-hinweis p { margin: 0; }
+
+.hof-leer { max-width: 900px; margin: 0 auto; padding: 60px 16px; text-align: center; }
+.hof-leer__code { margin: 0; font-family: var(--titel); font-size: 96px; color: var(--granat); line-height: 1; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.hof-fuss { position: relative; background: var(--granat-3); color: rgba(251, 244, 230, 0.85); padding: 64px 0 20px; font-size: 15.5px; }
+.hof-fuss__dach { position: absolute; top: -1px; left: 0; right: 0; height: 26px; background: linear-gradient(135deg, var(--sand) 25%, transparent 25%) -13px 0 / 26px 26px, linear-gradient(225deg, var(--sand) 25%, transparent 25%) -13px 0 / 26px 26px; }
+.hof-fuss__innen { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
+.hof-fuss__name { margin: 0; font-family: var(--titel); font-size: 26px; letter-spacing: 0.16em; color: var(--safran-2); }
+.hof-fuss__lang { margin: 0 0 8px; color: var(--safran); font-style: italic; }
+.hof-fuss__titel { margin: 0 0 8px; font-family: var(--titel); color: var(--safran-2); font-size: 18px; }
+.hof-fuss ul { list-style: none; margin: 0; padding: 0; }
+.hof-fuss li { margin: 4px 0; }
+.hof-fuss a { color: rgba(251, 244, 230, 0.85); text-decoration: none; }
+.hof-fuss a:hover { color: #fff; text-decoration: underline; }
+.hof-fuss__hinweis { max-width: 1200px; margin: 30px auto 0; padding: 16px 16px 0; border-top: 1px solid rgba(251, 244, 230, 0.12); font-size: 13.5px; color: rgba(251, 244, 230, 0.62); }
+
+/* ── Bewegung beim Erscheinen ────────────────────────────────────────── */
+.hof-erscheint { opacity: 0; transform: translateY(18px); transition: opacity 0.6s, transform 0.6s; }
+.hof-erscheint.da { opacity: 1; transform: none; }
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1020px) {
+  .hof-raeume__reihe { grid-template-columns: repeat(3, 1fr); }
+  .hof-raster__karten, .hof-verzeichnis__spalten { grid-template-columns: repeat(2, 1fr); }
+  .hof-geschichte__koerper { grid-template-columns: minmax(0, 1fr); }
+  .hof-sims { position: static; }
+  .hof-lesekerze { width: 110px; }
+}
+@media (max-width: 760px) {
+  body.hof { font-size: 17px; }
+  .hof-start__innen { grid-template-columns: 1fr; }
+  .hof-start__bild { max-width: 440px; }
+  .hof-knopf { display: inline-block; margin-left: auto; }
+  .hof-lesekerze { display: none; }
+  .hof-menue { display: none; }
+  .hof-kopf.offen .hof-menue { display: flex; flex-direction: column; align-items: stretch; }
+  .hof-raeume__reihe, .hof-raster__karten, .hof-verzeichnis__spalten, .hof-fuss__innen { grid-template-columns: 1fr; }
+  .hof-raeume__reihe { grid-template-columns: repeat(2, 1fr); }
+  .hof-tuer { border-radius: 60px 60px 10px 10px; }
+  .hof-geschichte__text { padding: 22px 18px; }
+  .hof-wimpel__schnur i:nth-child(n+7) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .hof-erscheint { opacity: 1; transform: none; }
+}
