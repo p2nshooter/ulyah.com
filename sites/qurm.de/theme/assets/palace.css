@@ -1,0 +1,390 @@
+/* QURM — Der Turm auf dem Libanon (Hohelied 7:5).
+   Granite crag, cedar green, dawn apricot and snow. Menu items are trail
+   signposts that tilt on their nail while an elevation profile draws itself
+   beneath them. All classes are QURM's own (warte-, pfosten, wegtafel,
+   etappe, gipfelbuch). Motion stops under prefers-reduced-motion. */
+
+:root {
+  --granit: #3d4a52;
+  --granit-2: #2b353b;
+  --granit-3: #1d262b;
+  --granit-4: #151c20;
+  --granit-hell: #8a979e;
+  --zeder: #1f4d3a;
+  --zeder-2: #2d6a51;
+  --zeder-3: #163a2b;
+  --zeder-hell: #dbe8df;
+  --morgen: #f2a65a;
+  --morgen-2: #fbd9b0;
+  --morgen-3: #b8641f;
+  --morgen-4: #fff3e2;
+  --schnee: #f8f9f7;
+  --schnee-2: #eef1ed;
+  --schnee-3: #dfe5e0;
+  --tinte: #1d262b;
+  --tinte-2: #4c5960;
+  --rand: rgba(61, 74, 82, 0.16);
+  --schatten: 0 22px 46px -26px rgba(21, 28, 32, 0.55);
+  --titel: "Zilla Slab", "Rockwell", "Georgia", serif;
+  --text: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --breite: 1220px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body.warte {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 18px;
+  line-height: 1.72;
+  color: var(--tinte);
+  overflow-x: clip;
+  background:
+    radial-gradient(1000px 560px at 100% 0%, rgba(242, 166, 90, 0.16), transparent 62%),
+    radial-gradient(800px 520px at 0% 30%, rgba(31, 77, 58, 0.07), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%233d4a52' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M-10 60c40-30 80 10 120-10s70-40 140-10'/%3E%3Cpath d='M-10 90c50-26 90 14 130-6s70-34 130-6'/%3E%3Cpath d='M-10 130c40-20 90 18 130 0s80-30 130-4'/%3E%3Cpath d='M-10 170c50-16 80 16 130 2s80-24 130 0'/%3E%3Cpath d='M-10 212c40-10 90 12 130 0s80-18 130 2'/%3E%3C/g%3E%3C/svg%3E"),
+    var(--schnee);
+}
+a { color: var(--zeder); text-decoration-color: var(--morgen); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--morgen-3); }
+img, svg { max-width: 100%; }
+h1, h2, h3, h4 { font-family: var(--titel); font-weight: 600; line-height: 1.18; color: var(--granit-3); letter-spacing: 0.002em; }
+:focus-visible { outline: 3px solid var(--morgen); outline-offset: 3px; border-radius: 4px; }
+
+.warte-sprung { position: absolute; left: -999px; top: 8px; z-index: 100; background: var(--zeder); color: var(--schnee); padding: 8px 14px; border-radius: 6px; }
+.warte-sprung:focus { left: 12px; }
+
+/* ── Spanien 2026: Gipfelfahne und Wimpelkette ─────────────────────────── */
+.warte-wm { position: relative; overflow: hidden; color: var(--schnee); background: linear-gradient(90deg, var(--granit-4), var(--granit-3) 30%, var(--granit-2) 50%, var(--granit-3) 70%, var(--granit-4)); }
+.warte-wm__kette {
+  position: absolute; left: 0; right: 0; top: 0; height: 14px; opacity: 0.95;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='14' viewBox='0 0 44 14'%3E%3Cpath d='M0 1.5Q11 4 22 1.5T44 1.5' fill='none' stroke='%23f8f9f7' stroke-opacity='.55' stroke-width='1'/%3E%3Cpath d='M2 2.2l9 0.6-4.5 10z' fill='%23c60b1e'/%3E%3Cpath d='M24 2l9-0.4-4.6 10z' fill='%23ffc400'/%3E%3C/svg%3E") repeat-x 0 0 / 44px 14px;
+  animation: wm-kette 14s linear infinite;
+}
+.warte-wm__text { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; padding: 12px 16px 6px; font-size: 14.5px; letter-spacing: 0.03em; }
+.warte-wm__text strong { color: #ffc400; font-weight: 700; }
+.warte-wm__turm { flex: none; width: 38px; height: 33px; filter: drop-shadow(0 0 6px rgba(255, 196, 0, 0.35)); }
+@keyframes wm-kette { to { background-position: 44px 0; } }
+
+/* ── Kopf ────────────────────────────────────────────────────────────── */
+.warte-kopf {
+  position: sticky; top: 0; z-index: 40; color: var(--schnee);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "innen dienst" "wege wege" "hoehe hoehe";
+  padding: 0 max(16px, calc((100% - var(--breite)) / 2 + 16px));
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23f8f9f7' fill-opacity='.035'%3E%3Ccircle cx='14' cy='22' r='1.4'/%3E%3Ccircle cx='70' cy='12' r='1'/%3E%3Ccircle cx='96' cy='64' r='1.6'/%3E%3Ccircle cx='40' cy='88' r='1.1'/%3E%3Ccircle cx='108' cy='104' r='.9'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--granit-2), var(--granit-3) 78%, var(--granit-4));
+  box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid rgba(242, 166, 90, 0.28);
+}
+.warte-kopf__innen { grid-area: innen; display: flex; align-items: center; gap: 14px; padding: 10px 0 4px; min-width: 0; }
+.warte-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; min-width: 0; }
+.warte-marke:hover { color: inherit; }
+.warte-marke__bild { flex: none; width: 50px; height: 50px; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); transition: transform 0.5s cubic-bezier(.3, 1.4, .5, 1); }
+.warte-marke:hover .warte-marke__bild { transform: translateY(-2px) rotate(-4deg); }
+.warte-marke__licht { animation: licht 4.8s ease-in-out infinite; }
+.warte-marke__texte { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.warte-marke__name { font-family: var(--titel); font-weight: 700; font-size: 28px; letter-spacing: 0.24em; color: var(--schnee); }
+.warte-marke__name::first-letter { color: var(--morgen); }
+.warte-marke__motto { font-size: 12.5px; letter-spacing: 0.05em; color: rgba(248, 249, 247, 0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@keyframes licht { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+.warte-knopf { display: none; margin-left: auto; align-items: center; gap: 9px; background: rgba(248, 249, 247, 0.04); color: var(--schnee); border: 1px solid rgba(242, 166, 90, 0.6); border-radius: 999px; padding: 7px 16px; font: 600 15px var(--text); cursor: pointer; }
+.warte-knopf__striche { display: inline-flex; flex-direction: column; gap: 4px; }
+.warte-knopf__striche i { display: block; width: 18px; height: 2px; background: var(--morgen); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+.warte-kopf.offen .warte-knopf__striche i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.warte-kopf.offen .warte-knopf__striche i:nth-child(2) { opacity: 0; }
+.warte-kopf.offen .warte-knopf__striche i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Menu: every item is a wooden trail signpost nailed to its post. On hover
+   the board tilts on its nail and the elevation profile below draws itself. */
+.warte-wege { grid-area: wege; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 2px; padding: 4px 0 12px; }
+.warte-dienst { grid-area: dienst; display: flex; align-items: center; gap: 4px; padding: 10px 0 4px; }
+.pfosten { position: relative; display: inline-flex; flex-direction: column; align-items: flex-start; padding: 6px 2px 2px 8px; color: var(--schnee); text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }
+.pfosten::before { content: ""; position: absolute; left: 15px; top: 20px; bottom: 0; width: 3px; border-radius: 2px; background: linear-gradient(180deg, #b48658, #7a5a3c); }
+.pfosten__brett {
+  position: relative; z-index: 1; display: block; padding: 5px 20px 5px 13px; line-height: 1.25; white-space: nowrap;
+  background: linear-gradient(180deg, #2f6b52, var(--zeder) 60%, #1a4433);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transform-origin: 8px 50%; transition: transform 0.5s cubic-bezier(.34, 1.56, .64, 1), background 0.3s, color 0.3s;
+}
+.pfosten__brett::before { content: ""; position: absolute; left: 4px; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: #c9cfd2; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35); }
+.pfosten__profil { position: relative; z-index: 1; display: block; width: calc(100% - 6px); height: 12px; margin-top: 3px; overflow: visible; }
+.pfosten__profil path { fill: none; stroke: var(--morgen); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 0.9s cubic-bezier(.4, 0, .2, 1); }
+.pfosten:hover, .pfosten:focus-visible { color: var(--granit-4); }
+.pfosten:hover .pfosten__brett, .pfosten:focus-visible .pfosten__brett { transform: rotate(-5deg) translateY(-1px); background: linear-gradient(180deg, var(--morgen-2), var(--morgen) 70%, #e2914a); }
+.pfosten:hover .pfosten__profil path, .pfosten:focus-visible .pfosten__profil path { stroke-dashoffset: 0; }
+.pfosten[aria-current="page"] .pfosten__brett { background: linear-gradient(180deg, var(--morgen-2), var(--morgen)); color: var(--granit-4); }
+.pfosten[aria-current="page"] .pfosten__profil path { stroke-dashoffset: 0; stroke: var(--schnee); opacity: 0.8; }
+.pfosten--klein { font-size: 13.5px; font-weight: 500; }
+.pfosten--klein .pfosten__brett { background: rgba(248, 249, 247, 0.07); border: 0; box-shadow: inset 0 0 0 1px rgba(248, 249, 247, 0.16); }
+.pfosten--klein::before { display: none; }
+
+/* Reading progress: this guide's route profile fills toward the summit. */
+.warte-hoehe { grid-area: hoehe; position: relative; height: 22px; margin: 0 calc(-1 * max(16px, calc((100vw - var(--breite)) / 2 + 16px))); --p: 0; }
+.warte-hoehe svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.warte-hoehe__grund path { fill: rgba(248, 249, 247, 0.07); }
+.warte-hoehe__weg { clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
+.warte-hoehe__flaeche { fill: rgba(242, 166, 90, 0.32); }
+.warte-hoehe__linie { fill: none; stroke: var(--morgen); stroke-width: 2; }
+.warte-hoehe__fahne { position: absolute; bottom: 2px; left: calc(var(--p) * 100%); width: 14px; height: 18px; margin-left: -1px; pointer-events: none; }
+.warte-hoehe__fahne::before { content: ""; position: absolute; left: 0; bottom: 0; width: 2px; height: 18px; background: var(--schnee); border-radius: 1px; }
+.warte-hoehe__fahne::after { content: ""; position: absolute; left: 2px; top: 0; width: 12px; height: 8px; background: var(--morgen); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+
+/* ── Bausteine ───────────────────────────────────────────────────────── */
+.warte-ueber { max-width: var(--breite); margin: 0 auto 26px; padding: 0 16px; }
+.warte-ueber__zeile { margin: 0 0 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--morgen-3); }
+.warte-ueber h2 { margin: 0; font-size: clamp(28px, 3.6vw, 40px); }
+.warte-ueber--nacht .warte-ueber__zeile { color: var(--morgen); }
+.warte-ueber--nacht h2 { color: var(--schnee); }
+.warte-dachzeile { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--morgen-3); }
+.warte-dachzeile::before { content: ""; width: 28px; height: 2px; background: var(--morgen); }
+
+.warte-taste { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 4px 4px 4px 4px; background: var(--zeder); color: var(--schnee); text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 10px 24px -14px rgba(31, 77, 58, 0.9); transition: transform 0.3s, background 0.3s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); padding-right: 28px; }
+.warte-taste:hover { color: var(--granit-4); background: var(--morgen); transform: translateY(-2px); }
+.warte-taste--rahmen { background: transparent; color: var(--zeder); box-shadow: inset 0 0 0 2px var(--zeder); clip-path: none; padding-right: 22px; }
+.warte-taste--rahmen:hover { background: var(--zeder); color: var(--schnee); }
+
+.warte-pfad { font-size: 14px; color: var(--tinte-2); margin-bottom: 14px; }
+.warte-pfad a { color: inherit; }
+.warte-pfad span[aria-hidden] { margin: 0 4px; color: var(--morgen-3); }
+
+/* ── Start ───────────────────────────────────────────────────────────── */
+.warte-start { position: relative; padding: 54px 16px 64px; overflow: hidden; }
+.warte-start::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px; background: linear-gradient(180deg, transparent, rgba(31, 77, 58, 0.05)); pointer-events: none; }
+.warte-start__innen { max-width: var(--breite); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center; }
+.warte-start__titel { margin: 0 0 16px; font-size: clamp(38px, 5.4vw, 64px); font-weight: 700; line-height: 1.06; }
+.warte-start__titel em { font-style: italic; font-weight: 500; color: var(--morgen-3); background: linear-gradient(transparent 70%, rgba(242, 166, 90, 0.3) 70%); padding: 0 4px; }
+.warte-start__claim { margin: 0 0 14px; font-size: 20px; line-height: 1.5; color: var(--granit); font-weight: 500; }
+.warte-start__intro { margin: 0 0 26px; color: var(--tinte-2); max-width: 56ch; }
+.warte-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.warte-start__bild { position: relative; }
+.warte-start__bild::before { content: ""; position: absolute; inset: 8% -4% -6% 6%; border-radius: 32px; background: var(--zeder); opacity: 0.12; transform: rotate(3deg); }
+.warte-bild { position: relative; display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(21, 28, 32, 0.35)); }
+.warte-bild__sonne { animation: sonne 14s ease-in-out infinite alternate; }
+.warte-bild__glut { transform-origin: 170px 236px; animation: glut 6s ease-in-out infinite; }
+.warte-bild__sterne { animation: sterne 7s ease-in-out infinite; }
+.warte-bild__nebel--1 { animation: nebel 18s ease-in-out infinite alternate; }
+.warte-bild__nebel--2 { animation: nebel 24s ease-in-out infinite alternate-reverse; }
+.warte-bild__fenster, .warte-bild__schein { animation: licht 5s ease-in-out infinite; }
+.warte-bild__pfad { animation: pfad 3.6s linear infinite; }
+@keyframes sonne { from { transform: translateY(14px); } to { transform: translateY(-10px); } }
+@keyframes glut { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.08); opacity: 1; } }
+@keyframes sterne { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.35; } }
+@keyframes nebel { from { transform: translateX(-26px); } to { transform: translateX(30px); } }
+@keyframes pfad { to { stroke-dashoffset: -22; } }
+
+/* Topic tiles: trail boards on the path up to the tower. */
+.warte-tafeln { padding: 56px 0 30px; }
+.warte-tafeln__liste { list-style: none; max-width: var(--breite); margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; counter-reset: weg; }
+.wegtafel { position: relative; display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 22px 22px 16px; color: var(--tinte); text-decoration: none; background: linear-gradient(180deg, #fff, var(--schnee-2)); border: 1px solid var(--rand); border-radius: 6px 22px 6px 6px; box-shadow: var(--schatten); overflow: hidden; transition: transform 0.45s cubic-bezier(.3, 1.3, .5, 1), box-shadow 0.4s, border-color 0.4s; }
+.wegtafel::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--morgen), var(--zeder)); }
+.wegtafel:hover { color: var(--tinte); transform: translateY(-5px) rotate(-0.6deg); border-color: rgba(242, 166, 90, 0.6); box-shadow: 0 28px 50px -26px rgba(21, 28, 32, 0.6); }
+.wegtafel__brett { align-self: flex-start; padding: 2px 18px 2px 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--schnee); background: var(--zeder); clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%); }
+.wegtafel__icon { width: 46px; height: 46px; margin-top: 8px; color: var(--zeder); transition: color 0.3s, transform 0.4s; }
+.wegtafel:hover .wegtafel__icon { color: var(--morgen-3); transform: translateY(-2px); }
+.wegtafel__name { font-family: var(--titel); font-weight: 700; font-size: 24px; line-height: 1.2; color: var(--granit-3); }
+.wegtafel__text { font-size: 15.5px; line-height: 1.55; color: var(--tinte-2); flex: 1; }
+.wegtafel__zahl { font-size: 13.5px; font-weight: 600; color: var(--morgen-3); letter-spacing: 0.04em; }
+.wegtafel__profil { display: block; width: 100%; height: 26px; margin-top: 4px; }
+.wegtafel__profil path { fill: none; stroke: var(--zeder); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 62; opacity: 0.6; transition: stroke-dashoffset 1.1s cubic-bezier(.4, 0, .2, 1), stroke 0.3s; }
+.wegtafel:hover .wegtafel__profil path { stroke-dashoffset: 0; stroke: var(--morgen-3); opacity: 1; }
+
+/* Article cards: stage boards with their own little route profile. */
+.warte-raster { padding: 46px 0 56px; }
+.warte-raster--thema { padding-top: 40px; }
+.warte-raster--weiter { padding-top: 10px; border-top: 1px solid var(--rand); margin-top: 30px; padding-top: 46px; }
+.warte-raster__karten { max-width: var(--breite); margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.etappe { min-width: 0; }
+.etappe__link { display: flex; flex-direction: column; gap: 10px; height: 100%; padding: 20px 20px 16px; color: var(--tinte); text-decoration: none; background: #fff; border: 1px solid var(--rand); border-top: 4px solid var(--zeder); border-radius: 4px 4px 14px 14px; box-shadow: 0 16px 34px -26px rgba(21, 28, 32, 0.6); transition: transform 0.4s, border-color 0.3s, box-shadow 0.4s; }
+.etappe__link:hover { color: var(--tinte); transform: translateY(-4px); border-top-color: var(--morgen); box-shadow: var(--schatten); }
+.etappe__kopf { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--zeder-2); }
+.etappe__icon svg { width: 22px; height: 22px; display: block; }
+.etappe__titel { margin: 0; font-size: 21px; line-height: 1.25; color: var(--granit-3); }
+.etappe__link:hover .etappe__titel { color: var(--zeder); }
+.etappe__text { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--tinte-2); flex: 1; }
+.etappe__fuss { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px dashed var(--rand); }
+.etappe__zeit { font-size: 13.5px; color: var(--tinte-2); }
+.etappe__profil { width: 96px; height: 26px; flex: none; }
+.etappe__flaeche { fill: rgba(31, 77, 58, 0.12); }
+.etappe__linie { fill: none; stroke: var(--zeder); stroke-width: 1.6; stroke-linejoin: round; }
+.etappe__profil circle { fill: var(--morgen); stroke: #fff; stroke-width: 1.2; }
+
+/* Emergency band */
+.warte-notruf { padding: 20px 16px 64px; }
+.warte-notruf__innen { max-width: var(--breite); margin: 0 auto; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 34px; align-items: center; padding: 30px 36px; border-radius: 10px 34px 10px 10px; background: linear-gradient(120deg, var(--morgen-4), var(--morgen-2)); border: 1px solid rgba(184, 100, 31, 0.3); box-shadow: var(--schatten); }
+.warte-notruf__zahl { margin: 0; font-family: var(--titel); font-weight: 700; font-size: 88px; line-height: 1; color: #b3261e; letter-spacing: 0.02em; text-shadow: 0 2px 0 #fff; }
+.warte-notruf h2 { margin: 0 0 8px; font-size: 28px; }
+.warte-notruf p { margin: 0; color: var(--granit-2); }
+.warte-notruf a { color: var(--zeder); font-weight: 600; }
+
+/* Dark directory: the whole trail network at night. */
+.warte-netz { position: relative; padding: 72px 0 70px; color: var(--schnee); background: radial-gradient(800px 400px at 85% 0%, rgba(242, 166, 90, 0.14), transparent 60%), linear-gradient(180deg, var(--granit-3), var(--granit-4)); }
+.warte-netz::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 40px; background: var(--schnee); clip-path: polygon(0 0, 100% 0, 100% 20%, 92% 70%, 84% 30%, 74% 80%, 62% 25%, 52% 70%, 42% 20%, 30% 75%, 20% 30%, 10% 80%, 0 35%); }
+.warte-netz__spalten { max-width: var(--breite); margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 38px; }
+.warte-netz h3 { margin: 0 0 12px; font-size: 21px; padding-bottom: 10px; border-bottom: 1px solid rgba(242, 166, 90, 0.35); }
+.warte-netz h3 a { display: flex; align-items: center; gap: 10px; color: var(--schnee); text-decoration: none; }
+.warte-netz h3 a:hover { color: var(--morgen); }
+.warte-netz__icon { width: 28px; height: 28px; color: var(--morgen); flex: none; }
+.warte-netz ol { margin: 0; padding: 0; list-style: none; }
+.warte-netz li { position: relative; padding: 5px 0 5px 20px; font-size: 15.5px; line-height: 1.45; }
+.warte-netz li::before { content: ""; position: absolute; left: 2px; top: 13px; width: 8px; height: 6px; background: var(--granit-hell); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.warte-netz li a { color: rgba(248, 249, 247, 0.84); text-decoration: none; }
+.warte-netz li a:hover { color: var(--morgen); text-decoration: underline; }
+
+/* ── Themenseite ─────────────────────────────────────────────────────── */
+.warte-thema { position: relative; padding: 46px 16px 54px; color: var(--schnee); background: radial-gradient(700px 300px at 90% 100%, rgba(242, 166, 90, 0.28), transparent 60%), linear-gradient(160deg, var(--zeder), var(--zeder-3)); overflow: hidden; }
+.warte-thema::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 34px; background: var(--schnee); clip-path: polygon(0 100%, 0 60%, 8% 20%, 16% 70%, 26% 30%, 38% 80%, 50% 10%, 60% 60%, 72% 35%, 84% 75%, 94% 30%, 100% 55%, 100% 100%); }
+.warte-thema__innen { position: relative; z-index: 1; max-width: var(--breite); margin: 0 auto; }
+.warte-thema .warte-pfad { color: rgba(248, 249, 247, 0.75); }
+.warte-thema .warte-pfad span[aria-hidden] { color: var(--morgen); }
+.warte-thema__icon { display: inline-flex; align-items: center; gap: 12px; color: var(--morgen); }
+.warte-thema__icon svg { width: 52px; height: 52px; }
+.warte-thema__nr { font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--morgen-2); }
+.warte-thema h1 { margin: 10px 0 10px; font-size: clamp(36px, 5vw, 56px); color: var(--schnee); }
+.warte-thema p { max-width: 64ch; margin: 0 0 8px; color: rgba(248, 249, 247, 0.88); }
+.warte-thema__zahl { font-weight: 600; color: var(--morgen) !important; }
+
+/* ── Ratgeber ────────────────────────────────────────────────────────── */
+.warte-text { max-width: var(--breite); margin: 0 auto; padding: 40px 16px 20px; }
+.warte-text__kopf { max-width: 860px; margin: 0 0 30px; }
+.warte-text__titel { margin: 0 0 14px; font-size: clamp(32px, 4.6vw, 52px); font-weight: 700; line-height: 1.1; }
+.warte-text__intro { margin: 0; font-size: 20px; line-height: 1.55; color: var(--granit); }
+.warte-text__koerper { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 48px; align-items: start; }
+.warte-text__koerper--eins { grid-template-columns: minmax(0, 1fr); max-width: 800px; }
+.warte-text__inhalt { min-width: 0; max-width: 760px; }
+
+.gipfelbuch { position: sticky; top: 172px; max-height: calc(100vh - 190px); overflow: auto; padding: 22px 22px 18px; background: linear-gradient(180deg, #fff, var(--schnee-2)); border: 1px solid var(--rand); border-radius: 4px 20px 4px 4px; box-shadow: var(--schatten); font-size: 15px; }
+.gipfelbuch::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--zeder), var(--morgen)); border-radius: 4px 20px 0 0; }
+.gipfelbuch__titel { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-family: var(--titel); font-weight: 700; font-size: 19px; color: var(--granit-3); }
+.gipfelbuch__titel--b { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--rand); }
+.gipfelbuch__icon { width: 24px; height: 24px; color: var(--zeder); }
+.gipfelbuch dl { margin: 0; display: grid; gap: 8px; }
+.gipfelbuch dl div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 8px; }
+.gipfelbuch dt { font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tinte-2); padding-top: 2px; }
+.gipfelbuch dd { margin: 0; }
+.gipfelbuch__inhalt { margin: 0; padding: 0; list-style: none; counter-reset: wp; }
+.gipfelbuch__inhalt li { counter-increment: wp; position: relative; padding: 4px 0 4px 30px; line-height: 1.35; }
+.gipfelbuch__inhalt li::before { content: counter(wp); position: absolute; left: 0; top: 4px; width: 21px; height: 19px; font-size: 11px; font-weight: 700; color: var(--schnee); background: var(--granit-hell); display: grid; place-items: center; clip-path: polygon(50% 0, 100% 100%, 0 100%); padding-top: 5px; transition: background 0.3s; }
+.gipfelbuch__inhalt a { color: var(--tinte-2); text-decoration: none; font-size: 14.5px; }
+.gipfelbuch__inhalt a:hover, .gipfelbuch__inhalt a.an { color: var(--zeder); }
+.gipfelbuch__inhalt li:has(a.an)::before { background: var(--morgen); }
+
+.warte-text__inhalt > p:first-child { font-size: 19.5px; }
+.warte-text__inhalt h2 { position: relative; margin: 2.1em 0 0.6em; padding-left: 34px; font-size: clamp(25px, 2.8vw, 31px); scroll-margin-top: 180px; }
+.warte-text__inhalt h2::before { content: ""; position: absolute; left: 0; top: 0.3em; width: 22px; height: 18px; background: linear-gradient(180deg, var(--morgen), var(--morgen-3)); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.warte-text__inhalt h2::after { content: ""; position: absolute; left: 7px; top: 0.3em; width: 8px; height: 6px; background: var(--schnee); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.warte-text__inhalt h3 { margin: 1.7em 0 0.4em; font-size: 22px; color: var(--zeder); scroll-margin-top: 180px; }
+.warte-text__inhalt h4 { margin: 1.4em 0 0.3em; font-size: 19px; }
+.warte-text__inhalt p { margin: 0 0 1.1em; }
+.warte-text__inhalt ul, .warte-text__inhalt ol { margin: 0 0 1.3em; padding-left: 26px; }
+.warte-text__inhalt li { margin: 0 0 0.45em; }
+.warte-text__inhalt ul { list-style: none; padding-left: 24px; }
+.warte-text__inhalt ul li { position: relative; }
+.warte-text__inhalt ul li::before { content: ""; position: absolute; left: -20px; top: 0.62em; width: 10px; height: 8px; background: var(--zeder-2); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.warte-text__inhalt ol li::marker { font-family: var(--titel); font-weight: 700; color: var(--morgen-3); }
+.warte-text__inhalt strong { color: var(--granit-3); }
+.warte-text__inhalt blockquote { position: relative; margin: 1.6em 0 1.8em; padding: 22px 24px 8px 26px; background: linear-gradient(135deg, var(--zeder-hell), #eef5f0); border-left: 5px solid var(--zeder); border-radius: 4px 20px 20px 4px; }
+.warte-text__inhalt blockquote::after { content: ""; position: absolute; right: 18px; top: -12px; width: 22px; height: 26px; background: linear-gradient(180deg, var(--morgen) 60%, transparent 60%); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%); }
+.warte-text__inhalt blockquote p:first-child strong:only-child { font-family: var(--titel); font-size: 21px; color: var(--zeder); }
+.warte-text__inhalt blockquote ul li::before { background: var(--morgen-3); }
+.table-wrap { margin: 1.4em 0 1.8em; overflow-x: auto; border: 1px solid var(--rand); border-radius: 8px; background: #fff; box-shadow: 0 14px 30px -26px rgba(21, 28, 32, 0.6); }
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.45; }
+.table-wrap th { text-align: left; padding: 11px 14px; background: var(--granit-2); color: var(--schnee); font-weight: 600; font-size: 14px; letter-spacing: 0.02em; }
+.table-wrap td { padding: 10px 14px; border-top: 1px solid var(--rand); vertical-align: top; }
+.table-wrap tbody tr:nth-child(even) td { background: var(--schnee-2); }
+.warte-text__inhalt hr { border: 0; height: 18px; margin: 2em 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18'%3E%3Cpath d='M0 16l20-8 14 5 22-11 18 9 16-6 30 11' fill='none' stroke='%23f2a65a' stroke-width='2'/%3E%3C/svg%3E") center / 120px 18px no-repeat; }
+.warte-text__inhalt code { font-size: 0.9em; background: var(--schnee-3); padding: 1px 6px; border-radius: 4px; }
+.warte-hinweis { margin: 2.6em 0 0; padding: 18px 22px; border-radius: 6px; background: var(--morgen-4); border: 1px solid rgba(184, 100, 31, 0.28); font-size: 16px; line-height: 1.6; }
+.warte-hinweis p { margin: 0; }
+
+/* ── 404 ─────────────────────────────────────────────────────────────── */
+.warte-leer { max-width: var(--breite); margin: 0 auto; padding: 60px 16px 70px; text-align: center; }
+.warte-leer__code { margin: 0; font-family: var(--titel); font-weight: 700; font-size: clamp(90px, 16vw, 160px); line-height: 1; color: transparent; background: linear-gradient(180deg, var(--morgen), var(--zeder)); -webkit-background-clip: text; background-clip: text; }
+.warte-leer h1 { margin: 6px 0 10px; font-size: 38px; }
+.warte-leer > p { max-width: 56ch; margin: 0 auto 30px; color: var(--tinte-2); }
+.warte-tafeln__liste--flach { padding: 0; text-align: left; }
+.warte-tafeln__liste--flach .wegtafel { padding-bottom: 20px; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.warte-fuss { position: relative; margin-top: 86px; color: rgba(248, 249, 247, 0.8); background: var(--granit-4); font-size: 15.5px; }
+.warte--start .warte-fuss { margin-top: 0; }
+.warte--start .warte-fuss__grat { display: none; }
+.warte-fuss__grat { position: absolute; left: 0; bottom: 100%; width: 100%; height: 70px; display: block; }
+.warte-fuss__grat path:first-child { fill: var(--granit-3); }
+.warte-fuss__grat path:last-child { fill: var(--granit-4); }
+.warte-fuss__innen { max-width: var(--breite); margin: 0 auto; padding: 46px 16px 26px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
+.warte-fuss__name { display: flex; align-items: center; gap: 12px; margin: 0; font-family: var(--titel); font-size: 30px; font-weight: 700; letter-spacing: 0.22em; color: var(--schnee); }
+.warte-fuss__marke { width: 46px; height: 46px; }
+.warte-fuss__motto { margin: 2px 0 12px; color: var(--morgen); font-size: 14px; letter-spacing: 0.04em; }
+.warte-fuss__titel { margin: 0 0 10px; font-family: var(--titel); font-weight: 700; font-size: 18px; color: var(--morgen); letter-spacing: 0.06em; }
+.warte-fuss ul { list-style: none; margin: 0; padding: 0; }
+.warte-fuss li { padding: 3px 0; }
+.warte-fuss a { color: rgba(248, 249, 247, 0.85); text-decoration: none; }
+.warte-fuss a:hover { color: var(--morgen); text-decoration: underline; }
+.warte-fuss__hinweis { max-width: var(--breite); margin: 0 auto; padding: 18px 16px 30px; border-top: 1px solid rgba(248, 249, 247, 0.1); font-size: 13.5px; line-height: 1.6; color: rgba(248, 249, 247, 0.62); }
+.warte-fuss__hinweis strong { color: var(--morgen); }
+
+/* Scroll reveal (only when JS + motion are allowed). */
+.warte-erscheint { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2, .8, .3, 1); }
+.warte-erscheint.da { opacity: 1; transform: none; }
+
+/* ── Responsiv ───────────────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .warte-tafeln__liste, .warte-raster__karten, .warte-netz__spalten { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .warte-text__koerper { grid-template-columns: 250px minmax(0, 1fr); gap: 34px; }
+}
+@media (max-width: 900px) {
+  .warte-kopf { grid-template-columns: minmax(0, 1fr); grid-template-areas: "innen" "wege" "dienst" "hoehe"; }
+  .warte-knopf { display: inline-flex; }
+  .warte-wege, .warte-dienst { display: none; }
+  .warte-kopf.offen .warte-wege { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 8px; padding: 8px 0 4px; }
+  .warte-kopf.offen .warte-dienst { display: flex; flex-wrap: wrap; padding: 4px 0 14px; border-top: 1px solid rgba(248, 249, 247, 0.1); }
+  .warte-kopf.offen { max-height: 100vh; overflow-y: auto; }
+  .pfosten__brett { white-space: normal; }
+  .warte-start { padding-top: 36px; }
+  .warte-start__innen { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .warte-start__bild { max-width: 520px; }
+  .warte-text__koerper { grid-template-columns: minmax(0, 1fr); }
+  .gipfelbuch { position: relative; top: 0; max-height: none; }
+  .warte-fuss__innen { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .warte-fuss__innen > section { grid-column: 1 / -1; }
+}
+@media (max-width: 620px) {
+  body.warte { font-size: 17px; }
+  .warte-wm__text { font-size: 13px; gap: 8px; }
+  .warte-wm__turm { width: 30px; height: 26px; }
+  .warte-marke__bild { width: 42px; height: 42px; }
+  .warte-marke__name { font-size: 23px; }
+  .warte-marke__motto { font-size: 11px; max-width: 46vw; }
+  .warte-knopf { padding: 6px 12px; font-size: 14px; }
+  .warte-tafeln__liste, .warte-raster__karten, .warte-netz__spalten { grid-template-columns: minmax(0, 1fr); }
+  .warte-notruf__innen { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 24px 22px; }
+  .warte-notruf__zahl { font-size: 64px; }
+  .warte-start__claim { font-size: 18px; }
+  .warte-text__intro { font-size: 18px; }
+  .warte-text__inhalt > p:first-child { font-size: 18px; }
+  .warte-text__inhalt h2 { padding-left: 30px; }
+  .table-wrap table { font-size: 14.5px; }
+  .warte-fuss__innen { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .warte-bild animate, .warte-wm animate { display: none; }
+  .pfosten__profil path { stroke-dashoffset: 0; opacity: 0.6; }
+  .warte-erscheint { opacity: 1; transform: none; }
+}
+
+@media print {
+  .warte-wm, .warte-kopf, .gipfelbuch, .warte-fuss, .warte-raster--weiter, .warte-hinweis { display: none !important; }
+  body.warte { background: #fff; font-size: 12pt; }
+  .warte-text__koerper { display: block; }
+}
+
+/* On wide screens the mark already leads home, so the "Start" post steps
+   aside and all six topic posts fit on one row. */
+@media (min-width: 901px) {
+  .warte-wege .pfosten:first-child { display: none; }
+}
