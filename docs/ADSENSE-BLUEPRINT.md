@@ -402,7 +402,7 @@ Usulan niche (belum final):
 | # | Pekerjaan | Status |
 |---|---|---|
 | 5.1 | Kompres database sampai di bawah 7 GB | ⏸️ |
-| 5.2 | Perbaiki "seluruh kitab tidak muncul" di ulyah.com | ⏸️ |
+| 5.2 | Perbaiki "seluruh kitab tidak muncul" di ulyah.com | 🟡 PR #303 (kitab dari file statis; cek live setelah deploy) |
 
 ---
 
@@ -552,7 +552,17 @@ bawah 10 GB biar tetep free dan hemat D1, catet blueprint ini."**
 | Bagian | Repo | Isi | Status |
 |---|---|---|---|
 | 11.1 Audit penyimpanan D1/R2 + rencana < 10 GB | ulyah.com, guardian-ai | ukuran per database/tabel, apa yang bisa dipindah/dipadatkan/dibuang, migrasi aman | 🔄 |
-| 11.2 Ekosistem ulyah.com | ulyah.com | kitab hilang/tidak konsisten, audio hilang, tautan & halaman rusak | 🔄 |
+| 11.2 Ekosistem ulyah.com | ulyah.com | kitab hilang/tidak konsisten, audio hilang, tautan & halaman rusak | 🔄 kitab: 🟡 PR #303 |
 | 11.3 axto.io: aplikasi yang hilang | guardian-ai | bandingkan daftar aplikasi (7 cloud + 10 self-hosted) dengan yang hidup; pulihkan | 🔄 |
 | 11.4 xaa.es: bagian yang belum dibuat | xaa | menu/fitur/halaman yang masih kosong atau placeholder; tetap biru bisnis | 🔄 |
+
+### 11.2 Kitab hilang: akar masalah & perbaikan (PR #303)
+
+Data kitab di D1 tidak terhapus. Halaman kitab membaca D1 per render. Saat
+kuota baca harian D1 habis (7500), API menjawab 500, halaman merender rak
+kosong, dan cache R2 menyimpannya sehari. Deploy saat kuota habis bahkan
+memprerender rak kosong ke dalam rilis. Sejak PR #303, katalog (4.969 karya)
+dan kitab pesantren (32 kitab) dibangun dari file seed yang sama menjadi JSON
+statis (`scripts/build-kitab-static.ts`, `apps/web/public/kitab-data`).
+Hasilnya: 0 baca D1 untuk index, rak, dan beranda, serta +0 byte D1/R2.
 
