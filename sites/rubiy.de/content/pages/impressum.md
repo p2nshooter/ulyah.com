@@ -32,6 +32,10 @@ Einige Seiten enthalten Links zu externen Angeboten, etwa zu Behörden oder Verb
 
 Texte, Rezepte in ihrer konkreten Ausformulierung, Grafiken und das Design dieser Website unterliegen dem deutschen Urheberrecht. Du darfst Rezepte für den privaten Gebrauch ausdrucken und nachkochen. Kurze Zitate mit Quellenangabe und Link sind erlaubt. Jede weitergehende Vervielfältigung oder Verwertung bedarf der vorherigen schriftlichen Zustimmung.
 
+## Korrekturen
+
+Wenn dir in einem Rezept oder Ratgeber ein Fehler auffällt, etwa eine falsche Menge, Temperatur oder Garzeit, schreib uns bitte an die oben genannte Adresse. Berechtigte Hinweise prüfen wir zeitnah und korrigieren den Beitrag.
+
 ## Streitbeilegung
 
 Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.

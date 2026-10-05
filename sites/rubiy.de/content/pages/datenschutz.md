@@ -2,7 +2,7 @@
 title: Datenschutzerklärung
 description: Welche personenbezogenen Daten rubiy.de verarbeitet, zu welchem Zweck, auf welcher Rechtsgrundlage und welche Rechte du nach der DSGVO hast.
 order: 11
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 Der Schutz deiner Daten ist uns wichtig. Diese Erklärung informiert dich nach Art. 13 DSGVO darüber, welche Daten beim Besuch von rubiy.de verarbeitet werden.
 
@@ -17,6 +17,10 @@ Die Website wird über das Netzwerk von Cloudflare ausgeliefert. Beim Aufruf ein
 ## Reichweitenmessung
 
 Wir zählen Seitenaufrufe anonym und ohne Cookies: Übermittelt werden nur der Name der Website und der aufgerufene Pfad, keine Kennung, die dich wiedererkennt.
+
+## Schriften von Google Fonts
+
+Für eine einheitliche Darstellung lädt diese Website Schriftarten von Google Fonts (Google Ireland Limited). Beim Aufruf einer Seite stellt dein Browser dazu eine Verbindung zu Servern von Google her, wobei technisch bedingt deine IP-Adresse übermittelt wird. Rechtsgrundlage ist unser berechtigtes Interesse an einer ansprechenden und gut lesbaren Darstellung (Art. 6 Abs. 1 lit. f DSGVO).
 
 ## Werbung mit Google AdSense
 

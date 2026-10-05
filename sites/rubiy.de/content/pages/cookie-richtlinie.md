@@ -2,7 +2,7 @@
 title: Cookie-Richtlinie
 description: Welche Cookies und ähnlichen Technologien rubiy.de verwendet, wofür sie dienen und wie du deine Einwilligung verwaltest oder widerrufst.
 order: 12
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 Diese Richtlinie erklärt, wie rubiy.de Cookies und vergleichbare Technologien wie lokale Speicher verwendet.
 
@@ -13,6 +13,14 @@ Cookies sind kleine Textdateien, die eine Website im Browser speichert. Ähnlich
 ## Technisch notwendige Speicherung
 
 RUBIY selbst setzt keine Cookies zur Wiedererkennung. Wir speichern im Sitzungsspeicher deines Browsers lediglich, ob die kurze Feier-Animation zur Fußball-WM 2026 bereits gezeigt wurde, damit sie dich nicht bei jedem Seitenaufruf erneut stört. Diese Information verlässt deinen Browser nicht.
+
+## Reichweitenmessung ohne Cookies
+
+Um zu erfahren, welche Rezepte und Ratgeber gelesen werden, sendet jede Seite beim Aufruf eine kurze Meldung mit dem Namen der Website und dem aufgerufenen Pfad, also etwa „/kueche/rhabarberkuchen/“. Dabei wird kein Cookie gesetzt und keine Kennung in deinem Browser gespeichert. Wir sehen nur, wie oft eine Seite insgesamt aufgerufen wurde, nicht, wer sie gelesen hat.
+
+## Schriften
+
+Die Schriften dieser Website werden über Google Fonts geladen. Dabei setzt Google nach eigenen Angaben keine Cookies, dein Browser übermittelt aber technisch bedingt deine IP-Adresse an die Server von Google. Einzelheiten stehen in der Datenschutzerklärung.
 
 ## Werbe-Cookies von Google AdSense
 
