@@ -18,8 +18,8 @@
 //   · directory   — the dark press house ("Kelterhaus") where everything is
 //                   gathered
 //   · progress    — a tendril that grows along the header while you read
-//   · Spain 2026  — a garland of red tomatoes and yellow peppers on a vine
-//                   across the banner; the confetti falls as tomatoes.
+//   · Spain 2026  — a string of red and yellow tomatoes on a vine across
+//                   the banner; the confetti falls as red and yellow tomatoes.
 // No figures of people or animals: only stone, wood, soil, plants and light.
 // Every class here (hamon-, rebzeile, lese) is BYOY's own.
 
@@ -61,8 +61,14 @@ const traube = (cls = "") => {
   </svg>`;
 };
 
-/** Spanien, Weltmeister 2026 — a vine garland strung across the banner with
- * red tomatoes and yellow peppers swinging from it. */
+/** Spanien, Weltmeister 2026 — a tomato vine strung across the banner like
+ * a garland, with red and yellow tomatoes swinging from it. */
+const tomate = (x, y, r, farbe) =>
+  `<circle cx="${x}" cy="${y}" r="${r}" fill="${farbe}"/>` +
+  `<path d="M${x - r * 0.9} ${y - r * 0.15}c${r * 0.5} ${r * 0.25} ${r * 1.3} ${r * 0.25} ${r * 1.8} 0" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="1"/>` +
+  `<path d="M${x} ${y - r}l${r * 0.36} ${r * 0.42} ${r * 0.5}-.1-${r * 0.3} ${r * 0.36}M${x} ${y - r}l-${r * 0.36} ${r * 0.42}-${r * 0.5}-.1 ${r * 0.3} ${r * 0.36}" fill="none" stroke="#3f6a2c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>` +
+  `<circle cx="${x - r * 0.38}" cy="${y - r * 0.32}" r="${r * 0.24}" fill="#fff" opacity=".45"/>`;
+
 const girlande = () => {
   const swags = 16;
   let vine = "M0 7";
@@ -73,29 +79,25 @@ const girlande = () => {
     vine += ` Q${x + 50} 21 ${x + 100} 7`;
     leaves += `<path d="M${x} 7c-5 0-8 4-6 8 2-1 4 0 5 1 0-2 1-3 3-3-1-2-1-4-2-6zM${x} 7c5 0 8 4 6 8-2-1-4 0-5 1 0-2-1-3-3-3 1-2 1-4 2-6z" fill="#7fa35a"/>`;
     const d = (i % 5) * 0.35;
-    // Middle of every swag: alternately a tomato and a long pepper.
-    if (i % 2 === 0) {
-      fruits += `<g class="hamon-wm__frucht" style="--d:${d}s"><path d="M${x + 50} 14v6" stroke="#4d6b3a" stroke-width="1.6"/><circle cx="${x + 50}" cy="27" r="7.4" fill="#c60b1e"/><path d="M${x + 50} 19.4l2.4 2.6 3-.6-2 2.4M${x + 50} 19.4l-2.4 2.6-3-.6 2 2.4" fill="none" stroke="#4d6b3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${x + 47.4}" cy="24.6" r="1.8" fill="#fff" opacity=".45"/></g>`;
-    } else {
-      fruits += `<g class="hamon-wm__frucht" style="--d:${d}s"><path d="M${x + 50} 14v4" stroke="#4d6b3a" stroke-width="1.8" stroke-linecap="round"/><path d="M${x + 45} 20c2-2.4 8-2.4 10 0 .4 7-2 13-5 17-3-4-5.4-10-5-17z" fill="#ffc400"/><path d="M${x + 46} 19.4c2.4 1.4 5.6 1.4 8 0" fill="none" stroke="#4d6b3a" stroke-width="2" stroke-linecap="round"/><path d="M${x + 47.4} 23c-.2 3 .4 6 1.4 8.6" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".5"/></g>`;
-    }
-    // Two cherry tomatoes / small peppers on the sides of each swag.
+    const gross = i % 2 === 0 ? "#c60b1e" : "#ffc400";
+    fruits += `<g class="hamon-wm__frucht" style="--d:${d}s"><path d="M${x + 50} 14v5" stroke="#3f6a2c" stroke-width="1.6"/>${tomate(x + 50, 27, 7.4, gross)}</g>`;
+    // Two cherry tomatoes on the sides of each swag, in the other colour.
     const cols = i % 2 === 0 ? ["#ffc400", "#c60b1e"] : ["#c60b1e", "#ffc400"];
     for (const [k, dx] of [[0, 24], [1, 76]]) {
       const y = 7 + 14 * (1 - Math.pow((dx - 50) / 50, 2));
-      fruits += `<g class="hamon-wm__frucht hamon-wm__frucht--klein" style="--d:${d + 0.2 + k * 0.3}s"><path d="M${x + dx} ${y.toFixed(1)}v4" stroke="#4d6b3a" stroke-width="1.3"/><circle cx="${x + dx}" cy="${(y + 8).toFixed(1)}" r="4.2" fill="${cols[k]}"/><path d="M${x + dx - 2.2} ${(y + 4).toFixed(1)}h4.4" stroke="#4d6b3a" stroke-width="1.4" stroke-linecap="round"/></g>`;
+      fruits += `<g class="hamon-wm__frucht hamon-wm__frucht--klein" style="--d:${d + 0.2 + k * 0.3}s"><path d="M${x + dx} ${y.toFixed(1)}v4" stroke="#3f6a2c" stroke-width="1.3"/>${tomate(x + dx, +(y + 8.4).toFixed(1), 4.2, cols[k])}</g>`;
     }
   }
   return `<svg class="hamon-wm__girlande" viewBox="0 0 1600 40" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
-    <path d="${vine}" fill="none" stroke="#4d6b3a" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="${vine}" fill="none" stroke="#3f6a2c" stroke-width="2.6" stroke-linecap="round"/>
     <path d="${vine}" fill="none" stroke="#7fa35a" stroke-width="1" stroke-dasharray="3 9" stroke-linecap="round"/>
     ${leaves}${fruits}
   </svg>`;
 };
 
-const champions = () => `<aside class="hamon-wm" role="note" aria-label="Spanien, Fußball-Weltmeister 2026">
+const champions = () => `<aside class="hamon-wm" role="note" aria-label="Spanien ist Fußball-Weltmeister 2026">
   ${girlande()}
-  <p class="hamon-wm__text"><span class="hamon-wm__pokal" aria-hidden="true">🏆</span> <strong>Spanien</strong> ist Fußball-Weltmeister 2026 <span aria-hidden="true">⚽</span></p>
+  <p class="hamon-wm__text"><svg class="hamon-wm__paar" viewBox="0 0 34 20" aria-hidden="true" focusable="false">${tomate(10, 11, 7.6, "#c60b1e")}${tomate(24, 11, 7.6, "#ffc400")}</svg> <strong>Spanien</strong> ist Fußball-Weltmeister 2026</p>
 </aside>`;
 
 /** One menu item: a vine row whose tendril curls out and leaf unfurls. */
