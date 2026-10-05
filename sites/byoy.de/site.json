@@ -1,0 +1,39 @@
+{
+  "domain": "byoy.de",
+  "name": "BYOY",
+  "expansion": "Biologisch, ohne Gift: Garten mit Herz",
+  "tagline": "Gemüse, Obst und gesunder Boden im Bio-Garten: gärtnern ohne Gift, mit Geduld und Freude",
+  "description": "BYOY ist ein Ratgeber für den biologischen Nutzgarten in Deutschland: Gemüsebeet und Hochbeet anlegen, Kompost und gesunden Boden aufbauen, Mischkultur und Fruchtfolge planen, Obstbäume und Beerensträucher pflegen, Nützlinge fördern und Saatgut selbst gewinnen, ganz ohne chemischen Pflanzenschutz.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "byoy-de",
+  "worker": "byoy-de",
+  "themeColor": "#2f4a2a",
+  "email": "kontakt@byoy.de",
+  "author": "BYOY Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap",
+  "paths": { "article": "/gartenwissen/", "category": "/themen/" },
+  "categories": [
+    { "slug": "gemuesegarten", "name": "Gemüsegarten", "icon": "moehre", "description": "Beet und Hochbeet anlegen, Kartoffeln, Tomaten, Zucchini, Bohnen, Zwiebeln und Knoblauch: Gemüse im Freiland biologisch anbauen." },
+    { "slug": "kompost-und-boden", "name": "Kompost & Boden", "icon": "kompost", "description": "Kompost anlegen und richtig nutzen, Bodenart erkennen, mulchen, Gründüngung und organisch düngen: die Grundlage jedes Bio-Gartens." },
+    { "slug": "mischkultur-und-fruchtfolge", "name": "Mischkultur & Fruchtfolge", "icon": "kreislauf", "description": "Gute und schlechte Nachbarn, Stark- und Schwachzehrer, Anbauplan, Vor- und Nachkultur: Beete klug planen, damit der Boden gesund bleibt." },
+    { "slug": "obst-und-beeren", "name": "Obst & Beeren", "icon": "apfel", "description": "Obstbäume pflanzen und schneiden, passende Sorten für kleine Gärten, Johannisbeeren, Himbeeren, Erdbeeren und Heidelbeeren im Garten." },
+    { "slug": "naturgarten-und-nuetzlinge", "name": "Naturgarten & Nützlinge", "icon": "bluete", "description": "Nützlinge fördern, Schnecken und Pilzkrankheiten ohne Gift begegnen, Wildbienen, Igel, Blühwiese, Totholzhecke und Trockenmauer." },
+    { "slug": "saatgut-und-jungpflanzen", "name": "Saatgut & Jungpflanzen", "icon": "keimling", "description": "Samenfestes Saatgut verstehen und selbst gewinnen, Keimprobe, Direktsaat, Frühbeet und Jungpflanzen sicher abhärten und auspflanzen." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Gartenkalender", "href": "/gartenkalender/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
