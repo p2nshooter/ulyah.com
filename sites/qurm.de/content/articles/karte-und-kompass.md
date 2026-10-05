@@ -82,6 +82,10 @@ Such dir in dieser Richtung einen markanten Punkt, etwa einen Baum oder Felsen, 
 
 Magnetisch Nord und geografisch Nord liegen nicht an derselben Stelle. Den Winkel dazwischen nennt man Missweisung oder Deklination. In Deutschland ist sie derzeit gering, sie liegt im Bereich weniger Grad östlich und verändert sich langsam über die Jahre. Für die meisten Wanderungen, bei denen du dich an Wegen und Geländepunkten orientierst, kannst du sie vernachlässigen. Bei langen Peilungen über weglose Strecken oder im Ausland mit größerer Missweisung solltest du sie berücksichtigen. Der aktuelle Wert steht auf vielen Karten am Rand.
 
+## Den eigenen Standort bestimmen
+
+Die häufigste Aufgabe unterwegs ist nicht das Peilen, sondern die Frage: Wo bin ich gerade? Dafür kombinierst du mehrere Hinweise. Zuerst nordest du die Karte ein. Dann vergleichst du markante Punkte in der Umgebung mit der Karte: eine Wegkreuzung, einen Bach, den Waldrand, eine Hütte, einen Gipfel in der Ferne. Die Höhenlinien helfen dir zu prüfen, ob du gerade an einem Hang, auf einem Rücken oder in einer Senke stehst. Schließlich überlegst du, wie lange du seit dem letzten sicheren Punkt unterwegs bist und wie weit du in dieser Zeit ungefähr gekommen sein kannst. Meist bleibt dann nur eine Stelle auf der Karte übrig, die zu allem passt.
+
 ## Üben, bevor es darauf ankommt
 
 Orientierung lernt man durch Übung, nicht durch Lesen. Nimm auf deinen nächsten Wanderungen die Karte mit, auch wenn du den Weg kennst. Bestimme an Kreuzungen, wo du bist, und vergleiche Gelände und Karte. Such auf der Karte den Gipfel, den du siehst. Und probier das Einnorden aus, wenn du Zeit hast und nichts davon abhängt.

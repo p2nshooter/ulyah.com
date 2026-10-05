@@ -84,6 +84,10 @@ Auf Almen und Weiden im Mittelgebirge triffst du oft auf Kühe, manchmal auch au
 
 Viele Pensionen und Hotels nehmen Hunde auf, manchmal gegen Aufpreis. Frag vor der Buchung nach. Auf Hütten ist das unterschiedlich geregelt, mehr dazu in unserem Ratgeber zu Touren mit Hund in den Bergen. In Bussen und Bahnen gelten je nach Verkehrsverbund eigene Regeln, oft mit Maulkorbpflicht für größere Hunde oder einer Fahrkarte. Prüf das vor der Anreise, vor allem, wenn du eine Streckenwanderung mit Rückfahrt planst.
 
+## Nach der Tour
+
+Nach einem langen Wandertag braucht dein Hund Erholung. Gib ihm Zeit zum Trinken und Fressen und einen ruhigen Platz zum Schlafen. Prüf die Pfoten auf kleine Schnitte, eingetretene Steinchen oder wunde Stellen zwischen den Ballen, und such das Fell gründlich nach Zecken ab. Am nächsten Tag solltest du darauf achten, ob er steif läuft oder lahmt. Leichte Muskelmüdigkeit ist nach einer ungewohnt langen Tour normal, deutliches Lahmen oder Schmerzen gehören in die Tierarztpraxis.
+
 ## Häufige Fragen
 
 ### Wie viel Wasser braucht mein Hund beim Wandern?

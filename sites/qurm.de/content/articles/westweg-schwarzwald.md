@@ -72,6 +72,20 @@ Die Wandersaison reicht von Mai bis Oktober. Im Mai und Juni blühen die Bergwie
 - Blasenpflaster und Erste-Hilfe-Set
 - Karte oder Offlinekarte, besonders für die Wege zu Unterkünften abseits der Route
 
+## Eine Woche auf dem Westweg: so kann sie aussehen
+
+Viele Berufstätige haben nicht zwei Wochen am Stück Zeit. Eine bewährte Lösung ist, den Westweg auf zwei Urlaubswochen in verschiedenen Jahren zu verteilen. Im ersten Jahr gehst du den Nordteil von Pforzheim bis Hausach im Kinzigtal, im zweiten Jahr den Süden von Hausach bis Basel. Hausach ist als Bahnstation ein idealer Wechselpunkt.
+
+Eine Woche im Norden könnte so aussehen: Anreise nach Pforzheim am Vortag, dann fünf oder sechs Wandertage über Dobel, Forbach, die Gegend um die Hornisgrinde und die Alexanderschanze bis Hausach. Ein Tag Reserve hilft, wenn das Wetter nicht mitspielt oder die Füße eine Pause brauchen. Im Süden lohnt es sich, am Feldberg oder Belchen einen Tag ohne Gepäck einzuplanen, um die Gipfel in Ruhe zu genießen.
+
+## Typische Fehler
+
+**Zu lange Etappen am Anfang:** Die ersten Tage im Nordschwarzwald wirken leicht, weil viele Abschnitte auf breiten Forstwegen verlaufen. Die Kilometer summieren sich aber, und wer gleich mit 30 Kilometern beginnt, bezahlt das am dritten Tag mit schweren Beinen und Blasen.
+
+**Wasser unterschätzen:** Auf den Höhen gibt es weniger Quellen, als man im Wald vermuten würde, und manche Gasthäuser haben Ruhetage. Prüf am Vorabend, wo du unterwegs einkehren oder auffüllen kannst.
+
+**Ruhetage der Gasthäuser:** Gerade in kleinen Orten haben Gaststätten feste Ruhetage, oft zu Wochenbeginn. Wer abends ankommt und nichts mehr zu essen findet, ärgert sich. Frag bei der Buchung nach, wo du am Ankunftstag essen kannst.
+
 ## Häufige Fragen
 
 ### Welche Variante im Süden ist schöner?

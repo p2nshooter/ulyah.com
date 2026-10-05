@@ -73,6 +73,20 @@ Viele, die zu Fuß aufsteigen, fahren mit der Bahn hinunter. Das schont die Knie
 
 Wer die Zugspitze erleben möchte, ohne den langen Aufstieg zu wagen, hat Alternativen: Mit der Bahn auf den Gipfel und das Panorama genießen, den Eibsee zu Fuß umrunden oder durch die Partnachklamm wandern, die den Beginn des Reintalwegs bildet. So lernst du die Gegend kennen und kannst später entscheiden, ob du dir den Aufstieg zutraust.
 
+## So bereitest du dich vor
+
+Wer die Zugspitze zu Fuß besteigen möchte, sollte sich nicht erst im Juli darum kümmern. Eine gute Vorbereitung beginnt Monate vorher:
+
+1. **Ausdauer aufbauen:** Regelmäßige Wanderungen mit 800 bis 1.200 Höhenmetern, später auch zwei Tage hintereinander, sind das beste Training. Treppensteigen und Radfahren ergänzen das gut.
+2. **Bergerfahrung sammeln:** Geh vorher einige rot markierte Bergwege mit Geröll und gesicherten Stellen, damit du weißt, wie du dich dort fühlst.
+3. **Hütten früh reservieren:** Die Hütten an den Zugspitzrouten sind an Sommerwochenenden schnell ausgebucht. Wenn du flexibel bist, wähle einen Wochentag.
+4. **Verhältnisse erfragen:** Kurz vor der Tour lohnt ein Anruf auf der Hütte. Die Wirtsleute wissen, ob noch Schnee am Platt liegt oder ob der Gletscher im Höllental blank ist.
+5. **Wetterfenster wählen:** Ein stabiles Hochdruckgebiet mit geringer Gewitterneigung ist ideal. Bei unsicherer Lage verschiebst du die Tour.
+
+## Am Gipfel
+
+Der eigentliche Gipfel mit dem goldenen Kreuz liegt etwas abseits der Plattform und ist über eine kurze, gesicherte Kletterpassage erreichbar. An schönen Tagen bilden sich dort Warteschlangen. Wenn du schon müde bist, ist die Plattform mit ihrer Aussicht ein völlig würdiger Abschluss. Oben gibt es mit dem Münchner Haus auch eine Alpenvereinshütte, die Übernachtungen anbietet, sowie die Restaurants der Bergbahnen. Plane genug Zeit für den Rückweg ein, ob zu Fuß oder mit der Bahn, und behalte die letzte Talfahrt im Blick.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für den Aufstieg?
