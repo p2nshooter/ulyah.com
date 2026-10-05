@@ -1,0 +1,9 @@
+Cuplikan adsense (di <head> setiap halaman)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+
+Cuplikan ads.txt (https://rubiy.de/ads.txt)
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+
+Tag meta (di <head> setiap halaman)
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
