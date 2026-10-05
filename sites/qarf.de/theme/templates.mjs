@@ -11,7 +11,7 @@
 // light. Menu items are small tulip tea glasses: when you come near, warm
 // amber tea rises in the glass and three thin curls of steam float up.
 // Article cards are porcelain tiles, topics are spice sacks with a wax seal.
-// Every class here (krw-, glas, sack, kachel) is QARF's own.
+// Every class here starts with krw- (Karawane) and is QARF's own.
 
 const ICONS = {
   bohne: `<ellipse cx="24" cy="24" rx="12" ry="17" transform="rotate(30 24 24)" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M31.5 10.5c-5 3.5-2 9-7.5 13.5s-3 9.5-8 13.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`,
@@ -44,15 +44,15 @@ const medaillon = (cls = "") => `<svg class="${cls}" viewBox="0 0 64 64" aria-hi
 
 const pokal = `<svg class="krw-wm__pokal" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M7 3h10v5a5 5 0 0 1-10 0z" fill="#ffc400"/><path d="M7 5H4c0 3 1.4 4.6 3.4 5M17 5h3c0 3-1.4 4.6-3.4 5" fill="none" stroke="#ffc400" stroke-width="1.6"/><path d="M11 13h2v4h-2z" fill="#ffc400"/><path d="M8 21h8l-1-3H9z" fill="#c60b1e"/></svg>`;
 
-/** Spanien, Weltmeister 2026 — red and yellow coffee beans and lemon-tea
- * slices travel along the banner like a caravan along the horizon. */
+/** Spanien, Weltmeister 2026 — red and yellow coffee beans travel along the
+ * banner like a caravan along the horizon; two beans flank the words. */
 const champions = () => `<aside class="krw-wm" role="note" aria-label="Spanien ist Fußball-Weltmeister 2026">
-  <p class="krw-wm__text">${pokal} <strong>Spanien</strong> ist Fußball-Weltmeister 2026</p>
+  <p class="krw-wm__text"><span class="krw-wm__bohne" aria-hidden="true"></span>${pokal} <strong>Spanien</strong> ist Fußball-Weltmeister 2026 <span class="krw-wm__bohne krw-wm__bohne--gelb" aria-hidden="true"></span></p>
   <span class="krw-wm__reihe" aria-hidden="true"></span>
 </aside>`;
 
 /** One tulip tea glass in the menu. */
-const glas = (href, label, extra = "") => `<a class="glas${extra}" href="${href}"><span class="glas__gefaess" aria-hidden="true"><span class="glas__dampf"><i></i><i></i><i></i></span><span class="glas__innen"><span class="glas__tee"></span></span><svg class="glas__umriss" viewBox="0 0 16 24" focusable="false"><path d="M1.4 1.2h13.2l-2.5 8.4c1.6 1.9 2.2 4 2.2 6.3 0 2.5-1 4.4-2.7 5.2H4.4c-1.7-.8-2.7-2.7-2.7-5.2 0-2.3.6-4.4 2.2-6.3z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M.6 23h14.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="glas__wort">${label}</span></a>`;
+const glas = (href, label, extra = "") => `<a class="krw-glas${extra}" href="${href}"><span class="krw-glas__gefaess" aria-hidden="true"><span class="krw-glas__dampf"><i></i><i></i><i></i></span><span class="krw-glas__innen"><span class="krw-glas__tee"></span></span><svg class="krw-glas__umriss" viewBox="0 0 16 24" focusable="false"><path d="M1.4 1.2h13.2l-2.5 8.4c1.6 1.9 2.2 4 2.2 6.3 0 2.5-1 4.4-2.7 5.2H4.4c-1.7-.8-2.7-2.7-2.7-5.2 0-2.3.6-4.4 2.2-6.3z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M.6 23h14.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="krw-glas__wort">${label}</span></a>`;
 
 function layout(ctx, meta, body, kind = "") {
   const { site, categories, esc } = ctx;
@@ -75,7 +75,7 @@ ${champions()}
   <nav id="krw-menue" class="krw-menue" aria-label="Hauptmenü">
     ${glas("/", "Start")}
     ${categories.map((c) => glas(c.url, esc(c.name))).join("\n    ")}
-    ${site.menu.map((m) => glas(m.href, esc(m.label), " glas--leise")).join("\n    ")}
+    ${site.menu.map((m) => glas(m.href, esc(m.label), " krw-glas--leise")).join("\n    ")}
   </nav>
   <div class="krw-borte" aria-hidden="true"></div>
   ${kind === "ratgeber" ? `<div class="krw-spur" aria-hidden="true"><i></i></div>` : ""}
@@ -108,12 +108,12 @@ ${ctx.tail()}
 }
 
 /** A porcelain tile with a cobalt frame: the guide card. */
-const kachel = (ctx, a) => `<article class="kachel">
-  <a class="kachel__link" href="${a.url}">
-    <span class="kachel__kopf"><span class="kachel__icon">${icon(a.cat.icon)}</span><span class="kachel__thema">${ctx.esc(a.cat.name)}</span></span>
-    <h3 class="kachel__titel">${ctx.esc(a.title)}</h3>
-    <p class="kachel__text">${ctx.esc(a.description)}</p>
-    <span class="kachel__fuss"><span>${a.minutes} Min. Lesezeit</span><span class="kachel__tasse" aria-hidden="true">${icon("tasse")}</span></span>
+const kachel = (ctx, a) => `<article class="krw-kachel">
+  <a class="krw-kachel__link" href="${a.url}">
+    <span class="krw-kachel__kopf"><span class="krw-kachel__icon">${icon(a.cat.icon)}</span><span class="krw-kachel__thema">${ctx.esc(a.cat.name)}</span></span>
+    <h3 class="krw-kachel__titel">${ctx.esc(a.title)}</h3>
+    <p class="krw-kachel__text">${ctx.esc(a.description)}</p>
+    <span class="krw-kachel__fuss"><span>${a.minutes} Min. Lesezeit</span><span class="krw-kachel__tasse" aria-hidden="true">${icon("tasse")}</span></span>
   </a>
 </article>`;
 
@@ -232,13 +232,13 @@ export function home(ctx) {
 <section class="krw-themen" aria-labelledby="th-t">
   <header class="krw-ueber"><p class="krw-ueber__zeile">Sechs Säcke voller Wissen</p><h2 id="th-t">Was die Karawane geladen hat</h2></header>
   <ol class="krw-saecke">
-    ${categories.map((c, i) => `<li style="--i:${i}"><a class="sack sack--${c.icon}" href="${c.url}">
-      <span class="sack__inhalt" aria-hidden="true"></span>
-      <span class="sack__rand" aria-hidden="true"></span>
-      <span class="sack__siegel" aria-hidden="true">${i + 1}</span>
-      ${icon(c.icon, "sack__icon")}
-      <span class="sack__name">${esc(c.name)}</span>
-      <span class="sack__zahl">${c.articles.length} Ratgeber</span>
+    ${categories.map((c, i) => `<li style="--i:${i}"><a class="krw-sack krw-sack--${c.icon}" href="${c.url}">
+      <span class="krw-sack__inhalt" aria-hidden="true"></span>
+      <span class="krw-sack__rand" aria-hidden="true"></span>
+      <span class="krw-sack__siegel" aria-hidden="true">${i + 1}</span>
+      ${icon(c.icon, "krw-sack__icon")}
+      <span class="krw-sack__name">${esc(c.name)}</span>
+      <span class="krw-sack__zahl">${c.articles.length} Ratgeber</span>
     </a></li>`).join("\n    ")}
   </ol>
 </section>
@@ -385,7 +385,7 @@ export function notFound(ctx) {
   <p class="krw-leer__code">404</p>
   <h1>Diese Karawane ist schon weitergezogen</h1>
   <p>Die Seite gibt es nicht (mehr). Vielleicht war der Link alt oder hatte einen Tippfehler. Hier findest du alle Themen von QARF:</p>
-  <ol class="krw-saecke krw-saecke--flach">${ctx.categories.map((c, i) => `<li style="--i:${i}"><a class="sack sack--${c.icon}" href="${c.url}"><span class="sack__inhalt" aria-hidden="true"></span><span class="sack__rand" aria-hidden="true"></span><span class="sack__siegel" aria-hidden="true">${i + 1}</span>${icon(c.icon, "sack__icon")}<span class="sack__name">${ctx.esc(c.name)}</span></a></li>`).join("")}</ol>
+  <ol class="krw-saecke krw-saecke--flach">${ctx.categories.map((c, i) => `<li style="--i:${i}"><a class="krw-sack krw-sack--${c.icon}" href="${c.url}"><span class="krw-sack__inhalt" aria-hidden="true"></span><span class="krw-sack__rand" aria-hidden="true"></span><span class="krw-sack__siegel" aria-hidden="true">${i + 1}</span>${icon(c.icon, "krw-sack__icon")}<span class="krw-sack__name">${ctx.esc(c.name)}</span></a></li>`).join("")}</ol>
 </section>`;
   return layout(ctx, { title: "Seite nicht gefunden", description: "Die gesuchte Seite gibt es bei QARF nicht.", path: "/404.html", noindex: true }, body, "leer");
 }
