@@ -11,8 +11,6 @@ import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
-import { AdSlot } from "@/components/AdSlot";
-import { PageAds } from "@/components/PageAds";
 import { EcoOrnaments } from "@/components/EcosystemDecor";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
@@ -310,12 +308,13 @@ export default async function LocaleLayout({
             __html: `(function(){window.__bipEvent=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__bipEvent=e;window.dispatchEvent(new Event('bip-ready'));});window.addEventListener('appinstalled',function(){window.__bipEvent=null;});})();`,
           }}
         />
-        {/* Google AdSense on EVERY page of EVERY site (owner: Update Global
-            Seluruh Portal §2). The async loader never blocks rendering.
-
-            The publisher id comes from the same constant the units carry, so
-            the loader and the <ins> elements can never disagree about which
-            account is being served. */}
+        {/* Google AdSense on EVERY page of EVERY site: the loader snippet and
+            the account meta tag — and nothing else. There are NO manual ad
+            units anywhere (owner, 4 Oct 2026: "hapus aja dan bersihkan slot
+            AdSense nya di website manapun karena sy bikin otomatis … cukup
+            cuplikan AdSense, ads.txt & tag meta"): once a site is approved,
+            Auto ads in the AdSense dashboard place the ads. The async loader
+            never blocks rendering; the id is the one constant /ads.txt reads. */}
         <meta name="google-adsense-account" content={AD_CLIENT_ID} />
         <script
           async
@@ -332,24 +331,7 @@ export default async function LocaleLayout({
           {/* Soft ambient ornaments behind every page (ulyah/1fr/tilawa). */}
           <EcoOrnaments />
           <Header locale={locale} dict={dict} />
-          {/* Still NO network ad above the content — the reader meets the page
-              first, exactly as the owner asked earlier ("biar ga menggang di
-              atas"). The 4–5 units per page the owner then asked for are placed
-              BETWEEN content blocks by <PageAds/> below, which measures the
-              rendered page so each one lands on a real section boundary. */}
           <main className="min-h-screen pb-24">{children}</main>
-          {/* Reads the rendered <main> and fills the page up to the owner's
-              quota — one unit above the content, two through the middle on real
-              section boundaries, one in the closing cluster below. Skips
-              focused pages (mushaf, kiblat, sign-in) and does nothing at all
-              until this site is live for AdSense. */}
-          <PageAds />
-          {/* The closing unit, right before the footer. Dormant until the site
-              is enabled + approved centrally from the ulyah.com admin, and it
-              collapses to nothing on a no-fill rather than leaving a gap. */}
-          <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <AdSlot placement="footer" />
-          </div>
           <Footer locale={locale} dict={dict} />
           <GlobalPlayerBar dict={dict} />
           {/* Owns the Radio Qori audio element so the broadcast survives

@@ -16,7 +16,7 @@
 import assert from "node:assert/strict";
 import { MANAGED_SETTINGS, ALIEXPRESS_READY } from "../apps/worker-api/src/lib/settings.ts";
 
-const KNOWN_GROUPS = new Set(["payment", "affiliate"]);
+const KNOWN_GROUPS = new Set(["payment", "affiliate", "admanager"]);
 const ALI = MANAGED_SETTINGS.filter((d) => d.key.startsWith("ALIEXPRESS_"));
 
 assert.equal(ALI.length, 3, "app key, app secret and tracking id are all present");

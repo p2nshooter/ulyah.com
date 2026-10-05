@@ -2,7 +2,7 @@ import { encryptApiKey, decryptApiKey } from "@ulyah/shared/crypto";
 import type { Env } from "../env.js";
 
 /** Which panel a credential belongs under in the admin portal. */
-export type SettingGroup = "payment" | "affiliate";
+export type SettingGroup = "payment" | "affiliate" | "admanager";
 
 /**
  * The AliExpress fields are BUILT but not shown yet.
@@ -67,6 +67,17 @@ export const MANAGED_SETTINGS: SettingDef[] = [
   { key: "ALIEXPRESS_APP_KEY", label: "AliExpress App Key", secret: true, group: "affiliate", hidden: !ALIEXPRESS_READY, envFallback: (e) => e.ALIEXPRESS_APP_KEY },
   { key: "ALIEXPRESS_APP_SECRET", label: "AliExpress App Secret", secret: true, group: "affiliate", hidden: !ALIEXPRESS_READY, envFallback: (e) => e.ALIEXPRESS_APP_SECRET },
   { key: "ALIEXPRESS_TRACKING_ID", label: "AliExpress Tracking ID", secret: true, group: "affiliate", hidden: !ALIEXPRESS_READY, envFallback: (e) => e.ALIEXPRESS_TRACKING_ID },
+
+  // Ad Manager + AdSense automation (docs/ADMANAGER-BLUEPRINT.md §11). Owner:
+  // "full otomatis tanpa pengendali setelah sy input api admanager". Entering
+  // these here is the whole setup; ADOPS_MODE starts at dry-run until the
+  // connection test passes and the owner switches it to live.
+  { key: "ADOPS_MODE", label: "Mode AdOps (off / dry-run / live)", secret: false, group: "admanager", envFallback: (e) => e.ADOPS_MODE },
+  { key: "ADMANAGER_NETWORK_CODE", label: "Ad Manager Network Code", secret: false, group: "admanager", envFallback: (e) => e.ADMANAGER_NETWORK_CODE },
+  { key: "ADMANAGER_SERVICE_ACCOUNT_JSON", label: "Service Account JSON (tempel seluruh isi file .json)", secret: true, group: "admanager", envFallback: (e) => e.ADMANAGER_SERVICE_ACCOUNT_JSON },
+  { key: "ADSENSE_OAUTH_CLIENT_ID", label: "AdSense OAuth Client ID", secret: false, group: "admanager", envFallback: (e) => e.ADSENSE_OAUTH_CLIENT_ID },
+  { key: "ADSENSE_OAUTH_CLIENT_SECRET", label: "AdSense OAuth Client Secret", secret: true, group: "admanager", envFallback: (e) => e.ADSENSE_OAUTH_CLIENT_SECRET },
+  { key: "ADSENSE_REFRESH_TOKEN", label: "AdSense Refresh Token (otomatis dari tombol Hubungkan AdSense)", secret: true, group: "admanager", envFallback: (e) => e.ADSENSE_REFRESH_TOKEN },
 ];
 
 const managedByKey = new Map(MANAGED_SETTINGS.map((d) => [d.key, d]));

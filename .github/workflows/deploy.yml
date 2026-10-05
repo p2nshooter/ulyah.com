@@ -1362,44 +1362,10 @@ jobs:
             npx wrangler r2 object put "${CLOUDFLARE_R2_BUCKET_NAME}/${key}" --file="$f" --remote --content-type=application/pdf
           done
 
-      - name: Ensure dawa.es zone exists in Cloudflare (create if missing)
-        continue-on-error: true
-        run: |
-          set -eu
-          CF="https://api.cloudflare.com/client/v4"
-          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
-          ZONE=$(curl -s -H "$AUTH" "$CF/zones?name=dawa.es")
-          ZONE_ID=$(echo "$ZONE" | jq -r '.result[0].id // empty')
-          if [ -z "$ZONE_ID" ]; then
-            echo "dawa.es zone missing — creating it on this account."
-            CREATE=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
-              -d "{\"name\":\"dawa.es\",\"account\":{\"id\":\"${CLOUDFLARE_ACCOUNT_ID}\"},\"type\":\"full\"}" "$CF/zones")
-            if [ "$(echo "$CREATE" | jq -r '.success')" = "true" ]; then
-              ZONE_ID=$(echo "$CREATE" | jq -r '.result.id')
-              NS=$(echo "$CREATE" | jq -r '.result.name_servers | join(" · ")')
-              {
-                echo "## 🌐 dawa.es zone created in Cloudflare"
-                echo ""
-                echo "One manual step remains (only the registrar can do this): set the"
-                echo "dawa.es nameservers at your registrar to:"
-                echo ""
-                echo "**${NS}**"
-                echo ""
-                echo "Once the delegation is live, every future deploy attaches"
-                echo "dawa.es/www.dawa.es to dawa-web automatically."
-              } >> "$GITHUB_STEP_SUMMARY"
-              echo "::notice::dawa.es zone created — set registrar nameservers to: ${NS}"
-            else
-              echo "::warning::Could not create dawa.es zone: $(echo "$CREATE" | jq -c '.errors') — token may lack Zone:Edit, or the domain isn't registered yet."
-            fi
-          else
-            STATUS=$(echo "$ZONE" | jq -r '.result[0].status')
-            NS=$(echo "$ZONE" | jq -r '.result[0].name_servers | join(" · ")' 2>/dev/null || echo "?")
-            echo "dawa.es zone exists (status: $STATUS, ns: $NS)."
-            if [ "$STATUS" != "active" ]; then
-              echo "::warning::dawa.es zone is '$STATUS' — set the registrar nameservers to: ${NS} to activate it."
-            fi
-          fi
+      # dawa.es is DETACHED — no longer the owner's (docs/ADSENSE-BLUEPRINT.md
+      # §10). This pipeline no longer creates, cleans, builds, deploys or
+      # attaches anything for it: the dawa-web Worker keeps serving its last
+      # build, untouched, until the owner hands it over.
 
       - name: Ensure xad.es zone exists in Cloudflare (create if missing)
         continue-on-error: true
@@ -1489,7 +1455,6 @@ jobs:
           clean_zone ulyah.com ulyah.com www.ulyah.com api.ulyah.com
           clean_zone 1fr.fr 1fr.fr www.1fr.fr
           clean_zone tilawa.de tilawa.de www.tilawa.de
-          clean_zone dawa.es dawa.es www.dawa.es
           clean_zone xad.es xad.es www.xad.es
 
       # Cloudflare will not upload a Worker bound to R2 while R2 is off, so the
@@ -1732,41 +1697,6 @@ jobs:
             echo "$host -> tilawa-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
           done
 
-      - name: Build web for dawa.es tenant (Dawa)
-        working-directory: apps/web
-        run: npx opennextjs-cloudflare build
-        env:
-          NEXT_PUBLIC_API_URL: https://api.ulyah.com
-          NEXT_PUBLIC_TENANT: "dawa"
-
-      - name: Deploy dawa.es web (dawa-web worker)
-        working-directory: apps/web
-        # --var NEXT_INC_CACHE_R2_PREFIX: the rendered-page cache lives in ONE R2
-        # bucket shared by all five tenants, so each needs its own namespace in
-        # it. OpenNext's key already includes the Next build id, which differs
-        # per build today — but that is a default, not a guarantee: set
-        # generateBuildId to the git SHA (a common thing to do) and all five
-        # tenants would collide and start serving each other's HTML. Naming the
-        # prefix makes the separation explicit instead of accidental.
-        run: npx wrangler deploy --name dawa-web --var NEXT_INC_CACHE_R2_PREFIX:inc-dawa
-
-      - name: Attach dawa.es custom domains to dawa-web
-        run: |
-          set -eu
-          CF="https://api.cloudflare.com/client/v4"
-          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
-          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=dawa.es" | jq -r '.result[0].id // empty')
-          if [ -z "$ZONE_ID" ]; then
-            echo "::warning::dawa.es zone not found on this account/token — dawa-web stays on workers.dev until the zone is added."
-            exit 0
-          fi
-          for host in dawa.es www.dawa.es; do
-            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
-              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"dawa-web\",\"environment\":\"production\"}" \
-              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
-            echo "$host -> dawa-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
-          done
-
       - name: Build web for xad.es tenant (Ulyah English)
         working-directory: apps/web
         run: npx opennextjs-cloudflare build
@@ -1810,7 +1740,7 @@ jobs:
         continue-on-error: true
         run: |
           set -eu
-          for site in https://1fr.fr https://tilawa.de https://dawa.es https://xad.es; do
+          for site in https://1fr.fr https://tilawa.de https://xad.es; do
             code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L "$site" || echo "000")
             echo "$site -> HTTP $code"
           done

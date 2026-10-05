@@ -13,7 +13,9 @@ const domains = process.argv.slice(2);
 // What each domain must declare (docs/ADSENSE-CODES.md). A site missing its
 // meta tag, loader or ads.txt line is reported as such at the end.
 // Since 2026-10-04 every owner site is on ONE account ("jadi 1 akun saja").
-// dawa.es is no longer the owner's and keeps its own account, untouched.
+// dawa.es is detached — no longer the owner's — and is not audited at all
+// (docs/ADSENSE-BLUEPRINT.md §10). Every page must carry the loader + meta +
+// ads.txt and NO manual unit: the sites run Auto ads (owner, 4 Oct 2026).
 const ONE_ACCOUNT = "5693981744147503";
 const EXPECTED = Object.fromEntries([
   "ulyah.com", "axto.io", "xaa.es", "1fr.fr", "axto.us", "axto.dev", "jai.lat", "lie.skin",
@@ -21,7 +23,6 @@ const EXPECTED = Object.fromEntries([
   "xad.es", "byoy.de", "qarf.de", "qulen.de", "qurm.de", "rubiy.de", "zavik.de", "zevok.de",
   "zolun.de", "zufiq.de", "zuvik.de",
 ].map((d) => [d, ONE_ACCOUNT]));
-EXPECTED["dawa.es"] = "6371903555702163";
 const verdicts = [];
 
 const browser = await chromium.launch();
@@ -59,6 +60,9 @@ for (const domain of domains) {
     const raw = await r.text();
     out.rawMeta = (raw.match(/<meta[^>]+name="google-adsense-account"[^>]*>/) || [null])[0];
     out.rawLoader = [...raw.matchAll(/<script[^>]+adsbygoogle\.js\?client=(ca-pub-\d+)/g)].map((m) => m[1]);
+    // Manual units in the SERVER html. Auto ads inserts its own <ins> in the
+    // browser after approval, so only the raw html can tell a hand-placed slot.
+    out.manualUnits = (raw.match(/<ins\b[^>]*adsbygoogle|data-ad-slot=/g) || []).length;
   } catch (e) {
     out.rawMeta = `ERR ${String(e.message || e).split("\n")[0].slice(0, 80)}`;
   }
@@ -82,6 +86,7 @@ for (const domain of domains) {
     if (!String(out.rawMeta || "").includes(`ca-pub-${pub}`)) wrong.push("meta missing from server HTML");
     if (!(out.rawLoader || []).includes(`ca-pub-${pub}`)) wrong.push("loader missing from server HTML");
     if ((out.adsterraRequests || []).length || out.htmlAdsterra) wrong.push("adsterra");
+    if (out.manualUnits) wrong.push(`${out.manualUnits} manual ad unit(s) — Auto ads only`);
     out.verdict = out.error ? `UNREACHABLE (${out.error.slice(0, 60)})` : wrong.length ? `WRONG: ${wrong.join(" · ")}` : `OK ca-pub-${pub}`;
     verdicts.push(`${domain.padEnd(12)} ${out.verdict}`);
   }
@@ -90,5 +95,5 @@ for (const domain of domains) {
   await ctx.close();
 }
 await browser.close();
-console.log("\n===== AdSense verdict (meta + loader in server HTML and in the browser + ads.txt + no Adsterra)");
+console.log("\n===== AdSense verdict (meta + loader in server HTML and in the browser + ads.txt + no manual unit + no Adsterra)");
 for (const v of verdicts) console.log(v);

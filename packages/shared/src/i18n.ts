@@ -60,16 +60,29 @@ export const ALL_LOCALES: LocaleDef[] = [
   { code: "pl", label: "Polski", dir: "ltr", hasQuranTranslation: false, fallbackTranslationLang: "en" },
 ];
 
-// The four languages that have their OWN ecosystem domain. On ulyah.com they
+// The languages that have their OWN ecosystem domain. On ulyah.com they
 // still appear in the language switcher, but clicking one jumps straight to
 // its site (owner: "arahkan saja ke website nya … langsung pindah domain")
 // instead of switching locale in place — the sites cross-promote each other.
+//
+// dawa.es (Spanish) is NOT here any more. Owner, 4 Oct 2026: "Lepas yg
+// terkoneksi dengan dawa.es karena bukan milik sy lagi, biarkan dawa.es
+// mandiri" — it is no longer the owner's, so no switcher jump, no hreflang, no
+// cross-link and no sitemap entry points at it. See docs/ADSENSE-BLUEPRINT.md §10.
 export const LOCALE_SITE: Record<string, string> = {
   en: "https://xad.es",
   de: "https://tilawa.de",
-  es: "https://dawa.es",
   fr: "https://1fr.fr",
 };
+
+/**
+ * Languages of DETACHED sites whose last deployed build still reads its
+ * translations from api.ulyah.com. dawa.es (es) runs frozen at its final build
+ * until the owner cuts it off; until then its Spanish cache stays served and is
+ * never pruned, but nothing warms it any more (scripts/warm-mt-cache.ts only
+ * warms the ecosystem). Cut-off day = delete "es" from this list.
+ */
+export const DETACHED_SERVED_LANGS: readonly string[] = Object.freeze(["es"]);
 
 // The hub that hosts Indonesian AND every language without its own domain
 // (ar/ru/zh/ja plus the India/Turkey/Persia/… set). Its default locale (id)
@@ -125,8 +138,8 @@ export function isValidLocale(code: string): boolean {
  * Owner decision: "coret dulu seluruh bahasa di ulyah.com kecuali yang link ke
  * ekosistem — ulyah.com fokus aja dulu ke bahasa Indonesia."
  *
- * ulyah.com is an Indonesian site. The four languages that have their OWN
- * finished site (1fr.fr, tilawa.de, dawa.es, xad.es) still appear, because
+ * ulyah.com is an Indonesian site. The three languages that have their OWN
+ * finished site (1fr.fr, tilawa.de, xad.es) still appear, because
  * choosing one sends the visitor to that site rather than translating anything.
  * Every other language is switched off here regardless of how complete its
  * measurement says it is — the admin portal keeps showing the real progress, so
@@ -139,8 +152,8 @@ const IN_PLACE_LANGUAGES = false;
  * The ONLY languages a machine translator may ever be pointed at.
  *
  * One language per site, and that is the whole list: Indonesian for the hub,
- * and the four languages that own a domain (1fr.fr French, tilawa.de German,
- * dawa.es Spanish, xad.es English). Owner: "stop auto translate di ulyah.com,
+ * and the languages that own a domain (1fr.fr French, tilawa.de German,
+ * xad.es English), plus DETACHED_SERVED_LANGS for a detached site's frozen build. Owner: "stop auto translate di ulyah.com,
  * cukup ulyah.com menggunakan bahasa Indonesia dan ekosistem situs yg lain
  * menggunakan bahasa extensi situsnya masing-masing … tetep terjemahkan ke
  * bahasa Indonesia untuk ulyah.com dan bahasa masing-masing dr ekosistem."
@@ -153,14 +166,19 @@ const IN_PLACE_LANGUAGES = false;
  * hub used to do, what filled D1 with cache rows nobody read, and what put
  * half-translated pages in front of readers.
  *
- * Derived from HUB_DEFAULT plus the keys of LOCALE_SITE, so the list can never
- * drift away from "the sites that exist".
+ * Derived from HUB_DEFAULT plus the keys of LOCALE_SITE (plus the detached
+ * list), so the list can never drift away from "the sites that exist".
  *
  * (Scripture is a separate rule and a stricter one: the Qur'an and hadith matn
  * are reproduced, never machine-translated — see the Arabic masking in
  * apps/worker-api/src/lib/mt.ts and scripts/prune-mt-arabic.ts.)
  */
-export const MT_TARGET_LANGS: readonly string[] = Object.freeze([HUB_DEFAULT, ...Object.keys(LOCALE_SITE)]);
+export const MT_TARGET_LANGS: readonly string[] = Object.freeze([
+  ...new Set([HUB_DEFAULT, ...Object.keys(LOCALE_SITE), ...DETACHED_SERVED_LANGS]),
+]);
+
+/** The languages of the ecosystem itself — what the warmers actively translate into. */
+export const ECOSYSTEM_LANGS: readonly string[] = Object.freeze([HUB_DEFAULT, ...Object.keys(LOCALE_SITE)]);
 
 /**
  * May this (source → target) pair be machine-translated at all?
@@ -181,7 +199,7 @@ export function machineTranslationAllowed(targetLang: string, sourceLang?: strin
  * Is this language served IN PLACE by this build — rendered here, by us?
  *
  * Only the site's own language is. On ulyah.com that is Indonesian and nothing
- * else: the four ecosystem languages are reachable from the switcher, but
+ * else: the ecosystem languages are reachable from the switcher, but
  * choosing one is a trip to that site, not a translation of this one. Every
  * other language is off at the source, not merely hidden — the owner switch in
  * the admin portal can no longer bring one back, because bringing one back
@@ -208,9 +226,9 @@ export function isServedInPlace(code: string): boolean {
  *
  * Two categories are ready without needing that score:
  *  - the site's own language, which is what everything is authored in;
- *  - a language with its own ecosystem domain (1fr.fr, tilawa.de, dawa.es,
- *    xad.es). Those are separate single-language sites, and the switcher sends
- *    the visitor to the site rather than translating in place.
+ *  - a language with its own ecosystem domain (1fr.fr, tilawa.de, xad.es).
+ *    Those are separate single-language sites, and the switcher sends the
+ *    visitor to the site rather than translating in place.
  */
 export function isLocaleReady(code: string): boolean {
   if (code === DEFAULT_LOCALE) return true;

@@ -13,7 +13,8 @@
     "./providers": "./src/providers.ts",
     "./i18n": "./src/i18n.ts",
     "./cover-art": "./src/cover-art.ts",
-    "./routes": "./src/routes.ts"
+    "./routes": "./src/routes.ts",
+    "./owner-sites": "./src/owner-sites.ts"
   },
   "devDependencies": {
     "typescript": "^5.7.3"

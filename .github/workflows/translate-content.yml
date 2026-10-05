@@ -1,7 +1,7 @@
 name: Pre-translate Content (kitab pesantren)
 
 # Translates every kitab pesantren into the sibling sites' languages
-# (1fr.fr→fr, tilawa.de→de, dawa.es→es) and stores the strings in D1, so the
+# (1fr.fr→fr, tilawa.de→de; dawa.es is detached — not translated any more) and stores the strings in D1, so the
 # Worker serves native-language kitab with one query. Runs here because the
 # Workers free plan (50 subrequests/request, 1k KV writes/day) cannot finish
 # a whole-kitab translation at request time. Idempotent — unchanged kitab are
@@ -13,7 +13,7 @@ on:
       langs:
         description: "Comma-separated target languages"
         required: false
-        default: "fr,de,es"
+        default: "fr,de"
       force:
         description: "Re-translate even if source hash unchanged (true/false)"
         required: false
@@ -66,4 +66,4 @@ jobs:
         run: |
           FORCE_FLAG=""
           if [ "${{ inputs.force || 'false' }}" = "true" ]; then FORCE_FLAG="--force"; fi
-          npx tsx scripts/translate-pesantren.ts --langs=${{ inputs.langs || 'fr,de,es' }} $FORCE_FLAG
+          npx tsx scripts/translate-pesantren.ts --langs=${{ inputs.langs || 'fr,de' }} $FORCE_FLAG

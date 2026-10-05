@@ -17,16 +17,25 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
 1. **Satu situs, satu bahasa, sesuai ekstensi domain**: `.es` dan `.lat` →
    Spanyol, `.fr` → Prancis, `.in` → Hindi + Inggris (bilingual yang sudah
    ada), `.com` (ulyah) → Indonesia, `.io` `.us` `.dev` `.skin` → Inggris.
+   **Pengecualian (keputusan pemilik 4 Okt):** jai.lat tetap **Inggris** dengan
+   72 artikel tulisan tangannya, ditambah desk **"En español"** berisi 10 artikel
+   Spanyol (`lang="es"` per halaman).
 2. **AdSense saja.** Tidak ada Adsterra, popunder, social bar, atau jaringan
    iklan lain di situs mana pun. Setiap situs memuat persis tiga hal dari
    **satu akun yang sama, `ca-pub-5693981744147503`** (sejak 4 Okt 2026,
    "jadi 1 akun saja"): script `adsbygoogle.js?client=…` di `<head>`, meta
    `google-adsense-account`, dan `/ads.txt`. Tidak ada pengaturan iklan yang
    bisa mematikannya.
-3. **Unit iklan manual hanya untuk akun yang sudah di-ACC** (ID slot milik
-   akun lain tidak akan pernah terisi). Situs yang sedang diajukan memakai
-   kode verifikasi saja; setelah di-ACC, Auto ads dinyalakan dari dasbor
-   AdSense tanpa mengubah kode.
+3. **Tidak ada slot iklan manual di situs mana pun — Auto ads saja.**
+   Pemilik, 4 Okt 2026: "Hapus aja dan bersihkan slot AdSense nya di website
+   manapun karena sy bikin otomatis (ingat kecuali dawa.es), cukup cuplikan
+   AdSense, ads.txt & tag meta" dan "27 situs ini masih pengajuan, bahkan baru
+   input ulang kode AdSense nya". Jadi tidak ada `<ins class="adsbygoogle">`,
+   `data-ad-slot` atau `adsbygoogle.push` di kode mana pun. Setelah sebuah
+   situs di-ACC, Auto ads dinyalakan dari dasbor AdSense (Iklan → Menurut
+   situs) tanpa mengubah kode. Dijaga otomatis: `scripts/check-ads.ts` (CI
+   apps/web + situs statis), `sites/_engine/check.mjs` (setiap halaman hasil
+   build), dan `scripts/site-audit.mjs` (HTML server situs yang live).
 4. **Artikel ditulis tangan, bukan oleh bot.** Minimal 40 artikel panjang
    (±1.500 kata ke atas) per situs. Artikel mesin yang dobel atau tipis
    dihapus. Tidak ada janji kaya cepat, tidak ada saran medis/keuangan
@@ -48,10 +57,10 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
    `prefers-reduced-motion`, dan tidak memakai gambar makhluk bernyawa
    (patung/figur).
 10. Repo **sairan** tidak disentuh.
-11. **dawa.es bukan milik pemilik lagi.** Kode AdSense, ads.txt, meta, isi,
-    traffic, Ad Manager: dawa.es dikecualikan dari SEMUA perubahan dan dari
-    semua sistem otomatis. Tenant `dawa` di apps/web hanya boleh tetap jalan
-    seperti sekarang.
+11. **dawa.es bukan milik pemilik lagi dan sudah DILEPAS** (lihat §10). Kode
+    AdSense, ads.txt, meta, isi, traffic, Ad Manager: dawa.es dikecualikan
+    dari SEMUA perubahan dan dari semua sistem otomatis, dan tidak lagi
+    tersambung ke ekosistem ulyah.com.
 12. **Ad Manager + AI otomatis** mengikuti `docs/ADMANAGER-BLUEPRINT.md`:
     hanya bekerja di situs yang sudah di-approve AdSense, aturan tetap
     (deterministik), semua laporan tampil di admin ulyah.com.
@@ -177,7 +186,7 @@ berbagi palet, font, ornamen, atau gaya animasi menu.**
 | byoxy.de | Hängende Gärten | giok, lumut, emas | Gloock / Instrument Sans | Daun membuka di bawah item menu; embun berkilau saat hover |
 | jai.lat | Tesoro de la reina de Saba | hitam lak, daun emas | Bodoni Moda / Karla | Sapuan daun emas melintasi menu; kilau koin |
 | axto.io | Crystal throne room | obsidian, kristal, cahaya prisma | Syne / Inter Tight | Facet kristal memecah cahaya pelangi saat hover |
-| xaa.es | Trono de marfil y oro | gading, platinum, emas | Italiana / Albert Sans | Garis cetak biru berubah menjadi emas saat disentuh |
+| xaa.es | — *(dikecualikan)* | **tetap biru bisnis** (putih, biru, slate) | Plus Jakarta Sans / Inter | — · Pemilik 4 Okt: "warna xaa.es ga nyambung, xaa.es tetep bisnis app" |
 | axto.us | Lapis library of cedar | lapis lazuli, cedar, emas | Cinzel / Nunito | Menu berupa punggung buku yang miring dan terbuka |
 | axto.dev | Brass observatory | biru tengah malam, kuningan | Fraunces / JetBrains Mono | Cincin astrolab berputar; garis rasi bintang saat hover |
 | lie.skin | Pearl basins & rosewater | mutiara iridesen, merah muda, perak | DM Serif Display / Figtree | Riak cincin air dari titik sentuh |
@@ -435,7 +444,65 @@ Usulan niche (belum final):
 | 4 Okt | Isi DNS TXT verifikasi Search Console (qarf, qulen, qurm, zavik, zevok, zuvik) | ✅ PR #291, workflow dns-records.yml menambahkan 6 TXT |
 | 4 Okt | 10 situs terakhir cukup 40 artikel per situs untuk syarat AdSense | ✅ dicatat Fase 6 |
 | 4 Okt | "Fokus konten kualitas tinggi untuk AdSense, dengan CSS mewah … agar mendekati 100% approve" | 🔄 zuvik.de selesai (40 cerita tulisan tangan); 9 situs .de berikutnya menyusul |
-| 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | 🔄 ulyah.com selesai; repo partner menyusul (§2) |
+| 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | ✅ audit live 4 Okt: 17 situs OK 5693…, dawa.es tetap 6371… |
 | 4 Okt | Blueprint Ad Manager + pusat AI ulyah.com: otomatis penuh, aturan tetap, hanya situs yang sudah di-approve, laporan di admin, traffic semua situs kecuali dawa.es | 🔄 `docs/ADMANAGER-BLUEPRINT.md` |
 | 4 Okt | Favicon di Search Console masih bola dunia | 🔄 penyebab: domain belum tersambung ke Worker / belum di-crawl ulang; favicon.ico + PNG ditambahkan |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
+| 4 Okt | Lepas semua yang terhubung dengan dawa.es, biarkan mandiri, WAJIB dicatat | ✅ §10 (CORS + cache Spanyol menunggu tanggal putus dari pemilik) |
+| 4 Okt | Hapus & bersihkan slot AdSense di semua situs (kecuali dawa.es); cukup cuplikan, ads.txt, tag meta — 27 situs masih pengajuan | ✅ aturan 3; apps/web, situs statis & repo partner; dijaga CI + audit live |
+| 4 Okt | jai.lat: pertahankan 77 artikel Inggris; 10 artikel Spanyol tetap tampil sebagai tambahan | ✅ Jai #6: desk "En español", 5 artikel mesin dihapus (301) |
+| 4 Okt | Semua CSS yang belum sesuai blueprint §4 dirombak | ✅ jai.lat (Saba), lie.skin (mutiara), axto.dev (observatorium) live; pemilik: "biarkan seperti skrg" |
+| 4 Okt | xaa.es tetap aplikasi bisnis, warna istana tidak cocok | ✅ xaa.es dikecualikan dari §4; tetap biru |
+| 4 Okt | Artikel mesin kembar/tipis (aturan 4) | ✅ dihapus + 301: lie.skin 16, axto.dev 43 (judul kembar; 33 yang sudah diperpanjang tetap), xaa.es 76, oldco.in 23, profity.in 16 |
+| 4 Okt | Logo "AXTO.dev.dev" | ✅ jadi "AXTO.dev" (axtodev #15) |
+
+---
+
+## 10. dawa.es dilepas — mandiri (WAJIB DICATAT)
+
+Pemilik, 4 Okt 2026: **"Lepas yg terkoneksi dengan dawa.es karena bukan milik
+sy lagi, biarkan dawa.es mandiri ini wajib di catat."** dawa.es (bukan dawo.es)
+bukan milik pemilik lagi.
+
+### Yang sudah diputus di repo ulyah.com
+
+| Sambungan lama | Sekarang |
+|---|---|
+| Bahasa Spanyol di pemilih bahasa ulyah.com / 1fr.fr / tilawa.de / xad.es melompat ke dawa.es (`LOCALE_SITE.es`) | Dihapus. Tidak ada lagi tautan, hreflang, atau entri sitemap yang menunjuk dawa.es |
+| hreflang `es` di header `Link` semua situs ekosistem (`ALWAYS_LIVE`) | Diturunkan dari `LOCALE_SITE`, jadi `es` tidak diumumkan lagi |
+| Pipeline deploy membangun + mendeploy Worker `dawa-web`, membuat zona dawa.es, membersihkan DNS-nya, dan menempelkan domainnya | Semua langkah dihapus. Worker `dawa-web` tetap menyajikan build terakhirnya tanpa disentuh |
+| CI memeriksa tenant `dawa` | Dihapus dari pemeriksaan bahasa & tautan |
+| Warm/terjemahan mesin ke bahasa Spanyol untuk dawa.es (warm-mt-cache, translate-content) | Berhenti: tidak ada kuota AI/D1 yang dipakai untuk dawa.es lagi |
+| Traffic dawa.es masuk D1 ulyah (`/track`, `/analytics/*`) | Dijawab tapi TIDAK disimpan; data lama tidak dihitung di admin |
+| Panel admin (Live, traffic per situs, analitik tenant, halaman situs, paket haji, toko Amazon, statistik iklan) | dawa.es dihapus dari semuanya |
+| Ad Manager / AdOps | dawa.es tidak ada di registri `packages/shared/src/owner-sites.ts`, jadi tidak pernah diotomasi |
+| Audit live (`site-audit`) | dawa.es tidak diaudit lagi |
+| Portofolio xaa.es | dawa.es dihapus dari daftar |
+
+### Yang SENGAJA belum diputus (menunggu keputusan pemilik)
+
+Build terakhir dawa.es masih membaca isi dari `api.ulyah.com` (D1/KV/R2
+ulyah). Kalau ini diputus sekarang, dawa.es langsung rusak, padahal pemilik
+minta dawa.es "dibiarkan mandiri", bukan dimatikan. Jadi sampai pemilik
+menentukan tanggal putus:
+
+- CORS `api.ulyah.com` masih mengizinkan `https://dawa.es` (apps/worker-api `index.ts`);
+- cache terjemahan Spanyol tetap disajikan dan tidak dipangkas (`DETACHED_SERVED_LANGS = ["es"]` di `packages/shared/src/i18n.ts`), tetapi tidak ditambah lagi;
+- Worker `dawa-web` dan zona dawa.es masih ada di akun Cloudflare pemilik.
+
+Hari putus = hapus `"es"` dari `DETACHED_SERVED_LANGS`, hapus dua origin dawa
+dari CORS, lalu pemilik baru memindahkan zona dawa.es ke akun Cloudflare-nya.
+
+### Paket serah-terima untuk pemilik baru
+
+`scripts/export-dawa-standalone.mjs` membuat proyek dawa.es yang berdiri
+sendiri (API, D1, KV, R2 sendiri: `dawa-api`, `dawa-db`, `dawa-cache`,
+`dawa-media`) beserta panduannya. Main tidak lagi memuat dawa.es sebagai
+tenant, jadi paket dibuat dari commit terakhir sebelum pelepasan:
+
+```
+git checkout 771e8976432c2e033c9db8137b66dd489589648f
+node scripts/export-dawa-standalone.mjs --zip
+```
+
+Sudah diuji 4 Okt: 1.104 file, zip 42,7 MB (dipecah 3 bagian).

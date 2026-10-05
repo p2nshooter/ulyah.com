@@ -65,4 +65,15 @@ export interface Env {
   // and commit it (= auto-publish via each repo's Cloudflare deploy). OPTIONAL:
   // when unset the bot is a complete no-op, so the worker is always safe.
   GH_CONTENT_TOKEN?: string;
+
+  // AdOps (docs/ADMANAGER-BLUEPRINT.md). All OPTIONAL and normally entered in
+  // the admin portal (encrypted in admin_settings); these env names are only
+  // the fallback. Without them the AdOps runner reports "belum dihubungkan"
+  // and does nothing.
+  ADOPS_MODE?: string; // off | dry-run | live
+  ADMANAGER_NETWORK_CODE?: string;
+  ADMANAGER_SERVICE_ACCOUNT_JSON?: string;
+  ADSENSE_OAUTH_CLIENT_ID?: string;
+  ADSENSE_OAUTH_CLIENT_SECRET?: string;
+  ADSENSE_REFRESH_TOKEN?: string;
 }

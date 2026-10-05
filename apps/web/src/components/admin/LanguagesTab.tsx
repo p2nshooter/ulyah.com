@@ -130,7 +130,7 @@ export function LanguagesTab() {
       </div>
 
       <p className="text-[10px] leading-relaxed text-text-secondary">
-        Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, dawa.es, xad.es) dikerjakan di situsnya masing-masing,
+        Bahasa dengan <b>situs sendiri</b> (1fr.fr, tilawa.de, xad.es) dikerjakan di situsnya masing-masing,
         memakai bahasa induk ekstensi domainnya. Bahasa selebihnya berhenti di angka terakhirnya — kalau suatu saat mau
         dihidupkan lagi, jalannya lewat terjemahan manusia, bukan mesin. Angka UI diperbarui saat{" "}
         <code>pnpm gen:locale-readiness</code> berjalan.

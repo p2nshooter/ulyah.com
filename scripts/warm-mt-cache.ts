@@ -25,7 +25,7 @@ import { execFileSync } from "node:child_process";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { LOCALE_SITE, MT_TARGET_LANGS } from "../packages/shared/src/i18n";
+import { ECOSYSTEM_LANGS, LOCALE_SITE } from "../packages/shared/src/i18n";
 import {
   loadPool, aiTranslateBatch, rotate, rankPool, poolSummary, PREFER_GTX,
   translateBatchesParallel, concurrencyFor, type PoolKey,
@@ -66,14 +66,16 @@ function parseArgs() {
     // pass over `id` would spend its budget on id→id. Ask for it explicitly
     // (`--langs=id`) to warm the Arabic- and English-sourced material.
     //
-    // Anything outside MT_TARGET_LANGS is dropped below rather than warmed,
-    // whoever asks and however the workflow is dispatched.
+    // Anything outside the ecosystem's own languages is dropped below rather
+    // than warmed, whoever asks and however the workflow is dispatched. That
+    // includes Spanish: dawa.es is detached (no longer the owner's), so its
+    // frozen build keeps its existing cache but nothing is spent warming it.
     langs: ((args.langs as string) || Object.keys(LOCALE_SITE).join(","))
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean)
       .filter((l) => {
-        if (MT_TARGET_LANGS.includes(l)) return true;
+        if (ECOSYSTEM_LANGS.includes(l)) return true;
         console.log(`  skipping ${l}: not a language the ecosystem serves — nothing would ever read it.`);
         return false;
       }),
@@ -822,7 +824,7 @@ async function main() {
   // The 30k-hadith corpus is enormous per language, so pre-warm it only for
   // the established domain sites; every other language still translates hadith
   // ON DEMAND (cached to D1 on first view). Widen this set to pre-warm more.
-  const HADITH_WARM_LANGS = ["fr", "de", "es"];
+  const HADITH_WARM_LANGS = ["fr", "de"];
   // `queue`, not `langs` — under --behind the finished languages are not in
   // this run at all, and the whole point is that nothing spends its budget on
   // them. This phase then does nothing, which is correct.
@@ -932,7 +934,7 @@ async function main() {
   //
   // Splitting into paragraphs also reaches the 1,210 bodies that were too long
   // to translate whole: a paragraph is comfortably inside every limit.
-  const BODY_LANGS = ["es", "de", "fr"];
+  const BODY_LANGS = ["de", "fr"];
   const bodyLangs = queue.filter((l) => BODY_LANGS.includes(l));
   if (bodyLangs.length && !dry) {
     for (const lang of bodyLangs) {

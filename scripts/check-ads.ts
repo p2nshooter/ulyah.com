@@ -1,7 +1,14 @@
 /**
- * One ad network, and nothing between a placement and the page.
+ * One ad network, the loader + meta + ads.txt only, and nothing between them
+ * and the page.
  *
- * Two owner decisions are held here, and both are the kind that rot quietly.
+ * Three owner decisions are held here, and all are the kind that rot quietly.
+ *
+ * NO MANUAL UNITS. "Hapus aja dan bersihkan slot AdSense nya di website manapun
+ * karena sy bikin otomatis (ingat kecuali dawa.es), cukup cuplikan AdSense,
+ * ads.txt & tag meta" (4 Oct 2026, every site still under review). Auto ads
+ * place the ads once a site is approved; an <ins class="adsbygoogle">, a
+ * data-ad-slot or an adsbygoogle.push put back anywhere is a failure here.
  *
  * ONE NETWORK. Adsterra was removed from the ecosystem ("hapus iklan adsterra
  * di ekosistem ulyah.com, ganti dengan adsense aja"). Removing a network is not
@@ -27,7 +34,6 @@
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { unitForPlacement } from "../apps/web/src/lib/ad-config";
 
 const ROOT = join(import.meta.dirname, "..");
 let failed = 0;
@@ -40,45 +46,31 @@ const read = (rel: string) => readFileSync(join(ROOT, rel), "utf8");
 /** Source with comments stripped: an explanation of a removal is not a use. */
 const code = (src: string) => src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
 
-console.log("=== the account and the unit are constants ===");
+console.log("=== the account is one constant: loader, meta tag and ads.txt ===");
 const adConfig = read("apps/web/src/lib/ad-config.ts");
 const client = /ORIGINAL_ACCOUNT\s*=\s*"(ca-pub-\d{10,20})"/.exec(adConfig);
-const banner = /banner:\s*"(\d{6,20})"/.exec(adConfig);
-const flex = /flex:\s*"(\d{6,20})"/.exec(adConfig);
 check("a real publisher id is exported", Boolean(client), adConfig.slice(0, 200));
-check(
-  "both ad units are real ids",
-  Boolean(banner) && Boolean(flex),
-  "AD_UNITS.banner and AD_UNITS.flex must be the data-ad-slot values from each unit's snippet"
-);
-check(
-  "the two units are different units",
-  Boolean(banner && flex) && banner![1] !== flex![1],
-  "splitting positions between one unit twice would make AdSense's per-unit report meaningless"
-);
 
-// The loader script and the units must name the SAME account, or every <ins>
-// on the site asks an account the page never loaded.
 const layout = read("apps/web/src/app/[locale]/layout.tsx");
 check(
-  "the loader script uses that same constant",
-  /AD_CLIENT_ID/.test(layout) && !/ca-pub-\d/.test(code(layout)),
-  "the layout still hard-codes a publisher id — it must import AD_CLIENT_ID"
+  "the loader snippet is in the layout, from that constant, async + crossorigin",
+  /adsbygoogle\.js\?client=\$\{AD_CLIENT_ID\}/.test(layout) && /\basync\b/.test(layout) && /crossOrigin="anonymous"/.test(layout),
+  "the layout must load pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT_ID}"
 );
-
-const adSlot = read("apps/web/src/components/AdSlot.tsx");
 check(
-  "the unit renders the constants",
-  /data-ad-client=\{AD_CLIENT_ID\}/.test(adSlot) && /data-ad-slot=\{AD_UNITS\[unit\]\}/.test(adSlot)
+  "the google-adsense-account meta tag is in the layout, from that constant",
+  /<meta name="google-adsense-account" content=\{AD_CLIENT_ID\} \/>/.test(layout)
+);
+check(
+  "the layout hard-codes no publisher id",
+  !/ca-pub-\d/.test(code(layout)),
+  "the layout still hard-codes a publisher id — it must import AD_CLIENT_ID"
 );
 
 console.log("\n=== each site declares the account the owner gave it ===");
 // docs/ADSENSE-BLUEPRINT.md §2. Since 2026-10-04 every owner site is on the one
-// account ca-pub-5693981744147503 ("jadi 1 akun saja"). dawa.es stays on the approved original
-// account; xad.es (2026-09-29), ulyah.com and 1fr.fr (2026-10-03) and
-// tilawa.de (2026-10-04, the xaa.es account) are verified afresh and carry no ad placement
-// until then — the unit ids above belong to the original account and could
-// never fill on another one.
+// account ca-pub-5693981744147503 ("jadi 1 akun saja"). dawa.es is detached and
+// not the owner's any more: it keeps its original account, untouched (§10).
 const EXPECTED: Record<string, string> = {
   ulyah: "ca-pub-5693981744147503",
   "1fr": "ca-pub-5693981744147503",
@@ -89,51 +81,42 @@ for (const [tenant, pub] of Object.entries(EXPECTED)) {
   const key = tenant === "1fr" ? '"1fr"' : tenant;
   check(`${tenant} declares ${pub}`, new RegExp(`${key}:\\s*"${pub}"`).test(adConfig));
 }
-for (const tenant of ["dawa"]) {
-  check(`${tenant} stays on the approved account`, new RegExp(`${tenant}:\\s*ORIGINAL_ACCOUNT`).test(adConfig));
-}
-check(
-  "only the approved account renders units or places anchors",
-  /SHOWS_AD_UNITS\s*=\s*AD_CLIENT_ID\s*===\s*ORIGINAL_ACCOUNT/.test(adConfig) &&
-    /!SHOWS_AD_UNITS/.test(code(adSlot)) &&
-    /!SHOWS_AD_UNITS/.test(code(read("apps/web/src/components/PageAds.tsx")))
-);
+check("dawa stays on its own original account", /dawa:\s*ORIGINAL_ACCOUNT/.test(adConfig));
 check(
   "ads.txt is built per site from the same constant",
   !existsSync(join(ROOT, "apps/web/public/ads.txt")) &&
     /AD_CLIENT_ID/.test(read("apps/web/src/app/ads.txt/route.ts")),
-  "a static public/ads.txt is shared by every tenant build and would name one account on all five sites"
+  "a static public/ads.txt is shared by every tenant build and would name one account on every site"
 );
 
-console.log("\n=== each position uses the unit meant for it ===");
-{
-  // Run the real mapping rather than reading its source: this is the decision
-  // the owner's redesign rests on, and a regex would pass a typo.
-  const expect: Record<string, string> = {
-    list: "banner",
-    footer: "banner",
-    in_article: "flex",
-    in_article_1: "flex",
-    in_article_2: "flex",
-    sidebar: "flex",
-  };
-  const wrong = Object.entries(expect).filter(([p, u]) => unitForPlacement(p) !== u);
-  check(
-    "lead and closing are banners, everything in the reading column is flex",
-    wrong.length === 0,
-    wrong.map(([p, u]) => `${p} → ${unitForPlacement(p)} (expected ${u})`).join(", ")
-  );
+console.log("\n=== no manual ad unit anywhere (Auto ads only) ===");
+const UNIT = [/<ins\b[^>]*adsbygoogle/, /data-ad-slot/, /adsbygoogle\s*\|\|\s*\[\]\)\.push|adsbygoogle\.push/, /data-ad-client/];
+function walkAll(dir: string, exts: RegExp, out: string[] = []): string[] {
+  if (!existsSync(dir)) return out;
+  for (const name of readdirSync(dir)) {
+    if (name === "node_modules" || name === "dist" || name.startsWith(".")) continue;
+    const p = join(dir, name);
+    if (statSync(p).isDirectory()) walkAll(p, exts, out);
+    else if (exts.test(p)) out.push(p);
+  }
+  return out;
+}
+const unitFiles: string[] = [];
+for (const root of ["apps/web/src", "apps/web/public", "sites/_engine", ...readdirSync(join(ROOT, "sites")).filter((d) => !d.startsWith("_") && statSync(join(ROOT, "sites", d)).isDirectory()).map((d) => `sites/${d}`)]) {
+  for (const f of walkAll(join(ROOT, root), /\.(ts|tsx|js|mjs|html|md)$/)) {
+    // The generated UI strings, and the engine check that holds this same rule.
+    if (f.endsWith("ui-i18n.gen.ts") || f.endsWith("sites/_engine/check.mjs")) continue;
+    if (UNIT.some((re) => re.test(code(readFileSync(f, "utf8"))))) unitFiles.push(f.slice(ROOT.length + 1));
+  }
+}
+check("no <ins class=adsbygoogle>, data-ad-slot or adsbygoogle.push", unitFiles.length === 0, unitFiles.join(", "));
+for (const gone of ["apps/web/src/components/AdSlot.tsx", "apps/web/src/components/PageAds.tsx", "apps/web/src/lib/ad-stats.ts", "apps/web/src/components/admin/AdStatsPanel.tsx"]) {
+  check(`${gone.split("/").pop()} is gone`, !existsSync(join(ROOT, gone)));
 }
 
 console.log("\n=== nothing gates a placement ===");
 // The words that would bring the switches back. Checked on code, not comments,
 // so the files can still explain what was removed.
-const GATES = [/\benabled\b/, /\bapproved\b/, /\bautoAds\b/, /fetchAdView/, /ad-config\?site/];
-for (const file of ["apps/web/src/components/AdSlot.tsx", "apps/web/src/components/PageAds.tsx"]) {
-  const src = code(read(file));
-  const found = GATES.filter((re) => re.test(src)).map(String);
-  check(`${file.split("/").pop()} has no config gate`, found.length === 0, found.join(", "));
-}
 check(
   "nothing fetches an ad config any more",
   !/fetch\(.*ad-config/.test(code(adConfig)) && !/fetchAdView/.test(code(adConfig)),
@@ -155,21 +138,6 @@ for (const [file, what] of [
 ] as const) {
   check(`${what} is gone`, !/ad-config|adsense-config|activateDawaAdsense/.test(code(read(file))));
 }
-
-console.log("\n=== the label stays on every unit ===");
-// The one thing that is NOT negotiable when the ads go live everywhere: a
-// reader can always tell an ad from the article. It is the policy line that
-// costs an account, and the reason a click is worth anything to the advertiser.
-check(
-  "a caption is rendered with the unit",
-  /caption/.test(adSlot) && /AD_L/.test(adSlot),
-  "AdSlot must keep its per-language ad label"
-);
-check(
-  "no unit is dressed as content",
-  !/data-ad-placeholder/.test(adSlot),
-  "the preview scaffolding must not be shown to readers"
-);
 
 console.log("\n=== nothing references the removed network ===");
 const WIRING = [/\bNetworkAd\b/, /\badsterra\s*[:?]/i, /\.adsterra\b/i, /["'`]adsterra["'`]/i];

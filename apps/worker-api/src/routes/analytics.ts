@@ -3,12 +3,15 @@ import type { Context } from "hono";
 import type { Env } from "../env.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { isBotUA, refererHost } from "../lib/bot.js";
+import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 
 export const analyticsRoute = new Hono<{ Bindings: Env }>();
 
 /** Which sibling site the request came from — derived from the Origin (or
- * Referer) header, never trusted from the body. One content DB, four sites:
- * 1fr.fr, tilawa.de and dawa.es each count themselves; ulyah is the default. */
+ * Referer) header, never trusted from the body. One content DB: 1fr.fr,
+ * tilawa.de and xad.es each count themselves; ulyah is the default. dawa.es is
+ * still RECOGNISED (so its frozen build is never miscounted as ulyah.com) but
+ * nothing it sends is stored — see the guard below. */
 export function tenantFromReq(c: { req: { header: (n: string) => string | undefined } }): string {
   const src = c.req.header("origin") || c.req.header("referer") || "";
   if (src.includes("1fr.fr")) return "1fr";
@@ -17,6 +20,14 @@ export function tenantFromReq(c: { req: { header: (n: string) => string | undefi
   if (src.includes("xad.es")) return "xad";
   return "ulyah";
 }
+
+// dawa.es is detached — no longer the owner's site (docs/ADSENSE-BLUEPRINT.md
+// §10). Its last build still fires these beacons; they are answered and
+// dropped, so a site that is not the owner's never writes to the owner's D1.
+analyticsRoute.use("*", async (c, next) => {
+  if (EXCLUDED_TRACK_IDS.has(tenantFromReq(c))) return c.json({ ok: true, stored: false });
+  await next();
+});
 
 // POST /analytics/pageview — lightweight, public beacon fired once per page
 // load (see AnalyticsBeacon.tsx). Country comes from Cloudflare's own edge

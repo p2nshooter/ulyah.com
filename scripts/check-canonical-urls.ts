@@ -23,13 +23,14 @@
 import { localizedRoute, canonicalRoute, routeLocales } from "../packages/shared/src/routes";
 import { localeCanonicalUrl } from "../packages/shared/src/i18n";
 
-/** The five sites, and the language each one serves at its bare urls. */
+/** The ecosystem's sites, and the language each one serves at its bare urls.
+ * dawa.es is detached — no longer the owner's — so it is not part of the
+ * hreflang graph any more (docs/ADSENSE-BLUEPRINT.md §10). */
 const SITES: { host: string; locale: string }[] = [
   { host: "ulyah.com", locale: "id" },
   { host: "xad.es", locale: "en" },
   { host: "1fr.fr", locale: "fr" },
   { host: "tilawa.de", locale: "de" },
-  { host: "dawa.es", locale: "es" },
 ];
 
 /** Section routes plus one real example of every kind of content page. */
@@ -98,7 +99,7 @@ for (const { host, locale } of SITES) {
 // For every page and every pair of sites: the url site A advertises as site B's
 // version must be exactly the url site B serves that page at. One character of
 // difference and Google drops the annotation.
-console.log("\n=== hreflang is reciprocal across all five sites ===");
+console.log("\n=== hreflang is reciprocal across all ecosystem sites ===");
 let pairs = 0;
 let bad = 0;
 for (const route of ROUTES) {

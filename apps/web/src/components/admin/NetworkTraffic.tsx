@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
+import { OWNER_SITES } from "@ulyah/shared/owner-sites";
 
 interface SiteTotal {
   site: string;
@@ -29,14 +30,12 @@ interface Resp {
   at?: number;
 }
 
+// Labels come from the one registry of the owner's sites (packages/shared
+// owner-sites.ts), so a new site shows up here by being added there. dawa.es
+// is not in it: detached, no longer the owner's (docs/ADSENSE-BLUEPRINT.md §10).
 const SITE_LABEL: Record<string, string> = {
-  ulyah: "ulyah.com", "1fr": "1fr.fr", tilawa: "tilawa.de", dawa: "dawa.es", xad: "xad.es",
-  "axto-io": "axto.io", "axto-dev": "axto.dev", "axto-us": "axto.us",
-  "profity-in": "profity.in", "oldco-in": "oldco.in",
-  "xaa-es": "xaa.es", "xad-es": "xad.es (lama)", "jai-lat": "jai.lat", "lie-skin": "lie.skin",
-  // Static article sites built from sites/ in this repo (docs/ADSENSE-BLUEPRINT.md).
-  "dawo-es": "dawo.es", "qkb-es": "qkb.es",
-  "xko-es": "xko.es", "byodd-de": "byodd.de", "byoxy-de": "byoxy.de",
+  ...Object.fromEntries(OWNER_SITES.map((s) => [s.trackId, s.domain])),
+  "xad-es": "xad.es (lama)",
 };
 
 // The ulyah.com ecosystem = the Islamic da'wah network that mirrors ulyah's
@@ -47,7 +46,7 @@ const SITE_LABEL: Record<string, string> = {
 // Every OTHER owner site (the ebook store + the high-CPC article/ad sites) is
 // "di luar ekosistem" and gets its own SEPARATE traffic menu so it's easy to
 // monitor apart from the da'wah traffic.
-export const ECOSYSTEM_SITES = new Set(["ulyah", "1fr", "tilawa", "dawa", "xad", "xad-es"]);
+export const ECOSYSTEM_SITES = new Set(["ulyah", "1fr", "tilawa", "xad", "xad-es"]);
 export function isEcosystemSite(site: string): boolean {
   return ECOSYSTEM_SITES.has(site);
 }
