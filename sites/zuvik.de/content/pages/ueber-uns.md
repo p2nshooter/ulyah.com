@@ -30,6 +30,10 @@ Unsere Geschichten wohnen in sechs Räumen:
 
 ZUVIK ist keine Beratungsstelle und keine Arztpraxis. Wir schreiben für Eltern, Großeltern und alle, die Kinder begleiten, und wir nehmen dabei ernst, dass jede Familie anders ist. Wenn euch etwas dauerhaft belastet, findet ihr in unserem [Haftungsausschluss](/haftungsausschluss/) Hinweise, wo ihr Unterstützung bekommt.
 
+## Wer hinter ZUVIK steht
+
+ZUVIK ist ein Projekt von **p2nshooter**, der auch weitere unabhängige Ratgeber- und Wissensseiten herausgibt. Die Geschichten schreibt die ZUVIK-Redaktion. Rückmeldungen und Ideen erreichen uns über die Seite [Kontakt](/kontakt/).
+
 ## Wie wir arbeiten
 
 Jede Geschichte wird von unserer Redaktion geschrieben, gegengelesen und auf Verständlichkeit geprüft. Die Anregungen orientieren sich an dem, was sich in vielen Familien bewährt hat und was Fachleute für Kinder und Familien seit Langem empfehlen: Verlässlichkeit, Zuwendung, klare und freundliche Absprachen, Zeit zum Spielen. Wie wir genau vorgehen, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).

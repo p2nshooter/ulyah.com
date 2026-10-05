@@ -1,0 +1,266 @@
+/* ZAVIK — Die Löwenstufen.
+   Ivory steps of the throne, plum night sky, amber cat eyes, moonstone
+   whiskers and terracotta paw prints. All classes are ZAVIK's own
+   (thr-, stufe, kissen). Motion stops under prefers-reduced-motion. */
+
+:root {
+  --nacht: #241a33;
+  --nacht-2: #17101f;
+  --nacht-3: #3b2a52;
+  --bernstein: #e0a02b;
+  --honig: #f5c86a;
+  --mondstein: #dfe3ea;
+  --elfenbein: #faf6ee;
+  --elfenbein-2: #efe6d4;
+  --elfenbein-3: #e2d5bb;
+  --terrakotta: #b8502e;
+  --salbei: #5f7a6a;
+  --tinte: #231c2b;
+  --tinte-2: #5a4f66;
+  --rand: rgba(59, 42, 82, 0.16);
+  --schatten: 0 20px 44px -24px rgba(23, 16, 31, 0.5);
+  --titel: "Libre Caslon Display", "Georgia", serif;
+  --text: "Work Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body.thr {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 18px;
+  line-height: 1.72;
+  color: var(--tinte);
+  background:
+    radial-gradient(900px 520px at 0% 0%, rgba(245, 200, 106, 0.18), transparent 60%),
+    radial-gradient(700px 480px at 100% 20%, rgba(59, 42, 82, 0.1), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cg fill='%233b2a52' fill-opacity='.045'%3E%3Cellipse cx='48' cy='56' rx='9' ry='7.5'/%3E%3Cellipse cx='37' cy='45' rx='3.4' ry='4.4'/%3E%3Cellipse cx='44' cy='39' rx='3.4' ry='4.4'/%3E%3Cellipse cx='52' cy='39' rx='3.4' ry='4.4'/%3E%3Cellipse cx='59' cy='45' rx='3.4' ry='4.4'/%3E%3C/g%3E%3C/svg%3E"),
+    var(--elfenbein);
+}
+a { color: var(--nacht-3); text-decoration-color: var(--bernstein); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--terrakotta); }
+img, svg { max-width: 100%; }
+h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.2; color: var(--nacht); letter-spacing: 0.005em; }
+
+.thr-sprung { position: absolute; left: -999px; top: 8px; background: var(--nacht); color: #fff; padding: 8px 14px; z-index: 100; border-radius: 6px; }
+.thr-sprung:focus { left: 12px; }
+
+/* ── Spanien 2026: das Wollknäuel ────────────────────────────────────── */
+.thr-wm { position: relative; overflow: hidden; background: linear-gradient(90deg, var(--nacht-2), var(--nacht), var(--nacht-2)); color: var(--elfenbein); }
+.thr-wm__text { position: relative; z-index: 1; margin: 0; padding: 9px 16px; text-align: center; font-size: 14.5px; letter-spacing: 0.02em; }
+.thr-wm__text strong { color: var(--honig); }
+.thr-wm__pokal { display: inline-block; filter: drop-shadow(0 0 6px rgba(255, 196, 0, 0.8)); }
+.thr-wm__faden { position: absolute; left: 0; bottom: 4px; height: 3px; width: 100%; background: repeating-linear-gradient(90deg, #c60b1e 0 14px, #ffc400 14px 28px); transform-origin: left; animation: wm-faden 9s linear infinite; opacity: 0.85; }
+.thr-wm__knaeuel { position: absolute; bottom: 0; left: 0; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff5a5a, #c60b1e 60%); box-shadow: inset 0 0 0 2px #ffc400; animation: wm-rollen 9s linear infinite; }
+.thr-wm__knaeuel::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; border-top: 2px solid #ffc400; border-bottom: 2px solid #ffc400; }
+@keyframes wm-faden { 0% { transform: scaleX(0); } 90%, 100% { transform: scaleX(1); } }
+@keyframes wm-rollen { 0% { transform: translateX(-20px) rotate(0); } 90% { transform: translateX(calc(100vw - 10px)) rotate(1440deg); } 100% { transform: translateX(calc(100vw + 20px)) rotate(1600deg); } }
+
+/* ── Kopf ────────────────────────────────────────────────────────────── */
+.thr-kopf { position: sticky; top: 0; z-index: 40; color: var(--elfenbein); background: radial-gradient(1px 1px at 12% 30%, rgba(223, 227, 234, 0.7), transparent 2px), radial-gradient(1px 1px at 63% 22%, rgba(223, 227, 234, 0.6), transparent 2px), radial-gradient(1px 1px at 86% 64%, rgba(223, 227, 234, 0.5), transparent 2px), linear-gradient(180deg, var(--nacht-3), var(--nacht) 70%, var(--nacht-2)); box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.6); }
+.thr-kopf__innen { max-width: 1200px; margin: 0 auto; padding: 10px 16px 6px; display: flex; align-items: center; gap: 16px; }
+.thr-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.thr-marke__bild { width: 50px; height: 50px; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)); }
+.thr-marke__lider { transform-origin: 32px 30px; animation: blinzeln 7s ease-in-out infinite; }
+.thr-marke:hover .thr-marke__lider { animation: langsam-blinzeln 1.6s ease-in-out; }
+.thr-marke__texte { display: flex; flex-direction: column; line-height: 1.15; }
+.thr-marke__name { font-family: var(--titel); font-size: 27px; letter-spacing: 0.2em; color: var(--honig); }
+.thr-marke__lang { font-size: 12.5px; letter-spacing: 0.04em; color: rgba(223, 227, 234, 0.82); }
+.thr-knopf { display: none; margin-left: auto; background: transparent; color: var(--elfenbein); border: 1px solid rgba(245, 200, 106, 0.6); border-radius: 999px; padding: 6px 18px; font: 600 15px var(--text); cursor: pointer; }
+@keyframes blinzeln { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
+@keyframes langsam-blinzeln { 0%, 100% { transform: scaleY(1); } 45%, 55% { transform: scaleY(0.08); } }
+
+/* A menu item is one step of the throne. On each step sit two closed cat
+   eyes; when you come near they open with a slow blink and glow amber, and
+   the step lifts a little. */
+.thr-menue { max-width: 1200px; margin: 0 auto; padding: 4px 16px 14px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px; }
+.stufe { position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 14px 9px; min-width: 64px; color: var(--elfenbein); text-decoration: none; font-size: 15px; font-weight: 600; border-radius: 10px 10px 3px 3px; background: linear-gradient(180deg, rgba(250, 246, 238, 0.07), rgba(250, 246, 238, 0.02)); border: 1px solid rgba(223, 227, 234, 0.18); border-bottom: 3px solid rgba(224, 160, 43, 0.55); transition: transform 0.35s cubic-bezier(.2,.9,.3,1.2), background 0.35s, color 0.35s, border-color 0.35s; }
+.stufe__augen { display: flex; gap: 6px; height: 8px; }
+.stufe__augen i { display: block; width: 12px; height: 8px; border-radius: 50%; background: var(--honig); transform: scaleY(0.12); transition: transform 0.5s ease; box-shadow: 0 0 0 rgba(245, 200, 106, 0); position: relative; }
+.stufe__augen i::after { content: ""; position: absolute; left: 50%; top: 1px; bottom: 1px; width: 2px; margin-left: -1px; border-radius: 2px; background: var(--nacht-2); }
+.stufe:hover, .stufe:focus-visible, .stufe[aria-current="page"] { transform: translateY(-3px); color: var(--nacht); background: linear-gradient(180deg, var(--elfenbein), var(--elfenbein-3)); border-color: var(--honig); border-bottom-color: var(--bernstein); }
+.stufe:hover .stufe__augen i, .stufe:focus-visible .stufe__augen i { animation: augen-auf 1.4s ease forwards; }
+.stufe[aria-current="page"] .stufe__augen i { transform: scaleY(1); background: var(--bernstein); box-shadow: 0 0 8px rgba(224, 160, 43, 0.8); }
+.stufe--leise { font-weight: 400; color: var(--mondstein); }
+@keyframes augen-auf { 0% { transform: scaleY(0.12); } 30% { transform: scaleY(1); background: var(--bernstein); } 55% { transform: scaleY(0.12); } 80%, 100% { transform: scaleY(1); background: var(--bernstein); box-shadow: 0 0 8px rgba(224, 160, 43, 0.8); } }
+
+/* Reading progress: a thread of amber yarn unrolls under the header. */
+.thr-faden { height: 4px; background: rgba(0, 0, 0, 0.35); }
+.thr-faden i { display: block; height: 100%; transform-origin: left; transform: scaleX(var(--p, 0)); background: repeating-linear-gradient(135deg, var(--bernstein) 0 6px, var(--honig) 6px 12px); box-shadow: 0 0 10px rgba(245, 200, 106, 0.7); transition: transform 0.2s ease-out; }
+
+/* ── Startseite ──────────────────────────────────────────────────────── */
+.thr-start { padding: 56px 16px 36px; }
+.thr-start__innen { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 46px; align-items: center; }
+.thr-dachzeile, .thr-ueber__zeile { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--terrakotta); }
+.thr-start__titel { margin: 0 0 14px; font-size: clamp(36px, 5vw, 62px); }
+.thr-start__titel em { font-style: italic; color: var(--nacht-3); background: linear-gradient(transparent 68%, rgba(245, 200, 106, 0.55) 68%); }
+.thr-start__claim { margin: 0 0 12px; font-size: 20px; color: var(--nacht-3); font-weight: 500; }
+.thr-start__intro { margin: 0 0 24px; color: var(--tinte-2); }
+.thr-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.thr-taste { display: inline-block; padding: 13px 24px; border-radius: 999px; background: linear-gradient(180deg, var(--nacht-3), var(--nacht)); color: var(--honig); font-weight: 700; text-decoration: none; box-shadow: 0 12px 24px -14px rgba(23, 16, 31, 0.9), inset 0 -3px 0 var(--bernstein); transition: transform 0.2s, box-shadow 0.2s; }
+.thr-taste:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 18px 28px -14px rgba(23, 16, 31, 0.9), inset 0 -3px 0 var(--honig); }
+.thr-taste--rahmen { background: transparent; color: var(--nacht); border: 2px solid var(--nacht-3); box-shadow: none; }
+.thr-taste--rahmen:hover { color: var(--nacht); background: rgba(245, 200, 106, 0.22); }
+.thr-start__bild { filter: drop-shadow(0 26px 34px rgba(23, 16, 31, 0.35)); }
+.thr-bild__spur g { opacity: 0; animation: spur 9s ease-in-out infinite; }
+.thr-bild__spur .p1 { animation-delay: 0s; } .thr-bild__spur .p2 { animation-delay: 0.7s; } .thr-bild__spur .p3 { animation-delay: 1.4s; }
+.thr-bild__spur .p4 { animation-delay: 2.1s; } .thr-bild__spur .p5 { animation-delay: 2.8s; } .thr-bild__spur .p6 { animation-delay: 3.5s; }
+.thr-bild__knaeuel { animation: knaeuel 4s ease-in-out infinite; }
+.thr-bild__sterne { animation: funkeln 4s ease-in-out infinite; }
+@keyframes spur { 0%, 4% { opacity: 0; } 10%, 70% { opacity: 0.9; } 82%, 100% { opacity: 0; } }
+@keyframes knaeuel { 0%, 100% { transform: translate(44px, 236px) rotate(0); } 50% { transform: translate(48px, 236px) rotate(25deg); } }
+@keyframes funkeln { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+.thr-ueber { max-width: 1200px; margin: 0 auto 24px; padding: 0 16px; text-align: center; }
+.thr-ueber h2 { margin: 0; font-size: clamp(28px, 3.4vw, 40px); }
+.thr-ueber::after { content: ""; display: block; width: 92px; height: 14px; margin: 12px auto 0; background: radial-gradient(ellipse 5px 3.4px at 50% 50%, var(--bernstein) 98%, transparent) 0 50% / 23px 14px repeat-x; }
+
+/* The six topics climb like the steps of the throne. */
+.thr-themen { padding: 34px 0 30px; }
+.thr-treppe { list-style: none; margin: 0 auto; padding: 0 16px; max-width: 1200px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; align-items: end; }
+.thr-treppe li { display: flex; }
+.thr-treppe li > .thr-tritt { width: 100%; min-height: calc(150px + var(--s) * 16px); }
+.thr-treppe--flach li > .thr-tritt { min-height: 0; }
+.thr-tritt { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px 16px; height: 100%; border-radius: 14px 14px 4px 4px; background: linear-gradient(180deg, #fffdf7, var(--elfenbein-2)); border: 1px solid var(--rand); border-bottom: 5px solid var(--bernstein); color: var(--nacht); text-decoration: none; text-align: center; box-shadow: var(--schatten); transition: transform 0.3s, box-shadow 0.3s; }
+.thr-tritt:hover { transform: translateY(-6px); color: var(--nacht-3); box-shadow: 0 26px 40px -22px rgba(59, 42, 82, 0.55); }
+.thr-tritt__nr { position: absolute; top: 8px; left: 10px; font-family: var(--titel); font-size: 15px; color: var(--terrakotta); }
+.thr-tritt__icon { width: 40px; height: 40px; color: var(--nacht-3); transition: color 0.3s; }
+.thr-tritt:hover .thr-tritt__icon { color: var(--bernstein); }
+.thr-tritt__name { font-family: var(--titel); font-size: 18px; line-height: 1.2; }
+.thr-tritt__zahl { font-size: 13px; color: var(--tinte-2); }
+
+/* Guide cards are velvet cushions with tassels at the corners. */
+.thr-raster { padding: 34px 0 54px; }
+.thr-raster__karten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.kissen { position: relative; border-radius: 22px; background: linear-gradient(180deg, #fffdf8, var(--elfenbein)); border: 1px solid var(--rand); box-shadow: var(--schatten); transition: transform 0.35s, box-shadow 0.35s; }
+.kissen::before, .kissen::after { content: ""; position: absolute; top: 10px; width: 9px; height: 16px; border-radius: 4px 4px 9px 9px; background: linear-gradient(180deg, var(--honig), var(--bernstein)); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transform-origin: 50% 0; transition: transform 0.6s ease; }
+.kissen::before { left: 12px; transform: rotate(18deg); }
+.kissen::after { right: 12px; transform: rotate(-18deg); }
+.kissen:hover { transform: translateY(-5px); box-shadow: 0 32px 48px -28px rgba(23, 16, 31, 0.55); }
+.kissen:hover::before { transform: rotate(-6deg); }
+.kissen:hover::after { transform: rotate(6deg); }
+.kissen__link { display: flex; flex-direction: column; height: 100%; padding: 26px 26px 18px; color: inherit; text-decoration: none; }
+.kissen__kopf { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.kissen__icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--nacht-3), var(--nacht)); color: var(--honig); box-shadow: 0 0 0 3px rgba(245, 200, 106, 0.4); }
+.kissen__icon svg { width: 24px; height: 24px; }
+.kissen__thema { font-size: 12.5px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terrakotta); }
+.kissen__titel { margin: 2px 0 8px; font-size: 22px; color: var(--nacht); }
+.kissen__text { margin: 0 0 14px; font-size: 15.5px; color: var(--tinte-2); flex: 1; }
+.kissen__fuss { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; color: var(--tinte-2); border-top: 1px solid var(--rand); padding-top: 10px; }
+.kissen__pfote svg { width: 22px; height: 22px; color: var(--elfenbein-3); transition: color 0.3s, transform 0.3s; }
+.kissen:hover .kissen__pfote svg { color: var(--terrakotta); transform: rotate(12deg) scale(1.1); }
+
+.thr-verzeichnis { padding: 54px 0 64px; color: var(--elfenbein); background: radial-gradient(800px 300px at 50% 0%, rgba(245, 200, 106, 0.14), transparent 70%), linear-gradient(180deg, var(--nacht), var(--nacht-2)); }
+.thr-ueber--nacht h2 { color: var(--elfenbein); }
+.thr-ueber--nacht .thr-ueber__zeile { color: var(--honig); }
+.thr-verzeichnis__spalten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.thr-verzeichnis h3 { margin: 0 0 10px; font-size: 21px; }
+.thr-verzeichnis h3 a { display: flex; align-items: center; gap: 8px; color: var(--honig); text-decoration: none; }
+.thr-verzeichnis__icon { width: 26px; height: 26px; }
+.thr-verzeichnis ol { margin: 0; padding-left: 20px; font-size: 15.5px; }
+.thr-verzeichnis li { margin: 4px 0; }
+.thr-verzeichnis li::marker { color: var(--bernstein); }
+.thr-verzeichnis li a { color: rgba(250, 246, 238, 0.88); text-decoration: none; }
+.thr-verzeichnis li a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Thema (Kategorie) ───────────────────────────────────────────────── */
+.thr-thema { padding: 40px 16px 24px; text-align: center; }
+.thr-thema__innen { max-width: 780px; margin: 0 auto; }
+.thr-thema__icon { position: relative; display: inline-grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--nacht-3), var(--nacht)); color: var(--honig); box-shadow: 0 0 0 6px rgba(245, 200, 106, 0.35), var(--schatten); }
+.thr-thema__icon svg { width: 48px; height: 48px; }
+.thr-thema__nr { position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 2px 10px; border-radius: 999px; background: var(--bernstein); color: var(--nacht-2); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.thr-thema h1 { margin: 22px 0 8px; font-size: clamp(34px, 4.6vw, 50px); }
+.thr-thema__zahl { color: var(--terrakotta); font-weight: 700; }
+.thr-pfad { font-size: 14.5px; color: var(--tinte-2); margin-bottom: 14px; }
+
+/* ── Ratgeber ────────────────────────────────────────────────────────── */
+.thr-wissen__kopf { max-width: 880px; margin: 0 auto; padding: 40px 16px 20px; text-align: center; }
+.thr-wissen__titel { margin: 0 0 12px; font-size: clamp(32px, 4.4vw, 50px); }
+.thr-wissen__intro { margin: 0 auto; max-width: 720px; font-size: 19px; color: var(--tinte-2); }
+.thr-wissen__koerper { max-width: 1200px; margin: 0 auto; padding: 10px 16px 30px; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 34px; align-items: start; }
+.thr-wissen__koerper--eins { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.thr-blick { position: sticky; top: 150px; padding: 20px 18px; border-radius: 18px; color: var(--elfenbein); background: linear-gradient(180deg, var(--nacht-3), var(--nacht)); box-shadow: var(--schatten); border-bottom: 6px solid var(--bernstein); }
+.thr-blick__titel { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-family: var(--titel); font-size: 19px; color: var(--honig); }
+.thr-blick__titel--b { margin-top: 18px; }
+.thr-blick__augen { display: inline-flex; gap: 4px; }
+.thr-blick__augen i { display: block; width: 11px; height: 7px; border-radius: 50%; background: var(--bernstein); animation: blinzeln 6s ease-in-out infinite; }
+.thr-blick dl { margin: 0; font-size: 14.5px; }
+.thr-blick dl div { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(223, 227, 234, 0.16); }
+.thr-blick dt { color: rgba(223, 227, 234, 0.72); }
+.thr-blick dd { margin: 0; text-align: right; font-weight: 600; }
+.thr-blick a { color: var(--honig); }
+.thr-blick__inhalt { margin: 0; padding-left: 28px; font-size: 14.5px; max-height: 50vh; overflow: auto; }
+.thr-blick__inhalt a { color: rgba(250, 246, 238, 0.86); text-decoration: none; }
+.thr-blick__inhalt a.an { color: #fff; font-weight: 700; }
+.thr-blick__inhalt li::marker { color: var(--bernstein); }
+.thr-wissen__text { background: #fffdf8; border: 1px solid var(--rand); border-radius: 20px; padding: 34px 42px; box-shadow: var(--schatten); }
+.thr-wissen__text > p:first-child { font-size: 1.08em; }
+.thr-wissen__text h2 { position: relative; margin: 2em 0 0.6em; font-size: 30px; padding-bottom: 8px; border-bottom: 1px solid var(--rand); }
+.thr-wissen__text h2::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 72px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--bernstein), var(--honig)); }
+.thr-wissen__text h3 { margin: 1.6em 0 0.4em; font-size: 23px; color: var(--nacht-3); }
+.thr-wissen__text p, .thr-wissen__text li { color: var(--tinte); }
+.thr-wissen__text ul, .thr-wissen__text ol { padding-left: 24px; }
+.thr-wissen__text li { margin: 0.35em 0; }
+.thr-wissen__text ul li::marker { content: "◆  "; color: var(--bernstein); font-size: 0.8em; }
+.thr-wissen__text ol li::marker { color: var(--terrakotta); font-weight: 700; }
+.thr-wissen__text .table-wrap { overflow-x: auto; margin: 1.2em 0; border-radius: 14px; border: 1px solid var(--rand); }
+.thr-wissen__text table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+.thr-wissen__text th { background: var(--nacht); color: var(--honig); text-align: left; padding: 10px 12px; font-weight: 600; }
+.thr-wissen__text td { padding: 9px 12px; border-bottom: 1px solid var(--rand); vertical-align: top; }
+.thr-wissen__text tr:nth-child(even) td { background: rgba(239, 230, 212, 0.5); }
+.thr-wissen__text blockquote { margin: 1.4em 0; padding: 16px 22px; border-radius: 16px; background: linear-gradient(135deg, rgba(245, 200, 106, 0.2), rgba(245, 200, 106, 0.06)); border: 1px solid rgba(224, 160, 43, 0.45); }
+.thr-wissen__text blockquote p { margin: 0.4em 0; }
+.thr-tierarzt { margin-top: 2em; padding: 16px 20px 16px 22px; border-radius: 16px; background: rgba(95, 122, 106, 0.1); border: 1px solid rgba(95, 122, 106, 0.4); border-left: 5px solid var(--salbei); font-size: 16px; }
+.thr-tierarzt p { margin: 0; }
+
+.thr-leer { max-width: 1000px; margin: 0 auto; padding: 60px 16px; text-align: center; }
+.thr-leer__code { margin: 0; font-family: var(--titel); font-size: 100px; color: var(--nacht-3); line-height: 1; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.thr-fuss { position: relative; background: var(--nacht-2); color: rgba(250, 246, 238, 0.85); padding: 0 0 20px; font-size: 15.5px; }
+.thr-fuss__stufen { display: flex; align-items: flex-end; height: 36px; background: var(--elfenbein); }
+.thr-fuss__stufen i { flex: 1; background: var(--nacht-2); border-top: 3px solid var(--bernstein); }
+.thr-fuss__stufen i:nth-child(1) { height: 6px; } .thr-fuss__stufen i:nth-child(2) { height: 12px; } .thr-fuss__stufen i:nth-child(3) { height: 18px; }
+.thr-fuss__stufen i:nth-child(4) { height: 24px; } .thr-fuss__stufen i:nth-child(5) { height: 30px; } .thr-fuss__stufen i:nth-child(6) { height: 36px; }
+.thr-fuss__innen { max-width: 1200px; margin: 0 auto; padding: 40px 16px 0; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
+.thr-fuss__name { margin: 0; font-family: var(--titel); font-size: 28px; letter-spacing: 0.2em; color: var(--honig); }
+.thr-fuss__lang { margin: 0 0 8px; color: var(--bernstein); }
+.thr-fuss__titel { margin: 0 0 8px; font-family: var(--titel); color: var(--honig); font-size: 19px; }
+.thr-fuss ul { list-style: none; margin: 0; padding: 0; }
+.thr-fuss li { margin: 4px 0; }
+.thr-fuss a { color: rgba(250, 246, 238, 0.85); text-decoration: none; }
+.thr-fuss a:hover { color: #fff; text-decoration: underline; }
+.thr-fuss__hinweis { max-width: 1200px; margin: 30px auto 0; padding: 16px 16px 0; border-top: 1px solid rgba(250, 246, 238, 0.12); font-size: 13.5px; color: rgba(250, 246, 238, 0.62); }
+
+/* ── Bewegung beim Erscheinen ────────────────────────────────────────── */
+.thr-erscheint { opacity: 0; transform: translateY(18px); transition: opacity 0.6s, transform 0.6s; }
+.thr-erscheint.da { opacity: 1; transform: none; }
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1020px) {
+  .thr-treppe { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+  .thr-treppe li > .thr-tritt { min-height: 0; }
+  .thr-raster__karten, .thr-verzeichnis__spalten { grid-template-columns: repeat(2, 1fr); }
+  .thr-wissen__koerper { grid-template-columns: minmax(0, 1fr); }
+  .thr-blick { position: static; }
+}
+@media (max-width: 760px) {
+  body.thr { font-size: 17px; }
+  .thr-start__innen { grid-template-columns: 1fr; }
+  .thr-start__bild { max-width: 460px; }
+  .thr-knopf { display: inline-block; }
+  .thr-menue { display: none; }
+  .thr-kopf.offen .thr-menue { display: flex; flex-direction: column; align-items: stretch; }
+  .thr-kopf.offen .stufe { flex-direction: row; justify-content: flex-start; gap: 12px; }
+  .thr-treppe, .thr-raster__karten, .thr-verzeichnis__spalten, .thr-fuss__innen { grid-template-columns: 1fr; }
+  .thr-treppe { grid-template-columns: repeat(2, 1fr); }
+  .thr-wissen__text { padding: 22px 18px; }
+  .thr-wissen__text h2 { font-size: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .thr-erscheint { opacity: 1; transform: none; }
+  .thr-bild__spur g { opacity: 0.9; }
+  .thr-wm__faden { transform: none; }
+}
