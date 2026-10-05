@@ -195,6 +195,7 @@ berbagi palet, font, ornamen, atau gaya animasi menu.**
 | 1fr.fr | Galerie des glaces andalouse | biru malam, cermin, emas | (lapisan tenant di apps/web) | Kilau cermin menyapu tab lengkung Moor |
 | ulyah.com | Pelataran marmer & kaligrafi emas | marmer gading, zamrud, emas | (lapisan tenant di apps/web) | Garis emas tergores seperti tinta kaligrafi |
 | zuvik.de | Hof der Granatäpfel (halaman rumah delima) | merah delima, safran, pasir | Young Serif / Mulish | Menu berupa jendela rumah yang menyala; biji delima jatuh saat perayaan juara |
+| zavik.de | Löwenstufen (enam anak tangga takhta gading) | ungu malam, amber, gading, batu bulan | Libre Caslon Display / Work Sans | Menu berupa anak tangga; sepasang mata kucing membuka dengan kedipan pelan; jejak kaki merah-emas saat perayaan juara |
 
 ---
 
@@ -364,8 +365,14 @@ Status per situs:
   tema "Hof der Granatäpfel", animasi Spanyol 2026. Edisi Jerman dulu;
   edisi Inggris (`/en/`) menyusul setelah kesepuluh situs punya 40 artikel
   Jerman. Impressum belum berisi nama/alamat asli (menunggu data pemilik).
-- Berikutnya berurutan: zavik, rubiy, byoy, qurm, qarf, zufiq, zevok,
-  zolun, qulen.
+- **zavik.de ✅ selesai (5 Okt):** panduan kucing, 40 artikel tulisan tangan
+  (rata-rata ±1.300 kata), 6 tema, 9 halaman wajib + "Notfall & Tierarzt",
+  tema "Löwenstufen".
+- **Impressum (keputusan pemilik 5 Okt):** "pake p2nshooter" — penerbit di
+  Impressum/Über uns = **p2nshooter** + email situs, sama seperti ulyah.com
+  dan xaa.es (hanya merek + email). Tidak memakai orang/alamat palsu.
+  Catatan risiko: hukum Jerman (§ 5 DDG) idealnya meminta nama & alamat asli.
+- Berikutnya berurutan: rubiy, byoy, qurm, qarf, zufiq, zevok, zolun, qulen.
 
 Usulan niche (belum final):
 
@@ -443,12 +450,13 @@ Usulan niche (belum final):
 | 4 Okt | Favicon/logo setiap situs harus unik | ✅ 11 favicon baru (bentuk & warna sendiri), PR di semua repo |
 | 4 Okt | Isi DNS TXT verifikasi Search Console (qarf, qulen, qurm, zavik, zevok, zuvik) | ✅ PR #291, workflow dns-records.yml menambahkan 6 TXT |
 | 4 Okt | 10 situs terakhir cukup 40 artikel per situs untuk syarat AdSense | ✅ dicatat Fase 6 |
+| 5 Okt | "Ga perlu tanggal putus dawa.es, nanti di putus manual" | ✅ dicatat §10 |
 | 4 Okt | "Fokus konten kualitas tinggi untuk AdSense, dengan CSS mewah … agar mendekati 100% approve" | 🔄 zuvik.de selesai (40 cerita tulisan tangan); 9 situs .de berikutnya menyusul |
 | 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | ✅ audit live 4 Okt: 17 situs OK 5693…, dawa.es tetap 6371… |
 | 4 Okt | Blueprint Ad Manager + pusat AI ulyah.com: otomatis penuh, aturan tetap, hanya situs yang sudah di-approve, laporan di admin, traffic semua situs kecuali dawa.es | 🔄 `docs/ADMANAGER-BLUEPRINT.md` |
 | 4 Okt | Favicon di Search Console masih bola dunia | 🔄 penyebab: domain belum tersambung ke Worker / belum di-crawl ulang; favicon.ico + PNG ditambahkan |
 | nanti | Kompres database < 7 GB; perbaiki kitab tidak muncul | ⏸️ |
-| 4 Okt | Lepas semua yang terhubung dengan dawa.es, biarkan mandiri, WAJIB dicatat | ✅ §10 (CORS + cache Spanyol menunggu tanggal putus dari pemilik) |
+| 4 Okt | Lepas semua yang terhubung dengan dawa.es, biarkan mandiri, WAJIB dicatat | ✅ §10 (CORS + cache Spanyol: pemilik memutus manual sendiri, 5 Okt) |
 | 4 Okt | Hapus & bersihkan slot AdSense di semua situs (kecuali dawa.es); cukup cuplikan, ads.txt, tag meta — 27 situs masih pengajuan | ✅ aturan 3; apps/web, situs statis & repo partner; dijaga CI + audit live |
 | 4 Okt | jai.lat: pertahankan 77 artikel Inggris; 10 artikel Spanyol tetap tampil sebagai tambahan | ✅ Jai #6: desk "En español", 5 artikel mesin dihapus (301) |
 | 4 Okt | Semua CSS yang belum sesuai blueprint §4 dirombak | ✅ jai.lat (Saba), lie.skin (mutiara), axto.dev (observatorium) live; pemilik: "biarkan seperti skrg" |

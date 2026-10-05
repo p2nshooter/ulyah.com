@@ -8,13 +8,13 @@ updated: 2026-10-04
 
 **Website:** zuvik.de, ZUVIK (Zuhause, viel Kinderlachen)
 
-**Diensteanbieter:** Herausgeber von ZUVIK
+**Diensteanbieter:** p2nshooter, Herausgeber von ZUVIK
 
 **Kontakt:** E-Mail [kontakt@zuvik.de](mailto:kontakt@zuvik.de)
 
 ## Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
 
-Die Redaktion von ZUVIK, erreichbar unter der oben genannten E-Mail-Adresse.
+p2nshooter und die Redaktion von ZUVIK, erreichbar unter der oben genannten E-Mail-Adresse.
 
 ## Hinweis zu den Geschichten
 
