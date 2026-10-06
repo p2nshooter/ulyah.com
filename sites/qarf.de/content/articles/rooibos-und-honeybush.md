@@ -1,6 +1,6 @@
 ---
 title: "Rooibos und Honeybush: die koffeinfreien Tees aus Südafrika, Sorten und Zubereitung"
-description: "Rooibos und Honeybush aus dem südafrikanischen Kap: Herkunft, roter und grüner Rooibos, Geschmack, Zubereitung mit kochendem Wasser, Latte, Eistee und Mischungen, Lagerung und Antworten auf häufige Fragen."
+description: "Rooibos und Honeybush aus Südafrika: Herkunft, roter und grüner Rooibos, Geschmack, Zubereitung mit kochendem Wasser, Latte, Eistee und Mischungen, Lagerung und häufige Fragen."
 category: teesorten
 date: 2026-09-11
 ---
@@ -69,6 +69,19 @@ Wie bei allen Kräuter- und Pflanzenaufgüssen gilt: Abwechslung ist sinnvoll, s
 - **Schnitt:** Feiner Schnitt zieht schneller und kräftiger. Längere Nadeln und weniger Staub sprechen für sorgfältige Sortierung.
 - **Aromatisiert oder pur:** Viele Rooibos-Mischungen sind aromatisiert. Probiere auch einmal puren Rooibos, um den natürlichen Geschmack kennenzulernen.
 - **Bio und fair:** Ein Teil des Rooibos wird biologisch angebaut oder fair gehandelt. Was die Siegel bedeuten, erklärt [Siegel bei Kaffee und Tee](/ratgeber/siegel-fairtrade-bio/).
+
+## Rooibos in der Küche
+
+Rooibos ist nicht nur ein Getränk. Weil er süßlich, mild und kaum bitter ist, eignet er sich gut zum Kochen und Backen. Ein starker Aufguss ersetzt Wasser beim Einweichen von Trockenfrüchten für Müsli oder Früchtebrot und gibt ihnen eine feine Vanille- und Honignote. Birnen oder Äpfel lassen sich in Rooibos mit etwas Zimt, Zitronenschale und Honig pochieren, bis sie weich sind. Für einen Rooibos-Sirup kochst du einen sehr kräftigen Aufguss mit gleich viel Zucker kurz auf. Er schmeckt im Eistee, über Joghurt oder in Desserts. Auch in Marinaden für Geflügel oder in Saucen findet Rooibos in Südafrika Verwendung, wo er als Zutat in vielen Haushalten selbstverständlich ist.
+
+## Typische Fehler
+
+| Problem | Ursache | Lösung |
+|---|---|---|
+| Tee schmeckt dünn | zu wenig Rooibos, zu kurz gezogen, Wasser nicht kochend | einen gehäuften Teelöffel nehmen, fünf bis zehn Minuten ziehen lassen |
+| Krümel in der Tasse | grobes Sieb | feines Sieb oder Papierfilter verwenden |
+| Geschmack künstlich | stark aromatisierte Mischung | puren Rooibos probieren |
+| Aroma schwach trotz richtiger Menge | alte oder feucht gelagerte Ware | luftdicht lagern, frische Packung kaufen |
 
 ## Lagerung
 
