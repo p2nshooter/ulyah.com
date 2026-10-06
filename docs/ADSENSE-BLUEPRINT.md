@@ -5,7 +5,7 @@ baru dicatat di sini dulu**, lalu statusnya diperbarui setelah diuji.
 Kontrol pusatnya ada di repo `ulyah.com`; situs yang punya repo sendiri tetap
 dicatat di sini.
 
-Terakhir diperbarui: 5 Oktober 2026 (8 situs .de terakhir dilanjutkan sampai 40 artikel, lalu deploy).
+Terakhir diperbarui: 6 Oktober 2026 (Fase 7: 27 situs mewah menyeluruh, setiap artikel ≥1.500 kata, setiap situs ≥40 artikel; merge & deploy dikerjakan sendiri).
 
 Arti tanda: ✅ selesai dan lulus uji · 🟡 selesai, butuh tindakan manual atau
 belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ ditunda
@@ -400,6 +400,55 @@ Usulan niche (belum final):
 | zolun.de | „Sonne“ | Liburan di Jerman (Nord-/Ostsee, Städtereisen) |
 | zufiq.de | „zufrieden“ | Hidup tenang: kebiasaan, keteraturan, minimalisme |
 
+### Fase 7: 27 situs — mewah menyeluruh, ≥1.500 kata, ≥40 artikel (6 Okt)
+
+Permintaan pemilik (6 Okt, kata per kata):
+
+1. "27 web, CSS-nya bikin yang mewah semua websitenya, kaya istana raja Nabi Sulaiman, mewahnya menyeluruh bukan index-nya aja, font, style, posisi dll mewah semua"
+2. "Kerjain semuanya merge & PR, saya kasih izin semua"
+3. "Min 1500 kata ya, merge & PR dari sisi Anda, saya berikan izin seluruh aksesnya"
+4. "Tambahin semua yang kurang dari 1500 kata, dan yang kurang dari 40 artikel"
+5. "Sudah saya merge manual tapi masih belum tampil, tolong Anda saja yang mengerjakan seluruhnya sampai selesai, jangan ada campur tangan saya"
+
+27 situs = 17 situs di audit live (ulyah.com, 1fr.fr, tilawa.de, axto.io, xaa.es,
+axto.us, axto.dev, jai.lat, lie.skin, oldco.in, profity.in, dawo.es, qkb.es,
+xko.es, byodd.de, byoxy.de, xad.es) + 10 domain .de Fase 6 (byoy, qarf, qulen,
+qurm, rubiy, zavik, zevok, zolun, zufiq, zuvik). dawa.es tetap tidak disentuh.
+
+Aturan baru:
+
+- **Setiap artikel ≥1.500 kata** (semua bahasa; untuk situs dwibahasa hi+en,
+  versi Inggris juga ≥1.500). Penambahan berupa bagian baru yang benar-benar
+  berguna (contoh, langkah, tabel, kesalahan umum, FAQ), bukan pengisi; tetap
+  tanpa angka, harga, kutipan, atau studi karangan; tidak menyalin artikel lain.
+  `check.mjs` dinaikkan ke 1.500 per artikel setelah semua situs lulus.
+- **Setiap situs ≥40 artikel** (zufiq, zevok, zolun, qulen 40 masing-masing;
+  xad.es dari 12 → 40; blog axto.io diperpanjang).
+- **Mewah menyeluruh:** bukan hanya beranda — halaman artikel, kategori,
+  halaman wajib (Impressum dsb.), 404, header, footer, tabel, kutipan, daftar
+  isi, tombol, formulir; font berkelas, jarak & posisi rapi, ornamen istana
+  §4, animasi halus + `prefers-reduced-motion`. xaa.es tetap gaya bisnis biru
+  (keputusan 4 Okt) dan jai.lat tetap desain Saba (keputusan 4 Okt), keduanya
+  dipoles tanpa diganti.
+- **Merge & deploy oleh Claude** (izin pemilik 6 Okt): PR per repo, CI hijau,
+  merge, cek deploy + domain.
+
+Temuan 6 Okt: PR #304 sudah di-merge pemilik (04:15 UTC); `deploy-sites.yml`
+sukses dan memasang domain (log: "Attached qarf.de → qarf-de", juga www) untuk
+byoy, qarf, qurm, rubiy, zavik, zuvik, byodd, byoxy, dawo, qkb, xko. Smoke test
+lama hanya memeriksa alamat workers.dev → sekarang juga memeriksa domain asli.
+Status kuning di AdSense hanya berubah setelah *Verifikasi → Minta peninjauan*
+di akun AdSense (di luar jangkauan Claude).
+
+| # | Pekerjaan | Status |
+|---|---|---|
+| 7.1 | Statis ulyah.com/sites (11 situs) + axto.us: ±450 artikel ditambah ke ≥1.500 kata | 🔄 |
+| 7.2 | zufiq, zevok, zolun, qulen: 40 artikel ≥1.500 kata + halaman wajib + tema | 🔄 |
+| 7.3 | oldco.in & profity.in (hi+en, 116 artikel), jai.lat (8 artikel es), axto.io (40 posting blog), xad.es (+28 artikel) | 🔄 |
+| 7.4 | Audit & perombakan desain mewah semua halaman, 27 situs (desktop + mobile, tanpa error konsol) | 🔄 |
+| 7.5 | `check.mjs` minimal 1.500 kata; smoke test domain asli; audit live 27 situs | 🔄 |
+| 7.6 | PR + merge semua repo, deploy terverifikasi | 🔄 |
+
 ### Fase 5: setelah AdSense selesai (permintaan pemilik)
 
 | # | Pekerjaan | Status |
@@ -434,6 +483,10 @@ Usulan niche (belum final):
 
 | Tanggal | Permintaan | Status |
 |---|---|---|
+| 6 Okt | "27 web, CSS mewah semua kaya istana Nabi Sulaiman, menyeluruh bukan index-nya aja, font, style, posisi" | 🔄 Fase 7 (7.4) |
+| 6 Okt | "Min 1500 kata; tambahin semua yang kurang dari 1500 kata dan yang kurang dari 40 artikel" | 🔄 Fase 7 (7.1–7.3, 7.5) |
+| 6 Okt | "Kerjain semuanya, merge & PR dari sisi Anda, saya kasih izin semua … jangan ada campur tangan saya" | 🔄 Fase 7 (7.6) |
+| 6 Okt | "Sudah saya merge manual tapi masih belum tampil" | 🔄 deploy main sukses + domain terpasang; smoke test domain asli ditambahkan; minta peninjauan AdSense tetap dari akun pemilik |
 | 27 Sep | Ganti kode AdSense semua situs di file; buat situs yang belum ada; niche sesuai kepanjangan; ≥40 artikel panjang; menu & halaman wajib; bahasa sesuai ekstensi; folder rapi & mudah dibackup/dijual; worker langsung online | 🔄 |
 | 27 Sep | Hapus semua slot Adsterra di mana pun | 🔄 |
 | 27 Sep | CSS super mewah, menu penuh animasi, tidak sama dengan situs lain, konsep di blueprint | 🔄 (§4) |
