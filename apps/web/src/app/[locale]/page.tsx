@@ -4,7 +4,7 @@ import { TENANT } from "@/lib/tenant";
 import { headerMotifOn } from "@/components/HeaderMotif";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
-import { api } from "@/lib/api";
+import { libraryIndex } from "@/lib/kitab-data";
 import { QuranReaderWidget } from "@/components/QuranReaderWidget";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { PrayerTimesWidget } from "@/components/PrayerTimesWidget";
@@ -18,21 +18,17 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const dict = getDictionary(locale);
 
-  // Live kitab totals for the treasury pointer (best-effort — the band simply
-  // hides if the catalogue endpoint is briefly unavailable).
-  //
-  // Deliberately requested WITHOUT a `lang`: this band renders only counts, so
-  // asking for a localized payload would make the landing page — the very page
-  // a language switch lands on — wait on translating 38 category names on a
-  // cold cache. That is server work the visitor never sees, and on a thin
-  // cache it helped push the render past the Worker's limits (Error 1102).
+  // Kitab totals for the treasury pointer, from this site's static library
+  // data (lib/kitab-data.ts). This used to ask the API on EVERY home page view
+  // — a COUNT over all 4,969 works, ~5,000 D1 row reads a visit — and the band
+  // vanished whenever the shared D1 read quota had run out, which is part of
+  // what the owner saw as "seluruh kitab hilang".
   let kitabTotal = 0;
   let kitabCats = 0;
   try {
-    const res = await api.get<{ categories: { book_count: number }[] }>(`/content/kitab/categories`);
-    const cats = res.categories ?? [];
-    kitabCats = cats.length;
-    kitabTotal = cats.reduce((n, c) => n + (c.book_count ?? 0), 0);
+    const lib = await libraryIndex();
+    kitabCats = lib.categories.length;
+    kitabTotal = lib.total;
   } catch {
     kitabTotal = 0;
   }

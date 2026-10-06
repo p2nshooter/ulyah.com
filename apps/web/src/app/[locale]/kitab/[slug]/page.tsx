@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { api } from "@/lib/api";
+import { notFound } from "next/navigation";
+import { libraryIndex, libraryShelf, categoryName } from "@/lib/kitab-data";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { coverFor } from "@/lib/book-cover";
 import { routePath } from "@/lib/paths";
@@ -15,26 +16,15 @@ import { routePath } from "@/lib/paths";
  *
  * A library category listing, imported once and not edited since — a day of
  * cache costs nothing in freshness and keeps a crawler off the API.
+ *
+ * The shelf is read from this site's static files (lib/kitab-data.ts), not
+ * from D1: search and paging run over that list in memory, so a visitor
+ * paging through 600 works costs zero database reads. The titles are the
+ * Arabic originals; the detail page carries the translation.
  */
 export const revalidate = 86400;
 
-interface BookRow {
-  id: number;
-  title_ar: string;
-  title_translated: string | null;
-  author: string | null;
-  author_death_year: string | null;
-  source: string | null;
-  excerpt: string | null;
-}
-
-interface CategoryDetail {
-  slug: string;
-  name_ar: string;
-  name_id: string;
-  name: string;
-  icon: string | null;
-}
+const PAGE_SIZE = 24;
 
 export default async function KitabCategoryPage({
   params,
@@ -49,34 +39,24 @@ export default async function KitabCategoryPage({
   const t = kitabLabels(locale);
   const page = Math.max(1, Number(pageRaw ?? "1") || 1);
 
-  let category: CategoryDetail | null = null;
-  let books: BookRow[] = [];
-  let total = 0;
-  try {
-    const qs = new URLSearchParams({ page: String(page), lang: locale });
-    if (q) qs.set("q", q);
-    const res = await api.getCached<{ category: CategoryDetail; books: BookRow[]; total: number }>(
-      `/content/kitab/category/${slug}?${qs.toString()}`, 86400);
-    category = res.category ?? null;
-    books = res.books ?? [];
-    total = res.total ?? 0;
-  } catch {
-    category = null;
-  }
+  const [index, shelf] = await Promise.all([libraryIndex(), libraryShelf(slug)]);
+  const meta = index.categories.find((c) => c.slug === slug);
+  if (!meta || !shelf) notFound();
+  const category = { ...meta, name: categoryName(meta, locale) };
 
-  if (!category) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-        <p className="text-sm text-text-secondary">{t.noResults}</p>
-        <Link href={routePath(locale, `/kitab`)} className="mt-4 inline-block text-sm text-accent hover:underline">
-          ← {t.backToCategories}
-        </Link>
-      </div>
-    );
-  }
+  // Same match as the API's `title_ar LIKE ? OR author LIKE ?`.
+  const needle = q.trim().toLowerCase();
+  const matches = needle
+    ? shelf.books.filter(
+        (b) => b.title_ar.toLowerCase().includes(needle) || (b.author ?? "").toLowerCase().includes(needle)
+      )
+    : shelf.books;
+  const total = matches.length;
+  const books = matches
+    .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+    .map((b) => ({ ...b, title_translated: null as string | null }));
 
-  const pageSize = 24;
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const cv = coverFor(slug); // this shelf's binding colour, shared by its works
 
   return (

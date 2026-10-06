@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { api } from "@/lib/api";
+import { libraryIndex, categoryName } from "@/lib/kitab-data";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { coverFor } from "@/lib/book-cover";
 import { PageHero } from "@/components/PageHero";
@@ -15,7 +15,10 @@ import { routePath } from "@/lib/paths";
  * the account past the Workers free plan's 100,000 requests a day and every
  * site answered Error 1027 until midnight UTC.
  *
- * The library index changes only when a new import runs.
+ * The library index changes only when a new import runs — and it is read from
+ * this site's own static files (lib/kitab-data.ts), never from D1: when the
+ * shared D1 read quota ran out, the API answered 500 and this shelf rendered
+ * empty, and stayed empty in the page cache for the whole day.
  */
 export const revalidate = 86400;
 
@@ -40,29 +43,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-interface CategoryRow {
-  slug: string;
-  name_ar: string;
-  name_id: string;
-  name: string;
-  icon: string | null;
-  book_count: number;
-}
-
 export default async function KitabPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const t = kitabLabels(locale);
 
-  let categories: CategoryRow[] = [];
-  try {
-    const res = await api.getCached<{ categories: CategoryRow[] }>(`/content/kitab/categories?lang=${locale}`, 86400);
-    categories = res.categories ?? [];
-  } catch {
-    categories = [];
-  }
-
-  const total = categories.reduce((n, c) => n + c.book_count, 0);
+  // Throws if the build shipped without its data, so a broken deploy keeps the
+  // last good page instead of caching an empty shelf.
+  const { categories: rows, total } = await libraryIndex();
+  const categories = rows.map((c) => ({ ...c, name: categoryName(c, locale) }));
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
