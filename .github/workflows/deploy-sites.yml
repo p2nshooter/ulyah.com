@@ -149,3 +149,27 @@ jobs:
             grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body" || { echo "::error::ads.txt does not authorise $pub"; exit 1; }
           fi
           echo "### $DOMAIN is live at $base" >> "$GITHUB_STEP_SUMMARY"
+
+      # The workers.dev check above proves the Worker; this one proves what a
+      # visitor (and the AdSense crawler) sees on the real domain. A freshly
+      # attached domain can need a few minutes for its certificate, so a miss
+      # is reported as a warning and the next deploy checks again.
+      - name: Check the real domain
+        if: github.event_name != 'pull_request'
+        run: |
+          set -uo pipefail
+          pub=$(node -p "(JSON.parse(require('fs').readFileSync('sites/$DOMAIN/site.json','utf8')).adsense||'').replace(/^ca-/,'')")
+          code=000; body=""
+          for i in 1 2 3 4 5 6 7 8 9; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMAIN/")
+            body=$(curl -s "https://$DOMAIN/ads.txt" || true)
+            [ "$code" = "200" ] && { [ -z "$pub" ] || grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body"; } && break
+            sleep 15
+          done
+          echo "https://$DOMAIN/ → $code"
+          echo "ads.txt: $body"
+          if [ "$code" = "200" ] && { [ -z "$pub" ] || grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body"; }; then
+            echo "### https://$DOMAIN is live (ads.txt authorises ${pub:-no account yet})" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning title=$DOMAIN not reachable yet::https://$DOMAIN/ answered $code. If the zone was just added, its nameservers or certificate may still be propagating; the next deploy checks again."
+          fi

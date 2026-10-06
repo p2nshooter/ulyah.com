@@ -40,4 +40,5 @@ jobs:
           cd /tmp/audit
           node site-audit.mjs \
             ulyah.com 1fr.fr axto.io xaa.es axto.us axto.dev jai.lat lie.skin \
-            oldco.in profity.in dawo.es qkb.es xko.es byodd.de byoxy.de xad.es tilawa.de
+            oldco.in profity.in dawo.es qkb.es xko.es byodd.de byoxy.de xad.es tilawa.de \
+            byoy.de qarf.de qulen.de qurm.de rubiy.de zavik.de zevok.de zolun.de zufiq.de zuvik.de
