@@ -60,6 +60,15 @@ Für ernsthafte Heimröster gibt es kleine elektrische Trommelröster für einig
 6. **Kühlen:** Schütte die Bohnen sofort in ein Metallsieb und schwenke sie, am besten vor einem Ventilator, bis sie handwarm sind. Ohne schnelles Kühlen rösten sie in ihrer eigenen Hitze weiter.
 7. **Häutchen entfernen:** Puste die gelösten Silberhäutchen beim Schwenken weg, am besten draußen.
 
+## Die Röstung beurteilen: Gewicht, Farbe und Mahlbild
+
+Nach dem Abkühlen verraten dir ein paar einfache Prüfungen, wie gut die Röstung gelungen ist.
+
+- **Gewichtsverlust:** Wiege die Bohnen vor und nach dem Rösten und rechne den Verlust in Prozent aus. Je dunkler die Röstung, desto mehr Gewicht verliert die Bohne. Liegen zwei Röstungen derselben Bohne nahe beieinander, waren sie ähnlich weit entwickelt. Das ist ein Vergleichswert, der nicht vom Licht in deiner Küche abhängt.
+- **Gleichmäßigkeit:** Schütte die Bohnen auf einen weißen Teller. Einzelne auffällig helle Bohnen stammen oft von unreifen Kirschen und bräunen kaum. Sortiere sie aus, denn sie schmecken erdnussartig und flach. Starke Farbunterschiede in der ganzen Charge sprechen dagegen für ungleichmäßige Hitze.
+- **Mahlbild:** Mahle ein paar Bohnen und vergleiche die Farbe des Mehls mit der Oberfläche. Ist das Mehl deutlich heller, ist das Innere weniger entwickelt als die Außenseite. Starte beim nächsten Mal sanfter und verlängere die Entwicklung etwas.
+- **Oberfläche:** Helle und mittlere Röstungen sind matt. Ölige Flecken schon am ersten Tag zeigen, dass du nahe am zweiten Crack oder darüber warst.
+
 ## Ruhezeit und Lagerung
 
 Frisch geröstete Bohnen geben noch tagelang Kohlendioxid ab. Wer sie sofort mahlt und brüht, bekommt einen unruhigen Kaffee mit vielen Bläschen und unausgewogenem Geschmack. Lass die Bohnen deshalb ruhen: für Filterkaffee ein bis drei Tage, für Espresso oft fünf bis zehn Tage. Bewahre sie in einem Gefäß mit Aromaventil oder in einer Dose auf, die du in den ersten Tagen nicht ganz dicht verschließt. Wie du Kaffee danach am besten lagerst, steht in [Kaffee und Tee richtig lagern](/ratgeber/kaffee-und-tee-lagern/).
@@ -85,6 +94,29 @@ Frisch geröstete Bohnen geben noch tagelang Kohlendioxid ab. Wer sie sofort mah
 
 Wer regelmäßig röstet, sollte jeden Durchgang aufschreiben. Notiere die Herkunft und Menge des Rohkaffees, die Starttemperatur oder Heizstufe, die Zeitpunkte für Gelbwerden, ersten Crack und Röstende, das Gewicht vor und nach der Röstung und später den Geschmack in der Tasse. Nach einigen Röstungen siehst du Muster: Welche Entwicklungszeit nach dem ersten Crack dir bei diesem Kaffee am besten schmeckt, ob die Trocknungsphase zu kurz war oder die Röstung zu lange dauerte. Diese Notizen sind die Grundlage, um eine gute Röstung zuverlässig zu wiederholen.
 
+## Zwei Röstungen vergleichen
+
+Am schnellsten lernst du im direkten Vergleich. Röste dieselbe Bohne zweimal mit gleicher Menge und Heizstufe und ändere nur das Ende:
+
+1. **Röstung A:** etwa eine Minute nach Beginn des ersten Cracks beenden.
+2. **Röstung B:** etwa zwei Minuten nach Beginn des ersten Cracks beenden.
+3. **Ruhen lassen:** beide gleich lange, zum Beispiel zwei Tage.
+4. **Gleich brühen:** gleiche Dosis, gleicher Mahlgrad, gleiche Methode, am besten Handfilter oder French Press.
+5. **Blind probieren:** Lass jemanden die Tassen markieren oder stell sie selbst durcheinander, bevor du kostest.
+
+Meist wirkt die kürzer entwickelte Röstung heller und säurebetonter, die längere süßer und runder, mit mehr Körper und weniger Frucht. Welche dir besser gefällt, ist Geschmackssache. Entscheidend ist, dass du den Unterschied selbst schmeckst und dein Röstprotokoll darauf aufbaust. Wie du strukturiert verkostest, zeigt [Kaffee verkosten](/ratgeber/kaffee-verkosten/).
+
+## Eigene Mischungen: vor oder nach dem Rösten mischen?
+
+Mit mehreren Rohkaffees liegt eine eigene Mischung nahe, etwa ein schokoladiger Brasilianer mit einem fruchtigen Äthiopier. Dafür gibt es zwei Wege:
+
+| Vorgehen | Vorteil | Nachteil |
+|---|---|---|
+| vor dem Rösten mischen | ein Durchgang, wenig Aufwand | Bohnen unterschiedlicher Größe und Dichte rösten unterschiedlich schnell |
+| nach dem Rösten mischen | jede Sorte passend geröstet, Anteile fein abstimmbar | doppelter Aufwand, mehr Notizen |
+
+Für den Anfang ist das Mischen nach dem Rösten verlässlicher. Probiere die Anteile in kleinen Schritten, etwa zwei Teile zu einem Teil, und notiere, wie sich die Tasse verändert.
+
 ## Häufige Fragen
 
 ### Lohnt sich Selbströsten finanziell?
@@ -94,6 +126,10 @@ Rohkaffee ist günstiger als gerösteter Spezialitätenkaffee, aber Geräte, Zei
 ### Kann ich Espressobohnen selbst rösten?
 
 Ja, aber Espresso verzeiht Röstfehler weniger, weil er Aromen stark konzentriert. Beginne mit Filterkaffee und taste dich dann an Espresso heran, wie in [Siebträger und Espresso](/ratgeber/siebtraeger-espresso-grundlagen/) beschrieben.
+
+### Ich höre keinen ersten Crack. Was mache ich falsch?
+
+Oft übertönt das Gerät das Knacken, vor allem Popcornmaschinen oder ein laufender Ventilator. Achte dann auf Zeichen, die du sehen und riechen kannst: Die Bohnen werden größer, die Silberhäutchen lösen sich stärker, der Geruch wechselt von Brot zu Karamell und Röstaroma. Bleibt der Crack ganz aus, war die Hitze meist zu niedrig, etwa weil die Menge für das Gerät zu groß war. Röste dann eine kleinere Menge.
 
 ### Wie lange hält selbst gerösteter Kaffee?
 

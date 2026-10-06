@@ -32,7 +32,7 @@ Die Schriften dieser Website werden von Google-Servern geladen. Dabei werden nac
 
 ## Die Einwilligungsnachricht
 
-Beim ersten Besuch erscheint eine Einwilligungsnachricht. Dort kannst du allen Zwecken zustimmen, alle ablehnen oder unter den Optionen einzelne Zwecke und Drittanbieter auswählen. Ohne deine Zustimmung werden keine Cookies für personalisierte Werbung gespeichert. Es können dann weiterhin nicht personalisierte Anzeigen erscheinen, für die Google nur die technisch notwendigen Informationen nutzt.
+Beim ersten Besuch erscheint eine Einwilligungsnachricht. Dort kannst du allen Zwecken zustimmen, alle ablehnen oder unter den Optionen einzelne Zwecke und Drittanbieter auswählen. Ohne deine Zustimmung werden keine Cookies für personalisierte Werbung gespeichert. Es können dann weiterhin Anzeigen erscheinen, die nicht auf deinen Interessen beruhen. Welche Informationen Google dafür nutzt, hängt davon ab, welchen Zwecken du zugestimmt hast.
 
 ## Einwilligung ändern oder widerrufen
 

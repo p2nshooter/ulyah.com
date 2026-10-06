@@ -78,6 +78,30 @@ Diese Angaben sind Richtwerte für den besten Geschmack. Tee wird danach nicht s
 
 **Grüner Tee und Matcha im Kühlschrank:** Ungeöffnete Packungen können kühl gelagert werden. Lass sie vor dem Öffnen auf Raumtemperatur kommen. Geöffneten Tee nicht ständig zwischen Kühlschrank und Küche wechseln.
 
+## Wie viel du kaufen solltest
+
+„Kleine Mengen“ ist leicht gesagt. Mit einer einfachen Rechnung findest du die Packungsgröße, die zu deinem Verbrauch passt. Für Kaffee gehst du von deinem Rezept aus, zum Beispiel 15 Gramm pro Tasse Filterkaffee:
+
+| Verbrauch am Tag | Kaffee pro Woche | 250 g reichen etwa | 500 g reichen etwa |
+|---|---|---|---|
+| 1 Tasse | gut 100 g | gut 2 Wochen | gut 4 Wochen |
+| 2 Tassen | gut 200 g | gut 1 Woche | gut 2 Wochen |
+| 4 Tassen | gut 400 g | etwa 4 Tage | gut 1 Woche |
+
+Wer allein eine Tasse am Tag trinkt, ist mit 250 Gramm gut bedient. Ein Haushalt mit vier Tassen täglich verbraucht dagegen auch ein Kilo in gut zwei Wochen, also noch im besten Zeitraum, besonders wenn du es wie unten beschrieben aufteilst.
+
+Bei Tee rechnest du mit etwa 2 bis 3 Gramm pro Tasse. Eine 100-Gramm-Packung reicht damit für gut 30 bis 50 Tassen. Bei robustem Schwarztee darf die Packung ruhig etwas größer sein, bei Matcha und japanischem Grüntee dagegen schon: Kaufe davon nur so viel, wie du im empfohlenen Zeitraum aus der Tabelle oben wirklich trinkst.
+
+## Lagern in besonderen Situationen
+
+| Situation | Das Problem | So machst du es |
+|---|---|---|
+| Hochsommer, warme Dachwohnung | Wärme beschleunigt das Altern, Schränke an Außenwänden heizen sich auf | kleinere Mengen kaufen, Vorrat an den kühlsten Ort der Wohnung bringen, etwa in einen Schrank im Flur |
+| Urlaub, mehrere Wochen weg | angebrochene Packungen altern weiter | Kaffee vorher aufbrauchen oder ganze Bohnen portionsweise einfrieren, Tee dicht verschlossen im Schrank lassen |
+| Büro | Teeküche mit Wärme, Gerüchen und vielen Händen | eigene kleine Dose für eine Woche, nicht neben Mikrowelle oder Kaffeemaschine |
+| Reisen und Camping | Hitze im Auto, Feuchtigkeit im Zelt | Tagesportionen in kleinen, dichten Beuteln oder Dosen, im Schatten aufbewahren |
+| Kühler Keller | kühl, aber oft zu feucht | nur in wirklich dichten Dosen, regelmäßig auf Geruch und Klumpen prüfen |
+
 ## Vorräte sinnvoll aufteilen
 
 Manchmal lohnt sich eine größere Packung, etwa ein Kilo Bohnen von der Lieblingsrösterei oder ein großer Beutel Schwarztee. Dann hilft es, den Vorrat gleich nach dem Kauf aufzuteilen. Fülle eine Portion für die nächsten ein bis zwei Wochen in deine Alltagsdose und verschließe den Rest möglichst luftdicht. Bei Kaffee kannst du den Rest in Wochenportionen einfrieren, bei Tee in kleinere, gut verschlossene Dosen oder Beutel umfüllen und dunkel lagern. So öffnest du den Hauptvorrat nicht jeden Tag, und nur ein kleiner Teil kommt regelmäßig mit Luft in Kontakt. Beschrifte jede Dose mit Sorte und Datum. Gerade bei Tee verliert man sonst schnell den Überblick, welche Sorte seit wann im Schrank steht, und manch feiner Grüntee wird vergessen, bis er sein Aroma verloren hat. Eine kleine Liste an der Schranktür hilft, Vorräte der Reihe nach zu verbrauchen.
@@ -94,6 +118,17 @@ Chai-Gewürze, Kardamom, Zimt und Vanille verlieren ihr Aroma ebenfalls und gebe
 - **Nassen Löffel verwenden:** Feuchtigkeit führt zu Klumpen und im schlimmsten Fall zu Schimmel.
 - **Kaffeedose, die nach altem Kaffee riecht:** Alte Öle setzen sich in Dosen fest. Spüle Dosen gelegentlich heiß aus und lass sie vollständig trocknen.
 
+## Der Fünf-Minuten-Check für deinen Vorrat
+
+Einmal im Monat lohnt sich ein kurzer Blick in den Schrank:
+
+- **Reihenfolge:** Was ist am längsten geöffnet? Das kommt als Nächstes dran.
+- **Geruch:** Öffne jede Dose kurz. Riecht ein Schwarztee nur noch schwach, eignet er sich noch gut für Chai, wo Gewürze und Milch den Ton angeben.
+- **Wärme:** Lege die Hand an die Schrankwand, während Backofen oder Spülmaschine laufen. Ist sie warm, such einen anderen Platz.
+- **Dichtungen:** Schließen alle Deckel noch fest? Ausgeleierte Dichtungen ersetzen oder die Dose wechseln.
+- **Selbst getrocknete Kräuter:** Bildet sich innen am Glas Kondenswasser, waren sie nicht trocken genug. Breite sie noch einmal zum Trocknen aus und prüfe sie danach sorgfältig auf Schimmel. Wie das Trocknen gelingt, steht in [Kräutertee und Früchtetee](/ratgeber/kraeutertee-und-fruechtetee/).
+- **Mengen:** Bleibt regelmäßig etwas übrig, kaufe beim nächsten Mal kleinere Packungen.
+
 ## Häufige Fragen
 
 ### Wie erkenne ich verdorbenen Tee oder Kaffee?
@@ -103,6 +138,10 @@ Muffiger, schimmeliger oder ranziger Geruch, sichtbare Beläge oder Klumpen sind
 ### Darf ich Tee in der Originaltüte lassen?
 
 Ja, wenn die Tüte lichtdicht und gut verschließbar ist. Drücke die Luft heraus und stelle sie in eine Dose oder einen dunklen Schrank.
+
+### Sollte ich Tee einfrieren?
+
+In der Regel nicht. Tee ist trocken und hält dunkel und luftdicht gelagert lange genug. Beim Auftauen kann sich Feuchtigkeit auf den Blättern niederschlagen, die mehr schadet als nützt. Für empfindliche Grüntees und Matcha reicht es, ungeöffnete Packungen im Kühlschrank aufzubewahren, wie oben beschrieben.
 
 ### Halten Teebeutel länger als loser Tee?
 

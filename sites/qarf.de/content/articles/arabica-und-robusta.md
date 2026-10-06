@@ -84,6 +84,12 @@ Eine Mischung aus Arabica und Robusta ist kein Zeichen von Sparsamkeit, wenn sie
 
 Typische Mischungen enthalten 10 bis 30 % Robusta. Bei süditalienischen Röstungen kann der Anteil auch höher liegen. Für Filterkaffee, French Press oder Handfilter, wo feine Säure und Aromenvielfalt im Vordergrund stehen, sind reine Arabica-Kaffees meist die bessere Wahl.
 
+## Wo dir Robusta im Alltag begegnet
+
+Auch wer bewusst „100 % Arabica“ kauft, trinkt Robusta oft häufiger, als er denkt. Ein großer Teil des löslichen Kaffees wird ganz oder teilweise aus Robusta hergestellt, weil die Art günstig ist und auch nach der industriellen Verarbeitung noch kräftig schmeckt. Espressomischungen, die mit Begriffen wie „Crema“, „kräftig“ oder einer hohen Intensitätsstufe werben, enthalten ebenfalls häufig einen Robusta-Anteil.
+
+In Vietnam ist Robusta der Alltagskaffee schlechthin. Er wird kräftig geröstet, in einem kleinen Metallfilter direkt über dem Glas aufgebrüht und mit gesüßter Kondensmilch getrunken, heiß oder über Eis. Die süße, schwere Milch fängt die Bitterkeit auf und macht aus dem herben Kaffee ein fast dessertartiges Getränk. Zu Hause kommst du dem nahe, wenn du einen kräftigen Kaffee aus dem [Espressokocher](/ratgeber/espressokocher-anleitung/) auf ein bis zwei Esslöffel gesüßte Kondensmilch gießt, gut umrührst und das Glas nach Belieben mit Eis auffüllst.
+
 ## Woran du Qualität erkennst
 
 Da „100 % Arabica“ allein wenig aussagt, lohnt sich ein genauer Blick auf die Packung:
@@ -101,6 +107,12 @@ Ein Blick auf die Bohnen selbst hilft ebenfalls: Arabica-Bohnen sind eher längl
 Wenn du Robusta oder eine robustareiche Mischung verwendest, kannst du die Bitterkeit über die Zubereitung etwas zähmen. Eine etwas niedrigere Wassertemperatur, zum Beispiel 90 bis 92 °C, und keine zu lange Kontaktzeit helfen. Im Espressokocher oder Siebträger spielt Robusta seine Stärken aus. Für helle, fruchtige Arabica-Röstungen dagegen eignen sich heißeres Wasser um 94 bis 96 °C und Methoden wie der Handfilter, die Klarheit betonen.
 
 Die Werte für alle Methoden findest du übersichtlich in unserer [Brühtabelle](/bruehtabelle/).
+
+## Klimawandel: warum Robusta und Wildarten wichtiger werden
+
+Arabica reagiert empfindlich auf steigende Temperaturen, unregelmäßige Regenzeiten und Starkregen. Zahlreiche Untersuchungen gehen davon aus, dass die Flächen, die sich heute für hochwertigen Arabica eignen, in den kommenden Jahrzehnten kleiner werden oder in höhere Lagen ausweichen müssen. Robusta gewinnt dadurch an Bedeutung: Er verträgt Wärme besser, ist widerstandsfähiger gegen Krankheiten und wird vielerorts sorgfältiger angebaut und aufbereitet als früher. Ganz unempfindlich ist aber auch er nicht. Er braucht reichlich Niederschlag und leidet unter langen Dürren und Hitzewellen.
+
+Gleichzeitig suchen Forschende unter den wilden Kaffeearten nach Lösungen. Ein Beispiel ist *Coffea stenophylla* aus Westafrika, die jahrzehntelang als verschollen galt und erst vor einigen Jahren wiederentdeckt wurde. Erste Untersuchungen deuten darauf hin, dass sie höhere Temperaturen verträgt als Arabica und geschmacklich in dessen Nähe kommt. Auch Liberica und Excelsa werden wieder stärker beachtet. Bis solche Kaffees im Handel eine nennenswerte Rolle spielen, wird es dauern. Für dich als Käufer heißt das schon heute: Robusta verdient einen unvoreingenommenen Blick, und die Grenze zwischen gutem und mittelmäßigem Kaffee verläuft immer weniger entlang der Artbezeichnung.
 
 ## Häufige Fragen
 

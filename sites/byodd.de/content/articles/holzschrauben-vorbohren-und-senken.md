@@ -50,6 +50,16 @@ Vorbohren verhindert, dass das Holz spaltet, und sorgt dafür, dass die Schraube
 
 In Weichholz mit genügend Randabstand und bei Spanplattenschrauben mit Bohrspitze kann man oft ohne Vorbohren arbeiten.
 
+## Schrauben richtig anordnen
+
+Wie viele Schrauben eine Verbindung bekommt und wo sie sitzen, entscheidet mit darüber, ob sie hält:
+
+- **Mindestens zwei Schrauben pro Verbindung.** Eine einzelne Schraube wirkt wie ein Drehpunkt, um den sich das Bauteil verdrehen kann.
+- **Versetzt statt in einer Linie.** Mehrere Schrauben auf derselben Faserlinie wirken wie ein Keil und spalten das Brett entlang der Maserung.
+- **Zum Brettende mehr Abstand als zur Längskante.** Dort enden die Fasern, und das Holz spaltet besonders leicht.
+- **Breite Massivholzbretter nicht über die ganze Breite starr verschrauben,** denn Holz arbeitet quer zur Faser. Mehr dazu in [Holzarten für Heimwerker](/anleitungen/holzarten-fuer-heimwerker/).
+- **Reihum anziehen:** Bei Rahmen alle Schrauben zunächst nur ansetzen, das Bauteil ausrichten und dann nacheinander festziehen, damit sich nichts verzieht.
+
 ## So bohrst du richtig vor
 
 Man unterscheidet zwei Bohrungen:
@@ -59,7 +69,7 @@ Man unterscheidet zwei Bohrungen:
 | **Durchgangsbohrung (Kopf-/Schaftbohrung)** | Im oberen Bauteil | Etwa der Außendurchmesser der Schraube, damit die Schraube dort nicht greift und die Bauteile zusammenzieht |
 | **Kernbohrung (Vorbohrung)** | Im unteren Bauteil | Etwa 60 bis 70 % des Schraubendurchmessers in Hartholz, 50 % in Weichholz |
 
-**Beispiel für eine 4-mm-Schraube in Buche:** Durchgangsbohrung 4 mm im oberen Brett, Kernbohrung 2,5 mm im unteren Brett.
+**Beispiel für eine 4-mm-Schraube in Buche:** Durchgangsbohrung 4 mm im oberen Brett, Kernbohrung 2,5 bis 3 mm im unteren Brett.
 
 ### Vorgehen
 
@@ -87,6 +97,24 @@ Für sichtbare Möbelflächen:
 - **Tiefer senken** und das Loch mit einem **Holzstopfen** (Zapfen) aus demselben Holz verschließen, verleimen und bündig schleifen.
 - **Holzkitt** in passender Farbe.
 - **Abdeckkappen** aus Kunststoff für Spanplattenmöbel.
+
+## Verdeckt verbinden: von unten, schräg oder mit Winkeln
+
+Nicht jede Schraube muss durch die Sichtfläche. Drei Wege, sie ganz aus dem Blick zu nehmen:
+
+- **Von unten oder innen schrauben:** Tischplatten, Regalböden und Deckplatten von Kommoden werden von der Unterseite durch Zarge oder Leiste befestigt. Hier ist die Länge besonders kritisch: Miss die Plattenstärke und plane einige Millimeter Sicherheit ein, damit keine Spitze oben durchkommt.
+- **Schräg schrauben mit Taschenbohrung:** Eine Bohrschablone führt den Bohrer flach und schräg in die Rückseite eines Bauteils. Die Schraube zieht es dann fest an das Nachbarteil heran. So entstehen stabile Rahmen und Korpusse ohne sichtbare Köpfe. Winkel und Bohrtiefe gibt die Schablone vor; verwende die dazu passenden Schrauben.
+- **Metallwinkel und Verbinder:** Innen in Ecken gesetzt, sind sie kaum zu sehen und lassen sich wieder lösen. Für Tischplatten aus Massivholz Winkel mit Langloch wählen, damit die Platte arbeiten kann.
+
+## Schrauben und Holzleim kombinieren
+
+Leim und Schrauben ergänzen sich: Der Leim verbindet Längsholz mit Längsholz sehr fest, die Schrauben pressen die Teile zusammen, solange er trocknet, und ersetzen so die Schraubzwingen. Damit das gelingt:
+
+1. **Leim dünn und gleichmäßig** auf eine der beiden Flächen auftragen. Auf Hirnholz hält Leim schlecht, weil die offenen Fasern ihn aufsaugen; dort tragen die Schrauben.
+2. **Schrauben anziehen,** bis entlang der Fuge gleichmäßig etwas Leim austritt.
+3. **Austretenden Leim nicht verschmieren,** sondern sofort mit einem feuchten Tuch abnehmen oder angetrocknet mit einem Stecheisen abheben. Leimreste nehmen später kein Öl und keine Beize an.
+
+Wer im fertigen Möbel keine Schrauben möchte, dreht sie nach dem Trocknen heraus und verschließt die Löcher mit Stopfen.
 
 ## Schrauben in Hirnholz und Spanplatte
 
@@ -164,6 +192,14 @@ In Weichholz und Spanplatte meist nicht. In Hartholz und an Kanten trotzdem.
 ### Warum quietscht oder knarzt meine Verbindung?
 
 Oft reiben die Bauteile aneinander, weil die Schraube sie nicht fest zusammenzieht. Eine Durchgangsbohrung im oberen Teil hilft.
+
+### Was bedeutet die Angabe 4 × 50 auf der Packung?
+
+Die erste Zahl ist der Gewindedurchmesser, die zweite die Länge, beides in Millimetern. Bei Senkkopfschrauben zählt der Kopf zur Länge, bei Schrauben mit aufliegendem Kopf wie Halbrundkopfschrauben nicht. Das ist wichtig, wenn du knapp rechnen musst, etwa beim Schrauben von unten durch eine Zarge.
+
+### Was tun, wenn der Kopf durch eine dünne Platte gezogen wird?
+
+Bei dünnen Rückwänden oder weichen Platten reicht das Material unter einem Senkkopf oft nicht aus. Nimm Schrauben mit flachem, breitem Kopf oder lege eine Unterlegscheibe unter und stelle die Drehmomentkupplung niedriger ein, damit der Kopf nur anliegt. Ist das Loch schon ausgefranst, setzt du die Schraube ein Stück daneben neu.
 
 ### Weitere Fragen aus der Praxis
 

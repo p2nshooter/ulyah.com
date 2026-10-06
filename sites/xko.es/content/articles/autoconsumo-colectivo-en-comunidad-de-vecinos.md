@@ -36,6 +36,18 @@ Los coeficientes de reparto indican qué porcentaje de la producción correspond
 
 Los coeficientes se recogen en un **acuerdo de reparto** firmado por todos los participantes y se comunican a la distribuidora.
 
+### Ejemplo: por qué el criterio importa
+
+Supongamos un día soleado en el que la parte de la instalación asignada a tres vecinos produce 15 kWh entre las 10:00 y las 18:00:
+
+| Vecino | Consumo en esas horas | Reparto a partes iguales (5 kWh cada uno) | Reparto según consumo diurno |
+|---|---|---|---|
+| A, teletrabaja | 8 kWh | Usa 5 y compra 3 a la red | Recibe 8 y lo usa todo |
+| B, fuera todo el día | 3 kWh | Usa 3 y le sobran 2 | Recibe 3 y lo usa todo |
+| C, en casa por las mañanas | 4 kWh | Usa 4 y le sobra 1 | Recibe 4 y lo usa todo |
+
+Con el reparto igualitario, se compran 3 kWh a la red mientras se vierten otros 3 kWh como excedentes, compensados a un precio inferior. Con el reparto por consumo se aprovecha todo. Como el consumo real cambia de hora en hora, los coeficientes horarios afinan más; y si se elige este criterio, lo coherente es que la aportación de cada vecino guarde relación con la energía que recibe.
+
 ## Decisiones en la junta de propietarios
 
 La instalación ocupa un elemento común, normalmente la cubierta, por lo que debe aprobarla la junta de propietarios. La Ley de Propiedad Horizontal fija las mayorías necesarias:
@@ -78,6 +90,15 @@ El coste por kWp de una instalación colectiva suele ser algo inferior al de una
 8. **Activación de la compensación** con la comercializadora de cada vecino.
 
 El proceso completo, desde el estudio hasta la primera factura con compensación, puede durar varios meses. Más información en [trámites y legalización del autoconsumo](/guias/tramites-y-legalizacion-del-autoconsumo/).
+
+## Revisa la cubierta antes de instalar
+
+Los paneles estarán en la azotea muchos años; resuelve antes lo que obligaría a desmontarlos:
+
+- **Impermeabilización:** si la azotea necesitará rehacerse pronto, hazlo antes de instalar; quitar y volver a montar los paneles después tiene un coste importante.
+- **Estructura y viento:** un técnico debe comprobar que la cubierta soporta el peso de los paneles y de los lastres, y cómo se anclan para resistir el viento.
+- **Usos que deben mantenerse:** antenas, tendederos, acceso a la maquinaria del ascensor, salidas de humos y pasillos libres para el mantenimiento.
+- **Recorrido del cableado:** cómo bajan los cables hasta el punto de conexión, normalmente la centralización de contadores. Un patinillo con espacio libre simplifica mucho la obra.
 
 ## Qué ve cada vecino en su factura
 
@@ -125,6 +146,10 @@ Necesita la autorización de la junta. Algunos vecinos de último piso o de áti
 ### ¿Qué pasa si vendo mi piso?
 
 Lo habitual es que la participación se transmita con la vivienda. Conviene que el acuerdo de reparto lo regule.
+
+### ¿Y si vivo de alquiler?
+
+La energía se asigna al punto de suministro de la vivienda, así que quien tenga el contrato de luz verá el descuento en su factura. La decisión de participar e invertir corresponde normalmente al propietario, que es quien vota en la junta. Lo práctico es que propietario e inquilino acuerden por escrito quién asume el coste y quién aprovecha la energía mientras dure el alquiler.
 
 ### ¿Tengo que cambiar de comercializadora?
 

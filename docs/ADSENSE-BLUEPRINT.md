@@ -443,7 +443,7 @@ di akun AdSense (di luar jangkauan Claude).
 | # | Pekerjaan | Status |
 |---|---|---|
 | 7.1 | Statis ulyah.com/sites (11 situs) + axto.us: ±450 artikel ditambah ke ≥1.500 kata | 🔄 |
-| 7.2 | zufiq, zevok, zolun, qulen: 40 artikel ≥1.500 kata + halaman wajib + tema | 🔄 |
+| 7.2 | zufiq, zevok, zolun, qulen: 40 artikel ≥1.500 kata + halaman wajib + tema (PRIORITAS pemilik 6 Okt; zufiq = ca-pub-6146217038829045, zevok = ca-pub-5944786950535069) | 🔄 |
 | 7.3 | oldco.in & profity.in (hi+en, 116 artikel), jai.lat (8 artikel es), axto.io (40 posting blog), xad.es (+28 artikel) | 🔄 |
 | 7.4 | Audit & perombakan desain mewah semua halaman, 27 situs (desktop + mobile, tanpa error konsol) | 🔄 |
 | 7.5 | `check.mjs` minimal 1.500 kata; smoke test domain asli; audit live 27 situs | 🔄 |
@@ -483,6 +483,8 @@ di akun AdSense (di luar jangkauan Claude).
 
 | Tanggal | Permintaan | Status |
 |---|---|---|
+| 6 Okt (urgent) | "Ganti semua kode AdSense domain di bawah ini termasuk meta tag-nya, jangan otomatis, lihat domain .de yang sudah diotorisasi, termasuk domain yang belum dibuatkan website" — zufiq.de 6146217038829045, zevok.de 5944786950535069, byodd.de 2228462932360966, qulen.de 7516944260248026, dawo.es 6019445914743449, zolun.de 4548005919629272, axto.dev 8469557036744946; dan "situs masih banyak yang belum diotorisasi, mungkin ads.txt-nya belum masuk" | ✅ kode diganti (site.json + ADSENSE.txt; axto.dev: lib/site.ts + public/ads.txt); penempatan sama persis dengan byoxy.de yang sudah diotorisasi (meta + loader di `<head>`, ads.txt di root); situs draft kini ikut online (noindex) supaya domainnya langsung punya cuplikan, meta & ads.txt; job diagnosis ads.txt (http/https/www, user-agent Google, setelan zona Cloudflare) |
+| 6 Okt | "Fokus kerjain web yang belum selesai; zufiq.de pakai ca-pub-6146217038829045, zevok.de pakai ca-pub-5944786950535069" (cuplikan, ads.txt, tag meta dari pemilik) | ✅ site.json + ADSENSE.txt kedua situs, ADSENSE-CODES.md, audit live; prioritas: zufiq, zevok, zolun, qulen dulu, baru penambahan artikel situs lain |
 | 6 Okt | "27 web, CSS mewah semua kaya istana Nabi Sulaiman, menyeluruh bukan index-nya aja, font, style, posisi" | 🔄 Fase 7 (7.4) |
 | 6 Okt | "Min 1500 kata; tambahin semua yang kurang dari 1500 kata dan yang kurang dari 40 artikel" | 🔄 Fase 7 (7.1–7.3, 7.5) |
 | 6 Okt | "Kerjain semuanya, merge & PR dari sisi Anda, saya kasih izin semua … jangan ada campur tangan saya" | 🔄 Fase 7 (7.6) |

@@ -50,6 +50,19 @@ Una caldera de condensación solo condensa cuando el agua que vuelve de los radi
 - **Equilibrado de radiadores:** ajustar los detentores para que todos los radiadores reciban el caudal adecuado permite bajar la temperatura sin que queden habitaciones frías.
 - **Radiadores suficientes:** si en los días más fríos necesitas agua muy caliente, quizá algún radiador es pequeño para su estancia.
 
+### Cómo bajar la temperatura de impulsión paso a paso
+
+Si tu caldera no tiene sonda exterior, puedes buscar a mano la temperatura más baja que te da confort:
+
+1. **Localiza el mando de calefacción,** normalmente marcado con un radiador, distinto del de agua caliente, marcado con un grifo. El manual de tu modelo indica cómo cambiarlo.
+2. **Si estaba al máximo, empieza en unos 60 °C.**
+3. **Espera unos días de frío normal** y comprueba si todas las estancias alcanzan la temperatura del termostato.
+4. **Baja 5 °C cada vez** mientras la casa siga calentándose bien.
+5. **Si alguna estancia no llega,** sube un escalón y revisa esa habitación: purga el radiador, ábrelo del todo o equilibra el circuito.
+6. **En una ola de frío,** sube un poco y vuelve a bajar cuando pase.
+
+Si la caldera tiene sonda exterior, no se ajusta la temperatura del agua sino la curva de calefacción; el procedimiento es el mismo, bajando un punto la curva cada vez.
+
 ## Agua caliente sanitaria
 
 Las calderas mixtas producen agua caliente al instante. Algunas consideraciones:
@@ -87,6 +100,15 @@ Desconfía de visitas no solicitadas de supuestos técnicos que exigen el pago i
 
 Instala un **detector de monóxido de carbono** si tienes aparatos de combustión dentro de la vivienda.
 
+## Si tu edificio tiene calefacción central
+
+En muchos edificios la caldera es comunitaria. Lo explicado sirve igual: una caldera central de condensación solo rinde bien si el agua vuelve fría. Además:
+
+- **Válvulas termostáticas** en los radiadores permiten a cada vecino ajustar la temperatura de cada estancia sin depender del horario general.
+- **Repartidores de costes o contadores de energía:** la normativa obliga a instalarlos en muchos edificios con calefacción central, salvo cuando no es técnica o económicamente viable, para que cada vivienda pague según su consumo. Pregunta al administrador cómo afecta a tu edificio.
+- **Horarios y temperaturas de la instalación** se deciden en la comunidad; proponer una temperatura de impulsión más baja en los meses templados es una medida sin coste.
+- **Renovación de la sala de calderas:** si se plantea, pide que se compare también con bombas de calor centralizadas o sistemas híbridos.
+
 ## ¿Otra caldera o una bomba de calor?
 
 Cuando toca sustituir la caldera, cada vez más hogares se plantean pasar a la aerotermia. Algunos criterios:
@@ -122,6 +144,10 @@ Es ligeramente ácida y debe ir al desagüe. No es peligrosa en las cantidades d
 ### ¿Cada cuánto debo purgar los radiadores?
 
 Al inicio de la temporada de calefacción o cuando notes que la parte superior de un radiador está fría.
+
+### ¿Qué presión debe marcar la caldera?
+
+En la mayoría de calderas murales, con la instalación fría, entre 1 y 1,5 bar; con la calefacción en marcha sube algo. Después de purgar radiadores es normal que baje y haya que reponer agua con la llave de llenado, siguiendo el manual. Si tienes que rellenar a menudo sin haber purgado, revisa las señales de alarma descritas más arriba.
 
 ### ¿Me conviene una tarifa de gas regulada?
 

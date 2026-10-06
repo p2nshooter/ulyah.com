@@ -48,9 +48,30 @@ El proceso habitual es:
 
 **Coste orientativo:** para un piso, entre 60 y 200 € más la tasa autonómica si la hay. Desconfía de precios muy bajos sin visita: el técnico debe inspeccionar la vivienda.
 
+### Cómo preparar la visita
+
+Cuando el técnico no puede comprobar un dato, el programa de cálculo aplica valores por defecto según la época de construcción. Esos valores son conservadores, así que una mejora que no puedas acreditar puede no reflejarse en la letra. Ten preparado:
+
+- **Facturas o fichas técnicas** de ventanas, aislamiento o reformas anteriores.
+- **Marca, modelo y año** de la caldera, la bomba de calor, el termo y el aire acondicionado. Una foto de la placa de características sirve.
+- **Referencia catastral, planos o escritura**, para confirmar la superficie y el año de construcción.
+- **Datos de la instalación solar**, si la tienes: potencia y documentación de legalización.
+- **Acceso** a la azotea, al patio o a la cámara bajo cubierta, si hay que comprobar el aislamiento.
+
 ## Validez
 
 El certificado tiene una validez máxima de **diez años**. Para las viviendas con calificación G, el Real Decreto 390/2021 redujo la validez a cinco años. Si se realizan reformas que cambian la eficiencia, conviene actualizarlo.
+
+## Cómo saber si el certificado está bien hecho
+
+Un certificado barato y rápido puede salir caro si la calificación no refleja la vivienda o si después no sirve para pedir una ayuda. Revisa estas señales:
+
+- **No hubo visita** o duró unos minutos sin tomar medidas ni fotografías.
+- **La descripción no coincide con la realidad:** ventanas de un tipo distinto, un sistema de calefacción que ya no existe o una superficie muy diferente de la catastral sin explicación.
+- **Las recomendaciones de mejora son genéricas** y no indican la calificación que se alcanzaría con cada una.
+- **No consta el registro** en el organismo autonómico.
+
+Si detectas errores, pide al técnico que los corrija y vuelva a registrar el certificado. Si no lo hace, puedes encargar uno nuevo a otro profesional.
 
 ## Cómo interpretar la calificación
 
@@ -110,6 +131,12 @@ Muchas ayudas a la rehabilitación energética y las deducciones en el IRPF por 
 
 - **Para compradores e inquilinos:** compara las letras y, sobre todo, las demandas de calefacción y refrigeración. Una vivienda con buena calificación tendrá facturas más bajas y será más confortable.
 - **Para vendedores y arrendadores:** una buena calificación puede ser un argumento de venta. Mejorarla antes de vender puede revalorizar la vivienda.
+
+## Pisos en bloque: certificado de la vivienda o del edificio
+
+En un edificio de viviendas, cada propietario certifica su piso cuando lo vende o lo alquila. La comunidad también puede encargar el **certificado del edificio completo**, muy útil cuando se plantea una rehabilitación conjunta de fachada, cubierta o calefacción central, porque muestra el efecto de cada medida sobre todo el inmueble y lo exigen muchas ayudas dirigidas a edificios.
+
+Al comparar pisos de un mismo bloque, ten en cuenta la posición. Un ático bajo una cubierta sin aislar o un primero sobre un portal o un local sin calefacción suelen necesitar más energía que un piso intermedio, porque tienen más superficie en contacto con el exterior o con espacios fríos. Dos viviendas idénticas en planta pueden tener letras distintas por este motivo.
 
 ## Caso práctico: subir dos letras antes de vender
 

@@ -63,6 +63,17 @@ Las placas de inducción tienen potencias máximas de 3,5 a 7,4 kW. Si se usan v
 
 Cambiar a inducción puede requerir comprar algunas ollas y sartenes nuevas.
 
+## Si vienes del gas: cómo adaptarte a la inducción
+
+La inducción responde al instante, pero de forma distinta a la llama. Los primeros días conviene tener en cuenta:
+
+- **Prepara antes los ingredientes.** El aceite y el agua se calientan mucho más rápido; lo que con gas daba tiempo a picar mientras tanto, ahora se quema.
+- **No calientes una sartén vacía a máxima potencia** ni con la función de potencia extra. El fondo se recalienta en segundos y los antiadherentes se estropean.
+- **Sofríe con niveles intermedios.** Los niveles más altos están pensados para hervir o sellar.
+- **Levanta las ollas en vez de arrastrarlas,** para no rayar el vidrio.
+- **El wok tradicional de fondo redondo no funciona bien.** Hace falta uno de fondo plano apto para inducción.
+- **Usa los temporizadores de cada zona,** que apagan el fuego al terminar y evitan olvidos.
+
 ## Seguridad
 
 - **Inducción:** la superficie solo se calienta por contacto con el recipiente y se enfría rápido. Detecta si no hay recipiente. Es la opción más segura para hogares con niños o personas mayores.
@@ -79,6 +90,12 @@ La combustión del gas genera dióxido de nitrógeno y otras sustancias que, sin
 
 Las cocinas eléctricas no producen gases de combustión, aunque cocinar en sí genera partículas y vapores que también conviene extraer.
 
+## Cuidados y señales de alarma
+
+- **Inducción y vitrocerámica:** limpia el vidrio con una rasqueta y productos específicos, nunca con estropajos metálicos. En la vitrocerámica, retira enseguida los derrames de azúcar o almíbar, porque al endurecerse sobre el vidrio caliente pueden dañarlo. Si el vidrio se agrieta, deja de usar la placa y desconéctala hasta que la revise un técnico.
+- **Gas:** la llama debe ser azul y estable. Una llama amarilla, que tiembla o deja hollín en los recipientes indica una combustión deficiente; limpia los quemadores y, si no mejora, avisa a un técnico autorizado.
+- **Si hueles a gas:** no enciendas luces ni aparatos eléctricos, cierra la llave general, abre ventanas y, ya fuera de la vivienda, llama al teléfono de urgencias de tu suministrador de gas o al 112.
+
 ## Precio de compra e instalación
 
 | Tecnología | Precio orientativo de la placa |
@@ -88,6 +105,13 @@ Las cocinas eléctricas no producen gases de combustión, aunque cocinar en sí 
 | Placa de gas | 150 a 500 € |
 
 Cambiar de gas a inducción puede requerir una línea eléctrica dedicada desde el cuadro, si la instalación actual no está preparada.
+
+### Antes de la reforma: qué debe revisar el instalador
+
+- **El circuito de la cocina:** la sección del cable y la protección deben ser las que indica el fabricante para la potencia de la placa.
+- **El hueco de encastre:** las medidas de corte cambian entre modelos, y muchas placas de inducción necesitan ventilación por debajo, sobre todo si van encima de un horno.
+- **La toma de gas:** si retiras la cocina de gas, la toma debe anularla un instalador autorizado. No basta con cerrar la llave.
+- **La campana:** con inducción sigue siendo necesaria para vapores y grasas. Es un buen momento para valorar una con salida al exterior.
 
 ## ¿Cuál elegir?
 

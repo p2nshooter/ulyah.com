@@ -123,6 +123,24 @@ Lithium-Ionen-Akkus sind langlebig, wenn man ein paar Regeln beachtet:
 - **Ladegerät des Herstellers verwenden.**
 - **Beschädigte Akkus nicht mehr benutzen** und im Handel oder Wertstoffhof abgeben, nicht in den Hausmüll.
 
+## Festsitzende Schrauben lösen
+
+Alte Schrauben in Möbeln, Türbändern oder Gartenholz sitzen oft fester, als man denkt.
+
+1. **Linkslauf und Gang 1** wählen, die Kupplung auf das Bohrsymbol stellen, damit die volle Kraft anliegt.
+2. **Ein neues, exakt passendes Bit** einsetzen und das Gerät kräftig in Schraubenachse drücken. Erst langsam anlaufen lassen; dreht das Bit durch, sofort stoppen, bevor der Kopf ausfranst.
+3. **Rostige Schrauben** vorher mit Kriechöl behandeln und einwirken lassen.
+4. **Ist der Kopf schon beschädigt,** hilft ein Schraubenausdreher-Set: Je nach Set bohrt die eine Seite eine kleine Vertiefung in den Kopf, die andere greift mit Linksgewinde hinein und dreht die Schraube heraus. Langsam und mit viel Druck arbeiten.
+
+## Sicher arbeiten
+
+- **Werkstück festspannen:** Beim Bohren in Metall oder mit großen Bohrern kann sich der Bohrer verhaken. Ein lose gehaltenes Blech dreht dann mit, oder das Gerät schlägt seitlich gegen die Hand. Zwingen benutzen und das Gerät mit beiden Händen halten; viele 18-V-Geräte haben dafür einen Zusatzhandgriff.
+- **Keine weiten Handschuhe oder losen Ärmel** am drehenden Bohrer, lange Haare zusammenbinden.
+- **Schutzbrille** beim Bohren in Metall, Fliesen und über Kopf.
+- **Beim Bit- oder Bohrerwechsel** den Drehrichtungsschalter in die Mittelstellung (Sperre) bringen oder den Akku abnehmen.
+- **Bohrer nach dem Bohren nicht anfassen:** Sie werden besonders in Metall sehr heiß.
+- **Vor jedem Loch in der Wand** an Leitungen denken; siehe [Leitungen orten vor dem Bohren](/anleitungen/leitungen-orten-vor-dem-bohren/).
+
 ## Häufige Fehler
 
 | Fehler | Folge | Besser |
@@ -155,6 +173,10 @@ Entweder hat sie in der Spanplatte das Gewinde ausgerissen oder der Dübel dreht
 ### Brauche ich einen Schlagschrauber?
 
 Nur für viele lange Holzschrauben, etwa beim Bau einer Terrasse. Für den Haushalt ist er zu laut und zu kräftig.
+
+### Passen Akkus anderer Hersteller?
+
+In der Regel nicht, Akkus sind an das System eines Herstellers gebunden. Adapter und Nachbau-Akkus gibt es zwar, doch ob sie sicher mit Gerät und Ladegerät zusammenarbeiten, ist nicht immer gewährleistet, und die Garantie kann erlöschen. Originalakkus des Systems sind die sichere Wahl.
 
 ## Checkliste für den Kauf
 

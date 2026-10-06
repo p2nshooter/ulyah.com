@@ -52,6 +52,16 @@ Ein großer Spiegel reflektiert Licht und Raum und kann ein Zimmer optisch fast 
 - **Spiegelschranktüren** im Schlafzimmer oder Flur.
 - **Nicht direkt gegenüber dem Bett,** wenn das als unruhig empfunden wird.
 
+## Erst planen, dann kaufen
+
+Viele kleine Räume wirken eng, weil ein einzelnes Möbelstück nicht passt: Das Sofa ragt in den Laufweg, die Schranktür schlägt gegen das Bett. Ein einfacher Plan verhindert das:
+
+1. **Grundriss aufmessen:** Wände, Fenster, Türen, Heizkörper, Steckdosen und Lichtschalter auf Karopapier im Maßstab 1:20 einzeichnen. Ein Kästchen von 5 mm entspricht dann 10 cm.
+2. **Schwenkbereiche markieren:** Wo öffnen Zimmertür, Fensterflügel und Schranktüren? Diese Flächen müssen frei bleiben, sonst blockiert das Möbel später den Alltag.
+3. **Möbel ausschneiden:** Jedes geplante Möbel maßstabsgerecht aus Papier ausschneiden und verschieben, bis Laufwege und Schwenkbereiche passen.
+4. **Am Boden testen:** Die Umrisse eines neuen Möbels mit Malerkrepp auf den Boden kleben und ein, zwei Tage damit leben. Erst dann zeigt sich, ob es sich eng anfühlt.
+5. **Transportweg prüfen:** Treppenhaus, Wohnungstür und Flurecken messen, bevor du ein großes Teil bestellst.
+
 ## Möbel
 
 ### Möbel mit Beinen
@@ -107,6 +117,19 @@ Nichts lässt einen kleinen Raum so schnell eng wirken wie offene Ablagen voller
 - **Dielen längs zum Raum** verlegt betonen die Tiefe. Siehe [Laminat verlegen](/anleitungen/laminat-verlegen/).
 - **Helle Böden** reflektieren mehr Licht.
 
+## Besondere Räume: Dachschräge, kleines Bad, schmale Küche
+
+| Raum | Was am meisten bringt |
+|---|---|
+| Zimmer mit Dachschräge | Schräge und Wände in derselben hellen Farbe streichen, damit die Knicklinie verschwindet; niedrige Möbel und Schubladen unter die Schräge, Laufwege und hohe Schränke in den Bereich mit voller Stehhöhe |
+| Kleines Bad | Glasduschwand statt Duschvorhang, Spiegelschrank statt Einzelspiegel plus Ablage, Handtücher in einer hellen Farbe, Kosmetik in geschlossenen Boxen |
+| Schmale Küche | Oberschränke bis zur Decke, Licht unter den Oberschränken, selten genutzte Geräte in die Schränke statt auf die Arbeitsfläche |
+| Arbeitsecke im Wohn- oder Schlafzimmer | Schreibtisch in Wandfarbe, Unterlagen in einem geschlossenen Schrankfach, Kabel in einem Kabelkanal an der Wand bündeln, Bildschirm an einem Monitorarm statt auf breitem Standfuß |
+
+Bei der Dachschräge lohnt ein Blick auf den Kniestock, die niedrige Wand unter der Schräge: Maßgefertigte Schubladen oder ein durchgehendes niedriges Regal nutzen die sonst tote Fläche und halten den übrigen Raum frei.
+
+Dunkle, gemusterte Fliesen machen kleine Bäder besonders eng. Wenn ein Umbau nicht infrage kommt, lassen sie sich hell überarbeiten, siehe [Alte Fliesen streichen oder bekleben](/anleitungen/fliesen-streichen-oder-bekleben/).
+
 ## Beispiel: Ein 12-m²-Schlafzimmer
 
 - Wände in hellem Sandton, Decke weiß.
@@ -140,6 +163,18 @@ Ein Apartment mit 28 Quadratmetern soll Wohnzimmer, Schlafzimmer und Arbeitsplat
 
 Die Wände sind in einem warmen, hellen Sandton gestrichen, die Vorhänge bodenlang an einer Stange knapp unter der Decke, und gegenüber dem Fenster hängt ein großer Spiegel. Besucher schätzen die Wohnung regelmäßig deutlich größer, als sie ist.
 
+## Womit du anfängst: Reihenfolge nach Aufwand
+
+Nicht jede Maßnahme kostet gleich viel Zeit und Geld. Diese Reihenfolge bringt schnell sichtbare Wirkung:
+
+1. **Aussortieren und Flächen frei räumen:** kostet nichts und wirkt sofort.
+2. **Licht ergänzen:** eine oder zwei Steckerleuchten für die dunklen Ecken.
+3. **Vorhänge tauschen** und höher hängen.
+4. **Wände streichen:** ein Wochenende Arbeit mit großer Wirkung, siehe [Wand streichen](/anleitungen/wand-streichen-anleitung/).
+5. **Möbel ersetzen:** erst zum Schluss, wenn klar ist, was wirklich fehlt.
+
+In der Mietwohnung sind die ersten drei Schritte unproblematisch. Was beim Streichen und Bohren gilt und was beim Auszug zählt, erklärt [Mietwohnung verschönern ohne Ärger](/anleitungen/mietwohnung-verschoenern-ohne-aerger/).
+
 ## Checkliste
 
 - Helle, ruhige Farbtöne, Decke hell.
@@ -170,6 +205,8 @@ So groß wie möglich. Kleine Spiegel wirken als Dekoration, große als Raumerwe
 **Sind Vorhänge in kleinen Räumen nicht zu viel?** Helle, leichte Vorhänge, hoch und breit aufgehängt, lassen Fenster größer wirken. Schwere, dunkle Stoffe direkt am Fensterrahmen machen den Raum eng.
 
 **Wie gestalte ich einen schmalen Flur?** Helle Wände, ein großer Spiegel an der Längswand, Wandleuchten statt einer Deckenleuchte und eine schmale Garderobe mit geschlossenen Schränken. Ein Läufer in Längsrichtung betont die Tiefe, quer gestreifte Teppiche verbreitern optisch.
+
+**Wie viel Deko verträgt ein kleiner Raum?** Weniger, aber größere Stücke wirken ruhiger als viele kleine. Gruppiere Kleinigkeiten auf einem Tablett oder in einem Regalfach, statt sie im ganzen Raum zu verteilen, und gönne jeder Wand höchstens einen Blickfang.
 
 **Lohnt sich ein Hochbett?** In Räumen ab etwa 2,60 m Höhe kann ein Hochbett darunter Platz für Schreibtisch oder Sofa schaffen.
 

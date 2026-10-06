@@ -60,6 +60,27 @@ Entkoffeinierte Rohbohnen sehen schon vor dem Rösten bräunlicher aus und verha
 - Für Menschen, die auf Koffein mit **Herzklopfen, Unruhe oder Magenbeschwerden** reagieren.
 - Für alle, die ihren **Koffeinkonsum reduzieren** möchten, aber den Geschmack und das Ritual nicht missen wollen. Eine Mischung aus normalem und entkoffeiniertem Kaffee, oft „Half Caf“ genannt, ist ein guter Zwischenschritt.
 
+## Half Caf: Koffein schrittweise reduzieren
+
+Wer weniger Koffein trinken möchte, muss nicht von heute auf morgen umstellen. Einfacher ist es, die gewohnte Bohne nach und nach mit Decaf zu verschneiden. Weil fast das gesamte Koffein aus dem normalen Kaffee stammt, sinkt die Koffeinmenge ungefähr im gleichen Verhältnis wie dessen Anteil in der Mischung.
+
+| Schritt | Normaler Kaffee | Decaf | Koffein im Vergleich zu vorher |
+|---|---|---|---|
+| 1 | 75 % | 25 % | etwa drei Viertel |
+| 2 | 50 % | 50 % | etwa die Hälfte |
+| 3 | 25 % | 75 % | etwa ein Viertel |
+| 4 | 0 % | 100 % | nur noch Spuren |
+
+Bleib bei jedem Schritt etwa eine Woche oder so lange, bis du dich an die neue Menge gewöhnt hast. Wiege die ganzen Bohnen ab und mische sie gleich für die nächsten Tage in der Vorratsdose, statt jede Portion einzeln zusammenzustellen. Am besten gelingt das mit zwei Kaffees von ähnlichem Röstgrad, idealerweise aus derselben Rösterei, weil sie dann geschmacklich zusammenpassen und sich in der Mühle ähnlich verhalten. Wer abrupt verzichtet, spürt in den ersten Tagen manchmal Kopfschmerzen oder Müdigkeit, der schrittweise Weg macht den Übergang meist leichter. Sollst du Koffein aus medizinischen Gründen reduzieren, besprich das Vorgehen mit deiner Ärztin oder deinem Arzt.
+
+## Decaf und normaler Kaffee im selben Haushalt
+
+Wer beides trinkt oder Gästen Decaf anbietet, sollte die Mühle im Blick behalten. In fast jedem Mahlwerk bleibt nach dem Mahlen etwas Kaffee hängen, bei manchen Mühlen nur ein Hauch, bei anderen ein paar Gramm. Mahlst du direkt nach deinem normalen Kaffee eine Portion Decaf, landet dieser Rest in der Tasse. Für die meisten ist das unerheblich. Wer Koffein aber konsequent meiden möchte, mahlt vorher ein paar Gramm Decaf weg und wirft sie fort oder nutzt für den entkoffeinierten Kaffee eine eigene kleine Handmühle, siehe [Handmühle oder elektrische Mühle](/ratgeber/handmuehle-oder-elektrische-muehle/).
+
+Bei Vollautomaten mit Bohnenbehälter ist das Umfüllen mühsam. Viele Geräte haben deshalb einen Einfüllschacht für bereits gemahlenen Kaffee, über den du eine einzelne Tasse Decaf zubereiten kannst. Wie viel Pulver du dort einfüllen darfst, steht in der Anleitung.
+
+Bei Einladungen hilft eine klare Kennzeichnung: eine eigene, beschriftete Thermoskanne für den entkoffeinierten Kaffee oder ein kleines Schild daneben. So müssen Gäste, die abends, in der Schwangerschaft oder aus anderen Gründen auf Koffein verzichten, nicht erst nachfragen.
+
 ## Decaf fair probieren
 
 Viele Menschen glauben, entkoffeinierten Kaffee sofort zu erkennen. Ein kleiner Test zu Hause zeigt oft etwas anderes. Kaufe einen entkoffeinierten Kaffee und einen normalen Kaffee aus ähnlicher Herkunft und mit ähnlichem Röstgrad, am besten von derselben Rösterei. Lass eine zweite Person beide Kaffees mit derselben Methode, Menge und Mahlgradeinstellung zubereiten und in gleiche Tassen füllen, ohne dir zu sagen, welcher welcher ist. Probiere beide, während sie abkühlen, und notiere Süße, Säure, Körper und Nachgeschmack. Häufig sind die Unterschiede kleiner als erwartet, manchmal fällt der entkoffeinierte Kaffee etwas weicher und runder aus, manchmal etwas flacher. Wie du systematisch verkostest, zeigt [Kaffee verkosten](/ratgeber/kaffee-verkosten/).
@@ -81,6 +102,10 @@ Wer Koffein vollständig meiden möchte oder muss, findet neben Decaf weitere M�
 ### Ist entkoffeinierter Kaffee ungesund?
 
 Nein. Entkoffeinierter Kaffee unterliegt denselben Lebensmittelvorschriften wie normaler Kaffee, und für mögliche Lösungsmittelreste gelten strenge Grenzwerte. Er enthält weiterhin viele andere Inhaltsstoffe des Kaffees.
+
+### Gilt der Grenzwert auch für löslichen Kaffee?
+
+Für entkoffeinierten löslichen Kaffee gilt ein eigener Höchstwert von 0,3 Prozent Koffein in der Trockenmasse. Weil für eine Tasse aber nur wenig Pulver nötig ist, enthält auch sie nur wenige Milligramm Koffein.
 
 ### Gibt es Kaffeepflanzen ohne Koffein?
 

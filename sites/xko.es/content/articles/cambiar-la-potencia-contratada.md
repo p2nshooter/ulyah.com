@@ -17,6 +17,14 @@ El paso previo es saber qué potencia necesitas realmente. Hay dos formas de ave
 
 Con estos datos, elige un valor con un pequeño margen sobre tu máximo real. No es necesario elegir entre los antiguos valores normalizados; con los contadores inteligentes muchas distribuidoras aceptan valores intermedios.
 
+### Cómo leer tus datos sin equivocarte
+
+La web de la distribuidora muestra la **curva de consumo horario**, en kWh, y la **potencia máxima demandada**, en kW. Para decidir la potencia solo sirve la segunda. Una hora con 1,2 kWh indica una media de 1,2 kW, pero dentro de ella puede haber habido diez minutos a 4 kW con el horno y el hervidor a la vez.
+
+- **Mira doce meses completos.** Los picos suelen aparecer en invierno, con algún calefactor, o en verano, con el aire acondicionado. La primavera da una imagen engañosamente baja.
+- **Separa P1 y P2.** Como todo el fin de semana cuenta como P2, los picos de la comida del domingo no aparecen en P1.
+- **Descarta lo excepcional.** Un pico aislado durante una reforma no cuenta; uno que se repite cada domingo, sí.
+
 ## Quién hace cada gestión
 
 En el sistema eléctrico español intervienen dos empresas distintas:
@@ -25,6 +33,14 @@ En el sistema eléctrico español intervienen dos empresas distintas:
 - **La distribuidora:** la empresa propietaria de las redes y del contador en tu zona. Es la que ejecuta el cambio técnico.
 
 **La solicitud se hace a la comercializadora,** que la traslada a la distribuidora. En la mayoría de casos el cambio se realiza de forma remota desde el contador inteligente, sin necesidad de visita.
+
+### Si vives de alquiler o el contrato no está a tu nombre
+
+La comercializadora solo tramita el cambio a petición del **titular del contrato** o de alguien autorizado por él:
+
+- **Eres inquilino y el contrato está a tu nombre:** puedes pedirlo tú. Para bajar no necesitas nada más; si subir obliga a cambiar cables o el cuadro, habla antes con el propietario, porque es una obra en su vivienda.
+- **El contrato está a nombre del propietario:** pídele que lo solicite o que te autorice por escrito, o pasa el contrato a tu nombre y pregunta si puedes tramitar ambos cambios a la vez.
+- **El titular es un antiguo inquilino o un familiar fallecido:** regulariza primero la titularidad; cualquier gestión posterior será más sencilla.
 
 ## Cuánto cuesta bajar la potencia
 
@@ -131,6 +147,10 @@ Con contador inteligente, normalmente no. El cambio se hace de forma remota. Sol
 ### ¿Cuánto tarda el cambio?
 
 Suele completarse en pocos días laborables desde la aceptación, aunque puede variar según la distribuidora.
+
+### ¿Puedo cambiar la potencia al mismo tiempo que de compañía?
+
+Sí. Al contratar con otra comercializadora puedes indicar la potencia de P1 y P2, y ambas gestiones llegan juntas a la distribuidora, con los mismos costes regulados de cualquier cambio de potencia. Consulta [cambiar de comercializadora paso a paso](/guias/cambiar-de-comercializadora-paso-a-paso/).
 
 ## En resumen
 

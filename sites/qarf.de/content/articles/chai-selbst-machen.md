@@ -46,6 +46,10 @@ In Indien wird Chai oft aus großer Höhe von einem Gefäß ins andere gegossen.
 
 Vollmilch macht den Chai rund und cremig. Mit fettarmer Milch wird er leichter. Hafer- und Sojadrinks funktionieren gut, besonders Barista-Varianten, die beim Kochen nicht ausflocken. Mandel- und Reisdrinks sind dünner und etwas süßer. Bei Pflanzendrinks lohnt es sich, sie erst am Ende zuzugeben und nur kurz zu erhitzen.
 
+## Gewürze nach Jahreszeit abstimmen
+
+In vielen indischen Familien ändert sich der Chai mit dem Wetter. An kalten Tagen kommen mehr Ingwer, Zimt, schwarzer Pfeffer und Nelke in den Topf, weil sie als wärmend gelten und sich kräftig gegen Milch und Zucker behaupten. Im Sommer wird der Chai oft leichter: mehr Kardamom und Fenchel, weniger Pfeffer und Nelke, manchmal ein paar frische Minzblätter. In der Regenzeit sind Zitronengras und Tulsi, das indische Basilikum, beliebte Zusätze. Wenn du experimentierst, verändere immer nur ein Gewürz und notiere dir die Menge, die dir geschmeckt hat. So entsteht mit der Zeit deine eigene Hausmischung.
+
 ## Chai-Gewürzmischung auf Vorrat
 
 Wenn du oft Chai trinkst, lohnt sich eine eigene Gewürzmischung. Röste dafür Kardamom, Zimt, Nelken, Pfeffer und Fenchel kurz in einer trockenen Pfanne, bis sie duften, lass sie abkühlen und mahle sie im Mörser oder in einer Gewürzmühle. Getrockneten Ingwer kannst du gemahlen dazugeben. Fülle die Mischung in ein dunkles, luftdichtes Glas. Pro zwei Tassen reicht etwa ein halber Teelöffel. Gemahlene Gewürze verlieren schneller ihr Aroma als ganze, deshalb nur kleine Mengen herstellen. Mehr zum Lagern in [Kaffee und Tee richtig lagern](/ratgeber/kaffee-und-tee-lagern/).
@@ -61,6 +65,10 @@ Für einen schnellen Chai Latte wie im Café kannst du einen Sirup kochen:
 
 Für einen Chai Latte gibst du zwei bis drei Esslöffel Sirup in eine Tasse und füllst mit heißer, aufgeschäumter Milch auf. Wie du Milch schäumst, steht in [Milchschaum und Cappuccino](/ratgeber/milchschaum-und-cappuccino/). Ein Schuss Espresso macht daraus einen „Dirty Chai“.
 
+## Chai ohne Herd: im Büro oder unterwegs
+
+Ohne Topf wird der Chai etwas weniger cremig, aber trotzdem aromatisch. Für eine große Tasse gibst du die angedrückten Gewürze und zwei Scheiben Ingwer in eine Teekanne oder einen Becher, gießt etwa 150 Milliliter sprudelnd kochendes Wasser aus dem Wasserkocher darüber und lässt alles abgedeckt rund fünf Minuten ziehen. Dann kommt der Tee hinzu, ein kräftiger Teebeutel oder ein gehäufter Teelöffel loser Tee im Sieb, für drei bis vier Minuten. Erwärme in der Zwischenzeit 100 bis 150 Milliliter Milch in der Mikrowelle oder schäume sie auf, gieße sie zum abgeseihten Tee und süße nach Geschmack. Wer das öfter macht, füllt die Gewürzmischung vom Vorrat portionsweise in Papierteefilter, dann ist auch das Abseihen erledigt.
+
 ## Varianten
 
 - **Ingwer-Chai, Adrak Chai:** nur mit reichlich frischem Ingwer, sehr beliebt in Nordindien an kalten Tagen.
@@ -72,6 +80,18 @@ Für einen Chai Latte gibst du zwei bis drei Esslöffel Sirup in eine Tasse und 
 ## Chai im indischen Alltag
 
 Chai ist in Indien mehr als ein Getränk. Er wird zum Frühstück getrunken, am Nachmittag mit Freunden und Kollegen, bei Besuchen und unterwegs. An Straßenecken und Bahnhöfen kochen Teeverkäufer, die Chaiwalas, ihren Chai in großen Töpfen über der Flamme und gießen ihn in kleine Gläser oder in einfache Tonbecher, die Kulhad genannt werden. Der Ton gibt dem heißen Tee einen leicht erdigen Duft. Serviert wird Chai meist in kleinen Portionen, dafür mehrmals am Tag. Dazu gibt es oft etwas zum Knabbern, zum Beispiel Kekse, frittierte Snacks oder Brot. Das Rezept ist von Region zu Region und von Haus zu Haus verschieden, und genau das macht den Reiz aus: Es gibt nicht den einen richtigen Chai.
+
+## Regionale Chai-Stile
+
+Masala Chai ist nur eine von vielen Arten, in Südasien Tee zu trinken. Einige Stile, die du kennen solltest:
+
+- **Cutting Chai:** In Mumbai bestellt man gern ein halbes Glas eines sehr kräftigen, süßen Chai. Klein, stark und schnell getrunken.
+- **Irani Chai:** Verbunden mit den Cafés iranischer Einwanderer in Hyderabad und Mumbai. Der Tee zieht lange und langsam und wird mit eingekochter, cremiger Milch oder Kondensmilch verbunden.
+- **Sulaimani:** In Kerala ein Schwarztee ohne Milch, mit Zitrone, etwas Zucker und Gewürzen wie Kardamom oder Nelke, gern nach einem schweren Essen.
+- **Kashmiri Kahwa:** Grüner Tee mit Safran, Zimt, Kardamom und gehobelten Mandeln, ohne Milch, mit Zucker oder Honig gesüßt.
+- **Noon Chai:** Ebenfalls aus Kaschmir, ein gesalzener Milchtee, der durch langes Kochen mit einer Prise Natron seine rosa Farbe bekommt.
+
+Kahwa und Sulaimani zeigen, dass Chai nicht immer Milch braucht. Wer abends etwas Leichteres möchte, findet hier schöne Alternativen.
 
 ## Was zu Chai passt
 
@@ -96,6 +116,14 @@ Chai enthält durch den Schwarztee Koffein, durch die Milch und den Topf aber eh
 ### Kann ich Chai mit Teebeuteln machen?
 
 Ja. Nimm zwei bis drei kräftige Schwarzteebeutel für zwei Tassen und schneide sie bei Bedarf auf, damit der Tee frei im Topf kocht.
+
+### Warum flockt die Milch im Chai manchmal aus?
+
+Frischer Ingwer enthält ein Enzym, das Milcheiweiß gerinnen lassen kann. Kochst du den Ingwer wie im Grundrezept zuerst einige Minuten im Wasser, macht die Hitze das Enzym unwirksam, und die Milch bleibt glatt. Ausflocken kann sie außerdem, wenn sie nicht mehr ganz frisch ist, wenn Zitrone im Topf landet oder wenn ein Pflanzendrink nicht zum Kochen gedacht ist.
+
+### Kann ich Chai vorbereiten?
+
+Am besten bereitest du nur den Sud aus Wasser, Gewürzen und Tee vor, seihst ihn ab und bewahrst ihn gut verschlossen ein bis zwei Tage im Kühlschrank auf. Beim Servieren kochst du ihn mit frischer Milch auf. Fertigen Chai mit Milch trinkst du besser noch am selben Tag und erwärmst ihn nur sanft, denn langes Nachkochen macht ihn herb.
 
 ### Warum wird Chai gekocht und nicht nur aufgegossen?
 

@@ -20,7 +20,7 @@ Die Website wird über das Netzwerk der Cloudflare, Inc. ausgeliefert. Wenn du e
 
 ## Reichweitenmessung ohne Cookies
 
-Damit wir wissen, welche Ratgeber gelesen werden, zählen wir Seitenaufrufe mit einer eigenen, schlanken Zählung. Dabei wird nur der Name der Website und der aufgerufene Pfad übermittelt. Gespeichert wird ausschließlich eine Summe der Aufrufe je Tag und Seite. Es werden keine Cookies gesetzt, keine IP-Adressen gespeichert und keine Profile gebildet. Die Browserkennung wird nur kurz ausgewertet, um Aufrufe von Suchmaschinen-Robotern getrennt zu zählen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+Damit wir wissen, welche Ratgeber gelesen werden, zählen wir Seitenaufrufe mit einer eigenen, schlanken Zählung des Herausgebers, die ebenfalls über Cloudflare betrieben wird. Dein Browser übermittelt dabei nur den Namen der Website und den aufgerufenen Pfad, also zum Beispiel die Adresse eines Ratgebers. Gespeichert wird eine Summe der Aufrufe je Tag und Seite. Damit wir sehen können, wie viele Menschen gerade lesen, wird außerdem je Aufruf ein Zeitstempel ohne weitere Angaben abgelegt und nach kurzer Zeit automatisch wieder gelöscht. Es werden keine Cookies gesetzt, keine IP-Adressen gespeichert und keine Profile gebildet. Die Browserkennung wird nur im Moment des Aufrufs ausgewertet, um Aufrufe von Suchmaschinen-Robotern getrennt zu zählen, und nicht gespeichert. Rechtsgrundlage ist unser berechtigtes Interesse, unser Angebot zu verbessern (Art. 6 Abs. 1 lit. f DSGVO).
 
 ## Schriftarten von Google Fonts
 
@@ -36,6 +36,10 @@ Das Speichern und Auslesen solcher Informationen auf deinem Gerät erfolgt nur m
 
 Du kannst eine erteilte Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen oder ändern, über den Link zu den Datenschutzeinstellungen in der Einwilligungsnachricht oder indem du die Cookies dieser Website in deinem Browser löschst. Beim nächsten Besuch wirst du dann erneut gefragt. Einzelheiten stehen in unserer [Cookie-Richtlinie](/cookie-richtlinie/).
 
+## Verschlüsselte Verbindung
+
+Die Website wird über eine verschlüsselte Verbindung (HTTPS) ausgeliefert. Du erkennst das am Schloss-Symbol und an der Adresse, die mit „https://“ beginnt. So können Dritte auf dem Übertragungsweg nicht mitlesen, welche Inhalte du aufrufst.
+
 ## Kontakt per E-Mail
 
 Wenn du uns eine E-Mail schreibst, verarbeiten wir deine E-Mail-Adresse und den Inhalt deiner Nachricht, um dir zu antworten (Art. 6 Abs. 1 lit. b oder lit. f DSGVO). Wir geben diese Daten nicht weiter und löschen sie, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
@@ -47,6 +51,10 @@ Ob die kurze Feier-Animation zur Fußball-Weltmeisterschaft 2026 schon gezeigt w
 ## Deine Rechte
 
 Nach der DSGVO hast du das Recht auf Auskunft über deine gespeicherten Daten (Art. 15), auf Berichtigung (Art. 16), auf Löschung (Art. 17), auf Einschränkung der Verarbeitung (Art. 18), auf Datenübertragbarkeit (Art. 20) und auf Widerspruch gegen eine Verarbeitung, die auf berechtigten Interessen beruht (Art. 21). Eine Einwilligung kannst du jederzeit widerrufen (Art. 7 Abs. 3). Außerdem hast du das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77), zum Beispiel in dem Bundesland, in dem du wohnst. Für Anfragen genügt eine E-Mail an [kontakt@zufiq.de](mailto:kontakt@zufiq.de).
+
+## Keine automatisierten Entscheidungen
+
+Wir treffen keine Entscheidungen über dich, die allein auf einer automatisierten Verarbeitung beruhen, und wir bilden selbst keine Profile. Du bist weder gesetzlich noch vertraglich verpflichtet, uns personenbezogene Daten bereitzustellen. Die Ratgeber kannst du auch lesen, wenn du die Einwilligung für Werbung ablehnst.
 
 ## Änderungen
 

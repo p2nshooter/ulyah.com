@@ -41,17 +41,27 @@ export async function check(domain) {
   let manualSnippets = null;
   console.log(`\n=== ${domain} ===`);
   const { site, articles, categories, pages, out } = await build(domain, { quiet: true });
+  // A draft ("draft": true in site.json) goes online early so AdSense can find
+  // its snippet, meta tag and ads.txt, while its articles are still being
+  // written: the AdSense gates below stay strict, the content gates only report.
+  const gate = site.draft
+    ? (cond, what, detail = "") => {
+        console.log(`  ${cond ? "ok  " : "todo"}  ${what}${!cond && detail ? `\n        ${detail}` : ""}`);
+        return cond;
+      }
+    : ok;
+  if (site.draft) console.log("  note  draft site: content gates are reported, not enforced; every page is noindex");
 
   // Content
-  ok(articles.length >= MIN_ARTICLES, `at least ${MIN_ARTICLES} articles (${articles.length})`);
+  gate(articles.length >= MIN_ARTICLES, `at least ${MIN_ARTICLES} articles (${articles.length})`);
   const factor = LANG_WORD_FACTOR[site.lang] || 1;
   const minWords = Math.round(MIN_WORDS * factor);
   const minAvg = Math.round(MIN_AVG_WORDS * factor);
   const note = factor === 1 ? "" : ` [${site.lang}: English bar × ${factor}]`;
   const short = articles.filter((a) => a.words < minWords);
-  ok(short.length === 0, `every article has ${minWords}+ words${note}`, short.map((a) => `${a.file}: ${a.words}`).join(", "));
+  gate(short.length === 0, `every article has ${minWords}+ words${note}`, short.map((a) => `${a.file}: ${a.words}`).join(", "));
   const avg = Math.round(articles.reduce((n, a) => n + a.words, 0) / Math.max(1, articles.length));
-  ok(avg >= minAvg, `average length ${minAvg}+ words (${avg})${note}`);
+  gate(avg >= minAvg, `average length ${minAvg}+ words (${avg})${note}`);
   const norm = (t) => t.toLowerCase().normalize("NFD").replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
   const titles = new Map();
   for (const a of articles) {
@@ -59,19 +69,19 @@ export async function check(domain) {
     titles.set(k, [...(titles.get(k) || []), a.file]);
   }
   const dup = [...titles.values()].filter((v) => v.length > 1);
-  ok(dup.length === 0, "no two articles share a title", dup.map((d) => d.join(" = ")).join("; "));
+  gate(dup.length === 0, "no two articles share a title", dup.map((d) => d.join(" = ")).join("; "));
   const badDesc = articles.filter((a) => a.description.length < 70 || a.description.length > 200);
-  ok(badDesc.length === 0, "every description is 70–200 characters", badDesc.map((a) => `${a.file}: ${a.description.length}`).join(", "));
+  gate(badDesc.length === 0, "every description is 70–200 characters", badDesc.map((a) => `${a.file}: ${a.description.length}`).join(", "));
   const thinCats = categories.filter((c) => c.articles.length < 3);
-  ok(thinCats.length === 0, "every category has 3+ articles", thinCats.map((c) => `${c.slug}: ${c.articles.length}`).join(", "));
+  gate(thinCats.length === 0, "every category has 3+ articles", thinCats.map((c) => `${c.slug}: ${c.articles.length}`).join(", "));
 
   // Required pages
   const have = new Set(pages.map((p) => p.slug));
   for (const alts of REQUIRED_PAGES[site.lang] || REQUIRED_PAGES.en) {
-    ok(alts.some((s) => have.has(s)), `page /${alts[0]}/ exists`);
+    gate(alts.some((s) => have.has(s)), `page /${alts[0]}/ exists`);
   }
   const thinPages = pages.filter((p) => p.words < 150);
-  ok(thinPages.length === 0, "no thin legal/about page (150+ words each)", thinPages.map((p) => `${p.slug}: ${p.words}`).join(", "));
+  gate(thinPages.length === 0, "no thin legal/about page (150+ words each)", thinPages.map((p) => `${p.slug}: ${p.words}`).join(", "));
 
   // AdSense — a site prepared before its account exists has none yet.
   if (site.adsense) {
@@ -139,7 +149,7 @@ export async function check(domain) {
   ok(banned.length === 0, "no other ad network and no placeholder text anywhere", banned.slice(0, 5).join(", "));
   ok(manualUnits.length === 0, "no manual ad unit anywhere — AdSense loader + meta + ads.txt only (Auto ads)", manualUnits.slice(0, 5).join(", "));
   ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
-  ok(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
+  gate(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
 
   // Deploy config: Wrangler rejects a Worker name with dots, and a name that
   // differs from site.json would deploy to the wrong Worker. The config sits in

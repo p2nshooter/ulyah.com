@@ -43,6 +43,19 @@ Grundsätzlich jeder. Besonders gut funktionieren Kaffees mit Schokoladen-, Nuss
 
 Mahle **grob**, ähnlich wie grobes Meersalz. Zu feines Mehl macht das Filtern mühsam, der Kaffee wird trüb und kann bitter werden. Wie du den Mahlgrad an deiner Mühle findest, steht in [Mahlgrad richtig einstellen](/ratgeber/mahlgrad-richtig-einstellen/).
 
+## Mengen und Ausbeute: was am Ende in der Flasche landet
+
+Kaffeemehl saugt sich voll und hält beim Filtern einen Teil des Wassers zurück, grob gerechnet etwa das Doppelte seines eigenen Gewichts. Beim Konzentrat fällt das deutlich ins Gewicht. Setzt du zum Beispiel 125 Gramm Kaffee mit einem Liter Wasser an, bleiben rund 250 Milliliter im Satz, und du erhältst etwa 750 Milliliter Konzentrat. Im Verhältnis 1 zu 1 verdünnt, ergibt das ungefähr eineinhalb Liter trinkfertigen Kaffee.
+
+| Ansatz | Kaffee | Wasser | ungefähr nach dem Filtern |
+|---|---|---|---|
+| trinkfertig, klein | 35 bis 40 g | 500 ml | gut 400 ml |
+| trinkfertig | 70 bis 80 g | 1 l | rund 850 ml |
+| Konzentrat | 125 g | 1 l | rund 750 ml, verdünnt etwa 1,5 l |
+| Konzentrat, groß | 250 g | 2 l | rund 1,5 l, verdünnt etwa 3 l |
+
+Wenn du eine bestimmte Menge brauchst, etwa für Gäste, plane diesen Verlust also ein. Den Satz im Tuch kräftig auszudrücken holt etwas mehr heraus, macht den Kaffee aber trüber.
+
 ## Schritt für Schritt
 
 1. **Mahlen:** Wiege zum Beispiel 80 Gramm Bohnen für einen Liter trinkfertigen Cold Brew ab und mahle sie grob.
@@ -70,9 +83,19 @@ Cold Brew wird nicht erhitzt. Damit er sicher bleibt, achte auf Sauberkeit: Spü
 - **Kaffee-Eiswürfel:** Cold Brew in Eiswürfelformen einfrieren. So verwässert der Eiskaffee nicht.
 - **Im Dessert:** Cold-Brew-Konzentrat eignet sich für Tiramisu, Kaffeecreme oder Eis.
 
+## Cold Brew mit Gewürzen und Aromen
+
+Weil Cold Brew so lange zieht, nimmt er Aromen aus Zusätzen gut auf. Bewährt haben sich pro Liter eine Zimtstange oder einige angedrückte Kardamomkapseln, eine aufgeschnittene Vanilleschote, ein Esslöffel Kakaonibs oder ein Streifen Schale von einer unbehandelten Orange. Gib die Zusätze einfach mit dem Kaffeemehl ins Gefäß und filtere sie mit ab. Frisches Obst gehört dagegen nicht in den Ansatz, weil es über viele Stunden gären kann.
+
+In New Orleans ist kalter Kaffee mit gerösteter Zichorie verbreitet. Die Wurzel bringt herbe, malzige Noten und wird traditionell mit Milch und Zucker kombiniert. Ersetze für einen ersten Versuch etwa ein Fünftel des Kaffeemehls durch gemahlene Zichorie und taste dich von dort aus an deinen Geschmack heran.
+
 ## Japanese Iced Coffee als Alternative
 
 Wenn du die fruchtige Säure eines hellen Kaffees auch kalt genießen willst, probiere die japanische Methode: Du brühst heißen Kaffee direkt auf Eis. Für eine Tasse nimmst du etwa 20 Gramm Kaffee, 180 Gramm heißes Wasser zum Brühen und 120 Gramm Eis in der Kanne. Der Kaffee wird beim Durchlaufen sofort abgekühlt und behält seine Aromen. Die Grundtechnik kennst du aus [Handfilter: Kaffee von Hand aufbrühen](/ratgeber/handfilter-kaffee-anleitung/). Mahle etwas feiner als für normalen Filterkaffee, weil weniger heißes Wasser durch das Bett läuft.
+
+## Kyoto-Style: Cold Brew aus dem Tropfturm
+
+In manchen Cafés stehen hohe Glastürme, in denen kaltes Wasser Tropfen für Tropfen durch ein Kaffeebett läuft. Diese Methode heißt Kyoto-Style oder Slow Drip. Anders als beim klassischen Cold Brew liegt das Kaffeemehl nicht im Wasser, sondern wird über mehrere Stunden langsam durchtropft. Das Ergebnis ist meist klarer und leichter im Körper, oft mit feineren Aromen. Für zu Hause gibt es kleinere Tropftürme. Sie brauchen etwas Übung, bis die Tropfgeschwindigkeit stimmt, und mehr Platz als ein Glas im Kühlschrank. Für den Alltag reicht die einfache Methode völlig, der Tropfturm ist eher etwas für Neugierige.
 
 ## Cold Brew, Eiskaffee und Iced Latte im Vergleich
 
@@ -110,6 +133,10 @@ Ja, ein Konzentrat kannst du mit heißem Wasser verdünnen. Er schmeckt dann wei
 ### Warum ist mein Cold Brew trüb?
 
 Feine Kaffeeteilchen sind durch das Sieb gelangt. Filtere ein zweites Mal durch Papier und mahle beim nächsten Mal gröber.
+
+### Kann ich den Kaffeesatz ein zweites Mal ansetzen?
+
+Davon raten wir ab. Der größte Teil der löslichen Stoffe ist nach dem ersten Ansatz herausgelöst, ein zweiter Durchgang schmeckt dünn und holzig. Der Satz ist im Kompost oder Biomüll besser aufgehoben.
 
 ### Wie viel Cold Brew sollte ich trinken?
 

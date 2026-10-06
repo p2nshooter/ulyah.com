@@ -1,9 +1,9 @@
 Cuplikan adsense (di <head> setiap halaman)
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7516944260248026"
      crossorigin="anonymous"></script>
 
 Cuplikan ads.txt (https://qulen.de/ads.txt)
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-7516944260248026, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman)
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-7516944260248026">

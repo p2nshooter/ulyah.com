@@ -6,9 +6,9 @@ updated: 2026-10-05
 ---
 Wer einen Ratgeber über Gewohnheiten und Ordnung liest, sucht Orientierung, nicht noch mehr Druck. Damit du unseren Texten vertrauen kannst, halten wir uns an diese Grundsätze.
 
-## Selbst geschrieben, nicht zusammengesetzt
+## Eigens geschrieben, nicht zusammengesetzt
 
-Jeder Text auf ZUFIQ wird von unserer Redaktion selbst recherchiert und geschrieben. Wir erzeugen keine Texte automatisch und übernehmen keine Inhalte aus anderen Websites. Wenn wir uns auf Wissen aus anderen Quellen stützen, geben wir es in eigenen Worten wieder.
+Jeder Text auf ZUFIQ wird eigens für diese Website geschrieben. Wir übernehmen keine Inhalte aus anderen Websites, und wenn wir uns auf allgemein bekanntes Wissen stützen, geben wir es in eigenen Worten wieder. Beim Gliedern und Formulieren nutzen wir auch digitale Schreibwerkzeuge, einschließlich KI-gestützter Hilfen. Das ändert nichts an den Regeln auf dieser Seite: Sie gelten für jeden Satz, egal wie er entstanden ist.
 
 ## Keine erfundenen Zahlen und Experten
 
@@ -18,7 +18,16 @@ Im Bereich Selbstorganisation kursieren viele schöne Zahlen: wie viele Tage es 
 
 - allgemein anerkanntes Wissen zu Gewohnheiten, Motivation und Schlafhygiene, wie es in Fachbüchern und Informationen von Gesundheitsorganisationen beschrieben wird
 - Informationen von Verbraucherzentralen, Behörden und Beratungsstellen, etwa zu Verträgen, Abos und dem Aufbewahren von Unterlagen
-- praktische Erfahrung aus dem Alltag: Was funktioniert in einer kleinen Wohnung, mit Kindern, im Schichtdienst, mit wenig Zeit?
+- bewährtes Alltagswissen, immer mit der Frage im Blick: Was funktioniert in einer kleinen Wohnung, mit Kindern, im Schichtdienst, mit wenig Zeit?
+
+## Was jeder Ratgeber leisten soll
+
+Bevor ein Text erscheint, muss er diese Fragen beantworten können:
+
+1. **Für wen ist er?** Jeder Ratgeber beginnt bei einer Situation, die es im Alltag wirklich gibt, etwa dem überquellenden Papierstapel im Flur oder dem Handy, das abends nicht aus der Hand will.
+2. **Was kannst du heute tun?** Ein guter Ratgeber endet nicht bei der Theorie. Er nennt einen ersten, kleinen Schritt, der auch an einem vollen Tag machbar ist.
+3. **Wo sind die Grenzen?** Er sagt offen, wann ein Vorschlag nicht passt und wann du besser Fachleute fragst.
+4. **Was ändert sich?** Wo Regeln, Fristen, Preise oder Einstellungen in Apps sich ändern können, sagen wir das und bitten dich, die aktuelle Angabe bei der zuständigen Stelle oder beim Anbieter zu prüfen.
 
 ## Ruhe statt Perfektion
 

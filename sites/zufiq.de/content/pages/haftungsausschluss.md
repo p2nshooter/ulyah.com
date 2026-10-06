@@ -8,7 +8,7 @@ ZUFIQ erklärt Gewohnheiten, Ordnung, Minimalismus und einen ruhigeren Alltag so
 
 ## Anregungen, keine Behandlung
 
-Unsere Texte beruhen auf allgemein anerkanntem Wissen, etwa zu Gewohnheitsbildung, Schlafhygiene und Haushaltsorganisation, und auf praktischer Erfahrung. Sie sind keine Diagnose, keine Therapie und keine individuelle Beratung. Was für viele Menschen gut funktioniert, kann für dich unpassend sein, zum Beispiel bei einer Erkrankung, in einer Schwangerschaft, bei Schichtarbeit, mit kleinen Kindern oder in einer besonderen Lebenslage.
+Unsere Texte beruhen auf allgemein anerkanntem Wissen, etwa zu Gewohnheitsbildung, Schlafhygiene und Haushaltsorganisation, und auf bewährtem Alltagswissen. Sie sind keine Diagnose, keine Therapie und keine individuelle Beratung. Was für viele Menschen gut funktioniert, kann für dich unpassend sein, zum Beispiel bei einer Erkrankung, in einer Schwangerschaft, bei Schichtarbeit, mit kleinen Kindern oder in einer besonderen Lebenslage.
 
 ## Wann du Fachleute fragen solltest
 

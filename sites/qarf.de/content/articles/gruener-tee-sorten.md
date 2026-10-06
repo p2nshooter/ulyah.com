@@ -83,6 +83,23 @@ Gesundheitliche Wirkungen von grünem Tee werden viel diskutiert. Als normales G
 - **Erntejahr:** Gute Händler geben die Ernte an. Grüntee ist kein Lagertee und sollte möglichst frisch getrunken werden.
 - **Verpackung:** Licht, Luft und Wärme schaden. Am besten ist eine lichtdichte, wiederverschließbare Verpackung.
 
+## Welcher grüne Tee passt zu dir?
+
+Die Auswahl wirkt am Anfang unübersichtlich. Diese Übersicht hilft dir, nach Geschmack und Situation zu wählen statt nach Namen.
+
+| Du magst … | Probier zuerst | Warum |
+|---|---|---|
+| es mild, ohne Herbe | Genmaicha, Hojicha | Reis und Röstung runden den Geschmack ab |
+| nussige, warme Noten | Long Jing | Pfannenröstung statt Dampf, kaum grasig |
+| Frische und Gras | Asamushi-Sencha | klarer, typisch japanischer Charakter |
+| vollen Körper und kräftige Farbe | Fukamushi-Sencha | lang gedämpft, dichter und runder |
+| Süße und Umami | Kabusecha, später Gyokuro | Beschattung bringt Süße, Kabusecha ist der günstigere Einstieg |
+| blumige, feine Tassen | Bi Luo Chun, Huang Shan Mao Feng | junge Knospen, zart und duftig |
+| Minztee | Gunpowder | kräftig genug für Minze und Zucker |
+| abends eine Tasse | Hojicha, Bancha | weniger Koffein als Sencha |
+
+Hast du bisher schlechte Erfahrungen mit grünem Tee gemacht, beginne mit Hojicha oder Genmaicha. Beide werden mit heißerem Wasser aufgegossen und sind weniger empfindlich als ein feiner Sencha. Sie zeigen, dass Grüntee nicht bitter sein muss.
+
 ## Erntezeiten: warum der Frühling so begehrt ist
 
 Teesträucher werden mehrmals im Jahr gepflückt, und die Ernten unterscheiden sich deutlich. In Japan heißt die erste Ernte im Frühjahr, je nach Region etwa von Mitte April bis Mitte Mai, **Ichibancha**. Die jungen Triebe haben über den Winter Nährstoffe gespeichert und enthalten besonders viel L-Theanin, sie schmecken süß und frisch. Die zweite Ernte im Frühsommer, **Nibancha**, ist kräftiger und herber, spätere Ernten werden oft zu Bancha oder für Teebeutel verarbeitet.
@@ -104,6 +121,18 @@ Grüner Tee verzeiht wenig. Kochendes Wasser verbrennt die Blätter förmlich un
 
 Die meisten Grüntees lassen sich zwei- bis dreimal aufgießen. Weitere Werte findest du im Ratgeber [Tee: Ziehzeiten und Temperaturen](/ratgeber/tee-ziehzeiten-und-temperaturen/) und in unserer [Brühtabelle](/bruehtabelle/).
 
+## Probierplan: Japan und China nebeneinander
+
+Den Unterschied zwischen gedämpftem und geröstetem Grüntee verstehst du am schnellsten im direkten Vergleich:
+
+1. **Zwei Tees wählen:** einen Sencha und einen Long Jing, beide möglichst aus einer aktuellen Frühjahrsernte.
+2. **Gleich dosieren:** je 3 Gramm auf 200 Milliliter, in zwei gleichen Kannen oder Tassen mit Sieb.
+3. **Passend aufgießen:** den Sencha mit 75 °C für eine Minute, den Long Jing mit 80 °C für zwei Minuten.
+4. **Erst riechen, dann trinken:** Achte auf Farbe, Duft und Gefühl im Mund. Ist der Tee grasig-frisch oder nussig-rund, dicht oder leicht?
+5. **Zweiter Aufguss:** beide mit etwas heißerem Wasser und kürzer aufgießen und beobachten, welcher Tee länger durchhält.
+
+Meist wirkt der Sencha grüner, frischer und herzhafter, der Long Jing weicher und süß-nussig. Ein solcher Vergleich schärft den Geschmack mehr als jede Beschreibung. Wer einen einzelnen Tee über viele kurze Aufgüsse erkunden möchte, findet die passende Methode in [Gongfu Cha](/ratgeber/gongfu-cha/).
+
 ## Häufige Fragen
 
 ### Warum schmeckt mein grüner Tee bitter?
@@ -113,6 +142,14 @@ Fast immer ist das Wasser zu heiß, die Ziehzeit zu lang oder die Blattmenge zu 
 ### Hat grüner Tee weniger Koffein als schwarzer Tee?
 
 Oft, aber nicht immer. Der Koffeingehalt hängt mehr vom Blatt und der Zubereitung ab als von der Farbe. Junge Triebe und beschattete Tees wie Gyokuro und Matcha enthalten sogar besonders viel Koffein.
+
+### Kann ich grünen Tee kalt aufgießen?
+
+Ja, in Japan ist das als Mizudashi verbreitet. Kaltes Wasser löst Bitterstoffe nur langsam, der Tee wird dadurch weich und süßlich. Gib etwa 8 bis 10 Gramm Sencha auf einen Liter kaltes Wasser, lass ihn einige Stunden im Kühlschrank ziehen, seihe ihn ab und trinke ihn innerhalb eines Tages. Mehr Varianten stehen in [Eistee selbst machen](/ratgeber/eistee-selbst-machen/).
+
+### Warum ist mein Sencha trüb?
+
+Bei Fukamushi-Sencha ist das normal. Durch das lange Dämpfen zerfallen die Blätter in feine Partikel, die den Aufguss grün färben. Verwende ein feines Sieb und gieße die Kanne vollständig aus, damit der nächste Aufguss nicht nachzieht.
 
 ### Wie lange ist grüner Tee haltbar?
 

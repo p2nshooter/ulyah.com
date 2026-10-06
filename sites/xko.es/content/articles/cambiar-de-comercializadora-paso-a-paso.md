@@ -61,6 +61,18 @@ Puedes descargar tu consumo horario de la web de tu distribuidora con el CUPS. C
 
 Para entender las diferencias entre el precio regulado y el libre, consulta [PVPC o mercado libre](/guias/pvpc-o-mercado-libre/).
 
+### Tu comparación en una hoja de cálculo, paso a paso
+
+1. **Anota tus datos:** kWh anuales de punta, llano y valle, y kW contratados en P1 y P2.
+2. **Abre una columna por oferta** con sus precios. Si la potencia viene en €/kW año, divídela entre 365 para pasarla a €/kW día.
+3. **Energía:** multiplica los kWh de cada periodo por su precio y suma. Si la oferta tiene precio único, usa el consumo total.
+4. **Potencia:** kW de P1 × precio de P1 × 365, más lo mismo para P2.
+5. **Servicios que no puedas quitar:** súmalos por su importe anual.
+6. **Si el precio cambia a mitad de año,** reparte el consumo entre los meses de cada precio.
+7. **Impuestos:** aplica a todas las ofertas el impuesto eléctrico y el IVA vigentes. Consulta [impuestos de la factura de la luz](/guias/impuestos-de-la-factura-de-la-luz/).
+
+El alquiler del contador es un importe regulado que no depende de la comercializadora, así que no cambia el resultado de la comparación.
+
 ## Paso 3: revisa el contrato antes de firmar
 
 - **Condiciones particulares:** precios exactos, potencia, duración y fecha de inicio.
@@ -127,6 +139,19 @@ Si tienes placas solares, revisa cómo trata cada comercializadora la compensaci
 ### Luz y gas juntos
 
 Algunas ofertas combinadas incluyen descuentos, pero comprueba que cada suministro por separado sigue siendo competitivo.
+
+### Mudanzas y viviendas sin contrato activo
+
+- **Si la vivienda tiene luz** a nombre del anterior ocupante, lo que necesitas es un cambio de titular, y puedes aprovecharlo para elegir comercializadora. Anota la lectura del contador el día que recibes las llaves.
+- **Si el suministro está dado de baja,** hace falta un alta nueva, con unos costes regulados que cobra la distribuidora. Si la instalación es antigua o lleva tiempo sin servicio, puede pedirse un certificado de instalación eléctrica emitido por un instalador autorizado.
+- **Al dejar una vivienda,** solicita la baja o el cambio de titular; si no, seguirás respondiendo de lo que consuma el siguiente ocupante. En un alquiler, acuérdalo con el propietario.
+
+## Cuándo volver a revisar tu contrato
+
+- **Al terminar el precio fijo o el descuento:** apunta la fecha en tu calendario el mismo día que firmas.
+- **Cuando te avisen de un cambio de condiciones:** la comercializadora debe comunicarte con antelación las modificaciones del contrato, y ese aviso te permite resolverlo sin penalización. Compara antes de que el nuevo precio entre en vigor.
+- **Cuando cambie tu forma de consumir:** un coche eléctrico, el teletrabajo, unas placas solares o una bomba de calor cambian la oferta que te conviene. Consulta [tarifa para coche eléctrico](/guias/tarifa-para-coche-electrico/).
+- **Una vez al año,** aunque nada cambie: repite la comparación con los consumos de los últimos doce meses.
 
 ## Caso práctico: comparar tres ofertas con datos reales
 

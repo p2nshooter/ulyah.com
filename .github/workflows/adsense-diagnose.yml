@@ -1,0 +1,63 @@
+name: AdSense ads.txt diagnosis (read-only)
+
+# Owner, 6 Oct 2026: several .de sites show "ads.txt: Tidak ditemukan" in
+# AdSense while byoxy.de (same engine, same placement) is "Diotorisasi".
+# This job fetches every domain exactly as the AdSense crawler would
+# (http and https, apex and www, Google's user agents) and prints the
+# Cloudflare zone settings that can stand between a crawler and the file, so
+# authorised and not-found domains can be compared side by side. It only
+# reads: every Cloudflare call is a GET.
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [claude/adsense-de-website-dqosox]
+    paths:
+      - '.github/workflows/adsense-diagnose.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Fetch ads.txt the way the crawler does
+        run: |
+          set -uo pipefail
+          UA_ADS="Mediapartners-Google"
+          UA_BOT="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          for d in byoxy.de xko.es qkb.es axto.us byodd.de dawo.es byoy.de qarf.de qurm.de rubiy.de zavik.de zuvik.de zufiq.de zevok.de zolun.de qulen.de; do
+            echo "================ $d"
+            for u in "http://$d/ads.txt" "https://$d/ads.txt" "https://www.$d/ads.txt" "http://www.$d/ads.txt"; do
+              for ua in "$UA_ADS" "$UA_BOT"; do
+                r=$(curl -s -o /tmp/body -D /tmp/hdr -m 20 -A "$ua" -w '%{http_code} %{content_type} redirect=%{redirect_url}' "$u" || echo "curl-failed")
+                printf '%-34s %-22s %s | %s\n' "$u" "${ua:0:20}" "$r" "$(head -c 120 /tmp/body | tr '\n' ' ')"
+              done
+            done
+            printf 'DNS A    %s\n' "$(dig +short A $d | tr '\n' ' ')"
+            printf 'DNS www  %s\n' "$(dig +short www.$d | tr '\n' ' ')"
+            printf 'home meta: %s\n' "$(curl -s -m 20 -A "$UA_BOT" https://$d/ | grep -o '<meta name="google-adsense-account"[^>]*>' | head -1)"
+          done
+
+      - name: Cloudflare zone settings (GET only)
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "https://api.cloudflare.com/client/v4/$1"; }
+          for d in byoxy.de xko.es qkb.es byodd.de dawo.es byoy.de qarf.de qurm.de rubiy.de zavik.de zuvik.de zufiq.de zevok.de zolun.de qulen.de; do
+            z=$(api "zones?name=$d&account.id=$CLOUDFLARE_ACCOUNT_ID")
+            id=$(jq -r '.result[0].id // empty' <<<"$z")
+            echo "================ $d zone=$(jq -r '.result[0].status // "none"' <<<"$z") plan=$(jq -r '.result[0].plan.name // "-"' <<<"$z") created=$(jq -r '.result[0].created_on // "-"' <<<"$z") activated=$(jq -r '.result[0].activated_on // "-"' <<<"$z")"
+            [ -n "$id" ] || continue
+            for s in security_level browser_check always_use_https ssl challenge_ttl; do
+              printf '  %-18s %s\n' "$s" "$(api "zones/$id/settings/$s" | jq -c '.result.value // .errors')"
+            done
+            printf '  %-18s %s\n' "bot_management" "$(api "zones/$id/bot_management" | jq -c '.result // .errors')"
+            printf '  %-18s %s\n' "dns apex/www" "$(api "zones/$id/dns_records?per_page=50" | jq -c '[.result[]? | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | {name,type,content,proxied}]')"
+          done
+          echo "================ worker domains"
+          api "accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" | jq -r '.result[]? | "\(.hostname)\t\(.service)"' | sort

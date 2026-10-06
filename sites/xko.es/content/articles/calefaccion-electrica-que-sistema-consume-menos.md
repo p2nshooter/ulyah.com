@@ -48,6 +48,14 @@ Supongamos que una vivienda necesita 5.000 kWh de calor útil en un invierno, al
 
 La diferencia entre la calefacción por resistencia y la bomba de calor es enorme. Por eso, si tu vivienda ya tiene aire acondicionado con bomba de calor, usarlo como calefacción en lugar de los radiadores eléctricos suele ser la medida de ahorro más inmediata.
 
+### Cómo calcular lo que gasta tu radiador
+
+La potencia de la etiqueta no es lo que consume cada hora. Un emisor de 1.500 W con termostato trabaja a plena potencia hasta alcanzar la temperatura fijada y después se enciende y se apaga para mantenerla.
+
+- **Fórmula:** consumo (kWh) = potencia (kW) × horas en que la resistencia está realmente encendida.
+- **Ejemplo:** un emisor de 1.500 W que pasa 5 horas encendido y, de media, calienta la mitad de ese tiempo consume unos 1,5 × 5 × 0,5 ≈ 3,75 kWh. A 0,17 €/kWh, unos 0,64 € al día.
+- **Mídelo:** un enchufe medidor de consumo entre el aparato y la toma te da los kWh reales de una semana, siempre que admita la potencia del aparato. Repite la medida en días fríos y templados, porque la diferencia es grande.
+
 ## Cuándo tiene sentido cada sistema
 
 ### Convectores y calefactores
@@ -91,6 +99,21 @@ Si no puedes cambiar de sistema, estas medidas reducen el gasto:
 - **Sella corrientes de aire y aísla los cajones de persiana.** Consulta [burletes y corrientes de aire](/guias/burletes-y-corrientes-de-aire/).
 - **Aprovecha el sol** abriendo persianas en fachadas soleadas durante el día.
 - **Revisa tu tarifa:** si tus aparatos tienen mucha inercia, una tarifa con valle barato puede ayudar.
+
+## Seguridad con la calefacción eléctrica
+
+- **Enchufa los aparatos directamente a la pared,** no a regletas ni alargadores, que pueden calentarse con potencias de 1.500 o 2.000 W.
+- **No los cubras** ni pongas ropa a secar encima, salvo en los toalleros diseñados para ello.
+- **Deja distancia** con cortinas, sofás, camas y papeles.
+- **En el baño,** usa solo aparatos aptos para ese uso, instalados respetando las distancias a la bañera y la ducha.
+- **Una clavija o un enchufe caliente o ennegrecido** indica una mala conexión: deja de usar esa toma y que la revise un electricista.
+- **Con niños o personas mayores,** elige aparatos cuya superficie no queme al tacto y, en los portátiles, con apagado automático por vuelco.
+
+## En una segunda residencia
+
+- **Modo antiheladas:** en zonas frías mantiene la vivienda a pocos grados para proteger las tuberías, con un consumo bajo.
+- **Termostatos o enchufes con control remoto:** permiten encender la calefacción unas horas antes de llegar en lugar de dejarla funcionando toda la semana.
+- **Potencia contratada:** si solo usas la casa unas semanas al año, el término de potencia puede pesar más que la energía en la factura. Ajústala a lo que de verdad enciendes a la vez. Consulta [cambiar la potencia contratada](/guias/cambiar-la-potencia-contratada/).
 
 ## Errores frecuentes al comprar
 

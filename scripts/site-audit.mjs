@@ -12,7 +12,8 @@ const domains = process.argv.slice(2);
 
 // What each domain must declare (docs/ADSENSE-CODES.md). A site missing its
 // meta tag, loader or ads.txt line is reported as such at the end.
-// Since 2026-10-04 every owner site is on ONE account ("jadi 1 akun saja").
+// Since 2026-10-04 every owner site is on ONE account ("jadi 1 akun saja"),
+// except the sites the owner moved to their own accounts on 6 Oct (below).
 // dawa.es is detached — no longer the owner's — and is not audited at all
 // (docs/ADSENSE-BLUEPRINT.md §10). Every page must carry the loader + meta +
 // ads.txt and NO manual unit: the sites run Auto ads (owner, 4 Oct 2026).
@@ -23,6 +24,14 @@ const EXPECTED = Object.fromEntries([
   "xad.es", "byoy.de", "qarf.de", "qulen.de", "qurm.de", "rubiy.de", "zavik.de", "zevok.de",
   "zolun.de", "zufiq.de", "zuvik.de",
 ].map((d) => [d, ONE_ACCOUNT]));
+// Owner, 6 Oct 2026: these two apply with their own AdSense accounts.
+EXPECTED["zufiq.de"] = "6146217038829045";
+EXPECTED["zevok.de"] = "5944786950535069";
+EXPECTED["byodd.de"] = "2228462932360966";
+EXPECTED["qulen.de"] = "7516944260248026";
+EXPECTED["dawo.es"] = "6019445914743449";
+EXPECTED["zolun.de"] = "4548005919629272";
+EXPECTED["axto.dev"] = "8469557036744946";
 const verdicts = [];
 
 const browser = await chromium.launch();

@@ -53,6 +53,15 @@ La etiqueta energética de los aires acondicionados todavía utiliza la escala c
 
 Un equipo de hace 15 años puede tener un SEER de 3 o menos. Sustituirlo por uno con SEER de 7 a 8 reduce el consumo a menos de la mitad para el mismo uso.
 
+### Cómo estimar el consumo de tu propio equipo
+
+1. **Busca en la etiqueta la potencia de diseño en frío y el SEER.**
+2. **Divide una cifra entre la otra:** un equipo de 3,5 kW con SEER 7 consume de media unos 0,5 kWh por cada hora equivalente a plena carga.
+3. **Ajusta a tu uso:** con el inverter, el compresor trabaja buena parte del tiempo a media potencia, así que seis horas encendido no equivalen a seis horas a plena carga.
+4. **Compruébalo con tus datos:** descarga el consumo horario de tu distribuidora y compara un día caluroso con el aire encendido con otro templado sin él. La diferencia es lo que gasta tu equipo con tus hábitos.
+
+El consumo anual que muestra la etiqueta se calcula con unas horas de uso de referencia iguales para todos los modelos: sirve para comparar equipos, no para predecir tu factura.
+
 ## A qué temperatura poner el aire acondicionado
 
 - **Recomendación general en verano: 25 a 27 °C.** Es la temperatura de referencia para el confort en verano con ropa ligera.
@@ -89,6 +98,17 @@ Un equipo de hace 15 años puede tener un SEER de 3 o menos. Sustituirlo por uno
 - **Revisa la unidad exterior:** que no esté obstruida por hojas, cajas o plantas y que tenga buena ventilación.
 - **Revisión profesional** cada uno o dos años: comprobación de la carga de gas, limpieza de baterías y del desagüe.
 - **Comprueba el desagüe** de condensados para evitar goteos.
+
+### Problemas habituales y qué indican
+
+| Síntoma | Causa probable | Qué hacer |
+|---|---|---|
+| Mal olor al encender | Humedad y suciedad en los filtros y la batería interior | Limpia los filtros; tras apagar, deja unos minutos el modo ventilador para secar la batería si el equipo no lo hace solo |
+| Gotea agua de la unidad interior | Desagüe obstruido o con mala pendiente | Revisa el tubo de condensados; si no ves el atasco, llama al técnico |
+| Enfría poco aunque funciona | Filtros sucios, unidad exterior obstruida o falta de refrigerante | Limpia y despeja; si sigue igual, revisión profesional |
+| Escarcha en los tubos o en la unidad interior | Falta de refrigerante o paso de aire bloqueado | Apágalo y avisa al técnico |
+
+Un aire acondicionado no gasta refrigerante: si le falta, hay una fuga que debe localizarse y repararse, no basta con recargar. Cualquier intervención en el circuito de gas debe hacerla un profesional habilitado para manipular gases fluorados.
 
 ## Elegir un equipo nuevo
 
@@ -127,6 +147,10 @@ Un split de 3.000 frigorías instalado puede costar entre 600 y 1.500 €, segú
 ### ¿Necesito subir la potencia contratada?
 
 Un split doméstico consume menos de 1,5 kW. Normalmente no hace falta subir la potencia si no coincide con otros aparatos de mucha potencia.
+
+### ¿Gasta menos un ventilador?
+
+Mucho menos: un ventilador de pie o de techo consume decenas de vatios. Pero no baja la temperatura, solo aumenta la sensación de frescor al mover el aire sobre la piel. Funciona bien en días moderados o junto al aire acondicionado; dejarlo encendido en una habitación vacía no sirve de nada.
 
 ## En resumen
 
