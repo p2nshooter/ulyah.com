@@ -41,9 +41,9 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | qurm.de | ca-pub-5693981744147503 | ulyah.com · sites/qurm.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | rubiy.de | ca-pub-5693981744147503 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | zavik.de | ca-pub-5693981744147503 | ulyah.com · sites/zavik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
-| zevok.de | ca-pub-5693981744147503 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zevok.de | ca-pub-5944786950535069 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik) |
 | zolun.de | ca-pub-5693981744147503 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
-| zufiq.de | ca-pub-5693981744147503 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zufiq.de | ca-pub-6146217038829045 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik) |
 | zuvik.de | ca-pub-5693981744147503 | ulyah.com · sites/zuvik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
 | tilawa.de | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant tilawa) |
@@ -504,25 +504,25 @@ Tag meta
 
 ## zevok.de
 
-Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+Akun sendiri, kode dari pemilik 6 Okt 2026 (bukan lagi akun gabungan 5693…).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5944786950535069"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://zevok.de/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-5944786950535069">
 ```
 
 ## zolun.de
@@ -550,25 +550,25 @@ Tag meta
 
 ## zufiq.de
 
-Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+Akun sendiri, kode dari pemilik 6 Okt 2026 (bukan lagi akun gabungan 5693…).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://zufiq.de/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-6146217038829045">
 ```
 
 ## zuvik.de
