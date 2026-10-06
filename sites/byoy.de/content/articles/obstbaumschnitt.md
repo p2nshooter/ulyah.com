@@ -1,6 +1,6 @@
 ---
 title: "Obstbaumschnitt: Winter- und Sommerschnitt, Erziehung, Pflege und Verjüngung"
-description: "Obstbäume richtig schneiden: warum und wann, Unterschied zwischen Winter- und Sommerschnitt, Erziehung junger Bäume, Fruchtholz bei Apfel und Birne, Kirsche und Zwetschge, Werkzeug, Astring und typische Fehler."
+description: "Obstbäume richtig schneiden: Winter- oder Sommerschnitt, Erziehung junger Bäume, Fruchtholz bei Apfel und Birne, Kirsche und Zwetschge, Werkzeug, Astring und typische Fehler."
 category: obst-und-beeren
 date: 2026-08-29
 ---

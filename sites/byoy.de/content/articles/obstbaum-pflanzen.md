@@ -1,6 +1,6 @@
 ---
 title: "Obstbaum pflanzen: Zeitpunkt, Unterlage, Befruchtersorte und Schritt-für-Schritt-Anleitung"
-description: "So setzt du einen Obstbaum richtig: Herbst oder Frühjahr, wurzelnackt oder im Container, Baumform und Unterlage, Befruchtersorten, Pflanzloch, Pfahl, Wühlmausschutz, Pflanzschnitt und Pflege in den ersten Jahren."
+description: "Einen Obstbaum richtig pflanzen: Zeitpunkt, wurzelnackt oder Container, Baumform und Unterlage, Befruchtersorten, Pfahl, Wühlmausschutz, Pflanzschnitt und die ersten Jahre."
 category: obst-und-beeren
 date: 2026-08-26
 ---

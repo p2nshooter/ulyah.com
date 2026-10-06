@@ -1,6 +1,6 @@
 ---
 title: "Fruchtfolge planen: Pflanzenfamilien, Anbaupausen und die Vierfelderwirtschaft im Hausgarten"
-description: "Warum Gemüse jedes Jahr den Platz wechseln sollte, welche Pflanzenfamilien zusammengehören, wie lange Anbaupausen nötig sind und wie du mit einem einfachen Vierfelderplan auch im kleinen Garten rotierst."
+description: "Warum Gemüse jedes Jahr den Platz wechseln sollte: Pflanzenfamilien, nötige Anbaupausen und ein einfacher Vierfelderplan, mit dem du auch im kleinen Garten rotierst."
 category: mischkultur-und-fruchtfolge
 date: 2026-08-14
 ---
@@ -76,6 +76,14 @@ Im Laufe eines Jahres stehen oft mehrere Kulturen nacheinander auf einem Beet. P
 ## Das Gartenbuch
 
 Der wichtigste Teil der Fruchtfolge ist das Aufschreiben. Zeichne jedes Jahr eine einfache Skizze deiner Beete und trage ein, was wo stand, einschließlich Vor- und Nachkulturen und Gründüngung. Notiere auch Krankheiten und besonders gute oder schlechte Ernten. Nach einigen Jahren erkennst du Muster, die dir kein Ratgeber verraten kann. Wie du einen Plan Schritt für Schritt entwirfst, erklärt [Beetplan erstellen](/gartenwissen/beetplan-erstellen/).
+
+## Häufige Fehler bei der Fruchtfolge
+
+- **Gründüngung vergessen:** Senf oder Ölrettich als Gründüngung sind Kreuzblütler. Wer danach Kohl pflanzt, unterbricht die Fruchtfolge, ohne es zu merken.
+- **Nur nach Nährstoffen planen:** Starkzehrer, Mittelzehrer und Schwachzehrer zu wechseln reicht nicht, wenn im Starkzehrerbeet jedes Jahr wieder Kohl steht. Die Pflanzenfamilie muss mit wandern.
+- **Kräuter übersehen:** Petersilie im Möhrenbeet ist ein Doldenblütler mehr am selben Platz.
+- **Kartoffeln aus dem Vorjahr:** Vergessene Knollen treiben im nächsten Jahr mitten im Bohnenbeet wieder aus. Entferne sie konsequent, sonst bleiben Nachtschattengewächse am Platz.
+- **Keine Aufzeichnungen:** Ohne Notizen weiß nach zwei Jahren niemand mehr, was wo stand.
 
 ## Häufige Fragen
 

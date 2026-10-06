@@ -73,6 +73,20 @@ Igel sind nach dem Bundesnaturschutzgesetz besonders geschützt. Du darfst sie n
 
 Setze den Igel in einen hohen Karton mit einem Handtuch, stelle ihn in einen ruhigen, nicht zu warmen Raum und biete Wasser an. Rufe dann eine Igelstation, eine Wildtierhilfe oder eine Tierarztpraxis an. Igel brauchen fachkundige Pflege, und viele Krankheiten und Parasiten erkennt nur, wer sich auskennt. Igel mit normalem Verhalten in der Nacht lässt du in Ruhe.
 
+## Ein igelfreundlicher Garten in fünf Schritten
+
+1. **Ruhezone schaffen:** Eine Ecke unter Hecken oder Sträuchern, in der nicht aufgeräumt wird, mit Laub und Ästen.
+2. **Durchgang öffnen:** Eine kleine Öffnung im Zaun, abgestimmt mit den Nachbarn.
+3. **Gefahren beseitigen:** Schächte abdecken, Teich mit Ausstieg, Netze hochbinden, Mähroboter nur tagsüber.
+4. **Nahrung fördern:** heimische Sträucher, Blühstreifen, Totholz und kein Gift. Wo Insekten leben, finden auch Igel Futter.
+5. **Wasser anbieten:** eine flache Schale in trockenen Sommern.
+
+Wer diese Punkte umsetzt, hilft nicht nur Igeln, sondern auch Vögeln, Kröten, Eidechsen und unzähligen Insekten.
+
+## Igel im Winter: nicht stören
+
+Wenn ein Igel in einem Laubhaufen oder im Igelhaus überwintert, braucht er absolute Ruhe. Jedes Aufwachen kostet ihn wertvolle Energiereserven. Räume deshalb Laub-, Reisig- und Komposthaufen nicht zwischen November und April auf, setze keinen Kompost um, in dem ein Igel schlafen könnte, und kontrolliere ein Igelhaus nicht. Erst im späten Frühjahr, wenn die Nächte dauerhaft mild sind, ist es Zeit für Aufräumarbeiten, und auch dann vorsichtig, mit Rechen statt Gabel.
+
 ## Häufige Fragen
 
 ### Ist ein Igel im Garten ein Zeichen für einen gesunden Garten?

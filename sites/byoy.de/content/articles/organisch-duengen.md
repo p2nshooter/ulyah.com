@@ -91,6 +91,14 @@ Welche Gemüse zu welcher Gruppe gehören und warum, steht in [Starkzehrer, Mitt
 
 Mehr Dünger bedeutet nicht mehr Ertrag. Zu viel Stickstoff macht Pflanzen weich und mastig, zieht Blattläuse an, verzögert die Fruchtbildung und lässt Blattgemüse Nitrat einlagern. Überschüssige Nährstoffe werden ausgewaschen und belasten das Grundwasser. Lass deshalb alle drei bis fünf Jahre eine Bodenanalyse machen, wie in [Bodenart bestimmen](/gartenwissen/bodenart-bestimmen/) erklärt. Viele Gärten sind mit Phosphor und Kalium so gut versorgt, dass sie jahrelang nur Kompost und etwas Stickstoff brauchen.
 
+## Ein Düngeplan für das Gartenjahr
+
+- **März bis April:** Kompost auf alle Beete nach Bedarf, Hornspäne für Starkzehrer, Kompost als Mulch um Obststräucher.
+- **Mai:** Jauche ansetzen, sobald die Brennnesseln hoch genug sind.
+- **Juni bis August:** Starkzehrer alle ein bis zwei Wochen mit verdünnter Jauche gießen, Mittelzehrer bei Bedarf.
+- **September:** Nicht mehr mit Stickstoff düngen, damit Pflanzen und Gehölze vor dem Winter ausreifen.
+- **Oktober bis November:** Mist und halbreifen Kompost auf Flächen für die Starkzehrer des nächsten Jahres, Gründüngung und Laub auf freie Beete.
+
 ## Häufige Fragen
 
 ### Ist Kaffeesatz ein guter Dünger?

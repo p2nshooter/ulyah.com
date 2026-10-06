@@ -1,6 +1,6 @@
 ---
 title: "Beetplan erstellen: Gemüsegarten auf Papier planen, Mengen berechnen und Platz klug nutzen"
-description: "Schritt für Schritt zum eigenen Anbauplan: Wunschliste nach Familienbedarf, Pflanzmengen pro Person, Abstände, hohe Kulturen richtig platzieren, Folgesaaten, Mischkultur und Fruchtfolge auf Karopapier."
+description: "Den Gemüsegarten auf Papier planen: Wunschliste nach Familienbedarf, Pflanzmengen pro Person, Abstände, hohe Kulturen richtig platzieren, Folgesaaten, Mischkultur und Fruchtfolge."
 category: mischkultur-und-fruchtfolge
 date: 2026-08-20
 ---
@@ -89,6 +89,10 @@ Leite aus dem Plan eine Einkaufsliste ab: Wie viele Tüten Saatgut, wie viele Ju
 ## Den Plan im Jahreslauf nutzen
 
 Ein Plan ist kein Gesetz. Wenn die Erbsen später keimen, der Salat schießt oder ein Unwetter Tomaten knickt, passt du ihn an. Trage Änderungen direkt in den Plan ein. Am Ende des Jahres hast du so eine genaue Aufzeichnung dessen, was wirklich wo stand, und das ist die wichtigste Grundlage für den Plan des nächsten Jahres.
+
+## Die Gartensaison auswerten
+
+Nimm dir im Herbst eine Stunde Zeit, deinen Plan mit der Wirklichkeit zu vergleichen: Welche Kulturen haben sich gelohnt, welche haben enttäuscht? Wovon gab es zu viel, wovon zu wenig? Welche Sorten haben besonders gut geschmeckt? Notiere die Antworten direkt neben dem Plan. Diese Auswertung ist der wertvollste Teil der Planung, denn sie macht den nächsten Plan besser.
 
 ## Häufige Fragen
 

@@ -81,6 +81,20 @@ Ein frisch befülltes Hochbeet ist sehr nährstoffreich. Im ersten Jahr setzt du
 | 3 | Buschbohnen mit Bohnenkraut, danach Phacelia | keine Düngung |
 | 4 | Gründüngung oder Erdbeeren, im Herbst wieder Kompost für Starkzehrer | Kompost im Herbst |
 
+## Wie du den Nährstoffzustand erkennst
+
+Pflanzen zeigen recht deutlich, ob sie gut versorgt sind. Achte auf diese Zeichen:
+
+| Beobachtung | Mögliche Ursache | Was tun |
+|---|---|---|
+| ältere Blätter hellgrün bis gelb, schwacher Wuchs | Stickstoffmangel | verdünnte Brennnesseljauche, Hornmehl, Kompost |
+| sattgrüne, weiche, mastige Pflanzen, viele Blattläuse | zu viel Stickstoff | Düngung reduzieren, im nächsten Jahr weniger Kompost |
+| gelbe Blätter mit grünen Adern bei jungen Blättern | Eisenmangel, oft durch zu hohen pH-Wert | pH-Wert messen, nicht kalken |
+| braune, vertrocknete Blattränder bei Tomaten oder Kartoffeln | Kaliummangel oder Trockenstress | Beinwelljauche, gleichmäßig gießen |
+| Früchte mit schwarzen Flecken an der Unterseite (Tomaten) | Blütenendfäule durch ungleichmäßige Wasserversorgung | regelmäßig gießen, mulchen |
+
+Viele Symptome haben mehrere Ursachen, und Trockenheit, Kälte oder Staunässe sehen manchmal aus wie Nährstoffmangel. Bevor du nachdüngst, prüfe deshalb immer auch Boden, Wasser und Wetter. Eine Bodenanalyse schafft Klarheit, wie in [Bodenart bestimmen](/gartenwissen/bodenart-bestimmen/) beschrieben.
+
 ## Häufige Fragen
 
 ### Kann ich Starkzehrer auch ohne Fruchtfolge gut versorgen?

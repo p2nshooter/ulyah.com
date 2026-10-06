@@ -107,6 +107,10 @@ Arbeite den Kompost im Frühjahr flach in die oberen Zentimeter des Bodens ein, 
 
 Wer den Kompost so führt, hat jedes Frühjahr fertige Erde für die Beete und braucht kaum noch Erde zu kaufen.
 
+## Wurmkiste für Balkon und Küche
+
+Wer keinen Garten hat oder seine Küchenabfälle das ganze Jahr verwerten will, kann eine Wurmkiste betreiben. Darin arbeiten spezielle Kompostwürmer, keine Regenwürmer aus dem Garten. Sie fressen Gemüse- und Obstreste, Kaffeesatz und zerrissene Pappe und hinterlassen feinen Wurmhumus, einen hervorragenden Dünger für Topfpflanzen und Aussaaten. Die Kiste steht an einem Ort mit 15 bis 25 Grad, etwa in der Küche, im Keller oder auf einem geschützten Balkon. Richtig betrieben riecht sie nach Waldboden. Zitrusschalen, Zwiebeln, Gekochtes und Fleisch gehören nicht hinein. Die abgelaufene Flüssigkeit, der Wurmtee, wird verdünnt als Flüssigdünger verwendet.
+
 ## Häufige Fragen
 
 ### Mein Kompost stinkt. Was tun?

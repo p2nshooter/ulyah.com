@@ -94,6 +94,17 @@ Für den Anfang eignen sich Kulturen, die schnell wachsen, wenig anspruchsvoll s
 
 Im nächsten Jahr wandert jede Reihe ein Beet weiter. So bleibt der Boden gesund.
 
+## Typische Anfängerfehler
+
+- **Zu große Fläche:** Ein kleines, gepflegtes Beet bringt mehr Freude als ein großes, verunkrautetes. Erweitere lieber im nächsten Jahr.
+- **Zu dicht gesät:** Jungpflanzen brauchen Platz. Vereinzeln kostet Überwindung, bringt aber kräftigere Pflanzen.
+- **Alles auf einmal gesät:** Lieber in mehreren Sätzen säen, dann erntest du über Wochen statt alles in einer Woche.
+- **Kein Mulch:** Offener Boden trocknet aus und verunkrautet. Eine dünne Mulchschicht spart viel Arbeit.
+
+## Wasser von Anfang an mitdenken
+
+Ein Gemüsebeet braucht im Sommer regelmäßig Wasser, und Leitungswasser ist teuer und oft kalkhaltig. Plane deshalb gleich zu Beginn eine Regentonne oder einen größeren Regenwassertank an einem Fallrohr in der Nähe. Ein Gartenschlauch mit Brause oder eine einfache Tropfleitung entlang der Reihen spart viel Zeit. Gieße lieber zweimal pro Woche durchdringend als täglich ein wenig: So wachsen die Wurzeln in die Tiefe, und die Pflanzen überstehen Trockenphasen besser. Mulch zwischen den Reihen verringert die Verdunstung um ein Vielfaches.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit, ein Beet anzulegen?

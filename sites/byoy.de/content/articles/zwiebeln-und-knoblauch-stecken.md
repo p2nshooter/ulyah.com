@@ -83,6 +83,12 @@ Knoblauch erntest du im Juli, wenn die unteren Blätter gelb werden, aber noch f
 
 Lagere Zwiebeln und Knoblauch kühl, trocken, dunkel und luftig, in Netzen, Körben oder als Zopf. Feuchtigkeit lässt sie keimen und schimmeln. Gut getrocknete Lagerzwiebeln halten bis ins Frühjahr, Knoblauch oft genauso lange. Kontrolliere den Vorrat regelmäßig und verbrauche weiche oder austreibende Knollen zuerst.
 
+## Schalotten und Frühlingszwiebeln
+
+**Schalotten** steckst du wie Steckzwiebeln von März bis April, mit etwas mehr Abstand, etwa 15 bis 20 Zentimeter in der Reihe. Aus jeder Brutzwiebel wächst ein Nest aus fünf bis zehn neuen Schalotten. Sie reifen im Juli und lassen sich sehr gut lagern. Ihr Aroma ist feiner und milder als das von Küchenzwiebeln, ideal für Soßen und Salatdressings.
+
+**Frühlingszwiebeln** säst du von März bis August direkt ins Beet, dicht in Reihen. Sie werden geerntet, solange sie grün und zart sind, etwa acht bis zehn Wochen nach der Aussaat. Mit Folgesaaten alle drei bis vier Wochen hast du vom Frühsommer bis in den Herbst frische Ernte. Winterharte Sorten, im August gesät, liefern schon im zeitigen Frühjahr die ersten Lauchzwiebeln.
+
 ## Häufige Fragen
 
 ### Kann ich gekeimte Zwiebeln aus der Küche stecken?

@@ -1,6 +1,6 @@
 ---
 title: "Heidelbeeren im Garten: saurer Boden, Moorbeet ohne Torf, Pflanzung im Kübel und Schnitt"
-description: "Kulturheidelbeeren brauchen sauren Boden um pH 4,5: wie du ein torffreies Heidelbeerbeet anlegst oder sie im Kübel ziehst, mit Regenwasser gießt, richtig düngst, schneidest und mit Sorten über Wochen erntest."
+description: "Kulturheidelbeeren brauchen sauren Boden um pH 4,5: torffreies Heidelbeerbeet anlegen oder im Kübel ziehen, mit Regenwasser gießen, richtig düngen, schneiden und lange ernten."
 category: obst-und-beeren
 date: 2026-09-10
 ---
@@ -76,6 +76,10 @@ So bleibt der Strauch offen und erneuert sich ständig, ähnlich wie bei [Johann
 ## Ernten und Vögel
 
 Heidelbeeren reifen nicht gleichzeitig. Pflücke sie, wenn sie vollständig blau sind und sich leicht lösen. Rot schimmernde Beeren am Stielansatz brauchen noch einige Tage. Amseln und Drosseln lieben Heidelbeeren mindestens so sehr wie wir. Ein Vogelschutznetz über den Sträuchern, das unten fest geschlossen ist, damit sich keine Vögel darin verfangen, schützt die Ernte.
+
+## Preiselbeeren und Cranberrys als Nachbarn
+
+Im sauren Heidelbeerbeet fühlen sich auch Preiselbeeren und Cranberrys wohl. Preiselbeeren sind niedrige, immergrüne Zwergsträucher, die oft zweimal im Jahr tragen und sich gut als Unterpflanzung eignen. Cranberrys, auch Großfrüchtige Moosbeeren genannt, kriechen am Boden entlang und brauchen gleichmäßige Feuchtigkeit. Beide passen zu Heidelbeeren, weil sie dieselben Ansprüche an Boden und Wasser haben. So wird aus einem einzelnen Heidelbeerbeet eine kleine Beerenecke mit Ernte von Juli bis in den Oktober.
 
 ## Häufige Fragen
 

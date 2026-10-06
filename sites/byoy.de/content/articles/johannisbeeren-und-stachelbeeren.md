@@ -1,6 +1,6 @@
 ---
 title: "Johannisbeeren und Stachelbeeren: pflanzen, richtig schneiden, Mehltau vorbeugen und vermehren"
-description: "Rote, weiße und schwarze Johannisbeeren, Stachelbeeren und Jostabeeren im Biogarten: Standort, Pflanztiefe, Mulch, der richtige Schnitt je nach Art, Stachelbeermehltau, Blattwespen und Vermehrung über Steckholz."
+description: "Johannisbeeren, Stachelbeeren und Jostabeeren: Standort, Pflanztiefe, Mulch, der richtige Schnitt je nach Art, Stachelbeermehltau, Blattwespen und Vermehrung über Steckholz."
 category: obst-und-beeren
 date: 2026-09-04
 ---
@@ -89,6 +89,10 @@ Johannisbeeren lassen sich sehr leicht vermehren:
 2. Stecke sie senkrecht so tief in ein Beet mit lockerer Erde, dass nur die obersten ein bis zwei Knospen herausschauen.
 3. Halte die Erde feucht. Im Frühjahr treiben die meisten Steckhölzer aus.
 4. Im nächsten Herbst setzt du die jungen Sträucher an ihren endgültigen Platz.
+
+## Stämmchen: Beeren auf Augenhöhe
+
+Johannisbeeren und Stachelbeeren gibt es auch als Hochstämmchen: Die Sorte ist auf einen etwa einen Meter hohen Stamm einer wüchsigen Unterlage veredelt. Die Beeren hängen dann bequem in Greifhöhe, und darunter bleibt Platz für Erdbeeren, Kräuter oder Blumen. Stämmchen brauchen dauerhaft einen stabilen Pfahl, weil die Krone schwer wird. Geschnitten werden sie ähnlich wie Sträucher: Ältere Triebe in der Krone werden regelmäßig herausgenommen, damit junge nachwachsen. Triebe, die unterhalb der Krone am Stamm erscheinen, entfernst du sofort, weil sie von der Unterlage stammen.
 
 ## Häufige Fragen
 

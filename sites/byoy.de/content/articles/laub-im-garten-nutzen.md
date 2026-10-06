@@ -76,6 +76,14 @@ Igel suchen im Herbst trockene, geschützte Plätze für den Winterschlaf. Ein H
 
 Laubsauger und Laubbläser sind laut, verbrauchen Energie und saugen zusammen mit dem Laub viele Kleintiere ein, die dabei häufig sterben. Ein Laubrechen oder Fächerbesen ist leiser, schonender und für die meisten Gärten völlig ausreichend. Auf Rasenflächen kannst du das Laub auch mit dem Rasenmäher mit Fangkorb aufnehmen und dabei gleich zerkleinern.
 
+## Wie viel Laub ist zu viel?
+
+Auf Beeten sind fünf bis zehn Zentimeter ideal. Dickere Schichten aus ganzen Blättern können verkleben, wenn sie nass werden, und den Boden darunter schlecht belüften. Zerkleinere große Mengen deshalb vorher oder mische sie mit grobem Material wie Häckselgut. Unter Sträuchern und Hecken darf die Schicht dicker sein, dort verschwindet sie im Lauf des Jahres von selbst.
+
+## Laub sammeln mit Kindern
+
+Laubarbeit im Herbst ist ein schönes Familienprojekt. Kinder lieben es, in Laubhaufen zu springen, Blätter zu sortieren und zu bestimmen und ein Igelquartier zu bauen. Erkläre dabei, warum das Laub im Garten bleibt und was die Regenwürmer daraus machen. Ein Glas mit Erde, Laub und ein paar Regenwürmern auf der Fensterbank zeigt über einige Wochen, wie die Blätter im Boden verschwinden.
+
 ## Häufige Fragen
 
 ### Muss ich Laub vom Rasen entfernen?

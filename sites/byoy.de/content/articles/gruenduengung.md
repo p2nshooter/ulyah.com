@@ -82,6 +82,10 @@ Gründüngung lässt sich gut in einen Anbauplan einbauen. Ein Beispiel für vie
 
 Wichtig ist, die Familie der Gründüngung mitzudenken. Phacelia und Buchweizen passen fast überall, Kreuzblütler nur dort, wo lange kein Kohl folgt. Mehr dazu in [Fruchtfolge planen](/gartenwissen/fruchtfolge-planen/).
 
+## Gründüngung im Kleingarten und auf Mietflächen
+
+In Kleingärten gilt oft die Vorgabe, dass ein Teil der Fläche gärtnerisch genutzt werden muss. Gründüngung ist eine anerkannte Kulturmaßnahme und zeigt, dass ein Beet bewusst gepflegt wird, auch wenn gerade kein Gemüse darauf wächst. Phacelia und Ringelblumen sehen dabei so schön aus, dass sie oft Gespräche über den Zaun auslösen. Wer eine Fläche nur für wenige Wochen frei hat, sät schnell wachsenden Buchweizen, der schon nach sechs Wochen eine dichte Decke bildet.
+
 ## Häufige Fragen
 
 ### Kann ich Gründüngung auch im kleinen Garten nutzen?

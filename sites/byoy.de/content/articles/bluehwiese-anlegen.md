@@ -1,6 +1,6 @@
 ---
 title: "Blühwiese anlegen: Regiosaatgut, magerer Boden, Aussaat und die richtige Mahd"
-description: "So wird aus Rasen eine Wiese voller Blüten und Insekten: einjähriger Blühstreifen oder mehrjährige Wiese, heimisches Regiosaatgut, Boden abmagern, Aussaat als Lichtkeimer, Schröpfschnitt und zweimalige Mahd."
+description: "So wird aus Rasen eine Blumenwiese: Blühstreifen oder mehrjährige Wiese, heimisches Regiosaatgut, Boden abmagern, Aussaat als Lichtkeimer, Schröpfschnitt und richtige Mahd."
 category: naturgarten-und-nuetzlinge
 date: 2026-09-16
 ---
@@ -84,6 +84,14 @@ Eine Wiese wird nie gedüngt und nur bei extremer Trockenheit kurz nach der Auss
 - **Kleiner Klappertopf:** schwächt Gräser als Halbschmarotzer und hilft so den Blumen
 
 Welche Wildbienen davon profitieren und wie du ihnen außerdem hilfst, steht in [Wildbienen fördern](/gartenwissen/wildbienen-foerdern/).
+
+## Häufige Fehler bei Blumenwiesen
+
+- **Bunte Mischungen aus dem Supermarkt:** Sie blühen im ersten Jahr spektakulär, enthalten aber oft fremde, einjährige Arten und verschwinden im zweiten Jahr.
+- **Gedüngter Boden:** Gräser und Brennnesseln wachsen den Blumen davon.
+- **Mähgut liegen lassen:** Es düngt die Fläche und erstickt kleine Pflanzen.
+- **Zu häufiges Mähen:** Die Blumen kommen nicht zur Samenreife.
+- **Ungeduld:** Eine artenreiche Wiese entwickelt sich über drei bis fünf Jahre.
 
 ## Häufige Fragen
 

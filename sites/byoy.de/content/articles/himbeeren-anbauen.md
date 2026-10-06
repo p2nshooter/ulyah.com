@@ -1,6 +1,6 @@
 ---
 title: "Himbeeren anbauen: Sommer- oder Herbsthimbeeren, Pflanzung, Drahtgerüst und der richtige Rutenschnitt"
-description: "Himbeeren im Biogarten: Unterschied zwischen Sommer- und Herbsthimbeeren, Standort ohne Staunässe, Pflanzabstand und Gerüst, Schnitt nach der Ernte, Ausläufer bändigen, Himbeerkäfer und Rutenkrankheit vorbeugen."
+description: "Himbeeren im Biogarten: Sommer- oder Herbsthimbeeren, Standort ohne Staunässe, Pflanzabstand und Gerüst, Rutenschnitt, Ausläufer bändigen, Himbeerkäfer und Rutenkrankheit."
 category: obst-und-beeren
 date: 2026-09-07
 ---
@@ -88,6 +88,10 @@ Himbeeren bilden unterirdische Ausläufer und tauchen dann plötzlich mitten im 
 ## Ernten
 
 Himbeeren sind reif, wenn sie vollständig gefärbt sind und sich ohne Ziehen vom Zapfen lösen. In der Hauptsaison pflückst du alle ein bis zwei Tage, am besten am Morgen, wenn die Früchte trocken und kühl sind. Lege sie flach in eine Schale, nicht hoch geschichtet. Himbeeren halten sich im Kühlschrank nur ein bis zwei Tage, lassen sich aber gut einfrieren: einzeln auf einem Blech vorfrieren, dann in Dosen füllen.
+
+## Brombeeren als Alternative
+
+Wer einen sonnigen Zaun oder eine Wand hat und Himbeeren schon kennt, kann es mit Brombeeren versuchen. Dornenlose Gartensorten sind leicht zu pflegen, tragen im August und September reichlich und sind weniger anfällig für Wurzelfäule. Sie wachsen kräftig und brauchen ein stabiles Gerüst. Geschnitten werden sie ähnlich wie Sommerhimbeeren: Nach der Ernte entfernst du die abgetragenen Ruten und bindest fünf bis acht neue, kräftige Ruten fächerförmig an. Brombeeren bilden ebenfalls Ausläufer und brauchen Platz, belohnen dich aber mit einer langen Erntezeit, wenn die Himbeeren schon vorbei sind.
 
 ## Häufige Fragen
 

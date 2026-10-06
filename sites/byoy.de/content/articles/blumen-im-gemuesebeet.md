@@ -75,6 +75,23 @@ Die Kombinationen beruhen vor allem auf Erfahrung aus der Gartenpraxis. Wie Gem�
 
 Viele Begleitblumen kannst du essen: Ringelblume, Kapuzinerkresse, Borretsch, Kornblume, Zucchiniblüten, Schnittlauchblüten und Ringelblumen machen Salate bunt. Iss nur Blüten, die du sicher erkennst, die nicht gespritzt wurden und nicht am Straßenrand wachsen. Tagetes, Cosmea und Zierpflanzen aus dem Gartencenter sind nicht zum Essen gedacht. Menschen mit Allergien gegen Korbblütler sollten bei Ringelblume und Kornblume vorsichtig sein.
 
+## Blumen im Jahreslauf
+
+Damit Nützlinge das ganze Jahr Nahrung finden, sollte immer etwas blühen. Plane die Begleitblumen so, dass sich die Blütezeiten überlappen:
+
+| Zeitraum | Blühende Begleiter |
+|---|---|
+| April bis Mai | Schnittlauch, Vergissmeinnicht am Beetrand, früh gesäte Ringelblumen aus der Selbstaussaat |
+| Juni bis Juli | Borretsch, Kornblume, Phacelia, Dill, Koriander, Kapuzinerkresse |
+| August bis September | Ringelblume, Tagetes, Cosmea, Zinnien, Sonnenblume |
+| Oktober bis zum Frost | Ringelblume, späte Phacelia aus der Gründüngung, Kapuzinerkresse |
+
+Besonders wertvoll ist das zeitige Frühjahr, wenn erste Schwebfliegen und Wildbienen unterwegs sind, aber im Gemüsegarten noch kaum etwas blüht. Frühblühende Stauden und Zwiebelblumen am Rand des Gemüsegartens schließen diese Lücke. Mehr über die Bedürfnisse der Wildbienen steht in [Wildbienen fördern](/gartenwissen/wildbienen-foerdern/).
+
+## Samen selbst ernten
+
+Ringelblume, Kornblume, Borretsch, Tagetes und Kapuzinerkresse sind samenfeste Pflanzen, deren Samen du leicht selbst sammeln kannst. Lass einige der schönsten Blüten ausreifen, ernte die trockenen Samenstände an einem sonnigen Tag und bewahre die Samen kühl und trocken in Papiertüten auf. So hast du jedes Jahr kostenlos Begleitblumen. Wie Saatgutgewinnung bei Gemüse funktioniert, erklärt [Saatgut selbst gewinnen](/gartenwissen/saatgut-selbst-gewinnen/).
+
 ## Häufige Fragen
 
 ### Nehmen Blumen dem Gemüse nicht Nährstoffe weg?

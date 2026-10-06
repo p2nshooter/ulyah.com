@@ -79,6 +79,18 @@ Im Kübel wachsen Säulenobst, Zwergbäume, Heidelbeeren und Feigen. Wichtig sin
 
 Die Nachbarrechtsgesetze der Bundesländer schreiben Mindestabstände für Bäume und Sträucher zur Grundstücksgrenze vor, abhängig von Art und Höhe. Spaliere an der eigenen Hauswand und Säulenobst sind meist unproblematisch, Spindeln und Mehrsortenbäume an der Grenze können es sein. Informiere dich über die Regeln deines Bundeslandes, bevor du pflanzt.
 
+## Ein Beispiel für einen Reihenhausgarten
+
+Auf einer Fläche von etwa zehn mal sechs Metern lässt sich erstaunlich viel Obst unterbringen, ohne dass der Garten zugewachsen wirkt:
+
+- an der sonnigen Hauswand ein Birnenspalier über die ganze Breite,
+- entlang des Weges drei Säulenäpfel mit zwei verschiedenen Sorten zur gegenseitigen Befruchtung,
+- an der Grundstücksgrenze eine Reihe Herbsthimbeeren an Drähten,
+- zwei Johannisbeerstämmchen mit Erdbeeren darunter,
+- in zwei großen Kübeln auf der Terrasse Heidelbeeren in saurer Erde.
+
+Zusammen ergibt das vom Juni bis in den Oktober frisches Obst, und der Rasen in der Mitte bleibt frei zum Spielen.
+
 ## Häufige Fragen
 
 ### Welche Obstarten sind selbstfruchtbar?

@@ -82,6 +82,14 @@ Hochbeete trocknen schneller aus als Bodenbeete, weil sie von allen Seiten Luft 
 
 Nach der letzten Ernte deckst du das Hochbeet mit Laub, Stroh oder einer Gründüngung ab, damit die Erde nicht verschlämmt und das Bodenleben geschützt bleibt. Mit einem Aufsatz aus Folie oder Glas wird das Hochbeet im Frühjahr zum Frühbeet, wie in [Das Frühbeet nutzen](/gartenwissen/fruehbeet-nutzen/) beschrieben.
 
+## Häufige Fehler beim Hochbeet
+
+- **Zu breit gebaut:** Wer die Mitte nicht erreicht, tritt auf die Erde oder lässt sie ungenutzt.
+- **Kein Wühlmausgitter:** Nachrüsten ist kaum möglich, wenn das Beet befüllt ist.
+- **Nur Erde statt Schichten:** Funktioniert, kostet aber viel Geld und erwärmt sich weniger.
+- **Zu viel Rasenschnitt:** Dicke Schichten faulen und riechen.
+- **Vergessenes Nachfüllen:** Nach zwei Jahren liegt die Oberfläche 20 Zentimeter tiefer, und die Pflanzen stehen im Schatten der Wände.
+
 ## Häufige Fragen
 
 ### Wie viel Material brauche ich?
