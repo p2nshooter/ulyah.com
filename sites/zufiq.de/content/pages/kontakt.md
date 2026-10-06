@@ -1,6 +1,6 @@
 ---
 title: Kontakt
-description: So erreichst du die Redaktion von ZUFIQ, wofür du uns schreiben kannst und warum wir keine persönliche Beratung per E-Mail anbieten.
+description: So erreichst du die Redaktion von ZUFIQ, wofür du uns schreiben kannst, was in eine gute Nachricht gehört und warum wir keine Einzelberatung per E-Mail geben.
 order: 2
 updated: 2026-10-05
 ---
@@ -8,14 +8,20 @@ Wir freuen uns über Nachrichten von Leserinnen und Lesern. Am einfachsten errei
 
 **E-Mail:** [kontakt@zufiq.de](mailto:kontakt@zufiq.de)
 
-Wir lesen jede Nachricht und antworten in der Regel innerhalb einer Woche. In Ferienzeiten kann es etwas länger dauern. Passend zu unserem Thema beantworten wir E-Mails gebündelt und nicht im Minutentakt, und wir bitten dich um Verständnis dafür.
+Wir lesen jede Nachricht und antworten, so bald es uns möglich ist. Passend zu unserem Thema beantworten wir E-Mails gebündelt und nicht im Minutentakt. Es kann also ein paar Tage dauern, und in Ferienzeiten auch etwas länger. Danke für deine Geduld.
 
 ## Wofür du uns schreiben kannst
 
 - **Themenwünsche:** Dir fehlt ein Ratgeber, etwa zum Ausmisten nach einem Umzug, zur Ordnung in einer kleinen Wohnung oder zur Abendroutine im Schichtdienst? Schreib uns, worüber du gern mehr lesen würdest.
-- **Fehler und Ergänzungen:** Wenn dir in einem Text etwas falsch, veraltet oder missverständlich vorkommt, sag es uns bitte. Wir prüfen jeden Hinweis und korrigieren den Text, wenn er berechtigt ist. Das gilt besonders für Hinweise zu Fristen, Aufbewahrung von Unterlagen oder Gesundheitsthemen.
-- **Erfahrungen:** Du hast eine Routine gefunden, die bei dir seit Monaten hält, oder deinen Keller endlich leer bekommen? Erzähl uns, was geholfen hat. Wir übernehmen keine Texte wörtlich, aber deine Erfahrung kann einen Ratgeber besser machen.
+- **Fehler und Ergänzungen:** Wenn dir in einem Text etwas falsch, veraltet oder missverständlich vorkommt, sag es uns bitte. Wir prüfen jeden Hinweis und korrigieren den Text, wenn er berechtigt ist. Das gilt besonders für Hinweise zu Fristen, zur Aufbewahrung von Unterlagen, zu Verträgen oder zu Gesundheitsthemen.
+- **Erfahrungen:** Du hast eine Routine gefunden, die bei dir seit Monaten hält, oder deinen Keller endlich leer bekommen? Erzähl uns, was geholfen hat. Wir übernehmen keine Texte wörtlich und nennen keine Namen, aber deine Erfahrung kann einen Ratgeber besser machen.
 - **Rechtliches und Datenschutz:** Anfragen zu deinen Daten, zur Auskunft nach der DSGVO oder zu Inhalten dieser Website beantworten wir ebenfalls über diese Adresse.
+
+## So kommt deine Nachricht gut an
+
+- Schreib in den Betreff kurz, worum es geht, zum Beispiel „Fehler im Ratgeber zur Abendroutine“ oder „Themenwunsch Papierkram“.
+- Wenn du dich auf einen bestimmten Ratgeber beziehst, kopiere die Adresse der Seite in die Nachricht. Dann finden wir die Stelle sofort.
+- Schick uns bitte keine Kopien von Ausweisen, Verträgen, Kontoauszügen, Arztbriefen oder anderen persönlichen Unterlagen. Wir brauchen sie nicht, und was wir nicht brauchen, möchten wir auch nicht speichern.
 
 ## Was wir nicht leisten können
 

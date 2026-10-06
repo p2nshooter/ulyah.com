@@ -14,7 +14,7 @@ Wir glauben, dass ein ruhiger Alltag anders entsteht: aus kleinen, gut vorbereit
 
 ## Der Name und das Bild
 
-Über den Bau des Tempels in Jerusalem wird erzählt, dass die Steine schon am Steinbruch fertig behauen wurden. Auf der Baustelle selbst hörte man deshalb weder Hammer noch Meißel (nach 1. Könige 6,7). Dieses Bild begleitet uns: Ruhe entsteht in der Vorbereitung. Wer am Abend die Tasche packt, hat am Morgen weniger Lärm im Kopf. Wer einmal entscheidet, wo die Post hingehört, muss nicht jeden Tag neu darüber nachdenken.
+Über den Bau des Tempels in Jerusalem wird erzählt, dass die Steine schon am Steinbruch fertig zugerichtet wurden. Auf der Baustelle selbst hörte man deshalb weder Hammer noch Beil noch irgendein eisernes Werkzeug (1. Könige 6,7). Dieses Bild begleitet uns: Ruhe entsteht in der Vorbereitung. Wer am Abend die Tasche packt, hat am Morgen weniger Lärm im Kopf. Wer einmal entscheidet, wo die Post hingehört, muss nicht jeden Tag neu darüber nachdenken.
 
 Deshalb sieht ZUFIQ aus wie ein Haus aus Kalkstein, mit Türen aus Olivenholz und feinen Linien aus Gold. Unsere sechs Themenbereiche nennen wir Räume.
 
@@ -29,7 +29,7 @@ Deshalb sieht ZUFIQ aus wie ein Haus aus Kalkstein, mit Türen aus Olivenholz un
 
 ## Wie unsere Texte entstehen
 
-Jeder Ratgeber wird von unserer Redaktion selbst geschrieben, nicht automatisch erzeugt und nicht aus anderen Websites zusammengesetzt. Wir stützen uns auf allgemein anerkanntes Wissen, etwa zu Gewohnheitsbildung und Schlafhygiene, auf Empfehlungen von Verbraucherzentralen und auf praktische Erfahrung aus dem Alltag. Wir erfinden keine Studien, Zahlen oder Expertenzitate. Wie wir genau arbeiten, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
+Jeder Ratgeber wird eigens für ZUFIQ geschrieben und nicht aus anderen Websites zusammengesetzt. Beim Gliedern und Formulieren nutzen wir auch digitale Schreibwerkzeuge, einschließlich KI-gestützter Hilfen. Für jeden Text gelten trotzdem dieselben Regeln: Wir stützen uns auf allgemein anerkanntes Wissen, etwa zu Gewohnheitsbildung und Schlafhygiene, auf Hinweise von Verbraucherzentralen und auf bewährtes Alltagswissen. Wir erfinden keine Studien, Zahlen, Erfahrungsberichte oder Expertenzitate. Wie wir genau arbeiten, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
 
 ## Was wir nicht tun
 
@@ -37,7 +37,7 @@ Wir geben keine ärztlichen, psychotherapeutischen, rechtlichen oder finanzielle
 
 ## Wer hinter ZUFIQ steht
 
-ZUFIQ ist ein Projekt von **p2nshooter**, der auch weitere unabhängige Ratgeber- und Wissensseiten herausgibt. Die Texte schreibt die ZUFIQ-Redaktion. Die Website finanziert sich über Werbeanzeigen, die als solche erkennbar sind und keinen Einfluss auf unsere Inhalte haben.
+ZUFIQ ist ein Projekt von **p2nshooter**. Unter diesem Namen erscheinen auch weitere unabhängige Ratgeber- und Wissensseiten zu ganz anderen Themen. Die Texte schreibt die ZUFIQ-Redaktion. Die Website finanziert sich über Werbeanzeigen, die als solche erkennbar sind und keinen Einfluss auf unsere Inhalte haben.
 
 ## Kontakt
 

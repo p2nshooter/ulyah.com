@@ -126,7 +126,10 @@ export async function build(domain, { quiet = false } = {}) {
       `<title>${esc(fullTitle)}</title>`,
       `<meta name="description" content="${esc(description)}">`,
       `<link rel="canonical" href="${url}">`,
-      noindex ? `<meta name="robots" content="noindex, follow">` : `<meta name="robots" content="index, follow, max-image-preview:large">`,
+      // A site still being written ("draft": true) is already online so its
+      // domain carries the AdSense meta tag, loader and ads.txt, but it stays
+      // out of search results until its library is complete.
+      noindex || site.draft ? `<meta name="robots" content="noindex, follow">` : `<meta name="robots" content="index, follow, max-image-preview:large">`,
       `<meta name="theme-color" content="${esc(site.themeColor || "#000000")}">`,
       `<link rel="icon" href="${favicon}" type="image/svg+xml">`,
       `<link rel="alternate" type="application/rss+xml" title="${esc(site.name)}" href="${base}/feed.xml">`,

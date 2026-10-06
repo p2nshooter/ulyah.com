@@ -36,12 +36,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - id: find
-        # A site still being written carries "draft": true in its site.json:
-        # it is neither checked nor deployed until the flag is removed, so a
-        # finished site can go live while its siblings are still in progress.
+        # Every site with a site.json is deployed. A site still being written
+        # carries "draft": true: it goes online anyway so its domain already
+        # serves the AdSense meta tag, loader and ads.txt (owner, 6 Oct 2026),
+        # but every page is noindex and check.mjs enforces only the AdSense
+        # gates until the flag is removed.
         run: |
           sites=$(for f in $(find sites -mindepth 2 -maxdepth 2 -name site.json | sort); do
-            if [ "$(jq -r '.draft // false' "$f")" = "true" ]; then echo "Skipping draft: $f" >&2; else dirname "$f" | sed 's#^sites/##'; fi
+            if [ "$(jq -r '.draft // false' "$f")" = "true" ]; then echo "Draft (noindex): $f" >&2; fi
+            dirname "$f" | sed 's#^sites/##'
           done | jq -R . | jq -sc .)
           echo "sites=$sites" >> "$GITHUB_OUTPUT"
           echo "Sites: $sites"

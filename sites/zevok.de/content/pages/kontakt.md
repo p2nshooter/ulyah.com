@@ -17,6 +17,16 @@ Wir lesen jede Nachricht und antworten in der Regel innerhalb einer Woche. In Fe
 - **Erfahrungen:** Du hast einen hartnäckigen Fleck besiegt oder einen Putzplan gefunden, der in deiner Familie wirklich funktioniert? Erzähl uns davon. Wir übernehmen keine Texte wörtlich, aber deine Erfahrung kann eine Anleitung besser machen.
 - **Rechtliches und Datenschutz:** Anfragen zu deinen Daten oder zu Inhalten dieser Website beantworten wir ebenfalls über diese Adresse.
 
+## So können wir dir am besten antworten
+
+Wenn du uns eine Frage zu einem Fleck oder einem Material schickst, helfen uns ein paar Angaben, damit wir dir nicht erst zurückschreiben müssen:
+
+- **Woraus besteht das Stück?** Am besten mit den Angaben vom Pflegeetikett, also Material und Pflegesymbole.
+- **Was ist es für ein Fleck,** wie alt ist er ungefähr und ist er schon einmal durch die Waschmaschine oder den Trockner gegangen?
+- **Was hast du schon versucht,** mit welchem Mittel und wie lange?
+
+Ein Foto kann helfen. Achte bitte darauf, dass darauf keine Personen, Adressen oder Dokumente zu sehen sind. Telefonische Beratung bieten wir nicht an. Häufige Fragen beantworten wir lieber in einem neuen Ratgeber, von dem dann alle etwas haben.
+
 ## Bei einem Unfall: nicht schreiben, sondern anrufen
 
 Per E-Mail können wir in einer Notlage nicht helfen. Wenn ein Kind oder ein Erwachsener ein Reinigungsmittel verschluckt hat, wenn etwas in die Augen gelangt ist oder jemand Dämpfe eingeatmet hat, ruf sofort das **Giftinformationszentrum** an, das für dein Bundesland zuständig ist. Bei Atemnot, Bewusstlosigkeit oder Krämpfen wähle den Notruf **112**. Was du bis dahin tun kannst, steht auf unserer Seite [Sicherheit beim Putzen](/sicherheit-beim-putzen/).

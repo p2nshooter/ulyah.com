@@ -25,24 +25,24 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | xaa.es | ca-pub-5693981744147503 | xaa · site.ts + public/ads.txt |
 | 1fr.fr | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant 1fr) |
 | axto.us | ca-pub-5693981744147503 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — 4 Okt: situs statis baru |
-| axto.dev | ca-pub-5693981744147503 | axtodev · site.ts + public/ads.txt |
+| axto.dev | ca-pub-8469557036744946 | axtodev · site.ts + public/ads.txt — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | jai.lat | ca-pub-5693981744147503 | Jai · site.ts + public/ads.txt |
 | lie.skin | ca-pub-5693981744147503 | Lie · site.ts + public/ads.txt |
 | oldco.in | ca-pub-5693981744147503 | oldco.in · layout + public/ads.txt |
 | profity.in | ca-pub-5693981744147503 | profity.in · layout + public/ads.txt |
-| dawo.es | ca-pub-5693981744147503 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) |
+| dawo.es | ca-pub-6019445914743449 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | qkb.es | ca-pub-5693981744147503 | ulyah.com · sites/qkb.es (site.json + ADSENSE.txt) |
-| byodd.de | ca-pub-5693981744147503 | ulyah.com · sites/byodd.de (site.json + ADSENSE.txt) |
+| byodd.de | ca-pub-2228462932360966 | ulyah.com · sites/byodd.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | xko.es | ca-pub-5693981744147503 | ulyah.com · sites/xko.es (site.json + ADSENSE.txt) |
 | byoxy.de | ca-pub-5693981744147503 | ulyah.com · sites/byoxy.de (site.json + ADSENSE.txt) |
 | byoy.de | ca-pub-5693981744147503 | ulyah.com · sites/byoy.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | qarf.de | ca-pub-5693981744147503 | ulyah.com · sites/qarf.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
-| qulen.de | ca-pub-5693981744147503 | ulyah.com · sites/qulen.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| qulen.de | ca-pub-7516944260248026 | ulyah.com · sites/qulen.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | qurm.de | ca-pub-5693981744147503 | ulyah.com · sites/qurm.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | rubiy.de | ca-pub-5693981744147503 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | zavik.de | ca-pub-5693981744147503 | ulyah.com · sites/zavik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | zevok.de | ca-pub-5944786950535069 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik) |
-| zolun.de | ca-pub-5693981744147503 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| zolun.de | ca-pub-4548005919629272 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | zufiq.de | ca-pub-6146217038829045 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik) |
 | zuvik.de | ca-pub-5693981744147503 | ulyah.com · sites/zuvik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
@@ -156,23 +156,23 @@ Tag meta
 
 ## axto.dev
 
-Cuplikan adsense
+Akun sendiri, kode dari pemilik 6 Okt 2026 (urgent: "ganti semua kode AdSense … termasuk meta tag").
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8469557036744946"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://axto.dev/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-8469557036744946, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-8469557036744946">
 ```
 
 ## jai.lat
@@ -261,23 +261,23 @@ Tag meta
 
 ## dawo.es
 
-Cuplikan adsense
+Akun sendiri, kode dari pemilik 6 Okt 2026 (urgent: "ganti semua kode AdSense … termasuk meta tag").
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6019445914743449"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://dawo.es/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-6019445914743449, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-6019445914743449">
 ```
 
 ## qkb.es
@@ -303,23 +303,23 @@ Tag meta
 
 ## byodd.de
 
-Cuplikan adsense
+Akun sendiri, kode dari pemilik 6 Okt 2026 (urgent: "ganti semua kode AdSense … termasuk meta tag").
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228462932360966"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://byodd.de/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-2228462932360966, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-2228462932360966">
 ```
 
 ## xko.es
@@ -412,25 +412,25 @@ Tag meta
 
 ## qulen.de
 
-Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+Akun sendiri, kode dari pemilik 6 Okt 2026 (urgent: "ganti semua kode AdSense … termasuk meta tag").
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7516944260248026"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://qulen.de/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-7516944260248026, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-7516944260248026">
 ```
 
 ## qurm.de
@@ -527,25 +527,25 @@ Tag meta
 
 ## zolun.de
 
-Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+Akun sendiri, kode dari pemilik 6 Okt 2026 (urgent: "ganti semua kode AdSense … termasuk meta tag").
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://zolun.de/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-4548005919629272">
 ```
 
 ## zufiq.de
