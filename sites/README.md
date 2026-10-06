@@ -39,6 +39,13 @@ situs di folder ini setiap kali ada perubahan di `sites/` yang masuk ke `main`.
 - Tidak ada Worker script, D1 atau R2. Situs ini tidak ikut mati kalau API
   ulyah.com, kuota D1 atau R2 bermasalah.
 
+## Situs yang masih ditulis (`"draft": true`)
+
+Situs yang belum selesai diberi `"draft": true` di `site.json`. Workflow
+deploy melewatinya (tidak dicek, tidak dideploy), jadi situs lain yang sudah
+lulus `check.mjs` bisa langsung online. Hapus baris itu begitu situsnya lulus
+`node sites/_engine/check.mjs <domain>`.
+
 ## Menambah artikel
 
 Buat file baru di `content/articles/` dengan nama `judul-artikel.md`:

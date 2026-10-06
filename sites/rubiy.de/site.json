@@ -1,0 +1,39 @@
+{
+  "domain": "rubiy.de",
+  "name": "RUBIY",
+  "expansion": "Rübe, Birne & Jahreszeit",
+  "tagline": "Saisonal kochen mit dem, was gerade wächst: Rezepte, Vorratswissen und Küchenhandwerk",
+  "description": "RUBIY ist ein Ratgeber für saisonales Kochen in Deutschland: Was im Frühling, Sommer, Herbst und Winter wächst, wie man es lagert, haltbar macht und zubereitet, mit erprobten Rezepten, Saisonkalender und Küchenwissen für jeden Tag.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "rubiy-de",
+  "worker": "rubiy-de",
+  "themeColor": "#4a2e1f",
+  "email": "kontakt@rubiy.de",
+  "author": "RUBIY Küchenredaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Prata&family=Lexend:wght@300;400;500;600;700&display=swap",
+  "paths": { "article": "/kueche/", "category": "/jahreszeiten/" },
+  "categories": [
+    { "slug": "fruehling", "name": "Frühling", "icon": "spargel", "description": "Spargel, Bärlauch, Rhabarber, Radieschen und die ersten Erdbeeren: Rezepte und Wissen für die frische Jahreszeit." },
+    { "slug": "sommer", "name": "Sommer", "icon": "tomate", "description": "Tomaten, Zucchini, Beeren, Gurken und Zwetschgen: leichte Sommerküche und Ideen für die Erntefülle." },
+    { "slug": "herbst", "name": "Herbst", "icon": "kuerbis", "description": "Kürbis, Äpfel, Pilze, Rotkohl, Maronen und Quitten: wärmende Herbstküche mit regionalen Zutaten." },
+    { "slug": "winter", "name": "Winter", "icon": "kohl", "description": "Grünkohl, Rote Bete, Steckrübe, Feldsalat und Wurzelgemüse: kräftige Winterküche aus dem Lager." },
+    { "slug": "vorrat-und-konservieren", "name": "Vorrat & Konservieren", "icon": "glas", "description": "Einkochen, Marmelade, Fermentieren, Einfrieren und Trocknen: die Ernte sicher haltbar machen." },
+    { "slug": "kuechenwissen", "name": "Küchenwissen", "icon": "messer", "description": "Saisonkalender, Lagerung, Resteküche, Schneidetechniken und Einkaufen auf dem Wochenmarkt." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Saisonkalender", "href": "/saisonkalender/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}

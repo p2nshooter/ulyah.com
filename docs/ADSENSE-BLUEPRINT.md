@@ -5,7 +5,7 @@ baru dicatat di sini dulu**, lalu statusnya diperbarui setelah diuji.
 Kontrol pusatnya ada di repo `ulyah.com`; situs yang punya repo sendiri tetap
 dicatat di sini.
 
-Terakhir diperbarui: 4 Oktober 2026 (fase 1 selesai, dawo.es selesai).
+Terakhir diperbarui: 5 Oktober 2026 (8 situs .de terakhir dilanjutkan sampai 40 artikel, lalu deploy).
 
 Arti tanda: ✅ selesai dan lulus uji · 🟡 selesai, butuh tindakan manual atau
 belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ ditunda
@@ -380,6 +380,9 @@ Status per situs:
   Impressum/Über uns = **p2nshooter** + email situs, sama seperti ulyah.com
   dan xaa.es (hanya merek + email). Tidak memakai orang/alamat palsu.
   Catatan risiko: hukum Jerman (§ 5 DDG) idealnya meminta nama & alamat asli.
+- **5 Okt (malam) — permintaan pemilik: "Cari sudah sampai mana progres website baru untuk pengajuan AdSense .de … lanjutkan kalau belum selesai, kalau sudah selesai langsung deploy, perhatikan cuplikan AdSense, ads.txt dan tag metanya. Khususnya yang masih kuning"** (status AdSense *Membutuhkan peninjauan*: zavik, rubiy, byoy, qurm, qarf, zufiq, zevok, zolun, qulen).
+  Progres saat dicek: zavik.de ✅ live di domainnya (ads.txt 5693… benar) — tinggal *Verifikasi → Minta peninjauan* di AdSense. Agen paralel sebelumnya berhenti karena batas sesi; hasilnya ada di branch `claude/rubiy-de` (24 artikel), `claude/qurm-de` (18), `claude/byoy-de` (11), `claude/qarf-de` (9), lengkap dengan tema + halaman wajib. zufiq, zevok, zolun, qulen belum dimulai.
+  Rencana: gabungkan keempat branch, tulis sisa artikel (40 per situs, tulisan tangan, ≥1.020 kata), bangun 4 situs baru dengan tema §4 masing-masing, lulus `check.mjs` (loader + meta + ads.txt `ca-pub-5693981744147503`, Auto ads saja), uji browser desktop + mobile, lalu merge ke main → `deploy-sites.yml` mendeploy dan memasang domain.
 - **5 Okt — permintaan pemilik: "Kerjakan secara bersamaan sisa web … tetep unik, tidak ada duplikat, tetep mewah"** → 8 situs dikerjakan paralel (satu agen per situs), masing-masing konsep, palet, font, animasi menu dan motif Spanyol sendiri (lihat tabel §4). Topik dijaga tidak tumpang tindih: byoy = kebun luar ruang (byoxy = tanaman hias/balkon/kräuter), zolun = liburan tanpa panduan jalur (qurm = hiking), zufiq ≠ zevok (ketenangan vs. bersih-bersih), qulen = cerita belajar (zuvik = cerita keluarga).
 
 Usulan niche (belum final):
@@ -461,6 +464,8 @@ Usulan niche (belum final):
 | 5 Okt | "Ga perlu tanggal putus dawa.es, nanti di putus manual" | ✅ dicatat §10 |
 | 5 Okt | "Kerjakan secara bersamaan sisa web … tetep unik, tidak ada duplikat, tetep mewah" | 🔄 8 situs .de paralel (§4, Fase 6) |
 | 5 Okt | "Sekalian kerjakan ekosistem ulyah.com, axto.io banyak aplikasi yg hilang, xaa.es banyak yg blm dibuat" | 🔄 §11 — audit + PR per repo (ulyah.com, guardian-ai, xaa) |
+| 5 Okt | "Cari progres web .de pengajuan AdSense, lanjutkan, kalau selesai langsung deploy; perhatikan cuplikan AdSense, ads.txt & tag meta — khususnya yang masih kuning" | 🔄 Fase 6: 8 situs (rubiy, byoy, qurm, qarf, zufiq, zevok, zolun, qulen) |
+| 5 Okt | "Ini untuk persyaratan AdSense, pastikan mendekati 100% approve, CSS mewah, artikel tidak duplikat dan kualitas tinggi, penuhi persyaratan AdSense" | 🔄 gerbang tambahan sebelum deploy: cek duplikat lintas situs (kemiripan isi + judul), audit ala peninjau AdSense per situs, uji browser desktop + mobile |
 | 5 Okt | "Database CF masih tinggi, sy pengen seluruhnya di bawah 10 GB biar tetep free dan hemat D1" | 🔄 §11 — target total penyimpanan Cloudflare < 10 GB |
 | 4 Okt | "Fokus konten kualitas tinggi untuk AdSense, dengan CSS mewah … agar mendekati 100% approve" | 🔄 zuvik.de selesai (40 cerita tulisan tangan); 9 situs .de berikutnya menyusul |
 | 4 Okt | Satu akun saja: semua situs (screenshot AdSense + xad.es + xaa.es) pakai ca-pub-5693981744147503; dawa.es JANGAN disentuh (bukan milik lagi) | ✅ audit live 4 Okt: 17 situs OK 5693…, dawa.es tetap 6371… |

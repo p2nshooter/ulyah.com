@@ -36,8 +36,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - id: find
+        # A site still being written carries "draft": true in its site.json:
+        # it is neither checked nor deployed until the flag is removed, so a
+        # finished site can go live while its siblings are still in progress.
         run: |
-          sites=$(find sites -mindepth 2 -maxdepth 2 -name site.json -printf '%h\n' | sed 's#^sites/##' | sort | jq -R . | jq -sc .)
+          sites=$(for f in $(find sites -mindepth 2 -maxdepth 2 -name site.json | sort); do
+            if [ "$(jq -r '.draft // false' "$f")" = "true" ]; then echo "Skipping draft: $f" >&2; else dirname "$f" | sed 's#^sites/##'; fi
+          done | jq -R . | jq -sc .)
           echo "sites=$sites" >> "$GITHUB_OUTPUT"
           echo "Sites: $sites"
 

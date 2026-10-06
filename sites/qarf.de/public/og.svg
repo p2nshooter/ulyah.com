@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121a2e"/><stop offset=".55" stop-color="#283a5e"/><stop offset=".85" stop-color="#7a5236"/><stop offset="1" stop-color="#c9843f"/></linearGradient>
+    <linearGradient id="d1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e4a2e"/><stop offset="1" stop-color="#3b2416"/></linearGradient>
+    <linearGradient id="d2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d3120"/><stop offset="1" stop-color="#24150c"/></linearGradient>
+    <linearGradient id="k" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a3d18"/><stop offset=".45" stop-color="#e8a35a"/><stop offset="1" stop-color="#8f4a1f"/></linearGradient>
+    <linearGradient id="t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b24e"/><stop offset="1" stop-color="#a24f12"/></linearGradient>
+    <radialGradient id="s" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd27a" stop-opacity=".7"/><stop offset="1" stop-color="#e1a13a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#h)"/>
+  <g fill="#fdf8f1"><circle cx="80" cy="60" r="2.4"/><circle cx="220" cy="120" r="1.8"/><circle cx="380" cy="50" r="2.2"/><circle cx="520" cy="140" r="1.6"/><circle cx="700" cy="70" r="2"/><circle cx="860" cy="40" r="1.8"/><circle cx="1000" cy="110" r="2.2"/><circle cx="1130" cy="60" r="1.6"/></g>
+  <g fill="#1d2a47"><path d="M760 470v-90h22v-30a16 16 0 0 1 32 0v30h16v-22c0-38 30-62 76-72 46 10 76 34 76 72v22h16v-30a16 16 0 0 1 32 0v30h22v90z"/><rect x="712" y="340" width="20" height="130"/><path d="M708 340l14-28 14 28z"/><rect x="1080" y="340" width="20" height="130"/><path d="M1076 340l14-28 14 28z"/></g>
+  <path d="M0 500c140-50 280-60 440-36s280 30 400 0 220-30 360-10v176H0z" fill="url(#d1)"/>
+  <path d="M0 560c180-30 340-34 520-14s340 18 480-10 160-14 200-10v104H0z" fill="url(#d2)"/>
+  <circle cx="1040" cy="240" r="110" fill="url(#s)"/>
+  <g transform="translate(860 420)">
+    <path d="M20 184c-18-20-18-48 4-64l12-12h44l12 12c22 16 22 44 4 64z" fill="url(#k)"/>
+    <path d="M36 108l6-28h32l6 28z" fill="url(#k)"/><path d="M42 80l16-48 16 48z" fill="url(#k)"/><circle cx="58" cy="28" r="7" fill="#f3c873"/>
+    <path d="M24 140c-28-6-44-28-60-54l-6-10 16 6c12 20 26 34 50 40z" fill="url(#k)"/>
+    <path d="M92 112c32 2 36 48 4 60" fill="none" stroke="#8f4a1f" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g fill="none" stroke="#fdf8f1" stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M900 400c-8-8 8-14 0-24s8-14 0-22"/><path d="M920 390c-8-8 8-14 0-24s8-14 0-22"/></g>
+  <g transform="translate(1040 500)"><path d="M2 2h40l-8 24c5 6 7 12 7 19 0 7-3 13-8 16H11c-5-3-8-9-8-16 0-7 2-13 7-19z" fill="url(#t)"/><path d="M0 0h44l-8 25c5 6 7 12 7 19 0 7-3 13-8 16H9c-5-3-8-9-8-16 0-7 2-13 7-19z" fill="none" stroke="#fdf8f1" stroke-width="2.4"/></g>
+  <g transform="translate(1110 600) rotate(-20)"><ellipse rx="16" ry="10.5" fill="#c60b1e"/><path d="M-12 1c5-3 6 3 12 0s7-3 12 0" fill="none" stroke="#7a0712" stroke-width="2.2"/></g>
+  <g transform="translate(1160 596) rotate(25)"><ellipse rx="16" ry="10.5" fill="#ffc400"/><path d="M-12 1c5-3 6 3 12 0s7-3 12 0" fill="none" stroke="#a07400" stroke-width="2.2"/></g>
+  <text x="80" y="250" font-family="Gilda Display, Georgia, serif" font-size="128" letter-spacing="30" fill="#f3c873">QARF</text>
+  <text x="84" y="316" font-family="Jost, Helvetica, Arial, sans-serif" font-size="34" fill="#fdf8f1">Quelle aromatischer Röstungen &amp; feiner Tees</text>
+  <rect x="84" y="346" width="160" height="4" fill="#e1a13a"/>
+  <text x="84" y="400" font-family="Jost, Helvetica, Arial, sans-serif" font-size="27" fill="#a3b37c">Kaffee und Tee zu Hause – gründlich erklärt</text>
+</svg>

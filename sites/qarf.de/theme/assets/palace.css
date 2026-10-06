@@ -1,0 +1,391 @@
+/* QARF — Die Gewürzkarawane der Königin von Saba (1 Kön 10,10).
+   Espresso night, cardamom green, saffron light, porcelain tiles with indigo
+   cobalt. Gilda Display for the titles, Jost for the text. Every class starts
+   with krw- (Karawane). Motion stops under prefers-reduced-motion. */
+
+:root {
+  --espresso: #3b2416;
+  --espresso-2: #24150c;
+  --espresso-3: #5a3a26;
+  --kardamom: #6b7d4a;
+  --kardamom-2: #4f5e35;
+  --kardamom-hell: #a3b37c;
+  --safran: #e1a13a;
+  --safran-hell: #f3c873;
+  --safran-tief: #a8701f;
+  --porzellan: #fdf8f1;
+  --porzellan-2: #f5ede1;
+  --porzellan-3: #e8dac6;
+  --indigo: #283a5e;
+  --indigo-2: #1a2742;
+  --indigo-3: #121a2e;
+  --tinte: #2b1c12;
+  --tinte-2: #6b5646;
+  --kupfer: #b8642a;
+  --rand: rgba(40, 58, 94, 0.18);
+  --schatten: 0 22px 46px -26px rgba(36, 21, 12, 0.55);
+  --titel: "Gilda Display", "Didot", "Georgia", serif;
+  --text: "Jost", "Futura", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; scroll-padding-top: 130px; }
+body.krw {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 18px;
+  line-height: 1.72;
+  color: var(--tinte);
+  background:
+    radial-gradient(1000px 520px at 100% 0%, rgba(225, 161, 58, 0.14), transparent 60%),
+    radial-gradient(800px 520px at 0% 30%, rgba(107, 125, 74, 0.1), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23283a5e' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M60 18l10 24 24 10-24 10-10 24-10-24-24-10 24-10z'/%3E%3Ccircle cx='60' cy='52' r='5'/%3E%3C/g%3E%3Cg fill='%233b2416' fill-opacity='.05'%3E%3Cellipse cx='12' cy='104' rx='5' ry='3.4' transform='rotate(-25 12 104)'/%3E%3Cellipse cx='108' cy='104' rx='5' ry='3.4' transform='rotate(25 108 104)'/%3E%3C/g%3E%3C/svg%3E"),
+    var(--porzellan);
+}
+a { color: var(--indigo); text-decoration-color: var(--safran); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--kupfer); }
+img, svg { max-width: 100%; }
+h1, h2, h3, h4 { font-family: var(--titel); font-weight: 400; line-height: 1.18; color: var(--espresso); overflow-wrap: break-word; hyphens: auto; }
+:focus-visible { outline: 3px solid var(--safran); outline-offset: 3px; border-radius: 4px; }
+
+.krw-sprung { position: absolute; left: -999px; top: 8px; background: var(--espresso); color: var(--porzellan); padding: 8px 14px; z-index: 100; border-radius: 8px; }
+.krw-sprung:focus { left: 12px; color: var(--porzellan); }
+
+/* ── Spanien 2026: die Bohnenkarawane ───────────────────────────────── */
+.krw-wm { position: relative; overflow: hidden; background: linear-gradient(90deg, var(--indigo-3), var(--indigo-2) 30%, var(--indigo-2) 70%, var(--indigo-3)); color: var(--porzellan); padding-bottom: 12px; }
+.krw-wm__text { position: relative; z-index: 1; margin: 0; padding: 8px 16px 2px; text-align: center; font-size: 14.5px; letter-spacing: 0.03em; }
+.krw-wm__text strong { color: var(--safran-hell); font-weight: 600; }
+.krw-wm__pokal { display: inline-block; vertical-align: -3px; filter: drop-shadow(0 0 6px rgba(255, 196, 0, 0.75)); }
+.krw-wm__bohne { position: relative; display: inline-block; width: 15px; height: 10px; margin: 0 7px; vertical-align: 1px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff5a4f, #c60b1e 65%); transform: rotate(-24deg); animation: krw-wiegen 3.2s ease-in-out infinite; }
+.krw-wm__bohne--gelb { background: radial-gradient(circle at 35% 30%, #ffe27a, #ffc400 65%); transform: rotate(24deg); animation-delay: -1.6s; }
+.krw-wm__bohne::after { content: ""; position: absolute; left: 2px; right: 2px; top: 4px; height: 2px; border-radius: 2px; background: rgba(36, 21, 12, 0.45); }
+.krw-wm__reihe { position: absolute; left: 0; right: 0; bottom: 1px; height: 14px; opacity: 0.9;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='14'%3E%3Cg transform='translate(14 7) rotate(-20)'%3E%3Cellipse rx='5.4' ry='3.6' fill='%23c60b1e'/%3E%3Cpath d='M-4.2 .3c1.8-1 2.4.9 4.2 0s2.4-1 4.2 0' fill='none' stroke='%237a0712' stroke-width='.9'/%3E%3C/g%3E%3Cg transform='translate(42 7) rotate(20)'%3E%3Cellipse rx='5.4' ry='3.6' fill='%23ffc400'/%3E%3Cpath d='M-4.2 .3c1.8-1 2.4.9 4.2 0s2.4-1 4.2 0' fill='none' stroke='%23a07400' stroke-width='.9'/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0 / 56px 14px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  animation: krw-karawane 14s linear infinite; }
+@keyframes krw-karawane { to { background-position: 560px 0; } }
+@keyframes krw-wiegen { 0%, 100% { translate: 0 0; } 50% { translate: 0 -2px; } }
+
+/* ── Kopf ────────────────────────────────────────────────────────────── */
+.krw-kopf { position: sticky; top: 0; z-index: 40; color: var(--porzellan);
+  background:
+    radial-gradient(1px 1px at 8% 30%, rgba(253, 248, 241, 0.6), transparent 2px),
+    radial-gradient(1px 1px at 41% 18%, rgba(243, 200, 115, 0.6), transparent 2px),
+    radial-gradient(1px 1px at 77% 40%, rgba(253, 248, 241, 0.5), transparent 2px),
+    radial-gradient(600px 120px at 50% 0%, rgba(225, 161, 58, 0.16), transparent 70%),
+    linear-gradient(180deg, var(--espresso-3), var(--espresso) 55%, var(--espresso-2));
+  box-shadow: 0 14px 30px -18px rgba(18, 10, 5, 0.75); }
+.krw-kopf__innen { max-width: 1240px; margin: 0 auto; padding: 10px 16px 4px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+.krw-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; min-width: 0; }
+.krw-marke:hover { color: inherit; }
+.krw-marke__bild { width: 52px; height: 52px; flex: none; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)); }
+.krw-marke__dampf path { animation: krw-dampf-klein 3.6s ease-in-out infinite; }
+.krw-marke__dampf path:nth-child(2) { animation-delay: -1.2s; }
+.krw-marke__dampf path:nth-child(3) { animation-delay: -2.4s; }
+@keyframes krw-dampf-klein { 0%, 100% { opacity: 0.2; transform: translateY(1px); } 50% { opacity: 0.95; transform: translateY(-1.5px); } }
+.krw-marke__texte { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.krw-marke__name { font-family: var(--titel); font-size: 29px; letter-spacing: 0.26em; color: var(--safran-hell); }
+.krw-marke__lang { font-size: 12.5px; letter-spacing: 0.05em; color: rgba(253, 248, 241, 0.78); }
+
+.krw-knopf { display: none; margin-left: auto; align-items: center; gap: 9px; font: 500 15px var(--text); letter-spacing: 0.04em; color: var(--porzellan); background: rgba(253, 248, 241, 0.06); border: 1px solid rgba(243, 200, 115, 0.55); border-radius: 999px; padding: 8px 15px; cursor: pointer; }
+.krw-knopf__striche { display: inline-grid; gap: 4px; }
+.krw-knopf__striche i { display: block; width: 18px; height: 2px; border-radius: 2px; background: var(--safran-hell); transition: transform 0.3s, opacity 0.3s; }
+.krw-kopf.offen .krw-knopf__striche i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.krw-kopf.offen .krw-knopf__striche i:nth-child(2) { opacity: 0; }
+.krw-kopf.offen .krw-knopf__striche i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* The menu: tulip tea glasses that fill with amber tea and steam. */
+.krw-menue { max-width: 1366px; margin: 0 auto; padding: 2px 8px 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 4px; }
+.krw-glas { position: relative; display: inline-flex; align-items: flex-end; gap: 6px; padding: 14px 7px 6px; color: rgba(253, 248, 241, 0.88); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; line-height: 1.2; border-radius: 10px; transition: color 0.3s, background-color 0.3s; }
+.krw-glas:hover, .krw-glas:focus-visible, .krw-glas[aria-current="page"] { color: var(--safran-hell); background: rgba(253, 248, 241, 0.05); }
+.krw-glas--leise { color: rgba(253, 248, 241, 0.7); }
+.krw-glas__gefaess { position: relative; display: block; width: 14px; height: 21px; flex: none; color: rgba(253, 248, 241, 0.85); }
+.krw-glas__umriss { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.krw-glas__innen { position: absolute; inset: 0; clip-path: polygon(10% 6%, 90% 6%, 75% 40%, 89% 66%, 72% 87%, 28% 87%, 11% 66%, 25% 40%); }
+.krw-glas__tee { position: absolute; left: 0; right: 0; bottom: 13%; height: 0; background: linear-gradient(180deg, #f7c25a, #c56a17 70%, #8f3f0c); box-shadow: inset 0 2px 0 rgba(255, 240, 200, 0.75); transition: height 0.7s cubic-bezier(0.3, 0.7, 0.2, 1); }
+.krw-glas:hover .krw-glas__tee, .krw-glas:focus-visible .krw-glas__tee, .krw-glas[aria-current="page"] .krw-glas__tee { height: 72%; }
+.krw-glas__dampf { position: absolute; left: 50%; bottom: 100%; width: 14px; height: 14px; transform: translateX(-50%); pointer-events: none; }
+.krw-glas__dampf i { position: absolute; bottom: 0; width: 3px; height: 10px; border-left: 1.5px solid rgba(253, 248, 241, 0.85); border-radius: 50%; opacity: 0; }
+.krw-glas__dampf i:nth-child(1) { left: 1px; }
+.krw-glas__dampf i:nth-child(2) { left: 6px; }
+.krw-glas__dampf i:nth-child(3) { left: 11px; }
+.krw-glas:hover .krw-glas__dampf i, .krw-glas:focus-visible .krw-glas__dampf i { animation: krw-dampf 1.8s ease-out 0.45s infinite; }
+.krw-glas:hover .krw-glas__dampf i:nth-child(2), .krw-glas:focus-visible .krw-glas__dampf i:nth-child(2) { animation-delay: 0.75s; }
+.krw-glas:hover .krw-glas__dampf i:nth-child(3), .krw-glas:focus-visible .krw-glas__dampf i:nth-child(3) { animation-delay: 1.05s; }
+@keyframes krw-dampf { 0% { opacity: 0; transform: translateY(4px) scaleX(1); } 30% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-9px) scaleX(-1); } }
+.krw-glas__wort { white-space: nowrap; }
+
+/* Cobalt-on-porcelain border band below the header. */
+.krw-borte { height: 10px; background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='10'%3E%3Crect width='28' height='10' fill='%23fdf8f1'/%3E%3Cpath d='M0 5h28' stroke='%23283a5e' stroke-width='.8'/%3E%3Cpath d='M14 1l4 4-4 4-4-4z' fill='%23283a5e'/%3E%3Ccircle cx='0' cy='5' r='1.6' fill='%23e1a13a'/%3E%3Ccircle cx='28' cy='5' r='1.6' fill='%23e1a13a'/%3E%3C/svg%3E") repeat-x 0 0 / 28px 10px;
+  border-top: 2px solid var(--safran-tief); border-bottom: 1px solid var(--indigo); }
+.krw-spur { position: absolute; left: 0; right: 0; bottom: -4px; height: 4px; background: rgba(40, 58, 94, 0.2); }
+.krw-spur i { display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: linear-gradient(90deg, var(--kardamom), var(--safran) 70%, #f7c25a); box-shadow: 0 0 10px rgba(225, 161, 58, 0.7); }
+
+/* ── Bausteine ───────────────────────────────────────────────────────── */
+.krw-dachzeile, .krw-ueber__zeile { margin: 0 0 6px; font-size: 13.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--kardamom); }
+.krw-ueber { max-width: 1200px; margin: 0 auto 26px; padding: 0 16px; text-align: center; }
+.krw-ueber h2 { margin: 0; font-size: clamp(30px, 4vw, 42px); }
+.krw-ueber h2::after { content: ""; display: block; width: 120px; height: 12px; margin: 12px auto 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12'%3E%3Cpath d='M0 6h46M74 6h46' stroke='%23e1a13a' stroke-width='1.4'/%3E%3Cg transform='translate(60 6) rotate(-20)'%3E%3Cellipse rx='7' ry='4.6' fill='%233b2416'/%3E%3Cpath d='M-5.4 .4c2.4-1.2 3 1.1 5.4 0s3-1.2 5.4 0' fill='none' stroke='%23e1a13a' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain; }
+.krw-ueber--nacht h2 { color: var(--porzellan); }
+.krw-ueber--nacht .krw-ueber__zeile { color: var(--safran-hell); }
+
+.krw-taste { display: inline-block; padding: 12px 24px; border-radius: 999px; font-weight: 600; font-size: 16px; letter-spacing: 0.03em; text-decoration: none; color: var(--espresso-2); background: linear-gradient(180deg, var(--safran-hell), var(--safran)); box-shadow: 0 10px 22px -12px rgba(225, 161, 58, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.5); transition: transform 0.25s, box-shadow 0.25s; }
+.krw-taste:hover { color: var(--espresso-2); transform: translateY(-2px); box-shadow: 0 14px 26px -12px rgba(225, 161, 58, 1), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+.krw-taste--rahmen { background: transparent; color: var(--porzellan); border: 1.5px solid rgba(243, 200, 115, 0.7); box-shadow: none; }
+.krw-taste--rahmen:hover { color: var(--safran-hell); box-shadow: none; }
+.krw-taste--klein { padding: 9px 18px; font-size: 15px; }
+
+/* ── Start ───────────────────────────────────────────────────────────── */
+.krw-start { position: relative; color: var(--porzellan); overflow: hidden;
+  background:
+    radial-gradient(700px 420px at 85% 40%, rgba(225, 161, 58, 0.22), transparent 65%),
+    radial-gradient(600px 400px at 0% 100%, rgba(107, 125, 74, 0.28), transparent 65%),
+    linear-gradient(160deg, var(--indigo-3), var(--espresso-2) 55%, var(--espresso)); }
+.krw-start::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 40' preserveAspectRatio='none'%3E%3Cpath d='M0 40V22c80-16 160-20 250-8s170 14 260 0 180-20 280-6 170 16 250 4 100-12 160-8v36z' fill='%23fdf8f1'/%3E%3C/svg%3E") no-repeat center bottom / 100% 100%; }
+.krw-start__innen { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 56px 16px 84px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+.krw-start .krw-dachzeile { color: var(--kardamom-hell); }
+.krw-start__titel { margin: 0 0 16px; font-size: clamp(34px, 4.6vw, 56px); color: var(--porzellan); }
+.krw-start__titel em { font-style: italic; color: var(--safran-hell); }
+.krw-start__claim { margin: 0 0 12px; font-size: 20px; color: var(--safran-hell); }
+.krw-start__intro { margin: 0 0 26px; color: rgba(253, 248, 241, 0.82); max-width: 560px; }
+.krw-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.krw-start__bild { position: relative; }
+.krw-start__bild::before { content: ""; position: absolute; inset: -12px; border-radius: 220px 220px 34px 34px; border: 1.5px solid rgba(243, 200, 115, 0.55); }
+.krw-bild { display: block; width: 100%; height: auto; border-radius: 210px 210px 26px 26px; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8); }
+.krw-bild__sterne { animation: krw-funkeln 4.5s ease-in-out infinite; }
+.krw-bild__sterne--b { animation-delay: -2.2s; }
+@keyframes krw-funkeln { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.krw-bild__laterne { transform-origin: 378px 0; animation: krw-pendeln 7s ease-in-out infinite; }
+@keyframes krw-pendeln { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+.krw-bild__schein { animation: krw-glimmen 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes krw-glimmen { 0%, 100% { opacity: 0.75; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1.05); } }
+.krw-bild__flamme { transform-box: fill-box; transform-origin: center bottom; animation: krw-flackern 1.4s ease-in-out infinite; }
+@keyframes krw-flackern { 0%, 100% { transform: scale(1, 1); } 40% { transform: scale(0.9, 1.1); } 70% { transform: scale(1.05, 0.94); } }
+.krw-bild__dampf path { animation: krw-schwaden 4s ease-in-out infinite; }
+.krw-bild__dampf path:nth-child(2) { animation-delay: -1.3s; }
+.krw-bild__dampf path:nth-child(3) { animation-delay: -2.6s; }
+.krw-bild__dampf--b path { animation-duration: 3.4s; }
+@keyframes krw-schwaden { 0% { opacity: 0; transform: translateY(8px); } 35% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-16px); } }
+
+/* Topics: six spice sacks with a wax seal. */
+.krw-themen { padding: 56px 0 24px; }
+.krw-saecke { list-style: none; max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 26px; }
+.krw-sack { --fuell: #5a3a26; --fuell-2: #2a190e; position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; height: 100%; padding: 58px 18px 26px; text-decoration: none; color: var(--espresso);
+  border-radius: 34px 34px 70px 70px / 26px 26px 90px 90px;
+  background:
+    radial-gradient(120% 60% at 50% 100%, rgba(59, 36, 22, 0.18), transparent 70%),
+    repeating-linear-gradient(0deg, rgba(122, 82, 50, 0.13) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(90deg, rgba(122, 82, 50, 0.12) 0 2px, transparent 2px 5px),
+    linear-gradient(180deg, #e6cfa4, #d4b47f);
+  box-shadow: inset 0 -10px 22px -10px rgba(59, 36, 22, 0.45), 0 18px 30px -22px rgba(36, 21, 12, 0.7);
+  transition: transform 0.4s cubic-bezier(0.3, 0.7, 0.3, 1.3), box-shadow 0.4s; }
+.krw-sack:hover, .krw-sack:focus-visible { transform: translateY(-6px) rotate(-1deg); color: var(--espresso); box-shadow: inset 0 -10px 22px -10px rgba(59, 36, 22, 0.45), 0 26px 36px -22px rgba(36, 21, 12, 0.8); }
+.krw-sack__inhalt { position: absolute; left: 14%; right: 14%; top: -10px; height: 34px; border-radius: 50% 50% 40% 40% / 80% 80% 20% 20%; background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.28) 0 2px, transparent 3px) 0 0 / 11px 9px, radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.18) 0 2px, transparent 3px) 0 0 / 9px 8px, linear-gradient(180deg, var(--fuell), var(--fuell-2)); }
+.krw-sack__rand { position: absolute; left: 8%; right: 8%; top: 12px; height: 16px; border-radius: 50%; background: linear-gradient(180deg, #c7a46d, #a88552); box-shadow: 0 3px 0 rgba(59, 36, 22, 0.25); }
+.krw-sack__siegel { position: absolute; right: 14px; top: 34px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; font: 400 17px var(--titel); color: var(--porzellan); background: radial-gradient(circle at 35% 30%, #d0533a, #8e1f12 70%); box-shadow: 0 0 0 3px rgba(142, 31, 18, 0.25), 0 3px 6px rgba(0, 0, 0, 0.3); transform: rotate(-10deg); }
+.krw-sack__icon { width: 54px; height: 54px; margin: 6px 0 8px; color: var(--espresso-3); transition: transform 0.5s; }
+.krw-sack:hover .krw-sack__icon { transform: scale(1.08) rotate(-4deg); }
+.krw-sack__name { font-family: var(--titel); font-size: 25px; line-height: 1.15; }
+.krw-sack__zahl { margin-top: 6px; font-size: 14px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--kardamom-2); }
+.krw-sack--bohne { --fuell: #6b3f22; --fuell-2: #2a160b; }
+.krw-sack--kanne { --fuell: #c47a3c; --fuell-2: #7a3d18; }
+.krw-sack--muehle { --fuell: #4a5a7e; --fuell-2: #1a2742; }
+.krw-sack--blatt { --fuell: #8fa067; --fuell-2: #4f5e35; }
+.krw-sack--teekanne { --fuell: #f2b24e; --fuell-2: #a24f12; }
+.krw-sack--laterne { --fuell: #e9b44c; --fuell-2: #c43d14; }
+.krw-saecke--flach { margin-top: 40px; }
+
+/* The brewing teaser on cardamom green. */
+.krw-spick { margin: 44px 0 0; padding: 48px 16px; color: var(--porzellan);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='%23fdf8f1' fill-opacity='.06'%3E%3Cpath d='M40 14c-8 6-8 20 0 26 8-6 8-20 0-26z'/%3E%3Cpath d='M40 66c-8-6-8-20 0-26 8 6 8 20 0 26z'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(135deg, var(--kardamom-2), var(--kardamom)); }
+.krw-spick__innen { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: center; }
+.krw-spick__kopf h2 { margin: 0 0 10px; font-size: clamp(28px, 3.6vw, 38px); color: var(--porzellan); }
+.krw-spick__kopf p { color: rgba(253, 248, 241, 0.88); }
+.krw-spick .krw-ueber__zeile { color: var(--safran-hell); }
+.krw-spick__liste { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.krw-spick__liste li { display: flex; flex-direction: column; gap: 2px; padding: 16px 18px; border-radius: 16px; background: var(--porzellan); color: var(--tinte); border: 1px solid rgba(40, 58, 94, 0.25); box-shadow: inset 0 0 0 4px var(--porzellan), inset 0 0 0 5px rgba(40, 58, 94, 0.35); }
+.krw-spick__name { font-family: var(--titel); font-size: 21px; color: var(--indigo); }
+.krw-spick__wert { font-weight: 500; }
+.krw-spick__zeit { font-size: 15px; color: var(--kupfer); font-weight: 600; }
+
+/* Article cards: porcelain tiles with a cobalt frame. */
+.krw-raster { padding: 56px 0 30px; }
+.krw-raster__karten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.krw-kachel { position: relative; }
+.krw-kachel__link { position: relative; display: flex; flex-direction: column; height: 100%; padding: 22px 22px 18px; text-decoration: none; color: var(--tinte); border-radius: 18px;
+  background:
+    radial-gradient(circle at 0 0, rgba(40, 58, 94, 0.14) 0 16px, transparent 17px),
+    radial-gradient(circle at 100% 0, rgba(40, 58, 94, 0.14) 0 16px, transparent 17px),
+    radial-gradient(circle at 0 100%, rgba(40, 58, 94, 0.14) 0 16px, transparent 17px),
+    radial-gradient(circle at 100% 100%, rgba(40, 58, 94, 0.14) 0 16px, transparent 17px),
+    linear-gradient(180deg, #fffdf9, var(--porzellan-2));
+  border: 1px solid rgba(40, 58, 94, 0.28);
+  box-shadow: inset 0 0 0 6px #fffdf9, inset 0 0 0 7px rgba(40, 58, 94, 0.22), var(--schatten);
+  transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
+.krw-kachel__link:hover { color: var(--tinte); transform: translateY(-5px); border-color: var(--safran); box-shadow: inset 0 0 0 6px #fffdf9, inset 0 0 0 7px rgba(225, 161, 58, 0.6), 0 28px 44px -26px rgba(36, 21, 12, 0.7); }
+.krw-kachel__kopf { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.krw-kachel__icon { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 50%; color: var(--porzellan); background: var(--indigo); box-shadow: 0 0 0 3px rgba(225, 161, 58, 0.45); }
+.krw-kachel__icon svg { width: 24px; height: 24px; }
+.krw-kachel__thema { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--kardamom-2); }
+.krw-kachel__titel { margin: 0 0 8px; font-size: 23px; line-height: 1.22; }
+.krw-kachel__link:hover .krw-kachel__titel { color: var(--indigo); }
+.krw-kachel__text { margin: 0 0 14px; font-size: 16px; line-height: 1.6; color: var(--tinte-2); }
+.krw-kachel__fuss { margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px dashed rgba(40, 58, 94, 0.3); font-size: 14px; font-weight: 500; color: var(--indigo); }
+.krw-kachel__tasse svg { width: 30px; height: 30px; color: var(--safran-tief); }
+.krw-kachel__tasse svg path:last-child { opacity: 0.3; transition: opacity 0.4s, transform 0.6s; }
+.krw-kachel__link:hover .krw-kachel__tasse svg path:last-child { opacity: 1; transform: translateY(-2px); }
+
+/* The full cargo list: dark indigo directory. */
+.krw-ladeliste { margin-top: 40px; padding: 60px 16px 70px; color: var(--porzellan);
+  background:
+    radial-gradient(1.2px 1.2px at 10% 20%, rgba(253, 248, 241, 0.7), transparent 2px),
+    radial-gradient(1.2px 1.2px at 30% 70%, rgba(243, 200, 115, 0.6), transparent 2px),
+    radial-gradient(1.2px 1.2px at 62% 12%, rgba(253, 248, 241, 0.6), transparent 2px),
+    radial-gradient(1.2px 1.2px at 88% 48%, rgba(253, 248, 241, 0.6), transparent 2px),
+    radial-gradient(900px 400px at 50% 0%, rgba(40, 58, 94, 0.9), transparent 70%),
+    linear-gradient(180deg, var(--indigo-2), var(--indigo-3)); }
+.krw-ladeliste__spalten { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 30px; }
+.krw-ladeliste section { padding: 20px 22px; border-radius: 18px; border: 1px solid rgba(243, 200, 115, 0.22); background: rgba(253, 248, 241, 0.03); }
+.krw-ladeliste h3 { margin: 0 0 10px; font-size: 24px; }
+.krw-ladeliste h3 a { display: flex; align-items: center; gap: 10px; color: var(--safran-hell); text-decoration: none; }
+.krw-ladeliste__icon { width: 30px; height: 30px; flex: none; color: var(--kardamom-hell); }
+.krw-ladeliste ol { margin: 0; padding-left: 22px; }
+.krw-ladeliste li { margin: 6px 0; font-size: 15.5px; line-height: 1.45; }
+.krw-ladeliste li::marker { color: var(--safran); font-size: 0.85em; }
+.krw-ladeliste li a { color: rgba(253, 248, 241, 0.88); text-decoration: none; }
+.krw-ladeliste li a:hover { color: var(--safran-hell); text-decoration: underline; }
+
+/* ── Thema ───────────────────────────────────────────────────────────── */
+.krw-pfad { font-size: 14.5px; color: var(--tinte-2); margin-bottom: 14px; }
+.krw-pfad a { color: var(--indigo); }
+.krw-thema { padding: 40px 16px 10px; text-align: center; }
+.krw-thema__innen { max-width: 820px; margin: 0 auto; }
+.krw-thema__icon { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; color: var(--espresso-3); }
+.krw-thema__icon svg { width: 76px; height: 76px; padding: 12px; border-radius: 50%; background: radial-gradient(circle, #fffdf9, var(--porzellan-2)); box-shadow: 0 0 0 2px var(--indigo), 0 0 0 6px var(--porzellan), 0 0 0 7px var(--safran); }
+.krw-thema__nr { margin-top: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--kardamom); }
+.krw-thema h1 { margin: 8px 0 10px; font-size: clamp(36px, 5vw, 54px); }
+.krw-thema p { color: var(--tinte-2); }
+.krw-thema__zahl { font-weight: 600; color: var(--kupfer) !important; }
+.krw-raster--thema { padding-top: 20px; }
+
+/* ── Ratgeber ────────────────────────────────────────────────────────── */
+.krw-ratgeber { max-width: 1200px; margin: 0 auto; padding: 36px 16px 10px; }
+.krw-ratgeber__kopf { max-width: 860px; margin: 0 auto 30px; text-align: center; }
+.krw-ratgeber__titel { margin: 0 0 14px; font-size: clamp(32px, 4.6vw, 52px); }
+.krw-ratgeber__intro { margin: 0 auto; max-width: 720px; font-size: 19px; color: var(--tinte-2); }
+.krw-ratgeber__koerper { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 36px; align-items: start; }
+.krw-ratgeber__koerper--eins { grid-template-columns: minmax(0, 1fr); max-width: 860px; margin: 0 auto; }
+.krw-fracht { position: sticky; top: 138px; max-height: calc(100vh - 156px); overflow: auto; padding: 20px 20px 18px; border-radius: 18px; font-size: 15px; color: var(--porzellan); background: linear-gradient(180deg, var(--espresso), var(--espresso-2)); box-shadow: inset 0 0 0 5px var(--espresso), inset 0 0 0 6px rgba(243, 200, 115, 0.4), var(--schatten); }
+.krw-fracht__titel { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-family: var(--titel); font-size: 21px; color: var(--safran-hell); }
+.krw-fracht__titel--b { margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(243, 200, 115, 0.35); }
+.krw-fracht__laterne { width: 26px; height: 26px; color: var(--safran); }
+.krw-fracht dl { margin: 0; display: grid; gap: 6px; }
+.krw-fracht dl div { display: flex; justify-content: space-between; gap: 10px; }
+.krw-fracht dt { color: rgba(253, 248, 241, 0.65); }
+.krw-fracht dd { margin: 0; text-align: right; font-weight: 500; }
+.krw-fracht a { color: var(--porzellan); text-decoration-color: rgba(225, 161, 58, 0.6); }
+.krw-fracht__inhalt { margin: 0; padding-left: 20px; display: grid; gap: 5px; line-height: 1.4; }
+.krw-fracht__inhalt li::marker { color: var(--safran); }
+.krw-fracht__inhalt a { text-decoration: none; color: rgba(253, 248, 241, 0.82); transition: color 0.2s; }
+.krw-fracht__inhalt a:hover, .krw-fracht__inhalt a.an { color: var(--safran-hell); }
+.krw-fracht__inhalt a.an { font-weight: 600; }
+.krw-fracht__tabelle { display: flex; align-items: center; gap: 8px; margin-top: 16px; padding: 9px 12px; border-radius: 12px; font-weight: 600; text-decoration: none !important; color: var(--espresso-2) !important; background: linear-gradient(180deg, var(--safran-hell), var(--safran)); }
+.krw-fracht__tabelle svg { width: 24px; height: 24px; }
+
+.krw-ratgeber__text { min-width: 0; padding: 36px 44px; border-radius: 22px; background: #fffdf9; border: 1px solid var(--rand); box-shadow: inset 0 0 0 7px #fffdf9, inset 0 0 0 8px rgba(40, 58, 94, 0.12), var(--schatten); }
+.krw-ratgeber__text > p:first-child { font-size: 1.07em; }
+.krw-ratgeber__text h2 { position: relative; margin: 2em 0 0.6em; padding-left: 30px; font-size: 31px; }
+.krw-ratgeber__text h2::before { content: ""; position: absolute; left: 0; top: 0.42em; width: 18px; height: 12px; border-radius: 50%; background: var(--espresso-3); transform: rotate(-25deg); box-shadow: inset 0 0 0 1px var(--espresso); }
+.krw-ratgeber__text h2::after { content: ""; position: absolute; left: 4px; top: calc(0.42em + 5px); width: 10px; height: 2px; border-radius: 2px; background: var(--safran); transform: rotate(-25deg); }
+.krw-ratgeber__text h3 { margin: 1.6em 0 0.4em; font-size: 23px; color: var(--indigo); }
+.krw-ratgeber__text h4 { margin: 1.3em 0 0.3em; font-size: 20px; }
+.krw-ratgeber__text ul, .krw-ratgeber__text ol { padding-left: 24px; }
+.krw-ratgeber__text li { margin: 0.35em 0; }
+.krw-ratgeber__text ul li::marker { content: "◆  "; color: var(--safran); font-size: 0.75em; }
+.krw-ratgeber__text ol li::marker { color: var(--kardamom-2); font-weight: 700; }
+.krw-ratgeber__text strong { color: var(--espresso); }
+.krw-ratgeber__text code { font-size: 0.9em; padding: 1px 5px; border-radius: 5px; background: var(--porzellan-2); }
+.krw-ratgeber__text hr { border: 0; height: 12px; margin: 2em 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='12'%3E%3Cpath d='M14 2l4 4-4 4-4-4z' fill='%23283a5e' fill-opacity='.5'/%3E%3C/svg%3E") repeat-x center / 28px 12px; }
+.krw-ratgeber__text .table-wrap { overflow-x: auto; margin: 1.3em 0; border-radius: 14px; border: 1px solid rgba(40, 58, 94, 0.3); }
+.krw-ratgeber__text table { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.5; }
+.krw-ratgeber__text th { background: var(--indigo); color: var(--porzellan); text-align: left; padding: 10px 12px; font-weight: 600; border-bottom: 3px solid var(--safran); }
+.krw-ratgeber__text td { padding: 9px 12px; border-bottom: 1px solid rgba(40, 58, 94, 0.14); vertical-align: top; }
+.krw-ratgeber__text tr:nth-child(even) td { background: rgba(245, 237, 225, 0.65); }
+.krw-ratgeber__text blockquote { position: relative; margin: 1.4em 0; padding: 18px 22px 16px 26px; border-radius: 16px; background: linear-gradient(135deg, rgba(107, 125, 74, 0.14), rgba(225, 161, 58, 0.1)); border: 1px solid rgba(107, 125, 74, 0.45); border-left: 5px solid var(--kardamom); }
+.krw-ratgeber__text blockquote p { margin: 0.4em 0; }
+.krw-ratgeber__text blockquote ul { margin: 0.4em 0; }
+.krw-hinweis { margin-top: 2.2em; padding: 16px 20px; border-radius: 14px; font-size: 15.5px; color: var(--tinte-2); background: var(--porzellan-2); border: 1px dashed rgba(40, 58, 94, 0.35); }
+.krw-hinweis p { margin: 0; }
+.krw-raster--weiter { padding-top: 50px; }
+
+/* ── 404 ─────────────────────────────────────────────────────────────── */
+.krw-leer { max-width: 1000px; margin: 0 auto; padding: 60px 16px 40px; text-align: center; }
+.krw-leer__code { margin: 0; font: 400 clamp(80px, 14vw, 140px)/1 var(--titel); color: var(--safran); text-shadow: 0 4px 0 var(--espresso); }
+.krw-leer h1 { font-size: clamp(30px, 4vw, 42px); }
+.krw-leer .krw-saecke { padding: 0; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.krw-fuss { position: relative; margin-top: 70px; padding: 0 16px 28px; color: rgba(253, 248, 241, 0.82); background: var(--indigo-2); font-size: 15.5px; }
+.krw--start .krw-fuss { margin-top: 0; }
+.krw-fuss__duene { position: absolute; left: 0; bottom: 100%; width: 100%; height: 60px; display: block; }
+.krw-fuss__innen { max-width: 1200px; margin: 0 auto; padding-top: 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 36px; }
+.krw-fuss__name { margin: 0; font: 400 30px var(--titel); letter-spacing: 0.26em; color: var(--safran-hell); }
+.krw-fuss__lang { margin: 0 0 10px; font-size: 14px; color: var(--kardamom-hell); }
+.krw-fuss__titel { margin: 0 0 8px; font-family: var(--titel); font-size: 21px; color: var(--safran-hell); }
+.krw-fuss ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.krw-fuss a { color: rgba(253, 248, 241, 0.88); text-decoration-color: rgba(225, 161, 58, 0.5); }
+.krw-fuss a:hover { color: var(--safran-hell); }
+.krw-fuss__hinweis { max-width: 1200px; margin: 30px auto 0; padding-top: 18px; border-top: 1px solid rgba(243, 200, 115, 0.2); font-size: 13.5px; color: rgba(253, 248, 241, 0.6); }
+
+/* Scroll reveal (only added by palace.js when motion is welcome). */
+.krw-erscheint { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.krw-erscheint.da { opacity: 1; transform: none; }
+
+/* ── Breakpoints ─────────────────────────────────────────────────────── */
+@media (max-width: 1020px) {
+  .krw-knopf { display: inline-flex; }
+  .krw-kopf__innen { justify-content: flex-start; padding-bottom: 10px; }
+  .krw-menue { display: none; padding: 4px 16px 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 10px; }
+  .krw-kopf.offen .krw-menue { display: grid; max-height: calc(100vh - 110px); overflow: auto; }
+  .krw-glas { padding: 14px 10px 8px; }
+  .krw-glas__wort { white-space: normal; }
+  .krw-ratgeber__koerper { grid-template-columns: minmax(0, 1fr); }
+  .krw-fracht { position: static; max-height: none; }
+  .krw-raster__karten, .krw-saecke, .krw-ladeliste__spalten { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .krw-start__innen, .krw-spick__innen { grid-template-columns: minmax(0, 1fr); }
+  .krw-start__bild { max-width: 520px; margin: 0 auto; width: 100%; }
+  html { scroll-padding-top: 90px; }
+}
+@media (max-width: 680px) {
+  body.krw { font-size: 17px; }
+  .krw-marke__bild { width: 44px; height: 44px; }
+  .krw-marke__name { font-size: 24px; }
+  .krw-marke__lang { font-size: 11px; }
+  .krw-knopf { padding: 7px 12px; }
+  .krw-menue { grid-template-columns: minmax(0, 1fr); }
+  .krw-raster__karten, .krw-saecke, .krw-ladeliste__spalten, .krw-spick__liste, .krw-fuss__innen { grid-template-columns: minmax(0, 1fr); }
+  .krw-start__innen { padding: 36px 16px 70px; gap: 34px; }
+  .krw-start__bild::before { inset: -8px; }
+  .krw-ratgeber { padding-top: 24px; }
+  .krw-ratgeber__text { padding: 24px 18px; box-shadow: var(--schatten); }
+  .krw-ratgeber__text h2 { font-size: 26px; }
+  .krw-ratgeber__text h3 { font-size: 21px; }
+  .krw-wm__text { font-size: 13px; }
+  .krw-start__claim { font-size: 18px; }
+  .krw-start__intro { font-size: 16px; }
+}
+@media (max-width: 400px) {
+  .krw-marke__lang { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .krw-glas:hover .krw-glas__dampf i, .krw-glas:focus-visible .krw-glas__dampf i { opacity: 0.6; }
+}

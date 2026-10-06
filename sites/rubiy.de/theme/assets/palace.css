@@ -1,0 +1,273 @@
+/* RUBIY — Die königliche Speisekammer.
+   Cedar shelves, copper pots, beet red, sage, honey gold and the cream of
+   lime-washed pantry walls. Each season has its own jar colour. All classes
+   are RUBIY's own (spk-, glas, etikett). Motion stops under
+   prefers-reduced-motion. */
+
+:root {
+  --bete: #7a1f3d;
+  --bete-2: #5a1229;
+  --kupfer: #b5653a;
+  --kupfer-2: #8a4a26;
+  --honig: #d9a441;
+  --honig-2: #f0cf7e;
+  --salbei: #5f7a5a;
+  --salbei-2: #43573f;
+  --zeder: #4a2e1f;
+  --zeder-2: #2a170e;
+  --sahne: #fbf6ee;
+  --sahne-2: #f3e7d3;
+  --sahne-3: #e5d2b2;
+  --tinte: #2b1d16;
+  --tinte-2: #5f4a3e;
+  --fruehling: #8fb35a;
+  --sommer: #d6452f;
+  --herbst: #d9852b;
+  --winter: #5c6f8c;
+  --vorrat: #7a1f3d;
+  --wissen: #5f7a5a;
+  --rand: rgba(74, 46, 31, 0.16);
+  --schatten: 0 20px 44px -24px rgba(42, 23, 14, 0.5);
+  --titel: "Prata", "Georgia", serif;
+  --text: "Lexend", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body.spk {
+  margin: 0;
+  font-family: var(--text);
+  font-weight: 300;
+  font-size: 17.5px;
+  line-height: 1.75;
+  color: var(--tinte);
+  background:
+    radial-gradient(900px 520px at 100% 0%, rgba(217, 164, 65, 0.16), transparent 60%),
+    radial-gradient(700px 480px at 0% 30%, rgba(122, 31, 61, 0.06), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg fill='none' stroke='%234a2e1f' stroke-opacity='.05' stroke-width='1.2'%3E%3Cpath d='M0 70h140M70 0v140'/%3E%3Ccircle cx='70' cy='70' r='18'/%3E%3C/g%3E%3C/svg%3E"),
+    var(--sahne);
+}
+strong, b { font-weight: 600; }
+a { color: var(--bete); text-decoration-color: var(--honig); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--kupfer-2); }
+img, svg { max-width: 100%; }
+h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.2; color: var(--zeder); }
+
+.spk-sprung { position: absolute; left: -999px; top: 8px; background: var(--bete); color: #fff; padding: 8px 14px; z-index: 100; border-radius: 6px; }
+.spk-sprung:focus { left: 12px; }
+
+/* ── Spanien 2026: Paprika-Ristra ────────────────────────────────────── */
+.spk-wm { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--zeder-2), var(--zeder)); color: var(--sahne); }
+.spk-wm__ristra { position: absolute; inset: 0 0 auto 0; height: 26px; display: flex; justify-content: space-around; pointer-events: none; border-top: 2px solid rgba(217, 164, 65, 0.6); }
+.spk-wm__ristra i { display: block; width: 10px; height: 20px; margin-top: 1px; transform-origin: 50% 0; animation: ristra 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * -0.3s); }
+.spk-wm__ristra i.paprika { background: radial-gradient(circle at 35% 25%, #ff6b5a, #c60b1e 60%); border-radius: 50% 50% 45% 45% / 30% 30% 70% 70%; }
+.spk-wm__ristra i.zitrone { width: 13px; height: 13px; margin-top: 4px; background: radial-gradient(circle at 35% 35%, #fff2a0, #ffc400 65%); border-radius: 50%; }
+.spk-wm__text { position: relative; margin: 0; padding: 18px 16px 7px; text-align: center; font-size: 14.5px; font-weight: 400; letter-spacing: 0.02em; }
+.spk-wm__text strong { color: var(--honig-2); }
+@keyframes ristra { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+
+/* ── Kopf ────────────────────────────────────────────────────────────── */
+.spk-kopf { position: sticky; top: 0; z-index: 40; background: linear-gradient(180deg, var(--sahne) 0%, var(--sahne-2) 100%); box-shadow: 0 12px 26px -18px rgba(42, 23, 14, 0.55); border-bottom: 1px solid var(--rand); }
+.spk-kopf__innen { max-width: 1200px; margin: 0 auto; padding: 10px 16px 4px; display: flex; align-items: center; gap: 16px; }
+.spk-marke { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.spk-marke__glas { width: 48px; height: 48px; filter: drop-shadow(0 6px 8px rgba(42, 23, 14, 0.25)); transition: transform 0.5s cubic-bezier(.2,.9,.3,1.3); }
+.spk-marke:hover .spk-marke__glas { transform: rotate(-8deg) translateY(-2px); }
+.spk-marke__texte { display: flex; flex-direction: column; line-height: 1.15; }
+.spk-marke__name { font-family: var(--titel); font-size: 27px; letter-spacing: 0.18em; color: var(--bete); }
+.spk-marke__lang { font-size: 13px; color: var(--tinte-2); letter-spacing: 0.03em; }
+.spk-knopf { display: none; margin-left: auto; background: var(--zeder); color: var(--sahne); border: 0; border-radius: 10px; padding: 7px 16px; font: 500 15px var(--text); cursor: pointer; }
+
+/* The menu is a cedar shelf. Each item is a preserving jar: on hover the lid
+   turns, and the jar fills from the bottom with its season's colour. */
+.spk-menue { max-width: 1240px; margin: 0 auto; padding: 6px 16px 0; }
+.spk-menue__brett { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px; padding: 0 4px; border-bottom: 9px solid var(--zeder); box-shadow: 0 6px 0 -2px var(--zeder-2); border-radius: 0 0 3px 3px; }
+.glas { --farbe: var(--honig); position: relative; display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 0; padding: 14px 9px 8px; margin-bottom: 0; color: var(--zeder); text-decoration: none; font-size: 14.5px; font-weight: 500; border: 2px solid rgba(138, 90, 28, 0.55); border-bottom: 0; border-radius: 12px 12px 4px 4px; background: rgba(255, 255, 255, 0.55); overflow: hidden; transition: color 0.35s, border-color 0.35s, transform 0.35s; }
+.glas__deckel { position: absolute; left: 6px; right: 6px; top: 0; height: 6px; border-radius: 0 0 3px 3px; background: linear-gradient(90deg, var(--honig), var(--honig-2), var(--honig)); box-shadow: 0 1px 0 rgba(138, 90, 28, 0.6); transform-origin: 50% 0; transition: transform 0.5s cubic-bezier(.2,.9,.3,1.3); }
+.glas__inhalt { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: linear-gradient(180deg, color-mix(in srgb, var(--farbe) 75%, #fff), var(--farbe)); transform: translateY(100%); transition: transform 0.55s cubic-bezier(.3,.7,.2,1); }
+.glas__inhalt::before { content: ""; position: absolute; left: -10%; right: -10%; top: -5px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--farbe) 60%, #fff); }
+.glas__etikett { position: relative; z-index: 1; padding: 1px 8px; border-radius: 4px; background: rgba(251, 246, 238, 0.92); box-shadow: 0 1px 0 var(--rand); white-space: nowrap; }
+.glas:hover, .glas:focus-visible, .glas[aria-current="page"] { border-color: var(--kupfer); transform: translateY(-2px); }
+.glas:hover .glas__deckel, .glas:focus-visible .glas__deckel, .glas[aria-current="page"] .glas__deckel { transform: rotate(-9deg) translateY(-1px); }
+.glas:hover .glas__inhalt, .glas:focus-visible .glas__inhalt { transform: translateY(35%); }
+.glas[aria-current="page"] .glas__inhalt { transform: translateY(20%); }
+.glas--fruehling { --farbe: var(--fruehling); }
+.glas--sommer { --farbe: var(--sommer); }
+.glas--herbst { --farbe: var(--herbst); }
+.glas--winter { --farbe: var(--winter); }
+.glas--vorrat-und-konservieren { --farbe: var(--vorrat); }
+.glas--kuechenwissen { --farbe: var(--wissen); }
+.glas--leise { font-weight: 400; color: var(--tinte-2); font-size: 13.5px; }
+
+/* Reading progress: a jar gauge that fills along the header edge. */
+.spk-pegel { height: 4px; background: rgba(74, 46, 31, 0.12); }
+.spk-pegel i { display: block; height: 100%; transform-origin: left; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--fruehling), var(--sommer), var(--herbst), var(--winter)); transition: transform 0.2s ease-out; }
+
+/* ── Startseite ──────────────────────────────────────────────────────── */
+.spk-start { padding: 54px 16px 36px; }
+.spk-start__innen { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 46px; align-items: center; }
+.spk-dachzeile, .spk-ueber__zeile { margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--kupfer); }
+.spk-start__titel { margin: 0 0 14px; font-size: clamp(38px, 5.2vw, 64px); }
+.spk-start__titel em { font-style: normal; color: var(--bete); background: linear-gradient(transparent 66%, rgba(217, 164, 65, 0.45) 66%); }
+.spk-start__claim { margin: 0 0 12px; font-size: 20px; font-weight: 400; color: var(--salbei-2); }
+.spk-start__intro { margin: 0 0 24px; color: var(--tinte-2); }
+.spk-start__knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.spk-taste { display: inline-block; padding: 13px 24px; border-radius: 14px; background: linear-gradient(180deg, var(--bete), var(--bete-2)); color: var(--sahne); font-weight: 500; text-decoration: none; box-shadow: 0 12px 24px -14px rgba(90, 18, 41, 0.9), inset 0 -3px 0 var(--kupfer); transition: transform 0.2s; }
+.spk-taste:hover { color: #fff; transform: translateY(-2px); }
+.spk-taste--rahmen { background: transparent; color: var(--zeder); border: 2px solid var(--zeder); box-shadow: none; }
+.spk-taste--rahmen:hover { color: var(--zeder); background: rgba(217, 164, 65, 0.2); }
+.spk-start__bild { filter: drop-shadow(0 26px 34px rgba(42, 23, 14, 0.3)); }
+.spk-bild .j__fuell { transform: translateY(46px); animation: fuellen 12s ease-in-out infinite; animation-delay: var(--d); }
+.spk-bild .j--f .j__fuell { fill: var(--fruehling); }
+.spk-bild .j--s .j__fuell { fill: var(--sommer); }
+.spk-bild .j--h .j__fuell { fill: var(--herbst); }
+.spk-bild .j--w .j__fuell { fill: var(--winter); }
+.spk-bild__dampf { animation: dampf 3s ease-in-out infinite; }
+@keyframes fuellen { 0%, 8% { transform: translateY(46px); } 30%, 75% { transform: translateY(14px); } 95%, 100% { transform: translateY(46px); } }
+@keyframes dampf { 0%, 100% { opacity: 0.2; transform: translateY(2px); } 50% { opacity: 0.8; transform: translateY(-4px); } }
+
+.spk-ueber { max-width: 1200px; margin: 0 auto 24px; padding: 0 16px; text-align: center; }
+.spk-ueber h2 { margin: 0; font-size: clamp(28px, 3.4vw, 40px); }
+.spk-ueber::after { content: ""; display: block; width: 120px; height: 10px; margin: 12px auto 0; background: linear-gradient(90deg, var(--fruehling) 0 25%, var(--sommer) 25% 50%, var(--herbst) 50% 75%, var(--winter) 75%); border-radius: 5px; }
+
+.spk-zeiten { padding: 30px 0 30px; }
+.spk-zeiten__reihe { list-style: none; margin: 0 auto; padding: 0 16px; max-width: 1200px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.spk-fach { --farbe: var(--honig); position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 10px 18px; height: 100%; border-radius: 16px; background: linear-gradient(180deg, #fffdf8, var(--sahne-2)); border: 1px solid var(--rand); border-bottom: 8px solid var(--zeder); color: var(--zeder); text-decoration: none; text-align: center; box-shadow: var(--schatten); transition: transform 0.3s, box-shadow 0.3s; }
+.spk-fach:hover { transform: translateY(-6px); box-shadow: 0 26px 40px -22px rgba(42, 23, 14, 0.55); }
+.spk-fach__glas { display: grid; place-items: center; width: 64px; height: 72px; border-radius: 14px 14px 10px 10px; border: 2px solid rgba(138, 90, 28, 0.5); border-top: 7px solid var(--honig); background: linear-gradient(180deg, #fff 0 35%, color-mix(in srgb, var(--farbe) 30%, #fff) 35%); color: var(--zeder); transition: background 0.5s; }
+.spk-fach:hover .spk-fach__glas { background: linear-gradient(180deg, #fff 0 10%, color-mix(in srgb, var(--farbe) 55%, #fff) 10%); }
+.spk-fach__icon { width: 34px; height: 34px; }
+.spk-fach__name { font-family: var(--titel); font-size: 17px; line-height: 1.25; }
+.spk-fach__zahl { font-size: 13px; color: var(--tinte-2); }
+.spk-fach--fruehling, .etikett--fruehling, .spk-fachkopf--fruehling, .spk-rezept--fruehling { --farbe: var(--fruehling); }
+.spk-fach--sommer, .etikett--sommer, .spk-fachkopf--sommer, .spk-rezept--sommer { --farbe: var(--sommer); }
+.spk-fach--herbst, .etikett--herbst, .spk-fachkopf--herbst, .spk-rezept--herbst { --farbe: var(--herbst); }
+.spk-fach--winter, .etikett--winter, .spk-fachkopf--winter, .spk-rezept--winter { --farbe: var(--winter); }
+.spk-fach--vorrat-und-konservieren, .etikett--vorrat-und-konservieren, .spk-fachkopf--vorrat-und-konservieren, .spk-rezept--vorrat-und-konservieren { --farbe: var(--vorrat); }
+.spk-fach--kuechenwissen, .etikett--kuechenwissen, .spk-fachkopf--kuechenwissen, .spk-rezept--kuechenwissen { --farbe: var(--wissen); }
+
+/* Cards are jar labels on string. */
+.spk-raster { padding: 34px 0 54px; }
+.spk-raster__karten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 24px; }
+.etikett { --farbe: var(--honig); position: relative; margin-top: 12px; border-radius: 6px 6px 18px 18px; background: #fffdf8; border: 1px solid var(--rand); box-shadow: var(--schatten); transition: transform 0.35s, box-shadow 0.35s; transform: rotate(-0.4deg); }
+.etikett:nth-child(even) { transform: rotate(0.4deg); }
+.etikett::before { content: ""; position: absolute; top: -12px; left: 50%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--sahne); border: 2px solid var(--kupfer); }
+.etikett:hover { transform: translateY(-5px) rotate(0); box-shadow: 0 32px 48px -28px rgba(42, 23, 14, 0.6); }
+.etikett__link { display: flex; flex-direction: column; height: 100%; padding: 22px 24px 18px; color: inherit; text-decoration: none; }
+.etikett__band { position: absolute; left: 0; right: 0; top: 0; height: 7px; border-radius: 6px 6px 0 0; background: var(--farbe); }
+.etikett__kopf { display: flex; align-items: center; gap: 10px; margin: 6px 0 8px; }
+.etikett__icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: color-mix(in srgb, var(--farbe) 18%, #fff); color: var(--zeder); }
+.etikett__icon svg { width: 24px; height: 24px; }
+.etikett__zeit { font-size: 12.5px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--kupfer-2); }
+.etikett__titel { margin: 2px 0 8px; font-size: 21px; color: var(--zeder); }
+.etikett__text { margin: 0 0 14px; font-size: 15px; color: var(--tinte-2); flex: 1; }
+.etikett__fuss { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--tinte-2); border-top: 1px dashed var(--rand); padding-top: 10px; }
+.etikett__pfeil { color: var(--bete); transition: transform 0.25s; }
+.etikett:hover .etikett__pfeil { transform: translateX(5px); }
+
+.spk-verzeichnis { padding: 54px 0 64px; color: var(--sahne); background: repeating-linear-gradient(180deg, transparent 0 120px, rgba(0, 0, 0, 0.18) 120px 128px), linear-gradient(180deg, var(--zeder), var(--zeder-2)); }
+.spk-ueber--dunkel h2 { color: var(--sahne); }
+.spk-ueber--dunkel .spk-ueber__zeile { color: var(--honig-2); }
+.spk-verzeichnis__spalten { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.spk-verzeichnis h3 { margin: 0 0 10px; font-size: 21px; }
+.spk-verzeichnis h3 a { display: flex; align-items: center; gap: 8px; color: var(--honig-2); text-decoration: none; }
+.spk-verzeichnis__icon { width: 26px; height: 26px; }
+.spk-verzeichnis ol { margin: 0; padding-left: 22px; font-size: 15px; }
+.spk-verzeichnis li { margin: 4px 0; }
+.spk-verzeichnis li::marker { color: var(--honig); }
+.spk-verzeichnis li a { color: rgba(251, 246, 238, 0.88); text-decoration: none; }
+.spk-verzeichnis li a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Fach (Kategorie) ────────────────────────────────────────────────── */
+.spk-fachkopf { --farbe: var(--honig); padding: 40px 16px 24px; text-align: center; }
+.spk-fachkopf__innen { max-width: 780px; margin: 0 auto; }
+.spk-fachkopf__glas { display: inline-grid; place-items: center; width: 92px; height: 104px; border-radius: 18px 18px 12px 12px; border: 3px solid rgba(138, 90, 28, 0.55); border-top: 10px solid var(--honig); background: linear-gradient(180deg, #fff 0 30%, color-mix(in srgb, var(--farbe) 45%, #fff) 30%); box-shadow: var(--schatten); color: var(--zeder); }
+.spk-fachkopf__glas svg { width: 48px; height: 48px; }
+.spk-fachkopf h1 { margin: 16px 0 8px; font-size: clamp(34px, 4.6vw, 50px); }
+.spk-fachkopf__zahl { color: var(--kupfer-2); font-weight: 600; }
+.spk-pfad { font-size: 14.5px; color: var(--tinte-2); margin-bottom: 14px; }
+
+/* ── Rezept / Ratgeber ───────────────────────────────────────────────── */
+.spk-rezept { --farbe: var(--honig); }
+.spk-rezept__kopf { max-width: 880px; margin: 0 auto; padding: 40px 16px 20px; text-align: center; }
+.spk-rezept__titel { margin: 0 0 12px; font-size: clamp(32px, 4.4vw, 50px); }
+.spk-rezept__intro { margin: 0 auto; max-width: 720px; font-size: 19px; color: var(--tinte-2); }
+.spk-rezept__koerper { max-width: 1200px; margin: 0 auto; padding: 10px 16px 30px; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 34px; align-items: start; }
+.spk-rezept__koerper--eins { grid-template-columns: minmax(0, 860px); justify-content: center; }
+.spk-zettel { position: sticky; top: 170px; padding: 22px 20px; border-radius: 4px 4px 16px 16px; background: #fffdf3; border: 1px solid var(--rand); box-shadow: var(--schatten); transform: rotate(-0.6deg); background-image: repeating-linear-gradient(180deg, transparent 0 27px, rgba(95, 122, 90, 0.18) 27px 28px); }
+.spk-zettel::before { content: ""; position: absolute; top: -10px; left: 50%; width: 70px; height: 20px; margin-left: -35px; background: rgba(217, 164, 65, 0.55); transform: rotate(-3deg); }
+.spk-zettel__titel { margin: 0 0 8px; font-family: var(--titel); font-size: 19px; color: var(--bete); }
+.spk-zettel__titel--b { margin-top: 18px; }
+.spk-zettel dl { margin: 0; font-size: 14.5px; }
+.spk-zettel dl div { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; }
+.spk-zettel dt { color: var(--tinte-2); }
+.spk-zettel dd { margin: 0; text-align: right; font-weight: 500; }
+.spk-zettel__inhalt { margin: 0; padding-left: 26px; font-size: 14.5px; max-height: 50vh; overflow: auto; }
+.spk-zettel__inhalt a { color: var(--tinte); text-decoration: none; }
+.spk-zettel__inhalt a.an { color: var(--bete); font-weight: 600; }
+.spk-zettel__inhalt li::marker { color: var(--kupfer); }
+.spk-rezept__text { background: #fffdf8; border: 1px solid var(--rand); border-top: 8px solid var(--farbe); border-radius: 8px 8px 20px 20px; padding: 34px 42px; box-shadow: var(--schatten); }
+.spk-rezept__text > p:first-child { font-size: 1.08em; font-weight: 400; }
+.spk-rezept__text h2 { position: relative; margin: 2em 0 0.6em; font-size: 30px; padding-left: 34px; }
+.spk-rezept__text h2::before { content: ""; position: absolute; left: 0; top: 0.16em; width: 22px; height: 26px; border-radius: 6px 6px 5px 5px; border: 2px solid var(--kupfer); border-top-width: 5px; border-top-color: var(--honig); background: linear-gradient(180deg, transparent 40%, var(--farbe) 40%); }
+.spk-rezept__text h3 { margin: 1.6em 0 0.4em; font-size: 23px; color: var(--bete); }
+.spk-rezept__text p, .spk-rezept__text li { color: var(--tinte); }
+.spk-rezept__text ul, .spk-rezept__text ol { padding-left: 26px; }
+.spk-rezept__text li { margin: 0.35em 0; }
+.spk-rezept__text ul li::marker { content: "❧  "; color: var(--salbei); }
+.spk-rezept__text ol li::marker { color: var(--kupfer); font-weight: 600; }
+.spk-rezept__text .table-wrap { overflow-x: auto; margin: 1.2em 0; border-radius: 12px; border: 1px solid var(--rand); }
+.spk-rezept__text table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.spk-rezept__text th { background: var(--zeder); color: var(--honig-2); text-align: left; padding: 10px 12px; font-weight: 500; }
+.spk-rezept__text td { padding: 9px 12px; border-bottom: 1px solid var(--rand); vertical-align: top; }
+.spk-rezept__text tr:nth-child(even) td { background: rgba(243, 231, 211, 0.5); }
+.spk-rezept__text blockquote { margin: 1.4em 0; padding: 16px 22px; border-radius: 14px; background: color-mix(in srgb, var(--farbe) 12%, #fffdf8); border: 1px dashed color-mix(in srgb, var(--farbe) 60%, #8a5a1c); }
+.spk-rezept__text blockquote p { margin: 0.4em 0; }
+.spk-hinweis { margin-top: 2em; padding: 16px 20px; border-radius: 14px; background: rgba(95, 122, 90, 0.1); border: 1px solid rgba(95, 122, 90, 0.4); font-size: 15.5px; }
+.spk-hinweis p { margin: 0; }
+
+.spk-leer { max-width: 1000px; margin: 0 auto; padding: 60px 16px; text-align: center; }
+.spk-leer__code { margin: 0; font-family: var(--titel); font-size: 100px; color: var(--bete); line-height: 1; }
+
+/* ── Fuß ─────────────────────────────────────────────────────────────── */
+.spk-fuss { position: relative; background: var(--zeder-2); color: rgba(251, 246, 238, 0.85); padding: 56px 0 20px; font-size: 15px; border-top: 12px solid var(--zeder); box-shadow: inset 0 6px 0 rgba(0, 0, 0, 0.25); }
+.spk-fuss__innen { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
+.spk-fuss__name { margin: 0; font-family: var(--titel); font-size: 28px; letter-spacing: 0.18em; color: var(--honig-2); }
+.spk-fuss__lang { margin: 0 0 8px; color: var(--honig); }
+.spk-fuss__titel { margin: 0 0 8px; font-family: var(--titel); color: var(--honig-2); font-size: 19px; }
+.spk-fuss ul { list-style: none; margin: 0; padding: 0; }
+.spk-fuss li { margin: 4px 0; }
+.spk-fuss a { color: rgba(251, 246, 238, 0.85); text-decoration: none; }
+.spk-fuss a:hover { color: #fff; text-decoration: underline; }
+.spk-fuss__hinweis { max-width: 1200px; margin: 30px auto 0; padding: 16px 16px 0; border-top: 1px solid rgba(251, 246, 238, 0.12); font-size: 13.5px; color: rgba(251, 246, 238, 0.62); }
+
+.spk-erscheint { opacity: 0; transform: translateY(18px); transition: opacity 0.6s, transform 0.6s; }
+.spk-erscheint.da { opacity: 1; transform: none; }
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1020px) {
+  .spk-zeiten__reihe { grid-template-columns: repeat(3, 1fr); }
+  .spk-raster__karten, .spk-verzeichnis__spalten { grid-template-columns: repeat(2, 1fr); }
+  .spk-rezept__koerper { grid-template-columns: minmax(0, 1fr); }
+  .spk-zettel { position: static; transform: none; }
+}
+@media (max-width: 760px) {
+  body.spk { font-size: 16.5px; }
+  .spk-start__innen { grid-template-columns: 1fr; }
+  .spk-start__bild { max-width: 460px; }
+  .spk-knopf { display: inline-block; }
+  .spk-menue { display: none; }
+  .spk-kopf.offen .spk-menue { display: block; padding-bottom: 10px; }
+  .spk-kopf.offen .spk-menue__brett { flex-direction: column; align-items: stretch; border-bottom-width: 6px; }
+  .spk-kopf.offen .glas { flex-direction: row; justify-content: flex-start; padding: 10px 12px; }
+  .spk-zeiten__reihe, .spk-raster__karten, .spk-verzeichnis__spalten, .spk-fuss__innen { grid-template-columns: 1fr; }
+  .spk-zeiten__reihe { grid-template-columns: repeat(2, 1fr); }
+  .spk-rezept__text { padding: 22px 18px; }
+  .spk-rezept__text h2 { font-size: 26px; }
+  .etikett, .etikett:nth-child(even) { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .spk-erscheint { opacity: 1; transform: none; }
+  .spk-bild .j__fuell { transform: translateY(14px); }
+}

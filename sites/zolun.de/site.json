@@ -1,0 +1,40 @@
+{
+  "domain": "zolun.de",
+  "draft": true,
+  "name": "ZOLUN",
+  "expansion": "Zwischen Ostsee, Land und Nordsee",
+  "tagline": "Urlaub in Deutschland mit ruhiger Hand geplant: Küste, Inseln, Seen und Städte, ehrlich und gründlich erklärt",
+  "description": "ZOLUN ist ein Ratgeber für Urlaub in Deutschland: Nordsee und Ostsee, Inseln, Seen und Städtereisen, dazu Anreise mit Bahn und Deutschlandticket, Unterkunft, beste Reisezeit, Packlisten und Reisen mit Kindern oder Hund.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "zolun-de",
+  "worker": "zolun-de",
+  "themeColor": "#0a2233",
+  "email": "kontakt@zolun.de",
+  "author": "ZOLUN Redaktion",
+  "fonts": "https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Sora:wght@300;400;500;600;700&display=swap",
+  "paths": { "article": "/reisen/", "category": "/themen/" },
+  "categories": [
+    { "slug": "nordsee-und-ostsee", "name": "Nordsee & Ostsee", "icon": "leuchtturm", "description": "Watt und Gezeiten, Badeorte, Strandkorb, Seebrücken und Steilküsten: wie Urlaub an Nord- und Ostsee funktioniert und welche Küste zu dir passt." },
+    { "slug": "inseln", "name": "Inseln", "icon": "insel", "description": "Sylt, Föhr, Amrum, Rügen, Usedom, Fehmarn, die Ostfriesischen Inseln und die Halligen: Fähren, autofreie Inseln, Reisezeit und Inselalltag erklärt." },
+    { "slug": "seen-und-fluesse", "name": "Seen & Flüsse", "icon": "welle", "description": "Bodensee, Chiemsee, Mecklenburgische Seenplatte, Spreewald und Flusstäler: Baden, Bootfahren, Radeln am Ufer und ruhige Ferientage am Wasser." },
+    { "slug": "staedtereisen", "name": "Städtereisen", "icon": "tor", "description": "Berlin, Hamburg, München, Dresden, Köln und kleine Altstädte: Wochenenden klug planen, Museen, Weihnachtsmärkte, Stadtpässe und Unterkunft in guter Lage." },
+    { "slug": "anreise-und-unterkunft", "name": "Anreise & Unterkunft", "icon": "fahrkarte", "description": "Bahn und Deutschlandticket, Fernbus, Auto und Fähre, dazu Ferienwohnung, Hotel, Pension oder Camping: so kommst du entspannt an und wohnst passend." },
+    { "slug": "reiseplanung", "name": "Reiseplanung", "icon": "koffer", "description": "Beste Reisezeit, Packlisten, Urlaub mit Kindern oder Hund, Ideen für Regentage und ein ehrliches Budget: Planung, die deinen Urlaub spürbar entspannter macht." }
+  ],
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Reisecheck", "href": "/reisecheck/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
