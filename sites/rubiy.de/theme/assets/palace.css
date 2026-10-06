@@ -79,9 +79,9 @@ h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.2; colo
 
 /* The menu is a cedar shelf. Each item is a preserving jar: on hover the lid
    turns, and the jar fills from the bottom with its season's colour. */
-.spk-menue { max-width: 1200px; margin: 0 auto; padding: 6px 16px 0; }
-.spk-menue__brett { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; padding: 0 6px; border-bottom: 9px solid var(--zeder); box-shadow: 0 6px 0 -2px var(--zeder-2); border-radius: 0 0 3px 3px; }
-.glas { --farbe: var(--honig); position: relative; display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 74px; padding: 14px 12px 8px; margin-bottom: 0; color: var(--zeder); text-decoration: none; font-size: 14.5px; font-weight: 500; border: 2px solid rgba(138, 90, 28, 0.55); border-bottom: 0; border-radius: 12px 12px 4px 4px; background: rgba(255, 255, 255, 0.55); overflow: hidden; transition: color 0.35s, border-color 0.35s, transform 0.35s; }
+.spk-menue { max-width: 1240px; margin: 0 auto; padding: 6px 16px 0; }
+.spk-menue__brett { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px; padding: 0 4px; border-bottom: 9px solid var(--zeder); box-shadow: 0 6px 0 -2px var(--zeder-2); border-radius: 0 0 3px 3px; }
+.glas { --farbe: var(--honig); position: relative; display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 0; padding: 14px 9px 8px; margin-bottom: 0; color: var(--zeder); text-decoration: none; font-size: 14.5px; font-weight: 500; border: 2px solid rgba(138, 90, 28, 0.55); border-bottom: 0; border-radius: 12px 12px 4px 4px; background: rgba(255, 255, 255, 0.55); overflow: hidden; transition: color 0.35s, border-color 0.35s, transform 0.35s; }
 .glas__deckel { position: absolute; left: 6px; right: 6px; top: 0; height: 6px; border-radius: 0 0 3px 3px; background: linear-gradient(90deg, var(--honig), var(--honig-2), var(--honig)); box-shadow: 0 1px 0 rgba(138, 90, 28, 0.6); transform-origin: 50% 0; transition: transform 0.5s cubic-bezier(.2,.9,.3,1.3); }
 .glas__inhalt { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: linear-gradient(180deg, color-mix(in srgb, var(--farbe) 75%, #fff), var(--farbe)); transform: translateY(100%); transition: transform 0.55s cubic-bezier(.3,.7,.2,1); }
 .glas__inhalt::before { content: ""; position: absolute; left: -10%; right: -10%; top: -5px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--farbe) 60%, #fff); }
@@ -96,7 +96,7 @@ h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.2; colo
 .glas--winter { --farbe: var(--winter); }
 .glas--vorrat-und-konservieren { --farbe: var(--vorrat); }
 .glas--kuechenwissen { --farbe: var(--wissen); }
-.glas--leise { font-weight: 400; color: var(--tinte-2); }
+.glas--leise { font-weight: 400; color: var(--tinte-2); font-size: 13.5px; }
 
 /* Reading progress: a jar gauge that fills along the header edge. */
 .spk-pegel { height: 4px; background: rgba(74, 46, 31, 0.12); }
