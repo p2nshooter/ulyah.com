@@ -50,6 +50,15 @@ Algunas empresas de eficiencia energética y auditores ofrecen termografías que
 | Chimeneas sin uso | Tiro abierto | Tapón o globo para chimenea |
 | Trampillas y altillos | Sin junta | Burlete y aislamiento |
 
+## Antes de comprar nada: ajusta herrajes y bisagras
+
+Muchas ventanas y puertas no cierran bien porque la hoja se ha descolgado o porque los cierres trabajan con poca presión, no porque falte burlete.
+
+- **Ventanas practicables y oscilobatientes:** en muchos modelos, los puntos de cierre del canto de la hoja son piezas excéntricas que se giran con una llave Allen para apretar la hoja contra la junta. Gíralas todas por igual y comprueba que la manilla sigue moviéndose sin forzar.
+- **Hojas descolgadas:** si la hoja roza abajo o deja más holgura arriba que abajo, las bisagras suelen tener tornillos de regulación en altura y en lateral.
+- **Puertas:** apretar los tornillos de las bisagras o recolocar el cerradero puede cerrar holguras laterales sin añadir nada.
+- **Juntas originales:** en ventanas de PVC o aluminio con rotura de puente térmico, la junta suele ir encajada en una ranura y se vende por metros. Sustituirla por una equivalente sella mejor que pegar un burlete encima.
+
 ## Tipos de burletes
 
 ### Burletes adhesivos de espuma
@@ -119,6 +128,15 @@ Sellar no significa dejar la casa sin aire. Una vivienda necesita renovar el air
 - **Respeta las rejillas de ventilación** obligatorias en cocinas con gas y en baños. **Nunca las tapes:** son una cuestión de seguridad.
 - **Vigila la humedad:** si aparecen condensaciones o moho tras sellar, ventila más.
 
+## Errores frecuentes al sellar
+
+- **Pegar el burlete sobre una junta vieja o sucia:** se despega a las pocas semanas y deja canales por los que sigue entrando aire. Retira antes la junta dañada y los restos de adhesivo.
+- **Usar silicona acética sobre mármol, piedra natural o metal:** puede manchar o atacar algunas superficies; la silicona neutra es la opción segura.
+- **Dejar la espuma de poliuretano a la vista:** recórtala una vez seca y cúbrela, porque se degrada con la luz.
+- **Tapar los aireadores:** en viviendas recientes, las ventanas o los cajones de persiana pueden llevar aireadores que forman parte del sistema de ventilación. No son una fuga, sino una entrada de aire prevista.
+- **Cerrar el cajón de persiana sin acceso:** la tapa debe poder abrirse para cambiar la cinta o reparar el eje.
+- **Olvidar las puertas interiores:** un burlete bajo la puerta de una estancia fría que no calientas, como un trastero o una galería, evita que su aire frío llegue a la zona que sí calientas.
+
 ## Cuánto se ahorra
 
 El ahorro depende de lo deficiente que sea la vivienda. En pisos antiguos con muchas infiltraciones, sellar ventanas, puertas y cajones de persiana puede reducir el consumo de calefacción en torno a un 5 a 15 %, con una inversión que a menudo no supera los 50 a 150 €. Es de las medidas con amortización más rápida, muchas veces en una sola temporada.
@@ -144,6 +162,14 @@ No, si tienes aparatos de gas. Son obligatorias por seguridad para evitar la acu
 ### ¿Sirven los burletes en ventanas correderas?
 
 Sí, pero con cepillos o perfiles específicos para correderas, porque los burletes de compresión dificultan el deslizamiento.
+
+### ¿Cómo quito los restos de un burlete viejo?
+
+Calienta el adhesivo con un secador de pelo para ablandarlo, despégalo con una rasqueta de plástico y limpia lo que quede con alcohol isopropílico o un quitapegamentos. Evita las cuchillas metálicas sobre PVC o aluminio lacado, porque lo rayan.
+
+### ¿Los burletes también reducen el ruido?
+
+En parte. El ruido entra con facilidad por las rendijas, así que sellarlas se nota en voces y tráfico cercano. Si el ruido es fuerte, el límite lo marcan el vidrio y la propia ventana. Consulta [ventanas eficientes](/guias/ventanas-eficientes/).
 
 ### ¿Merece la pena si voy a cambiar las ventanas pronto?
 

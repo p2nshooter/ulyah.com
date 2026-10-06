@@ -91,6 +91,28 @@ Una batería virtual con cuota mensual puede no compensar si tus excedentes sin 
 
 En muchos casos, la mejor oferta para un hogar con autoconsumo no es la que tiene el precio de compensación más alto, sino la que equilibra bien todos los conceptos según tu perfil.
 
+### Ejemplo: dos ofertas con el límite mensual aplicado
+
+Supón un hogar con el mismo precio de potencia en ambas ofertas y dos meses típicos: uno de invierno con 300 kWh comprados a la red y 80 kWh vertidos, y uno de verano con 150 kWh comprados y 350 kWh vertidos.
+
+| Mes | Oferta A (energía 0,13 €/kWh; excedentes 0,08 €/kWh) | Oferta B (energía 0,11 €/kWh; excedentes 0,05 €/kWh) |
+|---|---|---|
+| Invierno | 39,00 − 6,40 = 32,60 € | 33,00 − 4,00 = 29,00 € |
+| Verano | 19,50 − 28,00 → 0,00 € (se pierden 8,50 €) | 16,50 − 17,50 → 0,00 € (se pierde 1,00 €) |
+| Total | 32,60 € | 29,00 € |
+
+La oferta A paga mejor los excedentes, pero en verano el tope anula buena parte de esa ventaja, y en invierno, con pocos excedentes, pesa más el precio de compra. Repite la cuenta con tus doce meses reales antes de decidir.
+
+## Autoconsumo y tramos horarios
+
+Con placas, tu consumo de la red cambia de forma: en las horas centrales baja mucho y lo que compras se concentra por la tarde, por la noche y en los días nublados. Eso influye en la tarifa que te conviene:
+
+- **Con precios distintos por tramos,** las placas cubren buena parte de la punta de 10:00 a 14:00, pero no la de 18:00 a 22:00. Si puedes llevar consumos a la noche o al fin de semana, el valle te favorece.
+- **Con un precio único todo el día,** todos los kWh que compras cuestan lo mismo. Puede encajar si tu consumo nocturno es pequeño y difícil de mover.
+- **En el PVPC,** el precio cambia cada hora, y las horas de tarde y noche, cuando ya no producen las placas, suelen ser más caras que las del mediodía.
+
+Consulta [tramos horarios: punta, llano y valle](/guias/tramos-horarios-punta-llano-valle/) para ver qué consumos se pueden desplazar.
+
 ## Cómo aprovechar mejor los excedentes
 
 La forma más rentable de usar los excedentes es no tenerlos: cada kWh que consumes directamente vale el precio completo de compra más impuestos, mientras que un kWh vertido vale bastante menos.

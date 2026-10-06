@@ -53,6 +53,16 @@ Mehr zu Oberflächen in [Holz ölen, wachsen oder lackieren](/anleitungen/holz-o
 3. **Maserung nachziehen:** Mit einem feinen Retuschierstift dunklere Maserungslinien über die Reparaturstelle ziehen, damit sie sich ins Holzbild einfügt.
 4. **Oberfläche angleichen:** Nachölen, wachsen oder mit Lackstift überziehen.
 
+## Den Farbton treffen
+
+Die meisten Reparaturen fallen nicht durch ihre Form auf, sondern durch Farbe und Glanz. Diese Reihenfolge hilft:
+
+1. **Bei Tageslicht arbeiten.** Kunstlicht, besonders sehr warmes, verfälscht Holztöne.
+2. **Lieber etwas heller beginnen.** Holz besteht aus hellen und dunklen Bereichen. Fülle mit dem helleren Grundton und zeichne die dunklen Linien danach mit einem feinen Stift ein. Nachdunkeln geht leicht, aufhellen kaum.
+3. **Töne mischen:** Hartwachs in zwei benachbarten Farben lässt sich beim Schmelzen mischen, bis der Ton passt.
+4. **Glanzgrad angleichen:** Eine farblich perfekte Stelle fällt trotzdem auf, wenn sie stärker oder schwächer glänzt als die Umgebung. Bei Lack mit einem feinen Pad oder Polierpaste nacharbeiten, bei Öl die ganze Fläche dünn nachbehandeln.
+5. **Aus Abstand prüfen:** Aus einem Meter Entfernung und schräg gegen das Licht schauen, so wie man das Möbel im Alltag sieht.
+
 ## Dellen: Holz quellen lassen
 
 Eine Delle ist kein Materialverlust, sondern zusammengedrückte Holzfasern. Mit Feuchtigkeit und Wärme lassen sie sich oft wieder aufrichten. Das funktioniert am besten bei rohem, geöltem oder gewachstem Massivholz; bei Lack muss die Feuchtigkeit erst durch die Schicht.
@@ -84,6 +94,25 @@ Dunkle Flecken bedeuten, dass Wasser ins Holz eingedrungen ist und mit Gerbstoff
 3. Nach dem Trocknen schleifen und die Oberfläche neu aufbauen.
 
 Bei großen dunklen Flecken auf furnierten Möbeln ist oft ein Fachbetrieb die bessere Wahl.
+
+## Weitere Spuren aus dem Alltag
+
+| Spur | So gehst du vor |
+|---|---|
+| Kerzenwachs | Vollständig erhärten lassen, einen Eiswürfel im Gefrierbeutel auflegen, damit das Wachs spröde wird, und es mit einem Kunststoffspachtel abheben. Reste mit Möbelpolitur abnehmen, geölte Stellen dünn nachölen. |
+| Weißer Hitzefleck von einem heißen Teller | Sieht aus wie ein Wasserring und lässt sich oft genauso behandeln: zuerst mit sanfter Wärme, dann mit Politur. |
+| Brandfleck von Zigarette oder Streichholz | Oberflächliche Verfärbung mit feinem Schleifpapier abnehmen. Ist das Holz verkohlt, die schwarze Schicht vorsichtig vollständig auskratzen und die Mulde wie eine Kerbe füllen. |
+| Klebereste von Etiketten | Mit dem Haartrockner anwärmen, langsam abziehen, Reste mit etwas Möbelöl lösen und abwischen. |
+| Filzstift oder Kugelschreiber | Auf Lack zuerst mit feuchtem Tuch und etwas Spülmittel versuchen; Lösemittel nur nach Test an einer verdeckten Stelle, weil manche Lacke sich anlösen. Auf geöltem Holz ist die Farbe meist eingezogen: leicht anschleifen und nachölen. |
+
+## Sonderfall Furnier: Blasen und abgeplatzte Ecken
+
+Furnier ist oft weniger als einen Millimeter dick, Schleifen ist deshalb die letzte Wahl. Zwei typische Schäden kannst du gut selbst beheben:
+
+- **Blase im Furnier:** Mit einem scharfen Cuttermesser in Faserrichtung einen feinen Schnitt durch die Blase setzen. Mit einer Einwegspritze etwas Holzleim unter beide Hälften drücken, Backpapier auflegen und mit einer flachen Holzzulage und Zwinge oder einem Gewicht pressen, bis der Leim trocken ist. Austretenden Leim sofort abwischen.
+- **Abgeplatzte Ecke oder Kante:** Ist das Bruchstück noch da, setzt du es mit Holzleim wieder ein und fixierst es mit Malerkrepp. Fehlt es, füllst du die Stelle mit Hartwachs; größere Fehlstellen kann eine Tischlerei mit einem passenden Furnierstück schließen.
+
+Bei wertvollen oder antiken Möbeln vorher fachkundigen Rat einholen. Alte Möbel sind oft mit Glutinleim furniert, und unpassende Reparaturen mit modernen Mitteln lassen sich später schwer rückgängig machen.
 
 ## Wann die ganze Fläche erneuern?
 
@@ -151,6 +180,10 @@ Weil Öl oder Wachs frisches Holz anders färbt als gealtertes. Mit der Zeit gle
 ### Weitere Fragen aus der Praxis
 
 **Hilft Olivenöl bei Kratzern?** Kurzfristig dunkelt es helle Kratzer ab, härtet aber nicht aus und kann ranzig werden. Besser das passende Möbelöl verwenden.
+
+**Warum verschwindet meine Delle mit dem Bügeleisen nicht?** Dampf richtet nur gestauchte Fasern wieder auf. Sind die Fasern gerissen oder fehlt Holz, ist es eine Kerbe, die gefüllt werden muss. Auf Furnier mit Dampf sparsam arbeiten: Wärme und Feuchtigkeit können den Leim darunter lösen und eine Blase erzeugen.
+
+**Kann ich eine Reparatur rückgängig machen, wenn der Farbton nicht passt?** Bei Wachs ja: Die Füllung lässt sich mit einem Kunststoffspachtel wieder herausheben und durch einen besser passenden Ton ersetzen. Holzkitt muss dagegen ausgekratzt werden. Deshalb lohnt der Test an einer verdeckten Stelle.
 
 **Wie verhindere ich Kratzer durch Haustiere?** Krallen kurz halten, auf Holzböden Läufer in Laufwegen und Hartwachsöl oder Lack mit hoher Abriebfestigkeit wählen.
 

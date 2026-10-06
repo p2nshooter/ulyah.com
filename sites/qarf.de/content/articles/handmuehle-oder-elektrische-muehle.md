@@ -51,6 +51,25 @@ Achte beim Kauf auf ein solides Gehäuse, eine doppelte Lagerung der Achse, dami
 
 Achte beim Kauf auf ein echtes Kegel- oder Scheibenmahlwerk, auf einen geringen **Totraum**, also wenig Kaffee, der nach dem Mahlen in der Mühle zurückbleibt, und darauf, wie einfach du das Mahlwerk zum Reinigen erreichst.
 
+## Handmühle im Alltag: leichter und gleichmäßiger kurbeln
+
+Eine gute Handmühle macht nur Freude, wenn du sie geschickt bedienst. Diese Handgriffe sparen Kraft und machen das Ergebnis wiederholbar:
+
+1. **Nullpunkt finden:** Drehe die Einstellung bei leerer Mühle vorsichtig zu, bis sich die Kurbel nicht mehr frei drehen lässt oder die Mahlkörper leicht schleifen. Von diesem Nullpunkt aus zählst du die Klicks nach außen. So kannst du Einstellungen notieren und nach dem Reinigen wiederfinden. Drehe nicht mit Kraft weiter, wenn die Mahlkörper aufeinanderliegen.
+2. **Möglichst leer verstellen:** Mit Bohnen zwischen den Mahlkörpern lässt sich vor allem das Feinerstellen schwerer und ungenauer durchführen.
+3. **Gut abstützen:** Halte die Mühle senkrecht und drücke sie an den Oberkörper oder stütze sie auf dem Oberschenkel ab. So arbeitet der Arm, nicht das Handgelenk.
+4. **Gleichmäßig kurbeln:** Ein ruhiges Tempo ist angenehmer als ruckartige Schübe. Helle Röstungen brauchen mehr Kraft, weil die Bohnen dichter und härter sind als dunkle.
+5. **Zum Schluss abklopfen:** Ein leichter Klaps an das Gehäuse löst anhaftendes Mehl, damit es im Auffangbehälter landet.
+
+## Elektrische Mühle im Alltag: dosieren und umstellen
+
+Auch eine elektrische Mühle liefert nur dann gleichbleibende Ergebnisse, wenn du ein paar Eigenheiten kennst:
+
+- **Nach Zeit oder Gewicht:** Mühlen mit Timer geben je nach Bohne, Röstgrad und Füllstand des Behälters unterschiedliche Mengen aus. Prüfe die Menge deshalb ab und zu mit der Waage, besonders nach einem Bohnenwechsel. Modelle, die direkt nach Gewicht dosieren, nehmen dir das ab.
+- **Nach dem Verstellen kurz durchmahlen:** Im Mahlwerk und im Auswurf bleibt etwas Mehl der vorherigen Einstellung. Nach einem großen Sprung, etwa von Espresso auf Filter, mahlst du einige Gramm durch und verwirfst sie. Bei Mühlen mit wenig Totraum genügt eine kleine Menge.
+- **Feinerstellen laut Anleitung:** Manche Hersteller empfehlen, den Mahlgrad bei laufendem Motor feiner zu stellen, damit sich keine Bohnenstücke verklemmen. Die Empfehlungen unterscheiden sich, halte dich deshalb an die Anleitung deines Modells.
+- **Kabel und Standort:** Stell die Mühle auf eine feste, trockene Fläche, nicht direkt neben Spüle oder Wasserkocher. Ziehe vor jedem Griff ins Mahlwerk den Stecker.
+
 ## Einzeldosierung oder Bohnenbehälter?
 
 Viele elektrische Mühlen haben einen großen Bohnenbehälter oben. Das ist bequem, aber Bohnen, die tagelang darin liegen, verlieren Aroma. Wer häufig die Sorte wechselt oder nur wenig Kaffee trinkt, wiegt besser jede Portion ab und mahlt sie komplett durch. Dieses Vorgehen heißt Einzeldosierung. Handmühlen arbeiten automatisch so. Bei elektrischen Mühlen eignen sich dafür besonders Modelle mit wenig Totraum. Wie du Bohnen sonst lagerst, erklärt [Kaffee und Tee richtig lagern](/ratgeber/kaffee-und-tee-lagern/).
@@ -68,6 +87,18 @@ Eine elektrische Mühle kann in einer stillen Wohnung am frühen Morgen sehr lau
 | Espresso jeden Tag, eine Bohne | elektrische Espressomühle |
 | Espresso und Filter abwechselnd | elektrische Allround-Mühle mit guter Skala oder Espressomühle plus Handmühle für Filter |
 | Gelegentlich türkischer Mokka | Handmühle, die staubfein mahlen kann, siehe [Türkischer Mokka](/ratgeber/tuerkischer-mokka/) |
+
+## Typische Fehlkäufe und wie du sie vermeidest
+
+Viele Enttäuschungen entstehen nicht durch schlechte Mühlen, sondern durch Mühlen, die nicht zum Gebrauch passen.
+
+| Fehlkauf | Warum er enttäuscht | Besser |
+|---|---|---|
+| Mühle mit Schlagmesser | zerschlägt Bohnen ungleichmäßig, viel Staub neben groben Stücken | Kegel- oder Scheibenmahlwerk |
+| Handmühle mit wackelnder Achse | Mahlkörper laufen unruhig, das Mehl wird ungleichmäßig | doppelt gelagerte Achse |
+| Filtermühle für Espresso | Einstellschritte zu grob, der Bezug lässt sich nicht fein justieren | Mühle mit feiner oder stufenloser Espressoeinstellung |
+| großes Gerät für eine Tasse am Tag | Bohnen veralten im Behälter, Platz geht verloren | Handmühle oder Mühle für Einzeldosierung |
+| Kauf nach Zahl der Mahlstufen | viele Stufen sagen wenig, wenn sie im wichtigen Bereich grob verteilt sind | prüfen, wie fein die Schritte im Bereich deiner Zubereitung sind |
 
 ## Pflege ist bei beiden gleich wichtig
 
@@ -94,6 +125,10 @@ Nicht grundsätzlich. Eine sehr gute elektrische Mühle mahlt mindestens so glei
 ### Kann ich mit einer Handmühle Espresso mahlen?
 
 Ja, viele gute Handmühlen schaffen den feinen Espressomahlgrad. Es dauert aber länger und kostet Kraft. Für gelegentlichen Espresso ist das gut machbar, für mehrere Bezüge täglich auf Dauer anstrengend.
+
+### Lohnt sich eine Handmühle als Zweitmühle?
+
+Oft ja. Wer an der elektrischen Espressomühle nicht ständig zwischen Espresso- und Filtermahlgrad wechseln will, spart sich mit einer Handmühle für Filter das Umstellen, Durchmahlen und erneute Einstellen. Außerdem hast du eine Mühle für Reisen und für den Fall, dass die elektrische einmal ausfällt.
 
 ### Erwärmt eine elektrische Mühle den Kaffee?
 

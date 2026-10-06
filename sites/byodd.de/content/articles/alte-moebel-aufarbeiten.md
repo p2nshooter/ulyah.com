@@ -30,6 +30,17 @@ Bevor du loslegst, prüfe:
 
 Manchmal reicht eine gründliche Reinigung mit anschließendem Auffrischen durch Öl oder Wachs, und das Möbel sieht schon fast wie neu aus.
 
+### Muffiger Geruch in Schränken und Schubladen
+
+Alte Schränke riechen oft nach Keller oder Dachboden. Der Geruch sitzt im offenporigen, unbehandelten Holz der Innenflächen und Schubkästen.
+
+1. **Lüften:** Türen auf, Schubladen heraus, das Möbel einige Tage an einem trockenen, luftigen Ort stehen lassen. Pralle Sonne meiden, sie bleicht Holz und Oberflächen aus.
+2. **Auswischen** mit Wasser und einem Schuss Essig, danach vollständig trocknen lassen.
+3. **Gerüche binden:** Eine offene Schale mit Natron, Kaffeepulver oder Aktivkohle für einige Tage hineinstellen und den Inhalt regelmäßig erneuern.
+4. **Versiegeln, wenn nichts hilft:** Ein dünner Anstrich mit Schellack auf den Innenflächen schließt verbleibende Gerüche ein und trocknet schnell.
+
+Riecht es eindeutig nach Schimmel oder sind Flecken zu sehen, geht es um mehr als Geruch: Die Stelle genau prüfen und befallenes Holz nicht in der Wohnung abschleifen.
+
 ## Schritt 3: Reparieren
 
 ### Lockere Verbindungen
@@ -49,6 +60,15 @@ Manchmal reicht eine gründliche Reinigung mit anschließendem Auffrischen durch
 - **Kleine Löcher und Kratzer** mit Holzkitt in passender Farbe füllen.
 - **Größere Ausbrüche an Kanten** mit einem eingeleimten Holzstück ergänzen und bündig schleifen.
 - **Abgelöstes Furnier** mit Holzleim unterlegen und mit Zwinge und einer Zulage pressen.
+
+### Holzwurmlöcher
+
+Kleine runde Ausfluglöcher bedeuten nicht automatisch, dass der Holzwurm noch aktiv ist. Viele alte Möbel tragen Spuren eines Befalls, der seit Jahrzehnten erloschen ist.
+
+- **Test:** Das Möbel gründlich absaugen und für einige Wochen dunkles Papier unter die betroffenen Stellen legen. Rieselt erneut feines, helles Bohrmehl heraus oder entstehen neue Löcher mit hellen Rändern, ist der Befall aktiv.
+- **Alter Befall:** Löcher mit Hartwachs in passender Farbe schließen, fertig.
+- **Aktiver Befall:** Das Stück nicht neben andere Holzmöbel stellen. Fachbetriebe bieten eine Wärmebehandlung an, die ohne Chemie auskommt. Chemische Holzschutzmittel nur streng nach Gebrauchsanweisung, gut belüftet und nicht auf Flächen mit Haut- oder Lebensmittelkontakt einsetzen.
+- **Stark zerfressene Teile** wie Füße oder Leisten verlieren Festigkeit und müssen eventuell ersetzt werden.
 
 ## Schritt 4: Alte Oberfläche bearbeiten
 
@@ -104,6 +124,20 @@ Ein beliebter Stil: Korpus gestrichen, Deckplatte und Schubladenfronten in Natur
 - **Schubladen innen auskleiden** mit Papier oder Stoff.
 - **Füße austauschen:** Konische Holzfüße oder Metallfüße geben einer Kommode ein leichtes, modernes Aussehen.
 - **Rückwand streichen:** Ein Regal oder offener Schrank wirkt mit farbiger Rückwand völlig anders.
+
+## Sonderfall Stuhl: Sitzpolster neu beziehen
+
+Ein durchgesessenes oder fleckiges Polster lässt jeden Stuhl alt aussehen, auch wenn das Gestell tadellos ist. Bei Stühlen mit aufgelegter Sitzplatte ist das Neubeziehen ein Projekt für einen Nachmittag.
+
+1. **Sitzplatte lösen:** Stuhl umdrehen; die Platte ist meist von unten mit einigen Schrauben befestigt.
+2. **Alten Bezug entfernen:** Tackerklammern mit einem Klammerheber oder flachen Schraubendreher heraushebeln. Den alten Stoff aufheben, er ist eine gute Schablone.
+3. **Polsterung prüfen:** Bröseliger oder platt gesessener Schaumstoff wird ersetzt. Für Sitzflächen eignet sich fester Polsterschaum; eine dünne Lage Polstervlies darüber macht die Kanten weich.
+4. **Stoff zuschneiden:** Sitzfläche plus ringsum etwa 5 bis 8 cm zum Umschlagen. Möbelstoffe halten deutlich mehr aus als Dekostoffe.
+5. **Von der Mitte aus tackern:** Zuerst je eine Klammer in der Mitte jeder Seite setzen und den Stoff dabei gleichmäßig spannen, dann zu den Ecken hin arbeiten. Muster und Fadenlauf gerade ausrichten.
+6. **Ecken falten** wie bei einem Geschenk, überschüssigen Stoff innen abschneiden und festtackern.
+7. **Unterseite abdecken** mit einem Stück Staubschutzstoff, dann die Platte wieder anschrauben.
+
+Geflochtene Sitzflächen aus Rohr oder Binsen und gefederte Polster sind ein eigenes Handwerk. Hier lohnt die Anfrage bei einem Polsterer oder Stuhlflechter.
 
 ## Beispielprojekt: Eine Kommode aus den 1970ern
 
@@ -164,6 +198,14 @@ Eine Kommode braucht meist zwei Wochenenden, vor allem wegen der Trocknungszeite
 ### Lohnt sich Aufarbeiten finanziell?
 
 Bei Massivholzmöbeln fast immer. Bei sehr günstigen Möbeln aus Spanplatte ist der Aufwand manchmal höher als der Nutzen.
+
+### Kann ich eine alte Schellackoberfläche auffrischen statt sie zu entfernen?
+
+Oft ja. Ist die Schicht nur matt, verschmutzt oder fein verkratzt, genügt eine gründliche Reinigung und anschließendes Aufpolieren mit Schellackpolitur. Das erhält Charakter und Wert eines alten Stücks. Die Technik braucht Übung, deshalb zuerst an einer verdeckten Stelle probieren und bei wertvollen Möbeln einen Restaurator fragen.
+
+### Wohin mit Resten von Abbeizer, Lack und Verdünnung?
+
+Flüssige Reste gehören weder in den Ausguss noch in den Hausmüll, sondern zur Schadstoffsammlung der Kommune. Wie leere oder vollständig eingetrocknete Dosen entsorgt werden, regelt der örtliche Entsorger.
 
 ## Fazit
 

@@ -38,6 +38,17 @@ Con tu CUPS puedes registrarte en la web de tu distribuidora y descargar el cons
 | Potencia incorrecta | Potencia distinta a la contratada |
 | Bono social no aplicado | Descuento que no aparece tras su aprobación |
 
+## Cómo recalcular tú mismo el importe
+
+Con una regularización tras lecturas estimadas, puedes calcular tú mismo cuánto reclamar:
+
+1. **Toma dos lecturas reales:** la última real antes de las estimaciones y la nueva. La diferencia es el consumo verdadero de todo el periodo.
+2. **Suma los kWh ya cobrados** en las facturas estimadas intermedias.
+3. **Resta:** el resultado son los kWh que quedaban por facturar. Si la regularización cobra más, hay un error.
+4. **Comprueba el precio** aplicado a esos kWh. Si tienes precios distintos por tramos horarios, haz la cuenta para cada periodo.
+
+Por ejemplo, entre una lectura real de 10.250 kWh y otra de 11.090 kWh hay 840 kWh. Si las facturas estimadas ya cobraron 510 kWh, la regularización debería facturar 330 kWh. Si factura 450, reclamas 120 kWh multiplicados por tu precio, más los impuestos correspondientes.
+
 ## A quién reclamar
 
 - **A la comercializadora:** por precios, condiciones del contrato, servicios añadidos, cobros indebidos y cualquier aspecto de la factura.
@@ -103,6 +114,12 @@ Pueden orientarte y, en algunos casos, representarte.
 
 Para importes elevados o casos complejos, siempre queda la vía judicial. En reclamaciones de poca cuantía, el juicio verbal no requiere abogado ni procurador por debajo de determinados importes.
 
+## Errores que debilitan una reclamación
+
+- **No concretar qué pides.** "Revisen mi factura" da pie a una respuesta genérica; "emitan una factura rectificativa descontando 120 kWh" obliga a contestar sobre eso.
+- **Mezclar varios problemas** sin separar importes. Dedica un apartado a cada error, con su prueba.
+- **Devolver el recibo domiciliado sin avisar.** La empresa puede tratarlo como un impago. Es preferible pagar la parte no discutida y explicarlo por escrito en la reclamación.
+
 ## Casos especiales
 
 ### Facturas tras un cambio de comercializadora
@@ -116,6 +133,17 @@ Si durante meses se estimó el consumo y luego llega una lectura real, la regula
 ### Contratos o servicios no solicitados
 
 Si te han cambiado de compañía o te han añadido servicios sin tu consentimiento, reclama la anulación y la devolución. Las prácticas comerciales engañosas pueden denunciarse ante consumo.
+
+### Aparatos dañados por subidas de tensión o cortes
+
+Si una subida de tensión o un corte en la red estropea electrodomésticos, la reclamación se dirige a la **distribuidora**, responsable de la calidad del suministro. Para que prospere:
+
+- Anota la fecha y la hora del incidente y si afectó también a tus vecinos.
+- Conserva los aparatos dañados y pide un **informe técnico** que indique la causa probable de la avería.
+- Reúne las facturas de reparación o de compra del aparato sustituto.
+- Revisa tu seguro de hogar, porque muchos cubren los daños eléctricos.
+
+La normativa también fija límites al número y a la duración de las interrupciones de suministro, y superarlos da derecho a un descuento en la factura. Si sufres cortes frecuentes, pide información por escrito a tu distribuidora.
 
 ## Caso práctico: un servicio de mantenimiento que nadie pidió
 

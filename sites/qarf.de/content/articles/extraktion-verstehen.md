@@ -36,6 +36,10 @@ Ein Kaffee kann also stark und unterextrahiert sein, etwa ein zu kurz gezogener,
 
 **Die Stärke** steuerst du vor allem über das Verhältnis von Kaffee zu Wasser. **Die Extraktion** steuerst du vor allem über Mahlgrad, Zeit und Temperatur.
 
+### Stärke nachträglich anpassen
+
+Weil Stärke und Extraktion getrennte Dinge sind, kannst du die Stärke auch nach dem Brühen noch verändern. Ist ein Kaffee gut extrahiert, also süß und ausgewogen, aber zu intensiv, gieß etwas heißes Wasser dazu. Baristas nennen das Bypass, weil dieses Wasser am Kaffeemehl vorbeigeht. Der Americano, ein mit heißem Wasser verlängerter Espresso, folgt derselben Idee. Umgekehrt funktioniert es nicht: Einen dünnen, sauren Kaffee machst du durch längeres Warmhalten nicht kräftiger, nur bitterer. Hier hilft nur, beim nächsten Brühen mehr Kaffee zu nehmen oder feiner zu mahlen.
+
 ## Die sechs Stellschrauben
 
 ### 1. Mahlgrad
@@ -61,6 +65,27 @@ Umrühren, Schwenken und kräftiges Gießen bringen frisches Wasser an das Mehl 
 ### 6. Wasser
 
 Mineralien im Wasser binden Aromastoffe und helfen beim Lösen. Sehr weiches Wasser kann den Kaffee flach und spitz wirken lassen, sehr hartes stumpf und kreidig, weil Karbonat die Säure dämpft. Mehr in [Wasserhärte für Kaffee und Tee](/ratgeber/wasserhaerte-fuer-kaffee-und-tee/).
+
+## Perkolation und Immersion: zwei Arten zu extrahieren
+
+Grundsätzlich gibt es zwei Wege, Kaffee zu brühen. Bei der **Perkolation** läuft Wasser durch ein Kaffeebett, etwa im Handfilter, in der Filtermaschine oder beim Espresso. Ständig kommt frisches Wasser nach, das noch kaum gelöste Stoffe enthält und deshalb kräftig weiterlöst. Das ist effizient, hängt aber stark davon ab, wie gleichmäßig das Wasser durch das Bett fließt.
+
+Bei der **Immersion** liegen Kaffee und Wasser die ganze Zeit zusammen, wie in der French Press oder beim Cold Brew. Je mehr sich bereits gelöst hat, desto langsamer geht es weiter, weil das Wasser schon mit Kaffeestoffen angereichert ist. Das macht Immersion fehlertoleranter: Eine Minute mehr oder weniger in der French Press fällt meist weniger ins Gewicht als ein deutlich veränderter Durchlauf am Handfilter.
+
+Daraus folgt eine praktische Regel. Bei Perkolation ist der Mahlgrad dein Hauptwerkzeug, weil er zugleich die Oberfläche und die Durchflusszeit bestimmt. Bei Immersion kannst du Mahlgrad und Zeit unabhängig voneinander einstellen.
+
+## Wo du bei welcher Methode zuerst ansetzt
+
+| Methode | Prinzip | Erste Stellschraube | Typischer Stolperstein |
+|---|---|---|---|
+| Handfilter | Perkolation | Mahlgrad | ungleichmäßiges Gießen, schiefes Kaffeebett |
+| Filtermaschine | Perkolation | Dosierung, danach Mahlgrad | zu wenig Kaffee, zu lange Warmhalteplatte |
+| Siebträger | Perkolation unter Pumpendruck | Mahlgrad bei fester Dosis und Ausbeute | Channeling durch ungleichmäßiges Verteilen und Tampen |
+| Espressokocher | Perkolation, angetrieben vom Dampfdruck | Hitze, danach Mahlgrad | zu starke Hitze, bitterer Nachlauf am Ende |
+| French Press | Immersion | Ziehzeit, danach Mahlgrad | Feinanteil, Kaffee bleibt nach dem Pressen in der Kanne |
+| Cold Brew | Immersion in kaltem Wasser | Ziehzeit | zu kurz angesetzt oder zu fein gemahlen |
+
+Die passenden Anleitungen findest du in [Handfilter](/ratgeber/handfilter-kaffee-anleitung/), [Espresso mit dem Siebträger](/ratgeber/siebtraeger-espresso-grundlagen/), [Espressokocher richtig benutzen](/ratgeber/espressokocher-anleitung/) und [French Press](/ratgeber/french-press-anleitung/).
 
 ## Gleichmäßigkeit: der versteckte Faktor
 
@@ -100,6 +125,10 @@ Nein. Baristas messen mit einem Refraktometer die gelösten Stoffe in der Tasse 
 ### Warum schmeckt mein Kaffee immer bitter, egal was ich mache?
 
 Häufige Ursachen sind sehr dunkle Röstungen, eine schmutzige Mühle oder Maschine, Kaffee, der zu lange auf der Warmhalteplatte stand, oder zu wenig Kaffee bei viel Wasser. Prüfe diese Punkte, bevor du am Mahlgrad drehst.
+
+### Kann ich mit Milch und Zucker probieren?
+
+Zum Einstellen besser nicht. Milch dämpft Bitterkeit und Säure, Zucker überdeckt vor allem die Säure. Ein unterextrahierter Kaffee wirkt mit Zucker deshalb schnell ganz in Ordnung. Probiere die ersten Schlucke schwarz, entscheide, was du beim nächsten Mal änderst, und gib erst dann Milch oder Zucker dazu.
 
 ### Gilt das auch für Tee?
 

@@ -40,6 +40,16 @@ Leimholzplatten bestehen aus schmalen Massivholzstreifen, die miteinander verlei
 - **Einsatz:** Regalbretter, Tischplatten, Arbeitsplatten, Möbelbau.
 - **Varianten:** Durchgehende Lamellen (ruhigere Optik) oder keilgezinkte Lamellen (günstiger, unruhigere Optik).
 
+## Wie Massivholz arbeitet und was das für dein Projekt heißt
+
+Holz nimmt Feuchtigkeit aus der Luft auf und gibt sie wieder ab. Dabei quillt und schwindet es sehr ungleich: In Faserrichtung, also entlang des Bretts, ändert sich die Länge kaum, quer dazu, in der Breite, deutlich. Daraus ergeben sich drei praktische Regeln:
+
+1. **Breite Platten nicht starr einspannen.** Eine Tischplatte, die rundum fest auf die Zarge geschraubt ist, kann reißen oder sich verwerfen. Befestige sie durch Langlöcher oder mit Winkeln, die eine kleine Bewegung quer zur Faser zulassen.
+2. **Quer zur Faser nichts vollflächig verleimen.** Eine Leiste, die quer über eine breite Massivholzplatte geleimt wird, behindert das Arbeiten. Besser schrauben, ebenfalls mit Langlöchern.
+3. **Auf die Jahresringe schauen.** Am Hirnholz siehst du, wie ein Brett aus dem Stamm geschnitten wurde. Stehende Jahresringe, die steil durch die Brettstärke laufen, sprechen für ein ruhiges Brett. Flach liegende Ringe neigen dazu, sich quer zu wölben.
+
+Leimholz verzieht sich weniger als ein breites Einzelbrett, quillt und schwindet in der Breite aber wie Massivholz. Bei Multiplex heben sich die Bewegungen durch die kreuzweise verleimten Lagen weitgehend auf.
+
 ## Holzwerkstoffe
 
 | Werkstoff | Aufbau | Eigenschaften | Einsatz |
@@ -55,6 +65,15 @@ Leimholzplatten bestehen aus schmalen Massivholzstreifen, die miteinander verlei
 
 Spanplatte und MDF quellen bei Nässe stark auf. Für Bäder und Küchen gibt es feuchtebeständige Varianten (meist grün eingefärbt). Kanten müssen versiegelt sein.
 
+## Holzwerkstoffe richtig sägen, schrauben und beschichten
+
+- **Beschichtete Spanplatte:** Die Beschichtung splittert beim Sägen leicht aus. Klebe Malerkrepp auf die Schnittlinie und nimm ein feines Sägeblatt. Stichsäge und Handkreissäge reißen an der Oberseite aus, deshalb liegt die schöne Seite bei ihnen unten.
+- **Schrauben in Plattenkanten:** In Spanplatte und MDF spalten Schrauben die Kante leicht auf. Setze sie mittig in die Kante, mit genug Abstand zu den Ecken, und bohre vor.
+- **MDF:** Schnittkanten saugen Lack wie ein Schwamm und werden rau. Kanten grundieren, trocknen lassen, fein schleifen und erst dann lackieren. MDF-Staub ist sehr fein: mit Absaugung arbeiten und eine FFP2-Maske tragen.
+- **Multiplex:** Die Kanten dürfen sichtbar bleiben und werden nur fein geschliffen. Quer zur Faser der Decklage mit feinem Blatt sägen, sonst fransen die Furnierlagen aus.
+- **OSB:** Die Oberfläche ist rau und kann splittern. Für Möbel die Kanten brechen und die Flächen anschleifen, bevor du ölst oder lackierst.
+- **Offene Spanplattenkanten** mit Umleimer, einem aufbügelbaren Kantenstreifen, abdecken. So sehen sie sauber aus und nehmen weniger Feuchtigkeit auf.
+
 ## Welches Holz für welches Projekt?
 
 | Projekt | Empfehlung |
@@ -68,6 +87,17 @@ Spanplatte und MDF quellen bei Nässe stark auf. Für Bäder und Küchen gibt es
 | Kinderzimmermöbel | Multiplex, Buche oder Kiefer mit speichelechter Oberfläche |
 | Gartenmöbel, Hochbeete | Lärche, Douglasie, oder druckimprägniertes Holz |
 | Terrasse | Lärche, Douglasie, Thermoholz oder Hartholz aus zertifizierter Forstwirtschaft |
+
+## Holz für draußen: Konstruktion schlägt Anstrich
+
+Wie lange eine Gartenbank oder ein Pflanzkasten hält, hängt weniger vom Anstrich ab als davon, ob Wasser schnell wieder abtrocknen kann. Diese Grundsätze des konstruktiven Holzschutzes kosten fast nichts:
+
+- **Abstand zum Boden:** Holz nicht direkt auf Erde oder Rasen stellen, sondern auf Steine, Füße oder Pfostenträger.
+- **Wasser ablaufen lassen:** Oberseiten leicht schräg ausführen, Kanten brechen und zwischen Latten schmale Fugen lassen, damit sich keine Pfützen bilden.
+- **Hirnholz schützen:** Stirnseiten saugen Wasser besonders schnell auf. Oben liegendes Hirnholz schräg abschneiden oder mit einer Abdeckleiste schützen.
+- **Luft an alle Seiten:** Wo Holz an Wände oder Erde grenzt, für einen Luftspalt sorgen, etwa mit Abstandshaltern oder Noppenfolie, damit sich keine Feuchtigkeit staut.
+
+Auch von Natur aus witterungsbeständige Hölzer wie Lärche profitieren spürbar davon.
 
 ## Worauf du beim Kauf achtest
 
@@ -136,6 +166,10 @@ Ja, wenn es trocken genug ist. Bauholz ist oft feuchter und rauer. Für Möbel l
 ### Riecht OSB im Wohnraum?
 
 Neue OSB-Platten können anfangs nach Holz und Leim riechen. Emissionsarme Platten wählen und gut lüften.
+
+### Was bedeuten „sägerau“, „gehobelt“ und „KVH“?
+
+Sägerau heißt: direkt vom Sägewerk, mit rauer Oberfläche und oft ungenauen Maßen, gut für verdeckte Unterkonstruktionen. Gehobeltes Holz hat glatte Flächen und gleichmäßige Maße und eignet sich für Möbel. KVH steht für Konstruktionsvollholz: technisch getrocknetes, meist gehobeltes Bauholz, das sich weniger verzieht als einfaches Bauholz und auch für sichtbare Gestelle taugt.
 
 ## Häufige Fragen
 

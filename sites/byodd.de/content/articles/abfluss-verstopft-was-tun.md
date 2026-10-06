@@ -17,6 +17,20 @@ Diese Anleitung zeigt, wie du Verstopfungen Schritt für Schritt beseitigst, vom
 | Küchenspüle | Fett, Speisereste, Kaffeesatz |
 | Toilette | Zu viel Papier, Feuchttücher, Hygieneartikel |
 
+## Erst eingrenzen: Wo sitzt die Verstopfung?
+
+Eine Minute Beobachtung spart oft eine Stunde Arbeit. Lass nacheinander an allen Abflüssen in der Nähe etwas Wasser laufen und achte darauf, wie es abfließt:
+
+| Beobachtung | Wahrscheinliche Stelle | Hier anfangen |
+|---|---|---|
+| Nur ein Becken läuft langsam ab, alle anderen normal | Sieb, Stopfen oder Siphon dieses Beckens | Schritt 1, dann Schritt 5 |
+| Wasser fließt anfangs gut ab und staut sich dann | Verengung im Siphon oder kurz dahinter | Siphon reinigen, dann Spirale |
+| Waschbecken und Dusche im selben Bad sind beide träge | Gemeinsames Abflussrohr in der Wand | Spirale über das Waschbecken |
+| Beim Abpumpen der Spülmaschine steigt Wasser in der Spüle hoch | Küchensiphon oder Leitung dahinter | Siphon der Spüle |
+| Toilette, Dusche und Waschbecken gleichzeitig betroffen | Fallleitung oder Hausanschluss | Vermieter oder Fachbetrieb |
+
+Je mehr Abflüsse betroffen sind, desto tiefer im Leitungsnetz sitzt das Problem und desto weniger bringen Mittel, die man von oben in ein einzelnes Becken gibt.
+
 ## Schritt 1: Siebe und Stöpsel reinigen
 
 Oft sitzt die Verstopfung direkt unter dem Abflusssieb.
@@ -26,6 +40,17 @@ Oft sitzt die Verstopfung direkt unter dem Abflusssieb.
 3. **Mit einem Haarfänger aus Kunststoff** (eine dünne Leiste mit Widerhaken, sehr günstig) in den Abfluss fahren und Haarknäuel herausziehen.
 
 Bei Duschen und Badewannen ist das oft schon die Lösung.
+
+### Stopfen mit Zugstange ausbauen
+
+Viele Waschbecken haben eine Ablaufgarnitur mit Zugknopf hinter dem Wasserhahn. Der Stopfen sitzt dann auf einem waagerechten Hebel, der von hinten in das Ablaufrohr greift, und lässt sich nicht einfach herausziehen.
+
+1. **Unter das Becken schauen:** Hinten am senkrechten Ablaufrohr sitzt eine kleine Überwurfmutter, aus der der waagerechte Hebel kommt.
+2. **Mutter von Hand lösen** und den Hebel einige Zentimeter herausziehen. Ein Tuch unterlegen, es tropft etwas.
+3. **Stopfen nach oben herausnehmen** und die Haare und den Seifenschlamm abstreifen, die sich meist am unteren Teil festsetzen.
+4. **Beim Einbau** den Hebel wieder durch die Öse am Stopfen führen, sonst lässt sich der Stopfen nicht mehr bedienen. Mutter handfest anziehen und auf Tropfen prüfen.
+
+Bei Badewannen sitzt der Ventilstopfen im Wannenboden und wird über einen Drehgriff am Überlauf bedient. Bei vielen Modellen lässt er sich herausdrehen oder nach oben abziehen; darunter hängen oft Haare am Ventilkörper.
 
 ## Schritt 2: Heißes Wasser und Spülmittel
 
@@ -96,6 +121,17 @@ Mechanische Methoden sind in fast allen Fällen wirksamer und sicherer.
 4. **Toilettenspirale** für tiefere Verstopfungen.
 5. Wenn nichts hilft oder mehrere Abflüsse gleichzeitig betroffen sind, liegt das Problem wahrscheinlich in der Hauptleitung. Dann den Vermieter oder einen Rohrreinigungsdienst informieren.
 
+## Spülmaschine oder Waschmaschine pumpt nicht ab
+
+Bleibt Wasser in der Spülmaschine stehen oder meldet die Waschmaschine einen Fehler beim Abpumpen, liegt das nicht immer am Hausabfluss. Prüfe in dieser Reihenfolge:
+
+1. **Gerät ausschalten und Netzstecker ziehen.** Nach einem heißen Programm das Wasser erst abkühlen lassen.
+2. **Sieb im Gerät reinigen:** Die Spülmaschine hat am Boden des Spülraums eine herausdrehbare Siebkombination. Die Waschmaschine hat meist hinter einer Klappe unten an der Front ein Flusensieb. Dort vorher das Restwasser über den kleinen Notentleerungsschlauch in eine flache Schale ablassen und Handtücher unterlegen. Typische Fundstücke sind Münzen, Haarklammern und Knöpfe.
+3. **Ablaufschlauch prüfen:** Er darf nicht geknickt oder hinter dem Gerät eingeklemmt sein.
+4. **Anschluss am Siphon:** Spülmaschinen hängen oft am Geräteanschluss des Küchensiphons. Ist dieser Siphon zugesetzt, steigt das Abpumpwasser in der Spüle hoch; dann hilft Schritt 5.
+
+**Typischer Fehler nach einem Siphontausch:** Manche Siphons werden mit verschlossenem Geräteanschluss geliefert. Wird der Verschluss vor dem Anschließen nicht entfernt, kann das Gerät nicht abpumpen.
+
 ## Wann der Profi kommen sollte
 
 - Mehrere Abflüsse in der Wohnung sind gleichzeitig verstopft.
@@ -104,6 +140,17 @@ Mechanische Methoden sind in fast allen Fällen wirksamer und sicherer.
 - Es riecht dauerhaft nach Kanalisation.
 
 In Mehrfamilienhäusern betrifft das oft die gemeinsamen Leitungen, für die der Vermieter oder die Hausverwaltung zuständig ist.
+
+## Häufige Fehler beim Freimachen
+
+| Fehler | Folge | Besser |
+|---|---|---|
+| Bei abgebautem Siphon aus Gewohnheit den Hahn aufdrehen | Wasser läuft in den Unterschrank | Eckventile schließen oder einen Zettel an den Hahn kleben |
+| Spirale ohne Kurbeln mit Kraft vorschieben | Spirale knickt, Rohrbögen leiden | Gleichmäßig drehen, wenig Druck |
+| Verschiedene Reiniger kombinieren | Heftige Reaktionen, gefährliche Dämpfe | Mechanisch arbeiten |
+| Nach einem Rohrreiniger pümpeln | Ätzende Spritzer im Gesicht | Erst gründlich spülen, Schutzbrille tragen |
+| Dichtungen verkantet oder vergessen | Siphon tropft | Vor dem Abbau fotografieren |
+| Spirale nass weggeräumt | Rost, beim nächsten Mal schwergängig | Abspülen, trocknen, leicht einölen |
 
 ## Vorbeugen
 
@@ -162,6 +209,10 @@ Bei normaler Nutzung einmal im Jahr, in Küchen mit viel Fett häufiger.
 ### Was kostet ein Rohrreinigungsdienst?
 
 Je nach Region, Uhrzeit und Aufwand von etwa 100 € bis deutlich mehr. Notdienste am Wochenende sind teuer; Preise vorher erfragen.
+
+### Mir ist ein Ring in den Abfluss gefallen. Was jetzt?
+
+Sofort kein Wasser mehr laufen lassen. Schwere Kleinteile bleiben meist im Siphon liegen, weil dort Wasser steht. Eimer unterstellen, Siphon abbauen und den Inhalt in einer Schüssel durchsuchen. Bei Duschen lohnt ein Blick in den herausnehmbaren Geruchsverschluss.
 
 ### Weitere Fragen aus der Praxis
 

@@ -83,6 +83,21 @@ Los valores son orientativos para aparatos de eficiencia media y un uso habitual
 | Iluminación LED de toda la casa | 50 a 150 W encendidos | 100 a 250 kWh |
 | Aparatos en espera (standby) | 20 a 60 W en total | 150 a 500 kWh |
 
+## Cuánto cuesta cada uso
+
+Con un precio de 0,20 €/kWh, esto cuesta cada uso:
+
+| Uso | Energía orientativa | Coste aproximado |
+|---|---|---|
+| Hervir 1 litro con hervidor (2.000 W, unos 3 minutos) | 0,1 kWh | 2 céntimos |
+| Una hora de horno a 180 °C (2.400 W con termostato) | 1 a 1,5 kWh | 20 a 30 céntimos |
+| Una hora de aire acondicionado a ritmo medio (unos 800 W) | 0,8 kWh | 16 céntimos |
+| Una hora de radiador eléctrico a plena potencia (1.500 W) | 1,5 kWh | 30 céntimos |
+| Una hora de televisor de 55 pulgadas (unos 100 W) | 0,1 kWh | 2 céntimos |
+| Ventilador toda la noche (50 W, 8 horas) | 0,4 kWh | 8 céntimos |
+
+Una noche de ventilador cuesta lo mismo que media hora de aire acondicionado, y una hora de radiador, lo que quince horas de televisión: lo que produce calor o frío es lo que pesa.
+
 ## Los grandes consumidores
 
 En la mayoría de hogares sin calefacción eléctrica, los aparatos que más pesan en la factura son:
@@ -92,6 +107,12 @@ En la mayoría de hogares sin calefacción eléctrica, los aparatos que más pes
 3. **La climatización:** aire acondicionado en verano y calefactores en invierno.
 4. **La secadora de resistencia.**
 5. **El consumo en espera** acumulado de muchos aparatos. Consulta [consumo en standby](/guias/consumo-en-standby/).
+
+## Resistencia o bomba de calor: la regla que más ahorra
+
+Los grandes consumos de una casa suelen venir de aparatos que calientan con una **resistencia**: termo, radiadores, calefactores, secadora convencional y horno. Una resistencia convierte cada kWh en, como mucho, un kWh de calor. Una **bomba de calor** toma calor del aire y entrega varias veces la energía que consume: es el principio del aire acondicionado con bomba de calor, la [aerotermia](/guias/aerotermia/), la secadora de bomba de calor y el termo con bomba de calor.
+
+Cuando toque sustituir uno de estos aparatos, pregunta primero si existe una versión con bomba de calor; en la tabla de lavado, la secadora de bomba de calor gasta en torno a la mitad que la de resistencia. En el horno o el hervidor no hay esa alternativa, y lo que ahorra es el uso: menos tiempo y raciones ajustadas.
 
 ## Cómo medir el consumo real
 
@@ -114,6 +135,12 @@ Las tablas dan una idea, pero cada aparato y cada hogar son distintos. Para cono
 | Horno | Evitar precalentar sin necesidad, aprovechar el calor residual |
 | Televisor y consola | Apagar del todo, ajustar brillo |
 | Aire acondicionado | 25 a 27 °C, protección solar, filtros limpios |
+
+## Cuándo merece la pena sustituir un aparato
+
+Resta al consumo medido de tu aparato el consumo anual del modelo nuevo, que indica su etiqueta, y multiplica la diferencia por tu precio del kWh: es el ahorro anual. Divide el precio del aparato nuevo entre ese ahorro y sabrás en cuántos años se paga.
+
+La sustitución anticipada suele compensar en aparatos que funcionan todo el año, como frigoríficos y congeladores antiguos. En los de poco uso, como un horno que se enciende dos veces al mes, lo razonable es esperar a que se estropee. Y el segundo frigorífico o el arcón casi vacío del garaje tienen la solución más barata: desconectarlos.
 
 ## Caso práctico: auditoría casera en una tarde
 

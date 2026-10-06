@@ -113,6 +113,22 @@ Es el caso más fácil y rentable: basta con extender una capa gruesa de aislant
 
 La **conductividad térmica** (λ) indica la capacidad aislante de un material: cuanto más baja, mejor aísla. Para comparar soluciones, fíjate en la **resistencia térmica** resultante (R), que depende del material y del espesor.
 
+## Antes de elegir: qué tiene tu edificio
+
+La técnica adecuada depende de cómo está construido el edificio, y buena parte se puede averiguar antes de pedir presupuestos:
+
+- **Proyecto original:** el administrador de fincas o el archivo municipal pueden conservar planos y memoria con la composición de fachadas y cubierta.
+- **Año de construcción:** un edificio anterior a la primera normativa térmica rara vez tiene aislamiento, uno de los años 80 o 90 suele tener poco y uno construido con el Código Técnico parte de un nivel razonable, así que en él las mejoras rentables son más puntuales.
+- **Termografía en invierno:** señala pilares, frentes de forjado y cajones de persiana fríos, y ayuda a decidir por dónde empezar.
+- **Humedades:** manchas, salitre o pintura desconchada deben diagnosticarse y resolverse antes de aislar. Cubrir un muro húmedo con aislante agrava el problema.
+
+## Errores habituales al aislar
+
+- **Olvidar los encuentros con las ventanas:** si el aislamiento no llega hasta el marco, jambas y alféizares quedan como puntos fríos con riesgo de condensación. Lo ideal es coordinar el SATE con el cambio de ventanas o, al menos, envolver bien los huecos.
+- **Tratar el zócalo como el resto de la fachada:** la franja inferior recibe golpes y humedad del suelo; suele resolverse con un aislante resistente al agua, como el XPS, y un acabado reforzado.
+- **No revisar la ventilación después de la obra:** una vivienda aislada y con ventanas nuevas es más hermética; si no se renueva el aire, la humedad interior sube.
+- **Comparar solo el precio por metro cuadrado:** pide en cada presupuesto la resistencia térmica final, los detalles de remates incluidos y las garantías.
+
 ## Cuánto se ahorra
 
 El ahorro en calefacción y aire acondicionado al aislar la envolvente depende del punto de partida y del clima. Algunas referencias orientativas:

@@ -43,6 +43,14 @@ Holzarbeitsplatten sind meist geölt. Das Öl schützt das Holz von innen, muss 
 - **Brandflecken:** Oberflächliche Brandspuren lassen sich abschleifen. Tiefe Brandstellen vorsichtig mit einem scharfen Stecheisen ausarbeiten, schleifen und mit Holzkitt füllen.
 - **Risse an Stoßfugen:** Mit Holzkitt oder einer Mischung aus Holzleim und Schleifstaub füllen.
 
+### Wenn sich die Holzplatte wölbt oder reißt
+
+Massivholz reagiert auf wechselnde Feuchtigkeit. Typische Auslöser in der Küche sind Dampf aus der Spülmaschine, Nässe rund um die Spüle, eine nur oben geölte Platte und eine zu starre Befestigung.
+
+- **Leichte Wölbung:** Die Unterseite ebenfalls ölen und die Platte einige Wochen beobachten. Sind beide Seiten gleich behandelt, geht eine leichte Wölbung manchmal zurück.
+- **Befestigung prüfen:** Holzarbeitsplatten werden von unten durch Langlöcher oder mit Befestigungswinkeln am Unterschrank gehalten, damit sie arbeiten können. Fest durchgeschraubte Platten können reißen.
+- **Größere Risse:** Klafft ein Riss immer weiter auf oder läuft er durch die ganze Plattenstärke, sollte eine Tischlerei die Platte ansehen.
+
 ## Schichtstoff: Pflege und Reparatur
 
 Schichtstoffplatten sind pflegeleicht, aber ihr Kern aus Spanplatte reagiert empfindlich auf Wasser.
@@ -61,6 +69,16 @@ Wenn Wasser an einer Kante oder um die Spüle in die Spanplatte eingedrungen ist
 3. **Leicht aufgequollene Stellen** können mit einem Schleifklotz vorsichtig angeglichen und mit Lack oder Kantenversiegelung geschützt werden.
 4. **Stark beschädigte Kanten:** Kantenumleimer erneuern oder die Platte im betroffenen Bereich austauschen.
 
+### Kante neu umleimen
+
+Hat sich ein Umleimer gelöst, die Spanplatte darunter ist aber noch trocken und fest, kannst du ihn ersetzen:
+
+1. **Alte Kante entfernen:** Mit dem Bügeleisen anwärmen, mit einem Spachtel abziehen und Kleberreste mit Schleifpapier auf einem Klotz abnehmen.
+2. **Untergrund prüfen:** Ist die Spanplatte aufgequollen oder bröselig, hält keine neue Kante. Dann hilft nur ein Austausch des Bereichs.
+3. **Neue Kante aufbügeln:** Umleimer mit Schmelzkleber etwas länger zuschneiden, auflegen, Backpapier oder ein Baumwolltuch darüberlegen und mit dem Bügeleisen langsam entlangfahren. Sofort mit einem Holzklotz kräftig andrücken.
+4. **Überstand abnehmen:** Nach dem Abkühlen mit einem Kantenschneider oder einer feinen Feile bündig abarbeiten. Die Feile dabei von der Kante zur Fläche hin führen, damit sich der Umleimer nicht wieder abhebt.
+5. **Kante leicht brechen** und mit feinem Schleifpapier glätten.
+
 ### Kratzer und Brandflecken
 
 - **Feine Kratzer:** Mit Reparaturpaste oder Hartwachs in passender Farbe füllen.
@@ -74,12 +92,27 @@ Wenn Wasser an einer Kante oder um die Spüle in die Spanplatte eingedrungen ist
 - **Flecken in Naturstein:** Mit einer Paste aus Natron und Wasser über Nacht abdecken; bei Fett spezielle Fleckentferner für Stein.
 - **Absplitterungen** an Kanten repariert am besten ein Steinmetz mit farblich passendem Harz.
 
+## Edelstahl
+
+- **Reinigen in Schliffrichtung:** Gebürsteter Edelstahl hat feine Linien. Mit einem weichen Tuch oder Mikrofasertuch und mildem Spülmittel immer entlang dieser Linien wischen, danach trocken reiben, damit keine Kalkränder bleiben.
+- **Keine Stahlwolle und keine Scheuermittel:** Sie hinterlassen Kratzer, und Eisenteilchen aus Stahlwolle können auf der Oberfläche Rostpunkte bilden.
+- **Feine Kratzer** in gebürstetem Edelstahl lassen sich mit einem feinen Schleifvlies vorsichtig in Schliffrichtung angleichen. Erst an einer verdeckten Stelle testen; auf polierten Flächen funktioniert das nicht.
+
 ## Die Wandanschlussfuge
 
 Zwischen Arbeitsplatte und Wand oder Fliesenspiegel sitzt eine Fuge, die verhindert, dass Wasser und Schmutz dahinterlaufen. Sie ist meist mit Silikon oder einer Abschlussleiste geschlossen.
 
 - **Silikonfuge prüfen** und bei Rissen oder Schimmel erneuern. Siehe [Silikonfugen erneuern](/anleitungen/silikonfugen-erneuern/).
 - **Abschlussleisten** aus Kunststoff oder Aluminium mit Montagekleber oder Clips sind eine saubere Alternative, besonders bei unebenen Wänden.
+
+## Ausschnitte, Unterseite und Spülenschrank
+
+Viele Wasserschäden beginnen dort, wo man nicht hinsieht. Ein Blick mit der Taschenlampe in den Spülenschrank alle paar Monate lohnt sich:
+
+- **Unterseite rund um die Spüle abtasten:** Fühlt sich die Platte von unten feucht, weich oder aufgequollen an, läuft irgendwo Wasser hin. Häufige Ursachen sind eine undichte Spülendichtung, ein tropfender Siphon oder ein lockerer Anschluss. Wie du den Siphon abbaust und seine Dichtungen prüfst, steht in [Abfluss verstopft: Was tun?](/anleitungen/abfluss-verstopft-was-tun/).
+- **Schnittkanten der Ausschnitte:** Bei Schichtstoffplatten liegt hier die offene Spanplatte. Sie sollte versiegelt sein, je nach Herstellerangabe mit Kantenschutz, Lack oder Silikon. Fehlt die Versiegelung, holst du sie nach, wenn die Spüle ohnehin einmal ausgebaut wird.
+- **Holzplatten auch unten und an den Ausschnitten ölen:** Unbehandelte Stellen nehmen Dampf und Feuchtigkeit auf, die Platte quillt ungleichmäßig.
+- **Schutzmatte oder flache Wanne** in den Spülenschrank legen: Sie fängt Tropfen auf und macht kleine Lecks früh sichtbar.
 
 ## Schneiden, Abstellen, Schützen
 
@@ -145,6 +178,8 @@ Leichte Schäden lassen sich stabilisieren. Stark aufgequollene Bereiche nicht, 
 **Welches Öl ist für Arbeitsplatten geeignet?** Spezielle Arbeitsplattenöle oder lebensmittelechte Hartwachsöle. Reines Speiseöl wie Olivenöl härtet nicht aus und kann ranzig werden.
 
 **Wie entferne ich Kalkflecken auf Granit?** Mit einem pH-neutralen Steinreiniger und einem weichen Tuch. Säurehaltige Kalkreiniger nur auf säurefesten Steinen und nur nach Herstellerangabe.
+
+**Darf ich die Arbeitsplatte desinfizieren?** Für den Alltag reichen heißes Wasser, Spülmittel und ein sauberes Tuch, danach trocken wischen. Scharfe Reiniger und Desinfektionsmittel können die Öl- oder Wachsschicht auf Holz angreifen und manche Oberflächen stumpf machen. Rohes Fleisch und Fisch schneidest du am besten auf einem eigenen Brett, das in die Spülmaschine darf.
 
 **Kann ich eine neue Arbeitsplatte selbst einbauen?** Bei Schichtstoff und Holz ja, mit genauer Planung der Ausschnitte für Spüle und Kochfeld. Der Anschluss von Spüle und Kochfeld gehört in Fachhände, wenn Strom- oder Gasanschlüsse betroffen sind.
 

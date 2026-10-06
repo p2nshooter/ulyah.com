@@ -89,15 +89,53 @@ Die Profile sind Tendenzen. Varietät, Farm, Aufbereitung und Röstung veränder
 - Für einen **ausgewogenen Allrounder** passen Kolumbien, Guatemala oder Honduras.
 - Vergleiche zwei Herkünfte nebeneinander, wie in [Kaffee verkosten](/ratgeber/kaffee-verkosten/) beschrieben. So lernst du deinen Geschmack am schnellsten kennen.
 
+## Wie genau ist die Herkunft? Vom Land bis zur Parzelle
+
+Herkunftsangaben auf Packungen sind unterschiedlich präzise. Je genauer sie sind, desto besser lässt sich nachvollziehen, woher der Kaffee stammt, und desto eher kannst du ihn später wiederfinden.
+
+| Angabe | Beispiel | Was sie dir sagt |
+|---|---|---|
+| nur das Land | „Kolumbien“ | grobe Richtung, oft eine Mischung vieler Partien |
+| Region | Huila, Sidama, Minas Gerais | Klima und Höhe lassen sich eingrenzen |
+| Kooperative oder Washing Station | Aufbereitungsstation eines Dorfes | Kirschen vieler Kleinbauern, gemeinsam verarbeitet |
+| Farm | eine bestimmte Finca oder Fazenda | ein Betrieb, eine Handschrift |
+| Microlot | eine Parzelle oder ein Erntetag | kleine, getrennt verarbeitete Menge, oft besonders ausgeprägt |
+
+Wie fein die Angabe ausfällt, hängt auch von der Struktur im Anbauland ab. In Äthiopien liefern meist viele Kleinbauern ihre Kirschen an eine Washing Station, eine einzelne Farm wird deshalb selten genannt. In Kenia verarbeiten Kooperativen die Ernte ihrer Mitglieder in Nassmühlen, die dort „Factory“ heißen. In Brasilien stammen viele Kaffees dagegen von einzelnen, teils großen Farmen. Eine genaue Angabe ist also kein Muss für Qualität, aber ein gutes Zeichen dafür, dass der Röster seine Lieferkette kennt. Welche Varietät angegeben ist, erklärt der Abschnitt zu den Arabica-Varietäten in [Arabica und Robusta](/ratgeber/arabica-und-robusta/).
+
+## Herkunft und Zubereitung: was wozu passt
+
+Nicht jede Herkunft zeigt sich in jeder Zubereitung von ihrer besten Seite. Die folgende Übersicht ist ein Startpunkt, kein Gesetz.
+
+| Zubereitung | Passende Herkünfte | Warum |
+|---|---|---|
+| Handfilter | Äthiopien, Kenia, Ruanda, Costa Rica | der Papierfilter betont Klarheit, Blüten- und Fruchtnoten |
+| French Press | Brasilien, Guatemala, Sumatra | voller Körper und Schokolade passen zum öligen, dichten Aufguss |
+| Espresso pur | Brasilien, Kolumbien, Peru | wenig bis mittlere Säure, Süße und Schokolade bleiben auch konzentriert angenehm |
+| Espresso mit Milch | Brasilien, Guatemala, Sumatra | kräftige Nuss- und Kakaonoten setzen sich gegen Milch durch |
+| Espressokocher | Brasilien, Indien, Sumatra | wenig Säure, die kräftige Zubereitung wirkt dadurch runder |
+
+Sehr säurebetonte Kaffees aus Kenia können im Espresso schnell spitz wirken, ein erdiger Sumatra wirkt im Handfilter dagegen manchmal schwer. Beides kann reizvoll sein, wenn du es so magst. Hinweise zur jeweiligen Methode findest du in [French Press](/ratgeber/french-press-anleitung/) und [Espresso mit dem Siebträger](/ratgeber/siebtraeger-espresso-grundlagen/).
+
 ## Erntezeit und Frische des Rohkaffees
 
 Rohkaffee ist lange haltbar, aber nicht unbegrenzt. Mit den Monaten verliert er an Lebendigkeit und kann holzige oder papierartige Noten entwickeln. Gute Röstereien kaufen deshalb Kaffees aus der aktuellen Ernte und rösten Herkünfte saisonal. Wenn ein Röster im Frühjahr neue Kaffees aus Äthiopien oder Kenia ankündigt und im Herbst frische Ernten aus Mittelamerika, folgt er diesem Rhythmus. Für dich bedeutet das: Die beste Zeit für einen bestimmten Herkunftskaffee hängt auch davon ab, wann er geerntet wurde.
+
+## Warum derselbe Kaffee nicht jedes Jahr gleich schmeckt
+
+Kaffee ist ein landwirtschaftliches Produkt. Regen zur falschen Zeit, eine lange Trockenphase während der Blüte oder ungewöhnliche Hitze verändern Reifung, Ertrag und Geschmack. Auch die Arbeit bei der Ernte schwankt: Werden nur reife Kirschen gepflückt, oder geraten unreife darunter? Regnet es, während die Bohnen trocknen? Dieselbe Farm kann deshalb in einem Jahr einen herausragenden und im nächsten einen nur ordentlichen Kaffee liefern. Wenn dir ein Herkunftskaffee besonders gefallen hat, ist die neue Ernte eine Wiederbegegnung, keine Kopie.
+
+Langfristig setzt der Klimawandel den Anbau unter Druck. Arabica reagiert empfindlich auf Hitze, wärmere Bedingungen begünstigen Schädlinge und Krankheiten wie den Kaffeerost, und geeignete Lagen verschieben sich in größere Höhen, wo nicht überall Platz für neue Pflanzungen ist. Züchter und Produzenten setzen deshalb verstärkt auf widerstandsfähigere Pflanzen, Schattenbäume und angepasste Anbaumethoden.
 
 ## Häufige Fragen
 
 ### Was bedeutet „Single Origin“?
 
 Ein Kaffee aus einer einzigen Herkunft, etwa einem Land, einer Region, einer Kooperative oder einer Farm. Im Gegensatz dazu stehen Mischungen, sogenannte Blends, die mehrere Herkünfte kombinieren, oft für Espresso.
+
+### Was ist ein Microlot?
+
+Eine kleine Partie, die getrennt geerntet und aufbereitet wird, etwa von einer bestimmten Parzelle, einer einzelnen Varietät oder einem besonderen Erntetag. Microlots sind meist teurer und schnell ausverkauft. Sie lohnen sich, wenn du einen Kaffee mit sehr eigener Handschrift probieren möchtest.
 
 ### Wann wird Kaffee geerntet?
 

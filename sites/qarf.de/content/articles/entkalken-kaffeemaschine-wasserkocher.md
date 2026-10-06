@@ -49,6 +49,10 @@ Wichtigster Grundsatz: **Lies die Bedienungsanleitung.** Viele Hersteller schrei
 
 Warum nicht heiß? Wenn Zitronensäure mit Kalk in heißem Wasser reagiert, kann sich Calciumcitrat bilden, ein schwer löslicher Belag, der sich schlechter entfernen lässt als der Kalk selbst.
 
+### Kalksieb, Sockel und Außenseite
+
+Viele Wasserkocher haben im Ausguss ein feines Kalksieb. Es fängt Kalkflocken auf, verkalkt aber selbst und lässt dann weniger Wasser durch. Nimm es beim Entkalken heraus, leg es separat in eine kleine Schale mit Entkalkerlösung und spül es danach gründlich ab. Der Sockel mit dem Stromanschluss muss trocken bleiben: Tauche den Wasserkocher nie ins Spülbecken und achte darauf, dass beim Ausgießen der Lösung nichts auf die Kontakte läuft. Kalkflecken an einer Außenseite aus Edelstahl entfernst du mit einem feuchten Tuch und etwas Zitronensäurelösung und wischst anschließend trocken nach.
+
 ## Filterkaffeemaschine entkalken
 
 1. Entferne Filter und Kaffeesatz und spüle die Kanne aus.
@@ -63,6 +67,18 @@ Mehr zur Pflege der Filtermaschine steht in [Filterkaffeemaschine richtig nutzen
 
 Diese Maschinen haben enge Leitungen, Magnetventile und Boiler, die empfindlich sind. Halte dich hier unbedingt an das Programm und das Mittel des Herstellers. Vollautomaten haben meist ein eigenes Entkalkungsprogramm, das dich Schritt für Schritt führt. Bei Siebträgermaschinen mit großem Boiler empfehlen manche Hersteller, gar nicht selbst zu entkalken, sondern konsequent mit gefiltertem Wasser vorzubeugen und die Maschine bei Bedarf zum Service zu bringen. Mehr zur Pflege steht in [Siebträger und Espresso: die Grundlagen](/ratgeber/siebtraeger-espresso-grundlagen/).
 
+## Kapsel- und Padmaschinen
+
+Kapsel- und Padmaschinen erhitzen das Wasser in einem kleinen Durchlauferhitzer mit engen Leitungen, die bei hartem Wasser schnell verkalken. Viele Geräte haben einen eigenen Entkalkungsmodus, den die Bedienungsanleitung beschreibt. Der Ablauf ist meist ähnlich:
+
+1. Kapselbehälter und Tropfschale leeren, keine Kapsel und kein Pad einlegen.
+2. Einen eingesetzten Wasserfilter aus dem Tank nehmen. Das verlangen die Anleitungen in der Regel ausdrücklich.
+3. Entkalker nach Packungsangabe mit Wasser im Tank mischen und ein Gefäß unter den Auslauf stellen, das mindestens so viel fasst wie der Tank.
+4. Den Entkalkungsmodus starten und vollständig durchlaufen lassen.
+5. Den Tank gründlich ausspülen, mit frischem Wasser füllen und mindestens eine volle Tankfüllung durchspülen.
+
+Hat dein Gerät keinen eigenen Modus, lässt du die Lösung in mehreren Portionen über die Brühtaste durchlaufen, mit einigen Minuten Einwirkzeit dazwischen, sofern der Hersteller nichts anderes vorgibt.
+
 ## Espressokocher entkalken
 
 Im Kessel einer Aluminiumkanne bildet sich bei hartem Wasser ein weißer Belag. Fülle den Kessel bis unter das Ventil mit kalter Zitronensäurelösung oder verdünntem Essig, lass sie einige Stunden stehen, gieße sie weg und spüle mehrmals gründlich. Danach brühst du ein- bis zweimal Kaffee und schüttest ihn weg. Aluminium reagiert empfindlich auf lange Einwirkzeiten mit Säure, deshalb nicht über Nacht stehen lassen. Mehr in [Espressokocher richtig benutzen](/ratgeber/espressokocher-anleitung/).
@@ -74,6 +90,16 @@ Bei hartem Wasser entsteht auf schwarzem Tee oft ein dünner, schillernder Film,
 ## Wenn der Kalk nicht weichen will
 
 Ist der Belag sehr dick, hilft es, die Prozedur zu wiederholen statt die Konzentration stark zu erhöhen. Mehrere milde Durchgänge schonen Dichtungen und Metall mehr als ein sehr starker. Bei Wasserkochern kannst du losen Belag nach dem Einweichen vorsichtig mit einer weichen Bürste lösen, aber nie mit Stahlwolle oder scharfen Gegenständen kratzen, sonst beschädigst du die Oberfläche, und neuer Kalk haftet umso besser. Bleibt eine Maschine nach dem Entkalken trotzdem langsam oder laut, kann ein Ventil oder eine Leitung verstopft sein. Dann ist der Kundendienst die sichere Wahl.
+
+## Häufige Fehler beim Entkalken
+
+| Fehler | Folge | Besser |
+|---|---|---|
+| Entkalkungsprogramm mittendrin abbrechen | Säurereste bleiben in Leitungen und Boiler | Programm vollständig durchlaufen lassen, nach einer Unterbrechung neu starten |
+| Wasserfilter im Tank lassen | der Filter wird unnötig belastet, der Entkalker wirkt schwächer | Filter vorher entnehmen und erst nach dem Spülen wieder einsetzen |
+| Pulver ungelöst in den Tank geben | Körnchen können Ventile und Düsen verstopfen | Pulver vorher in einem Gefäß vollständig auflösen |
+| zu kleines Gefäß unter dem Auslauf | Lösung läuft über und greift empfindliche Oberflächen an | ein Gefäß, das den ganzen Tankinhalt fasst |
+| Wasserhärte nach einem Umzug nicht neu eingestellt | die Entkalkungsanzeige meldet sich zu früh oder zu spät | neue Härte beim Wasserversorger erfragen und im Menü eintragen |
 
 ## Sicherheit beim Entkalken
 
@@ -100,6 +126,10 @@ Nein. Kalk besteht aus Calcium- und Magnesiumverbindungen, die auch im Trinkwass
 ### Kann ich Backpulver oder Natron zum Entkalken nehmen?
 
 Kaum. Natron und Backpulver sind basisch oder nur schwach sauer und lösen Kalk schlecht. Säuren wie Zitronensäure sind deutlich wirksamer.
+
+### Darf die Entkalkerlösung in den Ausguss?
+
+In haushaltsüblichen Mengen ja, mit reichlich klarem Wasser nachgespült, sofern die Packung nichts anderes angibt. Gieß sie aber nicht über Arbeitsflächen oder Spülen aus Naturstein wie Marmor, denn Säure greift den Stein an und hinterlässt matte Flecken.
 
 ### Muss ich auch die Thermoskanne entkalken?
 

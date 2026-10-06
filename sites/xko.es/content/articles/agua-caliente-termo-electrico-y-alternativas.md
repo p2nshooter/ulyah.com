@@ -48,6 +48,25 @@ Para una familia de cuatro, un termo eléctrico puede consumir entre 2.500 y 3.5
 
 Apagar el termo durante el día y encenderlo antes de usarlo reduce las pérdidas de mantenimiento, pero obliga a recalentar el depósito. En termos bien aislados el ahorro es modesto. Lo más eficaz es **concentrar el calentamiento en las horas baratas** con una programación.
 
+### Cómo medir lo que gasta tu termo
+
+El contador inteligente registra tu consumo hora a hora y puedes descargarlo de la web de tu distribuidora con tu CUPS. Consulta [contador inteligente y lecturas estimadas](/guias/lecturas-estimadas-y-contador-inteligente/).
+
+- **Si lo tienes programado en una franja fija,** por ejemplo de 2:00 a 6:00, suma el consumo de esas horas y réstale el consumo base de la casa a esa hora (frigorífico y aparatos en espera). El resultado es, con bastante aproximación, lo que gasta el termo cada día.
+- **Para medir las pérdidas en reposo,** deja el termo encendido una vez durante una ausencia de uno o dos días: lo que se consuma por encima del consumo base es calor que se escapa del depósito, porque nadie usa agua caliente. Esa cifra te dice cuánto ahorras apagándolo en ausencias y si conviene sustituirlo.
+
+### Problemas habituales del termo y qué significan
+
+| Síntoma | Causa probable | Qué hacer |
+|---|---|---|
+| La válvula de seguridad gotea mientras calienta | El agua se dilata; un pequeño goteo es normal | Condúcelo a un desagüe; nunca tapones ni anules la válvula |
+| Gotea de forma continua, también en reposo | Presión de red alta o válvula defectuosa | Que un fontanero valore un reductor de presión o el cambio de válvula |
+| El agua caliente dura menos que antes | Cal sobre la resistencia o termostato averiado | Revisión y descalcificación |
+| Salta el diferencial al empezar a calentar | Derivación en la resistencia o el cableado | Desconecta el termo y llama a un técnico |
+| Agua turbia, rojiza o con olor a huevo podrido | Ánodo agotado, corrosión o bacterias en un depósito tibio | Revisión del ánodo y calentamiento a temperatura alta si el fabricante lo indica |
+
+Cualquier intervención en la resistencia, el termostato o el ánodo exige cortar antes la corriente en el cuadro eléctrico y vaciar el depósito. Si no tienes experiencia, encárgala a un profesional.
+
 ## Hábitos que reducen el consumo de agua caliente
 
 - **Duchas más cortas:** cada minuto menos ahorra unos 0,25 kWh en una ducha típica.
@@ -108,11 +127,21 @@ Si tienes aerotermia para calefacción, lo habitual es que también produzca el 
 | Unifamiliar con calefacción por aerotermia | ACS con la misma bomba de calor |
 | Obra nueva o rehabilitación integral | Aerotermia o solar térmica según el proyecto |
 
+## Antes de instalar un equipo nuevo
+
+- **Capacidad según los hábitos:** cuenta cuántas duchas seguidas hay por la mañana y si alguien llena la bañera. Un depósito que se queda corto obliga a subir la temperatura y aumenta las pérdidas.
+- **Perfil de carga de la etiqueta:** los calentadores de agua llevan etiqueta energética con un perfil de carga (M, L, XL…) que indica para qué demanda están pensados. Compara modelos con el mismo perfil. Consulta [etiqueta energética](/guias/etiqueta-energetica/).
+- **Ubicación cerca de los grifos:** cuanto más larga es la tubería hasta la ducha, más agua fría se tira esperando y más calor se queda en el tubo tras cada uso.
+
 ## Preguntas frecuentes
 
 ### ¿Qué tamaño de termo necesito?
 
 Como referencia, 50 litros para una o dos personas, 80 litros para tres y 100 a 150 litros para cuatro o más, según los hábitos.
+
+### ¿Cuánto tarda en calentarse un termo?
+
+Un termo de 80 litros que pasa de 15 a 55 °C necesita unos 80 × 40 × 1,16 ≈ 3,7 kWh; con una resistencia de 1.500 W tarda unas dos horas y media. Si el depósito se vacía a diario, la franja programada debe durar al menos ese tiempo.
 
 ### ¿El termo gasta mucho en standby?
 

@@ -37,6 +37,20 @@ La normativa europea de ecodiseño limita el consumo en espera de muchos aparato
 
 En un hogar con muchos aparatos, el consumo en espera puede sumar entre **30 y 60 W de forma continua**, lo que equivale a **260 a 525 kWh al año**. Con un precio de 0,20 €/kWh, entre **50 y 100 € al año** por aparatos que nadie está usando.
 
+### La regla del vatio
+
+Un aparato que consume de forma continua funciona las 8.760 horas del año. Por eso, **cada vatio permanente supone unos 8,8 kWh al año**, alrededor de 1,75 € con un precio de 0,20 €/kWh. Con esta regla puedes valorar al momento lo que marca el enchufe medidor:
+
+| Consumo continuo | Energía al año | Coste al año |
+|---|---|---|
+| 1 W | 8,76 kWh | 1,75 € |
+| 5 W | 43,8 kWh | 8,76 € |
+| 10 W | 87,6 kWh | 17,52 € |
+| 25 W | 219 kWh | 43,80 € |
+| 50 W | 438 kWh | 87,60 € |
+
+Si el aparato solo está en espera parte del día, multiplica por esas horas: un descodificador de 14 W en espera 20 horas al día cuesta unos 20 € al año.
+
 ## Mide el consumo base de tu casa
 
 El **consumo base** es el que tiene tu vivienda cuando nadie está haciendo nada: de madrugada, con todos durmiendo. Incluye el frigorífico, el router y todo el standby.
@@ -78,6 +92,16 @@ Conecta el enchufe medidor a cada aparato o regleta sospechosa y mide el consumo
 - Calefactores de toallas, deshumidificadores olvidados.
 - Termos eléctricos sin programación. Consulta [agua caliente: termo eléctrico y alternativas](/guias/agua-caliente-termo-electrico-y-alternativas/).
 
+### Fuera del salón
+
+El mueble de la televisión es el sospechoso clásico, pero el consumo en espera está repartido por toda la casa:
+
+- **Cocina:** microondas y horno con reloj, cafeteras que mantienen el agua caliente, robots de cocina y campanas con piloto.
+- **Despacho:** impresora, monitores que no se apagan del todo, altavoces del ordenador, discos de red y bases de conexión del portátil.
+- **Dormitorios y baño:** televisores secundarios, bases de carga, lámparas con transformador y cepillos de dientes eléctricos en su base.
+- **Garaje, trastero y exterior:** cargadores de herramientas, bicicletas o patinetes que se quedan enchufados, timbres con transformador y luces con temporizador.
+- **Domótica:** cada bombilla, enchufe, cámara o altavoz inteligente consume algo para seguir conectado aunque esté apagado. Por separado es poco, pero una casa con veinte dispositivos conectados suma varios vatios permanentes. Tenlo en cuenta antes de automatizar lo que se resuelve con un interruptor.
+
 ## Soluciones que funcionan
 
 ### Regletas con interruptor
@@ -103,6 +127,13 @@ Apaga el ordenador por la noche en lugar de dejarlo en suspensión prolongada, s
 ### Router
 
 El router consume poco, pero de forma continua. Algunos permiten programar el apagado del wifi por la noche. Valora si te compensa, teniendo en cuenta dispositivos como alarmas o domótica que puedan depender de él.
+
+### Regletas: cómo usarlas con seguridad
+
+- **Respeta la potencia máxima** indicada en la regleta y no conectes en ella calefactores, hornos, planchas u otros aparatos de mucha potencia.
+- **No encadenes regletas** unas con otras.
+- **Déjalas a la vista y ventiladas,** nunca bajo alfombras o detrás de cortinas, y sustitúyelas si se calientan, se oscurecen o el interruptor falla.
+- **Coloca el interruptor donde llegues sin esfuerzo.** Una regleta escondida detrás del mueble acaba sin apagarse nunca.
 
 ## Lo que no conviene desconectar
 

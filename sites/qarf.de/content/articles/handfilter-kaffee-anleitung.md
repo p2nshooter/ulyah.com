@@ -58,6 +58,20 @@ Die Specialty Coffee Association nennt für Filterkaffee einen goldenen Bereich 
 
 Frisch gerösteter Kaffee enthält viel Kohlendioxid. Gießt du sofort die ganze Wassermenge auf, verdrängt das entweichende Gas das Wasser, und einige Bereiche des Kaffeemehls werden schlechter ausgelaugt. Beim Vorbrühen entweicht ein großer Teil des Gases, danach kann das Wasser gleichmäßiger extrahieren. Bei sehr altem Kaffee blubbert es kaum noch, das ist ein einfacher Frischetest.
 
+## Ein Gießplan zum Nachmachen
+
+Gerade am Anfang hilft ein fester Ablauf, damit du dich aufs Gießen konzentrieren kannst. So sieht ein Plan für eine Tasse im Kegelfilter aus, mit 15 g Kaffee und 250 g Wasser. Die Waage läuft ab dem ersten Tropfen mit.
+
+| Zeit | Was du tust | Waage zeigt |
+|---|---|---|
+| 0:00 | Vorbrühen, alles Mehl benetzen | 40 g |
+| 0:40 | erster Aufguss, langsam kreisend von innen nach außen | 150 g |
+| 1:10 | zweiter Aufguss, sobald der Wasserspiegel etwas gesunken ist | 250 g |
+| ca. 1:30 | Filter sanft schwenken, damit das Bett eben wird | 250 g |
+| 2:30 bis 3:00 | letzter Tropfen, Filter abnehmen | – |
+
+Zwei Aufgüsse statt einem halten den Wasserstand im Filter gleichmäßig. Das Kaffeemehl liegt nie trocken, schwimmt aber auch nicht in einem überfüllten Kegel. Beim Trapezfilter läuft das Wasser langsamer ab; dort gießt du in drei kleineren Etappen und rechnest mit einer Gesamtzeit um drei bis vier Minuten. Wichtig ist weniger, dass du die Sekunden genau triffst, sondern dass du den Ablauf jedes Mal gleich wiederholst. Nur dann lassen sich Änderungen am Mahlgrad sinnvoll beurteilen.
+
 ## Filterformen im Vergleich
 
 Die Form des Filters bestimmt, wie schnell das Wasser abläuft und wie viel Kontrolle du hast.
@@ -80,6 +94,18 @@ Der wichtigste Hebel ist der Mahlgrad. Er bestimmt, wie viel Oberfläche das Was
 - **Ausgewogen, aber zu intensiv:** Nimm weniger Kaffee oder verdünne die fertige Tasse mit etwas heißem Wasser.
 
 Ändere immer nur eine Sache auf einmal und notiere dir, was du gemacht hast. Nach drei, vier Versuchen kennst du deine Bohne.
+
+### Beispiel: in drei Versuchen zur passenden Einstellung
+
+So kann das Einstellen einer neuen, hell gerösteten Bohne aussehen. Rezept und Gießplan bleiben gleich, geändert wird jeweils nur ein Wert.
+
+| Versuch | Änderung | Durchlauf | Eindruck | Nächster Schritt |
+|---|---|---|---|---|
+| 1 | Startrezept, mittlere Mahlstufe | 2:05 | spitz sauer, wässrig | feiner mahlen |
+| 2 | zwei Stufen feiner | 2:50 | süßer, rund, aber etwas schwach | Dosis erhöhen |
+| 3 | 16 g statt 15 g, Mahlgrad wie bei 2 | 2:55 | süß, klar, voller Körper | so beibehalten |
+
+Der erste Versuch war zu schnell durchgelaufen, ein typisches Zeichen für zu grobes Mehl. Mit dem feineren Mahlgrad stimmte die Extraktion, nur die Stärke fehlte noch. Hätte die zweite Tasse bitter und trocken geschmeckt, wäre die Korrektur eine Stufe zurück gewesen, nicht weniger Kaffee. Notiere dir die Einstellung für jede Bohne, dann musst du beim nächsten Kauf derselben Sorte kaum noch nachjustieren.
 
 ### Temperatur als Feinschliff
 
@@ -122,6 +148,10 @@ Grundsätzlich jeder, aber helle bis mittlere Röstungen zeigen hier ihre Stärk
 ### Wie fein ist „mittelfein“?
 
 Etwa wie grober Sand oder Haushaltszucker. Fühlt sich das Mehl wie Puder an, ist es zu fein; sieht es aus wie grobes Meersalz, ist es eher etwas für die French Press. Mehr dazu im Ratgeber [Mahlgrad richtig einstellen](/ratgeber/mahlgrad-richtig-einstellen/).
+
+### Geht es auch ohne Schwanenhalskessel?
+
+Ja. Gieß das heiße Wasser aus dem normalen Wasserkocher zuerst in ein Milchkännchen oder einen Messbecher mit spitzem Ausguss. Daraus lässt sich ein dünner Strahl deutlich leichter führen. Da das Wasser beim Umfüllen etwas abkühlt, nimmst du es direkt nach dem Kochen. Gieß lieber in mehr kleine Portionen als in eine große. Trapez- und Flachbodenfilter verzeihen eine unruhige Hand eher als ein Kegel mit großem Loch.
 
 ### Kann ich Filterkaffee warmhalten?
 

@@ -118,6 +118,27 @@ Cargar el coche durante el día con excedentes es la mejor "batería" posible si
 
 Con el consumo horario de tu distribuidora, suma el consumo entre las 20:00 y las 8:00 de varios días de cada estación. En muchos pisos y casas sin calefacción eléctrica, oscila entre 3 y 7 kWh. Una batería de 5 a 7 kWh útiles cubriría buena parte de ese consumo en primavera y verano.
 
+### Ejemplo: la misma casa en verano y en invierno
+
+Una vivienda consume unos 5 kWh cada noche y sus placas le dejan unos 10 kWh de excedente diario en los días largos, pero solo 2 o 3 kWh en pleno invierno.
+
+| Batería útil | Días largos | Pleno invierno |
+|---|---|---|
+| 5 kWh | Se llena y se vacía casi a diario | Se carga a medias |
+| 10 kWh | Se llena, pero cada noche solo se usa la mitad | No pasa de una cuarta parte de su capacidad |
+
+Los 5 kWh adicionales de la batería grande apenas trabajan en todo el año: cuestan dinero y no añaden ahorro. Para esta casa, lo razonable es la batería pequeña y dar salida al resto de excedentes con el agua caliente o la gestión de cargas.
+
+## Modos de funcionamiento del inversor
+
+La batería rinde según cómo esté configurada. Los inversores híbridos suelen ofrecer varios modos:
+
+- **Autoconsumo máximo:** carga con excedentes y descarga cuando la casa consume más de lo que producen las placas. Es el modo habitual.
+- **Reserva para respaldo:** guarda un porcentaje mínimo de carga por si hay un corte. Resta capacidad útil cada día, así que ajústalo a lo que de verdad necesitas.
+- **Carga desde la red en horas valle:** algunos equipos permiten cargar de madrugada para descargar en punta. Solo compensa si la diferencia de precio supera las pérdidas del ciclo y el desgaste; puede tener sentido en invierno, cuando la batería apenas recibe sol. Consulta [tramos horarios](/guias/tramos-horarios-punta-llano-valle/).
+
+Revisa la configuración tras la instalación y tras cada cambio de tarifa: un modo mal elegido puede dejar la batería parada.
+
 ## Errores frecuentes
 
 - **Comprar una batería grande** que nunca se llena porque la instalación solar es pequeña.

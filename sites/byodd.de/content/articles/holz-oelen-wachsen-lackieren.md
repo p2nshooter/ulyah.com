@@ -32,6 +32,16 @@ Diese Anleitung erklärt die Unterschiede zwischen Öl, Hartwachsöl, Wachs, Las
 | Gartenmöbel | Spezielles Holzöl für außen oder Lasur | UV- und Witterungsschutz |
 | Regale, Dekoobjekte | Wachs, Öl oder Lack nach Geschmack | Wenig Beanspruchung |
 
+## Holzart beachten: Nicht jedes Holz reagiert gleich
+
+- **Kiefer und Fichte:** Öl und lösemittelhaltige Lacke verstärken den gelblichen Ton, und Nadelholz dunkelt mit der Zeit ohnehin nach. Wer es hell mag, greift zu einem weiß pigmentierten Öl oder einem farblosen Wasserlack. Austretendes Harz an Ästen vor dem Beschichten nach Herstellerangabe abnehmen, sonst kann es durch die Oberfläche durchschlagen.
+- **Eiche:** Die enthaltene Gerbsäure bildet mit Eisen dunkle Flecken. Bei Eiche deshalb keine Stahlwolle verwenden, sondern Schleifvlies aus Kunststoff.
+- **Teak und andere ölreiche Tropenhölzer:** Ihre eigenen Inhaltsstoffe können das Trocknen von Öl und Lack stören. Die Oberfläche kurz vorher mit einem vom Hersteller genannten Lösemittel entfetten.
+- **Buche:** dicht und gleichmäßig, nimmt Öl ruhig an, quillt aber bei Nässe deutlich. Gerade in Küche und Bad braucht sie eine lückenlose Oberfläche.
+- **Furnier und Multiplex:** Die Deckschicht ist dünn. Nur fein und ohne Druck schleifen, vor allem an Kanten, sonst schleifst du durch.
+
+Mehr zu den einzelnen Hölzern steht unter [Holzarten für Heimwerker](/anleitungen/holzarten-fuer-heimwerker/).
+
 ## Vorbereitung: Schleifen ist Pflicht
 
 Jede Oberfläche ist nur so gut wie die Vorbereitung:
@@ -40,6 +50,16 @@ Jede Oberfläche ist nur so gut wie die Vorbereitung:
 2. **Schleifen** in Stufen, zum Beispiel P80 → P120 → P180. Für Öl reicht P180, für Lack P220 bis P240. Siehe [Schleifen mit Schleifpapier](/anleitungen/schleifen-mit-schleifpapier-koernung/).
 3. **Wässern** bei Wasserlacken und Beizen: Holz anfeuchten, trocknen lassen, mit der letzten Körnung leicht nachschleifen.
 4. **Gründlich entstauben.**
+
+## Probestück, Hirnholz, Kanten und Unterseite
+
+**Probestück:** Der Farbton auf der Dose sagt wenig über dein Holz. Schleife ein Reststück oder eine verdeckte Stelle mit denselben Körnungen wie die Fläche und trage das Mittel genauso auf. Beurteile erst nach dem Trocknen, denn nass wirkt jede Oberfläche dunkler und glänzender. Kombinierst du Beize mit Öl oder Lack, zeigt das Probestück auch, ob beides zusammenpasst.
+
+**Hirnholz:** Die Stirnseiten einer Platte saugen viel mehr als die Fläche und werden dadurch dunkler. Schleife Hirnholz eine Stufe feiner und plane lieber einen zusätzlichen dünnen Auftrag ein, statt dort dick zu arbeiten.
+
+**Kanten:** Auf scharfen Kanten zieht sich Lack zurück und bleibt dünn. Kanten vor dem Lackieren mit Schleifpapier leicht brechen; das beugt auch Abplatzern vor.
+
+**Unterseite:** Tischplatten und Regalböden auf beiden Seiten behandeln, unten genügt meist ein Auftrag. Ist nur die Oberseite geschlossen, nimmt das Holz Feuchtigkeit ungleichmäßig auf und kann sich verziehen.
 
 ## Schritt für Schritt: Ölen
 
@@ -78,6 +98,24 @@ Jede Oberfläche ist nur so gut wie die Vorbereitung:
 6. **Staubfreie Umgebung:** Nicht in einem Raum lackieren, in dem gerade geschliffen wurde. Fenster öffnen, aber Zugluft vermeiden.
 
 Wasserlacke sind geruchsarm und schnell trocknend; Kunstharzlacke sind sehr robust, riechen aber stärker und brauchen länger.
+
+## Werkzeug reinigen und Reste entsorgen
+
+Pinsel und Rollen für Wasserlack direkt nach der Arbeit mit Wasser auswaschen, bei Ölen und Kunstharzlacken das Reinigungsmittel verwenden, das auf der Dose steht. Für kurze Pausen wickelst du Pinsel oder Rolle luftdicht in Folie. Flüssige Lack- und Ölreste gehören nicht in den Ausguss, sondern zur Schadstoffsammlung; wie eingetrocknete Dosen entsorgt werden, regelt deine Kommune. Ölige Pinsel und Pads behandelst du wie die Lappen, denn auch sie können sich selbst entzünden.
+
+## Typische Fehlerbilder und wie du sie behebst
+
+| Fehlerbild | Ursache | Abhilfe |
+|---|---|---|
+| Oberfläche klebt nach Tagen noch | Zu viel Öl, Überschuss nicht abgenommen | Mit Pad und etwas frischem Öl anlösen, alles gründlich abwischen, neu trocknen lassen |
+| Helle, fleckige Stellen nach dem Ölen | Leimreste oder ungleichmäßig geschliffene Stellen | Nachschleifen, Leimreste vollständig entfernen, punktuell nachölen |
+| Läufer und Tropfnasen im Lack | Zu dick aufgetragen, vor allem an senkrechten Flächen | Durchtrocknen lassen, plan schleifen, dünn überlackieren |
+| Raue Fläche nach dem ersten Wasserlack | Holzfasern haben sich aufgestellt | Zwischenschliff; beim nächsten Projekt vorher wässern |
+| Staubkörner im Lack | Staub in der Luft oder auf dem Werkstück | Nach dem Trocknen fein schleifen, nächste Schicht in sauberem Raum |
+| Milchiger Schleier | Zu kalt oder zu feucht beim Lackieren | Wärmer und trockener arbeiten; bleibt er, anschleifen und neu lackieren |
+| Wachs schmiert und wird stumpf | Zu dick aufgetragen | Überschuss mit sauberem Tuch abnehmen, kräftig nachpolieren |
+
+Arbeite bei Zimmertemperatur, nicht in praller Sonne und nicht im kalten Keller; die Mindesttemperatur für die Verarbeitung steht auf der Dose.
 
 ## Pflege
 
@@ -147,6 +185,8 @@ Für Möbel meist zwei bis drei, für stark beanspruchte Flächen wie Tischplatt
 **Kann ich geöltes Holz später lackieren?** Erst nach vollständiger Aushärtung des Öls und gründlichem Anschleifen, besser nach Rücksprache mit dem Lackhersteller. Viele Lacke haften auf öligen Untergründen schlecht.
 
 **Wie wird geöltes Holz wieder frisch?** Reinigen, bei Bedarf leicht anschleifen und dünn nachölen. Das ist der große Vorteil geölter Oberflächen.
+
+**Woran erkenne ich, dass eine Ölung ausgehärtet ist?** Die Fläche riecht kaum noch nach Öl und fühlt sich überall trocken und nicht klebrig an. Die Angabe auf der Dose ist ein Anhaltspunkt; in kühlen Räumen und bei dicken Aufträgen dauert es länger. Bis dahin Untersetzer verwenden und nichts Feuchtes liegen lassen.
 
 ## Fazit
 

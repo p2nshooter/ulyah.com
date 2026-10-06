@@ -35,6 +35,24 @@ Diese Methode ist schneller und ergibt einen kräftigeren Tee mit mehr Struktur.
 
 Das schnelle Abkühlen hält die Aromen frisch und verringert die Trübung, die bei langsam abkühlendem Schwarztee oft entsteht. Diese **Teetrübung**, auch „Cream down“ genannt, ist harmlos. Sie entsteht, wenn sich Gerbstoffe und Koffein beim Abkühlen verbinden, und tritt vor allem bei kräftigen Tees und hartem Wasser auf.
 
+## Mengen für Glas, Karaffe und Krug
+
+Damit du nicht jedes Mal rechnen musst, hier die beiden Methoden für übliche Mengen mit losem Tee. Die Werte sind Startpunkte, die du nach Geschmack anpasst.
+
+| Fertige Menge | Kalt aufgießen | Heiß brühen und auf Eis |
+|---|---|---|
+| 0,5 Liter | 4 bis 5 g Tee, 500 ml kaltes Wasser | 5 bis 6 g Tee, 250 ml heißes Wasser, 250 g Eis |
+| 1 Liter | 8 bis 10 g Tee, 1 Liter kaltes Wasser | 10 bis 12 g Tee, 500 ml heißes Wasser, 500 g Eis |
+| 2 Liter | 16 bis 20 g Tee, 2 Liter kaltes Wasser | 20 bis 24 g Tee, 1 Liter heißes Wasser, 1 kg Eis |
+
+Beim heißen Brühen gilt die Temperatur der jeweiligen Sorte: Grüner Tee bleibt auch hier deutlich unter dem Siedepunkt, sonst wird er auf Eis zwar kalt, aber nicht weniger herb. Die passenden Werte stehen in [Tee aufgießen: Ziehzeiten und Temperaturen](/ratgeber/tee-ziehzeiten-und-temperaturen/).
+
+## Japanische Varianten: Mizudashi und Koridashi
+
+In Japan ist kalt aufgegossener Grüntee als Mizudashi bekannt, sinngemäß „mit Wasser ausgezogen“. Dafür gibt es schlanke Flaschen mit einem Sieb im Hals: Tee hinein, Wasser auffüllen, ab in den Kühlschrank. Das Prinzip entspricht dem kalten Aufguss oben und passt besonders gut zu Sencha.
+
+Noch langsamer ist Koridashi, der Aufguss mit Eis. Lege etwa fünf Gramm hochwertigen Grüntee, zum Beispiel Gyokuro oder einen guten Sencha, in eine kleine Kanne mit Sieb, bedecke die Blätter mit Eiswürfeln und lass das Eis langsam schmelzen. Je nach Menge und Raumtemperatur dauert das ein bis mehrere Stunden. Das kalte Schmelzwasser zieht die Blätter ganz sanft aus. Heraus kommt nur eine kleine Menge, aber ein auffallend süßer, dichter Tee mit viel Umami, den du eher in kleinen Schlucken genießt als aus dem großen Glas.
+
 ## Welche Tees sich eignen
 
 | Tee | Methode | Geschmack als Eistee |
@@ -71,6 +89,20 @@ Zucker löst sich in kaltem Tee schlecht und sinkt zu Boden. Besser ist ein einf
 **Hojicha-Milch:** Hojicha kalt aufgießen, im Verhältnis eins zu eins mit kalter Milch oder Haferdrink mischen.
 
 **Arnold Palmer:** Halb Eistee, halb Zitronenlimonade, ein Klassiker aus den USA.
+
+## Zitrone, Milch und Früchte richtig kombinieren
+
+Zitrone hellt schwarzen Tee sichtbar auf, weil die Säure die Farbstoffe des Tees verändert. Das ist kein Fehler, sondern Chemie. Gib Zitronenscheiben erst kurz vor dem Servieren in die Karaffe oder direkt ins Glas, denn die weiße Innenhaut der Schale wird beim langen Ziehen bitter. Milch und Zitrone vertragen sich dagegen nicht: Die Säure lässt die Milch gerinnen. Für Eistee mit Milch eignen sich deshalb kräftiger Assam, gerösteter Tee wie Hojicha oder Rooibos, jeweils ohne Zitrusnoten.
+
+Weiche Früchte wie Pfirsich, Beeren oder Mango geben ihr Aroma innerhalb weniger Stunden ab. Danach werden sie weich und unansehnlich, und der Tee sollte bald getrunken werden. Feste Zutaten wie Ingwerscheiben, Zitrusschale oder ein Rosmarinzweig halten ihre Form länger, geben aber mit der Zeit immer mehr Schärfe oder Bitterkeit ab. Nimm sie heraus, sobald dir der Geschmack gefällt.
+
+## Wenn der Eistee nicht gelingt
+
+| Problem | Wahrscheinliche Ursache | Was hilft |
+|---|---|---|
+| herb und bitter trotz Eis | beim heißen Brühen zu heiß oder zu lange gezogen | Temperatur und Ziehzeit der Sorte einhalten oder kalt aufgießen |
+| flach, wenig Aroma | alter Tee, zu wenig Tee oder sehr hartes Wasser | frischen Blatttee nehmen, Menge erhöhen, weicheres Wasser |
+| schmeckt nach Kühlschrank | Karaffe offen gelagert | immer abgedeckt oder in einer verschlossenen Flasche kühlen |
 
 ## Hygiene und Haltbarkeit
 
