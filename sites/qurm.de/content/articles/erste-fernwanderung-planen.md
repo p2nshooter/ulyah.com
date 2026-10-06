@@ -90,6 +90,10 @@ Mache in den Wochen vor der Tour zwei oder drei lange Tageswanderungen mit den S
 - Lass jemanden zu Hause wissen, wo du unterwegs bist.
 - Gönn dir die Freiheit, eine Etappe abzukürzen. Ankommen ist wichtiger als Durchhalten.
 
+## Nach der ersten Tour
+
+Halte nach der Rückkehr fest, was gut lief und was nicht: Waren die Etappen zu lang oder zu kurz? Was hast du nie gebraucht, was hat gefehlt? Wie haben sich Füße und Rücken angefühlt? Diese Notizen sind die beste Grundlage für die nächste Fernwanderung. Viele Menschen merken nach der ersten Tour, dass sie Lust auf mehr haben, und wagen sich im nächsten Jahr an einen längeren Weg oder eine Tour mit eigenem Gepäck.
+
 ## Häufige Fragen
 
 ### Wie viel kostet eine Fernwanderung?
