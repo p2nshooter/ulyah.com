@@ -32,6 +32,7 @@ EXPECTED["qulen.de"] = "7516944260248026";
 EXPECTED["dawo.es"] = "6019445914743449";
 EXPECTED["zolun.de"] = "4548005919629272";
 EXPECTED["axto.dev"] = "8469557036744946";
+EXPECTED["rubiy.de"] = "2493615451319531";
 const verdicts = [];
 
 const browser = await chromium.launch();

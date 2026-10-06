@@ -39,7 +39,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | qarf.de | ca-pub-5693981744147503 | ulyah.com · sites/qarf.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | qulen.de | ca-pub-7516944260248026 | ulyah.com · sites/qulen.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | qurm.de | ca-pub-5693981744147503 | ulyah.com · sites/qurm.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
-| rubiy.de | ca-pub-5693981744147503 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
+| rubiy.de | ca-pub-2493615451319531 | ulyah.com · sites/rubiy.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | zavik.de | ca-pub-5693981744147503 | ulyah.com · sites/zavik.de (site.json + ADSENSE.txt) — 10 domain baru, dikerjakan nanti |
 | zevok.de | ca-pub-5944786950535069 | ulyah.com · sites/zevok.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik) |
 | zolun.de | ca-pub-4548005919629272 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
@@ -458,25 +458,25 @@ Tag meta
 
 ## rubiy.de
 
-Satu akun dengan sembilan domain lain di daftar 4 Okt (byoy.de … zuvik.de).
+Akun sendiri, kode dari pemilik 6 Okt 2026 (urgent). Tag meta dibuat dari kode yang sama.
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://rubiy.de/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-2493615451319531">
 ```
 
 ## zavik.de
