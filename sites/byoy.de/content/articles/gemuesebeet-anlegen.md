@@ -1,6 +1,6 @@
 ---
 title: "Gemüsebeet neu anlegen: aus Rasen ein Beet machen, Boden vorbereiten, Wege planen"
-description: "Schritt für Schritt zum ersten Gemüsebeet: sonnigen Platz wählen, Rasen abtragen oder mit Pappe abdecken, Boden lockern ohne tiefes Umgraben, Kompost, Beetbreite, Wege und leichte Kulturen für den Start."
+description: "Schritt für Schritt zum ersten Gemüsebeet: sonnigen Platz wählen, Rasen abtragen oder mit Pappe abdecken, Boden lockern statt umgraben, Beetbreite, Wege und leichte Kulturen."
 category: gemuesegarten
 date: 2026-07-21
 ---

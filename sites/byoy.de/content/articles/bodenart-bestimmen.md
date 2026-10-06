@@ -95,6 +95,18 @@ Schwere Böden halten Wasser und Nährstoffe gut, sind aber im Frühjahr lange k
 
 Sand in einen Tonboden zu mischen, wird oft empfohlen, braucht aber große Mengen und kann bei zu wenig Sand die Struktur sogar verschlechtern. Kompost ist der sicherere Weg.
 
+## Spatenprobe: den Boden von innen ansehen
+
+Ein Blick unter die Oberfläche verrät mehr als jeder Test im Glas. Stich mit dem Spaten an einer typischen Stelle ein etwa 30 Zentimeter tiefes Loch und hebe einen Block Erde heraus, ohne ihn zu zerbrechen. Lege ihn auf eine Plane und schau ihn dir an:
+
+- **Farbe:** Eine dunkle obere Schicht zeigt Humus. Graue oder rostfleckige Bereiche weiter unten deuten auf Staunässe.
+- **Struktur:** Gute Erde zerfällt in runde, poröse Krümel. Scharfkantige, plattige Brocken sind ein Zeichen für Verdichtung.
+- **Wurzeln:** Wachsen sie gerade nach unten oder knicken sie an einer Schicht seitlich ab?
+- **Leben:** Regenwürmer, Gänge und Asseln zeigen einen aktiven Boden. Zehn oder mehr Regenwürmer in einem Spatenstich sind ein sehr gutes Zeichen.
+- **Geruch:** Gesunde Erde riecht angenehm nach Wald. Ein fauliger Geruch weist auf Luftmangel hin.
+
+Mache die Spatenprobe im Frühjahr und Herbst, wenn der Boden feucht, aber nicht nass ist. Über die Jahre siehst du, wie sich dein Boden mit Kompost und Mulch verändert.
+
 ## Häufige Fragen
 
 ### Was ist der beste Boden für Gemüse?

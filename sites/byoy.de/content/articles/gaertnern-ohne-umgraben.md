@@ -79,6 +79,29 @@ Nach zwei bis drei Jahren ist die Oberfläche so locker und krümelig, dass du k
 
 Wie du deinen Boden einschätzt, steht in [Bodenart bestimmen](/gartenwissen/bodenart-bestimmen/).
 
+## Ein Jahr im Beet ohne Umgraben
+
+Wie sieht das in der Praxis aus? Ein Beispiel für ein Beet mit Möhren und Lauch:
+
+- **März:** Die Laubdecke vom Winter ist zur Hälfte verschwunden. Du ziehst die Reste an den Beetrand, lockerst nur dort, wo der Boden noch fest ist, mit der Grabegabel und rechst die Oberfläche fein. In die Kompostschicht vom Herbst säst du Möhren in Reihen.
+- **Mai:** Zwischen die Möhrenreihen pflanzt du Lauch. Sobald die Möhren handhoch sind, mulchst du dünn mit angetrocknetem Grasschnitt.
+- **Juli:** Du jätest die wenigen Unkräuter von Hand, legst Mulch nach und gießt nur bei längerer Trockenheit.
+- **Oktober:** Die Möhren sind geerntet, der Lauch bleibt bis in den Winter stehen. Auf die freien Reihen kommt eine Kompostschicht und darüber Laub.
+
+So bleibt der Boden das ganze Jahr bedeckt, und die Arbeit beschränkt sich auf Säen, Pflanzen, Mulchen und Ernten.
+
+## Werkzeuge, die du wirklich brauchst
+
+| Werkzeug | Einsatz |
+|---|---|
+| Grabegabel | Lockern verdichteter Stellen, Wurzelunkräuter ausgraben, Ernte von Kartoffeln |
+| Sauzahn | Lockern ohne Wenden in Längs- und Querbahnen |
+| Rechen | feine Saatbeete herstellen, Mulch verteilen |
+| Pendelhacke oder Ziehhacke | junges Unkraut flach abschneiden |
+| Schubkarre | Kompost und Mulch transportieren |
+
+Ein Spaten bleibt für das Pflanzen von Sträuchern und Bäumen nützlich, im Gemüsebeet wird er kaum noch gebraucht.
+
 ## Häufige Fragen
 
 ### Wird mein Boden ohne Umgraben nicht hart?

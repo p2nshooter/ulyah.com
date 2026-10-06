@@ -1,6 +1,6 @@
 ---
 title: "Laub im Garten nutzen: als Mulch, für Laubkompost und als Winterquartier für Igel"
-description: "Herbstlaub ist kein Abfall: welche Blätter schnell verrotten, wie du Beete und Sträucher mulchst, Laubkompost ansetzt, Igeln ein Quartier baust, und wann Laub besser vom Rasen und aus dem Kompost bleibt."
+description: "Herbstlaub ist kein Abfall: welche Blätter schnell verrotten, Beete und Sträucher mulchen, Laubkompost ansetzen, Igeln ein Winterquartier bauen und Laub vom Rasen holen."
 category: kompost-und-boden
 date: 2026-07-30
 ---

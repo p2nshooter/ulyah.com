@@ -98,6 +98,15 @@ Fülle ein Schraubglas mit gesiebtem Kompost, säe Kresse darauf und decke es ab
 
 Arbeite den Kompost im Frühjahr flach in die oberen Zentimeter des Bodens ein, nicht tief untergraben. Mehr über die Einteilung der Kulturen steht in [Starkzehrer, Mittelzehrer, Schwachzehrer](/gartenwissen/starkzehrer-mittelzehrer-schwachzehrer/). Zu viel Kompost über viele Jahre kann den Boden mit Phosphor und Kalium überversorgen. Eine gelegentliche Bodenanalyse, wie in [Bodenart bestimmen](/gartenwissen/bodenart-bestimmen/) beschrieben, schafft Klarheit.
 
+## Kompost im Jahreslauf
+
+- **Frühjahr:** Den reifen Kompost aus dem letzten Jahr sieben und auf die Beete bringen. Das Siebgut, grobe Reste, kommt zurück in den neuen Haufen.
+- **Sommer:** Viel Rasenschnitt und Gemüsereste fallen an. Mische sie mit dem im Herbst gesammelten Laub oder mit Häckselgut. Bei Hitze den Kompost feucht halten.
+- **Herbst:** Viel braunes Material: Laub, abgeräumte Pflanzen, Strauchschnitt. Ein guter Zeitpunkt, einen neuen Haufen aufzusetzen und den Sommerkompost umzusetzen.
+- **Winter:** Die Rotte verlangsamt sich. Küchenabfälle kannst du weiter auflegen. Eine Abdeckung aus Laub oder einer Matte schützt vor zu viel Nässe.
+
+Wer den Kompost so führt, hat jedes Frühjahr fertige Erde für die Beete und braucht kaum noch Erde zu kaufen.
+
 ## Häufige Fragen
 
 ### Mein Kompost stinkt. Was tun?

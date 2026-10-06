@@ -1,6 +1,6 @@
 ---
 title: "Organisch düngen im Gemüsegarten: Kompost, Hornspäne, Mist und Brennnesseljauche"
-description: "So versorgst du Gemüse ohne Mineraldünger: was Stickstoff, Phosphor und Kalium bewirken, Hornspäne, Schafwolle, Mist, Gesteinsmehl und Holzasche richtig dosieren, Brennnesseljauche ansetzen und Überdüngung vermeiden."
+description: "Gemüse ohne Mineraldünger versorgen: Nährstoffe verstehen, Hornspäne, Schafwolle, Mist, Gesteinsmehl und Asche richtig dosieren, Brennnesseljauche ansetzen, Überdüngung vermeiden."
 category: kompost-und-boden
 date: 2026-08-08
 ---

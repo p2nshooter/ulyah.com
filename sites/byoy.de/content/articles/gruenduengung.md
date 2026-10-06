@@ -69,6 +69,19 @@ Winterharte Gründüngung wie Roggen und Wicken mähst du im Frühjahr, bevor si
 
 Tiefes Unterpflügen ist nicht nötig und im Biogarten auch nicht erwünscht. Wie du ganz ohne Umgraben gärtnerst, erklärt [Gärtnern ohne Umgraben](/gartenwissen/gaertnern-ohne-umgraben/).
 
+## Gründüngung in der Fruchtfolge
+
+Gründüngung lässt sich gut in einen Anbauplan einbauen. Ein Beispiel für vier Beete, die jedes Jahr weiterwandern:
+
+| Beet | Hauptkultur | Danach im Spätsommer |
+|---|---|---|
+| Starkzehrer | Kürbis, Zucchini, Kohl | Winterroggen mit Wicke, falls früh geräumt, sonst Laub |
+| Mittelzehrer | Möhren, Zwiebeln, Rote Bete | Phacelia |
+| Schwachzehrer | Bohnen, Erbsen | Phacelia oder Buchweizen nach Erbsen |
+| Erholungsbeet | Kräuter, Erdbeeren oder Gründüngung | Inkarnatklee für den nächsten Starkzehrer |
+
+Wichtig ist, die Familie der Gründüngung mitzudenken. Phacelia und Buchweizen passen fast überall, Kreuzblütler nur dort, wo lange kein Kohl folgt. Mehr dazu in [Fruchtfolge planen](/gartenwissen/fruchtfolge-planen/).
+
 ## Häufige Fragen
 
 ### Kann ich Gründüngung auch im kleinen Garten nutzen?
