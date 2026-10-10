@@ -535,6 +535,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 4 Okt | xaa.es tetap aplikasi bisnis, warna istana tidak cocok | ✅ xaa.es dikecualikan dari §4; tetap biru |
 | 4 Okt | Artikel mesin kembar/tipis (aturan 4) | ✅ dihapus + 301: lie.skin 16, axto.dev 43 (judul kembar; 33 yang sudah diperpanjang tetap), xaa.es 76, oldco.in 23, profity.in 16 |
 | 4 Okt | Logo "AXTO.dev.dev" | ✅ jadi "AXTO.dev" (axtodev #15) |
+| 10 Okt | Kode AdSense baru: axto.us + rubiy.de → ca-pub-2990015102981265; axto.dev, dawo.es, zevok.de, zufiq.de kembali ke ca-pub-5693981744147503; domain baru jai.lat/dai.lat/pab.lat/rough.lat/rough.es dengan akun masing-masing; TXT Search Console rough.es | ✅ `docs/ADSENSE-CODES.md` (tabel terbaru), sites/*, axtodev, axto.us, jai; TXT lewat `dns-records.yml` |
 
 ---
 
