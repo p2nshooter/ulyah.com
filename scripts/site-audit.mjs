@@ -24,15 +24,16 @@ const EXPECTED = Object.fromEntries([
   "xad.es", "byoy.de", "qarf.de", "qulen.de", "qurm.de", "rubiy.de", "zavik.de", "zevok.de",
   "zolun.de", "zufiq.de", "zuvik.de",
 ].map((d) => [d, ONE_ACCOUNT]));
-// Owner, 6 Oct 2026: these two apply with their own AdSense accounts.
-EXPECTED["zufiq.de"] = "6146217038829045";
-EXPECTED["zevok.de"] = "5944786950535069";
+// Owner's own accounts per domain. 6 Oct 2026: byodd, qulen, zolun keep theirs.
+// 10 Oct 2026 (owner): axto.dev, dawo.es, zevok.de, zufiq.de move back to the main
+// account; axto.us and rubiy.de use ca-pub-2990015102981265; the new .lat/.es
+// domains each have their own (docs/ADSENSE-CODES.md).
 EXPECTED["byodd.de"] = "2228462932360966";
 EXPECTED["qulen.de"] = "7516944260248026";
-EXPECTED["dawo.es"] = "6019445914743449";
 EXPECTED["zolun.de"] = "4548005919629272";
-EXPECTED["axto.dev"] = "8469557036744946";
-EXPECTED["rubiy.de"] = "2493615451319531";
+EXPECTED["axto.us"] = "2990015102981265";
+EXPECTED["rubiy.de"] = "2990015102981265";
+EXPECTED["jai.lat"] = "6019445914743449";
 const verdicts = [];
 
 const browser = await chromium.launch();
