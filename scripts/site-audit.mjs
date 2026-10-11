@@ -38,6 +38,8 @@ EXPECTED["dai.lat"] = "8469557036744946";
 EXPECTED["pab.lat"] = "6146217038829045";
 EXPECTED["rough.lat"] = "5944786950535069";
 EXPECTED["rough.es"] = "5693981744147503";
+// 11 Oct 2026 (owner): dawo.es moves to its own account.
+EXPECTED["dawo.es"] = "7349356139063654";
 // 11 Oct 2026 (owner): xad.es moves to its own account.
 EXPECTED["xad.es"] = "5517446616694631";
 const verdicts = [];
