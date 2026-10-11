@@ -43,7 +43,10 @@ import { TENANT } from "./tenant";
  * On 2026-10-04 the owner consolidated every site onto ONE account ("sy mau
  * focus jadi 1 akun saja"): ulyah.com, 1fr.fr, tilawa.de and xad.es now all
  * declare ca-pub-5693981744147503. dawa.es is not the owner's any more and is
- * left exactly as it was. docs/ADSENSE-CODES.md lists every domain.
+ * left exactly as it was. On 2026-10-11 the owner moved xad.es to its own
+ * account ("xad.es kode adsense nya ganti dengan ini, buatin jg ads.txt dan
+ * tag metanya"): ca-pub-5517446616694631. docs/ADSENSE-CODES.md lists every
+ * domain.
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
@@ -51,7 +54,7 @@ const AD_CLIENT_BY_TENANT: Record<string, string> = {
   "1fr": "ca-pub-5693981744147503",
   tilawa: "ca-pub-5693981744147503",
   dawa: ORIGINAL_ACCOUNT,
-  xad: "ca-pub-5693981744147503",
+  xad: "ca-pub-5517446616694631",
 };
 
 /**

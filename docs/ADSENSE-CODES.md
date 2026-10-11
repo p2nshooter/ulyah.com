@@ -27,6 +27,9 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 > 2. Domain baru: **jai.lat → ca-pub-6019445914743449, dai.lat → ca-pub-8469557036744946,
 >    pab.lat → ca-pub-6146217038829045, rough.lat → ca-pub-5944786950535069,
 >    rough.es → ca-pub-5693981744147503**.
+> 3. **11 Okt 2026:** „xad.es kode adsense nya ganti dengan ini, buatin jg ads.txt dan tag
+>    metanya“ → **xad.es → ca-pub-5517446616694631** (loader, ads.txt dan tag meta dari satu
+>    konstanta di `apps/web/src/lib/ad-config.ts`).
 > byodd.de, qulen.de dan zolun.de tetap dengan akun sendiri (6 Okt). Tabel di bawah adalah
 > keadaan terbaru; `scripts/site-audit.mjs` memeriksa domain live dengan angka yang sama.
 
@@ -63,7 +66,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | rough.es | ca-pub-5693981744147503 | ulyah.com · sites/rough.es (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
 | tilawa.de | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant tilawa) |
-| xad.es | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant xad) |
+| xad.es | ca-pub-5517446616694631 | ulyah.com · apps/web (tenant xad) — diubah pemilik 11 Okt |
 
 ## ulyah.com
 
@@ -757,18 +760,18 @@ Tag meta
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5517446616694631"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://xad.es/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-5517446616694631, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-5517446616694631">
 ```

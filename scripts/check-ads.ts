@@ -69,13 +69,14 @@ check(
 
 console.log("\n=== each site declares the account the owner gave it ===");
 // docs/ADSENSE-BLUEPRINT.md §2. Since 2026-10-04 every owner site is on the one
-// account ca-pub-5693981744147503 ("jadi 1 akun saja"). dawa.es is detached and
-// not the owner's any more: it keeps its original account, untouched (§10).
+// account ca-pub-5693981744147503 ("jadi 1 akun saja"), except xad.es, which the
+// owner moved to its own account on 2026-10-11. dawa.es is detached and not the
+// owner's any more: it keeps its original account, untouched (§10).
 const EXPECTED: Record<string, string> = {
   ulyah: "ca-pub-5693981744147503",
   "1fr": "ca-pub-5693981744147503",
   tilawa: "ca-pub-5693981744147503",
-  xad: "ca-pub-5693981744147503",
+  xad: "ca-pub-5517446616694631",
 };
 for (const [tenant, pub] of Object.entries(EXPECTED)) {
   const key = tenant === "1fr" ? '"1fr"' : tenant;
