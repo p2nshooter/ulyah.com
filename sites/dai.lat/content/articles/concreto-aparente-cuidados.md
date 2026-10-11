@@ -82,6 +82,10 @@ En interiores, las superficies de concreto son duras y reflejan el sonido. Un am
 
 Las burbujas, pequeños desprendimientos o cantos golpeados pueden repararse con morteros específicos de reparación, ajustando el color con pruebas. Es un trabajo delicado: una reparación de otro tono puede verse más que el defecto original. Para superficies grandes o visibles, conviene contratar a personal con experiencia en concreto arquitectónico.
 
+## Cómo envejece el concreto visto
+
+Con los años, el concreto expuesto cambia. El sol aclara algunas zonas, la lluvia marca recorridos de agua bajo antepechos y cornisas, y en lugares húmedos aparecen manchas oscuras de microorganismos. Parte de ese envejecimiento se considera una pátina que da carácter. Para que sea parejo y no se convierta en deterioro, ayuda diseñar bien los detalles: goterones bajo los bordes de losas y ventanas, remates que alejen el agua de los muros y pendientes que eviten charcos. Revisar la fachada una vez al año y renovar la protección cuando haga falta prolonga mucho su vida útil.
+
 ## Errores frecuentes
 
 - **Pensar que el concreto visto no necesita mantenimiento.**
