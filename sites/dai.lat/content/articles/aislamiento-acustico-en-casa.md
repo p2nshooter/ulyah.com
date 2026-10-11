@@ -96,6 +96,15 @@ Cerrar todas las ventanas mejora el silencio, pero la casa necesita aire. Alguna
 
 La guía de [ventilación cruzada](/articulos/ventilacion-cruzada/) explica cómo combinar aberturas.
 
+## Ruidos de la propia casa
+
+No todo el ruido viene de afuera. Algunas fuentes internas también se pueden reducir:
+
+- **Electrodomésticos:** lavadoras, refrigeradores y lavavajillas sobre bases antivibratorias y bien nivelados vibran menos.
+- **Tuberías:** las bajadas de agua que pasan por muros delgados se escuchan en dormitorios. Revestirlas con material aislante y fijarlas con abrazaderas con goma reduce el ruido.
+- **Extractores y aire acondicionado:** modelos de bajo nivel sonoro y soportes elásticos evitan que la vibración pase a la estructura.
+- **Puertas que golpean:** amortiguadores o topes de goma en marcos y muebles.
+
 ## Normas y convivencia
 
 Muchas ciudades tienen normas sobre ruido que fijan límites y horarios de descanso. Si el ruido de un vecino o de un local es persistente, conviene primero hablar, luego recurrir a la administración del edificio y, si no hay solución, a la autoridad municipal competente.
