@@ -49,6 +49,25 @@ Leichter Kalk im Wasserkocher löst sich mit Essigwasser. Der Geruch ist allerdi
 
 Mildes Essigwasser eignet sich, um den Innenraum des Kühlschranks auszuwischen, nachdem du ihn mit Spülwasser gereinigt hast. Es hinterlässt keinen Film, und der Geruch verfliegt schnell. Die vollständige Anleitung steht im Ratgeber [Kühlschrank reinigen](/ratgeber/kuehlschrank-reinigen/).
 
+### Töpfe, Spüle und Gläser
+
+**Kalkflecken und Regenbogenschimmer in Edelstahltöpfen** entstehen durch Mineralien im Kochwasser und durch Hitze. Gib etwas verdünnten Essig in den abgekühlten Topf, verteile ihn mit einem Schwamm, lass ihn kurz wirken und spüle danach gründlich. Die Flecken sind harmlos, verschwinden so aber meist vollständig.
+
+**Edelstahlspülen** bekommen bei hartem Wasser weiße Ränder. Ein Tuch mit Essigwasser löst sie. Wische anschließend mit klarem Wasser nach und reibe die Spüle trocken.
+
+**Milchige Gläser** kannst du mit Essig testen: Verschwindet der Schleier, war es Kalk. Bleibt er, ist die Glasoberfläche durch Glaskorrosion angegriffen, und Essig hilft nicht. Mehr dazu im Ratgeber [Spülmaschine reinigen](/ratgeber/spuelmaschine-reinigen/).
+
+## So setzt du Essig richtig ein
+
+1. **Material prüfen:** Ist die Fläche säureempfindlich? Bei Unsicherheit an einer unauffälligen Stelle testen.
+2. **Verdünnen:** Haushaltsessig für leichte Beläge mit Wasser mischen, Essigessenz immer verdünnen.
+3. **Gezielt auftragen:** Mit einem Tuch oder einer Sprühflasche, nicht großflächig über Fugen und Silikon gießen.
+4. **Kurz einwirken lassen:** Einige Minuten reichen meist. Die Lösung darf nicht antrocknen.
+5. **Wischen und nachspülen:** Mit klarem Wasser alle Säurereste entfernen.
+6. **Trocknen:** Trocken nachpolieren, damit keine neuen Wasserflecken entstehen.
+
+**Sprühflasche beschriften:** Wenn du Essigwasser in eine Sprühflasche füllst, schreibe deutlich darauf, was darin ist. So verwechselt niemand die Flasche mit Wasser oder einem anderen Reiniger.
+
 ## Wo Essig schadet
 
 Die Liste der Stellen, an denen Essig nichts zu suchen hat, ist fast genauso wichtig wie die Liste der Einsatzgebiete.
@@ -103,6 +122,10 @@ Nein. Der Geruch ist beim Putzen deutlich, verfliegt aber, sobald die Flächen t
 ### Ist Essig umweltfreundlicher als ein Kalkreiniger?
 
 Essig ist gut biologisch abbaubar und kommt mit wenig Verpackung aus. Ein Kalkreiniger kann aber gezielter wirken, weil er an senkrechten Flächen besser haftet und sparsamer dosiert werden kann. Entscheidend ist vor allem, jedes Mittel sparsam und passend einzusetzen.
+
+### Wie lagere ich Essig und Essigessenz richtig?
+
+Bewahre beide in der Originalflasche auf, gut verschlossen, kühl und für Kinder unerreichbar. Stelle Essigessenz nicht neben Speiseöl und Getränke, damit es keine Verwechslung gibt. Haltbar ist Essig sehr lange, auch über das Mindesthaltbarkeitsdatum hinaus.
 
 ### Kann ich Essig und Zitronensäure abwechselnd verwenden?
 
