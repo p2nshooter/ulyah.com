@@ -74,6 +74,25 @@ En algunas fiestas los visitantes pueden sumarse:
 
 Infórmate con tiempo sobre cómo hacerlo y respeta las reglas de cada grupo.
 
+## Las fiestas que no salen en las guías
+
+Cada pueblo de la región tiene su calendario de fiestas patronales, ferias agrícolas, aniversarios y celebraciones de la cosecha. Suelen ser más íntimas que los grandes carnavales, con menos turistas y más vida local. Para encontrarlas:
+
+- **Consulta la oficina de turismo** o la municipalidad de la zona que vas a visitar.
+- **Pregunta en tu alojamiento** y en los mercados qué se celebra en esas fechas.
+- **Revisa los calendarios culturales** que publican muchos gobiernos regionales.
+
+En estas fiestas, la hospitalidad suele ser enorme, y también la importancia de comportarse como un invitado: saluda, pregunta antes de entrar a espacios rituales y acepta con gratitud lo que te ofrezcan.
+
+## Qué llevar a una gran fiesta
+
+- Calzado cómodo y cerrado: pasarás muchas horas de pie entre la multitud.
+- Ropa ligera o abrigo según el clima, y algo que pueda mojarse en los carnavales con agua.
+- Protector solar, sombrero y agua.
+- Tapones para los oídos.
+- Una bolsa impermeable para el teléfono y el dinero.
+- Una copia del documento y el contacto de tu alojamiento anotado en papel.
+
 ## Comer y beber en la fiesta
 
 Las fiestas son también un festival gastronómico: platos que solo se preparan en esas fechas, como el pan de muerto en México, las comidas de maíz de las fiestas juninas o los dulces típicos de cada santo patrono. Elige puestos concurridos y comida recién hecha, como explicamos en la guía sobre [comida callejera segura](/bitacora/comida-callejera-segura/).
