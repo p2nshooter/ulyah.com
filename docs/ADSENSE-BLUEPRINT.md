@@ -543,6 +543,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 10 Okt | Kode AdSense baru: axto.us + rubiy.de → ca-pub-2990015102981265; axto.dev, dawo.es, zevok.de, zufiq.de kembali ke ca-pub-5693981744147503; domain baru jai.lat/dai.lat/pab.lat/rough.lat/rough.es dengan akun masing-masing; TXT Search Console rough.es | ✅ `docs/ADSENSE-CODES.md` (tabel terbaru), sites/*, axtodev, axto.us, jai; TXT lewat `dns-records.yml` |
 | 11 Okt | xad.es pindah ke akun sendiri: ca-pub-5517446616694631 („xad.es kode adsense nya ganti dengan ini, buatin jg ads.txt dan tag metanya“) | ✅ `apps/web/src/lib/ad-config.ts` (loader + meta + /ads.txt dari satu konstanta), `scripts/check-ads.ts`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 11 Okt | zolun.de ganti akun: ca-pub-6016479123891586 („ini jg ubah buatin jg ads.txt dan tag metanya zolun.de“; sebelumnya 4548005919629272) | ✅ `sites/zolun.de/site.json` + `ADSENSE.txt` (loader, meta, ads.txt dari engine), `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
+| 11 Okt | dawo.es ganti akun: ca-pub-7349356139063654 („ini juga ganti, buatkan jg ads.txt dan tag meta nya dawo.es“; sebelumnya 5693981744147503; dawa.es tidak disentuh) | ✅ `sites/dawo.es/site.json` + `ADSENSE.txt`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 
 ---
 
