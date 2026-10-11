@@ -130,6 +130,10 @@ En temporada alta, conviene hacerlo con semanas o meses de antelación, y aún a
 
 Depende del sitio y de las normas vigentes, que cambian para proteger las estructuras. En muchos sitios importantes, como Chichén Itzá, está prohibido subir.
 
+### ¿Es mejor visitar en temporada seca o de lluvias?
+
+La temporada seca ofrece senderos más firmes y cielos más despejados, pero también más visitantes. La de lluvias trae paisajes más verdes y menos gente, con el riesgo de chaparrones, barro y algunos cierres. Elige según tu tolerancia al clima y a las multitudes.
+
 ### ¿Cuánto tiempo necesito en un gran sitio arqueológico?
 
 Para los más extensos, como Tikal o Teotihuacan, al menos medio día; muchas personas dedican un día completo. Para sitios más pequeños, dos o tres horas pueden bastar.
