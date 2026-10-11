@@ -1,6 +1,6 @@
 ---
 title: "Rutas del café en América Latina: regiones, visitas a fincas y cómo entender lo que bebes"
-description: "Las grandes regiones cafeteras de Colombia, Centroamérica, México, Brasil y los Andes, cuándo visitar una finca, cómo se procesa el café, cómo se toma en cada país y cómo comprar un buen grano para llevar."
+description: "Las regiones cafeteras de Colombia, Centroamérica, México, Brasil y los Andes, cuándo visitar una finca, cómo se procesa el café, cómo se toma en cada país y cómo comprar buen grano."
 category: sabores-del-viaje
 date: 2026-08-24
 ---
@@ -64,6 +64,20 @@ Muchas fincas terminan la visita con una degustación. Es el momento de comparar
 | Centroamérica | el café filtrado de la mañana acompaña el desayuno en muchas casas |
 
 Probar el café como lo toma la gente del lugar es parte de la experiencia, aunque prefieras otra forma en casa.
+
+## Preparar café como en la finca
+
+En muchas fincas de la región se sigue preparando el café con métodos sencillos que vale la pena aprender:
+
+- **Filtro de tela:** en Costa Rica se usa el chorreador, un soporte de madera con una bolsa de tela por la que se vierte el agua caliente. Métodos parecidos existen en otros países.
+- **Café de olla:** el café se cuece brevemente con agua, canela y piloncillo y se cuela antes de servir.
+- **Métodos de filtrado manual y prensa:** muy usados en cafeterías de especialidad de toda la región.
+
+Algunas pautas generales que suelen recomendar los baristas: usar café recién molido, agua caliente pero no hirviendo a borbotones y una proporción aproximada de una parte de café por quince a diecisiete partes de agua, ajustando a tu gusto.
+
+## Un día en una región cafetera
+
+Un plan habitual combina la visita a una finca por la mañana, cuando el clima suele ser más estable y hay actividad en el beneficio, con un almuerzo de cocina local, un paseo por el pueblo por la tarde y una cata o un café en una tostaduría local al final del día. Si te quedas varios días, alterna fincas grandes y pequeñas: verás formas muy distintas de producir.
 
 ## Comprar café para llevar
 
