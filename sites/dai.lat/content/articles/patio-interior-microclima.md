@@ -90,6 +90,10 @@ En departamentos y casas entre medianeras, el patio puede ser un espacio de poco
 
 Un patio también se disfruta de noche. Una iluminación baja y cálida, dirigida a plantas y muros, crea ambiente sin atraer demasiados insectos. Las luminarias exteriores deben estar preparadas para la intemperie y la instalación eléctrica debe cumplir la normativa local.
 
+## Muebles y objetos para la intemperie
+
+Los muebles del patio reciben sol, lluvia y humedad. Elige materiales preparados para eso: maderas duras tratadas, metal con pintura para exteriores, fibras sintéticas o piedra. Los cojines y textiles deben secarse rápido o guardarse cuando llueve, porque en climas húmedos aparecen manchas de moho en pocos días. Deja espacio libre para circular y no cubras rejillas ni desagües con macetas o muebles. Menos objetos, bien elegidos, hacen que un patio pequeño se sienta más amplio y fresco.
+
 ## Errores frecuentes
 
 - **Techar el patio por completo** sin ventilación en la parte alta.
