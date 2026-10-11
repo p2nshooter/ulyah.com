@@ -53,6 +53,10 @@ Depende de tres factores: cuánto llueve, cuánta agua usarás y cuánto espacio
 
 Un enfoque práctico es empezar con un tanque modesto y ampliarlo según la experiencia. Recuerda que el agua pesa mucho: un tanque de mil litros lleno pesa alrededor de una tonelada. Si va sobre una losa o una estructura, debe apoyarse en elementos calculados, como explicamos en la guía sobre [ampliar la casa con un segundo piso](/articulos/ampliar-la-casa-segundo-piso/).
 
+### Un ejemplo sencillo
+
+Imagina una familia de cuatro personas que quiere usar agua de lluvia en los sanitarios. Si cada descarga gasta unos 6 litros y cada persona usa el sanitario unas cuatro veces al día en casa, el consumo es de alrededor de 96 litros diarios, es decir, cerca de 2900 litros al mes. Un tanque de 2500 a 3000 litros cubriría aproximadamente un mes sin lluvia. Con un techo de 80 metros cuadrados, una sola lluvia de 20 milímetros aporta unos 1300 litros, casi la mitad de ese tanque. Hacer este tipo de cuenta con tus propios datos ayuda a no comprar un tanque demasiado pequeño ni uno que nunca se llenará.
+
 ## Para qué usar el agua de lluvia
 
 | Uso | ¿Conviene? | Condiciones |
@@ -83,6 +87,10 @@ Un tanque abierto o mal cerrado puede convertirse en criadero de los mosquitos q
 - **Después de cada lluvia fuerte:** vacía el separador y revisa los filtros.
 - **Una vez al año:** vacía y limpia el tanque para retirar sedimentos.
 - **Siempre:** comprueba que tapas y mallas estén en buen estado.
+
+## Aguas grises: el siguiente paso
+
+Además de la lluvia, el agua de la lavadora, la ducha y el lavabo, llamada agua gris, puede reutilizarse para riego o sanitarios con sistemas de filtrado y almacenamiento adecuados. Es un paso más complejo, porque esa agua contiene jabones y restos orgánicos que se descomponen rápido, y su reutilización está regulada en muchos lugares. Conviene asesorarse antes de instalar un sistema de este tipo.
 
 ## Programas y apoyos
 
