@@ -83,6 +83,27 @@ Las piezas de 60 por 120 centímetros o más reducen las juntas y dan una imagen
 - **Juntas de movimiento** en el perímetro y en superficies grandes, que absorben dilataciones.
 - **Material de juntas adecuado:** en duchas y cocinas, las juntas epóxicas resisten mejor el agua y las manchas. Lo vemos en la guía para [impermeabilizar la ducha](/articulos/impermeabilizar-la-ducha/).
 
+## Patrones de colocación
+
+La forma de colocar las piezas cambia por completo el resultado:
+
+- **Recto o a junta corrida:** el más sencillo y económico, con pocos cortes.
+- **Trabado:** cada fila desplazada respecto de la anterior, típico de las piezas que imitan madera. En piezas largas conviene que el desplazamiento no sea exactamente la mitad, porque una ligera curvatura de fábrica puede crear escalones entre piezas; muchos fabricantes recomiendan un tercio o menos.
+- **Diagonal:** amplía visualmente espacios pequeños, pero genera más cortes y desperdicio.
+- **Espiga:** muy decorativo, exige piezas específicas o mucha precisión.
+
+Cuantos más cortes, más tiempo de instalación y más material de reserva hay que comprar.
+
+## Cerámicas tradicionales de la región
+
+América Latina tiene una rica tradición cerámica que sigue vigente en las casas actuales:
+
+- **Talavera poblana:** cerámica esmaltada hecha a mano en México, con denominación de origen. Ideal para detalles, cenefas, cocinas y fuentes. Sus piezas artesanales tienen pequeñas variaciones que forman parte de su encanto.
+- **Baldosa hidráulica:** piezas de cemento coloreado prensado, muy presentes en casas antiguas de Cuba, Colombia, Argentina y otros países. Son porosas, necesitan sellado y no toleran limpiadores ácidos.
+- **Barro cocido o terracota:** como las losetas de Saltillo en México, cálidas y rústicas. Absorben mucha agua y manchas, por lo que suelen sellarse y requieren mantenimiento.
+
+Estas piezas exigen cuidados distintos a los del porcelanato, pero aportan carácter y memoria a la casa.
+
 ## Al comprar
 
 1. **Calcula la superficie** y agrega un margen para cortes y reposiciones, alrededor del 10 por ciento en colocaciones rectas y más en diagonal o con muchos recortes.
@@ -115,6 +136,10 @@ Es más resistente y absorbe menos agua, pero no siempre es necesario. En muros 
 ### ¿Se puede colocar porcelanato sobre cerámica antigua?
 
 En algunos casos, sí, si la cerámica antigua está firme, plana y limpia, y se usa un adhesivo adecuado. Hay que considerar la altura que se suma, que puede afectar puertas y desniveles.
+
+### ¿Qué ancho de junta conviene?
+
+Depende del tipo de pieza y de la recomendación del fabricante. En piezas rectificadas de interior suelen usarse juntas finas de unos 2 o 3 milímetros; en piezas no rectificadas, rústicas o en exteriores, juntas más anchas que compensen las diferencias de medida y los movimientos del material.
 
 ### ¿Por qué se rompen o levantan las piezas?
 
