@@ -84,6 +84,16 @@ En superficies pequeñas y lisas, como juntas, siliconas o un rincón del techo:
 
 Si el moho cubre una superficie grande, vuelve en pocos días o hay personas con asma o alergias en casa, conviene pedir ayuda profesional y revisar si hay filtraciones, como explicamos en la guía sobre [humedad en paredes](/articulos/humedad-en-paredes-causas-y-soluciones/).
 
+## Materiales que ayudan
+
+Algunas decisiones de acabado hacen que el baño se seque más rápido y que el moho tenga menos dónde instalarse:
+
+- **Revestimientos de cerámica o porcelanato** en las zonas mojadas, con juntas bien rellenas.
+- **Juntas epóxicas** en la ducha, más resistentes al agua y a las manchas que las de cemento.
+- **Pinturas lavables para baños** en techos y muros fuera de la zona de salpicaduras.
+- **Muebles resistentes a la humedad,** con bordes sellados y patas que los separen del piso.
+- **Mamparas en lugar de cortinas,** que se secan más rápido y no acumulan moho en los pliegues.
+
 ## Cuando el problema es una filtración
 
 Si las manchas aparecen siempre en el mismo lugar, como la base de la pared de la ducha, el piso junto al plato o el techo bajo otro baño, puede haber una filtración y no solo condensación. Las juntas abiertas, la falta de impermeabilización o una tubería que gotea mantienen el muro mojado. La guía para [impermeabilizar la ducha](/articulos/impermeabilizar-la-ducha/) explica cómo se protege correctamente.
