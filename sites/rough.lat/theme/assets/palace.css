@@ -328,8 +328,8 @@ body:not(.granada--nota) .granada-lectura { display: none; }
 
 @media (max-width: 1100px) {
   .granada-salas__lista { grid-template-columns: repeat(3, 1fr); }
-  .granada-nota__cuerpo { grid-template-columns: 1fr; }
-  .granada-indice { order: 0; position: static; }
+  .granada-nota__cuerpo { grid-template-columns: minmax(0, 1fr); }
+  .granada-indice { order: 0; position: relative; top: auto; }
   .granada-portico__dentro { grid-template-columns: 110px minmax(0, 1fr) 110px; }
   .pilar { height: 440px; }
   .pilar-svg { width: 104px; }
@@ -357,7 +357,7 @@ body:not(.granada--nota) .granada-lectura { display: none; }
   .granada-marca__nombre { font-size: 20px; letter-spacing: .14em; }
   .granada-marca__fruto { width: 34px; height: 34px; }
   .granada-boton-menu { padding: 8px 12px; font-size: 12px; letter-spacing: .1em; gap: 8px; }
-  .granada-portico__ante { font-size: 11.5px; letter-spacing: .18em; }
+  .granada-portico__ante { font-size: 11px; letter-spacing: .16em; padding: 0 34px; text-wrap: balance; line-height: 1.7; }
   .granada-portico__lema { letter-spacing: .14em; }
   .granada-marca__lema { display: none; }
   .granada-salas__lista, .granada-rejilla { grid-template-columns: 1fr; }
