@@ -72,7 +72,7 @@ Rohes Geflügel trägt häufig Bakterien wie Campylobacter und Salmonellen. Dami
 - **Abgedeckt aufbewahren** in geschlossenen Behältern.
 - **Zügig verbrauchen:** Gekochte Reste möglichst innerhalb von ein bis zwei Tagen essen.
 - **Gründlich aufwärmen:** Reste beim Aufwärmen durch und durch heiß machen.
-- **Im Zweifel wegwerfen:** Riecht oder sieht etwas ungewöhnlich aus, nicht probieren.
+- **Im Zweifel wegwerfen:** Riecht oder sieht etwas ungewöhnlich aus, nicht probieren. Schimmel auf weichen Lebensmitteln wie Joghurt, Brot oder Marmelade bedeutet, dass das ganze Produkt in den Müll gehört.
 
 Besonders vorsichtig sollten Schwangere, Säuglinge, ältere und immungeschwächte Menschen sein. Für sie gelten bei bestimmten Lebensmitteln wie Rohmilchkäse, rohem Fisch und rohen Eiern strengere Empfehlungen. Sprich bei Fragen mit deiner Ärztin oder deinem Arzt.
 
