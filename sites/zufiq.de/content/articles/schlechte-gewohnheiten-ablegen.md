@@ -64,6 +64,36 @@ Erzähl Menschen, denen du vertraust, was du ändern möchtest. Vielleicht macht
 
 Anna merkt, dass sie beim Essen ständig aufs Handy schaut, auch wenn ihr Partner mit am Tisch sitzt. Beim Beobachten stellt sie fest: Es passiert vor allem, wenn das Gespräch stockt oder sie gestresst von der Arbeit kommt. Das Bedürfnis dahinter ist Ablenkung und ein bisschen Flucht vor dem Tag. Sie baut eine Hürde ein: Das Handy kommt beim Essen in eine Schublade im Flur. Als Ersatz vereinbaren beide, beim Essen von einem schönen und einem anstrengenden Moment des Tages zu erzählen. In den ersten Tagen fühlt sich das ungewohnt an, nach zwei Wochen ist es ein Ritual, das beide vermissen würden. In stressigen Wochen liegt das Handy manchmal doch wieder auf dem Tisch. Dann bringt Anna es am nächsten Abend wieder in die Schublade.
 
+## Stress und Müdigkeit: die heimlichen Verstärker
+
+Viele ungeliebte Gewohnheiten werden schlimmer, wenn du erschöpft bist. Das ist kein Zufall. Wenn die Energie knapp ist, greift das Gehirn bevorzugt auf eingespielte Abläufe zurück, weil sie wenig Kraft kosten. Deshalb fällt es nach einem langen Arbeitstag so viel schwerer, die Chipstüte im Schrank zu lassen, als an einem entspannten Sonntagvormittag.
+
+Daraus folgt eine wichtige Erkenntnis: Wer schlechte Gewohnheiten ablegen will, sollte auch auf Schlaf, Pausen und Belastung schauen. Manchmal ist der wirksamste Schritt nicht die Hürde vor der Gewohnheit, sondern eine frühere Schlafenszeit oder eine echte Pause am Nachmittag. Der Ratgeber [Schlafgewohnheiten verbessern](/ratgeber/schlafgewohnheiten-verbessern/) zeigt, wie du für erholsamere Nächte sorgst, und [Pausen im Alltag](/ratgeber/pausen-im-alltag/) hilft dir, tagsüber Kraft zu tanken.
+
+Plane außerdem für schwierige Situationen vor. Wenn du weißt, dass der Donnerstag immer besonders anstrengend ist, kannst du für diesen Abend gezielt eine Alternative vorbereiten: einen Spaziergang direkt nach der Arbeit, ein vorbereitetes Abendessen, eine Verabredung, die dich vom Sofa holt.
+
+## Belohnungen richtig einsetzen
+
+Wer eine Gewohnheit ablegt, verzichtet auf etwas, das bisher angenehm war. Damit das nicht nur nach Verlust aussieht, hilft es, den Fortschritt sichtbar zu machen und bewusst zu würdigen.
+
+- **Fortschritt festhalten.** Markiere in einem Kalender oder [Gewohnheits-Tracker](/ratgeber/gewohnheits-tracker/) jeden Tag, an dem du die alte Gewohnheit nicht ausgeführt oder bewusst ersetzt hast. Eine wachsende Reihe von Kreuzen motiviert.
+- **Gespartes umwidmen.** Wer weniger Geld für Spontankäufe oder Snacks ausgibt, kann den Betrag sammeln und nach einigen Wochen für etwas Schönes nutzen, etwa ein Konzert oder einen Ausflug.
+- **Gewonnene Zeit bewusst nutzen.** Wenn du abends weniger Serien schaust, plane die freie Zeit für etwas, das dir guttut. Sonst füllt sie sich schnell wieder mit dem Alten.
+- **Kleine Erfolge feiern.** Die erste Woche ohne Handy am Esstisch ist ein Grund zur Freude. Erzähl jemandem davon oder gönn dir etwas.
+
+Vermeide dabei Belohnungen, die der alten Gewohnheit ähneln. Wer das Naschen am Abend reduziert, sollte sich nicht mit einer großen Tafel Schokolade belohnen.
+
+## Ein Plan für die ersten vier Wochen
+
+Eine Gewohnheit abzulegen braucht Zeit. Dieser grobe Plan hilft dir, Schritt für Schritt vorzugehen, ohne dich zu überfordern:
+
+1. **Woche eins: Beobachten.** Notiere, wann und warum die Gewohnheit auftritt. Ändere noch nichts, außer dass du sie bewusst wahrnimmst.
+2. **Woche zwei: Hürden einbauen.** Wähle zwei oder drei konkrete Hürden aus Schritt drei und setze sie um.
+3. **Woche drei: Ersatz üben.** Formuliere für die häufigsten Auslöser einen klaren Wenn-dann-Plan und probiere ihn aus.
+4. **Woche vier: Rückblick.** Was hat funktioniert, was nicht? Passe Hürden und Ersatz an. Der [Wochenrückblick](/ratgeber/wochenplanung-und-wochenrueckblick/) ist dafür ein guter Rahmen.
+
+Nach diesen vier Wochen ist die alte Gewohnheit selten ganz verschwunden, aber meistens deutlich schwächer. Und du weißt jetzt, welche Werkzeuge bei dir wirken.
+
 ## Typische Fehler
 
 | Fehler | Besser so |
@@ -77,6 +107,20 @@ Anna merkt, dass sie beim Essen ständig aufs Handy schaut, auch wenn ihr Partne
 ## Wann fachliche Hilfe wichtig ist
 
 Manche Verhaltensweisen sind mehr als lästige Angewohnheiten. Wenn du merkst, dass du ein Verhalten nicht kontrollieren kannst, obwohl es dir, deiner Gesundheit, deinen Finanzen oder deinen Beziehungen schadet, wenn es um Alkohol, Nikotin, Medikamente, Glücksspiel oder Essanfälle geht, oder wenn du dich sehr belastet fühlst, hol dir Unterstützung. Hausärztinnen und Hausärzte, Suchtberatungsstellen und andere Fachstellen helfen vertraulich. Hinweise findest du auf der Seite [Hilfe & Anlaufstellen](/hilfe-und-anlaufstellen/).
+
+## Häufige Fragen
+
+### Wie lange dauert es, eine Gewohnheit abzulegen?
+
+Das ist sehr unterschiedlich und hängt davon ab, wie tief die Gewohnheit verankert ist und welches Bedürfnis sie erfüllt. Manche Gewohnheiten werden schon nach wenigen Wochen deutlich schwächer, andere begleiten einen über Monate. Wichtiger als ein Zeitziel ist, dranzubleiben und aus Rückfällen zu lernen.
+
+### Sollte ich mehrere Gewohnheiten gleichzeitig ändern?
+
+Besser nicht. Jede Veränderung kostet Aufmerksamkeit und Energie. Konzentriere dich auf eine Gewohnheit, bis sie sich stabil verändert hat, und nimm dir dann die nächste vor.
+
+### Was, wenn andere im Haushalt die Gewohnheit weiter pflegen?
+
+Sprich offen darüber, was du ändern möchtest, und bitte um Unterstützung, ohne andere zu bevormunden. Oft lassen sich gemeinsame Regeln finden, etwa ein handyfreier Esstisch oder Süßigkeiten in einem Schrank, der nicht ständig im Blick ist.
 
 ## Kurz zusammengefasst
 
