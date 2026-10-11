@@ -164,6 +164,8 @@ body:not(.cedro--guia) .cedro-avance { display: none; }
 .cedro-texto blockquote { margin: 1.6em 0; padding: 20px 24px; border-radius: 14px; background: #fff8ea; border-left: 5px solid var(--laton); }
 .cedro-texto blockquote p:last-child { margin-bottom: 0; }
 .cedro-texto table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.cedro-texto .table-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5em 0; }
+.cedro-texto .table-wrap table { margin: 0; }
 .cedro-texto th { background: var(--cedro-osc); color: var(--laton); text-align: left; padding: 10px 12px; }
 .cedro-texto td { padding: 10px 12px; border-bottom: var(--linea); vertical-align: top; }
 .cedro-nota { margin: 2.4em 0 0; padding: 18px 22px; border-radius: 14px; background: #f2e7d4; border: var(--linea); font-size: 15px; }
@@ -342,7 +344,7 @@ body:not(.cedro--guia) .cedro-avance { display: none; }
 @media (max-width: 1020px) {
   .cedro-salon__dentro { grid-template-columns: minmax(0, 1fr); }
   .cedro-temas__lista, .cedro-rejilla { grid-template-columns: repeat(2, 1fr); }
-  .cedro-guia__cuerpo { grid-template-columns: 1fr; }
+  .cedro-guia__cuerpo { grid-template-columns: minmax(0, 1fr); }
   .cedro-memoria { order: 0; position: relative; top: 0; }
   .cedro-pie__dentro { grid-template-columns: 1fr 1fr; }
   .cedro-pie__dentro > section { grid-column: 1 / -1; }
