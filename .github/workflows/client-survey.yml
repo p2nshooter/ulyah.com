@@ -1,0 +1,29 @@
+name: Client site survey (one-off)
+
+on:
+  push:
+    branches: [claude/client-survey]
+
+jobs:
+  survey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: DNS
+        run: |
+          for d in cekold.com per4an.com hargabulanini.com tatapdf.com recipecost.id aynime.biz.id aynime.my.id freeletters.net firmanrahman.com; do
+            echo "== $d"; dig +short A "$d"; dig +short NS "$d" | head -3; dig +short CNAME "www.$d"
+          done
+      - name: Install Chromium
+        run: |
+          mkdir -p /tmp/s && cd /tmp/s && npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright@1.55.0 >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Survey
+        run: |
+          cp scripts/client-survey.mjs /tmp/s/ && cd /tmp/s
+          node client-survey.mjs cekold.com per4an.com hargabulanini.com tatapdf.com recipecost.id aynime.biz.id aynime.my.id freeletters.net firmanrahman.com
