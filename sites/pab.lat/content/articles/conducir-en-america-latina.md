@@ -1,6 +1,6 @@
 ---
 title: "Conducir en América Latina: documentos, seguros, alquiler, rutas, peajes y controles"
-description: "Qué documentos y seguros necesitas para manejar en otro país, cómo alquilar un auto sin sorpresas, cómo son las rutas de montaña y de ripio, combustible, peajes, controles policiales y por qué evitar la noche."
+description: "Qué documentos y seguros necesitas para manejar en otro país, cómo alquilar un auto sin sorpresas, rutas de montaña y ripio, combustible, peajes, controles policiales y por qué evitar la noche."
 category: rutas-por-carretera
 date: 2026-08-16
 ---
@@ -97,6 +97,23 @@ En los pasos andinos, el motor pierde potencia y el conductor puede sentir los e
 - **Lleva agua, algo de comida, abrigo y una linterna** en el auto.
 - **Algunos países tienen servicios públicos de asistencia en carretera;** averigua si existen en tu ruta.
 - **Ante un accidente,** señaliza el lugar, llama a emergencias y no muevas a los heridos salvo peligro inmediato.
+
+## Una etapa de ruta bien planificada
+
+Antes de cada día de viaje, repasa esta lista rápida:
+
+1. **Distancia y tiempo real** del tramo, sumando paradas y margen para imprevistos.
+2. **Estado de la ruta:** obras, cortes, clima y, en la montaña, nieve o desprendimientos.
+3. **Combustible:** dónde están las estaciones y si conviene llenar antes de salir.
+4. **Hora de llegada con luz de día** y alojamiento reservado si viajas en temporada alta.
+5. **Agua, comida, abrigo y botiquín** en el auto.
+6. **Mapas descargados** y alguien que conozca tu recorrido.
+
+Con esta rutina, los imprevistos se vuelven anécdotas en lugar de problemas.
+
+## Manejar en las ciudades grandes
+
+Las capitales de la región suelen tener tráfico intenso, motos que se cuelan entre los autos y normas especiales, como restricciones de circulación según el número de la placa en ciertos días u horarios en algunas ciudades. Infórmate al llegar y, si solo vas a moverte por la ciudad, considera dejar el auto estacionado y usar transporte público, taxis o aplicaciones.
 
 ## Estacionar con seguridad
 
