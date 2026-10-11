@@ -71,6 +71,24 @@ Si el nivel baja más de lo que explica la evaporación o aparecen manchas, hay 
 
 La guía sobre [cerámica o porcelanato](/articulos/ceramica-o-porcelanato/) ayuda a elegir las piezas.
 
+## Nichos, bancos y mamparas
+
+Los detalles que hacen cómoda una ducha son también puntos delicados:
+
+- **Nichos para champú:** deben impermeabilizarse por dentro con la misma membrana y tener la base ligeramente inclinada hacia afuera, para que el agua no se quede en el fondo.
+- **Bancos de obra:** su superficie superior necesita pendiente y una impermeabilización continua con la del muro y el piso.
+- **Mamparas y accesorios:** cada tornillo atraviesa la impermeabilización. Usa tacos y selladores adecuados y evita perforar las zonas más mojadas cuando sea posible.
+
+## El orden de trabajo, en resumen
+
+1. Base firme con pendiente hacia el desagüe.
+2. Desagüe instalado y preparado para unirse a la membrana.
+3. Imprimación si el sistema la requiere.
+4. Bandas en esquinas, encuentros y manguitos en perforaciones.
+5. Membrana en las capas y espesores indicados.
+6. Prueba de inundación.
+7. Cerámica con adhesivo adecuado, juntas epóxicas y silicona en los cambios de plano.
+
 ## Plato de ducha o ducha de obra
 
 - **Plato prefabricado:** de cerámica, resina o acrílico, ya viene con pendiente. Es más sencillo, pero el **encuentro entre el plato y el muro** debe impermeabilizarse y sellarse con cuidado.
