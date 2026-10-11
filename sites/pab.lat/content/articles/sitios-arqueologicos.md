@@ -50,6 +50,27 @@ Un buen guía transforma la visita: explica qué se ve, cuenta las hipótesis de
 
 Visitar el museo de sitio o el museo arqueológico de la ciudad cercana antes o después del recorrido ayuda mucho a entender lo que verás. La guía sobre [museos imprescindibles y cómo visitarlos](/bitacora/museos-imprescindibles-y-como-visitarlos/) incluye algunos de los grandes museos de arqueología de la región.
 
+## Cómo leer un sitio arqueológico
+
+Al principio, muchas ruinas parecen un conjunto de piedras difícil de interpretar. Algunas claves ayudan a ordenarlo:
+
+- **Plazas:** eran espacios de reunión, mercado y ceremonia, y suelen organizar el resto del sitio.
+- **Templos y pirámides:** en Mesoamérica, muchas pirámides servían como base de templos y se construían por etapas, unas sobre otras.
+- **Palacios y conjuntos residenciales:** muestran cómo vivían las élites y, a veces, la gente común.
+- **Juegos de pelota:** canchas alargadas con muros inclinados, típicas de Mesoamérica, ligadas a rituales y a la vida política.
+- **Terrazas o andenes:** en los Andes, escalonaban las laderas para cultivar y controlar la erosión.
+- **Depósitos y canales:** almacenes de alimentos y sistemas de agua que revelan una gran capacidad de organización.
+
+Pregunta al guía por la función de cada espacio y por cómo se fechó el sitio: entender el contexto cambia por completo la visita.
+
+## Combinar varios sitios en un viaje
+
+Visitar dos grandes sitios seguidos, bajo el sol y con largos traslados, puede agotar a cualquiera. Alterna los sitios con días de descanso, pueblos, mercados o museos, y deja los más importantes para cuando ya estés aclimatado y descansado. Disfrutarás más de cada lugar.
+
+## Fotografía en los sitios
+
+La luz temprana es la mejor para fotografiar piedras y relieves. En muchos sitios los trípodes, los estabilizadores grandes y las grabaciones con fines comerciales requieren autorización. Fotografía con respeto, sin subirte a muros ni invadir zonas cerradas, y recuerda que en lugares sagrados puede haber ceremonias que no deben fotografiarse.
+
 ## Calor, selva y altura
 
 - **Llega temprano:** a primera hora hace menos calor, hay menos gente y la luz es más bonita.
