@@ -67,6 +67,14 @@ Los buses nocturnos ahorran una noche de alojamiento y aprovechan las horas de v
 - **Batería externa** para el teléfono.
 - **Medias o calcetines cómodos** y ropa holgada.
 
+## Paradas y comidas en ruta
+
+En los trayectos largos, el bus suele detenerse en paradores o restaurantes de ruta, y en algunos países suben vendedores con comida casera en ciertas paradas. Si comes en estos lugares, elige platos recién cocinados y calientes, y bebe agua embotellada. Antes de bajar, pregunta cuánto durará la parada y memoriza la placa o el número del bus: en los paradores grandes puede haber varios buses parecidos estacionados a la vez.
+
+## Viajar en bus con niños
+
+Con niños, los trayectos diurnos y no demasiado largos suelen funcionar mejor. Elige asientos juntos, lleva juegos, libros y auriculares, y algo de comida conocida para ellos. Averigua la política de la empresa: en algunos países los niños pequeños pueden viajar en el regazo de un adulto en ciertos servicios, pero en trayectos largos conviene que tengan su propio asiento.
+
 ## Rutas de altura
 
 Algunas rutas cruzan pasos andinos a gran altitud, por encima de los 4000 metros, como los trayectos entre Cusco y Puno o los cruces de la cordillera entre Argentina y Chile. Si vienes del nivel del mar, puedes sentir dolor de cabeza o falta de aire. Bebe agua, evita las comidas pesadas antes del viaje y consulta la guía sobre el [mal de altura](/bitacora/mal-de-altura-soroche/). Lleva abrigo: en los pasos altos hace mucho frío, sobre todo de noche.
