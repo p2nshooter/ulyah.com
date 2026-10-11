@@ -45,6 +45,30 @@ Si tienes dudas, pregunta a los salvavidas dónde es seguro bañarse. Ellos cono
 - **Lanza algo que flote,** como una tabla, una nevera portátil vacía o un salvavidas.
 - **Mantén la vista en la persona** para indicar su posición a los rescatistas.
 
+## Después de un rescate
+
+Si una persona sale del agua tras haber tragado agua o haber estado a punto de ahogarse:
+
+- **Llama a emergencias** aunque parezca recuperada.
+- **Comprueba si respira.** Si no respira y sabes hacerlo, inicia la reanimación cardiopulmonar hasta que llegue ayuda.
+- **Abrígala** y mantenla en reposo.
+- **Busca evaluación médica:** algunas complicaciones respiratorias pueden aparecer horas después.
+
+Un curso básico de primeros auxilios es una de las mejores inversiones para cualquier persona que viaja a menudo a la playa.
+
+## Mareas: el mar cambia durante el día
+
+La marea modifica la profundidad, la fuerza de las corrientes y el ancho de la playa. En algunas costas del Pacífico, como en Panamá y Colombia, la diferencia entre la marea alta y la baja puede ser de varios metros: una playa amplia por la mañana puede quedar casi cubierta por la tarde, y una roca accesible puede quedar aislada. Consulta las tablas de mareas, que suelen publicar los servicios hidrográficos o las oficinas de turismo, antes de caminar por la costa o explorar pozas y cuevas.
+
+## Antes de ir a la playa: una lista rápida
+
+1. Averigua si la playa tiene salvavidas y en qué horario.
+2. Consulta el estado del mar, las mareas y las alertas meteorológicas.
+3. Anota el número de emergencias del país.
+4. Lleva agua, sombra, protector solar y calzado para zonas rocosas.
+5. Acuerda con tu grupo un punto de encuentro visible en la arena.
+6. Lleva chalecos salvavidas si viajas con niños que no nadan bien.
+
 ## Qué significan las banderas
 
 Muchas playas usan banderas para indicar el estado del mar. El sistema puede variar entre países e incluso entre playas, pero lo habitual es:
@@ -111,6 +135,10 @@ Pueden tenerlas, sobre todo con oleaje o mal tiempo, aunque muchas playas caribe
 ### ¿Cómo sé si sé nadar lo suficiente para el mar?
 
 Nadar en una piscina no prepara para el mar abierto, con olas, corrientes y agua fría. Si no tienes experiencia, quédate donde haces pie y cerca de los salvavidas.
+
+### ¿Es seguro bañarse de noche?
+
+No es recomendable. De noche no hay salvavidas, es difícil ver las corrientes, las olas y las rocas, y si alguien tiene problemas nadie lo verá a tiempo. Disfruta del mar de noche desde la orilla.
 
 ### ¿Qué hago con mis cosas mientras me baño?
 
