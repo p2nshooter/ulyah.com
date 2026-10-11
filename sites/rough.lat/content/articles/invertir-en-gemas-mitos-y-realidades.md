@@ -1,6 +1,6 @@
 ---
 title: "Invertir en gemas: mitos y realidades antes de poner tu dinero en piedras preciosas"
-description: "Por qué las gemas son una inversión difícil: poca liquidez, diferencia entre compra y venta, costos ocultos, cambios en el mercado del diamante, señales de fraude y cómo vender con expectativas realistas."
+description: "Por qué las gemas son una inversión difícil: poca liquidez, diferencia entre compra y venta, costos ocultos, el mercado del diamante, señales de fraude y cómo vender con expectativas realistas."
 category: lujo-y-estilo-de-vida
 date: 2026-10-11
 ---
@@ -75,6 +75,10 @@ Existen estafas que usan las gemas como gancho. Desconfía si encuentras alguna 
 | Empresas sin dirección verificable | dificultan cualquier reclamación |
 
 Ante cualquier duda, consulta a un gemólogo independiente y a un asesor financiero antes de pagar.
+
+## Lo que dicen las subastas, y lo que no dicen
+
+Las noticias sobre gemas vendidas por cifras récord en grandes subastas alimentan la idea de que cualquier piedra puede revalorizarse. Pero esas piezas son excepcionales en tamaño, calidad, rareza e historia, llegan a las subastas con informes de los laboratorios más reconocidos y atraen a un número muy reducido de compradores. Sus precios no dicen nada sobre lo que valdrá una piedra comercial comprada en una joyería, del mismo modo que el precio de un cuadro famoso no dice nada sobre el de una reproducción.
 
 ## Si aun así quieres comprar pensando en el valor
 
