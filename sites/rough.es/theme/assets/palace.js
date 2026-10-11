@@ -1,9 +1,41 @@
-// ROUGH — mobile menu, reading progress (articles only), table-of-contents
-// highlight, and a once-per-session shower of red and gold gem facets for
-// España, campeona del mundo 2026.
+// ROUGH — mobile menu, compact header on scroll, reading progress (articles
+// only), sections and cards that rise into view, a gold light that follows the
+// pointer over drawers and cards, table-of-contents highlight, and a
+// once-per-session shower of red and gold gem facets for España 2026.
 (function () {
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The inline script in <head> hides what is about to rise into view and
+  // shows it again by itself if this file never arrives.
+  window.lapidaLista = true;
+  document.documentElement.classList.add("lapida-js");
+
+  var header = document.querySelector(".lapida-cabecera");
+  if (header) {
+    var compact = function () { header.classList.toggle("compacta", window.scrollY > 40); };
+    window.addEventListener("scroll", compact, { passive: true });
+    compact();
+  }
+
+  var rise = document.querySelectorAll("[data-revelar], .lapida-texto h2");
+  if (reduce || !("IntersectionObserver" in window)) {
+    rise.forEach(function (el) { el.classList.add("visible"); });
+  } else {
+    var seenIo = new IntersectionObserver(function (items) {
+      items.forEach(function (it) { if (it.isIntersecting) { it.target.classList.add("visible"); seenIo.unobserve(it.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    rise.forEach(function (el) { seenIo.observe(el); });
+  }
+
+  if (!reduce && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".cajon, .faceta__enlace").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+      });
+    });
+  }
 
   var btn = document.querySelector(".lapida-abrir");
   var menu = document.getElementById("lapida-menu");
