@@ -1,6 +1,6 @@
 ---
 title: "Turismo comunitario y respeto cultural en América Latina: viajar con las comunidades, no a costa de ellas"
-description: "Qué es el turismo comunitario, cómo reconocer una propuesta genuina, fotos con permiso, artesanías a precio justo, estancias con familias, niños y regalos, lugares sagrados y pueblos afrodescendientes."
+description: "Qué es el turismo comunitario, cómo reconocer una oferta genuina, fotos con permiso, artesanías a precio justo, estancias con familias, niños y regalos, lugares sagrados y pueblos afrodescendientes."
 category: ciudades-y-cultura
 date: 2026-10-11
 ---
