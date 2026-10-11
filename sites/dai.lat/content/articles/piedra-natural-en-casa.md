@@ -118,6 +118,10 @@ Puede usarse si se acepta que con el tiempo mostrará marcas de ácido y algunas
 
 Depende de la piedra, del sellador y del uso. La prueba de las gotas de agua es la mejor guía: cuando el agua se absorbe con facilidad, es momento de volver a sellar.
 
+### ¿Puedo poner piedra natural en la ducha?
+
+Sí, con algunas condiciones: un acabado con textura en el piso, un sellado adecuado, una impermeabilización completa debajo y limpiadores neutros. Evita los antisarro ácidos si la piedra es calcárea y seca la superficie después de usarla para limitar las marcas de agua.
+
 ### ¿La piedra natural es fría para vivir?
 
 Al tacto se siente fría porque conduce bien el calor del cuerpo. En climas cálidos es una ventaja; en climas fríos, conviene combinarla con alfombras en las zonas de estar y, si se puede, con aislamiento bajo el piso o calefacción radiante.
