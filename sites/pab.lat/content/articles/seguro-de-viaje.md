@@ -119,6 +119,10 @@ Depende del destino y de tu salud. En países donde la atención privada es cara
 
 Algunas pólizas cubren gastos por demoras o pérdidas de conexión en ciertos casos. Revisa las condiciones y conserva los comprobantes de la aerolínea.
 
+### ¿Qué pasa si el hospital me pide pagar por adelantado?
+
+Ocurre, sobre todo si no llamaste antes a la asistencia o si el centro no pertenece a su red. Paga solo si es imprescindible, guarda todos los comprobantes e informes y contacta cuanto antes al seguro para gestionar el reembolso.
+
 ### ¿Necesito seguro si mi país tiene acuerdos de salud con el destino?
 
 Algunos países tienen convenios de atención sanitaria, pero suelen cubrir solo ciertos servicios y no incluyen traslados ni repatriación. Un seguro sigue siendo recomendable.
