@@ -91,6 +91,21 @@ Las especias pierden aroma con la luz, el calor y la humedad. Guárdalas en fras
 
 Deja sobre la cubierta solo lo que usas a diario, como la licuadora, la cafetera o la arrocera. El resto puede guardarse en un mueble bajo o alto según su peso. Una cubierta despejada se limpia mejor y hace que la cocina parezca más grande. Lo vemos también en la guía para [ganar espacio en un departamento pequeño](/articulos/departamento-pequeno-ganar-espacio/).
 
+## El rincón del agua
+
+En muchas casas de la región el agua para beber llega en garrafones o bidones, o pasa por un filtro. Conviene darle un lugar fijo:
+
+- **Un soporte o dispensador estable** a una altura cómoda, para no levantar el garrafón cada vez.
+- **Lejos del sol y de fuentes de calor,** que alteran el sabor y favorecen la proliferación de algas en recipientes transparentes.
+- **Cerca del fregadero,** para limpiar con facilidad los derrames.
+- **Espacio para los garrafones de repuesto,** apoyados en el piso y no en estantes altos, porque pesan mucho.
+
+Si usas un filtro, cambia los cartuchos según las indicaciones del fabricante y anota la fecha del último cambio.
+
+## Cinco minutos de orden al día
+
+La cocina se mantiene ordenada con hábitos pequeños: guardar los utensilios después de cocinar, limpiar la cubierta antes de dormir, devolver cada producto a su lugar al terminar de usarlo y anotar en una lista lo que se acaba. Una pequeña pizarra o una nota en la puerta del refrigerador evita compras repetidas y olvidos.
+
 ## Productos de limpieza: siempre separados
 
 - **Nunca guardes productos de limpieza** junto a alimentos ni en envases de bebidas o comida. Es una causa frecuente de intoxicaciones, sobre todo en niños.
