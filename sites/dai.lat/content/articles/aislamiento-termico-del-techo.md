@@ -86,6 +86,18 @@ Un aislamiento mal planificado puede crear problemas de humedad:
 
 Si ya tienes manchas en el techo o en los muros, la guía sobre [humedad en paredes](/articulos/humedad-en-paredes-causas-y-soluciones/) ayuda a identificar la causa.
 
+## Qué solución elegir según tu situación
+
+| Situación | Primera medida | Mejora completa |
+|---|---|---|
+| Losa plana en clima cálido | recubrimiento reflectante | aislamiento exterior protegido o sombra sobre la azotea |
+| Losa plana en clima frío de altura | revisar impermeabilización | aislamiento exterior o cielo raso aislado |
+| Lámina metálica | cielo raso con aislante | entretecho ventilado y barrera radiante con cámara de aire |
+| Teja con entretecho | aislante sobre el cielo raso | ventilación en aleros y cumbrera |
+| Departamento de último piso | cortinas térmicas y ventilación nocturna | gestionar con la administración una mejora de la azotea |
+
+En un departamento de último piso, la cubierta suele ser un bien común del edificio. Cualquier intervención en la azotea debe acordarse con la administración o la junta de propietarios, que también puede aprovechar para mejorar la impermeabilización de todos.
+
 ## Seguridad: fuego y trabajo en altura
 
 - **Fuego:** algunos aislantes plásticos son combustibles. Usa productos con retardante de llama y protégelos con materiales no combustibles en interiores. Mantén las instalaciones eléctricas del entretecho en buen estado.
