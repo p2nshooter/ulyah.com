@@ -98,6 +98,21 @@ Las escaleras exteriores concentran muchas caídas. Además de un piso con buen 
 - **Instalar un pasamanos firme.**
 - **Iluminar los peldaños** con luces bajas que no deslumbren, como explicamos en la guía de [iluminación de la casa](/articulos/iluminacion-de-la-casa/).
 
+## Rampas y accesibilidad
+
+Una casa sin escalones en la entrada es más cómoda para todos: personas mayores, cochecitos, sillas de ruedas o alguien con una pierna enyesada. Si hay que salvar un desnivel con una rampa:
+
+- **Pendiente suave:** como referencia, muchas normas de accesibilidad fijan alrededor de un 8 por ciento como máximo habitual en tramos cortos, y menos en tramos largos.
+- **Descansos planos** al inicio, al final y en rampas largas.
+- **Superficie con buen agarre** también en mojado.
+- **Pasamanos a ambos lados** y un borde lateral que evite que una rueda se salga.
+
+Consulta la normativa de accesibilidad de tu país, que fija medidas precisas.
+
+## Dónde no conviene ahorrar
+
+En un piso exterior, el material visible es solo una parte del costo. Si el presupuesto es ajustado, conviene priorizar la base, la pendiente, el drenaje y el adhesivo correcto, aunque eso signifique elegir una pieza más sencilla. Un piso económico bien instalado dura más y es más seguro que uno caro colocado sobre una base débil.
+
 ## Errores frecuentes
 
 - **Usar cerámica o porcelanato de interior** en terrazas y patios.
