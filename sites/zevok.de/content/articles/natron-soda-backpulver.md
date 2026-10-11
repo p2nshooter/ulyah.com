@@ -86,6 +86,19 @@ Natron und Essig sprudeln eindrucksvoll, wenn man sie mischt. Das sieht nach Put
 
 Wenn du Kalk entfernen willst, nimm eine Säure wie Essig oder Zitronensäure. Wenn du Fett lösen willst, nimm Spülmittel, Natron oder Soda. Beides gleichzeitig bringt nichts. Mehr über solche Tipps steht im Ratgeber [Hausmittel-Mythen im Check](/ratgeber/hausmittel-mythen/). Die Säuren stellen die Ratgeber [Essig im Haushalt](/ratgeber/essig-im-haushalt/) und [Zitronensäure im Haushalt](/ratgeber/zitronensaeure/) vor.
 
+## Welches Pulver für welche Aufgabe?
+
+| Aufgabe | Beste Wahl | Warum |
+|---|---|---|
+| Graue Fugen, Teeränder, leichte Krusten | Natron als Paste | mild, scheuert sanft, schont Oberflächen |
+| Eingebrannte Reste im Backofen | Natron über Nacht, bei viel Fett Soda | Paste weicht Krusten auf |
+| Fettige Fliesen und Filter aus Edelstahl | Soda in warmem Wasser | löst Fett deutlich stärker |
+| Stark verschmutzte Baumwollwäsche | Soda als Verstärker nach Packungsangabe | unterstützt das Waschmittel |
+| Kalk an Armaturen und Glas | keins der drei | Kalk braucht Säure |
+| Muffige Schuhe oder Kühlschrank | Natron | kann Gerüche abschwächen |
+
+Diese Übersicht hilft vor allem dann, wenn ein Tipp aus dem Internet einfach von „Natron oder Soda“ spricht. Beginne im Zweifel immer mit Natron und greife nur dann zu Soda, wenn Fett die Hauptursache ist und das Material es verträgt.
+
 ## Richtig aufbewahren
 
 - **In der Originalpackung** lagern, gut verschlossen und trocken. Feuchtigkeit lässt die Pulver verklumpen.
@@ -108,9 +121,17 @@ Wenn du Kalk entfernen willst, nimm eine Säure wie Essig oder Zitronensäure. W
 
 Ja. Speisenatron und Natron für den Haushalt sind chemisch derselbe Stoff. Für größere Mengen gibt es Natron auch in größeren Packungen, die pro Kilogramm meist günstiger sind.
 
+### Hilft Natron in der Waschmaschine?
+
+Ein Esslöffel Natron im Waschmittelfach kann leichte Gerüche etwas abschwächen. Als Waschkraftverstärker ist Soda deutlich wirksamer. Riecht die Maschine selbst, liegt die Ursache meist in Dichtung, Einspülkasten oder Flusensieb. Wie du sie reinigst, erklärt der Ratgeber [Waschmaschine reinigen](/ratgeber/waschmaschine-reinigen/).
+
 ### Ist Soda umweltschädlich?
 
 Soda ist ein einfacher mineralischer Stoff und in üblichen Mengen gut verträglich für das Abwasser. Trotzdem gilt wie bei allen Reinigern: nur so viel verwenden, wie nötig ist.
+
+### Wie lange sind Natron und Soda haltbar?
+
+Trocken und gut verschlossen gelagert halten beide Pulver sehr lange. Natron verliert durch Feuchtigkeit allmählich an Wirkung und verklumpt. Klumpige Soda lässt sich meist noch verwenden, wenn du sie in warmem Wasser auflöst.
 
 ### Was ist besser für den Backofen: Natron oder Soda?
 
