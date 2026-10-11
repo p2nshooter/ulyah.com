@@ -121,6 +121,10 @@ Ja, für die tägliche Reinigung reicht ein feuchtes Tuch mit etwas Spülmittel.
 
 Eine Paste aus Natron oder Backpulver und Wasser kann Verkrustungen anlösen. Reibe aber nicht kräftig damit, denn die feinen Körner können auf Glaskeramik scheuern. Lass die Paste wirken, entferne sie mit einem feuchten Tuch und nimm für den Rest den Glasschaber. Mehr im Ratgeber [Natron, Soda und Backpulver](/ratgeber/natron-soda-backpulver/).
 
+### Warum bleiben nach dem Wischen Schlieren?
+
+Meist sind Spülmittelreste oder Kalk aus dem Wasser die Ursache. Wische mit klarem Wasser nach und poliere mit einem trockenen Mikrofasertuch, dann glänzt die Fläche streifenfrei.
+
 ### Wie oft sollte ich das Kochfeld gründlich reinigen?
 
 Nach jedem Kochen kurz abwischen, einmal pro Woche gründlich mit Glaskeramikreiniger. Weitere Anleitungen für die Küche findest du in der Rubrik [Küche reinigen](/themen/kueche-reinigen/), etwa zum [Backofen](/ratgeber/backofen-reinigen/) und zur [Dunstabzugshaube](/ratgeber/dunstabzugshaube-reinigen/).
