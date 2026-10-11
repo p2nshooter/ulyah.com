@@ -63,6 +63,22 @@ Muchas tarjetas de crédito incluyen un seguro o una asistencia de viaje. Puede 
 5. **Si viajas varias veces al año,** considera una cobertura anual multiviaje.
 6. **Contrátalo apenas compres el viaje,** para que la cobertura de cancelación empiece cuanto antes.
 
+## Tres situaciones para entender cómo funciona
+
+Estos ejemplos hipotéticos ayudan a ver qué preguntas hacer al leer una póliza:
+
+- **Un esguince en un sendero.** Llamas a la asistencia, te derivan a una clínica de su red y la atención se paga directamente, salvo el deducible si lo hay. Si la caminata era un trekking de alta montaña excluido, podrías tener que pagar todo.
+- **Una gastroenteritis fuerte.** Una consulta por videollamada o una visita médica al hotel puede resolverlo. Guarda la receta y las facturas de los medicamentos para el reembolso.
+- **Un familiar enfermo en casa.** Si la póliza incluye la interrupción del viaje por enfermedad grave de un familiar, puede cubrir el regreso anticipado. Necesitarás certificados médicos que lo acrediten.
+
+## Telemedicina y consultas a distancia
+
+Muchas coberturas incluyen hoy consultas médicas por teléfono o videollamada. Son muy útiles para problemas leves, como una infección de garganta o una molestia digestiva, porque evitan desplazamientos y esperas. Guarda el acceso a ese servicio en tu teléfono antes de salir.
+
+## Niños y personas mayores
+
+Si viajas en familia, verifica que todas las personas estén cubiertas, con montos adecuados para cada una. Para personas mayores, compara con especial atención los límites por edad, las enfermedades previas y el precio, que suele subir con los años. Una póliza que parece barata puede tener coberturas reducidas justo para quien más las necesita.
+
 ## Si te enfermas o tienes un accidente
 
 1. **En una emergencia grave, ve al hospital más cercano** o llama a emergencias. Tu vida es lo primero.
