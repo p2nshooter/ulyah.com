@@ -82,6 +82,17 @@ Una capa de varios centímetros alrededor de las plantas, sin tocar los tallos, 
 
 En zonas con lluvias intensas, un **jardín de lluvia** es una depresión suave del terreno, plantada con especies que toleran tanto el encharcamiento breve como la sequía. Recibe el agua de techos o pavimentos y la deja infiltrarse lentamente, reduciendo el escurrimiento hacia la calle. Debe ubicarse lejos de los cimientos de la casa. Más sobre el manejo del agua en la guía de [agua de lluvia, canaletas y drenaje](/articulos/agua-de-lluvia-canaletas-y-drenaje/).
 
+## Compost: alimento para el suelo
+
+Las plantas nativas no necesitan grandes dosis de fertilizante, pero agradecen un suelo vivo. El compost casero, hecho con restos de cocina de origen vegetal, hojas secas y restos de poda, mejora la estructura del suelo, ayuda a retener el agua y aporta nutrientes de forma lenta. Para que funcione bien:
+
+- **Alterna capas húmedas y secas,** como cáscaras de verdura y hojas secas.
+- **Mantenlo húmedo como una esponja escurrida,** ni encharcado ni seco.
+- **Remuévelo de vez en cuando** para que entre aire.
+- **Evita carne, lácteos y grasas,** que atraen animales y producen malos olores.
+
+En pocos meses tendrás un material oscuro y suelto que puedes extender al pie de las plantas o mezclar con la tierra al plantar.
+
 ## Cuidado con las especies invasoras
 
 Algunas plantas exóticas se escapan de los jardines y desplazan a la flora local. En distintos países de la región se consideran invasoras especies como el retamo espinoso en zonas de Colombia y Chile o el pasto kikuyo en áreas andinas, entre muchas otras. Antes de plantar, consulta las listas de especies invasoras de tu país y evita las que se propagan con facilidad por semillas, raíces o tallos.
