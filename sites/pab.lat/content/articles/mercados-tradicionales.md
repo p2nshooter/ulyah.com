@@ -54,6 +54,14 @@ En muchos mercados hay puestos donde se sirve un menú del día: sopa, plato pri
 
 Café, chocolate, especias, chiles secos, quesos curados, dulces regionales y tejidos son recuerdos habituales. Antes de comprar alimentos para llevar a tu país, revisa qué está permitido en la aduana de destino, como explicamos en la guía sobre [documentos de viaje](/bitacora/documentos-de-viaje/).
 
+### Pescados y mariscos
+
+En los mercados de la costa, el pescado del día es protagonista, y muchos tienen puestos donde lo cocinan al momento. Para reconocer la frescura, fíjate en que los ojos estén brillantes y no hundidos, las agallas rojas y el olor sea suave, a mar y no fuerte. Los platos con pescado crudo o apenas marinado, como el ceviche, exigen producto muy fresco: cómelos en puestos de confianza y con mucha clientela.
+
+### Hierbas y saberes tradicionales
+
+En muchos mercados hay pasillos dedicados a hierbas medicinales, inciensos y objetos rituales, herederos de saberes andinos, mesoamericanos o afrodescendientes. Son espacios para mirar con respeto y preguntar con curiosidad. Pide permiso antes de fotografiar y no consumas remedios desconocidos sin saber qué contienen, sobre todo si tomas medicamentos o tienes alguna enfermedad.
+
 ## Los nombres cambian de país en país
 
 | Lo que buscas | Algunos nombres en la región |
