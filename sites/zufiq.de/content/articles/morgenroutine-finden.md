@@ -89,11 +89,49 @@ Im Homeoffice fehlt der natürliche Übergang des Arbeitswegs. Schaffe einen kü
 | Du fühlst dich schuldig, wenn es nicht klappt | zu hoher Anspruch | Mindestversion zählen lassen |
 | Jeder Morgen ist anders | Schichtarbeit, wechselnde Termine | Routine an das Aufstehen koppeln, nicht an die Uhrzeit |
 
+## Ein Wochenende ist kein Werktag
+
+Viele Morgenroutinen sind auf Arbeitstage zugeschnitten. Am Wochenende ist der Rhythmus anders, und das darf so sein. Trotzdem lohnt es sich, ein paar Elemente beizubehalten, damit der Montag nicht wie ein Neustart wirkt. Bewährt hat sich, die Aufstehzeit am Wochenende nicht mehr als etwa eine Stunde zu verschieben und einen oder zwei Bausteine der Routine beizubehalten, etwa das Glas Wasser und das Lüften. Der Rest darf langsamer und genussvoller werden: ein ausgiebiges Frühstück, ein Spaziergang, Zeit mit der Familie.
+
+So bleibt die innere Uhr stabil, und du profitierst gleichzeitig vom freieren Wochenendrhythmus. Wie wichtig regelmäßige Zeiten für den Schlaf sind, erklärt der Ratgeber [Schlafgewohnheiten verbessern](/ratgeber/schlafgewohnheiten-verbessern/).
+
+## Die Morgenroutine im Wandel der Jahreszeiten
+
+Im Sommer ist es morgens früh hell, im Winter beginnt der Tag oft im Dunkeln. Das wirkt sich auf die Stimmung und das Wachwerden aus. Im Winter helfen helles Licht direkt nach dem Aufstehen, ein kurzer Weg nach draußen, sobald es hell wird, und eine warme, gemütliche Atmosphäre beim Frühstück. Im Sommer kannst du die frühen hellen Stunden für einen Spaziergang oder ein paar Minuten auf dem Balkon nutzen.
+
+Es ist völlig in Ordnung, die Routine an die Jahreszeit anzupassen. Vielleicht gehört im Sommer eine kurze Runde mit dem Rad dazu, während du im Winter lieber ein paar Dehnübungen im warmen Wohnzimmer machst. Wichtig ist, dass der feste Rahmen erhalten bleibt: dieselbe Aufstehzeit, dieselbe Reihenfolge, derselbe Endpunkt.
+
+## Kleine Rituale mit großer Wirkung
+
+Manchmal sind es gar nicht die großen Bausteine, die eine Morgenroutine wertvoll machen, sondern kleine Rituale, die den Tag freundlich beginnen lassen:
+
+- **Das Bett machen.** Eine Aufgabe, die in zwei Minuten erledigt ist und ein erstes Gefühl von Ordnung schafft.
+- **Ein bewusster erster Schluck.** Den Kaffee oder Tee nicht nebenbei trinken, sondern für einen Moment am Fenster genießen.
+- **Drei Atemzüge vor dem Aufstehen.** Ein kurzer Moment der Ruhe, bevor der Tag beginnt.
+- **Ein Blick auf den Tag.** Die drei wichtigsten Aufgaben kurz ansehen, damit du mit Klarheit startest. Der Ratgeber [Tag realistisch planen](/ratgeber/tag-realistisch-planen/) zeigt, wie das gelingt.
+- **Ein freundliches Wort.** Wer mit anderen zusammenlebt, kann den Tag mit einem kurzen Gespräch beim Frühstück beginnen statt mit Nachrichten auf dem Handy.
+
+Diese Rituale kosten kaum Zeit, verändern aber spürbar, wie sich der Morgen anfühlt.
+
 ## Für Menschen, die morgens nicht in Fahrt kommen
 
 Nicht jeder ist ein Morgenmensch, und das ist in Ordnung. Menschen haben unterschiedliche innere Uhren. Manche sind morgens sofort wach, andere brauchen eine Stunde, um richtig anzukommen. Wenn du zu den späten Typen gehörst, plane die anspruchsvollen Aufgaben nicht in die erste Stunde nach dem Aufstehen, sondern halte deinen Morgen einfach und mechanisch. Mehr über die eigene Energiekurve erfährst du in [Energie über den Tag einteilen](/ratgeber/energie-einteilen/).
 
 Wer trotz ausreichender Schlafdauer dauerhaft erschöpft aufwacht, sollte das ärztlich abklären lassen. Hinweise zu Anlaufstellen findest du auf der Seite [Hilfe & Anlaufstellen](/hilfe-und-anlaufstellen/).
+
+## Häufige Fragen
+
+### Muss ich früh aufstehen, um eine gute Morgenroutine zu haben?
+
+Nein. Eine Morgenroutine funktioniert zu jeder Uhrzeit. Entscheidend ist, dass sie zu deinem Rhythmus und deinem Alltag passt. Wer erst um acht aufsteht, kann genauso eine ruhige, verlässliche Routine haben wie jemand, der um fünf aufsteht.
+
+### Wie lang sollte eine Morgenroutine sein?
+
+So kurz, dass du sie auch an hektischen Tagen schaffst. Für viele sind zehn bis dreißig Minuten realistisch. Eine kurze Routine, die du jeden Tag durchziehst, bringt mehr als eine lange, die du nur an guten Tagen schaffst.
+
+### Was mache ich, wenn meine Kinder den Morgen bestimmen?
+
+Dann ist eine Routine für dich selbst oft nur wenige Minuten lang, und das ist in Ordnung. Viele Eltern stehen fünf bis zehn Minuten vor den Kindern auf, um einen ruhigen Kaffee zu trinken. Ebenso hilfreich ist es, vieles am Vorabend vorzubereiten: Kleidung, Brotdosen, Taschen.
 
 ## Kurz zusammengefasst
 

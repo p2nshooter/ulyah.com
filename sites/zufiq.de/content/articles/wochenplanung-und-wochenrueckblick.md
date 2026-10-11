@@ -71,6 +71,30 @@ Jonas plant seine Woche am Sonntag um 17 Uhr. Der Rückblick zeigt: Die Präsent
 
 Wer mit Partnerin, Partner oder Kindern lebt, plant am besten gemeinsam. Ein kurzer Termin am Wochenende, bei dem alle auf den Familienkalender schauen, verhindert viele Missverständnisse: Wer bringt wen wohin? Wer kocht an welchem Tag? Welche Termine überschneiden sich? Ein gut sichtbarer Kalender in der Küche oder ein geteilter digitaler Kalender helfen. Halte das Treffen kurz und freundlich, damit es niemand als Pflicht empfindet.
 
+## Typische Fehler bei der Wochenplanung
+
+Viele Menschen probieren die Wochenplanung aus und geben nach ein paar Wochen wieder auf. Meist liegt das nicht an der Methode, sondern an einigen typischen Stolperfallen, die sich leicht vermeiden lassen.
+
+**Zu viel vornehmen.** Der häufigste Fehler. Am Sonntag fühlt sich die Woche lang an, und die Liste wird immer länger. Am Mittwoch zeigt sich dann, dass die Hälfte nicht zu schaffen ist. Plane deshalb bewusst weniger, als du dir zutraust. Wenn Zeit übrig bleibt, kannst du jederzeit etwas nachschieben.
+
+**Aufgaben ohne Zeitbedarf.** „Steuer machen“ ist keine Aufgabe, sondern ein Projekt. Zerlege große Vorhaben in konkrete Schritte mit geschätzter Dauer: „Belege für 2025 sortieren, 45 Minuten“. Wie du realistisch schätzt, zeigt der Ratgeber [Tag realistisch planen](/ratgeber/tag-realistisch-planen/).
+
+**Wege und Übergänge vergessen.** Zwischen zwei Terminen liegen Fahrtzeiten, Parkplatzsuche, kurze Erholungsphasen. Wer diese Übergänge nicht einplant, hängt ab dem ersten Termin hinterher.
+
+**Nur Pflichten planen.** Eine Woche, in der nur Arbeit und Erledigungen stehen, fühlt sich schwer an. Trag auch schöne Dinge ein: den Spaziergang mit einer Freundin, den Kinoabend, eine Stunde nur für dich. Was im Kalender steht, passiert eher.
+
+**Den Rückblick überspringen.** Wer gleich mit der Planung startet, lernt nichts aus der vergangenen Woche. Gerade die zehn Minuten Rückblick machen die Planung von Woche zu Woche besser.
+
+## Wenn die Woche anders läuft als geplant
+
+Kein Plan überlebt die Woche unverändert. Ein krankes Kind, ein dringender Auftrag oder einfach ein Tag ohne Energie können alles durcheinanderbringen. Das ist kein Scheitern, sondern Alltag. Der Plan ist eine Orientierung, kein Vertrag.
+
+Hilfreich ist ein kurzer Blick zur Wochenmitte, etwa am Mittwochabend. Frag dich: Was von meinen drei Schwerpunkten ist noch realistisch? Was muss ich verschieben oder streichen? Wem muss ich Bescheid geben? Fünf Minuten genügen, um den Rest der Woche neu auszurichten. Und wenn ein Schwerpunkt liegen bleibt, wandert er bewusst in die nächste Woche, statt dich als schlechtes Gewissen zu begleiten.
+
+## Über die Woche hinaus: der Monatsblick
+
+Einmal im Monat lohnt sich ein etwas weiterer Blick. Nimm dir beim ersten Wochenrückblick eines Monats fünf Minuten zusätzlich und schau auf die kommenden vier Wochen: Welche Geburtstage, Fristen, Reisen oder größeren Vorhaben stehen an? Was muss rechtzeitig vorbereitet werden, etwa Geschenke, Urlaubsanträge oder Unterlagen für die Steuer? So vermeidest du, dass wichtige Termine überraschend kommen. Wer Fristen und Verträge im Blick behalten will, findet dazu Hilfe im Ratgeber [Unterlagen aufbewahren](/ratgeber/unterlagen-aufbewahren/).
+
 ## Die Gewohnheit beibehalten
 
 - **Fester Termin:** Immer zur gleichen Zeit, am gleichen Ort, möglichst an etwas Schönes gekoppelt, etwa den Sonntagstee.
@@ -78,6 +102,24 @@ Wer mit Partnerin, Partner oder Kindern lebt, plant am besten gemeinsam. Ein kur
 - **Vorlage nutzen:** Eine Liste mit den Fragen und Schritten macht den Einstieg leichter.
 
 Wie du daraus eine dauerhafte Gewohnheit machst, steht in [Neue Gewohnheiten aufbauen](/ratgeber/neue-gewohnheiten-aufbauen/).
+
+## Häufige Fragen
+
+### Ist Sonntag der beste Tag für die Wochenplanung?
+
+Für viele ja, weil die neue Woche dann frisch vor einem liegt. Andere planen lieber am Freitagnachmittag, um das Wochenende ohne Gedanken an die Arbeit zu genießen. Entscheidend ist ein fester Termin, der zu deinem Rhythmus passt.
+
+### Papier oder App?
+
+Beides funktioniert. Papier fördert das bewusste Nachdenken und lenkt weniger ab, eine App ist praktisch, wenn du Termine mit anderen teilst oder unterwegs Erinnerungen brauchst. Viele kombinieren einen digitalen Kalender mit einem Notizbuch für Rückblick und Schwerpunkte.
+
+### Was mache ich mit Aufgaben, die seit Wochen liegen bleiben?
+
+Stell dir drei Fragen: Ist die Aufgabe wirklich noch wichtig? Ist sie zu groß und muss in kleinere Schritte zerlegt werden? Kann jemand anderes sie übernehmen? Oft zeigt sich, dass eine Aufgabe ehrlich gestrichen werden kann oder nur einen klareren ersten Schritt braucht.
+
+### Wie lange dauert es, bis die Wochenplanung zur Routine wird?
+
+Die meisten Menschen merken nach drei bis vier Wochen, dass der Termin selbstverständlicher wird und weniger Zeit braucht. Die ersten Male dauern oft länger, weil sich viel Unerledigtes angesammelt hat.
 
 ## Kurz zusammengefasst
 
