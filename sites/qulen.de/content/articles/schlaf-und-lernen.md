@@ -1,6 +1,6 @@
 ---
 title: "Schlaf und Lernen: Wie Luis merkte, dass die Nacht vor der Klausur zum Lernen gehört"
-description: "Luis lernt bis tief in die Nacht und wundert sich, warum er morgens nichts mehr weiß. Warum Schlaf beim Lernen hilft, wie viel Jugendliche brauchen und wie du mit Handy, Koffein und Prüfungsstress besser schläfst."
+description: "Luis lernt bis tief in die Nacht und weiß morgens nichts mehr. Warum Schlaf beim Lernen hilft, wie viel Jugendliche brauchen und wie du vor Prüfungen besser schläfst."
 category: konzentration-und-motivation
 date: 2026-09-15
 ---

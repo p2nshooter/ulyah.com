@@ -1,6 +1,6 @@
 ---
 title: "Fachtexte lesen und verstehen: Wie Ida mit einer Lesemethode schwierige Texte knackte"
-description: "Ida liest Fachtexte dreimal und weiß danach trotzdem nicht, worum es ging. Wie du mit einem Überblick startest, Fragen an den Text stellst, markierst, Fachbegriffe klärst und das Gelesene in eigenen Worten festhältst."
+description: "Ida liest Fachtexte dreimal und versteht sie trotzdem nicht. Wie du mit Überblick und Fragen liest, sparsam markierst, Fachbegriffe klärst und in eigenen Worten zusammenfasst."
 category: vokabeln-und-lernmethoden
 date: 2026-09-21
 ---

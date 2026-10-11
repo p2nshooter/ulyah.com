@@ -1,6 +1,6 @@
 ---
 title: "Hausarbeit schreiben im Studium: Wie Jana ihre erste Hausarbeit vom Thema bis zur Abgabe plante"
-description: "Jana soll im ersten Semester eine Hausarbeit von fünfzehn Seiten schreiben und weiß nicht, wo sie anfangen soll. Wie du eine Forschungsfrage findest, Literatur suchst, gliederst, schreibst und rechtzeitig fertig wirst."
+description: "Jana soll im ersten Semester fünfzehn Seiten schreiben. Wie du eine Forschungsfrage findest, Literatur suchst, gliederst, schreibst und deine Hausarbeit pünktlich abgibst."
 category: lernplan-und-hausaufgaben
 date: 2026-09-06
 ---

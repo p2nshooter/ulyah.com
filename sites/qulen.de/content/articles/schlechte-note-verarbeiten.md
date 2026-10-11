@@ -1,6 +1,6 @@
 ---
 title: "Eine schlechte Note verarbeiten: Wie Mia nach der Fünf in Französisch wieder Mut fasste"
-description: "Mia hat für die Französischarbeit gelernt und trotzdem eine Fünf bekommen. Wie du nach einer schlechten Note Gefühle sortierst, die Arbeit ehrlich auswertest, mit Eltern sprichst und einen Neustart planst."
+description: "Mia hat für Französisch gelernt und trotzdem eine Fünf bekommen. Wie du nach einer schlechten Note Gefühle sortierst, die Arbeit auswertest und einen Neustart planst."
 category: konzentration-und-motivation
 date: 2026-09-12
 ---
