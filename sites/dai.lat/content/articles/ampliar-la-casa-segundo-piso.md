@@ -97,6 +97,15 @@ Cuando los cimientos existentes tienen poca capacidad, un sistema liviano puede 
 - **Aprovecha la terraza** que puede quedar libre, pero con barandas seguras y desagües. Lo vemos en la guía sobre [balcones y terrazas seguras](/articulos/balcones-y-terrazas-seguras/).
 - **Ordena las zonas** para que la ampliación funcione con el resto de la casa, siguiendo la guía de [distribución por zonas](/articulos/distribucion-de-la-casa-por-zonas/).
 
+## Presupuesto y etapas
+
+Una ampliación suele costar más de lo previsto, sobre todo si aparecen refuerzos estructurales que no estaban en el plan inicial. Algunas recomendaciones:
+
+- **Incluye en el presupuesto** la evaluación estructural, los planos, los permisos y la supervisión, no solo materiales y mano de obra.
+- **Reserva un margen para imprevistos,** porque al abrir muros y losas existentes suelen aparecer sorpresas.
+- **Si construyes por etapas,** termina primero la estructura y la cubierta del nuevo piso para proteger la casa, y deja los acabados para después.
+- **No sacrifiques la estructura** para ahorrar: los acabados se pueden mejorar con el tiempo, una columna mal hecha no.
+
 ## La obra en marcha
 
 1. **Contrata con un presupuesto detallado** y un cronograma por etapas.
