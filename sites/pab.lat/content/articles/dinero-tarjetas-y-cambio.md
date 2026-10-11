@@ -144,6 +144,10 @@ En países dolarizados, como Ecuador, El Salvador o Panamá, es la moneda de uso
 
 En las ciudades, cada vez más comercios aceptan pagos sin contacto. Lleva igualmente una tarjeta física y efectivo como respaldo.
 
+### ¿Es mejor tarjeta de crédito o de débito?
+
+Para pagos en comercios, la tarjeta de crédito suele ofrecer más protección ante fraudes y cargos indebidos. Para retirar efectivo, la de débito suele ser más conveniente, porque los retiros con crédito pueden tener intereses y comisiones altas. Llevar una de cada tipo es una buena combinación.
+
 ### ¿Cuánto efectivo debo llevar encima?
 
 Lo necesario para el día: comidas, transporte, entradas y algo de margen. El resto, en el alojamiento o en tarjetas.
