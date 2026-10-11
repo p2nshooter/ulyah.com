@@ -190,7 +190,7 @@ export function home(ctx) {
       <span class="sala__medalla">${icon(c.icon, "sala__icono")}</span>
       <span class="sala__nombre">${esc(c.name)}</span>
       <span class="sala__texto">${esc(c.description)}</span>
-      <span class="sala__cuenta">${c.articles.length ? `${c.articles.length} artículos` : "Muy pronto"}</span>
+      <span class="sala__cuenta">${c.articles.length ? `${c.articles.length} ${c.articles.length === 1 ? "artículo" : "artículos"}` : "Muy pronto"}</span>
     </a></li>`).join("\n    ")}
   </ul>
 </section>

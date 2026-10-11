@@ -1,9 +1,16 @@
-// PAB — destinations menu, route-dot reading progress (guides only), active
-// itinerary entry, and for España 2026 a once-per-session flurry of little red
-// and gold passport stamps that drift down and fade within ~3 seconds.
+// PAB — Tadmor in motion: destinations menu, compact header on scroll, a gold
+// reading route with a small sun at its head (guides only), cards and sections
+// that rise into place as they enter the view, a warm light that follows the
+// pointer over destinations and postcards, the active itinerary entry, and
+// for España 2026 a once-per-session flurry of little red and gold passport
+// stamps that drift down and fade within ~3 seconds.
 (function () {
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The inline script in <head> hides what is about to rise into view; it
+  // shows everything again by itself if this file never arrives.
+  window.tadmorListo = true;
+  document.documentElement.classList.add("tadmor-js");
 
   var btn = document.querySelector(".tadmor-desplegar");
   var nav = document.getElementById("tadmor-nav");
@@ -17,16 +24,51 @@
     });
   }
 
+  // Compact header + reading route, one passive scroll handler
+  var bar0 = document.querySelector(".tadmor-barra");
   var bar = document.querySelector(".tadmor-ruta span");
   var story = document.querySelector(".tadmor--bitacora .tadmor-relato");
-  if (bar && story) {
-    var track = function () {
-      var r = story.getBoundingClientRect(), span = r.height - window.innerHeight * 0.5;
-      bar.style.width = (span > 0 ? Math.min(1, Math.max(0, -r.top / span)) * 100 : 0) + "%";
-    };
-    window.addEventListener("scroll", track, { passive: true });
-    window.addEventListener("resize", track);
-    track();
+  var queued = false;
+  var track = function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () {
+      queued = false;
+      if (bar0) bar0.classList.toggle("compacta", window.scrollY > 40);
+      if (bar && story) {
+        var r = story.getBoundingClientRect(), span = r.height - window.innerHeight * 0.5;
+        var f = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+        bar.style.width = (f * 100).toFixed(1) + "%";
+        bar.parentNode.classList.toggle("en-marcha", f > 0);
+      }
+    });
+  };
+  window.addEventListener("scroll", track, { passive: true });
+  window.addEventListener("resize", track);
+  track();
+
+  // Rise into view
+  var rise = document.querySelectorAll("[data-revelar], .tadmor-relato h2");
+  if (reduce || !("IntersectionObserver" in window)) {
+    rise.forEach(function (el) { el.classList.add("visible"); });
+  } else {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("visible"); ro.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    rise.forEach(function (el) { ro.observe(el); });
+  }
+
+  // Warm light that follows the pointer over destinations and postcards
+  if (!reduce && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".rumbo, .postal__enlace").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+      });
+    });
   }
 
   var stops = document.querySelectorAll(".tadmor-pasaporte__itinerario a");

@@ -146,7 +146,7 @@ export function home(ctx) {
       ${icon(c.icon, "cajon__icono")}
       <span class="cajon__nombre">${esc(c.name)}</span>
       <span class="cajon__texto">${esc(c.description)}</span>
-      <span class="cajon__cuenta">${c.articles.length ? `${c.articles.length} guías` : "Próximamente"}</span>
+      <span class="cajon__cuenta">${c.articles.length ? `${c.articles.length} ${c.articles.length === 1 ? "guía" : "guías"}` : "Próximamente"}</span>
     </a></li>`).join("\n    ")}
   </ul>
 </section>
@@ -178,7 +178,7 @@ export function category(ctx, c) {
     <h1>${esc(c.name)}</h1>
     ${divisor()}
     <p>${esc(c.description)}</p>
-    <p class="lapida-seccion__cuenta">${c.articles.length ? `${c.articles.length} guías` : "Primeras guías en preparación"}</p>
+    <p class="lapida-seccion__cuenta">${c.articles.length ? `${c.articles.length} ${c.articles.length === 1 ? "guía" : "guías"}` : "Primeras guías en preparación"}</p>
   </div>
 </header>
 ${c.articles.length ? `<section class="lapida-vitrina lapida-vitrina--seccion"><div class="lapida-vitrina__rejilla">

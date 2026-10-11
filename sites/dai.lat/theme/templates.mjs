@@ -156,7 +156,7 @@ export function home(ctx) {
       ${icon(c.icon, "estancia__icono")}
       <span class="estancia__nombre">${esc(c.name)}</span>
       <span class="estancia__texto">${esc(c.description)}</span>
-      <span class="estancia__cuenta">${c.articles.length ? `${c.articles.length} guías` : "Próximamente"}</span>
+      <span class="estancia__cuenta">${c.articles.length ? `${c.articles.length} ${c.articles.length === 1 ? "guía" : "guías"}` : "Próximamente"}</span>
     </a></li>`).join("\n    ")}
   </ul>
 </section>
