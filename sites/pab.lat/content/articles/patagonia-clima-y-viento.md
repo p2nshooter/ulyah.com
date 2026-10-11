@@ -121,6 +121,10 @@ Depende de lo que busques. El verano ofrece días largos y más servicios; la pr
 
 Para una primera visita, al menos diez días permiten combinar dos o tres zonas sin correr. Con menos tiempo, concéntrate en una sola región.
 
+### ¿Hace mucho frío en verano?
+
+Las temperaturas de verano pueden ser agradables durante el día, pero el viento, la lluvia y las noches frescas hacen que necesites abrigo incluso en enero. En la montaña y en Tierra del Fuego puede nevar en cualquier época del año.
+
 ### ¿Es posible ver el glaciar Perito Moreno y Torres del Paine en el mismo viaje?
 
 Sí, muchos viajeros los combinan, cruzando la frontera entre Argentina y Chile por tierra. Calcula bien los tiempos de traslado y los trámites fronterizos.
