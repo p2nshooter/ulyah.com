@@ -78,6 +78,10 @@ En muchas viviendas actuales la sala y el comedor comparten un solo ambiente. Pa
 - **Deja un paso claro** entre ambas zonas, de al menos 75 a 90 centímetros.
 - **Mantén una paleta de colores común** para que todo se vea como un conjunto. La guía de [colores para interiores](/articulos/colores-para-interiores/) ayuda a elegirla.
 
+## Prueba antes de comprar
+
+Antes de comprar un sofá o una mesa, marca su contorno en el piso con cinta de papel o con cartones del tamaño real. Déjalo así unos días y circula por la sala como lo harías normalmente. Así descubrirás si el paso queda estrecho, si la puerta choca o si el mueble domina demasiado el espacio. Mide también puertas, pasillos, escaleras y ascensores: más de un sofá se ha quedado en la entrada del edificio porque no cabía por la puerta.
+
 ## Luz en la sala
 
 La sala necesita varias capas de luz: una iluminación general suave, lámparas de lectura junto a los asientos y alguna luz de ambiente para la noche. Evita depender de un solo foco central. La guía de [iluminación de la casa](/articulos/iluminacion-de-la-casa/) explica cómo combinarlas.
