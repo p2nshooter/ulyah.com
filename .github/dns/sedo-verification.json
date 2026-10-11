@@ -1,5 +1,10 @@
 {
-  "_comment": "Sedo ownership verification (TXT on the zone apex, host '@'), so the owner can list domains for sale on sedo.com. The value is the owner's Sedo verification ID, public by design (anyone can read it in DNS). Source: owner's message of 11 Oct 2026 with the Sedo guide ('Enter your new DNS record: TXT, Response = verification ID, Host blank or @'). Applied by .github/workflows/dns-records.yml to every zone in the Cloudflare account except the ones in 'exclude' (dawa.es is no longer the owner's).",
+  "_comment": "Sedo ownership verification (TXT on the zone apex, host '@'), so the owner can list these domains for sale on sedo.com. The value is the owner's Sedo verification ID, public by design (anyone can read it in DNS). Source: owner's message of 11 Oct 2026 with the Sedo guide ('TXT, Response = verification ID, Host blank or @') and screenshots of the Sedo domain list; only the domains shown there are listed. dawa.es is not the owner's and must never be added. Applied by .github/workflows/dns-records.yml.",
   "txt": "8750bf0e1361e14b0df9824b3c487b017e2a1ed6",
-  "exclude": ["dawa.es"]
+  "domains": [
+    "rough.es", "1fr.fr", "rubiy.de", "byoxy.de", "zolun.de", "rough.lat",
+    "zufiq.de", "qarf.de", "byoy.de", "tilawa.de", "zavik.de", "qulen.de",
+    "qkb.es", "byodd.de", "xko.es", "ulyah.com", "dai.lat", "xaa.es",
+    "zevok.de", "pab.lat", "qurm.de", "zuvik.de", "dawo.es"
+  ]
 }
