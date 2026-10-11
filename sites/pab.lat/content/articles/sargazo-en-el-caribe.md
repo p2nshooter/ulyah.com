@@ -113,6 +113,10 @@ No con certeza, pero los pronósticos satelitales y los mapas locales dan una bu
 
 Depende de la cantidad que llegue y de la limpieza. En playas con equipos de limpieza diaria, la orilla puede estar en buenas condiciones por la mañana aunque siga llegando sargazo.
 
+### ¿Afecta el sargazo al snorkel y al buceo?
+
+Puede reducir la visibilidad cerca de la costa y hacer incómodas las entradas desde la playa. Las salidas en bote hacia arrecifes alejados suelen verse menos afectadas, aunque depende del día.
+
 ### ¿Puedo bañarme si hay un poco de sargazo?
 
 Con poca cantidad y fresco, muchas personas se bañan sin problemas. Evita las grandes acumulaciones en descomposición y sal del agua si notas picazón.
