@@ -90,6 +90,15 @@ En climas fríos, el ahorro empieza por evitar que el calor se escape, como expl
 
 Televisores, decodificadores, consolas, cargadores y equipos de audio pueden consumir energía aunque estén apagados. Una **regleta con interruptor** permite cortar varios aparatos a la vez cuando no se usan. Desenchufa los cargadores cuando termines de cargar.
 
+## Un plan de ahorro en cuatro semanas
+
+1. **Semana uno:** anota las lecturas del medidor cada día a la misma hora para conocer tu consumo base.
+2. **Semana dos:** mide con un medidor de enchufe el refrigerador, el televisor y otros aparatos de mucho uso, y cambia a LED los focos que más horas pasan encendidos.
+3. **Semana tres:** ajusta la temperatura del refrigerador y del calentador, revisa burletes y acorta las duchas en familia.
+4. **Semana cuatro:** organiza regletas con interruptor, ajusta los hábitos de lavado y planchado y compara las lecturas con la primera semana.
+
+Hacer los cambios por etapas permite ver cuáles funcionan mejor en tu casa y mantenerlos en el tiempo.
+
 ## Energía solar en casa
 
 Los paneles solares fotovoltaicos son cada vez más accesibles, y varios países de la región permiten inyectar a la red la energía que no se consume y descontarla de la factura. Antes de invertir:
