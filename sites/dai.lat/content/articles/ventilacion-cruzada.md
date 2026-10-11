@@ -88,6 +88,10 @@ Muchos departamentos tienen ventanas en una sola fachada. Aun así, se puede mej
 4. **Usa un ventilador** de cara a la ventana para expulsar el aire caliente y forzar la entrada de aire fresco.
 5. **Ventila en las horas frescas,** sobre todo en climas secos.
 
+## Ventilar a la hora correcta
+
+Abrir las ventanas no siempre refresca. Si el aire de afuera está más caliente que el de adentro, ventilar mete calor. En climas secos, lo eficaz es abrir de noche y temprano en la mañana y cerrar cuando la temperatura exterior empieza a subir. En climas cálidos y húmedos, donde la diferencia entre el día y la noche es pequeña, conviene mantener la corriente casi todo el día, con las ventanas sombreadas. Un termómetro sencillo dentro y otro fuera de la casa ayuda a decidir cuándo abrir y cuándo cerrar. La guía para [enfriar la casa sin aire acondicionado](/articulos/enfriar-la-casa-sin-aire-acondicionado/) desarrolla estas estrategias.
+
 ## Cómo comprobar si tu casa ventila
 
 Una prueba sencilla consiste en encender una varilla de incienso y observar el humo cerca de cada ventana y puerta. Si el humo se queda quieto o sube lentamente, el aire no circula. Si se desplaza con claridad hacia el interior en una abertura y hacia el exterior en otra, hay ventilación cruzada. Repite la prueba a distintas horas, porque las brisas cambian durante el día.
