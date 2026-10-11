@@ -39,6 +39,7 @@ Estos son solo ejemplos de mercados conocidos por quienes viajan a la región. L
 3. **Pregunta.** Los vendedores suelen estar orgullosos de sus productos y te explicarán cómo se come una fruta o cómo se prepara un ingrediente.
 4. **Prueba antes de comprar** cuando te lo ofrezcan, sobre todo frutas y quesos.
 5. **Lleva tu propia bolsa** y efectivo en billetes pequeños.
+6. **Saluda antes de preguntar precios.** Un "buenos días" o "buenas tardes" abre conversaciones y es parte de la cortesía cotidiana en casi toda la región.
 
 ## Qué probar
 
