@@ -84,6 +84,17 @@ Por ejemplo, una habitación con 40 metros cuadrados de muros, a dos manos y con
 - **Retira la cinta de enmascarar** antes de que la pintura se endurezca por completo, para obtener un borde limpio.
 - **Ventila** durante y después de pintar.
 
+## Herramientas que marcan la diferencia
+
+- **Rodillos según la superficie:** de pelo corto para muros lisos y esmaltes, de pelo más largo para superficies rugosas o texturizadas.
+- **Brochas de buena calidad** para bordes y esquinas; las muy baratas sueltan pelos que quedan atrapados en la pintura.
+- **Bandeja o cubeta con rejilla** para descargar el exceso del rodillo.
+- **Cinta de enmascarar** para pintores, que se retira sin arrancar la pintura.
+- **Plásticos o cartón** para proteger pisos y muebles.
+- **Escalera estable** en lugar de sillas o cajones.
+
+Al terminar, lava las herramientas según el tipo de pintura: con agua y jabón las de pintura al agua, y con el solvente indicado en el envase las de esmalte sintético. Un buen rodillo bien lavado sirve para muchos trabajos.
+
 ## Problemas frecuentes y sus causas
 
 | Problema | Causa habitual | Solución |
