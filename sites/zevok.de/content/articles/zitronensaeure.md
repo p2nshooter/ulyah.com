@@ -35,6 +35,18 @@ Bei **Flüssigkonzentraten** gilt die Dosierung auf der Flasche, denn die Stärk
 
 Löse das Pulver in **warmem, nicht heißem Wasser**. So geht es schneller in Lösung als in kaltem Wasser, und du vermeidest das Problem, das im nächsten Abschnitt erklärt wird.
 
+## Schritt für Schritt: Lösung ansetzen und anwenden
+
+1. **Material prüfen:** Ist die Fläche säureempfindlich, etwa Naturstein oder Aluminium? Dann nicht verwenden.
+2. **Handschuhe anziehen** und das Fenster öffnen.
+3. **Warmes Wasser vorlegen,** dann das Pulver einrühren, bis es sich vollständig gelöst hat. Ungelöste Kristalle können auf empfindlichen Flächen kratzen.
+4. **Gezielt auftragen:** mit einem Tuch, einer Sprühflasche oder als Bad für Kleinteile.
+5. **Einwirken lassen,** ohne dass die Lösung antrocknet. Bei senkrechten Flächen hilft ein aufgelegtes, getränktes Küchenpapier.
+6. **Wischen oder bürsten** mit einem weichen Schwamm oder einer weichen Bürste.
+7. **Gründlich mit klarem Wasser nachspülen** und trocken reiben.
+
+Wenn nach dem ersten Durchgang noch Kalk bleibt, wiederhole die Behandlung. Mehrere kurze Durchgänge schonen Fugen und Oberflächen mehr als ein einziger sehr langer.
+
 ## Warum Zitronensäure nicht zu heiß werden sollte
 
 Beim Lösen von Kalk entsteht aus Zitronensäure und Kalk eine Verbindung namens **Calciumcitrat**. Sie ist in kaltem und warmem Wasser gut löslich, in sehr heißem Wasser aber deutlich schlechter. Wird Zitronensäure stark erhitzt, etwa aufgekocht, kann sich Calciumcitrat als neue, feste Schicht absetzen. Im offenen Wasserkocher ist das ärgerlich, in den engen Leitungen einer Kaffeemaschine kann es zu Verstopfungen führen.
@@ -76,7 +88,11 @@ Die Schritt-für-Schritt-Anleitung für Wasserkocher und Kaffeemaschine findest 
 | Emaille | wird bei häufigem Einsatz stumpf | milde Reiniger, Säure nur kurz |
 | Beschichtete oder besonders veredelte Armaturen | Oberfläche kann leiden | Herstellerangaben |
 
-Auch **Dampfbügeleisen** gehören nicht automatisch in diese Liste der Einsatzorte. Viele Hersteller raten davon ab, Säure in den Wassertank zu füllen, und empfehlen stattdessen eine eingebaute Selbstreinigung oder Antikalk-Funktion. Mehr dazu im Ratgeber [Bügeln](/ratgeber/buegeln/).
+Vorsicht auch bei **Dampfbügeleisen**: Viele Hersteller raten davon ab, Säure in den Wassertank zu füllen, und empfehlen stattdessen eine eingebaute Selbstreinigung oder Antikalk-Funktion. Mehr dazu im Ratgeber [Bügeln](/ratgeber/buegeln/).
+
+## Zitronensäure in fertigen Reinigern
+
+Viele Bad- und Kalkreiniger aus dem Handel enthalten Zitronensäure, oft zusammen mit Tensiden, Verdickungsmitteln und Duft. Das hat Vorteile: Ein Gel haftet besser an senkrechten Flächen und unter dem Spülrand, und Tenside lösen zusätzlich Seifenreste. Selbst angesetzte Lösung ist dagegen günstiger, geruchlos und ohne Zusätze. Für die meisten Aufgaben im Haushalt reicht das Pulver völlig aus, für schwierige Stellen kann ein Gel praktischer sein.
 
 ## Niemals mit Chlor mischen
 
@@ -123,6 +139,10 @@ Chemisch ja. Achte beim Kauf trotzdem darauf, wofür ein Produkt gedacht ist. Pu
 ### Kann ich mit Zitronensäure Rostflecken entfernen?
 
 Auf weißer Baumwolle lassen sich leichte Rostflecken mit Zitronensäurelösung manchmal aufhellen. Teste bei bunten Stoffen vorher an einer verdeckten Stelle, ob die Farbe hält, und wasche das Teil danach gründlich aus.
+
+### Darf ich Zitronensäure auf Silikonfugen verwenden?
+
+Kurzer Kontakt schadet Silikon in der Regel nicht. Spüle die Fugen danach gründlich ab, denn ein Film aus Säure- und Seifenresten begünstigt Schimmel. Bei verfärbtem Silikon hilft Zitronensäure nicht. Wie du dann vorgehst, steht im Ratgeber [Schimmel im Bad vorbeugen und entfernen](/ratgeber/schimmel-im-bad/).
 
 ### Wie lange muss Zitronensäure einwirken?
 
