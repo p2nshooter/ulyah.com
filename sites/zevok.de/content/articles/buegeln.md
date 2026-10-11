@@ -129,6 +129,10 @@ Mehr dazu im Ratgeber [Wäsche trocknen](/ratgeber/waesche-trocknen/).
 
 Das ist meist Kalk aus dem Wasser. Entkalke das Gerät nach Herstellerangabe und verwende das empfohlene Wasser. Bei sehr hartem Wasser hilft eine Mischung mit destilliertem Wasser, sofern die Anleitung das erlaubt.
 
+### Was mache ich, wenn ich etwas angesengt habe?
+
+Leichte gelbliche Sengflecken auf weißer Baumwolle lassen sich manchmal mit einer Wäsche und etwas Sauerstoffbleiche abschwächen. Sind die Fasern verbrannt oder geschmolzen, ist der Schaden dauerhaft.
+
 ### Muss ich Bettwäsche bügeln?
 
 Nein. Gebügelte Bettwäsche fühlt sich glatter an, hygienischer ist sie aber nicht, wenn sie richtig gewaschen wurde. Glatt aufgehängt und ordentlich gefaltet sieht sie auch ohne Bügeln gepflegt aus.
