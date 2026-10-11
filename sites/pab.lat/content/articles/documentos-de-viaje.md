@@ -1,6 +1,6 @@
 ---
 title: "Documentos para viajar por América Latina: pasaporte, cédula, visas, menores y copias"
-description: "Cuándo basta la cédula y cuándo se necesita pasaporte, cómo averiguar visas y requisitos de entrada, permisos para menores, licencia de conducir, certificados de vacunas y qué hacer si pierdes un documento."
+description: "Cuándo basta la cédula y cuándo hace falta pasaporte, cómo averiguar visas y requisitos de entrada, permisos para menores, licencia de conducir, vacunas y qué hacer si pierdes un documento."
 category: planificacion-y-presupuesto
 date: 2026-07-29
 ---
@@ -73,6 +73,14 @@ Más detalles en las guías sobre [conducir en América Latina](/bitacora/conduc
 - **Medicamentos:** llévalos con receta y en cantidades razonables para tu estadía.
 - **Objetos de valor y equipos profesionales:** en algunos casos conviene declararlos al salir para evitar problemas al volver.
 
+## Viajar con mascotas
+
+Llevar un perro o un gato a otro país exige su propia documentación. Lo habitual es un **certificado sanitario oficial** emitido poco antes del viaje, la **vacuna antirrábica vigente** y, en muchos casos, un microchip de identificación y tratamientos antiparasitarios recientes. Cada país fija sus requisitos a través de su servicio sanitario oficial, y las aerolíneas tienen reglas propias sobre el transporte en cabina o en bodega. Empieza a averiguar con varias semanas de anticipación, porque algunos plazos son estrictos.
+
+## Trabajar a distancia durante el viaje
+
+Entrar como turista no suele autorizar a trabajar en el país, aunque tu empleador esté en otro lugar. Varios países de la región han creado visas específicas para personas que trabajan en remoto durante estadías largas, con requisitos de ingresos y seguro médico. Si piensas quedarte meses trabajando con tu computadora, consulta qué régimen corresponde a tu caso.
+
 ## Copias y respaldos
 
 1. **Escanea o fotografía** pasaporte, documento de identidad, licencia de conducir, visas, seguro y reservas.
@@ -120,6 +128,10 @@ En algunos casos sí, gracias a acuerdos regionales, pero depende de tu nacional
 ### ¿Qué pasa si tengo doble nacionalidad?
 
 Algunos países exigen que sus ciudadanos entren y salgan con su documento nacional. Infórmate en los consulados de ambos países antes de viajar.
+
+### ¿Me pueden negar la entrada aunque tenga los documentos?
+
+Sí. La decisión final la toma la autoridad migratoria en la frontera. Puede pedirte que expliques el motivo del viaje, que muestres tu boleto de salida, tus reservas o tus medios económicos. Lleva esa información a mano y responde con claridad.
 
 ### ¿Cuánto tiempo antes debo revisar los requisitos?
 
