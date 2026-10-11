@@ -63,6 +63,14 @@ No todo está perdido. Algunas alternativas:
 - **Explora ruinas y pueblos:** la región tiene sitios arqueológicos, pueblos coloniales y gastronomía para varios días. Lo vemos en la guía sobre [sitios arqueológicos](/bitacora/sitios-arqueologicos/).
 - **Elige actividades en el agua lejos de la orilla:** algunas excursiones de snorkel en arrecifes alejados pueden no verse afectadas. Más información en la guía sobre [snorkel y arrecifes responsables](/bitacora/snorkel-y-arrecifes-responsable/).
 
+## Cómo leer un mapa de sargazo
+
+Los mapas de monitoreo suelen usar un código de colores parecido al de un semáforo. Aunque cada red tiene sus propios criterios, la lógica es similar: los tonos verdes o azules indican poca o ninguna presencia de sargazo, los amarillos y naranjas indican cantidades moderadas o abundantes, y los rojos o morados señalan arribos masivos. Fíjate siempre en la fecha de actualización, porque la situación de una playa puede cambiar en pocos días con el viento y las corrientes, y compara varias fuentes cuando sea posible.
+
+## Fotos y redes sociales: cuidado con las expectativas
+
+Muchas imágenes de playas perfectas que circulan en internet fueron tomadas en temporadas sin sargazo o en días especialmente limpios. Para hacerte una idea realista, busca fotos recientes con fecha, revisa los mapas de monitoreo y pregunta a tu alojamiento. Así evitarás llevarte una sorpresa al llegar.
+
 ## Elegir el alojamiento
 
 - **Pregunta por la limpieza de la playa:** muchos hoteles tienen equipos que retiran el sargazo cada mañana.
