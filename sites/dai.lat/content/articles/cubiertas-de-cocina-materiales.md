@@ -84,6 +84,14 @@ Una cubierta de azulejo resiste muy bien el calor y es económica, pero las **ju
 - **Tarja o fregadero:** una tarja bajo cubierta facilita la limpieza, pero exige un material resistente al agua en el corte, como piedra, cuarzo o porcelanato. En laminado se usan tarjas sobrepuestas.
 - **Protector de pared:** prolongar el material de la cubierta unos centímetros en la pared, o colocar un revestimiento lavable, protege de salpicaduras.
 
+## Antes de encargar la cubierta
+
+1. **Instala primero los muebles bajos** y comprueba que estén nivelados y firmes.
+2. **Ten a mano la tarja, la parrilla o estufa empotrable y la grifería,** con sus plantillas de corte. El taller las necesita para hacer los huecos exactos.
+3. **Pide una plantilla o medición en obra.** Las paredes casi nunca son perfectamente rectas y una cubierta de piedra no admite ajustes improvisados.
+4. **Acuerda dónde irán las uniones** en cubiertas largas o en L, para que queden en zonas discretas.
+5. **Pregunta por el sellado y la garantía,** y pide por escrito los cuidados recomendados para el material.
+
 ## Cuidados diarios para cualquier material
 
 1. **Usa tablas de picar** siempre, aunque el material resista rayones: protegerás también tus cuchillos.
