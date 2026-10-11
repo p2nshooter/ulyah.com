@@ -128,6 +128,10 @@ Una campana de recirculación con filtros en buen estado ayuda con la grasa y lo
 
 No es recomendable ubicar la estufa bajo una ventana, por el riesgo con cortinas y porque el viento puede apagar la llama. Lo vemos en la guía de [distribución de la cocina](/articulos/distribucion-de-la-cocina/).
 
+### ¿Por qué mi campana hace tanto ruido?
+
+Puede deberse a un ducto demasiado estrecho o con muchas curvas, a filtros sucios o a que funciona siempre a máxima velocidad. Una campana bien dimensionada puede trabajar a velocidad media con menos ruido y la misma eficacia.
+
 ### ¿Cada cuánto hay que revisar la instalación de gas?
 
 Sigue la normativa local y las indicaciones de la empresa de gas. Como mínimo, revisa mangueras y conexiones con regularidad y haz revisar los aparatos si la llama cambia de color o aparece hollín.
