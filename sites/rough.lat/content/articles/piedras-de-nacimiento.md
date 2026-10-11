@@ -33,6 +33,25 @@ La lista moderna, en cambio, es mucho más reciente: a comienzos del siglo veint
 
 Las alternativas se han ido sumando con el tiempo, en parte para ofrecer opciones más asequibles o más resistentes. Lo explicamos en la guía sobre [dureza, tenacidad y estabilidad](/es/dureza-tenacidad-y-estabilidad/).
 
+## Las piedras, mes a mes
+
+- **Enero, granate:** suele imaginarse rojo, pero la familia del granate incluye también naranjas, verdes y violetas.
+- **Febrero, amatista:** el cuarzo violeta, accesible y resistente, perfecto para joyas de uso diario.
+- **Marzo, aguamarina:** el azul suave del berilo, que evoca el mar y luce muy bien en piezas grandes y limpias.
+- **Abril, diamante:** la gema más dura, con opciones naturales y de laboratorio para distintos presupuestos.
+- **Mayo, esmeralda:** el verde más célebre, con su jardín de inclusiones y la necesidad de cuidados especiales.
+- **Junio, perla:** la única gema orgánica de la lista principal; la alejandrita sorprende con su cambio de color.
+- **Julio, rubí:** el rojo del corindón, durísimo y muy tenaz.
+- **Agosto, peridoto:** un verde oliva luminoso; la espinela ofrece colores intensos y gran resistencia.
+- **Septiembre, zafiro:** azul por excelencia, aunque existe en casi todos los colores.
+- **Octubre, ópalo:** famoso por su juego de colores; la turmalina ofrece una paleta enorme y más resistencia.
+- **Noviembre, topacio:** del dorado al imperial; el citrino aporta tonos cálidos a buen precio.
+- **Diciembre, turquesa:** el azul celeste opaco con larga tradición en América; el circón y la tanzanita brillan en azules intensos.
+
+## Combinar la piedra con el metal
+
+El metal cambia mucho el aspecto de una piedra de nacimiento. Los colores cálidos, como el granate, el citrino, el topacio imperial o el peridoto, lucen muy bien en oro amarillo. Los fríos, como la aguamarina, el zafiro o la tanzanita, destacan en oro blanco, plata o platino. La esmeralda y el rubí combinan con casi cualquier metal. Lo explicamos en la guía sobre [oro, plata y platino](/es/oro-plata-y-platino/).
+
 ## Piedras de nacimiento con acento latinoamericano
 
 Muchas de las piedras del calendario tienen yacimientos importantes en la región:
