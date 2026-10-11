@@ -82,6 +82,19 @@ Una **cataplasma** es una pasta que se coloca sobre la mancha, se cubre con plá
 - **Juntas** según el tipo de pieza y el lugar, con juntas de movimiento en superficies grandes.
 - **En exteriores,** pendiente y drenaje para que el agua no se quede en la superficie ni bajo las piezas.
 
+## Piedra en casas antiguas: un patrimonio que se cuida distinto
+
+En casas antiguas y centros históricos, la piedra ha resistido siglos porque se construyó con morteros de cal y técnicas compatibles. Al restaurarla conviene respetar algunas reglas:
+
+- **No uses chorro de arena ni hidrolavadoras a alta presión** sobre canteras y piedras blandas: erosionan la superficie y abren los poros.
+- **Repara las juntas con morteros de cal,** más flexibles y transpirables que los de cemento, que pueden dañar la piedra a su alrededor.
+- **Evita selladores impermeables** que impidan la evaporación del agua en muros gruesos.
+- **Consulta las normas de protección** si la casa está en un centro histórico: muchas intervenciones requieren autorización.
+
+## Piedra y presupuesto
+
+El precio final depende no solo de la piedra, sino del espesor, del acabado, del desperdicio en cortes, del transporte y de la mano de obra especializada. Las piedras extraídas cerca de tu ciudad suelen ser más económicas, tienen menor impacto por transporte y combinan naturalmente con la arquitectura del lugar. Pide muestras grandes y, si es posible, visita una obra terminada con la misma piedra antes de decidir.
+
 ## La piedra y la humedad
 
 Las piedras porosas pueden absorber humedad del suelo y mostrar eflorescencias o manchas. En muros y pisos sobre el terreno, una buena barrera contra la humedad y un drenaje adecuado son fundamentales. La guía sobre [humedad en paredes](/articulos/humedad-en-paredes-causas-y-soluciones/) explica cómo identificar el origen.
@@ -104,6 +117,10 @@ Puede usarse si se acepta que con el tiempo mostrará marcas de ácido y algunas
 ### ¿Cada cuánto se sella la piedra?
 
 Depende de la piedra, del sellador y del uso. La prueba de las gotas de agua es la mejor guía: cuando el agua se absorbe con facilidad, es momento de volver a sellar.
+
+### ¿La piedra natural es fría para vivir?
+
+Al tacto se siente fría porque conduce bien el calor del cuerpo. En climas cálidos es una ventaja; en climas fríos, conviene combinarla con alfombras en las zonas de estar y, si se puede, con aislamiento bajo el piso o calefacción radiante.
 
 ### ¿Se puede recuperar el brillo de un piso de mármol?
 
