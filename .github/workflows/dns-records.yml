@@ -1,7 +1,9 @@
-name: DNS records (Search Console verification)
+name: DNS records (Search Console + Sedo verification)
 
 # Adds the Google Search Console verification TXT records listed in
-# .github/dns/google-site-verification.json to each domain's Cloudflare zone.
+# .github/dns/google-site-verification.json to each domain's Cloudflare zone,
+# and the owner's Sedo verification TXT to the domains listed in
+# .github/dns/sedo-verification.json.
 #
 # - It copies the format of verification records that already exist in the
 #   account (apex name, quoted or unquoted content, TTL) and prints them first,
@@ -94,4 +96,51 @@ jobs:
               failed=1
             fi
           done < <(jq -r '.records[] | [.domain, .txt] | @tsv' .github/dns/google-site-verification.json)
+          exit $failed
+
+  sedo:
+    # Sedo checks for a TXT record on the apex whose value is the account's
+    # verification ID. It goes only on the domains listed in
+    # sedo-verification.json; existing records are never changed or deleted.
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Add the Sedo verification TXT to the listed domains
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          txt=$(jq -r '.txt' .github/dns/sedo-verification.json)
+          echo "### Sedo verification TXT" >> "$GITHUB_STEP_SUMMARY"
+          failed=0
+          for domain in $(jq -r '.domains[]' .github/dns/sedo-verification.json); do
+            [ "$domain" = "dawa.es" ] && continue
+            zone=$(api "https://api.cloudflare.com/client/v4/zones?name=$domain" | jq -r '.result[0].id // empty')
+            if [ -z "$zone" ]; then
+              echo "::warning title=$domain is not on Cloudflare::Add the Sedo TXT record at the domain's DNS host by hand."
+              echo "- ⏳ $domain: zone not on Cloudflare" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            have=$(api "https://api.cloudflare.com/client/v4/zones/$zone/dns_records?type=TXT&name=$domain&per_page=100" \
+              | jq -r --arg t "$txt" '[.result[]? | select((.content | gsub("\""; "")) == $t)] | length')
+            if [ "${have:-0}" -gt 0 ]; then
+              echo "$domain: already present"
+              echo "- ✅ $domain: already present" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            body=$(jq -nc --arg n "$domain" --arg c "\"$txt\"" \
+              '{type:"TXT", name:$n, content:$c, ttl:3600, comment:"Sedo ownership verification (dns-records.yml)"}')
+            resp=$(api -X POST "https://api.cloudflare.com/client/v4/zones/$zone/dns_records" -d "$body")
+            if [ "$(jq -r '.success' <<<"$resp")" = "true" ]; then
+              echo "$domain: added"
+              echo "- ➕ $domain: added" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "$resp"
+              echo "::error title=$domain::Could not add the Sedo TXT record"
+              echo "- ❌ $domain: $(jq -c '.errors' <<<"$resp")" >> "$GITHUB_STEP_SUMMARY"
+              failed=1
+            fi
+          done
           exit $failed
