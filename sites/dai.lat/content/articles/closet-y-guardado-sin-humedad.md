@@ -106,6 +106,12 @@ Las mantas, cortinas y alfombras de temporada siguen las mismas reglas, como exp
 - **Un fondo con pequeñas aberturas** o una separación del muro mejora la circulación del aire.
 - **Una luz interior** LED con sensor ayuda a ver todo sin dejar las puertas abiertas mucho tiempo. Más ideas en la guía de [iluminación de la casa](/articulos/iluminacion-de-la-casa/).
 
+## El closet de la entrada y el de los niños
+
+**Junto a la entrada,** un mueble o un closet pequeño para abrigos, paraguas, mochilas y zapatos evita que la humedad de la calle entre al dormitorio. Deja que los paraguas y los impermeables se sequen abiertos antes de guardarlos, y coloca una bandeja que recoja el agua de los zapatos mojados.
+
+**En el cuarto de los niños,** el closet debe crecer con ellos. Las barras regulables, los cajones bajos y las cajas con etiquetas o dibujos les permiten ordenar su propia ropa. La ropa que ya no les queda conviene sacarla cada temporada: un closet con menos prendas se ventila mejor y se mantiene en orden con menos esfuerzo.
+
 ## Si ya huele a humedad
 
 1. **Vacía el closet** por completo y deja las puertas abiertas para que se ventile.
