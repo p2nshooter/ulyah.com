@@ -66,6 +66,10 @@ En un baño pequeño, la **ducha** casi siempre es mejor opción que la tina. Al
 - **Lavabos suspendidos o de esquina** liberan espacio de piso.
 - **Muebles de lavabo de poca profundidad** combinan almacenamiento con un paso cómodo.
 
+## Grifería y consumo de agua
+
+La grifería también influye en la comodidad de un baño pequeño. Un monomando, con una sola palanca para el caudal y la temperatura, se maneja con una mano y ocupa menos que dos llaves separadas. En la ducha, una barra con regadera de mano facilita la limpieza y el baño de niños o personas mayores. Los **aireadores** en el lavabo y las regaderas de bajo consumo mezclan aire con el agua y reducen el gasto sin que se note demasiado en el uso diario. Antes de comprar, revisa la presión de agua de tu casa: algunas regaderas grandes necesitan más presión de la que tienen muchas viviendas con tanque elevado.
+
 ## Almacenamiento sin ocupar el piso
 
 - **Nichos en la pared de la ducha** para champú y jabón. Deben construirse con la misma impermeabilización que el resto de la ducha.
