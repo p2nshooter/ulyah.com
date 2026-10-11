@@ -70,6 +70,17 @@ Muchas viviendas de la región están construidas en laderas. Allí, el agua es 
 
 En terrenos donde el agua se acumula, un **dren enterrado**, una zanja rellena de grava con un tubo perforado envuelto en geotextil, capta el agua del subsuelo y la conduce a un punto de descarga. Un **pozo de infiltración** recibe el agua de las bajadas y la deja filtrarse lentamente en el suelo, siempre que el terreno sea permeable y el pozo esté lejos de los cimientos y de pozos de agua potable. Un **jardín de lluvia**, explicado en la guía sobre [jardín con plantas nativas](/articulos/jardin-con-plantas-nativas/), cumple una función similar con plantas.
 
+## Señales de que el drenaje falla
+
+- **Marcas de agua o salpicaduras de barro** en la parte baja de los muros exteriores.
+- **Charcos que tardan horas en desaparecer** junto a la casa o en el patio.
+- **Pisos que se hunden o se agrietan** cerca de las bajadas.
+- **Humedad o salitre** en la base de los muros interiores después de las lluvias.
+- **Canaletas que gotean por las uniones** o rebosan aunque estén limpias.
+- **Tierra arrastrada** que deja surcos en el jardín o cubre las rejillas.
+
+Cada una de estas señales indica que el agua no está siguiendo el camino previsto. Corregirla a tiempo evita reparaciones mucho más costosas en muros, pisos y cimientos.
+
 ## Prepararse para lluvias intensas
 
 - **Válvulas antirretorno** en los desagües de la vivienda impiden que el agua de una red saturada vuelva hacia el interior durante una tormenta.
