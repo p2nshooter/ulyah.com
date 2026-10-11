@@ -30,7 +30,7 @@ const EXPECTED = Object.fromEntries([
 // domains each have their own (docs/ADSENSE-CODES.md).
 EXPECTED["byodd.de"] = "2228462932360966";
 EXPECTED["qulen.de"] = "7516944260248026";
-EXPECTED["zolun.de"] = "4548005919629272";
+EXPECTED["zolun.de"] = "6016479123891586"; // 11 Oct 2026 (owner)
 EXPECTED["axto.us"] = "2990015102981265";
 EXPECTED["rubiy.de"] = "2990015102981265";
 EXPECTED["jai.lat"] = "6019445914743449";
