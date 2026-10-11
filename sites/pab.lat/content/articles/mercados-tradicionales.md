@@ -130,6 +130,10 @@ En general sí, si eliges puestos concurridos, comida recién cocinada y cuidas 
 
 Algunos puestos aceptan pagos electrónicos o transferencias, pero el efectivo en billetes pequeños sigue siendo lo más práctico. Más información en la guía sobre [dinero, tarjetas y cambio](/bitacora/dinero-tarjetas-y-cambio/).
 
+### ¿Cuánto tiempo dedicar a un mercado grande?
+
+Para recorrerlo con calma, probar algo y almorzar, reserva al menos dos o tres horas. Los mercados más grandes, o los de pueblo en día de plaza, pueden ocupar fácilmente media jornada si te interesa la cocina o la artesanía.
+
 ### ¿Qué día conviene visitar un mercado de pueblo?
 
 El día de plaza, cuando llegan los productores de la zona. Consulta en la oficina de turismo o en tu alojamiento qué día es.
