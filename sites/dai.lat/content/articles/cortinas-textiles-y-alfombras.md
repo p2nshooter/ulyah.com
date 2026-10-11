@@ -119,6 +119,10 @@ En la mayoría de los ambientes, sí: se ven más elegantes y hacen que el techo
 
 Una de fibra sintética o lana de pelo corto, en tonos medios que disimulen el pelo y las manchas, y si es posible lavable.
 
+### ¿Cada cuánto conviene lavar las cortinas?
+
+Depende del polvo, la humedad y la cercanía a la cocina. Como referencia, aspíralas cada pocas semanas y lávalas una o dos veces al año, o más a menudo si están cerca de la estufa o en una calle con mucho tránsito. Revisa siempre la etiqueta: algunas telas encogen con agua caliente y otras requieren limpieza en seco.
+
 ### ¿Las cortinas ayudan con el ruido?
 
 Las telas gruesas absorben parte del eco dentro de la habitación y algo del ruido que entra por la ventana. Para un aislamiento real hacen falta ventanas con buen cierre. Lo vemos en la guía de [aislamiento acústico en casa](/articulos/aislamiento-acustico-en-casa/).
