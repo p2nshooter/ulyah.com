@@ -35,7 +35,7 @@ Trockne die Hände mit einem sauberen Handtuch oder Papiertuch ab, das nur für 
 
 Feuchte Schwämme und Lappen sind ideale Brutstätten für Bakterien. Wer damit die Arbeitsfläche abwischt, verteilt die Keime oft erst richtig.
 
-- **Häufig wechseln.** Spülschwämme solltest du etwa wöchentlich ersetzen. Untersuchungen haben gezeigt, dass Methoden wie das Erhitzen in der Mikrowelle die Keimzahl nicht dauerhaft senken.
+- **Häufig wechseln.** Spülschwämme solltest du etwa wöchentlich ersetzen, bei starker Nutzung auch öfter. Untersuchungen haben gezeigt, dass Methoden wie das Erhitzen in der Mikrowelle die Keimzahl nicht dauerhaft senken.
 - **Waschbare Spültücher** sind eine gute Alternative. Wasche sie bei mindestens 60 Grad mit Vollwaschmittel und nimm jeden Tag oder alle zwei Tage ein frisches Tuch.
 - **Gut trocknen lassen.** Hänge Tücher nach dem Gebrauch ausgebreitet auf, nicht zusammengeknüllt neben die Spüle.
 - **Verschiedene Tücher für verschiedene Aufgaben:** eines für Geschirr, eines für Arbeitsflächen und ein separates Handtuch für die Hände. Ein Farbsystem hilft dabei. Mehr dazu im Ratgeber [Effizient putzen](/ratgeber/putzen-reihenfolge/).
