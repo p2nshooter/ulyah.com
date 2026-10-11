@@ -1,6 +1,6 @@
 ---
 title: "La talla de esmeraldas: un oficio de precisión entre fisuras, color y aceite"
-description: "Por qué tallar esmeraldas es tan delicado, cómo se estudia el cristal, la orientación del color, la talla esmeralda y otras formas, el trabajo en el taller, el relleno posterior y cómo juzgar la talla."
+description: "Por qué tallar esmeraldas es tan delicado, el estudio del cristal, la orientación del color, la talla esmeralda y otras formas, el trabajo en el taller, el relleno posterior y cómo juzgar la talla."
 category: arte-tallado-y-artesania
 date: 2026-10-11
 ---
