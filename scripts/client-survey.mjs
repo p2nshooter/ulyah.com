@@ -27,7 +27,9 @@ for (const d of domains) {
     } catch (e) { console.log(`URL      ${base} -> ERR ${String(e.message).split('\n')[0]}`); }
   }
   if (ok) {
-    const info = await page.evaluate(() => {
+    await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {});
+    await page.waitForTimeout(3000);
+    const grab = () => page.evaluate(() => {
       const q = (s) => [...document.querySelectorAll(s)];
       const t = (el) => (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
       const meta = (n) => (document.querySelector(`meta[name="${n}"]`) || document.querySelector(`meta[property="${n}"]`))?.content || '';
@@ -44,6 +46,9 @@ for (const d of domains) {
         fonts: [...new Set(q('link[href*="fonts"]').map(l => l.href))].slice(0, 5),
       };
     });
+    let info;
+    try { info = await grab(); } catch { await page.waitForTimeout(4000); try { info = await grab(); } catch (e) { info = { error: String(e.message).split('\n')[0] }; } }
+    console.log(`FINAL    ${page.url()}`);
     for (const [k, v] of Object.entries(info)) {
       if (k === 'links') { console.log('LINKS'); v.forEach(l => console.log(`   ${l.t}  ->  ${l.h}`)); }
       else console.log(`${k.toUpperCase().padEnd(8)} ${Array.isArray(v) ? v.join(' | ') : v}`);
