@@ -1,6 +1,6 @@
 ---
 title: "Brillo, ventanas y extinción: cómo la talla controla la luz dentro de una gema"
-description: "Qué le pasa a la luz dentro de una gema, el índice de refracción y el ángulo crítico, brillo, fuego y centelleo, por qué aparecen ventanas y zonas oscuras, el efecto pajarita y cómo evaluar una piedra."
+description: "Qué le pasa a la luz dentro de una gema, el índice de refracción y el ángulo crítico, brillo, fuego y centelleo, por qué aparecen ventanas y zonas oscuras, el efecto pajarita y cómo evaluarla."
 category: arte-tallado-y-artesania
 date: 2026-10-11
 ---
