@@ -87,6 +87,22 @@ Cada puerta batiente necesita un área libre para abrirse. Algunas ideas:
 
 En un departamento alquilado, consulta con el propietario antes de cambiar puertas o hacer perforaciones.
 
+## La cocina pequeña
+
+En muchos departamentos la cocina es un pasillo o una pared dentro de la sala. Algunas ideas rápidas:
+
+- **Libera la cubierta:** deja fuera solo lo que usas a diario, como la licuadora o la cafetera, y guarda el resto.
+- **Usa las puertas** de los muebles para colgar tapas, paños o especias.
+- **Una barra imantada** para cuchillos y utensilios metálicos ahorra un cajón.
+- **Una mesa abatible** fijada al muro puede servir de superficie de trabajo y de comedor para dos personas.
+- **Electrodomésticos compactos o combinados,** como un horno con microondas, reemplazan dos aparatos.
+
+La guía de [distribución de la cocina](/articulos/distribucion-de-la-cocina/) explica las medidas que conviene respetar aunque el espacio sea mínimo.
+
+## Niños y mascotas
+
+Con niños, los cajones bajos y las cajas con ruedas bajo la cama permiten que ellos mismos ordenen sus juguetes. Con mascotas, conviene asignarles un rincón fijo para la cama, el agua y la comida, lejos del paso, y elegir telas fáciles de lavar en el sofá. En ambos casos, menos objetos al alcance significa menos desorden diario.
+
 ## Trabajar en casa en poco espacio
 
 - **Un escritorio de pared** o una mesa estrecha junto a la ventana.
