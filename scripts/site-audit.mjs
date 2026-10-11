@@ -63,8 +63,8 @@ for (const domain of domains) {
     out.adsenseLoader = await page.evaluate(() => [...document.scripts].map((s) => s.src).filter((s) => s.includes("adsbygoogle")).map((s) => new URL(s).searchParams.get("client")));
     out.h1 = await page.evaluate(() => [...document.querySelectorAll("h1")].map((h) => h.textContent.trim().slice(0, 90)).slice(0, 2));
     out.menu = await page.evaluate(() => [...document.querySelectorAll("header a, nav a")].map((a) => a.textContent.trim().replace(/\s+/g, " ")).filter(Boolean).slice(0, 24));
-    out.articleLinks = await page.evaluate(() => new Set([...document.querySelectorAll("a[href]")].map((a) => a.getAttribute("href")).filter((h) => /\/(articles?|blog|insights|guides?|help|art[ií]culos?)\//.test(h))).size);
-    out.sampleArticles = await page.evaluate(() => [...document.querySelectorAll("a[href]")].filter((a) => /\/(articles?|blog|insights|guides?|help|art[ií]culos?)\//.test(a.getAttribute("href"))).map((a) => a.textContent.trim().replace(/\s+/g, " ").slice(0, 80)).filter(Boolean).slice(0, 5));
+    out.articleLinks = await page.evaluate(() => new Set([...document.querySelectorAll("a[href]")].map((a) => a.getAttribute("href")).filter((h) => /\/(articles?|blog|insights|guides?|help|art[ií]culos?|bitacora)\//.test(h))).size);
+    out.sampleArticles = await page.evaluate(() => [...document.querySelectorAll("a[href]")].filter((a) => /\/(articles?|blog|insights|guides?|help|art[ií]culos?|bitacora)\//.test(a.getAttribute("href"))).map((a) => a.textContent.trim().replace(/\s+/g, " ").slice(0, 80)).filter(Boolean).slice(0, 5));
     out.htmlAdsterra = ADSTERRA.test(await page.content());
   } catch (e) {
     out.error = String(e.message || e).split("\n")[0];
