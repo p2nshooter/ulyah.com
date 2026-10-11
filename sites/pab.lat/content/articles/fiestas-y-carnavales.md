@@ -123,6 +123,10 @@ Si te interesa vivir la fiesta, sí. Si prefieres conocer la ciudad con calma, v
 
 El carnaval se celebra los días previos al Miércoles de Ceniza, que cambia cada año según el calendario religioso. Consulta las fechas oficiales con anticipación.
 
+### ¿Qué hago si pierdo a mi grupo entre la multitud?
+
+Ve al punto de encuentro que acordaron antes de salir y espera allí. Ten anotado en papel el nombre y la dirección de tu alojamiento, por si el teléfono se queda sin batería o la red se satura, algo frecuente en las grandes fiestas.
+
 ### ¿Son seguras las fiestas para viajar con niños?
 
 Muchas tienen actividades familiares durante el día. En los momentos de mayor multitud y por la noche, conviene extremar los cuidados o elegir otros momentos de la celebración.
