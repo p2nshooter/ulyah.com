@@ -74,6 +74,30 @@ La guía sobre [conducir en América Latina](/bitacora/conducir-en-america-latin
 - **Cambia dinero solo lo necesario** y compara las tasas antes de aceptar.
 - **Nunca lleves paquetes de otras personas** a través de la frontera, aunque te lo pidan amablemente. Las leyes contra el tráfico de drogas son muy severas en toda la región.
 
+## Cruzar con mascotas
+
+Viajar con un perro o un gato entre países exige planificar con semanas de antelación. Lo habitual es que se pida un **certificado sanitario veterinario** reciente, la **vacuna antirrábica vigente** y, en algunos casos, desparasitación y documentos oficiales del servicio sanitario del país de salida. Los requisitos cambian de un país a otro y se actualizan con frecuencia, así que consulta al servicio oficial de sanidad animal del país de destino antes de salir y lleva todos los papeles originales.
+
+## Si te niegan la entrada
+
+Es poco frecuente, pero puede ocurrir por documentos incompletos, por haber excedido estadías anteriores o por no cumplir un requisito de tu nacionalidad.
+
+- **Mantén la calma y la cortesía.** Discutir o elevar la voz nunca ayuda.
+- **Pregunta con respeto el motivo** y qué documento o requisito falta.
+- **Nunca ofrezcas dinero** para resolver la situación: además de ilegal, puede agravar mucho el problema.
+- **Contacta al consulado** de tu país si necesitas orientación.
+- **Ten un plan alternativo,** como volver a la ciudad anterior o reorganizar la ruta.
+
+## Lista para el día del cruce
+
+- Pasaporte o documento válido, con copias en papel y en el teléfono.
+- Tarjeta migratoria del país que dejas, si te la entregaron.
+- Efectivo en billetes pequeños para tasas y transporte.
+- Alimentos frescos consumidos o desechados antes del control.
+- Documentos del vehículo y autorizaciones, si cruzas con auto.
+- Horario del paso y estado de la ruta revisados ese mismo día.
+- Dirección de tu alojamiento del otro lado y cómo llegar.
+
 ## Pueblos fronterizos
 
 Los pueblos fronterizos suelen ser lugares de paso, con mucho movimiento comercial. Mantén tus cosas cerca, no muestres objetos de valor y planifica tu transporte para seguir viaje sin demoras. Si debes pasar la noche, elige un alojamiento con buenas referencias. Más ideas en la guía sobre [seguridad en grandes ciudades](/bitacora/seguridad-en-grandes-ciudades/).
@@ -100,6 +124,10 @@ Es posible, sobre todo en los controles sanitarios y aduaneros. Ten el equipaje 
 ### ¿Puedo cruzar caminando?
 
 En muchos pasos sí. Averigua cómo seguir el viaje del otro lado, porque a veces hay que tomar un taxi o un bus local hasta el pueblo más cercano.
+
+### ¿Qué pasa si pierdo la tarjeta migratoria?
+
+Depende del país. En algunos casos basta con informarlo al salir; en otros puede haber que pedir un duplicado o pagar una multa. Guárdala junto al pasaporte y fotografíala apenas te la entreguen.
 
 Más guías para viajar por tierra en la sección [Rutas por carretera](/destinos/rutas-por-carretera/).
 
