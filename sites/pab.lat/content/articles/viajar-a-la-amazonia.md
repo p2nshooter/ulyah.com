@@ -1,6 +1,6 @@
 ---
 title: "Viajar a la Amazonía: puertas de entrada, temporadas del río, salud y turismo responsable"
-description: "Cómo planificar un viaje a la selva amazónica: ciudades de acceso, aguas altas y bajas, lodges y cruceros, vacunas y mosquitos, qué llevar y cómo elegir operadores que respeten la fauna y las comunidades."
+description: "Cómo planificar un viaje a la selva amazónica: ciudades de acceso, aguas altas y bajas, lodges y cruceros, vacunas y mosquitos, qué llevar y cómo elegir operadores que respeten la fauna."
 category: montanas-y-naturaleza
 date: 2026-08-08
 ---
@@ -36,6 +36,21 @@ No hay una época "mejor": depende de lo que quieras hacer. Consulta a los opera
 - **Cruceros fluviales:** barcos que navegan por los ríos y desembarcan para excursiones. Permiten cubrir distancias grandes con comodidad.
 - **Turismo comunitario:** alojamientos y excursiones gestionados por comunidades locales o indígenas. Ofrecen una mirada única a la vida en la selva y dejan los beneficios en la comunidad. Lo vemos en la guía sobre [turismo comunitario y respeto cultural](/bitacora/turismo-comunitario-y-respeto-cultural/).
 - **Barcos de pasajeros:** en algunas rutas, embarcaciones lentas conectan ciudades durante varios días, con pasajeros que duermen en hamacas. Es una experiencia intensa y muy local, que requiere paciencia y cuidado con las pertenencias.
+
+## Cómo es un día típico en un lodge
+
+Aunque cada alojamiento organiza su programa, muchos siguen un ritmo parecido, marcado por la luz y el calor:
+
+| Momento | Actividad habitual |
+|---|---|
+| Antes del amanecer | salida en canoa para escuchar el despertar de la selva y ver aves |
+| Media mañana | caminata guiada por senderos, con explicaciones sobre plantas y fauna |
+| Mediodía | almuerzo y descanso en las horas de más calor |
+| Tarde | excursión en bote, visita a un lago o a una comunidad |
+| Atardecer | observación de delfines, aves o caimanes desde el agua |
+| Noche | caminata nocturna para ver insectos, ranas y otros animales |
+
+Los horarios tempranos son parte de la experiencia: la fauna es más activa en las primeras y las últimas horas del día. Acostarse temprano ayuda a disfrutar las salidas del amanecer.
 
 ## Cuántos días dedicar
 
@@ -117,6 +132,10 @@ Todos ofrecen experiencias valiosas. La elección depende de tu itinerario: Iqui
 ### ¿Se puede viajar a la Amazonía con niños?
 
 Sí, en lodges preparados para familias y con las vacunas y medidas de protección adecuadas. Consulta antes con el pediatra.
+
+### ¿Hay electricidad y conexión a internet en los lodges?
+
+Varía mucho. Algunos lodges tienen electricidad solo algunas horas al día, generada con paneles solares o generadores, y la conexión a internet puede ser lenta o inexistente. Lleva baterías cargadas y aprovecha para desconectarte unos días.
 
 ### ¿Es peligroso bañarse en los ríos amazónicos?
 
