@@ -94,6 +94,19 @@ Manchmal hilft auch die beste Reinigung nicht. Fugen, die **bröckeln, Risse hab
 
 **Fugenfarbe** oder ein Fugenstift kann graue, aber intakte Fugen optisch auffrischen. Das ist eine kosmetische Lösung und ersetzt keine Reinigung, sieht aber auf Wandfliesen oft überraschend gut aus.
 
+## Wie oft welche Aufgabe?
+
+| Aufgabe | Wie oft |
+|---|---|
+| Fliesen und Fugen in der Dusche abziehen | nach jeder Dusche |
+| Fugen bei der Badreinigung mitwischen | wöchentlich |
+| Duschfugen gründlich mit Natronpaste reinigen | alle ein bis zwei Monate |
+| Boden- und Küchenfugen gründlich reinigen | etwa vierteljährlich |
+| Silikonfugen auf Schimmel und Risse prüfen | bei jeder Grundreinigung |
+| Imprägnierung erneuern | nach Herstellerangabe |
+
+Wenn du die Fugen regelmäßig mitwischst, reicht für die gründliche Reinigung oft schon eine einzige Runde mit Natronpaste. Wer dagegen jahrelang wartet, braucht mehrere Durchgänge und stößt bei tief eingezogenem Schmutz an Grenzen.
+
 ## Typische Fehler und wie du sie vermeidest
 
 - **Mit der Drahtbürste schrubben:** Fliesen werden zerkratzt, Fugen beschädigt.
