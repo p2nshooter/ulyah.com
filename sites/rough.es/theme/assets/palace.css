@@ -1,0 +1,244 @@
+/* ROUGH — El taller del lapidario. Forest felt, ivory paper, charcoal steel, champagne gold. */
+:root {
+  --bosque: #10241b;
+  --bosque-2: #183a2c;
+  --bosque-3: #2f6b52;
+  --marfil: #f6f1e6;
+  --marfil-2: #ece4d2;
+  --carbon: #242824;
+  --carbon-2: #4a4f48;
+  --oro: #d6b979;
+  --oro-claro: #f1dfae;
+  --oro-osc: #8f6e33;
+  --tinta: #1d211d;
+  --suave: #5d635b;
+  --rubi: #c60b1e;
+  --sol: #ffc400;
+  --display: "Bodoni Moda", "Didot", Georgia, serif;
+  --texto: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --radio: 14px;
+  --sombra: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 18px 40px -22px rgba(16, 36, 27, .45);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.lapida { margin: 0; background: var(--marfil); color: var(--tinta); font: 17px/1.7 var(--texto); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { max-width: 100%; }
+a { color: var(--bosque-2); text-decoration-color: color-mix(in srgb, var(--oro) 70%, transparent); text-underline-offset: 3px; }
+a:hover { color: var(--oro-osc); }
+:focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; border-radius: 4px; }
+.lapida-salto { position: absolute; left: -999px; top: 8px; background: var(--bosque); color: var(--marfil); padding: 8px 14px; z-index: 50; border-radius: 8px; }
+.lapida-salto:focus { left: 12px; }
+
+/* reading progress — a thin gold vein */
+.lapida-progreso { position: fixed; inset: 0 0 auto; height: 3px; z-index: 40; pointer-events: none; }
+.lapida-progreso span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--oro-osc), var(--oro-claro), var(--oro)); box-shadow: 0 0 10px rgba(214, 185, 121, .7); }
+body:not(.lapida--articulo) .lapida-progreso { display: none; }
+
+/* Spain 2026 */
+.lapida-campeona { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; padding: 7px 16px; background: linear-gradient(90deg, #0b1913, var(--bosque-2) 50%, #0b1913); color: var(--oro-claro); font: 600 13px/1.3 var(--texto); letter-spacing: .06em; text-transform: uppercase; overflow: hidden; }
+.lapida-campeona p { margin: 0; }
+.lapida-campeona em { font-style: normal; color: #fff; background: linear-gradient(180deg, var(--rubi) 0 25%, var(--sol) 25% 75%, var(--rubi) 75%); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; }
+.lapida-campeona strong { color: var(--sol); }
+.lapida-campeona__brillo { position: absolute; inset: 0; background: linear-gradient(100deg, transparent 40%, rgba(255, 238, 190, .25) 50%, transparent 60%); transform: translateX(-100%); animation: lapidaBrillo 6s ease-in-out infinite; }
+@keyframes lapidaBrillo { 55%, 100% { transform: translateX(100%); } }
+
+/* header */
+.lapida-cabecera { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bosque) 94%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(214, 185, 121, .35); box-shadow: 0 10px 30px -20px rgba(0, 0, 0, .7); }
+.lapida-cabecera__dentro { max-width: 1240px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.lapida-marca { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; text-decoration: none; color: var(--marfil); }
+.lapida-marca__gema { grid-row: span 2; color: var(--oro); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+.lapida-marca:hover .lapida-marca__gema { transform: rotate(-12deg) scale(1.06); }
+.lapida-marca__nombre { font: 700 26px/1 var(--display); letter-spacing: .32em; }
+.lapida-marca__lema { font-size: 12px; color: var(--oro-claro); letter-spacing: .04em; opacity: .85; }
+.lapida-abrir { display: none; margin-left: auto; background: transparent; color: var(--marfil); border: 1px solid rgba(214, 185, 121, .5); border-radius: 999px; padding: 8px 16px; font: 600 14px var(--texto); cursor: pointer; }
+.lapida-abrir span { display: inline-block; width: 14px; height: 10px; margin-right: 8px; vertical-align: -1px; border-top: 2px solid var(--oro); border-bottom: 2px solid var(--oro); position: relative; }
+.lapida-abrir span::after { content: ""; position: absolute; left: 0; right: 0; top: 2px; border-top: 2px solid var(--oro); }
+.lapida-menu { margin-left: auto; display: flex; flex-wrap: wrap; gap: 2px 4px; }
+.lapida-menu__item { position: relative; padding: 10px 12px 14px; color: var(--marfil-2); text-decoration: none; font: 500 14.5px/1.2 var(--texto); letter-spacing: .02em; border-radius: 8px; }
+.lapida-menu__item span { position: relative; z-index: 1; }
+.lapida-menu__faceta { position: absolute; left: 50%; bottom: 3px; width: 64px; height: 12px; transform: translateX(-50%); fill: none; stroke: var(--oro); stroke-width: 1.4; stroke-dasharray: 140; stroke-dashoffset: 140; transition: stroke-dashoffset .55s ease; }
+.lapida-menu__item:hover, .lapida-menu__item:focus-visible { color: #fff; background: rgba(214, 185, 121, .08); }
+.lapida-menu__item:hover .lapida-menu__faceta, .lapida-menu__item:focus-visible .lapida-menu__faceta { stroke-dashoffset: 0; }
+.lapida-menu__item--casa { color: var(--oro-claro); }
+
+/* buttons, headings */
+.lapida-boton { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; background: linear-gradient(135deg, var(--oro-claro), var(--oro) 55%, var(--oro-osc)); color: #1a1408; font: 700 15px var(--texto); text-decoration: none; box-shadow: 0 10px 24px -12px rgba(143, 110, 51, .9), inset 0 1px 0 rgba(255, 255, 255, .6); transition: transform .2s, box-shadow .2s; }
+.lapida-boton:hover { transform: translateY(-2px); color: #1a1408; box-shadow: 0 16px 30px -14px rgba(143, 110, 51, .95); }
+.lapida-boton--linea { background: transparent; color: var(--marfil); border: 1px solid rgba(241, 223, 174, .55); box-shadow: none; }
+.lapida-boton--linea:hover { color: var(--oro-claro); }
+.lapida-titular { max-width: 1240px; margin: 0 auto 26px; padding: 0 20px; }
+.lapida-titular__ante { margin: 0; font: 600 12px var(--texto); letter-spacing: .22em; text-transform: uppercase; color: var(--oro-osc); }
+.lapida-titular h2 { margin: 6px 0 0; font: 500 clamp(28px, 3.6vw, 42px)/1.15 var(--display); color: var(--bosque); }
+.lapida-titular h2::after { content: ""; display: block; width: 72px; height: 2px; margin-top: 14px; background: linear-gradient(90deg, var(--oro), transparent); }
+.lapida-titular--claro h2 { color: var(--marfil); }
+.lapida-titular--claro .lapida-titular__ante { color: var(--oro-claro); }
+
+/* hero */
+.lapida-portada { position: relative; background: radial-gradient(1200px 500px at 85% 20%, rgba(214, 185, 121, .14), transparent 60%), linear-gradient(160deg, var(--bosque) 0%, #0b1a13 60%, #08130e 100%); color: var(--marfil); overflow: hidden; }
+.lapida-portada::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(115deg, rgba(214, 185, 121, .05) 0 1px, transparent 1px 22px); pointer-events: none; }
+.lapida-portada__dentro { position: relative; max-width: 1240px; margin: 0 auto; padding: 72px 20px 84px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+.lapida-portada__ante { margin: 0 0 14px; font: 600 12.5px var(--texto); letter-spacing: .24em; text-transform: uppercase; color: var(--oro); }
+.lapida-portada__titulo { margin: 0; font: 500 clamp(40px, 6vw, 74px)/1.04 var(--display); letter-spacing: -.01em; }
+.lapida-portada__titulo em { color: var(--oro-claro); font-style: italic; }
+.lapida-portada__entrada { max-width: 56ch; margin: 22px 0 0; color: #d9d3c2; font-size: 18px; }
+.lapida-portada__botones { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
+.lapida-cristal { margin: 0; justify-self: center; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .5)); }
+.lapida-cristal svg { width: min(340px, 80vw); height: auto; }
+.lapida-cristal__bruto { transform-origin: 160px 170px; animation: lapidaBruto 9s ease-in-out infinite; }
+.lapida-cristal__talla { transform-origin: 160px 180px; animation: lapidaTalla 9s ease-in-out infinite; }
+.lapida-cristal__luz { animation: lapidaLuz 9s ease-in-out infinite; }
+@keyframes lapidaBruto { 0%, 30% { opacity: 1; transform: scale(1); } 45%, 85% { opacity: 0; transform: scale(.92); } 100% { opacity: 1; } }
+@keyframes lapidaTalla { 0%, 30% { opacity: 0; transform: scale(.85) rotate(-6deg); } 45%, 85% { opacity: 1; transform: scale(1) rotate(0); } 100% { opacity: 0; } }
+@keyframes lapidaLuz { 0%, 50% { opacity: 0; } 60% { opacity: .9; } 70%, 100% { opacity: 0; } }
+
+/* category drawers */
+.lapida-cajones { padding: 70px 0 30px; }
+.lapida-cajones__fila { list-style: none; margin: 0 auto; padding: 0 20px; max-width: 1240px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.cajon { position: relative; display: grid; gap: 8px; height: 100%; padding: 30px 24px 22px; background: linear-gradient(180deg, #fffdf8, var(--marfil-2)); border: 1px solid #ddd2b8; border-radius: var(--radio); text-decoration: none; color: var(--tinta); box-shadow: var(--sombra); transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, border-color .3s; }
+.cajon__tirador { position: absolute; top: 12px; left: 50%; width: 46px; height: 6px; transform: translateX(-50%); border-radius: 0 0 8px 8px; background: linear-gradient(90deg, var(--oro-osc), var(--oro-claro), var(--oro-osc)); }
+.cajon__icono { width: 44px; height: 44px; color: var(--bosque-3); }
+.cajon__nombre { font: 600 22px/1.2 var(--display); color: var(--bosque); }
+.cajon__texto { font-size: 14.5px; color: var(--suave); }
+.cajon__cuenta { margin-top: 6px; font: 600 12px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--oro-osc); }
+.cajon:hover { transform: translateY(-6px); border-color: var(--oro); box-shadow: 0 26px 50px -28px rgba(16, 36, 27, .6); }
+.cajon--mini { padding: 22px 18px; text-align: center; justify-items: center; }
+
+/* article cards */
+.lapida-vitrina { padding: 60px 0; }
+.lapida-vitrina__rejilla { max-width: 1240px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.faceta { background: #fffdf8; border: 1px solid #e3d9c3; border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); transition: transform .3s, box-shadow .3s; }
+.faceta:hover { transform: translateY(-4px); box-shadow: 0 28px 54px -30px rgba(16, 36, 27, .65); }
+.faceta__enlace { display: flex; flex-direction: column; height: 100%; padding: 22px 22px 18px; color: var(--tinta); text-decoration: none; background: linear-gradient(135deg, transparent 0 calc(100% - 26px), rgba(214, 185, 121, .35) calc(100% - 26px)); }
+.faceta__seccion { display: flex; align-items: center; gap: 8px; font: 600 12px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--bosque-3); }
+.faceta__icono { width: 22px; height: 22px; }
+.faceta__titulo { margin: 12px 0 8px; font: 600 21px/1.25 var(--display); color: var(--bosque); }
+.faceta__resumen { margin: 0 0 16px; font-size: 15px; color: var(--suave); flex: 1; }
+.faceta__pie { display: flex; justify-content: space-between; font-size: 13px; color: var(--suave); border-top: 1px dashed #d9cdb0; padding-top: 12px; }
+.faceta__flecha { color: var(--oro-osc); transition: transform .25s; }
+.faceta:hover .faceta__flecha { transform: translateX(5px); }
+.faceta--grande { grid-column: span 2; background: linear-gradient(135deg, var(--bosque), var(--bosque-2)); border-color: var(--bosque-2); }
+.faceta--grande .faceta__enlace { padding: 34px; color: var(--marfil); }
+.faceta--grande .faceta__titulo { font-size: 30px; color: var(--marfil); }
+.faceta--grande .faceta__resumen, .faceta--grande .faceta__pie { color: #d4cdb9; }
+.faceta--grande .faceta__seccion { color: var(--oro-claro); }
+
+/* dark index */
+.lapida-indice { padding: 70px 0 80px; background: linear-gradient(180deg, var(--carbon), #171a17); color: #ddd6c4; }
+.lapida-indice__cols { max-width: 1240px; margin: 0 auto; padding: 0 20px; columns: 3 280px; column-gap: 34px; }
+.lapida-indice__cols section { break-inside: avoid; margin-bottom: 28px; }
+.lapida-indice__cols h3 { margin: 0 0 10px; font: 600 19px var(--display); }
+.lapida-indice__cols h3 a { display: flex; align-items: center; gap: 10px; color: var(--oro-claro); text-decoration: none; }
+.lapida-indice__icono { width: 22px; height: 22px; }
+.lapida-indice__cols ol { margin: 0; padding-left: 18px; font-size: 14.5px; }
+.lapida-indice__cols li { margin: 5px 0; }
+.lapida-indice__cols li a { color: #ddd6c4; text-decoration: none; }
+.lapida-indice__cols li a:hover { color: var(--oro-claro); }
+
+/* work in progress */
+.lapida-obra { max-width: 860px; margin: 0 auto; padding: 50px 20px 80px; }
+.lapida-obra .lapida-titular { padding: 0; }
+.lapida-obra__texto { font-size: 18px; background: #fffdf8; border: 1px solid #e3d9c3; border-left: 4px solid var(--oro); border-radius: var(--radio); padding: 22px 26px; box-shadow: var(--sombra); }
+
+/* section header */
+.lapida-seccion { background: linear-gradient(160deg, var(--bosque), #0b1a13); color: var(--marfil); }
+.lapida-seccion__dentro { max-width: 960px; margin: 0 auto; padding: 50px 20px 56px; text-align: center; }
+.lapida-seccion__icono { width: 64px; height: 64px; color: var(--oro); margin: 18px 0 6px; }
+.lapida-seccion h1 { margin: 0; font: 500 clamp(34px, 5vw, 54px)/1.1 var(--display); }
+.lapida-seccion p { color: #d9d3c2; max-width: 62ch; margin: 14px auto 0; }
+.lapida-seccion__cuenta { font: 600 12.5px var(--texto); letter-spacing: .18em; text-transform: uppercase; color: var(--oro) !important; }
+.lapida-migas { font-size: 13.5px; color: inherit; opacity: .9; }
+.lapida-migas a { color: inherit; }
+.lapida-seccion .lapida-migas a { color: var(--oro-claro); }
+
+/* article */
+.lapida-articulo { max-width: 1240px; margin: 0 auto; padding: 40px 20px 20px; }
+.lapida-articulo__cabecera { max-width: 860px; margin: 0 auto 34px; text-align: center; }
+.lapida-articulo__titulo { margin: 14px 0 0; font: 500 clamp(32px, 4.6vw, 52px)/1.12 var(--display); color: var(--bosque); }
+.lapida-articulo__entrada { margin: 16px auto 0; max-width: 64ch; font-size: 19px; color: var(--suave); }
+.lapida-articulo__datos { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; font-size: 13.5px; color: var(--suave); }
+.lapida-articulo__datos span + span::before { content: "◆"; margin-right: 18px; color: var(--oro); font-size: 9px; vertical-align: 2px; }
+.lapida-articulo__cuerpo { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 46px; align-items: start; }
+.lapida-articulo__cuerpo--uno { grid-template-columns: minmax(0, 800px); justify-content: center; }
+.lapida-ficha { position: sticky; top: 96px; background: linear-gradient(180deg, var(--bosque), #0d1f17); color: #d8d1bf; border-radius: var(--radio); padding: 22px; box-shadow: 0 24px 50px -30px rgba(0, 0, 0, .7); border: 1px solid rgba(214, 185, 121, .35); }
+.lapida-ficha__titulo { margin: 0 0 12px; font: 600 12px var(--texto); letter-spacing: .2em; text-transform: uppercase; color: var(--oro); }
+.lapida-ficha__titulo--b { margin-top: 20px; }
+.lapida-ficha dl { margin: 0; display: grid; gap: 8px; font-size: 14px; }
+.lapida-ficha dl div { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid rgba(214, 185, 121, .15); padding-bottom: 6px; }
+.lapida-ficha dt { color: #a9a28f; }
+.lapida-ficha dd { margin: 0; text-align: right; }
+.lapida-ficha a { color: var(--oro-claro); }
+.lapida-ficha__indice { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.45; }
+.lapida-ficha__indice li { margin: 7px 0; }
+.lapida-ficha__indice a { text-decoration: none; }
+.lapida-ficha__indice a.es-actual { color: #fff; font-weight: 600; }
+.lapida-texto { font-size: 18px; max-width: 760px; }
+.lapida-texto h2 { margin: 2.1em 0 .6em; font: 600 30px/1.2 var(--display); color: var(--bosque); scroll-margin-top: 100px; }
+.lapida-texto h2::before { content: "◆"; display: inline-block; margin-right: 12px; color: var(--oro); font-size: 14px; vertical-align: 6px; }
+.lapida-texto h3 { margin: 1.6em 0 .5em; font: 700 21px/1.3 var(--texto); color: var(--bosque-2); }
+.lapida-texto p { margin: 0 0 1.05em; }
+.lapida-texto ul, .lapida-texto ol { padding-left: 1.3em; }
+.lapida-texto li { margin: .35em 0; }
+.lapida-texto li::marker { color: var(--oro-osc); }
+.lapida-texto blockquote { margin: 1.6em 0; padding: 18px 22px; background: #fffdf8; border: 1px solid #e3d9c3; border-left: 4px solid var(--oro); border-radius: 10px; box-shadow: var(--sombra); }
+.lapida-texto blockquote p:last-child { margin-bottom: 0; }
+.lapida-texto table { width: 100%; border-collapse: collapse; margin: 1.4em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.lapida-texto th { background: var(--bosque); color: var(--oro-claro); text-align: left; font-weight: 600; }
+.lapida-texto th, .lapida-texto td { padding: 10px 12px; border-bottom: 1px solid #e3d9c3; vertical-align: top; }
+.lapida-texto tr:nth-child(even) td { background: #fbf7ee; }
+.lapida-aviso { margin: 2.4em 0 0; padding: 18px 22px; border-radius: 12px; background: linear-gradient(135deg, #f3ecdc, #efe5cf); border: 1px solid #ddcfae; font-size: 15px; color: #4c4a40; }
+.lapida-aviso p { margin: 0; }
+
+/* footer */
+.lapida-pie { position: relative; background: #0a1711; color: #bdb6a3; margin-top: 60px; }
+.lapida-pie__veta { height: 3px; background: linear-gradient(90deg, transparent, var(--oro-osc), var(--oro-claro), var(--oro-osc), transparent); }
+.lapida-pie__dentro { max-width: 1240px; margin: 0 auto; padding: 54px 20px 30px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 36px; }
+.lapida-pie__nombre { margin: 0; font: 700 30px var(--display); letter-spacing: .3em; color: var(--marfil); }
+.lapida-pie__expansion { margin: 4px 0 14px; color: var(--oro); font-size: 14px; }
+.lapida-pie__titulo { margin: 0 0 12px; font: 600 12px var(--texto); letter-spacing: .2em; text-transform: uppercase; color: var(--oro-claro); }
+.lapida-pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; font-size: 14.5px; }
+.lapida-pie a { color: #d8d1bf; text-decoration: none; }
+.lapida-pie a:hover { color: var(--oro-claro); }
+.lapida-pie__nota { max-width: 1240px; margin: 0 auto; padding: 18px 20px 30px; border-top: 1px solid rgba(214, 185, 121, .15); font-size: 13px; color: #8f8a7b; }
+
+/* 404 */
+.lapida-vacio { max-width: 960px; margin: 0 auto; padding: 70px 20px; text-align: center; }
+.lapida-vacio__codigo { margin: 0; font: 700 110px/1 var(--display); color: transparent; -webkit-text-stroke: 2px var(--oro); }
+.lapida-vacio h1 { font: 500 34px var(--display); color: var(--bosque); }
+.lapida-vacio .lapida-cajones__fila { padding: 0; margin-top: 30px; }
+
+/* confetti canvas */
+.lapida-confeti { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
+
+@media (max-width: 1020px) {
+  .lapida-portada__dentro { grid-template-columns: 1fr; padding: 54px 20px 64px; }
+  .lapida-cristal { order: -1; }
+  .lapida-cristal svg { width: 220px; }
+  .lapida-cajones__fila, .lapida-vitrina__rejilla { grid-template-columns: repeat(2, 1fr); }
+  .lapida-articulo__cuerpo { grid-template-columns: 1fr; }
+  .lapida-ficha { position: static; }
+  .lapida-pie__dentro { grid-template-columns: 1fr 1fr; }
+  .lapida-pie__marca { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .lapida-abrir { display: inline-flex; align-items: center; }
+  .lapida-menu { display: none; width: 100%; flex-direction: column; margin: 4px 0 6px; }
+  .lapida-menu.esta-abierto { display: flex; }
+  .lapida-menu__item { padding: 12px 10px; border-bottom: 1px solid rgba(214, 185, 121, .12); border-radius: 0; }
+  .lapida-menu__faceta { left: 10px; transform: none; }
+  .lapida-marca__lema { display: none; }
+}
+@media (max-width: 620px) {
+  body.lapida { font-size: 16.5px; }
+  .lapida-cajones__fila, .lapida-vitrina__rejilla { grid-template-columns: 1fr; }
+  .faceta--grande { grid-column: auto; }
+  .faceta--grande .faceta__titulo { font-size: 24px; }
+  .lapida-pie__dentro { grid-template-columns: 1fr; }
+  .lapida-texto { font-size: 17px; }
+  .lapida-texto h2 { font-size: 25px; }
+  .lapida-campeona { font-size: 11.5px; letter-spacing: .03em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .lapida-cristal__talla { opacity: 1; }
+  .lapida-cristal__bruto { opacity: 0; }
+}

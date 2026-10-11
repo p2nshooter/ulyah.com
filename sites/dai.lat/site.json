@@ -1,0 +1,39 @@
+{
+  "domain": "dai.lat",
+  "name": "DAI",
+  "expansion": "Diseño, Arquitectura e Interiores",
+  "tagline": "Casas bien pensadas para el clima, la luz y la vida de América Latina",
+  "description": "DAI es una revista sobre diseño, arquitectura e interiores para hogares de América Latina: distribución, materiales, luz natural, confort térmico, cocinas, baños y patios explicados con criterio y sin modas pasajeras.",
+  "lang": "es",
+  "locale": "es-419",
+  "ogLocale": "es_LA",
+  "draft": true,
+  "adsense": "ca-pub-8469557036744946",
+  "trackId": "dai-lat",
+  "worker": "dai-lat",
+  "themeColor": "#3a2416",
+  "email": "contacto@dai.lat",
+  "author": "Redacción DAI",
+  "fonts": "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/articulos/", "category": "/temas/" },
+  "categories": [
+    { "slug": "arquitectura-y-casas", "name": "Arquitectura y casas", "icon": "casa", "description": "Distribución, orientación, ventilación y estructura: cómo se piensa una casa que funciona en el clima donde se construye." },
+    { "slug": "interiores-y-decoracion", "name": "Interiores y decoración", "icon": "sillon", "description": "Color, mobiliario, textiles, iluminación y orden para espacios que se sienten amplios, cálidos y propios." },
+    { "slug": "cocinas-y-banos", "name": "Cocinas y baños", "icon": "grifo", "description": "Planificación, materiales, almacenamiento y mantenimiento de las dos habitaciones que más se usan y más cuestan de reformar." },
+    { "slug": "materiales-y-acabados", "name": "Materiales y acabados", "icon": "ladrillo", "description": "Ladrillo, concreto, madera, adobe, cerámica, piedra y pinturas: qué ofrece cada uno, cuánto dura y cómo se cuida." },
+    { "slug": "patios-y-exteriores", "name": "Patios y exteriores", "icon": "palmera", "description": "Patios, terrazas, balcones y jardines: sombra, plantas, pisos exteriores y espacios para vivir al aire libre." },
+    { "slug": "confort-y-sostenibilidad", "name": "Confort y sostenibilidad", "icon": "sol", "description": "Calor, humedad, ruido, agua y energía: soluciones pasivas y eficientes para vivir mejor gastando menos." }
+  ],
+  "menu": [
+    { "label": "Sobre DAI", "href": "/sobre-nosotros/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos de uso", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" },
+    { "label": "Política editorial", "href": "/politica-editorial/" }
+  ]
+}

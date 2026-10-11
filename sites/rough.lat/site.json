@@ -1,0 +1,38 @@
+{
+  "domain": "rough.lat",
+  "name": "ROUGH.LAT",
+  "expansion": "Gemas, piedras preciosas y joyería de América Latina",
+  "tagline": "From Raw Beauty to Timeless Value — de la belleza en bruto al valor que perdura",
+  "description": "ROUGH.LAT es una revista editorial sobre gemas en bruto, piedras preciosas, joyería, talla artesanal y lujo responsable, pensada para lectores de América Latina: guías claras, fuentes verificables y cero promesas de inversión.",
+  "lang": "es",
+  "locale": "es-419",
+  "ogLocale": "es_LA",
+  "draft": true,
+  "adsense": "ca-pub-5944786950535069",
+  "trackId": "rough-lat",
+  "worker": "rough-lat",
+  "themeColor": "#102a24",
+  "email": "contacto@rough.lat",
+  "author": "Redacción ROUGH.LAT",
+  "fonts": "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/es/", "category": "/es/categoria/" },
+  "categories": [
+    { "slug": "gemas-en-bruto", "name": "Gemas en bruto", "icon": "geoda", "description": "Cómo nacen las gemas en la roca, cómo se reconocen sin tallar y qué revela un cristal antes de pasar por la rueda del lapidario." },
+    { "slug": "piedras-preciosas", "name": "Piedras preciosas", "icon": "brillante", "description": "Calidad, tratamientos, sintéticos, imitaciones e informes de laboratorio: lo que hay que saber antes de confiar en una piedra." },
+    { "slug": "joyeria-y-diseno", "name": "Joyería y diseño", "icon": "anillo", "description": "Metales, engastes, anillos de compromiso, diseño a medida y cuidado de las joyas para que duren generaciones." },
+    { "slug": "arte-tallado-y-artesania", "name": "Tallado y artesanía", "icon": "rueda", "description": "La rueda del lapidario, los tipos de talla, los talleres tradicionales y el camino de la piedra en bruto a la joya terminada." },
+    { "slug": "lujo-y-estilo-de-vida", "name": "Lujo y estilo de vida", "icon": "estuche", "description": "Cómo llevar, regalar y coleccionar joyas con criterio, y cómo comprar lujo de forma responsable." }
+  ],
+  "menu": [
+    { "label": "Nosotros", "href": "/sobre-nosotros/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos de uso", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" },
+    { "label": "Política editorial", "href": "/politica-editorial/" }
+  ]
+}

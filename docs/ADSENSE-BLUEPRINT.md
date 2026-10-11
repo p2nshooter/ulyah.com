@@ -204,6 +204,10 @@ berbagi palet, font, ornamen, atau gaya animasi menu.**
 | zevok.de | Laut tembaga (1 Raj 7:23) | perunggu, aqua, linen, navy | Petrona / Urbanist | Air naik bergelombang + gelembung di menu; gelembung sabun merah-kuning |
 | zolun.de | Kapal-kapal Tarsis (1 Raj 10:22) | laut dalam, pasir, koral senja, kuningan | Old Standard TT / Sora | Jarum kompas berayun + rute titik tergambar; panji sinyal kapal Spanyol |
 | qulen.de | Hati yang mendengar (1 Raj 3:9) | teal malam, perkamen, tinta vermilion, emas | Crimson Pro / Atkinson Hyperlegible | Tab buku catatan + garis tinta tulisan tangan + bintang emas; pesawat kertas merah-kuning |
+| rough.es | Taller del lapidario (1 Raj 5:17, batu pahat mahal) | hijau hutan gelap, gading, arang, emas sampanye | Bodoni Moda / Figtree | Garis faset permata tergambar di bawah menu; kristal kasar berubah jadi permata potong; konfeti faset rubi-emas |
+| rough.lat | Delima Yakhin & Boas (1 Raj 7:18–20) | gading terang, zamrud, perunggu, emas, merah garnet | Cinzel / Hanken Grotesk | Lima biji delima muncul berurutan di bawah menu; dua pilar perunggu bermahkota delima; konfeti biji delima merah-kuning |
+| dai.lat | Rumah Hutan Libanon (1 Raj 7:2, tiang aras) | putih kapur, kayu aras, terakota, zaitun, kuningan | Fraunces / Inter Tight | Barisan tiang aras naik di belakang menu; kolonade dengan sinar matahari bergerak; konfeti ubin azulejo |
+| pab.lat | Tadmor di padang gurun (1 Raj 9:18) | indigo malam, pasir, pirus, koral senja, hijau palem | DM Serif Display / Albert Sans | Cap paspor berputar masuk saat hover; oasis Palmyra dengan matahari terbit; konfeti cap paspor merah-emas |
 
 ---
 

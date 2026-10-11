@@ -34,6 +34,10 @@ EXPECTED["zolun.de"] = "4548005919629272";
 EXPECTED["axto.us"] = "2990015102981265";
 EXPECTED["rubiy.de"] = "2990015102981265";
 EXPECTED["jai.lat"] = "6019445914743449";
+EXPECTED["dai.lat"] = "8469557036744946";
+EXPECTED["pab.lat"] = "6146217038829045";
+EXPECTED["rough.lat"] = "5944786950535069";
+EXPECTED["rough.es"] = "5693981744147503";
 const verdicts = [];
 
 const browser = await chromium.launch();

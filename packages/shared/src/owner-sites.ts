@@ -50,6 +50,11 @@ export const OWNER_SITES: readonly OwnerSite[] = [
   { domain: "xko.es", trackId: "xko-es", lang: "es", repo: "ulyah.com · sites/xko.es", built: true },
   { domain: "byodd.de", trackId: "byodd-de", lang: "de", repo: "ulyah.com · sites/byodd.de", built: true },
   { domain: "byoxy.de", trackId: "byoxy-de", lang: "de", repo: "ulyah.com · sites/byoxy.de", built: true },
+  // 10 Oct 2026: four new Spanish sites, online as drafts (noindex) until 40 articles.
+  { domain: "rough.es", trackId: "rough-es", lang: "es", repo: "ulyah.com · sites/rough.es", built: false },
+  { domain: "rough.lat", trackId: "rough-lat", lang: "es", repo: "ulyah.com · sites/rough.lat", built: false },
+  { domain: "dai.lat", trackId: "dai-lat", lang: "es", repo: "ulyah.com · sites/dai.lat", built: false },
+  { domain: "pab.lat", trackId: "pab-lat", lang: "es", repo: "ulyah.com · sites/pab.lat", built: false },
   // Fase 6: ten German + English sites, not built yet.
   ...["byoy", "qarf", "qulen", "qurm", "rubiy", "zavik", "zevok", "zolun", "zufiq", "zuvik"].map(
     (name): OwnerSite => ({ domain: `${name}.de`, trackId: `${name}-de`, lang: "de+en", repo: `ulyah.com · sites/${name}.de`, built: false })
