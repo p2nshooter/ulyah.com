@@ -90,6 +90,18 @@ Die wirksamste Methode gegen Kalk kostet nur eine Minute nach jeder Dusche:
 - **Wenig Duschgel und Shampoo an den Wänden:** Seifenreste verbinden sich mit Kalk zu Kalkseife. Spüle Spritzer gleich mit der Handbrause ab.
 - **Einmal pro Woche** Glas und Armatur mit Badreiniger abwischen. Dünne Beläge verschwinden dann in wenigen Minuten.
 
+## Wie oft welche Aufgabe?
+
+| Aufgabe | Wie oft |
+|---|---|
+| Glaswand und Fliesen abziehen | nach jeder Dusche |
+| Armatur trocken wischen | nach jeder Dusche oder täglich |
+| Glas, Armatur und Duschtasse mit Badreiniger wischen | wöchentlich |
+| Duschkopf und Strahlregler entkalken | alle ein bis drei Monate, bei hartem Wasser öfter |
+| Profile und Dichtungen der Duschtür reinigen | monatlich |
+
+Bei sehr hartem Wasser oder einer Dusche, die mehrere Personen täglich nutzen, verkürzen sich die Abstände. Richte dich nach dem, was du siehst: Sobald sich ein weißer Schleier zeigt, ist der richtige Zeitpunkt.
+
 ## Typische Fehler und wie du sie vermeidest
 
 - **Säure auf Naturstein:** Die Oberfläche wird dauerhaft matt. Nimm einen Natursteinreiniger.
@@ -108,6 +120,10 @@ Nicht wirklich. Natron ist basisch und löst Kalk nicht. Als mildes Scheuermitte
 ### Wie bekomme ich alte, milchige Flecken vom Glas?
 
 Lege mehrmals Kompressen mit Entkalkerlösung auf und spüle dazwischen ab. Bleibt das Glas trotzdem milchig, kann die Oberfläche bereits angegriffen sein. Das ist bei sehr altem Kalk oder nach häufigem Scheuern möglich und lässt sich nicht mehr vollständig beheben.
+
+### Darf Entkalker auf Silikonfugen?
+
+Kurzer Kontakt schadet Silikon in der Regel nicht. Spüle die Fugen trotzdem gründlich ab, denn Reste von Säure und Seife bilden einen Film, auf dem sich gern Schimmel ansiedelt. Ist das Silikon bereits dunkel verfärbt, hilft Entkalker nicht weiter.
 
 ### Lohnt sich eine Imprägnierung für die Duschwand?
 
