@@ -72,6 +72,19 @@ No intentes ver todo en pocos días: es mejor elegir dos o tres zonas y recorrer
 
 Más consejos en la guía sobre [senderismo seguro en parques](/bitacora/senderismo-seguro-en-parques/).
 
+## Un día de caminata bien preparado
+
+Para una excursión de un día en la montaña patagónica, prepara en tu mochila:
+
+- **Agua y comida** suficientes para todo el día, aunque pienses volver temprano.
+- **Las cuatro capas de ropa,** incluso si amanece despejado.
+- **Mapa descargado** en el teléfono y, si es posible, un mapa en papel.
+- **Linterna frontal,** por si la caminata se alarga.
+- **Un pequeño botiquín** y protección solar.
+- **Bolsas para llevarte tu basura.**
+
+Sal temprano, informa tu ruta, fija una hora límite para dar la vuelta y respétala aunque no hayas llegado a la cima o al mirador. En la Patagonia, el mirador siempre estará allí; el buen tiempo, no necesariamente.
+
 ## Fuego: tolerancia cero
 
 Los bosques y pastizales patagónicos son muy vulnerables al fuego. Grandes incendios, algunos provocados por descuidos de visitantes, han destruido miles de hectáreas en el pasado. En la mayoría de los parques:
