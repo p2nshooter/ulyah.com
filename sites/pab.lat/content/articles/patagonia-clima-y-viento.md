@@ -69,6 +69,7 @@ No intentes ver todo en pocos días: es mejor elegir dos o tres zonas y recorrer
 - **Registro:** en muchos senderos hay que registrarse al ingresar o informar a los guardaparques.
 - **Clima:** consulta el pronóstico y las alertas del día antes de salir.
 - **Ritmo:** calcula los tiempos con margen; el viento y las subidas pueden alargar mucho una caminata.
+- **Basura:** en muchos senderos no hay papeleras. Todo lo que llevas, incluidos los restos de comida, vuelve contigo.
 
 Más consejos en la guía sobre [senderismo seguro en parques](/bitacora/senderismo-seguro-en-parques/).
 
