@@ -110,6 +110,16 @@ Una vez eliminada la causa:
 3. **Repara con materiales compatibles,** transpirables en muros con antecedentes de humedad.
 4. **Pinta con pinturas adecuadas** que dejen respirar el muro. La guía de [pinturas para interior y exterior](/articulos/pinturas-interior-y-exterior/) ayuda a elegir.
 
+## Prevenir es más barato
+
+- **Revisa techos, terrazas y canaletas** antes de cada temporada de lluvias.
+- **Mantén despejados los desagües** de patios y balcones.
+- **Ventila cada día** dormitorios, baños y cocina, también en invierno.
+- **Observa la base de los muros** y las esquinas frías una vez al mes, sobre todo detrás de muebles y cortinas.
+- **Repara pronto** cualquier fisura en fachadas, juntas de ventanas y sellos de la ducha.
+
+Una pequeña mancha detectada a tiempo se resuelve con poco dinero. La misma mancha ignorada durante años puede terminar en revoques nuevos, pisos levantados y muebles dañados.
+
 ## Si alquilas
 
 Informa al propietario por escrito, con fotos y fechas. Las filtraciones y la capilaridad suelen ser responsabilidad de quien es dueño del inmueble. La condensación depende en parte de los hábitos de uso, por lo que conviene ventilar y documentar lo que haces.
