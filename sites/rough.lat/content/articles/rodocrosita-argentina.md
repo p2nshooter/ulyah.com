@@ -70,6 +70,22 @@ Para entender cómo se juzga una gema de color en general, consulta la guía sob
 
 Un gemólogo puede distinguir estos materiales con pruebas sencillas. Más información en la guía sobre [imitaciones y dobletes](/es/imitaciones-y-dobletes/).
 
+## Cómo se trabaja en el taller
+
+Tallar rodocrosita exige paciencia. Al ser blanda y tener una exfoliación perfecta, se agrieta con facilidad si recibe presión o calor durante el corte o el pulido.
+
+- **Elección del corte:** el artesano decide si cortar la estalactita a lo ancho, para mostrar los anillos, o a lo largo, para lucir las bandas paralelas. Una misma pieza puede dar resultados muy distintos.
+- **Corte en frío:** se usan sierras con borde de diamante refrigeradas con agua, a velocidad moderada, para no calentar la piedra.
+- **Lijado progresivo:** abrasivos cada vez más finos eliminan las marcas del corte.
+- **Pulido delicado:** el brillo final se obtiene con mucha suavidad, porque la superficie se raya y se empaña con facilidad.
+- **Estabilización:** el material poroso o fisurado se refuerza a veces con resina antes de tallarlo, algo que debe informarse al comprador.
+
+Por eso una pieza grande, bien pulida y sin grietas tiene detrás muchas horas de trabajo y un porcentaje alto de material descartado.
+
+## La rodocrosita en una colección de minerales
+
+Para el coleccionista, la rodocrosita ofrece varias formas interesantes: láminas de estalactita con anillos, masas bandeadas pulidas, superficies con formas redondeadas y, en el caso más escaso, cristales transparentes. Al incorporarla a una colección, anota el origen, la fecha y la procedencia de la compra, guárdala en un lugar seco y protegido del polvo, y evita apilarla con piezas más duras. La guía sobre [coleccionar gemas y minerales](/es/coleccionar-gemas-y-minerales/) amplía estos consejos.
+
 ## Comprar rodocrosita
 
 - **Observa con luz natural** para apreciar el color real.
