@@ -92,6 +92,19 @@ Para fijar la piedra a la varilla se usan ceras que se calientan o adhesivos. La
 
 Cuando domines el cabujón, puedes pasar al facetado. Lo habitual es empezar con cuarzo, que es económico y tolera bien los errores, y seguir diagramas de facetado sencillos. Poco a poco se aprenden la precisión de los ángulos, el pulido de facetas y la orientación de la piedra, que explicamos en la guía sobre [del bruto a la gema: orientación y rendimiento](/es/del-bruto-a-la-gema-orientacion-y-rendimiento/).
 
+## Organizar un pequeño taller en casa
+
+Si decides montar tu propio espacio, algunas decisiones desde el principio evitan problemas:
+
+- **Elige un lugar ventilado,** fácil de limpiar y lejos de dormitorios y cocinas.
+- **Separa la zona húmeda** de la eléctrica, con las máquinas sobre superficies estables y los cables protegidos.
+- **No tires el lodo de lijado por el desagüe:** el sedimento de piedra puede obstruir las tuberías. Déjalo decantar en un recipiente y deséchalo como residuo sólido.
+- **Ten a mano un botiquín** y un extintor adecuado.
+- **Guarda las herramientas cortantes y los abrasivos** fuera del alcance de niños y mascotas.
+- **Etiqueta los materiales,** sobre todo los que requieren precauciones especiales.
+
+Un taller ordenado no solo es más seguro: también permite trabajar con más calma y mejores resultados.
+
 ## Dónde aprender
 
 - **Clubes de mineralogía y lapidaria,** que a menudo tienen talleres compartidos y aficionados con experiencia.
