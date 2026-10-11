@@ -1,6 +1,6 @@
 ---
 title: "Cómo recorrer un centro histórico de América Latina sin prisas y con los ojos abiertos"
-description: "Cómo planificar la visita a un centro histórico colonial: por dónde empezar, a qué hora salir, cómo leer sus plazas, iglesias y balcones, guías y museos, calzado, altura, calor y respeto por quienes viven allí."
+description: "Cómo visitar un centro histórico colonial: por dónde empezar, a qué hora salir, cómo leer plazas, iglesias y balcones, guías y museos, calzado, altura, calor y respeto por sus vecinos."
 category: ciudades-y-cultura
 date: 2026-08-02
 ---
@@ -77,6 +77,17 @@ Los centros históricos son también hogar de familias, comercios de toda la vid
 - **Respeta el descanso de los vecinos** por la noche.
 - **Pide permiso antes de fotografiar a personas.**
 - **Elige alojamientos registrados** que cumplan las normas locales.
+
+## Fotografiar el centro histórico
+
+- **La primera luz y la hora dorada** del atardecer realzan las fachadas y evitan las sombras duras del mediodía.
+- **Busca los detalles:** aldabas, rejas, azulejos, tallas de piedra y puertas cuentan tanto como las grandes vistas.
+- **Sube a un mirador o una terraza** para entender la forma de la ciudad y sus tejados.
+- **Respeta las prohibiciones** de fotografiar en algunos museos e iglesias y no uses drones sin autorización: en muchos centros protegidos están restringidos.
+
+## Con niños o personas mayores
+
+Los centros históricos se disfrutan en familia si se adapta el ritmo. Alterna caminatas cortas con paradas en plazas, parques y cafés, elige museos interactivos o con actividades para niños y lleva agua y algo de comer. Para personas con movilidad reducida, los empedrados y las cuestas pueden ser un obstáculo: averigua si hay recorridos accesibles, transporte turístico o zonas peatonales planas, y planifica descansos frecuentes.
 
 ## Seguridad en el centro
 
