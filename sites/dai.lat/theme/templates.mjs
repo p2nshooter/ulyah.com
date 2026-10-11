@@ -32,23 +32,44 @@ const champions = () => `<aside class="cedro-azulejo" role="note" aria-label="Es
   </svg>
 </aside>`;
 
-/** The cedar colonnade: rows of pillars with a beam, light passing through. */
-const colonnade = () => `<svg class="cedro-columnata" viewBox="0 0 560 300" aria-hidden="true" focusable="false">
+/**
+ * The House of the Forest of Lebanon: four rows of cedar pillars under cedar
+ * beams, "windows in three rows, light facing light" (1 Reyes 7:2–5), and on
+ * the front beam the shields of hammered gold Solomon hung there (1 Reyes
+ * 10:16–17). The light shafts breathe and the shields catch the light in turn.
+ */
+const colonnade = () => `<svg class="cedro-columnata" viewBox="0 0 600 400" aria-hidden="true" focusable="false">
   <defs>
-    <linearGradient id="cedroMadera" x1="0" x2="1"><stop offset="0" stop-color="#5a3520"/><stop offset=".45" stop-color="#9a6438"/><stop offset=".6" stop-color="#b9824f"/><stop offset="1" stop-color="#5a3520"/></linearGradient>
-    <linearGradient id="cedroLuz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3d1" stop-opacity=".85"/><stop offset="1" stop-color="#fff3d1" stop-opacity="0"/></linearGradient>
+    <linearGradient id="cedroMadera" x1="0" x2="1"><stop offset="0" stop-color="#4a2b18"/><stop offset=".4" stop-color="#8f5a32"/><stop offset=".58" stop-color="#c38b55"/><stop offset="1" stop-color="#4a2b18"/></linearGradient>
+    <linearGradient id="cedroViga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f5a32"/><stop offset="1" stop-color="#4a2b18"/></linearGradient>
+    <linearGradient id="cedroLuz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3d1" stop-opacity=".9"/><stop offset="1" stop-color="#fff3d1" stop-opacity="0"/></linearGradient>
+    <linearGradient id="cedroPared" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe3cb"/><stop offset="1" stop-color="#e2d2b2"/></linearGradient>
+    <radialGradient id="cedroEscudo" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff4c8"/><stop offset=".45" stop-color="#e2b84f"/><stop offset=".8" stop-color="#a87a22"/><stop offset="1" stop-color="#6e4d12"/></radialGradient>
   </defs>
-  <rect x="0" y="262" width="560" height="38" fill="#d9c7a6"/>
-  <path d="M0 262h560" stroke="#b49a6c" stroke-width="2"/>
-  ${[0, 1, 2, 3].map((row) => {
-    const y = 40 + row * 14, h = 222 - row * 14, sc = 1 - row * 0.12, op = 1 - row * 0.18;
+  <rect x="0" y="0" width="600" height="330" fill="url(#cedroPared)"/>
+  ${[0, 1, 2].map((r) => Array.from({ length: 6 }, (_, i) => `<rect class="cedro-ventana" style="--d:${((r * 6 + i) * 0.35).toFixed(2)}s" x="${82 + i * 88}" y="${64 + r * 64}" width="24" height="36" rx="12" ry="12"/><path d="M${94 + i * 88} ${66 + r * 64}v34M${82 + i * 88} ${84 + r * 64}h24" stroke="#b99f73" stroke-width=".8"/>`).join("")).join("")}
+  <rect x="0" y="330" width="600" height="70" fill="#d6c3a0"/>
+  <g stroke="#b99f73" stroke-width="1" opacity=".7">${Array.from({ length: 13 }, (_, i) => `<path d="M${300 + (i - 6) * 18} 330L${300 + (i - 6) * 70} 400"/>`).join("")}<path d="M0 352h600M0 374h600"/></g>
+  ${[3, 2, 1, 0].map((row) => {
+    const y = 30 + row * 16, h = 300 - row * 16, w = 26 - row * 3, op = 1 - row * 0.17;
     return `<g opacity="${op.toFixed(2)}">${Array.from({ length: 7 }, (_, i) => {
-      const x = 30 + i * 80 + row * 20;
-      return `<rect x="${x}" y="${y}" width="${(22 * sc).toFixed(1)}" height="${h}" rx="3" fill="url(#cedroMadera)"/>`;
-    }).join("")}<rect x="${10 + row * 20}" y="${y - 14}" width="${540 - row * 30}" height="14" rx="2" fill="#6b4126"/></g>`;
-  }).reverse().join("")}
-  <g class="cedro-columnata__luz"><path d="M120 0h40l90 262h-60z" fill="url(#cedroLuz)"/><path d="M300 0h30l80 262h-50z" fill="url(#cedroLuz)"/></g>
+      const x = 23 + i * 88 + row * 12;
+      return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="url(#cedroMadera)"/><rect x="${x - 4}" y="${y + h - 10}" width="${w + 8}" height="10" rx="2" fill="#3a2416"/><rect x="${x - 4}" y="${y}" width="${w + 8}" height="8" rx="2" fill="#5a3520"/>`;
+    }).join("")}<rect x="${row * 12}" y="${y - 16}" width="${600 - row * 12}" height="16" rx="2" fill="url(#cedroViga)"/></g>`;
+  }).join("")}
+  <g class="cedro-columnata__luz">${[[0, 0, 0], [2, 1, 2.4], [4, 0, 4.8]].map(([i, r, d]) => {
+    const x = 82 + i * 88, y = 100 + r * 64, run = 330 - y;
+    return `<g class="cedro-haz" style="--d:${d}s"><path d="M${x - 4} ${y}h32l${run * 0.5 + 30} ${run}h-${run * 0.18 + 62}z" fill="url(#cedroLuz)" opacity=".4"/><path d="M${x + 4} ${y}h16l${run * 0.42 + 14} ${run}h-${run * 0.1 + 30}z" fill="url(#cedroLuz)"/></g>`;
+  }).join("")}</g>
+  <g class="cedro-escudos">${Array.from({ length: 7 }, (_, i) => {
+    const cx = 36 + i * 88;
+    return `<g class="cedro-escudo" style="--d:${(i * 0.5).toFixed(2)}s"><path d="M${cx} 30v10" stroke="#3a2416" stroke-width="1.5"/><circle cx="${cx}" cy="56" r="17" fill="url(#cedroEscudo)" stroke="#6e4d12" stroke-width="1.2"/><circle cx="${cx}" cy="56" r="11" fill="none" stroke="#fff1bf" stroke-opacity=".7"/><circle cx="${cx}" cy="56" r="4.5" fill="#fff1bf"/><g stroke="#6e4d12" stroke-opacity=".55" stroke-width=".9">${Array.from({ length: 8 }, (_, k) => `<path d="M${cx} 41.5v5" transform="rotate(${k * 45} ${cx} 56)"/>`).join("")}</g></g>`;
+  }).join("")}</g>
+  <g class="cedro-motas">${Array.from({ length: 14 }, (_, i) => `<circle style="--d:${(i * 0.7).toFixed(1)}s" cx="${(60 + (i * 41) % 480).toFixed(0)}" cy="${(140 + (i * 53) % 170).toFixed(0)}" r="${(1 + (i % 3) * 0.6).toFixed(1)}"/>`).join("")}</g>
 </svg>`;
+
+/** A shield of hammered gold between two cedar rules: the section divider. */
+const escudo = () => `<svg class="cedro-divisor" viewBox="0 0 240 30" aria-hidden="true" focusable="false"><path class="cedro-divisor__linea" pathLength="1" d="M4 15H100M140 15H236"/><circle class="cedro-divisor__escudo" cx="120" cy="15" r="12"/><circle class="cedro-divisor__aro" cx="120" cy="15" r="7.5"/><circle class="cedro-divisor__umbo" cx="120" cy="15" r="3"/></svg>`;
 
 function layout(ctx, meta, body, kind = "") {
   const { site, categories, esc } = ctx;
@@ -56,10 +77,11 @@ function layout(ctx, meta, body, kind = "") {
 <html lang="${site.lang}">
 <head>
 ${ctx.head(meta)}
+<script>(function(d){d.classList.add("cedro-js");setTimeout(function(){if(!window.cedroListo)d.classList.remove("cedro-js")},4000)})(document.documentElement)</script>
 </head>
 <body class="cedro cedro--${kind}">
 <a class="cedro-saltar" href="#cuerpo">Ir al contenido</a>
-<div class="cedro-avance" aria-hidden="true"><span></span></div>
+<div class="cedro-avance" aria-hidden="true"><span><i></i></span></div>
 ${champions()}
 <header class="cedro-encabezado">
   <div class="cedro-encabezado__dentro">
@@ -78,7 +100,7 @@ ${champions()}
 ${body}
 </main>
 <footer class="cedro-pie">
-  <div class="cedro-pie__viga" aria-hidden="true"></div>
+  <div class="cedro-pie__viga" aria-hidden="true">${Array.from({ length: 16 }, (_, i) => `<i style="--d:${(i * 0.22).toFixed(2)}s"></i>`).join("")}</div>
   <div class="cedro-pie__dentro">
     <section>
       <p class="cedro-pie__sigla">DAI</p>
@@ -95,7 +117,7 @@ ${ctx.tail()}
 </html>`;
 }
 
-const plano = (ctx, a, extra = "") => `<article class="plano ${extra}">
+const plano = (ctx, a, extra = "", i = 0) => `<article class="plano ${extra}" data-revelar style="--i:${i % 6}">
   <a class="plano__enlace" href="${a.url}">
     <span class="plano__tema">${icon(a.cat.icon, "plano__icono")}${ctx.esc(a.cat.name)}</span>
     <h3 class="plano__titulo">${ctx.esc(a.title)}</h3>
@@ -104,9 +126,10 @@ const plano = (ctx, a, extra = "") => `<article class="plano ${extra}">
   </a>
 </article>`;
 
-const enObra = () => `<section class="cedro-obra" aria-labelledby="obra-t">
+const enObra = () => `<section class="cedro-obra" aria-labelledby="obra-t" data-revelar>
   <p class="cedro-titulo__ante">En obra</p>
   <h2 id="obra-t" class="cedro-titulo__h">Estamos levantando la biblioteca</h2>
+  ${escudo()}
   <p>Las primeras guías de DAI se están escribiendo y revisando. Publicamos cada artículo cuando está completo, con datos comprobados y sin recomendaciones de productos pagadas. Mientras tanto, conoce <a href="/sobre-nosotros/">el proyecto</a> y nuestra <a href="/politica-editorial/">política editorial</a>.</p>
 </section>`;
 
@@ -118,35 +141,35 @@ export function home(ctx) {
   <div class="cedro-salon__dentro">
     <div class="cedro-salon__texto">
       <p class="cedro-salon__ante">Revista de arquitectura doméstica · América Latina</p>
-      <h1 class="cedro-salon__titulo">Casas que se entienden con su <em>clima</em>, su <em>luz</em> y su gente</h1>
+      <h1 class="cedro-salon__titulo">Casas que se entienden con su <em>clima</em>, su <em>luz</em> y su <em>gente</em></h1>
       <p class="cedro-salon__entrada">${esc(site.description)}</p>
-      <p class="cedro-salon__acciones">${first ? `<a class="cedro-boton" href="${first.url}">Leer la guía más reciente</a>` : `<a class="cedro-boton" href="/sobre-nosotros/">Conoce DAI</a>`}<a class="cedro-boton cedro-boton--claro" href="/politica-editorial/">Nuestro método</a></p>
+      <p class="cedro-salon__acciones">${first ? `<a class="cedro-boton" href="${first.url}"><span>Leer la guía más reciente</span></a>` : `<a class="cedro-boton" href="/sobre-nosotros/"><span>Conoce DAI</span></a>`}<a class="cedro-boton cedro-boton--claro" href="/politica-editorial/"><span>Nuestro método</span></a></p>
     </div>
     <figure class="cedro-salon__figura">${colonnade()}</figure>
   </div>
 </section>
 
 <section class="cedro-temas" aria-labelledby="temas-t">
-  <header class="cedro-titulo"><p class="cedro-titulo__ante">Seis temas</p><h2 id="temas-t" class="cedro-titulo__h">Recorre la casa</h2></header>
+  <header class="cedro-titulo" data-revelar><p class="cedro-titulo__ante">Seis temas</p><h2 id="temas-t" class="cedro-titulo__h">Recorre la casa</h2>${escudo()}</header>
   <ul class="cedro-temas__lista">
-    ${categories.map((c) => `<li><a class="estancia" href="${c.url}">
+    ${categories.map((c, i) => `<li data-revelar style="--i:${i}"><a class="estancia" href="${c.url}">
       ${icon(c.icon, "estancia__icono")}
       <span class="estancia__nombre">${esc(c.name)}</span>
       <span class="estancia__texto">${esc(c.description)}</span>
-      <span class="estancia__cuenta">${c.articles.length ? `${c.articles.length} guías` : "Próximamente"}</span>
+      <span class="estancia__cuenta">${c.articles.length ? `${c.articles.length} ${c.articles.length === 1 ? "guía" : "guías"}` : "Próximamente"}</span>
     </a></li>`).join("\n    ")}
   </ul>
 </section>
 
 ${articles.length ? `<section class="cedro-recientes" aria-labelledby="rec-t">
-  <header class="cedro-titulo"><p class="cedro-titulo__ante">Recién publicadas</p><h2 id="rec-t" class="cedro-titulo__h">Últimas guías</h2></header>
+  <header class="cedro-titulo" data-revelar><p class="cedro-titulo__ante">Recién publicadas</p><h2 id="rec-t" class="cedro-titulo__h">Últimas guías</h2>${escudo()}</header>
   <div class="cedro-rejilla">
     ${first ? plano(ctx, first, "plano--mayor") : ""}
-    ${rest.slice(0, 10).map((a) => plano(ctx, a)).join("\n    ")}
+    ${rest.slice(0, 10).map((a, i) => plano(ctx, a, "", i + 1)).join("\n    ")}
   </div>
 </section>
 <section class="cedro-indice" aria-labelledby="ind-t">
-  <header class="cedro-titulo cedro-titulo--oscuro"><p class="cedro-titulo__ante">Planos completos</p><h2 id="ind-t" class="cedro-titulo__h">Todas las guías por tema</h2></header>
+  <header class="cedro-titulo cedro-titulo--oscuro" data-revelar><p class="cedro-titulo__ante">Planos completos</p><h2 id="ind-t" class="cedro-titulo__h">Todas las guías por tema</h2>${escudo()}</header>
   <div class="cedro-indice__cols">
     ${categories.filter((c) => c.articles.length).map((c) => `<section><h3><a href="${c.url}">${esc(c.name)}</a></h3><ul>${c.articles.map((a) => `<li><a href="${a.url}">${esc(a.title)}</a></li>`).join("")}</ul></section>`).join("\n    ")}
   </div>
@@ -162,10 +185,11 @@ export function category(ctx, c) {
     <nav class="cedro-migas" aria-label="Ruta"><a href="/">Inicio</a> <span aria-hidden="true">›</span> <span>${esc(c.name)}</span></nav>
     ${icon(c.icon, "cedro-cabecera-tema__icono")}
     <h1>${esc(c.name)}</h1>
+    ${escudo()}
     <p>${esc(c.description)}</p>
   </div>
 </header>
-${c.articles.length ? `<section class="cedro-recientes"><div class="cedro-rejilla">${c.articles.map((a) => plano(ctx, a)).join("\n")}</div></section>` : enObra()}`;
+${c.articles.length ? `<section class="cedro-recientes"><div class="cedro-rejilla">${c.articles.map((a, i) => plano(ctx, a, "", i)).join("\n")}</div></section>` : enObra()}`;
   return layout(
     ctx,
     {
@@ -187,6 +211,7 @@ export function article(ctx, a) {
   <header class="cedro-guia__cabecera">
     <nav class="cedro-migas" aria-label="Ruta"><a href="/">Inicio</a> <span aria-hidden="true">›</span> <a href="${a.cat.url}">${esc(a.cat.name)}</a></nav>
     <h1 class="cedro-guia__titulo">${esc(a.title)}</h1>
+    ${escudo()}
     <p class="cedro-guia__entrada">${esc(a.description)}</p>
     <p class="cedro-guia__datos">${esc(site.author)} · <time datetime="${a.date}">${a.dateLabel}</time> · ${a.minutes} min de lectura</p>
   </header>
@@ -207,8 +232,8 @@ ${a.html}
   </div>
 </article>
 <section class="cedro-recientes cedro-recientes--siguientes" aria-labelledby="sig-t">
-  <header class="cedro-titulo"><p class="cedro-titulo__ante">Para seguir</p><h2 id="sig-t" class="cedro-titulo__h">Guías relacionadas</h2></header>
-  <div class="cedro-rejilla">${a.related.map((r) => plano(ctx, r)).join("")}</div>
+  <header class="cedro-titulo" data-revelar><p class="cedro-titulo__ante">Para seguir</p><h2 id="sig-t" class="cedro-titulo__h">Guías relacionadas</h2>${escudo()}</header>
+  <div class="cedro-rejilla">${a.related.map((r, i) => plano(ctx, r, "", i)).join("")}</div>
 </section>`;
   return layout(
     ctx,
@@ -246,6 +271,7 @@ export function page(ctx, p) {
   <header class="cedro-guia__cabecera">
     <nav class="cedro-migas" aria-label="Ruta"><a href="/">Inicio</a> <span aria-hidden="true">›</span> <span>${esc(p.title)}</span></nav>
     <h1 class="cedro-guia__titulo">${esc(p.title)}</h1>
+    ${escudo()}
     ${p.updated ? `<p class="cedro-guia__datos">Última revisión: ${ctx.fmtDate(p.updated)}</p>` : ""}
   </header>
   <div class="cedro-guia__cuerpo cedro-guia__cuerpo--simple"><div class="cedro-texto">
@@ -260,6 +286,7 @@ export function notFound(ctx) {
 <section class="cedro-sin-planos">
   <p class="cedro-sin-planos__codigo">404</p>
   <h1>Esta habitación no está en los planos</h1>
+  ${escudo()}
   <p>Puede que el enlace haya cambiado. Vuelve al <a href="/">inicio</a> o elige un tema:</p>
   <ul class="cedro-temas__lista">${ctx.categories.map((c) => `<li><a class="estancia estancia--mini" href="${c.url}">${icon(c.icon, "estancia__icono")}<span class="estancia__nombre">${ctx.esc(c.name)}</span></a></li>`).join("")}</ul>
 </section>`;

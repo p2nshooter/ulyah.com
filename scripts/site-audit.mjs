@@ -30,7 +30,7 @@ const EXPECTED = Object.fromEntries([
 // domains each have their own (docs/ADSENSE-CODES.md).
 EXPECTED["byodd.de"] = "2228462932360966";
 EXPECTED["qulen.de"] = "7516944260248026";
-EXPECTED["zolun.de"] = "4548005919629272";
+EXPECTED["zolun.de"] = "6016479123891586"; // 11 Oct 2026 (owner)
 EXPECTED["axto.us"] = "2990015102981265";
 EXPECTED["rubiy.de"] = "2990015102981265";
 EXPECTED["jai.lat"] = "6019445914743449";
@@ -38,6 +38,8 @@ EXPECTED["dai.lat"] = "8469557036744946";
 EXPECTED["pab.lat"] = "6146217038829045";
 EXPECTED["rough.lat"] = "5944786950535069";
 EXPECTED["rough.es"] = "5693981744147503";
+// 11 Oct 2026 (owner): xad.es moves to its own account.
+EXPECTED["xad.es"] = "5517446616694631";
 const verdicts = [];
 
 const browser = await chromium.launch();

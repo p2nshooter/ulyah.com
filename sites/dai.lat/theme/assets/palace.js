@@ -1,9 +1,16 @@
-// DAI — menu toggle, reading progress (guides only), active entry in the
-// "memoria" table of contents, and for España 2026 a once-per-session rain of
-// small red-and-gold azulejo tiles that settles and fades within ~3 seconds.
+// DAI — the cedar hall in motion: menu toggle, compact header on scroll,
+// reading progress (guides only), rooms and plans that rise into place as they
+// enter the view, a warm brass light that follows the pointer over them, the
+// active entry in the "memoria" table of contents, and for España 2026 a
+// once-per-session rain of small red-and-gold azulejo tiles that settles and
+// fades within ~3 seconds.
 (function () {
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The inline script in <head> hides what is about to rise into view; it
+  // shows everything again by itself if this file never arrives.
+  window.cedroListo = true;
+  document.documentElement.classList.add("cedro-js");
 
   var b = document.querySelector(".cedro-menu-boton");
   var nav = document.getElementById("cedro-nav");
@@ -17,16 +24,51 @@
     });
   }
 
+  // Compact header + reading progress, one passive scroll handler
+  var head = document.querySelector(".cedro-encabezado");
   var bar = document.querySelector(".cedro-avance span");
   var txt = document.querySelector(".cedro--guia .cedro-texto");
-  if (bar && txt) {
-    var go = function () {
-      var r = txt.getBoundingClientRect(), span = r.height - window.innerHeight * 0.5;
-      bar.style.width = (span > 0 ? Math.min(1, Math.max(0, -r.top / span)) * 100 : 0) + "%";
-    };
-    window.addEventListener("scroll", go, { passive: true });
-    window.addEventListener("resize", go);
-    go();
+  var busy = false;
+  var go = function () {
+    if (busy) return;
+    busy = true;
+    requestAnimationFrame(function () {
+      busy = false;
+      if (head) head.classList.toggle("compacta", window.scrollY > 40);
+      if (bar && txt) {
+        var r = txt.getBoundingClientRect(), span = r.height - window.innerHeight * 0.5;
+        var f = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+        bar.style.width = (f * 100).toFixed(1) + "%";
+        bar.parentNode.classList.toggle("en-marcha", f > 0);
+      }
+    });
+  };
+  window.addEventListener("scroll", go, { passive: true });
+  window.addEventListener("resize", go);
+  go();
+
+  // Rise into view
+  var rise = document.querySelectorAll("[data-revelar], .cedro-texto h2");
+  if (reduce || !("IntersectionObserver" in window)) {
+    rise.forEach(function (el) { el.classList.add("visible"); });
+  } else {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("visible"); ro.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    rise.forEach(function (el) { ro.observe(el); });
+  }
+
+  // Brass light that follows the pointer over rooms and plans
+  if (!reduce && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".estancia, .plano__enlace").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+      });
+    });
   }
 
   var idx = document.querySelectorAll(".cedro-memoria__indice a");

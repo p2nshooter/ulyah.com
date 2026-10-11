@@ -1,204 +1,335 @@
-/* PAB — Tadmor, la ciudad en el desierto. Night indigo, desert sand, turquoise, sunset coral, palm green. */
+/* PAB — Tadmor, la ciudad en el desierto. Night indigo, desert sand, turquoise,
+   sunset coral, palm green and gold. Every movement sits inside
+   prefers-reduced-motion: no-preference and uses transform and opacity. */
 :root {
-  --noche: #1d2340;
-  --noche-2: #2b3158;
-  --arena: #f3e8d2;
-  --arena-2: #e9d9b9;
-  --duna: #c9ad7d;
-  --turquesa: #2aa198;
+  --noche: #1b2040;
+  --noche-2: #2a2f57;
+  --noche-3: #12152c;
+  --arena: #f4ead6;
+  --arena-2: #ead9b8;
+  --papel: #fffaf0;
+  --duna: #c9a874;
+  --turquesa: #1f9a90;
+  --turquesa-claro: #8fe3d6;
   --coral: #e2725b;
-  --palma: #3d6b4f;
-  --dorado: #d4a64a;
+  --coral-osc: #b9503b;
+  --palma: #2f6a4c;
+  --oro: #d4a64a;
   --tinta: #262a3a;
-  --gris: #626679;
+  --gris: #5f6378;
   --rojo: #c60b1e;
   --amarillo: #ffc400;
   --display: "DM Serif Display", Georgia, serif;
   --texto: "Albert Sans", "Segoe UI", Arial, sans-serif;
   --r: 16px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --oro-grad: linear-gradient(100deg, #8c6420 0%, #d4a64a 18%, #fff0c2 34%, #e0b65a 48%, #a8792a 64%, #f5dc9a 82%, #8c6420 100%);
+  --oro-grad-osc: linear-gradient(100deg, #6e4c14 0%, #a8792a 22%, #d9a948 40%, #8c6420 58%, #c08f36 78%, #6e4c14 100%);
+  --coral-grad: linear-gradient(100deg, #e2725b 0%, #f4a26b 30%, #ffd58a 48%, #f08a63 66%, #e2725b 100%);
+  --estrellas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='210'%3E%3Cg fill='%23fff6dc'%3E%3Ccircle cx='20' cy='30' r='1.1'/%3E%3Ccircle cx='90' cy='80' r='.8' opacity='.7'/%3E%3Ccircle cx='160' cy='40' r='1.3'/%3E%3Ccircle cx='230' cy='120' r='.8' opacity='.6'/%3E%3Ccircle cx='60' cy='150' r='1.1' opacity='.8'/%3E%3Ccircle cx='190' cy='180' r='.9' opacity='.7'/%3E%3Ccircle cx='125' cy='112' r='.6' opacity='.5'/%3E%3Ccircle cx='245' cy='15' r='.7' opacity='.6'/%3E%3C/g%3E%3C/svg%3E");
+  --guilloche: repeating-radial-gradient(circle at 0 0, transparent 0 9px, rgba(212, 166, 74, .07) 9px 10px), repeating-radial-gradient(circle at 100% 100%, transparent 0 9px, rgba(31, 154, 144, .06) 9px 10px);
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body.tadmor { margin: 0; background: var(--arena); color: var(--tinta); font: 17px/1.72 var(--texto); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+body.tadmor { margin: 0; background: var(--arena); background-image: radial-gradient(rgba(201, 168, 116, .16) 1px, transparent 1px); background-size: 5px 5px; color: var(--tinta); font: 17px/1.72 var(--texto); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 svg { max-width: 100%; }
 a { color: var(--noche-2); text-decoration-color: var(--coral); text-underline-offset: 3px; }
-a:hover { color: var(--coral); }
+a:hover { color: var(--coral-osc); }
 :focus-visible { outline: 2px solid var(--turquesa); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--oro); color: var(--noche); }
 .tadmor-salta { position: absolute; left: -999px; top: 10px; z-index: 60; padding: 8px 14px; background: var(--noche); color: var(--arena); border-radius: 8px; }
 .tadmor-salta:focus { left: 12px; }
-.tadmor-ruta { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 50; }
-.tadmor-ruta span { display: block; height: 100%; width: 0; background: radial-gradient(circle, var(--coral) 2px, transparent 2.5px) 0 50% / 10px 4px repeat-x, rgba(42, 161, 152, .25); }
+
+/* reading route (guides only): a gold thread with a small sun at its head */
+.tadmor-ruta { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 50; pointer-events: none; }
+.tadmor-ruta span { position: relative; display: block; height: 100%; width: 0; background: var(--oro-grad); background-size: 300px 100%; box-shadow: 0 0 10px rgba(212, 166, 74, .75); }
+.tadmor-ruta i { position: absolute; right: -7px; top: -5px; width: 13px; height: 13px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #fff6d6, #ffd27a 45%, #f4955c 80%, #b9503b); box-shadow: 0 0 10px rgba(255, 210, 122, .95); opacity: 0; transition: opacity .4s; }
+.tadmor-ruta.en-marcha i { opacity: 1; }
 body:not(.tadmor--bitacora) .tadmor-ruta { display: none; }
 
-/* Spain 2026 stamp */
-.tadmor-sellado { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0; padding: 6px 14px; background: var(--noche); color: var(--arena); font: 600 13.5px var(--texto); }
-.tadmor-sellado p { margin: 0; }
+/* Spain 2026 — an entry stamp on a night band, with a sweep of gold */
+.tadmor-sellado { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0; padding: 6px 14px; background: linear-gradient(90deg, var(--noche-3), var(--noche) 30%, var(--noche) 70%, var(--noche-3)); color: var(--arena); font: 600 13.5px var(--texto); border-bottom: 1px solid rgba(212, 166, 74, .5); }
+.tadmor-sellado::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 214, 140, .22), transparent); transform: translateX(-100%); pointer-events: none; }
+.tadmor-sellado p { position: relative; margin: 0; }
 .tadmor-sellado strong { color: var(--amarillo); }
 .tadmor-sellado span { color: #f5b3a5; }
-.tadmor-sellado__sello { transform: rotate(-14deg); animation: tadmorSello 1.2s cubic-bezier(.3, 1.6, .5, 1) both; }
-@keyframes tadmorSello { from { transform: scale(2.2) rotate(-40deg); opacity: 0; } to { transform: scale(1) rotate(-14deg); opacity: 1; } }
+.tadmor-sellado__sello { position: relative; transform: rotate(-14deg); }
 
-/* header */
-.tadmor-barra { position: sticky; top: 0; z-index: 40; background: rgba(243, 232, 210, .95); backdrop-filter: blur(8px); border-bottom: 1px solid #dcc9a5; }
-.tadmor-barra__dentro { max-width: 1260px; margin: 0 auto; padding: 12px 22px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+/* header: sand, a gold rule and a frieze of small arches */
+.tadmor-barra { position: sticky; top: 0; z-index: 40; background: linear-gradient(180deg, rgba(246, 237, 219, .97), rgba(239, 226, 200, .95)); backdrop-filter: blur(8px); box-shadow: 0 1px 0 var(--oro); transition: box-shadow .4s; }
+.tadmor-barra::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 7px; background: radial-gradient(circle at 50% 100%, transparent 4.5px, rgba(212, 166, 74, .85) 4.5px 5.5px, transparent 6px) 0 0 / 14px 7px repeat-x; pointer-events: none; }
+.tadmor-barra.compacta { box-shadow: 0 1px 0 var(--oro), 0 16px 30px -20px rgba(27, 32, 64, .7); }
+.tadmor-barra__dentro { max-width: 1260px; margin: 0 auto; padding: 12px 22px; display: flex; align-items: center; gap: 6px 20px; flex-wrap: wrap; transition: padding .4s var(--ease); }
+.tadmor-barra.compacta .tadmor-barra__dentro { padding-top: 6px; padding-bottom: 6px; row-gap: 0; }
 .tadmor-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--noche); }
-.tadmor-logo__sello { color: var(--coral); transition: transform .6s; }
-.tadmor-logo:hover .tadmor-logo__sello { transform: rotate(-25deg); }
-.tadmor-logo__sigla { display: block; font: 400 30px/1 var(--display); letter-spacing: .08em; }
-.tadmor-logo__nombre { display: block; font-size: 12px; color: var(--gris); }
-.tadmor-desplegar { display: none; margin-left: auto; padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--noche); background: transparent; color: var(--noche); font: 600 14px var(--texto); cursor: pointer; }
+.tadmor-logo__sello { color: var(--coral); transition: transform .8s var(--ease), width .4s var(--ease), height .4s var(--ease); }
+.tadmor-logo:hover .tadmor-logo__sello { transform: rotate(-25deg) scale(1.06); }
+.tadmor-logo__anillo { transform-origin: 32px 32px; }
+.tadmor-logo__sigla { display: block; font: 400 31px/1 var(--display); letter-spacing: .1em; background: var(--oro-grad-osc); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tadmor-logo__nombre { display: block; max-height: 20px; overflow: hidden; font-size: 12px; color: var(--gris); letter-spacing: .03em; transition: opacity .35s, max-height .45s var(--ease); }
+.tadmor-barra.compacta .tadmor-logo__nombre { opacity: 0; max-height: 0; }
+.tadmor-barra.compacta .tadmor-logo__sello { width: 36px; height: 36px; }
+.tadmor-desplegar { display: none; margin-left: auto; padding: 8px 18px; border-radius: 999px; border: 1.5px solid var(--oro); background: var(--papel); color: var(--noche); font: 600 14px var(--texto); cursor: pointer; }
+.tadmor-desplegar span { color: var(--coral); }
 .tadmor-nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 2px 4px; }
 .tadmor-nav__destino { position: relative; padding: 10px 12px; font: 600 14px var(--texto); color: var(--tinta); text-decoration: none; border-radius: 10px; }
+.tadmor-nav__destino::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 4px; background: radial-gradient(circle, var(--coral) 1.4px, transparent 1.9px) 0 50% / 7px 4px repeat-x; transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
+.tadmor-nav__destino:hover::after, .tadmor-nav__destino:focus-visible::after { transform: scaleX(1); }
 .tadmor-nav__sello { position: absolute; right: -2px; top: -2px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--coral); background: radial-gradient(circle, transparent 5px, var(--coral) 5.5px 6.5px, transparent 7px); opacity: 0; transform: scale(2) rotate(-40deg); transition: opacity .25s, transform .35s cubic-bezier(.3, 1.6, .5, 1); }
 .tadmor-nav__destino:hover .tadmor-nav__sello, .tadmor-nav__destino:focus-visible .tadmor-nav__sello { opacity: .9; transform: scale(1) rotate(-12deg); }
-.tadmor-nav__destino:hover { background: rgba(42, 161, 152, .1); color: var(--noche); }
+.tadmor-nav__destino:hover { color: var(--noche); }
 .tadmor-nav__destino--info { color: var(--palma); }
 
-/* buttons & headings */
-.tadmor-boton { display: inline-block; padding: 13px 24px; border-radius: 999px; background: linear-gradient(135deg, var(--coral), #c9563f); color: #fff; font: 700 15px var(--texto); text-decoration: none; box-shadow: 0 14px 26px -14px rgba(201, 86, 63, .9); transition: transform .2s; }
-.tadmor-boton:hover { transform: translateY(-2px); color: #fff; }
-.tadmor-boton--borde { background: transparent; color: var(--arena); border: 1.5px solid rgba(243, 232, 210, .7); box-shadow: none; }
-.tadmor-boton--borde:hover { color: var(--amarillo); }
-.tadmor-encabezado { max-width: 1260px; margin: 0 auto 28px; padding: 0 22px; }
-.tadmor-encabezado__ante { margin: 0; font: 700 12.5px var(--texto); letter-spacing: .22em; text-transform: uppercase; color: var(--turquesa); }
-.tadmor-encabezado__titulo { margin: 6px 0 0; font: 400 clamp(30px, 3.8vw, 44px)/1.1 var(--display); color: var(--noche); }
-.tadmor-encabezado__titulo::after { content: ""; display: block; width: 90px; height: 6px; margin-top: 14px; background: radial-gradient(circle, var(--coral) 2.5px, transparent 3px) 0 50% / 12px 6px repeat-x; }
-.tadmor-encabezado--noche .tadmor-encabezado__titulo { color: var(--arena); }
-.tadmor-encabezado--noche .tadmor-encabezado__ante { color: var(--amarillo); }
+/* buttons: sunset coral with a sweep of light, and a gold outline */
+.tadmor-boton { position: relative; overflow: hidden; isolation: isolate; display: inline-block; padding: 14px 26px; border-radius: 999px; background: var(--coral-grad); background-size: 220% 100%; color: #2a1712; font: 700 15px var(--texto); letter-spacing: .02em; text-decoration: none; box-shadow: 0 16px 30px -14px rgba(226, 114, 91, .95), inset 0 1px 0 rgba(255, 255, 255, .55); transition: transform .35s var(--ease), background-position .8s; }
+.tadmor-boton span { position: relative; z-index: 1; }
+.tadmor-boton::before { content: ""; position: absolute; inset: -2px; background: linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, .75) 50%, transparent 70%); transform: translateX(-120%); transition: transform .9s var(--ease); }
+.tadmor-boton:hover { transform: translateY(-3px); background-position: 100% 0; color: #2a1712; }
+.tadmor-boton:hover::before { transform: translateX(120%); }
+.tadmor-boton--borde { background: rgba(255, 255, 255, .04); color: var(--arena); border: 1.5px solid rgba(212, 166, 74, .85); box-shadow: inset 0 0 0 1px rgba(212, 166, 74, .2); }
+.tadmor-boton--borde:hover { color: #fff3d0; background: rgba(212, 166, 74, .12); }
 
-/* hero */
-.tadmor-portada { background: linear-gradient(160deg, var(--noche) 0%, #262b52 55%, #3b2f55 100%); color: var(--arena); overflow: hidden; }
-.tadmor-portada__dentro { max-width: 1260px; margin: 0 auto; padding: 62px 22px 72px; display: grid; grid-template-columns: 1fr 1.05fr; gap: 42px; align-items: center; }
-.tadmor-portada__ante { margin: 0 0 14px; font: 700 13px var(--texto); letter-spacing: .22em; text-transform: uppercase; color: var(--turquesa); }
-.tadmor-portada__titulo { margin: 0; font: 400 clamp(38px, 5.6vw, 70px)/1.04 var(--display); }
-.tadmor-portada__titulo em { color: var(--coral); }
-.tadmor-portada__entrada { margin: 22px 0 0; font-size: 18.5px; color: #d8d4e6; max-width: 54ch; }
-.tadmor-portada__acciones { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
-.tadmor-portada__figura { margin: 0; border-radius: 24px; overflow: hidden; box-shadow: 0 34px 60px -30px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(255, 255, 255, .1); }
-.tadmor-oasis { display: block; width: 100%; height: auto; }
-.tadmor-oasis__sol { animation: tadmorSol 14s ease-in-out infinite; }
-.tadmor-oasis__estrellas circle { animation: tadmorTitila 3s ease-in-out infinite; }
-.tadmor-oasis__estrellas circle:nth-child(2n) { animation-delay: 1.5s; }
-.tadmor-oasis__brillo { animation: tadmorAgua 4s ease-in-out infinite; }
-.tadmor-oasis__palmas { transform-origin: 50% 70%; animation: tadmorBrisa 6s ease-in-out infinite; }
-@keyframes tadmorSol { 0%, 100% { transform: translateY(14px); } 50% { transform: translateY(-10px); } }
-@keyframes tadmorTitila { 50% { opacity: .25; } }
-@keyframes tadmorAgua { 50% { transform: translateX(30px); opacity: .5; } }
-@keyframes tadmorBrisa { 50% { transform: skewX(2deg); } }
+/* section headings: eyebrow, title, and the caravan route with its small arch */
+.tadmor-encabezado { max-width: 1260px; margin: 0 auto 34px; padding: 0 22px; text-align: center; }
+.tadmor-encabezado__ante { display: inline-flex; align-items: center; gap: 12px; margin: 0; font: 700 12.5px var(--texto); letter-spacing: .26em; text-transform: uppercase; color: var(--turquesa); }
+.tadmor-encabezado__ante::before, .tadmor-encabezado__ante::after { content: ""; width: 7px; height: 7px; background: var(--oro); transform: rotate(45deg); }
+.tadmor-encabezado__titulo { margin: 8px 0 0; font: 400 clamp(32px, 4vw, 48px)/1.1 var(--display); color: var(--noche); }
+.tadmor-encabezado--noche .tadmor-encabezado__titulo { background: var(--oro-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tadmor-encabezado--noche .tadmor-encabezado__ante { color: var(--turquesa-claro); }
+.tadmor-div { display: block; width: 260px; height: 34px; margin: 12px auto 0; overflow: visible; }
+.tadmor-div--izq { margin-left: 0; }
+.tadmor-div__linea { fill: none; stroke: var(--oro); stroke-width: 1.6; stroke-linecap: round; }
+.tadmor-div__rombo { fill: var(--coral); }
+.tadmor-div__arco { fill: none; stroke: var(--noche-2); stroke-width: 2; }
+.tadmor-div__arco--in { stroke: var(--oro); stroke-width: 1.4; }
+.tadmor-div__sol { fill: var(--coral); }
+.tadmor-encabezado--noche .tadmor-div__arco, .tadmor-destino .tadmor-div__arco { stroke: var(--arena); }
 
-/* destinations */
-.tadmor-destinos { padding: 70px 0 30px; }
-.tadmor-destinos__lista { list-style: none; margin: 0 auto; padding: 0 22px; max-width: 1260px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.rumbo { display: grid; gap: 8px; height: 100%; padding: 24px; border-radius: var(--r); background: #fffaf0; border: 1px solid #e3d2b0; text-decoration: none; color: var(--tinta); position: relative; transition: transform .3s, box-shadow .3s; }
-.rumbo:hover { transform: translateY(-5px) rotate(-.4deg); box-shadow: 0 26px 46px -30px rgba(29, 35, 64, .7); }
-.rumbo__sello { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; border: 2px dashed var(--turquesa); color: var(--turquesa); transition: transform .4s, border-color .3s, color .3s; }
-.rumbo:hover .rumbo__sello { transform: rotate(-16deg); border-color: var(--coral); color: var(--coral); }
-.rumbo__icono { width: 34px; height: 34px; }
-.rumbo__nombre { font: 400 23px/1.2 var(--display); color: var(--noche); }
+/* hero: the night over Tadmor */
+.tadmor-portada { position: relative; overflow: hidden; color: var(--arena); background: radial-gradient(900px 520px at 78% 64%, rgba(226, 114, 91, .32), transparent 60%), radial-gradient(700px 400px at 10% 0, rgba(31, 154, 144, .16), transparent 60%), linear-gradient(170deg, var(--noche-3) 0%, var(--noche) 45%, #2e2550 100%); }
+.tadmor-portada::before { content: ""; position: absolute; inset: 0; background-image: var(--estrellas); background-size: 260px 210px; opacity: .55; pointer-events: none; }
+.tadmor-portada::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 30px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='30'%3E%3Cpath d='M0 20C100 20 150 5 240 7S380 27 460 23S560 20 600 20V30H0Z' fill='%23f4ead6'/%3E%3C/svg%3E") 0 100% / 600px 30px repeat-x; pointer-events: none; }
+.tadmor-portada__dentro { position: relative; max-width: 1260px; margin: 0 auto; padding: 64px 22px 92px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 46px; align-items: center; }
+.tadmor-portada__texto { min-width: 0; }
+.tadmor-portada__ante { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 16px; font: 700 13px var(--texto); letter-spacing: .24em; text-transform: uppercase; color: var(--turquesa-claro); }
+.tadmor-portada__ante::before { content: ""; width: 34px; height: 1.5px; background: var(--oro-grad); }
+.tadmor-portada__titulo { margin: 0; font: 400 clamp(40px, 5.6vw, 74px)/1.03 var(--display); text-shadow: 0 2px 30px rgba(0, 0, 0, .35); }
+.tadmor-portada__titulo em { background: var(--coral-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; padding-right: .06em; }
+.tadmor-portada__entrada { margin: 24px 0 0; font-size: 18.5px; color: #dcd7ea; max-width: 54ch; }
+.tadmor-portada__acciones { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
+.tadmor-portada__sellos { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 30px 0 0; padding: 18px 0 0; border-top: 1px solid rgba(212, 166, 74, .3); font: 600 13.5px var(--texto); letter-spacing: .04em; color: #e8e2f2; }
+.tadmor-portada__sellos span { color: var(--oro); margin-right: 4px; }
+.tadmor-portada__escenario { position: relative; min-width: 0; }
+.tadmor-portada__rosa { position: absolute; left: 50%; top: 50%; width: 120%; height: auto; margin: -60% 0 0 -60%; color: rgba(212, 166, 74, .2); pointer-events: none; }
+.tadmor-portada__figura { position: relative; margin: 0; border-radius: 50% 50% 18px 18px / 36% 36% 18px 18px; overflow: hidden; background: var(--noche); box-shadow: 0 0 0 1.5px var(--oro), 0 0 0 8px rgba(18, 21, 44, .95), 0 0 0 9.5px rgba(212, 166, 74, .7), 0 50px 90px -34px rgba(0, 0, 0, .9), 0 0 120px -30px rgba(244, 149, 92, .55); }
+.tadmor-escena { display: block; width: 100%; height: auto; }
+
+/* destinations: visa pages */
+.tadmor-destinos { padding: 84px 0 34px; }
+.tadmor-destinos__lista { list-style: none; margin: 0 auto; padding: 0 22px; max-width: 1260px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.rumbo { position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 8px; height: 100%; padding: 28px 26px 24px; border-radius: 6px; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgba(212, 166, 74, .2), transparent 60%), var(--guilloche), var(--papel); border: 1px solid #e0cba3; text-decoration: none; color: var(--tinta); box-shadow: 0 1px 0 #fff inset, 0 20px 40px -34px rgba(27, 32, 64, .8); transition: transform .5s var(--ease), box-shadow .5s, border-color .4s; }
+.rumbo::before { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(212, 166, 74, .45); border-radius: 3px; pointer-events: none; transition: inset .5s var(--ease), border-color .4s; }
+.rumbo::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--oro-grad); background-size: 220% 100%; }
+.rumbo:hover { transform: translateY(-7px); border-color: var(--oro); box-shadow: 0 1px 0 #fff inset, 0 34px 56px -32px rgba(27, 32, 64, .8); }
+.rumbo:hover::before { inset: 11px; border-color: rgba(226, 114, 91, .55); }
+.rumbo__sello { position: relative; display: grid; place-items: center; width: 70px; height: 70px; border-radius: 50%; border: 2px dashed var(--turquesa); color: var(--turquesa); background: radial-gradient(circle, #fff 0 55%, transparent 56%); transition: transform .6s var(--ease), border-color .3s, color .3s; }
+.rumbo:hover .rumbo__sello { transform: rotate(-18deg) scale(1.05); border-color: var(--coral); color: var(--coral); }
+.rumbo__icono { width: 36px; height: 36px; }
+.rumbo__nombre { font: 400 24px/1.2 var(--display); color: var(--noche); }
 .rumbo__texto { font-size: 14.5px; color: var(--gris); }
-.rumbo__cuenta { font: 700 12px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--coral); }
+.rumbo__cuenta { font: 700 12px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--coral-osc); }
 .rumbo--mini { justify-items: center; text-align: center; }
 
-/* postcards */
-.tadmor-postales { padding: 50px 0 60px; }
-.tadmor-rejilla { max-width: 1260px; margin: 0 auto; padding: 0 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.postal { position: relative; border-radius: 6px; background: #fffaf0; box-shadow: 0 1px 0 #fff inset, 0 18px 36px -26px rgba(29, 35, 64, .7); border: 1px solid #e3d2b0; transition: transform .3s; }
-.postal::before { content: ""; position: absolute; inset: 8px; border: 2px dashed rgba(226, 114, 91, .35); border-radius: 4px; pointer-events: none; }
-.postal:hover { transform: translateY(-4px) rotate(.4deg); }
-.postal__enlace { display: flex; flex-direction: column; height: 100%; padding: 26px 26px 22px; color: var(--tinta); text-decoration: none; }
-.postal__sello { position: absolute; top: 16px; right: 16px; display: grid; place-items: center; width: 46px; height: 54px; background: var(--arena-2); border: 3px dotted #fffaf0; outline: 1px solid var(--duna); color: var(--palma); }
+/* postcards: air-mail edge, a perforated stamp and a postmark on hover */
+.tadmor-postales { padding: 56px 0 66px; }
+.tadmor-rejilla { max-width: 1260px; margin: 0 auto; padding: 0 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.postal { position: relative; background: var(--papel); border: 6px solid transparent; border-image: repeating-linear-gradient(-45deg, var(--coral) 0 9px, var(--papel) 9px 14px, var(--noche-2) 14px 23px, var(--papel) 23px 28px) 6; box-shadow: 0 22px 40px -28px rgba(27, 32, 64, .8); transition: transform .5s var(--ease), box-shadow .5s; }
+.postal::before { content: ""; position: absolute; inset: 7px; border: 1.5px dashed rgba(226, 114, 91, .35); pointer-events: none; }
+.postal:hover { transform: translateY(-6px) rotate(-.35deg); box-shadow: 0 36px 60px -30px rgba(27, 32, 64, .85); }
+.postal__enlace { position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%; padding: 26px 26px 22px; color: var(--tinta); text-decoration: none; background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 0%), rgba(212, 166, 74, .16), transparent 60%); }
+.postal__sello { position: absolute; top: 16px; right: 16px; display: grid; place-items: center; width: 48px; height: 56px; background: radial-gradient(circle at 50% 0, transparent 3px, var(--arena-2) 3.5px) 0 0 / 8px 8px; padding: 4px; color: var(--palma); filter: drop-shadow(0 2px 2px rgba(27, 32, 64, .2)); transition: transform .5s var(--ease); }
+.postal__sello::before { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(47, 106, 76, .5); }
+.postal:hover .postal__sello { transform: rotate(6deg); }
 .postal__icono { width: 28px; height: 28px; }
+.postal__matasellos { position: absolute; top: 20px; right: 46px; width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid rgba(27, 32, 64, .5); background: repeating-linear-gradient(180deg, transparent 0 7px, rgba(27, 32, 64, .4) 7px 8.5px) 26px 0 / 40px 100% no-repeat; opacity: 0; transform: scale(1.6) rotate(-30deg); transition: opacity .3s, transform .5s cubic-bezier(.3, 1.6, .5, 1); pointer-events: none; }
+.postal:hover .postal__matasellos { opacity: 1; transform: scale(1) rotate(-12deg); }
 .postal__destino { font: 700 12px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--turquesa); }
-.postal__titulo { margin: 10px 56px 8px 0; font: 400 22px/1.25 var(--display); color: var(--noche); }
+.postal__titulo { margin: 10px 60px 8px 0; font: 400 22px/1.25 var(--display); color: var(--noche); }
 .postal__resumen { flex: 1; margin: 0 0 16px; font-size: 15px; color: var(--gris); }
-.postal__pie { font: 600 13px var(--texto); color: var(--coral); }
-.postal--grande { grid-column: span 2; background: linear-gradient(135deg, var(--noche), var(--noche-2)); border-color: var(--noche); }
-.postal--grande .postal__enlace { color: var(--arena); padding: 36px; }
-.postal--grande .postal__titulo { color: var(--arena); font-size: 32px; }
-.postal--grande .postal__resumen { color: #cfcbe0; }
+.postal__pie { font: 600 13px var(--texto); color: var(--coral-osc); }
+.postal__pie span { display: inline-block; transition: transform .4s var(--ease); }
+.postal:hover .postal__pie span { transform: translateX(5px); }
+.postal--grande { grid-column: span 2; background: var(--noche); }
+.postal--grande .postal__enlace { color: var(--arena); padding: 38px; background: radial-gradient(420px circle at var(--mx, 70%) var(--my, 0%), rgba(212, 166, 74, .2), transparent 60%), var(--estrellas), linear-gradient(140deg, var(--noche-3), var(--noche) 50%, #2e2550); background-size: auto, 260px 210px, auto; }
+.postal--grande::before { border-color: rgba(212, 166, 74, .4); }
+.postal--grande .postal__titulo { color: var(--arena); font-size: 33px; max-width: 26ch; }
+.postal--grande .postal__resumen { color: #d2cde2; max-width: 60ch; }
 .postal--grande .postal__destino { color: var(--amarillo); }
+.postal--grande .postal__pie { color: #ffb59f; }
+.postal--grande .postal__matasellos { border-color: rgba(255, 246, 220, .55); background-image: repeating-linear-gradient(180deg, transparent 0 7px, rgba(255, 246, 220, .45) 7px 8.5px); }
 
-/* night map index */
-.tadmor-mapa { padding: 70px 0 80px; background: radial-gradient(circle at 20% 20%, rgba(255, 246, 220, .07) 1px, transparent 1.5px) 0 0 / 40px 40px, linear-gradient(180deg, var(--noche), #141831); color: #d8d4e6; }
-.tadmor-mapa__cols { max-width: 1260px; margin: 0 auto; padding: 0 22px; columns: 3 290px; column-gap: 36px; }
-.tadmor-mapa__cols section { break-inside: avoid; margin-bottom: 28px; }
-.tadmor-mapa__cols h3 { margin: 0 0 10px; font: 400 21px var(--display); }
+/* night map index: stars, a turning compass rose, dotted routes */
+.tadmor-mapa { position: relative; overflow: hidden; padding: 84px 0 90px; background: var(--estrellas), radial-gradient(800px 400px at 50% 0, rgba(42, 47, 87, .9), transparent 70%), linear-gradient(180deg, var(--noche), var(--noche-3)); background-size: 260px 210px, auto, auto; color: #d8d4e6; }
+.tadmor-mapa__rosa { position: absolute; right: -140px; top: -120px; width: 520px; height: 520px; color: rgba(212, 166, 74, .14); pointer-events: none; }
+.tadmor-mapa .tadmor-encabezado { position: relative; }
+.tadmor-mapa__cols { position: relative; max-width: 1260px; margin: 0 auto; padding: 0 22px; columns: 3 290px; column-gap: 40px; }
+.tadmor-mapa__cols section { break-inside: avoid; margin-bottom: 30px; }
+.tadmor-mapa__cols h3 { margin: 0 0 10px; font: 400 22px var(--display); }
 .tadmor-mapa__cols h3 a { color: var(--amarillo); text-decoration: none; }
-.tadmor-mapa__cols ul { list-style: none; margin: 0; padding: 0 0 0 14px; border-left: 2px dotted rgba(226, 114, 91, .6); font-size: 14.5px; }
-.tadmor-mapa__cols li { margin: 7px 0; }
-.tadmor-mapa__cols li a { color: #e7e3f2; text-decoration: none; }
-.tadmor-mapa__cols li a:hover { color: var(--coral); }
+.tadmor-mapa__cols ul { list-style: none; margin: 0; padding: 0 0 0 16px; border-left: 2px dotted rgba(226, 114, 91, .6); font-size: 14.5px; }
+.tadmor-mapa__cols li { position: relative; margin: 8px 0; }
+.tadmor-mapa__cols li::before { content: ""; position: absolute; left: -21px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--noche); border: 1.5px solid var(--oro); }
+.tadmor-mapa__cols li a { color: #e7e3f2; text-decoration: none; transition: color .3s; }
+.tadmor-mapa__cols li a:hover { color: #ffb59f; }
 
-.tadmor-maletas { max-width: 820px; margin: 10px auto 70px; padding: 40px 32px; border-radius: 6px; background: #fffaf0; border: 1px solid #e3d2b0; box-shadow: 0 24px 50px -36px rgba(29, 35, 64, .7); }
+.tadmor-maletas { position: relative; max-width: 820px; margin: 10px auto 76px; padding: 44px 36px; text-align: center; background: var(--guilloche), var(--papel); border: 6px solid transparent; border-image: repeating-linear-gradient(-45deg, var(--coral) 0 9px, var(--papel) 9px 14px, var(--noche-2) 14px 23px, var(--papel) 23px 28px) 6; box-shadow: 0 24px 50px -36px rgba(27, 32, 64, .7); }
 .tadmor-maletas p:not([class]) { font-size: 18px; color: var(--gris); }
 
-/* category header */
-.tadmor-destino { background: linear-gradient(160deg, var(--noche), #2b2a52); color: var(--arena); }
-.tadmor-destino__dentro { max-width: 900px; margin: 0 auto; padding: 44px 22px 52px; }
-.tadmor-destino__sello { display: inline-grid; place-items: center; width: 72px; height: 72px; margin-top: 18px; border-radius: 50%; border: 2px dashed var(--coral); color: var(--coral); transform: rotate(-12deg); }
+/* destination header: the night with a horizon of dunes */
+.tadmor-destino { position: relative; overflow: hidden; color: var(--arena); background: radial-gradient(700px 300px at 85% 110%, rgba(226, 114, 91, .38), transparent 70%), var(--estrellas), linear-gradient(165deg, var(--noche-3), var(--noche) 50%, #2e2550); background-size: auto, 260px 210px, auto; }
+.tadmor-destino::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 30px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='30'%3E%3Cpath d='M0 20C100 20 150 5 240 7S380 27 460 23S560 20 600 20V30H0Z' fill='%23f4ead6'/%3E%3C/svg%3E") -180px 100% / 600px 30px repeat-x; }
+.tadmor-destino__dentro { position: relative; max-width: 900px; margin: 0 auto; padding: 46px 22px 70px; }
+.tadmor-destino__sello { display: inline-grid; place-items: center; width: 76px; height: 76px; margin-top: 18px; border-radius: 50%; border: 2px dashed var(--coral); color: #ffb59f; background: radial-gradient(circle, rgba(226, 114, 91, .14) 0 55%, transparent 56%); transform: rotate(-12deg); }
 .tadmor-destino__icono { width: 40px; height: 40px; }
-.tadmor-destino h1 { margin: 10px 0 0; font: 400 clamp(34px, 5vw, 56px)/1.1 var(--display); }
-.tadmor-destino p { max-width: 62ch; color: #d8d4e6; font-size: 18px; }
+.tadmor-destino h1 { margin: 12px 0 0; font: 400 clamp(36px, 5vw, 60px)/1.08 var(--display); background: var(--oro-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tadmor-destino p { max-width: 62ch; color: #dcd7ea; font-size: 18px; }
+.tadmor-destino .tadmor-destino__cuenta { font: 700 12.5px var(--texto); letter-spacing: .18em; text-transform: uppercase; color: var(--turquesa-claro); }
 .tadmor-migas { font-size: 13.5px; color: var(--gris); }
 .tadmor-destino .tadmor-migas, .tadmor-destino .tadmor-migas a { color: #cfcbe0; }
 
-/* article */
-.tadmor-bitacora { max-width: 1260px; margin: 0 auto; padding: 40px 22px 10px; }
-.tadmor-bitacora__cabecera { max-width: 860px; margin: 0 0 36px; }
+/* the guide */
+.tadmor-bitacora { max-width: 1260px; margin: 0 auto; padding: 44px 22px 10px; }
+.tadmor-bitacora__cabecera { position: relative; max-width: 880px; margin: 0 0 40px; padding: 34px 36px 30px; background: var(--guilloche), var(--papel); border: 1px solid #e0cba3; border-radius: 6px; box-shadow: 0 28px 54px -40px rgba(27, 32, 64, .8); }
+.tadmor-bitacora__cabecera::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; border-radius: 6px 6px 0 0; background: var(--oro-grad); background-size: 220% 100%; }
 .tadmor-bitacora__titulo { margin: 14px 0 0; font: 400 clamp(34px, 4.8vw, 56px)/1.08 var(--display); color: var(--noche); }
-.tadmor-bitacora__entrada { margin: 16px 0 0; font-size: 20px; color: var(--gris); }
+.tadmor-bitacora__entrada { margin: 14px 0 0; font-size: 20px; color: var(--gris); }
 .tadmor-bitacora__datos { margin: 16px 0 0; font-size: 13.5px; color: var(--gris); }
-.tadmor-bitacora__cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 50px; align-items: start; }
+.tadmor-bitacora__cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 54px; align-items: start; }
 .tadmor-bitacora__cuerpo--uno { grid-template-columns: minmax(0, 780px); }
-.tadmor-pasaporte { order: 2; position: sticky; top: 96px; padding: 22px; border-radius: 12px; background: linear-gradient(160deg, #23305a, var(--noche)); color: #d8d4e6; box-shadow: 0 24px 50px -30px rgba(0, 0, 0, .7); }
-.tadmor-pasaporte__titulo { margin: 0 0 10px; font: 700 12px var(--texto); letter-spacing: .2em; text-transform: uppercase; color: var(--amarillo); }
-.tadmor-pasaporte dl { margin: 0 0 18px; display: grid; gap: 7px; font-size: 14px; }
+.tadmor-pasaporte { position: sticky; top: 112px; order: 2; overflow: hidden; padding: 24px 22px 20px; border-radius: 10px; background: repeating-radial-gradient(circle at 100% 0, transparent 0 11px, rgba(212, 166, 74, .06) 11px 12px), linear-gradient(165deg, #263463, var(--noche) 60%, var(--noche-3)); color: #d8d4e6; box-shadow: inset 0 0 0 1px rgba(212, 166, 74, .45), inset 0 0 0 6px rgba(18, 21, 44, .7), inset 0 0 0 7px rgba(212, 166, 74, .25), 0 28px 54px -30px rgba(0, 0, 0, .75); }
+.tadmor-pasaporte__visado { position: absolute; right: -22px; bottom: -22px; width: 140px; height: 140px; color: rgba(226, 114, 91, .22); transform: rotate(-16deg); pointer-events: none; }
+.tadmor-pasaporte__titulo { position: relative; margin: 0 0 12px; font: 700 12px var(--texto); letter-spacing: .22em; text-transform: uppercase; background: var(--oro-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tadmor-pasaporte dl { position: relative; margin: 0 0 20px; display: grid; gap: 7px; font-size: 14px; }
 .tadmor-pasaporte dl div { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px dotted rgba(212, 166, 74, .4); padding-bottom: 6px; }
 .tadmor-pasaporte dt { color: #a7a4bd; }
 .tadmor-pasaporte dd { margin: 0; }
 .tadmor-pasaporte a { color: #f1ecff; }
-.tadmor-pasaporte__itinerario { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.45; }
-.tadmor-pasaporte__itinerario li { margin: 7px 0; }
+.tadmor-pasaporte__itinerario { position: relative; margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.45; }
+.tadmor-pasaporte__itinerario li { margin: 8px 0; }
 .tadmor-pasaporte__itinerario li::marker { color: var(--coral); }
-.tadmor-pasaporte__itinerario a { text-decoration: none; }
+.tadmor-pasaporte__itinerario a { text-decoration: none; transition: color .3s; }
+.tadmor-pasaporte__itinerario a:hover { color: #ffb59f; }
 .tadmor-pasaporte__itinerario a.aqui { color: var(--amarillo); font-weight: 700; }
 .tadmor-relato { max-width: 760px; font-size: 18px; }
-.tadmor-relato h2 { margin: 2em 0 .6em; font: 400 31px/1.2 var(--display); color: var(--noche); scroll-margin-top: 100px; }
+.tadmor-relato > p:first-of-type::first-letter { float: left; margin: 8px 12px 0 0; padding: 10px 13px 6px; font: 400 58px/.9 var(--display); color: var(--arena); background: var(--estrellas), linear-gradient(150deg, var(--noche-2), var(--noche-3)); background-size: 120px 100px, auto; border-radius: 4px; box-shadow: inset 0 0 0 2px var(--oro), inset 0 0 0 5px var(--noche), inset 0 0 0 6px rgba(212, 166, 74, .6); }
+.tadmor-relato h2 { position: relative; margin: 2.1em 0 .7em; padding-left: 40px; font: 400 32px/1.2 var(--display); color: var(--noche); scroll-margin-top: 120px; }
+.tadmor-relato h2::before { content: ""; position: absolute; left: 0; top: .2em; width: 26px; height: 30px; border: 2.5px solid var(--oro); border-bottom: 0; border-radius: 13px 13px 0 0; background: radial-gradient(circle at 50% 62%, var(--coral) 0 4.5px, transparent 5px); }
+.tadmor-relato h2::after { content: ""; display: block; height: 5px; margin-top: 12px; background: radial-gradient(circle, var(--coral) 1.6px, transparent 2.1px) 0 50% / 9px 5px repeat-x; transform-origin: left; transition: transform 1.2s var(--ease); }
 .tadmor-relato h3 { margin: 1.6em 0 .4em; font: 700 20px var(--texto); color: var(--palma); }
 .tadmor-relato li::marker { color: var(--coral); }
-.tadmor-relato blockquote { margin: 1.6em 0; padding: 20px 24px; border-radius: 10px; background: #fffaf0; border: 1px solid #e3d2b0; border-left: 5px solid var(--turquesa); }
+.tadmor-relato blockquote { position: relative; margin: 1.8em 0; padding: 24px 26px 22px 64px; border-radius: 6px; background: var(--guilloche), var(--papel); border: 1px solid #e0cba3; box-shadow: inset 4px 0 0 var(--turquesa); }
+.tadmor-relato blockquote::before { content: "“"; position: absolute; left: 18px; top: 4px; font: 400 64px/1 var(--display); background: var(--oro-grad-osc); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .tadmor-relato blockquote p:last-child { margin-bottom: 0; }
-.tadmor-relato table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 15.5px; display: block; overflow-x: auto; }
-.tadmor-relato th { background: var(--noche); color: var(--amarillo); text-align: left; padding: 10px 12px; }
-.tadmor-relato td { padding: 10px 12px; border-bottom: 1px solid #e3d2b0; vertical-align: top; }
-.tadmor-advertencia { margin: 2.4em 0 0; padding: 18px 22px; border-radius: 10px; background: #fdeee6; border: 1px solid #f0c3b4; font-size: 15px; }
+.tadmor-relato table { width: 100%; border-collapse: collapse; margin: 1.6em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.tadmor-relato th { background: var(--noche); color: #f5dc9a; text-align: left; padding: 11px 13px; border-bottom: 2px solid var(--oro); }
+.tadmor-relato td { padding: 10px 13px; border-bottom: 1px solid #e0cba3; vertical-align: top; }
+.tadmor-relato tr:nth-child(even) td { background: rgba(255, 250, 240, .7); }
+.tadmor-advertencia { position: relative; margin: 2.6em 0 0; padding: 20px 22px 20px 62px; border-radius: 6px; background: linear-gradient(135deg, #fdeee6, #fbe3d6); border: 1px solid #f0c3b4; font-size: 15px; }
+.tadmor-advertencia::before { content: ""; position: absolute; left: 18px; top: 20px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--coral); background: conic-gradient(from 0deg, var(--coral) 0 12.5%, transparent 0 50%, var(--noche-2) 0 62.5%, transparent 0); }
 .tadmor-advertencia p { margin: 0; }
 
-/* footer */
-.tadmor-pie { margin-top: 70px; background: var(--noche); color: #c9c6da; position: relative; }
-.tadmor-pie__dunas { height: 40px; background: radial-gradient(60px 26px at 60px 40px, var(--duna) 98%, transparent) 0 0 / 120px 40px repeat-x, var(--arena); }
-.tadmor-pie__dentro { max-width: 1260px; margin: 0 auto; padding: 48px 22px 26px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 36px; }
-.tadmor-pie__sigla { margin: 0; font: 400 34px var(--display); letter-spacing: .08em; color: var(--arena); }
-.tadmor-pie__nombre { margin: 2px 0 14px; color: var(--coral); font-size: 14px; }
-.tadmor-pie__titulo { margin: 0 0 12px; font: 700 12px var(--texto); letter-spacing: .2em; text-transform: uppercase; color: var(--amarillo); }
+/* footer: an arcade of the Great Colonnade along its top edge; at its foot the
+   night dunes, a glow on the horizon and the caravan crossing them */
+.tadmor-pie { position: relative; margin-top: 96px; background: var(--estrellas), linear-gradient(180deg, var(--noche), var(--noche-3)); background-size: 260px 210px, auto; color: #c9c6da; }
+.tadmor-pie::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='20'%3E%3Cpath fill-rule='evenodd' fill='%231b2040' d='M0 0h28v20H0zM5 20v-5a9 9 0 0 1 18 0v5z'/%3E%3Cpath d='M0 .75h28' stroke='%23d4a64a' stroke-width='1.5'/%3E%3Ccircle cx='0' cy='4' r='1.3' fill='%23d4a64a'/%3E%3Ccircle cx='28' cy='4' r='1.3' fill='%23d4a64a'/%3E%3C/svg%3E") 0 0 / 28px 20px repeat-x; pointer-events: none; }
+.tadmor-pie__dunas { position: relative; overflow: hidden; height: 74px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='60'%3E%3Cpath d='M0 36C70 26 140 22 210 30S350 46 430 36S540 24 600 36V60H0Z' fill='%23231d40'/%3E%3C/svg%3E") 0 100% / 600px 60px repeat-x, linear-gradient(180deg, transparent, rgba(226, 114, 91, .2)); }
+.tadmor-pie__dunas::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='26'%3E%3Cpath d='M0 8C90 2 170 0 260 5S420 12 500 6S570 2 600 8V26H0Z' fill='%23110f24'/%3E%3C/svg%3E") 0 100% / 600px 26px repeat-x; }
+.tadmor-pie__caravana { position: absolute; left: 0; bottom: 20px; width: 200px; height: 46px; transform: translateX(-220px); }
+.tadmor-pie__caravana g { fill: #110f24; color: #110f24; }
+.tadmor-pie__dentro { max-width: 1260px; margin: 0 auto; padding: 50px 22px 26px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 36px; }
+.tadmor-pie__sigla { margin: 0; font: 400 36px var(--display); letter-spacing: .1em; background: var(--oro-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tadmor-pie__nombre { margin: 2px 0 14px; color: #ffb59f; font-size: 14px; }
+.tadmor-pie__titulo { margin: 0 0 12px; font: 700 12px var(--texto); letter-spacing: .22em; text-transform: uppercase; color: var(--oro); }
 .tadmor-pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; }
-.tadmor-pie a { color: #ebe8f5; text-decoration: none; }
-.tadmor-pie a:hover { color: var(--coral); }
-.tadmor-pie__aviso { max-width: 1260px; margin: 0 auto; padding: 18px 22px 30px; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 13px; color: #9b98b3; }
+.tadmor-pie a { color: #ebe8f5; text-decoration: none; background: linear-gradient(var(--oro), var(--oro)) 0 100% / 0 1px no-repeat; transition: background-size .4s var(--ease), color .3s; }
+.tadmor-pie a:hover { color: #fff3d0; background-size: 100% 1px; }
+.tadmor-pie__aviso { max-width: 1260px; margin: 0 auto; padding: 18px 22px 30px; border-top: 1px solid rgba(212, 166, 74, .2); font-size: 13px; color: #9b98b3; }
 
 /* 404 */
-.tadmor-extraviado { max-width: 980px; margin: 0 auto; padding: 70px 22px; text-align: center; }
-.tadmor-extraviado__codigo { margin: 0; font: 400 104px/1 var(--display); color: var(--coral); }
-.tadmor-extraviado h1 { font: 400 34px var(--display); color: var(--noche); }
+.tadmor-extraviado { position: relative; overflow: hidden; max-width: 980px; margin: 0 auto; padding: 70px 22px; text-align: center; }
+.tadmor-extraviado__rosa { position: absolute; left: 50%; top: 10px; width: 300px; height: 300px; margin-left: -150px; color: rgba(212, 166, 74, .2); pointer-events: none; }
+.tadmor-extraviado__codigo { position: relative; margin: 0; font: 400 112px/1 var(--display); background: var(--coral-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tadmor-extraviado h1 { position: relative; font: 400 34px var(--display); color: var(--noche); }
 .tadmor-extraviado .tadmor-destinos__lista { padding: 0; margin-top: 30px; }
 
 .tadmor-confeti { position: fixed; inset: 0; pointer-events: none; z-index: 70; }
 
+/* motion */
+@media (prefers-reduced-motion: no-preference) {
+  .tadmor-sellado::after { animation: tadmorBarrido 6s 1.2s ease-in-out infinite; }
+  .tadmor-sellado__sello { animation: tadmorSello 1.2s cubic-bezier(.3, 1.6, .5, 1) both; }
+  .tadmor-logo__sigla, .tadmor-pie__sigla, .tadmor-destino h1, .tadmor-encabezado--noche .tadmor-encabezado__titulo, .tadmor-pasaporte__titulo, .rumbo::after, .tadmor-bitacora__cabecera::before { animation: tadmorOro 9s linear infinite; }
+  .tadmor-portada__titulo em, .tadmor-extraviado__codigo { animation: tadmorOro 7s linear infinite; }
+  .tadmor-logo__anillo { animation: tadmorGira 24s linear infinite; }
+  .tadmor-ruta span { animation: tadmorOroCorto 4s linear infinite; }
+  .tadmor-portada::before { animation: tadmorTitila 5s ease-in-out infinite alternate; }
+  .tadmor-portada__ante, .tadmor-portada__titulo, .tadmor-portada__entrada, .tadmor-portada__acciones, .tadmor-portada__sellos { opacity: 0; animation: tadmorEntrada 1.1s var(--ease) forwards; }
+  .tadmor-portada__titulo { animation-delay: .12s; }
+  .tadmor-portada__entrada { animation-delay: .26s; }
+  .tadmor-portada__acciones { animation-delay: .4s; }
+  .tadmor-portada__sellos { animation-delay: .54s; }
+  .tadmor-portada__figura { animation: tadmorFigura 1.6s .1s var(--ease) both; }
+  .tadmor-portada__rosa { animation: tadmorGira 160s linear infinite; }
+  .tadmor-mapa__rosa { animation: tadmorGira 220s linear infinite reverse; }
+  .tadmor-extraviado__rosa { animation: tadmorGira 90s linear infinite; }
+
+  .tadmor-escena__estrellas circle { animation: tadmorTitila 3.4s var(--d) ease-in-out infinite; }
+  .tadmor-escena__fugaz { opacity: 0; animation: tadmorFugaz 11s 2s ease-in infinite; }
+  .tadmor-escena__aves { animation: tadmorAves 46s linear infinite; }
+  .tadmor-escena__halo { transform-box: fill-box; transform-origin: center; animation: tadmorHalo 7s ease-in-out infinite; }
+  .tadmor-escena__sol { transform-box: fill-box; transform-origin: center; animation: tadmorSol 14s ease-in-out infinite; }
+  .tadmor-escena__caravana { animation: tadmorCaravana 52s linear infinite; }
+  .tadmor-camello__paso { animation: tadmorPaso .9s var(--d) ease-in-out infinite alternate; }
+  .tadmor-camello__pata { transform-box: fill-box; transform-origin: 50% 0; animation: tadmorPata .9s ease-in-out infinite alternate; }
+  .tadmor-camello__pata--b { animation-direction: alternate-reverse; }
+  .tadmor-escena__copa { animation: tadmorBrisa 6.5s var(--d) ease-in-out infinite; }
+  .tadmor-escena__brillos path { transform-box: fill-box; transform-origin: center; animation: tadmorBrillo 3.2s var(--d) ease-in-out infinite; }
+  .tadmor-pie__caravana { animation: tadmorPie 70s linear infinite; }
+
+  .tadmor-js [data-revelar] { opacity: 0; transform: translateY(30px) scale(.985); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+  .tadmor-js [data-revelar].visible { opacity: 1; transform: none; }
+  .tadmor-js [data-revelar] .tadmor-div__linea { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .tadmor-js [data-revelar].visible .tadmor-div__linea { animation: tadmorTrazo 1.5s .3s var(--ease) forwards; }
+  .tadmor-js [data-revelar] .tadmor-div__sol { transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .8s .2s cubic-bezier(.3, 1.6, .5, 1); }
+  .tadmor-js [data-revelar].visible .tadmor-div__sol { transform: scale(1); }
+  .tadmor-js .tadmor-relato h2:not(.visible)::after { transform: scaleX(0); }
+}
+@keyframes tadmorOro { from { background-position: 0 0; } to { background-position: 220% 0; } }
+@keyframes tadmorOroCorto { from { background-position: 0 0; } to { background-position: 300px 0; } }
+@keyframes tadmorBarrido { 0% { transform: translateX(-100%); } 45%, 100% { transform: translateX(100%); } }
+@keyframes tadmorSello { from { transform: scale(2.2) rotate(-40deg); opacity: 0; } to { transform: scale(1) rotate(-14deg); opacity: 1; } }
+@keyframes tadmorGira { to { transform: rotate(360deg); } }
+@keyframes tadmorTitila { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+@keyframes tadmorEntrada { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes tadmorFigura { from { opacity: 0; transform: translateY(34px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes tadmorFugaz { 0%, 86% { opacity: 0; transform: translateX(0); } 88% { opacity: 1; } 95% { opacity: 0; transform: translateX(230px); } 100% { opacity: 0; transform: translateX(230px); } }
+@keyframes tadmorAves { from { transform: translateX(-60px); } to { transform: translateX(660px); } }
+@keyframes tadmorHalo { 0%, 100% { opacity: .85; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes tadmorSol { 0%, 100% { transform: translateY(4px); } 50% { transform: translateY(-6px); } }
+@keyframes tadmorCaravana { from { transform: translateX(-260px); } to { transform: translateX(860px); } }
+@keyframes tadmorPaso { from { transform: translateY(0); } to { transform: translateY(-1.2px); } }
+@keyframes tadmorPata { from { transform: rotate(-11deg); } to { transform: rotate(11deg); } }
+@keyframes tadmorBrisa { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2.5deg); } }
+@keyframes tadmorBrillo { 0%, 100% { opacity: .35; transform: scaleX(.7); } 50% { opacity: 1; transform: scaleX(1.1); } }
+@keyframes tadmorPie { from { transform: translateX(-220px); } to { transform: translateX(calc(100vw + 20px)); } }
+@keyframes tadmorTrazo { to { stroke-dashoffset: 0; } }
+
 @media (max-width: 1020px) {
-  .tadmor-portada__dentro { grid-template-columns: 1fr; }
-  .tadmor-destinos__lista, .tadmor-rejilla { grid-template-columns: repeat(2, 1fr); }
-  .tadmor-bitacora__cuerpo { grid-template-columns: 1fr; }
-  .tadmor-pasaporte { order: 0; position: static; }
+  .tadmor-portada__dentro { grid-template-columns: minmax(0, 1fr); }
+  .tadmor-portada__escenario { max-width: 640px; }
+  .tadmor-destinos__lista, .tadmor-rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tadmor-bitacora__cuerpo { grid-template-columns: minmax(0, 1fr); }
+  .tadmor-pasaporte { order: 0; position: relative; top: auto; }
   .tadmor-pie__dentro { grid-template-columns: 1fr 1fr; }
   .tadmor-pie__dentro > section { grid-column: 1 / -1; }
 }
@@ -206,21 +337,25 @@ body:not(.tadmor--bitacora) .tadmor-ruta { display: none; }
   .tadmor-desplegar { display: inline-block; }
   .tadmor-nav { display: none; width: 100%; flex-direction: column; }
   .tadmor-nav.abierta { display: flex; }
-  .tadmor-nav__destino { border-bottom: 1px solid #e3d2b0; border-radius: 0; }
+  .tadmor-nav__destino { border-bottom: 1px solid #e0cba3; border-radius: 0; }
   .tadmor-logo__nombre { display: none; }
 }
 @media (max-width: 620px) {
   body.tadmor { font-size: 16.5px; }
-  .tadmor-destinos__lista, .tadmor-rejilla { grid-template-columns: 1fr; }
+  .tadmor-portada__dentro { padding-top: 44px; gap: 34px; }
+  .tadmor-portada__ante { letter-spacing: .16em; font-size: 12px; }
+  .tadmor-destinos__lista, .tadmor-rejilla { grid-template-columns: minmax(0, 1fr); }
   .postal--grande { grid-column: auto; }
-  .postal--grande .postal__titulo { font-size: 25px; }
+  .postal--grande .postal__enlace { padding: 28px 24px; }
+  .postal--grande .postal__titulo { font-size: 26px; }
   .tadmor-pie__dentro { grid-template-columns: 1fr; }
   .tadmor-sellado { font-size: 12px; }
   .tadmor-sellado span { display: none; }
+  .tadmor-bitacora__cabecera { padding: 26px 22px 24px; }
   .tadmor-relato { font-size: 17px; }
-  .tadmor-relato h2 { font-size: 25px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .tadmor-relato h2 { font-size: 26px; padding-left: 34px; }
+  .tadmor-relato h2::before { width: 22px; height: 26px; }
+  .tadmor-mapa__rosa { width: 360px; height: 360px; right: -160px; }
+  .tadmor-maletas { padding: 34px 22px; }
 }
 @media (max-width: 860px) { .tadmor-maletas { margin-left: 16px; margin-right: 16px; } }
