@@ -141,6 +141,10 @@ Depende del producto, del espesor y de la humedad ambiente. El fabricante indica
 
 Existen sistemas que lo permiten en ciertas condiciones, pero en general la solución más fiable es retirar el revestimiento dañado y construir el sistema completo desde la base.
 
+### ¿Cada cuánto conviene revisar la ducha?
+
+Una revisión visual una vez al año es suficiente en la mayoría de las casas: juntas, siliconas, el contorno del desagüe y las salidas de grifería. Si aparecen fisuras o moho en las siliconas, renuévalas antes de que el agua encuentre camino.
+
 ### ¿Quién debería hacer este trabajo?
 
 Personal con experiencia en impermeabilización de baños. Pregunta qué sistema usará, cómo resolverá esquinas y desagüe y si hará la prueba de inundación antes de enchapar.
