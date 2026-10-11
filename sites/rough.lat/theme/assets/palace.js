@@ -1,10 +1,18 @@
-// ROUGH.LAT — menu, reading bar (articles only), active table-of-contents
-// entry, and for España 2026 a once-per-session burst of pomegranate seeds in
-// red and gold that falls and fades within about three seconds.
+// ROUGH.LAT — the palace in motion: menu, compact header on scroll, golden
+// reading thread (articles only), sections and cards that rise into place as
+// they enter the view, a soft gold light that follows the pointer over the
+// cards, the active table-of-contents entry, and for España 2026 a
+// once-per-session burst of pomegranate seeds in red and gold.
 (function () {
   "use strict";
+  var doc = document.documentElement;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The inline script in <head> hides what is about to rise into view; it
+  // shows everything again by itself if this file never arrives.
+  window.granadaListo = true;
+  doc.classList.add("granada-js");
 
+  // Menu
   var toggle = document.querySelector(".granada-boton-menu");
   var nav = document.getElementById("granada-menu");
   if (toggle && nav) {
@@ -21,19 +29,53 @@
     });
   }
 
+  // Compact header + reading thread, one passive scroll handler
+  var header = document.querySelector(".granada-cabecera");
   var bar = document.querySelector(".granada-lectura span");
   var prose = document.querySelector(".granada--nota .granada-prosa");
-  if (bar && prose) {
-    var update = function () {
-      var r = prose.getBoundingClientRect();
-      var span = r.height - window.innerHeight * 0.5;
-      bar.style.width = (span > 0 ? Math.min(1, Math.max(0, -r.top / span)) * 100 : 0).toFixed(1) + "%";
-    };
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
+  var ticking = false;
+  var onScroll = function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      if (header) header.classList.toggle("compacta", window.scrollY > 40);
+      if (bar && prose) {
+        var r = prose.getBoundingClientRect();
+        var span = r.height - window.innerHeight * 0.5;
+        bar.style.width = (span > 0 ? Math.min(1, Math.max(0, -r.top / span)) * 100 : 0).toFixed(1) + "%";
+      }
+    });
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  // Rise into view
+  var reveal = document.querySelectorAll("[data-revelar], .granada-prosa h2");
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveal.forEach(function (el) { el.classList.add("visible"); });
+  } else {
+    var io = new IntersectionObserver(function (items) {
+      items.forEach(function (it) {
+        if (it.isIntersecting) { it.target.classList.add("visible"); io.unobserve(it.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    reveal.forEach(function (el) { io.observe(el); });
   }
 
+  // Gold light that follows the pointer over rooms and cards
+  if (!reduce && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".sala, .semilla__enlace").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+        el.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+      });
+    });
+  }
+
+  // Active table-of-contents entry
   var tocLinks = document.querySelectorAll(".granada-indice a");
   if (tocLinks.length && "IntersectionObserver" in window) {
     var map = {};
@@ -49,6 +91,7 @@
     Object.keys(map).forEach(function (id) { var el = document.getElementById(id); if (el) obs.observe(el); });
   }
 
+  // España 2026 — once per session
   var KEY = "rough-lat-wm26";
   var done = true;
   try { done = sessionStorage.getItem(KEY) === "1"; sessionStorage.setItem(KEY, "1"); } catch (e) { done = true; }
