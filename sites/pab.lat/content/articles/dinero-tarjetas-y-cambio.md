@@ -1,6 +1,6 @@
 ---
 title: "Dinero en el viaje por América Latina: tarjetas, cajeros, efectivo, cambio y propinas"
-description: "Qué monedas se usan, cuándo pagar con tarjeta y cuándo con efectivo, cómo evitar comisiones y la conversión dinámica, cambiar dinero con seguridad, cajeros, propinas y qué hacer si pierdes la tarjeta."
+description: "Monedas de la región, tarjeta o efectivo, cómo evitar comisiones y la conversión dinámica, cambiar dinero con seguridad, cajeros, propinas y qué hacer si pierdes la tarjeta."
 category: planificacion-y-presupuesto
 date: 2026-08-22
 ---
@@ -90,6 +90,23 @@ Las costumbres cambian y conviene preguntar en cada lugar, pero como orientació
 ## Impuestos y beneficios para turistas
 
 En la mayoría de los países el impuesto al valor agregado ya está incluido en los precios. Algunos países ofrecen exenciones o devoluciones de impuestos a visitantes extranjeros en ciertos servicios, como el alojamiento pagado con tarjeta extranjera o en moneda extranjera. Las condiciones cambian, así que pregunta en tu alojamiento y en las fuentes oficiales.
+
+## Pagos con el teléfono y billeteras locales
+
+En varios países de la región se han popularizado los pagos instantáneos entre cuentas, los códigos QR y las billeteras digitales locales, que muchos comercios prefieren por su rapidez. Suelen estar pensados para residentes con cuentas bancarias del país, y no siempre son accesibles para un visitante. Úsalos si te resultan prácticos, pero no dependas de ellos: lleva siempre una tarjeta internacional y efectivo.
+
+## Pensar en moneda local
+
+Los primeros días en un país nuevo, los precios pueden confundir, sobre todo con monedas que tienen muchos ceros. Algunas ideas para no equivocarte:
+
+- **Memoriza una equivalencia sencilla** entre la moneda local y la tuya, por ejemplo cuánto representan mil o diez mil unidades.
+- **Usa una aplicación de conversión** que funcione sin conexión.
+- **Revisa el cambio** que te devuelven, sin prisa.
+- **Fíjate en los precios publicados** en mercados y transportes antes de preguntar.
+
+## Si recorres varios países
+
+En un viaje por varios países, intenta gastar la moneda de cada uno antes de cruzar la frontera, porque cambiar billetes sobrantes en otro país suele salir caro. Guarda solo una pequeña cantidad para el transporte inicial al llegar al siguiente destino, y averigua si en la frontera hay cajeros o casas de cambio confiables. Lo vemos en la guía sobre [cruzar fronteras por tierra](/bitacora/cruzar-fronteras-por-tierra/).
 
 ## Cuida tu dinero
 
