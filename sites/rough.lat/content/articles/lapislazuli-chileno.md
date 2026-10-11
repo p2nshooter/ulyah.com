@@ -100,6 +100,18 @@ En Santiago, el barrio Bellavista concentra tiendas y talleres de lapislázuli, 
 - **Pide factura** y, para piezas de valor, una descripción por escrito del material.
 - **Valora la artesanía:** una pieza bien tallada o bien engastada vale por su trabajo, no solo por la piedra.
 
+## Preguntas útiles antes de comprar
+
+Una conversación breve con el vendedor dice mucho de la pieza y de quien la vende:
+
+1. **¿La piedra es natural, teñida o reconstituida?** Un comerciante honesto responde sin rodeos.
+2. **¿Tiene cera o algún recubrimiento?** El encerado es habitual, pero conviene saberlo.
+3. **¿De dónde procede?** No siempre se sabe con certeza, pero la respuesta y su seguridad orientan.
+4. **¿Quién hizo el trabajo de plata o la talla?** En la artesanía, el oficio también forma parte del valor.
+5. **¿Qué pasa si la piedra se suelta o se daña?** Pregunta por la garantía y las reparaciones.
+
+Si la respuesta a la primera pregunta es vaga, o el precio parece demasiado bajo para el tamaño y el color, tómatelo como una señal para comparar con otros vendedores antes de decidir.
+
 ## Cuidado del lapislázuli
 
 - **Evita los productos químicos:** perfumes, cremas, limpiadores y ácidos pueden dañar la superficie y la calcita.
