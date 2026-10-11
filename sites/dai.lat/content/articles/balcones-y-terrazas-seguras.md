@@ -92,6 +92,28 @@ Cerrar un balcón con vidrio, instalar un toldo o cambiar la baranda modifica la
 - **Los perros** no deben pasar horas al sol en un balcón sin sombra ni agua.
 - **Las barandas con barrotes separados** pueden ser un riesgo para mascotas pequeñas.
 
+## Plantas en el balcón
+
+Un balcón con plantas es más fresco y agradable, pero exige algunas precauciones:
+
+- **Elige especies según la luz y el viento** de tu balcón. En pisos altos el viento reseca las hojas y tumba plantas altas; las especies de hoja pequeña y las suculentas suelen resistir mejor.
+- **Usa macetas livianas y sustratos ligeros,** que reducen la carga sobre la losa.
+- **Coloca platos bajo las macetas,** pero vacíalos después de regar: el agua estancada cría mosquitos y puede gotear hacia los vecinos.
+- **Un riego por goteo sencillo** ahorra agua y evita derrames.
+
+La guía de [plantas de interior según la luz](/articulos/plantas-de-interior-segun-la-luz/) ayuda a elegir especies según la orientación.
+
+## Revisión anual: una lista rápida
+
+Una vez al año, idealmente antes de la temporada de lluvias o de vientos:
+
+1. Mueve con firmeza la baranda para comprobar que no esté floja.
+2. Revisa la parte inferior de la losa en busca de fisuras, óxido o desprendimientos.
+3. Limpia desagües y gárgolas.
+4. Comprueba que el agua no se estanque después de regar o llover.
+5. Revisa las juntas del piso y del encuentro con la fachada.
+6. Verifica soportes de macetas, toldos y redes de protección.
+
 ## Aprovechar el balcón con tranquilidad
 
 Un balcón seguro puede convertirse en un pequeño jardín o en una sala exterior. Muebles plegables, plantas en macetas livianas, una iluminación cálida y algo de sombra bastan para transformarlo. La guía para [ganar espacio en un departamento pequeño](/articulos/departamento-pequeno-ganar-espacio/) incluye ideas para usarlo como una habitación más.
