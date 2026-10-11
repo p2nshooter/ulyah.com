@@ -90,6 +90,7 @@ Mehr über Zitronensäure und ihre Grenzen erfährst du im Ratgeber [Zitronensä
 - **Einmal im Monat heiß waschen,** mit 60 Grad oder mehr und Vollwaschmittel in Pulverform, zum Beispiel mit Handtüchern und Bettwäsche.
 - **Richtig dosieren,** besonders Weichspüler, dessen Reste sich gern ablagern. Mehr im Ratgeber [Waschmittel richtig dosieren](/ratgeber/waschmittel-dosieren/).
 - **Taschen leeren** vor dem Waschen. Münzen, Schrauben und Haarklammern beschädigen Trommel und Pumpe.
+- **BHs mit Bügeln ins Wäschenetz** legen. Lose Bügel können sich zwischen Trommel und Laugenbehälter verkeilen.
 
 ## Wie oft welche Aufgabe?
 
