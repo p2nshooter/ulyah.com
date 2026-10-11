@@ -115,6 +115,10 @@ Incluso en lugares secos, un techo mediano puede recoger miles de litros al año
 
 Sí, siempre que sea opaco, tenga tapa hermética y esté limpio. Para agua de lluvia conviene uno dedicado, separado del tanque de agua potable.
 
+### ¿Dónde conviene ubicar el tanque?
+
+En un lugar firme, a la sombra si es posible, cerca de las bajadas del techo y de donde usarás el agua. Si lo elevas un poco sobre una base sólida, podrás usar la gravedad para regar sin bomba. Deja espacio para abrir la tapa, limpiarlo y revisar el rebosadero.
+
 ### ¿El agua de lluvia es buena para las plantas?
 
 Sí. Suele ser blanda y sin cloro, algo que muchas plantas agradecen. Es ideal para el riego, como explicamos en la guía sobre [jardín con plantas nativas](/articulos/jardin-con-plantas-nativas/).
