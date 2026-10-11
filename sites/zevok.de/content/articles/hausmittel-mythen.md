@@ -135,6 +135,10 @@ Weil sie oft teilweise funktionieren. Salz saugt sichtbar Flüssigkeit auf, Natr
 
 Nicht automatisch. Hausmittel sind oft günstig und ohne Duftstoffe, aber auch sie sind Chemie und können schaden. Ein gekaufter Reiniger kann gezielter wirken und sparsamer dosiert werden. Entscheidend ist, das passende Mittel für Verschmutzung und Material zu wählen.
 
+### Was tun, wenn ein Tipp schon Schaden angerichtet hat?
+
+Hör sofort auf und spüle die Stelle gründlich mit klarem Wasser ab. Bei Textilien wäschst du das Teil danach nach Pflegeetikett, ohne es in den Trockner zu geben. Matte Stellen auf Naturstein, Kratzer auf Glas oder ausgebleichte Farben lassen sich meist nicht selbst beheben. Bei wertvollen Stücken fragst du eine Textilreinigung oder einen Fachbetrieb und sagst dort genau, welches Mittel verwendet wurde.
+
 ### Wie erkenne ich einen guten Tipp?
 
 Er erklärt, warum er wirkt, nennt das Material, auf dem er funktioniert, und weist auf Grenzen und Risiken hin. Tipps, die ein Mittel für alles versprechen, sind meist zu schön, um wahr zu sein.
