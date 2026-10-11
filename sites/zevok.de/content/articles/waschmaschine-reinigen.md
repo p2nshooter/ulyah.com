@@ -1,6 +1,6 @@
 ---
 title: "Waschmaschine reinigen: Einspülkammer, Dichtung, Flusensieb und Trommel gegen Gerüche"
-description: "Riecht die Waschmaschine muffig oder kommt die Wäsche nicht frisch heraus? So reinigst du Einspülkammer, Türdichtung, Flusensieb und Trommel, entkalkst sicher und beugst Biofilm und Schimmel mit einfachen Gewohnheiten vor."
+description: "Muffige Waschmaschine? So reinigst du Einspülkammer, Türdichtung, Flusensieb und Trommel, entkalkst sicher und beugst Biofilm und Schimmel mit einfachen Gewohnheiten vor."
 category: waesche-und-pflege
 date: 2026-08-25
 ---

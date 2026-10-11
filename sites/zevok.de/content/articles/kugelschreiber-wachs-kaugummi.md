@@ -1,6 +1,6 @@
 ---
 title: "Kugelschreiber, Kerzenwachs und Kaugummi entfernen: Schritt für Schritt aus Stoff, Teppich und Polster"
-description: "Tinte mit Alkohol lösen, Wachs mit Kälte und Bügeleisen, Kaugummi im Gefrierfach: So entfernst du drei besonders hartnäckige Fleckarten aus Kleidung, Tischdecken, Teppich und Sofa, ohne das Material zu beschädigen."
+description: "Tinte mit Alkohol lösen, Wachs mit Kälte und Bügeleisen, Kaugummi im Gefrierfach: drei hartnäckige Fleckarten aus Kleidung, Teppich und Sofa entfernen, ohne Schaden."
 category: flecken-entfernen
 date: 2026-08-07
 ---

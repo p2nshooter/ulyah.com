@@ -1,6 +1,6 @@
 ---
 title: "Fenster putzen ohne Streifen: Werkzeug, Technik und die richtige Reihenfolge"
-description: "Streifenfrei Fenster putzen: warum Sonne und zu viel Reiniger Schlieren machen, welche Reihenfolge Zeit spart, wie Abzieher und Mikrofaser richtig benutzt werden und wie Rahmen, Dichtungen und Fliegengitter sauber werden."
+description: "Fenster streifenfrei putzen: warum Sonne und zu viel Reiniger Schlieren machen, welche Reihenfolge Zeit spart und wie Abzieher, Mikrofaser, Rahmen und Dichtungen richtig sauber werden."
 category: putzen-mit-system
 date: 2026-07-17
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Gras-, Erd- und Schlammflecken entfernen: von Kinderhosen, Trikots, Turnschuhen und Teppich"
-description: "Grasflecken sind Kombiflecken aus Farbstoff und Eiweiß, Erde ist Pigment. So bekommst du grüne Knie, Schlamm am Fußballtrikot, rote Sandplatzasche und dreckige Sneaker wieder sauber, ohne den Fleck zu verschmieren."
+description: "Grasflecken sind Kombiflecken aus Farbstoff und Eiweiß, Erde ist Pigment: So werden grüne Knie, schlammige Trikots und dreckige Sneaker wieder sauber, ohne zu verschmieren."
 category: flecken-entfernen
 date: 2026-08-04
 ---

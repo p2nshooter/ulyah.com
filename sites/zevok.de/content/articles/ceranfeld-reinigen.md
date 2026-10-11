@@ -1,6 +1,6 @@
 ---
 title: "Ceranfeld, Induktionskochfeld und Gasherd reinigen: Eingebranntes, Kalk und Zucker richtig entfernen"
-description: "So reinigst du Glaskeramik und Induktion ohne Kratzer: mit Glasschaber im flachen Winkel, ohne Scheuermittel, Zucker sofort entfernen, Kalk und Metallspuren lösen. Dazu Brennerdeckel, Roste und Düsen am Gasherd richtig säubern."
+description: "Glaskeramik und Induktion ohne Kratzer reinigen: Glasschaber flach ansetzen, Zucker sofort entfernen, Kalk und Metallspuren lösen und den Gasherd mit Rosten und Brennern säubern."
 category: kueche-reinigen
 date: 2026-08-28
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Staub wischen und Staubsaugen richtig: weniger Staub, weniger Allergene, mehr Ruhe"
-description: "Woher Hausstaub kommt, warum ein feuchtes Mikrofasertuch besser ist als der Staubwedel, wie du Elektronik, Holz und Pflanzen schonend abstaubst, richtig saugst und den Staub in der Wohnung dauerhaft reduzierst."
+description: "Woher Hausstaub kommt, warum ein feuchtes Mikrofasertuch besser ist als der Staubwedel, wie du Elektronik und Holz schonend abstaubst und Staub dauerhaft reduzierst."
 category: putzen-mit-system
 date: 2026-07-26
 ---

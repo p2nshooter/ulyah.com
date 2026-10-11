@@ -1,6 +1,6 @@
 ---
 title: "Wolle, Kaschmir und Seide waschen: von Hand oder in der Maschine, ohne Verfilzen und Einlaufen"
-description: "Warum Wolle verfilzt, wann Lüften statt Waschen reicht, wie Handwäsche und Wollprogramm richtig gehen, wie du Kaschmir entknötchenst, Seide schonend wäschst, Pullover trocknest und Kleidermotten vorbeugst."
+description: "Warum Wolle verfilzt, wann Lüften reicht, wie Handwäsche und Wollprogramm gelingen, wie du Seide schonend wäschst, Pullover richtig trocknest und Kleidermotten vorbeugst."
 category: waesche-und-pflege
 date: 2026-08-22
 ---

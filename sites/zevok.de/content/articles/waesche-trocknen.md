@@ -1,6 +1,6 @@
 ---
 title: "Wäsche trocknen: Leine, Wäscheständer oder Trockner – ohne Schimmel, Knitter und Muff"
-description: "So trocknet Wäsche schnell, faltenarm und ohne Geruch: richtig aufhängen, in der Wohnung lüften statt Schimmel riskieren, Trocknersymbole verstehen, Wärmepumpentrockner pflegen und Wolle, Daunen und Handtücher richtig behandeln."
+description: "Wäsche schnell, faltenarm und ohne Geruch trocknen: richtig aufhängen, in der Wohnung ohne Schimmelrisiko lüften, Trocknersymbole verstehen und Wolle und Daunen schonen."
 category: waesche-und-pflege
 date: 2026-08-16
 ---

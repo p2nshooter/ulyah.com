@@ -1,6 +1,6 @@
 ---
 title: "Bügeln leicht gemacht: Temperaturen, Reihenfolge beim Hemd und wie du weniger bügeln musst"
-description: "Bügelsymbole verstehen, mit der niedrigsten Temperatur anfangen, ein Hemd in sechs Schritten glätten, dunkle Stoffe ohne Glanzstellen bügeln, Wolle und Seide schonen, die Bügelsohle reinigen und Kalk vermeiden."
+description: "Bügelsymbole verstehen, mit niedriger Temperatur beginnen, ein Hemd in sechs Schritten glätten, dunkle Stoffe ohne Glanzstellen bügeln und die Bügelsohle kalkfrei halten."
 category: waesche-und-pflege
 date: 2026-08-19
 ---

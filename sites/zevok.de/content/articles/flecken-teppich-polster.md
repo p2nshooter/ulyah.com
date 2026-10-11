@@ -1,6 +1,6 @@
 ---
 title: "Flecken auf Teppich, Sofa und Matratze entfernen: tupfen, wenig Wasser, gut trocknen"
-description: "Was nicht in die Waschmaschine passt, braucht eine eigene Methode: So entfernst du Wein, Kaffee, Saft, Fett und Tierurin aus Teppich, Sofa und Matratze, vermeidest Wasserränder und beseitigst Gerüche dauerhaft."
+description: "Wein, Kaffee, Saft, Fett und Tierurin aus Teppich, Sofa und Matratze entfernen: richtig tupfen, wenig Wasser nehmen, Wasserränder vermeiden und Gerüche dauerhaft beseitigen."
 category: flecken-entfernen
 date: 2026-08-10
 ---
