@@ -87,6 +87,13 @@ Las enramadas de palma, carrizo, caña o bambú, como las palapas de la costa me
 - **Distancia de parrillas y fogones** a telas, palmas y techos ligeros.
 - **Permisos:** en edificios, condominios y algunos municipios, las pérgolas y techos en terrazas o fachadas requieren autorización. Consulta antes de construir. En balcones, revisa además el peso admisible, como explicamos en la guía sobre [balcones y terrazas seguras](/articulos/balcones-y-terrazas-seguras/).
 
+## Mantenimiento por temporada
+
+- **Antes de la época de lluvias:** revisa pendientes, canaletas, tensión de velas y mecanismos de toldos, y retira hojas acumuladas.
+- **Después de tormentas:** comprueba anclajes, tornillos y costuras. Un punto flojo hoy es una rotura en la próxima tormenta.
+- **Una o dos veces al año:** lava las telas con agua y jabón neutro, déjalas secar extendidas y guárdalas secas si las retiras.
+- **Cada pocos años:** renueva el aceite o barniz de la madera y retoca la pintura del metal donde aparezcan golpes u óxido.
+
 ## Errores frecuentes
 
 - **Usar solo sombra horizontal** en terrazas que reciben sol de la tarde.
