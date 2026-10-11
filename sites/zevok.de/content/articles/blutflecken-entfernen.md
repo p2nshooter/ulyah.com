@@ -62,7 +62,7 @@ Eine Matratze kannst du nicht in die Waschmaschine stecken, und zu viel Wasser d
 
 **Bei eingetrockneten Flecken** kann eine Paste aus Speisestärke und kaltem Wasser helfen: aufstreichen, trocknen lassen und dann absaugen. Bei weißen Matratzenbezügen kannst du nach einem Test an verdeckter Stelle vorsichtig Wasserstoffperoxid auftupfen.
 
-**Vorbeugen:** Ein waschbarer Matratzenschoner schützt die Matratze vor Flecken und lässt sich einfach bei 60 Grad waschen.
+**Vorbeugen:** Ein waschbarer Matratzenschoner schützt die Matratze vor Flecken und lässt sich einfach bei 60 Grad waschen. Viele Bezüge von Matratzen haben außerdem einen Reißverschluss und dürfen laut Etikett gewaschen werden.
 
 ## Blut auf Teppich und Polster
 
