@@ -164,7 +164,9 @@ jobs:
           pub=$(node -p "(JSON.parse(require('fs').readFileSync('sites/$DOMAIN/site.json','utf8')).adsense||'').replace(/^ca-/,'')")
           code=000; body=""
           for i in 1 2 3 4 5 6 7 8 9; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMAIN/")
+            # A freshly attached domain may not resolve for a few minutes
+            # (curl exit 6); that is a warning below, not a failed deploy.
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMAIN/" || true)
             body=$(curl -s "https://$DOMAIN/ads.txt" || true)
             [ "$code" = "200" ] && { [ -z "$pub" ] || grep -q "google.com, $pub, DIRECT, f08c47fec0942fa0" <<<"$body"; } && break
             sleep 15
