@@ -72,6 +72,16 @@ Las plantas tropicales suelen agradecer la humedad. En ciudades costeras húmeda
 - **Trasplanta** cuando las raíces salen por los agujeros o la planta deja de crecer, a una maceta solo un poco más grande.
 - **Abona con moderación** en la temporada de crecimiento, siguiendo las indicaciones del producto.
 
+## Comprar una planta sana
+
+Una buena compra evita muchos problemas:
+
+- **Revisa el envés de las hojas y los tallos** en busca de insectos, manchas o telarañas.
+- **Prefiere plantas con hojas firmes** y brotes nuevos, sin raíces podridas ni olor a humedad en la tierra.
+- **Pregunta en qué condiciones de luz estaba** en el vivero. Si estaba a pleno sol, no la lleves de golpe a un rincón oscuro.
+- **Ten paciencia en las primeras semanas:** es normal que pierda alguna hoja mientras se adapta a su nuevo lugar.
+- **Mantén las plantas nuevas separadas** de las demás unos días, para comprobar que no traen plagas.
+
 ## Plagas frecuentes
 
 | Plaga | Cómo se reconoce | Qué la favorece |
