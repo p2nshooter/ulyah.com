@@ -112,6 +112,7 @@ Las playas del Pacífico sudamericano tienen además aguas frías y oleaje inten
 - **Un ahogamiento suele ser silencioso:** un niño en problemas no grita ni chapotea, se hunde.
 - **Usa chalecos salvavidas** adecuados para niños que no nadan bien; los flotadores inflables no son dispositivos de seguridad.
 - **Elige playas tranquilas** y zonas de poca profundidad.
+- **Designa a un adulto vigilante por turnos,** que sepa que su única tarea en ese momento es mirar a los niños en el agua. En grupos grandes, todos creen que otro está mirando.
 
 ## El alcohol y el mar no combinan
 
