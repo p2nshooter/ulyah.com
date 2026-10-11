@@ -77,6 +77,14 @@ Más ideas para organizar un recorrido en la guía sobre [distancias y tiempos r
 - **Protégete del sol:** la radiación ultravioleta es mucho más intensa en altura. Usa protector solar, gafas y sombrero.
 - **Abrígate al caer la tarde:** las noches pueden ser muy frías aunque el día sea soleado.
 
+## Dormir en la altura
+
+Las primeras noches en la altura suelen ser de sueño ligero. Es frecuente despertarse varias veces o notar una respiración irregular, con pausas breves seguidas de respiraciones más profundas. En general es una respuesta normal del cuerpo que mejora con la aclimatación. Ayuda cenar temprano y ligero, dormir con una manta extra, mantener la habitación algo ventilada y evitar los somníferos sin indicación médica, porque pueden deprimir la respiración.
+
+## Niños en la altura
+
+Los niños también pueden sufrir mal de altura, pero a veces no saben explicar lo que sienten. Presta atención si un niño pequeño está más irritable de lo normal, come menos, vomita, duerme mal o juega mucho menos que de costumbre. En ese caso no sigas subiendo y consulta con un médico. Con bebés y niños pequeños conviene planificar ascensos todavía más graduales y hablar antes con el pediatra.
+
 ## Mate de coca: tradición y límites
 
 En Perú y Bolivia, el mate de coca es una bebida tradicional y legal que se ofrece en muchos hoteles para aliviar las molestias de la altura. Muchas personas lo encuentran reconfortante, pero no sustituye una buena aclimatación ni previene las formas graves.
