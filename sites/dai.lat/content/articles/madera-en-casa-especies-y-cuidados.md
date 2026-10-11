@@ -97,6 +97,18 @@ En exteriores, el sol degrada la superficie de la madera y la vuelve gris. Los p
 
 En climas muy húmedos o en planta baja con riesgo de humedad del suelo, el piso de ingeniería suele comportarse mejor que el macizo. En cocinas y baños, la cerámica y el porcelanato suelen ser más prácticos.
 
+## Renovar un mueble antiguo
+
+Muchas casas guardan muebles de madera maciza de padres o abuelos, más sólidos que buena parte de los muebles nuevos. Renovarlos suele valer la pena:
+
+1. **Revisa la estructura:** patas flojas, uniones abiertas y señales de insectos.
+2. **Limpia a fondo** con un paño apenas húmedo y un jabón suave.
+3. **Decide el acabado:** si el barniz está sano, a veces basta una limpieza y una mano de cera o aceite. Si está muy dañado, habrá que lijarlo o decaparlo.
+4. **Lija siguiendo la veta,** de granos gruesos a finos, con mascarilla y buena ventilación.
+5. **Aplica capas finas** del nuevo acabado, respetando los tiempos de secado.
+
+Ten en cuenta que los muebles muy antiguos pueden tener pinturas con plomo. Si dudas, consulta a un restaurador antes de lijar.
+
 ## Madera tratada: lo que no hay que hacer
 
 - **No quemes madera tratada** con preservantes: puede liberar humos tóxicos.
