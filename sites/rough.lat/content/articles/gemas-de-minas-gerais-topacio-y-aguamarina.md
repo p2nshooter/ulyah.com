@@ -1,6 +1,6 @@
 ---
 title: "Gemas de Minas Gerais: pegmatitas, aguamarina y topacio imperial"
-description: "Por qué Minas Gerais es uno de los grandes territorios gemológicos del mundo: pegmatitas, aguamarinas y la familia del berilo, el topacio imperial de Ouro Preto, el topacio azul tratado y cómo comprar."
+description: "Por qué Minas Gerais es uno de los grandes territorios gemológicos del mundo: pegmatitas, aguamarinas y la familia del berilo, el topacio imperial de Ouro Preto, el topacio azul y cómo comprar."
 category: gemas-en-bruto
 date: 2026-10-11
 ---
