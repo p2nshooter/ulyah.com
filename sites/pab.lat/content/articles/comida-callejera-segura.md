@@ -62,6 +62,22 @@ No se trata de prohibirse todo lo delicado, sino de elegir con más cuidado dón
 
 Más platos y su contexto en la guía de [platos regionales por país](/bitacora/platos-regionales-por-pais/).
 
+## Cada comida tiene su hora
+
+La comida de la calle sigue el ritmo de la ciudad, y algunos platos solo aparecen a ciertas horas o ciertos días:
+
+- **Muy temprano:** tamales, atoles, panes, cafés y desayunos para quienes van a trabajar.
+- **Mediodía:** puestos de almuerzo con platos del día, a menudo cerca de oficinas y mercados.
+- **Media tarde:** dulces, frituras y bebidas calientes, en la hora que en algunos países se llama la once o las onces.
+- **Noche:** parrillas, anticuchos, tacos y antojitos que se encienden cuando cae el sol.
+- **Fines de semana:** platos de preparación larga, como algunas barbacoas y caldos, que muchos puestos solo ofrecen sábados o domingos.
+
+Preguntar "¿qué se come aquí a esta hora?" es una buena manera de descubrir lo mejor de cada lugar.
+
+## Si eres vegetariano o vegano
+
+Hay muchas opciones sin carne en la calle: arepas con queso, pupusas de frijol o de queso, humitas, tamales de verduras, elotes, frutas y jugos. Pero conviene preguntar, porque algunos ingredientes de origen animal no se ven: frijoles o masas preparados con manteca de cerdo, caldos de carne en sopas de verduras o frituras hechas en el mismo aceite que la carne. Aprende a decir "sin carne", "sin manteca" o "¿lleva caldo de pollo?".
+
 ## Cómo pedir y pagar
 
 - **Observa cómo hacen los locales:** en algunos puestos se pide y se paga al final; en otros, se paga primero y se recibe un turno.
