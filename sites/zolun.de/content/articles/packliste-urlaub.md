@@ -1,6 +1,6 @@
 ---
 title: "Packliste für den Urlaub in Deutschland: was wirklich mit muss – für Meer, Berge, Stadt und Familie"
-description: "Die ehrliche Packliste für Reisen in Deutschland: Dokumente, Kleidung nach dem Zwiebelprinzip, Regen- und Sonnenschutz, Reiseapotheke, Technik, Extras für Strand, Berge, Stadt, Kinder und Hund – und was du getrost zu Hause lässt."
+description: "Die ehrliche Packliste für Deutschland: Dokumente, Kleidung nach dem Zwiebelprinzip, Reiseapotheke, Technik und Extras für Strand, Berge, Stadt, Kinder und Hund."
 category: reiseplanung
 date: 2026-10-06
 ---

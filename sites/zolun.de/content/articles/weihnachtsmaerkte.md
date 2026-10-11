@@ -1,6 +1,6 @@
 ---
 title: "Weihnachtsmärkte in Deutschland besuchen: die schönsten Märkte, beste Tage und praktische Tipps"
-description: "Advent in Deutschland: Nürnberg, Dresden, Köln, Erfurt, Rothenburg, Gengenbach und das Erzgebirge im Überblick. Wann es leerer ist, was Tassenpfand bedeutet, was du essen solltest und wie du ohne Stress anreist."
+description: "Weihnachtsmärkte in Deutschland: Nürnberg, Dresden, Köln und kleine Märkte mit Charme, die besten Tage gegen Gedränge, Tassenpfand, Essen und Tipps zur Anreise."
 category: staedtereisen
 date: 2026-09-04
 ---

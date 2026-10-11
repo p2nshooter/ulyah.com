@@ -1,6 +1,6 @@
 ---
 title: "Dresden als Städtereise: Altstadt, Neustadt, Elbe und Ausflüge in die Sächsische Schweiz"
-description: "Dresden für Erstbesucher: Frauenkirche, Zwinger, Semperoper und Grünes Gewölbe, Brühlsche Terrasse, die bunte Neustadt, Raddampfer auf der Elbe, Pillnitz und Moritzburg, die Bastei in der Sächsischen Schweiz, Essen und ein Plan für zwei bis drei Tage."
+description: "Dresden für Erstbesucher: Frauenkirche, Zwinger, Grünes Gewölbe, die bunte Neustadt, Raddampfer auf der Elbe, Ausflüge zur Bastei und ein Plan für zwei bis drei Tage."
 category: staedtereisen
 date: 2026-10-04
 ---

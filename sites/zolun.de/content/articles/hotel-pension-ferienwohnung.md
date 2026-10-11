@@ -1,6 +1,6 @@
 ---
 title: "Hotel, Pension, Ferienwohnung oder Bauernhof? Die richtige Unterkunft für deinen Deutschlandurlaub"
-description: "Welche Unterkunft passt zu welcher Reise? Hotel, Pension, Ferienwohnung, Ferienhaus, Urlaub auf dem Bauernhof, Camping und Jugendherberge im ehrlichen Vergleich – mit Kosten, Vor- und Nachteilen und Checkliste."
+description: "Hotel, Pension, Ferienwohnung, Bauernhof, Camping oder Jugendherberge? Der ehrliche Vergleich mit Kosten, Vor- und Nachteilen und einer Checkliste vor der Buchung."
 category: anreise-und-unterkunft
 date: 2026-09-07
 ---

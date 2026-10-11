@@ -1,6 +1,6 @@
 ---
 title: "Regentage im Urlaub: 30 Ideen für drinnen und draußen – von Therme bis Tropfsteinhöhle"
-description: "Was tun, wenn es im Deutschlandurlaub regnet? Ideen nach Region und Alter: Thermen, Mitmachmuseen, Aquarien, Höhlen und Bergwerke, Regenwanderungen, Kreatives in der Ferienwohnung und wie du Regenpausen mit dem Wetterradar nutzt."
+description: "Was tun, wenn es im Urlaub regnet? 30 Ideen von Therme und Mitmachmuseum über Tropfsteinhöhle und Bergwerk bis zur Regenwanderung, mit Plänen für Familien."
 category: reiseplanung
 date: 2026-09-28
 ---

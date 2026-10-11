@@ -1,6 +1,6 @@
 ---
 title: "München als Städtereise: Altstadt, Englischer Garten, Museen und Biergärten in zwei bis drei Tagen"
-description: "München für Erstbesucher: Marienplatz, Viktualienmarkt, Residenz, Englischer Garten mit Eisbachwelle, Deutsches Museum, Nymphenburg, Biergartenregeln, Essen, Nahverkehr und Tagesausflüge an Seen und in die Berge."
+description: "München für Erstbesucher: Altstadt, Englischer Garten mit Eisbachwelle, Museen, Nymphenburg, Biergartenregeln, Essen, Nahverkehr und Ausflüge an die Seen."
 category: staedtereisen
 date: 2026-08-29
 ---

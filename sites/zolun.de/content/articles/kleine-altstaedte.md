@@ -1,6 +1,6 @@
 ---
 title: "Kleine Altstädte in Deutschland: Fachwerk, Stadtmauern und Welterbe abseits der Großstädte"
-description: "Die schönsten kleinen Altstädte für einen Kurzurlaub: Rothenburg, Dinkelsbühl, Bamberg, Quedlinburg, Wernigerode, Goslar, Meißen, Görlitz, Stralsund, Wismar, Celle, Monschau und Tübingen – mit Tipps gegen Busgruppen und Parkplatzsuche."
+description: "Die schönsten kleinen Altstädte: Rothenburg, Bamberg, Quedlinburg, Görlitz, Stralsund und mehr, mit Tipps gegen Busgruppen, zum Parken und zum Übernachten."
 category: staedtereisen
 date: 2026-09-01
 ---

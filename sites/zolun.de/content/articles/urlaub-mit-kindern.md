@@ -1,6 +1,6 @@
 ---
 title: "Urlaub in Deutschland mit Kindern: Ziele nach Alter, Unterkunft, Anreise und entspannte Tage"
-description: "Familienurlaub in Deutschland planen: welche Ziele für Babys, Kindergarten- und Schulkinder passen, Strand, See oder Bauernhof, Anreise mit Auto oder Bahn, Tagesrhythmus, Sicherheit am Wasser und Ideen für Regentage."
+description: "Familienurlaub in Deutschland planen: passende Ziele nach Alter, Unterkunft, Anreise, entspannter Tagesrhythmus, Sicherheit am Wasser und Ideen für Regentage."
 category: reiseplanung
 date: 2026-09-16
 ---

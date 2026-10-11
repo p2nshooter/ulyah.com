@@ -1,6 +1,6 @@
 ---
 title: "Bayerische Seen: Chiemsee, Königssee, Tegernsee und Co. im Vergleich – mit Anreise ohne Auto"
-description: "Welcher See in Bayern passt zu dir? Chiemsee mit Herren- und Fraueninsel, Königssee, Tegernsee, Starnberger See, Ammersee, Walchensee, Eibsee und das Fränkische Seenland. Plus Bahnanreise, Sturmwarnung und Badetipps."
+description: "Welcher See in Bayern passt zu dir? Chiemsee, Königssee, Tegernsee, Starnberger See, Walchensee, Eibsee und das Fränkische Seenland im Vergleich, mit Bahnanreise."
 category: seen-und-fluesse
 date: 2026-08-23
 ---

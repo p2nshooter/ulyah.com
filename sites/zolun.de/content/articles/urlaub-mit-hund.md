@@ -1,6 +1,6 @@
 ---
 title: "Urlaub mit Hund in Deutschland: Unterkunft, Hundestrände, Leinenpflicht und sichere Anreise"
-description: "Mit Hund verreisen: hundefreundliche Unterkünfte finden, Hundestrände an Nord- und Ostsee, Leinenpflicht in der Brut- und Setzzeit, Anreise mit Auto und Bahn, Hitze, Wasser, Weidetiere und eine Packliste für den Vierbeiner."
+description: "Mit Hund verreisen: hundefreundliche Unterkünfte, Hundestrände an Nord- und Ostsee, Leinenpflicht, Anreise mit Auto und Bahn, Gesundheit und eine Packliste."
 category: reiseplanung
 date: 2026-09-19
 ---

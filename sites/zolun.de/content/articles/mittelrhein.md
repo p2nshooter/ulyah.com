@@ -1,6 +1,6 @@
 ---
 title: "Mittelrhein: Burgen, Loreley und Weinorte zwischen Rüdesheim und Koblenz"
-description: "Das Welterbe Oberes Mittelrheintal entdecken: Schifffahrt zwischen Bingen und St. Goar, Loreley, Marksburg und Pfalzgrafenstein, Bacharach und Oberwesel, Rheinsteig und Rheinradweg, Fähren statt Brücken und Tipps zu Bahnlärm und Reisezeit."
+description: "Das Welterbe Mittelrheintal: Schifffahrt an der Loreley vorbei, Marksburg und Pfalzgrafenstein, Weinorte, Rheinsteig, Fähren statt Brücken und Tipps zur Unterkunft."
 category: seen-und-fluesse
 date: 2026-10-01
 ---

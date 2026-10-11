@@ -1,6 +1,6 @@
 ---
 title: "Mit der Bahn in den Urlaub: Tickets, Gepäck, Kinder, Fahrrad und was bei Verspätung gilt"
-description: "Bahnurlaub in Deutschland stressfrei planen: Sparpreis oder Flexpreis, BahnCard, Kinder fahren mit, Gepäck und Gepäckservice, Fahrrad im Zug, Fahrgastrechte bei Verspätung und der Weg vom Bahnhof zur Unterkunft."
+description: "Bahnurlaub ohne Stress: Sparpreis oder Flexpreis, Kinder fahren mit, Gepäck, Fahrrad im Zug, Fahrgastrechte bei Verspätung und der Weg zur Unterkunft."
 category: anreise-und-unterkunft
 date: 2026-09-10
 ---

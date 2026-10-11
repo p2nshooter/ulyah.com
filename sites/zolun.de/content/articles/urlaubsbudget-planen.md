@@ -1,6 +1,6 @@
 ---
 title: "Urlaubsbudget ehrlich planen: alle Kosten im Blick, mit Beispielrechnung und Spartipps"
-description: "So planst du die Kosten für deinen Deutschlandurlaub realistisch: Anreise, Unterkunft, Essen, Ausflüge, Kurabgabe, Strandkorb, Parken und Puffer. Mit Beispielrechnung für eine Familienwoche an der Ostsee und praktischen Spartipps."
+description: "Urlaubskosten realistisch planen: Anreise, Unterkunft, Essen, Ausflüge und versteckte Nebenkosten, mit Beispielrechnung für eine Familienwoche und Spartipps."
 category: reiseplanung
 date: 2026-09-22
 ---

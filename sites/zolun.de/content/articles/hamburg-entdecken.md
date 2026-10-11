@@ -1,6 +1,6 @@
 ---
 title: "Hamburg entdecken: Hafen, Speicherstadt, Elbphilharmonie und Alster in zwei bis drei Tagen"
-description: "Hamburg für Erstbesucher: die wichtigsten Viertel, Hafenrundfahrt mit der Fähre zum Nahverkehrstarif, Elbphilharmonie-Plaza, Fischmarkt, Alster, Museen bei Regen, Essen und ein Plan für zwei bis drei Tage."
+description: "Hamburg für Erstbesucher: Hafen mit der Fähre zum Nahverkehrstarif, Speicherstadt, Elbphilharmonie, Fischmarkt, Alster, Regenprogramm und ein Plan für zwei bis drei Tage."
 category: staedtereisen
 date: 2026-08-26
 ---

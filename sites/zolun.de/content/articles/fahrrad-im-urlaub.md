@@ -1,6 +1,6 @@
 ---
 title: "Fahrrad im Urlaub: Radfernwege, Tagesetappen, Gepäck, Leihräder und Regeln in Deutschland"
-description: "Radurlaub in Deutschland planen: die bekanntesten Fluss- und Küstenradwege, realistische Tagesetappen, Unterkünfte für Radfahrer, Gepäcktransport, E-Bike und Leihrad, Rad im Zug, Verkehrsregeln und Touren mit Kindern."
+description: "Radurlaub in Deutschland planen: bekannte Fluss- und Küstenradwege, realistische Tagesetappen, Gepäck, E-Bike und Leihrad, Rad im Zug und die wichtigsten Regeln."
 category: reiseplanung
 date: 2026-09-25
 ---
