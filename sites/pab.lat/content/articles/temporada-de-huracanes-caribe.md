@@ -42,6 +42,24 @@ Esto no significa que el sur del Caribe esté libre de mal tiempo, pero sí que 
 - calor y humedad altos,
 - en algunas costas, coincide con la llegada del sargazo, como explicamos en la guía sobre el [sargazo en el Caribe](/bitacora/sargazo-en-el-caribe/).
 
+## Cómo es el clima en temporada, día a día
+
+La mayor parte de los días de la temporada no hay ninguna tormenta cerca, y el tiempo sigue un patrón bastante típico del trópico: mañanas soleadas, calor y humedad crecientes y chaparrones intensos pero breves por la tarde o la noche. Algunas ideas para aprovecharlo:
+
+- **Planifica las excursiones de playa, ruinas y naturaleza por la mañana.**
+- **Reserva las tardes** para museos, siestas, piscinas o actividades bajo techo.
+- **Protégete de los mosquitos:** la lluvia multiplica los criaderos, y en muchas zonas circulan el dengue y otras enfermedades. Usa repelente y ropa ligera de manga larga al atardecer.
+- **Hidrátate más de lo habitual:** el calor húmedo hace sudar mucho.
+
+## Qué llevar si viajas en temporada
+
+- Un impermeable liviano o un paraguas plegable.
+- Ropa de secado rápido y sandalias que no se dañen con el agua.
+- Repelente de insectos y protector solar.
+- Una bolsa impermeable para documentos, teléfono y dinero.
+- Una batería externa cargada y una pequeña linterna.
+- Copias digitales de tus documentos y los teléfonos de tu seguro, tu aerolínea y tu consulado.
+
 ## Cómo seguir las alertas
 
 - **Centro Nacional de Huracanes de Estados Unidos,** que emite avisos para el Atlántico y el Pacífico nororiental, también en español.
@@ -84,6 +102,10 @@ Más información en la guía sobre [seguro de viaje](/bitacora/seguro-de-viaje/
 5. **No vayas a la playa** para ver el oleaje: las olas y las corrientes son muy peligrosas antes y durante la tormenta. Lee la guía sobre [corrientes de resaca y banderas](/bitacora/corrientes-de-resaca-y-banderas/).
 6. **Durante la tormenta, quédate en un lugar interior,** lejos de ventanas.
 7. **Después,** espera a que las autoridades indiquen que es seguro salir: puede haber cables caídos, inundaciones y agua contaminada.
+
+## Con niños o personas mayores
+
+Si viajas con niños pequeños, personas mayores o alguien con problemas de salud, la flexibilidad es todavía más importante. Elige alojamientos con buenos servicios y fácil acceso a centros médicos, lleva medicamentos suficientes para algunos días extra y ten un plan claro para salir antes si se anuncia una tormenta. En estos casos, viajar fuera del pico de la temporada suele ser la opción más tranquila.
 
 ## Islas y ferris
 
