@@ -130,6 +130,10 @@ Junio y principios de julio suelen ser más tranquilos que el pico de agosto a o
 
 Sí, muchas personas lo hacen sin problemas, pero es el mes de mayor actividad. Viaja con reservas flexibles, seguro contratado con tiempo y atento a los pronósticos.
 
+### ¿Con cuánta anticipación se sabe que viene un huracán?
+
+Los pronósticos oficiales suelen seguir la formación y la trayectoria probable de una tormenta con varios días de anticipación, lo que da tiempo para cambiar planes. Aun así, la intensidad y el rumbo pueden variar, por lo que conviene revisar los avisos varias veces al día cuando hay un sistema activo cerca.
+
 ### ¿Qué pasa con los cruceros?
 
 Las navieras suelen cambiar las rutas para esquivar las tormentas. Revisa las condiciones de tu reserva sobre cambios de itinerario.
