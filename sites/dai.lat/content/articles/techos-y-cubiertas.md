@@ -57,6 +57,10 @@ En el trópico, el techo es la principal fuente de calor de la casa; en climas f
 - **Zonas sísmicas:** cuanto más liviano sea el techo, menores son las fuerzas que el sismo genera sobre los muros. Un techo pesado de teja sobre muros débiles es un riesgo, sobre todo en casas de adobe, como explicamos en la guía sobre [adobe y construcción con tierra](/articulos/adobe-y-construccion-con-tierra/).
 - **Zonas de huracanes:** anclajes calculados y cumplimiento de las normas locales de viento.
 
+## La estructura que sostiene el techo
+
+Los techos inclinados se apoyan sobre una estructura de vigas, cerchas o tijerales y correas, de madera o de acero. Esa estructura debe dimensionarse para el peso del material de cubierta, la lluvia, el viento y, donde corresponda, la nieve o la ceniza volcánica. Una estructura de madera necesita protección contra la humedad y las termitas, como explicamos en la guía sobre [madera en casa](/articulos/madera-en-casa-especies-y-cuidados/), y una de acero, protección contra la corrosión. Cambiar un techo liviano por uno más pesado, por ejemplo lámina por teja, exige comprobar antes que la estructura y los muros puedan soportarlo.
+
 ## La losa plana como azotea
 
 En muchas ciudades la losa plana se usa para tender ropa, colocar tanques de agua o crecer más adelante. Algunas recomendaciones:
