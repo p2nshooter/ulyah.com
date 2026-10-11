@@ -1,0 +1,39 @@
+{
+  "domain": "rough.es",
+  "name": "ROUGH",
+  "expansion": "Gemas en bruto, joyería y estilo con carácter",
+  "tagline": "De la piedra en bruto al valor que perdura",
+  "description": "ROUGH es una revista independiente sobre gemas en bruto, piedras preciosas, talla, joyería y estilo masculino con carácter: guías rigurosas, sin promesas de inversión ni precios inventados.",
+  "lang": "es",
+  "locale": "es-ES",
+  "ogLocale": "es_ES",
+  "draft": true,
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "rough-es",
+  "worker": "rough-es",
+  "themeColor": "#10241b",
+  "email": "contacto@rough.es",
+  "author": "Redacción ROUGH",
+  "fonts": "https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Figtree:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/es/", "category": "/es/seccion/" },
+  "categories": [
+    { "slug": "gemas-en-bruto", "name": "Gemas en bruto", "icon": "cristal", "description": "Cómo se forman, se reconocen y se evalúan las piedras sin tallar: color, transparencia, hábito cristalino y señales de alerta." },
+    { "slug": "piedras-preciosas", "name": "Piedras preciosas", "icon": "talla", "description": "Rubí, zafiro, esmeralda, espinela, turmalina y granate: calidad, tratamientos, sintéticos e informes de laboratorio." },
+    { "slug": "talla-y-joyeria", "name": "Talla y joyería", "icon": "lupa", "description": "Lapidaria, pulido, engastes y metales preciosos: cómo una piedra en bruto se convierte en una joya bien hecha." },
+    { "slug": "compra-y-valoracion", "name": "Compra y valoración", "icon": "balanza", "description": "Comprar con criterio, elegir comerciantes y laboratorios, y entender por qué una tasación profesional no se improvisa." },
+    { "slug": "estilo-masculino", "name": "Estilo masculino", "icon": "anillo", "description": "Ropa duradera, botas, cuero, relojes y anillos: un armario con carácter que se construye con pocas piezas buenas." },
+    { "slug": "cuidado-personal", "name": "Cuidado personal", "icon": "navaja", "description": "Barba, afeitado, piel, cabello y fragancia explicados con sensatez, sin promesas milagro ni rutinas imposibles." }
+  ],
+  "menu": [
+    { "label": "Sobre ROUGH", "href": "/sobre-nosotros/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos de uso", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" },
+    { "label": "Política editorial", "href": "/politica-editorial/" }
+  ]
+}

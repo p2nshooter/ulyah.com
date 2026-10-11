@@ -1,0 +1,229 @@
+/* ROUGH.LAT — Las granadas de Jaquín y Boaz. Ivory paper, deep emerald, bronze, champagne gold, garnet seeds. */
+:root {
+  --verde: #183c32;
+  --esmeralda: #102a24;
+  --oro: #d8bc7a;
+  --oro-osc: #a5823f;
+  --bronce: #8c6239;
+  --marfil: #f7f4ec;
+  --marfil-2: #efe9db;
+  --carbon: #242824;
+  --gris: #616760;
+  --granate: #9e1b33;
+  --rojo: #c60b1e;
+  --amarillo: #ffc400;
+  --titulo: "Cinzel", "Trajan Pro", Georgia, serif;
+  --cuerpo: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --borde: 1px solid #ded5bf;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.granada { margin: 0; background: var(--marfil); color: var(--carbon); font: 17.5px/1.75 var(--cuerpo); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+svg { max-width: 100%; }
+a { color: var(--verde); text-decoration-color: var(--oro); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+a:hover { color: var(--granate); }
+:focus-visible { outline: 2px solid var(--granate); outline-offset: 3px; }
+.granada-salto { position: absolute; left: -999px; top: 10px; padding: 8px 14px; background: var(--esmeralda); color: var(--marfil); z-index: 60; border-radius: 6px; }
+.granada-salto:focus { left: 12px; }
+.granada-lectura { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 50; }
+.granada-lectura span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--granate), var(--oro)); }
+body:not(.granada--nota) .granada-lectura { display: none; }
+
+/* Spain 2026 */
+.granada-campeona { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0; padding: 6px 14px; background: var(--marfil-2); border-bottom: var(--borde); font: 600 13.5px var(--cuerpo); color: var(--esmeralda); position: relative; overflow: hidden; }
+.granada-campeona p { margin: 0; }
+.granada-campeona em { font-style: normal; color: var(--rojo); }
+.granada-campeona strong { color: var(--oro-osc); }
+.granada-campeona__fruto { width: 22px; height: 22px; animation: granadaLatido 3.2s ease-in-out infinite; }
+.granada-campeona__faja { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--rojo) 0 25%, var(--amarillo) 25% 75%, var(--rojo) 75%); }
+@keyframes granadaLatido { 50% { transform: scale(1.12) rotate(-6deg); } }
+
+/* header */
+.granada-cabecera { position: sticky; top: 0; z-index: 40; background: rgba(247, 244, 236, .94); backdrop-filter: saturate(1.4) blur(8px); border-bottom: var(--borde); }
+.granada-cabecera__dentro { max-width: 1280px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.granada-marca { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--esmeralda); }
+.granada-marca__fruto { width: 42px; height: 42px; transition: transform .5s; }
+.granada-marca:hover .granada-marca__fruto { transform: rotate(-14deg); }
+.granada-marca__texto { display: grid; }
+.granada-marca__nombre { font: 700 24px/1 var(--titulo); letter-spacing: .18em; }
+.granada-marca__nombre i { font-style: normal; color: var(--oro-osc); }
+.granada-marca__lema { font-size: 11.5px; letter-spacing: .08em; color: var(--gris); margin-top: 4px; }
+.granada-boton-menu { display: none; margin-left: auto; padding: 8px 18px; border: 1px solid var(--verde); border-radius: 4px; background: transparent; color: var(--verde); font: 600 14px var(--cuerpo); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+.granada-menu { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.granada-menu__enlace { position: relative; padding: 10px 12px 16px; font: 600 14px var(--cuerpo); letter-spacing: .04em; color: var(--carbon); text-decoration: none; }
+.granada-menu__semillas { position: absolute; left: 12px; right: 12px; bottom: 6px; display: flex; justify-content: space-between; }
+.granada-menu__semillas i { width: 6px; height: 6px; border-radius: 50% 50% 45% 45%; background: var(--granate); transform: scale(0); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.granada-menu__enlace:hover .granada-menu__semillas i, .granada-menu__enlace:focus-visible .granada-menu__semillas i { transform: scale(1); }
+.granada-menu__semillas i:nth-child(2) { transition-delay: .05s; background: var(--oro-osc); }
+.granada-menu__semillas i:nth-child(3) { transition-delay: .1s; }
+.granada-menu__semillas i:nth-child(4) { transition-delay: .15s; background: var(--oro-osc); }
+.granada-menu__semillas i:nth-child(5) { transition-delay: .2s; }
+.granada-menu__enlace:hover { color: var(--granate); }
+.granada-menu__enlace--casa { color: var(--verde); }
+
+/* buttons & section heads */
+.granada-btn { display: inline-block; padding: 13px 26px; background: var(--esmeralda); color: var(--marfil); text-decoration: none; font: 600 14px var(--cuerpo); letter-spacing: .12em; text-transform: uppercase; border: 1px solid var(--esmeralda); box-shadow: 4px 4px 0 var(--oro); transition: transform .2s, box-shadow .2s; }
+.granada-btn:hover { color: var(--marfil); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--oro); }
+.granada-btn--sutil { background: transparent; color: var(--esmeralda); box-shadow: none; }
+.granada-btn--sutil:hover { color: var(--granate); box-shadow: none; }
+.granada-encabezado { max-width: 1280px; margin: 0 auto 30px; padding: 0 22px; text-align: center; }
+.granada-encabezado__ante { margin: 0; font: 600 12.5px var(--cuerpo); letter-spacing: .3em; text-transform: uppercase; color: var(--granate); }
+.granada-encabezado__titulo { margin: 8px 0 0; font: 600 clamp(26px, 3.4vw, 40px)/1.2 var(--titulo); color: var(--esmeralda); letter-spacing: .04em; }
+.granada-encabezado__titulo::after { content: ""; display: block; width: 120px; height: 10px; margin: 16px auto 0; background: radial-gradient(circle, var(--granate) 3px, transparent 4px) 0 0 / 20px 10px repeat-x; }
+.granada-encabezado--oscuro .granada-encabezado__titulo { color: var(--marfil); }
+.granada-encabezado--oscuro .granada-encabezado__ante { color: var(--oro); }
+
+/* hero — two bronze pillars */
+.granada-portico { position: relative; overflow: hidden; background: radial-gradient(900px 420px at 50% 0, #ffffff, transparent 70%), linear-gradient(180deg, var(--marfil) 0%, var(--marfil-2) 100%); border-bottom: var(--borde); }
+.granada-portico__dentro { max-width: 1280px; margin: 0 auto; padding: 64px 22px 76px; display: grid; grid-template-columns: 90px 1fr 90px; gap: 40px; align-items: stretch; }
+.granada-portico__texto { text-align: center; align-self: center; }
+.granada-portico__ante { margin: 0; font: 600 13px var(--cuerpo); letter-spacing: .26em; text-transform: uppercase; color: var(--bronce); }
+.granada-portico__titulo { margin: 16px 0 0; font: 600 clamp(36px, 5.6vw, 68px)/1.08 var(--titulo); color: var(--esmeralda); letter-spacing: .02em; }
+.granada-portico__titulo span { color: var(--granate); font-style: normal; }
+.granada-portico__entrada { max-width: 62ch; margin: 22px auto 0; font-size: 18.5px; color: var(--gris); }
+.granada-portico__acciones { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin: 32px 0 0; }
+.pilar { display: grid; grid-template-rows: 40px 64px 1fr; justify-items: center; min-height: 340px; }
+.pilar__lirio { width: 80px; height: 40px; border-radius: 40px 40px 6px 6px; background: radial-gradient(circle at 50% 100%, transparent 14px, var(--oro) 15px 17px, transparent 18px), linear-gradient(180deg, #c99b55, var(--bronce)); }
+.pilar__granadas { width: 86px; height: 64px; background: radial-gradient(circle, var(--granate) 6px, transparent 7px) 0 0 / 17px 16px; animation: granadaBrillo 5s ease-in-out infinite; }
+.pilar__fuste { width: 58px; height: 100%; border-radius: 4px; background: linear-gradient(90deg, #6a4526, #b3864d 35%, #e3c48a 50%, #b3864d 65%, #6a4526); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.pilar--boaz .pilar__granadas { animation-delay: 2.5s; }
+@keyframes granadaBrillo { 50% { filter: brightness(1.35) saturate(1.2); } }
+.granada-portico__fruto { position: absolute; left: 50%; bottom: -190px; width: 320px; margin-left: -160px; opacity: .07; transform: rotate(-12deg); pointer-events: none; }
+
+/* category rooms */
+.granada-salas { padding: 76px 0 40px; }
+.granada-salas__lista { list-style: none; margin: 0 auto; padding: 0 22px; max-width: 1280px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.sala { position: relative; display: grid; gap: 8px; align-content: start; height: 100%; padding: 26px 20px 22px; background: #fffdf7; border: var(--borde); text-decoration: none; color: var(--carbon); transition: transform .3s, box-shadow .3s, border-color .3s; }
+.sala::before { content: ""; position: absolute; inset: 6px; border: 1px solid transparent; transition: border-color .3s; pointer-events: none; }
+.sala:hover { transform: translateY(-6px); box-shadow: 0 24px 40px -26px rgba(16, 42, 36, .55); border-color: var(--oro); }
+.sala:hover::before { border-color: rgba(216, 188, 122, .6); }
+.sala__numero { font: 600 13px var(--titulo); color: var(--oro-osc); letter-spacing: .1em; }
+.sala__icono { width: 40px; height: 40px; color: var(--verde); }
+.sala__nombre { font: 600 18px/1.25 var(--titulo); color: var(--esmeralda); }
+.sala__texto { font-size: 14px; line-height: 1.55; color: var(--gris); }
+.sala__cuenta { margin-top: 6px; font: 600 11.5px var(--cuerpo); letter-spacing: .16em; text-transform: uppercase; color: var(--granate); }
+
+/* cards */
+.granada-novedades { padding: 50px 0 60px; }
+.granada-rejilla { max-width: 1280px; margin: 0 auto; padding: 0 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.semilla { background: #fffdf7; border: var(--borde); transition: transform .3s, box-shadow .3s; }
+.semilla:hover { transform: translateY(-4px); box-shadow: 0 24px 46px -30px rgba(16, 42, 36, .6); }
+.semilla__enlace { display: flex; flex-direction: column; height: 100%; padding: 24px; text-decoration: none; color: var(--carbon); border-top: 4px solid var(--verde); }
+.semilla__cat { display: flex; align-items: center; gap: 8px; font: 600 12px var(--cuerpo); letter-spacing: .14em; text-transform: uppercase; color: var(--bronce); }
+.semilla__icono { width: 20px; height: 20px; }
+.semilla__titulo { margin: 12px 0 10px; font: 600 20px/1.3 var(--titulo); color: var(--esmeralda); }
+.semilla__resumen { flex: 1; margin: 0 0 16px; font-size: 15px; color: var(--gris); }
+.semilla__pie { font: 600 13px var(--cuerpo); color: var(--granate); }
+.semilla--portada { grid-column: span 3; background: linear-gradient(120deg, var(--esmeralda), var(--verde)); }
+.semilla--portada .semilla__enlace { padding: 40px 44px; border-top-color: var(--oro); color: var(--marfil); }
+.semilla--portada .semilla__titulo { font-size: clamp(24px, 3vw, 34px); color: var(--marfil); }
+.semilla--portada .semilla__resumen { color: #d9d4c4; max-width: 70ch; font-size: 17px; }
+.semilla--portada .semilla__cat, .semilla--portada .semilla__pie { color: var(--oro); }
+
+/* dark archive */
+.granada-archivo { padding: 70px 0 80px; background: linear-gradient(180deg, var(--esmeralda), #0a1c18); color: #d6d0c0; }
+.granada-archivo__cols { max-width: 1280px; margin: 0 auto; padding: 0 22px; columns: 3 300px; column-gap: 40px; }
+.granada-archivo__cols section { break-inside: avoid; margin-bottom: 30px; }
+.granada-archivo__cols h3 { margin: 0 0 10px; font: 600 17px var(--titulo); letter-spacing: .06em; }
+.granada-archivo__cols h3 a { color: var(--oro); text-decoration: none; }
+.granada-archivo__cols ul { margin: 0; padding: 0; list-style: none; font-size: 14.5px; }
+.granada-archivo__cols li { padding: 6px 0; border-bottom: 1px solid rgba(216, 188, 122, .14); }
+.granada-archivo__cols li a { color: #e4dfd2; text-decoration: none; }
+.granada-archivo__cols li a:hover { color: var(--oro); }
+
+.granada-preparacion { max-width: 820px; margin: 0 auto 60px; padding: 46px 30px; text-align: center; background: #fffdf7; border: var(--borde); box-shadow: 8px 8px 0 var(--marfil-2); }
+.granada-preparacion p:not([class]) { font-size: 18px; color: var(--gris); }
+
+/* category head */
+.granada-cabeza { background: linear-gradient(180deg, var(--marfil-2), var(--marfil)); border-bottom: var(--borde); }
+.granada-cabeza__dentro { max-width: 900px; margin: 0 auto; padding: 44px 22px 52px; text-align: center; }
+.granada-cabeza__icono { width: 60px; height: 60px; color: var(--granate); margin-top: 18px; }
+.granada-cabeza h1 { margin: 8px 0 0; font: 600 clamp(32px, 4.6vw, 50px)/1.15 var(--titulo); color: var(--esmeralda); }
+.granada-cabeza p { max-width: 62ch; margin: 14px auto 0; color: var(--gris); }
+.granada-migas { font-size: 13.5px; color: var(--gris); }
+.granada-migas a { color: var(--verde); }
+
+/* article */
+.granada-nota { max-width: 1280px; margin: 0 auto; padding: 44px 22px 10px; }
+.granada-nota__cabecera { max-width: 880px; margin: 0 auto 40px; text-align: center; }
+.granada-nota__cat { margin: 18px 0 0; font: 600 12.5px var(--cuerpo); letter-spacing: .28em; text-transform: uppercase; color: var(--granate); }
+.granada-nota__titulo { margin: 10px 0 0; font: 600 clamp(30px, 4.4vw, 50px)/1.15 var(--titulo); color: var(--esmeralda); }
+.granada-nota__bajada { margin: 18px auto 0; max-width: 66ch; font-size: 19.5px; color: var(--gris); font-style: italic; }
+.granada-nota__firma { margin: 16px 0 0; font-size: 13.5px; letter-spacing: .04em; color: var(--gris); }
+.granada-nota__cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 50px; align-items: start; }
+.granada-nota__cuerpo--solo { grid-template-columns: minmax(0, 780px); justify-content: center; }
+.granada-indice { order: 2; position: sticky; top: 100px; padding: 22px; background: #fffdf7; border: var(--borde); border-top: 4px solid var(--granate); }
+.granada-indice__titulo { margin: 0 0 10px; font: 600 14px var(--titulo); letter-spacing: .14em; color: var(--esmeralda); }
+.granada-indice ol { margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.5; }
+.granada-indice li { margin: 7px 0; }
+.granada-indice li::marker { color: var(--granate); font-weight: 700; }
+.granada-indice a { text-decoration: none; color: var(--carbon); }
+.granada-indice a.activo { color: var(--granate); font-weight: 700; }
+.granada-indice__meta { margin: 16px 0 0; font-size: 12.5px; color: var(--gris); }
+.granada-prosa { max-width: 760px; }
+.granada-prosa > p:first-of-type::first-letter { float: left; font: 600 64px/.9 var(--titulo); color: var(--granate); margin: 6px 10px 0 0; }
+.granada-prosa h2 { margin: 2em 0 .6em; font: 600 28px/1.25 var(--titulo); color: var(--esmeralda); scroll-margin-top: 110px; padding-bottom: 10px; border-bottom: 1px solid #e3dbc7; }
+.granada-prosa h3 { margin: 1.6em 0 .4em; font: 700 20px/1.35 var(--cuerpo); color: var(--verde); }
+.granada-prosa ul, .granada-prosa ol { padding-left: 1.3em; }
+.granada-prosa li::marker { color: var(--granate); }
+.granada-prosa blockquote { margin: 1.8em 0; padding: 20px 26px; background: var(--marfil-2); border-left: 4px solid var(--oro); font-size: 17px; }
+.granada-prosa blockquote p:last-child { margin-bottom: 0; }
+.granada-prosa table { width: 100%; border-collapse: collapse; margin: 1.6em 0; font-size: 15.5px; display: block; overflow-x: auto; }
+.granada-prosa th { background: var(--esmeralda); color: var(--oro); text-align: left; padding: 10px 12px; font-weight: 600; }
+.granada-prosa td { padding: 10px 12px; border-bottom: 1px solid #e3dbc7; vertical-align: top; }
+.granada-nota__aviso { margin: 2.6em 0 0; padding: 20px 24px; background: #fffdf7; border: var(--borde); border-left: 4px solid var(--granate); font-size: 15px; }
+.granada-nota__aviso p { margin: 0; }
+
+/* footer */
+.granada-pie { margin-top: 70px; background: var(--esmeralda); color: #cfc9b8; }
+.granada-pie__cornisa { height: 14px; background: radial-gradient(circle, var(--granate) 4px, transparent 5px) 0 2px / 22px 14px repeat-x, linear-gradient(180deg, var(--bronce), #5e3f22); }
+.granada-pie__dentro { max-width: 1280px; margin: 0 auto; padding: 54px 22px 26px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+.granada-pie__nombre { margin: 0; font: 700 26px var(--titulo); letter-spacing: .16em; color: var(--marfil); }
+.granada-pie__nombre i { font-style: normal; color: var(--oro); }
+.granada-pie__lema { margin: 4px 0 14px; color: var(--oro); font-size: 14px; }
+.granada-pie__titulo { margin: 0 0 12px; font: 600 13px var(--titulo); letter-spacing: .18em; color: var(--oro); }
+.granada-pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; }
+.granada-pie a { color: #e8e2d2; text-decoration: none; }
+.granada-pie a:hover { color: var(--oro); }
+.granada-pie__nota { max-width: 1280px; margin: 0 auto; padding: 18px 22px 30px; border-top: 1px solid rgba(216, 188, 122, .2); font-size: 13px; color: #a8a392; }
+
+/* 404 */
+.granada-perdida { max-width: 760px; margin: 0 auto; padding: 70px 22px; text-align: center; }
+.granada-perdida__fruto { width: 110px; height: 110px; }
+.granada-perdida__codigo { margin: 0; font: 700 84px/1 var(--titulo); color: var(--granate); }
+.granada-perdida h1 { font: 600 30px var(--titulo); color: var(--esmeralda); }
+.granada-perdida__cats a { white-space: nowrap; }
+
+.granada-confeti { position: fixed; inset: 0; pointer-events: none; z-index: 70; }
+
+@media (max-width: 1100px) {
+  .granada-salas__lista { grid-template-columns: repeat(3, 1fr); }
+  .granada-nota__cuerpo { grid-template-columns: 1fr; }
+  .granada-indice { order: 0; position: static; }
+}
+@media (max-width: 900px) {
+  .granada-boton-menu { display: inline-block; }
+  .granada-menu { display: none; width: 100%; flex-direction: column; }
+  .granada-menu.abierto { display: flex; }
+  .granada-menu__enlace { border-bottom: var(--borde); }
+  .granada-portico__dentro { grid-template-columns: 1fr; padding: 50px 22px 60px; }
+  .pilar { display: none; }
+  .granada-rejilla { grid-template-columns: repeat(2, 1fr); }
+  .semilla--portada { grid-column: span 2; }
+  .granada-pie__dentro { grid-template-columns: 1fr 1fr; }
+  .granada-pie__dentro > section { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  body.granada { font-size: 16.5px; }
+  .granada-marca__lema { display: none; }
+  .granada-salas__lista, .granada-rejilla { grid-template-columns: 1fr; }
+  .semilla--portada { grid-column: auto; }
+  .semilla--portada .semilla__enlace { padding: 28px 24px; }
+  .granada-pie__dentro { grid-template-columns: 1fr; }
+  .granada-campeona { font-size: 12px; }
+  .granada-prosa h2 { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 860px) { .granada-preparacion { margin-left: 16px; margin-right: 16px; } }

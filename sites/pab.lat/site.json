@@ -1,0 +1,39 @@
+{
+  "domain": "pab.lat",
+  "name": "PAB",
+  "expansion": "Paisajes, Aventuras y Bitácoras",
+  "tagline": "Viajar por América Latina con calma, criterio y los ojos bien abiertos",
+  "description": "PAB es una revista de viajes por América Latina: playas, ciudades, montañas, selvas, rutas por carretera y cocina local, con guías prácticas para planificar, gastar con cabeza y viajar con respeto.",
+  "lang": "es",
+  "locale": "es-419",
+  "ogLocale": "es_LA",
+  "draft": true,
+  "adsense": "ca-pub-6146217038829045",
+  "trackId": "pab-lat",
+  "worker": "pab-lat",
+  "themeColor": "#1d2340",
+  "email": "contacto@pab.lat",
+  "author": "Redacción PAB",
+  "fonts": "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Albert+Sans:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/bitacora/", "category": "/destinos/" },
+  "categories": [
+    { "slug": "playas-y-costas", "name": "Playas y costas", "icon": "ola", "description": "Caribe, Pacífico y Atlántico: cuándo ir, cómo moverse, dónde bañarse con seguridad y cómo cuidar el mar que visitas." },
+    { "slug": "ciudades-y-cultura", "name": "Ciudades y cultura", "icon": "arco", "description": "Centros históricos, museos, barrios, fiestas y arquitectura: cómo recorrer las ciudades latinoamericanas sin prisa." },
+    { "slug": "montanas-y-naturaleza", "name": "Montañas y naturaleza", "icon": "montana", "description": "Andes, selvas, desiertos y parques nacionales: altura, clima, equipo y senderos para disfrutar con seguridad." },
+    { "slug": "rutas-por-carretera", "name": "Rutas por carretera", "icon": "camino", "description": "Viajes en auto, bus y tren: itinerarios, distancias realistas, documentos, combustible y paradas que valen la pena." },
+    { "slug": "planificacion-y-presupuesto", "name": "Planificación y presupuesto", "icon": "maleta", "description": "Documentos, seguros, dinero, salud del viajero y equipaje: lo que conviene resolver antes de salir de casa." },
+    { "slug": "sabores-del-viaje", "name": "Sabores del viaje", "icon": "plato", "description": "Mercados, cocinas regionales y bebidas tradicionales: comer bien y con respeto en cada destino." }
+  ],
+  "menu": [
+    { "label": "Sobre PAB", "href": "/sobre-nosotros/" },
+    { "label": "Contacto", "href": "/contacto/" }
+  ],
+  "legal": [
+    { "label": "Aviso legal", "href": "/aviso-legal/" },
+    { "label": "Privacidad", "href": "/politica-de-privacidad/" },
+    { "label": "Cookies", "href": "/politica-de-cookies/" },
+    { "label": "Términos de uso", "href": "/terminos-y-condiciones/" },
+    { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" },
+    { "label": "Política editorial", "href": "/politica-editorial/" }
+  ]
+}

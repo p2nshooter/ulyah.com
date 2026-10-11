@@ -25,7 +25,7 @@ async function main() {
 console.log("\n=== registry ===");
 check("dawa.es is not in the registry", !OWNER_SITES.some((s) => s.domain === "dawa.es" || s.trackId === "dawa"));
 check("dawa is the excluded beacon id", EXCLUDED_TRACK_IDS.has("dawa"));
-check("27 owner sites (17 built + 10 planned)", OWNER_SITES.length === 27 && automatableSites().length === 17, `${OWNER_SITES.length} / ${automatableSites().length}`);
+check("31 owner sites (17 built + 14 planned)", OWNER_SITES.length === 31 && automatableSites().length === 17, `${OWNER_SITES.length} / ${automatableSites().length}`);
 check("track ids and domains are unique", new Set(OWNER_SITES.map((s) => s.trackId)).size === OWNER_SITES.length && new Set(OWNER_SITES.map((s) => s.domain)).size === OWNER_SITES.length);
 check("track ids are valid ad unit codes", OWNER_SITES.every((s) => /^[a-z0-9-]+$/.test(s.trackId)));
 check("legacy xad-es beacon maps to xad.es", siteByTrackId("xad-es")?.domain === "xad.es");
