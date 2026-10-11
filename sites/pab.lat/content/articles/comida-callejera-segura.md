@@ -136,6 +136,10 @@ En general sí, si eliges con criterio: puestos concurridos, comida caliente y r
 
 Varía. Muchos viajeros prefieren empezar los primeros días con platos cocidos y calientes y probar poco a poco salsas, crudos y lácteos.
 
+### ¿Conviene llevar algo para el estómago en el botiquín?
+
+Sí: sales de rehidratación oral, un gel desinfectante para las manos y los medicamentos que te haya indicado tu médico para el viaje. Con eso resuelves la mayoría de los malestares leves mientras decides si necesitas consulta.
+
 ### ¿Los jugos de frutas son seguros?
 
 Suelen serlo en puestos limpios y concurridos. Si tienes el estómago sensible, pide jugos sin agua ni hielo, o frutas enteras que puedas pelar.
