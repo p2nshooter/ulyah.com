@@ -1,6 +1,6 @@
 ---
 title: "Cómo llevar joyas con criterio: proporción, combinaciones, ocasiones y piezas con significado"
-description: "Ideas para lucir joyas con estilo propio: pocas piezas bien elegidas, proporción, mezclar metales, superponer capas, escotes y largos de collar, joyas según la ocasión, piezas con significado y discreción."
+description: "Ideas para lucir joyas con estilo propio: pocas piezas bien elegidas, proporción, mezclar metales, superponer capas, escotes, joyas según la ocasión, piezas con significado y discreción."
 category: lujo-y-estilo-de-vida
 date: 2026-10-11
 ---
@@ -50,6 +50,18 @@ Lo explicamos con más detalle en la guía sobre [oro, plata y platino](/es/oro-
 - **Pulseras:** mezcla texturas, como una cadena, un aro rígido y un reloj, en lugar de piezas idénticas.
 
 Cuando dudes, quita una pieza: el exceso resta elegancia.
+
+## El reloj también es una joya
+
+Un buen reloj forma parte del conjunto tanto como una pulsera. Para que conviva bien con otras piezas:
+
+- **Coordina el metal** de la caja y la correa con el de tus joyas, o úsalo como pieza puente si mezclas metales.
+- **Separa el reloj de las pulseras rígidas,** que pueden rayar el cristal o la caja; ponlas en la otra muñeca o entre pulseras blandas.
+- **Ajusta el tamaño:** una caja muy grande en una muñeca fina puede desequilibrar el conjunto.
+
+## Construir tu joyero poco a poco
+
+En lugar de comprar por impulso, piensa qué le falta a tu joyero: quizá unos aretes para la noche, una cadena más larga o un anillo que combine con tus piezas favoritas. Comprar con intención, priorizando la calidad y el estilo propio frente a las modas pasajeras, da como resultado un conjunto de joyas que se usan de verdad y que, con el tiempo, cuentan tu historia.
 
 ## El tono de piel: menos reglas de las que se dice
 
