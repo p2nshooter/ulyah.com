@@ -81,7 +81,6 @@ body:not(.cedro--guia) .cedro-avance { display: none; }
 .cedro-salon__acciones { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
 .cedro-salon__figura { margin: 0; border-radius: 26px; overflow: hidden; background: linear-gradient(180deg, #f7e5c2, #e7cfa2); box-shadow: 0 30px 60px -36px rgba(58, 36, 22, .8), inset 0 0 0 1px rgba(107, 65, 38, .2); }
 .cedro-columnata { display: block; width: 100%; height: auto; }
-.cedro-columnata__luz { animation: cedroLuz 12s ease-in-out infinite; mix-blend-mode: screen; }
 @keyframes cedroLuz { 0%, 100% { transform: translateX(-60px); opacity: .5; } 50% { transform: translateX(80px); opacity: 1; } }
 
 /* topics */
@@ -190,11 +189,161 @@ body:not(.cedro--guia) .cedro-avance { display: none; }
 
 .cedro-confeti { position: fixed; inset: 0; pointer-events: none; z-index: 70; }
 
+
+/* ════════ PALACIO — the House of the Forest of Lebanon, in motion ════════ */
+:root {
+  --oro-grad: linear-gradient(100deg, #8a5e1a 0%, #c9a24e 20%, #fff0bf 36%, #e2b84f 50%, #a87a22 66%, #f3d98c 84%, #8a5e1a 100%);
+  --oro-grad-osc: linear-gradient(100deg, #6e4d12 0%, #a87a22 25%, #d6a93f 42%, #8a5e1a 60%, #b8892e 80%, #6e4d12 100%);
+  --veta: repeating-linear-gradient(92deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 9px), repeating-linear-gradient(88deg, rgba(0, 0, 0, .07) 0 1px, transparent 1px 13px);
+  --rombos: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23c9a24e' stroke-width='1'%3E%3Cpath d='M32 4l28 28-28 28L4 32z'/%3E%3Ccircle cx='32' cy='32' r='6'/%3E%3C/g%3E%3C/svg%3E");
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+::selection { background: var(--laton); color: var(--cedro-osc); }
+.cedro-avance span { position: relative; background: var(--oro-grad); background-size: 300px 100%; box-shadow: 0 0 10px rgba(201, 162, 78, .7); }
+.cedro-avance i { position: absolute; right: -8px; top: -5px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff4c8, #e2b84f 45%, #a87a22 80%, #6e4d12); box-shadow: 0 0 8px rgba(226, 184, 79, .9); opacity: 0; transition: opacity .4s; }
+.cedro-avance.en-marcha i { opacity: 1; }
+
+/* header: a cedar beam with a brass edge */
+.cedro-encabezado { background: linear-gradient(180deg, rgba(245, 240, 230, .97), rgba(239, 230, 212, .95)); border-bottom: 0; box-shadow: 0 1px 0 #c9a24e, 0 3px 0 rgba(107, 65, 38, .25); transition: box-shadow .4s; }
+.cedro-encabezado.compacta { box-shadow: 0 1px 0 #c9a24e, 0 14px 30px -18px rgba(58, 36, 22, .7); }
+.cedro-encabezado__dentro { transition: padding .4s var(--ease), row-gap .4s var(--ease); }
+.cedro-encabezado.compacta .cedro-encabezado__dentro { padding-top: 7px; padding-bottom: 7px; row-gap: 0; }
+.cedro-logo__nombre { max-height: 20px; overflow: hidden; transition: opacity .35s, max-height .45s var(--ease); }
+.cedro-encabezado.compacta .cedro-logo__nombre { opacity: 0; max-height: 0; }
+.cedro-logo__columnas { transition: height .45s var(--ease); }
+.cedro-encabezado.compacta .cedro-logo__columnas { height: 30px; }
+.cedro-logo__sigla { background: var(--oro-grad-osc); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: cedroOro 8s linear infinite; }
+.cedro-logo__columnas { border-top-color: transparent; border-image: var(--oro-grad) 1; }
+
+/* buttons: hammered gold */
+.cedro-boton { position: relative; overflow: hidden; isolation: isolate; border-radius: 3px; padding: 15px 28px; background: var(--oro-grad); background-size: 220% 100%; color: var(--cedro-osc); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: 13.5px; box-shadow: 0 12px 26px -12px rgba(168, 122, 34, .9), inset 0 1px 0 rgba(255, 255, 255, .6); transition: transform .35s var(--ease), box-shadow .35s, background-position .8s; }
+.cedro-boton span { position: relative; z-index: 1; }
+.cedro-boton::before { content: ""; position: absolute; inset: -2px; background: linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, .8) 50%, transparent 70%); transform: translateX(-120%); transition: transform .9s var(--ease); }
+.cedro-boton:hover { background: var(--oro-grad); background-size: 220% 100%; background-position: 100% 0; color: var(--cedro-osc); transform: translateY(-3px); }
+.cedro-boton:hover::before { transform: translateX(120%); }
+.cedro-boton--claro { background: rgba(255, 253, 248, .6); border: 1.5px solid var(--laton); box-shadow: none; }
+
+/* section titles with a golden shield */
+.cedro-titulo { text-align: center; }
+.cedro-titulo__ante { letter-spacing: .3em; }
+.cedro-divisor { display: block; width: 240px; height: 30px; margin: 14px auto 0; overflow: visible; }
+.cedro-divisor__linea { fill: none; stroke: var(--cedro); stroke-width: 2; stroke-dasharray: none; }
+.cedro-divisor__escudo { fill: #e2b84f; stroke: #8a5e1a; stroke-width: 1.2; }
+.cedro-divisor__aro { fill: none; stroke: #fff1bf; stroke-width: 1; opacity: .85; }
+.cedro-divisor__umbo { fill: #fff1bf; }
+.cedro-titulo--oscuro .cedro-divisor__linea { stroke: var(--laton); }
+.cedro-cabecera-tema__dentro .cedro-divisor, .cedro-guia__cabecera .cedro-divisor { margin-left: 0; }
+
+/* hero: the hall itself */
+.cedro-salon { position: relative; background: radial-gradient(800px 420px at 80% 30%, rgba(226, 184, 79, .22), transparent 65%), linear-gradient(180deg, #f8f1e2 0%, #eadcc1 100%); border-bottom: 0; }
+.cedro-salon::before { content: ""; position: absolute; inset: 0; background: var(--rombos); background-size: 64px 64px; opacity: .07; pointer-events: none; }
+.cedro-salon::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: var(--veta), linear-gradient(180deg, var(--cedro-claro), var(--cedro) 60%, var(--cedro-osc)); box-shadow: 0 -1px 0 #c9a24e; }
+.cedro-salon__dentro { position: relative; padding: 70px 22px 86px; }
+.cedro-salon__titulo em { font-style: italic; font-weight: 500; background: linear-gradient(100deg, #9a3b1a, #c0603a 30%, #f0a37a 48%, #c0603a 66%, #9a3b1a); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: cedroOro 7s linear infinite; }
+.cedro-salon__figura { position: relative; border-radius: 6px; padding: 10px; background: var(--veta), linear-gradient(135deg, #8f5a32, #4a2b18); box-shadow: 0 40px 70px -40px rgba(58, 36, 22, .95), inset 0 0 0 1px #c9a24e, inset 0 0 0 4px rgba(58, 36, 22, .6); }
+.cedro-salon__figura::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(255, 233, 170, .5); border-radius: 4px; pointer-events: none; z-index: 1; }
+.cedro-columnata { border-radius: 3px; }
+.cedro-ventana { fill: #fff4d6; stroke: #b99f73; stroke-width: 1; animation: cedroVentana 6s var(--d) ease-in-out infinite; }
+.cedro-haz { mix-blend-mode: screen; transform-box: fill-box; transform-origin: top; animation: cedroHaz 7.2s var(--d) ease-in-out infinite; }
+.cedro-escudo { transform-box: fill-box; transform-origin: 50% 0; animation: cedroEscudo 5.6s var(--d) ease-in-out infinite; }
+.cedro-motas circle { fill: #fff6dc; opacity: 0; animation: cedroMota 9s var(--d) ease-in-out infinite; }
+
+/* topics: plastered rooms with brass corner brackets and a shield medallion */
+.estancia { justify-items: center; text-align: center; padding: 34px 24px 26px; border-radius: 4px; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(226, 184, 79, .2), transparent 60%), linear-gradient(180deg, #fffdf8, #f6eedd); border: 1px solid #dcc9a4; isolation: isolate; transition: transform .45s var(--ease), box-shadow .45s, border-color .45s; }
+.estancia::before { content: ""; position: absolute; inset: 7px; pointer-events: none; background: linear-gradient(var(--laton), var(--laton)) left top / 22px 2px no-repeat, linear-gradient(var(--laton), var(--laton)) left top / 2px 22px no-repeat, linear-gradient(var(--laton), var(--laton)) right top / 22px 2px no-repeat, linear-gradient(var(--laton), var(--laton)) right top / 2px 22px no-repeat, linear-gradient(var(--laton), var(--laton)) left bottom / 22px 2px no-repeat, linear-gradient(var(--laton), var(--laton)) left bottom / 2px 22px no-repeat, linear-gradient(var(--laton), var(--laton)) right bottom / 22px 2px no-repeat, linear-gradient(var(--laton), var(--laton)) right bottom / 2px 22px no-repeat; transition: inset .4s var(--ease); }
+.estancia::after { left: 0; right: 0; top: 0; height: 5px; background: var(--veta), linear-gradient(90deg, var(--cedro), var(--cedro-claro), var(--cedro)); transform: none; }
+.estancia:hover { transform: translateY(-8px); border-color: var(--laton); box-shadow: 0 32px 56px -32px rgba(58, 36, 22, .8); }
+.estancia:hover::before { inset: 11px; }
+.estancia__icono { width: 74px; height: 74px; padding: 17px; border-radius: 50%; color: var(--cedro-osc); background: radial-gradient(circle at 38% 32%, #fff4c8, #e2b84f 45%, #a87a22 85%); box-shadow: 0 0 0 2px #8a5e1a, 0 0 0 6px #fffaf0, 0 0 0 7px rgba(201, 162, 78, .7), 0 14px 26px -12px rgba(107, 65, 38, .8); transition: transform .5s var(--ease), filter .5s; }
+.estancia:hover .estancia__icono { transform: rotate(-10deg) scale(1.08); filter: brightness(1.12); }
+.estancia__cuenta { padding: 5px 12px; border-radius: 20px; background: rgba(91, 107, 58, .1); }
+
+/* cards: drawings on cedar-framed paper */
+.plano { position: relative; border-radius: 4px; border-color: #dcc9a4; transition: transform .45s var(--ease), box-shadow .45s, border-color .45s; }
+.plano::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; z-index: 1; background: var(--oro-grad); background-size: 220% 100%; animation: cedroOro 8s linear infinite; }
+.plano__enlace { position: relative; overflow: hidden; isolation: isolate; padding: 28px 24px 20px; background-image: radial-gradient(300px circle at var(--mx, 50%) var(--my, 0%), rgba(226, 184, 79, .18), transparent 60%), linear-gradient(rgba(107, 65, 38, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(107, 65, 38, .06) 1px, transparent 1px); background-size: auto, 22px 22px, 22px 22px; }
+.plano__enlace::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; background: linear-gradient(90deg, transparent, rgba(255, 248, 225, .7), transparent); transform: translateX(-160%) skewX(-16deg); transition: transform 1s var(--ease); pointer-events: none; }
+.plano:hover { transform: translateY(-6px); border-color: var(--laton); box-shadow: 0 30px 54px -30px rgba(58, 36, 22, .8); }
+.plano:hover .plano__enlace::after { transform: translateX(320%) skewX(-16deg); }
+.plano:hover .plano__titulo { color: var(--terracota); }
+.plano--mayor { border-color: rgba(201, 162, 78, .6); background: var(--veta), radial-gradient(600px 260px at 90% 0, rgba(226, 184, 79, .22), transparent 60%), linear-gradient(135deg, #3a2416, #5a3520); }
+.plano--mayor:hover .plano__titulo { color: #f3d98c; }
+
+/* index on dark cedar */
+.cedro-indice { position: relative; overflow: hidden; background: var(--veta), linear-gradient(180deg, #3a2416, #1a0f06); }
+.cedro-indice::before { content: ""; position: absolute; inset: 0; background: var(--rombos); background-size: 64px 64px; opacity: .05; pointer-events: none; }
+.cedro-indice__cols { position: relative; }
+.cedro-indice__cols li a { background: linear-gradient(var(--laton), var(--laton)) 0 100% / 0 1px no-repeat; transition: background-size .4s var(--ease), color .3s; }
+.cedro-indice__cols li a:hover { background-size: 100% 1px; }
+.cedro-obra { border-radius: 4px; position: relative; text-align: center; }
+.cedro-obra::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(201, 162, 78, .5); pointer-events: none; }
+
+/* topic + article heads */
+.cedro-cabecera-tema { position: relative; overflow: hidden; background: radial-gradient(700px 300px at 20% 0, rgba(226, 184, 79, .22), transparent 70%), linear-gradient(180deg, #f3e8d2, var(--cal)); }
+.cedro-cabecera-tema::before { content: ""; position: absolute; inset: 0; background: var(--rombos); background-size: 64px 64px; opacity: .06; }
+.cedro-cabecera-tema__dentro { position: relative; }
+.cedro-cabecera-tema__icono { width: 88px; height: 88px; padding: 20px; border-radius: 50%; color: var(--cedro-osc); background: radial-gradient(circle at 38% 32%, #fff4c8, #e2b84f 45%, #a87a22 85%); box-shadow: 0 0 0 2px #8a5e1a, 0 0 0 7px #fffaf0, 0 0 0 8px rgba(201, 162, 78, .7), 0 0 40px rgba(226, 184, 79, .55); animation: cedroAura 5s ease-in-out infinite; }
+.cedro-guia__cabecera { position: relative; padding: 34px 32px 30px; background: radial-gradient(500px 200px at 0 0, rgba(226, 184, 79, .16), transparent 70%), #fffdf8; border: 1px solid #dcc9a4; box-shadow: 0 40px 70px -50px rgba(58, 36, 22, .7); }
+.cedro-guia__cabecera::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--veta), linear-gradient(180deg, var(--cedro-claro), var(--cedro-osc)); }
+.cedro-memoria { background: var(--veta), linear-gradient(180deg, #4a2b18, #2a180b); border-top: 0; border-radius: 4px; }
+.cedro-memoria::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--oro-grad); background-size: 220% 100%; animation: cedroOro 8s linear infinite; border-radius: 4px 4px 0 0; }
+.cedro-texto > p:first-of-type::first-letter { float: left; margin: 8px 12px 0 0; padding: 8px 12px 6px; font: 700 58px/.9 var(--serif); color: #fff4d6; background: var(--veta), linear-gradient(135deg, #8f5a32, #4a2b18); box-shadow: inset 0 0 0 2px #c9a24e, inset 0 0 0 5px rgba(74, 43, 24, .9), inset 0 0 0 6px rgba(201, 162, 78, .6); }
+.cedro-texto h2 { position: relative; padding-left: 34px; }
+.cedro-texto h2::before { content: ""; position: absolute; left: 0; top: .36em; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff4c8, #e2b84f 45%, #a87a22 85%); box-shadow: 0 0 0 1.5px #8a5e1a, inset 0 0 0 5px rgba(255, 241, 191, .35); }
+.cedro-texto h2::after { width: 100%; height: 2px; margin-top: 12px; background: linear-gradient(90deg, var(--laton), rgba(201, 162, 78, .15)); transform-origin: left; transition: transform 1.4s var(--ease); }
+.cedro-texto ul { list-style: none; padding-left: 1.5em; }
+.cedro-texto ul > li { position: relative; }
+.cedro-texto ul > li::before { content: ""; position: absolute; left: -1.2em; top: .6em; width: .5em; height: .5em; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff4c8, #e2b84f 45%, #a87a22 85%); box-shadow: 0 0 0 1px #8a5e1a; }
+.cedro-texto a { text-decoration: none; color: var(--cedro); background: linear-gradient(var(--laton), var(--laton)) 0 100% / 100% 1.5px no-repeat; transition: color .3s; }
+.cedro-texto a:hover { color: var(--terracota); }
+.cedro-texto blockquote { position: relative; padding: 26px 28px 24px 64px; border-radius: 4px; background: var(--veta), linear-gradient(135deg, #4a2b18, #2a180b); color: #f0e4cf; border-left: 0; box-shadow: inset 0 0 0 1px rgba(201, 162, 78, .6); }
+.cedro-texto blockquote::before { content: "“"; position: absolute; left: 18px; top: 4px; font: 700 64px/1 var(--serif); color: var(--laton); }
+.cedro-texto blockquote a, .cedro-texto blockquote strong { color: #f3d98c; }
+.cedro-texto th { border-bottom: 2px solid var(--laton); font-family: var(--serif); }
+.cedro-texto tr:nth-child(even) td { background: #fbf5e8; }
+.cedro-texto tr:hover td { background: #f5ead3; }
+
+/* footer: a cedar beam with the golden shields hanging from it */
+.cedro-pie { position: relative; overflow: hidden; background: var(--veta), linear-gradient(180deg, #2a180b, #160c04); }
+.cedro-pie::before { content: ""; position: absolute; inset: 0; background: var(--rombos); background-size: 64px 64px; opacity: .04; pointer-events: none; }
+.cedro-pie__viga { position: relative; display: flex; justify-content: space-evenly; align-items: flex-start; height: 44px; background: var(--veta), linear-gradient(180deg, var(--cedro-claro), var(--cedro) 60%, var(--cedro-osc)); background-size: 100% 16px; background-repeat: no-repeat; box-shadow: none; }
+.cedro-pie__viga::after { content: ""; position: absolute; left: 0; right: 0; top: 16px; height: 4px; background: linear-gradient(180deg, rgba(0, 0, 0, .3), transparent); }
+.cedro-pie__viga i { position: relative; width: 22px; height: 22px; margin-top: 18px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff4c8, #e2b84f 45%, #a87a22 80%, #6e4d12); box-shadow: 0 0 0 1px #6e4d12, inset 0 0 0 5px rgba(255, 241, 191, .3); transform-origin: 50% -10px; animation: cedroEscudo 5.6s var(--d) ease-in-out infinite; }
+.cedro-pie__viga i::before { content: ""; position: absolute; left: 50%; top: -8px; width: 1px; height: 8px; background: #8f5a32; }
+.cedro-pie__dentro, .cedro-pie__legal { position: relative; }
+.cedro-pie__sigla { background: var(--oro-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: cedroOro 8s linear infinite; }
+.cedro-pie a { background: linear-gradient(var(--laton), var(--laton)) 0 100% / 0 1px no-repeat; transition: background-size .4s var(--ease), color .3s; }
+.cedro-pie a:hover { background-size: 100% 1px; }
+.cedro-sin-planos__codigo { background: var(--oro-grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: cedroOro 7s linear infinite; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cedro-salon__ante, .cedro-salon__titulo, .cedro-salon__entrada, .cedro-salon__acciones { opacity: 0; animation: cedroEntrada 1.1s var(--ease) forwards; }
+  .cedro-salon__titulo { animation-delay: .2s; }
+  .cedro-salon__entrada { animation-delay: .45s; }
+  .cedro-salon__acciones { animation-delay: .65s; }
+  .cedro-salon__figura { opacity: 0; animation: cedroFigura 1.6s .25s var(--ease) forwards; }
+  .cedro-divisor__linea { stroke-dasharray: 1; stroke-dashoffset: 1; animation: cedroTrazo 1.8s .3s var(--ease) forwards; }
+  .cedro-js [data-revelar] { opacity: 0; transform: translateY(28px) scale(.985); filter: blur(3px); transition: opacity 1s var(--ease), transform 1s var(--ease), filter 1s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+  .cedro-js [data-revelar].visible { opacity: 1; transform: none; filter: none; }
+  .cedro-js [data-revelar] .cedro-divisor__linea { animation: none; }
+  .cedro-js [data-revelar].visible .cedro-divisor__linea { animation: cedroTrazo 1.6s .25s var(--ease) forwards; }
+  .cedro-js .cedro-texto h2:not(.visible)::after { transform: scaleX(0); }
+}
+@keyframes cedroOro { to { background-position: -220% 0; } }
+@keyframes cedroVentana { 0%, 100% { fill: #fff4d6; } 50% { fill: #ffe9a8; } }
+@keyframes cedroHaz { 0%, 100% { opacity: .45; transform: skewX(0deg); } 50% { opacity: 1; transform: skewX(-2deg); } }
+@keyframes cedroEscudo { 0%, 100% { transform: rotate(0deg); filter: none; } 30% { transform: rotate(3deg); } 42% { filter: brightness(1.45) drop-shadow(0 0 6px rgba(255, 233, 160, .9)); } 60% { transform: rotate(-2deg); filter: none; } }
+@keyframes cedroMota { 0%, 100% { opacity: 0; transform: translateY(0); } 30%, 70% { opacity: .9; } 100% { transform: translateY(-40px); } }
+@keyframes cedroAura { 50% { box-shadow: 0 0 0 2px #8a5e1a, 0 0 0 9px #fffaf0, 0 0 0 10px rgba(201, 162, 78, .5), 0 0 70px rgba(226, 184, 79, .8); } }
+@keyframes cedroTrazo { to { stroke-dashoffset: 0; } }
+@keyframes cedroEntrada { from { opacity: 0; transform: translateY(24px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes cedroFigura { from { opacity: 0; transform: translateY(40px) scale(.97); } to { opacity: 1; transform: none; } }
+
 @media (max-width: 1020px) {
-  .cedro-salon__dentro { grid-template-columns: 1fr; }
+  .cedro-salon__dentro { grid-template-columns: minmax(0, 1fr); }
   .cedro-temas__lista, .cedro-rejilla { grid-template-columns: repeat(2, 1fr); }
   .cedro-guia__cuerpo { grid-template-columns: 1fr; }
-  .cedro-memoria { order: 0; position: static; }
+  .cedro-memoria { order: 0; position: relative; top: 0; }
   .cedro-pie__dentro { grid-template-columns: 1fr 1fr; }
   .cedro-pie__dentro > section { grid-column: 1 / -1; }
 }

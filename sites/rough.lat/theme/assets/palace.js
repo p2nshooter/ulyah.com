@@ -43,7 +43,9 @@
       if (bar && prose) {
         var r = prose.getBoundingClientRect();
         var span = r.height - window.innerHeight * 0.5;
-        bar.style.width = (span > 0 ? Math.min(1, Math.max(0, -r.top / span)) * 100 : 0).toFixed(1) + "%";
+        var f = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+        bar.style.width = (f * 100).toFixed(1) + "%";
+        bar.parentNode.classList.toggle("en-marcha", f > 0);
       }
     });
   };
