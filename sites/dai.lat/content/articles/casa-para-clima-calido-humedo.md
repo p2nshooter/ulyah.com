@@ -113,6 +113,10 @@ En el Caribe, el Golfo de México y algunas costas de Centroamérica, las tormen
 
 Los detalles estructurales deben definirlos profesionales que conozcan las exigencias de la zona.
 
+## Cocina, baños y lavado
+
+En el trópico, la cocina y la lavandería son fuentes importantes de calor y humedad. Tradicionalmente la cocina se separaba de la casa o se ubicaba en un corredor abierto. Hoy conviene que tenga una ventilación generosa, una campana con salida al exterior y, si es posible, una ventana alta. La ropa se seca mejor en un tendedero exterior bajo techo y con brisa que dentro de la casa. Los baños necesitan extracción o ventanas que se abran por completo para que se sequen rápido entre una ducha y otra.
+
 ## Adaptar una casa existente
 
 Si ya vives en una casa calurosa, estas son las mejoras con más impacto:
