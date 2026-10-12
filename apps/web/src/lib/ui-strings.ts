@@ -57,6 +57,14 @@ const T: Record<string, Strings> = {
     fr: "La science des versets abrogeants (nasikh) et abrogés (mansukh) — clairement présentée : ce qui est abrogé, son remplacement, le type, une explication et la source. Écoutable.",
     de: "Die Wissenschaft der abrogierenden (nasikh) und abrogierten (mansukh) Verse — übersichtlich dargestellt: was abrogiert wurde, sein Ersatz, die Art, eine Erläuterung und die Quelle. Anhörbar.",
   },
+  nasakhOnlyIndonesian: {
+    id: "",
+    en: "This collection is currently available in Indonesian only. The Arabic verses are shown in full; the explanations have not yet been translated.",
+    es: "Esta colección solo está disponible en indonesio por ahora. Los versículos en árabe se muestran completos; las explicaciones aún no se han traducido.",
+    fr: "Cette collection n'est pour l'instant disponible qu'en indonésien. Les versets arabes sont affichés en entier ; les explications n'ont pas encore été traduites.",
+    de: "Diese Sammlung ist derzeit nur auf Indonesisch verfügbar. Die arabischen Verse werden vollständig angezeigt; die Erläuterungen sind noch nicht übersetzt.",
+    ar: "هذه المجموعة متاحة حاليًا باللغة الإندونيسية فقط. تُعرض الآيات العربية كاملة، ولم تُترجم الشروح بعد.",
+  },
   // anak (kids)
   anakHeroDesc: {
     id: "Film animasi pendek dengan karakter bergerak dan narasi suara — setiap kisah mengajarkan satu akhlak dari Al-Qur'an dan Sunnah. Langsung tonton, tanpa unduh.",

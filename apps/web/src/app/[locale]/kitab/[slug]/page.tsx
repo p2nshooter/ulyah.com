@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { notFound } from "next/navigation";
 import { libraryIndex, libraryShelf, categoryName } from "@/lib/kitab-data";
@@ -25,6 +26,31 @@ import { routePath } from "@/lib/paths";
 export const revalidate = 86400;
 
 const PAGE_SIZE = 24;
+
+/**
+ * Each shelf names itself. Without this the category pages carried the site's
+ * generic title and description — "One Faith France — Le Portail Islamique"
+ * on every shelf — and had no canonical, so ?page=2, ?page=3… each looked like
+ * another copy of the same page.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale: raw, slug } = await params;
+  const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  const t = kitabLabels(locale);
+  const index = await libraryIndex();
+  const meta = index.categories.find((c) => c.slug === slug);
+  if (!meta) return {};
+  const name = categoryName(meta, locale);
+  return {
+    title: `${name} — ${t.title}`,
+    description: `${name} (${meta.name_ar}): ${meta.book_count.toLocaleString(locale)} ${t.worksInCategory}. ${t.note}`,
+    alternates: { canonical: routePath(locale, `/kitab/${slug}`) },
+  };
+}
 
 export default async function KitabCategoryPage({
   params,

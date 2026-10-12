@@ -3,6 +3,7 @@ import type { Context } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { coverSvg } from "@ulyah/shared/cover-art";
 import { readStoryBody } from "../lib/story-body.js";
+import { seriesTitle } from "../lib/series-title.js";
 import { translateText, translateCachedOnly, localizeBatch, localizeBatchProtected } from "../lib/mt.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
@@ -391,11 +392,19 @@ contentRoute.get("/stories", async (c) => {
     delete r.body_r2_key;
   }
   if (!authored && results.length) {
-    // Protected localize so "Bukhari/Muslim/no." in audiobook titles are not
-    // mangled by the translator on sibling sites.
-    const titles = await localizeBatchProtected(c.env, results.map((r) => r.title as string), requested, "en");
+    // A numbered study session gets its title from a template in the
+    // requested language (lib/series-title.ts) — the translator turned them
+    // into "Der Koran ist der Koran, der 1322." Every other title goes through
+    // protected localize so "Bukhari/Muslim/no." in audiobook titles are not
+    // mangled on sibling sites.
+    const fixed = results.map((r) => seriesTitle(r.title as string, requested));
+    const pending = results.filter((_, i) => !fixed[i]);
+    const titles = pending.length
+      ? await localizeBatchProtected(c.env, pending.map((r) => r.title as string), requested, "en")
+      : [];
+    let j = 0;
     results.forEach((r, i) => {
-      r.title = titles[i] ?? r.title;
+      r.title = fixed[i] ?? titles[j++] ?? r.title;
     });
   }
   return c.json({ stories: results, page, lang: requested });
@@ -466,11 +475,24 @@ contentRoute.get("/stories/:slug", async (c) => {
   if (requestedLang !== s.lang) {
     const st = story as Record<string, unknown> & { title: string; body: string; lang: string };
     const paras = st.body.split(/\n\s*\n/);
-    // Protected localize keeps hadith collection names & "no." intact in both
-    // the title and the narrated body.
-    const loc = await localizeBatchProtected(c.env, [st.title, ...paras], requestedLang, st.lang);
-    st.title = loc[0] ?? st.title;
-    st.body = paras.map((p, i) => loc[i + 1] ?? p).join("\n\n");
+    // A numbered study session is titled from a template, never by the
+    // translator (lib/series-title.ts). Protected localize keeps hadith
+    // collection names & "no." intact in the rest of the title and the body.
+    const fixedTitle = seriesTitle(st.title, requestedLang);
+    const loc = await localizeBatchProtected(
+      c.env,
+      fixedTitle ? paras : [st.title, ...paras],
+      requestedLang,
+      st.lang
+    );
+    const off = fixedTitle ? 0 : 1;
+    st.title = fixedTitle ?? loc[0] ?? st.title;
+    st.body = paras.map((p, i) => loc[i + off] ?? p).join("\n\n");
+    // The "next episode" link carries the same kind of title, in the language
+    // the episode was written in: give it the reader's language too.
+    const next = nextEpisode as { title?: string } | null;
+    const nextTitle = seriesTitle(next?.title, requestedLang);
+    if (next && nextTitle) next.title = nextTitle;
   }
 
   return c.json({ story, transcript, fallbackUsed, nextEpisode, lang: requestedLang });
