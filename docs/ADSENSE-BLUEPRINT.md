@@ -36,6 +36,18 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
    situs) tanpa mengubah kode. Dijaga otomatis: `scripts/check-ads.ts` (CI
    apps/web + situs statis), `sites/_engine/check.mjs` (setiap halaman hasil
    build), dan `scripts/site-audit.mjs` (HTML server situs yang live).
+   **Pengecualian satu-satunya: dawa.es** (pemilik, 12 Okt: "Adslot manual
+   jika itu milik adsense biarkan, dan biarkan otomatis"). Build tenant dawa
+   membawa dua unit akun aslinya (banner 4702981509, flex 1209764526,
+   ca-pub-6371903555702163) lewat `AdSlot` + `PageAds`, ditambah Auto ads.
+   Gerbangnya `SHOWS_AD_UNITS = TENANT.id === "dawa" && AD_CLIENT_ID ===
+   ORIGINAL_ACCOUNT`; `check-ads.ts` menghitungnya per tenant (empat situs
+   pemilik harus `false`) dan menolak markup unit di file lain. Unit tidak
+   pernah tampil di halaman yang dilarang kebijakan AdSense: masuk/daftar/akun,
+   donasi, admin, halaman anak (`/ninos`, `/peliculas-infantiles`), 404,
+   kiblat, mushaf (`apps/web/src/lib/ad-pages.ts`). Unit tidak disisipkan di
+   atas bagian yang sedang dibaca, label "Publicidad" selalu tampil (juga untuk
+   iklan yang terisi terlambat), dan tidak ada penghitung klik.
 4. **Artikel ditulis tangan, bukan oleh bot.** Minimal 40 artikel panjang
    (±1.500 kata ke atas) per situs. Artikel mesin yang dobel atau tipis
    dihapus. Tidak ada janji kaya cepat, tidak ada saran medis/keuangan
@@ -644,6 +656,19 @@ keseluruhan." Jadi rebuild dawa.es WAJIB membawa slot manual AdSense-nya (unit
 banner 4702981509 dan flex 1209764526, akun 6371…) persis seperti build live,
 Auto ads tetap menyala, dan tidak ada slot manual di situs lain. Rebuild belum
 dijalankan sebelum itu terpenuhi.
+
+**Dikerjakan (13 Okt):** `AdSlot`/`PageAds` dipulihkan dari build live (713e87d)
+ke kode utama, khusus tenant dawa (aturan 3). Perbaikan kebijakan sekaligus:
+tidak ada unit di halaman tanpa konten penerbit/halaman tugas/halaman anak/404,
+unit tidak menggeser teks yang sedang dibaca, label selalu terlihat, penghitung
+klik (`ad-stats.ts`, beacon `/track/ads`) tidak dikembalikan. Rebuild
+(`dawa-site.yml`, rebuild = rebuild-dawa) menolak build yang tidak membawa
+kedua unit dan gerbangnya.
+
+**Tindakan di akun AdSense ca-pub-6371903555702163 (pemegang akun):** Auto ads
+tetap aktif dengan beban iklan sedang; pengecualian halaman Auto ads untuk
+`/es/admin`, halaman masuk/akun, `/ninos`, `/peliculas-infantiles`; pesan
+"Peraturan Eropa" (CMP bersertifikat) di Privasi & pesan harus dipublikasikan.
 
 ---
 

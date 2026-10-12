@@ -4,6 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
 import { api } from "@/lib/api";
 import { coverFor } from "@/lib/book-cover";
+import { AdSlot } from "@/components/AdSlot";
 import { fillLabels } from "@/lib/fill-labels";
 import { routePath } from "@/lib/paths";
 
@@ -152,6 +153,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
   );
 
   const hasAnyContent = sections.some((s) => s.stories.length > 0 || s.persons.length > 0);
+  let adPlaced = false;
 
   const EPISODE: Record<string, string> = { id: "Episode", en: "Episode", fr: "Épisode", de: "Folge", es: "Episodio", ar: "الحلقة" };
   const episodeLabel = EPISODE[locale] ?? fillLabels(locale, "Episode");
@@ -189,6 +191,8 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
         {sections.map(({ cat, stories, persons }) => {
           const hasContent = stories.length > 0 || persons.length > 0;
           if (!hasContent && !hasAnyContent) return null;
+          const showAd = !adPlaced && hasContent;
+          if (showAd) adPlaced = true;
           const shelfIcon = SHELF_ICON[cat.slug] ?? "📖";
           return (
             <section key={cat.id}>
@@ -272,6 +276,7 @@ export default async function KisahListPage({ params }: { params: Promise<{ loca
                   })}
                 </div>
               ) : null}
+              {showAd && <AdSlot placement="list" className="mt-6" />}
             </section>
           );
         })}
