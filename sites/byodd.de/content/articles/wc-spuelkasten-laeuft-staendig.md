@@ -2,7 +2,7 @@
 title: "WC-Spülkasten läuft ständig nach: Ursachen finden und selbst reparieren"
 description: Warum Wasser dauerhaft in die Toilette läuft, wie du Aufputz- und Unterputzspülkästen öffnest, Füllventil, Ablaufventil und Dichtungen prüfst, entkalkst oder tauschst und so Wasserkosten sparst.
 category: bad-und-kueche
-date: 2026-09-04
+date: 2026-10-12
 ---
 Ein leises Rinnen in der Toilettenschüssel, ein Spülkasten, der sich nach dem Spülen nicht beruhigt, oder ein Zischen, das alle paar Minuten wiederkommt: Ein ständig nachlaufender Spülkasten ist nicht nur lästig, sondern teuer. Schon ein dünnes Rinnsal kann im Jahr mehrere Kubikmeter Wasser verschwenden und die Wasserrechnung spürbar erhöhen. Meist ist die Ursache ein verkalktes oder verschlissenes Bauteil, das du mit wenig Aufwand selbst reinigen oder tauschen kannst.
 
@@ -98,6 +98,22 @@ Ein dauerhaft nachlaufender Spülkasten kann, je nach Stärke, zwischen einigen 
 
 In Mietwohnungen gehören kleine Reparaturen oft zu den Kleinreparaturen, die nach dem Mietvertrag der Mieter bis zu einem bestimmten Betrag trägt. Größere Schäden meldest du dem Vermieter.
 
+## Spülmengen und Wasser sparen
+
+Ältere Toiletten spülen oft mit 9 Litern oder mehr. Moderne Spülkästen kommen mit etwa 6 Litern für die große Spülung aus, manche mit noch weniger, und haben eine zweite Taste für eine Sparspülung von rund 3 Litern. Bei vielen Spülkästen lässt sich die Menge am Ablaufventil einstellen. Reduziere sie aber nicht beliebig: Das Abwasser muss in den Leitungen zuverlässig abtransportiert werden, und ein zu kleiner Spülstrom kann in älteren Rohrnetzen zu Ablagerungen führen. Halte dich an die Einstellbereiche des Herstellers.
+
+## Was nicht in die Toilette gehört
+
+Viele Verstopfungen und Defekte beginnen mit Dingen, die nie in die Toilette hätten gelangen dürfen. Feuchttücher zersetzen sich nicht wie Toilettenpapier, auch wenn die Packung anderes verspricht, und verfilzen in Rohren und Pumpen. Hygieneartikel, Wattestäbchen, Katzenstreu, Speisereste und Bratfett gehören in den Müll. Alte Medikamente werden in vielen Kommunen über den Restmüll entsorgt, keinesfalls über die Toilette, weil Kläranlagen viele Wirkstoffe nicht vollständig abbauen. Was bei einer Verstopfung hilft, steht in [Abfluss verstopft: was tun?](/anleitungen/abfluss-verstopft-was-tun/).
+
+## Der Spülkasten schwitzt
+
+Sammeln sich im Sommer Tropfen außen an einem Aufputzspülkasten und bildet sich eine Pfütze auf dem Boden, ist das oft keine Undichtigkeit, sondern Kondenswasser: Das kalte Wasser im Kasten kühlt die Außenwand ab, und feuchte Raumluft schlägt sich darauf nieder. Gutes Lüften nach dem Duschen hilft. Für Spülkästen, die regelmäßig stark schwitzen, gibt es Schwitzwasserisolierungen, die innen eingesetzt werden.
+
+## Toilettensitz wechseln
+
+Ein neuer WC-Sitz ist in wenigen Minuten montiert. Miss vorher den Abstand der beiden Befestigungslöcher in der Keramik, meist 155 Millimeter, sowie Länge und Breite des Beckens, und achte auf die Form, oval oder eher eckig. Sitze mit Absenkautomatik schließen leise, und viele lassen sich zum Reinigen per Knopfdruck abnehmen.
+
 ## Praxisbeispiel: Unterputzspülkasten, der alle 20 Minuten nachfüllt
 
 Nachts ist im Bad alle 20 Minuten ein kurzes Zischen zu hören. Der Lebensmittelfarbe-Test färbt das Wasser in der Schüssel nach einer halben Stunde blau: Das Ablaufventil ist undicht.
@@ -140,6 +156,10 @@ Herstellername und Modell stehen oft im Spülkasten oder auf der Betätigungspla
 **Die Spülung ist zu schwach.** Bei vielen Spülkästen lässt sich die Spülmenge einstellen. Außerdem kann ein zu niedriger Wasserstand die Ursache sein.
 
 **Kann ich eine Spül-Stopp-Taste nachrüsten?** Bei vielen Systemen gibt es Zwei-Mengen-Tasten oder Umbausätze für Spar- und Vollspülung.
+
+**Darf ich Reinigungstabs in den Spülkasten legen?** Viele Hersteller raten davon ab, weil aggressive Inhaltsstoffe die Dichtungen im Kasten angreifen können. Spülrandsteine oder Reiniger, die direkt ins Becken kommen, sind die schonendere Wahl.
+
+**Seit einer Wasserabstellung läuft der Kasten nach.** Nach Arbeiten an der Wasserleitung gelangen oft Sand oder Rostpartikel ins Netz und setzen sich im Füllventil oder an dessen Sieb fest. Wasser absperren, Sieb und Ventil ausspülen, und das Problem ist meist behoben.
 
 ## Fazit
 
