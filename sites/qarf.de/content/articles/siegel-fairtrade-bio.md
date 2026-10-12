@@ -2,7 +2,7 @@
 title: "Siegel bei Kaffee und Tee: Bio, Fairtrade, Rainforest Alliance und Direct Trade verständlich erklärt"
 description: "Was die Siegel auf Kaffee und Tee bedeuten: EU-Bio, Verbandsbio, Fairtrade, Rainforest Alliance und Direct Trade im Vergleich, was sie garantieren, wo ihre Grenzen liegen und wie du bewusst einkaufst."
 category: genuss-und-wissen
-date: 2026-10-03
+date: 2026-10-12
 ---
 Kaffee und Tee wachsen fast ausschließlich in Ländern des globalen Südens, oft auf kleinen Farmen und Teegärten, deren Familien von schwankenden Weltmarktpreisen abhängen. Gleichzeitig hat der Anbau Folgen für Böden, Wasser und Wälder. Viele Menschen möchten deshalb beim Einkauf darauf achten, unter welchen Bedingungen ihr Kaffee und Tee entstanden sind. Hilfe versprechen Siegel. Doch auf den Packungen tummeln sich viele Logos, und nicht jedes bedeutet dasselbe. Manche betreffen den ökologischen Anbau, andere faire Preise und Arbeitsbedingungen, wieder andere sind reine Marketingbegriffe. Dieser Ratgeber erklärt die wichtigsten Siegel, was sie garantieren und wo ihre Grenzen liegen.
 
@@ -86,6 +86,22 @@ Wörter wie „fair gehandelt“, „nachhaltig angebaut“, „verantwortungsvo
 3. **Transparenz belohnen:** Röstereien und Teehändler, die Herkunft, Farm und Preise offenlegen, ermöglichen dir eine eigene Einschätzung.
 4. **Weniger, aber besser:** Hochwertiger Kaffee und Tee kosten mehr. Wer bewusst genießt und weniger wegwirft, gleicht das teilweise aus. Wie du nichts verschwendest, steht in [Kaffee und Tee richtig lagern](/ratgeber/kaffee-und-tee-lagern/).
 
+## Besonderheiten bei Tee
+
+Im Teeanbau arbeiten neben Kleinbauern viele angestellte Pflückerinnen und Pflücker auf großen Plantagen, etwa in Indien, Sri Lanka oder Kenia. Für solche Betriebe hat Fairtrade eigene Standards für Beschäftigte, die unter anderem die Mitbestimmung über die Prämie regeln. Beim ökologischen Anbau spielt Tee eine besondere Rolle: Anders als bei Kaffee, dessen Bohne in einer Frucht wächst und geröstet wird, wird das Teeblatt direkt aufgegossen. Viele Teetrinkerinnen und Teetrinker achten deshalb bei Tee besonders auf Bio-Qualität. Bei Kräuter- und Früchtetees lohnt zusätzlich ein Blick auf die Herkunft der einzelnen Zutaten, die oft aus vielen Ländern stammen.
+
+## Was in einer Packung Kaffee steckt
+
+Ein Teil des Preises hat mit dem Anbau gar nichts zu tun. In Deutschland wird auf Röstkaffee eine Kaffeesteuer von 2,19 Euro pro Kilogramm erhoben, auf löslichen Kaffee 4,78 Euro pro Kilogramm, dazu kommt die Mehrwertsteuer. Bei einer 500-Gramm-Packung sind das allein rund 1,10 Euro Kaffeesteuer. Zieht man Steuern, Transport, Röstung, Verpackung und Handel ab, bleibt für den Rohkaffee und damit für die Produzenten bei sehr billigen Angeboten nur wenig übrig. Das erklärt, warum fair bezahlter Kaffee kaum zu Discountpreisen zu haben ist.
+
+## Neue Regeln gegen Entwaldung
+
+Kaffee gehört zu den Rohstoffen, die unter die EU-Verordnung über entwaldungsfreie Produkte fallen. Unternehmen, die Kaffee in der EU in Verkehr bringen, müssen künftig nachweisen, dass er nicht von Flächen stammt, die nach Ende 2020 entwaldet wurden. Der Anwendungsbeginn wurde bereits verschoben, und Details werden noch diskutiert. Für Verbraucherinnen und Verbraucher ersetzt die Verordnung keine Siegel: Sie betrifft vor allem die Entwaldung, nicht Preise oder Arbeitsbedingungen. Tee ist von dieser Verordnung nicht erfasst.
+
+## Kapseln und Pads mit Siegel
+
+Auch Kapseln und Pads gibt es mit Bio- oder Fairtrade-Siegel. Die Siegel beziehen sich dann auf den Kaffee, nicht auf die Verpackung. Hinweise wie „kompostierbar“ bedeuten oft, dass die Kapsel in industriellen Kompostieranlagen abgebaut wird. Viele Kommunen nehmen solche Kapseln nicht in der Biotonne an. Prüfe daher, was deine Kommune erlaubt.
+
 ## Häufige Fragen
 
 ### Schmeckt Bio-Kaffee besser?
@@ -99,3 +115,15 @@ Der Mindestpreis greift vor allem, wenn der Weltmarktpreis niedrig ist. Viele Fa
 ### Gibt es Siegel für Rooibos und Kräutertee?
 
 Ja, auch Rooibos und Kräutertees gibt es mit Bio- und Fairtrade-Siegel, siehe [Rooibos und Honeybush](/ratgeber/rooibos-und-honeybush/).
+
+### Woran erkenne ich leere Nachhaltigkeitsversprechen?
+
+Vorsicht ist geboten, wenn eine Packung nur allgemeine Begriffe wie „nachhaltig“ oder „verantwortungsvoll“ nutzt, aber weder ein unabhängiges Siegel trägt noch konkrete Angaben macht. Glaubwürdige Anbieter nennen Herkunft, Kooperative oder Farm, erklären ihre Einkaufspraxis und lassen sich von unabhängigen Stellen kontrollieren.
+
+### Lohnt sich ein Siegel auch bei kleinen Mengen?
+
+Ja. Jede Packung zählt, und gerade bei Produkten, die man täglich trinkt, summiert sich die Wirkung über das Jahr. Wer nur gelegentlich Kaffee oder Tee kauft, kann sich zudem gezielt für besonders transparente Anbieter entscheiden.
+
+## Fazit
+
+Kein Siegel deckt alles ab. Bio steht für den Anbau, Fairtrade für Preise und Arbeitsrechte, die Rainforest Alliance für Umwelt- und Sozialstandards ohne Mindestpreis, Direct Trade für Transparenz in der Lieferkette. Wer weiß, wofür ein Logo steht, kann bewusst wählen und Anbieter unterstützen, die ihre Versprechen belegen.
