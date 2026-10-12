@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { prayerLabels } from "@/lib/prayer-labels";
 import { nasehatList } from "@/lib/nasehat";
 import { NasehatTicker } from "@/components/NasehatTicker";
+import { TENANT } from "@/lib/tenant";
 import {
   CLOCK_COUNTRIES,
   COUNTRY_LOOKUP,
@@ -42,20 +43,30 @@ function hmIn(tz: string, date: Date): string {
  * standalone installable /jadwal-sholat mini-app (see that page's own
  * manifest), so it never assumes it's the only thing on the page.
  */
+// Before the visitor's location resolves (or when it cannot), each site
+// starts from its own country — the same map AdhanReminder uses — so dawa.es
+// no longer shows Jakarta's times to a Spanish reader.
+const TENANT_HOME: Record<string, string> = { ulyah: "ID", "1fr": "FR", tilawa: "DE", dawa: "ES" };
+const HOME_COUNTRY: PrayerCountry = COUNTRY_LOOKUP[TENANT_HOME[TENANT.id] ?? ""] ?? DEFAULT_PRAYER_COUNTRY;
+
 export function PrayerTimesWidget({ locale }: { locale: string }) {
   const t = prayerLabels(locale);
-  const [country, setCountry] = useState<PrayerCountry>(DEFAULT_PRAYER_COUNTRY);
+  const [country, setCountry] = useState<PrayerCountry>(HOME_COUNTRY);
   const [locating, setLocating] = useState(true);
   const [cityLabel, setCityLabel] = useState<string | null>(null);
   const [now, setNow] = useState<Date>(() => new Date());
   const [phase, setPhase] = useState<RamadanPhase | null>(null);
-  // The very first client render must show the exact same digits the server
+  // The very first client render must show the exact same text the server
   // rendered, or React discards and rebuilds this whole subtree (a visible
   // flash) — see the "Hydration failed" warning this used to throw. `now`'s
   // initial value is computed independently on the server and in the
-  // browser, seconds apart, so the clock/countdown digits almost always
-  // differ. `mounted` keeps those specific digits frozen at a placeholder
-  // through hydration, then swaps to the live value on the next tick.
+  // browser, and the server's copy is often HOURS old: pages are cached
+  // (ISR), so a home page rendered at 15:45 in Jakarta is still being served
+  // at 20:46, when the next prayer is no longer Maghrib but Fajr. Every value
+  // derived from `now` — clock and countdown digits, the next prayer's name,
+  // the day's prayer times, today's Gregorian and Hijri date — therefore stays
+  // at a placeholder through hydration (`mounted`), then shows the live value.
+  // This was React error #418 on the live dawa.es home page (12 Oct 2026).
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -96,13 +107,13 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
         const base = g.country ? COUNTRY_LOOKUP[g.country] : undefined;
         if (g.latitude && g.longitude) {
           setCountry({
-            code: g.country ?? base?.code ?? DEFAULT_PRAYER_COUNTRY.code,
-            city: g.city ?? base?.city ?? DEFAULT_PRAYER_COUNTRY.city,
-            flag: base?.flag ?? DEFAULT_PRAYER_COUNTRY.flag,
+            code: g.country ?? base?.code ?? HOME_COUNTRY.code,
+            city: g.city ?? base?.city ?? HOME_COUNTRY.city,
+            flag: base?.flag ?? HOME_COUNTRY.flag,
             lat: g.latitude,
             lng: g.longitude,
-            tz: g.timezone ?? base?.tz ?? DEFAULT_PRAYER_COUNTRY.tz,
-            method: base?.method ?? DEFAULT_PRAYER_COUNTRY.method,
+            tz: g.timezone ?? base?.tz ?? HOME_COUNTRY.tz,
+            method: base?.method ?? HOME_COUNTRY.method,
           });
           setCityLabel(g.city ?? base?.city ?? null);
         } else if (base) {
@@ -173,7 +184,7 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
   // Use the visitor's actual language for the Gregorian date so fr/de render
   // native weekday/month names (not an English fallback).
   const intlLocale =
-    ({ id: "id-ID", ar: "ar", fr: "fr-FR", de: "de-DE" } as Record<string, string>)[locale] ?? "en-US";
+    ({ id: "id-ID", ar: "ar", fr: "fr-FR", de: "de-DE", es: "es-ES" } as Record<string, string>)[locale] ?? "en-US";
   const gregorian = new Intl.DateTimeFormat(intlLocale, {
     weekday: "long",
     day: "numeric",
@@ -206,9 +217,9 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
             <p className="font-heading text-2xl leading-none text-accent tabular-nums">
               {mounted ? hmIn(country.tz, now) : "--:--"}
             </p>
-            <p className="mt-1 text-[10px] text-[#f4efe3]/70">{gregorian}</p>
+            <p className="mt-1 text-[10px] text-[#f4efe3]/70">{mounted ? gregorian : "\u00a0"}</p>
             <p className="mt-0.5 text-[10px] text-[#f4efe3]/70">
-              {hijri.day} {monthNames[hijri.month - 1]} {hijri.year} H
+              {mounted ? `${hijri.day} ${monthNames[hijri.month - 1]} ${hijri.year} H` : "\u00a0"}
             </p>
           </div>
         </div>
@@ -218,7 +229,7 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
         <div className="mt-6 overflow-hidden rounded-2xl border border-accent/40 bg-accent/10">
           <div className="flex items-center justify-between px-4 pt-3">
             <p className="text-xs text-[#f4efe3]/70">
-              {t.untilNext} <span className="font-heading text-accent">{prayerLabelMap[nextKey]}</span>
+              {t.untilNext} <span className="font-heading text-accent">{mounted ? prayerLabelMap[nextKey] : "…"}</span>
               {" · "}
               <span className="tabular-nums">{mounted ? hmIn(country.tz, nextMoment.time) : "--:--"}</span>
             </p>
@@ -249,7 +260,7 @@ export function PrayerTimesWidget({ locale }: { locale: string }) {
                 <p className={`text-[10px] uppercase tracking-wide ${active ? "text-accent" : "text-[#f4efe3]/60"}`}>
                   {prayerLabelMap[key]}
                 </p>
-                <p className="mt-1 font-heading text-sm tabular-nums sm:text-base">{d ? hmIn(country.tz, d) : "—"}</p>
+                <p className="mt-1 font-heading text-sm tabular-nums sm:text-base">{mounted && d ? hmIn(country.tz, d) : "--:--"}</p>
                 {active && <p className="mt-0.5 text-[9px] text-accent">{t.nextPrayer}</p>}
               </div>
             );

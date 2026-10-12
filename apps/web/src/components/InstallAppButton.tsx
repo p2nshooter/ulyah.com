@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { DEFAULT_LOCALE, isValidLocale } from "@ulyah/shared/i18n";
 import { pwaLabels } from "@/lib/pwa-labels";
 import { api } from "@/lib/api";
 
@@ -98,11 +100,13 @@ export function InstallAppButton({
   const [installed, setInstalled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  const [locale, setLocale] = useState("id");
+  // The page's own locale, the same on the server and in the browser. It used
+  // to start as "id" and switch after mount, so every site's server HTML said
+  // "Pasang Aplikasi" — Indonesian on dawa.es, 1fr.fr, tilawa.de and xad.es.
+  const params = useParams<{ locale?: string }>();
+  const locale = typeof params?.locale === "string" && isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE;
 
   useEffect(() => {
-    setLocale(document.documentElement.lang || "id");
-
     const standalone =
       window.matchMedia("(display-mode: standalone)").matches ||
       (navigator as unknown as { standalone?: boolean }).standalone === true;
