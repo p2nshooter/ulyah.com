@@ -2,7 +2,7 @@
 title: "Rote Grütze mit Vanillesoße und alles über Johannisbeeren und Stachelbeeren"
 description: Johannisbeeren und Stachelbeeren richtig ernten, abstreifen und lagern, dazu das norddeutsche Rezept für Rote Grütze mit selbst gekochter Vanillesoße.
 category: sommer
-date: 2026-07-17
+date: 2026-10-12
 ---
 Johannisbeeren gehören zu den Sträuchern, die in fast jedem alten Bauerngarten stehen. Ihren Namen haben sie vom Johannistag am 24. Juni, um den herum die ersten Beeren reif werden. Die Saison reicht je nach Sorte bis in den August. Rote Johannisbeeren sind am weitesten verbreitet, daneben gibt es weiße, die milder und süßer schmecken, und schwarze, die ein ganz eigenes, herb-würziges Aroma haben und unter dem französischen Namen Cassis bekannt sind.
 
@@ -69,6 +69,10 @@ Für 6 Portionen:
 
 Rote Grütze hält sich abgedeckt im Kühlschrank drei bis vier Tage. Probiere die Masse vor dem Andicken und passe die Zuckermenge an. Johannisbeeren und Sauerkirschen können sehr sauer sein, Himbeeren und süße Kirschen bringen mehr Süße.
 
+### Ein Blick nach Dänemark
+
+In Dänemark heißt das Dessert Rødgrød med fløde, rote Grütze mit Sahne. Der Name ist für Nicht-Dänen berüchtigt schwer auszusprechen und gilt dort als liebevoller Zungenbrecher, den man Gästen gern zum Nachsprechen aufgibt. Serviert wird die dänische Variante meist mit flüssiger Sahne, oft mit Erdbeeren und Rhabarber in der Fruchtmischung. Die norddeutsche und die dänische Grütze sind eng verwandt, und an der Grenze im Norden Schleswig-Holsteins verschwimmen die Rezepte.
+
 ## Vanillesoße selbst gemacht
 
 Für 6 Portionen:
@@ -86,6 +90,16 @@ Für 6 Portionen:
 5. Gieße die Soße durch ein Sieb und lass sie abkühlen. Damit sich keine Haut bildet, legst du Frischhaltefolie direkt auf die Oberfläche.
 
 Die Speisestärke stabilisiert die Soße und macht sie weniger anfällig für das Gerinnen. Wer es klassisch mag, lässt sie weg und erhitzt besonders vorsichtig. Statt Vanillesoße passt auch flüssige, ungeschlagene Sahne, Vanilleeis oder ein Klecks griechischer Joghurt.
+
+## Johannisbeersaft aus dem Dampfentsafter
+
+Wer einen Strauch im Garten hat, erntet oft mehr, als für Grütze und Kuchen nötig ist. Ein Dampfentsafter macht daraus mit wenig Arbeit Saft. Die Beeren müssen dafür nicht einmal von den Rispen gestreift werden: Gewaschen kommen sie samt Stielen in den Fruchtkorb, darunter sammelt sich der heiße Saft. Nach etwa 45 bis 60 Minuten ist der Großteil ausgetreten. Fülle den Saft direkt heiß in saubere, heiß ausgespülte Flaschen und verschließe sie sofort. Ungesüßt eignet er sich als Grundlage für Gelee, Grütze und Schorlen. Wer ihn pur trinken möchte, süßt ihn vor dem Abfüllen mit etwas Zucker oder streckt ihn später mit Wasser.
+
+## Johannisbeeren und Stachelbeeren im Garten
+
+Beerensträucher sind pflegeleicht und tragen viele Jahre. Wichtig ist der richtige Schnitt, und der unterscheidet sich: Rote und weiße Johannisbeeren tragen vor allem an zwei- bis dreijährigen Trieben. Schwarze Johannisbeeren tragen am besten am einjährigen Holz. Bei allen gilt, nach der Ernte die ältesten, dunklen Triebe bodennah herauszuschneiden, damit der Strauch licht bleibt und junge Triebe nachwachsen.
+
+Bei Stachelbeeren ist der Amerikanische Stachelbeermehltau die häufigste Plage, ein weißer, später brauner Belag auf Trieben und Früchten. Mehltauresistente Sorten und ein luftiger Schnitt beugen vor. Für den Balkon gibt es Johannis- und Stachelbeeren als Hochstämmchen, die in einem großen Kübel gut gedeihen und die Ernte auf bequeme Höhe bringen.
 
 ## Weitere Ideen mit Johannisbeeren
 
@@ -106,3 +120,7 @@ Meist wurde die Stärke nicht lange genug aufgekocht. Sie muss einmal sprudelnd 
 ### Sind die Kerne der Johannisbeeren ein Problem?
 
 Nein. Sie sind klein und essbar. Für eine besonders feine Grütze oder für Gelee kannst du die Johannisbeeren vorher durch ein Sieb streichen.
+
+### Kann ich die Grütze ohne Zucker kochen?
+
+Ja, aber die Säure der Johannisbeeren und Sauerkirschen ist dann sehr deutlich. Ersetze einen Teil der sauren Früchte durch Himbeeren, Erdbeeren oder süße Kirschen und süße nach Geschmack mit etwas Honig oder Apfeldicksaft. Ganz ohne Süße schmeckt die Grütze zu süßer Vanillesoße trotzdem erstaunlich ausgewogen.
