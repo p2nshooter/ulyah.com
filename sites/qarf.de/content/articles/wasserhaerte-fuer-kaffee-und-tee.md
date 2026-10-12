@@ -2,7 +2,7 @@
 title: "Wasserhärte für Kaffee und Tee: das unterschätzte Hauptgetränk"
 description: Kaffee besteht zu über 98 Prozent aus Wasser. Wie Härte, Karbonat und Mineralien den Geschmack prägen, wie du deine Wasserwerte herausfindest und was Filter bringen.
 category: muehlen-und-wasser
-date: 2026-06-25
+date: 2026-10-12
 ---
 Eine Tasse Filterkaffee besteht zu über 98 Prozent aus Wasser, eine Tasse Tee sogar zu mehr als 99 Prozent. Trotzdem denken die meisten Menschen beim Kaffeekochen an Bohnen, Mühle und Maschine, aber kaum an das, was aus dem Hahn kommt. Dabei kann dieselbe Bohne mit zwei verschiedenen Wässern so unterschiedlich schmecken, als wären es zwei verschiedene Kaffees. In diesem Ratgeber erfährst du, was Wasserhärte eigentlich ist, warum sie Geschmack und Geräte beeinflusst, wie du die Werte deines Leitungswassers herausfindest und wann sich ein Filter lohnt.
 
@@ -91,6 +91,10 @@ Ein Mineralwasser mit niedrigem Mineralgehalt kann eine gute Alternative sein. A
 
 Eine einfache Methode: Mische dein hartes Leitungswasser mit destilliertem oder sehr weichem Wasser, zum Beispiel im Verhältnis 1:1. So halbierst du die Härte, behältst aber genug Mineralien für den Geschmack.
 
+### Brühwasser selbst zusammenstellen
+
+Manche Kaffeeliebhaber gehen noch einen Schritt weiter und mischen ihr Wasser selbst. Ausgangspunkt ist destilliertes oder entmineralisiertes Wasser, dem in kleinen, abgewogenen Mengen lebensmitteltaugliche Salze zugesetzt werden: etwa Magnesiumsulfat, bekannt als Bittersalz, für die Härte und Natron für die Pufferung. Wer es einfacher mag, nutzt fertige Mineralpäckchen für Brühwasser, die in einer bestimmten Wassermenge aufgelöst werden. Das erlaubt sehr genaue, wiederholbare Werte und ist spannend für Experimente. Für den Alltag reicht in den meisten Haushalten aber ein guter Tischwasserfilter.
+
 ### Festeinbauten
 
 Für Siebträgermaschinen mit Festwasseranschluss oder großem Verbrauch gibt es Filtersysteme direkt an der Leitung. Hier lohnt sich eine Beratung durch den Maschinenhändler, denn die Einstellung hängt von deinen Wasserwerten ab.
@@ -126,3 +130,11 @@ Wasser, das lange im Kocher stand oder mehrfach aufgekocht wurde, hat weniger ge
 ### Brauche ich für Tee anderes Wasser als für Kaffee?
 
 Die Ansprüche sind ähnlich. Tee reagiert sogar noch empfindlicher auf Karbonathärte, weil er wenig eigene Säure mitbringt. Was deinem Kaffee guttut, tut auch deinem Tee gut.
+
+### Hilft es, das Wasser vorher abzukochen?
+
+Nur bedingt. Beim Kochen fällt ein Teil der Karbonathärte als Kalk aus, die Härte sinkt also etwas. Dafür verliert das Wasser Sauerstoff und schmeckt schal, wenn du es danach ein zweites Mal erhitzt, und der Kalk sammelt sich im Kocher. Ein Filter ist die bessere Lösung.
+
+## Fazit
+
+Wasser ist die größte Zutat in jeder Tasse. Wer seine Werte beim Versorger nachschlägt, bei hartem Wasser filtert oder mischt und immer frisches, kaltes Wasser verwendet, schmeckt den Unterschied sofort: lebendigere Säure im Kaffee, klarere Farbe im Tee und Geräte, die länger halten.
