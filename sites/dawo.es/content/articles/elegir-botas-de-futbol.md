@@ -2,7 +2,7 @@
 title: Elegir botas de fútbol según el terreno: césped natural, artificial y tierra
 description: Qué tipo de suela necesitas según la superficie donde juegas, cómo acertar con la talla y el material, y por qué unas botas inadecuadas aumentan el riesgo de lesión.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 Cualquiera que haya jugado al fútbol en distintos campos lo sabe: no es lo mismo jugar en un césped natural mojado que en un campo de hierba artificial en pleno agosto o en un campo de tierra apisonada. Cada superficie tiene su agarre, su forma de botar el balón y su manera de castigar las articulaciones. Y cada una pide un tipo de bota distinto.
 
@@ -66,6 +66,14 @@ Las botas de piel natural se adaptan algo al pie con el uso; las sintéticas ape
 ## Botas para jugadores aficionados
 
 Las gamas más altas de botas incorporan materiales muy ligeros y diseños pensados para el rendimiento máximo, pero suelen ser menos resistentes. Para un jugador aficionado que juega una o dos veces por semana, las gamas medias ofrecen un equilibrio muy razonable entre comodidad, durabilidad y precio. Lo más importante es que la suela sea la adecuada para tu terreno y que la bota sea cómoda.
+
+## Botas para niños
+
+En el fútbol base, el pie crece deprisa y la tentación es comprar las botas una o dos tallas más grandes «para que duren». Es un error: una bota grande hace que el pie se mueva dentro, provoca ampollas y empeora el control del balón. Deja como mucho un centímetro de margen en la punta y revisa la talla cada pocos meses. Para los más pequeños, los cierres de velcro facilitan que se calcen solos. Y si el niño juega en campos distintos a lo largo de la semana, unas botas multitaco suelen ser la opción más versátil y segura. Las botas heredadas están bien si los tacos y la suela conservan su forma y no hay costuras abiertas que rocen.
+
+## Calcetines y plantillas
+
+Los calcetines también influyen. Los de fútbol, más gruesos y altos, protegen la piel de las espinilleras; muchos jugadores usan además calcetines con puntos de agarre en la planta, que reducen el deslizamiento del pie dentro de la bota. Si utilizas plantillas a medida, llévalas cuando te pruebes las botas nuevas: ocupan espacio y pueden cambiar la talla adecuada.
 
 ## Cuidado y mantenimiento
 
