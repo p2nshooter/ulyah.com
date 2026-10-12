@@ -2,7 +2,7 @@
 title: Fuerza después de los 50: por qué es más importante que nunca y cómo empezar
 description: Cómo el entrenamiento de fuerza frena la pérdida de músculo y hueso con la edad, mejora el equilibrio y la autonomía, y cómo empezar con seguridad a partir de los cincuenta años.
 category: fuerza-y-movilidad
-date: 2026-10-04
+date: 2026-10-12
 ---
 A partir de cierta edad, muchas personas piensan que el ejercicio de fuerza ya no es para ellas. Que es cosa de jóvenes, de gimnasios ruidosos o de deportistas. Nada más lejos de la realidad. Las personas mayores de cincuenta años son precisamente las que más se benefician de entrenar la fuerza, y la ciencia lo respalda con claridad.
 
@@ -72,6 +72,30 @@ Dos o tres días por semana, en días no consecutivos. Haz 2 series de cada ejer
 - **Equilibrio a una pierna** junto a una encimera para sujetarte si lo necesitas: 20 a 30 segundos por lado. Cuando sea fácil, hazlo sin apoyo o con los ojos cerrados un instante.
 - **Caminar en línea**, poniendo el talón de un pie justo delante de la punta del otro: 10 a 15 pasos.
 - **Tai chi o clases de equilibrio**, que han mostrado reducir las caídas en personas mayores.
+
+## Comprobar tus progresos con pruebas sencillas
+
+Más allá del peso que levantas, hay pruebas sencillas que muestran cómo mejora tu fuerza para la vida diaria. Una de las más usadas por los profesionales es la de **levantarse de una silla durante 30 segundos**:
+
+1. Usa una silla firme, sin brazos, apoyada contra la pared.
+2. Siéntate en el centro, con los pies apoyados en el suelo y los brazos cruzados sobre el pecho.
+3. Cuenta cuántas veces te levantas por completo y vuelves a sentarte en 30 segundos.
+
+Otra prueba útil es mantener el **equilibrio sobre una pierna** junto a una encimera, contando los segundos hasta que necesitas apoyarte. Repite ambas pruebas cada cuatro o seis semanas y compárate contigo mismo: lo normal es ver mejoras claras en los primeros meses de entrenamiento.
+
+## Una semana tipo
+
+| Día | Actividad |
+|---|---|
+| Lunes | fuerza, 30 a 40 minutos |
+| Martes | caminar a buen ritmo, 30 a 45 minutos |
+| Miércoles | equilibrio y movilidad, 20 minutos, y un paseo |
+| Jueves | fuerza, 30 a 40 minutos |
+| Viernes | caminar o nadar |
+| Sábado | actividad social: baile, senderismo suave, petanca o bicicleta |
+| Domingo | descanso activo |
+
+No es una receta rígida: lo importante es repartir la fuerza en dos o tres días no consecutivos y moverse el resto de la semana. Si quieres sacar más partido a los paseos, en la guía sobre [caminar 10.000 pasos](/articulos/caminar-10000-pasos/) explicamos cómo hacerlo.
 
 ## Cuánto peso usar
 
