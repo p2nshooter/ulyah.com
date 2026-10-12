@@ -42,6 +42,10 @@ EXPECTED["rough.es"] = "5693981744147503";
 EXPECTED["dawo.es"] = "7349356139063654";
 // 11 Oct 2026 (owner): xad.es moves to its own account.
 EXPECTED["xad.es"] = "5517446616694631";
+// 12 Oct 2026 (owner): axto.dev moves to its own account.
+EXPECTED["axto.dev"] = "2493615451319531";
+// 12 Oct 2026 (owner): lie.skin moves to its own account.
+EXPECTED["lie.skin"] = "4548005919629272";
 const verdicts = [];
 
 const browser = await chromium.launch();
