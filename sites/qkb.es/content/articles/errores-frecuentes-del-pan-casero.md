@@ -2,7 +2,7 @@
 title: Errores frecuentes del pan casero y cómo corregirlos: guía de diagnóstico por síntomas
 description: Por qué el pan casero sale denso, plano, pálido, gomoso, quemado por abajo o con un gran agujero bajo la corteza: causas probables y soluciones concretas, ordenadas por síntoma.
 category: masa-madre-y-pan
-date: 2026-09-20
+date: 2026-10-12
 ---
 Todo el que hace pan en casa ha sacado alguna vez del horno algo que no se parecía a lo que esperaba: un ladrillo denso, una torta plana, una corteza pálida o una miga húmeda que se pega al cuchillo. Lo bueno es que el pan es muy expresivo: cada defecto cuenta qué ha pasado durante el proceso. Aprender a leerlo es la forma más rápida de mejorar.
 
@@ -212,6 +212,22 @@ El pan se rompe por los laterales o por la base en lugar de abrirse por el corte
 - Deja la masa un poco más en la segunda fermentación.
 - Haz cortes más profundos y decididos.
 - Sella bien la costura y colócala siempre hacia abajo en la bandeja.
+
+## Síntoma 13: el pan se pega al cesto o a la bandeja
+
+Al volcar la masa, se queda adherida al banneton o al paño, se desgarra y pierde el gas acumulado; o el pan cocido no se despega de la bandeja.
+
+**Causas probables:**
+
+- Cesto o paño poco enharinados, o enharinados con harina de trigo, que se hidrata y actúa como pegamento.
+- Masa con exceso de fermentación, más húmeda y pegajosa en la superficie.
+- Bandeja sin papel de horno ni engrasar.
+
+**Soluciones:**
+
+- Espolvorea el cesto con harina de arroz o sémola, que no absorben agua tan fácilmente.
+- Vigila la segunda fermentación y vuelca la masa en cuanto esté en su punto.
+- Hornea sobre papel de horno y, si usas olla de hierro, colócalo debajo del pan al meterlo.
 
 ## Un cuaderno de panadero
 
