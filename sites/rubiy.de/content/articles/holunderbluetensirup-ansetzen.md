@@ -2,7 +2,7 @@
 title: "Holunderblütensirup ansetzen: Blüten sicher sammeln, Rezept und Hollerküchle"
 description: "Holunderblüten im Mai und Juni richtig erkennen und ernten, Holunderblütensirup mit Zitrone ansetzen und haltbar abfüllen, dazu ausgebackene Hollerküchle und Verwechslungsgefahren."
 category: fruehling
-date: 2026-09-18
+date: 2026-10-12
 ---
 Ende Mai, wenn die Tage lang werden, blühen an Waldrändern, Bahndämmen und in alten Gärten die Holundersträucher. Ihre tellergroßen, cremeweißen Dolden duften süß, ein wenig nach Muskat und Honig, und in vielen Familien ist das der Startschuss für ein Ritual: Blüten sammeln, mit Zucker und Zitrone ansetzen, ein paar Tage warten und dann Sirup abfüllen, der den Frühsommer bis in den Winter trägt. Mit kaltem Sprudelwasser ergibt er eine der besten Limonaden, die es gibt. Und wer die Dolden in Teig taucht und ausbackt, hat mit Hollerküchle ein Gericht, das es nur ein paar Wochen im Jahr gibt.
 
@@ -83,6 +83,20 @@ In Bayern, Schwaben und Österreich werden die Dolden in Teig getaucht und in he
 
 Dazu passen Vanilleeis, Apfelmus oder Rhabarberkompott. Den Stiel selbst isst du nicht mit.
 
+## Blüten trocknen und Holunderblütenessig
+
+Nicht jede Dolde muss in den Sirup. Für **Tee** legst du die ausgeschüttelten Dolden mit den Blüten nach unten auf Papier oder hängst sie kopfüber an einem schattigen, luftigen Ort auf. Nach einigen Tagen rascheln die Blüten und lassen sich mit den Fingern von den Stielen reiben. In einem dunklen Glas aufbewahrt, ergeben sie im Winter einen milden, honigartigen Tee: zwei Teelöffel Blüten pro Tasse, mit kochendem Wasser übergossen, zehn Minuten ziehen lassen. In der Volksheilkunde gilt Holunderblütentee als klassischer Tee für Erkältungstage. Wie Kräuter allgemein schonend getrocknet werden, steht in [Obst, Pilze und Kräuter trocknen](/kueche/obst-und-kraeuter-trocknen/).
+
+Für **Holunderblütenessig** füllst du ein sauberes Glas locker mit Blüten ohne grobe Stiele, gießt milden Weißweinessig darüber, bis alles bedeckt ist, und lässt es zwei bis drei Wochen hell, aber nicht in der prallen Sonne stehen. Danach abseihen und in Flaschen füllen. Der Essig duftet blumig und passt zu Blattsalaten mit Erdbeeren oder Spargel.
+
+## Holunder im eigenen Garten
+
+Der Schwarze Holunder ist anspruchslos, wächst schnell und gedeiht in Sonne und Halbschatten. Er ist ein wertvolles Gehölz für die Natur: Die Blüten locken Insekten an, die Beeren ernähren im Spätsommer viele Vogelarten. Gepflanzt wird im Herbst oder zeitigen Frühjahr. Weil Holunder an jungen Trieben besonders reich blüht und fruchtet, schneidest du im Winter alle paar Jahre einige der ältesten Triebe bodennah heraus. So bleibt der Strauch vital und überschaubar.
+
+## Holler im Brauchtum
+
+Kaum eine heimische Pflanze ist so eng mit Volksglauben verbunden. Früher stand an vielen Bauernhäusern ein Holunderstrauch, weil er Haus und Hof schützen sollte. Manche bringen den Namen mit Frau Holle aus dem Märchen in Verbindung, und überliefert ist der Spruch, man solle vor dem Holunder den Hut ziehen. Den Strauch zu fällen galt als Unglück. Auch wenn das heute niemand mehr wörtlich nimmt, erklärt es, warum so viele alte Höfe noch immer einen Holunder am Haus haben.
+
 ## Häufige Fragen
 
 ### Sind Holunderblüten giftig?
@@ -96,3 +110,7 @@ Ja, aber dann ist der Sirup weniger haltbar. Mit deutlich weniger Zucker bewahrs
 ### Was mache ich im Herbst mit den Beeren?
 
 Reife, schwarze Holunderbeeren werden nur gekocht verwendet, etwa als Saft, Gelee oder Suppe. Erhitze sie dafür gründlich, mindestens bis zum Kochen, und entferne die Stiele vorher.
+
+### Warum ist mein Sirup trüb geworden?
+
+Etwas Trübung durch Blütenstaub und feine Partikel ist normal und harmlos. Wer klaren Sirup möchte, seiht den Ansatz zweimal durch ein frisches Tuch ab und lässt ihn vor dem Aufkochen eine Stunde stehen, damit sich Schwebstoffe absetzen. Riecht der Sirup jedoch gärig oder bildet er Bläschen, ist er verdorben.
