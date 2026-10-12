@@ -112,6 +112,31 @@ Consulta [autoconsumo solar](/guias/autoconsumo-solar-guia-completa/) y [compens
 - **Precalienta o preenfría el coche** mientras está enchufado, sobre todo en invierno y verano.
 - **Evita el enchufe doméstico** como solución permanente: no está diseñado para cargas largas y repetidas.
 
+## Cargar fuera de casa: cuándo compensa
+
+Aunque la carga doméstica en horas valle suele ser la más barata, hay situaciones en las que conviene cargar fuera:
+
+| Tipo de punto | Cuándo tiene sentido | A tener en cuenta |
+|---|---|---|
+| Carga lenta en destino | hoteles, aparcamientos o centros comerciales donde el coche pasa horas | a veces gratuita o incluida en el aparcamiento; potencia baja |
+| Carga semirrápida en la ciudad | cuando no tienes garaje propio | el precio por kWh varía mucho entre operadores |
+| Carga rápida en carretera | viajes largos | la opción más cara por kWh; úsala para lo imprescindible |
+
+Algunos consejos para no pagar de más:
+
+- **Compara el precio por kWh,** no por minuto, siempre que el operador lo permita.
+- **Revisa las cuotas y suscripciones** de las aplicaciones de carga: solo compensan si cargas a menudo con ese operador.
+- **En viajes, carga lo justo** en los puntos rápidos para llegar al siguiente tramo o a destino; la recta final de la carga, a partir de un nivel alto de batería, es más lenta.
+- **Si no tienes garaje,** consulta los puntos públicos cercanos a tu casa o a tu trabajo y las condiciones de los aparcamientos con recarga.
+
+## Errores frecuentes
+
+- **Subir la potencia en todos los periodos** cuando solo hace falta en el valle.
+- **Cargar sin programar,** nada más llegar a casa, en plena hora punta.
+- **Usar el enchufe doméstico** como solución permanente.
+- **Contratar una tarifa de precio fijo** sin comparar con una con valle barato.
+- **Recurrir siempre a la carga rápida** cuando se podría cargar en casa.
+
 ## Preguntas frecuentes
 
 ### ¿Necesito subir la potencia para cargar el coche?

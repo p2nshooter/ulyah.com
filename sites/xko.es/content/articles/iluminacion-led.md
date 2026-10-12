@@ -105,6 +105,20 @@ Desde septiembre de 2021, las fuentes de luz usan la nueva escala de la A a la G
 - **Iluminación por zonas:** luz puntual en la zona de trabajo en lugar de iluminar toda la estancia con mucha potencia.
 - **Paneles y tiras LED** de calidad para iluminación indirecta, con fuentes de alimentación adecuadas.
 
+## Vida útil: por qué algunos LED fallan antes de tiempo
+
+Los envases de las bombillas LED anuncian vidas útiles de muchos miles de horas, pero esa cifra se mide en condiciones de laboratorio. En casa, la duración real depende sobre todo de tres factores:
+
+- **El calor:** el diodo y su electrónica sufren con la temperatura. Una bombilla dentro de una lámpara cerrada o un plafón hermético se calienta más y dura menos. Si la luminaria es cerrada, elige bombillas que el fabricante declare aptas para ese uso.
+- **La electrónica interna:** el componente que más falla no es el LED, sino el pequeño circuito que lo alimenta. En los productos muy baratos suele ser el punto débil.
+- **El regulador:** una bombilla no regulable conectada a un regulador de intensidad puede parpadear, zumbar y estropearse pronto. Comprueba siempre la compatibilidad.
+
+Guarda el tique: las bombillas tienen la misma garantía legal que cualquier otro producto, y una que falla a los pocos meses puede reclamarse.
+
+## Reciclar las bombillas viejas
+
+Las bombillas LED y las lámparas fluorescentes, incluidas las de bajo consumo, son residuos de aparatos eléctricos y electrónicos y no deben tirarse al contenedor de restos. Las fluorescentes contienen además una pequeña cantidad de mercurio. Llévalas a un punto limpio o a los contenedores de recogida que hay en muchas tiendas: los establecimientos de cierto tamaño están obligados a aceptar aparatos muy pequeños, como las bombillas, aunque no compres nada. Así se recuperan materiales y se evita que sustancias peligrosas acaben en el vertedero.
+
 ## Errores frecuentes
 
 - **Elegir por vatios** en lugar de lúmenes.

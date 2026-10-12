@@ -126,6 +126,22 @@ Cada zona del frigorífico tiene una temperatura algo distinta. Aprovecharlo mej
 
 Etiquetar las sobras con la fecha y colocar delante lo que hay que consumir antes evita buscar con la puerta abierta y reduce el desperdicio de alimentos.
 
+## Congelar con cabeza: ahorro y seguridad alimentaria
+
+El congelador gasta menos y conserva mejor cuando se usa con método:
+
+- **Temperatura de referencia:** −18 °C. Por encima, la calidad de los alimentos se resiente antes.
+- **Raciones planas:** las bolsas finas y aplanadas se congelan y se descongelan más deprisa que los bloques gruesos, y se apilan mejor.
+- **Etiqueta y fecha:** escribe qué es y cuándo lo congelaste. Lo que no se identifica acaba olvidado durante meses ocupando frío.
+- **Congelación rápida con moderación:** muchos aparatos tienen una función de congelación rápida para cuando metes una gran cantidad de comida. Actívala unas horas antes y desactívala después; si se queda encendida, el compresor trabaja sin descanso y el consumo sube.
+- **Un congelador lleno conserva mejor el frío:** si está medio vacío, unas botellas de agua congeladas ocupan el hueco y ayudan durante los cortes de luz.
+
+Al descongelar, la regla de seguridad es sencilla: hazlo en el frigorífico, que además aprovecha ese frío, o en el microondas si vas a cocinar el alimento enseguida. Evita descongelar carne o pescado a temperatura ambiente sobre la encimera. Un alimento crudo descongelado en el frigorífico puede volver a congelarse, aunque pierde calidad; si se descongeló de otra forma, cocínalo antes de volver a congelarlo.
+
+## Vacaciones y segundas residencias
+
+Si te vas unos días, el modo vacaciones o una temperatura algo más alta en el frigorífico vacío reducen el consumo sin desconectar el congelador. Si la ausencia es de varias semanas, o se trata de una segunda residencia que pasa meses cerrada, lo más eficiente es vaciar el frigorífico, desenchufarlo, limpiarlo y dejar la puerta entreabierta para que no aparezcan malos olores ni moho. Mantener encendido un aparato vacío durante meses es uno de los gastos invisibles más habituales en las casas de veraneo.
+
 ## Preguntas frecuentes
 
 ### ¿Gasta más un frigorífico lleno o vacío?
