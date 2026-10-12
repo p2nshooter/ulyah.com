@@ -28,6 +28,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: "Nasakh & Mansukh",
     description: t("nasakhHeroDesc", locale),
+    // The entries are written in Indonesian only. Outside Indonesian the page
+    // stays reachable from the menu but is not offered to search engines as
+    // French, German or English content (shared ROUTE_LOCALES keeps it out of
+    // those sitemaps and hreflang too).
+    ...(locale === "id" ? {} : { robots: { index: false, follow: true } }),
   };
 }
 
@@ -53,6 +58,11 @@ export default async function NasakhPage({ params }: { params: Promise<{ locale:
         />
       </div>
       <div className="mx-auto mt-6 max-w-4xl px-4 sm:px-6">
+        {locale !== "id" && (
+          <p className="rounded-xl border border-(--color-border) bg-(--color-card) p-4 text-sm leading-relaxed text-text-secondary">
+            {t("nasakhOnlyIndonesian", locale)}
+          </p>
+        )}
       </div>
 
       {entries.length === 0 ? (

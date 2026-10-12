@@ -342,6 +342,11 @@ export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRout
     // lands on from search, and the ones that exist in every language.
     if (!group || group.section === "utama") {
       for (const r of ROUTES) {
+        // A route that exists only in some languages (shared ROUTE_LOCALES) is
+        // listed only by the sites that have it. /syukur used to be announced
+        // as 1fr.fr/gratitude and tilawa.de/dankbarkeit — both 404.
+        const only = routeLocales(r);
+        if (only && !only.includes(l.code)) continue;
         const daily = DAILY_ROUTES.has(r);
         entries.push({
           url: urlFor(l.code, r),

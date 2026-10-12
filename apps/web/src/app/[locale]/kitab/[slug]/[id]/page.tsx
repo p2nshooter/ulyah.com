@@ -96,6 +96,15 @@ async function translations(id: number, locale: string): Promise<Translations | 
   }
 }
 
+/** A search snippet: whitespace collapsed, cut at a word near 155 characters. */
+function clip(text: string, max = 155): string {
+  const s = text.replace(/\s+/g, " ").trim();
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  const at = cut.lastIndexOf(" ");
+  return `${(at > 80 ? cut.slice(0, at) : cut).replace(/[\s,;:.\-–—·]+$/, "")}…`;
+}
+
 /** The work from static data, with its translation layered on when available. */
 async function loadBook(rawId: string, locale: string) {
   const id = Number(rawId);
@@ -132,10 +141,22 @@ export async function generateMetadata({
     // so the share image shares its shelf's binding colour.
     const title = book.title_translated || book.title_ar;
     const cover = ogCoverUrl({ slug, title: book.title_ar, subtitle: book.title_translated ?? undefined, rtl: true });
+    // Each of the ~5,000 works needs its own snippet: without one every page
+    // inherited the site's generic description, thousands of identical
+    // descriptions that Search Console reports and searchers skip past.
+    const t = kitabLabels(locale);
+    const byline = book.author
+      ? `${t.author}: ${book.author}${book.author_death_year ? ` (${t.died} ${book.author_death_year})` : ""}`
+      : "";
+    const description = clip(
+      book.description_translated || [book.title_ar, byline, book.category_name].filter(Boolean).join(" · ")
+    );
     return {
       title,
-      openGraph: { title, type: "book", images: [{ url: cover, width: 1200, height: 630, alt: title }] },
-      twitter: { card: "summary_large_image", title, images: [cover] },
+      description,
+      alternates: { canonical: routePath(locale, `/kitab/${slug}/${id}`) },
+      openGraph: { title, description, type: "book", images: [{ url: cover, width: 1200, height: 630, alt: title }] },
+      twitter: { card: "summary_large_image", title, description, images: [cover] },
     };
   }
 }

@@ -99,6 +99,14 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
  */
 export const ROUTE_LOCALES: Record<string, readonly string[]> = {
   "/toko": ["en", "fr", "de", "es"],
+  // The founders' family dedication is personal to ulyah.com; every other site
+  // answers notFound(), so 1fr.fr/gratitude and tilawa.de/dankbarkeit must not
+  // be announced as alternates (or listed in those sites' sitemaps).
+  "/syukur": ["id"],
+  // The nasakh-mansukh corpus exists in Indonesian only (seed/nasakh_mansukh.sql).
+  // The other sites still show it, with a notice and noindex, but do not offer
+  // an Indonesian page to search engines as French, German or English content.
+  "/nasakh": ["id"],
 };
 
 /** Which languages have this route at all. Undefined means "every language". */
