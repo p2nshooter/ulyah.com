@@ -92,6 +92,7 @@ El sello puede ser de metal macizo o llevar una piedra dura grabada, como la cor
 - **Limpieza:** agua tibia, jabón neutro y un cepillo suave; seca bien.
 - **Revisión:** los engastes, una vez al año en el joyero.
 - **Almacenamiento:** por separado, para que no se rayen entre sí.
+- **Las manos también cuentan:** unas uñas cuidadas y una piel hidratada lucen tanto como el mejor anillo; lo explicamos en la guía sobre [manos y uñas](/es/manos-y-unas/).
 
 ## Errores frecuentes
 

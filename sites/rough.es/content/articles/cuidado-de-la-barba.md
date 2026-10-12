@@ -92,7 +92,7 @@ Las canas suelen aparecer antes y de forma más irregular en la barba que en el 
 
 - **Aceptarlas:** muchas barbas con canas tienen un aspecto magnífico si están bien recortadas.
 - **Llevar la barba más corta:** las canas se notan menos en barbas cortas y uniformes.
-- **Teñirla:** existen tintes específicos para barba. Sigue las instrucciones del fabricante, haz siempre la prueba de alergia previa que indican y no uses en la cara tintes pensados para el cabello. Si notas picor, rojez o hinchazón, retira el producto y consulta a un médico.
+- **Teñirla:** existen tintes específicos para barba. Sigue las instrucciones del fabricante, haz siempre la prueba de alergia previa que indican y no uses en la cara tintes pensados para el cabello. Si notas picor, rojez o hinchazón, retira el producto y consulta a un médico. Las canas y la caída del pelo de la cabeza se explican en la guía sobre [cabello: cuidado y caída](/es/cabello-cuidado-y-caida/).
 
 ## Problemas habituales
 

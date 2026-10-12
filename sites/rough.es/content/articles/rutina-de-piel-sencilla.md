@@ -55,7 +55,7 @@ España tiene índices de radiación ultravioleta altos durante buena parte del 
 - **Contorno de los ojos:** la piel es más fina; aplica cualquier producto con suavidad, sin frotar, y protege la zona con gafas de sol.
 - **Labios:** se agrietan con el frío, el viento y el sol. Un bálsamo labial, mejor con protección solar si vas a estar al aire libre, evita molestias; humedecerlos con la lengua los reseca más.
 - **Cuello y orejas:** forman parte de la cara a efectos de cuidado; inclúyelos al limpiar, hidratar y aplicar el protector.
-- **Cuero cabelludo:** si tienes poco pelo o lo llevas muy corto, se quema con facilidad. Una gorra o un sombrero son la mejor protección.
+- **Cuero cabelludo:** si tienes poco pelo o lo llevas muy corto, se quema con facilidad. Una gorra o un sombrero son la mejor protección. El cuidado del pelo y del cuero cabelludo tiene guía propia: [cabello: cuidado y caída](/es/cabello-cuidado-y-caida/).
 
 ## La piel según la estación
 
@@ -90,6 +90,7 @@ El afeitado es una pequeña agresión diaria para la piel. Prepara bien la barba
 - **Alcohol en exceso:** deshidrata y puede empeorar algunas afecciones de la piel.
 - **Alimentación variada:** no hay alimentos milagro, pero una dieta equilibrada favorece la salud en general.
 - **Higiene de lo que toca la cara:** fundas de almohada, toallas, pantallas del móvil y cascos.
+- **Manos limpias:** tocarse la cara con las manos sucias favorece los granos; el cuidado de las manos se explica en la guía sobre [manos y uñas](/es/manos-y-unas/).
 
 ## Cuándo acudir al dermatólogo
 
