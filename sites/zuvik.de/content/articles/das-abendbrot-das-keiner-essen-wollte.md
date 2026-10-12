@@ -2,7 +2,7 @@
 title: "Das Abendbrot, das keiner essen wollte"
 description: Ayşe kocht jeden Abend, und jeden Abend schieben zwei Kinder den Teller weg. Über wählerische Esser, Machtkämpfe am Tisch und den Abend, an dem die Kinder selbst kochen.
 category: morgens-und-abends
-date: 2026-10-02
+date: 2026-10-12
 ---
 „Was ist das Grüne da drin?“
 
@@ -54,6 +54,10 @@ Die Erkenntnis, die Ayşe aus diesen Wochen mitnahm, war schlicht: Es hatte nich
 
 Elif fasste es auf ihre Art zusammen, als ihre Freundin zum Abendessen kam und fragte, ob man den Brokkoli essen müsse. „Bei uns muss man gar nichts“, erklärte sie. „Aber man verpasst halt was.“
 
+## Elifs Rezeptheft
+
+Im neuen Jahr legte Elif ein Rezeptheft an. Auf die erste Seite schrieb sie Oma Güls Linsensuppe, mit einer Zeichnung der Zwiebeln, die man „ganz langsam goldig werden lassen“ muss. Auf die zweite kamen Deniz' Pfannkuchen, diktiert von Deniz selbst und mit dem Hinweis „gelbe Paprika dazu, weil Sonne“. Nach und nach füllte sich das Heft: das Gemüse-Curry, ein Nudelauflauf, Tobias' Rührei. Wenn Besuch kam, holte Elif das Heft hervor, und manchmal durfte der Gast ein Gericht für den nächsten Kinderkochabend aussuchen.
+
 ## Für euren Alltag
 
 Wählerisches Essverhalten ist bei Kindern im Kindergarten- und Grundschulalter weit verbreitet. Wenn euer Kind normal wächst und gesund ist, helfen oft kleine Veränderungen mehr als Druck. Ideen aus Ayşes Küche:
@@ -64,6 +68,29 @@ Wählerisches Essverhalten ist bei Kindern im Kindergarten- und Grundschulalter 
 - **Wiederholt ohne Kommentar.** Viele Kinder brauchen ein Lebensmittel zahlreiche Male auf dem Tisch, bevor sie es probieren. Das ist normal und kein Zeichen von Sturheit.
 - **Macht das Gespräch zum Mittelpunkt.** Fragen wie „Was war heute schön, was war blöd?“ lenken die Aufmerksamkeit vom Teller auf das Miteinander.
 - **Holt Rat, wenn ihr euch sorgt.** Wenn ein Kind abnimmt, auffällig wenige Lebensmittel akzeptiert oder Essen große Angst auslöst, sprecht mit eurer Kinderärztin oder eurem Kinderarzt.
+
+### Was hinter dem wählerischen Essen steckt
+
+Dass Kinder Neues auf dem Teller misstrauisch beäugen, ist kein Erziehungsfehler. Viele Kinder durchlaufen etwa zwischen dem zweiten und sechsten Lebensjahr eine Phase, in der sie unbekannte Lebensmittel ablehnen. Fachleute sprechen von Neophobie, der Scheu vor Neuem, und vermuten dahinter einen alten Schutzmechanismus: Wer als kleines Kind nicht alles in den Mund steckt, vergiftet sich seltener. Dazu kommt, dass viele Kinder Bitterstoffe intensiver wahrnehmen als Erwachsene. Gemüse wie Rosenkohl oder Brokkoli schmeckt für sie tatsächlich anders als für ihre Eltern. Geduld und häufiges, entspanntes Anbieten wirken deshalb besser als Überreden.
+
+### Aufgaben in der Küche nach Alter
+
+| Alter | Was Kinder gut übernehmen können |
+|---|---|
+| 2 bis 3 Jahre | Gemüse waschen, Salat zupfen, umrühren, Zutaten in eine Schüssel geben |
+| 4 bis 5 Jahre | weiche Lebensmittel mit einem Kindermesser schneiden, Teig kneten, den Tisch decken |
+| 6 bis 8 Jahre | einfache Rezepte vorlesen, Zutaten abwiegen, mit Aufsicht am Herd rühren |
+| 9 bis 12 Jahre | einfache Gerichte weitgehend selbstständig kochen, Einkaufslisten schreiben |
+
+Bleibt bei Messern, heißen Töpfen und dem Backofen immer in der Nähe, bis ihr sicher seid, dass euer Kind damit umgehen kann.
+
+### Sätze, die wir uns abgewöhnt haben
+
+Ayşe und Tobias merkten, wie oft sie mit Worten Druck gemacht hatten. „Nur noch ein Bissen“, „Probier wenigstens“ oder „Andere Kinder wären froh“ ersetzten sie nach und nach durch Sätze, die Freiheit lassen: „Du musst es nicht essen.“ „Du kannst auch erst mal nur daran riechen.“ „Wie fühlt sich das an, knackig oder weich?“ Gerade das Anfassen und Riechen ist für viele Kinder ein erster Schritt, bevor sie sich ans Probieren wagen.
+
+### Den Wochenplan teilen
+
+Eine einfache Hilfe für vielbeschäftigte Eltern ist ein Wochenplan am Kühlschrank, in den jedes Familienmitglied ein Gericht einträgt. So weiß jeder, dass sein Lieblingsessen bald dran ist, und die Frage „Was gibt es heute?“ verliert ihren Schrecken. Für Ayşe hatte der Plan einen weiteren Vorteil: Sie musste nicht mehr jeden Abend allein entscheiden.
 
 ### Zum Gespräch mit euren Kindern
 
