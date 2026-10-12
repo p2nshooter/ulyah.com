@@ -2,7 +2,7 @@
 title: "Wackelnden Stuhl reparieren: Verbindungen neu verleimen und festigen"
 description: Wie du herausfindest, warum ein Holzstuhl wackelt, Zapfen- und Dübelverbindungen löst, reinigst und neu verleimst, Schraubverbindungen festigst und ungleich lange Stuhlbeine ausgleichst.
 category: reparaturen-im-haushalt
-date: 2026-08-24
+date: 2026-10-12
 ---
 Ein Stuhl, der bei jeder Bewegung knarzt und nachgibt, ist nicht nur unbequem, sondern kann auch gefährlich werden, wenn eine Verbindung plötzlich nachgibt. Die meisten Holzstühle wackeln, weil sich mit der Zeit der Leim in den Verbindungen gelöst hat. Das Holz arbeitet durch wechselnde Luftfeuchtigkeit, und die ständige Belastung beim Sitzen und Kippeln lockert die Verbindungen. Die gute Nachricht: Ein wackeliger Stuhl lässt sich in den meisten Fällen dauerhaft reparieren, wenn man es richtig macht.
 
@@ -95,6 +95,22 @@ Wenn alle Verbindungen fest sind, der Stuhl aber kippelt:
 
 Weitere Möbelreparaturen findest du in [Alte Möbel aufarbeiten](/anleitungen/alte-moebel-aufarbeiten/).
 
+## Warum Leimverbindungen nachgeben
+
+Holz nimmt Feuchtigkeit aus der Luft auf und gibt sie wieder ab. Dabei quillt und schwindet es, quer zur Faser deutlich stärker als in Längsrichtung. In einer Zapfenverbindung treffen genau diese beiden Richtungen aufeinander: Der Zapfen arbeitet anders als das Bein, in dem er steckt. Über Jahre, mit trockener Heizungsluft im Winter und feuchter Luft im Sommer, wird die Leimfuge immer wieder gedehnt und gestaucht, bis sie reißt. Dazu kommt die Hebelwirkung beim Sitzen und Kippeln. Ein Stuhl ist deshalb eines der am stärksten belasteten Möbelstücke im Haushalt.
+
+## Alte Stühle mit Knochenleim
+
+Ältere und antike Stühle sind oft mit Glutinleim verleimt, auch Knochen- oder Hautleim genannt. Er wird warm verarbeitet und lässt sich mit Wärme und Feuchtigkeit wieder lösen, was Restauratoren schätzen. Für dich bedeutet das: Moderner Weißleim haftet schlecht auf Resten von Glutinleim. Entferne die Reste deshalb gründlich, am besten mit warmem Wasser, oder verwende bei wertvollen Stücken wieder Glutinleim, den es im Fachhandel auch als gebrauchsfertigen Flüssigleim gibt. So bleibt die Verbindung später erneut reparierbar.
+
+## Spanngurt richtig einsetzen
+
+Ein Spanngurt mit Ratsche ist für Stühle oft besser als Schraubzwingen, weil er alle vier Beine gleichzeitig zusammenzieht. Lege ihn auf Höhe der Zargen um die Beine und polstere die Ecken mit Pappe oder Filz, damit keine Druckstellen entstehen. Ziehe den Gurt gleichmäßig an, bis die Fugen geschlossen sind, aber nicht so fest, dass Leim in großen Mengen herausquillt. Miss dann die Diagonalen der Sitzfläche: Sind sie gleich lang, steht der Stuhl im Winkel. Weichen sie ab, verschiebe den Gurt ein Stück, bis beide Maße stimmen.
+
+## Geflecht und Sitzfläche
+
+Bei Stühlen mit Wiener Geflecht ist oft nicht das Gestell das Problem, sondern die Sitzfläche. Maschinell gefertigtes Geflecht, das mit einer Keilschnur in eine Nut eingesetzt wird, lässt sich mit etwas Geschick selbst erneuern: alte Schnur heraushebeln, Nut reinigen, neues, angefeuchtetes Geflecht einlegen und mit Leim und neuer Schnur befestigen. Handgeflochtene Sitze, bei denen das Rohr durch einzelne Löcher im Rahmen läuft, sind dagegen eine Arbeit für Stuhlflechter.
+
 ## Praxisbeispiel: Vier Küchenstühle aus Buche
 
 Vier Buchenstühle aus den Achtzigern wackeln alle, zwei davon stark. Die Zargen sind mit Holzdübeln in den Beinen verleimt, in den Ecken sitzen verschraubte Eckklötze.
@@ -129,6 +145,14 @@ Für Holzverbindungen nicht. Er ist spröde und füllt keine Fugen.
 ### Was mache ich bei einem gebrochenen Stuhlbein?
 
 Saubere Brüche lassen sich verleimen und gegebenenfalls mit einem Holzdübel verstärken. Bei splitternden Brüchen ist ein Fachbetrieb oder ein neues Bein die bessere Wahl.
+
+### Wie lange muss der Leim trocknen, bevor ich den Stuhl benutze?
+
+Die Presszeit für Weißleim liegt bei Raumtemperatur meist bei 15 bis 30 Minuten, voll belastbar ist die Verbindung aber erst nach etwa 24 Stunden. Arbeite nicht in einem kalten Raum: Unter etwa zehn Grad bindet Weißleim nicht richtig ab.
+
+### Kann ich einen Kinderhochstuhl genauso reparieren?
+
+Lockere Schrauben nachziehen: ja. Gebrochene oder neu verleimte tragende Teile an einem Hochstuhl sind dagegen heikel, weil Kinder darin klettern, schaukeln und sich abstoßen. Im Zweifel lieber Ersatzteile beim Hersteller bestellen oder den Stuhl ersetzen, denn hier geht Sicherheit vor Sparsamkeit.
 
 ## Fazit
 
