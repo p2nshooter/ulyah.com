@@ -2,7 +2,7 @@
 title: "Die große Anziehschlacht"
 description: Ronja ist drei und will alles selbst machen, am liebsten im Sommerkleid bei Frost. Eine Geschichte über Autonomie, Machtkämpfe um Strumpfhosen und den Kleiderschrank mit nur zwei Möglichkeiten.
 category: morgens-und-abends
-date: 2026-09-24
+date: 2026-10-12
 ---
 Die Strumpfhose lag auf dem Boden. Ronja lag daneben, auf dem Rücken, die Arme ausgebreitet wie ein Seestern, und schrie. Ihre Mutter Julia Schneider kniete daneben, einen Stiefel in der Hand, und sah auf die Uhr. 7:42 Uhr. Um acht musste Ronja in der Kita sein, um halb neun begann Julias Videokonferenz.
 
@@ -75,6 +75,20 @@ Das Bedürfnis, selbst zu entscheiden und selbst zu machen, gehört zur normalen
 - **Findet Kompromisse mit Fantasie.** Das Lieblingsstück als „Geheimnis“ unter dem warmen Pullover, die Sonnenbrille im Herbst, der Prinzessinnenhut über der Mütze: Oft gibt es kreative Lösungen.
 - **Kündigt Ausnahmen an.** An Tagen, an denen es wirklich schnell gehen muss, hilft eine Ankündigung am Vorabend: „Morgen ist ein Schnell-Tag, da helfe ich dir.“
 
+### Die Autonomiephase verstehen
+
+Was früher Trotzphase hieß, nennen Fachleute heute meist Autonomiephase. Viele Kinder durchleben sie etwa zwischen dem zweiten und vierten Lebensjahr. Sie entdecken, dass sie einen eigenen Willen haben und etwas bewirken können, aber sie können Enttäuschung und Frust noch kaum regulieren. Wenn der eigene Plan, Glitzerkleid bei Frost, an der Wirklichkeit scheitert, entlädt sich das in Tränen und Geschrei. Das ist anstrengend, aber ein gesunder Entwicklungsschritt. Je weniger Kämpfe um Kleinigkeiten geführt werden, desto mehr Kraft bleibt für die wenigen Dinge, bei denen Eltern wirklich festbleiben müssen.
+
+### Kleidung, die Selbständigkeit leichter macht
+
+Manches lässt sich mit der richtigen Kleidung vereinfachen. Hosen mit Gummizug statt Knöpfen, Schuhe mit Klettverschluss und Jacken mit großem Reißverschluss kann ein dreijähriges Kind oft schon allein bewältigen. Ein beliebter Trick für Jacken: Die Jacke liegt offen auf dem Boden, die Kapuze zeigt zu den Füßen des Kindes. Es steckt beide Arme in die Ärmel und schwingt die Jacke über den Kopf, und schon ist sie an. Damit die Schuhe am richtigen Fuß landen, könnt ihr einen Aufkleber halbieren und je eine Hälfte in jeden Schuh kleben. Stehen die Schuhe richtig nebeneinander, ergibt sich das ganze Bild.
+
+### Ist meinem Kind warm genug?
+
+Kinder frieren anders als Erwachsene, und Hände und Füße fühlen sich oft kühl an, auch wenn dem Kind warm ist. Fühlt deshalb lieber im Nacken: Ist er warm und trocken, passt die Kleidung. Ist er verschwitzt, ist es zu viel. Mehrere dünne Schichten, das Zwiebelprinzip, lassen sich je nach Wetter und Bewegung leichter anpassen als ein dicker Pullover.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt beim Aussuchen am Abend: Was magst du an diesem Pullover? Welche Sachen sind deine Lieblingssachen? Kinder, die über ihre Kleidung erzählen dürfen, fühlen sich mit ihren Wünschen ernst genommen, auch wenn nicht jeder Wunsch an jedem Tag erfüllt werden kann.
+
+Und erzählt ruhig, welches Kleidungsstück ihr selbst als Kind am liebsten mochtet. Kinder lieben solche Geschichten, und sie zeigen, dass auch ihre Eltern einmal ein Glitzerkleid oder einen Lieblingspullover hatten, von dem sie sich nicht trennen wollten.
