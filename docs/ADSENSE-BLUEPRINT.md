@@ -64,6 +64,16 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
 12. **Ad Manager + AI otomatis** mengikuti `docs/ADMANAGER-BLUEPRINT.md`:
     hanya bekerja di situs yang sudah di-approve AdSense, aturan tetap
     (deterministik), semua laporan tampil di admin ulyah.com.
+13. **Tanpa agent: semua perbaikan dikerjakan manual.** Setiap perbaikan kode,
+    penulisan dan perpanjangan artikel, audit, dan pengecekan dikerjakan
+    langsung oleh Claude di sesi kerja itu sendiri, langkah demi langkah.
+    Tidak boleh memakai agent AI untuk perbaikan atau penulisan: tidak ada
+    subagent (Agent/Task), sesi Claude paralel, maupun bot penulis otomatis.
+    Workflow CI (build, cek, deploy) tetap dipakai karena hanya memeriksa dan
+    memasang, bukan memperbaiki atau menulis. Pemilik, 12 Okt 2026: „Jgn
+    pernah perbaikan menggunakan agent, kerjakan manual aja, catat di
+    blueprint agar tidak menggunakan agent“ (sebelumnya juga: „jgn gunakan
+    agent, anda saja yg menulis“).
 
 ---
 
@@ -551,6 +561,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 12 Okt | "Catat ini, turunkan R2-nya hingga di bawah 10 GB, pastikan seluruh website dan fitur berfungsi 100%, khususnya portal admin ulyah.com sebagai central, pastikan mendekati 100% approve AdSense" (tangkapan layar R2: total 121,63 GB — ulyah-media 6,19 rb objek 91,06 GB, ulyah-next-cache 510,43 rb objek 30,57 GB) | 🔄 §12 |
 | 12 Okt | "Anda sudah sy berikan akses CF, buka saja dan lihat langsung ke dalam, jgn meraba. Perbaiki logo headernya biar mewah, indah elegan, bukan tumpang tindih begitu. Yg dawa.es juga perbaiki, walaupun udah milik orang, biar g error dan biar nanti mudah d backup" | 🔄 §12.5, §10.1 |
 | 12 Okt | "Tolong jgn pernah jelasin selain make bhs Indonesia, biar sy tau sudah sampai mana progressnya" | ✅ aturan tetap: semua laporan progres ke pemilik dalam bahasa Indonesia |
+| 12 Okt | "Jgn pernah perbaikan menggunakan agent, kerjakan manual aja, catat di blueprint agar tidak menggunakan agent" | ✅ aturan tetap §1 no. 13: perbaikan, artikel, dan audit dikerjakan manual tanpa agent AI |
 
 ---
 
