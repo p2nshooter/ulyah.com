@@ -2,7 +2,7 @@
 title: Conservas caseras al baño maría con seguridad: acidez, botulismo, tiempos y cierre al vacío
 description: Conservas caseras seguras: qué se puede tratar al baño maría y qué no, botulismo, tomate acidificado, tiempos, vacío y señales de conserva estropeada.
 category: conservas
-date: 2026-09-10
+date: 2026-10-12
 ---
 Las conservas caseras en tarros de cristal forman parte de la tradición de muchas familias españolas: tomate en verano, pimientos asados, mermeladas, melocotón en almíbar. Bien hechas, permiten disfrutar de los productos de temporada durante todo el año. Mal hechas, pueden ser peligrosas. La principal amenaza tiene nombre propio: el **botulismo**, una intoxicación poco frecuente pero muy grave.
 
@@ -117,6 +117,20 @@ Etiqueta cada tarro con el contenido y la fecha. Guárdalos sin la anilla de ros
 Para desecharlo, no lo abras dentro de casa si la tapa está abombada. Envuélvelo en una bolsa cerrada y tíralo a la basura. Lava con lejía diluida cualquier superficie que haya podido estar en contacto con el contenido.
 
 Si alguien presenta síntomas como visión doble, párpados caídos, dificultad para tragar o hablar, o debilidad muscular tras consumir una conserva, **acude a urgencias de inmediato**: el botulismo es una emergencia médica.
+
+## Preguntas frecuentes
+
+### ¿Hay que esterilizar los tarros antes de llenarlos?
+
+Si el tratamiento al baño maría dura 10 minutos o más, basta con que los tarros estén bien limpios y calientes: el propio tratamiento los higieniza junto con su contenido. Lo que sí es imprescindible es lavarlos con agua caliente y jabón, revisarlos uno a uno y mantenerlos calientes hasta el momento de llenarlos.
+
+### ¿Puedo reutilizar los tarros y las tapas de productos comprados?
+
+Los tarros de cristal en buen estado sirven para guardar alimentos en la nevera o para fermentar. Para conservas de despensa, en cambio, conviene usar tarros pensados para ese uso y, sobre todo, tapas nuevas: las tapas de los productos industriales están diseñadas para un solo cierre, y una junta gastada es la causa más habitual de que un tarro no haga vacío.
+
+### ¿Basta con poner los tarros boca abajo?
+
+No. Dar la vuelta a los tarros calientes a veces produce un cierre, pero no somete el contenido al calor necesario durante el tiempo suficiente y su resultado es irregular. Para conservar a temperatura ambiente, el método fiable es el baño maría con los tiempos de una receta probada.
 
 ## En resumen
 

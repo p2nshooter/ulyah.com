@@ -2,7 +2,7 @@
 title: Mozzarella casera en una hora: la técnica de la pasta hilada explicada
 description: Cómo hacer mozzarella en casa con leche pasteurizada, ácido cítrico y cuajo: temperaturas, acidez, el hilado con agua caliente, cómo saber si la cuajada está lista y qué hacer si no estira.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 La mozzarella es un queso fascinante. A diferencia de la mayoría, su cuajada se calienta y se estira hasta formar fibras largas y brillantes, una técnica que los italianos llaman *pasta filata*, pasta hilada. El resultado es ese queso elástico, jugoso y suave que se funde en la pizza y que, recién hecho, tiene un sabor lácteo y fresco imposible de igualar con el de supermercado.
 
@@ -16,7 +16,7 @@ En las queserías tradicionales, esa acidez se alcanza con fermentos lácticos q
 
 ## Ingredientes
 
-Para unas tres o cuatro bolas pequeñas, alrededor de 300 a 350 gramos:
+Para unas cuatro o cinco bolas medianas, alrededor de 400 a 500 gramos:
 
 - **4 litros de leche entera pasteurizada**, no UHT. Algunas leches pasteurizadas a temperatura muy alta tampoco funcionan bien; si una marca falla, prueba otra.
 - **6 gramos de ácido cítrico** (una cucharadita y media aproximadamente), disuelto en 60 ml de agua sin cloro.
@@ -94,6 +94,21 @@ Una prueba sencilla: toma un trocito de cuajada y sumérgelo en el agua caliente
 | Masa granulosa que suelta grasa | Exceso de acidez o temperatura demasiado alta | Reduce ligeramente el ácido en la próxima tanda |
 | Mozzarella dura y gomosa | Hilado excesivo o cuajada demasiado escurrida | Hila lo justo hasta que esté lisa |
 | Mozzarella insípida | Poca sal | Sala el agua de hilado o la salmuera de conservación |
+
+## Organizar la sesión de hilado
+
+El hilado se hace en pocos minutos y no admite pausas, así que conviene tenerlo todo preparado antes de separar la cuajada: el agua salada caliente en un cazo, un cuenco grande con agua y hielo, los guantes, una tabla limpia y el recipiente donde se guardarán las bolas. Para la primera vez, una media receta con dos litros de leche resulta más manejable: hay menos cuajada que trabajar mientras está caliente y se aprende a reconocer el punto sin prisas. Cuando domines el gesto, podrás volver a la cantidad completa.
+
+## Aprovechar el suero
+
+De cuatro litros de leche salen más de tres litros de suero ligeramente ácido. No hace falta tirarlo:
+
+- **En el pan:** sustituye parte del agua de la masa por suero; la miga queda tierna y la corteza dora más.
+- **Para cocer:** da sabor al arroz, la pasta o las patatas.
+- **En sopas y cremas de verdura**, en lugar de parte del caldo.
+- **Para conservar la mozzarella**, con un poco de sal, como explicamos más arriba.
+
+Con el suero de este método rápido se obtiene muy poco requesón, porque la mayor parte de las proteínas ya se ha quedado en la cuajada. Si te interesa el requesón, la guía de [requesón casero](/recetas-y-guias/requeson-casero/) explica cómo hacerlo con leche entera. Guarda el suero en la nevera y úsalo en dos o tres días.
 
 ## Seguridad
 

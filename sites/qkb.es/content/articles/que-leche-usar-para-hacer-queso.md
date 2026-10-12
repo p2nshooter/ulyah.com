@@ -2,7 +2,7 @@
 title: Qué leche usar para hacer queso en casa: pasteurizada, UHT, cruda, de vaca, cabra u oveja
 description: Cómo elegir la leche para la quesería casera: por qué la UHT cuaja mal, por qué evitar la leche cruda en casa, diferencias entre vaca, cabra y oveja y el papel de la grasa y el calcio.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 Quien empieza a hacer queso en casa suele centrarse en el cuajo, las temperaturas y los moldes. Sin embargo, la decisión más importante se toma antes, en el pasillo del supermercado: **qué leche comprar**. La misma receta puede dar un queso perfecto o un fracaso total según la leche elegida.
 
@@ -70,6 +70,18 @@ Para quesos especialmente cremosos, algunas recetas añaden un poco de nata a la
 ## El calcio y el cloruro cálcico
 
 El calcio es imprescindible para que el cuajo forme una buena cuajada. La pasteurización y la refrigeración prolongada reducen ligeramente el calcio disponible. Por eso muchos queseros domésticos añaden una pequeña cantidad de **cloruro cálcico** disuelto en agua antes del cuajo. No cambia el sabor y mejora la firmeza de la cuajada, especialmente con leche de vaca pasteurizada.
+
+## Cómo usar el cloruro cálcico
+
+El cloruro cálcico para quesería se vende como solución líquida, normalmente al 30 o 33 %. Sigue siempre la dosis que indica el fabricante; como orientación, se usa más o menos un cuarto de cucharadita de solución por cada 4 litros de leche. Dilúyelo en un poco de agua sin cloro, añádelo a la leche templada y remueve bien unos minutos **antes** de incorporar el cuajo, nunca a la vez, porque ambos podrían reaccionar en el vaso. Más no es mejor: un exceso da un sabor amargo y una cuajada demasiado dura.
+
+## Una prueba rápida antes de una tanda grande
+
+Si vas a probar una leche nueva, no arriesgues cuatro litros. Calienta un vaso de 250 ml a 32 °C, añade una cantidad muy pequeña de cuajo diluido, proporcional a la receta, remueve unos segundos y deja reposar. Al cabo de diez o quince minutos, inclina el vaso: si la leche se ha convertido en un gel que se separa limpiamente de la pared, la leche cuaja bien. Si sigue líquida o forma grumos blandos, busca otra marca antes de hacer la tanda completa.
+
+## Guardar la leche hasta el día del queso
+
+Compra la leche lo más cerca posible del día en que vas a usarla y guárdala en la parte más fría de la nevera, no en la puerta. No la congeles: el congelado altera la grasa y las proteínas, y la cuajada sale peor. Si la leche ha estado varias horas fuera del frío, no la uses para queso.
 
 ## La leche sin lactosa
 

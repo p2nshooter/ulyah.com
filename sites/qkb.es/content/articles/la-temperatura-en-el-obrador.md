@@ -2,7 +2,7 @@
 title: La temperatura en el obrador casero: el termómetro, las cifras clave y cómo controlar el calor
 description: Termómetros, calibración, temperaturas clave de quesos, fermentados, pan y conservas, la zona de peligro y cómo calcular el agua de una masa.
 category: tecnica
-date: 2026-09-05
+date: 2026-10-12
 ---
 Si hubiera que elegir un solo factor que explica por qué una receta sale bien un día y mal al siguiente, ese factor sería la temperatura. El yogur cuaja o no cuaja según unos pocos grados; la masa madre sube en cuatro horas o en doce; el queso fresco queda tierno o gomoso; una mermelada gelifica o queda líquida; el aceite de fritura sella una torrija o la empapa. En el obrador casero, la temperatura es el ingrediente invisible.
 
@@ -111,6 +111,18 @@ En verano, con la cocina a 28 °C, el cálculo daría agua muy fría o incluso h
 - **Usa agua fría o hielo** en las masas.
 - **La nevera** permite fermentaciones lentas y controladas, tanto para pan como para bollería.
 - **Un barreño con agua** alrededor de un tarro de fermentación amortigua los cambios de temperatura.
+
+## Las estaciones dentro de casa
+
+En buena parte de España, la temperatura de una cocina puede pasar de 17 o 18 °C en una mañana de invierno a 28 o 30 °C en una tarde de julio. Para el obrador, eso son dos mundos distintos. En invierno, la masa madre tarda el doble en subir, el yogur necesita una incubadora bien abrigada y el chucrut fermenta con calma. En verano, las masas se pasan en pocas horas, el kéfir está listo antes de lo previsto y la mantequilla del hojaldre se ablanda en cuanto sale de la nevera. Por eso las recetas indican rangos y señales, no solo tiempos: un mismo pan puede necesitar cuatro horas de fermentación en agosto y nueve en enero.
+
+## Un cuaderno de temperaturas
+
+Anotar unas pocas cifras en cada elaboración acelera mucho el aprendizaje: la temperatura de la cocina, la del agua, la de la masa al terminar de amasar, las horas de fermentación y el resultado. Al cabo de unas semanas tendrás tu propia tabla, ajustada a tu casa, tu horno y tus ingredientes, mucho más útil que cualquier receta genérica.
+
+## Cuidar el termómetro
+
+Lava la sonda con agua caliente y jabón después de cada uso, sobre todo si ha tocado leche, carne o huevo, y sécala bien. No sumerjas la parte electrónica ni dejes el termómetro dentro del horno si no está diseñado para ello. Cambia la pila en cuanto la pantalla pierda intensidad, porque algunas lecturas se vuelven erráticas antes de apagarse del todo.
 
 ## Preguntas frecuentes
 

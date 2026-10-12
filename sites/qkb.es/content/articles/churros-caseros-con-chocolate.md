@@ -2,7 +2,7 @@
 title: Churros caseros con chocolate a la taza: masa, churrera, fritura segura y porras
 description: Cómo hacer churros en casa con harina, agua y sal: proporciones, por qué usar boquilla de estrella, temperatura del aceite, fritura sin riesgos, porras, y el chocolate a la taza espeso para mojar.
 category: bolleria
-date: 2026-09-14
+date: 2026-10-12
 ---
 Pocas cosas son tan españolas como un desayuno de churros con chocolate un domingo de invierno, o la última parada de una noche de fiesta en una churrería. Los churros son, en su versión más clásica, una masa sencillísima de harina, agua y sal, que se fríe en aceite muy caliente y se espolvorea, si se quiere, con azúcar. Su secreto no está en los ingredientes, sino en la técnica: la consistencia de la masa, la forma de la boquilla y la temperatura del aceite.
 
@@ -132,6 +132,14 @@ Para hacer porras, la masa debe ser más líquida y más esponjosa.
 5. Fríe la masa en espiral, desde el centro de la sartén hacia fuera, en aceite a 180 °C.
 6. Dale la vuelta con dos palillos largos cuando esté dorada.
 7. Sácala, déjala escurrir y córtala en tiras con unas tijeras.
+
+## Organizar un desayuno de churros
+
+Los churros no esperan, así que el orden importa. Prepara primero el chocolate y mantenlo caliente a fuego mínimo, removiendo de vez en cuando, o en un termo. Después haz la masa, llena la churrera y calienta el aceite. Fríe por tandas pequeñas y sirve cada tanda en cuanto salga de la sartén, en lugar de acumularlas: diez minutos de espera bastan para que pierdan el crujiente. Si sois muchos, que una persona fría mientras las demás desayunan, como en las churrerías de toda la vida.
+
+## Qué hacer con el aceite después
+
+Deja que el aceite se enfríe por completo en la sartén, lejos del borde de la encimera. Fíltralo con un colador fino o un papel de cocina y guárdalo en una botella opaca y cerrada, en un lugar fresco. Puede reutilizarse alguna vez más para frituras dulces, pero deséchalo cuando esté oscuro, espeso, huela a rancio, haga espuma o empiece a humear a menos temperatura de lo habitual. Nunca lo tires por el fregadero ni por el inodoro: atasca las tuberías y contamina el agua. Guárdalo en una botella y llévalo a un punto limpio o a los contenedores de recogida de aceite usado que tienen muchos municipios.
 
 ## Problemas frecuentes
 

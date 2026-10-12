@@ -2,7 +2,7 @@
 title: Guía de quesos españoles: de los frescos a los curados, región a región
 description: Un recorrido por los grandes quesos de España según su leche, su elaboración y su maduración, con claves para reconocerlos, conservarlos y servirlos en una tabla.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 España es uno de los países de Europa con mayor diversidad de quesos. La variedad de climas, de razas de ganado y de tradiciones pastoriles ha dado lugar a cientos de elaboraciones, muchas de ellas protegidas con denominación de origen. Conocerlos ayuda a disfrutarlos más, a elegir bien en el mercado y, para quien hace queso en casa, a entender de dónde vienen las técnicas que practica en su cocina.
 
@@ -96,6 +96,17 @@ Canarias tiene una tradición quesera muy rica, sobre todo de cabra:
 3. **Ordénalos de suave a intenso** y prueba en ese orden.
 4. **Corta según la forma**: cuñas en los quesos redondos, láminas finas en los curados, cucharada en las tortas.
 5. **Acompaña con sencillez**: pan, frutos secos, membrillo, uvas, higos, miel o aceitunas.
+
+## Comprar queso con criterio
+
+- **Lee la etiqueta:** indica el tipo de leche, si es pasteurizada o cruda, y el tiempo de maduración. Cuando un queso se elabora con leche cruda, la normativa europea obliga a indicarlo expresamente.
+- **Busca el sello de la denominación de origen** si quieres el queso auténtico de una zona: garantiza que se ha elaborado según su pliego.
+- **Compra al corte** en queserías y mercados cuando puedas. Pide probar antes y que te corten la cantidad justa: el queso recién cortado conserva mejor su aroma que el envasado.
+- **Calcula las cantidades:** para una tabla de aperitivo bastan unos 50 a 80 g por persona; si el queso es el plato principal de una cena informal, unos 120 a 150 g.
+
+## ¿La corteza se come?
+
+Depende del queso. Las cortezas naturales enmohecidas, como la de la Garrotxa, y las untadas con pimentón o gofio, como las de algunos quesos de cabra extremeños y canarios, son comestibles, aunque no a todo el mundo le gustan. Las cortezas duras y secas de los curados de oveja suelen apartarse por su textura, y muchas están tratadas con ceras o recubrimientos que no se comen. Ante la duda, pregunta en la quesería o retira la corteza: no aporta nada que justifique el riesgo de comer un recubrimiento que no es alimento.
 
 ## Cómo conservar los quesos en casa
 

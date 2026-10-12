@@ -2,7 +2,7 @@
 title: Pan de molde casero, tierno y esponjoso: receta, formado y trucos para que no se seque
 description: Receta de pan de molde con leche y mantequilla: amasado hasta la membrana, formado, fermentación, horneado y trucos para que se mantenga tierno.
 category: masa-madre-y-pan
-date: 2026-09-23
+date: 2026-10-12
 ---
 El pan de molde casero no se parece demasiado al que se compra envasado. Es más tierno, más aromático y, sobre todo, no lleva conservantes ni una lista interminable de ingredientes. Es perfecto para tostadas, sándwiches, torrijas o simplemente con aceite de oliva, y se hace en una mañana con ingredientes que hay en cualquier despensa.
 
@@ -100,6 +100,18 @@ Si quieres un pan de molde aún más tierno y duradero, prueba a escaldar una pa
 - **Pan de molde con semillas:** añade 60 g de semillas de girasol, sésamo y lino al final del amasado.
 - **Pan de molde de masa madre:** sustituye la levadura por 150 g de masa madre activa y alarga los tiempos de fermentación.
 - **Pan de leche dulce:** aumenta el azúcar a 60 g y añade un huevo, reduciendo 50 ml de leche.
+
+## Adaptar la receta a tu molde
+
+Si tu molde no mide 25 × 11 cm, ajusta todos los ingredientes en la misma proporción, comparando la superficie de la base. Un molde de 20 × 10 cm, por ejemplo, tiene alrededor de tres cuartas partes de la superficie: usa unos 375 g de harina y reduce la leche, la mantequilla, el azúcar, la sal y la levadura en ese mismo 75 %. Como referencia visual, la masa formada debe ocupar más o menos la mitad de la altura del molde antes de la segunda fermentación. Un molde demasiado lleno se desborda en el horno; uno demasiado vacío da un pan bajo y de miga apretada.
+
+## Ideas para aprovecharlo hasta la última rebanada
+
+- **Tostadas del desayuno**, con aceite de oliva y tomate rallado o con mantequilla y mermelada casera.
+- **Sándwich mixto**, dorado en la sartén con un poco de mantequilla.
+- **Picatostes** para sopas y cremas: dados de pan del día anterior dorados en la sartén o el horno.
+- **Pan rallado casero**, triturando rebanadas secas; guárdalo en un tarro cerrado.
+- **Torrijas tiernas**, con rebanadas gruesas de pan de molde de un par de días, como explicamos en la guía de [torrijas](/recetas-y-guias/torrijas/).
 
 ## Problemas frecuentes
 

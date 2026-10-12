@@ -2,7 +2,7 @@
 title: Aceitunas aliñadas caseras: cómo quitar el amargor a la aceituna verde y aliñarla al estilo tradicional
 description: Cómo quitar el amargor a las aceitunas verdes con agua o salmuera, partirlas o machacarlas, aliñarlas al estilo tradicional y conservarlas con seguridad.
 category: conservas
-date: 2026-09-08
+date: 2026-10-12
 ---
 Quien ha probado alguna vez una aceituna recién cogida del árbol sabe que es incomestible: tiene un amargor intenso que no se parece en nada a las aceitunas que se toman con el aperitivo. Ese amargor se debe a un compuesto natural llamado **oleuropeína**, y transformar la aceituna en un bocado sabroso consiste precisamente en eliminarlo, un proceso que en muchos pueblos de España se llama "endulzar" las aceitunas.
 
@@ -104,6 +104,26 @@ Una receta muy popular en Andalucía: aceitunas machacadas con abundante ajo, pi
 ## Un apunte sobre el ajo y el aceite
 
 Algunas recetas terminan las aceitunas con aceite de oliva por encima. El aceite aísla del aire y, combinado con ajo, puede crear un ambiente sin oxígeno y poco ácido. Si las aceitunas están en una salmuera bien salada y, mejor, con algo de vinagre, el riesgo es bajo; pero si quieres añadir aceite, hazlo en la ración que vas a servir, no en el tarro de conservación. Y nunca guardes ajos sumergidos solo en aceite a temperatura ambiente.
+
+## Calendario de una tanda de otoño
+
+| Momento | Tarea |
+|---|---|
+| Octubre o principios de noviembre | recoger o comprar aceitunas verdes firmes, partirlas o machacarlas |
+| Las dos o tres semanas siguientes | endulzar con agua, cambiándola cada día |
+| Cuando el amargor sea suave | aliñar y envasar en salmuera de conservación |
+| Una semana después | primeras aceitunas para el aperitivo |
+| Hasta la primavera | consumir, revisando que sigan siempre cubiertas |
+
+Si prefieres el método en salmuera, adelanta la recogida todo lo posible: las aceitunas enteras no estarán listas hasta finales del invierno.
+
+## Cómo servirlas
+
+Saca las aceitunas de la salmuera un rato antes y sírvelas a temperatura ambiente, que es cuando el aliño se aprecia mejor. Escúrrelas, riégalas en el cuenco con un hilo de aceite de oliva virgen extra y, si quieres, añade unas hojas de tomillo fresco o una tira de piel de naranja recién cortada. Acompañadas de picos, regañás o pan, son el aperitivo perfecto junto a un vino fino, un vermut o una cerveza fría.
+
+## Aceitunas y sal
+
+Las aceitunas aliñadas contienen bastante sal por la salmuera en la que se conservan. Si sigues una dieta baja en sal, enjuágalas o déjalas una hora en agua antes de servirlas, y tómalas con moderación. Lo que no conviene es rebajar la sal de la salmuera de conservación, porque es la que protege las aceitunas durante meses.
 
 ## Conservación
 

@@ -2,7 +2,7 @@
 title: Alimentos fermentados y salud: lo que dice la ciencia y lo que todavía no sabemos
 description: Qué dice la ciencia sobre los fermentados: diferencia entre fermentado y probiótico, beneficios demostrados, mitos frecuentes y quién debe tener precaución.
 category: kefir-y-fermentados
-date: 2026-09-28
+date: 2026-10-12
 ---
 Kéfir, yogur, kombucha, chucrut, kimchi o encurtidos fermentados: en los últimos años, los alimentos fermentados han pasado de ser una tradición doméstica a protagonizar estanterías enteras en los supermercados, a menudo acompañados de promesas de salud llamativas. Algunas de esas promesas tienen base científica, otras son exageraciones y muchas simplemente no se han estudiado.
 
@@ -66,6 +66,21 @@ Las bebidas ácidas, como la kombucha, pueden afectar al esmalte dental si se to
 ### Molestias al empezar
 
 Algunas personas notan gases o hinchazón cuando empiezan a tomar fermentados en cantidad. Lo razonable es introducirlos poco a poco.
+
+## Cómo leer la etiqueta de un fermentado comercial
+
+Si lo que buscas son microorganismos vivos, la etiqueta da pistas útiles:
+
+- **Yogur**: en España, la norma de calidad del yogur exige que contenga fermentos vivos en cantidad suficiente hasta la fecha de consumo preferente. Cuando el producto se ha tratado con calor después de fermentar, debe llamarse «yogur pasteurizado después de la fermentación», y ya no contiene fermentos vivos.
+- **Chucrut y verduras fermentadas**: los tarros que se venden a temperatura ambiente suelen estar pasteurizados. Los que contienen fermentos vivos se conservan en el lineal refrigerado y lo indican expresamente.
+- **Kombucha y kéfir de agua**: las versiones crudas suelen venderse refrigeradas; las que se guardan en estanterías normales a menudo se han pasteurizado o filtrado.
+- **Encurtidos**: si en la lista de ingredientes aparece vinagre, lo más probable es que se hayan acidificado sin fermentar.
+
+Ninguna de estas opciones es «mala»: un chucrut pasteurizado sigue aportando fibra y sabor. Simplemente, conviene saber qué se está comprando y no pagar por promesas que el producto no puede cumplir.
+
+## Fermentar en casa con seguridad: lo esencial
+
+La mayoría de los fermentados caseros son seguros cuando se respetan unas pocas reglas: usar la cantidad de sal adecuada, mantener las verduras siempre cubiertas por la salmuera, trabajar con tarros y manos limpios y fermentar a una temperatura moderada. La acidez que producen las bacterias lácticas es la que protege el alimento, y por eso un fermentado que no se acidifica, que huele a podrido o que presenta moho de colores sobre las verduras debe desecharse. Lo explicamos en detalle en la guía de [verduras fermentadas en salmuera](/recetas-y-guias/verduras-fermentadas-en-salmuera/) y, para los lácteos, en la del [kéfir de leche](/recetas-y-guias/kefir-de-leche/).
 
 ## Quién debe tener especial precaución
 

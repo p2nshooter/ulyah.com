@@ -2,7 +2,7 @@
 title: Higiene en el obrador casero: limpiar, desinfectar y trabajar seguro con lácteos y fermentados
 description: Higiene práctica para quesos, fermentados, pan y conservas: limpiar y desinfectar, tarros y telas, contaminación cruzada, leche cruda y cuándo desechar.
 category: tecnica
-date: 2026-09-02
+date: 2026-10-12
 ---
 En el obrador casero trabajamos con microorganismos a propósito. Queremos que las bacterias lácticas fermenten la col, que las levaduras hagan subir el pan y que los cultivos del yogur cuajen la leche. Pero en el mismo espacio también pueden estar presentes otros microorganismos que no queremos: mohos, bacterias de putrefacción o, en casos raros, bacterias capaces de causar enfermedades. La higiene consiste en inclinar la balanza a favor de los primeros y en contra de los segundos.
 
@@ -136,6 +136,20 @@ Antes de empezar cualquier elaboración:
 3. Prepara utensilios limpios y, si la receta lo pide, escáldalos.
 4. Ten a mano un paño limpio y seco.
 5. Al terminar, lava todo de inmediato y deja secar al aire.
+
+## Preguntas frecuentes
+
+### ¿Hace falta usar lejía en la cocina del obrador?
+
+Para la mayoría de las elaboraciones basta con agua caliente, jabón y, cuando la receta lo pide, agua hirviendo. Si quieres desinfectar una superficie, elige una lejía cuya etiqueta indique que es apta para superficies en contacto con alimentos, dilúyela como indica el fabricante y aclara después con agua potable. Nunca la mezcles con otros productos de limpieza.
+
+### ¿El lavavajillas sirve para los tarros?
+
+Sí. Un programa a alta temperatura deja tarros y utensilios limpios y muy higienizados. Para yogur, kéfir y quesos, úsalos recién salidos y todavía calientes, o escáldalos igualmente justo antes de empezar.
+
+### ¿Cada cuánto conviene cambiar las esponjas y estropajos?
+
+Con frecuencia, porque la humedad y los restos de comida los convierten en un buen hogar para las bacterias. Déjalos secar entre usos, no limpies con la misma esponja una tabla de carne cruda y los utensilios del queso, y sustitúyelos en cuanto huelan mal o se deshagan.
 
 ## En resumen
 

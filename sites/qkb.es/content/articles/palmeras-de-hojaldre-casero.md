@@ -2,7 +2,7 @@
 title: Palmeras de hojaldre casero: hojaldre rápido, formado en corazón y caramelizado perfecto
 description: Cómo hacer palmeras de hojaldre desde cero con un hojaldre rápido de mantequilla: masa, pliegues, formado, corte, horneado con caramelizado por ambas caras y versión bañada en chocolate.
 category: bolleria
-date: 2026-09-12
+date: 2026-10-12
 ---
 Las palmeras son uno de los clásicos de las pastelerías españolas: dos espirales de hojaldre unidas en forma de corazón, crujientes, con capas que se deshacen y una superficie de azúcar caramelizado. Las hay pequeñas, para acompañar el café, y gigantes, del tamaño de una mano, a veces bañadas en chocolate. En Francia se conocen como *palmiers* y en otros países como "orejas de elefante".
 
@@ -93,6 +93,18 @@ Déjalas enfriar sobre una rejilla. Al enfriarse, el caramelo se endurece y las 
 Cuando las palmeras estén completamente frías, derrite el chocolate negro al baño maría o en el microondas a intervalos cortos. Baña una de las caras de cada palmera, o la mitad de cada una, y déjalas sobre papel de horno hasta que el chocolate solidifique.
 
 Para un chocolate brillante y que no se derrita en las manos, puedes atemperarlo: derrite dos tercios del chocolate a unos 45–50 °C, retíralo del fuego y añade el tercio restante picado, removiendo hasta que la mezcla baje a unos 31–32 °C.
+
+## Por qué sube el hojaldre
+
+El hojaldre no lleva levadura: sube gracias al vapor. Cada pliegue crea capas alternas de masa y de mantequilla. En el horno caliente, el agua que contienen la masa y la mantequilla se convierte en vapor y empuja las capas de masa hacia arriba, mientras la grasa impide que se peguen entre sí. Por eso son tan importantes el frío durante la elaboración, que mantiene la mantequilla en láminas sin fundirse con la harina, y un horno bien caliente desde el principio, que genera el vapor de golpe antes de que la mantequilla se derrita y se escape.
+
+## Elegir la mantequilla
+
+Usa mantequilla de verdad, con alrededor de un 82 % de grasa, y nunca margarinas para untar ni mezclas con mucha agua, que se ablandan enseguida y dan capas pobres. Busca una mantequilla firme y algo plástica en frío, que se doble sin romperse en trozos. Algunas pastelerías usan mantequillas especiales para hojaldre, más duras, pero en casa una buena mantequilla sin sal, bien fría, da un resultado excelente.
+
+## Palmeras saladas para el aperitivo
+
+La misma técnica sirve para un aperitivo. Sustituye el azúcar por una capa fina de queso curado rallado, como manchego, y una pizca de pimentón de la Vera, o por una capa delgada de paté de aceitunas negras. Estira la masa con un poco de harina en lugar de azúcar, forma el cilindro igual y hornea a 200 °C hasta que estén doradas, sin necesidad de darles la vuelta. Son perfectas recién hechas, con un vermut o una cerveza.
 
 ## Otras formas de usar el hojaldre rápido
 

@@ -2,7 +2,7 @@
 title: Magdalenas caseras con copete: la receta tradicional española y el secreto del contraste térmico
 description: Cómo hacer magdalenas esponjosas con el copete alto: ingredientes, batido de huevos y azúcar, reposo de la masa en frío, llenado de las cápsulas, horneado con golpe de calor y conservación.
 category: bolleria
-date: 2026-09-17
+date: 2026-10-12
 ---
 Las magdalenas forman parte de la memoria de casi todas las cocinas españolas: el olor a limón en el horno de casa, el papel rizado que se despega con cuidado, el azúcar crujiente sobre el copete y el momento de mojarlas en leche o en café. Son sencillas, económicas y, bien hechas, mucho mejores que las industriales.
 
@@ -119,6 +119,10 @@ Las magdalenas son el desayuno y la merienda clásicos de muchas casas española
 - **Con chocolate a la taza**, en lugar de los churros, en una tarde de invierno.
 - **Partidas por la mitad y tostadas**, con un poco de mantequilla y mermelada casera, cuando ya tienen un par de días.
 - **Como base de un postre**, desmigadas en el fondo de un vaso con crema, fruta y nata.
+
+## Magdalenas, madeleines y muffins
+
+Se parecen, pero no son lo mismo. La **magdalena española** se hace con huevos muy batidos y aceite, se hornea en cápsulas de papel y presume de un copete alto y una miga ligera. La **madeleine francesa** lleva mantequilla, se hornea en un molde metálico con forma de concha y desarrolla una pequeña «joroba» en la cara lisa gracias al mismo contraste térmico. El **muffin** anglosajón, en cambio, se mezcla lo justo, sin batir los huevos hasta blanquear, y suele llevar fruta, frutos secos o chocolate en abundancia, con una miga más densa y húmeda. Conocer la diferencia ayuda a elegir receta: si buscas el copete y la esponjosidad de las de toda la vida, el batido largo de los huevos no admite atajos.
 
 ## Un poco de historia
 

@@ -2,7 +2,7 @@
 title: Pan básico con levadura: la barra y el pan de pueblo en casa, sin complicaciones
 description: Receta de pan blanco con levadura de panadería para principiantes: ingredientes, equivalencias entre levadura fresca y seca, amasado, fermentaciones, formado de barras o bolas y horneado con vapor.
 category: masa-madre-y-pan
-date: 2026-09-21
+date: 2026-10-12
 ---
 Antes de lanzarse con la masa madre, las altas hidrataciones o los prefermentos, conviene aprender a hacer un pan sencillo, con levadura de panadería, que salga bien a la primera. Es el pan que permite entender cómo se comporta la masa, cómo se ve una buena fermentación y cómo reacciona el horno de tu cocina. Con esta receta podrás hacer barras, bolas o panecillos en una mañana.
 
@@ -119,6 +119,14 @@ El pan casero no lleva conservantes y se endurece antes que el industrial. El en
 - **Recupéralo en el horno.** Unos minutos a 200 °C devuelven la corteza crujiente a un pan del día anterior. Si está algo seco, pasa la corteza bajo el grifo un segundo antes de meterlo.
 
 El pan duro tampoco se tira: sirve para torrijas, migas, sopas de ajo, gazpacho, salmorejo o pan rallado.
+
+## El porcentaje panadero, explicado
+
+La columna de porcentajes de la tabla de ingredientes es la herramienta que usan los panaderos para escalar recetas. Todo se expresa en relación con la harina, que vale siempre el 100 %. Así, una masa al 66 % de hidratación lleva 66 g de agua por cada 100 g de harina, y la sal al 2 % son 2 g por cada 100 g de harina. Si quieres hacer más pan, basta con multiplicar: con 750 g de harina necesitarás 495 g de agua, 15 g de sal y 15 g de levadura fresca. Y si cambias de harina y notas la masa demasiado firme o demasiado pegajosa, ajusta la hidratación de dos en dos puntos y apúntalo para la próxima vez.
+
+## Conocer tu horno
+
+Cada horno doméstico tiene su carácter. Precaliéntalo al menos 30 minutos, porque las paredes tardan más que el aire en alcanzar la temperatura y son las que dan el empuje inicial al pan. Si notas que un lado se dora antes, gira la bandeja a mitad de cocción. Y si los tiempos de la receta nunca te cuadran, comprueba la temperatura real con un termómetro de horno: muchas diferencias entre lo que dice el mando y lo que ocurre dentro se resuelven así.
 
 ## Problemas frecuentes
 

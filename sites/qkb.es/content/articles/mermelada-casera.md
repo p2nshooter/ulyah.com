@@ -2,7 +2,7 @@
 title: Mermelada casera: proporciones de azúcar, punto de gelificación, tarros y conservación segura
 description: Mermelada casera sin pectina añadida: frutas con más y menos pectina, cantidad de azúcar, punto de gelificación, envasado y baño maría seguro.
 category: conservas
-date: 2026-09-11
+date: 2026-10-12
 ---
 La mermelada casera es una de las formas más antiguas y agradecidas de conservar la fruta de temporada. Con fresas maduras en primavera, albaricoques en verano o ciruelas a finales de agosto, una tarde de cocina se transforma en varios tarros que alegran los desayunos durante meses. Solo hacen falta fruta, azúcar, un poco de limón y algo de técnica.
 
@@ -110,6 +110,28 @@ El viejo método de dar la vuelta a los tarros calientes boca abajo produce a me
 - **Higo y nuez**, ideal con quesos.
 - **Naranja amarga**, para una auténtica *marmalade*.
 - **Tomate**, una mermelada sorprendente para acompañar queso fresco.
+
+## Un calendario de fruta para el año
+
+La mejor mermelada sale de fruta en su mejor momento y a buen precio. Como orientación para España, aunque las fechas cambian según la zona y el año:
+
+| Época | Frutas |
+|---|---|
+| Invierno | naranja amarga, naranja, mandarina, limón, kiwi |
+| Primavera | fresa, níspero, primeras cerezas |
+| Principio del verano | albaricoque, cereza, frambuesa |
+| Pleno verano | melocotón, nectarina, ciruela, mora silvestre |
+| Final del verano y otoño | higo, uva, pera, manzana, membrillo |
+
+La naranja amarga, la de los árboles que adornan las calles de Sevilla, apenas se come cruda, pero da una de las mermeladas más aromáticas que existen. Y el membrillo merece receta propia: el [dulce de membrillo casero](/recetas-y-guias/dulce-de-membrillo-casero/).
+
+## Tandas pequeñas, mejor resultado
+
+Puede parecer práctico cocer de una vez cinco kilos de fruta, pero el resultado suele ser peor. Cuanta más mermelada hay en la cazuela, más tarda en evaporarse el agua: la fruta se cuece durante más tiempo, se oscurece, pierde aroma y la pectina se degrada. Lo ideal es trabajar con tandas de uno o dos kilos de fruta en una cazuela ancha. Si tienes mucha fruta, macera varias tandas a la vez y cuécelas una tras otra.
+
+## Etiquetar y revisar la despensa
+
+Anota en cada tarro la fruta, la proporción de azúcar y la fecha de elaboración. Coloca los tarros nuevos detrás de los antiguos para consumir primero los más viejos. Antes de abrir uno, revísalo: si la tapa está abombada, si el tarro ha goteado, si al abrirlo sale gas o huele a fermentado o a alcohol, deséchalo sin probarlo. Una mermelada bien hecha y bien cerrada huele simplemente a fruta.
 
 ## Problemas frecuentes
 

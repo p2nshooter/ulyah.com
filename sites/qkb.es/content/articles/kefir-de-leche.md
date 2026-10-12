@@ -2,7 +2,7 @@
 title: Kéfir de leche casero: cómo hacerlo, cuidar los nódulos y aprovecharlo cada día
 description: Guía completa del kéfir de leche: qué son los nódulos, cómo fermentar, colar y conservar, la proporción adecuada, el sabor según el tiempo, la segunda fermentación y cómo actuar si algo va mal.
 category: kefir-y-fermentados
-date: 2026-10-04
+date: 2026-10-12
 ---
 El kéfir de leche es una bebida fermentada originaria del Cáucaso, ligeramente ácida, cremosa y a veces con un leve cosquilleo efervescente. A diferencia del yogur, que se elabora con unas pocas cepas de bacterias, el kéfir se obtiene con unos **nódulos** que contienen una comunidad compleja de bacterias lácticas y levaduras que viven juntas en una matriz gelatinosa.
 
@@ -95,6 +95,18 @@ Un kéfir muy ácido, separado o con un ligero olor a levadura no es señal de q
 - **En salsas**, como base de un aliño para ensaladas con hierbas, limón y aceite.
 - **En repostería**, en lugar de yogur o suero de mantequilla, en bizcochos y tortitas.
 - **Para hacer "queso" de kéfir**, escurriéndolo en un paño como el labneh.
+
+## Adaptar el ritmo a tu consumo
+
+Los nódulos crecen y la producción aumenta con el tiempo, así que conviene ajustar la cantidad a lo que realmente bebes. Si en casa se toma un vaso al día, basta con una cucharada de nódulos en medio litro de leche; el resto puede regalarse o guardarse en la nevera como reserva. Si un día no te apetece colar, mete el tarro en la nevera: el frío frena la fermentación y puedes colar al día siguiente sin que el kéfir se pase. Algunas personas fermentan siempre a temperatura ambiente unas 12 horas y terminan otras 12 en la nevera, lo que da un kéfir más suave y espeso.
+
+## Tres recetas sencillas con kéfir
+
+**Aliño de kéfir y hierbas.** Mezcla 150 ml de kéfir con el zumo de medio limón, una cucharada de aceite de oliva virgen extra, eneldo o cebollino picados, sal y pimienta. Sirve para ensaladas de patata, pepino o lechuga y para acompañar verduras asadas.
+
+**Tortitas de kéfir.** Bate 250 ml de kéfir con un huevo, una cucharada de azúcar y una pizca de sal. Añade 150 g de harina y una cucharadita de levadura química, mezcla sin batir en exceso y deja reposar diez minutos. Cocina pequeñas porciones en una sartén engrasada a fuego medio hasta que salgan burbujas, dales la vuelta y dora el otro lado. La acidez del kéfir las hace especialmente esponjosas.
+
+**Batido de desayuno.** Tritura un vaso de kéfir con un plátano maduro, dos cucharadas de copos de avena y una pizca de canela. Si el plátano está muy maduro, no necesita azúcar.
 
 ## Kéfir y salud: lo que sabemos
 

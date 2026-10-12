@@ -2,7 +2,7 @@
 title: El cuajo explicado: qué es, tipos y cómo usarlo para hacer queso en casa
 description: Qué es el cuajo, cómo actúa sobre la leche, las diferencias entre cuajo animal, microbiano, vegetal y de cardo, cómo dosificarlo, conservarlo y qué alternativas ácidas existen.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 Sin cuajo no habría la mayoría de los quesos que conocemos. Esa pequeña cantidad de líquido, a veces apenas unas gotas por litro de leche, es la responsable de transformar un alimento líquido en una cuajada firme que puede cortarse, moldearse y, con el tiempo, convertirse en un manchego, un idiazábal o un humilde queso fresco.
 
@@ -61,6 +61,14 @@ Algunos consejos:
 
 - **Poco cuajo:** la leche tarda mucho en cuajar o forma una cuajada blanda.
 - **Demasiado cuajo:** la cuajada se forma muy rápido, puede ser gomosa y el queso puede desarrollar un sabor amargo.
+
+## Calcular la dosis para cualquier cantidad de leche
+
+Las etiquetas indican la dosis para un volumen concreto, y casi nunca coincide con el de tu olla. La cuenta es una simple regla de tres. Si el fabricante recomienda 1 ml por cada 4 litros y vas a cuajar 2,5 litros, necesitarás 2,5 × 1 ÷ 4 = 0,6 ml, aproximadamente. Para medir cantidades tan pequeñas con precisión, diluye primero: mezcla 1 ml de cuajo con 9 ml de agua sin cloro, de modo que cada mililitro de la mezcla contenga 0,1 ml de cuajo, y toma 6 ml de esa dilución con una jeringuilla. Prepara la dilución justo antes de usarla y desecha lo que sobre.
+
+## Cuajo de cardo hecho en casa
+
+Las flores secas del cardo, que se venden en algunas herboristerías y tiendas rurales, pueden usarse para cuajar leche, sobre todo de oveja. Se dejan en remojo en un poco de agua durante varias horas, se machacan en un mortero y se filtra el líquido, que es el que se añade a la leche. Su fuerza varía mucho de una partida a otra, así que conviene hacer primero una prueba con una pequeña cantidad de leche y anotar la proporción que funciona.
 
 ## Factores que influyen en la coagulación
 
