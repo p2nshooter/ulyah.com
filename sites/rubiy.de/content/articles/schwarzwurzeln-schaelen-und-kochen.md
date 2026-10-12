@@ -2,7 +2,7 @@
 title: "Schwarzwurzeln schälen ohne braune Finger: der Winterspargel in Rahmsoße und Suppe"
 description: "Schwarzwurzeln von Oktober bis März: frische Wurzeln erkennen, sauber schälen oder ungeschält kochen, Rahmschwarzwurzeln mit Schinken, gebackene Schwarzwurzeln und eine samtige Suppe."
 category: winter
-date: 2026-09-24
+date: 2026-10-12
 ---
 Schwarzwurzeln sehen wenig einladend aus: lange, dünne, erdige Stangen mit dunkler, fast schwarzer Rinde. Wer sie zum ersten Mal schält, hat danach klebrige, braun verfärbte Hände und fragt sich, ob sich die Mühe lohnt. Sie lohnt sich. Unter der Rinde steckt weißes, zartes Fruchtfleisch mit einem feinen, leicht nussigen Geschmack, der an Spargel und Artischocke erinnert. Nicht ohne Grund heißt die Schwarzwurzel „Winterspargel“ oder „Arme-Leute-Spargel“. Von Oktober bis März bringt sie Abwechslung in die Wintermonate, in denen sonst Kohl und Rüben dominieren.
 
@@ -28,6 +28,12 @@ Rechne pro Person als Beilage mit etwa 250 bis 300 Gramm ungeschälter Wurzeln. 
 ## Lagern
 
 Wickle Schwarzwurzeln ungewaschen in feuchtes Zeitungs- oder Küchenpapier und lege sie ins Gemüsefach. So halten sie sich ein bis zwei Wochen. In einem kühlen Keller kannst du sie wie früher in feuchtem Sand lagern, dann bleiben sie mehrere Wochen frisch.
+
+## Einfrieren oder aus dem Glas
+
+Frische Schwarzwurzeln lassen sich gut einfrieren. Schäle sie, schneide sie in Stücke und blanchiere sie zwei bis drei Minuten in kochendem Wasser mit einem Schuss Zitronensaft. Danach in Eiswasser abschrecken, abtropfen lassen und portionsweise einfrieren. Bei minus 18 Grad halten sie sich mehrere Monate. Gib sie gefroren direkt ins kochende Wasser oder in die Soße. Mehr zur Technik steht in [Gemüse einfrieren und blanchieren](/kueche/gemuese-einfrieren-und-blanchieren/).
+
+Wer sich das Schälen ganz sparen will, findet Schwarzwurzeln auch vorgegart im Glas. Sie sind geschält, in Stücke geschnitten und in einem leicht sauren Aufguss haltbar gemacht. Spüle sie kurz ab und erwärme sie nur noch in der Soße, denn sie sind bereits weich. An frische Wurzeln reichen sie geschmacklich nicht ganz heran, für ein schnelles Gratin oder eine Suppe sind sie aber eine gute Abkürzung.
 
 ## Das Problem mit dem Milchsaft
 
@@ -99,6 +105,26 @@ Roh geschälte Stangen garst du zehn Minuten in Salzwasser vor, sodass sie noch 
 
 Dünste eine gewürfelte Zwiebel in Butter an, gib 500 Gramm geschälte, gewürfelte Schwarzwurzeln und eine mehligkochende Kartoffel dazu und gieße mit 800 Millilitern [Gemüsebrühe](/kueche/gemuesebruehe-selbst-kochen/) auf. Lass alles 20 Minuten köcheln, püriere die Suppe fein und verfeinere sie mit Sahne, Muskat und einem Spritzer Zitronensaft. Geröstete Haselnüsse oder knusprige Speckwürfel darüber machen sie zu einem Festtagsstarter.
 
+## Schwarzwurzel-Gratin
+
+Ein Gratin ist die einfachste Art, Schwarzwurzeln für Gäste vorzubereiten. Gare 1 kg geschälte Schwarzwurzeln in Stücken etwa zwölf Minuten vor, sodass sie noch Biss haben, und schichte sie in eine gefettete Auflaufform. Bereite eine helle Soße wie für die Rahmschwarzwurzeln zu und rühre zum Schluss 50 g geriebenen Bergkäse unter. Gieße die Soße über das Gemüse, streue weitere 50 g Käse und nach Belieben einige Semmelbrösel darüber und überbacke das Gratin bei 200 Grad Ober- und Unterhitze 20 bis 25 Minuten, bis die Oberfläche goldbraun ist. Dazu passen ein grüner Salat oder ein Stück Braten.
+
+## Was zu Schwarzwurzeln passt
+
+Der milde, nussige Geschmack verträgt keine lauten Partner. Bewährt haben sich:
+
+| Kategorie | Passende Begleiter |
+|---|---|
+| Kräuter und Gewürze | Petersilie, Kerbel, Schnittlauch, Muskatnuss, weißer Pfeffer |
+| Säure | Zitronensaft, ein Schuss Weißwein in der Soße |
+| Nüsse | Haselnüsse, Walnüsse, Mandeln, jeweils geröstet |
+| Fleisch und Fisch | Kochschinken, Kalbfleisch, Geflügel, Lachs, Zander |
+| Beilagen | Salzkartoffeln, Kartoffelpüree, Spätzle, Reis |
+
+## Schwarzwurzeln im eigenen Garten
+
+Die Schwarzwurzel stammt aus Südeuropa und gehört zu den Korbblütlern. Ihr botanischer Name Scorzonera hispanica verweist auf Spanien. Im Garten säst du sie von März bis April direkt ins Beet. Sie braucht einen tiefgründigen, lockeren und steinfreien Boden, denn ihre Pfahlwurzeln werden 30 Zentimeter lang und länger. Geerntet wird ab Oktober. Grabe die Wurzeln vorsichtig mit der Grabegabel aus, ohne sie zu verletzen, sonst tritt Milchsaft aus. Schwarzwurzeln sind winterhart und können bis zum Frühjahr im Beet bleiben, solange der Boden nicht gefroren ist.
+
 ## Häufige Fragen
 
 ### Kann man Schwarzwurzeln roh essen?
@@ -112,3 +138,11 @@ Weil Aussehen der geschälten Stangen und Geschmack an weißen Spargel erinnern 
 ### Sind Schwarzwurzeln gesund?
 
 Sie enthalten viel Inulin, einen Ballaststoff, der im Darm von Bakterien verwertet wird, außerdem Kalium und Vitamin E. Bei empfindlichen Menschen kann Inulin in größeren Mengen Blähungen verursachen.
+
+### Warum werden meine Schwarzwurzeln grau?
+
+Meist lagen die geschälten Stangen zu lange an der Luft oder in Wasser ohne Säure. Lege sie sofort nach dem Schälen in Essig- oder Zitronenwasser und gib auch ins Kochwasser einen Schuss Milch oder Zitronensaft. Eine leichte Verfärbung ist harmlos und ändert nichts am Geschmack.
+
+### Kann ich Schwarzwurzeln am Vortag vorbereiten?
+
+Ja. Geschälte Stangen halten sich, vollständig mit saurem Mehlwasser bedeckt, im Kühlschrank bis zum nächsten Tag. Gegarte Schwarzwurzeln bewahrst du abgedeckt ein bis zwei Tage im Kühlschrank auf und erwärmst sie dann in der Soße.
