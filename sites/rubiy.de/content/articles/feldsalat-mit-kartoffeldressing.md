@@ -2,7 +2,7 @@
 title: "Feldsalat richtig putzen und mit schwäbischem Kartoffeldressing anmachen"
 description: Feldsalat ist der wichtigste Wintersalat. So putzt du ihn ohne Sand, hältst ihn frisch und machst ihn mit warmem Kartoffeldressing oder Speck-Zwiebel-Vinaigrette an.
 category: winter
-date: 2026-08-10
+date: 2026-10-12
 ---
 Wenn im Winter draußen fast nichts mehr wächst, gibt es ein Blattgemüse, das sich von Frost nicht beeindrucken lässt: den Feldsalat. Seine kleinen, dunkelgrünen Rosetten überstehen Temperaturen weit unter null und werden im Freiland von Oktober bis März geerntet. Damit ist er der wichtigste frische Salat der kalten Jahreszeit.
 
@@ -15,6 +15,10 @@ Feldsalat hat viele Namen. In Süddeutschland heißt er Ackersalat, in der Schwe
 > - Zwischen den Blättern sitzt oft Sand. Wasche ihn deshalb in mehreren Durchgängen in einer Schüssel mit Wasser.
 > - Ungewaschen hält er im Kühlschrank ein bis zwei Tage, in ein feuchtes Tuch gewickelt etwas länger.
 > - Das klassische schwäbische Dressing wird aus einer gekochten mehligen Kartoffel, Brühe, Essig, Senf und Öl gerührt.
+
+## Feldsalat, Baldrian und Rapunzel
+
+Botanisch gehört der Feldsalat zu den Baldriangewächsen, sein wissenschaftlicher Name lautet Valerianella locusta. Mit dem Baldrian teilt er allerdings nur die Verwandtschaft, nicht die beruhigende Wirkung. Spannend ist der Name Rapunzel: Ob das Märchen der Brüder Grimm nach dem Feldsalat oder nach der Rapunzel-Glockenblume benannt ist, deren Wurzeln früher ebenfalls gegessen wurden, darüber gehen die Meinungen auseinander. In vielen Regionen ist der Feldsalat jedenfalls bis heute „die Rapunzel“.
 
 ## Einkaufen und lagern
 
@@ -61,6 +65,14 @@ Für 4 Personen als Vorspeise oder Beilage:
 
 Das Dressing hält sich im Kühlschrank zwei Tage. Vor dem Servieren erwärmst du es kurz und verdünnst es mit etwas Brühe.
 
+## Typische Fehler beim Anmachen
+
+- **Zu früh angemacht:** Feldsalat fällt schon nach wenigen Minuten im Dressing zusammen. Mische erst bei Tisch.
+- **Nasse Blätter:** Wasser verdünnt das Dressing und lässt es abperlen. Schleudere den Salat gründlich.
+- **Zu viel Dressing:** Die zarten Blätter vertragen weniger Soße als robuster Kopfsalat. Lieber nachgießen.
+- **Dressing direkt aus dem Kühlschrank:** Das Kartoffeldressing wird kalt fest und klumpig. Erwärme es kurz und rühre es mit etwas Brühe glatt.
+- **Zu kräftiges Olivenöl:** Ein sehr pfeffriges Öl überdeckt den nussigen Geschmack. Rapsöl, Sonnenblumenöl oder ein Schuss Walnussöl passen besser.
+
 ## Feldsalat mit Speck und Croûtons
 
 Eine kräftigere Variante passt gut als Vorspeise vor einem Wintergericht.
@@ -91,6 +103,14 @@ Für eine vegetarische Version ersetzt du den Speck durch geröstete Walnüsse o
 - **Mit Pilzen:** Gebratene Champignons oder Kräuterseitlinge, noch warm auf den Salat gegeben.
 - **Als Pesto:** Feldsalat lässt sich mit Nüssen, Hartkäse und Öl zu einem milden Pesto verarbeiten.
 
+## Feldsalatsuppe mit Kartoffeln
+
+Wenn vom Wochenmarkt mehr Feldsalat übrig ist, als in die Salatschüssel passt, wird daraus eine leuchtend grüne Suppe. Dünste eine Zwiebel in Butter glasig, gib zwei mehligkochende Kartoffeln in Würfeln dazu und gieße mit 700 ml Gemüsebrühe auf. Nach etwa 20 Minuten sind die Kartoffeln weich. Nimm den Topf vom Herd, gib 100 g geputzten Feldsalat dazu und püriere die Suppe sofort fein. Der Salat soll nicht mitkochen, sonst verliert er seine Farbe. Schmecke mit Sahne, Salz, Pfeffer, Muskat und einem Spritzer Zitronensaft ab und serviere die Suppe mit ein paar frischen Blättchen und gerösteten Brotwürfeln.
+
+## Was im Feldsalat steckt
+
+Für einen Blattsalat ist Feldsalat erstaunlich nährstoffreich. Er liefert Provitamin A in Form von Beta-Carotin, Vitamin C, Folat und im Vergleich zu Kopfsalat oder Eisbergsalat deutlich mehr Eisen. Pflanzliches Eisen nimmt der Körper besser auf, wenn gleichzeitig Vitamin C im Spiel ist. Ein Spritzer Zitrone im Dressing oder ein paar Orangenfilets im Salat sind also nicht nur geschmacklich eine gute Idee. Beta-Carotin ist fettlöslich, deshalb gehört immer ein gutes Öl ins Dressing.
+
 ## Feldsalat im Garten
 
 Feldsalat ist eines der einfachsten Gemüse für den Wintergarten. Er wird von August bis Anfang Oktober direkt ins Beet gesät und keimt bei kühlen Temperaturen gut. Je nach Aussaatzeitpunkt erntest du ab Oktober bis ins Frühjahr. Ein Vlies schützt bei sehr starkem Frost, nötig ist es aber meist nicht. Auch auf dem Balkon in einem Kasten wächst er gut.
@@ -108,3 +128,7 @@ Ja, kurz gedünstet wie junger Spinat schmeckt er mild und passt zu Kartoffeln o
 ### Warum ist mein Feldsalat bitter?
 
 Feldsalat ist normalerweise nicht bitter. Ein bitterer oder muffiger Geschmack deutet auf alte Ware oder auf verdorbene Blätter in der Packung hin. Sortiere gründlich aus und wasche den Salat sorgfältig.
+
+### Lässt sich Feldsalat einfrieren?
+
+Als Salat nicht, denn die zarten Blätter werden beim Auftauen matschig. Für Suppe oder Pesto kannst du ihn aber gewaschen und gut abgetropft einfrieren und gefroren weiterverarbeiten.
