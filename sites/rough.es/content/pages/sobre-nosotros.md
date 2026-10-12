@@ -14,11 +14,11 @@ ROUGH es un proyecto editorial de **p2nshooter**, editor independiente de varias
 
 ## Lo que encontrarás aquí
 
-- Guías para **identificar y evaluar gemas en bruto**, con sus límites: lo que se puede observar con una lupa y lo que solo un laboratorio puede confirmar.
-- Explicaciones sobre **rubí, zafiro, esmeralda, espinela, turmalina, granate** y otras gemas: calidad, tratamientos habituales, sintéticos e imitaciones.
-- **Talla, pulido y joyería**: herramientas del lapidario, tipos de talla, engastes y metales.
-- **Compra y valoración**: cómo elegir un comerciante, qué pedir en un informe gemológico y por qué desconfiar de las promesas de rentabilidad.
-- **Estilo y cuidado personal**: armario duradero, calzado, accesorios, barba, piel y fragancia.
+- Guías sobre **minerales y yacimientos de España**, de la pirita de Navajún y el aragonito de Molina a la fluorita asturiana, el azabache o la variscita de Gavà, y sobre cómo recoger minerales con responsabilidad.
+- Explicaciones sobre **rubí, zafiro, espinela, granates, turmalina y alejandrita**: calidad, tratamientos habituales, sintéticos, imitaciones y los instrumentos con que se identifican, con sus límites: lo que se puede observar con una lupa y lo que solo un laboratorio puede confirmar.
+- **Talla y joyería**: cabujón y facetado, fundición a la cera perdida, filigrana, damasquinado, esmaltes y contrastes de los metales preciosos.
+- **Compra y valoración**: cómo comprar en tienda y en línea, tasar, vender oro, pujar en subastas, reconocer joyas de época y reclamar si algo sale mal.
+- **Estilo y cuidado personal**: armario duradero, botas y cuero, relojes, joyas masculinas, afeitado, barba, piel, cabello, manos y fragancia.
 
 ## Lo que nunca encontrarás
 
