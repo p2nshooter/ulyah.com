@@ -2,7 +2,7 @@
 title: "Sonntagmorgen ohne Wecker"
 description: Unter der Woche hetzt Familie Albrecht von Termin zu Termin. Dann erfinden die Kinder einen Sonntag ohne Plan. Über freie Zeit, Pfannkuchen im Schlafanzug und Rituale ohne Programm.
 category: morgens-und-abends
-date: 2026-09-22
+date: 2026-10-12
 ---
 Der Kalender der Familie Albrecht hing an der Kühlschranktür, und er war bunt. Rot für Lukas: Fußball dienstags und donnerstags, Klavier mittwochs. Grün für Hanna: Schwimmen montags, Ballett freitags, und am Samstagvormittag die Theater-AG. Blau für Mama Christine, die als Steuerberaterin auch samstags oft Mandanten traf. Gelb für Papa Markus, der zweimal die Woche Fußballtrainer der E-Jugend war, also auch von Lukas' Mannschaft. Am Wochenende kamen Geburtstage dazu, Besuche bei den Großeltern in Fulda, Turniere, Aufführungen.
 
@@ -70,6 +70,24 @@ Viele Familien haben volle Wochen mit Schule, Arbeit, Kursen und Verabredungen. 
 - **Fragt nach, ob Kurse noch Freude machen.** Hobbys sollen bereichern, nicht belasten. Gemeinsam zu überlegen, was bleibt und was nicht, nimmt Druck aus der Woche.
 - **Bleibt flexibel.** Feste Regeln für freie Zeit helfen, sollten aber nicht starr werden. Wenn ein wichtiger Termin anliegt, darf der freie Tag auch einmal wandern.
 
+### Warum freies Spiel so wertvoll ist
+
+Im freien Spiel bestimmen Kinder selbst, was sie tun, mit wem und nach welchen Regeln. Genau darin liegt sein Wert: Sie erfinden, verhandeln, scheitern und versuchen es noch einmal, ohne dass ein Erwachsener das Ziel vorgibt. Fachleute aus Kinderheilkunde und Pädagogik betonen seit Jahren, dass solches Spiel Kreativität, Problemlösen, soziale Fähigkeiten und die Fähigkeit stärkt, sich selbst zu regulieren. Ein Kurs kann vieles beibringen. Aber das Gefühl, einen Nachmittag selbst zu gestalten, lernen Kinder nur in freier Zeit.
+
+### Wie viele Termine sind genug?
+
+Eine feste Zahl gibt es nicht, denn Kinder und Familien sind verschieden. Achtet auf Zeichen von Überlastung: Euer Kind ist oft müde oder gereizt, hat kaum Zeit für Freunde, macht Hausaufgaben spät am Abend oder klagt vor bestimmten Terminen über Bauchweh. Dann lohnt sich ein gemeinsamer Blick auf den Kalender. Manche Familien vereinbaren eine einfache Regel, etwa höchstens zwei feste Termine pro Woche und Kind, damit jeder Tag noch Luft lässt.
+
+### Ideen für Nichts-Tage
+
+Wenn die Langeweile drückt, helfen keine fertigen Programme, aber manchmal ein Fundus an Möglichkeiten, aus dem Kinder selbst wählen: eine Höhle aus Decken bauen, mit Kreide malen, in den Wald gehen, ein altes Brettspiel aus dem Schrank holen, Fotoalben anschauen, ein Hörspiel hören, in der Bücherei stöbern oder zusammen kochen. Schreibt solche Ideen auf kleine Zettel und legt sie in ein Glas. Wer nicht weiterweiß, zieht einen.
+
+### Auch Eltern brauchen Nichts
+
+Freie Zeit tut nicht nur Kindern gut. Eltern, die selbst einmal nichts müssen, sind geduldiger und präsenter. Ein Nichts-Tag ist deshalb kein Opfer für die Kinder, sondern eine Pause für die ganze Familie.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt beim nächsten Abendbrot: Wenn wir einen ganzen Tag lang nichts müssten, was würdest du dann am liebsten machen? Die Antworten verraten oft, was Kindern im vollen Alltag fehlt.
+
+Hängt die Antworten ruhig neben den Kalender. Wenn die Woche wieder zu voll wird, erinnert euch der Zettel daran, was eure Kinder sich eigentlich wünschen, und manchmal ist es nur ein Vormittag im Schlafanzug.
