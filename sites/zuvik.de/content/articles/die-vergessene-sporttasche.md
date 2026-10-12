@@ -2,7 +2,7 @@
 title: "Die vergessene Sporttasche"
 description: Zum dritten Mal in diesem Monat hat Jonte seine Sporttasche vergessen, und wieder fährt Papa sie hinterher. Über Vergesslichkeit, Verantwortung und die Frage, wann Eltern retten sollten.
 category: schule-und-kita
-date: 2026-07-30
+date: 2026-10-12
 ---
 Das Handy vibrierte um 9:47 Uhr, mitten in der Teambesprechung. Paul sah auf das Display: „Grundschule Kiel-Wik“. Er wusste, was kommen würde, bevor er abnahm.
 
@@ -89,6 +89,14 @@ Kinder vergessen Dinge, das gehört zur Entwicklung dazu. Viele Eltern geraten d
 - **Natürliche Folgen zulassen.** Einmal auf der Bank sitzen oder ohne Brotdose auskommen ist unangenehm, aber nicht gefährlich. Kinder lernen daraus oft mehr als aus jeder Ermahnung.
 - **Selbst Vorbild sein.** Wenn Eltern ihre eigenen Listen und Haken nutzen, wird Organisation zu etwas, das die ganze Familie betrifft, nicht nur das Kind.
 - **Bei anhaltenden Schwierigkeiten genauer hinsehen.** Wenn ein Kind trotz Unterstützung über lange Zeit extrem vergesslich bleibt, kann ein Gespräch mit der Lehrkraft oder der Kinderärztin sinnvoll sein.
+
+### Wann Hinterhertragen trotzdem richtig ist
+
+Natürliche Folgen sind ein guter Lehrer, aber nicht in jeder Lage. Medikamente wie ein Asthmaspray, ein Notfallset bei Allergien oder Insulin bringt ihr selbstverständlich immer nach, ebenso eine vergessene Brille oder ein Hörgerät, ohne die ein Kind dem Unterricht kaum folgen kann. Auch wenn ein Kind vor verschlossener Tür steht oder bei Kälte ohne Jacke unterwegs ist, geht Sicherheit vor Erziehung. Die Regel „Wir bringen nichts mehr“ gilt für Dinge, deren Fehlen unangenehm ist, nicht für Dinge, deren Fehlen schadet. Sagt eurem Kind auch diesen Unterschied, damit es im Ernstfall nicht zögert, anzurufen.
+
+### Vergesslich oder mehr?
+
+Dass ein Neunjähriger seine Turnschuhe vergisst, aber sechzig Dinosaurier kennt, ist in den allermeisten Fällen ganz normal. Kinder merken sich, was sie interessiert, und Organisation lernen sie erst nach und nach. Anders ist es, wenn Unaufmerksamkeit, Vergesslichkeit oder Unruhe über lange Zeit, in mehreren Lebensbereichen und trotz guter Unterstützung deutlich größer sind als bei Gleichaltrigen und dem Kind spürbar schaden. Dann ist ein Gespräch mit der Lehrkraft und der Kinderärztin oder dem Kinderarzt sinnvoll. Eine Diagnose wie ADHS stellen nur Fachleute nach sorgfältiger Untersuchung.
 
 ### Zum Gespräch mit euren Kindern
 

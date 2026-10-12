@@ -2,7 +2,7 @@
 title: "Hausaufgabenkrieg am Küchentisch"
 description: Jeden Nachmittag sitzt Leonie vor dem Matheheft, ihre Mutter daneben, und nach zehn Minuten fließen Tränen. Über Hausaufgaben, Fehler und die Frage, wie viel Eltern helfen sollten.
 category: schule-und-kita
-date: 2026-08-05
+date: 2026-10-12
 ---
 Um halb drei am Nachmittag lag im Haus der Familie Brinkmann in Bielefeld-Schildesche jedes Mal eine Spannung in der Luft, die man fast greifen konnte. Leonie, acht Jahre alt, dritte Klasse, saß am Küchentisch vor ihrem Matheheft. Ihre Mutter Katja saß neben ihr, mit einem Bleistift und einem Radiergummi in der Hand. Auf dem Herd köchelte die Suppe für das Abendessen. Leonies kleiner Bruder Finn baute im Wohnzimmer mit lautem Getöse einen Turm.
 
@@ -91,6 +91,14 @@ Hausaufgaben sind in vielen Familien eine Quelle von Konflikten. Eltern wollen h
 - **In der Nähe sein, aber nicht daneben sitzen.** Erreichbar sein, wenn das Kind Hilfe braucht, gibt Sicherheit, ohne zu kontrollieren.
 - **Mit Fragen statt Lösungen helfen.** „Was steht in der Aufgabe?“ oder „Wie hast du angefangen?“ fördern das eigene Denken mehr als vorgesagte Antworten.
 - **Mit der Lehrkraft im Gespräch bleiben.** Eine kurze Notiz im Hausaufgabenheft kann helfen, gemeinsam die richtige Menge und den richtigen Schwierigkeitsgrad zu finden.
+
+### Rechenstrategien statt Pauken
+
+Leonies Trick mit sieben mal sieben plus sieben ist kein Zufall. Viele Grundschulen bringen das Einmaleins heute über sogenannte Kernaufgaben bei: Wer mal eins, mal zwei, mal fünf und mal zehn sicher kann, leitet die übrigen Aufgaben davon ab. Sieben mal neun ist sieben mal zehn minus sieben. Dazu kommen Tauschaufgaben, denn acht mal sieben ergibt dasselbe wie sieben mal acht, und Nachbaraufgaben wie bei Leonie. Fragt euer Kind, wie es in der Schule rechnet, und übt auf dieselbe Weise. Zwei verschiedene Wege, einer in der Schule und einer zu Hause, verwirren eher, als dass sie helfen.
+
+### Wenn Lernen dauerhaft schwerfällt
+
+Manche Kinder haben trotz Übung und guter Unterstützung über lange Zeit große Mühe mit dem Lesen, dem Rechtschreiben oder dem Rechnen. Dahinter kann eine Lese-Rechtschreib-Schwäche oder eine Rechenschwäche stecken. Sprecht mit der Lehrkraft darüber; schulpsychologische Beratungsstellen und Fachärztinnen und Fachärzte können eine Abklärung vornehmen. In vielen Bundesländern gibt es bei festgestellten Schwierigkeiten einen Nachteilsausgleich, etwa mehr Zeit bei Klassenarbeiten.
 
 ### Zum Gespräch mit euren Kindern
 

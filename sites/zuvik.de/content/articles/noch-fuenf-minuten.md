@@ -2,7 +2,7 @@
 title: "Noch fünf Minuten! Übergänge ohne Tränen"
 description: Vom Spielplatz nach Hause, vom Spiel zum Abendessen, vom Tablet ins Bett: Für die kleine Mira war jeder Wechsel ein Drama. Eine Geschichte über Übergänge, Sanduhren und den Trick mit dem letzten Mal.
 category: morgens-und-abends
-date: 2026-09-28
+date: 2026-10-12
 ---
 „Mira, wir gehen jetzt!“
 
@@ -71,6 +71,20 @@ Viele Kleinkinder und Kindergartenkinder tun sich mit Übergängen schwer. Sie k
 - **Bleibt beim Wutausbruch da.** Wenn der Vulkan ausbricht, helfen Erklärungen wenig. Ruhig bleiben, das Gefühl benennen („Du bist enttäuscht, weil du noch spielen wolltest“) und abwarten hilft vielen Kindern, sich wieder zu fangen.
 - **Achtet auf Hunger und Müdigkeit.** Übergänge kurz vor dem Abendessen oder nach einem langen Tag sind besonders anfällig. Ein kleiner Snack oder ein ruhigerer Ablauf kann viel verändern.
 
+### Warum Umschalten so schwerfällt
+
+Von einer Tätigkeit zur nächsten zu wechseln, verlangt vom Gehirn einiges: die Aufmerksamkeit lösen, einen Impuls zurückhalten, sich auf etwas Neues einstellen. Diese Fähigkeiten, oft unter dem Begriff exekutive Funktionen zusammengefasst, entwickeln sich über die ganze Kindheit hinweg und reifen bis ins junge Erwachsenenalter. Ein vierjähriges Kind kann deshalb noch nicht so leicht umschalten wie ein zehnjähriges, und ein zehnjähriges nicht so leicht wie ein Erwachsener. Der Vulkan ist also kein Ungehorsam, sondern oft schlicht Überforderung.
+
+### Bringen und Abholen
+
+Besonders schwierig sind für viele Kinder die Übergänge an der Kita-Tür. Beim Bringen hilft ein kurzes, immer gleiches Abschiedsritual, etwa eine Umarmung, ein Winken am Fenster und die Übergabe an eine vertraute Erzieherin. Schleicht euch nicht heimlich davon, auch wenn es verlockend ist: Kinder fühlen sich dann eher verlassen. Beim Abholen erleben viele Eltern das Gegenteil dessen, was sie erwarten: Das Kind, das den ganzen Tag fröhlich war, weint oder wird wütend, sobald es Mama oder Papa sieht. Oft liegt das daran, dass Kinder sich den ganzen Tag zusammengenommen haben und bei ihren engsten Menschen endlich loslassen können. Ein Snack, Ruhe und Zeit auf dem Heimweg helfen mehr als viele Fragen.
+
+### Den Bildschirm beenden
+
+Beim Fernsehen oder am Tablet gelingt der Wechsel leichter, wenn ihr vorher vereinbart, wie viele Folgen geschaut werden, und an einem natürlichen Ende aufhört statt mitten in der Handlung. Schaltet die automatische Wiedergabe der nächsten Folge ab, damit das Ende auch wirklich ein Ende ist.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt in einem ruhigen Moment: Wie fühlt es sich an, wenn du mitten im Spielen aufhören musst? Was würde dir helfen? Manche Kinder wünschen sich eine Warnung, andere eine Aufgabe, wieder andere einfach eine Umarmung beim Abschied vom Spiel.
+
+Was euer Kind antwortet, könnt ihr gleich beim nächsten Wechsel ausprobieren. Und wenn ein Trick nach ein paar Wochen nicht mehr wirkt, ist das kein Rückschritt: Kinder wachsen aus manchen Hilfen heraus und brauchen dann neue.

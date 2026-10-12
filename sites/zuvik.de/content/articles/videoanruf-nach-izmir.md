@@ -2,7 +2,7 @@
 title: "Videoanruf nach Izmir"
 description: Yusufs Großeltern leben in der Türkei. Nähe entsteht über einen Bildschirm, mit gemischten Sprachen und einem Feigenbaum zwischen zwei Ländern. Eine Geschichte über Großeltern in der Ferne.
 category: grosseltern-und-generationen
-date: 2026-08-31
+date: 2026-10-12
 ---
 Jeden Sonntag um vier Uhr nachmittags klingelte das Tablet in der Wohnung der Familie Aydın in Stuttgart. Auf dem Bildschirm erschienen zwei Gesichter, ein wenig zu nah an der Kamera, mit einem Feigenbaum im Hintergrund: Babaanne und Dede, Yusufs Großeltern väterlicherseits, in ihrem Garten in Izmir.
 
@@ -38,7 +38,7 @@ Yusuf war fasziniert. Er hatte noch nie eine frische Feige gegessen, nur getrock
 
 Im nächsten Sommer flog die Familie nach Izmir. Dede nahm Yusuf mit in den Garten, und gemeinsam schnitten sie einen Zweig vom alten Feigenbaum ab. Dede zeigte ihm, wie man den Zweig in einen Topf mit Erde steckt und gießt. „Wenn er Wurzeln bekommt, kannst du ihn mit nach Deutschland nehmen“, erklärte er.
 
-Der Zweig bekam Wurzeln. Am Ende der Ferien fuhr er im Handgepäck mit nach Stuttgart, eingewickelt in feuchtes Zeitungspapier. Zuhause pflanzte Yusuf ihn in einen großen Topf auf dem Balkon.
+Der Zweig bekam Wurzeln. Bevor sie abreisten, ging Emre mit Dede und dem Topf zur Landwirtschaftsbehörde in Izmir, denn Pflanzen dürfen aus Ländern außerhalb der EU nur mit einem Pflanzengesundheitszeugnis eingeführt werden. Ein Prüfer sah sich den Zweig genau an und stellte das Zeugnis aus. Am Ende der Ferien fuhr der kleine Feigenbaum im Handgepäck mit nach Stuttgart, eingewickelt in feuchtes Zeitungspapier, und Emre meldete ihn am Flughafen beim Zoll an. Zuhause pflanzte Yusuf ihn in einen großen Topf auf dem Balkon.
 
 Von da an hatten die Videoanrufe ein neues Thema. Jeden Sonntag zeigte Yusuf seinem Dede, wie der kleine Feigenbaum wuchs. Und Dede zeigte ihm den großen Feigenbaum in Izmir. Sie verglichen die Blätter, sprachen übers Gießen, und Yusuf lernte dabei Wörter, die er vorher nie gebraucht hatte: yaprak für Blatt, kök für Wurzel, sulamak für gießen. Er lernte sie gern, weil er sie brauchte.
 
@@ -58,6 +58,12 @@ Dede beugte sich so nah an den Bildschirm, dass man nur noch sein Auge sah. Dann
 
 Später aß Emre das vierte Stück, stellvertretend. Er sagte, es habe genau so geschmeckt wie die Feigen seiner Kindheit. Laura war sich nicht sicher, ob das stimmen konnte, bei einem Baum auf einem Stuttgarter Balkon. Aber sie verstand, was er meinte.
 
+## Besuch auf dem Balkon
+
+Im Frühjahr darauf kamen Babaanne und Dede zum ersten Mal seit vielen Jahren nach Stuttgart. Das Erste, was Dede sehen wollte, war nicht die Stadt, nicht die Schule seines Enkels, sondern der Balkon. Er stand lange vor dem Topf, befühlte die Blätter und nickte zufrieden. „Gute Erde“, sagte er auf Deutsch. „Aber mehr Sonne. Feigen lieben Sonne.“ Gemeinsam rückten sie den Topf in die hellste Ecke.
+
+Lauras Eltern kamen zum Abendessen, und für einen Abend saßen alle vier Großeltern an einem Tisch. Laura hatte Sorge gehabt, dass die Sprachen nicht reichen würden. Aber Dede erzählte von seiner Zeit in Sindelfingen, Lauras Vater von seiner Lehre in einer Schreinerei, und Yusuf übersetzte stolz, wann immer jemand ein Wort suchte. Babaanne zeigte Lauras Mutter, wie man Börek faltet, ganz ohne Worte, nur mit den Händen. Später sagte Yusuf, das sei der beste Abend des Jahres gewesen, „weil alle meine Großeltern da waren“.
+
 ## Für euren Alltag
 
 Viele Kinder haben Großeltern, die weit entfernt leben, in einer anderen Stadt oder einem anderen Land. Videoanrufe können Nähe schaffen, wenn sie mehr sind als Pflichtgespräche. Was Yusufs Familie geholfen hat:
@@ -68,6 +74,14 @@ Viele Kinder haben Großeltern, die weit entfernt leben, in einer anderen Stadt 
 - **Unterstützt die Familiensprache spielerisch.** Kinder lernen Wörter, die sie wirklich brauchen. Gemeinsame Projekte schaffen solche Anlässe. Zweisprachige Bücher können helfen.
 - **Nutzt Besuche bewusst.** Wenn Familien sich nur selten sehen, sind gemeinsame Erinnerungen, etwa ein Ableger, ein selbst gemachtes Geschenk oder Fotos, wertvolle Verbindungsstücke für die Zeit danach.
 - **Habt Geduld mit der Sprache.** Mehrsprachige Kinder mischen Sprachen. Das ist normal und kein Zeichen von Schwäche.
+
+### Mehrsprachigkeit im Alltag stärken
+
+Viele mehrsprachige Familien machen gute Erfahrungen damit, dass jeder Elternteil konsequent seine eigene Sprache mit dem Kind spricht. Ergänzend helfen Bücher, Hörspiele, Lieder und Filme in der Familiensprache, und vielerorts gibt es herkunftssprachlichen Unterricht, den Schulen oder Vereine anbieten. Wichtig ist, dass die Sprache mit schönen Erlebnissen verbunden ist und nicht mit Druck. Wenn Kinder antworten, egal in welcher Sprache, ist das ein Erfolg. Korrigiert nicht jedes Wort, sondern wiederholt den Satz einfach richtig in eurer Antwort.
+
+### Andenken aus dem Ausland
+
+Ein Ableger, Samen oder Obst aus dem Garten der Großeltern sind wunderbare Erinnerungen. Wenn sie aus einem Land außerhalb der EU stammen, brauchen Pflanzen, Pflanzenteile und Samen allerdings in der Regel ein Pflanzengesundheitszeugnis, und Fleisch- und Milchprodukte dürfen grundsätzlich nicht im Reisegepäck mitgebracht werden. Informiert euch vor der Rückreise auf den Seiten des Zolls, damit das Andenken nicht am Flughafen bleiben muss.
 
 ### Zum Gespräch mit euren Kindern
 

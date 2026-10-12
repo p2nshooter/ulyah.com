@@ -2,7 +2,7 @@
 title: "Umzug in eine neue Stadt"
 description: Hannes ist zehn, als seine Familie aus der Eifel nach Frankfurt zieht und er seinen besten Freund zurücklässt. Über Abschied, Wut, einsame erste Wochen und das langsame Ankommen.
 category: zusammenleben-zuhause
-date: 2026-07-20
+date: 2026-10-12
 ---
 Hannes erfuhr es an einem Sonntag im März, beim Mittagessen. Seine Mutter Martina legte die Gabel hin, sah seinen Vater an, dann ihn und seine kleine Schwester Pia, und sagte: „Wir müssen euch etwas erzählen. Wir ziehen im Sommer nach Frankfurt.“
 
@@ -58,7 +58,7 @@ Auf dem Heimweg erzählte Hannes seinem Vater zum ersten Mal seit Wochen etwas, 
 
 ## Zwei Zuhause
 
-Es dauerte noch Monate, bis Hannes sich wirklich angekommen fühlte. Tarik wurde sein Freund, und über Tarik lernte er andere Kinder kennen. In der Klasse fand er Anschluss, als die Lehrerin ihn bat, im Erdkundeunterricht von der Eifel zu erzählen, von den Maaren und den erloschenen Vulkanen, und plötzlich wollten alle wissen, ob er schon einmal in einem Vulkan gestanden habe. (Hatte er, sozusagen.)
+Es dauerte noch Monate, bis Hannes sich wirklich angekommen fühlte. Tarik wurde sein Freund, und über Tarik lernte er andere Kinder kennen. In der Klasse fand er Anschluss, als die Lehrerin ihn bat, im Erdkundeunterricht von der Eifel zu erzählen, von den Maaren und den Vulkanen, die seit Tausenden von Jahren ruhen, und plötzlich wollten alle wissen, ob er schon einmal in einem Vulkan gestanden habe. (Hatte er, sozusagen.)
 
 Mit Felix telefonierte er jeden Sonntag, und in den Herbstferien fuhr er für eine Woche zurück ins Dorf und schlief bei Felix. Es war schön und seltsam zugleich. Der Bach war noch da, die Kühe auch. Aber Felix hatte jetzt neue Freunde in der Mannschaft, und Hannes erzählte von Frankfurt, von der Straßenbahn und von Tarik, und merkte, dass er sich auf die Rückfahrt freute.
 
@@ -77,6 +77,14 @@ Ein Umzug in eine neue Stadt bedeutet für Kinder oft den Verlust von Freunden, 
 - **Vertrautes mitnehmen.** Ein Hobby wie Fußball, ein Instrument oder ein Verein können am neuen Ort eine Brücke zu neuen Freundschaften sein.
 - **Kontakt zu alten Freunden halten.** Telefonate, Briefe und Besuche in den Ferien helfen, den Abschied nicht als endgültig zu erleben.
 - **Geduld haben.** Das Ankommen kann Monate dauern, und Geschwister brauchen oft unterschiedlich lange.
+
+### Den Schulwechsel gut vorbereiten
+
+Ein Umzug in ein anderes Bundesland bedeutet oft auch einen Wechsel in ein anderes Schulsystem. Lehrpläne, Fremdsprachenfolge und manchmal sogar die Zahl der Grundschuljahre unterscheiden sich. Meldet euer Kind früh an der neuen Schule an, bringt Zeugnisse und Unterlagen mit und fragt im Aufnahmegespräch, wo es Unterschiede im Stoff geben könnte. Ein kurzes Gespräch mit der neuen Klassenlehrerin oder dem Klassenlehrer in den ersten Wochen hilft, Lücken früh zu erkennen. Viele Lehrkräfte bitten auch ein Kind aus der Klasse, sich als Pate um die oder den Neuen zu kümmern.
+
+### Der Umzugstag selbst
+
+Am Umzugstag ist für Kinder wenig zu tun und viel zu verlieren, etwa das Lieblingskuscheltier in einem der hundert Kartons. Viele Familien lassen jüngere Kinder an diesem Tag bei Großeltern oder Freunden. Packt eine Kiste mit dem Wichtigsten für die erste Nacht, und richtet in der neuen Wohnung zuerst das Kinderzimmer ein, mit vertrauter Bettwäsche und den Lieblingsdingen am gewohnten Platz.
 
 ### Zum Gespräch mit euren Kindern
 

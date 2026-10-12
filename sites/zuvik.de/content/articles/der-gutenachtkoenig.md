@@ -2,7 +2,7 @@
 title: "Der Gutenachtkönig: Wie Luis das Einschlafen lernte"
 description: Jeden Abend kommt Luis fünfmal aus dem Bett: Durst, Pipi, ein Geräusch, ein Monster. Über Ängste im Dunkeln, ein Ritual mit Krone und warum Kinder abends Verlässlichkeit brauchen.
 category: morgens-und-abends
-date: 2026-09-30
+date: 2026-10-12
 ---
 Der erste Auftritt kam meistens um 19:52 Uhr. Die Tür zum Wohnzimmer öffnete sich einen Spalt, und ein kleines Gesicht schob sich hindurch. „Ich hab Durst.“ Katrin Lehmann stand auf, holte ein Glas Wasser, brachte Luis zurück ins Bett, deckte ihn zu. Um 20:05 Uhr: „Ich muss Pipi.“ Um 20:20 Uhr: „Da war ein Geräusch.“ Um 20:41 Uhr: „Ich kann nicht schlafen.“ Und um 21:10 Uhr, wenn Katrin und ihre Frau Jana endlich auf dem Sofa saßen, stand Luis noch einmal in der Tür, diesmal mit Tränen: „In meinem Schrank wohnt was.“
 
@@ -67,6 +67,14 @@ Einschlafprobleme gehören zu den häufigsten Sorgen von Eltern kleiner Kinder. 
 - **Besprecht Regeln am Tag, nicht am Abend.** Am Abend sind alle müde. Neue Abmachungen lassen sich am Nachmittag in Ruhe erklären.
 - **Achtet auf Tag und Bewegung.** Viel Zeit draußen, Bewegung und eine ruhige Stunde vor dem Schlafengehen ohne Bildschirm erleichtern vielen Kindern das Einschlafen.
 - **Holt Rat bei anhaltenden Problemen.** Wenn ein Kind über Wochen kaum schläft, nachts sehr oft aufwacht, schnarcht oder tagsüber auffällig erschöpft ist, sprecht mit eurer Kinderärztin oder eurem Kinderarzt.
+
+### Albtraum oder Nachtschreck?
+
+Nicht jedes nächtliche Weinen ist gleich. Nach einem **Albtraum** wacht ein Kind meist in der zweiten Nachthälfte richtig auf, kann sich an den Traum erinnern und lässt sich trösten. Hier helfen Nähe, ein Licht und ein paar ruhige Worte. Der **Nachtschreck**, in der Fachsprache Pavor nocturnus, tritt dagegen meist in den ersten Stunden nach dem Einschlafen auf: Das Kind schreit, sitzt vielleicht mit offenen Augen im Bett, ist aber gar nicht wach und erkennt seine Eltern nicht. Am Morgen erinnert es sich an nichts. Wecken hilft in diesem Fall meist nicht. Besser ist es, ruhig dabeizubleiben und aufzupassen, dass sich das Kind nicht verletzt. Nachtschreck ist bei Kleinkindern und Kindergartenkindern verbreitet und verschwindet in der Regel von selbst. Tritt er sehr häufig auf, sprecht mit der Kinderärztin oder dem Kinderarzt.
+
+### Ein Zimmer zum Einschlafen
+
+Auch das Zimmer selbst kann helfen. Viele Kinder schlafen besser, wenn es ruhig, eher kühl und dunkel ist. Ein Verdunkelungsvorhang hält Straßenlaternen wie die vor Luis' Fenster draußen, und ein schwaches Nachtlicht mit warmem Licht genügt für die Orientierung. Schränke, deren Türen nicht schließen, lassen sich mit einem kleinen Magneten oder einem Haken sicher zumachen. Manchmal ist es genau dieser eine Spalt, der die Fantasie in Gang setzt.
 
 ### Zum Gespräch mit euren Kindern
 

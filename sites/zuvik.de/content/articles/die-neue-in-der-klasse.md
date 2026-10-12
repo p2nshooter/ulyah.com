@@ -2,7 +2,7 @@
 title: "Die Neue in der Klasse"
 description: Mira ist neu in der 5b, und bald macht im Klassenchat ein Sticker über sie die Runde. Clara schickt nur einen Smiley. Über Ausgrenzung, Mitlaufen und den Mut, sich anders zu entscheiden.
 category: schule-und-kita
-date: 2026-08-01
+date: 2026-10-12
 ---
 Mira kam an einem Montag im Oktober in die 5b, sechs Wochen nach Beginn des Schuljahres, als sich die Gruppen in der Klasse schon gefunden hatten. Frau Petersen, die Klassenlehrerin, stellte sie vor: „Das ist Mira. Sie ist mit ihrer Familie aus Regensburg nach Rostock gezogen. Bitte helft ihr, sich zurechtzufinden.“
 
@@ -84,6 +84,14 @@ Ausgrenzung beginnt oft leise: ein Kichern, ein Wegdrehen, ein lachender Smiley 
 - **Mut würdigen.** Sich gegen die Gruppe zu stellen, ist schwer und kann Folgen haben. Kinder brauchen Rückhalt, wenn sie sich für das Richtige entscheiden.
 - **Die Schule einbeziehen.** Lehrkräfte sollten von Mobbing in Klassenchats erfahren. Eine Nachricht kann auch ohne Namen auf ein Problem aufmerksam machen.
 - **Über digitale Regeln sprechen.** Fotos von anderen ohne deren Erlaubnis zu machen und zu verbreiten, ist nicht nur verletzend, sondern verletzt auch ihre Rechte. Kinder sollten das wissen.
+
+### Das Recht am eigenen Bild
+
+Viele Kinder wissen nicht, dass sie Fotos von anderen nicht einfach verbreiten dürfen. In Deutschland hat jeder Mensch ein Recht am eigenen Bild: Wer Fotos oder Videos von anderen ohne deren Einwilligung verschickt oder veröffentlicht, verletzt dieses Recht. Werden die Bilder zusätzlich bearbeitet, um jemanden lächerlich zu machen, kann das eine Beleidigung sein. Ab 14 Jahren sind Jugendliche in Deutschland strafmündig und können für solche Taten auch rechtlich verantwortlich gemacht werden. Es lohnt sich, das mit Kindern zu besprechen, bevor sie das erste Handy in der Hand halten.
+
+### Neuen Kindern den Einstieg erleichtern
+
+Auch Eltern können helfen, dass neue Kinder schneller ankommen. Fragt in der Elterngruppe nach, ob das neue Kind schon im Klassenchat ist. Ladet es einmal zum Spielen oder zum Kindergeburtstag ein. Und ermuntert euer Kind, die oder den Neuen in der Pause anzusprechen. Ein einziges freundliches Kind genügt oft, damit ein neues sich nicht mehr allein fühlt.
 
 ### Zum Gespräch mit euren Kindern
 

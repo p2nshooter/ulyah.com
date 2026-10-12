@@ -2,7 +2,7 @@
 title: "Wenn Opa die Namen vergisst"
 description: Opa Günther nennt Nele bei Mamas Namen und findet den Weg zum Bäcker nicht mehr. Wie Eltern Kindern Demenz erklären können und wie Nähe bleibt, wenn Erinnerungen schwinden.
 category: grosseltern-und-generationen
-date: 2026-09-04
+date: 2026-10-12
 ---
 Das erste Mal fiel es Nele an ihrem achten Geburtstag auf. Opa Günther kam wie jedes Jahr mit einem Geschenk, das in Zeitungspapier eingewickelt war, weil er Geschenkpapier für Verschwendung hielt. Er umarmte sie und sagte: „Alles Gute, Susanne!“
 
@@ -75,6 +75,20 @@ Wenn Großeltern an Demenz erkranken, betrifft das die ganze Familie, auch die K
 - **Erlaubt Trauer.** Es ist traurig, wenn ein geliebter Mensch sich verändert. Auch Erwachsene dürfen vor Kindern zeigen, dass sie traurig sind.
 - **Holt euch Unterstützung.** Beratungsstellen und Angehörigengruppen für Familien mit Demenzkranken bieten Informationen und Entlastung, auch Material, das sich speziell an Kinder richtet.
 
+### Besuche gut gestalten
+
+Kurze, ruhige Besuche sind oft schöner als lange und anstrengende. Viele Menschen mit Demenz sind am Vormittag klarer und werden gegen Abend unruhiger. Stellt euch bei der Begrüßung einfach mit Namen vor, statt zu fragen „Weißt du, wer ich bin?“. Diese Frage setzt unter Druck und macht traurig, wenn die Antwort ausbleibt. Bringt etwas mit, das ihr gemeinsam tun könnt: ein Fotoalbum, ein einfaches Spiel, ein Lied. Und verabschiedet euch freundlich, auch wenn der Besuch gleich wieder vergessen sein könnte. Das gute Gefühl bleibt oft länger als die Erinnerung.
+
+### Wenn Opa etwas Seltsames sagt
+
+Menschen mit Demenz wiederholen Fragen, verwechseln Zeiten und Personen oder sind manchmal misstrauisch, etwa wenn sie glauben, jemand habe ihre Brille gestohlen. Kinder erschrecken darüber. Erklärt ihnen, dass Streiten oder Verbessern nicht hilft, weil die Krankheit die Erinnerung verändert, nicht der Wille. Besser ist es, auf das Gefühl einzugehen: „Du suchst deine Brille, das ist ärgerlich. Komm, wir suchen zusammen.“ So fühlt sich der kranke Mensch ernst genommen, und die Situation entspannt sich meist von selbst.
+
+### Hilfe für die ganze Familie
+
+Die Pflege eines Menschen mit Demenz ist anstrengend, und Eltern sind dabei oft zugleich für ihre Kinder und für ihre eigenen Eltern da. Ihr müsst das nicht allein schaffen. Pflegestützpunkte und Beratungsstellen helfen bei Fragen zu Pflegegrad, Entlastungsangeboten und Wohnformen. Die Deutsche Alzheimer Gesellschaft bietet ein Beratungstelefon und Informationen, auch Material, das sich an Kinder und Jugendliche richtet. Angehörigengruppen geben die Möglichkeit, sich mit Menschen auszutauschen, die Ähnliches erleben.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt: Was hast du an Opa oder Oma bemerkt? Was macht dir Sorgen? Was möchtest du gern mit ihnen machen, solange es geht? Kinder haben oft kreative Ideen, wie sie Nähe schaffen können.
+
+Manchmal möchten Kinder ihre Großeltern eine Zeit lang nicht besuchen, weil es sie zu traurig macht. Auch das ist in Ordnung. Ein gemaltes Bild, eine Sprachnachricht oder ein Lied, das ihr aufnehmt und mitbringt, hält die Verbindung, bis euer Kind wieder bereit ist.

@@ -2,7 +2,7 @@
 title: "Mama im Homeoffice"
 description: Yasemin arbeitet von zu Hause, und Elias versteht nicht, warum Mama da ist und trotzdem keine Zeit hat. Über Homeoffice mit Kindern, eine Ampel an der Tür und eine Viertelstunde für alle.
 category: zusammenleben-zuhause
-date: 2026-07-18
+date: 2026-10-12
 ---
 „Mama, guck mal! Ich hab einen Drachen gebaut!“
 
@@ -74,6 +74,18 @@ Homeoffice kann Familien mehr Flexibilität und gemeinsame Zeit schenken. Für K
 - **Alternativen anbieten.** Eine Kiste mit Beschäftigungsmaterial, Spielverabredungen oder Betreuungsangebote überbrücken die Arbeitszeiten.
 - **Realistisch planen.** Mit einem Grundschulkind zu Hause ist nicht jeder Arbeitstag gleich produktiv. Wichtige Besprechungen lassen sich manchmal auf Zeiten legen, in denen das Kind betreut ist.
 - **Offen mit dem Arbeitgeber sprechen.** Viele Vorgesetzte und Kollegen haben selbst Kinder und mehr Verständnis, als man vermutet.
+
+### Den Arbeitstag klug aufteilen
+
+Nicht jede Arbeit verlangt dieselbe Konzentration. Viele Eltern im Homeoffice legen Aufgaben, die volle Aufmerksamkeit brauchen, in die Zeiten, in denen die Kinder in Schule, Kita oder Betreuung sind, und erledigen E-Mails oder Routinearbeiten, wenn die Kinder zu Hause spielen. Wichtige Besprechungen lassen sich oft so legen, dass ein zweiter Erwachsener da ist. Ein gemeinsames Mittagessen ohne Laptop am Tisch gibt dem Tag eine Mitte, auf die sich Kinder verlassen können, und auch Erwachsenen tut die Pause gut.
+
+### Wenn der Bildschirm einspringt
+
+An manchen Tagen geht es nicht ohne Hörspiel, Kindersendung oder Tablet, damit ein wichtiges Telefonat gelingt. Das ist kein Versagen. Hilfreich ist nur, diese Zeit bewusst einzusetzen statt aus Verlegenheit: lieber eine vorher vereinbarte Folge als ein offenes Ende. Hörspiele und Hörbücher sind eine gute Alternative, weil Kinder dabei malen, bauen oder puzzeln können.
+
+### Wenn das Kind krank ist
+
+Ein krankes Kind und ein voller Arbeitstag passen kaum zusammen, auch im Homeoffice nicht. Gesetzlich versicherte Eltern können für die Betreuung eines kranken Kindes unter zwölf Jahren Kinderkrankentage nehmen und dafür Kinderkrankengeld von der Krankenkasse erhalten. Wie viele Tage es gibt und was zu beachten ist, erfahrt ihr bei eurer Krankenkasse. Ein Kind, das krank zu Hause ist, braucht Ruhe und Zuwendung und nicht eine Mutter oder einen Vater, die nebenbei Präsentationen halten.
 
 ### Zum Gespräch mit euren Kindern
 

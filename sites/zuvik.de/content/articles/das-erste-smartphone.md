@@ -2,7 +2,7 @@
 title: "Das erste Smartphone"
 description: Noor kommt in die fünfte Klasse und bekommt ihr erstes Handy – mit Vertrag. Dann lässt sie ein Kettenbrief nachts nicht schlafen. Über Smartphone-Regeln, Absprachen und Vertrauen.
 category: zusammenleben-zuhause
-date: 2026-07-22
+date: 2026-10-12
 ---
 „Alle haben eins“, sagte Noor. „Wirklich alle. Außer mir und Leander, und Leander zählt nicht, weil seine Eltern gegen alles sind.“
 
@@ -71,9 +71,19 @@ Das erste Smartphone ist für viele Kinder ein großer Schritt – und für Elte
 - **Über Gefahren sprechen, ohne Angst zu machen.** Kettenbriefe, Fremde in Chats, Fotos ohne Erlaubnis: Kinder sollten wissen, was ihnen begegnen kann, und dass sie damit nicht allein sind.
 - **Versprechen, dass Ehrlichkeit keinen Ärger bringt.** Kinder erzählen nur dann von unangenehmen Erlebnissen, wenn sie nicht fürchten müssen, dass ihnen das Handy weggenommen wird.
 
+### Wenn aus Chats Mobbing wird
+
+Kettenbriefe sind unangenehm, Cybermobbing ist ernster: Beleidigungen, peinliche Fotos, Ausschluss aus Gruppen oder gefälschte Profile. Anzeichen können sein, dass ein Kind sich zurückzieht, das Handy plötzlich meidet oder es im Gegenteil ständig nervös kontrolliert, schlecht schläft oder nicht mehr zur Schule möchte. Wenn euer Kind betroffen ist, sichert Beweise mit Screenshots, blockiert die Absender, meldet die Inhalte in der App und informiert die Schule. Antwortet nicht auf die Angriffe. Unterstützung gibt es auch außerhalb der Familie, etwa bei der Nummer gegen Kummer unter 116 111 oder bei Beratungsangeboten, in denen Jugendliche anderen Jugendlichen helfen.
+
+### Vertrauen statt heimlicher Kontrolle
+
+Manche Eltern überlegen, die Nachrichten ihrer Kinder heimlich mitzulesen. Das mag kurzfristig beruhigen, zerstört aber genau das Vertrauen, das Kinder brauchen, um sich im Ernstfall zu melden. Besser sind offene Absprachen: Welche Einstellungen gibt es, warum, und wann werden sie gelockert? Mit jedem Jahr, in dem ein Kind verantwortungsvoll mit dem Handy umgeht, darf es mehr Freiraum bekommen.
+
 ### Zum Gespräch mit euren Kindern
 
 - Wofür möchtest du ein Smartphone benutzen, und wofür lieber nicht?
 - Welche Regeln findest du sinnvoll, und welche sollten auch für uns Eltern gelten?
 - Was würdest du tun, wenn du eine Nachricht bekommst, die dir Angst macht?
 - Warum ist es wichtig, Fotos von anderen nur mit ihrer Erlaubnis weiterzuschicken?
+- Wann sollten wir den Vertrag gemeinsam überprüfen, und was müsste passieren, damit du mehr Freiraum bekommst?
+- Wem außer uns könntest du dich anvertrauen, wenn dir online etwas Unangenehmes passiert?

@@ -2,7 +2,7 @@
 title: "Omas Rezeptbuch mit den Fettflecken"
 description: In Omas altem Rezeptbuch stehen Kuchen, Suppen und Geschichten aus sechzig Jahren. Als Emil es findet, beginnt ein Sommer des gemeinsamen Backens über drei Generationen.
 category: grosseltern-und-generationen
-date: 2026-09-06
+date: 2026-10-12
 ---
 Das Buch lag ganz unten in einer Kiste, die Oma Hilde vom Dachboden geholt hatte. Sie zog in eine kleinere Wohnung, näher bei der Familie ihrer Tochter in Würzburg, und musste vieles aussortieren. Emil, neun Jahre alt, half ihr beim Ausräumen, oder eigentlich stöberte er hauptsächlich herum. Zwischen alten Zeitschriften, Fotoalben und einem Stapel vergilbter Briefe fand er ein dickes, abgegriffenes Heft mit einem blauen Stoffeinband.
 
@@ -70,6 +70,18 @@ Gemeinsame Tätigkeiten mit Großeltern, etwa Kochen, Gärtnern oder Basteln, ve
 - **Haltet Erinnerungen fest.** Ein selbst geschriebenes Rezeptheft, aufgenommene Erzählungen oder ein Fotobuch bewahren Familiengeschichte für spätere Generationen.
 - **Lasst traurige Momente zu.** Erinnerungen an verstorbene Familienmitglieder können schmerzhaft sein. Kinder müssen nicht trösten können; oft reicht es, einfach dabei zu sein.
 - **Plant Rituale.** Ein jährlich wiederkehrendes Backen oder Kochen verbindet die Familie über Jahre.
+
+### Sicher backen mit Kindern
+
+Teig naschen gehört für viele Familien zum Backen dazu, so wie bei Emils Mutter. Trotzdem lohnt ein Hinweis: Rohes Mehl und rohe Eier können Keime enthalten, die Magen-Darm-Erkrankungen auslösen. Das Bundesinstitut für Risikobewertung rät deshalb davon ab, rohen Teig zu essen, besonders bei Kindern. Wer nicht auf das Naschen verzichten will, kann eine kleine Portion eigens für den Zweck anrühren, ohne Ei und mit Mehl, das vorher erhitzt wurde. Und vor dem Backen gilt für alle: Hände waschen, lange Haare zusammenbinden, und an Herd und Ofen bleibt ein Erwachsener in der Nähe.
+
+### Alte Rezepte lesbar machen
+
+Alte Rezepthefte stecken voller Rätsel. Mengen werden in Pfund, Tassen oder „für 20 Pfennig Hefe“ angegeben, und Backtemperaturen fehlen oft ganz, weil Öfen früher nur „schwache“ oder „starke Hitze“ kannten. Schreibt beim Nachbacken auf, was ihr heute verwendet, zum Beispiel 500 Gramm statt ein Pfund und 180 Grad Umluft. Fotografiert oder scannt die alten Seiten, damit sie nicht verloren gehen. Und nehmt die Erzählungen der Großeltern ruhig mit dem Handy auf. Ihre Stimme zu hören, wird später für die ganze Familie kostbar sein.
+
+### Wenn die Kraft nachlässt
+
+Großeltern, die nicht mehr lange stehen können, müssen nicht auf gemeinsames Kochen verzichten. Ein bequemer Stuhl am Küchentisch, einfache Rezepte und kurze Einheiten machen es leichter. Wie bei Oma Hilde und Emil können die Rollen wechseln: Die Großeltern erklären, die Kinder übernehmen die Arbeit.
 
 ### Zum Gespräch mit euren Kindern
 

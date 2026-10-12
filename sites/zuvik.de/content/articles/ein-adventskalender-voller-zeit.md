@@ -2,9 +2,9 @@
 title: "Ein Adventskalender voller Zeit"
 description: Vierundzwanzig Türchen voller Plastikkram – bis Familie Berger ihren Kindern gemeinsame Zeit in den Kalender packt. Eine Geschichte über Vorfreude, Konsum und das, was Kinder im Advent brauchen.
 category: feste-und-jahreszeiten
-date: 2026-08-21
+date: 2026-10-12
 ---
-Am 2. Dezember lagen im Kinderzimmer von Ole und Paula Brandt bereits drei Flummis, ein Radiergummi in Form eines Einhorns, ein Schlüsselanhänger mit Blinklicht und zwei Päckchen Glitzertattoos. Der Adventskalender, den Oma Gisela wie jedes Jahr aus Bremen geschickt hatte, war ein großer Karton mit vierundzwanzig Türchen, hinter denen jeweils eine Kleinigkeit steckte. Zusätzlich hatte jedes Kind einen Schokoladenkalender aus dem Supermarkt. Und Mama Christine hatte, wie in jedem Jahr, einen selbstgemachten Kalender aus vierundzwanzig Stoffsäckchen an eine Schnur über das Hochbett gehängt.
+Am 2. Dezember lagen im Kinderzimmer von Ole und Paula Berger bereits drei Flummis, ein Radiergummi in Form eines Einhorns, ein Schlüsselanhänger mit Blinklicht und zwei Päckchen Glitzertattoos. Der Adventskalender, den Oma Gisela wie jedes Jahr aus Bremen geschickt hatte, war ein großer Karton mit vierundzwanzig Türchen, hinter denen jeweils eine Kleinigkeit steckte. Zusätzlich hatte jedes Kind einen Schokoladenkalender aus dem Supermarkt. Und Mama Christine hatte, wie in jedem Jahr, einen selbstgemachten Kalender aus vierundzwanzig Stoffsäckchen an eine Schnur über das Hochbett gehängt.
 
 Am Morgen des 3. Dezember stritten sich die Geschwister darüber, wer welches Säckchen zuerst öffnen durfte. Paula, sieben Jahre alt, hatte ihren Schlüsselanhänger schon verloren. Ole, neun, sagte über das Geschenk aus dem Karton: „Das hatte ich letztes Jahr schon.“ Dann warf er es in die Kiste unter dem Bett, in der die Flummis aus dem vorigen Advent lagen.
 
@@ -64,6 +64,24 @@ Adventskalender sollen die Vorfreude auf Weihnachten wecken. Doch wenn jeden Tag
 - **Flexibel bleiben.** Wenn ein Kind krank wird oder ein Termin dazwischenkommt, darf ein Zettel getauscht oder verschoben werden. Wichtiger als der Plan ist die gemeinsame Zeit.
 - **Mit Großeltern offen sprechen.** Statt Geschenke abzulehnen, kann man gemeinsam neue Ideen entwickeln, die zur Familie passen – zum Beispiel Geschichten, Briefe oder gemeinsame Erlebnisse.
 - **Erinnerungen festhalten.** Ein paar Fotos oder ein kleines Advents-Tagebuch helfen, sich später an die schönen Momente zu erinnern.
+
+### Ideen für einen Kalender voller Zeit
+
+Wer selbst einen Zeit-Kalender füllen möchte, findet hier Anregungen, die wenig kosten und sich gut in volle Wochen einbauen lassen:
+
+- abends mit Taschenlampen durch die Nachbarschaft gehen und die schönsten Lichter suchen
+- Plätzchen backen und einen Teller davon zu den Nachbarn bringen
+- einen Brief oder ein gemaltes Bild an die Großeltern schicken
+- im Wohnzimmer bei Kerzenlicht Kakao trinken und Geschichten erzählen
+- Sterne aus Papier falten und ans Fenster kleben
+- einen Vogelfutterkranz bauen und beobachten, wer zu Besuch kommt
+- gemeinsam Spielzeug aussortieren, das andere Kinder noch glücklich machen kann
+- einen Winterspaziergang mit Thermoskanne und Lebkuchen machen
+- eine Höhle aus Decken bauen und darin vorlesen
+
+### Weniger Müll im Advent
+
+Ein Zeit-Kalender spart nebenbei viel Verpackung. Stoffsäckchen, Papiertüten oder kleine Schachteln lassen sich jedes Jahr wiederverwenden, und die Zettel passen in jede Hülle. Wer trotzdem Kleinigkeiten verschenken möchte, kann auf Dinge setzen, die verbraucht werden, etwa Malstifte, Knete oder eine Mandarine, statt auf Spielzeug, das nach einem Tag in der Kiste landet.
 
 ### Zum Gespräch mit euren Kindern
 

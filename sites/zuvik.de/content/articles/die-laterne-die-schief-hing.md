@@ -2,7 +2,7 @@
 title: "Die Laterne, die schief hing"
 description: Frieda wünscht sich eine perfekte Fuchslaterne, doch Papa kann nicht basteln, und am Abend vor dem Umzug geht alles schief. Über Perfektionismus, Teilen und den Sinn von Sankt Martin.
 category: feste-und-jahreszeiten
-date: 2026-08-23
+date: 2026-10-12
 ---
 Der Zettel hing Anfang Oktober an der Pinnwand der Kita in Köln-Ehrenfeld, mit einem gemalten Pferd und einem Mann mit rotem Mantel. „Liebe Eltern, am Donnerstag, den 22. Oktober, laden wir zum Laternenbastelnachmittag ein. Bitte bringt gute Laune und eine Schere mit. Der Martinsumzug findet am 11. November um 17 Uhr statt.“
 
@@ -86,6 +86,10 @@ Sankt Martin gehört für viele Kinder zu den schönsten Festen des Jahres: Lich
 - **Die Legende erzählen.** Die Geschichte vom geteilten Mantel ist kurz und für Kinder gut zu verstehen. Sie gibt dem Fest einen Sinn, der über Licht und Lieder hinausgeht.
 - **An neue Familien denken.** Nicht jede Familie kennt die Traditionen oder kann die Elternbriefe lesen. Ein kurzer persönlicher Hinweis oder eine zweite, schnell gebastelte Laterne kann viel bewirken.
 - **Auf Sicherheit achten.** Elektrische Laternenstäbe oder LED-Lichter sind für kleine Kinder sicherer als echte Kerzen, besonders bei Wind und Gedränge.
+
+### Wer Martin war
+
+Martin lebte im 4. Jahrhundert. Er war römischer Soldat, ließ sich später taufen, wurde Mönch und schließlich Bischof von Tours im heutigen Frankreich. Der 11. November ist der Tag, an dem er beigesetzt wurde. Warum er nur die Hälfte seines Mantels verschenkte, wird oft so erklärt: Als Soldat gehörte ein Teil der Ausrüstung dem Heer, und Martin gab das, was ihm selbst gehörte. Für Kinder steckt darin eine schöne Botschaft: Teilen heißt nicht, alles herzugeben, sondern das, was man hat, mit jemandem zu teilen, der es braucht.
 
 ### Zum Gespräch mit euren Kindern
 

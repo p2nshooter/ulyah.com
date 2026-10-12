@@ -2,7 +2,7 @@
 title: "Ein Kindergeburtstag ohne Stress"
 description: Mats wünscht sich eine Piratenparty, und seine Mutter plant eine Feier wie aus dem Bilderbuch, bis sie merkt, dass sie sich überfordert. Über Erwartungen, Gästelisten und echte Geburtstagsfreude.
 category: feste-und-jahreszeiten
-date: 2026-08-19
+date: 2026-10-12
 ---
 „Ich will alle einladen“, sagte Mats, „die ganze Klasse.“
 
@@ -69,9 +69,33 @@ Kindergeburtstage sind für viele Eltern ein Kraftakt. Fotos von aufwendigen Fei
 - **Ein einfaches Programm planen.** Zwei oder drei Spiele, ein Essen, eine kleine Überraschung. Kinder brauchen auch freie Zeit, in der sie einfach miteinander spielen.
 - **Den eigenen Anspruch prüfen.** Die Frage „Für wen mache ich das eigentlich?“ kann helfen, Erwartungen zu sortieren, besonders in Zeiten, in denen man sich als Elternteil ohnehin unter Druck fühlt.
 
+### Ein Ablauf mit Luft
+
+Für Kinder im Grundschulalter reichen zwei bis drei Stunden Feier völlig aus. Ein grober Ablauf hilft, ohne den Tag zu verplanen:
+
+| Zeit | Was passiert |
+|---|---|
+| erste Viertelstunde | Ankommen, Geschenke, freies Spielen |
+| danach etwa 20 Minuten | eine Bastelei oder ein ruhiges Spiel zum Warmwerden |
+| etwa 20 bis 30 Minuten | Kuchen und Trinken |
+| etwa 40 Minuten | ein großes Spiel, zum Beispiel eine Schatzsuche |
+| Rest der Zeit | freies Spielen, Abendessen oder Würstchen, Abholen |
+
+Plant bewusst Lücken ein. Die schönsten Momente entstehen oft dann, wenn kein Programm läuft.
+
+### Allergien und Unverträglichkeiten
+
+Fragt bei der Einladung nach, ob ein Kind etwas nicht essen darf, etwa wegen einer Nussallergie, einer Zöliakie oder aus religiösen Gründen. Ein kurzer Satz auf der Einladung genügt: „Bitte sagt uns Bescheid, wenn euer Kind etwas nicht essen darf.“ Notiert euch für den Nachmittag die Telefonnummern der Eltern, damit ihr im Notfall schnell jemanden erreicht.
+
+### Geburtstag in getrennten Familien
+
+Wenn Eltern getrennt leben, wird der Geburtstag schnell zur Frage, wer wann feiert. Es gibt keine richtige Lösung für alle: Manche Familien feiern gemeinsam, andere zweimal. Wichtig ist, dass das Kind sich nicht entscheiden muss und dass die Absprache früh steht. Vermeidet einen Wettbewerb um das größere Geschenk oder die schönere Feier. Für das Kind zählt vor allem, dass beide Eltern sich mit ihm freuen, so wie Mats sich freute, als er Mama und Papa zusammen in der Küchentür stehen sah.
+
 ### Zum Gespräch mit euren Kindern
 
 - Was ist für dich das Wichtigste an deinem Geburtstag?
 - Wen möchtest du auf jeden Fall dabeihaben – und warum gerade diese Kinder?
 - Wie fühlt es sich an, wenn man nicht zu einem Geburtstag eingeladen wird? Was kann man tun, damit sich niemand ausgeschlossen fühlt?
 - Welches Spiel oder welcher Kuchen gehört für dich zu einem richtigen Geburtstag dazu?
+- Was möchtest du deinen Gästen zum Abschied mitgeben, und muss es überhaupt etwas Gekauftes sein?
+- Wie können wir uns bei allen bedanken, die beim Fest geholfen haben, zum Beispiel bei Oma oder bei den Nachbarn mit dem Garten?

@@ -2,7 +2,7 @@
 title: "Petzen oder Hilfe holen?"
 description: Clara rennt mit jeder Kleinigkeit zu Mama, bis einmal etwas wirklich Gefährliches passiert. Eine Geschichte über den Unterschied zwischen Petzen und Hilfe holen.
 category: geschwister
-date: 2026-09-08
+date: 2026-10-12
 ---
 „Mama! Theo hat sich einen Keks genommen, obwohl du gesagt hast, erst nach dem Essen!“
 
@@ -58,6 +58,14 @@ Clara, die mit tränennassen Augen auf dem Bürgersteig saß, musste trotz der S
 
 Melanie erzählte bei einem Elterngespräch auch Claras Lehrerin von der Liste. Die Lehrerin war interessiert. „Wir haben in der Klasse dasselbe Thema“, sagte sie. „Manche Kinder melden alles, andere trauen sich nicht einmal zu sagen, wenn sie gemobbt werden, weil sie Angst haben, als Petze zu gelten.“ Sie übernahm die Idee mit den zwei Spalten für ihre Klasse. Und Clara war sehr stolz, als die Lehrerin erzählte, woher die Idee kam.
 
+## Am Klettergerüst
+
+Ein paar Wochen später wurde die Liste auf die Probe gestellt, diesmal ohne Eltern in der Nähe. In der großen Pause sah Clara, wie ein Junge aus der vierten Klasse einen Erstklässler immer wieder vom Klettergerüst schubste. Der Kleine weinte, aber niemand griff ein. Ein paar Kinder aus Claras Klasse standen daneben. „Bloß nicht petzen“, sagte eines von ihnen, „sonst bist du die Petze.“
+
+Clara zögerte. Dann dachte sie an die zwei Spalten am Kühlschrank. Jemand tut einem anderen weh. Das stand eindeutig unter „Hilfe holen“. Sie lief zur Pausenaufsicht und erzählte, was sie gesehen hatte. Die Lehrerin ging sofort hin, und das Schubsen hörte auf.
+
+Am Nachmittag erzählte Clara es zu Hause, noch ein bisschen unsicher. „Die anderen fanden das blöd.“ Jan setzte sich zu ihr. „Und der Kleine?“ Clara überlegte. „Der hat sich bedankt. Er heißt Mats.“ – „Dann hast du genau das Richtige getan. Auch wenn es Mut gebraucht hat.“
+
 ## Für euren Alltag
 
 Viele Kinder im Kindergarten- und Grundschulalter melden Erwachsenen jeden Regelverstoß anderer. Das hat oft mit einem ausgeprägten Gerechtigkeitssinn zu tun. Gleichzeitig ist es wichtig, dass Kinder lernen: In gefährlichen Situationen sollen sie immer Hilfe holen, ohne Angst, als Petze zu gelten. Was Familie Bauer geholfen hat:
@@ -69,6 +77,20 @@ Viele Kinder im Kindergarten- und Grundschulalter melden Erwachsenen jeden Regel
 - **Achtet auf das andere Kind.** Ein Geschwisterkind, das ständig gemeldet wird, fühlt sich oft beobachtet und reagiert mit Trotz. Weniger Kontrolle bei Kleinigkeiten kann den Frieden fördern.
 - **Macht klar: Bei Geheimnissen, die Angst machen, gilt immer Hilfe holen.** Kinder müssen wissen, dass sie Erwachsenen alles erzählen dürfen, was ihnen oder anderen schadet, auch wenn sie jemand gebeten hat, es nicht zu tun.
 
+### Warum Kinder so oft petzen
+
+Dass Kinder im Kindergarten- und frühen Grundschulalter jeden Regelverstoß melden, hat meist gute Gründe. In diesem Alter nehmen viele Kinder Regeln sehr wörtlich und empfinden jede Ausnahme als ungerecht. Manche suchen beim Melden auch die Bestätigung, selbst alles richtig zu machen, oder etwas Aufmerksamkeit der Eltern, gerade wenn ein Geschwisterkind viel davon bekommt. Wer diese Gründe kennt, kann gelassener reagieren: Das Kind ist nicht hinterhältig, sondern übt, wie Regeln und Gerechtigkeit funktionieren.
+
+### Gute und schlechte Geheimnisse
+
+Eng verwandt mit dem Petzen ist die Frage nach Geheimnissen. Viele Familien und Kitas sprechen deshalb von zwei Arten: **Gute Geheimnisse** machen Freude, etwa ein Geburtstagsgeschenk oder eine Überraschung, und werden irgendwann gelüftet. **Schlechte Geheimnisse** machen Angst, Bauchweh oder ein komisches Gefühl. Solche Geheimnisse dürfen und sollen Kinder immer einem vertrauten Erwachsenen erzählen, auch wenn jemand gesagt hat, sie dürften es nicht. Diese Unterscheidung schützt Kinder, weil sie ihnen eine einfache Regel für schwierige Situationen gibt.
+
+### Wenn niemand zuhört
+
+Sagt euren Kindern auch, was sie tun können, wenn ein Erwachsener nicht reagiert: es noch einmal sagen, einem anderen Erwachsenen erzählen, nicht aufgeben. Ältere Kinder können sich außerdem kostenlos und anonym an die Nummer gegen Kummer wenden, das Kinder- und Jugendtelefon unter 116 111.
+
 ### Zum Gespräch mit euren Kindern
 
 Malt gemeinsam zwei Spalten auf ein Blatt: Petzen und Hilfe holen. Sammelt Beispiele aus eurem Alltag. Fragt auch: Gibt es etwas, das du dich bisher nicht getraut hast zu erzählen?
+
+Lobt euer Kind auch dann, wenn es sich erst im Nachhinein traut, etwas zu erzählen. Manche Kinder brauchen Tage, bis sie über ein unangenehmes Erlebnis sprechen können. Wichtig ist dann nicht, warum es so lange gedauert hat, sondern dass es jetzt gesagt wurde.

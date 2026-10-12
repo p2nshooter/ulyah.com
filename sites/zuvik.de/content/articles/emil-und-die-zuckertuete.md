@@ -2,7 +2,7 @@
 title: "Emil und die Zuckertüte"
 description: Emil kommt in die Schule, die Zuckertüte ist fast so groß wie er, und alle freuen sich – nur Emil nicht. Über Ängste vor dem ersten Schultag, einen Probelauf und das Recht auf Ruhe.
 category: schule-und-kita
-date: 2026-08-07
+date: 2026-10-12
 ---
 Die Zuckertüte stand seit einer Woche im Wohnzimmer, in einer Ecke hinter dem Sofa, eingewickelt in ein Bettlaken. Emil durfte sie nicht ansehen, so lautete die Abmachung. Aber er sah ihre Spitze unter dem Laken hervorlugen, blau mit silbernen Sternen, und er wusste, dass sie fast so groß war wie er selbst.
 
@@ -68,6 +68,14 @@ Der erste Schultag ist für viele Kinder aufregend und schön – und manchmal a
 - **Klarstellen, dass niemand alles können muss.** Lesen, Schreiben, Rechnen lernt man in der Schule. Das zu hören, entlastet Kinder, die sich mit anderen vergleichen.
 - **Rückzug erlauben.** Eine große Familienfeier kann für ein aufgeregtes Kind überwältigend sein. Ein ruhiger Moment allein oder mit einem Elternteil zwischendurch hilft oft mehr als jedes Programm.
 - **Nicht ausfragen.** Kinder erzählen oft von selbst, wenn sie nicht ständig gefragt werden. Geduld lohnt sich.
+
+### Zuckertüte oder Schultüte?
+
+In Sachsen und Thüringen heißt sie Zuckertüte, in den meisten anderen Regionen Schultüte. Der Brauch, Schulanfängern eine gefüllte Tüte zu schenken, ist seit dem frühen 19. Jahrhundert in Mitteldeutschland belegt und hat sich von dort ausgebreitet. Gefüllt wird sie längst nicht mehr nur mit Süßem. Viele Familien legen nützliche Dinge hinein, etwa Stifte, eine Brotdose oder ein erstes Buch, dazu eine Kleinigkeit zum Spielen. Ein Tipp für große Tüten: Den unteren Teil mit einem kleinen Kissen oder zusammengeknülltem Papier füllen, damit die Tüte nicht zu schwer wird. Ein Kind, das sie kaum halten kann, freut sich auf dem Foto nur halb so sehr.
+
+### Die ersten Schulwochen
+
+Viele Erstklässler sind in den ersten Wochen erstaunlich müde. Stillsitzen, zuhören, neue Kinder, neue Regeln: Das alles kostet Kraft. Plant für die Nachmittage lieber Ruhe und freies Spiel als neue Kurse ein, und rechnet damit, dass euer Kind früher schlafen möchte als in der Kita-Zeit. Auch Tränen ohne erkennbaren Grund kommen in dieser Phase vor. Sie zeigen meist nur, dass ein Kind viel zu verarbeiten hat.
 
 ### Zum Gespräch mit euren Kindern
 

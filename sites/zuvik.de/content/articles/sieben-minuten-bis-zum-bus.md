@@ -2,7 +2,7 @@
 title: "Sieben Minuten bis zum Bus: Wie Familie Brandt das Morgenchaos zähmte"
 description: Jeden Morgen Hektik, Tränen und eine vergessene Brotdose – bis Familie Brandt aus Kassel ihren Morgen auf ein Blatt Papier malt. Über Routinen, die Kinder selbst tragen können.
 category: morgens-und-abends
-date: 2026-10-04
+date: 2026-10-12
 ---
 Um 7:23 Uhr fährt der Bus. Das wusste in der Familie Brandt jeder, sogar der dreijährige Jonas, der noch gar nicht mit dem Bus fuhr. Trotzdem stand Sandra Brandt fast jeden Morgen um 7:16 Uhr im Flur, einen Schuh in der Hand, die Stimme schon zwei Töne zu hoch, und rief die Treppe hinauf: „Lea! Wo ist deine Jacke? Wir haben noch sieben Minuten!“
 
@@ -63,6 +63,20 @@ Morgen sind für viele Familien die anstrengendste Zeit des Tages: wenig Zeit, m
 - **Weckt sanft.** Eine Minute auf der Bettkante, ein Gespräch über Träume, Licht erst danach: Für viele Kinder ist der Übergang vom Schlaf in den Tag leichter, wenn er nicht abrupt ist.
 - **Rechnet mit Rückschlägen.** Neue Routinen brauchen meist einige Wochen, bis sie sitzen. Ein schlechter Morgen bedeutet nicht, dass der Plan nicht funktioniert.
 
+### Der Morgen beginnt am Abend davor
+
+Viele Morgenkämpfe haben ihren Ursprung in zu wenig Schlaf. Schlafmedizinische Fachgesellschaften empfehlen als Orientierung für Kinder von drei bis fünf Jahren etwa 10 bis 13 Stunden Schlaf am Tag, Mittagsschlaf eingerechnet, für Kinder von sechs bis zwölf Jahren etwa 9 bis 12 Stunden und für Jugendliche 8 bis 10 Stunden. Wer um 6:45 Uhr aufstehen muss, braucht als Grundschulkind also eine Schlafenszeit, die nicht zu spät liegt. Rechnet einmal von eurer Weckzeit zurück. Oft zeigt sich, dass ein ruhigerer Morgen schon damit beginnt, dass das Licht eine halbe Stunde früher ausgeht.
+
+### Frühstück ohne Hektik
+
+Nicht jedes Kind hat morgens Hunger, und nicht jede Familie hat Zeit für ein langes Frühstück. Hilfreich ist, was sich am Vorabend vorbereiten lässt: Haferflocken, die über Nacht im Kühlschrank mit Milch oder Joghurt quellen, geschnittenes Obst in einer Dose, ein Brot, das nur noch belegt werden muss. Kinder, die früh nichts herunterbekommen, können ein etwas größeres Pausenbrot mitnehmen. Wichtiger als der volle Teller ist ein ruhiger Moment am Tisch, und sei es nur für fünf Minuten.
+
+### Wenn morgens der Bauch wehtut
+
+Klagt ein Kind immer wieder morgens über Bauchweh oder Übelkeit, lohnt sich ein genauerer Blick. Manchmal steckt einfach Hunger, Eile oder zu wenig Schlaf dahinter. Manchmal sind es Sorgen, etwa vor einer Klassenarbeit, vor einem bestimmten Kind oder vor dem Sportunterricht. Achtet darauf, ob die Beschwerden an Wochenenden und in den Ferien verschwinden, und sprecht in einem ruhigen Moment darüber. Halten die Beschwerden an, gehört eine Untersuchung bei der Kinderärztin oder dem Kinderarzt dazu.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt eure Kinder an einem ruhigen Nachmittag: Was ist am Morgen für dich am schwersten? Was würde dir helfen? Kinder haben oft überraschend praktische Antworten, so wie Lea, der auffiel, dass man die Hälfte des Morgens schon am Abend erledigen kann.
+
+Schreibt die Antworten auf und hängt sie neben den Morgenplan. Nach ein paar Wochen könnt ihr gemeinsam schauen, was sich verändert hat, und den Plan anpassen. Ein Morgenplan darf mitwachsen, genau wie die Kinder, für die er gemacht ist.

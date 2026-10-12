@@ -2,7 +2,7 @@
 title: "Zwei Wochen bei Oma an der Nordsee"
 description: Bei Oma darf man länger aufbleiben und barfuß durchs Watt laufen. Zurück aus den Ferien, wollen Marie und Ben die Oma-Regeln behalten. Über verschiedene Regeln bei Eltern und Großeltern.
 category: grosseltern-und-generationen
-date: 2026-09-02
+date: 2026-10-12
 ---
 Die Sommerferien begannen für Marie, neun, und Ben, sechs, wie jedes Jahr mit einer Zugfahrt. Ihre Eltern brachten sie zum Bahnhof in Göttingen, setzten sie in den Zug Richtung Norden und gaben sie in Bremen in die Hände von Oma Inge, die sie mit ihrem alten Kombi abholte. Dann ging es weiter nach Dorum an der Nordsee, wo Oma in einem kleinen Haus hinter dem Deich wohnte.
 
@@ -79,6 +79,20 @@ Bei Großeltern gelten oft andere Regeln als zu Hause, besonders in den Ferien. 
 - **Sprecht nicht schlecht übereinander.** Eltern und Großeltern sollten vor den Kindern nicht die Regeln der anderen kritisieren. Unterschiede dürfen sein, Abwertung nicht.
 - **Klärt wichtige Punkte vorher.** Was wirklich wichtig ist, etwa Sicherheit, Medikamente oder Allergien, sollten Eltern und Großeltern vor den Ferien klar absprechen. Bei allem anderen darf es Spielraum geben.
 
+### Ferien bei den Großeltern vorbereiten
+
+Ein paar Dinge erleichtern die Wochen bei Oma und Opa erheblich. Gebt die Krankenversicherungskarte oder eine Kopie mit, dazu eine schriftliche Vollmacht, damit die Großeltern im Notfall ärztliche Behandlungen veranlassen können. Notiert Allergien, Medikamente mit Dosierung, die Telefonnummer der Kinderarztpraxis und eure eigene Erreichbarkeit. Und vergesst das Kuscheltier nicht: Ein vertrauter Gegenstand hilft gegen Heimweh, das auch in den schönsten Ferien einmal kommen kann, meist abends.
+
+### Sicher am Meer und im Watt
+
+Barfuß durchs Watt zu laufen, gehört zu den schönsten Erlebnissen an der Nordsee. Gleichzeitig ist das Watt kein Spielplatz ohne Regeln. Die Flut kommt schneller, als viele denken, und Priele können sich in kurzer Zeit mit Wasser füllen. Bleibt mit Kindern in Ufernähe, achtet auf die Gezeiten und lauft nie in den Nebel hinaus. Für weitere Strecken sind geführte Wattwanderungen mit ortskundigen Führerinnen und Führern die richtige Wahl. Gebadet wird am besten an bewachten Badestellen, und Sonnenschutz ist an der windigen Küste wichtiger, als es sich anfühlt.
+
+### Allein mit dem Zug
+
+Wenn Kinder allein oder als Geschwister zu den Großeltern fahren, hilft eine gute Vorbereitung: eine Verbindung ohne knappe Umstiege, eine Sitzplatzreservierung, ein Zettel mit Telefonnummern in der Jackentasche und eine klare Absprache, wer am Bahnsteig wartet. Informiert euch vorher bei der Bahn über die Regeln für allein reisende Kinder.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt nach den nächsten Ferien bei den Großeltern: Was war das Schönste? Was hast du Neues erlebt? Und was davon möchtest du gern manchmal auch zu Hause machen?
+
+Ein kleines Ferientagebuch, in das eure Kinder jeden Abend ein Bild malen oder einen Satz schreiben, hilft beim Erinnern. Zu Hause wird es oft zum Lieblingsbuch, das immer wieder hervorgeholt wird, besonders an grauen Wintertagen.
