@@ -2,7 +2,7 @@
 title: "Zwillinge sind keine Doppelpackung"
 description: Ben und Tim tragen dieselben Pullover und heißen nur „die Jungs“ – bis Tim nicht mehr Fußball spielen will. Eine Geschichte darüber, wie Zwillinge eigene Wege finden dürfen.
 category: geschwister
-date: 2026-09-14
+date: 2026-10-12
 ---
 Bei Familie Schulze in Münster gab es alles doppelt. Zwei Hochstühle, zwei Kindersitze, zwei Fahrräder in derselben Farbe, zwei Paar Gummistiefel in Größe 31. Ben und Tim waren eineiige Zwillinge, acht Jahre alt, und wer sie nicht gut kannte, verwechselte sie ständig. Ihre Großmutter nannte sie „die Jungs“, ihre Lehrerin „die Schulzes“, und die Nachbarn sagten meistens einfach „die Zwillinge“.
 
@@ -64,6 +64,10 @@ In der Halbzeit kam Ben verschwitzt an den Rand gelaufen. „Tim, guck mal!“ E
 
 Die Brüder steckten die Köpfe zusammen. Daniela beobachtete sie und dachte, dass sie die beiden noch nie so verbunden gesehen hatte wie jetzt, wo sie verschieden sein durften.
 
+## Zwei Kuchen
+
+An ihrem neunten Geburtstag gab es zum ersten Mal zwei Kuchen. Ben hatte sich einen Kuchen in Form eines Fußballfelds gewünscht, mit grünem Zuckerguss und zwei Toren aus Waffeln. Tim wollte einen Marienkäfer, rot mit schwarzen Schokopunkten. Die Gäste sangen zweimal „Zum Geburtstag viel Glück“, einmal für Ben, einmal für Tim, und jeder pustete seine eigenen Kerzen aus. Danach tauschten die beiden ein Stück, ganz ohne dass jemand es vorgeschlagen hatte. „Das ist gerecht“, erklärte Ben den Gästen. Tim nickte und hatte Zuckerguss bis zu den Ohren.
+
 ## Für euren Alltag
 
 Ob Zwillinge oder Geschwister mit kleinem Altersabstand: Wenn Kinder oft als Einheit behandelt werden, kann eines von ihnen leicht in den Hintergrund geraten. Jedes Kind braucht das Gefühl, als eigene Person gesehen zu werden. Was Familie Schulze geholfen hat:
@@ -74,6 +78,18 @@ Ob Zwillinge oder Geschwister mit kleinem Altersabstand: Wenn Kinder oft als Ein
 - **Verzichtet auf Gleichbehandlung um jeden Preis.** Gerecht heißt nicht gleich. Unterschiedliche Geschenke oder Kleidung können fairer sein als identische.
 - **Nehmt Eifersucht ernst.** Wenn ein Kind plötzlich mehr Aufmerksamkeit bekommt, fühlt sich das andere manchmal zurückgesetzt. Darüber zu sprechen, hilft beiden.
 - **Benutzt Namen statt Sammelbegriffen.** „Ben und Tim“ statt „die Jungs“ ist eine kleine Veränderung mit großer Wirkung.
+
+### Eine Klasse oder zwei?
+
+Ob Zwillinge in dieselbe Kita-Gruppe oder Schulklasse gehen sollten, lässt sich nicht pauschal beantworten. Manche Zwillinge geben einander Sicherheit, besonders am Anfang. Andere vergleichen sich ständig, konkurrieren oder lassen, wie Tim, den anderen für sich sprechen. Sprecht mit den Erzieherinnen oder Lehrkräften, die eure Kinder im Alltag erleben, und fragt die Kinder selbst. Eine Entscheidung muss nicht für immer gelten: Was in der ersten Klasse richtig war, kann in der dritten anders aussehen. Auch innerhalb einer Klasse helfen getrennte Tische oder Gruppen, damit jedes Kind eigene Freundschaften knüpfen kann.
+
+### Wenn andere vergleichen
+
+Zwillinge werden ständig verglichen: Wer ist größer, wer ist schneller, wer liest besser? Oft passiert das gedankenlos, durch Verwandte, Nachbarn oder andere Eltern. Ihr könnt freundlich gegensteuern, etwa mit einem Satz wie „Die beiden sind sehr verschieden, und das ist gut so“. Zu Hause hilft es, jedes Kind an seinen eigenen Fortschritten zu messen, nicht am anderen. Lob, das sich auf den Einsatz bezieht, „Du hast lange an diesem Bild gearbeitet“, vergleicht nicht und stärkt trotzdem.
+
+### Austausch mit anderen Familien
+
+Vielerorts gibt es Gruppen und Vereine für Eltern von Zwillingen und Mehrlingen. Dort lässt sich besprechen, was andere Familien bei Kleidung, Hobbys, Kita und Schule entschieden haben. Gerade die Erfahrung von Eltern, deren Zwillinge schon älter sind, kann helfen, die eigenen Fragen gelassener zu sehen.
 
 ### Zum Gespräch mit euren Kindern
 
