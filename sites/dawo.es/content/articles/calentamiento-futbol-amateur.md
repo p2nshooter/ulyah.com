@@ -2,7 +2,7 @@
 title: Calentamiento para fútbol amateur: quince minutos que evitan lesiones
 description: Un calentamiento completo de quince minutos para el futbolista aficionado, basado en programas de prevención de lesiones, con ejercicios de carrera, fuerza, equilibrio y balón.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 En los campos de fútbol aficionado se ve a menudo la misma escena: los jugadores llegan justos de tiempo, se cambian deprisa, dan cuatro toques al balón y empiezan el partido. Diez minutos después, alguien se echa la mano a la parte trasera del muslo después de un sprint. Es una de las lesiones más frecuentes del fútbol, y una de las más ligadas a la falta de preparación.
 
@@ -122,6 +122,14 @@ En invierno, el calentamiento debe ser algo más largo y progresivo. Lleva ropa 
 ## El descanso entre partes
 
 Durante el descanso, los músculos se enfrían. Antes de la segunda parte, dedica un par de minutos a trotar, hacer algunos cambios de dirección y algún sprint corto. Es especialmente importante para los suplentes que entran en el campo en frío: deberían calentar durante unos minutos antes de entrar.
+
+## Convertirlo en costumbre del equipo
+
+En el fútbol aficionado, el calentamiento rara vez falla por desconocimiento: falla porque nadie lo organiza. Funciona mucho mejor cuando el equipo acuerda quedar veinticinco minutos antes del partido, alguien se encarga de dirigirlo, sea el capitán, el entrenador o un jugador veterano, y se repite siempre la misma secuencia. Al cabo de unas semanas, la rutina se hace automática y nadie la discute. Una lista de los ejercicios impresa y guardada en la bolsa del material ayuda a que no dependa de la memoria de una sola persona.
+
+## La vuelta a la calma
+
+Al terminar el partido, no te sientes de golpe en el banquillo. Cinco o diez minutos de trote muy suave o de caminar, seguidos de agua y algo de comer, ayudan a que el cuerpo vuelva a la normalidad. Si te sientan bien, es buen momento para unos estiramientos suaves de gemelos, isquiotibiales, aductores y cadera.
 
 ## El trabajo entre semana
 
