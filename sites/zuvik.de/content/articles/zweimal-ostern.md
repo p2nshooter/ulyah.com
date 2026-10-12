@@ -2,7 +2,7 @@
 title: "Zweimal Ostern"
 description: Lilly feiert Ostern in zwei Wohnungen und verschweigt, wie schön es beim anderen Elternteil war. Eine Geschichte über Trennungskinder, Loyalität und die Erlaubnis, beide Eltern zu lieben.
 category: feste-und-jahreszeiten
-date: 2026-08-15
+date: 2026-10-12
 ---
 „Weiß der Osterhase überhaupt, wo ich bin?“, fragte Lilly.
 
@@ -75,9 +75,19 @@ Für Kinder getrennter Eltern sind Feste oft besonders schwierig. Sie erleben Tr
 - **Übergaben freundlich gestalten.** Ein paar freundliche Worte an der Tür zeigen dem Kind, dass die Eltern trotz Trennung miteinander umgehen können.
 - **Über das Kind sprechen, nicht nur über Organisation.** Regelmäßiger Austausch darüber, wie es dem Kind geht, hilft beiden Eltern, Signale besser zu deuten. Bei anhaltenden Konflikten können Familienberatungsstellen unterstützen.
 
+### Feiertage nach der Trennung planen
+
+Feste lassen sich in getrennten Familien leichter feiern, wenn die Absprachen früh stehen und nicht jedes Jahr neu verhandelt werden. Viele Eltern wechseln sich ab, etwa Ostern in geraden Jahren bei Mama und in ungeraden bei Papa, oder teilen die Feiertage auf, so wie Lillys Eltern. Schreibt die Vereinbarung auf und erzählt eurem Kind rechtzeitig, wo es wann sein wird. Kurzfristige Änderungen verunsichern Kinder oft mehr als die Trennung selbst. Je älter Kinder werden, desto mehr dürfen sie mitreden, ohne dass sie sich zwischen ihren Eltern entscheiden müssen.
+
+### Eier färben wie bei Lillys Papa
+
+Mit Naturfarben gefärbte Eier sind ein schönes Projekt für Kinder. Für ein warmes Rotbraun kocht ihr eine Handvoll Zwiebelschalen in Wasser aus, für Rosa nehmt ihr Rote Bete, für Gelb Kurkuma, und Rotkohl färbt weiße Eier überraschenderweise blau. Gebt einen Schuss Essig in den Sud, damit die Farbe besser hält. Für Muster legt ihr kleine Blätter oder Gräser auf die feuchten Eier, wickelt sie straff in ein Stück alte Strumpfhose, bindet sie zu und kocht sie im Farbsud etwa zehn Minuten. Nach dem Auswickeln bleiben helle Blätterabdrücke zurück. Mit etwas Speiseöl eingerieben, glänzen die Eier zum Schluss.
+
 ### Zum Gespräch mit euren Kindern
 
 - Warum hat Lilly ihrer Mama nicht erzählt, wie schön es bei Papa war?
 - Gibt es etwas, das du uns nicht erzählst, weil du Angst hast, dass jemand traurig wird?
 - Was gehört für dich zu Ostern unbedingt dazu?
 - Welche Tradition aus unserer Familie würdest du gern an deine eigenen Kinder weitergeben?
+- Gibt es etwas, das du gern von einer Wohnung in die andere mitnehmen möchtest?
+- Was könnten wir tun, damit sich die Übergabe an der Haustür für dich leichter anfühlt?
