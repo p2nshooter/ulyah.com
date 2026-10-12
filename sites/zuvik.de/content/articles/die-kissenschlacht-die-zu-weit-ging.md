@@ -2,7 +2,7 @@
 title: "Die Kissenschlacht, die zu weit ging"
 description: Paul und Greta toben für ihr Leben gern, bis einer weint. Jedes Mal. Über wildes Spiel unter Geschwistern, ein Stoppwort, das alle respektieren, und warum Raufen erlaubt sein darf.
 category: geschwister
-date: 2026-09-12
+date: 2026-10-12
 ---
 Es begann wie immer mit Lachen. Paul, neun, warf ein Kissen nach seiner Schwester Greta, sechs. Greta kreischte vor Vergnügen und warf zurück. Bald flogen alle Kissen des Sofas durch das Wohnzimmer der Familie Weber in Freiburg, dann die Decke, dann die Kuscheltiere. Die beiden rollten über den Teppich, kitzelten sich, rangelten, lachten so laut, dass der Hund der Nachbarn bellte.
 
@@ -60,6 +60,10 @@ Mit der Zeit richtete die Familie eine richtige Tobe-Ecke ein. In der Ecke des K
 
 Es gab weiterhin Tränen, natürlich. Kinder fallen, stoßen sich, sind müde. Aber die Tränen waren seltener geworden. Und sie endeten nicht mehr in Vorwürfen, sondern meistens in einer Entschuldigung und einer kurzen Pause, bevor das nächste Kissen flog.
 
+## Ananas im Kindergarten
+
+Greta erzählte im Kindergarten stolz von ihrem neuen Stoppwort. Frau Brenner lachte, als sie davon hörte, und fragte die Gruppe, ob sie es ausprobieren wollten. Seitdem rufen im Bewegungsraum manchmal fünfzehn Kinder gleichzeitig „Ananas!“, meistens, weil es lustig ist, aber manchmal auch, weil jemandem etwas zu viel wird. Und Greta erklärt den Neuen mit ernster Miene, dass bei Ananas wirklich alle aufhören müssen. „Auch die Großen.“
+
 ## Für euren Alltag
 
 Raufen und wildes Toben sind für viele Kinder eine Freude und eine wichtige Erfahrung. Sie lernen, ihre Kraft einzuschätzen, die Signale anderer zu lesen und Rücksicht zu nehmen. Damit das gelingt, helfen klare Regeln. Was Familie Weber geholfen hat:
@@ -71,6 +75,20 @@ Raufen und wildes Toben sind für viele Kinder eine Freude und eine wichtige Erf
 - **Beendet das Spiel bei Tränen.** Wenn jemand weint, ist es kein Spiel mehr. Eine Pause hilft allen, sich zu beruhigen.
 - **Tobt selbst mit.** Wenn Eltern mitspielen und sich dabei an die Regeln halten, lernen Kinder am Vorbild.
 
+### Spiel oder Ernst?
+
+Nicht jedes Rangeln ist ein Streit. Spielerisches Kämpfen erkennt ihr an einigen Zeichen: Die Kinder lachen, die Rollen wechseln, mal ist der eine oben, mal der andere, und beide kommen nach einer Pause freiwillig zurück. Oft hält sich das stärkere Kind dabei ein wenig zurück, ohne dass es jemand verlangt. Ernst wird es, wenn die Gesichter angespannt sind, immer derselbe unten liegt, einer weg will und nicht darf oder aus Lachen Weinen wird. Dann ist es Zeit, ruhig einzugreifen.
+
+### Wenn Toben in Wut umschlägt
+
+Manchmal kippt die Stimmung so schnell, dass niemand weiß, wie es passiert ist. Trennt die Kinder dann ohne Vorwürfe, gebt jedem einen Moment zum Durchatmen und hört euch erst danach beide Seiten an. Fragen wie „Was ist passiert?“ und „Was brauchst du jetzt?“ helfen mehr als die Suche nach einem Schuldigen. Oft reichen ein Glas Wasser und fünf Minuten Ruhe, bis beide wieder zusammen spielen wollen.
+
+### Bewegung gehört in jeden Tag
+
+Kinder, die viel sitzen, haben oft einen großen Bewegungsdrang, der sich dann im Wohnzimmer entlädt. Die Weltgesundheitsorganisation empfiehlt für Kinder und Jugendliche im Schulalter im Durchschnitt mindestens 60 Minuten Bewegung am Tag, von mäßig bis anstrengend. Ein Weg zur Schule zu Fuß oder mit dem Rad, Zeit auf dem Spielplatz oder ein Sportverein machen das Toben zu Hause oft entspannter.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt: Was macht euch beim Toben am meisten Spaß? Wann wird es euch zu viel? Und welches Wort wollt ihr als Stoppwort? Gemeinsam erfundene Regeln werden ernster genommen als von oben verordnete.
+
+Und erzählt ruhig von euren eigenen Kissenschlachten von früher. Kinder hören gern, dass auch ihre Eltern als Kinder getobt, gestritten und sich wieder vertragen haben. Das macht die Regeln nicht weniger ernst, aber deutlich sympathischer.
