@@ -132,6 +132,25 @@ En verano, la misma vivienda puede consumir solo 15 m³ al mes para agua calient
 - Busca servicios de mantenimiento que quizá no necesites.
 - Compara el consumo con el mismo mes del año anterior.
 
+## Cambiar de comercializadora sin cortes ni sorpresas
+
+Cambiar de comercializadora de gas es gratuito y no implica cortes de suministro ni cambios en la instalación: el gas llega por la misma red y la distribuidora sigue siendo la misma. La nueva empresa gestiona el cambio con tus datos, el código CUPS que aparece en la factura y la lectura del contador. Antes de firmar:
+
+- **Revisa si hay permanencia** en tu contrato actual y si conlleva penalización por salir antes de tiempo.
+- **Comprueba los servicios añadidos:** mantenimientos, seguros o asistencias que encarecen la factura y a veces se contratan sin darse cuenta.
+- **Pide el precio por escrito,** con el término fijo, el variable y su duración.
+- **Si quieres volver a la TUR,** recuerda que solo la ofrecen las comercializadoras de último recurso.
+
+Desconfía de las llamadas y visitas no solicitadas de supuestos técnicos o comerciales que dicen venir «de parte del gas» para revisar la factura o la instalación. Nunca facilites tus datos bancarios ni una fotografía de la factura a quien no has llamado tú, y comprueba siempre la identidad de la empresa. Las revisiones obligatorias de la instalación se comunican con antelación por la distribuidora.
+
+## Errores frecuentes
+
+- **Mirar solo el precio del kWh** y olvidar el término fijo.
+- **Pagar servicios de mantenimiento** que no se usan o que duplican la revisión obligatoria.
+- **Aceptar lecturas estimadas** durante meses sin comunicar la real.
+- **No revisar el escalón de la TUR** cuando cambia el consumo.
+- **Facilitar datos a comerciales** que llaman o visitan sin haberlo pedido.
+
 ## Preguntas frecuentes
 
 ### ¿Por qué pago gas si no lo uso en verano?

@@ -126,6 +126,31 @@ Resultado estimado tras un año: unos 180 kWh menos entre ambos aparatos, unos 2
 - Limpia los filtros con regularidad.
 - Programa los ciclos en horas baratas o solares.
 
+## ¿Lavavajillas o fregar a mano?
+
+Es una de las dudas más habituales. Un lavavajillas moderno, lleno y con el programa eco, suele gastar menos agua que fregar la misma vajilla a mano con el grifo abierto, y su consumo eléctrico es moderado si no se abusa de los programas intensivos. La ventaja se pierde si se enjuagan los platos con agua caliente antes de meterlos o si se pone a media carga. Basta con retirar los restos de comida con una espátula o una servilleta: los detergentes actuales están pensados para la suciedad normal.
+
+Si friegas a mano, hazlo con dos senos o barreños, uno con agua y jabón y otro para aclarar, en lugar de dejar correr el agua caliente durante todo el proceso.
+
+## Reparar antes que cambiar
+
+Cuando una lavadora o un lavavajillas falla, no siempre hay que sustituirlo. Muchas averías frecuentes, como una bomba de desagüe atascada, una junta de puerta gastada, un filtro obstruido o una resistencia calcificada, tienen arreglo a un coste razonable. Para decidir:
+
+- **Ten en cuenta la edad del aparato** y su eficiencia: uno muy antiguo y poco eficiente quizá no merezca una reparación cara.
+- **Pide presupuesto por escrito** antes de autorizar el trabajo.
+- **Recuerda la garantía legal:** si el aparato tiene menos de tres años y se compró a partir de 2022, la avería puede estar cubierta.
+- **Pregunta por las piezas:** las normas europeas de diseño ecológico obligan a mantener repuestos disponibles durante años en estos electrodomésticos.
+
+Reparar alarga la vida del aparato y evita la energía y los materiales que exige fabricar uno nuevo.
+
+## Errores frecuentes
+
+- **Lavar siempre a 60 °C** por costumbre.
+- **Poner el lavavajillas a media carga** o enjuagar antes con agua caliente.
+- **Abusar de los programas rápidos,** que suelen gastar más energía.
+- **Echar detergente de más.**
+- **Usar la secadora** cuando se puede tender.
+
 ## Preguntas frecuentes
 
 ### ¿Lavar en frío desinfecta?

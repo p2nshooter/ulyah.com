@@ -116,6 +116,29 @@ Una pareja de Madrid consume 4.100 kWh al año en un piso con gas para calefacci
 
 La investigación revela un termo eléctrico antiguo a 70 °C que nunca se apaga y un calefactor eléctrico en el despacho. Tras bajar el termo a 55 °C, programarlo en valle y usar el aire acondicionado con bomba de calor en el despacho, su consumo baja a unos 3.100 kWh al año.
 
+## Cómo cambia el consumo a lo largo de la vida de un hogar
+
+El consumo de una casa no es fijo: cambia con la vida de quienes la habitan, y cada cambio importante es una buena ocasión para revisar la potencia y la tarifa.
+
+| Cambio en el hogar | Efecto habitual en la electricidad |
+|---|---|
+| Teletrabajo | más horas con ordenador, iluminación y climatización durante el día |
+| Llegada de un bebé | más lavadoras, secadora y, a menudo, más climatización |
+| Coche eléctrico | uno de los mayores aumentos posibles, concentrado en la recarga |
+| Bomba de calor en lugar de caldera de gas | sube el consumo eléctrico aunque baje el gasto total en energía |
+| Placas solares | baja la electricidad comprada a la red, sobre todo de día |
+| Hijos que se independizan | menos lavados, duchas y cocinas, pero los aparatos fijos siguen consumiendo |
+
+Cuando ocurre uno de estos cambios, compara el consumo de los meses siguientes con el del año anterior. Si ha subido mucho, revisa si la potencia contratada sigue siendo suficiente o si te sobra, y si tu tarifa sigue encajando con tus horarios. Lo explicamos en [qué potencia contratar](/guias/que-potencia-contratar/) y en [PVPC o mercado libre](/guias/pvpc-o-mercado-libre/).
+
+## Errores frecuentes
+
+- **Compararse con la media** sin tener en cuenta si la calefacción o el agua caliente son eléctricas.
+- **Sacar conclusiones de una sola factura,** cuando el consumo varía mucho entre estaciones.
+- **Confundir kW con kWh:** la potencia no es el consumo.
+- **Ignorar el consumo base** de madrugada, que delata aparatos encendidos sin necesidad.
+- **No revisar la tarifa** tras un cambio importante en el hogar.
+
 ## Preguntas frecuentes
 
 ### ¿Es normal consumir 300 kWh al mes?

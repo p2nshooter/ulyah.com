@@ -105,6 +105,25 @@ Programar electrodomésticos de madrugada tiene algunas precauciones:
 
 Si dudas entre una oferta de precio único y otra con discriminación horaria, haz una prueba sencilla: durante un mes, programa todos los aparatos posibles en valle y anota el reparto de consumo resultante en la factura. Con ese reparto real puedes calcular cuánto pagarías con cada tipo de oferta. Muchos hogares descubren que pueden llevar entre un 40 y un 50 % de su consumo al valle sin esfuerzo, lo que suele inclinar la balanza hacia la discriminación horaria.
 
+## Los tramos cuando tienes placas solares
+
+Con autoconsumo solar, la lógica de los tramos cambia. Las placas producen sobre todo en las horas centrales del día, que coinciden en buena parte con la punta de la mañana, de 10:00 a 14:00, y con el llano de la tarde. Por eso, en una casa con placas:
+
+- **Lo más barato es consumir cuando hay sol:** la energía que generas y usas al momento no la compras a la red, sea cual sea el tramo.
+- **Los aparatos programables se mueven al mediodía,** no a la madrugada: lavadora, lavavajillas, termo o recarga del coche funcionan mejor con el sol en lo alto.
+- **El valle sigue siendo útil** para lo que no cubre el sol: recargas nocturnas del coche o días nublados.
+- **La punta de la tarde, de 18:00 a 22:00,** es la más difícil de cubrir, porque la producción solar cae justo cuando más se consume en casa. Ahí es donde una batería doméstica puede aportar algo, aunque su coste exige hacer números con calma.
+
+Si tienes placas, revisa también si te compensa una tarifa con discriminación horaria o una de precio único: al comprar menos energía en las horas de sol, el reparto de tu consumo de red cambia. Lo explicamos en [compensación de excedentes](/guias/compensacion-de-excedentes/) y en [cuántas placas solares necesito](/guias/cuantas-placas-solares-necesito/).
+
+## Errores frecuentes
+
+- **Creer que los festivos autonómicos** cuentan como valle.
+- **Programar aparatos ruidosos de madrugada** en pisos con paredes finas.
+- **Cambiar hábitos sin comprobar** si la oferta tiene de verdad precios distintos por tramo.
+- **Olvidar el fin de semana,** que es valle durante todo el día.
+- **Con placas, mover los consumos a la noche** en lugar de al mediodía.
+
 ## Preguntas frecuentes
 
 ### ¿Los festivos de mi comunidad autónoma son valle?

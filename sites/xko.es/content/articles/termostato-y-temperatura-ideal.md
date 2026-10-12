@@ -118,6 +118,29 @@ Ahorran si sustituyen a un termostato que no se programaba o que se usaba mal. S
 - **Sella las corrientes de aire.** Consulta [burletes y corrientes de aire](/guias/burletes-y-corrientes-de-aire/).
 - **Viste ropa adecuada a la estación** en casa: un jersey permite estar cómodo con un grado menos.
 
+## El confort no es solo la cifra del termostato
+
+Dos casas con el termostato a la misma temperatura pueden sentirse muy distintas. La sensación de confort depende de varios factores a la vez:
+
+| Factor | Cómo influye |
+|---|---|
+| Temperatura del aire | la que mide el termostato |
+| Temperatura de las superficies | paredes, suelos y ventanas frías «roban» calor al cuerpo por radiación, y obligan a subir el termostato para estar a gusto |
+| Corrientes de aire | aumentan la sensación de frío aunque el aire esté templado |
+| Humedad | un ambiente muy seco resulta incómodo; uno muy húmedo favorece las condensaciones y el moho |
+| Ropa y actividad | no es lo mismo leer en el sofá que cocinar |
+
+Por eso aislar, cambiar ventanas o eliminar corrientes permite bajar el termostato sin pasar frío: al estar más templadas las superficies, el cuerpo pierde menos calor. Y por eso tampoco conviene bajar la temperatura sin límite para ahorrar. La Organización Mundial de la Salud recomienda mantener en invierno al menos unos 18 °C en las viviendas, y más en hogares con bebés, personas mayores o enfermas. En casas mal aisladas, una temperatura demasiado baja dispara además las condensaciones en paredes frías y la aparición de moho. Lo explicamos en la guía sobre [puentes térmicos](/guias/puentes-termicos/).
+
+## Errores frecuentes
+
+- **Subir el termostato al máximo** pensando que la casa se calentará antes.
+- **Mantener la calefacción encendida** a la misma temperatura día y noche.
+- **Colocar el termostato** junto a una fuente de calor, una ventana o una corriente.
+- **Tapar radiadores** con muebles, cortinas o ropa.
+- **Ventilar durante mucho tiempo** con la calefacción encendida.
+- **Bajar tanto la temperatura** que aparecen condensaciones y moho.
+
 ## Preguntas frecuentes
 
 ### ¿Es verdad que poner 25 °C calienta más rápido?
