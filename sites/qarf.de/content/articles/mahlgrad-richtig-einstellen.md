@@ -2,7 +2,7 @@
 title: "Mahlgrad richtig einstellen: von Türkisch bis Cold Brew, mit Tabelle und Geschmackskompass"
 description: "Welcher Mahlgrad für welche Zubereitung: Espresso, Espressokocher, Handfilter, Filtermaschine, French Press und Cold Brew. Mit Vergleichen, Einstelltipps an der Mühle und Hilfe beim Nachjustieren."
 category: muehlen-und-wasser
-date: 2026-08-12
+date: 2026-10-12
 ---
 Der Mahlgrad ist die Stellschraube, an der die meisten Kaffeeprobleme hängen. Ein Kaffee, der sauer und dünn schmeckt, ist oft zu grob gemahlen. Einer, der bitter, trocken und kratzig ist, oft zu fein. Weil jede Zubereitungsart das Wasser unterschiedlich lange und auf andere Weise mit dem Kaffee in Kontakt bringt, braucht jede ihren eigenen Mahlgrad. Und weil jede Mühle anders skaliert ist, hilft eine Zahl auf dem Einstellrad allein wenig. Dieser Ratgeber zeigt, welcher Mahlgrad wohin gehört, wie du ihn an deiner Mühle findest und wie du mit dem Geschmack als Kompass nachjustierst.
 
@@ -61,6 +61,14 @@ Beim Espresso arbeitest du mit Dosis, Ausbeute und Zeit. Die Details erklärt [S
 
 Nicht nur die Einstellung, auch die Mühle selbst bestimmt das Ergebnis. Gute Mühlen mahlen **gleichmäßig**, mit wenig Staub und wenig groben Brocken. Schlagmesser-„Mühlen“ zerhacken die Bohnen dagegen zufällig. Das Mehl enthält gleichzeitig Staub und große Stücke, die Extraktion ist ungleichmäßig, und der Kaffee schmeckt sauer und bitter zugleich. Wenn du gerade erst anfängst, ist eine einfache Handmühle mit Kegelmahlwerk deshalb eine große Verbesserung. Den Unterschied zwischen Kegel- und Scheibenmahlwerk erklärt [Kaffeemühle: Kegel- oder Scheibenmahlwerk](/ratgeber/kaffeemuehle-kegel-oder-scheibenmahlwerk/), und ob Hand- oder Elektromühle besser passt, steht in [Handmühle oder elektrische Mühle](/ratgeber/handmuehle-oder-elektrische-muehle/).
 
+## Feinanteil und grobe Brocken
+
+Kein Kaffeemehl besteht aus gleich großen Teilchen. Neben der gewünschten Hauptgröße gibt es immer einen **Feinanteil**, winzige Partikel, die sehr schnell auslaugen und Bitterkeit und Trübung bringen, und einige **grobe Brocken**, die kaum etwas abgeben und Säure hinterlassen. Je enger eine Mühle beide Ränder hält, desto klarer schmeckt der Kaffee. Wer neugierig ist, kann sein Mahlgut durch ein feines Teesieb schütteln: Was durchfällt, ist der Feinanteil. Manche Filterfans entfernen ihn gezielt mit speziellen Kaffeesieben, um besonders klare Tassen zu bekommen. Für den Alltag ist das nicht nötig, es zeigt aber anschaulich, warum die Qualität der Mühle so viel ausmacht.
+
+## Mahlgrad oder Kaffeemenge?
+
+Nicht jedes Problem lässt sich mit dem Mahlgrad lösen. Es hilft, zwei Dinge zu trennen: die **Stärke**, also wie konzentriert der Kaffee ist, und die **Extraktion**, also wie viel aus dem Mehl gelöst wurde. Schmeckt dein Kaffee ausgewogen und süß, aber einfach zu wässrig, nimm mehr Kaffee bei gleichem Mahlgrad. Schmeckt er kräftig, aber sauer, mahle feiner. Ist er zu stark und dabei angenehm, verdünne ihn mit heißem Wasser. Wer beide Stellschrauben unterscheidet, findet schneller zum Ziel, statt den Mahlgrad hin und her zu drehen.
+
 ## Weitere Faktoren, die den Mahlgrad beeinflussen
 
 - **Röstgrad:** Dunkle Röstungen sind poröser und lösen sich leichter. Sie brauchen oft einen etwas gröberen Mahlgrad als helle Röstungen derselben Zubereitung. Helle Röstungen sind dichter und vertragen feineres Mehl. Mehr in [Röstgrade erklärt](/ratgeber/roestgrade-erklaert/).
@@ -80,6 +88,10 @@ Nicht nur die Einstellung, auch die Mühle selbst bestimmt das Ergebnis. Gute M�
 
 Am schnellsten lernst du den Mahlgrad kennen, wenn du denselben Kaffee bewusst falsch zubereitest. Brühe drei kleine Tassen mit dem Handfilter oder der French Press, alles gleich bis auf den Mahlgrad: eine deutlich feiner als üblich, eine wie gewohnt, eine deutlich gröber. Probiere sie nebeneinander, wenn sie etwas abgekühlt sind. Die feine Tasse schmeckt meist bitter und trocken, die grobe sauer und dünn, die mittlere ausgewogen. Wer diese drei Richtungen einmal bewusst geschmeckt hat, erkennt sie später in jeder Tasse wieder und weiß sofort, in welche Richtung er an der Mühle drehen muss. Wie du dabei systematisch verkostest, zeigt [Kaffee verkosten](/ratgeber/kaffee-verkosten/).
 
+## Ohne eigene Mühle
+
+Auch mit fertig gemahlenem Kaffee kannst du einiges ausgleichen. Kaufe Kaffee, der für deine Methode gemahlen ist, und passe dann Zeit und Menge an. Ist das Mehl für die French Press zu fein, verkürze die Ziehzeit auf drei Minuten und drücke den Stempel sehr langsam. Läuft der Handfilter mit Filterkaffee zu schnell durch, gieße langsamer und in mehreren Portionen. Viele Röstereien mahlen ihre Bohnen beim Kauf auf Wunsch für deine Zubereitung. Kaufe dann kleine Mengen, denn gemahlener Kaffee verliert schnell sein Aroma.
+
 ## Wenn gar nichts passt
 
 Manchmal findest du keine Einstellung, die gut schmeckt. Dann lohnt sich der Blick auf andere Ursachen: Ist der Kaffee alt oder sehr dunkel geröstet? Ist das Mahlwerk stumpf oder verschmutzt? Mahlwerke verschleißen nach vielen Kilogramm und mahlen dann ungleichmäßiger. Eine Reinigung kann Wunder wirken, wie in [Kaffeemühle reinigen](/ratgeber/kaffeemuehle-reinigen/) beschrieben.
@@ -97,3 +109,7 @@ Er ist auf eine typische Zubereitung zugeschnitten, meist Filtermaschine oder Es
 ### Wie oft muss ich den Mahlgrad anpassen?
 
 Bei einer neuen Bohne fast immer, bei derselben Bohne gelegentlich, wenn sie altert oder sich das Wetter stark ändert. Kleine Schritte reichen.
+
+## Fazit
+
+Der richtige Mahlgrad ist kein Geheimwissen, sondern das Ergebnis von ein paar bewussten Versuchen: Ausgangspunkt nach Tabelle wählen, eine Sache nach der anderen ändern und dem Geschmack folgen. Sauer heißt feiner, bitter heißt gröber, und wer sich seine Einstellungen notiert, findet sie bei jeder neuen Bohne schneller wieder.
