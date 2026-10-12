@@ -2,7 +2,7 @@
 title: La sal en el obrador: cuánta usar en panes, quesos y fermentados, y qué tipo elegir
 description: Qué hace la sal en el pan, los quesos y los fermentados, cuánta usar en cada caso, cómo calcularla y qué tipo de sal elegir para el obrador.
 category: tecnica
-date: 2026-09-04
+date: 2026-10-12
 ---
 La sal es el ingrediente más pequeño de la mayoría de recetas del obrador, y uno de los más importantes. En un pan supone apenas un 2 % del peso de la harina, pero si se olvida, el pan sale insípido, se extiende como una torta y fermenta a toda velocidad. En un queso, decide cuánto tiempo se conservará y cómo será su corteza. En un chucrut, es la diferencia entre una fermentación limpia y una col podrida.
 
@@ -52,7 +52,7 @@ En el [queso fresco casero](/recetas-y-guias/queso-fresco-casero/), la sal suele
 ### Salado en seco y en salmuera
 
 - **Salado en seco:** la sal se espolvorea sobre la superficie del queso o se mezcla con la cuajada. Es el método más común en casa.
-- **Salado en salmuera:** el queso se sumerge en una salmuera concentrada, a menudo saturada, con unos 20 a 23 % de sal, durante un tiempo que depende de su tamaño. Es el método de muchos quesos curados, como el manchego, y también de la mozzarella, que se sumerge brevemente en salmuera.
+- **Salado en salmuera:** el queso se sumerge en una salmuera concentrada, con unos 18 a 23 % de sal, cerca del punto de saturación, durante un tiempo que depende de su tamaño. Es el método de muchos quesos curados, como el manchego, y también de la mozzarella, que se sumerge brevemente en salmuera.
 
 ## La sal en los fermentados
 
@@ -72,6 +72,30 @@ Con menos sal de la recomendada, la verdura se ablanda y aumenta el riesgo de co
 En el salado en seco, como el chucrut, calcula la sal sobre el **peso de la verdura**: 1 kg de col al 2 % necesita 20 g de sal.
 
 En la salmuera, calcula la sal sobre el **peso del agua**: 1 litro de agua al 3 % necesita 30 g de sal. Algunos fermentadores calculan la sal sobre el peso total de agua y verdura, lo que da resultados algo más precisos, pero el cálculo sobre el agua es más sencillo y suficientemente fiable para empezar.
+
+## Ejemplos de cálculo
+
+Una vez entendida la regla, el cálculo es siempre una multiplicación sencilla:
+
+| Elaboración | Base del cálculo | Porcentaje | Sal |
+|---|---|---|---|
+| Pan con 1 kg de harina | 1000 g de harina | 2 % | 20 g |
+| Queso fresco de 600 g escurrido | 600 g de queso | 1,2 % | unos 7 g |
+| Chucrut con 2,5 kg de col | 2500 g de col | 2 % | 50 g |
+| Salmuera para pepinillos, 2 litros | 2000 g de agua | 3,5 % | 70 g |
+| Salmuera para aceitunas, 1,5 litros | 1500 g de agua | 8 % | 120 g |
+
+Un litro de agua pesa un kilo, así que en las salmueras basta con pesar el agua o medirla con una jarra fiable. Apunta siempre el porcentaje junto a la receta: si un fermentado sale bien, podrás repetirlo exactamente.
+
+## Preparar una salmuera paso a paso
+
+1. **Pesa el agua y la sal** según el porcentaje elegido.
+2. **Disuelve la sal** en una parte del agua templada, removiendo hasta que no queden cristales en el fondo.
+3. **Añade el resto del agua fría** y deja que la salmuera alcance la temperatura ambiente antes de verterla sobre las verduras. Una salmuera caliente ablanda las verduras y puede perjudicar a las bacterias lácticas.
+4. **Usa agua de buena calidad.** Si el agua del grifo sabe mucho a cloro, puedes usar agua filtrada o embotellada.
+5. **Prepara un poco más de la necesaria** y guárdala en un tarro cerrado en la nevera: servirá para rellenar el fermentado si el nivel baja y alguna verdura queda al descubierto.
+
+Nunca rellenes un fermentado con agua sola, porque bajarías la concentración de sal. Usa siempre salmuera del mismo porcentaje.
 
 ## Tipos de sal
 
