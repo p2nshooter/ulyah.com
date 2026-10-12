@@ -77,10 +77,40 @@ for (const ed of [...aqc].sort()) {
 }
 
 console.log(`\neveryayah.com folders (${ey.size}) — 001001.mp3:`);
+const broken = [];
 for (const folder of [...ey].sort()) {
   const r = await probe(`https://everyayah.com/data/${folder}/001001.mp3`);
-  if (!r.ok) missing++;
+  if (!r.ok) {
+    missing++;
+    broken.push(folder);
+  }
   console.log(`  ${r.ok ? "✓" : "✗"} ${folder.padEnd(40)} ${r.status} ${r.type}`);
+}
+
+// A folder that answers 404 was renamed or never existed under that name:
+// list everyayah's own folders that look like it, so the fix is a lookup, not
+// a guess.
+if (broken.length) {
+  let index = "";
+  for (const u of ["https://everyayah.com/data/", "https://everyayah.com/data/recitations.js"]) {
+    try {
+      const r = await fetch(u, { signal: AbortSignal.timeout(20_000) });
+      if (r.ok) index += await r.text();
+    } catch {
+      /* try the next listing */
+    }
+  }
+  const folders = [...new Set([...index.matchAll(/([A-Za-z0-9_.-]+_\d+kbps)/g)].map((m) => m[1]))];
+  console.log(`\neveryayah folder index: ${folders.length} folders`);
+  for (const b of broken) {
+    const stem = b.replace(/_\d+kbps$/, "").split(/[_-]/).filter((w) => w.length > 3).map((w) => w.toLowerCase().slice(0, 5));
+    const like = folders.filter((f) => stem.some((w) => f.toLowerCase().includes(w)));
+    console.log(`  ${b} -> candidates:`);
+    for (const c of like.slice(0, 12)) {
+      const r = await probe(`https://everyayah.com/data/${c}/001001.mp3`);
+      console.log(`      ${r.ok ? "✓" : "✗"} ${c}`);
+    }
+  }
 }
 
 console.log("\nAQC_AYAH_KBPS =", JSON.stringify(table, null, 2));
