@@ -2,7 +2,7 @@
 title: El juego de posesión explicado: principios del fútbol de toque para equipos aficionados
 description: Qué es el juego de posesión, por qué se asocia al fútbol español, cuáles son sus principios básicos y cómo aplicarlos en un equipo aficionado de fútbol 7 o fútbol once.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 Durante las últimas décadas, el fútbol español se ha asociado a una idea muy concreta: tener el balón, moverlo con pases cortos, ocupar bien los espacios y desgastar al rival hasta encontrar el hueco. Esa forma de jugar, que se suele llamar **juego de posesión** o **juego de posición**, ha influido en clubes, selecciones y escuelas de todo el mundo, y es una de las señas de identidad de la manera de entender el fútbol en España.
 
@@ -63,6 +63,29 @@ El rondo es el ejercicio más asociado al fútbol de posesión: un grupo de juga
 ### Juegos de posesión con comodines
 
 Un ejercicio muy útil es jugar en un espacio reducido, por ejemplo cinco contra cinco con dos comodines que siempre juegan con el equipo que tiene el balón. El objetivo es dar un número de pases seguidos. Obliga a ocupar bien el espacio y a moverse para ofrecer líneas de pase.
+
+## Un entrenamiento tipo de una hora
+
+| Bloque | Tiempo | Contenido |
+|---|---|---|
+| Calentamiento | 10 min | movilidad, carrera suave y pases por parejas |
+| Rondos | 15 min | cuatro contra uno y cinco contra dos, a dos toques |
+| Juego de posición | 15 min | cinco contra cinco con dos comodines en un espacio reducido; punto por cada ocho pases seguidos |
+| Partido condicionado | 15 min | el gol vale doble si llega después de al menos cinco pases del equipo |
+| Vuelta a la calma | 5 min | caminar, estirar y comentar dos cosas que hayan salido bien |
+
+Las reglas condicionadas son una forma sencilla de que el equipo practique lo que se quiere mejorar sin explicaciones largas: el propio juego premia la conducta buscada.
+
+## Hablar en el campo
+
+El juego de pases necesita comunicación, y en un equipo aficionado suele faltar. Unas pocas palabras cortas, que todo el equipo entienda igual, ayudan muchísimo al compañero que recibe sin ver lo que tiene detrás:
+
+- **«¡Solo!»:** tienes tiempo, nadie te presiona.
+- **«¡Hombre!»:** viene un rival, juega rápido o protege el balón.
+- **«¡Gira!»:** puedes darte la vuelta con el balón.
+- **«¡De cara!»:** devuélvela de primeras, estoy de frente al juego.
+
+Acompañar la palabra con un gesto de la mano, señalando dónde quieres el balón, termina de aclarar la intención.
 
 ## Adaptaciones al fútbol 7
 
