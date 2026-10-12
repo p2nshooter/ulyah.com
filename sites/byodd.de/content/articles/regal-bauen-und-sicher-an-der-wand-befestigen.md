@@ -2,7 +2,7 @@
 title: "Wandregal bauen und sicher befestigen: Planung, Material, Montage"
 description: Wie du ein Wandregal planst, Brettstärke und Spannweite richtig wählst, Träger und unsichtbare Halterungen montierst und Regale sowie Hochschränke gegen Umkippen sicherst.
 category: holz-und-moebel
-date: 2026-09-14
+date: 2026-10-12
 ---
 Ein Wandregal ist oft das erste eigene Möbelprojekt: Es schafft Platz für Bücher, Pflanzen oder Gewürze und gibt einer Wand Charakter. Gleichzeitig ist es ein Projekt, bei dem Fehler sichtbar werden: Bretter, die sich unter Büchern durchbiegen, Träger, die aus der Wand ziehen, oder ein Regal, das schief hängt.
 
@@ -111,6 +111,22 @@ Bücherregale, Kleiderschränke und Kommoden können umkippen, wenn Kinder daran
 | Nicht waagerecht ausgerichtet | Gegenstände rutschen, Regal wirkt schief |
 | Tiefe Bretter mit kleinen Konsolen | Hebelwirkung, Ausreißen |
 | Keine Kippsicherung bei hohen Regalen | Unfallgefahr |
+
+## Bretter vorbereiten
+
+Ein Regal sieht nur so gut aus wie seine Bretter. Massivholz- und Leimholzbretter vor der Montage schleifen, die Kanten leicht brechen und mit Öl, Wachs oder Lack behandeln, wie in [Holz ölen, wachsen oder lackieren](/anleitungen/holz-oelen-wachsen-lackieren/) beschrieben. Behandle beide Seiten gleich, sonst nimmt das Holz einseitig Feuchtigkeit auf und kann sich verziehen. Lagere die Bretter bis zur Montage flach und einige Tage im Raum, in dem sie hängen sollen. Bei zugeschnittenen Spanplatten bleibt die Schnittkante roh; ein aufgebügeltes Kantenband schützt sie vor Feuchtigkeit und sieht sauberer aus.
+
+## Regale in Nischen und Ecken
+
+Eine Nische zwischen Wandvorsprung und Schrank oder neben dem Schornstein ist ideal für Regale. Statt Konsolen genügen hier oft Auflageleisten aus Holz, die links und rechts an die Seitenwände geschraubt werden; das Brett liegt darauf und ist nahezu unsichtbar gestützt. Bei breiten Nischen kommt eine dritte Leiste an die Rückwand, damit das Brett sich in der Mitte nicht durchbiegt. Eckregale werden an beiden Wänden befestigt und sind dadurch besonders stabil. Miss Nischen an mehreren Stellen, denn alte Wände sind selten parallel; das Brett wird nach dem kleinsten Maß zugeschnitten oder angepasst.
+
+## Regale in Küche und Bad
+
+In der Küche lagern sich Fett und Dampf auf offenen Regalen ab. Lackiertes oder gut geöltes Holz, Metall oder beschichtete Platten lassen sich leichter abwischen als rohes Holz. Über dem Herd haben offene Regale wegen Hitze und Fett nichts verloren. Im Bad sind Materialien gefragt, die Feuchtigkeit vertragen: Edelstahl, Glas, Kunststoff oder Holz mit feuchtigkeitsbeständiger Oberfläche. Unbehandelte Spanplatte quillt dort schnell auf.
+
+## Licht und Kabel einplanen
+
+Eine LED-Leiste unter einem Regalboden macht aus einem Bücherregal am Abend einen Blickfang und beleuchtet die Arbeitsfläche darunter. Plane den Weg des Kabels gleich mit: Ein schmaler Kabelkanal an der Wand oder eine Nut in der Rückkante des Bretts verhindert, dass Kabel lose herunterhängen. Akku-Leisten mit Bewegungsmelder brauchen gar kein Kabel.
 
 ## Praxisbeispiel: Ein Schallplattenregal über dem Sideboard
 
