@@ -2,7 +2,7 @@
 title: "Mietwohnung verschönern ohne Ärger: Was erlaubt ist und was beim Auszug zählt"
 description: Was Mieter ohne Zustimmung verändern dürfen, wofür sie fragen sollten, rückbaubare Ideen für Wände, Böden, Küche und Bad und wie der Auszug ohne Streit gelingt.
 category: deko-und-wohnen
-date: 2026-08-28
+date: 2026-10-12
 ---
 Eine Mietwohnung soll sich wie ein Zuhause anfühlen. Gleichzeitig gehört sie dem Vermieter, und beim Auszug kann es Streit geben, wenn Veränderungen nicht rückgängig gemacht werden oder Schäden entstanden sind. Die gute Nachricht: Vieles ist erlaubt, und für fast jeden Wunsch gibt es eine Lösung, die sich spurlos zurückbauen lässt.
 
@@ -79,6 +79,18 @@ Im deutschen Mietrecht gilt grob:
 - **Klemmplissees und Klemmstangen** ohne Bohren. Siehe [Vorhangstange montieren](/anleitungen/vorhangstange-montieren/).
 - **Fensterfolie** als Sichtschutz (rückstandsfrei ablösbar, statisch haftend).
 
+## Balkonkraftwerk in der Mietwohnung
+
+Steckersolargeräte, oft Balkonkraftwerke genannt, sind seit Oktober 2024 im Mietrecht ausdrücklich begünstigt. Mieter haben seitdem grundsätzlich einen Anspruch darauf, dass der Vermieter der Anbringung zustimmt. Er darf aber mitreden, wie und wo das Gerät befestigt wird, etwa damit die Fassade nicht beschädigt wird und die Module sturmsicher hängen. Frag deshalb vorher schriftlich an und beschreibe Modulgröße, Halterung und Montageort. Die Geräte müssen außerdem im Marktstammdatenregister angemeldet werden, was inzwischen vereinfacht online möglich ist. Für den Anschluss an eine normale Steckdose sind Wechselrichter bis 800 Voltampere vorgesehen.
+
+## Die Kleinreparaturklausel
+
+Viele Mietverträge enthalten eine Klausel, nach der Mieter kleine Reparaturen selbst bezahlen, etwa an Wasserhähnen, Lichtschaltern, Türgriffen oder Fenstergriffen. Solche Klauseln sind nur unter Bedingungen wirksam: Sie dürfen nur Teile betreffen, mit denen der Mieter häufig in Berührung kommt, sie brauchen eine Höchstgrenze je Reparatur, die Gerichte meist um etwa 100 Euro herum für zulässig halten, und zusätzlich eine Obergrenze pro Jahr. Fehlt eine dieser Grenzen, ist die Klausel in der Regel unwirksam. Auch eine wirksame Klausel verpflichtet dich nur zum Bezahlen, nicht dazu, selbst zu reparieren.
+
+## Rauchmelder
+
+In allen Bundesländern gilt eine Rauchmelderpflicht für Wohnungen, mindestens in Schlafräumen, Kinderzimmern und Fluren, die als Fluchtweg dienen. Für den Einbau ist in der Regel der Vermieter zuständig. Wer die regelmäßige Prüfung übernehmen muss, ist je nach Bundesland unterschiedlich geregelt. Entferne Rauchmelder auch beim Renovieren nicht dauerhaft, und streiche sie nie mit, denn Farbe kann die Öffnungen verschließen.
+
 ## Dokumentieren beim Einzug
 
 Ein **Übergabeprotokoll** mit Fotos schützt dich beim Auszug:
@@ -97,6 +109,14 @@ Ein **Übergabeprotokoll** mit Fotos schützt dich beim Auszug:
 5. **Originalteile** wieder montieren (Leuchten, Duschkopf, Griffe).
 6. **Gründlich reinigen.**
 7. **Übergabe mit Protokoll** und Fotos.
+
+## Kaution und Wohnungsabnahme
+
+Die Mietkaution darf höchstens drei Nettokaltmieten betragen und kann in drei Monatsraten gezahlt werden. Nach dem Auszug darf der Vermieter einen Teil eine angemessene Zeit zurückbehalten, etwa für eine noch ausstehende Nebenkostenabrechnung. Geh zur Abnahme mit dem Einzugsprotokoll und deinen Fotos, prüfe Raum für Raum gemeinsam und lass Abweichungen schriftlich festhalten. Unterschreibe nichts, was du für falsch hältst, sondern notiere deine abweichende Sicht im Protokoll.
+
+## Übernahmen vom Vormieter
+
+Wer eine Einbauküche, einen Bodenbelag oder Einbauschränke vom Vormieter übernimmt, übernimmt oft auch dessen Rückbaupflicht. Klär deshalb vor der Übernahme mit dem Vermieter schriftlich, ob die Einbauten beim eigenen Auszug in der Wohnung bleiben dürfen oder entfernt werden müssen. Ein kurzer Satz im Übergabeprotokoll erspart später viel Streit und manchmal hohe Entsorgungskosten.
 
 ## Praxisbeispiel: Eine Altbauwohnung in zwei Wochenenden
 
@@ -143,6 +163,10 @@ Grundsätzlich der Verursacher. Eine private Haftpflichtversicherung kann Schäd
 ### Kann der Vermieter Veränderungen einfach verbieten?
 
 Bauliche Veränderungen braucht er nicht zu dulden. Für bestimmte Maßnahmen, etwa zur Barrierefreiheit oder zum Laden von E-Autos, haben Mieter unter Umständen einen Anspruch auf Zustimmung.
+
+### Darf ich das Türschloss austauschen?
+
+Den Schließzylinder der Wohnungstür darfst du in der Regel austauschen, etwa wenn ein Schlüssel verloren gegangen ist. Bewahre den alten Zylinder auf, baue ihn beim Auszug wieder ein und gib alle Schlüssel zurück.
 
 ### Weitere Fragen aus der Praxis
 
