@@ -2,7 +2,7 @@
 title: "Wand streichen: Schritt-für-Schritt-Anleitung für ein streifenfreies Ergebnis"
 description: Wie du Wände und Decken richtig streichst, vom Abkleben und Grundieren über die Wahl von Farbe und Rolle bis zur Technik nass in nass, mit Mengenrechner und Lösungen für typische Probleme.
 category: waende-und-boeden
-date: 2026-09-23
+date: 2026-10-12
 ---
 Eine frisch gestrichene Wand verändert einen Raum mehr als fast jede andere Renovierung, und sie gehört zu den Arbeiten, die fast jeder selbst erledigen kann. Trotzdem sehen viele selbst gestrichene Wände bei Streiflicht fleckig aus, zeigen Ansätze, Rollenspuren oder durchscheinende alte Farbe. Das liegt selten am fehlenden Talent, sondern an kleinen Fehlern bei Vorbereitung, Material und Technik.
 
@@ -102,6 +102,18 @@ Den zweiten Anstrich erst auftragen, wenn der erste vollständig getrocknet ist,
 | Farbe blättert ab | Kreidender oder glatter Untergrund | Alte Schicht entfernen, grundieren |
 | Rollenspuren bei Streiflicht | Falsches Abrollen, zu wenig Farbe | In eine Richtung abrollen, Rolle ausreichend sättigen |
 | Spritzer | Zu viel Farbe, zu schnell gerollt | Rolle besser abstreifen, ruhiger rollen |
+
+## Heizkörper, Laibungen und andere schwierige Stellen
+
+Hinter Heizkörpern kommst du mit einer normalen Rolle kaum heran. Dafür gibt es schmale Heizkörperrollen an langen Stielen und gebogene Heizkörperpinsel. Wenn möglich, den Heizkörper vorher abnehmen lassen, bei einer Komplettrenovierung lohnt sich das. Fensterlaibungen streichst du mit einer kleinen Rolle von 10 Zentimetern Breite, die Kanten mit dem Pinsel. Am Übergang zwischen Wand und Decke, wo Abkleben schwierig ist, etwa bei unebenem Putz, helfen ein Kantenpinsel mit schräg geschnittenen Borsten und eine ruhige Hand. Stuckleisten und Profile nur mit dem Pinsel und wenig Farbe streichen, damit die Details nicht zulaufen.
+
+## Zwei Farben an einer Wand
+
+Für eine zweifarbige Wand, etwa unten dunkel und oben hell, ziehst du die Trennlinie mit einem Kreuzlinienlaser oder einer Schlagschnur und klebst sie mit Malerkrepp ab. Der Trick für eine messerscharfe Kante: Streiche die Kreppkante zuerst dünn mit der Farbe, die bereits darunter liegt. Läuft Farbe unter das Krepp, ist es diese Grundfarbe, die nicht auffällt, und die Kante ist danach versiegelt. Erst dann folgt die zweite Farbe. Krepp abziehen, solange der letzte Anstrich noch leicht feucht ist. Wie du Farbtöne kombinierst, steht in [Wandfarbe auswählen](/anleitungen/wandfarbe-auswaehlen/).
+
+## Gesund streichen
+
+Moderne Dispersionsfarben sind lösemittelfrei, enthalten aber oft Konservierungsmittel, die bei empfindlichen Menschen Allergien auslösen können. Wer betroffen ist, greift zu konservierungsmittelfreien Farben, etwa auf Silikat- oder Kalkbasis, und achtet auf Umweltzeichen für emissionsarme Produkte. Lüfte während und nach dem Streichen gründlich, und lass Schlafräume, Kinderzimmer und Räume für Schwangere möglichst einige Tage auslüften, bevor sie wieder genutzt werden.
 
 ## Farbe wählen
 
