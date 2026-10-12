@@ -2,7 +2,7 @@
 title: "Richtig bohren in Beton, Ziegel und Gipskarton: Bohrer, Technik, Fehler"
 description: Wie du den Wandbaustoff erkennst, den passenden Bohrer und die richtige Maschine wählst, saubere Löcher bohrst und typische Fehler wie ausgebrochene Bohrlöcher vermeidest.
 category: werkzeug-und-grundlagen
-date: 2026-09-29
+date: 2026-10-12
 ---
 Ein Loch in die Wand zu bohren klingt einfach, und doch geht es oft schief: Der Bohrer rutscht ab, das Loch wird zu groß, der Dübel dreht durch oder man trifft auf etwas Hartes und kommt nicht weiter. Meist liegt das nicht am Geschick, sondern an der falschen Kombination aus Wandbaustoff, Bohrer und Maschine.
 
@@ -93,6 +93,18 @@ Gipskarton bohrt man mit dem Akkuschrauber ohne Schlag. Für Lasten braucht man 
 - **Staubmaske** bei viel Bohrstaub, besonders in Altbauten.
 - **Rutschkupplung beachten:** Bohrhämmer haben eine Sicherheitskupplung, die ein Herumschlagen der Maschine verhindert, wenn der Bohrer klemmt. Trotzdem die Maschine immer mit beiden Händen halten.
 - **Ruhezeiten respektieren:** In Mehrfamilienhäusern gelten Ruhezeiten, oft mittags und abends. Prüfe die Hausordnung.
+
+## Bohrer und Dübel aufeinander abstimmen
+
+Bei den meisten Kunststoffdübeln entspricht der Bohrerdurchmesser der Dübelgröße: Für einen 6er-Dübel bohrst du mit 6 Millimetern, für einen 8er-Dübel mit 8 Millimetern. Auf der Dübelpackung steht außerdem, welche Schraubendurchmesser passen und wie lang die Schraube mindestens sein muss: Dübellänge plus die Dicke des Bauteils, das du befestigst. Eine zu dünne Schraube spreizt den Dübel nicht genug, eine zu dicke kann ihn sprengen. Halte dich bei Spezialdübeln für Porenbeton, Gipskarton oder Lochziegel an die Herstellerangaben, denn dort weichen die Bohrdurchmesser teilweise ab.
+
+## Große Löcher für Dosen und Rohre
+
+Für Unterputzdosen in Gipskarton gibt es Lochsägen mit dem Standarddurchmesser von 68 Millimetern, für Mauerwerk passende Dosensenker, die mit dem Bohrhammer arbeiten. Elektroinstallationen selbst gehören in die Hände einer Elektrofachkraft, aber das Vorbereiten der Löcher übernehmen viele Heimwerker in Absprache mit ihr. Größere Kernbohrungen für Rohre oder Lüftungsleitungen sind Profiarbeit: Sie erfordern spezielle Maschinen, und in tragenden Wänden oder Decken kann jede größere Öffnung die Statik betreffen.
+
+## Über Kopf in die Decke bohren
+
+Bohren über Kopf ist anstrengend und staubig. Eine Schutzbrille ist hier Pflicht, und ein Staubfangbecher, den man auf den Bohrer steckt, hält Bohrmehl aus den Augen. Stehe sicher auf einer stabilen Leiter oder einem Gerüst, nicht auf einem Stuhl. Vorsicht bei Fertigteildecken: In Spannbetondecken verlaufen gespannte Stahlseile, die beim Anbohren beschädigt werden können. Wenn du nicht weißt, welche Decke du hast, frage die Hausverwaltung oder einen Fachbetrieb, bevor du tiefer als für einen kleinen Dübel bohrst.
 
 ## Beispiel: Ein Loch für einen Spiegel im Altbau-Bad
 
