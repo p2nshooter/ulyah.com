@@ -1,0 +1,38 @@
+name: Content audit (portal articles)
+
+# Samples the content pages of the Islamic portals (ulyah.com, 1fr.fr,
+# tilawa.de, xad.es) from their sitemaps and prints, per section, how many
+# words of real text a crawler reads, which language that text is in, and
+# whether title, description, canonical and robots are right. Read-only and
+# small on purpose: a few pages per sitemap file, one request at a time, so
+# the D1 database behind the pages is barely touched. dawa.es is not audited
+# (detached, no longer the owner's).
+#
+# Runs on demand, and whenever this file or the script changes on main or on
+# the branch that introduces it (workflow_dispatch only registers from main).
+
+on:
+  workflow_dispatch:
+    inputs:
+      per:
+        description: "Pages sampled per sitemap file"
+        default: "6"
+  push:
+    branches: [main, claude/content-audit]
+    paths:
+      - '.github/workflows/content-audit.yml'
+      - 'scripts/content-audit.mjs'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Sample the portals
+        env:
+          PER: ${{ github.event.inputs.per || '6' }}
+        run: node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=es
