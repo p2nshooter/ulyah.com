@@ -12,6 +12,8 @@ import { tenantFromReq } from "./analytics.js";
 import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
+import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
+import { presenceWriteDue, presenceForget } from "../lib/presence-throttle.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
 
@@ -97,6 +99,7 @@ export async function trackPing(c: Context<{ Bindings: Env }>) {
     const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
     const listening = body.listening === true;
     if (!site || device.length < 8) return c.body(null, 204);
+    if (!presenceWriteDue(site, device, listening)) return c.body(null, 204);
     await c.env.DB.prepare(
       `INSERT INTO live_presence (tenant, device_id, last_seen, listening) VALUES (?, ?, strftime('%s','now'), ?)
        ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen, listening = excluded.listening`
@@ -116,10 +119,11 @@ export async function trackLeave(c: Context<{ Bindings: Env }>) {
     const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
     const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
     if (!site || device.length < 8) return c.body(null, 204);
+    presenceForget(site, device);
     await c.env.DB.prepare(
-      `UPDATE live_presence SET last_seen = strftime('%s','now') - 10 WHERE tenant = ? AND device_id = ?`
+      `UPDATE live_presence SET last_seen = strftime('%s','now') - ? WHERE tenant = ? AND device_id = ?`
     )
-      .bind(site, device)
+      .bind(PRESENCE_ONLINE_WINDOW_S + 5, site, device)
       .run();
   } catch {
     /* best-effort */

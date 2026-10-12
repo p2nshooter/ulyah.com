@@ -52,15 +52,21 @@ on:
   # A maintenance job that reads and deletes has to go FIRST in the quota day,
   # not last. Twenty minutes in leaves the reset time to settle and still runs
   # before the heartbeat and the sites have spent anything worth mentioning.
+  #
+  # A second, WEEKLY schedule runs the one task that cannot avoid a full scan of
+  # mt_cache (the unserved-language prune: the target language sits in the
+  # middle of the key, so no index range finds it). It found nothing for days
+  # on end while costing a quarter of a million reads every night.
   schedule:
     - cron: "20 0 * * *"
+    - cron: "40 0 * * 0"
   workflow_dispatch:
     inputs:
       job:
         description: "What to run"
         required: true
         type: choice
-        options: [spill, prune-logs, move-bodies, prune-mt-arabic, prune-mt-unserved, both]
+        options: [spill, prune-logs, move-bodies, prune-mt-arabic, prune-mt-unserved, both, insights]
         default: spill
       budget:
         description: "Max rows to delete this run (free plan allows 100,000/day; the schedule splits it 40k+40k)"
@@ -162,7 +168,7 @@ jobs:
       # the spill and the sites' own writes need. Once the table is empty the
       # script says so and exits.
       - name: Delete machine translations made from Arabic
-        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.job == 'prune-mt-arabic' || inputs.job == 'both') }}
+        if: ${{ !cancelled() && (github.event.schedule == '20 0 * * *' || inputs.job == 'prune-mt-arabic' || inputs.job == 'both') }}
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
         # 40,000 on the schedule, not 60,000: this now shares the day's
@@ -176,13 +182,13 @@ jobs:
       # shape as the step above — bounded by the daily row-write allowance, run
       # on the schedule, drains over as many nights as it takes, and says so.
       - name: Delete machine translations into unserved languages
-        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.job == 'prune-mt-unserved' || inputs.job == 'both') }}
+        if: ${{ !cancelled() && (github.event.schedule == '40 0 * * 0' || inputs.job == 'prune-mt-unserved' || inputs.job == 'both') }}
         run: npx tsx scripts/prune-mt-unserved.ts --budget=${{ inputs.budget || '40000' }}
 
       # The watermark: measure, and spill to R2 only if there is too much bulk
       # sitting in D1. This is the step the schedule exists for.
       - name: Spill to R2 if D1 is filling up
-        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.job == 'spill') }}
+        if: ${{ !cancelled() && (github.event.schedule == '20 0 * * *' || inputs.job == 'spill') }}
         env:
           D1_DATABASE_ID: ${{ env.D1_DATABASE_ID }}
         run: |
@@ -220,8 +226,44 @@ jobs:
         run: |
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote --command="SELECT 'stories still in D1' t, COUNT(*) n, ROUND(SUM(LENGTH(body))/1048576.0,1) mib FROM stories WHERE body <> '';"
-          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt from Arabic (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:ar-__:%';"
-          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt into unserved languages (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k LIKE 'mt:__-__:%' AND substr(k,7,2) NOT IN ('id','en','de','es','fr');"
+          # A key range, not LIKE: LIKE cannot use mt_cache's primary key and read
+          # all ~247k rows to print this zero (see scripts/prune-mt-arabic.ts).
+          # The unserved-language count needs a full scan, so it is reported by
+          # the weekly prune itself rather than here every night.
+          npx wrangler d1 execute ulyah-db --remote --command="SELECT 'mt from Arabic (should be 0)' t, COUNT(*) n FROM mt_cache WHERE k >= 'mt:ar-' AND k < 'mt:ar.';"
+
+      # Which queries spent the day's reads. Cloudflare's GraphQL analytics, not
+      # D1 itself, so it answers even after the five-million-row quota is gone
+      # (code 7500) — which is exactly when the question matters. The free plan
+      # shares that quota across every site on the account; this list is the
+      # evidence for what to fix next (docs/ADSENSE-BLUEPRINT.md §12).
+      - name: Top D1 queries by rows read (last 24 h)
+        if: always()
+        continue-on-error: true
+        run: |
+          cd apps/worker-api
+          npx wrangler d1 insights ulyah-db --time-period=1d --sort-type=sum --sort-by=reads --limit=25 --json \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{let a;try{a=JSON.parse(s)}catch{console.log(s);return}
+                let total=0;for(const q of a)total+=Number(q.totalRowsRead??0);
+                console.log(`rows read by the top ${a.length} queries in 24h: ${total.toLocaleString("en")}`);
+                for(const q of a)console.log(String(q.totalRowsRead??"").padStart(12)+"  x"+String(q.numberOfTimesRun??"").padEnd(8)+" "+String(q.query??"").replace(/\s+/g," ").slice(0,220))})'
+          npx wrangler d1 insights ulyah-db --time-period=1d --sort-type=sum --sort-by=writes --limit=10 --json \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{let a;try{a=JSON.parse(s)}catch{console.log(s);return}
+                console.log("--- top writers ---");
+                for(const q of a)console.log(String(q.totalRowsWritten??"").padStart(12)+"  x"+String(q.numberOfTimesRun??"").padEnd(8)+" "+String(q.query??"").replace(/\s+/g," ").slice(0,220))})'
+
+      # R2 against the 10 GB free tier (owner, 12 Oct: "turunkan R2-nya hingga
+      # di bawah 10 GB"). The lifecycle rules the deploy installs do the
+      # deleting; this is the nightly reading of where that stands.
+      - name: R2 storage report
+        if: always()
+        continue-on-error: true
+        run: |
+          cd apps/worker-api
+          for b in ulyah-media ulyah-next-cache; do
+            npx wrangler r2 bucket info "$b" || true
+            npx wrangler r2 bucket lifecycle list "$b" || true
+          done
 
       # The size, LAST and never skipped: whatever the steps above did or did
       # not do, this is the number that decides whether the platform can still

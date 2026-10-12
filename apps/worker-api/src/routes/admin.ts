@@ -13,6 +13,8 @@ import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { registerAdopsAdmin } from "./adops.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
+import { edgeMemo, memoResponse } from "../lib/edge-memo.js";
+import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
 
 export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
@@ -491,7 +493,15 @@ adminRoute.post("/proofs/:id/decide", async (c) => {
 
 // ── Visitor / member / certificate analytics (central visibility) ────────
 
+// Five minutes of edge cache (lib/edge-memo.ts): the Analytics tab refreshes
+// this on a timer, and each refresh is ten scans of analytics_pageviews.
+const ANALYTICS_TTL = 300;
+
 adminRoute.get("/analytics", async (c) => {
+  return c.json(await edgeMemo(c, "admin-analytics", ANALYTICS_TTL, () => computeAnalytics(c)));
+});
+
+async function computeAnalytics(c: Context<{ Bindings: Env }>) {
   const [
     todayRow, weekRow, monthRow, yearRow, allTimeRow,
     daily, weekly, monthly, yearly, visitorCountries,
@@ -542,7 +552,8 @@ adminRoute.get("/analytics", async (c) => {
     ).all(),
   ]);
 
-  return c.json({
+  return {
+    statsAt: new Date().toISOString(),
     visitors: {
       today: todayRow?.n ?? 0,
       thisWeek: weekRow?.n ?? 0,
@@ -564,8 +575,8 @@ adminRoute.get("/analytics", async (c) => {
       countries: certCountries.results,
       recent: certList.results,
     },
-  });
-});
+  };
+}
 
 // ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de + xad.es) ───────
 // One content DB, four sites. dawa.es is detached (no longer the owner's) and
@@ -613,115 +624,136 @@ adminRoute.get("/tenant-analytics", async (c) => {
   const D7 = "created_at >= datetime('now','-7 days')";
   const D30 = "created_at >= datetime('now','-30 days')";
 
-  const [totals, devices, installs, uninstalls, series, pages, countries, referers, activeDevices, uninstalledDevices, activeNow] =
-    await Promise.all([
-      // Pageviews per tenant, split by classification, over identical windows.
-      // Three numbers per window, and they add up: TRAFFIC = human + unjudged,
-      // with confirmed bots kept out of it and reported alongside. Showing all
-      // three means nobody has to take a filtered number on trust — the owner
-      // can see exactly how much of the traffic is proven human, how much is
-      // still unjudged, and how much was thrown out as crawler.
-      c.env.DB.prepare(
-        `SELECT tenant,
-                SUM(CASE WHEN ${TODAY} AND ${HUMAN}   THEN 1 ELSE 0 END) AS todayHuman,
-                SUM(CASE WHEN ${TODAY} AND ${BOT}     THEN 1 ELSE 0 END) AS todayBot,
-                SUM(CASE WHEN ${TODAY} AND ${UNKNOWN} THEN 1 ELSE 0 END) AS todayUnknown,
-                SUM(CASE WHEN ${D7}    AND ${HUMAN}   THEN 1 ELSE 0 END) AS weekHuman,
-                SUM(CASE WHEN ${D7}    AND ${BOT}     THEN 1 ELSE 0 END) AS weekBot,
-                SUM(CASE WHEN ${D7}    AND ${UNKNOWN} THEN 1 ELSE 0 END) AS weekUnknown,
-                SUM(CASE WHEN ${D30}   AND ${HUMAN}   THEN 1 ELSE 0 END) AS monthHuman,
-                SUM(CASE WHEN ${D30}   AND ${BOT}     THEN 1 ELSE 0 END) AS monthBot,
-                SUM(CASE WHEN ${D30}   AND ${UNKNOWN} THEN 1 ELSE 0 END) AS monthUnknown,
-                SUM(CASE WHEN ${HUMAN} THEN 1 ELSE 0 END) AS allHuman,
-                SUM(CASE WHEN ${BOT}   THEN 1 ELSE 0 END) AS allBot,
-                SUM(CASE WHEN ${UNKNOWN} THEN 1 ELSE 0 END) AS allUnknown
-         FROM analytics_pageviews GROUP BY tenant`
-      ).all<Record<string, number> & { tenant: string }>(),
-      // Distinct human devices over the SAME windows as the pageviews above —
-      // that identity is what makes "3 readers, 11 pages" add up.
-      c.env.DB.prepare(
-        `SELECT tenant,
-                COUNT(DISTINCT CASE WHEN ${TODAY} THEN device_id END) AS today,
-                COUNT(DISTINCT CASE WHEN ${D7}    THEN device_id END) AS week,
-                COUNT(DISTINCT CASE WHEN ${D30}   THEN device_id END) AS month,
-                COUNT(DISTINCT device_id) AS allTime
-         FROM analytics_pageviews
-         WHERE ${HUMAN} AND device_id IS NOT NULL AND device_id != ''
-         GROUP BY tenant`
-      ).all<{ tenant: string; today: number; week: number; month: number; allTime: number }>(),
-      c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_installs GROUP BY tenant").all<{ tenant: string; n: number }>(),
-      c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_uninstalls GROUP BY tenant").all<{ tenant: string; n: number }>(),
-      // Daily series, in Jakarta days, readers only — a chart of crawler hits
-      // tells the owner nothing about the site.
-      c.env.DB.prepare(
-        win(
-          `SELECT tenant, date(created_at, '@') AS bucket,
-                  COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
+  // The historical aggregates below are ten scans of the pageview log; they
+  // are computed at most once per ANALYTICS_TTL (lib/edge-memo.ts). Only the
+  // live "online now" count after them is asked fresh on every call.
+  const heavy = await edgeMemo(c, "admin-tenant-analytics", ANALYTICS_TTL, async () => {
+    const [totals, devices, installs, uninstalls, series, pages, countries, referers, activeDevices, uninstalledDevices] =
+      await Promise.all([
+        // Pageviews per tenant, split by classification, over identical windows.
+        // Three numbers per window, and they add up: TRAFFIC = human + unjudged,
+        // with confirmed bots kept out of it and reported alongside. Showing all
+        // three means nobody has to take a filtered number on trust — the owner
+        // can see exactly how much of the traffic is proven human, how much is
+        // still unjudged, and how much was thrown out as crawler.
+        c.env.DB.prepare(
+          `SELECT tenant,
+                  SUM(CASE WHEN ${TODAY} AND ${HUMAN}   THEN 1 ELSE 0 END) AS todayHuman,
+                  SUM(CASE WHEN ${TODAY} AND ${BOT}     THEN 1 ELSE 0 END) AS todayBot,
+                  SUM(CASE WHEN ${TODAY} AND ${UNKNOWN} THEN 1 ELSE 0 END) AS todayUnknown,
+                  SUM(CASE WHEN ${D7}    AND ${HUMAN}   THEN 1 ELSE 0 END) AS weekHuman,
+                  SUM(CASE WHEN ${D7}    AND ${BOT}     THEN 1 ELSE 0 END) AS weekBot,
+                  SUM(CASE WHEN ${D7}    AND ${UNKNOWN} THEN 1 ELSE 0 END) AS weekUnknown,
+                  SUM(CASE WHEN ${D30}   AND ${HUMAN}   THEN 1 ELSE 0 END) AS monthHuman,
+                  SUM(CASE WHEN ${D30}   AND ${BOT}     THEN 1 ELSE 0 END) AS monthBot,
+                  SUM(CASE WHEN ${D30}   AND ${UNKNOWN} THEN 1 ELSE 0 END) AS monthUnknown,
+                  SUM(CASE WHEN ${HUMAN} THEN 1 ELSE 0 END) AS allHuman,
+                  SUM(CASE WHEN ${BOT}   THEN 1 ELSE 0 END) AS allBot,
+                  SUM(CASE WHEN ${UNKNOWN} THEN 1 ELSE 0 END) AS allUnknown
+           FROM analytics_pageviews GROUP BY tenant`
+        ).all<Record<string, number> & { tenant: string }>(),
+        // Distinct human devices over the SAME windows as the pageviews above —
+        // that identity is what makes "3 readers, 11 pages" add up.
+        c.env.DB.prepare(
+          `SELECT tenant,
+                  COUNT(DISTINCT CASE WHEN ${TODAY} THEN device_id END) AS today,
+                  COUNT(DISTINCT CASE WHEN ${D7}    THEN device_id END) AS week,
+                  COUNT(DISTINCT CASE WHEN ${D30}   THEN device_id END) AS month,
+                  COUNT(DISTINCT device_id) AS allTime
            FROM analytics_pageviews
-           WHERE created_at >= datetime('now','-30 days') AND COALESCE(is_bot, 0) = 0
-           GROUP BY tenant, bucket ORDER BY bucket`
-        )
-      ).all<{ tenant: string; bucket: string; n: number; d: number }>(),
-      c.env.DB.prepare(
-        `SELECT tenant, path, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
-         WHERE ${D30} AND ${HUMAN}
-         GROUP BY tenant, path ORDER BY n DESC`
-      ).all<{ tenant: string; path: string; n: number; d: number }>(),
-      c.env.DB.prepare(
-        `SELECT tenant, COALESCE(country,'??') AS country, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
-         FROM analytics_pageviews WHERE ${D30} AND ${HUMAN}
-         GROUP BY tenant, country ORDER BY n DESC`
-      ).all<{ tenant: string; country: string; n: number; d: number }>(),
-      // Where readers actually arrive from — real acquisition, not a guess.
-      c.env.DB.prepare(
-        `SELECT tenant, referer_host AS host, COUNT(*) AS n FROM analytics_pageviews
-         WHERE ${D30} AND ${HUMAN} AND referer_host IS NOT NULL AND referer_host != ''
-         GROUP BY tenant, host ORDER BY n DESC`
-      ).all<{ tenant: string; host: string; n: number }>(),
-      // DISTINCT devices whose most recent event is an INSTALL — the honest
-      // "currently installed" number per site (owner: one phone doing
-      // install → uninstall → install again must count as ONE active device).
-      c.env.DB.prepare(
-        `SELECT tenant, COUNT(*) AS n FROM (
-           SELECT tenant, device_id, app, ev,
-                  ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
-           FROM (
-             SELECT tenant, device_id, app, created_at, 1 AS ev
-             FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
-             UNION ALL
-             SELECT tenant, device_id, app, created_at, 0 AS ev
-             FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
-           )
-         ) WHERE rn = 1 AND ev = 1 GROUP BY tenant`
-      ).all<{ tenant: string; n: number }>(),
-      // Devices whose LAST event is an uninstall — goes DOWN when the same
-      // device installs again.
-      c.env.DB.prepare(
-        `SELECT tenant, COUNT(*) AS n FROM (
-           SELECT tenant, device_id, app, ev,
-                  ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
-           FROM (
-             SELECT tenant, device_id, app, created_at, 1 AS ev
-             FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
-             UNION ALL
-             SELECT tenant, device_id, app, created_at, 0 AS ev
-             FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
-           )
-         ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
-      ).all<{ tenant: string; n: number }>(),
-      // LIVE "online right now" — same source as the ⚡ Live bar so the two
-      // never disagree: devices with a presence heartbeat in the last 5s.
-      // Crawlers never reach this table (the ping route rejects them).
-      c.env.DB.prepare(
-        `SELECT tenant, COUNT(*) AS n FROM live_presence
-         WHERE last_seen >= (strftime('%s','now') - 5) GROUP BY tenant`
-      ).all<{ tenant: string; n: number }>(),
-    ]);
+           WHERE ${HUMAN} AND device_id IS NOT NULL AND device_id != ''
+           GROUP BY tenant`
+        ).all<{ tenant: string; today: number; week: number; month: number; allTime: number }>(),
+        c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_installs GROUP BY tenant").all<{ tenant: string; n: number }>(),
+        c.env.DB.prepare("SELECT tenant, COUNT(*) AS n FROM app_uninstalls GROUP BY tenant").all<{ tenant: string; n: number }>(),
+        // Daily series, in Jakarta days, readers only — a chart of crawler hits
+        // tells the owner nothing about the site.
+        c.env.DB.prepare(
+          win(
+            `SELECT tenant, date(created_at, '@') AS bucket,
+                    COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
+             FROM analytics_pageviews
+             WHERE created_at >= datetime('now','-30 days') AND COALESCE(is_bot, 0) = 0
+             GROUP BY tenant, bucket ORDER BY bucket`
+          )
+        ).all<{ tenant: string; bucket: string; n: number; d: number }>(),
+        c.env.DB.prepare(
+          `SELECT tenant, path, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d FROM analytics_pageviews
+           WHERE ${D30} AND ${HUMAN}
+           GROUP BY tenant, path ORDER BY n DESC`
+        ).all<{ tenant: string; path: string; n: number; d: number }>(),
+        c.env.DB.prepare(
+          `SELECT tenant, COALESCE(country,'??') AS country, COUNT(*) AS n, COUNT(DISTINCT device_id) AS d
+           FROM analytics_pageviews WHERE ${D30} AND ${HUMAN}
+           GROUP BY tenant, country ORDER BY n DESC`
+        ).all<{ tenant: string; country: string; n: number; d: number }>(),
+        // Where readers actually arrive from — real acquisition, not a guess.
+        c.env.DB.prepare(
+          `SELECT tenant, referer_host AS host, COUNT(*) AS n FROM analytics_pageviews
+           WHERE ${D30} AND ${HUMAN} AND referer_host IS NOT NULL AND referer_host != ''
+           GROUP BY tenant, host ORDER BY n DESC`
+        ).all<{ tenant: string; host: string; n: number }>(),
+        // DISTINCT devices whose most recent event is an INSTALL — the honest
+        // "currently installed" number per site (owner: one phone doing
+        // install → uninstall → install again must count as ONE active device).
+        c.env.DB.prepare(
+          `SELECT tenant, COUNT(*) AS n FROM (
+             SELECT tenant, device_id, app, ev,
+                    ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
+             FROM (
+               SELECT tenant, device_id, app, created_at, 1 AS ev
+               FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
+               UNION ALL
+               SELECT tenant, device_id, app, created_at, 0 AS ev
+               FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
+             )
+           ) WHERE rn = 1 AND ev = 1 GROUP BY tenant`
+        ).all<{ tenant: string; n: number }>(),
+        // Devices whose LAST event is an uninstall — goes DOWN when the same
+        // device installs again.
+        c.env.DB.prepare(
+          `SELECT tenant, COUNT(*) AS n FROM (
+             SELECT tenant, device_id, app, ev,
+                    ROW_NUMBER() OVER (PARTITION BY tenant, device_id, app ORDER BY created_at DESC, ev DESC) AS rn
+             FROM (
+               SELECT tenant, device_id, app, created_at, 1 AS ev
+               FROM app_installs WHERE device_id IS NOT NULL AND device_id != ''
+               UNION ALL
+               SELECT tenant, device_id, app, created_at, 0 AS ev
+               FROM app_uninstalls WHERE device_id IS NOT NULL AND device_id != ''
+             )
+           ) WHERE rn = 1 AND ev = 0 GROUP BY tenant`
+        ).all<{ tenant: string; n: number }>(),
+      ]);
+    return {
+      totals: totals.results,
+      devices: devices.results,
+      installs: installs.results,
+      uninstalls: uninstalls.results,
+      series: series.results,
+      pages: pages.results,
+      countries: countries.results,
+      referers: referers.results,
+      activeDevices: activeDevices.results,
+      uninstalledDevices: uninstalledDevices.results,
+    };
+  });
+
+  // LIVE "online right now" — same source and window as the ⚡ Live bar, so
+  // the two never disagree. Crawlers never reach this table (the ping route
+  // rejects them).
+  const activeNow = await c.env.DB.prepare(
+    `SELECT tenant, COUNT(*) AS n FROM live_presence
+     WHERE last_seen >= (strftime('%s','now') - ?) GROUP BY tenant`
+  )
+    .bind(PRESENCE_ONLINE_WINDOW_S)
+    .all<{ tenant: string; n: number }>()
+    .catch(() => ({ results: [] as { tenant: string; n: number }[] }));
 
   const TENANTS = ["ulyah", "1fr", "tilawa", "xad"];
   const byTenant = TENANTS.map((t) => {
-    const v = totals.results.find((r) => r.tenant === t);
-    const dv = devices.results.find((r) => r.tenant === t);
+    const v = heavy.totals.find((r) => r.tenant === t);
+    const dv = heavy.devices.find((r) => r.tenant === t);
     const num = (k: string) => Number(v?.[k] ?? 0);
     return {
       tenant: t,
@@ -762,15 +794,15 @@ adminRoute.get("/tenant-analytics", async (c) => {
         month: dv?.month ?? 0,
         allTime: dv?.allTime ?? 0,
       },
-      installs: installs.results.find((r) => r.tenant === t)?.n ?? 0,
-      uninstalls: uninstalls.results.find((r) => r.tenant === t)?.n ?? 0,
-      activeDevices: activeDevices.results.find((r) => r.tenant === t)?.n ?? 0,
-      uninstalledDevices: uninstalledDevices.results.find((r) => r.tenant === t)?.n ?? 0,
-      activeNow: activeNow.results.find((r) => r.tenant === t)?.n ?? 0,
-      daily: series.results.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n, d: r.d })),
-      topPages: pages.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n, d: r.d })),
-      topCountries: countries.results.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n, d: r.d })),
-      topReferers: referers.results.filter((r) => r.tenant === t).slice(0, 8).map((r) => ({ host: r.host, n: r.n })),
+      installs: heavy.installs.find((r) => r.tenant === t)?.n ?? 0,
+      uninstalls: heavy.uninstalls.find((r) => r.tenant === t)?.n ?? 0,
+      activeDevices: heavy.activeDevices.find((r) => r.tenant === t)?.n ?? 0,
+      uninstalledDevices: heavy.uninstalledDevices.find((r) => r.tenant === t)?.n ?? 0,
+      activeNow: activeNow.results?.find((r) => r.tenant === t)?.n ?? 0,
+      daily: heavy.series.filter((r) => r.tenant === t).map((r) => ({ bucket: r.bucket, n: r.n, d: r.d })),
+      topPages: heavy.pages.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ path: r.path, n: r.n, d: r.d })),
+      topCountries: heavy.countries.filter((r) => r.tenant === t).slice(0, 10).map((r) => ({ country: r.country, n: r.n, d: r.d })),
+      topReferers: heavy.referers.filter((r) => r.tenant === t).slice(0, 8).map((r) => ({ host: r.host, n: r.n })),
     };
   });
 
@@ -778,14 +810,15 @@ adminRoute.get("/tenant-analytics", async (c) => {
 });
 
 // GET /admin/live-presence — who is on each ecosystem site RIGHT NOW. Fed by
-// the presence heartbeat (/analytics/ping): ONLINE = a device seen in the last
-// ~20s, CLOSED = seen 20s..5min ago (was here, just left). Real devices, not
-// page views. Polled every ~3s by the admin so the count feels instant. Prunes
-// stale rows on the way through so the table stays tiny.
+// the presence heartbeat (/analytics/ping): ONLINE = a device seen inside
+// PRESENCE_ONLINE_WINDOW_S, CLOSED = seen in the two minutes before that (was
+// here, just left). Real devices, not page views. Polled every 15s by the
+// admin (paused while that tab is hidden). Prunes stale rows on the way
+// through so the table stays tiny.
 adminRoute.get("/live-presence", async (c) => {
   const now = Math.floor(Date.now() / 1000);
-  const ONLINE = now - 5; // seen within 5s → online THIS second (owner: turun-naik ≤5 dtk)
-  const RECENT = now - 120; // seen within 2min → still "just left" if not online
+  const ONLINE = now - PRESENCE_ONLINE_WINDOW_S;
+  const RECENT = ONLINE - 120;
   try {
     // Opportunistic prune — anything older than 10 minutes is long gone.
     await c.env.DB.prepare("DELETE FROM live_presence WHERE last_seen < ?").bind(now - 600).run();
@@ -824,7 +857,9 @@ adminRoute.get("/live-presence", async (c) => {
 
 // ── Kitab library breakdown + app install counts (central visibility) ────
 
-adminRoute.get("/library-stats", async (c) => {
+// Counts over the whole library (hadits alone is tens of thousands of rows):
+// they change when a seed lands, not between two clicks — kept 10 minutes.
+adminRoute.get("/library-stats", memoResponse("admin-library-stats", 600), async (c) => {
   // Normalise the many raw hadith grade strings into buckets in SQL — mirrors
   // apps/web/src/lib/hadith-grade.ts so the admin counts match the badges.
   const gradeCase = `CASE
@@ -904,7 +939,7 @@ adminRoute.get("/library-stats", async (c) => {
 // ── Monitor: one-glance health of every menu/feature on the site ──────────
 // Each feature reports ok/warn/error from a cheap COUNT (or config check), so
 // the owner can watch all menus at once and spot anything empty or broken.
-adminRoute.get("/health", async (c) => {
+adminRoute.get("/health", memoResponse("admin-health", 600), async (c) => {
   const count = async (sql: string): Promise<number> => {
     try {
       const r = await c.env.DB.prepare(sql).first<{ n: number }>();
@@ -980,26 +1015,34 @@ adminRoute.get("/site-analytics", async (c) => {
   const days = Math.min(90, Math.max(1, Number(c.req.query("days")) || 30));
   const since = new Date(Date.now() - days * 86400_000).toISOString().slice(0, 10);
   try {
-    const [totals, daily, top, live] = await Promise.all([
-      c.env.DB.prepare(
-        `SELECT site, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY site ORDER BY views DESC`
-      ).bind(since).all<{ site: string; views: number }>(),
-      c.env.DB.prepare(
-        `SELECT day, SUM(count) AS views FROM site_pageviews WHERE day >= ? AND site <> 'dawa' GROUP BY day ORDER BY day`
-      ).bind(since).all<{ day: string; views: number }>(),
-      c.env.DB.prepare(
-        `SELECT site, path, SUM(count) AS views FROM site_pageviews WHERE day >= ?
-         GROUP BY site, path ORDER BY views DESC LIMIT 50`
-      ).bind(since).all<{ site: string; path: string; views: number }>(),
+    // Three scans of every page of every site for N days: computed at most
+    // once per ANALYTICS_TTL (lib/edge-memo.ts). The live column is fresh.
+    const [stats, live] = await Promise.all([
+      edgeMemo(c, `admin-site-analytics-${days}`, ANALYTICS_TTL, async () => {
+        const [totals, daily, top] = await Promise.all([
+          c.env.DB.prepare(
+            `SELECT site, SUM(count) AS views FROM site_pageviews WHERE day >= ? GROUP BY site ORDER BY views DESC`
+          ).bind(since).all<{ site: string; views: number }>(),
+          c.env.DB.prepare(
+            `SELECT day, SUM(count) AS views FROM site_pageviews WHERE day >= ? AND site <> 'dawa' GROUP BY day ORDER BY day`
+          ).bind(since).all<{ day: string; views: number }>(),
+          c.env.DB.prepare(
+            `SELECT site, path, SUM(count) AS views FROM site_pageviews WHERE day >= ?
+             GROUP BY site, path ORDER BY views DESC LIMIT 50`
+          ).bind(since).all<{ site: string; path: string; views: number }>(),
+        ]);
+        return { totals: totals.results, daily: daily.results, top: top.results };
+      }),
       // LIVE per-site "online sekarang" — SAME source + window as the ⚡ Live
-      // bar (presence heartbeat, ≤5s) so every site's live count is real-time
-      // and consistent, rising and falling within ~5s (owner: "online skrg
-      // maksimal 5 detik turun-naiknya, sesuai live skrg di paling atas").
+      // bar, so every site's live count is consistent with it.
       c.env.DB.prepare(
         `SELECT tenant AS site, COUNT(*) AS hits FROM live_presence
-         WHERE last_seen >= strftime('%s','now') - 5 GROUP BY tenant`
-      ).all<{ site: string; hits: number }>().catch(() => ({ results: [] as { site: string; hits: number }[] })),
+         WHERE last_seen >= strftime('%s','now') - ? GROUP BY tenant`
+      ).bind(PRESENCE_ONLINE_WINDOW_S).all<{ site: string; hits: number }>().catch(() => ({ results: [] as { site: string; hits: number }[] })),
     ]);
+    const totals = { results: stats.totals };
+    const daily = { results: stats.daily };
+    const top = { results: stats.top };
     // dawa.es is detached (no longer the owner's): rows it wrote before the
     // cut stay in the table but are never shown or summed here.
     const own = <T extends { site: string }>(rows: T[] | undefined) => (rows ?? []).filter((r) => !EXCLUDED_TRACK_IDS.has(r.site));

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
+import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
 import { OWNER_SITES } from "@ulyah/shared/owner-sites";
 
 interface SiteTotal {
@@ -72,8 +73,9 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
   // ikut berjalan otomatis tanpa harus di-refresh manual").
   useEffect(() => {
     let alive = true;
-    const load = () =>
-      api
+    const load = () => {
+      if (document.visibilityState === "hidden") return;
+      return api
         .get<Resp>(`/admin/site-analytics?days=${days}`)
         .then((r) => {
           if (!alive) return;
@@ -89,8 +91,13 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
           setRefreshedAt(new Date());
         })
         .catch(() => {});
+    };
     load();
-    const t = setInterval(load, 3000); // ~3s so "online sekarang" rises/falls in near real-time
+    // 30s, paused while the tab is hidden. The page totals behind this are
+    // recomputed at most every few minutes on the server (lib/edge-memo.ts);
+    // only the "online sekarang" column is live, and it moves on the 30s
+    // presence heartbeat anyway.
+    const t = setInterval(load, 30_000);
     return () => {
       alive = false;
       clearInterval(t);
@@ -134,7 +141,7 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
       <p className="mt-1 text-xs text-text-secondary">
         Total {grand.toLocaleString()} tampilan halaman dalam {data.days} hari terakhir ·{" "}
         <span className="font-medium text-emerald-500">{liveTotal.toLocaleString()} online sekarang</span>
-        <span className="text-text-secondary"> (perangkat aktif ≤5 detik)</span>
+        <span className="text-text-secondary"> (perangkat aktif ≤{PRESENCE_ONLINE_WINDOW_S} detik)</span>
       </p>
 
       {totals.length === 0 ? (
@@ -152,13 +159,13 @@ export function NetworkTraffic({ scope = "ecosystem" }: { scope?: "ecosystem" | 
                 <div className="h-4 flex-1 overflow-hidden rounded-sm bg-black/5">
                   <div className="h-full rounded-sm bg-accent" style={{ width: `${(t.views / max) * 100}%` }} />
                 </div>
-                {/* Live "online sekarang" per situs (≤5s presence), updated every
+                {/* Live "online sekarang" per situs (presence window), updated every
                     poll — the ▲/▼ shows visitors rising or falling vs the last tick. */}
                 <span
                   className={`w-16 shrink-0 text-right text-xs tabular-nums ${
                     delta > 0 ? "text-emerald-500" : delta < 0 ? "text-rose-500" : "text-text-secondary"
                   }`}
-                  title="Online sekarang — perangkat aktif ≤5 detik"
+                  title={`Online sekarang — perangkat aktif ≤${PRESENCE_ONLINE_WINDOW_S} detik`}
                 >
                   {delta > 0 ? "▲" : delta < 0 ? "▼" : "•"} {live}
                 </span>

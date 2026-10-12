@@ -44,8 +44,19 @@ import { join } from "node:path";
 
 const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 
-/** Every cache key whose SOURCE language is Arabic: `mt:ar-<tgt>:<hash>`. */
-const ARABIC_SOURCED = "mt:ar-__:%";
+/**
+ * Every cache key whose SOURCE language is Arabic: `mt:ar-<tgt>:<hash>`.
+ *
+ * As a key RANGE, not a LIKE. SQLite only turns `LIKE 'prefix%'` into an index
+ * seek when the column is declared COLLATE NOCASE (or case_sensitive_like is
+ * on), and `mt_cache.k` is neither — so `k LIKE 'mt:ar-__:%'` read all 246,820
+ * rows of the table every time it was asked, eight times a night, to print "0"
+ * (D1 Maintenance run #87: 260,008 + 246,820 + 493,640 rows read …). That was
+ * 40% of the free plan's five million daily reads, spent before the sites had
+ * served anyone. `k >= 'mt:ar-' AND k < 'mt:ar.'` ('.' is the character after
+ * '-') walks the primary key from the first match to the last and stops.
+ */
+const ARABIC_SOURCED = "k >= 'mt:ar-' AND k < 'mt:ar.'";
 
 function parseArgs() {
   const args = Object.fromEntries(
@@ -94,7 +105,7 @@ function d1Json<T>(sql: string): T[] {
 function remaining(): { rows: number; mb: number } {
   const r = d1Json<{ rows: number; mb: number | null }>(
     `SELECT COUNT(*) AS rows, ROUND(COALESCE(SUM(LENGTH(k)+LENGTH(v)),0)/1048576.0,1) AS mb
-       FROM mt_cache WHERE k LIKE '${ARABIC_SOURCED}';`
+       FROM mt_cache WHERE ${ARABIC_SOURCED};`
   )[0];
   return { rows: Number(r?.rows ?? 0), mb: Number(r?.mb ?? 0) };
 }
@@ -149,7 +160,7 @@ async function main() {
       "execute",
       "ulyah-db",
       "--remote",
-      `--command=DELETE FROM mt_cache WHERE k IN (SELECT k FROM mt_cache WHERE k LIKE '${ARABIC_SOURCED}' LIMIT ${take});`,
+      `--command=DELETE FROM mt_cache WHERE k IN (SELECT k FROM mt_cache WHERE ${ARABIC_SOURCED} LIMIT ${take});`,
     ]);
     const left = remaining();
     const freedRows = before.rows - left.rows - deleted;

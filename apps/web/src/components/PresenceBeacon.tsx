@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
+import { PRESENCE_HEARTBEAT_MS } from "@ulyah/shared/presence";
 import { getDeviceId } from "@/lib/device-id";
 import { sendPresencePing } from "@/lib/presence";
 import { useRadioStore } from "@/lib/radio-store";
 import { usePlayerStore } from "@/lib/player-store";
 
 /**
- * Presence heartbeat — while this page is open the admin can see, within ~3
- * seconds, how many real devices are on each ecosystem site RIGHT NOW and how
- * many just left ("closed") — the owner's live per-device count, not page
- * views. On hide/close it fires a best-effort "leave" so the count drops
- * immediately.
+ * Presence heartbeat — while this page is open the admin can see how many real
+ * devices are on each ecosystem site RIGHT NOW and how many just left
+ * ("closed") — the owner's live per-device count, not page views. On
+ * hide/close it fires a best-effort "leave" so the count drops immediately.
  *
  * Background-audio aware: these are read-aloud sites (Qur'an radio, murottal,
  * TTS narration), so a visitor very often keeps LISTENING with the screen off
@@ -26,10 +26,12 @@ import { usePlayerStore } from "@/lib/player-store";
  * one the pageview/install beacons use) — never a fingerprint.
  */
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
-// Beat every 3s so a device's last-seen is always ≤3s old — comfortably inside
-// the admin's 5s "online now" window (no flicker), and it drops within ~5s of
-// closing (owner: "online skrg kondisi detik ini, turun-naik ≤5 detik").
-const HEARTBEAT_MS = 3000;
+// One beat per PRESENCE_HEARTBEAT_MS (30s), inside the admin's
+// PRESENCE_ONLINE_WINDOW_S (45s) "online now" window — see
+// packages/shared/src/presence.ts for why it is no longer 3s: at 3s every open
+// tab cost twenty Worker requests and twenty D1 writes a minute, against a
+// free plan that allows 100,000 of each per day for the whole account.
+const HEARTBEAT_MS = PRESENCE_HEARTBEAT_MS;
 
 function audioActive(): boolean {
   try {
@@ -63,7 +65,7 @@ export function PresenceBeacon() {
     // "Left" is only true when nothing is playing. On a phone, switching to
     // another app fires pagehide even though the browser stays open and the
     // audio keeps going — reporting a leave there is exactly what made a radio
-    // listener vanish from the live count within five seconds.
+    // listener vanish from the live count.
     const leaveIfSilent = () => {
       if (!audioActive()) leave();
     };

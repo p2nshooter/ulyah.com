@@ -1,5 +1,6 @@
 "use client";
 
+import { PRESENCE_HEARTBEAT_MS } from "@ulyah/shared/presence";
 import { getDeviceId } from "./device-id";
 
 /**
@@ -12,17 +13,18 @@ import { getDeviceId } from "./device-id";
  *     backgrounded. This is the reliable background ticker — plain setInterval
  *     is throttled to ~once/minute (or frozen) on mobile once the tab is
  *     hidden, so a listener who only keeps Qur'an radio on with the screen off
- *     would otherwise be counted "closed" within 5s. The audio clock is not
+ *     would otherwise be counted "closed" once the online window lapsed. The audio clock is not
  *     throttled while it actually plays, so pinging from it keeps such a
  *     background listener correctly counted as ONLINE.
  *
  * Anonymous: the only thing sent is the random localStorage device token —
  * never a fingerprint. Body is text/plain so the cross-origin POST needs no
- * CORS preflight. Throttled to 3s so it comfortably refreshes the admin's 5s
- * "online now" window without spamming the API.
+ * CORS preflight. Throttled to just under the shared heartbeat
+ * (@ulyah/shared/presence) so the audio ticker, which fires several times a
+ * second, still sends one ping per beat and never more.
  */
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
-const MIN_INTERVAL_MS = 3000;
+const MIN_INTERVAL_MS = PRESENCE_HEARTBEAT_MS - 5000;
 
 let lastSent = 0;
 

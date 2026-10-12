@@ -40,3 +40,40 @@ export async function resetRateLimit(env: Env, key: string): Promise<void> {
     /* non-fatal */
   }
 }
+
+/**
+ * The same fixed-window limit, kept in this isolate's memory instead of KV.
+ *
+ * For the high-volume public beacons (pageview, install, the reader/AI helpers)
+ * the KV version cost one KV write per request — and the free plan allows the
+ * whole account 1,000 KV writes a DAY. They ran out within hours, and with them
+ * every real cache write: the sitemap, the coverage figures, the purge flags.
+ * Once KV cannot cache, those answers are recomputed from D1 on every request,
+ * which is how a rate limiter ended up spending the D1 read quota.
+ *
+ * Per isolate is looser than global — a determined flood spread over many colos
+ * gets more through — and that is acceptable for endpoints whose worst case is
+ * a few extra pageview rows. Login, 2FA, donations and uploads keep the KV
+ * limiter above, where a global count matters and the volume is tiny.
+ */
+const localWindows = new Map<string, { count: number; resetAt: number }>();
+
+export function checkRateLimitLocal(
+  key: string,
+  limit: number,
+  windowSeconds: number,
+  now = Date.now()
+): { allowed: boolean; remaining: number } {
+  const hit = localWindows.get(key);
+  if (!hit || hit.resetAt <= now) {
+    if (localWindows.size > 10_000) {
+      for (const [k, v] of localWindows) if (v.resetAt <= now) localWindows.delete(k);
+      if (localWindows.size > 10_000) localWindows.clear();
+    }
+    localWindows.set(key, { count: 1, resetAt: now + windowSeconds * 1000 });
+    return { allowed: true, remaining: limit - 1 };
+  }
+  if (hit.count >= limit) return { allowed: false, remaining: 0 };
+  hit.count++;
+  return { allowed: true, remaining: limit - hit.count };
+}

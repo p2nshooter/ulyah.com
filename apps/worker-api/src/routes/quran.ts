@@ -5,6 +5,8 @@ import { fetchMushafPage, resolvePageForSurahStart, resolvePageForJuzStart } fro
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { parseSegment } from "../lib/grammar-terms.js";
 import type { Env } from "../env.js";
+import { isBotUA } from "../lib/bot.js";
+import { checkRateLimitLocal } from "../lib/rate-limit.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
 
@@ -207,16 +209,25 @@ quranRoute.get("/random", async (c) => {
 // GET /quran/hadits-of-day?lang= — "Hadits Hari Ini" widget, same pick for
 // everyone on a given day. Drawn from the full vetted `hadits` table
 // (curated + the ingested Sahihain collections).
+//
+// Picked by id, not by position. `COUNT(*)` plus `OFFSET n` read every row up
+// to the pick — tens of thousands of D1 rows on each cache miss, on a widget
+// that sits on every site's home page. MIN/MAX of the primary key and a
+// `WHERE id >= ?` seek read three rows. The day number is spread over the id
+// range with a multiplicative hash, so consecutive days land far apart.
 quranRoute.get("/hadits-of-day", async (c) => {
   const requested = c.req.query("lang") ?? DEFAULT_LOCALE;
-  const totalRow = await c.env.DB.prepare("SELECT COUNT(*) AS n, MIN(id) AS min_id FROM hadits").first<{
-    n: number;
-    min_id: number;
+  const range = await c.env.DB.prepare("SELECT MIN(id) AS lo, MAX(id) AS hi FROM hadits").first<{
+    lo: number | null;
+    hi: number | null;
   }>();
-  if (!totalRow || totalRow.n === 0) return c.json({ hadits: null, lang: requested });
+  if (!range?.hi || range.lo === null) return c.json({ hadits: null, lang: requested });
 
-  const offset = dayOfYearSeed() % totalRow.n;
-  const hadits = await c.env.DB.prepare("SELECT * FROM hadits ORDER BY id LIMIT 1 OFFSET ?").bind(offset).first();
+  const span = range.hi - range.lo + 1;
+  const pick = range.lo + (Math.imul(dayOfYearSeed(), 2654435761) >>> 0) % span;
+  const hadits =
+    (await c.env.DB.prepare("SELECT * FROM hadits WHERE id >= ? ORDER BY id LIMIT 1").bind(pick).first()) ??
+    (await c.env.DB.prepare("SELECT * FROM hadits WHERE id >= ? ORDER BY id LIMIT 1").bind(range.lo).first());
 
   return c.json({ hadits, lang: requested });
 });
@@ -227,6 +238,16 @@ quranRoute.get("/search", async (c) => {
   const type = c.req.query("type") ?? "all";
   const { lang } = langParam(c);
   if (!q || q.length < 2) return c.json({ results: {} });
+  // A substring search cannot use an index: one query reads the translation,
+  // hadits and story tables end to end — around a hundred thousand D1 rows,
+  // out of five million a day for every site on the account. It is for people
+  // typing into the search box, so crawlers get an empty answer (the results
+  // page is client-rendered and not indexable anyway), and one address gets a
+  // dozen searches a minute. Repeated queries are served by the edge cache in
+  // index.ts.
+  if (isBotUA(c.req.header("user-agent"))) return c.json({ query: q, results: {} });
+  const rl = checkRateLimitLocal(`search:${c.req.header("cf-connecting-ip") ?? "anon"}`, 12, 60);
+  if (!rl.allowed) return c.json({ query: q, results: {}, error: "Too many searches, try again in a minute" }, 429);
   const like = `%${q}%`;
 
   const results: Record<string, unknown[]> = {};
