@@ -2,7 +2,7 @@
 title: Estiramientos: cuándo sirven, cuándo no y cómo hacerlos bien
 description: Qué dice la evidencia sobre los estiramientos antes y después del deporte, su efecto en las lesiones y las agujetas, los tipos de estiramiento y una rutina útil para ganar flexibilidad.
 category: fuerza-y-movilidad
-date: 2026-10-04
+date: 2026-10-12
 ---
 Durante generaciones, estirar fue un ritual obligatorio antes de cualquier actividad física. En las clases de educación física, en los entrenamientos de fútbol y en las carreras populares, la escena se repetía: piernas apoyadas en una valla, cuerpos inclinados y segundos contados en voz alta. Se suponía que estirar evitaba lesiones, prevenía las agujetas y mejoraba el rendimiento.
 
@@ -91,7 +91,24 @@ Dedicar unos minutos a estas zonas después de entrenar, o en una sesión tranqu
 
 ## Estiramientos y movilidad: no son lo mismo
 
-Como se explica en otro artículo de esta sección, la movilidad incluye fuerza y control en todo el recorrido articular. Para el deporte, combinar los estiramientos con ejercicios de fuerza en rangos amplios suele dar mejores resultados que estirar solo. Una sentadilla profunda bien controlada, una zancada larga o un peso muerto rumano con recorrido completo mejoran a la vez la flexibilidad y la fuerza.
+Como se explica en el artículo sobre [movilidad de cadera y tobillo](/articulos/movilidad-de-cadera-y-tobillo/), la movilidad incluye fuerza y control en todo el recorrido articular. Para el deporte, combinar los estiramientos con ejercicios de fuerza en rangos amplios suele dar mejores resultados que estirar solo. Una sentadilla profunda bien controlada, una zancada larga o un peso muerto rumano con recorrido completo mejoran a la vez la flexibilidad y la fuerza.
+
+## Un calentamiento dinámico de cinco minutos
+
+Antes de correr, jugar un partido o entrenar fuerza, esta secuencia prepara las articulaciones y los músculos sin restar potencia:
+
+1. **Balanceos de pierna adelante y atrás**, sujeto a una pared: 10 por pierna, aumentando poco a poco el recorrido.
+2. **Balanceos laterales** cruzando la pierna por delante del cuerpo: 10 por pierna.
+3. **Zancadas caminando con rotación del tronco** hacia el lado de la pierna adelantada: 6 por lado.
+4. **Sentadillas a un ritmo cómodo**, bajando cada vez un poco más: 10.
+5. **Círculos de brazos** hacia delante y hacia atrás: 10 en cada sentido.
+6. **Skipping suave** o elevaciones de rodillas en el sitio: 20 segundos.
+
+Después, empieza tu actividad a un ritmo suave unos minutos antes de llegar a la intensidad prevista.
+
+## Estirar con suavidad a cualquier edad
+
+Las personas mayores o con poca experiencia pueden estirar con total seguridad adaptando las posiciones: hacerlo sentadas en una silla firme o junto a una pared o una encimera para sujetarse, mantener cada posición unos 30 segundos sin rebotes y respirar con calma. El objetivo no es llegar más lejos que nadie, sino moverse con más comodidad en el día a día. Si tienes una prótesis de cadera o de rodilla, pregunta a tu fisioterapeuta qué posiciones debes evitar.
 
 ## Cuándo no estirar
 
