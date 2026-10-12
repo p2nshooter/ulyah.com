@@ -2,7 +2,7 @@
 title: Bádminton: el deporte de raqueta más rápido y cómo empezar a jugarlo
 description: Reglas básicas, material, golpes fundamentales y beneficios del bádminton para quien quiere empezar, con consejos para los primeros partidos y para prevenir lesiones.
 category: padel-y-raqueta
-date: 2026-10-04
+date: 2026-10-12
 ---
 Para muchas personas, el bádminton es ese juego de playa o de jardín en el que se golpea un volante sin red y sin reglas. Pero el bádminton de competición es otra cosa: es uno de los deportes de raqueta más rápidos del mundo, exige reflejos, velocidad de pies, resistencia y una gran precisión. En los remates de los jugadores profesionales, el volante puede salir a velocidades que superan con mucho las de cualquier pelota de tenis.
 
@@ -73,6 +73,27 @@ La posición de espera es con las rodillas ligeramente flexionadas, el peso en l
 En bádminton, la técnica de pies es tan importante como la de brazo. Los desplazamientos se hacen con pasos laterales, pasos cruzados y zancadas largas hacia delante para llegar a los volantes cerca de la red. Después de cada golpe, el jugador vuelve a la posición central.
 
 Aprender a moverse bien reduce el esfuerzo y el riesgo de lesiones. Muchos clubes dedican una parte importante de los entrenamientos al trabajo de pies sin volante.
+
+## Una sesión de iniciación de una hora
+
+| Bloque | Tiempo | Contenido |
+|---|---|---|
+| Calentamiento | 10 min | movilidad de tobillos, caderas y hombros, desplazamientos laterales y zancadas suaves |
+| Juego de pies sin volante | 10 min | desde el centro, desplazarse a las cuatro esquinas y volver, a ritmo controlado |
+| Peloteo de clear | 10 min | clear contra clear de fondo a fondo, buscando altura y profundidad |
+| Drop y red | 10 min | uno deja caer el volante junto a la red, el otro lo devuelve con un golpe de red |
+| Partido | 15 min | dobles a 21 puntos, aplicando lo practicado |
+| Vuelta a la calma | 5 min | caminar, respirar y estirar con suavidad |
+
+Con dos sesiones así por semana, en pocas semanas se notan los progresos en el control del volante y en la soltura de los desplazamientos.
+
+## Dobles: dónde colocarse
+
+En dobles, la colocación de la pareja cambia según quién tenga la iniciativa. Cuando atacáis, lo habitual es la formación **delante y detrás**: uno se queda cerca de la red para cerrar las devoluciones cortas y el otro remata desde el fondo. Cuando defendéis, la formación cambia a **lado a lado**, cada uno cubriendo media pista de arriba abajo para responder a los remates. Al principio basta con una regla sencilla: hablad entre vosotros, decid «mía» o «tuya» en los volantes dudosos y volved siempre a vuestra zona después de golpear.
+
+## Cuidar el material
+
+Guarda los volantes de plumas en su tubo, con la base hacia abajo, y lejos del calor, porque las plumas secas se rompen antes. La raqueta debe guardarse en su funda, sin dejarla en el coche al sol. Para empezar, una tensión de cordaje moderada es más cómoda y perdona mejor los golpes descentrados; las tensiones altas son para jugadores con mucha técnica. Si el cordaje se rompe o pierde tensión, cualquier tienda especializada puede cambiarlo.
 
 ## Beneficios del bádminton
 
