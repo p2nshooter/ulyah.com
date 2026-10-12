@@ -2,7 +2,7 @@
 title: "Ostfriesische Teekultur: Kluntje, Sahnewölkchen und drei Tassen, so wird Tee an der Küste getrunken"
 description: "Die ostfriesische Teezeremonie Schritt für Schritt: kräftige Assam-Mischung, Kluntje, Sahne mit dem Löffel, nicht umrühren, Teestövchen und Geschirr, Teezeiten und Gepflogenheiten als Gast."
 category: tee-zubereiten
-date: 2026-09-26
+date: 2026-10-12
 ---
 Wer in Ostfriesland zu Besuch ist, bekommt früher oder später eine Tasse Tee angeboten, und mit ihr ein kleines Ritual: Ein Stück Kandis knistert in der Tasse, wenn der heiße Tee darüberläuft, ein Löffel Sahne sinkt am Rand hinab und steigt als weiße Wolke wieder auf. Umgerührt wird nicht. Ostfriesland gehört zu den Regionen mit dem höchsten Teeverbrauch pro Kopf in der Welt, und die ostfriesische Teekultur steht seit 2016 im bundesweiten Verzeichnis des immateriellen Kulturerbes. Dieser Ratgeber erklärt, wie die Zeremonie abläuft, welcher Tee dazugehört und wie du sie zu Hause nachmachst.
 
@@ -17,6 +17,10 @@ Wer in Ostfriesland zu Besuch ist, bekommt früher oder später eine Tasse Tee a
 ## Wie der Tee nach Ostfriesland kam
 
 Tee kam im 17. Jahrhundert über niederländische Händler nach Ostfriesland, das kulturell und wirtschaftlich eng mit den Niederlanden verbunden war. Zuerst war er ein teures Getränk für Wohlhabende, mit der Zeit wurde er zum Alltagsgetränk für alle. In der feuchten, windigen Küstenlandschaft wurde der heiße, kräftige Tee zum festen Bestandteil des Tagesablaufs. Über die Jahrhunderte entwickelten sich eigene Mischungen, eigenes Geschirr und eine eigene Art, Tee zu trinken. Teehandelshäuser in Ostfriesland stellen bis heute eigene Ostfriesenmischungen zusammen.
+
+## Tee und Obrigkeit
+
+Wie sehr der Tee zur Region gehört, zeigt ein Kapitel aus dem 18. Jahrhundert. Nachdem Ostfriesland an Preußen gefallen war, versuchte die preußische Verwaltung mehrfach, den Teekonsum einzuschränken, weil für den importierten Tee viel Geld aus dem Land floss; die Bevölkerung sollte lieber heimisches Bier trinken. Die Versuche scheiterten am Widerstand der Ostfriesen, und der Tee blieb. Solche Geschichten werden an der Küste bis heute gern erzählt, wenn es darum geht, warum Tee hier mehr ist als ein Getränk.
 
 ## Der Tee
 
@@ -65,6 +69,14 @@ Für Gäste gelten ein paar ungeschriebene Regeln:
 
 Du brauchst nicht das ganze Geschirr, um es auszuprobieren. Eine Kanne, kleine Tassen, weißer Kandis und flüssige Sahne genügen. Wichtig ist eine passende, kräftige Mischung. Bei sehr hartem Wasser bildet sich auf schwarzem Tee leicht ein Film, und das Aroma wird dumpfer. Gefiltertes oder weicheres Wasser hilft, siehe [Wasserhärte für Kaffee und Tee](/ratgeber/wasserhaerte-fuer-kaffee-und-tee/). Nimm echte Sahne mit etwa 30 Prozent Fett. Kaffeesahne oder Milch bilden keine schöne Wolke.
 
+## Tee für Gäste planen
+
+Wenn Besuch kommt, lohnt etwas Planung. Die klassischen Tassen sind klein, oft deutlich unter 150 Millilitern, und jeder Gast trinkt mindestens drei davon. Für vier Personen brauchst du also schnell anderthalb Liter Tee. Bereite ihn lieber in zwei Durchgängen zu, statt eine riesige Kanne lange auf dem Stövchen stehen zu lassen, denn auch abgegossener Tee wird mit der Zeit flacher. Stell Kluntje, Sahne und eine kleine Schale für benutzte Löffel bereit, und halte heißes Wasser in Reserve, falls jemand den Tee etwas milder möchte.
+
+## Ostfriesentee heute
+
+Die Tradition lebt, verändert sich aber. Viele Haushalte trinken heute Ostfriesenmischungen aus dem Teebeutel, und in Büros steht eher die Thermoskanne als das Stövchen. Gleichzeitig gibt es in der Region Teestuben und Cafés, die die Zeremonie bewusst pflegen, und viele jüngere Ostfriesen tragen die Gewohnheit in andere Städte mit. Zu Festen, an Sonntagen und wenn Besuch da ist, kommen Rosenporzellan, Kluntje und Sahne nach wie vor auf den Tisch.
+
 ## Was es zum Tee gibt
 
 Zum Nachmittagstee gehört in Ostfriesland oft etwas Süßes oder Gebackenes. Beliebt ist **Krintstuut**, ein Rosinenstuten, der in Scheiben geschnitten und mit Butter gegessen wird. Dazu kommen Butterkuchen, Zwieback, Kekse und im Winter Gebäck mit Gewürzen. Zu Familienfesten wird mancherorts **Bohntjesopp** gereicht, in Branntwein und Kandis eingelegte Rosinen, die aus kleinen Schalen gelöffelt werden. Sie sind allerdings eher etwas für besondere Anlässe als für den Alltag, und für Kinder natürlich nicht geeignet.
@@ -100,3 +112,11 @@ Traditionell wird weißer Kandis verwendet, das Kluntje. Brauner Kandis schmeckt
 ### Gibt es Ostfriesentee ohne Koffein?
 
 Es gibt entkoffeinierte Schwarztees, die ähnlich kräftig sind. Ganz gleich schmecken sie nicht, für den Abend sind sie aber eine Möglichkeit.
+
+### Taugt Ostfriesentee im Teebeutel für die Zeremonie?
+
+Ja. Teebeutel enthalten meist fein gebrochene Blätter, die schneller und kräftiger ausziehen. Lass sie deshalb eher kürzer ziehen und nimm sie rechtzeitig heraus. Loser Tee gibt dir mehr Kontrolle über Stärke und Ziehzeit, die Zeremonie selbst gelingt aber mit beidem.
+
+## Fazit
+
+Ostfriesentee ist ein Ritual der Gastfreundschaft: kräftiger Tee, knisterndes Kluntje, eine Sahnewolke und Zeit füreinander. Mit einer guten Assam-Mischung, echter Sahne und kleinen Tassen holst du dir ein Stück Küste nach Hause, ganz gleich, wo du wohnst.
