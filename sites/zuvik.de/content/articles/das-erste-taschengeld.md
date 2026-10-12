@@ -2,7 +2,7 @@
 title: "Das erste Taschengeld"
 description: Ronja bekommt zum ersten Mal Taschengeld. Die ersten zwei Euro sind nach zehn Minuten weg, dann sieht sie ein Spielzeugpferd. Eine Geschichte über Geld, Geduld und eine Spardose.
 category: zusammenleben-zuhause
-date: 2026-07-28
+date: 2026-10-12
 ---
 Es fing an der Kasse im Supermarkt an, wie so oft. Ronja, sieben Jahre alt, stand neben dem Einkaufswagen und hielt eine Packung Überraschungseier hoch. „Bitte, Mama. Nur eins.“
 
@@ -91,6 +91,14 @@ Taschengeld ist für Kinder eine der ersten Gelegenheiten, den Umgang mit Geld z
 - **Taschengeld nicht als Strafe oder Belohnung einsetzen.** Wenn Geld an Verhalten gekoppelt wird, geht es nicht mehr ums Lernen, sondern ums Gehorchen. Fehlverhalten sollte anders besprochen werden.
 - **Sparziele sichtbar machen.** Ein Bild des Wunschgegenstands und ein Fortschrittsbalken helfen Kindern, durchzuhalten.
 - **Geldgeschenke besprechen.** Ob Geld von Großeltern zum Taschengeld zählt oder separat gespart wird, können Familien gemeinsam mit dem Kind entscheiden.
+
+### Was Kinder mit ihrem Geld kaufen dürfen
+
+Dass Ronja ihr Pferd allein kaufen durfte, hat auch eine rechtliche Grundlage. Kinder ab sieben Jahren sind in Deutschland beschränkt geschäftsfähig. Nach dem sogenannten Taschengeldparagrafen im Bürgerlichen Gesetzbuch sind ihre Käufe wirksam, wenn sie sie mit Geld bezahlen, das ihnen zur freien Verfügung überlassen wurde, also etwa mit dem Taschengeld. Größere Anschaffungen, Ratenkäufe oder Verträge wie ein Handyabo brauchen dagegen die Zustimmung der Eltern. Für Kinder ist das ein guter Anlass, über den Unterschied zwischen kleinen und großen Entscheidungen zu sprechen.
+
+### Vom Sparschwein zum Konto
+
+Mit zunehmendem Alter darf der Umgang mit Geld wachsen. Viele Familien stellen bei älteren Grundschulkindern oder zu Beginn der weiterführenden Schule von wöchentlichem auf monatliches Taschengeld um, damit Kinder lernen, über einen längeren Zeitraum zu planen. Banken bieten Konten für Kinder und Jugendliche an, die ohne Überziehungsmöglichkeit geführt werden. Gemeinsam die Kontoauszüge anzuschauen, zeigt, wohin das Geld fließt, und bereitet auf den eigenen Haushalt vor.
 
 ### Zum Gespräch mit euren Kindern
 
