@@ -2,7 +2,7 @@
 title: "Brühe selbst kochen: Gemüsebrühe aus Resten, Knochenbrühe und Suppenwürze im Glas"
 description: "So kochst du eine klare, kräftige Gemüsebrühe aus Gemüseresten, eine Rinderbrühe aus gerösteten Knochen und eine Salz-Gemüse-Paste als Vorrat, mit Mengen, Zeiten und sicherer Lagerung."
 category: kuechenwissen
-date: 2026-09-30
+date: 2026-10-12
 ---
 Eine gute Brühe ist das stille Fundament der Küche. Sie trägt Suppen, Eintöpfe, Risotto und Soßen, sie macht Bohnensalat rund und Kohlrabigemüse aromatisch. Gekaufte Brühwürfel sind bequem, schmecken aber oft vor allem nach Salz und Hefeextrakt. Selbst gekochte Brühe ist dagegen fast umsonst: Sie entsteht aus Schalen, Enden und Resten, die sonst im Biomüll landen würden, und aus ein paar Stunden Geduld. Hier erfährst du, wie du eine klare Gemüsebrühe ansetzt, wie eine kräftige Knochenbrühe gelingt und wie du mit einer Salz-Gemüse-Paste immer Brühe im Kühlschrank hast.
 
@@ -59,6 +59,10 @@ Lege einen großen Gefrierbeutel oder eine Dose ins Gefrierfach. Jedes Mal, wenn
 
 Länger als eine Stunde zu kochen bringt bei Gemüsebrühe nichts. Das Gemüse ist ausgelaugt und kann bitter werden.
 
+## Pilzbrühe für die vegetarische Küche
+
+Wer eine vegetarische Brühe mit Tiefe sucht, greift zu getrockneten Pilzen. Weiche 20 g getrocknete Steinpilze oder Shiitake 20 Minuten in einem halben Liter warmem Wasser ein. Röste zwei halbierte Zwiebeln wie im Grundrezept an, gib 300 g frische Champignons in Scheiben, eine Möhre und ein Stück Sellerie dazu und schwitze alles an, bis die Pilze Farbe nehmen. Gieße die eingeweichten Pilze samt Einweichwasser, das du durch einen Kaffeefilter gießt, und weitere 1,5 Liter Wasser an. Nach 45 Minuten leisem Sieden abseihen und mit einem Schuss Sojasoße abschmecken. Diese Brühe trägt Risotto, Linseneintopf und Bratensoßen ohne Fleisch.
+
 ## Kräftige Rinderbrühe aus gerösteten Knochen
 
 Für eine Knochenbrühe brauchst du mehr Zeit, aber kaum mehr Arbeit.
@@ -70,6 +74,18 @@ Für eine Knochenbrühe brauchst du mehr Zeit, aber kaum mehr Arbeit.
 5. Seihe die Brühe ab und lass sie abkühlen. Stelle sie über Nacht in den Kühlschrank. Das Fett erstarrt an der Oberfläche und lässt sich als Platte abheben.
 
 Eine gute Knochenbrühe geliert im Kühlschrank. Das ist ein Zeichen dafür, dass Kollagen aus den Knochen gelöst wurde, und gibt Suppen und Soßen später einen vollen Körper.
+
+### Was mit dem ausgekochten Fleisch passiert
+
+Das Fleisch von Beinscheiben oder Suppenfleisch ist nach mehreren Stunden zart und keineswegs wertlos. Zupfe es in mundgerechte Stücke und gib es zurück in die Suppe, oder mache daraus einen Rindfleischsalat: Fleisch in feine Streifen schneiden, mit Zwiebelringen, Essig, Öl, etwas Brühe, Senf und Schnittlauch anmachen und eine Stunde ziehen lassen. Das ausgekochte Gemüse hat dagegen kaum noch Geschmack und kommt auf den Kompost.
+
+## Brühe klären wie im Restaurant
+
+Für eine glasklare Kraftbrühe, etwa als Vorspeise am Festtag, klärst du die Brühe mit Eiweiß. Verquirle zwei Eiweiß mit etwas kaltem Wasser und einer Handvoll fein gehacktem Suppengemüse. Rühre die Mischung in einen Liter kalte, entfettete Brühe und erhitze sie langsam unter vorsichtigem Rühren. Sobald das Eiweiß stockt und an die Oberfläche steigt, hörst du auf zu rühren. Das gerinnende Eiweiß bindet die Trübstoffe und bildet einen Deckel. Lass die Brühe darunter 20 bis 30 Minuten leise ziehen und gieße sie dann vorsichtig durch ein Tuch ab. Das Ergebnis ist klar wie Tee.
+
+## Schneller mit dem Schnellkochtopf
+
+Im Schnellkochtopf verkürzt sich die Garzeit erheblich. Gemüsebrühe ist nach etwa 15 bis 20 Minuten fertig, Knochenbrühe nach etwa eineinhalb bis zwei Stunden. Fülle den Topf höchstens bis zur markierten Höchstmarke und lass den Druck nach dem Garen langsam ab, damit die Brühe nicht schäumt und das Ventil frei bleibt. Klarer als im offenen Topf wird die Brühe dabei nicht, für Suppen und Eintöpfe ist das aber kein Nachteil.
 
 ## Brühe aufbewahren
 
@@ -103,3 +119,7 @@ Ja. Nimm ein Suppenhuhn oder Hühnerkarkassen, setze sie kalt auf und lass sie z
 ### Wie viel Salz gehört in Brühe?
 
 Für eine Trinkbrühe etwa 6 bis 8 Gramm pro Liter. Für einen Brühenvorrat, den du später einkochst oder für Soßen nutzt, salzt du kaum oder gar nicht.
+
+### Darf ich Zwiebelschalen mitkochen?
+
+In Maßen ja. Ein paar gewaschene Schalen geben der Brühe eine schöne goldene Farbe. Zu viele machen sie dagegen sehr dunkel und leicht bitter. Ein bis zwei Zwiebeln mit Schale auf zwei Liter Brühe sind ein guter Richtwert.
