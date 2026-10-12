@@ -2,7 +2,7 @@
 title: "Schranktür und Schublade einstellen: Topfscharniere, Auszüge und Fronten richten"
 description: Wie du schiefe Schranktüren über die drei Stellschrauben von Topfscharnieren ausrichtest, ausgerissene Scharniere reparierst, klemmende Schubladen gängig machst und Schubladenfronten gerade setzt.
 category: reparaturen-im-haushalt
-date: 2026-08-22
+date: 2026-10-12
 ---
 Küchenschränke, Kleiderschränke und Badmöbel haben eines gemeinsam: Nach einiger Zeit hängen Türen schief, die Fugen zwischen den Fronten werden ungleichmäßig, eine Tür schließt nicht mehr richtig oder eine Schublade klemmt. Das liegt selten an einem Defekt, sondern daran, dass sich die Möbel gesetzt haben, Schrauben locker sind oder die Beschläge nachgestellt werden müssen. Moderne Scharniere und Auszüge sind dafür gemacht, mit einem Schraubendreher eingestellt zu werden.
 
@@ -88,6 +88,22 @@ Bei Küchen mit vielen Fronten wirkt alles ruhiger, wenn die Fugen gleich breit 
 | Öl auf Kugelauszügen | Staub und Schmutz verkleben die Schienen |
 | Ausgerissene Löcher ignoriert | Tür sackt immer wieder ab |
 
+## Scharnierarten erkennen
+
+Wer ein Scharnier ersetzen will, muss wissen, welches er hat. Entscheidend ist, wie die Tür am Korpus sitzt. Bei **aufliegenden** Türen deckt die Tür die Seitenwand vollständig ab; das Scharnier ist gerade. Bei **halb aufliegenden** Türen teilen sich zwei Türen eine Mittelwand, jede deckt sie zur Hälfte; das Scharnier ist leicht gekröpft. Bei **innenliegenden** Türen sitzt die Tür im Korpus, bündig mit der Vorderkante; das Scharnier ist stark gekröpft. Dazu kommen unterschiedliche Öffnungswinkel, etwa rund 95, 110 oder 155 Grad, und Spezialscharniere für Eckschränke oder Glastüren. Nimm das alte Scharnier mit in den Fachhandel oder notiere die Herstellerangaben, dann passt das neue sicher.
+
+## Clip-Scharniere ohne Werkzeug abnehmen
+
+Viele moderne Scharniere werden nicht an die Montageplatte geschraubt, sondern aufgeklipst. Ein kleiner Hebel oder eine Taste am Scharnierarm löst die Verbindung, und die Tür lässt sich ohne Werkzeug abnehmen, etwa zum Reinigen oder Streichen des Korpus. Beim Wiedereinsetzen hakst du den Arm vorne ein und drückst ihn hinten an, bis er hörbar einrastet. Die Einstellungen bleiben dabei erhalten, weil sie im Scharnier gespeichert sind.
+
+## Grifflose Fronten mit Drucköffnung
+
+Bei grifflosen Küchen öffnen sich Türen und Schubladen über einen Druckmechanismus: Ein leichter Druck auf die Front löst einen federnden Stößel aus. Öffnet eine Tür nicht oder springt sie von selbst auf, stimmt meist der Abstand zwischen Front und Korpus nicht. Viele dieser Öffner lassen sich in der Länge verstellen, und auch die Tiefenverstellung der Scharniere wirkt hier. Wichtig: Scharniere mit eingebauter Schließdämpfung arbeiten gegen den Öffner und müssen bei Drucköffnung meist ohne Dämpfung sein.
+
+## Hohe und schwere Türen
+
+Je höher und schwerer eine Tür, desto mehr Scharniere braucht sie. Als grobe Orientierung tragen bei üblichen Spanplattentüren zwei Scharniere Türen bis knapp einen Meter Höhe, darüber kommen ein drittes und bei Hochschranktüren oft ein viertes Scharnier hinzu. Die Herstellerangaben zu Türhöhe und Gewicht haben Vorrang. Ein zusätzliches Scharnier in der Mitte verhindert oft, dass eine hohe Tür absackt. Verzieht sich eine lange Tür im Lauf der Zeit, gibt es für Kleiderschranktüren Richtbeschläge, die auf der Rückseite montiert werden und die Tür wieder gerade spannen.
+
 ## Praxisbeispiel: Eine Küchenzeile mit schiefen Fronten
 
 In einer zehn Jahre alten Küche sind die Fugen zwischen den Hängeschranktüren ungleichmäßig: Eine Tür stößt oben an die Nachbartür, eine andere schließt nicht mehr ganz, und die Schubladenfront unter der Spüle steht vorne schief.
@@ -130,6 +146,8 @@ Glastürscharniere haben ähnliche Einstellmöglichkeiten, aber andere Befestigu
 **Die Tür schlägt laut zu.** Topfscharniere ohne Dämpfung lassen sich mit aufsteckbaren Dämpfern oder Puffern nachrüsten. Kleine Filz- oder Gummipuffer am Korpus dämpfen ebenfalls.
 
 **Eine Schublade fährt von selbst auf.** Der Korpus steht nach vorn geneigt. Mit der Wasserwaage prüfen und die vorderen Stellfüße leicht anheben.
+
+**Die Dämpfung wirkt nicht mehr.** Eingebaute Dämpfer lassen nach vielen Jahren nach oder sind bei mehreren Scharnieren einer Tür unterschiedlich eingestellt. Prüfe, ob bei allen Scharnieren derselbe Schalter aktiviert ist, und ersetze ein defektes Scharnier durch eines derselben Bauart.
 
 ## Fazit
 
