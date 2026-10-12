@@ -53,7 +53,7 @@ export const MUROTTAL_SOURCES: Record<string, MurottalSource> = {
   jibreel: { kind: "aqc", edition: "ar.muhammadjibreel", name: "Muhammad Jibreel" },
   sowaid: { kind: "aqc", edition: "ar.aymanswoaid", name: "Ayman Sowaid" },
   qasim: { kind: "aqc", edition: "ar.muhammadalmuhaisany", name: "Muhsin Al-Qasim" },
-  tablawi: { kind: "ey", folder: "Mohammad_al_Tablawi_128kbps", name: "Mohammad Al-Tablawi" },
+  tablawi: { kind: "ey", folder: "Mohammad_al_Tablaway_128kbps", name: "Mohammad Al-Tablawi" },
   dosari: { kind: "ey", folder: "Yasser_Ad-Dussary_128kbps", name: "Yasser Al-Dosari" },
   qatami: { kind: "ey", folder: "Nasser_Alqatami_128kbps", name: "Nasser Al Qatami" },
   bukhatir: { kind: "ey", folder: "Salaah_AbdulRahman_Bukhatir_128kbps", name: "Salah Bukhatir" },

@@ -89,7 +89,7 @@ export const RECITERS: QoriDef[] = [
   { key: "ar.minshawi", name: "Mohamed Siddiq Al-Minshawi", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", featured: true, cdn: "aqc", aqcEdition: "ar.minshawi", r2Folder: "minshawi" },
   { key: "ar.minshawimujawwad", name: "Al-Minshawi (Mujawwad)", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Mujawwad", cdn: "aqc", aqcEdition: "ar.minshawimujawwad", r2Folder: "minshawi-mujawwad" },
   { key: "ar.muhammadjibreel", name: "Muhammad Jibreel", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "aqc", aqcEdition: "ar.muhammadjibreel", r2Folder: "jibreel" },
-  { key: "ey.tablawi", name: "Muhammad Al-Tablawi", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "ey", eyId: "Mohammad_al_Tablawi_128kbps", r2Folder: "tablawi" },
+  { key: "ey.tablawi", name: "Muhammad Al-Tablawi", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Murattal", cdn: "ey", eyId: "Mohammad_al_Tablaway_128kbps", r2Folder: "tablawi" },
   // Libya
   { key: "ar.aymansuwayd", name: "Ayman Suwayd", flag: "🇱🇾", country: "Libya", cc: "ly", note: "Murattal Hafalan", cdn: "aqc", aqcEdition: "ar.aymanswoaid", r2Folder: "sowaid" },
   // Qatar
@@ -102,7 +102,11 @@ export const RECITERS: QoriDef[] = [
   // everyayah, per-ayah, and the gentlest voice to learn from, so Al-Qur'an
   // Kids offers it as its own reciter. No R2 folder on purpose: it streams
   // straight from the CDN rather than adding another 6,236-file library.
-  { key: "ey.minshawi_children", name: "Al-Minshawi & Anak-anak", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Suara anak — ikuti bacaan", cdn: "ey", eyId: "Minshawy_Children_128kbps" },
+  // everyayah publishes it as Minshawy_Teacher_128kbps (al-Minshawi
+  // al-Mu'allim); the name this line used to carry answered 404, so the
+  // reciter was silent (scripts/probe-murottal-cdn.mjs, 12 Oct 2026). Same for
+  // Al-Tablawi above, whose folder is spelled "Tablaway".
+  { key: "ey.minshawi_children", name: "Al-Minshawi & Anak-anak", flag: "🇪🇬", country: "Mesir", cc: "eg", note: "Suara anak — ikuti bacaan", cdn: "ey", eyId: "Minshawy_Teacher_128kbps" },
 
   // Tambahan — cakupan lebih luas (per-ayat, everyayah.com)
   { key: "ey.juhany", name: "Abdullah Awad Al-Juhany", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "ey", eyId: "Abdullaah_3awwaad_Al-Juhaynee_128kbps", r2Folder: "juhany" },

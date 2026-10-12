@@ -816,7 +816,8 @@ tautan per situs:
   bitrate yang benar-benar ada; hasilnya di `packages/shared/src/murottal-cdn.ts`
   dipakai pemutar web dan redirect `/audio/qori2/`. Audio per-surah radio hanya
   diminta untuk 3 qari yang memang punya. Folder everyayah Al-Tablawi dan
-  Minshawi & anak-anak 404 → dicari nama foldernya yang benar.
+  Minshawi & anak-anak 404 → folder yang benar `Mohammad_al_Tablaway_128kbps`
+  dan `Minshawy_Teacher_128kbps` (diukur oleh probe yang sama).
 - **Error 500 saat kuota D1 habis**: `/content/live-streams` dan
   `/analytics/pageview` kini menjawab tanpa error.
 - **404 `/gratitude`, `/dankbarkeit`, `/gratitud`** di halaman Tentang situs
