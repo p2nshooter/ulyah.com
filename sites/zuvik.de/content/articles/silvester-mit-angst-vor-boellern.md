@@ -2,7 +2,7 @@
 title: "Silvester mit Angst vor dem Knallen"
 description: Letztes Jahr hat sich Noah an Silvester schreiend unter dem Bett versteckt. Diesmal plant die Familie anders. Über Ängste, gute Vorbereitung und eine Mitternacht um sieben Uhr abends.
 category: feste-und-jahreszeiten
-date: 2026-08-11
+date: 2026-10-12
 ---
 Es begann schon am 28. Dezember. Irgendwo im Hinterhof des Mietshauses in Berlin-Neukölln explodierte ein Böller, laut wie ein Schuss, und das Echo hallte zwischen den Hauswänden hin und her. Noah, fünf Jahre alt, ließ seinen Löffel fallen, rannte aus der Küche und verschwand in seinem Zimmer. Als seine Mutter Svenja ihm folgte, fand sie ihn unter dem Bett, die Hände auf den Ohren, zusammengerollt wie ein Igel.
 
@@ -78,9 +78,19 @@ Viele Kinder fürchten sich vor dem Lärm an Silvester, besonders in Städten, i
 - **Nicht zwingen.** Ob ein Kind das Feuerwerk anschauen will, sollte es selbst entscheiden dürfen. Mut wächst, wenn man ihn freiwillig zeigt.
 - **Geschwister mitdenken.** Ältere Kinder haben eigene Wünsche. Ein Plan, der beide berücksichtigt, verhindert, dass die Angst des einen die Freude des anderen verdrängt.
 
+### Sicher durch die Silvesternacht
+
+Silvesterfeuerwerk der Kategorie F2, also Raketen und Böller, darf in Deutschland nur an Erwachsene verkauft und in der Regel nur am 31. Dezember und 1. Januar gezündet werden. Kinder ab zwölf Jahren dürfen Kleinstfeuerwerk der Kategorie F1 benutzen, etwa Knallerbsen oder Wunderkerzen, kleinere Kinder nur mit einem Erwachsenen an ihrer Seite. Wunderkerzen gehören nach draußen, und der Draht bleibt noch lange heiß: Ein Eimer mit Wasser zum Ablegen hilft. Erklärt euren Kindern, dass sie Blindgänger niemals aufheben dürfen, auch am Neujahrsmorgen nicht. Und haltet Abstand zu Menschen, die Böller zünden. Sehr laute Knalle aus der Nähe können das Gehör dauerhaft schädigen, bei Kindern wie bei Erwachsenen.
+
+### Wenn die Angst bleibt
+
+Dass ein Kind sich an Silvester fürchtet, ist normal. Anders ist es, wenn die Angst vor Geräuschen den Alltag bestimmt, etwa wenn ein Kind bei jedem Gewitter, jedem Staubsauger oder jeder Toilettenspülung in Panik gerät oder Orte meidet, an denen es laut werden könnte. Manche Kinder reagieren besonders empfindlich auf Sinnesreize. Dann lohnt sich ein Gespräch mit der Kinderärztin oder dem Kinderarzt, die einschätzen können, ob weitere Unterstützung sinnvoll ist.
+
 ### Zum Gespräch mit euren Kindern
 
 - Gibt es Geräusche, die dir Angst machen? Was hilft dir dann?
 - Was glaubst du, wie ein Feuerwerk funktioniert?
 - Was ist dir an Silvester am wichtigsten: das Aufbleiben, die Lichter oder etwas ganz anderes?
 - Was hättest du an Noahs Stelle gemacht, als er um Mitternacht aufgewacht ist?
+- Wie können wir an Silvester auch an Tiere denken, die sich vor dem Lärm fürchten, zum Beispiel an den Hund der Nachbarn?
+- Was wünschst du dir für das neue Jahr, wenn wir um sieben Uhr anstoßen?
