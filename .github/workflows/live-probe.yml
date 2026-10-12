@@ -20,6 +20,7 @@ on:
     paths:
       - '.github/workflows/live-probe.yml'
       - 'scripts/live-probe.mjs'
+      - 'scripts/check-murottal-cdn.mjs'
 
 permissions:
   contents: read
@@ -33,6 +34,11 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
+      # Which bitrates each murottal CDN really publishes, per reciter. Plain
+      # fetches, no install; never fails the job.
+      - name: Murottal CDN check
+        continue-on-error: true
+        run: node scripts/check-murottal-cdn.mjs
       # In a scratch folder: the repository is a pnpm workspace, and the probe
       # needs nothing from it but its own script.
       - name: Install Playwright + Chromium
