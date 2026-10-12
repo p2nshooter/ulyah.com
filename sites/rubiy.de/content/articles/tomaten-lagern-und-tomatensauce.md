@@ -2,7 +2,7 @@
 title: "Sommertomaten: richtig lagern, häuten und zu Tomatensauce verkochen"
 description: Warum Tomaten nicht in den Kühlschrank gehören, welche Sorte wofür taugt und wie du aus reifen Freilandtomaten eine Sauce kochst, die nach Sommer schmeckt.
 category: sommer
-date: 2026-06-11
+date: 2026-10-12
 ---
 Eine Tomate, die in der Sonne gereift ist, hat mit der blassen, harten Frucht aus dem Winterregal wenig gemeinsam. Sie duftet schon am Stielansatz, ist saftig, süß und hat zugleich eine frische Säure. Aus deutschem Freilandanbau gibt es solche Tomaten etwa von Juli bis in den Oktober, aus beheizten oder unbeheizten Gewächshäusern auch schon früher. Der Höhepunkt liegt im August und September, wenn Gärten und Marktstände überquellen und Tomaten oft kistenweise günstig zu haben sind.
 
@@ -94,6 +94,10 @@ Zum Einkochen eignen sich Tomaten gut, weil sie relativ viel Säure enthalten. A
 - **Brot mit Tomate:** Geröstetes Brot mit einer halbierten Knoblauchzehe abreiben, eine sehr reife Tomate darauf zerreiben, salzen und mit Olivenöl beträufeln, so wie man es in Spanien isst.
 - **Geschmorte Kirschtomaten:** Mit Olivenöl, Salz und Thymian 20 Minuten bei 200 Grad im Ofen schmoren. Passt zu Pasta, Polenta oder Ziegenkäse.
 - **Kalte Tomatensuppe:** Ein Kilo sehr reife Tomaten mit einer halben Gurke, einer roten Paprika, einem Stück Weißbrot, einer Knoblauchzehe, Essig, Öl und Salz pürieren und gut kühlen.
+
+## Tomaten im eigenen Garten
+
+Die aromatischsten Tomaten sind die, die du selbst erntest. Tomaten kommen erst nach den Eisheiligen Mitte Mai ins Freie, an einen sonnigen, warmen Platz. Der größte Feind ist die Kraut- und Braunfäule, eine Pilzkrankheit, die sich bei nassem Laub rasant ausbreitet. Ein Regendach oder ein kleines Tomatenhaus schützt die Pflanzen, und gegossen wird immer direkt an die Wurzel, nie über die Blätter. Bei Stabtomaten brichst du regelmäßig die Seitentriebe in den Blattachseln aus, das sogenannte Ausgeizen. So steckt die Pflanze ihre Kraft in weniger, dafür größere Früchte. Dunkle, eingesunkene Stellen an der Unterseite der Früchte heißen Blütenendfäule. Sie entsteht durch Calciummangel in der Frucht, meist ausgelöst durch unregelmäßiges Gießen. Gleichmäßige Feuchtigkeit beugt vor.
 
 ## Häufige Fragen
 
