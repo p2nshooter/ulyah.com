@@ -2,7 +2,7 @@
 title: Verduras fermentadas en salmuera: la guía básica para fermentar cualquier hortaliza
 description: Principios y recetas para fermentar zanahorias, coliflor, pepinillos, rabanitos y pimientos en salmuera: qué porcentaje de sal usar, cómo mantenerlas sumergidas, tiempos, aromáticos y seguridad.
 category: kefir-y-fermentados
-date: 2026-09-29
+date: 2026-10-12
 ---
 Si el chucrut es la fermentación de la col cortada y salada en seco, la fermentación en salmuera es su prima versátil: verduras enteras o en trozos, cubiertas por agua con sal, que fermentan durante unos días o semanas hasta volverse ácidas y crujientes. Con este método se pueden fermentar zanahorias, coliflor, pepinos, rabanitos, pimientos, cebolletas, nabos, espárragos y muchas otras hortalizas.
 
@@ -119,6 +119,28 @@ Son señales de alarma:
 - Olor a podrido, a basura o muy desagradable, distinto del olor ácido normal.
 
 Ante cualquiera de estas señales, desecha el tarro entero sin probarlo.
+
+## Qué esperar día a día
+
+Una fermentación en salmuera sigue casi siempre el mismo guion, aunque el ritmo cambie con la temperatura:
+
+| Momento a unos 20 °C | Lo que verás |
+|---|---|
+| Días 1 y 2 | apenas cambios; la salmuera sigue clara |
+| Días 2 a 4 | primeras burbujas, salmuera algo turbia, olor ligeramente ácido |
+| Días 5 a 7 | mucha actividad, sabor ácido evidente al probar una pieza |
+| Segunda semana | la actividad se calma, el sabor se redondea |
+| Después | a la nevera cuando el punto de acidez te guste |
+
+Para probar, saca una pieza con un tenedor limpio, nunca con los dedos, y vuelve a comprobar que el resto queda bien sumergido.
+
+## Comprobar la acidez
+
+Si quieres una confirmación objetiva, unas tiras de pH para alimentos o un medidor de pH sencillo resuelven la duda. Moja la tira en un poco de salmuera retirada con una cuchara limpia: un fermentado terminado suele estar en torno a un pH de 3,5, y en cualquier caso por debajo de 4,6. Si al cabo de dos semanas la salmuera no se ha acidificado, algo ha fallado, por ejemplo una temperatura demasiado baja o poca actividad, y lo prudente es desecharla y empezar de nuevo.
+
+## Del tarro a la mesa
+
+Las verduras fermentadas acompañan muy bien a platos sencillos: unas zanahorias con un plato de lentejas, coliflor fermentada con queso curado, rabanitos en una ensalada de patata o pimientos en un bocadillo de tortilla. Sírvelas en pequeñas cantidades, como un condimento, y añade un poco de su salmuera a los aliños.
 
 ## Conservación
 
