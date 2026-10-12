@@ -2,7 +2,7 @@
 title: Roscón de Reyes casero: receta con prefermento, agua de azahar y masa tierna durante días
 description: Roscón de Reyes casero con prefermento y agua de azahar: amasado, formado de la rosca, decoración, horneado, relleno de nata y sorpresas seguras.
 category: bolleria
-date: 2026-09-16
+date: 2026-10-12
 ---
 El roscón de Reyes es el dulce que cierra las fiestas de Navidad en España. Se come el 6 de enero, el día de la Epifanía, en desayunos y meriendas familiares, y esconde en su interior dos sorpresas: una figurita, que trae suerte a quien la encuentra, y un haba seca, que obliga a quien le toca a pagar el roscón del año siguiente. Su forma de corona recuerda a los Reyes Magos, y las frutas escarchadas de colores representan las piedras preciosas.
 
@@ -111,6 +111,31 @@ Déjalo enfriar completamente sobre una rejilla.
 Si vas a rellenar el roscón, monta la nata muy fría con el azúcar glas hasta que esté firme. Corta el roscón por la mitad en horizontal con un cuchillo de sierra, rellena con la nata usando una manga pastelera y coloca la tapa encima.
 
 Rellénalo poco antes de servir, porque la nata ablanda la masa y requiere refrigeración.
+
+## Un calendario para tenerlo listo el 6 de enero
+
+El roscón exige muchas horas, pero casi todas son de espera. Este es un horario que permite desayunarlo recién hecho sin madrugar en exceso:
+
+| Momento | Tarea |
+|---|---|
+| 5 de enero, por la tarde | preparar el prefermento y, dos horas después, amasar |
+| 5 de enero, por la noche | guardar la masa tapada en la nevera |
+| 6 de enero, a primera hora | formar la rosca y dejarla fermentar en un lugar templado |
+| Hora y media o dos horas después | decorar y hornear |
+| Media hora antes del desayuno | dejar templar y, si se quiere, rellenar |
+
+Si prefieres no madrugar, hornéalo el día 5 por la noche, guárdalo bien envuelto cuando esté frío y rellénalo por la mañana.
+
+## Naranja confitada casera
+
+La fruta escarchada de la tienda puede sustituirse por piel de naranja confitada en casa, mucho más aromática:
+
+1. Corta la piel de dos naranjas en tiras, con parte de la piel blanca.
+2. Ponlas en agua fría, lleva a ebullición y escurre. Repite el proceso dos veces más para quitar el amargor.
+3. Prepara un almíbar con 200 g de azúcar y 200 g de agua, añade las tiras y cuécelas a fuego muy suave durante unos 45 minutos, hasta que estén translúcidas.
+4. Déjalas secar sobre una rejilla unas horas.
+
+Guárdalas en un tarro con un poco de su almíbar en la nevera: sirven también para panes dulces, bizcochos o para bañar en chocolate.
 
 ## Conservación
 
