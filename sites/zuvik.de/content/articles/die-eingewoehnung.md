@@ -2,7 +2,7 @@
 title: "Die Eingewöhnung"
 description: Ida ist vierzehn Monate alt und soll in die Krippe, und ihre Mutter hat schon vor dem ersten Tag ein schlechtes Gewissen. Über Abschiede, Tränen und Vertrauen zu einem neuen Menschen.
 category: schule-und-kita
-date: 2026-08-09
+date: 2026-10-12
 ---
 Johanna hatte die Tasche schon am Abend vorher gepackt: Wechselwäsche, Windeln, Hausschuhe mit Gummisohle, ein Foto der Familie für die Garderobe und Schnuffi, das Kuscheltuch, das aussah wie ein platt getretener Hase. Sie hatte alles dreimal kontrolliert. Trotzdem lag sie in der Nacht vor dem ersten Krippentag bis halb drei wach.
 
@@ -70,6 +70,14 @@ Die Eingewöhnung in Krippe oder Kita ist für viele Familien eine emotionale Ze
 - **Über die eigenen Gefühle sprechen.** Schuldgefühle und Trennungsschmerz sind normal. Es hilft, sie mit dem Partner, der Erzieherin oder anderen Eltern zu teilen, statt sie allein zu tragen.
 - **Den anderen Elternteil einbeziehen.** Manchmal fällt die Trennung leichter, wenn ein anderes vertrautes Familienmitglied die Eingewöhnung übernimmt. Das ist keine Niederlage, sondern eine Möglichkeit.
 - **Der Erzieherin vertrauen.** Fachkräfte haben viele Eingewöhnungen begleitet und erkennen, wann ein Kind bereit ist. Fragt nach, lasst euch berichten und bleibt im Gespräch.
+
+### Berliner oder Münchener Modell?
+
+Viele Krippen in Deutschland arbeiten nach einem von zwei bekannten Modellen. Beim **Berliner Eingewöhnungsmodell**, wie in Idas Kita, baut das Kind zuerst eine Beziehung zu einer festen Bezugserzieherin auf, während ein Elternteil als sicherer Hafen im Raum bleibt. Nach einigen Tagen folgen erste kurze Trennungen, die langsam länger werden. Das **Münchener Modell** dauert meist etwas länger. Hier lernt das Kind die ganze Gruppe, die Räume und mehrere Fachkräfte kennen, und die Eltern begleiten den Alltag zunächst intensiver mit. Fragt beim Aufnahmegespräch nach, wie eure Kita arbeitet, damit ihr wisst, was euch erwartet.
+
+### Wenn das Kind zu Hause anders ist
+
+In den ersten Wochen nach dem Krippenstart sind viele Kinder zu Hause anhänglicher, schlafen schlechter oder sind schneller wütend. Das neue Umfeld kostet Kraft. Viele werden im ersten Krippenjahr auch häufiger krank, weil sie mit vielen neuen Erregern in Kontakt kommen. Plant deshalb in dieser Zeit ruhige Nachmittage und Puffer für Krankheitstage ein. Es wird mit der Zeit besser, für Kinder wie für Eltern.
 
 ### Zum Gespräch mit euren Kindern
 
