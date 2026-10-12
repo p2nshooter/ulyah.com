@@ -2,7 +2,7 @@
 title: Caminar 10.000 pasos: qué dice la evidencia y cómo integrarlo en el día
 description: De dónde viene la cifra de los 10.000 pasos, qué dicen los estudios sobre pasos diarios y salud, la importancia del ritmo y cómo sumar más pasos sin cambiar de vida.
 category: ocio-activo
-date: 2026-10-04
+date: 2026-10-12
 ---
 Los relojes inteligentes, las pulseras de actividad y los teléfonos han popularizado una cifra que muchos persiguen cada día: los 10.000 pasos. Para algunos es un objetivo motivador; para otros, una meta inalcanzable que les hace sentir que, si no llegan, no merece la pena. Pero ¿de dónde sale ese número? ¿Es realmente necesario caminar tanto para notar beneficios?
 
@@ -107,6 +107,14 @@ Si un día no llegas, no pasa nada: lo que cuenta es la media semanal. Y si algu
 ## Caminar en compañía
 
 Uno de los mejores aliados para caminar más es la compañía. Quedar con un amigo, con la pareja o con un grupo de vecinos para un paseo fijo varios días por semana convierte el ejercicio en un momento social y hace más difícil saltárselo. Muchos ayuntamientos y centros de salud de España organizan grupos de caminatas saludables, a menudo gratuitos, que son una buena puerta de entrada para personas que empiezan.
+
+## Contar pasos con criterio
+
+Los móviles, relojes y pulseras no cuentan exactamente igual: depende de dónde se lleven, de cómo muevas los brazos y del algoritmo de cada aparato, y dos dispositivos pueden diferir en cientos o miles de pasos al final del día. Por eso tiene poco sentido compararse con los demás. Lo útil es compararte contigo mismo, con el mismo aparato y llevándolo siempre de la misma manera. Si dejas el móvil sobre la mesa mientras te mueves por casa o por la oficina, esos pasos no quedarán registrados: tenlo en cuenta antes de desanimarte por una cifra baja.
+
+## Si tienes sobrepeso o molestias al caminar
+
+Para quien parte de muy poca actividad, conviene empezar con paseos cortos en terreno llano y repetirlos varias veces al día, mejor que una sola caminata larga. Un calzado cómodo y con buena sujeción marca mucha diferencia. Si aparecen dolores en los pies, las rodillas o la cadera que no ceden con unos días de descanso relativo, consulta con tu médico o un fisioterapeuta. Mientras tanto, caminar dentro del agua en una piscina o pedalear en una bicicleta estática permite seguir activo con mucha menos carga sobre las articulaciones.
 
 ## Errores frecuentes
 
