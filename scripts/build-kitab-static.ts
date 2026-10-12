@@ -32,13 +32,24 @@
  * Costs: 0 D1 reads, 0 R2 bytes. About 20 MB of Worker static assets, which
  * are free and do not count toward the < 10 GB D1 + R2 target.
  *
+ * TRANSLATION (owner, 12 Oct 2026: "kitab2 tetep maximal sesuai bahasanya,
+ * translate sesuai bahasanya, dan ulyah.com hanya berbahasa Indonesia"). Each
+ * site is built separately (NEXT_PUBLIC_TENANT), and each build folds in the
+ * translation of the catalogue into ITS language only, from
+ * scripts/data/kitab-i18n/<lang>.json (made once by
+ * scripts/translate-kitab-catalogue.mjs): `tr` on every work, `title_tr` and
+ * `excerpt_tr` on every shelf entry. ulyah.com gets Indonesian, xad.es
+ * English, 1fr.fr French, tilawa.de German. A work with no translation yet
+ * simply has no `tr`, and the page asks the API as before.
+ *
  * Usage: npx tsx scripts/build-kitab-static.ts [--out=apps/web/public/kitab-data]
  */
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { cleanMatn } from "./clean-pesantren-text.ts";
-import { storyKey } from "./mt-key.mjs";
+import { storyKey, hashKey } from "./mt-key.mjs";
+import { exactHeading, postEditText } from "./translate-kitab-catalogue.mjs";
 
 const ROOT = join(import.meta.dirname, "..");
 const SCHEMA = join(ROOT, "packages", "db-schema");
@@ -72,6 +83,28 @@ const STEPS: [kind: "migrations" | "seed", file: string][] = [
 /** Category names the sibling sites read, hand-translated (seed/translations). */
 const SIBLING_LANGS = ["es", "de", "fr"] as const;
 
+/** The one language each tenant's build is written in (apps/web/src/lib/tenant.ts). */
+const TENANT_LANG: Record<string, string> = { ulyah: "id", "1fr": "fr", tilawa: "de", xad: "en", dawa: "es" };
+
+interface KitabI18n {
+  lang: string;
+  titles: Record<string, string>;
+  descriptions: Record<string, string>;
+  topics: Record<string, string>;
+}
+
+/** This build's catalogue translation, or null when there is none for its language. */
+function loadKitabI18n(lang: string): KitabI18n | null {
+  try {
+    return JSON.parse(readFileSync(join(ROOT, "scripts", "data", "kitab-i18n", `${lang}.json`), "utf8")) as KitabI18n;
+  } catch {
+    return null;
+  }
+}
+
+/** Same key the translator used: hashKey of the whitespace-collapsed heading. */
+const topicKey = (t: string) => hashKey(t.replace(/\s+/g, " ").trim());
+
 function arg(name: string, fallback: string): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
   return hit ? hit.slice(name.length + 3) : fallback;
@@ -92,8 +125,29 @@ function readMtRows(file: string): Map<string, string> {
   return out;
 }
 
+/** First ~240 characters of a translated description, cut at a word. */
+function clipExcerpt(text: string, max = 240): string {
+  const s = text.replace(/\s+/g, " ").trim();
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  const at = cut.lastIndexOf(" ");
+  return `${(at > 120 ? cut.slice(0, at) : cut).replace(/[\s,;:.\-–—]+$/, "")}…`;
+}
+
+/** One work's translation in this build's language, or null when it has none. */
+function translationFor(i18n: KitabI18n, id: number, topics: string[]) {
+  const fix = (t: string | null | undefined) => (t ? (postEditText(t, i18n.lang) as string) : null);
+  const title = fix(i18n.titles[String(id)]);
+  const description = fix(i18n.descriptions[String(id)]);
+  const tTopics = topics.map((t) => exactHeading(t, i18n.lang) ?? fix(i18n.topics[topicKey(t)]));
+  if (!title && !description && !tTopics.some(Boolean)) return null;
+  return { lang: i18n.lang, title, description, topics: tTopics };
+}
+
 function main(): void {
   const out = resolve(ROOT, arg("out", "apps/web/public/kitab-data"));
+  const siteLang = arg("lang", TENANT_LANG[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? "id");
+  const i18n = loadKitabI18n(siteLang);
   const started = Date.now();
   const db = new DatabaseSync(":memory:");
   for (const [dir, file] of STEPS) db.exec(readFileSync(join(SCHEMA, dir, file), "utf8"));
@@ -146,17 +200,27 @@ function main(): void {
     return { ...c, names };
   });
   const total = categories.reduce((n, c) => n + c.book_count, 0);
-  put("library/index.json", { categories, total });
+  put("library/index.json", { categories, total, lang: i18n ? siteLang : null });
 
   const shelf = db.prepare(
     `SELECT id, title_ar, author, author_death_year, source, substr(description_ar, 1, 240) AS excerpt
      FROM kitab_book WHERE category_slug = ? ORDER BY title_ar`
   );
   const next = new Map<number, { id: number; title_ar: string } | null>();
+  let translatedWorks = 0;
   for (const c of categories) {
     const books = shelf.all(c.slug) as { id: number; title_ar: string }[];
     books.forEach((b, i) => next.set(b.id, books[i + 1] ? { id: books[i + 1]!.id, title_ar: books[i + 1]!.title_ar } : null));
-    put(`library/cat/${c.slug}.json`, { slug: c.slug, books });
+    const withTr = i18n
+      ? books.map((b) => {
+          const title = postEditText(i18n.titles[String(b.id)], i18n.lang) as string | undefined;
+          const desc = postEditText(i18n.descriptions[String(b.id)], i18n.lang) as string | undefined;
+          return title || desc
+            ? { ...b, title_tr: title ?? null, excerpt_tr: desc ? clipExcerpt(desc) : null }
+            : b;
+        })
+      : books;
+    put(`library/cat/${c.slug}.json`, { slug: c.slug, books: withTr });
   }
 
   const all = db
@@ -175,7 +239,9 @@ function main(): void {
     }
     const key = Math.floor(b.id / 100);
     const bucket = buckets.get(key) ?? {};
-    bucket[b.id] = { ...b, topics, next: next.get(b.id) ?? null };
+    const tr = i18n ? translationFor(i18n, b.id, topics) : null;
+    if (tr) translatedWorks++;
+    bucket[b.id] = { ...b, topics, next: next.get(b.id) ?? null, ...(tr ? { tr } : {}) };
     buckets.set(key, bucket);
   }
   for (const [key, bucket] of buckets) put(`library/book/${key}.json`, bucket);
@@ -247,6 +313,10 @@ function main(): void {
     put(`pesantren/kitab/${k.slug}.json`, { kitab: kitabRow.get(k.slug), chapters });
   }
 
+  console.log(
+    `kitab-data [${siteLang}]: ${translatedWorks}/${total} works translated` +
+      (i18n ? "" : ` (no scripts/data/kitab-i18n/${siteLang}.json — the pages ask the API)`)
+  );
   console.log(
     `kitab-data: ${categories.length} categories, ${total} works; ` +
       `${pKitab.length} kitab pesantren, ${matnCount} matn (${cleaned} cleaned, ${dropped} empty dropped); ` +

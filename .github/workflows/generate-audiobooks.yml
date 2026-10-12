@@ -6,9 +6,27 @@ name: Generate Audiobooks (manual, no API key)
 #   • eSpeak-NG universal fallback (covers every language incl. id & ar)
 # Idempotent: re-running only fills the gaps.
 
+# NOT SCHEDULED, and it refuses to run without confirm=store-in-r2.
+#
+# Owner, 12 Oct 2026: "turunkan R2-nya hingga di bawah 10 GB". This workflow
+# was the reason R2 stood at 121 GB: every night it synthesised ~40 more MP3s
+# (~26 MB each, 96 kbps eSpeak/Piper) for the machine-compiled study sessions
+# and stored them in ulyah-media under audio/story/ — 91 GB by October, nine
+# times the free tier on its own. Those files are now expired by an R2
+# lifecycle rule (.github/r2-lifecycle/ulyah-media.json), and every article is
+# narrated in the reader's own browser instead (StoryReader, Web Speech): every
+# language, the device's own voice, 0 bytes stored.
+#
+# So anything this run uploads under audio/story/ is deleted again within a
+# day by that rule. Run it only after deciding where such audio should live
+# and changing both the rule and this note.
 on:
   workflow_dispatch:
     inputs:
+      confirm:
+        description: "Type store-in-r2 to confirm (see the note at the top: R2 must stay under 10 GB)"
+        required: true
+        default: ""
       lang:
         description: "Language filter (id | en | ar | ... or blank for all)"
         required: false
@@ -17,15 +35,10 @@ on:
         description: "Max articles to process this run"
         required: true
         default: "40"
-  # Zero-hand: without this, "audio being processed" never stops being true —
-  # the workflow only existed as a manual trigger nobody ever pressed, so
-  # every published story sat with no audio indefinitely. Daily is enough to
-  # both work through the backlog and keep up with the content engine.
-  schedule:
-    - cron: "0 3 * * *"
 
 jobs:
   audiobooks:
+    if: ${{ inputs.confirm == 'store-in-r2' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

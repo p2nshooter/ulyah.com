@@ -1,0 +1,28 @@
+{
+  "rules": [
+    {
+      "id": "tts-audiobooks-off",
+      "enabled": true,
+      "conditions": { "prefix": "audio/story/" },
+      "deleteObjectsTransition": { "condition": { "type": "Age", "maxAge": 86400 } }
+    },
+    {
+      "id": "murottal-from-cdn-legacy",
+      "enabled": true,
+      "conditions": { "prefix": "audio/qori/" },
+      "deleteObjectsTransition": { "condition": { "type": "Age", "maxAge": 86400 } }
+    },
+    {
+      "id": "murottal-from-cdn-hifi",
+      "enabled": true,
+      "conditions": { "prefix": "audio/qori2/" },
+      "deleteObjectsTransition": { "condition": { "type": "Age", "maxAge": 86400 } }
+    },
+    {
+      "id": "abort-stale-multipart",
+      "enabled": true,
+      "conditions": { "prefix": "" },
+      "abortMultipartUploadsTransition": { "condition": { "type": "Age", "maxAge": 86400 } }
+    }
+  ]
+}

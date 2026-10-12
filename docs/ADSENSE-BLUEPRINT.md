@@ -699,6 +699,24 @@ Pemilik, 12 Okt 2026:
   deploy sejauh ini) memulai buildId baru, jadi cache build lama tertinggal
   selamanya.
 
+### 12.2b Bukti dari Cloudflare (`wrangler d1 insights`, 24 jam s/d 12 Okt 07:44 UTC)
+
+25 query teratas membaca **7,3 juta baris** (kuota 5 juta/hari):
+
+| Baris dibaca | Panggilan | Query | Perbaikan |
+|---|---|---|---|
+| 2.468.200 | 10 | cek pemeliharaan `mt_cache LIKE 'mt:ar-__:%'` | rentang kunci |
+| 990.018 | 1.970 | halaman kisah (fallback `slug` tanpa `lang` memakai indeks `status`) | `+st.status` → indeks `(slug, lang)` |
+| 987.280 | 4 | hitung sisa di skrip prune (`LIKE`) | rentang kunci |
+| 559.953 | 41 | hadits hari ini `ORDER BY id OFFSET n` | `MIN/MAX` + `id >= ?` |
+| 500.630 | 19 | daftar koleksi hadits + `COUNT` per koleksi | hitungan di KV seminggu |
+| 428.688 | 37 | judul kitab pesantren `pes_i18n WHERE lang=?` (SCAN) | `CROSS JOIN` lewat primary key |
+| 390.101 | 97 | `COUNT(*) FROM hadits WHERE collection=?` | hitungan di KV |
+| 153.968 | 210 | hadits hari ini `COUNT(*)` | dihapus |
+
+R2 (wrangler r2 bucket info): ulyah-media 6.194 objek / 91,1 GB, ulyah-next-cache
+516.527 objek / 31,1 GB; keduanya hanya punya aturan bawaan "abort multipart 7 hari".
+
 ### 12.3 Aturan tetap (tambahan §11)
 
 1. **R2 total < 10 GB**, dijaga otomatis oleh *lifecycle rule* R2 yang dipasang
@@ -732,10 +750,10 @@ Pemilik, 12 Okt 2026:
 | # | Pekerjaan | Status |
 |---|---|---|
 | 12.1 | Catat permintaan + hasil cek CF di blueprint | ✅ |
-| 12.2 | Pemeliharaan malam: query rentang, hapus pindaian ganda | 🔄 |
-| 12.3 | Admin: cache statistik berat, polling lebih jarang & berhenti saat tab tersembunyi | 🔄 |
-| 12.4 | Presence 3 dtk → 30 dtk; API publik tanpa pemindaian penuh | 🔄 |
-| 12.5 | Kitab: terjemahan statis id/en/fr/de (judul, deskripsi, daftar isi) | 🔄 |
-| 12.6 | R2: lifecycle rule ulyah-next-cache + ulyah-media; generator audiobook berhenti; UI pakai suara perangkat | 🔄 |
+| 12.2 | Pemeliharaan malam: query rentang, hapus pindaian ganda; laporan `wrangler d1 insights` + ukuran R2 tiap malam | ✅ |
+| 12.3 | Admin: cache statistik berat (5–10 menit), polling 15 dtk/30 dtk/60 dtk/2 mnt & berhenti saat tab tersembunyi | ✅ |
+| 12.4 | Presence 3 dtk → 30 dtk (juga 6 situs mitra: axto.dev, lie.skin, jai.lat, oldco.in, profity.in, xaa.es); rate-limit beacon tanpa KV; API publik tanpa pemindaian penuh | ✅ |
+| 12.5 | Kitab: terjemahan statis id/en/fr/de (judul, deskripsi, daftar isi) — skrip + build + halaman | ✅ kode · 🔄 data terjemahan (berjalan) |
+| 12.6 | R2: lifecycle rule ulyah-next-cache + ulyah-media; generator audiobook berhenti; UI pakai suara perangkat | ✅ (aktif setelah deploy) |
 | 12.7 | D1: indeks ganda `analytics_pageviews` dibuang, ukur tabel setelah kuota reset | ⏸️ setelah 00:00 UTC |
 | 12.8 | Uji (typecheck, CI, browser), PR, merge, deploy, verifikasi live | 🔄 |

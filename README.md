@@ -136,12 +136,27 @@ account and the only reason a click is worth anything to the advertiser.
 
 Watched nightly by `.github/workflows/db-maintenance.yml`:
 
-- **D1 around 5 GB, never over 10.** The run prunes machine translations that
-  are wrong (`prune-mt-arabic`) or unread (`prune-mt-unserved`), spills bulk
-  text to R2, and ends with `scripts/d1-ceiling.ts`: a warning past the 5 GB
-  target, a red run past the 10 GB ceiling — because a full D1 stops accepting
-  writes rather than slowing down, and the first symptom is the admin being
-  unable to log in.
+- **The account is on Workers Free.** One D1 database stops at **500 MB**,
+  and the whole account gets **5 million D1 row reads, 100,000 row writes,
+  100,000 Worker requests and 1,000 KV writes a day** — since 1 Sep 2026 a D1
+  query fails (code 7500) once the reads are spent, until midnight UTC. So: no
+  full-table scans on any path that repeats (pages, admin polling, cron,
+  nightly jobs), heavy admin statistics cached at the edge
+  (`apps/worker-api/src/lib/edge-memo.ts`), a 30-second presence heartbeat
+  (`packages/shared/src/presence.ts`). The nightly run prints the day's top
+  queries by rows read (`wrangler d1 insights`) — the place to look first.
+- **D1 under 400 MB, never over 500.** The run prunes machine translations that
+  are wrong (`prune-mt-arabic`, nightly, by key range) or unread
+  (`prune-mt-unserved`, weekly), spills bulk text to R2, and ends with
+  `scripts/d1-ceiling.ts`: a warning past the target, a red run past the
+  ceiling — because a full D1 stops accepting writes rather than slowing down,
+  and the first symptom is the admin being unable to log in.
+- **R2 under 10 GB.** Lifecycle rules in `.github/r2-lifecycle/`, set by every
+  deploy, expire the rendered-page cache after 2 days and keep text-to-speech
+  audiobooks and murottal copies out of R2 (README in that folder).
+- **Kitab translated once, served static.** `scripts/translate-kitab-catalogue.mjs`
+  translates the 4,969-work catalogue into id/en/fr/de once
+  (`scripts/data/kitab-i18n/`); each site's build folds in its own language.
 - **Murottal comes from the reciters' CDNs.** We store no recitation at all:
   the players resolve the reciter's own CDN URL
   (`apps/web/src/lib/qori-cdn.ts`), `/audio/qori2/…` redirects there instead of

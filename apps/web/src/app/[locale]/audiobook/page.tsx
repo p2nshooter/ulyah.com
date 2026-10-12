@@ -142,9 +142,6 @@ export default async function AudiobookPage({
                     : s.category_name ?? dict.explore.audiobook.title}
                 </p>
                 <p className="mt-1 truncate font-heading text-lg">{s.title}</p>
-                <p className="mt-1 text-xs text-text-secondary">
-                  {s.audio_r2_key ? `🎧 ${dict.reader.downloadAudiobook}` : `⏳ ${dict.reader.audioProcessing}`}
-                </p>
               </div>
               <span className="shrink-0 grid h-11 w-11 place-items-center rounded-full bg-accent/10 text-xl text-accent">
                 ▶

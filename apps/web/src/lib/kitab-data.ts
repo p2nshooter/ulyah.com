@@ -36,6 +36,22 @@ export interface LibraryShelfBook {
   author_death_year: string | null;
   source: string | null;
   excerpt: string | null;
+  /** This site's language, from scripts/data/kitab-i18n (absent when not translated). */
+  title_tr?: string | null;
+  excerpt_tr?: string | null;
+}
+
+/**
+ * A work's catalogue entry in this site's own language, translated once and
+ * built into the site's static files (scripts/translate-kitab-catalogue.mjs →
+ * scripts/build-kitab-static.ts). Each site carries only its own language.
+ */
+export interface LibraryTranslation {
+  lang: string;
+  title: string | null;
+  description: string | null;
+  /** Aligned with `topics`; null where a heading has no translation. */
+  topics: (string | null)[];
 }
 
 export interface LibraryBook {
@@ -48,6 +64,7 @@ export interface LibraryBook {
   topics: string[];
   source: string | null;
   next: { id: number; title_ar: string } | null;
+  tr?: LibraryTranslation;
 }
 
 export interface PesantrenCategory {

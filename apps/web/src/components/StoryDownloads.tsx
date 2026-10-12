@@ -1,27 +1,29 @@
 "use client";
 
-import { api, ebookDownloadUrl } from "@/lib/api";
+import { ebookDownloadUrl } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
 import { TENANT } from "@/lib/tenant";
 
 /**
- * Download row for an article: the audiobook MP3 (once the narration has been
- * synthesised), the PDF if one exists, and a plain-text export generated in the
- * browser so every article always has at least one downloadable artifact. The
- * article stays listenable in-browser via StoryReader regardless.
+ * Download row for an article: the PDF if one exists, and a plain-text export
+ * generated in the browser so every article always has at least one
+ * downloadable artifact.
+ *
+ * There is no MP3 here any more. The audiobooks were text-to-speech files kept
+ * in R2 — 91 GB of them, nine times the free tier (owner, 12 Oct 2026:
+ * "turunkan R2-nya hingga di bawah 10 GB") — and they are expired by an R2
+ * lifecycle rule (.github/r2-lifecycle). Every article is narrated in the
+ * reader's own browser by StoryReader instead, in every language, with nothing
+ * stored and nothing that can say "audio sedang diproses" forever.
  */
 export function StoryDownloads({
-  storyId,
   title,
   body,
-  audioAvailable,
   pdfEbookId,
   dict,
 }: {
-  storyId: number;
   title: string;
   body: string;
-  audioAvailable: boolean;
   pdfEbookId: number | null;
   dict: Dictionary;
 }) {
@@ -37,19 +39,6 @@ export function StoryDownloads({
 
   return (
     <div className="flex flex-wrap gap-2">
-      {audioAvailable ? (
-        <a
-          href={`${api.base}/content/stories/${storyId}/audio?download=1`}
-          className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-primary transition hover:brightness-105"
-        >
-          🎧 {dict.reader.downloadAudiobook}
-        </a>
-      ) : (
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-(--color-border) px-4 py-2 text-xs text-text-secondary">
-          ⏳ {dict.reader.audioProcessing}
-        </span>
-      )}
-
       {pdfEbookId && (
         <a
           href={ebookDownloadUrl(pdfEbookId)}

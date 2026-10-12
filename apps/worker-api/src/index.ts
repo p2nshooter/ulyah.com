@@ -177,14 +177,22 @@ app.onError((err, c) => {
 //   audio/qori2/  the HiFi library that replaced it.
 //
 // NOTE the trailing slashes, and that they are why this is safe: a list on
-// "audio/qori/" cannot match "audio/qori2/…", and neither can match the kids
-// audio, the story narration or anything else in the bucket. A slice per tick,
+// "audio/qori/" cannot match "audio/qori2/…", and none of the prefixes below
+// can match the kids audio (kids-audio/), story text (stories/body/), the PDFs
+// (ebooks/), uploaded media (media/) or anything else in the bucket. A slice per tick,
 // bounded, so a 15-minute heartbeat is never spent on this alone; the flag is
 // written when a prefix is empty so the work stops for good rather than
 // listing an empty prefix every quarter hour, forever.
 const MUROTTAL_PREFIXES: { prefix: string; flag: string; what: string }[] = [
   { prefix: "audio/qori/", flag: "cleanup:r2-murottal-legacy-lowbitrate-done", what: "legacy low-bitrate" },
   { prefix: "audio/qori2/", flag: "cleanup:r2-murottal-qori2-done", what: "HiFi" },
+  // The text-to-speech audiobooks: ~91 GB of ulyah-media, nine times R2's free
+  // tier (owner, 12 Oct 2026: "turunkan R2-nya hingga di bawah 10 GB"). Every
+  // article is narrated in the reader's browser instead (StoryReader), and the
+  // generator is no longer scheduled. An R2 lifecycle rule set by the deploy
+  // (.github/r2-lifecycle) expires this prefix too; this is the same deletion
+  // done from here, so it happens even if the deploy's token cannot set rules.
+  { prefix: "audio/story/", flag: "cleanup:r2-tts-audiobooks-done", what: "TTS audiobook" },
 ];
 
 async function purgeMurottalPrefix(env: Env, { prefix, flag, what }: (typeof MUROTTAL_PREFIXES)[number]): Promise<void> {

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
-import { libraryBook, libraryIndex, categoryName } from "@/lib/kitab-data";
+import { libraryBook, libraryIndex, categoryName, type LibraryBook } from "@/lib/kitab-data";
 import { kitabLabels } from "@/lib/kitab-labels";
 import { KitabDescriptionReader } from "@/components/KitabDescriptionReader";
 import { ogCoverUrl } from "@/lib/og";
@@ -80,9 +80,22 @@ interface BookDetail {
 
 type Translations = Pick<BookDetail, "title_translated" | "description_translated" | "topics_translated">;
 
-/** Best-effort: the API's cached translation of this work, or nothing. */
-async function translations(id: number, locale: string): Promise<Translations | null> {
+/**
+ * This work in the site's language. The translation is part of the site's own
+ * static files (record.tr — see lib/kitab-data.ts), so the common case costs no
+ * request at all. The API is asked only for a work that has none yet: its
+ * answer came from D1's machine-translation cache, which is exactly the churn
+ * the static files replaced (docs/ADSENSE-BLUEPRINT.md §12).
+ */
+async function translations(id: number, locale: string, record: LibraryBook): Promise<Translations | null> {
   if (locale === "ar") return null;
+  if (record.tr && record.tr.lang === locale && (record.tr.title || record.tr.description)) {
+    return {
+      title_translated: record.tr.title,
+      description_translated: record.tr.description,
+      topics_translated: record.tr.topics,
+    };
+  }
   try {
     const { book } = await api.getCached<{ book?: Partial<Translations> }>(`/content/kitab/book/${id}?lang=${locale}`, 86400);
     if (!book) return null;
@@ -111,7 +124,7 @@ async function loadBook(rawId: string, locale: string) {
   const [record, index] = await Promise.all([libraryBook(id), libraryIndex()]);
   if (!record) return null;
   const cat = index.categories.find((c) => c.slug === record.category_slug);
-  const tr = await translations(id, locale);
+  const tr = await translations(id, locale, record);
   const book: BookDetail = {
     ...record,
     title_translated: tr?.title_translated ?? null,
