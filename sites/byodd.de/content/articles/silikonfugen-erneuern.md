@@ -2,7 +2,7 @@
 title: "Silikonfugen erneuern: altes Silikon entfernen und neue Fuge sauber ziehen"
 description: Wie du verschimmelte oder rissige Silikonfugen an Dusche, Wanne, Waschbecken und Küche entfernst, den Untergrund vorbereitest, das richtige Silikon wählst und eine glatte, dichte Fuge ziehst.
 category: bad-und-kueche
-date: 2026-09-09
+date: 2026-10-12
 ---
 Silikonfugen sind die Dichtungen des Badezimmers. Sie verbinden Fliesen mit Badewanne, Duschtasse und Waschbecken und verhindern, dass Wasser hinter die Fliesen läuft. Mit der Zeit werden sie spröde, lösen sich an den Rändern oder bekommen schwarze Schimmelpunkte, die sich auch mit dem stärksten Reiniger nicht mehr entfernen lassen. Spätestens dann ist es Zeit, die Fuge zu erneuern.
 
@@ -101,6 +101,22 @@ Je nach Beanspruchung halten Silikonfugen einige Jahre. Fugen sind Wartungsfugen
 | Ohne Glättmittel geglättet | Silikon klebt am Werkzeug, Fuge reißt auf |
 | Krepp zu spät entfernt | Kante reißt mit |
 
+## Silikon ist nicht die eigentliche Abdichtung
+
+Eine Silikonfuge ist eine Wartungsfuge. Sie soll Spritzwasser abhalten, aber sie ist nicht dafür gemacht, über Jahre allein ein ganzes Bad dicht zu halten. In fachgerecht gebauten Bädern liegt unter den Fliesen eine Verbundabdichtung, die das Mauerwerk schützt, besonders im Duschbereich und bei bodengleichen Duschen. Das ist auch der Grund, warum Fachleute empfehlen, Silikonfugen regelmäßig zu kontrollieren und rechtzeitig zu erneuern: Läuft über Monate Wasser durch eine undichte Fuge, kann es die Abdichtung darunter überfordern oder an Stellen gelangen, an denen sie fehlt, etwa in älteren Bädern. Zeigen sich Feuchteflecken an Wänden oder Decken, reicht eine neue Fuge allein oft nicht mehr; dann sollte ein Fachbetrieb die Ursache prüfen.
+
+## Fugen in der Küche
+
+Auch in der Küche gibt es Silikonfugen, etwa zwischen Arbeitsplatte und Wand, um die Spüle oder an der Rückwand. Hier sind Sanitär- oder Küchensilikone mit Schimmelschutz geeignet, bei Arbeitsplatten aus Naturstein ein spezielles Natursteinsilikon, das keine Randverfärbungen hinterlässt. Eine Alternative zur Fuge zwischen Arbeitsplatte und Wand ist eine Abschlussleiste aus Kunststoff oder Aluminium, die geklebt oder geklipst wird und sich leichter reinigen lässt. Wie du die Arbeitsplatte selbst pflegst, steht in [Küchenarbeitsplatte pflegen und reparieren](/anleitungen/kuechenarbeitsplatte-pflegen-und-reparieren/).
+
+## Wie viel Silikon brauche ich?
+
+Eine übliche Kartusche mit 300 Millilitern reicht je nach Fugenbreite für etwa 10 bis 20 Meter Fuge. Für eine Badewanne mit drei Seiten an der Wand genügt in der Regel eine Kartusche. Kaufe trotzdem eine Reserve, denn eine angebrochene Kartusche lässt sich nur begrenzt aufbewahren: Mit einem Nagel oder einer Schraube in der Düse verschlossen, hält sie einige Wochen.
+
+## Frisches Silikon an der falschen Stelle
+
+Ist Silikon daneben gegangen, nicht verschmieren. Frische Kleckse mit Küchenpapier aufnehmen und die Reste mit etwas Spiritus abwischen. Ausgehärtetes Silikon lässt sich auf Fliesen und Glas nur mechanisch entfernen, etwa mit einem Glasschaber, und auf empfindlichen Flächen mit Silikonentferner.
+
 ## Praxisbeispiel: Die Fuge an der Badewanne
 
 Die Silikonfuge zwischen Badewanne und Fliesen ist an mehreren Stellen schwarz und löst sich in einer Ecke. Im Raum darunter zeigt sich ein kleiner Wasserfleck an der Decke.
@@ -155,6 +171,10 @@ Passend zu den Fliesenfugen oder dem Sanitärobjekt, meist Weiß, Grau oder Tran
 **Transparentes oder weißes Silikon?** Transparentes Silikon wirkt unauffällig, zeigt aber Schmutz und Schimmel dahinter. Weiß oder passend zur Fugenfarbe sieht meist ordentlicher aus.
 
 **Kann ich Silikon überstreichen?** Nein, Farbe haftet nicht darauf. Für überstreichbare Fugen im Trockenbereich Acryl verwenden.
+
+**Braucht Silikon einen Primer?** Auf glasierten Fliesen, Emaille und Glas nicht. Auf saugenden Untergründen wie Naturstein, Beton oder Holz verbessert ein passender Primer die Haftung deutlich. Der Hersteller des Silikons nennt den geeigneten.
+
+**Hilft Lüften beim Aushärten?** Ja. Silikon härtet, indem es mit der Feuchtigkeit aus der Luft reagiert, und gibt dabei Stoffe ab, die du nicht einatmen möchtest. Gut lüften, aber nicht bei Frost arbeiten: Unter etwa fünf Grad härten viele Silikone nur sehr langsam aus.
 
 ## Fazit
 
