@@ -2,7 +2,7 @@
 title: "Zehn Regentage im Oktober"
 description: Herbstferien in Hamburg, und es regnet jeden Tag. Am dritten Tag liegen bei Papa Henrik und den Kindern die Nerven blank. Über Langeweile, Matschhosen und das beste schlechte Wetter.
 category: feste-und-jahreszeiten
-date: 2026-08-17
+date: 2026-10-12
 ---
 Am Samstag, dem ersten Tag der Herbstferien, sah Henrik aus dem Küchenfenster der Altbauwohnung in Hamburg-Eimsbüttel und sagte: „Das zieht bestimmt bald ab.“ Draußen fiel ein feiner, grauer Regen, der die Dächer gegenüber verschwimmen ließ. Die Wetter-App zeigte für die nächsten zehn Tage zehn Wolken mit Tropfen.
 
@@ -68,6 +68,14 @@ Lange Regenphasen, besonders in den Ferien, können Familien an ihre Grenzen bri
 - **Bildschirmzeit klar begrenzen.** Eine feste Zeit und ein sichtbares Ende, etwa mit einer Sanduhr, vermeiden Diskussionen und Wutausbrüche beim Abschalten.
 - **Projekte aus dem Alltag entwickeln.** Ein Regenmesser, eine Kastanienherde, ein Heft über eine Schnecke: Die besten Ideen kommen oft von den Kindern selbst.
 - **Kostenlose Orte nutzen.** Bibliotheken, Parks, Uferwege und Busfahrten sind auch bei schlechtem Wetter gute Ausflugsziele und schonen die Ferienkasse.
+
+### Regenkleidung, die wirklich hilft
+
+Damit draußen Spaß macht, muss die Kleidung stimmen. Bewährt haben sich Matschhosen mit Trägern, die bis über die Brust reichen, und eine wasserdichte Jacke mit Kapuze. Gummistiefel dürfen eine Nummer größer sein, damit warme Socken hineinpassen. Darunter halten Wolle oder Fleece besser warm als Baumwolle, die nass wird und nass bleibt. Packt für längere Ausflüge Wechselsocken und ein Handtuch ein, und plant zu Hause gleich die warme Badewanne ein. Gebrauchte Matschkleidung gibt es oft günstig auf Kinderflohmärkten, denn Kinder wachsen schneller heraus, als sie die Sachen abnutzen.
+
+### Kleine Forschungsprojekte für Regentage
+
+Regen ist ein wunderbarer Anlass zum Forschen. Neben einem Regenmesser wie dem von Smilla könnt ihr mit Kreide den Umriss einer Pfütze auf den Gehweg malen und am nächsten Tag nachsehen, wie viel kleiner sie geworden ist. Aus einer aufgeschnittenen Plastikflasche, Watte, Sand und Kies lässt sich ein einfacher Wasserfilter bauen, der trübes Pfützenwasser sichtbar klarer macht, trinken darf man es natürlich nicht. Und nach einem kräftigen Schauer kommen Regenwürmer an die Oberfläche, die sich mit einer Becherlupe gut beobachten lassen, bevor sie vorsichtig zurück ins Beet dürfen.
 
 ### Zum Gespräch mit euren Kindern
 
