@@ -2,7 +2,7 @@
 title: Las lesiones más comunes del corredor aficionado y cómo prevenirlas
 description: Rodilla del corredor, periostitis, fascitis plantar, tendinopatía aquílea y cintilla iliotibial: qué son, por qué aparecen y qué hábitos reducen el riesgo.
 category: correr
-date: 2026-10-04
+date: 2026-10-12
 ---
 Correr es una de las formas más sencillas y eficaces de mantenerse en forma, pero también tiene un lado menos amable: una parte importante de los corredores sufre alguna lesión a lo largo del año. La mayoría no son graves, pero obligan a parar, frustran y, si no se tratan bien, pueden volverse recurrentes.
 
@@ -96,6 +96,20 @@ Ante una molestia que no desaparece, lo más útil es **reducir la carga**, no i
 La vuelta debe ser gradual. Un esquema habitual consiste en empezar alternando carrera y caminata, en terreno llano, cada dos días, y aumentar el tiempo de carrera solo si el día siguiente no hay dolor. Es preferible que un fisioterapeuta te acompañe en este proceso, sobre todo después de lesiones de tendón o de hueso.
 
 La impaciencia es la causa más frecuente de las recaídas. Unas semanas más de prudencia evitan meses de parón.
+
+## Preguntas frecuentes
+
+### ¿Las plantillas previenen las lesiones?
+
+No de forma general. Las plantillas pueden ayudar en casos concretos, como algunos dolores del pie o diferencias importantes entre ambas piernas, pero no hay pruebas de que todos los corredores las necesiten para evitar lesiones. Si un podólogo te las recomienda tras una valoración, introdúcelas de forma progresiva, igual que unas zapatillas nuevas.
+
+### ¿Hielo o calor?
+
+El frío puede aliviar el dolor de una molestia reciente durante un rato, y el calor suele resultar agradable en zonas rígidas o sobrecargadas. Ninguno de los dos acelera de forma importante la curación: lo que de verdad cambia la evolución es ajustar la carga y fortalecer la zona. Usa el que te alivie, sin aplicarlo directamente sobre la piel.
+
+### ¿Influye el peso corporal?
+
+Sí. Cuanto mayor es el peso, mayor es la carga que reciben las articulaciones, los tendones y los huesos en cada zancada. Las personas con más peso pueden correr perfectamente, pero les conviene progresar con más calma, alternar carrera y caminata durante más semanas y combinar la carrera con actividades sin impacto, como la bicicleta o la natación.
 
 ## Una idea final
 
