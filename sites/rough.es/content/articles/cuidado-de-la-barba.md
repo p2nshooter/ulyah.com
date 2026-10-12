@@ -138,6 +138,10 @@ No es imprescindible, pero ayuda a hidratar la piel y el pelo, reduce el picor y
 
 Normalmente por genética, y a veces se rellenan con el tiempo. Si aparecen de repente placas sin pelo, consulta a un médico.
 
+### ¿Qué hago si la barba me sigue picando después de meses?
+
+Revisa primero lo básico: que la piel esté bien hidratada, que no uses un champú agresivo y que aclares bien los productos. Si el picor continúa, aparecen escamas, rojeces o granos, consulta a un dermatólogo, porque algunas afecciones de la piel de la cara necesitan un tratamiento específico.
+
 ### ¿Cada cuánto debo ir al barbero?
 
 Depende del estilo: para mantener una forma definida, cada pocas semanas; en casa puedes retocar entre visita y visita.
