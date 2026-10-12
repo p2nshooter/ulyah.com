@@ -2,7 +2,7 @@
 title: Bizcocho de yogur con la medida del vaso: la receta fácil de toda la vida y sus variantes
 description: El bizcocho de yogur de toda la vida con la medida del vaso: proporciones, mezcla, horno, por qué se hunde o queda seco, conservación y variantes.
 category: bolleria
-date: 2026-09-13
+date: 2026-10-12
 ---
 El bizcocho de yogur es, probablemente, la primera receta de repostería que aprendieron muchísimas personas en España. Su gran ventaja es que no necesita báscula: el propio vaso del yogur sirve como medida para el resto de ingredientes. Es esponjoso, aromático, se prepara en diez minutos y es la base perfecta para desayunos, meriendas y tartas de cumpleaños sencillas.
 
@@ -28,6 +28,18 @@ Las equivalencias en gramos son orientativas, porque un vaso de harina pesa meno
 ### Sobre la levadura
 
 En España, la levadura química para bizcochos se vende en sobres de 16 g, que corresponden a medio kilo de harina según el fabricante. Para un bizcocho de este tamaño, un sobre entero da un bizcocho alto, aunque muchas personas prefieren usar dos tercios del sobre para evitar un ligero sabor químico. Prueba y ajusta a tu gusto.
+
+## Escalar la receta con la báscula
+
+La medida del vaso es cómoda, pero no exacta: un vaso de harina puede pesar bastante más o menos según se llene. Si quieres que el bizcocho salga siempre igual, pésalo una vez con las equivalencias de la tabla y anota tus cifras. Con los gramos en la mano también es fácil adaptar la receta a otro molde:
+
+| Molde | Factor | Harina | Azúcar | Aceite | Huevos |
+|---|---|---|---|---|---|
+| Pequeño, de unos 18 cm | × 0,5 | 105 g | 100 g | 55 ml | 1 grande o 2 pequeños |
+| Normal, de 22 a 24 cm | × 1 | 210 g | 200 g | 110 ml | 3 medianos |
+| Grande, de 28 cm | × 1,5 | 315 g | 300 g | 165 ml | 4 o 5 medianos |
+
+Multiplica también el yogur, la levadura y la ralladura por el mismo factor, y ajusta el tiempo de horneado: los moldes pequeños necesitan unos minutos menos y los grandes, algo más. Comprueba siempre con un palillo.
 
 ## Qué hace cada ingrediente
 
