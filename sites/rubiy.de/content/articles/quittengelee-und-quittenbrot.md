@@ -2,7 +2,7 @@
 title: "Quitten verarbeiten: Quittengelee und Quittenbrot aus einem Topf"
 description: "Quitten richtig vorbereiten, Saft für Quittengelee gewinnen und aus dem Fruchtmark Quittenbrot machen: Sorten, Gelierprobe, Trocknen und Aufbewahren."
 category: herbst
-date: 2026-08-28
+date: 2026-10-12
 ---
 Quitten sind die Diva unter den Herbstfrüchten. Roh sind sie steinhart, pelzig und so herb, dass niemand freiwillig hineinbeißt. Gekocht verwandeln sie sich: Das Fruchtfleisch färbt sich rosig bis bernsteinfarben, und ein Duft nach Honig, Rose und Zitrus zieht durch die Wohnung. Weil Quitten außerdem sehr viel Pektin enthalten, gelieren sie fast von allein. Aus einem Korb Quitten entstehen deshalb zwei Klassiker auf einmal: klares Quittengelee aus dem Saft und Quittenbrot aus dem übrig gebliebenen Mark. Beides ist eine schöne Tradition für den Vorrat und als Geschenk in der Adventszeit.
 
@@ -24,6 +24,10 @@ Im Handel und im Garten begegnen dir vor allem zwei Formen:
 | Birnenquitte | länglich, birnenförmig, größer | etwas weicher und saftiger, milder | Kompott, Kuchen, Mus, Gelee |
 
 Für Gelee und Quittenbrot sind beide geeignet. Viele mischen sie: Apfelquitten bringen Aroma, Birnenquitten mehr Saft. Mit der asiatischen Zierquitte, die in vielen Vorgärten wächst, hat die Quitte nur entfernt zu tun. Deren kleine Früchte sind ebenfalls essbar und sehr sauer, liefern aber wenig Ausbeute.
+
+## Woher die Quitte kommt
+
+Die Quitte stammt aus dem Kaukasus und dem Gebiet des heutigen Iran und wurde schon in der Antike rund ums Mittelmeer angebaut. Bei den Griechen galt sie als Frucht der Liebe und der Hochzeit, und manche Deutungen sehen auch in den goldenen Äpfeln der griechischen Sagen Quitten. Bis heute steckt sie in einem Wort, das wir täglich benutzen: Das portugiesische *marmelo* bedeutet Quitte, und *marmelada* war ursprünglich ein Quittenmus. Daraus wurde unsere Marmelade.
 
 ## Reife erkennen und lagern
 
@@ -83,6 +87,16 @@ Quittenbrot ist eine feste, schnittfähige Fruchtpaste, die es in vielen Länder
 
 Quittenbrot lagerst du in einer Blechdose, Schicht für Schicht zwischen Backpapier, kühl und trocken. So hält es mehrere Monate. Ohne Zuckerkruste lässt es sich auch am Stück aufbewahren und in Scheiben zu Käse servieren, ganz wie in Spanien.
 
+## Quittenkompott und Ofenquitten
+
+Nicht jede Quitte muss zu Gelee werden. Für ein **Kompott** schälst du zwei große Quitten, entfernst das Kerngehäuse und schneidest sie in schmale Spalten. Bringe 400 ml Wasser mit 80 g Zucker, dem Saft einer halben Zitrone und einer aufgeschlitzten Vanilleschote zum Kochen. Gib die Spalten hinein und lass sie zugedeckt 20 bis 30 Minuten leise köcheln, bis sie weich, aber nicht zerfallen sind. Das Kompott schmeckt warm zu Grießbrei oder Pfannkuchen und kalt zu Joghurt.
+
+Für **Ofenquitten** halbierst du die Früchte, entfernst das Kerngehäuse und legst sie mit der Schnittfläche nach oben in eine Auflaufform. In jede Mulde kommen ein Teelöffel Honig, ein Stückchen Butter und etwas Zimt. Gieße einen Fingerbreit Wasser oder Apfelsaft in die Form, decke sie ab und backe die Quitten bei 180 Grad etwa eine Stunde, bis sie weich sind. In den letzten 15 Minuten ohne Abdeckung bekommen sie eine leicht karamellisierte Oberfläche. Dazu passen Vanilleeis, Schmand oder ein Klecks Quark.
+
+## Ein Quittenbaum im Garten
+
+Quittenbäume bleiben klein, werden selten höher als vier bis sechs Meter und sind meist selbstfruchtbar, sodass ein einzelner Baum genügt. Sie blühen erst im Mai mit großen, zartrosa Blüten und entgehen dadurch oft den Spätfrösten. Geerntet wird im Oktober, bevor stärkere Fröste kommen, denn erfrorene Quitten werden braun und lassen sich nicht mehr lagern. Ein warmer, geschützter Standort fördert das Aroma.
+
 ## Häufige Fragen
 
 ### Mein Quittengelee ist nicht fest geworden. Was nun?
@@ -96,3 +110,11 @@ Das ist normal und ein schönes Zeichen. Bei langem Kochen bilden sich aus Stoff
 ### Kann ich Quitten roh essen?
 
 Einige Züchtungen sind weich genug, um sie in dünnen Scheiben roh zu essen. Die üblichen Sorten in Deutschland sind roh aber hart und herb. Gegart entfalten sie ihr Aroma viel besser.
+
+### Kann ich das Fruchtmark einfrieren?
+
+Ja. Wenn dir nach dem Geleekochen die Zeit für Quittenbrot fehlt, passierst du das Mark, füllst es portionsweise in Dosen und frierst es ein. Aufgetaut verarbeitest du es wie frisches Mark weiter, zu Quittenbrot oder mit etwas Zucker und Zimt zu einem schnellen Quittenmus.
+
+### Wie lange hält Quittengelee?
+
+Ungeöffnet und kühl, dunkel gelagert hält es etwa ein Jahr. Nach dem Öffnen gehört das Glas in den Kühlschrank und sollte innerhalb einiger Wochen verbraucht werden. Zeigt sich Schimmel, entsorgst du das ganze Glas, nicht nur die betroffene Stelle.
