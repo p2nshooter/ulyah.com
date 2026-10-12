@@ -2,7 +2,7 @@
 title: "Tapezieren lernen: Raufaser und Vliestapete Schritt für Schritt"
 description: Unterschiede zwischen Papier-, Raufaser- und Vliestapeten, Material, Untergrundvorbereitung, das Kleben der ersten Bahn, Ecken, Steckdosen und Heizkörper sowie das Entfernen alter Tapeten.
 category: waende-und-boeden
-date: 2026-09-22
+date: 2026-10-12
 ---
 Tapezieren gilt als Königsdisziplin des Renovierens. Dabei ist es mit modernen Vliestapeten und etwas Planung gut zu schaffen, auch für Einsteiger. Schwierig wird es meist an denselben Stellen: Die erste Bahn hängt schief, die Ecken wellen sich, an Steckdosen entstehen Risse, und die Nähte klaffen nach dem Trocknen auf.
 
@@ -39,6 +39,16 @@ Eine Standardrolle ist 10,05 m lang und 53 cm breit. Bei einer Raumhöhe von 2,5
 
 **Rechenbeispiel:** Raumumfang 15 m, abzüglich Türen und Fenster etwa 2 m Breite = 13 m. 13 m : 0,53 m ≈ 25 Bahnen. 25 : 3 ≈ 9 Rollen. Bei gemusterten Tapeten mit Rapport eine Rolle mehr einplanen. Breite Vliestapeten mit 1,06 m halbieren die Zahl der Bahnen.
 
+### Die Symbole auf dem Etikett
+
+Auf jeder Tapetenrolle stehen kleine Symbole, die in der europäischen Norm EN 235 vereinheitlicht sind. Wer sie lesen kann, kauft gezielter und erlebt an der Wand weniger Überraschungen.
+
+- **Rapport:** Ein Pfeil mit einer Null bedeutet ansatzfrei, die Bahnen passen ohne Musterabgleich aneinander. Zwei Pfeile auf gleicher Höhe stehen für geraden Ansatz, gegeneinander versetzte Pfeile für versetzten Ansatz. Angaben wie 64/32 nennen Rapporthöhe und Versatz in Zentimetern. Gegenläufige Pfeile heißen „gestürzt kleben“: Jede zweite Bahn wird um 180 Grad gedreht angebracht, damit leichte Farbunterschiede an den Kanten nicht auffallen.
+- **Kleben:** Ein Symbol mit Pinsel zeigt, ob die Wand oder die Tapetenbahn eingekleistert wird.
+- **Reinigung:** Wellenlinien geben an, ob die Tapete wasserbeständig, waschbeständig oder sogar scheuerbeständig ist. Für Küche, Flur und Kinderzimmer lohnt sich mindestens waschbeständig.
+- **Lichtbeständigkeit:** Ein Sonnensymbol zeigt, wie stark die Farben in sonnigen Räumen verblassen können.
+- **Entfernen:** Weitere Zeichen verraten, ob die Tapete trocken vollständig abziehbar, spaltbar oder nur nass abziehbar ist. Spaltbar heißt: Die Oberschicht löst sich, das Trägerpapier bleibt an der Wand und kann, wenn es fest haftet, als Untergrund für die nächste Tapete dienen.
+
 ## Schritt 1: Untergrund vorbereiten
 
 Der Untergrund muss **sauber, trocken, fest und eben** sein.
@@ -49,6 +59,14 @@ Der Untergrund muss **sauber, trocken, fest und eben** sein.
 - **Glatte, nicht saugende Flächen,** etwa Ölfarbe, anschleifen.
 - **Bei Vliestapeten** auf dunklen oder fleckigen Wänden einen weißen Grundanstrich auftragen, weil manche Vliese leicht durchscheinen.
 - **Sicherung ausschalten** und Steckdosen- und Schalterabdeckungen abschrauben.
+
+### Drei schnelle Tests vor dem ersten Kleister
+
+- **Wischprobe:** Mit der flachen Hand über die Wand streichen. Bleibt weißer Staub an der Hand, kreidet der alte Anstrich. Dann die Wand abwaschen und mit Tiefgrund verfestigen.
+- **Klebebandprobe:** Ein Stück kräftiges Klebeband fest andrücken und ruckartig abziehen. Hängen Farbreste daran, ist der Anstrich nicht tragfähig und muss abgeschabt werden. Sonst zieht die trocknende Tapete ihn später mit von der Wand.
+- **Benetzungsprobe:** Mit Schwamm oder Pflanzensprüher etwas Wasser auf die Wand geben. Perlt es ab, saugt die Fläche kaum und sollte angeschliffen werden. Zieht es sofort ein und färbt die Wand dunkel, saugt sie stark und braucht eine Grundierung.
+
+Die drei Proben dauern zusammen fünf Minuten und ersparen oft einen ganzen Tag Nacharbeit.
 
 ## Schritt 2: Die erste Bahn ausrichten
 
@@ -151,6 +169,10 @@ In fünf Stunden ist die Wand fertig, die Naht ist kaum zu sehen.
 ### Muss ich Raufaser überstreichen?
 
 Ja, Raufaser ist zum Überstreichen gedacht und kann mehrfach überstrichen werden.
+
+### Wann darf ich auf frischem Putz tapezieren?
+
+Erst wenn der Putz durchgetrocknet ist. Als Faustregel gilt bei guter Lüftung etwa ein Tag Trocknungszeit pro Millimeter Putzdicke. Wer zu früh tapeziert, sperrt Feuchtigkeit ein, und es drohen Flecken, Blasen und Schimmel.
 
 ### Kann ich Tapete über Tapete kleben?
 
