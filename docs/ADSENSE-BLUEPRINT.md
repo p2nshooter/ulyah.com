@@ -81,7 +81,7 @@ membuka domain-domain ini.
 | axto.io | ca-pub-5693981744147503 | `guardian-ai` · `dashboard/` (Cloudflare Pages) | axto-dashboard | en | 200 · akun lama 6371… · **ads.txt 404** |
 | xaa.es | ca-pub-5693981744147503 | `xaa` (studio web + portal klien) | xaa-es | en → **es** | 200 · akun lama 6371… · home tanpa artikel |
 | axto.us | ca-pub-5693981744147503 | `axto.us` (perpustakaan cerita anak + blog) | axto-us | en | 200 · akun lama 6371… |
-| axto.dev | ca-pub-5693981744147503 | `axtodev` | axto-dev | en | 200 · **Adsterra aktif** · 158 artikel |
+| axto.dev | ca-pub-2493615451319531 | `axtodev` | axto-dev | en | akun sendiri sejak 12 Okt 2026 (sebelumnya 5693981744147503) |
 | jai.lat | ca-pub-5693981744147503 | `jai` | jai-lat | en → **es** | 200 · **Adsterra aktif** · 77 artikel (Inggris) |
 | lie.skin | ca-pub-5693981744147503 | `lie` | lie-skin | en | 200 · **Adsterra aktif** · 88 artikel |
 | oldco.in | ca-pub-5693981744147503 | `oldco.in` | oldco-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
@@ -544,6 +544,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 11 Okt | xad.es pindah ke akun sendiri: ca-pub-5517446616694631 („xad.es kode adsense nya ganti dengan ini, buatin jg ads.txt dan tag metanya“) | ✅ `apps/web/src/lib/ad-config.ts` (loader + meta + /ads.txt dari satu konstanta), `scripts/check-ads.ts`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 11 Okt | zolun.de ganti akun: ca-pub-6016479123891586 („ini jg ubah buatin jg ads.txt dan tag metanya zolun.de“; sebelumnya 4548005919629272) | ✅ `sites/zolun.de/site.json` + `ADSENSE.txt` (loader, meta, ads.txt dari engine), `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 11 Okt | dawo.es ganti akun: ca-pub-7349356139063654 („ini juga ganti, buatkan jg ads.txt dan tag meta nya dawo.es“; sebelumnya 5693981744147503; dawa.es tidak disentuh) | ✅ `sites/dawo.es/site.json` + `ADSENSE.txt`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
+| 12 Okt | axto.dev ganti akun: ca-pub-2493615451319531 („axto.dev ganti adsense nya dengan ini, dan buatkan jg ads.txt dan tag meta nya“; sebelumnya 5693981744147503) | ✅ axtodev PR #18 (`src/lib/site.ts` untuk loader + meta, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 
 ---
 
