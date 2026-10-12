@@ -2,7 +2,7 @@
 title: "Wem gehört der rote Bagger?"
 description: Ein einziger roter Bagger und zwei Brüder, die ihn beide wollen. Eine Geschichte über Teilen, das nicht erzwungen wird, über Eieruhren am Sandkasten und über Spielzeug, das nicht geteilt werden muss.
 category: geschwister
-date: 2026-09-18
+date: 2026-10-12
 ---
 Der rote Bagger war nicht das teuerste Spielzeug im Kinderzimmer der Familie Neumann. Er war nicht einmal das neueste. Er hatte eine abgebrochene Schaufelspitze, einen Kratzer an der Seite und einen Aufkleber, den niemand mehr entziffern konnte. Aber er war, ohne jeden Zweifel, das begehrteste Objekt der Welt. Zumindest für Felix, fünf Jahre, und Anton, drei Jahre.
 
@@ -71,6 +71,24 @@ Streit um Spielzeug gehört zum Alltag mit kleinen Geschwistern. Kleine Kinder l
 - **Gebt Raum, bevor ihr eingreift.** Viele kleine Streitigkeiten lösen Kinder selbst, wenn Erwachsene nicht sofort dazwischengehen. Eingreifen ist nötig, wenn jemand weh tut oder ein Kind dauerhaft unterlegen ist.
 - **Lobt das Miteinander.** Statt „Toll, dass du geteilt hast“ wirkt oft ein Kommentar zum gemeinsamen Spiel stärker: „Ihr habt zusammen etwas Großes gebaut.“
 
+### Warum Teilen so schwer ist
+
+Dass ein Dreijähriger einen Bagger mit beiden Armen umklammert und „Meins!“ ruft, ist kein Zeichen von Egoismus. Um das zweite Lebensjahr herum entdecken Kinder, dass sie eine eigene Person sind, und „meins“ gehört zu dieser Entdeckung. Sich in andere hineinzuversetzen, Wünsche aufzuschieben und Zeit einzuschätzen, lernen sie erst nach und nach, meist im Laufe der Kindergartenzeit. Freiwilliges, großzügiges Teilen zeigt sich bei vielen Kindern erst im Vor- und Grundschulalter deutlicher. Wer das weiß, kann von Dreijährigen weniger verlangen und sich über jeden kleinen Schritt freuen.
+
+### Sätze, die beim Abwechseln helfen
+
+Kinder brauchen Worte, um zu verhandeln. Übt deshalb ein paar einfache Sätze, am besten spielerisch mit Kuscheltieren oder Handpuppen: „Sagst du mir, wann du fertig bist?“ – „Du bist dran, wenn mein Turm fertig ist.“ – „Willst du mitspielen?“ – „Ich möchte das gerade allein machen.“ Wenn diese Sätze im Spiel geübt sind, fallen sie Kindern im Streit leichter ein. Und wenn ein Kind sie benutzt, lohnt sich ein anerkennendes Wort.
+
+### Wenn etwas kaputtgeht
+
+Spielzeug, um das gestritten wird, geht manchmal kaputt, so wie die Schaufel des roten Baggers. Kinder fühlen sich dann oft schuldig oder beschuldigen das Geschwisterkind. Hilfreich ist, zwischen Absicht und Versehen zu unterscheiden: „Ihr habt beide gezogen, und dann ist es passiert. Das war keine Absicht.“ Versucht gemeinsam, es zu reparieren, oder überlegt, was das Spielzeug jetzt noch kann. Ein Bagger ohne Schaufel ist vielleicht ein prima Abschleppwagen.
+
+### Doppelt kaufen hilft selten
+
+Manche Eltern versuchen, Streit zu vermeiden, indem sie alles doppelt kaufen. Das hilft nur kurz, denn meist ist dann eines der beiden Exemplare plötzlich das bessere. Weniger, gut erreichbares Spielzeug und klare Regeln zum Abwechseln bringen auf Dauer mehr Ruhe.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt eure Kinder: Welche Sachen sind dir so wichtig, dass du sie nicht teilen möchtest? Und welche Sachen machen zu zweit mehr Spaß? Gemeinsam lässt sich eine Liste aufschreiben oder malen, die beim nächsten Streit hilft.
+
+Hängt die gemalte Liste dort auf, wo gespielt wird, zum Beispiel neben dem Spielzeugregal. Dann können auch kleine Kinder, die noch nicht lesen, mit einem Blick auf die Bilder nachsehen, was zu den besonderen Sachen gehört und was allen gehört.
