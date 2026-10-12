@@ -2,7 +2,7 @@
 title: "Kaffeemühle reinigen: Hand- und Elektromühle zerlegen, Mahlwerk säubern, Öle entfernen"
 description: "So reinigst du deine Kaffeemühle: warum alte Öle den Geschmack verderben, wie oft du reinigen solltest, Anleitung für Hand- und Elektromühle, Reinigungsgranulat und was du vermeiden solltest."
 category: muehlen-und-wasser
-date: 2026-08-18
+date: 2026-10-12
 ---
 Die Kaffeemühle ist das am meisten vernachlässigte Gerät in vielen Kaffeeküchen. Die Maschine wird entkalkt, die Kanne gespült, aber die Mühle läuft jahrelang, ohne dass jemand hineinschaut. Dabei sammeln sich im Mahlwerk, in der Auswurföffnung und im Bohnenbehälter feiner Kaffeestaub und Öle, die mit der Zeit ranzig werden. Sie geben dem frisch gemahlenen Kaffee einen muffigen, bitteren oder ranzigen Beigeschmack und können sogar die Mahlqualität verschlechtern. Die Reinigung ist nicht schwierig und dauert meist nur eine Viertelstunde. Dieser Ratgeber zeigt, wie du vorgehst.
 
@@ -64,6 +64,14 @@ Für viele Mühlen gibt es Reinigungsgranulat aus gepressten, lebensmittelechten
 
 Das ist praktisch für Mühlen, deren Mahlwerk schwer zugänglich ist, und als Zwischenreinigung. Es ersetzt aber keine gründliche Reinigung, bei der du das Mahlwerk tatsächlich siehst. Verwende nur Produkte, die ausdrücklich für Kaffeemühlen gedacht sind. **Reis**, der manchmal als Hausmittel empfohlen wird, ist umstritten: Die harten Körner können bei manchen Mühlen das Mahlwerk oder den Motor belasten, und einige Hersteller raten ausdrücklich davon ab.
 
+## Schlagmessermühlen reinigen
+
+Einfache elektrische Mühlen mit rotierendem Messer, sogenannte Schlagmessermühlen, haben kein Mahlwerk zum Ausbauen. Ziehe den Stecker, schütte das Pulver aus und wische die Mahlschale mit einem trockenen Tuch oder Pinsel aus. Unter dem Messer sammelt sich gern Pulver; arbeite dort vorsichtig mit einem Pinsel, denn die Klingen sind scharf. Ist die Schale abnehmbar, darf sie oft gespült werden, der Motorsockel aber nie. Wer in einer solchen Mühle auch Gewürze mahlt, sollte sie danach besonders gründlich reinigen oder gleich ein eigenes Gerät dafür nutzen, weil Kardamom, Zimt oder Pfeffer lange nachschmecken.
+
+## Kegel- und Scheibenmahlwerke im Vergleich
+
+Bei Kegelmahlwerken lässt sich der innere Kegel oder der äußere Ring oft ohne Werkzeug herausdrehen. Scheibenmahlwerke sind häufig mit Schrauben im Träger befestigt; vor dem Lösen lohnt ein Foto, damit Scheiben und Schrauben wieder an derselben Stelle sitzen. Bei beiden gilt: Die Schneiden nicht gegeneinanderschlagen und die Auflageflächen sauber halten, sonst sitzt das Mahlwerk nach dem Zusammenbau schief und mahlt ungleichmäßig.
+
 ## Was du vermeiden solltest
 
 - **Mahlwerk ins Wasser:** Stahlmahlwerke können rosten, und Restfeuchte lässt das nächste Kaffeemehl verklumpen. Nur reinigen, wie es der Hersteller vorsieht.
@@ -80,6 +88,14 @@ Sehr dunkle Röstungen, die ölig glänzen, hinterlassen deutlich mehr Rückstä
 
 Nach dem Zusammenbau sitzt das Mahlwerk manchmal minimal anders. Prüfe deshalb beim nächsten Kaffee Durchlaufzeit und Geschmack und justiere bei Bedarf nach. Wenn die Mühle ein Notizfeld oder eine Skala hat, trage deine bevorzugten Einstellungen ein. Tipps für das Nachjustieren gibt es in [Extraktion verstehen](/ratgeber/extraktion-verstehen/).
 
+## Weniger Rückstände im Alltag
+
+Viel Reinigungsarbeit lässt sich vermeiden. Fülle nur so viele Bohnen in den Trichter, wie du in ein paar Tagen verbrauchst, damit sie nicht offen altern und ihr Öl an den Behälter abgeben. Wenn deine Mühle zu statischer Aufladung neigt und Pulver an den Wänden klebt, hilft es vielen, die abgewogenen Bohnen vor dem Mahlen mit einem einzelnen Tropfen Wasser zu benetzen und kurz zu schütteln. Manche Mühlen haben einen Blasebalg, mit dem du Reste aus dem Mahlraum drückst. Und klopfe den Auswurf nach dem Mahlen sanft ab, statt mit harten Gegenständen daran zu schlagen.
+
+## Trocknen und Lagern nach der Reinigung
+
+Teile, die mit Wasser in Berührung kamen, müssen vollständig trocken sein, bevor du sie wieder einbaust. Lass sie am besten einige Stunden an der Luft liegen. Restfeuchte im Mahlraum verklumpt das Pulver, und in schlecht belüfteten Ecken kann sich im schlimmsten Fall Schimmel bilden. Wenn du die Mühle länger nicht benutzt, leere den Trichter, reinige das Mahlwerk und bewahre sie trocken auf.
+
 ## Häufige Fragen
 
 ### Riecht meine Mühle nach altem Kaffee, obwohl ich sie gereinigt habe?
@@ -93,3 +109,11 @@ Nicht jedes Mal. Es reicht, ein paar Gramm der neuen Bohnen wegzumahlen, damit R
 ### Wann muss ich das Mahlwerk austauschen?
 
 Wenn die Mühle trotz Reinigung deutlich ungleichmäßiger mahlt, mehr Staub erzeugt und der Kaffee nicht mehr gelingt, kann das Mahlwerk stumpf sein. Bei normalem Haushaltsgebrauch dauert das meist viele Jahre. Mehr zu Mühlenkauf und Lebensdauer in [Kaffeemühle: Kegel- oder Scheibenmahlwerk](/ratgeber/kaffeemuehle-kegel-oder-scheibenmahlwerk/).
+
+### Darf ich das Mahlwerk ölen?
+
+Nein. Speiseöl wird genauso ranzig wie Kaffeeöl. Manche Hersteller empfehlen für Lager oder Gewinde ein spezielles lebensmittelechtes Fett, die Mahlkörper selbst bleiben aber trocken und sauber.
+
+## Fazit
+
+Eine saubere Mühle ist der einfachste Weg zu besserem Kaffee. Regelmäßig abwischen, alle paar Wochen das Mahlwerk ausbürsten und alles gründlich trocknen lassen: Mehr braucht es nicht, damit frische Bohnen auch frisch schmecken.

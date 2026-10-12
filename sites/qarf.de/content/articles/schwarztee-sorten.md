@@ -2,7 +2,7 @@
 title: "Schwarztee-Sorten: Assam, Darjeeling, Ceylon, Keemun und die klassischen Mischungen"
 description: "Die wichtigsten schwarzen Tees und ihr Geschmack: Assam, Darjeeling, Ceylon, Kenia, Keemun und Lapsang Souchong, dazu Blattgrade, English Breakfast, Earl Grey und die richtige Zubereitung."
 category: teesorten
-date: 2026-08-27
+date: 2026-10-12
 ---
 Schwarzer Tee ist in Deutschland der Klassiker unter den Tees: zum Frühstück mit Milch, nachmittags mit Kandis, als Earl Grey mit Bergamotte oder als Ostfriesentee mit Sahne. Hinter dem einfachen Wort „Schwarztee“ verbirgt sich aber eine große Vielfalt. Ein malziger Assam schmeckt völlig anders als ein blumiger Darjeeling aus der ersten Pflückung, ein frischer Ceylon anders als ein rauchiger Lapsang Souchong. Herkunft, Pflanzenvarietät, Höhenlage, Erntezeit und Verarbeitung prägen jeden Tee. Dieser Ratgeber stellt die wichtigsten Sorten vor, erklärt die rätselhaften Buchstaben auf der Packung und hilft dir, den passenden Tee zu finden.
 
@@ -45,6 +45,8 @@ Darjeeling liegt an den Hängen des Himalaya in Westbengalen, auf Höhen bis üb
 
 First Flush Darjeeling ist oft nur teilweise oxidiert und steht geschmacklich zwischen Schwarz- und Grüntee. Er wird besser etwas kühler aufgegossen, etwa mit 85 bis 90 Grad.
 
+Darjeeling ist in Indien und in der Europäischen Union als **geschützte geografische Angabe** eingetragen. Ein Tee, der unter diesem Namen verkauft wird, muss aus den registrierten Teegärten der Region stammen. Weil die Ernte begrenzt ist und die Nachfrage groß, lohnt es sich trotzdem, bei auffällig günstigen Angeboten genauer hinzusehen: Gute Händler nennen Garten, Pflückung und Erntejahr.
+
 ### Ceylon, Sri Lanka
 
 Auf Sri Lanka, früher Ceylon, wird Tee auf verschiedenen Höhenlagen angebaut. **Hochlandtees** aus Regionen wie Nuwara Eliya oder Uva sind hell, frisch und zitrusartig, manchmal mit einer feinen Würze. **Tieflandtees** sind dunkler, kräftiger und süßer. Ceylon-Tees sind vielseitig, eignen sich pur und mit Milch und sind eine beliebte Basis für Eistee, siehe [Eistee selbst machen](/ratgeber/eistee-selbst-machen/).
@@ -79,6 +81,10 @@ Die Buchstabenkombinationen auf Schwarzteepackungen beschreiben vor allem die Bl
 
 „Orange“ hat übrigens nichts mit Orangen zu tun. Die Herkunft des Begriffs ist nicht eindeutig geklärt. Wichtig ist: Ein gebrochener Tee ist nicht schlechter, sondern anders. Er zieht schneller und kräftiger und passt gut zu Milch.
 
+## Von der Auktion in die Packung
+
+Ein großer Teil des Schwarztees wird über Auktionen gehandelt, etwa in Kolkata und Guwahati in Indien, in Colombo auf Sri Lanka und in Mombasa für ostafrikanische Tees. Bevor die Partien versteigert werden, verkosten Teetester Proben aus jeder Lieferung. Handelshäuser kaufen daraus die Tees für ihre Mischungen. Das ist eine Kunst für sich: Weil jede Ernte anders ausfällt, stellen Blender ihre Mischungen immer wieder aus anderen Partien zusammen, damit ein English Breakfast oder ein Ostfriesentee das ganze Jahr über gleich schmeckt. Wie Profis verkosten, zeigt [Kaffee verkosten](/ratgeber/kaffee-verkosten/), denn die Methoden ähneln sich.
+
 ## Die klassischen Mischungen
 
 - **English Breakfast:** kräftige Mischung, oft aus Assam, Ceylon und Kenia, für Milch gedacht.
@@ -103,6 +109,16 @@ Kräftige, malzige Tees wie Assam, Breakfast-Mischungen und CTC-Tees vertragen M
 
 Längeres Ziehen macht Schwarztee herber, weil sich mehr Gerbstoffe lösen. Die vollständige Übersicht für alle Teesorten findest du in [Tee: Ziehzeiten und Temperaturen](/ratgeber/tee-ziehzeiten-und-temperaturen/). Hartes Wasser kann einen schillernden Film auf dem Tee bilden und das Aroma dämpfen, siehe [Wasserhärte für Kaffee und Tee](/ratgeber/wasserhaerte-fuer-kaffee-und-tee/).
 
+## Typische Fehler
+
+| Problem | Ursache | Lösung |
+|---|---|---|
+| Tee bitter und adstringierend | zu lange gezogen, zu viel Tee | Ziehzeit verkürzen, abwiegen |
+| Tee dünn und flach | Wasser nicht heiß genug, zu wenig Tee | sprudelnd heißes Wasser, Menge erhöhen |
+| Darjeeling First Flush schmeckt grasig-herb | zu heiß aufgegossen | auf 85 bis 90 Grad abkühlen lassen |
+| schillernder Film auf dem Tee | hartes Wasser | gefiltertes oder weicheres Wasser |
+| Milch flockt aus | Zitrone und Milch kombiniert | nur eines von beiden verwenden |
+
 ## Häufige Fragen
 
 ### Wie viel Koffein hat Schwarztee?
@@ -116,3 +132,11 @@ Das ist eine alte Streitfrage ohne eindeutige Antwort. Wer Milch zuerst gibt, er
 ### Wie lange ist Schwarztee haltbar?
 
 Gut verschlossen, trocken und dunkel gelagert hält Schwarztee meist ein bis zwei Jahre sein Aroma, länger als grüner Tee. Mehr in [Kaffee und Tee richtig lagern](/ratgeber/kaffee-und-tee-lagern/).
+
+### Welcher Schwarztee eignet sich für Chai?
+
+Am besten ein kräftiger, malziger Tee, etwa Assam oder ein CTC-Tee aus Indien oder Kenia. Er behauptet sich gegen Milch und Gewürze, ohne dünn zu wirken. Feine Darjeelings wären dafür zu schade. Ein Rezept findest du in [Chai selbst machen](/ratgeber/chai-selbst-machen/).
+
+## Fazit
+
+Schwarztee ist eine ganze Welt für sich: malziger Assam für Milch und Kandis, blumiger Darjeeling für stille Momente, frischer Ceylon für jeden Tag und chinesische Hongcha für Entdecker. Wer Herkunft, Blattgrad und Ziehzeit beachtet, findet für jede Tageszeit den passenden Tee.

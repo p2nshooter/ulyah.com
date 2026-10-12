@@ -2,7 +2,7 @@
 title: "Röstdatum und Frische: wann Kaffee am besten schmeckt und woran du alten Kaffee erkennst"
 description: "Röstdatum oder Mindesthaltbarkeit, Entgasung und Aromaventil, das ideale Zeitfenster für Filter und Espresso, warum gemahlener Kaffee so schnell verliert und wie du frisch einkaufst und einfrierst."
 category: bohnen-und-roestung
-date: 2026-07-19
+date: 2026-10-12
 ---
 Kaffee ist ein Frischeprodukt, auch wenn er in der Packung monatelang haltbar aussieht. Nach dem Rösten beginnt eine Uhr zu ticken: Die Bohnen geben Gase ab, flüchtige Aromastoffe verfliegen, und Sauerstoff lässt die Öle altern. Ein Kaffee, der zwei Wochen nach der Röstung nach Schokolade, Kirsche und Karamell duftet, schmeckt nach drei Monaten flach, holzig und nach Pappe. Gleichzeitig ist ganz frisch gerösteter Kaffee auch nicht ideal. Dieser Ratgeber erklärt, was auf der Packung steht, wann Kaffee am besten schmeckt und wie du deine Bohnen möglichst lange frisch hältst.
 
@@ -78,6 +78,22 @@ Wenn du unsicher bist, wie frisch deine Bohnen sind, hilft ein kleiner Test. Fü
 
 Gute Cafés und Röstereien achten genau auf die Frische ihrer Bohnen. Du kannst einfach fragen, wann der Kaffee geröstet wurde. Viele Röstereien rösten wöchentlich in kleinen Chargen und geben gern Auskunft, welcher Kaffee gerade in seinem besten Zeitfenster ist. Ein Kaffee, der für Espresso noch einige Tage ruhen sollte, kann im Handfilter schon wunderbar schmecken. Frage auch nach der empfohlenen Zubereitung, denn viele Röstereien rösten gezielt für Filter oder für Espresso.
 
+## Was beim Altern passiert
+
+Röstkaffee enthält Hunderte flüchtiger Aromastoffe, und gerade die feinsten, etwa fruchtige und blumige Noten, verfliegen zuerst. Gleichzeitig reagieren die Öle der Bohne mit Sauerstoff: Sie oxidieren und schmecken mit der Zeit ranzig. Dazu kommt Feuchtigkeit aus der Luft, die das Altern beschleunigt. Licht und Wärme verstärken all diese Vorgänge. Deshalb wirkt alter Kaffee nicht nur schwächer, sondern auch anders: Die Süße verschwindet, holzige und papierartige Töne treten in den Vordergrund.
+
+## Frische bei Tee
+
+Auch Tee hat ein Zeitfenster, allerdings ein längeres als Kaffee. Grüner Tee schmeckt in den ersten Monaten nach der Ernte am frischesten. Japanische Frühlingstees wie Shincha werden gezielt jung getrunken. Schwarzer Tee ist stabiler und behält sein Aroma bei guter Lagerung oft ein bis zwei Jahre. Eine Ausnahme ist Pu-Erh, der bewusst über Jahre reifen kann, wie [Pu-Erh-Tee](/ratgeber/pu-erh-tee/) erklärt. Für alle Tees gilt: luftdicht, dunkel, kühl und fern von stark riechenden Lebensmitteln aufbewahren, denn Teeblätter nehmen Gerüche leicht an.
+
+## Frisch geröstet im Abonnement
+
+Viele Röstereien bieten Abonnements an, bei denen der Kaffee erst nach der Bestellung geröstet und dann alle ein bis vier Wochen verschickt wird. So hast du immer Bohnen im besten Zeitfenster, ohne Vorräte anzulegen. Beachte nur die Ruhezeit: Für Espresso können die Bohnen bei Ankunft noch ein paar Tage zu frisch sein.
+
+## Ältere Bohnen sinnvoll verwenden
+
+Kaffee, der seinen Höhepunkt überschritten hat, muss nicht in den Müll. Für **Cold Brew** eignet er sich gut, weil die lange, kalte Extraktion weniger empfindlich auf fehlende Frische reagiert. In **Desserts** wie Tiramisu oder Kaffeecreme, in Gebäck oder als Würze für Schmorgerichte fällt das Alter kaum auf. Und der Kaffeesatz kann anschließend auf den Kompost.
+
 ## Häufige Fragen
 
 ### Ist alter Kaffee schädlich?
@@ -91,3 +107,15 @@ Oft liegt es am Wasser, an der Frische und an der Zubereitung. Wie stark das Was
 ### Halten Kapseln länger frisch?
 
 Kaffeekapseln und Pads sind meist unter Schutzgas verpackt und bleiben dadurch lange stabil. Mit frisch gerösteten, frisch gemahlenen Bohnen können sie geschmacklich aber selten mithalten.
+
+### Wie lange hält eine geöffnete Packung?
+
+Ganze Bohnen in einer gut verschlossenen Packung mit Aromaventil bleiben nach dem Öffnen etwa zwei bis vier Wochen in guter Form. Drücke die Luft nach jeder Entnahme heraus, rolle die Tüte fest ein oder fülle die Bohnen in eine dunkle, luftdichte Dose, die nicht viel größer ist als die Menge darin. Gemahlener Kaffee sollte dagegen innerhalb weniger Tage verbraucht werden.
+
+### Gehört Kaffee in den Kühlschrank?
+
+Lieber nicht. Im Kühlschrank ist es feucht, und jedes Öffnen lässt Kondenswasser auf den kalten Bohnen entstehen. Außerdem nehmen Bohnen Gerüche von Käse, Wurst oder Zwiebeln auf. Ein kühler, dunkler Schrank ist für den Alltag die bessere Wahl; für längere Zeit hilft nur das portionsweise Einfrieren.
+
+## Fazit
+
+Auf das Röstdatum achten, ganze Bohnen in kleinen Mengen kaufen, frisch mahlen und richtig lagern: Mit diesen Gewohnheiten trinkst du deinen Kaffee in seinem besten Zeitfenster. Ein paar Tage Ruhe nach der Röstung gehören dazu, mehrere Monate im offenen Regal nicht.

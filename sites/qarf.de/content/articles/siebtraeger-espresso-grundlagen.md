@@ -2,7 +2,7 @@
 title: "Espresso mit dem Siebträger: Grundrezept, Dosis, Tampen, Brühzeit und Fehler erkennen"
 description: "Die Grundlagen für Espresso aus der Siebträgermaschine: Brührezept mit Dosis, Ausbeute und Zeit, Mahlgrad einstellen, verteilen und tampen, Vorheizen, Geschmack lesen und Maschine pflegen."
 category: kaffee-zubereiten
-date: 2026-07-31
+date: 2026-10-12
 ---
 Ein guter Espresso ist eine kleine Kunst. In rund 25 bis 30 Sekunden presst die Maschine heißes Wasser mit hohem Druck durch einen festen Kuchen aus fein gemahlenem Kaffee. Heraus kommen wenige Milliliter, sirupartig, mit einer haselnussbraunen Crema, intensiv süß, mit Säure und angenehmer Bitterkeit im Gleichgewicht. Gerade weil so wenig Flüssigkeit so viel Geschmack trägt, verzeiht Espresso kaum Fehler. Ein Gramm mehr oder weniger, ein Klick an der Mühle oder ein schief angedrückter Kuchen verändern die Tasse spürbar. Dieser Ratgeber erklärt die Grundlagen, mit denen du an einer Siebträgermaschine zu Hause verlässlich gute Ergebnisse bekommst.
 
@@ -71,6 +71,14 @@ Nach jeder Änderung an der Mühle mahle eine kleine Menge weg, denn im Mahlwerk
 
 **Channeling** heißt, das Wasser sucht sich einen bequemen Weg durch eine Schwachstelle im Kaffeekuchen und umgeht den Rest. Du erkennst es an Spritzern aus dem Sieb, einem früh hellen Strahl oder kleinen Löchern im Kuchen nach dem Bezug. Ursachen sind ungleich verteiltes Mehl, Klumpen, schief getampter Kaffee oder ein zu volles oder zu leeres Sieb.
 
+## Hilfsmittel für einen gleichmäßigen Kuchen
+
+Weil Channeling der häufigste Grund für unausgewogenen Espresso ist, gibt es einige einfache Werkzeuge, die beim Vorbereiten helfen. Beim **Umrühren mit feinen Nadeln**, oft nach seinem Erfinder als Weiss-Distribution-Technik bezeichnet, fährst du mit einem Werkzeug aus dünnen Drähten kreisend durch das Mehl im Sieb. Das löst Klumpen auf und verteilt den Kaffee gleichmäßig. Ein **Puck Screen**, ein feines Metallsieb, das du nach dem Tampen auf den Kuchen legst, verteilt das Wasser von oben gleichmäßiger und hält das Duschsieb sauber. Ein **nackter Siebträger** ohne Auslauf zeigt dir von unten, ob der Espresso gleichmäßig aus dem ganzen Sieb fließt oder an einzelnen Stellen früh hell wird. Nichts davon ist Pflicht, aber jedes dieser Hilfsmittel macht Fehler sichtbar oder verhindert sie.
+
+## Ein Protokoll führen
+
+Gerade am Anfang hilft ein kurzes Protokoll mehr als jedes Gerät. Notiere zu jeder Bohne Dosis, Ausbeute, Zeit, die Einstellung der Mühle und in zwei, drei Worten den Geschmack. Nach wenigen Tagen erkennst du Muster: wie viel ein Klick an der Mühle ausmacht, wie sich die Bohne mit dem Alter verändert und welche Ratio dir am besten schmeckt. Beim nächsten Beutel derselben Sorte bist du dann in einem oder zwei Bezügen am Ziel.
+
 ## Bohnen für Espresso
 
 Espresso konzentriert alles, auch Fehler. Frische ist entscheidend: Bohnen brauchen nach dem Rösten etwa eine bis zwei Wochen Ruhe, bevor sie sich im Espresso gut beziehen lassen, und schmecken danach einige Wochen am besten. Mehr dazu in [Röstdatum und Frische](/ratgeber/roestdatum-und-frische/). Für den Einstieg eignen sich Espressoröstungen oder mittlere Röstungen mit Schokolade und Nuss, weil sie verzeihender sind als sehr helle Röstungen. Mischungen mit etwas Robusta geben mehr Crema und Körper, siehe [Arabica und Robusta](/ratgeber/arabica-und-robusta/).
@@ -103,3 +111,7 @@ Für sehr guten Espresso brauchst du vor allem eine gute Mühle, frische Bohnen 
 ### Wie viel Koffein hat ein Espresso?
 
 Ein Espresso hat weniger Koffein als eine große Tasse Filterkaffee, weil die Menge klein ist, aber pro Milliliter deutlich mehr. Mehr dazu in [Koffein in Kaffee und Tee](/ratgeber/koffein-in-kaffee-und-tee/).
+
+## Fazit
+
+Guter Espresso entsteht aus Wiederholbarkeit: frische Bohnen, eine feine Mühle, abgewogene Dosis, gleichmäßig verteiltes und gerade getamptes Mehl, eine gut vorgeheizte Maschine und ein klares Rezept. Wer dann nur den Mahlgrad bewegt und dem Geschmack folgt, zieht schon nach kurzer Zeit Espresso, der süß, ausgewogen und lange im Abgang ist.

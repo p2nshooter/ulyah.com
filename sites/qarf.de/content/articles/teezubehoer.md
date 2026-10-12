@@ -2,7 +2,7 @@
 title: "Teezubehör: Kanne, Sieb, Wasserkocher und Thermometer, was du wirklich brauchst"
 description: "Ein ehrlicher Überblick über Teezubehör: Teekannen aus Porzellan, Glas, Gusseisen und Ton, Siebe und Filter, Wasserkocher mit Temperaturwahl, Waage, Teewärmer, Reinigung und eine Grundausstattung."
 category: tee-zubereiten
-date: 2026-09-29
+date: 2026-10-12
 ---
 Für eine gute Tasse Tee brauchst du nicht viel: Wasser, Tee und ein Gefäß. Wer aber öfter verschiedene Tees trinkt, merkt schnell, dass das richtige Zubehör vieles leichter macht. Ein Sieb, in dem die Blätter Platz zum Entfalten haben, ein Wasserkocher, der auf 80 Grad abschaltet, eine kleine Waage für die richtige Menge. Gleichzeitig verkauft der Handel unzählige Teesiebe, Teeeier, Kannen und Spielereien, von denen viele mehr schaden als nützen. Dieser Ratgeber zeigt, welches Zubehör sich wirklich lohnt, worauf du beim Material achtest und wie du alles pflegst.
 
@@ -73,6 +73,18 @@ Wasserkocher verkalken bei hartem Wasser schnell. Kalk verändert den Geschmack 
 
 Ein „Teelöffel Tee“ kann sehr unterschiedlich viel wiegen. Feiner Assam wiegt pro Löffel deutlich mehr als lockerer weißer Tee oder große Oolong-Blätter. Eine kleine Feinwaage mit 0,1 Gramm Auflösung ist deshalb eine lohnende, günstige Anschaffung. Mit ihr kannst du Rezepte wiederholen und Tees fair vergleichen. Wer schon eine Kaffeewaage hat, kann sie auch für Tee nutzen.
 
+## Thermometer und Timer
+
+Wer keinen Wasserkocher mit Temperaturwahl hat, kommt mit einem einfachen Küchenthermometer gut zurecht. Am praktischsten sind digitale Einstechthermometer, die innerhalb weniger Sekunden anzeigen. Nach ein paar Wochen weißt du, wie lange dein Wasser nach dem Kochen braucht, um auf 80 Grad abzukühlen, und brauchst das Thermometer seltener. Mindestens so wichtig ist ein **Timer**. Ob Küchenwecker oder Smartphone: Wer die Ziehzeit misst statt schätzt, trinkt seltener bitteren Tee und kann gezielt nachjustieren, wenn ihm ein Aufguss zu kräftig oder zu dünn war.
+
+## Tassen und Teeschalen
+
+Die Tasse beeinflusst, wie du Tee wahrnimmst. Dünnwandiges Porzellan liegt angenehm an den Lippen und kühlt den Tee nicht stark ab. Eine **weiße Innenseite** zeigt die Farbe des Aufgusses, was beim Vergleichen verschiedener Tees hilft. Für feine Tees sind kleinere Tassen sinnvoll, denn sie werden getrunken, solange der Tee warm und aromatisch ist. Wer Tees ernsthaft vergleichen möchte, kann sich ein **Verkostungsset** zulegen, wie es im Teehandel verwendet wird: einen kleinen Becher mit gezahntem Deckel, aus dem der Aufguss in eine Schale abgegossen wird. Damit lassen sich mehrere Tees unter gleichen Bedingungen nebeneinander probieren.
+
+## Worauf du beim Kauf achtest
+
+Eine gute Kanne erkennst du an Kleinigkeiten. Der Ausguss sollte sauber abreißen, ohne zu tropfen, und der Deckel beim Ausgießen nicht herausfallen; viele Kannen haben dafür eine kleine Nase am Deckel. Der Griff muss auch bei voller Kanne gut in der Hand liegen, ohne dass die Finger den heißen Körper berühren. Siebeinsätze aus Edelstahl sind langlebiger als solche aus Kunststoff. Achte bei Glas auf hitzebeständiges Borosilikatglas und bei Gusseisen auf eine unbeschädigte Emaille. Lieber eine gute Kanne als drei mittelmäßige.
+
 ## Unterwegs und im Büro
 
 Auch außerhalb der eigenen Küche musst du nicht auf guten Tee verzichten. Praktisch sind **Teeflaschen mit herausnehmbarem Sieb**, in denen du den Tee ziehen lässt und das Sieb danach entfernst oder den Tee durch eine Trennwand von den Blättern abschirmst. Ohne diese Trennung zieht der Tee den ganzen Tag weiter und wird bitter. Im Büro reicht oft ein großer Becher mit passendem Siebeinsatz und Deckel. Wenn kein Wasserkocher mit Temperaturwahl bereitsteht, gieße bei grünem Tee etwas kaltes Wasser in den Becher, bevor du das kochende Wasser dazugibst. Vorportionierte Tees in kleinen Dosen oder Papiertütchen ersparen dir das Wiegen. Für Ausflüge und Wanderungen eignet sich eine gute Isolierflasche mit bereits abgegossenem Tee.
@@ -107,3 +119,7 @@ Teebeutel enthalten meist fein gebrochenen Tee, der schnell und kräftig zieht. 
 ### Was ist ein Teewärmer, und schadet er dem Tee?
 
 Ein Teewärmer, eine Stoffhaube oder ein Stövchen hält die Kanne warm. Er schadet nicht, solange die Blätter nicht mehr in der Kanne sind. Mit Blättern zieht der Tee unter dem Wärmer weiter und wird bitter.
+
+## Fazit
+
+Für guten Tee reichen wenige, gut gewählte Dinge: eine Kanne mit großem Sieb, ein Wasserkocher mit Temperaturwahl oder ein Thermometer, eine Feinwaage und luftdichte Dosen. Wer dazu Blatt und Aufguss rechtzeitig trennt und sein Zubehör sauber hält, hat das Wichtigste schon richtig gemacht.

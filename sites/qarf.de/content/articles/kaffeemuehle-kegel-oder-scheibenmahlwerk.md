@@ -2,7 +2,7 @@
 title: "Kaffeemühle kaufen: Kegelmahlwerk, Scheibenmahlwerk oder Schlagmesser?"
 description: Die Mühle ist wichtiger als die Kaffeemaschine. Wie Kegel- und Scheibenmahlwerke arbeiten, warum Schlagmessermühlen enttäuschen und worauf du beim Kauf achten solltest.
 category: muehlen-und-wasser
-date: 2026-07-11
+date: 2026-10-12
 ---
 Unter Kaffeeliebhabern gibt es einen Satz, der fast immer stimmt: Gib dein Geld zuerst für die Mühle aus, dann für die Maschine. Eine gute Mühle macht aus jeder Zubereitungsmethode mehr, eine schlechte Mühle ruiniert auch die teuerste Espressomaschine. Der Grund ist einfach: Wie gleichmäßig der Kaffee gemahlen ist, bestimmt, wie gleichmäßig das Wasser ihn auslaugt. In diesem Ratgeber erfährst du, wie die verschiedenen Mahlwerke funktionieren, welche Vor- und Nachteile sie haben und worauf du beim Kauf achten solltest.
 
@@ -100,6 +100,18 @@ Gute Handmühlen mit Kegelmahlwerk liefern für den Preis oft eine bessere Mahlq
 - **Lautstärke:** Langsam drehende Mühlen sind meist leiser, ein Vorteil am frühen Morgen.
 - **Bohnenbehälter:** Für Einzeldosierung brauchst du keinen großen Behälter. Bohnen, die tagelang im Trichter liegen, altern schneller.
 
+## Einzeldosierung oder Bohnenbehälter
+
+Viele Mühlen für zu Hause sind heute auf **Einzeldosierung** ausgelegt: Du wiegst die Bohnen für genau eine Zubereitung ab, gibst sie in den kleinen Trichter und mahlst alles durch. Das hält die übrigen Bohnen frisch in ihrer Dose und erleichtert den Wechsel zwischen Sorten. Eine solche Mühle sollte möglichst wenig Kaffee im Inneren zurückhalten, damit die abgewogene Menge auch in der Tasse ankommt. Gegen Ende des Mahlvorgangs springen die letzten Bohnen gern auf dem Mahlwerk herum, statt eingezogen zu werden; ein Gewicht auf den Bohnen oder ein Blasebalg hilft dagegen. Mühlen mit großem **Bohnenbehälter** sind bequemer, wenn du viele Tassen am Tag mit derselben Sorte zubereitest. Fülle dann trotzdem nur so viel ein, wie du in wenigen Tagen verbrauchst.
+
+## Den Nullpunkt kennen
+
+Der Nullpunkt ist die Einstellung, bei der sich die Mahlkörper gerade berühren. Viele Skalen beziehen sich darauf, und wer ihn kennt, kann Einstellungen mit anderen Nutzern derselben Mühle vergleichen oder nach einer Reinigung schnell wiederfinden. Ermittle ihn nur bei leerer Mühle und drehe vorsichtig, bis du ein leichtes Schleifen hörst oder spürst. Lass das Mahlwerk in dieser Stellung nicht laufen, sonst stumpfen die Schneiden ab. Wie du von dort aus deinen Mahlgrad findest, erklärt [Mahlgrad richtig einstellen](/ratgeber/mahlgrad-richtig-einstellen/).
+
+## Gebraucht kaufen
+
+Hochwertige Mühlen sind langlebig, deshalb kann sich ein Gebrauchtkauf lohnen. Prüfe vor dem Kauf, ob sich die Achse ohne Spiel dreht, ob der Motor gleichmäßig läuft und ob die Schneiden des Mahlwerks noch scharfkantig sind. Abgerundete, glänzend polierte Kanten deuten auf starke Abnutzung hin. Frage nach dem Alter und danach, wie viel Kaffee ungefähr gemahlen wurde, und informiere dich, ob es für das Modell noch Ersatzmahlwerke gibt. Eine gründliche Reinigung vor dem ersten eigenen Kaffee ist Pflicht, denn alte Öle schmeckst du sofort.
+
 ## Häufige Fragen
 
 ### Wie viel sollte eine gute Kaffeemühle kosten?
@@ -117,3 +129,7 @@ Nicht grundsätzlich. Keramik ist sehr hart und rostet nicht, kann aber bei Frem
 ### Muss ich die Mühle reinigen?
 
 Ja, regelmäßig. Alte Kaffeeöle und Pulverreste werden ranzig und verfälschen den Geschmack. Wie das geht, steht im Ratgeber [Kaffeemühle reinigen](/ratgeber/kaffeemuehle-reinigen/).
+
+## Fazit
+
+Ob Kegel oder Scheibe ist weniger wichtig als Präzision, Stabilität und Pflege. Kaufe die Mühle passend zu deiner Zubereitung, achte auf feine Einstellbarkeit, wenig Totraum und erhältliche Ersatzteile, und gib im Zweifel lieber etwas mehr für die Mühle als für die Maschine aus.

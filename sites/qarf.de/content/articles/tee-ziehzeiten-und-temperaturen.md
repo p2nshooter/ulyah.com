@@ -2,7 +2,7 @@
 title: "Tee aufgießen: Ziehzeiten und Temperaturen für jede Sorte"
 description: Von Gyokuro bis Pfefferminze: die richtigen Temperaturen, Ziehzeiten und Mengen für jede Teesorte, warum sie so wichtig sind und wie du ohne Thermometer klarkommst.
 category: tee-zubereiten
-date: 2026-06-30
+date: 2026-10-12
 ---
 Kaum etwas entscheidet so sehr darüber, ob ein Tee gelingt, wie Temperatur und Ziehzeit. Ein und derselbe Sencha kann süß und frisch oder bitter und kratzig schmecken, je nachdem, ob du ihn mit 70 °C eine Minute oder mit sprudelnd kochendem Wasser fünf Minuten ziehen lässt. Bei Kräutertee ist es umgekehrt: Hier sorgt kochendes Wasser nicht nur für Geschmack, sondern auch für Sicherheit. In diesem Ratgeber findest du die Richtwerte für alle wichtigen Teesorten und erfährst, warum sie so unterschiedlich ausfallen.
 
@@ -61,6 +61,14 @@ Nicht jeder hat einen Wasserkocher mit Temperaturwahl. Diese Tricks helfen:
 3. **Kaltes Wasser zugeben:** Ein Teil kaltes auf vier Teile kochendes Wasser ergibt grob 80 °C. Das ist eine einfache Mischrechnung und funktioniert erstaunlich gut.
 4. **Nicht nach Blasen schätzen:** Die alten Regeln mit Fischaugen- und Krabbenaugenblasen sind charmant, aber ungenau, weil sie vom Topf abhängen.
 
+## Kalt aufgießen
+
+Echter Tee lässt sich auch kalt zubereiten, und das Ergebnis ist eine Entdeckung: Weil kaltes Wasser kaum Gerbstoffe löst, wird der Tee süß, weich und fast nie bitter. Gib etwa 8 bis 10 Gramm grünen Tee, weißen Tee oder hellen Oolong auf einen Liter kaltes Wasser und lass alles sechs bis zwölf Stunden im Kühlschrank ziehen. Danach abseihen und innerhalb von ein bis zwei Tagen trinken. Für Kräuter- und Früchtetee gilt diese Methode ausdrücklich nicht: Sie werden zuerst kochend aufgegossen und dann abgekühlt. Weitere Rezepte findest du in [Eistee selbst machen](/ratgeber/eistee-selbst-machen/).
+
+## Wasser kocht nicht überall bei 100 Grad
+
+Der Siedepunkt hängt vom Luftdruck ab. Mit jeder Höhe sinkt er, grob um etwa ein Grad pro 300 Meter. Im Flachland spielt das keine Rolle, in den Bergen schon: Auf 1.500 Metern kocht Wasser bei ungefähr 95 Grad. Für Schwarztee kann das Ergebnis dann etwas flacher ausfallen. Eine etwas längere Ziehzeit oder etwas mehr Tee gleicht das aus. Bei grünem Tee ändert sich dagegen nichts, denn er wird ohnehin mit abgekühltem Wasser aufgegossen.
+
 ## Die Menge: lieber wiegen
 
 Ein Teelöffel ist ein ungenaues Maß. Ein Löffel feiner Broken-Tee wiegt deutlich mehr als ein Löffel voluminöser weißer Tee wie Bai Mu Dan. Wenn du es genau willst, nimm eine Feinwaage: 2 bis 3 Gramm auf 250 Milliliter sind für die meisten Tees ein guter Anfang. Für Tee mit Milch, etwa Assam oder Ostfriesenmischung, darf es mehr sein, weil Milch den Geschmack abschwächt.
@@ -107,3 +115,7 @@ Weil die Blätter noch im Wasser liegen. Entferne Sieb, Beutel oder Filter nach 
 ### Kann ich Tee in der Mikrowelle aufbrühen?
 
 Technisch ja, aber Wasser kann in der Mikrowelle über den Siedepunkt erhitzt werden und beim Hineingeben der Teeblätter plötzlich aufschäumen. Der Wasserkocher ist sicherer und genauer.
+
+## Fazit
+
+Temperatur, Ziehzeit und Menge sind die drei Stellschrauben jeder Tasse Tee. Je weniger oxidiert ein Tee ist, desto kühler das Wasser, Kräuter und Früchte immer kochend und zugedeckt, und den Tee rechtzeitig vom Blatt trennen. Mit diesen Grundregeln und einer Waage gelingt dir jede Sorte, vom zarten Gyokuro bis zum kräftigen Assam.

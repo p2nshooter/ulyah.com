@@ -2,7 +2,7 @@
 title: "Koffein in Kaffee und Tee: wie viel steckt in welcher Tasse?"
 description: Wie viel Koffein Espresso, Filterkaffee, Schwarztee und Matcha enthalten, welche Mengen die EFSA für unbedenklich hält und wie lange Koffein im Körper wirkt.
 category: genuss-und-wissen
-date: 2026-07-03
+date: 2026-10-12
 ---
 Koffein ist der Grund, warum viele Menschen morgens überhaupt zu Kaffee oder Tee greifen. Gleichzeitig kursieren um keinen anderen Inhaltsstoff so viele Halbwahrheiten: Espresso habe am meisten Koffein, Teein wirke anders als Koffein, grüner Tee sei praktisch koffeinfrei. In diesem Ratgeber findest du die tatsächlichen Mengen, die Einschätzungen der Europäischen Behörde für Lebensmittelsicherheit (EFSA) und die Faktoren, die bestimmen, wie viel Koffein in deiner Tasse landet.
 
@@ -100,6 +100,14 @@ Zahlen werden greifbarer, wenn du deinen eigenen Tag durchrechnest. Nehmen wir a
 
 Damit liegst du noch unter den 400 mg, die die EFSA für gesunde Erwachsene als unbedenklich ansieht, aber schon recht nahe daran. Kommt ein Energydrink oder ein Stück dunkle Schokolade hinzu, ist die Grenze schnell erreicht. Das Beispiel zeigt auch, dass nicht die einzelne Tasse entscheidet, sondern die Summe aus allen Quellen. Wer seine Menge senken möchte, fängt am besten beim größten Posten an, hier also beim Becher am Morgen, und ersetzt etwa die Hälfte der Bohnen durch entkoffeinierte.
 
+## Kinder, Jugendliche und Energydrinks
+
+Kinder reagieren empfindlicher auf Koffein, weil sie weniger wiegen. Die EFSA-Orientierung von etwa 3 Milligramm pro Kilogramm Körpergewicht bedeutet für ein Kind mit 30 Kilogramm rund 90 Milligramm am Tag, also ungefähr so viel wie in einer Tasse Filterkaffee oder in einer großen Flasche Cola. Koffeinhaltige Getränke mit mehr als 150 Milligramm Koffein pro Liter müssen in der EU einen Hinweis tragen, dass sie für Kinder sowie Schwangere und Stillende nicht empfohlen sind. Das betrifft vor allem Energydrinks, die bei Jugendlichen beliebt sind und oft in großen Dosen getrunken werden.
+
+## Weniger Koffein, gleicher Genuss
+
+Wer Koffein reduzieren möchte, muss nicht auf Kaffee und Tee verzichten. Kleinere Tassen, reiner Arabica statt robustahaltiger Mischungen und ein Wechsel zu halb entkoffeiniertem Kaffee am Nachmittag senken die Menge spürbar. Beim Tee hilft es, weniger Blatt zu verwenden oder am Abend auf Rooibos und Kräutertee umzusteigen. Ein verbreiteter Irrtum ist, dass ein kurzer erster Aufguss von 30 Sekunden das Koffein aus dem Tee „wäscht“. Messungen zeigen, dass dabei nur ein kleiner Teil gelöst wird. Wer wirklich wenig Koffein möchte, greift deshalb besser zu koffeinfreien Alternativen.
+
 ## Wie lange Koffein wirkt
 
 Die Halbwertszeit von Koffein beträgt bei gesunden Erwachsenen meist etwa 3 bis 5 Stunden. Nach dieser Zeit ist also noch die Hälfte im Blut. Die Spanne ist aber groß:
@@ -131,3 +139,7 @@ Fast keins. In Deutschland darf entkoffeinierter Röstkaffee nach der Kaffeevero
 ### Ist Mate eine koffeinfreie Alternative?
 
 Nein. Mate enthält ebenfalls Koffein, je nach Zubereitung ähnlich viel wie eine Tasse Tee oder mehr. Koffeinfrei sind Rooibos, Honeybush und die meisten Kräuter- und Früchtetees.
+
+## Fazit
+
+Wie viel Koffein in deiner Tasse steckt, hängt vor allem von der Menge Kaffee oder Tee ab, weniger von der Röstung oder dem Namen des Getränks. Wer seine täglichen Quellen zusammenzählt, auf den eigenen Schlaf achtet und bei Bedarf schrittweise reduziert, kann Kaffee und Tee unbeschwert genießen.

@@ -2,7 +2,7 @@
 title: "Milchschaum und Cappuccino: Milch richtig schäumen mit Dampflanze, Aufschäumer oder French Press"
 description: "Feinporiger Milchschaum zu Hause: richtige Temperatur, welche Milch und welcher Pflanzendrink schäumt, Technik an der Dampflanze, Alternativen ohne Maschine, Cappuccino bis Flat White."
 category: kaffee-zubereiten
-date: 2026-08-09
+date: 2026-10-12
 ---
 Ein guter Cappuccino lebt vom Milchschaum. Nicht vom steifen, grobblasigen Schaumberg, der wie Seifenschaum auf der Tasse steht, sondern von seidiger, glänzender Milch mit feinsten Bläschen, die sich mit dem Espresso verbindet und süß schmeckt, ganz ohne Zucker. Baristas nennen sie Mikroschaum. Die gute Nachricht: Du brauchst dafür nicht unbedingt eine teure Maschine. Mit etwas Übung gelingt feiner Schaum an der Dampflanze, mit einem elektrischen Aufschäumer, einer Stempelkanne oder sogar mit einem Schraubglas. Dieser Ratgeber erklärt, was beim Schäumen passiert, welche Milch sich eignet und wie du die klassischen Milchkaffees zubereitest.
 
@@ -44,6 +44,10 @@ Die Dampflanze der Siebträgermaschine liefert den feinsten Schaum, braucht aber
 7. **Abwischen:** Wische die Lanze sofort mit einem feuchten Tuch ab und blase sie kurz frei, damit keine Milch eintrocknet oder angesaugt wird.
 8. **Polieren:** Klopfe das Kännchen einmal auf die Arbeitsfläche, um verbliebene große Blasen zu zerplatzen, und schwenke die Milch kreisend, bis sie glänzt wie nasse Farbe.
 
+## Kännchen und Werkzeug
+
+Ein gutes Milchkännchen aus Edelstahl macht vieles leichter. Für einen Cappuccino reicht eines mit etwa 350 Millilitern Volumen, für zwei Tassen auf einmal eignet sich ein Kännchen mit rund 600 Millilitern. Wichtig ist eine spitze, sauber geformte Schnaupe, wenn du Latte Art versuchen willst. Ein Clip-Thermometer hilft am Anfang, ein Gefühl für die Temperatur zu bekommen; nach ein paar Wochen spürst du sie meist mit der Hand. Lagere das Kännchen im Kühlschrank, wenn du Zeit gewinnen willst: Kalte Milch in einem kalten Kännchen gibt dir mehr Sekunden zum Schäumen, bevor die Zieltemperatur erreicht ist.
+
 ## Schäumen ohne Siebträger
 
 ### Elektrischer Milchaufschäumer
@@ -83,6 +87,16 @@ Die Größen sind Richtwerte. In Italien, Spanien, Australien und Deutschland we
 4. Halte die Tasse leicht schräg, gieße die Milch zunächst aus etwas Höhe in die Mitte, damit sie unter die Crema taucht.
 5. Senke das Kännchen gegen Ende ab und lass den Schaum oben auflaufen. Hier beginnt Latte Art: Mit dem richtigen Fluss und einer kleinen Bewegung entstehen Herz oder Blatt.
 
+## Latte Art: die ersten Muster
+
+Latte Art entsteht aus drei Dingen: feinem, glänzendem Mikroschaum, einer frischen Crema und einem kontrollierten Fluss. Für den Anfang ist das **Herz** das beste Muster. Gieße zuerst aus etwa zehn Zentimetern Höhe in die Mitte, bis die Tasse halb voll ist. Senke dann das Kännchen dicht über die Oberfläche, bis ein weißer Fleck erscheint, lass ihn wachsen und ziehe zum Schluss mit einem dünnen Strahl durch die Mitte. Aus dem Herz entwickeln sich später **Tulpe** und **Rosetta**, bei der du das Kännchen seitlich hin und her bewegst.
+
+Zum Üben eignet sich Wasser mit einem Tropfen Spülmittel, das ähnlich fließt wie geschäumte Milch, natürlich nicht zum Trinken. So kannst du die Handbewegung trainieren, ohne Liter für Liter Milch zu verbrauchen.
+
+## Hygiene an Lanze und Aufschäumer
+
+Milchreste sind ein idealer Nährboden für Bakterien und setzen sich als harter Film ab. Deshalb gehört das Abwischen und Freiblasen der Dampflanze zu jedem Schäumen dazu. Hat sich trotzdem Milch in der Düse festgesetzt, lässt sich die Düsenspitze bei vielen Maschinen abschrauben und mit einer dünnen Nadel reinigen. Für Kannen und Aufschäumer gibt es spezielle Milchsystemreiniger; bei Vollautomaten folgst du dem Reinigungsprogramm des Herstellers, am besten täglich.
+
 ## Typische Fehler
 
 | Problem | Ursache | Lösung |
@@ -106,3 +120,11 @@ Die Süße kommt vor allem von der Milch, wenn sie nicht zu heiß ist. Fade schm
 ### Wie reinige ich den Milchaufschäumer?
 
 Direkt nach dem Benutzen mit warmem Wasser ausspülen und den Quirl abnehmen. Eingetrocknete Milch lässt sich viel schwerer entfernen und riecht schnell säuerlich.
+
+### Kann ich H-Milch zum Schäumen verwenden?
+
+Ja. Ultrahocherhitzte Milch schäumt meist gut und gleichmäßig, schmeckt aber leicht nach gekochter Milch. Frische Vollmilch gibt den süßeren, runderen Cappuccino. Wichtig ist bei beiden, dass die Milch gut gekühlt ist.
+
+## Fazit
+
+Seidiger Milchschaum ist keine Frage der teuren Maschine, sondern der Technik: kalte Milch, wenig Luft am Anfang, ein kräftiger Wirbel und Schluss bei etwa 60 Grad. Wer das ein paar Mal übt, macht zu Hause Cappuccino und Flat White, die einem guten Café in nichts nachstehen.

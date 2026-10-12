@@ -2,7 +2,7 @@
 title: "Rooibos und Honeybush: die koffeinfreien Tees aus Südafrika, Sorten und Zubereitung"
 description: "Rooibos und Honeybush aus Südafrika: Herkunft, roter und grüner Rooibos, Geschmack, Zubereitung mit kochendem Wasser, Latte, Eistee und Mischungen, Lagerung und häufige Fragen."
 category: teesorten
-date: 2026-09-11
+date: 2026-10-12
 ---
 Rooibos hat in Deutschland viele Freunde gefunden: als warmer, süßlicher Abendtee ohne Koffein, als Basis für Vanille- und Orangenmischungen oder als kalter Durstlöscher im Sommer. Sein naher Verwandter Honeybush ist weniger bekannt, schmeckt aber ähnlich angenehm, mit einer noch deutlicheren Honignote. Beide stammen aus einer kleinen Region im Südwesten Südafrikas und wachsen nirgendwo sonst in nennenswerter Menge. Botanisch haben sie mit der Teepflanze nichts zu tun, sie gehören zu den Hülsenfrüchtlern. Dieser Ratgeber erklärt, woher Rooibos und Honeybush kommen, wie sie verarbeitet werden und wie du sie am besten zubereitest.
 
@@ -27,6 +27,10 @@ Rooibos ist in der EU als **geschützte Ursprungsbezeichnung** eingetragen. Nur 
 Im Sommer werden die Zweige mit Blättern geschnitten, gehäckselt, angefeuchtet und zu Haufen aufgeschichtet. Durch die Oxidation färben sich die grünen Pflanzenteile rotbraun, und das typische süßliche Aroma entsteht. Anschließend wird der Rooibos in der Sonne getrocknet, gesiebt und oft dampfsterilisiert, damit er mikrobiell sicher ist.
 
 **Grüner Rooibos** wird nach dem Schneiden sofort getrocknet, ohne Oxidation. Er bleibt olivgrün und schmeckt leichter, grasiger, mit einer feinen Malznote.
+
+## Honeybush genauer betrachtet
+
+Honeybush ist kein einzelner Strauch, sondern ein Sammelname für mehrere Arten der Gattung **Cyclopia**. Zu den bekanntesten gehören Cyclopia intermedia, die lange vor allem wild gesammelt wurde, sowie Cyclopia subternata und Cyclopia genistoides, die zunehmend auf Feldern angebaut werden. Die Verarbeitung ähnelt der von Rooibos: Die geschnittenen Zweige werden befeuchtet und bei Wärme oxidiert, bis sich das Grün in ein warmes Braun verwandelt und der typische Honigduft entsteht, dann getrocknet. Weil die Wildbestände begrenzt sind und nur langsam nachwachsen, ist der Anbau wichtig, damit Honeybush auf Dauer verfügbar bleibt.
 
 ## Geschmack im Vergleich
 
@@ -62,6 +66,10 @@ Ein zweiter Aufguss ist möglich und schmeckt oft noch angenehm. In Südafrika l
 Rooibos und Honeybush enthalten Polyphenole, darunter Stoffe wie Aspalathin, die fast nur in Rooibos vorkommen. Über mögliche Wirkungen wird viel geforscht, die Ergebnisse stammen aber überwiegend aus Labor- und Tierversuchen. Belastbare Aussagen über einen gesundheitlichen Nutzen beim Menschen lassen sich daraus bislang nicht ableiten. Sicher ist: Rooibos ist eine gute koffeinfreie Alternative für den Abend und für alle, die Koffein meiden möchten. Wie viel Koffein in anderen Getränken steckt, zeigt [Koffein in Kaffee und Tee](/ratgeber/koffein-in-kaffee-und-tee/).
 
 Wie bei allen Kräuter- und Pflanzenaufgüssen gilt: Abwechslung ist sinnvoll, statt über lange Zeit große Mengen nur einer Sorte zu trinken. Schwangere und Stillende sowie Menschen, die Medikamente einnehmen, lassen sich bei Fragen ärztlich beraten.
+
+## Anbau, Klima und traditionelles Wissen
+
+Weil Rooibos nur in einer kleinen Region gedeiht, ist er besonders empfindlich gegenüber Veränderungen des Klimas. Längere Trockenzeiten und Hitze setzen den Pflanzen zu, und Forschende in Südafrika untersuchen, wie sich Anbau und Wildbestände schützen lassen. Dazu gehört auch die Frage, wem das Wissen um die Pflanze gehört. Lange bevor Rooibos gehandelt wurde, nutzten ihn die San und Khoikhoi. 2019 schloss die südafrikanische Rooibos-Branche mit Vertretungen dieser Gemeinschaften eine Vereinbarung, die sie an den Erlösen beteiligt. Sie gilt als eines der ersten Abkommen dieser Art für ein so bekanntes Lebensmittel.
 
 ## Worauf du beim Kauf achtest
 
@@ -100,3 +108,15 @@ Der Farbstoff entsteht bei der Oxidation und löst sich gut in heißem Wasser. R
 ### Kann ich Rooibos zu lange ziehen lassen?
 
 Kaum. Er wird mit der Zeit kräftiger und dunkler, aber nur wenig bitter. Viele lassen den Beutel einfach in der Tasse.
+
+### Warum heißt es Fermentation, wenn der Rooibos doch oxidiert?
+
+Im Teehandel hat sich das Wort Fermentation für die Oxidation eingebürgert, obwohl dabei vor allem pflanzeneigene Stoffe mit Sauerstoff reagieren. Bei Rooibos wird der Begriff aus Tradition ebenso verwendet. Gemeint ist der Schritt, in dem aus grünen Nadeln der rotbraune, süßlich duftende Rooibos wird.
+
+### Kann ich Rooibos kalt ansetzen?
+
+Besser nicht direkt. Wie bei Kräutertee wird empfohlen, getrocknete Pflanzenteile mit sprudelnd kochendem Wasser aufzugießen, weil sie Keime tragen können. Für ein kaltes Getränk brühst du den Rooibos deshalb heiß und doppelt so stark auf, lässt ihn abkühlen und stellst ihn dann in den Kühlschrank.
+
+## Fazit
+
+Rooibos und Honeybush sind mehr als Ersatz für Tee am Abend. Kochend aufgegossen und großzügig gezogen, schmecken sie süß, rund und ohne Bitterkeit, pur ebenso wie mit Milch, als Eistee oder in der Küche. Wer einmal puren roten und grünen Rooibos nebeneinander probiert, entdeckt, wie viel Charakter in den unscheinbaren Nadeln steckt.

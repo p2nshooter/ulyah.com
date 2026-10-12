@@ -2,7 +2,7 @@
 title: "Kräutertee und Früchtetee: Sorten, sichere Zubereitung, eigene Mischungen und Kräuter aus dem Garten"
 description: "Kräuter- und Früchtetee richtig aufgießen: warum kochendes Wasser und zehn Minuten wichtig sind, beliebte Kräuter von Pfefferminze bis Kamille, Früchtetee und Hibiskus, eigene Mischungen und Trocknen."
 category: teesorten
-date: 2026-09-08
+date: 2026-10-12
 ---
 Pfefferminze, Kamille, Fenchel, Hagebutte, Hibiskus: In deutschen Teeschränken stehen mehr Kräuter- und Früchtetees als echte Tees. Genau genommen sind sie gar keine Tees, denn sie stammen nicht von der Teepflanze. Fachleute sprechen deshalb von teeähnlichen Erzeugnissen oder Aufgüssen. Für den Alltag spielt das keine Rolle, wohl aber für die Zubereitung: Kräuter und Früchte brauchen anderes Wasser und andere Ziehzeiten als grüner oder schwarzer Tee. Dieser Ratgeber erklärt die beliebtesten Sorten, wie du sie sicher aufgießt und wie du eigene Mischungen zusammenstellst, auch mit Kräutern aus dem Garten oder vom Balkon.
 
@@ -21,6 +21,20 @@ Kräuter und Früchte sind Naturprodukte, die auf dem Feld wachsen und getrockne
 Auch aus geschmacklichen Gründen ist heißes Wasser richtig: Viele Aromastoffe in Wurzeln, Samen und getrockneten Früchten lösen sich erst bei hoher Temperatur und nach längerer Zeit. **Zudecken** hält die ätherischen Öle in der Tasse, statt sie mit dem Dampf entweichen zu lassen. Eine Übersicht aller Ziehzeiten findest du in [Tee: Ziehzeiten und Temperaturen](/ratgeber/tee-ziehzeiten-und-temperaturen/).
 
 Bei **kalt angesetztem Kräuter- oder Früchtetee**, der im Sommer beliebt ist, gilt deshalb: Erst mit kochendem Wasser aufbrühen und dann abkühlen, statt die Kräuter nur in kaltes Wasser zu legen. Mehr dazu in [Eistee selbst machen](/ratgeber/eistee-selbst-machen/).
+
+## Mengen und Ziehzeiten im Überblick
+
+Wie viel du nimmst und wie lange der Aufguss zieht, hängt vor allem vom Pflanzenteil ab. Zarte Blätter und Blüten geben ihr Aroma schneller ab als harte Samen, Schalen oder Wurzeln.
+
+| Pflanzenteil | Beispiele | Menge pro 250 ml | Ziehzeit |
+|---|---|---|---|
+| Blätter | Pfefferminze, Melisse, Brennnessel | 1 bis 2 Teelöffel getrocknet | 5 bis 10 Minuten |
+| Blüten | Kamille, Lindenblüten | 1 bis 2 Teelöffel | 5 bis 10 Minuten |
+| Samen | Fenchel, Anis, Kümmel | 1 Teelöffel, leicht angestoßen | etwa 10 Minuten |
+| Früchte und Schalen | Hagebutte, Apfel, Hibiskus | 1 gehäufter Esslöffel | 8 bis 12 Minuten |
+| Wurzeln | Ingwer, frisch in Scheiben | 4 bis 6 dünne Scheiben | etwa 10 Minuten |
+
+Die Werte sind Ausgangspunkte. Wenn dir ein Tee zu kräftig ist, nimm weniger Kraut, statt die Ziehzeit unter fünf Minuten zu verkürzen.
 
 ## Die beliebtesten Kräuter
 
@@ -52,6 +66,10 @@ Früchtetee besteht meist aus getrockneten Apfelstücken, Hagebutten, Hibiskusbl
 - **Apfel:** gibt Süße und Körper, oft die Basis von Früchtemischungen.
 
 Achte auf die Zutatenliste: Bei manchen Früchtetees steht die namensgebende Frucht erst weit hinten, und der Geschmack kommt vor allem aus Aroma. Ein Tee ohne zugesetzte Aromen schmeckt natürlicher, aber zurückhaltender.
+
+## Lose, im Beutel oder in der Pyramide
+
+Kräuter und Früchte gibt es lose, im klassischen Papierbeutel und in größeren Pyramidenbeuteln. Für Beutel werden die Pflanzen meist feiner geschnitten, damit sie schnell ausziehen. Das ist praktisch, die feinen Stücke verlieren aber schneller ihr Aroma. Lose Ware mit erkennbaren Blättern, Blüten und Fruchtstücken zeigt dir besser, was du kaufst, und lässt sich nach Geschmack dosieren. Pyramidenbeutel liegen dazwischen: Sie enthalten oft gröbere Stücke und geben ihnen Raum zum Quellen. Wichtig ist bei allen Formen dasselbe: kochendes Wasser, Deckel drauf und genug Zeit.
 
 ## Eigene Mischungen zusammenstellen
 
@@ -109,3 +127,15 @@ Reine Kräuter- und Früchtetees sind koffeinfrei. Ausnahmen sind Mate, Guayusa 
 ### Kann ich Kräutertee mehrmals aufgießen?
 
 Ein zweiter Aufguss ist möglich, schmeckt aber meist deutlich schwächer. Frische Kräuter ergeben öfter einen zweiten guten Aufguss als getrocknete.
+
+### Schadet saurer Früchtetee den Zähnen?
+
+Hibiskus und Hagebutte machen Früchtetee recht sauer. Wer ihn den ganzen Tag schluckweise trinkt, setzt den Zahnschmelz häufig Säure aus. Trinke ihn lieber zu festen Zeiten, spüle danach mit Wasser nach und warte mit dem Zähneputzen etwa eine halbe Stunde.
+
+### Wann gebe ich Honig in den Tee?
+
+Das ist vor allem Geschmackssache. Wer das feine Aroma des Honigs schmecken möchte, rührt ihn erst ein, wenn der Tee trinkwarm ist. Säuglinge im ersten Lebensjahr sollten grundsätzlich keinen Honig bekommen, auch nicht im Tee.
+
+## Fazit
+
+Kräuter- und Früchtetees sind vielseitig, koffeinfrei und leicht selbst zu mischen. Mit sprudelnd kochendem Wasser, abgedeckter Tasse, ausreichend Ziehzeit und Abwechslung zwischen den Sorten holst du das Beste aus ihnen heraus, ob aus der Packung, vom Balkon oder aus dem eigenen Garten.
