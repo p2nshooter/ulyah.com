@@ -2,7 +2,7 @@
 title: "Papas Frühschicht und das Butterbrot-Geheimnis"
 description: Wenn Papa Frühschicht im Krankenhaus hat, ist er weg, bevor die Kinder aufwachen. Über Schichtarbeit, kleine Zettel in der Brotdose und Nähe, auch wenn man sich kaum sieht.
 category: morgens-und-abends
-date: 2026-09-26
+date: 2026-10-12
 ---
 Stefan Wagner verließ das Haus um 5:10 Uhr. Er arbeitete als Pfleger auf der Intensivstation eines Krankenhauses in Bremen, und in den Wochen mit Frühschicht begann sein Dienst um sechs. Er zog sich im Dunkeln an, trank im Stehen einen Kaffee und schlich dann an den Kinderzimmern vorbei, in denen Noah und Frieda schliefen. Manchmal blieb er an der Tür stehen und hörte ihnen eine Weile beim Atmen zu.
 
@@ -67,6 +67,20 @@ Viele Eltern arbeiten im Schichtdienst, sind beruflich viel unterwegs oder haben
 - **Schafft eigene Rituale je nach Schicht.** Wer morgens da ist, kann das Frühstück übernehmen, wer abends da ist, das Vorlesen. Jedes Ritual zählt.
 - **Achtet auf euch selbst.** Schichtarbeit ist anstrengend. Ausreichend Schlaf und kleine Pausen für euch selbst sind keine Selbstsucht, sondern die Grundlage dafür, dass ihr für eure Kinder da sein könnt.
 
+### Wenn ein Elternteil tagsüber schlafen muss
+
+Nach Nachtdiensten müssen viele Schichtarbeitende am Tag schlafen, während die Kinder zu Hause sind. Das gelingt besser mit klaren Absprachen: ein Schild an der Schlafzimmertür, das Kinder selbst gestalten dürfen, ruhige Spiele in dieser Zeit und ein fester Moment, an dem der schlafende Elternteil aufsteht und für die Kinder da ist. Erklärt euren Kindern, warum Schlaf am Tag nötig ist: Wer nachts für andere Menschen sorgt, braucht seinen Schlaf eben dann, wenn andere wach sind. Verdunkelnde Vorhänge und Ohrstöpsel helfen dem Schlafenden, Kinder nicht ständig zum Flüstern ermahnen zu müssen.
+
+### Ideen für kleine Botschaften
+
+Ein Zettel muss nicht lang sein. Kinder freuen sich über ein Rätsel, einen Witz, eine kleine Zeichnung oder eine Geschichte, die jeden Tag ein Stück weitergeht. Für ältere Kinder eignet sich ein gemeinsames Notizbuch, das zwischen Kinderzimmer und Küche hin- und herwandert und in das beide schreiben dürfen. Wer gern bastelt, kann eine Landkarte vom Arbeitsweg malen und jeden Tag einen kleinen Punkt markieren. Wichtig ist nicht der Aufwand, sondern dass die Botschaften verlässlich kommen.
+
+### Wenn Kinder sich Sorgen machen
+
+Kinder von Eltern, die im Krankenhaus, bei der Feuerwehr, der Polizei oder in anderen anspruchsvollen Berufen arbeiten, machen sich manchmal Sorgen, ob ihren Eltern bei der Arbeit etwas passiert. Nehmt diese Sorgen ernst und erklärt, was euch schützt: Kolleginnen und Kollegen, Schutzkleidung, klare Abläufe. Erzählt auch von den guten Momenten eurer Arbeit, damit das Bild nicht nur aus schweren Tagen besteht.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt eure Kinder: Wann vermisst du mich am meisten? Was würdest du gern von meiner Arbeit wissen? Und wenn eure Kinder schon schreiben können: Möchtest du mir auch einmal einen Zettel schreiben?
+
+Bewahrt die Zettel und Antworten in einer Schachtel auf. Für eure Kinder wird daraus mit den Jahren ein kleines Archiv ihrer Kindheit, und für euch eine Erinnerung daran, dass Nähe auch in vollen Wochen möglich war.
