@@ -155,9 +155,6 @@ export default async function KisahDetailPage({
                   logo: { "@type": "ImageObject", url: logoUrl },
                 },
                 mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
-                ...(story.audio_r2_key
-                  ? { audio: { "@type": "AudioObject", contentUrl: `${api.base}/content/stories/${story.id}/audio` } }
-                  : {}),
               },
               {
                 "@type": "BreadcrumbList",
@@ -180,10 +177,8 @@ export default async function KisahDetailPage({
 
       <div className="mt-6">
         <StoryDownloads
-          storyId={story.id}
           title={story.title}
           body={story.body}
-          audioAvailable={Boolean(story.audio_r2_key)}
           pdfEbookId={story.pdf_ebook_id}
           dict={dict}
         />

@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { extractJson } from "@ulyah/ai-engine";
 import type { Env } from "../env.js";
-import { checkRateLimit } from "../lib/rate-limit.js";
+import { checkRateLimit, checkRateLimitLocal } from "../lib/rate-limit.js";
 import { requireAdmin } from "../lib/auth-middleware.js";
 import { orchestrate, orchestraHealth, capabilityRegistry, answerGrounded, selfTest, getKaggleEndpoint, KAGGLE_ENDPOINT_KV, type Capability, type KaggleEndpoint } from "../lib/orchestra.js";
 import { listWorkers, runWorker } from "../lib/orchestra-workers.js";
@@ -39,7 +39,7 @@ aiRoute.post("/generate/story", requireAdmin, async (c) => {
 // language yet, it explicitly reports that rather than silently mixing in a
 // different language's voice.
 aiRoute.post("/tts", async (c) => {
-  const rl = await checkRateLimit(c.env, `tts:${c.req.header("cf-connecting-ip") ?? "anon"}`, 20, 60);
+  const rl = checkRateLimitLocal(`tts:${c.req.header("cf-connecting-ip") ?? "anon"}`, 20, 60);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
 
   const { text, lang, category } = await c.req.json<{
@@ -116,7 +116,7 @@ aiRoute.get("/recommend/:ayahId", async (c) => {
 // POST /ai/summarize — ringkas tafsir panjang, routed through Orchestra Core
 // so it transparently fails over across every donated text key.
 aiRoute.post("/summarize", async (c) => {
-  const rl = await checkRateLimit(c.env, `summarize:${c.req.header("cf-connecting-ip") ?? "anon"}`, 10, 60);
+  const rl = checkRateLimitLocal(`summarize:${c.req.header("cf-connecting-ip") ?? "anon"}`, 10, 60);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
 
   const { text } = await c.req.json<{ text: string }>();
@@ -137,7 +137,7 @@ aiRoute.post("/summarize", async (c) => {
 // the site's "terjemah multi-bahasa konsisten" promise using whatever text
 // key is healthiest, with automatic failover.
 aiRoute.post("/translate", async (c) => {
-  const rl = await checkRateLimit(c.env, `translate:${c.req.header("cf-connecting-ip") ?? "anon"}`, 20, 60);
+  const rl = checkRateLimitLocal(`translate:${c.req.header("cf-connecting-ip") ?? "anon"}`, 20, 60);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
 
   const { text, targetLang } = await c.req.json<{ text: string; targetLang: string }>();
@@ -158,6 +158,8 @@ aiRoute.post("/translate", async (c) => {
 // database first, then answers ONLY from those sources with citations (no
 // fabricated rulings). Guest-facing but rate-limited.
 aiRoute.post("/ask", async (c) => {
+  // Hourly and spends donated AI keys: a global (KV) count, which at this
+  // volume costs a handful of KV writes a day.
   const rl = await checkRateLimit(c.env, `ask:${c.req.header("cf-connecting-ip") ?? "anon"}`, 15, 3600);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded — silakan daftar untuk akses lebih.", registerHint: true }, 429);
 
@@ -187,7 +189,7 @@ aiRoute.post("/ask", async (c) => {
 // Register-free + CORS-open (the global middleware already allows axto.us) so
 // the site can call it straight from the browser with no login.
 aiRoute.post("/reader", async (c) => {
-  const rl = await checkRateLimit(c.env, `reader:${c.req.header("cf-connecting-ip") ?? "anon"}`, 30, 60);
+  const rl = checkRateLimitLocal(`reader:${c.req.header("cf-connecting-ip") ?? "anon"}`, 30, 60);
   if (!rl.allowed) return c.json({ error: "Rate limit exceeded" }, 429);
 
   const { task, context, question, targetLang, locale } = await c.req.json<{

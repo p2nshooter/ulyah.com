@@ -266,7 +266,7 @@ jobs:
           # fawazahmed0/quran-api dataset (Abu Rida via Tanzil). The
           # already-provisioned production DB never re-runs the empty-DB
           # branch above, so German needs its own gated import.
-          DECOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM translation WHERE lang='de';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          DECOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM (SELECT 1 FROM translation WHERE lang='de' LIMIT 6236);" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
           if [ "$DECOUNT" -lt "6236" ]; then
             echo "German translation has $DECOUNT rows — importing quran_seed_de.sql."
             npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/quran_seed_de.sql
@@ -305,6 +305,10 @@ jobs:
             npx wrangler d1 execute ulyah-db --remote --file="$f"
           done
 
+      # The "already imported?" probes below count at most the threshold they
+      # compare against (LIMIT ${minrows}). Counting whole collections read
+      # ~70,000 D1 rows per deploy, several deploys a day, out of the five
+      # million the free plan gives every site on the account together.
       - name: Bulk-import the Sunnah's nine books + Arba'in/Qudsi (one-time)
         if: env.D1_SKIP != 'true'
         continue-on-error: true
@@ -321,7 +325,7 @@ jobs:
           # threshold uses a low bar (nawawi has only 42 hadith, qudsi ~40).
           for col in bukhari:1001:100 muslim:9001:100 tirmidhi:20001:100 abudawud:30001:100 nasai:40001:100 ibnmajah:50001:100 malik:60001:100 nawawi:70001:10 qudsi:75001:10 dehlawi:80001:10; do
             name="${col%%:*}"; rest="${col#*:}"; startid="${rest%%:*}"; minrows="${rest##*:}"
-            npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM hadits WHERE id >= ${startid} AND id < ${startid}+9999;" --json > /tmp/hadits_${name}_count.json
+            npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM (SELECT 1 FROM hadits WHERE id >= ${startid} AND id < ${startid}+9999 LIMIT ${minrows});" --json > /tmp/hadits_${name}_count.json
             HCOUNT=$(node -e "const j=require('/tmp/hadits_${name}_count.json'); console.log(j[0].results[0].n)")
             if [ "$HCOUNT" -lt "$minrows" ]; then
               echo "$name has only $HCOUNT rows — importing."
@@ -346,7 +350,7 @@ jobs:
           npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_ahmad_darimi_catalog.sql
           for col in ahmad:80001:100 darimi:90001:100; do
             name="${col%%:*}"; rest="${col#*:}"; startid="${rest%%:*}"; minrows="${rest##*:}"
-            npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM hadits WHERE id >= ${startid} AND id < ${startid}+9999;" --json > /tmp/hadits_${name}_count.json
+            npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM (SELECT 1 FROM hadits WHERE id >= ${startid} AND id < ${startid}+9999 LIMIT ${minrows});" --json > /tmp/hadits_${name}_count.json
             HCOUNT=$(node -e "const j=require('/tmp/hadits_${name}_count.json'); console.log(j[0].results[0].n)")
             if [ "$HCOUNT" -lt "$minrows" ]; then
               echo "$name has only $HCOUNT rows — importing."
@@ -367,7 +371,7 @@ jobs:
           set -eu
           # irsyadulibad/hadits-database (carihadis.com) — Riyadhus Shalihin
           # Imam An-Nawawi, 371 hadith, Arabic + Indonesian, HTML-cleaned. ids 100001+.
-          RCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM hadits WHERE collection='riyadhus';" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
+          RCOUNT=$(npx wrangler d1 execute ulyah-db --remote --command="SELECT COUNT(*) AS n FROM (SELECT 1 FROM hadits WHERE collection='riyadhus' LIMIT 350);" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j[0].results[0].n)}catch(e){console.log(0)}})" || echo 0)
           if [ "$RCOUNT" -lt "350" ]; then
             echo "Riyadhus Shalihin has $RCOUNT rows — importing."
             npx wrangler d1 execute ulyah-db --remote --file=../../packages/db-schema/seed/hadith_riyadhus.sql
@@ -1497,6 +1501,31 @@ jobs:
       - name: Deploy worker-api
         working-directory: apps/worker-api
         run: npx wrangler deploy
+
+      # R2 under the 10 GB free tier (owner, 12 Oct 2026: "turunkan R2-nya
+      # hingga di bawah 10 GB" — it stood at 121.63 GB). Each file in
+      # .github/r2-lifecycle is the complete rule set of the bucket it is named
+      # after; R2 then deletes what the rules match on its own. Which prefixes,
+      # and why each is safe to drop: .github/r2-lifecycle/README.md.
+      #
+      # Not allowed to fail the deploy — it is storage housekeeping, and the
+      # nightly D1 maintenance log shows the active rules and bucket sizes.
+      - name: R2 lifecycle rules (keep R2 under 10 GB)
+        if: env.R2_OK == 'true'
+        continue-on-error: true
+        working-directory: apps/worker-api
+        run: |
+          set -u
+          for f in ../../.github/r2-lifecycle/*.json; do
+            b=$(basename "$f" .json)
+            echo "--- $b ---"
+            if npx wrangler r2 bucket lifecycle set "$b" --file "$f" --force; then
+              npx wrangler r2 bucket lifecycle list "$b" || true
+            else
+              echo "::warning title=R2 lifecycle not applied::Could not set the lifecycle rules on $b. The API token needs Workers R2 Storage:Edit; without these rules R2 keeps growing past the 10 GB free tier."
+            fi
+            npx wrangler r2 bucket info "$b" || true
+          done
 
       - name: Push Worker secrets (auto-generating internal ones if absent)
         working-directory: apps/worker-api

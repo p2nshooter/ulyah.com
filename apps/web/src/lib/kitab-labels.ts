@@ -57,7 +57,7 @@ const EN: KitabLabels = {
   openWork: "Open",
   note: "Catalogue and summaries only, for study and reference.",
   arabicOnlyNote: "This work's description is in Arabic, the original classical source language — read aloud with an Arabic voice below.",
-  translationLabel: "Translation",
+  translationLabel: "Machine translation of the Arabic description",
   bridgeTitle: "Pesantren Books — Digital Library",
   bridgeDesc: "Classical books, neatly arranged by field: Arabic text, translation & explanation, chapter by chapter — read and listened to.",
 };
@@ -86,7 +86,7 @@ const ID: KitabLabels = {
   openWork: "Buka",
   note: "Hanya katalog dan ringkasan, untuk studi dan rujukan.",
   arabicOnlyNote: "Ringkasan kitab ini berbahasa Arab, bahasa sumber aslinya — bisa didengarkan dengan suara Arab di bawah ini.",
-  translationLabel: "Terjemahan",
+  translationLabel: "Terjemahan mesin dari ringkasan berbahasa Arab",
   bridgeTitle: "Kitab Pesantren — Perpustakaan Digital",
   bridgeDesc: "Kitab kuning tersusun rapi per bidang: teks Arab, terjemah & penjelasan, bab per bab — bisa dibaca & didengarkan.",
 };
@@ -144,7 +144,7 @@ const FR: KitabLabels = {
   openWork: "Ouvrir",
   note: "Catalogue et résumés uniquement, pour l'étude et la référence.",
   arabicOnlyNote: "La description de cet ouvrage est en arabe, la langue classique d'origine — lue à voix haute avec une voix arabe ci-dessous.",
-  translationLabel: "Traduction",
+  translationLabel: "Traduction automatique de la description arabe",
   bridgeTitle: "Livres de pesantren — Bibliothèque numérique",
   bridgeDesc: "Livres classiques, classés par domaine : texte arabe, traduction et explication, chapitre par chapitre — à lire et à écouter.",
 };
@@ -173,7 +173,7 @@ const DE: KitabLabels = {
   openWork: "Öffnen",
   note: "Nur Katalog und Zusammenfassungen, zum Studium und als Referenz.",
   arabicOnlyNote: "Die Beschreibung dieses Werks ist auf Arabisch, der klassischen Originalsprache — unten mit arabischer Stimme vorgelesen.",
-  translationLabel: "Übersetzung",
+  translationLabel: "Maschinelle Übersetzung der arabischen Beschreibung",
   bridgeTitle: "Pesantren-Bücher — Digitale Bibliothek",
   bridgeDesc: "Klassische Bücher, ordentlich nach Fach geordnet: arabischer Text, Übersetzung & Erläuterung, Kapitel für Kapitel — zum Lesen und Anhören.",
 };

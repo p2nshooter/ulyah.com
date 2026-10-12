@@ -20,8 +20,9 @@ import { routePath } from "@/lib/paths";
  *
  * The shelf is read from this site's static files (lib/kitab-data.ts), not
  * from D1: search and paging run over that list in memory, so a visitor
- * paging through 600 works costs zero database reads. The titles are the
- * Arabic originals; the detail page carries the translation.
+ * paging through 600 works costs zero database reads. Each title and excerpt
+ * comes in this site's own language when the catalogue translation has it
+ * (scripts/data/kitab-i18n), with the Arabic original beneath.
  */
 export const revalidate = 86400;
 
@@ -72,15 +73,19 @@ export default async function KitabCategoryPage({
 
   // Same match as the API's `title_ar LIKE ? OR author LIKE ?`.
   const needle = q.trim().toLowerCase();
+  // The site's own translation of each title is searched too (title_tr).
   const matches = needle
     ? shelf.books.filter(
-        (b) => b.title_ar.toLowerCase().includes(needle) || (b.author ?? "").toLowerCase().includes(needle)
+        (b) =>
+          b.title_ar.toLowerCase().includes(needle) ||
+          (b.title_tr ?? "").toLowerCase().includes(needle) ||
+          (b.author ?? "").toLowerCase().includes(needle)
       )
     : shelf.books;
   const total = matches.length;
   const books = matches
     .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-    .map((b) => ({ ...b, title_translated: null as string | null }));
+    .map((b) => ({ ...b, title_translated: b.title_tr ?? null }));
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const cv = coverFor(slug); // this shelf's binding colour, shared by its works
@@ -150,7 +155,11 @@ export default async function KitabCategoryPage({
                       {b.author_death_year ? ` (${t.died} ${b.author_death_year})` : ""}
                     </p>
                   )}
-                  {b.excerpt && <p dir="rtl" className="font-arabic mt-2 line-clamp-2 text-sm text-text-secondary">{b.excerpt}</p>}
+                  {b.excerpt_tr ? (
+                    <p className="mt-2 line-clamp-2 text-sm text-text-secondary">{b.excerpt_tr}</p>
+                  ) : (
+                    b.excerpt && <p dir="rtl" className="font-arabic mt-2 line-clamp-2 text-sm text-text-secondary">{b.excerpt}</p>
+                  )}
                 </div>
                 <span className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 text-[10px] text-accent">
                   <span aria-hidden>🔊</span>

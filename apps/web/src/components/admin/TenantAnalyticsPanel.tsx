@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
 import { TENANT } from "@/lib/tenant";
 import { MiniBarChart } from "./MiniBarChart";
 
@@ -36,7 +37,7 @@ interface TenantStat {
   /** Devices whose LAST event is an uninstall — DECREASES when the same
    * device installs again. */
   uninstalledDevices: number;
-  /** Distinct devices with a presence heartbeat in the last 5s — the SAME
+  /** Distinct devices with a presence heartbeat inside the online window — the SAME
    * live "online now" source as the ⚡ Live bar (no longer shown here). */
   activeNow: number;
   daily: { bucket: string; n: number; d?: number }[];
@@ -61,7 +62,10 @@ const META: Record<string, { name: string; site: string; icon: string }> = {
  * sibling site's own admin it shows only that site. Numbers start at 0 for a
  * freshly-launched site — nothing is guessed.
  */
-const REFRESH_MS = 12_000; // fast enough to feel live, gentle on the API
+// The historical cards are recomputed on the server at most every five minutes
+// (lib/edge-memo.ts); asking more often than once a minute only spends Worker
+// requests. Paused while the tab is hidden.
+const REFRESH_MS = 60_000;
 
 export function TenantAnalyticsPanel() {
   const [rows, setRows] = useState<TenantStat[] | null>(null);
@@ -77,8 +81,9 @@ export function TenantAnalyticsPanel() {
   // now surfaces (the timestamp used to freeze with no hint why).
   useEffect(() => {
     let alive = true;
-    const load = () =>
-      api
+    const load = () => {
+      if (document.visibilityState === "hidden") return;
+      return api
         .get<{ tenants: TenantStat[] }>("/admin/tenant-analytics")
         .then((r) => {
           if (!alive) return;
@@ -89,6 +94,7 @@ export function TenantAnalyticsPanel() {
         .catch(() => {
           if (alive) setFailed(true);
         });
+    };
     load();
     const t = setInterval(load, REFRESH_MS);
     const onVis = () => {
@@ -126,7 +132,7 @@ export function TenantAnalyticsPanel() {
           {failed ? "koneksi terputus — mencoba lagi…" : "LIVE"}
         </span>
         <span className="align-middle text-[10px] font-normal text-text-secondary">
-          statistik historis · diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 12 dtk (untuk
+          statistik historis · diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap {REFRESH_MS / 1000} dtk, angka dihitung ulang tiap 5 menit (untuk
           &quot;online sekarang&quot; real-time lihat bar ⚡ Live di atas)
         </span>
       </p>
@@ -253,7 +259,7 @@ export function TenantAnalyticsPanel() {
         menyusut sendiri seiring data baru mengisi jendela waktu. Kartu perangkat dan kunjungan memakai
         <b> jendela waktu yang sama</b> (hari Jakarta UTC+7) — dulu yang satu hari UTC dan yang lain 24 jam berjalan,
         itu sebabnya perangkat pernah terlihat lebih banyak daripada kunjungan. &quot;Online sekarang&quot; (bar ⚡ Live) =
-        perangkat aktif ≤5 detik terakhir; 🎧 di bar itu = yang sedang memutar Qur&apos;an, tetap terhitung walau pindah
+        perangkat aktif ≤{PRESENCE_ONLINE_WINDOW_S} detik terakhir; 🎧 di bar itu = yang sedang memutar Qur&apos;an, tetap terhitung walau pindah
         aplikasi. &quot;App terpasang&quot; = perangkat unik yang event terakhirnya install; &quot;Uninstall (perangkat)&quot;
         BERKURANG saat perangkat yang sama install lagi. * Deteksi uninstall best-effort — web tidak punya event resmi
         uninstall.

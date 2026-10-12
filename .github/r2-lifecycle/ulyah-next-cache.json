@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "id": "page-cache-2-days",
+      "enabled": true,
+      "conditions": { "prefix": "" },
+      "deleteObjectsTransition": { "condition": { "type": "Age", "maxAge": 172800 } },
+      "abortMultipartUploadsTransition": { "condition": { "type": "Age", "maxAge": 86400 } }
+    }
+  ]
+}

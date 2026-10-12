@@ -74,13 +74,17 @@ export function AnalyticsTab() {
   const [data, setData] = useState<Analytics | null>(null);
   const [tf, setTf] = useState<"daily" | "weekly" | "monthly" | "yearly">("daily");
 
-  // Live: refetch every 30s so the visitor overview rises without a manual
-  // page refresh.
+  // Refetch every 2 minutes (paused while the tab is hidden) so the overview
+  // still moves on its own. The server recomputes it at most every 5 minutes
+  // (lib/edge-memo.ts) — each recompute is ten scans of the pageview log.
   useEffect(() => {
     let alive = true;
-    const load = () => api.get<Analytics>("/admin/analytics").then((r) => alive && setData(r)).catch(() => {});
+    const load = () => {
+      if (document.visibilityState === "hidden") return;
+      api.get<Analytics>("/admin/analytics").then((r) => alive && setData(r)).catch(() => {});
+    };
     load();
-    const t = setInterval(load, 30_000);
+    const t = setInterval(load, 120_000);
     return () => {
       alive = false;
       clearInterval(t);
@@ -94,7 +98,7 @@ export function AnalyticsTab() {
   return (
     <div className="space-y-6">
       {/* Real-time presence — how many devices are on each ecosystem site right
-          now (≤3s), and how many just closed. Live per-device, not page views. */}
+          now, and how many just closed. Live per-device, not page views. */}
       <LivePresenceBar />
 
       {/* Per-site (tenant) visitor + install analytics — all sites on ulyah's

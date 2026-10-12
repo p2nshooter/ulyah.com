@@ -1,9 +1,11 @@
 import { Hono } from "hono";
 import type { Context } from "hono";
 import type { Env } from "../env.js";
-import { checkRateLimit } from "../lib/rate-limit.js";
+import { checkRateLimitLocal } from "../lib/rate-limit.js";
 import { isBotUA, refererHost } from "../lib/bot.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
+import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
+import { presenceWriteDue, presenceForget } from "../lib/presence-throttle.js";
 
 export const analyticsRoute = new Hono<{ Bindings: Env }>();
 
@@ -34,7 +36,7 @@ analyticsRoute.use("*", async (c, next) => {
 // header, never trusts client input, so it can't be spoofed by the beacon body.
 analyticsRoute.post("/pageview", async (c) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `pageview:${ip}`, 60, 60); // 60/min per IP — generous for real browsing, blocks flood
+  const rl = checkRateLimitLocal(`pageview:${ip}`, 60, 60); // 60/min per IP — generous for real browsing, blocks flood
   if (!rl.allowed) return c.json({ ok: false }, 429);
 
   const { path, locale, device } = await c.req.json<{ path?: string; locale?: string; device?: string }>().catch(() => ({}) as any);
@@ -91,12 +93,14 @@ analyticsRoute.post("/ping", async (c) => {
   if (!dev) return c.body(null, 204);
   // A crawler must never show up as somebody reading the site right now.
   if (isBotUA(c.req.header("user-agent"))) return c.body(null, 204);
+  const tenant = tenantFromReq(c);
+  if (!presenceWriteDue(tenant, dev, Boolean(listening))) return c.body(null, 204);
   const now = Math.floor(Date.now() / 1000);
   await c.env.DB.prepare(
     `INSERT INTO live_presence (tenant, device_id, last_seen, listening) VALUES (?, ?, ?, ?)
      ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen, listening = excluded.listening`
   )
-    .bind(tenantFromReq(c), dev, now, listening ? 1 : 0)
+    .bind(tenant, dev, now, listening ? 1 : 0)
     .run();
   return c.body(null, 204);
 });
@@ -108,11 +112,14 @@ analyticsRoute.post("/leave", async (c) => {
   const dev = deviceParam((await readPing(c)).device);
   c.header("Access-Control-Allow-Origin", "*");
   if (!dev) return c.body(null, 204);
-  const gone = Math.floor(Date.now() / 1000) - 25; // just outside the 20s "online" window
+  // Just outside the "online" window, so the live count drops at once.
+  const gone = Math.floor(Date.now() / 1000) - PRESENCE_ONLINE_WINDOW_S - 5;
+  const tenant = tenantFromReq(c);
+  presenceForget(tenant, dev);
   await c.env.DB.prepare(
     `UPDATE live_presence SET last_seen = ? WHERE tenant = ? AND device_id = ? AND last_seen > ?`
   )
-    .bind(gone, tenantFromReq(c), dev, gone)
+    .bind(gone, tenant, dev, gone)
     .run();
   return c.body(null, 204);
 });
@@ -134,7 +141,7 @@ function deviceParam(raw: unknown): string | null {
 
 analyticsRoute.post("/install", async (c) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `install:${ip}`, 10, 60);
+  const rl = checkRateLimitLocal(`install:${ip}`, 10, 60);
   if (!rl.allowed) return c.json({ ok: false }, 429);
 
   const { app, device } = await c.req.json<{ app?: string; device?: string }>().catch(() => ({}) as any);
@@ -155,7 +162,7 @@ analyticsRoute.post("/install", async (c) => {
 // an approximation in the admin portal.
 analyticsRoute.post("/uninstall", async (c) => {
   const ip = c.req.header("cf-connecting-ip") ?? "unknown";
-  const rl = await checkRateLimit(c.env, `uninstall:${ip}`, 10, 60);
+  const rl = checkRateLimitLocal(`uninstall:${ip}`, 10, 60);
   if (!rl.allowed) return c.json({ ok: false }, 429);
 
   const { app, device } = await c.req.json<{ app?: string; device?: string }>().catch(() => ({}) as any);

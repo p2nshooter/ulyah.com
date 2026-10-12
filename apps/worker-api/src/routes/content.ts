@@ -12,6 +12,8 @@ import { tenantFromReq } from "./analytics.js";
 import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
+import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
+import { presenceWriteDue, presenceForget } from "../lib/presence-throttle.js";
 
 export const contentRoute = new Hono<{ Bindings: Env }>();
 
@@ -97,6 +99,7 @@ export async function trackPing(c: Context<{ Bindings: Env }>) {
     const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
     const listening = body.listening === true;
     if (!site || device.length < 8) return c.body(null, 204);
+    if (!presenceWriteDue(site, device, listening)) return c.body(null, 204);
     await c.env.DB.prepare(
       `INSERT INTO live_presence (tenant, device_id, last_seen, listening) VALUES (?, ?, strftime('%s','now'), ?)
        ON CONFLICT(tenant, device_id) DO UPDATE SET last_seen = excluded.last_seen, listening = excluded.listening`
@@ -116,10 +119,11 @@ export async function trackLeave(c: Context<{ Bindings: Env }>) {
     const site = String(body.site ?? "").replace(/[^a-z0-9-]/gi, "").slice(0, 32);
     const device = String(body.device ?? "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
     if (!site || device.length < 8) return c.body(null, 204);
+    presenceForget(site, device);
     await c.env.DB.prepare(
-      `UPDATE live_presence SET last_seen = strftime('%s','now') - 10 WHERE tenant = ? AND device_id = ?`
+      `UPDATE live_presence SET last_seen = strftime('%s','now') - ? WHERE tenant = ? AND device_id = ?`
     )
-      .bind(site, device)
+      .bind(PRESENCE_ONLINE_WINDOW_S + 5, site, device)
       .run();
   } catch {
     /* best-effort */
@@ -374,9 +378,13 @@ contentRoute.get("/stories", async (c) => {
          ORDER BY st.series_key, st.episode_number, st.published_at DESC LIMIT ? OFFSET ?`
       ).bind(lang, category, pageSize, offset)
     : c.env.DB.prepare(
+        // `+` keeps SQLite off idx_stories_status: through it, every published
+        // story was read and sorted to return twenty. Without it the planner
+        // walks idx_stories_series in the ORDER BY's own order and stops at the
+        // page.
         `SELECT st.*, c.name AS category_name FROM stories st
          LEFT JOIN categories c ON c.id = st.category_id
-         WHERE st.status = 'published' AND st.lang = ?
+         WHERE +st.status = 'published' AND +st.lang = ?
          ORDER BY st.series_key, st.episode_number, st.published_at DESC LIMIT ? OFFSET ?`
       ).bind(lang, pageSize, offset);
 
@@ -440,7 +448,7 @@ contentRoute.get("/stories/:slug", async (c) => {
        LEFT JOIN categories c ON c.id = st.category_id
        LEFT JOIN voice_persona vp ON vp.id = st.voice_persona_id
        LEFT JOIN ebooks e ON e.id = st.pdf_ebook_id
-       WHERE st.slug = ? AND st.status = 'published' LIMIT 1`
+       WHERE st.slug = ? AND +st.status = 'published' LIMIT 1`
     )
       .bind(slug)
       .first();
@@ -802,6 +810,45 @@ interface HaditsCollectionRow {
   has_native_id: number;
 }
 
+/**
+ * Hadith count per collection, from one GROUP BY kept in KV for a week.
+ *
+ * The counts change when a seed is imported, which is a deploy, not a page
+ * view. Asked per request they were the third-largest reader of D1: the list
+ * counted every collection with a correlated COUNT (26,000 rows a call) and
+ * every book page counted its own collection again for the pager (4,000) —
+ * 890,000 rows a day between them (wrangler d1 insights, 12 Oct). One covering
+ * index scan a week answers both. The isolate keeps its own copy too, so a
+ * busy colo does not even read KV.
+ */
+const HADITS_COUNTS_KEY = "hadits:counts:v1";
+let haditsCountsMemo: { at: number; counts: Record<string, number> } | null = null;
+
+async function haditsCounts(env: Env): Promise<Record<string, number>> {
+  if (haditsCountsMemo && Date.now() - haditsCountsMemo.at < 3_600_000) return haditsCountsMemo.counts;
+  const cached = await safeKvGet(env, HADITS_COUNTS_KEY);
+  if (cached) {
+    try {
+      const counts = JSON.parse(cached) as Record<string, number>;
+      haditsCountsMemo = { at: Date.now(), counts };
+      return counts;
+    } catch {
+      /* recompute below */
+    }
+  }
+  const { results } = await env.DB.prepare("SELECT collection, COUNT(*) AS n FROM hadits GROUP BY collection").all<{
+    collection: string;
+    n: number;
+  }>();
+  const counts: Record<string, number> = {};
+  for (const r of results) if (r.collection) counts[r.collection] = Number(r.n) || 0;
+  if (Object.keys(counts).length > 0) {
+    haditsCountsMemo = { at: Date.now(), counts };
+    await safeKvPut(env, HADITS_COUNTS_KEY, JSON.stringify(counts), { expirationTtl: 7 * 86400 });
+  }
+  return counts;
+}
+
 // GET /content/hadits/collections?lang= — every collection that actually has
 // rows, with its title localized to the requested site language. The name is
 // authored in Indonesian (`name_id`); the sibling sites (en/de/es/fr/…) get it
@@ -815,11 +862,12 @@ contentRoute.get("/hadits/collections", async (c) => {
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
-  const { results } = await c.env.DB.prepare(
-    `SELECT hc.slug, hc.name_id, hc.name_ar, hc.author, hc.sort_order, hc.has_native_id,
-            (SELECT COUNT(*) FROM hadits h WHERE h.collection = hc.slug) AS total
+  const counts = await haditsCounts(c.env);
+  const { results: rows } = await c.env.DB.prepare(
+    `SELECT hc.slug, hc.name_id, hc.name_ar, hc.author, hc.sort_order, hc.has_native_id
      FROM hadits_collection hc ORDER BY hc.sort_order`
-  ).all<HaditsCollectionRow & { total: number }>();
+  ).all<HaditsCollectionRow>();
+  const results = rows.map((r) => ({ ...r, total: counts[r.slug] ?? 0 }));
   const filtered = results.filter((r) => r.total > 0);
 
   // Localize the collection titles. Indonesian keeps the native column; every
@@ -863,7 +911,7 @@ contentRoute.get("/hadits/:collection", async (c) => {
   if (!coll) return c.json({ error: "Collection not found" }, 404);
 
   const [count, rows] = await Promise.all([
-    c.env.DB.prepare("SELECT COUNT(*) AS n FROM hadits WHERE collection = ?").bind(slug).first<{ n: number }>(),
+    haditsCounts(c.env).then((m) => ({ n: m[slug] ?? 0 })),
     c.env.DB.prepare(
       `SELECT id, hadith_number, text_ar, text_id, text_en, narrator, grade, source
        FROM hadits WHERE collection = ? ORDER BY hadith_number LIMIT ? OFFSET ?`
@@ -992,7 +1040,13 @@ contentRoute.get("/pesantren/kitab", async (c) => {
   if (lang !== "id" && lang !== "ar" && results.length > 0) {
     try {
       const { results: tr } = await c.env.DB.prepare(
-        "SELECT slug, k, v FROM pes_i18n WHERE lang = ? AND k IN ('k:title_id', 'k:description_id')"
+        // Walk the ~32 kitab and seek each one's two rows by primary key
+        // (slug, lang, k). Filtering pes_i18n by lang alone cannot use that key
+        // and read every translated matn of every kitab — 11,600 rows a call,
+        // 430,000 a day (wrangler d1 insights, 12 Oct). CROSS JOIN is SQLite's
+        // way of fixing the loop order; the planner otherwise scans pes_i18n.
+        `SELECT p.slug, p.k, p.v FROM pesantren_kitab pk
+         CROSS JOIN pes_i18n p ON p.slug = pk.slug AND p.lang = ? AND p.k IN ('k:title_id', 'k:description_id')`
       )
         .bind(lang)
         .all<{ slug: string; k: string; v: string }>();

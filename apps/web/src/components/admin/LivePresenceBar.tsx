@@ -3,14 +3,19 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
+import { PRESENCE_HEARTBEAT_MS, PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
 
 /**
  * Real-time presence bar — how many devices are on each ecosystem site RIGHT
  * NOW, and how many just left ("closed"). Fed by the presence heartbeat
- * (/analytics/ping, every 3s) and polled every 2s, with a 5s "online" window,
- * so the count reflects THIS second and rises/falls within ≤5s (owner: "online
- * skrg itu kondisi saat detik ini, turun-naik ≤5 detik"). REAL devices, not
- * page views.
+ * (/analytics/ping, every PRESENCE_HEARTBEAT_MS) with a PRESENCE_ONLINE_WINDOW_S
+ * "online" window (packages/shared/src/presence.ts). REAL devices, not page
+ * views.
+ *
+ * Polled every 15s, and not at all while this tab is hidden: the query is
+ * cheap (an indexed range over a table pruned to ten minutes), but every poll
+ * is a Worker request, and the account's free plan has 100,000 of those a day
+ * for every site together. A 2s poll was 43,200 a day from one open tab.
  */
 interface LiveRow {
   tenant: string;
@@ -26,7 +31,7 @@ const META: Record<string, { name: string; icon: string }> = {
   tilawa: { name: "tilawa.de", icon: "🇩🇪" },
   xad: { name: "xad.es", icon: "🌌" },
 };
-const POLL_MS = 2000; // poll every 2s so the count moves within ~2s
+const POLL_MS = 15_000;
 
 export function LivePresenceBar() {
   const [rows, setRows] = useState<LiveRow[]>([]);
@@ -36,8 +41,9 @@ export function LivePresenceBar() {
 
   useEffect(() => {
     let alive = true;
-    const load = () =>
-      api
+    const load = () => {
+      if (document.visibilityState === "hidden") return;
+      return api
         .get<{ tenants: LiveRow[]; at: number }>("/admin/live-presence")
         .then((r) => {
           if (!alive) return;
@@ -46,6 +52,7 @@ export function LivePresenceBar() {
           setFailed(false);
         })
         .catch(() => alive && setFailed(true));
+    };
     load();
     const t = setInterval(load, POLL_MS);
     const tick = setInterval(() => alive && setNowTick(Date.now()), 1000);
@@ -83,7 +90,7 @@ export function LivePresenceBar() {
           {failed ? "terputus — mencoba lagi…" : "LIVE"}
         </span>
         <span className="text-[10px] font-normal text-text-secondary">
-          diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap 2 dtk
+          diperbarui {secondsAgo === null ? "…" : `${secondsAgo} dtk lalu`} · auto tiap {POLL_MS / 1000} dtk
         </span>
       </p>
 
@@ -122,11 +129,11 @@ export function LivePresenceBar() {
         })}
       </div>
       <p className="mt-2 text-[10px] text-text-secondary">
-        Perangkat NYATA (bukan page view), dari heartbeat tiap 3 detik. &quot;Online&quot; = aktif ≤5 detik terakhir (kondisi
-        detik ini — turun/naik dalam ≤5 detik); &quot;closed&quot; = sempat aktif lalu menutup/pindah tab dalam 2 menit terakhir.
+        Perangkat NYATA (bukan page view), dari heartbeat tiap {PRESENCE_HEARTBEAT_MS / 1000} detik. &quot;Online&quot; = aktif
+        ≤{PRESENCE_ONLINE_WINDOW_S} detik terakhir; &quot;closed&quot; = sempat aktif lalu menutup/pindah tab dalam 2 menit terakhir.
         🎧 = bagian dari &quot;online&quot; yang sedang memutar Qur&apos;an. Pendengar TETAP terhitung online walau pindah ke
         aplikasi lain atau layar dimatikan, selama browsernya masih terbuka dan audionya jalan — detaknya menumpang jam
-        audio, yang tidak ikut dibekukan HP seperti timer biasa. Yang menutup tab benar-benar hilang dalam ≤5 detik.
+        audio, yang tidak ikut dibekukan HP seperti timer biasa. Yang menutup tab langsung hilang (sinyal &quot;leave&quot;).
       </p>
     </section>
   );

@@ -547,6 +547,8 @@ di akun AdSense (di luar jangkauan Claude).
 | 12 Okt | axto.dev ganti akun: ca-pub-2493615451319531 („axto.dev ganti adsense nya dengan ini, dan buatkan jg ads.txt dan tag meta nya“; sebelumnya 5693981744147503) | ✅ axtodev PR #18 (`src/lib/site.ts` untuk loader + meta, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 12 Okt | lie.skin ganti akun: ca-pub-4548005919629272 („Lie.skin, bikin jg ads.txt dan tag meta“; sebelumnya 5693981744147503) | ✅ Lie PR #7 (`src/lib/site.ts` untuk loader + meta, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 12 Okt | Kontrol artikel portal (ulyah.com, 1fr.fr, tilawa.de, xad.es): sampel per sitemap lewat `content-audit.yml` | ✅ temuan + perbaikan PR `claude/portal-seo-fixes`: /syukur (404 di 1fr/tilawa/xad) dan /nasakh (isi hanya Indonesia) keluar dari sitemap + hreflang situs lain (`ROUTE_LOCALES`), /nasakh noindex + pemberitahuan bahasa di fr/de/en; halaman rak & karya kitab punya title/description/canonical sendiri (sebelumnya deskripsi generik di ±5.000 halaman); judul sesi Tadabbur/Hadits dibuat dari templat per bahasa, bukan terjemahan mesin ("Der Koran ist der Koran, der 1322."). Error 1102 hanya muncul saat render pertama (cache dingin, Workers Free 10 ms CPU), audit ulang semua 200 |
+| 12 Okt | "Cek CF, turunin database web islami ekosistem ulyah.com, dawa.es, 1fr.fr, tilawa.de, xad.es biar di bawah 10gb, tp kitab2 tetep maximal sesuai bahasanya, translate sesuai bahasanya, dan ulyah.com hanya berbahasa Indonesia; manfaatkan CDN untuk audio Al-Qur'an; pastikan mendekati 100% approve AdSense" | 🔄 §12 |
+| 12 Okt | "Catat ini, turunkan R2-nya hingga di bawah 10 GB, pastikan seluruh website dan fitur berfungsi 100%, khususnya portal admin ulyah.com sebagai central, pastikan mendekati 100% approve AdSense" (tangkapan layar R2: total 121,63 GB — ulyah-media 6,19 rb objek 91,06 GB, ulyah-next-cache 510,43 rb objek 30,57 GB) | 🔄 §12 |
 
 ---
 
@@ -639,3 +641,119 @@ dan kitab pesantren (32 kitab) dibangun dari file seed yang sama menjadi JSON
 statis (`scripts/build-kitab-static.ts`, `apps/web/public/kitab-data`).
 Hasilnya: 0 baca D1 untuk index, rak, dan beranda, serta +0 byte D1/R2.
 
+---
+
+## 12. Diet Cloudflare: D1 tidak habis tiap hari, R2 < 10 GB, kitab tetap penuh (permintaan pemilik 12 Okt)
+
+Pemilik, 12 Okt 2026:
+
+1. **"Cek CF, turunin database web islami ekosistem ulyah.com, dawa.es, 1fr.fr,
+   tilawa.de, xad.es biar di bawah 10gb, tp kitab2 tetep maximal sesuai
+   bahasanya, translate sesuai bahasanya, dan ulyah.com hanya berbahasa
+   Indonesia; manfaatkan CDN untuk audio Al-Qur'an … pastikan juga mendekati
+   100% approve AdSense."**
+2. **"Catat ini, turunkan R2-nya hingga di bawah 10 GB, pastikan seluruh website
+   dan fitur berfungsi 100%, khususnya portal admin ulyah.com sebagai central,
+   pastikan mendekati 100% approve AdSense."** (tangkapan layar R2: 121,63 GB)
+
+### 12.1 Hasil cek Cloudflare (12 Okt, 07:20 UTC)
+
+| Sumber daya | Angka | Batas yang berlaku | Artinya |
+|---|---|---|---|
+| D1 `ulyah-db` | 457 MB | **500 MB per database** (Workers Free) | 91% penuh. "10 GB" adalah batas plan berbayar; di plan gratis batasnya 500 MB |
+| Kuota baca D1 | **habis pukul 07:20 UTC** | 5 juta baris/hari | sejak 1 Sep 2026 semua query D1 gagal (kode 7500) sampai 00:00 UTC — semua situs ekosistem, termasuk login admin |
+| R2 total | **121,63 GB** | 10 GB gratis | ulyah-media 91,06 GB (6,19 rb objek), ulyah-next-cache 30,57 GB (510,43 rb objek) |
+
+### 12.2 Akar masalah (diukur, bukan ditebak)
+
+**Kuota baca D1:**
+
+- **Pemeliharaan malam** sendiri membaca ±2 juta baris (40% kuota harian): setiap
+  pengecekan `mt_cache` memakai `LIKE 'mt:ar-__:%'`, yang di SQLite tidak bisa
+  memakai indeks, jadi memindai seluruh 246.820 baris — dan itu diulang 8 kali
+  hanya untuk mencetak "0" (log run #87: 260.008 + 246.820 + 493.640 + …).
+- **Portal admin, tab Analitik**: selama terbuka, ±25 query yang memindai seluruh
+  `analytics_pageviews` / `site_pageviews` diulang tiap 2–12 detik
+  (`/admin/live-presence` 2 dtk, `/admin/site-analytics` 3 dtk,
+  `/admin/tenant-analytics` 12 dtk, `/admin/analytics` 30 dtk). Satu jam tab
+  terbuka cukup untuk menghabiskan 5 juta baris.
+- **Detak "presence" pengunjung tiap 3 detik**: 20 request Worker + 20 tulis D1
+  per menit per pengunjung (batas gratis: 100 rb request & 100 rb tulis/hari).
+- **API halaman publik**: `/quran/hadits-of-day` menghitung seluruh tabel hadits
+  (`COUNT(*)` + `OFFSET` acak) di setiap cache miss; `/quran/search` memindai
+  ayat, hadits dan cerita dengan `LIKE '%q%'`.
+- **Churn terjemahan kitab**: pemangkasan malam `mt:ar-*` (dibuat untuk matn
+  hadits) ikut menghapus terjemahan judul/deskripsi kitab, padahal itu memang
+  boleh diterjemahkan (`scripts/check-no-arabic-mt.mjs`). Akibatnya ±3.300 baris
+  ditulis dan dihapus setiap hari, dan halaman kitab kembali berbahasa Arab.
+
+**R2:**
+
+- **ulyah-media 91 GB = audiobook TTS** (`audio/story/<id>.mp3`, ±26 MB per file,
+  96 kbps), dibuat otomatis setiap hari oleh `generate-audiobooks.yml` untuk
+  ribuan sesi yang disusun mesin ("Tadabbur Al-Qur'an — Sesi 1819 …"). Data
+  turunan: bisa dibuat ulang dari teksnya, dan situs sudah punya pembaca suara
+  di browser (`StoryReader`) yang bekerja tanpa penyimpanan.
+- **ulyah-next-cache 30,6 GB = cache halaman OpenNext** yang tidak pernah
+  dihapus. Kuncinya `inc-<situs>/<buildId>/<hash>.cache`; setiap deploy (509
+  deploy sejauh ini) memulai buildId baru, jadi cache build lama tertinggal
+  selamanya.
+
+### 12.2b Bukti dari Cloudflare (`wrangler d1 insights`, 24 jam s/d 12 Okt 07:44 UTC)
+
+25 query teratas membaca **7,3 juta baris** (kuota 5 juta/hari):
+
+| Baris dibaca | Panggilan | Query | Perbaikan |
+|---|---|---|---|
+| 2.468.200 | 10 | cek pemeliharaan `mt_cache LIKE 'mt:ar-__:%'` | rentang kunci |
+| 990.018 | 1.970 | halaman kisah (fallback `slug` tanpa `lang` memakai indeks `status`) | `+st.status` → indeks `(slug, lang)` |
+| 987.280 | 4 | hitung sisa di skrip prune (`LIKE`) | rentang kunci |
+| 559.953 | 41 | hadits hari ini `ORDER BY id OFFSET n` | `MIN/MAX` + `id >= ?` |
+| 500.630 | 19 | daftar koleksi hadits + `COUNT` per koleksi | hitungan di KV seminggu |
+| 428.688 | 37 | judul kitab pesantren `pes_i18n WHERE lang=?` (SCAN) | `CROSS JOIN` lewat primary key |
+| 390.101 | 97 | `COUNT(*) FROM hadits WHERE collection=?` | hitungan di KV |
+| 153.968 | 210 | hadits hari ini `COUNT(*)` | dihapus |
+
+R2 (wrangler r2 bucket info): ulyah-media 6.194 objek / 91,1 GB, ulyah-next-cache
+516.527 objek / 31,1 GB; keduanya hanya punya aturan bawaan "abort multipart 7 hari".
+
+### 12.3 Aturan tetap (tambahan §11)
+
+1. **R2 total < 10 GB**, dijaga otomatis oleh *lifecycle rule* R2 yang dipasang
+   setiap deploy (`.github/workflows/deploy.yml`):
+   - `ulyah-next-cache`: entri cache halaman kedaluwarsa setelah 2 hari (halaman
+     populer diperbarui sendiri saat revalidasi, jadi tetap hangat);
+   - `ulyah-media`: `audio/story/`, `audio/qori/`, `audio/qori2/` kedaluwarsa
+     setelah 1 hari. Prefix lain (kitab, PDF, audio anak, unggahan admin,
+     tumpahan teks) **tidak disentuh**.
+2. **Tidak ada audio murottal di R2.** Murottal diputar dari CDN qari
+   (`apps/web/src/lib/qori-cdn.ts`); `/audio/qori2/…` hanya redirect.
+3. **Tidak ada audiobook MP3 di R2.** "Dengarkan" memakai suara perangkat
+   pembaca (Web Speech) — 0 byte, semua bahasa. Generator MP3 tidak terjadwal
+   lagi dan menolak berjalan tanpa konfirmasi manual.
+4. **Kitab diterjemahkan sekali, disimpan statis.** Judul, deskripsi dan daftar
+   isi 4.969 karya diterjemahkan ke bahasa tiap situs (id → ulyah.com, en →
+   xad.es, fr → 1fr.fr, de → tilawa.de) oleh
+   `scripts/translate-kitab-catalogue.mjs` ke `scripts/data/kitab-i18n/`, lalu
+   dilipat ke file statis kitab situs itu saat build. 0 baris D1, 0 baca D1.
+   ulyah.com tetap hanya berbahasa Indonesia.
+5. **Tidak ada query pemindaian penuh di jalur yang dipanggil berulang**
+   (halaman publik, polling admin, cron 15 menit, pemeliharaan malam). Kunci
+   `mt_cache` dicari dengan rentang (`k >= 'mt:ar-' AND k < 'mt:ar.'`), bukan
+   `LIKE`.
+6. **Statistik admin dihitung paling sering sekali per beberapa menit** dan
+   disimpan di cache edge; angka "online sekarang" tetap langsung dari tabel
+   presence yang kecil.
+
+### 12.4 Pekerjaan
+
+| # | Pekerjaan | Status |
+|---|---|---|
+| 12.1 | Catat permintaan + hasil cek CF di blueprint | ✅ |
+| 12.2 | Pemeliharaan malam: query rentang, hapus pindaian ganda; laporan `wrangler d1 insights` + ukuran R2 tiap malam | ✅ |
+| 12.3 | Admin: cache statistik berat (5–10 menit), polling 15 dtk/30 dtk/60 dtk/2 mnt & berhenti saat tab tersembunyi | ✅ |
+| 12.4 | Presence 3 dtk → 30 dtk (juga 6 situs mitra: axto.dev, lie.skin, jai.lat, oldco.in, profity.in, xaa.es); rate-limit beacon tanpa KV; API publik tanpa pemindaian penuh | ✅ |
+| 12.5 | Kitab: terjemahan statis id/en/fr/de (judul, deskripsi, daftar isi) — skrip + build + halaman | ✅ kode · 🔄 data terjemahan (berjalan) |
+| 12.6 | R2: lifecycle rule ulyah-next-cache + ulyah-media; generator audiobook berhenti; UI pakai suara perangkat | ✅ (aktif setelah deploy) |
+| 12.7 | D1: indeks ganda `analytics_pageviews` dibuang, ukur tabel setelah kuota reset | ⏸️ setelah 00:00 UTC |
+| 12.8 | Uji (typecheck, CI, browser), PR, merge, deploy, verifikasi live | 🔄 |
