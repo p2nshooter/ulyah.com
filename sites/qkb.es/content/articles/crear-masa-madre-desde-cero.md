@@ -2,7 +2,7 @@
 title: Cómo crear masa madre desde cero en 7 a 14 días, explicado día a día
 description: Guía para crear tu propia masa madre de cultivo con solo harina y agua: qué harina usar, temperatura, calendario día a día, la falsa subida del tercer día y cómo saber que ya está lista para hornear.
 category: masa-madre-y-pan
-date: 2026-09-27
+date: 2026-10-12
 ---
 La masa madre es un cultivo de levaduras salvajes y bacterias lácticas que se alimenta de harina y agua. Con ella se ha hecho pan durante miles de años, mucho antes de que existiera la levadura comercial. Crearla en casa no requiere nada especial: harina, agua, un tarro, una báscula y unos diez días de constancia.
 
@@ -82,6 +82,14 @@ Tu masa madre está lista para hornear cuando, durante dos o tres días seguidos
 | 4 a 5 | Guardar 50 g, alimentar 1:1:1 cada 24 h | Poca actividad, olor ácido |
 | 6 a 10 | Guardar 50 g, alimentar 1:1:1 cada 12 h | Subidas cada vez más regulares |
 | 10 a 14 | Igual | Duplica en 4 a 8 h: lista |
+
+## Lleva un pequeño registro
+
+Una hoja pegada en la nevera o unas notas en el móvil ayudan mucho durante estas dos semanas. Apunta en cada alimentación la hora, la temperatura de la cocina, las cantidades de harina y agua y, unas horas después, cuánto ha subido respecto a la marca de la goma elástica. Al cabo de unos días verás un patrón: a qué hora alcanza su punto más alto, cómo responde al frío de la noche o a un cambio de harina. Ese conocimiento es justo lo que necesitarás después para planificar tus panes sin depender de la suerte.
+
+## El primer pan
+
+Cuando la masa madre cumpla durante varios días seguidos las condiciones de una masa lista, elige un pan sencillo para estrenarla. Una hogaza de hidratación moderada, en torno al 65 o 70 %, es mucho más fácil de manejar que una masa muy húmeda, y permite ver con claridad cómo fermenta tu cultivo. Usa la masa madre en su punto más alto, unas horas después de alimentarla, cuando está llena de burbujas. Explicamos el proceso completo en la guía de [hogaza de masa madre paso a paso](/recetas-y-guias/hogaza-de-masa-madre-paso-a-paso/). No te preocupes si el primer pan sale algo denso: las masas madre jóvenes ganan fuerza durante las primeras semanas de uso, y cada horneado te enseñará algo nuevo.
 
 ## Problemas frecuentes
 
