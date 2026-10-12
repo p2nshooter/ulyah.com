@@ -2,7 +2,7 @@
 title: "Rhabarber: Streuselkuchen vom Blech, Kompott und was es mit der Oxalsäure auf sich hat"
 description: Wann Rhabarber Saison hat, ob du ihn schälen musst, warum die Blätter nicht essbar sind und wie ein saftiger Rhabarberkuchen mit Streuseln vom Blech gelingt.
 category: fruehling
-date: 2026-07-14
+date: 2026-10-12
 ---
 Rhabarber ist das erste Obst des Jahres, obwohl er botanisch ein Gemüse ist. Wenn im April die roten und grünen Stangen auf den Markt kommen, gibt es für viele kein Halten mehr: Endlich wieder etwas Frisches, Saures, nach dem langen Winter mit Äpfeln und eingemachtem Kompott. Ob als Kuchen, Kompott, Grütze oder Sirup, Rhabarber bringt eine unverwechselbare Säure in die Frühlingsküche.
 
@@ -15,6 +15,10 @@ Seine Saison ist kurz. Sie beginnt je nach Witterung Ende März oder im April un
 > - Die Blätter enthalten viel Oxalsäure und sind nicht zum Essen geeignet.
 > - Rhabarber solltest du gegart essen und gern mit Milchprodukten kombinieren, die einen Teil der Oxalsäure binden.
 > - Für einen Blechkuchen brauchst du etwa ein Kilo geputzten Rhabarber.
+
+## Vom Heilmittel zum Kuchenbelag
+
+Rhabarber stammt aus den Gebirgsregionen Zentralasiens. Über Jahrhunderte war nicht die Stange gefragt, sondern die getrocknete Wurzel, die als Heilmittel bis nach Europa gehandelt wurde. Als Nahrungsmittel setzten sich die Stängel erst im 18. und 19. Jahrhundert durch, zuerst in England, später auch in Deutschland. Der Name wird meist vom lateinischen rha barbarum hergeleitet, was ungefähr „fremde Wurzel“ bedeutet.
 
 ## Rhabarber einkaufen und lagern
 
@@ -80,6 +84,10 @@ Für ein Backblech (etwa 30 × 40 cm), ergibt rund 20 Stücke:
 
 Dazu passt leicht gesüßte Schlagsahne oder Vanillesoße. Der Kuchen hält sich bei Zimmertemperatur abgedeckt zwei Tage, danach wird er durch den feuchten Rhabarber etwas weich. Er lässt sich gut in Stücken einfrieren.
 
+## Variante: Rhabarberkuchen mit Baiserhaube
+
+Statt Streuseln kannst du den Kuchen mit einer luftigen Baiserhaube krönen. Backe Teig und Rhabarber zunächst 30 Minuten bei 180 Grad. Schlage in der Zwischenzeit vier Eiweiß mit einer Prise Salz steif und lass dabei nach und nach 200 g Zucker einrieseln, bis die Masse glänzt und Spitzen hält. Streiche den Eischnee auf den vorgebackenen Kuchen, ziehe mit einem Löffel kleine Spitzen hoch und backe alles weitere 10 bis 15 Minuten, bis das Baiser goldbraun ist. Das Baiser sollte erst kurz vor dem Aufstreichen fertig werden, sonst fällt es zusammen. Die süße, knusprige Haube ist der perfekte Gegenspieler zur Säure des Rhabarbers.
+
 ## Rhabarberkompott
 
 Kompott ist die einfachste und vielseitigste Art, Rhabarber zu verwenden. Es schmeckt zu Grießbrei, Milchreis, Pfannkuchen, Joghurt und Eis.
@@ -102,6 +110,14 @@ Soll das Kompott dicker werden, rührst du einen Esslöffel Speisestärke mit et
 ## Rhabarbersirup
 
 Für etwa 700 ml Sirup kochst du ein Kilo Rhabarber in Stücken mit 500 ml Wasser 15 Minuten, bis er zerfallen ist, und lässt die Masse durch ein mit einem Tuch ausgelegtes Sieb abtropfen. Den Saft kochst du mit 400 Gramm Zucker und dem Saft einer Zitrone fünf Minuten sprudelnd auf und füllst ihn kochend heiß in saubere Flaschen. Kühl gelagert hält er mehrere Monate. Mit Mineralwasser verdünnt ergibt er eine erfrischende Schorle.
+
+## Herzhaft: Rhabarber-Chutney
+
+Rhabarber muss nicht immer süß sein. Für ein Chutney dünstest du eine fein gewürfelte rote Zwiebel und ein Stück geriebenen Ingwer in etwas Öl an, gibst 500 g Rhabarber in Stücken, 150 g braunen Zucker, 100 ml Apfelessig, eine Prise Salz und nach Belieben eine Handvoll Rosinen und eine Prise Chili dazu. Lass alles offen 20 bis 30 Minuten köcheln, bis eine dicke, marmeladenartige Masse entsteht, und fülle sie heiß in saubere Gläser. Das Chutney passt zu Käse, Grillfleisch, gebratenem Halloumi und kaltem Braten.
+
+## Rhabarber im eigenen Garten
+
+Rhabarber ist eine ausdauernde Staude, die an einem sonnigen Platz mit nährstoffreichem Boden acht bis zehn Jahre und länger Stangen liefert. Gepflanzt wird am besten im Herbst. Im ersten Jahr erntest du gar nicht, damit die Pflanze kräftige Wurzeln bildet, im zweiten Jahr nur wenig. Die Stangen werden nicht abgeschnitten, sondern mit einer leichten Drehung am Grund abgezogen. Lass immer mindestens ein Drittel der Blätter stehen. Blütenstände brichst du früh heraus, weil sie der Pflanze viel Kraft entziehen. Nach der Ernte und im Herbst freut sich die Staude über eine Gabe Kompost.
 
 ## Häufige Fragen
 
