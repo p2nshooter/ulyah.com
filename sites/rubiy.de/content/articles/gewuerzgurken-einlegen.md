@@ -2,7 +2,7 @@
 title: "Gewürzgurken einlegen: knackig, sicher und mit dem richtigen Essigsud"
 description: "Gewürzgurken selbst einlegen: welche Gurken sich eignen, wie stark der Essigsud sein muss, warum Gurken weich werden und wie lange sie im Wasserbad bleiben."
 category: vorrat-und-konservieren
-date: 2026-08-19
+date: 2026-10-12
 ---
 Selbst eingelegte Gewürzgurken sind knackiger, würziger und weniger süß als die meisten Gläser aus dem Supermarkt. Die Saison dafür ist kurz: Kleine Einlegegurken gibt es von Juli bis in den September, am meisten im August. Wer dann ein paar Kilo kauft und an einem Nachmittag einlegt, hat bis zum nächsten Sommer Vorrat für Brotzeit, Kartoffelsalat und Rouladen.
 
@@ -98,6 +98,16 @@ Entsorge ein Glas, wenn sich der Deckel gewölbt hat, der Sud schäumt, schleimi
 
 **Senfgurken** entstehen aus großen Schmorgurken: schälen, längs halbieren, entkernen, in Stücke schneiden, über Nacht einsalzen und mit einem süßsauren Sud mit viel Senfsaat einlegen. Was du mit frischen Schmorgurken außerdem kochen kannst, steht in unserem Beitrag über [Gurkensalat und Schmorgurken](/kueche/gurkensalat-und-schmorgurken/).
 
+## Wofür Gewürzgurken in der Küche gebraucht werden
+
+Gewürzgurken sind mehr als eine Beilage zur Brotzeit. In der deutschen Küche stecken sie in vielen Klassikern:
+
+- **Rinderrouladen:** Ein Streifen Gewürzgurke gehört neben Senf, Speck und Zwiebeln in die Füllung und gibt der Soße eine feine Säure.
+- **Kartoffelsalat:** Gewürfelte Gurken und ein Schuss Gurkensud machen norddeutschen Kartoffelsalat mit Mayonnaise frisch und würzig.
+- **Remoulade:** Fein gehackte Gewürzgurken, Kapern und Kräuter verwandeln Mayonnaise in die klassische Soße zu Fisch und Bratkartoffeln.
+- **Labskaus und Heringssalat:** Im Norden sind Gurken aus dem Glas hier unverzichtbar.
+- **Zur Brotzeit:** Mit Bauernbrot, Käse und Radieschen ist eine gute Gewürzgurke einfach selbst ein Genuss.
+
 ## Häufige Fragen
 
 ### Warum sind meine Gurken hohl geworden?
@@ -111,3 +121,7 @@ Bei Essiggurken sollte der Sud klar bleiben. Eine milchige Trübung kann auf Jod
 ### Kann ich den Sud wiederverwenden?
 
 Für einen neuen Vorrat nicht, weil er durch die Gurken verdünnt und weniger sauer ist. Er eignet sich aber gut als Würze für Kartoffelsalat, Heringssalat oder ein Dressing.
+
+### Kann ich auch Salatgurken einlegen?
+
+Für einen schnellen Gurkensalat im Glas, der im Kühlschrank ein paar Tage hält, ja. Für einen Vorrat eignen sie sich weniger, weil ihr wasserreiches Fruchtfleisch im Sud schnell weich wird. Echte Einlegegurken mit fester, warziger Schale bleiben deutlich knackiger.
