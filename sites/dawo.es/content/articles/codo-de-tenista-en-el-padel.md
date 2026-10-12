@@ -2,7 +2,7 @@
 title: Codo de tenista en el pádel: por qué aparece y cómo prevenirlo
 description: Qué es la epicondilitis lateral, por qué es tan frecuente entre jugadores de pádel, qué factores de técnica y material influyen y qué ejercicios ayudan a prevenirla.
 category: padel-y-raqueta
-date: 2026-10-04
+date: 2026-10-12
 ---
 Pocas molestias son tan frecuentes entre los jugadores de pádel aficionados como el dolor en la parte externa del codo. Empieza como una ligera molestia al terminar el partido, después aparece al coger una bolsa o al girar el pomo de una puerta, y en los casos más persistentes llega a doler al estrechar la mano. Su nombre popular es "codo de tenista", aunque hoy probablemente lo sufren más jugadores de pádel que de tenis.
 
@@ -97,6 +97,22 @@ Algunas pautas generales, siempre a falta de la valoración de un profesional:
 - **Desconfía de las soluciones milagro.** Las cinchas de codo pueden aliviar a algunas personas durante el juego, pero no resuelven el problema si no se ajusta la carga y se fortalece el tendón.
 
 La tendinopatía lateral del codo suele mejorar con tratamiento conservador, aunque a veces requiere paciencia: no es raro que la recuperación completa lleve varios meses.
+
+## El semáforo del dolor: una guía para dosificar
+
+Muchos fisioterapeutas usan una escala sencilla para ajustar la carga en las tendinopatías. Puntúa tu dolor de 0, nada, a 10, el peor imaginable, durante el juego o los ejercicios y a la mañana siguiente:
+
+| Dolor | Color | Qué hacer |
+|---|---|---|
+| 0 a 2 | verde | la carga es adecuada; puedes mantenerla o aumentarla poco a poco |
+| 3 a 5 | amarillo | aceptable si a la mañana siguiente vuelves a tu nivel habitual; no aumentes la carga |
+| Más de 5, o peor al día siguiente | rojo | reduce la carga en la próxima sesión y consulta si se repite |
+
+Es una orientación general, no un diagnóstico: tu fisioterapeuta puede ajustarla a tu caso. Su mayor virtud es que convierte una sensación difusa en un dato que permite decidir.
+
+## También fuera de la pista
+
+El tendón no distingue entre el pádel y el resto del día. Muchas personas con codo de tenista lo sobrecargan también en el trabajo o en casa: horas con el ratón y el teclado con la muñeca extendida, herramientas que obligan a apretar, bolsas pesadas cogidas con la palma hacia abajo. Algunos gestos sencillos ayudan: llevar las bolsas con la palma hacia arriba o pegadas al cuerpo, usar un ratón y un teclado que permitan apoyar la muñeca en posición neutra, hacer pausas breves para mover las manos y repartir las tareas de agarre entre ambos brazos.
 
 ## La vuelta al juego
 
