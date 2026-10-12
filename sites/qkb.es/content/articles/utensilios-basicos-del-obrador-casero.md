@@ -2,7 +2,7 @@
 title: Utensilios básicos del obrador casero: qué comprar primero y qué puede esperar
 description: Material para quesos, fermentados, pan, bollería y conservas: lo imprescindible, lo útil y lo que puede esperar, con alternativas caseras.
 category: tecnica
-date: 2026-09-03
+date: 2026-10-12
 ---
 Cuando alguien empieza a hacer pan, queso o fermentados en casa, es fácil dejarse llevar por las tiendas especializadas y llenar los armarios de utensilios que luego apenas se usan. La realidad es que la mayoría de las recetas de QKB se pueden hacer con material sencillo, buena parte del cual ya tienes en la cocina. Algunas herramientas, en cambio, marcan una diferencia enorme y conviene comprarlas desde el principio.
 
@@ -113,6 +113,26 @@ Para comprobar la acidez de fermentados, kombucha o masa madre. Las tiras de pH 
 - No laves el banneton con agua: déjalo secar al aire, cepíllalo y, de vez en cuando, ponlo al sol.
 - Revisa los tarros y las tapas antes de cada uso y desecha los dañados.
 - Hierve las telas de quesería después de usarlas y sécalas bien.
+
+## Organizar el obrador en una cocina normal
+
+No hace falta una habitación especial para tener un obrador casero, pero sí un poco de orden:
+
+- **Un estante o una caja solo para el obrador**, con la báscula, el termómetro, las telas y los moldes. Saber dónde está cada cosa ahorra tiempo y evita usar utensilios que no están limpios.
+- **Un rincón para las fermentaciones**, lejos del sol directo, del horno y de los radiadores, donde los tarros puedan estar varios días sin estorbar. Una bandeja debajo recoge la salmuera que rebosa.
+- **Tablas separadas** para el pan y la fruta, por un lado, y para la carne o el pescado crudos, por otro.
+- **Etiquetas y un rotulador** siempre a mano: cada tarro, con su contenido y su fecha.
+- **Cultivos con su propio espacio**: muchos aficionados mantienen la kombucha, el kéfir y la masa madre a cierta distancia entre sí y con utensilios propios, para que no se mezclen levaduras y bacterias de unos y otros.
+
+## Comprar de segunda mano: qué sí y qué no
+
+Los mercadillos y las tiendas de segunda mano son una buena fuente de material para el obrador, con algunas precauciones:
+
+- **Sí**: ollas de hierro fundido (el óxido superficial se elimina y la olla se vuelve a curar), cazuelas de acero inoxidable, tarros de vidrio sin grietas ni golpes en la boca, rodillos de madera en buen estado, amasadoras y básculas que funcionen.
+- **Con cuidado**: tarros de conserva antiguos, que pueden servir para fermentar, pero cuyas gomas y tapas conviene renovar antes de usarlos para conservas al baño maría.
+- **No**: plásticos rayados, cestas de fermentación con manchas de moho, telas de quesería usadas, cerámicas decorativas de origen desconocido y sartenes antiadherentes con el recubrimiento dañado.
+
+Lava todo a fondo antes del primer uso, como si fuera nuevo.
 
 ## Un presupuesto razonable para empezar
 
