@@ -355,7 +355,7 @@ body:not(.lapida--articulo) .lapida-progreso { display: none; }
   .lapida-portada__texto { min-width: 0; }
   .lapida-cristal { order: -1; width: min(300px, 76vw); }
   .lapida-cajones__fila, .lapida-vitrina__rejilla { grid-template-columns: repeat(2, 1fr); }
-  .lapida-articulo__cuerpo { grid-template-columns: 1fr; }
+  .lapida-articulo__cuerpo { grid-template-columns: minmax(0, 1fr); }
   .lapida-ficha { position: relative; top: 0; }
   .lapida-pie__dentro { grid-template-columns: 1fr 1fr; }
   .lapida-pie__marca { grid-column: 1 / -1; }
