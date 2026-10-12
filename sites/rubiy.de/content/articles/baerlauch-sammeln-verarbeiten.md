@@ -2,7 +2,7 @@
 title: "Bärlauch sicher erkennen, sammeln und zu Pesto und Butter verarbeiten"
 description: Wie du Bärlauch von Maiglöckchen, Herbstzeitlose und Aronstab unterscheidest, was beim Sammeln erlaubt ist und wie du Pesto, Butter und Salz daraus machst.
 category: fruehling
-date: 2026-06-26
+date: 2026-10-12
 ---
 Im März und April, wenn in feuchten Laubwäldern und Auen die ersten grünen Teppiche aus dem Boden kommen, liegt ein feiner Knoblauchduft in der Luft. Bärlauch ist eines der ersten frischen Kräuter des Jahres und hat in den letzten Jahrzehnten eine erstaunliche Karriere gemacht: vom fast vergessenen Wildkraut zum Frühlingsstar auf Märkten und in Restaurants.
 
@@ -27,6 +27,10 @@ Die wichtigsten Merkmale:
 - **Form:** lanzettlich, also länglich und zugespitzt, etwa 10 bis 25 Zentimeter lang.
 - **Geruch:** Zerreibt man ein Blatt, riecht es intensiv nach Knoblauch.
 - **Blüte:** Ab April oder Mai erscheinen weiße, sternförmige Blüten in einer kugeligen Dolde.
+
+### Warum er Bärlauch heißt
+
+Der wissenschaftliche Beiname ursinum leitet sich vom lateinischen ursus ab, dem Bären. Eine verbreitete Erklärung lautet, dass Bären nach dem Winterschlaf die frischen Blätter fressen, um wieder zu Kräften zu kommen. Ob das zoologisch stimmt, ist nicht belegt, aber die Geschichte passt zum Charakter der Pflanze: Bärlauch ist eines der ersten kräftigen Grüns nach dem Winter. Regional heißt er auch Waldknoblauch, Hexenzwiebel oder wilder Knoblauch.
 
 ## Die giftigen Doppelgänger
 
@@ -96,6 +100,10 @@ Verrühre die Butter mit Bärlauch, Salz und Zitrone. Forme sie mit Backpapier z
 
 Püriere 50 g trockene Bärlauchblätter mit 250 g grobem Meersalz, verteile die grüne Masse auf einem Backblech mit Backpapier und trockne sie bei 50 Grad im Ofen mit leicht geöffneter Tür zwei bis drei Stunden. Zerbrösele das Salz und fülle es in ein dicht schließendes Glas. Es hält sich mehrere Monate und würzt Eier, Kartoffeln und Salatdressings.
 
+## Bärlauchspätzle
+
+Bärlauch färbt Spätzle leuchtend grün und gibt ihnen ein feines Knoblaucharoma. Für vier Personen pürierst du 60 g Bärlauch mit vier Eiern und etwa 100 ml Wasser fein. Gib 400 g Mehl, am besten Spätzlemehl oder Weizenmehl Type 405, und einen Teelöffel Salz in eine Schüssel, gieße die grüne Eiermischung dazu und schlage den Teig mit einem Kochlöffel kräftig, bis er Blasen wirft und zäh vom Löffel reißt. Lass ihn zehn Minuten ruhen. Schabe den Teig vom Brett oder drücke ihn durch eine Spätzlepresse in reichlich siedendes Salzwasser. Sobald die Spätzle an die Oberfläche steigen, hebst du sie mit einer Schaumkelle heraus. In Butter geschwenkt und mit geriebenem Bergkäse bestreut, sind sie ein vollständiges Frühlingsessen. Ein paar Streifen frischer Bärlauch obenauf verstärken das Aroma.
+
 ## Weitere Ideen
 
 - **Bärlauchsuppe:** Kartoffeln und Zwiebeln in Brühe weich kochen, zum Schluss eine große Handvoll Bärlauch dazugeben und pürieren. Nicht mehr kochen, sonst verliert der Bärlauch seine Farbe.
@@ -115,3 +123,11 @@ Getrockneter Bärlauch verliert den größten Teil seines Aromas. Besser sind Pe
 ### Lässt sich Bärlauch im Garten anbauen?
 
 Ja, an einem schattigen, feuchten Platz unter Sträuchern oder Bäumen. Er breitet sich mit der Zeit aus. Die Pflanzen oder Zwiebeln setzt du im Herbst, Samen brauchen eine Kälteperiode und keimen langsam.
+
+### Wie viel Bärlauch darf ich sammeln?
+
+Die Handstraußregel nennt keine feste Grammzahl. Gemeint ist eine Menge, die für eine oder zwei Mahlzeiten im eigenen Haushalt reicht, etwa eine Handvoll bis ein kleiner Beutel. Größere Mengen für den Verkauf oder für Vorräte im großen Stil brauchen eine Genehmigung.
+
+### Mein Bärlauchpesto ist mir zu scharf. Was tun?
+
+Ersetze beim nächsten Mal ein Drittel des Bärlauchs durch glatte Petersilie oder jungen Spinat und nimm etwas mehr Nüsse. Ein fertiges, zu kräftiges Pesto mildest du, indem du es mit Frischkäse, Ricotta oder etwas mehr Öl und Käse streckst. Auch beim Kochen verliert Bärlauch einen Teil seiner Schärfe.
