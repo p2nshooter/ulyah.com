@@ -2,7 +2,7 @@
 title: "Weißer Tee: Silver Needle, Bai Mu Dan, Shou Mei und wie du den zartesten Tee zubereitest"
 description: "Weißer Tee erklärt: kaum verarbeitet, nur gewelkt und getrocknet. Die Sorten von Silver Needle bis Shou Mei, Herkunft aus Fujian, gepresster und gealterter weißer Tee, Zubereitung und Lagerung."
 category: teesorten
-date: 2026-09-02
+date: 2026-10-12
 ---
 Weißer Tee ist der am wenigsten bearbeitete aller Tees. Die Blätter und Knospen werden gepflückt, gewelkt und getrocknet, mehr nicht. Kein Rollen, kein Erhitzen zum Stoppen der Oxidation, keine Röstung. Was so schlicht klingt, verlangt viel Erfahrung, denn Wetter, Temperatur und Luftfeuchtigkeit bestimmen, wie sich das Blatt beim langsamen Welken verändert. Das Ergebnis ist ein heller, zarter Tee mit Noten von Heu, Honig, Melone und Blüten, der sanft und süß schmeckt und kaum bitter wird. Der Name kommt übrigens nicht von der Farbe des Aufgusses, sondern von den feinen, silbrig-weißen Härchen auf den jungen Knospen.
 
@@ -75,6 +75,26 @@ Weißer Tee enthält wie alle Tees Koffein und Polyphenole. Oft heißt es, er en
 
 Loser weißer Tee hält sich luftdicht, dunkel, trocken und fern von Gerüchen gelagert etwa ein bis zwei Jahre gut. Gepresster weißer Tee kann länger lagern, braucht dann aber etwas Luft und darf nicht feucht werden. Mehr in [Kaffee und Tee richtig lagern](/ratgeber/kaffee-und-tee-lagern/).
 
+## Qualität erkennen
+
+Guten weißen Tee erkennst du schon am trockenen Blatt. Bei Silver Needle sollten die Knospen prall, gleichmäßig groß und dicht mit silbrigen Härchen bedeckt sein; viel Bruch und Staub sprechen für grobe Verarbeitung oder schlechte Behandlung beim Transport. Bai Mu Dan zeigt eine Mischung aus silbrigen Knospen und grünen bis olivfarbenen Blättern. Bei Shou Mei sind braune Blätter normal, denn er wird später geerntet und stärker gewelkt. Der Duft des trockenen Tees sollte sauber, süß und heuartig sein. Riecht er muffig, feucht oder nach Rauch, wurde er schlecht gelagert. Der Aufguss ist klar und glänzend, nicht trüb, und der Geschmack bleibt lange angenehm im Mund.
+
+## Erntezeit und Jahrgang
+
+Die feinsten Knospen werden im zeitigen Frühjahr gepflückt, in Fujian meist im März und Anfang April. Spätere Pflückungen im Sommer und Herbst ergeben kräftigere Blatttees wie Shou Mei. Auf gepressten Kuchen steht häufig ein Jahrgang, manchmal aber das Pressjahr, das nicht mit dem Erntejahr übereinstimmen muss. Ein höheres Alter allein garantiert keine bessere Qualität: Entscheidend ist, wie sauber und trocken der Tee gelagert wurde. Ein junger, sorgfältig aufbewahrter Tee ist besser als ein alter, der Feuchtigkeit gezogen hat.
+
+## Typische Fehler
+
+- **Zu wenig Tee:** Die leichten Blätter täuschen. Wiege lieber ab, statt nach Augenmaß zu dosieren.
+- **Sprudelnd kochendes Wasser für Knospen:** Silver Needle verliert dabei seine Süße. Lass das Wasser kurz abkühlen.
+- **Gepressten Tee zerbröseln:** Feine Bruchstücke ziehen zu schnell aus und machen den Aufguss trüb und herb. Löse lieber ganze Blattschichten.
+- **Falsche Nachbarschaft:** Neben Gewürzen, Kaffee oder Parfüm nimmt weißer Tee fremde Gerüche an.
+- **Den Aufguss vergessen:** Bleiben die Blätter sehr lange im Wasser, wird auch weißer Tee irgendwann flach und herb. Gieße ab, sobald er dir schmeckt.
+
+## Weißer Tee und Essen
+
+Wegen seines zarten Geschmacks passt weißer Tee zu leichten Speisen. Zu Silver Needle und Bai Mu Dan schmecken reife Birnen, Melone, Pfirsiche, mildes Gebäck mit wenig Zucker oder ein frischer Ziegenkäse. Kräftige Gewürze und scharfe Gerichte überdecken ihn dagegen. Gereifter Shou Mei verträgt mehr Begleitung: Nüsse, Datteln und Trockenfrüchte greifen seine warmen, süßen Noten auf.
+
 ## Häufige Fragen
 
 ### Warum schmeckt mein weißer Tee nach nichts?
@@ -88,3 +108,11 @@ Nein. Manche aromatisierten Mischungen enthalten nur einen kleinen Anteil weiße
 ### Kann ich weißen Tee mit Milch trinken?
 
 Davon ist abzuraten. Der feine Geschmack geht unter. Weißer Tee wird pur getrunken.
+
+### Wie oft kann ich weißen Tee aufgießen?
+
+In der Kanne mit 3 Gramm pro Tasse gelingen meist zwei bis drei Aufgüsse, wobei du die Ziehzeit jedes Mal etwas verlängerst. Im Gaiwan mit mehr Blatt und kurzen Aufgüssen von 20 bis 40 Sekunden sind sechs und mehr Runden möglich, besonders bei gepresstem Shou Mei.
+
+## Fazit
+
+Weißer Tee belohnt Geduld: genug Blatt, nicht zu heißes Wasser und ruhig etwas Zeit. Wer mit Bai Mu Dan beginnt, lernt schnell die ganze Bandbreite kennen, von der feinen Süße einer Silver Needle bis zur warmen Tiefe eines gereiften Shou Mei. Sauber und trocken gelagert, bleibt er lange ein Genuss.
