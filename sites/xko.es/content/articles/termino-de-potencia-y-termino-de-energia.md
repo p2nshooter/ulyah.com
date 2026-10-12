@@ -78,6 +78,23 @@ Imagina un hogar con 5,75 kW contratados que consume 250 kWh al mes. Tras revisa
 - Ahorro en potencia: 1,15 kW × unos 35 € por kW y año = **unos 40 € al año**, sin cambiar nada en su vida diaria.
 - Si además desplaza un 20 % de su consumo de punta a valle, con una diferencia de precio de 10 céntimos por kWh, ahorra otros 600 kWh × 20 % × 0,10 € = **unos 12 € al año**, que pueden ser más con consumos mayores.
 
+## Qué hay dentro de cada término: peajes, cargos y margen
+
+Tanto el precio de la potencia como el de la energía son la suma de varias piezas, y entenderlas ayuda a saber qué se puede negociar y qué no:
+
+| Componente | Quién lo fija | Se puede elegir |
+|---|---|---|
+| Peajes de transporte y distribución | la Comisión Nacional de los Mercados y la Competencia | no: son iguales con cualquier comercializadora |
+| Cargos del sistema | el Gobierno | no: también son comunes |
+| Coste de la energía | el mercado mayorista o el precio pactado con la comercializadora | sí: depende de la tarifa |
+| Margen comercial | cada comercializadora | sí: es lo que compite entre empresas |
+
+Por eso dos ofertas con el mismo término de potencia pueden diferir mucho en el de energía, y al revés: cada comercializadora reparte su margen como quiere entre ambos términos. Al comparar, mira siempre el resultado total con tu consumo real, no un solo precio.
+
+Fuera de los dos términos, la factura incluye otros conceptos que no dependen de tu tarifa: el impuesto especial sobre la electricidad, el alquiler del contador cuando no es de tu propiedad, la financiación del bono social y el IVA, que se aplica al final sobre todo lo anterior. Sus tipos los fija la normativa vigente en cada momento. Como los impuestos se calculan en buena parte sobre los importes de potencia y energía, la forma de pagar menos por ellos es reducir esos importes.
+
+Lo explicamos línea a línea en [cómo leer la factura de la luz](/guias/como-leer-la-factura-de-la-luz/) y en la guía sobre los [impuestos de la factura de la luz](/guias/impuestos-de-la-factura-de-la-luz/).
+
 ## Errores frecuentes
 
 - **Contratar potencia "por si acaso".** Es la causa más común de sobrecoste invisible.

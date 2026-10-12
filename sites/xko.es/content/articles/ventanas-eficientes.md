@@ -106,6 +106,23 @@ Si no puedes cambiar las ventanas ahora:
 - **Cortinas gruesas** por la noche en invierno.
 - **Protección solar exterior** en verano: toldos, persianas, contraventanas. Consulta [persianas, toldos y protección solar](/guias/persianas-toldos-y-proteccion-solar/).
 
+## Cómo comparar presupuestos de ventanas
+
+Dos presupuestos con el mismo precio pueden esconder ventanas muy distintas. Pide que cada uno detalle, por escrito:
+
+| Dato | Por qué importa |
+|---|---|
+| Transmitancia de la ventana completa | el valor del conjunto, marco y vidrio, es el que determina las pérdidas; el del vidrio solo cuenta una parte |
+| Composición del vidrio | número de hojas, cámaras, gas de relleno y capas bajo emisivas o de control solar |
+| Perfil del marco | material, número de cámaras y tipo de rotura de puente térmico |
+| Separador del vidrio | los separadores de borde cálido reducen las condensaciones perimetrales |
+| Instalación | desmontaje, sellado entre marco y obra, remates y gestión de residuos |
+| Cajón de persiana | si se aísla o se sustituye |
+| Marcado CE y documentación | las ventanas deben comercializarse con marcado CE y su declaración de prestaciones |
+| Garantía y plazo | del producto y de la instalación |
+
+Si vives en un edificio de viviendas, consulta antes las normas de la comunidad: cambiar el color, el material o el despiece de las ventanas puede alterar la fachada y requerir el acuerdo de los propietarios. Y pregunta por las ayudas a la rehabilitación energética que pueda haber en tu comunidad autónoma, que suelen exigir solicitarse antes de empezar la obra.
+
 ## Errores frecuentes
 
 - **Elegir solo por el marco** sin mirar el vidrio, o al revés.

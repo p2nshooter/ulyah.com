@@ -86,6 +86,18 @@ Combinar protección solar y ventilación es la forma más eficaz de mantener la
 
 Esta rutina puede mantener la vivienda varios grados más fresca que si las persianas quedan subidas y las ventanas abiertas a mediodía.
 
+## Ventiladores: el complemento más barato
+
+Un ventilador no enfría el aire de la habitación, pero el movimiento del aire sobre la piel aumenta la sensación de frescor. Por eso, combinado con una buena protección solar, permite pasar muchos días sin aire acondicionado, y cuando este se usa, permite subir su temperatura de consigna un par de grados sin perder confort.
+
+- **Consumen muy poco** en comparación con un equipo de aire acondicionado.
+- **Enfrían a las personas, no a la estancia:** apágalos cuando salgas de la habitación.
+- **Ventilador de techo:** en verano debe empujar el aire hacia abajo; muchos modelos tienen un selector para cambiar el sentido de giro según la estación.
+- **Por la noche,** un ventilador junto a una ventana abierta ayuda a meter el aire fresco exterior y acelera la ventilación nocturna.
+- **Limpia las aspas** al empezar la temporada: el polvo acumulado reduce su rendimiento y empeora la calidad del aire.
+
+En las olas de calor, además, mantener al menos una habitación de la casa bien protegida del sol y ventilada de noche es una medida sencilla que ayuda a las personas más vulnerables, como bebés, mayores o enfermos, a descansar mejor.
+
 ## Cuánto se ahorra en aire acondicionado
 
 Al reducir la entrada de calor, el aire acondicionado necesita funcionar menos horas y a menor potencia. En viviendas con grandes ventanales al oeste o al sur sin proteger, la protección solar exterior puede reducir el consumo de refrigeración de forma muy significativa, en muchos casos entre un 20 y un 40 %, y en otras ocasiones hacer innecesario encender el aparato en días moderados.

@@ -127,6 +127,25 @@ En un piso de Oviedo, el dormitorio orientado al norte presentaba cada invierno 
 
 Mientras la comunidad estudiaba el aislamiento por el exterior, la familia adoptó varias medidas: ventilación diaria por la mañana, mantener el dormitorio a 17 °C en lugar de dejarlo frío durante el día, retirar el armario de la pared y usar un deshumidificador en las semanas más húmedas. La humedad relativa bajó del 70 al 55 % y el moho dejó de aparecer, aunque el puente térmico seguía ahí hasta la rehabilitación.
 
+## Al comprar o alquilar: cómo detectarlos en una visita
+
+Los puentes térmicos se ven mejor en invierno, pero dejan huellas todo el año. Al visitar una vivienda, fíjate en:
+
+- **Manchas oscuras o repintados recientes** en las esquinas del techo, detrás de los armarios y alrededor de las ventanas.
+- **Olor a humedad** en dormitorios y armarios empotrados.
+- **Juntas de silicona ennegrecidas** en ventanas y baños.
+- **El certificado de eficiencia energética,** obligatorio en la venta y el alquiler, y si el edificio ha sido rehabilitado o tiene aislamiento por el exterior.
+
+Si alquilas y aparecen humedades por condensación graves, comunícalo por escrito al propietario: la normativa de arrendamientos le obliga a realizar las reparaciones necesarias para conservar la vivienda en condiciones de habitabilidad, aunque los hábitos de ventilación del inquilino también influyen. Documenta el problema con fotografías y fechas.
+
+## Errores frecuentes
+
+- **Pintar encima del moho** sin limpiarlo ni corregir la causa.
+- **Confundir la condensación** con una filtración o una humedad por capilaridad.
+- **Dejar de ventilar en invierno** para no perder calor.
+- **Pegar los armarios** a las paredes frías de fachada.
+- **Confiar solo en pinturas milagro** para un problema constructivo.
+
 ## Preguntas frecuentes
 
 ### ¿Por qué tengo moho solo en un dormitorio?

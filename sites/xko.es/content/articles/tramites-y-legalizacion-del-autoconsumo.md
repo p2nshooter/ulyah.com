@@ -133,6 +133,27 @@ Tras corregir el CUPS, la distribuidora asignó el código de autoconsumo en tre
 - Acuerdo de compensación con la comercializadora.
 - Solicitud de bonificación del IBI, si existe en tu municipio.
 
+## Ayudas y deducciones: cómo no perderlas por un papel
+
+Además de las bonificaciones municipales del ICIO y del IBI, en los últimos años han existido otras vías de apoyo al autoconsumo: programas de subvenciones gestionados por las comunidades autónomas con fondos públicos y deducciones en el IRPF por obras que mejoran la eficiencia energética de la vivienda. Sus condiciones, plazos y vigencia cambian con frecuencia, así que conviene comprobarlas en la web de tu comunidad autónoma y en la Agencia Tributaria antes de firmar el presupuesto.
+
+Lo que sí se repite en casi todas las convocatorias es la importancia de los documentos y del orden de los pasos:
+
+- **Algunas ayudas exigen solicitarse antes de empezar la obra.** Si instalas primero, puedes quedarte fuera.
+- **Las deducciones fiscales vinculadas a la eficiencia suelen pedir certificados energéticos** de la vivienda emitidos por un técnico, a veces antes y después de la obra.
+- **Las facturas deben estar a tu nombre** y pagarse por medios que dejen rastro, como transferencia o tarjeta.
+- **El instalador debe estar habilitado** y emitir el certificado de instalación correspondiente.
+
+Guarda una carpeta, física o digital, con todo el expediente: presupuesto aceptado, facturas, justificantes de pago, certificado de instalación, registro autonómico, comunicaciones con la distribuidora y fotografías.
+
+## Errores frecuentes
+
+- **Empezar la obra** sin comprobar si la ayuda exigía solicitarla antes.
+- **No pedir la bonificación del IBI** dentro del plazo municipal.
+- **Pagar en efectivo** y perder la posibilidad de justificar el gasto.
+- **Dar por hecho que el instalador lo tramita todo** sin revisar cada paso.
+- **No firmar el acuerdo de compensación** y regalar los excedentes durante meses.
+
 ## Preguntas frecuentes
 
 ### ¿Puedo instalar placas yo mismo?

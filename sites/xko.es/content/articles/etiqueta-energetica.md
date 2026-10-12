@@ -129,6 +129,30 @@ La conclusión no es que la clase A no compense nunca, sino que hay que hacer la
 - Revisa ruido, capacidad y, en lavado, consumo de agua.
 - Escanea el código QR para confirmar los datos en EPREL.
 
+## Otras etiquetas que conviene conocer
+
+La etiqueta energética europea no se limita a los electrodomésticos de cocina y lavado. Con el mismo espíritu, aunque no siempre con la misma escala, la encontrarás en:
+
+| Producto | Qué indica |
+|---|---|
+| Bombillas y fuentes de luz | eficiencia luminosa y consumo, con la nueva escala de la A a la G |
+| Televisores y monitores | consumo en uso normal y en alto rango dinámico |
+| Aire acondicionado y bombas de calor | eficiencia estacional en frío y en calor, según la zona climática |
+| Calderas y calentadores | eficiencia en calefacción y en agua caliente |
+| Hornos y campanas extractoras | consumo por ciclo y eficiencia de extracción |
+| Neumáticos | resistencia a la rodadura, que influye en el consumo del coche, adherencia en mojado y ruido |
+| Viviendas | el certificado de eficiencia energética, obligatorio al vender o alquilar |
+
+Además de las etiquetas, las normas europeas de diseño ecológico fijan requisitos mínimos de eficiencia y, en varios tipos de aparatos, obligan a los fabricantes a mantener disponibles piezas de repuesto durante años. Antes de dar por perdido un electrodoméstico averiado, pregunta si existe la pieza: repararlo suele ser la opción más eficiente de todas.
+
+## Errores frecuentes
+
+- **Elegir solo por la letra** sin mirar el consumo anual en kWh.
+- **Comparar etiquetas de la escala antigua y la nueva** como si fueran equivalentes.
+- **Comprar un aparato más grande de lo necesario** porque tiene mejor clase.
+- **Olvidar el consumo de agua** en lavadoras y lavavajillas.
+- **Ignorar el programa eco,** que es el que se usa para medir la etiqueta.
+
 ## Preguntas frecuentes
 
 ### ¿Mi frigorífico A+++ antiguo es ahora un D?

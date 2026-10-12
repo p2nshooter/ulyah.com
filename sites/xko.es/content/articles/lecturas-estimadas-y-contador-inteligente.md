@@ -133,6 +133,26 @@ Desde entonces, consultan el consumo en la web de la distribuidora cada mes y, s
 - Consulta tu consumo horario para detectar consumos anómalos.
 - Comunica las lecturas si recibes varias estimaciones seguidas.
 
+## Cómo encontrar tu contador en un edificio
+
+En los edificios de viviendas, los contadores suelen estar agrupados en una centralización: un cuarto o un armario en la planta baja, el sótano o junto al portal, con decenas de aparatos iguales. Para saber cuál es el tuyo:
+
+- **Busca el número de contador** que figura en la factura o en el área de clientes de la distribuidora y compáralo con el que aparece en la carátula de cada aparato.
+- **Mira las etiquetas:** muchos contadores llevan rotulado el piso y la puerta, aunque no siempre están actualizadas.
+- **Comprueba con una prueba sencilla:** si bajas el interruptor general de tu casa, la potencia instantánea de tu contador debería caer casi a cero.
+
+Las llaves del cuarto de contadores suelen estar en manos del presidente de la comunidad, del administrador o del conserje. En las viviendas unifamiliares, el contador suele estar en un armario en la fachada o en el límite de la parcela, accesible desde la calle para facilitar su revisión.
+
+Con los contadores inteligentes la lectura se hace a distancia, pero saber dónde está el tuyo sigue siendo útil para comprobar lecturas, rearmar tras un corte por exceso de potencia o detectar consumos ocultos.
+
+## Errores frecuentes
+
+- **Ignorar las lecturas estimadas** hasta que llega una regularización alta.
+- **Confundir el contador del vecino** con el propio en la centralización.
+- **No descargar nunca el consumo horario,** que es gratuito y muy útil.
+- **Facilitar el CUPS** a quien llama sin haberlo pedido.
+- **Pedir una verificación del contador** sin haber descartado antes consumos ocultos en casa.
+
 ## Preguntas frecuentes
 
 ### ¿Pueden cambiar mi contador sin avisar?
