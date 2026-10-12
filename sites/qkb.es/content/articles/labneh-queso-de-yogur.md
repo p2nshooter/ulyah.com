@@ -2,7 +2,7 @@
 title: Labneh: el queso de yogur más fácil del mundo
 description: Cómo transformar yogur natural en labneh, un queso cremoso para untar, solo con sal y tiempo de escurrido; variantes en bolitas con aceite, usos, conservación y consejos.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 Si quieres hacer tu primer queso casero sin termómetro, sin cuajo y sin ningún riesgo de que salga mal, el labneh es la elección perfecta. Se trata de yogur escurrido hasta perder buena parte de su suero, con un poco de sal. El resultado es una crema espesa, ácida y suave, a medio camino entre el queso crema y el yogur griego.
 
@@ -104,6 +104,24 @@ El suero que se obtiene al escurrir el yogur es ácido y conserva parte de las p
 - En sopas frías.
 
 Consúmelo en dos o tres días.
+
+## Labneh, requesón y queso crema: en qué se diferencian
+
+Los tres son blancos, cremosos y se untan, pero se elaboran de forma muy distinta. El **labneh** nace de un yogur ya fermentado al que solo se le retira el suero: no hay calor ni cuajo, y su acidez procede de las bacterias del yogur. El **requesón** se obtiene calentando leche o suero y añadiendo un ácido, como zumo de limón o vinagre, para que las proteínas floculen; su sabor es más dulce y su textura, granulosa. Lo explicamos paso a paso en la guía del [requesón casero](/recetas-y-guias/requeson-casero/). El **queso crema** comercial se elabora con leche y nata fermentadas, tiene bastante más grasa y suele llevar estabilizantes que le dan esa textura tan lisa.
+
+En la práctica, el labneh sustituye bien al queso crema en salsas, rellenos y tartas frías, con un punto ácido más marcado y menos grasa. Si una receta necesita la textura muy firme del queso crema, escurre el labneh durante más tiempo.
+
+## Organizar un kilo de yogur para toda la semana
+
+Una sola tanda de labneh puede dar juego durante varios días si se aprovechan sus distintas texturas:
+
+1. **Día 1, por la noche**: mezcla el yogur con la sal y ponlo a escurrir en la nevera.
+2. **Día 2, por la mañana**: retira una parte, todavía cremosa, para el desayuno con fruta o para una salsa de pepino.
+3. **Día 2, por la noche**: aparta otra porción ya untable para tostadas y dips; guárdala en un recipiente cerrado.
+4. **Día 3**: deja escurrir el resto hasta que esté firme y forma las bolitas en aceite.
+5. **Suero**: úsalo en el pan del fin de semana o en un batido antes de que pasen tres días.
+
+Etiqueta cada recipiente con la fecha: es la forma más sencilla de saber qué consumir primero.
 
 ## Errores frecuentes
 
