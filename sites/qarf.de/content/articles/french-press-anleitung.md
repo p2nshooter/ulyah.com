@@ -2,7 +2,7 @@
 title: "French Press: so gelingt Kaffee aus der Stempelkanne"
 description: Die French Press ist einfach und liefert vollmundigen Kaffee. Das richtige Verhältnis, grober Mahlgrad, vier Minuten Ziehzeit und der Trick gegen Kaffeesatz in der Tasse.
 category: kaffee-zubereiten
-date: 2026-07-09
+date: 2026-10-12
 ---
 Die French Press, in Deutschland auch Stempelkanne, Kaffeepresse oder Pressstempelkanne genannt, ist eine der einfachsten Methoden, um richtig guten Kaffee zu machen. Du brauchst keinen Filter, keine Gießtechnik und keinen Strom, nur grob gemahlenen Kaffee, heißes Wasser und vier Minuten Geduld. Das Ergebnis ist ein vollmundiger, kräftiger Kaffee mit viel Körper, weil die Öle des Kaffees nicht von Papier zurückgehalten werden. In diesem Ratgeber lernst du das Grundrezept, eine verfeinerte Methode für weniger Satz in der Tasse und die häufigsten Fehler.
 
@@ -72,6 +72,23 @@ Das Ergebnis ist deutlich klarer und süßer. Ein längeres Ziehen macht den Kaf
 
 Die French Press verstärkt Körper und Süße. Mittlere Röstungen mit Noten von Schokolade und Nuss, etwa aus Brasilien, Guatemala oder Sumatra, entfalten sich hier wunderbar. Helle, fruchtige Kaffees funktionieren auch, wirken aber weniger klar als im Handfilter. Sehr dunkle Röstungen können schnell bitter werden; nimm dann Wasser um 90 °C.
 
+## Die French Press im Vergleich
+
+Jede Zubereitung betont andere Seiten desselben Kaffees. Wer die Unterschiede kennt, wählt die Methode passend zur Bohne und zur Situation.
+
+| Methode | Körper | Klarheit | Aufwand | Satz in der Tasse |
+|---|---|---|---|---|
+| French Press | voll, ölig | mittel | gering | etwas, bei sorgfältiger Technik wenig |
+| [Handfilter](/ratgeber/handfilter-kaffee-anleitung/) | leicht bis mittel | hoch | mittel, Gießtechnik nötig | keiner |
+| [Filterkaffeemaschine](/ratgeber/filterkaffeemaschine-richtig-nutzen/) | leicht bis mittel | mittel bis hoch | sehr gering | keiner |
+| [Espressokocher](/ratgeber/espressokocher-anleitung/) | kräftig, konzentriert | gering | gering | kaum |
+
+Die French Press ist die richtige Wahl, wenn du einen runden, kräftigen Kaffee mit wenig Aufwand möchtest und Bohnen mit schokoladigen, nussigen Noten magst.
+
+## Für Gäste und unterwegs
+
+Für mehrere Personen ist eine große Kanne mit einem Liter Inhalt praktisch. Achte darauf, dass du den fertigen Kaffee sofort in eine vorgewärmte Thermoskanne umfüllst, denn bei großen Mengen steht er sonst lange auf dem Satz. Für Reisen und das Büro gibt es kleine Becherpressen aus Edelstahl, in denen du direkt brühst und trinkst. Ihr Nachteil: Der Kaffee bleibt mit dem Mehl in Kontakt und zieht weiter. Wähle Modelle, bei denen sich der Satz abtrennen lässt, oder trinke zügig.
+
 ## Pflege der French Press
 
 Kaffeeöle setzen sich im Sieb fest und werden mit der Zeit ranzig. Das schmeckt man.
@@ -107,3 +124,11 @@ Vorgemahlener Kaffee aus dem Supermarkt ist meist für Filtermaschinen gemahlen 
 ### Warum ist mein Kaffee lauwarm?
 
 Glaskannen verlieren schnell Wärme. Wärme Kanne und Tassen vor, und gieß nach dem Pressen sofort ein. Eine doppelwandige Edelstahlkanne hält die Temperatur deutlich länger.
+
+### Kann ich den Kaffee in der Kanne warm halten?
+
+Besser nicht. Auf dem Satz zieht der Kaffee weiter und wird bitter, und eine Glaskanne gehört weder auf die Herdplatte noch auf ein Stövchen mit offener Flamme. Fülle den Kaffee nach dem Pressen in eine vorgewärmte Thermoskanne. Dort bleibt er eine Weile heiß, ohne nachzuziehen.
+
+## Fazit
+
+Die French Press verzeiht viel und belohnt wenige, aber wichtige Gewohnheiten: grob und gleichmäßig mahlen, genug Kaffee abwiegen, vier Minuten warten, sanft pressen und sofort umfüllen. Wer zusätzlich die Kruste abschöpft und etwas länger wartet, bekommt eine erstaunlich klare, süße Tasse mit dem vollen Körper, für den die Stempelkanne geliebt wird.
