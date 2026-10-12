@@ -2,7 +2,7 @@
 title: "Ein Baby für Mila? Lieber nicht!"
 description: Mila hat sich ein Geschwisterchen gewünscht. Dann ist es da, schreit nachts und bekommt die ganze Aufmerksamkeit. Eine Geschichte über Eifersucht, Rückschritte und das Ritual der großen Schwester.
 category: geschwister
-date: 2026-09-20
+date: 2026-10-12
 ---
 Monatelang hatte Mila sich auf das Baby gefreut. Sie hatte ihrer Mutter Nadine die Hand auf den runden Bauch gelegt und gespürt, wie es trat. Sie hatte Namen vorgeschlagen, „Einhorn“ und „Pommes“ und, nach langem Überlegen, „Paula“. Sie hatte ein Bild für das Babyzimmer gemalt und ihrem Teddy erklärt, dass er bald nicht mehr der Jüngste in der Familie sei.
 
@@ -65,6 +65,20 @@ Die Geburt eines Geschwisterkindes ist für viele Kinder eine große Umstellung.
 - **Bittet Besucher um Aufmerksamkeit für das ältere Kind.** Ein kurzer Hinweis genügt oft: zuerst das große Kind begrüßen, vielleicht eine Kleinigkeit für beide mitbringen.
 - **Reagiert gelassen auf Rückschritte.** Einnässen oder Babysprache geben sich meistens wieder, wenn das Kind sich sicher fühlt. Wenn Rückschritte lange anhalten oder euch Sorgen machen, sprecht mit der Kinderärztin oder dem Kinderarzt.
 
+### Schon vor der Geburt vorbereiten
+
+Vieles lässt sich leichter machen, bevor das Baby da ist. Lest gemeinsam Bilderbücher über Babys und Geschwister, schaut euch Fotos aus der Babyzeit des älteren Kindes an und erzählt, wie es damals war. Plant gut, wer sich während der Geburt um das ältere Kind kümmert, und erklärt es ihm vorher. Große Veränderungen wie der Wechsel ins große Bett oder der Start in der Kita sollten möglichst nicht genau in die Wochen rund um die Geburt fallen. Und versprecht keinen Spielkameraden: Ein Neugeborenes kann monatelang nicht mitspielen, und die Enttäuschung ist dann umso größer.
+
+### Wie viel Eifersucht ist normal?
+
+Wut, Rückzug, Babysprache, mehr Trotz oder auch übertriebene Zärtlichkeit gegenüber dem Baby sind häufige Reaktionen. Anders ist es, wenn das ältere Kind dem Baby wehtut, es zum Beispiel kneift oder schubst. Dann gilt: das Baby schützen und die beiden nicht unbeaufsichtigt lassen, ohne das große Kind zu beschämen. Ein Satz wie „Du darfst wütend sein, aber du darfst Paul nicht wehtun“ trennt das Gefühl vom Verhalten. Bietet gleichzeitig andere Wege an, die Wut loszuwerden: ein Kissen boxen, stampfen, laut schimpfen.
+
+### Wenn Eltern erschöpft sind
+
+Die ersten Monate mit Baby und älterem Kind sind kräftezehrend. Nehmt Hilfe von Familie, Freunden und Nachbarn an, beim Kochen, Einkaufen oder Abholen. Die Hebamme ist in der Wochenbettzeit eine wichtige Ansprechpartnerin, auch für Fragen zum älteren Kind. Unter bestimmten Voraussetzungen übernimmt die Krankenkasse nach der Geburt eine Haushaltshilfe; fragt bei eurer Kasse nach. Und vielerorts gibt es Angebote der Frühen Hilfen, die Familien mit kleinen Kindern unterstützen.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt das ältere Kind: Was ist schön daran, ein großes Geschwister zu sein? Und was ist blöd? Beide Antworten dürfen sein. Erzählt auch, wie es war, als es selbst ein Baby war. Viele Kinder hören gern, dass auch sie einmal so klein und so anstrengend waren.
+
+Ein gemeinsames Fotoalbum mit Bildern aus beider Babyzeit kann dabei helfen. Kinder vergleichen gern, wer mehr Haare hatte oder lauter geschrien hat, und spüren dabei, dass sie selbst genauso umsorgt wurden wie jetzt das kleine Geschwisterchen.
