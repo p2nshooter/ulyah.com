@@ -2,7 +2,7 @@
 title: Cómo cuidar y alimentar la masa madre: proporciones, nevera, viajes y rescates
 description: Todo para mantener tu masa madre sana durante años: proporciones de alimentación, cuándo usarla, cómo guardarla en la nevera, cómo secarla para viajes, cómo reactivarla y cómo cambiar su sabor.
 category: masa-madre-y-pan
-date: 2026-09-26
+date: 2026-10-12
 ---
 Crear una masa madre es la parte emocionante; mantenerla viva durante años es la parte que de verdad marca la diferencia. Una masa madre bien cuidada es predecible: sabes cuánto tarda en subir, cómo huele en su mejor momento y cómo se comportará en el pan. Una masa madre descuidada, en cambio, es lenta, muy ácida y caprichosa.
 
@@ -118,6 +118,10 @@ Cada vez que alimentas, retiras una parte de la masa madre. Esos descartes no ti
 - Masa de pizza, combinados con un poco de levadura.
 
 Guarda los descartes en un tarro en la nevera durante una semana y úsalos cuando te venga bien.
+
+## Compartir tu masa madre
+
+Una masa madre sana es el mejor regalo para alguien que quiere empezar a hacer pan. Para compartirla, aliméntala unas horas antes y separa entre 30 y 50 g en un tarro limpio con tapa, dejando espacio para que crezca. Si la persona va a tardar en usarla, mejor entrégala recién alimentada y guardada en frío, o regálale unos copos de masa madre deshidratada en un sobre de papel, que aguantan semanas sin cuidados. Acompaña el regalo con una nota sencilla: qué harina usas, en qué proporción la alimentas y cuánto tarda en llegar a su pico en tu cocina. Con esos datos, se adaptará a su nueva casa en pocos días.
 
 ## Señales de alarma
 
