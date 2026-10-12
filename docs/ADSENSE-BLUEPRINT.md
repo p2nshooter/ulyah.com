@@ -564,6 +564,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 12 Okt | "Anda sudah sy berikan akses CF, buka saja dan lihat langsung ke dalam, jgn meraba. Perbaiki logo headernya biar mewah, indah elegan, bukan tumpang tindih begitu. Yg dawa.es juga perbaiki, walaupun udah milik orang, biar g error dan biar nanti mudah d backup" | 🔄 §12.5, §10.1 |
 | 12 Okt | "Tolong jgn pernah jelasin selain make bhs Indonesia, biar sy tau sudah sampai mana progressnya" | ✅ aturan tetap: semua laporan progres ke pemilik dalam bahasa Indonesia |
 | 12 Okt | "Adslot manual jika itu milik adsense biarkan, dan biarkan otomatis, yg penting pastikan tidak melanggar adsense secara keseluruhan" (jawaban atas pertanyaan rebuild dawa.es) | 🔄 §10.1: slot manual AdSense dawa.es (akun 6371…) dipertahankan + Auto ads; audit kepatuhan AdSense seluruh ekosistem |
+| 13 Okt | "Jgn pernah ngerjain menggunakan agent, anda sendiri yg mengerjakan. Semua artikel yg kurang dr 1500 kata tambahkan, lanjutkan pekerjaan yg sudah ada" | 🔄 aturan tetap: semua pekerjaan dikerjakan langsung, tanpa agen/workflow. Inventaris (penghitung engine): 261 artikel situs statis < 1.500 kata (byodd.de 30, byoxy.de 40, byoy.de 40, qurm.de 40, rubiy.de 39, zavik.de 38, axto.us 34) + jai.lat 8, oldco.in 62, profity.in 54 (Hindi/Inggris); ditambah dengan tangan, lalu batas minimum engine dinaikkan ke 1.500 untuk semua bahasa |
 
 ---
 
