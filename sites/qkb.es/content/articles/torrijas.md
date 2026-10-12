@@ -2,7 +2,7 @@
 title: Torrijas caseras de Semana Santa: pan, leche infusionada, fritura y versiones al horno
 description: Torrijas de Semana Santa: qué pan usar, leche infusionada, remojo, fritura a la temperatura justa y acabados con azúcar y canela, almíbar o miel.
 category: bolleria
-date: 2026-09-15
+date: 2026-10-12
 ---
 Las torrijas son el dulce de la Semana Santa española. Nacieron como una forma de aprovechar el pan duro, en tiempos en los que nada se tiraba, y se han convertido en un pequeño lujo de temporada: rebanadas de pan empapadas en leche aromatizada con canela y limón, pasadas por huevo, fritas en aceite de oliva y cubiertas de azúcar y canela o bañadas en almíbar o miel.
 
@@ -110,6 +110,27 @@ El resultado es menos crujiente y algo más seco por fuera, pero igualmente sabr
 ## Torrijas caramelizadas
 
 Una versión moderna muy popular en restaurantes: empapa el pan de brioche en una mezcla de leche, nata y yema, déjalo en la nevera varias horas, dóralo en sartén con mantequilla y carameliza la superficie espolvoreando azúcar y quemándola con un soplete o en la misma sartén. Se sirve templada, a veces con helado.
+
+## Hacer en casa el pan de torrijas
+
+Si en tu panadería no lo venden, puedes hornearlo tú el día anterior. La clave es una masa poco hidratada, que da una miga apretada y resistente:
+
+1. Mezcla 500 g de harina de trigo panificable, 270 g de agua, 10 g de sal y 5 g de levadura seca de panadería, o 15 g de levadura fresca.
+2. Amasa hasta obtener una masa lisa y firme, y déjala fermentar tapada hasta que casi doble su volumen.
+3. Divide en dos piezas, forma dos barras gruesas y apretadas y déjalas fermentar de nuevo unos 45 minutos.
+4. Hornea a 220 °C durante unos 25 o 30 minutos, hasta que estén bien doradas.
+5. Deja enfriar por completo y guarda las barras envueltas en un paño hasta el día siguiente.
+
+Si quieres saber más sobre la levadura, consulta la guía de [levaduras: tipos y equivalencias](/recetas-y-guias/levaduras-tipos-y-equivalencias/).
+
+## Versiones sin huevo y sin gluten
+
+- **Sin huevo:** en lugar de pasar las rebanadas por huevo, añade una cucharada de maicena a la leche infusionada antes de calentarla y escurre muy bien el pan. Quedan algo más frágiles, así que manéjalas con una espátula ancha.
+- **Sin gluten:** usa un pan sin gluten de miga densa y remójalo poco tiempo, porque se deshace antes que el de trigo. Fríe en aceite limpio que no se haya usado para productos con gluten.
+
+## Nada se tira
+
+Si sobra leche infusionada, úsala en un arroz con leche o unas natillas: ya tiene el aroma de canela y limón. El huevo batido sobrante puede ir a una tortilla o a la masa de un bizcocho. Y el aceite de freír, una vez frío, se filtra y se guarda en un recipiente cerrado para otra fritura dulce.
 
 ## Conservación
 
