@@ -2,7 +2,7 @@
 title: "Kürbis: Sorten im Überblick und eine samtige Kürbissuppe mit Ingwer"
 description: Hokkaido, Butternut, Muskat und Spaghettikürbis im Vergleich, wie du Kürbis sicher zerteilst, lagerst und zu Suppe, Ofengemüse und gerösteten Kernen verarbeitest.
 category: herbst
-date: 2026-06-14
+date: 2026-10-12
 ---
 Wenn im September die ersten Kürbisse in orange, grün und beige an den Hofläden aufgereiht liegen, beginnt für viele die eigentliche Kochsaison. Kürbis ist vielseitig, preiswert und lässt sich monatelang lagern. Er passt in Suppen und Currys, auf Bleche mit Ofengemüse, in Risotto, Kuchen und sogar Brot. Trotzdem stehen viele vor dem großen, harten Ding und wissen nicht recht, wie sie anfangen sollen.
 
@@ -28,6 +28,10 @@ Dieser Beitrag hilft dir, die wichtigsten Sorten zu unterscheiden, einen Kürbis
 | Gelber Zentner | riesig, blass orange | wässrig, mild | schälen |
 
 Für Einsteiger ist der Hokkaido die einfachste Wahl. Er ist klein genug für einen Haushalt, das Fruchtfleisch ist fest und kräftig orange, und die Schale wird beim Garen weich. Butternut eignet sich besonders für Ofengerichte und Pürees, weil sein Fruchtfleisch sehr cremig wird. Der Muskatkürbis wird meist in Stücken verkauft und ist ideal für Suppe und süßsauer eingelegten Kürbis.
+
+### Eine uralte Kulturpflanze
+
+Kürbisse stammen aus Amerika und gehören zu den ältesten Kulturpflanzen überhaupt. In Mexiko wurden sie schon vor rund zehntausend Jahren angebaut, lange vor Mais und Bohnen. Nach Europa kamen sie erst nach den Reisen des Kolumbus. Heute wachsen in deutschen Gärten und auf Feldern Hunderte Sorten, und viele Hofläden zeigen im Herbst ganze Kürbiswände in allen Farben und Formen.
 
 ## Vorsicht bei bitteren Kürbissen
 
@@ -80,6 +84,18 @@ Serviere die Suppe mit gerösteten Kürbiskernen und einigen Tropfen Kürbiskern
 ## Ofenkürbis als Beilage
 
 Butternut oder Hokkaido in fingerdicke Spalten schneiden, mit drei Esslöffeln Olivenöl, Salz, Pfeffer und ein paar Zweigen Thymian oder Rosmarin mischen und auf einem mit Backpapier belegten Blech verteilen. Bei 200 Grad Ober- und Unterhitze 25 bis 30 Minuten backen, nach der Hälfte der Zeit wenden. Der Kürbis ist fertig, wenn er weich ist und braune Ränder hat. Dazu passen Feta, Walnüsse, ein Joghurtdip oder Feldsalat.
+
+## Kürbisrisotto mit Salbei
+
+Für vier Personen dünstest du eine fein gewürfelte Zwiebel in zwei Esslöffeln Butter glasig, gibst 400 g Kürbiswürfel, am besten Hokkaido oder Butternut, und 300 g Risottoreis dazu und rührst, bis die Reiskörner glasig glänzen. Lösche mit einem Schuss Weißwein oder Brühe ab und gieße nach und nach etwa einen Liter heiße Gemüsebrühe an, immer nur so viel, dass der Reis knapp bedeckt ist, und rühre regelmäßig. Nach 18 bis 20 Minuten ist der Reis cremig, hat aber noch einen leichten Biss, und ein Teil der Kürbiswürfel ist zerfallen und färbt das Risotto orange. Rühre zum Schluss 50 g geriebenen Hartkäse und ein Stück kalte Butter unter. Brate einige Salbeiblätter in Butter knusprig und lege sie obenauf.
+
+## Kürbis süßsauer
+
+Süßsauer eingelegter Kürbis ist eine alte Spezialität, die zu kaltem Braten, Käse und Wild passt. Dafür schneidest du festes Fruchtfleisch, traditionell vom Muskatkürbis, in Würfel und lässt es über Nacht in mildem Essig ziehen. Am nächsten Tag kochst du Essig, Zucker, Wasser, Nelken, Zimtstange und etwas Ingwer zu einem Sud auf und garst die Würfel darin, bis sie glasig, aber noch bissfest sind. Heiß in saubere Gläser gefüllt und verschlossen, hält sich der Kürbis kühl und dunkel gelagert viele Monate.
+
+## Steirisches Kürbiskernöl
+
+Das dunkelgrüne Öl aus der Steiermark wird aus den geschälten Kernen des Ölkürbisses gepresst, die vorher geröstet werden. Daher kommen sein nussiger Geschmack und seine Farbe. „Steirisches Kürbiskernöl“ ist in der EU als geschützte geografische Angabe eingetragen. Zum Braten eignet es sich nicht, weil es bei Hitze sein Aroma verliert. Es gehört über Salate, in Kartoffelsalat, auf Suppen und, für Neugierige, in einigen Tropfen über Vanilleeis.
 
 ## Kürbiskerne rösten
 
