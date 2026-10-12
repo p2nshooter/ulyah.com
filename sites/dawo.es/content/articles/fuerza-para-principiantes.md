@@ -2,7 +2,7 @@
 title: Entrenamiento de fuerza para principiantes: los cinco movimientos básicos
 description: Sentadilla, bisagra de cadera, empuje, tracción y carga: los cinco patrones de movimiento en los que se basa cualquier rutina de fuerza, cómo aprenderlos y cómo progresar con seguridad.
 category: fuerza-y-movilidad
-date: 2026-10-04
+date: 2026-10-12
 ---
 Durante mucho tiempo, el entrenamiento de fuerza se asoció a culturistas y a gimnasios llenos de espejos. Hoy sabemos que es una de las herramientas más valiosas para la salud de cualquier persona, sea cual sea su edad o su deporte. Las recomendaciones de la Organización Mundial de la Salud incluyen, además de la actividad aeróbica, al menos dos días por semana de actividades de fortalecimiento muscular que trabajen los grandes grupos musculares.
 
@@ -130,6 +130,18 @@ El principio clave del entrenamiento de fuerza es la **sobrecarga progresiva**: 
 4. Controlar mejor la fase de bajada, haciéndola más lenta.
 
 No intentes progresar en todo a la vez ni cada semana. Con constancia, los avances llegan.
+
+## Tus primeras semanas, sesión a sesión
+
+Para que la rutina no se quede en el papel, ayuda saber qué esperar de cada etapa:
+
+| Semanas | Objetivo | Cómo hacerlo |
+|---|---|---|
+| 1 y 2 | aprender los movimientos | dos sesiones, dos series por ejercicio, pesos muy cómodos y atención a la técnica |
+| 3 y 4 | ganar confianza | tres sesiones, tres series, pesos con los que te sobren dos o tres repeticiones |
+| 5 a 8 | empezar a progresar | aplica la doble progresión: más repeticiones primero, más peso después |
+
+Apunta en cada sesión los pesos y las repeticiones: así sabrás exactamente qué intentar la vez siguiente. En el artículo sobre [series y repeticiones](/articulos/series-y-repeticiones/) explicamos cómo ajustar estas variables a medida que avances, y si prefieres entrenar sin salir de casa, la guía para [entrenar en casa sin material](/articulos/entrenar-en-casa-sin-material/) propone una alternativa completa.
 
 ## La técnica es lo primero
 
