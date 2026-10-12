@@ -2,7 +2,7 @@
 title: Cómo mantener la motivación para hacer ejercicio todo el año
 description: Estrategias basadas en la psicología del hábito para no abandonar el ejercicio: objetivos realistas, rutinas, disfrute, compañía, cómo superar los parones y qué hacer cuando la motivación desaparece.
 category: ocio-activo
-date: 2026-10-04
+date: 2026-10-12
 ---
 Cada enero, los gimnasios se llenan y los parques se llenan de corredores nuevos. Cada marzo, buena parte de ellos ha desaparecido. No es falta de voluntad: es que la motivación es un recurso que sube y baja, y quien depende solo de ella para entrenar acaba abandonando cuando baja. Las personas que mantienen el ejercicio durante años no están más motivadas que las demás; han construido hábitos y entornos que les facilitan seguir incluso los días en que no les apetece.
 
@@ -77,6 +77,14 @@ Ver el camino recorrido motiva. Un diario de entrenamiento, una aplicación o un
 ## Recompensas
 
 Las recompensas pueden ayudar a consolidar un hábito, sobre todo al principio: un desayuno especial después de la tirada del domingo, unas zapatillas nuevas al cumplir un mes de constancia. Con el tiempo, la propia sensación de bienestar después de entrenar se convierte en la recompensa.
+
+## Planes «si… entonces»
+
+Una técnica sencilla, con bastante respaldo en la investigación sobre hábitos, es anticipar los obstáculos y decidir de antemano qué harás cuando aparezcan. Escríbelo en forma de frase: «si llueve el martes, haré la rutina de fuerza en casa»; «si salgo tarde del trabajo, caminaré veinte minutos al llegar en lugar de ir al gimnasio»; «si me despierto cansado, haré solo la sesión mínima». Cuando el obstáculo llega, la decisión ya está tomada y no hay que negociar con uno mismo en el peor momento.
+
+## Con hijos pequeños o turnos cambiantes
+
+Cuando el tiempo es escaso e imprevisible, ayuda cambiar el planteamiento: en lugar de buscar sesiones largas en días fijos, reparte bloques cortos de diez o quince minutos donde encajen, como un paseo rápido mientras los niños están en el parque, unos ejercicios de fuerza antes de la ducha o unas escaleras en el trabajo. Moverse con la familia también suma: en el artículo sobre el [deporte en familia](/articulos/deporte-en-familia/) encontrarás ideas para todas las edades.
 
 ## Las épocas difíciles
 
