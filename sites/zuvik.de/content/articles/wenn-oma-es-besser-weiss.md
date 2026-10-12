@@ -2,7 +2,7 @@
 title: "Wenn Oma es besser weiß"
 description: Oma Renate hat drei Kinder großgezogen und weiß genau, wie es geht. Glaubt sie. Über Konflikte zwischen Eltern und Großeltern, Ratschläge, die wehtun, und ein Gespräch, das Frieden bringt.
 category: grosseltern-und-generationen
-date: 2026-08-27
+date: 2026-10-12
 ---
 „Das Kind ist doch viel zu dünn angezogen.“
 
@@ -54,6 +54,14 @@ Am nächsten Mittwoch kam Oma Renate wieder. Sie brachte Kuchen mit und, zu Juli
 
 Die Ratschläge hörten nicht ganz auf. Oma Renate war, wie sie war. Aber sie kamen seltener, und Julia konnte sie leichter nehmen. Manchmal fragte sie sogar von sich aus nach: „Mama, wie hast du das damals gemacht, als ich nicht schlafen wollte?“ Und Oma Renate erzählte, mit leuchtenden Augen, und manche ihrer Ideen waren tatsächlich gut.
 
+## Was Oma Renate erzählte
+
+Ein paar Wochen später saßen Julia und ihre Mutter an einem Mittwochnachmittag auf dem Balkon, während Lina Mittagsschlaf machte. Oma Renate rührte lange in ihrem Kaffee, dann sagte sie: „Weißt du, als du ein Baby warst, kam deine andere Oma jeden Sonntag. Und jeden Sonntag hat sie mir erklärt, was ich falsch mache. Du würdest zu viel schreien, weil ich dich zu oft hochnehme. Ich hätte dich viel zu früh abgestillt. Ich habe jeden Sonntag nach ihrem Besuch geheult.“
+
+Julia starrte sie an. „Und dann machst du es genauso?“ Oma Renate lachte, ein bisschen verlegen. „Man merkt es selbst nicht. Man will nur helfen. Und man hat Angst, dass das Kind etwas abbekommt, was man hätte verhindern können.“
+
+Von diesem Tag an hatten die beiden ein Codewort. Wenn Oma Renate wieder zu einem ungefragten Ratschlag ansetzte, sagte Julia lächelnd: „Sonntag, Mama.“ Meistens lachten dann beide, und der Ratschlag blieb ungesagt.
+
 ## Für euren Alltag
 
 Konflikte zwischen Eltern und Großeltern über Erziehungsfragen sind sehr häufig. Hinter gut gemeinten Ratschlägen stehen oft Liebe, eigene Erfahrungen und manchmal die Sorge, nicht mehr gebraucht zu werden. Was Linas Familie geholfen hat:
@@ -65,6 +73,20 @@ Konflikte zwischen Eltern und Großeltern über Erziehungsfragen sind sehr häuf
 - **Fragt um Rat, wenn ihr ihn wirklich wollt.** Wer ab und zu von sich aus nach Erfahrungen fragt, gibt Großeltern ihren Platz, ohne die Entscheidungen abzugeben.
 - **Haltet zusammen als Eltern.** Wenn beide Eltern dieselbe Linie vertreten, fällt es leichter, freundlich und klar zu bleiben.
 
+### Warum sich Ratschläge verändert haben
+
+Viele Konflikte entstehen, weil sich das Wissen über Kinder in einer Generation stark verändert hat. Babys wurden früher oft auf dem Bauch schlafen gelegt; heute wird die Rückenlage empfohlen, weil sie das Risiko des plötzlichen Kindstods senkt. Kinder sollten früher ihren Teller leer essen; heute raten Fachleute, Kindern die Entscheidung zu überlassen, wie viel sie von dem Angebotenen essen, damit sie ihr Sättigungsgefühl behalten. Wenn ihr Großeltern solche Gründe erklärt, statt nur „Das macht man heute so“ zu sagen, fühlen sie sich ernst genommen und nicht abgewertet.
+
+### Eine Karte für die Betreuung
+
+Wenn Großeltern regelmäßig betreuen, hilft eine kurze schriftliche Übersicht, zum Beispiel am Kühlschrank: Schlafenszeiten, Allergien und Medikamente, Notfallnummern, die zwei oder drei Regeln, die euch wirklich wichtig sind, und was das Kind gerade gern isst oder spielt. Das erspart Diskussionen im Türrahmen und gibt Großeltern Sicherheit. Eine kurze Übergabe am Abend, bei der ihr auch fragt, wie der Tag für sie war, zeigt, dass ihr ihre Zeit schätzt.
+
+### Wenn es immer wieder knallt
+
+Manche Konflikte lassen sich nicht in einem Gespräch lösen, besonders wenn alte Verletzungen aus der eigenen Kindheit mitschwingen. Dann kann eine neutrale Person helfen. Familien- und Erziehungsberatungsstellen bieten Gespräche für mehrere Generationen an, oft kostenlos. Es ist auch in Ordnung, die Betreuung eine Zeit lang anders zu organisieren, wenn die Beziehung sonst zu sehr leidet.
+
 ### Zum Gespräch mit euren Kindern
 
 Kinder bemerken Spannungen zwischen Eltern und Großeltern sehr genau. Erklärt ihnen, wenn ihr euch gestritten habt, dass Erwachsene manchmal verschiedener Meinung sind und sich trotzdem lieb haben. Und zeigt ihnen, wie man sich wieder versöhnt.
+
+Kinder kommen übrigens gut damit zurecht, dass bei Oma und Opa manches anders läuft als zu Hause. Wichtig ist nur, dass die wenigen wirklich wichtigen Regeln überall gelten und niemand vor den Kindern schlecht über den anderen spricht.
