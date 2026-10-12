@@ -2,7 +2,7 @@
 title: "Zucchinischwemme: Puffer, gefüllte Zucchini und warum bittere Früchte in den Müll gehören"
 description: Was du mit vielen Zucchini anfängst, wie Puffer und gefüllte Zucchini gelingen, wie du große Früchte nutzt und warum du bittere Zucchini niemals essen solltest.
 category: sommer
-date: 2026-06-29
+date: 2026-10-12
 ---
 Wer im Garten Zucchini pflanzt, kennt das Phänomen. Im Juni freut man sich über die erste kleine Frucht, im Juli erntet man jeden zweiten Tag, und im August versteckt sich unter den großen Blättern plötzlich ein Exemplar, das so groß ist wie ein Unterarm. Nachbarn, Kollegen und Verwandte werden beschenkt, bis keiner mehr Zucchini sehen kann. Auch auf dem Markt sind Zucchini im Hochsommer günstig wie kaum ein anderes Gemüse.
 
@@ -26,6 +26,10 @@ Zucchini gehören wie Kürbisse und Gurken zu den Kürbisgewächsen. Ihre wilden
 Cucurbitacine können Übelkeit, Erbrechen, starke Durchfälle und Kreislaufprobleme auslösen. In Deutschland ist es in der Vergangenheit sogar zu einem Todesfall nach dem Verzehr eines Eintopfs aus selbst angebauten bitteren Zucchini gekommen. Hitze zerstört die Stoffe nicht, Kochen, Braten oder Backen helfen also nicht.
 
 Die Regel ist deshalb einfach: Vor der Zubereitung schneidest du ein Stückchen vom rohen Ende ab und probierst es. Schmeckt es auffallend bitter, spuckst du es aus, spülst den Mund und entsorgst die ganze Frucht. Ist schon ein Gericht fertig, das bitter schmeckt, gilt das Gleiche. Kaufe Saatgut für Zucchini und Kürbis jedes Jahr neu, statt eigene Samen zu verwenden.
+
+## Ein Kürbis aus Italien
+
+Botanisch ist die Zucchini eine Form des Gartenkürbisses, dessen Vorfahren aus Amerika stammen. Ihre heutige Gestalt bekam sie in Italien, wo Gärtner im 19. Jahrhundert Kürbisse auswählten, die jung geerntet werden. Der Name ist die Verkleinerungsform des italienischen Wortes für Kürbis, zucca, und bedeutet also „kleiner Kürbis“. In der Schweiz heißt das Gemüse Zucchetti. Dass die Zucchini zur Familie der Kürbisse gehört, erklärt auch, warum sie sich im Garten mit Zierkürbissen kreuzen kann.
 
 ## Einkaufen und lagern
 
@@ -84,6 +88,17 @@ Für die Füllung:
 - **Zucchinikuchen:** Fein geriebene Zucchini machen Rührkuchen und Schokoladenkuchen saftig, ohne dass man sie schmeckt.
 - **Blüten:** Zucchiniblüten lassen sich mit Ricotta füllen und in Teig ausbacken.
 
+## Ratatouille: der Klassiker aus der Provence
+
+In Südfrankreich wird aus der Zucchinischwemme seit jeher Ratatouille. Für vier Personen schneidest du eine Aubergine, zwei Zucchini, zwei Paprikaschoten und eine Zwiebel in mundgerechte Würfel. Brate Aubergine, Zucchini und Paprika nacheinander in Olivenöl an, jeweils nur so viel, dass das Gemüse Farbe nimmt, und stelle es beiseite. Dünste in demselben Topf Zwiebel und zwei Knoblauchzehen an, gib 500 g gewürfelte, reife Tomaten dazu und lass sie zehn Minuten einkochen. Gib das Gemüse zurück, würze mit Thymian, Rosmarin, Salz und Pfeffer und lass alles 20 Minuten bei kleiner Hitze schmoren. Das getrennte Anbraten dauert etwas länger, sorgt aber dafür, dass jedes Gemüse seinen Biss und seinen Geschmack behält. Ratatouille schmeckt warm zu Reis oder Baguette, lauwarm als Vorspeise und am nächsten Tag noch besser.
+
+## Im Garten: weniger Schwemme, mehr Freude
+
+- **Wenige Pflanzen reichen:** Für eine Familie genügen ein bis zwei Zucchinipflanzen. Jede liefert über den Sommer leicht zehn und mehr Früchte.
+- **Jung und regelmäßig ernten:** Wer alle zwei bis drei Tage erntet, bekommt zarte Früchte und regt die Pflanze an, weiter zu blühen.
+- **Blüten ohne Früchte:** Fallen junge Früchte welk ab, wurden die weiblichen Blüten nicht bestäubt. Bei wenig Insektenflug hilft es, Blütenstaub mit einem Pinsel von einer männlichen auf eine weibliche Blüte zu übertragen. Weibliche Blüten erkennst du am kleinen Fruchtansatz unter der Blüte.
+- **Mehltau im Spätsommer:** Ein weißer, mehliger Belag auf den Blättern ist Echter Mehltau. Entferne befallene Blätter früh und gieße morgens an die Wurzel, nicht über die Blätter.
+
 ## Haltbar machen
 
 Rohe Zucchini werden nach dem Einfrieren matschig. Besser ist es, sie vorher anzubraten oder zu einer Suppe oder Sauce zu verarbeiten und diese einzufrieren. Geraspelte Zucchini für Kuchen oder Puffer kannst du gut ausgedrückt portionsweise einfrieren.
@@ -103,3 +118,7 @@ Meist ist die Pfanne zu voll oder nicht heiß genug, sodass die Zucchini im eige
 ### Sind gelbe Zucchini etwas anderes?
 
 Nein, es sind Sorten mit gelber Schale. Geschmack und Zubereitung unterscheiden sich kaum. Für die Bitterprobe gilt dasselbe wie für grüne.
+
+### Kann ich Zucchini roh essen?
+
+Ja, junge Zucchini schmecken roh mild und leicht nussig, etwa als Bänder im Salat oder als Sticks zum Dip. Mach auch hier vorher die Bitterprobe. Große, ältere Früchte sind roh oft wässrig und fad und werden besser gegart.
