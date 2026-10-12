@@ -2,7 +2,7 @@
 title: "Schimmel an der Wand: Ursachen finden, sicher entfernen, dauerhaft vorbeugen"
 description: Woran du Schimmel erkennst, wann du ihn selbst entfernen darfst und wann nicht, welche Mittel helfen, wie du richtig lüftest und heizt und was Mieter und Vermieter wissen sollten.
 category: waende-und-boeden
-date: 2026-09-17
+date: 2026-10-12
 ---
 Schwarze Punkte in der Zimmerecke, ein grauer Rand hinter dem Kleiderschrank, muffiger Geruch im Schlafzimmer: Schimmel in der Wohnung ist ein häufiges Problem, besonders in der kalten Jahreszeit. Er ist unschön, kann die Gesundheit belasten und kommt zurück, wenn man nur die Oberfläche behandelt. Wer Schimmel dauerhaft loswerden will, muss die Ursache finden.
 
@@ -27,6 +27,10 @@ Besonders gefährdet sind:
 - **Bereiche hinter Möbeln an Außenwänden,** weil dort keine warme Luft hinkommt.
 - **Schlafzimmer,** die wenig geheizt werden und in denen nachts viel Feuchtigkeit entsteht.
 - **Bäder ohne Fenster** oder mit schwacher Lüftung.
+
+### Ein Rechenbeispiel zum Taupunkt
+
+Wie schnell eine Wand kritisch wird, zeigt ein Beispiel. Hat die Raumluft 20 °C und 60 Prozent relative Luftfeuchtigkeit, liegt ihr Taupunkt bei etwa 12 °C. Sinkt die Oberflächentemperatur einer Wand darunter, bildet sich Tauwasser. Schimmel braucht aber gar kein sichtbares Wasser: Schon wenn die Luft direkt an der Wand dauerhaft rund 80 Prozent Feuchte hat, kann er wachsen. Das ist bei diesem Raumklima bereits bei einer Wandtemperatur von etwa 15 °C der Fall. Ecken von Außenwänden und Stellen hinter Schränken erreichen solche Werte im Winter leicht. Ein einfaches Infrarot-Thermometer zeigt dir, wie kalt deine kritischen Stellen tatsächlich sind.
 
 ## Schritt 1: Ursache klären
 
@@ -106,6 +110,18 @@ Mehr zum Thema in [Heizkörper entlüften](/anleitungen/heizkoerper-entlueften/)
 - **Lüfter im Bad** prüfen und reinigen.
 - **Kalkputz und mineralische Farben** regulieren Feuchtigkeit besser als dichte Dispersionsfarben oder Vinyltapeten.
 
+## Silikonfugen, Fenster und Kondenswasser
+
+Schwarze Punkte in Silikonfugen im Bad wachsen meist in das Material hinein. Oberflächliches Abwischen hilft dann nur kurz; dauerhaft hilft es, die Fuge zu erneuern, wie in [Silikonfugen erneuern](/anleitungen/silikonfugen-erneuern/) beschrieben. An Fensterdichtungen und -rahmen lässt sich Schimmel dagegen gut mit Alkohol abwischen. Wenn morgens Wasser an den Scheiben steht, wische es mit einem Tuch oder einem Fensterabzieher ab, bevor es in Rahmen und Laibung läuft, und lüfte danach kräftig.
+
+## Lüfter und Lüftungskonzepte
+
+Moderne Fenster sind sehr dicht. Was gut für die Heizkosten ist, kann ohne regelmäßiges Lüften zu Feuchteproblemen führen. Werden in einem Gebäude viele alte Fenster gegen neue getauscht, verlangt die Norm DIN 1946-6 deshalb ein Lüftungskonzept, das zeigt, wie der nötige Luftaustausch gesichert wird. Lösungen reichen von Fensterfalzlüftern über zeitgesteuerte Badlüfter bis zu dezentralen Lüftungsgeräten mit Wärmerückgewinnung. Prüfe vorhandene Badlüfter regelmäßig: Ein Blatt Papier sollte vom laufenden Lüfter angesaugt werden, sonst ist er verschmutzt oder defekt.
+
+## Schimmel und Gesundheit
+
+Schimmelsporen können Atemwege und Augen reizen und bei empfindlichen Menschen Allergien oder Asthmabeschwerden auslösen oder verstärken. Besonders gefährdet sind Menschen mit Vorerkrankungen der Lunge und mit geschwächtem Immunsystem. Wer in einer feuchten Wohnung wiederholt Husten, Schnupfen oder Atemnot bemerkt, sollte das ärztlich abklären lassen und dabei den Schimmel erwähnen.
+
 ## Mieter und Vermieter
 
 Schimmel ist in Mietwohnungen ein häufiger Streitpunkt. Grundsätze:
@@ -142,6 +158,14 @@ Auf kalkhaltigen Wänden nicht. Besser sind Ethanol oder Wasserstoffperoxid.
 ### Wie schnell kommt Schimmel zurück?
 
 Wenn die Ursache bleibt, oft innerhalb weniger Wochen.
+
+### Wie lange sollte ich nach dem Duschen lüften?
+
+So lange, bis Spiegel und Fliesen wieder trocken sind, mit weit geöffnetem Fenster meist zehn bis fünfzehn Minuten. In fensterlosen Bädern sollte der Lüfter mit Nachlauf mindestens eine halbe Stunde laufen. Nasse Handtücher trocknen besser außerhalb des Bads.
+
+### Helfen Zimmerpflanzen oder Salzlampen gegen Feuchtigkeit?
+
+Nein. Zimmerpflanzen geben über ihre Blätter sogar zusätzlich Wasser an die Raumluft ab, und Salzlampen haben keine messbare Wirkung auf die Luftfeuchtigkeit. Lüften und Heizen bleiben die wirksamsten Mittel.
 
 ## Fazit
 
