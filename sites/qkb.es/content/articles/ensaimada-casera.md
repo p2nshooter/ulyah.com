@@ -2,7 +2,7 @@
 title: Ensaimada casera al estilo de Mallorca: masa, manteca, estirado y la larga fermentación
 description: Cómo hacer ensaimadas en casa: masa de fuerza muy elástica, estirado fino con manteca, espiral, fermentación de toda una noche, horneado y rellenos.
 category: bolleria
-date: 2026-09-18
+date: 2026-10-12
 ---
 La ensaimada es la pieza más emblemática de la repostería de Mallorca: una espiral ligera, hojaldrada y tierna, cubierta de azúcar glas, que se deshace en la boca. Su nombre viene de *saïm*, la palabra mallorquina para la manteca de cerdo, el ingrediente que le da su textura única y su aroma inconfundible. La "Ensaimada de Mallorca" cuenta con Indicación Geográfica Protegida, que regula cómo se elabora en la isla.
 
@@ -106,6 +106,25 @@ Para rellenar las ensaimadas, coloca el relleno sobre la lámina de masa untada 
 - **Crema pastelera:** espesa y fría, en una tira fina. Se puede rellenar también después de hornear con una manga.
 - **Chocolate:** crema de chocolate o chocolate troceado.
 - **Nata:** se inyecta con manga después de hornear y enfriar.
+
+## Un horario para el desayuno del domingo
+
+La ensaimada se presta a trabajar por la tarde y hornear por la mañana:
+
+| Hora orientativa | Tarea |
+|---|---|
+| Sábado, 17:00 | amasar y dejar el primer reposo |
+| Sábado, 18:30 | dividir, bolear y dejar reposar 15 minutos |
+| Sábado, 19:00 | estirar, untar la manteca, enrollar y formar las espirales |
+| Durante la noche | fermentación lenta, bien tapadas, en un lugar templado |
+| Domingo, 8:00 | comprobar que han triplicado y hornear |
+| Domingo, 8:30 | enfriar y espolvorear con azúcar glas |
+
+En invierno, si la casa se enfría por la noche, deja las bandejas dentro del horno apagado con un cuenco de agua caliente.
+
+## Cabello de ángel casero
+
+El cabello de ángel se elabora con la pulpa fibrosa de la cidra, una calabaza de piel verde y jaspeada. Para hacerlo en casa, cuece la cidra entera, troceada y con piel, en agua hasta que esté tierna; retira la piel y las semillas y separa las hebras de la pulpa. Lávalas varias veces con agua fría y escúrrelas muy bien, apretando con las manos. Pésalas y cocínalas a fuego suave con unos 800 g de azúcar por kilo de hebras, una tira de piel de limón y una rama de canela, removiendo de vez en cuando, durante unos 30 o 40 minutos, hasta que estén brillantes y de color ámbar. Guárdalo en tarros limpios en la nevera y úsalo frío para rellenar las ensaimadas.
 
 ## Conservación
 
