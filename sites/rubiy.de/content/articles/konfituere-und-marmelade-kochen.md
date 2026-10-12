@@ -2,7 +2,7 @@
 title: "Marmelade und Konfitüre kochen: Gelierzucker, Gelierprobe und Haltbarkeit"
 description: Was 1:1, 2:1 und 3:1 beim Gelierzucker bedeuten, wie die Gelierprobe funktioniert, wie du Gläser richtig füllst und was bei Schimmel zu tun ist, mit Rezept für Himbeerkonfitüre.
 category: vorrat-und-konservieren
-date: 2026-07-08
+date: 2026-10-12
 ---
 Selbst gekochte Marmelade gehört zu den schönsten Arten, den Sommer ins Glas zu bringen. Im Juni duftet die Küche nach Erdbeeren, im Juli nach Himbeeren und Johannisbeeren, im August nach Aprikosen und Mirabellen, im Herbst nach Zwetschgen und Quitten. Ein Glas davon im Februar zu öffnen, ist ein kleines Fest.
 
@@ -80,6 +80,23 @@ Für etwa fünf Gläser zu je 250 Millilitern:
 - **Aprikosen und Mirabellen:** entsteinen, klein schneiden, nach Belieben mit Vanille oder Rosmarin.
 - **Zwetschgen:** schmecken mit Zimt, Nelke oder etwas Rotwein. Für Mus ohne Gelierzucker kochst du entsteinte Zwetschgen mit wenig Zucker im offenen Bräter bei 180 Grad im Ofen über mehrere Stunden ein, bis sie dunkel und dick sind.
 - **Quitten:** liefern das klassische Gelee des Herbstes. Mehr dazu im Beitrag über [Quittengelee und Quittenbrot](/kueche/quittengelee-und-quittenbrot/).
+
+## Die echte Marmelade: aus Bitterorangen
+
+Wer einmal Marmelade im rechtlichen Sinn kochen möchte, wartet auf den Winter. Im Januar und Februar gibt es Bitterorangen, oft als Sevilla-Orangen verkauft. Roh sind sie ungenießbar sauer und bitter, eingekocht ergeben sie die klassische britische Orangenmarmelade mit feinen Schalenstreifen.
+
+Für etwa sechs Gläser wäschst du 1 kg Bitterorangen und eine Zitrone heiß, halbierst sie und presst den Saft aus. Kerne und Trennhäute bindest du in ein Mulltuch, denn sie enthalten viel Pektin. Die Schalen schneidest du in feine Streifen und lässt sie mit dem Saft, dem Mullsäckchen und zwei Litern Wasser etwa zwei Stunden leise köcheln, bis sie ganz weich sind und die Flüssigkeit um etwa die Hälfte eingekocht ist. Drücke das Säckchen aus, gib 1,5 kg Zucker dazu, löse ihn unter Rühren bei kleiner Hitze vollständig auf und koche die Marmelade dann sprudelnd, bis die Gelierprobe gelingt. Das kann 15 bis 25 Minuten dauern. Ein Zuckerthermometer hilft: Bei etwa 104 bis 105 Grad ist der Gelierpunkt erreicht. Lass die Marmelade zehn Minuten stehen, damit sich die Schalen gleichmäßig verteilen, und fülle sie dann ab.
+
+## Richtiges Werkzeug
+
+- **Topf:** breit und schwer, aus Edelstahl oder emailliert. In einem breiten Topf verdampft Wasser schneller, und die Kochzeit bleibt kurz. Unbeschichtete Aluminiumtöpfe eignen sich wegen der Fruchtsäure nicht.
+- **Kochlöffel mit langem Stiel:** Kochende Marmelade spritzt und ist heißer als kochendes Wasser.
+- **Einfülltrichter und Schöpfkelle:** So bleiben die Glasränder sauber, und die Deckel schließen dicht.
+- **Etiketten:** Schreibe Sorte, Datum und Zuckerverhältnis auf jedes Glas. So weißt du später, welche Gläser zuerst verbraucht werden sollten.
+
+## Marmelade verschenken
+
+Selbst gekochte Konfitüre ist ein beliebtes Mitbringsel. Kleine Gläser mit 125 bis 200 Millilitern sind dafür ideal, weil sie schnell verbraucht sind. Ein Stück Stoff über dem Deckel, ein Band und ein handgeschriebenes Etikett machen aus dem Vorrat ein Geschenk. Gib bei zuckerarmen Varianten den Hinweis dazu, dass das Glas nach dem Öffnen in den Kühlschrank gehört.
 
 ## Lagern und Schimmel
 
