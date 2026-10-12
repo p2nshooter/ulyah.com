@@ -2,7 +2,7 @@
 title: "Der große Bruder hat keine Lust mehr"
 description: Jonas ist zwölf und soll ständig auf seine kleinen Schwestern aufpassen, bis er explodiert. Über ältere Geschwister, die zu viel tragen, und Eltern, die sie wieder Kind sein lassen.
 category: geschwister
-date: 2026-09-16
+date: 2026-10-12
 ---
 „Ich bin nicht euer Babysitter!“
 
@@ -71,6 +71,20 @@ Nach dem Spiel umarmte Jonas seine Schwestern, verschwitzt und glücklich. Claud
 - **Würdigt Hilfe sichtbar.** Ein kleines Entgelt, ein Dank oder ein Privileg zeigen, dass Hilfe keine Pflicht ist, sondern etwas Besonderes.
 - **Lasst ältere Kinder Kind sein.** Sie sind keine Miterziehenden. Konflikte zwischen den jüngeren Geschwistern zu lösen, bleibt in erster Linie Aufgabe der Erwachsenen.
 
+### Ab wann dürfen Kinder aufpassen?
+
+Ein festes Mindestalter für das Aufpassen auf Geschwister gibt es in Deutschland nicht. Die Verantwortung bleibt bei den Eltern: Sie müssen einschätzen, ob ihr Kind reif genug ist, wie lange es allein zurechtkommt und was im Notfall passieren soll. Viele Familienbildungsstätten und Hilfsorganisationen bieten Babysitterkurse an, oft ab etwa zwölf oder dreizehn Jahren, in denen Jugendliche Erste Hilfe am Kind, Spielideen und den Umgang mit schwierigen Situationen lernen. Fangt mit kurzen Zeiten an, hinterlegt Telefonnummern gut sichtbar und besprecht vorher, was erlaubt ist und was nicht.
+
+### Wenn Kinder zu früh erwachsen werden
+
+Fachleute sprechen von Parentifizierung, wenn Kinder über lange Zeit Aufgaben oder Sorgen übernehmen, die eigentlich zu den Eltern gehören, sei es die Betreuung jüngerer Geschwister oder das Trösten eines belasteten Elternteils. Anzeichen können sein, dass ein Kind sich schuldig fühlt, wenn es Zeit für sich beansprucht, selten mit Gleichaltrigen spielt oder auffallend vernünftig und erwachsen wirkt. Gerade in Familien mit Krankheit, Trennung oder großer Arbeitslast passiert das leicht, ohne dass es jemand will. Wenn ihr das bei eurem Kind erkennt, entlastet es bewusst, und holt euch bei Bedarf Unterstützung in einer Familienberatungsstelle.
+
+### Zeit nur für den Großen
+
+Ältere Geschwister bekommen oft weniger ungeteilte Aufmerksamkeit als die Kleinen. Ein fester Termin nur mit dem großen Kind, etwa ein Frühstück beim Bäcker am Samstag oder ein gemeinsamer Stadionbesuch, zeigt: Du bist nicht nur Helfer, sondern selbst wichtig.
+
 ### Zum Gespräch mit euren Kindern
 
 Fragt das älteste Kind: Wann hilfst du gern? Und wann fühlt es sich zu viel an? Fragt die jüngeren: Was macht ihr gern mit eurem großen Bruder oder eurer großen Schwester, wenn es freiwillig ist?
+
+Wenn euer großes Kind sagt, dass ihm etwas zu viel wird, nehmt das als Vertrauensbeweis und nicht als Undankbarkeit. Es zeigt, dass es sich traut, ehrlich zu sein. Bedankt euch für die Offenheit, und vereinbart einen Termin, an dem ihr gemeinsam schaut, ob die neue Verteilung funktioniert.
