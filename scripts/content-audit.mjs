@@ -39,16 +39,21 @@ async function get(url) {
 
 const locs = (xml) => [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => m[1].replace(/&amp;/g, "&"));
 const attr = (html, re) => (html.match(re) || [])[1] || "";
-const decode = (s) => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)));
+// One pass over every entity, so "&amp;lt;" becomes "&lt;" and not "<".
+const ENTITIES = { nbsp: " ", amp: "&", quot: '"', "#x27": "'", "#39": "'", lt: "<", gt: ">" };
+const decode = (s) =>
+  s.replace(/&(nbsp|amp|quot|#x27|#39|lt|gt|#\d+);/g, (m, e) =>
+    e.startsWith("#") && e !== "#x27" && e !== "#39" ? String.fromCodePoint(Number(e.slice(1))) : ENTITIES[e] ?? m
+  );
 
 function mainText(html) {
   // Prefer <main>, then <article>; drop chrome, scripts and the Next.js payload.
   let body = (html.match(/<main[\s>][\s\S]*<\/main>/i) || html.match(/<article[\s>][\s\S]*<\/article>/i) || html.match(/<body[\s>][\s\S]*<\/body>/i) || [html])[0];
   body = body
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
-    .replace(/<(nav|header|footer|aside|svg|form|button)[\s>][\s\S]*?<\/\1>/gi, " ")
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, " ")
+    .replace(/<noscript\b[\s\S]*?<\/noscript\b[^>]*>/gi, " ")
+    .replace(/<(nav|header|footer|aside|svg|form|button)[\s>][\s\S]*?<\/\1\b[^>]*>/gi, " ")
     .replace(/<[^>]+>/g, " ");
   return decode(body).replace(/\s+/g, " ").trim();
 }
