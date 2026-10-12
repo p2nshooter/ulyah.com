@@ -2,7 +2,7 @@
 title: Ejercicios de técnica individual para mejorar el control del balón
 description: Una rutina de ejercicios para trabajar el control, la conducción, el pase y el regate en solitario, con poco material y en poco espacio, para futbolistas aficionados de cualquier edad.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 En el fútbol aficionado se entrena poco y se juega mucho. La mayoría de los jugadores adultos se limitan al partido semanal, y los que tienen entrenamiento con su equipo suelen dedicarlo a la preparación física o a aspectos tácticos. Lo que casi nadie trabaja después de la adolescencia es la técnica individual: el control, la conducción, el pase y el golpeo.
 
@@ -111,6 +111,21 @@ Con un compañero, practica proteger el balón con el cuerpo durante diez segund
 | Golpeo o regate | Alternar ejercicios 9 y 11 según el día | 3 min |
 
 Repite esta rutina dos o tres veces por semana y, cada dos semanas, aumenta la dificultad: más velocidad, menos espacio, menos toques.
+
+## Si tienes un compañero
+
+Con otra persona, los ejercicios ganan realismo, porque el balón ya no vuelve siempre igual:
+
+- **Pase y control a dos toques**, a diez o doce metros: control orientado hacia un lado y pase con la pierna contraria.
+- **Pared en movimiento:** avanzáis en paralelo y os devolvéis el balón al primer toque, como en una pared de partido.
+- **Balones aéreos:** uno lanza con la mano a distintas alturas y el otro controla con el muslo, el pecho o el empeine y devuelve con el pie.
+- **Uno contra uno en espacio reducido:** cinco metros de ancho, un cono como portería a cada lado; el que defiende intenta robar y el que ataca, proteger y girar.
+
+Cambiad los papeles a menudo y anotad quién consigue más acciones limpias: un poco de competición hace que la práctica sea más intensa.
+
+## Medir tu progreso
+
+Elige dos o tres pruebas sencillas y repítelas cada dos semanas en las mismas condiciones: cuántos pases a la pared consigues en un minuto con cada pie desde la misma distancia, cuánto tardas en recorrer el slalom de ida y vuelta, o tu récord de toques seguidos sin que el balón caiga. Apunta los resultados. Ver los números mejorar es una gran motivación para seguir practicando en los días en que apetece menos.
 
 ## La pierna menos hábil
 

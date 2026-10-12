@@ -2,7 +2,7 @@
 title: Tenis amateur: cómo mejorar el saque en un mes con práctica bien dirigida
 description: Las claves técnicas del saque de tenis para jugadores aficionados: empuñadura continental, lanzamiento de la bola, posición de trofeo, golpeo y un plan de práctica de cuatro semanas.
 category: padel-y-raqueta
-date: 2026-10-04
+date: 2026-10-12
 ---
 El saque es el único golpe del tenis que depende por completo de ti. No hay una pelota que llegue rápida o con efecto, no hay que correr, no hay que adivinar la intención del rival. Y, sin embargo, para muchos jugadores aficionados es el golpe más frágil: dobles faltas en los momentos importantes, primeros saques que nunca entran y segundos saques tan suaves que el rival los ataca sin piedad.
 
@@ -111,6 +111,28 @@ El saque es el golpe más exigente para el hombro. Antes de practicar, calienta 
 2. **Golpear con el brazo doblado**, perdiendo altura y potencia.
 3. **Mirar al cuadro de saque antes de golpear.**
 4. **Prisa entre punto y punto.** Tómate unos segundos para respirar y preparar el saque.
+
+## Las reglas del saque que conviene conocer
+
+- **Se saca en diagonal** y se alterna el lado en cada punto: el primero del juego, desde la derecha.
+- **Hay dos oportunidades.** Si fallan las dos, es doble falta y punto para el rival.
+- **Falta de pie:** antes del golpe no puedes pisar la línea de fondo ni la pista, ni cambiar de posición caminando o corriendo. Saltar hacia la pista durante el movimiento sí está permitido, siempre que el contacto con la pelota se produzca antes de tocar el suelo.
+- **La pelota que toca la red y entra en el cuadro** es un «let»: el saque se repite sin penalización, salvo en competiciones que jueguen sin esa regla.
+- **En dobles**, cada jugador saca un juego completo y la pareja alterna el orden durante todo el set.
+
+## Preguntas frecuentes
+
+### ¿Plano, cortado o liftado?
+
+El saque plano es el más rápido, pero tiene poco margen sobre la red. El cortado gira hacia un lado y abre la pista. El liftado bota alto y es el más seguro para el segundo saque, aunque exige más técnica. Aprende primero un saque fiable con un poco de efecto y añade variedad después.
+
+### ¿Cuántos saques debo practicar en cada sesión?
+
+Entre 40 y 60 saques, repartidos en series cortas con pausas, son suficientes al principio. Es mejor sacar menos con atención que vaciar varias cestas con el brazo cansado.
+
+### ¿Se puede sacar por abajo?
+
+Sí. El reglamento permite el saque por abajo, siempre que se respeten las demás normas. Puede ser una sorpresa útil contra un rival que resta muy atrás, pero no sustituye a aprender un saque completo.
 
 ## En resumen
 

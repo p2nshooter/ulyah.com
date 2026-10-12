@@ -2,7 +2,7 @@
 title: Cuántas series y repeticiones hacer: guía práctica para ganar fuerza y músculo
 description: Cómo elegir series, repeticiones, peso y descansos según tu objetivo, qué significa entrenar cerca del fallo y cómo organizar el volumen semanal sin estancarte ni sobrecargarte.
 category: fuerza-y-movilidad
-date: 2026-10-04
+date: 2026-10-12
 ---
 "¿Cuántas series y cuántas repeticiones tengo que hacer?" Es probablemente la pregunta más repetida por cualquiera que empieza a entrenar fuerza. Y la respuesta más honesta es: depende de tu objetivo, de tu nivel y de cuánto tiempo tengas. Por suerte, la investigación en ciencias del deporte ha aclarado bastante este tema en los últimos años, y hoy podemos dar orientaciones prácticas y sencillas.
 
@@ -95,6 +95,32 @@ Dos o tres días por semana:
 | Remo con mancuerna | 3 | 8–12 por lado | 2 |
 | Zancada hacia atrás | 2 | 8–10 por pierna | 2–3 |
 | Plancha lateral | 2 | 20–30 s por lado | — |
+
+## Las series de aproximación
+
+Antes de las series de trabajo de los ejercicios grandes, conviene hacer una o dos series de aproximación. No cuentan para el volumen, pero preparan las articulaciones, ensayan la técnica y te permiten comprobar cómo te encuentras ese día. Un esquema sencillo para una sentadilla con la que vas a trabajar a 40 kg:
+
+| Serie | Peso | Repeticiones |
+|---|---|---|
+| Aproximación 1 | barra sola o 20 kg | 8 a 10, muy controladas |
+| Aproximación 2 | unos 30 kg | 4 a 5 |
+| Series de trabajo | 40 kg | las previstas |
+
+Para los ejercicios pequeños que van al final de la sesión, suele bastar con empezar directamente con el peso de trabajo, porque los músculos ya están calientes.
+
+## Cómo apuntar el entrenamiento
+
+Un registro sencillo es la herramienta de progreso más eficaz y más barata. Basta una libreta o una nota en el móvil con una línea por ejercicio:
+
+- **Fecha y ejercicio.**
+- **Peso y repeticiones de cada serie**, por ejemplo: «Remo con mancuerna, 16 kg: 12, 11, 10».
+- **Repeticiones en reserva** de la última serie, o una nota sobre cómo te has sentido.
+
+Al empezar la siguiente sesión, consulta lo que hiciste la vez anterior y busca mejorarlo un poco: una repetición más, o el mismo trabajo con mejor técnica.
+
+## Si solo tienes media hora
+
+Con poco tiempo, prioriza los ejercicios que trabajan más músculos a la vez, como sentadilla, peso muerto rumano, press y remo, y reduce a dos series por ejercicio. Alternar ejercicios de tren superior e inferior permite descansar uno mientras trabajas el otro sin alargar la sesión. Tres sesiones cortas bien hechas cada semana rinden más que una sesión larga de vez en cuando. Si estás empezando, en la guía de [fuerza para principiantes](/articulos/fuerza-para-principiantes/) encontrarás cómo aprender los ejercicios básicos.
 
 ## Errores frecuentes
 

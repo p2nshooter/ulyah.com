@@ -2,7 +2,7 @@
 title: Deporte en familia: actividades para moverse juntos a todas las edades
 description: Ideas de actividades físicas para hacer en familia con niños de distintas edades, cómo adaptarlas, cómo convertirlas en hábito y qué beneficios tiene que padres e hijos se muevan juntos.
 category: ocio-activo
-date: 2026-10-04
+date: 2026-10-12
 ---
 Entre el trabajo, el colegio, las extraescolares y las tareas de casa, encontrar tiempo para hacer deporte es difícil. Encontrar tiempo para hacerlo en familia puede parecer imposible. Sin embargo, moverse juntos es una de las mejores inversiones que puede hacer una familia: los niños adquieren hábitos saludables imitando a los adultos, los adultos suman actividad física sin restar tiempo a la familia y todos comparten momentos que se recuerdan.
 
@@ -107,6 +107,14 @@ No hace falta hacerlo todo cada semana. Con que haya una o dos actividades compa
 ## Ir andando o en bici al colegio
 
 El trayecto al colegio es una oportunidad diaria de moverse que muchas familias desaprovechan. Ir andando o en bicicleta, cuando la distancia y la seguridad lo permiten, suma actividad física sin buscar tiempo extra y ayuda a que los niños lleguen más despiertos. En algunas ciudades existen iniciativas de "caminos escolares seguros" y grupos de familias que acompañan a los niños a pie, una especie de autobús andante que recoge a los alumnos por el camino. Si en tu barrio no existe, puede ser una buena idea proponerla en la asociación de familias del colegio.
+
+## Moverse en familia sin gastar mucho
+
+El deporte en familia no tiene por qué ser caro. Los parques, las playas, los caminos rurales y las vías verdes son gratuitos, y muchos ayuntamientos programan actividades al aire libre, rutas guiadas o jornadas deportivas para familias sin coste o a precios muy bajos. Los polideportivos municipales suelen ofrecer bonos familiares para la piscina, y los clubes organizan jornadas de puertas abiertas en las que los niños pueden probar un deporte antes de apuntarse. Las bicicletas, los patines y los cascos infantiles se quedan pequeños enseguida, así que comprarlos de segunda mano o heredarlos de otras familias es una opción muy sensata, siempre que estén en buen estado.
+
+## Cuando alguien de la familia tiene una discapacidad
+
+Muchas actividades pueden adaptarse para que participe toda la familia: rutas accesibles, bicicletas adaptadas o tándem, natación, juegos de pelota con reglas modificadas. Existen clubes y federaciones de deporte adaptado en todas las comunidades autónomas que asesoran a las familias y organizan actividades inclusivas. Consultar con el profesional sanitario o el fisioterapeuta que acompaña al niño ayuda a elegir la actividad adecuada.
 
 ## Errores frecuentes
 

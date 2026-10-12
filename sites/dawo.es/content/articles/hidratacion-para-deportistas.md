@@ -2,7 +2,7 @@
 title: Hidratación para deportistas aficionados: agua, sales y bebidas deportivas
 description: Cuánto beber antes, durante y después del ejercicio, cuándo hacen falta sales minerales, qué aportan las bebidas deportivas y cómo detectar la deshidratación y el exceso de agua.
 category: descanso-y-nutricion
-date: 2026-10-04
+date: 2026-10-12
 ---
 Beber agua parece lo más sencillo del mundo. Sin embargo, la hidratación en el deporte ha generado tantos mensajes contradictorios como la alimentación: que hay que beber antes de tener sed, que hay que beber dos litros al día, que las bebidas isotónicas son imprescindibles, que el agua sola no hidrata bien. La realidad, para el deportista aficionado, es más sencilla y más flexible.
 
@@ -135,6 +135,19 @@ Si quieres una alternativa sencilla a las bebidas deportivas comerciales para es
 - El zumo de medio limón para dar sabor.
 
 Esta proporción se acerca a la composición de muchas bebidas deportivas: aporta energía y sodio en cantidades moderadas. Pruébala en los entrenamientos antes de usarla en una competición, y recuerda que para esfuerzos cortos el agua es suficiente.
+
+## Un ejemplo práctico: dos horas en bici en verano
+
+Para concretar todas estas pautas, así podría organizar la hidratación una persona que sale a pedalear dos horas una mañana calurosa:
+
+1. **Antes:** bebe con normalidad desde la víspera y uno o dos vasos de agua un par de horas antes de salir.
+2. **Durante:** lleva dos bidones, uno de agua y otro con una bebida con sales, y bebe sorbos cada quince o veinte minutos. Muchas guías hablan de entre 400 y 800 mililitros por hora, ajustando según tu sudoración y la sed.
+3. **Si la ruta se alarga:** planifica una fuente o una parada para rellenar, y añade algo salado al avituallamiento.
+4. **Después:** pésate si quieres conocer tus pérdidas y rehidrátate a lo largo de las horas siguientes, acompañando el agua de una comida.
+
+## Cómo llevar el agua
+
+Para salidas cortas basta con una botella o un bidón. En carreras largas, los cinturones con pequeños botellines o los chalecos de hidratación permiten beber sin cargar las manos, y en montaña o en bicicleta, las mochilas con depósito resultan muy cómodas. Lava bien botellas y depósitos después de cada uso, sobre todo si contienen bebidas azucaradas, y déjalos secar abiertos para evitar malos olores y moho.
 
 ## Preguntas frecuentes
 

@@ -2,7 +2,7 @@
 title: Agujetas: qué son de verdad, por qué aparecen y cómo aliviarlas
 description: La ciencia detrás de las agujetas, por qué no son cristales de ácido láctico, qué ejercicios las provocan, cómo aliviarlas y cuándo un dolor muscular deja de ser normal.
 category: descanso-y-nutricion
-date: 2026-10-04
+date: 2026-10-12
 ---
 Casi todo el mundo las ha sufrido: dos días después de volver al gimnasio, de una excursión con mucha bajada o del primer partido de la temporada, bajar una escalera se convierte en una pequeña odisea. Las agujetas son una de las experiencias más universales del deporte y, al mismo tiempo, una de las más rodeadas de mitos. ¿Son cristales de ácido láctico? ¿Se curan con agua con azúcar? ¿Hay que estirar para evitarlas? ¿Son señal de que el entrenamiento ha sido bueno?
 
@@ -88,7 +88,7 @@ Algunas personas recurren a antiinflamatorios. Conviene no abusar de ellos sin i
 
 ### Estirar
 
-Como se explica en el artículo sobre estiramientos, la evidencia indica que estirar antes o después del ejercicio tiene un efecto muy pequeño o nulo sobre las agujetas. Puedes hacerlo si te sienta bien, pero no esperes que las haga desaparecer.
+Como se explica en el artículo sobre [cuándo sirven los estiramientos](/articulos/estiramientos-cuando-sirven/), la evidencia indica que estirar antes o después del ejercicio tiene un efecto muy pequeño o nulo sobre las agujetas. Puedes hacerlo si te sienta bien, pero no esperes que las haga desaparecer.
 
 ## ¿Puedo entrenar con agujetas?
 
@@ -119,6 +119,18 @@ Cada actividad tiene sus "puntos calientes":
 
 Conocer estos puntos permite anticiparse: por ejemplo, incluir algunas sentadillas y zancadas con bajada lenta en las semanas previas a una ruta de montaña, o unas sesiones de cambios de dirección suaves antes del primer partido de la temporada.
 
+## Volver después de un parón sin pasarlo mal
+
+El momento en que más agujetas se sufren es la vuelta tras unas vacaciones, una lesión o un verano sin entrenar. Una progresión de tres semanas evita la mayor parte del dolor:
+
+| Semana | Gimnasio | Deportes de equipo o carrera |
+|---|---|---|
+| 1 | la mitad de las series habituales, con pesos con los que te sobren tres o cuatro repeticiones | dos sesiones suaves y cortas, sin sprints ni frenadas bruscas |
+| 2 | dos tercios del volumen habitual, pesos algo más exigentes | tres sesiones, con algunos cambios de ritmo y de dirección controlados |
+| 3 | volumen y cargas habituales, si las sensaciones son buenas | entrenamiento normal y primer partido o competición |
+
+Aunque al principio parezca demasiado poco, esa primera semana suave activa el efecto protector de la sesión repetida: las semanas siguientes se pueden entrenar con normalidad sin pasar tres días bajando las escaleras de lado.
+
 ## Cómo prevenir agujetas intensas
 
 1. **Aumenta la carga de forma progresiva**, sobre todo al empezar un deporte nuevo o tras una pausa.
@@ -146,6 +158,10 @@ No. Es un remedio basado en la idea equivocada de los cristales de ácido lácti
 ### ¿Los niños tienen agujetas?
 
 Pueden tenerlas, aunque suelen recuperarse con rapidez. Las mismas pautas de progresión sirven para ellos.
+
+### ¿Sirven las cremas y los geles?
+
+Los geles de efecto frío o calor y las cremas con analgésicos pueden aliviar la molestia durante un rato, pero no aceleran la reparación del músculo. Si quieres usarlos, consulta en la farmacia, lee el prospecto y no los apliques sobre heridas ni antes de exponerte al sol si el producto lo desaconseja.
 
 ## En resumen
 

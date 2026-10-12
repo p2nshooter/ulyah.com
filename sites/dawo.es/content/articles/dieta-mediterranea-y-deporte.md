@@ -2,7 +2,7 @@
 title: La dieta mediterránea y el deporte: una alianza natural
 description: Por qué el patrón alimentario mediterráneo encaja tan bien con la vida activa, qué alimentos lo forman, cómo adaptarlo a quien entrena y un menú semanal de ejemplo.
 category: descanso-y-nutricion
-date: 2026-10-04
+date: 2026-10-12
 ---
 Cuando se habla de alimentación saludable, la dieta mediterránea aparece una y otra vez como referencia. No es una moda reciente: se trata del patrón alimentario tradicional de los países ribereños del Mediterráneo, entre ellos España, y ha sido estudiado durante décadas por su relación con una menor incidencia de enfermedades cardiovasculares y con una mejor salud general. La Unesco la reconoció como Patrimonio Cultural Inmaterial de la Humanidad, no solo por los alimentos, sino por la forma de comer: compartir la mesa, cocinar en casa y aprovechar los productos de temporada.
 
@@ -99,6 +99,20 @@ Muchos deportistas comen a diario fuera de casa por trabajo. El menú del día, 
 - **Para beber**, agua.
 
 No se trata de renunciar a los platos que te gustan, sino de que la mayoría de los días la elección se parezca a la comida tradicional.
+
+## Una despensa mediterránea para deportistas
+
+Con una despensa bien surtida, comer según este patrón es rápido incluso en semanas de mucho trabajo:
+
+- **Hidratos de carbono:** arroz, pasta, avena, cuscús y pan de calidad, mejor integrales a menudo.
+- **Legumbres:** secas para los fines de semana y cocidas en bote para los días con prisa.
+- **Proteínas fáciles:** huevos, yogur natural, queso fresco, atún, sardinas y caballa en lata.
+- **Del congelador:** pescado, verduras troceadas y alguna fruta para batidos.
+- **Grasas:** aceite de oliva virgen extra y frutos secos sin sal.
+- **Frescos de temporada:** verduras, hortalizas y fruta del mercado, comprados una o dos veces por semana.
+- **Para dar sabor:** ajo, cebolla, tomate triturado, especias y hierbas.
+
+Con estos ingredientes se preparan en pocos minutos platos completos para antes o después de entrenar.
 
 ## Mitos y matices
 

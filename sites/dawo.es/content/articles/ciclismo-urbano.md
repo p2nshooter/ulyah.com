@@ -2,7 +2,7 @@
 title: Ciclismo urbano: moverse en bicicleta por la ciudad con seguridad
 description: Cómo empezar a usar la bicicleta en la ciudad: elegir bici, normas básicas de circulación en España, cómo circular por la calzada y los carriles bici, seguridad, candados y llevar carga.
 category: ocio-activo
-date: 2026-10-04
+date: 2026-10-12
 ---
 En muchas ciudades españolas, la bicicleta ha pasado en pocos años de ser una rareza a una forma habitual de moverse. Los carriles bici se han multiplicado, los sistemas de bicicleta pública se han extendido y cada vez más personas descubren que pedalear al trabajo es una manera de hacer ejercicio sin buscar tiempo extra, ahorrar dinero y evitar atascos.
 
@@ -101,6 +101,22 @@ El robo es una de las principales preocupaciones de los ciclistas urbanos:
 - **Lleva la bici a revisión** al menos una vez al año.
 
 Aprender a reparar un pinchazo te dará mucha tranquilidad.
+
+## Reparar un pinchazo
+
+Con una cámara de repuesto o un kit de parches, dos desmontables y una bomba pequeña, un pinchazo se resuelve en un cuarto de hora:
+
+1. **Desmonta la rueda.** Si tiene cierre rápido, ábrelo; si lleva tuercas, aflójalas. En la rueda trasera, pon antes la cadena en el piñón más pequeño.
+2. **Saca la cubierta por un lado** ayudándote de los desmontables y retira la cámara.
+3. **Busca la causa:** pasa con cuidado los dedos por el interior de la cubierta para encontrar el cristal, la espina o la piedra que la ha perforado, y retírala. Si no lo haces, volverás a pinchar enseguida.
+4. **Cambia la cámara o pon un parche**, después de lijar y limpiar la zona del agujero.
+5. **Monta de nuevo**, introduciendo la cubierta con las manos sin pellizcar la cámara, e hincha a la presión indicada en el lateral de la cubierta.
+
+Practicarlo una vez en casa, con tranquilidad, quita mucho miedo al primer pinchazo en la calle.
+
+## Las primeras semanas
+
+No hace falta empezar yendo en bici todos los días. Una progresión razonable es probar la ruta un fin de semana, usar la bici dos días la primera semana y añadir días a medida que te sientas cómodo. Deja la bici preparada la víspera, con las luces cargadas y las ruedas comprobadas: cuantos menos obstáculos haya por la mañana, más fácil será convertirla en un hábito.
 
 ## El calor y la lluvia
 

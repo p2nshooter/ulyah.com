@@ -2,7 +2,7 @@
 title: Senderismo para principiantes: cómo preparar tu primera ruta de montaña
 description: Cómo elegir una ruta adecuada, interpretar las señales de los senderos, qué llevar en la mochila, cómo caminar en subidas y bajadas y qué medidas de seguridad tomar antes de salir.
 category: ocio-activo
-date: 2026-10-04
+date: 2026-10-12
 ---
 España es uno de los países con más montaña de Europa. Desde los Pirineos hasta Sierra Nevada, pasando por los Picos de Europa, el Sistema Central, las sierras de Andalucía o los volcanes de Canarias, hay rutas para todos los niveles a pocas horas de casi cualquier ciudad. Además, existe una extensa red de senderos señalizados que permite caminar con seguridad y descubrir paisajes increíbles.
 
@@ -67,6 +67,15 @@ Las bajadas son más exigentes para las rodillas y los cuádriceps de lo que par
 - **Mira dónde pisas**, especialmente en terrenos con piedras sueltas.
 - **Los bastones** reducen la carga sobre las rodillas en las bajadas largas.
 - **No corras** si no tienes experiencia.
+
+## Cuidar los pies: las ampollas
+
+Las ampollas son la causa más común de que una buena ruta termine mal. Aparecen por el roce y la humedad, sobre todo con calzado nuevo, calcetines de algodón o pies que se mueven dentro de la bota en las bajadas. Para prevenirlas, usa calzado ya domado y calcetines técnicos, ata bien los cordones antes de una bajada larga y, si tienes zonas propensas, protégelas antes de salir con un apósito o cinta adecuada. La clave es actuar pronto: en cuanto notes un «punto caliente», para, quítate la bota y cubre la zona. Una molestia atendida en el minuto uno no se convierte en una ampolla abierta a mitad de camino.
+
+## Verano e invierno
+
+- **En verano**, sal al amanecer, evita las horas centrales del día, elige rutas con sombra o junto al agua y lleva más agua de la que creas necesaria. El golpe de calor es un riesgo real en las sierras del sur y del interior.
+- **En invierno**, los días son cortos y los caminos pueden tener hielo en las zonas de umbría. Calcula la ruta para terminar con luz de sobra y evita las rutas con nieve si no tienes la formación y el material específico, como crampones y piolet, y experiencia en su uso.
 
 ## La seguridad
 

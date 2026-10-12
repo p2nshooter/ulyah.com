@@ -2,11 +2,11 @@
 title: Correr 5 kilómetros sin parar: el método de intervalos que funciona
 description: Cómo pasar de correr treinta minutos a completar tus primeros cinco kilómetros seguidos, con un plan de seis semanas, control del ritmo y consejos para el día de la carrera.
 category: correr
-date: 2026-10-04
+date: 2026-10-12
 ---
 Los cinco kilómetros son la distancia más popular entre los corredores aficionados, y no por casualidad. Es una meta alcanzable para casi cualquier persona sana en pocos meses, se puede completar en un tiempo razonable y abre la puerta a carreras populares, que en España se celebran prácticamente todos los fines de semana. Para muchos, cruzar la meta de su primer 5K es el momento en que dejan de "salir a correr" y empiezan a considerarse corredores.
 
-Este artículo está pensado para quien ya puede correr unos veinte o treinta minutos seguidos a ritmo suave, por ejemplo después de completar un plan de iniciación. Si todavía no llegas a ese punto, conviene empezar por ahí: intentar correr cinco kilómetros sin esa base es la receta habitual para acabar con molestias en las rodillas o en el tendón de Aquiles.
+Este artículo está pensado para quien ya puede correr unos veinte o treinta minutos seguidos a ritmo suave, por ejemplo después de completar un plan para [empezar a correr desde cero](/articulos/empezar-a-correr-desde-cero/). Si todavía no llegas a ese punto, conviene empezar por ahí: intentar correr cinco kilómetros sin esa base es la receta habitual para acabar con molestias en las rodillas o en el tendón de Aquiles.
 
 ## Cuánto se tarda en correr cinco kilómetros
 
@@ -68,6 +68,14 @@ Los días intermedios son de descanso o de actividad suave. Caminar, montar en b
 
 Duerme lo suficiente. La mayor parte de la adaptación al entrenamiento sucede mientras descansas, y una semana con poco sueño se nota mucho más en las piernas que cualquier error en el plan.
 
+## Si una semana no sale como estaba previsto
+
+Un catarro, una semana complicada en el trabajo o unos días de viaje pueden romper el plan, y no pasa nada. Si pierdes una sola sesión, sigue con la siguiente sin intentar recuperarla: meter dos sesiones en dos días seguidos añade fatiga sin beneficio. Si pierdes una semana entera, repite la última semana que completaste antes de avanzar. Y si has estado enfermo varios días, sobre todo con fiebre, retrocede una o dos semanas en el plan y vuelve con sesiones suaves. Seis semanas son una guía, no una obligación: llegar a los cinco kilómetros en ocho semanas sin molestias es mucho mejor que llegar en seis con dolor.
+
+## ¿Se puede hacer el plan en cinta?
+
+Sí. La cinta es una buena opción en los días de lluvia o de mucho calor, y facilita controlar el ritmo de los intervalos. Pon una inclinación del 1 % para compensar la ausencia de viento y aterriza suave, sin agarrarte a las barras. Intenta, eso sí, hacer al menos algunas sesiones al aire libre antes de la carrera: correr en la calle exige regular el ritmo por ti mismo.
+
 ## El día de la carrera
 
 Si decides completar tus cinco kilómetros en una carrera popular, estos consejos te ayudarán a disfrutarla:
@@ -91,6 +99,6 @@ Hay fallos que se repiten en casi todos los corredores que preparan su primer 5K
 
 ## Y después, ¿qué?
 
-Completar cinco kilómetros abre varios caminos. Puedes intentar mejorar tu tiempo en esa misma distancia, lo que requiere introducir poco a poco algo más de trabajo de ritmo. También puedes apuntar al siguiente gran objetivo: los diez kilómetros. En cualquier caso, mantén la base de tres sesiones semanales durante unas semanas antes de cambiar de meta. Consolidar lo ganado es tan importante como avanzar.
+Completar cinco kilómetros abre varios caminos. Puedes intentar mejorar tu tiempo en esa misma distancia, lo que requiere introducir poco a poco algo más de trabajo de ritmo. También puedes apuntar al siguiente gran objetivo: [pasar del 5K al 10K](/articulos/del-5k-al-10k/). En cualquier caso, mantén la base de tres sesiones semanales durante unas semanas antes de cambiar de meta. Consolidar lo ganado es tan importante como avanzar.
 
 Correr cinco kilómetros sin parar es, sobre todo, una cuestión de paciencia. Con un plan sensato, un ritmo cómodo y descanso suficiente, la distancia deja de ser un muro para convertirse en tu recorrido habitual de los domingos.

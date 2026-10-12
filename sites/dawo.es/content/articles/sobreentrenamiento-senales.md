@@ -2,7 +2,7 @@
 title: Sobreentrenamiento: señales de que necesitas parar y cómo recuperarte
 description: Diferencias entre fatiga normal, sobrecarga y síndrome de sobreentrenamiento, las señales de alarma que conviene vigilar, sus causas habituales en el deportista aficionado y cómo recuperarse.
 category: descanso-y-nutricion
-date: 2026-10-04
+date: 2026-10-12
 ---
 Cuando alguien se aficiona al deporte, es fácil caer en una lógica tentadora: si entrenar me sienta bien, entrenar más me sentará mejor. Así, las tres sesiones semanales se convierten en cinco, después en seis, se añade un partido, una clase colectiva y una tirada larga el domingo. Durante unas semanas todo va bien. Hasta que deja de ir bien: el cansancio no desaparece, los entrenamientos que antes eran fáciles se vuelven duros, el sueño empeora y las ganas de entrenar se esfuman.
 
@@ -122,6 +122,22 @@ No necesitas tecnología avanzada. Algunas herramientas prácticas:
 - **Preguntas simples cada mañana**: ¿cómo he dormido?, ¿tengo ganas de entrenar?, ¿me duele algo?
 
 Si usas un reloj deportivo que mide la variabilidad de la frecuencia cardíaca, puede darte información útil sobre tendencias, aunque conviene interpretarla con prudencia y siempre junto a tus sensaciones.
+
+## Cómo es una semana de descarga
+
+Una semana de descarga no es una semana sin hacer nada, sino una semana con bastante menos trabajo para que el cuerpo asimile lo entrenado. Como orientación:
+
+| Si haces... | Durante la semana de descarga |
+|---|---|
+| Carrera | reduce el kilometraje a la mitad o dos tercios, mantén algún cambio de ritmo corto y elimina las series largas |
+| Gimnasio | haz la mitad de las series, con pesos algo más ligeros y lejos del fallo |
+| Deportes de equipo o de raqueta | entrena con menos intensidad o juega solo partidos amistosos |
+
+Lo habitual es terminar la semana con más ganas de entrenar y mejores sensaciones, que es justo lo que se busca.
+
+## Las rachas, las aplicaciones y el grupo
+
+Las aplicaciones que premian los días seguidos de actividad, los retos mensuales y los grupos de entrenamiento son una gran fuente de motivación, pero también pueden empujar a entrenar cuando el cuerpo pide descanso. Si notas que te cuesta saltarte un día por no romper la racha o por no quedarte atrás respecto al grupo, recuerda que el objetivo es mejorar durante años, no completar una cifra en la pantalla. Un día de descanso a tiempo vale más que una semana entera parado por una lesión.
 
 ## La vuelta al entrenamiento
 

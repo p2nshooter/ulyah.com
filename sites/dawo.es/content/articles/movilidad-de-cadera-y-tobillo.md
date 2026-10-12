@@ -2,7 +2,7 @@
 title: Movilidad de cadera y tobillo: la base de casi todos los deportes
 description: Por qué la movilidad de cadera y tobillo influye en la sentadilla, la carrera y los cambios de dirección, cómo comprobarla con pruebas sencillas y una rutina diaria de diez minutos para mejorarla.
 category: fuerza-y-movilidad
-date: 2026-10-04
+date: 2026-10-12
 ---
 Hay articulaciones que pasan desapercibidas hasta que fallan. La cadera y el tobillo son dos de ellas. Pasamos muchas horas sentados, con la cadera flexionada y los tobillos casi inmóviles dentro del calzado, y poco a poco perdemos rango de movimiento sin darnos cuenta. El problema aparece cuando les pedimos algo más: una sentadilla profunda, una carrera cuesta arriba, un cambio de dirección en un partido o simplemente agacharse a recoger algo del suelo.
 
@@ -92,6 +92,21 @@ La combinación de movilidad y fuerza es la que realmente se traslada al deporte
 ## El papel del calzado y de la vida diaria
 
 El calzado con mucho tacón limita la dorsiflexión del tobillo con el tiempo. Pasar algo de tiempo descalzo en casa, caminar por superficies variadas y levantarse de la silla cada hora para moverse son pequeños hábitos que ayudan a mantener la movilidad.
+
+## Qué priorizar según tu deporte
+
+- **Corredores:** la dorsiflexión del tobillo y la extensión de cadera, que permiten una zancada eficiente y reducen las compensaciones en la rodilla.
+- **Fútbol, pádel y deportes de raqueta:** la rotación de cadera y la movilidad de los aductores, muy exigidas en los cambios de dirección y las zancadas laterales.
+- **Ciclistas:** la extensión de cadera, porque la postura sobre la bicicleta mantiene la cadera flexionada durante horas.
+- **Fuerza en el gimnasio:** la flexión de cadera y la dorsiflexión, imprescindibles para una sentadilla profunda con los talones apoyados.
+
+## Movilidad en la jornada de oficina
+
+Si trabajas sentado, unos minutos repartidos a lo largo del día valen más que una sesión larga el fin de semana. Levántate cada hora y haz alguno de estos gestos: diez elevaciones de talones de pie, un estiramiento del flexor de cadera apoyando una rodilla en una silla, unas rotaciones de cadera sentado cruzando un tobillo sobre la rodilla contraria o medio minuto en sentadilla profunda sujetándote a la mesa mientras esperas a que se haga el café. Son pequeños hábitos que evitan que la rigidez se acumule.
+
+## Medir tus avances
+
+Repite cada mes la prueba de la rodilla a la pared, anotando los centímetros de cada lado, y hazte una foto de perfil en la sentadilla profunda en las mismas condiciones. Comparar las cifras y las fotos te dirá si la rutina funciona y en qué lado tienes que insistir más.
 
 ## Cuándo consultar
 

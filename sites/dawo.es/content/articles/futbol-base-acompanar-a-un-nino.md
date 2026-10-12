@@ -2,7 +2,7 @@
 title: Fútbol base: cómo acompañar a un niño que empieza a jugar
 description: Consejos para madres y padres de niños que empiezan en el fútbol: elegir escuela, el papel de la familia en la grada, la diversión como prioridad, la presión y la salud.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 Cada septiembre, miles de niñas y niños se apuntan por primera vez a una escuela de fútbol en España. Para muchos será su primera experiencia en un deporte de equipo, con entrenador, compañeros y partidos los fines de semana. Para sus familias, empieza una etapa de madrugones, desplazamientos, lavadoras y, sobre todo, de emociones en la grada.
 
@@ -70,6 +70,14 @@ El fútbol base aporta beneficios valiosos independientemente de dónde llegue e
 - **Descanso:** los niños necesitan dormir lo suficiente para crecer y recuperarse.
 - **Alimentación:** una dieta variada cubre las necesidades de un niño que hace deporte; no necesita suplementos.
 - **Dolor:** si un niño se queja de dolor de forma persistente, por ejemplo en los talones o en las rodillas, consulta con el pediatra. En la etapa de crecimiento hay molestias específicas que conviene valorar.
+
+## Dos molestias típicas del crecimiento
+
+Entre los ocho y los quince años, dos dolores aparecen con frecuencia en niños que juegan mucho al fútbol. El primero se localiza en la parte de atrás del talón y suele llamarse **enfermedad de Sever**: es una irritación de la zona de crecimiento del hueso del talón, más habitual entre los ocho y los catorce años. El segundo aparece justo debajo de la rótula, en un bultito del hueso de la tibia, y se conoce como **enfermedad de Osgood-Schlatter**, más frecuente en el estirón de la adolescencia. Ninguna de las dos es grave y suelen mejorar ajustando la carga, pero conviene que las valore el pediatra o un especialista, que indicará cuánto puede jugar el niño mientras duran las molestias. No las ignores ni le pidas que «aguante»: jugar con dolor solo alarga el problema.
+
+## Fútbol, colegio y descanso
+
+El fútbol suma mucho, pero no debe restar horas de sueño ni de estudio. Los niños en edad escolar necesitan dormir entre nueve y doce horas, según las recomendaciones pediátricas, y los entrenamientos tardíos pueden recortarlas sin que nadie se dé cuenta. Una cena ligera al volver, una rutina tranquila antes de dormir sin pantallas y la mochila del colegio preparada antes de salir al entrenamiento ayudan a que el deporte y los estudios convivan sin tensiones.
 
 ## La especialización temprana
 

@@ -2,7 +2,7 @@
 title: Cómo entrenar la resistencia específica para el fútbol aficionado
 description: Por qué correr largo y lento no basta para el fútbol, cómo combinar la base aeróbica con intervalos y esfuerzos repetidos, y un plan semanal para llegar fuerte a la segunda parte.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 En el fútbol aficionado hay una frase que se repite en todos los vestuarios: "en la segunda parte no podíamos más". Es la consecuencia lógica de jugar un deporte muy exigente sin una preparación física adecuada. Pero también es habitual ver a jugadores que salen a correr cuarenta minutos a ritmo constante entre semana y aun así se ahogan en los partidos.
 
@@ -86,6 +86,20 @@ Es el momento de construir la base. Durante cuatro a seis semanas antes del inic
 ### Temporada
 
 Durante la temporada, el objetivo es mantener lo construido sin acumular fatiga para los partidos. Menos volumen, intensidad bien dosificada y descanso suficiente.
+
+## Volver a jugar después de meses sin hacerlo
+
+Las primeras semanas tras un parón largo son las de mayor riesgo de lesión, sobre todo de los isquiotibiales en los sprints. Antes del primer partido completo, date tres o cuatro semanas de preparación: carrera suave y fuerza en las dos primeras, añadiendo después intervalos y, solo al final, sprints a máxima velocidad. Incluye ejercicios específicos para la parte posterior del muslo, como el nórdico de isquiotibiales en su versión más asistida, que forma parte de programas de prevención contrastados como el calentamiento FIFA 11+. Los primeros partidos, mejor jugar media parte o un rato y aumentar los minutos poco a poco.
+
+## Si solo tienes veinte minutos
+
+Una sesión corta y bien planteada mantiene la forma durante las semanas complicadas:
+
+1. **Ocho minutos de calentamiento:** trote suave, movilidad y dos aceleraciones progresivas.
+2. **Seis repeticiones de 30 segundos rápidos y 90 segundos de trote suave.**
+3. **Cuatro minutos de vuelta a la calma.**
+
+No sustituye a una semana completa de entrenamiento, pero evita llegar al partido del domingo sin haber hecho nada entre semana.
 
 ## Señales de sobrecarga
 

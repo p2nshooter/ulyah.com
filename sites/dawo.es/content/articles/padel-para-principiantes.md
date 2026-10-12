@@ -2,7 +2,7 @@
 title: Pádel para principiantes: reglas, golpes básicos y cómo jugar tus primeros partidos
 description: Todo lo necesario para empezar a jugar al pádel: la pista, el saque, cómo se juega con las paredes, la puntuación, los golpes básicos y la colocación en pareja.
 category: padel-y-raqueta
-date: 2026-10-04
+date: 2026-10-12
 ---
 El pádel se ha convertido en uno de los deportes más practicados en España. Basta pasear por cualquier barrio para encontrar pistas llenas a primera hora de la mañana, a la hora de comer y por la noche. Su éxito tiene una explicación sencilla: es fácil de empezar, se juega en parejas, resulta divertido desde el primer día y permite que personas de niveles distintos compartan partido.
 
@@ -115,6 +115,10 @@ Un calentamiento de diez minutos reduce el riesgo de lesiones habituales en pád
 - Cuando una pelota de otra pista entra en la tuya, se para el juego y se devuelve.
 - Si hay dudas sobre si una pelota fue buena o no, en partidos amistosos se suele conceder el punto al rival o repetirlo.
 - Al terminar el tiempo reservado, se deja la pista libre puntualmente.
+
+## Encontrar compañeros y empezar sin gastar mucho
+
+Para jugar al pádel hacen falta cuatro personas, y eso a veces es lo más difícil. Muchos clubes organizan partidas abiertas por niveles, ligas internas y clases colectivas que permiten conocer a otros jugadores, y hay aplicaciones de reserva que muestran partidos a los que les falta un jugador. El coste de la pista se reparte entre los cuatro, así que el pádel resulta asequible. Para las primeras semanas no necesitas una pala cara: una pala de iniciación, redonda y de tacto blando, es la mejor elección, como explicamos en la guía para [elegir pala de pádel](/articulos/elegir-pala-de-padel/). Cuando ya domines los golpes básicos, el siguiente paso será aprender la [bandeja y la víbora](/articulos/bandeja-y-vibora/).
 
 ## Cómo progresar
 

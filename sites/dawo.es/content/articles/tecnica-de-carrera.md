@@ -2,7 +2,7 @@
 title: La técnica de carrera explicada: cadencia, pisada y postura para correr mejor
 description: Qué elementos de la técnica de carrera importan de verdad para un corredor aficionado, cómo mejorarlos poco a poco y qué mitos conviene olvidar.
 category: correr
-date: 2026-10-04
+date: 2026-10-12
 ---
 Correr es un gesto natural. Nadie nos enseñó a hacerlo de niños y, sin embargo, cuando un adulto empieza a correr de forma regular aparecen preguntas sobre la técnica: si hay que apoyar primero el talón o la punta, cómo mover los brazos, cuántos pasos dar por minuto o cómo respirar. Internet está lleno de respuestas contradictorias, y es fácil acabar obsesionado con detalles que apenas influyen.
 
@@ -82,6 +82,15 @@ Haz estos ejercicios con calidad, no con prisa. Es mejor hacer pocos bien que mu
 Gran parte de los problemas técnicos que aparecen al final de una carrera no tienen que ver con la técnica en sí, sino con la fatiga. Cuando los glúteos y el tronco se cansan, la cadera cae hacia un lado en cada apoyo, la rodilla se desplaza hacia dentro y la postura se derrumba.
 
 Dos sesiones semanales de fuerza de veinte o treinta minutos hacen mucho por tu técnica: sentadillas, zancadas, puente de glúteos, peso muerto con mancuernas ligeras, elevaciones de talones y planchas. Un cuerpo fuerte mantiene la técnica durante más tiempo.
+
+## La técnica en cuestas y bajadas
+
+Las pendientes cambian la forma de correr, y adaptarse a ellas ahorra energía y reduce la carga sobre las piernas:
+
+- **Subiendo:** acorta la zancada y aumenta ligeramente la cadencia, inclínate un poco hacia delante desde los tobillos, no desde la cintura, y deja que los brazos trabajen algo más. Mira unos metros por delante, no a tus pies, y acepta ir más despacio: lo que importa es mantener el esfuerzo, no el ritmo.
+- **Bajando:** da pasos cortos y rápidos, con el pie aterrizando cerca del cuerpo, y evita frenar con el talón muy por delante, que castiga las rodillas y los cuádriceps. Mantén los hombros relajados y los brazos algo más abiertos para equilibrarte.
+
+Practicar en cuestas suaves antes de afrontar rutas con mucho desnivel permite que piernas y técnica se adapten poco a poco.
 
 ## Mitos que conviene olvidar
 

@@ -2,7 +2,7 @@
 title: Entrenar en casa sin material: una rutina completa de cuerpo entero
 description: Una rutina de fuerza y acondicionamiento con el peso del cuerpo, con tres niveles de dificultad, pensada para hacerse en el salón en treinta minutos sin ningún material.
 category: fuerza-y-movilidad
-date: 2026-10-04
+date: 2026-10-12
 ---
 No tener tiempo para ir al gimnasio, no querer pagar una cuota o simplemente preferir la comodidad de casa son motivos muy habituales para no hacer ejercicio de fuerza. La buena noticia es que el propio peso del cuerpo es una herramienta suficiente para entrenar de forma completa, sobre todo cuando se está empezando o se busca mantener la forma.
 
@@ -127,6 +127,19 @@ Es una versión reducida, pero mantiene el hábito y sigue trabajando los grande
 ## Entrenar en casa con niños o con poco espacio
 
 Si compartes la casa con niños, convertir la sesión en un juego puede funcionar: que cuenten las repeticiones, que hagan su propia versión de los ejercicios o que se unan a la parte de acondicionamiento. En espacios muy reducidos, prioriza los ejercicios que se hacen en el sitio, como sentadillas, zancadas estáticas, flexiones, puentes y planchas, y deja para otro momento los que requieren desplazamiento.
+
+## Entrenar sin molestar a los vecinos
+
+En un piso, los saltos y los golpes contra el suelo se oyen más de lo que parece. Si vives con vecinos debajo, sustituye los ejercicios de impacto por versiones silenciosas que mantienen la intensidad:
+
+| En lugar de… | Prueba… |
+|---|---|
+| Saltos de tijera | pasos laterales rápidos abriendo y cerrando los brazos |
+| Sentadillas con salto | sentadilla seguida de una elevación de talones explosiva |
+| Burpees completos | burpees sin salto, caminando los pies hacia atrás y hacia delante |
+| Carrera en el sitio | marcha rápida con elevación de rodillas |
+
+Una esterilla gruesa amortigua el ruido y protege las rodillas en las zancadas y las planchas. Y si entrenas a primera hora o de noche, deja para otro momento los ejercicios que hacen más ruido.
 
 ## Errores frecuentes
 
