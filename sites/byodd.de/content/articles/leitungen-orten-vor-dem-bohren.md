@@ -2,7 +2,7 @@
 title: "Leitungen orten vor dem Bohren: Installationszonen, Ortungsgeräte, Notfall"
 description: Wo Strom- und Wasserleitungen in der Wand verlaufen dürfen, wie Ortungsgeräte funktionieren, welche Grenzen sie haben und was zu tun ist, wenn doch eine Leitung angebohrt wurde.
 category: werkzeug-und-grundlagen
-date: 2026-09-26
+date: 2026-10-12
 ---
 Ein angebohrtes Stromkabel oder eine durchbohrte Wasserleitung gehört zu den unangenehmsten Erfahrungen beim Heimwerken. Im besten Fall springt die Sicherung heraus und du brauchst einen Elektriker. Im schlimmsten Fall bekommst du einen Stromschlag oder es läuft Wasser in die Wand, in die Decke und in die Wohnung unter dir. Die gute Nachricht: Mit dem Wissen um die Installationszonen, einem Ortungsgerät und etwas Sorgfalt lässt sich dieses Risiko stark verringern.
 
@@ -91,6 +91,18 @@ Deshalb gilt: Das Ortungsgerät ist ein Hilfsmittel, kein Freifahrtschein.
 
 Gasleitungen verlaufen selten ungeschützt in Wohnräumen, aber wenn du Gas riechst: keine Schalter betätigen, kein Feuer, Fenster öffnen, Wohnung verlassen, Notdienst des Gasversorgers von draußen anrufen.
 
+## Trockenbauwände: Ständer und Leitungen
+
+In Wänden aus Gipskarton verlaufen Kabel meist durch Öffnungen in den senkrechten Metall- oder Holzständern. Die Ständer stehen in der Regel in festen Abständen, häufig 62,5 Zentimeter, bei stärker belasteten Wänden enger. Wenn du einen Ständer gefunden hast, etwa mit einem starken Magneten, der an den Schraubenköpfen haftet, oder mit dem Ortungsgerät, kannst du die übrigen meist abschätzen. Kabel laufen oft waagerecht von Ständer zu Ständer auf Höhe der Steckdosen und Schalter oder senkrecht direkt neben einem Ständer. Für Bilder, Regale und Hängeschränke in Trockenbau brauchst du passende Hohlraumdübel, wie in [Dübel richtig wählen und setzen](/anleitungen/duebel-richtig-waehlen-und-setzen/) beschrieben.
+
+## Stromkreise kennen und Leitungen gezielt suchen
+
+Beschrifte die Sicherungen in deinem Sicherungskasten, falls das noch nicht geschehen ist: Schalte eine nach der anderen aus und notiere, welche Räume, Steckdosen und Lampen dunkel werden. So weißt du vor dem Bohren genau, welchen Stromkreis du abschalten musst. Profis verwenden außerdem Leitungssucher mit Sender und Empfänger: Der Sender wird an einer Steckdose angeschlossen und speist ein Signal in die Leitung ein, das der Empfänger auch durch Putz verfolgt, sogar bei abgeschaltetem Strom. Solche Geräte kann man in manchen Baumärkten und Werkzeugverleihen mieten.
+
+## Vorsicht bei Bad, Küche und Vorwandinstallationen
+
+Wasserleitungen führen von unten oder oben senkrecht zu Armaturen, Spülkästen und Heizkörpern. Halte deshalb seitlich ausreichend Abstand zu allen Anschlüssen und bohre nie direkt über oder unter einer Armatur. Hinter einem wandhängenden WC sitzt meist eine Vorwandinstallation mit Spülkasten, Zu- und Abwasserleitungen und Befestigungen. In diese Wand wird nur nach genauer Prüfung gebohrt, am besten mit den Unterlagen des Herstellers. Auch in Küchen verlaufen hinter Spüle und Geschirrspüler oft mehr Leitungen, als man vermutet.
+
 ## Fehler, die oft passieren
 
 | Fehler | Besser |
@@ -138,6 +150,8 @@ In der Regel der Verursacher. Eine private Haftpflichtversicherung kann den Scha
 **Was ist mit Bohrungen in der Nähe von Fußbodenheizungen?** In beheizten Estrichen nie ohne genaue Kenntnis der Rohrlage bohren. Eine Wärmebildkamera zeigt die Rohre, wenn die Heizung läuft. Im Zweifel einen Fachbetrieb fragen.
 
 **Wie dokumentiere ich Leitungen für später?** Nach Renovierungen Fotos der offenen Wände mit Zollstock im Bild machen und in einem Ordner pro Raum ablegen. Das hilft dir und späteren Bewohnern.
+
+**Brauche ich bei Steckdosen in der Außenwand besondere Vorsicht?** Ja, besonders bei gedämmten Fassaden oder Vorsatzschalen. Dort können Leitungen in ungewohnten Bahnen und in der Dämmung verlaufen. Bohre nur, wenn du die Lage kennst, und verwende passende Befestigungen für die Wandkonstruktion.
 
 ## Fazit
 

@@ -2,7 +2,7 @@
 title: "Fliesenfugen erneuern und verfugen: alte Fugen entfernen, neu einschlämmen"
 description: Wann Fugen erneuert werden müssen, welcher Fugenmörtel passt, wie du alte Fugen auskratzt, neu verfugst, Silikonfugen von Mörtelfugen unterscheidest und Fugen sauber hältst.
 category: waende-und-boeden
-date: 2026-09-18
+date: 2026-10-12
 ---
 Fliesen halten oft Jahrzehnte, ihre Fugen nicht. Sie werden grau oder schwarz, bröckeln, saugen sich mit Feuchtigkeit voll oder bekommen Risse. Ein Bad mit dunklen, ausgewaschenen Fugen wirkt ungepflegt, auch wenn die Fliesen selbst noch einwandfrei sind. Die gute Nachricht: Fugen zu erneuern ist eine überschaubare Arbeit, die das Bad oder die Küche optisch fast wie neu aussehen lässt, ohne dass auch nur eine Fliese abgeschlagen werden muss.
 
@@ -111,6 +111,22 @@ Nicht jede graue Fuge muss raus:
 - **Fugenstift oder Fugenfarbe** als kosmetische Lösung für intakte, verfärbte Fugen.
 - **Nach dem Duschen** Fliesen mit einem Abzieher trocknen und gut lüften. Das verhindert Kalk und Schimmel.
 
+## Wie viel Fugenmörtel brauche ich?
+
+Der Verbrauch hängt vom Fliesenformat, der Fugenbreite und der Fugentiefe ab. Viele Hersteller bieten Rechner an, die Rechnung ist aber auch von Hand machbar: Länge plus Breite der Fliese geteilt durch Länge mal Breite, multipliziert mit Fugenbreite, Fugentiefe und der Dichte des Mörtels von grob 1,6 bis 1,8 Kilogramm pro Liter. Für Fliesen von 20 × 20 Zentimetern mit 3 Millimeter breiten und 7 Millimeter tiefen Fugen ergibt das rund 0,35 Kilogramm pro Quadratmeter. Kleinformatige Fliesen und breite Fugen brauchen deutlich mehr. Kaufe etwas Reserve aus derselben Charge, damit die Farbe einheitlich bleibt.
+
+## Epoxidharzfugen
+
+Epoxidharzfugen sind nahezu wasserdicht, sehr hart und unempfindlich gegen Fett und viele Reinigungsmittel. Dafür sind sie anspruchsvoller: Harz und Härter werden gemischt, und die Verarbeitungszeit ist kurz, oft nur eine halbe bis dreiviertel Stunde. Der Überschuss muss gründlich und rechtzeitig mit Wasser und einem speziellen Pad oder Schwamm abgewaschen werden, denn ausgehärtete Reste lassen sich kaum noch von den Fliesen entfernen. Arbeite in kleinen Abschnitten, trage Handschuhe und übe an einer kleinen Fläche, bevor du eine ganze Dusche verfugst.
+
+## Temperatur und Fußbodenheizung
+
+Fugenmörtel mögen es weder zu kalt noch zu heiß. Verarbeite ihn bei Raum- und Untergrundtemperaturen von etwa 5 bis 25 Grad, nicht in praller Sonne und nicht auf warmem Untergrund. Eine Fußbodenheizung sollte während des Verfugens ausgeschaltet oder stark gedrosselt sein und erst einige Tage später langsam wieder hochgefahren werden. Sonst trocknet der Mörtel zu schnell, wird mürbe und bekommt Risse. Die genauen Zeiten nennt der Hersteller.
+
+## Fugen in der Küche
+
+An Küchenrückwänden setzen sich Fett und Kochdunst in den Fugen fest. Hier lohnen sich Epoxidharzfugen oder zumindest eine Imprägnierung der zementären Fugen. Wische Spritzer zeitnah ab, solange sie frisch sind, und reinige die Fugen gelegentlich mit einem fettlösenden, aber milden Reiniger und einer weichen Bürste.
+
 ## Häufige Fehler
 
 | Fehler | Folge |
@@ -147,6 +163,8 @@ Einzelne Fliesen lassen sich austauschen: Fugen um die Fliese auskratzen, Fliese
 **Kann ich nur einzelne Fugen erneuern?** Ja, aber neue Fugen sehen oft heller aus als alte. Für ein einheitliches Bild lieber eine ganze Wand oder Fläche erneuern.
 
 **Warum werden neue Fugen fleckig?** Häufig wurde ungleichmäßig nass abgewaschen oder unterschiedliche Anmischungen verwendet. Gleichmäßig arbeiten und den Schwamm gut auswringen.
+
+**Muss ich die Fliesen vor dem Verfugen reinigen?** Ja. Staub vom Auskratzen, Seifenreste und Kalk verhindern, dass der Mörtel an den Fugenflanken haftet, und erschweren das Abwaschen. Fliesen und Fugen gründlich absaugen und feucht abwischen, dann kurz antrocknen lassen.
 
 ## Fazit
 

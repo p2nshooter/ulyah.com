@@ -2,7 +2,7 @@
 title: "Fenster einstellen gegen Zugluft: Beschläge, Dichtungen und Sommer-Winter-Stellung"
 description: Wie du bei Dreh-Kipp-Fenstern den Anpressdruck einstellst, Dichtungen prüfst und erneuerst, Beschläge pflegst und ein hängendes Fenster gegen Zugluft nachstellst.
 category: reparaturen-im-haushalt
-date: 2026-08-25
+date: 2026-10-12
 ---
 Kalter Luftzug am Fenster, beschlagene Ecken, ein Pfeifen bei Wind oder ein Fensterflügel, der sich nur mit Kraft schließen lässt: Viele dieser Probleme haben mit schlecht eingestellten Beschlägen oder alten Dichtungen zu tun, nicht mit einem defekten Fenster. Moderne Dreh-Kipp-Fenster lassen sich mit einem Inbusschlüssel in wenigen Minuten nachstellen. Das spart Heizkosten und erhöht den Wohnkomfort.
 
@@ -96,6 +96,26 @@ Dichtere Fenster verringern den unkontrollierten Luftaustausch. Umso wichtiger i
 ## Mietwohnung
 
 Das Nachstellen und Pflegen von Fensterbeschlägen gehört zur normalen Pflege. Defekte Fenster, kaputte Beschläge oder undichte Anschlüsse sind Sache des Vermieters und sollten gemeldet werden.
+
+## Beschlagene Scheiben zwischen den Gläsern
+
+Beschlägt eine Isolierglasscheibe nicht innen oder außen, sondern zwischen den beiden Gläsern, ist der Randverbund undicht geworden. Feuchtigkeit ist in den Scheibenzwischenraum eingedrungen, und die Dämmwirkung lässt nach. Nachstellen oder Abdichten hilft hier nicht; die Glaseinheit muss ausgetauscht werden. Oft lässt sich nur die Scheibe ersetzen und der Rahmen bleibt erhalten. Wer ohnehin tauschen muss, sollte auf den Wärmeschutz achten: Ältere Isolierverglasungen aus den Achtzigerjahren lassen ein Vielfaches der Wärme durch, die moderne Wärmeschutzverglasungen verlieren.
+
+## Holzfenster brauchen Pflege
+
+Holzfenster halten Jahrzehnte, wenn ihr Anstrich intakt bleibt. Kontrolliere einmal im Jahr besonders die untere Rahmenkante und den Wetterschenkel, an denen Regenwasser abläuft. Kleine Risse im Lack lassen Wasser ins Holz, das dann quillt, grau wird und schließlich fault. Abblätternde Stellen leicht anschleifen und mit passender Lasur oder Lack nachstreichen, bevor größere Schäden entstehen. Wie du Holz richtig vorbereitest, steht in [Schleifen mit Schleifpapier](/anleitungen/schleifen-mit-schleifpapier-koernung/). Kunststofffenster sind pflegeleichter, profitieren aber ebenfalls von gereinigten Dichtungen und geschmierten Beschlägen.
+
+## Einbruchschutz nachrüsten
+
+Viele Einbrecher hebeln Fenster einfach auf. Einfache Beschläge mit Rollzapfen bieten dagegen wenig Widerstand. Wirksamer sind Pilzkopfzapfen, die in passende Sicherheitsschließstücke greifen und das Aufhebeln deutlich erschweren. Abschließbare Fenstergriffe verhindern, dass der Griff von außen durch ein kleines Loch im Glas gedreht wird. Für ältere Fenster gibt es Zusatzsicherungen, die auf Rahmen und Flügel geschraubt werden. Die Beratungsstellen der Polizei beraten kostenlos, welche Maßnahmen für deine Wohnung sinnvoll sind. In Mietwohnungen gilt: Nachrüstungen vorher mit dem Vermieter absprechen.
+
+## Platz für die Heizungsluft
+
+Unter vielen Fenstern sitzt ein Heizkörper. Er wärmt die kalte Fensterfläche und verhindert so, dass sich dort Tauwasser bildet. Lange Vorhänge, die über den Heizkörper fallen, oder breite Fensterbänke, die die warme Luft stauen, schwächen diesen Effekt. Lass die warme Luft frei am Fenster aufsteigen.
+
+## Fenster und kleine Kinder
+
+Abschließbare Fenstergriffe sind nicht nur ein Einbruchschutz, sondern auch eine Kindersicherung. Ergänzend gibt es Öffnungsbegrenzer, mit denen sich ein Fenster nur einen Spalt weit öffnen lässt, und Sperren, die das Drehen erlauben, aber nur in Kippstellung. Stelle außerdem keine Möbel, Kisten oder Betten direkt unter Fenster, auf die Kinder klettern könnten, besonders in oberen Stockwerken. Bei bodentiefen Fenstern und Balkontüren gilt dasselbe für Balkonmöbel, die als Kletterhilfe dienen können.
 
 ## Praxisbeispiel: Zugluft im Wohnzimmerfenster
 

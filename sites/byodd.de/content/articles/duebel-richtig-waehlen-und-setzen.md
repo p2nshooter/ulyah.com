@@ -2,7 +2,7 @@
 title: "Dübel richtig wählen und setzen: Welcher Dübel hält in welcher Wand?"
 description: Übersicht über Universaldübel, Spreizdübel, Hohlraumdübel, Porenbetondübel und Injektionsmörtel, mit der passenden Schraube, Bohrtiefe und Tipps für schwere Lasten.
 category: werkzeug-und-grundlagen
-date: 2026-09-28
+date: 2026-10-12
 ---
 Der Dübel ist das unscheinbarste Bauteil jeder Wandbefestigung und gleichzeitig das wichtigste. Ein falscher Dübel in der falschen Wand lässt Regale abstürzen, Hängeschränke kippen oder Gardinenstangen langsam aus der Decke wandern. Mit ein wenig Grundwissen über Wandbaustoffe und Dübelarten hält dagegen fast alles, was du in der Wohnung befestigen willst.
 
@@ -131,6 +131,16 @@ Ein kleines, durchdachtes Sortiment deckt die meisten Aufgaben ab:
 | Injektionsmörtel-Set | eine Kartusche mit Siebhülsen | für schwere Lasten |
 
 Passende Schrauben in den Längen 30 bis 80 mm gehören dazu. Notiere dir außerdem, welche Wände in deiner Wohnung aus welchem Baustoff bestehen. Beim nächsten Projekt sparst du dir die Probebohrung.
+
+## Gedämmte Fassaden und Klebedübel
+
+An Außenwänden mit Wärmedämmverbundsystem, also Dämmplatten mit dünnem Putz darüber, finden normale Dübel keinen Halt: Der Putz ist nur wenige Millimeter dick, und die Dämmung trägt keine Last. Für Briefkästen, Lampen, Markisen oder Rankgitter gibt es spezielle Montagesysteme für gedämmte Fassaden, die die Last bis ins tragende Mauerwerk leiten und dabei keine Wärmebrücke bilden. Bohrlöcher in der Fassade müssen außerdem dicht verschlossen werden, damit kein Wasser in die Dämmung läuft. In Mietshäusern ist die Fassade zudem Sache des Vermieters.
+
+Wo gar nicht gebohrt werden soll, etwa auf Fliesen, gibt es Klebedübel: Eine Grundplatte wird mit einem Spezialkleber auf die glatte Fläche geklebt und trägt nach dem Aushärten Handtuchhalter oder Ablagen. Sie halten erstaunlich viel, aber nur auf festem Untergrund und mit vollständig ausgehärtetem Kleber.
+
+## Wenn Sicherheit an erster Stelle steht
+
+Für Befestigungen, bei denen ein Versagen Menschen gefährden würde, etwa Vordächer, schwere Lasten über Durchgängen oder Hängesessel an der Decke, reichen Baumarkt-Erfahrungswerte nicht. Hier werden Dübel und Anker mit einer bauaufsichtlichen Zulassung oder einer Europäischen Technischen Bewertung verwendet, und die Bemessung übernimmt im Zweifel eine Fachkraft. Die Zulassungsnummer steht auf der Verpackung solcher Produkte.
 
 ## Checkliste
 

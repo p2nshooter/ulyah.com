@@ -2,7 +2,7 @@
 title: "Laminat verlegen: Anleitung vom Untergrund bis zur Sockelleiste"
 description: Wie du Laminat Schritt für Schritt verlegst, welche Trittschalldämmung und Dampfbremse nötig sind, wie du die erste Reihe ausrichtest, Dehnungsfugen planst, Türzargen kürzt und Heizungsrohre umgehst.
 category: waende-und-boeden
-date: 2026-09-20
+date: 2026-10-12
 ---
 Laminat ist einer der beliebtesten Bodenbeläge für Selbermacher: Er ist vergleichsweise günstig, robust, in vielen Holz- und Steinoptiken erhältlich und dank Klicksystem ohne Kleber zu verlegen. Ein Wohnzimmer lässt sich an einem Wochenende neu gestalten. Damit der Boden später nicht knarrt, sich wölbt oder Fugen bekommt, kommt es aber auf die Vorbereitung und einige Grundregeln an.
 
@@ -103,6 +103,14 @@ Statt das Laminat um die Zarge herum auszuschneiden, die **Zarge unten kürzen**
 2. Überstehende Folie abschneiden.
 3. Sockelleisten **an der Wand** befestigen, mit Clips, Nägeln oder Montagekleber, nicht am Laminat. Der Boden muss sich darunter bewegen können.
 4. Ecken auf Gehrung schneiden.
+
+## Nutzungsklasse und Abriebklasse verstehen
+
+Auf jedem Laminatpaket stehen Angaben zur Belastbarkeit. Die **Nutzungsklasse** beschreibt, wofür der Boden gedacht ist: Klassen von 21 bis 23 gelten für Wohnräume, wobei 23 für stark genutzte Bereiche wie Flur und Wohnzimmer steht, Klassen ab 31 für gewerbliche Flächen. Die **Abriebklasse**, meist als AC1 bis AC6 angegeben, sagt etwas über die Widerstandsfähigkeit der Oberfläche aus. Für Wohnzimmer, Flur und Küche ist ein Laminat der Abriebklasse AC4 eine gute Wahl, für Schlafzimmer reicht oft AC3. Höhere Klassen kosten etwas mehr, halten Stuhlrollen, Haustieren und Straßenschuhen aber deutlich länger stand.
+
+## Pflege und kleine Reparaturen
+
+Laminat wird gefegt, gesaugt und höchstens nebelfeucht gewischt. Stehendes Wasser dringt in die Fugen ein und lässt die Kanten aufquellen, das ist der häufigste Schaden. Filzgleiter unter Stühlen und Tischen und weiche Rollen unter Bürostühlen schützen die Oberfläche. Kleine Macken lassen sich mit Reparaturwachs oder Hartwachs in passendem Farbton füllen, das erwärmt in die Stelle gedrückt und glatt abgezogen wird. Ist eine Diele stark beschädigt und liegt sie nahe an der Wand, kannst du die Reihen bis dorthin aufnehmen, die Diele tauschen und alles wieder einklicken. Für Dielen mitten im Raum gibt es spezielle Austauschtechniken; hier hilft oft ein Fachbetrieb. Bewahre deshalb immer einige Ersatzdielen auf.
 
 ## Laminat und Fußbodenheizung
 

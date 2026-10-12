@@ -2,7 +2,7 @@
 title: "Tropfender Wasserhahn: Ursachen finden und selbst reparieren"
 description: Wie du bei Zweigriffarmaturen Dichtung oder Ventiloberteil und bei Einhebelmischern die Kartusche tauschst, den Perlator prüfst und Wasserschäden vermeidest.
 category: reparaturen-im-haushalt
-date: 2026-08-27
+date: 2026-10-12
 ---
 Ein tropfender Wasserhahn ist mehr als ein nerviges Geräusch in der Nacht. Ein Tropfen pro Sekunde summiert sich auf viele Liter am Tag und mehrere tausend Liter im Jahr, bei warmem Wasser kommen Energiekosten hinzu. Meist ist die Reparatur einfach: Bei älteren Armaturen mit zwei Griffen ist es eine verschlissene Dichtung oder ein Ventiloberteil, bei Einhebelmischern die Kartusche.
 
@@ -106,6 +106,26 @@ Viele Mietverträge enthalten eine **Kleinreparaturklausel,** nach der Mieter Re
 
 Ein Installateur berechnet zusätzlich Anfahrt und Arbeitszeit. Für einfache Reparaturen lohnt sich das Selbermachen.
 
+## Eckventile und Anschlussschläuche im Blick behalten
+
+Eckventile, die jahrelang nicht bewegt wurden, setzen sich mit Kalk fest und lassen sich im Notfall nicht mehr schließen. Drehe sie deshalb ein- bis zweimal im Jahr einmal zu und wieder auf. Auch die flexiblen Anschlussschläuche zwischen Eckventil und Armatur altern: Das Gummi im Inneren wird spröde, das Metallgeflecht kann rosten. Prüfe sie bei jeder Gelegenheit auf Knicke, Rost und Feuchtigkeit, und tausche sie lieber vorsorglich, wenn sie schon viele Jahre im Einsatz sind. Ein geplatzter Anschlussschlauch setzt in kurzer Zeit eine ganze Küche unter Wasser.
+
+## Niederdruck- oder Hochdruckarmatur?
+
+Hängt unter dem Waschbecken oder der Spüle ein kleiner Untertisch-Warmwasserspeicher, ist Vorsicht geboten. Viele dieser Geräte sind offene, drucklose Speicher und brauchen eine spezielle Niederdruckarmatur, erkennbar an drei Anschlussschläuchen statt zwei. Wer hier eine normale Hochdruckarmatur montiert, setzt den Speicher unter Leitungsdruck, der ihn beschädigen oder undicht machen kann. Beim Tausch einer Armatur also immer prüfen, welcher Typ vorhanden ist, und denselben wieder kaufen.
+
+## Pfeifen, Brummen und Schläge in der Leitung
+
+Pfeift oder brummt die Armatur beim Aufdrehen, ist oft ein Eckventil nicht ganz geöffnet, eine Dichtung locker oder ein Ventiloberteil verschlissen. Ein lauter Schlag in der Leitung beim schnellen Schließen eines Einhebelmischers heißt Druckschlag; er entsteht, wenn strömendes Wasser abrupt gestoppt wird. Langsameres Schließen hilft, bei häufigen Schlägen sollte ein Installateur prüfen, ob ein Druckminderer oder ein Schlagdämpfer sinnvoll ist.
+
+## Wasserschäden vorbeugen
+
+Wer weiß, wo der Hauptabsperrhahn der Wohnung sitzt, verliert im Notfall keine Minute. Kleine, günstige batteriebetriebene Wassermelder, die unter Spüle oder Waschmaschine gelegt werden, schlagen Alarm, sobald sie nass werden. Für Wasch- und Spülmaschinen gibt es Schläuche mit Sicherheitsventil, das bei einem Defekt den Zulauf automatisch sperrt.
+
+## Armaturen schonend reinigen
+
+Wer seine Armaturen pflegt, sieht Kalk und Schäden früher. Chromoberflächen mit einem weichen Tuch, warmem Wasser und etwas Spülmittel reinigen und danach trocken reiben, dann bilden sich kaum Kalkflecken. Kalklösende Reiniger nur kurz einwirken lassen und gründlich nachspülen, Scheuermilch, Stahlwolle und Mikrofaser mit Schleifanteil zerkratzen die Oberfläche. Für gebürstete, matte oder farbig beschichtete Armaturen gelten oft eigene Pflegehinweise des Herstellers, weil saure Reiniger ihre Oberfläche angreifen können.
+
 ## Praxisbeispiel: Küchenarmatur tropft nach dem Schließen
 
 Eine Einhebel-Küchenarmatur tropft auch bei geschlossenem Hebel, und der Hebel lässt sich schwerer bewegen als früher. Die Diagnose: verkalkte und verschlissene Kartusche.
@@ -150,6 +170,8 @@ Hersteller und Modell der Armatur ermitteln, Kartusche ausbauen und mitnehmen od
 **Warum tropft es nach dem Kartuschentausch weiter?** Häufig ist die Kartusche nicht ganz richtig eingesetzt, eine Dichtung unter der Kartusche fehlt oder der Sitz ist verschmutzt. Noch einmal öffnen und prüfen.
 
 **Kann ich die Armatur selbst wechseln?** Mit funktionierenden Eckventilen und etwas Geschick ja. Wichtig sind die richtigen Anschlussschläuche und dichte Verbindungen.
+
+**Muss ich nach der Reparatur den Perlator reinigen?** Das lohnt sich. Nach dem Absperren und Öffnen der Leitung lösen sich oft Kalk- und Schmutzteilchen, die sich im Strahlregler sammeln. Perlator abschrauben, ausspülen und wieder einsetzen. Mehr dazu in [Duschkopf und Perlator entkalken](/anleitungen/duschkopf-und-perlator-entkalken/).
 
 ## Fazit
 

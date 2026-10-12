@@ -2,7 +2,7 @@
 title: "Vorhangstange und Gardinenschiene montieren: Höhe, Breite, Befestigung"
 description: Wie du Vorhangstangen und Gardinenschienen an Wand oder Decke montierst, wie hoch und breit sie sein sollten, welche Dübel halten, wie du Klemmträger nutzt und Vorhänge richtig auswählst.
 category: deko-und-wohnen
-date: 2026-09-01
+date: 2026-10-12
 ---
 Vorhänge verändern einen Raum stark: Sie dämpfen Licht und Schall, schützen vor Blicken und können ein Fenster größer oder kleiner wirken lassen. Wie gut das gelingt, hängt aber nicht nur vom Stoff ab, sondern auch davon, wo und wie die Stange oder Schiene montiert ist. Eine zu tief und zu kurz montierte Stange lässt jeden Raum gedrungen wirken; eine schlecht befestigte reißt beim ersten kräftigen Zuziehen aus der Wand.
 
@@ -104,6 +104,18 @@ Mehr Ideen in [Mietwohnung verschönern ohne Ärger](/anleitungen/mietwohnung-ve
 | Kein Mittelträger bei langen Stangen | Stange hängt durch |
 | Nicht waagerecht ausgerichtet | Vorhänge hängen schief |
 
+## Vorhänge richtig messen und kürzen
+
+Gemessen wird erst, wenn Stange oder Schiene hängen: von der Unterkante der Ringe oder Gleiter bis zu dem Punkt, an dem der Vorhang enden soll. Fertigvorhänge gibt es meist nur in wenigen Standardlängen, sodass Kürzen fast immer dazugehört. Ohne Nähmaschine gelingt das mit Bügelsaumband, das den umgeschlagenen Saum mit dem Bügeleisen verklebt. Wasche Vorhänge aus Leinen oder Baumwolle vor dem Kürzen einmal, wenn der Hersteller Einlaufen nicht ausschließt, sonst sind sie nach der ersten Wäsche plötzlich zu kurz. Lass die Vorhänge außerdem ein, zwei Tage hängen, bevor du den Saum festlegst, denn schwere Stoffe dehnen sich durch ihr Eigengewicht noch etwas.
+
+## Erker, Ecken und Dachfenster
+
+Für Erker und Ecken gibt es biegbare Gardinenschienen und Eckverbinder für Stangen, damit die Vorhänge ohne Unterbrechung um die Ecke laufen. Biege Schienen nur so stark, wie der Hersteller angibt, sonst klemmen die Gleiter. Dachfenster sind ein Sonderfall: Klassische Vorhänge hängen dort vom Fenster weg. Besser sind Rollos oder Plissees mit seitlichen Führungsschienen, die passend zum Fenstermodell angeboten werden und auch in Schräglage am Glas anliegen.
+
+## Schnüre und kleine Kinder
+
+Rollos, Jalousien und Raffvorhänge mit Zugschnüren oder Ketten können für Kleinkinder gefährlich werden, weil sich ein Kind darin verfangen kann. Halte Schnüre und Ketten konsequent außer Reichweite, etwa mit einem Schnurhalter hoch an der Wand oder am Fensterrahmen, und stelle Betten, Stühle und Spielmöbel nicht direkt neben solche Fenster. Neuere Produkte haben Sicherheitsverbinder, die sich unter Zug lösen, und es gibt schnurlose Rollos. In Kinderzimmern sind schnurlose Lösungen die sicherste Wahl.
+
 ## Praxisbeispiel: Ein großes Wohnzimmerfenster mit Rollladenkasten
 
 Über einem 2,20 m breiten Fenster sitzt ein Rollladenkasten, darüber eine Betondecke. Gewünscht sind bodenlange Leinenvorhänge, die das Fenster größer wirken lassen.
@@ -154,6 +166,8 @@ Die Kosten hängen stark von Material und Design ab. Einfache Schienen und Stang
 **Ösen oder Ringe?** Ösenvorhänge laufen direkt auf der Stange und bilden gleichmäßige, große Falten. Ringe mit Haken erlauben jeden Vorhang mit Kräuselband und lassen sich leichter abnehmen.
 
 **Was tun, wenn die Stange durchhängt?** Einen zusätzlichen Mittelträger setzen oder eine Stange mit größerem Durchmesser wählen.
+
+**Wie reinige ich Vorhänge, ohne sie abzunehmen?** Regelmäßiges Absaugen mit der Polsterdüse auf niedriger Stufe entfernt Staub. Für die Wäsche lassen sich Vorhänge an Gleitern mit Haken schnell abnehmen; Ösenvorhänge werden mit der Stange zusammen abgehängt. Pflegeetikett beachten, viele Stoffe vertragen nur Schonwäsche.
 
 ## Fazit
 

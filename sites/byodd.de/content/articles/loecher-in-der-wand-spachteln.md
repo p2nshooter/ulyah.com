@@ -2,7 +2,7 @@
 title: "Löcher in der Wand spachteln: Dübellöcher, Risse und große Ausbrüche reparieren"
 description: Welche Spachtelmasse für welches Loch, wie du Dübellöcher, Haarrisse und größere Ausbrüche in Putz und Gipskarton unsichtbar verschließt, schleifst und für den Anstrich vorbereitest.
 category: waende-und-boeden
-date: 2026-09-21
+date: 2026-10-12
 ---
 Dübellöcher nach dem Auszug, ein Riss über der Tür, eine Delle vom Stuhl, der jahrelang gegen die Wand gerückt wurde, oder ein faustgroßes Loch in der Gipskartonwand: Löcher und Schäden in Wänden gehören zu den häufigsten Reparaturen im Haushalt. Mit der richtigen Spachtelmasse und etwas Geduld lassen sich fast alle Schäden so beheben, dass man sie nach dem Streichen nicht mehr sieht.
 
@@ -108,6 +108,18 @@ Spachtelstellen saugen Farbe anders als die übrige Wand. Ohne Vorbehandlung ers
 | Ränder nicht ausgezogen | Sichtbare Kante unter der Farbe | Breiten Spachtel, dünn auslaufen lassen |
 | Ohne Grundierung gestrichen | Fleckiges Ergebnis | Spachtelstellen vorstreichen |
 | Gips mit Wasser „wiederbelebt“ | Masse hält nicht | Kleine Mengen frisch anrühren |
+
+## Abgestoßene Ecken und Kanten
+
+Außenecken von Wänden bekommen im Alltag viel ab: Staubsauger, Koffer, Kinderwagen. Kleine Abplatzungen füllst du mit Gipsspachtel und ziehst die Kante mit einem breiten Spachtel oder einem Brett als Anschlag nach. Ist eine Ecke stark beschädigt oder wird sie immer wieder getroffen, lohnt ein Kantenschutzprofil aus Metall oder Kunststoff. Es wird in Gips- oder Fertigspachtel eingebettet, ausgerichtet und anschließend überspachtelt, sodass es nach dem Streichen kaum zu sehen ist. Für Flure mit viel Verkehr gibt es auch sichtbare Eckschutzleisten, die nur aufgeklebt werden.
+
+## Feuchte Stellen und weiße Ausblühungen
+
+Wenn eine Wandstelle feucht ist, sich Blasen bilden oder weiße, kristalline Ausblühungen zeigen, hilft Spachteln nicht. Die Ausblühungen sind meist Salze, die mit Feuchtigkeit aus dem Mauerwerk transportiert werden. Darauf haftet keine Spachtelmasse dauerhaft. Kläre zuerst die Ursache, etwa aufsteigende Feuchtigkeit, ein Leck oder Kondenswasser, und lass größere Schäden von einem Fachbetrieb mit geeignetem Sanierputz behandeln. Mehr zur Feuchte in Wohnräumen steht in [Schimmel an der Wand entfernen und vorbeugen](/anleitungen/schimmel-an-der-wand-entfernen-und-vorbeugen/).
+
+## Struktur angleichen: Raufaser und Strukturputz
+
+Auf glatten Wänden verschwindet eine Spachtelstelle nach dem Streichen. Auf Raufaser oder Strukturputz fällt eine glatte Insel dagegen auf. Bei Raufaser hilft es, ein Stück Tapetenrest passend zu reißen, nicht zu schneiden, und auf die geschliffene Stelle zu kleben; die gerissenen Kanten fallen kaum auf. Für Strukturputz gibt es Reparaturmassen, deren Oberfläche du mit einem Schwamm, einer Bürste oder dem Spachtel an die Umgebung anpasst. Übe die Technik vorher auf einem Stück Pappe.
 
 ## Spachteln beim Auszug aus der Mietwohnung
 
