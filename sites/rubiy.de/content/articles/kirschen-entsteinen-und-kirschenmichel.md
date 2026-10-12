@@ -2,7 +2,7 @@
 title: "Kirschen: Süß- und Sauerkirschen, schnell entsteinen und ein Kirschenmichel"
 description: "Kirschensaison in Deutschland: Herz- und Knorpelkirschen, Schattenmorellen, Kirschen lagern und ohne Spezialgerät entsteinen, dazu ein Kirschenmichel aus altem Brot."
 category: sommer
-date: 2026-09-09
+date: 2026-10-12
 ---
 Die Kirschsaison ist kurz und intensiv. Von Anfang Juni bis Ende Juli hängen die Bäume im Alten Land bei Hamburg, in Franken, am Kaiserstuhl und rund um den Bodensee voller Früchte, und an den Straßenrändern stehen Stände mit frisch gepflückten Kirschen. Wer die Saison nutzen will, sollte die Unterschiede zwischen den Sorten kennen, wissen, wie man Kirschen frisch hält, und einen Trick zum Entsteinen beherrschen, denn das ist bei Kuchen, Kompott und Marmelade die eigentliche Arbeit. Als Belohnung gibt es am Ende einen Kirschenmichel, einen saftigen Auflauf aus altem Brot, Milch und Kirschen, den Generationen von Kindern geliebt haben.
 
@@ -33,6 +33,16 @@ Reife Kirschen sind prall, glänzend und haben grüne, frische Stiele. Braune, v
 Lagere Kirschen ungewaschen und mit Stiel im Gemüsefach des Kühlschranks, am besten flach in einer Schale, damit die unteren Früchte nicht gedrückt werden. So halten sie sich zwei bis drei Tage. Gewaschene Kirschen und solche ohne Stiel verderben schneller, weil an der Ansatzstelle Saft austritt. Hole sie eine halbe Stunde vor dem Essen aus dem Kühlschrank, dann schmecken sie aromatischer.
 
 Wasche Kirschen erst unmittelbar vor dem Essen kurz in kaltem Wasser. Aufgeplatzte Kirschen nach einem Regen sind essbar, solange sie frisch riechen, sollten aber sofort verarbeitet werden.
+
+## Selbst pflücken: so bleiben die Kirschen frisch
+
+Viele Obsthöfe bieten im Juni und Juli Kirschen zum Selbstpflücken an. Ein paar Regeln machen die Ernte ergiebiger:
+
+- **Früh am Tag pflücken,** solange die Früchte kühl sind. Warme Kirschen werden schneller weich.
+- **Mit Stiel ernten:** Fasse den Stiel und drehe ihn vorsichtig vom Zweig. Kirschen ohne Stiel verlieren an der Ansatzstelle Saft und halten nur noch einen Tag.
+- **Das Fruchtholz schonen:** Reiße keine Büschel samt Blattrosette ab. An diesen kurzen Trieben wachsen im nächsten Jahr wieder Blüten.
+- **Flache Kisten mitnehmen:** In hohen Eimern drücken die oberen Kirschen die unteren platt.
+- **Nur reife Früchte pflücken:** Sie lösen sich leicht, haben die sortentypische Farbe und schmecken süß.
 
 ## Kirschen entsteinen ohne Spezialgerät
 
@@ -78,11 +88,25 @@ Der Kirschenmichel, regional auch Kirschenplotzer oder Kirschenmännle genannt, 
 
 Bestäube ihn vor dem Servieren mit Puderzucker. Dazu passt eine Vanillesoße, wie wir sie im Rezept für [Rote Grütze](/kueche/rote-gruetze-und-johannisbeeren/) beschreiben. Warm ist der Kirschenmichel ein süßes Mittagessen, kalt ein Kuchen zum Kaffee. Weitere Ideen für altes Brot findest du in [Resteküche mit Plan](/kueche/resteverwertung-in-der-kueche/).
 
+## Clafoutis: der französische Verwandte
+
+Während der Kirschenmichel altes Brot verwertet, braucht der Clafoutis aus dem Limousin nur einen einfachen Eierteig. Traditionell werden die Kirschen dafür nicht entsteint, weil die Kerne beim Backen ein feines Mandelaroma abgeben. Wer Kinder oder Gäste am Tisch hat, entsteint sie trotzdem und gibt etwas gemahlene Mandeln in den Teig.
+
+Für eine Form von etwa 24 cm verquirlst du 3 Eier mit 80 g Zucker und einer Prise Salz, rührst 60 g Mehl glatt unter und gießt nach und nach 250 ml Milch dazu. Fette die Form mit Butter, verteile 500 g Kirschen darin und gieße den Teig darüber. Backe den Clafoutis bei 180 Grad Ober- und Unterhitze 35 bis 40 Minuten, bis er goldbraun und gestockt ist. Beim Abkühlen fällt er etwas zusammen, das ist normal. Lauwarm mit Puderzucker schmeckt er am besten.
+
 ## Kirschen haltbar machen
 
 - **Einfrieren:** Entsteint auf einem Blech vorfrieren, dann in Beutel füllen. So kleben sie nicht zusammen und lassen sich portionsweise entnehmen.
 - **Einkochen:** Sauerkirschen in leichtem Sirup bei 80 bis 85 Grad 30 Minuten einkochen. Details stehen in [Einkochen für Einsteiger](/kueche/einkochen-grundlagen/).
 - **Konfitüre:** Kirschen haben wenig Pektin. Nimm Gelierzucker und etwas Zitronensaft.
+
+## Ein Schädling, den man kennen sollte: die Kirschessigfliege
+
+Seit etwa 2011 breitet sich in Deutschland die aus Ostasien stammende Kirschessigfliege aus. Anders als die heimische Kirschfruchtfliege befällt sie neben Kirschen auch Himbeeren, Brombeeren, Heidelbeeren und Trauben, und sie legt ihre Eier in reife, unverletzte Früchte. Befallene Kirschen haben winzige Einstichstellen, werden schnell weich und riechen leicht nach Essig. Für Menschen ist das nicht gefährlich, die Früchte verderben aber in kurzer Zeit. Verarbeite späte Kirschen deshalb rasch und sortiere weiche Exemplare aus.
+
+## Was in Kirschen steckt
+
+Süßkirschen liefern rund 60 Kilokalorien je 100 Gramm, Sauerkirschen etwas weniger. Ihre dunkle Farbe verdanken sie Anthocyanen, Pflanzenfarbstoffen aus der Gruppe der sekundären Pflanzenstoffe. Dazu kommen Kalium und etwas Vitamin C, bei Sauerkirschen ein wenig mehr als bei süßen Sorten. Eine Handvoll Kirschen ist damit ein leichter, natürlich süßer Snack für warme Sommertage.
 
 ## Häufige Fragen
 
@@ -97,3 +121,11 @@ Das sind Larven der Kirschfruchtfliege, vor allem bei späten Sorten. Sie sind n
 ### Kann ich Süßkirschen statt Sauerkirschen zum Backen nehmen?
 
 Ja, reduziere aber den Zucker und gib einen Spritzer Zitronensaft dazu, damit der Kuchen nicht flach schmeckt. Knorpelkirschen eignen sich besser als weiche Herzkirschen.
+
+### Wie viele Kirschen muss ich für ein Rezept kaufen?
+
+Rezepte nennen meist das Gewicht entsteinter Kirschen. Rechne beim Entsteinen mit etwa einem Zehntel Verlust durch Kerne und Saft und kaufe entsprechend etwas mehr. Für 750 g entsteinte Kirschen brauchst du also gut 800 bis 850 g ganze Früchte.
+
+### Wie bekomme ich Kirschflecken aus der Kleidung?
+
+Je frischer, desto besser. Spüle den Fleck sofort von der Rückseite mit kaltem Wasser aus, damit der Saft nicht tiefer ins Gewebe dringt. Danach mit Gallseife einreiben und das Kleidungsstück wie gewohnt waschen. Getrocknete Flecken vor dem Waschen einige Stunden einweichen.
