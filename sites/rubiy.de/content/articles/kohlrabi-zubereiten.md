@@ -2,7 +2,7 @@
 title: "Kohlrabi zubereiten: schälen, roh genießen, Rahmgemüse und Kohlrabi-Schnitzel"
 description: "Kohlrabi richtig auswählen, schälen und lagern, warum die Blätter in den Topf gehören, dazu klassisches Kohlrabigemüse in heller Soße, Rohkost und knusprige Kohlrabi-Schnitzel."
 category: fruehling
-date: 2026-09-15
+date: 2026-10-12
 ---
 Kohlrabi ist so deutsch, dass sogar Engländer und Amerikaner ihn mit seinem deutschen Namen nennen. Die knollige Verwandte von Kohl und Brokkoli wächst bei uns von Frühjahr bis Herbst, die ersten Knollen aus dem Freiland kommen im Mai. Gerade dann ist Kohlrabi zart, saftig und mild-süß, mit einem leichten Kohlaroma, das auch Kinder mögen. Er schmeckt roh als Snack, geraspelt im Salat oder klassisch in heller Rahmsoße zu Frikadellen und Salzkartoffeln. Wer dazu noch die Blätter mitverwendet, die viele achtlos wegwerfen, holt aus jeder Knolle deutlich mehr heraus.
 
@@ -19,6 +19,10 @@ Kohlrabi ist so deutsch, dass sogar Engländer und Amerikaner ihn mit seinem deu
 Im Handel findest du zwei Farben: hellgrüne, oft „weiß“ genannte Kohlrabi und blau-violette. Der Unterschied liegt nur in der Schale. Innen sind beide hell und schmecken fast gleich. Blaue Sorten gelten als etwas robuster und werden häufiger im Herbst geerntet, weiße sind im Frühjahr verbreiteter. Für die Küche ist die Farbe egal. Schäl die blaue Schale ab, sie wird beim Kochen grau.
 
 Daneben gibt es Riesenkohlrabi wie die Sorte „Superschmelz“, die mehrere Kilogramm schwer werden kann und trotzdem zart bleibt. Solche Sorten sind die Ausnahme. Bei normalen Kohlrabi gilt: Eine Knolle mit etwa 8 bis 10 Zentimetern Durchmesser ist ideal.
+
+### Ein Name mit Geschichte
+
+Der Name stammt aus dem Italienischen, wo das Gemüse cavolo rapa heißt, wörtlich „Kohlrübe“. Botanisch ist der Kohlrabi eine Form des Gemüsekohls, bei der sich nicht die Blätter, sondern der Stängel knapp über dem Boden zu einer Knolle verdickt. Er wächst also über der Erde und ist keine Wurzel. In der Schweiz sagt man auch Rübkohl.
 
 ## Gute Kohlrabi erkennen
 
@@ -87,12 +91,24 @@ Paniert und gebraten wird Kohlrabi zu einem vegetarischen Hauptgericht, das auß
 
 Dazu passen Kartoffelsalat, ein Kräuterdip oder Preiselbeeren. Welche Kartoffel du für den Salat nimmst, erklärt unser Beitrag über [Kartoffelsorten und Kochtypen](/kueche/kartoffelsorten-kochtypen/).
 
+## Schnelles Pfannengemüse mit Ingwer und Sesam
+
+Kohlrabi verträgt sich hervorragend mit asiatischen Aromen. Schneide eine Knolle und zwei Möhren in feine Stifte, zwei Frühlingszwiebeln in Ringe und ein daumengroßes Stück Ingwer in feine Würfel. Erhitze zwei Esslöffel neutrales Öl in einer großen Pfanne oder einem Wok, brate Kohlrabi und Möhren bei hoher Hitze drei bis vier Minuten unter Rühren an, gib Ingwer und Frühlingszwiebeln dazu und lösche mit zwei Esslöffeln Sojasoße und einem Schuss Wasser ab. Nach einer weiteren Minute ist das Gemüse heiß, aber noch knackig. Beträufle es mit etwas Sesamöl und streue geröstete Sesamsaat darüber. Dazu passen Reis oder Nudeln.
+
 ## Weitere Ideen
 
 - **Aus dem Ofen:** Kohlrabiwürfel mit Öl, Salz und Thymian bei 200 Grad 25 bis 30 Minuten rösten, bis die Ränder braun sind. Geröstet schmeckt Kohlrabi nussig und süß.
 - **Suppe:** Kohlrabi, eine Kartoffel und eine Zwiebel in Brühe weich kochen, pürieren und mit Sahne und Muskat abschmecken. Die Blätter als grüne Einlage.
 - **Gefüllt:** Knollen aushöhlen, vorgaren und mit einer Hackfleisch- oder Linsenfüllung im Ofen überbacken.
 - **Im Gemüsebrei:** Für Babys wird Kohlrabi gern verwendet, weil er mild ist und gut bekömmlich.
+
+## Was im Kohlrabi steckt
+
+Kohlrabi ist kalorienarm und liefert reichlich Vitamin C, dazu Kalium, Folat und Ballaststoffe. In den grünen Blättern stecken außerdem mehr Carotinoide und Mineralstoffe als in der hellen Knolle. Ein weiterer Grund, die zarten Herzblätter nicht wegzuwerfen. Weil Vitamin C wasserlöslich ist, garst du Kohlrabi am besten in wenig Wasser und verwendest das Kochwasser für die Soße, wie im Rezept oben.
+
+## Kohlrabi im eigenen Garten
+
+Kohlrabi gehört zu den schnellsten Gemüsen im Beet. Vom Pflanzen bis zur Ernte vergehen je nach Jahreszeit nur acht bis zwölf Wochen. Frühe Sorten setzt du ab März unter Vlies oder im Frühbeet, spätere bis in den Sommer hinein. So lässt sich alle paar Wochen eine neue Reihe pflanzen, und du erntest von Mai bis Oktober. Wichtig ist gleichmäßige Feuchtigkeit: Wechseln trockene und nasse Phasen, platzen die Knollen auf oder werden holzig. Ernte sie, sobald sie etwa so groß wie ein Tennisball bis eine Faust sind. Wer zu lange wartet, bekommt große, aber faserige Knollen.
 
 ## Häufige Fragen
 
@@ -107,3 +123,7 @@ Kohlrabi enthält wie alle Kohlarten Senfölverbindungen. Bei Trockenheit und Hi
 ### Kann ich Kohlrabi einfrieren?
 
 Ja, in Stiften oder Würfeln zwei bis drei Minuten blanchieren, in Eiswasser abschrecken, gut abtropfen lassen und portionsweise einfrieren. Für Rohkost eignet er sich danach nicht mehr, für Suppen und Rahmgemüse schon.
+
+### Wie viel Kohlrabi brauche ich pro Person?
+
+Als Beilage rechnest du mit etwa einer kleinen bis mittelgroßen Knolle pro Person, also 200 bis 250 Gramm ungeschält. Beim Schälen gehen je nach Größe und Wurzelende ein Viertel bis ein Drittel verloren.
