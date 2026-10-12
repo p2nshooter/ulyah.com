@@ -2,7 +2,7 @@
 title: Requesón casero: cómo hacerlo con leche o aprovechando el suero del queso
 description: Dos formas de hacer requesón en casa: con leche entera y un ácido, o con el suero sobrante del queso fresco. Temperaturas, rendimiento, textura y usos en la cocina española.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 El requesón es uno de los quesos más antiguos y sencillos de la tradición española. Blanco, suave y granulado, aparece en desayunos, en postres como el famoso requesón con miel y en rellenos de pasteles y empanadillas. En muchas zonas rurales se elaboraba con el suero que sobraba de hacer queso, un ejemplo perfecto de cocina de aprovechamiento.
 
@@ -68,6 +68,23 @@ Este es el método tradicional. Sirve para aprovechar el suero que sobra tras ha
 ### Rendimiento
 
 El rendimiento es bajo: de varios litros de suero se obtiene una cantidad modesta de requesón, a menudo menos de 100 gramos. Por eso es una forma de aprovechamiento, no de producción.
+
+## Qué ácido elegir
+
+- **Zumo de limón:** el más habitual en casa. Deja un aroma cítrico suave, agradable en postres. Cuélalo para que no queden pulpa ni pepitas.
+- **Vinagre blanco:** de sabor más neutro una vez escurrido el requesón, y más regular en su acidez que el limón, que varía de una pieza a otra.
+- **Suero de mantequilla o kéfir:** dan un requesón más tierno y con un ligero sabor lácteo fermentado, pero hacen falta cantidades mayores.
+- **Ácido cítrico:** media cucharadita disuelta en un poco de agua sustituye al zumo de limón con una acidez más constante.
+
+Sea cual sea el ácido, añádelo poco a poco y para en cuanto el suero se vuelva claro: el exceso endurece la cuajada y deja sabor.
+
+## Requesón con espinacas para rellenos
+
+Para canelones, empanadillas o una lasaña vegetal, mezcla 250 gramos de requesón bien escurrido con 300 gramos de espinacas salteadas con ajo y muy escurridas, picadas finas. Añade un huevo, un puñado de queso curado rallado, sal, pimienta y una pizca de nuez moscada. La mezcla debe quedar firme: si la notas húmeda, añade un poco de pan rallado. Es un relleno ligero y sabroso que aprovecha muy bien la textura del requesón casero.
+
+## ¿Se puede congelar?
+
+Sí, pero al descongelarse suelta agua y queda más granuloso. Congélalo bien escurrido, en porciones pequeñas y en recipientes cerrados, y úsalo después en tartas, rellenos y salsas, no para comer al natural con miel. Descongélalo en la nevera y consúmelo en un día.
 
 ## Conservación
 
