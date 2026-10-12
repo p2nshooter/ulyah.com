@@ -83,7 +83,7 @@ membuka domain-domain ini.
 | axto.us | ca-pub-5693981744147503 | `axto.us` (perpustakaan cerita anak + blog) | axto-us | en | 200 · akun lama 6371… |
 | axto.dev | ca-pub-2493615451319531 | `axtodev` | axto-dev | en | akun sendiri sejak 12 Okt 2026 (sebelumnya 5693981744147503) |
 | jai.lat | ca-pub-5693981744147503 | `jai` | jai-lat | en → **es** | 200 · **Adsterra aktif** · 77 artikel (Inggris) |
-| lie.skin | ca-pub-5693981744147503 | `lie` | lie-skin | en | 200 · **Adsterra aktif** · 88 artikel |
+| lie.skin | ca-pub-4548005919629272 | `Lie` | lie-skin | en | akun sendiri sejak 12 Okt 2026 (sebelumnya 5693981744147503) |
 | oldco.in | ca-pub-5693981744147503 | `oldco.in` | oldco-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
 | profity.in | ca-pub-5693981744147503 | `profity.in` | profity-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
 | dawo.es | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/dawo.es` | dawo-es | es | **belum ada** (DNS tidak resolve) |
@@ -545,6 +545,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 11 Okt | zolun.de ganti akun: ca-pub-6016479123891586 („ini jg ubah buatin jg ads.txt dan tag metanya zolun.de“; sebelumnya 4548005919629272) | ✅ `sites/zolun.de/site.json` + `ADSENSE.txt` (loader, meta, ads.txt dari engine), `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 11 Okt | dawo.es ganti akun: ca-pub-7349356139063654 („ini juga ganti, buatkan jg ads.txt dan tag meta nya dawo.es“; sebelumnya 5693981744147503; dawa.es tidak disentuh) | ✅ `sites/dawo.es/site.json` + `ADSENSE.txt`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 | 12 Okt | axto.dev ganti akun: ca-pub-2493615451319531 („axto.dev ganti adsense nya dengan ini, dan buatkan jg ads.txt dan tag meta nya“; sebelumnya 5693981744147503) | ✅ axtodev PR #18 (`src/lib/site.ts` untuk loader + meta, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
+| 12 Okt | lie.skin ganti akun: ca-pub-4548005919629272 („Lie.skin, bikin jg ads.txt dan tag meta“; sebelumnya 5693981744147503) | ✅ Lie PR #7 (`src/lib/site.ts` untuk loader + meta, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` |
 
 ---
 

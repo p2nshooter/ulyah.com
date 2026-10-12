@@ -38,6 +38,9 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 > 6. **12 Okt 2026:** „axto.dev ganti adsense nya dengan ini, dan buatkan jg ads.txt dan tag meta nya“ →
 >    **axto.dev → ca-pub-2493615451319531** (sebelumnya 5693981744147503; repo axtodev: `src/lib/site.ts`
 >    untuk loader dan tag meta, `public/ads.txt`; axtodev PR #18).
+> 7. **12 Okt 2026:** „Lie.skin, bikin jg ads.txt dan tag meta“ + `google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0` →
+>    **lie.skin → ca-pub-4548005919629272** (sebelumnya 5693981744147503; repo Lie: `src/lib/site.ts` untuk loader dan
+>    tag meta, `public/ads.txt`; Lie PR #7).
 > byodd.de, qulen.de dan zolun.de tetap dengan akun sendiri (6 Okt). Tabel di bawah adalah
 > keadaan terbaru; `scripts/site-audit.mjs` memeriksa domain live dengan angka yang sama.
 
@@ -50,7 +53,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | axto.us | ca-pub-2990015102981265 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — diubah pemilik 10 Okt |
 | axto.dev | ca-pub-2493615451319531 | axtodev · site.ts + public/ads.txt — diubah pemilik 12 Okt (sebelumnya 5693981744147503) |
 | jai.lat | ca-pub-6019445914743449 | Jai · site.ts + public/ads.txt — diubah pemilik 10 Okt |
-| lie.skin | ca-pub-5693981744147503 | Lie · site.ts + public/ads.txt |
+| lie.skin | ca-pub-4548005919629272 | Lie · site.ts + public/ads.txt — diubah pemilik 12 Okt (sebelumnya 5693981744147503) |
 | oldco.in | ca-pub-5693981744147503 | oldco.in · layout + public/ads.txt |
 | profity.in | ca-pub-5693981744147503 | profity.in · layout + public/ads.txt |
 | dawo.es | ca-pub-7349356139063654 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) — diubah pemilik 11 Okt (sebelumnya 5693981744147503) |
@@ -231,23 +234,25 @@ Tag meta
 
 ## lie.skin
 
+Kode dari pemilik, 12 Okt 2026 (sebelumnya ca-pub-5693981744147503).
+
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://lie.skin/ads.txt)
 
 ```
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-4548005919629272">
 ```
 
 ## oldco.in
