@@ -1,0 +1,45 @@
+name: Live probe (real browser, read-only)
+
+# Opens the live sites the way a visitor or an AdSense reviewer does and prints
+# status codes, JavaScript errors, failed requests and header overlaps
+# (scripts/live-probe.mjs). The development sandbox cannot reach the production
+# domains, so this is how a change is checked on the real thing.
+#
+# Runs by hand, and on a push that changes the probe itself to the working
+# branch (workflow_dispatch only registers from main).
+
+on:
+  workflow_dispatch:
+    inputs:
+      domains:
+        description: "Space-separated domains"
+        required: false
+        default: "ulyah.com 1fr.fr tilawa.de xad.es dawa.es"
+  push:
+    branches: [claude/islamic-ecosystem-db-optimize-ikewdv]
+    paths:
+      - '.github/workflows/live-probe.yml'
+      - 'scripts/live-probe.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # In a scratch folder: the repository is a pnpm workspace, and the probe
+      # needs nothing from it but its own script.
+      - name: Install Playwright + Chromium
+        run: |
+          mkdir -p "$RUNNER_TEMP/probe" && cp scripts/live-probe.mjs "$RUNNER_TEMP/probe/"
+          cd "$RUNNER_TEMP/probe" && npm init -y >/dev/null && npm i --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Probe
+        working-directory: ${{ runner.temp }}/probe
+        run: node live-probe.mjs ${{ inputs.domains || 'dawa.es ulyah.com 1fr.fr tilawa.de xad.es' }}
