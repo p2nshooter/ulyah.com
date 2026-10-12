@@ -2,7 +2,7 @@
 title: "Pfifferlinge und Steinpilze: putzen, braten und Rahmpilze mit Semmelknödeln"
 description: Wie du Pfifferlinge und Steinpilze putzt, lagerst und brätst, was beim Sammeln erlaubt ist, ob man Pilzgerichte aufwärmen darf, mit Rezept für Rahmpfifferlinge und Semmelknödel.
 category: herbst
-date: 2026-07-20
+date: 2026-10-12
 ---
 Pilze aus dem Wald sind für viele der Inbegriff des Herbstes. Schon ab Juli tauchen auf den Märkten die ersten Pfifferlinge auf, goldgelb und nach Aprikose duftend. Im August und September folgen Steinpilze, Maronenröhrlinge und Rotkappen. Eine Pfanne mit gebratenen Waldpilzen, etwas Butter, Zwiebeln und Petersilie gehört zu den einfachsten und zugleich feinsten Gerichten der Saison.
 
@@ -101,6 +101,14 @@ Für 4 Personen:
 8. Mit Salz, Pfeffer und Zitronensaft abschmecken und die gehackte Petersilie unterheben.
 9. Hebe die Knödel mit einer Schaumkelle aus dem Wasser und serviere sie mit den Rahmpfifferlingen.
 
+## Tagliatelle mit Steinpilzen
+
+Wenn nur wenige Steinpilze im Korb liegen, reichen sie für ein feines Nudelgericht. Brate 250 g Steinpilze in Scheiben in zwei Esslöffeln Butter goldbraun und gib eine fein gehackte Knoblauchzehe und etwas Thymian dazu. Koche in der Zwischenzeit 400 g Tagliatelle in Salzwasser bissfest. Fange vor dem Abgießen eine Tasse Nudelwasser auf. Mische die Nudeln mit den Pilzen, einem weiteren Stück Butter und so viel Nudelwasser, dass eine leicht cremige Soße entsteht. Mit Salz, Pfeffer, gehackter Petersilie und frisch geriebenem Hartkäse servieren. Das stärkehaltige Nudelwasser bindet die Butter zu einer Soße, ganz ohne Sahne.
+
+## Zuchtpilze als Alternative
+
+Nicht jeder hat Zugang zu Waldpilzen, und die Saison ist kurz. Zuchtpilze gibt es das ganze Jahr, sie sind sicher bestimmt und lassen sich mit denselben Techniken zubereiten. Braune Champignons haben mehr Aroma als weiße, Kräuterseitlinge sind fest und erinnern gebraten an Steinpilze, Austernpilze werden in der Pfanne knusprig, und Shiitake bringen eine kräftige, würzige Note mit. Auch für die Rahmsoße zu Semmelknödeln eignet sich eine Mischung aus Zuchtpilzen gut. Brate sie wie Pfifferlinge in kleinen Portionen bei hoher Hitze, damit sie nicht im eigenen Saft kochen.
+
 ## Aufwärmen und haltbar machen
 
 Die alte Regel, Pilzgerichte dürfe man nicht aufwärmen, stammt aus der Zeit ohne Kühlschrank. Pilze enthalten viel Eiweiß und Wasser und verderben in der Wärme schnell. Heute gilt: Kühle Reste zügig ab, stelle sie in den Kühlschrank und erhitze sie innerhalb eines Tages einmal kräftig auf mindestens 70 Grad. Dann ist Aufwärmen unbedenklich.
@@ -120,3 +128,7 @@ In einigen Regionen Süddeutschlands sind manche Wildpilzarten seit dem Unfall v
 ### Warum schmecken meine Pfifferlinge bitter?
 
 Das kann an zu alten Pilzen liegen, an rohem Einfrieren oder an zu starkem Anbraten von Zwiebeln. Ist ein Gericht mit Steinpilzen sehr bitter, steckt meist ein Gallenröhrling dahinter.
+
+### Wie viele Pilze brauche ich pro Person?
+
+Als Hauptgericht, etwa mit Knödeln oder Nudeln, rechnest du mit 125 bis 150 Gramm geputzten Pilzen pro Person, als Beilage mit etwa 100 Gramm. Beim Putzen gehen je nach Verschmutzung zehn bis zwanzig Prozent verloren.
