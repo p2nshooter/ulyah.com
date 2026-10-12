@@ -2,7 +2,7 @@
 title: "Röstgrade erklärt: hell, mittel und dunkel im Vergleich"
 description: Was beim Rösten in der Bohne passiert, wie sich helle, mittlere und dunkle Röstungen in Geschmack, Säure und Zubereitung unterscheiden und welcher Röstgrad zu dir passt.
 category: bohnen-und-roestung
-date: 2026-07-06
+date: 2026-10-12
 ---
 Rohkaffee ist grün, riecht nach Heu und Erbsen und schmeckt, aufgebrüht, eher nach Gemüse als nach Kaffee. Erst das Rösten verwandelt die harte, blassgrüne Bohne in das duftende, braune Produkt, das wir kennen. Dabei entstehen aus wenigen Hundert Ausgangsstoffen weit über 800 Aromaverbindungen. Wie die Tasse am Ende schmeckt, entscheidet zu einem großen Teil der Röstgrad. In diesem Ratgeber erfährst du, was beim Rösten passiert, wie sich helle, mittlere und dunkle Röstungen unterscheiden und wie du den passenden Röstgrad für deine Zubereitung findest.
 
@@ -71,6 +71,10 @@ Ja. Wird zu lange geröstet, verbrennen Zucker und andere Stoffe, und der Kaffee
 
 **Acrylamid** entsteht beim Rösten, wenn Zucker und die Aminosäure Asparagin miteinander reagieren. Anders als oft vermutet, ist der Gehalt in sehr dunklen Röstungen nicht am höchsten: Acrylamid bildet sich früh in der Röstung und wird bei längerer Röstung teilweise wieder abgebaut.
 
+## Röstgrad und Herkunft
+
+Ein guter Röster wählt den Röstgrad nicht nach Schema, sondern passend zur Bohne. Dichte Bohnen aus großen Höhenlagen, etwa aus Kenia, Äthiopien oder Kolumbien, haben viel Säure und komplexe Fruchtnoten, die eine helle bis mittlere Röstung zur Geltung bringt. Bohnen aus tieferen Lagen, etwa viele Kaffees aus Brasilien, bringen eher Nuss und Schokolade mit und entfalten sich in mittleren bis mitteldunklen Röstungen. Robusta wird meist dunkler geröstet, um seine erdigen, herben Noten abzurunden. Mehr über die Anbauregionen erfährst du in [Kaffee-Anbauländer](/ratgeber/kaffee-anbaulaender/).
+
 ## Welcher Röstgrad zu welcher Methode passt
 
 | Methode | Empfohlener Röstgrad | Warum |
@@ -113,3 +117,7 @@ Bei dunklen Röstungen treten Öle aus dem Inneren an die Oberfläche. Bei mittl
 ### Kann ich Kaffee selbst rösten?
 
 Ja, mit Pfanne, Popcornmaschine oder kleinem Heimröster. Es braucht etwas Übung und eine gute Belüftung. Wie das geht, erklären wir im Ratgeber [Kaffee selbst rösten](/ratgeber/kaffee-selbst-roesten/).
+
+## Fazit
+
+Der Röstgrad ist eine Frage des Geschmacks, nicht der Qualität. Helle Röstungen zeigen die Herkunft, mittlere die Balance, dunkle Körper und Röstaromen. Wer weiß, was er mag, und Mahlgrad und Wassertemperatur an die Röstung anpasst, holt aus jeder Bohne das Beste heraus.
