@@ -2,7 +2,7 @@
 title: "Einkaufen auf dem Wochenmarkt: Frische erkennen, Erzeuger finden, klug planen"
 description: Wie du auf dem Wochenmarkt Erzeuger von Händlern unterscheidest, Frische prüfst, Siegel richtig liest und deinen Einkauf so planst, dass nichts verdirbt.
 category: kuechenwissen
-date: 2026-06-23
+date: 2026-10-12
 ---
 Der Wochenmarkt ist der schönste Saisonkalender, den es gibt. Was dort in den Kisten liegt, zeigt dir ziemlich genau, was gerade wächst. Im Mai türmen sich Spargel und Rhabarber, im Juli leuchten Johannisbeeren und Kirschen, im Oktober stapeln sich Kürbisse, Kohlköpfe und Äpfel. Wer regelmäßig über den Markt geht, lernt die Jahreszeiten mit allen Sinnen kennen und kommt fast von allein zu einer saisonalen Küche.
 
@@ -68,6 +68,35 @@ Wer ohne Plan auf den Markt geht, kommt leicht mit zu viel nach Hause. Die Füll
 4. Kaufe empfindliche Ware zuletzt, damit sie nicht unten im Korb zerdrückt wird.
 
 Was du von welchem Gemüse wie lange lagern kannst, haben wir im Beitrag über das [Lagern von Obst und Gemüse](/kueche/obst-und-gemuese-lagern/) zusammengestellt. Welche Sorten gerade Saison haben, zeigt unser [Saisonkalender](/saisonkalender/).
+
+## Gute Fragen am Stand
+
+Das Gespräch mit den Marktleuten ist der eigentliche Schatz des Wochenmarkts. Diese Fragen bringen dich weiter:
+
+- **„Was ist gerade besonders gut?“** Niemand kennt die Ware so gut wie die Menschen, die sie anbauen oder täglich einkaufen.
+- **„Welche Sorte ist das?“** Gerade bei Äpfeln, Kartoffeln und Tomaten entscheidet die Sorte über die Verwendung.
+- **„Wie lange hält sich das?“** So erfährst du, ob etwas heute gegessen werden sollte oder bis zum Wochenende wartet.
+- **„Haben Sie zweite Wahl?“** Für Kompott, Suppe und Marmelade ist sie ideal und günstiger.
+- **„Kann ich für nächste Woche vorbestellen?“** Für größere Mengen zum Einkochen oder für Feste lohnt sich das.
+
+## Ein Beispielkorb für eine Oktoberwoche
+
+So kann ein Einkauf für zwei Personen aussehen, der ohne Reste durch die Woche reicht:
+
+| Einkauf | Daraus wird |
+|---|---|
+| ein kleiner Hokkaidokürbis, Zwiebeln, Ingwer | Kürbissuppe am Samstag, der Rest geröstet zum Salat |
+| 1 kg vorwiegend festkochende Kartoffeln | Pellkartoffeln am Sonntag, Bratkartoffeln am Montag |
+| ein Kopf Rotkohl, säuerliche Äpfel | Apfelrotkohl für zwei Tage |
+| Feldsalat, Walnüsse | Salat am Sonntag, solange er frisch ist |
+| Pilze vom Pilzstand | Pilzpfanne mit Semmelknödeln am Dienstag |
+| Möhren, Lauch, Sellerie | Gemüseeintopf zur Wochenmitte, Abschnitte für die Brühe |
+
+Die empfindlichen Zutaten wie Feldsalat und Pilze kommen zuerst auf den Tisch, Kürbis, Kohl, Wurzeln und Äpfel warten geduldig. Wie die Kürbissuppe gelingt, steht im Beitrag über [Kürbissuppe und Kürbissorten](/kueche/kuerbissuppe-und-kuerbissorten/).
+
+## Mit Kindern auf den Markt
+
+Für Kinder ist der Wochenmarkt ein lebendiges Klassenzimmer. Lass sie ein Gemüse aussuchen, das sie noch nicht kennen, und bereite es gemeinsam zu. Gib ihnen einen kleinen Betrag, mit dem sie selbst bezahlen dürfen, und frage, warum es im Winter keine Erdbeeren vom Hof gibt. So lernen sie fast nebenbei, woher Lebensmittel kommen, was eine Jahreszeit bedeutet und dass eine krumme Möhre genauso gut schmeckt wie eine gerade.
 
 ## Die richtige Ausrüstung
 
