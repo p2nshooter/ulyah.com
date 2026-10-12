@@ -2,7 +2,7 @@
 title: "Einkochen für Einsteiger: Gläser, Temperaturen und sichere Regeln"
 description: Wie Einkochen funktioniert, welche Gläser du brauchst, wie lange Obst und Gemüse ins Wasserbad müssen und warum säurearmes Gemüse besondere Vorsicht verlangt.
 category: vorrat-und-konservieren
-date: 2026-06-20
+date: 2026-10-12
 ---
 Einkochen ist eine der ältesten Methoden, die Ernte haltbar zu machen, und in vielen Familien ein fester Termin im Spätsommer. Wenn Kirschen, Zwetschgen, Birnen und Bohnen gleichzeitig reif werden, stehen auf dem Herd große Töpfe, in denen Gläser im heißen Wasser klappern, und die Küche riecht nach Zimt und Nelken. Im Winter steht dann ein Regal voller Gläser bereit, die nur geöffnet werden müssen.
 
@@ -21,6 +21,10 @@ Damit das Eingekochte nicht verdirbt, gibt es einige Regeln, die du kennen sollt
 Beim Einkochen werden Lebensmittel in Gläser gefüllt, verschlossen und anschließend im Wasserbad oder im Backofen erhitzt. Die Hitze tötet die meisten Mikroorganismen ab und deaktiviert Enzyme, die das Lebensmittel sonst verändern würden. Gleichzeitig dehnt sich die Luft im Glas aus und entweicht teilweise unter dem Deckel. Beim Abkühlen zieht sich der Inhalt zusammen, und es entsteht ein Unterdruck, der den Deckel fest auf das Glas zieht. Solange dieses Vakuum hält, können keine neuen Keime eindringen.
 
 Das unterscheidet Einkochen vom Einmachen von Marmelade. Bei Konfitüre sorgt vor allem der hohe Zuckergehalt dafür, dass sie haltbar ist, und das heiße Abfüllen reicht aus. Beim Einkochen von Obst in leichtem Sirup oder von Gemüse in Salzwasser ist die Erhitzung im verschlossenen Glas dagegen entscheidend.
+
+### Warum man auch „einwecken“ sagt
+
+Das Wort einwecken geht auf das Unternehmen Weck zurück, das um 1900 Gläser mit Glasdeckel, Gummiring und Klammer in Deutschland bekannt machte. Die Idee, Lebensmittel im verschlossenen Glas zu erhitzen und durch das entstehende Vakuum haltbar zu machen, setzte sich so schnell durch, dass der Firmenname zum Verb wurde. Heute steht einwecken ganz selbstverständlich im Wörterbuch.
 
 ## Was du brauchst
 
@@ -81,6 +85,18 @@ Für Fleisch und Fisch empfehlen wir zu Hause kein Einkochen im Wasserbad. Wirkl
 
 Für Obst und Kompott kannst du auch den Backofen nutzen. Stelle die gefüllten, verschlossenen Gläser in die Fettpfanne, gieße etwa zwei Zentimeter heißes Wasser an und schiebe sie auf die unterste Schiene. Heize den Ofen auf 175 bis 180 Grad Ober- und Unterhitze. Sobald im Inhalt der Gläser kleine Bläschen aufsteigen, schaltest du den Ofen aus und lässt die Gläser noch 30 Minuten im geschlossenen Ofen stehen. Für säurearmes Gemüse ist diese Methode nicht geeignet, weil die Temperatur im Glas nicht genau kontrollierbar ist.
 
+## Ein Einkochkalender durchs Jahr
+
+| Monat | Was sich zum Einkochen lohnt |
+|---|---|
+| Juni | Rhabarberkompott, Kirschen, Stachelbeeren |
+| Juli | Johannisbeeren, Aprikosen, Sauerkirschen |
+| August | Zwetschgen, Mirabellen, frühe Birnen, Tomaten für Soße |
+| September | Apfelmus, Birnen in Sirup, Holunderbeeren als Saft |
+| Oktober | Quitten, süßsaurer Kürbis, eingelegte Rote Bete |
+
+Plane die großen Einkochtage nach diesem Rhythmus, dann stehen nie alle Früchte gleichzeitig vor der Tür. Was gerade wächst, zeigt unser [Saisonkalender](/saisonkalender/).
+
 ## Lagern und kontrollieren
 
 Lagere eingekochte Gläser kühl, trocken und dunkel, zum Beispiel im Keller oder in der Speisekammer, ohne Klammern. Beschrifte jedes Glas mit Inhalt und Datum. Obst hält sich in der Regel ein Jahr, oft länger, verliert aber mit der Zeit Farbe und Aroma.
@@ -105,3 +121,7 @@ Beim Einkochen nicht. Das Umdrehen ist eine Methode für heiß abgefüllte Konfi
 ### Darf ich alte Twist-off-Gläser von gekauften Produkten verwenden?
 
 Ja, wenn Glas und Deckel unbeschädigt sind und der Deckel noch einwandfrei schließt. Viele Deckel haben eine Dichtungsmasse, die nach mehreren Durchgängen nachlässt. Für Einkochgut mit langer Lagerzeit lohnen sich neue Deckel.
+
+### Kann ich Obst ohne Zucker einkochen?
+
+Ja. Beim Einkochen sorgen die Erhitzung im verschlossenen Glas und die natürliche Säure des Obstes für die Haltbarkeit, nicht der Zucker. Der Sirup hilft vor allem dabei, Farbe, Aroma und Biss zu erhalten. Du kannst Obst deshalb auch in Wasser oder ungesüßtem Saft einkochen. Es schmeckt dann frischer, wird aber manchmal etwas weicher und blasser.
