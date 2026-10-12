@@ -2,7 +2,7 @@
 title: Fútbol 7 y fútbol sala: diferencias, reglas clave y cómo adaptarse a cada uno
 description: Las diferencias entre el fútbol 7 y el fútbol sala en campo, balón, número de jugadores, reglas y exigencias físicas, con consejos para jugadores que pasan de uno a otro.
 category: futbol
-date: 2026-10-04
+date: 2026-10-12
 ---
 Para la mayoría de los aficionados adultos, jugar un partido de fútbol once completo es complicado: hace falta reunir a veintidós personas, encontrar un campo grande y disponer de noventa minutos. Por eso, en España, el fútbol que realmente se juega entre amigos, compañeros de trabajo y ligas aficionadas es el **fútbol 7** y el **fútbol sala**. Ambos se practican en miles de instalaciones municipales y privadas, y ambos tienen ligas organizadas para todos los niveles.
 
@@ -106,6 +106,24 @@ En fútbol 7, son frecuentes sistemas como el **2-3-1** o el **3-2-1**, con una 
 ## Lesiones frecuentes y prevención
 
 En ambas modalidades, las lesiones más comunes son los esguinces de tobillo, las roturas fibrilares de isquiotibiales y gemelos, las sobrecargas de aductores y, con menos frecuencia pero más gravedad, las lesiones de rodilla. Un calentamiento completo antes del partido, el trabajo de fuerza durante la semana y un calzado adecuado a la superficie reducen el riesgo. Si juegas solo una vez por semana, ten especial cuidado: los partidos semanales sin entrenamiento son una de las situaciones de mayor riesgo para el futbolista aficionado.
+
+## Organizar un partido o apuntarse a una liga
+
+Para un partido entre amigos, lo más práctico es reservar la pista o el campo con antelación en la instalación municipal o privada, confirmar la asistencia con un par de días de margen y llevar dos juegos de petos de colores distintos y un balón adecuado a la modalidad. Repartir el coste del alquiler entre todos los jugadores es lo habitual. Si queréis competir, las ligas aficionadas organizan el calendario, los árbitros y las instalaciones a cambio de una inscripción por equipo. Pregunta siempre por el seguro: en las competiciones federadas, la licencia incluye un seguro deportivo obligatorio; en las ligas privadas, conviene confirmar qué cobertura ofrecen ante una lesión.
+
+## Preguntas frecuentes
+
+### ¿Cuál de las dos modalidades es mejor para volver a jugar de adulto?
+
+Depende de lo que busques. El fútbol sala exige menos resistencia de carrera continua, pero más agilidad y cambios de ritmo; el fútbol 7 se parece más al fútbol once y requiere más fondo. En ambos casos, conviene empezar con partidos amistosos y entrenar algo de fuerza y carrera durante la semana.
+
+### ¿Puedo jugar al fútbol sala con zapatillas de correr?
+
+No es buena idea. Las zapatillas de correr tienen la suela alta y blanda, pensada para avanzar en línea recta, y en los giros bruscos de la pista facilitan las torceduras de tobillo. Usa zapatillas de sala con suela de goma plana, que agarre y no marque el suelo.
+
+### ¿Cuántos partidos a la semana es razonable jugar?
+
+Para la mayoría de los aficionados, uno o dos, con al menos un día de descanso entre ellos. Si quieres jugar más, aumenta poco a poco y complementa con trabajo de fuerza para que el cuerpo tolere la carga.
 
 ## En resumen
 
