@@ -136,6 +136,24 @@ No. El suministro físico lo garantiza la distribuidora, que es la misma indepen
 
 Una tarifa plana reparte el pago a lo largo del año, pero si consumes más de lo estimado habrá regularizaciones y si consumes menos puedes estar pagando de más. Lo que da es previsibilidad, no necesariamente ahorro.
 
+## Cómo interpretar el resultado de la comparación
+
+Cuando ya tienes el coste anual estimado con cada opción, la decisión no siempre es evidente:
+
+- **Si la diferencia es pequeña,** elige según tu preferencia: estabilidad de precio con una oferta fija, o flexibilidad sin permanencia con el PVPC.
+- **Si la diferencia es grande,** comprueba que no se deba a un descuento temporal de bienvenida que desaparecerá en la renovación.
+- **Piensa en el riesgo:** durante la crisis energética de 2021 y 2022, el PVPC se disparó y los contratos de precio fijo protegieron a muchos hogares; en periodos de precios bajos, ocurre lo contrario. Nadie puede prever con seguridad cómo evolucionará el mercado.
+- **Mira la estacionalidad:** una oferta puede ganar en verano y perder en invierno, según tus consumos.
+- **Repite la comparación cada año,** idealmente un mes antes de la renovación de tu contrato, y apúntalo en el calendario.
+
+## Errores frecuentes
+
+- **Comparar precios sin impuestos** ni potencia.
+- **Elegir por un descuento de bienvenida** que solo dura unos meses.
+- **Olvidar la renovación automática** y pasar a un precio más alto sin darse cuenta.
+- **No revisar el precio de la potencia,** que en algunas ofertas es superior al regulado.
+- **Aceptar servicios añadidos** que encarecen cada factura.
+
 ## Preguntas frecuentes
 
 ### ¿Puedo volver al PVPC si me paso al mercado libre?

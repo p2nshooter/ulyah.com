@@ -114,6 +114,23 @@ Con una batería, parte de los excedentes del día se almacena para la noche. Es
 - Mide la superficie útil del tejado y las posibles sombras en invierno.
 - Decide si quieres dejar el inversor preparado para baterías.
 
+## Cómo leer los presupuestos que recibas
+
+Con tus datos en la mano, pide al menos tres presupuestos y compáralos punto por punto, no solo por el precio final:
+
+| Apartado | Qué debe figurar |
+|---|---|
+| Potencia pico | los kWp totales, el número de paneles y su marca y modelo |
+| Inversor | marca, modelo y potencia, y si está preparado para baterías |
+| Estructura | tipo de fijación al tejado y cómo se garantiza la estanqueidad |
+| Protecciones y cableado | protecciones de corriente continua y alterna incluidas |
+| Producción estimada | kWh al año y porcentaje de autoconsumo previsto, con la herramienta usada para calcularlo |
+| Trámites | si incluye permiso municipal, certificado, registro y comunicación a la distribuidora |
+| Garantías | de paneles, inversor e instalación, por escrito |
+| Plazos y pagos | fecha de instalación y calendario de pagos |
+
+Desconfía de los presupuestos que no detallan la producción estimada, de los que prometen ahorros sin explicar con qué precio de la electricidad los calculan y de las ofertas que presionan para firmar en el mismo día. Si un instalador propone una potencia muy distinta a la que te sale con tus datos, pídele que lo justifique con números.
+
 ## Cuándo una instalación algo mayor sí tiene sentido
 
 Aunque la regla general es no sobredimensionar, hay situaciones en las que conviene una instalación algo mayor que el consumo actual:

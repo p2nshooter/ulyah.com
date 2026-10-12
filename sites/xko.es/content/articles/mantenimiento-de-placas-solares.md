@@ -133,6 +133,22 @@ La revisión técnica encontró un conector de corriente continua mal crimpado e
 - Observa si han aparecido sombras nuevas.
 - Tras calimas o largas sequías, valora la limpieza.
 
+## Palomas, nidos y vegetación
+
+Uno de los problemas más frecuentes en los tejados con placas no es técnico, sino animal. El hueco entre los paneles y el tejado ofrece a las palomas y otras aves un refugio protegido para anidar. Las consecuencias pueden ser serias: excrementos que ensucian los paneles, ramas y restos que obstruyen canalones, cables mordisqueados o dañados y ruido. Las manchas concentradas de excrementos son además peores que el polvo repartido, porque pueden provocar calentamientos localizados en las células.
+
+- **Mallas perimetrales:** cierran el hueco bajo los paneles sin dañarlos y son la solución más habitual. Conviene que las instale un profesional, con fijaciones que no perforen ni rayen los módulos.
+- **Limpieza de nidos:** si ya hay nidos, retíralos fuera de la época de cría o recurre a empresas especializadas, que conocen las normas aplicables a la fauna.
+- **Vegetación:** los árboles crecen, y una rama que no daba sombra el primer año puede darla al tercero. Revisa la sombra en invierno, cuando el sol está más bajo, y poda si es posible.
+
+## Errores frecuentes
+
+- **No mirar la monitorización** durante meses y no detectar averías.
+- **Limpiar con agua a presión,** productos agresivos o cepillos duros.
+- **Subir al tejado sin protección** contra caídas.
+- **Manipular la parte de corriente continua** sin ser profesional.
+- **No registrar los equipos** para activar sus garantías.
+
 ## Preguntas frecuentes
 
 ### ¿El granizo puede romper los paneles?

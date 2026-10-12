@@ -94,6 +94,18 @@ El ahorro depende del precio del kW en tu tarifa. Como orden de magnitud, cada k
 
 No es una cifra espectacular por sí sola, pero se repite cada año sin cambiar ningún hábito y se suma a otras medidas. Para ver cómo cambiarla, consulta [cambiar la potencia contratada](/guias/cambiar-la-potencia-contratada/).
 
+## Vivir con menos potencia: gestores de carga y hábitos
+
+Antes de subir la potencia porque salta el contador, merece la pena probar soluciones que permiten seguir con la misma o incluso bajar un escalón:
+
+- **Gestor o limitador de cargas:** un pequeño dispositivo instalado en el cuadro eléctrico vigila la potencia total y, si se acerca al límite, desconecta durante unos minutos un circuito no prioritario, como el termo o la recarga del coche, y lo vuelve a conectar después. Debe instalarlo un electricista autorizado.
+- **Cargadores de coche con gestión dinámica:** ajustan la potencia de carga a lo que queda libre en cada momento.
+- **Inicio diferido en los electrodomésticos:** lavadora, lavavajillas y secadora funcionan por turnos, no a la vez.
+- **Termo programado:** que caliente de madrugada, cuando nadie cocina ni usa el horno.
+- **Límite en la placa de inducción,** como se explica más arriba.
+
+Si el contador corta el suministro, desconecta primero algún aparato de mucha potencia y rearma después siguiendo las indicaciones de tu distribuidora; en los contadores inteligentes, el rearme suele ser automático o muy sencillo. Si los cortes se repiten aunque organices los consumos, entonces sí toca revisar la potencia, como explicamos en [cómo cambiar la potencia contratada](/guias/cambiar-la-potencia-contratada/).
+
 ## Errores frecuentes
 
 - **Subir la potencia tras un solo corte.** A veces basta con no poner dos aparatos de mucha potencia a la vez o con programar la lavadora.
