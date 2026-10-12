@@ -2,7 +2,7 @@
 title: "Eine Fünf in Mathe"
 description: Tim hat eine Fünf in Mathe und versteckt sie eine Woche lang im Rucksack, bis eine E-Mail alles auffliegen lässt. Über schlechte Noten, Angst vor den Eltern und die Schulzeit des Vaters.
 category: schule-und-kita
-date: 2026-08-03
+date: 2026-10-12
 ---
 Die Klassenarbeit lag gefaltet in der Seitentasche von Tims Rucksack, zwischen einer zerdrückten Brotdose und einem Tennisball. Auf der ersten Seite stand, mit rotem Kugelschreiber und eingekreist: „5“. Darunter: „Bitte von den Eltern unterschreiben lassen. B. Krämer.“
 
@@ -83,6 +83,10 @@ Schlechte Noten gehören zur Schulzeit dazu. Für viele Kinder ist aber die Angs
 - **Mit der Lehrkraft zusammenarbeiten.** Förderstunden, gezielte Übungsaufgaben und ein gemeinsamer Blick auf die Lücken helfen oft mehr als teure Nachhilfe.
 - **Hilfe nicht immer selbst geben.** Manchmal erklären Geschwister, Mitschüler oder andere Erwachsene etwas besser, weil die Beziehung weniger belastet ist.
 - **Fortschritte würdigen.** Eine Verbesserung von einer Fünf auf eine Drei ist ein großer Erfolg, auch wenn es keine Eins ist.
+
+### Wenn die Angst vor Arbeiten wächst
+
+Manche Kinder können den Stoff zu Hause, aber in der Klassenarbeit ist plötzlich alles weg. Wenn Blackouts, Bauchweh oder schlaflose Nächte vor Arbeiten häufiger werden, kann Prüfungsangst dahinterstecken. Hilfreich ist, Arbeiten zu Hause unter echten Bedingungen zu üben, mit Zeitlimit und ohne Hilfen, damit die Situation vertrauter wird. Einfache Atemübungen vor Beginn der Arbeit beruhigen viele Kinder. Wird die Angst trotzdem größer, bieten Beratungslehrkräfte und schulpsychologische Dienste Unterstützung an.
 
 ### Zum Gespräch mit euren Kindern
 
