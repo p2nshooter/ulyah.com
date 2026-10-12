@@ -2,7 +2,7 @@
 title: "Sommerferien ohne Programm"
 description: Alle verreisen, nur Elif und Can bleiben diesen Sommer in Nürnberg, weil das Geld knapp ist. Eine Geschichte über Enttäuschung, Ferien zu Hause und die Freiheit eines Sommers ohne Plan.
 category: feste-und-jahreszeiten
-date: 2026-08-13
+date: 2026-10-12
 ---
 „Lea fliegt nach Mallorca“, sagte Elif am letzten Schultag vor den Sommerferien. „Jonas fährt nach Dänemark. Und Mia geht auf einen Reiterhof in Bayern, zwei ganze Wochen.“ Sie warf ihren Ranzen in die Ecke des Flurs. „Und wir machen gar nichts.“
 
@@ -58,6 +58,10 @@ Nadine las das Heft zweimal. Beim zweiten Mal musste sie sich die Augen wischen.
 
 Am ersten Schultag erzählten die Kinder in der Klasse von ihren Ferien. Lea zeigte Fotos von Mallorca, Jonas von dänischen Dünen. Als Elif an der Reihe war, zögerte sie kurz. Dann holte sie ihr Heft aus dem Ranzen und las die Geschichte von der Nacht im Garten vor. Als sie fertig war, fragte Mia, die zwei Wochen auf dem Reiterhof gewesen war: „Wo ist der Garten? Kann man da auch mal hin?“
 
+## Im nächsten Sommer
+
+Im Jahr darauf reichte das Geld wieder für eine Woche an der Nordsee. Als die Familie die neue Ferienliste schrieb, stand ganz oben, in Elifs Handschrift: „Zeltnacht in Opas Garten. Mit Mia.“ Murat fragte, ob sie das wirklich noch wolle, wo sie doch ans Meer fahren würden. Elif sah ihn an, als hätte er etwas sehr Dummes gesagt. „Das eine ist Urlaub, Papa“, erklärte sie. „Das andere ist Tradition.“
+
 ## Für euren Alltag
 
 Nicht jede Familie kann in den Sommerferien verreisen, und nicht jede möchte es. Für Kinder kann es trotzdem schwer sein, wenn alle anderen von Flugreisen und Strandurlauben erzählen. Gleichzeitig bieten Ferien zu Hause eine besondere Chance: Zeit ohne Druck, die eigene Umgebung neu zu entdecken. Was Elifs Familie geholfen hat:
@@ -68,6 +72,14 @@ Nicht jede Familie kann in den Sommerferien verreisen, und nicht jede möchte es
 - **Städtische Angebote nutzen.** Viele Städte und Gemeinden bieten günstige Ferienprogramme, Ferienpässe oder Sommerleseclubs in Bibliotheken an.
 - **Kleine Abenteuer planen.** Eine Nacht im Zelt, eine Radtour ohne Ziel oder ein Abend unter den Sternen kosten wenig und bleiben lange in Erinnerung.
 - **Erlebnisse festhalten.** Ein Ferien-Logbuch oder ein selbstgeschriebenes Heft hilft Kindern, sich der eigenen Erlebnisse bewusst zu werden und stolz davon zu erzählen.
+
+### Unterstützung, wenn das Geld knapp ist
+
+Viele Familien wissen nicht, welche Hilfen es für Freizeit und Ferien gibt. Familien, die Bürgergeld, Kinderzuschlag, Wohngeld oder Sozialhilfe beziehen, können über das Bildungs- und Teilhabepaket unter anderem Zuschüsse für Ausflüge in Schule und Kita sowie einen monatlichen Betrag für Sportverein, Musikschule oder Freizeiten erhalten. Viele Städte geben im Sommer einen Ferienpass heraus, mit dem Schwimmbäder, Museen und Veranstaltungen günstiger oder kostenlos sind. Kirchengemeinden, Jugendverbände und Kommunen bieten zudem Ferienfreizeiten an, für die es oft Ermäßigungen gibt. Fragt im Rathaus, beim Jugendamt oder in der Schule nach, was es bei euch gibt.
+
+### Langeweile ist erlaubt
+
+Ferien zu Hause bedeuten auch Stunden, in denen nichts passiert. Kinder müssen nicht jeden Tag ein Programm haben. Gerade in langen, leeren Nachmittagen entstehen Ideen wie Elifs Buch. Eltern dürfen Langeweile aushalten, statt sie sofort mit Vorschlägen zu füllen.
 
 ### Zum Gespräch mit euren Kindern
 
