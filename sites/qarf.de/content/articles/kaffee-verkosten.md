@@ -2,7 +2,7 @@
 title: "Kaffee verkosten wie die Profis: Cupping zu Hause, Aromarad und Geschmack in Worte fassen"
 description: "Kaffee bewusst schmecken lernen: Cupping Schritt für Schritt, Duft, Säure, Süße, Körper und Abgang beurteilen, das Aromarad nutzen, Vergleichsverkostungen zu Hause und ein einfacher Notizbogen."
 category: genuss-und-wissen
-date: 2026-10-04
+date: 2026-10-12
 ---
 Wer viel Kaffee trinkt, schmeckt irgendwann nur noch „Kaffee“. Dabei steckt in jeder Tasse eine erstaunliche Vielfalt: Noten von Beeren, Zitrus, Schokolade, Nüssen, Karamell, Blüten oder Gewürzen, eine Säure, die frisch oder weich sein kann, ein Körper von teeartig bis sirupartig und ein Nachgeschmack, der kurz verschwindet oder lange bleibt. Profis bei Röstereien und Importeuren verkosten Kaffee nach einem festen Ablauf, dem **Cupping**. Du brauchst dafür keine besondere Ausbildung. Mit ein paar Tassen, einem Löffel und etwas Aufmerksamkeit lernst du, Unterschiede zu schmecken und in Worte zu fassen. Das macht nicht nur Spaß, es hilft dir auch, Kaffees zu finden, die dir wirklich schmecken.
 
@@ -91,6 +91,31 @@ Für jeden Kaffee notierst du:
 
 Nach einigen Verkostungen erkennst du, welche Profile du magst, und kannst gezielter einkaufen.
 
+## Eine Verkostung mit Freunden
+
+Zu mehreren macht Cupping am meisten Spaß, und die Eindrücke werden ehrlicher, wenn niemand weiß, welcher Kaffee in welcher Tasse ist. So gelingt eine kleine Blindverkostung:
+
+1. **Eine Person bereitet vor:** Sie markiert die Tassen nur auf der Unterseite mit Buchstaben und notiert, welcher Kaffee wohin gehört.
+2. **Drei oder vier Kaffees** reichen für einen Abend. Mehr ermüdet den Geschmackssinn.
+3. **Wasser und neutrales Brot** stehen bereit, um zwischendurch den Mund zu neutralisieren.
+4. **Erst notieren, dann reden:** Jede Person schreibt ihre Eindrücke auf, bevor sie diskutiert werden. So beeinflusst niemand die anderen.
+5. **Zum Schluss auflösen** und vergleichen, wer was wahrgenommen hat.
+
+Eine reizvolle Variante ist der **Dreieckstest**, den auch Profis zur Schulung nutzen: Von drei Tassen enthalten zwei denselben Kaffee, eine einen anderen. Die Aufgabe lautet, die abweichende Tasse zu finden. Das klingt einfach und ist bei ähnlichen Kaffees erstaunlich schwer.
+
+## Typische Fehler beim Verkosten
+
+- **Zu heiß probieren:** Sehr heißer Kaffee überdeckt viele Aromen. Die aufschlussreichsten Eindrücke entstehen, wenn er etwas abgekühlt ist.
+- **Zu viele Kaffees auf einmal:** Nach dem vierten oder fünften lassen Konzentration und Wahrnehmung deutlich nach.
+- **Ungleiche Bedingungen:** Unterschiedliche Mengen, Mahlgrade oder Wassertemperaturen verfälschen den Vergleich.
+- **Störende Gerüche:** Duftkerzen, Parfum oder Essensgerüche im Raum lenken ab.
+- **Nur den ersten Schluck bewerten:** Viele Kaffees verändern sich beim Abkühlen deutlich, oft zum Positiven.
+- **Den Löffel nicht spülen:** Reste des vorigen Kaffees verfälschen den Eindruck der nächsten Tasse. Ein Glas mit warmem Wasser neben den Tassen löst das Problem.
+
+## Vom Cupping in die eigene Tasse
+
+Hast du einen Kaffee gefunden, der dir beim Cupping gefällt, bereite ihn als Nächstes in deiner gewohnten Methode zu. Die Cupping-Tasse ähnelt am ehesten einem Kaffee aus der [French Press](/ratgeber/french-press-anleitung/): Öle und feine Partikel bleiben in der Tasse. Im Handfilter wirkt derselbe Kaffee meist klarer und leichter. Wenn das Ergebnis nicht passt, liegt es oft am Mahlgrad, wie [Mahlgrad richtig einstellen](/ratgeber/mahlgrad-richtig-einstellen/) zeigt.
+
 ## Häufige Fragen
 
 ### Muss ich wirklich schlürfen?
@@ -104,3 +129,11 @@ Ja. Teeverkoster arbeiten nach einem ähnlichen Prinzip mit festen Mengen und Zi
 ### Warum schmecke ich die Noten auf der Packung nicht?
 
 Die Angaben sind Hinweise, keine Zutaten. Kaffee schmeckt nicht nach Himbeere, weil Himbeere darin ist, sondern weil ähnliche Aromastoffe vorkommen. Es braucht Übung, sie zu erkennen, und jeder Mensch nimmt sie etwas anders wahr.
+
+### Wie oft sollte ich verkosten, um besser zu werden?
+
+Regelmäßigkeit ist wichtiger als Dauer. Eine kleine Vergleichsverkostung mit zwei Kaffees pro Woche bringt mehr als ein langer Abend im Monat. Schon nach einigen Wochen fallen dir Unterschiede auf, die du vorher nicht bemerkt hättest.
+
+## Fazit
+
+Cupping ist kein Ritual für Profis, sondern die einfachste Art, Kaffee bewusst zu erleben: gleiche Zubereitung, aufmerksames Riechen und Schlürfen, Vergleiche nebeneinander und ein paar Notizen. Wer so verkostet, entdeckt nach und nach, welche Herkünfte, Aufbereitungen und Röstungen ihm wirklich schmecken.
