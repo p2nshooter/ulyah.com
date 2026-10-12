@@ -2,7 +2,7 @@
 title: "Welcher Apfel wofür? Apfelsorten für Kuchen, Mus und Obstschale und ein gedeckter Apfelkuchen"
 description: Boskoop, Elstar, Braeburn, Topaz und Co. im Vergleich, wie du Äpfel richtig lagerst und wie ein klassischer gedeckter Apfelkuchen mit Zuckerguss gelingt.
 category: herbst
-date: 2026-07-02
+date: 2026-10-12
 ---
 Der Apfel ist das Lieblingsobst der Deutschen, und das nicht ohne Grund. Er wächst fast überall im Land, ist von August bis in den Frühling hinein aus heimischer Ernte zu haben und passt zu süßen wie herzhaften Gerichten. In alten Streuobstwiesen stehen noch Hunderte Sorten, von denen viele nur regional bekannt sind. Im Supermarkt findest du meist ein knappes Dutzend.
 
@@ -34,6 +34,10 @@ Die angegebenen Erntezeiten sind grobe Richtwerte, sie schwanken je nach Region 
 ### Äpfel für Allergiker
 
 Manche Menschen reagieren auf rohe Äpfel mit Kribbeln im Mund oder einem pelzigen Gefühl, oft im Zusammenhang mit einer Birkenpollenallergie. Einige alte Sorten und bestimmte neuere Sorten wie Santana werden von einem Teil der Betroffenen besser vertragen. Das ist aber individuell sehr verschieden. Gekochte oder gebackene Äpfel sind für viele Pollenallergiker unproblematisch, weil das auslösende Eiweiß durch Hitze verändert wird. Kläre ernstere Allergien bitte ärztlich ab, bevor du experimentierst.
+
+## Pflückreif und genussreif
+
+Bei Äpfeln unterscheidet man zwei Arten von Reife. **Pflückreif** ist ein Apfel, wenn er sich mit einer leichten Hebe- und Drehbewegung vom Zweig löst, ohne dass du ziehen musst. Schneidest du einen Probeapfel auf, sind die Kerne braun. **Genussreif** ist er, wenn er sein volles Aroma entwickelt hat. Bei Sommeräpfeln wie dem Klarapfel fallen beide Zeitpunkte fast zusammen, sie schmecken direkt vom Baum und halten sich nur kurz. Winteräpfel wie Boskoop oder Topaz werden dagegen im Herbst gepflückt und reifen im Lager nach, bis sie im Winter ihren besten Geschmack erreichen. Wer selbst erntet, pflückt deshalb nicht zu früh: Unreif gepflückte Äpfel bleiben fade und schrumpeln im Lager.
 
 ## Äpfel richtig lagern
 
@@ -90,11 +94,21 @@ Für eine Springform mit 26 cm Durchmesser:
 
 Dazu passt leicht geschlagene Sahne oder Vanillesoße. Der Kuchen hält sich abgedeckt bei Zimmertemperatur zwei bis drei Tage.
 
+## Bratäpfel für kalte Abende
+
+Für Bratäpfel nimmst du säuerliche, feste Sorten wie Boskoop, die im Ofen weich werden, ohne vollständig zu zerfallen. Für vier Äpfel stichst du das Kerngehäuse mit einem Apfelausstecher aus, ohne den Apfel ganz zu durchstoßen, oder schneidest einen Deckel ab und höhlst ihn mit einem Löffel aus. Mische 50 g gehackte Walnüsse oder Mandeln, 30 g Rosinen, einen Esslöffel Honig, eine Prise Zimt und nach Belieben 50 g Marzipan in kleinen Stücken und fülle die Äpfel damit. Setze auf jede Öffnung ein Butterflöckchen, stelle die Äpfel in eine Auflaufform mit einem Fingerbreit Apfelsaft und backe sie bei 180 Grad 25 bis 35 Minuten, bis die Schale aufplatzt und das Fruchtfleisch weich ist. Dazu passt Vanillesoße.
+
 ## Schnelles Apfelmus
 
 Für etwa ein Kilo Mus schälst du 1,2 kg säuerliche Äpfel, entfernst das Kerngehäuse und schneidest sie in Stücke. Mit 100 ml Wasser oder Apfelsaft, einem Esslöffel Zitronensaft und einer Zimtstange zugedeckt etwa 15 Minuten kochen, bis die Äpfel zerfallen. Zimtstange entfernen, die Äpfel mit dem Kartoffelstampfer zerdrücken oder pürieren und nach Geschmack mit Zucker oder Honig süßen. Wenn du die Äpfel ungeschält kochst und das Mus anschließend durch die Flotte Lotte streichst, wird es aromatischer und bekommt oft eine rosige Farbe.
 
 Abgefüllt in saubere Gläser kannst du Apfelmus bei 90 Grad 30 Minuten einkochen. Wie das geht, erklärt unser Beitrag über die [Grundlagen des Einkochens](/kueche/einkochen-grundlagen/).
+
+## Streuobstwiesen: Vielfalt, die man schmecken kann
+
+Hochstämmige Obstbäume, die verstreut auf einer Wiese stehen, prägen in vielen Regionen das Landschaftsbild. Streuobstwiesen gehören zu den artenreichsten Lebensräumen Mitteleuropas: Insekten, Vögel wie Steinkauz und Grünspecht und viele Pflanzen finden hier ein Zuhause. Gleichzeitig bewahren sie alte Apfelsorten, die im Supermarkt nicht vorkommen, etwa Kaiser Wilhelm, Goldparmäne oder Rheinischer Bohnapfel. Der Streuobstanbau steht im bundesweiten Verzeichnis des Immateriellen Kulturerbes.
+
+Wer diese Vielfalt unterstützen möchte, kauft Saft von Streuobstwiesen, besucht im Herbst Apfelmärkte und Sortenausstellungen oder übernimmt bei einem örtlichen Verein eine Baumpatenschaft. Viele Gemeinden und Initiativen bieten außerdem Flächen an, auf denen Obst gegen eine kleine Gebühr oder kostenlos geerntet werden darf. Achte dabei auf Kennzeichnungen wie ein gelbes Band am Stamm, das in manchen Regionen anzeigt, dass gepflückt werden darf.
 
 ## Häufige Fragen
 
