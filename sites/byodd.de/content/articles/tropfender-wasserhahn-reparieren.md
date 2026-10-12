@@ -171,6 +171,8 @@ Hersteller und Modell der Armatur ermitteln, Kartusche ausbauen und mitnehmen od
 
 **Kann ich die Armatur selbst wechseln?** Mit funktionierenden Eckventilen und etwas Geschick ja. Wichtig sind die richtigen Anschlussschläuche und dichte Verbindungen.
 
+**Muss ich nach der Reparatur den Perlator reinigen?** Das lohnt sich. Nach dem Absperren und Öffnen der Leitung lösen sich oft Kalk- und Schmutzteilchen, die sich im Strahlregler sammeln. Perlator abschrauben, ausspülen und wieder einsetzen. Mehr dazu in [Duschkopf und Perlator entkalken](/anleitungen/duschkopf-und-perlator-entkalken/).
+
 ## Fazit
 
 Ein tropfender Wasserhahn lässt sich meist mit wenig Aufwand reparieren: Wasser an den Eckventilen absperren, Armatur öffnen, bei Zweigriffarmaturen Dichtung oder Ventiloberteil, bei Einhebelmischern die Kartusche tauschen, O-Ringe bei undichten Ausläufen erneuern. Fotografiere jeden Schritt, nimm Originalteile zum Kauf mit und prüfe zum Schluss alle Verbindungen auf Dichtheit.

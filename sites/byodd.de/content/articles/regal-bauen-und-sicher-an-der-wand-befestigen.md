@@ -179,6 +179,8 @@ Dickere Bretter, mehr Träger, kleinere Spannweiten oder eine Stahlleiste unter 
 
 **Kann ich Regale über dem Bett montieren?** Nur leichte Gegenstände und mit besonders sicherer Befestigung. Schwere Bücher gehören nicht über das Kopfende.
 
+**Wie lang müssen die Schrauben für die Konsolen sein?** Als Faustregel gilt: Dübellänge plus Dicke der Konsole plus etwa ein Schraubendurchmesser. Nur dann reicht die Schraube bis zum Ende des Dübels und spreizt ihn vollständig. Den passenden Schraubendurchmesser nennt die Dübelpackung.
+
 ## Fazit
 
 Ein sicheres Wandregal beginnt mit der Planung: Gewicht, Wand, Brettstärke und Spannweite. Wähle Konsolen oder Schienensysteme für schwere Lasten, schwebende Halter nur mit massivem Brett und massiver Wand. Richte alles mit Wasserwaage aus, verwende passende Dübel und sichere hohe Möbel immer gegen Umkippen. Dann trägt das Regal zuverlässig, was du ihm anvertraust.

@@ -168,6 +168,8 @@ Rigid- und Klebevinyl ja, wenn sie als wasserfest ausgewiesen sind. Die Randfuge
 
 **Wie repariere ich einen Kratzer?** Kleine Kratzer mit Reparaturpaste des Herstellers. Bei Klickvinyl lassen sich beschädigte Dielen am Rand austauschen.
 
+**Brauche ich unter Klickvinyl eine Dampfbremse?** Das hängt vom Produkt ab. Auf mineralischen Untergründen wie Zementestrich schreiben viele Hersteller eine Dampfbremse vor, meist eine PE-Folie von 0,2 mm, deren Bahnen sich überlappen und an den Stößen verklebt werden. Manche Dämmunterlagen haben sie bereits integriert. Den Ausschlag gibt die Verlegeanleitung des Bodens.
+
 ## Fazit
 
 Vinylböden sind fußwarm, leise und pflegeleicht. Wähle Klebevinyl für geringe Aufbauhöhen und maximale Belastbarkeit, Rigid-Vinyl für unebenere Untergründe und Feuchträume, flexibles Klickvinyl für ebene Wohnräume und Vinyl mit HDF-Träger nur für trockene Räume. Bereite den Untergrund sorgfältig vor, beachte Dämmung, Dehnungsfuge und Herstellerangaben, und der Boden wird dir viele Jahre Freude machen.

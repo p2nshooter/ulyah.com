@@ -161,6 +161,8 @@ Herstellername und Modell stehen oft im Spülkasten oder auf der Betätigungspla
 
 **Seit einer Wasserabstellung läuft der Kasten nach.** Nach Arbeiten an der Wasserleitung gelangen oft Sand oder Rostpartikel ins Netz und setzen sich im Füllventil oder an dessen Sieb fest. Wasser absperren, Sieb und Ventil ausspülen, und das Problem ist meist behoben.
 
+**Wie finde ich heraus, wie viel Wasser verloren geht?** Am Abend den Wasserzähler ablesen, über Nacht kein Wasser entnehmen und morgens erneut ablesen. Bewegt sich der Zähler, obwohl alle Hähne zu sind, läuft irgendwo Wasser, und der Spülkasten ist der häufigste Verdächtige.
+
 ## Fazit
 
 Ein ständig nachlaufender Spülkasten hat fast immer eine von zwei Ursachen: Das Füllventil schließt nicht, und das Wasser läuft über den Überlauf, oder das Ablaufventil dichtet nicht, und das Wasser rinnt in die Schüssel. Mit dem Wasserstand und dem Lebensmittelfarbe-Test findest du die Ursache, mit Reinigen, Entkalken, Schwimmer einstellen oder Dichtungstausch behebst du sie meist selbst und sparst Wasser und Geld.
