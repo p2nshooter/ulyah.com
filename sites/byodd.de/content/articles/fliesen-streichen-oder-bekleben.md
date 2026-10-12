@@ -2,7 +2,7 @@
 title: "Alte Fliesen streichen oder bekleben: Bad und Küche ohne Stemmarbeiten auffrischen"
 description: Wann Fliesenlack, Fliesenfolie, Fliesenaufkleber oder Wandpaneele sinnvoll sind, wie du Fliesen richtig vorbereitest und streichst, was im Spritzwasserbereich gilt und was Mieter beachten müssen.
 category: bad-und-kueche
-date: 2026-09-06
+date: 2026-10-12
 ---
 Braune Blümchenfliesen aus den Siebzigern, mintgrüne Badfliesen aus den Neunzigern oder ein Küchenspiegel, der nicht mehr zum neuen Stil passt: Alte Fliesen herauszuschlagen ist laut, staubig, teuer und in Mietwohnungen meist ausgeschlossen. Zum Glück gibt es Alternativen, mit denen man Fliesen optisch erneuern kann, ohne sie zu entfernen: Fliesenlack, Fliesenfolie, Fliesenaufkleber und Wandpaneele.
 
@@ -107,6 +107,22 @@ Für Böden ist Vinyl auf Fliesen eine beliebte Alternative. Siehe [Vinylboden: 
 | Folie hinter dem Herd | Verformung, Brandgefahr |
 | Ohne Zustimmung des Vermieters gestrichen | Streit beim Auszug |
 
+## Erst klopfen, dann gestalten
+
+Bevor du Fliesen streichst, beklebst oder überplankst, prüfe, ob sie fest sitzen. Klopfe die Fläche mit dem Griff eines Schraubendrehers ab: Ein heller, harter Ton bedeutet festen Halt, ein dumpfer, hohler Klang zeigt, dass die Fliese sich vom Untergrund gelöst hat. Hohl liegende oder gesprungene Fliesen müssen erst befestigt oder ersetzt werden, sonst reißt die neue Oberfläche genau dort. Lose Fliesen lassen sich herausnehmen, mit frischem Fliesenkleber wieder ansetzen und neu verfugen.
+
+## Schutz beim Arbeiten mit 2K-Lack
+
+Zweikomponentenlacke sind robust, weil sie chemisch aushärten. Genau deshalb verdienen sie Respekt: Viele enthalten Epoxid- oder Polyurethanbestandteile, die bei Hautkontakt reizen oder Allergien auslösen können, und Lösemitteldämpfe. Trage Nitrilhandschuhe und eine Schutzbrille, lüfte kräftig während und nach dem Streichen und halte Kinder und Haustiere aus dem Raum fern. Bei lösemittelhaltigen Produkten empfiehlt sich eine Atemschutzmaske mit passendem Gasfilter. Lies vorher das technische Merkblatt und die Sicherheitshinweise auf dem Gebinde, und rühre nur so viel an, wie du in der angegebenen Topfzeit verarbeiten kannst.
+
+## Farbe und Glanzgrad wählen
+
+Helle Töne lassen kleine Bäder größer wirken; ein warmes Weiß oder ein sanftes Grau wirkt freundlicher als reines Kaltweiß. Kräftige Farben setzen Akzente, etwa auf einer einzelnen Wand oder in Kombination mit einem Fliesenspiegel. Beim Glanzgrad gilt: Glänzende Oberflächen lassen sich leichter abwischen, zeigen aber jede Unebenheit und jeden Rollerstreifen. Seidenmatte Lacke verzeihen mehr. Streiche vor der großen Fläche eine einzelne Fliese als Probe und sieh sie dir bei Tages- und Kunstlicht an.
+
+## Fliese auf Fliese
+
+Wer sich echte neue Fliesen wünscht, kann sie oft direkt auf die alten setzen, wenn diese fest und eben sind. Dafür wird der alte Belag gereinigt, mit einem Haftgrund vorbehandelt und mit flexiblem Fliesenkleber neu belegt. Bedenke, dass die Wand dadurch um etwa einen Zentimeter dicker wird: Armaturenrosetten, Steckdosen, Türzargen und Spiegelschränke müssen dazu passen. Für die meisten ist das eine Arbeit für den Fliesenleger, aber sie spart das Abschlagen und viel Schmutz.
+
 ## Praxisbeispiel: Gästebad in zwei Tagen
 
 Ein kleines Gästebad mit Waschbecken und WC hat dunkelbraune Wandfliesen bis 1,50 m Höhe. Die Eigentümer wollen es hell und modern, ohne die Fliesen abzuschlagen. Eine Dusche gibt es nicht.
@@ -156,6 +172,8 @@ Meist ja, mit etwas Wärme vom Föhn. Bei alten oder porösen Fugen können Rest
 **Wie reinige ich gestrichene Fliesen?** Mit mildem Reiniger und weichem Tuch, ohne Scheuermittel. Kalkreiniger nur verdünnt und nach Herstellerangabe.
 
 **Was tun, wenn Lack abplatzt?** Die Stelle anschleifen, entfetten und ausbessern. Platzt Lack großflächig ab, war meist die Vorbereitung unzureichend; dann hilft nur Entfernen und Neuaufbau.
+
+**Kann ich gestrichene Fliesen später wieder in der Originalfarbe haben?** Kaum. Fliesenlack lässt sich nur mit großem Aufwand wieder entfernen, etwa mit Abbeizmitteln oder durch Abschleifen, und dabei leidet oft die Glasur. Wer unsicher ist, beginnt deshalb mit Folie oder Aufklebern.
 
 ## Fazit
 
