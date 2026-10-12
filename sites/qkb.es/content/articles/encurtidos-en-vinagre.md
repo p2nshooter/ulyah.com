@@ -2,7 +2,7 @@
 title: Encurtidos caseros en vinagre: pepinillos, cebolletas y guindillas con la acidez correcta
 description: Encurtidos en vinagre en casa: vinagre al 5 %, proporciones que no se reducen, encurtidos rápidos de nevera, conservas al baño maría y recetas españolas.
 category: conservas
-date: 2026-09-09
+date: 2026-10-12
 ---
 Los encurtidos son verduras conservadas en un medio ácido, normalmente vinagre. En España tienen una larga tradición: las banderillas y gildas de los bares, las aceitunas con pepinillos y cebolletas, las guindillas de Ibarra, los ajos encurtidos o las berenjenas de Almagro. Hechos en casa, permiten controlar la sal, el azúcar y los aromas, y aprovechar las verduras de temporada.
 
@@ -105,6 +105,24 @@ La tradición española de encurtidos es rica y muy regional. Algunos de los má
 - **Alcaparras y alcaparrones:** los botones florales y los frutos de la alcaparra, muy apreciados en Baleares y Andalucía, se conservan en vinagre o en sal.
 - **Ajos encurtidos:** dientes de ajo pelados en vinagre, a veces con un toque de guindilla.
 - **Banderillas:** pinchos que combinan cebolletas, pepinillos, guindillas, zanahoria y aceitunas encurtidas, presentes en casi cualquier bar de tapas.
+
+## La gilda: el pincho que nació de un encurtido
+
+La gilda es probablemente el pincho más famoso de los encurtidos españoles. Nació en San Sebastián en los años cuarenta del siglo pasado, y su nombre se atribuye a la película *Gilda*, protagonizada por Rita Hayworth: como la protagonista, el pincho era «verde, salado y un poco picante». Para montarla en casa solo necesitas tres ingredientes de calidad:
+
+1. Una aceituna verde, tradicionalmente manzanilla, sin hueso.
+2. Un filete de anchoa en aceite, de buena calidad.
+3. Dos o tres guindillas encurtidas, mejor de tus propios tarros.
+
+Pincha en un palillo la aceituna, dobla la anchoa en zigzag y ensártala, añade las guindillas y termina con otra aceituna si lo deseas. Riega con un hilo de aceite de oliva virgen extra justo antes de servir.
+
+## Más formas de usar los encurtidos
+
+- **En ensaladilla rusa:** unos pepinillos picados le dan frescura y contraste.
+- **En salsas:** pepinillos y alcaparras picados con mayonesa forman la base de una salsa tártara casera.
+- **Con legumbres:** unas guindillas encurtidas acompañan de maravilla un plato de alubias o un cocido.
+- **En bocadillos y hamburguesas:** la cebolla roja encurtida aporta color y acidez.
+- **En aliños:** una cucharada del líquido de los encurtidos de nevera anima una vinagreta.
 
 ## Cómo mantener los encurtidos crujientes
 
