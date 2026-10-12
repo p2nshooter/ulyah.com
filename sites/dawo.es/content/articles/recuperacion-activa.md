@@ -2,7 +2,7 @@
 title: Recuperación activa: qué hacer el día después de un esfuerzo intenso
 description: Qué es la recuperación activa, por qué moverse suave ayuda más que el reposo total tras un partido o una carrera, qué actividades elegir y cómo combinarla con sueño, comida e hidratación.
 category: descanso-y-nutricion
-date: 2026-10-04
+date: 2026-10-12
 ---
 El día después de una tirada larga, un partido de fútbol intenso o una sesión dura de gimnasio, el cuerpo suele pedir sofá. Las piernas pesan, aparecen las agujetas y la idea de moverse parece absurda. Sin embargo, muchas personas descubren que, después de un paseo suave o un rato en bicicleta tranquila, se sienten mejor que si hubieran pasado el día sin moverse.
 
@@ -74,7 +74,7 @@ Una referencia sencilla: deberías poder **mantener una conversación fluida** d
 
 ### El sueño
 
-Es la herramienta de recuperación más potente. Ninguna técnica compensa una noche corta. Puedes leer más en nuestro artículo sobre el sueño y el rendimiento.
+Es la herramienta de recuperación más potente. Ninguna técnica compensa una noche corta. Puedes leer más en nuestro artículo sobre [el sueño y el rendimiento](/articulos/el-sueno-y-el-rendimiento/).
 
 ### La alimentación y la hidratación
 
@@ -123,6 +123,21 @@ En torneos de pádel, fútbol 7 o tenis con varios partidos en un mismo día o f
 5. **Reactivarse antes del siguiente partido** con unos minutos de movilidad, desplazamientos y golpes progresivos.
 
 Al terminar la jornada, cena completa, hidratación y una buena noche de sueño. Al día siguiente, paseo suave y movilidad.
+
+## Cómo saber si te estás recuperando
+
+No hacen falta aparatos caros para valorar la recuperación. Basta con prestar atención cada mañana a unas pocas señales y puntuarlas mentalmente del 1 al 5:
+
+- **Calidad del sueño:** si has dormido de un tirón y te levantas descansado.
+- **Piernas:** si notan pesadez o agujetas que no ceden al moverte un poco.
+- **Ánimo y ganas de entrenar.**
+- **Pulso en reposo:** si usas un reloj o te lo tomas al despertar, un pulso varios latidos por encima de lo habitual durante varios días seguidos sugiere fatiga acumulada.
+
+Un día malo aislado no significa nada. Pero si varias señales empeoran a la vez y durante más de una semana, conviene aligerar la carga. Lo explicamos con más detalle en el artículo sobre las [señales del sobreentrenamiento](/articulos/sobreentrenamiento-senales/).
+
+## Si tienes más de cuarenta años o estás empezando
+
+Con la edad, y también cuando el cuerpo todavía no está acostumbrado al ejercicio, la recuperación tarda más. Es habitual necesitar dos días suaves después de un esfuerzo que antes se asimilaba en uno. No es una señal de debilidad, sino de sentido común: respetar esos días permite seguir entrenando de forma constante, que es lo que de verdad produce mejoras, en lugar de encadenar semanas buenas con parones por molestias.
 
 ## Errores frecuentes
 
