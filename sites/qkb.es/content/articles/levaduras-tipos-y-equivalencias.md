@@ -2,7 +2,7 @@
 title: Levaduras: fresca, seca, química y masa madre, diferencias, equivalencias y cuándo usar cada una
 description: Levadura fresca, seca, química, bicarbonato y masa madre: en qué se diferencian, tabla de equivalencias, temperaturas y qué usar en cada receta.
 category: tecnica
-date: 2026-09-06
+date: 2026-10-12
 ---
 En España, la palabra "levadura" se usa para cosas muy distintas, y esa confusión es responsable de muchos fracasos en la cocina. Quien pone levadura química en un pan obtiene una torta densa; quien pone levadura de panadería en un bizcocho, un bizcocho con sabor a pan que no sube como debería. Esta guía aclara las diferencias, explica cómo funciona cada tipo y ofrece equivalencias para que puedas adaptar cualquier receta.
 
@@ -76,6 +76,22 @@ La levadura es un ser vivo y es muy sensible a la temperatura:
 | Unos 55 a 60 °C | Muere |
 
 Por eso el agua o la leche para disolver la levadura deben estar **templadas, nunca calientes**. Si al meter el dedo notas que el líquido está caliente, espera.
+
+## ¿Sigue viva mi levadura de panadería?
+
+Si tienes dudas sobre un paquete abierto hace tiempo, haz una prueba antes de arriesgar una masa entera. Disuelve una cucharadita de azúcar en 100 ml de agua a unos 35 °C, añade la levadura que vas a usar, o una parte, y espera diez minutos. Si se forma una espuma clara en la superficie y huele a fermento, está activa. Si el vaso sigue igual, la levadura ha perdido fuerza y es mejor comprar otra.
+
+## Ajustar la levadura a tu horario
+
+La cantidad de levadura es una herramienta para organizar el día. Como orientación, para 500 g de harina en una masa de pan a unos 24 °C:
+
+| Levadura fresca | Tiempo aproximado hasta doblar el volumen |
+|---|---|
+| 10 g | unas 2 horas |
+| 4 g | unas 4 horas |
+| 1 a 2 g | una noche en la nevera, entre 12 y 16 horas |
+
+Si quieres hornear al volver del trabajo, reduce la levadura y deja la masa fermentando despacio; si tienes prisa, auméntala dentro de lo razonable. El pan de fermentación lenta suele ganar en sabor y conservación.
 
 ## Levadura química o polvo de hornear
 
