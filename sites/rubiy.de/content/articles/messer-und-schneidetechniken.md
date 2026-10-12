@@ -2,7 +2,7 @@
 title: "Messer und Schneidetechniken: Zwiebeln würfeln, Kräuter hacken, Klingen schärfen"
 description: Welche Küchenmesser du wirklich brauchst, wie Krallengriff und Wiegeschnitt funktionieren, wie du Zwiebeln, Möhren und Kräuter schneidest und wie du Messer schärfst und pflegst.
 category: kuechenwissen
-date: 2026-08-16
+date: 2026-10-12
 ---
 Saisonal kochen heißt vor allem: Gemüse schneiden. Ein Korb vom Wochenmarkt bedeutet Zwiebeln, Möhren, Lauch, Kohl, Kürbis und Kräuter, die geputzt, geschält und zerkleinert werden wollen. Mit einem stumpfen Messer und ungeschickter Haltung wird das zur Qual, und die Gefahr, sich zu schneiden, steigt. Mit einem scharfen Messer und ein paar sicheren Techniken geht es dagegen schnell, entspannt und fast meditativ.
 
@@ -27,6 +27,10 @@ Du brauchst keine teure Messersammlung und keine Kochschule. Zwei oder drei gute
 | Sparschäler | – | Kartoffeln, Möhren, Spargel und Kürbis |
 
 Das Kochmesser ist das wichtigste Werkzeug. Nimm es in die Hand, bevor du es kaufst: Es soll gut ausbalanciert sein und angenehm in der Hand liegen. Ein schweres Messer schneidet harte Gemüse wie Kürbis oder Steckrübe leichter, ein leichteres ist bei feinen Arbeiten wendiger.
+
+### Rostfrei, Carbon oder Damast?
+
+Die meisten Küchenmesser sind aus rostfreiem Stahl. Er ist pflegeleicht und verzeiht, wenn das Messer einmal nass liegen bleibt. Messer aus Carbonstahl lassen sich noch schärfer schleifen, rosten aber, wenn sie nicht sofort getrocknet werden, und bilden mit der Zeit eine dunkle Patina. Damastmesser bestehen aus vielen Lagen unterschiedlicher Stähle, deren Muster vor allem schön aussieht. Über die Schneide sagt das Muster wenig. Wichtiger ist die Härte, angegeben in HRC: Europäische Messer liegen meist zwischen 56 und 58, japanische oft bei 60 und darüber. Härtere Klingen bleiben länger scharf, sind aber empfindlicher gegen Stöße und Verdrehen und gehören nicht an Knochen oder gefrorene Lebensmittel.
 
 ## Das Schneidebrett
 
@@ -67,6 +71,12 @@ Schneide die geschälte Möhre in etwa fünf Zentimeter lange Stücke. Schneide 
 ### Kräuter hacken
 
 Kräuter müssen trocken sein, sonst werden sie beim Hacken matschig. Zupfe die Blätter ab, sammle sie auf einem Haufen und schneide sie zuerst grob durch. Lege dann die Finger der Führhand flach auf den Messerrücken und hacke mit einem Wiegeschnitt hin und her, bis die gewünschte Feinheit erreicht ist. Hacke nicht zu lange, sonst verlieren die Kräuter Saft und Aroma. Schnittlauch schneidest du mit einem sehr scharfen Messer in Röllchen, nicht mit der Schere, die ihn quetscht. Basilikum wird am besten in Streifen geschnitten: Blätter aufeinanderlegen, aufrollen und quer in feine Streifen schneiden.
+
+### Lauch, Paprika und Knoblauch
+
+- **Lauch:** Schneide die Wurzel und die dunkelgrünen, harten Blattenden ab. Halbiere die Stange längs, fächere die Schichten unter fließendem Wasser auf und spüle die Erde heraus, die sich gern zwischen den Blättern versteckt. Lege die Hälften dann flach hin und schneide sie in Halbringe.
+- **Paprika:** Schneide oben und unten einen Deckel ab, stelle die Schote auf und schneide die Wand an einer Seite auf. Klappe sie zu einem langen Streifen auf und löse das Kerngehäuse mit flach geführtem Messer heraus. Die Fläche lässt sich jetzt leicht in Streifen und Würfel schneiden. Die Deckel ergeben, vom Stiel befreit, ebenfalls Würfel.
+- **Knoblauch:** Lege die Zehe auf das Brett und drücke sie mit der flachen Klinge kurz an, dann löst sich die Schale. Schneide sie in feine Scheiben und hacke sie. Für eine Paste streust du eine Prise grobes Salz darüber und zerreibst den gehackten Knoblauch mit der flachen Klinge auf dem Brett.
 
 ### Runde und harte Gemüse
 
