@@ -2,7 +2,7 @@
 title: Cómo hacer queso fresco casero con cuajo, paso a paso
 description: La receta completa del queso fresco casero tipo Burgos con leche pasteurizada y cuajo: ingredientes, temperaturas, corte de la cuajada, moldeado, salado, conservación y solución de problemas.
 category: quesos-caseros
-date: 2026-10-04
+date: 2026-10-12
 ---
 El queso fresco es la mejor puerta de entrada al mundo de la quesería casera. No necesita cueva de maduración ni meses de espera: en una tarde se transforma un litro de leche en un queso tierno, blanco y suave, parecido al queso de Burgos que se encuentra en cualquier mercado español. Solo hacen falta leche, cuajo, un poco de sal, un termómetro y algo de paciencia.
 
@@ -91,6 +91,14 @@ También puedes añadir la sal directamente a la cuajada antes de moldearla, mez
 ## Paso 9: refrigerar
 
 Guarda el queso en la nevera, dentro del molde y sobre una rejilla para que siga escurriendo, durante unas horas. Después, pásalo a un recipiente cerrado. Consúmelo en **tres o cuatro días**.
+
+## Moldes caseros
+
+No hace falta comprar moldes de quesería para empezar. Un recipiente de plástico alimentario, limpio y sin rayaduras, con varios agujeros pequeños en la base y en los laterales, cumple la misma función; también sirve un colador pequeño forrado con una tela fina. Elige un recipiente de un tamaño que la cuajada llene casi hasta el borde: en un molde demasiado ancho, el queso queda bajo y se seca antes. Lava los moldes con agua caliente y jabón y escáldalos antes de cada uso.
+
+## Un queso oreado para el fin de semana
+
+Si prefieres una textura algo más firme, deja el queso ya salado unos días en la nevera, sin tapar, sobre una rejilla y dentro de un recipiente amplio, dándole la vuelta cada día y secando el agua que suelte. Al cabo de dos o tres días se forma una piel fina y la pasta gana cuerpo y sabor. Sigue siendo un queso fresco: consúmelo en el plazo de una semana desde su elaboración y desecha cualquier pieza con moho o mal olor.
 
 ## Por qué funciona: la ciencia en dos minutos
 
