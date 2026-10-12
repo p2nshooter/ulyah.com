@@ -2,7 +2,7 @@
 title: "Rote Bete zubereiten: kochen, im Ofen garen, roh essen und einlegen"
 description: Wie du Rote Bete kochst, im Ofen garst und roh verwendest, Flecken vermeidest und einen klassischen Rote-Bete-Salat mit Apfel und Meerrettich zubereitest.
 category: winter
-date: 2026-07-05
+date: 2026-10-12
 ---
 Rote Bete hat lange unter einem verstaubten Ruf gelitten. Viele kennen sie nur aus dem Glas, süßsauer eingelegt, als Beilage zu Labskaus oder Hering. Dabei ist die Knolle eines der vielseitigsten Wintergemüse überhaupt. Sie schmeckt erdig und süß, ihre Farbe ist spektakulär, und sie lässt sich kochen, rösten, roh raspeln, einlegen und sogar zu Kuchen verbacken.
 
@@ -85,6 +85,14 @@ Im Kühlschrank hält sich der Salat in einem verschlossenen Gefäß drei bis vi
 ## Süßsauer eingelegte Rote Bete
 
 Für etwa vier Gläser zu je 400 Millilitern brauchst du 1,5 kg gekochte, geschälte Rote Bete in Scheiben, 500 ml Wasser, 300 ml Weißwein- oder Branntweinessig (5 %), 150 g Zucker, 1 TL Salz, 1 Zwiebel in Ringen, 2 Lorbeerblätter, 6 Nelken und 1 TL Senfkörner. Koche den Sud mit allen Gewürzen fünf Minuten, schichte Rote Bete und Zwiebelringe in saubere Gläser, gieße den kochenden Sud darüber, sodass alles bedeckt ist, und verschließe die Gläser. Bei 90 Grad 30 Minuten eingekocht, halten sie dunkel und kühl gelagert etwa ein Jahr. Ohne Einkochen lagerst du die Gläser im Kühlschrank und isst sie innerhalb von drei bis vier Wochen.
+
+## Borschtsch: die berühmteste Rote-Bete-Suppe
+
+In Osteuropa ist Rote Bete die Grundlage eines ganzen Kapitels der Küche. Am bekanntesten ist der Borschtsch, dessen ukrainische Kochkultur die UNESCO als immaterielles Kulturerbe anerkannt hat. Für eine einfache Variante für vier Personen dünstest du eine Zwiebel, eine Möhre und ein Stück Sellerie in Streifen in etwas Öl an. Gib 400 g rohe Rote Bete in feinen Streifen und einen Esslöffel Tomatenmark dazu, lösche mit einem Schuss Essig ab und gieße 1,2 Liter Brühe an. Nach 15 Minuten kommen zwei gewürfelte Kartoffeln und 200 g fein geschnittener Weißkohl dazu. Lass alles weitere 20 Minuten köcheln, bis das Gemüse weich ist, und schmecke mit Salz, Pfeffer, einer Prise Zucker und einer zerdrückten Knoblauchzehe ab. Serviert wird der Borschtsch mit einem Klecks Schmand und frischem Dill. Wie viele Suppen schmeckt er am nächsten Tag noch besser.
+
+## Rote Bete im Kuchen
+
+Was zunächst ungewöhnlich klingt, ist ein bewährter Trick: Fein geriebene, gekochte Rote Bete macht Schokoladenkuchen besonders saftig, ähnlich wie Möhren im Rüblikuchen. Rechne für einen Rührkuchen in der Kastenform mit etwa 250 g pürierter oder fein geriebener Knolle, die du unter den Teig hebst. Die Farbe verschwindet im Kakao, der erdige Geschmack tritt hinter die Schokolade zurück, und kaum jemand errät die Zutat.
 
 ## Flecken vermeiden und entfernen
 
