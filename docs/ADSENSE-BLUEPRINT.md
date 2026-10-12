@@ -551,6 +551,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 12 Okt | "Catat ini, turunkan R2-nya hingga di bawah 10 GB, pastikan seluruh website dan fitur berfungsi 100%, khususnya portal admin ulyah.com sebagai central, pastikan mendekati 100% approve AdSense" (tangkapan layar R2: total 121,63 GB — ulyah-media 6,19 rb objek 91,06 GB, ulyah-next-cache 510,43 rb objek 30,57 GB) | 🔄 §12 |
 | 12 Okt | "Anda sudah sy berikan akses CF, buka saja dan lihat langsung ke dalam, jgn meraba. Perbaiki logo headernya biar mewah, indah elegan, bukan tumpang tindih begitu. Yg dawa.es juga perbaiki, walaupun udah milik orang, biar g error dan biar nanti mudah d backup" | 🔄 §12.5, §10.1 |
 | 12 Okt | "Tolong jgn pernah jelasin selain make bhs Indonesia, biar sy tau sudah sampai mana progressnya" | ✅ aturan tetap: semua laporan progres ke pemilik dalam bahasa Indonesia |
+| 12 Okt | "Adslot manual jika itu milik adsense biarkan, dan biarkan otomatis, yg penting pastikan tidak melanggar adsense secara keseluruhan" (jawaban atas pertanyaan rebuild dawa.es) | 🔄 §10.1: slot manual AdSense dawa.es (akun 6371…) dipertahankan + Auto ads; audit kepatuhan AdSense seluruh ekosistem |
 
 ---
 
@@ -636,6 +637,13 @@ slot iklan manual build lama tidak ada di kode sekarang (dihapus di semua situs
 sejak 4 Okt, aturan 3); iklan di dawa.es lalu bergantung pada Auto ads akun
 6371…. Karena 4 Okt pemilik meminta slot dawa.es dikecualikan, rebuild ini
 menunggu kata "rebuild dawa" dari pemilik.
+
+**Keputusan pemilik (12 Okt):** "Adslot manual jika itu milik adsense biarkan,
+dan biarkan otomatis, yg penting pastikan tidak melanggar adsense secara
+keseluruhan." Jadi rebuild dawa.es WAJIB membawa slot manual AdSense-nya (unit
+banner 4702981509 dan flex 1209764526, akun 6371…) persis seperti build live,
+Auto ads tetap menyala, dan tidak ada slot manual di situs lain. Rebuild belum
+dijalankan sebelum itu terpenuhi.
 
 ---
 
