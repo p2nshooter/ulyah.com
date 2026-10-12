@@ -15,14 +15,18 @@
  * none, so a reciter is never silent because an API was slow.
  *
  * The source CDNs:
- *   - "aqc"   api.alquran.cloud — JSON audio URL per ayah, forced to the
- *             128 kbps islamic.network path (low bitrates sound muffled).
+ *   - "aqc"   api.alquran.cloud — JSON audio URL per ayah, moved onto the
+ *             best encode islamic.network publishes for that edition (128
+ *             where it exists — low bitrates sound muffled — else 192 or 64;
+ *             measured, see @ulyah/shared/murottal-cdn).
  *   - "ey"    everyayah.com — pure URL formula, no fetch needed.
  *   - "surah" quranicaudio.com — one file per surah (no per-ayah split),
  *             used for reciters only published that way (e.g. Indonesia's
  *             Muammar ZA). No per-ayah lookup; callers fall through to the
  *             narrated layers, same as any other "not available" case.
  */
+
+import { AQC_SURAH_KBPS, aqcBestUrl } from "@ulyah/shared/murottal-cdn";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 
@@ -171,7 +175,10 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
   // below) kept replaying muffled audio FOREVER, because localStorage never
   // expires ("suara mendem kaya kaset kusut" persisting after the fix). New
   // key = every device re-resolves fresh, forced-128 kbps URLs.
-  const lsKey = `ulyah_qori3_${cacheKey}`;
+  // v4: v3 lists forced EVERY edition onto /128/, which does not exist for
+  // Sudais, Hani Ar-Rifai, Abdul Basit or Basfar (192 only) — those devices
+  // would keep asking for silent 404s until the key changed.
+  const lsKey = `ulyah_qori4_${cacheKey}`;
 
   if (aqcSurahCache.has(cacheKey)) return aqcSurahCache.get(cacheKey)!;
 
@@ -189,11 +196,12 @@ async function fetchAqcSurahAudio(edition: string, surah: number): Promise<(stri
     const data = (await res.json()) as { data?: { ayahs?: { audio?: string; audioSecondary?: string[] }[] } };
     const urls = (data.data?.ayahs ?? []).map((a) => {
       // The API's default `audio` for several editions is a LOW-bitrate file
-      // (48/64 kbps) that sounds muffled ("mendem"). islamic.network serves the
-      // exact same ayah at 128 kbps for every major reciter in the rotation, so
-      // force the bitrate path segment up to 128 — same file, clean HiFi audio.
+      // (48/64 kbps) that sounds muffled ("mendem"), so the bitrate segment is
+      // moved to the best encode the CDN really has for this edition: 128 for
+      // most, 192 for the four that skip 128. Forcing 128 for all of them
+      // silenced those four (12 Oct 2026).
       const raw = a.audio ?? a.audioSecondary?.[0] ?? null;
-      return raw ? raw.replace(/\/quran\/audio\/\d+\//, "/quran/audio/128/") : null;
+      return raw ? aqcBestUrl(edition, raw) : null;
     });
     if (typeof window !== "undefined") {
       try {
@@ -320,11 +328,11 @@ export function ayahAudioSourcesSync(qoriKey: string, surah: number, ayah: numbe
  * beside the `audio` path the per-ayah URLs already come from, cut from the
  * same masters, so every alquran.cloud reciter has one at the same 128 kbps.
  *
- * This URL is NOT verified from CI — outbound audio fetches are blocked here,
- * including the per-ayah URL that is known to work — so the caller must treat
- * it as a source that MIGHT 404 and keep the per-ayah list behind it. The
- * player does exactly that, and decides how far to advance from which source
- * actually played rather than from this function's existence.
+ * Only three editions publish whole-surah files (measured 12 Oct 2026, see
+ * @ulyah/shared/murottal-cdn); every other voice gets null here and the radio
+ * goes straight to its per-ayah list instead of first asking for a file that
+ * 404s. The player still keeps the per-ayah list behind this URL and decides
+ * how far to advance from which source actually played.
  */
 export function resolveRadioSurahUrl(qoriKey: string, surah: number): string | null {
   const rc = RECITERS.find((r) => r.key === qoriKey);
@@ -333,7 +341,8 @@ export function resolveRadioSurahUrl(qoriKey: string, surah: number): string | n
   // Same host and bitrate as the per-ayah path this reciter already uses, so
   // nothing new has to be reachable for it to work.
   if (rc.cdn === "aqc" && rc.aqcEdition) {
-    return `https://cdn.islamic.network/quran/audio-surah/128/${rc.aqcEdition}/${surah}.mp3`;
+    const kbps = AQC_SURAH_KBPS[rc.aqcEdition];
+    return kbps ? `https://cdn.islamic.network/quran/audio-surah/${kbps}/${rc.aqcEdition}/${surah}.mp3` : null;
   }
   // everyayah publishes per-ayah only — those reciters keep the stitched mode.
   return null;

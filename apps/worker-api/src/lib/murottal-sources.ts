@@ -10,11 +10,14 @@
  * resolves with.
  *
  *   kind "aqc" — cdn.islamic.network (alquran.cloud), addressed by GLOBAL
- *                ayah number 1..6236, preferring the 128 kbps path (the
- *                lower default bitrates are the muffled "mendem" audio the
- *                owner reported).
+ *                ayah number 1..6236, at the best encode the CDN publishes
+ *                for the edition (128 where it exists — the lower default
+ *                bitrates are the muffled "mendem" audio the owner reported —
+ *                else 192 or 64; measured, @ulyah/shared/murottal-cdn).
  *   kind "ey"  — everyayah.com, addressed by <SSS><AAA>.mp3.
  */
+
+import { AQC_AYAH_KBPS } from "@ulyah/shared/murottal-cdn";
 
 export interface MurottalSource {
   kind: "aqc" | "ey";
@@ -107,26 +110,27 @@ export function sourceUrlCandidates(folder: string, surah: number, ayah: number)
   if (src.kind === "aqc" && src.edition) {
     const g = globalAyahNumber(surah, ayah);
     if (!g) return [];
-    // Not every edition is published at every bitrate. 128 first (the
-    // rotation's standard), then 192 — several editions (e.g. Abdul Basit
-    // murattal) skip 128 but publish 192, and a cache-fill is PERMANENT
-    // (stored to R2 + edge-cached immutable), so it must never settle for
-    // 64 kbps when a HiFi encode exists. Low bitrates remain the last resort
-    // for voices published no other way.
-    return [128, 192, 64, 48, 32].map((b) => `https://cdn.islamic.network/quran/audio/${b}/${src.edition}/${g}.mp3`);
+    // Not every edition is published at every bitrate, and the /audio/qori2/
+    // redirect sends listeners to the FIRST candidate. That used to be 128
+    // for everyone — a 404 for Sudais, Hani Ar-Rifai, Abdul Basit and Basfar,
+    // which only publish 192 (measured 12 Oct 2026, @ulyah/shared/murottal-cdn).
+    // The measured encode leads; the rest stay as fallbacks for importers.
+    const best = AQC_AYAH_KBPS[src.edition];
+    const order = [...new Set([...(best ? [best] : []), 128, 192, 64, 48, 32])];
+    return order.map((b) => `https://cdn.islamic.network/quran/audio/${b}/${src.edition}/${g}.mp3`);
   }
   return [];
 }
 
 /** The bitrate (kbps) this reciter's TOP source publishes. aqc reciters are
- * addressed through the forced 128 kbps path; ey reciters carry their bitrate
+ * addressed at their measured encode (AQC_AYAH_KBPS); ey reciters carry their bitrate
  * in the everyayah folder name (a few voices only exist at 40/64 kbps — that IS
  * their HiFi, never "poisoned"). Used by the bulk importer, which is the only
  * thing left that can write an audio file anywhere. */
 export function expectedHiFiKbps(folder: string): number | null {
   const src = MUROTTAL_SOURCES[folder];
   if (!src) return null;
-  if (src.kind === "aqc") return 128;
+  if (src.kind === "aqc") return AQC_AYAH_KBPS[src.edition ?? ""] ?? 128;
   const m = /(\d+)\s*kbps/i.exec(src.folder ?? "");
   return m ? Number(m[1]) : null;
 }

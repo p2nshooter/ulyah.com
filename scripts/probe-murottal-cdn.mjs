@@ -17,7 +17,7 @@
  * apps/web/src/lib/qori-cdn.ts and apps/worker-api/src/lib/murottal-sources.ts
  * should carry.
  *
- * Usage: node scripts/check-murottal-cdn.mjs
+ * Usage: node scripts/probe-murottal-cdn.mjs
  */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
