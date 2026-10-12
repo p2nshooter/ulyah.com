@@ -2,7 +2,7 @@
 title: Natación para adultos: aprender a nadar o volver al agua después de años
 description: Cómo empezar a nadar de adulto: superar el miedo al agua, aprender la respiración, los primeros estilos, el material básico, la etiqueta de la piscina y un plan de iniciación de seis semanas.
 category: ocio-activo
-date: 2026-10-04
+date: 2026-10-12
 ---
 La natación es uno de los ejercicios más completos que existen: trabaja todo el cuerpo, mejora la capacidad cardiovascular, apenas tiene impacto sobre las articulaciones y se puede practicar a cualquier edad. Sin embargo, muchos adultos nunca aprendieron a nadar bien, o lo hicieron de niños y no han vuelto a la piscina en décadas. Para ellos, entrar en una calle de natación rodeados de nadadores que van y vienen puede resultar intimidante.
 
@@ -103,6 +103,18 @@ Descansa lo que necesites entre largos. Al principio es normal hacer pausas larg
 - **Efecto relajante** para muchas personas.
 
 Como la natación no implica impacto ni carga de peso, conviene combinarla con ejercicio de fuerza y con actividades en las que se cargue peso, como caminar, para cuidar la salud ósea.
+
+## Medir tu progreso
+
+En una piscina de 25 metros, cuatro largos son 100 metros. Contar los largos de memoria cuesta más de lo que parece cuando uno se concentra en respirar, así que muchos nadadores cuentan con los dedos, con las piezas de un ábaco colocado en el borde o con un reloj deportivo. Dos datos sencillos permiten ver cómo mejoras: la distancia total de cada sesión y el tiempo que tardas en nadar 100 metros a un ritmo cómodo. Apúntalos cada semana. Lo normal es que primero aumente la distancia que puedes nadar seguida y, más adelante, baje el tiempo de cada 100 metros.
+
+## Cuidar la piel, el pelo y los oídos
+
+El agua clorada reseca la piel y el pelo. Dúchate con agua dulce y jabón suave al salir, aplica crema hidratante y usa el gorro para proteger el cabello. Seca bien los oídos con la toalla, inclinando la cabeza: la humedad que queda en el conducto favorece las otitis externas, el llamado «oído de nadador». Si tienes molestias o dolor de oído, consulta a tu médico antes de volver al agua. Las chanclas y un buen secado entre los dedos de los pies previenen los hongos, frecuentes en vestuarios y duchas comunes.
+
+## Más adelante: aguas abiertas
+
+Nadar en el mar, un lago o un pantano es muy distinto a hacerlo en una piscina: no hay paredes donde descansar, el agua puede estar fría, hay corrientes y olas, y la orientación se complica. Si te apetece dar el paso, empieza con grupos organizados o clubes con supervisión, nada cerca de la orilla y en paralelo a ella, usa una boya de natación de colores vivos para que te vean y respeta siempre las banderas de la playa: verde, baño permitido; amarilla, precaución; roja, prohibido el baño. Y nunca nades solo.
 
 ## Errores frecuentes
 
