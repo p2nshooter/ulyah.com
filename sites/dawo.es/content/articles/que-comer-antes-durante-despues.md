@@ -2,7 +2,7 @@
 title: Qué comer antes, durante y después de entrenar
 description: Pautas prácticas de alimentación alrededor del ejercicio para deportistas aficionados: cuándo y qué comer antes de entrenar, cuándo hace falta comer durante y cómo recuperar después.
 category: descanso-y-nutricion
-date: 2026-10-04
+date: 2026-10-12
 ---
 La alimentación deportiva está llena de mitos, productos especiales y reglas estrictas que parecen sacadas del mundo profesional. Para el deportista aficionado que entrena tres o cuatro veces por semana, la realidad es mucho más sencilla: una alimentación variada y equilibrada cubre la mayoría de sus necesidades, y unos pocos ajustes alrededor del entrenamiento ayudan a rendir mejor y a recuperarse.
 
@@ -71,7 +71,7 @@ Una orientación habitual en la literatura deportiva es aportar entre 30 y 60 gr
 
 ### Hidratación
 
-Bebe según la sed y adapta la cantidad al calor y a la duración. En esfuerzos largos con mucho sudor, las bebidas con sales ayudan a reponer el sodio perdido. Puedes leer más en nuestro artículo sobre hidratación.
+Bebe según la sed y adapta la cantidad al calor y a la duración. En esfuerzos largos con mucho sudor, las bebidas con sales ayudan a reponer el sodio perdido. Puedes leer más en nuestro artículo sobre [hidratación para deportistas](/articulos/hidratacion-para-deportistas/).
 
 ## Después de entrenar
 
@@ -132,6 +132,18 @@ Tener a mano opciones sencillas evita llegar al entrenamiento sin energía o rec
 - Un puñado de frutos secos y unas pasas o dátiles.
 - Tortitas de arroz con un poco de crema de cacahuete.
 - Un vaso de leche o de bebida vegetal enriquecida con un trozo de pan.
+
+## La víspera de una carrera o un partido importante
+
+El día anterior a una competición no es el momento de hacer experimentos. Algunas pautas sencillas:
+
+- **Haz una cena conocida**, con una buena ración de hidratos de carbono: pasta, arroz o patata con algo de proteína y verdura cocinada.
+- **Modera la fibra y las grasas** si tienes un estómago sensible, para evitar molestias al día siguiente.
+- **Evita el alcohol**, que empeora el descanso y la hidratación.
+- **Bebe con normalidad** a lo largo del día, sin forzar grandes cantidades de agua por la noche.
+- **Deja preparado el desayuno** que ya has probado antes de los entrenamientos.
+
+No hace falta una «carga de hidratos» en varios días para un partido o una carrera de menos de una hora y media: basta con comer bien y descansar.
 
 ## Errores frecuentes
 
