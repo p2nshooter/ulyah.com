@@ -2,7 +2,7 @@
 title: Guía de harinas para pan y bollería: fuerza, proteína, integral, centeno y espelta
 description: Cómo elegir harina: qué significa la fuerza o W, proteína y gluten, harina floja, panificable y de fuerza, integral, centeno, espelta y equivalencias.
 category: masa-madre-y-pan
-date: 2026-09-25
+date: 2026-10-12
 ---
 La harina es el ingrediente principal del pan y de casi toda la bollería, y también el que más dudas genera en el supermercado. Harina de trigo, panificable, de fuerza, de repostería, integral, de espelta, de centeno, 00, T65… Cada una se comporta de una manera distinta, y elegir mal puede convertir un brioche esponjoso en una masa pegajosa que no sube, o una magdalena tierna en una magdalena dura.
 
@@ -128,6 +128,24 @@ Dos harinas con la misma etiqueta pueden absorber cantidades de agua muy diferen
 La cantidad total de agua que has añadido es una buena referencia de la hidratación cómoda de esa harina. Si se volvió pegajosa con 62 g, es una harina que absorbe poco; si aguanta 72 g sin problemas, admite masas húmedas. Anota el resultado: te ahorrará muchas sorpresas.
 
 Recuerda también que la harina recién molida, sobre todo la integral, se comporta de forma algo distinta a la que lleva unas semanas en reposo. Los molinos suelen dejar madurar la harina antes de venderla precisamente para que su comportamiento sea más estable.
+
+## Mezclar harinas en casa
+
+No hace falta tener seis paquetes distintos en la despensa. Con dos o tres harinas se pueden obtener casi todas las demás:
+
+- **Harina «de repostería» casera:** por cada 100 g de harina de todo uso, sustituye unos 15 g por almidón de maíz. El bizcocho queda más tierno y ligero.
+- **Más fuerza para un pan:** mezcla harina panificable con harina de fuerza a partes iguales; es una buena base para panes con mucha agua o fermentaciones largas.
+- **Un toque integral:** añade un 10 a 30 % de harina integral o de centeno a cualquier masa de pan para ganar sabor, ajustando el agua al alza.
+
+El gluten de trigo en polvo, que se vende en algunas tiendas, permite reforzar una harina floja, pero en pequeñas cantidades y con prudencia: un exceso da migas gomosas.
+
+## Harinas de molino
+
+En España quedan molinos que muelen el grano a la piedra y venden directamente sus harinas, a menudo de variedades tradicionales de trigo, espelta o centeno. Son harinas con mucho sabor, pero de comportamiento más variable que las industriales: pide al molinero el contenido de proteína o la fuerza aproximada, compra cantidades pequeñas si son integrales y haz la prueba de absorción de agua antes de usarlas en una receta exigente.
+
+## Una nota sobre la celiaquía
+
+Todas las harinas de trigo, espelta, centeno y cebada contienen gluten y no son aptas para personas con enfermedad celíaca. Si cocinas para alguien celíaco, usa harinas certificadas sin gluten, utensilios y superficies propios, y ten en cuenta que la harina en suspensión en el aire de la cocina basta para contaminar otros alimentos.
 
 ## Cómo conservar la harina
 
