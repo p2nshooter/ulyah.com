@@ -2,7 +2,7 @@
 title: "Familienrat am Freitag"
 description: Bei Familie Nguyen wird über alles gestritten, bis die Eltern einen Familienrat mit Holzlöffel als Redestab einführen. Über Mitbestimmung, echte Entscheidungen und Eis-Freitage.
 category: zusammenleben-zuhause
-date: 2026-07-26
+date: 2026-10-12
 ---
 „Ich sitz vorne!“
 
@@ -79,6 +79,14 @@ Ein Familienrat ist ein regelmäßiges Treffen, bei dem alle Familienmitglieder 
 - **Kompromisse auf Probe beschließen.** Neue Regeln für einen Monat auszuprobieren und dann gemeinsam zu prüfen, nimmt Druck aus Entscheidungen.
 - **Mit etwas Schönem abschließen.** Ein Eis, ein Spiel oder ein gemeinsamer Film nach dem Familienrat sorgt dafür, dass alle gern wiederkommen.
 - **Auch die Kleinen ernst nehmen.** Selbst Vorschulkinder haben Anliegen, die zählen, auch wenn sie anders ausgedrückt werden.
+
+### Vorne sitzen ist auch eine Sicherheitsfrage
+
+Beim Streit um den Beifahrersitz lohnt ein Blick auf die Regeln. In Deutschland brauchen Kinder unter zwölf Jahren, die kleiner als 150 Zentimeter sind, auf jedem Sitzplatz einen passenden Kindersitz, also auch vorne. Babyschalen, die gegen die Fahrtrichtung zeigen, dürfen vorne nur montiert werden, wenn der Beifahrerairbag ausgeschaltet ist. Verkehrsexperten empfehlen für Kinder ohnehin die Rückbank als sichersten Platz. Ein Familienrat darf also gern über den Sitzplan entscheiden, aber nur innerhalb dessen, was sicher ist, und das dürfen Eltern auch genau so sagen.
+
+### Wenn der Familienrat stockt
+
+Nicht jede Sitzung gelingt. Manchmal sind alle müde, manchmal kippt die Stimmung, weil ein Thema zu heiß ist. Dann hilft es, die Runde kurz zu halten, ein schwieriges Thema auf die nächste Woche zu vertagen oder eine Pause einzulegen. Viele Familien lassen die Moderation reihum gehen, sodass auch die Kinder einmal den Ablauf leiten. Ein kurzes Protokoll, das ein älteres Kind schreibt, erinnert alle daran, was beschlossen wurde. Und Beschlüsse dürfen überprüft werden: Was nach einem Monat nicht funktioniert, kommt wieder auf die Tafel.
 
 ### Zum Gespräch mit euren Kindern
 
