@@ -549,6 +549,8 @@ di akun AdSense (di luar jangkauan Claude).
 | 12 Okt | Kontrol artikel portal (ulyah.com, 1fr.fr, tilawa.de, xad.es): sampel per sitemap lewat `content-audit.yml` | ✅ temuan + perbaikan PR `claude/portal-seo-fixes`: /syukur (404 di 1fr/tilawa/xad) dan /nasakh (isi hanya Indonesia) keluar dari sitemap + hreflang situs lain (`ROUTE_LOCALES`), /nasakh noindex + pemberitahuan bahasa di fr/de/en; halaman rak & karya kitab punya title/description/canonical sendiri (sebelumnya deskripsi generik di ±5.000 halaman); judul sesi Tadabbur/Hadits dibuat dari templat per bahasa, bukan terjemahan mesin ("Der Koran ist der Koran, der 1322."). Error 1102 hanya muncul saat render pertama (cache dingin, Workers Free 10 ms CPU), audit ulang semua 200 |
 | 12 Okt | "Cek CF, turunin database web islami ekosistem ulyah.com, dawa.es, 1fr.fr, tilawa.de, xad.es biar di bawah 10gb, tp kitab2 tetep maximal sesuai bahasanya, translate sesuai bahasanya, dan ulyah.com hanya berbahasa Indonesia; manfaatkan CDN untuk audio Al-Qur'an; pastikan mendekati 100% approve AdSense" | 🔄 §12 |
 | 12 Okt | "Catat ini, turunkan R2-nya hingga di bawah 10 GB, pastikan seluruh website dan fitur berfungsi 100%, khususnya portal admin ulyah.com sebagai central, pastikan mendekati 100% approve AdSense" (tangkapan layar R2: total 121,63 GB — ulyah-media 6,19 rb objek 91,06 GB, ulyah-next-cache 510,43 rb objek 30,57 GB) | 🔄 §12 |
+| 12 Okt | "Anda sudah sy berikan akses CF, buka saja dan lihat langsung ke dalam, jgn meraba. Perbaiki logo headernya biar mewah, indah elegan, bukan tumpang tindih begitu. Yg dawa.es juga perbaiki, walaupun udah milik orang, biar g error dan biar nanti mudah d backup" | 🔄 §12.5, §10.1 |
+| 12 Okt | "Tolong jgn pernah jelasin selain make bhs Indonesia, biar sy tau sudah sampai mana progressnya" | ✅ aturan tetap: semua laporan progres ke pemilik dalam bahasa Indonesia |
 
 ---
 
@@ -600,6 +602,40 @@ node scripts/export-dawa-standalone.mjs --zip
 ```
 
 Sudah diuji 4 Okt: 1.104 file, zip 42,7 MB (dipecah 3 bagian).
+
+### 10.1 Perbaikan & backup dawa.es (12 Okt)
+
+Pemilik, 12 Okt 2026: **"Yg dawa.es juga perbaiki, walaupun udah milik orang,
+biar g error dan biar nanti mudah d backup."**
+
+Dilihat langsung di Cloudflare: Worker `dawa-web` masih menyajikan build
+4 Okt 21:25 UTC (commit 713e87d, kode aplikasinya identik dengan 771e897),
+tenant `dawa`, akun AdSense ca-pub-6371903555702163, dengan slot iklan manual.
+Probe browser nyata (`live-probe.yml`) menemukan di dawa.es:
+
+| Temuan | Penyebab | Perbaikan |
+|---|---|---|
+| React error #418 di beranda | Widget sholat menulis nama sholat berikutnya, jam & tanggal dari waktu render server; halaman di-cache berjam-jam, browser menghitung ulang → teks beda | Nilai yang bergantung jam ditahan sampai halaman aktif (`PrayerTimesWidget`) |
+| Header: logo × piala × menu tumpang tindih | Satu baris untuk logo, ornamen dan menu | Header dua baris (§12.5); menu Spanyol muat satu baris dari 1025 px |
+| `/gratitud` 404 di "Sobre nosotros" | Tautan /syukur dipasang untuk bahasa yang tidak punya halamannya | Tautan hanya muncul bila rutenya ada (`routeLocales`) |
+| "Pasang Aplikasi" (Indonesia) di HTML server | Tombol install mulai dari "id" lalu ganti setelah dimuat | Bahasa diambil dari URL halaman |
+| Jadwal sholat default Jakarta | Default negara satu untuk semua situs | Default per situs: Madrid / Paris / Berlin / Jakarta |
+| 500 `/content/live-streams`, `/analytics/pageview` saat kuota D1 habis | Query D1 tanpa penanganan gagal | API menjawab daftar kosong / 204 |
+
+**Backup otomatis:** `.github/workflows/dawa-site.yml`, job `backup` — paket
+proyek mandiri dari 771e897 (`export-dawa-standalone.mjs --zip`) + skrip Worker
+yang sedang live diunduh dari API Cloudflare, disimpan sebagai artifact (90
+hari) dan GitHub Release `dawa-es-backup-<tanggal>` (permanen). Jalan sendiri
+saat file ini masuk main, dan kapan saja lewat "Run workflow".
+
+**Rebuild (perlu konfirmasi pemilik):** job `rebuild` hanya jalan dengan input
+`rebuild = rebuild-dawa`, setelah backup sukses. Ia membangun tenant dawa dari
+kode terbaru dan men-deploy ke Worker `dawa-web` yang sama (domain, zona, akun
+AdSense 6371…, ads.txt dan tag meta tidak berubah). **Satu hal ikut berubah:**
+slot iklan manual build lama tidak ada di kode sekarang (dihapus di semua situs
+sejak 4 Okt, aturan 3); iklan di dawa.es lalu bergantung pada Auto ads akun
+6371…. Karena 4 Okt pemilik meminta slot dawa.es dikecualikan, rebuild ini
+menunggu kata "rebuild dawa" dari pemilik.
 
 ---
 
@@ -753,7 +789,35 @@ R2 (wrangler r2 bucket info): ulyah-media 6.194 objek / 91,1 GB, ulyah-next-cach
 | 12.2 | Pemeliharaan malam: query rentang, hapus pindaian ganda; laporan `wrangler d1 insights` + ukuran R2 tiap malam | ✅ |
 | 12.3 | Admin: cache statistik berat (5–10 menit), polling 15 dtk/30 dtk/60 dtk/2 mnt & berhenti saat tab tersembunyi | ✅ |
 | 12.4 | Presence 3 dtk → 30 dtk (juga 6 situs mitra: axto.dev, lie.skin, jai.lat, oldco.in, profity.in, xaa.es); rate-limit beacon tanpa KV; API publik tanpa pemindaian penuh | ✅ |
-| 12.5 | Kitab: terjemahan statis id/en/fr/de (judul, deskripsi, daftar isi) — skrip + build + halaman | ✅ kode · 🔄 data terjemahan (berjalan) |
-| 12.6 | R2: lifecycle rule ulyah-next-cache + ulyah-media; generator audiobook berhenti; UI pakai suara perangkat | ✅ (aktif setelah deploy) |
+| 12.5 | Kitab: terjemahan statis id/en/fr/de (judul, deskripsi, daftar isi) — skrip + build + halaman | ✅ kode · ✅ data (id 4.969/4.960/55.661 · en 4.969/4.969/55.858 · fr 4.957/4.963/55.821 · de 4.969/4.969/55.790 judul/deskripsi/bab) |
+| 12.6 | R2: lifecycle rule ulyah-next-cache + ulyah-media; generator audiobook berhenti; UI pakai suara perangkat | ✅ terpasang oleh deploy #510 (4 aturan ulyah-media, 1 aturan ulyah-next-cache); Cloudflare menghapus dalam ±24 jam |
 | 12.7 | D1: indeks ganda `analytics_pageviews` dibuang, ukur tabel setelah kuota reset | ⏸️ setelah 00:00 UTC |
-| 12.8 | Uji (typecheck, CI, browser), PR, merge, deploy, verifikasi live | 🔄 |
+| 12.8 | Uji (typecheck, CI, browser), PR, merge, deploy, verifikasi live | ✅ PR #330 → deploy #510 hijau · 🔄 putaran 2 |
+| 12.9 | Header mewah tanpa tumpang tindih (semua situs, 360–1920 px) | 🔄 §12.5 |
+| 12.10 | dawa.es: perbaiki error + backup mudah | 🔄 §10.1 |
+| 12.11 | Murottal CDN: bitrate yang benar per qari (diukur) | 🔄 §12.5 |
+
+### 12.5 Dilihat langsung (12 Okt): header, murottal CDN, error halaman
+
+Probe browser nyata di runner GitHub (`.github/workflows/live-probe.yml`,
+`scripts/live-probe.mjs`), desktop 1366 px + ponsel 390 px, beranda + 15
+tautan per situs:
+
+- **Header tumpang tindih di semua situs** (logo × piala × buku surah × menu).
+  Header baru dua baris: baris 1 = logo + ornamen (piala, buku surah) yang
+  diukur dengan container query dan disembunyikan bertahap bila ruang sempit +
+  tombol; baris 2 = menu di tengah dengan garis emas tipis. Menu mengecil
+  bertahap (< 1408 px tanpa ikon grup, < 1280 px tanpa panah) sehingga menu
+  terpanjang (Spanyol) tetap satu baris dari 1025 px; `flex-wrap` sebagai
+  pengaman. Diukur lokal 360–1920 px: 0 tumpang tindih, 0 overflow.
+- **Murottal**: pemutar memaksa semua qari alquran.cloud ke 128 kbps, padahal
+  Sudais, Hani Ar-Rifai, Abdul Basit dan Basfar hanya ada 192 kbps — suara
+  mereka gagal (ERR_BLOCKED_BY_ORB). `scripts/probe-murottal-cdn.mjs` mengukur
+  bitrate yang benar-benar ada; hasilnya di `packages/shared/src/murottal-cdn.ts`
+  dipakai pemutar web dan redirect `/audio/qori2/`. Audio per-surah radio hanya
+  diminta untuk 3 qari yang memang punya. Folder everyayah Al-Tablawi dan
+  Minshawi & anak-anak 404 → dicari nama foldernya yang benar.
+- **Error 500 saat kuota D1 habis**: `/content/live-streams` dan
+  `/analytics/pageview` kini menjawab tanpa error.
+- **404 `/gratitude`, `/dankbarkeit`, `/gratitud`** di halaman Tentang situs
+  saudara: tautan /syukur hanya untuk bahasa yang punya halamannya.
