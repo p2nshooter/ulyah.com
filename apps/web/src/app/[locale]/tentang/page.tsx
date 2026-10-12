@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { routeLocales } from "@ulyah/shared/routes";
 import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
@@ -38,9 +39,13 @@ export default async function TentangPage({ params }: { params: Promise<{ locale
         <p className="mt-4 text-xs italic leading-relaxed text-text-secondary">
           “{s.karyaAbadiQuote}”
         </p>
-        <Link href={routePath(locale, `/syukur`)} className="mt-5 inline-block text-xs font-medium text-accent hover:underline">
-          {s.navLabel} →
-        </Link>
+        {/* The full dedication exists on ulyah.com only (ROUTE_LOCALES): on the
+            other sites this link was a 404 that every visit prefetched. */}
+        {(routeLocales("/syukur")?.includes(locale) ?? true) && (
+          <Link href={routePath(locale, `/syukur`)} className="mt-5 inline-block text-xs font-medium text-accent hover:underline">
+            {s.navLabel} →
+          </Link>
+        )}
       </div>
     </div>
   );

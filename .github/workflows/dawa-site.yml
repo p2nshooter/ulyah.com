@@ -1,0 +1,185 @@
+name: dawa.es — backup & rebuild (detached site)
+
+# dawa.es is no longer the owner's (docs/ADSENSE-BLUEPRINT.md §10): the main
+# deploy does not build, deploy or attach anything for it. Owner, 12 Oct 2026:
+# "Yg dawa.es juga perbaiki, walaupun udah milik orang, biar g error dan biar
+# nanti mudah d backup." This workflow is the one place that still touches it.
+#
+# backup — on every run, and once when this file lands on main:
+#   1. the hand-over package: dawa.es as a standalone project (its own API, D1,
+#      KV and R2), exported from 771e897, the last commit where dawa.es was a
+#      tenant. Its app code is identical to 713e87d, the build dawa-web has
+#      served since 4 Oct 21:25 UTC.
+#   2. the Worker script dawa-web serves right now, byte for byte, from the
+#      Cloudflare API — the exact thing to redeploy if anything goes wrong.
+#   Kept as a workflow artifact (90 days) and as a GitHub release (permanent).
+#
+# rebuild — by hand only, with rebuild = "rebuild-dawa", and only after the
+#   backup above succeeded: builds tenant dawa from the current code (header
+#   without overlaps, no React hydration error, a Spanish menu that fits, no
+#   404 link on "Sobre nosotros") and deploys it to the existing dawa-web
+#   Worker. Domains, zone, the AdSense account (ca-pub-6371903555702163),
+#   ads.txt and the meta tag stay as they are. One thing changes beyond the
+#   fixes: the old build's manual ad units are not in this code (there are none
+#   anywhere since 4 Oct); Auto ads of the same account fill the pages instead,
+#   if they are switched on for dawa.es in that AdSense account.
+
+on:
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: 'Type "rebuild-dawa" to also rebuild and redeploy dawa-web from the current code (after the backup)'
+        required: false
+        default: ""
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/dawa-site.yml'
+
+permissions:
+  contents: write # the release that keeps the backup
+
+concurrency:
+  group: dawa-site
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  # Last commit with dawa.es as a tenant; scripts/export-dawa-standalone.mjs
+  # refuses to run anywhere else, by design (§10).
+  DAWA_SOURCE: 771e8976432c2e033c9db8137b66dd489589648f
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Export dawa.es as a standalone project
+        run: |
+          set -eu
+          git worktree add --detach "$RUNNER_TEMP/dawa-src" "$DAWA_SOURCE"
+          mkdir -p "$RUNNER_TEMP/backup"
+          cd "$RUNNER_TEMP/dawa-src"
+          node scripts/export-dawa-standalone.mjs --out="$RUNNER_TEMP/backup/dawa-es-backup" --zip
+          # The unzipped folder stays out of the upload: the zips hold it.
+          rm -rf "$RUNNER_TEMP/backup/dawa-es-backup"
+
+      - name: Download the Worker script dawa-web serves now
+        continue-on-error: true
+        run: |
+          set -eu
+          cd "$RUNNER_TEMP/backup"
+          out="dawa-web-live-script-$(date -u +%Y%m%d).multipart"
+          code=$(curl -s -o "$out" -w '%{http_code}' \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts/dawa-web")
+          if [ "$code" != "200" ]; then
+            rm -f "$out"
+            echo "::warning::Could not download the dawa-web script (HTTP $code); the source package above still rebuilds it."
+            exit 0
+          fi
+          zip -q9 "${out%.multipart}.zip" "$out" && rm "$out"
+          ls -la
+
+      - name: Checksums
+        run: |
+          cd "$RUNNER_TEMP/backup"
+          sha256sum *.zip | tee SHA256SUMS.txt
+          {
+            echo "## dawa.es backup"
+            echo
+            echo '```'
+            cat SHA256SUMS.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dawa-es-backup
+          path: ${{ runner.temp }}/backup/
+          retention-days: 90
+
+      # Artifacts expire; a release stays until someone deletes it.
+      - name: Keep the backup as a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          tag="dawa-es-backup-$(date -u +%Y%m%d-%H%M)"
+          cat > "$RUNNER_TEMP/notes.md" <<'EOF'
+          Backup of dawa.es (detached from the ulyah.com ecosystem, docs/ADSENSE-BLUEPRINT.md §10).
+
+          - `dawa-es-backup-<date>.zip` — the whole standalone project: code, guides (PANDUAN-SETUP-DAWA-ES.md), D1 migrations and seeds. Or the same split in three parts under 30 MB each (`-bagian1/2/3`); unzip all three into one folder.
+          - `dawa-web-live-script-<date>.zip` — the Worker script dawa-web was serving when this backup ran.
+          - `SHA256SUMS.txt` — checksums.
+
+          Source commit: 771e8976432c2e033c9db8137b66dd489589648f (app code identical to the live build, 713e87d).
+          EOF
+          gh release create "$tag" "$RUNNER_TEMP"/backup/* \
+            --target "$DAWA_SOURCE" \
+            --title "dawa.es backup $(date -u +%Y-%m-%d)" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            --latest=false
+
+  rebuild:
+    needs: backup
+    if: github.event_name == 'workflow_dispatch' && inputs.rebuild == 'rebuild-dawa'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web for dawa.es tenant
+        working-directory: apps/web
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_TENANT: "dawa"
+
+      # dawa.es keeps its own AdSense account (§10); refuse to deploy a build
+      # whose ads.txt would say anything else.
+      - name: Check the build keeps dawa.es's own AdSense account
+        working-directory: apps/web
+        run: |
+          set -eu
+          grep -rqs "ca-pub-6371903555702163" .open-next/ || { echo "::error::ca-pub-6371903555702163 not found in the dawa build"; exit 1; }
+          grep -q 'dawa: ORIGINAL_ACCOUNT' src/lib/ad-config.ts || { echo "::error::ad-config no longer maps dawa to its original account"; exit 1; }
+
+      - name: Deploy dawa-web
+        working-directory: apps/web
+        # Same Worker, same domains (they belong to the Worker, not to the
+        # script); the page cache keeps its own prefix in the shared bucket.
+        run: npx wrangler deploy --name dawa-web --var NEXT_INC_CACHE_R2_PREFIX:inc-dawa
+
+      - name: Smoke test
+        run: |
+          set -u
+          for i in 1 2 3 4 5 6; do
+            home=$(curl -s -o /dev/null -w '%{http_code}' https://dawa.es/es)
+            ads=$(curl -s https://dawa.es/ads.txt | head -c 300)
+            echo "try $i: /es -> $home; ads.txt: $(echo "$ads" | tr '\n' ' ' | head -c 120)"
+            if [ "$home" = "200" ] && echo "$ads" | grep -q "pub-6371903555702163"; then exit 0; fi
+            sleep 10
+          done
+          echo "::warning::dawa.es did not answer 200 with its ads.txt yet; the backup release holds the previous script."

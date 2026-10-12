@@ -201,12 +201,17 @@ jobs:
       # and it had grown to 35,049 rows. Deleting them frees pages immediately;
       # SQLite reuses freed pages, so writes start working again without the
       # file having to shrink.
+      #
+      # Nightly now, not only by hand: the key-pool heartbeat adds ~650 rows a
+      # day, and an old log is exactly what docs/ADSENSE-BLUEPRINT.md §11 rule 3
+      # allows to be cleaned without asking. Three days is plenty to see why a
+      # key was benched.
       - name: Prune the key validation log
-        if: ${{ !cancelled() && (inputs.job == 'prune-logs' || inputs.job == 'both') }}
+        if: ${{ !cancelled() && (github.event.schedule == '20 0 * * *' || inputs.job == 'prune-logs' || inputs.job == 'both') }}
         run: |
           cd apps/worker-api
           npx wrangler d1 execute ulyah-db --remote \
-            --command="DELETE FROM key_validation_log WHERE created_at < datetime('now','-${{ inputs.keep_days }} days');"
+            --command="DELETE FROM key_validation_log WHERE created_at < datetime('now','-${{ inputs.keep_days || '3' }} days');"
 
       # Story bodies to R2. The script verifies every upload by reading it back
       # and comparing before it clears the column — see the note there.

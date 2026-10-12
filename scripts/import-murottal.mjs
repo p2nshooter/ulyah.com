@@ -71,7 +71,7 @@ const SOURCES = {
   ghamdi: { kind: "ey", folder: "Ghamadi_40kbps", name: "Saad Al-Ghamdi" },
   bukhatir: { kind: "ey", folder: "Salaah_AbdulRahman_Bukhatir_128kbps", name: "Salah Bukhatir" },
   fares: { kind: "ey", folder: "Fares_Abbad_64kbps", name: "Fares Abbad" },
-  tablawi: { kind: "ey", folder: "Mohammad_al_Tablawi_128kbps", name: "Mohammad Al-Tablawi" },
+  tablawi: { kind: "ey", folder: "Mohammad_al_Tablaway_128kbps", name: "Mohammad Al-Tablawi" },
   dosari: { kind: "ey", folder: "Yasser_Ad-Dussary_128kbps", name: "Yasser Al-Dosari" },
   qatami: { kind: "ey", folder: "Nasser_Alqatami_128kbps", name: "Nasser Al Qatami" },
   tunaiji: { kind: "ey", folder: "khalefa_al_tunaiji_64kbps", name: "Khalifa Al-Tunaiji" },

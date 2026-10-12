@@ -15,7 +15,8 @@
     "./cover-art": "./src/cover-art.ts",
     "./routes": "./src/routes.ts",
     "./owner-sites": "./src/owner-sites.ts",
-    "./presence": "./src/presence.ts"
+    "./presence": "./src/presence.ts",
+    "./murottal-cdn": "./src/murottal-cdn.ts"
   },
   "devDependencies": {
     "typescript": "^5.7.3"

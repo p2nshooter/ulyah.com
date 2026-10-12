@@ -14,7 +14,7 @@ import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
-import { SurahFlipbook } from "@/components/SurahFlipbook";
+import { SurahFlipbook, BOOK_TENANTS } from "@/components/SurahFlipbook";
 import { localizedRoute } from "@ulyah/shared/routes";
 import { routePath } from "@/lib/paths";
 
@@ -39,6 +39,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
     new Map(Object.entries(overrides.labels))
   );
   const navRef = useRef<HTMLElement>(null);
+  const hasBook = BOOK_TENANTS.has(TENANT.id);
 
   // Close dropdown + mobile menu on any outside tap and on route change.
   useEffect(() => {
@@ -80,8 +81,15 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
     >
       <WorldCup2026Stripe />
       <EcoTopLine />
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <div className="flex min-w-0 items-center gap-2">
+      {/* Row 1 — the brand and the controls.
+          The brand lockup (logo + wordmark) never shrinks and nothing may sit
+          on it. The ornaments beside it (Spain 2026 festoon, surah book) live
+          in a container that measures the room it is given and drops them one
+          by one — the festoon first, the Qur'an last — instead of letting them
+          slide under the wordmark or the menu (owner, 12 Oct 2026: "perbaiki
+          logo headernya biar mewah, indah, elegan, bukan tumpang tindih"). */}
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2 sm:px-6">
+        <div className="flex shrink-0 items-center">
           <AdminTrigger locale={locale}>
             <span className="flex items-center gap-2.5">
               <Image src={TENANT.logoIcon} alt="" width={34} height={34} className="rounded-[8px] shadow-(--ul-shadow-gold)" priority />
@@ -115,21 +123,79 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               )}
             </span>
           </AdminTrigger>
-          <WorldCup2026 />
-          {/* Forever-turning open book showing all 114 surah in turn, beside
-              the brand (hidden only on the very tiniest screens). On ulyah.com
-              it renders a size smaller so it sits next to the Arabic wordmark
-              without crowding it (owner: "kecilin aja bukunya buat ulyah.com,
-              yg lain g usah ikut"); the wordmark's natural width already keeps
-              it from being covered. */}
-          <SurahFlipbook className="hidden min-[380px]:flex" />
         </div>
 
-        {/* Desktop: grouped dropdowns */}
-        <nav className="hidden items-center gap-1 desktop:flex">
+        <div className="hdr-ornaments @container flex min-w-0 flex-1 items-center">
+          <div className="flex items-center gap-3">
+            <span aria-hidden className={`hdr-rule block ${hasBook ? "@max-[90px]:hidden" : "@max-[120px]:hidden"}`} />
+            <span className={`inline-flex shrink-0 ${hasBook ? "@max-[205px]:hidden" : "@max-[120px]:hidden"}`}>
+              <WorldCup2026 />
+            </span>
+            {/* Forever-turning open book showing all 114 surah in turn. */}
+            {hasBook && (
+              <span className="inline-flex shrink-0 @max-[90px]:hidden">
+                <SurahFlipbook />
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-2">
+          {/* Real search box, not a buried icon — owner request, and it's
+              what visitors expect from a reference site. */}
+          <form action={routePath(locale, `/cari`)} className="hidden items-center tablet:flex">
+            <div className="flex items-center gap-1.5 rounded-full border border-(--color-border) bg-black/3 py-1 pl-3 pr-1 transition focus-within:border-accent dark:bg-white/5">
+              <span aria-hidden className="text-sm opacity-70">🔍</span>
+              <input
+                type="search"
+                name="q"
+                placeholder={dict.nav.searchPlaceholder}
+                className="w-28 bg-transparent text-xs outline-hidden placeholder:text-text-secondary focus:w-44 transition-all"
+              />
+            </div>
+          </form>
+          {/* Small tablets get the icon; on a phone the search box opens the
+              menu instead, so the brand row keeps room for the surah book. */}
+          <Link
+            href={routePath(locale, `/cari`)}
+            aria-label={dict.nav.searchPlaceholder}
+            className="hidden rounded-full border border-(--color-border) p-2 sm:block tablet:hidden"
+          >
+            🔍
+          </Link>
+          <button
+            onClick={toggle}
+            aria-label="toggle theme"
+            className="hidden rounded-full border border-(--color-border) p-2 tablet:block"
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+          <InstallAppButton />
+          <LanguageSwitcher locale={locale} />
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="menu"
+            className="rounded-full border border-(--color-border) p-2 desktop:hidden"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+
+      {/* Row 2 (desktop) — the menu on a line of its own, centred under a gold
+          hairline. On one row with the brand it needed ~1,600px and got
+          1,232: the labels wrapped to three lines and the brand ornaments ran
+          under "Beranda" and "Al-Qur'an". */}
+      <nav className="hdr-nav hidden desktop:block">
+        {/* Spanish, French and German labels are a third longer than Indonesian:
+            the row tightens in two steps (below 1408 px: smaller type, no group
+            icons; below 1280 px: no dropdown arrows either), so the longest
+            menu, Spanish, still fits one line at 1025 px. flex-wrap is the last
+            guard: a link drops to a second line rather than being cut off. */}
+        <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-center gap-x-0.5 gap-y-1 px-3 py-1.5 xl:px-4 min-[88rem]:px-6">
           <Link
             href={`/${locale}`}
-            className={`rounded-full px-3 py-1.5 text-sm transition ${
+            className={`whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition xl:px-2.5 xl:text-[13px] min-[88rem]:px-3.5 min-[88rem]:text-sm ${
               pathname === `/${locale}` ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
             }`}
           >
@@ -143,13 +209,13 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               <div key={g.key} className="relative">
                 <button
                   onClick={() => setOpenGroup(open ? null : g.key)}
-                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition ${
+                  className={`flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition xl:px-2.5 xl:text-[13px] min-[88rem]:px-3.5 min-[88rem]:text-sm ${
                     active || open ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
                   }`}
                 >
-                  <span aria-hidden className="text-xs">{g.icon}</span>
+                  <span aria-hidden className="hidden text-xs min-[88rem]:inline">{g.icon}</span>
                   {g.label}
-                  <span aria-hidden className={`text-[9px] transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
+                  <span aria-hidden className={`hidden text-[9px] transition-transform xl:inline ${open ? "rotate-180" : ""}`}>▼</span>
                 </button>
                 {open && (
                   <div className="absolute left-0 top-full z-40 mt-2 w-60 overflow-hidden rounded-2xl border border-accent/25 bg-(--color-card) py-2 shadow-(--ul-shadow-gold-lg)">
@@ -175,58 +241,31 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
             <Link
               key={it.path}
               href={`/${locale}${localizedRoute(it.path, locale)}`}
-              className={`rounded-full px-3 py-1.5 text-sm transition ${
+              className={`whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition xl:px-2.5 xl:text-[13px] min-[88rem]:px-3.5 min-[88rem]:text-sm ${
                 isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
               }`}
             >
               {it.label}
             </Link>
           ))}
-        </nav>
+        </div>
 
-        <div className="flex items-center gap-2">
-          {/* Real search box, not a buried icon — owner request, and it's
-              what visitors expect from a reference site. */}
-          <form action={routePath(locale, `/cari`)} className="hidden items-center tablet:flex">
-            <div className="flex items-center gap-1.5 rounded-full border border-(--color-border) bg-black/3 py-1 pl-3 pr-1 transition focus-within:border-accent dark:bg-white/5">
+      </nav>
+
+      {/* Mobile: accordion of the same groups */}
+      {menuOpen && (
+        <nav className="max-h-[75vh] overflow-y-auto border-t border-(--color-border) px-4 py-3 desktop:hidden">
+          <form action={routePath(locale, `/cari`)} className="mb-2 sm:hidden">
+            <div className="flex items-center gap-2 rounded-full border border-(--color-border) bg-black/3 px-3 py-2 focus-within:border-accent dark:bg-white/5">
               <span aria-hidden className="text-sm opacity-70">🔍</span>
               <input
                 type="search"
                 name="q"
                 placeholder={dict.nav.searchPlaceholder}
-                className="w-28 bg-transparent text-xs outline-hidden placeholder:text-text-secondary focus:w-44 transition-all"
+                className="w-full bg-transparent text-sm outline-hidden placeholder:text-text-secondary"
               />
             </div>
           </form>
-          <Link
-            href={routePath(locale, `/cari`)}
-            aria-label={dict.nav.searchPlaceholder}
-            className="rounded-full border border-(--color-border) p-2 tablet:hidden"
-          >
-            🔍
-          </Link>
-          <button
-            onClick={toggle}
-            aria-label="toggle theme"
-            className="hidden rounded-full border border-(--color-border) p-2 tablet:block"
-          >
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
-          <InstallAppButton />
-          <LanguageSwitcher locale={locale} />
-          <button
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="menu"
-            className="rounded-full border border-(--color-border) p-2 desktop:hidden"
-          >
-            ☰
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile: accordion of the same groups */}
-      {menuOpen && (
-        <nav className="max-h-[75vh] overflow-y-auto border-t border-(--color-border) px-4 py-3 desktop:hidden">
           <Link
             href={`/${locale}`}
             onClick={() => setMenuOpen(false)}

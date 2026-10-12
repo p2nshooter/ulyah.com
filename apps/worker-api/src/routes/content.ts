@@ -1593,9 +1593,18 @@ async function resolveLatestVideoId(env: Env, channelId: string): Promise<string
 // channel isn't live right now or can't be resolved — the client then embeds
 // the channel's uploads playlist instead of a dead iframe).
 contentRoute.get("/live-streams", async (c) => {
-  const { results } = await c.env.DB.prepare(
-    "SELECT id, platform, slot, kind, region, title, url, is_live FROM live_stream WHERE kind = 'manual' OR is_live = 1 ORDER BY kind = 'auto' DESC, slot"
-  ).all<{ id: number; platform: string; slot: number; kind: string; region: string | null; title: string | null; url: string | null; is_live: number }>();
+  type Row = { id: number; platform: string; slot: number; kind: string; region: string | null; title: string | null; url: string | null; is_live: number };
+  let results: Row[];
+  try {
+    ({ results } = await c.env.DB.prepare(
+      "SELECT id, platform, slot, kind, region, title, url, is_live FROM live_stream WHERE kind = 'manual' OR is_live = 1 ORDER BY kind = 'auto' DESC, slot"
+    ).all<Row>());
+  } catch {
+    // D1 unavailable (e.g. the free plan's daily quota): an empty schedule,
+    // which the page already shows gracefully — not a 500 in every console.
+    c.header("X-No-Edge-Cache", "1");
+    return c.json({ streams: [] });
+  }
   const streams = await Promise.all(
     results.map(async (s) => {
       const ch = s.kind === "auto" && s.url ? s.url.match(/channel\/(UC[\w-]{10,})/)?.[1] : undefined;

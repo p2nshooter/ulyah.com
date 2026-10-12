@@ -46,7 +46,10 @@ analyticsRoute.post("/pageview", async (c) => {
   const ua = (c.req.header("user-agent") ?? "").slice(0, 200);
   const bot = isBotUA(ua) ? 1 : 0;
 
-  await c.env.DB.prepare(
+  // Best-effort, like every beacon: when D1 cannot take the row (its daily
+  // quota, a full database) the visitor's browser gets a quiet 204, not a 500
+  // logged in the console of every page of every site.
+  const stored = await c.env.DB.prepare(
     "INSERT INTO analytics_pageviews (path, country, locale, tenant, device_id, ua, is_bot, referer_host) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
   )
     .bind(
@@ -59,9 +62,11 @@ analyticsRoute.post("/pageview", async (c) => {
       bot,
       refererHost(c.req.header("referer"))
     )
-    .run();
+    .run()
+    .then(() => true)
+    .catch(() => false);
 
-  return c.json({ ok: true });
+  return stored ? c.json({ ok: true }) : c.body(null, 204);
 });
 
 // ── Real-time presence ────────────────────────────────────────────────────

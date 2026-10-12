@@ -2,52 +2,37 @@
 
 import { useEffect, useState } from "react";
 import { TENANT } from "@/lib/tenant";
-import { api } from "@/lib/api";
+import { SURAH_NAMES } from "@/lib/surah-names";
 
 /**
  * A little open Qur'an in the header whose page turns by itself — each turn
  * shows the next surah (Arabic name + number + transliteration), cycling
- * through all 114 and then starting again, forever (owner request). Names come
- * from the authoritative /quran/surah list, so they are always correct and the
- * same everywhere; the Arabic + transliteration read the same on every sibling
- * site, so no per-language copy is needed. Ecosystem sites only (ulyah.com,
- * 1fr.fr, tilawa.de); dawa.es / xad.es keep their football theme.
+ * through all 114 and then starting again, forever (owner request). The
+ * Arabic + transliteration read the same on every sibling site, so no
+ * per-language copy is needed. Ecosystem sites only (ulyah.com, 1fr.fr,
+ * tilawa.de); dawa.es / xad.es keep their football theme.
+ *
+ * The names are bundled (lib/surah-names.ts), not fetched: the book used to ask
+ * the API on every page view of three sites, and on a day the API could not
+ * answer it turned through "1. Surah 1" on every page.
  */
-const BOOK_TENANTS = new Set(["ulyah", "1fr", "tilawa"]);
-type Surah = { id: number; ar: string; latin: string };
+export const BOOK_TENANTS = new Set(["ulyah", "1fr", "tilawa"]);
 
 export function SurahFlipbook({ className = "" }: { className?: string }) {
   const on = BOOK_TENANTS.has(TENANT.id);
-  const [list, setList] = useState<Surah[]>([]);
   const [i, setI] = useState(0);
 
   useEffect(() => {
     if (!on) return;
-    let alive = true;
-    api
-      .get<{ surah: { id: number; name_ar: string; name_transliteration: string }[] }>("/quran/surah")
-      .then((r) => {
-        if (alive && Array.isArray(r.surah) && r.surah.length)
-          setList(r.surah.map((s) => ({ id: s.id, ar: s.name_ar, latin: s.name_transliteration })));
-      })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
+    const t = window.setInterval(() => setI((p) => (p + 1) % SURAH_NAMES.length), 3400);
+    return () => window.clearInterval(t);
   }, [on]);
 
-  useEffect(() => {
-    if (!on) return;
-    const n = list.length || 114;
-    const t = window.setInterval(() => setI((p) => (p + 1) % n), 3400);
-    return () => window.clearInterval(t);
-  }, [on, list.length]);
-
   if (!on) return null;
-  const cur = list[i];
-  const num = cur?.id ?? i + 1;
-  const ar = cur?.ar ?? "";
-  const latin = cur?.latin ?? `Surah ${num}`;
+  const cur = SURAH_NAMES[i]!;
+  const num = cur.id;
+  const ar = cur.ar;
+  const latin = cur.latin;
 
   // ulyah.com wants the book a size smaller so it never crowds the Arabic
   // wordmark; the sibling sites keep the original size ("yg lain g usah ikut").
