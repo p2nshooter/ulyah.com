@@ -2,7 +2,7 @@
 title: "Gemüse und Obst einfrieren: blanchieren, verpacken und Gefrierbrand vermeiden"
 description: Warum Gemüse vor dem Einfrieren blanchiert wird, wie lange welche Sorte ins kochende Wasser muss, was sich nicht zum Einfrieren eignet und wie lange Vorräte bei minus 18 Grad halten.
 category: vorrat-und-konservieren
-date: 2026-08-13
+date: 2026-10-12
 ---
 Einfrieren ist die einfachste Art, Vorräte aus der Saison anzulegen. Es braucht keine besonderen Geräte außer einem Gefrierschrank, es erhält Farbe, Geschmack und Nährstoffe besser als die meisten anderen Methoden, und es ist sicherer als das Einkochen von säurearmem Gemüse. Ob Erbsen im Juni, Bohnen im August oder Grünkohl im Dezember: Was im Überfluss da ist, kann für die mageren Monate aufbewahrt werden.
 
@@ -30,6 +30,10 @@ Beim Blanchieren wird das Gemüse kurz so stark erhitzt, dass die Enzyme zerstö
 4. **Portionsweise blanchieren:** Gib nur so viel Gemüse ins Wasser, dass es schnell wieder sprudelnd kocht, am besten in einem Sieb- oder Frittiereinsatz. Die Blanchierzeit beginnt, sobald das Wasser wieder kocht.
 5. **Abschrecken:** Nimm das Gemüse heraus und tauche es sofort ins Eiswasser. Lass es dort etwa genauso lange wie die Blanchierzeit, bis es durch und durch kalt ist.
 6. **Trocknen:** Lass das Gemüse in einem Sieb abtropfen und tupfe es auf einem Küchentuch trocken. Je trockener es ist, desto weniger Eiskristalle bilden sich.
+
+### Im Dampf blanchieren
+
+Statt im Wasser kannst du Gemüse auch im Dampf blanchieren, etwa in einem Topf mit Siebeinsatz und Deckel. Dabei gehen weniger wasserlösliche Vitamine und Mineralstoffe verloren. Rechne mit etwa anderthalbmal so langer Blanchierzeit wie im Wasser und lege das Gemüse nur in einer Schicht in den Einsatz, damit der Dampf alle Stücke gleichmäßig erreicht. Von der Mikrowelle ist abzuraten: Sie erhitzt ungleichmäßig, und die Enzyme werden nicht zuverlässig in allen Stücken gestoppt.
 
 ## Blanchierzeiten
 
@@ -77,6 +81,16 @@ Luft ist der Feind im Gefrierschrank. Sie entzieht dem Gefriergut Feuchtigkeit u
 - Beschrifte jedes Paket mit Inhalt und Datum.
 - Friere flache Beutel liegend ein. Sie frieren schneller durch, tauen schneller auf und lassen sich später platzsparend stapeln.
 
+## Den Gefrierschrank richtig nutzen
+
+Wie schnell Gemüse durchfriert, entscheidet über die Qualität. Langsames Gefrieren lässt große Eiskristalle wachsen, die Zellwände zerstören, und das Gemüse wird nach dem Auftauen weich. Deshalb lohnt ein Blick auf das Typenschild des Geräts: Dort steht das Gefriervermögen in Kilogramm pro 24 Stunden. Mehr frische Ware solltest du an einem Tag nicht einfrieren. Viele Geräte haben außerdem eine Schnellgefrierfunktion, die du einige Stunden vor dem Einlagern einschaltest.
+
+Prüfe die Temperatur ab und zu mit einem Thermometer. Minus 18 Grad oder kälter sind das Ziel. Lege frische Pakete mit etwas Abstand in das kälteste Fach und stapele sie erst, wenn sie durchgefroren sind.
+
+### Und wenn der Strom ausfällt?
+
+Halte die Tür geschlossen. Ein voller, gut gefüllter Gefrierschrank hält die Kälte deutlich länger als ein halb leerer. Wie viele Stunden dein Gerät ohne Strom übersteht, steht als „Lagerzeit bei Störung“ in der Gebrauchsanleitung. Ist Gemüse oder Obst nur angetaut und enthält noch Eiskristalle, kannst du es meist wieder einfrieren, die Qualität leidet aber etwas. Vollständig aufgetautes Gemüse garst du und verbrauchst es zügig oder frierst es als fertiges Gericht wieder ein.
+
 ## Wie lange hält Eingefrorenes?
 
 Bei konstant minus 18 Grad oder kälter vermehren sich keine Mikroorganismen. Die Haltbarkeitsangaben beziehen sich daher vor allem auf die Qualität.
@@ -105,6 +119,17 @@ Rohes Gemüse, das aufgetaut wurde, solltest du nicht roh wieder einfrieren. Gar
 - **Ganze rohe Eier in der Schale:** platzen.
 - **Joghurt und Quark pur:** werden körnig, sind aber zum Kochen und Backen noch verwendbar.
 
+## Ein Vorratsplan durch das Jahr
+
+| Monate | Was sich zum Einfrieren lohnt |
+|---|---|
+| Mai und Juni | Spargel, Erbsen, Rhabarber, Erdbeeren |
+| Juli und August | Bohnen, Johannisbeeren, Kirschen, geraspelte Zucchini zum Backen, Tomaten für Soße |
+| September und Oktober | Zwetschgen, Kürbispüree, gebratene Pilze, Brokkoli |
+| November bis Februar | Grünkohl, Rosenkohl, Wirsing, Gemüsebrühe aus Resten |
+
+Wer so plant, hat im März, wenn das Angebot auf dem Markt am kleinsten ist, noch eine bunte Auswahl im Gefrierschrank. Was gerade wächst, zeigt unser [Saisonkalender](/saisonkalender/).
+
 ## Häufige Fragen
 
 ### Kann ich Gemüse auch ohne Blanchieren einfrieren?
@@ -118,3 +143,11 @@ Meist wurde es zu lange blanchiert, nicht schnell genug abgekühlt oder zu langs
 ### Muss ich Gefrierschrank und Truhe abtauen?
 
 Wenn sich eine dicke Eisschicht bildet, ja. Sie verbraucht Energie und erschwert die Temperaturhaltung. Nutze dafür am besten die kalte Jahreszeit und lagere den Inhalt währenddessen in Kühltaschen.
+
+### Darf ich Gefrorenes nach Ablauf der empfohlenen Lagerdauer noch essen?
+
+In der Regel ja, wenn die Temperatur die ganze Zeit konstant bei minus 18 Grad lag. Die Angaben beziehen sich auf die Qualität, nicht auf die Sicherheit. Älteres Gefriergut schmeckt oft fader und kann Gefrierbrand haben. Schneide trockene Stellen großzügig weg und verwende es in Suppen, Eintöpfen oder Soßen.
+
+### Wie taue ich Beeren für ein Dessert auf?
+
+Lege sie in einem Sieb über eine Schüssel und lass sie langsam im Kühlschrank auftauen. Der austretende Saft sammelt sich in der Schüssel und ergibt mit etwas Zucker eine schnelle Fruchtsoße. Halb gefroren serviert, behalten Beeren ihre Form am besten.
