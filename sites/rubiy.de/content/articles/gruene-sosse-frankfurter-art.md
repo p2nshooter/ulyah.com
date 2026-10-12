@@ -2,7 +2,7 @@
 title: "Frankfurter Grüne Soße: die sieben Kräuter und das Rezept mit Pellkartoffeln"
 description: "Was in die Frankfurter Grüne Soße gehört: Borretsch, Kerbel, Kresse, Petersilie, Pimpinelle, Sauerampfer und Schnittlauch, dazu Mengen, Zubereitung und Varianten."
 category: fruehling
-date: 2026-09-12
+date: 2026-10-12
 ---
 In Frankfurt am Main ist sie mehr als eine Soße: Die „Grie Soß“ gehört zur Stadt wie der Apfelwein. Sobald im Frühjahr die ersten Kräuter aus den Gärtnereien im Stadtteil Oberrad kommen, liegen auf den Märkten in weißes Papier gewickelte Päckchen mit genau sieben Kräutern. Traditionell kommt die Soße am Gründonnerstag zum ersten Mal auf den Tisch, mit Pellkartoffeln und hart gekochten Eiern. Die Soße ist kalt, frisch, leicht säuerlich und schmeckt so grün, wie sie aussieht. Und sie ist ein wunderbares Beispiel dafür, wie gut regionale, saisonale Küche ohne großen Aufwand sein kann.
 
@@ -31,6 +31,12 @@ Die Bezeichnung „Frankfurter Grüne Soße“ ist seit 2016 in der Europäische
 Die Mischung ist nicht zu gleichen Teilen. Petersilie und Schnittlauch machen meist den größten Anteil aus, Sauerampfer und Kresse nur einen kleinen, weil sie dominant sind. Wenn du die Kräuter selbst zusammenstellst, ist eine gute Faustregel: je ein Fünftel Petersilie und Schnittlauch, den Rest gleichmäßig auf die anderen fünf Kräuter verteilt, mit etwas weniger Sauerampfer und Kresse.
 
 Außerhalb Hessens findest du die fertigen Päckchen selten. Petersilie, Schnittlauch, Kerbel und Kresse gibt es fast überall. Borretsch, Pimpinelle und Sauerampfer bekommst du auf Wochenmärkten, in Gärtnereien oder du ziehst sie im Topf. Fehlt ein Kraut, wird die Soße trotzdem gut, nur eben nicht im strengen Sinne „Frankfurter“.
+
+## Eine kleine Geschichte der Grie Soß
+
+Ähnliche kalte Kräutersoßen kennt man aus Frankreich als sauce verte und aus Italien als salsa verde. Wie die Soße nach Frankfurt kam, ist nicht sicher geklärt. Eine verbreitete Vermutung führt sie auf Einwanderer aus Südeuropa oder auf hugenottische Glaubensflüchtlinge zurück. Gern wird auch erzählt, schon Goethe habe sie geliebt, belegt ist das allerdings nicht.
+
+Sicher ist, dass die Gärtnereien im Stadtteil Oberrad die Kräuter seit Generationen anbauen und die Soße zur Frankfurter Identität gehört. In Oberrad steht ein Denkmal aus sieben kleinen Gewächshäusern, eines für jedes Kraut, und jedes Frühjahr feiert die Stadt ein eigenes Grüne-Soße-Festival, bei dem Gastwirte mit ihren Rezepten gegeneinander antreten.
 
 ## Zutaten für vier Personen
 
@@ -62,6 +68,18 @@ Statt Joghurt nehmen manche Familien Quark mit etwas Milch oder Mineralwasser. D
 Koche die Kartoffeln mit Schale in Salzwasser etwa 20 bis 25 Minuten, bis sie gar sind. Pelle sie warm oder serviere sie mit Schale, so wie es in Frankfurter Apfelweinwirtschaften üblich ist. Dazu gibt es pro Person ein bis zwei halbierte hart gekochte Eier. Welche Kartoffeln sich für Pellkartoffeln am besten eignen, erklären wir in [Kartoffelsorten und Kochtypen](/kueche/kartoffelsorten-kochtypen/).
 
 Neben der vegetarischen Variante ist die Grüne Soße auch zu gekochtem Rindfleisch (Tafelspitz), zu Schnitzel oder zu gebratenem Fisch beliebt.
+
+## Typische Fehler
+
+- **Nasse Kräuter:** Sie verwässern die Soße und machen sie dünn. Trockne die Kräuter nach dem Waschen gründlich.
+- **Zu lange im Mixer:** Die Messer erwärmen die Kräuter, sie werden bitter und die Farbe wird stumpf. Lieber von Hand hacken oder nur kurz pulsieren.
+- **Zu viel Sauerampfer oder Kresse:** Beide Kräuter überdecken schnell die anderen. Halte dich an kleine Anteile.
+- **Zu früh serviert:** Ohne Ruhezeit schmeckt die Soße nach einzelnen Kräutern statt nach einem Ganzen. Eine Stunde im Kühlschrank verbindet die Aromen.
+- **Zu fest angerührt:** Mit viel Quark wird die Soße zur Paste. Verdünne sie mit etwas Milch oder Mineralwasser, bis sie cremig vom Löffel läuft.
+
+## Reste klug verwenden
+
+Bleibt Soße übrig, ist sie am nächsten Tag noch ein guter Brotaufstrich auf kräftigem Bauernbrot, mit Radieschenscheiben obenauf. Sie passt als Dip zu [Spargel](/kueche/spargel-schaelen-kochen/), zu Bratkartoffeln und zu Ofenkartoffeln. Mit etwas mehr Essig und Öl verdünnt, wird sie zum Dressing für einen Kartoffelsalat. Länger als einen Tag solltest du sie wegen der Eier aber nicht aufbewahren.
 
 ## Varianten aus der Region
 
@@ -99,3 +117,11 @@ Ja. Ohne Eigelb wird sie etwas weniger cremig. Ein Esslöffel Senf mehr und etwa
 ### Gibt es die Soße das ganze Jahr?
 
 In Frankfurt gibt es die Kräuterpäckchen etwa von März bis Oktober. Am aromatischsten sind die Kräuter im Frühjahr und Frühsommer.
+
+### Kann ich getrocknete Kräuter verwenden?
+
+Nein. Getrocknete Kräuter haben weder die Farbe noch die Frische, von der die Soße lebt. Tiefgekühlte Kräutermischungen sind höchstens eine Notlösung im Winter, die Soße wird damit weicher und blasser.
+
+### Ist Pimpinelle dasselbe wie Bibernelle?
+
+Nicht ganz. Mit Pimpinelle ist in der Grünen Soße der Kleine Wiesenknopf gemeint, ein Rosengewächs mit runden, gezähnten Fiederblättchen und leichtem Gurkenaroma. Die Bibernelle ist ein Doldenblütler, der regional ebenfalls Pimpinelle genannt wird. Achte beim Kauf auf den Namen Kleiner Wiesenknopf.
