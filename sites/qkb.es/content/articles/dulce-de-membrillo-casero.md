@@ -2,7 +2,7 @@
 title: Dulce de membrillo casero: cocción, punto, moldeado y la pareja perfecta con el queso
 description: Carne de membrillo casera: preparar la fruta, proporción de azúcar, cocción hasta el color rojizo, punto, moldeado, conservación e ideas con queso.
 category: conservas
-date: 2026-09-07
+date: 2026-10-12
 ---
 El membrillo es una de esas frutas que casi nadie come cruda. Es dura, ácida, áspera y algo astringente, pero tiene un aroma perfumado que llena la cocina en otoño. Cocinada con azúcar durante el tiempo suficiente, se transforma en la **carne o dulce de membrillo**: una pasta firme, de color rojizo y brillo de joya, que se corta en lonchas y acompaña al queso en uno de los maridajes más clásicos de la cocina española.
 
@@ -118,6 +118,22 @@ Con el agua de la primera cocción puedes hacer una jalea transparente:
 2. Mídela y añade 750 g de azúcar por litro.
 3. Cuece a fuego vivo hasta alcanzar 104–105 °C o hasta que una gota en un plato frío forme arrugas.
 4. Envasa en tarros calientes.
+
+## Una tradición de otoño
+
+Los membrillos maduran entre septiembre y noviembre, y en muchas casas españolas su llegada marca el día de hacer el dulce del año. En Andalucía, la localidad cordobesa de Puente Genil es famosa por su industria del membrillo, y en numerosos pueblos todavía hay membrilleros en los patios cuyo fruto se reparte entre vecinos. Si alguien te regala membrillos, no esperes demasiado: maduran rápido a temperatura ambiente y, una vez muy blandos o con manchas oscuras, ya no sirven para un buen dulce.
+
+## Variantes de sabor
+
+- **Con vainilla:** añade media vaina abierta durante la cocción con el azúcar y retírala antes de moldear.
+- **Con especias:** una rama de canela y dos clavos de olor, retirados al final, le dan un aire navideño.
+- **Con manzana:** sustituye una cuarta parte del membrillo por manzana ácida; el dulce resulta más suave y algo más claro.
+- **Con nueces:** incorpora un puñado de nueces troceadas justo antes de verterlo en el molde.
+- **Con un toque de vino:** unas cucharadas de vino dulce al final de la cocción aportan aroma; el alcohol se evapora casi por completo con el calor.
+
+## Cortar y presentar
+
+Para obtener lonchas limpias, usa un cuchillo largo y afilado que mojarás en agua caliente y secarás antes de cada corte. Un grosor de medio centímetro a un centímetro es el más cómodo para acompañar el queso. En una tabla, alterna lonchas de membrillo y de queso, añade unas nueces o almendras tostadas y sirve a temperatura ambiente: el frío de la nevera apaga su aroma.
 
 ## Problemas frecuentes
 
