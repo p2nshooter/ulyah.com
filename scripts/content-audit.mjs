@@ -9,8 +9,8 @@
 // request at a time, so the D1 database behind the pages sees a few hundred
 // row reads at most. Run from GitHub Actions, where the sites are reachable:
 //
-//   node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=es
-//   PER=8 node scripts/content-audit.mjs xad.es=es
+//   node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=en
+//   PER=8 ONLY=kitab,books node scripts/content-audit.mjs xad.es=en
 const PER = Number(process.env.PER || 6);
 const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36 content-audit";
 const THIN = 300;
@@ -82,13 +82,23 @@ for (const arg of process.argv.slice(2)) {
   const files = isIndex ? first : [`${SCHEME}://${domain}/sitemap.xml`];
   console.log(`sitemap.xml ${index.status} · ${isIndex ? "index of " + files.length + " files" : first.length + " urls"}`);
   const titles = new Map();
+  const only = (process.env.ONLY || "").split(",").filter(Boolean);
   for (const file of files) {
+    if (only.length && !only.some((o) => file.includes(o))) continue;
     const sm = isIndex ? await get(file) : index;
     const urls = locs(sm.text);
     const name = file.replace(/^https?:\/\/[^/]+/, "");
     const rows = [];
     for (const url of pick(urls, PER)) {
-      const r = await get(url);
+      let r = await get(url);
+      // A 1102 ("Worker exceeded resource limits") may be one unlucky isolate
+      // or a page that can never render: ask twice more and record which.
+      let tries = 1;
+      while (r.status >= 500 && tries < 3) {
+        await sleep(3000);
+        r = await get(url);
+        tries++;
+      }
       const html = r.text;
       const text = mainText(html);
       const { lang, latin } = language(text);
@@ -106,6 +116,7 @@ for (const arg of process.argv.slice(2)) {
         words: latin,
         arabic,
         lang,
+        tries,
       };
       rows.push(row);
       if (row.title) titles.set(row.title, (titles.get(row.title) || 0) + 1);
@@ -118,7 +129,7 @@ for (const arg of process.argv.slice(2)) {
     const noDesc = ok.filter((x) => x.desc.length < 50);
     console.log(`\n-- ${name}: ${urls.length} urls, sampled ${rows.length}; median ${median(ok.map((x) => x.words))} words; thin(<${THIN}) ${thin.length}; wrong language ${wrong.length}; noindex ${hidden.length}; short/missing description ${noDesc.length}`);
     for (const x of rows) {
-      console.log(`   ${String(x.status).padEnd(3)} ${String(x.words).padStart(5)}w ar${String(x.arabic).padStart(4)} ${x.lang.padEnd(2)} lang=${x.htmlLang || "-"} ${x.url}${x.finalPath !== x.url ? " -> " + x.finalPath : ""}`);
+      console.log(`   ${String(x.status).padEnd(3)}${x.tries > 1 ? "(" + x.tries + " tries)" : ""} ${String(x.words).padStart(5)}w ar${String(x.arabic).padStart(4)} ${x.lang.padEnd(2)} lang=${x.htmlLang || "-"} ${x.url}${x.finalPath !== x.url ? " -> " + x.finalPath : ""}`);
       console.log(`        title(${x.title.length}) ${x.title.slice(0, 110)}`);
       console.log(`        desc(${x.desc.length}) ${x.desc.slice(0, 110)}`);
       console.log(`        h1 ${x.h1.slice(0, 100) || "(none)"} · canonical ${x.canonical ? (x.canonical.includes(domain) ? "ok" : x.canonical) : "(none)"}${x.robots ? " · robots " + x.robots : ""}`);

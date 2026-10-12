@@ -17,6 +17,9 @@ on:
       per:
         description: "Pages sampled per sitemap file"
         default: "6"
+      only:
+        description: "Only sitemap files whose name contains one of these (comma-separated)"
+        default: ""
   push:
     branches: [main, claude/content-audit]
     paths:
@@ -35,4 +38,5 @@ jobs:
       - name: Sample the portals
         env:
           PER: ${{ github.event.inputs.per || '6' }}
-        run: node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=es
+          ONLY: ${{ github.event.inputs.only || '' }}
+        run: node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=en
