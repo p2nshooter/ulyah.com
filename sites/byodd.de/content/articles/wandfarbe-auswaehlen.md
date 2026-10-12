@@ -2,7 +2,7 @@
 title: "Wandfarbe auswählen: Farbwirkung, Licht, Muster und Farbqualität"
 description: Wie Farben auf Räume wirken, welche Rolle Himmelsrichtung und Licht spielen, wie du Farbmuster richtig testest, Farbkombinationen findest und eine gute Wandfarbe an Deckkraft und Nassabrieb erkennst.
 category: deko-und-wohnen
-date: 2026-08-29
+date: 2026-10-12
 ---
 Die Wandfarbe prägt die Stimmung eines Raums stärker als fast jedes Möbelstück. Dasselbe Wohnzimmer kann in warmem Sandton gemütlich, in kühlem Blaugrau elegant und in sattem Grün geborgen wirken. Gleichzeitig ist die Farbwahl eine der häufigsten Ursachen für Renovierungsfrust: Der Farbton, der auf der kleinen Farbkarte im Baumarkt perfekt aussah, wirkt an der Wand plötzlich zu grell, zu dunkel oder ganz anders als erwartet.
 
@@ -111,6 +111,18 @@ Mieter dürfen ihre Wohnung in aller Regel während der Mietzeit farbig gestalte
 | Billige Farbe mit schlechter Deckkraft | Deckvermögen Klasse 1 oder 2 |
 | Glänzende Farbe auf unebener Wand | Matte Farbe |
 
+## Farbtöne eindeutig benennen
+
+„Ein helles Grau“ meint bei jedem etwas anderes. Damit du einen Farbton später genau nachkaufen kannst, notiere die Bezeichnung aus einem Farbsystem. Verbreitet sind RAL-Farben mit vierstelligen Nummern, vor allem für Lacke, und das NCS-System, das viele Wandfarbenhersteller nutzen. Eine NCS-Angabe wie S 2010-Y30R lässt sich sogar lesen: Die ersten beiden Ziffern geben den Schwarzanteil an, die nächsten beiden die Buntheit, der Rest den Farbton, hier ein Gelb mit 30 Prozent Rotanteil. Je höher die erste Zahl, desto dunkler die Farbe. Viele Hersteller haben zusätzlich eigene Farbfächer mit Namen und Nummern. Fotografiere den Eimerdeckel, dann hast du alle Angaben jederzeit griffbereit.
+
+## Der Hellbezugswert
+
+Manche Hersteller geben den Hellbezugswert an, kurz HBW. Er beschreibt, wie viel Licht eine Farbe zurückwirft, von 0 für tiefes Schwarz bis 100 für ideales Weiß. In kleinen oder dunklen Räumen sorgen Farben mit hohem Hellbezugswert für mehr Helligkeit, auch wenn sie farbig sind. Zwei Farbtöne mit ähnlichem Wert wirken nebeneinander ruhig, große Unterschiede erzeugen Kontrast. So lässt sich schon beim Planen abschätzen, ob ein Raum eher hell oder eher höhlenartig wirken wird.
+
+## Wo endet die Farbe?
+
+Wie du den Übergang zur Decke gestaltest, verändert die Raumwirkung. Endet die Wandfarbe exakt an der Decke, wirkt der Raum klar und klassisch. Endet sie einige Zentimeter darunter und die Decke wird mit hellem Weiß ein Stück heruntergezogen, wirkt der Raum oft leichter und etwas höher. In niedrigen Räumen kann es dagegen überraschend gut wirken, Wände und Decke im selben Farbton zu streichen: Die Kanten verschwinden, und der Raum wirkt geschlossen und ruhig. Probiere solche Ideen zuerst gedanklich mit einem Foto des Raums aus, das du am Computer oder auf Papier einfärbst.
+
 ## Praxisbeispiel: Ein Nordzimmer wird wärmer
 
 Ein Arbeitszimmer mit einem Fenster nach Norden wirkte mit kühlem Hellgrau trist, besonders im Winter. Die Bewohnerin testete drei Probefarben in großen Mustern an der Wand gegenüber dem Fenster und an der Fensterwand: ein warmes Greige, ein helles Ocker und ein gedämpftes Salbeigrün. Über eine Woche betrachtete sie die Muster morgens, mittags und abends unter der warmweißen Schreibtischlampe.
@@ -158,6 +170,8 @@ Siehe die Mengenberechnung in [Wand streichen](/anleitungen/wand-streichen-anlei
 **Kann ich Farbe nachmischen lassen?** Ja, mit der Farbnummer des Herstellers oder einem Muster. Für größere Flächen genug Farbe auf einmal mischen lassen, weil Nachmischungen leicht abweichen können.
 
 **Welche Farbe für Kinderzimmer?** Ruhige, helle Grundtöne mit Akzenten in Textilien und Möbeln. Abwaschbare Farbe mit Nassabriebklasse 1 oder 2 ist praktisch.
+
+**Kann ich dunkle Farbe später wieder hell überstreichen?** Ja, aber meist sind zwei oder drei Anstriche mit gut deckender Farbe nötig. Ein Vorstreichen mit einer hellen Grundierung spart Farbe und Zeit. Plane das ein, wenn du in einer Mietwohnung dunkle Töne wählst.
 
 ## Fazit
 
