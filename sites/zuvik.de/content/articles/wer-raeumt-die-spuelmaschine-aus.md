@@ -2,7 +2,7 @@
 title: "Wer räumt die Spülmaschine aus?"
 description: Anke hat das Gefühl, im Haushalt alles allein zu machen. Dann legt sie eine Liste auf den Tisch, die alle verstummen lässt. Über unsichtbare Arbeit, faire Aufgabenteilung und missglückte Spaghetti.
 category: zusammenleben-zuhause
-date: 2026-07-24
+date: 2026-10-12
 ---
 Die Spülmaschine piepte dreimal. Das Programm war fertig. Anke hörte es aus dem Badezimmer, wo sie gerade die Handtücher wechselte, und sie wusste, dass niemand anderes in der Wohnung es gehört hatte. Oder dass alle es gehört und beschlossen hatten, dass es sie nichts anging.
 
@@ -80,6 +80,24 @@ In vielen Familien ist die Hausarbeit ungleich verteilt, und oft ist es nicht nu
 - **Kinder altersgerecht beteiligen.** Schon Grundschulkinder können Tisch decken und Spülmaschine ausräumen. Jugendliche können einkaufen, kochen und eigene Wäsche waschen.
 - **Fehler erlauben.** Die erste selbst gekochte Mahlzeit wird selten perfekt. Wer Fehler kritisiert, statt Hilfe anzubieten, nimmt die Motivation.
 - **Nicht wieder übernehmen.** Abgegebene Aufgaben sollten abgegeben bleiben, auch wenn sie anders erledigt werden, als man es selbst tun würde.
+
+### Welche Aufgaben in welchem Alter?
+
+Kinder können oft mehr, als Eltern ihnen zutrauen. Die folgende Übersicht ist ein grober Anhaltspunkt:
+
+| Alter | Mögliche Aufgaben |
+|---|---|
+| 2 bis 3 Jahre | Spielzeug wegräumen, schmutzige Wäsche in den Korb legen |
+| 4 bis 6 Jahre | Tisch decken, Socken sortieren, Pflanzen gießen |
+| 7 bis 9 Jahre | Spülmaschine ausräumen, Bett machen, Pausenbrot schmieren |
+| 10 bis 12 Jahre | staubsaugen, Müll rausbringen, einfache Gerichte mit Hilfe kochen |
+| ab 13 Jahren | einkaufen, selbstständig kochen, eigene Wäsche waschen |
+
+Am Anfang dauert alles länger, und vieles wird nicht so, wie Erwachsene es machen würden. Das gehört zum Lernen dazu.
+
+### Geld für Hausarbeit?
+
+Viele Familien fragen sich, ob Kinder für Hausarbeit bezahlt werden sollten. Fachleute raten meist davon ab, die alltäglichen Aufgaben mit dem Taschengeld zu verknüpfen. Wer im Haushalt mitarbeitet, tut das, weil er dazugehört, nicht als Dienstleistung. Sonst entsteht schnell die Frage, warum man den Müll umsonst rausbringen soll. Für besondere Arbeiten, etwa das Auto zu waschen oder beim Umzug der Nachbarin zu helfen, kann ein kleiner Zuverdienst dagegen eine schöne Erfahrung sein.
 
 ### Zum Gespräch mit euren Kindern
 
