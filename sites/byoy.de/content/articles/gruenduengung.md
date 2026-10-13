@@ -86,6 +86,18 @@ Wichtig ist, die Familie der Gründüngung mitzudenken. Phacelia und Buchweizen 
 
 In Kleingärten gilt oft die Vorgabe, dass ein Teil der Fläche gärtnerisch genutzt werden muss. Gründüngung ist eine anerkannte Kulturmaßnahme und zeigt, dass ein Beet bewusst gepflegt wird, auch wenn gerade kein Gemüse darauf wächst. Phacelia und Ringelblumen sehen dabei so schön aus, dass sie oft Gespräche über den Zaun auslösen. Wer eine Fläche nur für wenige Wochen frei hat, sät schnell wachsenden Buchweizen, der schon nach sechs Wochen eine dichte Decke bildet.
 
+## Gründüngung für Bienen und andere Insekten
+
+Viele Gründüngungspflanzen blühen und sind wertvolle Nahrungsquellen für Insekten. Phacelia, auch Bienenfreund genannt, ist besonders beliebt: Sie ist mit keiner verbreiteten Gemüsefamilie verwandt, passt deshalb gut in jede Fruchtfolge und wird von Hummeln und Bienen stark besucht. Auch Buchweizen und Sonnenblumen liefern Nektar und Pollen.
+
+Wenn du die Blüte für Insekten nutzen möchtest, lass die Gründüngung einige Wochen blühen, schneide sie aber, bevor sich reife Samen bilden. Sonst säen sich die Pflanzen im nächsten Jahr im ganzen Beet aus.
+
+## Abfrierende und winterharte Arten
+
+Gründüngungspflanzen lassen sich in zwei Gruppen einteilen. Abfrierende Arten wie Phacelia, Buchweizen, Senf oder Ölrettich sterben beim ersten stärkeren Frost ab. Ihre Reste bleiben als Mulchschicht auf dem Beet liegen, schützen den Boden über den Winter und lassen sich im Frühjahr leicht flach einarbeiten oder kompostieren. Beachte, dass Senf und Ölrettich zu den Kreuzblütlern gehören und deshalb nicht vor oder nach Kohl stehen sollten.
+
+Winterharte Arten wie Winterroggen, Winterwicke oder bestimmte Kleearten wachsen über den Winter weiter und halten den Boden bedeckt. Im Frühjahr musst du sie rechtzeitig vor der nächsten Kultur abmähen und oberflächlich einarbeiten, damit sie sich zersetzen können. Sie eignen sich besonders für Beete, die erst spät im Frühjahr wieder bepflanzt werden.
+
 ## Häufige Fragen
 
 ### Kann ich Gründüngung auch im kleinen Garten nutzen?
@@ -99,3 +111,19 @@ Mähe sie vorher. Phacelia und Buchweizen säen sich sonst im nächsten Jahr sel
 ### Lohnt sich Klee im Gemüsegarten?
 
 Inkarnatklee und andere Kleearten sammeln Stickstoff und sind ideal vor Starkzehrern wie Kohl oder Kürbis. Sie wachsen aber langsamer als Phacelia, deshalb früh säen.
+
+### Wie viel Saatgut brauche ich?
+
+Die benötigte Menge steht auf der Packung, meist in Gramm pro Quadratmeter. Feine Samen wie Phacelia brauchen nur wenige Gramm pro Quadratmeter, große Samen wie Erbsen oder Bohnen deutlich mehr. Säe lieber etwas dichter als zu dünn, denn ein dichter Bestand unterdrückt Unkraut besser.
+
+### Muss ich Gründüngung umgraben?
+
+Nein. Es reicht, die Pflanzen abzumähen oder abfrieren zu lassen und die Reste als Mulch liegen zu lassen oder flach mit der Hacke einzuarbeiten. Tiefes Umgraben ist nicht nötig und stört das Bodenleben. Wer ohne Umgraben gärtnert, findet dazu mehr im Ratgeber [Gärtnern ohne Umgraben](/gartenwissen/gaertnern-ohne-umgraben/).
+
+### Kann ich Gründüngung zwischen Gemüsereihen säen?
+
+Ja, niedrig bleibende Arten wie Weißklee oder Gelbklee lassen sich als Untersaat zwischen hochwachsende Kulturen wie Mais oder Kohl säen. Sie bedecken den Boden, unterdrücken Unkraut und sammeln Stickstoff. Gieße in Trockenzeiten etwas mehr, weil Gemüse und Untersaat um Wasser konkurrieren.
+
+Eine Mulchschicht auf den Reihen mildert die Konkurrenz zusätzlich.
+
+So bleibt auch zwischen den Reihen kein Boden nackt.

@@ -86,6 +86,20 @@ Sobald der Baum trägt, geht es darum, die Krone licht zu halten und Fruchtholz 
 
 Ein verwilderter alter Baum lässt sich nicht in einem Jahr in Form bringen. Ein radikaler Rückschnitt führt zu einem Wald aus Wasserschossen und schwächt den Baum. Verteile die Verjüngung auf drei bis fünf Jahre: Entferne pro Jahr nur einige große Äste, beginne mit totem Holz und den größten Störenfrieden und lass dem Baum Zeit, darauf zu reagieren. Für alte Hochstämme lohnt sich manchmal ein Fachmann, besonders wenn große Äste in der Höhe entfernt werden müssen.
 
+## Schnittwunden richtig behandeln
+
+Ein sauberer Schnitt heilt am besten. Schneide Äste immer auf Astring, also an der leicht verdickten Stelle, an der der Ast aus dem Stamm oder einem stärkeren Ast wächst. Schneidest du zu tief in den Stamm, entsteht eine große Wunde, die schlecht verheilt; lässt du einen Stummel stehen, stirbt er ab und wird zur Eintrittspforte für Pilze. Große Äste sägst du in mehreren Schritten ab, damit die Rinde beim Abbrechen nicht einreißt.
+
+Wundverschlussmittel sind für kleine und mittlere Schnitte nicht nötig. Der Baum schottet seine Wunden selbst ab, und ein dichter Anstrich kann sogar Feuchtigkeit unter der Schicht festhalten. Wichtiger ist es, große Schnittwunden ganz zu vermeiden, indem du regelmäßig und maßvoll schneidest, statt alle paar Jahre radikal.
+
+## Schneiden und Vogelschutz
+
+Obstbäume sind beliebte Brutplätze für Vögel. Schaue vor jedem Schnitt im Frühjahr und Sommer genau nach, ob sich ein Nest in der Krone befindet, denn besetzte Nester sind geschützt. Starke Rückschnitte gehören in die Zeit außerhalb der Brutsaison, also in den Spätwinter. Im Sommer sind nur schonende Pflegeschnitte sinnvoll, etwa das Entfernen von Wasserschossen.
+
+## Säulen- und Spalierobst in Form halten
+
+Säulenobst und Spaliere brauchen einen regelmäßigen, kleinen Sommerschnitt. Kürze im Juni oder Juli die neuen Seitentriebe auf drei bis vier Blätter ein. So bleibt die schlanke Form erhalten, und der Baum bildet an den kurzen Trieben Blütenknospen für das nächste Jahr. Ein starker Winterschnitt würde dagegen vor allem neues Triebwachstum auslösen.
+
 ## Häufige Fragen
 
 ### Wie viel darf ich auf einmal wegschneiden?
@@ -99,3 +113,9 @@ Gesundes Schnittgut kannst du häckseln und als Mulch oder für den Kompost verw
 ### Muss ich jedes Jahr schneiden?
 
 Junge Bäume ja, um die Krone aufzubauen. Ältere Bäume brauchen jährlich einen kleinen Pflegeschnitt. Regelmäßige kleine Eingriffe sind besser als seltene große.
+
+### Darf ich bei Frost schneiden?
+
+Bei starkem Frost besser nicht, denn das Holz ist dann spröde und kann an den Schnittstellen splittern. Ideal sind frostfreie oder nur leicht frostige Tage im Spätwinter. Steinobst wie Kirschen und Zwetschgen schneidest du ohnehin lieber im Sommer nach der Ernte, weil die Wunden dann schneller heilen.
+
+Dann tropfen die Wunden außerdem weniger Harz, und der Baum kann sie vor dem Winter schließen.

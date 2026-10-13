@@ -93,6 +93,16 @@ Himbeeren sind reif, wenn sie vollständig gefärbt sind und sich ohne Ziehen vo
 
 Wer einen sonnigen Zaun oder eine Wand hat und Himbeeren schon kennt, kann es mit Brombeeren versuchen. Dornenlose Gartensorten sind leicht zu pflegen, tragen im August und September reichlich und sind weniger anfällig für Wurzelfäule. Sie wachsen kräftig und brauchen ein stabiles Gerüst. Geschnitten werden sie ähnlich wie Sommerhimbeeren: Nach der Ernte entfernst du die abgetragenen Ruten und bindest fünf bis acht neue, kräftige Ruten fächerförmig an. Brombeeren bilden ebenfalls Ausläufer und brauchen Platz, belohnen dich aber mit einer langen Erntezeit, wenn die Himbeeren schon vorbei sind.
 
+## Himbeeren richtig verarbeiten
+
+Himbeeren sind empfindlich und halten nach der Ernte nur ein bis zwei Tage. Verarbeite sie deshalb möglichst am Tag der Ernte. Wasche sie nur, wenn es wirklich nötig ist, und dann sehr vorsichtig in einer Schüssel mit Wasser, denn unter dem Wasserstrahl werden sie matschig.
+
+Zum Einfrieren legst du die Beeren nebeneinander auf ein Blech, friest sie einige Stunden vor und füllst sie dann in Dosen oder Beutel. So bleiben sie einzeln und lassen sich portionsweise entnehmen. Außerdem eignen sich Himbeeren für Marmelade, Sirup, Himbeeressig, Kuchen und Desserts. Wer viele Beeren hat, kann sie auch zu Mus pürieren, durch ein Sieb streichen und das kernlose Püree portionsweise einfrieren.
+
+## Himbeeren in besonderen Farben
+
+Neben den klassischen roten Himbeeren gibt es gelbe Sorten, die oft besonders süß und mild schmecken und von Vögeln weniger beachtet werden, weil sie unauffälliger gefärbt sind. Schwarze Himbeeren stammen von einer nordamerikanischen Art ab und haben ein kräftiges, leicht würziges Aroma. Für Kinder sind bunte Himbeeren im Garten eine schöne Entdeckung, und auch Kuchen und Desserts wirken mit gemischten Farben besonders festlich. Die Pflege unterscheidet sich kaum von der roter Sorten.
+
 ## Häufige Fragen
 
 ### Wie lange trägt eine Himbeerpflanzung?
@@ -106,3 +116,11 @@ Ja, besonders kompakte Herbsthimbeeren eignen sich für große Kübel ab etwa 30
 ### Wohin passen Himbeeren in einen kleinen Garten?
 
 Als Reihe an einem Zaun oder als Abgrenzung zwischen Garten und Gemüsebeet. Wie du Beeren auf kleinem Raum unterbringst, zeigt [Obst für kleine Gärten](/gartenwissen/obst-fuer-kleine-gaerten/).
+
+### Warum werden meine Himbeeren matschig oder schimmelig?
+
+Meist ist feuchtes Wetter schuld, bei dem sich Grauschimmel auf den reifen Früchten ausbreitet. Ernte alle zwei bis drei Tage, entferne verschimmelte Beeren sofort und lichte zu dichte Bestände aus, damit die Ruten nach Regen schneller abtrocknen. Überreife Früchte werden ebenfalls schnell weich.
+
+### Kann ich Himbeerblätter für Tee verwenden?
+
+Ja, Himbeerblättertee ist ein traditioneller Haustee. Pflücke dafür junge, gesunde Blätter vor der Blüte, trockne sie luftig im Schatten und bewahre sie in einem dunklen Glas auf. Ernte aber nur einen kleinen Teil der Blätter einer Rute, damit die Pflanze kräftig bleibt.

@@ -94,6 +94,22 @@ Bohnen und Erbsen können von Samenkäfern befallen sein, deren Larven im Samen 
 
 Eine Tüte Möhrensamen enthält oft mehr, als ein Hausgarten in drei Jahren braucht, und bevor der Rest seine Keimkraft verliert, wandert er in den Müll. Teile Saatgut deshalb mit Nachbarn, Freunden oder in Gemeinschaftsgärten. In vielen Städten gibt es im Frühjahr Saatgut-Tauschbörsen, und manche Bibliotheken haben Saatgutbibliotheken, in denen du Samen ausleihst und im Herbst eigenes Saatgut zurückgibst. So bleibt dein Vorrat frisch, und du lernst nebenbei neue Sorten kennen.
 
+## Besonderheiten bei der Keimprobe
+
+Nicht alle Samen keimen unter denselben Bedingungen. Lichtkeimer wie Salat, Basilikum oder Sellerie brauchen auch bei der Keimprobe Licht und dürfen nicht in einer dunklen Schublade liegen. Dunkelkeimer wie Tomaten oder Kürbisse keimen besser, wenn das Küchenpapier eingerollt oder abgedeckt ist.
+
+Auch die Temperatur spielt eine Rolle. Wärmeliebende Arten wie Tomaten, Paprika und Gurken keimen bei zwanzig bis fünfundzwanzig Grad am zuverlässigsten, Paprika braucht oft zwei bis drei Wochen. Salat dagegen keimt in der Wärme schlecht und mag es eher kühl. Wer die Probe unter den passenden Bedingungen macht, bekommt ein realistisches Ergebnis.
+
+## Einweichen und Vorkeimen
+
+Manche Samen keimen schneller, wenn sie vorher Wasser aufnehmen. Petersilie, Pastinaken, Möhren und Erbsen kannst du über Nacht in lauwarmem Wasser einweichen. Danach trocknest du sie kurz auf Küchenpapier ab, damit sie sich besser säen lassen.
+
+Bei langsam keimenden oder teuren Samen ist auch Vorkeimen möglich: Lege die Samen wie bei der Keimprobe auf feuchtes Papier und säe die gekeimten Samen vorsichtig aus, sobald die kleine Wurzel sichtbar ist. Die zarten Keimwurzeln brechen leicht, deshalb arbeitest du mit einer Pinzette oder einem feuchten Pinsel.
+
+## Sortenvielfalt bewahren
+
+Wer Saatgut selbst gewinnt und tauscht, hilft, alte und regionale Sorten zu erhalten. In vielen Ländern sammeln Vereine und Initiativen solche Sorten und geben sie an Gärtner weiter, etwa der Verein VERN in Brandenburg oder die österreichische Organisation Arche Noah. Manche Stadtbibliotheken betreiben inzwischen Saatgutbibliotheken, in denen man Samen ausleihen und nach der Ernte eigenes Saatgut zurückgeben kann.
+
 ## Häufige Fragen
 
 ### Kann ich Saatgut nach dem Ablaufdatum noch verwenden?
@@ -107,3 +123,19 @@ Im Beet spielen Temperatur, Feuchtigkeit, Saattiefe und Bodenstruktur eine groß
 ### Wie mache ich eine Keimprobe mit sehr kleinen Samen?
 
 Mit einer Pinzette oder einem angefeuchteten Zahnstocher lassen sich auch kleine Samen wie Möhren oder Salat einzeln auslegen. Weißes Küchenpapier macht sie gut sichtbar.
+
+### Kann ich Saatgut im Kühlschrank lagern?
+
+Ja, wenn es gut verpackt ist. Lege die Tüten in ein luftdicht schließendes Glas, am besten mit einem kleinen Beutel getrocknetem Reis oder Kieselgel, der Feuchtigkeit aufnimmt. Lass das Glas nach dem Herausnehmen erst auf Zimmertemperatur kommen, bevor du es öffnest, sonst bildet sich Kondenswasser auf den kalten Samen.
+
+### Wie lange sollte eine Keimprobe dauern?
+
+Die meisten Gemüse keimen innerhalb von ein bis zwei Wochen. Langsame Arten wie Petersilie, Möhren oder Paprika brauchen bis zu drei Wochen. Halte das Papier während der ganzen Zeit feucht, aber nicht nass, und tausche es aus, wenn sich Schimmel bildet.
+
+### Was mache ich mit Saatgut, das schlecht keimt?
+
+Liegt die Keimrate noch bei etwa der Hälfte, kannst du es verwenden und einfach dichter säen. Bei sehr schlechten Ergebnissen lohnt sich frisches Saatgut, denn schwache Samen bringen oft auch schwache Pflanzen hervor. Altes, unbehandeltes Saatgut kommt auf den Kompost.
+
+Gebeiztes, farbig behandeltes Saatgut gehört dagegen in den Hausmüll.
+
+Notiere dir das Ergebnis direkt auf der Samentüte.

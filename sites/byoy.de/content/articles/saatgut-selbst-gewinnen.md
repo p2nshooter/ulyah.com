@@ -75,6 +75,22 @@ Ernte Samen nur von Pflanzen, die gesund sind, gut gewachsen sind und die typisc
 
 Wie lange Samen keimfähig bleiben und wie du sie richtig lagerst, steht in [Keimprobe und Saatgut lagern](/gartenwissen/keimprobe-und-saatgut-lagern/).
 
+## Samen von Kräutern und Blumen
+
+Besonders leicht gelingt die Saatgutgewinnung bei vielen Kräutern und Sommerblumen. Dill, Koriander, Ringelblumen, Kapuzinerkresse, Kornblumen und Sonnenblumen bilden reichlich Samen, die du einfach ernten kannst, wenn die Samenstände braun und trocken sind. Stülpe eine Papiertüte über reifende Samenstände, damit die Samen nicht herausfallen oder von Vögeln gefressen werden.
+
+Lass die geernteten Samenstände einige Tage in der Tüte nachtrocknen, schüttle die Samen dann heraus und entferne grobe Pflanzenteile. Kräuter- und Blumensamen sind ein schönes Geschenk und lassen sich gut auf Saatgutbörsen tauschen.
+
+## Genug Pflanzen für gesunde Sorten
+
+Wer Saatgut von Fremdbestäubern wie Kürbis, Kohl, Möhren oder Mais gewinnen möchte, sollte nicht nur eine einzige Pflanze verwenden. Werden über Jahre immer nur die Samen weniger Pflanzen vermehrt, verliert die Sorte an genetischer Vielfalt, und die Pflanzen können mit der Zeit schwächer werden. Nimm deshalb Samen von möglichst vielen gesunden Pflanzen und mische sie.
+
+Bei Selbstbestäubern wie Bohnen, Erbsen, Tomaten und Salat ist das weniger kritisch, aber auch hier lohnt es sich, Samen von mehreren Pflanzen zu nehmen. So bleibt die Sorte widerstandsfähig und passt sich langsam an deinen Garten an.
+
+## Keine Krankheiten weitergeben
+
+Manche Krankheiten werden über das Saatgut übertragen, etwa bestimmte Pilz- und Viruserkrankungen bei Bohnen. Gewinne Samen deshalb nur von gesunden, kräftigen Pflanzen und markiere die besten Exemplare schon während der Saison mit einem Band. Kranke oder schwache Pflanzen sind für die Saatgutgewinnung tabu.
+
 ## Häufige Fragen
 
 ### Darf ich selbst gewonnenes Saatgut weitergeben?
@@ -88,3 +104,15 @@ Viele Supermarkt-Tomaten sind F1-Hybriden. Aus ihren Samen wachsen Pflanzen mit 
 ### Wie viel Saatgut brauche ich?
 
 Meist viel weniger, als eine einzige Pflanze liefert. Eine Tomate bringt Hunderte Samen, eine Bohnenpflanze genug für eine ganze Reihe. Der Rest eignet sich wunderbar zum Tauschen.
+
+### Wie lange halten selbst gewonnene Samen?
+
+So lange wie gekaufte Samen derselben Art, wenn sie gut getrocknet und kühl, trocken und dunkel gelagert werden. Prüfe ältere Samen vor der Aussaat mit einer Keimprobe. Mehr dazu im Ratgeber [Keimprobe und Saatgut lagern](/gartenwissen/keimprobe-und-saatgut-lagern/).
+
+### Muss ich das Saatgut beschriften?
+
+Unbedingt. Notiere auf jeder Tüte die Art, die Sorte, das Erntejahr und Besonderheiten wie die Herkunft oder Beobachtungen zur Pflanze. Nach einem Jahr weiß sonst niemand mehr, welche Tomate in welcher Tüte steckt. Bewahre die Tüten in einer Kiste nach Arten sortiert auf, dann findest du im Frühjahr schnell, was du suchst.
+
+Ein kleiner Zettel mit Notizen zur Pflanze hilft dir im nächsten Jahr bei der Auswahl.
+
+So entsteht nach und nach ein Saatgutvorrat, der genau zu deinem Garten passt.

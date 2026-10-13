@@ -92,6 +92,18 @@ Besonders wertvoll ist das zeitige Frühjahr, wenn erste Schwebfliegen und Wildb
 
 Ringelblume, Kornblume, Borretsch, Tagetes und Kapuzinerkresse sind samenfeste Pflanzen, deren Samen du leicht selbst sammeln kannst. Lass einige der schönsten Blüten ausreifen, ernte die trockenen Samenstände an einem sonnigen Tag und bewahre die Samen kühl und trocken in Papiertüten auf. So hast du jedes Jahr kostenlos Begleitblumen. Wie Saatgutgewinnung bei Gemüse funktioniert, erklärt [Saatgut selbst gewinnen](/gartenwissen/saatgut-selbst-gewinnen/).
 
+## Blumen gegen Schädlinge: was wirklich belegt ist
+
+Viele Ratgeber versprechen, dass bestimmte Blumen Schädlinge vertreiben. Für einige Fälle gibt es gute Hinweise, etwa für Tagetes, deren Wurzeln bestimmte Fadenwürmer im Boden zurückdrängen, wenn sie dicht und eine ganze Saison lang wachsen. Viele andere Versprechen, dass ein einzelner Duft Schädlinge fernhält, sind dagegen kaum belegt.
+
+Der eigentliche Nutzen der Blumen liegt woanders: Sie locken Nützlinge an. Schwebfliegen, Florfliegen und winzige Schlupfwespen brauchen als erwachsene Tiere Nektar und Pollen, ihre Larven fressen dagegen Blattläuse und andere Schädlinge. Besonders wertvoll sind Blüten mit leicht erreichbarem Nektar, etwa von Doldenblütlern wie Dill und Koriander oder von einfachen Korbblütlern wie Ringelblume und Kornblume. Wer sie zwischen das Gemüse setzt, holt sich die Schädlingsbekämpfer direkt ins Beet.
+
+## Blumen, die nicht ins Gemüsebeet gehören
+
+Nicht jede schöne Blume passt neben das Gemüse. Giftige Pflanzen wie Fingerhut, Eisenhut oder Rittersporn haben im Gemüsebeet nichts verloren, vor allem wenn Kinder mitgärtnern oder Blätter verwechselt werden könnten. Auch sehr hohe, wuchernde Arten, die das Gemüse beschatten, oder Pflanzen, die sich mit Wurzelausläufern über das ganze Beet ausbreiten, machen mehr Arbeit, als sie nutzen.
+
+Vorsicht auch bei gekauften Blumen aus dem Gartencenter: Sie sind oft mit Pflanzenschutzmitteln behandelt worden und nicht für den Verzehr gedacht. Wenn du essbare Blüten ernten möchtest, ziehe die Pflanzen am besten selbst aus Bio-Saatgut.
+
 ## Häufige Fragen
 
 ### Nehmen Blumen dem Gemüse nicht Nährstoffe weg?
@@ -105,3 +117,17 @@ Ringelblume und Borretsch tun das gern. Junge Sämlinge an ungünstigen Stellen 
 ### Kann ich auch Kräuter statt Blumen nehmen?
 
 Ja. Blühender Dill, Koriander, Thymian, Oregano und Schnittlauch sind hervorragende Nektarquellen. Lass einige Kräuter bewusst blühen, statt sie alle zu ernten.
+
+### Ziehen Blumen Schnecken an?
+
+Manche schon. Tagetes zum Beispiel sind bei Schnecken ausgesprochen beliebt. Das kann man nutzen: Einige Tagetes am Beetrand lenken Schnecken vom Gemüse ab und machen es leichter, sie abends abzusammeln. Wer viele Schnecken im Garten hat, wählt für das Innere des Beets eher Blumen, die Schnecken meiden, etwa Kapuzinerkresse oder Borretsch.
+
+### Wann säe ich Begleitblumen am besten?
+
+Ringelblumen, Kornblumen und Borretsch kannst du ab April direkt ins Beet säen, sobald der Boden nicht mehr gefroren ist. Kapuzinerkresse und Tagetes sind frostempfindlich und kommen erst nach den Eisheiligen ins Freie oder werden auf der Fensterbank vorgezogen. Wer früh im Jahr schon Blüten möchte, setzt im Herbst einige Frühlingszwiebeln wie Krokusse an den Beetrand.
+
+### Wie viele Blumen brauche ich in einem Beet?
+
+Schon wenige Pflanzen machen einen Unterschied. Eine Reihe Ringelblumen am Rand oder einzelne Blumen alle paar Meter zwischen den Gemüsereihen reichen, um Nützlinge anzulocken, ohne dem Gemüse viel Platz zu nehmen.
+
+Mehr Blumen schaden aber nicht, solange das Gemüse genug Licht bekommt.

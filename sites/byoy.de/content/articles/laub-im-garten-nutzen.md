@@ -84,6 +84,20 @@ Auf Beeten sind fünf bis zehn Zentimeter ideal. Dickere Schichten aus ganzen Bl
 
 Laubarbeit im Herbst ist ein schönes Familienprojekt. Kinder lieben es, in Laubhaufen zu springen, Blätter zu sortieren und zu bestimmen und ein Igelquartier zu bauen. Erkläre dabei, warum das Laub im Garten bleibt und was die Regenwürmer daraus machen. Ein Glas mit Erde, Laub und ein paar Regenwürmern auf der Fensterbank zeigt über einige Wochen, wie die Blätter im Boden verschwinden.
 
+## Laub auf dem Rasen: mulchen statt entfernen
+
+Eine dünne Laubschicht auf dem Rasen musst du nicht zusammenrechen. Mit einem Rasenmäher, am besten mit Mulchfunktion, lassen sich die Blätter fein zerkleinern. Die Schnipsel rutschen zwischen die Grashalme, werden schnell zersetzt und düngen den Rasen ganz nebenbei. Liegt das Laub dagegen dicht und nass auf dem Rasen, nimmt es dem Gras Licht und Luft, und darunter entstehen kahle oder schimmelige Stellen. Dann rechst du es ab und nutzt es an anderer Stelle im Garten.
+
+## Laub als Frostschutz
+
+Laub ist ein ausgezeichneter, kostenloser Winterschutz. Empfindliche Stauden wie Artischocken oder junge Rosen bekommen im Spätherbst eine Decke aus Laub, die du mit Reisig beschwerst, damit der Wind sie nicht verweht. Kübelpflanzen, die draußen überwintern, kannst du in eine Kiste oder einen Korb stellen und die Zwischenräume mit Laub füllen. Das isoliert die Wurzeln gegen Frost.
+
+Im Frühjahr ziehst du das Laub wieder zur Seite, sobald keine starken Fröste mehr drohen, damit die Pflanzen austreiben können. Das Laub kommt danach in den Kompost oder bleibt als Mulch im Beet.
+
+## Laub auf Wegen und Gehsteigen
+
+Auf Wegen, Treppen und Terrassen wird nasses Laub schnell zur Rutschfalle. Kehre diese Flächen regelmäßig, besonders im Herbst bei Regen. Viele Gemeinden verpflichten Grundstückseigentümer außerdem per Satzung, den angrenzenden Gehweg von Laub freizuhalten. Erkundige dich, welche Regeln bei dir gelten, und gib das Laub dann gleich in den Garten statt in die Tonne.
+
 ## Häufige Fragen
 
 ### Muss ich Laub vom Rasen entfernen?
@@ -97,3 +111,15 @@ Laub von stark befahrenen Straßen kann Streusalz, Abrieb und Schadstoffe enthal
 ### Ist krankes Laub ein Problem?
 
 Laub von Obstbäumen mit Schorf oder Pilzbefall gibst du besser in die Grünabfallsammlung oder vergräbst es tief. Auf dem Beet könnten die Sporen im Frühjahr wieder austreiben. Mehr dazu in [Pilzkrankheiten vorbeugen](/gartenwissen/pilzkrankheiten-vorbeugen/).
+
+### Darf ich Laub verbrennen?
+
+Das Verbrennen von Gartenabfällen ist in den meisten Gemeinden verboten, und es setzt Feinstaub frei. Laub gehört auf den Kompost, in den Garten oder, wenn es gar nicht anders geht, in die Biotonne oder zur Grünschnittsammlung der Gemeinde.
+
+### Welches Laub zersetzt sich am schnellsten?
+
+Laub von Obstbäumen, Linden, Ahorn, Hainbuchen und Birken verrottet vergleichsweise schnell. Eichen-, Walnuss- und Kastanienlaub enthält mehr Gerbstoffe und braucht deutlich länger. Wer solches Laub verwenden möchte, zerkleinert es mit dem Rasenmäher und mischt es mit stickstoffreichem Material wie Rasenschnitt.
+
+Zerkleinertes Laub verrottet grundsätzlich schneller als ganze Blätter.
+
+Eine Mischung aus schnell und langsam verrottendem Laub ergibt besonders guten Laubkompost.

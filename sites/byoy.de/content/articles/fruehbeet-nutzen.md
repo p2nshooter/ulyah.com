@@ -101,6 +101,18 @@ Ein einfaches Frühbeet baust du an einem Nachmittag:
 
 Wichtig ist, dass alte Fenster keine bleihaltige Farbe haben, die abblättert, und dass das Glas fest im Rahmen sitzt.
 
+## Was im Frühbeet besonders gut gelingt
+
+Im zeitigen Frühjahr ist das Frühbeet ideal für schnelle, kälteverträgliche Kulturen: Radieschen, Pflücksalat, Rucola, Spinat, Kohlrabi und Frühlingszwiebeln. Sie sind oft schon geerntet, wenn draußen gerade die ersten Aussaaten aufgehen. Gleichzeitig ist das Frühbeet ein guter Ort, um auf der Fensterbank vorgezogene Jungpflanzen langsam an Sonne, Wind und kühlere Nächte zu gewöhnen.
+
+Im Herbst und Winter wachsen dort Feldsalat, Winterportulak, Asia-Salate und Wintersalate, die unter Glas oder Folie auch bei Frost noch geerntet werden können. In kühlen Regionen nutzen manche Gärtner das Frühbeet im Sommer für wärmeliebende Pflanzen wie Paprika oder Melonen, die dort geschützter stehen als im offenen Beet.
+
+## Die Temperatur im Blick behalten
+
+Schon an sonnigen Märztagen steigt die Temperatur unter Glas oder Folie innerhalb kurzer Zeit weit über dreißig Grad, auch wenn es draußen kühl ist. Junge Pflanzen verbrennen dann oder werden weich und anfällig. Ein Minimum-Maximum-Thermometer im Frühbeet zeigt dir, wie warm es tagsüber wird und wie kalt es nachts war.
+
+Wer tagsüber nicht zu Hause ist, kann automatische Fensteröffner verwenden. Sie arbeiten ohne Strom mit einem Zylinder, dessen Füllung sich bei Wärme ausdehnt und den Deckel anhebt. Bei Kälte schließt er sich wieder. So wird das Frühbeet auch dann gelüftet, wenn niemand daran denkt.
+
 ## Häufige Fragen
 
 ### Wie groß sollte ein Frühbeet sein?
@@ -114,3 +126,15 @@ Als Jungpflanzen im April und Mai ja. Für ausgewachsene Tomaten ist ein Frühbe
 ### Was mache ich im Sommer mit dem Frühbeet?
 
 Nimm den Deckel ab oder stelle ihn weit auf und nutze die Fläche wie ein normales Beet. Im Spätsommer säst du die Wintersalate, die im Herbst unter dem Deckel weiterwachsen.
+
+### Kann ich ein Frühbeet auch auf dem Balkon nutzen?
+
+Ja, kleine Frühbeetkästen und Anzuchtkästen mit Deckel passen auch auf Balkon und Terrasse. Stelle sie an einen hellen, windgeschützten Platz und sichere sie gegen Sturm, denn leichte Kästen bieten dem Wind viel Angriffsfläche. Lüften ist auf dem Balkon genauso wichtig wie im Garten.
+
+### Muss ich das Frühbeet im Winter abdecken?
+
+In milden Wintern reicht der Deckel. Bei strengem Frost helfen eine zusätzliche Schicht Vlies über den Pflanzen, Strohmatten oder Luftpolsterfolie auf dem Deckel und eine Umrandung aus Laub. Lüfte trotzdem an sonnigen Tagen kurz, damit sich keine Feuchtigkeit staut und Pilzkrankheiten entstehen.
+
+### Wie oft muss ich die Erde im Frühbeet erneuern?
+
+Tausche die obere Erdschicht etwa jedes Jahr aus oder arbeite reifen Kompost ein. Im Frühbeet wird intensiv angebaut, und mit der Zeit sammeln sich dort Schaderreger an.

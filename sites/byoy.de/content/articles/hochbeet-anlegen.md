@@ -90,6 +90,18 @@ Nach der letzten Ernte deckst du das Hochbeet mit Laub, Stroh oder einer Gründ�
 - **Zu viel Rasenschnitt:** Dicke Schichten faulen und riechen.
 - **Vergessenes Nachfüllen:** Nach zwei Jahren liegt die Oberfläche 20 Zentimeter tiefer, und die Pflanzen stehen im Schatten der Wände.
 
+## Die richtige Höhe für Rücken und Rollstuhl
+
+Ein großer Vorteil des Hochbeets ist die bequeme Arbeitshöhe. Für Erwachsene, die im Stehen gärtnern, ist eine Höhe von etwa 80 bis 90 Zentimetern angenehm, sodass man ohne Bücken säen, pflanzen und ernten kann. Für Kinder und Menschen, die im Sitzen arbeiten, ist ein niedrigeres Beet sinnvoller.
+
+Wer im Rollstuhl gärtnert, braucht ein Hochbeet, unter das die Knie passen. Solche Tischhochbeete haben eine flache Pflanzwanne auf Beinen und sind nur so tief, dass Salate, Kräuter, Erdbeeren und andere flach wurzelnde Kulturen darin wachsen. Die Breite sollte so gewählt sein, dass die Mitte von einer Seite aus erreichbar ist.
+
+## Ein Holzhochbeet länger nutzen
+
+Holzhochbeete sind beliebt, aber Holz, das ständig mit feuchter Erde in Kontakt ist, verrottet mit der Zeit. Robuste Holzarten wie Lärche oder Douglasie halten deutlich länger als Fichte. Kleide die Innenwände außerdem mit einer Noppenbahn aus, wie sie im Bau verwendet wird, mit den Noppen zum Holz hin. So bleibt zwischen Erde und Holz eine Luftschicht, und das Holz trocknet nach Regen wieder ab.
+
+Verwende für Gemüsebeete kein Holz, das mit chemischen Holzschutzmitteln behandelt wurde, und keine alten Bahnschwellen, die mit Teerölen getränkt sind. Diese Stoffe gehören nicht in die Nähe von Lebensmitteln.
+
 ## Häufige Fragen
 
 ### Wie viel Material brauche ich?
@@ -103,3 +115,17 @@ In dünnen Lagen ja. Dicke Schichten frischen Rasenschnitts faulen, riechen und 
 ### Lohnt sich ein Hochbeet auch auf gutem Gartenboden?
 
 Wegen des Rückens und der früheren Ernte ja. Auf gutem Boden ist aber ein ebenerdiges Beet mit Kompost genauso ertragreich und günstiger, wie in [Gemüsebeet anlegen](/gartenwissen/gemuesebeet-anlegen/) beschrieben.
+
+### Gehört unten in das Hochbeet eine Folie?
+
+Nein. Der Boden des Hochbeets bleibt offen, damit überschüssiges Wasser versickern kann und Regenwürmer und andere Bodenlebewesen von unten einwandern. Unten gehört nur ein engmaschiges Drahtgitter gegen Wühlmäuse hinein. Folie kommt allenfalls an die Innenwände, um das Holz zu schützen.
+
+### Kann ich ein Hochbeet auf Pflaster oder auf den Balkon stellen?
+
+Auf Pflaster und Terrassen ist das möglich, wenn das Wasser unten abfließen kann. Auf Balkonen und Dachterrassen ist Vorsicht geboten: Ein Hochbeet mit nasser Erde ist sehr schwer. Kläre vorher die zulässige Belastung und, als Mieter, die Erlaubnis der Vermieterin oder des Vermieters.
+
+### Wie lange hält die Füllung eines Hochbeets?
+
+Die Schichten im Inneren zersetzen sich über mehrere Jahre, und die Erde sackt jedes Jahr ein Stück ab. Fülle deshalb jedes Frühjahr mit reifem Kompost oder einer Mischung aus Kompost und Gartenerde auf. Nach etwa fünf bis sieben Jahren ist die Füllung meist vollständig zu Erde geworden. Dann kannst du das Beet ausräumen, neu schichten und die alte Erde im Garten verteilen.
+
+Das spart Material und schließt den Kreislauf im Garten.

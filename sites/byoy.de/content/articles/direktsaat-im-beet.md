@@ -106,6 +106,18 @@ Vereinzle am besten bei feuchtem Boden und drücke die verbleibenden Pflanzen da
 
 Säe schnell wachsende Kulturen wie Radieschen, Salat, Spinat und Buschbohnen nicht auf einmal, sondern in kleinen Mengen alle zwei bis vier Wochen. So hast du über die ganze Saison eine gleichmäßige Ernte. Wie du freie Flächen nach der Ernte gleich wieder nutzt, beschreibt [Vorkultur, Hauptkultur, Nachkultur](/gartenwissen/vor-und-nachkultur/).
 
+## Direktsaat und Mulch
+
+Mulch schützt den Boden und spart Wasser, verträgt sich aber nicht mit frischen Saaten. Feine Samen wie Möhren, Radieschen oder Salat brauchen eine freie, feinkrümelige Oberfläche, die sich in der Sonne erwärmt. Ziehe die Mulchschicht deshalb vor der Aussaat entlang der Saatreihen zur Seite, sodass ein freier Streifen entsteht.
+
+Sobald die Sämlinge einige Zentimeter hoch und kräftig genug sind, kannst du den Mulch wieder locker an die Reihen heranziehen. So bleibt der Boden zwischen den Reihen feucht, Unkraut hat weniger Chancen, und die jungen Pflanzen stehen trotzdem hell und warm.
+
+## Direktsaat mit Kindern
+
+Die Direktsaat ist ideal, um Kinder für den Garten zu begeistern. Große Samen wie Bohnen, Erbsen, Kürbisse und Sonnenblumen lassen sich gut greifen und einzeln in die Erde stecken. Radieschen und Kresse keimen nach wenigen Tagen und zeigen schnell einen Erfolg.
+
+Gib jedem Kind eine eigene kleine Reihe oder ein Quadrat und beschrifte es mit einem Holzschild. Wer selbst gesät, gegossen und geerntet hat, isst das eigene Gemüse oft mit ganz anderer Begeisterung.
+
 ## Häufige Fragen
 
 ### Warum keimen meine Möhren nicht?
@@ -119,3 +131,17 @@ Für feine Samen wie Möhren sind sie praktisch, weil das Vereinzeln weitgehend 
 ### Kann ich im Herbst direkt säen?
 
 Ja, Feldsalat, Spinat und Winterportulak werden im Spätsommer und Herbst direkt gesät. Manche Gärtner säen Pastinaken und Möhren auch im Spätherbst für eine frühe Keimung im nächsten Frühjahr.
+
+### Wie gieße ich frische Saaten, ohne sie wegzuspülen?
+
+Verwende eine Gießkanne mit feiner Brause und gieße langsam in mehreren Durchgängen. Bei Möhren und anderen langsam keimenden Arten hilft ein Brett oder ein Stück Vlies auf der Saatreihe, das die Feuchtigkeit hält. Kontrolliere täglich darunter und entferne die Abdeckung, sobald die ersten Keimlinge erscheinen.
+
+### Was mache ich, wenn eine Reihe lückenhaft aufläuft?
+
+Säe die Lücken einfach nach. Bei schnell keimenden Kulturen wie Radieschen oder Salat holen die Nachzügler schnell auf, bei Möhren lohnt es sich, eine schnell wachsende Kultur wie Pflücksalat in die Lücken zu setzen.
+
+### Warum keimen manche Samen schlecht, obwohl ich alles richtig gemacht habe?
+
+Häufig liegt es am Saatgut selbst. Ältere oder falsch gelagerte Samen verlieren ihre Keimfähigkeit, ohne dass man es ihnen ansieht. Eine kurze Keimprobe vor der Aussaat zeigt, ob das Saatgut noch gut ist. Wie sie funktioniert, erklärt der Ratgeber [Keimprobe und Saatgut lagern](/gartenwissen/keimprobe-und-saatgut-lagern/). Auch zu tiefe Saat, eine verkrustete Oberfläche nach starkem Regen oder Vögel, die Samen auspicken, sind häufige Gründe.
+
+Ein dünnes Netz über frischen Saaten hält Vögel zuverlässig fern, bis die Pflanzen kräftig genug sind.

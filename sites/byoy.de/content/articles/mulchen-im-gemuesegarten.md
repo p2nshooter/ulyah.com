@@ -92,6 +92,12 @@ Jede Kultur hat etwas andere Vorlieben. Ein paar Erfahrungswerte:
 - **Kranke Pflanzenteile:** Blätter mit Mehltau oder Braunfäule gehören nicht als Mulch auf Beete.
 - **Samentragende Wildkräuter:** Sie säen sich aus der Mulchschicht heraus aus.
 
+## Mulch über den Winter
+
+Auch im Winter schützt Mulch den Boden. Eine Decke aus Laub, Stroh oder Gründüngungsresten verhindert, dass Regen die Oberfläche verschlämmt und Nährstoffe auswäscht, und sie mildert starke Temperaturschwankungen. Das Bodenleben bleibt unter der Decke länger aktiv und verarbeitet das organische Material zu Humus.
+
+Im Frühjahr ziehst du den Wintermulch auf Beeten, die früh bepflanzt oder besät werden sollen, einige Wochen vorher zur Seite. So kann die Sonne den Boden erwärmen. Was noch nicht zersetzt ist, kommt auf den Kompost oder bleibt zwischen den Reihen liegen.
+
 ## Häufige Fragen
 
 ### Kann ich Pappe als Mulch verwenden?
@@ -109,3 +115,13 @@ Erste Unterschiede bei Bodenfeuchte und Krümelstruktur bemerkst du schon im ers
 ### Darf ich unter Obstbäumen mulchen?
 
 Ja, eine Baumscheibe mit Mulch fördert junge Obstbäume sehr, weil Gras um den Stamm stark um Wasser und Nährstoffe konkurriert. Halte etwa 10 cm Abstand zum Stamm, damit sich keine Wühlmäuse direkt an der Rinde einnisten.
+
+### Lockt Mulch Mäuse an?
+
+Dicke, trockene Schichten aus Heu oder Stroh bieten Mäusen und Wühlmäusen Unterschlupf, besonders im Winter. Halte Mulchschichten deshalb rund um Obstbäume und Gehölze dünner und einige Zentimeter vom Stamm entfernt, damit Nager dort nicht unbemerkt an der Rinde knabbern.
+
+### Kann ich Holzhäcksel im Gemüsebeet verwenden?
+
+Frische Holzhäcksel binden beim Zersetzen Stickstoff und sind deshalb eher für Wege, unter Sträuchern und für Beerenobst geeignet. Im Gemüsebeet verwendest du sie besser erst, wenn sie ein Jahr kompostiert wurden.
+
+Grober Rindenmulch ist aus demselben Grund eher etwas für Ziergehölze als für das Gemüsebeet.

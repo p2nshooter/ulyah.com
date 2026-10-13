@@ -94,6 +94,18 @@ Ein Plan ist kein Gesetz. Wenn die Erbsen später keimen, der Salat schießt ode
 
 Nimm dir im Herbst eine Stunde Zeit, deinen Plan mit der Wirklichkeit zu vergleichen: Welche Kulturen haben sich gelohnt, welche haben enttäuscht? Wovon gab es zu viel, wovon zu wenig? Welche Sorten haben besonders gut geschmeckt? Notiere die Antworten direkt neben dem Plan. Diese Auswertung ist der wertvollste Teil der Planung, denn sie macht den nächsten Plan besser.
 
+## Platzsparende Tricks für kleine Gärten
+
+Auch auf wenigen Quadratmetern lässt sich viel ernten, wenn du in die Höhe und in die Zeit planst. Stangenbohnen, Gurken, Erbsen und kleinfrüchtige Kürbisse wachsen an Gittern, Zäunen oder Stäben nach oben und brauchen am Boden nur einen schmalen Streifen. Schnell wachsende Kulturen wie Radieschen oder Pflücksalat passen als Zwischensaat zwischen langsame Kulturen wie Möhren oder Pastinaken und sind geerntet, bevor diese den Platz brauchen.
+
+Eine bewährte Methode für kleine Beete ist das Quadratgärtnern, bekannt geworden durch das Buch „Square Foot Gardening“ des Amerikaners Mel Bartholomew. Das Beet wird in Quadrate von etwa 30 mal 30 Zentimetern eingeteilt, und jedes Quadrat erhält eine bestimmte Zahl von Pflanzen derselben Art, zum Beispiel eine Tomate, vier Salatköpfe oder sechzehn Möhren. So behältst du den Überblick und nutzt jeden Zentimeter.
+
+## Beetbreite und Wege richtig planen
+
+Damit du ein Beet bearbeiten kannst, ohne es zu betreten, sollte es nicht breiter als etwa 1,20 Meter sein. So erreichst du die Mitte bequem von beiden Seiten. Jeder Schritt auf die Beetfläche verdichtet den Boden, und verdichteter Boden behindert Wurzeln, Bodenleben und Wasseraufnahme.
+
+Wege zwischen den Beeten sollten mindestens 30 bis 40 Zentimeter breit sein, Hauptwege, auf denen du mit einer Schubkarre fährst, eher 60 Zentimeter oder mehr. Mit Holzhackschnitzeln, Rindenmulch oder Trittplatten bleiben die Wege auch nach Regen begehbar, und im Plan sollten sie von Anfang an eingezeichnet sein, denn nachträglich verschwinden sie oft unter wuchernden Kulturen.
+
 ## Häufige Fragen
 
 ### Papier oder App?
@@ -107,3 +119,15 @@ Für eine deutliche Ergänzung der Sommerküche reichen 20 bis 40 Quadratmeter. 
 ### Wann sollte der Plan fertig sein?
 
 Bis Ende Februar. Dann kannst du rechtzeitig Saatgut bestellen und mit der Anzucht von Tomaten und Paprika beginnen.
+
+### Kann ich jedes Jahr denselben Plan verwenden?
+
+Die Grundaufteilung mit Beeten und Wegen bleibt, aber die Kulturen sollten jedes Jahr wandern. Wenn dieselbe Gemüsefamilie mehrere Jahre am selben Platz steht, reichern sich Krankheiten und Schädlinge im Boden an. Plane deshalb einen Wechsel nach dem Prinzip der Fruchtfolge. Wie das funktioniert, erklärt der Ratgeber [Fruchtfolge planen](/gartenwissen/fruchtfolge-planen/).
+
+### Was trage ich in den Plan außer den Pflanzen noch ein?
+
+Hilfreich sind Saat- und Pflanztermine, die Sorten, der Abstand der Reihen und Notizen zur Ernte. Wer am Ende der Saison festhält, was gut gewachsen ist und was nicht, hat für das nächste Jahr die beste Planungsgrundlage.
+
+### Wie plane ich Platz für Blumen und Kräuter ein?
+
+Reserviere von Anfang an Randstreifen oder einzelne Quadrate für Begleitblumen und Kräuter. Sie locken Nützlinge an und machen das Beet lebendiger. Ideen dazu findest du im Ratgeber [Blumen im Gemüsebeet](/gartenwissen/blumen-im-gemuesebeet/).

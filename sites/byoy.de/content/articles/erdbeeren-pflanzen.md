@@ -92,6 +92,22 @@ Knoblauch, Zwiebeln oder Lauch zwischen den Erdbeerreihen gelten traditionell al
 
 Erdbeeren reifen nach dem Pflücken nicht nach. Ernte sie, wenn sie vollständig ausgefärbt sind, am besten am Vormittag, wenn sie abgetrocknet, aber noch kühl sind. Pflücke sie mit dem grünen Kelch, so halten sie länger. Wasche sie erst kurz vor dem Essen.
 
+## Das Erdbeerbeet nach der Ernte
+
+Bei einmaltragenden Sorten beginnt das nächste Erntejahr direkt nach der Ernte. Im Spätsommer legen die Pflanzen ihre Blütenknospen für das kommende Jahr an, und dafür brauchen sie Kraft und gesunde Blätter. Entferne nach der Ernte das Stroh, schneide alte, fleckige Blätter und alle Ausläufer ab, die du nicht zur Vermehrung brauchst, und achte darauf, das Herz der Pflanze nicht zu verletzen.
+
+Anschließend lockerst du den Boden zwischen den Reihen vorsichtig und gibst eine dünne Schicht reifen Kompost oder einen organischen Beerendünger. Gieße in trockenen Spätsommerwochen weiter, denn Trockenstress in dieser Zeit bedeutet weniger Blüten im nächsten Frühjahr. Mehrmals tragende Sorten pflegst du dagegen bis in den Herbst wie während der Ernte weiter.
+
+## Erdbeeren und die Fruchtfolge
+
+Erdbeeren sollten nicht jahrelang am selben Platz stehen. Nach drei bis vier Jahren lässt der Ertrag nach, und im Boden reichern sich Schaderreger an. Lege ein neues Beet deshalb an einer anderen Stelle an und warte mit einer erneuten Pflanzung am alten Platz etwa vier Jahre.
+
+Ungünstige Vorkulturen sind Kartoffeln und Tomaten, weil sie dieselbe Welkekrankheit übertragen können, die auch Erdbeeren befällt. Gut geeignet sind dagegen Flächen, auf denen vorher Gründüngung, Zwiebeln oder Salate standen. Mehr dazu im Ratgeber [Fruchtfolge planen](/gartenwissen/fruchtfolge-planen/).
+
+## Erdbeeren im Hochbeet
+
+Im Hochbeet erwärmt sich die Erde im Frühjahr schneller, die Früchte liegen sauberer, und Schnecken haben einen weiteren Weg. Pflanze Erdbeeren dort am besten an den Rand, damit die Früchte über die Kante hängen können, und gieße regelmäßig, denn Hochbeete trocknen schneller aus als ebenerdige Beete. Wie ein Hochbeet aufgebaut wird, erklärt der Ratgeber [Hochbeet anlegen](/gartenwissen/hochbeet-anlegen/).
+
 ## Häufige Fragen
 
 ### Kann ich Erdbeeren auch im Frühjahr pflanzen?
@@ -105,3 +121,11 @@ Im zweiten Jahr ist der Ertrag meist am höchsten, im dritten noch gut, danach l
 ### Warum sind meine Erdbeeren klein und verformt?
 
 Häufig liegt es an unvollständiger Bestäubung, etwa nach kalten Tagen während der Blüte, oder an Spätfrost, der einen Teil der Blütenorgane geschädigt hat. Auch Wassermangel während der Fruchtbildung macht die Früchte klein.
+
+### Brauchen Erdbeeren eine Strohschicht?
+
+Nicht zwingend, aber sie hilft. Stroh hält die Früchte sauber und trocken und beugt so Grauschimmel vor. Lege es erst aus, wenn sich die ersten grünen Früchte zeigen. Zu früh ausgebracht, hält es den Boden kalt und verzögert die Reife.
+
+### Kann ich Erdbeeren zwischen anderes Gemüse pflanzen?
+
+Ja, Erdbeeren vertragen sich gut mit Knoblauch, Zwiebeln, Schnittlauch, Salat und Spinat. Knoblauch zwischen den Erdbeerreihen soll nach Erfahrung vieler Gärtner Pilzkrankheiten mindern. Ungünstig sind Kohl und starkwüchsige Nachbarn, die den Erdbeeren Licht nehmen.

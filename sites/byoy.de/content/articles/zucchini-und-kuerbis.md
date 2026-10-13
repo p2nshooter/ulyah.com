@@ -97,6 +97,12 @@ Wenn du Saatgut selbst gewinnen möchtest, baue pro Art nur eine Sorte an oder b
 
 Als Starkzehrer stehen Zucchini und Kürbis am Anfang der Fruchtfolge, auf einem Beet, das reichlich Kompost bekommen hat. Danach folgen Mittelzehrer wie Möhren oder Zwiebeln. Gute Nachbarn sind Mais und Stangenbohnen, die zusammen mit dem Kürbis die traditionelle „Drei Schwestern"-Mischkultur bilden: Der Mais dient als Rankhilfe, die Bohne liefert Stickstoff, der Kürbis beschattet den Boden. Auch Kapuzinerkresse, Ringelblumen und Borretsch passen gut, weil sie Bestäuber anlocken, die für den Fruchtansatz unentbehrlich sind. Ungünstig sind Kartoffeln in direkter Nähe, die ebenfalls viel Wasser und Nährstoffe beanspruchen.
 
+## Zucchini und Kürbis in der Küche
+
+Zucchini schmecken am besten, wenn sie jung geerntet werden, mit etwa 15 bis 20 Zentimetern Länge. Dann sind sie zart, haben kaum Kerne und eignen sich roh für Salate, zum Grillen, Braten oder Füllen. Wer zu viele hat, raspelt sie und friert sie portionsweise für Suppen, Kuchen oder Puffer ein.
+
+Kürbisse sind vielseitig: als Suppe, aus dem Ofen, als Püree oder im Curry. Die Kerne vieler Sorten lassen sich waschen, trocknen und rösten. Besonders praktisch sind Ölkürbisse, deren Kerne keine harte Schale haben.
+
 ## Häufige Fragen
 
 ### Wie viele Zucchinipflanzen brauche ich?
@@ -110,3 +116,11 @@ Besser nicht. Halte für Kürbisgewächse eine Anbaupause von drei bis vier Jahr
 ### Warum hat meine Zucchini nur männliche Blüten?
 
 Zu Saisonbeginn ist das normal. Hält es lange an, steht die Pflanze oft zu kühl, zu schattig oder bekommt zu viel Stickstoff.
+
+### Kann ich Zucchiniblüten essen?
+
+Ja. Vor allem die männlichen Blüten, die an einem dünnen Stiel ohne Fruchtansatz sitzen, lassen sich ernten, ohne den Ertrag stark zu mindern. Sie werden gefüllt, in Teig ausgebacken oder roh in Salate gegeben. Lass immer einige männliche Blüten stehen, damit die weiblichen bestäubt werden können.
+
+Ernte die Blüten am besten morgens, wenn sie frisch geöffnet sind.
+
+Dann sind sie am zartesten und lassen sich leicht füllen.

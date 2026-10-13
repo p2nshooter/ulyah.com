@@ -103,6 +103,12 @@ Wichtig auf kleinem Raum:
 
 Mischkultur ist im Erwerbsgemüsebau weniger verbreitet als im Hausgarten, weil Maschinen mit einheitlichen Reihen besser arbeiten. Untersuchungen zu Gemengen, etwa von Getreide mit Hülsenfrüchten im Ackerbau, zeigen aber, dass Mischbestände Flächen oft effizienter nutzen als Reinkulturen. Für einzelne Gartenpaare wie Möhre und Zwiebel ist der Schutz vor Schädlingen nachweisbar, aber kleiner, als viele Gartenbücher versprechen. Das wichtigste Argument für die Mischkultur im Hausgarten bleibt deshalb ein praktisches: Ein vielfältiges Beet ist widerstandsfähiger, nutzt den Platz besser und bietet Nützlingen mehr Lebensraum.
 
+## Die drei Schwestern: Mais, Bohnen und Kürbis
+
+Eine der ältesten Mischkulturen der Welt stammt aus Mittelamerika und wird oft die „drei Schwestern“ genannt. Mais, Stangenbohnen und Kürbis wachsen dabei zusammen auf einem Beet. Der Mais dient den Bohnen als Rankhilfe, die Bohnen sammeln mit ihren Knöllchenbakterien Stickstoff im Boden, und die großen Blätter des Kürbisses beschatten den Boden, halten ihn feucht und unterdrücken Unkraut.
+
+Im Hausgarten funktioniert diese Kombination am besten, wenn der Mais einige Wochen Vorsprung hat, bevor die Bohnen gesät werden, sonst ziehen die Bohnen die jungen Maispflanzen um. Wähle kräftige Maissorten und nicht zu stark wachsende Bohnen. Für Kinder ist ein Drei-Schwestern-Beet ein besonders anschauliches Beispiel dafür, wie Pflanzen einander helfen können.
+
 ## Häufige Fragen
 
 ### Muss ich mich streng an Mischkultur-Tabellen halten?
@@ -116,3 +122,11 @@ Beides ergänzt sich. Die Fruchtfolge regelt, was im nächsten Jahr auf einem Be
 ### Sind Blumen im Gemüsebeet sinnvoll?
 
 Ja. Ringelblumen, Kapuzinerkresse, Borretsch oder Kornblumen locken Bestäuber und Nützlinge an und machen das Beet schöner. Achte nur darauf, dass sie die Gemüse nicht überwuchern.
+
+### Funktioniert Mischkultur auch im Balkonkasten?
+
+Ja, im Kleinen. Tomaten mit Basilikum, Salat mit Radieschen oder Erdbeeren mit Schnittlauch passen gut zusammen. Achte darauf, dass das Gefäß groß genug ist und die Pflanzen ähnliche Ansprüche an Wasser und Licht haben, denn im begrenzten Wurzelraum ist die Konkurrenz stärker als im Beet.
+
+### Wie dicht darf ich in Mischkultur pflanzen?
+
+Etwas dichter als in Reinkultur, aber nicht so dicht, dass sich die Pflanzen gegenseitig Licht nehmen. Halte die empfohlenen Abstände der Hauptkultur ein und nutze die Lücken für schnell wachsende Partner wie Radieschen oder Pflücksalat.

@@ -126,6 +126,18 @@ Kleine Mengen bei jedem Satz reichen: Für zwei Personen genügen oft eine halbe
 
 Viele Gärtner beobachten, dass das Frühjahr in den letzten Jahrzehnten früher beginnt und die Sommer heißer und trockener werden. Der phänologische Kalender spiegelt das wider: Die Forsythie blüht im Mittel früher als früher. Für den Garten heißt das: Wärmeliebende Kulturen können oft etwas früher hinaus, gleichzeitig sind Spätfröste nach einem milden Frühjahr besonders gefährlich, weil die Pflanzen schon weit entwickelt sind. Halte deshalb bis Mitte Mai immer ein Vlies bereit und plane im Hochsommer Pausen bei Kulturen, die bei Hitze schießen, wie Salat, Spinat und Radieschen.
 
+## Saatgut und Jungpflanzen rechtzeitig besorgen
+
+Der Gartenkalender beginnt nicht erst mit der ersten Aussaat, sondern mit dem Einkauf. Bestelle Saatgut am besten schon im Januar oder Februar, denn seltene Sorten und samenfeste Bio-Sorten sind im Frühjahr oft schnell vergriffen. Prüfe vorher deine Vorräte: Ältere Samen keimen nicht mehr zuverlässig, und eine einfache Keimprobe zeigt dir rechtzeitig, ob du nachkaufen musst. Wie das geht, erklärt der Ratgeber [Keimprobe und Saatgut lagern](/gartenwissen/keimprobe-und-saatgut-lagern/).
+
+Jungpflanzen von wärmeliebenden Kulturen wie Tomaten, Paprika, Gurken oder Kürbis findest du ab Mitte April in Bio-Gärtnereien und auf Wochenmärkten, die beste Auswahl gibt es meist kurz vor den Eisheiligen. In vielen Städten finden im Frühjahr außerdem Saatgutfestivals und Tauschbörsen statt, auf denen Hobbygärtner samenfeste Sorten tauschen. Dort bekommst du oft regionale Sorten, die im Handel kaum zu finden sind.
+
+## Der Kalender für Küchenkräuter
+
+Auch Kräuter haben ihre Termine. Petersilie wird von März bis Juli direkt gesät, keimt aber langsam und braucht oft drei bis vier Wochen. Schnittlauch säst du im März oder April, einfacher ist es aber, eine vorhandene Pflanze im Frühjahr zu teilen. Dill gelingt am besten mit mehreren kleinen Aussaaten von April bis Juli, weil er schnell in Blüte geht.
+
+Basilikum ist wärmebedürftig: Ziehe ihn ab April auf der Fensterbank vor und pflanze ihn erst nach den Eisheiligen aus. Koriander säst du im April und Mai und noch einmal im August und September, denn in der Sommerhitze schießt er rasch in Samen. Mehrjährige Kräuter wie Thymian, Salbei und Oregano kaufst du am einfachsten als Jungpflanzen und setzt sie im Frühjahr an einen sonnigen, durchlässigen Platz.
+
 ## Häufige Fragen
 
 ### Funktioniert Gärtnern nach dem Mondkalender?
@@ -139,3 +151,7 @@ Viele Gemüse lassen sich auch einige Wochen später noch säen, mit etwas gerin
 ### Gilt der Kalender auch für Hochbeete?
 
 Ja, Hochbeete erwärmen sich im Frühjahr schneller. Du kannst dort oft ein bis zwei Wochen früher beginnen, siehe [Hochbeet anlegen](/gartenwissen/hochbeet-anlegen/).
+
+### Darf ich früher säen, wenn das Frühjahr mild ist?
+
+Entscheidend ist weniger das Datum als die Bodentemperatur. Ein paar warme Tage im März erwärmen die Luft schnell, den Boden aber kaum, und in kalter, nasser Erde faulen viele Samen, bevor sie keimen. Säe empfindliche Kulturen deshalb lieber eine Woche zu spät als zu früh. Wer trotzdem früh starten möchte, deckt die Saatreihen mit Vlies ab oder nutzt ein Frühbeet.

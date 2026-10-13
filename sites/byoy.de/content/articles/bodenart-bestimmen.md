@@ -107,6 +107,18 @@ Ein Blick unter die Oberfläche verrät mehr als jeder Test im Glas. Stich mit d
 
 Mache die Spatenprobe im Frühjahr und Herbst, wenn der Boden feucht, aber nicht nass ist. Über die Jahre siehst du, wie sich dein Boden mit Kompost und Mulch verändert.
 
+## Humus: der unsichtbare Schatz
+
+Neben Sand, Schluff und Ton entscheidet der Humus über die Qualität eines Gartenbodens. Humus entsteht, wenn Bodenlebewesen abgestorbene Pflanzenreste und Kompost zersetzen. Er färbt den Boden dunkel, speichert Wasser und Nährstoffe wie ein Schwamm, verklebt die Bodenteilchen zu stabilen Krümeln und ernährt Regenwürmer und Mikroorganismen.
+
+Humus lässt sich nicht einmalig kaufen und einarbeiten, er muss immer wieder neu entstehen. Reifer Kompost, Mulch aus Laub oder Rasenschnitt, Gründüngung und das Liegenlassen von Pflanzenresten füttern das Bodenleben und bauen Humus langsam auf. Ein Boden, der über Jahre so gepflegt wird, wird dunkler, krümeliger und lässt sich deutlich leichter bearbeiten, egal ob er ursprünglich sandig oder lehmig war.
+
+## Das Bodenleben beobachten
+
+Wie lebendig dein Boden ist, kannst du mit einfachen Mitteln selbst prüfen. Stich im Frühjahr oder Herbst, wenn der Boden feucht ist, einen Spaten tief Erde aus und zähle die Regenwürmer darin. Viele Würmer zeigen einen aktiven, gesunden Boden, fast keine deuten auf Verdichtung, Trockenheit oder wenig organisches Material hin.
+
+Auch Wurmlosungen, kleine Häufchen aus krümeliger Erde auf der Oberfläche, und ein angenehmer Geruch nach Waldboden sind gute Zeichen. Riecht der Boden dagegen faulig oder sauer, fehlt ihm Luft, meist weil er verdichtet oder dauerhaft nass ist.
+
 ## Häufige Fragen
 
 ### Was ist der beste Boden für Gemüse?
@@ -120,3 +132,15 @@ Wasser bleibt nach Regen lange stehen, die Erde ist in der Tiefe hart und grau, 
 ### Brauche ich wirklich eine Laboranalyse?
 
 Für einen neuen Garten oder wenn Pflanzen trotz guter Pflege kümmern, ist sie sehr hilfreich. Für einen gut gepflegten Biogarten reicht sie alle paar Jahre.
+
+### Wie oft sollte ich den pH-Wert messen?
+
+Für die meisten Gärten reicht eine Messung alle zwei bis drei Jahre. Häufiger lohnt es sich, wenn Pflanzen trotz guter Pflege kümmern, nachdem du gekalkt hast oder wenn du ein neues Beet anlegst. Miss an mehreren Stellen und mische die Proben, damit du einen verlässlichen Durchschnittswert bekommst.
+
+### Wie verbessere ich einen sehr steinigen Boden?
+
+Größere Steine sammelst du nach und nach ab, vor allem in Beeten für Wurzelgemüse wie Möhren, die in steinigem Boden krumm wachsen. Kleinere Steine stören die meisten Pflanzen kaum und verbessern sogar die Durchlässigkeit. Für empfindliche Kulturen ist ein Hochbeet oder ein Beet mit aufgefüllter, humusreicher Erde oft die einfachste Lösung. Mehr dazu im Ratgeber [Hochbeet anlegen](/gartenwissen/hochbeet-anlegen/).
+
+### Kann ich Gartenerde aus dem Sack für ein ganzes Beet kaufen?
+
+Für kleine Beete und Hochbeete ist das möglich, für große Flächen wird es teuer, und gekaufte Erde ersetzt keinen lebendigen Boden. Besser ist es, den vorhandenen Boden mit Kompost, Mulch und Gründüngung Schritt für Schritt zu verbessern.

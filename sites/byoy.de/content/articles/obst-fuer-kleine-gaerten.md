@@ -91,6 +91,20 @@ Auf einer Fläche von etwa zehn mal sechs Metern lässt sich erstaunlich viel Ob
 
 Zusammen ergibt das vom Juni bis in den Oktober frisches Obst, und der Rasen in der Mitte bleibt frei zum Spielen.
 
+## Wildobst und besondere Früchte
+
+Neben Apfel, Birne und Kirsche gibt es eine Reihe von Obstgehölzen, die wenig Platz brauchen, robust sind und zusätzlich als Zierpflanzen glänzen. Die Felsenbirne trägt im Frühsommer süße, dunkle Beeren und färbt sich im Herbst leuchtend rot. Die Kornelkirsche blüht als einer der ersten Sträucher im Jahr gelb und liefert im Spätsommer säuerliche rote Früchte für Marmelade.
+
+Die Maibeere, auch Sibirische Blaubeere genannt, reift schon im Frühsommer als eine der ersten Beeren des Jahres. Aronia trägt herbe, dunkle Beeren, die sich gut für Saft und Marmelade eignen. Und die frostharte Mini-Kiwi wächst an Pergolen und Zäunen; bei den meisten Sorten braucht sie allerdings eine männliche Pflanze in der Nähe, damit die weiblichen Früchte tragen.
+
+## Obst für halbschattige Plätze
+
+Nicht jeder kleine Garten bietet volle Sonne. Johannisbeeren, Stachelbeeren, Himbeeren und Brombeeren tragen auch im Halbschatten noch ordentlich, wenn sie einige Stunden Sonne am Tag bekommen. Sauerkirschen gelten als vergleichsweise schattenverträglich und eignen sich sogar für Wände, die nicht nach Süden zeigen. Äpfel, Birnen, Süßkirschen und Pfirsiche brauchen dagegen viel Sonne, um süße Früchte zu bilden.
+
+## Bestäubung im kleinen Garten
+
+Viele Obstarten brauchen eine zweite, passende Sorte als Befruchter. In dicht bebauten Wohngebieten stehen solche Partnerbäume oft schon in Nachbargärten, denn Bienen fliegen auf der Suche nach Nahrung weite Strecken. Zieräpfel sind gute Befruchter für viele Apfelsorten und gleichzeitig hübsche Blütengehölze. Wer ganz sichergehen will, wählt einen Mehrsortenbaum oder selbstfruchtbare Sorten.
+
 ## Häufige Fragen
 
 ### Welche Obstarten sind selbstfruchtbar?
@@ -104,3 +118,19 @@ Ja, oft schon im zweiten Jahr. Der Ertrag pro Baum ist kleiner als bei einem gro
 ### Wie viel Sonne braucht Obst auf dem Balkon?
 
 Mindestens sechs Stunden. Auf Nordbalkonen gedeihen eher Johannisbeeren und Walderdbeeren als Äpfel.
+
+### Welche Obstgehölze brauchen wenig Schnitt?
+
+Quitten und Mispeln kommen mit wenig Schnitt aus, ebenso viele Wildobststräucher wie Felsenbirne und Kornelkirsche. Säulenobst und Spindelbäume brauchen dagegen einen regelmäßigen, wenn auch kleinen Schnitt, damit sie schlank und fruchtbar bleiben.
+
+### Wie viele Obstgehölze passen in einen kleinen Garten?
+
+Mehr als viele denken. Auf wenigen Quadratmetern Wandfläche haben ein oder zwei Spalierbäume Platz, entlang eines Weges eine Reihe Säulenäpfel, dazu einige Beerensträucher und Erdbeeren im Beet. Wichtig ist, die Gehölze nicht zu eng zu setzen und jedem genug Sonne zu lassen.
+
+### Kann ich Obstbäume auch im Kübel auf der Terrasse ziehen?
+
+Ja, besonders Säulenobst, Zwergobst und Beerensträucher gedeihen gut in großen Kübeln. Sie brauchen regelmäßig Wasser und Dünger und im Winter einen Schutz für den Wurzelballen.
+
+Ein großer Kübel mit guter Drainage ist dabei wichtiger als eine besondere Sorte.
+
+Ein heller, geschützter Platz an der Hauswand ist ideal.

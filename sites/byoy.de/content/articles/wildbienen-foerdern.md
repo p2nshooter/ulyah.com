@@ -94,6 +94,22 @@ Stelle die Nisthilfe sonnig auf, nach Südosten bis Südwesten ausgerichtet, reg
 - **Nicht zu oft mähen:** Ein Teil des Rasens als Blumenwiese oder ein Streifen, der nur zwei- bis dreimal im Jahr gemäht wird, bietet Klee, Gundermann und Ehrenpreis zum Blühen.
 - **Keine Insektizide:** Auch biologische Mittel wie Pyrethrum sind für Bienen giftig.
 
+## Spezialisten: Bienen mit Lieblingspflanzen
+
+Viele Wildbienenarten sind wählerisch. Sie sammeln Pollen nur an einer bestimmten Pflanzenfamilie oder sogar nur an einer einzigen Gattung. Die Glockenblumen-Scherenbiene etwa ist auf Glockenblumen angewiesen, die Natternkopf-Mauerbiene auf den Gewöhnlichen Natternkopf. Fehlen diese Pflanzen, kann die Biene ihre Brut nicht versorgen, egal wie viele andere Blüten der Garten bietet.
+
+Wer solchen Spezialisten helfen möchte, pflanzt gezielt heimische Wildpflanzen wie Glockenblumen, Natternkopf, Wiesensalbei oder Hornklee. Ein Garten mit vielen verschiedenen heimischen Arten bietet deshalb deutlich mehr Wildbienen eine Lebensgrundlage als ein Garten mit wenigen, wenn auch üppig blühenden Zierpflanzen.
+
+## Wildbienen im Jahreslauf
+
+Die ersten Wildbienen fliegen schon an warmen Tagen im März, etwa Mauer- und Sandbienen, die Weidenkätzchen, Krokusse und Obstblüten besuchen. Im Sommer sind Wollbienen, Blattschneiderbienen und viele Furchenbienen unterwegs. Eine der spätesten Arten ist die Efeu-Seidenbiene, die im September und Oktober fast ausschließlich die Blüten des Efeus nutzt.
+
+Für Wildbienen ist deshalb ein Blütenangebot vom zeitigen Frühjahr bis in den Herbst wichtig. Weiden und Frühblüher im Frühling, Stauden und Kräuter im Sommer und blühender Efeu im Herbst bilden zusammen eine durchgehende Nahrungskette.
+
+## Was Wildbienen schadet
+
+Ein großer Teil der heimischen Wildbienen nistet im Boden. Versiegelte Flächen, dicht geschlossene Rasen und Schottergärten nehmen ihnen die Nistplätze. Auch Pflanzenschutzmittel, das Mähen aller Blüten auf einmal und fehlende Wildpflanzen setzen ihnen zu. Lass deshalb einige offene, sonnige Bodenstellen und sandige Wegränder bestehen und verzichte im Garten auf chemische Mittel.
+
 ## Häufige Fragen
 
 ### Stechen Wildbienen?
@@ -107,3 +123,15 @@ In Gegenden mit sehr vielen Bienenvölkern kann die Konkurrenz um Pollen und Nek
 ### Warum wird meine Nisthilfe nicht besiedelt?
 
 Häufige Gründe sind ein zu schattiger Platz, raue oder zu große Löcher, falsches Holz oder zu wenig Nahrung in der Umgebung. Manchmal dauert es auch einfach ein Jahr, bis die ersten Bienen sie entdecken.
+
+### Wie viele Wildbienenarten gibt es in Deutschland?
+
+In Deutschland sind mehr als 550 Wildbienenarten bekannt, darunter auch die Hummeln. Ein großer Teil davon gilt als gefährdet. Jeder Garten mit heimischen Blühpflanzen und Nistmöglichkeiten trägt dazu bei, ihnen Lebensraum zu bieten.
+
+### Helfen gekaufte Blühmischungen Wildbienen?
+
+Das hängt von der Mischung ab. Viele günstige Mischungen enthalten vor allem nicht heimische Zierpflanzen, die nur wenige Arten nutzen können. Besser sind Mischungen mit heimischen Wildpflanzen aus regionaler Herkunft, sogenanntes Regiosaatgut. Sie helfen auch den spezialisierten Arten. Mehr dazu im Ratgeber [Blühwiese anlegen](/gartenwissen/bluehwiese-anlegen/).
+
+Achte beim Kauf außerdem darauf, dass die Mischung mehrjährige Arten enthält, die über Jahre blühen.
+
+Einjährige Mischungen müssen dagegen jedes Jahr neu gesät werden.

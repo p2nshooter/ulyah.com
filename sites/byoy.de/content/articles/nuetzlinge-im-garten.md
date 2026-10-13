@@ -101,6 +101,12 @@ Diese kleinen Schritte kosten kaum Zeit, verändern das Gleichgewicht im Garten 
 
 Im Fachhandel kannst du Florfliegenlarven, Marienkäferlarven, Schlupfwespen oder Nematoden kaufen. Im Gewächshaus sind sie sehr wirksam, weil sie dort bleiben. Im Freiland wandern viele Tiere ab, und der Erfolg hängt stark vom Wetter ab. Eine Ausnahme sind Nematoden gegen Dickmaulrüssler- oder Gartenlaubkäferlarven, die im Boden gut wirken, sofern die Bodentemperatur stimmt, meist über 12 °C. Für den Gemüsegarten im Freiland ist es nachhaltiger, die heimischen Nützlinge zu fördern.
 
+## Weniger bekannte Helfer: Laufkäfer, Spinnen und Raubwanzen
+
+Neben den bekannten Marienkäfern gibt es viele unscheinbare Nützlinge. Laufkäfer jagen nachts am Boden und fressen unter anderem Schneckeneier und kleine Schnecken. Sie verstecken sich tagsüber unter Steinen, Brettern und Mulch. Spinnen fangen in Netzen und auf der Jagd große Mengen an Insekten, darunter viele Schädlinge.
+
+Kleine Raubwanzen, etwa Blumenwanzen, saugen Blattläuse, Thripse und Spinnmilben aus und sind wichtige Helfer im Obst- und Gemüsegarten. Auch Weichkäfer, deren Larven im Boden leben, und Raubfliegen gehören zu den Nützlingen. Ein Garten mit Blüten, Verstecken und ohne Breitbandmittel bietet ihnen allen Lebensraum.
+
 ## Häufige Fragen
 
 ### Sind Asiatische Marienkäfer schädlich?
@@ -114,3 +120,15 @@ In einem neu angelegten Garten oft ein bis zwei Jahre. Je mehr Struktur und Blü
 ### Helfen Insektenhotels Nützlingen?
 
 Die meisten Insektenhotels dienen Wildbienen und einigen Wespenarten. Für Marienkäfer und Laufkäfer sind Laub, Totholz und Stauden wichtiger. Ein gutes Insektenhotel ist trotzdem eine sinnvolle Ergänzung.
+
+### Schaden Hausmittel wie Seifenlauge auch Nützlingen?
+
+Ja, Kontaktmittel treffen alle Insekten, die sie benetzen, also auch Larven von Marienkäfern, Florfliegen und Schwebfliegen. Behandle deshalb nur gezielt die befallenen Triebe, und probiere vorher mechanische Methoden wie Abstreifen oder einen kräftigen Wasserstrahl. Oft erledigen die Nützlinge den Rest innerhalb weniger Wochen.
+
+### Brauchen Nützlinge Wasser im Garten?
+
+Ja, viele Insekten trinken regelmäßig. Eine flache Schale mit Steinen oder Murmeln als Landeplätze, gefüllt mit Regenwasser, hilft Bienen, Schwebfliegen und anderen Helfern besonders an heißen Sommertagen. Wechsle das Wasser alle paar Tage, damit sich keine Mückenlarven entwickeln.
+
+Auch eine Vogeltränke im Garten wird von vielen Insekten genutzt.
+
+Lege dafür einige Steine hinein, damit die Insekten sicher landen können.
