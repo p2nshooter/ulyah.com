@@ -117,6 +117,18 @@ Mehr zur Pflege erwachsener Pflanzen in [Kakteen und Sukkulenten pflegen](/ratge
 
 Nach einem Umzug war eine Echeverie stark vergeilt, ihr Stiel 15 Zentimeter lang. Die Besitzerin köpfte die Rosette, drehte die 20 unteren Blätter vom Stiel ab und ließ alles eine Woche antrocknen. Der Kopf kam aufrecht in einen kleinen Tontopf, die Blätter wurden flach in eine Schale mit mineralischem Substrat gelegt. Nach drei Wochen hatte der Kopf Wurzeln, und an 14 Blättern zeigten sich rosa Würzelchen. Nach sechs Wochen erschienen kleine Rosetten. Der Stiel im alten Topf trieb drei neue Köpfe. Aus einer vergeilten Pflanze waren innerhalb eines Sommers fast zwanzig geworden.
 
+## Wurzeln oder Rosette zuerst?
+
+Bei Blattstecklingen zeigen sich manchmal zuerst feine, rosafarbene Wurzeln, manchmal zuerst eine winzige Rosette. Beides ist normal. Sobald Wurzeln erscheinen, bedeckst du sie vorsichtig mit etwas Substrat oder drückst sie leicht in die Oberfläche, damit sie nicht vertrocknen. Das Mutterblatt bleibt so lange am Jungpflänzchen, bis es von selbst vollständig eingetrocknet ist, denn es versorgt die junge Pflanze mit Wasser und Nährstoffen.
+
+## Warum manche Blätter nicht anwachsen
+
+Nicht jedes Blatt wird zur neuen Pflanze. Blätter, die beim Abnehmen eingerissen sind oder an denen die Basis fehlt, bilden meist keine Wurzeln, weil gerade dort die Zellen sitzen, aus denen Wurzeln und Triebe entstehen. Drehe Blätter deshalb vorsichtig seitlich ab, statt sie zu zupfen. Auch eignen sich nicht alle Sukkulenten für Blattstecklinge: Aeonien zum Beispiel vermehrst du besser über Kopf- oder Triebstecklinge, und bei panaschierten Sorten entstehen aus Blättern oft schwache oder rein grüne Pflanzen.
+
+## Sukkulenten aus Samen
+
+Wer viele Pflanzen auf einmal möchte, kann Sukkulenten auch aussäen. Die oft staubfeinen Samen streust du auf die Oberfläche eines feinen, mineralischen Substrats und deckst sie nicht mit Erde ab. Eine Abdeckung aus Glas oder Folie hält die Feuchtigkeit, Wärme um zwanzig bis fünfundzwanzig Grad fördert die Keimung, und der Platz sollte hell, aber ohne direkte Sonne sein. Bis aus den Keimlingen ansehnliche Pflanzen werden, vergehen allerdings Monate.
+
 ## Häufige Fragen
 
 ### Muss ich Blattstecklinge besprühen?
@@ -130,6 +142,10 @@ Das funktioniert manchmal, birgt aber ein hohes Fäulnisrisiko. Trockenes Substr
 ### Wann ist die beste Zeit?
 
 Frühjahr bis Spätsommer. Im Winter geht es langsamer, ist aber an einem hellen Platz möglich.
+
+### Wann darf ich das vertrocknete Mutterblatt entfernen?
+
+Erst wenn es vollständig eingeschrumpelt ist und sich ohne Widerstand ablösen lässt. Bis dahin liefert es der jungen Pflanze noch Reserven.
 
 ## Fazit
 

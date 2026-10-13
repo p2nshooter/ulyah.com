@@ -113,6 +113,18 @@ Ein großer Oleander wurde jedes Jahr Anfang Oktober ins warme Wohnzimmer geholt
 
 Wer diese Punkte abarbeitet, erspart sich im Februar unangenehme Überraschungen wie Schildlausbefall oder vertrocknete Wurzelballen.
 
+## Schädlinge im Winterquartier
+
+Warme, trockene Winterquartiere sind ein Paradies für Spinnmilben, Schildläuse, Wollläuse und Weiße Fliegen. Weil die Pflanzen im Winter langsamer wachsen und schlechter Abwehrstoffe bilden, breiten sich Schädlinge dort oft unbemerkt aus. Kontrolliere deshalb einmal pro Woche die Blattunterseiten, die Triebspitzen und die Blattachseln, besonders bei Zitruspflanzen, Oleander und Engelstrompeten.
+
+Befallene Pflanzen stellst du möglichst getrennt von den anderen. Lüfte das Winterquartier an frostfreien Tagen, denn bewegte, etwas kühlere Luft hemmt viele Schädlinge. Gelbtafeln zeigen frühzeitig an, ob Weiße Fliegen oder Trauermücken unterwegs sind. Je früher du eingreifst, desto eher reichen sanfte Mittel wie Abduschen, Abwischen oder Präparate auf Kaliseifenbasis.
+
+## Winterquartier ohne Keller
+
+Nicht jeder hat einen hellen, kühlen Keller oder einen Wintergarten. Gute Alternativen sind ein ungeheiztes Gästezimmer, ein helles Treppenhaus oder eine Garage mit Fenster. Im Treppenhaus fragst du vorher die Hausverwaltung, denn Fluchtwege müssen frei bleiben. In Garagen und Gartenhäusern hilft ein Minimum-Maximum-Thermometer, damit du merkst, wenn es nachts zu kalt wird; ein kleiner Frostwächter kann dann die schlimmsten Nächte überbrücken.
+
+Viele Gärtnereien bieten außerdem einen Überwinterungsservice an. Gegen eine Gebühr holen sie große Kübelpflanzen im Herbst ab, überwintern sie im Gewächshaus und bringen sie im Frühjahr zurück. Für einen alten, großen Oleander oder ein wertvolles Zitronenbäumchen ist das oft die beste Lösung.
+
 ## Häufige Fragen
 
 ### Kann ich Kübelpflanzen in der Wohnung überwintern?
@@ -126,6 +138,14 @@ Häufige Ursachen sind zu wenig Licht bei zu viel Wärme, kalte Wurzeln bei warm
 ### Muss ich Geranien jedes Jahr neu kaufen?
 
 Nein. Geranien lassen sich gut überwintern, entweder hell und kühl oder nach einem starken Rückschnitt dunkel und kühl.
+
+### Wann schneide ich Kübelpflanzen zurück?
+
+Kräftige Rückschnitte machst du am besten im späten Winter oder zeitigen Frühjahr, kurz bevor die Pflanzen wieder austreiben. Vor dem Einräumen im Herbst kürzt du nur so viel, wie für den Transport und den Platz im Winterquartier nötig ist. Frische Schnittwunden heilen im Frühjahr schneller, wenn das Wachstum einsetzt.
+
+### Wie gewöhne ich Pflanzen im Frühjahr wieder an die Sonne?
+
+Stelle sie nach dem Ausräumen ein bis zwei Wochen an einen halbschattigen, windgeschützten Platz oder räume sie an einem bedeckten Tag aus. Auch sonnenhungrige Pflanzen wie Oleander oder Zitrus bekommen sonst Sonnenbrand, weil ihre Blätter sich im Winterquartier an schwaches Licht gewöhnt haben.
 
 ## Fazit
 

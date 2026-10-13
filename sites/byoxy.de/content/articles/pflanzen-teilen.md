@@ -124,6 +124,20 @@ Einige hängende Blätter oder ein gelbes Blatt nach dem Teilen sind normal, wei
 
 Eine fünf Jahre alte Friedenslilie war so dicht geworden, dass Wasser beim Gießen kaum noch einzog und die Blätter in der Mitte gelb wurden. Im April wurde sie ausgetopft. Der Ballen bestand fast nur noch aus Wurzeln. Mit den Händen und einem Messer wurde er in drei Teile getrennt, jedes mit sechs bis zehn Trieben. Abgestorbene Blätter und braune Wurzeln wurden entfernt. Die drei Pflanzen kamen in 15-cm-Töpfe mit frischer Erde und standen zwei Wochen hell ohne Sonne. Nach anfänglichem Hängen richteten sich die Blätter auf, und im Sommer blühten alle drei.
 
+## Teilen als Verjüngungskur
+
+Viele Pflanzen, die geteilt werden können, werden mit den Jahren in der Mitte kahl oder unansehnlich, während am Rand kräftige junge Triebe wachsen. Das Teilen ist dann nicht nur eine Vermehrungsmethode, sondern auch eine Verjüngung. Die jungen, äußeren Teilstücke wachsen meist am besten an, während die alte, verholzte oder ausgezehrte Mitte entsorgt werden kann.
+
+Gerade bei Farnen, Grünlilien, Schnittlauch oder Friedenslilien wirkt eine Pflanze nach dem Teilen oft gesünder und kompakter als vorher. Plane deshalb nicht nur Teilungen, wenn du neue Pflanzen möchtest, sondern auch, wenn eine Pflanze trotz guter Pflege nachlässt und den Topf vollständig ausgefüllt hat.
+
+## Stauden auf Balkon und Terrasse teilen
+
+Auch Stauden in Kübeln und Kästen lassen sich teilen, zum Beispiel Funkien, Taglilien, Gräser, Storchschnabel oder Schnittlauch. Eine bewährte Faustregel lautet: Stauden, die im Frühjahr blühen, teilst du nach der Blüte oder im Herbst, Stauden mit Blüte im Sommer und Herbst dagegen im Frühjahr. So haben die Teilstücke Zeit zum Anwachsen, bevor sie ihre nächste Blüte bilden.
+
+## Wann Teilen nicht funktioniert
+
+Nicht jede Pflanze lässt sich teilen. Pflanzen mit nur einem Stamm oder einem einzigen Wachstumspunkt, etwa Geigenfeige, Gummibaum, Yucca, viele Palmen oder Monstera, würden beim Durchschneiden des Wurzelballens zerstört. Sie vermehrst du über Stecklinge oder Abmoosen. Auch Phalaenopsis-Orchideen wachsen aus einem einzigen Herz und lassen sich nicht teilen.
+
 ## Häufige Fragen
 
 ### Wie viele Teile kann ich aus einer Pflanze machen?
@@ -137,6 +151,22 @@ Bei sehr großen, robusten Pflanzen wie Strelitzie oder großen Gräsern ja. Fü
 ### Was mache ich mit Teilstücken ohne Wurzeln?
 
 Bei Sukkulenten kann man sie antrocknen und bewurzeln lassen. Bei anderen Pflanzen gelingt die Bewurzelung oft im Wasser oder unter einer Haube. Siehe [Ableger und Kindel](/ratgeber/ableger-und-kindel/).
+
+### Wie lange dauert es, bis geteilte Pflanzen wieder buschig sind?
+
+Das hängt von der Wüchsigkeit ab. Schnell wachsende Pflanzen wie Grünlilien oder Schnittlauch sehen oft schon nach wenigen Wochen wieder voll aus, langsamere wie Bogenhanf brauchen eine ganze Saison oder länger.
+
+### Muss ich nach dem Teilen düngen?
+
+Nein. Frische Erde enthält genug Nährstoffe für die ersten Wochen, und die verletzten Wurzeln müssen erst nachwachsen. Beginne frühestens nach vier bis sechs Wochen wieder mit einer schwachen Düngung.
+
+### Darf ich eine blühende Pflanze teilen?
+
+Besser nicht, denn die Blüte kostet viel Kraft. Warte bis nach der Blüte. Muss es doch sein, schneide die Blüten ab, damit die Teilstücke ihre Energie in neue Wurzeln stecken können.
+
+### Wie verhindere ich Fäulnis an den Schnittstellen?
+
+Arbeite mit einem sauberen, scharfen Messer statt die Wurzeln zu reißen. Große Schnittflächen an fleischigen Rhizomen, etwa beim Bogenhanf, lässt du vor dem Einpflanzen einige Stunden antrocknen, und in den ersten Tagen gießt du sparsam.
 
 ## Fazit
 

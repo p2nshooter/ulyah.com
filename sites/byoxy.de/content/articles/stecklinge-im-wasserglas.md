@@ -123,6 +123,18 @@ Eine üppige Efeutute mit langen Ranken wurde im Mai zurückgeschnitten. Aus den
 
 Wichtig ist eine Öffnung, die so eng ist, dass der Steckling aufrecht steht, ohne dass Blätter ins Wasser hängen. Für Stecklinge mit großen Blättern wie Monstera eignen sich schwere Vasen mit schmalem Hals. Mehrere kleine Stecklinge lassen sich in einem Glas mit einem Stück Hühnerdraht oder einem gelochten Deckel stabil halten.
 
+## Was im Wasser schlecht bewurzelt
+
+Nicht jede Pflanze eignet sich für das Wasserglas. Sukkulenten und Kakteen faulen im Wasser leicht, weil ihr wasserreiches Gewebe ohne Sauerstoff schnell zersetzt wird. Sie bewurzeln zuverlässiger, wenn die Schnittstelle zuerst antrocknet und der Steckling dann auf trockenes, mineralisches Substrat kommt. Auch viele Stecklinge von Ziergehölzen und Kräutern mit verholzten Trieben wachsen in feuchter Anzuchterde sicherer an als im Wasser.
+
+## Wasserwurzeln und Erdwurzeln
+
+Wurzeln, die im Wasser entstehen, sind an das Leben im Wasser angepasst. Beim Umsetzen in Erde müssen sie sich umstellen, und manche Stecklinge stocken dann für einige Wochen. Du erleichterst den Wechsel, wenn du nicht zu lange wartest: Wurzeln von etwa zwei bis fünf Zentimetern Länge sind ideal. Halte die Erde in den ersten Wochen nach dem Umsetzen gleichmäßig leicht feucht, damit der Übergang nicht zu abrupt ist.
+
+## Ein Projekt für Kinder
+
+Stecklinge im Wasserglas sind ein wunderbares Projekt für Kinder, weil man das Wachstum der Wurzeln jeden Tag beobachten kann. Neben Efeutute und Buntnessel eignen sich auch Küchenabfälle: Ein Avocadokern, mit Zahnstochern über einem Glas gehalten, sodass die Unterseite im Wasser steht, bildet nach einigen Wochen bis Monaten Wurzeln und einen Trieb. Eine Ananaskrone, von der die unteren Blätter entfernt wurden, bewurzelt ebenfalls im Wasser, und eine Süßkartoffel treibt im Glas lange, dekorative Ranken.
+
 ## Häufige Fragen
 
 ### Kann ich Leitungswasser verwenden?
@@ -136,6 +148,10 @@ In der Bewurzelungsphase nicht. Erst wenn sie dauerhaft im Wasser bleiben, geleg
 ### Wie viele Stecklinge sollte ich schneiden?
 
 Mehr als du brauchst. Nicht jeder Steckling bewurzelt, und mehrere in einem Topf ergeben eine schönere Pflanze.
+
+### Warum wird das Wasser trüb oder riecht unangenehm?
+
+Meist zersetzen sich Blätter, die unter Wasser geraten sind, oder Bakterien vermehren sich im warmen Wasser. Entferne alle Blätter unterhalb der Wasserlinie, spüle Glas und Stängel ab und wechsle das Wasser häufiger. Faulige, matschige Stängel schneidest du bis ins gesunde Gewebe zurück.
 
 ## Fazit
 

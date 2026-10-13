@@ -116,6 +116,18 @@ Eine Alocasia stand im Winter auf einer Fensterbank über dem Heizkörper. Die B
 
 Thripse werden oft mit Spinnmilben verwechselt, weil auch sie helle Flecken verursachen. Sie lassen sich aber mit Blautafeln fangen und reagieren ebenfalls auf Abduschen und Seifen- oder Öl-Präparate. Wer unsicher ist, betrachtet die Blattunterseite mit einer Lupe mit zehnfacher Vergrößerung: Spinnmilben sind rundlich und haben acht Beine, Thripse sind schmal und gestreckt.
 
+## Spinnmilben auf Balkon und Terrasse
+
+Spinnmilben sind nicht nur ein Problem der Wohnung. In heißen, trockenen Sommern befallen sie auch draußen viele Pflanzen, besonders Bohnen, Gurken, Zucchini, Rosen und Kübelpflanzen an geschützten, regengeschützten Plätzen. Typisch sind fein gesprenkelte, später silbrig-graue Blätter und Gespinste in den Triebspitzen.
+
+Draußen hilft regelmäßiges Abbrausen der Blattunterseiten, am besten morgens, damit das Laub bis zum Abend trocknet. Regen sorgt oft schon für Erleichterung, weshalb Pflanzen unter Dachvorsprüngen besonders gefährdet sind. Auf Terrassen und Balkonen lassen sich im Sommer auch Raubmilben einsetzen, wenn die Temperaturen dauerhaft hoch genug sind; Anbieter nennen dazu meist eine Mindesttemperatur für den Einsatz.
+
+## Neue Pflanzen unter Quarantäne
+
+Viele Spinnmilben-Probleme beginnen mit einer neuen Pflanze. Stelle Neuzugänge deshalb zwei bis drei Wochen getrennt von deinen anderen Pflanzen auf und kontrolliere sie in dieser Zeit mehrmals mit einer Lupe, besonders an den Blattunterseiten und in den Blattachseln. Ein gründliches Abbrausen gleich nach dem Kauf entfernt schon einen Teil möglicher Schädlinge.
+
+Auch Pflanzen, die den Sommer auf dem Balkon verbracht haben, prüfst du vor dem Einräumen im Herbst sorgfältig. So bringst du keine Schädlinge mit ins Haus, wo sie sich in der trockenen Heizungsluft rasch vermehren würden.
+
 ## Häufige Fragen
 
 ### Sind Spinnmilben für Menschen gefährlich?
@@ -129,6 +141,14 @@ Im Sommer kann ein Regenguss oder ein Platz mit höherer Luftfeuchtigkeit helfen
 ### Woher kommen Spinnmilben überhaupt?
 
 Sie werden mit neuen Pflanzen, Schnittblumen, über Kleidung oder durch geöffnete Fenster eingeschleppt.
+
+### Überleben Spinnmilben den Winter draußen?
+
+Ja. Weibliche Spinnmilben überwintern an geschützten Stellen, etwa in Rindenritzen, in Pflanzenresten oder an Rankgittern, und färben sich dabei oft orangerot. Im Frühjahr beginnen sie mit der Eiablage. Entferne deshalb im Herbst alte, befallene Pflanzenreste vom Balkon.
+
+### Wie lange dauert die Bekämpfung?
+
+Meist mehrere Wochen, weil viele Mittel die Eier nicht erreichen und bei Wärme ständig neue Milben schlüpfen. Wiederhole die Behandlung deshalb im Abstand von fünf bis sieben Tagen über mindestens drei bis vier Wochen und kontrolliere danach weiterhin regelmäßig.
 
 ## Fazit
 

@@ -131,6 +131,20 @@ Ein kleiner Balkon im zweiten Stock eines Altbaus lag zur Innenhofseite und beka
 
 Ein Schattenbalkon verzeiht mehr Pflegefehler als ein Sonnenbalkon, weil die Erde nicht so schnell austrocknet. Gerade deshalb lohnt es sich, im Sommer nicht nach festem Plan zu gießen, sondern jedes Mal die Fingerprobe zu machen. Viele Schattenpflanzen wie Funkien und Farne reagieren auf dauerhaft nasse Erde mit Fäulnis an den Wurzeln, und Schnecken fühlen sich in feuchten Kästen besonders wohl. Wer Kästen auf Füße stellt oder an der Brüstung befestigt, statt sie direkt auf den Boden zu setzen, hat mit Schnecken deutlich weniger Probleme.
 
+## Nässe, Moos und Algen im Schatten
+
+Auf einem schattigen Balkon trocknen Erde, Boden und Möbel langsamer ab. Gieße deshalb sparsamer als auf einem Sonnenbalkon und prüfe die Erde vorher mit dem Finger. Töpfe mit Abzugsloch, eine Drainageschicht und kleine Füße unter den Kübeln verhindern Staunässe, und auch der Balkonboden darunter bleibt trockener.
+
+Grüne Beläge aus Algen und Moos auf Boden und Geländer entfernst du am besten mechanisch mit Bürste und Wasser. Aggressive Reiniger gelangen über den Abfluss ins Wasser und schaden den Pflanzen. Feg herabgefallenes Laub regelmäßig weg, denn feuchte Blätter sind ein beliebtes Versteck für Schnecken.
+
+## Weiß leuchtet im Schatten
+
+Helle Blüten und Blätter wirken im Schatten besonders schön, vor allem in der Dämmerung. Weiße Fleißige Lieschen, weiße Begonien, Funkien mit hellem Blattrand und silbrig gezeichnete Taubnesseln scheinen abends regelrecht zu leuchten. Solarleuchten laden auf einem schattigen Balkon dagegen oft nicht genug auf. Wer abends Licht möchte, wählt deshalb besser eine Außenleuchte mit Netzanschluss.
+
+## Nahrung für Insekten im Halbschatten
+
+Auch ein schattiger Balkon kann Insekten helfen. Lungenkraut blüht schon im zeitigen Frühjahr und ist eine wichtige Nahrungsquelle für die ersten Hummeln. Kaukasus-Vergissmeinnicht, Glockenblumen und Waldmeister gedeihen im Halbschatten und werden ebenfalls von Insekten besucht. Wähle möglichst ungefüllte Blüten, denn bei gefüllten Sorten kommen Bienen kaum an Nektar und Pollen.
+
 ## Häufige Fragen
 
 ### Blühen Geranien im Schatten?
@@ -144,6 +158,24 @@ Ja, Hortensien mögen Halbschatten und lichten Schatten. Sie brauchen große Kü
 ### Welche Pflanzen bleiben im Winter grün?
 
 Efeu, einige Farne wie der Hirschzungenfarn, Purpurglöckchen (teilweise), Segge und Golderdbeere.
+
+### Kann ich auf einem Nordbalkon Tomaten anbauen?
+
+Meist mit wenig Erfolg. Tomaten brauchen viele Stunden direkte Sonne, um reichlich Früchte zu bilden. Auf einem Nordbalkon wachsen sie zwar, tragen aber kaum. Besser gelingen dort Salate, Mangold, Petersilie, Schnittlauch und Minze.
+
+### Wie viel muss ich auf dem Schattenbalkon düngen?
+
+Weniger als auf einem Sonnenbalkon. Pflanzen im Schatten wachsen langsamer und brauchen entsprechend weniger Nährstoffe. Für die meisten reicht die halbe empfohlene Menge, und zu viel Stickstoff lässt sie nur weich und anfällig werden.
+
+### Welche Kletterpflanzen eignen sich für den Schatten?
+
+Efeu, die Kletterhortensie und Wilder Wein kommen gut mit wenig Sonne zurecht. Die Kletterhortensie blüht im Frühsommer mit großen weißen Dolden und klettert mit Haftwurzeln, braucht im Kübel aber einige Jahre, bis sie richtig loslegt.
+
+### Was tun, wenn die Pflanzen kaum blühen?
+
+Stelle blühfaule Pflanzen an die hellste Stelle des Balkons, dünge nicht zu stickstoffreich und ersetze auf Dauer sonnenhungrige Arten durch echte Schattenblüher wie Fleißige Lieschen, Fuchsien oder Begonien.
+
+Auch Begonien mit großen, gefüllten Blüten zeigen im Halbschatten ihre volle Pracht.
 
 ## Fazit
 

@@ -139,6 +139,12 @@ Ohne Abhärten verbrennen die Blätter in der Sonne oder werden vom Wind beschä
 
 Im ersten Jahr wurden Tomaten Ende Februar auf einer Nordfensterbank über der Heizung gesät. Sie keimten schnell, wurden aber innerhalb von zwei Wochen lang, dünn und hellgrün und knickten um. Im zweiten Jahr wurde Ende März gesät, die Keimung erfolgte warm auf einem Regal, und direkt nach dem Auflaufen kamen die Schalen an ein Südfenster in einen kühleren Raum, ergänzt durch eine LED-Lampe. Nach dem Pikieren wurden die Tomaten tief gesetzt. Mitte Mai standen kräftige, kompakte Pflanzen bereit, die nach einer Woche Abhärten auf den Balkon zogen. Mehr dazu in [Tomaten auf dem Balkon](/ratgeber/tomaten-auf-dem-balkon/).
 
+## Saatgut lagern und die Keimfähigkeit prüfen
+
+Übrig gebliebenes Saatgut musst du nicht wegwerfen. Samen bleiben am längsten keimfähig, wenn sie kühl, trocken und dunkel lagern, zum Beispiel in Papiertüten, die in einem gut schließenden Glas im Keller oder im Kühlschrank stehen. Feuchtigkeit und Wärme sind die größten Feinde, deshalb gehören Samentüten nicht auf die warme Fensterbank.
+
+Wie lange Samen keimfähig bleiben, ist sehr unterschiedlich. Tomaten-, Kürbis- und Kohlsamen keimen oft noch nach mehreren Jahren gut, während Pastinaken, Schnittlauch und Petersilie schon nach ein bis zwei Jahren deutlich nachlassen. Bei älterem Saatgut lohnt eine einfache Keimprobe: Lege zehn Samen auf feuchtes Küchenpapier, rolle es locker ein, stecke es in einen Gefrierbeutel und stelle ihn warm. Nach ein bis zwei Wochen zählst du die gekeimten Samen. Keimen sieben von zehn, liegt die Keimrate bei etwa siebzig Prozent, und du säst einfach etwas dichter.
+
 ## Häufige Fragen
 
 ### Kann ich ohne Anzuchterde säen?
@@ -152,6 +158,14 @@ Nicht immer. Bei späterer Aussaat ab Ende März an einem hellen Südfenster geh
 ### Wie viele Samen pro Topf?
 
 Bei größeren Samen zwei bis drei pro Zelle, später wird der kräftigste Sämling behalten. Feine Samen dünn in eine Schale streuen.
+
+### Warum kippen meine Sämlinge plötzlich um?
+
+Wenn junge Sämlinge am Stängelgrund dünn und glasig werden und umfallen, steckt meist die Umfallkrankheit dahinter, ausgelöst durch Bodenpilze. Sie wird durch zu nasse, kühle und schlecht belüftete Anzucht begünstigt. Befallene Pflänzchen lassen sich nicht retten; entferne sie sofort. Vorbeugend helfen saubere Gefäße, frische Anzuchterde, sparsames Gießen von unten und tägliches Lüften.
+
+### Wann dürfen vorgezogene Pflanzen nach draußen?
+
+Frostempfindliche Pflanzen wie Tomaten, Paprika, Gurken und Basilikum setzt du erst nach den Eisheiligen Mitte Mai ins Freie, in rauen Lagen auch etwas später. Vorher müssen sie über ein bis zwei Wochen abgehärtet werden. Robuste Arten wie Salat, Kohlrabi oder Erbsen vertragen dagegen schon im April einen geschützten Platz draußen, wenn du sie bei angekündigtem Frost über Nacht abdeckst.
 
 ## Fazit
 

@@ -128,6 +128,16 @@ Auf einem überdachten Südwestbalkon wurden Mitte Mai drei Tomatenpflanzen gese
 | Ende August | Triebspitzen kappen |
 | September bis Oktober | Letzte Ernte, grüne Früchte nachreifen lassen, Pflanzen entsorgen |
 
+## Kraut- und Braunfäule vorbeugen
+
+Die gefürchtetste Krankheit der Tomate ist die Kraut- und Braunfäule. Sie wird von einem Erreger verursacht, der sich bei feuchtem Wetter schnell ausbreitet, und zeigt sich durch braune, sich rasch vergrößernde Flecken auf Blättern, Stängeln und später auch auf den Früchten. Auf dem Balkon hast du gegenüber dem Gartenbeet einen Vorteil: Unter einem Dachvorsprung oder einem kleinen Tomatendach bleiben die Blätter bei Regen trocken, und das senkt das Risiko erheblich.
+
+Gieße immer direkt auf die Erde und nicht über die Blätter, entferne die untersten Blätter, sobald die Pflanze hoch genug ist, damit keine Erde auf sie spritzt, und lass zwischen den Pflanzen Platz für Luft. Befallene Blätter schneidest du sofort ab und entsorgst sie im Hausmüll. Wer jedes Jahr Probleme hat, wählt Sorten, die als widerstandsfähig gegen Kraut- und Braunfäule beschrieben werden.
+
+## Eigene Samen gewinnen
+
+Von samenfesten Sorten kannst du dein eigenes Saatgut ernten. Wähle eine schöne, vollreife Frucht einer gesunden Pflanze, kratze die Samen samt Gelee in ein Glas mit etwas Wasser und lass es zwei bis drei Tage stehen, bis sich eine leichte Schicht bildet. Diese Gärung löst die keimhemmende Hülle. Danach spülst du die Samen in einem Sieb sauber und trocknest sie auf einem Teller oder Kaffeefilter. Trocken, kühl und dunkel gelagert, bleiben Tomatensamen mehrere Jahre keimfähig. Bei F1-Hybriden lohnt sich das nicht, weil die Nachkommen sehr unterschiedlich ausfallen.
+
 ## Häufige Fragen
 
 ### Kann ich Tomaten in Balkonkästen pflanzen?
@@ -141,6 +151,14 @@ Die unteren Blätter, die den Boden berühren oder gelb werden, sollten entfernt
 ### Kann ich Tomaten überwintern?
 
 Tomaten sind eigentlich mehrjährig, werden aber meist einjährig kultiviert. Eine Überwinterung ist aufwendig. Einfacher ist es, im Frühjahr neu anzuziehen.
+
+### Warum bleiben meine Tomaten am Stielansatz grün und hart?
+
+Grüne oder gelbe, harte Stellen rund um den Stielansatz, sogenannter Grünkragen, entstehen häufig bei großer Hitze und starker Sonneneinstrahlung auf die Früchte. Auch Kaliummangel kann eine Rolle spielen. Lass genug Laub als Schattenspender stehen und verwende einen Tomatendünger mit ausreichend Kalium.
+
+### Sind Tomatenblätter giftig?
+
+Die grünen Pflanzenteile enthalten Bitterstoffe, die nicht zum Verzehr geeignet sind, und auch unreife grüne Früchte enthalten mehr davon als reife. Die reifen Früchte sind dagegen unbedenklich. Halte kleine Kinder und Haustiere davon ab, an Blättern und Trieben zu knabbern.
 
 ## Fazit
 

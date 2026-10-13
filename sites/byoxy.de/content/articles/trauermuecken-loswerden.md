@@ -124,6 +124,16 @@ Nach etwa vier bis sechs Wochen sollten kaum noch Mücken auf den Gelbtafeln lan
 
 Im Frühjahr wurden fünf Zimmerpflanzen in frische Erde aus einem Sack umgetopft, der den Winter über in der Garage stand. Zwei Wochen später schwirrten Dutzende Trauermücken durch die Wohnung. Die Besitzerin steckte Gelbtafeln in alle Töpfe, ließ die Erde stärker abtrocknen und goss eine Woche später alle Töpfe mit Nematoden. Nach weiteren drei Wochen kam eine Schicht Bims auf die Erde. Nach sechs Wochen klebten keine neuen Mücken mehr an den Tafeln. Den Rest der Erde aus der Garage entsorgte sie.
 
+## Trauermücken in Kräutertöpfen und Anzuchtschalen
+
+Besonders gern vermehren sich Trauermücken dort, wo es feucht und humusreich ist: in Anzuchtschalen, in frisch gekauften Kräutertöpfen und in Töpfen mit Stecklingen. Für Sämlinge und junge Stecklinge sind die Larven gefährlicher als für ausgewachsene Pflanzen, weil sie die feinen, jungen Wurzeln anfressen. Verwende für Aussaaten frische, nährstoffarme Anzuchterde, gieße von unten und decke die Oberfläche mit einer dünnen Schicht Sand ab.
+
+Gegen die Larven gibt es auch Präparate mit dem Bakterium Bacillus thuringiensis israelensis, die mit dem Gießwasser ausgebracht werden. Sie wirken gezielt gegen Mücken- und Trauermückenlarven und sind für Menschen und Haustiere unbedenklich. Wie bei Nematoden ist Geduld nötig, denn erwachsene Mücken leben noch einige Tage weiter.
+
+## Mineralische Substrate als Ausweg
+
+Trauermücken brauchen organisches Material, um ihre Eier abzulegen und ihre Larven zu ernähren. In rein mineralischen Substraten wie Blähton, Bims oder Lava finden sie kaum Nahrung. Pflanzen in Hydrokultur oder Semi-Hydrokultur sind deshalb praktisch frei von Trauermücken, und wer immer wieder Probleme hat, kann besonders anfällige Pflanzen auf solche Substrate umstellen. Bewahre außerdem angebrochene Säcke mit Blumenerde gut verschlossen auf, denn offene Säcke sind ideale Brutstätten.
+
 ## Häufige Fragen
 
 ### Sind Trauermücken gefährlich für Menschen oder Haustiere?
@@ -137,6 +147,10 @@ Im Winter verbrauchen Pflanzen weniger Wasser, die Erde bleibt länger feucht, u
 ### Können Trauermücken auch Kakteen befallen?
 
 Selten, weil deren Erde meist trocken ist. Bei zu viel Wasser können sie aber auch dort auftreten.
+
+### Helfen fleischfressende Pflanzen gegen Trauermücken?
+
+Fettkraut und Sonnentau fangen an ihren klebrigen Blättern tatsächlich viele erwachsene Trauermücken. Gegen die Larven in der Erde helfen sie aber nicht. Sie sind deshalb eine hübsche Ergänzung, ersetzen aber nicht das Abtrocknenlassen der Erde und die übrigen Maßnahmen.
 
 ## Fazit
 

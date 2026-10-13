@@ -120,6 +120,18 @@ Eine Monstera stand zwei Jahre in einem Flur mit kleinem Nordfenster. Sie bildet
 
 Panaschierte Monsteras sind deutlich anspruchsvoller als die grüne Form. Weiße Blattflächen enthalten kein Chlorophyll, die Pflanze wächst daher langsamer und braucht einen helleren Standort. Gleichzeitig verbrennen die weißen Partien schneller in der Sonne. Ein heller Platz mit gefiltertem Licht ist ideal.
 
+## Luftwurzeln: abschneiden oder lassen?
+
+Die braunen, strangartigen Luftwurzeln, die aus den Stängeln der Monstera wachsen, sind völlig normal. In der Natur halten sie die Pflanze an Baumstämmen fest und nehmen Wasser und Nährstoffe auf. In der Wohnung kannst du sie in die Erde leiten, an einen Moosstab binden oder einfach hängen lassen.
+
+Stören einzelne Luftwurzeln, darfst du sie mit einem sauberen, scharfen Messer abschneiden, ohne dass die Pflanze Schaden nimmt. Entferne aber nicht alle, denn sie helfen der Monstera beim Klettern und bei der Versorgung großer Triebe. Luftwurzeln, die du in einen feuchten Moosstab leitest, sorgen oft für besonders kräftiges Wachstum und größere Blätter.
+
+## Gelbe Blätter an der Monstera
+
+Dass hin und wieder ein altes, unteres Blatt gelb wird und abstirbt, ist normal, solange oben neue Blätter nachkommen. Werden dagegen mehrere Blätter gleichzeitig gelb, ist meist zu viel Wasser die Ursache. Prüfe die Erde: Ist sie tief unten noch nass, lass sie gründlich abtrocknen und kontrolliere bei faulem Geruch die Wurzeln.
+
+Gelbe Blätter mit braunen, weichen Flecken deuten ebenfalls auf Wurzelprobleme hin. Werden die Blätter dagegen insgesamt blass und hellgrün, fehlen eher Licht oder Nährstoffe. Ein hellerer Platz und eine regelmäßige Düngung während der Wachstumszeit schaffen dann Abhilfe.
+
 ## Häufige Fragen
 
 ### Ist die Monstera giftig?
@@ -137,6 +149,20 @@ Ja, Staub auf den großen Blättern verringert die Lichtaufnahme. Alle paar Woch
 ### Kann die Monstera im Sommer nach draußen?
 
 An einen geschützten, halbschattigen Platz ja, ab stabilen Nachttemperaturen über 15 °C. Langsam an das Licht gewöhnen und vor Wind schützen.
+
+### Warum tropft meine Monstera?
+
+Wassertropfen an den Blatträndern oder Blattspitzen entstehen durch Guttation. Wenn die Erde sehr feucht ist und die Luft kaum Wasser aufnehmen kann, presst die Pflanze überschüssiges Wasser aktiv aus den Blättern. Das ist nicht gefährlich, zeigt aber, dass die Erde reichlich Wasser hat. Tropft die Monstera regelmäßig, gieße etwas sparsamer.
+
+### Warum bekommt meine Monstera braune Ränder?
+
+Häufige Ursachen sind trockene Heizungsluft, unregelmäßiges Gießen mit langen Trockenphasen, zu viel Dünger oder kalte Zugluft. Prüfe zuerst den Gießrhythmus und den Standort.
+
+### Kann ich eine zu groß gewordene Monstera kürzen?
+
+Ja. Schneide den Haupttrieb mit einem sauberen Messer oberhalb eines Knotens ab. Das abgeschnittene Kopfstück mit mindestens einem Knoten und möglichst einer Luftwurzel wird zu einer neuen Pflanze, und die Mutterpflanze treibt aus einem der verbliebenen Knoten neu aus.
+
+Lege das Kopfstück zum Bewurzeln in Wasser oder feuchtes Moos. Wie das genau geht, erklärt unser Ratgeber zum Monstera-Vermehren.
 
 ## Fazit
 

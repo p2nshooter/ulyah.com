@@ -113,6 +113,10 @@ Manchmal wächst an einem Knoten der Rispe statt einer Blüte eine kleine Pflanz
 
 Eine weiße Phalaenopsis kam als Geschenk in einem dekorativen Keramiktopf ins Haus. Nach der Blüte wurde sie wöchentlich mit einem Schnapsglas Wasser gegossen. Nach einigen Monaten waren die Blätter weich und runzelig. Beim Austopfen zeigte sich: Unter einer Moosschicht stand Wasser im Topf, der Großteil der Wurzeln war faul. Nach dem Entfernen der toten Wurzeln, dem Umsetzen in frische Rinde in einem durchsichtigen Topf und dem Wechsel zum Tauchen bildete die Pflanze im Sommer neue Wurzeln und zwei neue Blätter. Im Winter darauf erschien nach einer kühlen Phase am Schlafzimmerfenster wieder eine Rispe.
 
+## Weitere Orchideen für Einsteiger
+
+Wenn die Phalaenopsis gut gedeiht, lohnt sich ein Blick auf andere Orchideen, die in der Wohnung zurechtkommen. Frauenschuh-Orchideen der Gattung Paphiopedilum mögen es etwas schattiger als die Phalaenopsis, haben keine Speicherorgane und möchten deshalb gleichmäßig leicht feucht stehen. Cambria- und Oncidium-Hybriden blühen in vielen Farben und mögen helle Plätze ohne Mittagssonne. Dendrobium nobile braucht dagegen eine kühle, helle Ruhezeit im Winter, um Blüten anzusetzen, und Cymbidien verbringen den Sommer am liebsten draußen und die Blütezeit an einem kühlen, hellen Platz.
+
 ## Häufige Fragen
 
 ### Sind Orchideen giftig für Katzen?
@@ -126,6 +130,14 @@ Davon ist abzuraten. Die tropischen Wurzeln mögen keine Kälte, und das Substra
 ### Wie lange blüht eine Phalaenopsis?
 
 Eine Rispe blüht oft zwei bis vier Monate. Viele Pflanzen blühen ein- bis zweimal im Jahr.
+
+### Was verraten silbrige und grüne Wurzeln?
+
+Die Luftwurzeln der Phalaenopsis sind von einer schwammartigen Schicht umgeben, die sich mit Wasser vollsaugt. Trocken sieht sie silbrig grau aus, nass grün. Im durchsichtigen Topf zeigen dir silbrige Wurzeln deshalb, dass es Zeit zum Tauchen ist. Braune, matschige Wurzeln sind dagegen verfault, und dünne, papierartig trockene Wurzeln sind abgestorben.
+
+### Warum werden die Blätter schlaff und ledrig?
+
+Meist kann die Pflanze nicht genug Wasser aufnehmen, entweder weil sie zu selten getaucht wurde oder weil viele Wurzeln verfault oder vertrocknet sind. Kontrolliere die Wurzeln, schneide abgestorbene Teile ab und setze die Orchidee in frisches Rindensubstrat. Bis neue Wurzeln wachsen, hilft eine höhere Luftfeuchtigkeit.
 
 ## Fazit
 

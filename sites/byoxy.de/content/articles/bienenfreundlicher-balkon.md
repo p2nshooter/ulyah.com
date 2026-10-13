@@ -125,6 +125,18 @@ Beim Kauf von Pflanzen und Saatgut lohnt sich ein genauer Blick:
 
 Viele einjährige Bienenpflanzen wie Kornblume, Ringelblume, Borretsch und Kapuzinerkresse lassen sich ab April direkt in den Kasten säen. Das ist günstig und macht Spaß. Wer im Herbst die Samenstände stehen lässt, kann eigenes Saatgut ernten und im nächsten Jahr wieder aussäen.
 
+## Wildbienen auf dem Balkon beobachten
+
+Wer einmal genau hinsieht, entdeckt auf einem bienenfreundlichen Balkon erstaunlich viele Arten. Im zeitigen Frühjahr fliegen oft die ersten Mauerbienen, etwa die Rote Mauerbiene, die gern die Röhren von Nisthilfen bezieht und ihre Brutzellen mit Lehm verschließt. Hummelköniginnen suchen dann nach den ersten Blüten und nach einem Nistplatz. Im Sommer sind kleine Löcherbienen auf Korbblütlern wie Margeriten und Rainfarn unterwegs, und Blattschneiderbienen verraten sich durch kreisrunde Ausschnitte in Rosenblättern, mit denen sie ihre Nester auskleiden. Die Garten-Wollbiene sammelt die Haare von Woll-Ziest für ihre Nester.
+
+Ein kleines Bestimmungsbuch oder eine Bestimmungs-App macht aus solchen Beobachtungen ein schönes Hobby, auch für Kinder. Fotos mit Datum und Pflanze zeigen dir nach einer Saison, welche Pflanzen auf deinem Balkon am besten besucht werden, und helfen bei der Planung für das nächste Jahr.
+
+## Der bienenfreundliche Balkon im Herbst und Winter
+
+Räume den Balkon im Herbst nicht vollständig leer. In hohlen und markhaltigen Stängeln, etwa von Königskerzen, Brombeeren oder Disteln, überwintern Insekten, und Samenstände von Sonnenblumen oder Wilden Karden sind Futter für Vögel. Schneide abgestorbene Stauden deshalb erst im Frühjahr zurück.
+
+Nisthilfen bleiben auch im Winter draußen. Die Larven und Puppen darin brauchen die Kälte, damit sie im Frühjahr zur richtigen Zeit schlüpfen. Ein Platz unter einem Dachvorsprung schützt vor Schlagregen. Zieht die Nisthilfe in eine warme Wohnung um, schlüpfen die Tiere zu früh und finden draußen keine Blüten.
+
 ## Häufige Fragen
 
 ### Locke ich damit Wespen an?
@@ -138,6 +150,14 @@ Viele gefüllte Zuchtformen bieten kaum Nahrung. Ungefüllte Geranien und Wildfo
 ### Wie viele Pflanzen brauche ich?
 
 Schon ein einziger Kasten mit gut gewählten Pflanzen hilft. Je mehr Vielfalt und je länger die Blühzeit, desto besser.
+
+### Brauchen Bienen im Winter Futter vom Balkon?
+
+Nein. Wildbienen überwintern meist als Larve, Puppe oder fertiges Insekt im Nest, Hummelköniginnen ruhen im Boden. Wichtig sind dagegen die ersten Blüten im Februar und März, etwa Krokusse, Schneeglöckchen oder Winterlinge, denn die ersten Hummelköniginnen und Mauerbienen brauchen dann sofort Nahrung.
+
+### Sind Insektenhotels aus dem Baumarkt sinnvoll?
+
+Viele billige Modelle sind eher Dekoration. Kiefernzapfen, Holzwolle und Stroh werden von Wildbienen kaum genutzt, und Löcher, die ins Stirnholz gebohrt wurden, reißen beim Trocknen auf. Gute Nisthilfen haben saubere, glatte Röhren aus Pappe, Schilf oder Bambus oder Bohrungen von drei bis neun Millimetern Durchmesser in abgelagertem Hartholz, quer zur Faser gebohrt und ohne ausgefranste Ränder, an denen sich die Bienen die Flügel verletzen.
 
 ## Fazit
 

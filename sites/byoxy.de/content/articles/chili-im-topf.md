@@ -133,6 +133,16 @@ Siehe auch [Kübelpflanzen überwintern](/ratgeber/kuebelpflanzen-ueberwintern/)
 
 Eine Jalapeño wurde Anfang März auf der Fensterbank unter einer LED-Lampe gezogen und kam Mitte Mai in einen 10-Liter-Topf auf einen Südbalkon. Ab Juli trug sie rund 40 Früchte. Im Oktober wurde sie auf ein Drittel zurückgeschnitten und überwinterte in einem kühlen, hellen Gästezimmer bei 12 °C. Im folgenden Frühjahr trieb sie kräftig aus, blühte bereits im Mai und lieferte über 80 Früchte. Im dritten Jahr war sie ein kleines Bäumchen mit verholztem Stamm und trug erneut reichlich.
 
+## Schutz beim Ernten und Verarbeiten
+
+Der Stoff, der Chilis scharf macht, heißt Capsaicin. Er sitzt vor allem in den hellen Scheidewänden und am Samenansatz im Inneren der Frucht und bleibt hartnäckig an den Fingern haften. Trage beim Schneiden scharfer Sorten Einweghandschuhe und fasse dir danach nicht an Augen, Nase oder Kontaktlinsen. Brennt die Haut trotzdem, hilft Wasser kaum, weil Capsaicin fettlöslich ist. Besser wirken etwas Speiseöl, das du anschließend mit Seife abwäschst, oder Milchprodukte.
+
+Beim Trocknen im Backofen, beim Rösten in der Pfanne und beim Mahlen sehr scharfer Sorten steigen reizende Dämpfe und feiner Staub auf, die heftigen Husten auslösen können. Lüfte gut, arbeite mit Abstand und halte Kinder und Haustiere fern. Kinder sollten scharfe Chilis an der Pflanze ohnehin nicht pflücken, denn eine einzige zerbissene Frucht kann für sie sehr schmerzhaft sein.
+
+## Mehrere Sorten nebeneinander
+
+Chilis bestäuben sich zwar meist selbst, Insekten können aber Pollen von einer Sorte zur nächsten tragen. Die Früchte des laufenden Jahres verändern sich dadurch nicht, denn ihr Fruchtfleisch stammt allein von der Mutterpflanze. Die Samen in diesen Früchten können jedoch Mischlinge ergeben, deren Pflanzen im nächsten Jahr anders aussehen und unerwartet scharf oder mild sind. Wenn du sortenreines Saatgut gewinnen möchtest, stülpe vor dem Aufblühen ein feines Säckchen aus Organza oder Vlies über einige Blüten, schüttle die Pflanze ab und zu leicht und markiere die Früchte, die sich daraus entwickeln.
+
 ## Häufige Fragen
 
 ### Kann ich Chili aus gekauften Früchten aussäen?
@@ -146,6 +156,10 @@ Die Blätter und unreifen Früchte enthalten Solanin und sollten nicht gegessen 
 ### Wie mache ich meine Chilis schärfer?
 
 Viel Sonne, Wärme und leichter Trockenstress vor der Reife erhöhen den Capsaicingehalt. Am meisten bestimmt jedoch die Sorte die Schärfe.
+
+### Reifen grüne Chilis nach dem Pflücken nach?
+
+Grüne Chilis sind essbar, schmecken aber anders als reife Früchte. Haben sie bereits begonnen, sich zu verfärben, reifen sie bei Zimmertemperatur oft noch etwas nach. Ganz grün gepflückte Früchte färben sich dagegen meist nicht mehr vollständig um. Für das volle Aroma lässt du die Schoten deshalb an der Pflanze ausreifen.
 
 ## Fazit
 

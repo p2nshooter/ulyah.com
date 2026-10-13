@@ -129,6 +129,20 @@ Einfacher ist es, im Spätsommer Stecklinge zu bewurzeln und diese als junge Pfl
 
 Ein Supermarkt-Basilikum wurde im Mai gekauft und sofort in drei Teile geteilt. Die Teile kamen in einen Balkonkasten mit Kräutererde auf einem Westbalkon. Gegossen wurde morgens, von unten über den Wasserspeicher des Kastens. Geerntet wurde nur über Blattpaaren, Blüten wurden abgeknipst, und alle zwei Wochen gab es organischen Dünger. Im August waren die drei Pflanzen jeweils 40 Zentimeter hoch und buschig. Es reichte für mehrere Gläser Pesto, und im September wurden Stecklinge für die Fensterbank gezogen.
 
+## Basilikum im Hochsommer
+
+Basilikum liebt Wärme, aber auf einem Südbalkon in praller Mittagssonne wird es ihm im Hochsommer manchmal zu viel. Kleine Töpfe trocknen dann innerhalb weniger Stunden aus, und die Blätter bekommen helle, papierartige Flecken. Setze Basilikum deshalb in Töpfe mit mindestens zwei bis drei Litern Inhalt, gieße an heißen Tagen morgens gründlich und stelle die Pflanzen in Hitzeperioden so, dass sie mittags etwas Schatten von größeren Nachbarn bekommen.
+
+Kälte verträgt Basilikum dagegen schlecht. Schon bei Temperaturen um zehn Grad stockt das Wachstum, und nach kalten Nächten zeigen sich schwarze Flecken auf den Blättern. Stelle die Töpfe deshalb erst nach den Eisheiligen nach draußen und hole sie im Spätsommer rechtzeitig herein, wenn die Nächte kühl werden.
+
+## Pflegekalender für Basilikum
+
+- **März und April:** Aussaat auf der warmen Fensterbank. Basilikum ist ein Lichtkeimer, die Samen werden nur angedrückt und nicht mit Erde bedeckt.
+- **Mai:** Nach den Eisheiligen Mitte Mai dürfen abgehärtete Pflanzen auf Balkon oder Terrasse.
+- **Juni bis August:** Regelmäßig ernten, Blütenansätze ausbrechen, gleichmäßig gießen und etwa alle zwei Wochen schwach düngen.
+- **September:** Stecklinge schneiden, um Pflanzen für den Winter zu gewinnen, und die letzten großen Ernten zu Pesto verarbeiten.
+- **Oktober bis Februar:** Wenige Pflanzen am hellsten Fenster weiterkultivieren, sparsam gießen und nur vorsichtig ernten.
+
 ## Häufige Fragen
 
 ### Kann ich Basilikum mit anderen Kräutern zusammenpflanzen?
@@ -142,6 +156,14 @@ Frisch geerntete Triebe halten sich einige Tage in einem Glas Wasser bei Zimmert
 ### Warum schmeckt mein Basilikum bitter?
 
 Meist, weil es blüht. Blüten frühzeitig entfernen.
+
+### Kann ich Basilikum einfrieren?
+
+Ja, aber ganze Blätter werden beim Einfrieren schwarz und matschig. Besser ist es, die Blätter fein zu hacken und mit etwas Olivenöl oder Wasser in Eiswürfelformen einzufrieren. Auch Pesto ohne Käse lässt sich portionsweise einfrieren; den Käse rührst du nach dem Auftauen frisch unter.
+
+### Warum bekommt mein Basilikum braune oder schwarze Flecken?
+
+Schwarze Flecken nach kühlen Nächten sind meist Kälteschäden. Werden die Blätter dagegen von unten her gelb und zeigt sich auf ihrer Unterseite ein grauvioletter Flaum, handelt es sich um Falschen Mehltau, eine Pilzkrankheit, die bei feuchter, kühler Witterung auftritt. Entferne befallene Triebe sofort, gieße nur auf die Erde und stelle die Pflanzen luftiger. Helle, trockene Flecken nach einem heißen Tag sind dagegen Sonnenbrand.
 
 ## Fazit
 

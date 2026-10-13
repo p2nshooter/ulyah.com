@@ -109,6 +109,16 @@ Ein Bücherregal an der Wand gegenüber einem Westfenster, etwa vier Meter entfe
 
 Ein häufiger Fehler ist ein zu großer Abstand zwischen Lampe und Pflanze. Schon bei doppeltem Abstand kommt nur noch etwa ein Viertel des Lichts an. Eine Lampe, die zwei Meter über der Pflanze an der Decke hängt, bringt deshalb kaum etwas. Besser sind Leisten, die direkt über dem Regalbrett befestigt werden, oder Klemmstrahler, die 30 bis 50 cm über der Pflanze stehen. Die Stromkosten sind bei LED gering: Eine 20-Watt-Leiste, die zwölf Stunden am Tag brennt, verbraucht im Monat etwa sieben Kilowattstunden.
 
+## Licht messen mit dem Smartphone
+
+Unser Auge gewöhnt sich so gut an unterschiedliche Helligkeit, dass wir das Licht in einem Raum fast immer überschätzen. Eine Lichtmesser-App auf dem Smartphone liefert einen groben Anhaltspunkt in Lux. Die Werte sind nicht genau, weil Handysensoren nicht für Messungen gebaut sind, aber Vergleiche zwischen Plätzen in derselben Wohnung funktionieren gut: Du siehst schnell, dass das Licht schon ein, zwei Meter vom Fenster entfernt auf einen Bruchteil sinkt.
+
+Miss am besten mittags an einem hellen Tag, mit dem Sensor dort, wo die Blätter der Pflanze sind, und vergleiche mehrere Plätze. Schattenverträgliche Pflanzen wie Glücksfeder oder Bogenhanf kommen mit Plätzen zurecht, an denen die App deutlich niedrigere Werte zeigt als am Fenster. Blühende Pflanzen, Kakteen und Kräuter gehören dagegen an die hellsten Stellen.
+
+## Mehr Licht ohne Umzug
+
+Manchmal lässt sich das Licht an einem Platz verbessern, ohne die Pflanze umzustellen. Saubere Fensterscheiben lassen spürbar mehr Licht durch als verschmutzte, und auch staubige Blätter fangen weniger Licht ein; wische große Blätter deshalb regelmäßig ab. Helle Wände und Möbel reflektieren Licht in den Raum, und ein Spiegel gegenüber dem Fenster kann eine dunkle Ecke merklich aufhellen. Im Winter, wenn die Sonne tief steht, rückst du lichthungrige Pflanzen zusätzlich näher an die Scheibe.
+
 ## Häufige Fragen
 
 ### Reicht Licht durch eine Gardine?
@@ -122,6 +132,14 @@ Mit einer passenden Pflanzenlampe ja. Viele Pflanzen wachsen in reinen Kunstlich
 ### Kann ich eine Pflanze an einen fensterlosen Platz stellen?
 
 Nur mit einer Pflanzenlampe, die täglich viele Stunden brennt. Ohne Licht stirbt jede Pflanze nach einiger Zeit, auch die robustesten.
+
+### Wie lange sollte eine Pflanzenlampe täglich leuchten?
+
+Für die meisten Zimmerpflanzen reichen zehn bis vierzehn Stunden am Tag. Eine Zeitschaltuhr sorgt für einen gleichmäßigen Rhythmus. Lass die Lampe nicht rund um die Uhr brennen, denn Pflanzen brauchen auch eine Dunkelphase.
+
+### Brauchen meine Pflanzen im Winter eine Lampe?
+
+Viele Grünpflanzen kommen mit dem Winterlicht zurecht, wenn sie nah am Fenster stehen und weniger gegossen werden. Lichthungrige Pflanzen wie Kräuter, Kakteen, Sukkulenten und Zitrus profitieren dagegen deutlich von einer zusätzlichen LED-Pflanzenlampe, die nicht zu weit über den Pflanzen hängt.
 
 ## Fazit
 

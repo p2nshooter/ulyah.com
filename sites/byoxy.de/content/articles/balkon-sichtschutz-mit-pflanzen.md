@@ -117,6 +117,16 @@ Rankgitter können in Pflanzkästen integriert, am Geländer befestigt oder frei
 
 Zwei Balkone lagen direkt nebeneinander, nur durch ein niedriges Geländer getrennt. Der Bewohner stellte zwei große Pflanzkästen mit integriertem Rankgitter an die Seite. Im ersten Jahr wuchsen darin Prunkwinden und Feuerbohnen, die bis Juli einen dichten, blühenden Vorhang bildeten. Gleichzeitig wurden in die Kästen zwei immergrüne Geißblätter gepflanzt. Im zweiten Jahr waren diese bereits zwei Meter hoch, im dritten bildeten sie einen ganzjährigen Sichtschutz. Die einjährigen Pflanzen wurden nur noch als Ergänzung gesetzt.
 
+## Den Sichtschutz in Etappen planen
+
+Ein grüner Sichtschutz entsteht selten in einer einzigen Saison. Bewährt hat sich ein Plan in drei Etappen. Im ersten Sommer schließen schnell wachsende Einjährige wie Feuerbohnen, Prunkwinden oder Schwarzäugige Susanne die Lücken. Gleichzeitig pflanzt du mehrjährige Kletterer wie Clematis, Geißblatt oder Wilden Wein, die im ersten Jahr vor allem Wurzeln bilden und erst ab dem zweiten oder dritten Jahr richtig dicht werden. Für den Winter sorgen immergrüne Pflanzen wie horstig wachsender Bambus der Gattung Fargesia, der keine Ausläufer treibt, oder Efeu an einem stabilen Gitter dafür, dass der Balkon nicht von November bis April einsehbar ist.
+
+So hast du vom ersten Jahr an Schutz, und die Einjährigen werden nach und nach überflüssig, wenn die Dauerbepflanzung die Fläche übernimmt. Plane die Kübel von Anfang an groß genug für die mehrjährigen Pflanzen, denn ein späteres Umsetzen eines dicht berankten Gitters ist mühsam.
+
+## Insekten und Vögel mitdenken
+
+Ein Sichtschutz aus Pflanzen ist auch ein kleiner Lebensraum. Feuerbohnen, Kapuzinerkresse und Clematis liefern Blüten für Hummeln und Bienen, und das duftende Geißblatt lockt abends Nachtfalter an. Wilder Wein trägt im Herbst Beeren, die Vögel gern fressen. Bevor du im Frühjahr oder Sommer kräftig schneidest, lohnt ein Blick in das dichte Grün, denn gelegentlich brüten auch auf Balkonen Vögel in Kletterpflanzen. Starke Rückschnitte erledigst du deshalb am besten im Spätwinter.
+
 ## Häufige Fragen
 
 ### Welcher Sichtschutz wächst am schnellsten?
@@ -130,6 +140,18 @@ Efeu, immergrünes Geißblatt, Schirmbambus, Eibe und Thuja.
 ### Braucht ein Sichtschutz für den Nordbalkon andere Pflanzen?
 
 Ja, Efeu, Kletterhortensie und Wilder Wein kommen mit Schatten gut zurecht. Mehr in [Pflanzen für den Schattenbalkon](/ratgeber/schattenbalkon-pflanzen/).
+
+### Sind Feuerbohnen giftig?
+
+Rohe Bohnen, also Samen und Hülsen, enthalten den Eiweißstoff Phasin und dürfen nicht roh gegessen werden. Gekocht sind sie ein gutes Gemüse. Wenn kleine Kinder auf dem Balkon spielen, ernte die Hülsen rechtzeitig und erkläre älteren Kindern, dass die Bohnen nur gekocht essbar sind.
+
+### Wie hoch darf ein grüner Sichtschutz auf dem Balkon werden?
+
+Eine allgemeine Höchstgrenze gibt es nicht, entscheidend sind Mietvertrag, Hausordnung, Statik und Wind. Pflanzen und Gitter sollten nicht über die Brüstung in den Bereich der Nachbarn wachsen, und hohe Kübel müssen gegen Umkippen gesichert sein, denn eine dichte, zwei Meter hohe Pflanzenwand bietet dem Wind viel Angriffsfläche. Für fest montierte Rankgitter oder Konstruktionen an der Fassade fragst du als Mieter vorher die Vermieterin oder den Vermieter.
+
+### Welche Kletterpflanzen vertragen viel Wind?
+
+Efeu, Wilder Wein und Geißblatt sind robust und halten auch auf hohen, windigen Balkonen gut. Clematis-Triebe brechen bei Sturm dagegen leicht und brauchen einen geschützteren Platz. Bambus verträgt Wind, rollt bei Trockenheit und Frost aber seine Blätter ein und braucht im Winter Wasser an frostfreien Tagen.
 
 ## Fazit
 
