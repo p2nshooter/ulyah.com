@@ -129,6 +129,16 @@ Eine Efeutute sollte schneller wachsen, also gab die Besitzerin bei jedem Gieße
 
 Flüssigdünger halten sich verschlossen, kühl und dunkel gelagert meist mehrere Jahre. Sie sollten nicht in der Sonne oder in der Nähe von Lebensmitteln stehen und für Kinder und Haustiere unerreichbar aufbewahrt werden. Vor jeder Anwendung die Flasche kurz schütteln, weil sich Bestandteile absetzen können. Langzeitdünger und Düngestäbchen trocken lagern, da Feuchtigkeit die Hülle der Kügelchen angreift. Eine einfache Gewohnheit hilft gegen Überdüngung: Den Dünger nur an einem festen Tag im Monat oder alle zwei Wochen verwenden und auf einem Kalender oder in einer App notieren, welche Pflanzen gedüngt wurden. So vergisst man weder das Düngen noch düngt man versehentlich doppelt.
 
+## Das Etikett richtig lesen
+
+Auf fast jeder Düngerpackung stehen drei Zahlen, zum Beispiel 7-3-6. Sie geben den Anteil der drei Hauptnährstoffe in Prozent an: Stickstoff, Phosphat und Kalium, abgekürzt NPK. Stickstoff fördert das Wachstum von Blättern und Trieben, Phosphor unterstützt Wurzeln und Blüten, und Kalium stärkt die Widerstandskraft und den Wasserhaushalt. Grünpflanzendünger betonen meist den Stickstoff, Blühpflanzendünger enthalten mehr Phosphor und Kalium.
+
+Achte außerdem auf Spurenelemente wie Eisen, Mangan, Zink, Kupfer und Bor. Ein Volldünger enthält neben den Hauptnährstoffen auch diese Stoffe in kleinen Mengen. Fehlen sie, zeigen sich nach einiger Zeit Mangelsymptome, vor allem bei Pflanzen, die lange nicht umgetopft wurden. Die Dosierungsangabe auf dem Etikett ist eine Obergrenze; für die meisten Zimmerpflanzen reicht die halbe Menge.
+
+## Düngen nach dem Umtopfen und bei kranken Pflanzen
+
+Frische Blumenerde ist in der Regel vorgedüngt und versorgt die Pflanze für die ersten vier bis acht Wochen. Beginne deshalb nach dem Umtopfen nicht sofort mit dem Düngen. Auch geschwächte Pflanzen, etwa nach Wurzelfäule, starkem Schädlingsbefall oder völligem Austrocknen, düngst du erst, wenn sie sich erholt haben und wieder neue Blätter bilden. Dünger ist kein Heilmittel: Eine Pflanze mit geschädigten Wurzeln kann die Nährsalze nicht aufnehmen, und sie belasten die Wurzeln zusätzlich.
+
 ## Häufige Fragen
 
 ### Muss ich gekaufte Pflanzen sofort düngen?
@@ -142,6 +152,14 @@ Sie sind bequem, verteilen die Nährstoffe aber ungleichmäßig. Wer sie nutzt, 
 ### Brauchen Pflanzen in Hydrokultur anderen Dünger?
 
 Ja, speziellen Hydrodünger. Normale Dünger sind für Erde ausgelegt, in der ein Teil der Nährstoffe gebunden wird.
+
+### Kann ich Rasen- oder Gartendünger für Zimmerpflanzen verwenden?
+
+Besser nicht. Gartendünger sind auf andere Pflanzen und Böden abgestimmt, und ihre Körner geben im kleinen Topf oft zu viele Nährsalze auf einmal ab. Das kann die Wurzeln schädigen. Für Zimmerpflanzen sind flüssige Dünger, die du mit dem Gießwasser verdünnst, leichter zu dosieren.
+
+Gartenerde und Gartendünger gehören deshalb auf Beet und Balkonkasten, nicht in den Zimmerpflanzentopf.
+
+Für Zimmerpflanzen ist ein flüssiger Volldünger die einfachste Wahl.
 
 ## Fazit
 

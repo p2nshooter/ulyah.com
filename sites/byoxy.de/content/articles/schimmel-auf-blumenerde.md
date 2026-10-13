@@ -156,6 +156,8 @@ Zimt wird oft als Hausmittel empfohlen, weil er leicht pilzhemmend wirkt. Er kan
 
 Ja, der übliche weiße Schimmel auf Blumenerde besteht aus harmlosen Pilzen, die organisches Material zersetzen und auf dem Kompost ihre Arbeit fortsetzen. Für Zimmerpflanzen solltest du die Erde aber nicht wiederverwenden.
 
+Gib sie dazu auf den Kompost im Garten oder in die Biotonne.
+
 ## Fazit
 
 Weißer Belag auf Blumenerde ist entweder Schimmel oder Kalk. Mit einem einfachen Fühl- und Wischtest kannst du beides unterscheiden. Schimmel zeigt zu feuchte Bedingungen an: Trage die oberste Schicht ab, decke die Erde mineralisch ab, gieße seltener, sorge für Licht und Luft. Kalk- und Salzkrusten entfernst du durch Abkratzen, Durchspülen und weicheres Wasser. Weiterführend: [Blumenerde und Substrat](/ratgeber/blumenerde-und-substrat/).

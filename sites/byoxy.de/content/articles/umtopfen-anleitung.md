@@ -136,6 +136,18 @@ Weiße, wollige Ansammlungen an den Wurzeln deuten auf Wurzelläuse hin. Dann di
 
 Ein kleiner Gummibaum in einem 14-cm-Topf wurde direkt in einen dekorativen 30-cm-Kübel umgetopft, „damit er Platz hat“. Nach drei Monaten fielen die unteren Blätter ab, die Erde roch muffig. Die Wurzeln reichten nur zehn Zentimeter in die Erde, darunter war alles nass und dunkel. Die Pflanze kam in einen 17-cm-Topf mit frischer, lockerer Erde. Nach einem Monat bildete sie wieder neue Blätter, und ein Jahr später ging es in einen 20-cm-Topf.
 
+## Den passenden Topf wählen: Material und Form
+
+Neben der Größe entscheidet auch das Material über das Wohl der Pflanze. Tontöpfe sind atmungsaktiv, die Erde darin trocknet schneller ab, und sie stehen dank ihres Gewichts stabil. Das macht sie ideal für Kakteen, Sukkulenten und alle Pflanzen, die zu nasse Füße schlecht vertragen. Kunststofftöpfe sind leicht, günstig und halten die Feuchtigkeit länger, was Farnen, Calatheas und anderen Feuchtigkeitsliebhabern entgegenkommt. Glasierte Keramik ohne Abzugsloch eignet sich nur als Übertopf.
+
+Auch die Form zählt. Flache Schalen passen zu Sukkulenten mit flachen Wurzeln, hohe und schmale Töpfe zu Pflanzen mit langen Wurzeln wie Palmen. Orchideen wie die Phalaenopsis gedeihen in durchsichtigen Töpfen, weil ihre Wurzeln Licht nutzen und du ihren Zustand jederzeit sehen kannst.
+
+## Frische Erde ohne neuen Topf
+
+Manche Pflanzen sind zu groß oder zu schwer, um sie regelmäßig umzutopfen. Dann hilft es, im Frühjahr die obersten drei bis fünf Zentimeter Erde vorsichtig abzutragen und durch frische Erde zu ersetzen. So bekommt die Pflanze neue Nährstoffe, ohne dass der Wurzelballen gestört wird.
+
+Soll eine Pflanze im selben Topf bleiben und nicht weiter wachsen, kannst du die Wurzeln beim Umtopfen auch behutsam einkürzen. Schneide dazu ringsum etwa ein Viertel der äußeren Wurzeln mit einem sauberen Messer ab, setze die Pflanze mit frischer Erde zurück in den gereinigten Topf und gieße sie an. Dieser Schnitt ist für robuste Pflanzen wie Gummibaum oder Zimmerlinde geeignet, nicht für empfindliche Arten.
+
 ## Häufige Fragen
 
 ### Muss ich nach dem Kauf sofort umtopfen?
@@ -149,6 +161,16 @@ Ja, wenn viele Wurzeln faul waren und entfernt wurden oder die Pflanze geteilt w
 ### Sollen Töpfe vorher gereinigt werden?
 
 Ja, gebrauchte Töpfe mit heißem Wasser und einer Bürste reinigen, um Kalk, Krankheitserreger und Schädlinge zu entfernen.
+
+### Darf ich auch im Winter umtopfen?
+
+Nur im Notfall, etwa bei Wurzelfäule, Wurzelschädlingen oder einem zerbrochenen Topf. Sonst wartest du bis zum Frühjahr, wenn die Pflanze wieder wächst und neue Wurzeln schnell in die frische Erde schiebt.
+
+### Warum lässt meine Pflanze nach dem Umtopfen die Blätter hängen?
+
+Leichtes Schlappmachen ist nach dem Umtopfen normal, weil feine Wurzeln verletzt wurden. Stelle die Pflanze ein bis zwei Wochen hell, aber ohne direkte Sonne, gieße mäßig und dünge noch nicht. Meist richtet sie sich innerhalb weniger Tage wieder auf.
+
+Danach geht es mit dem gewohnten Gießrhythmus weiter.
 
 ## Fazit
 

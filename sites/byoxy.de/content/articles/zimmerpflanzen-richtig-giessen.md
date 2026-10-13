@@ -109,6 +109,23 @@ Bei Verdacht auf zu viel Wasser hilft [Wurzelfäule erkennen und retten](/ratgeb
 
 In einer Wohngemeinschaft wurden alle Pflanzen jeden Sonntag gegossen, egal welche. Nach einem Winter waren die Kakteen und der Bogenhanf faul, die Farne dagegen vertrocknet. Die Mitbewohner sortierten die Pflanzen in drei Gruppen: „Fast trocken lassen“, „Obere Schicht trocken“ und „Gleichmäßig feucht“, und klebten farbige Punkte auf die Töpfe. Gegossen wurde weiter am Sonntag, aber nur nach Fingerprobe. Im folgenden Jahr ging keine Pflanze mehr ein.
 
+## Gießen nach Topf und Substrat
+
+Wie schnell eine Pflanze Wasser braucht, hängt stark vom Topf und von der Erde ab. In Tontöpfen verdunstet Wasser auch über die Topfwand, die Erde trocknet deshalb deutlich schneller als in Kunststoff- oder glasierten Töpfen. Mineralische Substrate mit viel Bims, Lava oder Blähton sind schneller trocken als reine Blumenerde, und Kokossubstrat hält Wasser lange, wirkt an der Oberfläche aber manchmal schon trocken.
+
+Torffreie Erde täuscht besonders oft: Die oberste Schicht trocknet schnell ab und wird hell, während es darunter noch feucht ist. Prüfe deshalb immer einige Zentimeter tief mit dem Finger oder einem Holzstäbchen, bevor du gießt, und verlasse dich nicht auf die Farbe der Oberfläche.
+
+## Gießen in Hitzeperioden
+
+An heißen Sommertagen verbrauchen Zimmerpflanzen an sonnigen Fenstern deutlich mehr Wasser als sonst. Kontrolliere sie dann täglich und rücke empfindliche Pflanzen ein Stück von der Scheibe weg, hinter der sich die Hitze staut. Die verbreitete Sorge, dass Wassertropfen auf den Blättern in der Sonne wie Brenngläser wirken, ist für die meisten Pflanzen unbegründet. Gieße trotzdem lieber direkt auf die Erde, damit das Wasser bei den Wurzeln ankommt.
+
+## Gießregeln nach Pflanzengruppe
+
+- **Kakteen und Sukkulenten:** durchdringend gießen, dann die Erde vollständig abtrocknen lassen.
+- **Grünpflanzen wie Monstera, Efeutute oder Gummibaum:** gießen, wenn die oberen zwei bis drei Zentimeter trocken sind.
+- **Farne, Calatheas und Marantas:** gleichmäßig leicht feucht halten, ohne Staunässe.
+- **Phalaenopsis-Orchideen:** tauchen, wenn die Wurzeln silbrig grau aussehen.
+
 ## Häufige Fragen
 
 ### Morgens oder abends gießen?
@@ -122,6 +139,18 @@ Besprühen erhöht die Luftfeuchtigkeit nur kurz. Für Farne oder Tillandsien ka
 ### Was tun, wenn ich verreise?
 
 Für kurze Abwesenheiten reichen gründliches Gießen und ein schattigerer Standort. Für längere Reisen gibt es Bewässerungssysteme. Siehe [Pflanzen im Urlaub versorgen](/ratgeber/pflanzen-im-urlaub-versorgen/).
+
+### Ist abgekochtes Wasser besser?
+
+Beim Abkochen fällt ein Teil des Kalks aus, das Wasser wird also etwas weicher. Abgekühlt kann es kalkempfindlichen Pflanzen helfen, der Aufwand ist aber groß. Einfacher sind Regenwasser oder gefiltertes Wasser.
+
+### Was tun, wenn ich zu viel gegossen habe?
+
+Kippe überschüssiges Wasser aus Übertopf und Untersetzer, neige den Topf, damit Wasser aus den Abzugslöchern laufen kann, und stelle die Pflanze an einen hellen, warmen Platz. Bleibt die Erde mehrere Tage durchnässt oder riecht sie unangenehm, topfst du die Pflanze in frische, trockene Erde um und kontrollierst dabei die Wurzeln.
+
+### Gibt es Pflanzen, die man kaum gießen muss?
+
+Kakteen, Sukkulenten, Bogenhanf und Glücksfeder kommen mit seltenen Wassergaben aus. Ganz ohne Pflege geht es aber auch bei ihnen nicht: Sie brauchen Licht und gelegentlich gründliches Wasser.
 
 ## Fazit
 

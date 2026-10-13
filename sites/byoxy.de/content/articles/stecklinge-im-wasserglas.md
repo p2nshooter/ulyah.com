@@ -153,6 +153,12 @@ Mehr als du brauchst. Nicht jeder Steckling bewurzelt, und mehrere in einem Topf
 
 Meist zersetzen sich Blätter, die unter Wasser geraten sind, oder Bakterien vermehren sich im warmen Wasser. Entferne alle Blätter unterhalb der Wasserlinie, spüle Glas und Stängel ab und wechsle das Wasser häufiger. Faulige, matschige Stängel schneidest du bis ins gesunde Gewebe zurück.
 
+### Wie lange dauert die Bewurzelung?
+
+Das ist sehr unterschiedlich. Efeutute, Buntnessel und Tradeskantie bilden oft schon nach ein bis drei Wochen die ersten Wurzeln, Monstera, Gummibaum und andere kräftige Triebe brauchen meist mehrere Wochen. Wärme und ein heller Platz beschleunigen die Bewurzelung, im Winter dauert alles länger. Solange der Steckling fest und grün bleibt, lohnt sich Geduld.
+
+Ein durchsichtiges Glas zeigt dir dabei jeden Fortschritt.
+
 ## Fazit
 
 Die Vermehrung im Wasserglas ist einfach, wenn du einige Grundregeln beachtest: Stecklinge mit Knoten schneiden, untere Blätter entfernen, hell und warm ohne direkte Sonne stellen, das Wasser regelmäßig wechseln und bei drei bis fünf Zentimeter langen Wurzeln in lockere Erde umsetzen. So wird aus einer Pflanze schnell eine ganze Sammlung. Speziell zur Monstera: [Monstera vermehren](/ratgeber/monstera-vermehren/).

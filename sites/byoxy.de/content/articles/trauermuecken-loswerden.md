@@ -152,6 +152,18 @@ Selten, weil deren Erde meist trocken ist. Bei zu viel Wasser können sie aber a
 
 Fettkraut und Sonnentau fangen an ihren klebrigen Blättern tatsächlich viele erwachsene Trauermücken. Gegen die Larven in der Erde helfen sie aber nicht. Sie sind deshalb eine hübsche Ergänzung, ersetzen aber nicht das Abtrocknenlassen der Erde und die übrigen Maßnahmen.
 
+### Wie lange dauert es, bis die Trauermücken verschwunden sind?
+
+Ein Entwicklungszyklus vom Ei bis zur Mücke dauert bei Zimmertemperatur einige Wochen. Plane deshalb mindestens vier Wochen konsequenter Maßnahmen ein, auch wenn nach den ersten Tagen schon weniger Mücken fliegen. Erst wenn über mehrere Wochen keine neuen Mücken an den Gelbtafeln kleben, ist der Befall vorbei.
+
+### Darf ich Gelbtafeln in der Küche aufhängen?
+
+Ja, in der Wohnung sind Gelbtafeln unbedenklich. Draußen fangen sie dagegen auch nützliche Insekten und sollten nur gezielt und kurz eingesetzt werden. Tausche die Tafeln aus, wenn sie voll oder verstaubt sind.
+
+### Helfen Streichhölzer in der Erde?
+
+Das Hausmittel, Streichhölzer mit dem Kopf nach unten in die Erde zu stecken, ist weit verbreitet, seine Wirkung aber nicht belegt. Verlässlicher sind Abtrocknenlassen, Gelbtafeln und Nematoden.
+
 ## Fazit
 
 Trauermücken sind ein Zeichen für dauerhaft feuchte Erde. Lass die Erdoberfläche abtrocknen, fange die erwachsenen Mücken mit Gelbtafeln, bekämpfe die Larven mit Nematoden oder BTI und schütze die Erde mit einer Sandschicht. Mit Geduld über mindestens vier Wochen und einem angepassten Gießverhalten wirst du die Mücken dauerhaft los. Bei weißem Belag auf der Erde hilft zusätzlich [Schimmel auf Blumenerde](/ratgeber/schimmel-auf-blumenerde/).

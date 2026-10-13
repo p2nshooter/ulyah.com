@@ -147,6 +147,14 @@ Frühjahr bis Spätsommer. Im Winter geht es langsamer, ist aber an einem hellen
 
 Erst wenn es vollständig eingeschrumpelt ist und sich ohne Widerstand ablösen lässt. Bis dahin liefert es der jungen Pflanze noch Reserven.
 
+### Warum schrumpeln meine Blattstecklinge, ohne Wurzeln zu bilden?
+
+Häufig liegen die Blätter zu lange in praller Sonne oder an einem sehr warmen, trockenen Platz und verlieren ihre Reserven, bevor sich Wurzeln bilden. Stelle sie hell, aber ohne direkte Sonne. Auch Blätter mit beschädigter Basis schrumpeln oft, ohne anzuwachsen. Rechne außerdem damit, dass nicht jedes Blatt Erfolg hat, und lege lieber einige mehr aus.
+
+### Wie gieße ich die jungen Pflänzchen richtig?
+
+Sobald Wurzeln sichtbar sind, befeuchtest du das Substrat leicht, wenn es abgetrocknet ist, am besten mit einem kleinen Löffel oder einer Spritzflasche direkt auf die Erde und nicht in die Rosetten. Mit wachsenden Wurzeln gießt du nach und nach wie bei erwachsenen Sukkulenten: durchdringend, dann gut abtrocknen lassen.
+
 ## Fazit
 
 Sukkulenten lassen sich über Blätter, Köpfe, Triebe und Kindel einfach vermehren. Drehe Blätter sauber mit Basis ab, lass alle Schnittstellen antrocknen, lege sie auf trockenes, mineralisches Substrat, gieße erst nach der Bewurzelung und gib den Jungpflanzen viel Licht. Vergeilte Rosetten rettest du durch Köpfen. So wird aus einer einzelnen Pflanze eine ganze Sammlung.

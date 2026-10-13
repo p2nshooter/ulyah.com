@@ -138,6 +138,16 @@ Auf einer Fensterbank mit sechs Phalaenopsis tauchten an einer Blütenrispe wei�
 
 Mit einer Lupe lassen sich Wollläuse gut erkennen: Unter der Watte sitzen ovale, segmentierte Tiere mit feinen Wachsfäden am Rand. Schildläuse sehen dagegen aus wie kleine, unbewegliche Schuppen, die sich mit dem Fingernagel abheben lassen. Schimmel hat keine Struktur und lässt sich verwischen. Siehe auch [Schimmel auf Blumenerde](/ratgeber/schimmel-auf-blumenerde/).
 
+## Wollläuse an Kakteen und Sukkulenten
+
+Bei Kakteen und Sukkulenten verstecken sich Wollläuse besonders geschickt: zwischen den Dornen, in den Areolen, tief in den Blattachseln von Echeverien und an der Basis von Rosetten. Ein Wattestäbchen kommt dort oft nicht hin. Besser geeignet ist ein feiner Pinsel, den du in Alkohol oder eine Spiritus-Seifenlösung tauchst. Kontrolliere beim Umtopfen auch die Wurzeln, denn an Kakteen sind Wurzelläuse häufig.
+
+Vorsicht bei Sukkulenten mit bläulich bereiften Blättern, etwa vielen Echeverien. Die feine Wachsschicht schützt die Blätter vor Sonne und lässt sich durch Abwischen oder ölige Präparate dauerhaft beschädigen. Behandle bei diesen Pflanzen nur die befallenen Stellen gezielt und teste jedes Mittel zuerst an einem einzelnen Blatt.
+
+## Ameisen als Helfer der Läuse
+
+Wollläuse und Schmierläuse scheiden wie Blattläuse süßen Honigtau aus, und Ameisen schätzen diese Nahrung. Sie schützen die Läuse deshalb vor Fressfeinden und tragen sie manchmal sogar zu neuen Pflanzen. Auf Balkon und Terrasse lohnt es sich, Ameisenstraßen zu Kübelpflanzen zu unterbrechen, etwa mit einem Leimring am Stamm, wenn du Läuse bekämpfst. In der Wohnung spielen Ameisen seltener eine Rolle.
+
 ## Häufige Fragen
 
 ### Sind Wollläuse für Menschen gefährlich?
@@ -151,6 +161,20 @@ Meist überleben Eier in Verstecken oder Läuse an den Wurzeln. Die Behandlung m
 ### Kann ich eine stark befallene Pflanze retten?
 
 Oft ja. Wenn die Pflanze sehr stark befallen ist, kann es sinnvoller sein, gesunde Triebspitzen als Stecklinge zu bewurzeln und die Mutterpflanze zu entsorgen. Siehe [Stecklinge im Wasserglas](/ratgeber/stecklinge-im-wasserglas/).
+
+### Kann ich befallene Pflanzen auf den Balkon stellen?
+
+Im Sommer helfen draußen natürliche Gegenspieler und Regen gelegentlich, den Befall einzudämmen. Gleichzeitig können die Läuse aber auf andere Kübelpflanzen übergehen. Wichtiger als der Standort ist, dass die befallene Pflanze von den anderen getrennt steht und konsequent behandelt wird.
+
+### Woran erkenne ich, dass die Behandlung gewirkt hat?
+
+Wenn über mehrere Wochen keine neuen weißen Wattebäusche erscheinen und die Blätter nicht mehr klebrig werden. Kontrolliere Blattachseln, Triebspitzen und Wurzelhals noch sechs bis acht Wochen lang jede Woche, denn einzelne übersehene Weibchen können einen neuen Befall auslösen.
+
+### Helfen Gelbtafeln gegen Wollläuse?
+
+Kaum. Die weiblichen Wollläuse, die an den Pflanzen saugen, haben keine Flügel und bleiben an Ort und Stelle. Nur die kurzlebigen Männchen fliegen. Gelbtafeln zeigen deshalb höchstens an, dass Wollläuse in der Nähe sind, und ersetzen keine Behandlung der Pflanze.
+
+Ein kurzer Blick mit der Lupe auf Blattachseln und Wurzelhals sagt dir mehr als jede Falle.
 
 ## Fazit
 

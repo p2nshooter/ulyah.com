@@ -150,6 +150,10 @@ Ja. Weibliche Spinnmilben überwintern an geschützten Stellen, etwa in Rindenri
 
 Meist mehrere Wochen, weil viele Mittel die Eier nicht erreichen und bei Wärme ständig neue Milben schlüpfen. Wiederhole die Behandlung deshalb im Abstand von fünf bis sieben Tagen über mindestens drei bis vier Wochen und kontrolliere danach weiterhin regelmäßig.
 
+### Helfen Raubmilben auch im Winter in der Wohnung?
+
+Ja, einige Raubmilbenarten werden gezielt in Innenräumen eingesetzt und arbeiten in warmen Wohnungen das ganze Jahr. Sehr trockene Heizungsluft macht ihnen allerdings zu schaffen. Stelle befallene Pflanzen deshalb etwas feuchter, und folge den Hinweisen des Anbieters zu Temperatur und Luftfeuchtigkeit.
+
 ## Fazit
 
 Spinnmilben sind hartnäckig, aber besiegbar. Erkenne sie früh am Sprenkelmuster und mit dem Taschentuchtest, isoliere befallene Pflanzen, dusche sie ab und behandle mehrfach im Abstand weniger Tage mit Seifen- oder Öl-Präparaten oder setze Raubmilben ein. Langfristig ist höhere Luftfeuchtigkeit der beste Schutz. Bei Wollläusen hilft dagegen [Wollläuse und Schmierläuse](/ratgeber/wollaeuse-und-schmierlaeuse/).
