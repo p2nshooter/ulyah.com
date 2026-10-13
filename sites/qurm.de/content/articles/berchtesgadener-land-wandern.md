@@ -84,6 +84,16 @@ Bei Dauerregen sind Klammwege und Uferpfade rutschig und die Gipfel in Wolken. D
 
 Für die leichten Touren am See reichen bequeme Wanderschuhe, Regenjacke, Wasser und ein Snack. Für Jenner, Watzmannhaus und alles darüber brauchst du Bergschuhe, Kleidung für Wind und Kälte, Sonnenschutz, ausreichend Wasser und ein Erste-Hilfe-Set. Mehr dazu in [Erste-Hilfe-Set fürs Wandern](/ratgeber/erste-hilfe-set-wandern/).
 
+## Der Nationalpark Berchtesgaden
+
+Ein großer Teil der Berge rund um den Königssee gehört zum Nationalpark Berchtesgaden, dem einzigen Nationalpark Deutschlands in den Alpen. Er wurde 1978 gegründet und schützt eine eindrucksvolle Hochgebirgslandschaft vom Seeufer bis zu den Gipfeln. Im Nationalpark gelten klare Regeln: Bleib auf den Wegen, führe Hunde an der Leine, verzichte auf Drohnen und übernachte nur in Hütten, nicht im Zelt.
+
+Die Nationalparkverwaltung betreibt Informationsstellen, in denen du dich über Wege, Tiere und Pflanzen informieren kannst. Für Familien gibt es Erlebnispfade und geführte Wanderungen mit Rangern, die besonders bei Kindern beliebt sind.
+
+## Salz, Geschichte und Kultur
+
+Das Berchtesgadener Land ist nicht nur ein Wandergebiet. Das Salzbergwerk Berchtesgaden ist seit dem frühen 16. Jahrhundert in Betrieb und kann besichtigt werden, ein idealer Ausflug für Regentage mit Kindern. In der Umgebung erinnern zudem historische Orte an die Zeit des Nationalsozialismus. Die Dokumentation Obersalzberg informiert sachlich über diese Geschichte und ist für geschichtlich Interessierte ein wichtiger Besuch.
+
 ## Häufige Fragen
 
 ### Kann man um den Königssee herumwandern?
@@ -97,3 +107,19 @@ Ja. Die Wallfahrtskirche mit den roten Zwiebeltürmen liegt auf einer Halbinsel 
 ### Wann ist die beste Reisezeit?
 
 Juni und September. Im Juni blühen die Almen, im September ist es ruhiger, die Sicht ist oft klar und die Hütten sind noch geöffnet.
+
+### Brauche ich für den Watzmann einen Bergführer?
+
+Für das Watzmannhaus brauchen konditionsstarke, trittsichere Wanderer keinen Bergführer. Die Watzmann-Überschreitung ist dagegen eine lange, ausgesetzte Hochtour mit Kletterstellen, die viel Erfahrung, Trittsicherheit und Schwindelfreiheit verlangt. Wer diese Erfahrung nicht hat, sollte sie nur mit einem staatlich geprüften Bergführer angehen.
+
+### Wie komme ich ohne Auto ins Berchtesgadener Land?
+
+Mit dem Zug fährst du bis Berchtesgaden, von dort bringen dich Busse zum Königssee, nach Ramsau und zu vielen Ausgangspunkten. Mit einer Gästekarte sind viele Busse in der Region für Übernachtungsgäste günstiger oder kostenlos. Erkundige dich bei deiner Unterkunft nach den Bedingungen.
+
+### Wie voll ist es am Königssee?
+
+Im Sommer und an schönen Wochenenden sehr voll, besonders vormittags an den Bootsanlegern. Wer früh startet oder unter der Woche kommt, hat mehr Ruhe. Abgelegene Wege im Nationalpark sind auch in der Hauptsaison deutlich ruhiger.
+
+Auch der frühe Morgen oder der späte Nachmittag sind am Seeufer oft wunderbar ruhig und bieten das schönste Licht.
+
+Dann wirkt der See wie verwandelt.

@@ -100,6 +100,18 @@ Achte dabei darauf, dass Apps unterschiedlich messen. Höhenmeter aus GPS-Daten 
 
 Viele Wegweiser in Deutschland zeigen Gehzeiten statt Kilometer, besonders in den Alpen. Diese Angaben beruhen meist auf ähnlichen Richtwerten und gelten für eine Person mit durchschnittlicher Kondition, ohne Pausen. Wenn du merkst, dass du die angegebenen Zeiten regelmäßig deutlich überschreitest, ist das ein Hinweis, dass die geplante Tour zu lang sein könnte. Im Gebirge ist das ein Grund, rechtzeitig umzukehren.
 
+## Gehzeit mit Kindern und Gruppen
+
+Die üblichen Formeln gelten für Erwachsene mit durchschnittlicher Kondition. Mit Kindern brauchst du deutlich mehr Zeit, nicht nur wegen der kürzeren Beine, sondern wegen der vielen Pausen, Entdeckungen und Spiele unterwegs. Plane für Familienwanderungen großzügig und rechne eher mit der doppelten Zeit als mit knappen Angaben.
+
+In Gruppen bestimmt das langsamste Mitglied das Tempo. Wer eine Tour für eine Gruppe plant, sollte deshalb die Gehzeit am Tempo der Schwächsten ausrichten und zusätzliche Pausen einrechnen. Eine Gruppe, die zusammenbleibt, ist sicherer und hat mehr Freude als eine, die sich über den Berg verteilt.
+
+## Digitale Tourenplaner richtig nutzen
+
+Viele Karten-Apps und Tourenportale berechnen Gehzeiten automatisch aus Strecke und Höhenmetern. Diese Angaben sind eine gute Orientierung, beruhen aber auf Durchschnittswerten. Vergleiche nach einigen Touren die berechneten Zeiten mit deinen tatsächlichen Zeiten, dann weißt du, wie du die Angaben für dich anpassen musst.
+
+Lade Karten vor der Tour für die Offline-Nutzung herunter, denn in den Bergen ist der Empfang oft schlecht. Eine Papierkarte als Ergänzung schadet nie. Wie du Karten und Apps kombinierst, erklärt der Ratgeber [Wander-Apps und GPX](/ratgeber/wander-apps-und-gpx/).
+
 ## Häufige Fragen
 
 ### Warum ist der Abstieg schneller als der Aufstieg, fühlt sich aber anstrengender an?
@@ -113,3 +125,11 @@ Nur sehr eingeschränkt. Kinder haben ein ganz anderes Tempo und brauchen viele 
 ### Wie viele Stunden Gehzeit sind für Einsteiger sinnvoll?
 
 Für die ersten Touren sind drei bis vier Stunden reine Gehzeit ein guter Rahmen. Mit Pausen bist du dann fünf Stunden unterwegs. Steigere dich langsam, statt gleich mit einer Achtstundentour zu beginnen.
+
+### Wie verändert Schnee die Gehzeit?
+
+Schnee verlangsamt das Gehen deutlich, besonders wenn er weich ist oder du spuren musst. Plane im Winter und bei Altschnee im Frühjahr erheblich mehr Zeit ein und bedenke die kurzen Tage. Für Winterwanderungen wählst du am besten kürzere Touren auf geräumten oder gespurten Wegen.
+
+### Wie genau sind die Zeitangaben auf Wegweisern?
+
+Sie gelten für durchschnittliche Wanderer ohne Pausen und sind meist eher knapp bemessen. Sie sind gut zum Vergleich von Wegen, aber kein persönlicher Zeitplan. Rechne immer Pausen und eine Reserve dazu.

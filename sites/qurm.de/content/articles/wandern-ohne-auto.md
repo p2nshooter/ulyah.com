@@ -96,6 +96,22 @@ So entsteht ein Tag ohne Hetze, mit Puffer für Pausen, Fotos und den Fall, dass
 
 Auch für mehrtägige Wanderungen ist der Verzicht aufs Auto oft die bessere Wahl. Du reist zum Startort, gehst von Unterkunft zu Unterkunft und fährst vom Zielort mit der Bahn heim. Kein Auto muss zum Startpunkt zurückgeholt werden. Auf vielen Fernwanderwegen organisieren Anbieter den Gepäcktransport, sodass du nur einen Tagesrucksack trägst. Wie du eine solche Tour planst, beschreibt [Die erste Fernwanderung planen](/ratgeber/erste-fernwanderung-planen/).
 
+## Rad und Wanderschuh kombinieren
+
+Liegt der Ausgangspunkt einer Tour einige Kilometer vom nächsten Bahnhof entfernt, hilft manchmal das Fahrrad. Du fährst mit dem Rad zum Start, schließt es an einem sicheren Ort ab und holst es am Ende einer Rundwanderung wieder. Für Streckenwanderungen kannst du das Rad auch am Zielort abstellen und morgens mit Bus oder Bahn zum Start fahren. In Regionalzügen ist die Fahrradmitnahme meist möglich, oft aber nur mit einem eigenen Fahrradticket und mit begrenzten Plätzen. Das Deutschlandticket schließt die Fahrradmitnahme im Allgemeinen nicht ein, einzelne Bundesländer und Verbünde haben aber eigene Regelungen.
+
+## Gepäck bei mehrtägigen Touren
+
+Wer mehrere Tage ohne Auto unterwegs ist und nicht alles tragen möchte, hat verschiedene Möglichkeiten. Auf vielen Fernwegen bringen Anbieter das Gepäck von Unterkunft zu Unterkunft. Du kannst auch einen Teil des Gepäcks vorab per Paketdienst an die Unterkunft am Ziel schicken, etwa frische Kleidung für die Heimreise; frag dort vorher, ob sie Pakete annimmt. An größeren Bahnhöfen gibt es Schließfächer, an kleinen Bahnhöfen dagegen fast nie. Viele Hotels bewahren Gepäck auch nach dem Auschecken bis zum Abend auf, sodass du am Abreisetag noch eine Runde wandern kannst.
+
+## Gut für das Klima und die Region
+
+Bei einer Tagestour mit dem Auto entsteht oft ein großer Teil der Umweltbelastung des ganzen Ausflugs auf der Anfahrt. Mit Bus und Bahn reist du deutlich klimafreundlicher. Gleichzeitig entlastest du die Ausflugsorte, deren Parkplätze an schönen Wochenenden überlaufen und deren Zufahrtsstraßen verstopft sind. Und weil du am Ende nicht zum Auto zurückmusst, bleibt oft noch Zeit für eine Einkehr im Ort, von der die Gasthäuser und Hofläden der Region profitieren.
+
+### Gilt das Deutschlandticket auch in Wanderbussen und Bergbahnen?
+
+In regulären Bussen des Nahverkehrs, also auch in vielen saisonalen Wanderbussen, die zu einem Verkehrsverbund gehören, gilt es in der Regel. Seilbahnen, Zahnradbahnen und private Ausflugsbusse sind dagegen meist ausgenommen und haben eigene Tarife. Prüf das vor der Tour beim jeweiligen Betreiber, damit du an der Talstation keine Überraschung erlebst.
+
 ## Häufige Fragen
 
 ### Darf ich Wanderstöcke und große Rucksäcke mitnehmen?

@@ -87,6 +87,18 @@ Auch wenn die Sonne über dem Tal scheint, kann es auf 1.800 Metern windig und k
 
 Viele Allgäuer Gipfel lassen sich mit einer Bergbahn verkürzen: Nebelhorn und Fellhorn bei Oberstdorf, Hochgrat bei Oberstaufen, Mittag bei Immenstadt oder Tegelberg bei Schwangau. Eine Bahn bringt dich schnell in die Höhe, aber sie macht den Weg nicht leichter. Wer oben aussteigt, steht sofort im alpinen Gelände, ohne sich im Aufstieg aufgewärmt zu haben. Gönne dir ein paar Minuten zum Ankommen und prüfe die letzte Talfahrt, bevor du losgehst. Wer bergab läuft, schont seine Knie mit Stöcken und einem gleichmäßigen, kurzen Schritt. Viele entscheiden sich bewusst für die Bahn im Abstieg: Der Aufstieg zu Fuß ist für die Gelenke weniger belastend als ein langer Abstieg.
 
+## Allgäu im Frühsommer und im Herbst
+
+Im Frühsommer locken die Allgäuer Berge mit Blumenwiesen und rauschenden Bächen. Bedenke aber, dass in Nordhängen und Rinnen oft bis in den Juni Altschnee liegt. Steile, harte Schneefelder sind ohne passende Ausrüstung gefährlich, auch wenn der Weg im Tal längst trocken ist. Informiere dich vor höheren Touren bei Hütten, Bergbahnen oder Tourist-Informationen über die aktuellen Verhältnisse.
+
+Der Herbst gilt vielen als schönste Wanderzeit. Das Wetter ist oft stabil, die Fernsicht klar und die Wege sind leerer als im Hochsommer. Die Tage werden allerdings deutlich kürzer, und viele Alpen schließen nach dem Viehscheid im September. Plane Touren so, dass du lange vor Einbruch der Dunkelheit wieder im Tal bist, und nimm eine Stirnlampe mit.
+
+## Rücksicht auf Weidetiere und Natur
+
+Auf vielen Allgäuer Alpen weiden im Sommer Rinder, oft direkt am Wanderweg. Halte Abstand, besonders zu Mutterkühen mit Kälbern, führe Hunde an der kurzen Leine und lass sie im Ernstfall los, wenn Rinder angreifen. Schließe Weidegatter immer wieder hinter dir. Mehr dazu im Ratgeber [Kühe auf der Weide](/ratgeber/kuehe-auf-der-weide/).
+
+Viele Gebiete im Allgäu stehen unter Naturschutz. Bleib auf den markierten Wegen, pflücke keine geschützten Pflanzen und nimm deinen Abfall wieder mit ins Tal. Abkürzungen über Wiesen und Hänge fördern Erosion und stören Wildtiere.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit zum Wandern im Allgäu?
@@ -100,3 +112,11 @@ Die komplette Gratüberschreitung ist für Kinder nicht geeignet. Mit trittsiche
 ### Brauche ich eine Hüttenreservierung für Tagestouren?
 
 Nein, nur für Übernachtungen. Für einen Mittagstisch in beliebten Alpen kann an Wochenenden aber Geduld nötig sein.
+
+### Kann ich mit dem Deutschlandticket ins Allgäu fahren?
+
+Ja, das Deutschlandticket gilt in Regionalzügen und im öffentlichen Nahverkehr, auch auf den Bahnstrecken ins Allgäu und in vielen Bussen vor Ort. Bergbahnen sind darin nicht enthalten, und bei manchen Buslinien oder Gästekarten gelten eigene Regeln. Frage im Zweifel bei der Tourist-Information nach.
+
+### Wie früh sollte ich zu einer Allgäuer Bergtour aufbrechen?
+
+Im Sommer am besten früh am Morgen. Dann ist es kühler, die Wege sind leerer, und du bist zurück, bevor sich am Nachmittag Wärmegewitter bilden. Prüfe auch die erste und letzte Fahrt der Bergbahn, wenn du sie nutzen möchtest.

@@ -71,6 +71,26 @@ Die übliche Einteilung umfasst etwa 20 Tagesetappen zwischen 10 und 23 Kilomete
 
 Auf der linken Rheinseite verläuft zwischen Rolandseck und Bingen der Rheinburgenweg. Er ist kürzer, ebenfalls gut markiert und führt an Burgen wie Rheinfels und Stahleck vorbei. Der Rheinsteig gilt als etwas wilder und anspruchsvoller, der Rheinburgenweg als etwas sanfter. Mit den Fähren über den Rhein kannst du beide Wege kombinieren und Rundtouren bilden.
 
+## Loreley, Zollburgen und Rheinromantik
+
+Wenige Landschaften in Deutschland sind so mit Geschichten aufgeladen wie das Mittelrheintal. Der Felsen der Loreley wurde durch die Dichtung der Romantik berühmt: Clemens Brentano erfand um 1800 die Figur der verführerischen Zauberin, und Heinrich Heines Gedicht „Ich weiß nicht, was soll es bedeuten“, später von Friedrich Silcher vertont, machte sie weltbekannt. Der reale Hintergrund ist nüchterner: An dieser Stelle ist der Rhein eng, tief und hatte früher gefährliche Felsen und Strömungen, an denen Schiffe verunglückten.
+
+Viele Burgen am Weg entstanden nicht nur zum Schutz, sondern um Geld zu verdienen. Im Mittelalter erhoben die Landesherren auf dem Rhein Zölle, und jede Burg mit Blick auf den Strom war eine mögliche Zollstation. Die Burg Pfalzgrafenstein bei Kaub, mitten im Fluss auf einer Felsinsel, wurde im 14. Jahrhundert genau dafür gebaut. Wer das weiß, sieht die Burgenkette auf den Höhen mit anderen Augen.
+
+## Weinberge und Weinlese
+
+Am Mittelrhein und im Rheingau wird Wein an teils sehr steilen Hängen angebaut, vor allem Riesling. Der Rheinsteig führt oft mitten durch die Weinberge, über schmale Pfade und Treppen aus Schiefer. Denk daran, dass die Weinberge bewirtschaftete Privatflächen sind. Trauben zu pflücken ist auch dann nicht in Ordnung, wenn sie zum Greifen nah hängen. In der Lesezeit im September und Oktober wird überall gearbeitet, Traktoren und Raupen sind auf den Wegen unterwegs, und manchmal werden einzelne Pfade gesperrt. Lass den Winzern Vorrang und folge Umleitungen. Als Ausgleich gibt es in vielen Orten Straußwirtschaften und Weinfeste, in denen du nach der Etappe Federweißer und Zwiebelkuchen probieren kannst.
+
+## Bahn, Fähren und Schiffe
+
+Beide Ufer des Mittelrheins haben eine Bahnstrecke mit Regionalzügen, die fast jeden Ort anfahren. Das macht den Rheinsteig zu einem der besten Fernwege für Bahnreisende. Die Kehrseite: Auf beiden Strecken fahren auch nachts viele Güterzüge, und das enge Tal wirft den Lärm zurück. Wer empfindlich schläft, fragt bei der Buchung nach einem Zimmer auf der dem Fluss abgewandten Seite oder übernachtet in einem Ort auf der Höhe.
+
+Zwischen Koblenz und Mainz gibt es keine Brücke über den Rhein. Stattdessen verbinden Auto- und Personenfähren die Ufer, etwa zwischen St. Goar und St. Goarshausen oder zwischen Bingen und Rüdesheim. In der Saison fahren außerdem Ausflugsschiffe zwischen den Orten im Tal. Eine Schifffahrt zurück zum Ausgangspunkt ist ein schöner, entspannter Abschluss einer Etappe und schont nach den Abstiegen die Knie.
+
+### Ist der Rheinsteig für Familien mit Kindern geeignet?
+
+Die ganze Strecke ist für Kinder zu lang und zu steil, einzelne Abschnitte sind aber ideal: Burgen, Aussichtspunkte, Schiffe und Züge machen den Weg für Kinder spannend. Wähle kurze Teilstücke von acht bis zwölf Kilometern, bei denen ein Bahnhof oder eine Fähre den Rückweg erleichtert, und achte an Weinbergtreppen und Aussichtspunkten ohne Geländer besonders auf kleine Kinder.
+
 ## Häufige Fragen
 
 ### Wie viele Tage brauche ich für den ganzen Rheinsteig?

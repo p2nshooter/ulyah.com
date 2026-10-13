@@ -92,6 +92,34 @@ Kinder brauchen öfter kleine Pausen mit Essen und Trinken als Erwachsene, und P
 
 Verpackungen, Bananenschalen, Apfelgehäuse und Taschentücher gehören zurück ins Tal. Organische Reste verrotten in den Bergen viel langsamer als im Garten und locken Tiere an. Ein kleiner wiederverschließbarer Beutel für Müll gehört in jeden Rucksack.
 
+## Proviant für Mehrtagestouren
+
+Bei einer Hüttentour isst du abends und morgens auf der Hütte und trägst nur Snacks für den Tag. Anders sieht es aus, wenn du mit Zelt unterwegs bist und dich selbst versorgst. Dann zählt jedes Gramm, und du suchst Lebensmittel mit viel Energie pro Gewicht. Fett liefert pro Gramm gut doppelt so viel Energie wie Kohlenhydrate oder Eiweiß, deshalb gehören Nüsse, Nussmus, Hartkäse und etwas Olivenöl zu den klassischen Trekkingzutaten. Als grobe Faustregel planen viele Trekkingwanderer 700 bis 900 Gramm Trockennahrung pro Person und Tag.
+
+Bewährt haben sich:
+
+- **Frühstück:** Haferflocken oder Müsli mit Milchpulver, Trockenobst und Nüssen, dazu Instantkaffee oder Tee.
+- **Unterwegs:** Brot, Knäckebrot oder Tortillas mit Hartkäse, Salami oder Nussmus, dazu Riegel und Studentenfutter.
+- **Abends:** Couscous, Bulgur, Instantkartoffelpüree oder Nudeln mit kurzer Kochzeit, ergänzt mit Gemüsebrühe, Trockengemüse und Öl. Gefriergetrocknete Fertigmahlzeiten sind teurer, aber leicht und schnell zubereitet.
+
+Portioniere alles schon zu Hause in beschriftete Beutel, eine Tüte pro Mahlzeit. So weißt du unterwegs genau, was noch da ist, und schleppst keine Großpackungen mit.
+
+## Energiekugeln selbst machen
+
+Statt gekaufter Riegel kannst du Energiekugeln leicht selbst herstellen. Ein einfaches Grundrezept: 200 Gramm entsteinte Datteln, 100 Gramm Nüsse, 50 Gramm Haferflocken, ein Esslöffel Kakao und eine Prise Salz im Mixer zu einer klebrigen Masse verarbeiten. Daraus formst du walnussgroße Kugeln und wälzt sie nach Belieben in Kokosraspeln. Im Kühlschrank halten sie sich etwa eine Woche, im Rucksack problemlos einen Wandertag. Statt Datteln eignen sich auch getrocknete Aprikosen oder Feigen, und wer keine Nüsse verträgt, nimmt Sonnenblumenkerne.
+
+## Trinken im Winter
+
+Bei Kälte spürst du weniger Durst, verlierst aber trotzdem Wasser, vor allem über die Atemluft und beim Schwitzen im Aufstieg. Eine Isolierflasche mit warmem, leicht gesüßtem Tee ist im Winter Gold wert, weil kalte Getränke den Körper zusätzlich auskühlen und niemand gern eiskaltes Wasser trinkt. Normale Trinkflaschen kannst du in eine Socke oder eine isolierte Hülle stecken. Weil Wasser von oben zu gefrieren beginnt, hilft es, die Flasche kopfüber zu tragen, damit der Verschluss nicht einfriert. Trinkschläuche frieren bei Frost schnell zu und sind im Winter weniger geeignet.
+
+## Besondere Ernährungsbedürfnisse
+
+Vegetarisch und vegan zu wandern ist kein Problem: Nüsse, Hülsenfrüchte, Vollkornbrot, Nussmus und Trockenobst liefern Energie und Eiweiß. Wer glutenfrei isst, packt Reiswaffeln, Maisfladen oder glutenfreies Brot ein und fragt auf Hütten bei der Reservierung nach. Menschen mit Diabetes besprechen längere Touren am besten vorher mit ihrer Ärztin oder ihrem Arzt, messen unterwegs häufiger und haben immer schnell wirksamen Zucker griffbereit. Bei schweren Allergien gehört das persönliche Notfallset in jeden Rucksack, und die Begleitpersonen sollten wissen, wo es steckt.
+
+### Wie viel Energie verbrauche ich beim Wandern?
+
+Das hängt stark von Körpergewicht, Gepäck, Tempo und Steigung ab. Grob kannst du mit 250 bis 500 Kilokalorien pro Stunde rechnen, im steilen Aufstieg mit schwerem Rucksack auch mit mehr. Bei einer langen Tagestour kommt so leicht der Energiebedarf einer zusätzlichen Mahlzeit zusammen. Deshalb sind regelmäßige Snacks wichtiger als eine große Mittagspause.
+
 ## Häufige Fragen
 
 ### Ist ein Bier auf der Hütte ein Problem?

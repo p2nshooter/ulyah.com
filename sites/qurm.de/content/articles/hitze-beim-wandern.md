@@ -84,6 +84,26 @@ Hunde können nur über Hecheln und die Pfoten Wärme abgeben. Heißer Asphalt u
 
 Gute Vorbereitung beginnt am Vorabend. Trinke über den Tag verteilt ausreichend, verzichte auf viel Alkohol und schlafe genug. Lege Kleidung, Sonnenschutz und gefüllte Flaschen bereit, damit der frühe Start ohne Hektik gelingt. Friere eine Flasche Wasser zur Hälfte ein und fülle sie morgens auf: So hast du bis zum Mittag kühles Wasser. Prüfe die Hitzewarnungen des Deutschen Wetterdienstes für deine Region und passe die Tour notfalls an.
 
+## Wasser unterwegs auffüllen
+
+An heißen Tagen reicht das Wasser im Rucksack oft nicht für die ganze Tour. Plane deshalb vorher, wo du nachfüllen kannst: Hütten, Gasthöfe, Dorfbrunnen und Friedhöfe. Nicht jeder Brunnen liefert Trinkwasser. Achte auf Schilder mit dem Hinweis „Kein Trinkwasser“ und verlass dich nicht darauf, dass Bachwasser sauber ist, besonders unterhalb von Weiden und Ortschaften.
+
+Ein kleiner Wasserfilter ist eine gute Reserve für lange Touren. Trage lieber etwas mehr Wasser als zu wenig, und trinke regelmäßig in kleinen Schlucken, statt zu warten, bis du Durst hast.
+
+## Hitze in den Bergen und im Flachland
+
+Mit jedem Höhenmeter wird es etwas kühler, im Durchschnitt um etwa ein halbes bis knapp ein Grad pro hundert Meter. Eine Tour in größerer Höhe kann deshalb an Hitzetagen angenehmer sein als ein Spaziergang im Tal. Gleichzeitig ist die Sonnenstrahlung in der Höhe stärker, und auf schattenlosen Graten und Südhängen wird es trotzdem sehr heiß.
+
+Im Flachland und in Mittelgebirgen bieten dichte Wälder, Bachtäler und Schluchten den besten Schutz. Plane solche Touren an heißen Tagen bewusst ein und meide offene Felder, Weinberge und Heideflächen zur Mittagszeit.
+
+## Salz und Elektrolyte
+
+Beim Schwitzen verliert der Körper nicht nur Wasser, sondern auch Salze. Wer an heißen Tagen viele Stunden wandert und große Mengen reines Wasser trinkt, sollte auch Salz ergänzen, etwa mit salzigen Snacks wie Brezeln, Nüssen oder Käse oder mit Elektrolyttabletten aus der Apotheke. Das beugt Muskelkrämpfen und Erschöpfung vor.
+
+## Hitze und Gewitter
+
+Heiße Sommertage sind typische Gewittertage. Die Wärme lässt feuchte Luft aufsteigen, und am Nachmittag türmen sich oft Gewitterwolken auf. Starte deshalb früh, plane die Tour so, dass du am frühen Nachmittag zurück bist, und behalte den Himmel im Blick. Mehr dazu im Ratgeber [Gewitter beim Wandern](/ratgeber/gewitter-beim-wandern/).
+
 ## Häufige Fragen
 
 ### Ab welcher Temperatur sollte ich auf eine Tour verzichten?
@@ -97,3 +117,15 @@ Ja, Hände, Arme, Nacken und Gesicht im kalten Wasser kühlen spürbar. Ein Spru
 ### Gewöhnt sich der Körper an Hitze?
 
 Ja. Nach etwa ein bis zwei Wochen mit regelmäßiger Bewegung in der Wärme schwitzt der Körper früher und effektiver. Steigere die Touren in einer Hitzeperiode deshalb langsam.
+
+### Soll ich an heißen Tagen lieber im Wald wandern?
+
+Ja, Wälder, Bachtäler und Schluchten sind an heißen Tagen deutlich kühler als offene Landschaften. Eine Tour durch eine Klamm oder entlang eines Baches ist eine gute Wahl. Ideen dafür findest du im Ratgeber [Klammen in Bayern](/ratgeber/klammen-in-bayern/).
+
+### Beeinflussen Medikamente die Hitzeverträglichkeit?
+
+Manche Medikamente, etwa bestimmte Mittel gegen Bluthochdruck oder entwässernde Medikamente, können die Hitzeverträglichkeit verändern. Wer regelmäßig Medikamente nimmt und im Sommer längere Touren plant, sollte das vorher mit der Hausarztpraxis besprechen.
+
+### Wie erhole ich mich nach einer heißen Tour am besten?
+
+Trink in den Stunden nach der Tour weiter, auch wenn du keinen Durst mehr spürst, und iss etwas Salziges, um verlorene Mineralstoffe auszugleichen. Eine lauwarme Dusche kühlt angenehmer als eiskaltes Wasser, und hochgelegte Beine im Schatten entlasten den Kreislauf. Achte auf Warnzeichen, die auch später noch auftreten können, etwa Kopfschmerzen, Übelkeit oder sehr dunklen Urin. Wenn sie nicht nachlassen oder stärker werden, hol ärztlichen Rat ein.

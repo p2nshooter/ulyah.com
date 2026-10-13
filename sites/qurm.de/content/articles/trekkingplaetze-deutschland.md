@@ -84,6 +84,26 @@ Im deutschen Wald gibt es keine Tiere, die für Menschen im Zelt gefährlich sin
 
 Eine gute erste Tour mit Zelt verbindet zwei Trekkingplätze mit einem Start und Ziel an Bahnhöfen. Am ersten Tag gehst du am Mittag los und wanderst drei bis vier Stunden zum ersten Platz, damit du genug Zeit zum Aufbauen und Kochen hast. Am zweiten Tag ist Zeit für eine längere Etappe mit Einkehr, bevor du den zweiten Platz erreichst. Am dritten Tag gehst du in zwei bis drei Stunden zum Zielbahnhof. Wasser füllst du in Orten, an Hütten oder an Brunnen mit Trinkwasser auf. Plane die Route so, dass du am Nachmittag vor jedem Platz noch eine Nachfüllmöglichkeit hast.
 
+## Die erste Nacht: ein typischer Ablauf
+
+Plane so, dass du am späten Nachmittag am Platz ankommst und noch mindestens zwei Stunden Tageslicht hast. Such dir zuerst einen ebenen Stellplatz und schau nach oben: Abgestorbene Äste oder schief hängende Bäume über dem Zelt sind gefährlich, besonders bei Wind. Bau dann das Zelt auf, solange es hell ist, und richte die Schlafsachen ein, damit sie sich entfalten können. Danach kochst du, spülst sparsam mit wenig Wasser ab und verstaust Lebensmittel und Müll verschlossen.
+
+Vor dem Schlafen gehst du noch einmal zur Toilette, damit du nachts nicht im Dunkeln hinausmusst, und legst Stirnlampe, Wasser und eine warme Mütze griffbereit neben den Kopf. Am Morgen ist das Zelt oft nass vom Tau oder vom Kondenswasser. Pack es dann getrennt von den trockenen Sachen ein und bau es zu Hause oder an der nächsten Unterkunft zum Trocknen auf, damit es nicht schimmelt.
+
+## Gut schlafen im Zelt
+
+Ob du nachts frierst, hängt weniger vom Schlafsack ab, als viele denken, sondern oft von der Isomatte. Der Boden entzieht dir die Wärme. Wie gut eine Matte isoliert, zeigt ihr **R-Wert**: Für warme Sommernächte reichen niedrige Werte, für Frühjahr und Herbst sind mittlere Werte von etwa drei sinnvoll, für kalte Nächte höhere. Beim Schlafsack helfen die genormten Temperaturangaben: Die **Komforttemperatur** ist der Wert, bei dem eine durchschnittliche Person entspannt schläft, die **Limittemperatur** der Wert, bei dem sie zusammengerollt gerade nicht friert. Orientiere dich an der Komforttemperatur.
+
+Weitere Tricks: Zieh trockene Kleidung und Socken für die Nacht an, trag eine Mütze, iss vor dem Schlafen noch etwas Warmes, und mach eine Wärmflasche aus einer gut verschlossenen Trinkflasche mit heißem Wasser.
+
+### Was kostet eine Nacht auf dem Trekkingplatz?
+
+Die Gebühren sind bewusst niedrig und liegen meist im niedrigen zweistelligen Eurobereich pro Zelt und Nacht. Damit werden Pflege, Toiletten und Verwaltung finanziert. Die aktuellen Preise stehen auf den Buchungsseiten der jeweiligen Region.
+
+### Kann ich allein auf einem Trekkingplatz übernachten?
+
+Ja, und viele Menschen genießen gerade diese Ruhe. Sag vorher jemandem, wo du übernachtest und wann du zurück bist, halte dein Handy geladen und notiere dir die Koordinaten des Platzes für den Notfall. Die erste Nacht allein im Wald ist ungewohnt: Knacken, Rascheln und Rufe von Eulen oder Rehen sind völlig normal. Ohrstöpsel helfen, wenn die Geräusche dich nicht schlafen lassen.
+
 ## Häufige Fragen
 
 ### Kann ich mit Kindern auf einen Trekkingplatz?

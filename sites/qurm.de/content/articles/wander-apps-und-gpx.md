@@ -73,6 +73,28 @@ Digitale Navigation verleitet dazu, nur noch auf den Bildschirm zu schauen. Das 
 
 Nutze die App deshalb als Hilfe, nicht als Ersatz für Aufmerksamkeit. Achte auf Wegzeichen und Wegweiser, merke dir markante Punkte und schau ab und zu auf die Karte, auch wenn du dir sicher bist. So bleibst du handlungsfähig, auch wenn die Technik streikt.
 
+## Eine GPX-Datei in die App laden
+
+Der Weg ist bei den meisten Apps ähnlich. Lade die Datei von der offiziellen Seite des Wanderwegs oder der Region herunter. Auf dem Smartphone tippst du die heruntergeladene Datei an und wählst „Öffnen mit“ und deine Wander-App. Viele Apps haben außerdem einen Tourenplaner im Browser: Dort importierst du die Datei am Computer, und sie erscheint nach der Synchronisierung auch auf dem Handy. Prüfe danach, ob der Verlauf vollständig ist und Start und Ziel stimmen, und speichere das Kartengebiet rund um die Strecke offline.
+
+Gut zu wissen ist der Unterschied zwischen **Track** und **Route**. Ein Track ist eine dichte Folge aufgezeichneter Punkte, die den Weg genau nachzeichnet. Eine Route besteht aus wenigen Wegpunkten, zwischen denen die App selbst einen Weg berechnet. Für Wanderungen ist ein Track meist zuverlässiger, weil die App dann nicht eigenmächtig eine kürzere Variante wählt.
+
+## Eigene Touren aufzeichnen
+
+Zeichne deine Wanderungen ab und zu auf, auch wenn du den Weg kennst. Du lernst dabei dein tatsächliches Tempo kennen, bergauf wie bergab, und kannst künftige Touren realistischer planen. Die Aufzeichnung hilft außerdem, den Rückweg zu finden, wenn du dich verlaufen hast. Wenn du deine Tracks teilst oder veröffentlichst, denk an deine Privatsphäre: Starte die Aufzeichnung erst, wenn du dein Haus verlassen hast, oder nutze Privatzonen, die viele Apps anbieten, damit deine Adresse nicht für alle sichtbar wird.
+
+## Standort teilen
+
+Viele Smartphones und Apps können deinen Standort live mit ausgewählten Personen teilen. Für Alleinwandernde ist das eine sinnvolle Sicherheitsfunktion: Jemand zu Hause sieht, wo du bist, und kann Alarm schlagen, wenn du dich lange nicht bewegst oder nicht ankommst. Teile den Standort aber nur mit Menschen, denen du vertraust, und schalte die Freigabe nach der Tour wieder aus. Öffentlich solltest du deinen aktuellen Standort nicht posten.
+
+## Warnungen aufs Handy
+
+Neben der Navigations-App lohnt sich eine Wetter- und Warn-App. Der Deutsche Wetterdienst bietet mit der App WarnWetter amtliche Unwetterwarnungen für deinen Standort, und Warn-Apps wie NINA informieren über Gefahrenlagen wie Waldbrände oder Unwetter. Stell die Benachrichtigungen so ein, dass du vor Gewittern in deiner Region gewarnt wirst. Für Menschen, die nicht telefonieren können, gibt es außerdem die offizielle Notruf-App der Bundesländer, über die sich Polizei, Feuerwehr und Rettungsdienst per Text alarmieren lassen.
+
+### Wie genau ist das GPS im Handy?
+
+Unter freiem Himmel liegt die Genauigkeit meist bei wenigen Metern. In engen Tälern, zwischen Felswänden und in dichtem Wald kann die Position springen, weil Signale reflektiert oder abgeschirmt werden. Die Höhe aus dem GPS ist ungenauer als die Position. Geräte mit barometrischem Höhenmesser zeigen die Höhe präziser an, müssen aber regelmäßig an bekannten Punkten kalibriert werden, weil sich der Luftdruck mit dem Wetter ändert.
+
 ## Häufige Fragen
 
 ### Welche App ist die beste?
@@ -86,3 +108,7 @@ Sie sind eine grobe Orientierung. Manche Apps rechnen sehr optimistisch, andere 
 ### Darf ich jeden Weg gehen, der in der App angezeigt wird?
 
 Nein. Karten zeigen auch Pfade, die gesperrt, privat oder in Schutzgebieten verboten sind. Maßgeblich sind die Beschilderung vor Ort und die Regeln des jeweiligen Gebiets.
+
+### Brauche ich die kostenpflichtige Version einer App?
+
+Für einfache Touren reichen die kostenlosen Funktionen vieler Apps aus. Bezahlversionen bieten oft genau das, was unterwegs zählt: Offlinekarten, detaillierte topografische Karten und Warnungen bei Abweichungen von der Route. Probiere zuerst die kostenlose Variante aus und entscheide dann, welche Funktionen dir fehlen.

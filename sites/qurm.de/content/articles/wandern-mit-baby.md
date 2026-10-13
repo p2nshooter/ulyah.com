@@ -80,6 +80,26 @@ Babys bestimmen den Rhythmus. Plane Pausen, wenn dein Kind Hunger hat, gewickelt
 
 Mit Baby in der Trage veränderst du deinen Schwerpunkt, und dein Blick auf die Füße ist bei einer Bauchtrage eingeschränkt. Geh deshalb bewusst langsam, besonders bergab, auf Wurzeln, Steinen und nassem Untergrund. Wanderstöcke geben dir zusätzliche Stabilität. Und gehe nach Möglichkeit nicht allein, damit im Notfall jemand helfen kann.
 
+## Deine eigene Rückbildung
+
+Nach einer Geburt braucht dein Körper Zeit, bis Beckenboden, Bauchmuskeln und Bindegewebe wieder belastbar sind. Ein Baby in der Trage und ein Rucksack bedeuten zusätzliches Gewicht, das genau diese Bereiche fordert. Beginne deshalb mit kurzen, flachen Spaziergängen und steigere dich langsam. Sprich mit deiner Hebamme oder deiner Frauenarztpraxis darüber, ab wann längere Touren für dich passen, und achte auf Warnzeichen wie ein Druckgefühl im Becken, Schmerzen oder ungewollten Urinverlust. Ein Rückbildungskurs hilft, die richtige Haltung beim Tragen zu finden. Und wenn sich Eltern beim Tragen abwechseln, verteilt sich die Last auf mehrere Schultern.
+
+## Stillen und Fläschchen unterwegs
+
+Stillen ist unterwegs die einfachste Lösung, weil du nichts vorbereiten musst. Such dir einen geschützten Platz im Schatten oder windstill hinter einer Hütte, nimm ein leichtes Sitzkissen mit und, wenn du dich wohler fühlst, ein dünnes Tuch als Sichtschutz. Wird dein Baby mit dem Fläschchen ernährt, nimmst du abgekochtes heißes Wasser in einer Isolierflasche mit und das Milchpulver bereits abgemessen in einer Portionsdose. So mischst du die Milch frisch, wenn sie gebraucht wird, und musst keine fertige Milch stundenlang warm halten. Brei transportierst du in einem gut isolierten Speisebehälter. Plane für jede Mahlzeit eine ruhige Pause ein, denn Babys essen unterwegs oft langsamer, weil es so viel zu sehen gibt.
+
+## Zecken und Mücken
+
+Babys werden genauso von Zecken gestochen wie Erwachsene. Lange, helle Kleidung erleichtert es, die Tiere zu entdecken. Suche dein Kind nach jeder Tour sorgfältig ab, besonders den Haaransatz, die Stellen hinter den Ohren, Achseln, Kniekehlen, Windelbereich und alle Hautfalten. Entferne eine Zecke zügig mit einer Zeckenkarte oder Pinzette. Viele Insektenschutzmittel sind für Säuglinge nicht zugelassen. Frag deshalb in der Kinderarztpraxis, welches Mittel ab welchem Alter geeignet ist, und setz im Sommer lieber auf Kleidung und ein Moskitonetz über der Trage. Mehr dazu steht in [Zecken beim Wandern](/ratgeber/zecken-fsme-borreliose/).
+
+## Tragen im Wechsel
+
+Wenn zwei Erwachsene unterwegs sind, wechselt euch beim Tragen ab, bevor die Schultern schmerzen. Stellt die Trage vor der Tour so ein, dass sie für beide passt, oder merkt euch die Einstellungen, denn jedes Umstellen kostet unterwegs Zeit. Wer gerade nicht trägt, übernimmt den Rucksack mit Windeln, Proviant und Wechselkleidung. So bleibt die Last verteilt, und niemand ist am Ende des Tages erschöpft.
+
+### Kann ich mit Baby auf einer Hütte übernachten?
+
+In Mittelgebirgen und auf niedrig gelegenen Hütten ist das gut möglich. Frag bei der Reservierung nach einem Familienzimmer statt eines Matratzenlagers, damit dein Baby und die anderen Gäste ruhig schlafen können. Auf hoch gelegene Hütten mit langen Aufstiegen solltest du mit einem Baby verzichten, wie oben im Abschnitt zur Tourenwahl beschrieben.
+
 ## Häufige Fragen
 
 ### Ab wann darf ich mit meinem Baby wandern?

@@ -88,6 +88,18 @@ Auf einer Fernwanderung oder Hüttentour kannst du Gewittern nicht immer ausweic
 
 Ein Regenradar auf dem Handy hilft dir unterwegs, die Zugrichtung von Gewitterzellen zu verfolgen. Verlass dich aber nicht allein darauf: Im Gebirge ist der Empfang oft schwach, und Gewitter können sich innerhalb kurzer Zeit direkt über dir neu bilden, ohne vorher auf dem Radar zu erscheinen.
 
+## Sichere Orte: Hütten, Gebäude und Fahrzeuge
+
+Den besten Schutz vor Blitzen bieten Gebäude mit Blitzschutzanlage und geschlossene Fahrzeuge mit Metallkarosserie, weil der Strom über die Außenhülle abgeleitet wird. Eine bewirtschaftete Hütte ist deshalb bei aufziehendem Gewitter ein guter Zufluchtsort, ebenso ein Auto auf dem Parkplatz. Offene Unterstände, kleine Holzhütten ohne Blitzschutz und Zelte bieten dagegen keinen sicheren Schutz.
+
+Wenn ein sicherer Ort in Reichweite ist, suche ihn rechtzeitig auf, bevor das Gewitter da ist. Bleib dort, bis das Gewitter vollständig abgezogen ist.
+
+## Wetter-Apps und Blitzkarten nutzen
+
+Moderne Wetter-Apps zeigen Regenradar und Blitzeinschläge fast in Echtzeit. Auf einer Blitzkarte siehst du, wo es gerade blitzt und in welche Richtung sich die Gewitterzellen bewegen. Die Warn-App des Deutschen Wetterdienstes und ähnliche Apps können dich zudem per Push-Nachricht vor Unwettern in deiner Region warnen.
+
+Verlasse dich aber nicht allein auf das Smartphone. In den Bergen ist der Empfang lückenhaft, und Gewitter können sich schneller bilden, als jede App sie anzeigt. Achte deshalb immer auch auf den Himmel und auf die Warnzeichen unterwegs.
+
 ## Häufige Fragen
 
 ### Schützt mich der Wald vor Blitzen?
@@ -101,3 +113,11 @@ Ja. Ein Handy zieht keine Blitze an. Du kannst damit den Notruf wählen, das Reg
 ### Sind Gewitter in den Mittelgebirgen weniger gefährlich?
 
 Nicht unbedingt. Auf offenen Kammwegen, Hochmooren und an Aussichtspunkten bist du genauso exponiert wie in den Alpen. Der Unterschied ist, dass du meist schneller absteigen oder einen Wald erreichen kannst. Nutz diesen Vorteil und warte nicht zu lange.
+
+### Wie lange sollte ich nach dem letzten Donner warten?
+
+Eine bewährte Faustregel lautet: mindestens 30 Minuten nach dem letzten Donner. Auch wenn der Regen nachlässt und es schon heller wird, können am Rand eines Gewitters noch Blitze einschlagen.
+
+### Ziehen Wanderstöcke Blitze an?
+
+Metallgegenstände ziehen Blitze nicht in nennenswertem Maß an. Entscheidend ist, wie exponiert du stehst. Halte Stöcke trotzdem nicht in die Höhe und lege sie bei einem nahen Gewitter einige Meter entfernt ab, damit du dich in einer möglichst niedrigen Haltung schützen kannst.

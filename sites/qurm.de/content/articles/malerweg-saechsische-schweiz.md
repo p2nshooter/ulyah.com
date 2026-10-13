@@ -90,6 +90,20 @@ Frühling und Herbst sind ideal. Im April und Mai blühen die Bäume, die Gründ
 
 **Am Wochenende auf die Bastei:** Wer die zweite Etappe an einem sonnigen Samstag mittags geht, teilt die Basteibrücke mit sehr vielen Menschen. Leg die Etappe wenn möglich auf einen Wochentag oder starte früh.
 
+## Sandstein und Nationalpark schonen
+
+Der Elbsandstein ist weich. Was Wind und Wasser über Jahrtausende geformt haben, zerkratzen Schuhe, Stöcke und eingeritzte Initialen in wenigen Jahren. Bleib deshalb auf den markierten Wegen, besonders in der Kernzone des Nationalparks, wo ein strenges Wegegebot gilt. Kletterst du nicht selbst, halte dich von Kletterfelsen fern, und nimm keine Pflanzen, Steine oder Moose mit.
+
+Wer unterwegs Kletterer an den Felstürmen beobachtet, sieht übrigens eine besondere Tradition: Die Sächsische Schweiz gilt als eine Wiege des Freikletterns. Seit mehr als hundert Jahren gelten hier strenge Regeln, die den empfindlichen Fels schützen. Magnesia ist verboten, Klemmgeräte aus Metall ebenfalls, gesichert wird mit geknoteten Schlingen in Rissen und an den wenigen geschlagenen Ringen. Diese Regeln zeigen, wie ernst man in der Region den Schutz des Sandsteins nimmt.
+
+## Rasttage sinnvoll nutzen
+
+Wer einen Tag Pause einlegt, findet entlang des Malerwegs viele Ziele, die ohne große Anstrengung erreichbar sind. Die Festung Königstein hoch über der Elbe lohnt einen halben Tag, ebenso eine Fahrt mit einem der historischen Raddampfer auf der Elbe oder mit der Kirnitzschtalbahn bis zum Lichtenhainer Wasserfall. Bad Schandau eignet sich wegen seiner Lage und Verkehrsanbindung gut als Standort für einen Ruhetag.
+
+### Lohnt sich ein Abstecher in die Böhmische Schweiz?
+
+Ja, wenn du Zeit hast. Jenseits der Grenze setzt sich die Felsenlandschaft im tschechischen Nationalpark Böhmische Schweiz fort. Bekanntestes Ziel ist das Prebischtor, das größte natürliche Sandsteintor Europas, das du von Schmilka aus in einer Tagestour erreichen kannst. Der Waldbrand 2022 hat auch auf tschechischer Seite große Flächen getroffen, prüf daher vorher, welche Wege offen sind.
+
 ## Häufige Fragen
 
 ### Ist der Malerweg für Anfänger geeignet?

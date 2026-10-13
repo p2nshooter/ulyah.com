@@ -86,6 +86,28 @@ Viele Hersteller sind auf Imprägnierungen ohne per- und polyfluorierte Chemikal
 
 Abgeriebene Stellen an den Schultern, sich lösende Nahtbänder, Risse oder eine Membran, die sich vom Oberstoff ablöst, sind Zeichen, dass die Jacke ihre Arbeit nicht mehr zuverlässig tut. Kleine Löcher lassen sich mit Reparaturflicken schließen. Viele Outdoorgeschäfte und Hersteller bieten Reparaturservices an, die oft günstiger sind als ein Neukauf.
 
+## Membranen: wie sie funktionieren
+
+Die meisten wasserdichten Wanderjacken haben eine dünne Membran zwischen Oberstoff und Innenseite. Es gibt zwei Grundprinzipien. **Mikroporöse Membranen** enthalten unzählige winzige Poren, die zu klein für Wassertropfen, aber groß genug für einzelne Wasserdampfmoleküle sind. Sie arbeiten schon bei wenig Schweiß und lassen Dampf recht schnell entweichen. **Porenfreie Membranen**, meist aus Polyurethan, transportieren Feuchtigkeit dagegen chemisch durch das Material hindurch. Sie funktionieren umso besser, je wärmer und feuchter es innen ist, und sind oft günstiger.
+
+Lange bestanden viele hochwertige Membranen aus PTFE, einem fluorhaltigen Kunststoff. Inzwischen gibt es auch Membranen aus expandiertem Polyethylen und andere Materialien, die ohne per- und polyfluorierte Chemikalien auskommen. Für dich als Wanderer zählt am Ende vor allem, wie dicht, atmungsaktiv und haltbar die ganze Jacke ist, nicht nur die Membran.
+
+## Die richtige Größe finden
+
+Probiere eine Regenjacke immer so an, wie du sie unterwegs trägst: mit einer warmen Schicht darunter und am besten mit deinem Rucksack. Heb die Arme über den Kopf, als würdest du nach einem Griff greifen. Rutscht die Jacke dabei hoch und legt den Bauch frei, ist sie zu kurz oder zu eng. Geh in die Hocke, dreh den Oberkörper und schließ alle Reißverschlüsse und Klettverschlüsse. Die Jacke sollte nirgends spannen, aber auch nicht so weit sein, dass sie im Wind flattert. Wer Klettersteige geht, prüft außerdem, ob die Kapuze über einen Helm passt.
+
+## Nachhaltig kaufen und lange nutzen
+
+Die umweltfreundlichste Jacke ist die, die du lange trägst. Eine gut verarbeitete Jacke, die du regelmäßig wäschst, neu imprägnierst und bei kleinen Schäden reparieren lässt, hält oft zehn Jahre und mehr. Achte beim Kauf auf Ersatzteile und Reparaturangebote des Herstellers, auf Materialien aus recycelten Fasern und auf eine Imprägnierung ohne fluorhaltige Chemikalien. Gebrauchte Outdoorjacken aus Secondhandläden oder von Onlinebörsen sind eine gute Alternative, wenn Nähte und Membran noch intakt sind.
+
+## Regenjacken für Kinder
+
+Kinder sind beim Wandern oft näher am nassen Gras, an Pfützen und Bächen als Erwachsene. Eine robuste Jacke mit etwas Platz zum Wachsen, einer gut sitzenden Kapuze und reflektierenden Details ist deshalb sinnvoll. Gute Kinderjacken verzichten im Kapuzen- und Halsbereich auf Kordeln, an denen Kinder hängen bleiben können. Für kleine Kinder, die viel sitzen und spielen, ist eine Regenhose oder ein Matschanzug oft wichtiger als die Jacke allein. Wie du dein Kind sonst für die Tour ausrüstest, steht in [Wandern mit Kleinkindern](/ratgeber/wandern-mit-kleinkindern/).
+
+### Was ist der Unterschied zwischen wasserdicht und wasserabweisend?
+
+Wasserabweisend bedeutet, dass Wasser an der Oberfläche abperlt, solange es nur wenig regnet und kein Druck entsteht. Bei längerem Regen dringt es irgendwann durch. Wasserdicht bedeutet, dass der Stoff, meist mit einer Membran oder Beschichtung, auch bei Dauerregen und unter dem Druck eines Rucksacks dicht bleibt, und dass Nähte und Reißverschlüsse ebenfalls geschützt sind.
+
 ## Häufige Fragen
 
 ### Reicht ein Regenschirm?

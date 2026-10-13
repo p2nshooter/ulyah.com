@@ -82,6 +82,20 @@ Für eine Woche mit Unterkünften reicht ein Rucksack mit 30 bis 35 Litern, mit 
 - Erste-Hilfe-Set mit Blasenpflaster, siehe [Erste-Hilfe-Set fürs Wandern](/ratgeber/erste-hilfe-set-wandern/)
 - Handy mit Offline-Karte, falls Nebel die Wegweiser schwer erkennbar macht
 
+## Natur im Nationalpark Harz
+
+Ein großer Teil des Hexenstiegs führt durch den Nationalpark Harz. Wer hier wandert, sieht ausgedehnte Flächen mit abgestorbenen Fichten, die der Borkenkäfer in den trockenen Sommern der vergangenen Jahre befallen hat. Im Nationalpark bleiben viele dieser Flächen sich selbst überlassen, und zwischen den grauen Stämmen wächst bereits ein neuer, gemischter Wald heran. Das wirkt anfangs ungewohnt, zeigt aber eindrucksvoll, wie sich ein Wald von selbst erneuert.
+
+Der Harz ist auch die Heimat des Luchses, der hier seit dem Jahr 2000 wieder angesiedelt wurde. Zu sehen bekommst du die scheue Katze in freier Wildbahn kaum, im Schaugehege bei Bad Harzburg aber schon. Mit etwas Glück beobachtest du am Wegesrand Rotwild, Spechte und seltene Pflanzen der Hochmoore.
+
+## Mit der Schmalspurbahn kombinieren
+
+Eine Besonderheit des Harzes ist die Harzer Schmalspurbahn, deren Dampfzüge unter anderem auf den Brocken fahren. Wer eine Etappe abkürzen oder sich einen Aufstieg sparen möchte, kann einzelne Abschnitte mit der Bahn verbinden, etwa von Wernigerode oder Drei Annen Hohne aus. Für Familien ist die Fahrt mit dem Dampfzug ein Erlebnis für sich. Plane dabei die Fahrzeiten ein, denn die Züge fahren nicht im Minutentakt.
+
+## Die beste Reisezeit
+
+Am schönsten ist der Hexenstieg im späten Frühjahr und im Herbst, wenn die Temperaturen angenehm sind und die Wälder in frischem Grün oder bunten Farben leuchten. Im Sommer ist es auf den Hauptwegen voller, und an heißen Tagen sind die schattigen Waldabschnitte willkommen. Im Winter liegt auf dem Brocken oft viel Schnee, und die Bedingungen können rau sein. Dann eignen sich vor allem die tiefer gelegenen Abschnitte.
+
 ## Häufige Fragen
 
 ### Ist der Harzer Hexenstieg für Anfänger geeignet?
@@ -95,3 +109,15 @@ Ja, entlang des Hexenstiegs gibt es Stempelstellen der Harzer Wandernadel. Viele
 ### Kann ich den Hexenstieg in umgekehrter Richtung gehen?
 
 Ja, die Markierung funktioniert in beide Richtungen. Von Thale aus beginnst du mit dem Bodetal und hast den Brocken in der Mitte. Der Aufstieg aus dem Bodetal ist allerdings gleich zu Beginn recht steil.
+
+### Darf ich auf dem Hexenstieg zelten?
+
+Wildes Zelten ist im Nationalpark Harz nicht erlaubt und auch außerhalb davon meist verboten. Übernachte in Hotels, Pensionen, Jugendherbergen oder auf Campingplätzen entlang der Strecke.
+
+### Wie anstrengend ist der Aufstieg zum Brocken?
+
+Der Brocken ist mit gut 1.140 Metern der höchste Berg Norddeutschlands. Die Aufstiege sind technisch einfach, aber lang und stetig ansteigend. Mit normaler Kondition und ausreichend Zeit ist er gut zu schaffen. Rechne oben mit Wind, Nebel und deutlich niedrigeren Temperaturen als im Tal.
+
+### Gibt es unterwegs genug Einkehrmöglichkeiten?
+
+Auf den meisten Etappen kommst du an Gasthäusern, Waldgaststätten oder Kiosken vorbei, etwa in Torfhaus oder auf dem Brocken. Verlass dich aber nicht darauf, dass sie geöffnet sind: Ruhetage, saisonale Öffnungszeiten und Personalmangel führen dazu, dass manche Einkehr unerwartet geschlossen ist. Nimm deshalb für jeden Tag genug Wasser und Proviant mit, der dich auch ohne Einkehr bis zum Etappenziel bringt.

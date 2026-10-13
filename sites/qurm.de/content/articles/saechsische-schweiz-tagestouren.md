@@ -78,6 +78,18 @@ Im Sommer 2022 brannte es auf beiden Seiten der Grenze in der Böhmischen und S�
 
 Die Sächsische Schweiz ist an schönen Wochenenden sehr gut besucht. Mit ein paar einfachen Regeln findest du trotzdem ruhige Wege: Starte früh, idealerweise mit einer der ersten S-Bahnen. Besuche die bekannten Aussichtspunkte am frühen Morgen oder am späten Nachmittag. Weiche auf die linkselbischen Tafelberge aus, die oft deutlich ruhiger sind als die Bastei. Und plane an Feiertagen lieber eine Tour abseits der großen Namen, etwa durch einen der vielen stillen Gründe.
 
+## Die stillen Tafelberge links der Elbe
+
+Wer der Bastei ausweichen möchte, findet auf der linken Elbseite eine Reihe von Tafelbergen, die einzeln aus der Landschaft ragen und sich gut zu Rundtouren verbinden lassen. Der **Papststein** bei Gohrisch hat ein weites Gipfelplateau mit einer Berggaststätte und einem der schönsten Rundblicke über die Felsenwelt. Der benachbarte **Gohrisch** lockt mit verwinkelten Felsgassen. Ganz im Süden, nahe der tschechischen Grenze, stehen die **Kaiserkrone** mit ihren zerklüfteten Gipfelfelsen und der kleine **Zirkelstein**, der als kleinster Tafelberg der Sächsischen Schweiz gilt. Diese Ziele sind kürzer und weniger spektakulär als die Schrammsteine, dafür ruhig, aussichtsreich und für Familien gut geeignet.
+
+## Fotografieren im Elbsandstein
+
+Die Sächsische Schweiz ist ein Traumziel für Fotografen. Besonders stimmungsvoll ist es im Herbst, wenn sich morgens Nebel im Elbtal sammelt und die Felstürme wie Inseln daraus hervorragen. Wer den Sonnenaufgang an einem Aussichtspunkt erleben will, startet im Dunkeln mit Stirnlampe und kennt den Weg idealerweise schon vom Vortag. Bleib auch für das perfekte Bild hinter Geländern und auf den Wegen, denn viele Felskanten brechen senkrecht ab, und der Sandstein kann bröckeln. Drohnen dürfen über dem Nationalpark nicht ohne Genehmigung fliegen, und an engen Aussichtspunkten solltest du dein Stativ nur aufstellen, wenn andere trotzdem vorbeikommen.
+
+### Gibt es Touren ohne viele Treppen und Leitern?
+
+Ja. Das **Polenztal** zwischen Hohnstein und Bad Schandau ist ein Wiesental mit weitgehend flachen Wegen entlang des Flusses, im Frühjahr berühmt für die Blüte der Märzenbecher. Auch Wege entlang der Elbe und durch die breiteren Gründe kommen mit wenigen Stufen aus. Erkundige dich bei der Touristinformation nach Wegen, die zu deinen Wünschen passen.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für die Sächsische Schweiz?

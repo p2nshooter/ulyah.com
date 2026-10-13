@@ -83,6 +83,32 @@ Eine medizinisch notwendige Rettung wird in Deutschland in der Regel von der Kra
 - Jemandem sagen, wohin du gehst und wann du zurück bist
 - Touren wählen, die zu deiner Erfahrung passen, und rechtzeitig umkehren
 
+## Wer kommt, wenn du die 112 wählst?
+
+Die Leitstelle entscheidet anhand deiner Angaben, welche Hilfe nötig ist. Im Gebirge und im unwegsamen Gelände übernehmen in Deutschland ehrenamtliche Bergwachten die Rettung, meist unter dem Dach des Deutschen Roten Kreuzes. Sie kommen zu Fuß, mit Geländefahrzeugen oder zusammen mit einem Rettungshubschrauber, der die Einsatzkräfte bei Bedarf mit der Winde absetzt. Im Mittelgebirge rückt häufig zuerst der Rettungsdienst aus, unterstützt von Bergwacht oder Feuerwehr, wenn die Stelle schwer zugänglich ist.
+
+Unterwegs im Ausland gilt: Die 112 funktioniert in der ganzen EU und auch in der Schweiz. In Österreich gibt es zusätzlich den Alpinnotruf 140, der direkt zur Bergrettung führt, und in der Schweiz alarmierst du die Luftrettung Rega über die 1414. Speichere diese Nummern vor einer Tour ins Ausland in deinem Handy.
+
+## Unterkühlung erkennen und behandeln
+
+Unterkühlung ist am Berg eine der häufigsten Folgen eines Unfalls, weil Verletzte lange still liegen. Erste Anzeichen sind starkes Kältezittern, kalte Haut und Unruhe. Wird die Unterkühlung tiefer, wird die Person verwirrt, schläfrig und ungeschickt, und das Zittern hört irgendwann auf. Das ist kein gutes Zeichen, sondern ein Alarmsignal.
+
+So hilfst du:
+
+- Bewege die Person so wenig und so behutsam wie möglich und lagere sie flach.
+- Schütze sie von unten mit Isomatte oder Rucksack und von oben mit Kleidung, Rettungsdecke und einem Biwaksack, wenn vorhanden.
+- Reibe Arme und Beine nicht warm und lass die Person nicht herumlaufen, damit kaltes Blut aus den Gliedmaßen nicht plötzlich in den Körperkern strömt.
+- Warme, gezuckerte Getränke helfen nur, wenn die Person ganz wach ist und sicher schlucken kann.
+- Melde der Leitstelle ausdrücklich, dass die Person unterkühlt ist.
+
+### Was gehört in eine Notfallkarte im Rucksack?
+
+Notiere auf einer Karte deinen Namen, eine Kontaktperson für Notfälle, Allergien, Vorerkrankungen und Medikamente, die du regelmäßig nimmst. Steck sie in das Deckelfach des Rucksacks oder in das Erste-Hilfe-Set. Die meisten Smartphones haben zusätzlich einen Notfallpass, den Helfer auch bei gesperrtem Bildschirm aufrufen können. Es lohnt sich, ihn vor der nächsten Tour auszufüllen.
+
+### Muss die goldene oder die silberne Seite der Rettungsdecke außen liegen?
+
+Darüber wird viel diskutiert, der Unterschied ist in der Praxis gering. Entscheidend ist, dass die Decke den Körper möglichst vollständig umschließt, Wind und Nässe abhält und dass die Person darunter auf einer isolierenden Schicht liegt. Wickle die Decke eng um Körper und Kopf, das Gesicht bleibt frei, und befestige die Ränder, damit sie im Wind nicht davonflattert.
+
 ## Häufige Fragen
 
 ### Soll ich bei einem verstauchten Knöchel den Notruf wählen?

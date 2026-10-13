@@ -100,6 +100,16 @@ Viele Unfälle auf Bergwegen passieren nicht an der schwierigsten Stelle, sonder
 
 Trittsicherheit und Schwindelfreiheit lassen sich gezielt aufbauen. Gehe in den Wochen vor einer anspruchsvollen Tour auf wurzeligen, steinigen Pfaden im Mittelgebirge, übe Abstiege auf steilem Gelände und steigere dich von blauen zu roten Wegen. Gleichgewichtsübungen zu Hause, etwa auf einem Bein stehen oder auf einer schmalen Kante balancieren, stärken die kleinen Muskeln an Füßen und Knöcheln. Wer seine ersten schwarzen Wege nicht allein gehen möchte, findet bei den Sektionen der Alpenvereine und bei Bergschulen geführte Touren und Kurse.
 
+## Schwierigkeitsangaben in den Nachbarländern
+
+Wer in den Alpen über die Grenze wandert, trifft auf unterschiedliche Systeme. In Deutschland und Österreich werden Bergwege mit den Farben Blau, Rot und Schwarz eingestuft. In der Schweiz sind Wanderwege gelb markiert, Bergwanderwege weiß-rot-weiß und anspruchsvolle Alpinwanderwege weiß-blau-weiß. In Italien verwendet der Alpenverein CAI Abkürzungen: T für touristische Wege, E für Wanderwege, EE für Wege für erfahrene Wanderer und EEA für Wege mit Sicherungen.
+
+Diese Systeme lassen sich nicht eins zu eins vergleichen. Ein weiß-rot-weißer Bergwanderweg in der Schweiz kann deutlich anspruchsvoller sein als ein roter Weg in den bayerischen Voralpen. Lies vor jeder Tour im Ausland die Wegbeschreibung und frage im Zweifel bei Hütten oder Tourist-Informationen nach.
+
+## Schwierigkeit und Länge gemeinsam bewerten
+
+Die Schwierigkeitsangabe sagt etwas über das Gelände aus, nicht über die Länge und die Höhenmeter einer Tour. Ein blauer Weg kann sehr lang sein und viele Höhenmeter haben, ein schwarzer Weg nur ein kurzes ausgesetztes Stück. Plane deshalb immer beides: die technische Schwierigkeit und die Ausdauer, die eine Tour verlangt. Wie du die Gehzeit realistisch berechnest, erklärt der Ratgeber [Gehzeit berechnen](/ratgeber/gehzeit-berechnen/).
+
 ## Häufige Fragen
 
 ### Ist ein schwarzer Weg ein Klettersteig?
@@ -113,3 +123,15 @@ Mit trittsicheren Schulkindern ja, wenn die Strecke nicht zu lang ist und keine 
 ### Sind die Einstufungen überall gleich?
 
 Die Farben werden in Bayern und Österreich nach gemeinsamen Grundsätzen vergeben, die Einschätzung einzelner Wege bleibt aber eine Ermessensfrage. Lies immer auch die Tourenbeschreibung.
+
+### Wer legt fest, wie schwer ein Weg ist?
+
+Die Einstufung übernehmen die Wegehalter, also meist Sektionen der Alpenvereine, Gemeinden oder Tourismusverbände. Sie beurteilen Gelände, Absturzgefahr und Sicherungen. Weil Menschen urteilen, gibt es regionale Unterschiede. Behandle eine Einstufung deshalb als Orientierung, nicht als Garantie.
+
+### Wie erkenne ich, ob ich für einen roten Weg bereit bin?
+
+Wenn du blaue Wege sicher und ohne Angst gehst, auch bei längeren Abstiegen auf steinigem Untergrund, ist ein kurzer, gut beschriebener roter Weg ein guter nächster Schritt. Wähle dafür einen Tag mit stabilem Wetter und plane Zeit für Pausen ein. Geh die ersten roten Wege möglichst mit erfahrenen Begleitern.
+
+So wächst deine Erfahrung Schritt für Schritt.
+
+Jede gut gemeisterte Tour macht die nächste leichter.
