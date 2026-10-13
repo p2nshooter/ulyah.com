@@ -103,6 +103,18 @@ Trotz aller Vorsicht kann eine Katze einmal fallen. Dann zählt jede Minute:
 
 Wenn deine Katze nach einem Sturz verschwunden ist, suche zuerst in unmittelbarer Nähe: Verletzte Katzen verkriechen sich meist in Gebüschen, unter Autos oder in Kellerschächten und reagieren nicht auf Rufen.
 
+## Die ersten Ausflüge auf den gesicherten Balkon
+
+Auch auf einem gut gesicherten Balkon solltest du die ersten Ausflüge begleiten. Beobachte, wie deine Katze das Netz untersucht, ob sie versucht, daran hochzuklettern, und wo sie gern sitzt. So entdeckst du Schwachstellen, bevor sie zum Problem werden. Manche Katzen sind anfangs von den Geräuschen der Straße, von Vögeln oder vom Wind verunsichert. Lass die Balkontür offen, damit die Katze jederzeit zurück in die Wohnung kann, und zwinge sie nicht hinaus. Kätzchen und junge Katzen sind besonders neugierig und schlüpfen durch Lücken, die für eine erwachsene Katze zu klein wären.
+
+## Netz und Befestigung regelmäßig prüfen
+
+Ein Katzennetz ist kein Produkt, das man einmal anbringt und dann vergisst. Sonne, Regen und Frost machen Kunststoff mit der Zeit spröde, und Klemmstangen können sich durch Temperaturschwankungen lockern. Kontrolliere Netz und Befestigungen deshalb regelmäßig, etwa einmal im Monat und nach jedem Sturm. Achte auf Löcher, ausgefranste Stellen, gelockerte Kabelbinder und Spalten an den Rändern. Viele Hersteller geben an, nach wie vielen Jahren ein Netz ersetzt werden sollte. Spätestens wenn es sich hart anfühlt oder an einer Stelle reißt, ist ein neues Netz fällig.
+
+## Wenn es keinen Balkon gibt
+
+Auch ohne Balkon kannst du deiner Katze frische Luft ermöglichen. Fenster lassen sich mit stabilen Schutzgittern oder Rahmen mit Katzennetz sichern, sodass sie geöffnet bleiben können. Es gibt außerdem kleine Fensterbalkone, die wie ein Käfig aus Gitter vor oder in das Fenster gesetzt werden und der Katze einen sicheren Aussichtsplatz bieten. Wer einen Garten hat, kann ein Freigehege bauen oder einen Teil des Gartens mit einem Katzenzaun sichern. Ideen zur Gestaltung der Wohnung findest du in [Wohnungskatze artgerecht halten](/katzenwissen/wohnungskatze-artgerecht-halten/).
+
 ## Häufige Fragen
 
 ### Ab welcher Höhe ist ein Sturz gefährlich?
@@ -116,3 +128,7 @@ Prüfe das Netz regelmäßig auf Löcher. Ein drahtverstärktes Netz oder ein Ne
 ### Kann ich statt eines Netzes Plexiglas verwenden?
 
 Ja, transparente Platten sind eine Alternative, sofern sie lückenlos und ausreichend hoch sind. Sie halten auch Wind ab. Achte darauf, dass sich der Balkon im Sommer dahinter nicht zu stark aufheizt.
+
+### Was tue ich, wenn meine Katze auf dem Balkon eine Wespe fängt?
+
+Viele Katzen jagen Insekten, und ein Stich ins Maul oder in die Pfote ist schmerzhaft. Meist schwillt die Stelle nur leicht an und klingt wieder ab. Schwillt das Gesicht stark an, atmet die Katze schwer oder wirkt sie apathisch, fahr sofort in die Tierarztpraxis, denn eine Schwellung im Rachen kann die Atmung behindern.

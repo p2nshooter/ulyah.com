@@ -95,6 +95,22 @@ Ein täglicher Blick in die Toilette verrät viel über die Gesundheit deiner Ka
 
 Kätzchen lernen den Gebrauch der Toilette meist von der Mutter, und viele sind schon stubenrein, wenn sie mit zwölf Wochen ins neue Zuhause ziehen. Biete kleinen Kätzchen eine Toilette mit niedrigem Rand an, stelle sie nach dem Fressen und Schlafen hinein und lobe sie, wenn sie sie benutzen. Mehrere Toiletten in der Wohnung erleichtern die Eingewöhnung.
 
+## Toiletten für ältere und kranke Katzen
+
+Mit dem Alter wird der Weg zur Toilette für viele Katzen beschwerlicher. Arthrose macht das Hineinsteigen über einen hohen Rand schmerzhaft, nachlassendes Sehvermögen erschwert den Weg im Dunkeln, und eine Nierenerkrankung führt zu mehr Urin, sodass die Katze es manchmal nicht rechtzeitig schafft. Biete älteren Katzen deshalb eine große Toilette mit niedrigem Einstieg an, etwa eine flache Wanne oder eine Box, an deren Seite ein Stück ausgeschnitten wurde. Stelle eine zusätzliche Toilette in der Nähe des Lieblingsschlafplatzes auf, damit der Weg kurz bleibt, und sorge nachts für ein kleines Licht. Wenn trotzdem einmal etwas danebengeht, ist das kein Fehlverhalten, sondern ein Hinweis, dass die Katze Unterstützung braucht. Mehr dazu steht in [Die alte Katze begleiten](/katzenwissen/die-alte-katze-begleiten/).
+
+## Wohin mit der Toilette in kleinen Wohnungen?
+
+In einer kleinen Wohnung ist der perfekte Standort oft schwer zu finden. Gut geeignet sind das Badezimmer mit dauerhaft offener Tür, eine ruhige Ecke im Flur, sofern dort nicht ständig Durchgangsverkehr herrscht, oder ein Platz im Schlafzimmer. Toilettenschränke, in denen die Katzentoilette in einem Möbelstück verschwindet, sehen aufgeräumt aus. Sie haben aber dieselben Nachteile wie eine Haube: Gerüche sammeln sich, und die Katze hat keinen Überblick. Wenn du einen solchen Schrank nutzt, achte auf einen großen Innenraum, gute Belüftung und eine besonders gründliche Reinigung.
+
+## Streu, Umwelt und Entsorgung
+
+Mineralische Klumpstreu wird aus Bentonit gewonnen, einem Ton, der im Tagebau abgebaut wird. Sie ist schwer und verursacht viel Abfall. Klumpende Pflanzenstreu aus Holz, Mais oder anderen nachwachsenden Rohstoffen ist leichter und wird von vielen Katzen ebenfalls gern angenommen. Beim Entsorgen gilt in den meisten Gemeinden: Benutzte Katzenstreu gehört in den Restmüll, auch wenn sie als kompostierbar beworben wird, denn Katzenkot kann Krankheitserreger enthalten. Informiere dich bei deiner Gemeinde, welche Regeln vor Ort gelten. Wenn du die Streusorte wechseln möchtest, mische die neue schrittweise unter die alte.
+
+## Die Toilette unterwegs
+
+Für längere Autofahrten, den Umzug oder den Urlaub mit Katze gibt es faltbare Reisetoiletten aus beschichtetem Stoff oder Kunststoff. Fülle sie mit der gewohnten Streu, damit die Katze sie erkennt, und biete sie bei Pausen im geschlossenen Auto oder gleich nach der Ankunft am neuen Ort an.
+
 ## Häufige Fragen
 
 ### Kann ich die Katzentoilette ins Badezimmer stellen?
@@ -108,3 +124,7 @@ Nein, auch wenn manche Streu als „spülbar“ beworben wird. Katzenkot kann Er
 ### Meine Katze scharrt nicht mehr nach dem Geschäft. Ist das bedenklich?
 
 Manche Katzen scharren wenig oder gar nicht. Wenn eine Katze das plötzlich ändert, die Toilette nur noch kurz betritt oder auf dem Rand balanciert, kann sie etwas an der Toilette stören, oder sie hat Schmerzen. Prüfe Streu und Sauberkeit und lass sie bei weiteren Auffälligkeiten untersuchen.
+
+### Bringt ein Aktivkohlefilter in der Haube etwas?
+
+Ein Filter in einer Haubentoilette bindet einen Teil der Gerüche, sodass sie für Menschen weniger wahrnehmbar sind. Für die Katze ändert das wenig, denn sie sitzt mitten in der Geruchswolke. Das Wichtigste gegen Gerüche bleibt die tägliche Reinigung.

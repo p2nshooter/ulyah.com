@@ -100,6 +100,20 @@ Wenn diese Zeichen anhalten, hole dir Hilfe bei einer Hundetrainerin mit Erfahru
 
 Diese Unterschiede erklären, warum gut gemeinte Annäherungen manchmal schiefgehen. Mit der Zeit lernen viele Hunde und Katzen die Signale des anderen zu deuten. Du kannst dabei helfen, indem du Situationen unterbrichst, bevor sie eskalieren.
 
+## Gesundheit im gemischten Haushalt
+
+Wo Hund und Katze zusammenleben, braucht auch die Gesundheitsvorsorge Aufmerksamkeit. Viele Floh- und Zeckenmittel für Hunde enthalten Wirkstoffe wie Permethrin, die für Katzen hochgiftig sind. Schon enger Kontakt mit einem frisch behandelten Hund kann bei einer Katze Vergiftungserscheinungen auslösen. Sprich deshalb mit der Tierarztpraxis über Mittel, die für beide Tierarten sicher sind, und halte dich genau an die Hinweise, wie lange die Tiere nach einer Behandlung getrennt bleiben sollen. Mehr dazu steht in [Wurmkur und Flohschutz](/katzenwissen/wurmkur-und-flohschutz/).
+
+Auch beim Futter gilt Trennung. Katzenfutter ist für Hunde zu fett und eiweißreich, und Hundefutter enthält nicht alle Nährstoffe, die Katzen brauchen, zum Beispiel nicht genug Taurin. Wer seine Katze dauerhaft mit Hundefutter mitfüttert, riskiert Mangelerscheinungen.
+
+## Welpe trifft erwachsene Katze
+
+Ein Welpe ist neugierig, stürmisch und versteht die Signale der Katze noch nicht. Viele erwachsene Katzen setzen ihm mit einem Fauchen oder einem Pfotenhieb Grenzen. Das ist in Maßen in Ordnung, kann aber gefährlich werden, wenn die Krallen das Auge des Welpen treffen. Beaufsichtige die ersten Begegnungen deshalb genau, gib dem Welpen ruhige Beschäftigung wie einen Kauartikel auf seinem Platz und belohne ihn, wenn er die Katze in Ruhe lässt. Gönne beiden regelmäßige Auszeiten voneinander, damit der Welpe nicht überdreht und die Katze nicht dauerhaft gestresst ist.
+
+## Der Alltag mit beiden
+
+Ist die Zusammenführung gelungen, profitieren beide Tiere von einem verlässlichen Alltag. Plane bewusst Zeit für jedes Tier ein: Spaziergänge und Training für den Hund, Spielrunden und Ruhephasen für die Katze. Viele Katzen genießen die Zeit, in der der Hund unterwegs ist, um ungestört durch die Wohnung zu streifen. Behalte die Rückzugsorte der Katze dauerhaft bei, auch wenn die beiden scheinbar beste Freunde sind.
+
 ## Häufige Fragen
 
 ### Wie lange dauert die Zusammenführung?
@@ -113,3 +127,11 @@ Besser nicht. Was für den Hund ein Spiel ist, ist für die Katze oft Todesangst
 ### Sollen Hund und Katze zusammen fressen?
 
 Nein. Getrennte Futterplätze verhindern Streit und sorgen dafür, dass jedes Tier das Futter bekommt, das es braucht. Die Katze frisst am besten erhöht oder in ihrem hundefreien Raum.
+
+### Kann ich einen Hund zu einer Katze holen, die noch nie einen Hund gesehen hat?
+
+Ja, viele Katzen gewöhnen sich an einen ruhigen, katzenfreundlichen Hund. Wähle einen Hund, der nachweislich mit Katzen zurechtkommt, gehe besonders langsam vor und rechne mit mehreren Wochen, bis sich deine Katze entspannt.
+
+### Kann eine Katze mit mehreren Hunden zusammenleben?
+
+Das ist möglich, aber anspruchsvoller. In einer Gruppe stacheln sich Hunde leichter gegenseitig an, und aus einer harmlosen Neugier kann schnell eine Jagd werden. Führe jeden Hund einzeln an die Katze heran, beaufsichtige die ersten gemeinsamen Situationen mit allen Hunden besonders genau und sorge für viele hohe Fluchtwege.

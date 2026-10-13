@@ -83,6 +83,18 @@ Lass deine Katze in solchen Fällen untersuchen. Viele dieser Ursachen lassen si
 
 Unkastrierte Kätzinnen rufen während der Rolligkeit oft stundenlang laut, auch nachts. Unkastrierte Kater sind unruhig, wenn rollige Kätzinnen in der Nähe sind. Eine Kastration löst dieses Problem in der Regel.
 
+## Spiele, die wirklich müde machen
+
+Nicht jedes Spiel lastet eine Katze aus. Ein Ball, der allein in der Ecke liegt, oder eine Maus, die sich nicht bewegt, sind nach wenigen Sekunden langweilig. Müde macht vor allem das Spiel, das eine echte Jagd nachahmt: Lauern, Anschleichen, Hinterherrennen, Springen und schließlich der Fang. Am besten eignet sich dafür eine Federangel, die du wie ein flüchtendes Tier bewegst, mal schnell, mal zögernd, hinter einem Möbelstück verschwindend und wieder auftauchend. Variiere die Höhe, lass die Beute auch einmal auf den Kratzbaum flüchten, und gönne der Katze kurze Pausen zum Lauern. Ein Kicker, also ein längliches Kissen zum Umklammern und Treten, eignet sich gut für den Abschluss, weil die Katze die Beute dann richtig packen kann. Spielst du mit einem Laserpunkt, lass ihn am Ende auf einem Spielzeug landen, das die Katze fangen darf.
+
+## Alle im Haushalt ziehen an einem Strang
+
+Das Ignorieren nächtlichen Weckens funktioniert nur, wenn alle mitmachen. Steht eine Person doch einmal auf und füttert, lernt die Katze, dass sich Hartnäckigkeit lohnt, und das Wecken wird noch ausdauernder. Sprecht deshalb im Haushalt ab, wer wann füttert, wie das Abendritual aussieht und dass nachts niemand reagiert. Ein gemeinsamer Plan am Kühlschrank hilft, auch Gäste und Kinder einzubeziehen.
+
+## Kitten in der Nacht
+
+Junge Katzen haben besonders viel Energie und kennen noch keinen festen Rhythmus. Sie brauchen aber auch viel Schlaf, oft mehr als erwachsene Katzen. Mehrere Spielrunden über den Tag verteilt und eine ausgiebige Runde am Abend helfen, ihre Energie in die richtigen Bahnen zu lenken. Ein zweites Kätzchen ist für viele junge Katzen der beste Spielpartner, auch nachts, und die Menschen schlafen ruhiger. Mehr dazu steht in [Kitten oder erwachsene Katze](/katzenwissen/kitten-oder-erwachsene-katze/).
+
 ## Häufige Fragen
 
 ### Meine Katze rennt jede Nacht wie verrückt durch die Wohnung. Ist das normal?
@@ -96,3 +108,7 @@ Gib keine Beruhigungsmittel ohne tierärztliche Untersuchung. Viele Mittel für 
 ### Wie lange dauert es, bis die Nächte ruhiger werden?
 
 Mit einem konsequenten Abendritual und dem Ignorieren des Weckens bemerken viele schon nach ein bis zwei Wochen eine Verbesserung. Bei sehr gefestigten Gewohnheiten kann es länger dauern.
+
+### Darf ich meinen Freigänger nachts draußen lassen?
+
+Davon wird abgeraten. In der Dunkelheit ist das Risiko durch Autos, Revierkämpfe und Wildtiere höher. Hol deinen Freigänger abends mit einer festen Fütterungszeit herein und biete ihm drinnen eine Spielrunde an, damit er die Nacht ruhig verbringt. Wie Freigang sicher gestaltet wird, beschreibt [Freigang sicher beginnen](/katzenwissen/freigang-sicher-beginnen/).

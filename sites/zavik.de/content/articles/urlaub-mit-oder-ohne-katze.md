@@ -109,6 +109,16 @@ Einige Länder haben zusätzliche Anforderungen, etwa eine Bandwurmbehandlung vo
 
 Manche Katzen begrüßen ihre Menschen überschwänglich, andere zeigen ihnen erst einmal die kalte Schulter. Beides ist normal. Gib deiner Katze Zeit, sich wieder an dich zu gewöhnen, spiel mit ihr und halte ihre gewohnten Abläufe ein. Beobachte in den ersten Tagen, ob sie normal frisst, trinkt und die Toilette benutzt.
 
+## Besondere Fälle: kranke, alte und scheue Katzen
+
+Braucht deine Katze regelmäßig Medikamente oder Insulin, sollte die Betreuung von jemandem übernommen werden, der darin Erfahrung hat, etwa ein professioneller Katzensitter mit tiermedizinischem Hintergrund oder eine Tiermedizinische Fachangestellte, die Hausbesuche anbietet. Übt die Eingabe vorher gemeinsam, und lege die Medikamente für jeden Tag beschriftet bereit. Auch eine Pension mit tierärztlicher Betreuung kann in diesem Fall eine gute Lösung sein.
+
+Alte Katzen kommen mit einem Ortswechsel meist besonders schlecht zurecht und bleiben am besten zu Hause, mit zwei Besuchen am Tag. Sehr scheue Katzen zeigen sich dem Katzensitter oft gar nicht. Dann sind indirekte Zeichen wichtig: Wurde das Futter gefressen, ist Urin und Kot in der Toilette, gibt es Spuren nächtlicher Aktivität? Bitte den Katzensitter, darauf genau zu achten und dir zu schreiben, wenn eines dieser Zeichen fehlt. Bleibt eine scheue Katze länger als einen Tag unsichtbar und rührt nichts an, muss nach ihr gesucht werden.
+
+## Technik als Ergänzung
+
+Kameras mit Handyverbindung, Futterautomaten und Trinkbrunnen können die Betreuung ergänzen. Mit einer Kamera siehst du, ob die Katze frisst und sich normal bewegt, und kannst mit dem Katzensitter Rücksprache halten. Ein Futterautomat verteilt Mahlzeiten zwischen den Besuchen. Technik kann ausfallen, wenn Strom oder Internet nicht funktionieren, deshalb ersetzt sie niemals den täglichen Besuch. Wenn du eine Kamera nutzt, sag dem Katzensitter vorher Bescheid.
+
 ## Häufige Fragen
 
 ### Kann ich meine Katze ein Wochenende allein lassen, wenn ich genug Futter hinstelle?
@@ -122,3 +132,7 @@ Ein Futterautomat ist eine gute Ergänzung, etwa um Mahlzeiten zwischen den Besu
 ### Meine Katze ist nach dem Urlaub unsauber. Warum?
 
 Veränderungen und Stress können zu Unsauberkeit führen, manchmal auch eine Blasenentzündung. Gib ihr Zeit und Ruhe. Wenn das Problem länger als ein, zwei Tage anhält oder sie häufig und wenig uriniert, lass sie untersuchen.
+
+### Wie lange kann ich verreisen, wenn täglich jemand kommt?
+
+Viele Katzen kommen mit zwei Besuchen am Tag ein bis zwei Wochen gut zurecht, manche auch länger. Sehr menschenbezogene Katzen leiden schneller unter der Einsamkeit. Für längere Reisen ist es gut, wenn der Katzensitter mehr Zeit mit der Katze verbringt oder sogar bei dir wohnt.

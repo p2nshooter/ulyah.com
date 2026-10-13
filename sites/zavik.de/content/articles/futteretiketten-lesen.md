@@ -114,6 +114,20 @@ Auch das beste Futter verliert an Qualität, wenn es falsch gelagert wird. Auf j
 - **Behälter reinigen:** Wenn du Trockenfutter umfüllst, reinige den Behälter zwischendurch, bevor du ihn neu befüllst. Alte Krümel und Fettreste am Boden verderben das frische Futter.
 - **Chargennummer aufheben:** Wenn du umfüllst, schneide den Teil der Packung mit Mindesthaltbarkeitsdatum und Chargennummer aus und bewahre ihn auf. So kannst du bei einem Rückruf prüfen, ob dein Futter betroffen ist.
 
+## Den Energiegehalt selbst berechnen
+
+Der Energiegehalt muss auf vielen Futterverpackungen nicht angegeben werden, ist aber wichtig, wenn du mehrere Futtersorten kombinierst oder deine Katze abnehmen soll. Mit einer einfachen Faustformel kannst du ihn aus den analytischen Bestandteilen schätzen. Gerechnet wird pro 100 Gramm Futter mit etwa 3,5 Kilokalorien pro Gramm Rohprotein, 8,5 Kilokalorien pro Gramm Rohfett und 3,5 Kilokalorien pro Gramm Kohlenhydrate.
+
+**Beispiel für ein Nassfutter** mit 10 Prozent Rohprotein, 5 Prozent Rohfett und geschätzt 1 Prozent Kohlenhydraten: 10 × 3,5 + 5 × 8,5 + 1 × 3,5 ergibt rund 81 Kilokalorien pro 100 Gramm. Ein Trockenfutter liegt mit derselben Rechnung oft bei 350 bis 400 Kilokalorien pro 100 Gramm. Das zeigt, warum schon eine kleine Handvoll Kroketten so stark ins Gewicht fällt. Wie viel Energie deine Katze ungefähr braucht, besprichst du am besten mit deiner Tierärztin, besonders wenn sie abnehmen soll, wie in [Übergewicht bei Katzen](/katzenwissen/uebergewicht-bei-katzen/) beschrieben.
+
+## Diätfuttermittel für kranke Katzen
+
+Eine besondere Gruppe sind Diätfuttermittel. Sie sind für bestimmte Ernährungszwecke zusammengesetzt, etwa zur Unterstützung der Nierenfunktion, zur Auflösung bestimmter Harnsteine oder bei Futtermittelunverträglichkeiten. Auf ihrem Etikett steht der genaue Zweck, oft die empfohlene Dauer der Fütterung und der Hinweis, vorher tierärztlichen Rat einzuholen. Diese Futter sind keine Wellnessprodukte für gesunde Katzen. Eine Nierendiät enthält zum Beispiel weniger Phosphor und angepasste Eiweißmengen, die für eine gesunde junge Katze nicht ideal sind. Füttere Diätfuttermittel deshalb nur nach tierärztlicher Empfehlung.
+
+## Beim Hersteller nachfragen
+
+Auf jeder Verpackung stehen Name und Anschrift des Herstellers oder Händlers sowie die Registrier- oder Zulassungsnummer des Herstellungsbetriebs. Wenn dir eine Angabe unklar ist, etwa welche Tierarten sich hinter „Fleisch und tierische Nebenerzeugnisse“ verbergen oder wie hoch der Energiegehalt ist, schreib den Hersteller an. Seriöse Anbieter beantworten solche Fragen bereitwillig und ausführlich. Ausweichende oder gar keine Antworten sind ebenfalls eine Information.
+
 ## Häufige Fragen
 
 ### Ist teures Futter immer besser?

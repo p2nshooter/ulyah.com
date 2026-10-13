@@ -118,3 +118,7 @@ Ja, solange alles gründlich gereinigt ist. Bei Toiletten von anderen Katzen kö
 ### Ab wann sollte ich ein Katzennetz anbringen?
 
 Vor dem Einzug. Neue Katzen sind oft unruhig und erkunden alles, und ein einziger Sprung kann fatal enden. Wohnst du zur Miete, frag den Vermieter vorher um Erlaubnis.
+
+### Braucht meine Katze ein Halsband?
+
+Eine Wohnungskatze braucht keins. Für Freigänger ist ein Mikrochip die sicherere Kennzeichnung, denn Halsbänder können an Ästen oder Zäunen hängen bleiben. Wichtig ist, den Chip anschließend kostenlos bei einem Haustierregister wie TASSO oder FINDEFIX registrieren zu lassen, denn nur dann kann eine gefundene Katze ihrem Zuhause zugeordnet werden. Wer trotzdem ein Halsband nutzen möchte, wählt ein Sicherheitshalsband, das sich bei Zug öffnet.

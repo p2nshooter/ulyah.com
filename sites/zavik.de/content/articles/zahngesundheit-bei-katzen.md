@@ -97,6 +97,18 @@ Eine gründliche Zahnbehandlung umfasst:
 
 Viele Katzenhalter sorgen sich, wenn ihre Katze mehrere Zähne verliert. Katzen kommen aber erstaunlich gut mit wenigen oder sogar ohne Zähne zurecht und fressen danach oft besser als vorher, weil die Schmerzen weg sind. Die meisten können sogar wieder Trockenfutter fressen.
 
+## Zahnwechsel bei Kitten
+
+Zwischen dem dritten und sechsten Lebensmonat verlieren Kätzchen ihre Milchzähne, oft ohne dass du es bemerkst, weil sie die kleinen Zähne verschlucken. Manchmal ist das Zahnfleisch in dieser Zeit etwas gerötet, und das Kätzchen kaut mehr als sonst. Wichtig ist eine Kontrolle mit etwa sechs bis sieben Monaten. Stehen dann noch Milchzähne neben den bleibenden Zähnen, besonders an den Eckzähnen, spricht man von persistierenden Milchzähnen. Sie können die bleibenden Zähne verdrängen, Fehlstellungen verursachen und Futterreste festhalten und werden deshalb meist gezogen, oft im Zuge der Kastration, damit nur eine Narkose nötig ist.
+
+## Futter, Kauartikel und Zähne
+
+Normales Trockenfutter reinigt die Zähne kaum. Es gibt aber spezielle Zahnpflegefutter, deren Kroketten so aufgebaut sind, dass sie beim Hineinbeißen wie eine Bürste über die Zahnoberfläche streifen, oder die Zusätze enthalten, die die Bildung von Zahnstein verlangsamen. Für manche dieser Produkte wurde die Wirkung in Studien geprüft, etwa für ein Prüfsiegel des amerikanischen Veterinary Oral Health Council. Sie können das Putzen ergänzen, aber nicht ersetzen. Vorsicht bei harten Kauartikeln: Sie können Zähne abbrechen lassen. Gekochte Knochen splittern und sind für Katzen gefährlich.
+
+## Nach der Zahnbehandlung
+
+Die meisten Katzen erholen sich nach einer Zahnbehandlung schnell, auch wenn Zähne gezogen wurden. Am Tag des Eingriffs sind sie oft noch müde von der Narkose. Biete in den ersten Tagen weiches Futter an, etwa Nassfutter mit etwas zusätzlichem Wasser, und gib die mitgegebenen Schmerzmittel genau nach Anweisung. Ein leicht blutiger Speichel am ersten Tag ist normal. Frisst deine Katze nach zwei Tagen immer noch nicht, sabbert sie stark oder ist das Gesicht geschwollen, ruf die Praxis an. Eine Kontrolle nach ein bis zwei Wochen zeigt, ob alles gut verheilt ist.
+
 ## Häufige Fragen
 
 ### Ist eine Narkose bei älteren Katzen nicht zu gefährlich?
@@ -110,3 +122,7 @@ Das ist sehr unterschiedlich. Manche Katzen brauchen nie eine, andere jedes Jahr
 ### Kann ich Zahnstein selbst entfernen?
 
 Nein. Mit Werkzeugen kannst du das Zahnfleisch verletzen und den Zahnschmelz beschädigen, und die Ursachen unter dem Zahnfleisch bleiben bestehen.
+
+### Meine Katze riecht aus dem Maul, frisst aber normal. Muss ich zum Tierarzt?
+
+Ja, lass es bei der nächsten Gelegenheit untersuchen. Mundgeruch ist oft das erste Zeichen einer Zahnerkrankung, lange bevor die Katze schlechter frisst. Ein auffällig süßlicher oder an Ammoniak erinnernder Geruch kann außerdem auf Stoffwechselerkrankungen wie Diabetes oder eine Nierenerkrankung hinweisen und sollte zügig abgeklärt werden.

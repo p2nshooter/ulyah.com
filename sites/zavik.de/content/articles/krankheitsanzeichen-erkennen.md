@@ -110,6 +110,25 @@ Eine ausführliche Übersicht findest du auf unserer Seite [Notfall & Tierarzt](
 
 Viele Erkrankungen, die Katzen verbergen, werden bei regelmäßigen Untersuchungen entdeckt, bevor sie Beschwerden machen. Eine jährliche Untersuchung, bei älteren Katzen zweimal im Jahr, mit Blutuntersuchung und Blutdruckmessung ab einem gewissen Alter, ist die beste Vorbeugung.
 
+## Krankheiten, die sich leise ankündigen
+
+Manche Erkrankungen sind bei Katzen so häufig, dass es sich lohnt, ihre typischen frühen Zeichen zu kennen.
+
+| Erkrankung | Frühe Zeichen | Mehr dazu |
+|---|---|---|
+| Chronische Nierenerkrankung | mehr Durst, mehr Urin, schleichender Gewichtsverlust, stumpfes Fell | [Niereninsuffizienz bei Katzen](/katzenwissen/niereninsuffizienz-bei-katzen/) |
+| Schilddrüsenüberfunktion | Heißhunger bei Gewichtsverlust, Unruhe, nächtliches Rufen, Erbrechen | [Die alte Katze begleiten](/katzenwissen/die-alte-katze-begleiten/) |
+| Diabetes mellitus | viel Durst, große Urinklumpen, Gewichtsverlust trotz Appetit, später unsicherer Gang | [Übergewicht bei Katzen](/katzenwissen/uebergewicht-bei-katzen/) |
+| Arthrose | springt seltener und niedriger, steife Bewegungen nach dem Schlafen, weniger Putzen | [Die alte Katze begleiten](/katzenwissen/die-alte-katze-begleiten/) |
+| Zahnerkrankungen | Mundgeruch, einseitiges Kauen, Futter fällt aus dem Maul | [Zahngesundheit bei Katzen](/katzenwissen/zahngesundheit-bei-katzen/) |
+| Herzerkrankung | oft lange keine Zeichen, später schnelle Atmung in Ruhe, Mattigkeit | Ruheatemfrequenz zählen, siehe oben |
+
+Viele dieser Erkrankungen lassen sich mit einer Blut- und Urinuntersuchung feststellen, bevor deutliche Beschwerden auftreten, und sind dann oft gut behandelbar.
+
+## Den Tierarztbesuch gut vorbereiten
+
+Ein Tierarztbesuch ist für viele Katzen anstrengend, und in der Praxis zeigen sie sich oft ganz anders als zu Hause. Deine Beobachtungen sind deshalb besonders wertvoll. Schreib vor dem Termin auf, was dir aufgefallen ist und seit wann: Fressen, Trinken, Toilette, Verhalten, Gewicht. Bring Videos von auffälligem Verhalten mit, etwa von Husten, Hinken oder einem Anfall, und eine Liste aller Medikamente und Ergänzungsmittel, die deine Katze bekommt. Bei Problemen mit dem Urin frag vorher, ob du eine Urinprobe mitbringen sollst und wie du sie am besten gewinnst. Notiere dir auch deine eigenen Fragen, denn im Gespräch vergisst man leicht etwas. So kann die Tierärztin schneller einschätzen, was deiner Katze fehlt.
+
 ## Häufige Fragen
 
 ### Meine Katze schnurrt. Kann sie trotzdem krank sein?
@@ -123,3 +142,7 @@ Das hängt von den Zeichen ab. Bei Notfallzeichen gar nicht. Bei leichten Verän
 ### Wie bringe ich meine Katze stressfrei zum Tierarzt?
 
 Gewöhne sie an die Transportbox, sodass sie die Box als normalen Ruheort kennt. Mehr dazu in unserem Ratgeber zum Transportbox-Training.
+
+### Lohnt sich eine Krankenversicherung für Katzen?
+
+Das hängt von deiner finanziellen Situation ab. Eine Versicherung oder eine OP-Versicherung kann vor hohen Rechnungen bei Unfällen oder schweren Erkrankungen schützen. Vergleiche Leistungen, Wartezeiten, Selbstbeteiligung und Ausschlüsse, besonders für bestehende Erkrankungen und ältere Katzen. Wer keine Versicherung möchte, legt am besten jeden Monat einen festen Betrag als Rücklage für Tierarztkosten zur Seite.

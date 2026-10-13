@@ -118,6 +118,18 @@ Eine Wohnungskatze, der etwas fehlt, zeigt das oft durch:
 
 Wenn du solche Zeichen bemerkst, lass zuerst gesundheitliche Ursachen ausschließen, und erweitere dann gezielt die Beschäftigungsmöglichkeiten.
 
+## Clickertraining: Denksport für Katzen
+
+Katzen sind lernfähiger, als viele denken. Mit einem Clicker, einem kleinen Gerät, das ein knackendes Geräusch macht, lassen sich Tricks und nützliche Alltagsübungen beibringen. Zuerst verknüpfst du das Klicken mit einer Belohnung: klicken, sofort ein Leckerli geben, und das einige Male wiederholen. Danach klickst du immer genau in dem Moment, in dem die Katze etwas Gewünschtes tut, etwa sich hinsetzt, mit der Nase einen Finger berührt oder auf eine Matte geht. Halte die Einheiten kurz, zwei bis fünf Minuten genügen, und höre auf, solange die Katze noch Freude hat. Clickertraining fordert den Kopf, stärkt die Bindung und hilft auch bei praktischen Dingen, etwa beim freiwilligen Gang in die Transportbox, wie in [Transportbox-Training](/katzenwissen/transportbox-training/) beschrieben.
+
+## Mit Geschirr nach draußen?
+
+Manche Wohnungskatzen lassen sich an ein Geschirr gewöhnen und genießen kurze Ausflüge in einen ruhigen Garten oder Park. Das gelingt nur mit viel Geduld: Erst trägt die Katze das Geschirr kurz in der Wohnung, dann mit Leine, und erst wenn sie sich damit entspannt bewegt, geht es nach draußen. Verwende ein ausbruchsicheres Geschirr, das eng genug sitzt, und folge der Katze, statt sie zu ziehen. Binde sie nie irgendwo an. Nicht jede Katze mag diese Ausflüge. Wenn deine Katze draußen ängstlich wirkt, ist ein gesicherter Balkon oder Fensterplatz die bessere Wahl.
+
+## Abwechslung in den Alltag bringen
+
+Ein Revier, das immer gleich aussieht, wird langweilig. Tausche Spielzeug wöchentlich aus, sodass immer nur einige Dinge zugänglich sind. Stelle einen leeren Karton an einen neuen Ort, baue aus Kartons und Decken einen kleinen Parcours oder verstecke einen Teil der Tagesration an wechselnden Stellen. Ein Vogelhäuschen in Sichtweite des Fensters wird für viele Katzen zum Lieblingsprogramm. So bleibt die Wohnung spannend, ohne dass du ständig Neues kaufen musst.
+
 ## Häufige Fragen
 
 ### Kann eine Katze, die Freigang kannte, zur Wohnungskatze werden?
@@ -131,3 +143,7 @@ Nein, wenn die Bedürfnisse der Katze erfüllt werden. Viele Wohnungskatzen lebe
 ### Wie groß muss eine Wohnung für eine Katze sein?
 
 Wichtiger als die Quadratmeter ist die Gestaltung. Eine kleine Wohnung mit vielen Ebenen, Verstecken und Ausblick ist für eine Katze besser als eine große, leere.
+
+### Braucht eine Wohnungskatze Impfungen?
+
+Ja. Auch Wohnungskatzen sollten gegen Katzenseuche und Katzenschnupfen geimpft sein, denn die Erreger können über Schuhe, Kleidung oder Besuch in die Wohnung gelangen. Welche Impfungen sinnvoll sind, steht in [Impfungen bei Katzen](/katzenwissen/impfungen-bei-katzen/).

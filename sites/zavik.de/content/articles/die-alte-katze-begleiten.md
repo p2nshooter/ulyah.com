@@ -109,6 +109,14 @@ Sprich offen mit deiner Tierärztin. Sie kann dir helfen, den Zustand deiner Kat
 
 Trauer um ein Tier ist echte Trauer. Nimm dir Zeit dafür. Für Kinder kann es hilfreich sein, ehrlich und altersgerecht zu erklären, was passiert ist, und gemeinsam Abschied zu nehmen.
 
+## Ernährung und Trinken im Alter
+
+Viele ältere Katzen fressen weniger, weil Geruchssinn und Geschmack nachlassen oder weil Zähne und Zahnfleisch schmerzen. Leicht angewärmtes Nassfutter duftet stärker und wird oft lieber genommen. Biete mehrere kleine Mahlzeiten über den Tag verteilt an und beobachte das Gewicht: Ein schleichender Gewichtsverlust ist bei Senioren ein wichtiges Warnzeichen und sollte immer abgeklärt werden. Achte auch auf die Trinkmenge. Trinkt deine Katze plötzlich deutlich mehr, kann eine Nierenerkrankung, eine Schilddrüsenüberfunktion oder Diabetes dahinterstecken. Mehrere Wasserstellen, ein Trinkbrunnen und Nassfutter helfen, genug Flüssigkeit aufzunehmen. Wie sich der Speiseplan im Alter verändert, beschreibt [Ernährung älterer Katzen](/katzenwissen/ernaehrung-aelterer-katzen/), und was bei Nierenwerten wichtig ist, steht in [Niereninsuffizienz bei Katzen](/katzenwissen/niereninsuffizienz-bei-katzen/).
+
+## Fellpflege für Senioren
+
+Alte Katzen putzen sich oft weniger gründlich, weil die Beweglichkeit nachlässt oder weil Schmerzen das Verrenken unangenehm machen. Das Fell wird dann stumpf, verfilzt am Rücken und an den Hinterbeinen, und die Krallen wachsen zu lang, weil sie seltener gewetzt werden. Bürste deine Katze regelmäßig und sanft, kontrolliere die Krallen alle paar Wochen und kürze sie bei Bedarf. Wie das geht, erklären [Fellpflege bei Katzen](/katzenwissen/fellpflege-bei-katzen/) und [Krallen schneiden](/katzenwissen/krallen-schneiden/).
+
 ## Häufige Fragen
 
 ### Meine alte Katze schläft fast den ganzen Tag. Ist das normal?
@@ -122,3 +130,7 @@ Das hängt von der Erkrankung, der Prognose und dem Charakter der Katze ab. Viel
 ### Soll ich mir eine junge Katze holen, damit die alte Gesellschaft hat?
 
 Meist nicht. Ein junges Kätzchen überfordert eine alte Katze oft mit seinem Spieltrieb. Wenn du über eine Zweitkatze nachdenkst, wähle eher eine ruhige, ältere Katze, und gehe bei der Zusammenführung besonders behutsam vor.
+
+### Helfen Nahrungsergänzungsmittel für die Gelenke?
+
+Manche Präparate, etwa mit Omega-3-Fettsäuren, können Gelenkbeschwerden lindern. Sie ersetzen aber keine Schmerztherapie, wenn deine Katze an Arthrose leidet. Gib nur Produkte, die für Katzen bestimmt sind, und sprich vorher mit der Tierarztpraxis, damit sie zu den übrigen Medikamenten und zum Futter passen.

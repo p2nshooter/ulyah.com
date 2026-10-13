@@ -90,6 +90,18 @@ Es ist schwer, die Trinkmenge einer Katze genau zu messen, besonders wenn mehrer
 - auf die Größe und Anzahl der Urinklumpen in der Toilette achten
 - auffällige Veränderungen kurz notieren, um sie der Tierärztin schildern zu können
 
+## Flüssigkeit bei kranken und alten Katzen
+
+Bei Erbrechen, Durchfall oder Fieber verliert eine Katze schnell viel Flüssigkeit, und Kitten und alte Katzen trocknen besonders rasch aus. Frisst und trinkt eine kranke Katze länger als einen Tag kaum, solltest du nicht abwarten, sondern die Tierarztpraxis anrufen. Dort kann die Katze bei Bedarf Infusionen bekommen.
+
+Katzen mit einer chronischen Nierenerkrankung verlieren über die Nieren viel Wasser und brauchen oft dauerhaft Unterstützung. Neben Nassfutter mit zusätzlichem Wasser kann die Tierärztin Infusionen unter die Haut empfehlen, die viele Halterinnen und Halter nach einer Anleitung zu Hause selbst geben. Das klingt zunächst schwierig, wird aber von vielen Katzen gut toleriert und kann ihr Befinden deutlich verbessern. Mehr dazu steht in [Niereninsuffizienz bei Katzen](/katzenwissen/niereninsuffizienz-bei-katzen/).
+
+## Trinken an heißen Tagen
+
+Im Sommer brauchen Katzen mehr Flüssigkeit. Stelle zusätzliche Wasserschalen an kühlen, schattigen Orten auf und wechsle das Wasser häufiger, denn bei Wärme wird es schneller abgestanden. Ein paar Eiswürfel in der Schale machen das Wasser für manche Katzen interessanter. Nassfutter verdirbt bei Hitze schneller und sollte nach dem Fressen nicht lange im Napf stehen bleiben.
+
+Katzen hecheln nur selten. Hechelt eine Katze an einem heißen Tag mit offenem Maul, speichelt sie stark, taumelt oder wirkt sie apathisch, kann ein Hitzschlag drohen. Bring sie an einen kühlen Ort, befeuchte das Fell mit lauwarmem, nicht eiskaltem Wasser, biete Wasser an und fahr umgehend in die Tierarztpraxis.
+
 ## Häufige Fragen
 
 ### Meine Katze trinkt fast nie, frisst aber nur Nassfutter. Ist das bedenklich?
@@ -103,3 +115,7 @@ In Deutschland ja. Leitungswasser ist streng kontrolliert. Sehr kalkhaltiges Was
 ### Darf meine Katze aus Pfützen und Blumentöpfen trinken?
 
 Viele Katzen lieben abgestandenes Regenwasser. In der Regel schadet es nicht. Vorsicht ist bei Gießwasser mit Dünger, Untersetzern von Pflanzen, die mit Pflanzenschutzmitteln behandelt wurden, und bei Vasenwasser von Lilien geboten, denn das ist für Katzen giftig.
+
+### Wie oft muss ich den Trinkbrunnen reinigen?
+
+Wechsle das Wasser alle ein bis zwei Tage und zerlege und reinige den Brunnen etwa einmal pro Woche gründlich mit heißem Wasser und einer Bürste, auch die Pumpe. Tausche den Filter so oft, wie der Hersteller es angibt. Ein schleimiger Belag oder ein muffiger Geruch zeigen, dass die Reinigung überfällig ist.

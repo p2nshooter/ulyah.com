@@ -93,6 +93,18 @@ Das ist sehr unterschiedlich. Bei Katzen, die Krallenpflege brauchen, reicht es 
 
 Wenn deine Katze sich nicht anfassen lässt, du unsicher bist oder die Krallen sehr dick und eingewachsen sind, lass die Krallen in der Tierarztpraxis schneiden. Viele Praxen machen das bei der Vorsorgeuntersuchung nebenbei und zeigen dir dabei, wie es geht.
 
+## Kratzen ist die beste Krallenpflege
+
+Die natürlichste Krallenpflege übernimmt die Katze selbst, und zwar beim Kratzen. Dabei lösen sich die alten, äußeren Hornschichten der Krallen, die neuen darunter kommen zum Vorschein, und die Spitzen bleiben in einer guten Länge. Je mehr attraktive Kratzmöglichkeiten deine Katze hat, desto seltener musst du selbst zur Schere greifen. Biete senkrechte Kratzstämme an, an denen sie sich voll strecken kann, und waagerechte Kratzbretter aus Wellpappe oder Sisal, denn viele Katzen kratzen lieber im Liegen oder auf dem Boden. Wie du einen passenden Kratzbaum findest, erklärt [Kratzbaum auswählen](/katzenwissen/kratzbaum-auswaehlen/), und was gegen Kratzschäden an Möbeln hilft, beschreibt [Katze kratzt an Möbeln](/katzenwissen/katze-kratzt-an-moebeln/).
+
+## Eingewachsene Krallen: was die Praxis tut
+
+Bei sehr alten oder kranken Katzen wachsen Krallen manchmal unbemerkt in einem Bogen bis in den Ballen hinein. Die Katze humpelt, leckt an der Pfote, und die Stelle ist gerötet, nässt oder riecht. In der Tierarztpraxis wird die Kralle vorsichtig gekürzt und aus dem Ballen gelöst, die Wunde gereinigt und, wenn nötig, mit Schmerzmitteln oder einem Antibiotikum behandelt. Danach heilt der Ballen meist schnell. Damit es nicht wieder passiert, solltest du die Krallen dieser Katze künftig regelmäßig kontrollieren, etwa jedes Mal, wenn du sie bürstest, und gerade die Daumenkrallen im Blick behalten.
+
+## Krallen kontrollieren als Teil der Routine
+
+Am leichtesten fällt die Krallenpflege, wenn sie zu einem gewohnten Teil eurer Pflegeroutine wird. Schau dir bei der wöchentlichen Fellpflege kurz die Pfoten an: Sind die Krallen zu lang, ist zwischen den Ballen etwas hängen geblieben, gibt es Rötungen oder Verletzungen? Eine Katze, die das Anfassen ihrer Pfoten von klein auf kennt, lässt sich auch im Alter oder bei einer Verletzung besser behandeln. Mehr zur Pflegeroutine steht in [Fellpflege bei Katzen](/katzenwissen/fellpflege-bei-katzen/).
+
 ## Häufige Fragen
 
 ### Meine Katze hat lose, hohle Krallen verloren. Ist das normal?
@@ -106,3 +118,7 @@ Manche Halter feilen die Spitzen leicht nach dem Schneiden, um scharfe Kanten zu
 ### Meine ältere Katze hat sehr dicke Krallen. Ist das bedenklich?
 
 Dicke, spröde Krallen sind bei älteren Katzen häufig. Wenn sie sich nicht mehr einziehen lassen oder sich stark verändern, sprich mit deiner Tierärztin, denn manchmal stecken Erkrankungen der Krallen oder der Schilddrüse dahinter.
+
+### Muss ich einem Kitten die Krallen schneiden?
+
+Meist nicht. Die Krallen junger Katzen sind zwar sehr spitz, nutzen sich aber beim vielen Kratzen und Klettern gut ab. Die Kittenzeit ist aber ideal, um das Anfassen der Pfoten zu üben. Wenn die nadelspitzen Krallen beim Spielen stören, kannst du ganz vorsichtig nur die äußerste Spitze kürzen.

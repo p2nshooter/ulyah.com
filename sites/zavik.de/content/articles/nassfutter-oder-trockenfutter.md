@@ -98,6 +98,16 @@ Und schließlich ist die Menge entscheidend. Die meisten Ernährungsprobleme bei
 
 Bei manchen Erkrankungen ist die Wahl des Futters Teil der Behandlung, zum Beispiel bei Harnsteinen, chronischer Nierenerkrankung, Diabetes oder Futtermittelallergien. Dann verordnet die Tierärztin häufig ein spezielles Diätfutter, das es in nasser und trockener Form geben kann. Ändere in solchen Fällen nichts eigenmächtig, sondern sprich mit der Praxis.
 
+## Futter richtig lagern
+
+Auch das beste Futter verliert an Qualität, wenn es falsch gelagert wird. Trockenfutter bewahrst du am besten in der Originalverpackung auf, die du gut verschließt oder in einen dicht schließenden Behälter stellst. So bleiben die Angaben zu Charge und Haltbarkeit erhalten, und die Fette im Futter werden weniger schnell ranzig. Lagere es kühl, trocken und dunkel und verbrauche einen angebrochenen Sack innerhalb einiger Wochen. Große Vorratspackungen sind nur dann günstig, wenn sie rechtzeitig aufgebraucht werden, denn in alten, offenen Säcken können sich Futtermilben vermehren.
+
+Angebrochene Nassfutterdosen deckst du ab und stellst sie in den Kühlschrank. Biete das Futter nicht kühlschrankkalt an, sondern lass es auf Zimmertemperatur kommen oder wärme es leicht mit etwas warmem Wasser an. Kaltes Futter duftet kaum, wird schlechter angenommen und wird von manchen Katzen kurz nach dem Fressen wieder erbrochen.
+
+## Selbst kochen oder roh füttern?
+
+Manche Halterinnen und Halter bereiten das Futter selbst zu, gekocht oder roh. Das kann funktionieren, ist aber anspruchsvoller, als es klingt. Katzen brauchen unter anderem Taurin, bestimmte Vitamine und ein genaues Verhältnis von Kalzium zu Phosphor. Fehlt etwas davon über längere Zeit, drohen Herzprobleme, Sehstörungen oder Knochenschäden. Rohes Fleisch kann außerdem Krankheitserreger wie Salmonellen enthalten, die auch für Menschen im Haushalt ein Risiko sind. Wer selbst füttern möchte, lässt sich deshalb eine Ration von einer Tierärztin mit Zusatzqualifikation in Tierernährung berechnen und hält sich genau an den Plan.
+
 ## Häufige Fragen
 
 ### Kann eine Katze nur mit Trockenfutter gesund leben?
@@ -111,3 +121,11 @@ Das kann den Wasseranteil erhöhen. Eingeweichtes Trockenfutter verdirbt aber sc
 ### Darf der Trockenfutternapf den ganzen Tag gefüllt sein?
 
 Bei schlanken, aktiven Katzen, die sich selbst gut regulieren, kann das funktionieren. Bei den meisten Wohnungskatzen führt es zu Übergewicht. Besser ist es, die Tagesmenge abzuwiegen und über den Tag zu verteilen.
+
+### Wie viele Mahlzeiten am Tag sind ideal?
+
+Katzen fressen von Natur aus viele kleine Mahlzeiten über Tag und Nacht verteilt. Für erwachsene Katzen sind mindestens zwei, besser drei bis vier Portionen sinnvoll. Ein Futterautomat mit Zeitschaltung hilft, wenn du tagsüber nicht zu Hause bist.
+
+### Meine Katze frisst nur Trockenfutter. Kann ich das ändern?
+
+Oft ja, aber mit Geduld. Viele Katzen prägen sich in jungen Jahren auf eine Futterform. Mische anfangs nur kleine Mengen Nassfutter unter oder biete es leicht angewärmt als Extra an, und steigere den Anteil über Wochen. Wie das Schritt für Schritt geht, beschreibt [Futter richtig umstellen](/katzenwissen/futter-richtig-umstellen/).

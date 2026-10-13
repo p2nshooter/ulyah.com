@@ -121,6 +121,18 @@ Kontrolliere regelmäßig alle Schrauben und Verbindungen. Ziehe gelockerte Schr
 - **Kratztonnen und Kratzsäulen** als kompakte Lösung für kleine Wohnungen.
 - **Selbstbau:** Mit stabilen Materialien, Sisalseil und etwas handwerklichem Geschick lässt sich ein Kratzbaum genau nach den Bedürfnissen der eigenen Katze bauen. Achte dabei besonders auf Stabilität und ungiftige Materialien.
 
+## Versteckte Gefahren am Kratzbaum
+
+Achte nicht nur auf die Stabilität, sondern auch auf Details, an denen sich eine Katze verletzen kann. Spielzeug an langen Gummibändern oder Schnüren sieht verlockend aus, eine Katze kann sich darin aber verheddern oder Teile verschlucken. Kürze solche Bänder oder entferne sie, wenn du nicht dabei bist. Prüfe, ob irgendwo Tackernadeln, Nägel oder scharfe Kanten herausstehen, besonders unter abgelösten Bezügen. Löcher und Spalten, in denen eine Pfote hängen bleiben kann, sind vor allem für Kitten gefährlich. Ein stark chemischer Geruch bei einem neuen Kratzbaum deutet auf Klebstoffe oder Behandlungen hin. Lass den Baum dann einige Tage in einem gut gelüfteten Raum ausdünsten, bevor die Katze ihn nutzt.
+
+## Der richtige Kratzbaum für Kitten
+
+Kitten klettern begeistert, schätzen Höhen und Abstände aber noch falsch ein. Ein niedriger Kratzbaum mit kurzen Abständen zwischen den Ebenen, einer Rampe oder Stufen und kleinen Plattformen mit Rand ist für die ersten Monate ideal. Er sollte trotzdem stabil sein, denn auch Kitten springen mit viel Schwung. Wenn deine Katze ausgewachsen ist, kann ein größerer Baum dazukommen, und der kleine bleibt als zusätzliche Kratzstelle im Schlafzimmer oder Flur stehen. Mehr zu den ersten Monaten mit einem jungen Tier steht in [Kitten oder erwachsene Katze](/katzenwissen/kitten-oder-erwachsene-katze/).
+
+## Gebraucht kaufen oder übernehmen?
+
+Ein gebrauchter Kratzbaum kann eine günstige Lösung sein, hat aber Tücken. Er riecht nach den Katzen, die ihn vorher benutzt haben. Manche Katzen stört das kaum, andere meiden ihn oder markieren ihn mit Urin. Außerdem können Flohlarven und Eier in Plüsch und Ritzen stecken. Sauge einen gebrauchten Baum gründlich ab, wasche abnehmbare Bezüge heiß und tausche stark abgenutzte Sisalstämme aus. Prüfe vor allem die Stabilität, denn gelockerte Verbindungen sind bei älteren Modellen häufig.
+
 ## Häufige Fragen
 
 ### Wie viel sollte ein guter Kratzbaum kosten?
@@ -134,3 +146,7 @@ Wahrscheinlich bietet der Baum nicht die richtige Kratzfläche, etwa zu kurze od
 ### Braucht eine ältere Katze noch einen Kratzbaum?
 
 Ja, aber einen, der zu ihr passt: niedriger, mit kurzen Abständen, breiten Liegeflächen und einer Rampe oder Stufen. Ältere Katzen schätzen erhöhte, warme Liegeplätze besonders.
+
+### Wie oft muss das Sisal erneuert werden?
+
+Das hängt davon ab, wie intensiv deine Katze kratzt. Bei manchen Katzen hält ein Stamm Jahre, bei anderen ist er nach einigen Monaten zerfasert. Solange die Katze ihn gern nutzt, besteht kein Grund zum Tausch. Erst wenn die Fasern lose herunterhängen oder der Stamm darunter sichtbar wird, ist es Zeit für neues Sisal.

@@ -99,6 +99,22 @@ Das ist eine der größten Herausforderungen. Mögliche Lösungen:
 - Futterautomaten, die sich per Mikrochip nur für eine bestimmte Katze öffnen
 - erhöhte Futterplätze für die schlanke, sportliche Katze, die die schwerere nicht erreicht
 
+## Den Energiebedarf grob einschätzen
+
+Wie viel Energie eine Katze braucht, lässt sich mit einer Formel abschätzen, die auch Tierärztinnen nutzen. Zuerst wird der Ruhebedarf berechnet: 70 mal Körpergewicht in Kilogramm hoch 0,75. Für eine Katze mit einem Idealgewicht von vier Kilogramm ergibt das rund 200 Kilokalorien am Tag. Eine kastrierte, wenig aktive Wohnungskatze braucht oft nur etwa diesen Wert oder knapp darüber. Für eine Gewichtsabnahme legt die Tierärztin die Tagesmenge meist etwas unter dem Bedarf für das Zielgewicht fest und passt sie anhand der regelmäßigen Wiegungen an. Mit dem Energiegehalt deines Futters, den du wie in [Futteretiketten lesen](/katzenwissen/futteretiketten-lesen/) beschrieben abschätzen kannst, lässt sich daraus die Tagesmenge in Gramm berechnen.
+
+## Abnehmen kann Diabetes zurückdrängen
+
+Bei übergewichtigen Katzen mit Diabetes ist die Gewichtsabnahme ein wichtiger Teil der Behandlung. Zusammen mit Insulin und einem eiweißreichen, kohlenhydratarmen Futter erreichen manche Katzen eine sogenannte Remission: Sie brauchen nach einigen Wochen oder Monaten kein Insulin mehr, solange Gewicht und Ernährung stimmen. Das gelingt umso eher, je früher die Behandlung beginnt. Ändere bei einer Katze mit Diabetes aber niemals eigenmächtig Futter oder Insulinmenge, denn ein plötzlich sinkender Blutzucker kann lebensgefährlich werden.
+
+## Alle ziehen an einem Strang
+
+Eine Diät scheitert oft nicht an der Katze, sondern an den Menschen. Wenn ein Familienmitglied heimlich Leckerli verteilt oder die Kinder den Napf nachfüllen, wenn die Katze bettelt, nimmt sie nicht ab. Besprecht den Plan gemeinsam, legt fest, wer füttert, und notiert jede Mahlzeit. Freigänger lassen sich manchmal bei mehreren Nachbarn verwöhnen. Sprich die Nachbarn freundlich an und erkläre, dass deine Katze abnehmen muss.
+
+## Wenn es stockt
+
+Fast jede Diät hat Phasen, in denen das Gewicht wochenlang stagniert. Das ist kein Grund aufzugeben. Prüfe, ob sich zusätzliche Futterquellen eingeschlichen haben, ob die Waage richtig misst und ob die Katze sich noch genug bewegt. Danach passt die Tierärztin die Menge leicht an. Eine Katze, die langsam, aber stetig abnimmt, ist auf dem richtigen Weg.
+
 ## Häufige Fragen
 
 ### Meine Katze bettelt ständig. Hat sie Hunger?
@@ -112,3 +128,11 @@ Bitte nicht ohne Rücksprache. Eine zu starke Reduktion kann die Leber gefährde
 ### Ist Light-Futter sinnvoll?
 
 Light-Produkte enthalten meist weniger Energie, aber nicht immer deutlich. Für das Abnehmen ist eine gezielte Diät mit tierärztlicher Begleitung meist wirksamer. Light-Futter eignet sich eher, um ein gehaltenes Gewicht zu stabilisieren.
+
+### Wie lange dauert es bis zum Zielgewicht?
+
+Bei einem Tempo von etwa einem Prozent pro Woche braucht eine Katze mit sechs Kilogramm, die ein Kilogramm abnehmen soll, rund vier bis fünf Monate. Bei stärkerem Übergewicht kann es ein Jahr oder länger dauern. Geduld lohnt sich, denn ein langsamer Weg ist für die Gesundheit der Katze am sichersten.
+
+### Darf meine Katze während der Diät noch Leckerli bekommen?
+
+Ja, in kleinen Mengen und eingerechnet in die Tagesration. Besonders gut eignen sich einzelne Kroketten des Diätfutters, die du beim Spielen oder Training als Belohnung verwendest.

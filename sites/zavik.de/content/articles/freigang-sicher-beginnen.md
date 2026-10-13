@@ -99,6 +99,16 @@ Viele Katzen bleiben gelegentlich länger weg, als man es gewohnt ist. Wenn dein
 - Hänge Suchplakate mit Foto auf und frage Nachbarn.
 - Stelle etwas mit deinem Geruch, etwa ein getragenes Kleidungsstück, und ihre Toilette vor die Tür.
 
+## Revier und Nachbarschaft
+
+Freigänger haben ein Revier, das je nach Umgebung nur einige Gärten oder ein großes Gebiet umfassen kann. In Wohngebieten überschneiden sich die Reviere vieler Katzen, und es kommt zu Begegnungen, Drohgebärden und gelegentlich zu Raufereien. Bisswunden entzünden sich bei Katzen leicht und bilden Abszesse. Eine warme, geschwollene Stelle, Hinken oder Fieber nach einer Rauferei gehören in die Tierarztpraxis.
+
+Nicht alle Nachbarn freuen sich über Katzenbesuch, besonders wenn frisch angelegte Beete als Toilette genutzt werden. Sprich offen mit deinen Nachbarn und biete deiner Katze im eigenen Garten eine attraktive Stelle mit lockerem Sand oder feiner Erde an, an der sie sich lösen kann. Das entschärft viele Konflikte, bevor sie entstehen.
+
+## Freigang und Wildtiere
+
+Katzen sind Jäger, und auch gut gefütterte Freigänger fangen Mäuse und manchmal Vögel. Du kannst den Jagderfolg aber verringern. Halte deine Katze in der Brutzeit von etwa Mai bis Juli in den frühen Morgenstunden und in der Dämmerung im Haus, wenn Jungvögel besonders gefährdet sind. Eine britische Studie hat außerdem gezeigt, dass tägliches Spiel mit Spielzeug, das Beute imitiert, und ein fleischreiches Futter die Zahl der nach Hause gebrachten Beutetiere deutlich senken können. Wie du Jagdspiele gestaltest, erklärt [Nächtliches Toben](/katzenwissen/naechtliches-toben/).
+
 ## Häufige Fragen
 
 ### Kann ich einer Wohnungskatze nachträglich Freigang ermöglichen?
@@ -112,3 +122,7 @@ Ein Glöckchen bedeutet für die Katze ständiges Geräusch direkt am Ohr. Ob es
 ### Darf ich meine Katze nach einem Umzug sofort hinauslassen?
 
 Nein. Auch nach einem Umzug braucht deine Katze mindestens vier bis sechs Wochen, um die neue Wohnung als Zuhause kennenzulernen, bevor sie hinausdarf.
+
+### Was tue ich, wenn meine Katze Beute mit nach Hause bringt?
+
+Schimpfe nicht, denn für die Katze ist das ein ganz natürliches Verhalten. Nimm die Beute ruhig und mit Handschuhen weg. Lebt das Tier noch, bring die Katze in einen anderen Raum und lass das Tier draußen frei. Ein verletzter Vogel kann in einer Wildvogelstation oder bei einer Tierärztin versorgt werden.

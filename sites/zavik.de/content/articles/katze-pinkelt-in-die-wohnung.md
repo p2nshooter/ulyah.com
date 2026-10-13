@@ -97,6 +97,18 @@ Bestrafung macht alles schlimmer. Wenn du deine Katze anschreist, sie mit der Na
 
 Unsauberkeit hat oft mehrere Ursachen gleichzeitig. Wenn sich trotz tierärztlicher Behandlung und Änderungen an der Toilette nichts bessert, lohnt sich die Beratung durch eine Tierärztin oder einen Tierarzt mit Zusatzqualifikation in Verhaltensmedizin. Manchmal helfen auch beruhigende Futterzusätze, Pheromonzerstäuber oder in schweren Fällen Medikamente, die nur nach tierärztlicher Untersuchung eingesetzt werden.
 
+## Notfall: wenn kein Urin kommt
+
+Besonders bei Katern kann die Harnröhre durch Kristalle, Steine oder Entzündungsmaterial verstopfen. Die Katze geht dann immer wieder zur Toilette, presst, setzt aber keinen oder nur wenige Tropfen Urin ab. Oft leckt sie sich am Genitalbereich, schreit beim Pressen, erbricht oder wird schnell matt. Das ist ein lebensbedrohlicher Notfall, denn innerhalb kurzer Zeit können sich Giftstoffe im Blut anstauen, die Herz und Nieren schädigen. Fahr sofort in die Tierarztpraxis oder Tierklinik, auch nachts und am Wochenende. Warte nicht ab, ob es von selbst besser wird.
+
+## Ein Tagebuch hilft bei der Ursachensuche
+
+Notiere eine Zeit lang jeden Vorfall: Datum, Uhrzeit, Ort, ob es eine größere Pfütze oder ein Spritzer an der Wand war, und was an diesem Tag anders war, etwa Besuch, eine Auseinandersetzung zwischen Katzen, eine fremde Katze am Fenster, eine neue Streu oder eine längere Abwesenheit. Halte auch fest, wann du die Toiletten gereinigt hast. Nach zwei bis drei Wochen erkennst du oft ein Muster, das dir und der Tierärztin bei der Suche nach der Ursache hilft.
+
+## Pheromone und Medikamente
+
+Im Handel gibt es Zerstäuber für die Steckdose, die einen künstlichen Duftstoff abgeben, der den Gesichtspheromonen von Katzen nachempfunden ist. Manche Katzen werden dadurch ruhiger und markieren weniger, bei anderen ist kein Effekt zu sehen. Ein Versuch kann sinnvoll sein, ersetzt aber nicht die Suche nach dem Auslöser. Bei starkem, anhaltendem Stress kann die Tierärztin zusätzlich Medikamente verschreiben, die die Angst lindern. Sie wirken meist erst nach einigen Wochen und werden mit Veränderungen im Umfeld kombiniert.
+
 ## Häufige Fragen
 
 ### Meine Katze pinkelt immer in unser Bett. Warum gerade dort?
@@ -110,3 +122,7 @@ Bei unkastrierten Katern hört das Markieren nach der Kastration meist auf. Bei 
 ### Wie lange dauert es, bis meine Katze wieder sauber ist?
 
 Wenn die Ursache gefunden und behoben ist, oft nur wenige Tage. Bei chronischem Stress oder einer wiederkehrenden Blasenentzündung kann es Wochen dauern und Rückfälle geben.
+
+### Lassen sich Urinflecken auf der Matratze entfernen?
+
+Mit Geduld oft ja. Sauge den Urin sofort auf, tränke die Stelle gründlich mit einem Enzymreiniger und lass ihn so lange einwirken, wie der Hersteller angibt. Bei tief eingedrungenem Urin sind meist mehrere Durchgänge nötig. Ein wasserdichter Matratzenschutz verhindert, dass es wieder passiert, während du die Ursache suchst.

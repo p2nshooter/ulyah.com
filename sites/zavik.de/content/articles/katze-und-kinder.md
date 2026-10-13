@@ -98,6 +98,18 @@ Gib der Katze auch nach der Geburt bewusst Zuwendung. Eine Katze, die plötzlich
 
 Eine Katzenallergie ist häufig und sollte ärztlich abgeklärt werden, bevor eine Katze einzieht, wenn in der Familie bereits Allergien bekannt sind. Verbringt das Kind vorher Zeit mit Katzen, etwa bei Freunden, zeigt sich oft schon, ob es reagiert. Eine Katze aus der Familie wieder abgeben zu müssen, ist für alle schmerzlich und lässt sich durch Vorsicht vor dem Einzug oft vermeiden.
 
+## Kinder auf den Einzug vorbereiten
+
+Bevor die Katze kommt, lohnt sich ein Familiengespräch. Erkläre den Kindern, dass eine neue Katze erst einmal Angst hat, sich verstecken wird und Zeit braucht, um Vertrauen zu fassen. Legt gemeinsam fest, wer welche Aufgabe übernimmt, und besprecht die Grundregeln. Kinderbücher über Katzen oder ein gemeinsamer Besuch im Tierheim helfen, die Vorfreude in Verständnis zu verwandeln. Am Einzugstag gilt: Ruhe statt Begrüßungsparty. Die Kinder setzen sich auf den Boden, lassen die Katze kommen und belohnen sie mit einem Leckerli, wenn sie sich nähert. Wie die ersten Tage ablaufen, beschreibt [Die ersten Tage mit der neuen Katze](/katzenwissen/die-ersten-tage-mit-der-neuen-katze/).
+
+## Wenn Freunde zu Besuch kommen
+
+Fremde Kinder kennen die Regeln eurer Familie nicht. Viele wollen die Katze sofort streicheln, hochheben oder hinter ihr herlaufen. Erkläre den Besuchskindern kurz die wichtigsten Regeln oder lass deine eigenen Kinder das übernehmen, die so zu kleinen Katzenexperten werden. Sorge dafür, dass sich die Katze jederzeit in ein ruhiges Zimmer zurückziehen kann, und schließ es, wenn eine laute Geburtstagsfeier ansteht.
+
+## Abschied und Trauer
+
+Katzen werden oft fünfzehn Jahre alt oder älter, und viele Kinder erleben mit ihrer Katze zum ersten Mal den Tod eines geliebten Tieres. Sprich ehrlich und kindgerecht darüber. Formulierungen wie „Sie ist eingeschlafen“ können kleine Kinder verunsichern und Angst vor dem eigenen Schlafen auslösen. Besser ist eine einfache, wahre Erklärung: Die Katze war sehr krank und alt, ihr Körper hat aufgehört zu arbeiten, und sie hat jetzt keine Schmerzen mehr. Lass Trauer zu, auch deine eigene. Rituale helfen beim Abschied, etwa ein Bild malen, ein Fotoalbum gestalten oder einen Platz im Garten schmücken. Wie du eine alte Katze in ihrer letzten Lebensphase begleitest, steht in [Die alte Katze begleiten](/katzenwissen/die-alte-katze-begleiten/).
+
 ## Häufige Fragen
 
 ### Darf die Katze im Kinderbett schlafen?

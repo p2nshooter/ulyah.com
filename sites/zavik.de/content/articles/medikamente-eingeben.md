@@ -117,6 +117,12 @@ Verwende nur Präparate, die ausdrücklich für Katzen zugelassen sind. Mittel f
 - Die Behandlung nicht eigenmächtig abbrechen, auch wenn es der Katze besser geht, besonders bei Antibiotika.
 - Reste nicht für spätere Erkrankungen aufbewahren oder an andere Tiere weitergeben, ohne Rücksprache.
 
+## Dauertherapie: wenn die Katze täglich Medikamente braucht
+
+Bei chronischen Erkrankungen wie einer Schilddrüsenüberfunktion, einer Nierenerkrankung, Arthrose oder Diabetes bekommen viele Katzen über Monate oder Jahre täglich Medikamente. Dann hilft eine feste Routine. Gib das Medikament möglichst immer zur gleichen Zeit, verbinde es mit etwas Angenehmem wie einer kleinen Mahlzeit, einer Bürsteneinheit oder Streicheleinheiten, und halte den Ablauf so ruhig und kurz wie möglich. Ein Wecker auf dem Handy verhindert, dass eine Dosis vergessen wird, wenn der Alltag einmal anders läuft.
+
+Führe einen einfachen Behandlungsplan, auf Papier oder in einer App: Datum, Uhrzeit, Dosis und Auffälligkeiten wie Appetit, Trinkmenge, Erbrechen oder Gewicht. Diese Notizen sind bei den Kontrolluntersuchungen sehr wertvoll, weil die Tierärztin die Dosis oft anhand von Blutwerten und deinen Beobachtungen anpasst. Auch Insulinspritzen bei Diabetes lernen die meisten Halterinnen und Halter schnell. Die Nadeln sind sehr fein, und viele Katzen bemerken den Stich kaum, wenn er ruhig und mit einer Belohnung verbunden gesetzt wird. Lass dir die Technik in der Praxis zeigen und übe sie dort unter Anleitung.
+
 ## Häufige Fragen
 
 ### Kann ich die Tablette zerkleinern und unters Futter mischen?
@@ -130,3 +136,7 @@ Wenn die Tablette vollständig wieder herausgekommen ist, kannst du es in der Re
 ### Darf ich meiner Katze ein Schmerzmittel aus meiner Hausapotheke geben?
 
 Nein. Viele Schmerzmittel für Menschen, besonders Paracetamol, aber auch Ibuprofen und Aspirin, können für Katzen schon in kleinen Mengen tödlich sein.
+
+### Worauf achte ich nach der Eingabe?
+
+Beobachte deine Katze in der ersten Zeit nach einem neuen Medikament. Erbrechen, starkes Speicheln, Durchfall, auffällige Müdigkeit oder Unruhe können Nebenwirkungen sein. Bei Schwellungen im Gesicht, Atemnot oder Zusammenbruch fährst du sofort in die Tierarztpraxis oder Tierklinik. Bei leichteren Beschwerden rufst du an und besprichst, ob das Medikament weiter gegeben werden soll.

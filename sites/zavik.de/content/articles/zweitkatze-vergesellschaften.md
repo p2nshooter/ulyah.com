@@ -89,6 +89,16 @@ Manche Katzen verstehen sich nach wenigen Tagen. Bei den meisten dauert es einig
 
 Wenn sich nach zwei bis drei Monaten trotz geduldigen Vorgehens keine Besserung zeigt, eine Katze dauerhaft unter Stress steht oder es immer wieder zu Verletzungen kommt, lass dich von einer Tierärztin mit Schwerpunkt Verhaltensmedizin beraten. Manchmal ist es für beide Katzen das Beste, wenn eine von ihnen ein anderes Zuhause findet.
 
+## Gesundheitscheck vor dem Einzug
+
+Bevor eine neue Katze zu deiner ersten zieht, sollte sie tierärztlich untersucht werden. Dazu gehören ein Blick auf Impfstatus und Parasiten und, je nach Herkunft, Tests auf Katzenleukose und das Katzen-Immunschwächevirus. Katzenleukose wird über engen Kontakt wie gegenseitiges Putzen und gemeinsame Näpfe übertragen. Eine positiv getestete Katze sollte deshalb nicht mit einer gesunden, ungeimpften Katze zusammenleben. Das Immunschwächevirus wird dagegen vor allem durch tiefe Bisswunden übertragen, weshalb harmonisch zusammenlebende, kastrierte Katzen ein geringes Ansteckungsrisiko haben. Lass dich zu solchen Fällen tierärztlich beraten.
+
+Das separate Zimmer für die neue Katze hat dabei einen doppelten Nutzen. Es ist nicht nur der sichere Rückzugsort für die ersten Tage, sondern auch eine Art Quarantäne. Zeigt die Neue Anzeichen von Katzenschnupfen, Durchfall oder Parasiten, kannst du sie behandeln lassen, bevor sie die erste Katze anstecken kann.
+
+## Frieden im Alltag erhalten
+
+Auch wenn die Zusammenführung gelungen ist, lohnt es sich, aufmerksam zu bleiben. Füttere die Katzen an getrennten Plätzen, damit keine die andere vom Napf verdrängt, und halte die Zahl der Toiletten, Kratzbäume und erhöhten Liegeplätze hoch. Spiele mit beiden Katzen regelmäßig, gemeinsam oder getrennt, je nachdem, was sie mögen. Kleine Spannungen kündigen sich oft leise an, etwa wenn eine Katze plötzlich andere Wege nimmt oder sich häufiger versteckt. Wer solche Zeichen früh bemerkt, kann gegensteuern, bevor ein ernster Konflikt entsteht. Wie Katzen untereinander kommunizieren, beschreibt [Körpersprache der Katze](/katzenwissen/koerpersprache-der-katze/).
+
 ## Häufige Fragen
 
 ### Kann ich ein Kitten zu einer älteren Katze setzen?
@@ -102,3 +112,7 @@ Zerstäuber mit synthetischen Katzenpheromonen können die Stimmung bei manchen 
 ### Was, wenn die neue Katze sofort zur ersten will?
 
 Auch neugierige, freundliche Katzen profitieren von einer langsamen Zusammenführung. Die erste Katze hat ein Recht darauf, ihr Revier nicht plötzlich teilen zu müssen. Wenn beide sich durch das Gitter freundlich begegnen, kannst du die Schritte aber zügiger gehen.
+
+### Brauchen zwei Katzen doppelt so viel Platz?
+
+Nicht unbedingt doppelt so viele Quadratmeter, aber mehr Möglichkeiten, einander auszuweichen. Erhöhte Plätze, Regale, Kratzbäume, mehrere Verstecke und Wege, auf denen eine Katze die andere umgehen kann, sind wichtiger als die Größe der Wohnung. Auch in einer kleinen Wohnung können zwei Katzen gut zusammenleben, wenn die Wohnung gut strukturiert ist.

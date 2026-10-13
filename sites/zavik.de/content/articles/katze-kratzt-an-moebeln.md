@@ -89,6 +89,20 @@ In manchen Ländern werden Katzen die Krallen chirurgisch entfernt. Dabei wird n
 
 Kratzt deine Katze auf einmal viel mehr als sonst, besonders an Türen und Fenstern, kann das auf Stress hinweisen: eine neue Katze in der Nachbarschaft, ein Umzug, ein neues Familienmitglied oder Veränderungen im Alltag. Dann lohnt es sich, nach der Ursache zu suchen. Mehr Kratzmöglichkeiten an Eingängen und Fenstern und mehr Spiel können helfen.
 
+## Möbel, Tapeten und Teppiche schützen
+
+Während du das Kratzen umlenkst, helfen einfache Schutzmaßnahmen, Schäden zu begrenzen. Für Sofaecken und Armlehnen gibt es durchsichtige Kratzschutzfolien, die mit Nadeln oder Klebepunkten befestigt werden. Katzen finden die glatte Fläche unattraktiv, und die Folie lässt sich später rückstandsfrei entfernen. Eine Decke über der Lieblingsstelle oder ein Hussenbezug schützt ebenfalls, solange die Katze nicht lernt, darunter zu kratzen. An Tapeten bewähren sich Kratzbretter, die genau an der betroffenen Wandstelle angebracht werden, und vor Teppichkanten liegen waagerechte Kratzmatten aus Sisal oder Wellpappe am besten.
+
+Wenn du neue Möbel kaufst, lohnt ein Blick auf den Bezugsstoff. Grobe, locker gewebte Stoffe mit Schlingen, etwa Bouclé oder grobes Leinen, laden Katzen geradezu zum Kratzen ein und ziehen schnell Fäden. Dicht gewebte, glatte Stoffe wie Mikrofaser sind meist weniger reizvoll und robuster.
+
+## Kitten früh auf den richtigen Weg bringen
+
+Am einfachsten ist es, gute Gewohnheiten von Anfang an zu fördern. Stelle Kratzmöglichkeiten schon vor dem Einzug eines Kittens auf, am besten neben den Schlafplatz und an Durchgängen. Spiele mit der Federangel am Kratzbaum entlang, damit das Kätzchen seine Krallen beim Spiel daran einsetzt. Kratzt es am Sofa, nimm es ruhig hoch und setze es vor das Kratzbrett, ohne zu schimpfen, und belohne es, wenn es dort weitermacht. Kitten lernen schnell, welche Orte sich gut anfühlen.
+
+## Kratzspuren in der Mietwohnung
+
+In einer Mietwohnung kann Kratzen auch eine finanzielle Frage werden. Schäden, die über die übliche Abnutzung hinausgehen, etwa zerkratzte Türrahmen, Tapeten oder Fensterbänke, können beim Auszug in Rechnung gestellt werden. Schütze deshalb besonders gefährdete Stellen wie Türrahmen und Türblätter rechtzeitig mit Kratzbrettern oder Schutzfolien, und biete gerade an Türen, an denen deine Katze gern kratzt, eine attraktive Alternative an.
+
 ## Häufige Fragen
 
 ### Wie viele Kratzmöglichkeiten braucht eine Katze?
@@ -102,3 +116,11 @@ Türen sind Grenzen des Reviers. Die Katze möchte vielleicht hinein oder hinaus
 ### Hilft ein neuer Kratzbaum, wenn der alte abgenutzt ist?
 
 Ein zerkratzter Kratzbaum ist für die Katze oft gerade attraktiv, weil er nach ihr riecht. Ersetze abgenutzte Sisalteile lieber einzeln, statt den ganzen Kratzbaum auszutauschen.
+
+### Kratzt meine Katze aus Langeweile?
+
+Manchmal ja. Wohnungskatzen, die sich wenig bewegen, kratzen oft gezielt, wenn ihre Menschen nach Hause kommen, um Aufmerksamkeit zu bekommen. Mehr Spielzeiten und Beschäftigung, wie in [Wohnungskatze artgerecht halten](/katzenwissen/wohnungskatze-artgerecht-halten/) beschrieben, verringern dieses Kratzen meist deutlich.
+
+### Welche Bezugsstoffe sind katzenfreundlich?
+
+Am robustesten sind dicht gewebte, glatte Stoffe wie Mikrofaser. Leder ist zwar für Katzen zum Kratzen weniger interessant, zeigt aber jede Kralle als Spur. Grobe Strukturen und Schlingenstoffe sind am empfindlichsten. Ein Probestück vom Händler kannst du zu Hause testen, indem du es neben den Kratzbaum legst und beobachtest, wie deine Katze reagiert.
