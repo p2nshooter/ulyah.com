@@ -2,7 +2,7 @@
 title: "Obst und Gemüse richtig lagern: Kühlschrank, Keller oder Küchentisch?"
 description: Welche Sorten in den Kühlschrank gehören und welche nicht, was Ethylen anrichtet, wie Kartoffeln, Zwiebeln und Möhren lange frisch bleiben, mit Tabelle zum Nachschlagen.
 category: kuechenwissen
-date: 2026-07-11
+date: 2026-10-12
 ---
 Wer saisonal einkauft, kauft oft in größeren Mengen: eine Kiste Äpfel vom Hof, einen Sack Kartoffeln, die Gemüsekiste mit Kohl, Möhren und Lauch. Damit nichts davon verdirbt, ist die richtige Lagerung entscheidend. Dabei gibt es keine einheitliche Regel. Manche Sorten lieben die Kälte, andere bekommen davon braune Flecken. Manche geben Reifegase ab, auf die andere empfindlich reagieren.
 
@@ -86,6 +86,33 @@ Petersilie, Dill, Koriander und Schnittlauch halten sich in einem feuchten Küch
 ## Beeren und Steinobst
 
 Beeren sind besonders empfindlich. Verlese sie nach dem Einkauf, sortiere angeschimmelte oder matschige Früchte aus und lagere sie ungewaschen, flach ausgebreitet, im Kühlschrank. Wasche sie erst kurz vor dem Essen. Erdbeeren, Himbeeren und Brombeeren halten so ein bis zwei Tage, Heidelbeeren und Johannisbeeren deutlich länger. Steinobst wie Kirschen gehört ebenfalls in den Kühlschrank. Pfirsiche, Nektarinen und Aprikosen lässt du bei Zimmertemperatur reifen und kühlst sie erst, wenn sie weich sind.
+
+## In welcher Reihenfolge verbrauchen?
+
+Wer die Gemüsekiste vom Markt nach Haltbarkeit sortiert, wirft kaum noch etwas weg. Plane die Mahlzeiten der Woche so, dass die empfindlichsten Zutaten zuerst an der Reihe sind.
+
+| Verbrauchen innerhalb von | Obst und Gemüse |
+|---|---|
+| 1 bis 2 Tagen | Beeren, Feldsalat, Rucola, Spinat, Pilze, Spargel, Maiskolben, Kräuter wie Basilikum |
+| 3 bis 5 Tagen | Brokkoli, Blumenkohl, grüne Bohnen, Zucchini, Kopfsalat, Pfirsiche, Kirschen |
+| 1 bis 2 Wochen | Paprika, Gurken, Kohlrabi, Lauch, Rosenkohl, Zitrusfrüchte |
+| mehrere Wochen | Möhren, Rote Bete, Kohlköpfe, Äpfel, Kürbisse, Kartoffeln, Zwiebeln |
+
+Ein Blick in Kühlschrank und Vorratskorb vor dem nächsten Einkauf zeigt, was zuerst weg muss. Was absehbar nicht mehr gegessen wird, kommt rechtzeitig in Suppe, Auflauf oder Gefrierschrank. Ideen dafür sammelt unser Beitrag [Resteküche mit Plan](/kueche/resteverwertung-in-der-kueche/).
+
+## Lagern ohne Keller
+
+Die wenigsten Stadtwohnungen haben einen kühlen Keller. Ein paar Alternativen funktionieren trotzdem:
+
+- **Unbeheizter Raum:** Eine Abstellkammer, ein Gästezimmer mit abgedrehter Heizung oder ein Flur an der Außenwand bleibt im Winter oft unter 12 Grad. Das reicht für Äpfel, Kürbisse, Zwiebeln und Kartoffeln.
+- **Balkon:** In einer Styroporbox oder einer alten Kühlbox, ausgepolstert mit Zeitungspapier, lagern Äpfel, Möhren und Kartoffeln den Winter über frostgeschützt. Bei starkem Frost holst du die Box für ein paar Tage ins Treppenhaus.
+- **Erdmiete im Garten:** Früher wurden Wurzelgemüse und Kohl in mit Stroh ausgekleideten Gruben eingelagert und mit Erde abgedeckt. Ein eingegrabener, gelochter Eimer mit Deckel erfüllt denselben Zweck für kleine Mengen.
+
+Wichtig ist bei allen Varianten ein Thermometer, damit du die Temperatur im Blick hast, und eine wöchentliche Kontrolle, bei der du angefaulte Stücke aussortierst.
+
+## Warum sich gute Lagerung lohnt
+
+Nach Berechnungen des Thünen-Instituts landen in deutschen Privathaushalten jedes Jahr rund 78 Kilogramm Lebensmittel pro Kopf im Abfall. Obst und Gemüse machen dabei einen großen Teil aus, oft einfach deshalb, weil sie falsch gelagert wurden oder in Vergessenheit gerieten. Wer seine Vorräte kennt und richtig lagert, spart also nicht nur Geld, sondern auch die Arbeit und die Ressourcen, die in jedem Kopf Salat und jedem Kilo Äpfel stecken.
 
 ## Häufige Fragen
 

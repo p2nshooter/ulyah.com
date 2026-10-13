@@ -2,7 +2,7 @@
 title: "Obst, Pilze und Kräuter trocknen: Apfelringe, Dörrpflaumen und Tee aus dem Garten"
 description: "Wie du Äpfel, Zwetschgen, Pilze und Kräuter an der Luft, im Backofen oder im Dörrautomaten trocknest: Temperaturen, Zeiten, Restfeuchte und sichere Aufbewahrung."
 category: vorrat-und-konservieren
-date: 2026-09-03
+date: 2026-10-12
 ---
 Trocknen ist die älteste Art, Vorräte anzulegen, und vielleicht die einfachste. Es braucht keinen Zucker, kein Essig und keine Gläser mit Gummiringen, sondern nur Wärme, Luft und Geduld. Getrocknete Apfelringe sind ein Snack, der wochenlang hält, Dörrpflaumen machen Winterkuchen saftig, getrocknete Steinpilze geben jeder Soße Tiefe, und ein Bund Pfefferminze vom Sommer wird im Januar zu Tee. Weil den Lebensmitteln das Wasser entzogen wird, können Bakterien und Schimmelpilze nicht mehr wachsen. Damit das zuverlässig klappt, müssen sie aber wirklich trocken sein, und das ist der Punkt, an dem viele Anfänger zu früh aufhören.
 
@@ -67,6 +67,14 @@ So geht’s:
 4. Im Ofen oder Dörrautomaten höchstens 35 bis 40 Grad wählen. Bei höheren Temperaturen verfliegen die ätherischen Öle.
 5. Blätter von den Stielen streifen und möglichst ganz aufbewahren. Erst vor dem Gebrauch zerreiben.
 
+## Tomaten, Chilis und Gemüsechips
+
+Auch Gemüse lässt sich trocknen. Am beliebtesten sind Tomaten: Halbiere kleine Flaschen- oder Kirschtomaten, entferne bei größeren Früchten die Kerne, salze die Schnittflächen leicht und lege sie mit der Schnittfläche nach oben auf das Gitter. Bei 50 bis 60 Grad brauchen sie 8 bis 12 Stunden, große Hälften auch länger. Fertig sind sie, wenn sie ledrig sind und beim Drücken kein Saft mehr austritt.
+
+Getrocknete Tomaten bewahrst du am sichersten trocken im Glas auf und weichst sie bei Bedarf in warmem Wasser ein. Wer sie in Öl einlegen möchte, sollte wissen: Unter Öl herrscht Luftabschluss, und darin können sich Bakterien wie Clostridium botulinum vermehren, wenn noch Restfeuchte im Gemüse steckt. Selbst eingelegte Tomaten, Kräuter oder Knoblauch in Öl gehören deshalb in den Kühlschrank und werden zügig, innerhalb weniger Tage, verbraucht.
+
+Chilis fädelst du mit Nadel und Faden durch die Stiele zu einer Kette auf und hängst sie an einen luftigen, trockenen Ort. Nach drei bis vier Wochen sind sie trocken und brechen. Für Gemüsechips aus Roter Bete, Pastinaken oder Zucchini hobelst du hauchdünne Scheiben, würzt sie leicht und trocknest sie bei 50 bis 60 Grad, bis sie knusprig sind.
+
 ## Richtig lagern
 
 Lass alles Getrocknete vollständig abkühlen, bevor du es verpackst. Warme Ware bildet im Glas Kondenswasser. Fülle Obst, Pilze und Kräuter in saubere, trockene Schraubgläser oder Dosen und stelle sie dunkel und trocken.
@@ -74,6 +82,16 @@ Lass alles Getrocknete vollständig abkühlen, bevor du es verpackst. Warme Ware
 Kontrolliere die Gläser in der ersten Woche täglich. Beschlägt die Innenseite oder fühlen sich die Stücke wieder weich an, war die Restfeuchte zu hoch. Dann noch einmal nachtrocknen. Schimmelige Stücke oder Gläser mit muffigem Geruch entsorgst du vollständig.
 
 Gut getrocknetes Obst hält sich sechs bis zwölf Monate, Pilze und Kräuter etwa ein Jahr. Danach sind sie nicht verdorben, verlieren aber deutlich an Aroma.
+
+## Zwei Ideen für die Vorratsdose
+
+**Haustee aus dem Garten:** Mische zwei Teile getrocknete Pfefferminze mit einem Teil Zitronenmelisse und gib nach Geschmack einige Thymianblättchen dazu. Pro Tasse übergießt du einen gehäuften Teelöffel mit kochendem Wasser und lässt den Tee fünf bis zehn Minuten ziehen. In einem dunklen, mit Datum beschrifteten Glas ist die Mischung auch ein schönes Mitbringsel.
+
+**Kräutersalz:** Zerreibe getrocknete Kräuter wie Rosmarin, Thymian, Oregano und Bohnenkraut und mische sie mit grobem Meersalz, etwa ein Teil Kräuter auf drei Teile Salz. In einer Gewürzmühle wird das Salz bei Tisch frisch gemahlen und würzt Kartoffeln, Ofengemüse und Quark.
+
+## Strom sparen beim Trocknen
+
+Ein Backofen, der acht Stunden mit offener Tür läuft, verbraucht viel Energie. Nutze ihn deshalb nur voll beladen, verteile die Ware auf mehrere Gitter und arbeite mit Umluft bei niedriger Temperatur. Ein Dörrautomat ist auf lange Laufzeiten ausgelegt und braucht deutlich weniger Strom. An trockenen, warmen Spätsommertagen trocknen Kräuter und dünne Pilzscheiben auch ohne Strom an der Luft. Lege dann ein Fliegengitter oder Gaze darüber, damit Insekten fernbleiben, und hole die Ware über Nacht ins Haus, weil sie sonst wieder Feuchtigkeit aus der Luft aufnimmt.
 
 ## Häufige Fragen
 
@@ -88,3 +106,11 @@ Für Kräuter und Pilze funktioniert ein Gitter über der Heizung, wenn die Luft
 ### Wie viel bleibt nach dem Trocknen übrig?
 
 Aus einem Kilogramm Äpfeln werden etwa 100 bis 150 Gramm Apfelringe, aus einem Kilogramm frischen Pilzen etwa 100 Gramm Trockenpilze. Rechne also mit großen Mengen frischer Ware.
+
+### Muss ich Obst vor dem Trocknen schwefeln?
+
+Nein. Gekaufte Trockenaprikosen sind oft geschwefelt, damit sie hell und weich bleiben, und tragen dann den Hinweis „geschwefelt“ auf der Packung. Zu Hause brauchst du das nicht. Ein Bad in Zitronenwasser reicht, und ungeschwefeltes Obst wird einfach etwas dunkler.
+
+### Woran erkenne ich, dass Kräuter zu heiß getrocknet wurden?
+
+Sie sind braun statt grün und riechen kaum noch oder nur nach Heu. Die ätherischen Öle sind dann verflogen. Stelle die Temperatur beim nächsten Mal niedriger ein oder trockne an der Luft.

@@ -2,7 +2,7 @@
 title: "Erdbeeren aus deutschem Anbau: Sorten, Lagerung und ein Erdbeerkuchen mit Biskuitboden"
 description: Wann Freilanderdbeeren Saison haben, wie du sie wäschst, ohne dass sie wässrig werden, wie lange sie halten und wie ein Erdbeerkuchen mit Biskuit, Vanillecreme und Guss gelingt.
 category: fruehling
-date: 2026-08-01
+date: 2026-10-12
 ---
 Die ersten Erdbeeren aus der Region sind für viele das eigentliche Zeichen, dass der Sommer kommt. Wenn im Mai die Verkaufshäuschen in Erdbeerform an den Straßenrändern aufgestellt werden und die Felder zum Selbstpflücken öffnen, beginnt eine kurze, intensive Saison. Freilanderdbeeren aus Deutschland gibt es meist von Ende Mai bis Juli. Aus Folientunneln und Gewächshäusern kommen die ersten Früchte schon im April, und sogenannte remontierende oder immertragende Sorten liefern kleinere Mengen bis in den Herbst.
 
@@ -29,6 +29,10 @@ Erdbeeren gehören zu den Früchten, die nach der Ernte nicht mehr nachreifen. S
 ### Bekannte Sorten
 
 Im Handel tragen Erdbeeren selten einen Sortennamen. Auf dem Markt und beim Selbstpflücken lohnt es sich, nachzufragen. Senga Sengana ist eine alte, dunkelrote Sorte mit weichem Fruchtfleisch, die sich besonders für Marmelade eignet. Mieze Schindler gilt als eine der aromatischsten alten Sorten, ist aber sehr empfindlich und kaum im Handel. Viele moderne Sorten sind auf Festigkeit und Transportfähigkeit gezüchtet, was nicht immer dem Geschmack zugutekommt.
+
+### Eine Beere, die keine ist
+
+Botanisch ist die Erdbeere gar keine Beere, sondern eine Sammelnussfrucht. Das rote, saftige Fruchtfleisch entsteht aus dem verdickten Blütenboden. Die eigentlichen Früchte sind die kleinen gelblichen Nüsschen auf der Oberfläche, die viele für Samen halten. Eine Erdbeere trägt davon meist ein paar Hundert. Für die Küche ist das eine schöne Randnotiz, für Kinder eine erstaunliche Entdeckung beim nächsten Erdbeerkuchen.
 
 ## Selbst pflücken
 
@@ -99,6 +103,10 @@ Für eine Obstbodenform oder Springform mit 26 bis 28 cm Durchmesser:
 
 Am besten schmeckt der Erdbeerkuchen am Tag, an dem du ihn zubereitest, mit frisch geschlagener Sahne. Im Kühlschrank hält er sich bis zum nächsten Tag, der Boden wird dann allerdings weicher.
 
+## Schnelles Schichtdessert ohne Backen
+
+Wenn es schnell gehen soll, schichtest du Erdbeeren mit einer Quarkcreme in Gläser. Verrühre 250 g Magerquark mit 200 g Joghurt, zwei Esslöffeln Zucker, einem Päckchen Vanillezucker und etwas abgeriebener Zitronenschale. Schneide 300 g Erdbeeren klein und mische sie mit einem Esslöffel Zucker. Zerbrösele sechs Löffelbiskuits oder ein paar Butterkekse grob. Schichte abwechselnd Brösel, Creme und Erdbeeren in vier Gläser und lass das Dessert mindestens eine halbe Stunde im Kühlschrank durchziehen. Die Brösel saugen etwas Erdbeersaft auf und werden weich wie in einem Tiramisu.
+
 ## Weitere Ideen für Erdbeeren
 
 - **Erdbeeren mit Pfeffer und Balsamico:** Halbierte Erdbeeren mit etwas Zucker, einigen Tropfen Aceto balsamico und frisch gemahlenem schwarzem Pfeffer marinieren. Klingt ungewöhnlich, bringt das Aroma aber stark zur Geltung.
@@ -106,6 +114,14 @@ Am besten schmeckt der Erdbeerkuchen am Tag, an dem du ihn zubereitest, mit fris
 - **Erdbeermilch:** 250 g Erdbeeren mit 500 ml kalter Milch und einem Esslöffel Honig pürieren.
 - **Erdbeer-Rhabarber-Kompott:** Rhabarber garen und die Erdbeeren am Ende unterheben. Das Rezept steht im Beitrag über [Rhabarber](/kueche/rhabarberkuchen-vom-blech/).
 - **Erdbeerkonfitüre:** Wie du Konfitüre kochst, liest du im Beitrag über [Marmelade und Konfitüre](/kueche/konfituere-und-marmelade-kochen/).
+
+## Erdbeeren im Garten und auf dem Balkon
+
+Erdbeeren wachsen im Beet, im Hochbeet, im Balkonkasten und sogar in Ampeln. Die beste Pflanzzeit für die klassischen, einmal tragenden Sorten ist der Spätsommer, etwa Ende Juli bis Ende August. Dann bilden die Pflanzen bis zum Winter kräftige Wurzeln und tragen im nächsten Frühsommer reichlich. Eine Schicht Stroh unter den reifenden Früchten hält sie sauber und trocken und beugt Grauschimmel vor. Nach drei bis vier Jahren lässt der Ertrag nach. Dann ziehst du aus den Ausläufern junge Pflanzen heran und setzt sie an eine neue Stelle. Für Balkone eignen sich immertragende Sorten, die von Juni bis in den Herbst immer wieder einzelne Früchte liefern.
+
+## Was in Erdbeeren steckt
+
+Erdbeeren sind kalorienarm und gleichzeitig reich an Vitamin C. Schon rund 200 Gramm decken den Tagesbedarf eines Erwachsenen. Dazu liefern sie Folat, Kalium und Ballaststoffe. Ihre rote Farbe stammt von Anthocyanen. Weil Vitamin C hitzeempfindlich ist, sind frische Erdbeeren in dieser Hinsicht wertvoller als gekochte Konfitüre.
 
 ## Häufige Fragen
 

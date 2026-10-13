@@ -2,7 +2,7 @@
 title: "Resteküche mit Plan: Brot, Gemüse und gekochte Reste sicher weiterverwenden"
 description: Wie du aus altem Brot, Gemüseabschnitten und gekochten Resten neue Gerichte machst, wie lange Reste halten, was beim Aufwärmen von Reis gilt und wie Gemüsebrühe aus Schalen entsteht.
 category: kuechenwissen
-date: 2026-07-29
+date: 2026-10-12
 ---
 In deutschen Haushalten landet jedes Jahr eine große Menge Lebensmittel im Müll, ein erheblicher Teil davon wäre noch genießbar gewesen. Vor allem Obst, Gemüse, Brot und gekochte Reste werden weggeworfen. Dabei war die Resteküche früher selbstverständlich: Aus altem Brot wurden Knödel und Arme Ritter, aus Kartoffeln vom Vortag Bratkartoffeln, aus Gemüseabschnitten Brühe.
 
@@ -51,6 +51,10 @@ Brot wird schnell trocken, ist aber noch lange nicht verdorben. Solange es nicht
 - **Semmelknödel:** Das klassische Rezept findest du im Beitrag über [Pfifferlinge und Steinpilze](/kueche/pfifferlinge-und-steinpilze/).
 - **Brotsalat:** Geröstete Brotwürfel mit reifen Tomaten, Gurke, Zwiebel, Basilikum, Essig und Olivenöl mischen und 15 Minuten ziehen lassen.
 
+### Brot richtig aufbewahren
+
+Damit Brot gar nicht erst zum Rest wird, lohnt die richtige Aufbewahrung. Ein Brottopf aus Ton oder Steingut hält die Luftfeuchtigkeit gleichmäßig, sodass die Kruste nicht zäh und die Krume nicht trocken wird. Der Kühlschrank ist dagegen der schlechteste Ort: Bei Temperaturen knapp über null Grad wird Brot besonders schnell altbacken, weil die Stärke dort rascher fest wird. Was du in den nächsten Tagen nicht schaffst, frierst du in Scheiben ein und toastest es bei Bedarf direkt aus dem Gefrierfach.
+
 ### Arme Ritter
 
 Für 4 Personen:
@@ -90,6 +94,31 @@ Zu viel Kohl, Brokkoli oder Rosenkohl macht die Brühe schwefelig, Rote-Bete-Sch
 - **Suppe:** Reste von Ofengemüse mit Brühe pürieren und mit etwas Sahne oder Joghurt verfeinern.
 - **Gemüsereis:** Gekochten Reis vom Vortag mit gegartem Gemüse, Ei und Sojasauce in einer heißen Pfanne braten.
 - **Überreife Bananen und weiche Äpfel:** Für Bananenbrot, Pfannkuchen, Smoothies oder Apfelmus.
+
+## Milchprodukte und Käse: was noch geht
+
+- **Joghurt, Quark und Sahne** sind nach dem Mindesthaltbarkeitsdatum oft noch tagelang gut, wenn die Packung ungeöffnet war. Riecht oder schmeckt etwas bitter oder gärig, wölbt sich der Deckel oder zeigt sich Schimmel, entsorgst du das Produkt vollständig.
+- **Hartkäse** mit einer kleinen Schimmelstelle kannst du retten, indem du großzügig mindestens einen Zentimeter rund um die Stelle wegschneidest. Weichkäse, Frischkäse und geriebener Käse mit Schimmel gehören dagegen in den Müll.
+- **Sauer gewordene Milch** aus pasteurisierter Milch schmeckt meist bitter und gehört weg. Rohmilch, die dick und säuerlich wird, war früher als Dickmilch beliebt, bei gekaufter Milch solltest du darauf aber nicht setzen.
+
+## Ein Resteplan für die Woche
+
+So kann eine Woche aussehen, in der aus jeder großen Mahlzeit eine zweite entsteht:
+
+| Tag | Gekocht wird | Daraus wird am nächsten Tag |
+|---|---|---|
+| Sonntag | Braten mit Rotkohl und Kartoffeln | Bratenbrote und Kartoffelsalat |
+| Montag | Pellkartoffeln mit Quark | Bratkartoffeln mit Spiegelei |
+| Dienstag | Ofengemüse vom Blech | Gemüsesuppe, püriert |
+| Mittwoch | Reis mit Gemüsecurry | gebratener Reis mit Ei |
+| Donnerstag | Nudeln mit Tomatensoße | Nudelauflauf mit Käse |
+| Freitag | Kühlschrank-leer-Tag: Frittata oder Pizza mit allem, was übrig ist | |
+
+Wer so plant, kauft gezielter ein und hat trotzdem jeden Tag ein anderes Essen auf dem Tisch.
+
+## Lebensmittel weitergeben
+
+Was du trotz aller Planung nicht schaffst, muss nicht im Müll landen. In vielen Städten gibt es öffentliche Kühlschränke und Regale, sogenannte Fairteiler, in die man unverdorbene Lebensmittel legen und aus denen man sich bedienen kann. Nachbarn freuen sich oft über eine Kiste Äpfel oder Zucchini aus dem Garten. Und manche Bäckereien und Restaurants geben am Abend übrig gebliebene Ware über Apps oder zu reduzierten Preisen ab, sodass auch dort weniger weggeworfen wird.
 
 ## Planen statt wegwerfen
 

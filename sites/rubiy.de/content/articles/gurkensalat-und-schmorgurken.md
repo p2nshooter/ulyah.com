@@ -2,7 +2,7 @@
 title: "Gurken im Sommer: Gurkensalat mit Dill und Schmorgurken in Senfsoße"
 description: Salatgurke, Schmorgurke und Einlegegurke im Vergleich, wie Gurkensalat nicht wässrig wird, warum bittere Gurken weg müssen und wie Schmorgurken in Senf-Dill-Soße gelingen.
 category: sommer
-date: 2026-08-04
+date: 2026-10-12
 ---
 Gurken sind das Gemüse für heiße Tage. Sie bestehen zu rund 95 Prozent aus Wasser, schmecken kühl und frisch und lassen sich ohne Kochen in wenigen Minuten zu einem Salat verarbeiten. In Deutschland wachsen Salatgurken vor allem in Gewächshäusern und sind dadurch fast das ganze Jahr über zu haben. Ihre beste Zeit aus heimischem Anbau, auch aus dem Freiland, ist aber der Sommer von Juni bis September. Dann kommen auch die anderen Gurkentypen auf den Markt, die außerhalb dieser Monate kaum zu finden sind: dicke Schmorgurken und kleine, warzige Einlegegurken.
 
@@ -113,9 +113,21 @@ Für eine Variante halbierst du die Schmorgurken längs, höhlst sie aus und fü
 
 An sehr heißen Tagen ist eine kalte Gurkensuppe eine Erfrischung. Püriere eine geschälte Salatgurke mit 300 g Joghurt, einer kleinen Knoblauchzehe, einem halben Bund Dill oder Minze, einem Esslöffel Zitronensaft, Salz und Pfeffer und etwas kaltem Wasser, bis die Suppe die gewünschte Konsistenz hat. Mindestens eine Stunde kühlen und mit Gurkenwürfeln und etwas Olivenöl servieren.
 
+## Tzatziki: der griechische Klassiker
+
+Für einen Tzatziki raspelst du eine halbe Salatgurke grob, salzt sie leicht und drückst sie nach zehn Minuten kräftig in einem Tuch aus. Verrühre sie mit 400 g griechischem Joghurt, ein bis zwei fein geriebenen Knoblauchzehen, einem Esslöffel Olivenöl, einem Spritzer Zitronensaft und etwas gehacktem Dill oder Minze. Mit Salz und Pfeffer abschmecken und eine Stunde kalt stellen. Das Ausdrücken der Gurke ist der entscheidende Schritt, sonst wird der Tzatziki dünn und wässrig. Er passt zu Gegrilltem, Ofenkartoffeln und Fladenbrot.
+
 ## Einlegegurken
 
 Die kleinen warzigen Einlegegurken sind fester und haben eine dickere Schale als Salatgurken. Dadurch bleiben sie im sauren Sud knackig. Sie sind im Juli und August auf Märkten zu finden, manchmal auch kistenweise beim Erzeuger. Wie du sie in Essigsud mit Dill, Senfkörnern und Zwiebeln einlegst, beschreiben wir ausführlich im Beitrag über [Gewürzgurken](/kueche/gewuerzgurken-einlegen/).
+
+## Spreewaldgurken
+
+Die bekanntesten Gurken Deutschlands kommen aus dem Spreewald in Brandenburg. Der feuchte, humusreiche Boden und das Wasser der vielen Fließe bieten Einlegegurken ideale Bedingungen. „Spreewälder Gurken“ sind seit 1999 in der Europäischen Union als geschützte geografische Angabe eingetragen. Traditionell werden sie als Salzgurken, Senfgurken oder Gewürzgurken eingelegt. Wer die Region besucht, kann auf einem Gurkenradweg von Hof zu Hof fahren und die Sorten direkt beim Erzeuger probieren.
+
+## Gurken im eigenen Garten
+
+Gurken sind wärmebedürftig und frostempfindlich. Ins Freiland kommen sie erst nach den Eisheiligen Mitte Mai, am besten an einen sonnigen, windgeschützten Platz. Sie brauchen gleichmäßig feuchten Boden. Gieße möglichst morgens mit zimmerwarmem Wasser direkt an die Wurzel, nicht über die Blätter, das beugt Pilzkrankheiten vor. Ernte regelmäßig und nicht zu spät. Überreife, gelbe Gurken schwächen die Pflanze, und sie bildet weniger neue Früchte. Ein Rankgitter spart Platz und hält die Gurken sauber.
 
 ## Häufige Fragen
 

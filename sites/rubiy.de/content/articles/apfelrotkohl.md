@@ -2,7 +2,7 @@
 title: "Apfelrotkohl selbst kochen: Rotkraut oder Blaukraut wie bei Oma"
 description: Warum Rotkohl mal rot und mal blau ist, wie du ihn hobelst, mit Äpfeln, Gewürzen und Säure schmorst, einfrierst und als Rohkost zubereitest, mit genauen Mengen für sechs Personen.
 category: herbst
-date: 2026-08-07
+date: 2026-10-12
 ---
 Kaum eine Beilage ist so eng mit dem deutschen Sonntagsbraten verbunden wie der Rotkohl. Zur Gans an Sankt Martin, zum Rinderbraten, zu Rouladen, zum Wild und an Weihnachten steht er auf dem Tisch, oft mit Klößen und dunkler Soße. In Norddeutschland heißt er Rotkohl, in Bayern und Teilen Schwabens Blaukraut, anderswo Rotkraut. Er wird von Spätsommer bis in den Winter frisch geerntet und hält sich als Lagerkohl bis ins Frühjahr.
 
@@ -21,6 +21,10 @@ Fertiger Rotkohl aus Glas oder Beutel ist bequem, schmeckt aber oft sehr süß u
 Rotkohl enthält Anthocyane, Farbstoffe, die wie ein natürlicher Säureanzeiger funktionieren. In saurer Umgebung färben sie sich rot, in neutraler violett und in basischer, also alkalischer, blau bis grünlich. Ob der Kohl am Ende Rotkohl oder Blaukraut ist, hängt also davon ab, wie er zubereitet wird. Mit Essig, Wein und säuerlichen Äpfeln wird er kräftig rot. Wird er ohne Säure gekocht oder in kalkhaltigem Wasser, erscheint er eher blau.
 
 Die regionalen Namen sollen tatsächlich zum Teil auf diese Unterschiede zurückgehen. Ob das stimmt oder nur eine schöne Geschichte ist, lässt sich nicht sicher sagen. Für die Küche bedeutet es: Wer einen schön roten Kohl möchte, gibt die Säure früh dazu.
+
+### Ein Küchenexperiment für Kinder
+
+Die Farbwechsel des Rotkohls lassen sich wunderbar vorführen. Koche ein paar Blätter in wenig Wasser zehn Minuten und gieße den violetten Sud ab. Verteile ihn auf drei Gläser. In das erste kommt ein Schuss Essig, in das zweite nichts, in das dritte eine Messerspitze Natron. Das erste Glas färbt sich rot, das zweite bleibt violett, das dritte wird blau bis grünlich. Genau dieses Prinzip entscheidet im Topf, ob Rotkohl oder Blaukraut auf dem Teller landet.
 
 ## Einkaufen und vorbereiten
 
@@ -72,6 +76,22 @@ Für 6 Personen als Beilage:
 - **Mit Maronen:** Geschälte, gegarte Maronen in Butter glasieren und unter den fertigen Kohl heben. Wie du Maronen röstest, liest du im Beitrag über [Maronen](/kueche/maronen-roesten/).
 - **Ohne Alkohol:** Rotwein durch Apfelsaft, Kirschsaft oder schwarzen Johannisbeersaft ersetzen.
 
+## Rotkohlsteaks aus dem Ofen
+
+Eine moderne Art, Rotkohl zu servieren, sind Steaks aus dem Ofen. Schneide einen kleinen Kopf von oben nach unten in Scheiben von etwa zwei Zentimetern, sodass jede Scheibe vom Strunk zusammengehalten wird. Lege die Scheiben auf ein Blech mit Backpapier, bestreiche sie beidseitig mit Öl und würze mit Salz, Pfeffer und etwas Kümmel. Röste sie bei 220 Grad Ober- und Unterhitze 25 bis 30 Minuten und wende sie nach der Hälfte der Zeit. Die Ränder werden knusprig, das Innere bleibt saftig. Beträufle die Steaks mit einer Mischung aus Honig und Apfelessig und streue geröstete Walnüsse und zerbröselten Schafskäse darüber. So wird der Kohl zum vegetarischen Hauptgericht.
+
+## Was zum Rotkohl passt
+
+| Gericht | Klassische Begleitung |
+|---|---|
+| Gänse- oder Entenbraten | Kartoffelklöße, glasierte Maronen, Bratapfel |
+| Rinderrouladen, Sauerbraten | Kartoffelklöße oder Salzkartoffeln, dunkle Soße |
+| Rehbraten, Wildgulasch | Spätzle oder Serviettenknödel, Preiselbeeren |
+| Schweinebraten, Kassler | Kartoffelpüree, Bratensoße |
+| Vegetarisch | Pilzragout mit Semmelknödeln, gebratener Halloumi, Linsenbratlinge |
+
+Wer Kartoffelklöße selbst macht, braucht mehligkochende Kartoffeln. Warum, erklärt unser Beitrag über [Kartoffelsorten und Kochtypen](/kueche/kartoffelsorten-kochtypen/).
+
 ## Vorkochen, aufbewahren und einfrieren
 
 Rotkohl ist ein ideales Gericht zum Vorbereiten. Im Kühlschrank hält er sich in einem verschlossenen Behälter drei bis vier Tage, und mit jedem Tag verbinden sich die Aromen besser. Erwärme ihn in einem Topf bei mittlerer Hitze mit einem Schluck Wasser oder Saft und rühre dabei um.
@@ -101,3 +121,11 @@ Ja. Der Kohl ist im Schnellkochtopf nach etwa 15 bis 20 Minuten gar. Er schmeckt
 ### Wie bekomme ich Rotkohlflecken aus dem Holzbrett?
 
 Reibe das Brett mit Zitronensaft und grobem Salz ab und spüle es danach heiß ab. Frische Flecken auf Textilien spülst du sofort mit kaltem Wasser aus.
+
+### Welcher Topf eignet sich für Rotkohl?
+
+Am besten ein Topf aus Edelstahl, emailliertem Gusseisen oder ein beschichteter Bräter. Saure Speisen wie Rotkohl solltest du nicht in unbeschichteten Aluminiumtöpfen schmoren oder aufbewahren, weil sich durch die Säure Aluminium lösen und in das Essen übergehen kann. Auch die Farbe leidet dann.
+
+### Wie mache ich Rotkohl weniger süß?
+
+Halbiere den Zucker und lass das Johannisbeergelee weg. Die Äpfel bringen genug natürliche Süße mit. Schmecke zum Schluss mit Salz und einem Spritzer Essig ab, bis Süße und Säure ausgewogen sind.

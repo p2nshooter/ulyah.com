@@ -2,7 +2,7 @@
 title: "Grüne Bohnen richtig garen: warum roh tabu ist, Bohnensalat und Speckbohnen"
 description: "Grüne Bohnen putzen, sicher garen und würzen: Sorten von Prinzess- bis Wachsbohne, warum Phasin Kochen verlangt, Bohnensalat mit Bohnenkraut und Speckbohnen."
 category: sommer
-date: 2026-08-22
+date: 2026-10-12
 ---
 Von Juli bis in den September kommen grüne Bohnen aus dem Freiland, und dann sind sie günstig, zart und voller Geschmack. Kaum ein Gemüse passt so gut zur deutschen Sommerküche: als lauwarmer Bohnensalat zu Frikadellen, als Speckbohnen zum Sonntagsbraten oder in Norddeutschland als „Birnen, Bohnen und Speck“. Eine Besonderheit unterscheidet Bohnen aber von fast allen anderen Gemüsen: Roh sind sie nicht nur unbekömmlich, sondern giftig. Wer das weiß und die Garzeit richtig wählt, hat ein unkompliziertes und sehr vielseitiges Sommergemüse.
 
@@ -50,6 +50,10 @@ Beim Putzen schneidest du die Enden ab oder knipst sie mit den Fingern ab. Die m
 
 **Dämpfen** ist eine gute Alternative: Im Dampfeinsatz brauchen Bohnen etwa zwölf bis fünfzehn Minuten. Sie verlieren weniger Aroma ans Wasser, schmecken intensiver und bleiben schön grün.
 
+## Bohnenkraut: das Gewürz mit dem passenden Namen
+
+Bohnenkraut schmeckt würzig und leicht pfeffrig, weshalb es regional auch Pfefferkraut heißt. In der Küche begegnen dir zwei Arten: das einjährige Sommer-Bohnenkraut mit zarten Blättern und das mehrjährige Winter-Bohnenkraut, auch Berg-Bohnenkraut genannt, das kräftiger und etwas herber ist. Beide passen nicht nur zu grünen Bohnen, sondern auch zu Linsen, weißen Bohnen und Kartoffeln. In der Volksküche gilt Bohnenkraut als Mittel, Hülsenfrüchte bekömmlicher zu machen. Gib frische Zweige schon ins Kochwasser und streue zum Schluss noch ein paar fein gehackte Blätter darüber. Getrocknet behält es sein Aroma gut, sodass du im Sommer einen Vorrat für den Winter anlegen kannst.
+
 ## Lauwarmer Bohnensalat mit Bohnenkraut
 
 Dieser Salat ist ein Klassiker zu Frikadellen, Bratkartoffeln oder vom Grill. Für vier Personen brauchst du:
@@ -75,6 +79,16 @@ Speckbohnen sehen festlich aus und sind trotzdem schnell gemacht. Gare 400 Gramm
 ## Birnen, Bohnen und Speck
 
 Das norddeutsche Sommergericht verbindet Süße, Salz und Säure. Ein Stück durchwachsener Speck wird in Wasser etwa 30 Minuten gekocht. Dann kommen Stangenbohnen in Stücken und ganze, kleine Kochbirnen dazu, gewürzt mit Bohnenkraut, Salz und Pfeffer. Alles gart zusammen weitere 20 Minuten, bis Bohnen und Birnen weich sind. Dazu gibt es Salzkartoffeln. Die Brühe wird am Ende mit etwas Mehlbutter leicht gebunden. Wer keinen Speck isst, nimmt geräucherten Tofu und eine kräftige [Gemüsebrühe](/kueche/gemuesebruehe-selbst-kochen/).
+
+## Saure Bohnen: Vorrat auf badische Art
+
+In Baden und Schwaben werden grüne Bohnen traditionell wie Sauerkraut milchsauer vergoren. Die Bohnen werden geputzt, in Stücke geschnitten, kurz gegart, mit Salz in einen Gärtopf geschichtet und beschwert, bis sie von ihrer eigenen Lake bedeckt sind. Nach einigen Wochen bei kühler Raumtemperatur sind sie angenehm säuerlich. Saure Bohnen werden vor dem Essen gekocht, etwa mit Speck und Kartoffeln zu einem kräftigen Eintopf. Die Gärung macht das Phasin nicht sicher unschädlich, das Kochen vor dem Verzehr bleibt also Pflicht. Wie Milchsäuregärung grundsätzlich funktioniert, erklärt unser Beitrag [Sauerkraut selbst machen](/kueche/sauerkraut-selbst-machen/).
+
+Vom Einkochen grüner Bohnen im Wasserbad raten viele Fachleute ab. Bohnen sind säurearm, und bei Temperaturen um 100 Grad werden Sporen des Botulismus-Erregers nicht sicher abgetötet. Einfrieren oder Säuern sind für den Haushalt die sichereren Wege.
+
+## Bohnen im eigenen Garten
+
+Bohnen sind wärmebedürftig. Gesät wird erst nach den Eisheiligen Mitte Mai, wenn sich der Boden auf mindestens zehn bis zwölf Grad erwärmt hat. In kalter, nasser Erde faulen die Samen. Buschbohnen wachsen kompakt und brauchen keine Stütze, Stangenbohnen klettern an Stangen oder Schnüren zwei bis drei Meter hoch und tragen dafür länger. Ernte die Hülsen jung, alle zwei bis drei Tage, bevor sich die Kerne deutlich abzeichnen. Dann bleiben sie zart, und die Pflanze bildet weiter neue Blüten. Als Hülsenfrüchte binden Bohnen mit Hilfe von Knöllchenbakterien Stickstoff aus der Luft und hinterlassen einen nährstoffreichen Boden für die nächste Kultur.
 
 ## Häufige Fragen
 

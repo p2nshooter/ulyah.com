@@ -2,7 +2,7 @@
 title: "Zwetschgendatschi vom Blech: Hefeteig, dicht gesetzte Zwetschgen und ein saftiger Boden"
 description: "Zwetschgenkuchen wie in Bayern und Schwaben: Zwetschgen oder Pflaumen, der richtige Hefeteig, wie du die Früchte setzt, warum der Zucker später kommt und was gegen nassen Boden hilft."
 category: sommer
-date: 2026-09-06
+date: 2026-10-12
 ---
 Wenn im August die ersten Zwetschgen auf dem Markt liegen, beginnt in Bayern und Schwaben die Zeit des Datschi. So heißt der Zwetschgenkuchen vom Blech dort, und Augsburg nennt sich augenzwinkernd sogar „Datschiburg“. Das Prinzip ist denkbar einfach: ein dünner Hefeteig, darauf dicht an dicht halbierte Zwetschgen, nach dem Backen Zimt und Zucker, dazu ein Klecks Schlagsahne. Gerade weil das Rezept so schlicht ist, kommt es auf die Details an: auf die richtigen Früchte, auf die Art, wie du sie setzt, und auf ein paar Kniffe gegen einen durchweichten Boden.
 
@@ -28,6 +28,17 @@ Botanisch gehören beide zur selben Art, in der Küche verhalten sie sich aber g
 Für Kuchen sind Zwetschgen deshalb ideal. Die alte Sorte Hauszwetschge, die im September reif wird, gilt vielen als die beste, weil sie beim Backen besonders aromatisch wird. Frühere Sorten ab Ende Juli sind oft milder. Auch Mirabellen und Renekloden lassen sich auf dem Blech backen, sie sind aber süßer und brauchen weniger Zucker.
 
 Kaufe Zwetschgen reif, aber fest. Leicht schrumpelige Früchte am Stielansatz sind übrigens ein gutes Zeichen: Sie sind süß und aromatisch. Weiche, aufgeplatzte oder schimmelige Früchte sortierst du aus.
+
+### Die Zwetschgensaison im Überblick
+
+| Reifezeit | Typische Sorten | Charakter |
+|---|---|---|
+| Ende Juli bis Anfang August | Katinka | mild, löst sich gut vom Stein |
+| Mitte bis Ende August | Hanita, Cacaks Schöne | saftig, ausgewogen |
+| September | Hauszwetschge | würzig, säuerlich, ideal zum Backen |
+| Ende September bis Oktober | Presenta | spät, süß, gut lagerfähig |
+
+Die Zeiten schwanken je nach Region und Witterung um ein bis zwei Wochen. Für den klassischen Datschi lohnt es sich, auf die Hauszwetschge zu warten.
 
 ## Zutaten für ein Backblech
 
@@ -91,6 +102,14 @@ Lass den Datschi auf dem Blech abkühlen und schneide ihn in Rechtecke. Dazu geh
 
 **Mit Quark-Öl-Teig:** Schnell und ohne Gehzeit: 150 g Magerquark, 6 EL Milch, 6 EL Öl, 75 g Zucker, 300 g Mehl und 1 Päckchen Backpulver verkneten und ausrollen.
 
+## Zwetschgenknödel
+
+In Bayern und Österreich gehören Zwetschgenknödel zu den Lieblingsgerichten der Saison. Für etwa zwölf Knödel kochst du 500 g mehligkochende Kartoffeln als Pellkartoffeln, pellst sie heiß und drückst sie durch die Kartoffelpresse. Nach dem Abkühlen verknetest du sie mit 150 g Mehl, einem Ei, 30 g weicher Butter und einer Prise Salz zu einem glatten Teig. Entsteine zwölf Zwetschgen, ohne sie zu halbieren, und stecke in jede ein Stück Würfelzucker. Umhülle jede Frucht mit einer Teigplatte, forme runde Knödel und lass sie in leicht siedendem Salzwasser etwa zwölf Minuten ziehen. Das Wasser darf nicht sprudeln, sonst zerfallen sie. Röste in der Zwischenzeit 80 g Semmelbrösel in 80 g Butter goldbraun, mische einen Esslöffel Zucker und etwas Zimt darunter und wälze die abgetropften Knödel darin.
+
+## Pflaumenmus aus dem Backofen
+
+Wenn die Ernte groß ist, wird aus den Zwetschgen Pflaumenmus, in Österreich Powidl genannt. Halbiere und entsteine 2,5 kg reife Zwetschgen, mische sie in einem Bräter mit 250 g Zucker, einem Teelöffel Zimt und zwei Nelken und lass sie über Nacht Saft ziehen. Stelle den Bräter ohne Deckel bei 160 Grad in den Ofen und lass das Mus zwei bis drei Stunden einkochen. Rühre gelegentlich um und klemme, wenn viel Flüssigkeit da ist, einen Kochlöffel in die Ofentür, damit Dampf entweicht. Das Mus ist fertig, wenn es dunkel, dick und streichfähig ist und ein Löffel darin fast stehen bleibt. Nimm die Nelken heraus, püriere es nach Wunsch und fülle es heiß in saubere Schraubgläser. Pflaumenmus passt auf Brot, in Buchteln und zu Kaiserschmarrn.
+
 ## Häufige Fragen
 
 ### Kann ich tiefgekühlte Zwetschgen verwenden?
@@ -104,3 +123,7 @@ Am besten schmeckt er am Backtag. Abgedeckt bei Zimmertemperatur hält er sich b
 ### Wohin mit den übrigen Zwetschgen?
 
 Eingekocht im leichten Sirup, als Pflaumenmus oder getrocknet halten sie bis in den Winter. Anleitungen findest du in [Einkochen für Einsteiger](/kueche/einkochen-grundlagen/) und [Obst und Kräuter trocknen](/kueche/obst-und-kraeuter-trocknen/).
+
+### Warum ist der Teigrand hart geworden?
+
+Meist wurde der Teig zu dünn am Rand ausgerollt oder der Kuchen war zu lange im Ofen. Lass am Rand einen kleinen Wulst stehen und bestreiche ihn nach dem Backen mit etwas zerlassener Butter. Unter einem sauberen Geschirrtuch abgekühlt, bleibt der Rand weicher.

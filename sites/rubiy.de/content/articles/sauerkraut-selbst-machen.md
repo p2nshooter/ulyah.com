@@ -2,7 +2,7 @@
 title: "Sauerkraut selbst fermentieren: Salzmenge, Gärzeit und Kahmhefe erkennen"
 description: Wie du aus Weißkohl und Salz im Glas oder Gärtopf Sauerkraut fermentierst, welche Temperatur richtig ist und wie du Kahmhefe von Schimmel unterscheidest.
 category: vorrat-und-konservieren
-date: 2026-07-26
+date: 2026-10-12
 ---
 Sauerkraut ist eines der ältesten haltbaren Lebensmittel Mitteleuropas. Lange bevor es Kühlschränke und Konservendosen gab, standen in Kellern große Steinguttöpfe voller Kraut, das den ganzen Winter über Vitamine lieferte. Seefahrer nahmen es auf lange Reisen mit, weil es gegen Skorbut half. Heute erlebt das Fermentieren eine Renaissance, und selbst gemachtes Sauerkraut ist der beste Einstieg: Man braucht nur Kohl, Salz und ein paar Wochen Geduld.
 
@@ -15,6 +15,10 @@ Im Herbst, wenn der Weißkohl geerntet wird, ist die beste Zeit dafür. Die Köp
 > - Der Kohl muss während der ganzen Gärung unter der Lake liegen. Sauerstoff ist der Feind.
 > - Die ersten fünf bis sieben Tage gärt das Kraut bei 18 bis 22 Grad, danach reift es kühler. Nach drei bis sechs Wochen ist es fertig.
 > - Ein weißer, flacher Film ist meist harmlose Kahmhefe. Pelziger, farbiger Schimmel bedeutet: Das Kraut wird entsorgt.
+
+## Kraut mit Geschichte
+
+Wie wertvoll Sauerkraut auf Reisen war, zeigt das Beispiel von James Cook. Der britische Seefahrer ließ im 18. Jahrhundert Fässer mit Sauerkraut an Bord bringen, weil frisches Gemüse auf monatelangen Fahrten fehlte und das Kraut Vitamin C liefert. In Deutschland ist der Kohlanbau bis heute regional stark verwurzelt. Dithmarschen an der Nordseeküste gilt als eines der größten zusammenhängenden Kohlanbaugebiete Europas, und auf den Fildern bei Stuttgart wächst das spitze Filderkraut, das als geschützte geografische Angabe eingetragen ist und traditionell zu Sauerkraut verarbeitet wird.
 
 ## Was beim Fermentieren passiert
 
@@ -82,6 +86,18 @@ Roh schmeckt Sauerkraut frisch und knackig und enthält lebende Milchsäurebakte
 
 Gekocht wird es mild und mürbe. Für vier Personen dünstest du eine Zwiebel in zwei Esslöffeln Schmalz oder Butter an, gibst 750 Gramm Sauerkraut, einen geriebenen Apfel, ein Lorbeerblatt, ein paar Wacholderbeeren und 200 ml Brühe oder Weißwein dazu und lässt alles zugedeckt 30 bis 45 Minuten schmoren. Mit einer geriebenen rohen Kartoffel bindest du die Flüssigkeit. Dazu passen Kartoffelpüree und Bratwurst, Kassler oder Schupfnudeln.
 
+## Krautschupfnudeln: ein schwäbischer Klassiker
+
+Für vier Personen brätst du 100 g gewürfelten Speck in einer großen Pfanne aus und gibst eine fein gewürfelte Zwiebel dazu. Nimm beides heraus und brate 600 g Schupfnudeln aus dem Kühlregal oder selbst gemacht in zwei Esslöffeln Butterschmalz goldbraun. Gib 400 g gut abgetropftes, gegartes Sauerkraut, Speck und Zwiebel dazu und brate alles unter Wenden noch einige Minuten, bis das Kraut leichte Röstaromen bekommt. Mit Pfeffer, etwas Kümmel und wenig Salz abschmecken. Vegetarisch funktioniert das Gericht mit gerösteten Zwiebeln und einem Stück Butter. Dazu passt ein grüner Salat.
+
+## Choucroute aus dem Elsass
+
+Gleich hinter der Grenze ist Sauerkraut ein Festessen. Für die Choucroute garnie wird das Kraut mit Zwiebeln, Wacholder und trockenem Weißwein, traditionell Riesling, langsam geschmort. Darauf garen verschiedene Würste, geräucherter Speck und Kassler, dazu gibt es Salzkartoffeln und Senf. Das Gericht zeigt, wie gut die Säure des Krauts deftige Zutaten ausgleicht.
+
+## Die Lake nicht wegschütten
+
+Der Saft, der beim Abtropfen übrig bleibt, ist zu schade für den Ausguss. Sauerkrautsaft schmeckt kühl getrunken erfrischend säuerlich und kann Dressings, Kartoffelsalat und Rote-Bete-Salat eine feine Säure geben. Ein Schuss davon im nächsten Gärglas bringt außerdem gleich die passenden Milchsäurebakterien mit und kann die Gärung beschleunigen.
+
 ## Häufige Fragen
 
 ### Warum ist mein Kraut zu weich?
@@ -95,3 +111,7 @@ Ja. Rotkohl, Spitzkohl, Möhren, Rote Bete und Rettich lassen sich genauso mit S
 ### Ist selbst gemachtes Sauerkraut für alle geeignet?
 
 Für die meisten Menschen ja. Wer an einer Histaminunverträglichkeit leidet, verträgt fermentierte Lebensmittel oft schlecht. Wer salzarm essen muss, sollte die Menge im Blick behalten.
+
+### Muss ich gekauftes Sauerkraut waschen?
+
+Nur wenn es dir zu sauer ist. Beim Abspülen gehen auch Aroma, ein Teil der Milchsäurebakterien und wasserlösliche Vitamine verloren. Besser ist es, sehr saures Kraut mit etwas Apfel, Zwiebel und Brühe zu schmoren, das mildert die Säure ganz von selbst.

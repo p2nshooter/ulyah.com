@@ -2,7 +2,7 @@
 title: "Maronen rösten: im Ofen, in der Pfanne und glasiert zum Rotkohl"
 description: "Maronen einkaufen, einschneiden, im Backofen oder in der Pfanne rösten und leicht schälen, dazu glasierte Maronen, Maronensuppe und der Unterschied zur Rosskastanie."
 category: herbst
-date: 2026-08-25
+date: 2026-10-12
 ---
 Wenn es draußen früh dunkel wird und der Duft von gerösteten Maronen über den Weihnachtsmarkt zieht, beginnt für viele die gemütlichste Zeit des Jahres. Dabei musst du Maronen gar nicht in der Tüte vom Stand kaufen: Im Backofen werden sie genauso gut, und als glasierte Beilage zu Rotkohl, Gans oder Wild gehören sie zu den schönsten Herbstzutaten überhaupt. Das Einzige, was beim ersten Mal Nerven kostet, ist das Schälen. Mit dem richtigen Schnitt und etwas Dampf geht es aber erstaunlich leicht.
 
@@ -31,6 +31,10 @@ Rosskastanien aus Parks und Alleen sind keine Verwandten der Esskastanie und dü
 | Größe | oft kleiner als eine Rosskastanie | groß und glänzend |
 
 Wenn du selbst sammelst, nimm nur Früchte, die du sicher bestimmen kannst.
+
+### Selbst sammeln: was erlaubt ist
+
+Im Herbst liegen in Pfälzer und badischen Wäldern oft Esskastanien auf den Wegen. Nach dem Bundesnaturschutzgesetz darfst du wild wachsende Früchte in kleinen Mengen für den eigenen Bedarf sammeln, solange das Gebiet nicht unter besonderem Schutz steht. Das gilt nicht für Bäume in Gärten, Obstanlagen oder auf Privatgrundstücken. Trage feste Handschuhe, denn die stacheligen Hüllen stechen durch dünnen Stoff. Öffne die Hüllen mit den Schuhsohlen, indem du sie vorsichtig hin und her rollst.
 
 ## Einkaufen und lagern
 
@@ -87,6 +91,16 @@ Lass den Zucker in einer Pfanne hell karamellisieren, ohne zu rühren. Gib die B
 
 Dünste eine fein gewürfelte Zwiebel und eine Stange Sellerie in Butter an, gib 300 Gramm geschälte Maronen und einen kleinen gewürfelten Apfel dazu und gieße mit 800 Millilitern Brühe auf. Lass alles 20 Minuten köcheln, püriere die Suppe fein und verfeinere sie mit einem Schuss Sahne, Salz, Pfeffer und einer Prise Muskat. Geröstete Brotwürfel oder ein paar zerbröselte Maronen obenauf machen sie festlich.
 
+## Maronenfüllung für Gans und Ente
+
+Zu Martinsgans und Weihnachtsbraten gehört in vielen Familien eine Füllung mit Maronen und Äpfeln. Weiche zwei Brötchen vom Vortag in etwas lauwarmer Milch ein und drücke sie aus. Brate eine fein gewürfelte Zwiebel in Butter glasig. Mische Brötchen und Zwiebel mit 300 g grob gehackten, geschälten Maronen, zwei säuerlichen Äpfeln in Würfeln, einem Ei, einem Esslöffel getrocknetem Majoran, gehackter Petersilie, Salz und Pfeffer. Fülle die Masse locker in den Vogel, denn sie dehnt sich beim Garen aus. Was nicht hineinpasst, backst du in einer kleinen Form mit, begossen mit etwas Bratensaft.
+
+## Die Kastanie als Grundnahrungsmittel
+
+In den Bergregionen Südeuropas, im Tessin, auf Korsika, in den Cevennen und im Apennin, waren Esskastanien über Jahrhunderte ein Grundnahrungsmittel. Man nannte sie das Brot der Armen. Die Früchte wurden in Darrhäusern über schwachem Feuer getrocknet, geschält und zu Mehl gemahlen. Daraus entstanden Brei, Fladen und Kuchen, die es bis heute gibt: In der Toskana backt man den flachen Castagnaccio aus Kastanienmehl, Wasser, Olivenöl, Rosmarin und Pinienkernen, auf Korsika kocht man eine Polenta aus Kastanienmehl.
+
+Ernährungsphysiologisch erklärt sich diese Rolle leicht. Anders als Walnüsse oder Haselnüsse enthalten Maronen nur wenig Fett, dafür viel Stärke. In der Küche verhalten sie sich deshalb eher wie eine Kartoffel als wie eine Nuss: Sie sättigen, werden beim Garen weich und lassen sich zu Püree und Mehl verarbeiten. Dazu liefern sie Ballaststoffe, Kalium und B-Vitamine.
+
 ## Häufige Fragen
 
 ### Kann man Maronen roh essen?
@@ -100,3 +114,11 @@ Geschält und abgedeckt im Kühlschrank etwa drei Tage. Eingefroren halten sie m
 ### Sind Maronen glutenfrei?
 
 Ja, Esskastanien enthalten kein Gluten. Maronenmehl wird deshalb gern für glutenfreies Gebäck verwendet. Bei Fertigprodukten solltest du trotzdem die Zutatenliste prüfen.
+
+### Warum lassen sich meine Maronen so schwer schälen?
+
+Meist sind sie schon abgekühlt, zu kurz geröstet oder nicht tief genug eingeschnitten. Schneide beim nächsten Mal sicher durch die Samenhaut, lass die heißen Maronen im feuchten Tuch ruhen und schäle sie, solange sie warm sind. Gekochte Maronen lassen sich oft leichter schälen als geröstete.
+
+### Was ist Maronencreme?
+
+Gesüßte Maronencreme, in Frankreich als Crème de marrons bekannt, wird aus pürierten Maronen, Zucker und Vanille gekocht und im Glas verkauft. Sie schmeckt zu Joghurt und in Crêpes und ist die Grundlage des Desserts Mont Blanc, bei dem sie mit Sahne zu einem kleinen Berg aufgespritzt wird.

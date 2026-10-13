@@ -2,7 +2,7 @@
 title: "Kartoffelsorten und Kochtypen: festkochend, vorwiegend festkochend oder mehlig?"
 description: "Welche Kartoffel für Salat, Bratkartoffeln, Püree oder Klöße? Die drei Kochtypen erklärt, dazu Frühkartoffeln, richtige Lagerung, grüne Stellen und Garzeiten."
 category: kuechenwissen
-date: 2026-08-31
+date: 2026-10-12
 ---
 Ein Kartoffelsalat, der zu Brei zerfällt, oder Klöße, die beim Kochen nicht zusammenhalten: Meistens liegt es nicht am Rezept, sondern an der falschen Kartoffel. In Deutschland sind mehr als 200 Kartoffelsorten zugelassen, und sie unterscheiden sich deutlich darin, wie sie sich beim Kochen verhalten. Zum Glück muss man keine Sortennamen auswendig lernen. Auf jeder Packung steht der Kochtyp, und der verrät fast alles, was du in der Küche wissen musst.
 
@@ -54,6 +54,12 @@ Ab Ende Mai kommen die ersten **Frühkartoffeln** aus Deutschland in den Handel,
 
 Ab September werden die **Lagerkartoffeln** geerntet. Sie haben eine feste Schale, sind ausgereift und halten bei richtiger Lagerung bis ins Frühjahr. Im Laufe des Winters werden sie etwas weicher und süßer, weil ein Teil der Stärke in Zucker umgewandelt wird.
 
+## Kartoffeln einkaufen: woran du gute Ware erkennst
+
+Gute Speisekartoffeln sind prall und fest, die Schale ist glatt und unverletzt. Lass Knollen mit grünen Stellen, weichen Druckstellen, Rissen oder sichtbaren Keimen liegen. Auch ein muffiger Geruch aus dem Sack ist ein Warnsignal, denn eine einzige faulende Knolle steckt die Nachbarn schnell an. Auf Packung oder Preisschild stehen in der Regel Sorte, Kochtyp und Herkunft.
+
+Kaufe nur so viel, wie du in den nächsten Wochen kühl und dunkel lagern kannst. Wer keinen Keller hat, fährt mit kleinen Mengen besser als mit dem günstigen Zehn-Kilo-Sack, der in der warmen Küche zu keimen beginnt. Lose Ware hat den Vorteil, dass du jede Kartoffel selbst aussuchst. Bei Netzen und Säcken lohnt ein Blick rundherum. Zu Hause gehören die Kartoffeln sofort aus der Plastiktüte in eine Kiste, einen Korb oder einen Papiersack.
+
 ## Kartoffeln richtig lagern
 
 - **Dunkel:** Licht lässt Kartoffeln grün werden.
@@ -87,6 +93,26 @@ Setze ganze Kartoffeln immer in kaltem, gesalzenem Wasser auf. So garen sie glei
 
 Mach die Garprobe mit einem spitzen Messer: Es sollte ohne Widerstand hineingleiten. Gieße die Kartoffeln danach ab und lass sie im offenen Topf kurz ausdampfen. Trockene Kartoffeln schmecken besser und nehmen Butter und Soße gleichmäßiger auf.
 
+## Mit Schale oder ohne kochen?
+
+Als Pellkartoffeln gegart, verlieren Kartoffeln weniger Vitamine und Mineralstoffe ans Kochwasser, weil die Schale wie ein Schutzmantel wirkt. Das gilt besonders für Vitamin C und Kalium, die beide wasserlöslich sind. Noch schonender ist Dämpfen im Siebeinsatz: Die Kartoffeln liegen nicht im Wasser, und der Geschmack bleibt kräftiger.
+
+Ob du die Schale mitisst, ist Geschmackssache. Bei Frühkartoffeln mit ihrer dünnen Haut ist es üblich, Lagerkartoffeln mit dicker Schale pellst du besser. In jedem Fall gilt: gründlich unter fließendem Wasser abbürsten und alle grünen Stellen entfernen.
+
+Interessant für alle, die auf ihre Verdauung achten: Wenn gekochte Kartoffeln abkühlen, ordnet sich ein Teil der Stärke neu und wird zu sogenannter resistenter Stärke. Sie wird im Dünndarm kaum verdaut und wirkt im Dickdarm ähnlich wie ein Ballaststoff. Ein Kartoffelsalat vom Vortag ist also nicht nur aromatischer, sondern sättigt auch etwas länger.
+
+## Ein Klassiker zum Üben: Pellkartoffeln mit Kräuterquark
+
+Für vier Personen brauchst du 1 kg festkochende oder vorwiegend festkochende Kartoffeln, 500 g Quark, etwa 100 ml Milch, einen Bund Schnittlauch, einige Stängel Petersilie, eine kleine Zwiebel, Salz und Pfeffer. In der Lausitz gehört ein Schuss Leinöl dazu, der dem Gericht seinen nussigen, leicht herben Geschmack gibt.
+
+1. Kartoffeln waschen, in kaltem Salzwasser aufsetzen und 20 bis 25 Minuten garen.
+2. Quark mit der Milch glatt rühren, bis er cremig ist.
+3. Zwiebel sehr fein würfeln, Kräuter fein schneiden und unterrühren. Mit Salz und Pfeffer abschmecken.
+4. Kartoffeln abgießen, kurz ausdampfen lassen und heiß servieren, gepellt oder mit Schale.
+5. Nach Belieben Leinöl über den Quark träufeln.
+
+Das Gericht zeigt, wie gut eine einfache Kartoffel schmeckt, wenn der Kochtyp stimmt und sie nicht verkocht ist.
+
 ## Häufige Fragen
 
 ### Warum wird mein Püree klebrig?
@@ -100,3 +126,11 @@ Ja. Kühle gekochte Kartoffeln zügig ab und bewahre sie abgedeckt im Kühlschra
 ### Sind rote oder blaue Kartoffeln anders?
 
 Die Schalen- und Fleischfarbe sagt nichts über den Kochtyp. Rotschalige Sorten wie Laura sind vorwiegend festkochend, blaue Sorten gibt es in allen Kochtypen. Achte auch hier auf die Angabe auf der Packung.
+
+### Kann ich Kartoffeln einfrieren?
+
+Rohe Kartoffeln eignen sich nicht: Nach dem Auftauen sind sie wässrig, glasig und schmecken süßlich. Fertige Kartoffelgerichte wie Püree, Suppe, Klöße oder Gratin lassen sich dagegen gut einfrieren. Ganze gekochte Kartoffeln werden nach dem Auftauen weich und taugen dann höchstens noch für Suppe oder Püree.
+
+### Warum werden gekochte Kartoffeln manchmal grau?
+
+Das ist die sogenannte Kochdunkelung. Nach dem Garen verbinden sich Chlorogensäure und Eisen aus der Knolle zu einem Komplex, der an der Luft dunkel wird. Das ist harmlos, sieht aber unschön aus. Ein Schuss Essig oder Zitronensaft im Kochwasser schwächt den Effekt deutlich ab.

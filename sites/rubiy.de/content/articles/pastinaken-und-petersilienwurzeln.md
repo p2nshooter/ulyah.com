@@ -2,7 +2,7 @@
 title: "Pastinaken und Petersilienwurzeln: unterscheiden, im Ofen rösten und als Püree"
 description: "Pastinake oder Petersilienwurzel? So unterscheidest du die hellen Wintermöhren, lagerst sie richtig und bereitest sie zu: geröstet mit Honig, als Püree, in Suppe und Eintopf."
 category: winter
-date: 2026-09-27
+date: 2026-10-12
 ---
 Lange waren sie fast vergessen, heute liegen sie wieder auf jedem Wochenmarkt: Pastinaken und Petersilienwurzeln. Beide sehen aus wie blasse, cremeweiße Möhren, und beide sind in der kalten Jahreszeit ein Gewinn für die Küche. Bevor die Kartoffel im 18. Jahrhundert in Mitteleuropa heimisch wurde, war die Pastinake ein wichtiges Grundnahrungsmittel. Heute schätzen wir sie für ihre feine Süße und ihren nussig-würzigen Geschmack. Die Petersilienwurzel ist kräftiger und würziger. Wer die beiden auseinanderhalten kann, setzt sie gezielt ein: die Pastinake für Süße und Cremigkeit, die Petersilienwurzel für Würze in Suppen und Brühen.
 
@@ -84,12 +84,32 @@ Die Petersilienwurzel ist in vielen Regionen ein fester Bestandteil des Suppengr
 
 **Petersilienwurzelsuppe:** Dünste eine Zwiebel und 500 g gewürfelte Petersilienwurzeln in Butter an, gieße mit einem Liter Brühe auf und lass alles 20 Minuten köcheln. Püriere die Suppe, verfeinere sie mit Sahne und einem Spritzer Zitronensaft und streue fein gehackte glatte Petersilie darüber. Ein paar Tropfen Kürbiskernöl machen sie besonders schön.
 
+## Pastinakensuppe mit Apfel und Ingwer
+
+Für vier Portionen würfelst du eine Zwiebel und ein daumengroßes Stück Ingwer fein und dünstest beides in 2 EL Butter glasig. Gib 600 g Pastinaken und einen säuerlichen Apfel dazu, beides geschält und gewürfelt, und dünste sie kurz mit. Gieße mit einem Liter Gemüsebrühe auf und lass alles etwa 20 Minuten köcheln, bis die Pastinaken weich sind. Püriere die Suppe fein, rühre 100 ml Sahne oder Kokosmilch ein und schmecke mit Salz, Pfeffer und einem Spritzer Zitronensaft ab. Geröstete Kürbiskerne oder ein paar Croûtons geben Biss. Der Apfel bringt Frische, der Ingwer eine leichte Schärfe, die die Süße der Pastinake ausbalanciert.
+
 ## Weitere Ideen
 
 - **Im Eintopf:** Pastinaken und Petersilienwurzeln passen in jeden Wintereintopf, etwa mit [Steckrüben](/kueche/steckrueben-eintopf/), Linsen oder Graupen.
 - **Als Chips:** Hauchdünn gehobelte Pastinaken mit Öl und Salz bei 150 Grad Umluft 15 bis 20 Minuten backen, bis sie knusprig sind. Sie verbrennen schnell, also gut beobachten.
 - **Roh:** Junge Pastinaken lassen sich fein geraspelt wie Möhren in Rohkostsalaten verwenden.
 - **Im Kuchen:** Geraspelte Pastinake funktioniert in einem Rührkuchen ähnlich wie Möhren im Rüblikuchen.
+
+## Pastinaken einfrieren
+
+Wenn die Ernte groß ist oder der Markt ein gutes Angebot hat, lassen sich Pastinaken einfrieren. Schäle sie, schneide sie in Scheiben oder Stifte und blanchiere sie zwei bis drei Minuten in sprudelnd kochendem Wasser. Danach in Eiswasser abschrecken, gut abtropfen lassen, trocken tupfen und portionsweise in Gefrierbeutel füllen. Bei minus 18 Grad halten sie sich so etwa zehn bis zwölf Monate.
+
+Gefrorene Pastinaken gibst du direkt in Suppe oder Eintopf. Für knuspriges Ofengemüse sind frische Wurzeln besser, weil aufgetautes Gemüse mehr Wasser abgibt. Auch fertiges Püree lässt sich gut portionsweise einfrieren. Wie das Blanchieren im Einzelnen funktioniert, zeigt unser Beitrag [Gemüse einfrieren und blanchieren](/kueche/gemuese-einfrieren-und-blanchieren/).
+
+## Selbst anbauen: Pastinaken und Wurzelpetersilie im Garten
+
+Beide Wurzeln sind dankbare Kulturen für Garten und tiefe Hochbeete. Pastinaken werden von März bis Mai direkt ins Beet gesät, in Reihen mit etwa 30 cm Abstand. Sie keimen langsam, oft erst nach drei bis vier Wochen, und ihre Samen verlieren schnell die Keimfähigkeit. Verwende deshalb jedes Jahr frisches Saatgut. Ein paar Radieschensamen in derselben Reihe markieren die Saat, bis die Pastinaken auflaufen.
+
+Petersilienwurzeln säst du ab März ebenfalls direkt. Beide brauchen einen tiefgründigen, lockeren Boden ohne Steine und ohne frischen Mist, sonst verzweigen sich die Wurzeln. Geerntet wird ab Oktober. Pastinaken sind so frosthart, dass sie den Winter über im Beet bleiben und nach Bedarf ausgegraben werden können, solange der Boden nicht gefroren ist. Eine Mulchschicht aus Laub oder Stroh erleichtert die Ernte an kalten Tagen.
+
+## Was steckt drin?
+
+Pastinaken enthalten deutlich mehr Kohlenhydrate als Möhren. Daher kommen ihre Süße und ihre sättigende Wirkung. Dazu liefern sie Ballaststoffe, Kalium und Folat. Petersilienwurzeln sind weniger süß und bringen wie das Petersilienkraut ätherische Öle mit, die für den würzigen Duft sorgen. Beide Wurzeln gelten als gut bekömmlich und sind deshalb im Winter eine gute Wahl für empfindliche Mägen.
 
 ## Häufige Fragen
 
@@ -103,4 +123,8 @@ Meist wurde sie zusammen mit Obst gelagert oder ist alt. Auch sehr dicke Wurzeln
 
 ### Eignen sich Pastinaken für Babybrei?
 
-Ja. Pastinaken sind mild, leicht süß und gut verträglich. Sie werden deshalb oft als eines der ersten Gemüse für Babys verwendet. Für Kleinkinder garst du sie ohne Salz und Honig.
+Ja. Pastinaken sind mild, leicht süß und gut verträglich. Sie werden deshalb oft als eines der ersten Gemüse für Babys verwendet. Für Babys garst du sie ohne Salz. Honig ist im ersten Lebensjahr ohnehin tabu, weil er Sporen enthalten kann, die für Säuglinge gefährlich sind.
+
+### Kann ich die Blätter der Petersilienwurzel verwenden?
+
+Ja. Die Petersilienwurzel ist eine Form der Gartenpetersilie, die vor allem wegen ihrer Wurzel angebaut wird. Ihr Laub lässt sich wie glatte Petersilie hacken und über Suppen oder Kartoffeln streuen. Das Laub der Pastinake dagegen gehört nicht in die Küche.

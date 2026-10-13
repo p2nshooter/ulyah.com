@@ -2,7 +2,7 @@
 title: "Rosenkohl ohne Bitterkeit: putzen, richtig garen und im Ofen rösten"
 description: "Rosenkohl von Oktober bis Februar: frische Röschen erkennen, putzen, kochen ohne Kohlgeruch, im Ofen rösten, in der Pfanne braten und mit Speck oder Senf-Honig verfeinern."
 category: winter
-date: 2026-09-21
+date: 2026-10-12
 ---
 Kaum ein Gemüse hat so viele Gegner wie Rosenkohl. Wer als Kind graue, matschige Röschen mit Schwefelgeruch essen musste, macht oft ein Leben lang einen Bogen um ihn. Dabei liegt das Problem fast immer an der Zubereitung. Richtig gegart ist Rosenkohl leuchtend grün, nussig und leicht süßlich, und im Ofen geröstet bekommt er karamellisierte Ränder, die selbst Skeptiker überzeugen. Von Oktober bis in den Februar ist er eines der wenigen frischen Gemüse, die in Deutschland noch auf dem Feld stehen, und Frost macht ihn sogar besser.
 
@@ -19,6 +19,10 @@ Kaum ein Gemüse hat so viele Gegner wie Rosenkohl. Wer als Kind graue, matschig
 Rosenkohl gehört zu den Kohlgewächsen und enthält wie alle Kohlarten Senfölglykoside. Diese Pflanzenstoffe schützen die Pflanze vor Fraßfeinden und sind für den leicht bitteren, würzigen Geschmack verantwortlich. Wenn Rosenkohl zu lange kocht, werden sie zu schwefelhaltigen Verbindungen abgebaut. Das ist der typische Kohlgeruch, der durch die Wohnung zieht, und dann schmeckt das Gemüse auch dumpf und bitter.
 
 Moderne Sorten sind deutlich milder als die Sorten, die vor einigen Jahrzehnten angebaut wurden. Auch die Kälte hilft: Bei Frost lagert die Pflanze mehr Zucker ein, um ihre Zellen zu schützen. Rosenkohl, der nach den ersten Frostnächten geerntet wird, schmeckt deshalb oft süßer.
+
+## Herkunft und Name
+
+Seinen französischen und englischen Namen verdankt der Rosenkohl der Gegend um Brüssel, wo er schon vor Jahrhunderten in größerem Stil angebaut wurde: choux de Bruxelles, Brussels sprouts. Der deutsche Name beschreibt das Aussehen der kleinen Köpfchen, die wie Rosenknospen am Stiel sitzen. In Österreich heißt er Kohlsprossen.
 
 ## Frischen Rosenkohl erkennen
 
@@ -76,9 +80,23 @@ Ohne Fleisch funktioniert das Rezept mit gerösteten Walnüssen, einem Stück Bu
 
 Hauchdünn gehobelt oder in feine Streifen geschnitten kannst du Rosenkohl auch roh essen. Mische die Streifen mit einem Dressing aus Zitronensaft, Öl, Senf und etwas Honig, gib Apfelwürfel, Granatapfelkerne oder geröstete Nüsse dazu und lass den Salat zehn Minuten ziehen. Er schmeckt frisch und knackig, ganz anders als gekochter Rosenkohl. Passende Begleiter aus der Winterküche findest du in unseren Beiträgen über [Feldsalat](/kueche/feldsalat-mit-kartoffeldressing/) und [Rote Bete](/kueche/rote-bete-zubereiten/).
 
+## Ofenauflauf mit Kartoffeln und Käse
+
+Für vier Personen garst du 800 g festkochende Kartoffeln als Pellkartoffeln, pellst sie und schneidest sie in Scheiben. Koche 500 g halbierten Rosenkohl fünf Minuten vor und schrecke ihn ab. Schichte beides in eine gefettete Auflaufform. Verquirle 200 ml Sahne, 100 ml Milch und zwei Eier mit Salz, Pfeffer und Muskat und gieße die Mischung darüber. Streue 100 g geriebenen Bergkäse auf, nach Belieben auch angebratene Speckwürfel, und backe den Auflauf bei 190 Grad Ober- und Unterhitze etwa 30 Minuten, bis die Oberfläche goldbraun und der Guss gestockt ist. Ein grüner Salat mit kräftigem Dressing macht daraus ein vollständiges Abendessen.
+
 ## Einfrieren
 
 Rosenkohl lässt sich gut einfrieren. Blanchiere die geputzten Röschen drei Minuten, schrecke sie in Eiswasser ab, trockne sie gut und friere sie auf einem Blech vor, bevor du sie in Beutel füllst. So kleben sie nicht zusammen. Gefrorener Rosenkohl hält sich etwa zehn Monate und kann direkt gefroren gekocht oder geröstet werden. Allgemeine Regeln zum Blanchieren findest du in [Gemüse und Obst einfrieren](/kueche/gemuese-einfrieren-und-blanchieren/).
+
+## Was in Rosenkohl steckt
+
+Rosenkohl gehört zu den Gemüsen mit dem meisten Vitamin C. Schon eine Portion von rund 100 Gramm deckt einen großen Teil des Tagesbedarfs eines Erwachsenen, auch wenn beim Kochen ein Teil verloren geht. Dazu liefert er Folat, Vitamin K, Ballaststoffe und für ein Gemüse auffällig viel Eiweiß. Wer die Vitamine schonen will, dämpft die Röschen oder gart sie kurz und bissfest, statt sie lange im Wasser zu kochen.
+
+Ein Hinweis für alle, die gerinnungshemmende Medikamente vom Typ Vitamin-K-Antagonist einnehmen: Vitamin K beeinflusst deren Wirkung. Rosenkohl ist nicht verboten, große Schwankungen beim Verzehr solltest du aber vermeiden und das Thema mit deiner Ärztin oder deinem Arzt besprechen.
+
+## Rosenkohl im eigenen Garten
+
+Rosenkohl braucht Geduld. Die Jungpflanzen kommen im Mai oder Juni ins Beet und stehen dort bis in den Winter. Sie brauchen viel Platz, etwa 50 bis 60 Zentimeter in alle Richtungen, einen nährstoffreichen Boden und gleichmäßige Feuchtigkeit. Geerntet wird von unten nach oben, sobald die Röschen fest sind. Viele Gärtner kappen Ende September die Spitze der Pflanze. Dann steckt sie ihre Kraft in die vorhandenen Röschen, die gleichmäßiger ausreifen. Wintersorten vertragen deutliche Minusgrade und liefern bis in den Februar frische Röschen.
 
 ## Häufige Fragen
 
@@ -93,3 +111,7 @@ Wie alle Kohlarten kann er bei manchen Menschen Blähungen verursachen. Kümmel,
 ### Kann ich Rosenkohl schon vorbereiten?
 
 Geputzt und halbiert hält er sich, gut verpackt, ein bis zwei Tage im Kühlschrank. Vorgekocht und abgeschreckt ist er bereit zum schnellen Anbraten.
+
+### Was mache ich mit Röschen, die gelbe Blätter haben?
+
+Zupfe die gelben Außenblätter ab. Ist das Innere fest und grün, kannst du den Rosenkohl wie gewohnt verwenden. Gelbe Blätter zeigen nur, dass er schon länger gelagert wurde, und der Kohlgeschmack ist dann etwas kräftiger. Röste ihn in diesem Fall lieber, statt ihn zu kochen.

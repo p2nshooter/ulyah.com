@@ -2,7 +2,7 @@
 title: "Grünkohl kochen wie im Norden: mit Pinkel, Kassler oder ganz ohne Fleisch"
 description: Wann Grünkohl am besten schmeckt, was es mit dem Frost auf sich hat, wie du ihn putzt und norddeutsch schmorst, dazu eine vegetarische Variante und Ideen für Reste.
 category: winter
-date: 2026-06-17
+date: 2026-10-12
 ---
 Grünkohl ist das Wintergemüse des Nordens. In Bremen, Oldenburg, Ostfriesland und weiten Teilen Niedersachsens gehört er zum Winter wie der Schnee, den es dort selten gibt. Vereine, Kollegen und Freundeskreise ziehen auf Kohlfahrt, wandern mit einem Bollerwagen durch die Kälte und kehren anschließend in ein Gasthaus ein, wo es Grünkohl mit Pinkel, Kassler und Bratkartoffeln gibt. Am Ende wird ein Kohlkönig gekrönt, meist derjenige, der am meisten gegessen hat.
 
@@ -15,6 +15,10 @@ Auch außerhalb des Nordens hat Grünkohl viele Freunde gewonnen, vor allem roh 
 > - Für den klassischen norddeutschen Grünkohl wird der Kohl 1,5 bis 2 Stunden mit Schmalz, Zwiebeln und Brühe geschmort und mit Hafer gebunden.
 > - Geschmorter Grünkohl schmeckt aufgewärmt am nächsten Tag oft noch besser.
 > - Blanchiert lässt er sich gut einfrieren.
+
+## So läuft eine Kohlfahrt
+
+Eine Kohlfahrt beginnt meist am frühen Nachmittag mit einem Fußmarsch über Feldwege und Deiche. Im Bollerwagen werden Getränke und Proviant mitgezogen, unterwegs gibt es Spiele. In Ostfriesland und im Oldenburger Land gehört oft Boßeln dazu, ein friesischer Wettkampf, bei dem eine Kugel möglichst weit über Straßen und Wege geworfen wird. Nach einigen Kilometern erreicht die Gruppe das Gasthaus, wo der Grünkohl in großen Schüsseln auf den Tisch kommt. Der gekrönte Kohlkönig, oft zusammen mit einer Kohlkönigin, hat nicht nur die Ehre, sondern auch eine Pflicht: Er organisiert in der Regel die Kohlfahrt im nächsten Jahr.
 
 ## Grünkohl und der Frost
 
@@ -81,6 +85,10 @@ Für 4 Personen:
 
 Der Kohl wird wie oben geschmort, insgesamt etwa 1,5 Stunden. Das Paprikapulver gibst du zusammen mit den Zwiebeln in den Topf. Schneide den Räuchertofu in Würfel und brate ihn in einer separaten Pfanne knusprig. Er wird erst beim Servieren über den Kohl gegeben, damit er nicht weich wird. Geröstete Sonnenblumenkerne oder ein paar Tropfen Kürbiskernöl runden den Teller ab.
 
+## Grünkohl-Pesto
+
+Ein Pesto aus Grünkohl ist eine schöne Abwechslung zur Schmorvariante. Blanchiere 150 g gezupfte Blätter eine Minute, schrecke sie ab und drücke sie gut aus. Püriere sie mit 50 g gerösteten Walnüssen oder Sonnenblumenkernen, 40 g geriebenem Hartkäse, einer kleinen Knoblauchzehe, dem Saft einer halben Zitrone und etwa 100 ml Rapsöl oder Olivenöl. Mit Salz und Pfeffer abschmecken. Das Pesto passt zu Nudeln, auf Brot und zu Ofenkartoffeln und hält sich, mit etwas Öl bedeckt, im Kühlschrank einige Tage.
+
 ## Grünkohl aufbewahren und einfrieren
 
 Frischer Grünkohl hält sich ungewaschen in einem Beutel im Gemüsefach etwa vier bis fünf Tage. Geschmorter Grünkohl hält sich gut gekühlt zwei bis drei Tage und schmeckt aufgewärmt sogar besser, weil sich die Aromen verbinden.
@@ -92,6 +100,14 @@ Zum Einfrieren blanchierst du die gezupften Blätter zwei Minuten, schreckst sie
 Junge, zarte Blätter schmecken auch roh. Für einen Salat zupfst du sie klein, gibst etwas Salz und Zitronensaft dazu und knetest sie zwei Minuten mit den Händen. Dadurch werden die Blätter weicher und dunkler. Dazu passen Apfelwürfel, geröstete Walnüsse, Cranberries und ein Dressing aus Senf, Honig und Öl.
 
 Für Grünkohlchips mischst du trockene, gezupfte Blätter mit wenig Öl und Salz und backst sie bei 130 Grad Umluft 15 bis 20 Minuten. Bleib in der Nähe des Ofens, die Chips verbrennen schnell.
+
+## Was im Grünkohl steckt
+
+Grünkohl gehört zu den nährstoffreichsten Gemüsen überhaupt. Er liefert viel Vitamin C, Beta-Carotin, Folat und für ein Gemüse auffällig viel Calcium. Dazu kommen Ballaststoffe und sekundäre Pflanzenstoffe wie die Senfölglykoside, die für seinen herben Geschmack verantwortlich sind. Auch Vitamin K ist reichlich enthalten. Wer gerinnungshemmende Medikamente vom Typ Vitamin-K-Antagonist einnimmt, sollte große Schwankungen beim Verzehr vermeiden und das mit der Ärztin oder dem Arzt besprechen.
+
+## Grünkohl im eigenen Garten
+
+Grünkohl ist eines der robustesten Wintergemüse. Gesät wird im Mai oder Juni, ausgepflanzt im Juli mit etwa 50 Zentimetern Abstand. Die Pflanzen wachsen über den Sommer heran und werden ab Oktober beerntet. Pflücke immer die äußeren, größeren Blätter und lass das Herz stehen. So wächst die Pflanze weiter nach oben und liefert den ganzen Winter über bis in den Februar frische Blätter. Grünkohl verträgt auch strengere Fröste und steht oft noch im Beet, wenn alles andere längst abgeräumt ist.
 
 ## Häufige Fragen
 

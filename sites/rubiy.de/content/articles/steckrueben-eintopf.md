@@ -2,7 +2,7 @@
 title: "Steckrübeneintopf und Steckrübenstampf: ein unterschätztes Wintergemüse neu entdecken"
 description: Woher die Steckrübe ihren schlechten Ruf hat, wie du sie schälst und lagerst, mit Rezepten für norddeutschen Steckrübeneintopf, Stampf und Ofenpommes.
 category: winter
-date: 2026-07-23
+date: 2026-10-12
 ---
 Die Steckrübe hat es nicht leicht. Bei vielen Älteren weckt sie Erinnerungen an Hunger und Not, bei Jüngeren gar keine, weil sie nie eine gegessen haben. Dabei ist sie ein ausgezeichnetes Wintergemüse: mild, leicht süßlich, ein wenig an Kohlrabi und Möhre erinnernd, preiswert und monatelang lagerfähig. In Norddeutschland, wo sie auch Wruke, Kohlrübe oder Butterrübe heißt, hat sie nie ganz ihren Platz in der Küche verloren. Ein dampfender Steckrübeneintopf mit Kartoffeln und Kassler gehört dort zu den Gerichten, auf die man sich freut, wenn es draußen nass und grau wird.
 
@@ -89,6 +89,18 @@ Koche Steckrübe, Kartoffeln und Möhre in Salzwasser etwa 20 Minuten weich. Die
 
 Schneide eine geschälte Steckrübe in fingerdicke Stifte. Mische sie mit zwei Esslöffeln Öl, einem Teelöffel Salz, einem halben Teelöffel Paprikapulver und einem Esslöffel Speisestärke, die für eine knusprigere Oberfläche sorgt. Verteile die Stifte mit etwas Abstand auf einem mit Backpapier belegten Blech und backe sie bei 220 Grad Ober- und Unterhitze 30 bis 35 Minuten, nach der Hälfte der Zeit wenden. Ganz so knusprig wie Kartoffelpommes werden sie nicht, schmecken aber würzig-süß und passen gut zu einem Kräuterquark.
 
+## Steckrübencurry mit Kokosmilch
+
+Die milde Süße der Steckrübe passt erstaunlich gut zu Currygewürzen. Für vier Personen dünstest du eine Zwiebel, zwei Knoblauchzehen und ein Stück geriebenen Ingwer in zwei Esslöffeln Öl an, rührst zwei Teelöffel Currypulver oder einen Esslöffel gelbe Currypaste ein und gibst 800 g Steckrübenwürfel und eine gewürfelte Süßkartoffel oder Möhre dazu. Lösche mit 400 ml Kokosmilch und 300 ml Gemüsebrühe ab und lass alles zugedeckt 20 bis 25 Minuten köcheln, bis das Gemüse weich ist. Rühre zum Schluss eine Handvoll Spinat oder Erbsen unter und schmecke mit Salz, Limettensaft und frischem Koriander oder Petersilie ab. Dazu passt Reis oder Fladenbrot.
+
+## Die Steckrübe in anderen Ländern
+
+Was in Deutschland lange als Notnahrung galt, ist anderswo ein geschätztes Festtagsgemüse. In Schottland gehören zum Nationalgericht Haggis die „neeps and tatties“, gestampfte Steckrüben und Kartoffeln. In Finnland steht zu Weihnachten ein Steckrübenauflauf auf dem Tisch, der lanttulaatikko, süßlich gewürzt und im Ofen gebacken. In Schweden heißt das Püree aus Steckrübe und Kartoffeln rotmos und wird zu gepökeltem Fleisch serviert. In Großbritannien kennt man die Rübe als swede, weil sie im 18. Jahrhundert aus Schweden dorthin kam.
+
+## Was in der Steckrübe steckt
+
+Die Steckrübe ist kalorienarm, liefert Ballaststoffe, Kalium und eine ordentliche Portion Vitamin C, was gerade im Winter wertvoll ist. Ihr gelbes Fruchtfleisch verdankt sie Carotinoiden. Weil sie lange lagerfähig ist, war sie in Zeiten ohne Kühlschrank eine wichtige Vitaminquelle für die dunklen Monate.
+
 ## Steckrübe roh
 
 Junge, zarte Steckrüben kannst du auch roh essen. Fein geraspelt, mit einem geriebenen Apfel, Zitronensaft, etwas Öl, Salz und gerösteten Walnüssen ergibt sie einen knackigen Wintersalat, der ein wenig an Kohlrabi erinnert.
@@ -106,3 +118,7 @@ Steckrüben werden fast immer ohne Blätter verkauft. Junge Blätter aus dem eig
 ### Was ist der Unterschied zwischen Steckrübe und Mairübe?
 
 Die Mairübe gehört wie das Teltower Rübchen zu den Speiserüben, einer anderen Unterart. Sie ist deutlich kleiner, hat meist eine weiße, oben oft violette Schale, weißes Fruchtfleisch und schmeckt leicht scharf, ein wenig wie Rettich. Sie wird im Frühjahr und im Herbst geerntet und ist nur begrenzt lagerfähig. Die Steckrübe ist größer, gelbfleischig, milder und ein typisches Lagergemüse für den Winter.
+
+### Wie viel Steckrübe brauche ich pro Person?
+
+Als Beilage oder Stampf rechnest du mit etwa 200 bis 250 Gramm geschälter Rübe pro Person. Beim Schälen der dicken Schale gehen ungefähr 15 bis 20 Prozent des Gewichts verloren. Eine mittelgroße Rübe von einem Kilo reicht damit für drei bis vier Portionen.
