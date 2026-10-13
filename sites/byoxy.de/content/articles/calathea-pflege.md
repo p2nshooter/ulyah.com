@@ -120,6 +120,16 @@ Eine Calathea orbifolia stand im Wohnzimmer neben dem Sofa, gut einen Meter vom 
 
 Im Winter ist die Calathea am stärksten gefordert. Die Heizungsluft trocknet die Blätter aus, gleichzeitig ist das Licht schwach und die Pflanze wächst langsam. Viele Besitzer gießen in dieser Zeit zu viel, weil die Blätter sich einrollen. Eingerollte Blätter bei feuchter Erde zeigen jedoch eher trockene Luft als Durst an. Ein Hygrometer neben der Pflanze verhindert Fehlentscheidungen.
 
+## Die ersten Wochen nach dem Kauf
+
+Calatheas kommen meist aus Gewächshäusern mit hoher Luftfeuchtigkeit und gleichmäßiger Wärme. Die Umstellung auf die trockenere Luft einer Wohnung ist für sie anstrengend, und ein paar braune Blattränder in den ersten Wochen sind normal. Topfe die Pflanze nach dem Kauf nicht sofort um, sondern gib ihr zwei bis drei Wochen Zeit, sich an den neuen Standort zu gewöhnen.
+
+Stelle eine neue Calathea in dieser Zeit etwas abseits deiner anderen Pflanzen und kontrolliere die Blattunterseiten auf Spinnmilben, die Calatheas besonders gern befallen und oft schon aus dem Handel mitkommen. Feine Gespinste und helle Sprenkel auf den Blättern sind typische Anzeichen. Wähle von Anfang an einen hellen Platz ohne direkte Sonne und ohne Heizungsluft, denn jeder weitere Umzug bedeutet für die Pflanze erneuten Stress.
+
+## Calathea und Goeppertia: ein neuer Name
+
+Viele Pflanzen, die im Handel als Calathea verkauft werden, tragen botanisch inzwischen den Namen Goeppertia. Nach genetischen Untersuchungen wurde ein großer Teil der früheren Calathea-Arten in diese Gattung verschoben, darunter beliebte Zimmerpflanzen wie die Pfauenpflanze. Für die Pflege spielt das keine Rolle, beim Suchen nach Informationen kann der neue Name aber weiterhelfen.
+
 ## Häufige Fragen
 
 ### Sind Calatheas giftig?
@@ -133,6 +143,20 @@ Calatheas folgen einem Tag-Nacht-Rhythmus. Abends richten sie die Blätter auf, 
 ### Kann ich Calatheas ins Terrarium setzen?
 
 Kleine Sorten fühlen sich in großen, offenen Pflanzgefäßen oder Vitrinen mit hoher Luftfeuchtigkeit sehr wohl, solange es ausreichend Licht gibt.
+
+### Warum rollen sich die Blätter meiner Calathea ein?
+
+Eingerollte Blätter sind meist ein Zeichen von Durst oder zu trockener Luft, seltener von zu viel Licht. Prüfe zuerst die Erde: Ist sie trocken, gieße gründlich. Rollen sich die Blätter trotz feuchter Erde ein, können die Wurzeln durch Staunässe geschädigt sein, und du solltest den Wurzelballen kontrollieren.
+
+### Wie oft muss ich eine Calathea umtopfen?
+
+Etwa alle ein bis zwei Jahre im Frühjahr, wenn die Wurzeln den Topf ausfüllen. Wähle nur eine Topfgröße größer und eine lockere, humusreiche Erde. Große Pflanzen kannst du beim Umtopfen gleich teilen.
+
+### Darf ich die Blätter mit Blattglanz behandeln?
+
+Nein. Blattglanzsprays verschließen die Spaltöffnungen und schaden den empfindlichen Blättern. Wische Staub stattdessen mit einem weichen, feuchten Tuch ab, am besten mit kalkarmem Wasser, damit keine weißen Flecken entstehen.
+
+Ein lauwarmes Abbrausen in der Dusche alle paar Monate entfernt Staub ebenfalls und hilft zugleich gegen Spinnmilben.
 
 ## Fazit
 

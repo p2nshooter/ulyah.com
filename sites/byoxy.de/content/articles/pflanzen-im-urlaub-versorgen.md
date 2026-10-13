@@ -111,6 +111,22 @@ Wenn trotz allem etwas schiefging, helfen [Gelbe Blätter: Ursachen](/ratgeber/g
 
 Vor einem Urlaub im August standen zehn Zimmerpflanzen und drei Balkonkästen mit Geranien und Kräutern auf dem Plan. Die Zimmerpflanzen wurden gründlich gegossen und im Badezimmer mit Fenster auf nasse Handtücher in der Wanne gestellt. Die Kakteen blieben einfach am Fenster. Auf dem Balkon wurde eine kleine Tropfbewässerung mit Zeitschaltuhr am Wasserhahn installiert und eine Woche lang getestet. Eine Nachbarin schaute einmal pro Woche vorbei. Nach der Rückkehr waren alle Pflanzen gesund, nur der Basilikum hatte etwas gelitten und wurde zurückgeschnitten.
 
+## Pflanzen zusammenstellen und den Standort anpassen
+
+Schon vor jeder technischen Lösung kannst du den Wasserverbrauch deiner Pflanzen deutlich senken. Hole Pflanzen von sonnigen Südfenstern weg und stelle sie in einem hellen Raum ohne direkte Sonne eng zusammen. In der Gruppe ist die Luft feuchter, und die Pflanzen verdunsten weniger. Ein kühleres Zimmer hilft zusätzlich, denn bei niedrigeren Temperaturen brauchen Pflanzen weniger Wasser.
+
+Kleine Töpfe trocknen am schnellsten aus. Stelle sie in eine große Wanne oder Kiste auf eine Schicht Blähton, die du mit etwas Wasser füllst, ohne dass die Töpfe darin stehen. Ziehe Jalousien oder Gardinen an sonnigen Fenstern halb zu, aber lass genug Licht in den Raum, damit die Pflanzen nicht wochenlang im Dunkeln stehen.
+
+## Den Pflanzensitter gut einweisen
+
+Wenn Nachbarn oder Freunde gießen, verhindert eine klare Anleitung die meisten Probleme. Markiere die Töpfe mit farbigen Aufklebern, zum Beispiel grün für einmal pro Woche viel Wasser, gelb für einmal pro Woche wenig und rot für nicht gießen. Eine Gießkanne mit einer Markierung für die richtige Menge und ein Zettel mit Fotos der Pflanzen helfen zusätzlich.
+
+Weise ausdrücklich darauf hin, dass Kakteen, Sukkulenten, Bogenhanf und Glücksfeder mit zu wenig Wasser besser zurechtkommen als mit zu viel. Viele gut gemeinte Pflanzensitter gießen eher zu reichlich. Hinterlasse außerdem deine Telefonnummer, damit man dir bei Problemen ein Foto schicken kann.
+
+## Testlauf vor der Abreise
+
+Probiere jede Bewässerungsmethode einige Tage vor dem Urlaub aus. So siehst du, ob ein Docht genug Wasser zieht, ob ein Tonkegel zu schnell leer läuft und ob die Tropfbewässerung dicht ist. Gerade bei automatischen Systemen ist ein Testlauf wichtig, denn ein undichter Schlauch kann in zwei Wochen viel Schaden anrichten.
+
 ## Häufige Fragen
 
 ### Kann ich Pflanzen vor dem Urlaub in Wasser stellen?
@@ -124,6 +140,14 @@ Wasserspeichernde Granulate können die Wasserhaltefähigkeit der Erde erhöhen.
 ### Was ist mit Pflanzen im Winterurlaub?
 
 Im Winter verbrauchen die meisten Pflanzen deutlich weniger Wasser. Gründlich gießen und die Heizung nicht ganz abstellen reicht oft für ein bis zwei Wochen.
+
+### Soll ich vor dem Urlaub düngen oder umtopfen?
+
+Lieber nicht. Frisch umgetopfte Pflanzen brauchen Aufmerksamkeit, und Dünger regt das Wachstum und damit den Wasserbedarf an. Topfe deshalb einige Wochen vorher oder erst nach der Rückkehr um und dünge in der Woche vor der Abreise nicht.
+
+### Wie lange halten Kakteen ohne Wasser durch?
+
+Gesunde Kakteen und Sukkulenten überstehen im Sommer meist zwei bis drei Wochen ohne Wasser, in der Winterruhe sogar deutlich länger. Gieße sie vor der Abreise wie gewohnt und stelle sie nicht in die pralle Sonne hinter Glas.
 
 ## Fazit
 

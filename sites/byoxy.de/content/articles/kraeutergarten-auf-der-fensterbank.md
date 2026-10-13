@@ -134,6 +134,18 @@ Eine Küchenfensterbank nach Westen beherbergte Basilikum, Rosmarin, Thymian und
 
 Wer zum ersten Mal Kräuter auf der Fensterbank zieht, beginnt am besten mit drei oder vier Arten aus derselben Gruppe. So lernst du deren Bedürfnisse kennen, bevor du weitere Kräuter mit anderen Ansprüchen dazunimmst. Ein guter Start für ein sonniges Fenster sind Thymian, Oregano und Rosmarin in Tontöpfen, für ein helles Ostfenster Schnittlauch, Petersilie und Minze in Kunststofftöpfen.
 
+## Kräuter aus Samen ziehen
+
+Viele Kräuter lassen sich günstig selbst aussäen. Kresse ist der schnellste Erfolg: Auf feuchter Watte oder Küchenpapier keimt sie in zwei bis drei Tagen und ist nach etwa einer Woche erntereif. Basilikum ist ein Lichtkeimer, dessen Samen nur angedrückt werden. Petersilie braucht dagegen Geduld, denn sie lässt sich mit der Keimung oft zwei bis vier Wochen Zeit; ein Einweichen der Samen über Nacht kann den Start beschleunigen. Koriander und Dill keimen zuverlässig, schießen bei Wärme aber schnell in die Blüte.
+
+Für eine durchgehende Ernte lohnen sich Folgesaaten: Säe schnell wachsende Kräuter wie Kresse, Koriander oder Kerbel alle zwei bis drei Wochen in einen neuen Topf, statt einmal eine große Menge. So steht immer ein junger, ertragreicher Topf bereit, während der ältere abgeerntet wird.
+
+## Microgreens: Ernte nach wenigen Tagen
+
+Microgreens sind junge Keimpflanzen, die geerntet werden, sobald sie ihre ersten Blätter gebildet haben, je nach Art nach etwa ein bis drei Wochen. Sie schmecken intensiv und brauchen kaum Platz: eine flache Schale mit Erde oder einem Anzuchtvlies, dicht gesätes Saatgut und ein heller Platz genügen. Gut geeignet sind Radieschen, Senf, Rucola, Brokkoli, Erbsen und Sonnenblumen.
+
+Achte auf saubere Gefäße und frisches Saatgut, gieße mäßig und sorge für Luftbewegung, damit sich kein Schimmel bildet. Geerntet wird mit einer sauberen Schere knapp über der Erde. Danach wachsen die meisten Microgreens nicht nach, und die Schale wird neu eingesät.
+
 ## Häufige Fragen
 
 ### Kann ich Kräuter aus dem Supermarkt dauerhaft halten?
@@ -147,6 +159,14 @@ Schnittlauch, Minze, Thymian und Kresse gelten als besonders pflegeleicht.
 ### Brauche ich eine Pflanzenlampe?
 
 Im Sommer meist nicht. Im Winter und an dunkleren Fenstern hilft sie sehr. Siehe [Licht für Zimmerpflanzen](/ratgeber/licht-fuer-zimmerpflanzen/).
+
+### Warum werden meine Kräuter lang und dünn?
+
+Lange, dünne und blasse Triebe sind ein typisches Zeichen für Lichtmangel, besonders im Winter oder an Fenstern nach Norden. Die Pflanzen strecken sich zum Licht und werden dabei weich und aromaarm. Stelle sie an das hellste Fenster oder ergänze eine Pflanzenlampe, und schneide die vergeilten Triebe zurück, damit die Pflanze kompakt neu austreibt.
+
+### Trocknen oder einfrieren?
+
+Robuste Kräuter mit festen Blättern wie Rosmarin, Thymian, Oregano und Salbei lassen sich gut trocknen. Zarte Kräuter wie Petersilie, Schnittlauch, Dill und Basilikum verlieren beim Trocknen viel Aroma und werden besser fein gehackt eingefroren.
 
 ## Fazit
 

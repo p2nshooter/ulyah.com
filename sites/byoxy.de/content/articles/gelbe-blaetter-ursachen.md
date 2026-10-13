@@ -128,6 +128,16 @@ Eine Friedenslilie bekam innerhalb von zwei Wochen fünf gelbe Blätter. Die Bes
 
 Wer diese acht Fragen der Reihe nach beantwortet, kommt in den allermeisten Fällen auf die Ursache, ohne raten zu müssen.
 
+## Wasserqualität als versteckte Ursache
+
+Manchmal stimmen Licht, Gießrhythmus und Dünger, und trotzdem werden die Blätter gelb. Dann lohnt ein Blick auf das Gießwasser. Sehr hartes, kalkhaltiges Wasser hebt den pH-Wert der Erde mit der Zeit an. Kalkempfindliche Pflanzen wie Azaleen, Gardenien oder Calatheas können dann bestimmte Nährstoffe wie Eisen schlechter aufnehmen, und ihre jungen Blätter werden gelb, während die Blattadern grün bleiben.
+
+Auch Düngersalze reichern sich an, wenn regelmäßig gedüngt und immer nur so viel gegossen wird, dass kein Wasser aus dem Topf läuft. Weiße Krusten auf der Erde oder am Topfrand und braune, trockene Blattspitzen sind typische Hinweise. Spüle die Erde dann einmal gründlich mit viel Wasser durch oder topfe in frische Erde um, und gieße kalkempfindliche Pflanzen mit Regenwasser oder gefiltertem Wasser.
+
+## Wann fachlicher Rat hilft
+
+Werden gleich mehrere Pflanzen gelb, ohne dass du eine Ursache findest, oder breiten sich auffällige Flecken schnell aus, hilft ein zweiter Blick von außen. Gute Gärtnereien beraten oft auch anhand von Fotos, und die Pflanzenschutzdienste der Bundesländer geben Auskunft zu Schädlingen und Krankheiten. Fotografiere dazu die ganze Pflanze, ein typisches Blatt von beiden Seiten und, wenn möglich, die Wurzeln.
+
 ## Häufige Fragen
 
 ### Kann ein gelbes Blatt wieder grün werden?
@@ -141,6 +151,16 @@ Bei manchen Pflanzen ja, weil sie sich auf weniger Licht einstellen. Wenn viele 
 ### Wie schnell sollte ich handeln?
 
 Bei weichen Stielen, muffigem Geruch oder vielen gelben Blättern gleichzeitig sofort. Bei einem einzelnen unteren Blatt kannst du in Ruhe beobachten.
+
+### Kann ein Übertopf ohne Abzugsloch schuld sein?
+
+Ja, sehr häufig. Im Übertopf sammelt sich überschüssiges Gießwasser unbemerkt, und die Wurzeln stehen tagelang im Nassen. Setze Pflanzen deshalb immer in einen Innentopf mit Abzugslöchern und kippe Wasser, das sich im Übertopf sammelt, eine halbe Stunde nach dem Gießen aus.
+
+### Helfen Kaffeesatz oder Eierschalen gegen gelbe Blätter?
+
+Nur sehr begrenzt. Kaffeesatz enthält zwar etwas Stickstoff, schimmelt im Topf aber leicht, wenn er auf der Erde liegt. Eierschalen zersetzen sich so langsam, dass sie einen akuten Mangel nicht beheben. Liegt tatsächlich ein Nährstoffmangel vor, hilft ein passender Zimmerpflanzendünger in der empfohlenen Dosierung zuverlässiger.
+
+Kompost oder organischer Dünger verbessern zwar langfristig die Erde, wirken aber ebenfalls langsam.
 
 ## Fazit
 

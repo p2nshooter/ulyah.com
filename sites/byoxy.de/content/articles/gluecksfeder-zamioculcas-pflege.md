@@ -115,6 +115,12 @@ Die schwarze Sorte „Raven“ ist besonders beliebt. Ihre neuen Blätter ersche
 
 In einer Arztpraxis stand eine große Glücksfeder am Empfang, nahe einem Fenster nach Norden. Sie wurde jeden Freitag von wechselnden Mitarbeitenden gegossen. Im Herbst kippten nacheinander mehrere Stiele um, die Basis war glasig und weich. Beim Austopfen zeigte sich, dass der Topf keinen Abzug hatte und unten etwa zwei Zentimeter Wasser standen. Zwei der fünf Knollen waren faul. Nach dem Ausschneiden, Antrocknen und Einpflanzen in einen Tontopf mit Lavagranulat bekam die Pflanze einen festen Gießtermin: einmal im Monat, aber nur nach Stäbchenprobe. Im folgenden Frühjahr trieb sie drei neue, kräftige Stiele.
 
+## Was die Glücksfeder an dunklen Plätzen aushält
+
+Die Glücksfeder gilt als Pflanze für dunkle Ecken, und tatsächlich überlebt sie dort länger als die meisten anderen Zimmerpflanzen. Überleben ist aber nicht dasselbe wie gedeihen: Bei wenig Licht wächst sie sehr langsam, neue Triebe werden dünn und lang, und die Erde trocknet viel langsamer ab. Gieße an dunklen Standorten deshalb noch seltener und lieber eine Woche zu spät als zu früh.
+
+Am wohlsten fühlt sich die Glücksfeder an einem hellen Platz ohne direkte Mittagssonne. Pralle Sommersonne hinter Glas kann die glänzenden Blätter verbrennen, Morgen- oder Abendsonne verträgt sie dagegen gut. Steht sie lange dunkel, gewöhnst du sie langsam an einen helleren Platz, damit die Blätter keinen Sonnenbrand bekommen.
+
 ## Häufige Fragen
 
 ### Ist die Glücksfeder giftig?
@@ -132,6 +138,12 @@ Ja, die glänzenden Blättchen sammeln Staub. Gelegentlich mit einem feuchten Tu
 ### Blüht die Glücksfeder?
 
 Ältere Pflanzen bilden gelegentlich einen unscheinbaren, kolbenartigen Blütenstand dicht über der Erde. Er ist dekorativ wenig auffällig und kann bleiben oder entfernt werden.
+
+### Was sind die dicken Knollen an den Wurzeln?
+
+Das sind Rhizome, in denen die Glücksfeder Wasser und Nährstoffe speichert. Sie sind der Grund, warum die Pflanze lange Trockenphasen übersteht, und sollten beim Umtopfen nicht entfernt werden. Wenn sich ein Kunststofftopf ausbeult oder ein Tontopf Risse bekommt, ist das ein deutliches Zeichen, dass die Rhizome mehr Platz brauchen.
+
+Topfe die Pflanze dann im Frühjahr in ein etwas größeres, standfestes Gefäß um.
 
 ## Fazit
 

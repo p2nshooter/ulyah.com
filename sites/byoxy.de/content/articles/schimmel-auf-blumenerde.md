@@ -122,6 +122,18 @@ Ein Ficus stand in einer Zimmerecke hinter einem Vorhang, rund zwei Meter vom Fe
 
 Wer diese Schritte befolgt, sieht in den meisten Fällen keinen neuen Schimmel mehr. Kommt er nach zwei bis drei Wochen trotzdem zurück, steckt das Problem tiefer im Topf, und Umtopfen ist die bessere Lösung.
 
+## Schimmel in Hydrokultur, Übertöpfen und Terrarien
+
+Weiße Beläge auf Blähton in der Hydrokultur sind meist kein Schimmel, sondern Kalk- und Salzablagerungen aus dem Wasser und dem Dünger. Sie fühlen sich hart und krustig an und lassen sich abwaschen. Grünliche Beläge an den Innenseiten durchsichtiger Gefäße sind Algen, die im Licht wachsen. Ein undurchsichtiger Übertopf schafft hier Abhilfe.
+
+In geschlossenen Terrarien und Flaschengärten entsteht Schimmel, wenn zu viel Wasser im Glas ist und die Luft steht. Öffne den Deckel dann für einige Stunden oder Tage, damit überschüssige Feuchtigkeit entweichen kann, und entferne befallene Pflanzenteile. In bioaktiven Terrarien helfen Springschwänze, winzige Bodentiere, die Schimmelpilze und abgestorbenes Material fressen.
+
+## Schimmel an der Wand hinter Pflanzen
+
+Nicht nur die Erde, auch die Wand hinter großen Pflanzen kann schimmeln. Besonders gefährdet sind kalte Außenwände, vor denen dichte Pflanzengruppen stehen und die Luft kaum zirkulieren kann. Viele Pflanzen geben zusammen eine beachtliche Menge Wasser an die Raumluft ab, das sich an der kühlsten Stelle niederschlägt.
+
+Lass deshalb ein paar Zentimeter Abstand zwischen Kübeln und Außenwand, lüfte regelmäßig stoß und kontrolliere die Luftfeuchtigkeit mit einem Hygrometer. Liegt sie im Winter dauerhaft deutlich über sechzig Prozent, lohnt es sich, weniger Pflanzen auf engem Raum zu halten oder öfter zu lüften.
+
 ## Häufige Fragen
 
 ### Muss ich eine Pflanze mit Schimmel auf der Erde wegwerfen?
@@ -135,6 +147,16 @@ Oberflächlicher Erdschimmel bleibt meist auf der Erde. Grauschimmel auf Blätte
 ### Ist gelber Schimmel gefährlicher?
 
 Gelbe, schleimige Beläge sind oft Schleimpilze, die harmlos für die Pflanze sind. Auch sie zeigen zu nasse Bedingungen an und werden wie Schimmel entfernt.
+
+### Hilft Zimt gegen Schimmel auf der Erde?
+
+Zimt wird oft als Hausmittel empfohlen, weil er leicht pilzhemmend wirkt. Er kann einen oberflächlichen Belag kurzfristig zurückdrängen, beseitigt aber nicht die Ursache. Entscheidend bleiben sparsames Gießen, gute Belüftung und eine lockere, durchlässige Erde.
+
+### Kann ich verschimmelte Erde kompostieren?
+
+Ja, der übliche weiße Schimmel auf Blumenerde besteht aus harmlosen Pilzen, die organisches Material zersetzen und auf dem Kompost ihre Arbeit fortsetzen. Für Zimmerpflanzen solltest du die Erde aber nicht wiederverwenden.
+
+Gib sie dazu auf den Kompost im Garten oder in die Biotonne.
 
 ## Fazit
 

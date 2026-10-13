@@ -4,11 +4,14 @@
  *
  * Three owner decisions are held here, and all are the kind that rot quietly.
  *
- * NO MANUAL UNITS. "Hapus aja dan bersihkan slot AdSense nya di website manapun
- * karena sy bikin otomatis (ingat kecuali dawa.es), cukup cuplikan AdSense,
- * ads.txt & tag meta" (4 Oct 2026, every site still under review). Auto ads
- * place the ads once a site is approved; an <ins class="adsbygoogle">, a
- * data-ad-slot or an adsbygoogle.push put back anywhere is a failure here.
+ * NO MANUAL UNITS — EXCEPT dawa.es. "Hapus aja dan bersihkan slot AdSense nya
+ * di website manapun karena sy bikin otomatis (ingat kecuali dawa.es), cukup
+ * cuplikan AdSense, ads.txt & tag meta" (4 Oct 2026), and for dawa.es on 12 Oct:
+ * "Adslot manual jika itu milik adsense biarkan, dan biarkan otomatis". Auto
+ * ads place the ads on every owner site once approved; dawa.es also keeps the
+ * two units of its original account. Unit markup anywhere but AdSlot.tsx, a
+ * gate that could switch units on for another tenant, or a unit on a page
+ * AdSense keeps ads off (sign-in, account, kids, 404, admin) fails here.
  *
  * ONE NETWORK. Adsterra was removed from the ecosystem ("hapus iklan adsterra
  * di ekosistem ulyah.com, ganti dengan adsense aja"). Removing a network is not
@@ -34,6 +37,7 @@
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { execFileSync } from "node:child_process";
 
 const ROOT = join(import.meta.dirname, "..");
 let failed = 0;
@@ -90,8 +94,8 @@ check(
   "a static public/ads.txt is shared by every tenant build and would name one account on every site"
 );
 
-console.log("\n=== no manual ad unit anywhere (Auto ads only) ===");
-const UNIT = [/<ins\b[^>]*adsbygoogle/, /data-ad-slot/, /adsbygoogle\s*\|\|\s*\[\]\)\.push|adsbygoogle\.push/, /data-ad-client/];
+console.log("\n=== manual units: dawa.es only, and only where AdSense allows them ===");
+const UNIT = [/<ins\b[^>]*adsbygoogle/, /data-ad-slot/, /adsbygoogle\s*\|\|\s*\[\]\)\.push|adsbygoogle\.push|adsbygoogle\s*\?\?=\s*\[\]\)\.push/, /data-ad-client/];
 function walkAll(dir: string, exts: RegExp, out: string[] = []): string[] {
   if (!existsSync(dir)) return out;
   for (const name of readdirSync(dir)) {
@@ -102,17 +106,74 @@ function walkAll(dir: string, exts: RegExp, out: string[] = []): string[] {
   }
   return out;
 }
+/** The one file allowed to carry unit markup. */
+const UNIT_FILE = "apps/web/src/components/AdSlot.tsx";
 const unitFiles: string[] = [];
 for (const root of ["apps/web/src", "apps/web/public", "sites/_engine", ...readdirSync(join(ROOT, "sites")).filter((d) => !d.startsWith("_") && statSync(join(ROOT, "sites", d)).isDirectory()).map((d) => `sites/${d}`)]) {
   for (const f of walkAll(join(ROOT, root), /\.(ts|tsx|js|mjs|html|md)$/)) {
     // The generated UI strings, and the engine check that holds this same rule.
     if (f.endsWith("ui-i18n.gen.ts") || f.endsWith("sites/_engine/check.mjs")) continue;
-    if (UNIT.some((re) => re.test(code(readFileSync(f, "utf8"))))) unitFiles.push(f.slice(ROOT.length + 1));
+    const rel = f.slice(ROOT.length + 1);
+    if (rel === UNIT_FILE) continue;
+    if (UNIT.some((re) => re.test(code(readFileSync(f, "utf8"))))) unitFiles.push(rel);
   }
 }
-check("no <ins class=adsbygoogle>, data-ad-slot or adsbygoogle.push", unitFiles.length === 0, unitFiles.join(", "));
-for (const gone of ["apps/web/src/components/AdSlot.tsx", "apps/web/src/components/PageAds.tsx", "apps/web/src/lib/ad-stats.ts", "apps/web/src/components/admin/AdStatsPanel.tsx"]) {
-  check(`${gone.split("/").pop()} is gone`, !existsSync(join(ROOT, gone)));
+check("no unit markup outside AdSlot.tsx (owner sites and static sites carry none)", unitFiles.length === 0, unitFiles.join(", "));
+for (const kept of [UNIT_FILE, "apps/web/src/components/PageAds.tsx", "apps/web/src/lib/ad-pages.ts"]) {
+  check(`${kept.split("/").pop()} exists (dawa.es keeps its units)`, existsSync(join(ROOT, kept)));
+}
+for (const gone of ["apps/web/src/lib/ad-stats.ts", "apps/web/src/components/admin/AdStatsPanel.tsx"]) {
+  check(`${gone.split("/").pop()} stays gone (no click/impression tally)`, !existsSync(join(ROOT, gone)));
+}
+check(
+  "the gate is the dawa tenant AND its original account",
+  /export const SHOWS_AD_UNITS\s*=\s*TENANT\.id === "dawa" && AD_CLIENT_ID === ORIGINAL_ACCOUNT;/.test(adConfig),
+  "SHOWS_AD_UNITS must be exactly: TENANT.id === \"dawa\" && AD_CLIENT_ID === ORIGINAL_ACCOUNT"
+);
+check(
+  "the units are the original account's two, unchanged",
+  /banner:\s*"4702981509"/.test(adConfig) &&
+    /flex:\s*"1209764526"/.test(adConfig) &&
+    /ORIGINAL_ACCOUNT\s*=\s*"ca-pub-6371903555702163"/.test(adConfig)
+);
+const adSlot = read(UNIT_FILE);
+const pageAds = read("apps/web/src/components/PageAds.tsx");
+for (const [name, src] of [["AdSlot", adSlot], ["PageAds", pageAds]] as const) {
+  check(`${name} renders nothing unless SHOWS_AD_UNITS`, /SHOWS_AD_UNITS/.test(code(src)));
+  check(`${name} obeys the no-ads page list and the 404 marker`, /manualAdsAllowedOn\(/.test(code(src)) && /pageRefusesAds\(/.test(code(src)));
+  check(`${name} sends no tally`, !/ad-stats|noteShown|noteFilled|flushAdStats|sendBeacon/.test(code(src)));
+}
+check("every unit is captioned \"Publicidad\" on dawa.es", /es:\s*\{\s*label:\s*"Publicidad"\s*\}/.test(adSlot));
+const adPages = read("apps/web/src/lib/ad-pages.ts");
+for (const r of ["/admin", "/masuk", "/daftar", "/akun", "/donasi", "/kids", "/anak"]) {
+  check(`no manual unit on ${r} (localized per site)`, adPages.includes(`"${r}"`));
+}
+check("404 pages refuse units", /data-no-ads/.test(read("apps/web/src/app/[locale]/not-found.tsx")));
+const MOUNTS = ["apps/web/src/app/[locale]/layout.tsx", "apps/web/src/app/[locale]/kisah/page.tsx", "apps/web/src/components/PesantrenKitabReader.tsx", "apps/web/src/components/PageAds.tsx"];
+const importers = walkAll(join(ROOT, "apps/web/src"), /\.(ts|tsx)$/)
+  .map((f) => f.slice(ROOT.length + 1))
+  .filter((f) => /from "@\/components\/(AdSlot|PageAds)"/.test(readFileSync(join(ROOT, f), "utf8")));
+check(
+  "units are mounted only where dawa.es had them",
+  importers.every((f) => MOUNTS.includes(f)),
+  importers.filter((f) => !MOUNTS.includes(f)).join(", ")
+);
+
+// TENANT is read at import, so each tenant is a fresh process — the same way
+// the build sees it. Owner sites must evaluate to false, dawa to true.
+for (const tenant of ["ulyah", "1fr", "tilawa", "xad", "dawa"]) {
+  let out = "";
+  try {
+    out = execFileSync(
+      "npx",
+      ["tsx", "-e", 'import("./apps/web/src/lib/ad-config.ts").then((m) => console.log(String(m.SHOWS_AD_UNITS)))'],
+      { cwd: ROOT, env: { ...process.env, NEXT_PUBLIC_TENANT: tenant }, encoding: "utf8" }
+    ).trim();
+  } catch (e) {
+    out = `error: ${String(e).slice(0, 120)}`;
+  }
+  const want = tenant === "dawa" ? "true" : "false";
+  check(`${tenant} build: manual units ${want === "true" ? "on" : "off"}`, out.endsWith(want), `SHOWS_AD_UNITS evaluated to ${out}`);
 }
 
 console.log("\n=== nothing gates a placement ===");

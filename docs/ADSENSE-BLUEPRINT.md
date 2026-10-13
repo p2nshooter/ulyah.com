@@ -36,6 +36,18 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
    situs) tanpa mengubah kode. Dijaga otomatis: `scripts/check-ads.ts` (CI
    apps/web + situs statis), `sites/_engine/check.mjs` (setiap halaman hasil
    build), dan `scripts/site-audit.mjs` (HTML server situs yang live).
+   **Pengecualian satu-satunya: dawa.es** (pemilik, 12 Okt: "Adslot manual
+   jika itu milik adsense biarkan, dan biarkan otomatis"). Build tenant dawa
+   membawa dua unit akun aslinya (banner 4702981509, flex 1209764526,
+   ca-pub-6371903555702163) lewat `AdSlot` + `PageAds`, ditambah Auto ads.
+   Gerbangnya `SHOWS_AD_UNITS = TENANT.id === "dawa" && AD_CLIENT_ID ===
+   ORIGINAL_ACCOUNT`; `check-ads.ts` menghitungnya per tenant (empat situs
+   pemilik harus `false`) dan menolak markup unit di file lain. Unit tidak
+   pernah tampil di halaman yang dilarang kebijakan AdSense: masuk/daftar/akun,
+   donasi, admin, halaman anak (`/ninos`, `/peliculas-infantiles`), 404,
+   kiblat, mushaf (`apps/web/src/lib/ad-pages.ts`). Unit tidak disisipkan di
+   atas bagian yang sedang dibaca, label "Publicidad" selalu tampil (juga untuk
+   iklan yang terisi terlambat), dan tidak ada penghitung klik.
 4. **Artikel ditulis tangan, bukan oleh bot.** Minimal 40 artikel panjang
    (±1.500 kata ke atas) per situs. Artikel mesin yang dobel atau tipis
    dihapus. Tidak ada janji kaya cepat, tidak ada saran medis/keuangan
@@ -562,6 +574,11 @@ di akun AdSense (di luar jangkauan Claude).
 | 12 Okt | "Anda sudah sy berikan akses CF, buka saja dan lihat langsung ke dalam, jgn meraba. Perbaiki logo headernya biar mewah, indah elegan, bukan tumpang tindih begitu. Yg dawa.es juga perbaiki, walaupun udah milik orang, biar g error dan biar nanti mudah d backup" | 🔄 §12.5, §10.1 |
 | 12 Okt | "Tolong jgn pernah jelasin selain make bhs Indonesia, biar sy tau sudah sampai mana progressnya" | ✅ aturan tetap: semua laporan progres ke pemilik dalam bahasa Indonesia |
 | 12 Okt | "Jgn pernah perbaikan menggunakan agent, kerjakan manual aja, catat di blueprint agar tidak menggunakan agent" | ✅ aturan tetap §1 no. 13: perbaikan, artikel, dan audit dikerjakan manual tanpa agent AI |
+| 12 Okt | "Adslot manual jika itu milik adsense biarkan, dan biarkan otomatis, yg penting pastikan tidak melanggar adsense secara keseluruhan" (jawaban atas pertanyaan rebuild dawa.es) | 🔄 §10.1: slot manual AdSense dawa.es (akun 6371…) dipertahankan + Auto ads; audit kepatuhan AdSense seluruh ekosistem |
+| 13 Okt | "Jgn pernah ngerjain menggunakan agent, anda sendiri yg mengerjakan. Semua artikel yg kurang dr 1500 kata tambahkan, lanjutkan pekerjaan yg sudah ada" | 🔄 aturan tetap (lihat §1 no. 13): semua pekerjaan dikerjakan langsung, tanpa agen/workflow. Inventaris (penghitung engine): 261 artikel situs statis < 1.500 kata (byodd.de 30, byoxy.de 40, byoy.de 40, qurm.de 40, rubiy.de 39, zavik.de 38, axto.us 34) + jai.lat 8, oldco.in 62, profity.in 54 (Hindi/Inggris); ditambah dengan tangan, lalu batas minimum engine dinaikkan ke 1.500 untuk semua bahasa |
+| 13 Okt | "Tambhain 5 artikel di masing2 situs, pastikan artikel berkualitas tinggi karena untuk pengjuan adaense" | 🔄 lima artikel baru per situs, masing-masing 1.500+ kata, ditulis tangan, orisinal dan akurat (tanpa hasil pertandingan 2026 di xaa.es, tanpa saran medis di artikel kesehatan): ✅ oldco.in #9, profity.in #8, Jai #12, Lie #9, axtodev #20; xaa #11 dan axto.us #30 siap merge; berikutnya 19 situs `sites/*`, lalu portal (ulyah.com, 1fr.fr, tilawa.de, xad.es, dawa.es) |
+| 13 Okt | "Selesain semua sampe bersih d github, PR & merge anda saja yg ngerjain" | 🔄 aturan tetap: Claude membuat PR dan me-merge sendiri setelah pemeriksaan lokal dan CI lulus; target akhir tidak ada PR terbuka di semua repo (termasuk PR lama: rubiy #338, dependabot #323, oldco.in #1 diperiksa dulu) |
+| 13 Okt | "Tolong ubah cuplikan kode adsense, ads.txt dan tag meta profity.in dengan kode ini google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0. Utamakan jalankan perintah ubah kode adsense dulu jika ada perubahan, krn itu urgent" | ✅ profity.in PR #9 (`src/app/layout.tsx` loader + meta + metadata, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`. Aturan tetap: setiap perubahan kode AdSense dikerjakan lebih dulu dari pekerjaan lain |
 
 ---
 
@@ -647,6 +664,26 @@ slot iklan manual build lama tidak ada di kode sekarang (dihapus di semua situs
 sejak 4 Okt, aturan 3); iklan di dawa.es lalu bergantung pada Auto ads akun
 6371…. Karena 4 Okt pemilik meminta slot dawa.es dikecualikan, rebuild ini
 menunggu kata "rebuild dawa" dari pemilik.
+
+**Keputusan pemilik (12 Okt):** "Adslot manual jika itu milik adsense biarkan,
+dan biarkan otomatis, yg penting pastikan tidak melanggar adsense secara
+keseluruhan." Jadi rebuild dawa.es WAJIB membawa slot manual AdSense-nya (unit
+banner 4702981509 dan flex 1209764526, akun 6371…) persis seperti build live,
+Auto ads tetap menyala, dan tidak ada slot manual di situs lain. Rebuild belum
+dijalankan sebelum itu terpenuhi.
+
+**Dikerjakan (13 Okt):** `AdSlot`/`PageAds` dipulihkan dari build live (713e87d)
+ke kode utama, khusus tenant dawa (aturan 3). Perbaikan kebijakan sekaligus:
+tidak ada unit di halaman tanpa konten penerbit/halaman tugas/halaman anak/404,
+unit tidak menggeser teks yang sedang dibaca, label selalu terlihat, penghitung
+klik (`ad-stats.ts`, beacon `/track/ads`) tidak dikembalikan. Rebuild
+(`dawa-site.yml`, rebuild = rebuild-dawa) menolak build yang tidak membawa
+kedua unit dan gerbangnya.
+
+**Tindakan di akun AdSense ca-pub-6371903555702163 (pemegang akun):** Auto ads
+tetap aktif dengan beban iklan sedang; pengecualian halaman Auto ads untuk
+`/es/admin`, halaman masuk/akun, `/ninos`, `/peliculas-infantiles`; pesan
+"Peraturan Eropa" (CMP bersertifikat) di Privasi & pesan harus dipublikasikan.
 
 ---
 

@@ -128,6 +128,16 @@ Bogenhanf wird häufig für Schlafzimmer empfohlen. Gegen einen hellen Platz im 
 
 Wer diese sechs Punkte vermeidet, hat bei einem Bogenhanf kaum noch etwas falsch zu machen.
 
+## Bogenhanf im Jahreslauf
+
+Im Frühjahr ist die beste Zeit zum Umtopfen und Teilen, und mit dem neuen Wachstum beginnst du wieder mit einer schwachen Düngung. Im Sommer darf Bogenhanf auch auf Balkon oder Terrasse stehen, wenn du ihn langsam an das stärkere Licht gewöhnst und ihn vor Dauerregen schützt. Die ersten Tage gehören an einen halbschattigen Platz, sonst bekommen die Blätter Sonnenbrand.
+
+Im Herbst reduzierst du das Gießen deutlich, und im Winter braucht Bogenhanf bei Zimmertemperatur oft nur alle vier bis sechs Wochen etwas Wasser. Kühl sollte er nicht stehen: Unter etwa fünfzehn Grad wächst er kaum noch, und Kälte in Verbindung mit nasser Erde ist der häufigste Grund für Fäulnis. Kalte Fensterbänke über einem ungeheizten Raum oder direkt an einer zugigen Balkontür sind deshalb im Winter ungeeignet.
+
+## Ein neuer botanischer Name
+
+Wer im Pflanzenlexikon nachschlägt, findet Bogenhanf inzwischen oft unter dem Namen Dracaena trifasciata. Botaniker haben die Gattung Sansevieria nach genetischen Untersuchungen den Drachenbäumen zugeordnet, mit denen sie eng verwandt ist. Im Handel und im Alltag ist der alte Name aber weiter üblich, und an der Pflege ändert sich nichts.
+
 ## Häufige Fragen
 
 ### Reinigt Bogenhanf die Luft?
@@ -145,6 +155,16 @@ Er enthält Saponine, die bei Katzen und Hunden Übelkeit verursachen können. S
 ### Kann ich Bogenhanf in Hydrokultur halten?
 
 Ja, das funktioniert gut, wenn der Wasserstand niedrig gehalten wird.
+
+### Warum kippen die Blätter meines Bogenhanfs um?
+
+Meist sind die Blätter am Grund durch zu viel Wasser weich geworden und faulen. Prüfe die Basis und die Wurzeln. Seltener ist zu wenig Licht der Grund: Dann wachsen die Blätter lang, dünn und weich und können ihr Gewicht nicht mehr tragen. Auch ein zu großer Topf mit viel nasser Erde begünstigt das Umkippen.
+
+### Warum wächst mein Bogenhanf nicht?
+
+Bogenhanf wächst von Natur aus langsam, und im Winter legt er oft eine Pause ein. Steht er dauerhaft dunkel, wächst er auch im Sommer kaum. Ein heller Platz, Wärme und ab dem Frühjahr eine schwache Düngung regen das Wachstum an. Ein etwas enger Topf schadet nicht, denn in viel Erde investiert die Pflanze zunächst in Wurzeln.
+
+Geduld lohnt sich: Ein gesunder Bogenhanf bildet in einem guten Jahr oft nur wenige neue Blätter, die dafür viele Jahre halten.
 
 ## Fazit
 

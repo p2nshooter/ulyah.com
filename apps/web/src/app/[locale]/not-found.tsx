@@ -13,6 +13,10 @@ export default function NotFound() {
   const dict = getDictionary(DEFAULT_LOCALE);
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-28 text-center sm:px-6">
+      {/* No manual ad unit on an error page (AdSense: no ads on screens without
+          publisher content). The URL of a 404 is whatever was requested, so the
+          page itself has to say so — lib/ad-pages.ts reads this marker. */}
+      <span data-no-ads hidden />
       <p className="font-heading text-6xl text-accent">404</p>
       <h1 className="mt-4 font-heading text-2xl">{dict.common.notFoundTitle}</h1>
       <p className="mt-2 text-sm text-text-secondary">{dict.common.notFoundBody}</p>

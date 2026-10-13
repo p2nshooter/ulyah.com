@@ -125,6 +125,18 @@ Auf einer Dachterrasse waren im Mai alle Knospen einer Kübelrose mit grünen Bl
 
 Wichtig ist, nicht sofort zu sprühen, wenn bereits viele Nützlinge an der Pflanze sind. Marienkäferlarven, die wie kleine, schwarz-orangefarbene Krokodile aussehen, werden oft für Schädlinge gehalten. Sie sind jedoch die wirksamsten Blattlausjäger überhaupt. Auch Schwebfliegenlarven, kleine, madenartige, durchscheinende Tiere zwischen den Läusen, sollten geschont werden.
 
+## Die häufigsten Blattlausarten
+
+Blattlaus ist nicht gleich Blattlaus. Allein in Mitteleuropa gibt es Hunderte Arten, und einige begegnen dir auf Balkon und Fensterbank besonders oft. Die grüne Pfirsichblattlaus ist ein Allesfresser und befällt Zimmerpflanzen, Kräuter und Gemüse gleichermaßen. Die schwarze Bohnenlaus bildet dichte, dunkle Kolonien an Bohnen, Kapuzinerkresse und vielen Blumen. Die Mehlige Kohlblattlaus erkennst du an ihrem grauweißen, wachsartigen Überzug an Kohl und Kohlrabi, und an Rosen sitzen oft große, grüne oder rötliche Rosenblattläuse an den Knospen.
+
+Eine besondere Gruppe sind Wurzelläuse. Sie leben unsichtbar an den Wurzeln, etwa von Salat oder Zimmerpflanzen, und fallen meist erst beim Umtopfen durch weißliche, wachsartige Beläge an den Wurzeln auf. Die befallene Pflanze kümmert, obwohl Licht, Wasser und Dünger stimmen. Hier hilft nur, die Wurzeln gründlich abzuspülen und die Pflanze in frische Erde zu setzen.
+
+## Kapuzinerkresse als Lockpflanze
+
+Kapuzinerkresse zieht schwarze Blattläuse geradezu magisch an. Manche Gärtner nutzen das gezielt: Ein Topf Kapuzinerkresse etwas abseits der empfindlichen Pflanzen lockt die Läuse an, und die dort entstehenden Kolonien ziehen wiederum Marienkäfer, Florfliegen und Schwebfliegen an, die sich anschließend auch über Läuse an anderen Pflanzen hermachen.
+
+Ganz ohne Risiko ist diese Methode nicht, denn eine stark befallene Lockpflanze kann auch zur Quelle neuer Läuse werden. Kontrolliere sie deshalb regelmäßig und schneide stark befallene Triebe ab, bevor geflügelte Läuse entstehen und weiterwandern.
+
 ## Häufige Fragen
 
 ### Helfen Kaffeesatz oder Knoblauch gegen Blattläuse?
@@ -138,6 +150,20 @@ Sie schwächen die Pflanze, sind aber gut zu bekämpfen. Gefährlicher sind Woll
 ### Warum kommen die Läuse jedes Jahr wieder?
 
 Blattläuse überwintern als Eier an Gehölzen oder fliegen im Frühjahr zu. Ein jährlicher Befall ist normal, entscheidend ist, wie schnell die Nützlinge folgen.
+
+### Kann ich Marienkäfer aus dem Garten auf den Balkon umsiedeln?
+
+Erwachsene Marienkäfer fliegen meist schnell wieder davon. Besser bleiben die Larven, die zudem mehr Läuse fressen. Im Fachhandel kannst du Larven des heimischen Zweipunkt-Marienkäfers kaufen. Achte auf heimische Arten, denn der Asiatische Marienkäfer ist eine eingeschleppte Art, die heimische Marienkäfer verdrängt.
+
+### Warum haben manche Blattläuse Flügel?
+
+Wenn eine Kolonie zu dicht wird oder die Wirtspflanze schlechter wird, entstehen geflügelte Läuse, die neue Pflanzen besiedeln. Bei manchen Arten gehört der Flug auch zum Jahreszyklus, weil sie zwischen einer Winter- und einer Sommerwirtspflanze wechseln. Geflügelte Läuse sind deshalb ein Zeichen, schnell zu handeln, bevor sie weiterziehen.
+
+### Kann ich statt Schmierseife einfach Spülmittel nehmen?
+
+Besser nicht. Viele Spülmittel enthalten Duftstoffe, Farbstoffe und starke Tenside, die die Blätter schädigen können. Verwende reine Schmierseife auf Kaliseifenbasis ohne Zusätze oder ein Pflanzenschutzmittel auf Kaliseifenbasis aus dem Fachhandel, und teste die Lösung zuerst an einem einzelnen Blatt.
+
+Wiederhole die Behandlung bei starkem Befall nach einigen Tagen, denn die Lösung wirkt nur auf die Läuse, die sie direkt benetzt.
 
 ## Fazit
 

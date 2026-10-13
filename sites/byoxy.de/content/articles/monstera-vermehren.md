@@ -126,6 +126,18 @@ Das erste neue Blatt eines Stecklings ist oft kleiner und weniger geschlitzt als
 
 Eine Monstera war nach fünf Jahren an der Decke angekommen und hing schief über ihrem Moosstab. Im Mai wurde der oberste Trieb mit zwei Knoten, zwei Luftwurzeln und zwei Blättern als Kopfsteckling abgeschnitten, ein zweiter Stammsteckling darunter mit einem Knoten. Beide kamen in Perlite mit Wasser in ein großes Glasgefäß. Nach vier Wochen hatten sie kräftige Wurzeln, und nach sechs Wochen wurden sie zusammen in einen Topf mit Moosstab gesetzt. Die Mutterpflanze trieb aus dem obersten verbliebenen Knoten neu aus. Aus einer zu großen Pflanze waren zwei gut proportionierte geworden.
 
+## Stecklinge verschenken, tauschen und verschicken
+
+Monstera-Stecklinge sind beliebte Tauschobjekte. Für den Transport wickelst du die Schnittstelle in leicht feuchtes Küchenpapier, packst sie in einen kleinen Beutel und schützt das Blatt mit einer Hülle aus Zeitungspapier oder Karton vor dem Knicken. Ein unbewurzelter Steckling übersteht so problemlos einige Tage, und der Empfänger bewurzelt ihn wie gewohnt. Bereits bewurzelte Stecklinge verschickst du am besten mit etwas feuchtem Moos um die Wurzeln, damit diese nicht austrocknen.
+
+Innerhalb der Europäischen Union dürfen Privatleute Pflanzen untereinander tauschen. Pflanzen und Stecklinge aus Ländern außerhalb der EU brauchen dagegen fast immer ein Pflanzengesundheitszeugnis, damit keine Schädlinge und Krankheiten eingeschleppt werden. Wer bei Online-Händlern im Ausland bestellt, sollte das vorher prüfen, sonst kann die Sendung beim Zoll vernichtet werden.
+
+## Stecklinge von bunten Sorten
+
+Bei panaschierten Monstera-Sorten entscheidet der Knoten über das Ergebnis. Die Blattzeichnung neuer Blätter hängt davon ab, wie viel helles Gewebe der Trieb an der Schnittstelle enthält. Ein Steckling von einem gut gezeichneten Abschnitt bringt mit hoher Wahrscheinlichkeit wieder bunte Blätter hervor, ein rein grüner Abschnitt dagegen meist nur grüne. Rein weiße Triebe und Blätter haben kein Blattgrün und können allein nicht überleben.
+
+Manche Sorten wie die sehr gleichmäßig gesprenkelte 'Thai Constellation' werden im Labor vermehrt und zeigen eine recht stabile Zeichnung. Bei anderen bunten Formen ist die Panaschierung unbeständig und kann von Blatt zu Blatt stark schwanken. Bunte Stecklinge brauchen zum Bewurzeln besonders viel Geduld und einen hellen Platz ohne direkte Sonne.
+
 ## Häufige Fragen
 
 ### Kann ich eine Monstera aus einem einzelnen Blatt ziehen?
@@ -139,6 +151,14 @@ Nicht zwingend, aber mit Luftwurzel geht es deutlich schneller.
 ### Wann ist der Steckling bereit für Erde?
 
 Wenn die neuen Wurzeln drei bis fünf Zentimeter lang sind.
+
+### Wie lange dauert es bis zum ersten neuen Blatt?
+
+Nach der Bewurzelung vergehen meist noch einige Wochen, bis sich ein neues Blatt entfaltet. Im Frühjahr und Sommer geht es schneller als im Winter. Solange die Wurzeln wachsen und der Steckling fest und grün bleibt, ist alles in Ordnung.
+
+### Muss ich das Wasser im Glas wechseln?
+
+Ja, etwa einmal pro Woche oder sobald es trüb wird. Verwende zimmerwarmes Wasser und spüle das Glas dabei kurz aus. Ein undurchsichtiges oder farbiges Glas verhindert, dass sich viele Algen bilden.
 
 ## Fazit
 

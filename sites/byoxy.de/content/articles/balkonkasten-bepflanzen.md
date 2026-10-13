@@ -123,6 +123,12 @@ Auf einem Südbalkon im dritten Stock vertrockneten jedes Jahr im Juli die Petun
 
 Ein gut bepflanzter Balkonkasten muss nicht teuer sein, aber an einigen Stellen lohnt es sich, nicht zu sparen. Der Kasten selbst hält bei guter Qualität viele Jahre, ebenso Halterungen und Untersetzer. Bei der Erde zahlt sich hochwertige Ware aus, weil sie über die ganze Saison locker bleibt und Wasser besser speichert. Bei den Pflanzen gibt es große Unterschiede: Jungpflanzen aus der Gärtnerei sind teurer als im Discounter, aber oft kräftiger und frei von Schädlingen. Wer Geld sparen möchte, sät einjährige Blumen wie Kapuzinerkresse, Ringelblumen, Kornblumen oder Zinnien selbst aus oder überwintert Geranien und Fuchsien aus dem Vorjahr. Auch Stecklinge von Freunden und Nachbarn sind eine gute Quelle. Ein kleiner Vorrat an Flüssigdünger reicht für eine ganze Saison und mehrere Kästen. So lässt sich ein üppiger Balkon mit überschaubarem Budget gestalten.
 
+## Nachhaltig bepflanzen
+
+Für Balkonkästen gibt es inzwischen viele gute torffreie Erden. Sie schonen Moore, die als Lebensraum und Kohlenstoffspeicher wichtig sind. Torffreie Erde verhält sich etwas anders als torfhaltige: Die Oberfläche trocknet schneller ab, obwohl darunter noch Feuchtigkeit vorhanden ist, und die enthaltenen Holzfasern binden anfangs etwas Stickstoff. Prüfe deshalb die Feuchte mit dem Finger statt nach dem Aussehen der Oberfläche, und beginne etwas früher mit dem Düngen.
+
+Nachhaltig ist es auch, nicht jedes Jahr alles neu zu kaufen. Mehrjährige Kräuter wie Thymian und Schnittlauch, robuste Stauden und Frühlingszwiebeln wie Krokusse und Traubenhyazinthen können über Jahre im Kasten bleiben, wenn er groß genug ist und im Winter etwas geschützt steht. Eigene Stecklinge von Pelargonien und anderen Lieblingspflanzen sparen zusätzlich Geld und Transportwege.
+
 ## Häufige Fragen
 
 ### Wie viele Pflanzen passen in einen 80-cm-Kasten?
@@ -136,6 +142,14 @@ Ja, etwa Salat, Radieschen, Kräuter und Erdbeeren. Für Tomaten und Paprika sin
 ### Braucht jeder Kasten eine Drainage?
 
 Bei Kästen mit Abzugslöchern ist eine Drainageschicht hilfreich. Wichtiger sind die Löcher selbst.
+
+### Kann ich die Erde vom Vorjahr wiederverwenden?
+
+Teilweise. Alte Balkonerde ist ausgelaugt, und ihre Struktur ist meist zusammengesackt. Für robuste Pflanzen kannst du sie verwenden, wenn du alte Wurzeln entfernst und sie etwa zur Hälfte mit frischer Erde oder reifem Kompost mischst. Für Aussaaten und empfindliche Pflanzen nimmst du besser frische Erde. Erde aus Kästen mit Schädlingen wie Trauermücken oder Dickmaulrüsslerlarven oder mit kranken Pflanzen gehört in die Biotonne.
+
+### Wie oft muss ich Balkonkästen düngen?
+
+Die meisten Blumenerden sind für die ersten vier bis sechs Wochen vorgedüngt. Danach brauchen stark blühende Pflanzen wie Petunien, Pelargonien oder Fuchsien regelmäßig Nachschub, entweder wöchentlich mit Flüssigdünger in der angegebenen Dosierung oder über einen Langzeitdünger, den du schon beim Pflanzen einmischst. Mehrjährige Pflanzen düngst du ab Ende August nicht mehr, damit ihre Triebe vor dem Winter ausreifen.
 
 ## Fazit
 

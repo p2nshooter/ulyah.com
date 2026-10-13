@@ -11,6 +11,8 @@ import { GlobalPlayerBar } from "@/components/GlobalPlayerBar";
 import { GlobalRadioPlayer } from "@/components/GlobalRadioPlayer";
 import { AdhanReminder } from "@/components/AdhanReminder";
 import { GlobalReadAll } from "@/components/GlobalReadAll";
+import { AdSlot } from "@/components/AdSlot";
+import { PageAds } from "@/components/PageAds";
 import { EcoOrnaments } from "@/components/EcosystemDecor";
 import { FloatingAiChat } from "@/components/FloatingAiChat";
 import { SwRegister } from "@/components/SwRegister";
@@ -309,12 +311,14 @@ export default async function LocaleLayout({
           }}
         />
         {/* Google AdSense on EVERY page of EVERY site: the loader snippet and
-            the account meta tag — and nothing else. There are NO manual ad
-            units anywhere (owner, 4 Oct 2026: "hapus aja dan bersihkan slot
-            AdSense nya di website manapun karena sy bikin otomatis … cukup
-            cuplikan AdSense, ads.txt & tag meta"): once a site is approved,
-            Auto ads in the AdSense dashboard place the ads. The async loader
-            never blocks rendering; the id is the one constant /ads.txt reads. */}
+            the account meta tag. Owner sites carry nothing else (owner, 4 Oct
+            2026: "hapus aja dan bersihkan slot AdSense nya di website manapun
+            karena sy bikin otomatis … (ingat kecuali dawa.es)"): once a site is
+            approved, Auto ads in the AdSense dashboard place the ads. dawa.es
+            alone also keeps its manual units (PageAds + AdSlot below, owner
+            12 Oct: "Adslot manual jika itu milik adsense biarkan, dan biarkan
+            otomatis"). The async loader never blocks rendering; the id is the
+            one constant /ads.txt and the units read. */}
         <meta name="google-adsense-account" content={AD_CLIENT_ID} />
         <script
           async
@@ -332,6 +336,16 @@ export default async function LocaleLayout({
           <EcoOrnaments />
           <Header locale={locale} dict={dict} />
           <main className="min-h-screen pb-24">{children}</main>
+          {/* dawa.es only (SHOWS_AD_UNITS): reads the rendered <main> and places
+              its manual units on real section boundaries — never above the
+              content, never on the pages in lib/ad-pages.ts (sign-in, account,
+              donation, kids, 404, admin…). Renders nothing on the other sites. */}
+          <PageAds />
+          {/* dawa.es only: the closing unit, right before the footer. Same page
+              rules as above; collapses to nothing on a no-fill. */}
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <AdSlot placement="footer" />
+          </div>
           <Footer locale={locale} dict={dict} />
           <GlobalPlayerBar dict={dict} />
           {/* Owns the Radio Qori audio element so the broadcast survives

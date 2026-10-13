@@ -120,6 +120,18 @@ Die meisten Minzen sind **winterhart.** Im Herbst ziehen sie oberirdisch ein und
 
 Auf einem Ostbalkon wurde eine Marokkanische Minze in einen 30-cm-Topf gesetzt. Sie wuchs so kräftig, dass jede Woche ein großer Bund für frischen Tee geerntet werden konnte. Im Juli zeigte sie Rostpusteln. Die Pflanze wurde komplett auf zehn Zentimeter zurückgeschnitten, das Schnittgut im Hausmüll entsorgt und künftig nur noch an die Basis gegossen. Innerhalb von drei Wochen trieb sie gesund wieder aus. Im folgenden Frühjahr wurde der Ballen geteilt, ein Stück blieb im Topf, zwei gingen an Nachbarn.
 
+## Minzrost erkennen und behandeln
+
+Minzrost ist eine Pilzkrankheit, die sich zuerst durch kleine, orangebraune Pusteln auf den Blattunterseiten zeigt. Später verfärben sich die Blätter, werden fleckig und fallen ab, und die Triebe können sich verdrehen. Die Sporen überdauern im Boden und an alten Pflanzenteilen, deshalb kommt die Krankheit oft jedes Jahr wieder.
+
+Schneide befallene Triebe bis knapp über dem Boden ab und entsorge sie im Hausmüll, nicht auf dem Kompost. Die Minze treibt danach meist gesund wieder aus. Vorbeugend helfen ein luftiger Standort, Gießen ohne nasse Blätter und regelmäßiges Ernten. Tritt der Rost trotzdem jedes Jahr stark auf, setze ein gesundes Stück der Minze in frische Erde und einen sauberen Topf.
+
+## Minze in der Küche
+
+Minze ist mehr als ein Teekraut. Frische Blätter passen zu Joghurt-Dips, Tabouleh und Couscous, zu Erbsen, Bohnen und Lamm, zu Obstsalat, Melone und Schokolade und natürlich in Limonaden und Eistees. Damit das Aroma frisch bleibt, gibst du die Blätter erst kurz vor dem Servieren dazu und zupfst sie, statt sie fein zu hacken, denn gequetschte Blätter werden schnell dunkel.
+
+Am aromatischsten sind Triebe, die kurz vor der Blüte geerntet werden. Für Tee kannst du ganze Zweige mit heißem Wasser übergießen. Ätherisches Pfefferminzöl ist dagegen hochkonzentriert und gehört bei Säuglingen und Kleinkindern nicht in die Nähe von Gesicht und Nase.
+
 ## Häufige Fragen
 
 ### Kann Minze mit anderen Kräutern in einen Kasten?
@@ -133,6 +145,18 @@ Minze ist für Katzen in kleinen Mengen meist unproblematisch, ätherische Öle 
 ### Warum schmeckt meine Minze nach nichts?
 
 Häufig fehlt Sonne oder die Pflanze bekommt zu viel Dünger. Auch die Sorte macht viel aus.
+
+### Kann ich Minze im Wasserglas ziehen?
+
+Ja, Minzetriebe bewurzeln im Wasserglas meist innerhalb von ein bis zwei Wochen. Für eine dauerhafte, kräftige Pflanze setzt du die bewurzelten Triebe anschließend in einen Topf mit Erde, denn im Wasser allein wird die Minze auf Dauer schwach.
+
+### Warum wächst meine Minze nach ein paar Jahren schlechter?
+
+Nach zwei bis drei Jahren im selben Topf verholzt die Mitte, die Erde ist ausgelaugt und die Wurzeln füllen jeden Winkel. Teile die Pflanze dann im Frühjahr, setze kräftige Randstücke in frische Erde und entsorge die verholzte Mitte.
+
+### Kann ich Minze im Winter ernten?
+
+Draußen zieht Minze im Winter ein und treibt im Frühjahr neu aus. Ein Topf auf einer hellen, kühlen Fensterbank liefert dagegen auch im Winter kleine Ernten.
 
 ## Fazit
 

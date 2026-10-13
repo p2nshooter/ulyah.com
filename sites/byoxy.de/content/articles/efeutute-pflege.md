@@ -116,6 +116,18 @@ Efeututen kommen meist in kleinen Kunststofftöpfen von 12 oder 14 Zentimetern i
 
 Weil sich die Efeutute so leicht im Wasser bewurzelt, eignet sie sich gut für Hydrokultur mit Blähton oder für sogenanntes Semi-Hydro mit mineralischem Granulat wie Pon oder Seramis. Wichtig ist der Umstieg: Eine Pflanze, die jahrelang in Erde stand, sollte nicht einfach ausgespült und in Blähton gesetzt werden. Ihre Erdwurzeln sterben im Wasser ab und faulen. Besser ist es, Stecklinge im Wasser zu bewurzeln und diese von Anfang an in Hydrokultur zu halten. Der Wasserstand bleibt dabei im unteren Drittel des Gefäßes, und gedüngt wird mit speziellem Hydrodünger in schwacher Konzentration.
 
+## Bunte Sorten richtig pflegen
+
+Panaschierte Sorten der Efeutute mit weißen, cremefarbenen oder hellgrünen Blattzeichnungen brauchen mehr Licht als die rein grüne Form. Ihre hellen Blattteile enthalten wenig oder kein Blattgrün und tragen kaum zur Ernährung der Pflanze bei. An dunklen Plätzen wachsen sie deshalb langsamer, und neue Blätter werden oft grüner, weil die Pflanze mehr Blattgrün bildet, um das fehlende Licht auszugleichen.
+
+Stelle bunte Sorten deshalb heller, aber ohne pralle Mittagssonne, und schneide Triebe, die nur noch grüne Blätter bilden, bis zu einem Blatt mit guter Zeichnung zurück. Weiße Blattteile werden bei zu viel Sonne leicht braun, bei zu viel Nässe bekommen sie dunkle Flecken. Gieße bunte Sorten deshalb etwas vorsichtiger als die robuste grüne Efeutute.
+
+## Kleine Blätter, große Blätter: Jugend- und Altersform
+
+In ihrer Heimat klettert die Efeutute an Baumstämmen empor und bildet dort große, teils geschlitzte Blätter. Die Topfpflanzen auf unseren Regalen zeigen meist die Jugendform mit kleinen, herzförmigen Blättern. Hängende Triebe bilden sogar eher kleinere Blätter, weil die Pflanze beim Herabwachsen nicht in Größe investiert.
+
+Darf die Efeutute an einem Moosstab oder einem rauen Brett nach oben klettern und ihre Luftwurzeln in feuchtes Material schieben, werden die Blätter mit der Zeit deutlich größer. Halte das Moos dazu leicht feucht und binde neue Triebe locker an. Ganz so groß wie im Regenwald werden die Blätter in der Wohnung zwar selten, der Unterschied zur hängenden Pflanze ist aber gut sichtbar.
+
 ## Häufige Fragen
 
 ### Ist die Efeutute giftig?
@@ -129,6 +141,12 @@ Bewurzelte Stecklinge können lange im Wasser wachsen, wenn das Wasser regelmä�
 ### Warum hat meine Efeutute kleine Blätter?
 
 Hängende Ranken bilden kleinere Blätter als kletternde. Ein Moosstab und mehr Licht fördern größere Blätter.
+
+### Warum bekommt meine Efeutute braune Blattspitzen?
+
+Häufige Ursachen sind sehr trockene Heizungsluft, unregelmäßiges Gießen mit langen Trockenphasen oder zu viel Dünger, dessen Salze sich in der Erde anreichern. Gieße gleichmäßiger, dünge sparsamer und spüle die Erde alle paar Monate gründlich mit viel Wasser durch, das gut ablaufen kann.
+
+Vertrocknete Spitzen kannst du mit einer sauberen Schere entlang der Blattform kürzen, ohne ins grüne Gewebe zu schneiden; neue Blätter wachsen danach wieder unversehrt.
 
 ## Fazit
 

@@ -7,6 +7,7 @@ import { parseSegment } from "../lib/grammar-terms.js";
 import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
 import { checkRateLimitLocal } from "../lib/rate-limit.js";
+import { globalAyahNumber } from "../lib/murottal-sources.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
 
@@ -67,6 +68,63 @@ quranRoute.get("/surah/:id", async (c) => {
 });
 
 // GET /quran/ayah/:surah/:number?lang= — full "satu ayat terpadu" bundle (§6.1)
+/**
+ * Published human translations on alquran.cloud, for the five ecosystem
+ * languages only — the fallback below never machine-translates scripture.
+ */
+const AQC_TRANSLATION: Record<string, string> = {
+  id: "id.indonesian",
+  en: "en.sahih",
+  fr: "fr.hamidullah",
+  de: "de.aburida",
+  es: "es.cortes",
+};
+
+/**
+ * The ayah bundle without D1: Arabic (Uthmani) and the language's published
+ * translation from api.alquran.cloud, with no hadits or story links.
+ *
+ * WHY. On the Workers Free plan every D1 query fails (code 7500) once the
+ * account's daily reads are spent, until midnight UTC. The home pages of
+ * 1fr.fr, tilawa.de and dawa.es open on Al-Baqarah 2:1 and showed a 500 in the
+ * console of every visit while that lasted (live probe, 12 Oct 2026). The
+ * Qur'an text itself is the same everywhere, so it can come from the open
+ * Qur'an API until D1 answers again. Null when that fails too.
+ */
+async function ayahBundleWithoutD1(c: any, surahId: number, number: number, lang: string | null, requested: string): Promise<string | null> {
+  const g = globalAyahNumber(surahId, number);
+  if (!g) return null;
+  const edition = lang ? AQC_TRANSLATION[lang] : undefined;
+  const editions = ["quran-uthmani", ...(edition ? [edition] : [])].join(",");
+  try {
+    const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surahId}:${number}/editions/${editions}`, {
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { data?: { text?: string; edition?: { identifier?: string } }[] };
+    const rows = Array.isArray(data.data) ? data.data : [];
+    const arabic = rows.find((r) => r.edition?.identifier === "quran-uthmani")?.text;
+    if (!arabic) return null;
+    const trans = edition ? rows.find((r) => r.edition?.identifier === edition)?.text : undefined;
+    const [tafsirHit, asbabHit] = await Promise.all([
+      fetchTafsir(c.env, lang, surahId, number).catch(() => null),
+      fetchAsbabunNuzul(c.env, surahId, number, lang).catch(() => null),
+    ]);
+    return JSON.stringify({
+      ayah: { id: g, surah_id: surahId, number, text_ar: arabic, text_translit: null },
+      translation: trans ? { ayah_id: g, lang, text: trans, source: `alquran.cloud (${edition})` } : null,
+      lang: requested,
+      translationLang: lang,
+      tafsir: tafsirHit ? [tafsirHit] : [],
+      asbabun_nuzul: asbabHit ? [asbabHit] : [],
+      hadits: [],
+      stories: [],
+    });
+  } catch {
+    return null;
+  }
+}
+
 quranRoute.get("/ayah/:surah/:number", async (c) => {
   const surahId = Number(c.req.param("surah"));
   const number = Number(c.req.param("number"));
@@ -92,9 +150,19 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
-  const ayah = await c.env.DB.prepare("SELECT * FROM ayah WHERE surah_id = ? AND number = ?")
-    .bind(surahId, number)
-    .first<{ id: number }>();
+  let ayah: { id: number } | null;
+  try {
+    ayah = await c.env.DB.prepare("SELECT * FROM ayah WHERE surah_id = ? AND number = ?")
+      .bind(surahId, number)
+      .first<{ id: number }>();
+  } catch {
+    // D1 unavailable (daily quota): serve the text from the open Qur'an API,
+    // never cached, so the full bundle returns as soon as D1 does.
+    c.header("X-No-Edge-Cache", "1");
+    const degraded = await ayahBundleWithoutD1(c, surahId, number, lang, requested);
+    if (degraded) return c.body(degraded, 200, { "Content-Type": "application/json" });
+    return c.json({ error: "Temporarily unavailable" }, 503);
+  }
   if (!ayah) return c.json({ error: "Ayah not found" }, 404);
 
   // Tafsir + asbabun nuzul are fetched live from spa5k/tafsir_api (GitHub)

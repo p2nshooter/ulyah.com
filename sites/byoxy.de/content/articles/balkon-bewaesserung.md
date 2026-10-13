@@ -119,6 +119,16 @@ Für die Urlaubszeit gelten besondere Regeln, von der Vorbereitung über Wassers
 
 Auf einem Westbalkon unter dem Dach wurden im Juli täglich zwei volle Gießkannen auf sechs Kästen und vier Kübel verteilt, trotzdem welkten die Petunien jeden Nachmittag. Die Lösung bestand aus drei Schritten: Die kleinen Kästen wurden durch Wasserspeicherkästen ersetzt, die Erde mit einer Schicht Blähton abgedeckt, und eine einfache Tropfbewässerung mit Bewässerungscomputer am Wasserhahn versorgte die Kübel jeden Morgen um sechs Uhr. Der Wasserverbrauch sank, und die Pflanzen blühten den ganzen Sommer, auch während eines zweiwöchigen Urlaubs.
 
+## Gießen nach Pflanzengruppe
+
+Nicht jede Balkonpflanze braucht gleich viel Wasser, und wer seine Pflanzen danach gruppiert, spart Zeit und Wasser. Pelargonien vertragen kurze Trockenphasen erstaunlich gut und reagieren auf ständige Nässe empfindlicher als auf einen trockenen Tag. Petunien, Surfinien, Fuchsien und Begonien dagegen sind durstig und lassen bei Trockenheit schnell die Blätter hängen; im Hochsommer brauchen sie auf sonnigen Balkonen oft zweimal täglich Wasser.
+
+Tomaten und Gurken möchten vor allem gleichmäßig feucht stehen. Wechseln sich Trockenheit und plötzliche Wassergaben ab, platzen Tomatenfrüchte leichter, und es kommt häufiger zur Blütenendfäule, bei der die Frucht unten braun und lederartig wird, weil die Pflanze bei unregelmäßiger Versorgung nicht genug Calcium in die Früchte transportiert. Mediterrane Kräuter wie Rosmarin, Thymian und Salbei sind dagegen genügsam und vertragen es, wenn die Erde zwischen zwei Wassergaben gut abtrocknet. Pflanze sie deshalb nicht zusammen mit durstigen Blühern in einen Kasten.
+
+## Gießen im Frühjahr, Herbst und Winter
+
+In den kühleren Monaten verdunstet viel weniger Wasser, und die häufigsten Schäden entstehen dann durch zu viel Nässe. Prüfe im Frühjahr und Herbst vor jedem Gießen mit dem Finger, ob die Erde einige Zentimeter tief trocken ist. Immergrüne Kübelpflanzen, die draußen überwintern, verdursten dagegen gelegentlich im Winter: An frostfreien, sonnigen Tagen verdunsten ihre Blätter weiter Wasser, während der Ballen trocken ist. Gieße sie deshalb an milden Tagen mäßig.
+
 ## Häufige Fragen
 
 ### Wie viel Wasser braucht ein Balkonkasten pro Tag?
@@ -132,6 +142,18 @@ Oft ja. Balkone unter einem Dach oder Balkon darüber bekommen kaum Regen. Die F
 ### Kann ich Pflanzen mit Spülwasser gießen?
 
 Wasser mit Spülmittel oder Salz schadet Pflanzen. Abgekühltes, ungesalzenes Kochwasser von Gemüse ist dagegen in Ordnung.
+
+### Was tun, wenn die Erde kein Wasser mehr aufnimmt?
+
+Ist ein Topfballen völlig ausgetrocknet, läuft das Gießwasser oft seitlich am Ballen vorbei und unten wieder heraus. Stelle kleinere Töpfe dann für zehn bis zwanzig Minuten in einen Eimer mit Wasser, bis keine Luftblasen mehr aufsteigen. Große Kübel gießt du in mehreren kleinen Portionen im Abstand einiger Minuten, damit sich die Erde langsam wieder vollsaugen kann.
+
+### Sind Untersetzer sinnvoll?
+
+Untersetzer schützen den Balkonboden und den Nachbarn darunter vor ablaufendem Wasser. Leere sie aber etwa eine halbe Stunde nach dem Gießen aus, denn stehendes Wasser im Untersetzer führt bei den meisten Pflanzen zu Staunässe und Wurzelfäule. Nur an sehr heißen Sommertagen darf bei durstigen Pflanzen wie Tomaten oder Petunien ein kleiner Rest stehen bleiben, den die Pflanze in wenigen Stunden aufnimmt.
+
+### Morgens oder abends gießen?
+
+Am besten morgens, denn dann gehen die Pflanzen mit vollen Wasserreserven in die Hitze des Tages, und die Blätter trocknen schnell ab. Abendliches Gießen ist in Ordnung, wenn du direkt auf die Erde gießt und die Blätter trocken bleiben, denn nasses Laub über Nacht fördert Pilzkrankheiten.
 
 ## Fazit
 

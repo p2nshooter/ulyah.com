@@ -115,6 +115,20 @@ Im Wohnzimmer einer Altbauwohnung standen ein Frauenhaarfarn, eine Calathea und 
 
 Für die meisten Haushalte reicht die Kombination aus Hygrometer, Gruppierung und einem kleinen Verdunster in der Pflanzenecke. Wichtig ist, das Gerät nicht direkt auf Blätter oder Möbel zu richten und es regelmäßig zu reinigen. In stehendem Wasser vermehren sich sonst Bakterien und Schimmelpilze, die mit dem Wasserdampf in die Raumluft gelangen. Viele Hersteller empfehlen eine wöchentliche Reinigung mit Essig oder Zitronensäure. Wer im Sommer die Fenster ohnehin oft offen hat, kann das Gerät von Mai bis September meist ausgeschaltet lassen, weil die Luftfeuchtigkeit dann von allein im angenehmen Bereich liegt.
 
+## Luftfeuchtigkeit im Jahreslauf
+
+Die größte Herausforderung ist der Winter. Kalte Außenluft enthält wenig Wasser, und wenn sie beim Lüften hereinkommt und aufgeheizt wird, sinkt ihre relative Luftfeuchtigkeit stark. In beheizten Räumen liegt sie dann oft deutlich unter fünfzig Prozent, direkt über Heizkörpern noch niedriger. Genau dann zeigen empfindliche Pflanzen wie Calatheas, Farne und Marantas braune Blattränder.
+
+Im Sommer ist die Luft in den meisten Wohnungen feuchter, und viele Pflanzen erholen sich sichtbar. Die Übergangszeiten im Frühjahr und Herbst sind meist unproblematisch. Plane Maßnahmen wie Luftbefeuchter oder das Gruppieren von Pflanzen deshalb vor allem für die Heizperiode, und beobachte mit einem Hygrometer, wie sich die Werte im Lauf des Jahres verändern.
+
+## Pflanzen als natürliche Luftbefeuchter
+
+Pflanzen geben einen großen Teil des Gießwassers über ihre Blätter wieder an die Luft ab. Eine einzelne Pflanze verändert die Luftfeuchtigkeit eines Zimmers allerdings kaum messbar. Erst viele Pflanzen auf engem Raum, besonders großblättrige Arten mit hohem Wasserverbrauch wie Zyperngras, schaffen um sich herum ein etwas feuchteres Kleinklima. Dieser Effekt ist der Grund, warum gruppierte Pflanzen besser gedeihen als einzeln stehende.
+
+## Ein gutes Raumklima für Mensch und Pflanze
+
+Für Menschen gilt eine relative Luftfeuchtigkeit zwischen etwa vierzig und sechzig Prozent als angenehm. Höhere Werte über längere Zeit erhöhen das Risiko von Schimmel, vor allem an kalten Außenwänden und hinter Möbeln. Wer viele Pflanzen hält oder einen Luftbefeuchter betreibt, sollte deshalb regelmäßig stoßlüften und die Werte mit einem Hygrometer im Blick behalten.
+
 ## Häufige Fragen
 
 ### Hilft eine Schale Wasser auf der Heizung?
@@ -128,6 +142,18 @@ Die Luftfeuchtigkeit wäre ideal, aber ohne Fenster fehlt das Licht. Nur mit ein
 ### Brauchen Sukkulenten feuchte Luft?
 
 Nein. Sie bevorzugen trockene Luft. Zu hohe Luftfeuchtigkeit kann bei ihnen sogar Fäulnis fördern.
+
+### Bringt ein Zimmerbrunnen etwas?
+
+Ein kleiner Zimmerbrunnen erhöht die Luftfeuchtigkeit nur geringfügig, kann in einer Pflanzengruppe aber zu einem etwas feuchteren Kleinklima beitragen. Wechsle das Wasser regelmäßig und reinige den Brunnen, damit sich keine Algen und Keime bilden.
+
+### Wie genau sind günstige Hygrometer?
+
+Einfache digitale Hygrometer können um einige Prozentpunkte danebenliegen. Prüfen kannst du sie mit einem einfachen Test: Stelle das Gerät zusammen mit einem Schälchen feuchtem Kochsalzbrei, in dem noch ungelöstes Salz liegt, für einige Stunden in einen dicht verschlossenen Behälter. Die Luft darin pendelt sich auf etwa fünfundsiebzig Prozent ein, und die Abweichung deines Geräts kannst du dir merken.
+
+### Wo messe ich die Luftfeuchtigkeit am besten?
+
+Auf Höhe der Pflanzen, nicht direkt über der Heizung, am Fenster oder neben einem Luftbefeuchter. Gib dem Gerät nach dem Aufstellen etwa eine halbe Stunde Zeit, bevor du den Wert abliest.
 
 ## Fazit
 

@@ -113,6 +113,16 @@ Ein Philodendron stand seit vier Jahren in derselben Erde. Beim Gießen lief das
 
 Perlite staubt beim Mischen. Am besten draußen arbeiten oder das Perlite vorher leicht befeuchten. Wer viele Pflanzen hat, kann sich zwei oder drei Grundmischungen auf Vorrat herstellen, etwa eine luftige Aroideenmischung, eine mineralische Sukkulentenmischung und eine feuchtigkeitshaltende Farnmischung.
 
+## Spezialerden: wann sie sich lohnen
+
+Neben normaler Blumenerde gibt es eine Reihe von Spezialerden, und nicht alle sind bloß Marketing. Kakteen- und Sukkulentenerde enthält viel mineralisches Material wie Sand, Bims oder Lava und lässt Wasser schnell abfließen, was Fäulnis vorbeugt. Orchideensubstrat besteht überwiegend aus grober Rinde, denn die meisten Zimmerorchideen wachsen in der Natur auf Bäumen und brauchen Luft an den Wurzeln. Rhododendron- oder Moorbeeterde ist sauer und eignet sich für Heidelbeeren, Azaleen und andere kalkempfindliche Pflanzen.
+
+Kräutererde ist meist nährstoffärmer als Blumenerde, was mediterranen Kräutern entgegenkommt, und Aussaaterde ist fein, nährstoffarm und weitgehend keimfrei, damit empfindliche Sämlinge nicht verbrennen oder faulen. Kübelpflanzenerde ist besonders strukturstabil, weil sie mehrere Jahre im Gefäß bleiben soll. Für die meisten Grünpflanzen reicht dagegen eine gute Universalerde, die du bei Bedarf mit Bims oder Perlite lockerer machst.
+
+## Erde und pH-Wert
+
+Die meisten Zimmerpflanzen wachsen am besten in leicht saurer bis neutraler Erde. Hartes, kalkhaltiges Leitungswasser hebt den pH-Wert der Erde mit der Zeit an, was du manchmal an weißen Kalkkrusten auf der Erdoberfläche und am Topfrand erkennst. Kalkempfindliche Pflanzen reagieren darauf mit Chlorose: Die Blätter werden gelb, während die Blattadern grün bleiben, weil die Pflanze bestimmte Nährstoffe wie Eisen nicht mehr gut aufnehmen kann. Regenwasser, gefiltertes Wasser und regelmäßiges Umtopfen in frische Erde beugen dem vor.
+
 ## Häufige Fragen
 
 ### Kann ich Gartenerde für Zimmerpflanzen nehmen?
@@ -126,6 +136,14 @@ Bei den meisten Zimmerpflanzen alle ein bis drei Jahre, bei langsam wachsenden S
 ### Ist teure Erde wirklich besser?
 
 Nicht immer, aber hochwertige Erden sind meist strukturstabiler und enthalten weniger feine Bestandteile. Eine günstige Erde lässt sich mit Perlite oder Bims deutlich verbessern.
+
+### Woran erkenne ich gute Erde am Geruch?
+
+Frische, gesunde Erde riecht angenehm nach Waldboden. Riecht sie dagegen faulig, sauer oder modrig, war sie zu lange nass und schlecht belüftet, oder es zersetzen sich darin Wurzeln. Solche Erde solltest du nicht mehr verwenden. Auch muffig riechende Säcke mit Schimmel im Inneren gehören nicht in Töpfe.
+
+### Was sind die weißen Kügelchen in der Erde?
+
+Meist handelt es sich um Perlite, ein aufgeschäumtes Vulkangestein, das die Erde lockert, oder bei günstigen Erden um Styroporkügelchen. Runde, gleichmäßige Körnchen in Gelb, Grün oder Blau sind oft Langzeitdünger. Schneckeneier sehen anders aus: Sie sind durchscheinend, liegen in Gelegen und finden sich direkt unter der Erdoberfläche.
 
 ## Fazit
 

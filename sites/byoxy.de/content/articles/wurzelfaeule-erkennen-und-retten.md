@@ -131,6 +131,18 @@ Eine Monstera stand in einem dekorativen Keramiktopf ohne Abzugsloch und wurde e
 
 Bei diesen Pflanzen lohnt es sich, im Winter besonders vorsichtig zu gießen und regelmäßig das Gewicht des Topfes zu prüfen. Wer unsicher ist, gießt lieber einmal zu wenig als einmal zu viel. Eine leicht durstige Pflanze erholt sich innerhalb von Stunden, eine faulende oft gar nicht mehr. Hilfreich ist auch ein Holzstäbchen, das dauerhaft im Topf steckt und vor jedem Gießen herausgezogen wird.
 
+## Die ersten Wochen nach der Rettung
+
+Nach dem Umtopfen beginnt die heikelste Phase. Gieße in der ersten Woche gar nicht oder nur sehr wenig, damit die Schnittstellen abheilen und die verbliebenen Wurzeln Luft bekommen. Danach gießt du erst, wenn die oberen zwei bis drei Zentimeter der Erde trocken sind, und prüfst die Feuchte zusätzlich über das Gewicht des Topfes. Ein kleiner Topf, der zur reduzierten Wurzelmenge passt, trocknet schneller ab und senkt das Risiko eines Rückfalls.
+
+Stelle die Pflanze hell, aber ohne direkte Sonne, und dünge sie mindestens sechs bis acht Wochen lang nicht. Dünger heilt keine Wurzeln, sondern belastet sie zusätzlich. Neue, helle Wurzelspitzen an der Topfwand oder ein frisches Blatt sind die besten Zeichen, dass die Rettung gelungen ist.
+
+## Wurzelfäule in Hydrokultur und Semi-Hydro
+
+Auch Pflanzen in Hydrokultur können Wurzelfäule bekommen, meist weil der Wasserstand dauerhaft zu hoch ist. Der Wasserstandsanzeiger sollte zwischen den Gießgängen auf Minimum fallen, damit die Wurzeln zwischendurch Luft bekommen. Braune, schleimige Wurzeln und ein unangenehmer Geruch aus dem Gefäß sind Warnzeichen.
+
+Spüle Wurzeln und Blähton dann gründlich, schneide verfaulte Wurzeln ab, reinige das Gefäß und fülle anschließend weniger Wasser ein. In Semi-Hydro-Systemen mit Wasserreservoir gilt dasselbe: Das Reservoir darf zwischendurch leerlaufen, bevor du nachfüllst.
+
 ## Häufige Fragen
 
 ### Hilft Wasserstoffperoxid gegen Wurzelfäule?
@@ -144,6 +156,18 @@ Nein. Sie enthält Krankheitserreger und sollte im Hausmüll entsorgt werden.
 ### Wie lange dauert die Erholung?
 
 Je nach Pflanze und Ausmaß der Schäden zwei bis drei Monate, bis sie wieder kräftig wächst.
+
+### Helfen Zimt oder Holzkohle an den Schnittstellen?
+
+Manche Pflanzenfreunde bestäuben frische Schnittstellen mit Zimt oder Holzkohlepulver, weil beides leicht austrocknend und pilzhemmend wirkt. Das kann unterstützen, entscheidend sind aber saubere Schnitte, das Antrocknenlassen und frische, durchlässige Erde.
+
+### Kann Wurzelfäule auf andere Pflanzen übergreifen?
+
+Die Erreger können über Wasser, Erde und Werkzeug weitergetragen werden. Nutze deshalb keine gemeinsamen Untersetzer für kranke und gesunde Pflanzen, reinige Töpfe und Werkzeug gründlich und entsorge die alte Erde im Hausmüll.
+
+Spüle auch Gießkanne und Übertöpfe heiß aus, bevor du sie wieder für gesunde Pflanzen verwendest.
+
+So verhinderst du, dass sich die Erreger unbemerkt weiter ausbreiten.
 
 ## Fazit
 

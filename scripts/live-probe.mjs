@@ -55,7 +55,7 @@ async function visit(ctx, url) {
     if (r.status() >= 400 && !NOISE.test(r.url())) failed.push(`${r.status()} ${r.url().slice(0, 140)}`);
   });
   page.on("requestfailed", (r) => !NOISE.test(r.url()) && failed.push(`FAILED ${r.failure()?.errorText ?? ""} ${r.url().slice(0, 140)}`));
-  let status = "ERR";
+  let status;
   try {
     const res = await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
     status = res ? res.status() : "no-response";

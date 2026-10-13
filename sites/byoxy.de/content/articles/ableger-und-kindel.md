@@ -132,6 +132,10 @@ Bei der Wahl des Substrats hilft [Blumenerde und Substrat](/ratgeber/blumenerde-
 
 Eine Aloe vera hatte nach drei Jahren ihren Topf mit acht Kindeln gefüllt. Im April wurde sie ausgetopft. Fünf größere Kindel mit gut entwickelten Wurzeln wurden abgetrennt, zwei Tage angetrocknet und in Tontöpfe mit Kakteenerde und Bims gesetzt. Drei sehr kleine Kindel ohne Wurzeln blieben bei der Mutterpflanze, die in einen etwas größeren Topf kam. Nach einer Woche wurde zum ersten Mal vorsichtig gegossen. Alle fünf Jungpflanzen wuchsen an und bildeten im Sommer neue Blätter.
 
+## Ableger verschenken und tauschen
+
+Ableger sind die klassische Währung unter Pflanzenfreunden. Damit die Jungpflanze beim neuen Besitzer gut ankommt, sollte sie bereits eigene Wurzeln haben und mindestens zwei bis drei Wochen im eigenen Topf gestanden haben. Für den Transport stellst du den Topf in eine Tüte oder einen Karton, damit Erde und Blätter geschützt sind, und vermeidest im Winter längere Wege durch die Kälte. Ein kleiner Zettel mit dem Namen der Pflanze und den wichtigsten Pflegehinweisen, etwa „hell, aber ohne Mittagssonne“ oder „erst gießen, wenn die Erde oben trocken ist“, hilft dem Empfänger mehr als jede lange Anleitung. Auf Pflanzentauschbörsen, in Nachbarschaftsgruppen und bei Tauschtagen in Gemeinschaftsgärten findest du außerdem Menschen, die dir im Gegenzug Sorten anbieten, die im Handel selten sind.
+
 ## Häufige Fragen
 
 ### Schadet es der Mutterpflanze, wenn ich Kindel stehen lasse?
@@ -145,6 +149,14 @@ Bei Sukkulenten und Kakteen oft ja: antrocknen lassen und auf trockenes Substrat
 ### Warum bildet meine Grünlilie keine Ausläufer?
 
 Junge oder zu dunkel stehende Pflanzen bilden selten Ausläufer. Ältere Pflanzen in etwas engen Töpfen an hellen Plätzen sind besonders produktiv.
+
+### Wie lange dauert es, bis eine Jungpflanze selbst Kindel bildet?
+
+Das hängt von der Art ab. Grünlilien bilden oft schon im ersten oder zweiten Jahr eigene Ausläufer, wenn sie hell stehen und der Topf gut durchwurzelt ist. Aloe und viele andere Sukkulenten brauchen meist mehrere Jahre, bis am Fuß die ersten Kindel erscheinen. Bromelien bilden Kindel in der Regel erst nach der Blüte der Mutterpflanze.
+
+### Kann ich Ableger auch im Winter abtrennen?
+
+In einer warmen Wohnung ist das möglich. Wegen des geringeren Lichts bilden sich Wurzeln im Winter aber langsamer, und Jungpflanzen ohne eigene Wurzeln faulen leichter. Wenn du die Wahl hast, warte mit dem Abtrennen bis zum Frühjahr oder lass den Ableger bis dahin an der Mutterpflanze.
 
 ## Fazit
 

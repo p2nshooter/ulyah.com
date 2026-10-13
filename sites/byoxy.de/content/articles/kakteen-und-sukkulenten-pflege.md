@@ -109,6 +109,16 @@ Viele Sukkulenten lassen sich sehr leicht vermehren, etwa über Blattstecklinge,
 
 Auf einem Nordfenster im Büro standen ein Dutzend kleine Sukkulenten in Deko-Gläsern mit Kies. Nach einem halben Jahr waren die Echeverien lang und blass, mehrere Kakteen an der Basis braun und weich. Die überlebenden Pflanzen wurden in Tontöpfe mit mineralischer Kakteenerde umgesetzt und an ein Südwestfenster im Treppenhaus gestellt. Gegossen wurde nur noch, wenn die Töpfe leicht waren. Die vergeilten Echeverien wurden geköpft und neu bewurzelt. Nach einem Sommer waren die Pflanzen kompakt, farbig und gesund, und im folgenden Frühjahr blühten zwei Mammillarien nach einer kühlen Überwinterung im Treppenhaus.
 
+## Kakteen im Sommer auf dem Balkon
+
+Viele Kakteen und Sukkulenten profitieren von einem Sommer im Freien. Das kräftigere Licht und die Temperaturunterschiede zwischen Tag und Nacht fördern einen kompakten Wuchs und bei vielen Arten die Blütenbildung im folgenden Jahr. Gewöhne die Pflanzen aber langsam um: Die ersten ein bis zwei Wochen gehören an einen hellen, aber vor der Mittagssonne geschützten Platz, sonst entstehen gelbliche oder braune Sonnenbrandflecken, die nicht mehr verschwinden.
+
+Ein Platz unter einem Dachvorsprung schützt vor Dauerregen, der Erde und Pflanzen tagelang nass hält. Hole die meisten Kakteen wieder herein, bevor die Nächte dauerhaft unter etwa zehn Grad fallen. Für die Winterruhe ist ein heller, kühler Platz im Haus ideal.
+
+## Kakteen sicher anfassen und umtopfen
+
+Zum Umtopfen musst du einen Kaktus nicht mit bloßen Händen anfassen. Ein zusammengefalteter Streifen Zeitungspapier oder Karton, um den Körper gelegt, eine Küchenzange mit Gummispitzen oder dicke Lederhandschuhe schützen zuverlässig. Besonders tückisch sind die winzigen Widerhakenborsten der Opuntien, die Glochiden. Sie dringen leicht in die Haut ein und brechen ab. Mit einem Streifen Klebeband, der auf die Haut gedrückt und abgezogen wird, lassen sie sich oft besser entfernen als mit der Pinzette.
+
 ## Häufige Fragen
 
 ### Sind Kakteen giftig?
@@ -122,6 +132,18 @@ Nein. Wüstenkakteen und die meisten Sukkulenten brauchen keine erhöhte Luftfeu
 ### Was ist mit bunten oder aufgeklebten Kakteen?
 
 Gefärbte Kakteen und Kakteen mit aufgeklebten Strohblumen sollten nach dem Kauf befreit werden, sofern möglich. Die Farbe wächst nicht nach, und Kleber schadet dem Gewebe.
+
+### Warum wird mein Kaktus unten braun und hart?
+
+Bei vielen säulenförmigen Kakteen verkorkt die Basis mit dem Alter. Sie wird dabei braun, fest und rindenartig, was ganz natürlich ist. Bedenklich ist dagegen eine braune Stelle, die weich, nass oder eingesunken ist: Das deutet auf Fäulnis hin, und du solltest sofort Erde und Wurzeln kontrollieren.
+
+### Wie oft muss ich Kakteen umtopfen?
+
+Junge Kakteen alle ein bis zwei Jahre, ältere etwa alle drei bis vier Jahre oder wenn der Topf durchwurzelt ist. Gieße nach dem Umtopfen etwa eine Woche lang nicht, damit kleine Verletzungen an den Wurzeln abheilen können, bevor sie mit nasser Erde in Berührung kommen.
+
+### Brauchen Kakteen einen besonderen Dünger?
+
+Kakteendünger enthält weniger Stickstoff als normaler Grünpflanzendünger und fördert so einen kompakten Wuchs. Dünge während der Wachstumszeit etwa alle zwei bis vier Wochen schwach und in der Winterruhe gar nicht.
 
 ## Fazit
 

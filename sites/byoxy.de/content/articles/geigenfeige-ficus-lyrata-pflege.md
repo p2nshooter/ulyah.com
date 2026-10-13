@@ -104,6 +104,16 @@ Bei Flecken lohnt es sich zu unterscheiden: Braune, sich ausbreitende Flecken mi
 
 Eine Geigenfeige wurde im November gekauft, im kalten Auto transportiert und zu Hause in eine helle Zimmerecke zwei Meter neben ein Westfenster gestellt. In den ersten drei Wochen fielen fünf untere Blätter ab. Die Besitzerin goss daraufhin häufiger, was die Lage verschlimmerte: Die Erde blieb nass und neue braune Flecken entstanden. Erst als sie die Pflanze direkt ans Fenster stellte, das Gießen auf die Fingerprobe umstellte und sie dort stehen ließ, stabilisierte sich die Geigenfeige. Im Frühjahr kamen neue, große Blätter, und zwei Jahre später war sie höher als vorher.
 
+## Rote Punkte auf jungen Blättern
+
+Viele Besitzer erschrecken, wenn auf frischen, noch hellgrünen Blättern kleine rötliche oder braune Pünktchen erscheinen. Meist steckt keine Krankheit dahinter, sondern ein sogenanntes Ödem. Es entsteht, wenn die Wurzeln mehr Wasser aufnehmen, als die Blätter verdunsten können, etwa nach einer großen Wassergabe auf sehr trockene Erde oder bei wenig Licht. Einzelne Zellen platzen dann und bilden die kleinen Punkte.
+
+Die Flecken breiten sich nicht aus wie Pilzflecken und verblassen oft, wenn das Blatt älter wird. Vorbeugen kannst du mit gleichmäßigem Gießen: lieber regelmäßig moderate Mengen, wenn die oberen Zentimeter der Erde trocken sind, als lange Trockenphasen und danach eine Flut.
+
+## Worauf du beim Kauf achten solltest
+
+Kaufe eine Geigenfeige möglichst im Frühjahr oder Sommer. Im Winter erleidet sie auf dem Weg vom Laden nach Hause leicht einen Kälteschock und wirft danach Blätter ab. Achte auf feste, glänzende Blätter ohne braune Flecken, auf saubere Blattunterseiten ohne Schädlinge und auf einen Wurzelballen, der nicht faulig riecht. Ob du ein Bäumchen mit einem Stamm oder eine buschige Pflanze mit mehreren Trieben wählst, ist Geschmackssache. Bäumchen wirken elegant, buschige Pflanzen verzeihen den Verlust einzelner Blätter optisch besser.
+
 ## Häufige Fragen
 
 ### Ist die Geigenfeige giftig?
@@ -117,6 +127,12 @@ Ja, an einen geschützten, halbschattigen Platz, sobald die Nächte über 15 °C
 ### Wie groß wird eine Geigenfeige in der Wohnung?
 
 Bei guter Pflege zwei bis drei Meter. Durch Rückschnitt lässt sie sich auf die gewünschte Höhe begrenzen.
+
+### Warum hängen die Blätter meiner Geigenfeige?
+
+Hängende Blätter zeigen meist Durst an, vor allem wenn die Erde trocken ist und die Blätter weich wirken. Ist die Erde dagegen nass, können die Wurzeln durch Staunässe geschädigt sein. Auch nach einem Umzug oder einem Kälteschock lässt die Geigenfeige ihre Blätter vorübergehend hängen.
+
+Prüfe in jedem Fall zuerst mit dem Finger die Feuchte einige Zentimeter tief, bevor du gießt, denn Wasser auf bereits nasse Erde verschlimmert Wurzelschäden. Nach einem Umzug erholen sich die Blätter meist innerhalb von ein bis zwei Wochen von selbst.
 
 ## Fazit
 

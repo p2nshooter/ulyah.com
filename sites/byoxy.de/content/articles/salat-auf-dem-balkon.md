@@ -132,6 +132,16 @@ Salat kann je nach Jahreszeit, Licht und Düngung unterschiedlich viel Nitrat sp
 
 Vor dem Verzehr wird Balkonsalat gründlich gewaschen, besonders wenn er an einer verkehrsreichen Straße wächst oder Vögel den Balkon besuchen. Blätter kurz in kaltem Wasser schwenken, abtropfen lassen und am besten frisch verwenden. Geerntete Blätter halten sich in einer feuchten Dose im Gemüsefach zwei bis drei Tage.
 
+## Wilde Kräuter und essbare Blüten als Beigabe
+
+Ein Salatkasten wird abwechslungsreicher, wenn du ein paar ungewöhnliche Pflanzen dazusetzt. Sauerampfer bringt eine frische, säuerliche Note, der Kleine Wiesenknopf, auch Pimpinelle genannt, schmeckt leicht nach Gurke, und Portulak hat fleischige, saftige Blätter. Kapuzinerkresse liefert scharf-würzige Blätter und essbare Blüten, und auch Borretschblüten und Gänseblümchen sind eine schöne, essbare Dekoration.
+
+Ernte Blüten am besten morgens, wenn sie frisch geöffnet sind, und verwende nur Blüten von Pflanzen, die du selbst ohne Pflanzenschutzmittel gezogen hast. Blumen aus dem Gartencenter sind für den Verzehr meist nicht geeignet.
+
+## Salat in Pflanzsäcken, Ampeln und Hochbeeten
+
+Salat hat flache Wurzeln und braucht keine tiefen Gefäße. Schon fünfzehn bis zwanzig Zentimeter Erdtiefe reichen, deshalb eignen sich auch Pflanzsäcke, flache Balkonhochbeete und Hängeampeln, in denen Pflücksalat dekorativ über den Rand wächst. Vertikale Pflanzsysteme an der Wand nutzen den Platz besonders gut, trocknen aber schnell aus und müssen an warmen Tagen täglich kontrolliert werden.
+
 ## Häufige Fragen
 
 ### Kann ich Salat aus dem Supermarkt nachwachsen lassen?
@@ -145,6 +155,20 @@ Für zwei Personen reichen meist sechs bis acht Pflücksalate mit regelmäßiger
 ### Wächst Salat im Winter auf dem Balkon?
 
 Feldsalat und Winterportulak sind winterhart und liefern in milden Wintern frische Blätter.
+
+### Warum wird mein Salat bitter?
+
+Hitze, lange Tage und Trockenheit lassen viele Salate schießen, und dabei werden sie bitter. Auch ältere Blätter schmecken bitterer als junge. Ernte deshalb regelmäßig junge Blätter, gieße gleichmäßig und säe im Hochsommer hitzefeste Sorten oder stelle die Kästen in den Halbschatten.
+
+### Kann ich Samen von meinem Salat selbst gewinnen?
+
+Bei samenfesten Sorten ja: Lass einige Pflanzen schießen und blühen und ernte die Samen, wenn die Blütenstände flauschig werden. Bei F1-Hybriden, die auf der Samentüte so gekennzeichnet sind, entwickeln sich aus eigenen Samen dagegen meist uneinheitliche Pflanzen.
+
+### Wie schütze ich Salat vor Schnecken?
+
+Schnecken gelangen meist mit gekauften Pflanzen oder Erde auf den Balkon. Kontrolliere neue Pflanzen, sammle Schnecken abends ab und klebe Kupferband um Kästen und Kübel. Wenn du doch Schneckenkorn verwendest, wähle Präparate auf Basis von Eisen-III-Phosphat, die auch im ökologischen Anbau zugelassen sind.
+
+Bierfallen gehören dagegen nicht auf den Balkon, denn sie locken zusätzliche Schnecken an.
 
 ## Fazit
 

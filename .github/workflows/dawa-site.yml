@@ -19,10 +19,11 @@ name: dawa.es — backup & rebuild (detached site)
 #   without overlaps, no React hydration error, a Spanish menu that fits, no
 #   404 link on "Sobre nosotros") and deploys it to the existing dawa-web
 #   Worker. Domains, zone, the AdSense account (ca-pub-6371903555702163),
-#   ads.txt and the meta tag stay as they are. One thing changes beyond the
-#   fixes: the old build's manual ad units are not in this code (there are none
-#   anywhere since 4 Oct); Auto ads of the same account fill the pages instead,
-#   if they are switched on for dawa.es in that AdSense account.
+#   ads.txt, the meta tag and its two manual units (banner 4702981509, flex
+#   1209764526) stay as they are — owner, 12 Oct 2026: "Adslot manual jika itu
+#   milik adsense biarkan, dan biarkan otomatis". The units now also stay off
+#   the pages AdSense keeps ads away from (sign-in, account, donation, kids,
+#   404, admin; apps/web/src/lib/ad-pages.ts), and Auto ads keep running.
 
 on:
   workflow_dispatch:
@@ -159,12 +160,18 @@ jobs:
 
       # dawa.es keeps its own AdSense account (§10); refuse to deploy a build
       # whose ads.txt would say anything else.
-      - name: Check the build keeps dawa.es's own AdSense account
+      - name: Check the build keeps dawa.es's AdSense account and its manual units
         working-directory: apps/web
         run: |
           set -eu
           grep -rqs "ca-pub-6371903555702163" .open-next/ || { echo "::error::ca-pub-6371903555702163 not found in the dawa build"; exit 1; }
           grep -q 'dawa: ORIGINAL_ACCOUNT' src/lib/ad-config.ts || { echo "::error::ad-config no longer maps dawa to its original account"; exit 1; }
+          # The manual units ship with the build (owner, 12 Oct): both unit ids
+          # and the gate that renders them for this tenant only.
+          for unit in 4702981509 1209764526; do
+            grep -rqs "$unit" .open-next/ || { echo "::error::manual unit $unit missing from the dawa build"; exit 1; }
+          done
+          grep -q 'SHOWS_AD_UNITS = TENANT.id === "dawa"' src/lib/ad-config.ts || { echo "::error::manual-unit gate changed"; exit 1; }
 
       - name: Deploy dawa-web
         working-directory: apps/web
