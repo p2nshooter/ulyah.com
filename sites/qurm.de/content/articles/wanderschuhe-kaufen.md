@@ -79,6 +79,16 @@ Die Lebensdauer eines Wanderschuhs hängt weniger vom Alter als von der Nutzung 
 
 Gute Wandersocken sind fast genauso wichtig wie der Schuh selbst. Sie sollten ohne dicke Nähte an den Zehen gefertigt sein, gut sitzen und Feuchtigkeit vom Fuß wegleiten. Bewährt haben sich Socken aus Merinowolle oder Mischgewebe. Baumwollsocken saugen sich mit Schweiß voll, bleiben feucht und begünstigen Blasen. Auf mehrtägigen Touren nimmst du mindestens ein Paar zum Wechseln mit.
 
+## Blasen vorbeugen
+
+Blasen entstehen, wenn Haut wiederholt an derselben Stelle reibt, besonders wenn sie warm und feucht ist. Die beste Vorbeugung ist ein gut sitzender, eingelaufener Schuh mit passenden Socken. Unterwegs hilft es, auf erste Warnzeichen zu achten: Ein leichtes Brennen oder eine gerötete Stelle ist der richtige Moment, um anzuhalten und die Stelle mit einem Blasenpflaster oder Tape abzukleben. Wartest du, bis sich die Blase gebildet hat, ist es zu spät. Wechsle bei langen Touren die Socken, wenn sie durchgeschwitzt sind, und lass die Füße in längeren Pausen an der Luft trocknen. Kurz geschnittene Zehennägel verhindern Druck beim Abstieg.
+
+Ist doch eine Blase entstanden, schützt du sie mit einem Blasenpflaster, das wie eine zweite Haut wirkt, und lässt es mehrere Tage kleben. Die Haut über der Blase ist der beste Schutz vor Infektionen und sollte nicht abgezogen werden.
+
+### Brauche ich spezielle Einlegesohlen?
+
+Viele Menschen kommen mit der Einlegesohle aus, die im Schuh steckt. Wer Fußprobleme hat, profitiert von anatomisch geformten Einlegesohlen aus dem Fachhandel oder von orthopädischen Einlagen nach ärztlicher Verordnung. Nimm sie in jedem Fall zum Anprobieren mit, denn eine dickere Einlage verändert, wie viel Platz der Fuß im Schuh hat.
+
 ## Häufige Fragen
 
 ### Kann ich mit Trailrunning-Schuhen wandern?

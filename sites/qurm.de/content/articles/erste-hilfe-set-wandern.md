@@ -95,6 +95,22 @@ Wenn kein Mobilfunknetz vorhanden ist, kannst du mit dem alpinen Notsignal auf d
 
 Nimm das Set einmal im Jahr komplett auseinander. Ersetze verbrauchtes Material, prüfe Haltbarkeitsdaten von Kompressen, Desinfektion und Medikamenten und tausche eingerissene Rettungsdecken aus. Sterile Verpackungen, die nass geworden oder beschädigt sind, gelten nicht mehr als steril.
 
+## Sonnen- und Insektenschutz gehören dazu
+
+Viele Beschwerden beim Wandern entstehen nicht durch Unfälle, sondern durch Sonne und Insekten. In den Bergen ist die UV-Strahlung stärker als im Tal, und Sonnenbrand entsteht schnell, auch an bewölkten Tagen und im Frühjahr, wenn Schnee das Licht zusätzlich reflektiert. Sonnencreme mit hohem Lichtschutzfaktor, ein Lippenpflegestift mit UV-Schutz und eine Sonnenbrille gehören deshalb in jedes Set oder direkt daneben.
+
+Gegen Mücken, Bremsen und Zecken hilft ein Insektenschutzmittel, das du vor der Tour auf Haut und Kleidung aufträgst. Eine Zeckenkarte oder Zeckenzange und ein kühlendes Gel gegen Insektenstiche ergänzen das Set. Mehr zum Thema Zecken findest du im Ratgeber [Zecken, FSME und Borreliose](/ratgeber/zecken-fsme-borreliose/).
+
+## Notrufnummern kennen
+
+Im Notfall zählt jede Minute. Die Notrufnummer 112 gilt in ganz Europa und verbindet dich mit der Rettungsleitstelle. In Österreich gibt es zusätzlich den Alpinnotruf 140, in der Schweiz alarmierst du die Rettungsflugwacht Rega unter der Nummer 1414. Speichere diese Nummern vor einer Tour im Ausland in deinem Telefon.
+
+Gib beim Notruf ruhig an, wo du bist, was passiert ist, wie viele Personen betroffen sind und welche Verletzungen vorliegen. Bleib nach dem Anruf erreichbar, denn die Leitstelle meldet sich oft mit Rückfragen. Ein Foto der Umgebung oder die Koordinaten aus einer Karten-App helfen den Rettern, dich zu finden.
+
+## Erste Hilfe auffrischen
+
+Das beste Erste-Hilfe-Set nützt wenig, wenn niemand weiß, wie man es einsetzt. Ein Erste-Hilfe-Kurs liegt bei vielen Menschen Jahre zurück. Hilfsorganisationen bieten regelmäßig Kurse an, und die Alpenvereine haben spezielle Kurse für Erste Hilfe im Gelände, in denen auch Themen wie Unterkühlung, Rettungsdecke und Abtransport geübt werden. Ein Auffrischungskurs alle paar Jahre gibt Sicherheit, gerade wenn du mit Kindern oder einer Gruppe unterwegs bist.
+
 ## Häufige Fragen
 
 ### Reicht das Verbandkasten-Set aus dem Auto?
@@ -112,3 +128,11 @@ Pinzette oder Zeckenkarte gehören ins Set. Wie du Zecken richtig entfernst und 
 ### Brauche ich einen Erste-Hilfe-Kurs?
 
 Ja, unbedingt. Viele Hilfsorganisationen bieten Kurse an, manche speziell für Outdoor-Situationen. Wer schon einmal einen Druckverband geübt hat, handelt im Ernstfall ruhiger und richtiger.
+
+### Gehören Medikamente für Kinder in das Set?
+
+Ja, wenn Kinder dabei sind. Packe kindgerechte Fiebermittel und Schmerzmittel in der passenden Dosierung, Kinderpflaster und ein mildes Desinfektionsmittel ein und besprich die Auswahl im Zweifel mit der Kinderarztpraxis oder Apotheke.
+
+### Wie bewahre ich das Set am besten auf?
+
+In einer wasserdichten, gut sichtbaren Tasche, die oben oder in einem Außenfach des Rucksacks liegt, damit du sie schnell findest. Kontrolliere vor jeder Saison die Haltbarkeit von Medikamenten und Salben und ersetze verbrauchte Teile sofort nach der Tour.

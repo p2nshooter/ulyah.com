@@ -88,6 +88,24 @@ Die einfachste Methode, Gewicht zu sparen, ist Weglassen. Pack nach der Tour aus
 - **Rückenschmerzen:** Der Schwerpunkt liegt zu weit vom Körper entfernt. Pack schwere Dinge näher an den Rücken.
 - **Wundgescheuerte Stellen:** Schmutz, Nähte oder nasse Kleidung reiben. Kleb die Stelle früh ab.
 
+## Rucksäcke für Kinder
+
+Kinder tragen gern ihren eigenen Rucksack, und das stärkt das Gefühl, richtig dazuzugehören. Er sollte aber leicht bleiben. Als Faustregel gilt, dass der gefüllte Rucksack eines Kindes höchstens etwa ein Zehntel seines Körpergewichts wiegen sollte. Gut geeignet sind Modelle mit 8 bis 15 Litern, gepolsterten Schulterträgern, einem Brustgurt und reflektierenden Elementen. Hinein gehören eine kleine Trinkflasche, ein Snack, eine leichte Jacke und vielleicht ein Lieblingsstück wie eine Lupe oder ein Fernglas. Das schwere Wasser und die Ausrüstung für alle tragen die Erwachsenen.
+
+## Gewicht sparen, ohne an der Sicherheit zu sparen
+
+Wer regelmäßig länger unterwegs ist, lernt schnell, dass jedes Kilo zählt. Ein einfacher erster Schritt ist eine Küchenwaage: Wiege jedes Teil deiner Ausrüstung und schreib die Werte in eine Liste. Viele staunen, wie schwer Kulturbeutel, Kleidung zum Wechseln oder ein Kopfkissen werden. Viele Trekkingwanderer sprechen vom **Basisgewicht**, dem Gewicht der Ausrüstung ohne Wasser, Proviant und Brennstoff. Am meisten lässt sich bei den großen Teilen sparen: Rucksack, Zelt und Schlafsystem aus Schlafsack und Isomatte. Kleinkram wie Umverpackungen, eine zu große Erste-Hilfe-Tasche mit Doppelungen oder ein zweites Paar Schuhe summiert sich ebenfalls.
+
+In einer Gruppe könnt ihr Ausrüstung teilen: ein Kocher, ein Erste-Hilfe-Set, eine Sonnencreme für alle. Was du nie weglassen solltest, sind Regenschutz, eine warme Schicht, Erste-Hilfe-Material, Stirnlampe und genug Wasser. Leicht unterwegs zu sein ist angenehm, aber nur, solange du bei einem Wetterumschwung nicht frierst.
+
+## Mit dem Rucksack in Bahn und Flugzeug
+
+In Zug und Bus gehört der Rucksack in die Gepäckablage oder zwischen die Sitze, nicht in den Gang. Stöcke steckst du zusammengeschoben seitlich in den Rucksack, mit den Spitzen nach unten und am besten mit Gummikappen. Fliegst du zu einer Wanderreise, schütze Gurte und Schnallen mit einer Transporthülle oder einem großen Seesack, damit sie am Gepäckband nicht hängen bleiben. Taschenmesser und Wanderstöcke gehören ins aufgegebene Gepäck. Gaskartuschen für den Kocher dürfen gar nicht mitfliegen; du kaufst sie am Zielort.
+
+### Wie finde ich meine Rückenlänge heraus?
+
+Lass dir helfen: Neige den Kopf nach vorn und taste nach dem deutlich hervorstehenden Wirbel am Übergang vom Nacken zum Rücken. Von dort misst eine zweite Person entlang der Wirbelsäule bis zu der gedachten Linie zwischen den Oberkanten deiner Beckenknochen. Diese Länge vergleichst du mit den Angaben des Herstellers. Im Fachgeschäft wird das oft mit einem speziellen Maßband gemacht.
+
 ## Häufige Fragen
 
 ### Kann ich einen Daypack auch für eine Hüttentour verwenden?

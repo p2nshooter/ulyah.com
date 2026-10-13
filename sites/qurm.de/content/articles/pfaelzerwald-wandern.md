@@ -74,6 +74,26 @@ Eine der schönsten Tagestouren im Pfälzerwald verbindet die drei Burgen über 
 
 Für eine Tagestour im Pfälzerwald reicht ein kleiner Rucksack. Wichtig sind Schuhe mit gutem Profil für die sandigen Pfade, eine Regenjacke, ausreichend Wasser, denn nicht jede Hütte ist geöffnet, und Bargeld für die Einkehr. Im Sommer schützen ein Hut und Sonnencreme auf den offenen Felsen, und gegen Zecken helfen lange Hosen und das Absuchen am Abend, wie in [Zecken beim Wandern](/ratgeber/zecken-fsme-borreliose/) beschrieben.
 
+## Fernwanderwege durch den Pfälzerwald
+
+Wer mehrere Tage unterwegs sein möchte, findet im Pfälzerwald zwei bekannte Fernwege. Der **Pfälzer Waldpfad** führt auf rund 140 Kilometern von Kaiserslautern mitten durch das Waldgebirge nach Süden bis an die französische Grenze bei Schweigen-Rechtenbach. Er ist ein Weg für alle, die Stille, Felsen und lange Waldpassagen mögen. Der **Pfälzer Weinsteig** verläuft auf rund 160 Kilometern am Ostrand von Bockenheim im Norden ebenfalls bis Schweigen-Rechtenbach. Er pendelt zwischen Weinbergen, Burgen und dem Waldrand der Haardt und bietet besonders viele Aussichten über die Rheinebene. Beide Wege sind in Etappen eingeteilt, und an vielen Etappenorten erreichst du Bahn oder Bus, sodass du auch einzelne Abschnitte als Tagestour gehen kannst.
+
+## Anreise mit Bahn und Bus
+
+Der Pfälzerwald ist gut ohne Auto erreichbar. Die S-Bahn Rhein-Neckar fährt von Mannheim und Ludwigshafen über Neustadt an der Weinstraße durch das enge Tal des Hochspeyerbachs bis Kaiserslautern. Bahnhöfe wie Lambrecht, Weidenthal oder Frankenstein liegen direkt an Wanderwegen. Im Süden verbindet die Bahnstrecke von Landau nach Pirmasens den Ort Annweiler mit den Burgen rund um den Trifels. Rund um Dahn und im Wasgau sind Busse unterwegs, die auf die Züge abgestimmt sind. Prüfe die Fahrpläne vorab, denn in einigen Tälern fahren am Wochenende und am Abend nur wenige Verbindungen.
+
+## Schorle, Dubbeglas und Einkehr mit Verstand
+
+Zur Hüttenkultur gehört die Weinschorle, in der Pfalz traditionell im **Dubbeglas** serviert, einem Halbliterglas mit runden Vertiefungen, den „Dubbe“, die das Glas griffig machen. Pfälzer Schorle ist meist kräftig gemischt. Auf einer Wanderung mit Abstieg, Hitze und Sandsteinpfaden ist das eine schlechte Kombination. Wer noch weit gehen muss, bestellt eine Saftschorle oder eine Traubensaftschorle und hebt sich den Wein für die letzte Einkehr vor dem Bahnhof auf. Viele Hütten bieten außerdem hausgemachte Limonaden und Kaffee an, und Wasser zum Nachfüllen bekommst du auf Nachfrage fast immer.
+
+## Waldwandel im Pfälzerwald
+
+Wie in vielen deutschen Wäldern haben trockene Sommer und Borkenkäfer in den vergangenen Jahren auch im Pfälzerwald Spuren hinterlassen. Vor allem Fichten sind abgestorben, und an manchen Stellen sind offene Flächen entstanden, auf denen junge Laubbäume nachwachsen. Für Wanderer bedeutet das: Abgestorbene Bäume können bei Sturm umstürzen oder Äste verlieren. Meide den Wald bei starkem Wind, achte auf Sperrungen nach Unwettern und folge ausgeschilderten Umleitungen.
+
+### Wo kann ich im Pfälzerwald übernachten?
+
+In den Orten gibt es Pensionen, Gasthöfe und Ferienwohnungen. Der Pfälzerwald-Verein und die Naturfreunde betreiben außerdem einige Wanderheime und Häuser mit Betten, die gerade bei Mehrtagestouren praktisch sind, aber früh gebucht werden sollten. Wer mit Zelt unterwegs ist, nutzt die buchbaren Trekkingplätze im Wald.
+
 ## Häufige Fragen
 
 ### Welche Jahreszeit ist am schönsten?

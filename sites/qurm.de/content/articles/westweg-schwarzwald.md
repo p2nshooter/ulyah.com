@@ -86,6 +86,16 @@ Eine Woche im Norden könnte so aussehen: Anreise nach Pforzheim am Vortag, dann
 
 **Ruhetage der Gasthäuser:** Gerade in kleinen Orten haben Gaststätten feste Ruhetage, oft zu Wochenbeginn. Wer abends ankommt und nichts mehr zu essen findet, ärgert sich. Frag bei der Buchung nach, wo du am Ankunftstag essen kannst.
 
+## Natur am Westweg: Grinden, Karseen und Auerhuhn
+
+Auf den Höhen des Nordschwarzwalds wanderst du über die **Grinden**, baumlose Hochflächen mit Heidekraut, Pfeifengras und kleinen Mooren. Sie sind kein Naturzustand, sondern entstanden durch jahrhundertelange Beweidung. Heute werden sie gepflegt, oft mit Hilfe von Rindern, Ziegen und Schafen, damit die offene Landschaft und ihre seltenen Pflanzen erhalten bleiben. Die **Karseen** wie der Mummelsee sind Spuren der Eiszeit: Kleine Gletscher schürften an den Hängen Mulden aus, in denen sich nach dem Abschmelzen Wasser sammelte.
+
+Rund um Ruhestein und Hornisgrinde führt der Westweg durch den Nationalpark Schwarzwald, der 2014 gegründet wurde. Hier darf sich der Wald in großen Bereichen wieder ohne menschliche Eingriffe entwickeln. In diesen Wäldern lebt auch das Auerhuhn, ein großer, sehr scheuer Waldvogel, der im Schwarzwald gefährdet ist. Störungen kosten ihn besonders im Winter und während der Balz im Frühjahr lebenswichtige Energie. Bleib deshalb auf den Wegen und halte Hunde an der Leine.
+
+### Lohnt sich der Westweg im Herbst?
+
+Ja, der Herbst gehört zu den schönsten Zeiten. Im September und Oktober ist die Luft oft klar, und bei Hochdruckwetter liegt die Rheinebene manchmal unter einem Nebelmeer, während du oben in der Sonne wanderst. Die Tage werden allerdings kürzer, und einige Gasthäuser schließen nach der Saison oder verkürzen ihre Öffnungszeiten. Plane deine Etappen deshalb mit Blick auf Tageslicht und Einkehr.
+
 ## Häufige Fragen
 
 ### Welche Variante im Süden ist schöner?

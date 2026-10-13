@@ -69,6 +69,20 @@ Nicht jeder Tag muss ein Gipfeltag sein. Rund um die Nationalparkzentren gibt es
 
 Auch an warmen Tagen ist es auf den Gipfeln deutlich kühler und oft windig. Eine Regenjacke und eine wärmende Schicht gehören immer in den Rucksack. Für Lusen und Rachel brauchst du feste Schuhe mit gutem Profil, denn Granitplatten und Wurzeln sind bei Nässe glatt. In vielen Gebieten gibt es kein durchgehendes Mobilfunknetz. Lade dir die Karte offline herunter, wie in [Wander-Apps und GPX-Tracks](/ratgeber/wander-apps-und-gpx/) beschrieben, und nimm genug Wasser mit, denn bewirtschaftete Schutzhäuser haben Ruhetage.
 
+## Der Nationalpark und seine Idee
+
+Der Nationalpark Bayerischer Wald wurde 1970 als erster Nationalpark Deutschlands gegründet. Sein Leitgedanke lautet „Natur Natur sein lassen“: In großen Teilen greift der Mensch nicht mehr ein. Als in den 1990er-Jahren der Borkenkäfer große Fichtenbestände absterben ließ, blieben die toten Bäume vielerorts stehen. Heute wächst dort ein junger, artenreicher Wald heran, der eindrucksvoll zeigt, wie sich Natur selbst erneuert.
+
+Auf der tschechischen Seite schließt der Nationalpark Šumava an. Zusammen bilden beide Schutzgebiete eine der größten zusammenhängenden Waldlandschaften Mitteleuropas. Für Wanderer bedeutet das: weite, stille Wälder, viele Wildtiere und Wege, auf denen man oft lange niemandem begegnet.
+
+## Regeln im Nationalpark
+
+Im Nationalpark gelten einige Regeln, die die Natur schützen. In bestimmten Zonen und zu bestimmten Zeiten herrscht ein Wegegebot, du darfst die markierten Wege also nicht verlassen. Hunde gehören an die Leine, Drohnen sind verboten, und wildes Zelten oder Übernachten im Freien ist nicht erlaubt. Achte auf die Schilder an den Zugängen.
+
+## Wandern im Winter
+
+Auch im Winter ist der Bayerische Wald ein schönes Wandergebiet, mit verschneiten Wäldern und oft klaren Fernblicken. Geräumte Winterwanderwege und Schneeschuhtouren mit Führung bieten sichere Möglichkeiten. Bedenke die kurzen Tage, die Kälte auf den Gipfeln und mögliche Glätte. Einige Wege sind im Winter zum Schutz von Wildtieren gesperrt.
+
 ## Häufige Fragen
 
 ### Welcher Gipfel eignet sich mit Kindern?
@@ -82,3 +96,17 @@ Ja, Rachel und Lusen lassen sich auf einer langen Streckenwanderung kombinieren,
 ### Gibt es Bären oder Wölfe im Bayerischen Wald?
 
 Wölfe und Luchse leben in der Region, sind aber sehr scheu und meiden Menschen. Begegnungen sind selten. Bären gibt es dort nicht.
+
+### Darf ich im Nationalpark einen Hund mitnehmen?
+
+Ja, aber nur an der Leine. Das schützt Wildtiere wie Rehe, Rotwild und Bodenbrüter, die in den ruhigen Wäldern leben. Nimm genug Wasser für den Hund mit und beachte, dass manche Einrichtungen wie Tiergehege für Hunde nicht zugänglich sind.
+
+### Welche Jahreszeit ist für die Gipfel am schönsten?
+
+Der Spätsommer und der Herbst bieten oft stabiles Wetter, klare Fernsicht und bunte Wälder. Im Frühjahr können auf den höchsten Gipfeln noch Schneereste liegen, und die Wege sind nach der Schneeschmelze matschig. Im Hochsommer lohnen frühe Starts, denn auch im Mittelgebirge können sich Gewitter bilden.
+
+### Gibt es im Bayerischen Wald Hütten mit Einkehr?
+
+Ja, auf und an mehreren Gipfeln gibt es Schutzhäuser und Berggasthöfe. Ihre Öffnungszeiten ändern sich je nach Saison, und manche schließen im Winter oder an einzelnen Wochentagen. Prüfe sie vor der Tour und nimm immer etwas Proviant mit.
+
+Gerade nach Feiertagen oder im Spätherbst lohnt ein kurzer Anruf vorab.

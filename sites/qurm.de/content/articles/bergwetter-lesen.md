@@ -85,6 +85,22 @@ Im Herbst und Winter liegt kalte, feuchte Luft oft in den Tälern, während es a
 
 Wie du die Zeit für deine Tour realistisch berechnest, damit die Umkehrzeit funktioniert, erklärt [Gehzeit berechnen](/ratgeber/gehzeit-berechnen/).
 
+## Wind am Berg
+
+Wind wird in den Bergen oft unterschätzt. Auf Graten und Gipfeln weht er meist deutlich stärker als im Tal, und schon eine kräftige Brise lässt die gefühlte Temperatur stark sinken. Bei böigem Wind wird es auf schmalen, ausgesetzten Wegen gefährlich, weil eine Böe dich aus dem Gleichgewicht bringen kann.
+
+Achte im Wetterbericht auf Windgeschwindigkeiten und Böen in Gipfelhöhe, nicht nur im Tal. Bei Sturmwarnung oder starkem Föhn meidest du Grate, Gipfel und ausgesetzte Steige und wählst eine Tour im Wald oder in geschützten Tälern. Eine winddichte Jacke und eine Mütze gehören auch im Sommer in den Rucksack.
+
+## Nebel und schlechte Sicht
+
+Nebel kann in den Bergen innerhalb von Minuten aufziehen und die Sicht auf wenige Meter verringern. Dann sind Markierungen schwer zu finden, und Wege verlieren sich leicht auf Wiesen oder Geröll. Bleib in solchen Fällen auf dem markierten Weg, gehe von Markierung zu Markierung und kehre im Zweifel um.
+
+Eine Tourenaufzeichnung auf dem Smartphone oder GPS-Gerät hilft, den Rückweg zu finden. Verlasse dich aber nicht allein auf Technik, denn Akkus können bei Kälte schnell leer werden. Karte und Kompass als Ergänzung sind in den Bergen nie verkehrt.
+
+## Frühjahr und Herbst
+
+In den Übergangsjahreszeiten sind die Bedingungen besonders wechselhaft. Im Frühjahr liegt in Nordhängen oft noch Schnee, und Wege können morgens vereist sein. Im Herbst sind die Tage kurz, die Nächte kalt, und Raureif oder erster Schnee machen Wege rutschig. Starte früh, plane Reserven ein und informiere dich über die Verhältnisse in der Höhe, nicht nur im Tal.
+
 ## Häufige Fragen
 
 ### Wie zuverlässig sind Wetter-Apps für die Berge?
@@ -98,3 +114,15 @@ Dass in einer Region an diesem Tag mit einer gewissen Wahrscheinlichkeit Gewitte
 ### Kann es im Sommer auf den Bergen schneien?
 
 Ja. Bei Kaltlufteinbrüchen kann die Nullgradgrenze im Hochsommer auf unter 2.000 Meter sinken. Dann sind Wege in der Höhe vereist oder verschneit.
+
+### Welche Wetterdienste eignen sich für die Alpen?
+
+Gut geeignet sind die Bergwetterberichte der nationalen Wetterdienste, etwa des Deutschen Wetterdienstes, von GeoSphere Austria und von MeteoSchweiz. Die Alpenvereine veröffentlichen zudem einen eigenen Alpenvereinswetterbericht mit Hinweisen für Bergsteiger. Vergleiche mehrere Quellen und achte auf die Angaben für die Höhe, in der du unterwegs bist.
+
+### Was mache ich, wenn mich unterwegs ein Wetterumschwung überrascht?
+
+Triff die Entscheidung früh. Wenn sich Wolken auftürmen, der Wind dreht oder die Temperatur plötzlich fällt, ist Umkehren meist die beste Wahl. Verlasse Grate und Gipfel, suche bei Gewitter keine einzelnen Bäume oder Metallseile auf und gehe zügig in tiefer gelegenes Gelände. Mehr dazu im Ratgeber [Gewitter beim Wandern](/ratgeber/gewitter-beim-wandern/).
+
+Lieber einmal zu früh umkehren als in ein Gewitter geraten: Der Berg bleibt stehen, und du kannst wiederkommen.
+
+Das gilt im Hochgebirge genauso wie im Mittelgebirge.

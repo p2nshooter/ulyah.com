@@ -82,6 +82,26 @@ Viele Alpenvereinshütten haben einen **Winterraum**, der auch außerhalb der Sa
 
 Für Familien ist die erste Hüttennacht ein Abenteuer. Wähle eine Hütte, die mit wenigen Höhenmetern erreichbar ist, frage nach Familienzimmern und plane genug Zeit für das Ankommen. Tipps dazu stehen in [Die erste Hüttennacht mit Kindern](/ratgeber/erste-huettennacht-mit-kindern/).
 
+## Hüttenschlafsack und Hygiene
+
+Auf Hütten der Alpenvereine ist ein Hüttenschlafsack Pflicht. Er wird unter die Decken der Hütte gelegt und sorgt dafür, dass die Bettwäsche nicht nach jedem Gast gewaschen werden muss, was Wasser und Energie spart. Leichte Modelle aus Seide, Baumwolle oder Kunstfaser wiegen nur wenige hundert Gramm.
+
+Waschen ist auf vielen Hütten nur eingeschränkt möglich. Nimm biologisch abbaubare Seife, ein kleines Handtuch und Feuchttücher für den Notfall mit und entsorge die Feuchttücher nicht in der Hüttentoilette.
+
+## Hüttenruhe und Rücksicht
+
+Auf den meisten Hütten gilt ab etwa 22 Uhr Hüttenruhe. Wer am nächsten Morgen früh starten möchte, packt den Rucksack am Abend und verlässt das Lager leise. Eine Stirnlampe mit Rotlicht stört schlafende Nachbarn weniger als ein heller Lichtstrahl.
+
+Im Lager zählt Rücksicht: Plastiktüten rascheln laut, Wecker sollten vibrieren statt klingeln, und Gespräche gehören in den Gastraum. Ohrstöpsel helfen, wenn jemand schnarcht.
+
+## Bezahlen auf der Hütte
+
+Auf vielen Hütten kannst du inzwischen mit Karte zahlen, aber längst nicht auf allen, denn Netz und Technik sind in der Höhe nicht selbstverständlich. Nimm deshalb ausreichend Bargeld für Übernachtung, Essen und Getränke mit. Alpenvereinsmitglieder zahlen auf den Hütten der Alpenvereine meist ermäßigte Übernachtungspreise.
+
+## Stornieren und absagen
+
+Wenn sich deine Pläne ändern, sage die Reservierung so früh wie möglich ab. Viele Hütten haben Wartelisten, und ein freies Bett kann einem anderen Wanderer die Tour ermöglichen. Nicht abgesagte Reservierungen sind für Hüttenwirte ein großes Problem, und manche Hütten verlangen bei kurzfristiger Absage oder Nichterscheinen eine Gebühr.
+
 ## Häufige Fragen
 
 ### Muss ich Mitglied im Alpenverein sein?
@@ -95,3 +115,19 @@ Plane deine Ankunft am Nachmittag, spätestens vor dem Abendessen. Wenn du dich 
 ### Kann ich mit Hund auf der Hütte übernachten?
 
 Auf vielen Hütten sind Hunde im Lager nicht erlaubt. Manche Hütten haben spezielle Zimmer für Gäste mit Hund. Frage bei der Reservierung ausdrücklich nach.
+
+### Kann ich auf der Hütte duschen?
+
+Nicht überall. Viele Hütten haben nur einfache Waschräume, weil Wasser und Energie knapp sind. Wo es Duschen gibt, sind sie oft kostenpflichtig und zeitlich begrenzt. Rechne auf hoch gelegenen Hütten eher mit einer Katzenwäsche.
+
+### Gibt es auf Hütten vegetarisches Essen?
+
+Auf den meisten Hütten ja, oft auch vegane Gerichte. Wer besondere Ernährungswünsche oder Allergien hat, gibt das am besten schon bei der Reservierung an.
+
+### Wie früh sollte ich am Morgen aufbrechen?
+
+Auf Hütten beginnt der Tag früh. Frühstück gibt es oft ab 6 oder 6.30 Uhr, für Hochtouren manchmal noch früher. Gerade im Sommer lohnt es sich, zeitig loszugehen, weil sich Gewitter meist am Nachmittag bilden und der Aufstieg in der Morgenkühle leichter fällt. Sprich einen sehr frühen Aufbruch am Vorabend mit dem Hüttenpersonal ab; manche Hütten richten dann ein einfaches Frühstück zum Mitnehmen her. Bezahle am besten schon am Abend, damit du morgens niemanden suchen musst.
+
+### Kann ich mein Gepäck auf der Hütte lassen, während ich eine Gipfeltour mache?
+
+Wenn du zwei Nächte auf derselben Hütte bleibst, ist das meist kein Problem: Sprich das Personal an und lass dein Gepäck ordentlich gepackt an dem Platz, der dir gezeigt wird. Auch wenn du nur eine Nacht bleibst und auf dem Rückweg wieder an der Hütte vorbeikommst, darfst du überzähliges Gepäck oft im Eingangsbereich deponieren. Frag vorher nach, und nimm Wertsachen, Ausweis und Geld immer mit auf den Gipfel.

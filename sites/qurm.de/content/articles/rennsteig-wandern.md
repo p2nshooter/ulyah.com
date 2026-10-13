@@ -87,6 +87,14 @@ Ein zweiter Fehler betrifft die An- und Abreise. Hörschel und Blankenstein sind
 
 Drittens unterschätzen viele die Wege zur Unterkunft. Wer jeden Abend drei Kilometer ins Tal absteigt und morgens wieder hinauf muss, geht am Ende deutlich mehr als die offizielle Streckenlänge.
 
+## Lied, Gruß und Tradition
+
+Kaum ein Wanderweg in Deutschland hat eine so lebendige eigene Kultur wie der Rennsteig. Wandernde grüßen sich hier traditionell mit „Gut Runst!“, und viele kennen das Rennsteiglied, das der Thüringer Komponist Herbert Roth in den 1950er-Jahren schrieb und das bis heute auf Festen und in Gasthäusern gesungen wird. Am Startpunkt bei Eisenach lohnt sich vor oder nach der Tour ein Besuch der Wartburg, die zum UNESCO-Welterbe gehört und auf der Martin Luther das Neue Testament ins Deutsche übersetzte. So wird aus einer Fernwanderung auch eine kleine Reise durch die Geschichte Thüringens.
+
+### Gibt es eine kurze Strecke zum Kennenlernen?
+
+Ja. Für einen ersten Eindruck eignet sich eine Tagesetappe rund um den Großen Inselsberg oder der Abschnitt bei Oberhof, wo du mit Bus oder Bahn gut an- und abreisen kannst. So merkst du, ob dir die langen Waldpassagen gefallen, bevor du eine ganze Woche planst.
+
 ## Häufige Fragen
 
 ### Ist der Rennsteig für Anfänger geeignet?

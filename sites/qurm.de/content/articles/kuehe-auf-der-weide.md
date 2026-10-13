@@ -91,6 +91,28 @@ So verhältst du dich richtig:
 
 Viele Almregionen veröffentlichen Hinweise, auf welchen Weiden im Sommer Mutterkühe stehen, und markieren solche Abschnitte mit Schildern. Frage bei der Tourist-Information oder auf der Hütte nach, wenn du mit Hund unterwegs bist, und plane im Zweifel eine Route, die große Weiden umgeht. Wanderwege ohne Weidegang gibt es in fast jeder Region.
 
+## Warum man heute öfter Mutterkühen begegnet
+
+Früher standen auf vielen Weiden vor allem Milchkühe, deren Kälber kurz nach der Geburt von der Mutter getrennt werden. Heute ist die Mutterkuhhaltung weit verbreitet: Die Kälber wachsen den Sommer über bei ihren Müttern auf, oft auf großen, extensiv genutzten Flächen. Diese Form der Weidehaltung ist für Landschaftspflege und Artenvielfalt wertvoll, weil die Tiere Wiesen offen halten, die sonst verbuschen würden. Man findet sie nicht nur auf Almen, sondern auch in Mittelgebirgen wie Eifel, Rhön, Harz oder Schwarzwald, wo Wanderwege mitten durch die Weiden führen. Robuste Rassen wie Galloway, Angus oder Schottische Hochlandrinder sind meist ruhig, verteidigen ihre Kälber aber genauso entschlossen wie jede andere Kuh.
+
+## Zäune, Tore und Viehgitter
+
+Weiden sind meist mit Elektrozäunen gesichert. Der Strom fließt in kurzen Impulsen, ist schmerzhaft, für gesunde Erwachsene aber in der Regel nicht gefährlich. Kinder und Menschen mit Herzschrittmacher sollten den Draht trotzdem nicht berühren. An Durchgängen gibt es oft Torgriffe aus Kunststoff, die isoliert sind: Du hakst das Tor am Griff aus, gehst hindurch und hängst es wieder ein. Lass Tore so zurück, wie du sie vorgefunden hast, also geschlossene Tore geschlossen und offene offen, denn manchmal hat der Landwirt einen Grund dafür.
+
+Viehgitter, also Roste aus Metallstangen im Boden, halten Tiere zurück, ohne dass ein Tor nötig ist. Für Hunde sind sie gefährlich, weil die Pfoten zwischen die Stangen rutschen können. Trag kleine Hunde hinüber oder nutze den seitlichen Durchgang, den es an vielen Viehgittern gibt.
+
+## Was nach Unfällen geschehen ist
+
+Ein tödlicher Zwischenfall im Tiroler Pinnistal im Jahr 2014, bei dem eine Wanderin mit ihrem Hund von Mutterkühen angegriffen wurde, hat im ganzen Alpenraum eine Debatte ausgelöst. In Österreich wurden danach offizielle Verhaltensregeln für den Umgang mit Weidevieh veröffentlicht, und der Gesetzgeber hat die Eigenverantwortung von Almbesuchern ausdrücklich gestärkt. Auch in Bayern, in der Schweiz und in Südtirol informieren Almwirtschaft, Alpenvereine und Tourismusorganisationen seitdem stärker über das richtige Verhalten. Die Botschaft ist überall dieselbe: Die Almen bleiben offen, und Wanderer sind willkommen, wenn sie Abstand halten, ihren Hund kurz führen und die Signale der Tiere ernst nehmen.
+
+### Sind Schottische Hochlandrinder mit ihren langen Hörnern gefährlich?
+
+Hochlandrinder wirken mit ihren mächtigen Hörnern bedrohlich, gelten aber als ausgesprochen ruhig und gutmütig. Sie werden häufig zur Landschaftspflege eingesetzt und stehen deshalb oft auf Weiden in Wandergebieten. Wie alle Mutterkühe verteidigen sie aber ihre Kälber. Die Hörner machen jeden Zusammenstoß gefährlicher, deshalb gelten für sie dieselben Regeln wie für alle Rinder: Abstand halten, nicht zwischen Kuh und Kalb, Hund kurz an der Leine.
+
+### Was kann ich tun, wenn ich große Angst vor Kühen habe?
+
+Plane Touren mit Hilfe von Karten und Hinweisen der Tourist-Information so, dass sie keine großen Weiden queren, oder wähle Wege durch Wald und an Feldern entlang. Wenn du doch an einer Herde vorbei musst, hilft es, sich vorher die Regeln bewusst zu machen und in Begleitung zu gehen. Atme ruhig, geh gleichmäßig weiter und schau nach vorne auf den Weg. Kühe sind fast immer mehr an ihrem Gras interessiert als an dir.
+
 ## Häufige Fragen
 
 ### Sind Bullen gefährlicher als Kühe?

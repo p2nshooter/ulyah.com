@@ -84,6 +84,26 @@ Die Steige in den großen Klammen sind gut gesichert, mit Geländern, Seilen und
 
 Klammen begeistern fast alle Kinder: Tunnel, Brücken, Wasserfälle, das Donnern des Wassers. Für kleine Kinder ist eine Rückentrage die beste Wahl, denn Kinderwagen sind auf den schmalen Steigen mit Stufen nicht erlaubt oder unpraktisch. Schulkinder können meist selbst gehen. Kalkuliere ein, dass es in der Klamm laut ist und manche Kinder das als beängstigend empfinden. Plane danach eine ruhige Pause in der Sonne ein, denn nach der kühlen Klamm tut Wärme gut.
 
+## Wie eine Klamm entsteht
+
+Die meisten Klammen der bayerischen Alpen sind erdgeschichtlich jung. Während der Eiszeiten schürften mächtige Gletscher die großen Täler aus und hinterließen Talstufen, über die die Bäche nach dem Abschmelzen des Eises hinabstürzten. Seitdem arbeitet das Wasser sich in den Fels hinein. Es löst dabei nicht nur Gestein auf, sondern trägt Sand, Kies und Steine mit sich, die wie Schleifpapier wirken. Wo das Wasser kreist, drehen sich Steine in Vertiefungen und bohren runde Becken aus, sogenannte Strudeltöpfe oder Gumpen. Weil der Bach sich schneller in die Tiefe gräbt, als die Wände verwittern, entstehen die typischen engen, senkrechten Schluchten. An den glatt geschliffenen Wänden hoch über dem heutigen Wasserspiegel siehst du oft, wo der Bach früher geflossen ist.
+
+## Anreise ohne Auto
+
+Die Parkplätze an den bekannten Klammen sind an schönen Tagen schnell voll und meist gebührenpflichtig. Viele Klammen erreichst du gut mit Bahn und Bus. Garmisch-Partenkirchen hat einen Bahnhof mit direkten Zügen aus München, und vom Ort führt ein Fußweg oder ein Bus zum Olympia-Skistadion, dem Ausgangspunkt für die Partnachklamm. In Grainau hält die Zahnradbahn zur Zugspitze im Ortsteil Hammersbach, nahe dem Weg zur Höllentalklamm. Zur Breitachklamm fahren Busse von Oberstdorf, und im Berchtesgadener Land verbinden regionale Buslinien die Orte mit den Ausgangspunkten. In vielen Urlaubsorten ist die Busfahrt mit der Gästekarte kostenlos oder ermäßigt. Prüf die Fahrpläne vorher, denn am Abend fahren die Busse in manchen Tälern nur selten.
+
+## Klammen im Winter
+
+Einige Klammen sind auch im Winter geöffnet und zeigen sich dann von einer ganz anderen Seite. Aus Sickerwasser wachsen an den Wänden mächtige Eiszapfen, Eisvorhänge und gefrorene Wasserfälle. Der Besuch hat aber eigene Tücken: Stufen und Stege können vereist sein, die Tage sind kurz, und in der Schlucht ist es noch kälter als draußen. Leichte Grödel oder Spikes für die Schuhe, warme Handschuhe und eine Mütze machen den Ausflug sicherer und angenehmer. Prüf vor dem Besuch, ob die Klamm geöffnet ist, denn Eisabbruch und Lawinengefahr in den Hängen darüber führen immer wieder zu Sperrungen.
+
+## Rücksicht und Naturschutz
+
+Klammen sind empfindliche Lebensräume, in denen Moose, Farne und seltene Pflanzen im feuchten, kühlen Klima gedeihen. Bleib auf dem Steig, wirf keine Steine ins Wasser, denn unter dir können andere Menschen unterwegs sein, und nimm deinen Müll wieder mit. Drohnen sind in vielen Klammen ausdrücklich verboten und stören an engen, vollen Stellen ohnehin. An engen Passagen gilt: kurz stehen bleiben und Gegenverkehr durchlassen, statt sich vorbeizudrängen. Wer fotografieren möchte, sucht sich eine breitere Stelle, damit der Steig frei bleibt.
+
+### Was kostet der Eintritt in eine Klamm?
+
+Die meisten Klammen erheben ein Eintrittsgeld von einigen Euro für Erwachsene, Kinder zahlen weniger. Das Geld fließt in den Unterhalt der Steige, Geländer und Brücken, der in dem nassen, steinschlaggefährdeten Gelände aufwendig ist. In manchen Urlaubsregionen gibt es Ermäßigungen mit der Gästekarte. Weil sich Preise und Zahlungsmöglichkeiten ändern, prüf sie vor dem Besuch auf der offiziellen Seite der Klamm und nimm etwas Bargeld mit.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für einen Klammbesuch?

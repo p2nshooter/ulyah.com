@@ -88,6 +88,16 @@ Viele Menschen haben nicht zwei oder drei Wochen am Stück frei. Der Eifelsteig 
 
 Für jeden Block brauchst du zwei bis vier Tage. Die Anreise zu den Zwischenetappen erfordert manchmal Bus und Bahn mit Umstieg, plane dafür Zeit am Anreisetag ein.
 
+## Anreise und Rückfahrt mit Bus und Bahn
+
+Der Eifelsteig beginnt in Aachen-Kornelimünster und endet in Trier, beide Orte sind gut mit Bus und Bahn erreichbar. Unterwegs kreuzt der Weg mehrere Bahnstrecken, etwa die Eifelstrecke zwischen Köln und Trier, an der Orte wie Gerolstein liegen. Das macht es leicht, den Weg in Teilstücken zu gehen oder eine Etappe abzukürzen, wenn das Wetter umschlägt.
+
+Mit dem Deutschlandticket kannst du die Regionalzüge und viele Buslinien in der Eifel nutzen. In ländlichen Gegenden fahren Busse aber teils nur selten, vor allem am Wochenende. Plane Rückfahrten deshalb vorab und speichere dir die Verbindungen.
+
+## Einkehr und Unterkünfte
+
+Entlang des Eifelsteigs gibt es Gasthöfe, Pensionen und Hotels, die auf Wanderer eingestellt sind. In kleineren Orten haben Gaststätten jedoch oft feste Ruhetage, häufig zu Beginn der Woche. Prüfe vor jeder Etappe, wo du unterwegs einkehren kannst, und nimm ausreichend Proviant und Wasser mit. In der Hauptsaison und an Wochenenden solltest du Unterkünfte frühzeitig buchen.
+
 ## Häufige Fragen
 
 ### Wie lange brauche ich für den Eifelsteig?
@@ -101,3 +111,21 @@ Die Etappen in der Vulkaneifel rund um die Dauner Maare und die Etappe ins Hohe 
 ### Brauche ich Wanderstöcke?
 
 Nicht unbedingt, aber sie entlasten auf den vielen Abstiegen in Bachtäler die Knie. Wie du sie richtig einsetzt, steht in [Wanderstöcke richtig nutzen](/ratgeber/wanderstoecke-richtig-nutzen/).
+
+### Ist der Eifelsteig gut markiert?
+
+Ja, der Eifelsteig ist durchgehend mit einem eigenen Wegzeichen markiert, und an Abzweigungen helfen Wegweiser. Eine Karte oder eine App mit dem Wegverlauf ist trotzdem sinnvoll, besonders im Hohen Venn, wo Nebel die Orientierung erschweren kann.
+
+### Kann ich auf dem Eifelsteig mit Gepäcktransport wandern?
+
+Ja, regionale Anbieter organisieren Pauschalreisen mit gebuchten Unterkünften und Gepäcktransport von Etappe zu Etappe. So wanderst du nur mit einem leichten Tagesrucksack. Für Individualisten ist die Eifel ebenfalls gut geeignet, weil viele Unterkünfte nahe am Weg liegen.
+
+### Welche Etappe ist besonders schön?
+
+Das hängt vom Geschmack ab. Viele Wanderer schätzen die Abschnitte durch das Hohe Venn mit seinen Moorlandschaften, die Etappen rund um den Rursee und die Vulkaneifel mit ihren Maaren. Lies dir die Beschreibungen der Etappen durch und wähle nach Landschaft, Länge und Anreise.
+
+Für einen ersten Eindruck eignet sich eine Tagesetappe, die du mit dem Zug erreichen und wieder verlassen kannst.
+
+### Darf mein Hund mit auf den Eifelsteig?
+
+Ja, der Weg ist grundsätzlich hundefreundlich, und viele Unterkünfte in der Eifel nehmen Hunde auf, oft gegen einen kleinen Aufpreis. Im Nationalpark Eifel und in Naturschutzgebieten wie dem Hohen Venn gilt jedoch Leinenpflicht, damit Wild und brütende Vögel ihre Ruhe haben. Plane auf langen Etappen genug Wasser für deinen Hund ein, denn nicht überall gibt es Bäche, und frag bei der Buchung jeder Unterkunft ausdrücklich nach, ob Hunde willkommen sind.

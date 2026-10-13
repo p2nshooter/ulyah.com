@@ -85,6 +85,26 @@ Grippeähnliche Beschwerden wie Fieber, Kopf- und Gliederschmerzen nach einem Ze
 
 Wenn dein Hund dich auf Wanderungen begleitet, bringt er Zecken oft in großer Zahl mit, die dann auch auf Menschen übergehen können. Sprich mit deiner Tierarztpraxis über geeignete Zeckenmittel und such deinen Hund nach jeder Tour ab, vor allem an Kopf, Ohren, Hals, Achseln und zwischen den Zehen.
 
+## Weitere Zeckenarten auf dem Vormarsch
+
+Neben dem Gemeinen Holzbock breiten sich in Deutschland weitere Zeckenarten aus. Die **Auwaldzecke** ist größer und auffällig gemustert. Sie kommt in vielen Regionen vor, ist auch im Winter an milden Tagen aktiv und vor allem für Hunde von Bedeutung, weil sie Erreger einer gefährlichen Hundekrankheit übertragen kann. Seit einigen Jahren werden außerdem vereinzelt Zecken der Gattung **Hyalomma** gefunden, die eigentlich aus wärmeren Regionen stammen und mit Zugvögeln eingeschleppt werden. Sie fallen durch ihre Größe und ihre gestreiften Beine auf. Wer eine solche Zecke findet, kann sie fotografieren und Forschungseinrichtungen melden, die das Vorkommen beobachten.
+
+## Zecken auf Reisen
+
+FSME ist nicht nur in Süddeutschland ein Thema. Auch in Österreich, der Schweiz, Tschechien, den baltischen Staaten, Teilen Skandinaviens und vielen Ländern Osteuropas gibt es Risikogebiete. Wenn du eine Wanderreise in diese Regionen planst, informiere dich rechtzeitig über die Lage und sprich mit deiner Arztpraxis, ob eine Impfung für dich sinnvoll ist. Für einen vollständigen Schutz sind mehrere Impfungen über einige Monate nötig, deshalb lohnt es sich, früh daran zu denken.
+
+## Verbreitete Irrtümer
+
+- **„Zecken springen auf Menschen.“** Falsch. Sie warten auf Pflanzen und werden im Vorbeigehen abgestreift.
+- **„Eine Zecke muss man herausdrehen.“** Zecken haben kein Gewinde. Ob du leicht drehst oder gerade ziehst, ist weniger wichtig als ein ruhiger, gleichmäßiger Zug, ohne den Körper zu quetschen.
+- **„Zecken gibt es nur im Hochsommer.“** Sie sind schon bei milden Temperaturen im Frühjahr aktiv und oft bis in den Spätherbst.
+- **„Im Stadtpark gibt es keine Zecken.“** Auch Parks, Gärten und Grünstreifen sind Lebensraum für Zecken.
+- **„Mit der Impfung bin ich rundum geschützt.“** Die Impfung schützt nur vor FSME, nicht vor Borreliose. Absuchen bleibt wichtig.
+
+### Können Zecken in der Wohnung überleben?
+
+Der Gemeine Holzbock braucht eine hohe Luftfeuchtigkeit. In trockener Wohnungsluft überlebt er meist nicht lange und kann sich dort nicht vermehren. Eine Zecke, die du abends auf dem Teppich findest, solltest du trotzdem entsorgen. Anders ist es bei der Braunen Hundezecke, die vor allem mit Hunden aus südlichen Ländern eingeschleppt wird und sich in Wohnungen dauerhaft ansiedeln kann.
+
 ## Häufige Fragen
 
 ### Muss ich nach jedem Zeckenstich zum Arzt?

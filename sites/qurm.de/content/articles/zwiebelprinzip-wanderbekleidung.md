@@ -101,6 +101,18 @@ Regenjacken mit Membran solltest du ebenfalls regelmäßig waschen. Schmutz und 
 | Herbsttour in den Bergen | Langarmshirt, Wanderhose | Fleece, Isolationsjacke, Hardshell, Regenhose, Mütze, Handschuhe |
 | Mehrtägige Hüttentour | Basisschicht, Wanderhose | zweites Shirt, Fleece, Hardshell, Regenhose, warme Kleidung für die Hütte |
 
+## Das Zwiebelprinzip im Winter
+
+Im Winter bleibt das System gleich, nur die Schichten werden wärmer. Als Basisschicht eignen sich dickere Merino- oder Funktionsshirts mit langen Ärmeln, dazu eine lange Unterhose. Die Isolationsschicht besteht oft aus einem Fleece und zusätzlich einer warmen Jacke aus Daune oder Kunstfaser für die Pausen. Außen schützt eine winddichte Jacke vor Wind und Schneefall. Die größte Gefahr im Winter ist, im Aufstieg nass zu schwitzen und danach in der Kälte auszukühlen. Geh deshalb lieber etwas langsamer und zieh früh eine Schicht aus. Ein zweites Paar Handschuhe und eine Ersatzmütze im Rucksack sind im Winter keine übertriebene Vorsicht, denn nasse Handschuhe wärmen nicht mehr. Mehr zu kalten Tagen in den Bergen steht in [Bergwetter lesen](/ratgeber/bergwetter-lesen/).
+
+## Kinder richtig anziehen
+
+Für Kinder gilt das Zwiebelprinzip genauso, nur dass sie selbst seltener merken, wann ihnen zu warm oder zu kalt ist. Prüfe deshalb regelmäßig mit der Hand im Nacken, ob sich das Kind verschwitzt oder kühl anfühlt. Kinder rennen, toben und sitzen dann wieder lange still am Bach, sodass ein häufiges An- und Ausziehen nötig ist. Leichte Schichten, die das Kind selbst schnell an- und ausziehen kann, sind praktischer als eine dicke Jacke. Wechselkleidung gehört bei Kindern immer in den Rucksack der Eltern.
+
+### Was ist eine Hybridjacke?
+
+Eine Hybridjacke kombiniert verschiedene Materialien in einem Kleidungsstück. Meist sind Brust, Schultern und Rücken mit einer wärmenden, winddichten Isolation gefüttert, während Seiten und Ärmel aus dehnbarem, atmungsaktivem Stoff bestehen. So bleibt der Rumpf warm, und überschüssige Wärme kann an den Seiten entweichen. Hybridjacken eignen sich besonders für aktive Touren bei kühlem, trockenem Wetter.
+
 ## Häufige Fragen
 
 ### Brauche ich wirklich teure Funktionskleidung?

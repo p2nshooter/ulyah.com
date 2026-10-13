@@ -80,6 +80,18 @@ Für Kinder wird die Suche nach dem nächsten Wegzeichen schnell zum Spiel. Best
 
 Im Winter sind viele Markierungen unter Schnee verborgen, und Farbzeichen an Felsen oder am Boden sind nicht zu sehen. Gleichzeitig führen Winterwanderwege oft auf anderen, geräumten Routen als im Sommer und sind mit eigenen Stangen oder Schildern gekennzeichnet. Folge im Winter nur den ausgewiesenen Winterwegen und verlasse dich nicht auf Sommermarkierungen. Bei Nebel und Schnee hilft eine Karte oder GPS mehr als jede Farbmarkierung.
 
+## Ein Blick in die Geschichte
+
+Markierte Wanderwege sind in Deutschland eng mit der Gründung der Wander- und Gebirgsvereine im 19. Jahrhundert verbunden. Der Schwarzwaldverein wurde bereits 1864 gegründet, und viele andere Vereine folgten in den Jahrzehnten danach. Sie bauten Wege, stellten Schutzhütten und Aussichtstürme auf und begannen, ihre Wege mit Farbzeichen zu kennzeichnen. 1883 schlossen sich mehrere Vereine zu einem Dachverband zusammen, dem Vorläufer des heutigen Deutschen Wanderverbands. Der Westweg im Schwarzwald, der um 1900 eröffnet wurde, gehört zu den ältesten Fernwanderwegen Deutschlands. Weil jeder Verein in seiner Region eigene Lösungen fand, entstand die Vielfalt der Zeichen, die wir heute sehen.
+
+## Markierungen in den Nachbarländern
+
+Wer über die Grenze wandert, trifft auf andere Systeme. In **Österreich** sind Wege wie in den bayerischen Alpen rot-weiß-rot markiert. In der **Schweiz** sind Wanderwege gelb gekennzeichnet, Bergwanderwege weiß-rot-weiß und anspruchsvolle Alpinwanderwege weiß-blau-weiß. In **Frankreich** und **Belgien** tragen die großen Fernwege, die Grande-Randonnée-Wege, eine weiß-rote Doppelmarkierung, regionale Wege sind oft gelb-rot und kurze Wege gelb markiert. In **Tschechien** gibt es ein landesweit einheitliches System: ein farbiger Streifen in Rot, Blau, Grün oder Gelb zwischen zwei weißen Streifen, wobei Rot meist die wichtigsten Fernwege kennzeichnet. Wer die Grundidee kennt, findet sich schnell zurecht. Ein Blick in die Legende der Wanderkarte zeigt die Details.
+
+### Was bedeuten Pfeile, Winkel und durchgekreuzte Zeichen?
+
+Viele Systeme zeigen eine Richtungsänderung mit einem Pfeil oder einem abgewinkelten Zeichen an. Steht ein solches Zeichen an einer Kreuzung, biegt der Weg dort ab. Auf den französischen und belgischen Grande-Randonnée-Wegen bedeutet ein Kreuz aus den beiden Wegfarben, dass du in die falsche Richtung gehst. In Deutschland sind solche Warnzeichen seltener. Hier gilt: Fehlt nach einer Abzweigung das Zeichen, bist du vermutlich falsch.
+
 ## Häufige Fragen
 
 ### Warum gibt es so viele unterschiedliche Zeichen?
@@ -93,3 +105,11 @@ Bei den meisten Wegen ja. Manche Themen- und Rundwege sind nur in einer Richtung
 ### Was mache ich, wenn ich mich verlaufen habe?
 
 Ruhe bewahren, stehen bleiben, auf der Karte oder in der App den eigenen Standort bestimmen und auf bekanntem Weg zurückgehen. In den Bergen niemals weglos absteigen, um abzukürzen.
+
+### Darf ich Markierungen mit Kreide oder Bändern ergänzen?
+
+Nein. Auch gut gemeinte eigene Zeichen, Steinmännchen oder Bänder an Ästen können andere Wandernde in die Irre führen und widersprechen dem Markierungssystem der Vereine. Melde Lücken stattdessen dem zuständigen Wanderverein oder der Tourist-Information.
+
+### Warum sind manche Markierungen verblasst oder kaum zu sehen?
+
+Sonne, Regen und Frost setzen der Farbe zu, Bäume wachsen und überwuchern Zeichen, und bei Holzarbeiten verschwinden markierte Stämme. Die ehrenamtlichen Wegewarte kontrollieren ihre Abschnitte regelmäßig und erneuern die Zeichen, können aber nicht überall gleichzeitig sein. Deshalb ist eine Karte als Ergänzung so wichtig.

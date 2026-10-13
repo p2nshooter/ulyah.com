@@ -94,6 +94,18 @@ Mache in den Wochen vor der Tour zwei oder drei lange Tageswanderungen mit den S
 
 Halte nach der Rückkehr fest, was gut lief und was nicht: Waren die Etappen zu lang oder zu kurz? Was hast du nie gebraucht, was hat gefehlt? Wie haben sich Füße und Rücken angefühlt? Diese Notizen sind die beste Grundlage für die nächste Fernwanderung. Viele Menschen merken nach der ersten Tour, dass sie Lust auf mehr haben, und wagen sich im nächsten Jahr an einen längeren Weg oder eine Tour mit eigenem Gepäck.
 
+## Füße, Knie und Rücken vorbereiten
+
+Auf einer Fernwanderung entscheiden oft nicht Kondition, sondern Füße, Knie und Rücken über Freude oder Frust. Laufe deine Schuhe vorher gut ein, trage passende Wandersocken und klebe empfindliche Stellen bei den ersten Anzeichen einer Rötung ab, bevor eine Blase entsteht. Wanderstöcke entlasten die Knie besonders beim Abstieg.
+
+Halte deinen Rucksack so leicht wie möglich. Jedes Kilogramm, das du nicht trägst, schont Rücken und Gelenke. Prüfe vor der Abreise jedes Teil: Brauchst du es wirklich jeden Tag? Viele Dinge wie Waschmittel oder Ersatzbatterien kannst du unterwegs kaufen.
+
+## Wenn etwas schiefgeht
+
+Auch die beste Planung schützt nicht vor Regentagen, Blasen oder einer Erkältung. Plane deshalb von Anfang an einen Puffertag ein und informiere dich, wo entlang der Strecke Busse und Bahnen fahren. So kannst du eine Etappe abkürzen oder einen Ruhetag einlegen, ohne die ganze Tour abzubrechen.
+
+Speichere die Telefonnummern deiner Unterkünfte und gib einer vertrauten Person deine Etappenplanung. Wer allein unterwegs ist, meldet sich am besten jeden Abend kurz.
+
 ## Häufige Fragen
 
 ### Wie viel kostet eine Fernwanderung?
@@ -107,3 +119,23 @@ Ja. Auf gut markierten Wegen mit Unterkünften ist das sicher und für viele ein
 ### Welche Jahreszeit ist für die erste Tour am besten?
 
 Spätes Frühjahr und Frühherbst. Die Temperaturen sind angenehm, die Tage lang genug und die Unterkünfte meist geöffnet.
+
+### Wie viele Kilometer am Tag sind realistisch?
+
+Für Einsteiger sind auf mittelschwerem Gelände meist etwa 15 bis 20 Kilometer am Tag gut machbar. Viele Höhenmeter, schwieriges Gelände oder Hitze verkürzen die sinnvolle Strecke deutlich. Plane die ersten Tage eher kürzer und steigere dich, wenn du merkst, wie dein Körper reagiert.
+
+### Muss ich Unterkünfte im Voraus buchen?
+
+In der Hauptsaison und auf beliebten Wegen ja, besonders an Wochenenden und in Orten mit wenigen Unterkünften. Außerhalb der Saison kannst du flexibler sein, solltest aber die nächsten ein bis zwei Nächte trotzdem sichern. Halte die Buchungsbestätigungen griffbereit.
+
+### Welche Wege eignen sich für die erste Fernwanderung?
+
+Gut geeignet sind gut markierte Wege mit moderaten Etappen, vielen Unterkünften und guter Anbindung an Bus und Bahn. In Deutschland bieten sich zum Beispiel Abschnitte des Rheinsteigs, des Rennsteigs oder des Malerwegs an. Mehr Ideen findest du in unseren Wegbeschreibungen wie [Rennsteig wandern](/ratgeber/rennsteig-wandern/) oder [Malerweg in der Sächsischen Schweiz](/ratgeber/malerweg-saechsische-schweiz/).
+
+### Was gehört unbedingt in die Reiseapotheke?
+
+Blasenpflaster, Tape, ein kleines Desinfektionsmittel, Schmerzmittel, die du verträgst, persönliche Medikamente, Sonnenschutz und Insektenschutz. Eine ausführliche Liste findest du im Ratgeber [Erste-Hilfe-Set fürs Wandern](/ratgeber/erste-hilfe-set-wandern/).
+
+### Reicht eine App, oder brauche ich einen Wanderführer?
+
+Beides ergänzt sich. Ein gedruckter Wanderführer oder die offizielle Website des Wegs liefert Etappenbeschreibungen, Unterkunftslisten und Hintergrundwissen, während eine App mit heruntergeladenen Karten unterwegs zeigt, wo du gerade bist. Lade die Karten vor der Tour offline herunter, denn in Tälern und Wäldern ist der Empfang oft schwach, und nimm eine Powerbank mit. Eine Papierkarte im Maßstab 1:25.000 oder 1:50.000 als Reserve wiegt wenig und braucht keinen Akku.

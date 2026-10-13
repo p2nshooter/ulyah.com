@@ -101,6 +101,18 @@ Wenn der Weg schräg am Hang entlangführt, ist der bergseitige Stock zu lang un
 
 Ziehe Teleskopstöcke nach einer nassen Tour auseinander und lass die Segmente trocknen. Feuchtigkeit und Schmutz in den Verbindungen führen zu Korrosion und lassen Verschlüsse durchrutschen. Prüfe regelmäßig die Spitzen auf Abnutzung und die Klemmverschlüsse auf festen Sitz. Viele Hersteller verkaufen Ersatzspitzen, Teller und Verschlussteile, sodass gute Stöcke viele Jahre halten.
 
+## Stöcke im Winter
+
+Bei Winterwanderungen auf verschneiten Wegen sind Stöcke besonders wertvoll, weil sie auf glattem Untergrund das Gleichgewicht stabilisieren. Tausche die kleinen Sommerteller gegen große Schneeteller, damit die Stöcke nicht im Schnee versinken. Auf vereisten Wegen geben Hartmetallspitzen guten Halt, ersetzen aber keine Grödel an den Schuhen. Bei Kälte lassen sich Klemmverschlüsse mit Handschuhen leichter bedienen als Drehverschlüsse, die bei Frost auch festfrieren können. Ein Stück Isolierband um den Griff verhindert, dass kalte Metallteile die Hände auskühlen.
+
+## Mehr als nur Gehhilfen
+
+Wanderstöcke können unterwegs mehrere Aufgaben übernehmen. Manche Modelle haben einen Griff mit Gewinde, auf den sich eine Kamera schrauben lässt, sodass der Stock als einfaches Einbeinstativ dient. Viele leichte Trekkingzelte nutzen statt eigener Gestänge die Wanderstöcke als Stütze, was auf Mehrtagestouren Gewicht spart. Im Notfall lässt sich mit einem Stock und Tape ein verletzter Arm oder Finger provisorisch schienen, und mit einem Stock tastest du in hohem Gras oder bei unklarem Untergrund den Weg ab.
+
+### Lohnt sich ein teures Modell?
+
+Für gelegentliche Wanderungen reichen solide Stöcke aus Aluminium mit Klemmverschluss aus der mittleren Preisklasse. Teure Carbonstöcke sind leichter, was vor allem auf langen Touren und beim Tragen am Rucksack zählt. Wichtiger als der Preis sind ein verlässlicher Verschluss, ein angenehmer Griff und die Möglichkeit, Ersatzteile wie Spitzen und Teller nachzukaufen.
+
 ## Häufige Fragen
 
 ### Brauche ich zwei Stöcke oder reicht einer?

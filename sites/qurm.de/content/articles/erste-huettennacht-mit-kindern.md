@@ -94,6 +94,22 @@ Gib den Kindern kleine Aufgaben: die eigenen Schuhe in den Schuhraum stellen, de
 
 In der ersten Nacht an einem fremden Ort schlafen manche Kinder schlecht. Das ist normal. Ein vertrautes Einschlafritual hilft: eine kurze Geschichte flüstern, das Kuscheltier, die Stirnlampe neben dem Kissen. Wenn ein Kind wach liegt, geht leise mit ihm vor die Tür und schaut euch den Sternenhimmel an. Oft ist das der Moment, an den sich alle am längsten erinnern.
 
+## Hüttenregeln kindgerecht erklären
+
+Auf einer Hütte gelten Regeln, die Kinder von zu Hause nicht kennen. Bergschuhe bleiben im Schuhraum, im Haus werden Hüttenschuhe getragen. Im Lager schlafen viele Menschen nebeneinander, deshalb ist ab einer bestimmten Uhrzeit Ruhe. Wasser und Strom sind kostbar, weil sie oft mühsam erzeugt oder heraufgebracht werden.
+
+Erkläre diese Regeln schon vor der Tour als Teil des Abenteuers. Kinder halten sich gern an Regeln, wenn sie den Grund verstehen. Viele sind stolz, wenn sie selbst darauf achten, dass die Schuhe am richtigen Platz stehen oder das Licht aus ist.
+
+## Essen und Trinken für Kinder unterwegs
+
+Kinder verbrauchen beim Bergwandern viel Energie, haben aber oft keine Lust auf große Pausen. Kleine, häufige Snacks halten sie bei Laune: Nüsse, Trockenobst, Brote, Käsewürfel oder ein Müsliriegel. Ein Lieblingssnack für den Gipfel ist eine gute Motivation.
+
+Achte darauf, dass Kinder regelmäßig trinken, denn sie merken Durst oft erst spät. Eine eigene kleine Trinkflasche, die sie selbst tragen, macht das Trinken interessanter. Auf der Hütte gibt es meist kindgerechte Gerichte und manchmal kleinere Portionen, frag beim Abendessen danach.
+
+## Sicherheit rund um die Hütte
+
+Hütten liegen oft in steilem Gelände. Lege mit den Kindern vor dem Spielen fest, wo sie sich draußen aufhalten dürfen, und erkläre, warum Abhänge, Bachläufe und Materialseilbahnen tabu sind. Am Abend und in der Nacht hilft eine Stirnlampe, sicher zur Toilette zu finden, denn die Wege sind oft unbeleuchtet. Auch Weidetiere rund um die Hütte brauchen Abstand.
+
 ## Häufige Fragen
 
 ### Ab welchem Alter ist eine Hüttennacht sinnvoll?
@@ -107,3 +123,15 @@ Auf normalen Hütten in den deutschen Alpen ist die Höhe für gesunde Kinder in
 ### Was kostet eine Hüttennacht für Familien?
 
 Das hängt von Hütte, Zimmerart und Mitgliedschaft ab. Kinder und Jugendliche zahlen auf vielen Hütten deutlich weniger, und Familien mit Alpenvereinsmitgliedschaft erhalten zusätzliche Ermäßigungen. Frage bei der Reservierung nach.
+
+### Was tun, wenn ein Kind beim Aufstieg nicht mehr will?
+
+Plane kurze Etappen mit Zwischenzielen, etwa „bis zur nächsten Brücke“ oder „bis zum großen Stein“, und baue Spiele ein. Pausen mit Snacks wirken Wunder. Wenn das Kind trotzdem erschöpft ist, ist Umkehren keine Niederlage. Wähle beim nächsten Mal eine leichtere Hütte, die schneller erreichbar ist.
+
+### Brauchen Kinder einen eigenen Hüttenschlafsack?
+
+Ja, auf den meisten Alpenvereinshütten ist ein Hüttenschlafsack Pflicht, auch für Kinder. Leichte Modelle aus Baumwolle, Seide oder Kunstfaser sind klein und wiegen wenig.
+
+### Ist es sinnvoll, zwei Nächte auf derselben Hütte zu bleiben?
+
+Für Familien ist das oft die entspanntere Variante. Am ersten Tag steigt ihr auf, am zweiten Tag unternehmt ihr ohne großes Gepäck eine kurze Tour in der Umgebung, zu einem See, einem kleinen Gipfel oder einfach zum Bach, und kehrt am Nachmittag zurück. So lernen Kinder die Hütte in Ruhe kennen, haben Zeit zum Spielen und müssen nicht an zwei Tagen hintereinander mit vollem Rucksack bergauf. Frag bei der Reservierung nach, ob zwei Nächte möglich sind, denn in der Hochsaison sind Wochenenden schnell ausgebucht.

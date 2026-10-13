@@ -86,6 +86,24 @@ Ab etwa zwölf Jahren ändert sich vieles. Jugendliche wollen mitbestimmen, nich
 
 Was nach der Wanderung passiert, entscheidet mit darüber, ob die Kinder wieder mitkommen wollen. Ein Eis im Ort, ein Bad im See oder einfach die Erinnerung beim Abendessen, an den Bach, den Gipfel und die Kuh am Wegrand, rundet den Tag ab. Manche Familien führen ein Wanderbuch, in das die Kinder Stempel, Fotos, gepresste Blätter und ein paar Sätze eintragen. Nach einigen Jahren ist es ein Schatz.
 
+## Natur verstehen: Lernen ohne Schulgefühl
+
+Schulkinder wollen die Welt erklären können. Eine Wanderung bietet dafür unzählige Anlässe, ohne dass es nach Unterricht klingt. Welcher Baum hat diese Blätter? Warum liegen in diesem Bach so runde Steine? Wie hoch ist der Gipfel, und wie viele Stockwerke wären das? Ein kleines Bestimmungsbuch für Bäume oder Vögel, eine Becherlupe und ein Fernglas machen aus Kindern Forscher. Viele Nationalparks, Naturparks und Biosphärenreservate bieten außerdem Junior-Ranger-Programme an, bei denen Kinder die Natur ihrer Region mit Rangerinnen und Rangern entdecken. Frag in den Besucherzentren nach Führungen und Aktionstagen für Familien.
+
+Auch das Kartenlesen eignet sich gut für dieses Alter. Gib deinem Kind eine eigene Kopie der Wanderkarte und lass es unterwegs zeigen, wo ihr gerade seid. Wer mit acht oder neun Jahren lernt, Höhenlinien zu deuten und eine Karte einzunorden, hat einen Vorsprung fürs Leben. Die Grundlagen stehen in [Karte und Kompass](/ratgeber/karte-und-kompass/).
+
+## Geschwister mit unterschiedlichem Tempo
+
+Sind die Kinder unterschiedlich alt, richtet sich die Tour nach dem jüngsten. Damit es den Älteren nicht langweilig wird, bekommen sie eigene Aufgaben: Sie navigieren, tragen die Karte, achten auf die Markierungen oder machen mit einem Erwachsenen einen kurzen Abstecher zu einem Aussichtspunkt, während die anderen Pause machen. Den Jüngeren hilft ein kleiner Vorsprung: Lass sie nach jeder Pause zuerst losgehen. Vermeide Vergleiche wie „Deine Schwester war in deinem Alter schneller“, denn jedes Kind hat sein eigenes Tempo und seine eigene Freude am Weg.
+
+## Handy und Technik unterwegs
+
+Technik kann Kinder für das Wandern begeistern, wenn sie zur Natur hinführt statt von ihr ab. Apps zum Bestimmen von Pflanzen und Vogelstimmen, eine Sternenkarte am Abend auf der Hütte oder die eigene Aufzeichnung der Tour machen Kindern Spaß. Vereinbart vorher, wofür das Handy benutzt wird und wann es im Rucksack bleibt. Für viele Familien hat sich bewährt, dass Fotos erlaubt sind, Spiele und Videos aber bis zum Abend warten.
+
+### Wie bereite ich mein Kind auf die erste lange Tour vor?
+
+Geh vorher ein paar kürzere Touren mit ähnlichem Gelände, damit sich dein Kind an Steigungen und das Tragen des eigenen Rucksacks gewöhnt. Neue Schuhe läuft ihr gemeinsam ein, und den Rucksack packt dein Kind am Vorabend selbst, mit deiner Checkliste. Erzähl, was euch erwartet, zeig Fotos vom Ziel und plant gemeinsam, wo ihr die große Pause macht. So wird die Tour zu einem gemeinsamen Projekt, auf das sich alle freuen.
+
 ## Häufige Fragen
 
 ### Was mache ich, wenn mein Kind nicht mehr weiterwill?
@@ -99,3 +117,7 @@ Als Orientierung höchstens zehn Prozent seines Körpergewichts. Schwere Dinge w
 ### Ab welchem Alter geht eine richtige Bergtour?
 
 Mit trittsicheren, gut trainierten Kindern sind leichte Gipfel mit 600 bis 800 Höhenmetern ab etwa zehn Jahren möglich. Entscheidend sind Erfahrung, Motivation und Wetter.
+
+### Wie oft sollten wir Pausen machen?
+
+Plane etwa jede Stunde eine kurze Trinkpause und nach zwei bis drei Stunden eine längere Rast mit Essen ein. Schulkinder signalisieren Hunger und Müdigkeit oft erst spät, dann aber deutlich. Regelmäßige Pausen verhindern, dass die Stimmung plötzlich kippt.

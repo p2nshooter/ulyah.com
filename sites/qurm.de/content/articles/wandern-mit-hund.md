@@ -88,6 +88,22 @@ Viele Pensionen und Hotels nehmen Hunde auf, manchmal gegen Aufpreis. Frag vor d
 
 Nach einem langen Wandertag braucht dein Hund Erholung. Gib ihm Zeit zum Trinken und Fressen und einen ruhigen Platz zum Schlafen. Prüf die Pfoten auf kleine Schnitte, eingetretene Steinchen oder wunde Stellen zwischen den Ballen, und such das Fell gründlich nach Zecken ab. Am nächsten Tag solltest du darauf achten, ob er steif läuft oder lahmt. Leichte Muskelmüdigkeit ist nach einer ungewohnt langen Tour normal, deutliches Lahmen oder Schmerzen gehören in die Tierarztpraxis.
 
+## Wildtiere: Rehe, Wildschweine und Wölfe
+
+Viele Hunde haben einen ausgeprägten Jagdtrieb. Ein Reh, das vor ihnen aus dem Gebüsch springt, kann selbst gut erzogene Hunde zum Hetzen verleiten. Das ist nicht nur für das Wild gefährlich, sondern auch für den Hund, der dabei an Straßen, Abbruchkanten oder in fremdes Revier gerät. Leine deinen Hund an, sobald du Wild siehst oder in dichter Deckung unterwegs bist.
+
+Wildschweine sind vor allem im Frühjahr gefährlich, wenn die Bachen ihre Frischlinge führen. Hält ein Hund auf sie zu, verteidigen sie sich heftig. Mach einen großen Bogen um Rotten und halte deinen Hund nah bei dir. Auch Wölfe leben inzwischen in vielen Regionen Deutschlands. Begegnungen sind selten, denn Wölfe meiden in aller Regel Menschen. Einen Hund können sie aber als Eindringling in ihr Revier sehen. Nimm ihn in Wolfsgebieten an die Leine, bleib bei einer Begegnung ruhig, sprich laut und zieh dich langsam zurück, ohne zu rennen.
+
+## Erste Hilfe für den Hund
+
+Die häufigsten Verletzungen beim Wandern betreffen die Pfoten. Spül eine Schnittwunde mit sauberem Wasser aus, leg eine Kompresse auf und schütze die Pfote mit einem Verband, einer Socke oder einem Hundeschuh. Blutet sie stark oder klafft die Wunde, gehört der Hund in die Tierarztpraxis. Ein Wespen- oder Bienenstich im Maul oder Rachen kann gefährlich werden, wenn die Schleimhaut anschwillt. Beobachte deinen Hund dann genau und fahr bei Atemproblemen sofort zur Tierärztin oder zum Tierarzt.
+
+Kreuzottern sind in Deutschland selten und leben vor allem in Mooren, Heiden und in den Bergen. Wird dein Hund gebissen, halte ihn ruhig, trag ihn wenn möglich und fahr ohne Umwege in die nächste Tierarztpraxis. Speichere dir vor einer längeren Tour die Nummer einer Praxis und eines Tiernotdienstes in der Region.
+
+### Darf mein Hund aus Bächen und Pfützen trinken?
+
+Aus klaren, fließenden Bächen trinken die meisten Hunde ohne Probleme. Vorsicht ist bei stehendem Wasser im Sommer geboten: In warmen Seen und Teichen können sich Blaualgen vermehren, deren Giftstoffe für Hunde lebensgefährlich sind. Meide Gewässer mit grünlichen Schlieren oder Schaum und biete deinem Hund lieber Wasser aus der Flasche an. Pfützen an Wegen und Parkplätzen können Öl oder andere Schadstoffe enthalten. Frag in deiner Tierarztpraxis, welche Impfungen für einen Hund sinnvoll sind, der viel draußen unterwegs ist.
+
 ## Häufige Fragen
 
 ### Wie viel Wasser braucht mein Hund beim Wandern?

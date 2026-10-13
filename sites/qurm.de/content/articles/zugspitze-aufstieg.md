@@ -87,6 +87,18 @@ Wer die Zugspitze zu Fuß besteigen möchte, sollte sich nicht erst im Juli daru
 
 Der eigentliche Gipfel mit dem goldenen Kreuz liegt etwas abseits der Plattform und ist über eine kurze, gesicherte Kletterpassage erreichbar. An schönen Tagen bilden sich dort Warteschlangen. Wenn du schon müde bist, ist die Plattform mit ihrer Aussicht ein völlig würdiger Abschluss. Oben gibt es mit dem Münchner Haus auch eine Alpenvereinshütte, die Übernachtungen anbietet, sowie die Restaurants der Bergbahnen. Plane genug Zeit für den Rückweg ein, ob zu Fuß oder mit der Bahn, und behalte die letzte Talfahrt im Blick.
 
+## Höhe: wann sie zum Problem wird
+
+Auf knapp 3.000 Metern ist die Luft dünner, und manche Menschen reagieren darauf, besonders nach einem schnellen Aufstieg oder einer Nacht in großer Höhe. Typische Zeichen sind Kopfschmerzen, Appetitlosigkeit, Übelkeit, Müdigkeit und schlechter Schlaf. Meist sind die Beschwerden leicht und verschwinden, sobald du wieder tiefer bist. Ernst wird es, wenn die Kopfschmerzen trotz Pause stärker werden, du dich verwirrt fühlst, taumelst oder schon in Ruhe kaum Luft bekommst. Dann gilt: nicht weiter aufsteigen, sondern absteigen oder mit der Bahn ins Tal fahren und ärztliche Hilfe suchen. Wer am Gipfel übernachten möchte, sollte wissen, dass der Schlaf in dieser Höhe oft unruhig ist. Viel trinken, langsam gehen und auf Alkohol verzichten helfen dem Körper, sich anzupassen.
+
+## Mit Kindern auf die Zugspitze?
+
+Mit der Bahn ist der Gipfel auch für Familien ein Erlebnis, und auf dem Zugspitzplatt gibt es im Sommer Wege, die sich für kurze Erkundungen mit Kindern eignen. Für einen Aufstieg zu Fuß sind die Routen dagegen zu lang und im oberen Teil zu alpin. Erfahrene, trittsichere Jugendliche, die schon mehrere große Bergtouren gemacht haben, können das Reintal mit Übernachtung in Begleitung Erwachsener schaffen. Kleinere Kinder sind auf den Wegen zu Partnachklamm, Eibsee oder einer Alm besser aufgehoben.
+
+### Gibt es unterwegs Wasser?
+
+Auf den Hütten am Weg kannst du Getränke kaufen und oft auch Wasser auffüllen. Dazwischen liegen lange Abschnitte ohne verlässliche Quellen, besonders auf dem steinigen Zugspitzplatt. Nimm deshalb ausreichend Wasser für jeden Abschnitt mit und frag auf den Hütten, wo du nachfüllen kannst.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für den Aufstieg?

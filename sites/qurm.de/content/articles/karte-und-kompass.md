@@ -90,6 +90,27 @@ Die häufigste Aufgabe unterwegs ist nicht das Peilen, sondern die Frage: Wo bin
 
 Orientierung lernt man durch Übung, nicht durch Lesen. Nimm auf deinen nächsten Wanderungen die Karte mit, auch wenn du den Weg kennst. Bestimme an Kreuzungen, wo du bist, und vergleiche Gelände und Karte. Such auf der Karte den Gipfel, den du siehst. Und probier das Einnorden aus, wenn du Zeit hast und nichts davon abhängt.
 
+## Wenn du dich verlaufen hast
+
+Früher oder später passiert es jedem: Der Weg passt nicht mehr zur Karte, eine Markierung fehlt, und du weißt nicht genau, wo du bist. Dann hilft eine einfache Reihenfolge, die in vielen Orientierungskursen gelehrt wird:
+
+1. **Stehen bleiben.** Wer weiterläuft, um „schnell wieder auf den Weg zu kommen“, entfernt sich oft noch weiter.
+2. **Nachdenken.** Wann warst du zuletzt sicher, wo du bist? Wie lange ist das her, und in welche Richtung bist du seitdem gegangen?
+3. **Orientieren.** Norde die Karte ein und vergleiche das Gelände mit den Höhenlinien und markanten Punkten.
+4. **Planen.** Entscheide bewusst, wie es weitergeht. Im Zweifel ist der Rückweg zum letzten sicheren Punkt die beste Wahl.
+
+Steig nie querfeldein in unbekanntes, steiles Gelände ab, nur weil unten ein Tal liegt. Bachläufe führen in den Bergen oft über Abbrüche und in Schluchten, aus denen es kein Weiterkommen gibt.
+
+Zwei Techniken aus dem Orientierungslauf helfen, gar nicht erst verloren zu gehen. Eine **Auffanglinie** ist ein langes, unübersehbares Geländemerkmal wie ein Fluss, eine Straße oder ein Waldrand, auf das du in jedem Fall stößt, wenn du in die richtige Richtung gehst. Beim **bewussten Vorhalten** zielst du absichtlich ein Stück links oder rechts an einem Punkt vorbei, der an einer solchen Linie liegt, etwa an einer Brücke über einen Bach. Wenn du den Bach erreichst, weißt du dann genau, in welche Richtung du dich wenden musst.
+
+## Koordinaten im Notfall
+
+Viele topografische Karten tragen ein Gitternetz, mit dem du deinen Standort als Koordinaten angeben kannst. Die meisten Wander-Apps und GPS-Geräte zeigen deine Position ebenfalls als Koordinaten an. Im Notfall kann das der Rettung viel Zeit sparen: Nenne beim Notruf unter 112 möglichst genau, wo du bist, zum Beispiel den Weg, den nächsten markanten Punkt und die Koordinaten aus der App. Es lohnt sich, vor der Tour einmal auszuprobieren, wo deine App diese Angabe anzeigt, damit du in einer Stresssituation nicht lange suchen musst.
+
+### Was ist der Unterschied zwischen Gitternord, geografisch Nord und magnetisch Nord?
+
+Geografisch Nord ist die Richtung zum Nordpol. Magnetisch Nord ist die Richtung, in die deine Kompassnadel zeigt. Gitternord ist die Richtung der senkrechten Gitterlinien auf der Karte, die wegen der Kartenprojektion leicht von geografisch Nord abweichen kann. Auf Wanderungen in Deutschland sind die Unterschiede zwischen allen drei Richtungen so klein, dass du sie beim Einnorden und beim Folgen von Wegen nicht berücksichtigen musst. Wichtig werden sie erst bei langen Peilungen durch wegloses Gelände.
+
 ## Häufige Fragen
 
 ### Brauche ich noch eine Papierkarte, wenn ich eine App nutze?

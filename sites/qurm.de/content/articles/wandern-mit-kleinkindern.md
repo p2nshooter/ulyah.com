@@ -94,6 +94,24 @@ Viele Familien machen ähnliche Erfahrungen, welche Landschaften bei kleinen Kin
 
 Ein Ausflugslokal oder eine Hütte mit Spielplatz am Ziel ist für viele Familien die perfekte Belohnung. Plane dort eine lange Pause ein. Für das Kind ist das oft der schönste Teil des Tages, und für dich die Gelegenheit, die Kraftreserven für den Rückweg aufzufüllen.
 
+## Spiele für unterwegs
+
+Kleine Spiele verwandeln eine zähe Strecke in ein Abenteuer. Bewährt haben sich zum Beispiel:
+
+- **Ich sehe was, was du nicht siehst** mit Farben, Formen oder Tieren aus der Umgebung.
+- **Naturbingo:** Vor der Tour malt ihr eine kleine Karte mit Dingen, die ihr finden wollt, etwa einen Zapfen, eine Feder, ein rundes Blatt, einen Pilz und eine Schnecke. Wer alles entdeckt hat, darf die nächste Pause aussuchen.
+- **Stöckchenrennen:** An einer Brücke werfen alle gleichzeitig einen Stock auf der einen Seite ins Wasser und schauen, wessen Stock zuerst auf der anderen Seite herauskommt.
+- **Spurensuche:** Tierspuren im Matsch, Fraßspuren an Zapfen, Löcher im Boden. Eine kleine Lupe macht aus jedem Käfer ein Ereignis.
+- **Zählen und Schätzen:** Wie viele Schritte bis zum nächsten Baum? Wie viele Wegzeichen bis zur Hütte?
+
+## Mittagsschlaf auf Tour
+
+Viele Kleinkinder brauchen noch einen Mittagsschlaf. Plane die Tour so, dass er zu deinem Kind passt: Entweder ihr startet nach dem Schlaf, oder das Kind schläft unterwegs in der Trage. Viele Kinder schlafen beim Schaukeln des Gehens erstaunlich gut ein. Achte dann darauf, dass der Kopf gestützt ist, und zieh dem Kind eine zusätzliche Schicht an, weil es im Schlaf schneller auskühlt. Die Schlafphase eignet sich gut für den Teil der Strecke, auf dem es wenig zu entdecken gibt.
+
+### Wie gehe ich mit kleinen Stürzen und Verletzungen um?
+
+Kleinkinder stolpern oft, und fast immer ist der Schreck größer als der Schaden. Tröste zuerst, dann schaust du dir die Stelle an. Kleine Schürfwunden spülst du mit sauberem Wasser aus und klebst ein Pflaster darauf; ein buntes Trostpflaster wirkt oft Wunder. Nach einem Sturz auf den Kopf beobachtest du das Kind genau. Erbricht es, wird es ungewöhnlich schläfrig oder verhält es sich anders als sonst, brauchst du ärztliche Hilfe.
+
 ## Häufige Fragen
 
 ### Ab wann kann mein Kind selbst wandern?
