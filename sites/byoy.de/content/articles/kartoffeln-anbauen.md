@@ -98,6 +98,12 @@ Grabe mit einer Grabgabel weit außen an der Pflanze, damit du keine Knollen ans
 
 Lagere nur unverletzte, gesunde Knollen. Beschädigte Kartoffeln isst du zuerst. Ideal ist ein dunkler, kühler, luftiger Ort mit 4 bis 8 Grad, etwa ein Keller, in Kisten oder Säcken aus Jute. Licht macht Kartoffeln grün, Wärme lässt sie keimen, Kälte unter vier Grad macht sie süß. Kontrolliere den Vorrat regelmäßig und sortiere faulende Knollen aus.
 
+## Kartoffeln in der Fruchtfolge
+
+Kartoffeln gehören zu den Nachtschattengewächsen, wie Tomaten, Paprika und Auberginen. Diese Pflanzen teilen sich Krankheiten und Schädlinge, etwa die Kraut- und Knollenfäule. Baue Kartoffeln deshalb nicht dort an, wo im Vorjahr Tomaten standen, und warte drei bis vier Jahre, bevor Nachtschattengewächse wieder auf dieselbe Fläche kommen.
+
+Als Starkzehrer brauchen Kartoffeln einen gut versorgten Boden, am besten mit reifem Kompost. Nach der Ernte hinterlassen sie einen lockeren, unkrautarmen Boden, der sich gut für Kulturen wie Feldsalat, Spinat oder eine Gründüngung eignet. Mehr dazu im Ratgeber [Fruchtfolge planen](/gartenwissen/fruchtfolge-planen/).
+
 ## Häufige Fragen
 
 ### Kann ich Kartoffeln im Topf oder Sack anbauen?
@@ -111,3 +117,15 @@ Nein. Die grünen, tomatenähnlichen Beeren, die manche Sorten nach der Blüte b
 ### Warum sind meine Kartoffeln schorfig?
 
 Kartoffelschorf zeigt sich als raue, korkige Flecken auf der Schale. Er tritt vor allem in trockenen, kalkreichen, leichten Böden auf. Die Knollen sind essbar, wenn du sie schälst. Gleichmäßige Feuchtigkeit während der Knollenbildung und kein frischer Kalk helfen vorzubeugen.
+
+### Warum werden Kartoffeln grün?
+
+Wenn Knollen dem Licht ausgesetzt sind, bilden sie Blattgrün und zugleich mehr Solanin, einen Bitterstoff, der in größeren Mengen giftig ist. Häufle die Pflanzen deshalb gut an und lagere geerntete Kartoffeln dunkel. Kleine grüne Stellen schneidest du großzügig heraus, stark grüne Knollen solltest du nicht essen.
+
+### Kann ich Speisekartoffeln aus dem Supermarkt pflanzen?
+
+Das ist nicht zu empfehlen. Speisekartoffeln sind manchmal mit Keimhemmern behandelt und können Krankheiten mitbringen. Zertifizierte Pflanzkartoffeln sind auf Gesundheit geprüft und liefern verlässlichere Ernten.
+
+### Wann kann ich Frühkartoffeln ernten?
+
+Frühkartoffeln sind meist erntereif, wenn die Pflanzen abgeblüht sind. Grabe probeweise eine Pflanze aus: Sind die Knollen groß genug, kannst du nach Bedarf ernten. Frühkartoffeln haben eine dünne Schale und sollten bald gegessen werden, denn sie lassen sich nicht lange lagern.

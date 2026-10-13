@@ -87,6 +87,18 @@ Wer selbst vorzieht, legt den Grundstein für kräftige Jungpflanzen schon auf d
 
 Ein leichter Luftzug, etwa durch einen Ventilator auf niedriger Stufe oder sanftes Streichen über die Pflanzen, stärkt die Stängel schon vor dem Abhärten.
 
+## Pflanzzeiten im Überblick
+
+Robuste Kulturen wie Salat, Kohlrabi, Kohl, Mangold und Zwiebeln vertragen kühle Nächte und können ab April abgehärtet ins Beet, in rauen Lagen etwas später. Frostempfindliche Pflanzen wie Tomaten, Gurken, Zucchini, Kürbis, Paprika und Basilikum warten bis nach den Eisheiligen Mitte Mai. Paprika und Gurken mögen zusätzlich warmen Boden und wachsen nach einem zu frühen Auspflanzen in kalter Erde oft wochenlang kaum weiter.
+
+Lauch, Sellerie und Wintergemüse wie Grünkohl oder Rosenkohl werden je nach Sorte von Mai bis Juli gepflanzt. Wer seine Pflanzen in mehreren Sätzen pflanzt, erntet über einen längeren Zeitraum und verteilt das Risiko, falls ein später Frost oder ein Hitzesommer einer Pflanzung zusetzt.
+
+## Die richtige Pflanztiefe
+
+Nicht jede Pflanze wird gleich tief gesetzt. Tomaten darfst du tiefer pflanzen, als sie im Topf standen, denn am eingegrabenen Stängel bilden sie zusätzliche Wurzeln und stehen danach stabiler. Kohl wird bis zu den ersten Blättern eingesetzt. Salat dagegen pflanzt du so flach, dass der Wurzelballen gerade bedeckt ist; eine alte Gärtnerregel sagt, Salat müsse nach dem Pflanzen „im Wind flattern“. Zu tief gesetzt, fault sein Herz leicht.
+
+Lauch setzt du in tiefe Pflanzlöcher, die du nach und nach mit Erde auffüllst. So entsteht ein langer, heller Schaft. Gurken und Zucchini pflanzt du auf gleicher Höhe wie im Topf, am besten auf einen kleinen Hügel, damit Wasser vom empfindlichen Stängelgrund abfließt.
+
 ## Häufige Fragen
 
 ### Was mache ich bei Sonnenbrand auf den Blättern?
@@ -100,3 +112,15 @@ Pflanze sie tief, bis zu den ersten Blättern. Der eingegrabene Stängel bildet 
 ### Wie lange kann ich Jungpflanzen im Topf lassen?
 
 Nicht zu lange. Wenn die Wurzeln den Topf ausfüllen und die Pflanze gelbe Blätter bekommt, braucht sie mehr Platz. Topfe sie in einen größeren Topf um oder pflanze sie bei passendem Wetter aus.
+
+### Was tue ich, wenn nach dem Auspflanzen Frost angekündigt ist?
+
+Decke empfindliche Pflanzen am Abend mit Vlies, umgedrehten Eimern oder Pflanzhauben ab und nimm die Abdeckung am nächsten Morgen wieder ab. Gieße den Boden vorher, denn feuchte Erde speichert Wärme besser als trockene. Bei starkem Frost holst du Pflanzen in Töpfen über Nacht ins Haus.
+
+### Muss ich frisch gepflanzte Jungpflanzen düngen?
+
+Nicht sofort. Wenn du das Beet vorher mit Kompost versorgt hast, reichen die Nährstoffe für die ersten Wochen. Starkzehrer wie Tomaten, Kohl oder Kürbisse bekommen nach zwei bis drei Wochen, wenn sie sichtbar weiterwachsen, eine erste Gabe organischen Dünger.
+
+Schwachzehrer wie Salat und Kräuter kommen meist ganz ohne zusätzlichen Dünger aus.
+
+Zu viel Stickstoff macht junge Pflanzen weich und anfällig für Blattläuse.

@@ -105,6 +105,18 @@ Im nächsten Jahr wandert jede Reihe ein Beet weiter. So bleibt der Boden gesund
 
 Ein Gemüsebeet braucht im Sommer regelmäßig Wasser, und Leitungswasser ist teuer und oft kalkhaltig. Plane deshalb gleich zu Beginn eine Regentonne oder einen größeren Regenwassertank an einem Fallrohr in der Nähe. Ein Gartenschlauch mit Brause oder eine einfache Tropfleitung entlang der Reihen spart viel Zeit. Gieße lieber zweimal pro Woche durchdringend als täglich ein wenig: So wachsen die Wurzeln in die Tiefe, und die Pflanzen überstehen Trockenphasen besser. Mulch zwischen den Reihen verringert die Verdunstung um ein Vielfaches.
 
+## Das richtige Werkzeug für den Start
+
+Für ein neues Gemüsebeet brauchst du keine teure Ausrüstung. Eine Grabegabel zum Lockern, ein Rechen für ein feines Saatbett, eine Hacke gegen Unkraut, eine Pflanzschaufel und eine Gießkanne mit feiner Brause reichen für den Anfang. Eine Pflanzschnur mit zwei Holzpflöcken hilft dabei, gerade Reihen zu ziehen, und ein Zollstock oder Maßband zeigt dir die richtigen Abstände.
+
+Investiere lieber in wenige, gute Werkzeuge mit stabilen Stielen als in viele billige. Gutes Werkzeug hält Jahrzehnte, liegt besser in der Hand und schont den Rücken. Reinige es nach der Arbeit grob von Erde und bewahre es trocken auf, dann rostet es nicht.
+
+## Gemüsebeete im Kleingarten und im Mietgarten
+
+Wer einen Kleingarten pachtet, sollte die Regeln des Vereins kennen. Kleingärten sind nach dem Bundeskleingartengesetz für die gärtnerische Nutzung gedacht, und ein erheblicher Teil der Fläche, nach verbreiteter Auslegung mindestens ein Drittel, soll dem Anbau von Obst und Gemüse dienen. Ein neues Gemüsebeet ist dort also ausdrücklich erwünscht, Bauten und Einfassungen müssen aber oft abgesprochen werden.
+
+Im Garten einer Mietwohnung fragst du vor größeren Veränderungen die Vermieterin oder den Vermieter. Wer einen Rasen in Beete umwandelt, sollte vorher klären, ob die Fläche beim Auszug wieder in den alten Zustand versetzt werden muss.
+
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit, ein Beet anzulegen?
@@ -118,3 +130,11 @@ Nicht unbedingt. Eine Einfassung aus Holz, Metall oder Steinen hält aber Rasen 
 ### Muss ich gekaufte Erde verwenden?
 
 Meist nicht. Reifer Kompost in den vorhandenen Boden eingearbeitet ist besser als eine dünne Schicht gekaufter Erde auf ungelockertem Untergrund.
+
+### Wie viel Zeit kostet ein Gemüsebeet?
+
+Das hängt von Größe und Jahreszeit ab. Im Frühjahr, wenn gesät und gepflanzt wird, ist der Aufwand am größten, im Hochsommer kommen vor allem Gießen und Ernten dazu. Ein kleines Beet lässt sich mit regelmäßigen kurzen Besuchen gut bewältigen. Mulch, eine gute Planung und Gießen am Morgen sparen viel Zeit.
+
+### Kann ich ein Beet im Herbst vorbereiten und erst im Frühjahr bepflanzen?
+
+Ja, das ist sogar ideal. Decke die Fläche im Herbst mit Pappe, Kompost und Laub ab. Über den Winter arbeitet das Bodenleben, und im Frühjahr findest du ein lockeres, unkrautarmes Beet vor.

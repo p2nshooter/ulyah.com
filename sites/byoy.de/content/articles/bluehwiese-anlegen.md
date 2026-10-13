@@ -93,6 +93,18 @@ Welche Wildbienen davon profitieren und wie du ihnen außerdem hilfst, steht in 
 - **Zu häufiges Mähen:** Die Blumen kommen nicht zur Samenreife.
 - **Ungeduld:** Eine artenreiche Wiese entwickelt sich über drei bis fünf Jahre.
 
+## Auch kleine Flächen zählen
+
+Eine Blumenwiese muss nicht groß sein, um Insekten zu helfen. Schon ein Streifen von wenigen Quadratmetern am Zaun, eine Ecke des Rasens oder ein Randstreifen entlang des Gemüsegartens bieten Wildbienen, Schwebfliegen und Schmetterlingen Nahrung. Mehrere kleine Blühinseln im Garten verteilt sind oft wertvoller als eine einzige Fläche, weil die Tiere auf kurzen Wegen immer wieder Blüten finden.
+
+Wer nur einen kleinen Garten hat, kann den Rasen auch einfach seltener mähen und an einigen Stellen wachsen lassen. Dann blühen oft schon im ersten Sommer Gänseblümchen, Löwenzahn, Klee, Gundermann und Ehrenpreis, die vorher immer abgemäht wurden. Diese Blumenrasen-Variante ist kein Ersatz für eine artenreiche Wiese, aber ein einfacher Anfang.
+
+## Was eine Wiese für Tiere leistet
+
+Eine Blumenwiese ist weit mehr als Nahrung für Bienen. Viele Schmetterlinge brauchen bestimmte Pflanzen, an denen ihre Raupen fressen, etwa Gräser, Klee oder Wilde Möhre. Heuschrecken, Käfer und Spinnen leben in der Vegetation, und Vögel finden dort Insekten für ihre Jungen und im Herbst Samen.
+
+Ein wichtiger Tipp: Mähe nie die ganze Fläche auf einmal. Lass bei jeder Mahd einen Streifen oder eine Ecke stehen, damit Tiere ausweichen können und im Winter Insekten in hohlen Stängeln und Samenständen überdauern. Diese ungemähten Bereiche wechseln von Jahr zu Jahr, damit die Wiese insgesamt in Form bleibt.
+
 ## Häufige Fragen
 
 ### Kann ich eine Blumenwiese betreten?
@@ -106,3 +118,17 @@ Eine Mischung aus robusten Gräsern und niedrig wachsenden Blumen wie Gänseblü
 ### Warum blüht meine Wiese im zweiten Jahr weniger?
 
 Oft ist der Boden zu nährstoffreich, oder das Mähgut wurde liegen gelassen. Mähe konsequent zweimal und entferne das Mähgut. Mit den Jahren wird die Wiese artenreicher.
+
+### Darf ich eine Blumenwiese düngen?
+
+Nein. Artenreiche Blumenwiesen gedeihen auf mageren Böden. Dünger und Kompost fördern vor allem kräftige Gräser, die die Wildblumen nach wenigen Jahren verdrängen. Auch das Mähgut sollte nach dem Trocknen entfernt werden, damit der Boden nicht nach und nach mit Nährstoffen angereichert wird.
+
+### Brauche ich für Regiosaatgut eine Genehmigung?
+
+Im eigenen Garten nicht. In der freien Landschaft dürfen Wildpflanzen nach dem Bundesnaturschutzgesetz dagegen grundsätzlich nur noch aus gebietseigenen Herkünften ausgebracht werden. Für den Hausgarten ist Regiosaatgut trotzdem die beste Wahl, weil heimische Insekten genau auf diese Pflanzen eingestellt sind.
+
+### Kann ich eine Blumenwiese auch im Halbschatten anlegen?
+
+Ja, mit einer passenden Mischung. Für halbschattige Lagen gibt es Saatgutmischungen mit Arten, die mit weniger Sonne zurechtkommen, etwa Wiesen-Glockenblume, Margerite oder Wiesen-Storchschnabel. Die Wiese blüht dort meist weniger üppig als in voller Sonne, ist für Insekten aber trotzdem wertvoll. Unter dichten Bäumen mit tiefem Schatten gedeiht dagegen kaum eine Wiese; dort ist ein Saum aus schattenverträglichen Wildstauden die bessere Wahl.
+
+Auch hier gilt: nicht düngen und das Mähgut abräumen.

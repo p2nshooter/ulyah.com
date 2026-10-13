@@ -108,3 +108,13 @@ Meist ist es zu heiß oder zu kalt. Über etwa 30 °C und unter 13 °C wird der 
 ### Darf ich kranke Tomatenpflanzen kompostieren?
 
 Besser nicht. Ein normaler Gartenkompost wird selten heiß genug, um alle Erreger abzutöten. Entsorge befallene Pflanzenteile über den Hausmüll oder die Biotonne, denn kommunale Kompostieranlagen erreichen höhere Temperaturen.
+
+### Wann ernte ich die letzten Tomaten im Herbst?
+
+Spätestens vor dem ersten Frost. Grüne Tomaten, die bereits ihre volle Größe erreicht haben, reifen im Haus bei Zimmertemperatur nach. Wickle sie einzeln in Zeitungspapier oder lege sie zusammen mit einem Apfel in eine Kiste, dann färben sie sich schneller. Kleine, ganz unreife Früchte reifen dagegen kaum noch nach.
+
+### Wie weit pflanze ich Tomaten auseinander?
+
+In der Reihe etwa 50 bis 60 Zentimeter, zwischen den Reihen 80 bis 100 Zentimeter. Der Abstand sorgt dafür, dass die Blätter nach Regen schnell abtrocknen, und beugt so Pilzkrankheiten vor.
+
+Zwischen die Reihen passen dann noch niedrige Begleiter wie Basilikum oder Ringelblumen.

@@ -104,6 +104,12 @@ In guten Jahren tragen Bohnen mehr, als man frisch essen kann. Die bewährtesten
 | Rostbraune Pusteln auf Blättern | Bohnenrost | Laub trocken halten, Pflanzenreste entfernen |
 | Kolonien schwarzer Läuse | Schwarze Bohnenlaus | Nützlinge abwarten, Triebspitzen entfernen |
 
+## Trockenbohnen selbst ernten
+
+Viele Bohnensorten eignen sich nicht nur für grüne Hülsen, sondern auch als Trockenbohnen für Eintöpfe und Salate. Dafür lässt du die Hülsen an der Pflanze ausreifen, bis sie gelb, trocken und pergamentartig sind und die Bohnen darin klappern. Ernte sie an einem trockenen Tag, bevor anhaltender Herbstregen die reifen Hülsen schimmeln lässt.
+
+Lege die Hülsen anschließend an einem luftigen Ort nach, bis sie vollständig trocken sind, und pule die Bohnen aus. Erst wenn sie steinhart sind, kommen sie in Gläser. Vor dem Kochen weichst du Trockenbohnen über Nacht ein und kochst sie anschließend gründlich durch, denn auch getrocknete Bohnen enthalten den Giftstoff Phasin, der erst durch ausreichendes Kochen zerstört wird.
+
 ## Häufige Fragen
 
 ### Warum sind rohe Bohnen giftig?
@@ -117,3 +123,11 @@ Ja, in Töpfen etwa zwei bis drei Wochen vor dem Auspflanzen. Das schützt vor S
 ### Warum werden meine Bohnen fädig?
 
 Die meisten modernen Sorten sind fadenlos, solange sie jung geerntet werden. Ältere Hülsen bilden bei vielen Sorten trotzdem Fäden. Regelmäßig und früh ernten hilft.
+
+### Kann ich Bohnen jedes Jahr am selben Platz anbauen?
+
+Besser nicht. Bohnen sollten frühestens nach drei bis vier Jahren wieder auf dieselbe Fläche, damit sich keine bodenbürtigen Krankheiten anreichern. Plane sie im Wechsel mit anderen Gemüsefamilien ein.
+
+### Warum fallen die Blüten meiner Bohnen ab?
+
+Häufige Ursachen sind große Hitze, Trockenheit während der Blüte oder kalte Nächte. Gieße in Trockenperioden während der Blüte regelmäßig und durchdringend, dann setzen die Pflanzen wieder Hülsen an.

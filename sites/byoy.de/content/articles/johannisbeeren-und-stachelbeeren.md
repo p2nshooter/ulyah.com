@@ -94,6 +94,16 @@ Johannisbeeren lassen sich sehr leicht vermehren:
 
 Johannisbeeren und Stachelbeeren gibt es auch als Hochstämmchen: Die Sorte ist auf einen etwa einen Meter hohen Stamm einer wüchsigen Unterlage veredelt. Die Beeren hängen dann bequem in Greifhöhe, und darunter bleibt Platz für Erdbeeren, Kräuter oder Blumen. Stämmchen brauchen dauerhaft einen stabilen Pfahl, weil die Krone schwer wird. Geschnitten werden sie ähnlich wie Sträucher: Ältere Triebe in der Krone werden regelmäßig herausgenommen, damit junge nachwachsen. Triebe, die unterhalb der Krone am Stamm erscheinen, entfernst du sofort, weil sie von der Unterlage stammen.
 
+## Johannisbeeren und Stachelbeeren in der Küche
+
+Rote Johannisbeeren sind säuerlich und frisch, ideal für Gelee, Kuchen mit Baiser, Rote Grütze und Saft. Sie enthalten viel Pektin und gelieren deshalb besonders gut. Schwarze Johannisbeeren haben ein kräftiges, herbes Aroma und sind besonders reich an Vitamin C. Aus ihnen werden Saft, Likör, Marmelade und Sirup gemacht. Weiße Johannisbeeren sind milder und eignen sich gut zum Naschen direkt vom Strauch.
+
+Stachelbeeren kann man in zwei Reifestadien ernten: Noch grün und fest gepflückt, sind sie sauer und eignen sich für Kompott, Kuchen und Chutney. Voll ausgereift werden sie weich, süß und aromatisch und schmecken frisch am besten.
+
+## Beerensträucher im Kübel
+
+Auch ohne Garten musst du nicht auf Johannisbeeren verzichten. In einem Kübel mit mindestens zwanzig bis dreißig Litern Inhalt gedeihen sie auf Balkon und Terrasse, besonders als Stämmchen, die wenig Grundfläche brauchen. Verwende eine strukturstabile, humusreiche Erde, gieße regelmäßig, denn Beerensträucher im Kübel trocknen schnell aus, und dünge im Frühjahr mit einem organischen Beerendünger. Im Winter schützt du den Kübel mit Jute oder Kokosmatten vor dem Durchfrieren.
+
 ## Häufige Fragen
 
 ### Warum trägt mein Johannisbeerstrauch kaum noch?
@@ -107,3 +117,15 @@ Häufige Ursachen sind Trockenheit, Spätfröste während der Blüte oder schlec
 ### Kann ich Johannisbeeren im Halbschatten pflanzen?
 
 Ja, sie tragen dort gut, die Beeren werden aber säuerlicher. Stachelbeeren reagieren im Schatten stärker mit Mehltau.
+
+### Was ist eine Jostabeere?
+
+Die Jostabeere ist eine Kreuzung aus Schwarzer Johannisbeere und Stachelbeere, die in Deutschland gezüchtet wurde. Sie wächst kräftig, hat keine Stacheln und gilt als widerstandsfähig gegen Mehltau. Ihre dunklen Beeren sind größer als Johannisbeeren und schmecken nach einer Mischung aus beiden Eltern.
+
+### Wann pflanze ich Beerensträucher am besten?
+
+Wurzelnackte Sträucher pflanzt du am besten im Herbst, von Oktober bis November, solange der Boden nicht gefroren ist. Dann wurzeln sie bis zum Frühjahr ein und treiben kräftig aus. Pflanzen im Topf kannst du das ganze Jahr über setzen, solange es nicht friert, musst sie im Sommer aber regelmäßig gießen.
+
+### Wie lange tragen Johannisbeersträucher?
+
+Mit regelmäßigem Verjüngungsschnitt viele Jahre, oft deutlich länger als ein Jahrzehnt. Entscheidend ist, dass immer wieder junge Triebe nachwachsen und alte, vergreiste Äste entfernt werden.

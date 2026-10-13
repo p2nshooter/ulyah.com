@@ -87,6 +87,18 @@ Wer diese Punkte umsetzt, hilft nicht nur Igeln, sondern auch Vögeln, Kröten, 
 
 Wenn ein Igel in einem Laubhaufen oder im Igelhaus überwintert, braucht er absolute Ruhe. Jedes Aufwachen kostet ihn wertvolle Energiereserven. Räume deshalb Laub-, Reisig- und Komposthaufen nicht zwischen November und April auf, setze keinen Kompost um, in dem ein Igel schlafen könnte, und kontrolliere ein Igelhaus nicht. Erst im späten Frühjahr, wenn die Nächte dauerhaft mild sind, ist es Zeit für Aufräumarbeiten, und auch dann vorsichtig, mit Rechen statt Gabel.
 
+## Gefahr durch Mähroboter
+
+Eine besondere Gefahr für Igel sind Mähroboter, vor allem wenn sie in der Dämmerung oder nachts fahren. Igel flüchten bei Gefahr nicht, sondern rollen sich ein. Viele Mähroboter erkennen sie nicht als Hindernis, und Untersuchungen haben gezeigt, dass die Geräte Igel schwer verletzen können, besonders junge Tiere.
+
+Lass einen Mähroboter deshalb nur tagsüber fahren und nie in der Dämmerung oder nachts, wenn Igel unterwegs sind. Kontrolliere vor dem Start kurz Hecken, Ränder und hohes Gras, wo sich Igel tagsüber verstecken. Auch bei Freischneidern und Motorsensen lohnt vor dem Mähen von Böschungen und Hecken ein prüfender Blick ins Gestrüpp.
+
+## Igel im Frühjahr
+
+Wenn die Igel im März oder April aus dem Winterschlaf erwachen, sind sie stark abgemagert und müssen schnell Nahrung finden. Ein naturnaher Garten mit Laub, Stauden und offenen Bodenstellen bietet ihnen dann Käfer, Larven und Regenwürmer. Räume Laub- und Reisighaufen deshalb nicht zu früh im Jahr weg, denn darin können noch schlafende Igel liegen.
+
+Eine flache Schale mit frischem Wasser hilft den Tieren besonders in trockenen Frühjahren. Milch ist dagegen ungeeignet, denn Igel vertragen sie nicht.
+
 ## Häufige Fragen
 
 ### Ist ein Igel im Garten ein Zeichen für einen gesunden Garten?
@@ -100,3 +112,11 @@ Ja. Ein Holzkasten von etwa 30 × 40 Zentimetern Grundfläche mit einem Eingangs
 ### Vertreiben Igel Nützlinge?
 
 Igel fressen auch manche Laufkäfer und Regenwürmer, die wir als Nützlinge schätzen. In einem vielfältigen Garten hält sich das im Gleichgewicht. Mehr über die Helfer im Garten steht in [Nützlinge im Garten](/gartenwissen/nuetzlinge-im-garten/).
+
+### Darf ich einen Igel einfach mitnehmen?
+
+Igel stehen unter besonderem Schutz und dürfen grundsätzlich nicht aus der Natur entnommen werden. Kranke, verletzte oder hilflose Tiere darf man vorübergehend aufnehmen, um sie gesund zu pflegen, muss sie danach aber wieder freilassen. Wende dich in einem solchen Fall am besten an eine Igelstation, eine Wildtierhilfe oder eine Tierarztpraxis, denn die richtige Pflege braucht Erfahrung.
+
+### Was tue ich, wenn ich tagsüber einen Igel sehe?
+
+Igel sind nachtaktiv. Ein Igel, der tagsüber herumtorkelt, offen in der Sonne liegt oder sehr mager wirkt, ist oft krank oder geschwächt. Beobachte ihn kurz aus der Nähe, setze ihn bei Gefahr in einen hohen Karton mit einem Handtuch und wende dich an eine Igelstation oder Tierarztpraxis. Junge Igel, die im späten Herbst noch deutlich unter etwa 500 Gramm wiegen, schaffen den Winterschlaf oft nicht allein und brauchen fachkundige Hilfe.

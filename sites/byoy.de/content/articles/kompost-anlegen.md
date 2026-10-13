@@ -111,6 +111,18 @@ Wer den Kompost so führt, hat jedes Frühjahr fertige Erde für die Beete und b
 
 Wer keinen Garten hat oder seine Küchenabfälle das ganze Jahr verwerten will, kann eine Wurmkiste betreiben. Darin arbeiten spezielle Kompostwürmer, keine Regenwürmer aus dem Garten. Sie fressen Gemüse- und Obstreste, Kaffeesatz und zerrissene Pappe und hinterlassen feinen Wurmhumus, einen hervorragenden Dünger für Topfpflanzen und Aussaaten. Die Kiste steht an einem Ort mit 15 bis 25 Grad, etwa in der Küche, im Keller oder auf einem geschützten Balkon. Richtig betrieben riecht sie nach Waldboden. Zitrusschalen, Zwiebeln, Gekochtes und Fleisch gehören nicht hinein. Die abgelaufene Flüssigkeit, der Wurmtee, wird verdünnt als Flüssigdünger verwendet.
 
+## Kompost ohne Zusätze beschleunigen
+
+Kompostbeschleuniger aus dem Handel sind meist überflüssig. Viel wichtiger sind die richtige Mischung und die richtige Feuchtigkeit. Zerkleinere grobe Abfälle wie Kohlstrünke, Staudenstängel oder Äste, denn kleine Stücke bieten den Mikroorganismen mehr Angriffsfläche. Mische feuchte, grüne Abfälle wie Rasenschnitt und Küchenreste immer mit trockenem, braunem Material wie Laub, Stroh oder zerknülltem Karton.
+
+Der Kompost sollte sich anfühlen wie ein ausgedrückter Schwamm: feucht, aber nicht nass. Ein paar Schaufeln reifer Kompost oder Gartenerde, zwischen die Schichten gestreut, bringen die nötigen Bodenlebewesen gleich mit. Und wer den Haufen ein- oder zweimal umsetzt, versorgt ihn mit Sauerstoff und beschleunigt die Rotte deutlich.
+
+## Thermokomposter für kleine Gärten
+
+Geschlossene Thermokomposter aus Kunststoff sind praktisch für kleine Gärten und Reihenhäuser. Sie halten die Wärme im Inneren, sehen ordentlich aus und lassen weniger Gerüche nach außen. Weil kaum Wasser verdunstet, wird ihr Inhalt aber schnell zu nass. Gib deshalb immer reichlich trockenes Material dazu und öffne den Deckel bei Bedarf zum Lüften.
+
+Im Winter verlangsamt sich die Rotte auch im Thermokomposter. Das ist normal: Im Frühjahr kommt sie wieder in Gang. Reifer Kompost lässt sich meist unten durch eine Klappe entnehmen, während oben weiter frisches Material eingefüllt wird.
+
 ## Häufige Fragen
 
 ### Mein Kompost stinkt. Was tun?
@@ -124,3 +136,11 @@ Vor allem, wenn gekochte Speisen, Fleisch oder Brot hineingelangen. Verzichte da
 ### Kann ich auch auf dem Balkon kompostieren?
 
 In einer Wurmkiste ja. Kompostwürmer verwandeln Küchenabfälle in einer geschlossenen Kiste in Wurmhumus, ohne zu riechen, wenn die Kiste richtig betrieben wird.
+
+### Dürfen Zitrus- und Bananenschalen auf den Kompost?
+
+Ja, in haushaltsüblichen Mengen. Zitrusschalen zersetzen sich langsamer als andere Küchenabfälle, deshalb zerkleinerst du sie am besten. Rückstände von Behandlungsmitteln auf den Schalen werden im Kompost weitgehend abgebaut, wenn sie nur einen kleinen Teil des Materials ausmachen.
+
+### Wie erkenne ich, dass mein Kompost reif ist?
+
+Reifer Kompost ist dunkelbraun bis schwarz, krümelig und riecht nach Waldboden. Die ursprünglichen Abfälle sind nicht mehr zu erkennen, abgesehen von einzelnen Ästchen oder Eierschalen. Wer unsicher ist, macht den Kressetest: Keimt Kresse in einer Probe des Komposts gleichmäßig und mit grünen Blättern, ist er reif genug für empfindliche Pflanzen.

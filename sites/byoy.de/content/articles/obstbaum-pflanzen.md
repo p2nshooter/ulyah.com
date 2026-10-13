@@ -72,6 +72,18 @@ Wurzelnackte Bäume haben beim Ausgraben Wurzeln verloren. Der Pflanzschnitt ste
 - **Stammschutz:** Ein weißer Kalkanstrich im Herbst schützt junge Stämme vor Frostrissen durch Wintersonne. Gegen Wildverbiss helfen Drahthosen.
 - **Anbindung prüfen:** Lockere den Strick, sobald er einschnürt, und entferne den Pfahl bei kräftigen Bäumen auf starken Unterlagen nach einigen Jahren. Schwache Unterlagen brauchen dauerhaft eine Stütze.
 
+## Schutz vor Wühlmäusen, Wild und Frostrissen
+
+Junge Obstbäume haben viele Feinde. Wühlmäuse fressen die Wurzeln, besonders bei Apfelbäumen. Ein Drahtkorb, den du beim Pflanzen um den Wurzelballen legst, schützt den Baum in den ersten Jahren, bis die Wurzeln kräftig genug sind. Wo Kaninchen oder Rehe in den Garten kommen, verhindert eine Stammschutzmanschette, dass sie die Rinde abnagen oder sich daran reiben.
+
+Im Winter kann die tief stehende Sonne die Rinde an der Südseite tagsüber stark erwärmen, während sie nachts wieder gefriert. Dabei entstehen Frostrisse, durch die Krankheitserreger eindringen. Ein weißer Stammanstrich aus Kalk oder einem speziellen Baumanstrich reflektiert das Sonnenlicht und beugt diesen Rissen vor.
+
+## Gießen im ersten Sommer
+
+Ein frisch gepflanzter Obstbaum hat nur wenige Wurzeln und ist in seinem ersten Sommer auf deine Hilfe angewiesen. Gieße in Trockenperioden einmal pro Woche durchdringend mit mehreren Gießkannen, statt täglich ein wenig. So wachsen die Wurzeln in die Tiefe. Ein Gießrand aus Erde rund um die Baumscheibe verhindert, dass das Wasser seitlich wegläuft.
+
+Eine Mulchschicht auf der Baumscheibe hält die Feuchtigkeit im Boden und unterdrückt Gras, das dem jungen Baum Wasser und Nährstoffe streitig macht. Halte den Mulch dabei einige Zentimeter vom Stamm entfernt.
+
 ## Häufige Fragen
 
 ### Wann trägt mein Baum die ersten Früchte?
@@ -85,3 +97,11 @@ Für den Biogarten sind Sorten mit geringer Anfälligkeit für Schorf und Mehlta
 ### Kann ich einen Obstbaum im Kübel ziehen?
 
 Ja, Säulenobst und Bäume auf sehr schwachen Unterlagen wachsen in großen Kübeln ab etwa 40 Litern. Sie brauchen regelmäßiges Gießen, Düngen und Winterschutz für den Topf.
+
+### Braucht mein Obstbaum einen Pfahl?
+
+In den ersten Jahren ja, bei Bäumen auf schwach wachsenden Unterlagen oft dauerhaft. Schlage den Pfahl vor dem Pflanzen ein, damit die Wurzeln nicht verletzt werden, und binde den Stamm mit einem Kokosstrick in Form einer Acht locker an, damit die Rinde nicht scheuert.
+
+### Was ist ein Pflanzschnitt, und muss ich ihn machen?
+
+Beim Pflanzschnitt werden die Leitäste nach dem Pflanzen gekürzt, damit Krone und Wurzeln im Gleichgewicht sind und sich eine gute Kronenform bildet. Wurzelnackte Bäume brauchen ihn unbedingt, Containerbäume meist weniger stark. Wie er funktioniert, erklärt der Abschnitt oben zum Pflanzschnitt.

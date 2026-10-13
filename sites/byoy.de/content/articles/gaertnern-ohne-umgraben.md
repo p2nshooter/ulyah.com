@@ -102,6 +102,18 @@ So bleibt der Boden das ganze Jahr bedeckt, und die Arbeit beschränkt sich auf 
 
 Ein Spaten bleibt für das Pflanzen von Sträuchern und Bäumen nützlich, im Gemüsebeet wird er kaum noch gebraucht.
 
+## Was Praxis und Forschung zeigen
+
+Die Idee, den Boden möglichst wenig zu wenden, ist nicht neu. In der Landwirtschaft wird seit Jahrzehnten untersucht, wie sich reduzierte Bodenbearbeitung auf Bodenstruktur und Bodenleben auswirkt. Wenig gestörte Böden haben meist mehr Regenwürmer, stabilere Krümel und ein dichteres Netz aus Pilzfäden, das Pflanzenwurzeln mit Wasser und Nährstoffen versorgt. Sie sind weniger anfällig für Erosion und Verschlämmung.
+
+Im Hausgarten hat die Bewegung des Gärtnerns ohne Umgraben, oft „No Dig“ genannt, unter anderem durch den englischen Gemüsegärtner Charles Dowding Bekanntheit erlangt, der über viele Jahre umgegrabene und nicht umgegrabene Beete nebeneinander vergleicht. Wie in jedem Garten hängt das Ergebnis aber von Boden, Klima und Pflege ab. Am besten probierst du die Methode zunächst auf einem oder zwei Beeten aus und vergleichst selbst.
+
+## Typische Anfangsprobleme und Lösungen
+
+Im ersten Jahr nach der Umstellung tauchen oft dieselben Fragen auf. Unter einer dicken Mulchschicht fühlen sich Schnecken wohl, besonders in feuchten Frühjahren. Ziehe den Mulch dann bei jungen Pflanzen etwas zur Seite und sammle Schnecken abends ab. Im zeitigen Frühjahr erwärmt sich ein gemulchter Boden langsamer. Reche den Mulch auf Saatbeeten deshalb einige Wochen vor der Aussaat beiseite, damit die Sonne den Boden erreicht.
+
+Auch Unkraut kann anfangs stärker auftauchen, weil im Boden viele Samen auf ihre Chance warten. Eine Schicht Kompost oder Mulch hält diese Samen im Dunkeln, und wer neue Sämlinge früh mit der Hacke oberflächlich entfernt, hat nach ein bis zwei Jahren deutlich weniger Arbeit.
+
 ## Häufige Fragen
 
 ### Wird mein Boden ohne Umgraben nicht hart?
@@ -115,3 +127,13 @@ Mulch bietet Schnecken Verstecke. In Gärten mit vielen Schnecken mulchst du ers
 ### Brauche ich viel Kompost?
 
 Für 10 Quadratmeter Beetfläche brauchst du bei drei Zentimetern Auflage etwa 300 Liter Kompost im Jahr. Wer nicht genug selbst herstellt, kann zertifizierten Grüngutkompost von kommunalen Kompostwerken kaufen.
+
+### Funktioniert das auch auf schwerem Lehmboden?
+
+Ja, aber es braucht Geduld. Lockere schwere Böden zu Beginn mit einer Grabegabel oder einem Sauzahn tief, ohne die Schichten umzudrehen, und halte die Oberfläche anschließend dauerhaft mit Kompost und Mulch bedeckt. Das Bodenleben baut die Struktur Jahr für Jahr auf, und der Boden wird zunehmend krümeliger.
+
+### Was mache ich mit Wurzelunkräutern wie Quecke oder Giersch?
+
+Gegen hartnäckige Wurzelunkräuter hilft Geduld. Decke befallene Flächen eine ganze Saison lang mit Pappe und einer dicken Mulchschicht ab, damit die Pflanzen kein Licht bekommen, und ziehe nachwachsende Triebe konsequent heraus.
+
+Pflanze danach dicht, damit freie Flächen schnell zuwachsen.

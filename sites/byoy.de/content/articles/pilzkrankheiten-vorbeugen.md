@@ -110,6 +110,12 @@ Entdeckst du eine Pilzkrankheit, handle zügig, aber ohne Panik:
 3. Prüfe Gießgewohnheiten, Pflanzabstand und Düngung.
 4. Notiere dir Sorte, Standort und Wetter, damit du im nächsten Jahr anders planen kannst.
 
+## Pilzkrankheiten richtig bestimmen
+
+Bevor du handelst, lohnt ein genauer Blick, denn die Krankheiten verlangen unterschiedliche Maßnahmen. Echter Mehltau bildet einen weißen, abwischbaren Belag vor allem auf der Blattoberseite und tritt gern bei warmem, trockenem Wetter auf. Falscher Mehltau zeigt sich dagegen als grauvioletter Flaum auf der Blattunterseite und gelbliche Flecken oben; er liebt feuchte, kühle Witterung.
+
+Rostpilze erkennst du an orangefarbenen bis braunen Pusteln, meist auf der Blattunterseite. Grauschimmel bildet einen grauen, staubenden Pelz auf Früchten und Blüten. Fotografiere befallene Blätter von beiden Seiten. Gärtnereien und die Pflanzenschutzdienste der Länder helfen bei der Bestimmung.
+
 ## Häufige Fragen
 
 ### Kann ich mit Mehltau befallene Blätter kompostieren?
@@ -123,3 +129,11 @@ Weil Echter Mehltau gerade trockenwarmes Wetter liebt. Er befällt vor allem Pfl
 ### Ist Mehltau für Menschen gefährlich?
 
 Nein. Früchte von befallenen Pflanzen kannst du ohne Bedenken essen, solange sie selbst gesund aussehen.
+
+### Hilft Milch gegen Mehltau?
+
+Verdünnte Milch ist ein altes Hausmittel gegen Echten Mehltau, und Erfahrungen bei Gurken, Zucchini und Kürbis sprechen für eine gewisse vorbeugende Wirkung. Sie ersetzt keine gute Standortwahl und robuste Sorten, kann aber bei regelmäßiger Anwendung helfen. Gegen Falschen Mehltau wirkt sie nicht.
+
+### Soll ich befallenes Laub im Herbst entfernen?
+
+Bei Obstbäumen mit Schorf oder Rosen mit Sternrußtau ist es sinnvoll, das befallene Laub im Herbst zu entfernen, denn die Erreger überwintern darauf. Gesundes Laub kann dagegen als Mulch liegen bleiben.

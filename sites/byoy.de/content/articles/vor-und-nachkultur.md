@@ -100,6 +100,18 @@ Auch innerhalb eines Jahres gelten die Grundsätze der Fruchtfolge. Folgt Kohl a
 
 Am einfachsten planst du Vor- und Nachkulturen im Winter auf Papier. Zeichne jedes Beet als Rechteck und teile es in drei Spalten: Frühjahr, Sommer, Herbst. Trage die Kulturen mit Saat- und Ernteterminen ein. So siehst du sofort, wo Lücken entstehen, und kannst Jungpflanzen für Nachkulturen rechtzeitig vorziehen. Im Juni säst du zum Beispiel Endivien, Grünkohl und Zuckerhut in Anzuchtplatten oder in ein kleines Saatbeet, damit sie bereitstehen, wenn im Juli ein Beet frei wird.
 
+## Kulturzeiten kennen
+
+Wer Vor- und Nachkulturen plant, muss wissen, wie lange eine Kultur das Beet belegt. Radieschen sind oft schon nach rund vier Wochen erntereif, Pflücksalat und Spinat nach etwa sechs bis acht Wochen, frühe Kohlrabi nach acht bis zehn Wochen. Buschbohnen brauchen von der Aussaat bis zur Ernte meist zehn bis zwölf Wochen. Die genaue Kulturdauer steht auf der Samentüte und hängt von Sorte, Wetter und Jahreszeit ab.
+
+Trage diese Zeiten in deinen Beetplan ein und rechne rückwärts: Soll im Juni eine Hauptkultur auf das Beet, muss die Vorkultur spätestens Ende Mai geerntet sein. So siehst du schnell, welche Kombinationen zeitlich passen und wo es eng wird.
+
+## Nachkulturen für den Winter
+
+Mit gut geplanten Nachkulturen erntest du bis weit in den Winter hinein. Feldsalat wird von August bis September gesät und lässt sich bei mildem Wetter den ganzen Winter über ernten. Winterportulak, Wintersalate und Spinat aus einer Spätsommersaat überstehen leichte Fröste und liefern im Herbst und zeitigen Frühjahr frisches Grün.
+
+Grünkohl, Rosenkohl und Lauch werden schon im Frühsommer gepflanzt und stehen bis in den Winter. Und im Oktober ist die richtige Zeit, Knoblauch zu stecken, der den Winter über einwurzelt und im nächsten Sommer geerntet wird. So bleibt kaum ein Beet über den Winter leer.
+
 ## Häufige Fragen
 
 ### Wird der Boden durch so viele Kulturen nicht ausgelaugt?
@@ -113,3 +125,13 @@ Säe eine Gründüngung. Phacelia, Buchweizen oder Senf bis Ende August, Winterr
 ### Kann ich Nachkulturen direkt säen oder muss ich vorziehen?
 
 Beides ist möglich. Feldsalat, Spinat, Rüben und Rucola säst du direkt. Endivien, Chinakohl, Grünkohl und Zuckerhut wachsen sicherer, wenn du sie vorziehst und als Jungpflanzen setzt, weil das Beet dann weniger lange belegt ist.
+
+### Lohnt sich ein Frühbeet für Vor- und Nachkulturen?
+
+Ja, sehr. Im Frühbeet kannst du Vorkulturen einige Wochen früher säen und Nachkulturen im Herbst länger ernten. So gewinnst du an beiden Enden der Saison Zeit. Mehr dazu im Ratgeber [Frühbeet nutzen](/gartenwissen/fruehbeet-nutzen/).
+
+### Muss ich zwischen zwei Kulturen düngen?
+
+Nach einer anspruchslosen Vorkultur wie Radieschen oder Salat reicht oft eine dünne Schicht Kompost, bevor die Hauptkultur kommt. Folgt auf einen Starkzehrer eine Nachkultur wie Feldsalat, ist meist gar keine zusätzliche Düngung nötig.
+
+Das spart Dünger und schont das Grundwasser.

@@ -89,6 +89,22 @@ Lagere Zwiebeln und Knoblauch kühl, trocken, dunkel und luftig, in Netzen, Kör
 
 **Frühlingszwiebeln** säst du von März bis August direkt ins Beet, dicht in Reihen. Sie werden geerntet, solange sie grün und zart sind, etwa acht bis zehn Wochen nach der Aussaat. Mit Folgesaaten alle drei bis vier Wochen hast du vom Frühsommer bis in den Herbst frische Ernte. Winterharte Sorten, im August gesät, liefern schon im zeitigen Frühjahr die ersten Lauchzwiebeln.
 
+## Winterzwiebeln und Winterheckenzwiebeln
+
+Neben den klassischen Steckzwiebeln im Frühjahr gibt es Wintersteckzwiebeln, die im September oder Oktober gesteckt werden. Sie wurzeln vor dem Winter ein, überstehen Frost gut und liefern im Frühsommer des folgenden Jahres eine frühe Ernte, wenn die Lagerzwiebeln aus dem Vorjahr zur Neige gehen. Sie halten allerdings nicht so lange wie spät geerntete Sommerzwiebeln.
+
+Die Winterheckenzwiebel ist eine mehrjährige Zwiebel, die keine großen Knollen bildet, sondern wie Schnittlauch genutzt wird. Ihre röhrenförmigen Blätter treiben im zeitigen Frühjahr als eines der ersten frischen Grüns im Garten aus und können bis in den Herbst geerntet werden. Ein Horst kann viele Jahre am selben Platz bleiben.
+
+## Zwiebeln aus Samen ziehen
+
+Säzwiebeln brauchen mehr Geduld als Steckzwiebeln, haben aber Vorteile: Sie schießen seltener, es gibt eine größere Sortenauswahl, und sie sind oft besonders lange lagerfähig. Gesät wird im März oder April direkt ins Beet, in Reihen mit etwa 20 bis 25 Zentimetern Abstand. Später vereinzelst du die Pflänzchen auf einige Zentimeter Abstand, damit sich große Zwiebeln bilden können.
+
+Halte das Beet in den ersten Wochen sorgfältig frei von Unkraut, denn die dünnen Zwiebelkeimlinge setzen sich gegen Konkurrenz kaum durch. Die herausgezogenen Pflänzchen beim Vereinzeln kannst du wie Frühlingszwiebeln in der Küche verwenden.
+
+## Knoblauch mit und ohne Blütenstängel
+
+Bei Knoblauch unterscheidet man zwei große Gruppen. Sorten mit hartem Blütenstängel bilden im Frühsommer einen langen Schaft mit Brutzwiebelchen, gelten als besonders winterhart und haben oft ein kräftiges Aroma. Sorten ohne festen Blütenstängel lassen sich dagegen meist länger lagern und eignen sich gut zum Flechten von Zöpfen.
+
 ## Häufige Fragen
 
 ### Kann ich gekeimte Zwiebeln aus der Küche stecken?
@@ -102,3 +118,7 @@ Häufige Ursachen sind zu enge Abstände, zu viel Unkraut, Trockenheit im Frühj
 ### Kann ich Zwiebeln und Knoblauch neben Bohnen setzen?
 
 Besser nicht. Zwiebelgewächse und Hülsenfrüchte gelten als schlechte Nachbarn, weil sie sich gegenseitig im Wachstum hemmen können.
+
+### Soll ich die Blütenstängel des Knoblauchs abschneiden?
+
+Ja, bei Sorten, die einen Blütenstängel bilden. Schneide ihn ab, sobald er sich einrollt, damit die Pflanze ihre Kraft in die Knolle steckt. Die jungen, zarten Stängel sind essbar und schmecken mild nach Knoblauch, etwa in Pfannengerichten oder als Pesto.

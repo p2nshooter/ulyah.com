@@ -103,6 +103,18 @@ Schnecken halten sich nicht an Gartengrenzen. Wenn dein Garten an eine feuchte W
 
 **Schneckenkorn** mit dem Wirkstoff Eisen-III-Phosphat ist im ökologischen Landbau zugelassen. Wenn du es überhaupt einsetzt, dann nur sparsam nach Packungsangabe als letzte Maßnahme in einem Notjahr. Präparate mit Metaldehyd sind für Igel, Hunde und andere Tiere gefährlich und haben im Bio-Garten nichts verloren.
 
+## Schnecken im Hochbeet und auf dem Balkon
+
+Hochbeete und Balkone sind nicht automatisch schneckenfrei. Schnecken gelangen oft mit gekauften Jungpflanzen, Erde oder Töpfen dorthin, und ihre Eier überstehen den Transport problemlos. Kontrolliere deshalb neue Pflanzen und die Ränder von Töpfen genau, bevor sie ins Beet kommen.
+
+An Hochbeeten helfen eine nach außen abgewinkelte Schneckenkante aus Blech oder ein Kupferband am oberen Rand. Halte die Wände frei von überhängenden Pflanzen und Gras, über die Schnecken wie über eine Brücke hinaufkriechen. Auf dem Balkon reicht es oft, abends die Unterseiten von Töpfen und Kästen zu kontrollieren.
+
+## Laufenten: was man wissen sollte
+
+Indische Laufenten gelten als begeisterte Schneckenjäger, und in größeren Gärten können sie die Zahl der Nacktschnecken tatsächlich deutlich verringern. Sie sind aber keine schnelle Lösung, sondern Haustiere mit eigenen Bedürfnissen. Sie brauchen einen sicheren Stall gegen Füchse, Wasser zum Baden, Gesellschaft von Artgenossen und tägliche Pflege, auch im Urlaub.
+
+Junge Salat- und Gemüsepflanzen sind vor Enten ebenfalls nicht immer sicher. Wer Laufenten halten möchte, sollte sich vorher gut informieren und die Gemüsebeete in den ersten Wochen nach dem Pflanzen schützen.
+
 ## Häufige Fragen
 
 ### Warum gibt es in manchen Jahren so viele Schnecken?
@@ -116,3 +128,7 @@ Kupferband an Hochbeeten und Töpfen hat eine gewisse abschreckende Wirkung, die
 ### Wie erkenne ich Schneckeneier?
 
 Die Eier sind etwa 3 bis 4 mm groß, rund, glasig-weiß bis gelblich und liegen in Häufchen zusammen, meist unter Brettern, Steinen, in Mulch oder in Hohlräumen im Boden.
+
+### Sind Weinbergschnecken nützlich?
+
+Weinbergschnecken fressen vor allem welke Pflanzenteile und gelten als Feinde der Eier von Nacktschnecken. Sie richten im Garten kaum Schaden an. Außerdem stehen sie unter besonderem Schutz und dürfen weder gesammelt noch getötet werden. Lass sie deshalb einfach gewähren.

@@ -81,6 +81,22 @@ Heidelbeeren reifen nicht gleichzeitig. Pflücke sie, wenn sie vollständig blau
 
 Im sauren Heidelbeerbeet fühlen sich auch Preiselbeeren und Cranberrys wohl. Preiselbeeren sind niedrige, immergrüne Zwergsträucher, die oft zweimal im Jahr tragen und sich gut als Unterpflanzung eignen. Cranberrys, auch Großfrüchtige Moosbeeren genannt, kriechen am Boden entlang und brauchen gleichmäßige Feuchtigkeit. Beide passen zu Heidelbeeren, weil sie dieselben Ansprüche an Boden und Wasser haben. So wird aus einem einzelnen Heidelbeerbeet eine kleine Beerenecke mit Ernte von Juli bis in den Oktober.
 
+## Den pH-Wert prüfen und halten
+
+Kulturheidelbeeren brauchen einen sauren Boden mit einem pH-Wert von etwa vier bis fünf. Ein einfaches Messset aus dem Gartenhandel zeigt dir, ob dein Boden oder das Substrat im Kübel passt. Miss am besten jedes Frühjahr, denn der pH-Wert verändert sich mit der Zeit.
+
+Kalkhaltiges Leitungswasser hebt den pH-Wert langsam an. Gieße Heidelbeeren deshalb möglichst mit Regenwasser. Eine Mulchschicht aus Nadelstreu, Kiefernrinde oder Holzhäcksel von Nadelgehölzen hält den Boden sauer und feucht. Werden die jungen Blätter gelb, während die Blattadern grün bleiben, ist der pH-Wert meist zu hoch, und die Pflanze kann Eisen nicht mehr aufnehmen. Dann helfen saures Substrat, Regenwasser und ein Rhododendron- oder Beerendünger.
+
+## Heidelbeeren selbst vermehren
+
+Heidelbeeren lassen sich über Stecklinge vermehren. Schneide im Frühsommer etwa zehn bis fünfzehn Zentimeter lange, halbverholzte Triebspitzen, entferne die unteren Blätter und stecke sie in ein feuchtes, saures Substrat. Unter einer Haube oder in einem Anzuchtkasten bilden sie nach einigen Wochen Wurzeln. Bis aus einem Steckling ein tragender Strauch wird, vergehen allerdings mehrere Jahre.
+
+Viele moderne Sorten sind sortenschutzrechtlich geschützt. Für den eigenen Garten ist das Vermehren in der Regel erlaubt, der Verkauf der Jungpflanzen dagegen nicht.
+
+## Heidelbeeren haltbar machen
+
+Heidelbeeren lassen sich gut einfrieren. Damit sie nicht zu einem Klumpen zusammenfrieren, legst du sie ungewaschen und trocken nebeneinander auf ein Blech, friest sie vor und füllst sie dann in Beutel. Gewaschen werden sie erst vor der Verwendung. Außerdem eignen sie sich für Marmelade, Kompott, Kuchen und als getrocknete Beeren im Müsli.
+
 ## Häufige Fragen
 
 ### Warum werden die Blätter meiner Heidelbeere gelb?
@@ -94,3 +110,17 @@ Ja, beide brauchen sauren Boden. Ein gemeinsames Beet mit Heidelbeeren, Preiselb
 ### Wie viele Beeren trägt ein Strauch?
 
 Ein gut versorgter, ausgewachsener Strauch kann mehrere Kilogramm pro Jahr tragen. Die ersten nennenswerten Ernten gibt es meist ab dem dritten Standjahr.
+
+### Wann tragen junge Heidelbeeren?
+
+Junge Sträucher aus der Gärtnerei tragen oft schon im ersten oder zweiten Jahr einige Beeren. Ihren vollen Ertrag erreichen sie aber erst nach mehreren Jahren, wenn sie kräftig eingewachsen sind. Entferne bei sehr jungen Pflanzen ruhig einen Teil der Blüten, damit sie zunächst Kraft für Wurzeln und Triebe sammeln.
+
+### Brauchen Heidelbeeren einen Winterschutz?
+
+Ausgepflanzte Kulturheidelbeeren sind gut winterhart. Im Kübel frieren die Wurzeln jedoch leichter durch. Stelle Kübel im Winter an eine geschützte Hauswand, umwickle sie mit Jute oder Kokosmatten und gieße an frostfreien Tagen, wenn das Substrat trocken ist.
+
+### Kann ich Heidelbeeren mit anderen Pflanzen kombinieren?
+
+Ja, mit Pflanzen, die ebenfalls sauren Boden mögen, etwa Preiselbeeren, Cranberrys, Rhododendren oder Azaleen. Gemeinsam lässt sich ein Moorbeet mit saurem Substrat anlegen, das alle versorgt.
+
+Gieße ein solches Beet ebenfalls mit Regenwasser.

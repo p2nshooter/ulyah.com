@@ -85,6 +85,22 @@ Der wichtigste Teil der Fruchtfolge ist das Aufschreiben. Zeichne jedes Jahr ein
 - **Kartoffeln aus dem Vorjahr:** Vergessene Knollen treiben im nächsten Jahr mitten im Bohnenbeet wieder aus. Entferne sie konsequent, sonst bleiben Nachtschattengewächse am Platz.
 - **Keine Aufzeichnungen:** Ohne Notizen weiß nach zwei Jahren niemand mehr, was wo stand.
 
+## Stark-, Mittel- und Schwachzehrer im Wechsel
+
+Neben den Pflanzenfamilien spielt der Nährstoffbedarf eine wichtige Rolle. Ein bewährtes Schema lässt Stark-, Mittel- und Schwachzehrer im Wechsel auf einer Fläche folgen: Im ersten Jahr stehen nährstoffhungrige Kulturen wie Kohl, Tomaten oder Kürbisse auf frisch mit Kompost versorgtem Boden. Im zweiten Jahr folgen Mittelzehrer wie Möhren, Zwiebeln, Salat oder Mangold, die von den restlichen Nährstoffen leben. Im dritten Jahr kommen genügsame Schwachzehrer wie Erbsen, Bohnen und Kräuter.
+
+Im vierten Jahr kann eine Gründüngung den Boden regenerieren, bevor der Kreislauf von vorn beginnt. Hülsenfrüchte und Gründüngung reichern den Boden zusätzlich mit Stickstoff an. Welche Gemüse zu welcher Gruppe gehören, zeigt der Ratgeber [Stark-, Mittel- und Schwachzehrer](/gartenwissen/starkzehrer-mittelzehrer-schwachzehrer/).
+
+## Krankheiten, die lange im Boden überdauern
+
+Der wichtigste Grund für die Fruchtfolge sind Krankheiten und Schädlinge, die im Boden überleben. Die Kohlhernie, eine Erkrankung der Kohlgewächse, bildet Dauersporen, die viele Jahre im Boden keimfähig bleiben. Bestimmte Fadenwürmer vermehren sich an Kartoffeln, und auch die Larven der Möhrenfliege und andere Schädlinge finden ihre Wirtspflanzen leichter, wenn diese immer am selben Ort stehen.
+
+Eine Fruchtfolge kann solche Probleme nicht vollständig verhindern, aber sie unterbricht den Kreislauf: Findet ein Erreger mehrere Jahre lang keine passende Pflanze, nimmt seine Zahl im Boden ab. Deshalb ist es so wichtig, nicht nur einzelne Gemüse, sondern ganze Pflanzenfamilien wandern zu lassen.
+
+## Fruchtfolge im Hochbeet und im Kübel
+
+Auch im Hochbeet lohnt sich der Wechsel, obwohl die Erde dort nährstoffreicher ist. Teile ein großes Hochbeet in Abschnitte und lass die Familien jedes Jahr ein Feld weiterwandern. Bei Tomaten und anderen Gemüsen im Kübel ist es am einfachsten, die Erde jedes Jahr auszutauschen und die alte auf den Kompost zu geben, sofern die Pflanzen gesund waren.
+
 ## Häufige Fragen
 
 ### Muss ich die Fruchtfolge streng einhalten?
@@ -98,3 +114,19 @@ Baue auf der betroffenen Fläche viele Jahre lang keine Kreuzblütler an, auch k
 ### Zählen Kräuter zur Fruchtfolge?
 
 Ja. Petersilie und Dill gehören zu den Doldenblütlern, Schnittlauch zu den Lauchgewächsen. Mehrjährige Kräuter wie Thymian und Salbei stehen besser in einem eigenen Beet.
+
+### Was mache ich mit mehrjährigen Kulturen?
+
+Rhabarber, Spargel, Erdbeeren, Meerrettich und mehrjährige Kräuter bleiben über Jahre am selben Platz und werden aus der Fruchtfolge herausgenommen. Gib ihnen am besten ein eigenes Dauerbeet am Rand des Gemüsegartens, damit sie den Wechsel der übrigen Beete nicht stören.
+
+### Wie behalte ich über Jahre den Überblick?
+
+Am einfachsten mit einem Gartenbuch oder einer Skizze pro Jahr, in der du einträgst, welche Familie wo stand. Ob auf Papier oder in einer Garten-App, ist Geschmackssache. Wichtig ist nur, dass die Aufzeichnungen mindestens vier Jahre zurückreichen.
+
+### Gilt die Fruchtfolge auch für Gründüngung?
+
+Ja. Gründüngungspflanzen gehören ebenfalls zu Pflanzenfamilien. Senf und Ölrettich sind Kreuzblütler wie Kohl und sollten deshalb nicht auf Kohlbeeten stehen, besonders wenn dort schon einmal Kohlhernie aufgetreten ist. Phacelia ist mit keiner verbreiteten Gemüsefamilie verwandt und passt fast überall.
+
+Notiere dir bei jeder Gründüngung, zu welcher Familie sie gehört.
+
+So vermeidest du, dass sich Kohlkrankheiten über die Gründüngung einschleichen.

@@ -95,6 +95,24 @@ Pflanzen zeigen recht deutlich, ob sie gut versorgt sind. Achte auf diese Zeiche
 
 Viele Symptome haben mehrere Ursachen, und Trockenheit, Kälte oder Staunässe sehen manchmal aus wie Nährstoffmangel. Bevor du nachdüngst, prüfe deshalb immer auch Boden, Wasser und Wetter. Eine Bodenanalyse schafft Klarheit, wie in [Bodenart bestimmen](/gartenwissen/bodenart-bestimmen/) beschrieben.
 
+## Warum Hülsenfrüchte so wenig brauchen
+
+Erbsen, Bohnen, Linsen und Klee gehören zu den Schwachzehrern, weil sie sich ihren wichtigsten Nährstoff selbst beschaffen. An ihren Wurzeln leben Knöllchenbakterien, die Stickstoff aus der Luft binden und der Pflanze zur Verfügung stellen. Im Gegenzug versorgt die Pflanze die Bakterien mit Zucker. Wenn du eine Bohnen- oder Erbsenpflanze vorsichtig ausgräbst, siehst du die kleinen, rundlichen Knöllchen an den Wurzeln.
+
+Nach der Ernte lohnt es sich, die Wurzeln im Boden zu lassen und nur die oberirdischen Teile abzuschneiden. So bleibt ein Teil des gebundenen Stickstoffs im Beet und kommt der folgenden Kultur zugute. Deshalb stehen Hülsenfrüchte in vielen Fruchtfolgen direkt vor anspruchsvolleren Gemüsen.
+
+## Nährstoffbedarf im Kübel und Hochbeet
+
+Im Topf und im Kübel ist der Wurzelraum begrenzt, und die Nährstoffe der Erde sind schneller verbraucht als im Gartenboden. Starkzehrer wie Tomaten, Paprika oder Zucchini brauchen dort ab etwa vier bis sechs Wochen nach dem Pflanzen regelmäßig Nachschub, zum Beispiel einen organischen Flüssigdünger alle ein bis zwei Wochen.
+
+Im Hochbeet ist es anfangs umgekehrt: Die frische Füllung ist sehr nährstoffreich, deshalb gehören im ersten Jahr Starkzehrer hinein, in den folgenden Jahren nach und nach Mittel- und Schwachzehrer. Mehr dazu im Ratgeber [Hochbeet anlegen](/gartenwissen/hochbeet-anlegen/).
+
+## Zeichen von Überversorgung
+
+Zu viel Dünger schadet genauso wie zu wenig. Pflanzen, die zu viel Stickstoff bekommen, bilden weiche, dunkelgrüne Blätter, sind anfälliger für Blattläuse und Pilzkrankheiten und setzen später Blüten und Früchte an. In Blattgemüse wie Spinat oder Salat reichert sich bei Überdüngung außerdem Nitrat an.
+
+Was die Pflanzen nicht aufnehmen, wird mit dem Regen ausgewaschen und kann ins Grundwasser gelangen. Dünge deshalb nach Bedarf und lieber in kleinen Gaben, und lass den Boden im Zweifel alle paar Jahre untersuchen.
+
 ## Häufige Fragen
 
 ### Kann ich Starkzehrer auch ohne Fruchtfolge gut versorgen?
@@ -108,3 +126,15 @@ Ja. Zuckermais braucht viele Nährstoffe und Wasser. In der klassischen Mischkul
 ### Brauchen Erdbeeren viel Dünger?
 
 Erdbeeren gelten als Mittelzehrer. Zu viel Stickstoff fördert Blätter statt Früchte und macht sie anfällig für Grauschimmel. Etwas Kompost nach der Ernte reicht. Mehr dazu in [Erdbeeren pflanzen](/gartenwissen/erdbeeren-pflanzen/).
+
+### Sind Kräuter Schwachzehrer?
+
+Die meisten mediterranen Kräuter wie Thymian, Rosmarin, Salbei und Oregano sind ausgesprochen genügsam und gedeihen in magerer Erde am aromatischsten. Basilikum und Petersilie brauchen dagegen etwas mehr Nährstoffe und gehören eher zu den Mittelzehrern.
+
+### Gibt es eine verbindliche Einteilung?
+
+Nein. Je nach Quelle werden einige Gemüse unterschiedlich eingeordnet, etwa Kohlrabi oder Zwiebeln. Die Einteilung ist eine Orientierungshilfe, keine feste Regel. Beobachte deine Pflanzen und passe die Düngung an ihr Wachstum an.
+
+### Woran erkenne ich, dass ein Starkzehrer hungert?
+
+Hungernde Starkzehrer wachsen langsam, die älteren Blätter werden von unten her hellgrün bis gelb, und Früchte bleiben klein. Gib dann eine Gabe organischen Dünger oder reifen Kompost, gieße gut ein und beobachte, ob die neuen Blätter wieder kräftig grün austreiben.

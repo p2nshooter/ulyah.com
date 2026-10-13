@@ -99,6 +99,22 @@ Mehr Dünger bedeutet nicht mehr Ertrag. Zu viel Stickstoff macht Pflanzen weich
 - **September:** Nicht mehr mit Stickstoff düngen, damit Pflanzen und Gehölze vor dem Winter ausreifen.
 - **Oktober bis November:** Mist und halbreifen Kompost auf Flächen für die Starkzehrer des nächsten Jahres, Gründüngung und Laub auf freie Beete.
 
+## Bodenproben: wissen statt raten
+
+Viele Hausgärten sind nicht unter-, sondern überversorgt. Jahrelanges Düngen mit Kompost, Mist und Volldünger führt oft zu sehr hohen Gehalten an Phosphor und Kalium, die das Bodenleben und die Gewässer belasten. Eine Bodenanalyse alle paar Jahre zeigt, was dein Boden wirklich braucht. Landwirtschaftliche Untersuchungsanstalten und private Labore bieten günstige Standardanalysen für Hausgärten an, die neben den Nährstoffen auch den pH-Wert und den Humusgehalt bestimmen.
+
+Für die Probe entnimmst du an mehreren Stellen eines Beetes Erde aus der obersten Spatentiefe, mischst sie in einem sauberen Eimer und schickst eine Teilmenge ein. Das Ergebnis enthält meist eine Düngeempfehlung. Oft zeigt sich dabei, dass für einige Jahre nur Stickstoff, etwa über Hornspäne oder Gründüngung, nötig ist.
+
+## Pflanzenjauchen über die Brennnessel hinaus
+
+Neben der bekannten Brennnesseljauche gibt es weitere Pflanzenauszüge, die im Biogarten eine lange Tradition haben. Beinwelljauche ist reich an Kalium und wird gern für Tomaten und andere Fruchtgemüse verwendet. Ackerschachtelhalm wird traditionell als Brühe angesetzt und vorbeugend gegen Pilzkrankheiten auf die Blätter gesprüht, weil er Kieselsäure enthält, die das Blattgewebe festigen soll. Auch gemischte Jauchen aus verschiedenen Kräutern sind möglich.
+
+Verwende Jauchen als Dünger immer verdünnt, meist etwa ein Teil Jauche auf zehn Teile Wasser, und gieße sie auf die Erde, nicht über die Blätter. Unverdünnt können sie Wurzeln und Blätter verbrennen.
+
+## Nährstoffe aus der Küche
+
+Einige Küchenreste lassen sich im Garten verwerten, am besten über den Kompost. Bananenschalen enthalten Kalium, Eierschalen Kalk, und das abgekühlte, ungesalzene Kochwasser von Gemüse enthält etwas Mineralstoffe. Direkt auf die Beete gelegt, zersetzen sich solche Reste aber langsam und können Schädlinge anlocken. Im Kompost werden sie dagegen zu wertvollem Humus.
+
 ## Häufige Fragen
 
 ### Ist Kaffeesatz ein guter Dünger?
@@ -112,3 +128,15 @@ Nein. Mineralische Volldünger gehören nicht zum biologischen Gärtnern. Sie wi
 ### Wann dünge ich Obstbäume und Beeren?
 
 Im zeitigen Frühjahr mit Kompost als Mulch um die Baumscheibe und, bei Bedarf, einer kleinen Gabe Hornspäne. Mehr dazu in [Obstbaum pflanzen](/gartenwissen/obstbaum-pflanzen/).
+
+### Wie lagere ich organische Dünger richtig?
+
+Trocken, gut verschlossen und außer Reichweite von Kindern und Haustieren. Manche organische Dünger riechen für Hunde verlockend, und einige, etwa Rizinusschrot, sind für Tiere giftig. Feuchtigkeit lässt organische Dünger verklumpen und schimmeln.
+
+### Wie viel Kompost darf ich im Jahr ausbringen?
+
+Für die meisten Gemüsebeete reichen ein bis drei Liter reifer Kompost pro Quadratmeter und Jahr, für Starkzehrer etwas mehr, für Schwachzehrer und Kräuter weniger. Mehr ist nicht besser: Zu viel Kompost über Jahre führt zu einer Überversorgung mit Phosphor und Kalium. Eine Bodenanalyse zeigt, ob du die Menge anpassen solltest.
+
+### Brauchen Rasenflächen organischen Dünger?
+
+Ein Rasen, auf dem das Schnittgut liegen bleibt oder der regelmäßig mit dem Mulchmäher gemäht wird, braucht oft nur wenig zusätzlichen Dünger. Eine dünne Schicht feiner Kompost im Frühjahr genügt meist.
