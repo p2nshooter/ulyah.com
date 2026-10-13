@@ -46,6 +46,8 @@ EXPECTED["xad.es"] = "5517446616694631";
 EXPECTED["axto.dev"] = "2493615451319531";
 // 12 Oct 2026 (owner): lie.skin moves to its own account.
 EXPECTED["lie.skin"] = "4548005919629272";
+// 13 Oct 2026 (owner, urgent): profity.in moves to ca-pub-5944786950535069.
+EXPECTED["profity.in"] = "5944786950535069";
 const verdicts = [];
 
 const browser = await chromium.launch();
