@@ -2,7 +2,7 @@
 title: "Messen und Anreißen: Zollstock, Wasserwaage und Kreuzlinienlaser richtig nutzen"
 description: Wie du genau misst, Bohrlöcher und Linien sauber anzeichnest, eine Wasserwaage prüfst und abliest, einen Kreuzlinienlaser einsetzt und typische Messfehler vermeidest.
 category: werkzeug-und-grundlagen
-date: 2026-09-24
+date: 2026-10-12
 ---
 „Zweimal messen, einmal schneiden“ ist die älteste Handwerkerregel, und sie gilt bis heute. Ein Regal, das um einen Zentimeter schief hängt, ein Bilderrahmen, der nicht in der Flucht der anderen sitzt, ein Laminatbrett, das zwei Millimeter zu kurz ist: Fast alle sichtbaren Fehler beim Heimwerken entstehen nicht beim Bohren oder Sägen, sondern beim Messen und Anzeichnen.
 
@@ -122,6 +122,22 @@ Für größere Flächen funktioniert dasselbe mit 60, 80 und 100 cm. Das ist hil
 | Schnittverlust vergessen | Brett zu kurz | Auf der Abfallseite der Linie sägen |
 | Vom Boden aus gemessen | Bei schiefem Boden schiefe Regale | Mit Wasserwaage oder Laser ausrichten |
 | Verschiedene Messwerkzeuge gemischt | Kleine Abweichungen summieren sich | Ein Werkzeug pro Projekt |
+
+## Die Mitte finden, ohne zu rechnen
+
+Ein alter Tischlertrick erspart das Teilen krummer Maße. Ist ein Brett zum Beispiel 17,3 Zentimeter breit, legst du den Zollstock schräg über das Brett, sodass die Null an der einen Kante liegt und die 20 an der anderen. Bei der 10 setzt du eine Markierung: Sie liegt genau in der Mitte der Brettbreite. Wiederholst du das weiter oben oder unten am Brett, ergibt die Verbindung der beiden Punkte die Mittellinie. Das funktioniert mit jeder bequem teilbaren Zahl, die größer ist als die Breite.
+
+## Von einer Bezugskante aus messen
+
+Wer mehrere Punkte hintereinander anzeichnet, sollte alle Maße von derselben Bezugskante aus nehmen, statt von Punkt zu Punkt weiterzumessen. Bei Kettenmaßen addieren sich kleine Ungenauigkeiten: Fünf Abstände mit je einem halben Millimeter Fehler ergeben am Ende zweieinhalb Millimeter. Halte deshalb das Maßband an einer Stelle fest und lies alle Positionen nacheinander ab. In einer Skizze schreibst du die Maße ebenfalls von der Bezugskante aus auf. Das gilt für Bohrlöcher einer Schiene genauso wie für die Fachböden eines Schranks.
+
+## Laser-Entfernungsmesser richtig nutzen
+
+Laser-Entfernungsmesser messen standardmäßig meist von ihrer Hinterkante aus. Für Innenmaße legst du das Gerät mit der Rückseite an die Wand; prüfe in den Einstellungen, welcher Bezugspunkt aktiv ist. Ein heller, flacher Zielpunkt liefert die zuverlässigsten Werte, Glas und Spiegel dagegen nicht. Viele Geräte berechnen Flächen und Raumvolumen direkt, was beim Kauf von Farbe, Boden oder Tapete hilft. Einige ermitteln über Pythagoras sogar Höhen, die man nicht direkt anvisieren kann.
+
+## Messwerkzeuge pflegen
+
+Lass ein Maßband nie ungebremst zurückschnappen; der Haken verbiegt sich dabei, und alle Maße werden ungenau. Halte Zollstock und Maßband sauber und trocken, und lege die Wasserwaage nicht lose in die Werkzeugkiste, wo sie herumrutscht. Kreuzlinienlaser lassen sich mit zwei gegenüberliegenden Wänden prüfen: Die waagerechte Linie wird auf beiden Wänden markiert, das Gerät gedreht und die Markierungen verglichen.
 
 ## Praxisbeispiel: Drei Hängeschränke in einer Linie
 

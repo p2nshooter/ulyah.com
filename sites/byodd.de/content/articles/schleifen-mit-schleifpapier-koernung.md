@@ -2,7 +2,7 @@
 title: "Schleifen mit Schleifpapier: Körnung, Technik und Maschinen erklärt"
 description: Welche Körnung für welchen Arbeitsschritt, wann von Hand und wann mit Exzenter- oder Schwingschleifer geschliffen wird, wie man Staub vermeidet und Holz, Lack und Spachtel sauber vorbereitet.
 category: werkzeug-und-grundlagen
-date: 2026-09-25
+date: 2026-10-12
 ---
 Schleifen ist die Arbeit, die niemand gern macht und die über das Ergebnis fast aller Oberflächenprojekte entscheidet. Ein Lack auf schlecht geschliffenem Holz zeigt jede Riefe, eine Spachtelstelle ohne sauberen Übergang zeichnet sich unter der Farbe ab, und ein Möbelstück, das ohne Zwischenschliff gestrichen wurde, fühlt sich rau an. Wer dagegen die richtige Körnung in der richtigen Reihenfolge nutzt, kommt schneller zu glatten Flächen und spart Material.
 
@@ -113,6 +113,22 @@ Schleifstaub ist nicht nur lästig, sondern kann der Gesundheit schaden. Holzst�
 | Zugesetztes Papier weiterverwenden | Schmieren statt Schleifen | Papier wechseln |
 | Nicht entstauben | Staub im Lack | Absaugen und Staubbindetuch |
 | Ohne Atemschutz | Gesundheitsrisiko | FFP2 oder FFP3 |
+
+## Metall und Rost schleifen
+
+Auch Metall wird vor dem Streichen geschliffen. Lose Farbe und Flugrost entfernst du mit einer Drahtbürste oder Korundpapier der Körnung P80 bis P120, bis blankes Metall zu sehen ist. Danach mit P180 bis P240 glätten, damit keine tiefen Riefen durch den Lack scheinen. Wichtig ist, sofort zu grundieren: Blankes Stahlblech beginnt schon nach kurzer Zeit wieder zu rosten, besonders bei feuchter Luft. Staub und Schleifreste vorher mit Verdünnung oder Reinigungsalkohol abwischen. Beim Schleifen von Metall entstehen scharfe Grate und Funken bei Maschinen mit hoher Drehzahl; Handschuhe und Schutzbrille gehören dazu.
+
+## Schleifpapier passend kaufen und länger nutzen
+
+Schleifscheiben für Maschinen werden meist mit Klett befestigt. Achte darauf, dass das Lochbild der Scheibe zum Schleifteller passt, sonst funktioniert die Absaugung kaum. Es gibt Scheiben mit acht Löchern, mit sechs plus einem Loch und Scheiben mit vielen kleinen Löchern, die zu mehreren Tellern passen. Ein zugesetztes Papier muss nicht sofort weggeworfen werden: Ein Reinigungsstift aus Naturkautschuk, gegen die laufende Scheibe gehalten, löst Harz- und Farbreste. Lagere Schleifpapier flach und trocken, denn feuchtes Papier wellt sich, und das Korn löst sich leichter.
+
+## Nassschleifen
+
+Für sehr glatte Lackoberflächen wird nass geschliffen. Dafür gibt es wasserfestes Siliziumkarbidpapier in feinen Körnungen ab etwa P400. Das Papier wird in Wasser mit einem Tropfen Spülmittel getaucht und mit leichtem Druck über die vollständig ausgehärtete Lackschicht geführt. Das Wasser bindet den Staub und verhindert, dass sich das Papier zusetzt. Auf rohem Holz ist Nassschliff ungeeignet, weil das Wasser die Fasern aufquellen lässt.
+
+## Holzböden schleifen
+
+Parkett und Dielen werden mit großen Walzen- oder Tellerschleifmaschinen bearbeitet, die man im Werkzeugverleih mieten kann. Dabei geht man mit sehr groben Körnungen ab etwa P24 bis P40 los und arbeitet sich in mehreren Durchgängen bis P100 oder P120 vor, an den Rändern mit einem Randschleifer. Bei Fertigparkett mit dünner Nutzschicht ist Vorsicht nötig: Sie verträgt nur wenige Schleifgänge, und ein zu tiefer Schliff legt die Trägerschicht frei. Wer unsicher ist, lässt den ersten Boden von einem Fachbetrieb schleifen.
 
 ## Praxisbeispiel: Eine alte Holztür vorbereiten
 

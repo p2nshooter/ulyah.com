@@ -2,7 +2,7 @@
 title: "Möbel aufbauen ohne Frust: Tipps für Bausatzmöbel und Schränke"
 description: Wie du Bausatzmöbel schneller und stabiler aufbaust, die Anleitung clever liest, Werkzeug und Arbeitsplatz vorbereitest, Rückwände und Schubladen richtig montierst und hohe Möbel sicherst.
 category: holz-und-moebel
-date: 2026-09-11
+date: 2026-10-12
 ---
 Möbel aus dem Karton sind praktisch und günstig, aber ihr Aufbau ist für viele eine Geduldsprobe: fehlende Teile, unverständliche Zeichnungen, ein Schrank, der nach dem Aufrichten schief steht, und am Ende drei übrig gebliebene Schrauben. Dabei lässt sich der Aufbau mit ein paar Kniffen deutlich entspannter, schneller und vor allem stabiler gestalten.
 
@@ -102,6 +102,22 @@ Ein Schrank ohne korrekt befestigte Rückwand wackelt und die Türen schließen 
 - **Beschläge beim Abbau** in beschriftete Beutel geben.
 - **Spanplatte verträgt mehrfaches Zerlegen nur begrenzt:** Ausgerissene Löcher beim Wiederaufbau mit Holzleim und Zahnstochern reparieren.
 
+## Altbau: schiefe Böden, Fußleisten und Außenwände
+
+In Altbauwohnungen sind Böden selten eben und Wände selten senkrecht. Plane deshalb Stellfüße oder Keile von Anfang an ein und richte den Schrank immer nach der Wasserwaage aus, nicht nach der Wand. Fußleisten verhindern oft, dass ein Schrank bündig an der Wand steht. Bei vielen Korpussen lässt sich die Rückwand unten so ausklinken, dass sie über die Leiste passt, oder du gleichst den Abstand oben mit einem Distanzstück aus, an dem die Kippsicherung befestigt wird. An kalten Außenwänden sollten große Schränke einige Zentimeter Abstand haben, damit Luft dahinter zirkulieren kann. Sonst droht Schimmel, wie in [Schimmel an der Wand entfernen und vorbeugen](/anleitungen/schimmel-an-der-wand-entfernen-und-vorbeugen/) beschrieben.
+
+## Böden, die sich durchbiegen
+
+Lange Regalböden aus Spanplatte biegen sich unter schweren Büchern mit der Zeit durch. Je länger der Boden und je dünner die Platte, desto stärker. Bei Spannweiten von deutlich über 80 Zentimetern und schwerer Beladung lohnt sich eine Mittelstütze, ein dickerer Boden oder eine Leiste unter der Vorderkante, die den Boden versteift. Glasböden nur so belasten, wie der Hersteller angibt, und darauf achten, dass alle Bodenträger richtig sitzen.
+
+## Den Rücken schonen
+
+Pakete mit Möbelteilen wiegen schnell 40 Kilo und mehr. Trage schwere Kartons zu zweit, hebe aus den Knien und nicht aus dem Rücken, und öffne große Pakete am besten gleich dort, wo das Möbel stehen soll. Arbeitshandschuhe schützen vor scharfen Kanten an Beschlägen und Rückwänden, und ein Kniekissen macht stundenlanges Arbeiten auf dem Boden erträglicher. Plane außerdem regelmäßige kurze Pausen ein.
+
+## Wann ein Montageservice sinnvoll ist
+
+Viele Händler bieten den Aufbau gegen Aufpreis an. Das lohnt sich besonders bei Einbauküchen mit Wasser- und Stromanschlüssen, bei sehr großen Schwebetürenschränken, deren Laufschienen exakt justiert werden müssen, und wenn niemand zum Helfen da ist. Für Kommoden, Regale und kleinere Schränke ist der Aufbau mit dieser Anleitung gut selbst zu schaffen.
+
 ## Praxisbeispiel: Ein großer Kleiderschrank unter der Dachschräge
 
 Ein Paar kauft einen Kleiderschrank mit 236 cm Höhe für ein Schlafzimmer mit 250 cm Raumhöhe. Beim Planen fällt auf: Liegend aufgebaut braucht der Schrank beim Aufrichten mehr als 240 cm Diagonale, und an der Wand sitzt eine Deckenleuchte im Weg. Deshalb bauen sie den Korpus liegend auf, richten ihn **seitlich** an der freien Raumseite auf und schieben ihn dann auf Möbelgleitern an die Wand.
@@ -148,6 +164,8 @@ Oft hat sich der Schrank auf unebenem Boden gesetzt. Neu ausrichten und die Scha
 **Kann ich einen Schrank allein aufbauen?** Kleine Möbel ja. Bei hohen Schränken ist eine zweite Person für das Aufrichten und das Einhängen der Türen fast unverzichtbar.
 
 **Was mache ich mit beschädigten Teilen?** Transportschäden sofort dem Händler melden, möglichst mit Fotos. Viele Hersteller schicken Ersatzteile kostenlos nach.
+
+**Mein offenes Regal wackelt seitlich. Was hilft?** Regale ohne Rückwand haben kaum Aussteifung. Eine nachträglich aufgeschraubte Rückwand aus Hartfaser, Diagonalstreben an der Rückseite oder kleine Metallwinkel in den Ecken machen es deutlich stabiler. Zusätzlich oben an der Wand befestigen.
 
 **Wie entsorge ich die Verpackung?** Kartonagen flach gefaltet ins Altpapier, Folien und Styropor in die Wertstofftonne oder zum Wertstoffhof, je nach örtlicher Regelung.
 

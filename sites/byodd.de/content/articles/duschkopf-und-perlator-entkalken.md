@@ -2,7 +2,7 @@
 title: "Duschkopf und Perlator entkalken oder wechseln: so geht es richtig"
 description: Wie du Kalk aus Duschkopf, Perlator und Strahlreglern entfernst, welche Mittel für Chrom und Kunststoff geeignet sind, wie du Teile austauschst und mit wassersparenden Modellen Energie sparst.
 category: bad-und-kueche
-date: 2026-09-07
+date: 2026-10-12
 ---
 Wenn der Duschstrahl in alle Richtungen spritzt oder nur noch dünn tröpfelt und der Wasserhahn zur Seite sprüht, ist meistens Kalk die Ursache. In vielen Regionen Deutschlands ist das Leitungswasser hart, und Kalk setzt sich in den feinen Öffnungen von Duschköpfen und Perlatoren ab. Das ist ärgerlich, aber schnell behoben. Bei der Gelegenheit kann man auf sparsame Modelle umsteigen und so Wasser und Energie für warmes Wasser sparen.
 
@@ -87,6 +87,27 @@ Bei einem Vier-Personen-Haushalt, der täglich duscht, kann ein Spar-Duschkopf m
 
 **Achtung bei Durchlauferhitzern und alten Gasthermen:** Manche Geräte brauchen einen Mindestdurchfluss, um anzuspringen. Bei sehr sparsamen Duschköpfen kann das Wasser dann kalt bleiben. Herstellerangaben prüfen.
 
+## Thermostatarmatur entkalken
+
+Schwankt die Temperatur an der Dusche, lässt sich der Thermostatgriff schwer drehen oder kommt nur noch lauwarmes Wasser, ist oft die Thermostatkartusche verkalkt. So gehst du vor:
+
+1. **Wasser abstellen,** entweder am Hauptabsperrventil oder, falls vorhanden, an den Vorabsperrungen in den Anschlüssen der Armatur.
+2. **Griff abziehen:** Meist sitzt eine Schraube unter einer Abdeckkappe. Die Stellung des Griffs vorher markieren, damit die Temperaturskala später wieder stimmt.
+3. **Kartusche herausschrauben** mit einem passenden Maulschlüssel.
+4. **Entkalken:** Die Kartusche für eine bis zwei Stunden in eine handwarme Zitronensäurelösung legen und Kalkreste vorsichtig abbürsten.
+5. **Dichtungen pflegen:** Die O-Ringe mit etwas Armaturenfett auf Silikonbasis einstreichen.
+6. **Einbauen,** Griff aufsetzen, Wasser langsam aufdrehen und die Temperatur prüfen.
+
+Ist die Kartusche trotz Reinigung schwergängig, gibt es Ersatzkartuschen für die meisten Armaturen. Notiere dafür Hersteller und Modell der Armatur, die oft auf der Unterseite oder in der Bedienungsanleitung stehen. Bei Unsicherheit hilft ein Installateur.
+
+## Kalk auf Glas, Fliesen und Naturstein
+
+Auch Duschwände und Fliesen bekommen bei hartem Wasser schnell einen grauen Schleier. Am wirksamsten ist Vorbeugen: Nach jedem Duschen das Glas mit einem Abzieher trocknen, das dauert nur eine halbe Minute. Vorhandene Kalkflecken auf Glas und glasierten Fliesen lösen sich mit verdünnter Zitronensäure oder einem Badreiniger. Vorsicht bei Naturstein wie Marmor, Kalkstein oder Travertin: Diese Steine bestehen selbst aus Kalk, und jede Säure greift die Oberfläche an und hinterlässt matte Stellen. Hier nur neutrale Reiniger verwenden, die ausdrücklich für Naturstein geeignet sind.
+
+## Duschköpfe und Legionellen
+
+Legionellen sind Bakterien, die sich in stehendem warmem Wasser zwischen etwa 25 und 45 °C vermehren können. Gefährlich werden sie, wenn man feine Wassertröpfchen einatmet, wie sie beim Duschen entstehen. Nach längerer Abwesenheit, etwa nach dem Urlaub, ist es deshalb sinnvoll, das Warmwasser an Dusche und Hähnen einige Minuten laufen zu lassen, bevor man duscht, und dabei nicht direkt über dem Duschkopf zu stehen. Zentrale Warmwasserspeicher sollten so eingestellt sein, dass das Wasser im Speicher heiß genug ist; Fachleute empfehlen dafür in der Regel mindestens 60 °C.
+
 ## Vorbeugen
 
 - **Nach dem Duschen** den Duschkopf kurz mit kaltem Wasser abspülen und die Düsen abwischen.
@@ -144,6 +165,8 @@ Bei hartem Wasser alle ein bis drei Monate, bei weichem Wasser seltener.
 **Hilft ein Wasserenthärter?** Eine zentrale Enthärtungsanlage verringert Kalk im ganzen Haus, ist aber eine Investition mit Wartungsaufwand. Für Duschkopf und Perlator reicht regelmäßiges Entkalken.
 
 **Mein Duschschlauch ist undicht.** Häufig fehlt die Dichtung im Anschluss oder sie ist verhärtet. Dichtung ersetzen; ist der Schlauch selbst beschädigt, einen neuen kaufen.
+
+**Der Thermostat lässt sich nicht über 38 Grad drehen.** Das ist meist Absicht: Eine Sicherheitssperre schützt vor Verbrühungen. Mit einem Druck auf die Taste am Griff lässt sich die Temperatur weiter erhöhen. Lässt sich der Griff trotzdem kaum bewegen, ist die Kartusche oft verkalkt.
 
 ## Fazit
 

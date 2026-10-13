@@ -2,7 +2,7 @@
 title: "Tür klemmt oder schleift: Bänder einstellen, Schloss justieren, Tür kürzen"
 description: Warum Zimmertüren schleifen, klemmen oder nicht ins Schloss fallen, wie du Türbänder nachstellst, das Schließblech anpasst, quietschende Bänder schmierst und eine Tür für einen neuen Boden kürzt.
 category: reparaturen-im-haushalt
-date: 2026-08-26
+date: 2026-10-12
 ---
 Die Tür schleift über den neuen Teppich, schließt nur mit Schwung, springt wieder auf oder quietscht bei jeder Bewegung: Probleme mit Zimmertüren sind alltäglich und fast immer selbst zu beheben. Häufige Ursachen sind abgesackte Türbänder, ein verschobenes Schließblech, ein neuer, höherer Bodenbelag oder Feuchtigkeit, die Holztüren aufquellen lässt.
 
@@ -101,6 +101,24 @@ Massive Holztüren können sich bei hoher Luftfeuchtigkeit ausdehnen und klemmen
 - Tür und Zarge sind stark beschädigt.
 - Brandschutz- oder Wohnungseingangstüren: Hier dürfen Änderungen nur fachgerecht und nach Herstellervorgaben erfolgen.
 
+## Hängender Türdrücker und schwergängiges Schloss
+
+Bleibt der Türdrücker nach dem Loslassen nach unten hängen oder wackelt er, liegt es meist an gelockerten Befestigungsschrauben der Rosette oder des Langschilds. Ziehe sie nach, und prüfe, ob der Vierkantstift richtig im Schloss sitzt und der Drücker mit seiner Madenschraube fest auf dem Stift sitzt. Kehrt der Drücker trotzdem nicht in die Waagerechte zurück, ist oft die Feder im Einsteckschloss ermüdet; dann hilft nur ein neues Schloss, das es in Standardmaßen günstig gibt. Ein schwergängiges Schloss mit Bartschlüssel machst du mit etwas Graphitpulver oder einem speziellen Schlossspray wieder gängig. Normales Öl sammelt Staub und verklebt die Mechanik mit der Zeit.
+
+## Dichtungen und Zugluft
+
+Viele Zimmertüren haben in der Zarge eine Gummidichtung. Ist sie flach gedrückt oder rissig, klappert die Tür und lässt Geräusche durch. Die meisten Dichtungen sind nur in eine Nut gedrückt und lassen sich herausziehen und durch ein passendes Profil ersetzen. Gegen Zugluft am Boden helfen Bürstenleisten oder eine automatische Absenkdichtung, die sich beim Schließen nach unten drückt.
+
+Wichtig: Nicht jede Tür darf unten dicht sein. In Wohnungen mit Abluftanlage im Bad oder mit einer raumluftabhängigen Gastherme ist der Spalt unter der Tür oft bewusst so bemessen, dass Luft nachströmen kann. Wer ihn abdichtet, kann die Lüftung stören und bei Gasgeräten die Verbrennungsluftzufuhr gefährden. Sprich in solchen Fällen vorher mit Vermieter, Fachbetrieb oder Schornsteinfeger.
+
+## Türstopper richtig setzen
+
+Ein Türstopper verhindert, dass der Drücker Löcher in die Wand schlägt oder das Türblatt gegen Möbel prallt. Wandpuffer werden geklebt oder gedübelt. Bodentürstopper sitzen besser, wenn sie verschraubt sind, aber Vorsicht bei Fußbodenheizung: Hier darfst du keinesfalls in den Estrich bohren. Prüfe vorher, ob und wo Heizrohre liegen, wie in [Leitungen orten vor dem Bohren](/anleitungen/leitungen-orten-vor-dem-bohren/) beschrieben, oder verwende einen Klebestopper.
+
+## Schiebetüren und Ganzglastüren
+
+Schiebetüren, die schwer laufen oder ruckeln, haben fast immer Schmutz in der Laufschiene oder verschlissene Rollen. Schiene aussaugen und mit einem feuchten Tuch reinigen, Rollen auf Abrieb prüfen und die Höheneinstellung am Laufwagen nachjustieren, bis die Tür gleichmäßig läuft und unten nirgends streift. Bei Ganzglastüren gilt: Niemals ins Glas bohren oder es kürzen. Die Bänder werden über Klemmplatten eingestellt, und Glas kann nur der Glaser bearbeiten.
+
 ## Praxisbeispiel: Nach dem neuen Teppich schleift die Schlafzimmertür
 
 Nach dem Verlegen eines Hochflorteppichs schleift die Schlafzimmertür auf ganzer Breite. Die Tür ist eine moderne Röhrenspantür.
@@ -145,6 +163,10 @@ Ein paar Millimeter meist ja. Bei mehr kann der untere Rahmen entfernt werden; d
 ### Was hilft bei einer Tür, die von selbst aufgeht?
 
 Oft hängt die Tür nicht lotrecht. Bänder einstellen, damit das Türblatt senkrecht steht.
+
+### Womit schmiere ich ein klemmendes Zimmertürschloss?
+
+Mit Graphitpulver oder einem Schlossspray, das ausdrücklich für Schlösser gedacht ist. Ein paar Stöße in den Schlitz der Falle und ins Schlüsselloch, dann mehrmals Drücker und Schlüssel bewegen. Speiseöl und dickes Fett sind ungeeignet, weil sie verharzen und Staub binden.
 
 ## Fazit
 

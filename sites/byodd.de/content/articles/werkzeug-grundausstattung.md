@@ -2,7 +2,7 @@
 title: "Werkzeug-Grundausstattung: Was in jeden Heimwerker-Haushalt gehört"
 description: Welches Werkzeug Einsteiger wirklich brauchen, was es kostet, worauf man beim Kauf achtet und wie man die Ausstattung sinnvoll Schritt für Schritt erweitert.
 category: werkzeug-und-grundlagen
-date: 2026-09-30
+date: 2026-10-12
 ---
 Wer zum ersten Mal ein Regal aufhängen, eine Lampe montieren oder eine Schranktür nachstellen will, steht schnell vor der Frage: Was brauche ich eigentlich? Baumärkte locken mit Werkzeugkoffern voller glänzender Teile, von denen viele nie benutzt werden, während genau das eine Werkzeug fehlt, das man gerade braucht. Eine durchdachte Grundausstattung spart Geld, Nerven und Wege in den Baumarkt.
 
@@ -159,12 +159,17 @@ Auch ohne Fachwissen lassen sich gute von schlechten Werkzeugen unterscheiden:
 
 Wer zur Miete wohnt, braucht dieselbe Grundausstattung, sollte aber bei manchen Arbeiten vorher mit dem Vermieter sprechen. Bilder aufhängen, Regale montieren und Lampen anbringen gehören zum normalen Wohngebrauch. Für größere Eingriffe wie das Entfernen von Fliesen, das Verlegen eines festen Bodenbelags oder Durchbrüche brauchst du eine Zustimmung. Ein gutes Werkzeugset hilft auch beim Auszug: Dübellöcher verschließen, Lampen abnehmen und Möbel zerlegen gehen damit schnell. Ideen für Veränderungen ohne Ärger findest du unter [Mietwohnung verschönern ohne Ärger](/anleitungen/mietwohnung-verschoenern-ohne-aerger/).
 
+## Erste Hilfe gehört zur Ausstattung
+
+Ein kleiner Schnitt mit dem Cuttermesser oder ein Splitter beim Schleifen passiert auch Geübten. Deshalb gehört neben den Werkzeugkoffer eine kleine Erste-Hilfe-Box: Pflaster in verschiedenen Größen, sterile Kompressen, eine Mullbinde, eine Pinzette für Splitter und eine Augenspülflasche für Staub im Auge. Verbrauchtes Material sofort ersetzen und das Ablaufdatum der sterilen Teile im Blick behalten. Bei tiefen Schnittwunden, Fremdkörpern im Auge oder einem Stromschlag gilt: nicht selbst herumdoktern, sondern ärztliche Hilfe holen oder den Notruf 112 wählen.
+
 ## Checkliste vor dem ersten Projekt
 
 - Grundausstattung vollständig und griffbereit im Koffer oder an der Wand.
 - Akkus geladen, Ersatzbits vorhanden.
 - Schutzbrille und Gehörschutz in Reichweite.
 - Leitungssucher getestet.
+- Erste-Hilfe-Box griffbereit und vollständig.
 - Kleinteile-Sortiment mit Dübeln und Schrauben aufgefüllt.
 - Hausordnung mit Ruhezeiten bekannt.
 

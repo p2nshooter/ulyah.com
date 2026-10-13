@@ -2,7 +2,7 @@
 title: "Bilderwand gestalten: Anordnung, Abstände und Aufhängen ohne Chaos"
 description: Wie du eine harmonische Bilderwand planst, Rahmen und Motive auswählst, mit Papierschablonen die Anordnung testest, Abstände festlegst und alle Bilder sauber und gerade aufhängst.
 category: deko-und-wohnen
-date: 2026-09-02
+date: 2026-10-12
 ---
 Eine Bilderwand, auch Gallery Wall genannt, macht aus einer leeren Wand einen persönlichen Blickfang: Familienfotos, Kunstdrucke, Postkarten, kleine Spiegel und Erinnerungsstücke erzählen gemeinsam eine Geschichte. Gleichzeitig ist sie eines der Projekte, bei denen am meisten schiefgehen kann: Bilder hängen zu hoch, die Abstände sind ungleich, die Anordnung wirkt zufällig, und am Ende ist die Wand voller überflüssiger Löcher.
 
@@ -120,6 +120,22 @@ Wer gern umdekoriert, montiert ein oder zwei schmale Bilderleisten und stellt di
 
 **Material:** Packpapier, Schere, Malerkrepp, Bleistift, Zollstock, Wasserwaage oder Laser, passende Haken, Nägel oder Dübel, kleine Klebepads für die Rahmenecken.
 
+## Bilder richtig beleuchten
+
+Licht macht aus einer Bilderwand am Abend einen Blickfang. Bilderleuchten über einzelnen Bildern oder schwenkbare Spots an der Decke, die schräg auf die Wand zielen, setzen Akzente. Achte auf warmweißes LED-Licht mit hoher Farbwiedergabe, erkennbar an einem Ra- oder CRI-Wert von 90 und mehr, damit Farben natürlich wirken. Spiegelungen auf Glas vermeidest du, indem du das Licht eher steil von oben einfallen lässt oder entspiegeltes Glas verwendest. Direkte Sonne ist dagegen ein Feind von Drucken und Fotos: UV-Licht bleicht Farben über die Jahre aus. Wertvolle Originale hängen deshalb besser an Wänden ohne direktes Sonnenlicht. Mehr zur Lichtplanung steht in [Licht in der Wohnung planen](/anleitungen/licht-planen-in-der-wohnung/).
+
+## Motive drucken und rahmen
+
+Für Fotos gilt: Je größer der Abzug, desto mehr Auflösung braucht die Datei. Handyfotos reichen für kleine und mittlere Formate meist gut aus, für große Drucke lohnt ein Blick auf die Empfehlung des Druckdienstes. Rahmen gibt es in Standardformaten wie 13 × 18, 20 × 30, 30 × 40, 40 × 50 und 50 × 70 Zentimetern, passende Passepartouts verkleinern den Ausschnitt und geben dem Motiv Raum. Für Originale wie Zeichnungen, Aquarelle oder alte Familienfotos sind säurefreie Passepartouts und Rückwände wichtig, weil sie das Papier über die Jahre nicht vergilben lassen.
+
+## Kinderbilder und wechselnde Motive
+
+Kinder bringen ständig neue Kunstwerke nach Hause. Statt jedes Mal neu zu rahmen, eignen sich Wechselrahmen mit Klappmechanismus, Klemmbretter an Nägeln oder ein gespanntes Seil mit kleinen Holzklammern. So entsteht eine Galerie, die sich jede Woche verändern darf und trotzdem ordentlich aussieht.
+
+## Die Wand vorher vorbereiten
+
+Plane die Bilderwand erst, wenn die Wand selbst fertig ist. Alte Löcher spachteln, gegebenenfalls frisch streichen und die Farbe gut durchtrocknen lassen, bevor Klebepads oder Klebestreifen daraufkommen. Eine farbige Wand hinter der Bildergruppe, etwa ein gedecktes Grün oder ein dunkles Blau, lässt helle Passepartouts und goldene oder schwarze Rahmen besonders leuchten. Wie du den Farbton findest, steht in [Wandfarbe auswählen](/anleitungen/wandfarbe-auswaehlen/).
+
 ## Praxisbeispiel: Treppenhaus mit Familienfotos
 
 Eine Familie möchte im Treppenaufgang ihres Reihenhauses 15 Familienfotos aufhängen. Weil die Wand schräg nach oben verläuft, entscheiden sie sich für eine **Anordnung entlang einer Mittellinie, die parallel zur Treppe ansteigt.**
@@ -168,6 +184,8 @@ In die Planung einbeziehen und genügend Abstand lassen, damit nichts verdeckt w
 **Welche Rahmen eignen sich für Familienfotos?** Einheitliche Rahmen mit Passepartout geben selbst unterschiedlichen Fotos einen ruhigen Auftritt. Schwarz-Weiß-Abzüge verbinden Fotos aus verschiedenen Jahrzehnten.
 
 **Wie ändere ich eine bestehende Bilderwand?** Mit einer Bilderleiste oder Galerieschiene sind Änderungen jederzeit möglich. Bei festen Nägeln neue Bilder so planen, dass sie alte Löcher verdecken oder nutzen.
+
+**Passt eine Bilderwand auch in kleine Räume?** Ja, wenn sie zurückhaltend bleibt: wenige, eher kleine Formate in ruhigen, gleichen Rahmen und viel Weißraum im Passepartout. Eine einzelne Reihe auf einer Bilderleiste wirkt in kleinen Räumen oft ruhiger als eine dichte Salon-Hängung.
 
 ## Fazit
 

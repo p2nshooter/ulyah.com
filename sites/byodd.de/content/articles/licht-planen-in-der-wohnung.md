@@ -2,7 +2,7 @@
 title: "Licht in der Wohnung planen: Grundlicht, Zonenlicht und Akzente"
 description: Wie du mit drei Lichtebenen eine gemütliche und praktische Beleuchtung planst, welche Lichtfarbe und Helligkeit in welchen Raum gehören und wie Mieter ohne Elektroarbeiten mehr Licht schaffen.
 category: deko-und-wohnen
-date: 2026-08-31
+date: 2026-10-12
 ---
 Eine einzige Deckenlampe in der Raummitte ist in vielen Wohnungen die Standardbeleuchtung, und sie ist meist der Grund, warum sich ein Raum abends ungemütlich, flach oder zu dunkel anfühlt. Gutes Licht entsteht aus mehreren Lichtquellen, die unterschiedliche Aufgaben erfüllen. Mit etwas Planung lässt sich fast jede Wohnung deutlich wohnlicher und praktischer beleuchten, und vieles davon geht ganz ohne Elektroarbeiten.
 
@@ -109,6 +109,22 @@ Wie du Lampen an vorhandene Anschlüsse anbringst, solltest du nur tun, wenn du 
 | Spiegellicht nur von oben | Seitliches oder umlaufendes Licht |
 | Nicht dimmbare LEDs am Dimmer | Flackern, Brummen; dimmbare LEDs wählen |
 
+## Licht und Schlaf
+
+Licht steuert unsere innere Uhr. Helles, bläulich-kühles Licht am Morgen macht wach, dasselbe Licht am späten Abend kann das Einschlafen erschweren, weil es die Ausschüttung des Schlafhormons Melatonin bremst. Nutze deshalb abends gedimmtes, warmes Licht von 2.200 bis 2.700 Kelvin, besonders im Schlafzimmer, und lass das Deckenlicht aus. Morgens darf es dafür hell und kühler sein, am besten mit viel Tageslicht. Smarte Leuchtmittel, deren Lichtfarbe sich im Lauf des Tages automatisch verändert, machen das bequem.
+
+## Schutzarten im Bad verständlich
+
+Die IP-Schutzart besteht aus zwei Ziffern: Die erste beschreibt den Schutz gegen Fremdkörper und Staub, die zweite den Schutz gegen Wasser. IP44 bedeutet zum Beispiel Schutz gegen Spritzwasser aus allen Richtungen. Im Bad gelten Schutzbereiche rund um Dusche und Wanne: Im Inneren von Wanne und Duschtasse sind nur Geräte erlaubt, die dauerhaftes Untertauchen vertragen, in dem Bereich direkt darüber und im Umkreis von etwa 60 Zentimetern daneben wird mindestens Spritzwasserschutz verlangt. Leuchten außerhalb dieser Bereiche brauchen keinen besonderen Schutz. Wer im Bad neue Leuchten anschließen lassen möchte, bespricht die Positionen am besten mit der Elektrofachkraft.
+
+## Fassung, Lumen, Kelvin: worauf du beim Kauf achtest
+
+Beim Austausch eines Leuchtmittels zählen vier Angaben. Zuerst der Sockel: Die große Schraubfassung heißt E27, die kleine E14, dazu kommen Stecksockel wie GU10 für Spots oder G9 für kleine Stiftsockellampen. Dann die Helligkeit in Lumen, die Lichtfarbe in Kelvin und die Farbwiedergabe. Wer dimmen möchte, kauft ausdrücklich dimmbare LEDs. Bei Spots lohnt außerdem ein Blick auf den Abstrahlwinkel: Schmale Winkel setzen Akzente, breite Winkel leuchten Flächen aus.
+
+## Blendung vermeiden
+
+Grelle Lichtpunkte im Blickfeld sind anstrengend. Nackte LED-Fadenlampen sehen schön aus, blenden aber in Augenhöhe. Schirme, Diffusoren und indirektes Licht entschärfen das. Am Fernseher hilft eine schwache Lichtquelle hinter dem Gerät, die den Kontrast zwischen hellem Bildschirm und dunkler Wand mildert und die Augen entspannt.
+
 ## Praxisbeispiel: Ein dunkles Wohnzimmer ohne Elektriker
 
 Ein 20-Quadratmeter-Wohnzimmer in einer Mietwohnung hat nur einen Deckenauslass in der Mitte. Abends wirkt der Raum flach und ungemütlich, die Leseecke ist zu dunkel.
@@ -164,6 +180,8 @@ Leuchten an vorhandenen Anschlüssen gegen eigene zu tauschen ist üblich; beim 
 **Kann ich normale Lampen im Bad verwenden?** Nur außerhalb der Schutzbereiche um Dusche und Wanne. Leuchten in der Nähe müssen eine passende Schutzart haben.
 
 **Lohnen sich Bewegungsmelder?** In Flur, Keller und Abstellraum ja: Das Licht ist da, wenn man es braucht, und geht von selbst aus.
+
+**Wie entsorge ich alte Leuchtmittel?** LED-Lampen und Energiesparlampen gehören nicht in den Hausmüll, sondern zu den Sammelstellen im Handel oder auf dem Wertstoffhof. Energiesparlampen enthalten geringe Mengen Quecksilber und sollten deshalb unbeschädigt abgegeben werden.
 
 ## Fazit
 
