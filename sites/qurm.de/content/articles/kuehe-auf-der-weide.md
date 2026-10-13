@@ -105,14 +105,6 @@ Viehgitter, also Roste aus Metallstangen im Boden, halten Tiere zurück, ohne da
 
 Ein tödlicher Zwischenfall im Tiroler Pinnistal im Jahr 2014, bei dem eine Wanderin mit ihrem Hund von Mutterkühen angegriffen wurde, hat im ganzen Alpenraum eine Debatte ausgelöst. In Österreich wurden danach offizielle Verhaltensregeln für den Umgang mit Weidevieh veröffentlicht, und der Gesetzgeber hat die Eigenverantwortung von Almbesuchern ausdrücklich gestärkt. Auch in Bayern, in der Schweiz und in Südtirol informieren Almwirtschaft, Alpenvereine und Tourismusorganisationen seitdem stärker über das richtige Verhalten. Die Botschaft ist überall dieselbe: Die Almen bleiben offen, und Wanderer sind willkommen, wenn sie Abstand halten, ihren Hund kurz führen und die Signale der Tiere ernst nehmen.
 
-### Sind Schottische Hochlandrinder mit ihren langen Hörnern gefährlich?
-
-Hochlandrinder wirken mit ihren mächtigen Hörnern bedrohlich, gelten aber als ausgesprochen ruhig und gutmütig. Sie werden häufig zur Landschaftspflege eingesetzt und stehen deshalb oft auf Weiden in Wandergebieten. Wie alle Mutterkühe verteidigen sie aber ihre Kälber. Die Hörner machen jeden Zusammenstoß gefährlicher, deshalb gelten für sie dieselben Regeln wie für alle Rinder: Abstand halten, nicht zwischen Kuh und Kalb, Hund kurz an der Leine.
-
-### Was kann ich tun, wenn ich große Angst vor Kühen habe?
-
-Plane Touren mit Hilfe von Karten und Hinweisen der Tourist-Information so, dass sie keine großen Weiden queren, oder wähle Wege durch Wald und an Feldern entlang. Wenn du doch an einer Herde vorbei musst, hilft es, sich vorher die Regeln bewusst zu machen und in Begleitung zu gehen. Atme ruhig, geh gleichmäßig weiter und schau nach vorne auf den Weg. Kühe sind fast immer mehr an ihrem Gras interessiert als an dir.
-
 ## Häufige Fragen
 
 ### Sind Bullen gefährlicher als Kühe?
@@ -126,3 +118,11 @@ Auf markierten Wanderwegen ja. Abseits der Wege solltest du Weiden nicht betrete
 ### Was ist, wenn die Herde auf dem Weg liegt?
 
 Warte ein paar Minuten, oft ziehen die Tiere weiter. Ansonsten umgehe die Herde mit großem Abstand und kehre danach auf den Weg zurück, ohne Pflanzen und Zäune zu beschädigen.
+
+### Sind Schottische Hochlandrinder mit ihren langen Hörnern gefährlich?
+
+Hochlandrinder wirken mit ihren mächtigen Hörnern bedrohlich, gelten aber als ausgesprochen ruhig und gutmütig. Sie werden häufig zur Landschaftspflege eingesetzt und stehen deshalb oft auf Weiden in Wandergebieten. Wie alle Mutterkühe verteidigen sie aber ihre Kälber. Die Hörner machen jeden Zusammenstoß gefährlicher, deshalb gelten für sie dieselben Regeln wie für alle Rinder: Abstand halten, nicht zwischen Kuh und Kalb, Hund kurz an der Leine.
+
+### Was kann ich tun, wenn ich große Angst vor Kühen habe?
+
+Plane Touren mit Hilfe von Karten und Hinweisen der Tourist-Information so, dass sie keine großen Weiden queren, oder wähle Wege durch Wald und an Feldern entlang. Wenn du doch an einer Herde vorbei musst, hilft es, sich vorher die Regeln bewusst zu machen und in Begleitung zu gehen. Atme ruhig, geh gleichmäßig weiter und schau nach vorne auf den Weg. Kühe sind fast immer mehr an ihrem Gras interessiert als an dir.

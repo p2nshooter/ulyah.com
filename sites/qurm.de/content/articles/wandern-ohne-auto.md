@@ -108,10 +108,6 @@ Wer mehrere Tage ohne Auto unterwegs ist und nicht alles tragen möchte, hat ver
 
 Bei einer Tagestour mit dem Auto entsteht oft ein großer Teil der Umweltbelastung des ganzen Ausflugs auf der Anfahrt. Mit Bus und Bahn reist du deutlich klimafreundlicher. Gleichzeitig entlastest du die Ausflugsorte, deren Parkplätze an schönen Wochenenden überlaufen und deren Zufahrtsstraßen verstopft sind. Und weil du am Ende nicht zum Auto zurückmusst, bleibt oft noch Zeit für eine Einkehr im Ort, von der die Gasthäuser und Hofläden der Region profitieren.
 
-### Gilt das Deutschlandticket auch in Wanderbussen und Bergbahnen?
-
-In regulären Bussen des Nahverkehrs, also auch in vielen saisonalen Wanderbussen, die zu einem Verkehrsverbund gehören, gilt es in der Regel. Seilbahnen, Zahnradbahnen und private Ausflugsbusse sind dagegen meist ausgenommen und haben eigene Tarife. Prüf das vor der Tour beim jeweiligen Betreiber, damit du an der Talstation keine Überraschung erlebst.
-
 ## Häufige Fragen
 
 ### Darf ich Wanderstöcke und große Rucksäcke mitnehmen?
@@ -125,3 +121,7 @@ In den meisten Verkehrsverbünden ja, manchmal mit eigenem Fahrschein und Maulko
 ### Lohnt sich das mit Kindern?
 
 Ja. Für Kinder ist die Zugfahrt oft schon Teil des Abenteuers. Plane kurze Strecken mit Haltestellen unterwegs, damit du flexibel bleibst.
+
+### Gilt das Deutschlandticket auch in Wanderbussen und Bergbahnen?
+
+In regulären Bussen des Nahverkehrs, also auch in vielen saisonalen Wanderbussen, die zu einem Verkehrsverbund gehören, gilt es in der Regel. Seilbahnen, Zahnradbahnen und private Ausflugsbusse sind dagegen meist ausgenommen und haben eigene Tarife. Prüf das vor der Tour beim jeweiligen Betreiber, damit du an der Talstation keine Überraschung erlebst.

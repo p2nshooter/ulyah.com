@@ -92,10 +92,6 @@ Auf den Höhen des Nordschwarzwalds wanderst du über die **Grinden**, baumlose 
 
 Rund um Ruhestein und Hornisgrinde führt der Westweg durch den Nationalpark Schwarzwald, der 2014 gegründet wurde. Hier darf sich der Wald in großen Bereichen wieder ohne menschliche Eingriffe entwickeln. In diesen Wäldern lebt auch das Auerhuhn, ein großer, sehr scheuer Waldvogel, der im Schwarzwald gefährdet ist. Störungen kosten ihn besonders im Winter und während der Balz im Frühjahr lebenswichtige Energie. Bleib deshalb auf den Wegen und halte Hunde an der Leine.
 
-### Lohnt sich der Westweg im Herbst?
-
-Ja, der Herbst gehört zu den schönsten Zeiten. Im September und Oktober ist die Luft oft klar, und bei Hochdruckwetter liegt die Rheinebene manchmal unter einem Nebelmeer, während du oben in der Sonne wanderst. Die Tage werden allerdings kürzer, und einige Gasthäuser schließen nach der Saison oder verkürzen ihre Öffnungszeiten. Plane deine Etappen deshalb mit Blick auf Tageslicht und Einkehr.
-
 ## Häufige Fragen
 
 ### Welche Variante im Süden ist schöner?
@@ -109,3 +105,7 @@ Ja, der Westweg ist mit Hund gut machbar. Beachte Leinenpflichten in Schutzgebie
 ### Wie viele Tage brauche ich mindestens?
 
 Sehr sportliche Wandernde schaffen den Westweg in zehn bis elf Tagen. Für eine entspannte Tour mit Zeit für Pausen sind zwölf bis vierzehn Tage realistischer.
+
+### Lohnt sich der Westweg im Herbst?
+
+Ja, der Herbst gehört zu den schönsten Zeiten. Im September und Oktober ist die Luft oft klar, und bei Hochdruckwetter liegt die Rheinebene manchmal unter einem Nebelmeer, während du oben in der Sonne wanderst. Die Tage werden allerdings kürzer, und einige Gasthäuser schließen nach der Saison oder verkürzen ihre Öffnungszeiten. Plane deine Etappen deshalb mit Blick auf Tageslicht und Einkehr.

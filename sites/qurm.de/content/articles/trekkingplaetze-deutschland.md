@@ -96,14 +96,6 @@ Ob du nachts frierst, hängt weniger vom Schlafsack ab, als viele denken, sonder
 
 Weitere Tricks: Zieh trockene Kleidung und Socken für die Nacht an, trag eine Mütze, iss vor dem Schlafen noch etwas Warmes, und mach eine Wärmflasche aus einer gut verschlossenen Trinkflasche mit heißem Wasser.
 
-### Was kostet eine Nacht auf dem Trekkingplatz?
-
-Die Gebühren sind bewusst niedrig und liegen meist im niedrigen zweistelligen Eurobereich pro Zelt und Nacht. Damit werden Pflege, Toiletten und Verwaltung finanziert. Die aktuellen Preise stehen auf den Buchungsseiten der jeweiligen Region.
-
-### Kann ich allein auf einem Trekkingplatz übernachten?
-
-Ja, und viele Menschen genießen gerade diese Ruhe. Sag vorher jemandem, wo du übernachtest und wann du zurück bist, halte dein Handy geladen und notiere dir die Koordinaten des Platzes für den Notfall. Die erste Nacht allein im Wald ist ungewohnt: Knacken, Rascheln und Rufe von Eulen oder Rehen sind völlig normal. Ohrstöpsel helfen, wenn die Geräusche dich nicht schlafen lassen.
-
 ## Häufige Fragen
 
 ### Kann ich mit Kindern auf einen Trekkingplatz?
@@ -117,3 +109,11 @@ Das hängt vom Platz ab. Manche Plätze erlauben Hängematten an dafür vorgeseh
 ### Was ist, wenn das Wetter umschlägt?
 
 Bei Sturmwarnungen solltest du nicht unter Bäumen übernachten, denn Äste und Bäume können umstürzen. Storniere dann oder weiche auf eine feste Unterkunft aus.
+
+### Was kostet eine Nacht auf dem Trekkingplatz?
+
+Die Gebühren sind bewusst niedrig und liegen meist im niedrigen zweistelligen Eurobereich pro Zelt und Nacht. Damit werden Pflege, Toiletten und Verwaltung finanziert. Die aktuellen Preise stehen auf den Buchungsseiten der jeweiligen Region.
+
+### Kann ich allein auf einem Trekkingplatz übernachten?
+
+Ja, und viele Menschen genießen gerade diese Ruhe. Sag vorher jemandem, wo du übernachtest und wann du zurück bist, halte dein Handy geladen und notiere dir die Koordinaten des Platzes für den Notfall. Die erste Nacht allein im Wald ist ungewohnt: Knacken, Rascheln und Rufe von Eulen oder Rehen sind völlig normal. Ohrstöpsel helfen, wenn die Geräusche dich nicht schlafen lassen.

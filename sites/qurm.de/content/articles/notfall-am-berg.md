@@ -101,14 +101,6 @@ So hilfst du:
 - Warme, gezuckerte Getränke helfen nur, wenn die Person ganz wach ist und sicher schlucken kann.
 - Melde der Leitstelle ausdrücklich, dass die Person unterkühlt ist.
 
-### Was gehört in eine Notfallkarte im Rucksack?
-
-Notiere auf einer Karte deinen Namen, eine Kontaktperson für Notfälle, Allergien, Vorerkrankungen und Medikamente, die du regelmäßig nimmst. Steck sie in das Deckelfach des Rucksacks oder in das Erste-Hilfe-Set. Die meisten Smartphones haben zusätzlich einen Notfallpass, den Helfer auch bei gesperrtem Bildschirm aufrufen können. Es lohnt sich, ihn vor der nächsten Tour auszufüllen.
-
-### Muss die goldene oder die silberne Seite der Rettungsdecke außen liegen?
-
-Darüber wird viel diskutiert, der Unterschied ist in der Praxis gering. Entscheidend ist, dass die Decke den Körper möglichst vollständig umschließt, Wind und Nässe abhält und dass die Person darunter auf einer isolierenden Schicht liegt. Wickle die Decke eng um Körper und Kopf, das Gesicht bleibt frei, und befestige die Ränder, damit sie im Wind nicht davonflattert.
-
 ## Häufige Fragen
 
 ### Soll ich bei einem verstauchten Knöchel den Notruf wählen?
@@ -122,3 +114,11 @@ Beschreibe so gut wie möglich, was du siehst: den letzten Wegweiser, markante G
 ### Muss ich bis zur Rettung bei der verletzten Person bleiben?
 
 Wenn möglich, ja. Musst du gehen, um Hilfe zu holen oder Empfang zu finden, sorge vorher für Wärme und Sicherheit und kehre zurück, sobald du kannst.
+
+### Was gehört in eine Notfallkarte im Rucksack?
+
+Notiere auf einer Karte deinen Namen, eine Kontaktperson für Notfälle, Allergien, Vorerkrankungen und Medikamente, die du regelmäßig nimmst. Steck sie in das Deckelfach des Rucksacks oder in das Erste-Hilfe-Set. Die meisten Smartphones haben zusätzlich einen Notfallpass, den Helfer auch bei gesperrtem Bildschirm aufrufen können. Es lohnt sich, ihn vor der nächsten Tour auszufüllen.
+
+### Muss die goldene oder die silberne Seite der Rettungsdecke außen liegen?
+
+Darüber wird viel diskutiert, der Unterschied ist in der Praxis gering. Entscheidend ist, dass die Decke den Körper möglichst vollständig umschließt, Wind und Nässe abhält und dass die Person darunter auf einer isolierenden Schicht liegt. Wickle die Decke eng um Körper und Kopf, das Gesicht bleibt frei, und befestige die Ränder, damit sie im Wind nicht davonflattert.

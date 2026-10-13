@@ -91,10 +91,6 @@ Viele Smartphones und Apps können deinen Standort live mit ausgewählten Person
 
 Neben der Navigations-App lohnt sich eine Wetter- und Warn-App. Der Deutsche Wetterdienst bietet mit der App WarnWetter amtliche Unwetterwarnungen für deinen Standort, und Warn-Apps wie NINA informieren über Gefahrenlagen wie Waldbrände oder Unwetter. Stell die Benachrichtigungen so ein, dass du vor Gewittern in deiner Region gewarnt wirst. Für Menschen, die nicht telefonieren können, gibt es außerdem die offizielle Notruf-App der Bundesländer, über die sich Polizei, Feuerwehr und Rettungsdienst per Text alarmieren lassen.
 
-### Wie genau ist das GPS im Handy?
-
-Unter freiem Himmel liegt die Genauigkeit meist bei wenigen Metern. In engen Tälern, zwischen Felswänden und in dichtem Wald kann die Position springen, weil Signale reflektiert oder abgeschirmt werden. Die Höhe aus dem GPS ist ungenauer als die Position. Geräte mit barometrischem Höhenmesser zeigen die Höhe präziser an, müssen aber regelmäßig an bekannten Punkten kalibriert werden, weil sich der Luftdruck mit dem Wetter ändert.
-
 ## Häufige Fragen
 
 ### Welche App ist die beste?
@@ -112,3 +108,7 @@ Nein. Karten zeigen auch Pfade, die gesperrt, privat oder in Schutzgebieten verb
 ### Brauche ich die kostenpflichtige Version einer App?
 
 Für einfache Touren reichen die kostenlosen Funktionen vieler Apps aus. Bezahlversionen bieten oft genau das, was unterwegs zählt: Offlinekarten, detaillierte topografische Karten und Warnungen bei Abweichungen von der Route. Probiere zuerst die kostenlose Variante aus und entscheide dann, welche Funktionen dir fehlen.
+
+### Wie genau ist das GPS im Handy?
+
+Unter freiem Himmel liegt die Genauigkeit meist bei wenigen Metern. In engen Tälern, zwischen Felswänden und in dichtem Wald kann die Position springen, weil Signale reflektiert oder abgeschirmt werden. Die Höhe aus dem GPS ist ungenauer als die Position. Geräte mit barometrischem Höhenmesser zeigen die Höhe präziser an, müssen aber regelmäßig an bekannten Punkten kalibriert werden, weil sich der Luftdruck mit dem Wetter ändert.

@@ -102,10 +102,6 @@ In einer Gruppe könnt ihr Ausrüstung teilen: ein Kocher, ein Erste-Hilfe-Set, 
 
 In Zug und Bus gehört der Rucksack in die Gepäckablage oder zwischen die Sitze, nicht in den Gang. Stöcke steckst du zusammengeschoben seitlich in den Rucksack, mit den Spitzen nach unten und am besten mit Gummikappen. Fliegst du zu einer Wanderreise, schütze Gurte und Schnallen mit einer Transporthülle oder einem großen Seesack, damit sie am Gepäckband nicht hängen bleiben. Taschenmesser und Wanderstöcke gehören ins aufgegebene Gepäck. Gaskartuschen für den Kocher dürfen gar nicht mitfliegen; du kaufst sie am Zielort.
 
-### Wie finde ich meine Rückenlänge heraus?
-
-Lass dir helfen: Neige den Kopf nach vorn und taste nach dem deutlich hervorstehenden Wirbel am Übergang vom Nacken zum Rücken. Von dort misst eine zweite Person entlang der Wirbelsäule bis zu der gedachten Linie zwischen den Oberkanten deiner Beckenknochen. Diese Länge vergleichst du mit den Angaben des Herstellers. Im Fachgeschäft wird das oft mit einem speziellen Maßband gemacht.
-
 ## Häufige Fragen
 
 ### Kann ich einen Daypack auch für eine Hüttentour verwenden?
@@ -119,3 +115,7 @@ Das ist Geschmackssache. Eine Trinkblase lässt dich beim Gehen trinken und hilf
 ### Wie pflege ich meinen Rucksack?
 
 Nach jeder Tour ausleeren, Krümel und Sand ausschütteln, feucht auswischen und an einem luftigen Ort trocknen lassen. Für eine gründliche Reinigung reicht lauwarmes Wasser mit milder Seife. Die Waschmaschine solltest du nur nutzen, wenn der Hersteller sie erlaubt.
+
+### Wie finde ich meine Rückenlänge heraus?
+
+Lass dir helfen: Neige den Kopf nach vorn und taste nach dem deutlich hervorstehenden Wirbel am Übergang vom Nacken zum Rücken. Von dort misst eine zweite Person entlang der Wirbelsäule bis zu der gedachten Linie zwischen den Oberkanten deiner Beckenknochen. Diese Länge vergleichst du mit den Angaben des Herstellers. Im Fachgeschäft wird das oft mit einem speziellen Maßband gemacht.

@@ -109,10 +109,6 @@ Bei Winterwanderungen auf verschneiten Wegen sind Stöcke besonders wertvoll, we
 
 Wanderstöcke können unterwegs mehrere Aufgaben übernehmen. Manche Modelle haben einen Griff mit Gewinde, auf den sich eine Kamera schrauben lässt, sodass der Stock als einfaches Einbeinstativ dient. Viele leichte Trekkingzelte nutzen statt eigener Gestänge die Wanderstöcke als Stütze, was auf Mehrtagestouren Gewicht spart. Im Notfall lässt sich mit einem Stock und Tape ein verletzter Arm oder Finger provisorisch schienen, und mit einem Stock tastest du in hohem Gras oder bei unklarem Untergrund den Weg ab.
 
-### Lohnt sich ein teures Modell?
-
-Für gelegentliche Wanderungen reichen solide Stöcke aus Aluminium mit Klemmverschluss aus der mittleren Preisklasse. Teure Carbonstöcke sind leichter, was vor allem auf langen Touren und beim Tragen am Rucksack zählt. Wichtiger als der Preis sind ein verlässlicher Verschluss, ein angenehmer Griff und die Möglichkeit, Ersatzteile wie Spitzen und Teller nachzukaufen.
-
 ## Häufige Fragen
 
 ### Brauche ich zwei Stöcke oder reicht einer?
@@ -130,3 +126,7 @@ In der Regel nur im aufgegebenen Gepäck, weil die Spitzen als gefährlicher Geg
 ### Helfen Stöcke gegen Muskelkater?
 
 Sie verteilen die Last im Abstieg und können Muskelkater in den Oberschenkeln verringern. Dafür spürst du nach den ersten Touren vielleicht Schultern und Arme.
+
+### Lohnt sich ein teures Modell?
+
+Für gelegentliche Wanderungen reichen solide Stöcke aus Aluminium mit Klemmverschluss aus der mittleren Preisklasse. Teure Carbonstöcke sind leichter, was vor allem auf langen Touren und beim Tragen am Rucksack zählt. Wichtiger als der Preis sind ein verlässlicher Verschluss, ein angenehmer Griff und die Möglichkeit, Ersatzteile wie Spitzen und Teller nachzukaufen.

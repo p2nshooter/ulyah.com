@@ -116,10 +116,6 @@ Bei Kälte spürst du weniger Durst, verlierst aber trotzdem Wasser, vor allem �
 
 Vegetarisch und vegan zu wandern ist kein Problem: Nüsse, Hülsenfrüchte, Vollkornbrot, Nussmus und Trockenobst liefern Energie und Eiweiß. Wer glutenfrei isst, packt Reiswaffeln, Maisfladen oder glutenfreies Brot ein und fragt auf Hütten bei der Reservierung nach. Menschen mit Diabetes besprechen längere Touren am besten vorher mit ihrer Ärztin oder ihrem Arzt, messen unterwegs häufiger und haben immer schnell wirksamen Zucker griffbereit. Bei schweren Allergien gehört das persönliche Notfallset in jeden Rucksack, und die Begleitpersonen sollten wissen, wo es steckt.
 
-### Wie viel Energie verbrauche ich beim Wandern?
-
-Das hängt stark von Körpergewicht, Gepäck, Tempo und Steigung ab. Grob kannst du mit 250 bis 500 Kilokalorien pro Stunde rechnen, im steilen Aufstieg mit schwerem Rucksack auch mit mehr. Bei einer langen Tagestour kommt so leicht der Energiebedarf einer zusätzlichen Mahlzeit zusammen. Deshalb sind regelmäßige Snacks wichtiger als eine große Mittagspause.
-
 ## Häufige Fragen
 
 ### Ist ein Bier auf der Hütte ein Problem?
@@ -133,3 +129,7 @@ Etwas mit Kohlenhydraten und etwas Eiweiß, das du gut verträgst: Haferflocken,
 ### Brauche ich spezielle Sportriegel?
 
 Nein. Normale Lebensmittel reichen für Wanderungen völlig aus. Sportprodukte sind praktisch, aber keine Voraussetzung.
+
+### Wie viel Energie verbrauche ich beim Wandern?
+
+Das hängt stark von Körpergewicht, Gepäck, Tempo und Steigung ab. Grob kannst du mit 250 bis 500 Kilokalorien pro Stunde rechnen, im steilen Aufstieg mit schwerem Rucksack auch mit mehr. Bei einer langen Tagestour kommt so leicht der Energiebedarf einer zusätzlichen Mahlzeit zusammen. Deshalb sind regelmäßige Snacks wichtiger als eine große Mittagspause.

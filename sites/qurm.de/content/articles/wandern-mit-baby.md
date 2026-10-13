@@ -96,10 +96,6 @@ Babys werden genauso von Zecken gestochen wie Erwachsene. Lange, helle Kleidung 
 
 Wenn zwei Erwachsene unterwegs sind, wechselt euch beim Tragen ab, bevor die Schultern schmerzen. Stellt die Trage vor der Tour so ein, dass sie für beide passt, oder merkt euch die Einstellungen, denn jedes Umstellen kostet unterwegs Zeit. Wer gerade nicht trägt, übernimmt den Rucksack mit Windeln, Proviant und Wechselkleidung. So bleibt die Last verteilt, und niemand ist am Ende des Tages erschöpft.
 
-### Kann ich mit Baby auf einer Hütte übernachten?
-
-In Mittelgebirgen und auf niedrig gelegenen Hütten ist das gut möglich. Frag bei der Reservierung nach einem Familienzimmer statt eines Matratzenlagers, damit dein Baby und die anderen Gäste ruhig schlafen können. Auf hoch gelegene Hütten mit langen Aufstiegen solltest du mit einem Baby verzichten, wie oben im Abschnitt zur Tourenwahl beschrieben.
-
 ## Häufige Fragen
 
 ### Ab wann darf ich mit meinem Baby wandern?
@@ -113,3 +109,7 @@ Eine feste Grenze gibt es nicht. Wichtig sind regelmäßige Pausen, in denen das
 ### Kinderwagen oder Trage?
 
 Auf breiten, ebenen Wegen geht beides. Für typische Wanderwege mit Wurzeln, Stufen und schmalen Abschnitten ist die Trage die bessere Wahl.
+
+### Kann ich mit Baby auf einer Hütte übernachten?
+
+In Mittelgebirgen und auf niedrig gelegenen Hütten ist das gut möglich. Frag bei der Reservierung nach einem Familienzimmer statt eines Matratzenlagers, damit dein Baby und die anderen Gäste ruhig schlafen können. Auf hoch gelegene Hütten mit langen Aufstiegen solltest du mit einem Baby verzichten, wie oben im Abschnitt zur Tourenwahl beschrieben.

@@ -87,10 +87,6 @@ Beide Ufer des Mittelrheins haben eine Bahnstrecke mit Regionalzügen, die fast 
 
 Zwischen Koblenz und Mainz gibt es keine Brücke über den Rhein. Stattdessen verbinden Auto- und Personenfähren die Ufer, etwa zwischen St. Goar und St. Goarshausen oder zwischen Bingen und Rüdesheim. In der Saison fahren außerdem Ausflugsschiffe zwischen den Orten im Tal. Eine Schifffahrt zurück zum Ausgangspunkt ist ein schöner, entspannter Abschluss einer Etappe und schont nach den Abstiegen die Knie.
 
-### Ist der Rheinsteig für Familien mit Kindern geeignet?
-
-Die ganze Strecke ist für Kinder zu lang und zu steil, einzelne Abschnitte sind aber ideal: Burgen, Aussichtspunkte, Schiffe und Züge machen den Weg für Kinder spannend. Wähle kurze Teilstücke von acht bis zwölf Kilometern, bei denen ein Bahnhof oder eine Fähre den Rückweg erleichtert, und achte an Weinbergtreppen und Aussichtspunkten ohne Geländer besonders auf kleine Kinder.
-
 ## Häufige Fragen
 
 ### Wie viele Tage brauche ich für den ganzen Rheinsteig?
@@ -104,3 +100,7 @@ Sehr beliebt ist der Abschnitt rund um die Loreley zwischen St. Goarshausen und 
 ### Kann ich den Rheinsteig mit Hund gehen?
 
 Ja, in den meisten Abschnitten. An Leitern und sehr steilen Stufen musst du kleine Hunde eventuell tragen, und in den Weinbergen gilt Leinenpflicht. Mehr dazu in [Wandern mit Hund](/ratgeber/wandern-mit-hund/).
+
+### Ist der Rheinsteig für Familien mit Kindern geeignet?
+
+Die ganze Strecke ist für Kinder zu lang und zu steil, einzelne Abschnitte sind aber ideal: Burgen, Aussichtspunkte, Schiffe und Züge machen den Weg für Kinder spannend. Wähle kurze Teilstücke von acht bis zwölf Kilometern, bei denen ein Bahnhof oder eine Fähre den Rückweg erleichtert, und achte an Weinbergtreppen und Aussichtspunkten ohne Geländer besonders auf kleine Kinder.

@@ -85,10 +85,6 @@ Blasen entstehen, wenn Haut wiederholt an derselben Stelle reibt, besonders wenn
 
 Ist doch eine Blase entstanden, schützt du sie mit einem Blasenpflaster, das wie eine zweite Haut wirkt, und lässt es mehrere Tage kleben. Die Haut über der Blase ist der beste Schutz vor Infektionen und sollte nicht abgezogen werden.
 
-### Brauche ich spezielle Einlegesohlen?
-
-Viele Menschen kommen mit der Einlegesohle aus, die im Schuh steckt. Wer Fußprobleme hat, profitiert von anatomisch geformten Einlegesohlen aus dem Fachhandel oder von orthopädischen Einlagen nach ärztlicher Verordnung. Nimm sie in jedem Fall zum Anprobieren mit, denn eine dickere Einlage verändert, wie viel Platz der Fuß im Schuh hat.
-
 ## Häufige Fragen
 
 ### Kann ich mit Trailrunning-Schuhen wandern?
@@ -106,3 +102,7 @@ Wenn du dein Modell und deine Größe schon kennst, spricht nichts dagegen. Für
 ### Wann brauche ich einen steigeisenfesten Schuh?
 
 Nur, wenn du Hochtouren auf Gletschern oder in vergletschertem Gelände planst. Für Wanderungen in deutschen Mittelgebirgen und auf normalen Bergwegen in den bayerischen Alpen ist ein solcher Schuh unnötig schwer und steif.
+
+### Brauche ich spezielle Einlegesohlen?
+
+Viele Menschen kommen mit der Einlegesohle aus, die im Schuh steckt. Wer Fußprobleme hat, profitiert von anatomisch geformten Einlegesohlen aus dem Fachhandel oder von orthopädischen Einlagen nach ärztlicher Verordnung. Nimm sie in jedem Fall zum Anprobieren mit, denn eine dickere Einlage verändert, wie viel Platz der Fuß im Schuh hat.
