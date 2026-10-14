@@ -45,15 +45,19 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >    `google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0` → **profity.in → ca-pub-5944786950535069**
 >    (sebelumnya 5693981744147503; repo profity.in: `src/app/layout.tsx` untuk loader, tag meta dan metadata,
 >    `public/ads.txt`; profity.in PR #9, redeploy lewat `deploy-partner-sites.yml`).
+> 9. **14 Okt 2026 (urgent):** „Tolong ganti ke 5 situs ini dengan kode adsense ini dan buatkan cuplikan adsense dan tag
+>    metanya" + `google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0` → **axto.io, xaa.es, rough.es, ulyah.com dan
+>    1fr.fr → ca-pub-6908951782430508** (sebelumnya 5693981744147503). ulyah.com + 1fr.fr: `apps/web/src/lib/ad-config.ts`;
+>    rough.es: `site.json` + `ADSENSE.txt`; axto.io: repo guardian-ai; xaa.es: repo xaa. tilawa.de tetap di akun utama.
 > byodd.de, qulen.de dan zolun.de tetap dengan akun sendiri (6 Okt). Tabel di bawah adalah
 > keadaan terbaru; `scripts/site-audit.mjs` memeriksa domain live dengan angka yang sama.
 
 | Domain | Publisher | Tempat kodenya |
 |---|---|---|
-| ulyah.com | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt |
-| axto.io | ca-pub-5693981744147503 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt |
-| xaa.es | ca-pub-5693981744147503 | xaa · site.ts + public/ads.txt |
-| 1fr.fr | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant 1fr) |
+| ulyah.com | ca-pub-6908951782430508 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
+| axto.io | ca-pub-6908951782430508 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
+| xaa.es | ca-pub-6908951782430508 | xaa · site.ts + public/ads.txt — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
+| 1fr.fr | ca-pub-6908951782430508 | ulyah.com · apps/web (tenant 1fr) — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
 | axto.us | ca-pub-2990015102981265 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — diubah pemilik 10 Okt |
 | axto.dev | ca-pub-2493615451319531 | axtodev · site.ts + public/ads.txt — diubah pemilik 12 Okt (sebelumnya 5693981744147503) |
 | jai.lat | ca-pub-6019445914743449 | Jai · site.ts + public/ads.txt — diubah pemilik 10 Okt |
@@ -78,7 +82,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | dai.lat | ca-pub-8469557036744946 | ulyah.com · sites/dai.lat (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
 | pab.lat | ca-pub-6146217038829045 | ulyah.com · sites/pab.lat (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
 | rough.lat | ca-pub-5944786950535069 | ulyah.com · sites/rough.lat (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
-| rough.es | ca-pub-5693981744147503 | ulyah.com · sites/rough.es (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
+| rough.es | ca-pub-6908951782430508 | ulyah.com · sites/rough.es (site.json + ADSENSE.txt) — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
 | tilawa.de | ca-pub-5693981744147503 | ulyah.com · apps/web (tenant tilawa) |
 | xad.es | ca-pub-5517446616694631 | ulyah.com · apps/web (tenant xad) — diubah pemilik 11 Okt |

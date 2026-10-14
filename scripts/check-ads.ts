@@ -77,8 +77,9 @@ console.log("\n=== each site declares the account the owner gave it ===");
 // owner moved to its own account on 2026-10-11. dawa.es is detached and not the
 // owner's any more: it keeps its original account, untouched (§10).
 const EXPECTED: Record<string, string> = {
-  ulyah: "ca-pub-5693981744147503",
-  "1fr": "ca-pub-5693981744147503",
+  // 14 Oct 2026 (owner): ulyah.com and 1fr.fr → ca-pub-6908951782430508.
+  ulyah: "ca-pub-6908951782430508",
+  "1fr": "ca-pub-6908951782430508",
   tilawa: "ca-pub-5693981744147503",
   xad: "ca-pub-5517446616694631",
 };
