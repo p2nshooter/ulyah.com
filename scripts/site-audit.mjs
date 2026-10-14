@@ -37,7 +37,7 @@ EXPECTED["jai.lat"] = "6019445914743449";
 EXPECTED["dai.lat"] = "8469557036744946";
 EXPECTED["pab.lat"] = "6146217038829045";
 EXPECTED["rough.lat"] = "5944786950535069";
-EXPECTED["rough.es"] = "5693981744147503";
+EXPECTED["rough.es"] = "6908951782430508";
 // 11 Oct 2026 (owner): dawo.es moves to its own account.
 EXPECTED["dawo.es"] = "7349356139063654";
 // 11 Oct 2026 (owner): xad.es moves to its own account.
@@ -48,6 +48,8 @@ EXPECTED["axto.dev"] = "2493615451319531";
 EXPECTED["lie.skin"] = "4548005919629272";
 // 13 Oct 2026 (owner, urgent): profity.in moves to ca-pub-5944786950535069.
 EXPECTED["profity.in"] = "5944786950535069";
+// 14 Oct 2026 (owner, urgent): five sites move to ca-pub-6908951782430508.
+for (const d of ["axto.io", "xaa.es", "rough.es", "ulyah.com", "1fr.fr"]) EXPECTED[d] = "6908951782430508";
 const verdicts = [];
 
 const browser = await chromium.launch();

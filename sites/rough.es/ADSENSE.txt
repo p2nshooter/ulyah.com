@@ -1,13 +1,13 @@
 AdSense rough.es — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
-Pemilik, 10 Okt 2026. Engine memasang ketiganya otomatis dari "adsense" di site.json;
-check.mjs menolak deploy kalau hasil build tidak sama persis dengan file ini.
+Pemilik, 14 Okt 2026 (sebelumnya ca-pub-5693981744147503, 10 Okt 2026). Engine memasang ketiganya otomatis dari
+"adsense" di site.json; check.mjs menolak deploy kalau hasil build tidak sama persis dengan file ini.
 
 Cuplikan adsense (di <head> setiap halaman)
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
      crossorigin="anonymous"></script>
 
 Cuplikan ads.txt (https://rough.es/ads.txt)
-google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman)
-<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-6908951782430508">

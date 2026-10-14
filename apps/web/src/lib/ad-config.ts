@@ -47,8 +47,10 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
-  ulyah: "ca-pub-5693981744147503",
-  "1fr": "ca-pub-5693981744147503",
+  // 14 Oct 2026 (owner): ulyah.com and 1fr.fr move to ca-pub-6908951782430508,
+  // together with axto.io, xaa.es and rough.es.
+  ulyah: "ca-pub-6908951782430508",
+  "1fr": "ca-pub-6908951782430508",
   tilawa: "ca-pub-5693981744147503",
   dawa: ORIGINAL_ACCOUNT,
   xad: "ca-pub-5517446616694631",
