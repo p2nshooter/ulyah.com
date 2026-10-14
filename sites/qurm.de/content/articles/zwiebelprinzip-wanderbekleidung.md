@@ -109,10 +109,6 @@ Im Winter bleibt das System gleich, nur die Schichten werden wärmer. Als Basiss
 
 Für Kinder gilt das Zwiebelprinzip genauso, nur dass sie selbst seltener merken, wann ihnen zu warm oder zu kalt ist. Prüfe deshalb regelmäßig mit der Hand im Nacken, ob sich das Kind verschwitzt oder kühl anfühlt. Kinder rennen, toben und sitzen dann wieder lange still am Bach, sodass ein häufiges An- und Ausziehen nötig ist. Leichte Schichten, die das Kind selbst schnell an- und ausziehen kann, sind praktischer als eine dicke Jacke. Wechselkleidung gehört bei Kindern immer in den Rucksack der Eltern.
 
-### Was ist eine Hybridjacke?
-
-Eine Hybridjacke kombiniert verschiedene Materialien in einem Kleidungsstück. Meist sind Brust, Schultern und Rücken mit einer wärmenden, winddichten Isolation gefüttert, während Seiten und Ärmel aus dehnbarem, atmungsaktivem Stoff bestehen. So bleibt der Rumpf warm, und überschüssige Wärme kann an den Seiten entweichen. Hybridjacken eignen sich besonders für aktive Touren bei kühlem, trockenem Wetter.
-
 ## Häufige Fragen
 
 ### Brauche ich wirklich teure Funktionskleidung?
@@ -126,3 +122,7 @@ Dünne Merinoshirts sind erstaunlich angenehm, auch bei Wärme. Sie trocknen abe
 ### Warum friere ich in der Pause trotz Fleece?
 
 Häufig ist die Basisschicht nass geschwitzt, und der Wind kühlt dich zusätzlich. Zieh in der Pause zusätzlich eine winddichte Jacke über das Fleece, und such dir eine windgeschützte Stelle.
+
+### Was ist eine Hybridjacke?
+
+Eine Hybridjacke kombiniert verschiedene Materialien in einem Kleidungsstück. Meist sind Brust, Schultern und Rücken mit einer wärmenden, winddichten Isolation gefüttert, während Seiten und Ärmel aus dehnbarem, atmungsaktivem Stoff bestehen. So bleibt der Rumpf warm, und überschüssige Wärme kann an den Seiten entweichen. Hybridjacken eignen sich besonders für aktive Touren bei kühlem, trockenem Wetter.

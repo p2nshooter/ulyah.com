@@ -89,6 +89,18 @@ Eine sehr seltene, aber bekannte Komplikation ist ein bösartiger Tumor an der I
 
 Das Risiko schwerer Nebenwirkungen ist deutlich geringer als das Risiko, an einer der Krankheiten zu erkranken, gegen die geimpft wird.
 
+## Katzen aus dem Tierschutz und mit unbekanntem Impfstatus
+
+Katzen aus dem Tierheim sind meist schon geimpft, und die Impfungen stehen im Heimtierausweis, den du bei der Übernahme bekommst. Prüfe mit deiner Tierärztin, wann die nächste Auffrischung fällig ist. Anders ist es bei Fundkatzen, Katzen aus dem Auslandstierschutz ohne Unterlagen oder bei Tieren, deren Impfungen viele Jahre zurückliegen. Bei ihnen beginnt man in der Regel mit einer neuen Grundimmunisierung, die bei erwachsenen Katzen meist aus zwei Impfungen im Abstand einiger Wochen besteht. Vor einer Leukose-Impfung wird die Katze zuerst getestet, denn bei einer bereits infizierten Katze ist die Impfung sinnlos.
+
+## Der Impftermin ohne Stress
+
+Ein Impftermin dauert nur wenige Minuten, für die Katze beginnt der Stress aber oft schon beim Anblick der Transportbox. Gewöhne sie deshalb an die Box, wie in [Transportbox-Training](/katzenwissen/transportbox-training/) beschrieben, und frag nach Terminen in einer ruhigen Sprechstunde. Nutze den Termin für die jährliche Gesundheitskontrolle und schreib dir vorher Fragen auf. Nach der Impfung darf die Katze sich ausruhen. Leichte Müdigkeit am Abend ist normal, und am nächsten Tag ist sie meist wieder ganz die Alte.
+
+## Antikörper messen statt impfen?
+
+Bei der Katzenseuche lässt sich mit einer Blutuntersuchung messen, ob eine Katze noch ausreichend Antikörper hat. Fällt der Wert gut aus, kann die Auffrischung manchmal verschoben werden. Für den Katzenschnupfen ist ein solcher Test dagegen wenig aussagekräftig, weil der Schutz dort nicht allein von den Antikörpern im Blut abhängt. Ob eine Antikörperbestimmung für deine Katze sinnvoll ist, etwa bei einer früheren Impfreaktion, besprichst du am besten mit deiner Tierärztin.
+
 ## Häufige Fragen
 
 ### Muss eine Wohnungskatze wirklich geimpft werden?
@@ -102,3 +114,11 @@ Ja. Katzen sollten nur geimpft werden, wenn sie gesund sind. Bei einer akuten Er
 ### Meine Katze hat ihre Impfung um ein paar Monate verpasst. Muss alles neu beginnen?
 
 In der Regel nicht. Meist reicht eine Auffrischung. Bei sehr langen Lücken kann eine erneute Grundimmunisierung nötig sein. Frag deine Praxis.
+
+### Darf eine trächtige Katze geimpft werden?
+
+In der Regel nicht, zumindest nicht mit Lebendimpfstoffen, weil sie den ungeborenen Kätzchen schaden können. Am besten ist eine Katze vor einer geplanten Trächtigkeit vollständig geimpft. Wenn eine ungeimpfte Katze trächtig ist, besprich mit der Tierärztin, wie Mutter und Kätzchen geschützt werden können.
+
+### Wo wird geimpft, und warum an dieser Stelle?
+
+Viele Tierärztinnen und Tierärzte impfen Katzen heute nicht mehr zwischen den Schulterblättern, sondern an Stellen wie den Gliedmaßen oder der seitlichen Bauchwand und notieren die Stelle im Ausweis. Der Grund ist das sehr seltene Fibrosarkom an der Injektionsstelle: Sollte sich dort ein Knoten bilden, lässt er sich an diesen Stellen besser erkennen und behandeln. Taste die Impfstelle in den Wochen danach gelegentlich ab. Eine kleine Verdickung, die nach einigen Wochen verschwindet, ist meist harmlos. Bleibt ein Knoten länger als etwa drei Monate bestehen, wird er größer als zwei Zentimeter oder wächst er einen Monat nach der Impfung weiter, lass ihn untersuchen.

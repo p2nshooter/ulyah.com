@@ -87,6 +87,20 @@ Nach der Kastration sinkt der Energiebedarf, oft um ein Fünftel bis ein Drittel
 
 Die Kosten richten sich nach der Gebührenordnung für Tierärzte und hängen vom Aufwand ab. Die Kastration einer Kätzin ist aufgrund des größeren Eingriffs deutlich teurer als die eines Katers. Hinzu kommen Narkose, Medikamente und gegebenenfalls Nachkontrollen. Frag in deiner Praxis nach einem Kostenvoranschlag. Manche Tierschutzvereine und Gemeinden unterstützen Kastrationsaktionen, vor allem für Katzen aus Bauernhofpopulationen oder von Menschen mit wenig Geld.
 
+## Kastration bei erwachsenen und älteren Katzen
+
+Für eine Kastration ist es nie zu spät. Auch erwachsene Kater und Kätzinnen, die aus dem Tierschutz, aus einer Zucht oder von einem Bauernhof kommen, können kastriert werden. Bei älteren Katzen empfiehlt die Tierärztin vor der Narkose oft eine Blutuntersuchung, um Nieren, Leber und andere Werte zu prüfen und die Narkose darauf abzustimmen. Bei älteren Katern, die schon lange markieren, kann das Verhalten nach der Kastration bestehen bleiben, weil es zur Gewohnheit geworden ist. Dann helfen zusätzlich die Maßnahmen, die in [Katze pinkelt in die Wohnung](/katzenwissen/katze-pinkelt-in-die-wohnung/) beschrieben sind. Ist eine Kätzin gerade rollig, verschieben viele Praxen den Eingriff um einige Tage, weil die Gewebe dann stärker durchblutet sind. Möglich ist die Operation aber auch dann.
+
+## Vorbereitung auf den Operationstag
+
+Gewöhne deine Katze schon Wochen vorher an die Transportbox, damit die Fahrt in die Praxis nicht der erste Schreck des Tages ist. Wie das geht, erklärt [Transportbox-Training](/katzenwissen/transportbox-training/). Halte dich genau an die Anweisungen der Praxis, wann deine Katze zuletzt fressen darf, und räume am Vorabend Futterreste weg. Wasser darf meist bis kurz vor dem Termin stehen bleiben. Lege eine weiche, vertraute Decke in die Box und bereite zu Hause einen ruhigen, warmen Platz für die Rückkehr vor.
+
+Leben mehrere Katzen im Haushalt, kann es nach der Rückkehr zu Fauchen kommen, weil die operierte Katze nach Praxis und Desinfektionsmittel riecht. Lass sie dann ein paar Stunden in einem eigenen Raum ausruhen, reibe sie mit einem Tuch ab, das nach Zuhause riecht, und führe die Katzen anschließend wieder ruhig zusammen.
+
+## Kastrationsaktionen und Straßenkatzen
+
+Viele Tierschutzvereine kümmern sich um herrenlose Katzen, die in Hinterhöfen, auf Bauernhöfen oder in Kleingartenanlagen leben. Sie fangen die Tiere ein, lassen sie kastrieren, kennzeichnen und medizinisch versorgen und setzen sie danach wieder an ihrem gewohnten Platz aus, wo sie weiter gefüttert werden. So wird das Elend der unkontrollierten Vermehrung Schritt für Schritt eingedämmt. Wenn du in deiner Umgebung unkastrierte, herrenlose Katzen bemerkst, wende dich an den örtlichen Tierschutzverein. Manche Vereine und Gemeinden bieten außerdem vergünstigte Kastrationen für Halterinnen und Halter mit geringem Einkommen an.
+
 ## Häufige Fragen
 
 ### Sollte eine Kätzin nicht einmal Junge bekommen haben?

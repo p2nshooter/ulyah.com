@@ -72,6 +72,22 @@ Auch bei den wilden Verwandten der Hauskatze ist Schnurren verbreitet. Gepard, P
 - **Brummeln:** Manche Katzen geben beim Fressen ein zufriedenes Brummeln von sich.
 - **Knurren:** Ein tiefes, drohendes Geräusch, das manchmal mit Schnurren verwechselt wird. Es kommt aber aus angespannter Haltung, oft mit angelegten Ohren, und ist eine Warnung.
 
+## Schnurren als Zeichen von Vertrauen
+
+Viele Katzen schnurren vor allem in Gegenwart von Menschen und Tieren, denen sie vertrauen. Eine Katze, die neu eingezogen ist, schnurrt oft erst nach einigen Tagen oder Wochen zum ersten Mal, wenn sie sich sicher fühlt. Für viele Halterinnen und Halter ist dieser Moment ein kleiner Meilenstein. Auch unter Katzen, die sich mögen, ist Schnurren beim gegenseitigen Putzen und beim Kuscheln häufig zu hören. Das Schnurren scheint damit auch eine soziale Funktion zu haben: Es signalisiert Nähe und Harmlosigkeit und hilft, Beziehungen zu festigen.
+
+## Schnurren beim Tierarzt: eine kleine Herausforderung
+
+Was für Menschen beruhigend klingt, macht der Tierärztin manchmal die Arbeit schwer. Beim Abhören von Herz und Lunge überdeckt das Schnurren die feinen Geräusche, auf die es ankommt. Viele Tierärztinnen und Tierärzte kennen deshalb kleine Tricks, um das Schnurren kurz zu unterbrechen, etwa indem sie einen Wasserhahn aufdrehen, die Katze sanft am Kehlkopf berühren oder sie leicht ablenken. Wundere dich also nicht, wenn in der Praxis plötzlich das Wasser rauscht, während deine Katze untersucht wird.
+
+## Schnurren in den letzten Lebensstunden
+
+Manche Halterinnen und Halter erleben, dass ihre Katze auch in ihren letzten Stunden noch schnurrt, etwa wenn sie schwer krank ist oder eingeschläfert wird. Das ist kein Zeichen, dass es ihr gut geht, sondern vermutlich eine Art Selbstberuhigung in einer belastenden Situation. Für die Menschen kann dieses Schnurren dennoch tröstlich sein, als vertrautes Geräusch im Abschied. Wie du eine alte oder schwer kranke Katze begleitest, beschreibt [Die alte Katze begleiten](/katzenwissen/die-alte-katze-begleiten/).
+
+## Das Schnurren deiner Katze kennenlernen
+
+Jede Katze schnurrt ein wenig anders: lauter oder leiser, höher oder tiefer, gleichmäßig oder mit kleinen Pausen. Wenn du dir den gewohnten Klang einprägst, fällt dir auf, wenn sich etwas verändert, etwa wenn das Schnurren rasselnd klingt, die Atmung dabei angestrengt wirkt oder deine Katze in ungewöhnlichen Situationen auffällig viel schnurrt. Solche Veränderungen sind ein guter Anlass, genauer hinzuschauen und im Zweifel die Tierärztin zu fragen. Eine kurze Tonaufnahme mit dem Handy kann ihr dabei helfen.
+
 ## Häufige Fragen
 
 ### Meine Katze schnurrt beim Tierarzt. Ist sie entspannt?
@@ -85,3 +101,7 @@ Schnurren und eine zunehmende Reizung durch Streicheln können gleichzeitig auft
 ### Meine Katze hat plötzlich aufgehört zu schnurren. Ist das bedenklich?
 
 Ein vorübergehend fehlendes Schnurren ist meist harmlos. Wenn deine Katze aber gleichzeitig weniger frisst, sich zurückzieht oder heiser klingt, lass sie untersuchen.
+
+### Warum schnurrt meine Katze so laut?
+
+Wie laut eine Katze schnurrt, ist von Tier zu Tier sehr verschieden und hat meist keine besondere Bedeutung. Manche Katzen schnurren so leise, dass man es nur fühlt, andere sind durch die ganze Wohnung zu hören. Wichtig ist nur, ob sich das Schnurren verändert, nicht wie laut es ist. Ein plötzlich rasselnder oder pfeifender Klang gehört allerdings tierärztlich abgeklärt.

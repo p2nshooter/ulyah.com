@@ -121,6 +121,18 @@ Auch mit ungiftigen Pflanzen lohnt es sich, ein paar Dinge zu beachten:
 
 Freigänger kommen auch mit giftigen Pflanzen in Nachbargärten in Kontakt, ohne dass man es verhindern kann. Die meisten Katzen meiden aber bittere und unangenehm schmeckende Pflanzen. Gefährlich sind vor allem Situationen, in denen Pollen ins Fell gelangen, etwa durch Lilien, oder in denen gelangweilte Katzen aus Neugier knabbern. Im eigenen Garten kannst du auf besonders gefährliche Arten wie Lilien, Oleander und Eibe verzichten und Katzengras oder Katzenminze pflanzen.
 
+## Giftige Pflanzen im Jahreslauf
+
+Welche Pflanzen in deine Wohnung kommen, hängt stark von der Jahreszeit ab. Im **Frühling** stehen Tulpen, Narzissen, Hyazinthen und Maiglöckchen in Vasen und Töpfen, oft samt Zwiebeln. Im **Sommer** kommen Kübelpflanzen wie Oleander auf den Balkon, und in Blumensträußen finden sich häufig Lilien. Im **Herbst** bringen Chrysanthemen und Gestecke mit Früchten und Zweigen neue Gefahren, und auf Wiesen blüht die Herbstzeitlose. Im **Winter** schmücken Weihnachtsstern, Christrose, Amaryllis und Mistelzweige die Wohnung. Prüfe zu jeder Saison, was neu ins Haus kommt, und stelle Unbekanntes zunächst außer Reichweite, bis du sicher bist, dass es unbedenklich ist.
+
+## Pflanzen sicher bestimmen
+
+Viele Pflanzen werden unter Fantasienamen verkauft, und Volksnamen bezeichnen in verschiedenen Regionen unterschiedliche Arten. Entscheidend ist der botanische Name, der auf dem Etikett oder Steckschild stehen sollte. Bewahre diese Schilder auf oder fotografiere sie. Pflanzenbestimmungs-Apps können helfen, liegen aber nicht immer richtig. Frag im Zweifel in der Gärtnerei nach, und behandle eine Pflanze, die du nicht sicher bestimmen kannst, wie eine giftige. Im Notfall weiß die Tierärztin schneller, was zu tun ist, wenn sie den genauen Namen kennt.
+
+## Balkon und Garten katzenfreundlich bepflanzen
+
+Für Balkon und Garten gibt es viele Pflanzen, die Katzen erfreuen statt gefährden. Katzenminze und Baldrian locken viele Katzen an, Katzengamander duftet für Katzen ebenfalls unwiderstehlich. Robuste Gräser, Kräuter wie Thymian, Rosmarin und Zitronenmelisse sowie Kapuzinerkresse und Ringelblumen sind ungefährlich und bieten Abwechslung. Achte bei Balkonkästen darauf, keine Erde mit Dünger- oder Schneckenkornresten zu verwenden. Wie du den Balkon sicher machst, erklärt [Balkon katzensicher machen](/katzenwissen/balkon-katzensicher-machen/).
+
 ## Häufige Fragen
 
 ### Ist der Weihnachtsstern wirklich so gefährlich?
@@ -134,3 +146,11 @@ Stelle giftige Pflanzen in Räume, die die Katze nicht betreten kann, oder gib s
 ### Sind Kunstblumen eine Alternative?
 
 Ja, sofern sie nicht aus kleinen Teilen bestehen, die verschluckt werden können. Manche Katzen knabbern auch an Kunstpflanzen, und Plastikteile im Magen sind ebenfalls gefährlich.
+
+### Sind Duftöle und Raumdüfte für Katzen gefährlich?
+
+Viele ätherische Öle, etwa Teebaumöl, können Katzen schaden, weil ihre Leber bestimmte Stoffe nur schlecht abbauen kann. Verzichte in Katzenhaushalten auf Duftöle auf der Haut der Katze und auf Duftlampen in Räumen, die sie nicht verlassen kann.
+
+### Darf meine Katze Gras im Garten fressen?
+
+Ja, die meisten Katzen fressen gelegentlich Gras, und das ist normal. Problematisch sind Rasenflächen, die mit Dünger oder Pflanzenschutzmitteln behandelt wurden, und Gräser mit scharfen Blatträndern, die Maul und Rachen verletzen können. Zyperngras und ähnliche Ziergräser mit harten, schneidenden Blättern gehören deshalb nicht in Katzennähe.

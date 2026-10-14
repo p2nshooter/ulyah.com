@@ -107,10 +107,6 @@ Zwei Techniken aus dem Orientierungslauf helfen, gar nicht erst verloren zu gehe
 
 Viele topografische Karten tragen ein Gitternetz, mit dem du deinen Standort als Koordinaten angeben kannst. Die meisten Wander-Apps und GPS-Geräte zeigen deine Position ebenfalls als Koordinaten an. Im Notfall kann das der Rettung viel Zeit sparen: Nenne beim Notruf unter 112 möglichst genau, wo du bist, zum Beispiel den Weg, den nächsten markanten Punkt und die Koordinaten aus der App. Es lohnt sich, vor der Tour einmal auszuprobieren, wo deine App diese Angabe anzeigt, damit du in einer Stresssituation nicht lange suchen musst.
 
-### Was ist der Unterschied zwischen Gitternord, geografisch Nord und magnetisch Nord?
-
-Geografisch Nord ist die Richtung zum Nordpol. Magnetisch Nord ist die Richtung, in die deine Kompassnadel zeigt. Gitternord ist die Richtung der senkrechten Gitterlinien auf der Karte, die wegen der Kartenprojektion leicht von geografisch Nord abweichen kann. Auf Wanderungen in Deutschland sind die Unterschiede zwischen allen drei Richtungen so klein, dass du sie beim Einnorden und beim Folgen von Wegen nicht berücksichtigen musst. Wichtig werden sie erst bei langen Peilungen durch wegloses Gelände.
-
 ## Häufige Fragen
 
 ### Brauche ich noch eine Papierkarte, wenn ich eine App nutze?
@@ -124,3 +120,7 @@ Ein Höhenmesser, oft in Outdoor-Uhren eingebaut, zeigt die aktuelle Höhe. Zusa
 ### Wie lerne ich das am besten?
 
 Viele Alpenvereinssektionen, Wandervereine und Volkshochschulen bieten Orientierungskurse an. Ein Nachmittag mit Übungen im Gelände bringt mehr als jedes Buch.
+
+### Was ist der Unterschied zwischen Gitternord, geografisch Nord und magnetisch Nord?
+
+Geografisch Nord ist die Richtung zum Nordpol. Magnetisch Nord ist die Richtung, in die deine Kompassnadel zeigt. Gitternord ist die Richtung der senkrechten Gitterlinien auf der Karte, die wegen der Kartenprojektion leicht von geografisch Nord abweichen kann. Auf Wanderungen in Deutschland sind die Unterschiede zwischen allen drei Richtungen so klein, dass du sie beim Einnorden und beim Folgen von Wegen nicht berücksichtigen musst. Wichtig werden sie erst bei langen Peilungen durch wegloses Gelände.

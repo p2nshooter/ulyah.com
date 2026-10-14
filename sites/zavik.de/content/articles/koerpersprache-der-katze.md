@@ -102,6 +102,16 @@ Viele Konflikte zwischen Menschen und Katzen entstehen, weil Warnungen übersehe
 
 Wenn du diese Zeichen bemerkst, hör sofort auf, die Katze anzufassen, und gib ihr Raum.
 
+## Wie Katzen untereinander sprechen
+
+Leben mehrere Katzen zusammen, lohnt es sich, ihre Signale untereinander zu beobachten. Katzen, die sich mögen, begrüßen sich mit erhobenem Schwanz und Nasenkontakt, liegen eng beieinander, putzen sich gegenseitig und reiben die Köpfe aneinander. Spannungen zeigen sich dagegen oft leise: Eine Katze blockiert den Flur zur Toilette, starrt die andere lange an oder verdrängt sie wortlos vom Lieblingsplatz. Solche Konflikte sind ernst zu nehmen, auch wenn nie gefaucht wird.
+
+Spielkämpfe und echte Kämpfe unterscheidest du an einigen Merkmalen. Im Spiel wechseln die Rollen, mal jagt die eine, mal die andere, es gibt Pausen, kaum Laute und keine fliegenden Haare. Bei einem echten Streit wird gefaucht, geknurrt oder geschrien, das Fell sträubt sich, die Ohren liegen flach, und am Ende flieht eine Katze und versteckt sich. Wenn solche Auseinandersetzungen häufiger vorkommen, helfen mehr Ressourcen an getrennten Orten, wie in [Zweitkatze vergesellschaften](/katzenwissen/zweitkatze-vergesellschaften/) beschrieben.
+
+## Schmerz im Gesicht erkennen
+
+Katzen verbergen Schmerzen meisterhaft. Forschende haben deshalb eine Skala entwickelt, mit der sich Schmerzen am Gesichtsausdruck ablesen lassen. Sie achtet auf fünf Merkmale: Die Ohren sind nach außen gedreht und auseinandergezogen, die Augen zusammengekniffen, die Schnauze wirkt angespannt und eher oval, die Schnurrhaare sind gerade und nach vorn gerichtet, und der Kopf wird unterhalb der Schulterlinie gehalten. Wenn du mehrere dieser Zeichen bei deiner Katze bemerkst, besonders zusammen mit Rückzug, verändertem Fressverhalten oder geduckter Haltung, lass sie tierärztlich untersuchen. Weitere Warnzeichen beschreibt [Krankheitsanzeichen erkennen](/katzenwissen/krankheitsanzeichen-erkennen/).
+
 ## Häufige Fragen
 
 ### Warum zeigt mir meine Katze ihren Po?
@@ -115,3 +125,7 @@ Katzen hören und sehen Dinge, die wir nicht wahrnehmen, etwa ein Insekt an der 
 ### Kann ich die Körpersprache meiner Katze trainieren?
 
 Nein, aber du kannst lernen, sie besser zu lesen. Beobachte deine Katze in verschiedenen Situationen und achte darauf, wie sie in Ruhe, beim Spielen, bei Besuch und beim Tierarzt aussieht. Jede Katze hat ihre eigenen Nuancen.
+
+### Warum bewegt meine Katze die Schwanzspitze, wenn ich sie anspreche?
+
+Ein leichtes Zucken oder Klopfen der Schwanzspitze, während die Katze entspannt liegt, ist oft eine Art Antwort: Sie hat dich gehört und nimmt dich wahr, möchte aber vielleicht nicht aufstehen. Wird das Klopfen stärker und schlägt der ganze Schwanz, lass sie besser in Ruhe.

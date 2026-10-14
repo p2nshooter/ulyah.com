@@ -104,10 +104,6 @@ Die umweltfreundlichste Jacke ist die, die du lange trägst. Eine gut verarbeite
 
 Kinder sind beim Wandern oft näher am nassen Gras, an Pfützen und Bächen als Erwachsene. Eine robuste Jacke mit etwas Platz zum Wachsen, einer gut sitzenden Kapuze und reflektierenden Details ist deshalb sinnvoll. Gute Kinderjacken verzichten im Kapuzen- und Halsbereich auf Kordeln, an denen Kinder hängen bleiben können. Für kleine Kinder, die viel sitzen und spielen, ist eine Regenhose oder ein Matschanzug oft wichtiger als die Jacke allein. Wie du dein Kind sonst für die Tour ausrüstest, steht in [Wandern mit Kleinkindern](/ratgeber/wandern-mit-kleinkindern/).
 
-### Was ist der Unterschied zwischen wasserdicht und wasserabweisend?
-
-Wasserabweisend bedeutet, dass Wasser an der Oberfläche abperlt, solange es nur wenig regnet und kein Druck entsteht. Bei längerem Regen dringt es irgendwann durch. Wasserdicht bedeutet, dass der Stoff, meist mit einer Membran oder Beschichtung, auch bei Dauerregen und unter dem Druck eines Rucksacks dicht bleibt, und dass Nähte und Reißverschlüsse ebenfalls geschützt sind.
-
 ## Häufige Fragen
 
 ### Reicht ein Regenschirm?
@@ -121,3 +117,7 @@ Meist ist es Schweiß, der nicht schnell genug entweichen kann, oder der Obersto
 ### Brauche ich im Sommer eine Regenjacke?
 
 Ja. Sommergewitter bringen Starkregen und oft einen deutlichen Temperatursturz. Nass und im Wind kühlst du auch bei 15 Grad schnell aus. Mehr dazu in [Gewitter beim Wandern](/ratgeber/gewitter-beim-wandern/).
+
+### Was ist der Unterschied zwischen wasserdicht und wasserabweisend?
+
+Wasserabweisend bedeutet, dass Wasser an der Oberfläche abperlt, solange es nur wenig regnet und kein Druck entsteht. Bei längerem Regen dringt es irgendwann durch. Wasserdicht bedeutet, dass der Stoff, meist mit einer Membran oder Beschichtung, auch bei Dauerregen und unter dem Druck eines Rucksacks dicht bleibt, und dass Nähte und Reißverschlüsse ebenfalls geschützt sind.

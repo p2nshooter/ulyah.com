@@ -90,10 +90,6 @@ Zur Hüttenkultur gehört die Weinschorle, in der Pfalz traditionell im **Dubbeg
 
 Wie in vielen deutschen Wäldern haben trockene Sommer und Borkenkäfer in den vergangenen Jahren auch im Pfälzerwald Spuren hinterlassen. Vor allem Fichten sind abgestorben, und an manchen Stellen sind offene Flächen entstanden, auf denen junge Laubbäume nachwachsen. Für Wanderer bedeutet das: Abgestorbene Bäume können bei Sturm umstürzen oder Äste verlieren. Meide den Wald bei starkem Wind, achte auf Sperrungen nach Unwettern und folge ausgeschilderten Umleitungen.
 
-### Wo kann ich im Pfälzerwald übernachten?
-
-In den Orten gibt es Pensionen, Gasthöfe und Ferienwohnungen. Der Pfälzerwald-Verein und die Naturfreunde betreiben außerdem einige Wanderheime und Häuser mit Betten, die gerade bei Mehrtagestouren praktisch sind, aber früh gebucht werden sollten. Wer mit Zelt unterwegs ist, nutzt die buchbaren Trekkingplätze im Wald.
-
 ## Häufige Fragen
 
 ### Welche Jahreszeit ist am schönsten?
@@ -107,3 +103,7 @@ Sehr. Felsen, Höhlen, Burgen und Hütten mit Spielplätzen machen Touren für K
 ### Wie erkenne ich die Wanderwege?
 
 Der Pfälzerwald hat ein dichtes Netz farbiger Markierungen, oft Balken, Kreuze oder Punkte in verschiedenen Farben, dazu Zeichen für Fernwege. Was die verschiedenen Zeichen bedeuten, erklärt [Wegmarkierungen verstehen](/ratgeber/wegmarkierungen-verstehen/).
+
+### Wo kann ich im Pfälzerwald übernachten?
+
+In den Orten gibt es Pensionen, Gasthöfe und Ferienwohnungen. Der Pfälzerwald-Verein und die Naturfreunde betreiben außerdem einige Wanderheime und Häuser mit Betten, die gerade bei Mehrtagestouren praktisch sind, aber früh gebucht werden sollten. Wer mit Zelt unterwegs ist, nutzt die buchbaren Trekkingplätze im Wald.

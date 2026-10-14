@@ -90,6 +90,22 @@ Alles, was zusätzlich zum Alleinfuttermittel gegeben wird, sollte nur einen kle
 
 Je schneller eine Vergiftung behandelt wird, desto besser sind die Chancen. Warte nicht ab, ob Symptome auftreten. Bei vielen Giften, etwa bei Zwiebeln oder Lilien, zeigen sich die Schäden erst nach Stunden oder Tagen, wenn die Behandlung schwieriger wird.
 
+## Feiertage und Feste: besondere Vorsicht
+
+An Feiertagen liegen besonders viele Verlockungen in Reichweite. Zu **Weihnachten** stehen Plätzchen, Schokolade, Braten mit Soße und Zwiebeln auf dem Tisch, dazu Lametta und Geschenkbänder, die Katzen gern verschlucken. Zu **Ostern** sind es Schokoladeneier und Osterglocken in der Vase. Beim **Grillen** im Garten oder auf dem Balkon locken Fleischreste, Knochen, marinierte Stücke mit Knoblauch und Holzspieße, die im Darm schwere Verletzungen verursachen können. An **Silvester** stehen oft halbvolle Gläser mit Alkohol herum. Räume an solchen Tagen konsequent ab, bitte Gäste, der Katze nichts zuzustecken, und gib ihr einen ruhigen Rückzugsraum fernab vom Trubel.
+
+## Gefahren rund um die Küche
+
+Nicht nur Lebensmittel selbst sind gefährlich, sondern auch das, was an ihnen hängt. Bratenschnüre, Wurstpellen, Alufolie mit Fettresten, Frischhaltefolie und Zahnstocher riechen nach Essen und werden deshalb gern angeknabbert oder verschluckt. Besonders tückisch sind Fäden und Schnüre, weil sie sich im Darm verfangen und ihn zusammenziehen können. Ein Mülleimer mit festem Deckel, der sich nicht von einer Katzenpfote öffnen lässt, verhindert viele Notfälle. Heiße Herdplatten und offene Töpfe sind eine weitere Gefahr. Gewöhne deine Katze von Anfang an daran, dass die Arbeitsfläche tabu ist, und lass sie beim Kochen nicht unbeaufsichtigt in der Küche.
+
+## Nahrungsergänzungsmittel für Menschen
+
+Auch Vitamintabletten und Nahrungsergänzungsmittel aus der Hausapotheke können Katzen schaden. Hoch dosiertes Vitamin D führt bei Katzen schon in vergleichsweise kleinen Mengen zu einer gefährlichen Erhöhung des Kalziumspiegels, und Eisenpräparate können Magen und Darm schwer schädigen. Bewahre solche Präparate deshalb genauso sicher auf wie Medikamente, und lass keine Tabletten offen auf dem Tisch oder Nachttisch liegen.
+
+## Klare Regeln am Esstisch
+
+Am einfachsten ist es, wenn in deinem Haushalt eine einfache Regel gilt: Vom Tisch gibt es nichts. Katzen, die nie Erfolg beim Betteln hatten, bleiben dem Esstisch meist fern. Wenn alle Familienmitglieder und Gäste sich daran halten, schützt das nicht nur vor Vergiftungen, sondern auch vor Übergewicht. Wer seiner Katze trotzdem etwas Besonderes gönnen möchte, gibt es aus ihrem eigenen Napf, zu ihrer eigenen Mahlzeit.
+
 ## Häufige Fragen
 
 ### Meine Katze hat ein Stück Pizza mit Zwiebeln gefressen. Ist das gefährlich?
@@ -103,3 +119,11 @@ Spezielle Katzenmilch ist laktosereduziert und wird meist gut vertragen. Sie ist
 ### Darf meine Katze Gras fressen?
 
 Ja. Viele Katzen fressen gern Katzengras, etwa Weizengras oder Hafergras. Es ist ungiftig. Vorsicht bei Ziergräsern mit scharfen Kanten und bei Pflanzen, die mit Pflanzenschutzmitteln behandelt wurden.
+
+### Darf meine Katze Joghurt oder Quark essen?
+
+Manche Katzen vertragen kleine Mengen Naturjoghurt oder Quark, weil darin weniger Milchzucker steckt als in Milch. Notwendig ist das aber nicht. Gesüßte Produkte und solche mit Süßstoffen wie Xylit gehören nicht in den Katzennapf.
+
+### Ist Thunfisch für Katzen gesund?
+
+Gelegentlich ein kleines Stück Thunfisch im eigenen Saft ist für die meisten Katzen kein Problem. Als Hauptnahrung eignet er sich nicht, weil er unausgewogen ist, und Thunfisch in Öl oder mit Salz solltest du ganz meiden.

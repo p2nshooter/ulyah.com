@@ -101,10 +101,6 @@ FSME ist nicht nur in Süddeutschland ein Thema. Auch in Österreich, der Schwei
 - **„Im Stadtpark gibt es keine Zecken.“** Auch Parks, Gärten und Grünstreifen sind Lebensraum für Zecken.
 - **„Mit der Impfung bin ich rundum geschützt.“** Die Impfung schützt nur vor FSME, nicht vor Borreliose. Absuchen bleibt wichtig.
 
-### Können Zecken in der Wohnung überleben?
-
-Der Gemeine Holzbock braucht eine hohe Luftfeuchtigkeit. In trockener Wohnungsluft überlebt er meist nicht lange und kann sich dort nicht vermehren. Eine Zecke, die du abends auf dem Teppich findest, solltest du trotzdem entsorgen. Anders ist es bei der Braunen Hundezecke, die vor allem mit Hunden aus südlichen Ländern eingeschleppt wird und sich in Wohnungen dauerhaft ansiedeln kann.
-
 ## Häufige Fragen
 
 ### Muss ich nach jedem Zeckenstich zum Arzt?
@@ -118,3 +114,7 @@ Das wird meist nicht empfohlen. Ein Nachweis von Erregern in der Zecke bedeutet 
 ### Wie lange schützt die FSME-Impfung?
 
 Für einen vollständigen Schutz sind mehrere Impfungen nötig, danach folgen Auffrischungen in Abständen, die vom Alter und Impfstoff abhängen. Lass dich dazu in deiner Arztpraxis beraten.
+
+### Können Zecken in der Wohnung überleben?
+
+Der Gemeine Holzbock braucht eine hohe Luftfeuchtigkeit. In trockener Wohnungsluft überlebt er meist nicht lange und kann sich dort nicht vermehren. Eine Zecke, die du abends auf dem Teppich findest, solltest du trotzdem entsorgen. Anders ist es bei der Braunen Hundezecke, die vor allem mit Hunden aus südlichen Ländern eingeschleppt wird und sich in Wohnungen dauerhaft ansiedeln kann.

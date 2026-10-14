@@ -91,6 +91,20 @@ Lass deine Katze nach dem Tierarztbesuch in Ruhe aus der Box kommen. Wenn du meh
 
 Lass die Box danach wieder in der Wohnung stehen, mit Decke und gelegentlichem Leckerli. So bleibt sie ein vertrauter Ort, und der nächste Besuch wird leichter.
 
+## Mit Bahn, Bus und Flugzeug
+
+Auch für Reisen mit öffentlichen Verkehrsmitteln ist eine gut trainierte Katze ein großer Vorteil. In Zügen der Deutschen Bahn fahren Katzen in einer geschlossenen Transportbox als Kleintier in der Regel kostenlos mit. In Bussen und Straßenbahnen gelten die Regeln des jeweiligen Verkehrsverbunds, auch dort sind Katzen in einer Box meist unproblematisch. Stelle die Box auf deinen Schoß oder vor deine Füße, nicht in den Gang, und decke sie teilweise ab, damit die vielen Eindrücke nicht zu viel werden.
+
+Flugreisen sind für Katzen anstrengend und sollten die Ausnahme bleiben. Viele Fluggesellschaften erlauben kleine Katzen in einer weichen Transporttasche in der Kabine, wenn Tier und Tasche zusammen ein bestimmtes Gewicht nicht überschreiten. Die genauen Bedingungen und die Zahl der Plätze pro Flug unterscheiden sich stark, deshalb musst du die Katze rechtzeitig anmelden. Für Reisen ins Ausland gelten zusätzlich die Regeln zu Heimtierausweis, Mikrochip und Tollwutimpfung, wie in [Urlaub mit oder ohne Katze](/katzenwissen/urlaub-mit-oder-ohne-katze/) beschrieben.
+
+## Früh anfangen: Training mit Kitten
+
+Am leichtesten gelingt das Training mit jungen Katzen. Kitten sind neugierig und lernen schnell, dass die Box ein gemütlicher Ort mit Leckerli ist. Weil sie im ersten Lebensjahr ohnehin mehrmals in die Praxis müssen, etwa für die Grundimmunisierung, lohnt es sich, gleich in den ersten Wochen nach dem Einzug mit den Übungen zu beginnen. Eine Box, die mitwächst oder für eine erwachsene Katze groß genug ist, spart später den Neukauf.
+
+## Die Box nach dem Tierarztbesuch reinigen
+
+Nach einem Tierarztbesuch riecht die Box oft nach Praxis, Desinfektionsmittel und Angst. Reinige sie mit warmem Wasser und einem milden, unparfümierten Reiniger, spüle gut nach und lass sie vollständig trocknen. Lege danach die vertraute Decke wieder hinein, die du vorher gewaschen hast oder die nach Zuhause riecht. Stark duftende Reiniger und Desinfektionsmittel mit Chlor oder Phenolen solltest du vermeiden, denn sie stören die feine Nase deiner Katze und können teilweise giftig für sie sein.
+
 ## Häufige Fragen
 
 ### Wie lange dauert das Training?
@@ -104,3 +118,7 @@ Kurze Übungsfahrten, eine gut gesicherte Box, eine ruhige Fahrweise und ein lee
 ### Kann ich zwei Katzen in eine Box setzen?
 
 Besser nicht. In Stresssituationen können sich auch befreundete Katzen gegenseitig verletzen. Jede Katze sollte ihre eigene Box haben.
+
+### Was tue ich, wenn meine Katze in der Box uriniert?
+
+Das passiert vor allem bei ängstlichen Katzen. Lege eine saugfähige Unterlage unter die Decke und nimm ein Handtuch und eine Tüte zum Wechseln mit. Reinige die Box danach gründlich mit einem Enzymreiniger, damit kein Geruch zurückbleibt. Wiederholt sich das bei jeder Fahrt, ist das ein Zeichen für großen Stress, den du mit langsamerem Training verringern kannst.

@@ -100,10 +100,6 @@ Die häufigsten Verletzungen beim Wandern betreffen die Pfoten. Spül eine Schni
 
 Kreuzottern sind in Deutschland selten und leben vor allem in Mooren, Heiden und in den Bergen. Wird dein Hund gebissen, halte ihn ruhig, trag ihn wenn möglich und fahr ohne Umwege in die nächste Tierarztpraxis. Speichere dir vor einer längeren Tour die Nummer einer Praxis und eines Tiernotdienstes in der Region.
 
-### Darf mein Hund aus Bächen und Pfützen trinken?
-
-Aus klaren, fließenden Bächen trinken die meisten Hunde ohne Probleme. Vorsicht ist bei stehendem Wasser im Sommer geboten: In warmen Seen und Teichen können sich Blaualgen vermehren, deren Giftstoffe für Hunde lebensgefährlich sind. Meide Gewässer mit grünlichen Schlieren oder Schaum und biete deinem Hund lieber Wasser aus der Flasche an. Pfützen an Wegen und Parkplätzen können Öl oder andere Schadstoffe enthalten. Frag in deiner Tierarztpraxis, welche Impfungen für einen Hund sinnvoll sind, der viel draußen unterwegs ist.
-
 ## Häufige Fragen
 
 ### Wie viel Wasser braucht mein Hund beim Wandern?
@@ -117,3 +113,7 @@ Die meisten Hunde nicht. Auf scharfkantigem Geröll, Schnee mit Eisresten oder b
 ### Was tun, wenn mein Hund nicht mehr laufen will?
 
 Pause machen, Wasser anbieten, Pfoten auf Verletzungen prüfen. Wenn er danach immer noch nicht will, ist die Tour zu Ende. Kürze ab oder trag ihn, wenn das möglich ist.
+
+### Darf mein Hund aus Bächen und Pfützen trinken?
+
+Aus klaren, fließenden Bächen trinken die meisten Hunde ohne Probleme. Vorsicht ist bei stehendem Wasser im Sommer geboten: In warmen Seen und Teichen können sich Blaualgen vermehren, deren Giftstoffe für Hunde lebensgefährlich sind. Meide Gewässer mit grünlichen Schlieren oder Schaum und biete deinem Hund lieber Wasser aus der Flasche an. Pfützen an Wegen und Parkplätzen können Öl oder andere Schadstoffe enthalten. Frag in deiner Tierarztpraxis, welche Impfungen für einen Hund sinnvoll sind, der viel draußen unterwegs ist.

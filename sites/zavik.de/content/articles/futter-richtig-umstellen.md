@@ -83,6 +83,22 @@ Manchmal bleibt keine Zeit für einen langsamen Wechsel, etwa wenn ein Futter zu
 
 Wiege deine Katze in den Wochen nach einer Futterumstellung regelmäßig. Neue Futtersorten haben oft eine andere Energiedichte, und die Fütterungsmenge muss angepasst werden.
 
+## Unverträglichkeit oder nur ein holpriger Wechsel?
+
+Leichter, weicher Kot oder ein einmaliges Erbrechen in den ersten Tagen einer Umstellung sind meist harmlos und legen sich, wenn du langsamer vorgehst. Anders sieht es aus, wenn eine Katze über Wochen Durchfall hat, häufig erbricht, sich ständig kratzt oder vor allem am Kopf und Hals Krusten und kahle Stellen bekommt. Dann kann eine Futtermittelallergie oder Unverträglichkeit dahinterstecken. Um sie nachzuweisen, verordnet die Tierärztin eine Ausschlussdiät mit einer Eiweißquelle, die die Katze noch nie gefressen hat, oder mit einem speziell aufgespaltenen Eiweiß. Sie wird meist etwa acht Wochen lang streng gefüttert, ohne Leckerli und ohne Ausnahmen. Erst danach zeigt ein gezielter Provokationstest, welche Zutat Probleme macht.
+
+## Umstellen im Mehrkatzenhaushalt
+
+Schwierig wird es, wenn nur eine Katze ein neues oder ein Diätfutter bekommen soll. Füttere die Katzen dann zu festen Zeiten in getrennten Räumen und räume die Näpfe nach der Mahlzeit weg. Eine praktische Hilfe sind Futterautomaten mit Chiperkennung, die sich nur für die Katze öffnen, deren Mikrochip registriert ist. So bekommt die nierenkranke Seniorin ihre Diät, und der junge Kater frisst ihr nicht die Portion weg. Gewöhne die Katzen langsam an das Geräusch und das Öffnen des Deckels.
+
+## Ein Futtertagebuch hilft
+
+Notiere während einer Umstellung jeden Tag, welches Futter in welcher Menge angeboten und wie viel gefressen wurde, dazu Kotbeschaffenheit, Erbrechen und Auffälligkeiten wie Juckreiz. Wiege deine Katze einmal pro Woche. Diese Notizen zeigen dir, ob die Umstellung gelingt, und helfen der Tierärztin, wenn es Probleme gibt. Gerade bei mehreren Futterwechseln hintereinander verliert man sonst schnell den Überblick, was wann gefüttert wurde.
+
+## Umstellung bei Übergewicht
+
+Soll deine Katze abnehmen, ist die Umstellung auf ein energieärmeres Futter oft ein wichtiger Schritt. Dabei zählt nicht nur das Futter selbst, sondern vor allem die Menge. Lass die Tagesration mit der Tierärztin berechnen, wiege sie mit einer Küchenwaage ab und verteile sie über den Tag. Eine gesunde Abnahme erfolgt langsam, über Monate. Wie du dabei vorgehst, beschreibt [Übergewicht bei Katzen](/katzenwissen/uebergewicht-bei-katzen/).
+
 ## Häufige Fragen
 
 ### Darf ich mehrere Sorten abwechselnd füttern?
@@ -96,3 +112,7 @@ Geh einen Schritt zurück zum vorherigen Mischverhältnis und bleib dort einige 
 ### Wie stelle ich ein Kitten auf Erwachsenenfutter um?
 
 Ab einem Alter von etwa einem Jahr, wenn das Wachstum weitgehend abgeschlossen ist, auf die gleiche schrittweise Weise. Bei großen Rassen kann das Kittenfutter auch etwas länger sinnvoll sein.
+
+### Wie lange ist angebrochenes Futter während der Umstellung haltbar?
+
+Eine geöffnete Nassfutterdose hält abgedeckt im Kühlschrank etwa ein bis zwei Tage. Kaufe für die Umstellung deshalb kleine Packungen, damit nichts verdirbt, während deine Katze das neue Futter erst in kleinen Mengen bekommt. Angebrochenes Trockenfutter bleibt gut verschlossen einige Wochen frisch. Achte dabei immer auf das Mindesthaltbarkeitsdatum auf der Packung.

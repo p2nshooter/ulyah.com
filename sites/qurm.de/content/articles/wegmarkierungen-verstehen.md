@@ -88,10 +88,6 @@ Markierte Wanderwege sind in Deutschland eng mit der Gründung der Wander- und G
 
 Wer über die Grenze wandert, trifft auf andere Systeme. In **Österreich** sind Wege wie in den bayerischen Alpen rot-weiß-rot markiert. In der **Schweiz** sind Wanderwege gelb gekennzeichnet, Bergwanderwege weiß-rot-weiß und anspruchsvolle Alpinwanderwege weiß-blau-weiß. In **Frankreich** und **Belgien** tragen die großen Fernwege, die Grande-Randonnée-Wege, eine weiß-rote Doppelmarkierung, regionale Wege sind oft gelb-rot und kurze Wege gelb markiert. In **Tschechien** gibt es ein landesweit einheitliches System: ein farbiger Streifen in Rot, Blau, Grün oder Gelb zwischen zwei weißen Streifen, wobei Rot meist die wichtigsten Fernwege kennzeichnet. Wer die Grundidee kennt, findet sich schnell zurecht. Ein Blick in die Legende der Wanderkarte zeigt die Details.
 
-### Was bedeuten Pfeile, Winkel und durchgekreuzte Zeichen?
-
-Viele Systeme zeigen eine Richtungsänderung mit einem Pfeil oder einem abgewinkelten Zeichen an. Steht ein solches Zeichen an einer Kreuzung, biegt der Weg dort ab. Auf den französischen und belgischen Grande-Randonnée-Wegen bedeutet ein Kreuz aus den beiden Wegfarben, dass du in die falsche Richtung gehst. In Deutschland sind solche Warnzeichen seltener. Hier gilt: Fehlt nach einer Abzweigung das Zeichen, bist du vermutlich falsch.
-
 ## Häufige Fragen
 
 ### Warum gibt es so viele unterschiedliche Zeichen?
@@ -113,3 +109,7 @@ Nein. Auch gut gemeinte eigene Zeichen, Steinmännchen oder Bänder an Ästen k�
 ### Warum sind manche Markierungen verblasst oder kaum zu sehen?
 
 Sonne, Regen und Frost setzen der Farbe zu, Bäume wachsen und überwuchern Zeichen, und bei Holzarbeiten verschwinden markierte Stämme. Die ehrenamtlichen Wegewarte kontrollieren ihre Abschnitte regelmäßig und erneuern die Zeichen, können aber nicht überall gleichzeitig sein. Deshalb ist eine Karte als Ergänzung so wichtig.
+
+### Was bedeuten Pfeile, Winkel und durchgekreuzte Zeichen?
+
+Viele Systeme zeigen eine Richtungsänderung mit einem Pfeil oder einem abgewinkelten Zeichen an. Steht ein solches Zeichen an einer Kreuzung, biegt der Weg dort ab. Auf den französischen und belgischen Grande-Randonnée-Wegen bedeutet ein Kreuz aus den beiden Wegfarben, dass du in die falsche Richtung gehst. In Deutschland sind solche Warnzeichen seltener. Hier gilt: Fehlt nach einer Abzweigung das Zeichen, bist du vermutlich falsch.

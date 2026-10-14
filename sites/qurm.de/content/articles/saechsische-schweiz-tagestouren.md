@@ -86,10 +86,6 @@ Wer der Bastei ausweichen möchte, findet auf der linken Elbseite eine Reihe von
 
 Die Sächsische Schweiz ist ein Traumziel für Fotografen. Besonders stimmungsvoll ist es im Herbst, wenn sich morgens Nebel im Elbtal sammelt und die Felstürme wie Inseln daraus hervorragen. Wer den Sonnenaufgang an einem Aussichtspunkt erleben will, startet im Dunkeln mit Stirnlampe und kennt den Weg idealerweise schon vom Vortag. Bleib auch für das perfekte Bild hinter Geländern und auf den Wegen, denn viele Felskanten brechen senkrecht ab, und der Sandstein kann bröckeln. Drohnen dürfen über dem Nationalpark nicht ohne Genehmigung fliegen, und an engen Aussichtspunkten solltest du dein Stativ nur aufstellen, wenn andere trotzdem vorbeikommen.
 
-### Gibt es Touren ohne viele Treppen und Leitern?
-
-Ja. Das **Polenztal** zwischen Hohnstein und Bad Schandau ist ein Wiesental mit weitgehend flachen Wegen entlang des Flusses, im Frühjahr berühmt für die Blüte der Märzenbecher. Auch Wege entlang der Elbe und durch die breiteren Gründe kommen mit wenigen Stufen aus. Erkundige dich bei der Touristinformation nach Wegen, die zu deinen Wünschen passen.
-
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für die Sächsische Schweiz?
@@ -103,3 +99,7 @@ Ja, viele Touren sind für Kinder ein Abenteuer. Leitern, Felsengassen und Höhl
 ### Brauche ich Klettererfahrung?
 
 Nein. Die beschriebenen Wanderwege sind mit Leitern, Stufen und Geländern gesichert. Klettern an den Felsen selbst ist dagegen streng geregelt und nur mit Erfahrung und nach den sächsischen Kletterregeln erlaubt.
+
+### Gibt es Touren ohne viele Treppen und Leitern?
+
+Ja. Das **Polenztal** zwischen Hohnstein und Bad Schandau ist ein Wiesental mit weitgehend flachen Wegen entlang des Flusses, im Frühjahr berühmt für die Blüte der Märzenbecher. Auch Wege entlang der Elbe und durch die breiteren Gründe kommen mit wenigen Stufen aus. Erkundige dich bei der Touristinformation nach Wegen, die zu deinen Wünschen passen.

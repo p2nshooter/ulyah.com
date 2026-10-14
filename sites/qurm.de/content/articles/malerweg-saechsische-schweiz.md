@@ -100,10 +100,6 @@ Wer unterwegs Kletterer an den Felstürmen beobachtet, sieht übrigens eine beso
 
 Wer einen Tag Pause einlegt, findet entlang des Malerwegs viele Ziele, die ohne große Anstrengung erreichbar sind. Die Festung Königstein hoch über der Elbe lohnt einen halben Tag, ebenso eine Fahrt mit einem der historischen Raddampfer auf der Elbe oder mit der Kirnitzschtalbahn bis zum Lichtenhainer Wasserfall. Bad Schandau eignet sich wegen seiner Lage und Verkehrsanbindung gut als Standort für einen Ruhetag.
 
-### Lohnt sich ein Abstecher in die Böhmische Schweiz?
-
-Ja, wenn du Zeit hast. Jenseits der Grenze setzt sich die Felsenlandschaft im tschechischen Nationalpark Böhmische Schweiz fort. Bekanntestes Ziel ist das Prebischtor, das größte natürliche Sandsteintor Europas, das du von Schmilka aus in einer Tagestour erreichen kannst. Der Waldbrand 2022 hat auch auf tschechischer Seite große Flächen getroffen, prüf daher vorher, welche Wege offen sind.
-
 ## Häufige Fragen
 
 ### Ist der Malerweg für Anfänger geeignet?
@@ -117,3 +113,7 @@ Sportliche Wandernde kombinieren manchmal zwei kurze Etappen an einem Tag. Dann 
 ### Darf mein Hund mit?
 
 Ja, im Nationalpark gilt aber Leinenpflicht. Einige Leitern und Stiegen sind für Hunde schwierig oder unmöglich. Prüf vorher die Varianten oder plane Umgehungen.
+
+### Lohnt sich ein Abstecher in die Böhmische Schweiz?
+
+Ja, wenn du Zeit hast. Jenseits der Grenze setzt sich die Felsenlandschaft im tschechischen Nationalpark Böhmische Schweiz fort. Bekanntestes Ziel ist das Prebischtor, das größte natürliche Sandsteintor Europas, das du von Schmilka aus in einer Tagestour erreichen kannst. Der Waldbrand 2022 hat auch auf tschechischer Seite große Flächen getroffen, prüf daher vorher, welche Wege offen sind.

@@ -100,10 +100,6 @@ Sind die Kinder unterschiedlich alt, richtet sich die Tour nach dem jüngsten. D
 
 Technik kann Kinder für das Wandern begeistern, wenn sie zur Natur hinführt statt von ihr ab. Apps zum Bestimmen von Pflanzen und Vogelstimmen, eine Sternenkarte am Abend auf der Hütte oder die eigene Aufzeichnung der Tour machen Kindern Spaß. Vereinbart vorher, wofür das Handy benutzt wird und wann es im Rucksack bleibt. Für viele Familien hat sich bewährt, dass Fotos erlaubt sind, Spiele und Videos aber bis zum Abend warten.
 
-### Wie bereite ich mein Kind auf die erste lange Tour vor?
-
-Geh vorher ein paar kürzere Touren mit ähnlichem Gelände, damit sich dein Kind an Steigungen und das Tragen des eigenen Rucksacks gewöhnt. Neue Schuhe läuft ihr gemeinsam ein, und den Rucksack packt dein Kind am Vorabend selbst, mit deiner Checkliste. Erzähl, was euch erwartet, zeig Fotos vom Ziel und plant gemeinsam, wo ihr die große Pause macht. So wird die Tour zu einem gemeinsamen Projekt, auf das sich alle freuen.
-
 ## Häufige Fragen
 
 ### Was mache ich, wenn mein Kind nicht mehr weiterwill?
@@ -121,3 +117,7 @@ Mit trittsicheren, gut trainierten Kindern sind leichte Gipfel mit 600 bis 800 H
 ### Wie oft sollten wir Pausen machen?
 
 Plane etwa jede Stunde eine kurze Trinkpause und nach zwei bis drei Stunden eine längere Rast mit Essen ein. Schulkinder signalisieren Hunger und Müdigkeit oft erst spät, dann aber deutlich. Regelmäßige Pausen verhindern, dass die Stimmung plötzlich kippt.
+
+### Wie bereite ich mein Kind auf die erste lange Tour vor?
+
+Geh vorher ein paar kürzere Touren mit ähnlichem Gelände, damit sich dein Kind an Steigungen und das Tragen des eigenen Rucksacks gewöhnt. Neue Schuhe läuft ihr gemeinsam ein, und den Rucksack packt dein Kind am Vorabend selbst, mit deiner Checkliste. Erzähl, was euch erwartet, zeig Fotos vom Ziel und plant gemeinsam, wo ihr die große Pause macht. So wird die Tour zu einem gemeinsamen Projekt, auf das sich alle freuen.

@@ -79,6 +79,16 @@ Für Menschen, die selbst ein ruhiges Leben führen, etwa Ältere oder Berufstä
 
 **Hast du schon eine Katze?** Eine ältere, ruhige Katze ist mit einem wilden Kitten oft überfordert. Die passende Zweitkatze hat meist ein ähnliches Temperament und Alter.
 
+## Die Wohnung kittensicher machen
+
+Kitten erkunden alles mit Pfoten und Maul. Bevor ein Kätzchen einzieht, solltest du die Wohnung deshalb mit seinen Augen betrachten. Lose Kabel werden angeknabbert, kleine Gegenstände wie Haargummis, Gummibänder, Nähgarn und Lametta verschluckt. Fäden sind besonders gefährlich, weil sie sich im Darm verfangen und eine Notoperation nötig machen können. Schließe Waschmaschine, Trockner, Backofen und Toilettendeckel, bevor du sie benutzt, und schau immer hinein, bevor du eine Tür schließt, denn Kitten schlüpfen in jeden Spalt. Sichere Fenster und Balkon, entferne giftige Pflanzen und bewahre Reinigungsmittel und Medikamente sicher auf. Eine ausführliche Liste findest du in [Erstausstattung für Katzen](/katzenwissen/erstausstattung-fuer-katzen/) und [Giftige Pflanzen für Katzen](/katzenwissen/giftige-pflanzen-fuer-katzen/).
+
+## Woher kommt deine Katze?
+
+Ob Kitten oder erwachsene Katze: Die Herkunft entscheidet mit darüber, wie gesund und sozial deine Katze ist. Tierheime und Tierschutzvereine vermitteln Katzen jeden Alters, die tierärztlich untersucht, geimpft, gechippt und oft schon kastriert sind, und beraten dich ehrlich, welche Katze zu dir passt. Seriöse Züchterinnen und Züchter zeigen dir die Mutterkatze, geben Kitten nicht vor der zwölften Woche ab und lassen sich Zeit für deine Fragen.
+
+Vorsicht ist bei Kleinanzeigen geboten, in denen sehr junge Kätzchen günstig und sofort abgegeben werden, ohne Impfung, ohne Papiere und ohne dass du die Mutter sehen kannst. Hinter solchen Angeboten stecken oft unkontrollierte Vermehrungen oder illegaler Handel, und die Tiere sind häufig krank. Wie eine Adoption aus dem Tierheim abläuft, erklärt [Katze aus dem Tierheim adoptieren](/katzenwissen/katze-aus-dem-tierheim-adoptieren/).
+
 ## Häufige Fragen
 
 ### Wird eine erwachsene Katze mich so lieben wie ein Kitten, das ich großziehe?
@@ -92,3 +102,7 @@ Kätzchen lernen schnell, aber sie haben auch viel zu lernen. Eine erwachsene Ka
 ### Soll ich bei einer Seniorin mit hohen Tierarztkosten rechnen?
 
 Mit höheren als bei einer jungen Katze, ja. Frag im Tierheim nach bekannten Erkrankungen und plane eine Rücklage ein. Viele ältere Katzen sind aber gesund und brauchen über Jahre nur ihre Vorsorgeuntersuchungen.
+
+### Was kostet eine Katze aus dem Tierheim?
+
+Tierheime verlangen eine Schutzgebühr, die einen Teil der Kosten für Unterbringung, Impfungen, Chip und Kastration deckt. Ihre Höhe ist je nach Tierheim unterschiedlich. Mit einem Schutzvertrag verpflichtest du dich, die Katze gut zu versorgen und sie bei Problemen nicht einfach weiterzugeben.

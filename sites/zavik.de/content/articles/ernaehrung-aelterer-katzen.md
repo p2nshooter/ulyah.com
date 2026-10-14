@@ -102,6 +102,18 @@ Für ältere Katzen werden zahlreiche Nahrungsergänzungsmittel angeboten, etwa 
 
 Wenn deine ältere Katze einen ganzen Tag lang nichts frisst, über mehrere Tage deutlich weniger frisst als sonst oder dabei erbricht, warte nicht ab. Übelkeit, Zahnschmerzen und Nierenprobleme lassen sich behandeln, und die Tierärztin kann bei Bedarf auch appetitanregende und übelkeitshemmende Mittel einsetzen.
 
+## Hochbetagte Katzen ab etwa fünfzehn Jahren
+
+Sehr alte Katzen brauchen oft mehr Energie, als man denkt, weil sie Nährstoffe schlechter verwerten. Viele werden dünn, obwohl sie scheinbar normal fressen. Für sie eignet sich ein gut verdauliches, energiereiches Futter mit hochwertigem Eiweiß, verteilt auf viele kleine Mahlzeiten. Lässt der Appetit trotz aller Kniffe nach, kann die Tierärztin nach einer Untersuchung appetitanregende Medikamente verschreiben, die es teils auch als Salbe für die Ohrinnenseite gibt. Wichtig ist, die Ursache des Appetitverlusts zu suchen, denn Übelkeit, Zahnschmerzen oder eine Nierenerkrankung lassen sich oft gezielt behandeln.
+
+## Ernährung bei Nierenerkrankung
+
+Bei einer chronischen Nierenerkrankung ist das Futter ein wichtiger Teil der Behandlung. Nierendiäten enthalten weniger Phosphor und eine angepasste Eiweißmenge und können das Fortschreiten der Erkrankung verlangsamen. Viele Katzen mögen den Geschmack anfangs nicht. Stelle deshalb langsam um, über mehrere Wochen, und probiere verschiedene Sorten und Konsistenzen aus. Frisst deine Katze die Diät gar nicht, sprich mit der Tierärztin über Alternativen, etwa Phosphatbinder, die unter das gewohnte Futter gemischt werden. Eine Katze, die überhaupt nicht frisst, ist in größerer Gefahr als eine, die ihr normales Futter bekommt. Mehr dazu steht in [Niereninsuffizienz bei Katzen](/katzenwissen/niereninsuffizienz-bei-katzen/).
+
+## Futterumstellung im Alter
+
+Ältere Katzen sind beim Futter oft besonders konservativ. Eine Umstellung sollte deshalb noch behutsamer erfolgen als bei jüngeren Tieren, über zwei bis drei Wochen, mit einem langsam steigenden Anteil des neuen Futters. Ändere nicht mehrere Dinge gleichzeitig, also nicht Futter, Napf und Futterplatz auf einmal. Beobachte während der Umstellung Gewicht, Kot und Appetit genau. Wie du Schritt für Schritt vorgehst, beschreibt [Futter richtig umstellen](/katzenwissen/futter-richtig-umstellen/).
+
 ## Häufige Fragen
 
 ### Ab wann sollte ich auf Seniorenfutter umstellen?
@@ -115,3 +127,11 @@ Lass sie zuerst untersuchen, denn oft stecken Zahnschmerzen, Übelkeit oder eine
 ### Darf ich meiner Seniorin Milch geben?
 
 Viele ältere Katzen vertragen Milch ebenso wenig wie jüngere. Laktosereduzierte Katzenmilch ist gelegentlich in Ordnung, aber kein Ersatz für Wasser oder Futter.
+
+### Wie erkenne ich, dass meine Seniorin Muskeln abbaut?
+
+Fahr mit der Hand über Rücken, Schulterblätter und Hüften. Treten Wirbelsäule und Beckenknochen deutlicher hervor als früher, obwohl das Gewicht kaum gesunken ist, baut deine Katze Muskeln ab. Sprich dann mit der Tierärztin über Eiweißversorgung und mögliche Ursachen.
+
+### Braucht eine alte Katze zusätzliche Vitamine?
+
+Wenn deine Katze ein vollständiges Alleinfuttermittel bekommt, ist das meist nicht nötig. Bei bestimmten Erkrankungen, etwa chronischen Darmerkrankungen, kann ein Mangel an einzelnen Vitaminen entstehen, den die Tierärztin mit Blutwerten feststellt und gezielt ausgleicht. Gib Vitaminpräparate nicht auf eigene Faust, denn manche Vitamine können in zu hoher Dosis schaden.

@@ -114,6 +114,22 @@ Bei deutlichen Veränderungen, besonders wenn sie mit Juckreiz, Gewichtsverlust 
 - **Ohren:** Gesunde Ohren reinigen sich selbst. Reinige nur den sichtbaren Teil der Ohrmuschel bei Bedarf mit einem weichen Tuch, niemals mit Wattestäbchen im Gehörgang.
 - **Hinterteil:** Bei Langhaarkatzen kann es helfen, das Fell um den After kurz zu halten, damit kein Kot darin hängen bleibt. Das kann die Tierarztpraxis zeigen.
 
+## Rassen mit besonderen Pflegeansprüchen
+
+Manche Rassen brauchen eine angepasste Pflege. **Perserkatzen** haben ein so dichtes, feines Fell, dass tägliches Kämmen Pflicht ist, und wegen ihrer kurzen Nase müssen oft auch die Augenwinkel täglich gereinigt werden. **Maine Coon** und **Norwegische Waldkatzen** haben ein wasserabweisendes Halblanghaar, das zwei- bis dreimal pro Woche gekämmt werden sollte, im Fellwechsel häufiger. **Rex-Katzen** mit gelocktem Fell brauchen eine besonders weiche Bürste, denn ihr Fell ist zart. **Nacktkatzen** wie die Sphynx haben zwar kein Fell, aber ihre Haut bildet Talg, den sonst das Fell aufnehmen würde. Sie müssen deshalb regelmäßig mit einem milden Katzenshampoo gewaschen oder abgewischt werden, frieren schnell und brauchen im Sommer Schutz vor Sonnenbrand.
+
+## Haarballen vorbeugen
+
+Beim Putzen schlucken Katzen lose Haare, die meist mit dem Kot ausgeschieden werden. Gelangen viele Haare in den Magen, etwa im Fellwechsel oder bei Langhaarkatzen, würgt die Katze sie als Haarballen wieder hervor. Regelmäßiges Bürsten ist die wirksamste Vorbeugung. Zusätzlich können Malzpasten oder Futter mit einem höheren Anteil an Ballaststoffen helfen, die Haare durch den Darm zu befördern. Würgt deine Katze häufig, mehrmals pro Woche, oder erbricht sie auch ohne Haare, lass das abklären. Mehr dazu steht in [Erbrechen und Haarballen](/katzenwissen/erbrechen-und-haarballen/).
+
+## Wenn Profis helfen müssen
+
+Manche Katzen lassen sich trotz geduldigem Training nicht bürsten, oder ihr Fell ist so stark verfilzt, dass du es zu Hause nicht mehr lösen kannst. Dann helfen Katzenfriseure mit Erfahrung oder die Tierarztpraxis. Bei großflächigen, hautnahen Filzen wird die Katze oft leicht sediert, damit das Scheren schonend und ohne Verletzungen gelingt. Danach ist es wichtig, mit einer regelmäßigen Pflege zu beginnen, damit sich nicht erneut Filz bildet.
+
+## Fellpflege und Katzenallergie
+
+Das wichtigste Allergen von Katzen stammt vor allem aus Speichel und Hautdrüsen und verteilt sich beim Putzen auf dem Fell. Regelmäßiges Bürsten, am besten durch eine Person ohne Allergie und nicht im Schlafzimmer, verringert die Menge an Haaren und Hautschuppen in der Wohnung. Häufiges Waschen von Decken, Saugen mit einem Filter für feine Partikel und ein Luftreiniger können zusätzlich helfen. Eine Allergie verschwindet dadurch nicht, aber die Beschwerden werden für manche Menschen erträglicher. Lass eine Allergie in jedem Fall ärztlich abklären.
+
 ## Häufige Fragen
 
 ### Darf ich meine Langhaarkatze im Sommer scheren lassen?

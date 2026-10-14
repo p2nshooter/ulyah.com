@@ -96,6 +96,18 @@ Wenn deine Katze plötzlich empfindlicher auf Berührungen reagiert als früher,
 
 Katzenbisse können sich außerdem leicht entzünden, weil Katzenzähne Bakterien tief in das Gewebe einbringen. Reinige einen Biss gründlich und lass ihn ärztlich ansehen, wenn er anschwillt, rot oder warm wird, besonders an der Hand.
 
+## Wenn die Haut zuckt: Hyperästhesie
+
+Manche Katzen reagieren besonders heftig auf Berührungen am unteren Rücken. Die Haut rollt oder zuckt dann sichtbar, die Katze dreht sich plötzlich um, beißt in die Luft oder in die eigene Flanke, rast durch die Wohnung oder jagt ihren Schwanz. Fachleute sprechen vom felinen Hyperästhesie-Syndrom. Die Ursachen sind nicht vollständig geklärt. Hinter solchen Anfällen können Hauterkrankungen, Flohbefall, Schmerzen an der Wirbelsäule oder neurologische Probleme stecken, aber auch Stress. Wenn du so etwas beobachtest, filme die Episode und lass deine Katze gründlich untersuchen. Je nach Ursache helfen Behandlung von Haut oder Schmerzen, mehr Beschäftigung und ein ruhigeres Umfeld.
+
+## Pflege bei berührungsempfindlichen Katzen
+
+Auch Katzen, die Berührung nur in kleinen Dosen mögen, müssen gelegentlich gebürstet, untersucht oder behandelt werden. Beginne mit den Stellen, die sie mag, etwa Wangen und Kinn, und arbeite dich in kurzen Einheiten weiter. Ein Noppenhandschuh fühlt sich für viele Katzen eher wie Streicheln an als eine Bürste. Belohne jede ruhige Sekunde und höre auf, bevor die ersten Warnzeichen kommen. Wie du die Fellpflege aufbaust, beschreibt [Fellpflege bei Katzen](/katzenwissen/fellpflege-bei-katzen/). Für die Krallenpflege gilt dasselbe Vorgehen in kleinen Schritten.
+
+## Besuch und Kinder anleiten
+
+Gäste und Kinder wissen meist nicht, wo die Grenzen deiner Katze liegen. Erkläre ihnen kurz die Einladungsregel: Hand hinhalten, warten, bis die Katze den Kopf daran reibt, nur an Kopf und Wangen streicheln, nach wenigen Sekunden Pause machen. Wer die Warnzeichen kennt, wird selten gebissen. Weitere Regeln für Familien stehen in [Katze und Kinder](/katzenwissen/katze-und-kinder/).
+
 ## Häufige Fragen
 
 ### Meine Katze beißt nur leicht, ohne zu verletzen. Ist das auch Aggression?
@@ -109,3 +121,11 @@ Das Zeigen des Bauchs ist ein Vertrauensbeweis, aber keine Einladung. In Rücken
 ### Kann ich meiner Katze beibringen, länger gestreichelt zu werden?
 
 Teilweise. Wenn du ihre Grenzen konsequent respektierst und Streicheln mit angenehmen Erfahrungen verbindest, toleriert sie oft mit der Zeit mehr. Ihr grundsätzliches Wesen bleibt aber erhalten.
+
+### Hilft es, die Katze nach einem Biss wegzuschicken?
+
+Ein ruhiges Beenden der Situation hilft: Hand zurückziehen, aufstehen oder die Katze sanft vom Schoß lassen. Wegschubsen, Anschreien oder Einsperren dagegen verunsichern sie. Wichtiger ist, beim nächsten Mal früher aufzuhören, bevor sie überhaupt beißen muss, und die Warnzeichen besser im Blick zu behalten.
+
+### Bedeutet das Beißen, dass meine Katze mich nicht mag?
+
+Nein. Streichelbedingte Aggression sagt nichts über die Bindung aus. Viele Katzen, die beim Streicheln schnell genug haben, suchen trotzdem ständig die Nähe ihrer Menschen, liegen neben ihnen auf dem Sofa und begrüßen sie an der Tür. Sie haben nur eine niedrigere Schwelle für Berührung. Wenn du diese Schwelle respektierst, wird eure Beziehung oft enger als vorher.

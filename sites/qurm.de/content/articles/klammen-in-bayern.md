@@ -100,10 +100,6 @@ Einige Klammen sind auch im Winter geöffnet und zeigen sich dann von einer ganz
 
 Klammen sind empfindliche Lebensräume, in denen Moose, Farne und seltene Pflanzen im feuchten, kühlen Klima gedeihen. Bleib auf dem Steig, wirf keine Steine ins Wasser, denn unter dir können andere Menschen unterwegs sein, und nimm deinen Müll wieder mit. Drohnen sind in vielen Klammen ausdrücklich verboten und stören an engen, vollen Stellen ohnehin. An engen Passagen gilt: kurz stehen bleiben und Gegenverkehr durchlassen, statt sich vorbeizudrängen. Wer fotografieren möchte, sucht sich eine breitere Stelle, damit der Steig frei bleibt.
 
-### Was kostet der Eintritt in eine Klamm?
-
-Die meisten Klammen erheben ein Eintrittsgeld von einigen Euro für Erwachsene, Kinder zahlen weniger. Das Geld fließt in den Unterhalt der Steige, Geländer und Brücken, der in dem nassen, steinschlaggefährdeten Gelände aufwendig ist. In manchen Urlaubsregionen gibt es Ermäßigungen mit der Gästekarte. Weil sich Preise und Zahlungsmöglichkeiten ändern, prüf sie vor dem Besuch auf der offiziellen Seite der Klamm und nimm etwas Bargeld mit.
-
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für einen Klammbesuch?
@@ -117,3 +113,7 @@ In vielen Klammen sind angeleinte Hunde erlaubt, in einigen nicht. Für manche H
 ### Wie lange dauert ein Klammbesuch?
 
 Die Klamm selbst ist oft in einer halben bis einer Stunde durchquert. Mit Anstieg, Rückweg und Pausen solltest du für einen Ausflug aber zwei bis vier Stunden einplanen, je nach Klamm und Rundweg.
+
+### Was kostet der Eintritt in eine Klamm?
+
+Die meisten Klammen erheben ein Eintrittsgeld von einigen Euro für Erwachsene, Kinder zahlen weniger. Das Geld fließt in den Unterhalt der Steige, Geländer und Brücken, der in dem nassen, steinschlaggefährdeten Gelände aufwendig ist. In manchen Urlaubsregionen gibt es Ermäßigungen mit der Gästekarte. Weil sich Preise und Zahlungsmöglichkeiten ändern, prüf sie vor dem Besuch auf der offiziellen Seite der Klamm und nimm etwas Bargeld mit.

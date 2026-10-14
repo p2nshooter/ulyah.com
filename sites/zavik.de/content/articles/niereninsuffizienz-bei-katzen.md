@@ -110,6 +110,22 @@ Einer altersbedingten Nierenerkrankung lässt sich nicht sicher vorbeugen. Du ka
 - regelmäßige Vorsorgeuntersuchungen mit Blut- und Urintests ab etwa sieben bis zehn Jahren
 - auf vermehrtes Trinken achten und es früh ansprechen
 
+## Akute Nierenschädigung: ein Notfall
+
+Neben der schleichenden, chronischen Form gibt es eine akute Nierenschädigung, die sich innerhalb von Stunden bis Tagen entwickelt. Häufige Auslöser sind Vergiftungen, etwa durch Lilien, Frostschutzmittel oder Schmerzmittel für Menschen, ein Harnröhrenverschluss bei Katern, schwere Infektionen oder starker Flüssigkeitsverlust. Die Katze frisst plötzlich nicht mehr, erbricht, ist matt und setzt oft kaum noch Urin ab. Eine akute Nierenschädigung muss sofort behandelt werden, meist mit Infusionen in der Klinik. Wird sie früh erkannt, kann sich die Nierenfunktion teilweise oder ganz erholen. Bei jedem Verdacht auf eine Vergiftung gilt deshalb: nicht abwarten, sondern sofort in die Tierklinik.
+
+## Infusionen unter die Haut: so klappt es zu Hause
+
+Wenn die Tierärztin Infusionen für zu Hause empfiehlt, zeigt sie dir in der Praxis genau, wie es geht. Ein paar Tipps erleichtern die Routine. Wärme den Infusionsbeutel vorher auf Körpertemperatur an, etwa in einem Wasserbad, denn kalte Flüssigkeit ist unangenehm. Wähle einen ruhigen Platz, an dem die Katze sich wohlfühlt, etwa ihre Lieblingsdecke auf dem Sofa, und lass dir am Anfang von einer zweiten Person helfen. Die Flüssigkeit wird meist in die lockere Hautfalte zwischen den Schulterblättern gegeben. Danach bildet sich dort für einige Stunden ein weiches Polster, das sich langsam verteilt. Belohne deine Katze nach jeder Infusion mit Futter oder Zuwendung. Viele Katzen gewöhnen sich so gut daran, dass sie während der Infusion schnurrend liegen bleiben.
+
+## Erblich bedingte Nierenerkrankungen
+
+Bei manchen Rassen gibt es erbliche Nierenerkrankungen. Am bekanntesten ist die polyzystische Nierenerkrankung, bei der sich mit der Zeit Zysten in den Nieren bilden. Sie kommt vor allem bei Perserkatzen und verwandten Rassen vor. Für diese Erkrankung gibt es einen Gentest, und verantwortungsvolle Züchterinnen und Züchter lassen ihre Zuchttiere testen. Wenn du eine Rassekatze kaufst, frag nach den Testergebnissen der Elterntiere.
+
+## Niere und Schilddrüse: ein schwieriges Paar
+
+Viele ältere Katzen haben gleichzeitig eine Schilddrüsenüberfunktion und eine Nierenerkrankung. Die Schilddrüsenüberfunktion steigert die Durchblutung der Nieren und kann eine beginnende Nierenerkrankung dadurch verschleiern. Wird die Schilddrüse behandelt, steigen die Nierenwerte manchmal an, und erst dann zeigt sich, wie gut die Nieren tatsächlich arbeiten. Deshalb kontrolliert die Tierärztin nach dem Beginn einer Schilddrüsentherapie die Nierenwerte besonders genau und passt beide Behandlungen aneinander an.
+
 ## Häufige Fragen
 
 ### Kann sich eine geschädigte Niere erholen?
@@ -123,3 +139,7 @@ Nein. Eine gesunde Katze braucht kein Nierenfutter, und eine zu frühe Eiweißre
 ### Ist eine Nierenerkrankung schmerzhaft?
 
 Die Erkrankung selbst verursacht meist keine starken Schmerzen, aber Übelkeit, Appetitlosigkeit und Schwäche beeinträchtigen das Wohlbefinden. Diese Beschwerden lassen sich behandeln.
+
+### Darf eine nierenkranke Katze Leckerli bekommen?
+
+Viele handelsübliche Leckerli enthalten viel Phosphor und passen nicht zu einer Nierendiät. Nutze stattdessen einzelne Stücke oder Kroketten des Diätfutters als Belohnung, oder frag in der Praxis nach Snacks, die für nierenkranke Katzen geeignet sind.

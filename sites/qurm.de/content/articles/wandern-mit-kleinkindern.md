@@ -108,10 +108,6 @@ Kleine Spiele verwandeln eine zähe Strecke in ein Abenteuer. Bewährt haben sic
 
 Viele Kleinkinder brauchen noch einen Mittagsschlaf. Plane die Tour so, dass er zu deinem Kind passt: Entweder ihr startet nach dem Schlaf, oder das Kind schläft unterwegs in der Trage. Viele Kinder schlafen beim Schaukeln des Gehens erstaunlich gut ein. Achte dann darauf, dass der Kopf gestützt ist, und zieh dem Kind eine zusätzliche Schicht an, weil es im Schlaf schneller auskühlt. Die Schlafphase eignet sich gut für den Teil der Strecke, auf dem es wenig zu entdecken gibt.
 
-### Wie gehe ich mit kleinen Stürzen und Verletzungen um?
-
-Kleinkinder stolpern oft, und fast immer ist der Schreck größer als der Schaden. Tröste zuerst, dann schaust du dir die Stelle an. Kleine Schürfwunden spülst du mit sauberem Wasser aus und klebst ein Pflaster darauf; ein buntes Trostpflaster wirkt oft Wunder. Nach einem Sturz auf den Kopf beobachtest du das Kind genau. Erbricht es, wird es ungewöhnlich schläfrig oder verhält es sich anders als sonst, brauchst du ärztliche Hilfe.
-
 ## Häufige Fragen
 
 ### Ab wann kann mein Kind selbst wandern?
@@ -125,3 +121,7 @@ Zuerst Pause, Snack und Trinken. Oft steckt Hunger oder Müdigkeit dahinter. Hil
 ### Sind Wanderungen mit Kinderwagen sinnvoll?
 
 Auf breiten, ebenen Wegen ja. Für typische Wanderpfade ist eine Trage jedoch die bessere Wahl, weil du dort mit Rädern schnell an Grenzen stößt.
+
+### Wie gehe ich mit kleinen Stürzen und Verletzungen um?
+
+Kleinkinder stolpern oft, und fast immer ist der Schreck größer als der Schaden. Tröste zuerst, dann schaust du dir die Stelle an. Kleine Schürfwunden spülst du mit sauberem Wasser aus und klebst ein Pflaster darauf; ein buntes Trostpflaster wirkt oft Wunder. Nach einem Sturz auf den Kopf beobachtest du das Kind genau. Erbricht es, wird es ungewöhnlich schläfrig oder verhält es sich anders als sonst, brauchst du ärztliche Hilfe.

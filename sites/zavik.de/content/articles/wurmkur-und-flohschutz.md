@@ -88,6 +88,18 @@ Wenn deine Katze nach einer Behandlung zittert, sabbert, taumelt oder krampft, i
 
 Ohrmilben verursachen starken Juckreiz und dunkle, krümelige Beläge im Ohr. Sie sind vor allem bei Kätzchen und in Mehrkatzenhaushalten häufig und sehr ansteckend. Auch Hautpilze und Haarlinge kommen vor. Wenn deine Katze sich häufig kratzt, den Kopf schüttelt oder kahle Stellen hat, lass sie untersuchen.
 
+## Giardien: hartnäckige Durchfallerreger
+
+Giardien sind keine Würmer, sondern einzellige Darmparasiten. Sie kommen besonders häufig bei Kitten, bei Katzen aus dem Tierschutz und in Mehrkatzenhaushalten vor. Typisch ist ein wiederkehrender, breiiger, oft schleimiger und übel riechender Durchfall, während die Katze sonst munter wirken kann. Nachgewiesen werden Giardien mit einem speziellen Test aus einer Kotprobe. Die Behandlung verordnet die Tierärztin. Genauso wichtig wie das Medikament ist die Hygiene, denn die widerstandsfähigen Zysten bleiben in der Umgebung ansteckend: Reinige die Katzentoiletten während der Behandlung täglich gründlich mit heißem Wasser, wasche Decken heiß und reinige Fell und Hinterteil der Katze am Ende der Behandlung, damit sie sich nicht beim Putzen erneut ansteckt.
+
+## Eine Kotprobe richtig sammeln
+
+Wurmeier und Giardienzysten werden nicht mit jedem Kotabsatz ausgeschieden. Deshalb ist eine Sammelprobe aus drei Tagen aussagekräftiger als eine einzelne Probe. Nimm jeden Tag mit einem Löffel oder Spatel eine haselnussgroße Menge frischen Kot aus der Toilette, ohne viel Streu, und gib sie in ein sauberes, verschließbares Gefäß, das du in der Praxis bekommst oder in der Apotheke kaufst. Bewahre die Probe kühl auf, etwa im Kühlschrank in einer zusätzlichen Tüte, und bring sie nach dem dritten Tag in die Praxis. Beschrifte das Gefäß mit dem Namen der Katze und den Daten.
+
+## Den Parasitenschutz planen
+
+Am einfachsten ist ein fester Plan, den du einmal mit deiner Tierarztpraxis besprichst: wie oft entwurmt oder der Kot untersucht wird, welcher Floh- und Zeckenschutz in welchen Monaten sinnvoll ist und welche Mittel deine Katze verträgt. Trag die Termine in einen Kalender oder eine Erinnerungs-App ein. Wiege deine Katze vor jeder Behandlung, denn die meisten Mittel werden nach Körpergewicht dosiert, und eine zu niedrige Dosis wirkt nicht zuverlässig.
+
 ## Häufige Fragen
 
 ### Muss eine Wohnungskatze überhaupt entwurmt werden?
@@ -101,3 +113,7 @@ Einige Mittel sind frei erhältlich, andere verschreibungspflichtig. Lass dich t
 ### Helfen Hausmittel wie Knoblauch oder Kokosöl gegen Parasiten?
 
 Nein. Knoblauch ist für Katzen sogar giftig. Es gibt keine belastbaren Belege für die Wirksamkeit solcher Hausmittel.
+
+### Kann ich mich bei meiner Katze mit Würmern anstecken?
+
+Bei einigen Parasiten ist das grundsätzlich möglich, etwa bei Spulwürmern, deren Eier über verschmutzte Hände aufgenommen werden können. Mit einfacher Hygiene ist das Risiko gering: Hände waschen nach dem Reinigen der Katzentoilette und vor dem Essen, Toiletten täglich säubern und die Katze nach Plan entwurmen. Besonders wichtig ist das in Haushalten mit kleinen Kindern, Schwangeren oder immungeschwächten Menschen.

@@ -113,6 +113,18 @@ Diese Schritte klingen aufwendig, aber sie lohnen sich: Viele Ursachen chronisch
 - **Kein langes Fasten:** Lass deine Katze nicht über einen Tag lang hungern, um den Magen zu schonen. Das ist bei Katzen gefährlich.
 - **Keine Medikamente für Menschen:** Mittel gegen Übelkeit für Menschen können für Katzen giftig sein.
 
+## Kitten und Senioren: schneller handeln
+
+Bei Kätzchen und sehr alten Katzen ist Erbrechen ernster zu nehmen als bei gesunden Erwachsenen. Kitten haben kaum Reserven und trocknen bei Erbrechen und Durchfall innerhalb kurzer Zeit aus. Häufige Ursachen sind Würmer, Giardien, Infektionen oder eine zu schnelle Futterumstellung nach dem Einzug. Ältere Katzen erbrechen dagegen oft wegen chronischer Erkrankungen wie Nierenproblemen, Schilddrüsenüberfunktion oder Darmentzündungen, die gut behandelbar sind, wenn sie früh erkannt werden. Bei beiden Gruppen solltest du nicht abwarten, sondern bei wiederholtem Erbrechen noch am selben Tag die Praxis anrufen.
+
+## Wenn Durchfall dazukommt
+
+Erbrechen und Durchfall treten häufig gemeinsam auf. Einmal weicher Kot nach einem Futterwechsel ist meist harmlos. Hält der Durchfall länger als ein bis zwei Tage an, ist er wässrig, blutig oder schleimig, oder wirkt die Katze matt, gehört sie in die Tierarztpraxis. Bei Kitten gilt das schon am ersten Tag. Bring wenn möglich eine frische Kotprobe mit, damit Parasiten wie Würmer oder Giardien gleich untersucht werden können. Mehr dazu steht in [Wurmkur und Flohschutz](/katzenwissen/wurmkur-und-flohschutz/).
+
+## Schonkost: was wirklich hilft
+
+Früher wurde Katzen nach Magen-Darm-Beschwerden oft gekochtes Huhn mit Reis empfohlen. Reis ist für Katzen allerdings kein besonders passendes Lebensmittel, und eine selbst zusammengestellte Schonkost ist nicht ausgewogen. Besser geeignet sind leicht verdauliche Diätfuttermittel für Magen und Darm, die du in der Tierarztpraxis bekommst. Biete sie in mehreren kleinen Portionen über den Tag verteilt an, leicht angewärmt. Wenn du für einen Tag selbst kochen möchtest, nimm gekochtes, ungewürztes Hühnerfleisch ohne Haut und Knochen, und kehre danach langsam zum gewohnten Futter zurück. Länger als ein bis zwei Tage solltest du so nicht füttern, ohne Rücksprache mit der Tierärztin.
+
 ## Häufige Fragen
 
 ### Ist es normal, dass meine Katze nach dem Grasfressen erbricht?
@@ -126,3 +138,11 @@ Gelber oder weißer Schaum auf nüchternen Magen kann darauf hinweisen, dass der
 ### Helfen Hausmittel wie Öl gegen Haarballen?
 
 Öl im Futter wird nicht empfohlen. Es kann die Verdauung stören und, wenn es in die Luftröhre gelangt, eine Lungenentzündung verursachen. Besser sind Bürsten, Ballaststoffe und spezielle Pasten in Maßen.
+
+### Wie viel Wasser darf meine Katze nach dem Erbrechen trinken?
+
+Biete frisches Wasser an, aber lass sie nicht in großen Mengen auf einmal trinken, wenn sie direkt danach wieder erbricht. Kleine Schlucke in Abständen werden besser vertragen. Erbricht sie auch Wasser wiederholt, ruf die Praxis an.
+
+### Kann Stress Erbrechen auslösen?
+
+Ja, auch Stress kann bei manchen Katzen zu Erbrechen oder Durchfall führen, etwa nach einem Umzug, beim Einzug einer neuen Katze oder bei Besuch. Bevor du Stress als Ursache annimmst, sollten aber körperliche Ursachen ausgeschlossen sein, besonders wenn das Erbrechen häufiger vorkommt.

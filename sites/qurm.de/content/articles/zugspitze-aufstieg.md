@@ -95,10 +95,6 @@ Auf knapp 3.000 Metern ist die Luft dünner, und manche Menschen reagieren darau
 
 Mit der Bahn ist der Gipfel auch für Familien ein Erlebnis, und auf dem Zugspitzplatt gibt es im Sommer Wege, die sich für kurze Erkundungen mit Kindern eignen. Für einen Aufstieg zu Fuß sind die Routen dagegen zu lang und im oberen Teil zu alpin. Erfahrene, trittsichere Jugendliche, die schon mehrere große Bergtouren gemacht haben, können das Reintal mit Übernachtung in Begleitung Erwachsener schaffen. Kleinere Kinder sind auf den Wegen zu Partnachklamm, Eibsee oder einer Alm besser aufgehoben.
 
-### Gibt es unterwegs Wasser?
-
-Auf den Hütten am Weg kannst du Getränke kaufen und oft auch Wasser auffüllen. Dazwischen liegen lange Abschnitte ohne verlässliche Quellen, besonders auf dem steinigen Zugspitzplatt. Nimm deshalb ausreichend Wasser für jeden Abschnitt mit und frag auf den Hütten, wo du nachfüllen kannst.
-
 ## Häufige Fragen
 
 ### Wann ist die beste Zeit für den Aufstieg?
@@ -112,3 +108,7 @@ Sehr fitte und erfahrene Bergsteigende schaffen das, mit einem Start in der Nach
 ### Brauche ich einen Bergführer?
 
 Für das Reintal mit guter Vorbereitung nicht zwingend. Für das Höllental ist eine Führung sinnvoll, wenn du keine Erfahrung mit Klettersteigen und Gletschern hast.
+
+### Gibt es unterwegs Wasser?
+
+Auf den Hütten am Weg kannst du Getränke kaufen und oft auch Wasser auffüllen. Dazwischen liegen lange Abschnitte ohne verlässliche Quellen, besonders auf dem steinigen Zugspitzplatt. Nimm deshalb ausreichend Wasser für jeden Abschnitt mit und frag auf den Hütten, wo du nachfüllen kannst.

@@ -103,6 +103,18 @@ Katzen erkennen die Stimme ihrer Menschen und reagieren auf ihren Namen, auch we
 
 Du kannst auch deine Reaktionen nutzen, um die Verständigung zu verbessern: Begrüße deine Katze, wenn sie dich angurrt, antworte, wenn sie dir etwas erzählt, und reagiere verlässlich auf Laute, die du gut findest. So entsteht eine gemeinsame Sprache.
 
+## Laute von Kitten
+
+Kitten sind besonders gesprächig. In den ersten Tagen im neuen Zuhause rufen viele nachts nach ihrer Mutter und ihren Geschwistern, weil sie sich allein fühlen. Das ist normal und legt sich meist nach einigen Tagen. Hilfreich ist ein warmer, geschützter Schlafplatz in deiner Nähe, etwa eine Höhle mit einer Decke, die nach dem früheren Zuhause riecht, und eine kurze, ruhige Spiel- und Futterrunde vor dem Schlafengehen. Ein zweites Kätzchen als Gefährte hilft am meisten. Wie die ersten Tage gelingen, beschreibt [Die ersten Tage mit der neuen Katze](/katzenwissen/die-ersten-tage-mit-der-neuen-katze/).
+
+## Wenn eine Katze nicht hört, was sie sagt
+
+Taube Katzen sind oft besonders laut, weil sie ihre eigene Stimme nicht hören und die Lautstärke nicht anpassen können. Angeborene Taubheit kommt gehäuft bei weißen Katzen vor, vor allem bei Tieren mit blauen Augen. Auch im Alter lässt das Gehör bei vielen Katzen nach, und sie rufen dann lauter als früher. Eine taube Katze erschrickt leicht, wenn man sich ihr von hinten nähert. Mach dich durch Vibrationen bemerkbar, etwa durch festes Auftreten, oder durch Lichtzeichen, und berühre sie nicht unvermittelt im Schlaf. Mit Handzeichen lassen sich taube Katzen überraschend gut ansprechen, zum Beispiel für Futter oder zum Herkommen.
+
+## Das Repertoire deiner Katze kennenlernen
+
+Jede Katze hat ihren eigenen Wortschatz. Wenn du ihre Laute besser verstehen möchtest, nimm sie eine Zeit lang mit dem Handy auf und notiere die Situation dazu: vor dem Füttern, an der Balkontür, bei der Begrüßung, am Fenster. Nach einigen Wochen erkennst du Muster und kannst ihre Wünsche oft schon am Klang unterscheiden. Solche Aufnahmen helfen auch der Tierärztin, wenn sich die Stimme deiner Katze verändert oder sie ungewöhnlich ruft.
+
 ## Häufige Fragen
 
 ### Warum miaut meine Katze mich an, wenn ich auf der Toilette bin?
@@ -116,3 +128,7 @@ Nicht unbedingt. Manche Katzen sind einfach still und kommunizieren lieber mit d
 ### Versteht meine Katze, was ich sage?
 
 Katzen verstehen keine Sätze, aber sie lernen, Wörter und Tonfall mit Ereignissen zu verbinden. Viele erkennen ihren Namen und Wörter wie „Futter“ oder „Spielen“, wenn sie diese oft in bestimmten Situationen hören.
+
+### Warum miaut meine Katze nachts?
+
+Katzen sind in der Dämmerung und in den frühen Morgenstunden besonders aktiv. Nächtliches Miauen hat oft mit Hunger, Langeweile oder dem Wunsch nach Gesellschaft zu tun. Eine Spielrunde und ein kleiner Snack vor dem Schlafengehen helfen vielen Katzen, ruhiger durchzuschlafen. Ruft eine ältere Katze plötzlich nachts, sollte das tierärztlich abgeklärt werden. Mehr dazu steht in [Nächtliches Toben](/katzenwissen/naechtliches-toben/).
