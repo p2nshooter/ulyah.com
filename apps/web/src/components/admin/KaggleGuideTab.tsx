@@ -276,7 +276,7 @@ img.paste(logo, (780, 220), logo)
 d = ImageDraw.Draw(img)
 d.text((960, 660), "ULYAH.COM", fill="#d4af4a", anchor="mm")
 d.text((960, 740), "Ingin live streaming melalui ulyah.com?", fill="#f4efe3", anchor="mm")
-d.text((960, 800), "Yusron Efendi · +62 856-9123-4561", fill="#d4af4a", anchor="mm")
+d.text((960, 800), "Yusron Efendi · +62 856-9287-9465", fill="#d4af4a", anchor="mm")
 img.save("frame.png")
 
 # 10 menit video loop dari 1 frame + jeda senyap (ffmpeg sudah ada di Kaggle)

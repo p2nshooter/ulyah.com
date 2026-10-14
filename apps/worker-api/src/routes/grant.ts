@@ -17,7 +17,7 @@ grantRoute.use("*", requireAdmin);
 const DEV = {
   name: "Yusron Efendi",
   email: "salam@ulyah.com",
-  phone: "+6285691234561",
+  phone: "+6285692879465",
   site: "https://ulyah.com",
 };
 

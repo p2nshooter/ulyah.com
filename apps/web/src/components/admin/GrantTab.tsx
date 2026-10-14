@@ -59,7 +59,7 @@ function buildDocHtml(title: string, body: string): string {
     <div style="text-align:center;border-bottom:2px solid #0B3D2E;padding-bottom:16px;margin-bottom:24px">
       <img src="https://ulyah.com/brand/ulyah-logo-dark.webp" style="width:96px;height:96px;border-radius:50%">
       <h1 style="color:#0B3D2E;font-size:22px;margin:12px 0 4px">${title}</h1>
-      <p style="color:#666;font-size:13px;margin:0">https://ulyah.com · salam@ulyah.com · +6285691234561</p>
+      <p style="color:#666;font-size:13px;margin:0">https://ulyah.com · salam@ulyah.com · +6285692879465</p>
     </div>${paras}
     <div style="border-top:1px solid #ccc;margin-top:32px;padding-top:12px;color:#666;font-size:12px;text-align:center">Yusron Efendi · salam@ulyah.com · https://ulyah.com</div>
   </body></html>`;

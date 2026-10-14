@@ -27,8 +27,8 @@ interface StreamRow {
 // Streaming-via-ulyah contact, shown on every offline manual card — explicit
 // owner request, including the name and number.
 const CONTACT_NAME = "Yusron Efendi";
-const CONTACT_PHONE = "+62 856-9123-4561";
-const CONTACT_TEL = "+6285691234561";
+const CONTACT_PHONE = "+62 856-9287-9465";
+const CONTACT_TEL = "+6285692879465";
 
 /**
  * Build the on-site embed URL for a pasted YouTube link. Channel URLs embed

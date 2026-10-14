@@ -123,7 +123,7 @@ export function LiveStreamsTab() {
           sendiri di bawah dengan link channel YouTube apa pun: negara lain, kampus, masjid). Embed mengikuti siaran
           live channel-nya otomatis. <b>Siaran ULYAH (6 slot):</b> untuk link YouTube live/rekaman yang Anda isi
           manual — nyalakan LIVE saat aktif; slot offline menampilkan kartu ULYAH.COM + kontak Yusron Efendi
-          (+62 856-9123-4561). TikTok &amp; Facebook sudah dihapus sesuai permintaan.
+          (+62 856-9287-9465). TikTok &amp; Facebook sudah dihapus sesuai permintaan.
         </p>
       </div>
 
