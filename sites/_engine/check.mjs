@@ -89,7 +89,16 @@ export async function check(domain) {
     const promoPage = pages.find((p) => p.slug === site.promo.slug);
     const src = readFileSync(join(SITES, domain, "content", "pages", `${site.promo.slug}.md`), "utf8");
     ok(Boolean(promoPage) && promoPage.words >= 300, `ecosystem page /${site.promo.slug}/ has 300+ words (${promoPage?.words ?? 0})`);
-    ok(/https:\/\/axto\.io\b/.test(src) && /https:\/\/xaa\.es\b/.test(src), "ecosystem page links axto.io and xaa.es");
+    // Compare parsed hostnames, not a substring: "https://axto.io.evil.example"
+    // must not count as a link to axto.io.
+    const hosts = new Set([...src.matchAll(/\]\((https:\/\/[^)\s]+)\)/g)].map((m) => {
+      try {
+        return new URL(m[1]).hostname;
+      } catch {
+        return "";
+      }
+    }));
+    ok(hosts.has("axto.io") && hosts.has("xaa.es"), "ecosystem page links axto.io and xaa.es");
     ok(site.promo.label.startsWith("✦"), `ecosystem menu label starts with ✦ ("${site.promo.label}")`);
     const shingles = (t) => {
       const w = t.toLowerCase().replace(/^---[\s\S]*?---/, "").replace(/https?:\/\/\S+/g, "").split(/[^\p{L}\p{N}]+/u).filter(Boolean);
