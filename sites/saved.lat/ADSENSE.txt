@@ -1,0 +1,14 @@
+AdSense saved.lat — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
+Pemilik, 19 Okt 2026: "ubah kode adsense saved.lat dengan ini, buatkan cuplikan adsens, ads.txt & tag metanya"
+(sebelumnya, 18 Okt: ca-pub-9433622530024776). Engine memasang ketiganya otomatis dari "adsense" di
+site.json; check.mjs menolak deploy kalau berbeda.
+
+Cuplikan adsense (di <head> setiap halaman)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272"
+     crossorigin="anonymous"></script>
+
+Cuplikan ads.txt (https://saved.lat/ads.txt)
+google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
+
+Tag meta (di <head> setiap halaman)
+<meta name="google-adsense-account" content="ca-pub-4548005919629272">

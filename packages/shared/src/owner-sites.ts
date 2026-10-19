@@ -55,6 +55,9 @@ export const OWNER_SITES: readonly OwnerSite[] = [
   { domain: "rough.lat", trackId: "rough-lat", lang: "es", repo: "ulyah.com · sites/rough.lat", built: false },
   { domain: "dai.lat", trackId: "dai-lat", lang: "es", repo: "ulyah.com · sites/dai.lat", built: false },
   { domain: "pab.lat", trackId: "pab-lat", lang: "es", repo: "ulyah.com · sites/pab.lat", built: false },
+  // 18–19 Oct 2026: two new English sites (owner), online as drafts (noindex) until 40 articles.
+  { domain: "saved.lat", trackId: "saved-lat", lang: "en", repo: "ulyah.com · sites/saved.lat", built: false },
+  { domain: "crone.skin", trackId: "crone-skin", lang: "en", repo: "ulyah.com · sites/crone.skin", built: false },
   // Fase 6: ten German + English sites, not built yet.
   ...["byoy", "qarf", "qulen", "qurm", "rubiy", "zavik", "zevok", "zolun", "zufiq", "zuvik"].map(
     (name): OwnerSite => ({ domain: `${name}.de`, trackId: `${name}-de`, lang: "de+en", repo: `ulyah.com · sites/${name}.de`, built: false })
