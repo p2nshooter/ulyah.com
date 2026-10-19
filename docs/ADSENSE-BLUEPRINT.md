@@ -585,7 +585,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 17 Okt | Search Console "Halaman alternatif dengan tag kanonis yang tepat" (byoxy.de, dai.lat, hampir semua situs) dan "Diblokir oleh robots.txt / Diindeks meski diblokir oleh robots.txt" (dai.lat): "perbaiki seluruh situs yg memiliki domain kecuali dawa.es jgn d kerjakan, itu milik orang lain" | 🔄 §13.2 |
 | 17 Okt (urgent) | "Kerjakan yg paling urgent dulu ganti kode adsense… pastikan SEO kuat, trafik tinggi dan generik": oldco.in 9666205248809954 lalu diganti 6293576511807510, lie.skin 9666205248809954, axto.dev 6284085719914185, pab.lat 1768325549147657 — "Ingat dahulukan seluruh perubahan adsense, dan buatkan ads.txt dan tag meta" | ✅ kode terakhir berlaku: oldco.in 6293576511807510 (repo oldco.in), lie.skin 9666205248809954 (repo Lie); pab.lat dan axto.dev diganti lagi (baris berikut) |
 | 18 Okt (urgent) | "Ubah adsense axto.dev dengan kode ini 6381187608934514; pab.lat ubah dengan ini 7250589269548267" | ✅ axto.dev (repo axtodev `src/lib/site.ts` + `public/ads.txt`), pab.lat (`sites/pab.lat`) |
-| 18 Okt | "Bikin web dan SEO nya jg web baru ini, pastikan berkualitas tinggi karena untuk pengajuan adsense: saved.lat & crone.skin, kode adsense 9433622530024776, buatin jg cuplikan ads dan tag meta. Web baru minimal 40 artikel kualitas tinggi dan minimal 1500 kata semua menggunakan bhs inggris" | 🔄 §13.3 (pengecualian aturan 1: pemilik minta keduanya berbahasa Inggris, termasuk saved.lat yang .lat) |
+| 18 Okt | "Bikin web dan SEO nya jg web baru ini, pastikan berkualitas tinggi karena untuk pengajuan adsense: saved.lat & crone.skin, kode adsense 9433622530024776, buatin jg cuplikan ads dan tag meta. Web baru minimal 40 artikel kualitas tinggi dan minimal 1500 kata semua menggunakan bhs inggris" | ✅ §13.3 — saved.lat dan crone.skin masing-masing 40 artikel ≥1.500 kata, ALL OK, bisa diindeks (pengecualian aturan 1: pemilik minta keduanya berbahasa Inggris, termasuk saved.lat yang .lat) |
 | 18 Okt | xaa.es: menu khusus menjual lepas xaa.es ($10 juta, seperti /acquire di axto.io), bahasa profesional dan elegan; pembayaran 100% live, diubah dari portal admin | 🔄 §13.4 |
 | 18 Okt | Promosikan axto.io dan xaa.es di setiap situs dengan menu khusus premium, bahasa masing-masing situs, kalimat berbeda per situs (tidak copy paste), termasuk dawa.es dan script backup dawa.es | 🔄 §13.5 |
 | 18 Okt | Pelajari axto.io & xaa.es, blueprint apa saja yang belum dibuat (app Docker Windows/Linux yang belum ada atau masih standar; template xaa.es yang belum ada), tandai selesai/belum/sedang; tangkapan layar animasi setiap menu & dashboard setiap template; link demo untuk klien xaa.es; semua pembayaran live bukan sandbox; nomor HP axto.io & xaa.es jadi +6285691234561 (kirim bukti transaksi manual) | 🔄 §13.6 (dicatat juga di `guardian-ai/docs/REQUESTS.md` dan blueprint repo xaa) |
@@ -937,7 +937,7 @@ dan blueprint axto.io/xaa.es. Semua dikerjakan manual (aturan 13).
   yang memblokir. Setelah itu klik **Validasi perbaikan** di Search Console.
 - Semua situs pemilik; **dawa.es tidak dikerjakan** (milik orang lain).
 
-### 13.3 Situs baru saved.lat & crone.skin (🔄)
+### 13.3 Situs baru saved.lat & crone.skin (✅)
 
 Bahasa Inggris (keputusan pemilik), ≥40 artikel tulisan tangan, setiap
 artikel ≥1.500 kata, halaman wajib, desain istana sendiri, SEO lengkap
@@ -950,8 +950,12 @@ artikel ≥1.500 kata, halaman wajib, desain istana sendiri, SEO lengkap
   policy). `check.mjs` ALL OK → `"draft"` dicabut, situs bisa diindeks.
   Diuji di Playwright (desktop 1366 + mobile 390): tanpa error konsol, tanpa
   overflow horizontal.
-- 🔄 **crone.skin**: tema & halaman wajib sudah ada; 40 artikel sedang ditulis
-  (tetap draft/noindex sampai lulus).
+- ✅ **crone.skin** (19 Okt): 40 artikel bahasa Inggris (en-GB) untuk perempuan
+  50+ (total ±64.750 kata menurut penghitung engine, terpendek 1.503), 6 kategori
+  (kecantikan, gaya, gerak, rumah & kebun, tujuan & relasi, perjalanan), 7 halaman
+  wajib. Tanpa nasihat medis/keuangan — selalu diarahkan ke dokter atau penasihat
+  independen. `check.mjs` ALL OK → `"draft"` dicabut, situs bisa diindeks. Diuji di
+  Playwright (desktop 1366 + mobile 390): tanpa error konsol, tanpa overflow.
 
 ### 13.4 xaa.es dijual ($10 juta) + pembayaran live (🔄)
 
