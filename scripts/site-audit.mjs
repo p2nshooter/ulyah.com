@@ -50,6 +50,26 @@ EXPECTED["lie.skin"] = "4548005919629272";
 EXPECTED["profity.in"] = "5944786950535069";
 // 14 Oct 2026 (owner, urgent): five sites move to ca-pub-6908951782430508.
 for (const d of ["axto.io", "xaa.es", "rough.es", "ulyah.com", "1fr.fr"]) EXPECTED[d] = "6908951782430508";
+// 19 Oct 2026 (owner): new codes for sixteen domains, each with its own loader,
+// ads.txt line and meta tag (docs/ADSENSE-CODES.md).
+Object.assign(EXPECTED, {
+  "zuvik.de": "4613976964728693",
+  "zufiq.de": "9338499658056112",
+  "tilawa.de": "6908951782430508",
+  "zavik.de": "5254913739159445",
+  "byoy.de": "1768325549147657",
+  "qkb.es": "6284085719914185",
+  "qarf.de": "4304267428455702",
+  "xko.es": "4906992051458194",
+  "zevok.de": "6560360898389273",
+  "qurm.de": "8212039662308316",
+  "pab.lat": "7250589269548267",
+  "axto.dev": "6381187608934514",
+  "oldco.in": "6293576511807510",
+  "lie.skin": "9666205248809954",
+  "saved.lat": "4548005919629272",
+  "crone.skin": "9433622530024776",
+});
 const verdicts = [];
 
 const browser = await chromium.launch();

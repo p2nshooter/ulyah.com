@@ -51,7 +51,9 @@ const AD_CLIENT_BY_TENANT: Record<string, string> = {
   // together with axto.io, xaa.es and rough.es.
   ulyah: "ca-pub-6908951782430508",
   "1fr": "ca-pub-6908951782430508",
-  tilawa: "ca-pub-5693981744147503",
+  // 19 Oct 2026 (owner): tilawa.de → ca-pub-6908951782430508
+  // ("google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0").
+  tilawa: "ca-pub-6908951782430508",
   dawa: ORIGINAL_ACCOUNT,
   xad: "ca-pub-5517446616694631",
 };
