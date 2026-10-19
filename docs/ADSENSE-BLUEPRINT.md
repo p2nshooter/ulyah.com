@@ -939,6 +939,15 @@ artikel ≥1.500 kata, halaman wajib, desain istana sendiri, SEO lengkap
 (sitemap, canonical, JSON-LD). Situs tetap `"draft": true` sampai lulus
 `check.mjs`.
 
+- ✅ **saved.lat** (19 Okt): 40 artikel bahasa Inggris (total ±65.500 kata
+  menurut penghitung engine, terpendek 1.521), 6 kategori × 6–7 artikel,
+  7 halaman (about, contact, privacy, cookie, terms, disclaimer, editorial
+  policy). `check.mjs` ALL OK → `"draft"` dicabut, situs bisa diindeks.
+  Diuji di Playwright (desktop 1366 + mobile 390): tanpa error konsol, tanpa
+  overflow horizontal.
+- 🔄 **crone.skin**: tema & halaman wajib sudah ada; 40 artikel sedang ditulis
+  (tetap draft/noindex sampai lulus).
+
 ### 13.4 xaa.es dijual ($10 juta) + pembayaran live (🔄)
 
 Menu khusus "Acquire xaa.es" seperti `/acquire` di axto.io. Kunci PayPal Live
