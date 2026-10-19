@@ -41,9 +41,15 @@
  *   node scripts/export-dawa-standalone.mjs --zip      # + dist/dawa-es-backup-<tgl>.zip
  *   node scripts/export-dawa-standalone.mjs --out=/path/ke/folder --zip
  *
- * SEJAK 4 OKT 2026 dawa.es DILEPAS dari repo ini: jalankan skrip ini dari commit
+ * SEJAK 4 OKT 2026 dawa.es DILEPAS dari repo ini: yang diekspor adalah commit
  * 771e8976432c2e033c9db8137b66dd489589648f (keadaan terakhir saat dawa.es masih tenant),
- * bukan dari main.
+ * bukan main. Jalankan skrip dari main dengan --root ke worktree commit itu:
+ *
+ *   git worktree add --detach ../dawa-src 771e8976432c2e033c9db8137b66dd489589648f
+ *   node scripts/export-dawa-standalone.mjs --root=../dawa-src --zip
+ *
+ * Dengan begitu tambahan dari main ikut ke backup — halaman AXTO & XAA
+ * /ecosistema (§3b), pemilik 18 Okt 2026.
  */
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -62,16 +68,26 @@ import {
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+/** The repository this script lives in (main). */
+const SCRIPT_REPO = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => {
     const [k, v] = a.replace(/^--/, "").split("=");
     return [k, v ?? "true"];
   })
 );
+/**
+ * The source tree to export. Default: this repository. The backup workflow
+ * runs the script from main with --root=<worktree of 771e897>, so the frozen
+ * dawa.es code is exported by the newest script — which is how additions made
+ * after the detachment (the AXTO & XAA page below) reach the backup.
+ */
+const ROOT = resolve(args.root ?? SCRIPT_REPO);
 const OUT = resolve(args.out ?? join(ROOT, "dist", "dawa-es-backup"));
 const PROJECT = join(OUT, "dawa-es");
-const GUIDE_SRC = join(ROOT, "docs", "dawa-standalone");
+// The guides come from this script's repository, so a note added on main
+// (such as the AXTO & XAA page in STANDALONE-CHANGES.md) reaches the backup.
+const GUIDE_SRC = join(SCRIPT_REPO, "docs", "dawa-standalone");
 
 // ---------------------------------------------------------------------------
 // 1. Salin file
@@ -502,6 +518,154 @@ DELETE FROM tenant_pages WHERE tenant <> 'dawa';
 };
 
 // ---------------------------------------------------------------------------
+// 3b. Promosi axto.io & xaa.es (pemilik, 18 Okt 2026)
+// ---------------------------------------------------------------------------
+
+/**
+ * "Promosikan website axto.io dan xaa.es … termasuk dawa.es dan masukan juga di
+ * script backup dawa.es agar saat d backup iklan axto.io & xaa.es ikut terbawa
+ * di script tanpa membuat ulang." The page, its Spanish copy and its types are
+ * taken from THIS script's repository (main, apps/web/src/lib/ecosystem-copy/),
+ * the module that wires them is written for dawa.es alone, and the menu item,
+ * footer link, localized slug (/ecosistema) and sitemap entry are added to the
+ * frozen code with the same must-match edits as above.
+ */
+const ECO_FILES = [
+  "apps/web/src/lib/ecosystem-copy/types.ts",
+  "apps/web/src/lib/ecosystem-copy/dawa.ts",
+  "apps/web/src/app/[locale]/ekosistem/page.tsx",
+];
+
+const ECO_MODULE = `/**
+ * Halaman ekosistem dawa.es (/ecosistema): AXTO dan XAA, ditulis untuk dawa.es
+ * dalam bahasa Spanyol dan ditandai sebagai publicidad propia. Ditambahkan oleh
+ * scripts/export-dawa-standalone.mjs (pemilik, 18 Okt 2026).
+ */
+import type { TenantId } from "./tenant";
+import type { EcoCopy } from "./ecosystem-copy/types";
+import { DAWA } from "./ecosystem-copy/dawa";
+
+export type { EcoCopy, EcoSection } from "./ecosystem-copy/types";
+
+export const ECOSYSTEM: Partial<Record<TenantId, Record<string, EcoCopy>>> = { dawa: DAWA };
+
+/** The copy for this site and language, or null where the page does not exist. */
+export function ecosystemCopy(tenant: TenantId, locale: string): EcoCopy | null {
+  return ECOSYSTEM[tenant]?.[locale] ?? null;
+}
+
+/** Outbound link with the site it came from, so the visit is attributable. */
+export function ecoLink(base: "https://axto.io" | "https://xaa.es", siteUrl: string): string {
+  const source = siteUrl.replace(/^https?:\\/\\//, "");
+  return \`\${base}/?utm_source=\${encodeURIComponent(source)}&utm_medium=referral&utm_campaign=ecosystem\`;
+}
+`;
+
+const ECO_EDITS = [
+  {
+    file: "packages/shared/src/routes.ts",
+    find: `  "/toko": { en: "/store", fr: "/boutique", de: "/shop", es: "/tienda" },
+};`,
+    replace: `  "/toko": { en: "/store", fr: "/boutique", de: "/shop", es: "/tienda" },
+  // Halaman AXTO & XAA (apps/web/src/lib/ecosystem.ts).
+  "/ekosistem": { en: "/ecosystem", fr: "/ecosysteme", de: "/oekosystem", es: "/ecosistema" },
+};`,
+  },
+  {
+    file: "packages/shared/src/routes.ts",
+    find: `export const ROUTE_LOCALES: Record<string, readonly string[]> = {
+  "/toko": ["en", "fr", "de", "es"],
+`,
+    replace: `export const ROUTE_LOCALES: Record<string, readonly string[]> = {
+  "/toko": ["en", "fr", "de", "es"],
+  "/ekosistem": ["es"],
+`,
+  },
+  {
+    file: "apps/web/src/lib/sitemap-source.ts",
+    find: `  "/kebijakan-editorial",
+`,
+    replace: `  "/kebijakan-editorial",
+  "/ekosistem",
+`,
+  },
+  {
+    file: "apps/web/src/lib/nav-labels.ts",
+    find: `import { TENANT } from "./tenant";
+`,
+    replace: `import { TENANT } from "./tenant";
+import { ecosystemCopy } from "./ecosystem";
+`,
+  },
+  {
+    file: "apps/web/src/lib/nav-labels.ts",
+    find: `  const store = TENANT_MARKETPLACE ? [{ label: STORE_LABEL[locale] ?? STORE_LABEL.en!, path: "/toko" }] : [];`,
+    replace: `  // Halaman AXTO & XAA (lib/ecosystem.ts).
+  const eco = ecosystemCopy(TENANT.id, locale);
+  const store = [
+    ...(TENANT_MARKETPLACE ? [{ label: STORE_LABEL[locale] ?? STORE_LABEL.en!, path: "/toko" }] : []),
+    ...(eco ? [{ label: eco.menu, path: "/ekosistem" }] : []),
+  ];`,
+  },
+  {
+    file: "apps/web/src/components/Header.tsx",
+    find: `isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"`,
+    replace: `isActive(it.path) ? "bg-accent/15 font-medium text-accent" : it.path === "/ekosistem" ? "eco-promo font-semibold text-accent" : "text-text-secondary hover:text-accent"`,
+  },
+  {
+    file: "apps/web/src/components/Header.tsx",
+    find: `{it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}`,
+    replace: `{it.path === "/ekosistem" ? <span className="eco-promo text-accent">{it.label}</span> : <>{it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}</>}`,
+  },
+  {
+    file: "apps/web/src/components/Footer.tsx",
+    find: `import { legalNav } from "@/lib/legal-pages";
+`,
+    replace: `import { legalNav } from "@/lib/legal-pages";
+import { ecosystemCopy } from "@/lib/ecosystem";
+`,
+  },
+  {
+    file: "apps/web/src/components/Footer.tsx",
+    find: `    new Map(Object.entries(overrides.labels))
+  );
+`,
+    replace: `    new Map(Object.entries(overrides.labels))
+  );
+  const eco = ecosystemCopy(TENANT.id, locale);
+`,
+  },
+  {
+    file: "apps/web/src/components/Footer.tsx",
+    find: `{dict.nav.thanks}</Link></li>
+`,
+    replace: `{dict.nav.thanks}</Link></li>
+            {eco && (
+              <li><Link href={routePath(locale, \`/ekosistem\`)} className="eco-promo font-semibold text-accent transition hover:underline">{eco.menu}</Link></li>
+            )}
+`,
+  },
+  {
+    file: "apps/web/src/app/globals.css",
+    find: `@media (prefers-reduced-motion: reduce) {
+  .sf-leaf { animation: none; }
+}`,
+    replace: `@media (prefers-reduced-motion: reduce) {
+  .sf-leaf { animation: none; }
+}
+
+/* Menu AXTO & XAA (lib/ecosystem.ts): kilau emas pelan pada teks saja. */
+@media (prefers-reduced-motion: no-preference) {
+  .eco-promo { animation: eco-promo-glow 3.2s ease-in-out infinite; }
+}
+@keyframes eco-promo-glow {
+  0%, 100% { text-shadow: 0 0 0 rgb(201 162 39 / 0); }
+  50% { text-shadow: 0 0 14px rgb(201 162 39 / 0.55); }
+}`,
+  },
+];
+
+// ---------------------------------------------------------------------------
 // 4. Workflow deploy khusus dawa.es
 // ---------------------------------------------------------------------------
 
@@ -721,8 +885,8 @@ function main() {
     console.error(
       "dawa.es sudah dilepas dari main (docs/ADSENSE-BLUEPRINT.md §10).\n" +
         "Backup mandiri dibuat dari commit terakhir saat dawa.es masih tenant:\n\n" +
-        "  git checkout 771e8976432c2e033c9db8137b66dd489589648f\n" +
-        "  node scripts/export-dawa-standalone.mjs --zip\n"
+        "  git worktree add --detach ../dawa-src 771e8976432c2e033c9db8137b66dd489589648f\n" +
+        "  node scripts/export-dawa-standalone.mjs --root=../dawa-src --zip\n"
     );
     process.exit(2);
   }
@@ -783,6 +947,24 @@ function main() {
     if (!found) throw new Error(`Pola tidak ditemukan di ${e.file}:\n${String(e.find).slice(0, 200)}`);
     const out = typeof e.find === "string" ? s.split(e.find).join(e.replace) : s.replace(e.find, e.replace);
     writeFileSync(p, out);
+  }
+
+  // Promosi axto.io & xaa.es (3b): file dari repo skrip ini, lalu suntingan.
+  for (const file of ECO_FILES) {
+    const src = join(SCRIPT_REPO, file);
+    if (!existsSync(src)) throw new Error(`File promosi tidak ada di ${relative(process.cwd(), SCRIPT_REPO) || "."}: ${file}`);
+    if (existsSync(join(PROJECT, file))) throw new Error(`File promosi sudah ada di sumber: ${file}`);
+    mkdirSync(dirname(join(PROJECT, file)), { recursive: true });
+    copyFileSync(src, join(PROJECT, file));
+  }
+  if (existsSync(join(PROJECT, "apps/web/src/lib/ecosystem.ts"))) throw new Error("apps/web/src/lib/ecosystem.ts sudah ada di sumber");
+  writeFileSync(join(PROJECT, "apps/web/src/lib/ecosystem.ts"), ECO_MODULE);
+  for (const e of ECO_EDITS) {
+    const p = join(PROJECT, e.file);
+    const s = readFileSync(p, "utf8");
+    const hits = s.split(e.find).length - 1;
+    if (hits !== 1) throw new Error(`Promosi: pola harus ada tepat satu kali di ${e.file} (ketemu ${hits}):\n${e.find.slice(0, 200)}`);
+    writeFileSync(p, s.replace(e.find, () => e.replace));
   }
 
   // File yang ditulis ulang utuh.

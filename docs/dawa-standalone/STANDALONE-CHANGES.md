@@ -111,6 +111,22 @@ Jumlah file yang terkena tiap penggantian global tercatat di `BACKUP-INFO.md`.
   di baris `ebooks` DAN di `pdf_ebook_id` kisahnya, jadi tautan PDF tetap benar.
   Seed & migrasi lain disalin byte-per-byte.
 
+### Halaman AXTO & XAA — `/ecosistema` (pemilik, 18 Okt 2026)
+"Promosikan website axto.io dan xaa.es … termasuk dawa.es dan masukan juga di
+script backup dawa.es agar saat d backup iklan axto.io & xaa.es ikut terbawa di
+script tanpa membuat ulang." Skrip backup (dijalankan dari main dengan
+`--root` ke commit sumber dawa.es) menambahkan:
+- `apps/web/src/app/[locale]/ekosistem/page.tsx` — halaman ekosistem (slug Spanyol
+  `/ecosistema`), ditandai *publicidad propia*;
+- `apps/web/src/lib/ecosystem-copy/dawa.ts` + `types.ts` — teks khusus dawa.es
+  (bahasa Spanyol), dan `apps/web/src/lib/ecosystem.ts` yang menyambungkannya;
+- item menu "✦ AXTO y XAA" di header (kilau emas pelan, mati saat
+  `prefers-reduced-motion`) dan tautan di footer kolom Información;
+- slug `/ekosistem → /ecosistema` di `packages/shared/src/routes.ts` dan entri
+  sitemap di `apps/web/src/lib/sitemap-source.ts`.
+Tautan keluar membawa `utm_source=dawa.es`. Bukan slot iklan dan tidak menyentuh
+AdSense dawa.es.
+
 ## 4. Sengaja TIDAK diubah
 
 | Hal | Alasan |

@@ -576,3 +576,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .sf-leaf { animation: none; }
 }
+
+/* The AXTO & XAA menu item (lib/ecosystem.ts): a slow golden glow on the text
+   only, so it reads as special without moving the layout. */
+@media (prefers-reduced-motion: no-preference) {
+  .eco-promo { animation: eco-promo-glow 3.2s ease-in-out infinite; }
+}
+@keyframes eco-promo-glow {
+  0%, 100% { text-shadow: 0 0 0 rgb(201 162 39 / 0); }
+  50% { text-shadow: 0 0 14px rgb(201 162 39 / 0.55); }
+}
