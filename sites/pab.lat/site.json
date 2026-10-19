@@ -23,6 +23,7 @@
     { "slug": "planificacion-y-presupuesto", "name": "Planificación y presupuesto", "icon": "maleta", "description": "Documentos, seguros, dinero, salud del viajero y equipaje: lo que conviene resolver antes de salir de casa." },
     { "slug": "sabores-del-viaje", "name": "Sabores del viaje", "icon": "plato", "description": "Mercados, cocinas regionales y bebidas tradicionales: comer bien y con respeto en cada destino." }
   ],
+  "promo": { "slug": "para-viajeros-y-agencias", "label": "✦ Viajeros y agencias" },
   "menu": [
     { "label": "Sobre PAB", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }

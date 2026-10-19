@@ -23,6 +23,7 @@
     { "slug": "vorrat-und-konservieren", "name": "Vorrat & Konservieren", "icon": "glas", "description": "Einkochen, Marmelade, Fermentieren, Einfrieren und Trocknen: die Ernte sicher haltbar machen." },
     { "slug": "kuechenwissen", "name": "Küchenwissen", "icon": "messer", "description": "Saisonkalender, Lagerung, Resteküche, Schneidetechniken und Einkaufen auf dem Wochenmarkt." }
   ],
+  "promo": { "slug": "kueche-und-technik", "label": "✦ Küche & Technik" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Saisonkalender", "href": "/saisonkalender/" },

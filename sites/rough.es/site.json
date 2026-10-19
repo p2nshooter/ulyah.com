@@ -23,6 +23,7 @@
     { "slug": "estilo-masculino", "name": "Estilo masculino", "icon": "anillo", "description": "Ropa duradera, botas, cuero, relojes y anillos: un armario con carácter que se construye con pocas piezas buenas." },
     { "slug": "cuidado-personal", "name": "Cuidado personal", "icon": "navaja", "description": "Afeitado, barba, piel, cabello, manos y fragancia explicados con sensatez, sin promesas milagro ni rutinas imposibles." }
   ],
+  "promo": { "slug": "para-joyeros-y-gemologos", "label": "✦ Para joyeros" },
   "menu": [
     { "label": "Sobre ROUGH", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }

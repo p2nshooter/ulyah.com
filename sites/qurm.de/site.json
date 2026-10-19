@@ -23,6 +23,7 @@
     { "slug": "planung-und-navigation", "name": "Planung & Navigation", "icon": "kompass", "description": "Tourenplanung, Gehzeit, Karte und Kompass, Apps und GPX, Wegzeichen sowie Übernachten auf Hütten und Trekkingplätzen." },
     { "slug": "kinder-und-hund", "name": "Mit Kindern & Hund", "icon": "spuren", "description": "Mit Baby, Kleinkind und Schulkind unterwegs, die erste Hüttennacht als Familie und Touren mit Hund: Tipps für entspannte Wandertage." }
   ],
+  "promo": { "slug": "touren-digital", "label": "✦ Touren digital" },
   "menu": [
     { "label": "Sicher unterwegs", "href": "/sicher-unterwegs/" },
     { "label": "Über uns", "href": "/ueber-uns/" },

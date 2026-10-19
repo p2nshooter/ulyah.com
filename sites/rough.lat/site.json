@@ -22,6 +22,7 @@
     { "slug": "arte-tallado-y-artesania", "name": "Tallado y artesanía", "icon": "rueda", "description": "La rueda del lapidario, los tipos de talla, los talleres tradicionales y el camino de la piedra en bruto a la joya terminada." },
     { "slug": "lujo-y-estilo-de-vida", "name": "Lujo y estilo de vida", "icon": "estuche", "description": "Cómo llevar, regalar y coleccionar joyas con criterio, y cómo comprar lujo de forma responsable." }
   ],
+  "promo": { "slug": "su-taller-en-linea", "label": "✦ Su taller, en línea" },
   "menu": [
     { "label": "Nosotros", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }

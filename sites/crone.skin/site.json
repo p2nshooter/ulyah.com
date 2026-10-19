@@ -23,6 +23,7 @@
     { "slug": "purpose-and-connection", "name": "Purpose & Connection", "icon": "lantern", "description": "Friendship, family, grandparenting, volunteering, learning new skills and finding meaning after work and child-raising." },
     { "slug": "travel-and-discovery", "name": "Travel & Discovery", "icon": "compass", "description": "Solo trips, slow travel, packing light, travelling comfortably and planning journeys that suit your pace and curiosity." }
   ],
+  "promo": { "slug": "digital-companions", "label": "✦ Digital companions" },
   "menu": [
     { "label": "About", "href": "/about/" },
     { "label": "Contact", "href": "/contact/" }

@@ -83,6 +83,34 @@ export async function check(domain) {
   const thinPages = pages.filter((p) => p.words < 150);
   gate(thinPages.length === 0, "no thin legal/about page (150+ words each)", thinPages.map((p) => `${p.slug}: ${p.words}`).join(", "));
 
+  // Ecosystem page (owner, 18 Oct 2026): every site promotes axto.io and
+  // xaa.es on its own page, in its own words — never a copy of another site's.
+  if (site.promo) {
+    const promoPage = pages.find((p) => p.slug === site.promo.slug);
+    const src = readFileSync(join(SITES, domain, "content", "pages", `${site.promo.slug}.md`), "utf8");
+    ok(Boolean(promoPage) && promoPage.words >= 300, `ecosystem page /${site.promo.slug}/ has 300+ words (${promoPage?.words ?? 0})`);
+    ok(/https:\/\/axto\.io\b/.test(src) && /https:\/\/xaa\.es\b/.test(src), "ecosystem page links axto.io and xaa.es");
+    ok(site.promo.label.startsWith("✦"), `ecosystem menu label starts with ✦ ("${site.promo.label}")`);
+    const shingles = (t) => {
+      const w = t.toLowerCase().replace(/^---[\s\S]*?---/, "").replace(/https?:\/\/\S+/g, "").split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+      const out = new Set();
+      for (let i = 0; i + 6 <= w.length; i++) out.add(w.slice(i, i + 6).join(" "));
+      return out;
+    };
+    const mine = shingles(src);
+    const copies = [];
+    for (const other of readdirSync(SITES)) {
+      if (other === domain || other.startsWith("_") || !existsSync(join(SITES, other, "site.json"))) continue;
+      const o = JSON.parse(readFileSync(join(SITES, other, "site.json"), "utf8"));
+      const f = o.promo && join(SITES, other, "content", "pages", `${o.promo.slug}.md`);
+      if (!f || !existsSync(f)) continue;
+      const theirs = shingles(readFileSync(f, "utf8"));
+      const shared = [...mine].filter((x) => theirs.has(x)).length;
+      if (shared / Math.max(1, Math.min(mine.size, theirs.size)) > 0.1) copies.push(`${other} (${shared} shared 6-word runs)`);
+    }
+    ok(copies.length === 0, "ecosystem page is worded differently from every other site's", copies.join(", "));
+  }
+
   // AdSense — a site prepared before its account exists has none yet.
   if (site.adsense) {
     const pub = site.adsense.replace(/^ca-/, "");

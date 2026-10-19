@@ -23,6 +23,7 @@
     { "slug": "tee-zubereiten", "name": "Tee zubereiten", "icon": "teekanne", "description": "Ziehzeiten und Temperaturen, Zubehör, Gongfu Cha, Eistee, Chai und ostfriesische Teekultur: Tee ohne Bitterkeit aufgießen." },
     { "slug": "genuss-und-wissen", "name": "Genuss & Wissen", "icon": "laterne", "description": "Koffein, Lagerung, Anbauländer, Siegel, entkoffeinierter Kaffee und Verkostung: Hintergrundwissen für bewussten Genuss." }
   ],
+  "promo": { "slug": "fuer-roestereien", "label": "✦ Für Röstereien" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Brühtabelle", "href": "/bruehtabelle/" },

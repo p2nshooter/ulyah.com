@@ -23,6 +23,7 @@
     { "slug": "balkon-und-terrasse", "name": "Balkon & Terrasse", "icon": "kasten", "description": "Balkonkästen, Kübelpflanzen, Sichtschutz und Überwintern: grüne Räume unter freiem Himmel." },
     { "slug": "kraeuter-und-gemuese", "name": "Kräuter & Gemüse", "icon": "basilikum", "description": "Basilikum, Minze, Tomaten und Salat auf Fensterbank und Balkon: frisch ernten auf kleinem Raum." }
   ],
+  "promo": { "slug": "gruene-helfer-digital", "label": "✦ Grüne Helfer digital" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Pflanzensicherheit", "href": "/pflanzensicherheit/" },

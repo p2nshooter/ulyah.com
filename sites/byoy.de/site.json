@@ -23,6 +23,7 @@
     { "slug": "naturgarten-und-nuetzlinge", "name": "Naturgarten & Nützlinge", "icon": "bluete", "description": "Nützlinge fördern, Schnecken und Pilzkrankheiten ohne Gift begegnen, Wildbienen, Igel, Blühwiese, Totholzhecke und Trockenmauer." },
     { "slug": "saatgut-und-jungpflanzen", "name": "Saatgut & Jungpflanzen", "icon": "keimling", "description": "Samenfestes Saatgut verstehen und selbst gewinnen, Keimprobe, Direktsaat, Frühbeet und Jungpflanzen sicher abhärten und auspflanzen." }
   ],
+  "promo": { "slug": "hofladen-und-ki", "label": "✦ Vom Beet ins Netz" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Gartenkalender", "href": "/gartenkalender/" },

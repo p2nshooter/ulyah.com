@@ -23,6 +23,7 @@
     { "slug": "schule-und-kita", "name": "Schule & Kita", "icon": "ranzen", "description": "Eingewöhnung, erster Schultag, Hausaufgaben, Freundschaften und schlechte Noten: Geschichten rund um Kita und Klassenzimmer." },
     { "slug": "zusammenleben-zuhause", "name": "Zusammenleben zuhause", "icon": "haus", "description": "Taschengeld, Haushaltsdienste, Bildschirmzeit, Umzug und Familienrat: wie ein Zuhause für alle funktioniert." }
   ],
+  "promo": { "slug": "familie-und-technik", "label": "✦ Familie & Technik" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "So schreiben wir", "href": "/redaktionsgrundsaetze/" },

@@ -77,6 +77,20 @@ export async function build(domain, { quiet = false } = {}) {
     a.related = [...same, ...others].slice(0, 3);
   }
 
+  // ── Ecosystem menu (owner, 18 Oct 2026) ──────────────────────────────
+  // "Promosikan website axto.io dan xaa.es dengan bahasa masing2 situs dengan
+  // menu husus yg premium … kalimat yang berbeda di setiap situs". A site that
+  // sets `promo: { slug, label }` gets one extra menu item, rendered by its own
+  // theme in the header and footer like any other, pointing at its own page
+  // content/pages/<slug>.md — written for that site, in its language, so no
+  // two sites carry the same text. The head adds a quiet golden glow to that
+  // one item (off under prefers-reduced-motion). No ad markup is involved.
+  if (site.promo) {
+    if (!/^[a-z0-9-]+$/.test(site.promo.slug || "") || !site.promo.label) throw new Error(`site.json promo needs a slug and a label`);
+    if (!existsSync(join(dir, "content", "pages", `${site.promo.slug}.md`))) throw new Error(`promo page content/pages/${site.promo.slug}.md is missing`);
+    site.menu = [{ label: site.promo.label, href: `/${site.promo.slug}/`, promo: true }, ...(site.menu || []).filter((m) => m.href !== `/${site.promo.slug}/`)];
+  }
+
   const pageDir = join(dir, "content", "pages");
   const pages = (existsSync(pageDir) ? readdirSync(pageDir) : [])
     .filter((f) => f.endsWith(".md"))
@@ -147,10 +161,21 @@ export async function build(domain, { quiet = false } = {}) {
       site.adsense ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(site.adsense)}" crossorigin="anonymous"></script>` : "",
       site.fonts ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${esc(site.fonts)}">` : "",
       `<link rel="stylesheet" href="${asset("palace.css")}">`,
+      site.promo ? promoStyle(`/${site.promo.slug}/`) : "",
       `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c")}</script>`,
     ]
       .filter(Boolean)
       .join("\n");
+  }
+
+  // The ecosystem menu item: bold with a slow golden glow (its label starts with
+  // "✦"), scoped to links inside a header or nav. Only inherited properties are
+  // touched, so a theme's own ::before/::after decoration stays intact.
+  function promoStyle(href) {
+    const sel = () => ["header", "nav"].map((w) => `${w} a[href="${href}"]`).join(",");
+    return `<style>${sel()}{font-weight:700;letter-spacing:.01em}` +
+      `@media (prefers-reduced-motion:no-preference){${sel()}{animation:eco-glow 3.2s ease-in-out infinite}}` +
+      `@keyframes eco-glow{0%,100%{text-shadow:0 0 0 rgba(201,162,39,0)}50%{text-shadow:0 0 14px rgba(201,162,39,.55)}}</style>`;
   }
 
   // One cookieless page view to the ulyah.com admin, where every site of the

@@ -23,6 +23,7 @@
     { "slug": "bad-und-wc", "name": "Bad & WC", "icon": "wanne", "description": "Kalk an Armaturen und Duschwand, Fugen, Urinstein, Abfluss und Schimmelvorsorge: Bad und WC gründlich reinigen und empfindliche Materialien dabei schonen." },
     { "slug": "hausmittel", "name": "Hausmittel", "icon": "flasche", "description": "Essig, Natron, Zitronensäure, Soda und Gallseife: was jedes Hausmittel wirklich kann, wo es Schaden anrichtet und warum man Reiniger niemals mischen darf." }
   ],
+  "promo": { "slug": "reinigungsbetriebe", "label": "✦ Sauber organisiert" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Sicher putzen", "href": "/sicherheit-beim-putzen/" },

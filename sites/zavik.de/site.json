@@ -23,6 +23,7 @@
     { "slug": "wohnung-und-freigang", "name": "Wohnung & Freigang", "icon": "fenster", "description": "Wohnungshaltung, Balkonnetz, Katzentoilette, Kratzbaum, giftige Pflanzen und der erste Freigang." },
     { "slug": "pflege-und-alltag", "name": "Pflege & Alltag", "icon": "buerste", "description": "Fellpflege, Krallen, Spielen, Transportbox, Medikamente und Urlaub: der Alltag mit Katze, Schritt für Schritt." }
   ],
+  "promo": { "slug": "fuer-tierprofis", "label": "✦ Für Tierprofis" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Notfall & Tierarzt", "href": "/notfall-und-tierarzt/" },

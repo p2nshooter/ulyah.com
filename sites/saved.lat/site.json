@@ -23,6 +23,7 @@
     { "slug": "budget-basics", "name": "Budget Basics", "icon": "ledger", "description": "Budgets, sinking funds, emergency savings, paperwork and how interest works, explained clearly and without personal financial advice." },
     { "slug": "family-and-leisure", "name": "Family & Leisure", "icon": "kite", "description": "Children's activities, parties, pets, gifts, school costs and holidays: a full family life on a sensible budget." }
   ],
+  "promo": { "slug": "smart-tools", "label": "✦ Smart tools" },
   "menu": [
     { "label": "About", "href": "/about/" },
     { "label": "Contact", "href": "/contact/" }

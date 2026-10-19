@@ -23,6 +23,7 @@
     { "slug": "descanso-y-nutricion", "name": "Descanso y nutrición", "icon": "descanso", "description": "Sueño, alimentación, hidratación y recuperación: lo que sostiene todo el entrenamiento." },
     { "slug": "ocio-activo", "name": "Ocio activo", "icon": "montana", "description": "Senderismo, bicicleta, natación y deporte en familia para moverse disfrutando." }
   ],
+  "promo": { "slug": "deporte-y-tecnologia", "label": "✦ Deporte y tecnología" },
   "menu": [
     { "label": "Sobre DAWO", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }
