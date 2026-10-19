@@ -106,6 +106,24 @@ A protein-rich budget meal usually combines a protein, a starch and vegetables. 
 - **Try own-brand pulses and tinned fish**, which are often very similar to branded versions.
 - **Buy dried pulses in larger bags** from world-food aisles or specialist shops, where they are often cheapest.
 
+## A week of protein for less
+
+To see how these ideas fit together, here is how one household might cover a week of dinners with a mix of proteins rather than relying on meat every night:
+
+- **Monday:** red lentil and tomato soup with bread — lentils cooked from dry in twenty minutes.
+- **Tuesday:** chicken thigh tray bake with potatoes and carrots, cooking two extra thighs for Wednesday.
+- **Wednesday:** leftover chicken shredded into wraps with salad and yoghurt sauce.
+- **Thursday:** cheese and vegetable omelette with a side of baked beans.
+- **Friday:** half-beef, half-lentil chilli with rice, with half the pot frozen.
+- **Saturday:** chickpea and spinach curry with flatbreads.
+- **Sunday:** sardine and tomato pasta, or a bean and vegetable stew.
+
+Meat appears on only two or three nights, and when it does, it is a cheaper cut or stretched with pulses. Every other night still delivers a protein-rich meal. The household eats a broader range of foods, the freezer gains a portion of chilli for a busy evening, and the total spent on protein falls considerably compared with a week of chicken breasts and steak.
+
+## Storing protein foods safely
+
+Cheap protein is only a saving if it stays safe to eat. Keep raw meat and fish in sealed containers at the bottom of the fridge, freeze fresh meat you will not cook before its use-by date, and cool cooked pulses and meat dishes quickly before refrigerating or freezing them. Eggs are best kept according to the guidance in your country. Dried pulses keep for a long time in airtight containers, but very old beans can take much longer to soften, so it is better to buy amounts you will use within a year.
+
 ## Getting the household on board
 
 Families accustomed to meat at every meal sometimes resist change. A few approaches help:

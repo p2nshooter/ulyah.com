@@ -112,6 +112,20 @@ Imagine a household buying pasta, tinned tomatoes, oats and laundry detergent. W
 
 None of these switches involves eating less or compromising on quality. They simply move spending to the same products in better-value formats.
 
+## Common unit-pricing traps
+
+Even careful shoppers get caught out occasionally. Watch for these situations:
+
+- **Different units on neighbouring labels.** One product shows a price per kilogram, the next a price per 100 grams or per item. Convert them to the same unit before comparing.
+- **Drained weight versus total weight.** Tinned vegetables, fish and fruit may list both. The drained weight — the food without the liquid — is the more useful figure when comparing value.
+- **Multipacks with mixed sizes.** A multipack of yoghurts or crisps may contain smaller portions than the individual items on the same shelf.
+- **Labels that were not updated.** Shelf labels occasionally lag behind price changes. If something looks wrong, check the price at the till or in the online listing.
+- **Concentrated versus ready-to-use.** Squash, cleaning sprays and detergents may be concentrated. Compare the cost of the amount you will actually use, not the cost per litre of liquid in the bottle.
+
+## Teaching children unit pricing
+
+Unit pricing is a useful practical maths lesson. Older children can be asked to find the cheapest cereal per 100 grams or the best-value bag of apples, which turns the weekly shop into a game and teaches a skill they will use for life. It also helps them understand why the family chooses one product over another, which can reduce requests for the most heavily advertised items.
+
 ## The bottom line
 
 The unit price is the honest price. It strips away pack sizes, promotional language and branding and lets you compare what you are actually paying for. Use it to choose between brands and sizes, to judge offers, and to notice when products quietly shrink. Combine it with common sense about storage, waste and household preferences, and it becomes one of the simplest, most reliable ways to lower your grocery bill without changing what you eat.
