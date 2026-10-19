@@ -122,6 +122,21 @@ Most draught-proofing is well within the abilities of a careful DIYer. Professio
 
 On the next cold, windy day, repeat the hand or candle test around the areas you treated. You should notice fewer cold spots and that rooms reach a comfortable temperature faster. If condensation becomes a problem after draught-proofing, increase ventilation — use extractor fans, open windows briefly each day, and make sure vents are clear.
 
+## Common mistakes to avoid
+
+Draught-proofing is simple, but a few errors come up again and again:
+
+- **Buying the wrong thickness of seal.** A strip that is too thick stops doors and windows closing properly, and people then rip it off. Measure the gap with a coin or a strip of card before buying, and choose a seal that compresses slightly.
+- **Fitting strips to dirty or damp surfaces.** Self-adhesive products fail quickly if surfaces are greasy or wet. Clean with soapy water, let everything dry, and fit them on a mild day if possible.
+- **Sealing over paint that is still soft.** Fresh paint can stick to seals and tear when the door or window opens.
+- **Forgetting the hinge side of the door.** Draughts often come in along the hinge side as well as the opening edge.
+- **Blocking trickle vents or air bricks to "finish the job".** These are ventilation, not draughts, and are there for a reason.
+- **Using expanding foam near heat sources or electrics.** Follow the product instructions and keep foam away from flues, boilers and wiring.
+
+## Draught-proofing in rented homes
+
+Tenants can do a great deal without making permanent changes. Draught snakes, letterbox brushes, keyhole covers, removable window film, thick curtains, rugs and chimney balloons can all be taken away at the end of a tenancy. For fixed changes, such as new seals or sealant around frames, ask your landlord first; many are happy to agree because draught-proofing protects the property from damp and makes it easier to let.
+
 ## A weekend draught-proofing plan
 
 1. **Saturday morning:** walk through the home and list every draught.

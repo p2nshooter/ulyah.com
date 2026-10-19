@@ -116,6 +116,20 @@ Heatwaves are dangerous, particularly for babies, young children, older adults, 
 
 Saving money on cooling should never come at the expense of safety. If someone in your home is at risk, prioritise keeping them cool.
 
+## Working out what cooling costs
+
+It helps to know roughly what your cooling appliances cost to run, so you can choose sensibly between them. Every electrical appliance has a power rating in watts, usually printed on a label or in the manual. To estimate the cost of running it:
+
+1. Divide the wattage by 1,000 to get kilowatts.
+2. Multiply by the number of hours it runs.
+3. Multiply by the price you pay per kilowatt-hour (kWh) on your electricity bill.
+
+For example, a 50-watt fan running for eight hours uses 0.05 × 8 = 0.4 kWh. A portable air conditioner drawing 1,000 watts for the same eight hours uses 8 kWh — twenty times as much. The actual figures depend on the model, its settings and how hard it is working, but the comparison shows why fans should be the first choice whenever they keep people comfortable enough, with air conditioning reserved for the hottest periods or for those who need it most.
+
+## Keeping pets and plants comfortable
+
+Pets feel the heat too. Make sure they have shade and plenty of fresh water, walk dogs early in the morning or late in the evening when pavements are cooler, and never leave animals in parked cars. Houseplants near sunny windows may need moving back from the glass and watering more often; grouped together, they also add a little humidity and a sense of coolness to a room.
+
 ## A summer routine
 
 1. Close curtains and blinds on sunny windows before the sun reaches them.
