@@ -94,7 +94,9 @@ jobs:
 
       - name: What Googlebot sees (robots.txt, redirects, canonical)
         run: |
-          set -uo pipefail
+          # A report, not a gate: a host that is down, a page without a
+          # canonical tag or an empty robots.txt must not stop the loop.
+          set +e -u
           UA="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
           domains="$EXTRA $(for f in sites/*/site.json; do jq -r '.domain' "$f"; done)"
           echo "### robots.txt and host variants (Googlebot)" >> "$GITHUB_STEP_SUMMARY"
@@ -102,12 +104,13 @@ jobs:
             [ "$d" = "dawa.es" ] && continue
             line="**$d**"
             for u in "https://$d/robots.txt" "https://www.$d/" "http://$d/"; do
-              res=$(curl -s -o /tmp/b -m 20 -A "$UA" -w '%{http_code} %{redirect_url}' "$u" || echo "000")
+              res=$(curl -s -o /tmp/b -m 20 -A "$UA" -w '%{http_code} %{redirect_url}' "$u" || true)
               line="$line · \`$u\` → $res"
             done
             blocked=$(curl -s -m 20 -A "$UA" "https://$d/robots.txt" | tr -d '\r' | awk '{l=tolower($0)} l ~ /^user-agent:/{ua=tolower($2)} l ~ /^disallow:/{ if ((ua=="*"||ua~/googlebot/) && $2!="") print ua": "$0 }' | head -5 | tr '\n' ';')
             [ -n "$blocked" ] && line="$line · ⚠️ blocks Google: $blocked"
-            canon=$(curl -s -m 20 -A "$UA" "https://$d/" | grep -o '<link rel="canonical" href="[^"]*"' | head -1)
+            canon=$(curl -s -m 20 -A "$UA" "https://$d/" | grep -oiE '<link[^>]*rel="?canonical"?[^>]*>' | head -1)
+            [ -z "$canon" ] && canon="(no canonical tag found)"
             line="$line · $canon"
             echo "- $line" >> "$GITHUB_STEP_SUMMARY"
             echo "$line"
