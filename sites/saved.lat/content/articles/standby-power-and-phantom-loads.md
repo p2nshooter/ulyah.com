@@ -118,6 +118,14 @@ While surveying, you may discover larger always-on consumers:
 - Replace damaged plugs, cables and chargers.
 - Buy chargers and power adapters from reputable sources; cheap counterfeit chargers can be dangerous.
 
+## When you are away from home
+
+Holidays and long weekends are a good opportunity to cut always-on loads to the minimum. Before you leave, switch off at the wall the television, games consoles, computers, printers, speakers, coffee machines and chargers. Decide in advance whether the router should stay on — for example, if you have security cameras, a smart thermostat or an alarm that depends on it. Leave the fridge and freezer running, and leave heating controls and hot-water timers in a sensible frost-protection or holiday setting rather than switching them off entirely in cold weather, since frozen pipes cost far more than a little energy.
+
+## Buying new devices with standby in mind
+
+When you replace electronics, check the specifications for standby and networked-standby consumption, which are often listed in the manual or on the manufacturer's website. Look for automatic power-down features and an easy way to switch the device off completely. A device that is cheap to buy but draws a significant amount of power around the clock can end up costing more over its lifetime than a slightly more expensive, efficient one.
+
 ## A one-evening standby audit
 
 1. Borrow or buy a plug-in energy meter.

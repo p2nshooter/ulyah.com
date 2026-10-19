@@ -119,6 +119,18 @@ Some modern light fittings have built-in LEDs that cannot be replaced individual
 - **Compact fluorescent lamps (CFLs) and fluorescent tubes** contain a small amount of mercury and should be taken to an appropriate recycling point, not put in household waste. If one breaks, follow official clean-up guidance, which usually involves ventilating the room and avoiding vacuum cleaners.
 - **LED bulbs** are electronic items and are often accepted at electrical recycling points or retailers' take-back schemes.
 
+## Common questions about LEDs
+
+**Do LEDs really last as long as the box says?** Rated lifetimes are measured under test conditions. In real homes, heat is the main enemy: LEDs in enclosed fittings, recessed ceilings with poor ventilation or hot kitchens may not reach their full rated life. Choosing bulbs suitable for enclosed fittings where needed helps.
+
+**Is it worth replacing a bulb that still works?** For lights used for several hours a day, replacing an old incandescent or halogen bulb usually pays for itself through lower electricity use. For rarely used lights, it makes more sense to wait until the old bulb fails.
+
+**Why does my new LED flicker?** Common causes include an incompatible dimmer, an old low-voltage transformer, a loose connection or a poor-quality bulb. Try a bulb from a different brand first; if flickering continues, especially across several lights, ask an electrician to check the circuit.
+
+**Are LEDs safe for the eyes?** Normal household LED lighting is widely used and considered safe for general use. Very bright, cool-white light late in the evening can feel harsh and may affect how sleepy some people feel, so warm white light in living areas and bedrooms is a sensible choice.
+
+**Can I use LEDs outdoors?** Yes, but choose bulbs and fittings rated for outdoor use and the conditions they will face. Combine them with timers or motion sensors so outdoor lights are not left on all night.
+
 ## A room-by-room plan
 
 1. List the lights in your home and estimate how many hours each is on per day.

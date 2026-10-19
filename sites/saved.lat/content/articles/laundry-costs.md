@@ -118,6 +118,23 @@ The most valuable laundry habit may be protecting your clothes, because replacin
 - **Avoid unnecessary high temperatures and high-heat drying**, which shrink and weaken fibres.
 - **Mend small holes and loose buttons promptly** (see our guide to mending clothes).
 
+## Stain removal without expensive products
+
+Treating stains quickly often avoids a hot wash or a second wash altogether, and most stains respond to simple methods:
+
+- **Act fast.** Fresh stains are far easier to remove than dried ones. Blot rather than rub, which can push the stain deeper.
+- **Rinse from the back** of the fabric with cold water, pushing the stain out rather than through.
+- **Use cold water for protein stains** such as blood, egg and dairy; hot water can set them.
+- **Rub a little washing-up liquid or laundry detergent** into greasy stains before washing.
+- **Pre-soak** heavily soiled items in a bowl of water with a small amount of detergent.
+- **Check before drying.** Heat from a dryer or radiator can fix a stain permanently, so make sure it has gone before drying the garment.
+
+Always test any treatment on a hidden area first and follow the care label, especially for delicate fabrics such as silk and wool.
+
+## Do you need a new machine?
+
+An old washing machine that still works does not usually need replacing just to save energy, because making a new appliance has its own environmental and financial cost. When the time comes to replace one, compare energy labels, water use per cycle and the drum size you really need — a larger drum is only efficient if you fill it. Our guide to making appliances last explains how to keep your current machine running well for longer.
+
 ## A laundry checklist
 
 1. Wash most everyday loads at 30°C or lower.

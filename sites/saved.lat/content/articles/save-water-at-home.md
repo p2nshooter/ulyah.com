@@ -112,6 +112,21 @@ In places where households can choose between a flat rate and a meter, small hou
 
 Some water companies and governments run social tariffs, payment plans or capped bills for low-income households, people with large families or people with medical conditions that require high water use. If you are struggling with water bills, ask your supplier what support is available.
 
+## Getting children involved
+
+Children are often enthusiastic water savers once they understand why it matters. A few ideas that work well in family homes:
+
+- **A shower timer or song.** Pick a favourite song and finish the shower before it ends.
+- **A "water detective" job.** Ask a child to check taps for drips and report any toilet that keeps running.
+- **Rainwater for the garden.** Let children water plants with a watering can filled from the water butt.
+- **Brushing teeth with the tap off.** A simple reminder sticker by the bathroom sink works surprisingly well.
+
+Making water saving a shared household habit, rather than a rule enforced by one person, tends to make it last.
+
+## Reusing water safely
+
+Some water can be reused around the home and garden. Cool water from washing vegetables or waiting for the hot tap to run warm is ideal for plants. "Grey water" from baths and showers can be used on ornamental plants in some situations, but avoid using it on edible crops, do not store it for long because it can grow bacteria, and avoid water containing strong cleaning products. Never reuse water from toilets or from washing nappies. Local guidance may give more detail on what is safe and permitted where you live.
+
 ## A water-saving checklist
 
 1. Check your meter for hidden leaks.
