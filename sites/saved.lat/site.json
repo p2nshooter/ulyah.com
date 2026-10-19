@@ -1,0 +1,38 @@
+{
+  "domain": "saved.lat",
+  "name": "SAVED",
+  "expansion": "Smart, Affordable Value for Everyday Decisions",
+  "tagline": "Spend less on the things that don't matter, so there's more for the things that do",
+  "description": "SAVED is a practical guide to running a household for less: cooking and groceries, home energy, repairs, smarter shopping, budgeting basics and family life, written in plain English without gimmicks or get-rich-quick promises.",
+  "lang": "en",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "adsense": "ca-pub-4548005919629272",
+  "trackId": "saved-lat",
+  "worker": "saved-lat",
+  "themeColor": "#2b1f17",
+  "email": "hello@saved.lat",
+  "author": "The SAVED editorial team",
+  "draft": true,
+  "fonts": "https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Karla:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/guides/", "category": "/topics/" },
+  "categories": [
+    { "slug": "kitchen-and-groceries", "name": "Kitchen & Groceries", "icon": "basket", "description": "Meal planning, pantry staples, batch cooking and food storage: eating well while spending less and wasting almost nothing." },
+    { "slug": "home-and-energy", "name": "Home & Energy", "icon": "lamp", "description": "Heating, cooling, lighting, water and laundry: the everyday habits and small upgrades that bring household bills down." },
+    { "slug": "repair-and-reuse", "name": "Repair & Reuse", "icon": "wrench", "description": "Basic tools, mending, simple plumbing and appliance care: fixing things yourself safely, and knowing when to call a professional." },
+    { "slug": "smart-shopping", "name": "Smart Shopping", "icon": "tag", "description": "Second-hand buying, sales seasons, warranties, subscriptions and scams: getting real value every time you pay for something." },
+    { "slug": "budget-basics", "name": "Budget Basics", "icon": "ledger", "description": "Budgets, sinking funds, emergency savings, paperwork and how interest works, explained clearly and without personal financial advice." },
+    { "slug": "family-and-leisure", "name": "Family & Leisure", "icon": "kite", "description": "Children's activities, parties, pets, gifts, school costs and holidays: a full family life on a sensible budget." }
+  ],
+  "menu": [
+    { "label": "About", "href": "/about/" },
+    { "label": "Contact", "href": "/contact/" }
+  ],
+  "legal": [
+    { "label": "Privacy policy", "href": "/privacy-policy/" },
+    { "label": "Cookie policy", "href": "/cookie-policy/" },
+    { "label": "Terms of use", "href": "/terms/" },
+    { "label": "Disclaimer", "href": "/disclaimer/" },
+    { "label": "Editorial policy", "href": "/editorial-policy/" }
+  ]
+}

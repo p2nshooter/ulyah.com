@@ -80,7 +80,8 @@ const EXPECTED: Record<string, string> = {
   // 14 Oct 2026 (owner): ulyah.com and 1fr.fr → ca-pub-6908951782430508.
   ulyah: "ca-pub-6908951782430508",
   "1fr": "ca-pub-6908951782430508",
-  tilawa: "ca-pub-5693981744147503",
+  // 19 Oct 2026 (owner): tilawa.de → ca-pub-6908951782430508.
+  tilawa: "ca-pub-6908951782430508",
   xad: "ca-pub-5517446616694631",
 };
 for (const [tenant, pub] of Object.entries(EXPECTED)) {

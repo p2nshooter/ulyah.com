@@ -580,6 +580,16 @@ di akun AdSense (di luar jangkauan Claude).
 | 13 Okt | "Selesain semua sampe bersih d github, PR & merge anda saja yg ngerjain" | 🔄 aturan tetap: Claude membuat PR dan me-merge sendiri setelah pemeriksaan lokal dan CI lulus; target akhir tidak ada PR terbuka di semua repo (termasuk PR lama: rubiy #338, dependabot #323, oldco.in #1 diperiksa dulu) |
 | 13 Okt | "Tolong ubah cuplikan kode adsense, ads.txt dan tag meta profity.in dengan kode ini google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0. Utamakan jalankan perintah ubah kode adsense dulu jika ada perubahan, krn itu urgent" | ✅ profity.in PR #9 (`src/app/layout.tsx` loader + meta + metadata, `public/ads.txt`), redeploy lewat `deploy-partner-sites.yml`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`. Aturan tetap: setiap perubahan kode AdSense dikerjakan lebih dulu dari pekerjaan lain |
 | 14 Okt | "Tolong ganti ke 5 situs ini dengan kode adsense ini dan buatkan cuplikan adsense dan tag metanya: google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0" (tangkapan layar AdSense: axto.io, xaa.es, rough.es, ulyah.com, 1fr.fr — "Membutuhkan peninjauan") | ✅ kode: ulyah.com + 1fr.fr (`apps/web/src/lib/ad-config.ts`, `scripts/check-ads.ts`), rough.es (`sites/rough.es/site.json` + `ADSENSE.txt`), axto.io (repo guardian-ai `dashboard/lib/site.ts` + `public/ads.txt`), xaa.es (repo xaa `src/lib/site.ts` + `public/ads.txt`); `scripts/site-audit.mjs` dan `docs/ADSENSE-CODES.md` diperbarui. tilawa.de, xad.es dan situs lain tidak berubah; dawa.es tetap tidak disentuh |
+| 17 Okt (urgent) | "Tolong ganti kode adsense domain2 ini, dan buatkan cuplikan adsense, ads.txt & tag meta nya": zuvik.de 4613976964728693, zufiq.de 9338499658056112, tilawa.de 6908951782430508, zavik.de 5254913739159445, byoy.de 1768325549147657, qkb.es 6284085719914185, qarf.de 4304267428455702, xko.es 4906992051458194, zevok.de 6560360898389273, qurm.de 8212039662308316, axto.dev 8212039662308316 | ✅ `sites/*/site.json` + `ADSENSE.txt` (10 situs, `check.mjs` ALL OK), tilawa.de di `apps/web/src/lib/ad-config.ts` + `scripts/check-ads.ts` (ALL OK), `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`. axto.dev: lihat kode terakhir di bawah |
+| 17 Okt | "Tolong masukin ke DNS xkb.es ini buat SEO console google, google-site-verification=_VK4…SjE" | 🟡 `.github/dns/google-site-verification.json` → `dns-records.yml` menambahkan TXT begitu zona `xkb.es` ada di Cloudflare. Tidak ada situs bernama xkb.es di repo (yang ada qkb.es dan xko.es); dikonfirmasi ke pemilik |
+| 17 Okt | Search Console "Halaman alternatif dengan tag kanonis yang tepat" (byoxy.de, dai.lat, hampir semua situs) dan "Diblokir oleh robots.txt / Diindeks meski diblokir oleh robots.txt" (dai.lat): "perbaiki seluruh situs yg memiliki domain kecuali dawa.es jgn d kerjakan, itu milik orang lain" | 🔄 §13.2 |
+| 17 Okt (urgent) | "Kerjakan yg paling urgent dulu ganti kode adsense… pastikan SEO kuat, trafik tinggi dan generik": oldco.in 9666205248809954 lalu diganti 6293576511807510, lie.skin 9666205248809954, axto.dev 6284085719914185, pab.lat 1768325549147657 — "Ingat dahulukan seluruh perubahan adsense, dan buatkan ads.txt dan tag meta" | ✅ kode terakhir berlaku: oldco.in 6293576511807510 (repo oldco.in), lie.skin 9666205248809954 (repo Lie); pab.lat dan axto.dev diganti lagi (baris berikut) |
+| 18 Okt (urgent) | "Ubah adsense axto.dev dengan kode ini 6381187608934514; pab.lat ubah dengan ini 7250589269548267" | ✅ axto.dev (repo axtodev `src/lib/site.ts` + `public/ads.txt`), pab.lat (`sites/pab.lat`) |
+| 18 Okt | "Bikin web dan SEO nya jg web baru ini, pastikan berkualitas tinggi karena untuk pengajuan adsense: saved.lat & crone.skin, kode adsense 9433622530024776, buatin jg cuplikan ads dan tag meta. Web baru minimal 40 artikel kualitas tinggi dan minimal 1500 kata semua menggunakan bhs inggris" | 🔄 §13.3 (pengecualian aturan 1: pemilik minta keduanya berbahasa Inggris, termasuk saved.lat yang .lat) |
+| 18 Okt | xaa.es: menu khusus menjual lepas xaa.es ($10 juta, seperti /acquire di axto.io), bahasa profesional dan elegan; pembayaran 100% live, diubah dari portal admin | 🔄 §13.4 |
+| 18 Okt | Promosikan axto.io dan xaa.es di setiap situs dengan menu khusus premium, bahasa masing-masing situs, kalimat berbeda per situs (tidak copy paste), termasuk dawa.es dan script backup dawa.es | 🔄 §13.5 |
+| 18 Okt | Pelajari axto.io & xaa.es, blueprint apa saja yang belum dibuat (app Docker Windows/Linux yang belum ada atau masih standar; template xaa.es yang belum ada), tandai selesai/belum/sedang; tangkapan layar animasi setiap menu & dashboard setiap template; link demo untuk klien xaa.es; semua pembayaran live bukan sandbox; nomor HP axto.io & xaa.es jadi +6285691234561 (kirim bukti transaksi manual) | 🔄 §13.6 (dicatat juga di `guardian-ai/docs/REQUESTS.md` dan blueprint repo xaa) |
+| 19 Okt (urgent) | "ubah kode adsense saved.lat dengan ini, buatkan cuplikan adsens, ads.txt & tag metanya: google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0" | ✅ saved.lat → ca-pub-4548005919629272 (`docs/ADSENSE-CODES.md`, `scripts/site-audit.mjs`; dipasang di `sites/saved.lat` saat situsnya dibuat). crone.skin tetap 9433622530024776 |
 
 ---
 
@@ -871,3 +881,78 @@ tautan per situs:
   `/analytics/pageview` kini menjawab tanpa error.
 - **404 `/gratitude`, `/dankbarkeit`, `/gratitud`** di halaman Tentang situs
   saudara: tautan /syukur hanya untuk bahasa yang punya halamannya.
+
+---
+
+## 13. Permintaan 17–19 Okt 2026 (dikerjakan berurutan, AdSense dulu)
+
+Urutan kerja mengikuti perintah pemilik: **"dahulukan seluruh perubahan adsense"**,
+lalu SEO Search Console, situs baru, xaa.es dijual, promosi axto.io & xaa.es,
+dan blueprint axto.io/xaa.es. Semua dikerjakan manual (aturan 13).
+
+### 13.1 Kode AdSense (✅ kode di repo; live setelah merge + deploy)
+
+| Domain | Kode baru | Tempat |
+|---|---|---|
+| zuvik.de, zufiq.de, zavik.de, byoy.de, qkb.es, qarf.de, xko.es, zevok.de, qurm.de, pab.lat | lihat `docs/ADSENSE-CODES.md` | `sites/<domain>/site.json` + `ADSENSE.txt` |
+| tilawa.de | ca-pub-6908951782430508 | `apps/web/src/lib/ad-config.ts` |
+| axto.dev | ca-pub-6381187608934514 | repo axtodev |
+| oldco.in | ca-pub-6293576511807510 | repo oldco.in |
+| lie.skin | ca-pub-9666205248809954 | repo Lie |
+| saved.lat | ca-pub-4548005919629272 | `sites/saved.lat` (situs baru) |
+| crone.skin | ca-pub-9433622530024776 | `sites/crone.skin` (situs baru) |
+
+### 13.2 Search Console: kanonis alternatif & robots.txt (🔄)
+
+- "Halaman alternatif dengan tag kanonis yang tepat" hanya informasi: Google
+  menemukan URL varian (parameter `?…`, `/index.html`, garis miring di akhir,
+  versi bahasa lain) yang menunjuk kanonis ke halaman lain. Perbaikannya:
+  sitemap dan tautan internal hanya memuat URL kanonis persis, varian
+  `/index.html` & garis miring diarahkan 301, tidak ada parameter pelacak di
+  tautan internal.
+- "Diblokir oleh robots.txt" / "Diindeks meski diblokir": halaman yang
+  ditautkan tetapi diblokir `Disallow`. Halaman yang memang tidak boleh
+  diindeks memakai `noindex` (bukan `Disallow`), supaya Google bisa membaca
+  tanda itu; `robots.txt` hanya memblokir yang benar-benar tidak boleh
+  dirayapi.
+- **Akar masalah yang ditemukan (19 Okt):** `deploy-sites.yml` (dan deploy portal)
+  memasang `example.com` **dan** `www.example.com` ke Worker yang sama, jadi
+  setiap halaman punya kembaran di `www.` (dan di `http://` kalau zona tidak
+  memaksa HTTPS) yang kanonisnya menunjuk ke `https://example.com`. Itulah yang
+  dilaporkan Search Console sebagai "halaman alternatif". Perbaikan:
+  `.github/workflows/canonical-hosts.yml` menyalakan *Always Use HTTPS* dan
+  menambah satu Redirect Rule 301 `www → apex` di setiap zona pemilik (situs
+  `sites/*`, portal, repo partner), lalu mencetak robots.txt, redirect dan
+  kanonis yang dilihat Googlebot di setiap varian host. Jalan otomatis saat
+  merge, tiap Senin, dan manual. Kalau token Cloudflare belum punya izin
+  *Zone Settings: Edit* + *Single Redirect: Edit*, run memberi peringatan.
+- robots.txt situs statis sudah `Allow: /`. Laporan "Diblokir oleh robots.txt"
+  di dai.lat berasal dari URL sebelum situsnya ada (halaman parkir) atau dari
+  host varian; laporan robots di `canonical-hosts.yml` menunjukkan host mana
+  yang memblokir. Setelah itu klik **Validasi perbaikan** di Search Console.
+- Semua situs pemilik; **dawa.es tidak dikerjakan** (milik orang lain).
+
+### 13.3 Situs baru saved.lat & crone.skin (🔄)
+
+Bahasa Inggris (keputusan pemilik), ≥40 artikel tulisan tangan, setiap
+artikel ≥1.500 kata, halaman wajib, desain istana sendiri, SEO lengkap
+(sitemap, canonical, JSON-LD). Situs tetap `"draft": true` sampai lulus
+`check.mjs`.
+
+### 13.4 xaa.es dijual ($10 juta) + pembayaran live (🔄)
+
+Menu khusus "Acquire xaa.es" seperti `/acquire` di axto.io. Kunci PayPal Live
+dan NOWPayments **tidak pernah ditulis ke repo**: pemilik memasukkannya
+sendiri di Admin → Payment & email (penyimpanan terenkripsi) lalu memilih
+mode Live di sana.
+
+### 13.5 Promosi axto.io & xaa.es di setiap situs (🔄)
+
+Satu menu/bagian premium per situs, bahasa situs itu sendiri, kalimat berbeda
+per situs. Bukan iklan AdSense dan bukan slot iklan: tautan editorial biasa ke
+situs milik pemilik sendiri.
+
+### 13.6 axto.io & xaa.es: yang belum dibuat (🔄)
+
+Dicatat di `guardian-ai/docs/REQUESTS.md` + `docs/AXTO-APPS-BLUEPRINT.md` dan di
+blueprint repo xaa; nomor HP konfirmasi transfer manual: +6285691234561.

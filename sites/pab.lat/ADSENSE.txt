@@ -1,13 +1,13 @@
 AdSense pab.lat — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
-Pemilik, 10 Okt 2026 (file "Jai.lat, dai.lat, pab.lat, rough.lat, rough.es"). Engine memasang
+Pemilik, 19 Okt 2026: kode baru ca-pub-7250589269548267 (sebelumnya ca-pub-6146217038829045, 10 Okt 2026). Engine memasang
 ketiganya otomatis dari "adsense" di site.json; check.mjs menolak deploy kalau berbeda.
 
 Cuplikan adsense (di <head> setiap halaman)
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250589269548267"
      crossorigin="anonymous"></script>
 
 Cuplikan ads.txt (https://pab.lat/ads.txt)
-google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
+google.com, pub-7250589269548267, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman)
-<meta name="google-adsense-account" content="ca-pub-6146217038829045">
+<meta name="google-adsense-account" content="ca-pub-7250589269548267">
