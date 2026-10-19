@@ -11,6 +11,7 @@ import { TENANT } from "@/lib/tenant";
 import { usePageOverrides } from "@/lib/site-pages";
 import { routePath } from "@/lib/paths";
 import { legalNav } from "@/lib/legal-pages";
+import { ecosystemCopy } from "@/lib/ecosystem";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -25,6 +26,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
     new Set(overrides.hidden),
     new Map(Object.entries(overrides.labels))
   );
+  const eco = ecosystemCopy(TENANT.id, locale);
 
   return (
     <footer
@@ -83,6 +85,9 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
               <li><Link href={routePath(locale, `/syukur`)} className="transition hover:text-accent">{dict.syukur.navLabel}</Link></li>
             )}
             <li><Link href={routePath(locale, `/terima-kasih`)} className="transition hover:text-accent">{dict.nav.thanks}</Link></li>
+            {eco && (
+              <li><Link href={routePath(locale, `/ekosistem`)} className="eco-promo font-semibold text-accent transition hover:underline">{eco.menu}</Link></li>
+            )}
           </ul>
         </div>
         <div>

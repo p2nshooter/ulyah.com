@@ -992,9 +992,18 @@ Jerman dan disukai peninjau AdSense.
   halaman promosi situs mana pun ≤10 %).
 
 **Status:** ✅ 21 situs statis (12 DE, 7 ES, 2 EN) — check.mjs ALL OK, Playwright
-desktop + mobile tanpa error. 🔄 Berikutnya: ulyah.com (apps/web) dan tenant-nya,
-dawa.es + skrip backup `scripts/export-dawa-standalone.mjs`, dan situs mitra di
-repo lain (axto.us, Lie, profity.in, axtodev, Jai, oldco.in, verilex, Quantum).
+desktop + mobile tanpa error. ✅ Aplikasi ulyah.com (apps/web): halaman `/ekosistem`
+dengan teks sendiri per situs — ulyah.com (`/ekosistem`, Indonesia), xad.es
+(`/ecosystem`), 1fr.fr (`/ecosysteme`), tilawa.de (`/oekosystem`), dawa.es
+(`/ecosistema`) — item menu "✦" berkilau emas di header, tautan di footer, slug
+per bahasa, sitemap; teks di `apps/web/src/lib/ecosystem-copy/<situs>.ts`. Prinsip
+khusus situs Islami: AI hanya merapikan/merangkum/menerjemahkan, pertanyaan hukum
+agama ke ulama — tidak pernah ke mesin. ✅ dawa.es + skrip backup: workflow
+`dawa-site.yml` kini menjalankan `scripts/export-dawa-standalone.mjs` dari main
+dengan `--root` ke commit sumber dawa.es, sehingga halaman `/ecosistema`, menu,
+footer, slug dan sitemap ikut masuk ke backup (diuji: proyek mandiri hasil
+ekspor lolos typecheck dan halaman tampil). 🔄 Berikutnya: situs mitra di repo
+lain (axto.us, Lie, profity.in, axtodev, Jai, oldco.in).
 
 | Situs | Halaman | Menu |
 |---|---|---|

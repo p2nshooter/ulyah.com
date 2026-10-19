@@ -85,6 +85,8 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
   // Indonesia and the store is not published there at all — the folder is named
   // in Indonesian only because every folder in this repo is.
   "/toko": { en: "/store", fr: "/boutique", de: "/shop", es: "/tienda" },
+  // The page introducing AXTO and XAA (apps/web/src/lib/ecosystem.ts).
+  "/ekosistem": { en: "/ecosystem", fr: "/ecosysteme", de: "/oekosystem", es: "/ecosistema" },
 };
 
 /**
@@ -107,6 +109,9 @@ export const ROUTE_LOCALES: Record<string, readonly string[]> = {
   // The other sites still show it, with a notice and noindex, but do not offer
   // an Indonesian page to search engines as French, German or English content.
   "/nasakh": ["id"],
+  // Written per site in its own language (lib/ecosystem.ts) — the five site
+  // languages only, never a machine copy for the hub's other prefixes.
+  "/ekosistem": ["id", "en", "fr", "de", "es"],
 };
 
 /** Which languages have this route at all. Undefined means "every language". */

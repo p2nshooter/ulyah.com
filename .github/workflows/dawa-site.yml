@@ -64,13 +64,17 @@ jobs:
         with:
           node-version: 22
 
+      # The frozen dawa.es code (DAWA_SOURCE) is exported by the script from
+      # main (--root), so what main adds for dawa.es after the detachment rides
+      # along: the AXTO & XAA page /ecosistema with its menu item, footer link
+      # and sitemap entry (owner, 18 Oct 2026: "masukan juga di script backup
+      # dawa.es agar saat d backup iklan axto.io & xaa.es ikut terbawa").
       - name: Export dawa.es as a standalone project
         run: |
           set -eu
           git worktree add --detach "$RUNNER_TEMP/dawa-src" "$DAWA_SOURCE"
           mkdir -p "$RUNNER_TEMP/backup"
-          cd "$RUNNER_TEMP/dawa-src"
-          node scripts/export-dawa-standalone.mjs --out="$RUNNER_TEMP/backup/dawa-es-backup" --zip
+          node scripts/export-dawa-standalone.mjs --root="$RUNNER_TEMP/dawa-src" --out="$RUNNER_TEMP/backup/dawa-es-backup" --zip
           # The unzipped folder stays out of the upload: the zips hold it.
           rm -rf "$RUNNER_TEMP/backup/dawa-es-backup"
 

@@ -242,7 +242,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               key={it.path}
               href={`/${locale}${localizedRoute(it.path, locale)}`}
               className={`whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition xl:px-2.5 xl:text-[13px] min-[88rem]:px-3.5 min-[88rem]:text-sm ${
-                isActive(it.path) ? "bg-accent/15 font-medium text-accent" : "text-text-secondary hover:text-accent"
+                isActive(it.path) ? "bg-accent/15 font-medium text-accent" : it.path === "/ekosistem" ? "eco-promo font-semibold text-accent" : "text-text-secondary hover:text-accent"
               }`}
             >
               {it.label}
@@ -312,7 +312,7 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               onClick={() => setMenuOpen(false)}
               className="block border-t border-(--color-border)/60 rounded-sm px-2 py-2.5 text-sm font-medium hover:bg-black/5"
             >
-              {it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}
+              {it.path === "/ekosistem" ? <span className="eco-promo text-accent">{it.label}</span> : <>{it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}</>}
             </Link>
           ))}
         </nav>

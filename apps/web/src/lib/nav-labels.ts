@@ -1,5 +1,6 @@
 import { fillLabels } from "./fill-labels";
 import { TENANT } from "./tenant";
+import { ecosystemCopy } from "./ecosystem";
 import { TENANT_MARKETPLACE } from "./store";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
@@ -422,7 +423,13 @@ const STORE_LABEL: Record<string, string> = {
 
 export function navLabels(locale: string): NavLabels {
   const base = MAP[locale] ?? fillLabels(locale, EN);
-  const store = TENANT_MARKETPLACE ? [{ label: STORE_LABEL[locale] ?? STORE_LABEL.en!, path: "/toko" }] : [];
+  // The AXTO & XAA page (lib/ecosystem.ts) — only where a copy was written for
+  // this site in this language, so the menu never links to a 404.
+  const eco = ecosystemCopy(TENANT.id, locale);
+  const store = [
+    ...(TENANT_MARKETPLACE ? [{ label: STORE_LABEL[locale] ?? STORE_LABEL.en!, path: "/toko" }] : []),
+    ...(eco ? [{ label: eco.menu, path: "/ekosistem" }] : []),
+  ];
   if (!TENANT.features.forSale && !TENANT.features.donationForward) {
     return store.length ? { ...base, direct: [...base.direct, ...store] } : base;
   }

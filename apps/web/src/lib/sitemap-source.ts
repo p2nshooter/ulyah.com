@@ -66,6 +66,7 @@ export const ROUTES = [
   "/kebijakan-cookie",
   "/penafian",
   "/kebijakan-editorial",
+  "/ekosistem",
   // The Amazon shelf — only on a site that has an Amazon to point at. ulyah.com
   // does not (Amazon has no Indonesian marketplace), and the page 404s there,
   // so announcing it would be advertising a page that does not exist.
