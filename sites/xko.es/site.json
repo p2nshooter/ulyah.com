@@ -23,6 +23,7 @@
     { "slug": "climatizacion", "name": "Calefacción y climatización", "icon": "termo", "description": "Aerotermia, bomba de calor, calderas, aire acondicionado y termostatos: qué consume cada sistema y cómo usarlo mejor." },
     { "slug": "electrodomesticos-e-iluminacion", "name": "Electrodomésticos e iluminación", "icon": "bombilla", "description": "Etiqueta energética, consumo real de cada aparato, standby, LED y hábitos que se notan en la factura." }
   ],
+  "promo": { "slug": "ahorro-inteligente", "label": "✦ Ahorro inteligente" },
   "menu": [
     { "label": "Sobre XKO", "href": "/sobre-nosotros/" },
     { "label": "Cómo calculamos", "href": "/metodologia/" },

@@ -23,6 +23,7 @@
     { "slug": "bewusster-konsum", "name": "Bewusster Konsum", "icon": "waage", "description": "Kaufentscheidungen in Ruhe treffen, Spontankäufe bremsen, Abos prüfen, Dinge pflegen und weitergeben: bewusst konsumieren, ohne Verzicht als Strafe zu erleben." },
     { "slug": "zeit-energie-und-schlaf", "name": "Zeit, Energie & Schlaf", "icon": "mond", "description": "Den Tag realistisch planen, Prioritäten setzen, Pausen einbauen, Kräfte einteilen und Schlaf als Gewohnheit pflegen: für Tage mit mehr Luft und Abende mit echter Ruhe." }
   ],
+  "promo": { "slug": "digital-aufgeraeumt", "label": "✦ Digital aufgeräumt" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Hilfe & Anlaufstellen", "href": "/hilfe-und-anlaufstellen/" },

@@ -23,6 +23,7 @@
     { "slug": "conservas", "name": "Conservas y encurtidos", "icon": "frasco", "description": "Mermeladas, encurtidos, aceitunas aliñadas y conservas caseras con criterios de seguridad." },
     { "slug": "tecnica", "name": "Técnica del obrador", "icon": "balanza", "description": "Temperatura, sal, levaduras, utensilios e higiene: la base que hace que todo salga bien." }
   ],
+  "promo": { "slug": "para-obradores", "label": "✦ Para obradores" },
   "menu": [
     { "label": "Sobre QKB", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }

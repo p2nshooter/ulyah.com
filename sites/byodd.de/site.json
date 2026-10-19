@@ -23,6 +23,7 @@
     { "slug": "deko-und-wohnen", "name": "Deko & Wohnen", "icon": "lampe", "description": "Bilder aufhängen, Licht planen, Vorhänge, Farben und kleine Räume: Wohnen mit Charakter, auch zur Miete." },
     { "slug": "reparaturen-im-haushalt", "name": "Reparaturen im Haushalt", "icon": "schluessel", "description": "Tropfende Hähne, klemmende Türen, wackelnde Stühle und Fenster einstellen: kleine Reparaturen selbst erledigen." }
   ],
+  "promo": { "slug": "digitale-werkbank", "label": "✦ Digitale Werkbank" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Sicherheit", "href": "/sicherheitshinweise/" },

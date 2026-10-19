@@ -964,11 +964,61 @@ dan NOWPayments **tidak pernah ditulis ke repo**: pemilik memasukkannya
 sendiri di Admin → Payment & email (penyimpanan terenkripsi) lalu memilih
 mode Live di sana.
 
-### 13.5 Promosi axto.io & xaa.es di setiap situs (🔄)
+### 13.5 Promosi axto.io & xaa.es di setiap situs (🔄 — 21 situs statis ✅)
 
 Satu menu/bagian premium per situs, bahasa situs itu sendiri, kalimat berbeda
 per situs. Bukan iklan AdSense dan bukan slot iklan: tautan editorial biasa ke
-situs milik pemilik sendiri.
+situs milik pemilik sendiri, **diberi label jujur "promosi milik sendiri"**
+(Werbung in eigener Sache / publicidad propia / our own promotion) — wajib di
+Jerman dan disukai peninjau AdSense.
+
+**Cara kerja (engine `sites/_engine`)**
+- `site.json` → `"promo": { "slug": "…", "label": "✦ …" }`. Engine menambahkan
+  satu item menu paling depan di `site.menu`, jadi setiap tema menampilkannya di
+  header dan footer dengan gayanya sendiri; `<head>` memberi item itu huruf tebal
+  dan kilau emas pelan (mati di `prefers-reduced-motion`). Tidak ada `::before`/
+  `::after` yang ditimpa, jadi dekorasi tema tetap utuh.
+- Halamannya `content/pages/<slug>.md` — ditulis khusus untuk situs itu, dikaitkan
+  dengan topiknya (renovasi, tanaman, kopi, sekolah, kucing, kebersihan, liburan,
+  olahraga, keju & roti, permata, energi, perempuan 50+, hemat), masuk sitemap.
+- Fakta yang dipakai hanya yang benar: AXTO = AI Studio, Legal AI, Clipper, Privacy
+  Vault, Compliance, Security Analyst, Prompt Library; kunci AI milik sendiri; Mode
+  Lokal; produk self-hosted Linux/Windows; antarmuka 10 bahasa (**belum ada bahasa
+  Spanyol** — halaman berbahasa Spanyol menyebutkannya terus terang). XAA = studio
+  web Eropa: landing page, situs perusahaan, toko online, marketplace, SaaS, portal;
+  bayar per tahap (PayPal, transfer, USDT); template; situs EN/ES/ID.
+- `check.mjs` menjaga: halaman ≥300 kata, menautkan axto.io dan xaa.es, label
+  diawali ✦, dan **tidak menyalin situs lain** (bagian 6 kata yang sama dengan
+  halaman promosi situs mana pun ≤10 %).
+
+**Status:** ✅ 21 situs statis (12 DE, 7 ES, 2 EN) — check.mjs ALL OK, Playwright
+desktop + mobile tanpa error. 🔄 Berikutnya: ulyah.com (apps/web) dan tenant-nya,
+dawa.es + skrip backup `scripts/export-dawa-standalone.mjs`, dan situs mitra di
+repo lain (axto.us, Lie, profity.in, axtodev, Jai, oldco.in, verilex, Quantum).
+
+| Situs | Halaman | Menu |
+|---|---|---|
+| byodd.de | /digitale-werkbank/ | ✦ Digitale Werkbank |
+| byoxy.de | /gruene-helfer-digital/ | ✦ Grüne Helfer digital |
+| byoy.de | /hofladen-und-ki/ | ✦ Vom Beet ins Netz |
+| qarf.de | /fuer-roestereien/ | ✦ Für Röstereien |
+| qulen.de | /lernen-mit-ki/ | ✦ Lernen mit KI |
+| qurm.de | /touren-digital/ | ✦ Touren digital |
+| rubiy.de | /kueche-und-technik/ | ✦ Küche & Technik |
+| zavik.de | /fuer-tierprofis/ | ✦ Für Tierprofis |
+| zevok.de | /reinigungsbetriebe/ | ✦ Sauber organisiert |
+| zolun.de | /fuer-gastgeber/ | ✦ Für Gastgeber |
+| zufiq.de | /digital-aufgeraeumt/ | ✦ Digital aufgeräumt |
+| zuvik.de | /familie-und-technik/ | ✦ Familie & Technik |
+| dai.lat | /herramientas-para-proyectos/ | ✦ Herramientas para su proyecto |
+| dawo.es | /deporte-y-tecnologia/ | ✦ Deporte y tecnología |
+| pab.lat | /para-viajeros-y-agencias/ | ✦ Viajeros y agencias |
+| qkb.es | /para-obradores/ | ✦ Para obradores |
+| rough.es | /para-joyeros-y-gemologos/ | ✦ Para joyeros |
+| rough.lat | /su-taller-en-linea/ | ✦ Su taller, en línea |
+| xko.es | /ahorro-inteligente/ | ✦ Ahorro inteligente |
+| crone.skin | /digital-companions/ | ✦ Digital companions |
+| saved.lat | /smart-tools/ | ✦ Smart tools |
 
 ### 13.6 axto.io & xaa.es: yang belum dibuat (🔄)
 

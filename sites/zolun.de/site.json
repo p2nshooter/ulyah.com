@@ -23,6 +23,7 @@
     { "slug": "anreise-und-unterkunft", "name": "Anreise & Unterkunft", "icon": "fahrkarte", "description": "Bahn und Deutschlandticket, Fernbus, Auto und Fähre, dazu Ferienwohnung, Hotel, Pension oder Camping: so kommst du entspannt an und wohnst passend." },
     { "slug": "reiseplanung", "name": "Reiseplanung", "icon": "koffer", "description": "Beste Reisezeit, Packlisten, Urlaub mit Kindern oder Hund, Ideen für Regentage und ein ehrliches Budget: Planung, die deinen Urlaub spürbar entspannter macht." }
   ],
+  "promo": { "slug": "fuer-gastgeber", "label": "✦ Für Gastgeber" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Reisecheck", "href": "/reisecheck/" },

@@ -23,6 +23,7 @@
     { "slug": "mathe-und-lernluecken", "name": "Mathe & Lernlücken", "icon": "zirkel", "description": "Mathe-Lücken finden und schließen, Textaufgaben verstehen, Grundlagen nachholen und sinnvoll üben: wie Lernende wieder festen Boden unter die Füße bekommen." },
     { "slug": "referate-und-praesentieren", "name": "Referate & Präsentieren", "icon": "tafel", "description": "Referate vorbereiten, Folien gestalten, frei sprechen, Lampenfieber zähmen und mündlich mitarbeiten: Schritt für Schritt vom leeren Blatt bis zum sicheren Vortrag." }
   ],
+  "promo": { "slug": "lernen-mit-ki", "label": "✦ Lernen mit KI" },
   "menu": [
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Hilfe & Beratung", "href": "/hilfe-und-beratung/" },

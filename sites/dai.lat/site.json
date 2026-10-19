@@ -23,6 +23,7 @@
     { "slug": "patios-y-exteriores", "name": "Patios y exteriores", "icon": "palmera", "description": "Patios, terrazas, balcones y jardines: sombra, plantas, pisos exteriores y espacios para vivir al aire libre." },
     { "slug": "confort-y-sostenibilidad", "name": "Confort y sostenibilidad", "icon": "sol", "description": "Calor, humedad, ruido, agua y energía: soluciones pasivas y eficientes para vivir mejor gastando menos." }
   ],
+  "promo": { "slug": "herramientas-para-proyectos", "label": "✦ Herramientas para su proyecto" },
   "menu": [
     { "label": "Sobre DAI", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }
