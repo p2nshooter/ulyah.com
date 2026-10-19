@@ -915,6 +915,21 @@ dan blueprint axto.io/xaa.es. Semua dikerjakan manual (aturan 13).
   diindeks memakai `noindex` (bukan `Disallow`), supaya Google bisa membaca
   tanda itu; `robots.txt` hanya memblokir yang benar-benar tidak boleh
   dirayapi.
+- **Akar masalah yang ditemukan (19 Okt):** `deploy-sites.yml` (dan deploy portal)
+  memasang `example.com` **dan** `www.example.com` ke Worker yang sama, jadi
+  setiap halaman punya kembaran di `www.` (dan di `http://` kalau zona tidak
+  memaksa HTTPS) yang kanonisnya menunjuk ke `https://example.com`. Itulah yang
+  dilaporkan Search Console sebagai "halaman alternatif". Perbaikan:
+  `.github/workflows/canonical-hosts.yml` menyalakan *Always Use HTTPS* dan
+  menambah satu Redirect Rule 301 `www → apex` di setiap zona pemilik (situs
+  `sites/*`, portal, repo partner), lalu mencetak robots.txt, redirect dan
+  kanonis yang dilihat Googlebot di setiap varian host. Jalan otomatis saat
+  merge, tiap Senin, dan manual. Kalau token Cloudflare belum punya izin
+  *Zone Settings: Edit* + *Single Redirect: Edit*, run memberi peringatan.
+- robots.txt situs statis sudah `Allow: /`. Laporan "Diblokir oleh robots.txt"
+  di dai.lat berasal dari URL sebelum situsnya ada (halaman parkir) atau dari
+  host varian; laporan robots di `canonical-hosts.yml` menunjukkan host mana
+  yang memblokir. Setelah itu klik **Validasi perbaikan** di Search Console.
 - Semua situs pemilik; **dawa.es tidak dikerjakan** (milik orang lain).
 
 ### 13.3 Situs baru saved.lat & crone.skin (🔄)

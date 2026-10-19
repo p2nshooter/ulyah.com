@@ -1,0 +1,114 @@
+name: Canonical hosts (www → apex, http → https) + robots.txt report
+
+# Search Console reported "Alternate page with proper canonical tag" on almost
+# every owner site (owner, 17 Oct 2026, screenshots of byoxy.de and dai.lat).
+# Cause: every deploy attaches BOTH example.com and www.example.com to the same
+# Worker, so each page also exists at www.… (and at http://… when the zone does
+# not force HTTPS), where its canonical tag points back to https://example.com.
+# Google crawls those twins, finds the canonical and files them under
+# "alternate page". Harmless, but it wastes crawl budget and keeps the report
+# noisy. The fix is to never serve the twins at all:
+#
+#   1. "Always Use HTTPS" on, so http:// answers 301 → https://.
+#   2. One zone Redirect Rule: host www.example.com → 301 https://example.com/<path>?<query>.
+#
+# The same run prints what Googlebot gets for /robots.txt on every host variant,
+# so a "Blocked by robots.txt" report (dai.lat) can be traced to the host that
+# blocks, e.g. a parked page left from before the site existed.
+#
+# dawa.es is not the owner's any more and is never touched (ADSENSE-BLUEPRINT §10).
+# Existing rules in the zone are kept; the www rule is added once (matched by its
+# ref) and left alone afterwards. A token without Zone Settings / Redirect Rules
+# edit permission is reported, not hidden.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/canonical-hosts.yml'
+      - 'sites/*/site.json'
+  schedule:
+    - cron: '41 4 * * 1'
+  workflow_dispatch: {}
+
+concurrency:
+  group: canonical-hosts
+  cancel-in-progress: false
+
+jobs:
+  hosts:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Owner domains outside sites/ (portals and partner repos). sites/* are added below.
+      EXTRA: >-
+        ulyah.com 1fr.fr tilawa.de xad.es axto.io xaa.es axto.us axto.dev
+        jai.lat lie.skin oldco.in profity.in
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Force HTTPS and redirect www to the apex
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          domains="$EXTRA $(for f in sites/*/site.json; do jq -r '.domain' "$f"; done)"
+          echo "### Canonical hosts" >> "$GITHUB_STEP_SUMMARY"
+          perm=0
+          for d in $domains; do
+            [ "$d" = "dawa.es" ] && continue
+            zone=$(api "https://api.cloudflare.com/client/v4/zones?name=$d" | jq -r '.result[0].id // empty')
+            if [ -z "$zone" ]; then
+              echo "- ⏳ $d: zone not on Cloudflare (yet)" >> "$GITHUB_STEP_SUMMARY"; continue
+            fi
+            # 1. http → https
+            r=$(api -X PATCH "https://api.cloudflare.com/client/v4/zones/$zone/settings/always_use_https" -d '{"value":"on"}')
+            https=$(jq -r 'if .success then "on" else "FAILED " + ([.errors[]?.message] | join("; ")) end' <<<"$r")
+            [ "$(jq -r '.success' <<<"$r")" = "true" ] || perm=1
+            # 2. www → apex, one rule per zone, recognised by its ref
+            ep=$(api "https://api.cloudflare.com/client/v4/zones/$zone/rulesets/phases/http_request_dynamic_redirect/entrypoint")
+            have=$(jq -r '[.result.rules[]? | select(.ref == "owner_www_to_apex")] | length' <<<"$ep")
+            if [ "${have:-0}" -gt 0 ]; then
+              www="already in place"
+            else
+              rules=$(jq -c '[.result.rules[]? | {ref, description, expression, action, action_parameters, enabled} | with_entries(select(.value != null))]' <<<"$ep" 2>/dev/null || echo '[]')
+              [ -n "$rules" ] && [ "$rules" != "null" ] || rules='[]'
+              new=$(jq -nc --arg d "$d" '{
+                ref: "owner_www_to_apex",
+                description: ("www." + $d + " → " + $d + " (SEO: one canonical host)"),
+                expression: ("(http.host eq \"www." + $d + "\")"),
+                action: "redirect",
+                action_parameters: { from_value: { status_code: 301, preserve_query_string: true,
+                  target_url: { expression: ("concat(\"https://" + $d + "\", http.request.uri.path)") } } },
+                enabled: true }')
+              body=$(jq -nc --argjson rules "$rules" --argjson new "$new" '{rules: ($rules + [$new])}')
+              r=$(api -X PUT "https://api.cloudflare.com/client/v4/zones/$zone/rulesets/phases/http_request_dynamic_redirect/entrypoint" -d "$body")
+              if [ "$(jq -r '.success' <<<"$r")" = "true" ]; then www="added"; else www="FAILED $(jq -c '[.errors[]?.message]' <<<"$r")"; perm=1; fi
+            fi
+            echo "- $d: always HTTPS $https · www→apex $www" >> "$GITHUB_STEP_SUMMARY"
+            echo "$d: https=$https www=$www"
+          done
+          if [ "$perm" = 1 ]; then
+            echo "::warning title=Cloudflare token permissions::Some zones could not be changed. Give the CLOUDFLARE_API_TOKEN 'Zone → Zone Settings → Edit' and 'Zone → Single Redirect → Edit' (or 'Dynamic Redirect'), or set Always Use HTTPS and a www → apex redirect rule by hand in each zone."
+          fi
+
+      - name: What Googlebot sees (robots.txt, redirects, canonical)
+        run: |
+          set -uo pipefail
+          UA="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          domains="$EXTRA $(for f in sites/*/site.json; do jq -r '.domain' "$f"; done)"
+          echo "### robots.txt and host variants (Googlebot)" >> "$GITHUB_STEP_SUMMARY"
+          for d in $domains; do
+            [ "$d" = "dawa.es" ] && continue
+            line="**$d**"
+            for u in "https://$d/robots.txt" "https://www.$d/" "http://$d/"; do
+              res=$(curl -s -o /tmp/b -m 20 -A "$UA" -w '%{http_code} %{redirect_url}' "$u" || echo "000")
+              line="$line · \`$u\` → $res"
+            done
+            blocked=$(curl -s -m 20 -A "$UA" "https://$d/robots.txt" | tr -d '\r' | awk '{l=tolower($0)} l ~ /^user-agent:/{ua=tolower($2)} l ~ /^disallow:/{ if ((ua=="*"||ua~/googlebot/) && $2!="") print ua": "$0 }' | head -5 | tr '\n' ';')
+            [ -n "$blocked" ] && line="$line · ⚠️ blocks Google: $blocked"
+            canon=$(curl -s -m 20 -A "$UA" "https://$d/" | grep -o '<link rel="canonical" href="[^"]*"' | head -1)
+            line="$line · $canon"
+            echo "- $line" >> "$GITHUB_STEP_SUMMARY"
+            echo "$line"
+          done
