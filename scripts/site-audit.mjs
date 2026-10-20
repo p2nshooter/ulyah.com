@@ -70,6 +70,12 @@ Object.assign(EXPECTED, {
   "saved.lat": "4548005919629272",
   "crone.skin": "9433622530024776",
 });
+// 20 Oct 2026 (owner): three more sites move to their own accounts.
+Object.assign(EXPECTED, {
+  "profity.in": "2493615451319531",
+  "byoxy.de": "6146217038829045",
+  "rough.es": "4504974645924459",
+});
 const verdicts = [];
 
 const browser = await chromium.launch();
