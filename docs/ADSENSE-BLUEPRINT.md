@@ -106,7 +106,7 @@ membuka domain-domain ini.
 | axto.dev | ca-pub-2493615451319531 | `axtodev` | axto-dev | en | akun sendiri sejak 12 Okt 2026 (sebelumnya 5693981744147503) |
 | jai.lat | ca-pub-5693981744147503 | `jai` | jai-lat | en → **es** | 200 · **Adsterra aktif** · 77 artikel (Inggris) |
 | lie.skin | ca-pub-4548005919629272 | `Lie` | lie-skin | en | akun sendiri sejak 12 Okt 2026 (sebelumnya 5693981744147503) |
-| oldco.in | ca-pub-5693981744147503 | `oldco.in` | oldco-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
+| oldco.in | ca-pub-6293576511807510 | `oldco.in` | oldco-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
 | profity.in | ca-pub-5693981744147503 | `profity.in` | profity-in | hi + en | 200 · **Adsterra aktif** · judul mesin dobel |
 | dawo.es | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/dawo.es` | dawo-es | es | **belum ada** (DNS tidak resolve) |
 | qkb.es | ca-pub-5693981744147503 | **baru** → `ulyah.com/sites/qkb.es` | qkb-es | es | **belum ada** (DNS tidak resolve) |
@@ -595,6 +595,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 19 Okt | "xkb.es masih belum bisa … Maaf xkb.es itu g ada... Delete aja dan jgn d kerjakan" | ✅ entri xkb.es dihapus (baris 17 Okt di atas) |
 | 19 Okt | xaa.es/acquire: "Prefer a stake to the whole? A joint offering for AXTO and XAA…" — "Maksudnya masing2 web nyari investornya, bukan gabungan" | ✅ §13.4: xaa.es punya halaman investor sendiri (`/invest`, hanya xaa.es); axto.io `/invest` hanya untuk AXTO; tidak ada lagi penawaran gabungan |
 | 19 Okt | "Selesaikan seluruh tugas sampai bersih, tidak merge+PR manual, semua anda kerjakan" | 🔄 Claude membuat PR, menunggu CI hijau, lalu merge sendiri di setiap repo; dideploy otomatis |
+| 20 Okt (urgent) | "ubah kode adsense oldco.in google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0 — Bikin ads.txt , cuplikan adaense dan tag meta nya" | ✅ repo oldco.in PR #13: `public/ads.txt`, tag meta `google-adsense-account` (head + metadata Next) dan loader Auto ads → ca-pub-6293576511807510 (menggantikan 2493615451319531); diuji `next build` + `next start`; `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`, `docs/ADSENSE-SEMUA-DOMAIN.txt` diperbarui |
 
 ---
 
@@ -902,7 +903,7 @@ dan blueprint axto.io/xaa.es. Semua dikerjakan manual (aturan 13).
 | zuvik.de, zufiq.de, zavik.de, byoy.de, qkb.es, qarf.de, xko.es, zevok.de, qurm.de, pab.lat | lihat `docs/ADSENSE-CODES.md` | `sites/<domain>/site.json` + `ADSENSE.txt` |
 | tilawa.de | ca-pub-6908951782430508 | `apps/web/src/lib/ad-config.ts` |
 | axto.dev | ca-pub-6381187608934514 | repo axtodev |
-| oldco.in | ca-pub-2493615451319531 | repo oldco.in (19 Okt, kode terbaru; sebelumnya 6293576511807510) |
+| oldco.in | ca-pub-6293576511807510 | repo oldco.in (20 Okt, kode terbaru; 19 Okt: 2493615451319531, sebelumnya 6293576511807510) |
 | lie.skin | ca-pub-9666205248809954 | repo Lie |
 | saved.lat | ca-pub-4548005919629272 | `sites/saved.lat` (situs baru) |
 | crone.skin | ca-pub-9433622530024776 | `sites/crone.skin` (situs baru) |

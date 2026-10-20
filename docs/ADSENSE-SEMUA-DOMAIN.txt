@@ -1,5 +1,5 @@
 =====================================================================
- KODE ADSENSE SEMUA DOMAIN — data per 19 Oktober 2026
+ KODE ADSENSE SEMUA DOMAIN — data per 20 Oktober 2026
 =====================================================================
 
  Jumlah domain milik pemilik : 33
@@ -104,11 +104,11 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-9666205248809954">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9666205248809954" crossorigin="anonymous"></script>
 
-[13] ca-pub-2493615451319531   (1 domain)
+[13] ca-pub-6293576511807510   (1 domain)
       • oldco.in      (repo oldco.in)
-    ads.txt : google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-2493615451319531">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531" crossorigin="anonymous"></script>
+    ads.txt : google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-6293576511807510">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6293576511807510" crossorigin="anonymous"></script>
 
 [14] ca-pub-7250589269548267   (1 domain)
       • pab.lat       (repo ulyah.com · sites/pab.lat)
@@ -204,7 +204,7 @@
   dawo.es      ca-pub-7349356139063654
   jai.lat      ca-pub-6019445914743449
   lie.skin     ca-pub-9666205248809954
-  oldco.in     ca-pub-2493615451319531
+  oldco.in     ca-pub-6293576511807510
   pab.lat      ca-pub-7250589269548267
   profity.in   ca-pub-5944786950535069   (sama dengan rough.lat)
   qarf.de      ca-pub-4304267428455702
@@ -237,8 +237,9 @@
 ---------------------------------------------------------------------
   • ca-pub-5693981744147503 dulu adalah "satu akun untuk semua" (4 Okt 2026);
     sekarang hanya byoxy.de yang masih memakainya.
-  • oldco.in memakai kode yang dulu milik axto.dev (2493615451319531);
-    axto.dev sekarang ca-pub-6381187608934514.
+  • oldco.in kembali ke ca-pub-6293576511807510 (perintah pemilik 20 Okt 2026;
+    sebelumnya 2493615451319531, kode lama axto.dev). axto.dev sekarang
+    ca-pub-6381187608934514.
   • xkb.es dihapus atas perintah pemilik (19 Okt) — tidak ada kodenya.
   • Semua situs memakai Auto ads saja (loader + meta + ads.txt), tanpa slot
     iklan manual. Sumber lengkap: docs/ADSENSE-CODES.md di repo ulyah.com.
