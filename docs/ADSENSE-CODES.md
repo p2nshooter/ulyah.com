@@ -54,7 +54,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >    tilawa.de → 6908951782430508, zavik.de → 5254913739159445, byoy.de → 1768325549147657, qkb.es → 6284085719914185,
 >    qarf.de → 4304267428455702, xko.es → 4906992051458194, zevok.de → 6560360898389273, qurm.de → 8212039662308316**.
 >    Disusul: **oldco.in → ca-pub-2493615451319531** (urutan pesan: 9666205248809954 → 6293576511807510 →
->    2493615451319531, yang terakhir berlaku), **lie.skin →
+>    2493615451319531, yang terakhir berlaku; **20 Okt diganti lagi ke ca-pub-6293576511807510**), **lie.skin →
 >    ca-pub-9666205248809954**, **axto.dev → ca-pub-6381187608934514** (urutan pesan: 8212039662308316 → 6284085719914185 →
 >    6381187608934514, yang terakhir berlaku), **pab.lat → ca-pub-7250589269548267** (sempat 1768325549147657), dan dua
 >    situs baru **saved.lat → ca-pub-4548005919629272** (sempat 9433622530024776) dan **crone.skin →
@@ -72,7 +72,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | axto.dev | ca-pub-6381187608934514 | axtodev · src/lib/site.ts + public/ads.txt — diubah pemilik 19 Okt (sebelumnya ca-pub-2493615451319531) |
 | jai.lat | ca-pub-6019445914743449 | Jai · site.ts + public/ads.txt — diubah pemilik 10 Okt |
 | lie.skin | ca-pub-9666205248809954 | Lie · src/lib/site.ts + public/ads.txt — diubah pemilik 19 Okt (sebelumnya ca-pub-4548005919629272) |
-| oldco.in | ca-pub-2493615451319531 | oldco.in · layout + public/ads.txt — diubah pemilik 19 Okt, kode terbaru (sebelumnya 6293576511807510, awalnya ca-pub-5693981744147503) |
+| oldco.in | ca-pub-6293576511807510 | oldco.in · layout + public/ads.txt — diubah pemilik 20 Okt, kode terbaru (19 Okt: 2493615451319531; sebelumnya 6293576511807510, awalnya ca-pub-5693981744147503) |
 | profity.in | ca-pub-5944786950535069 | profity.in · layout + public/ads.txt — diubah pemilik 13 Okt (sebelumnya 5693981744147503) |
 | dawo.es | ca-pub-7349356139063654 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) — diubah pemilik 11 Okt (sebelumnya 5693981744147503) |
 | qkb.es | ca-pub-6284085719914185 | ulyah.com · sites/qkb.es (site.json + ADSENSE.txt) — diubah pemilik 19 Okt (sebelumnya ca-pub-5693981744147503) |
@@ -277,25 +277,26 @@ Tag meta
 
 ## oldco.in
 
-Kode terbaru dari pemilik, 19 Okt 2026 (sebelumnya ca-pub-6293576511807510; awalnya ca-pub-5693981744147503).
+Kode terbaru dari pemilik, 20 Okt 2026 (19 Okt: ca-pub-2493615451319531; sebelumnya ca-pub-6293576511807510; awalnya
+ca-pub-5693981744147503).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6293576511807510"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://oldco.in/ads.txt)
 
 ```
-google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
+google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2493615451319531">
+<meta name="google-adsense-account" content="ca-pub-6293576511807510">
 ```
 
 ## profity.in
