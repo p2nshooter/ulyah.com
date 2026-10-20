@@ -42,9 +42,10 @@ jobs:
           - repo: p2nshooter/oldco.in
             worker: oldco-in
             domain: oldco.in
-          - repo: p2nshooter/xaa
-            worker: xaa-es
-            domain: xaa.es
+          # xaa.es is not deployed from here: its own repository's deploy.yml
+          # creates its R2 buckets, fills in the database id and deploys the
+          # worker with its daily backup schedule. From here wrangler always
+          # stopped at the placeholder database id (code 10021).
           # xad.es is no longer a standalone tech-article partner site — it is
           # now the ENGLISH member of the ulyah.com ecosystem, built from THIS
           # monorepo (NEXT_PUBLIC_TENANT=xad → xad-web) and its domain is
@@ -83,6 +84,9 @@ jobs:
       # (code 10429) even one deploy at a time when the account is busy.
       - name: Deploy to Cloudflare Workers
         run: |
+          # Without pipefail the pipeline below reports tee's exit code, so a
+          # failed deploy would still mark this step green.
+          set -o pipefail
           for attempt in 1 2 3 4; do
             echo "::group::Deploy attempt $attempt"
             if npx opennextjs-cloudflare deploy 2>&1 | tee /tmp/deploy.log; then
