@@ -3,9 +3,9 @@
 =====================================================================
 
  Jumlah domain milik pemilik : 33
- Jumlah kode (akun) AdSense  : 26
-   - dipakai lebih dari 1 domain : 3 kode (10 domain)
-   - dipakai 1 domain saja       : 23 kode
+ Jumlah kode (akun) AdSense  : 28
+   - dipakai lebih dari 1 domain : 2 kode (7 domain)
+   - dipakai 1 domain saja       : 26 kode
 
  Semua angka di bawah sudah dicocokkan dengan kode yang benar-benar
  terpasang di repositori (ads.txt, tag meta dan loader) — kode terakhir
@@ -21,12 +21,11 @@
  A. KODE YANG SAMA DIPAKAI BEBERAPA DOMAIN (digabung)
 ---------------------------------------------------------------------
 
-[1] ca-pub-6908951782430508   (6 domain)
+[1] ca-pub-6908951782430508   (5 domain)
       • ulyah.com     (repo ulyah.com · apps/web (tenant ulyah))
       • axto.io       (repo guardian-ai)
       • xaa.es        (repo xaa)
       • 1fr.fr        (repo ulyah.com · apps/web (tenant 1fr))
-      • rough.es      (repo ulyah.com · sites/rough.es)
       • tilawa.de     (repo ulyah.com · apps/web (tenant tilawa))
     ads.txt : google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6908951782430508">
@@ -39,82 +38,81 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-2990015102981265">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2990015102981265" crossorigin="anonymous"></script>
 
-[3] ca-pub-5944786950535069   (2 domain)
-      • profity.in    (repo profity.in)
-      • rough.lat     (repo ulyah.com · sites/rough.lat)
-    ads.txt : google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-5944786950535069">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5944786950535069" crossorigin="anonymous"></script>
-
 ---------------------------------------------------------------------
  B. KODE YANG HANYA DIPAKAI SATU DOMAIN
 ---------------------------------------------------------------------
 
-[4] ca-pub-6381187608934514   (1 domain)
+[3] ca-pub-6381187608934514   (1 domain)
       • axto.dev      (repo axtodev)
     ads.txt : google.com, pub-6381187608934514, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6381187608934514">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381187608934514" crossorigin="anonymous"></script>
 
-[5] ca-pub-2228462932360966   (1 domain)
+[4] ca-pub-2228462932360966   (1 domain)
       • byodd.de      (repo ulyah.com · sites/byodd.de)
     ads.txt : google.com, pub-2228462932360966, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-2228462932360966">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228462932360966" crossorigin="anonymous"></script>
 
-[6] ca-pub-5693981744147503   (1 domain)
+[5] ca-pub-6146217038829045   (1 domain)
       • byoxy.de      (repo ulyah.com · sites/byoxy.de)
-    ads.txt : google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-5693981744147503">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503" crossorigin="anonymous"></script>
+    ads.txt : google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-6146217038829045">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045" crossorigin="anonymous"></script>
 
-[7] ca-pub-1768325549147657   (1 domain)
+[6] ca-pub-1768325549147657   (1 domain)
       • byoy.de       (repo ulyah.com · sites/byoy.de)
     ads.txt : google.com, pub-1768325549147657, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-1768325549147657">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1768325549147657" crossorigin="anonymous"></script>
 
-[8] ca-pub-9433622530024776   (1 domain)
+[7] ca-pub-9433622530024776   (1 domain)
       • crone.skin    (repo ulyah.com · sites/crone.skin)
     ads.txt : google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-9433622530024776">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9433622530024776" crossorigin="anonymous"></script>
 
-[9] ca-pub-8469557036744946   (1 domain)
+[8] ca-pub-8469557036744946   (1 domain)
       • dai.lat       (repo ulyah.com · sites/dai.lat)
     ads.txt : google.com, pub-8469557036744946, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-8469557036744946">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8469557036744946" crossorigin="anonymous"></script>
 
-[10] ca-pub-7349356139063654   (1 domain)
+[9] ca-pub-7349356139063654   (1 domain)
       • dawo.es       (repo ulyah.com · sites/dawo.es)
     ads.txt : google.com, pub-7349356139063654, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-7349356139063654">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7349356139063654" crossorigin="anonymous"></script>
 
-[11] ca-pub-6019445914743449   (1 domain)
+[10] ca-pub-6019445914743449   (1 domain)
       • jai.lat       (repo Jai)
     ads.txt : google.com, pub-6019445914743449, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6019445914743449">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6019445914743449" crossorigin="anonymous"></script>
 
-[12] ca-pub-9666205248809954   (1 domain)
+[11] ca-pub-9666205248809954   (1 domain)
       • lie.skin      (repo Lie)
     ads.txt : google.com, pub-9666205248809954, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-9666205248809954">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9666205248809954" crossorigin="anonymous"></script>
 
-[13] ca-pub-6293576511807510   (1 domain)
+[12] ca-pub-6293576511807510   (1 domain)
       • oldco.in      (repo oldco.in)
     ads.txt : google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6293576511807510">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6293576511807510" crossorigin="anonymous"></script>
 
-[14] ca-pub-7250589269548267   (1 domain)
+[13] ca-pub-7250589269548267   (1 domain)
       • pab.lat       (repo ulyah.com · sites/pab.lat)
     ads.txt : google.com, pub-7250589269548267, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-7250589269548267">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250589269548267" crossorigin="anonymous"></script>
+
+[14] ca-pub-2493615451319531   (1 domain)
+      • profity.in    (repo profity.in)
+    ads.txt : google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-2493615451319531">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531" crossorigin="anonymous"></script>
 
 [15] ca-pub-4304267428455702   (1 domain)
       • qarf.de       (repo ulyah.com · sites/qarf.de)
@@ -140,49 +138,61 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-8212039662308316">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8212039662308316" crossorigin="anonymous"></script>
 
-[19] ca-pub-4548005919629272   (1 domain)
+[19] ca-pub-4504974645924459   (1 domain)
+      • rough.es      (repo ulyah.com · sites/rough.es)
+    ads.txt : google.com, pub-4504974645924459, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-4504974645924459">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4504974645924459" crossorigin="anonymous"></script>
+
+[20] ca-pub-5944786950535069   (1 domain)
+      • rough.lat     (repo ulyah.com · sites/rough.lat)
+    ads.txt : google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-5944786950535069">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5944786950535069" crossorigin="anonymous"></script>
+
+[21] ca-pub-4548005919629272   (1 domain)
       • saved.lat     (repo ulyah.com · sites/saved.lat)
     ads.txt : google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-4548005919629272">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272" crossorigin="anonymous"></script>
 
-[20] ca-pub-5517446616694631   (1 domain)
+[22] ca-pub-5517446616694631   (1 domain)
       • xad.es        (repo ulyah.com · apps/web (tenant xad))
     ads.txt : google.com, pub-5517446616694631, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-5517446616694631">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5517446616694631" crossorigin="anonymous"></script>
 
-[21] ca-pub-4906992051458194   (1 domain)
+[23] ca-pub-4906992051458194   (1 domain)
       • xko.es        (repo ulyah.com · sites/xko.es)
     ads.txt : google.com, pub-4906992051458194, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-4906992051458194">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4906992051458194" crossorigin="anonymous"></script>
 
-[22] ca-pub-5254913739159445   (1 domain)
+[24] ca-pub-5254913739159445   (1 domain)
       • zavik.de      (repo ulyah.com · sites/zavik.de)
     ads.txt : google.com, pub-5254913739159445, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-5254913739159445">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5254913739159445" crossorigin="anonymous"></script>
 
-[23] ca-pub-6560360898389273   (1 domain)
+[25] ca-pub-6560360898389273   (1 domain)
       • zevok.de      (repo ulyah.com · sites/zevok.de)
     ads.txt : google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6560360898389273">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6560360898389273" crossorigin="anonymous"></script>
 
-[24] ca-pub-6016479123891586   (1 domain)
+[26] ca-pub-6016479123891586   (1 domain)
       • zolun.de      (repo ulyah.com · sites/zolun.de)
     ads.txt : google.com, pub-6016479123891586, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6016479123891586">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6016479123891586" crossorigin="anonymous"></script>
 
-[25] ca-pub-9338499658056112   (1 domain)
+[27] ca-pub-9338499658056112   (1 domain)
       • zufiq.de      (repo ulyah.com · sites/zufiq.de)
     ads.txt : google.com, pub-9338499658056112, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-9338499658056112">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9338499658056112" crossorigin="anonymous"></script>
 
-[26] ca-pub-4613976964728693   (1 domain)
+[28] ca-pub-4613976964728693   (1 domain)
       • zuvik.de      (repo ulyah.com · sites/zuvik.de)
     ads.txt : google.com, pub-4613976964728693, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-4613976964728693">
@@ -192,12 +202,12 @@
  C. DAFTAR CEPAT: DOMAIN → KODE (urut abjad)
 ---------------------------------------------------------------------
 
-  1fr.fr       ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, xaa.es, rough.es, tilawa.de)
+  1fr.fr       ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, xaa.es, tilawa.de)
   axto.dev     ca-pub-6381187608934514
-  axto.io      ca-pub-6908951782430508   (sama dengan ulyah.com, xaa.es, 1fr.fr, rough.es, tilawa.de)
+  axto.io      ca-pub-6908951782430508   (sama dengan ulyah.com, xaa.es, 1fr.fr, tilawa.de)
   axto.us      ca-pub-2990015102981265   (sama dengan rubiy.de)
   byodd.de     ca-pub-2228462932360966
-  byoxy.de     ca-pub-5693981744147503
+  byoxy.de     ca-pub-6146217038829045
   byoy.de      ca-pub-1768325549147657
   crone.skin   ca-pub-9433622530024776
   dai.lat      ca-pub-8469557036744946
@@ -206,18 +216,18 @@
   lie.skin     ca-pub-9666205248809954
   oldco.in     ca-pub-6293576511807510
   pab.lat      ca-pub-7250589269548267
-  profity.in   ca-pub-5944786950535069   (sama dengan rough.lat)
+  profity.in   ca-pub-2493615451319531
   qarf.de      ca-pub-4304267428455702
   qkb.es       ca-pub-6284085719914185
   qulen.de     ca-pub-7516944260248026
   qurm.de      ca-pub-8212039662308316
-  rough.es     ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, xaa.es, 1fr.fr, tilawa.de)
-  rough.lat    ca-pub-5944786950535069   (sama dengan profity.in)
+  rough.es     ca-pub-4504974645924459
+  rough.lat    ca-pub-5944786950535069
   rubiy.de     ca-pub-2990015102981265   (sama dengan axto.us)
   saved.lat    ca-pub-4548005919629272
-  tilawa.de    ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, xaa.es, 1fr.fr, rough.es)
-  ulyah.com    ca-pub-6908951782430508   (sama dengan axto.io, xaa.es, 1fr.fr, rough.es, tilawa.de)
-  xaa.es       ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, 1fr.fr, rough.es, tilawa.de)
+  tilawa.de    ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, xaa.es, 1fr.fr)
+  ulyah.com    ca-pub-6908951782430508   (sama dengan axto.io, xaa.es, 1fr.fr, tilawa.de)
+  xaa.es       ca-pub-6908951782430508   (sama dengan ulyah.com, axto.io, 1fr.fr, tilawa.de)
   xad.es       ca-pub-5517446616694631
   xko.es       ca-pub-4906992051458194
   zavik.de     ca-pub-5254913739159445
@@ -236,7 +246,11 @@
  Catatan
 ---------------------------------------------------------------------
   • ca-pub-5693981744147503 dulu adalah "satu akun untuk semua" (4 Okt 2026);
-    sekarang hanya byoxy.de yang masih memakainya.
+    sejak 20 Okt 2026 tidak dipakai domain mana pun lagi (byoxy.de pindah).
+  • 20 Okt 2026 (pemilik): profity.in → ca-pub-2493615451319531 (sebelumnya
+    5944786950535069), byoxy.de → ca-pub-6146217038829045 (sebelumnya
+    5693981744147503), rough.es → ca-pub-4504974645924459 (sebelumnya
+    6908951782430508).
   • oldco.in kembali ke ca-pub-6293576511807510 (perintah pemilik 20 Okt 2026;
     sebelumnya 2493615451319531, kode lama axto.dev). axto.dev sekarang
     ca-pub-6381187608934514.
