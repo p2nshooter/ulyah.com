@@ -47,13 +47,15 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
-  // 14 Oct 2026 (owner): ulyah.com and 1fr.fr move to ca-pub-6908951782430508,
-  // together with axto.io, xaa.es and rough.es.
+  // 14 Oct 2026 (owner): ulyah.com moves to ca-pub-6908951782430508,
+  // together with axto.io and xaa.es.
   ulyah: "ca-pub-6908951782430508",
-  "1fr": "ca-pub-6908951782430508",
-  // 19 Oct 2026 (owner): tilawa.de → ca-pub-6908951782430508
-  // ("google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0").
-  tilawa: "ca-pub-6908951782430508",
+  // 20 Oct 2026 (owner): 1fr.fr → ca-pub-5928074389292014
+  // ("1fr.fr make kode ini google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0").
+  "1fr": "ca-pub-5928074389292014",
+  // 20 Oct 2026 (owner): tilawa.de → ca-pub-7345352440829958
+  // ("google.com, pub-7345352440829958, DIRECT, f08c47fec0942fa0").
+  tilawa: "ca-pub-7345352440829958",
   dawa: ORIGINAL_ACCOUNT,
   xad: "ca-pub-5517446616694631",
 };

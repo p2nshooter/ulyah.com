@@ -76,6 +76,11 @@ Object.assign(EXPECTED, {
   "byoxy.de": "6146217038829045",
   "rough.es": "4504974645924459",
 });
+// 20 Oct 2026 (owner): tilawa.de and 1fr.fr move to their own accounts.
+Object.assign(EXPECTED, {
+  "tilawa.de": "7345352440829958",
+  "1fr.fr": "5928074389292014",
+});
 const verdicts = [];
 
 const browser = await chromium.launch();

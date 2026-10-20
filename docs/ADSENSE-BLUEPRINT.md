@@ -93,7 +93,9 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
 
 Kolom "Live" berisi hasil audit Chromium sungguhan dari GitHub Actions
 (`.github/workflows/site-audit.yml`), karena container kerja tidak bisa
-membuka domain-domain ini.
+membuka domain-domain ini. Kolom akun adalah keadaan 4 Okt; kode yang berlaku
+sekarang untuk setiap domain ada di `docs/ADSENSE-CODES.md` (§13.1 untuk
+perubahan 17–20 Okt).
 
 | Domain | Akun AdSense (satu akun) | Repo / lokasi kode | Worker | Bahasa | Live sekarang |
 |---|---|---|---|---|---|
@@ -597,6 +599,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 19 Okt | "Selesaikan seluruh tugas sampai bersih, tidak merge+PR manual, semua anda kerjakan" | 🔄 Claude membuat PR, menunggu CI hijau, lalu merge sendiri di setiap repo; dideploy otomatis |
 | 20 Okt (urgent) | "ubah kode adsense oldco.in google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0 — Bikin ads.txt , cuplikan adaense dan tag meta nya" | ✅ repo oldco.in PR #13: `public/ads.txt`, tag meta `google-adsense-account` (head + metadata Next) dan loader Auto ads → ca-pub-6293576511807510 (menggantikan 2493615451319531); diuji `next build` + `next start`; `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`, `docs/ADSENSE-SEMUA-DOMAIN.txt` diperbarui |
 | 20 Okt (urgent) | "Ubah kode adsense termasuk ads.txt, tag meta dan cuplikan adsense nya — profity.in google.com, pub-2493615451319531 … byoxy.de google.com, pub-6146217038829045 … rough.es google.com, pub-4504974645924459, DIRECT, f08c47fec0942fa0" | ✅ profity.in (repo profity.in: `public/ads.txt`, tag meta di head + metadata Next, loader) → ca-pub-2493615451319531 (sebelumnya 5944786950535069); byoxy.de (`sites/byoxy.de` site.json + ADSENSE.txt) → ca-pub-6146217038829045 (sebelumnya 5693981744147503); rough.es (`sites/rough.es`) → ca-pub-4504974645924459 (sebelumnya 6908951782430508). `check.mjs` lulus untuk kedua situs (ads.txt, tag meta + loader di setiap halaman); `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`, `docs/ADSENSE-SEMUA-DOMAIN.txt` diperbarui |
+| 20 Okt | "Ubah kode adsense tilawa.de & 1fr.fr google.com, pub-7345352440829958, DIRECT, f08c47fec0942fa0", disusul "1fr.fr make kode ini google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0" | ✅ tilawa.de → ca-pub-7345352440829958 dan 1fr.fr → ca-pub-5928074389292014 (keduanya sebelumnya 6908951782430508): `apps/web/src/lib/ad-config.ts` (loader, tag meta dan route `/ads.txt` dari satu konstanta per tenant), `scripts/check-ads.ts`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` (termasuk cuplikan ulyah.com, axto.io, xaa.es yang masih menulis kode lama), `docs/ADSENSE-SEMUA-DOMAIN.txt` (30 kode) |
 
 ---
 
@@ -902,7 +905,8 @@ dan blueprint axto.io/xaa.es. Semua dikerjakan manual (aturan 13).
 | Domain | Kode baru | Tempat |
 |---|---|---|
 | zuvik.de, zufiq.de, zavik.de, byoy.de, qkb.es, qarf.de, xko.es, zevok.de, qurm.de, pab.lat | lihat `docs/ADSENSE-CODES.md` | `sites/<domain>/site.json` + `ADSENSE.txt` |
-| tilawa.de | ca-pub-6908951782430508 | `apps/web/src/lib/ad-config.ts` |
+| tilawa.de | ca-pub-7345352440829958 | `apps/web/src/lib/ad-config.ts` (20 Okt; 19 Okt: 6908951782430508) |
+| 1fr.fr | ca-pub-5928074389292014 | `apps/web/src/lib/ad-config.ts` (20 Okt; sebelumnya 6908951782430508) |
 | axto.dev | ca-pub-6381187608934514 | repo axtodev |
 | oldco.in | ca-pub-6293576511807510 | repo oldco.in (20 Okt, kode terbaru; 19 Okt: 2493615451319531, sebelumnya 6293576511807510) |
 | profity.in | ca-pub-2493615451319531 | repo profity.in (20 Okt; sebelumnya 5944786950535069) |
