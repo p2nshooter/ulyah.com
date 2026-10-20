@@ -134,6 +134,10 @@ account and the only reason a click is worth anything to the advertiser.
 
 ## Storage discipline
 
+**Owner's standing rule (20 Oct 2026): everything that needs storage goes to R2, never to D1** — no new D1 table,
+migration or query; what is still in `ulyah-db` moves to R2 module by module (`CLAUDE.md`,
+`docs/R2-DATA-BLUEPRINT.md`). Until the last module has moved, the D1 limits below still apply.
+
 Watched nightly by `.github/workflows/db-maintenance.yml`:
 
 - **The account is on Workers Free.** One D1 database stops at **500 MB**,
