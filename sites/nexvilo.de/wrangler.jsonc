@@ -1,0 +1,11 @@
+// nexvilo.de — a static site served by Cloudflare Workers Static Assets.
+// No Worker script runs: every page is a file in dist/.
+{
+  "name": "nexvilo-de",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

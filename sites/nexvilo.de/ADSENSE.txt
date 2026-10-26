@@ -1,0 +1,14 @@
+AdSense nexvilo.de — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
+Pemilik, 26 Okt 2026: "nexvilo.de 6908951782430508" (google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0) —
+buatkan cuplikan adsense, ads.txt & tag meta. Engine memasang ketiganya otomatis dari "adsense" di site.json;
+check.mjs menolak deploy kalau berbeda.
+
+Cuplikan adsense (di <head> setiap halaman)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+     crossorigin="anonymous"></script>
+
+Cuplikan ads.txt (https://nexvilo.de/ads.txt)
+google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+
+Tag meta (di <head> setiap halaman)
+<meta name="google-adsense-account" content="ca-pub-6908951782430508">
