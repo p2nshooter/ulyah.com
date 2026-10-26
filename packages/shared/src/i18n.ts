@@ -112,8 +112,22 @@ export function localeCanonicalUrl(code: string, route = ""): string {
 // scripture, not a UI language. NEXT_PUBLIC_TENANT is inlined by Next.js at
 // build time; the worker-api build never sets it, so the API keeps validating
 // the full list for all sites.
+//
+// Written as a PLAIN `process.env.NEXT_PUBLIC_TENANT` on purpose. The bundler
+// only inlines that exact member expression; the optional-chained form
+// (`process?.env?.…`) was left in the code by Next 16, read at runtime, found
+// nothing (the Worker has no such variable) and fell back to "ulyah" — so
+// 1fr.fr, tilawa.de and xad.es rendered the Indonesian site under their own
+// names. The try/catch keeps a runtime without `process` (the API without
+// nodejs_compat, a bare script) on the full list instead of throwing.
+// scripts/check-env-inlining.mjs fails CI if the optional form comes back.
 declare const process: { env?: Record<string, string | undefined> } | undefined;
-const TENANT_ID = (typeof process !== "undefined" && process?.env?.NEXT_PUBLIC_TENANT) || "ulyah";
+let TENANT_ID = "ulyah";
+try {
+  TENANT_ID = process!.env!.NEXT_PUBLIC_TENANT || "ulyah";
+} catch {
+  /* no process object: keep the hub default */
+}
 const TENANT_LOCALES: Record<string, { codes: string[]; def: string }> = {
   "1fr": { codes: ["fr"], def: "fr" },
   tilawa: { codes: ["de"], def: "de" },
