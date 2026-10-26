@@ -296,9 +296,9 @@ export async function sitemapGroups(): Promise<SitemapGroup[]> {
  * The index that lists them — what /sitemap.xml serves, and the one url
  * robots.txt has always named.
  *
- * Next.js generates the child sitemaps from generateSitemaps but does NOT
- * generate an index for them, so this is written out by hand. Without it
- * /sitemap.xml would 404, and that is the address Google already has.
+ * The child sitemaps are app/sitemap/[file]/route.ts; this index is written
+ * out by hand next to them. Without it /sitemap.xml would 404, and that is the
+ * address Google already has.
  *
  * lastmod here follows the same rule as inside the files: the newest real date
  * in the group, or nothing at all. The section routes have no recorded date, so
