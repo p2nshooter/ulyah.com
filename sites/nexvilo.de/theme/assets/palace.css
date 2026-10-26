@@ -271,9 +271,9 @@ img, svg { max-width: 100%; }
 .pfad-inhalt ol { position: relative; margin: 0; padding: 0; list-style: none; counter-reset: weg; }
 .pfad-inhalt ol::before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: radial-gradient(circle, rgba(23, 135, 106, .5) 1px, transparent 1.4px) 50% 0 / 2px 6px repeat-y; }
 .pfad-inhalt li { position: relative; margin: .32rem 0; padding-left: 1.6rem; }
-.pfad-inhalt li::before { content: ""; position: absolute; left: 4px; top: .5em; width: 10px; height: 10px; background: #fff; border: 2px solid rgba(23, 135, 106, .5);
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); transition: background .3s; }
-.pfad-inhalt li:has(a.is-here)::before { background: var(--gold); border-color: var(--gold); }
+.pfad-inhalt li::before { content: ""; position: absolute; left: 3px; top: .45em; width: 12px; height: 13px; background: rgba(23, 135, 106, .32);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); transition: background .3s, transform .4s; }
+.pfad-inhalt li:has(a.is-here)::before { background: var(--gold); transform: scale(1.15); }
 .pfad-inhalt a { color: var(--tinte-2); text-decoration: none; transition: color .3s; }
 .pfad-inhalt a:hover { color: var(--nacht); }
 .pfad-inhalt a.is-here { color: var(--nacht); font-weight: 700; }

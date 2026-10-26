@@ -1,0 +1,14 @@
+AdSense odaily.xyz — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
+Pemilik, 26 Okt 2026: "odaily.xyz 9221781326457936" (google.com, pub-9221781326457936, DIRECT, f08c47fec0942fa0;
+sempat diberi 8991272269211824, sudah diganti) — buatkan cuplikan adsense, ads.txt & tag meta. Engine memasang
+ketiganya otomatis dari "adsense" di site.json; check.mjs menolak deploy kalau berbeda.
+
+Cuplikan adsense (di <head> setiap halaman)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9221781326457936"
+     crossorigin="anonymous"></script>
+
+Cuplikan ads.txt (https://odaily.xyz/ads.txt)
+google.com, pub-9221781326457936, DIRECT, f08c47fec0942fa0
+
+Tag meta (di <head> setiap halaman)
+<meta name="google-adsense-account" content="ca-pub-9221781326457936">
