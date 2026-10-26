@@ -600,6 +600,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 20 Okt (urgent) | "ubah kode adsense oldco.in google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0 — Bikin ads.txt , cuplikan adaense dan tag meta nya" | ✅ repo oldco.in PR #13: `public/ads.txt`, tag meta `google-adsense-account` (head + metadata Next) dan loader Auto ads → ca-pub-6293576511807510 (menggantikan 2493615451319531); diuji `next build` + `next start`; `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`, `docs/ADSENSE-SEMUA-DOMAIN.txt` diperbarui |
 | 20 Okt (urgent) | "Ubah kode adsense termasuk ads.txt, tag meta dan cuplikan adsense nya — profity.in google.com, pub-2493615451319531 … byoxy.de google.com, pub-6146217038829045 … rough.es google.com, pub-4504974645924459, DIRECT, f08c47fec0942fa0" | ✅ profity.in (repo profity.in: `public/ads.txt`, tag meta di head + metadata Next, loader) → ca-pub-2493615451319531 (sebelumnya 5944786950535069); byoxy.de (`sites/byoxy.de` site.json + ADSENSE.txt) → ca-pub-6146217038829045 (sebelumnya 5693981744147503); rough.es (`sites/rough.es`) → ca-pub-4504974645924459 (sebelumnya 6908951782430508). `check.mjs` lulus untuk kedua situs (ads.txt, tag meta + loader di setiap halaman); `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`, `docs/ADSENSE-SEMUA-DOMAIN.txt` diperbarui |
 | 20 Okt | "Ubah kode adsense tilawa.de & 1fr.fr google.com, pub-7345352440829958, DIRECT, f08c47fec0942fa0", disusul "1fr.fr make kode ini google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0" | ✅ tilawa.de → ca-pub-7345352440829958 dan 1fr.fr → ca-pub-5928074389292014 (keduanya sebelumnya 6908951782430508): `apps/web/src/lib/ad-config.ts` (loader, tag meta dan route `/ads.txt` dari satu konstanta per tenant), `scripts/check-ads.ts`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` (termasuk cuplikan ulyah.com, axto.io, xaa.es yang masih menulis kode lama), `docs/ADSENSE-SEMUA-DOMAIN.txt` (30 kode) |
+| 21–26 Okt (urgent) | "Untuk 5 domain ini kode adsense nya ulyah.com 1fr.fr Tilawa.de axto.io xaa.es google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0"; situs baru velnixo.de 7345352440829958, zoevian.de 5928074389292014, nexvilo.de 6908951782430508, odaily.xyz 9221781326457936, xdaily.xyz 5693981744147503, dawa.im 8991272269211824; "Hati2 jgn sampe ads.txt hilang2an" | 🔄 §14 — kode dulu sampai live, lalu situs baru, artikel, blueprint |
 
 ---
 
@@ -1042,3 +1043,80 @@ lain (axto.us, Lie, profity.in, axtodev, Jai, oldco.in).
 
 Dicatat di `guardian-ai/docs/REQUESTS.md` + `docs/AXTO-APPS-BLUEPRINT.md` dan di
 blueprint repo xaa; nomor HP konfirmasi transfer manual: +6285691234561.
+
+---
+
+## 14. Permintaan 21–26 Okt 2026 (urutan dari pemilik)
+
+Pemilik: **"Seluruh pengerjaan perintah2 baru dahulukan pengerjaan ubah atau input kode adsense dulu sampai live
+lanjut pembuatan website baru"**, lalu artikel, lalu blueprint, dan baru aplikasi (axto.io, xaa.es, ulyah.com)
+**setelah diizinkan**: "jgn pernah mengerjakan aplikasi sebelum di perintahkan atau anda harus minta izin dulu jika
+pengerjaan artikel sudah 100% selesai".
+
+### 14.1 Kode AdSense (prioritas 1, sampai live)
+
+| Domain | Kode baru | Sebelumnya | Tempat |
+|---|---|---|---|
+| ulyah.com | ca-pub-8991272269211824 | 6908951782430508 | `apps/web/src/lib/ad-config.ts` (tenant ulyah) |
+| 1fr.fr | ca-pub-8991272269211824 | 5928074389292014 | `apps/web/src/lib/ad-config.ts` (tenant 1fr) |
+| tilawa.de | ca-pub-8991272269211824 | 7345352440829958 | `apps/web/src/lib/ad-config.ts` (tenant tilawa) |
+| axto.io | ca-pub-8991272269211824 | 6908951782430508 | repo guardian-ai |
+| xaa.es | ca-pub-8991272269211824 | 6908951782430508 | repo xaa |
+| velnixo.de (baru) | ca-pub-7345352440829958 | — | `sites/velnixo.de` |
+| zoevian.de (baru) | ca-pub-5928074389292014 | — | `sites/zoevian.de` |
+| nexvilo.de (baru) | ca-pub-6908951782430508 | — | `sites/nexvilo.de` |
+| odaily.xyz (baru) | ca-pub-9221781326457936 | (sempat diberi 8991272269211824) | `sites/odaily.xyz` |
+| xdaily.xyz (baru) | ca-pub-5693981744147503 | (sempat diberi 8991272269211824) | `sites/xdaily.xyz` |
+| dawa.im (baru, salinan dawa.es) | ca-pub-8991272269211824 | — | `sites/dawa.im` |
+
+Aturan tambahan: **"Hati2 jgn sampe ads.txt hilang2an"** — setiap situs memuat ads.txt, tag meta
+`google-adsense-account` dan cuplikan loader di HTML server (bukan ditambahkan JavaScript), dari SATU konstanta per
+situs, dan `check-ads.ts` / `sites/_engine/check.mjs` / `scripts/site-audit.mjs` menggagalkan CI jika salah satunya
+hilang atau berbeda.
+
+### 14.2 Kode lain (DNS Cloudflare)
+
+- Search Console: pemilik, "Untuk kode SEO tidak usah di kerjakan, karena sudah di input" — hanya dicek
+  (zoevian.de, velnixo.de, nexvilo.de, odaily.xyz, xdaily.xyz, dawa.im).
+- Sedo self-verification TXT `8750bf0e1361e14b0df9824b3c487b017e2a1ed6` di odaily.xyz, zoevian.de, xdaily.xyz,
+  nexvilo.de, velnixo.de, crone.skin, saved.lat.
+- axto.io: rekaman Spacemail (TXT verifikasi, MX mx1/mx2.spacemail.com, SRV `_autodiscover._tcp`, SPF
+  `v=spf1 include:spf.spacemail.com ~all`, DKIM `spacemail._domainkey`). "Kerjakan yg berhasil saja" bila sebagian
+  sudah dimasukkan pemilik.
+- Favicon/logo yang belum muncul di Search Console dan robots.txt yang tidak boleh memblokir apa pun yang perlu
+  dirayapi.
+
+### 14.3 Situs baru (prioritas 2)
+
+velnixo.de, zoevian.de, nexvilo.de, odaily.xyz, xdaily.xyz: berkualitas tinggi, unik, SEO sangat kuat, untuk
+pengajuan AdSense — **45 artikel per situs, masing-masing ≥ 1.500 kata**, unik dan bermanfaat; sitemap.xml,
+robots.txt, kanonis, JSON-LD, tautan internal; ads.txt + meta + loader; promosi axto.io, xaa.es dan ulyah.com dengan
+logo (§14.5). dawa.im: salinan dawa.es dengan semua "dawa.es" diganti "dawa.im" (domain belum dikoneksikan) dan logo
+baru dari pemilik (merah/emas, "dawa .im — Conocimiento Islámico para todos"). dawa.es sendiri tetap tidak disentuh.
+
+### 14.4 Artikel (prioritas 3)
+
+Minimal 45 artikel berkualitas di setiap situs **kecuali situs muslim** (artikelnya sudah melimpah), termasuk
+axto.io dan xaa.es; artikel yang belum sempurna disempurnakan.
+
+### 14.5 Promosi axto.io, xaa.es, ulyah.com (backlink, sesuai kebijakan AdSense)
+
+Di setiap situs yang punya domain: satu bagian promosi yang menjelaskan setiap aplikasi dan manfaat axto.io, xaa.es
+dan ulyah.com, dengan logo ketiganya di posisi yang tepat, elegan dan profesional. Aturan AdSense: tautan biasa
+berlabel jelas (bukan teks tersembunyi, bukan tombol yang meniru iklan, tidak di dekat unit iklan, tidak
+mengarahkan klik iklan), isi yang jujur, dan halaman tetap didominasi isi asli situs.
+
+### 14.6 Blueprint (prioritas 4)
+
+Satu berkas HTML besar sebagai panduan yang selalu dibaca pertama kali; blueprint yang sudah disalin ke sana dihapus.
+Isinya: standar pengajuan AdSense (CSS super premium, SEO, sitemap.xml, kata kunci & tautan, peletakan kode AdSense
+yang konsisten, artikel unik bermanfaat), rencana SEO global, catatan token Cloudflare & R2 (12,53 GB; axto-data
+4,19 rb objek; kemungkinan xaa.es satu akun CF dengan axto.io — dibahas dulu), lelang lisensi axto.io tiap 2 minggu
+(berakhir Jumat, mulai 25 % harga normal), koin AXTO lokal (100 jt, $1, hanya transaksi), status ulyah.com/axto.io/
+xaa.es (selesai, belum, sedang dikerjakan, "siap produksi 100%"), rencana riset. Situs yang ditandai terjual tidak
+disentuh.
+
+### 14.7 Nanti, hanya dengan izin pemilik
+
+Penawaran investor (hingga 30 %) di axto.io dan xaa.es disembunyikan secara default di index dan portal member,
+dengan tombol tampil/sembunyi di portal admin; perbaikan menyeluruh axto.io; riset dan pengembangan aplikasi.

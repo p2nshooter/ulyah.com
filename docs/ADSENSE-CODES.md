@@ -67,15 +67,20 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >    disusul „1fr.fr make kode ini google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0“ → **tilawa.de →
 >    ca-pub-7345352440829958** dan **1fr.fr → ca-pub-5928074389292014** (keduanya sebelumnya 6908951782430508;
 >    `apps/web/src/lib/ad-config.ts`, loader + tag meta + route /ads.txt dari satu konstanta per tenant).
+> 13. **26 Okt 2026:** „Untuk 5 domain ini kode adsense nya ulyah.com 1fr.fr Tilawa.de axto.io xaa.es google.com,
+>    pub-8991272269211824, DIRECT, f08c47fec0942fa0“ → **ulyah.com, 1fr.fr, tilawa.de, axto.io dan xaa.es →
+>    ca-pub-8991272269211824**. Situs baru: velnixo.de 7345352440829958, zoevian.de 5928074389292014, nexvilo.de
+>    6908951782430508, odaily.xyz 9221781326457936 (sempat 8991272269211824), xdaily.xyz 5693981744147503 (sempat
+>    8991272269211824) dan dawa.im 8991272269211824 (salinan dawa.es). „Hati2 jgn sampe ads.txt hilang2an.“
 > byodd.de, qulen.de dan zolun.de tetap dengan akun sendiri (6 Okt). Tabel di bawah adalah
 > keadaan terbaru; `scripts/site-audit.mjs` memeriksa domain live dengan angka yang sama.
 
 | Domain | Publisher | Tempat kodenya |
 |---|---|---|
-| ulyah.com | ca-pub-6908951782430508 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
-| axto.io | ca-pub-6908951782430508 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
-| xaa.es | ca-pub-6908951782430508 | xaa · site.ts + public/ads.txt — diubah pemilik 14 Okt (sebelumnya 5693981744147503) |
-| 1fr.fr | ca-pub-5928074389292014 | ulyah.com · apps/web (tenant 1fr) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 20 Okt (sebelumnya 6908951782430508) |
+| ulyah.com | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant ulyah) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 26 Okt (sebelumnya 6908951782430508) |
+| axto.io | ca-pub-8991272269211824 | guardian-ai · dashboard/lib/site.ts + dashboard/public/ads.txt — diubah pemilik 26 Okt (sebelumnya 6908951782430508) |
+| xaa.es | ca-pub-8991272269211824 | xaa · site.ts + public/ads.txt — diubah pemilik 26 Okt (sebelumnya 6908951782430508) |
+| 1fr.fr | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant 1fr) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 26 Okt (sebelumnya 5928074389292014) |
 | axto.us | ca-pub-2990015102981265 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — diubah pemilik 10 Okt |
 | axto.dev | ca-pub-6381187608934514 | axtodev · src/lib/site.ts + public/ads.txt — diubah pemilik 19 Okt (sebelumnya ca-pub-2493615451319531) |
 | jai.lat | ca-pub-6019445914743449 | Jai · site.ts + public/ads.txt — diubah pemilik 10 Okt |
@@ -104,99 +109,105 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | saved.lat | ca-pub-4548005919629272 | ulyah.com · sites/saved.lat (site.json + ADSENSE.txt) — situs baru 19 Okt (sempat 9433622530024776) |
 | crone.skin | ca-pub-9433622530024776 | ulyah.com · sites/crone.skin (site.json + ADSENSE.txt) — situs baru 19 Okt |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
-| tilawa.de | ca-pub-7345352440829958 | ulyah.com · apps/web (tenant tilawa) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 20 Okt (sebelumnya 6908951782430508) |
+| tilawa.de | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant tilawa) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 26 Okt (sebelumnya 7345352440829958) |
 | xad.es | ca-pub-5517446616694631 | ulyah.com · apps/web (tenant xad) — diubah pemilik 11 Okt |
+| velnixo.de | ca-pub-7345352440829958 | ulyah.com · sites/velnixo.de (site.json + ADSENSE.txt) — situs baru 26 Okt |
+| zoevian.de | ca-pub-5928074389292014 | ulyah.com · sites/zoevian.de (site.json + ADSENSE.txt) — situs baru 26 Okt |
+| nexvilo.de | ca-pub-6908951782430508 | ulyah.com · sites/nexvilo.de (site.json + ADSENSE.txt) — situs baru 26 Okt |
+| odaily.xyz | ca-pub-9221781326457936 | ulyah.com · sites/odaily.xyz (site.json + ADSENSE.txt) — situs baru 26 Okt |
+| xdaily.xyz | ca-pub-5693981744147503 | ulyah.com · sites/xdaily.xyz (site.json + ADSENSE.txt) — situs baru 26 Okt |
+| dawa.im | ca-pub-8991272269211824 | ulyah.com · sites/dawa.im (site.json + ADSENSE.txt) — situs baru 26 Okt |
 
 ## ulyah.com
 
-Kode dari pemilik, 14 Okt 2026 (sebelumnya ca-pub-5693981744147503).
+Kode dari pemilik, 26 Okt 2026 (sebelumnya ca-pub-6908951782430508).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://ulyah.com/ads.txt)
 
 ```
-google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6908951782430508">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## axto.io
 
-Kode dari pemilik, 14 Okt 2026 (sebelumnya ca-pub-5693981744147503).
+Kode dari pemilik, 26 Okt 2026 (sebelumnya ca-pub-6908951782430508).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://axto.io/ads.txt)
 
 ```
-google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6908951782430508">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## xaa.es
 
-Kode dari pemilik, 14 Okt 2026 (sebelumnya ca-pub-5693981744147503).
+Kode dari pemilik, 26 Okt 2026 (sebelumnya ca-pub-6908951782430508).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://xaa.es/ads.txt)
 
 ```
-google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6908951782430508">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## 1fr.fr
 
-Kode dari pemilik, 20 Okt 2026 (sebelumnya ca-pub-6908951782430508).
+Kode dari pemilik, 26 Okt 2026 (sebelumnya ca-pub-5928074389292014).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://1fr.fr/ads.txt)
 
 ```
-google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-5928074389292014">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## axto.us
@@ -838,25 +849,25 @@ Tag meta
 
 ## tilawa.de
 
-Kode dari pemilik, 20 Okt 2026 (sebelumnya ca-pub-6908951782430508).
+Kode dari pemilik, 26 Okt 2026 (sebelumnya ca-pub-7345352440829958).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7345352440829958"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://tilawa.de/ads.txt)
 
 ```
-google.com, pub-7345352440829958, DIRECT, f08c47fec0942fa0
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-7345352440829958">
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
 
 ## xad.es
@@ -878,4 +889,142 @@ Tag meta
 
 ```html
 <meta name="google-adsense-account" content="ca-pub-5517446616694631">
+```
+
+## velnixo.de
+
+Kode dari pemilik, 26 Okt 2026 (situs baru).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7345352440829958"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://velnixo.de/ads.txt)
+
+```
+google.com, pub-7345352440829958, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-7345352440829958">
+```
+
+## zoevian.de
+
+Kode dari pemilik, 26 Okt 2026 (situs baru).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://zoevian.de/ads.txt)
+
+```
+google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5928074389292014">
+```
+
+## nexvilo.de
+
+Kode dari pemilik, 26 Okt 2026 (situs baru).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://nexvilo.de/ads.txt)
+
+```
+google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-6908951782430508">
+```
+
+## odaily.xyz
+
+Kode dari pemilik, 26 Okt 2026 (situs baru; sempat diberi 8991272269211824).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9221781326457936"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://odaily.xyz/ads.txt)
+
+```
+google.com, pub-9221781326457936, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-9221781326457936">
+```
+
+## xdaily.xyz
+
+Kode dari pemilik, 26 Okt 2026 (situs baru; sempat diberi 8991272269211824).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://xdaily.xyz/ads.txt)
+
+```
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
+```
+
+## dawa.im
+
+Kode dari pemilik, 26 Okt 2026 (salinan dawa.es dengan domain baru; dawa.es sendiri tidak disentuh).
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://dawa.im/ads.txt)
+
+```
+google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-8991272269211824">
 ```
