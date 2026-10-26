@@ -148,6 +148,8 @@ Wer dieses Blatt einmal angelegt hat, verliert im Ernstfall keine wertvolle Zeit
 
 
 
+## Häufige Fragen
+
 **Bekomme ich mein gehacktes Konto immer zurück?**
 Meistens ja, wenn du schnell handelst und Nachweise hast. Bei sozialen Netzwerken kann es einige Tage dauern. Je besser deine Wiederherstellungsoptionen vorher eingerichtet waren, desto einfacher geht es.
 
