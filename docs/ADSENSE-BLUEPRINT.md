@@ -1094,6 +1094,32 @@ robots.txt, kanonis, JSON-LD, tautan internal; ads.txt + meta + loader; promosi 
 logo (§14.5). dawa.im: salinan dawa.es dengan semua "dawa.es" diganti "dawa.im" (domain belum dikoneksikan) dan logo
 baru dari pemilik (merah/emas, "dawa .im — Conocimiento Islámico para todos"). dawa.es sendiri tetap tidak disentuh.
 
+#### 14.3a Rancangan lima situs baru (dicatat sebelum dibangun)
+
+Aturan §1 dan §3 berlaku: satu bahasa sesuai domain (.de → Jerman; .xyz tidak ada di daftar, jadi Inggris seperti
+.io/.us/.dev/.skin), satu niche evergreen yang dicari tiap bulan dan tidak bertabrakan dengan situs lain di bahasa yang
+sama, 6 kategori (1 artikel pilar + turunan yang saling menautkan), **45 artikel ≥ 1.500 kata** ditulis tangan, tema
+"Istana Nabi Sulaiman" dengan CSS sendiri yang berbeda total, animasi Spanyol juara 2026 dengan gaya sendiri, dan
+semua halaman wajib (Tentang, Kontak, Privasi, Cookie, Syarat, Disclaimer, Kebijakan redaksi, Impressum untuk .de).
+
+| Situs | Bahasa | Kepanjangan | Niche | Kategori |
+|---|---|---|---|---|
+| velnixo.de | Jerman | **Vel**o · **N**atur · **I**nfrastruktur · **X**-Strecken · **O**rdnung | Radfahren im Alltag: Fahrrad & E-Bike kaufen, warten, sicher fahren, Touren | Kaufberatung · Wartung & Reparatur · E-Bike · Sicher unterwegs · Touren & Reisen · Ausrüstung |
+| zoevian.de | Jerman | **Zoe** (Leben) + **avi**an (Vögel) | Vögel beobachten und schützen: Gartenvögel, Füttern, Nistkästen, Vogelarten, Ziervögel artgerecht | Gartenvögel · Füttern & Tränken · Nistkästen & Lebensraum · Vogelarten erkennen · Beobachten & Fotografieren · Ziervögel |
+| nexvilo.de | Jerman | **Nex**t + **vi**rtuell + **lo**kal | Digital-Alltag verständlich: Smartphone, Computer, Internet-Sicherheit, Smart Home, KI im Alltag | Smartphone · Computer & Windows · Sicher im Netz · Smart Home · KI im Alltag · Digitales Leben (Ältere, Familie) |
+| odaily.xyz | Inggris | **O**ur **Daily** table | Everyday home cooking: techniques, meal planning, baking basics, kitchen science | Kitchen Basics · Weeknight Cooking · Meal Prep & Planning · Baking · Kitchen Science · Pantry & Storage |
+| xdaily.xyz | Inggris | e**X**plained **Daily** | Science and how things work, for curious adults: space, Earth, the body (non-medical), physics, technology | Space · Planet Earth · How Things Work · The Human Body (how it works, no advice) · Physics & Chemistry · Big Ideas |
+
+Kode AdSense masing-masing di `docs/ADSENSE-CODES.md` (§14.1). Selama artikelnya belum 40, situs diberi `"draft": true`
+(tidak dideploy); setelah 45 artikel lulus `check.mjs`, draft dicabut dan situs live dengan ads.txt, tag meta dan
+loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT terpasang (26 Okt).
+
+**dawa.im** (Spanyol): salinan dawa.es. dawa.es hidup di `apps/web` (tenant `dawa`) bersama paket mandiri
+`docs/dawa-standalone`; salinannya dibuat sebagai tenant/paket sendiri dengan semua "dawa.es" → "dawa.im", logo baru
+dari pemilik (kotak & bulat, merah/emas, "dawa .im — Conocimiento Islámico para todos"), AdSense
+ca-pub-8991272269211824 (Auto ads saja, tanpa unit manual dawa.es), dan TXT Search Console yang menunggu zona dawa.im
+tersambung ke Cloudflare. dawa.es sendiri tetap tidak disentuh.
+
 ### 14.4 Artikel (prioritas 3)
 
 Minimal 45 artikel berkualitas di setiap situs **kecuali situs muslim** (artikelnya sudah melimpah), termasuk
@@ -1105,6 +1131,22 @@ Di setiap situs yang punya domain: satu bagian promosi yang menjelaskan setiap a
 dan ulyah.com, dengan logo ketiganya di posisi yang tepat, elegan dan profesional. Aturan AdSense: tautan biasa
 berlabel jelas (bukan teks tersembunyi, bukan tombol yang meniru iklan, tidak di dekat unit iklan, tidak
 mengarahkan klik iklan), isi yang jujur, dan halaman tetap didominasi isi asli situs.
+
+#### 14.5a Standar blok promosi (semua situs berdomain, kecuali dawa.es)
+
+- **Tempat:** (1) satu halaman promosi per situs (`promo` di `site.json`, misalnya "Digital companions"), dan
+  (2) satu pita "Dari penerbit yang sama" di footer setiap halaman. Tidak pernah di dalam isi artikel, tidak di dekat
+  iklan Auto ads, tidak di atas lipatan pertama.
+- **Isi:** tiga kartu dengan logo resmi masing-masing (SVG/PNG kecil, `width`/`height` tetap, `alt` jelas):
+  **axto.io** (ruang kerja AI privat: AI Studio, Clipper, Privacy Vault, Mode Lokal, aplikasi self-hosted),
+  **xaa.es** (studio web: situs, toko, portal, template), **ulyah.com** (portal ilmu Islam: Al-Qur'an, hadits, kitab,
+  kisah). Setiap kartu: 2–3 kalimat manfaat yang benar, ditulis ulang per situs dan per bahasa (bukan salinan), tautan
+  biasa berlabel jelas dengan UTM `utm_source=<domain>&utm_medium=referral&utm_campaign=ecosystem`.
+- **Kebijakan AdSense:** diberi label jujur ("proyek milik penerbit yang sama"), tanpa teks/tautan tersembunyi, tanpa
+  tombol yang meniru iklan, tanpa ajakan mengeklik iklan, dan halaman tetap didominasi isi asli situs. Di situs
+  non-muslim, ulyah.com diperkenalkan dengan sopan sebagai portal ilmu, tanpa dakwah memaksa.
+- **SEO:** tautan `rel` biasa (bukan `nofollow` untuk situs sendiri, tetapi juga tidak ditukar-tukarkan secara
+  berlebihan), teks jangkar deskriptif dan bervariasi, halaman promosi masuk sitemap.
 
 ### 14.6 Blueprint (prioritas 4)
 

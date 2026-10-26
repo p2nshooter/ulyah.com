@@ -1,0 +1,40 @@
+{
+  "domain": "velnixo.de",
+  "name": "VELNIXO",
+  "expansion": "Velo · Natur · Infrastruktur · X-Strecken · Ordnung",
+  "tagline": "Radfahren im Alltag: das richtige Fahrrad, gute Pflege und sichere Wege, verständlich erklärt",
+  "description": "VELNIXO ist ein Ratgeber für alle, die in Deutschland Fahrrad fahren: Fahrrad und E-Bike richtig auswählen, selbst warten und reparieren, sicher durch Stadt und Land kommen, Touren planen und die passende Ausrüstung finden, gründlich, unabhängig und ohne Fachchinesisch.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-7345352440829958",
+  "trackId": "velnixo-de",
+  "worker": "velnixo-de",
+  "themeColor": "#0f3b3a",
+  "email": "kontakt@velnixo.de",
+  "author": "VELNIXO Redaktion",
+  "draft": true,
+  "fonts": "https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,500;0,700;1,500&family=Schibsted+Grotesk:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/ratgeber/", "category": "/rubrik/" },
+  "categories": [
+    { "slug": "kaufberatung", "name": "Kaufberatung", "icon": "frame", "description": "Welches Fahrrad passt zu mir? Rahmengröße, Fahrradtypen, Neu- oder Gebrauchtkauf, Budget und Probefahrt, Schritt für Schritt." },
+    { "slug": "wartung-und-reparatur", "name": "Wartung & Reparatur", "icon": "wrench", "description": "Kette, Bremsen, Schaltung, Reifen und Licht selbst pflegen und einstellen, mit Werkzeugliste und klaren Grenzen, wann die Werkstatt dran ist." },
+    { "slug": "e-bike", "name": "E-Bike & Pedelec", "icon": "bolt", "description": "Motor, Akku, Reichweite, Laden, Pflege und Recht rund um Pedelecs und S-Pedelecs, ehrlich erklärt und ohne Werbeversprechen." },
+    { "slug": "sicher-unterwegs", "name": "Sicher unterwegs", "icon": "shield", "description": "Verkehrsregeln, Sichtbarkeit, Helm, Diebstahlschutz und kluges Fahren in Stadt, Land und bei schlechtem Wetter." },
+    { "slug": "touren-und-reisen", "name": "Touren & Radreisen", "icon": "route", "description": "Radwege und Fernradwege in Deutschland, Touren planen, Radreisen mit Gepäck, Bahn und Rad kombinieren." },
+    { "slug": "ausruestung", "name": "Ausrüstung & Alltag", "icon": "bag", "description": "Taschen, Bekleidung, Kindersitz und Anhänger, Lastenrad und alles, was das Rad zum Alltagsfahrzeug macht." }
+  ],
+  "promo": { "slug": "digitale-begleiter", "label": "✦ Digitale Begleiter" },
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
