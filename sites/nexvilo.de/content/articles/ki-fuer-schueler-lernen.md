@@ -1,6 +1,6 @@
 ---
 title: "KI in der Schule: Wie Schülerinnen und Schüler mit ChatGPT lernen statt abschreiben"
-description: "Wie KI beim Lernen hilft, was Schulen erlauben, warum Abschreiben auffällt und schadet, mit welchen Prompts KI zum Nachhilfelehrer wird und was Eltern über Alter, Datenschutz und Regeln wissen sollten."
+description: "Wie KI beim Lernen hilft, was Schulen erlauben, warum Abschreiben schadet, mit welchen Prompts KI zum Nachhilfelehrer wird und was Eltern über Alter, Datenschutz und Regeln wissen sollten."
 category: ki-im-alltag
 date: 2026-10-26
 order: 7

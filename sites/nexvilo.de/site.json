@@ -13,7 +13,6 @@
   "themeColor": "#151a3d",
   "email": "kontakt@nexvilo.de",
   "author": "NEXVILO Redaktion",
-  "draft": true,
   "fonts": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap",
   "paths": { "article": "/anleitung/", "category": "/bereich/" },
   "categories": [
