@@ -23,7 +23,7 @@
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 
-const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad"] as const;
+const TENANTS = ["ulyah", "1fr", "tilawa", "dawa", "xad", "dawaim"] as const;
 /** Sampled across a year — a collision that only happens in March still counts. */
 const SAMPLES = 365;
 const START_MS = Date.UTC(2026, 8, 21); // the day after this check was written

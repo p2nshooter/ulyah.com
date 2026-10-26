@@ -102,8 +102,9 @@ function detectLocale(req: NextRequest): string {
 // the languages that own a domain (LOCALE_SITE). Nothing else is announced,
 // because nothing else is served — a machine-translated language was announced
 // here once, and an hreflang pointing at a page we no longer render is a
-// promise to Google we cannot keep. dawa.es (es) is detached and no longer
+// promise to Google we cannot keep. dawa.es is detached and no longer
 // announced: it is not the owner's site any more (docs/ADSENSE-BLUEPRINT.md §10).
+// Spanish is announced on dawa.im, the owner's Spanish member (§14.3b).
 const ALWAYS_LIVE = ["id", ...Object.keys(LOCALE_SITE)];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {

@@ -43,7 +43,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       # Owner domains outside sites/ (portals and partner repos). sites/* are added below.
       EXTRA: >-
-        ulyah.com 1fr.fr tilawa.de xad.es axto.io xaa.es axto.us axto.dev
+        ulyah.com 1fr.fr tilawa.de xad.es dawa.im axto.io xaa.es axto.us axto.dev
         jai.lat lie.skin oldco.in profity.in
     steps:
       - uses: actions/checkout@v7

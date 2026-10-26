@@ -116,7 +116,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | nexvilo.de | ca-pub-6908951782430508 | ulyah.com · sites/nexvilo.de (site.json + ADSENSE.txt) — situs baru 26 Okt |
 | odaily.xyz | ca-pub-9221781326457936 | ulyah.com · sites/odaily.xyz (site.json + ADSENSE.txt) — situs baru 26 Okt |
 | xdaily.xyz | ca-pub-5693981744147503 | ulyah.com · sites/xdaily.xyz (site.json + ADSENSE.txt) — situs baru 26 Okt |
-| dawa.im | ca-pub-8991272269211824 | ulyah.com · sites/dawa.im (site.json + ADSENSE.txt) — situs baru 26 Okt |
+| dawa.im | ca-pub-8991272269211824 | ulyah.com · apps/web tenant `dawaim` (`apps/web/src/lib/ad-config.ts`, Auto ads saja) — anggota Spanyol ekosistem, 26 Okt |
 
 ## ulyah.com
 
@@ -1008,7 +1008,7 @@ Tag meta
 
 ## dawa.im
 
-Kode dari pemilik, 26 Okt 2026 (salinan dawa.es dengan domain baru; dawa.es sendiri tidak disentuh).
+Kode dari pemilik, 26 Okt 2026. dawa.im adalah anggota Spanyol ekosistem ulyah.com (tenant `dawaim` di `apps/web`, hreflang `es`), menggantikan tempat dawa.es; dawa.es sendiri tidak disentuh. ads.txt, tag meta dan loader dibangun dari `apps/web/src/lib/ad-config.ts`; Auto ads saja, tanpa unit manual.
 
 Cuplikan adsense
 

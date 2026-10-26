@@ -47,7 +47,7 @@ export const KNOWN_LOCALE_PREFIXES = new Set(["id", "en", "ru", "de", "fr", "es"
  * xad.es was missing from this list. It happened to behave because English is
  * its default anyway, but relying on a coincidence is how the ulyah bug got in.
  */
-export const SIBLING_TENANTS = new Set(["1fr", "tilawa", "dawa", "xad"]);
+export const SIBLING_TENANTS = new Set(["1fr", "tilawa", "dawa", "dawaim", "xad"]);
 
 export function localeFromAcceptLanguage(header: string | null | undefined): string | null {
   if (!header) return null;

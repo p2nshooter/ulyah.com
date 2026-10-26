@@ -1,0 +1,176 @@
+/* ────────────────────────────────────────────────────────────────────
+   dawa.im — the Spanish member of the ecosystem (owner, 26 Oct 2026)
+   The dawa.es layout, dressed in the colours of the dawa.im emblem:
+   crimson arch, burnished gold, warm parchment. Marcellus display over a
+   Nunito body. Signature theme: LIGHT (set in the layout).
+   Palette: primary #8E1B16 · accent crimson #B3261E · gold #D4A017 /
+   #C9971C · background #FFF7EA · surface #FFFFFF. Dark: deep oxblood.
+   A copy of spain.css with its own selector, so dawa.es (spain.css) stays
+   exactly as it is.
+   ──────────────────────────────────────────────────────────────────── */
+html[data-tenant="dawaim"] {
+  --color-primary: #8e1b16;          /* deep terracotta-brown (footer/brand) */
+  --color-primary-dark: #5e0f0c;
+  --color-accent: #b3261e;           /* terracotta */
+  --color-accent-light: #d4a017;     /* warm orange */
+  --color-accent-xl: #f2c94c;
+  --color-olive: #c9971c;            /* olive green — secondary accent */
+  --panel-bg: #5e0f0c;
+  --panel-bg2: #8e1b16;
+  --panel-fg: #fff4e4;
+  --radius-card: 1.25rem;            /* generous Mediterranean rounding */
+  --ul-shadow-gold: 0 6px 26px rgba(179, 38, 30, 0.20);
+  --color-border-gold: rgba(179, 38, 30, 0.28);
+  --shimmer-tint: rgba(255, 220, 180, 0.45);
+  --tw-primary: 142 27 22;
+  --tw-primary-dark: 94 15 12;
+  --tw-accent: 179 38 30;
+  --tw-surface: 253 240 220;
+  --color-surface: #fdf0dc;
+}
+html[data-tenant="dawaim"][data-theme="light"] {
+  --color-bg: #fff7ea;               /* warm cream */
+  --color-card: #ffffff;
+  --color-surface: #fdf0dc;
+  --color-surface-2: #f6e2c4;
+  --color-border: #ecd8b6;
+  --color-text-primary: #3a1412;
+  --color-text-secondary: #7a5544;
+}
+html[data-tenant="dawaim"][data-theme="dark"] {
+  --color-bg: #2a0f0d;               /* dark warm brown */
+  --color-card: #3b1714;
+  --color-surface-2: rgba(255, 243, 230, 0.05);
+  --color-text-primary: #f9ece0;
+  --color-text-secondary: #d9b9a0;
+  --color-border: rgba(255, 236, 214, 0.15);
+}
+/* Warm humanist display + friendly rounded body */
+html[data-tenant="dawaim"] .font-heading,
+html[data-tenant="dawaim"] h1,
+html[data-tenant="dawaim"] h2,
+html[data-tenant="dawaim"] h3 {
+  font-family: "Marcellus", "Georgia", serif !important;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+html[data-tenant="dawaim"] h1 { line-height: 1.12; }
+html[data-tenant="dawaim"] body,
+html[data-tenant="dawaim"] { font-family: "Nunito", "Inter", system-ui, sans-serif; line-height: 1.65; }
+/* Sunny Mediterranean wash: a soft sun glow top-right, olive haze left,
+   plus a faint warm-tile grid — bright, warm, never flat. */
+html[data-tenant="dawaim"] body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(1000px 460px at 88% -8%, rgba(212, 160, 23, 0.14), transparent 60%),
+    radial-gradient(760px 420px at -4% 12%, rgba(201, 151, 28, 0.10), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(179, 38, 30, 0.025) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgba(179, 38, 30, 0.025) 0 1px, transparent 1px 34px);
+  background-attachment: fixed, fixed, scroll, scroll;
+}
+html[data-tenant="dawaim"][data-theme="dark"] body {
+  background-image:
+    radial-gradient(1000px 460px at 88% -8%, rgba(212, 160, 23, 0.12), transparent 60%),
+    radial-gradient(760px 420px at -4% 12%, rgba(201, 151, 28, 0.08), transparent 55%);
+}
+/* Soft-shadow rounded cards — warm, friendly, sun-kissed on hover. */
+html[data-tenant="dawaim"] .card-premium {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 6px 18px rgba(120, 30, 20, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+html[data-tenant="dawaim"] .card-premium:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  box-shadow: 0 16px 38px rgba(179, 38, 30, 0.18);
+}
+/* Generous rounding everywhere (warm & friendly) */
+html[data-tenant="dawaim"] .rounded-xl,
+html[data-tenant="dawaim"] .rounded-2xl,
+html[data-tenant="dawaim"] .rounded-3xl { border-radius: 1.25rem; }
+html[data-tenant="dawaim"] .rounded-lg,
+html[data-tenant="dawaim"] .rounded-md { border-radius: 0.9rem; }
+html[data-tenant="dawaim"] .rounded-full { border-radius: 9999px; }
+/* Warm orange gradient buttons, white text, sunny glow */
+html[data-tenant="dawaim"] .bg-accent {
+  background-image: linear-gradient(135deg, #b3261e, #d4a017);
+  box-shadow: 0 8px 24px rgba(179, 38, 30, 0.30);
+  font-weight: 700;
+}
+html[data-tenant="dawaim"] .bg-accent.text-primary,
+html[data-tenant="dawaim"] a.bg-accent,
+html[data-tenant="dawaim"] button.bg-accent { color: #ffffff !important; }
+/* Header: warm cream glass with a terracotta-tile bottom edge */
+html[data-tenant="dawaim"] header {
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: inset 0 -3px 0 -1px color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+html[data-tenant="dawaim"] header nav a { font-weight: 700; font-size: 0.78rem; }
+/* Headings carry a small olive-and-terracotta tile tick */
+html[data-tenant="dawaim"] h2.font-heading {
+  padding-left: 0.65rem;
+  border-left: 4px solid var(--color-accent);
+  box-shadow: inset 6px 0 0 -3px var(--color-olive);
+}
+/* Terracotta rounded scrollbar + warm selection */
+html[data-tenant="dawaim"] * { scrollbar-width: thin; scrollbar-color: #b3261e transparent; }
+html[data-tenant="dawaim"] *::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-tenant="dawaim"] *::-webkit-scrollbar-thumb { background: #b3261e; border-radius: 9999px; }
+html[data-tenant="dawaim"] ::selection { background: rgba(212, 160, 23, 0.30); color: #3a1412; }
+/* Footer: Andalusian mosaic band */
+html[data-tenant="dawaim"] footer {
+  border-top: 4px solid transparent;
+  border-image: repeating-linear-gradient(90deg, #b3261e 0 14px, #c9971c 14px 28px, #d4a017 28px 42px) 4;
+}
+/* ── ANDALUSIA — structural identity ───────────────────────────────────────
+   dawa.es opens under a horseshoe-arch sky: the hero sits on a warm arched
+   wash with sun rays, and closes with a zellige mosaic tile band. */
+html[data-tenant="dawaim"] .hero-main {
+  position: relative;
+  background-image:
+    radial-gradient(140% 90% at 50% -30%, rgba(212, 160, 23, 0.16), transparent 60%),
+    repeating-conic-gradient(from -18deg at 88% 0%, rgba(242, 201, 76, 0.10) 0deg 6deg, transparent 6deg 18deg);
+}
+html[data-tenant="dawaim"] .hero-main::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background:
+    repeating-linear-gradient(90deg,
+      #b3261e 0 18px, #f2c94c 18px 22px, #c9971c 22px 40px, #f2c94c 40px 44px);
+  opacity: 0.75;
+}
+/* The quote card sits inside a horseshoe arch. */
+html[data-tenant="dawaim"] .hero-main .rounded-3xl {
+  border-radius: 46% 46% 1.25rem 1.25rem / 34% 34% 1.25rem 1.25rem !important;
+  border: 3px solid color-mix(in srgb, var(--color-accent-xl, #f2c94c) 70%, transparent);
+  padding-top: 3.2rem !important;
+}
+/* Sunny rounded CTAs. */
+html[data-tenant="dawaim"] .hero-main a.rounded-full {
+  border-radius: 9999px;
+  font-weight: 700;
+}
+/* Feature tiles = warm zellige diamonds. */
+html[data-tenant="dawaim"] .hero-main .rounded-2xl {
+  border-radius: 0.9rem;
+  transform: rotate(45deg);
+  overflow: hidden;
+}
+html[data-tenant="dawaim"] .hero-main .rounded-2xl > span,
+html[data-tenant="dawaim"] .hero-main .rounded-2xl > * {
+  transform: rotate(-45deg);
+}
+
+/* App-hero motif — Andalusian zellige mosaic (8-point star + cross). */
+html[data-tenant="dawaim"] .app-hero::before {
+  opacity: 0.13;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%3E%3Cg%20fill='none'%20stroke='black'%20stroke-width='1.1'%3E%3Cpath%20d='M20%202l4%2014%2014%204-14%204-4%2014-4-14L2%2020l14-4z'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='4'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-size: 40px 40px;
+  mask-size: 40px 40px;
+}

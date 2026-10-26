@@ -56,6 +56,9 @@ const AD_CLIENT_BY_TENANT: Record<string, string> = {
   "1fr": "ca-pub-8991272269211824",
   tilawa: "ca-pub-8991272269211824",
   dawa: ORIGINAL_ACCOUNT,
+  // dawa.im, the owner's Spanish member (26 Oct 2026, same message): Auto ads
+  // only — SHOWS_AD_UNITS below stays false for it.
+  dawaim: "ca-pub-8991272269211824",
   xad: "ca-pub-5517446616694631",
 };
 

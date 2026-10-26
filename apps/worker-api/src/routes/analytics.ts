@@ -20,6 +20,7 @@ export function tenantFromReq(c: { req: { header: (n: string) => string | undefi
   if (src.includes("tilawa.de")) return "tilawa";
   if (src.includes("dawa.es")) return "dawa";
   if (src.includes("xad.es")) return "xad";
+  if (src.includes("dawa.im")) return "dawaim";
   return "ulyah";
 }
 

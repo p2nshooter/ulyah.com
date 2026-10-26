@@ -601,6 +601,8 @@ di akun AdSense (di luar jangkauan Claude).
 | 20 Okt (urgent) | "Ubah kode adsense termasuk ads.txt, tag meta dan cuplikan adsense nya — profity.in google.com, pub-2493615451319531 … byoxy.de google.com, pub-6146217038829045 … rough.es google.com, pub-4504974645924459, DIRECT, f08c47fec0942fa0" | ✅ profity.in (repo profity.in: `public/ads.txt`, tag meta di head + metadata Next, loader) → ca-pub-2493615451319531 (sebelumnya 5944786950535069); byoxy.de (`sites/byoxy.de` site.json + ADSENSE.txt) → ca-pub-6146217038829045 (sebelumnya 5693981744147503); rough.es (`sites/rough.es`) → ca-pub-4504974645924459 (sebelumnya 6908951782430508). `check.mjs` lulus untuk kedua situs (ads.txt, tag meta + loader di setiap halaman); `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md`, `docs/ADSENSE-SEMUA-DOMAIN.txt` diperbarui |
 | 20 Okt | "Ubah kode adsense tilawa.de & 1fr.fr google.com, pub-7345352440829958, DIRECT, f08c47fec0942fa0", disusul "1fr.fr make kode ini google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0" | ✅ tilawa.de → ca-pub-7345352440829958 dan 1fr.fr → ca-pub-5928074389292014 (keduanya sebelumnya 6908951782430508): `apps/web/src/lib/ad-config.ts` (loader, tag meta dan route `/ads.txt` dari satu konstanta per tenant), `scripts/check-ads.ts`, `scripts/site-audit.mjs`, `docs/ADSENSE-CODES.md` (termasuk cuplikan ulyah.com, axto.io, xaa.es yang masih menulis kode lama), `docs/ADSENSE-SEMUA-DOMAIN.txt` (30 kode) |
 | 21–26 Okt (urgent) | "Untuk 5 domain ini kode adsense nya ulyah.com 1fr.fr Tilawa.de axto.io xaa.es google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0"; situs baru velnixo.de 7345352440829958, zoevian.de 5928074389292014, nexvilo.de 6908951782430508, odaily.xyz 9221781326457936, xdaily.xyz 5693981744147503, dawa.im 8991272269211824; "Hati2 jgn sampe ads.txt hilang2an" | 🔄 §14 — kode dulu sampai live, lalu situs baru, artikel, blueprint |
+| 26 Okt (temuan) | Audit live setelah upgrade Next 16: 1fr.fr, tilawa.de dan xad.es tampil berbahasa Indonesia (`lang="id"`, h1 Indonesia) di bawah nama situsnya sendiri | ✅ PR #360: `packages/shared/src/i18n.ts` membaca tenant dengan `process?.env?.NEXT_PUBLIC_TENANT`, bentuk yang tidak di-inline Next 16 sehingga jatuh ke "ulyah". Diganti bentuk biasa `process.env.NEXT_PUBLIC_TENANT`; `scripts/check-env-inlining.mjs` menggagalkan CI bila bentuk itu kembali |
+| 26 Okt | "dawa.im make link worker dulu, jadi langsung konek saat sy masukin dns nya. Jgn lupa karena dawa.im adalah translate dari ulyah.com make hreflang, atau cek xad.es 1fr.fr tilawa.de dll cara penulisan nya, karena masih satu ekosistem" | 🔄 §14.3b: tenant baru `dawaim` (Spanyol) di `apps/web`, Worker `dawaim-web`, zona dawa.im dibuat otomatis oleh deploy dan dawa.im + www.dawa.im ditempel ke Worker, hreflang `es` → dawa.im di seluruh ekosistem |
 
 ---
 
@@ -1067,7 +1069,7 @@ pengerjaan artikel sudah 100% selesai".
 | nexvilo.de (baru) | ca-pub-6908951782430508 | — | `sites/nexvilo.de` |
 | odaily.xyz (baru) | ca-pub-9221781326457936 | (sempat diberi 8991272269211824) | `sites/odaily.xyz` |
 | xdaily.xyz (baru) | ca-pub-5693981744147503 | (sempat diberi 8991272269211824) | `sites/xdaily.xyz` |
-| dawa.im (baru, salinan dawa.es) | ca-pub-8991272269211824 | — | `sites/dawa.im` |
+| dawa.im (baru, anggota Spanyol ekosistem) | ca-pub-8991272269211824 | — | `apps/web/src/lib/ad-config.ts` (tenant dawaim, §14.3b) |
 
 Aturan tambahan: **"Hati2 jgn sampe ads.txt hilang2an"** — setiap situs memuat ads.txt, tag meta
 `google-adsense-account` dan cuplikan loader di HTML server (bukan ditambahkan JavaScript), dari SATU konstanta per
@@ -1119,6 +1121,29 @@ loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT te
 dari pemilik (kotak & bulat, merah/emas, "dawa .im — Conocimiento Islámico para todos"), AdSense
 ca-pub-8991272269211824 (Auto ads saja, tanpa unit manual dawa.es), dan TXT Search Console yang menunggu zona dawa.im
 tersambung ke Cloudflare. dawa.es sendiri tetap tidak disentuh.
+
+#### 14.3b dawa.im = anggota Spanyol ekosistem ulyah.com (pemilik, 26 Okt)
+
+Pemilik: „dawa.im make link worker dulu, jadi langsung konek saat sy masukin dns nya. Jgn lupa karena dawa.im adalah
+translate dari ulyah.com make hreflang, atau cek xad.es 1fr.fr tilawa.de dll cara penulisan nya, karena masih satu
+ekosistem.“
+
+Jadi dawa.im bukan situs statis di `sites/`, melainkan anggota keempat yang memakai satu basis kode dan satu isi dengan
+ulyah.com, persis seperti xad.es (Inggris), 1fr.fr (Prancis) dan tilawa.de (Jerman):
+
+| Bagian | Isi |
+|---|---|
+| Tenant | `dawaim` di `apps/web/src/lib/tenant.ts` (siteUrl `https://dawa.im`, nama „Dawa“, slogan „Conocimiento Islámico para todos“, logo kotak & bulat merah/emas dari pemilik di `public/brand/dawaim/`). Tenant lama `dawa` (dawa.es) tetap ada dan tidak disentuh, supaya `dawa-site.yml` tetap membangun dawa.es apa adanya. |
+| Bahasa | Hanya Spanyol (`TENANT_LOCALES.dawaim = es`). |
+| hreflang | `LOCALE_SITE.es = https://dawa.im`: setiap halaman ulyah.com, xad.es, 1fr.fr, tilawa.de dan dawa.im menautkan versi Spanyolnya ke dawa.im (sitemap `xhtml:link` + `<link rel="alternate">`), dan pemilih bahasa di situs lain melompat ke dawa.im. Tidak ada lagi tautan ke dawa.es. |
+| Worker | `dawaim-web` (OpenNext, cache `inc-dawaim`). Deploy membuat zona dawa.im di akun Cloudflare bila belum ada (dicetak nameserver-nya di ringkasan job), membersihkan rekaman bawaan yang menghalangi, lalu menempelkan dawa.im dan www.dawa.im sebagai custom domain Worker. Begitu pemilik memasang nameserver di registrar, domain langsung tersambung tanpa langkah lain. |
+| AdSense | ca-pub-8991272269211824, Auto ads saja (tanpa unit manual), ads.txt + tag meta + loader dari `ad-config.ts`; dicek `check-ads.ts` dan `site-audit`. |
+| API | CORS `api.ulyah.com` mengizinkan `https://dawa.im` dan `https://www.dawa.im`; traffic dicatat sebagai `dawaim`. |
+| Terjemahan | Spanyol kembali masuk `ECOSYSTEM_LANGS`; pemanas terjemahan (`warm-mt-cache`) menulis ke shard R2, bukan D1. `translate-content.yml` (menulis D1) tidak diberi bahasa Spanyol. |
+| Traffic & toko | dawa.im masuk registri `owner-sites.ts` (`dawaim`), panel admin (Live, traffic per situs) dan rak Amazon `amazon.es`. Tidak ada tabel, migrasi atau query D1 baru: dawa.im memakai modul yang sama dengan situs saudaranya dan ikut pindah ke R2 bersama modul itu (`docs/R2-DATA-BLUEPRINT.md` §5). |
+| Pemeriksaan | `check-ads.ts`, `check-adops.ts`, `check-mt-targets.ts`, `check-locale-detect` dan `check-internal-links` (CI: kelima situs), `check-canonical-urls` (hreflang timbal balik), `check-radio-separation.ts` (radio dawa.im tidak pernah memutar suara yang sama dengan situs lain). |
+| Menyambung domain | `deploy.yml` membuat zona + menempel domain pada setiap deploy; `dawa-im-connect.yml` mengecek tiap jam, jadi begitu nameserver dipasang, dawa.im langsung tersambung tanpa commit baru. |
+| Search Console | TXT `google-site-verification` dawa.im sudah ada di `.github/dns/google-site-verification.json`; `dns-records.yml` memasangnya begitu zona ada. |
 
 ### 14.4 Artikel (prioritas 3)
 

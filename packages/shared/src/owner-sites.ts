@@ -37,6 +37,7 @@ export const OWNER_SITES: readonly OwnerSite[] = [
   { domain: "1fr.fr", trackId: "1fr", lang: "fr", repo: "ulyah.com · apps/web", built: true },
   { domain: "tilawa.de", trackId: "tilawa", lang: "de", repo: "ulyah.com · apps/web", built: true },
   { domain: "xad.es", trackId: "xad", lang: "en", repo: "ulyah.com · apps/web", built: true },
+  { domain: "dawa.im", trackId: "dawaim", lang: "es", repo: "ulyah.com · apps/web", built: true },
   { domain: "axto.io", trackId: "axto-io", lang: "en", repo: "guardian-ai", built: true },
   { domain: "xaa.es", trackId: "xaa-es", lang: "es", repo: "xaa", built: true },
   { domain: "axto.us", trackId: "axto-us", lang: "en", repo: "axto.us", built: true },

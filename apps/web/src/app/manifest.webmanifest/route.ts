@@ -16,6 +16,7 @@ const THEME: Record<string, { theme: string; bg: string }> = {
   "1fr": { theme: "#17294a", bg: "#fbf8f0" }, // navy on ivory (light identity)
   tilawa: { theme: "#14181d", bg: "#14181d" }, // charcoal
   dawa: { theme: "#8a3b12", bg: "#fff8f1" }, // terracotta on warm cream
+  dawaim: { theme: "#8e1b16", bg: "#fff7ea" }, // crimson of the dawa.im emblem on parchment
   xad: { theme: "#281a4d", bg: "#150c28" }, // royal violet, deep-space splash
 };
 
@@ -24,6 +25,7 @@ const NAME: Record<string, string> = {
   "1fr": "One Faith France",
   tilawa: "Tilawa — Islam hören",
   dawa: "Dawa — El Islam en Español",
+  dawaim: "Dawa — Conocimiento Islámico para todos",
   xad: "XAD — eXplore Ayah Daily",
 };
 
@@ -32,6 +34,7 @@ const DESC: Record<string, string> = {
   "1fr": "Le Coran, le tafsir, les hadiths et les récits islamiques dans une expérience audio apaisante.",
   tilawa: "Der Koran, Tafsir, Hadithe und islamische Geschichten in einem ruhigen Hörerlebnis.",
   dawa: "El Corán, el tafsir, los hadices y los relatos islámicos en una experiencia de audio serena.",
+  dawaim: "El Corán, el tafsir, los hadices y los relatos de los profetas en español, para leer y escuchar con calma.",
   xad: "Explore the Qur'an, tafsir, hadith and Islamic stories in English — a calm daily audio journey through the ayah.",
 };
 
@@ -57,6 +60,13 @@ function icons() {
       { src: "/brand/dawa/icon-192.png?v=2", sizes: "192x192", type: "image/png" },
       { src: "/brand/dawa/icon-512.png?v=2", sizes: "512x512", type: "image/png" },
       { src: "/brand/dawa/icon-512.png?v=2", sizes: "512x512", type: "image/png", purpose: "maskable" },
+    ];
+  }
+  if (TENANT.id === "dawaim") {
+    return [
+      { src: "/brand/dawaim/icon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/brand/dawaim/icon-512.png", sizes: "512x512", type: "image/png" },
+      { src: "/brand/dawaim/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ];
   }
   // 1fr (and any future sibling): one square icon declared at both sizes.

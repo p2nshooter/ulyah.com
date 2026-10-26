@@ -16,6 +16,7 @@ const TITLE: Record<string, string> = {
   tilawa: "Spanien, Weltmeister 2026",
   dawa: "España, campeona del mundo 2026",
   xad: "España, campeona del mundo 2026",
+  dawaim: "España, campeona del mundo 2026",
 };
 
 export function WorldCup2026() {

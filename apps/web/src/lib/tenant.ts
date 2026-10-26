@@ -5,7 +5,8 @@
  *   • ulyah.com          — the global Islamic platform (default tenant, id)
  *   • 1fr.fr             — One Faith France, French only
  *   • tilawa.de          — Tilawa, German only
- *   • dawa.es            — Dawa, Spanish only
+ *   • dawa.es            — Dawa, Spanish only (detached, frozen; see dawa-site.yml)
+ *   • dawa.im            — the Spanish member of the ecosystem, Spanish only
  *   • xad.es             — the English member of the ecosystem, English only
  *
  * The tenant is fixed at BUILD time via NEXT_PUBLIC_TENANT,
@@ -17,7 +18,7 @@
  * lock-step with this file.
  */
 
-export type TenantId = "ulyah" | "1fr" | "tilawa" | "dawa" | "xad";
+export type TenantId = "ulyah" | "1fr" | "tilawa" | "dawa" | "dawaim" | "xad";
 
 export interface TenantConfig {
   id: TenantId;
@@ -113,6 +114,27 @@ const DAWA: TenantConfig = {
   features: { ads: true, donationForward: true, forSale: true },
 };
 
+// dawa.im — the owner's Spanish member of the ecosystem (owner, 26 Oct 2026:
+// "dawa.im adalah translate dari ulyah.com"). A tenant of its own, NOT the old
+// `dawa` tenant: dawa.es is no longer the owner's and dawa-site.yml still
+// rebuilds it from `dawa`, so nothing here may change what dawa.es serves.
+const DAWAIM: TenantConfig = {
+  id: "dawaim",
+  siteUrl: "https://dawa.im",
+  siteName: "Dawa",
+  tagline: {
+    es: "Conocimiento Islámico para todos",
+  },
+  logoIcon: "/brand/dawaim/icon.png",
+  logoBanner: null,
+  logoLockup: "/brand/dawaim/logo.png",
+  wordmark: null,
+  wordmarkGold: null,
+  acquisitionEmail: "salam@ulyah.com",
+  // Auto ads only (no manual units), donation forward, not for sale.
+  features: { ads: true, donationForward: true, forSale: false },
+};
+
 const XAD: TenantConfig = {
   id: "xad",
   siteUrl: "https://xad.es",
@@ -134,7 +156,7 @@ const XAD: TenantConfig = {
   features: { ads: true, donationForward: true, forSale: false },
 };
 
-const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, dawa: DAWA, xad: XAD, ulyah: ULYAH };
+const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, dawa: DAWA, dawaim: DAWAIM, xad: XAD, ulyah: ULYAH };
 
 export const TENANT: TenantConfig = TENANTS[process.env.NEXT_PUBLIC_TENANT ?? "ulyah"] ?? ULYAH;
 

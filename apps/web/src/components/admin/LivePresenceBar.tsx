@@ -30,6 +30,7 @@ const META: Record<string, { name: string; icon: string }> = {
   "1fr": { name: "1fr.fr", icon: "🇫🇷" },
   tilawa: { name: "tilawa.de", icon: "🇩🇪" },
   xad: { name: "xad.es", icon: "🌌" },
+  dawaim: { name: "dawa.im", icon: "🇪🇸" },
 };
 const POLL_MS = 15_000;
 
@@ -68,7 +69,7 @@ export function LivePresenceBar() {
 
   // ulyah admin sees the WHOLE ecosystem (always every site, even at 0, so
   // the total is unambiguous); a sibling admin sees only its own site.
-  const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "xad"];
+  const ECOSYSTEM = ["ulyah", "1fr", "tilawa", "xad", "dawaim"];
   const scope = TENANT.id === "ulyah" ? ECOSYSTEM : [TENANT.id];
   const byTenant = new Map(rows.map((r) => [r.tenant, r]));
   const cards: LiveRow[] = scope.map((t) => byTenant.get(t) ?? { tenant: t, online: 0, listening: 0, closed: 0 });

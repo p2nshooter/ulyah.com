@@ -90,7 +90,7 @@ function urlFor(localeCode: string, route: string): string {
 // Full hreflang graph for a route (owner: "link sitemap mengikuti bahasa, jangan
 // bahasa Indonesia semua"). FIVE languages declare where their copy of the route
 // lives, because there are five sites: the four with their own domain point
-// there (en → xad.es, fr → 1fr.fr, de → tilawa.de, es → dawa.es) and Indonesian
+// there (en → xad.es, fr → 1fr.fr, de → tilawa.de, es → dawa.im) and Indonesian
 // is bare on the hub — via the shared localeCanonicalUrl, so all five sitemaps
 // stay consistent.
 //

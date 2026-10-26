@@ -39,4 +39,4 @@ jobs:
         env:
           PER: ${{ github.event.inputs.per || '6' }}
           ONLY: ${{ github.event.inputs.only || '' }}
-        run: node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=en
+        run: node scripts/content-audit.mjs ulyah.com=id 1fr.fr=fr tilawa.de=de xad.es=en dawa.im=es

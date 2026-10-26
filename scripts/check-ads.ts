@@ -83,6 +83,8 @@ const EXPECTED: Record<string, string> = {
   "1fr": "ca-pub-8991272269211824",
   tilawa: "ca-pub-8991272269211824",
   xad: "ca-pub-5517446616694631",
+  // dawa.im, the owner's Spanish member (26 Oct 2026): Auto ads only.
+  dawaim: "ca-pub-8991272269211824",
 };
 for (const [tenant, pub] of Object.entries(EXPECTED)) {
   const key = tenant === "1fr" ? '"1fr"' : tenant;
@@ -163,7 +165,7 @@ check(
 
 // TENANT is read at import, so each tenant is a fresh process — the same way
 // the build sees it. Owner sites must evaluate to false, dawa to true.
-for (const tenant of ["ulyah", "1fr", "tilawa", "xad", "dawa"]) {
+for (const tenant of ["ulyah", "1fr", "tilawa", "xad", "dawaim", "dawa"]) {
   let out = "";
   try {
     out = execFileSync(

@@ -1,6 +1,6 @@
 /**
  * The ecosystem page — /ekosistem (ulyah.com), /ecosystem (xad.es),
- * /ecosysteme (1fr.fr), /oekosystem (tilawa.de), /ecosistema (dawa.es).
+ * /ecosysteme (1fr.fr), /oekosystem (tilawa.de), /ecosistema (dawa.es, dawa.im).
  *
  * Owner, 18 Oct 2026: "Promosikan website axto.io dan xaa.es dengan bahasa
  * masing2 situs dengan menu husus yg premium … gunakan kalimat yang berbeda di
@@ -26,6 +26,7 @@ import { XAD } from "./ecosystem-copy/xad";
 import { ONEFAITH } from "./ecosystem-copy/onefaith";
 import { TILAWA } from "./ecosystem-copy/tilawa";
 import { DAWA } from "./ecosystem-copy/dawa";
+import { DAWAIM } from "./ecosystem-copy/dawaim";
 
 export type { EcoCopy, EcoSection } from "./ecosystem-copy/types";
 
@@ -35,6 +36,7 @@ export const ECOSYSTEM: Partial<Record<TenantId, Record<string, EcoCopy>>> = {
   "1fr": ONEFAITH,
   tilawa: TILAWA,
   dawa: DAWA,
+  dawaim: DAWAIM,
 };
 
 /** The copy for this site and language, or null where the page does not exist. */

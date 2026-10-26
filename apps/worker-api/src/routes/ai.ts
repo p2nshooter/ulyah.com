@@ -17,6 +17,7 @@ function siteFromOrigin(origin: string): string {
   if (h.includes("1fr.fr")) return "One Faith France";
   if (h.includes("tilawa.de")) return "Tilawa";
   if (h.includes("dawa.es")) return "Dawa";
+  if (h.includes("dawa.im")) return "Dawa";
   return "ULYAH.COM";
 }
 
