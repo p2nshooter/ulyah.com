@@ -1,0 +1,39 @@
+{
+  "domain": "odaily.xyz",
+  "name": "ODAILY",
+  "expansion": "Our Daily table – home cooking, explained",
+  "tagline": "Everyday home cooking explained: knife skills, weeknight dinners, meal planning, baking and the kitchen science behind them",
+  "description": "ODAILY is a calm, practical guide to everyday home cooking: kitchen basics, quick weeknight dinners, meal prep and planning, reliable baking, the science of what happens in the pan, and how to stock and store a pantry without waste.",
+  "lang": "en",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "adsense": "ca-pub-9221781326457936",
+  "trackId": "odaily-xyz",
+  "worker": "odaily-xyz",
+  "themeColor": "#33401f",
+  "email": "hello@odaily.xyz",
+  "author": "ODAILY Kitchen Team",
+  "draft": true,
+  "fonts": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap",
+  "paths": { "article": "/kitchen/", "category": "/table/" },
+  "categories": [
+    { "slug": "kitchen-basics", "name": "Kitchen Basics", "icon": "knife", "description": "Knife skills, heat control, seasoning, reading a recipe and the handful of techniques that make every other dish easier." },
+    { "slug": "weeknight-cooking", "name": "Weeknight Cooking", "icon": "pan", "description": "Dinners on the table in thirty to forty minutes: one-pan meals, pasta, stir-fries, soups and eggs, with ingredients you can actually find." },
+    { "slug": "meal-prep-and-planning", "name": "Meal Prep & Planning", "icon": "planner", "description": "Plan a week of meals, shop with a list, cook once and eat twice, pack lunches and feed a family on a sensible budget." },
+    { "slug": "baking", "name": "Baking", "icon": "loaf", "description": "Bread, biscuits, cakes and pastry without guesswork: measuring, mixing, proofing, oven temperatures and fixing what went wrong." },
+    { "slug": "kitchen-science", "name": "Kitchen Science", "icon": "flask", "description": "Why onions brown, why bread rises, why salt matters and why sauces split: the chemistry and physics behind good cooking." },
+    { "slug": "pantry-and-storage", "name": "Pantry & Storage", "icon": "jar", "description": "Stock a useful pantry, read dates, store food safely in the fridge and freezer, use leftovers and throw less away." }
+  ],
+  "promo": { "slug": "from-our-household", "label": "✦ From our household" },
+  "menu": [
+    { "label": "About", "href": "/about/" },
+    { "label": "Contact", "href": "/contact/" }
+  ],
+  "legal": [
+    { "label": "Privacy policy", "href": "/privacy-policy/" },
+    { "label": "Cookie policy", "href": "/cookie-policy/" },
+    { "label": "Terms of use", "href": "/terms/" },
+    { "label": "Disclaimer", "href": "/disclaimer/" },
+    { "label": "Editorial policy", "href": "/editorial-policy/" }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "domain": "xdaily.xyz",
+  "name": "XDAILY",
+  "expansion": "eXplained Daily – science for curious minds",
+  "tagline": "Science and how things work, explained clearly: space, planet Earth, everyday technology, the human body, physics, chemistry and the big ideas",
+  "description": "XDAILY explains science and the way things work for curious adults: why the sky is blue, how GPS knows where you are, what happens inside a star, how the heart pumps, why ice floats and how scientists know what they know, in plain words and without hype.",
+  "lang": "en",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "adsense": "ca-pub-5693981744147503",
+  "trackId": "xdaily-xyz",
+  "worker": "xdaily-xyz",
+  "themeColor": "#12263f",
+  "email": "hello@xdaily.xyz",
+  "author": "XDAILY Science Desk",
+  "draft": true,
+  "fonts": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap",
+  "paths": { "article": "/explained/", "category": "/field/" },
+  "categories": [
+    { "slug": "space", "name": "Space", "icon": "planet", "description": "The Sun, the Moon, planets, stars, galaxies and the tools we use to study them, from seasons and eclipses to black holes and the edge of the observable universe." },
+    { "slug": "planet-earth", "name": "Planet Earth", "icon": "globe", "description": "Weather and climate, oceans and tides, volcanoes and earthquakes, rivers, rocks and the cycles that keep our planet working." },
+    { "slug": "how-things-work", "name": "How Things Work", "icon": "gear", "description": "The science inside everyday technology: GPS, microwaves, batteries, the internet, touchscreens, refrigerators, aircraft and more." },
+    { "slug": "the-human-body", "name": "The Human Body", "icon": "heart", "description": "How the body works, from heartbeat and breathing to sleep, senses, immunity and digestion. Explanations only, never medical advice." },
+    { "slug": "physics-and-chemistry", "name": "Physics & Chemistry", "icon": "atom", "description": "Light, sound, heat, electricity, atoms and reactions: the rules of matter and energy explained with everyday examples." },
+    { "slug": "big-ideas", "name": "Big Ideas", "icon": "bulb", "description": "Evolution, relativity, quantum theory, the scientific method and the discoveries that changed how we see the world, and how we know they are true." }
+  ],
+  "promo": { "slug": "our-other-projects", "label": "✦ Our other projects" },
+  "menu": [
+    { "label": "About", "href": "/about/" },
+    { "label": "Contact", "href": "/contact/" }
+  ],
+  "legal": [
+    { "label": "Privacy policy", "href": "/privacy-policy/" },
+    { "label": "Cookie policy", "href": "/cookie-policy/" },
+    { "label": "Terms of use", "href": "/terms/" },
+    { "label": "Disclaimer", "href": "/disclaimer/" },
+    { "label": "Editorial policy", "href": "/editorial-policy/" }
+  ]
+}
