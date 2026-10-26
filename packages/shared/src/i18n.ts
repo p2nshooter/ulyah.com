@@ -65,14 +65,17 @@ export const ALL_LOCALES: LocaleDef[] = [
 // its site (owner: "arahkan saja ke website nya … langsung pindah domain")
 // instead of switching locale in place — the sites cross-promote each other.
 //
-// dawa.es (Spanish) is NOT here any more. Owner, 4 Oct 2026: "Lepas yg
-// terkoneksi dengan dawa.es karena bukan milik sy lagi, biarkan dawa.es
-// mandiri" — it is no longer the owner's, so no switcher jump, no hreflang, no
-// cross-link and no sitemap entry points at it. See docs/ADSENSE-BLUEPRINT.md §10.
+// dawa.es is NOT here any more. Owner, 4 Oct 2026: "Lepas yg terkoneksi dengan
+// dawa.es karena bukan milik sy lagi, biarkan dawa.es mandiri" — no switcher
+// jump, no hreflang, no cross-link and no sitemap entry points at it
+// (docs/ADSENSE-BLUEPRINT.md §10). Spanish belongs to dawa.im instead, the
+// owner's new Spanish member (owner, 26 Oct 2026: "dawa.im adalah translate dari
+// ulyah.com make hreflang"; §14.3b).
 export const LOCALE_SITE: Record<string, string> = {
   en: "https://xad.es",
   de: "https://tilawa.de",
   fr: "https://1fr.fr",
+  es: "https://dawa.im",
 };
 
 /**
@@ -132,6 +135,7 @@ const TENANT_LOCALES: Record<string, { codes: string[]; def: string }> = {
   "1fr": { codes: ["fr"], def: "fr" },
   tilawa: { codes: ["de"], def: "de" },
   dawa: { codes: ["es"], def: "es" },
+  dawaim: { codes: ["es"], def: "es" }, // dawa.im = the Spanish member of the ecosystem
   xad: { codes: ["en"], def: "en" }, // xad.es = the English member of the ecosystem
 };
 const _tenantL = TENANT_LOCALES[TENANT_ID];
@@ -152,8 +156,8 @@ export function isValidLocale(code: string): boolean {
  * Owner decision: "coret dulu seluruh bahasa di ulyah.com kecuali yang link ke
  * ekosistem — ulyah.com fokus aja dulu ke bahasa Indonesia."
  *
- * ulyah.com is an Indonesian site. The three languages that have their OWN
- * finished site (1fr.fr, tilawa.de, xad.es) still appear, because
+ * ulyah.com is an Indonesian site. The four languages that have their OWN
+ * finished site (1fr.fr, tilawa.de, xad.es, dawa.im) still appear, because
  * choosing one sends the visitor to that site rather than translating anything.
  * Every other language is switched off here regardless of how complete its
  * measurement says it is — the admin portal keeps showing the real progress, so
@@ -167,7 +171,7 @@ const IN_PLACE_LANGUAGES = false;
  *
  * One language per site, and that is the whole list: Indonesian for the hub,
  * and the languages that own a domain (1fr.fr French, tilawa.de German,
- * xad.es English), plus DETACHED_SERVED_LANGS for a detached site's frozen build. Owner: "stop auto translate di ulyah.com,
+ * xad.es English, dawa.im Spanish), plus DETACHED_SERVED_LANGS for a detached site's frozen build. Owner: "stop auto translate di ulyah.com,
  * cukup ulyah.com menggunakan bahasa Indonesia dan ekosistem situs yg lain
  * menggunakan bahasa extensi situsnya masing-masing … tetep terjemahkan ke
  * bahasa Indonesia untuk ulyah.com dan bahasa masing-masing dr ekosistem."
@@ -240,7 +244,7 @@ export function isServedInPlace(code: string): boolean {
  *
  * Two categories are ready without needing that score:
  *  - the site's own language, which is what everything is authored in;
- *  - a language with its own ecosystem domain (1fr.fr, tilawa.de, xad.es).
+ *  - a language with its own ecosystem domain (1fr.fr, tilawa.de, xad.es, dawa.im).
  *    Those are separate single-language sites, and the switcher sends the
  *    visitor to the site rather than translating in place.
  */

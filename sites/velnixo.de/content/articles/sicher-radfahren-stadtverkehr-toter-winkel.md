@@ -1,6 +1,6 @@
 ---
 title: "Sicher Rad fahren in der Stadt: toter Winkel, Kreuzungen, Dooring und vorausschauendes Fahren"
-description: "Die größten Gefahren im Stadtverkehr und wie du ihnen begegnest: toter Winkel bei Lkw und Bussen, Abbiegeunfälle, aufgehende Autotüren, Kreisverkehre, Straßenbahnschienen und eine sichere Position auf der Fahrbahn."
+description: "Sicher Rad fahren in der Stadt: toter Winkel bei Lkw, Abbiegeunfälle, aufgehende Autotüren, Kreisverkehre, Straßenbahnschienen und die richtige Position."
 category: sicher-unterwegs
 date: 2026-10-26
 ---

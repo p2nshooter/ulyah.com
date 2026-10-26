@@ -1,0 +1,102 @@
+name: dawa.im — connect the domain to its Worker
+
+# Owner, 26 Oct 2026: "dawa.im make link worker dulu, jadi langsung konek saat sy
+# masukin dns nya" (docs/ADSENSE-BLUEPRINT.md §14.3b).
+#
+# The main deploy builds the dawaim-web Worker and attaches dawa.im to it on
+# every push. This workflow covers the time in between: every hour it makes
+# sure the dawa.im zone exists on the account, prints the nameservers the
+# registrar must use, and attaches dawa.im + www.dawa.im to dawaim-web if they
+# are not attached yet. So the moment the owner sets the nameservers, the site
+# answers without waiting for a new commit.
+#
+# Idempotent: a hostname already attached to dawaim-web is left alone, and stale
+# A/AAAA/CNAME records are only removed from a hostname that is NOT attached yet
+# (they are what blocks a Worker custom domain). Nothing else is ever deleted.
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/dawa-im-connect.yml'
+
+concurrency:
+  group: dawa-im-connect
+  cancel-in-progress: false
+
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Zone, nameservers and Worker domains
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          say () { echo "$1"; echo "$1" >> "$GITHUB_STEP_SUMMARY"; }
+
+          ZONE=$(curl -s -H "$AUTH" "$CF/zones?name=dawa.im")
+          ZONE_ID=$(echo "$ZONE" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            CREATE=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"name\":\"dawa.im\",\"account\":{\"id\":\"${CLOUDFLARE_ACCOUNT_ID}\"},\"type\":\"full\"}" "$CF/zones")
+            if [ "$(echo "$CREATE" | jq -r '.success')" != "true" ]; then
+              say "::warning::Could not create the dawa.im zone: $(echo "$CREATE" | jq -c '.errors')"
+              exit 0
+            fi
+            ZONE=$(curl -s -H "$AUTH" "$CF/zones?name=dawa.im")
+            ZONE_ID=$(echo "$ZONE" | jq -r '.result[0].id // empty')
+            say "- ➕ dawa.im zone created on the account"
+          fi
+          STATUS=$(echo "$ZONE" | jq -r '.result[0].status')
+          NS=$(echo "$ZONE" | jq -r '.result[0].name_servers | join(" · ")')
+          if [ "$STATUS" = "active" ]; then
+            say "- ✅ dawa.im zone is active"
+          else
+            say "- ⏳ dawa.im zone is **$STATUS** — set the registrar nameservers to **${NS}**"
+          fi
+
+          # The Worker exists once the main deploy has run with the dawaim tenant.
+          SCRIPT=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
+            "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts/dawaim-web/settings")
+          if [ "$SCRIPT" != "200" ]; then
+            say "- ⏳ the dawaim-web Worker is not deployed yet (HTTP $SCRIPT) — the next main deploy creates it"
+            exit 0
+          fi
+
+          for host in dawa.im www.dawa.im; do
+            CUR=$(curl -s -H "$AUTH" "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains?hostname=$host" \
+              | jq -r '.result[0].service // empty')
+            if [ "$CUR" = "dawaim-web" ]; then
+              say "- ✅ $host → dawaim-web (already attached)"
+              continue
+            fi
+            # Remove the plain records that block the attach (parking/placeholder).
+            ids=$(curl -s -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host" \
+              | jq -r '.result[]? | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | .id')
+            for id in $ids; do
+              curl -s -X DELETE -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records/$id" > /dev/null
+              echo "removed stale record $id on $host"
+            done
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"dawaim-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            if [ "$(echo "$resp" | jq -r '.success')" = "true" ]; then
+              say "- ➕ $host → dawaim-web attached"
+            else
+              say "- ❌ $host: $(echo "$resp" | jq -c '.errors')"
+            fi
+          done
+
+          if [ "$STATUS" = "active" ]; then
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L https://dawa.im/ || echo 000)
+            ads=$(curl -s --max-time 20 https://dawa.im/ads.txt | tr -d '\r' | head -1 || true)
+            say "- https://dawa.im → HTTP $code · ads.txt: \`${ads:-(none)}\`"
+          fi

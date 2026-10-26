@@ -161,6 +161,7 @@ export const TENANT_RADIO_START: Record<string, number> = {
   tilawa: 7,
   dawa: 11,
   xad: 14,
+  dawaim: 9,
 };
 function buildEyUrl(eyId: string, surah: number, ayah: number): string {
   return `https://everyayah.com/data/${eyId}/${pad3(surah)}${pad3(ayah)}.mp3`;

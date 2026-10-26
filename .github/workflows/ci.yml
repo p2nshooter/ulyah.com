@@ -120,10 +120,10 @@ jobs:
       # 307 -> /en/..., a page we mark noindex on purpose. The site built,
       # typechecked and served fine — it was simply never indexed. Checked for
       # every tenant, because each one inlines its own locale list.
-      - name: Check language detection (all four sites)
+      - name: Check language detection (all five sites)
         run: |
           set -eu
-          for t in ulyah 1fr tilawa xad; do
+          for t in ulyah 1fr tilawa xad dawaim; do
             echo "--- $t ---"
             NEXT_PUBLIC_TENANT=$t pnpm check:locale
           done
@@ -133,10 +133,10 @@ jobs:
       # being redirected twice on every click and every crawl of every link on
       # a sibling site. Checked per tenant, because each one inlines its own
       # slugs at build time.
-      - name: Check internal links resolve without a redirect (all four sites)
+      - name: Check internal links resolve without a redirect (all five sites)
         run: |
           set -eu
-          for t in ulyah 1fr tilawa xad; do
+          for t in ulyah 1fr tilawa xad dawaim; do
             echo "--- $t ---"
             NEXT_PUBLIC_TENANT=$t npx tsx scripts/check-internal-links.ts
           done

@@ -10,6 +10,7 @@
 /* Festive top stripe over the sticky header: host-nation tricolour (Mexico
    green · USA white/blue · Canada red) with a slow shimmer sweep. */
 html[data-tenant="dawa"] .wc26-stripe,
+html[data-tenant="dawaim"] .wc26-stripe,
 html[data-tenant="xad"] .wc26-stripe {
   position: absolute;
   top: 0;

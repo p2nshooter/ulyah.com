@@ -47,7 +47,7 @@ const SITE_LABEL: Record<string, string> = {
 // Every OTHER owner site (the ebook store + the high-CPC article/ad sites) is
 // "di luar ekosistem" and gets its own SEPARATE traffic menu so it's easy to
 // monitor apart from the da'wah traffic.
-export const ECOSYSTEM_SITES = new Set(["ulyah", "1fr", "tilawa", "xad", "xad-es"]);
+export const ECOSYSTEM_SITES = new Set(["ulyah", "1fr", "tilawa", "xad", "xad-es", "dawaim"]);
 export function isEcosystemSite(site: string): boolean {
   return ECOSYSTEM_SITES.has(site);
 }

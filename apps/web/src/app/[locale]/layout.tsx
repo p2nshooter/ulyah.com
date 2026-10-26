@@ -35,6 +35,7 @@ import "@/styles/themes/france.css";
 import "@/styles/themes/germany.css";
 import "@/styles/themes/spain.css";
 import "@/styles/themes/xad.css";
+import "@/styles/themes/dawaim.css";
 
 // The ecosystem hreflang cluster (owner: Update Global Seluruh Portal §3) is no
 // longer declared here.
@@ -119,6 +120,17 @@ export async function generateMetadata({
               ],
               apple: "/brand/dawa/icon-180.png?v=2",
             }
+          : TENANT.id === "dawaim"
+            ? {
+                // dawa.im (Spanish member) — the owner's square crimson/gold
+                // emblem for the tab and the home screen.
+                icon: [
+                  { url: "/brand/dawaim/favicon.png", sizes: "64x64", type: "image/png" },
+                  { url: "/brand/dawaim/favicon-256.png", sizes: "256x256", type: "image/png" },
+                  { url: "/brand/dawaim/icon-192.png", sizes: "192x192", type: "image/png" },
+                ],
+                apple: "/brand/dawaim/icon-180.png",
+              }
           : TENANT.id === "xad"
             ? {
                 // xad.es (English member) — its own purple/gold emblem as the
@@ -189,6 +201,8 @@ export const viewport: Viewport = {
         ? "#14181d"
         : TENANT.id === "dawa"
           ? "#8a3b12"
+          : TENANT.id === "dawaim"
+            ? "#8e1b16"
           : TENANT.id === "xad"
             ? "#281a4d"
             : "#0B3D2E",
@@ -221,7 +235,7 @@ export default async function LocaleLayout({
             // tilawa.de opens dark (graphite technical), dawa.es opens light
             // (sunny Mediterranean), ulyah follows the OS. A saved preference
             // always wins.
-            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":tn==="dawa"?"light":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
+            __html: `(function(){try{var el=document.documentElement;var tn=el.getAttribute("data-tenant");var def=tn==="1fr"?"light":tn==="tilawa"?"dark":tn==="dawa"||tn==="dawaim"?"light":(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var t=localStorage.getItem("ulyah_theme")||def;el.setAttribute("data-theme",t);el.classList.toggle("dark",t==="dark");}catch(e){}})();`,
           }}
         />
         {/* Per-tenant typography — each sibling site has its OWN type system so
@@ -242,7 +256,7 @@ export default async function LocaleLayout({
               ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap"
               : TENANT.id === "tilawa"
                 ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-                : TENANT.id === "dawa"
+                : TENANT.id === "dawa" || TENANT.id === "dawaim"
                   ? "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Marcellus&family=Nunito:wght@300;400;600;700;800&display=swap"
                   : "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap"
           }
@@ -265,6 +279,8 @@ export default async function LocaleLayout({
                     ? "Tilawa — Islam hören"
                     : TENANT.id === "dawa"
                       ? "Dawa — El Islam en Español"
+                      : TENANT.id === "dawaim"
+                        ? "Dawa — Conocimiento Islámico para todos"
                       : TENANT.id === "xad"
                         ? "XAD — Listen to Islam"
                         : "Ulyah — Listen to Islam",

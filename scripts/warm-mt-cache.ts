@@ -67,9 +67,9 @@ function parseArgs() {
     // (`--langs=id`) to warm the Arabic- and English-sourced material.
     //
     // Anything outside the ecosystem's own languages is dropped below rather
-    // than warmed, whoever asks and however the workflow is dispatched. That
-    // includes Spanish: dawa.es is detached (no longer the owner's), so its
-    // frozen build keeps its existing cache but nothing is spent warming it.
+    // than warmed, whoever asks and however the workflow is dispatched. Spanish
+    // is warmed again since 26 Oct 2026 because it is dawa.im's language (the
+    // owner's Spanish member); detached dawa.es happens to read the same cache.
     langs: ((args.langs as string) || Object.keys(LOCALE_SITE).join(","))
       .split(",")
       .map((s) => s.trim())

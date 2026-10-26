@@ -1410,6 +1410,54 @@ jobs:
             fi
           fi
 
+      - name: Ensure dawa.im zone exists in Cloudflare (create if missing)
+        # Owner, 26 Oct 2026: "dawa.im make link worker dulu, jadi langsung konek
+        # saat sy masukin dns nya." The zone is created here, before the registrar
+        # points at it, so the Worker domain below is already in place; the only
+        # step left is the nameserver change, and .github/workflows/dawa-im-connect.yml
+        # re-checks every hour so nothing waits for the next push.
+        continue-on-error: true
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE=$(curl -s -H "$AUTH" "$CF/zones?name=dawa.im")
+          ZONE_ID=$(echo "$ZONE" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "dawa.im zone missing — creating it on this account."
+            CREATE=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"name\":\"dawa.im\",\"account\":{\"id\":\"${CLOUDFLARE_ACCOUNT_ID}\"},\"type\":\"full\"}" "$CF/zones")
+            if [ "$(echo "$CREATE" | jq -r '.success')" = "true" ]; then
+              NS=$(echo "$CREATE" | jq -r '.result.name_servers | join(" · ")')
+              {
+                echo "## 🌐 dawa.im zone created in Cloudflare"
+                echo ""
+                echo "One step remains (only the registrar can do this): set the dawa.im"
+                echo "nameservers at your registrar to:"
+                echo ""
+                echo "**${NS}**"
+                echo ""
+                echo "dawa.im and www.dawa.im are attached to the dawaim-web Worker by this"
+                echo "deploy, so the site answers as soon as the delegation is live."
+              } >> "$GITHUB_STEP_SUMMARY"
+              echo "::notice::dawa.im zone created — set registrar nameservers to: ${NS}"
+            else
+              echo "::warning::Could not create dawa.im zone: $(echo "$CREATE" | jq -c '.errors') — token may lack Zone:Edit, or the zone lives on another Cloudflare account."
+            fi
+          else
+            STATUS=$(echo "$ZONE" | jq -r '.result[0].status')
+            NS=$(echo "$ZONE" | jq -r '.result[0].name_servers | join(" · ")' 2>/dev/null || echo "?")
+            echo "dawa.im zone exists (status: $STATUS, ns: $NS)."
+            if [ "$STATUS" != "active" ]; then
+              {
+                echo "## 🌐 dawa.im is waiting for its nameservers"
+                echo ""
+                echo "Set the dawa.im nameservers at your registrar to: **${NS}**"
+              } >> "$GITHUB_STEP_SUMMARY"
+              echo "::warning::dawa.im zone is '$STATUS' — set the registrar nameservers to: ${NS} to activate it."
+            fi
+          fi
+
       - name: Clean stale DNS records so Custom Domains can attach (all zones)
         run: |
           set -eu
@@ -1460,6 +1508,7 @@ jobs:
           clean_zone 1fr.fr 1fr.fr www.1fr.fr
           clean_zone tilawa.de tilawa.de www.tilawa.de
           clean_zone xad.es xad.es www.xad.es
+          clean_zone dawa.im dawa.im www.dawa.im
 
       # Cloudflare will not upload a Worker bound to R2 while R2 is off, so the
       # bindings go — both of them — for as long as it stays off. Nothing is
@@ -1765,11 +1814,41 @@ jobs:
             echo "$host -> xad-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
           done
 
+      - name: Build web for dawa.im tenant (the Spanish member)
+        working-directory: apps/web
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_TENANT: "dawaim"
+
+      - name: Deploy dawa.im web (dawaim-web worker)
+        working-directory: apps/web
+        # Its own Worker and its own page-cache namespace, like every sibling.
+        # Never dawa-web: that Worker serves dawa.es, which is not the owner's.
+        run: npx wrangler deploy --name dawaim-web --var NEXT_INC_CACHE_R2_PREFIX:inc-dawaim
+
+      - name: Attach dawa.im custom domains to dawaim-web
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=dawa.im" | jq -r '.result[0].id // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::dawa.im zone not found on this account/token — dawaim-web stays on workers.dev until the zone is added."
+            exit 0
+          fi
+          for host in dawa.im www.dawa.im; do
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$host\",\"service\":\"dawaim-web\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            echo "$host -> dawaim-web: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
+          done
+
       - name: Smoke test sibling domains (non-fatal while DNS settles)
         continue-on-error: true
         run: |
           set -eu
-          for site in https://1fr.fr https://tilawa.de https://xad.es; do
+          for site in https://1fr.fr https://tilawa.de https://xad.es https://dawa.im; do
             code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 -L "$site" || echo "000")
             echo "$site -> HTTP $code"
           done

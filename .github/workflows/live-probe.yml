@@ -14,7 +14,7 @@ on:
       domains:
         description: "Space-separated domains"
         required: false
-        default: "ulyah.com 1fr.fr tilawa.de xad.es dawa.es"
+        default: "ulyah.com 1fr.fr tilawa.de xad.es dawa.im dawa.es"
   push:
     branches: [claude/islamic-ecosystem-db-optimize-ikewdv]
     paths:

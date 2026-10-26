@@ -1,6 +1,6 @@
 # ulyah.com and its sites — standing rules
 
-This repository serves ulyah.com, xad.es, 1fr.fr, tilawa.de (`apps/web`, API in `apps/worker-api`) and the partner
+This repository serves ulyah.com, xad.es, 1fr.fr, tilawa.de, dawa.im (`apps/web`, API in `apps/worker-api`) and the partner
 sites in `sites/`. The rules below come from the owner and apply to every change.
 
 ## Storage: R2 only — never D1

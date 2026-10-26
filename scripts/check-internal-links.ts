@@ -55,6 +55,14 @@ const EXPECTED: Record<string, Record<string, string>> = {
     "/kisah/kisah-nabi-yusuf-01": "/historias/kisah-nabi-yusuf-01",
     "/quran/mushaf": "/coran/mushaf",
   },
+  // dawa.im is Spanish too: the same Spanish slugs as dawa.es.
+  dawaim: {
+    "/kitab": "/libros",
+    "/kitab-pesantren": "/libros-clasicos",
+    "/hadits": "/hadiz",
+    "/kisah/kisah-nabi-yusuf-01": "/historias/kisah-nabi-yusuf-01",
+    "/quran/mushaf": "/coran/mushaf",
+  },
   "1fr": {
     "/kitab": "/livres",
     "/kitab-pesantren": "/livres-classiques",

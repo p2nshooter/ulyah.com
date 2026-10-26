@@ -46,7 +46,7 @@ function hmIn(tz: string, date: Date): string {
 // Before the visitor's location resolves (or when it cannot), each site
 // starts from its own country — the same map AdhanReminder uses — so dawa.es
 // no longer shows Jakarta's times to a Spanish reader.
-const TENANT_HOME: Record<string, string> = { ulyah: "ID", "1fr": "FR", tilawa: "DE", dawa: "ES" };
+const TENANT_HOME: Record<string, string> = { ulyah: "ID", "1fr": "FR", tilawa: "DE", dawa: "ES", dawaim: "ES" };
 const HOME_COUNTRY: PrayerCountry = COUNTRY_LOOKUP[TENANT_HOME[TENANT.id] ?? ""] ?? DEFAULT_PRAYER_COUNTRY;
 
 export function PrayerTimesWidget({ locale }: { locale: string }) {

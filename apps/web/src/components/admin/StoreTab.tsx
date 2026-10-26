@@ -26,6 +26,7 @@ const MARKETPLACES = [
   { id: "com", site: "xad.es", lang: "Inggris", amazon: "amazon.com" },
   { id: "fr", site: "1fr.fr", lang: "Prancis", amazon: "amazon.fr" },
   { id: "de", site: "tilawa.de", lang: "Jerman", amazon: "amazon.de" },
+  { id: "es", site: "dawa.im", lang: "Spanyol", amazon: "amazon.es" },
 ];
 
 interface Shelf {

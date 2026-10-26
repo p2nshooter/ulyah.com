@@ -35,10 +35,10 @@ check(
   "MT_TARGET_LANGS",
   [...MT_TARGET_LANGS].sort(),
   ["de", "en", "es", "fr", "id"],
-  "ulyah.com + the three sibling domains + es, still served (never warmed) for detached dawa.es's frozen build"
+  "ulyah.com + the four sibling domains (es is dawa.im's, and is also read by detached dawa.es's frozen build)"
 );
-check("ECOSYSTEM_LANGS (what the warmers translate into)", [...ECOSYSTEM_LANGS].sort(), ["de", "en", "fr", "id"], "dawa.es is detached: Spanish is never warmed");
-check("dawa.es is not an ecosystem domain any more", "es" in LOCALE_SITE, false, "no switcher jump, hreflang or sitemap entry may point at dawa.es");
+check("ECOSYSTEM_LANGS (what the warmers translate into)", [...ECOSYSTEM_LANGS].sort(), ["de", "en", "es", "fr", "id"], "dawa.im is the Spanish member: Spanish is warmed again (into R2)");
+check("Spanish belongs to dawa.im, never dawa.es", LOCALE_SITE.es, "https://dawa.im", "no switcher jump, hreflang or sitemap entry may point at detached dawa.es");
 check(
   "every domain language is in it",
   Object.keys(LOCALE_SITE).every((c) => MT_TARGET_LANGS.includes(c)),

@@ -13,7 +13,7 @@ type PrayerKey = "fajr" | "dhuhr" | "asr" | "maghrib" | "isha";
 const PRAYERS: PrayerKey[] = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
 
 // The site's home country decides the fallback coordinates before geo resolves.
-const TENANT_DEFAULT: Record<string, string> = { ulyah: "ID", "1fr": "FR", tilawa: "DE", dawa: "ES" };
+const TENANT_DEFAULT: Record<string, string> = { ulyah: "ID", "1fr": "FR", tilawa: "DE", dawa: "ES", dawaim: "ES" };
 
 // Short localized chrome — the reminder banner text and the toggle tooltip.
 const L: Record<string, { time: (p: string) => string; on: string; off: string; enable: string; disable: string }> = {

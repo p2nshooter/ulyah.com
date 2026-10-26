@@ -578,8 +578,8 @@ async function computeAnalytics(c: Context<{ Bindings: Env }>) {
   };
 }
 
-// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de + xad.es) ───────
-// One content DB, four sites. dawa.es is detached (no longer the owner's) and
+// ── Per-tenant analytics (ulyah.com + 1fr.fr + tilawa.de + xad.es + dawa.im) ─
+// One content DB, five sites. dawa.es is detached (no longer the owner's) and
 // is not shown. Each sibling's admin portal shows only its own
 // tenant; ulyah.com's admin sees all four side by side to watch each site's
 // visitor growth. Every metric is grouped by tenant in a handful of queries.
@@ -750,7 +750,7 @@ adminRoute.get("/tenant-analytics", async (c) => {
     .all<{ tenant: string; n: number }>()
     .catch(() => ({ results: [] as { tenant: string; n: number }[] }));
 
-  const TENANTS = ["ulyah", "1fr", "tilawa", "xad"];
+  const TENANTS = ["ulyah", "1fr", "tilawa", "xad", "dawaim"];
   const byTenant = TENANTS.map((t) => {
     const v = heavy.totals.find((r) => r.tenant === t);
     const dv = heavy.devices.find((r) => r.tenant === t);

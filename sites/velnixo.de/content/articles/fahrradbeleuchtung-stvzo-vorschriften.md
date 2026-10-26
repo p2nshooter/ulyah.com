@@ -1,6 +1,6 @@
 ---
 title: "Fahrradbeleuchtung nach StVZO: Was Pflicht ist und welche Lampen sich lohnen"
-description: "Frontlicht, Rücklicht, Reflektoren, Akku- oder Dynamolicht: welche Fahrradbeleuchtung die StVZO vorschreibt, woran du zugelassene Lampen erkennst, wie du sie richtig einstellst und was gutes Licht kostet."
+description: "Fahrradbeleuchtung nach StVZO: Pflichtausstattung, zugelassene Lampen mit K-Nummer, Akku oder Dynamo, richtige Einstellung und was gutes Licht kostet."
 category: sicher-unterwegs
 date: 2026-10-26
 ---

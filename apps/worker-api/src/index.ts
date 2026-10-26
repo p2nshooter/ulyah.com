@@ -38,6 +38,8 @@ const SIBLING_ORIGINS = new Set([
   // index the radio needs before it can start) — the "radio xad.es ga bisa"
   // report.
   "https://xad.es", "https://www.xad.es",
+  // dawa.im — the Spanish member of the ecosystem (owner, 26 Oct 2026).
+  "https://dawa.im", "https://www.dawa.im",
   // AXTO network reads the central ad config from api.ulyah.com too.
   "https://axto.io", "https://www.axto.io",
   "https://axto.dev", "https://www.axto.dev",

@@ -1,6 +1,6 @@
 ---
 title: "Mit Kindern sicher Rad fahren: vom Laufrad bis zum Schulweg"
-description: "Wie Kinder sicher Radfahren lernen: Laufrad und erstes Fahrrad, Regeln für Gehweg und Fahrbahn, wie Erwachsene richtig begleiten, Radfahrausbildung in der Schule, Schulweg mit dem Rad und gemeinsame Touren."
+description: "Wie Kinder sicher Rad fahren lernen: Laufrad und erstes Rad, Regeln für Gehweg und Fahrbahn, richtig begleiten, Radfahrausbildung und der Schulweg."
 category: sicher-unterwegs
 date: 2026-10-26
 ---
