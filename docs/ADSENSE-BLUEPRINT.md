@@ -1120,7 +1120,7 @@ loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT te
 |---|---|
 | velnixo.de | ✅ 45 artikel (70.618 kata, terpendek 1.503), `check.mjs` ALL OK, draft dicabut → live; masuk daftar `site-audit.yml` |
 | zoevian.de | ✅ 45 artikel (69.468 kata, terpendek 1.500), `check.mjs` ALL OK, draft dicabut → live (ads.txt + meta + loader ca-pub-5928074389292014); tema „Zedernhof“; masuk daftar `site-audit.yml` |
-| nexvilo.de | 🔄 online sebagai draft (noindex) dengan ads.txt + meta + loader ca-pub-6908951782430508, `check.mjs` ALL OK; tema „Die Wege der Ameise“ (Spr 6:6–8); 30/45 artikel ≥1.500 kata (Smartphone, Computer & Windows, Sicher im Netz, Smart Home), sisa KI im Alltag + Digitales Leben |
+| nexvilo.de | ✅ 45 artikel (71.929 kata, terpendek 1.500), `check.mjs` ALL OK, draft dicabut → live (ads.txt + meta + loader ca-pub-6908951782430508); tema „Die Wege der Ameise“ (Spr 6:6–8); 6 kategori (Smartphone, Computer & Windows, Sicher im Netz, Smart Home, KI im Alltag, Digitales Leben); masuk daftar `site-audit.yml` |
 | odaily.xyz | 🔄 kerangka online sebagai draft (noindex) dengan ads.txt + meta + loader ca-pub-9221781326457936 (bukan lagi 8991272269211824), `check.mjs` ALL OK; Inggris (en-US), tema „The lamp that does not go out“ (Ams 31:15, 18: dapur sebelum fajar, tungku roti, pelita, roti, uap); 7 halaman wajib + „✦ From our household“; 45 artikel menyusul |
 | xdaily.xyz | 🔄 kerangka online sebagai draft (noindex) dengan ads.txt + meta + loader ca-pub-5693981744147503 (bukan lagi 8991272269211824), `check.mjs` ALL OK; Inggris (en-US), tema „The circuits“ (Pkh 1:5–7: lintasan matahari, putaran angin, siklus air, observatorium dalam jendela kuningan); 7 halaman wajib + „✦ Our other projects“; 45 artikel menyusul |
 

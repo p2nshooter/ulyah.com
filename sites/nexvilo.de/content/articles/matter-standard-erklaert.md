@@ -131,6 +131,8 @@ Weil alle Geräte Matter sprechen, kann die Person mit dem iPhone sie in Apple H
 
 
 
+## Häufige Fragen
+
 **Brauche ich für Matter unbedingt einen smarten Lautsprecher?**
 Nein, aber eine Zentrale ist nötig. Das kann auch ein Apple TV, ein Google-TV-Gerät, ein Router mit Matter-Unterstützung oder ein Home-Assistant-System sein.
 

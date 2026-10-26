@@ -158,4 +158,6 @@ Windows 11 verlangt unter anderem einen relativ neuen Prozessor und ein Sicherhe
 
 
 
+## Fazit
+
 Ein langsamer Windows-11-PC ist selten ein Fall für den Elektroschrott. Meist bremsen zu viele Autostart-Programme, ein voller Speicher, ein überladener Browser oder ausstehende Updates. Mit den Bordmitteln von Windows und ohne zweifelhafte Optimierungsprogramme behebst du die meisten Ursachen in einer halben Stunde. Wenn die Hardware der Engpass ist, bringen eine SSD und mehr Arbeitsspeicher oft mehr als ein neuer Rechner und kosten nur einen Bruchteil davon.

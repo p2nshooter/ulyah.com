@@ -179,4 +179,6 @@ Microsoft bietet auf seinen Hilfeseiten eine vollständige Liste der Tastenkombi
 
 
 
+## Fazit
+
 Mit einer Handvoll Tastenkürzel wirst du am Computer spürbar schneller: Kopieren, Einfügen und Rückgängig machen sowieso, dazu Alt + Tab zum Wechseln, Windows + Pfeiltasten zum Anordnen, Windows + Umschalt + S für Bildschirmfotos und Windows + V für den Zwischenablageverlauf. Lerne die Kürzel schrittweise, drei pro Woche, und nutze Windows + L jedes Mal, wenn du den Platz verlässt. Nach wenigen Wochen willst du nicht mehr zurück.
