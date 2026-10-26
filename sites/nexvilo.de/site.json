@@ -1,0 +1,40 @@
+{
+  "domain": "nexvilo.de",
+  "name": "NEXVILO",
+  "expansion": "Next · virtuell · lokal – Digital-Alltag verständlich",
+  "tagline": "Smartphone, Computer, Sicherheit im Netz, Smart Home und KI: Technik, die im Alltag einfach funktioniert",
+  "description": "NEXVILO erklärt den digitalen Alltag Schritt für Schritt: Smartphone und Computer einrichten und pflegen, sicher im Netz unterwegs sein, Betrug erkennen, Smart Home planen, KI sinnvoll nutzen und die ganze Familie digital begleiten.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-6908951782430508",
+  "trackId": "nexvilo-de",
+  "worker": "nexvilo-de",
+  "themeColor": "#151a3d",
+  "email": "kontakt@nexvilo.de",
+  "author": "NEXVILO Redaktion",
+  "draft": true,
+  "fonts": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/anleitung/", "category": "/bereich/" },
+  "categories": [
+    { "slug": "smartphone", "name": "Smartphone", "icon": "phone", "description": "Akku, Speicher, Backup, Datenschutz-Einstellungen und Kaufberatung: So holst du mehr aus deinem Android-Handy oder iPhone heraus, ohne Fachwissen." },
+    { "slug": "computer-und-windows", "name": "Computer & Windows", "icon": "laptop", "description": "Windows schneller machen, Updates verstehen, Dateien ordnen und sichern, Drucker einrichten, den passenden Laptop finden und alte Rechner weiter nutzen." },
+    { "slug": "sicher-im-netz", "name": "Sicher im Netz", "icon": "shield", "description": "Starke Passwörter, Zwei-Faktor-Schutz, Phishing und Messenger-Betrug erkennen, WLAN absichern, sicher einkaufen und richtig handeln, wenn ein Konto gehackt wurde." },
+    { "slug": "smart-home", "name": "Smart Home", "icon": "house", "description": "Der Einstieg ins vernetzte Zuhause: Matter, smarte Heizung und Steckdosen, Sprachassistenten, Kameras mit Rücksicht auf das Recht und besseres WLAN in jedem Raum." },
+    { "slug": "ki-im-alltag", "name": "KI im Alltag", "icon": "spark", "description": "Was KI-Assistenten können und was nicht: gut fragen, Fehler erkennen, Deepfakes durchschauen, Daten schützen und KI in Schule und Beruf sinnvoll einsetzen." },
+    { "slug": "digitales-leben", "name": "Digitales Leben", "icon": "bubble", "description": "Digital mit der ganzen Familie: das erste Kinderhandy, Bildschirmzeit, Smartphone für Ältere, Online-Banking, Videotelefonie, Online-Ausweis und digitaler Nachlass." }
+  ],
+  "promo": { "slug": "aus-unserem-haus", "label": "✦ Aus unserem Haus" },
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}

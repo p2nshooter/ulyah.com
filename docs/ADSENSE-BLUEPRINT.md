@@ -1120,7 +1120,7 @@ loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT te
 |---|---|
 | velnixo.de | ✅ 45 artikel (70.618 kata, terpendek 1.503), `check.mjs` ALL OK, draft dicabut → live; masuk daftar `site-audit.yml` |
 | zoevian.de | ✅ 45 artikel (69.468 kata, terpendek 1.500), `check.mjs` ALL OK, draft dicabut → live (ads.txt + meta + loader ca-pub-5928074389292014); tema „Zedernhof“; masuk daftar `site-audit.yml` |
-| nexvilo.de | ⏳ berikutnya |
+| nexvilo.de | 🔄 online sebagai draft (noindex) dengan ads.txt + meta + loader ca-pub-6908951782430508, `check.mjs` ALL OK; tema „Die Wege der Ameise“ (Spr 6:6–8: jalur semut bercahaya seperti jaringan, semut tembaga membawa butir emas, kubah lumbung); 45 artikel ≥1.500 kata sedang ditulis |
 | odaily.xyz | ⏳ |
 | xdaily.xyz | ⏳ |
 
