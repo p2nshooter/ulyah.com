@@ -1,0 +1,40 @@
+{
+  "domain": "zoevian.de",
+  "name": "ZOEVIAN",
+  "expansion": "Zoë · Avian – Leben mit Vögeln",
+  "tagline": "Vögel beobachten, verstehen und schützen: vom Futterhaus im Garten bis zur artgerechten Haltung",
+  "description": "ZOEVIAN ist ein Ratgeber über Vögel in Deutschland: Gartenvögel erkennen, richtig füttern und tränken, Nistkästen bauen und aufhängen, Lebensraum schaffen, Vögel beobachten und fotografieren und Ziervögel artgerecht halten, gründlich, naturnah und ohne Fachchinesisch.",
+  "lang": "de",
+  "locale": "de-DE",
+  "ogLocale": "de_DE",
+  "adsense": "ca-pub-5928074389292014",
+  "trackId": "zoevian-de",
+  "worker": "zoevian-de",
+  "themeColor": "#1d2f5e",
+  "email": "kontakt@zoevian.de",
+  "author": "ZOEVIAN Redaktion",
+  "draft": true,
+  "fonts": "https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,700;1,6..72,500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+  "paths": { "article": "/vogelwissen/", "category": "/themen/" },
+  "categories": [
+    { "slug": "gartenvoegel", "name": "Gartenvögel", "icon": "sparrow", "description": "Die Vögel vor deinem Fenster: Meisen, Spatzen, Amseln, Rotkehlchen und Co., ihr Jahreslauf, ihr Verhalten und was ein vogelfreundlicher Garten braucht." },
+    { "slug": "fuettern-und-traenken", "name": "Füttern & Tränken", "icon": "feeder", "description": "Ganzjährig oder nur im Winter? Welches Futter für welchen Vogel, saubere Futterstellen, Vogeltränken und die häufigsten Fehler beim Füttern." },
+    { "slug": "nistkaesten-und-lebensraum", "name": "Nistkästen & Lebensraum", "icon": "nest", "description": "Nistkästen richtig bauen, aufhängen und reinigen, heimische Hecken und Wildblumen, Wasser, Totholz und Schutz vor Katzen und Glasscheiben." },
+    { "slug": "vogelarten-erkennen", "name": "Vogelarten erkennen", "icon": "feather", "description": "Bestimmen nach Gestalt, Gefieder, Verhalten und Stimme: Verwechslungspaare, Zugvögel, Wintergäste und Vögel an Wasser, Wald und Feld." },
+    { "slug": "beobachten-und-fotografieren", "name": "Beobachten & Fotografieren", "icon": "lens", "description": "Fernglas wählen, Vogelstimmen lernen, Beobachtungen melden, Vögel fotografieren, ohne sie zu stören, und die besten Jahreszeiten und Orte." },
+    { "slug": "ziervoegel", "name": "Ziervögel artgerecht", "icon": "perch", "description": "Wellensittiche, Kanarien, Nymphensittiche und Co.: Voliere, Freiflug, Ernährung, Gesellschaft, Beschäftigung und woran man kranke Vögel erkennt." }
+  ],
+  "promo": { "slug": "verbundene-projekte", "label": "✦ Verbundene Projekte" },
+  "menu": [
+    { "label": "Über uns", "href": "/ueber-uns/" },
+    { "label": "Kontakt", "href": "/kontakt/" }
+  ],
+  "legal": [
+    { "label": "Impressum", "href": "/impressum/" },
+    { "label": "Datenschutz", "href": "/datenschutz/" },
+    { "label": "Cookie-Richtlinie", "href": "/cookie-richtlinie/" },
+    { "label": "Nutzungsbedingungen", "href": "/nutzungsbedingungen/" },
+    { "label": "Haftungsausschluss", "href": "/haftungsausschluss/" },
+    { "label": "Redaktionsgrundsätze", "href": "/redaktionsgrundsaetze/" }
+  ]
+}
