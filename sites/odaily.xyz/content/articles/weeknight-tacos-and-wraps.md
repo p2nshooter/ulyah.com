@@ -1,6 +1,6 @@
 ---
 title: "Weeknight Tacos and Wraps: Fillings, Tortillas and Toppings for a Build-Your-Own Dinner Everyone Likes"
-description: "How to warm tortillas so they do not crack, six fast fillings from seasoned beef to crispy chickpeas, quick salsas and pickles, a homemade taco seasoning, and how to turn the same fillings into wraps and bowls."
+description: "How to warm tortillas so they do not crack, six fast fillings from seasoned beef to crispy chickpeas, quick salsas and pickles, homemade taco seasoning, and turning leftovers into wraps and bowls."
 category: weeknight-cooking
 date: 2026-10-26
 order: 8

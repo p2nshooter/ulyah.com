@@ -1,6 +1,6 @@
 ---
 title: "Sheet-Pan Dinners: How to Roast a Whole Meal on One Tray Without Soggy Vegetables or Dry Meat"
-description: "Pair proteins and vegetables by cooking time, stage the tray so everything finishes together, choose the right pan and temperature, and rotate six sheet-pan dinners with sauces that make them taste new."
+description: "Pair proteins and vegetables by cooking time, stage the tray so everything finishes together, pick the right pan and temperature, and rotate six sheet-pan dinners with sauces that keep them new."
 category: weeknight-cooking
 date: 2026-10-26
 order: 5

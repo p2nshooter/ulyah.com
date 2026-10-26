@@ -1,6 +1,6 @@
 ---
 title: "Easy Weeknight Soups: A Master Method for Hearty, Brothy and Creamy Soups in Under an Hour"
-description: "Build any soup from aromatics, liquid, body and finish; season broth properly, thicken without cream, time pasta and greens, freeze soups safely and try five weeknight soups made mostly from the pantry."
+description: "Build any soup from aromatics, liquid, body and finish; season broth, thicken without cream, time pasta and greens, freeze soups safely and try five weeknight soups made mostly from the pantry."
 category: weeknight-cooking
 date: 2026-10-26
 order: 4

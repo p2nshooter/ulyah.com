@@ -1,6 +1,6 @@
 ---
 title: "Quick Vegetarian Dinners: How to Build Filling Meatless Meals With Enough Protein in Thirty Minutes"
-description: "A simple formula for satisfying vegetarian dinners, the best fast proteins from eggs and beans to tofu and lentils, how to add savory depth without meat, and eight thirty-minute dinners that please the whole table."
+description: "A simple formula for filling vegetarian dinners, the fastest proteins from eggs and beans to tofu and lentils, savory depth without meat, and eight thirty-minute dinners for the whole table."
 category: weeknight-cooking
 date: 2026-10-26
 order: 6
