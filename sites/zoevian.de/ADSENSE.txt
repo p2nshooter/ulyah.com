@@ -1,0 +1,14 @@
+AdSense zoevian.de — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
+Pemilik, 26 Okt 2026: "zoevian.de google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0" — buatkan cuplikan
+adsense, ads.txt & tag meta. Engine memasang ketiganya otomatis dari "adsense" di site.json; check.mjs menolak deploy
+kalau berbeda.
+
+Cuplikan adsense (di <head> setiap halaman)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014"
+     crossorigin="anonymous"></script>
+
+Cuplikan ads.txt (https://zoevian.de/ads.txt)
+google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0
+
+Tag meta (di <head> setiap halaman)
+<meta name="google-adsense-account" content="ca-pub-5928074389292014">

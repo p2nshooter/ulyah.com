@@ -1119,7 +1119,7 @@ loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT te
 | Situs | Status (26 Okt) |
 |---|---|
 | velnixo.de | ✅ 45 artikel (70.618 kata, terpendek 1.503), `check.mjs` ALL OK, draft dicabut → live; masuk daftar `site-audit.yml` |
-| zoevian.de | ⏳ berikutnya |
+| zoevian.de | 🔄 kerangka live sebagai draft (noindex, ads.txt + meta + loader ca-pub-5928074389292014); tema „Zedernhof“ (lapis, gading, zeder, kayu manis), halaman wajib + Verbundene Projekte; artikel sedang ditulis |
 | nexvilo.de | ⏳ |
 | odaily.xyz | ⏳ |
 | xdaily.xyz | ⏳ |
