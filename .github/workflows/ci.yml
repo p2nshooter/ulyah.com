@@ -37,6 +37,12 @@ jobs:
       - name: Check no script uses top-level await
         run: node scripts/check-script-entrypoints.mjs
 
+      # A NEXT_PUBLIC_ variable read as `process?.env?.X` is not inlined by the
+      # bundler: after the Next 16 upgrade that made 1fr.fr, tilawa.de and xad.es
+      # render the Indonesian site while every check here stayed green.
+      - name: Check build-time variables are read in the inlinable form
+        run: node scripts/check-env-inlining.mjs
+
       # AdSense refused axto.dev with "Low value content" while it carried 102
       # articles, so the count was never the problem — the depth was. The bot
       # wrote a median of 429 words and declared "7 min" every time, because it
