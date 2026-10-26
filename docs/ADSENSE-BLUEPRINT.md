@@ -1116,6 +1116,14 @@ Kode AdSense masing-masing di `docs/ADSENSE-CODES.md` (§14.1). Selama artikelny
 (tidak dideploy); setelah 45 artikel lulus `check.mjs`, draft dicabut dan situs live dengan ads.txt, tag meta dan
 loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT terpasang (26 Okt).
 
+| Situs | Status (26 Okt) |
+|---|---|
+| velnixo.de | ✅ 45 artikel (70.618 kata, terpendek 1.503), `check.mjs` ALL OK, draft dicabut → live; masuk daftar `site-audit.yml` |
+| zoevian.de | ⏳ berikutnya |
+| nexvilo.de | ⏳ |
+| odaily.xyz | ⏳ |
+| xdaily.xyz | ⏳ |
+
 **dawa.im** (Spanyol): salinan dawa.es. dawa.es hidup di `apps/web` (tenant `dawa`) bersama paket mandiri
 `docs/dawa-standalone`; salinannya dibuat sebagai tenant/paket sendiri dengan semua "dawa.es" → "dawa.im", logo baru
 dari pemilik (kotak & bulat, merah/emas, "dawa .im — Conocimiento Islámico para todos"), AdSense

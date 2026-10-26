@@ -1,6 +1,6 @@
 ---
 title: "Radfahren im Winter: sicher bei Kälte, Schnee und Glätte"
-description: "So fährst du auch im Winter sicher Rad: Spikereifen und Reifendruck, Fahrtechnik auf Schnee und Eis, warme Kleidung in Schichten, Pflege gegen Streusalz, Pedelec-Akku in der Kälte und wann du besser umsteigst."
+description: "Radfahren im Winter: Spikereifen und Reifendruck, Fahrtechnik auf Schnee und Glätte, Kleidung in Schichten, Streusalz, Pedelec-Akku und wann du umsteigst."
 category: sicher-unterwegs
 date: 2026-10-26
 ---

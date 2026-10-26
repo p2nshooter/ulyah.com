@@ -1,6 +1,6 @@
 ---
 title: "Radurlaub mit Kindern: Familientouren planen, die allen Spaß machen"
-description: "So gelingt der Fahrradurlaub mit der Familie: passende Etappen für jedes Alter, Anhänger, Kindersitz oder eigenes Rad, familienfreundliche Radwege, Unterkünfte, Pausen, Packliste und Sicherheit unterwegs."
+description: "Radurlaub mit Kindern: Etappen für jedes Alter, Anhänger, Kindersitz oder eigenes Rad, familienfreundliche Strecken, Unterkünfte, Pausen und Packliste."
 category: touren-und-reisen
 date: 2026-10-26
 ---

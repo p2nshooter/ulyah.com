@@ -1,6 +1,6 @@
 ---
 title: "Bikepacking für Einsteiger: Ausrüstung, Taschen, Routen und die erste Nacht draußen"
-description: "Was Bikepacking ausmacht und wie der Einstieg gelingt: passendes Rad, Rahmen-, Sattel- und Lenkertaschen, leichte Schlafausrüstung, Routenwahl, Wildcampen in Deutschland und eine Packliste für das erste Wochenende."
+description: "Bikepacking für Einsteiger: passendes Rad, Rahmen-, Sattel- und Lenkertaschen, leichte Schlafausrüstung, Routen, Übernachten in Deutschland und eine Packliste."
 category: touren-und-reisen
 date: 2026-10-26
 ---

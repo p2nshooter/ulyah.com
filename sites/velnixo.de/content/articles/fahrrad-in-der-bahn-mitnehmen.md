@@ -1,6 +1,6 @@
 ---
 title: "Fahrrad in der Bahn mitnehmen: Regional- und Fernverkehr, Tickets, Reservierung und Tipps"
-description: "So nimmst du dein Fahrrad im Zug mit: Regeln im Nah- und Fernverkehr, Fahrradkarte und Stellplatzreservierung, Pedelecs, Falträder und Lastenräder, Sperrzeiten, Ein- und Aussteigen und Alternativen wie Fernbus."
+description: "Fahrrad im Zug: Regeln im Nah- und Fernverkehr, Fahrradkarte und Reservierung, Pedelecs, Falträder und Lastenräder, Sperrzeiten und Tipps zum Ein- und Aussteigen."
 category: touren-und-reisen
 date: 2026-10-26
 ---
