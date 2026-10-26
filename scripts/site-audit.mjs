@@ -81,6 +81,20 @@ Object.assign(EXPECTED, {
   "tilawa.de": "7345352440829958",
   "1fr.fr": "5928074389292014",
 });
+// 26 Oct 2026 (owner): five domains on one account, and six new sites.
+Object.assign(EXPECTED, {
+  "ulyah.com": "8991272269211824",
+  "1fr.fr": "8991272269211824",
+  "tilawa.de": "8991272269211824",
+  "axto.io": "8991272269211824",
+  "xaa.es": "8991272269211824",
+  "velnixo.de": "7345352440829958",
+  "zoevian.de": "5928074389292014",
+  "nexvilo.de": "6908951782430508",
+  "odaily.xyz": "9221781326457936",
+  "xdaily.xyz": "5693981744147503",
+  "dawa.im": "8991272269211824",
+});
 const verdicts = [];
 
 const browser = await chromium.launch();
