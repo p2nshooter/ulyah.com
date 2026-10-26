@@ -1119,8 +1119,8 @@ loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT te
 | Situs | Status (26 Okt) |
 |---|---|
 | velnixo.de | ✅ 45 artikel (70.618 kata, terpendek 1.503), `check.mjs` ALL OK, draft dicabut → live; masuk daftar `site-audit.yml` |
-| zoevian.de | 🔄 kerangka live sebagai draft (noindex, ads.txt + meta + loader ca-pub-5928074389292014); tema „Zedernhof“ (lapis, gading, zeder, kayu manis), halaman wajib + Verbundene Projekte; artikel sedang ditulis |
-| nexvilo.de | ⏳ |
+| zoevian.de | ✅ 45 artikel (69.468 kata, terpendek 1.500), `check.mjs` ALL OK, draft dicabut → live (ads.txt + meta + loader ca-pub-5928074389292014); tema „Zedernhof“; masuk daftar `site-audit.yml` |
+| nexvilo.de | ⏳ berikutnya |
 | odaily.xyz | ⏳ |
 | xdaily.xyz | ⏳ |
 
@@ -1129,6 +1129,11 @@ loader. Search Console sudah terverifikasi lewat DNS (dicek 25 Okt), Sedo TXT te
 dari pemilik (kotak & bulat, merah/emas, "dawa .im — Conocimiento Islámico para todos"), AdSense
 ca-pub-8991272269211824 (Auto ads saja, tanpa unit manual dawa.es), dan TXT Search Console yang menunggu zona dawa.im
 tersambung ke Cloudflare. dawa.es sendiri tetap tidak disentuh.
+
+**dawa.im, temuan 26 Okt:** Worker `dawaim-web` sudah ter-deploy (dawaim-web.axto.workers.dev), tetapi zona dawa.im
+belum ada di akun Cloudflare dan token API tidak punya izin membuat zona (`com.cloudflare.api.account.zone.create`).
+Langkah pemilik: Cloudflare → Add a domain → dawa.im (Free) → pasang 2 nameserver yang ditampilkan di registrar. Setelah
+zona aktif, `dawa-im-connect.yml` (tiap jam) menempelkan dawa.im + www.dawa.im ke Worker tanpa langkah lain.
 
 #### 14.3b dawa.im = anggota Spanyol ekosistem ulyah.com (pemilik, 26 Okt)
 
