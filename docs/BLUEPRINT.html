@@ -139,13 +139,16 @@ mark { background: #ffe58a; color: #1d1a16; }
   <p class="quote">"Tolong perbaiki dulu seluruh SEO websitenya, perkata, link xmlsitemap dan file2 lain yg d butuhkan dll, backlink yg tidak melanggar adsense d seluruh situs … setelah itu baru lanjutkan pekerjaan pembuatan auction xaa.es dan axto.io … rapikan blueprint nya menjadi HTML yg bisa d download"</p>
   <div class="table"><table>
     <tr><th>#</th><th>Pekerjaan</th><th>Status</th></tr>
-    <tr><td>1</td><td>SEO 26 situs artikel: engine + gerbang SEO + 9 judul khusus (§4)</td><td><span class="s wip">🔄 PR ulyah.com #369, CI berjalan</span></td></tr>
+    <tr><td>1</td><td>SEO 26 situs artikel: engine + gerbang SEO + 9 judul khusus (§4)</td><td><span class="s ok">✅ di-merge (#369), 26 situs ter-deploy</span></td></tr>
     <tr><td>2</td><td>Audit SEO live semua domain (38 domain) dari GitHub Actions, lalu perbaikan per repo aplikasi</td><td><span class="s wip">🔄 alat audit ✅ (xaa #26); audit + perbaikan berjalan</span></td></tr>
     <tr><td>3</td><td>Blueprint HTML induk yang bisa diunduh (dokumen ini)</td><td><span class="s ok">✅ <code>docs/BLUEPRINT.html</code></span></td></tr>
     <tr><td>4</td><td>axto.io: lelang lisensi paling depan di beranda; semua e-mail axto.io &amp; xaa.es ke hello@axto.io; selesaikan &amp; tayangkan lelang (aturan 27 Okt)</td><td><span class="s plan">📝 setelah SEO</span></td></tr>
-    <tr><td>5</td><td>xaa.es: lelang website / script / website + domain (§9.3)</td><td><span class="s plan">📝 blueprint selesai, dibangun setelah SEO</span></td></tr>
+    <tr><td>5</td><td>xaa.es: lelang website / script / website + domain / domain saja dengan aturan 27 Okt (3) (§9.3)</td><td><span class="s wip">🔄 blueprint diperbarui; modul aturan &amp; data di branch kerja</span></td></tr>
     <tr><td>6</td><td>Investor tampil secara default + tombol tampil/sembunyi (axto.io &amp; xaa.es)</td><td><span class="s wip">🔄 xaa.es ✅ di-merge (#26); axto.io di branch kerja lelang</span></td></tr>
     <tr><td>7</td><td>Lepas binding D1 axto.io (setelah 28 Okt 02.33 UTC, 7 hari baca-saja)</td><td><span class="s todo">⏳ terjadwal</span></td></tr>
+    <tr><td>8</td><td>xaa.es: menu Company tersembunyi + tombol tampil/sembunyi di admin (§9.5)</td><td><span class="s plan">📝</span></td></tr>
+    <tr><td>9</td><td>axto.io &amp; xaa.es: rekening dari ulyah.com/donasi (13 mata uang BNI + 5 dompet kripto + QR), konversi sesuai rekening, panduan bayar manual sampai sukses (§8.8, §9.6)</td><td><span class="s plan">📝</span></td></tr>
+    <tr><td>10</td><td>xaa.es: menu situs AdSense ($350 / 40 artikel, $500 / 100 artikel) + jual 1fr.fr, tilawa.de, xad.es, dawa.im @ US$30.000; 45 artikel per situs (§9.7, §10)</td><td><span class="s plan">📝</span></td></tr>
   </table></div>
 </section>
 
@@ -191,11 +194,11 @@ mark { background: #ffe58a; color: #1d1a16; }
   <p>Audit live mingguan <code>xaa/scripts/seo-audit.mjs</code> (<code>seo-audit.yml</code>) untuk 38 domain: fondasi (https, redirect, host, Search Console lewat TXT DNS, robots, sitemap, 404), teknis (canonical, kompresi, CDN, TTFB, cache, skrip pemblokir, gambar), on-page (judul ≤ 60 dan description ≤ 160 di beranda dan halaman sampel, H1, hreflang), data terstruktur, sosial, keamanan, E-E-A-T, analitik, llms.txt, security.txt, manifest, apple-touch-icon, Core Web Vitals. Hasilnya di <code>xaa/docs/seo/REPORT.md</code> dan Studio desk → SEO; temuan diperbaiki per repo.</p>
   <div class="table"><table>
     <tr><th>Repo</th><th>Situs</th><th>Status SEO</th></tr>
-    <tr><td>ulyah.com/sites</td><td>26 situs artikel</td><td><span class="s wip">🔄 PR #369</span></td></tr>
-    <tr><td>guardian-ai</td><td>axto.io</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
+    <tr><td>ulyah.com/sites</td><td>26 situs artikel</td><td><span class="s ok">✅ #369 di-merge dan ter-deploy</span></td></tr>
+    <tr><td>guardian-ai</td><td>axto.io</td><td><span class="s wip">🔄 PR #87: judul ≤ 60, description ≤ 160, llms.txt, security.txt (554 halaman lolos lokal); CI GitHub Actions repo privat berhenti — kuota menit habis (§13)</span></td></tr>
     <tr><td>xaa</td><td>xaa.es</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
     <tr><td>ulyah.com/apps/web</td><td>ulyah.com, xad.es, 1fr.fr, tilawa.de, dawa.im</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
-    <tr><td>axto.us, axtodev, Jai, Lie, oldco.in, profity.in</td><td>axto.us, axto.dev, jai.lat, lie.skin, oldco.in, profity.in</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
+    <tr><td>axto.us, axtodev, Jai, Lie, oldco.in, profity.in</td><td>axto.us, axto.dev, jai.lat, lie.skin, oldco.in, profity.in</td><td><span class="s wip">🔄 axto.us ✅ (#33); 5 repo Next: og/ikon/manifest/llms.txt/security.txt/judul di branch kerja</span></td></tr>
   </table></div>
 </section>
 
@@ -263,7 +266,7 @@ mark { background: #ffe58a; color: #1d1a16; }
     <tr><td>Jadwal</td><td>Siklus 14 hari, selalu berakhir <strong>Jumat 07.00 WIB</strong> (= 00.00 UTC); siklus pertama berakhir Jumat 6 Nov 2026; sesi baru mulai tepat saat sesi berakhir (lot berikutnya disiapkan di hari terakhir).</td></tr>
     <tr><td>Paket</td><td><strong>Semua paket</strong>: 37 edisi (1 tahun) + lifetime 10 aplikasi × 6 tingkat perangkat + suite × 6 = 103 lot per siklus; dibuka bertahap oleh cron (20 lot/menit). Admin bisa mengubah daftar.</td></tr>
     <tr><td>Harga</td><td>Buka <strong>25 %</strong> harga normal (dari Admin → Plans); setiap tawaran naik <strong>tepat 10 % dari harga buka</strong> (contoh $990 → buka $248 → $273, $298, …), paling tinggi harga normal; anti-snipe 5 menit.</td></tr>
-    <tr><td>Penawar</td><td>Anggota terverifikasi (kode e-mail 6 digit); nama tampilan perusahaan/pribadi disaring dari kata kasar, kontak dan merek orang lain; admin tidak menawar.</td></tr>
+    <tr><td>Penawar</td><td>Anggota yang masuk langsung menjadi penawar begitu memilih nama tampilan (otomatis, tanpa kode e-mail — 27 Okt); nama tampilan perusahaan/pribadi disaring dari kata kasar, kontak dan merek orang lain; admin tidak menawar.</td></tr>
     <tr><td>Pembayaran</td><td>Pemenang bayar lewat checkout live; <strong>lisensi hanya terbit setelah pembayaran terverifikasi</strong>. Pemenang yang belum bayar tetap tampil dengan keterangan <strong>"Belum membayar"</strong>; tidak ada pengalihan otomatis (bawaan mati; admin bisa Pass/Cancel atau menyalakannya). <strong>Transfer bank wajib screenshot bukti</strong> dan disetujui admin secara manual, lalu lisensi terkirim sendiri.</td></tr>
     <tr><td>Tampilan</td><td>Pemenang (lunas / belum membayar) di beranda, portal member (beranda + Lelang) dan portal admin (ringkasan + Licence auction); <code>/auction</code> dengan SEO, JSON-LD, FAQ, sitemap; 10 bahasa.</td></tr>
     <tr><td>Data</td><td>R2: <code>auction_lots</code> (indeks ringkasan), <code>auction_bids</code> tulis-sekali, <code>auction_bidders</code>; penutupan CAS idempoten.</td></tr>
@@ -276,6 +279,15 @@ mark { background: #ffe58a; color: #1d1a16; }
   <h3>8.7 Koin AXTO lokal</h3>
   <p>Pasokan 100 jt, harga awal $1, hanya untuk transaksi di axto.io, tidak bisa dicairkan oleh axto.io; buku besar di R2. <span class="s plan">📝 dibahas dulu</span></p>
   <div class="note warn">Risiko yang wajib dibahas sebelum dibangun: token yang dijual dengan harapan nilainya naik dapat digolongkan sekuritas/aset kripto yang diatur (OJK/Bappebti, MiCA, SEC). Klaim harus jujur, tanpa janji imbal hasil.</div>
+  <h3>8.8 Rekening dari ulyah.com/donasi + panduan bayar manual (27 Okt)</h3>
+  <p class="quote">"Baik axto.io dan xaa.es tolong ambil rek pembayaranya dari https://ulyah.com/donasi / dari repo termasuk jaringannya barcode nya … Pastikan konversi mata uang sesuai dengan rekening BNI untuk manual, dan pandu customer untuk pembayaran manual sampai sukses"</p>
+  <ul>
+    <li><strong>Sumber</strong>: 13 rekening wondr by BNI per mata uang (IDR, USD, SGD, AUD, GBP, CNY, EUR, HKD, JPY, MYR, SAR, KRW, THB; SWIFT BNINIDJA; kode bank 009) dan 5 dompet kripto dengan jaringannya (BTC, USDT TRC20, BNB/USDT BEP20, SOL, DOGE) dari halaman ulyah.com/donasi. Sekarang axto.io baru memuat BNI IDR/USD/EUR dan kripto tanpa BNB/DOGE/QR.</li>
+    <li><strong>Penyimpanan</strong>: diimpor sekali lewat tombol admin ke penyimpanan terenkripsi; tampil hanya di checkout pembeli yang masuk. Nomor rekening tidak ditulis di repo axto.io, halaman publik, log, prompt AI, atau dokumen ini.</li>
+    <li><strong>Konversi</strong>: harga → mata uang rekening yang dipilih dengan kurs acuan harian (ECB; SAR lewat patokan 3,75/USD), pembulatan ke atas sesuai satuan, kode unik 3 digit untuk IDR, jumlah terkunci 72 jam, selisih biaya bank ≤ 2 % diterima.</li>
+    <li><strong>Panduan sampai sukses</strong>: pilih cara → salin data persis (+ QR) → cara transfer sesuai asal dana → unggah bukti → pelacak status (menunggu → disetujui → lisensi otomatis, atau "perlu perhatian" dengan langkah perbaikan) → pengingat &amp; chat; 10 bahasa.</li>
+    <li>Rencana rinci: guardian-ai <code>BLUEPRINT-V4.md</code> §28, xaa <code>BLUEPRINT.md</code> §12. <span class="s plan">📝</span></li>
+  </ul>
 </section>
 
 <section id="xaa">
@@ -284,17 +296,35 @@ mark { background: #ffe58a; color: #1d1a16; }
   <p>Studio web PT AXTO DIGITAL GLOBAL (en/es/id): layanan, portal klien (pesan, bayar, unggah, lacak, serah terima), template SaaS dengan demo, profil perusahaan, chat dukungan. Data di R2 (<code>xaa-data</code>), berkas di <code>UPLOADS</code>, cadangan di <code>BACKUPS</code> (35 hari). Pembayaran PayPal, USDT, transfer bank (bukti + persetujuan admin).</p>
   <h3>9.2 Penawaran investor xaa.es</h3>
   <p>Halaman <code>/invest</code> khusus xaa.es (bukan gabungan). <strong>Default tampil</strong>; tombol tampil/sembunyi di Studio desk → Investors, setiap perubahan masuk log audit pengaturan. Saat disembunyikan: 404, keluar dari sitemap, tautan footer hilang, pengajuan ditolak. <span class="s ok">✅ di-merge (xaa #26), tayang lewat deploy otomatis</span></p>
-  <h3>9.3 Lelang website, script dan domain (bukan lisensi)</h3>
+  <h3>9.3 Lelang website, script dan domain (bukan lisensi) — aturan 27 Okt (3)</h3>
+  <p class="quote">"Untuk semua lelang di xaa.es juga berakhir selama 2 minggu di mulain saat lelang di jalankan, untuk produk milik xaa.es itu otomatis, start di harga 35%, dan kenaikan 5% berakhir di hari jumat jam 7 … domain saja client/member bisa ikut jual lelang dengan fee 30%, bisa yati lelang lg jika 2 minggu tidak laku, dan admin jg bisa jual, dan untuk website + domain, hanya admin yg bisa jual … Domain yang akan berakhir naik ke atas dan bisa di filter"</p>
   <div class="table"><table>
-    <tr><th>Jenis lot</th><th>Yang diterima pemenang</th><th>Serah terima</th></tr>
-    <tr><td>Website jadi</td><td>Situs berjalan: kode, isi, desain, akun pendukung yang disebut</td><td>Arsip kode + data terbuka otomatis setelah lunas; panduan pindah hosting; bantuan 14 hari</td></tr>
-    <tr><td>Web / script saja</td><td>Kode sumber lengkap + dokumentasi + hak pakai/ubah, tanpa domain dan isi pribadi</td><td>Arsip bertanda tangan (SHA-256) terbuka otomatis setelah lunas</td></tr>
-    <tr><td>Website + domain</td><td>Semua di atas + nama domainnya</td><td>Kode otomatis; domain dipindah admin (kode EPP) — satu-satunya langkah manual karena registrar memerlukannya</td></tr>
+    <tr><th>Jenis lot</th><th>Penjual</th><th>Waktu &amp; harga</th><th>Serah terima</th></tr>
+    <tr><td>Web / script milik xaa.es</td><td>Otomatis (sistem); admin bisa menambah</td><td>Siklus Jumat 07.00 WIB → Jumat 07.00 WIB (2 minggu), siklus baru langsung; buka <strong>35 %</strong> harga normal, tiap tawaran <strong>+5 % dari harga buka</strong></td><td>Arsip kode bertanda tangan terbuka otomatis setelah lunas</td></tr>
+    <tr><td>Website jadi</td><td>Admin</td><td>14 hari sejak dijalankan; bawaan 35 % / +5 %, bisa diubah</td><td>Arsip kode + data otomatis; panduan pindah hosting; bantuan 14 hari</td></tr>
+    <tr><td>Website + domain</td><td><strong>Hanya admin</strong></td><td>14 hari sejak dijalankan</td><td>Kode otomatis; domain lewat kode EPP/push registrar</td></tr>
+    <tr><td>Domain saja</td><td><strong>Anggota</strong> (setelah verifikasi DNS) dan admin</td><td>14 hari sejak dijalankan; harga minta + buka (bawaan 35 %) + 5 %; <strong>biaya 30 %</strong> untuk lot anggota; <strong>lelang ulang</strong> bila tidak laku</td><td>Escrow: pembeli bayar → EPP dari penjual → pembeli konfirmasi → 70 % dibayar ke penjual</td></tr>
   </table></div>
-  <p><strong>Kategori</strong> (bisa diubah di admin): website artikel/blog/AdSense (teknologi, kesehatan, keuangan, wisata, kuliner, parenting, sains, gaya hidup, otomotif, olahraga, pendidikan, berita); SaaS (booking, invoice, CRM, link-in-bio, waitlist, LMS, HR, POS, helpdesk, form, pemilu/organisasi); e-commerce (baju pria/wanita/anak/muslim, jam tangan, sepatu &amp; tas, kosmetik, elektronik, perabot, makanan, buku, mainan, perhiasan, produk digital); marketplace &amp; direktori, company profile &amp; landing page, komunitas/forum, portofolio, properti, restoran &amp; katering, template xaa.es.</p>
-  <p><strong>Harga semua ditentukan di portal admin</strong>: harga normal/valuasi, harga buka, kenaikan per tawaran, harga cadangan (opsional, tidak diumumkan), beli-langsung (opsional). Aturan sama dengan axto.io: berakhir Jumat 07.00 WIB tiap 2 minggu, sesi baru langsung, bawaan buka 25 % dan +10 % dari harga buka, anti-snipe 5 menit, anggota terverifikasi, nama pemenang disaring. Transfer bank wajib screenshot + persetujuan admin; aset baru terbuka setelah lunas; yang belum bayar tampil "belum membayar". Data trafik/pendapatan hanya bila terverifikasi; tidak menjual situs/domain bermerek orang lain. Penyimpanan R2 saja. <span class="s plan">📝 dibangun setelah SEO</span></p>
+  <ul>
+    <li><strong>Verifikasi DNS</strong>: catatan TXT <code>_xaa-verify.&lt;domain&gt;</code> berisi token; diperiksa lewat dua resolver DNS-over-HTTPS; klaim domain tulis-sekali (satu domain satu akun); diperiksa ulang saat mulai, lelang ulang dan sebelum dana dibayarkan.</li>
+    <li><strong>Toko penjual ala Sedo</strong> <code>/auction/seller/&lt;nama&gt;</code> + templat HTML "domain ini dilelang" + widget sematan (opsional, merek xaa.es).</li>
+    <li><strong>Daftar</strong>: segera berakhir di atas (bawaan); filter jenis, kategori, penjual, TLD, panjang, kata kunci (memuat/diawali/diakhiri), tanpa tanda hubung/angka, harga, jumlah tawaran, berakhir dalam, beli langsung, tanpa cadangan, bahasa, usia domain.</li>
+    <li>Penawar otomatis (masuk + nama tampilan, tanpa kode e-mail); admin dan penjual tidak menawar lotnya; anti-snipe 5 menit. Transfer bank wajib bukti + persetujuan admin; aset terbuka setelah lunas; "belum membayar" untuk yang belum bayar. R2 saja.</li>
+    <li>Kategori: website artikel/blog/AdSense, SaaS, e-commerce, marketplace &amp; direktori, company profile, komunitas, portofolio, properti, restoran, template xaa.es, domain premium. Rinci: xaa <code>BLUEPRINT.md</code> §10. <span class="s wip">🔄</span></li>
+  </ul>
   <h3>9.4 Template SaaS</h3>
   <p>18 template dalam urutan harga (Waitlist sudah dibangun dengan demo, akun demo dan klip animasi); 17 berikutnya satu per satu, dimulai Link-in-Bio. <span class="s wip">🔄</span></p>
+  <h3>9.5 Menu Company tersembunyi</h3>
+  <p>Setelan <code>company_visible</code>, <strong>bawaan tersembunyi</strong>, tombol tampil/sembunyi di Studio desk (dicatat di log audit). Saat tersembunyi: menu &amp; footer tanpa Company, <code>/company</code> 404 + noindex, keluar dari sitemap dan llms.txt; nama badan hukum tetap di invoice dan halaman hukum. <span class="s plan">📝 xaa §11</span></p>
+  <h3>9.6 Rekening &amp; bayar manual</h3>
+  <p>Sama dengan §8.8: semua 13 rekening BNI aktif (sekarang 6), QR per dompet, kurs harian per mata uang (sekarang hanya EUR/USD tetap), panduan 6 langkah sampai lunas. <span class="s plan">📝 xaa §12</span></p>
+  <h3>9.7 Menu situs AdSense (domain + website artikel)</h3>
+  <ul>
+    <li><strong>Siap pakai</strong> (hanya admin yang mengisi) · <strong>pesanan custom</strong> mulai <strong>US$350 / 40 artikel</strong> dan <strong>US$500 / 100 artikel</strong>, setiap artikel ≥ 1.500 kata, banyak bahasa, SEO niche · <strong>situs mapan</strong>.</li>
+    <li>Situs mapan @ <strong>US$30.000</strong>: <strong>1fr.fr</strong> (Prancis), <strong>tilawa.de</strong> (Jerman), <strong>xad.es</strong> (Inggris), <strong>dawa.im</strong> (Spanyol). <strong>Tidak dijual</strong>: ulyah.com, xaa.es, axto.io.</li>
+    <li>Isi sebenarnya (database 27 Okt): Al-Qur'an 604 halaman, <strong>38.492 hadis</strong> (12 kitab), <strong>4.967 judul kitab klasik</strong> (38 kategori), 32 kitab pesantren (1.280 bab), 108 e-book, 6.255 kisah. Salinan publik: "puluhan ribu hadis dan hampir 5.000 kitab".</li>
+    <li>"AdSense-ready" = dibangun sesuai kebijakan Google; persetujuan tetap keputusan Google, tanpa janji trafik atau penghasilan. Rinci: xaa <code>BLUEPRINT.md</code> §13. <span class="s plan">📝</span></li>
+  </ul>
 </section>
 
 <section id="ulyah">
@@ -305,6 +335,7 @@ mark { background: #ffe58a; color: #1d1a16; }
     <li>Admin ulyah.com = pusat: traffic semua situs pemilik (kecuali dawa.es), Ad Manager (hanya situs yang sudah di-approve), audit.</li>
     <li>Diet Cloudflare: database dan R2 di bawah batas gratis, audio Al-Qur'an lewat CDN, kitab tetap lengkap per bahasa (ADSENSE-BLUEPRINT §11–§12).</li>
     <li>Data <code>ulyah-db</code> pindah ke R2 modul demi modul. <span class="s wip">🔄</span></li>
+    <li><strong>Dijual di xaa.es (27 Okt)</strong>: 1fr.fr, tilawa.de, xad.es, dawa.im @ US$30.000 (§9.7). Hitungan artikel: <strong>0 artikel blog</strong> di keempat situs (isinya kisah, hadis, kitab). Rencana: bagian artikel baru per tenant (<code>/articles</code>, <code>/artikel</code>, <code>/articulos</code>) + <strong>45 artikel ≥ 1.500 kata per situs</strong> dalam bahasa situs (180 artikel), berkas konten di repo (bukan D1). Serah terima standar: salinan mandiri di akun Cloudflare pembeli. Halaman <code>/acquisition</code> 1fr.fr (minimum US$20.000) diperbarui ke US$30.000 dan dipasang di ketiga situs lain. <span class="s plan">📝</span></li>
   </ul>
 </section>
 
@@ -360,13 +391,19 @@ mark { background: #ffe58a; color: #1d1a16; }
     <tr><td>27 Okt</td><td>E-mail axto.io &amp; xaa.es ke hello@axto.io</td><td><span class="s plan">📝 §8.6</span></td></tr>
     <tr><td>27 Okt</td><td>Perbaiki dulu SEO seluruh situs (per kata kunci, sitemap XML, berkas pendukung, backlink aman AdSense); lalu lelang; blueprint jadi HTML yang bisa diunduh</td><td><span class="s wip">🔄 §2, §4</span></td></tr>
     <tr><td>27 Okt</td><td>Tautan kebijakan privasi situs .de dalam berkas txt</td><td><span class="s ok">✅ dikirim</span></td></tr>
+    <tr><td>27 Okt</td><td>Penawar lelang axto.io otomatis tanpa e-mail (e2e-admin@axto.io hanya akun uji lokal)</td><td><span class="s wip">🔄 PR #87, menunggu CI</span></td></tr>
+    <tr><td>27 Okt</td><td>Lelang xaa.es: 14 hari per lot; produk xaa.es otomatis 35 % / +5 %, Jumat 07.00; anggota jual domain saja (verifikasi DNS, biaya 30 %, lelang ulang); website + domain hanya admin; toko ala Sedo; segera berakhir di atas + filter</td><td><span class="s wip">🔄 §9.3</span></td></tr>
+    <tr><td>27 Okt</td><td>Menu Company xaa.es tersembunyi + tombol di admin</td><td><span class="s plan">📝 §9.5</span></td></tr>
+    <tr><td>27 Okt</td><td>Rekening ulyah.com/donasi untuk axto.io &amp; xaa.es, konversi sesuai rekening BNI, panduan bayar manual</td><td><span class="s plan">📝 §8.8, §9.6</span></td></tr>
+    <tr><td>27 Okt</td><td>Menu situs AdSense xaa.es + jual 1fr.fr, tilawa.de, xad.es, dawa.im @ US$30.000; 45 artikel per situs</td><td><span class="s plan">📝 §9.7, §10</span></td></tr>
   </table></div>
-  <p>Log lengkap sejak awal: <code>guardian-ai/docs/REQUESTS.md</code> (100 baris), <code>xaa/docs/BLUEPRINT.md</code> §3 (57 baris), <code>ulyah.com/docs/ADSENSE-BLUEPRINT.md</code> §9.</p>
+  <p>Log lengkap sejak awal: <code>guardian-ai/docs/REQUESTS.md</code> (106 baris), <code>xaa/docs/BLUEPRINT.md</code> §3 (62 baris), <code>ulyah.com/docs/ADSENSE-BLUEPRINT.md</code> §9.</p>
 </section>
 
 <section id="pemilik">
   <h2><span class="n">13.</span>Yang butuh tindakan pemilik</h2>
   <ul>
+    <li><strong>GitHub Actions repo privat (guardian-ai / axto.io)</strong>: sejak 27 Okt ±09.00 UTC setiap job berhenti dalam 2 detik tanpa runner — kuota menit Actions untuk repo privat habis atau batas belanja $0. Repo publik tetap jalan. Tambah batas belanja di GitHub → Settings → Billing and plans → Spending limits (Actions), atau tunggu kuota bulanan pulih 1 Nov. Sampai itu, CI dan deploy axto.io tidak berjalan dan PR #87 tidak bisa di-merge (aturan: CI wajib hijau).</li>
     <li><strong>dawa.im</strong>: tambahkan zona di Cloudflare (Free) dan pasang 2 nameserver di registrar.</li>
     <li><strong>Pembayaran</strong>: aktifkan BNI/kartu di Admin → Payments bila diinginkan (kredensial hanya diisi di sana, terenkripsi).</li>
     <li><strong>AdSense</strong>: tombol "Minta peninjauan" di dasbor AdSense per situs; pesan GDPR di Privasi &amp; pesan untuk situs UE.</li>
