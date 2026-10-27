@@ -1286,3 +1286,24 @@ dawa.es dan situs yang sudah terjual tidak disentuh.
 | Audit live semua domain (`seo-audit.yml`) | 🔄 dijalankan setelah 26 situs ter-deploy |
 | Perbaikan temuan di setiap repo aplikasi | ⏳ |
 | Blueprint HTML yang bisa diunduh (`docs/BLUEPRINT.html`) | ✅ 27 Okt |
+
+## 16. Unit iklan in-article + multiplex (pemilik, 27 Okt 2026) — ⏸ DITAHAN
+
+Perintah: "Tolong masukin kode iklan ini di setiap website yg punya pub sama, di setiap halaman 4 iklan, 2 iklan 2
+iklan, pastikan tidak mengganggu artikel" — unit **Iklan artikel** (`data-ad-layout="in-article"`,
+`data-ad-format="fluid"`, slot `2546519628`) dan **Iklan multiplex horizontal** (`data-ad-format="autorelaxed"`, slot
+`5109103787`), penerbit `ca-pub-8991272269211824`. Lalu: **"Kode iklan jgn d kerjain dulu"** → tidak ada yang dipasang
+sampai pemilik melepasnya (guardian-ai `docs/REQUESTS.md` 109).
+
+Rencana bila dilepas (dicatat agar tidak lupa, belum dibangun):
+
+| Hal | Rencana |
+|---|---|
+| Situs | penerbit yang sama: ulyah.com, 1fr.fr, tilawa.de, dawa.im (`apps/web`, `ad-config.ts`), axto.io (guardian-ai), xaa.es (xaa) |
+| Jumlah | 4 unit per halaman: 2 in-article + 2 multiplex; halaman tanpa isi (login, checkout, portal member, admin, 404, halaman hukum) tidak diberi iklan |
+| Letak in-article | di antara paragraf, setelah ± 30 % dan ± 70 % isi, tidak pernah di dalam ayat, hadis, kode, tabel, daftar langkah atau formulir; tidak di atas judul |
+| Letak multiplex | setelah isi (sebelum artikel terkait) dan di atas footer |
+| Pemuat | satu `adsbygoogle.js?client=…` per halaman (bukan per unit), dimuat setelah persetujuan cookie/TCF di negara yang mewajibkan |
+| Jarak & tata letak | ruang dicadangkan (min-height) agar CLS tidak naik; label "Iklan/Anzeige/Publicité/Anuncio/Advertisement"; tidak menempel tombol |
+| Larangan | tidak ada iklan di halaman tanpa isi utama, tidak ada tulisan "klik iklan", tidak ada iklan di dalam elemen yang bisa disentuh tak sengaja |
+| Uji | hitung `ins.adsbygoogle` per jenis halaman = 4, satu skrip pemuat, CLS di Lighthouse tidak memburuk, `ads.txt` tetap ada |
