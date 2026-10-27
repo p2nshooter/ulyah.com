@@ -1282,7 +1282,7 @@ dawa.es dan situs yang sudah terjual tidak disentuh.
 | Langkah | Status |
 |---|---|
 | 26 situs statis: engine + gerbang + 9 judul khusus | ✅ 27 Okt (PR ulyah.com) |
-| Daftar domain audit live diperluas ke semua domain pemilik | 🔄 |
-| Audit live semua domain (`seo-audit.yml`) | 🔄 |
+| Daftar domain audit live diperluas ke 38 domain; Search Console dicek lewat TXT DNS; judul ≤ 60 / description ≤ 160 di halaman sampel; security.txt, manifest, apple-touch-icon, og:image raster | ✅ 27 Okt (xaa PR #26) |
+| Audit live semua domain (`seo-audit.yml`) | 🔄 dijalankan setelah 26 situs ter-deploy |
 | Perbaikan temuan di setiap repo aplikasi | ⏳ |
-| Blueprint HTML yang bisa diunduh (`docs/BLUEPRINT.html`) | ⏳ |
+| Blueprint HTML yang bisa diunduh (`docs/BLUEPRINT.html`) | ✅ 27 Okt |

@@ -37,7 +37,18 @@ export function auditSite(domain) {
   const titles = new Map(), descs = new Map();
   const attr = (tag, name) => (tag.match(new RegExp(`\\b${name}="([^"]*)"`, "i")) || [])[1];
   const metaContent = (s, key, by = "name") => { const m = s.match(new RegExp(`<meta[^>]*\\b${by}="${key}"[^>]*>`, "i")); return m ? attr(m[0], "content") : undefined; };
-  const decode = (t) => t.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+  // &amp; last, so "&amp;lt;" stays the text "&lt;" instead of turning into "<".
+  const decode = (t) => t.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+  // The visible text of an HTML fragment: tags removed until none are left (one pass would turn
+  // "<<b>b>" into "<b>"), then any stray "<" dropped.
+  const textOf = (fragment) => {
+    let t = String(fragment);
+    for (let prev = ""; prev !== t; ) {
+      prev = t;
+      t = t.replace(/<[^<>]*>/g, "");
+    }
+    return t.replace(/</g, "");
+  };
   // URLs spell German umlauts out (ä → ae, ß → ss), so the text is folded the same way first.
   const fold = (t) => decode(t).toLowerCase().replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss").normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
   let ownLinkPages = 0, articleBodyOwnLinks = 0;
@@ -69,7 +80,7 @@ export function auditSite(domain) {
     const ogImg = metaContent(s, "og:image", "property");
     if (ogImg && !/^https:\/\//.test(ogImg)) add("warn", url, `og:image not absolute: ${ogImg}`);
     if (/<meta[^>]*name="robots"[^>]*noindex/i.test(s) && !site.draft) add("fail", url, "noindex on a live page");
-    for (const m of s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    for (const m of s.matchAll(/<script\b[^>]*\btype="application\/ld\+json"[^>]*>([\s\S]*?)<\/script[^>]*>/gi)) {
       try { JSON.parse(m[1]); } catch { add("fail", url, "invalid JSON-LD"); }
     }
     if (!/application\/ld\+json/.test(s)) add("warn", url, "no JSON-LD");
@@ -82,7 +93,7 @@ export function auditSite(domain) {
     const seg = url.split("/").filter(Boolean).pop() || "";
     const words = seg.split("-").filter((w) => w.length >= 4 && !STOP.has(w) && !/^\d+$/.test(w));
     if (words.length >= 2 && url.split("/").filter(Boolean).length >= 2) {
-      const h1Text = fold((s.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i) || [])[1]?.replace(/<[^>]+>/g, "") || "");
+      const h1Text = fold(textOf((s.match(/<h1\b[^>]*>([\s\S]*?)<\/h1[^>]*>/i) || [])[1] || ""));
       const hay = fold(title) + " " + h1Text;
       const hit = words.filter((w) => hay.includes(w.slice(0, Math.max(4, w.length - 2)))).length;
       if (hit / words.length < 0.5) add("warn", url, `keyword of the URL (${words.join(" ")}) mostly missing from title/H1`);
@@ -93,7 +104,7 @@ export function auditSite(domain) {
     if (own.length > 12) add("warn", url, `${own.length} links to the owner's other sites (keep it to a handful)`);
     for (const m of own) {
       const tag = m[0].slice(0, m[0].indexOf(">") + 1);
-      const text = m[2].replace(/<[^>]+>/g, "").trim();
+      const text = textOf(m[2]).trim();
       if (!text && !/aria-label=|<img[^>]*alt="[^"]+"/.test(m[0])) add("fail", url, `empty link to ${m[1]} (hidden link)`);
       if (/display:\s*none|visibility:\s*hidden|font-size:\s*0/.test(tag)) add("fail", url, `hidden link to ${m[1]}`);
       if (/rel="[^"]*\b(sponsored)\b/.test(tag)) add("warn", url, `link to ${m[1]} marked sponsored`);

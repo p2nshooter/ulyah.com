@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blueprint Induk Ekosistem</title>
+<meta name="description" content="Blueprint induk ekosistem AXTO · XAA · ulyah.com: aturan tetap pemilik, peta domain, SEO, AdSense, penyimpanan R2, axto.io, xaa.es, ulyah.com, situs artikel, log perintah dan status.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root {
+  --bg: #f7f5ef; --panel: #ffffff; --ink: #1d1a16; --muted: #6b6457; --line: #e4dfd3;
+  --gold: #a57c1b; --gold-soft: #f3ead2; --ok: #1f7a4d; --ok-soft: #e3f3ea; --wip: #9a6400; --wip-soft: #fbefd6;
+  --todo: #8a2b2b; --todo-soft: #f7e3e3; --plan: #2d4f8a; --plan-soft: #e3ebf7; --code: #f1ede3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #13120f; --panel: #1c1a16; --ink: #f1ece2; --muted: #a59d8e; --line: #34302a;
+    --gold: #e0b54a; --gold-soft: #3a3020; --ok: #6fd3a0; --ok-soft: #173326; --wip: #f0bb55; --wip-soft: #3a2e15;
+    --todo: #f29a9a; --todo-soft: #3a1d1d; --plan: #9ab9f0; --plan-soft: #1b2740; --code: #26231d;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #13120f; --panel: #1c1a16; --ink: #f1ece2; --muted: #a59d8e; --line: #34302a;
+  --gold: #e0b54a; --gold-soft: #3a3020; --ok: #6fd3a0; --ok-soft: #173326; --wip: #f0bb55; --wip-soft: #3a2e15;
+  --todo: #f29a9a; --todo-soft: #3a1d1d; --plan: #9ab9f0; --plan-soft: #1b2740; --code: #26231d;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--gold); }
+code { background: var(--code); padding: .1em .35em; border-radius: 4px; font-size: .9em; word-break: break-word; }
+header.top { background: linear-gradient(135deg, #2a2116, #4a3a1c); color: #f7efd9; padding: 40px 16px 32px; }
+header.top .wrap { max-width: 1080px; margin: 0 auto; }
+header.top h1 { margin: 0 0 6px; font: 700 clamp(26px, 4vw, 38px)/1.15 Georgia, "Times New Roman", serif; letter-spacing: .01em; }
+header.top p { margin: 4px 0; color: #e8dcbc; }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tools input { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid #6b5a33; background: #1f1910; color: #f7efd9; font: inherit; }
+.tools button { padding: 10px 14px; border-radius: 10px; border: 1px solid #6b5a33; background: #3a2e18; color: #f7efd9; font: inherit; cursor: pointer; }
+.layout { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px; display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px; }
+nav.toc { position: sticky; top: 16px; align-self: start; max-height: calc(100vh - 32px); overflow: auto; font-size: 14px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; }
+nav.toc a { display: block; padding: 5px 8px; border-radius: 6px; color: var(--ink); text-decoration: none; }
+nav.toc a:hover { background: var(--gold-soft); }
+main section { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin-bottom: 18px; }
+main section[hidden] { display: none; }
+h2 { margin: 0 0 12px; font: 700 22px/1.25 Georgia, "Times New Roman", serif; color: var(--ink); }
+h2 .n { color: var(--gold); margin-right: 6px; }
+h3 { margin: 20px 0 8px; font-size: 17px; }
+p, li { max-width: 78ch; }
+.table { overflow-x: auto; margin: 10px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { background: var(--gold-soft); font-weight: 650; }
+.s { display: inline-block; max-width: 100%; padding: 1px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 650; }
+.s.ok { background: var(--ok-soft); color: var(--ok); }
+.s.wip { background: var(--wip-soft); color: var(--wip); }
+.s.todo { background: var(--todo-soft); color: var(--todo); }
+.s.plan { background: var(--plan-soft); color: var(--plan); }
+.note { border-left: 4px solid var(--gold); background: var(--gold-soft); padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+.warn { border-left-color: var(--todo); background: var(--todo-soft); }
+.quote { font-style: italic; color: var(--muted); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.card b { display: block; margin-bottom: 4px; }
+footer { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 40px; }
+mark { background: #ffe58a; color: #1d1a16; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } nav.toc { position: static; max-height: none; } main section { padding: 16px; } }
+@media print { header.top .tools, nav.toc { display: none; } .layout { display: block; } main section { break-inside: avoid; border: 0; padding: 0 0 12px; } body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Blueprint Induk — Ekosistem AXTO · XAA · ulyah.com</h1>
+    <p>Dokumen yang <strong>dibaca pertama kali</strong> sebelum mengerjakan apa pun di repo mana pun. Diperbarui 27 Oktober 2026.</p>
+    <p>Rincian teknis tetap ada di blueprint per repo (daftar di §14); dokumen ini merangkum aturan, perintah, status dan rencana dalam satu berkas yang bisa diunduh dan dicetak.</p>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Cari di blueprint… (mis. lelang, R2, SEO, dawa)" aria-label="Cari di blueprint">
+      <button type="button" id="print">Cetak / simpan PDF</button>
+      <button type="button" id="theme">Terang / gelap</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="Daftar isi">
+  <ol>
+    <li><a href="#tanda">0. Arti tanda</a></li>
+    <li><a href="#aturan">1. Aturan tetap pemilik</a></li>
+    <li><a href="#urutan">2. Urutan kerja sekarang</a></li>
+    <li><a href="#peta">3. Peta domain &amp; repo</a></li>
+    <li><a href="#seo">4. SEO seluruh situs</a></li>
+    <li><a href="#backlink">5. Backlink aman AdSense</a></li>
+    <li><a href="#adsense">6. Standar AdSense</a></li>
+    <li><a href="#r2">7. Penyimpanan: R2 saja</a></li>
+    <li><a href="#axto">8. axto.io</a></li>
+    <li><a href="#xaa">9. xaa.es</a></li>
+    <li><a href="#ulyah">10. ulyah.com &amp; saudaranya</a></li>
+    <li><a href="#artikel">11. Situs artikel (26)</a></li>
+    <li><a href="#log">12. Log perintah terbaru</a></li>
+    <li><a href="#pemilik">13. Yang butuh pemilik</a></li>
+    <li><a href="#sumber">14. Sumber rinci</a></li>
+  </ol>
+</nav>
+
+<main>
+<section id="tanda">
+  <h2><span class="n">0.</span>Arti tanda</h2>
+  <p><span class="s ok">✅ selesai</span> selesai dan lulus uji / tayang ·
+     <span class="s wip">🔄 dikerjakan</span> sedang dikerjakan atau menunggu merge/deploy ·
+     <span class="s plan">📝 rencana</span> blueprint sudah ditulis, belum dibangun ·
+     <span class="s todo">⏳ belum</span> belum dikerjakan ·
+     <span class="s todo">⏸️ ditunda</span> ditunda pemilik.</p>
+  <p>Status hanya diberi ✅ setelah diuji (unit, E2E, browser desktop dan HP, CI hijau) — bukan perkiraan.</p>
+</section>
+
+<section id="aturan">
+  <h2><span class="n">1.</span>Aturan tetap pemilik (berlaku di semua repo)</h2>
+  <ol>
+    <li><strong>Catat dulu, baru kerjakan.</strong> Setiap perintah baru ditulis ke blueprint repo terkait (axto.io: <code>docs/REQUESTS.md</code> + <code>docs/BLUEPRINT-V4.md</code>; xaa.es: <code>docs/BLUEPRINT.md</code>; ulyah.com &amp; situs artikel: <code>docs/ADSENSE-BLUEPRINT.md</code>) dan ke dokumen ini.</li>
+    <li><strong>Laporan ke pemilik selalu dalam bahasa Indonesia.</strong></li>
+    <li><strong>Tanpa agent.</strong> Semua perbaikan, artikel dan audit dikerjakan langsung oleh Claude di sesinya sendiri; tidak ada subagent, sesi paralel atau bot penulis. Workflow CI tetap dipakai untuk build, cek dan deploy.</li>
+    <li><strong>PR dan merge dikerjakan Claude sendiri</strong> setelah uji lokal dan CI hijau; target akhir: tidak ada PR terbuka.</li>
+    <li><strong>Penyimpanan R2 saja, tidak pernah D1</strong> (pemilik, 20 Okt 2026) — lihat §7. Workers KV hanya untuk cache singkat dan penghitung batas.</li>
+    <li><strong>Perubahan kode AdSense selalu didahulukan</strong> dari pekerjaan lain, dan ads.txt + tag meta + loader tidak boleh hilang ("Hati2 jgn sampe ads.txt hilang2an").</li>
+    <li><strong>dawa.es bukan milik pemilik lagi</strong> — tidak disentuh, tidak diaudit, tidak ditautkan. Situs yang ditandai terjual juga tidak disentuh. Repo <code>sairan</code> tidak disentuh.</li>
+    <li><strong>Tidak mengerjakan aplikasi tanpa perintah</strong> (26 Okt). Izin untuk axto.io diberikan 27 Okt (REQUESTS 93); urutan sekarang: SEO dulu, lalu lelang (§2).</li>
+    <li><strong>Pembayaran Live, bukan sandbox.</strong> Zero-touch: lisensi, unduhan dan aktivasi berjalan sendiri setelah pembayaran terverifikasi; transfer bank perlu bukti dan persetujuan admin.</li>
+    <li><strong>Rahasia tidak pernah bocor:</strong> tidak ada kunci API, token, password, rahasia webhook atau nomor rekening di repo, bundle klien, halaman publik, log, prompt AI, maupun dokumen ini. Kredensial pembayaran hanya di penyimpanan terenkripsi (Admin → Payment &amp; email).</li>
+    <li><strong>Klaim jujur:</strong> "100 % di perangkat" hanya untuk jalur yang memang begitu; data trafik/pendapatan hanya yang terverifikasi; tanpa janji imbal hasil.</li>
+    <li><strong>Desain</strong>: axto.io "Istana Kristal"; situs artikel "Istana Nabi Sulaiman" dengan CSS berbeda total per situs; xaa.es tetap biru (aplikasi bisnis). Animasi menghormati <code>prefers-reduced-motion</code>.</li>
+    <li><strong>Uji ulang setiap kali:</strong> typecheck + unit, E2E, Playwright desktop dan HP tanpa error konsol, CI hijau sebelum merge.</li>
+  </ol>
+</section>
+
+<section id="urutan">
+  <h2><span class="n">2.</span>Urutan kerja sekarang (pemilik, 27 Okt 2026)</h2>
+  <p class="quote">"Tolong perbaiki dulu seluruh SEO websitenya, perkata, link xmlsitemap dan file2 lain yg d butuhkan dll, backlink yg tidak melanggar adsense d seluruh situs … setelah itu baru lanjutkan pekerjaan pembuatan auction xaa.es dan axto.io … rapikan blueprint nya menjadi HTML yg bisa d download"</p>
+  <div class="table"><table>
+    <tr><th>#</th><th>Pekerjaan</th><th>Status</th></tr>
+    <tr><td>1</td><td>SEO 26 situs artikel: engine + gerbang SEO + 9 judul khusus (§4)</td><td><span class="s wip">🔄 PR ulyah.com #369, CI berjalan</span></td></tr>
+    <tr><td>2</td><td>Audit SEO live semua domain (38 domain) dari GitHub Actions, lalu perbaikan per repo aplikasi</td><td><span class="s wip">🔄 alat audit ✅ (xaa #26); audit + perbaikan berjalan</span></td></tr>
+    <tr><td>3</td><td>Blueprint HTML induk yang bisa diunduh (dokumen ini)</td><td><span class="s ok">✅ <code>docs/BLUEPRINT.html</code></span></td></tr>
+    <tr><td>4</td><td>axto.io: lelang lisensi paling depan di beranda; semua e-mail axto.io &amp; xaa.es ke hello@axto.io; selesaikan &amp; tayangkan lelang (aturan 27 Okt)</td><td><span class="s plan">📝 setelah SEO</span></td></tr>
+    <tr><td>5</td><td>xaa.es: lelang website / script / website + domain (§9.3)</td><td><span class="s plan">📝 blueprint selesai, dibangun setelah SEO</span></td></tr>
+    <tr><td>6</td><td>Investor tampil secara default + tombol tampil/sembunyi (axto.io &amp; xaa.es)</td><td><span class="s wip">🔄 xaa.es ✅ di-merge (#26); axto.io di branch kerja lelang</span></td></tr>
+    <tr><td>7</td><td>Lepas binding D1 axto.io (setelah 28 Okt 02.33 UTC, 7 hari baca-saja)</td><td><span class="s todo">⏳ terjadwal</span></td></tr>
+  </table></div>
+</section>
+
+<section id="peta">
+  <h2><span class="n">3.</span>Peta domain &amp; repo</h2>
+  <div class="table"><table>
+    <tr><th>Domain</th><th>Repo / lokasi</th><th>Isi</th><th>Bahasa</th></tr>
+    <tr><td>axto.io</td><td><code>guardian-ai</code> · <code>dashboard/</code></td><td>Ruang kerja AI privat: 7 aplikasi cloud, 10 aplikasi self-hosted (Docker Linux/Windows), lisensi, lelang lisensi, investor</td><td>en + 10 bahasa portal</td></tr>
+    <tr><td>xaa.es</td><td><code>xaa</code></td><td>Studio web + portal klien, template SaaS, investor, (nanti) lelang website/domain</td><td>en / es / id</td></tr>
+    <tr><td>ulyah.com</td><td><code>ulyah.com</code> · <code>apps/web</code> (tenant ulyah), API <code>apps/worker-api</code></td><td>Portal ilmu Islam (Al-Qur'an, hadits, kitab, kisah); pusat admin semua situs</td><td>id</td></tr>
+    <tr><td>xad.es · 1fr.fr · tilawa.de · dawa.im</td><td><code>ulyah.com</code> · <code>apps/web</code> (tenant masing-masing)</td><td>Saudara ulyah.com dengan isi yang sama, hreflang timbal balik</td><td>en · fr · de · es</td></tr>
+    <tr><td>26 situs artikel</td><td><code>ulyah.com/sites/&lt;domain&gt;</code> (engine <code>sites/_engine</code>)</td><td>Situs statis pengajuan AdSense, satu niche per situs (§11)</td><td>de · es · en</td></tr>
+    <tr><td>axto.us</td><td><code>axto.us</code></td><td>Perpustakaan cerita anak + blog literasi</td><td>en</td></tr>
+    <tr><td>axto.dev</td><td><code>axtodev</code></td><td>Penjelasan untuk developer</td><td>en</td></tr>
+    <tr><td>jai.lat</td><td><code>Jai</code></td><td>Keuangan pribadi (edukasi) + desk "En español"</td><td>en (+ es)</td></tr>
+    <tr><td>lie.skin</td><td><code>Lie</code></td><td>Skincare berbasis bukti</td><td>en</td></tr>
+    <tr><td>oldco.in</td><td><code>oldco.in</code></td><td>Numismatik India</td><td>hi + en</td></tr>
+    <tr><td>profity.in</td><td><code>profity.in</code></td><td>Keuangan pribadi India</td><td>hi + en</td></tr>
+    <tr><td>quantum (karoseri)</td><td><code>Quantum</code></td><td>Sistem karoseri di workers.dev (tidak memakai xaa.es); D1 <code>quantum_db</code> masih harus pindah ke R2</td><td>id</td></tr>
+    <tr><td><s>dawa.es</s></td><td>—</td><td>Sudah dilepas (bukan milik pemilik). Tidak disentuh.</td><td>—</td></tr>
+  </table></div>
+  <p>Kode AdSense setiap domain: <code>ulyah.com/docs/ADSENSE-CODES.md</code> dan <code>docs/ADSENSE-SEMUA-DOMAIN.txt</code> (nomor pub bersifat publik karena ada di ads.txt).</p>
+</section>
+
+<section id="seo">
+  <h2><span class="n">4.</span>SEO seluruh situs</h2>
+  <h3>4.1 Standar setiap halaman publik (semua repo)</h3>
+  <div class="grid2">
+    <div class="card"><b>Judul per kata kunci</b>Kata kunci di depan; <code>&lt;title&gt;</code> 10–60 karakter, unik per situs; H1 tepat satu.</div>
+    <div class="card"><b>Description</b>70–160 karakter, unik, berakhir di akhir kalimat.</div>
+    <div class="card"><b>Canonical &amp; host</b>Canonical = URL halaman sendiri (https, satu host); http → https dan www ↔ apex 301.</div>
+    <div class="card"><b>Data terstruktur</b>JSON-LD valid: Organization, WebSite, BreadcrumbList, Article (dengan image), FAQ/Product/Offer bila relevan.</div>
+    <div class="card"><b>Sitemap &amp; robots</b>sitemap.xml = semua halaman yang bisa diindeks (tanpa dobel, tanpa host lain, lastmod valid); robots.txt dengan baris Sitemap; tidak memblokir apa pun yang perlu dirayapi.</div>
+    <div class="card"><b>Berkas pendukung</b>ads.txt, 404 asli, feed.xml + <code>&lt;link rel=alternate&gt;</code>, favicon.svg + .ico, apple-touch-icon, site.webmanifest, og.png 1200×630, llms.txt, /.well-known/security.txt.</div>
+    <div class="card"><b>Sosial</b>og:title/description/url/image (PNG/JPG, bukan SVG), twitter:card.</div>
+    <div class="card"><b>Keamanan</b>HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy.</div>
+    <div class="card"><b>Isi</b>Satu artikel = satu maksud pencarian; kluster kategori (pilar + turunan saling menaut); untuk manusia dulu, kata kunci kedua; tanpa teks tersembunyi atau halaman pintu.</div>
+  </div>
+  <h3>4.2 26 situs artikel (27 Okt 2026)</h3>
+  <p>Temuan: 1.102 judul &gt; 60 karakter, 1.019 description &gt; 160, og:image SVG, Article tanpa image (22 situs), tanpa manifest/apple-touch-icon/favicon.ico/llms.txt/security.txt, tanpa HSTS/X-Frame-Options, 9 halaman dengan kata kunci URL yang tidak ada di judul. Sitemap, robots, canonical, H1, ads.txt, 404 dan feed sudah benar.</p>
+  <p>Perbaikan di engine (otomatis untuk semua situs, sekarang dan nanti): judul dipotong di jeda kalimat terakhir yang muat + nama situs bila muat (judul lengkap tetap di H1, og:title dan isi), <code>seoTitle:</code> untuk judul khusus, description dipotong di akhir kalimat, og.png + ikon PNG/ICO (<code>sites/_engine/icons.mjs</code>), manifest, llms.txt, security.txt, HSTS + X-Frame-Options. <strong>Gerbang</strong> <code>sites/_engine/seo.mjs</code> dipanggil <code>check.mjs</code>: deploy berhenti bila ada kegagalan SEO. Hasil: <span class="s ok">26/26 ALL OK, 0 gagal</span> (PR #369).</p>
+  <h3>4.3 Situs aplikasi &amp; repo mitra</h3>
+  <p>Audit live mingguan <code>xaa/scripts/seo-audit.mjs</code> (<code>seo-audit.yml</code>) untuk 38 domain: fondasi (https, redirect, host, Search Console lewat TXT DNS, robots, sitemap, 404), teknis (canonical, kompresi, CDN, TTFB, cache, skrip pemblokir, gambar), on-page (judul ≤ 60 dan description ≤ 160 di beranda dan halaman sampel, H1, hreflang), data terstruktur, sosial, keamanan, E-E-A-T, analitik, llms.txt, security.txt, manifest, apple-touch-icon, Core Web Vitals. Hasilnya di <code>xaa/docs/seo/REPORT.md</code> dan Studio desk → SEO; temuan diperbaiki per repo.</p>
+  <div class="table"><table>
+    <tr><th>Repo</th><th>Situs</th><th>Status SEO</th></tr>
+    <tr><td>ulyah.com/sites</td><td>26 situs artikel</td><td><span class="s wip">🔄 PR #369</span></td></tr>
+    <tr><td>guardian-ai</td><td>axto.io</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
+    <tr><td>xaa</td><td>xaa.es</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
+    <tr><td>ulyah.com/apps/web</td><td>ulyah.com, xad.es, 1fr.fr, tilawa.de, dawa.im</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
+    <tr><td>axto.us, axtodev, Jai, Lie, oldco.in, profity.in</td><td>axto.us, axto.dev, jai.lat, lie.skin, oldco.in, profity.in</td><td><span class="s todo">⏳ setelah audit live</span></td></tr>
+  </table></div>
+</section>
+
+<section id="backlink">
+  <h2><span class="n">5.</span>Backlink yang tidak melanggar AdSense</h2>
+  <ol>
+    <li>Setiap situs menautkan proyek pemilik <strong>hanya</strong> dari satu halaman ekosistemnya sendiri (menu ✦, misalnya "✦ Digitale Werkbank") yang ditulis khusus untuk situs itu dan dalam bahasanya: 3–5 tautan, jangkar = nama merek (AXTO, XAA, ulyah.com), label jujur "dari penerbit yang sama", UTM untuk menghitung kunjungan, tanpa <code>nofollow</code> (situs sendiri, bukan iklan).</li>
+    <li><strong>Tidak ada</strong> tautan footer massal antar-situs artikel, blogroll, tukar tautan, tautan berbayar, PBN, teks/tautan tersembunyi, atau tombol yang meniru iklan; tidak ada tautan ke situs sendiri di dalam isi artikel; tidak di dekat unit iklan.</li>
+    <li>Backlink dari luar dicari dengan cara yang diizinkan: isi yang layak dikutip, profil resmi media sosial, direktori yang relevan, Search Console + Bing Webmaster untuk setiap domain.</li>
+    <li>Dijaga otomatis oleh <code>seo.mjs</code> (tautan kosong/tersembunyi gagal; tautan di isi artikel atau &gt; 8 di halaman ekosistem diberi peringatan) dan oleh <code>check.mjs</code> (halaman ekosistem ≥ 300 kata, tautan axto.io + xaa.es, kata-kata berbeda dari situs lain).</li>
+  </ol>
+</section>
+
+<section id="adsense">
+  <h2><span class="n">6.</span>Standar AdSense</h2>
+  <ul>
+    <li><strong>AdSense saja</strong>: tidak ada Adsterra, popunder atau jaringan lain. Setiap halaman memuat loader <code>adsbygoogle.js?client=…</code> dan tag meta <code>google-adsense-account</code> di HTML server, plus <code>/ads.txt</code> — dari satu konstanta per situs.</li>
+    <li><strong>Auto ads saja</strong>, tanpa unit manual (pengecualian lama dawa.es tidak lagi relevan karena dawa.es dilepas).</li>
+    <li>Isi: ≥ 40–45 artikel tulisan tangan per situs, masing-masing ≥ 1.500 kata, orisinal, akurat, tanpa saran medis/keuangan personal, tanpa judul kembar.</li>
+    <li>Halaman wajib: Tentang, Kontak, Privasi (cookie Google &amp; vendor), Cookie, Syarat, Disclaimer, Kebijakan redaksi; .de juga Impressum; .es juga Aviso legal.</li>
+    <li>Satu bahasa sesuai domain (.de Jerman, .es/.lat Spanyol, .fr Prancis, .com ulyah Indonesia, lainnya Inggris; pengecualian yang diputuskan pemilik dicatat di ADSENSE-BLUEPRINT §1).</li>
+    <li>Dijaga oleh <code>scripts/check-ads.ts</code>, <code>sites/_engine/check.mjs</code> dan <code>scripts/site-audit.mjs</code> (audit live 40 domain).</li>
+  </ul>
+</section>
+
+<section id="r2">
+  <h2><span class="n">7.</span>Penyimpanan: R2 saja, tidak pernah D1</h2>
+  <p class="quote">Pemilik, 20 Okt 2026: „Catat ya baik di axto.io maupun di xaa.es, ulyah.com xad.es 1fr.fr tilawa.de dan semua yg membutuhkan penyimpanan, wajib ke R2, jgn pernah ke D1"</p>
+  <ul>
+    <li>Desain R2 Store (<code>docs/R2-DATA-BLUEPRINT.md</code> §3): satu objek JSON per dokumen, tulis-sekali (<code>If-None-Match: *</code>) untuk keunikan, compare-and-swap untuk perubahan, indeks dengan ringkasan di <code>customMetadata</code>, log append-only, tanpa kunci panas (1 tulis/detik/kunci), cadangan harian ke bucket privat disimpan 35 hari. Uang dan lisensi: transisi bersyarat dan idempoten.</li>
+    <li>Pindah dari D1: salin sekali dengan id yang sama, cek setiap baris sampai, D1 baca-saja 7 hari, lalu binding dilepas.</li>
+  </ul>
+  <div class="table"><table>
+    <tr><th>Situs</th><th>Status pindah ke R2</th></tr>
+    <tr><td>xaa.es</td><td><span class="s ok">✅ pindah (bucket <code>xaa-data</code>, cadangan 35 hari)</span></td></tr>
+    <tr><td>axto.io</td><td><span class="s ok">✅ pindah 21 Okt (0 konflik)</span> · <span class="s todo">⏳ lepas binding D1 setelah 28 Okt</span></td></tr>
+    <tr><td>ulyah.com + xad.es, 1fr.fr, tilawa.de, dawa.im</td><td><span class="s wip">🔄 modul demi modul (<code>ulyah-db</code>)</span></td></tr>
+    <tr><td>Quantum</td><td><span class="s todo">⏳ <code>quantum_db</code> belum pindah</span></td></tr>
+    <tr><td>26 situs artikel</td><td><span class="s ok">✅ statis, tanpa basis data</span></td></tr>
+  </table></div>
+  <p>R2 akun axto.io: 12,53 GB terpakai; <code>axto-data</code> ±4,19 rb objek. Rencana memindah xaa.es ke akun Cloudflare yang sama dengan axto.io: <span class="s plan">📝 dibahas dengan pemilik dulu</span>. Izin token tidak ditulis di repo atau dokumen ini.</p>
+</section>
+
+<section id="axto">
+  <h2><span class="n">8.</span>axto.io</h2>
+  <h3>8.1 Produk</h3>
+  <p>7 aplikasi cloud (Clipper, AI Studio, Prompt Library, Privacy Vault, Security Analyst, Compliance Center, Legal AI) + Mode Lokal + AXTO Connect; 10 aplikasi self-hosted Docker (Linux &amp; Windows) dengan edisi per aplikasi, program 100 lisensi trial, rilis bertanda tangan. Kunci AI milik anggota sendiri, hanya diteruskan; berkas diproses di perangkat; pekerjaan tersimpan terenkripsi per akun.</p>
+  <h3>8.2 Progres (BLUEPRINT-V4 §19)</h3>
+  <div class="table"><table>
+    <tr><th>Aliran</th><th>Progres</th></tr>
+    <tr><td>Aplikasi cloud v4 · penawaran akuisisi US$10 jt · putaran pemodal AXTO</td><td><span class="s ok">✅ 100 %</span></td></tr>
+    <tr><td>Data D1 → R2</td><td><span class="s wip">88 % (tinggal lepas binding)</span></td></tr>
+    <tr><td>Pembayaran langsung pakai (PayPal Live, NOWPayments Live; BNI/kartu belum aktif)</td><td><span class="s wip">83 %</span></td></tr>
+    <tr><td>investor tampil/sembunyi · lelang · semua paket bisa dibeli (§27)</td><td><span class="s wip">🔄 lihat 8.3–8.5</span></td></tr>
+    <tr><td>10 aplikasi self-hosted lulus "selesai bila" (dijual dengan klaim jujur, dilengkapi satu per satu — keputusan "a")</td><td><span class="s wip">18 %</span></td></tr>
+    <tr><td>Desain Istana Kristal menyeluruh</td><td><span class="s wip">33 %</span></td></tr>
+    <tr><td>SEO kuat + artikel ≥ 45</td><td><span class="s todo">⏳ (urutan §2)</span></td></tr>
+    <tr><td>Animasi panduan pelanggan</td><td><span class="s wip">25 %</span></td></tr>
+  </table></div>
+  <h3>8.3 Penawaran investor</h3>
+  <p>Hanya untuk AXTO (bukan gabungan dengan XAA). <strong>Default tampil</strong> (pemilik 27 Okt); tombol Tampilkan/Sembunyikan di Admin → Investors dicatat di log audit (<code>admin.invest_visibility</code>). Saat disembunyikan: <code>/invest</code> 404 + noindex, API menolak, tautan footer, menu member dan entri sitemap hilang (anggota yang sudah tercatat sebagai pemodal tetap melihat laporannya). <span class="s ok">✅ sembunyi/tampil tayang (#86)</span> · <span class="s wip">🔄 default tampil di branch kerja</span></p>
+  <h3>8.4 Lelang lisensi tiap 2 minggu</h3>
+  <div class="table"><table>
+    <tr><th>Aturan</th><th>Isi</th></tr>
+    <tr><td>Jadwal</td><td>Siklus 14 hari, selalu berakhir <strong>Jumat 07.00 WIB</strong> (= 00.00 UTC); siklus pertama berakhir Jumat 6 Nov 2026; sesi baru mulai tepat saat sesi berakhir (lot berikutnya disiapkan di hari terakhir).</td></tr>
+    <tr><td>Paket</td><td><strong>Semua paket</strong>: 37 edisi (1 tahun) + lifetime 10 aplikasi × 6 tingkat perangkat + suite × 6 = 103 lot per siklus; dibuka bertahap oleh cron (20 lot/menit). Admin bisa mengubah daftar.</td></tr>
+    <tr><td>Harga</td><td>Buka <strong>25 %</strong> harga normal (dari Admin → Plans); setiap tawaran naik <strong>tepat 10 % dari harga buka</strong> (contoh $990 → buka $248 → $273, $298, …), paling tinggi harga normal; anti-snipe 5 menit.</td></tr>
+    <tr><td>Penawar</td><td>Anggota terverifikasi (kode e-mail 6 digit); nama tampilan perusahaan/pribadi disaring dari kata kasar, kontak dan merek orang lain; admin tidak menawar.</td></tr>
+    <tr><td>Pembayaran</td><td>Pemenang bayar lewat checkout live; <strong>lisensi hanya terbit setelah pembayaran terverifikasi</strong>. Pemenang yang belum bayar tetap tampil dengan keterangan <strong>"Belum membayar"</strong>; tidak ada pengalihan otomatis (bawaan mati; admin bisa Pass/Cancel atau menyalakannya). <strong>Transfer bank wajib screenshot bukti</strong> dan disetujui admin secara manual, lalu lisensi terkirim sendiri.</td></tr>
+    <tr><td>Tampilan</td><td>Pemenang (lunas / belum membayar) di beranda, portal member (beranda + Lelang) dan portal admin (ringkasan + Licence auction); <code>/auction</code> dengan SEO, JSON-LD, FAQ, sitemap; 10 bahasa.</td></tr>
+    <tr><td>Data</td><td>R2: <code>auction_lots</code> (indeks ringkasan), <code>auction_bids</code> tulis-sekali, <code>auction_bidders</code>; penutupan CAS idempoten.</td></tr>
+    <tr><td>Status</td><td><span class="s wip">🔄 kode + uji unit selesai di branch kerja; E2E, browser, PR dan tayang setelah SEO</span> · <span class="s plan">📝 lelang paling depan di beranda</span></td></tr>
+  </table></div>
+  <h3>8.5 Semua aplikasi bisa dibeli, lisensi jalan</h3>
+  <p>Setiap paket (plan, edisi per aplikasi, lifetime) membuat order di harga server → pembayaran terverifikasi → lisensi terbit, ditandatangani, lolos <code>/api/license-validate</code>, unduhan tersedia. Uji sapu katalog E2E untuk setiap SKU sudah lulus di branch kerja. <span class="s wip">🔄</span></p>
+  <h3>8.6 Satu kotak surat</h3>
+  <p>Semua notifikasi axto.io <strong>dan</strong> xaa.es (order, dukungan, lelang, investor, kontak) dikirim ke <strong>hello@axto.io</strong> — satu manajemen; alamat balas yang dilihat klien tetap per situs. <span class="s plan">📝 setelah SEO</span></p>
+  <h3>8.7 Koin AXTO lokal</h3>
+  <p>Pasokan 100 jt, harga awal $1, hanya untuk transaksi di axto.io, tidak bisa dicairkan oleh axto.io; buku besar di R2. <span class="s plan">📝 dibahas dulu</span></p>
+  <div class="note warn">Risiko yang wajib dibahas sebelum dibangun: token yang dijual dengan harapan nilainya naik dapat digolongkan sekuritas/aset kripto yang diatur (OJK/Bappebti, MiCA, SEC). Klaim harus jujur, tanpa janji imbal hasil.</div>
+</section>
+
+<section id="xaa">
+  <h2><span class="n">9.</span>xaa.es</h2>
+  <h3>9.1 Situs</h3>
+  <p>Studio web PT AXTO DIGITAL GLOBAL (en/es/id): layanan, portal klien (pesan, bayar, unggah, lacak, serah terima), template SaaS dengan demo, profil perusahaan, chat dukungan. Data di R2 (<code>xaa-data</code>), berkas di <code>UPLOADS</code>, cadangan di <code>BACKUPS</code> (35 hari). Pembayaran PayPal, USDT, transfer bank (bukti + persetujuan admin).</p>
+  <h3>9.2 Penawaran investor xaa.es</h3>
+  <p>Halaman <code>/invest</code> khusus xaa.es (bukan gabungan). <strong>Default tampil</strong>; tombol tampil/sembunyi di Studio desk → Investors, setiap perubahan masuk log audit pengaturan. Saat disembunyikan: 404, keluar dari sitemap, tautan footer hilang, pengajuan ditolak. <span class="s ok">✅ di-merge (xaa #26), tayang lewat deploy otomatis</span></p>
+  <h3>9.3 Lelang website, script dan domain (bukan lisensi)</h3>
+  <div class="table"><table>
+    <tr><th>Jenis lot</th><th>Yang diterima pemenang</th><th>Serah terima</th></tr>
+    <tr><td>Website jadi</td><td>Situs berjalan: kode, isi, desain, akun pendukung yang disebut</td><td>Arsip kode + data terbuka otomatis setelah lunas; panduan pindah hosting; bantuan 14 hari</td></tr>
+    <tr><td>Web / script saja</td><td>Kode sumber lengkap + dokumentasi + hak pakai/ubah, tanpa domain dan isi pribadi</td><td>Arsip bertanda tangan (SHA-256) terbuka otomatis setelah lunas</td></tr>
+    <tr><td>Website + domain</td><td>Semua di atas + nama domainnya</td><td>Kode otomatis; domain dipindah admin (kode EPP) — satu-satunya langkah manual karena registrar memerlukannya</td></tr>
+  </table></div>
+  <p><strong>Kategori</strong> (bisa diubah di admin): website artikel/blog/AdSense (teknologi, kesehatan, keuangan, wisata, kuliner, parenting, sains, gaya hidup, otomotif, olahraga, pendidikan, berita); SaaS (booking, invoice, CRM, link-in-bio, waitlist, LMS, HR, POS, helpdesk, form, pemilu/organisasi); e-commerce (baju pria/wanita/anak/muslim, jam tangan, sepatu &amp; tas, kosmetik, elektronik, perabot, makanan, buku, mainan, perhiasan, produk digital); marketplace &amp; direktori, company profile &amp; landing page, komunitas/forum, portofolio, properti, restoran &amp; katering, template xaa.es.</p>
+  <p><strong>Harga semua ditentukan di portal admin</strong>: harga normal/valuasi, harga buka, kenaikan per tawaran, harga cadangan (opsional, tidak diumumkan), beli-langsung (opsional). Aturan sama dengan axto.io: berakhir Jumat 07.00 WIB tiap 2 minggu, sesi baru langsung, bawaan buka 25 % dan +10 % dari harga buka, anti-snipe 5 menit, anggota terverifikasi, nama pemenang disaring. Transfer bank wajib screenshot + persetujuan admin; aset baru terbuka setelah lunas; yang belum bayar tampil "belum membayar". Data trafik/pendapatan hanya bila terverifikasi; tidak menjual situs/domain bermerek orang lain. Penyimpanan R2 saja. <span class="s plan">📝 dibangun setelah SEO</span></p>
+  <h3>9.4 Template SaaS</h3>
+  <p>18 template dalam urutan harga (Waitlist sudah dibangun dengan demo, akun demo dan klip animasi); 17 berikutnya satu per satu, dimulai Link-in-Bio. <span class="s wip">🔄</span></p>
+</section>
+
+<section id="ulyah">
+  <h2><span class="n">10.</span>ulyah.com &amp; situs saudaranya</h2>
+  <ul>
+    <li>Satu basis kode <code>apps/web</code> dengan tenant: ulyah (id), xad (en), 1fr (fr), tilawa (de), dawaim (es). Isi sama, hreflang timbal balik; ulyah.com hanya berbahasa Indonesia.</li>
+    <li><strong>dawa.im</strong> = anggota Spanyol (menggantikan dawa.es di ekosistem): Worker <code>dawaim-web</code> sudah ter-deploy; zona dawa.im belum ada di Cloudflare. <strong>Langkah pemilik:</strong> Cloudflare → Add a domain → dawa.im (Free) → pasang 2 nameserver di registrar. Setelah itu <code>dawa-im-connect.yml</code> (tiap jam) menempelkan domain sendiri.</li>
+    <li>Admin ulyah.com = pusat: traffic semua situs pemilik (kecuali dawa.es), Ad Manager (hanya situs yang sudah di-approve), audit.</li>
+    <li>Diet Cloudflare: database dan R2 di bawah batas gratis, audio Al-Qur'an lewat CDN, kitab tetap lengkap per bahasa (ADSENSE-BLUEPRINT §11–§12).</li>
+    <li>Data <code>ulyah-db</code> pindah ke R2 modul demi modul. <span class="s wip">🔄</span></li>
+  </ul>
+</section>
+
+<section id="artikel">
+  <h2><span class="n">11.</span>Situs artikel statis (26)</h2>
+  <p>Semua di <code>ulyah.com/sites/</code>, satu folder per situs (siap dibackup/dijual dengan <code>export.mjs</code>), ≥ 40–45 artikel ≥ 1.500 kata, tema sendiri, halaman ekosistem ✦, gerbang AdSense + SEO sebelum deploy.</p>
+  <div class="table"><table>
+    <tr><th>Situs</th><th>Bahasa</th><th>Niche</th></tr>
+    <tr><td>byodd.de</td><td>de</td><td>Heimwerken, Renovieren und Wohnen</td></tr>
+    <tr><td>byoxy.de</td><td>de</td><td>Zimmerpflanzen, Balkon und Kräuter</td></tr>
+    <tr><td>byoy.de</td><td>de</td><td>Bio-Garten: Gemüse, Obst, gesunder Boden</td></tr>
+    <tr><td>nexvilo.de</td><td>de</td><td>Digital-Alltag: Smartphone, Computer, Sicherheit, Smart Home, KI</td></tr>
+    <tr><td>qarf.de</td><td>de</td><td>Kaffee und Tee zu Hause</td></tr>
+    <tr><td>qulen.de</td><td>de</td><td>Lernen: Mutmachgeschichten + Praxis für Schule, Ausbildung, Studium</td></tr>
+    <tr><td>qurm.de</td><td>de</td><td>Wandern in Deutschland</td></tr>
+    <tr><td>rubiy.de</td><td>de</td><td>Saisonal kochen, Vorrat, Küchenhandwerk</td></tr>
+    <tr><td>velnixo.de</td><td>de</td><td>Radfahren im Alltag, E-Bike, Wartung, Touren</td></tr>
+    <tr><td>zavik.de</td><td>de</td><td>Katzen-Ratgeber</td></tr>
+    <tr><td>zevok.de</td><td>de</td><td>Putzen, Flecken und Wäsche</td></tr>
+    <tr><td>zoevian.de</td><td>de</td><td>Vögel beobachten, füttern, schützen, Ziervögel</td></tr>
+    <tr><td>zolun.de</td><td>de</td><td>Urlaub in Deutschland: Küste, Inseln, Seen, Städte</td></tr>
+    <tr><td>zufiq.de</td><td>de</td><td>Ruhiger Alltag: Gewohnheiten, Ordnung, weniger Ballast</td></tr>
+    <tr><td>zuvik.de</td><td>de</td><td>Familiengeschichten mit Ideen für den Alltag</td></tr>
+    <tr><td>dawo.es</td><td>es</td><td>Deporte amateur y vida activa</td></tr>
+    <tr><td>qkb.es</td><td>es</td><td>Obrador casero: quesos, fermentados, pan, bollería</td></tr>
+    <tr><td>rough.es</td><td>es</td><td>Gemas en bruto, joyería y estilo</td></tr>
+    <tr><td>xko.es</td><td>es</td><td>Ahorro energético en casa</td></tr>
+    <tr><td>dai.lat</td><td>es</td><td>Diseño, arquitectura e interiores para América Latina</td></tr>
+    <tr><td>pab.lat</td><td>es</td><td>Viajar por América Latina</td></tr>
+    <tr><td>rough.lat</td><td>es</td><td>Gemas y joyería de América Latina</td></tr>
+    <tr><td>crone.skin</td><td>en</td><td>Style, beauty and a full life for women in their second half</td></tr>
+    <tr><td>saved.lat</td><td>en</td><td>Spending less on everyday decisions (pemilik minta Inggris)</td></tr>
+    <tr><td>odaily.xyz</td><td>en</td><td>Everyday home cooking</td></tr>
+    <tr><td>xdaily.xyz</td><td>en</td><td>Science and how things work</td></tr>
+  </table></div>
+  <p>Daftar tautan Kebijakan Privasi situs .de dikirim ke pemilik sebagai berkas txt (27 Okt).</p>
+</section>
+
+<section id="log">
+  <h2><span class="n">12.</span>Log perintah terbaru (21–27 Okt 2026)</h2>
+  <div class="table"><table>
+    <tr><th>Tanggal</th><th>Perintah pemilik (ringkas)</th><th>Status</th></tr>
+    <tr><td>21–26 Okt</td><td>Kode AdSense baru: ulyah.com, 1fr.fr, tilawa.de, axto.io, xaa.es → pub-8991272269211824; situs baru velnixo.de, zoevian.de, nexvilo.de, odaily.xyz, xdaily.xyz, dawa.im</td><td><span class="s ok">✅</span></td></tr>
+    <tr><td>26 Okt</td><td>Berhenti dulu aplikasi; ≥ 45 artikel di setiap situs non-muslim; jangan kerjakan aplikasi tanpa perintah</td><td><span class="s ok">✅ aturan tetap</span></td></tr>
+    <tr><td>26 Okt</td><td>DNS Spacemail axto.io; Sedo TXT 7 domain; cek Search Console</td><td><span class="s ok">✅</span></td></tr>
+    <tr><td>26 Okt</td><td>dawa.im: link Worker dulu, hreflang dengan ulyah.com</td><td><span class="s wip">🔄 tunggu zona dari pemilik</span></td></tr>
+    <tr><td>26 Okt</td><td>Koin AXTO lokal 100 jt, $1</td><td><span class="s plan">📝 dibahas dulu</span></td></tr>
+    <tr><td>27 Okt</td><td>axto.io 100 % siap: investor tampil/sembunyi, lelang lisensi, semua aplikasi bisa dibeli + lisensi jalan</td><td><span class="s wip">🔄 §8</span></td></tr>
+    <tr><td>27 Okt</td><td>Investor default tampil; semua paket dilelang tiap 2 minggu; sesi baru langsung; berakhir Jumat 07.00; buka 25 %; pemenang di beranda, member, admin</td><td><span class="s wip">🔄 §8.4</span></td></tr>
+    <tr><td>27 Okt</td><td>Lisensi hanya setelah bayar; "belum membayar"; tiap tawaran +10 % dari harga buka; transfer manual wajib screenshot + persetujuan admin</td><td><span class="s wip">🔄 §8.4</span></td></tr>
+    <tr><td>27 Okt</td><td>Lelang lisensi paling depan di beranda axto.io</td><td><span class="s plan">📝 setelah SEO</span></td></tr>
+    <tr><td>27 Okt</td><td>xaa.es: lelang website / script / website + domain dengan kategori; tanpa lisensi; harga dari admin; kembangkan blueprintnya</td><td><span class="s plan">📝 §9.3</span></td></tr>
+    <tr><td>27 Okt</td><td>E-mail axto.io &amp; xaa.es ke hello@axto.io</td><td><span class="s plan">📝 §8.6</span></td></tr>
+    <tr><td>27 Okt</td><td>Perbaiki dulu SEO seluruh situs (per kata kunci, sitemap XML, berkas pendukung, backlink aman AdSense); lalu lelang; blueprint jadi HTML yang bisa diunduh</td><td><span class="s wip">🔄 §2, §4</span></td></tr>
+    <tr><td>27 Okt</td><td>Tautan kebijakan privasi situs .de dalam berkas txt</td><td><span class="s ok">✅ dikirim</span></td></tr>
+  </table></div>
+  <p>Log lengkap sejak awal: <code>guardian-ai/docs/REQUESTS.md</code> (100 baris), <code>xaa/docs/BLUEPRINT.md</code> §3 (57 baris), <code>ulyah.com/docs/ADSENSE-BLUEPRINT.md</code> §9.</p>
+</section>
+
+<section id="pemilik">
+  <h2><span class="n">13.</span>Yang butuh tindakan pemilik</h2>
+  <ul>
+    <li><strong>dawa.im</strong>: tambahkan zona di Cloudflare (Free) dan pasang 2 nameserver di registrar.</li>
+    <li><strong>Pembayaran</strong>: aktifkan BNI/kartu di Admin → Payments bila diinginkan (kredensial hanya diisi di sana, terenkripsi).</li>
+    <li><strong>AdSense</strong>: tombol "Minta peninjauan" di dasbor AdSense per situs; pesan GDPR di Privasi &amp; pesan untuk situs UE.</li>
+    <li><strong>Search Console / Bing</strong>: domain yang ditandai "manual" di laporan SEO live perlu ditambahkan sebagai Domain property.</li>
+    <li><strong>Keputusan</strong>: koin AXTO (risiko regulasi), xaa.es satu akun Cloudflare dengan axto.io, harga final edisi/lifetime.</li>
+    <li><strong>Di luar jangkauan AI</strong>: sertifikat code signing EV, pentest independen, audit SOC 2/ISO 27001.</li>
+  </ul>
+</section>
+
+<section id="sumber">
+  <h2><span class="n">14.</span>Sumber rinci per repo</h2>
+  <div class="table"><table>
+    <tr><th>Repo</th><th>Dokumen</th><th>Isi</th></tr>
+    <tr><td>guardian-ai</td><td><code>CLAUDE.md</code>, <code>docs/REQUESTS.md</code>, <code>docs/BLUEPRINT-V4.md</code>, <code>docs/AXTO-APPS-BLUEPRINT.md</code>, <code>docs/R2-DATA-BLUEPRINT.md</code></td><td>Aturan axto.io, log perintah, rencana &amp; progres (§19), aplikasi Docker, desain penyimpanan R2</td></tr>
+    <tr><td>xaa</td><td><code>CLAUDE.md</code>, <code>docs/BLUEPRINT.md</code>, <code>docs/TEMPLATES-BLUEPRINT.md</code>, <code>docs/seo/REPORT.md</code></td><td>Aturan xaa.es, log perintah, lelang website §10, template, laporan SEO live semua domain</td></tr>
+    <tr><td>ulyah.com</td><td><code>CLAUDE.md</code>, <code>docs/ADSENSE-BLUEPRINT.md</code>, <code>docs/ADSENSE-CODES.md</code>, <code>docs/ADMANAGER-BLUEPRINT.md</code>, <code>docs/R2-DATA-BLUEPRINT.md</code>, <code>sites/README.md</code></td><td>Standar AdSense &amp; SEO (§15), kode AdSense, Ad Manager, pindah ke R2, engine situs artikel</td></tr>
+    <tr><td>repo mitra</td><td><code>CLAUDE.md</code> di axto.us, axtodev, Jai, Lie, oldco.in, profity.in, Quantum</td><td>Aturan R2 saja dan catatan per situs</td></tr>
+  </table></div>
+</section>
+</main>
+</div>
+
+<footer>Blueprint induk · ekosistem AXTO · XAA · ulyah.com · diperbarui 27 Oktober 2026 · tidak berisi rahasia (kunci, token, password, nomor rekening).</footer>
+
+<script>
+(function () {
+  var q = document.getElementById("q");
+  var sections = Array.prototype.slice.call(document.querySelectorAll("main section"));
+  q.addEventListener("input", function () {
+    var term = q.value.trim().toLowerCase();
+    sections.forEach(function (s) { s.hidden = term !== "" && s.textContent.toLowerCase().indexOf(term) === -1; });
+  });
+  document.getElementById("print").addEventListener("click", function () { window.print(); });
+  document.getElementById("theme").addEventListener("click", function () {
+    var root = document.documentElement;
+    var dark = root.dataset.theme ? root.dataset.theme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+  });
+})();
+</script>
+</body>
+</html>
