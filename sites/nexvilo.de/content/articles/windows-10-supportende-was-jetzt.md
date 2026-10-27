@@ -1,5 +1,6 @@
 ---
 title: "Windows 10 bekommt keine Updates mehr: Deine Möglichkeiten im Überblick"
+seoTitle: "Windows 10 Supportende: Was jetzt? Deine Möglichkeiten"
 description: "Der Support für Windows 10 ist beendet, auch die erweiterten Updates für Privatnutzer sind ausgelaufen. So prüfst du, ob dein PC Windows 11 kann, und was die Alternativen von Linux bis Neukauf bieten."
 category: computer-und-windows
 date: 2026-10-26

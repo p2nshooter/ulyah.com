@@ -6,7 +6,9 @@ Setiap folder di sini adalah **satu situs lengkap** yang berdiri sendiri:
 sites/
   _engine/            pembangun bersama (Node 22, tanpa dependensi)
     build.mjs         site.json + content/ + theme/ → dist/
-    check.mjs         gerbang kesiapan AdSense (wajib lulus sebelum deploy)
+    check.mjs         gerbang kesiapan AdSense + SEO (wajib lulus sebelum deploy)
+    seo.mjs           audit SEO hasil build (dipanggil check.mjs; bisa dijalankan sendiri)
+    icons.mjs         ikon PNG/ICO + og.png dari favicon.svg/og.svg (alat lokal, perlu Playwright)
     export.mjs        backup satu langkah → <domain>-backup-<tanggal>.tar.gz
     lib/markdown.mjs  pengubah Markdown → HTML
   dawo.es/
@@ -15,7 +17,7 @@ sites/
     content/articles/ DATABASE artikel (Markdown + frontmatter)
     content/pages/    halaman wajib: tentang, kontak, privasi, cookie, aviso legal, …
     theme/            HTML (templates.mjs), CSS dan JS milik situs ini SAJA
-    public/           favicon, gambar OG
+    public/           favicon.svg/.ico, apple-touch-icon, icon-192/512, og.svg/og.png
     wrangler.jsonc    Worker statis milik situs ini
 ```
 
@@ -23,7 +25,9 @@ sites/
 
 ```bash
 node sites/_engine/build.mjs dawo.es     # bangun ke sites/dawo.es/dist
-node sites/_engine/check.mjs dawo.es     # bangun + cek syarat AdSense
+node sites/_engine/check.mjs dawo.es     # bangun + cek syarat AdSense + SEO
+node sites/_engine/seo.mjs dawo.es       # hanya audit SEO (setelah build)
+node sites/_engine/icons.mjs dawo.es     # buat ulang ikon PNG + og.png setelah SVG-nya diganti
 node sites/_engine/export.mjs dawo.es    # backup lengkap untuk disimpan/dijual
 ```
 
@@ -54,6 +58,7 @@ Buat file baru di `content/articles/` dengan nama `judul-artikel.md`:
 ---
 title: Judul artikel
 description: Ringkasan 70–200 karakter untuk Google dan kartu artikel.
+seoTitle: (opsional) judul khusus mesin pencari, maks. 60 karakter
 category: slug-kategori-dari-site.json
 date: 2026-10-04
 ---
@@ -68,7 +73,14 @@ Gerbang `check.mjs` menolak deploy kalau:
 - ada halaman wajib yang hilang;
 - akun AdSense, ads.txt, atau tag meta tidak sama dengan `ADSENSE.txt`;
 - ada jaringan iklan lain;
-- ada tautan internal yang rusak.
+- ada tautan internal yang rusak;
+- audit SEO (`seo.mjs`) menemukan kegagalan: `<title>` di atas 60 karakter atau dobel, meta description di
+  atas 160 karakter atau dobel, canonical salah, H1 tidak tepat satu, JSON-LD rusak, sitemap tidak cocok dengan
+  halaman, robots.txt tanpa baris Sitemap, ads.txt/404 hilang, atau tautan tersembunyi ke situs sendiri.
+
+Judul dan description untuk Google dibuat otomatis oleh engine: judul panjang dipotong di jeda kalimat terakhir yang
+muat (kata kunci selalu di depan), ditambah nama situs bila masih muat; H1, og:title dan isi artikel tetap memakai
+judul lengkap. Bila potongannya kurang pas, isi `seoTitle:`.
 
 ## Situs yang belum punya akun AdSense
 

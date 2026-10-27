@@ -1,5 +1,6 @@
 ---
 title: "Malerweg: Acht Etappen durch das Elbsandsteingebirge"
+seoTitle: "Malerweg Sächsische Schweiz: Acht Etappen im Elbsandstein"
 description: Der Malerweg führt in acht Etappen auf rund 115 Kilometern durch die Sächsische Schweiz. Verlauf, Charakter der Etappen, Übernachtung und Planungstipps.
 category: fernwanderwege
 date: 2026-06-16

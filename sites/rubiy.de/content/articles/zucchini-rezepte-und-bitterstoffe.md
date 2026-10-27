@@ -1,5 +1,6 @@
 ---
 title: "Zucchinischwemme: Puffer, gefüllte Zucchini und warum bittere Früchte in den Müll gehören"
+seoTitle: "Zucchini-Rezepte und Bitterstoffe · RUBIY"
 description: Was du mit vielen Zucchini anfängst, wie Puffer und gefüllte Zucchini gelingen, wie du große Früchte nutzt und warum du bittere Zucchini niemals essen solltest.
 category: sommer
 date: 2026-10-12

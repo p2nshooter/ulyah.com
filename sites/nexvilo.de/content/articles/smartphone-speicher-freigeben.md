@@ -1,5 +1,6 @@
 ---
 title: "Handyspeicher voll: So gibst du auf Android und iPhone sicher Platz frei"
+seoTitle: "Handyspeicher voll? Speicher freigeben auf Android & iPhone"
 description: "Speicher voll auf dem Smartphone? So findest du die größten Platzfresser, räumst Fotos, Chats und App-Daten auf, ohne Wichtiges zu verlieren, und verhinderst, dass es wieder passiert."
 category: smartphone
 date: 2026-10-26

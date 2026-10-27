@@ -1,5 +1,6 @@
 ---
 title: "Making Appliances Last: Simple Maintenance for Fridges, Washers and More"
+seoTitle: "Extend the Life of Appliances: Simple Maintenance"
 description: Easy, regular maintenance that helps fridges, freezers, washing machines, dishwashers, ovens and vacuum cleaners run efficiently and last for years longer.
 category: repair-and-reuse
 date: 2026-10-19

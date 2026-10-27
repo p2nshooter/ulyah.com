@@ -450,7 +450,7 @@ ${a.html}
           inLanguage: site.lang,
           wordCount: a.words,
           articleSection: a.cat.name,
-          image: `${base}/og.svg`,
+          image: `${base}/og.png`,
           author: { "@type": "Organization", name: site.author, url: `${base}/ueber-uns/` },
           publisher: { "@id": `${base}/#org` },
           mainEntityOfPage: `${base}${a.url}`,

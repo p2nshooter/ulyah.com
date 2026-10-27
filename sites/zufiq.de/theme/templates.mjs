@@ -436,7 +436,7 @@ ${
           author: { "@type": "Organization", name: site.author, url: `${base}/ueber-uns/` },
           publisher: { "@id": `${base}/#org` },
           mainEntityOfPage: `${base}${a.url}`,
-          image: `${base}/og.svg`,
+          image: `${base}/og.png`,
         },
       ],
     },
