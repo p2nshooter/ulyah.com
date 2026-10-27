@@ -262,7 +262,8 @@ export async function build(domain, { quiet = false } = {}) {
   for (const a of articles) emit(a.url, theme.article(ctx, a));
   for (const p of pages) emit(p.url, theme.page(ctx, p));
   writeFileSync(join(out, "404.html"), theme.notFound(ctx));
-  for (const extra of theme.extraFiles?.(ctx) ?? []) emit(extra.path, extra.content);
+  const extras = theme.extraFiles?.(ctx) ?? [];
+  for (const extra of extras) emit(extra.path, extra.content);
 
   // ── Machine files ─────────────────────────────────────────────────────
   if (pub) writeFileSync(join(out, "ads.txt"), `google.com, ${pub}, DIRECT, f08c47fec0942fa0\n`);
@@ -328,6 +329,10 @@ export async function build(domain, { quiet = false } = {}) {
     ...categories.map((c) => ({ loc: c.url, lastmod: c.articles[0]?.updated || today })),
     ...articles.map((a) => ({ loc: a.url, lastmod: a.updated })),
     ...pages.map((p) => ({ loc: p.url, lastmod: p.updated || today })),
+    // Pages a theme adds itself (an index of every guide, for instance), unless they ask not to be indexed.
+    ...extras
+      .filter((e) => e.path.endsWith("/") && !/<meta name="robots" content="noindex/.test(String(e.content)))
+      .map((e) => ({ loc: e.path, lastmod: articles[0]?.updated || today })),
   ];
   writeFileSync(
     join(out, "sitemap.xml"),
