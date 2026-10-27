@@ -1,5 +1,6 @@
 ---
 title: "Überwachungskamera und Video-Türklingel zu Hause: Was erlaubt ist und wie du sie sicher betreibst"
+seoTitle: "Überwachungskamera zu Hause: Was ist rechtlich erlaubt?"
 description: "Wo du Kameras am Haus, in der Wohnung und an der Tür aufhängen darfst, was für Nachbarn, Gäste, Mieter und Babysitter gilt und wie du Kamera, Cloud und Aufnahmen vor Fremden schützt."
 category: smart-home
 date: 2026-10-26

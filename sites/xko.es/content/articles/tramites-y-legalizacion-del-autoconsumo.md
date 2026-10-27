@@ -1,5 +1,6 @@
 ---
 title: Trámites para legalizar placas solares en casa: paso a paso y plazos
+seoTitle: "Legalizar el autoconsumo solar: trámites paso a paso"
 description: Qué permisos y registros necesita una instalación de autoconsumo en una vivienda en España, quién se encarga de cada paso, cuánto tarda y cómo evitar los retrasos más habituales.
 category: autoconsumo-solar
 date: 2026-09-24

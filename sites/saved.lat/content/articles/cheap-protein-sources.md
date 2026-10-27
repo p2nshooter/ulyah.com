@@ -1,5 +1,6 @@
 ---
 title: "Affordable Protein: Beans, Lentils, Eggs and Smarter Ways to Buy Meat"
+seoTitle: "Cheap Protein Sources: Beans, Lentils, Eggs and Meat"
 description: The most economical protein foods, how to cook dried pulses in batches, how to stretch meat further, and simple meals that keep everyone full for less.
 category: kitchen-and-groceries
 date: 2026-10-19

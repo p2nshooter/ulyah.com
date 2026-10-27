@@ -603,6 +603,8 @@ di akun AdSense (di luar jangkauan Claude).
 | 21–26 Okt (urgent) | "Untuk 5 domain ini kode adsense nya ulyah.com 1fr.fr Tilawa.de axto.io xaa.es google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0"; situs baru velnixo.de 7345352440829958, zoevian.de 5928074389292014, nexvilo.de 6908951782430508, odaily.xyz 9221781326457936, xdaily.xyz 5693981744147503, dawa.im 8991272269211824; "Hati2 jgn sampe ads.txt hilang2an" | 🔄 §14 — kode dulu sampai live, lalu situs baru, artikel, blueprint |
 | 26 Okt (temuan) | Audit live setelah upgrade Next 16: 1fr.fr, tilawa.de dan xad.es tampil berbahasa Indonesia (`lang="id"`, h1 Indonesia) di bawah nama situsnya sendiri | ✅ PR #360: `packages/shared/src/i18n.ts` membaca tenant dengan `process?.env?.NEXT_PUBLIC_TENANT`, bentuk yang tidak di-inline Next 16 sehingga jatuh ke "ulyah". Diganti bentuk biasa `process.env.NEXT_PUBLIC_TENANT`; `scripts/check-env-inlining.mjs` menggagalkan CI bila bentuk itu kembali |
 | 26 Okt | "dawa.im make link worker dulu, jadi langsung konek saat sy masukin dns nya. Jgn lupa karena dawa.im adalah translate dari ulyah.com make hreflang, atau cek xad.es 1fr.fr tilawa.de dll cara penulisan nya, karena masih satu ekosistem" | 🔄 §14.3b: tenant baru `dawaim` (Spanyol) di `apps/web`, Worker `dawaim-web`, zona dawa.im dibuat otomatis oleh deploy dan dawa.im + www.dawa.im ditempel ke Worker, hreflang `es` → dawa.im di seluruh ekosistem |
+| 27 Okt | "Tolong perbaiki dulu seluruh SEO websitenya, perkata, link xmlsitemap dan file2 lain yg d butuhkan dll, backlink yg tidak melanggar adsense d seluruh situs, karena masih banyak masalah, setelah itu baru lanjutkan pekerjaan pembuatan auction xaa.es dan axto.io... Agar tidak lupa catat blueprint dan kembangkan blueprint nya, rapikan blueprint nya menjadi HTML yg bisa d download" | 🔄 §15 — 26 situs statis selesai (gerbang SEO di `check.mjs`); audit live semua domain aplikasi berikutnya; blueprint HTML `docs/BLUEPRINT.html` |
+| 27 Okt | "Tolong kirim link2 kebijakan privasi situs .de ke file txt yg bisa di download" | ✅ dikirim: tilawa.de/datenschutz + 15 situs .de `/datenschutz/` |
 
 ---
 
@@ -1200,3 +1202,87 @@ disentuh.
 
 Penawaran investor (hingga 30 %) di axto.io dan xaa.es disembunyikan secara default di index dan portal member,
 dengan tombol tampil/sembunyi di portal admin; perbaikan menyeluruh axto.io; riset dan pengembangan aplikasi.
+
+---
+
+## 15. SEO seluruh situs (pemilik, 27 Okt 2026)
+
+Pemilik: **"Tolong perbaiki dulu seluruh SEO websitenya, perkata, link xmlsitemap dan file2 lain yg d butuhkan dll,
+backlink yg tidak melanggar adsense d seluruh situs, karena masih banyak masalah, setelah itu baru lanjutkan pekerjaan
+pembuatan auction xaa.es dan axto.io"**. Urutan kerja: SEO dulu (semua situs), lalu lelang xaa.es dan axto.io.
+
+### 15.1 Temuan audit 26 situs statis (`sites/`, hasil build, 27 Okt)
+
+| Temuan | Jumlah | Penyebab |
+|---|---|---|
+| `<title>` lebih dari 60 karakter (Google memotongnya) | 1.102 halaman | judul artikel panjang + " · NAMA SITUS" ditempel di belakang |
+| meta description lebih dari 160 karakter | 1.019 halaman | ringkasan frontmatter boleh 200 karakter dan dipakai apa adanya |
+| kata kunci URL tidak ada di judul/H1 | 9 halaman nyata (36 lainnya salah baca ä/ü/ö auditor) | judul memakai sinonim, misalnya `/smartphone-speicher-freigeben/` → "Handyspeicher voll" |
+| og:image berupa SVG | 26 situs | Facebook, X, LinkedIn, WhatsApp tidak menampilkan SVG |
+| JSON-LD Article tanpa `image` | 22 situs | Google menyarankan gambar di setiap Article |
+| tidak ada web manifest, apple-touch-icon, favicon.ico | 26 situs | ikon di Android/iPhone/Bing dan hasil pencarian |
+| tidak ada `llms.txt` dan `/.well-known/security.txt` | 26 situs | ringkasan untuk mesin pencari AI; kontak keamanan (RFC 9116) |
+| header HSTS dan X-Frame-Options | 26 situs | dinilai di audit live (keamanan) |
+| tautan ke situs sendiri | 1 halaman per situs (halaman ekosistem), 3–5 tautan berlabel merek | sudah aman; tidak ada jaringan tautan antar-situs statis |
+
+Sitemap, robots.txt (baris Sitemap), canonical, satu H1, ads.txt, 404 dan feed sudah benar di semua situs.
+
+### 15.2 Perbaikan di engine (berlaku otomatis untuk semua situs, sekarang dan nanti)
+
+- **Judul per kata kunci.** Setiap judul artikel menaruh kata kuncinya di depan ("Heizkörper entlüften: Wann es …"),
+  jadi `<title>` = judul lengkap bila muat 60 karakter; bila tidak, dipotong di jeda kalimat terakhir yang muat
+  (`:` `?` `!` `–` `—`, lalu koma), ditambah " · NAMA" bila masih muat. Tidak ada dua halaman dengan judul sama
+  (bila potongan sudah dipakai, dipilih potongan berikutnya). H1, og:title dan isi tetap judul lengkap. `seoTitle:`
+  di frontmatter untuk judul khusus (dipakai di 9 artikel yang kata kuncinya berbeda dari URL).
+- **Description ≤ 160** dipotong di akhir kalimat (bukan di tengah kata); og:description tetap lengkap.
+- **Gambar bagikan** `og.png` 1200×630 (dengan `og:image:width/height/alt`), juga untuk `image` di JSON-LD Article.
+- **Ikon**: `favicon.ico` 48 px, `apple-touch-icon.png` 180 px, `icon-192.png`, `icon-512.png` (dibuat dari
+  `favicon.svg` dengan `sites/_engine/icons.mjs`), `site.webmanifest`, logo Organization = `icon-512.png`.
+- **`llms.txt`** (llmstxt.org): nama, ringkasan, bahasa, semua artikel per kategori dengan ringkasannya, halaman wajib.
+- **`/.well-known/security.txt`**: kontak redaksi situs (yang sudah tercantum di halaman Kontak), kedaluwarsa 360
+  hari dan diperbarui setiap deploy.
+- **Header**: `Strict-Transport-Security: max-age=31536000` (tanpa includeSubDomains, supaya subdomain e-mail tidak
+  terpaksa HTTPS) dan `X-Frame-Options: SAMEORIGIN` (iklan AdSense tetap tampil; yang dicegah hanya situs lain
+  membingkai situs kita).
+
+### 15.3 Gerbang SEO (wajib lulus sebelum deploy)
+
+`sites/_engine/seo.mjs` membaca hasil build seperti mesin pencari dan dipanggil `check.mjs`; deploy berhenti bila ada
+yang gagal: judul 10–60 dan unik, description ≤ 160 dan unik, canonical = URL halaman sendiri, tepat satu H1,
+Open Graph + Twitter card, JSON-LD valid, tidak ada noindex di situs live, `<img>` dengan alt (dan width/height),
+sitemap = semua halaman (tanpa dobel, tanpa host lain, lastmod valid), robots.txt dengan Sitemap, ads.txt, 404,
+feed + `<link rel=alternate>`, favicon, manifest, apple-touch-icon, llms.txt, security.txt, dan tautan ke situs
+sendiri (tidak tersembunyi, tidak kosong, tidak di dalam isi artikel kecuali halaman ekosistem, paling banyak
+segelintir per halaman). Hasil 27 Okt: **26 dari 26 situs ALL OK, 0 gagal**; satu catatan (zavik.de
+`/katzenwissen/krankheitsanzeichen-erkennen/`, judul "Ist meine Katze krank?" memang kata kunci yang dicari orang).
+
+### 15.4 Backlink yang tidak melanggar AdSense (aturan tetap)
+
+Kebijakan Google (link spam) melarang jaringan tautan buatan, tukar tautan berlebihan, tautan tersembunyi, dan teks
+jangkar penuh kata kunci; AdSense menolak situs yang tampak dibuat untuk tautan atau iklan. Jadi:
+
+1. Setiap situs menautkan proyek pemilik **hanya** dari halaman ekosistemnya sendiri (`promo` di `site.json`) dan
+   menu/footer yang menuju halaman itu: 3–5 tautan, teks jangkar = nama merek (AXTO, XAA, ulyah.com), label jujur
+   "dari penerbit yang sama", UTM untuk menghitung kunjungan, tanpa `nofollow` (situs sendiri, bukan iklan).
+2. **Tidak ada** tautan footer massal antar-26 situs, tidak ada blogroll, tidak ada tautan di dalam isi artikel ke
+   situs sendiri, tidak ada tukar tautan, tidak ada tautan berbayar. `seo.mjs` menggagalkan tautan kosong/tersembunyi
+   dan memberi peringatan bila ada tautan ke situs sendiri di isi artikel atau lebih dari 8 di halaman ekosistem.
+3. Backlink dari luar dicari dengan cara yang diizinkan: isi yang layak dikutip (panduan, tabel, data), profil resmi
+   di media sosial dan direktori yang relevan, Search Console + Bing Webmaster untuk setiap domain. Tidak membeli
+   tautan, tidak memakai PBN.
+
+### 15.5 Situs aplikasi dan repo mitra (audit live, berikutnya)
+
+Situs aplikasi tidak dibangun oleh engine ini: axto.io (guardian-ai), xaa.es (xaa), ulyah.com/xad.es/1fr.fr/tilawa.de/
+dawa.im (`apps/web`), axto.us, axto.dev, jai.lat, lie.skin, oldco.in, profity.in. Pemeriksaan live dijalankan dari
+GitHub Actions (`xaa/scripts/seo-audit.mjs`, `seo-audit.yml`; sandbox tidak bisa menjangkau situs live) untuk semua
+domain sekaligus, termasuk 26 situs statis, lalu temuannya diperbaiki per repo dengan standar yang sama (§15.2–15.4).
+dawa.es dan situs yang sudah terjual tidak disentuh.
+
+| Langkah | Status |
+|---|---|
+| 26 situs statis: engine + gerbang + 9 judul khusus | ✅ 27 Okt (PR ulyah.com) |
+| Daftar domain audit live diperluas ke 38 domain; Search Console dicek lewat TXT DNS; judul ≤ 60 / description ≤ 160 di halaman sampel; security.txt, manifest, apple-touch-icon, og:image raster | ✅ 27 Okt (xaa PR #26) |
+| Audit live semua domain (`seo-audit.yml`) | 🔄 dijalankan setelah 26 situs ter-deploy |
+| Perbaikan temuan di setiap repo aplikasi | ⏳ |
+| Blueprint HTML yang bisa diunduh (`docs/BLUEPRINT.html`) | ✅ 27 Okt |

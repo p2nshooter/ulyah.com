@@ -128,17 +128,69 @@ export async function build(domain, { quiet = false } = {}) {
   const favFile = join(publicDir, "favicon.svg");
   const favicon = `/favicon.svg${existsSync(favFile) ? `?v=${createHash("sha256").update(readFileSync(favFile)).digest("hex").slice(0, 8)}` : ""}`;
   const asset = (name) => `/assets/${name}${assetVersion[name] ? `?v=${assetVersion[name]}` : ""}`;
-  const org = { "@type": "Organization", "@id": `${base}/#org`, name: site.name, url: `${base}/`, logo: `${base}/favicon.svg` };
+  const has = (f) => existsSync(join(publicDir, f));
+  const ogImage = has("og.png") ? `${base}/og.png` : `${base}/og.svg`;
+  const org = { "@type": "Organization", "@id": `${base}/#org`, name: site.name, url: `${base}/`, logo: has("icon-512.png") ? `${base}/icon-512.png` : `${base}/favicon.svg` };
+
+  // ── Search titles and snippets (owner, 27 Oct 2026: "perbaiki dulu seluruh SEO websitenya,
+  // perkata") ───────────────────────────────────────────────────────────
+  // Google shows about 60 characters of a title and 160 of a description. Every headline here
+  // puts its keyword first ("Heizkörper entlüften: Wann es nötig ist …"), so a long headline is
+  // cut at its last clause break that fits, with the site name when there is room; the H1,
+  // og:title and the article itself keep the full headline. No two pages get the same title.
+  // A page can name its own with `seoTitle:` in its frontmatter.
+  const MAX_TITLE = 60;
+  const MAX_DESC = 160;
+  const seoTitles = new Map([...articles, ...pages].filter((d) => d.seoTitle).map((d) => [d.url, String(d.seoTitle)]));
+  const titleOwner = new Map(); // title → the path that has it
+  const trimEnd = (t) => t.trim().replace(/[\s,;:.–—|-]+$/, "");
+  function titleChoices(title, path) {
+    const brand = path === "/" ? "" : ` · ${site.name}`;
+    const out = [];
+    const add = (t) => {
+      if (t.length >= 10 && t.length <= MAX_TITLE && !out.includes(t)) out.push(t);
+    };
+    // Longest first: a cut after ":" "?" "!" "." or before " – " " — " " | ", then after a comma.
+    const cuts = (re) =>
+      [...title.matchAll(re)].map((m) => trimEnd(title.slice(0, m.index + (/^[?!]/.test(m[0]) ? 1 : 0)))).filter(Boolean).reverse();
+    const clauses = cuts(/[:?!.](?=\s)|\s[–—|-]\s/g);
+    const commas = cuts(/,(?=\s)/g);
+    if (brand) add(title + brand);
+    add(title);
+    for (const c of clauses) if (brand) add(c + brand);
+    for (const c of clauses) add(c);
+    for (const c of commas) if (brand) add(c + brand);
+    for (const c of commas) add(c);
+    const words = title.slice(0, MAX_TITLE - 1);
+    add(trimEnd(words.slice(0, words.lastIndexOf(" "))) + "…");
+    return out;
+  }
+  function searchTitle(title, path) {
+    const choices = seoTitles.has(path) ? [seoTitles.get(path)] : titleChoices(title, path);
+    const pick = choices.find((t) => !titleOwner.has(t) || titleOwner.get(t) === path) || choices[0] || title;
+    titleOwner.set(pick, path);
+    return pick;
+  }
+  function metaDescription(d) {
+    d = String(d).replace(/\s+/g, " ").trim();
+    if (d.length <= MAX_DESC) return d;
+    const ends = [...d.matchAll(/[.!?](?=\s)/g)].map((m) => m.index + 1).filter((i) => i >= 70 && i <= MAX_DESC);
+    if (ends.length) return d.slice(0, ends.at(-1));
+    const cut = d.slice(0, MAX_DESC - 1);
+    return `${trimEnd(cut.slice(0, cut.lastIndexOf(" ")))}…`;
+  }
 
   function head({ title, description, path, type = "website", jsonld = [], image, noindex = false }) {
     const url = `${base}${path}`;
-    const fullTitle = path === "/" ? title : `${title} · ${site.name}`;
-    const graph = [org, { "@type": "WebSite", "@id": `${base}/#site`, name: site.name, url: `${base}/`, inLanguage: site.lang, publisher: { "@id": `${base}/#org` } }, ...jsonld];
+    const fullTitle = searchTitle(title, path);
+    // Google recommends an image on every Article; a theme that names none gets the share image.
+    const withImage = (n) => (/^(Article|BlogPosting|NewsArticle)$/.test(n?.["@type"]) && !n.image ? { ...n, image: image || ogImage } : n);
+    const graph = [org, { "@type": "WebSite", "@id": `${base}/#site`, name: site.name, url: `${base}/`, inLanguage: site.lang, publisher: { "@id": `${base}/#org` } }, ...jsonld.map(withImage)];
     return [
       `<meta charset="utf-8">`,
       `<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">`,
       `<title>${esc(fullTitle)}</title>`,
-      `<meta name="description" content="${esc(description)}">`,
+      `<meta name="description" content="${esc(metaDescription(description))}">`,
       `<link rel="canonical" href="${url}">`,
       // A site still being written ("draft": true) is already online so its
       // domain carries the AdSense meta tag, loader and ads.txt, but it stays
@@ -146,6 +198,9 @@ export async function build(domain, { quiet = false } = {}) {
       noindex || site.draft ? `<meta name="robots" content="noindex, follow">` : `<meta name="robots" content="index, follow, max-image-preview:large">`,
       `<meta name="theme-color" content="${esc(site.themeColor || "#000000")}">`,
       `<link rel="icon" href="${favicon}" type="image/svg+xml">`,
+      has("favicon.ico") ? `<link rel="icon" href="/favicon.ico" sizes="48x48">` : "",
+      has("apple-touch-icon.png") ? `<link rel="apple-touch-icon" href="/apple-touch-icon.png">` : "",
+      `<link rel="manifest" href="/site.webmanifest">`,
       `<link rel="alternate" type="application/rss+xml" title="${esc(site.name)}" href="${base}/feed.xml">`,
       `<meta property="og:type" content="${type}">`,
       `<meta property="og:site_name" content="${esc(site.name)}">`,
@@ -153,7 +208,8 @@ export async function build(domain, { quiet = false } = {}) {
       `<meta property="og:description" content="${esc(description)}">`,
       `<meta property="og:url" content="${url}">`,
       `<meta property="og:locale" content="${esc(site.ogLocale || locale.replace("-", "_"))}">`,
-      `<meta property="og:image" content="${image || `${base}/og.svg`}">`,
+      `<meta property="og:image" content="${image || ogImage}">`,
+      !image && has("og.png") ? `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(site.name)}">` : "",
       `<meta name="twitter:card" content="summary_large_image">`,
       // Google AdSense — the account this site applies with (site.json). The
       // meta tag, the loader and /ads.txt are all built from that one value.
@@ -210,6 +266,61 @@ export async function build(domain, { quiet = false } = {}) {
 
   // ── Machine files ─────────────────────────────────────────────────────
   if (pub) writeFileSync(join(out, "ads.txt"), `google.com, ${pub}, DIRECT, f08c47fec0942fa0\n`);
+  // The web app manifest: the icons Android, Chrome and search show for the site. A plain
+  // "browser" display — these are reading sites, not apps.
+  writeFileSync(
+    join(out, "site.webmanifest"),
+    JSON.stringify(
+      {
+        name: site.expansion ? `${site.name} — ${site.expansion}` : site.name,
+        short_name: site.name,
+        description: metaDescription(site.description),
+        lang: site.lang,
+        start_url: "/",
+        scope: "/",
+        display: "browser",
+        background_color: "#ffffff",
+        theme_color: site.themeColor || "#000000",
+        icons: [
+          ...(has("icon-192.png") ? [{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }] : []),
+          ...(has("icon-512.png") ? [{ src: "/icon-512.png", sizes: "512x512", type: "image/png" }] : []),
+          { src: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+        ],
+      },
+      null,
+      2
+    ) + "\n"
+  );
+  // llms.txt (llmstxt.org): what the site is and where its articles are, for AI search
+  // engines and assistants — the same facts as the sitemap, with titles and summaries.
+  writeFileSync(
+    join(out, "llms.txt"),
+    [
+      `# ${site.name}${site.expansion ? ` — ${site.expansion}` : ""}`,
+      "",
+      `> ${site.description}`,
+      "",
+      `Language: ${site.lang}. ${articles.length} articles, last updated ${articles.map((a) => a.updated).sort().at(-1) || new Date().toISOString().slice(0, 10)}. Publisher: ${site.author || site.name}.`,
+      ...categories
+        .filter((c) => c.articles.length)
+        .flatMap((c) => ["", `## ${c.name}`, "", ...c.articles.map((a) => `- [${a.title}](${base}${a.url}): ${a.description}`)]),
+      "",
+      "## Optional",
+      "",
+      ...pages.map((p) => `- [${p.title || p.slug}](${base}${p.url})`),
+      "",
+    ].join("\n")
+  );
+  // security.txt (RFC 9116): where to report a problem with the site. Rebuilt on every
+  // deploy, so its one-year expiry moves along.
+  if (site.email) {
+    const expires = new Date(Date.now() + 360 * 86_400_000).toISOString().replace(/\.\d{3}Z$/, ".000Z");
+    mkdirSync(join(out, ".well-known"), { recursive: true });
+    writeFileSync(
+      join(out, ".well-known", "security.txt"),
+      `Contact: mailto:${site.email}\nExpires: ${expires}\nPreferred-Languages: ${[...new Set([site.lang, "en"])].join(", ")}\nCanonical: ${base}/.well-known/security.txt\n`
+    );
+  }
   writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`);
   const today = new Date().toISOString().slice(0, 10);
   const urls = [
@@ -241,10 +352,24 @@ export async function build(domain, { quiet = false } = {}) {
       "  X-Content-Type-Options: nosniff",
       "  Referrer-Policy: strict-origin-when-cross-origin",
       "  Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      // HTTPS only (a year; no includeSubDomains, so mail and other subdomains are never forced),
+      // and the site is never framed by another site. AdSense frames its ads inside our page,
+      // which this does not touch.
+      "  Strict-Transport-Security: max-age=31536000",
+      "  X-Frame-Options: SAMEORIGIN",
       "/assets/*",
       "  Cache-Control: public, max-age=31536000, immutable",
       "/ads.txt",
       "  Cache-Control: public, max-age=3600",
+      "/site.webmanifest",
+      "  Content-Type: application/manifest+json",
+      "  Cache-Control: public, max-age=86400",
+      "/llms.txt",
+      "  Content-Type: text/plain; charset=utf-8",
+      "/favicon.ico",
+      "  Cache-Control: public, max-age=604800",
+      "/apple-touch-icon.png",
+      "  Cache-Control: public, max-age=604800",
       "",
     ].join("\n")
   );

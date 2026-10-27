@@ -1,5 +1,6 @@
 ---
 title: "The Home Freezer Guide: What Freezes Well, How to Prevent Freezer Burn and How to Thaw Safely"
+seoTitle: "Freezing Food Guide: What Freezes Well and How to Thaw"
 description: "Freezer temperature, packaging that prevents freezer burn, what freezes well and what does not, how to freeze in portions, storage times, three safe thawing methods and how to cook from frozen."
 category: pantry-and-storage
 date: 2026-10-26
