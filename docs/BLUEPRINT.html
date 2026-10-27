@@ -303,7 +303,7 @@ mark { background: #ffe58a; color: #1d1a16; }
     <tr><td>Web / script milik xaa.es</td><td>Otomatis (sistem); admin bisa menambah</td><td>Siklus Jumat 07.00 WIB → Jumat 07.00 WIB (2 minggu), siklus baru langsung; buka <strong>35 %</strong> harga normal, tiap tawaran <strong>+5 % dari harga buka</strong></td><td>Arsip kode bertanda tangan terbuka otomatis setelah lunas</td></tr>
     <tr><td>Website jadi</td><td>Admin</td><td>14 hari sejak dijalankan; bawaan 35 % / +5 %, bisa diubah</td><td>Arsip kode + data otomatis; panduan pindah hosting; bantuan 14 hari</td></tr>
     <tr><td>Website + domain</td><td><strong>Hanya admin</strong></td><td>14 hari sejak dijalankan</td><td>Kode otomatis; domain lewat kode EPP/push registrar</td></tr>
-    <tr><td>Domain saja</td><td><strong>Anggota</strong> (setelah verifikasi DNS) dan admin</td><td>14 hari sejak dijalankan; harga minta + buka (bawaan 35 %) + 5 %; <strong>biaya 30 %</strong> untuk lot anggota; <strong>lelang ulang</strong> bila tidak laku</td><td>Escrow: pembeli bayar → EPP dari penjual → pembeli konfirmasi → 70 % dibayar ke penjual</td></tr>
+    <tr><td>Domain saja</td><td><strong>Anggota</strong> (setelah verifikasi DNS) dan admin</td><td>14 hari sejak dijalankan; harga minta + buka (bawaan 35 %) + 5 %; <strong>komisi penjualan 30 %</strong> hanya bila domain anggota terjual (tanpa biaya pasang/lelang ulang); <strong>lelang ulang</strong> bila tidak laku</td><td>Escrow: pembeli bayar → EPP dari penjual → pembeli konfirmasi → 70 % dibayar ke penjual</td></tr>
   </table></div>
   <ul>
     <li><strong>Verifikasi DNS</strong>: catatan TXT <code>_xaa-verify.&lt;domain&gt;</code> berisi token; diperiksa lewat dua resolver DNS-over-HTTPS; klaim domain tulis-sekali (satu domain satu akun); diperiksa ulang saat mulai, lelang ulang dan sebelum dana dibayarkan.</li>
@@ -315,7 +315,7 @@ mark { background: #ffe58a; color: #1d1a16; }
   <h3>9.4 Template SaaS</h3>
   <p>18 template dalam urutan harga (Waitlist sudah dibangun dengan demo, akun demo dan klip animasi); 17 berikutnya satu per satu, dimulai Link-in-Bio. <span class="s wip">🔄</span></p>
   <h3>9.5 Menu Company tersembunyi</h3>
-  <p>Setelan <code>company_visible</code>, <strong>bawaan tersembunyi</strong>, tombol tampil/sembunyi di Studio desk (dicatat di log audit). Saat tersembunyi: menu &amp; footer tanpa Company, <code>/company</code> 404 + noindex, keluar dari sitemap dan llms.txt; nama badan hukum tetap di invoice dan halaman hukum. <span class="s plan">📝 xaa §11</span></p>
+  <p>Setelan <code>company_visible</code>, <strong>bawaan tersembunyi</strong>, tombol tampil/sembunyi di Studio desk (dicatat di log audit). Saat tersembunyi: menu &amp; footer tanpa Company, <code>/company</code> 404 + noindex, keluar dari sitemap dan llms.txt; nama badan hukum tetap di invoice dan halaman hukum. <span class="s ok">✅ di-merge (xaa #28)</span></p>
   <h3>9.6 Rekening &amp; bayar manual</h3>
   <p>Sama dengan §8.8: semua 13 rekening BNI aktif (sekarang 6), QR per dompet, kurs harian per mata uang (sekarang hanya EUR/USD tetap), panduan 6 langkah sampai lunas. <span class="s plan">📝 xaa §12</span></p>
   <h3>9.7 Menu situs AdSense (domain + website artikel)</h3>
@@ -392,12 +392,13 @@ mark { background: #ffe58a; color: #1d1a16; }
     <tr><td>27 Okt</td><td>Perbaiki dulu SEO seluruh situs (per kata kunci, sitemap XML, berkas pendukung, backlink aman AdSense); lalu lelang; blueprint jadi HTML yang bisa diunduh</td><td><span class="s wip">🔄 §2, §4</span></td></tr>
     <tr><td>27 Okt</td><td>Tautan kebijakan privasi situs .de dalam berkas txt</td><td><span class="s ok">✅ dikirim</span></td></tr>
     <tr><td>27 Okt</td><td>Penawar lelang axto.io otomatis tanpa e-mail (e2e-admin@axto.io hanya akun uji lokal)</td><td><span class="s wip">🔄 PR #87, menunggu CI</span></td></tr>
-    <tr><td>27 Okt</td><td>Lelang xaa.es: 14 hari per lot; produk xaa.es otomatis 35 % / +5 %, Jumat 07.00; anggota jual domain saja (verifikasi DNS, biaya 30 %, lelang ulang); website + domain hanya admin; toko ala Sedo; segera berakhir di atas + filter</td><td><span class="s wip">🔄 §9.3</span></td></tr>
-    <tr><td>27 Okt</td><td>Menu Company xaa.es tersembunyi + tombol di admin</td><td><span class="s plan">📝 §9.5</span></td></tr>
+    <tr><td>27 Okt</td><td>Lelang xaa.es: 14 hari per lot; produk xaa.es otomatis 35 % / +5 %, Jumat 07.00; anggota jual domain saja (verifikasi DNS, komisi penjualan 30 % bila terjual, lelang ulang); website + domain hanya admin; toko ala Sedo; segera berakhir di atas + filter</td><td><span class="s wip">🔄 §9.3</span></td></tr>
+    <tr><td>27 Okt</td><td>"Bukan biaya 30%, tp komisi penjualan dari lelang domain sebesar 30%": 30 % = komisi dari harga akhir domain anggota yang terjual; tidak ada biaya lain</td><td><span class="s ok">✅ dicatat §9.3</span></td></tr>
+    <tr><td>27 Okt</td><td>Menu Company xaa.es tersembunyi + tombol di admin</td><td><span class="s ok">✅ di-merge (xaa #28)</span></td></tr>
     <tr><td>27 Okt</td><td>Rekening ulyah.com/donasi untuk axto.io &amp; xaa.es, konversi sesuai rekening BNI, panduan bayar manual</td><td><span class="s plan">📝 §8.8, §9.6</span></td></tr>
     <tr><td>27 Okt</td><td>Menu situs AdSense xaa.es + jual 1fr.fr, tilawa.de, xad.es, dawa.im @ US$30.000; 45 artikel per situs</td><td><span class="s plan">📝 §9.7, §10</span></td></tr>
   </table></div>
-  <p>Log lengkap sejak awal: <code>guardian-ai/docs/REQUESTS.md</code> (106 baris), <code>xaa/docs/BLUEPRINT.md</code> §3 (62 baris), <code>ulyah.com/docs/ADSENSE-BLUEPRINT.md</code> §9.</p>
+  <p>Log lengkap sejak awal: <code>guardian-ai/docs/REQUESTS.md</code> (107 baris), <code>xaa/docs/BLUEPRINT.md</code> §3 (63 baris), <code>ulyah.com/docs/ADSENSE-BLUEPRINT.md</code> §9.</p>
 </section>
 
 <section id="pemilik">
