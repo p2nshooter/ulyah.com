@@ -95,6 +95,8 @@ Object.assign(EXPECTED, {
   "xdaily.xyz": "5693981744147503",
   "dawa.im": "8991272269211824",
 });
+// 28 Oct 2026 (owner): seven domains move to one new account — loader, meta tag and ads.txt.
+for (const d of ["rough.lat", "saved.lat", "lie.skin", "dai.lat", "pab.lat", "crone.skin", "jai.lat"]) EXPECTED[d] = "2717693315276182";
 const verdicts = [];
 
 const browser = await chromium.launch();
