@@ -1,14 +1,16 @@
 AdSense crone.skin — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
 Pemilik, 18 Okt 2026: "Bikin web dan SEO nya jg web baru ini … saved.lat & crone.skin, Kode adsense
 google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0. Buatin jg cuplikan ads dan tag meta nya".
+Pemilik, 28 Okt 2026: "Ini jg crone.skin Google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0"
+(sebelumnya ca-pub-9433622530024776).
 Engine memasang ketiganya otomatis dari "adsense" di site.json; check.mjs menolak deploy kalau berbeda.
 
 Cuplikan adsense (di <head> setiap halaman)
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9433622530024776"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9653574958783349"
      crossorigin="anonymous"></script>
 
 Cuplikan ads.txt (https://crone.skin/ads.txt)
-google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0
+google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman)
-<meta name="google-adsense-account" content="ca-pub-9433622530024776">
+<meta name="google-adsense-account" content="ca-pub-9653574958783349">

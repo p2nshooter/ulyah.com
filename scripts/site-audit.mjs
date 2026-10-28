@@ -66,9 +66,9 @@ Object.assign(EXPECTED, {
   "pab.lat": "7250589269548267",
   "axto.dev": "6381187608934514",
   "oldco.in": "6293576511807510",
-  "lie.skin": "9666205248809954",
+  "lie.skin": "2271696914011881",
   "saved.lat": "4548005919629272",
-  "crone.skin": "9433622530024776",
+  "crone.skin": "9653574958783349",
 });
 // 20 Oct 2026 (owner): three more sites move to their own accounts.
 Object.assign(EXPECTED, {
