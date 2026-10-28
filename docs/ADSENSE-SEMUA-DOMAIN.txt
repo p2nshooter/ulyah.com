@@ -1,5 +1,5 @@
 =====================================================================
- KODE ADSENSE SEMUA DOMAIN — data per 26 Oktober 2026
+ KODE ADSENSE SEMUA DOMAIN — data per 28 Oktober 2026
 =====================================================================
 
  Jumlah domain milik pemilik : 39
@@ -67,11 +67,11 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-1768325549147657">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1768325549147657" crossorigin="anonymous"></script>
 
-[7] ca-pub-9433622530024776   (1 domain)
+[7] ca-pub-9653574958783349   (1 domain)
       • crone.skin    (repo ulyah.com · sites/crone.skin)
-    ads.txt : google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-9433622530024776">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9433622530024776" crossorigin="anonymous"></script>
+    ads.txt : google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-9653574958783349">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9653574958783349" crossorigin="anonymous"></script>
 
 [8] ca-pub-8469557036744946   (1 domain)
       • dai.lat       (repo ulyah.com · sites/dai.lat)
@@ -91,11 +91,11 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-6019445914743449">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6019445914743449" crossorigin="anonymous"></script>
 
-[11] ca-pub-9666205248809954   (1 domain)
+[11] ca-pub-2271696914011881   (1 domain)
       • lie.skin      (repo Lie)
-    ads.txt : google.com, pub-9666205248809954, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-9666205248809954">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9666205248809954" crossorigin="anonymous"></script>
+    ads.txt : google.com, pub-2271696914011881, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-2271696914011881">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2271696914011881" crossorigin="anonymous"></script>
 
 [12] ca-pub-6908951782430508   (1 domain)
       • nexvilo.de    (repo ulyah.com · sites/nexvilo.de — situs baru)
@@ -133,11 +133,11 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-4304267428455702">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4304267428455702" crossorigin="anonymous"></script>
 
-[18] ca-pub-6284085719914185   (1 domain)
+[18] ca-pub-3121033501099075   (1 domain)
       • qkb.es        (repo ulyah.com · sites/qkb.es)
-    ads.txt : google.com, pub-6284085719914185, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-6284085719914185">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6284085719914185" crossorigin="anonymous"></script>
+    ads.txt : google.com, pub-3121033501099075, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-3121033501099075">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3121033501099075" crossorigin="anonymous"></script>
 
 [19] ca-pub-7516944260248026   (1 domain)
       • qulen.de      (repo ulyah.com · sites/qulen.de)
@@ -240,19 +240,19 @@
   byodd.de     ca-pub-2228462932360966
   byoxy.de     ca-pub-6146217038829045
   byoy.de      ca-pub-1768325549147657
-  crone.skin   ca-pub-9433622530024776
+  crone.skin   ca-pub-9653574958783349
   dai.lat      ca-pub-8469557036744946
   dawa.im      ca-pub-8991272269211824   (sama dengan ulyah.com, axto.io, xaa.es, 1fr.fr, tilawa.de)
   dawo.es      ca-pub-7349356139063654
   jai.lat      ca-pub-6019445914743449
-  lie.skin     ca-pub-9666205248809954
+  lie.skin     ca-pub-2271696914011881
   nexvilo.de   ca-pub-6908951782430508
   odaily.xyz   ca-pub-9221781326457936
   oldco.in     ca-pub-6293576511807510
   pab.lat      ca-pub-7250589269548267
   profity.in   ca-pub-2493615451319531
   qarf.de      ca-pub-4304267428455702
-  qkb.es       ca-pub-6284085719914185
+  qkb.es       ca-pub-3121033501099075
   qulen.de     ca-pub-7516944260248026
   qurm.de      ca-pub-8212039662308316
   rough.es     ca-pub-4504974645924459
