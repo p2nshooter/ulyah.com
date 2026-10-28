@@ -88,7 +88,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | oldco.in | ca-pub-6293576511807510 | oldco.in · layout + public/ads.txt — diubah pemilik 20 Okt, kode terbaru (19 Okt: 2493615451319531; sebelumnya 6293576511807510, awalnya ca-pub-5693981744147503) |
 | profity.in | ca-pub-2493615451319531 | profity.in · layout + public/ads.txt — diubah pemilik 20 Okt (sebelumnya 5944786950535069 sejak 13 Okt) |
 | dawo.es | ca-pub-7349356139063654 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) — diubah pemilik 11 Okt (sebelumnya 5693981744147503) |
-| qkb.es | ca-pub-6284085719914185 | ulyah.com · sites/qkb.es (site.json + ADSENSE.txt) — diubah pemilik 19 Okt (sebelumnya ca-pub-5693981744147503) |
+| qkb.es | ca-pub-3121033501099075 | ulyah.com · sites/qkb.es (site.json + ADSENSE.txt) — diubah pemilik 28 Okt (sebelumnya ca-pub-6284085719914185 sejak 19 Okt, awalnya ca-pub-5693981744147503) |
 | byodd.de | ca-pub-2228462932360966 | ulyah.com · sites/byodd.de (site.json + ADSENSE.txt) — akun sendiri sejak 6 Okt (pemilik, urgent) |
 | xko.es | ca-pub-4906992051458194 | ulyah.com · sites/xko.es (site.json + ADSENSE.txt) — diubah pemilik 19 Okt (sebelumnya ca-pub-5693981744147503) |
 | byoxy.de | ca-pub-6146217038829045 | ulyah.com · sites/byoxy.de (site.json + ADSENSE.txt) — diubah pemilik 20 Okt (sebelumnya 5693981744147503) |
@@ -372,25 +372,25 @@ Tag meta
 
 ## qkb.es
 
-Kode dari pemilik, 19 Okt 2026 (sebelumnya ca-pub-5693981744147503).
+Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-6284085719914185 sejak 19 Okt, awalnya ca-pub-5693981744147503).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6284085719914185"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3121033501099075"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://qkb.es/ads.txt)
 
 ```
-google.com, pub-6284085719914185, DIRECT, f08c47fec0942fa0
+google.com, pub-3121033501099075, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-6284085719914185">
+<meta name="google-adsense-account" content="ca-pub-3121033501099075">
 ```
 
 ## byodd.de

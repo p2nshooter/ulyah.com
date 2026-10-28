@@ -1,5 +1,5 @@
 =====================================================================
- KODE ADSENSE SEMUA DOMAIN — data per 26 Oktober 2026
+ KODE ADSENSE SEMUA DOMAIN — data per 28 Oktober 2026
 =====================================================================
 
  Jumlah domain milik pemilik : 39
@@ -133,11 +133,11 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-4304267428455702">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4304267428455702" crossorigin="anonymous"></script>
 
-[18] ca-pub-6284085719914185   (1 domain)
+[18] ca-pub-3121033501099075   (1 domain)
       • qkb.es        (repo ulyah.com · sites/qkb.es)
-    ads.txt : google.com, pub-6284085719914185, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-6284085719914185">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6284085719914185" crossorigin="anonymous"></script>
+    ads.txt : google.com, pub-3121033501099075, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-3121033501099075">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3121033501099075" crossorigin="anonymous"></script>
 
 [19] ca-pub-7516944260248026   (1 domain)
       • qulen.de      (repo ulyah.com · sites/qulen.de)
@@ -252,7 +252,7 @@
   pab.lat      ca-pub-7250589269548267
   profity.in   ca-pub-2493615451319531
   qarf.de      ca-pub-4304267428455702
-  qkb.es       ca-pub-6284085719914185
+  qkb.es       ca-pub-3121033501099075
   qulen.de     ca-pub-7516944260248026
   qurm.de      ca-pub-8212039662308316
   rough.es     ca-pub-4504974645924459
