@@ -72,11 +72,6 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >    ca-pub-8991272269211824**. Situs baru: velnixo.de 7345352440829958, zoevian.de 5928074389292014, nexvilo.de
 >    6908951782430508, odaily.xyz 9221781326457936 (sempat 8991272269211824), xdaily.xyz 5693981744147503 (sempat
 >    8991272269211824) dan dawa.im 8991272269211824 (salinan dawa.es). „Hati2 jgn sampe ads.txt hilang2an.“
-> 14. **28 Okt 2026:** „Tolong ubah ads.txt seluruh domain ini" (rough.lat, saved.lat, lie.skin, dai.lat, pab.lat,
->    crone.skin, jai.lat) + `google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0`, disusul „rubah semua" dengan
->    cuplikan dan tag meta `ca-pub-2717693315276182` → **ketujuh domain → ca-pub-2717693315276182** (loader, tag meta
->    dan ads.txt). Lima situs di `sites/` (`site.json` + `ADSENSE.txt`), jai.lat di repo Jai dan lie.skin di repo Lie
->    (`src/lib/site.ts` + `public/ads.txt`).
 > byodd.de, qulen.de dan zolun.de tetap dengan akun sendiri (6 Okt). Tabel di bawah adalah
 > keadaan terbaru; `scripts/site-audit.mjs` memeriksa domain live dengan angka yang sama.
 
@@ -88,8 +83,8 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | 1fr.fr | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant 1fr) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 26 Okt (sebelumnya 5928074389292014) |
 | axto.us | ca-pub-2990015102981265 | axto.us · sites/axto.us (site.json + ADSENSE.txt) — diubah pemilik 10 Okt |
 | axto.dev | ca-pub-6381187608934514 | axtodev · src/lib/site.ts + public/ads.txt — diubah pemilik 19 Okt (sebelumnya ca-pub-2493615451319531) |
-| jai.lat | ca-pub-2717693315276182 | Jai · site.ts + public/ads.txt — diubah pemilik 28 Okt (sebelumnya ca-pub-6019445914743449) |
-| lie.skin | ca-pub-2717693315276182 | Lie · src/lib/site.ts + public/ads.txt — diubah pemilik 28 Okt (sebelumnya ca-pub-9666205248809954) |
+| jai.lat | ca-pub-6019445914743449 | Jai · site.ts + public/ads.txt — diubah pemilik 10 Okt |
+| lie.skin | ca-pub-9666205248809954 | Lie · src/lib/site.ts + public/ads.txt — diubah pemilik 19 Okt (sebelumnya ca-pub-4548005919629272) |
 | oldco.in | ca-pub-6293576511807510 | oldco.in · layout + public/ads.txt — diubah pemilik 20 Okt, kode terbaru (19 Okt: 2493615451319531; sebelumnya 6293576511807510, awalnya ca-pub-5693981744147503) |
 | profity.in | ca-pub-2493615451319531 | profity.in · layout + public/ads.txt — diubah pemilik 20 Okt (sebelumnya 5944786950535069 sejak 13 Okt) |
 | dawo.es | ca-pub-7349356139063654 | ulyah.com · sites/dawo.es (site.json + ADSENSE.txt) — diubah pemilik 11 Okt (sebelumnya 5693981744147503) |
@@ -107,12 +102,12 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | zolun.de | ca-pub-6016479123891586 | ulyah.com · sites/zolun.de (site.json + ADSENSE.txt) — akun sendiri; diganti pemilik 11 Okt (sebelumnya 4548005919629272) |
 | zufiq.de | ca-pub-9338499658056112 | ulyah.com · sites/zufiq.de (site.json + ADSENSE.txt) — diubah pemilik 19 Okt (sebelumnya ca-pub-5693981744147503) |
 | zuvik.de | ca-pub-4613976964728693 | ulyah.com · sites/zuvik.de (site.json + ADSENSE.txt) — diubah pemilik 19 Okt (sebelumnya ca-pub-5693981744147503) |
-| dai.lat | ca-pub-2717693315276182 | ulyah.com · sites/dai.lat (site.json + ADSENSE.txt) — diubah pemilik 28 Okt (sebelumnya ca-pub-8469557036744946) |
-| pab.lat | ca-pub-2717693315276182 | ulyah.com · sites/pab.lat (site.json + ADSENSE.txt) — diubah pemilik 28 Okt (sebelumnya ca-pub-7250589269548267) |
-| rough.lat | ca-pub-2717693315276182 | ulyah.com · sites/rough.lat (site.json + ADSENSE.txt) — diubah pemilik 28 Okt (sebelumnya ca-pub-5944786950535069) |
+| dai.lat | ca-pub-8469557036744946 | ulyah.com · sites/dai.lat (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
+| pab.lat | ca-pub-7250589269548267 | ulyah.com · sites/pab.lat (site.json + ADSENSE.txt) — diubah pemilik 19 Okt (sebelumnya ca-pub-6146217038829045) |
+| rough.lat | ca-pub-5944786950535069 | ulyah.com · sites/rough.lat (site.json + ADSENSE.txt) — situs baru 10 Okt (draft sampai 40 artikel) |
 | rough.es | ca-pub-4504974645924459 | ulyah.com · sites/rough.es (site.json + ADSENSE.txt) — diubah pemilik 20 Okt (sebelumnya 6908951782430508 sejak 14 Okt) |
-| saved.lat | ca-pub-2717693315276182 | ulyah.com · sites/saved.lat (site.json + ADSENSE.txt) — diubah pemilik 28 Okt (sebelumnya ca-pub-4548005919629272) |
-| crone.skin | ca-pub-2717693315276182 | ulyah.com · sites/crone.skin (site.json + ADSENSE.txt) — diubah pemilik 28 Okt (sebelumnya ca-pub-9433622530024776) |
+| saved.lat | ca-pub-4548005919629272 | ulyah.com · sites/saved.lat (site.json + ADSENSE.txt) — situs baru 19 Okt (sempat 9433622530024776) |
+| crone.skin | ca-pub-9433622530024776 | ulyah.com · sites/crone.skin (site.json + ADSENSE.txt) — situs baru 19 Okt |
 | dawa.es | ca-pub-6371903555702163 | ulyah.com · apps/web (tenant dawa) — **bukan milik pemilik lagi, JANGAN DISENTUH** |
 | tilawa.de | ca-pub-8991272269211824 | ulyah.com · apps/web (tenant tilawa) — apps/web/src/lib/ad-config.ts + route /ads.txt — diubah pemilik 26 Okt (sebelumnya 7345352440829958) |
 | xad.es | ca-pub-5517446616694631 | ulyah.com · apps/web (tenant xad) — diubah pemilik 11 Okt |
@@ -263,48 +258,48 @@ Tag meta
 
 ## jai.lat
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-6019445914743449). Riwayat: Kode dari pemilik, 10 Okt 2026.
+Kode dari pemilik, 10 Okt 2026.
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6019445914743449"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://jai.lat/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-6019445914743449, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-6019445914743449">
 ```
 
 ## lie.skin
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-9666205248809954). Riwayat: Kode dari pemilik, 19 Okt 2026 (sebelumnya ca-pub-4548005919629272). Riwayat: Kode dari pemilik, 12 Okt 2026 (sebelumnya ca-pub-9666205248809954).
+Kode dari pemilik, 19 Okt 2026 (sebelumnya ca-pub-4548005919629272). Riwayat: Kode dari pemilik, 12 Okt 2026 (sebelumnya ca-pub-9666205248809954).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9666205248809954"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://lie.skin/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-9666205248809954, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-9666205248809954">
 ```
 
 ## oldco.in
@@ -695,71 +690,71 @@ Tag meta
 
 ## dai.lat
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-8469557036744946). Riwayat: Situs baru, kode dari pemilik 10 Okt 2026. Dibangun di `sites/dai.lat` (draft: online dengan noindex + tag AdSense sampai 40 artikel).
+Situs baru, kode dari pemilik 10 Okt 2026. Dibangun di `sites/dai.lat` (draft: online dengan noindex + tag AdSense sampai 40 artikel).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8469557036744946"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://dai.lat/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-8469557036744946, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-8469557036744946">
 ```
 
 ## pab.lat
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-7250589269548267). Riwayat: Kode dari pemilik, 19 Okt 2026 (sebelumnya ca-pub-6146217038829045). Riwayat: Situs baru, kode dari pemilik 10 Okt 2026. Dibangun di `sites/pab.lat` (draft: online dengan noindex + tag AdSense sampai 40 artikel).
+Kode dari pemilik, 19 Okt 2026 (sebelumnya ca-pub-6146217038829045). Riwayat: Situs baru, kode dari pemilik 10 Okt 2026. Dibangun di `sites/pab.lat` (draft: online dengan noindex + tag AdSense sampai 40 artikel).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250589269548267"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://pab.lat/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-7250589269548267, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-7250589269548267">
 ```
 
 ## rough.lat
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-5944786950535069). Riwayat: Situs baru, kode dari pemilik 10 Okt 2026. Dibangun di `sites/rough.lat` (draft: online dengan noindex + tag AdSense sampai 40 artikel).
+Situs baru, kode dari pemilik 10 Okt 2026. Dibangun di `sites/rough.lat` (draft: online dengan noindex + tag AdSense sampai 40 artikel).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5944786950535069"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://rough.lat/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-5944786950535069, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-5944786950535069">
 ```
 
 ## rough.es
@@ -787,48 +782,48 @@ Tag meta
 
 ## saved.lat
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-4548005919629272). Riwayat: Situs baru, kode dari pemilik 19 Okt 2026 (pengganti ca-pub-9433622530024776 yang diberikan sehari sebelumnya).
+Situs baru, kode dari pemilik 19 Okt 2026 (pengganti ca-pub-9433622530024776 yang diberikan sehari sebelumnya).
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://saved.lat/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-4548005919629272">
 ```
 
 ## crone.skin
 
-Kode dari pemilik, 28 Okt 2026 (sebelumnya ca-pub-9433622530024776). Riwayat: Situs baru, kode dari pemilik 18 Okt 2026.
+Situs baru, kode dari pemilik 18 Okt 2026.
 
 Cuplikan adsense
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2717693315276182"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9433622530024776"
      crossorigin="anonymous"></script>
 ```
 
 Cuplikan ads.txt (https://crone.skin/ads.txt)
 
 ```
-google.com, pub-2717693315276182, DIRECT, f08c47fec0942fa0
+google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0
 ```
 
 Tag meta
 
 ```html
-<meta name="google-adsense-account" content="ca-pub-2717693315276182">
+<meta name="google-adsense-account" content="ca-pub-9433622530024776">
 ```
 
 ## dawa.es
