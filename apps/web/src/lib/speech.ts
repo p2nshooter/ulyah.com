@@ -241,6 +241,12 @@ function speakPiece(
           };
           step();
         };
+        // Declared before finish(): it can run before they are armed — when
+        // reading was stopped already, or the engine fails the utterance at
+        // once — and touching a const before its line throws.
+        let estKick: ReturnType<typeof setTimeout> | undefined;
+        let startWatchdog: ReturnType<typeof setTimeout> | undefined;
+        let giveUpWatchdog: ReturnType<typeof setTimeout> | undefined;
         const finish = () => {
           if (settled) return;
           settled = true;
@@ -275,7 +281,7 @@ function speakPiece(
         if (cancelled()) return finish();
         synth.speak(u);
 
-        const estKick = setTimeout(() => {
+        estKick = setTimeout(() => {
           if (!nativeBoundary) startEstimator();
         }, 500);
 
@@ -285,7 +291,7 @@ function speakPiece(
         // the listener off mid-word and replayed from the top. THAT is the
         // jumping. Retry only when the engine confirms nothing is playing, and
         // with a fresh utterance: re-issuing a used one is unreliable.
-        const startWatchdog = setTimeout(() => {
+        startWatchdog = setTimeout(() => {
           if (started || settled || cancelled()) return;
           if (synth.speaking || synth.pending) {
             started = true; // it IS talking — let onend finish this piece
@@ -308,7 +314,7 @@ function speakPiece(
         // Give up only if nothing ever started AND nothing is playing —
         // otherwise a slow engine has its audio abandoned and the reader skips
         // over text the listener never heard.
-        const giveUpWatchdog = setTimeout(() => {
+        giveUpWatchdog = setTimeout(() => {
           if (!started && !settled && !synth.speaking && !synth.pending) finish();
         }, 6000);
       });
