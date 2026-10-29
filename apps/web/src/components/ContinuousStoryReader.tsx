@@ -148,7 +148,10 @@ export function ContinuousStoryReader({
     } catch {
       /* ignore */
     }
-    if (!autoStart && !flag) return;
+    // ?autoread=1 is read here, not by the page: a page that reads its query
+    // cannot be served from cache, and Next answers 500 when it tries.
+    const fromUrl = autoStart || new URLSearchParams(window.location.search).get("autoread") === "1";
+    if (!fromUrl && !flag) return;
     const timer = setTimeout(() => void start(), 700);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps

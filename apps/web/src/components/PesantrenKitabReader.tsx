@@ -668,8 +668,14 @@ export function PesantrenKitabReader({
     } catch {
       /* private mode */
     }
-    if (!autoReadStart && !stored) return;
-    const mode = (autoReadStart ? autoReadMode : (stored as AudioMode)) || "semua";
+    // ?autoread=1&mode=… is read here, not by the page: a page that reads its
+    // query cannot be served from cache, and Next answers 500 when it tries.
+    const query = new URLSearchParams(window.location.search);
+    const fromUrl = autoReadStart || query.get("autoread") === "1";
+    const urlMode = query.get("mode");
+    const askedMode: AudioMode = urlMode === "arab" || urlMode === "arti" ? urlMode : autoReadMode;
+    if (!fromUrl && !stored) return;
+    const mode = (fromUrl ? askedMode : (stored as AudioMode)) || "semua";
     setAudioMode(mode);
     const timer = setTimeout(() => void startAutoRead(mode), 800);
     return () => clearTimeout(timer);

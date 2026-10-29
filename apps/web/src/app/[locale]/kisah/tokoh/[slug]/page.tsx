@@ -92,15 +92,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function KisahTokohPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ autoread?: string }>;
-}) {
+export default async function KisahTokohPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: raw, slug } = await params;
-  const { autoread } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const data = await fetchPerson(slug, locale);
   if (!data) notFound();
@@ -145,7 +138,6 @@ export default async function KisahTokohPage({
         summary={person.summary_id}
         sections={sections}
         nextHref={nextHref}
-        autoStart={autoread === "1"}
       />
     </article>
   );
