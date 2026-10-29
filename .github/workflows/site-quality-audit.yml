@@ -1,0 +1,57 @@
+name: Site quality audit (translation, errors, layout — real browser, read-only)
+
+# docs/ADSENSE-BLUEPRINT.md §19: every site, every top-level page and a sample of the deeper ones,
+# desktop and phone — wrong-language text, JavaScript errors, failed requests, sideways
+# scrolling (scripts/site-quality-audit.mjs). The development sandbox cannot reach the
+# production domains, so this is how the sites are audited on the real thing.
+#
+# Runs by hand, and on a push that changes the audit itself to the working branch
+# (workflow_dispatch only registers from main).
+
+on:
+  workflow_dispatch:
+    inputs:
+      domains:
+        description: "Space-separated domains (empty = all five)"
+        required: false
+        default: ""
+      sample:
+        description: "Deep pages per section"
+        required: false
+        default: "12"
+  push:
+    branches: [claude/ads-txt-domain-updates-uvhkwj]
+    paths:
+      - '.github/workflows/site-quality-audit.yml'
+      - 'scripts/site-quality-audit.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    # Pinned like live-probe.yml: Playwright cannot install Chromium's libraries on Ubuntu 26.04.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Install Playwright + Chromium
+        run: |
+          mkdir -p "$RUNNER_TEMP/audit" && cp scripts/site-quality-audit.mjs "$RUNNER_TEMP/audit/"
+          cd "$RUNNER_TEMP/audit" && npm init -y >/dev/null && npm i --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Audit
+        working-directory: ${{ runner.temp }}/audit
+        env:
+          SAMPLE: ${{ inputs.sample || '12' }}
+        run: node site-quality-audit.mjs ${{ inputs.domains }}
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: site-quality-audit
+          path: ${{ runner.temp }}/audit/audit-report.json
+          retention-days: 14
