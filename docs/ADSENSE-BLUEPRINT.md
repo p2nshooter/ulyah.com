@@ -1359,7 +1359,7 @@ yang sama dan dari portal yang sama (§17.3).
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
 | Kode, tes, PR #380, merge | ✅ 29 Okt (CI hijau, `16bb0710`) |
-| Deploy, cek live | 🔄 |
+| Deploy, cek live | ✅ 29 Okt — deploy 558; live probe dan `admin-live-check.yml`: ulyah.com/acquisition 200 dengan US$250.000 |
 
 ### 17.3 Situs mitra juga dijual, semua lewat ulyah.com (pemilik, 29 Okt 2026)
 
@@ -1382,7 +1382,8 @@ ulyah.com, semua terkoneksi ke ulyah.com".
 | Dicatat di blueprint | ✅ 29 Okt |
 | Kode dan tes (`scripts/check-site-sale.ts` 10/10) | ✅ 29 Okt |
 | Uji browser lokal kelima situs (desktop + HP) | ✅ 29 Okt — ulyah.com 23/23, 1fr.fr 20/20, tilawa.de 20/20, dawa.im 20/20, xad.es 15/20 (5 "gagal" karena harga xad.es baru saja diubah ke US$275.000 dari Admin ulyah.com dalam tes yang sama — membuktikan kendali dari ulyah.com sampai ke pita, menu dan halaman xad.es); portal admin ulyah.com 30/30, 1fr.fr 15/15 |
-| PR, deploy, cek live | 🔄 |
+| PR #382, deploy 560 | ✅ 29 Okt (`0ceac5b8`) |
+| Cek live (`admin-live-check.yml`, run 2) | ✅ 29 Okt — `/acquisition` 200 di kelima situs: ulyah.com US$250.000, 1fr.fr 250 000 $ US, tilawa.de 250.000 US$, dawa.im 250.000 US$, xad.es US$250,000; login demo dan portal admin setiap situs lulus |
 
 ## 18. Portal admin setiap situs: mandiri, demo hanya-lihat, mudah untuk promosi (pemilik, 29 Okt 2026)
 
