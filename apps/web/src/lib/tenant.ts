@@ -134,8 +134,9 @@ const DAWAIM: TenantConfig = {
   wordmark: null,
   wordmarkGold: null,
   acquisitionEmail: "salam@ulyah.com",
-  // Auto ads only (no manual units), donation forward, not for sale.
-  features: { ads: true, donationForward: true, forSale: false },
+  // Auto ads only (no manual units), donation forward; for sale like ulyah.com since 29 Oct 2026
+  // (docs/ADSENSE-BLUEPRINT.md §17.3), terms from the ulyah.com admin.
+  features: { ads: true, donationForward: true, forSale: true },
 };
 
 const XAD: TenantConfig = {
@@ -155,8 +156,9 @@ const XAD: TenantConfig = {
   wordmark: null,
   wordmarkGold: null,
   acquisitionEmail: "salam@ulyah.com",
-  // Core English member of the ecosystem — ads on, donation forward, not for sale.
-  features: { ads: true, donationForward: true, forSale: false },
+  // Core English member of the ecosystem — ads on, donation forward; for sale like ulyah.com
+  // since 29 Oct 2026 (docs/ADSENSE-BLUEPRINT.md §17.3), terms from the ulyah.com admin.
+  features: { ads: true, donationForward: true, forSale: true },
 };
 
 const TENANTS: Record<string, TenantConfig> = { "1fr": ONEFAITH, tilawa: TILAWA, dawa: DAWA, dawaim: DAWAIM, xad: XAD, ulyah: ULYAH };

@@ -32,7 +32,7 @@ function embedFor(raw: string): string | null {
   }
 }
 
-export function MakkahLive({ url }: { url: string }) {
+export function MakkahLive({ url, words }: { url: string; words: { label: string; loading: string; frame: string } }) {
   const [src, setSrc] = useState<string | null>(url ? embedFor(url) : null);
   const [live, setLive] = useState(false);
 
@@ -63,7 +63,7 @@ export function MakkahLive({ url }: { url: string }) {
   return (
     <div className="overflow-hidden rounded-3xl border border-accent/40 bg-black shadow-2xl" data-testid="sale-makkah-live">
       <div className="flex items-center justify-between bg-primary px-4 py-2 text-xs text-[#f4efe3]">
-        <span className="font-semibold">🕋 Masjidil Haram, Makkah — 24 jam</span>
+        <span className="font-semibold">{words.label}</span>
         <span className="inline-flex items-center gap-1.5">
           <span className={`h-2 w-2 rounded-full ${live || url ? "animate-pulse bg-red-500" : "bg-white/40"}`} /> LIVE
         </span>
@@ -72,14 +72,14 @@ export function MakkahLive({ url }: { url: string }) {
         {src ? (
           <iframe
             src={src}
-            title="Live Makkah 24 jam"
+            title={words.frame}
             className="absolute inset-0 h-full w-full"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
             loading="lazy"
           />
         ) : (
-          <div className="absolute inset-0 grid place-items-center text-sm text-white/70">Memuat siaran langsung…</div>
+          <div className="absolute inset-0 grid place-items-center text-sm text-white/70">{words.loading}</div>
         )}
       </div>
     </div>
