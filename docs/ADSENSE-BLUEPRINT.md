@@ -630,6 +630,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 29 Okt | "Untuk saat ini make 2 jalur, bisa dari ulyah.com maupun bisa mandiri, klo nanti ada yg beli baru di putus satu per satu, agar lebih mudah d kontrol koneksikan dulu ke ulyah.com" | 🔄 §18.4 — dua jalur sekaligus: Admin ulyah.com (pemilik memilih situs) dan admin mandiri setiap situs; semua tetap terhubung ke ulyah.com; diputus satu per satu saat terjual |
 | 29 Okt | "Untuk kitab tajwid anak, game anak, gunakan pwngucapanya menggunakan lidah orang Arab, agar faseh dan makhroj nya tepat, tinggal pilih pembacanya \"laki perempuan dewasa atau anak2\"" | ⏳ §20 — dicatat; dikerjakan setelah §18, §17.3 dan §19 |
 | 29 Okt | "Jgn d kasih harga dulu haji umroh, kosongin harganya atau kasih keterangan i sewakan slot nya" | ✅ §18.5 — tidak ada harga di halaman Haji & Umroh (termasuk "$1/hari" sewa yang lama); kartu menulis "Slot disewakan"; editor admin tanpa kolom harga |
+| 29 Okt | "Translate di masing2 situs di bikinin, biar saling berbagi link untuk translate nya" (dengan tangkapan layar menu bahasa ulyah.com) | ✅ §19.1 — menu bahasa di kelima situs, setiap bahasa membuka halaman yang sama di situs bahasanya |
 
 ---
 
@@ -1456,6 +1457,18 @@ membuka domain produksi) membaca `/sitemap.txt` setiap situs, membuka semua hala
 sampel halaman dalam per bagian, lalu mencatat status, error JavaScript, permintaan gagal (termasuk prefetch Next.js
 `?_rsc=`), gulir ke samping di HP dan kata dalam bahasa yang salah beserta kalimatnya. Laporan lengkap disimpan sebagai
 artefak `audit-report.json`.
+
+### 19.1 Menu bahasa di setiap situs (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „Translate di masing2 situs di bikinin, biar saling berbagi link untuk translate nya".
+
+- Sebelumnya hanya ulyah.com yang punya menu 🌐; situs mitra tidak, karena setiap situs mitra hanya memuat bahasanya
+  sendiri dan daftar menu dibangun dari situ.
+- Kini kelima situs punya menu yang sama: Bahasa Indonesia → ulyah.com, English → xad.es, Deutsch → tilawa.de,
+  Français → 1fr.fr, Español → dawa.im (tanpa bahasa situs itu sendiri). Setiap pilihan membuka **halaman yang sama**
+  dalam bahasa itu, dengan alamat yang benar di situs tujuan (mis. 1fr.fr/direct → xad.es/live, dawa.im/en-vivo,
+  ulyah.com/live) — pasangan yang sama dengan hreflang; halaman yang tidak ada di bahasa itu (mis. /syukur) membuka
+  beranda situs tujuan.
 
 Temuan awal (live probe 29 Okt, sebelum audit penuh):
 - Prefetch Next.js ke halaman tanpa awalan bahasa menjawab **404** (`/quran?_rsc=`, `/hadits?_rsc=`, `/acquisition?_rsc=`,
