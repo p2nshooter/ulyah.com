@@ -35,71 +35,72 @@ interface Labels {
   rentBody: string;
   rentCta: string;
 }
-// $1/day rental of this Hajj & Umrah page — elegant, courteous, inviting copy
-// per site language (owner: "kasih harga sewa halaman haji & umroh $1/hari,
-// bahasa elegan sopan tapi mengundang, bahasa masing-masing negara").
+// The invitation to rent this Hajj & Umrah page — elegant, courteous, inviting copy
+// per site language (owner: "bahasa elegan sopan tapi mengundang, bahasa masing-masing
+// negara"). No price, not even the rent: the $1/day of the first brief was withdrawn
+// (owner, 29 Oct 2026: "Jgn d kasih harga dulu haji umroh … kasih keterangan disewakan slot nya").
 const LABELS: Record<string, Labels> = {
   id: {
     all: "Semua", hajj: "Haji", umrah: "Umroh", duration: "Durasi", departure: "Keberangkatan",
-    from: "Disewakan · $1/hari", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini.",
+    from: "Slot disewakan", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini.",
     rentTitle: "Ruang terhormat untuk mitra travel Haji & Umroh",
-    rentBody: "Tampilkan layanan Haji & Umroh Anda di halaman ini kepada pengunjung yang nyata dan bersungguh-sungguh. Sewa dengan ringan hati — hanya $1 per hari. Sebuah kehormatan bagi kami untuk menyambut Anda.",
+    rentBody: "Tampilkan layanan Haji & Umroh Anda di halaman ini kepada pengunjung yang nyata dan bersungguh-sungguh. Slot ini tersedia untuk disewa — hubungi kami untuk ketentuannya. Sebuah kehormatan bagi kami untuk menyambut Anda.",
     rentCta: "Sewa halaman ini — salam@ulyah.com",
   },
   en: {
     all: "All", hajj: "Hajj", umrah: "Umrah", duration: "Duration", departure: "Departure",
-    from: "For rent · $1/day", contact: "Contact us", empty: "No packages are available right now.",
+    from: "Slot for rent", contact: "Contact us", empty: "No packages are available right now.",
     rentTitle: "A distinguished space for Hajj & Umrah partners",
-    rentBody: "Present your Hajj & Umrah services on this page to real, devoted visitors. Rent it with ease — just $1 per day. It would be our honour to welcome you.",
+    rentBody: "Present your Hajj & Umrah services on this page to real, devoted visitors. Slots are available to rent — contact us for the terms. It would be our honour to welcome you.",
     rentCta: "Rent this page — salam@ulyah.com",
   },
   zh: {
     all: "全部", hajj: "朝觐", umrah: "副朝", duration: "行程天数", departure: "出发",
-    from: "招租 · 每日 $1", contact: "联系我们", empty: "目前暂无套餐。",
+    from: "广告位招租", contact: "联系我们", empty: "目前暂无套餐。",
     rentTitle: "为朝觐与副朝合作伙伴预留的尊贵位置",
-    rentBody: "在此页面向真实、虔诚的访客展示您的朝觐与副朝服务。轻松租用 — 每日仅需 $1。我们很荣幸欢迎您。",
+    rentBody: "在此页面向真实、虔诚的访客展示您的朝觐与副朝服务。广告位现可租用——请联系我们了解详情。我们很荣幸欢迎您。",
     rentCta: "租用此页面 — salam@ulyah.com",
   },
   ru: {
     all: "Все", hajj: "Хадж", umrah: "Умра", duration: "Длительность", departure: "Вылет",
-    from: "Аренда · $1/день", contact: "Связаться", empty: "Сейчас нет доступных пакетов.",
+    from: "Место сдаётся в аренду", contact: "Связаться", empty: "Сейчас нет доступных пакетов.",
     rentTitle: "Достойное место для партнёров по хаджу и умре",
-    rentBody: "Представьте свои услуги хаджа и умры на этой странице реальным, искренним посетителям. Аренда с лёгкостью — всего $1 в день. Для нас будет честью приветствовать вас.",
+    rentBody: "Представьте свои услуги хаджа и умры на этой странице реальным, искренним посетителям. Места доступны для аренды — свяжитесь с нами, чтобы узнать условия. Для нас будет честью приветствовать вас.",
     rentCta: "Арендовать эту страницу — salam@ulyah.com",
   },
   ja: {
     all: "すべて", hajj: "ハッジ", umrah: "ウムラ", duration: "日程", departure: "出発",
-    from: "貸出 · $1/日", contact: "お問い合わせ", empty: "現在利用可能なパッケージはありません。",
+    from: "広告枠 貸出中", contact: "お問い合わせ", empty: "現在利用可能なパッケージはありません。",
     rentTitle: "ハッジ・ウムラ提携先のための特別なスペース",
-    rentBody: "このページで、実際の熱心な訪問者にあなたのハッジ・ウムラのサービスを紹介しましょう。気軽に貸出 — 1日わずか $1。皆様をお迎えできることを光栄に思います。",
+    rentBody: "このページで、実際の熱心な訪問者にあなたのハッジ・ウムラのサービスを紹介しましょう。広告枠をお貸しします。条件はお問い合わせください。皆様をお迎えできることを光栄に思います。",
     rentCta: "このページを借りる — salam@ulyah.com",
   },
   ar: {
     all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة",
-    from: "متاح للإيجار · دولار/يوم", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً.",
+    from: "مساحة متاحة للإيجار", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً.",
     rentTitle: "مساحة مميّزة لشركاء الحج والعمرة",
-    rentBody: "اعرض خدمات الحج والعمرة على هذه الصفحة أمام زوّار حقيقيين ومهتمّين. الإيجار ميسور — دولار واحد فقط في اليوم. يشرّفنا أن نرحّب بكم.",
+    rentBody: "اعرض خدمات الحج والعمرة على هذه الصفحة أمام زوّار حقيقيين ومهتمّين. المساحات متاحة للإيجار — تواصلوا معنا لمعرفة الشروط. يشرّفنا أن نرحّب بكم.",
     rentCta: "استأجر هذه الصفحة — salam@ulyah.com",
   },
   fr: {
     all: "Tout", hajj: "Hajj", umrah: "Omra", duration: "Durée", departure: "Départ",
-    from: "À louer · 1 $/jour", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment.",
+    from: "Emplacement à louer", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment.",
     rentTitle: "Un espace distingué pour les partenaires du Hajj et de l'Omra",
-    rentBody: "Présentez vos services de Hajj et d'Omra sur cette page, devant un public réel et dévoué. Louez-le en toute simplicité — seulement 1 $ par jour. Ce serait un honneur de vous accueillir.",
+    rentBody: "Présentez vos services de Hajj et d'Omra sur cette page, devant un public réel et dévoué. Des emplacements sont à louer — contactez-nous pour les conditions. Ce serait un honneur de vous accueillir.",
     rentCta: "Louer cette page — salam@ulyah.com",
   },
   de: {
     all: "Alle", hajj: "Hadsch", umrah: "Umrah", duration: "Dauer", departure: "Abflug",
-    from: "Zu vermieten · 1 $/Tag", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar.",
+    from: "Platz zu vermieten", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar.",
     rentTitle: "Ein erlesener Platz für Hadsch- und Umrah-Partner",
-    rentBody: "Präsentieren Sie Ihre Hadsch- und Umrah-Angebote auf dieser Seite vor einem echten, andächtigen Publikum. Mieten Sie ihn ganz unbeschwert — nur 1 $ pro Tag. Es wäre uns eine Ehre, Sie willkommen zu heißen.",
+    rentBody: "Präsentieren Sie Ihre Hadsch- und Umrah-Angebote auf dieser Seite vor einem echten, andächtigen Publikum. Plätze sind zu vermieten — fragen Sie uns nach den Konditionen. Es wäre uns eine Ehre, Sie willkommen zu heißen.",
     rentCta: "Diese Seite mieten — salam@ulyah.com",
   },
   es: {
     all: "Todo", hajj: "Hach", umrah: "Umra", duration: "Duración", departure: "Salida",
-    from: "En alquiler · 1 $/día", contact: "Contáctanos", empty: "No hay paquetes disponibles por ahora.",
+    from: "Espacio en alquiler", contact: "Contáctanos", empty: "No hay paquetes disponibles por ahora.",
     rentTitle: "Un espacio distinguido para socios de Hach y Umra",
-    rentBody: "Presente sus servicios de Hach y Umra en esta página ante visitantes reales y devotos. Alquílela con toda comodidad — solo 1 $ al día. Sería un honor darle la bienvenida.",
+    rentBody: "Presente sus servicios de Hach y Umra en esta página ante visitantes reales y devotos. Hay espacios en alquiler: contáctenos para conocer las condiciones. Sería un honor darle la bienvenida.",
     rentCta: "Alquilar esta página — salam@ulyah.com",
   },
 };
@@ -136,7 +137,7 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
   }
 
   // Elegant, courteous rental invitation — shown whether or not any package
-  // is listed, so the $1/day offer to Hajj & Umrah partners is always present.
+  // is listed, so the invitation to Hajj & Umrah partners is always present.
   const rentInvite = (
     <div className="mb-8 overflow-hidden rounded-2xl border border-accent/30 bg-linear-to-br from-accent/10 via-transparent to-accent/5 p-6 text-center sm:p-8">
       <p className="text-3xl">🕋</p>
@@ -238,9 +239,10 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
               </dl>
 
               <div className="mt-4 flex items-end justify-between gap-3">
-                {/* NO price claims on the public page (owner: "jangan pernah
-                    memasukkan harga, jangan ada claim harga — tulis aja
-                    disewakan"): the slot is offered for rent instead. */}
+                {/* NO price on the public page, not even the slot's rent (owner: "jangan pernah
+                    memasukkan harga, jangan ada claim harga — tulis aja disewakan"; 29 Oct 2026:
+                    "Jgn d kasih harga dulu haji umroh, kosongin harganya atau kasih keterangan
+                    disewakan slot nya"): the card says the slot is for rent. */}
                 <div>
                   <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
                     {t.from}

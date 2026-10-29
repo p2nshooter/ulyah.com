@@ -106,8 +106,8 @@ const T: Record<string, Strings> = {
     en: "An honoured space for Hajj & Umrah travel partners",
   },
   hajjSpaceBody: {
-    id: "Tampilkan layanan Haji & Umroh Anda di halaman ini kepada pengunjung yang nyata dan bersungguh-sungguh. Sewa dengan ringan hati — hanya $1 per hari. Sebuah kehormatan bagi kami untuk menyambut Anda.",
-    en: "Show your Hajj & Umrah services on this page to real, sincere visitors. Rent it with an easy heart — just $1 per day. It would be an honour for us to welcome you.",
+    id: "Tampilkan layanan Haji & Umroh Anda di halaman ini kepada pengunjung yang nyata dan bersungguh-sungguh. Slot ini tersedia untuk disewa — hubungi kami untuk ketentuannya. Sebuah kehormatan bagi kami untuk menyambut Anda.",
+    en: "Show your Hajj & Umrah services on this page to real, sincere visitors. Slots are available to rent — contact us for the terms. It would be an honour for us to welcome you.",
   },
   hajjRent: {
     id: "Sewa halaman ini — salam@ulyah.com",

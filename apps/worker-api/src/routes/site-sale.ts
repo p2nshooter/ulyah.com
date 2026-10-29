@@ -3,6 +3,8 @@ import type { Env } from "../env.js";
 import type { SessionData } from "../lib/session.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { R2_OFF_MESSAGE } from "../lib/r2.js";
+import { getDemo } from "../lib/admin-demo.js";
+import { SITES, isSiteId } from "../lib/sites.js";
 import {
   buildOffer, getSettings, listOffers, offerProblem, publicSettings, recentLog, recordOffer, saveSettings, updateOffer,
   type OfferInput, type SaleOffer,
@@ -12,6 +14,7 @@ import {
  * ulyah.com is for sale (docs/ADSENSE-BLUEPRINT.md §17).
  *   GET  /sale          the public terms: shown?, price, minimum offer, negotiable, contact, Makkah live link
  *   POST /sale/offers   an offer (name, e-mail, WhatsApp, company, country, amount ≥ minimum, message)
+ *   GET  /sale/demo     the read-only demo login of a site's admin portal (§18)
  * Admin, ulyah owner only (sibling-site admins and demo accounts never see buyers' details):
  *   GET  /admin/site-sale              settings, every offer, the change log
  *   PUT  /admin/site-sale              save the settings
@@ -28,6 +31,21 @@ saleRoute.get("/", async (c) => {
   const s = await getSettings(c.env.MEDIA_R2);
   c.header("Cache-Control", "public, max-age=60");
   return c.json(publicSettings(s));
+});
+
+/**
+ * GET /sale/demo?site=1fr — how a prospective buyer opens that site's admin portal: the
+ * address and the read-only demo login (owner, 29 Oct 2026: "kasih cara masuk admin panel
+ * nya dengan username dan password demo"). Nothing when the owner switched the demo off.
+ */
+saleRoute.get("/demo", async (c) => {
+  const site = c.req.query("site") ?? "ulyah";
+  if (!isSiteId(site)) return c.json({ enabled: false }, 404);
+  c.header("Cache-Control", "public, max-age=60");
+  if (!c.env.MEDIA_R2) return c.json({ enabled: false, site });
+  const d = await getDemo(c.env.MEDIA_R2, site).catch(() => null);
+  if (!d?.enabled) return c.json({ enabled: false, site });
+  return c.json({ enabled: true, site, url: `https://${SITES[site].domain}/admin`, email: d.email, password: d.password });
 });
 
 saleRoute.post("/offers", async (c) => {

@@ -118,6 +118,10 @@ export function LiveStreamsTab() {
     <div className="space-y-6">
       <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-text-secondary">
         <p className="font-heading text-base text-text-primary">📡 Live Streaming — halaman publik /live</p>
+        <p className="mt-2 rounded-lg bg-primary/5 px-3 py-2 text-text-primary dark:bg-white/5">
+          Kanal dunia di bawah tampil di semua situs. Enam slot manual di sini adalah <b>daftar bersama</b> untuk situs yang
+          belum punya daftar sendiri — promo YouTube setiap situs diatur di <b>Promosi → 📺 Promo YouTube</b>.
+        </p>
         <p className="mt-2">
           <b>Live Otomatis 24 Jam:</b> daftar channel dunia (Makkah, Madinah, Rodja TV, Madani, ARY Qtv — bisa ditambah
           sendiri di bawah dengan link channel YouTube apa pun: negara lain, kampus, masjid). Embed mengikuti siaran

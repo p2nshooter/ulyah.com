@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { TENANT } from "@/lib/tenant";
 
 /**
  * The 24-hour Makkah live on the sale page. The link comes from Admin → Situs dijual;
@@ -39,7 +40,7 @@ export function MakkahLive({ url }: { url: string }) {
     if (url) return;
     let alive = true;
     api
-      .get<{ streams?: unknown }>("/content/live-streams")
+      .get<{ streams?: unknown }>(`/content/live-streams?tenant=${TENANT.id}`)
       .then((r) => {
         const rows = (Array.isArray(r?.streams) ? r.streams : []) as Row[];
         const makkah =

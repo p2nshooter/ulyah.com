@@ -13,6 +13,7 @@ import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { registerAdopsAdmin } from "./adops.js";
 import { registerSiteSaleAdmin } from "./site-sale.js";
+import { registerPromoAdmin } from "./site-promo.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 import { edgeMemo, memoResponse } from "../lib/edge-memo.js";
 import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
@@ -23,6 +24,9 @@ adminRoute.use("*", requireAdmin);
 registerAdopsAdmin(adminRoute);
 // ulyah.com for sale: settings and offers, ulyah owner only (docs/ADSENSE-BLUEPRINT.md §17).
 registerSiteSaleAdmin(adminRoute);
+// Each site's own promotions + the demo logins (docs/ADSENSE-BLUEPRINT.md §18). The shared
+// lists are read through the helpers below (function declarations, hoisted).
+registerPromoAdmin(adminRoute, { liveRows: listLiveStreamRows, kidsRows: listKidsChannelRows });
 
 // GET /admin/dashboard — summary tiles for wireframe §23.1
 adminRoute.get("/dashboard", async (c) => {
@@ -1366,11 +1370,16 @@ adminRoute.delete("/kids-audio/:code", async (c) => {
 });
 
 // ── Live streaming hub management ──────────────────────────────────────────
-adminRoute.get("/live-streams", async (c) => {
-  const { results } = await c.env.DB.prepare(
+/** Every row of the shared /live list (the six manual slots and the auto world channels). */
+export async function listLiveStreamRows(env: Env) {
+  const { results } = await env.DB.prepare(
     "SELECT id, platform, slot, kind, region, title, url, is_live, updated_at FROM live_stream ORDER BY kind = 'auto' DESC, slot"
-  ).all();
-  return c.json({ streams: results });
+  ).all<{ id: number; platform: string; slot: number; kind: string; region: string | null; title: string | null; url: string | null; is_live: number; updated_at: string }>();
+  return results;
+}
+
+adminRoute.get("/live-streams", async (c) => {
+  return c.json({ streams: await listLiveStreamRows(c.env) });
 });
 
 adminRoute.put("/live-streams/:id", async (c) => {
@@ -1590,11 +1599,16 @@ adminRoute.delete("/store/shelf/:id", async (c) => {
 });
 
 // ── Video Anak world channels management (show/hide + add/remove) ─────────
-adminRoute.get("/kids-channels", async (c) => {
-  const { results } = await c.env.DB.prepare(
+/** The shared list of kids' YouTube channels (every site shows it until it keeps its own). */
+export async function listKidsChannelRows(env: Env) {
+  const { results } = await env.DB.prepare(
     "SELECT id, country, title, channel_id, language, sort_order, visible FROM video_anak_channel ORDER BY country, sort_order"
-  ).all();
-  return c.json({ channels: results });
+  ).all<{ id: number; country: string; title: string; channel_id: string; language: string | null; sort_order: number; visible: number }>();
+  return results;
+}
+
+adminRoute.get("/kids-channels", async (c) => {
+  return c.json({ channels: await listKidsChannelRows(c.env) });
 });
 
 adminRoute.post("/kids-channels", async (c) => {
@@ -1723,7 +1737,9 @@ adminRoute.post("/hajj-packages", async (c) => {
 adminRoute.put("/hajj-packages/:id", async (c) => {
   const id = Number(c.req.param("id"));
   const body = await c.req.json<HajjBody>();
-  const tenant = scopedTenant(c, body.tenant);
+  // The show/hide switch sends only { visible }, so the site may also come in the query:
+  // without it the ulyah owner toggling another site's package matched no row.
+  const tenant = scopedTenant(c, body.tenant ?? c.req.query("tenant"));
   // Toggle-only fast path (the show/hide switch sends just { visible }).
   if (Object.keys(body).length === 1 && typeof body.visible === "boolean") {
     await c.env.DB.prepare("UPDATE hajj_package SET visible = ?, updated_at = datetime('now') WHERE id = ? AND tenant = ?")

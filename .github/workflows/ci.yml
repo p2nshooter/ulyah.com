@@ -316,6 +316,11 @@ jobs:
       - name: Check the ulyah.com sale rules and their R2 storage
         run: npx tsx scripts/check-site-sale.ts
 
+      # Every site's admin portal (docs/ADSENSE-BLUEPRINT.md §18): the demo logins in R2,
+      # what a demo and a site admin may reach, each site's own promo lists, the routes.
+      - name: Check the admin portal of every site (demo logins, scopes, promotions)
+        run: npx tsx scripts/check-admin-portal.ts
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

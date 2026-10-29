@@ -1,4 +1,6 @@
 import { Hono } from "hono";
+import { isSiteId } from "../lib/sites.js";
+import { getKids, getYoutube, kidsAsChannels, slotsAsStreams } from "../lib/site-promo.js";
 import type { Context } from "hono";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { coverSvg } from "@ulyah/shared/cover-art";
@@ -1594,6 +1596,10 @@ async function resolveLatestVideoId(env: Env, channelId: string): Promise<string
 // the channel's uploads playlist instead of a dead iframe).
 contentRoute.get("/live-streams", async (c) => {
   type Row = { id: number; platform: string; slot: number; kind: string; region: string | null; title: string | null; url: string | null; is_live: number };
+  // A site that keeps its own six promo slots (Admin → Promo YouTube, R2) shows those
+  // instead of the shared ones; the auto world channels stay shared (docs/ADSENSE-BLUEPRINT.md §18).
+  const site = c.req.query("tenant");
+  const own = isSiteId(site) ? await getYoutube(c.env.MEDIA_R2, site) : null;
   let results: Row[];
   try {
     ({ results } = await c.env.DB.prepare(
@@ -1602,8 +1608,15 @@ contentRoute.get("/live-streams", async (c) => {
   } catch {
     // D1 unavailable (e.g. the free plan's daily quota): an empty schedule,
     // which the page already shows gracefully — not a 500 in every console.
-    c.header("X-No-Edge-Cache", "1");
-    return c.json({ streams: [] });
+    if (!own) {
+      c.header("X-No-Edge-Cache", "1");
+      return c.json({ streams: [] });
+    }
+    results = [];
+  }
+  if (own) {
+    const slots: Row[] = slotsAsStreams(own.items).map(({ id, platform, slot, kind, region, title, url, is_live }) => ({ id, platform, slot, kind, region, title, url, is_live }));
+    results = [...results.filter((r) => r.kind !== "manual"), ...slots];
   }
   const streams = await Promise.all(
     results.map(async (s) => {
@@ -1643,13 +1656,18 @@ contentRoute.get("/live-streams", async (c) => {
 // GET /content/video-anak — the owner's 45 kids videos (see migration 0030),
 // grouped client-side by series.
 contentRoute.get("/video-anak", async (c) => {
+  // A site that keeps its own kids' channels (Admin → YouTube anak, R2) shows those (§18).
+  const site = c.req.query("tenant");
+  const own = isSiteId(site) ? await getKids(c.env.MEDIA_R2, site) : null;
   const [{ results: videos }, { results: channels }] = await Promise.all([
     c.env.DB.prepare(
       "SELECT id, series, video_order, title, youtube_id, country FROM video_anak ORDER BY series, video_order"
     ).all(),
-    c.env.DB.prepare(
-      "SELECT id, country, title, channel_id, language, sort_order FROM video_anak_channel WHERE visible = 1 ORDER BY country, sort_order"
-    ).all(),
+    own
+      ? Promise.resolve({ results: kidsAsChannels(own.items) })
+      : c.env.DB.prepare(
+          "SELECT id, country, title, channel_id, language, sort_order FROM video_anak_channel WHERE visible = 1 ORDER BY country, sort_order"
+        ).all(),
   ]);
   // Admin can show/hide/add/remove world channels — don't let a 30-min edge
   // cache hide those changes from the ecosystem (owner: konten wajib full

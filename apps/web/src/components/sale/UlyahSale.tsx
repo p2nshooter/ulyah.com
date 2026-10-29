@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { routePath } from "@/lib/paths";
-import { usd, waLink, type SaleTerms } from "@/lib/site-sale";
+import { usd, waLink, type SaleDemo, type SaleTerms } from "@/lib/site-sale";
 import { MakkahLive } from "./MakkahLive";
 import { SaleOfferForm } from "./SaleOfferForm";
 
@@ -19,7 +19,7 @@ interface Stats { kitabTotal: number; kitabCats: number; iqroLevels: number }
 
 const nf = (n: number) => n.toLocaleString("id-ID");
 
-export function UlyahSale({ terms, locale, stats }: { terms: SaleTerms; locale: string; stats: Stats }) {
+export function UlyahSale({ terms, locale, stats, demo }: { terms: SaleTerms; locale: string; stats: Stats; demo: SaleDemo | null }) {
   const price = usd(terms.priceUsd);
   const min = usd(terms.minOfferUsd);
   const wa = terms.whatsapp ? waLink(terms.whatsapp, `Assalamu'alaikum, saya tertarik membeli ULYAH.COM (${price}).`) : "";
@@ -87,7 +87,7 @@ export function UlyahSale({ terms, locale, stats }: { terms: SaleTerms; locale: 
 
   const income: [string, string, string][] = [
     ["💵", "Iklan Google AdSense", "Kode iklan sudah terpasang di seluruh halaman situs."],
-    ["🕋", "Iklan paket Haji & Umroh", "Halaman Haji & Umroh dikelola dari portal admin: paket biro perjalanan (harga, keberangkatan, fasilitas, kontak) bisa dipasang sebagai iklan berbayar."],
+    ["🕋", "Iklan paket Haji & Umroh", "Halaman Haji & Umroh dikelola dari portal admin: paket biro perjalanan (keberangkatan, fasilitas, kontak) dipasang sebagai slot promosi yang disewakan."],
     ["🎥", "Sewa slot live YouTube", "Enam slot live di halaman Live untuk kajian, masjid dan channel yang ingin tayang di ULYAH.COM; setiap slot kosong sudah menampilkan kontak untuk menyewa."],
     ["🤲", "Donasi", "Halaman donasi dengan PayPal, kripto dan transfer bank, plus sertifikat terima kasih untuk donatur."],
   ];
@@ -112,7 +112,7 @@ export function UlyahSale({ terms, locale, stats }: { terms: SaleTerms; locale: 
   const faq: [string, string][] = [
     ["Apakah harganya bisa dinego?", `${terms.negotiable ? "Ya. " : ""}Harga yang diminta ${price}${terms.negotiable ? " dan bisa dinegosiasikan" : ""}. Penawaran di bawah ${min} tidak kami proses.`],
     ["Apakah situs saudara ikut terjual?", "Tidak. Penawaran ini untuk ULYAH.COM. Situs saudara (1fr.fr, tilawa.de, xad.es, dawa.im) ditawarkan terpisah dan bisa dibicarakan bersama bila Anda menginginkan ekosistemnya."],
-    ["Bisakah saya melihat isi portal admin?", "Bisa. Calon pembeli yang serius mendapat akses demo hanya-baca: semua terlihat, tidak ada yang bisa diubah."],
+    ["Bisakah saya melihat isi portal admin?", demo ? "Bisa, sekarang juga: masuk dengan login demo di bagian \"Lihat portal admin\" di atas. Demo hanya-lihat — semua halaman promosi terlihat, tidak ada yang bisa diubah." : "Bisa. Calon pembeli yang serius mendapat akses demo hanya-lihat: semua halaman promosi terlihat, tidak ada yang bisa diubah."],
     ["Bagaimana dengan data trafik dan pendapatan?", "Data trafik dan pendapatan dapat ditunjukkan kepada calon pembeli yang serius setelah NDA."],
     ["Siapa yang mengatur live Makkah setelah pembelian?", "Anda. Tautan live Makkah 24 jam dan semua kanal live diatur dari portal admin."],
     ["Bagaimana cara pembayarannya?", "Transfer bank, escrow pihak ketiga atau kripto, sesuai kesepakatan dalam perjanjian jual beli."],
@@ -257,6 +257,32 @@ export function UlyahSale({ terms, locale, stats }: { terms: SaleTerms; locale: 
           </div>
         </div>
       </section>
+
+      {/* ── The admin portal, open to look at ── */}
+      {demo && (
+        <section className="mx-auto max-w-5xl px-4 pt-16 sm:px-6" data-testid="sale-demo">
+          <div className="card-premium-static grid items-center gap-8 rounded-3xl p-6 sm:p-8 desktop:grid-cols-[1.2fr_1fr]">
+            <div>
+              <h2 className="font-heading text-2xl sm:text-3xl">Lihat portal admin sendiri</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-text-secondary">
+                Masuk ke portal admin dengan login demo: paket Haji &amp; Umroh, promo YouTube di halaman Live, kanal YouTube anak
+                dan halaman situs — persis seperti yang akan Anda kelola. Demo hanya-lihat; tidak ada yang bisa diubah.
+              </p>
+              <a href={demo.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 dark:bg-accent dark:text-primary">
+                Buka portal admin ↗
+              </a>
+            </div>
+            <dl className="rounded-2xl bg-primary p-5 text-sm text-[#f4efe3]">
+              <dt className="text-xs uppercase tracking-[0.2em] text-(--color-accent-light)">Alamat</dt>
+              <dd className="mt-1 break-all font-mono">{demo.url}</dd>
+              <dt className="mt-4 text-xs uppercase tracking-[0.2em] text-(--color-accent-light)">Username</dt>
+              <dd className="mt-1 break-all font-mono" data-testid="sale-demo-user">{demo.email}</dd>
+              <dt className="mt-4 text-xs uppercase tracking-[0.2em] text-(--color-accent-light)">Password</dt>
+              <dd className="mt-1 break-all font-mono" data-testid="sale-demo-pass">{demo.password}</dd>
+            </dl>
+          </div>
+        </section>
+      )}
 
       {/* ── The offer ── */}
       <section id="tawar" className="scroll-mt-24 px-4 py-16 sm:px-6">
