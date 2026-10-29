@@ -9,6 +9,7 @@ import QRCode from "qrcode";
 import { api } from "@/lib/api";
 import type { Dictionary } from "@/dictionaries";
 import { routePath } from "@/lib/paths";
+import { localePath } from "@/lib/paths";
 
 const CLICK_THRESHOLD = 5;
 const WINDOW_MS = 4000;
@@ -39,7 +40,7 @@ export function AdminTrigger({ children, locale }: { children: React.ReactNode; 
   return (
     <>
       <Link
-        href={`/${locale}`}
+        href={localePath(locale)}
         onClick={handleClick}
         aria-label="ulyah — beranda"
         className="select-none"
@@ -207,7 +208,7 @@ export function AdminAuthModal({
                   Cancel
                 </button>
               ) : (
-                <Link href={`/${locale}`} className="text-sm text-text-secondary">
+                <Link href={localePath(locale)} className="text-sm text-text-secondary">
                   Cancel
                 </Link>
               )}
@@ -295,7 +296,7 @@ export function AdminAuthModal({
                   Cancel
                 </button>
               ) : (
-                <Link href={`/${locale}`} className="text-sm text-text-secondary">
+                <Link href={localePath(locale)} className="text-sm text-text-secondary">
                   Cancel
                 </Link>
               )}

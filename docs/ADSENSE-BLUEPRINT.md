@@ -1479,11 +1479,35 @@ Temuan awal (live probe 29 Okt, sebelum audit penuh):
 - Beranda dan `/kitab` tidak pernah "diam" di jaringan karena audio murottal terus memuat — perlu dicek apakah audio
   diputar otomatis tanpa diminta.
 
+### 19.2 Perbaikan putaran 1 (29 Okt 2026)
+
+Diuji ulang di build produksi lokal (OpenNext, ulyah.com dan 1fr.fr), desktop dan HP:
+
+1. **Prefetch 404 dan berulang-ulang.** Penyebabnya: router Next 16 menebak struktur halaman dari alamat saja
+   (`optimisticRouting`, aktif bawaan). Setelah beranda (`/`, yang di dalam adalah `/id`), ia menebak `/kitab` sebagai
+   beranda dengan bahasa "kitab", meminta potongan halaman yang tidak ada (404), lalu mengulang permintaan ±70 kali
+   (21 KB setiap kali) untuk satu tautan. Tebakan dimatikan (`next.config.mjs`), jadi router bertanya ke server, yang
+   tahu alamat sebenarnya. Hasil di beranda ulyah.com: **817 → 31** permintaan prefetch, semuanya 200, tanpa error.
+2. **Tautan internal berawalan bahasa** (`/id/...`) di header, footer, sumber chat AI, toko, tombol kembali ke beranda,
+   tautan bagikan Al-Qur'an dan JSON-LD pencarian. Setiap klik terkena redirect 301, dan di situs mitra dua kali
+   (`/fr/jadwal-sholat` → `/jadwal-sholat` → `/horaires-priere`). Semua kini memakai `routePath`/`localePath`; footer
+   1fr.fr langsung ke `/coran`, `/livres`, `/histoires`. Sorotan menu aktif juga kini benar, termasuk beranda.
+3. **500 di halaman tokoh kisah** (`/kisah/tokoh/<nama>`) dan **kitab pesantren** (`/kitab-pesantren/<kitab>`):
+   halaman yang disimpan di cache membaca `?autoread=` di server, dan Next menolaknya (`DYNAMIC_SERVER_USAGE`). Tanda
+   baca-otomatis kini dibaca oleh pembacanya di browser; halaman tetap dari cache dan menjawab 200 (tanpa data: 404).
+4. **Error di pembaca suara** (`lib/speech.ts`): jika baca dihentikan tepat saat bagian baru mulai, atau mesin suara
+   gagal seketika, `Cannot access … before initialization` memutus pembacaan. Diperbaiki; baca-otomatis diuji dengan
+   suara tiruan: ringkasan, judul dan isi dibaca berurutan, tanpa error.
+5. Menu bahasa (§19.1) ditambahkan ke pemeriksaan live `admin-live-check.mjs`: di kelima situs, keempat tautan harus
+   membuka halaman live yang sama di situs lain.
+
 | Butir | Status |
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
 | Alat audit | ✅ 29 Okt |
-| Audit penuh, perbaikan, tes, PR, deploy, cek ulang | 🔄 |
+| Menu bahasa di kelima situs (§19.1) | ✅ live 29 Okt (PR #383; admin-live-check: kelima situs ALL OK) |
+| Perbaikan putaran 1 (§19.2) | 🔄 PR |
+| Audit penuh, perbaikan berikutnya, cek ulang sampai bersih | 🔄 |
 
 ## 20. Pengucapan Arab asli untuk tajwid anak dan game anak (pemilik, 29 Okt 2026)
 

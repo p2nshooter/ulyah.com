@@ -6,6 +6,14 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["@ulyah/shared"],
+    // The router must not guess a page's route from the address alone. Every
+    // page in the site's own language is served at a bare path that the
+    // middleware rewrites (/kitab → /id/kitab), so the guess Next 16 makes by
+    // default reads /kitab as the home page with locale "kitab": each prefetch
+    // asked for a segment that does not exist (404) and was then repeated
+    // dozens of times (docs/ADSENSE-BLUEPRINT.md §19). Asking the server for
+    // the route tree gives the rewritten route.
+    optimisticRouting: false,
   },
   // Cache policy so a fresh deploy is visible immediately (owner: "dr td g ada
   // yg berubah" — the browser was serving a stale cached page after each

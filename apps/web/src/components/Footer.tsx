@@ -66,7 +66,7 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
             <ul className="mt-3 space-y-2 text-sm text-[#f4efe3]/80">
               {g.items.map((it) => (
                 <li key={it.path}>
-                  <Link href={`/${locale}${it.path}`} className="transition hover:text-accent">
+                  <Link href={routePath(locale, it.path)} className="transition hover:text-accent">
                     {it.label}
                   </Link>
                 </li>

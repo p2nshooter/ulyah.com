@@ -6,7 +6,10 @@
  *   - the demo login (GET /sale/demo) opens <domain>/admin on the site's own domain, as a demo;
  *   - the portal shows the Promotions home and no private menu;
  *   - the API answers the promotion pages and refuses donations to that demo session;
- *   - the sale page answers 200 with its price.
+ *   - the sale page answers 200 with its price;
+ *   - the 🌐 language menu offers the other four sites, each at the same page in its own
+ *     language (§19.1: the live page, /live on ulyah.com, xad.es and tilawa.de, /direct on
+ *     1fr.fr, /en-vivo on dawa.im).
  *
  * Runs on a GitHub runner (admin-live-check.yml): the development sandbox cannot reach the
  * production domains. The demo password is never printed.
@@ -16,11 +19,11 @@
 import { chromium } from "playwright";
 
 const SITES = [
-  { id: "ulyah", domain: "ulyah.com", api: "https://api.ulyah.com" },
-  { id: "1fr", domain: "1fr.fr", api: "https://api.1fr.fr" },
-  { id: "tilawa", domain: "tilawa.de", api: "https://api.tilawa.de" },
-  { id: "dawaim", domain: "dawa.im", api: "https://api.dawa.im" },
-  { id: "xad", domain: "xad.es", api: "https://api.xad.es" },
+  { id: "ulyah", domain: "ulyah.com", api: "https://api.ulyah.com", live: "https://ulyah.com/live" },
+  { id: "1fr", domain: "1fr.fr", api: "https://api.1fr.fr", live: "https://1fr.fr/direct" },
+  { id: "tilawa", domain: "tilawa.de", api: "https://api.tilawa.de", live: "https://tilawa.de/live" },
+  { id: "dawaim", domain: "dawa.im", api: "https://api.dawa.im", live: "https://dawa.im/en-vivo" },
+  { id: "xad", domain: "xad.es", api: "https://api.xad.es", live: "https://xad.es/live" },
 ];
 
 let failed = 0;
@@ -67,6 +70,12 @@ for (const s of SITES) {
   const sale = await page.goto(`https://${s.domain}/acquisition`, { waitUntil: "domcontentloaded", timeout: 45_000 }).catch(() => null);
   const price = await page.locator("[data-testid=sale-price]").first().innerText().catch(() => "");
   console.log(`info  /acquisition ${sale ? sale.status() : "ERR"} ${price ? `price ${price}` : "(no sale price on the page)"}`);
+
+  await page.goto(s.live, { waitUntil: "domcontentloaded", timeout: 45_000 }).catch(() => {});
+  await page.locator("[data-testid=language-switcher]").first().click({ timeout: 20_000 }).catch(() => {});
+  const offered = await page.locator("[data-testid=language-menu] a").evaluateAll((as) => as.map((a) => a.href)).catch(() => []);
+  const want = SITES.filter((o) => o !== s).map((o) => o.live);
+  ok(want.every((u) => offered.includes(u)) && offered.length === want.length, "the language menu opens the same page on the four other sites", offered.join(" "));
   await ctx.close();
 }
 await browser.close();

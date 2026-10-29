@@ -13,6 +13,7 @@ import { CryptoDonationSection } from "@/components/CryptoDonationSection";
 import { ApiKeyDonationForm } from "@/components/ApiKeyDonationForm";
 import { portalLabels } from "@/lib/portal-labels";
 import { routePath } from "@/lib/paths";
+import { localePath } from "@/lib/paths";
 
 interface Proof {
   id: number;
@@ -79,7 +80,7 @@ export default function AkunPage({ params }: { params: Promise<{ locale: string 
 
   async function logout() {
     await api.post("/client/logout");
-    router.push(`/${locale}`);
+    router.push(localePath(locale));
   }
 
   async function submitProof(e: React.FormEvent) {

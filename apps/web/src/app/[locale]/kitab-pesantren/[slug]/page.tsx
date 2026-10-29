@@ -110,20 +110,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function KitabPesantrenDetailPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ autoread?: string; mode?: string }>;
-}) {
+export default async function KitabPesantrenDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: raw, slug } = await params;
-  const { autoread, mode } = await searchParams;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   const data = await fetchKitab(slug, locale);
   if (!data) notFound();
-
-  const autoMode = mode === "arab" || mode === "arti" ? mode : "semua";
 
   // A readable classical work: Book + where it sits in the pesantren library.
   const k = data.kitab;
@@ -149,8 +140,6 @@ export default async function KitabPesantrenDetailPage({
       locale={locale}
       kitab={data.kitab}
       chapters={data.chapters}
-      autoReadStart={autoread === "1"}
-      autoReadMode={autoMode}
       translationPending={data.translationPending === true}
     />
     </>

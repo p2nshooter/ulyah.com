@@ -36,6 +36,7 @@ import "@/styles/themes/germany.css";
 import "@/styles/themes/spain.css";
 import "@/styles/themes/xad.css";
 import "@/styles/themes/dawaim.css";
+import { routePath } from "@/lib/paths";
 
 // The ecosystem hreflang cluster (owner: Update Global Seluruh Portal §3) is no
 // longer declared here.
@@ -293,7 +294,7 @@ export default async function LocaleLayout({
               publisher: { "@type": "Organization", name: TENANT.siteName, url: TENANT.siteUrl },
               potentialAction: {
                 "@type": "SearchAction",
-                target: { "@type": "EntryPoint", urlTemplate: `${TENANT.siteUrl}/${locale}/cari?q={search_term_string}` },
+                target: { "@type": "EntryPoint", urlTemplate: `${TENANT.siteUrl}${routePath(locale, "/cari")}?q={search_term_string}` },
                 "query-input": "required name=search_term_string",
               },
             }),
