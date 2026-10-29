@@ -1451,10 +1451,25 @@ dawa.im, xad.es — setiap halaman di menu dan sitemap, desktop dan HP: teks yan
 konsisten antarhalaman, kesalahan JavaScript, permintaan gagal, CSS yang rusak (tumpang tindih, meluber, kontras),
 lalu diperbaiki dan diuji ulang sampai bersih.
 
+Alat: `scripts/site-quality-audit.mjs` (dijalankan `site-quality-audit.yml` di runner GitHub, karena sandbox tidak bisa
+membuka domain produksi) membaca `/sitemap.txt` setiap situs, membuka semua halaman tingkat atas (desktop dan HP) dan
+sampel halaman dalam per bagian, lalu mencatat status, error JavaScript, permintaan gagal (termasuk prefetch Next.js
+`?_rsc=`), gulir ke samping di HP dan kata dalam bahasa yang salah beserta kalimatnya. Laporan lengkap disimpan sebagai
+artefak `audit-report.json`.
+
+Temuan awal (live probe 29 Okt, sebelum audit penuh):
+- Prefetch Next.js ke halaman tanpa awalan bahasa menjawab **404** (`/quran?_rsc=`, `/hadits?_rsc=`, `/acquisition?_rsc=`,
+  `/kitab-pesantren?_rsc=`) — navigasi tetap jalan karena browser jatuh ke muat ulang penuh, tetapi lebih lambat dan
+  meninggalkan error di konsol.
+- `/kisah/tokoh/idris?_rsc=` menjawab **500**.
+- Beranda dan `/kitab` tidak pernah "diam" di jaringan karena audio murottal terus memuat — perlu dicek apakah audio
+  diputar otomatis tanpa diminta.
+
 | Butir | Status |
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
-| Audit, perbaikan, tes, PR, deploy, cek live | ⏳ setelah §18 dan §17.3 |
+| Alat audit | ✅ 29 Okt |
+| Audit penuh, perbaikan, tes, PR, deploy, cek ulang | 🔄 |
 
 ## 20. Pengucapan Arab asli untuk tajwid anak dan game anak (pemilik, 29 Okt 2026)
 
