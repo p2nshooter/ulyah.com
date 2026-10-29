@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE, LOCALES } from "@ulyah/shared/i18n";
-import { localizedRoute } from "@ulyah/shared/routes";
 import { PageHero } from "@/components/PageHero";
 import { storeLabels } from "@/lib/store-labels";
 import { TENANT_MARKETPLACE, searchUrl } from "@/lib/store";
 import { storeData, shelvesWithPages } from "@/lib/store-data";
 import { jsonLdProps, breadcrumbs } from "@/lib/structured-data";
+import { routePath } from "@/lib/paths";
 
 /**
  * One category, with a buying guide worth reading.
@@ -69,7 +69,7 @@ export default async function ShelfPage({
   const { shelf, tag } = found;
 
   const dir = LOCALES.find((l) => l.code === locale)?.dir ?? "ltr";
-  const storePath = `/${locale}${localizedRoute("/toko", locale)}`;
+  const storePath = routePath(locale, "/toko");
   // The guide is stored as plain paragraphs separated by blank lines.
   const paragraphs = shelf.detail!.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 

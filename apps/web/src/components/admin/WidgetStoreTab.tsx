@@ -42,8 +42,8 @@ const WIDGETS: Widget[] = [
     emoji: "🕌",
     name: "Jadwal Sholat & Radio Qori",
     status: "live",
-    route: "/id/jadwal-sholat",
-    manifest: "manifest-sholat.json (scope /id/jadwal-sholat)",
+    route: "/jadwal-sholat",
+    manifest: "manifest-sholat.json (scope /jadwal-sholat)",
     summary:
       "Jadwal sholat sesuai lokasi, hitung mundur waktu sholat, jam dunia, Radio Qori Dunia. Installable sebagai app tersendiri.",
     sources: ["metinkale38/prayer-times-android (referensi metode & koreksi waktu)", "mahmoodhamdi/wirdak (dzikir)"],
@@ -53,7 +53,7 @@ const WIDGETS: Widget[] = [
     emoji: "📖",
     name: "Al-Qur'an Digital",
     status: "live",
-    route: "/id/quran",
+    route: "/quran",
     manifest: "pakai manifest utama",
     summary:
       "Pembaca Al-Qur'an interaktif: terjemah, tafsir (pemilih sumber), asbabun nuzul, murottal per qori, audio berlapis.",
@@ -68,8 +68,8 @@ const WIDGETS: Widget[] = [
     emoji: "📚",
     name: "Kitab Digital (Buku Page-Flip)",
     status: "building",
-    route: "/id/kitab-pesantren (reader)",
-    manifest: "rencana: manifest-kitab.json (scope /id/kitab-pesantren)",
+    route: "/kitab-pesantren (reader)",
+    manifest: "rencana: manifest-kitab.json (scope /kitab-pesantren)",
     summary:
       "Kitab pesantren tampil seperti buku fisik dengan efek balik halaman (page-flip): Arab asli + terjemah + penjelasan, bisa didengarkan. Tiap kitab bisa dijual terpisah.",
     sources: [
@@ -84,7 +84,7 @@ const WIDGETS: Widget[] = [
     emoji: "🎨",
     name: "Al-Qur'an Tajwid Berwarna",
     status: "concept",
-    route: "rencana: /id/quran/tajwid",
+    route: "rencana: /quran/tajwid",
     manifest: "rencana: manifest-tajwid.json",
     summary:
       "Mushaf dengan pewarnaan hukum tajwid (ikhfa, idgham, qalqalah, dll) + audio per ayat, untuk belajar bacaan yang benar.",
@@ -95,7 +95,7 @@ const WIDGETS: Widget[] = [
     emoji: "🧭",
     name: "Arah Kiblat (Kompas)",
     status: "live",
-    route: "/id/kiblat",
+    route: "/kiblat",
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Sudut & jarak ke Ka'bah dari lokasi IP + kompas LANGSUNG berbasis sensor perangkat (device-orientation): dial berputar mengikuti gerak HP, panah emas menunjuk kiblat real-time, dengan izin iOS & fallback sudut tetap bila tak ada sensor. Rumus bearing lingkaran-besar tervalidasi terhadap bearing publik.",
@@ -106,7 +106,7 @@ const WIDGETS: Widget[] = [
     emoji: "📿",
     name: "Wirid & Dzikir Harian (Wirdak)",
     status: "concept",
-    route: "sebagian sudah di /id/amalan",
+    route: "sebagian sudah di /amalan",
     manifest: "rencana: manifest-wirid.json",
     summary:
       "Penghitung tasbih digital + wirid pagi/petang & setelah shalat dengan pengingat. Melengkapi menu Amalan Harian yang sudah ada.",
@@ -117,7 +117,7 @@ const WIDGETS: Widget[] = [
     emoji: "🧒",
     name: "Al-Qur'an Kids",
     status: "concept",
-    route: "rencana: /id/kids",
+    route: "rencana: /kids",
     manifest: "rencana: manifest-kids.json",
     summary:
       "Menu anak terpisah: hafalan surat pendek, kisah nabi ramah anak, doa & adab, hijaiyah — video pendek & suara lembut. (Detail di tab Konsep.)",
@@ -128,7 +128,7 @@ const WIDGETS: Widget[] = [
     emoji: "💰",
     name: "Kalkulator Zakat",
     status: "live",
-    route: "/id/zakat",
+    route: "/zakat",
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Zakat Maal (2,5%, nisab emas 85g / perak 595g berdampingan) & Zakat Fitrah (per jiwa) — 100% client-side, tidak ada data yang dikirim ke server.",
@@ -139,7 +139,7 @@ const WIDGETS: Widget[] = [
     emoji: "📅",
     name: "Kalender Hijriyah",
     status: "live",
-    route: "/id/kalender-hijriyah",
+    route: "/kalender-hijriyah",
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Grid bulan Masehi + padanan Hijriyah per hari, memakai kalender Umm al-Qura resmi (Intl bawaan browser, bukan tabular buatan sendiri) — sudah dipakai juga oleh countdown Ramadhan di Jadwal Sholat.",
@@ -150,7 +150,7 @@ const WIDGETS: Widget[] = [
     emoji: "👪",
     name: "Kalkulator Waris (Faraid)",
     status: "live",
-    route: "/id/waris",
+    route: "/waris",
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Pembagian faraid untuk susunan keluarga umum (pasangan, anak, orang tua, saudara kandung/seibu saat kalalah) — Aul, Radd, dan kasus Gharrawain/Umariyyatain ditangani. Kakek/nenek, saudara seayah, dan cucu pengganti SENGAJA tidak dimodelkan (beda pendapat mazhab) — disclaimer eksplisit di halaman.",
@@ -161,7 +161,7 @@ const WIDGETS: Widget[] = [
     emoji: "🌙",
     name: "Imsakiyah Ramadhan",
     status: "live",
-    route: "/id/imsakiyah",
+    route: "/imsakiyah",
     manifest: "pakai manifest utama (belum app terpisah)",
     summary:
       "Jadwal Imsak/Subuh/Maghrib per hari untuk satu bulan Ramadhan (sedang berjalan atau berikutnya), dihitung dengan mesin yang sama dengan Jadwal Sholat (adhan.js) — bukan perhitungan kedua yang terpisah. Imsak ditampilkan sebagai konvensi 10 menit sebelum Subuh, dengan catatan eksplisit bahwa sebagian daerah memakai Subuh itu sendiri sebagai batas.",

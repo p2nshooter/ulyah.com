@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import { routePath } from "@/lib/paths";
 
 interface Feature {
   key: string;
@@ -108,7 +109,7 @@ export function MonitorTab({ locale }: { locale: string }) {
                   {f.note && <p className="mt-0.5 text-[11px] text-text-secondary">{f.note}</p>}
                   {f.route && (
                     <a
-                      href={`/${locale}${f.route}`}
+                      href={routePath(locale, f.route)}
                       target="_blank"
                       rel="noreferrer"
                       className="mt-2 inline-block text-[11px] text-accent hover:underline"

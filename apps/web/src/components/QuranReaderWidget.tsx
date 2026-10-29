@@ -455,7 +455,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   }
 
   function shareAyah() {
-    const url = `${typeof window !== "undefined" ? window.location.origin : TENANT.siteUrl}/${locale}/quran?s=${selectedSurah?.id}&a=${focus}`;
+    const url = `${typeof window !== "undefined" ? window.location.origin : TENANT.siteUrl}${routePath(locale, `/quran?s=${selectedSurah?.id}&a=${focus}`)}`;
     if (navigator.share) {
       navigator.share({ title: `${selectedSurah?.name_transliteration} : ${focus}`, url }).catch(() => {});
     } else {

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
-import { localizedRoute } from "@ulyah/shared/routes";
 import { PageHero } from "@/components/PageHero";
 import { storeLabels } from "@/lib/store-labels";
 import { TENANT_MARKETPLACE, searchUrl } from "@/lib/store";
 import { storeData, type Shelf } from "@/lib/store-data";
 import { jsonLdProps, breadcrumbs } from "@/lib/structured-data";
+import { routePath } from "@/lib/paths";
 
 /**
  * The Amazon store — clear categories, thousands of products behind each.
@@ -58,7 +58,7 @@ export default async function StorePage({ params }: { params: Promise<{ locale: 
   const marketplace: string = TENANT_MARKETPLACE;
 
   const { tag, shelves } = await storeData();
-  const storePath = `/${locale}${localizedRoute("/toko", locale)}`;
+  const storePath = routePath(locale, "/toko");
   // A category with a buying guide has a page of its own; send the reader there
   // rather than straight out to Amazon, so the visit is worth something to us
   // as well. A category without one is honest about being just a doorway.

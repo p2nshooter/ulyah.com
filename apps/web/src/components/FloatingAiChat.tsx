@@ -5,6 +5,7 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
+import { routePath } from "@/lib/paths";
 
 interface Source {
   kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
@@ -93,7 +94,7 @@ export function FloatingAiChat({ locale }: { locale: string }) {
                       <p className="font-medium">{t.sourcesFrom(site)}</p>
                       {m.sources.map((s, j) =>
                         s.url ? (
-                          <Link key={j} href={`/${locale}${s.url}`} className="block text-accent hover:underline">
+                          <Link key={j} href={routePath(locale, s.url)} className="block text-accent hover:underline">
                             [{j + 1}] {s.ref} →
                           </Link>
                         ) : (

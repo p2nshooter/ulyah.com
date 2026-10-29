@@ -5,6 +5,7 @@ import Link from "next/link";
 import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
 import { aiChatLabels } from "@/lib/ai-chat-labels";
+import { routePath } from "@/lib/paths";
 
 interface Source {
   kind: "ayah" | "hadits" | "tafsir" | "kisah" | "kitab" | "amalan";
@@ -142,7 +143,7 @@ export function AiChat({ locale }: { locale: string }) {
                       // used to: wiped) the running conversation.
                       <Link
                         key={j}
-                        href={`/${locale}${s.url}`}
+                        href={routePath(locale, s.url)}
                         target="_blank"
                         rel="noopener"
                         className="block text-accent hover:underline"

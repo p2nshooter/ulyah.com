@@ -6,6 +6,7 @@ import { radioLabels } from "@/lib/radio-labels";
 import { RadioQoriWidget } from "@/components/RadioQoriWidget";
 import { routePath } from "@/lib/paths";
 import { TENANT } from "@/lib/tenant";
+import { localePath } from "@/lib/paths";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -59,7 +60,7 @@ export default async function RadioPage({
           <p className="mt-3 text-xs uppercase tracking-[0.3em] text-accent">{TENANT.siteUrl.replace(/^https?:\/\//, "")}</p>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#f4efe3]/80">{t.brandTagline}</p>
           <Link
-            href={`/${locale}`}
+            href={localePath(locale)}
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-primary shadow-lg transition hover:brightness-110"
           >
             {t.brandCta}
