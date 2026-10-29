@@ -64,8 +64,12 @@ async function main() {
   assert.equal(demoSiteOf("demo@dawa.es"), null, "dawa.es is not the owner's site");
   assert.equal(demoSiteOf("admin@1fr.fr"), null);
   const p1 = newDemoPassword();
-  assert.match(p1, /^[A-Za-z2-9]{4}-[A-Za-z2-9]{4}-[A-Za-z2-9]{4}$/);
-  assert.ok(!/[01lIO]/.test(p1), "no look-alike characters");
+  assert.match(p1, /^[a-z2-9]{4}-[a-z2-9]{4}-[a-z2-9]{4}$/);
+  assert.ok(!/[01lo]/.test(p1), "no look-alike characters");
+  const counts = new Map<string, number>();
+  for (let i = 0; i < 4000; i++) for (const ch of newDemoPassword().replace(/-/g, "")) counts.set(ch, (counts.get(ch) ?? 0) + 1);
+  assert.equal(counts.size, 32, "every character of the alphabet is used");
+  assert.ok(Math.max(...counts.values()) / Math.min(...counts.values()) < 1.25, "no character is favoured (no modulo bias)");
   assert.notEqual(p1, newDemoPassword());
   const [a1, a2] = await Promise.all([getDemo(b, "1fr"), getDemo(b, "1fr")]);
   assert.equal(a1.password, a2.password, "made once, even when asked twice at the same moment");

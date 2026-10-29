@@ -27,6 +27,8 @@ function toChannels(raw: unknown): Channel[] {
 }
 
 const channelOf = (v: string) => v.trim().match(CHANNEL)?.[1] ?? "";
+/** The channel's YouTube page — only for a real channel id, so a link never carries anything else. */
+const channelUrl = (id: string) => (/^UC[\w-]{10,40}$/.test(id) ? `https://www.youtube.com/channel/${encodeURIComponent(id)}` : undefined);
 
 export function KidsYoutubeTab({ t, site, readOnly }: { t: AdminWords; site: AdminSite; readOnly: boolean }) {
   const [rows, setRows] = useState<Channel[]>([]);
@@ -124,7 +126,7 @@ export function KidsYoutubeTab({ t, site, readOnly }: { t: AdminWords; site: Adm
               <li key={c.channelId} className="flex flex-wrap items-center gap-3 px-5 py-3 text-sm" data-testid="kids-row">
                 <span className="w-6 text-right text-xs text-text-secondary">{i + 1}</span>
                 <div className="min-w-0 flex-1">
-                  <a href={`https://www.youtube.com/channel/${c.channelId}`} target="_blank" rel="noopener noreferrer" className={`font-medium hover:underline ${c.visible ? "" : "text-text-secondary line-through"}`}>{c.title}</a>
+                  <a href={channelUrl(c.channelId)} target="_blank" rel="noopener noreferrer" className={`font-medium hover:underline ${c.visible ? "" : "text-text-secondary line-through"}`}>{c.title}</a>
                   <span className="block text-xs text-text-secondary">{[c.country, c.language].filter(Boolean).join(" · ")}</span>
                 </div>
                 <label className="flex items-center gap-1.5 text-xs">

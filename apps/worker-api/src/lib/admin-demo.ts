@@ -35,11 +35,14 @@ export function demoSiteOf(email: string): SiteId | null {
   return null;
 }
 
-/** Twelve readable characters in three groups (no 0/O/1/l/I): easy to type from a sale page. */
+/**
+ * Twelve readable characters in three groups (no 0/o/1/l): easy to type from a sale page.
+ * 32 characters, so each random byte's low five bits pick one with equal chance (no modulo bias).
+ */
 export function newDemoPassword(): string {
-  const alphabet = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const alphabet = "abcdefghijkmnpqrstuvwxyz23456789";
   const bytes = crypto.getRandomValues(new Uint8Array(12));
-  const chars = [...bytes].map((b) => alphabet[b % alphabet.length]);
+  const chars = [...bytes].map((b) => alphabet[b & 31]);
   return `${chars.slice(0, 4).join("")}-${chars.slice(4, 8).join("")}-${chars.slice(8).join("")}`;
 }
 
