@@ -1415,7 +1415,8 @@ nyaman, dan betul2 mudah di gunakan untuk promosi haji umroh, youtube anak, dan 
 | Dicatat di blueprint | ✅ 29 Okt |
 | Kode dan tes | ✅ 29 Okt — `scripts/check-admin-portal.ts` (CI) 4/4; uji browser lokal ulyah.com 30/30 dan 1fr.fr 15/15 (pemilik, admin situs, demo; desktop dan HP; tanpa error) |
 | PR #381 (CodeQL hijau setelah 2 temuan diperbaiki), merge | ✅ 29 Okt (`5fc12b69`) |
-| Deploy, alamat API admin tiap situs, cek live | 🔄 |
+| Deploy (run 559) dan alamat API admin tiap situs | ✅ 29 Okt — `api.1fr.fr`, `api.tilawa.de`, `api.dawa.im`, `api.xad.es` terpasang dan menjawab |
+| Cek live di browser (`admin-live-check.yml`) | ✅ 29 Okt — kelima situs: login demo di domain situs sendiri, beranda Promosi dalam bahasa situs, tanpa menu pribadi, API menolak donasi dan kunci (403) |
 
 ### 18.5 Haji & Umroh tanpa harga (pemilik, 29 Okt 2026)
 
