@@ -1505,7 +1505,7 @@ Diuji ulang di build produksi lokal (OpenNext, ulyah.com dan 1fr.fr), desktop da
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
 | Alat audit | ✅ 29 Okt |
-| Menu bahasa di kelima situs (§19.1) | ✅ deploy 29 Okt (PR #383); cek live 🔄 |
+| Menu bahasa di kelima situs (§19.1) | ✅ live 29 Okt (PR #383; admin-live-check: kelima situs ALL OK) |
 | Perbaikan putaran 1 (§19.2) | 🔄 PR |
 | Audit penuh, perbaikan berikutnya, cek ulang sampai bersih | 🔄 |
 
