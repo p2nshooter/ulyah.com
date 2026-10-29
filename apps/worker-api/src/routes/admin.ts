@@ -12,6 +12,7 @@ import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from 
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { registerAdopsAdmin } from "./adops.js";
+import { registerSiteSaleAdmin } from "./site-sale.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 import { edgeMemo, memoResponse } from "../lib/edge-memo.js";
 import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
@@ -20,6 +21,8 @@ export const adminRoute = new Hono<{ Bindings: Env }>();
 adminRoute.use("*", requireAdmin);
 // Ad Manager + AdSense automation (docs/ADMANAGER-BLUEPRINT.md §8).
 registerAdopsAdmin(adminRoute);
+// ulyah.com for sale: settings and offers, ulyah owner only (docs/ADSENSE-BLUEPRINT.md §17).
+registerSiteSaleAdmin(adminRoute);
 
 // GET /admin/dashboard — summary tiles for wireframe §23.1
 adminRoute.get("/dashboard", async (c) => {

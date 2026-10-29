@@ -57,8 +57,11 @@ const ULYAH: TenantConfig = {
   logoLockup: null,
   wordmark: "/brand/wordmark-ar.png",
   wordmarkGold: "/brand/wordmark-ar-gold.png",
-  acquisitionEmail: null,
-  features: { ads: true, donationForward: false, forSale: false },
+  acquisitionEmail: "salam@ulyah.com",
+  // ulyah.com itself is for sale (owner, 28–29 Oct 2026; docs/ADSENSE-BLUEPRINT.md §17):
+  // the home-page band, the header menu and /acquisition, shown or hidden from
+  // Admin → Situs dijual (lib/site-sale.ts).
+  features: { ads: true, donationForward: false, forSale: true },
 };
 
 const ONEFAITH: TenantConfig = {

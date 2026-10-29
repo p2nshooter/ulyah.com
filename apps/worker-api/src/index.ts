@@ -14,6 +14,7 @@ import { geoRoute } from "./routes/geo.js";
 import { grantRoute } from "./routes/grant.js";
 import { aliexpressRoute, aliexpressAuthRoute } from "./routes/aliexpress.js";
 import { adopsPublicRoute } from "./routes/adops.js";
+import { saleRoute } from "./routes/site-sale.js";
 import { adopsTick } from "./lib/adops/runner.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
@@ -140,6 +141,8 @@ app.route("/client", clientRoute);
 app.route("/analytics", analyticsRoute);
 // AdOps public endpoints: Google OAuth callback + live ad slots for the build sync.
 app.route("/adops", adopsPublicRoute);
+// ulyah.com for sale (docs/ADSENSE-BLUEPRINT.md §17) — not under /content, so never edge-cached for 30 minutes.
+app.route("/sale", saleRoute);
 app.route("/geo", geoRoute);
 app.route("/grant", grantRoute);
 // One door to AliExpress for all twelve sites: the app secret and the access

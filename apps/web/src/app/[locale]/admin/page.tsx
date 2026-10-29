@@ -27,6 +27,8 @@ import { KaggleGuideTab } from "@/components/admin/KaggleGuideTab";
 import { KidsChannelsTab } from "@/components/admin/KidsChannelsTab";
 import { KidsAudioTab } from "@/components/admin/KidsAudioTab";
 import { HajjTab } from "@/components/admin/HajjTab";
+import { SaleTab } from "@/components/admin/SaleTab";
+import { TENANT } from "@/lib/tenant";
 import { MonitorTab } from "@/components/admin/MonitorTab";
 import { BacklogTab } from "@/components/admin/BacklogTab";
 import { OrchestraTab } from "@/components/admin/OrchestraTab";
@@ -37,7 +39,7 @@ import { LanguagesTab } from "@/components/admin/LanguagesTab";
 import { AdOpsTab } from "@/components/admin/AdOpsTab";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "adops" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "store";
+type Tab = "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "adops" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "store" | "sale";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -83,8 +85,11 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
     );
   }
 
+  // ulyah.com for sale (docs/ADSENSE-BLUEPRINT.md §17): the ulyah owner only.
+  const saleOwner = TENANT.id === "ulyah" && !me?.tenant && !me?.readOnly;
   const tabs: [Tab, string][] = [
     ["dashboard", dict.admin.dashboardTitle],
+    ...(saleOwner ? ([["sale", "🏷️ Situs Dijual"]] as [Tab, string][]) : []),
     ["backlog", "🗂️ Rancangan & Backlog"],
     ["orchestra", "🎻 Orchestra Core"],
     ["sanad", "🔗 Sanad Explorer"],
@@ -207,6 +212,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
         {tab === "kids" && <KidsChannelsTab />}
         {tab === "kids-audio" && <KidsAudioTab />}
         {tab === "hajj" && <HajjTab />}
+        {tab === "sale" && saleOwner && <SaleTab />}
         {tab === "kaggle" && <KaggleGuideTab />}
         {tab === "roadmap" && <RoadmapTab />}
         {tab === "account" && <AccountTab />}

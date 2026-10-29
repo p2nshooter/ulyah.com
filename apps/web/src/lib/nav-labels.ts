@@ -437,8 +437,10 @@ export function navLabels(locale: string): NavLabels {
   // and the acquisition page is openly linked. Labels per language.
   const donate =
     locale === "fr" ? "🤲 Faire un don" : locale === "de" ? "🤲 Spenden" : locale === "es" ? "🤲 Donar" : locale === "id" ? "🤲 Donasi" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
+  // ulyah.com: the dedicated "for sale" menu (owner, 28 Oct 2026: "menu husus di header jgn di footer").
   const acq =
-    locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "es" ? "💎 Adquisición" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
+    TENANT.id === "ulyah" ? (locale === "id" ? "🏷️ Situs Dijual" : "🏷️ For sale")
+    : locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "es" ? "💎 Adquisición" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
   return {
     ...base,
     direct: [
