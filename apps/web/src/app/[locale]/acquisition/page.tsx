@@ -5,14 +5,16 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { routePath } from "@/lib/paths";
-import { IS_SALE_SITE, saleDemo, saleTerms, usd } from "@/lib/site-sale";
+import { IS_SALE_SITE, saleContext, saleDemo, saleNetwork, saleTerms } from "@/lib/site-sale";
+import { saleCopy } from "@/lib/sale-copy";
 import { libraryIndex } from "@/lib/kitab-data";
 import { IQRO_COUNT } from "@/lib/iqro";
 import { jsonLdProps } from "@/lib/structured-data";
-import { UlyahSale } from "@/components/sale/UlyahSale";
+import { SiteSale } from "@/components/sale/SiteSale";
 
-// ulyah.com reads its sale terms from the admin (GET /sale) and refreshes them every five
-// minutes; the sibling sites' pages stay fully static (saleTerms() never fetches for them).
+// The five sites on sale (ulyah.com, 1fr.fr, tilawa.de, dawa.im, xad.es) read their terms from
+// the ulyah.com admin (GET /sale?site=) and refresh them every five minutes; dawa.es keeps its
+// old, fully static page (saleTerms() never fetches for it).
 export const revalidate = 300;
 
 /**
@@ -173,10 +175,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   if (IS_SALE_SITE) {
     const t = await saleTerms();
-    if (!t.visible) return { title: "Halaman tidak ditemukan", robots: { index: false, follow: false } };
+    const m = saleCopy(locale, saleContext(t, locale)).meta;
+    if (!t.visible) return { title: m.hiddenTitle, robots: { index: false, follow: false } };
     return {
-      title: `ULYAH.COM dijual — ${usd(t.priceUsd)}${t.negotiable ? ", bisa nego" : ""}`,
-      description: `Akuisisi ULYAH.COM: Al-Qur'an dengan suara, tafsir & hadits, perpustakaan kitab klasik, live Makkah–Madinah 24 jam dan portal admin. Harga ${usd(t.priceUsd)}${t.negotiable ? " bisa nego" : ""}, penawaran minimum ${usd(t.minOfferUsd)}.`,
+      // The layout's title template appends " — <site>"; `absolute` keeps the brand once.
+      title: { absolute: m.title },
+      description: m.description,
       alternates: { canonical: routePath(locale, `/acquisition`) },
     };
   }
@@ -194,7 +198,7 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   if (IS_SALE_SITE) {
-    const [terms, demo] = await Promise.all([saleTerms(), saleDemo()]);
+    const [terms, demo, network] = await Promise.all([saleTerms(), saleDemo(), saleNetwork()]);
     if (!terms.visible) notFound();
     let kitabTotal = 0;
     let kitabCats = 0;
@@ -206,19 +210,20 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
       /* the page still stands without the count */
     }
     const url = `${TENANT.siteUrl}${routePath(locale, "/acquisition")}`;
+    const copy = saleCopy(locale, saleContext(terms, locale, { kitabTotal, kitabCats, iqroLevels: IQRO_COUNT }));
     const ld = {
       "@context": "https://schema.org",
       "@type": "Product",
-      name: "ULYAH.COM — platform Islam digital (domain, kode sumber, konten)",
-      description: "Al-Qur'an dengan suara, tafsir & hadits, perpustakaan kitab klasik, live Makkah–Madinah 24 jam dan portal admin, dijual utuh.",
+      name: copy.meta.ldName,
+      description: copy.meta.ldDescription,
       url,
-      brand: { "@type": "Brand", name: "ULYAH.COM" },
+      brand: { "@type": "Brand", name: TENANT.siteName },
       offers: { "@type": "Offer", price: terms.priceUsd, priceCurrency: "USD", availability: "https://schema.org/InStock", url },
     };
     return (
       <>
         <script {...jsonLdProps(ld)} />
-        <UlyahSale terms={terms} locale={locale} stats={{ kitabTotal, kitabCats, iqroLevels: IQRO_COUNT }} demo={demo} />
+        <SiteSale copy={copy} terms={terms} locale={locale} site={TENANT.id} demo={demo} network={network} />
       </>
     );
   }

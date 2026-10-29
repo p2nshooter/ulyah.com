@@ -2,11 +2,16 @@
  * ulyah.com is for sale (owner, 28–29 Oct 2026; docs/ADSENSE-BLUEPRINT.md §17):
  * US$250,000, negotiable, offers from US$50,000, the price in the clearest place,
  * shown from the very top of the home page and a dedicated header menu, and the
- * 24-hour Makkah live link controlled from the admin portal.
+ * 24-hour Makkah live link controlled from the admin portal. Since 29 Oct (§17.3)
+ * 1fr.fr, tilawa.de, dawa.im and xad.es are sold the same way, at the same price,
+ * all from the ulyah.com admin: each site has its own terms (shown, price, minimum,
+ * negotiable); the contacts and the Makkah live link are ulyah.com's ("pembayaran
+ * ngikutin ulyah.com, semua terkoneksi ke ulyah.com").
  *
  * Storage is R2 only (CLAUDE.md "R2 only — never D1"), with the R2 Store rules of
  * docs/R2-DATA-BLUEPRINT.md §3:
- *   k/site-sale.json             the settings — compare-and-swap (etagMatches)
+ *   k/site-sale.json             ulyah.com's terms — compare-and-swap (etagMatches)
+ *   k/site-sale/<site>.json      a sibling site's terms — compare-and-swap
  *   c/sale-offers/<id>.json      one document per offer — create-once (etagDoesNotMatch *),
  *                                the id is derived from the offer so a double submit
  *                                never records it twice
@@ -14,6 +19,8 @@
  * No hot key: offers and log entries are separate objects; only the settings
  * document is ever rewritten, by the admin.
  */
+
+import { isSiteId, type SiteId } from "./sites.js";
 
 export interface SaleSettings {
   /** Shown on the site: home-page band, header menu, /acquisition. Default: shown. */
@@ -48,6 +55,8 @@ export const OFFER_STATUSES: OfferStatus[] = ["new", "contacted", "negotiating",
 
 export interface SaleOffer {
   id: string;
+  /** The site the offer is for (offers recorded before 29 Oct are ulyah.com's). */
+  site: SiteId;
   name: string;
   email: string;
   whatsapp: string;
@@ -69,7 +78,9 @@ export interface SaleBucket {
   list(options?: { prefix?: string; cursor?: string; limit?: number }): Promise<{ objects: { key: string; uploaded: Date }[]; truncated: boolean; cursor?: string }>;
 }
 
-const SETTINGS_KEY = "k/site-sale.json";
+const settingsKey = (site: SiteId) => (site === "ulyah" ? "k/site-sale.json" : `k/site-sale/${site}.json`);
+/** A sibling site uses ulyah.com's contacts and Makkah live link; only its sale terms are its own. */
+const HUB_FIELDS = ["whatsapp", "email", "makkahLiveUrl"] as const;
 const OFFER_PREFIX = "c/sale-offers/";
 const LOG_PREFIX = "l/site-sale/";
 const JSON_TYPE = { contentType: "application/json" };
@@ -124,7 +135,7 @@ export function publicSettings(s: SaleSettings) {
 }
 
 export type OfferProblem = "hidden" | "name" | "email" | "amount" | "country";
-export interface OfferInput { name?: unknown; email?: unknown; whatsapp?: unknown; company?: unknown; country?: unknown; amountUsd?: unknown; message?: unknown }
+export interface OfferInput { site?: unknown; name?: unknown; email?: unknown; whatsapp?: unknown; company?: unknown; country?: unknown; amountUsd?: unknown; message?: unknown }
 
 export function offerProblem(i: OfferInput, s: SaleSettings): OfferProblem | null {
   if (!s.visible) return "hidden";
@@ -144,12 +155,15 @@ async function sha256Hex(s: string): Promise<string> {
 /** The offer document; its id comes from the day, the buyer and the amount, so a double submit is the same offer. */
 export async function buildOffer(i: OfferInput, ip: string, nowMs = Date.now()): Promise<SaleOffer> {
   const at = new Date(nowMs).toISOString();
+  const site: SiteId = isSiteId(i.site) ? i.site : "ulyah";
   const email = clean(i.email, 254).toLowerCase();
   const amountUsd = money(i.amountUsd);
   const message = String(i.message ?? "").replace(/\r\n?/g, "\n").trim().slice(0, 3000);
-  const digest = (await sha256Hex(`${at.slice(0, 10)}|${email}|${amountUsd}|${message}`)).slice(0, 16);
+  // ulyah.com's id formula is unchanged, so an offer sent twice across the release is still one offer.
+  const digest = (await sha256Hex(`${site === "ulyah" ? "" : `${site}|`}${at.slice(0, 10)}|${email}|${amountUsd}|${message}`)).slice(0, 16);
   return {
     id: `${at.slice(0, 10).replace(/-/g, "")}-${digest}`,
+    site,
     name: clean(i.name, 120), email, whatsapp: phone(i.whatsapp), company: clean(i.company, 160), country: clean(i.country, 80),
     amountUsd, message, status: "new", note: "",
     ipHash: ip ? (await sha256Hex(`ulyah-sale|${ip}`)).slice(0, 20) : "",
@@ -169,22 +183,33 @@ async function readJson<T>(b: SaleBucket, key: string): Promise<{ value: T; etag
   }
 }
 
-export async function getSettings(b: SaleBucket | undefined): Promise<SaleSettings> {
+async function readSettings(b: SaleBucket | undefined, site: SiteId): Promise<SaleSettings> {
   if (!b) return SALE_DEFAULTS;
-  const r = await readJson<SaleSettings>(b, SETTINGS_KEY).catch(() => null);
+  const r = await readJson<SaleSettings>(b, settingsKey(site)).catch(() => null);
   return r ? { ...sanitizeSettings(r.value), updatedAt: r.value.updatedAt || "", updatedBy: r.value.updatedBy || "" } : SALE_DEFAULTS;
 }
 
-/** Save the settings with compare-and-swap; a concurrent save is read again and re-applied. */
-export async function saveSettings(b: SaleBucket, input: Partial<Record<keyof SaleSettings, unknown>>, by: string, nowMs = Date.now()): Promise<SaleSettings> {
+/** A site's terms; a sibling site carries ulyah.com's contacts and Makkah live link. */
+export async function getSettings(b: SaleBucket | undefined, site: SiteId = "ulyah"): Promise<SaleSettings> {
+  const own = await readSettings(b, site);
+  if (site === "ulyah") return own;
+  const hub = await readSettings(b, "ulyah");
+  return { ...own, whatsapp: hub.whatsapp, email: hub.email, makkahLiveUrl: hub.makkahLiveUrl };
+}
+
+/** Save a site's terms with compare-and-swap; a concurrent save is read again and re-applied. */
+export async function saveSettings(b: SaleBucket, input: Partial<Record<keyof SaleSettings, unknown>>, by: string, site: SiteId = "ulyah", nowMs = Date.now()): Promise<SaleSettings> {
+  // A sibling's contacts are ulyah.com's: set them on ulyah.com, never per sibling.
+  const own = site === "ulyah" ? input : Object.fromEntries(Object.entries(input).filter(([k]) => !(HUB_FIELDS as readonly string[]).includes(k)));
+  const key = settingsKey(site);
   for (let attempt = 0; attempt < 5; attempt++) {
-    const cur = await readJson<SaleSettings>(b, SETTINGS_KEY);
+    const cur = await readJson<SaleSettings>(b, key);
     const base = cur ? sanitizeSettings(cur.value) : SALE_DEFAULTS;
-    const next: SaleSettings = { ...sanitizeSettings(input, base), updatedAt: new Date(nowMs).toISOString(), updatedBy: by };
-    const ok = await b.put(SETTINGS_KEY, JSON.stringify(next), { onlyIf: cur ? { etagMatches: cur.etag } : { etagDoesNotMatch: "*" }, httpMetadata: JSON_TYPE });
+    const next: SaleSettings = { ...sanitizeSettings(own, base), updatedAt: new Date(nowMs).toISOString(), updatedBy: by };
+    const ok = await b.put(key, JSON.stringify(next), { onlyIf: cur ? { etagMatches: cur.etag } : { etagDoesNotMatch: "*" }, httpMetadata: JSON_TYPE });
     if (ok) {
-      await appendLog(b, { action: "settings", by, changes: diff(base, next) }, nowMs);
-      return next;
+      await appendLog(b, { action: "settings", site, by, changes: diff(base, next) }, nowMs);
+      return site === "ulyah" ? next : getSettings(b, site);
     }
   }
   throw new Error("The settings changed at the same moment — please try again.");
@@ -212,7 +237,10 @@ export async function listOffers(b: SaleBucket, max = 500): Promise<SaleOffer[]>
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor && keys.length < max);
   const docs = await Promise.all(keys.slice(0, max).map((k) => readJson<SaleOffer>(b, k).then((r) => r?.value ?? null)));
-  return docs.filter((d): d is SaleOffer => !!d).sort((x, y) => y.createdAt.localeCompare(x.createdAt));
+  return docs
+    .filter((d): d is SaleOffer => !!d)
+    .map((d) => ({ ...d, site: isSiteId(d.site) ? d.site : "ulyah" }))
+    .sort((x, y) => y.createdAt.localeCompare(x.createdAt));
 }
 
 /** Move an offer to a status and/or note, compare-and-swap. */

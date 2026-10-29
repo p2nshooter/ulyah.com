@@ -1374,11 +1374,14 @@ ulyah.com, semua terkoneksi ke ulyah.com".
 | Saling terhubung | Setiap halaman penjualan menampilkan situs lain yang juga dijual, dengan harganya dan tautannya |
 | Demo portal admin | Halaman penjualan setiap situs menampilkan cara masuk portal admin situs itu: alamat `/admin`, username dan password demo (hanya-lihat, §18) |
 | Penyimpanan | Hanya R2: `k/site-sale.json` (ulyah.com) dan `k/site-sale/<situs>.json` (situs mitra), tawaran di `c/sale-offers/` dengan kolom `site` |
+| Dibangun | `GET /sale?site=`, `GET /sale/network`, `POST /sale/offers` dengan `site`; teks penjualan per bahasa (`lib/sale-copy.ts`: id, fr, de, es, en); `SiteSale` menggantikan `UlyahSale`; menu "🏷️ Site à vendre / Zu verkaufen / Sitio en venta / For sale"; Admin → Situs Dijual: lima kartu harga, kontak bersama, saring tawaran per situs |
 
 | Butir | Status |
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
-| Kode, tes, PR, deploy, cek live | 🔄 |
+| Kode dan tes (`scripts/check-site-sale.ts` 10/10) | ✅ 29 Okt |
+| Uji browser lokal kelima situs (desktop + HP) | ✅ 29 Okt — ulyah.com 23/23, 1fr.fr 20/20, tilawa.de 20/20, dawa.im 20/20, xad.es 15/20 (5 "gagal" karena harga xad.es baru saja diubah ke US$275.000 dari Admin ulyah.com dalam tes yang sama — membuktikan kendali dari ulyah.com sampai ke pita, menu dan halaman xad.es); portal admin ulyah.com 30/30, 1fr.fr 15/15 |
+| PR, deploy, cek live | 🔄 |
 
 ## 18. Portal admin setiap situs: mandiri, demo hanya-lihat, mudah untuk promosi (pemilik, 29 Okt 2026)
 
@@ -1411,7 +1414,9 @@ nyaman, dan betul2 mudah di gunakan untuk promosi haji umroh, youtube anak, dan 
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
 | Kode dan tes | ✅ 29 Okt — `scripts/check-admin-portal.ts` (CI) 4/4; uji browser lokal ulyah.com 30/30 dan 1fr.fr 15/15 (pemilik, admin situs, demo; desktop dan HP; tanpa error) |
-| PR, deploy, alamat API admin tiap situs, cek live | 🔄 |
+| PR #381 (CodeQL hijau setelah 2 temuan diperbaiki), merge | ✅ 29 Okt (`5fc12b69`) |
+| Deploy (run 559) dan alamat API admin tiap situs | ✅ 29 Okt — `api.1fr.fr`, `api.tilawa.de`, `api.dawa.im`, `api.xad.es` terpasang dan menjawab |
+| Cek live di browser (`admin-live-check.yml`) | ✅ 29 Okt — kelima situs: login demo di domain situs sendiri, beranda Promosi dalam bahasa situs, tanpa menu pribadi, API menolak donasi dan kunci (403) |
 
 ### 18.5 Haji & Umroh tanpa harga (pemilik, 29 Okt 2026)
 

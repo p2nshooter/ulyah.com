@@ -2,6 +2,7 @@ import { fillLabels } from "./fill-labels";
 import { TENANT } from "./tenant";
 import { ecosystemCopy } from "./ecosystem";
 import { TENANT_MARKETPLACE } from "./store";
+import { IS_SALE_SITE } from "./site-sale";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
 // (the old flat 13-link nav plus an differently-organised footer was exactly
@@ -437,9 +438,10 @@ export function navLabels(locale: string): NavLabels {
   // and the acquisition page is openly linked. Labels per language.
   const donate =
     locale === "fr" ? "🤲 Faire un don" : locale === "de" ? "🤲 Spenden" : locale === "es" ? "🤲 Donar" : locale === "id" ? "🤲 Donasi" : locale === "ar" ? "🤲 تبرَّع" : "🤲 Donate";
-  // ulyah.com: the dedicated "for sale" menu (owner, 28 Oct 2026: "menu husus di header jgn di footer").
-  const acq =
-    TENANT.id === "ulyah" ? (locale === "id" ? "🏷️ Situs Dijual" : "🏷️ For sale")
+  // The dedicated "for sale" menu of every site on sale (owner, 28 Oct 2026: "menu husus di header
+  // jgn di footer"; the four sibling sites since 29 Oct, §17.3). dawa.es keeps its old label.
+  const acq = IS_SALE_SITE
+    ? ({ id: "🏷️ Situs Dijual", fr: "🏷️ Site à vendre", de: "🏷️ Zu verkaufen", es: "🏷️ Sitio en venta" } as Record<string, string>)[locale] ?? "🏷️ For sale"
     : locale === "fr" ? "💎 Acquisition" : locale === "de" ? "💎 Übernahme" : locale === "es" ? "💎 Adquisición" : locale === "ar" ? "💎 استحواذ" : "💎 Acquisition";
   return {
     ...base,

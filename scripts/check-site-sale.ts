@@ -8,7 +8,9 @@
  *   - an offer below the minimum, without a name, e-mail or country, or while hidden, is refused;
  *   - an offer is recorded once — a double submit is the same document;
  *   - two admins saving at the same moment both land (compare-and-swap, no lost update);
- *   - an offer's status and note change, every change is logged, newest first.
+ *   - an offer's status and note change, every change is logged, newest first;
+ *   - 1fr.fr, tilawa.de, dawa.im and xad.es: US$250,000 each, their own terms, ulyah.com's
+ *     contacts, their own offers, all managed from the ulyah.com admin (§17.3).
  *
  *   npx tsx scripts/check-site-sale.ts
  */
@@ -156,6 +158,52 @@ async function main() {
   const st = await call(owner as never, `/site-sale/offers/${view.offers[0]!.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: "contacted", note: "WA sent" }) });
   assert.equal(((await st.json()) as { offer?: { status?: string } }).offer?.status, "contacted");
   ok("admin: owner only; hide takes effect at once; offer status");
+
+  // The sibling sites (§17.3): same price, their own terms, ulyah.com's contacts, one admin.
+  const nb = new FakeR2();
+  await saveSettings(nb, { whatsapp: "+62811000111", email: "owner@ulyah.com" }, "owner@ulyah.com");
+  const fr = await getSettings(nb, "1fr");
+  assert.deepEqual([fr.visible, fr.priceUsd, fr.minOfferUsd, fr.negotiable], [true, 250_000, 50_000, true], "the owner: \"Harga sama $250k\"");
+  assert.deepEqual([fr.whatsapp, fr.email], ["+62811000111", "owner@ulyah.com"], "a sibling uses ulyah.com's contacts");
+  const savedFr = await saveSettings(nb, { priceUsd: 300_000, email: "someone@else.example", whatsapp: "+1555" }, "owner@ulyah.com", "1fr");
+  assert.equal(savedFr.priceUsd, 300_000);
+  assert.equal(savedFr.email, "owner@ulyah.com", "a sibling's contacts are never set per sibling");
+  assert.equal((await getSettings(nb, "ulyah")).priceUsd, 250_000, "one site's price is not another's");
+  assert.equal((await getSettings(nb, "tilawa")).priceUsd, 250_000);
+  const plain = await buildOffer(good, "", Date.UTC(2026, 9, 29, 9));
+  const asUlyah = await buildOffer({ ...good, site: "ulyah" }, "", Date.UTC(2026, 9, 29, 9));
+  const asXad = await buildOffer({ ...good, site: "xad" }, "", Date.UTC(2026, 9, 29, 9));
+  assert.equal(plain.id, o1.id, "ulyah.com's offer id is unchanged by the release");
+  assert.equal(asUlyah.id, plain.id);
+  assert.notEqual(asXad.id, plain.id, "the same buyer's offer for another site is another offer");
+  assert.equal(asXad.site, "xad");
+  assert.equal((await buildOffer({ ...good, site: "dawa" }, "", 0)).site, "ulyah", "never a site that is not the owner's");
+  ok("siblings: US$250,000 each, own terms, ulyah.com's contacts, own offers");
+
+  const env2 = { MEDIA_R2: new FakeR2(), CACHE_KV: { get: async () => null, put: async () => {}, delete: async () => {} } } as never;
+  const net = await (await saleRoute.request("/network", {}, env2, ctx)).json() as { sites: { site: string; priceUsd: number }[] };
+  assert.deepEqual(net.sites.map((x) => x.site), ["ulyah", "1fr", "tilawa", "dawaim", "xad"]);
+  assert.ok(net.sites.every((x) => x.priceUsd === 250_000));
+  const ownerApp2 = (() => {
+    const a = new Hono();
+    a.use("*", async (c, next) => { c.set("admin" as never, { subject: "admin", id: 1, email: "owner@ulyah.com", role: "owner", tenant: null } as never); await next(); });
+    registerSiteSaleAdmin(a as never);
+    return a;
+  })();
+  const hideXad = await ownerApp2.request("/site-sale?site=xad", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ visible: false }) }, env2, ctx);
+  assert.equal(((await hideXad.json()) as { site?: string }).site, "xad");
+  const net2 = await (await saleRoute.request("/network", {}, env2, ctx)).json() as { sites: { site: string }[] };
+  assert.ok(!net2.sites.some((x) => x.site === "xad") && net2.sites.some((x) => x.site === "ulyah"), "hiding one site hides only that site");
+  const xadTerms = await (await saleRoute.request("/?site=xad", {}, env2, ctx)).json() as { visible?: boolean; site?: string };
+  assert.deepEqual([xadTerms.visible, xadTerms.site], [false, "xad"]);
+  const postTo = (site: string, amountUsd: number) => saleRoute.request("/offers", { method: "POST", headers: { "Content-Type": "application/json", "cf-connecting-ip": `198.51.100.${amountUsd % 200}` }, body: JSON.stringify({ ...good, site, amountUsd }) }, env2, ctx);
+  assert.equal((await postTo("xad", 80_000)).status, 404, "no offers for a hidden site");
+  assert.equal((await postTo("tilawa", 49_000)).status, 400, "the site's minimum applies");
+  assert.equal((await postTo("tilawa", 120_000)).status, 200);
+  const view2 = await (await ownerApp2.request("/site-sale", {}, env2, ctx)).json() as { sites: { site: string }[]; offers: { site: string; amountUsd: number }[] };
+  assert.equal(view2.sites.length, 5, "the owner sees all five sites in one place");
+  assert.deepEqual(view2.offers.map((x) => [x.site, x.amountUsd]), [["tilawa", 120_000]], "each offer says which site it is for");
+  ok("routes: network of sites, per-site hide, per-site minimum, offers with their site");
 
   console.log(`\nALL OK (${passed} checks)`);
 }

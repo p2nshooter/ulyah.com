@@ -4,20 +4,22 @@ import type { SessionData } from "../lib/session.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { getDemo } from "../lib/admin-demo.js";
-import { SITES, isSiteId } from "../lib/sites.js";
+import { SITES, SITE_IDS, isSiteId, type SiteId } from "../lib/sites.js";
 import {
   buildOffer, getSettings, listOffers, offerProblem, publicSettings, recentLog, recordOffer, saveSettings, updateOffer,
   type OfferInput, type SaleOffer,
 } from "../lib/site-sale.js";
 
 /**
- * ulyah.com is for sale (docs/ADSENSE-BLUEPRINT.md §17).
- *   GET  /sale          the public terms: shown?, price, minimum offer, negotiable, contact, Makkah live link
+ * ulyah.com is for sale (docs/ADSENSE-BLUEPRINT.md §17), and since 29 Oct 1fr.fr, tilawa.de, dawa.im and
+ * xad.es too (§17.3), all from the ulyah.com admin.
+ *   GET  /sale?site=    a site's public terms: shown?, price, minimum offer, negotiable, contact, Makkah live link
+ *   GET  /sale/network  every site on sale, with its price — each sale page lists the others
  *   POST /sale/offers   an offer (name, e-mail, WhatsApp, company, country, amount ≥ minimum, message)
  *   GET  /sale/demo     the read-only demo login of a site's admin portal (§18)
  * Admin, ulyah owner only (sibling-site admins and demo accounts never see buyers' details):
- *   GET  /admin/site-sale              settings, every offer, the change log
- *   PUT  /admin/site-sale              save the settings
+ *   GET  /admin/site-sale              every site's terms, every offer (with its site), the change log
+ *   PUT  /admin/site-sale?site=        save one site's terms (contacts are ulyah.com's)
  *   PUT  /admin/site-sale/offers/:id   status (new · contacted · negotiating · declined · accepted) and note
  * Everything lives in R2 (lib/site-sale.ts) — no D1.
  */
@@ -27,10 +29,24 @@ const ip = (c: { req: { header(n: string): string | undefined } }) => c.req.head
 const esc = (s: string) => s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]!);
 const usd = (n: number) => `US$${n.toLocaleString("en-US")}`;
 
+const siteParam = (v: unknown): SiteId => (isSiteId(v) ? v : "ulyah");
+
 saleRoute.get("/", async (c) => {
-  const s = await getSettings(c.env.MEDIA_R2);
+  const site = siteParam(c.req.query("site"));
+  const s = await getSettings(c.env.MEDIA_R2, site);
   c.header("Cache-Control", "public, max-age=60");
-  return c.json(publicSettings(s));
+  return c.json({ ...publicSettings(s), site });
+});
+
+saleRoute.get("/network", async (c) => {
+  const all = await Promise.all(SITE_IDS.map(async (id) => ({ id, s: await getSettings(c.env.MEDIA_R2, id) })));
+  c.header("Cache-Control", "public, max-age=60");
+  return c.json({
+    sites: all.filter(({ s }) => s.visible).map(({ id, s }) => ({
+      site: id, domain: SITES[id].domain, name: SITES[id].name, lang: SITES[id].lang,
+      priceUsd: s.priceUsd, minOfferUsd: s.minOfferUsd, negotiable: s.negotiable,
+    })),
+  });
 });
 
 /**
@@ -54,7 +70,8 @@ saleRoute.post("/offers", async (c) => {
   const rl = await checkRateLimit(c.env, `sale-offer:${ip(c) || "anon"}`, 5, 3600);
   if (!rl.allowed) return c.json({ error: "Too many offers — please try again later.", code: "rate" }, 429);
   if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE, code: "storage" }, 503);
-  const s = await getSettings(c.env.MEDIA_R2);
+  const site = siteParam((b as OfferInput).site);
+  const s = await getSettings(c.env.MEDIA_R2, site);
   const problem = offerProblem(b, s);
   if (problem) {
     const msg = {
@@ -66,7 +83,7 @@ saleRoute.post("/offers", async (c) => {
     }[problem];
     return c.json({ error: msg, code: problem, minOfferUsd: s.minOfferUsd }, problem === "hidden" ? 404 : 400);
   }
-  const offer = await buildOffer(b, ip(c));
+  const offer = await buildOffer({ ...b, site }, ip(c));
   const { created } = await recordOffer(c.env.MEDIA_R2, offer);
   if (created) c.executionCtx.waitUntil(notifyOwner(c.env, s.email, offer).catch(() => undefined));
   return c.json({ ok: true, created, id: offer.id, amountUsd: offer.amountUsd });
@@ -79,15 +96,16 @@ async function notifyOwner(env: Env, to: string, o: SaleOffer): Promise<void> {
   const rows: [string, string][] = [
     ["Name", o.name], ["E-mail", o.email], ["WhatsApp", o.whatsapp || "—"], ["Company", o.company || "—"], ["Country", o.country], ["Offer", usd(o.amountUsd)],
   ];
+  const domain = SITES[o.site].domain;
   const html = `<div style="font-family:Arial,sans-serif;line-height:1.6;color:#1a1a1a">
-    <h2 style="color:#0B3D2E">New offer for ULYAH.COM — ${esc(usd(o.amountUsd))}</h2>
+    <h2 style="color:#0B3D2E">New offer for ${esc(domain)} — ${esc(usd(o.amountUsd))}</h2>
     <table style="border-collapse:collapse">${rows.map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#666">${k}</td><td style="padding:4px 0"><b>${esc(v)}</b></td></tr>`).join("")}</table>
     ${o.message ? `<blockquote style="border-left:3px solid #C9A227;margin:16px 0;padding:4px 12px;white-space:pre-wrap">${esc(o.message)}</blockquote>` : ""}
     <p style="color:#666;font-size:13px">Open the admin portal → Situs dijual to reply and track it.</p></div>`;
   await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from: `ULYAH.COM <${from}>`, to: [to], reply_to: o.email, subject: `[ULYAH.COM dijual] ${o.name} — ${usd(o.amountUsd)}`, html }),
+    body: JSON.stringify({ from: `ULYAH.COM <${from}>`, to: [to], reply_to: o.email, subject: `[${domain} dijual] ${o.name} — ${usd(o.amountUsd)}`, html }),
   });
 }
 
@@ -104,9 +122,10 @@ export function registerSiteSaleAdmin(admin: AdminApp): void {
     const s = owner(c);
     if (!s) return c.json({ error: "Only the ulyah.com owner manages the sale." }, 403);
     const settings = await getSettings(c.env.MEDIA_R2);
-    if (!c.env.MEDIA_R2) return c.json({ settings, offers: [], log: [], storage: false });
+    const sites = await Promise.all(SITE_IDS.map(async (id) => ({ site: id, domain: SITES[id].domain, name: SITES[id].name, settings: await getSettings(c.env.MEDIA_R2, id) })));
+    if (!c.env.MEDIA_R2) return c.json({ settings, sites, offers: [], log: [], storage: false });
     const [offers, log] = await Promise.all([listOffers(c.env.MEDIA_R2), recentLog(c.env.MEDIA_R2)]);
-    return c.json({ settings, offers, log, storage: true });
+    return c.json({ settings, sites, offers, log, storage: true });
   });
 
   admin.put("/site-sale", async (c) => {
@@ -115,8 +134,9 @@ export function registerSiteSaleAdmin(admin: AdminApp): void {
     if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE }, 503);
     const body = (await c.req.json<Record<string, unknown>>().catch(() => null)) ?? {};
     try {
-      const settings = await saveSettings(c.env.MEDIA_R2, body, s.email);
-      return c.json({ ok: true, settings });
+      const site = siteParam(c.req.query("site"));
+      const settings = await saveSettings(c.env.MEDIA_R2, body, s.email, site);
+      return c.json({ ok: true, site, settings });
     } catch (e) {
       return c.json({ error: String((e as Error).message || e) }, 409);
     }

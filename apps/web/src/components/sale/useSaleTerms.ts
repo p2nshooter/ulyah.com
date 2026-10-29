@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { IS_SALE_SITE, SALE_DEFAULTS, toSaleTerms, type SaleTerms } from "@/lib/site-sale";
+import { TENANT } from "@/lib/tenant";
 
 /**
  * The sale terms in the browser (the header pill on every page). One request per page
@@ -16,7 +17,7 @@ export function useSaleTerms(): SaleTerms {
   useEffect(() => {
     if (!IS_SALE_SITE) return;
     let alive = true;
-    pending ??= api.get<unknown>("/sale").then(toSaleTerms).catch(() => SALE_DEFAULTS);
+    pending ??= api.get<unknown>(`/sale?site=${TENANT.id}`).then(toSaleTerms).catch(() => SALE_DEFAULTS);
     pending.then((t) => {
       if (alive) setTerms(t);
     });

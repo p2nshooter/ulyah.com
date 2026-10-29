@@ -1,0 +1,39 @@
+name: Admin portal + sale, live check (real browser, read-only)
+
+# Signs in to every site's admin portal on its own domain with the public demo login and
+# checks what the demo may and may not reach, then the sale page (scripts/admin-live-check.mjs;
+# docs/ADSENSE-BLUEPRINT.md §17.3, §18). The development sandbox cannot reach the production
+# domains, so this is how the portal is checked on the real thing.
+#
+# Runs by hand, and on a push that changes the check itself to the working branch
+# (workflow_dispatch only registers from main).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/ads-txt-domain-updates-uvhkwj]
+    paths:
+      - '.github/workflows/admin-live-check.yml'
+      - 'scripts/admin-live-check.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # Pinned like live-probe.yml: Playwright cannot install Chromium's libraries on Ubuntu 26.04.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Install Playwright + Chromium
+        run: |
+          mkdir -p "$RUNNER_TEMP/check" && cp scripts/admin-live-check.mjs "$RUNNER_TEMP/check/"
+          cd "$RUNNER_TEMP/check" && npm init -y >/dev/null && npm i --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check
+        working-directory: ${{ runner.temp }}/check
+        run: node admin-live-check.mjs
