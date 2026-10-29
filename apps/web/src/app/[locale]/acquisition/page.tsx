@@ -5,6 +5,15 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { routePath } from "@/lib/paths";
+import { IS_SALE_SITE, saleTerms, usd } from "@/lib/site-sale";
+import { libraryIndex } from "@/lib/kitab-data";
+import { IQRO_COUNT } from "@/lib/iqro";
+import { jsonLdProps } from "@/lib/structured-data";
+import { UlyahSale } from "@/components/sale/UlyahSale";
+
+// ulyah.com reads its sale terms from the admin (GET /sale) and refreshes them every five
+// minutes; the sibling sites' pages stay fully static (saleTerms() never fetches for them).
+export const revalidate = 300;
 
 /**
  * Acquisition page — 1fr.fr tenant only (404 on ulyah.com). Owner brief: the
@@ -162,6 +171,15 @@ function copyFor(locale: string) {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  if (IS_SALE_SITE) {
+    const t = await saleTerms();
+    if (!t.visible) return { title: "Halaman tidak ditemukan", robots: { index: false, follow: false } };
+    return {
+      title: `ULYAH.COM dijual — ${usd(t.priceUsd)}${t.negotiable ? ", bisa nego" : ""}`,
+      description: `Akuisisi ULYAH.COM: Al-Qur'an dengan suara, tafsir & hadits, perpustakaan kitab klasik, live Makkah–Madinah 24 jam dan portal admin. Harga ${usd(t.priceUsd)}${t.negotiable ? " bisa nego" : ""}, penawaran minimum ${usd(t.minOfferUsd)}.`,
+      alternates: { canonical: routePath(locale, `/acquisition`) },
+    };
+  }
   const c = copyFor(locale);
   return {
     // The layout's title template already appends " — <site>".
@@ -175,6 +193,35 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
   if (!TENANT.features.forSale) notFound();
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
+  if (IS_SALE_SITE) {
+    const terms = await saleTerms();
+    if (!terms.visible) notFound();
+    let kitabTotal = 0;
+    let kitabCats = 0;
+    try {
+      const lib = await libraryIndex();
+      kitabTotal = lib.total;
+      kitabCats = lib.categories.length;
+    } catch {
+      /* the page still stands without the count */
+    }
+    const url = `${TENANT.siteUrl}${routePath(locale, "/acquisition")}`;
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "ULYAH.COM — platform Islam digital (domain, kode sumber, konten)",
+      description: "Al-Qur'an dengan suara, tafsir & hadits, perpustakaan kitab klasik, live Makkah–Madinah 24 jam dan portal admin, dijual utuh.",
+      url,
+      brand: { "@type": "Brand", name: "ULYAH.COM" },
+      offers: { "@type": "Offer", price: terms.priceUsd, priceCurrency: "USD", availability: "https://schema.org/InStock", url },
+    };
+    return (
+      <>
+        <script {...jsonLdProps(ld)} />
+        <UlyahSale terms={terms} locale={locale} stats={{ kitabTotal, kitabCats, iqroLevels: IQRO_COUNT }} />
+      </>
+    );
+  }
   const c = copyFor(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
 

@@ -11,6 +11,8 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
 import { InstallAppButton } from "@/components/InstallAppButton";
 import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
+import { useSaleTerms } from "@/components/sale/useSaleTerms";
+import { IS_SALE_SITE, usdShort } from "@/lib/site-sale";
 import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
@@ -40,6 +42,11 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   );
   const navRef = useRef<HTMLElement>(null);
   const hasBook = BOOK_TENANTS.has(TENANT.id);
+  // ulyah.com for sale: the dedicated menu shows the price and disappears when the
+  // owner hides the sale in Admin → Situs dijual (docs/ADSENSE-BLUEPRINT.md §17).
+  const sale = useSaleTerms();
+  const direct = nav.direct.filter((it) => !(IS_SALE_SITE && it.path === "/acquisition" && !sale.visible));
+  const saleLabel = (label: string) => (IS_SALE_SITE ? `${label} · ${usdShort(sale.priceUsd)}` : label);
 
   // Close dropdown + mobile menu on any outside tap and on route change.
   useEffect(() => {
@@ -237,15 +244,18 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
             );
           })}
 
-          {nav.direct.map((it) => (
+          {direct.map((it) => (
             <Link
               key={it.path}
               href={`/${locale}${localizedRoute(it.path, locale)}`}
+              data-testid={it.path === "/acquisition" ? "nav-sale" : undefined}
               className={`whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition xl:px-2.5 xl:text-[13px] min-[88rem]:px-3.5 min-[88rem]:text-sm ${
-                isActive(it.path) ? "bg-accent/15 font-medium text-accent" : it.path === "/ekosistem" ? "eco-promo font-semibold text-accent" : "text-text-secondary hover:text-accent"
+                IS_SALE_SITE && it.path === "/acquisition"
+                  ? "border border-accent bg-accent font-semibold text-primary shadow-(--ul-shadow-gold) hover:brightness-110"
+                  : isActive(it.path) ? "bg-accent/15 font-medium text-accent" : it.path === "/ekosistem" ? "eco-promo font-semibold text-accent" : "text-text-secondary hover:text-accent"
               }`}
             >
-              {it.label}
+              {it.path === "/acquisition" ? saleLabel(it.label) : it.label}
             </Link>
           ))}
         </div>
@@ -305,14 +315,16 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               </div>
             );
           })}
-          {nav.direct.map((it) => (
+          {direct.map((it) => (
             <Link
               key={it.path}
               href={`/${locale}${localizedRoute(it.path, locale)}`}
               onClick={() => setMenuOpen(false)}
               className="block border-t border-(--color-border)/60 rounded-sm px-2 py-2.5 text-sm font-medium hover:bg-black/5"
             >
-              {it.path === "/ekosistem" ? <span className="eco-promo text-accent">{it.label}</span> : <>{it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}</>}
+              {IS_SALE_SITE && it.path === "/acquisition" ? (
+                <span className="inline-flex rounded-full bg-accent px-3 py-1 font-semibold text-primary">{saleLabel(it.label)}</span>
+              ) : it.path === "/ekosistem" ? <span className="eco-promo text-accent">{it.label}</span> : <>{it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}</>}
             </Link>
           ))}
         </nav>

@@ -12,6 +12,8 @@ import { MainAppInstallCard } from "@/components/AppInstallCard";
 import { IQRO_COUNT } from "@/lib/iqro";
 import { homeLabels } from "@/lib/home-labels";
 import { routePath } from "@/lib/paths";
+import { saleTerms } from "@/lib/site-sale";
+import { SaleBand } from "@/components/sale/SaleBand";
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -33,6 +35,9 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
     kitabTotal = 0;
   }
   const t = homeLabels(locale);
+  // ulyah.com for sale — the first thing on the page (docs/ADSENSE-BLUEPRINT.md §17);
+  // no request on the sibling sites.
+  const sale = await saleTerms();
 
   // Quick-access tiles — each links straight to the feature it names, so the
   // hero row doubles as real navigation instead of being purely decorative.
@@ -70,6 +75,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
 
   return (
     <div>
+      <SaleBand terms={sale} locale={locale} />
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="hero-main pattern-islamic bg-(--color-bg) px-4 pb-10 pt-12 sm:px-6 desktop:pt-16">
         <div className="mx-auto grid max-w-7xl items-center gap-10 desktop:grid-cols-2">

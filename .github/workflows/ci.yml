@@ -311,6 +311,11 @@ jobs:
       - name: Check no two sites recite in the same voice at the same moment
         run: npx tsx scripts/check-radio-separation.ts
 
+      # ulyah.com for sale (docs/ADSENSE-BLUEPRINT.md §17): price rules, minimum offer,
+      # create-once offers and compare-and-swap settings on R2 semantics.
+      - name: Check the ulyah.com sale rules and their R2 storage
+        run: npx tsx scripts/check-site-sale.ts
+
       - name: Typecheck worker-api
         run: pnpm --filter @ulyah/worker-api typecheck
 

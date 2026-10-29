@@ -621,6 +621,8 @@ di akun AdSense (di luar jangkauan Claude).
 | 28 Okt | "Ubah kode adsense https://qkb.es dan selalu buatkan cuplikan adsense dan tag metanya — google.com, pub-3121033501099075, DIRECT, f08c47fec0942fa0" | ✅ qkb.es pindah ke `ca-pub-3121033501099075` (sebelumnya `ca-pub-6284085719914185` sejak 19 Okt): `sites/qkb.es/site.json` + `ADSENSE.txt` (ads.txt, tag meta, cuplikan loader), peta audit `scripts/site-audit.mjs`, `ADSENSE-CODES.md`, `ADSENSE-SEMUA-DOMAIN.txt`; `check.mjs qkb.es` ALL OK (57 halaman membawa tag meta + loader, ads.txt satu baris itu). Aturan tetap dari pemilik: setiap perubahan kode AdSense dilaporkan bersama cuplikan adsense, tag meta dan baris ads.txt-nya (§1 no. 14). ✅ live: audit `site-audit.yml` 28 Okt 13.15–13.18 UTC — qkb.es **OK ca-pub-3121033501099075** (PR #378, deploy 13.06 UTC); 39/39 domain OK |
 | 28 Okt | "Ini jg crone.skin Google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0 — Lie.skin google.com, pub-2271696914011881, DIRECT, f08c47fec0942fa0" | ✅ crone.skin pindah ke `ca-pub-9653574958783349` (sebelumnya `ca-pub-9433622530024776`; repo ulyah.com, `sites/crone.skin/site.json` + `ADSENSE.txt`, `check.mjs crone.skin` ALL OK); lie.skin pindah ke `ca-pub-2271696914011881` (sebelumnya `ca-pub-9666205248809954`; repo Lie, `src/lib/site.ts` + `public/ads.txt`). Peta audit, `ADSENSE-CODES.md` dan `ADSENSE-SEMUA-DOMAIN.txt` ikut. ✅ live: audit `site-audit.yml` 28 Okt 13.15–13.18 UTC — crone.skin **OK ca-pub-9653574958783349** (PR #378, deploy 13.02 UTC), lie.skin **OK ca-pub-2271696914011881** (Lie #19, deploy 12.55 UTC); 39/39 domain OK |
 | 28 Okt | "Ingat, selalu dahulukan sampe live dulu kode adsense, ads.txt, cuplikan adsense dan tag meta" | ✅ aturan tetap §1 no. 14 (juga di `CLAUDE.md`): perubahan AdSense dikerjakan pertama sampai audit live OK, laporan selalu memuat ketiga cuplikan |
+| 28 Okt | "Tolong di website muslim di homepage paling depan tulis web ini di jual, atau bikin menu husus di header jgn di footer, kasih harga $250rb... Terus kasih penjelasan apa aja yg ada di dalamnya, kitab2 nya, fitur2 nya, manfaatnya, kemudahan mendengar kitab dan alquran dari voice dll, iklan haji & umroh, sewa youtube, live channel Mekah Madinah dll... Tolong input sekalian dari portal admin ulyah.com krn semua di kontrol dari situ isi link youtube live Mekkah yg live 24 jam" — disusul "Kasih harga di posisi yg paling jelas dan nego, harga $250k dan minimal penawaran $50k" (semula diantre setelah axto.io 100%, guardian-ai REQUESTS 121) | 🔄 §17 |
+| 29 Okt | "Yg belum di kerjain ini penjualan website islam, bikin yg profesional sesuai intruksi sy, dah lu catet blm d blueprint" | 🔄 §17 — dikerjakan sekarang (baru tercatat di guardian-ai REQUESTS 121; kini juga di sini) |
 
 ---
 
@@ -1323,3 +1325,30 @@ Rencana bila dilepas (dicatat agar tidak lupa, belum dibangun):
 | Jarak & tata letak | ruang dicadangkan (min-height) agar CLS tidak naik; label "Iklan/Anzeige/Publicité/Anuncio/Advertisement"; tidak menempel tombol |
 | Larangan | tidak ada iklan di halaman tanpa isi utama, tidak ada tulisan "klik iklan", tidak ada iklan di dalam elemen yang bisa disentuh tak sengaja |
 | Uji | hitung `ins.adsbygoogle` per jenis halaman = 4, satu skrip pemuat, CLS di Lighthouse tidak memburuk, `ads.txt` tetap ada |
+
+## 17. ulyah.com dijual (pemilik, 28–29 Okt 2026)
+
+Perintah pemilik (tabel log di atas, 28 dan 29 Okt): situs muslim **ulyah.com** dijual, ditulis di **paling depan
+beranda** dan lewat **menu khusus di header (bukan footer)**, harga **US$250.000 bisa nego**, **penawaran minimum
+US$50.000**, harga di posisi paling jelas, penjelasan lengkap isi situs, dan tautan **YouTube live Mekkah 24 jam** diatur
+dari **portal admin ulyah.com**. Sejak 27 Okt situs mitra (1fr.fr, tilawa.de, xad.es, dawa.im) dijual terpisah lewat
+xaa.es (US$30.000 per situs); penjualan ini hanya ulyah.com.
+
+### 17.1 Yang dibangun
+
+| Bagian | Isi |
+|---|---|
+| Beranda | Pita penjualan di paling atas (sebelum hero): "ULYAH.COM dijual", **US$250.000 · bisa nego**, **penawaran minimum US$50.000**, tombol ke halaman penjualan |
+| Header | Menu khusus berwarna emas "🏷️ Dijual" di baris menu utama (desktop dan menu HP), bukan di footer |
+| Halaman `/acquisition` (ulyah.com) | Kartu harga paling depan; isi situs dengan angka nyata (Al-Qur'an 604 halaman mushaf bertajwid, terjemahan & tafsir, hadits, perpustakaan kitab, kitab pesantren, sanad, kisah, anak, audiobook, radio qori, suara untuk kitab dan Al-Qur'an, jadwal sholat, kiblat, kalender hijriyah, imsakiyah, zakat, waris, tanya AI, 29 bahasa, PWA); sumber pendapatan (AdSense, iklan paket haji & umroh, sewa slot live YouTube, donasi, toko afiliasi, widget); **live Mekkah 24 jam** tertanam; apa yang diterima pembeli; langkah serah terima; formulir penawaran; FAQ; JSON-LD |
+| Formulir penawaran | Nama, e-mail, WhatsApp, negara, perusahaan, nilai tawaran (**ditolak di bawah minimum**), pesan; tersimpan di **R2** (satu dokumen per tawaran, tulis sekali), batas laju per IP |
+| Admin → **Situs dijual** | Tampil/sembunyi (bawaan **tampil**), harga, minimum, bisa nego, kontak WhatsApp & e-mail, **tautan YouTube live Mekkah 24 jam** (kosong = kanal Masjidil Haram di tab Live streams), daftar tawaran dengan status (baru, dihubungi, negosiasi, ditolak, diterima) dan catatan; setiap perubahan masuk log audit |
+| Penyimpanan | Hanya **R2** (`MEDIA_R2`): `k/site-sale.json` (pengaturan, compare-and-swap), `c/sale-offers/<id>.json` (tawaran, create-once) — tidak ada tabel atau query D1 baru |
+
+### 17.2 Status
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 29 Okt |
+| Kode, tes, PR, deploy, cek live | 🔄 |
+
