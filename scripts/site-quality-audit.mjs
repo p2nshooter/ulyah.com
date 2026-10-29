@@ -89,7 +89,7 @@ async function audit(ctx, url, lang, phone) {
     const u = r.url();
     if (r.status() >= 400 && !NOISE.test(u) && /ulyah\.com|1fr\.fr|tilawa\.de|dawa\.im|xad\.es/.test(u)) failed.push(`${r.status()} ${u.slice(0, 160)}`);
   });
-  let status = "ERR";
+  let status;
   try {
     const res = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45_000 });
     status = res ? res.status() : "no-response";
