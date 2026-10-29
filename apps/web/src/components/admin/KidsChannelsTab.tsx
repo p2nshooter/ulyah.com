@@ -103,6 +103,10 @@ export function KidsChannelsTab() {
     <div className="space-y-6">
       <div className="rounded-xl border border-accent/40 bg-accent/5 p-4 text-xs leading-relaxed text-text-secondary">
         <p className="font-heading text-base text-text-primary">🎬 Film Anak Muslim Dunia — halaman publik /video-anak</p>
+        <p className="mt-2 rounded-lg bg-primary/5 px-3 py-2 text-text-primary dark:bg-white/5">
+          Ini <b>daftar bersama</b> untuk situs yang belum punya daftar sendiri — kanal YouTube anak setiap situs diatur di
+          <b> Promosi → 🧒 YouTube anak</b>.
+        </p>
         <p className="mt-2">
           Channel dikelompokkan per negara. <b>👁 Tampil</b> berarti muncul di halaman publik, <b>🙈 Sembunyi</b>{" "}
           berarti tidak muncul (data tetap tersimpan, bisa ditampilkan lagi kapan saja). Tambahkan channel baru dengan

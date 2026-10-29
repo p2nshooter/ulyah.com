@@ -623,6 +623,13 @@ di akun AdSense (di luar jangkauan Claude).
 | 28 Okt | "Ingat, selalu dahulukan sampe live dulu kode adsense, ads.txt, cuplikan adsense dan tag meta" | ✅ aturan tetap §1 no. 14 (juga di `CLAUDE.md`): perubahan AdSense dikerjakan pertama sampai audit live OK, laporan selalu memuat ketiga cuplikan |
 | 28 Okt | "Tolong di website muslim di homepage paling depan tulis web ini di jual, atau bikin menu husus di header jgn di footer, kasih harga $250rb... Terus kasih penjelasan apa aja yg ada di dalamnya, kitab2 nya, fitur2 nya, manfaatnya, kemudahan mendengar kitab dan alquran dari voice dll, iklan haji & umroh, sewa youtube, live channel Mekah Madinah dll... Tolong input sekalian dari portal admin ulyah.com krn semua di kontrol dari situ isi link youtube live Mekkah yg live 24 jam" — disusul "Kasih harga di posisi yg paling jelas dan nego, harga $250k dan minimal penawaran $50k" (semula diantre setelah axto.io 100%, guardian-ai REQUESTS 121) | 🔄 §17 |
 | 29 Okt | "Yg belum di kerjain ini penjualan website islam, bikin yg profesional sesuai intruksi sy, dah lu catet blm d blueprint" | 🔄 §17 — dikerjakan sekarang (baru tercatat di guardian-ai REQUESTS 121; kini juga di sini) |
+| 29 Okt | "1fr.fr dawa.im tilawa.de termasuk xad.es itu jg jual semua, sama kaya ulyah.com pembayaran ngikutin ulyah.com, semua terkoneksi ke ulyah.com" | 🔄 §17.3 — keempat situs mitra dijual dengan cara yang sama seperti ulyah.com, semuanya dikendalikan dari Admin → Situs dijual di ulyah.com |
+| 29 Okt | "Aktifin admin panel mereka masing2, agar mandiri, kasih cara masuk admin panel nya dengan username dan password demo, mereka hanya bisa melihat2... Kembangkan dulu portal adminya untuk semuanya, agar pembeli melihat nya nyaman, dan betul2 mudah di gunakan untuk promosi haji umroh, youtube anak, dan promo youtube" | 🔄 §18 — dikerjakan lebih dulu (PR 1), lalu penjualan situs mitra §17.3 (PR 2) |
+| 29 Okt | "Harga sama $250k" | ✅ dicatat — situs mitra masing-masing US$250.000 (min. US$50.000), sama dengan ulyah.com (§17.3) |
+| 29 Okt | "Cek jg translate dan seluruh isi nya, apakah masih ada yg tidak konsisten, error, bug dll atau masih ada yg tidak d terjemahkan... Kerjakan semuanya setelah bikin penjualan,,, bikin yg profesional elegan indah termasuk di ulyah.com, jgn ada css yg error, dari A-Z wajib zero bug error dan miss" | ⏳ §19 — setelah portal admin (§18) dan penjualan situs mitra (§17.3): audit terjemahan dan isi kelima situs (teks yang belum diterjemahkan, tidak konsisten, error, CSS rusak) dan perbaikannya |
+| 29 Okt | "Untuk saat ini make 2 jalur, bisa dari ulyah.com maupun bisa mandiri, klo nanti ada yg beli baru di putus satu per satu, agar lebih mudah d kontrol koneksikan dulu ke ulyah.com" | 🔄 §18.4 — dua jalur sekaligus: Admin ulyah.com (pemilik memilih situs) dan admin mandiri setiap situs; semua tetap terhubung ke ulyah.com; diputus satu per satu saat terjual |
+| 29 Okt | "Untuk kitab tajwid anak, game anak, gunakan pwngucapanya menggunakan lidah orang Arab, agar faseh dan makhroj nya tepat, tinggal pilih pembacanya \"laki perempuan dewasa atau anak2\"" | ⏳ §20 — dicatat; dikerjakan setelah §18, §17.3 dan §19 |
+| 29 Okt | "Jgn d kasih harga dulu haji umroh, kosongin harganya atau kasih keterangan i sewakan slot nya" | ✅ §18.5 — tidak ada harga di halaman Haji & Umroh (termasuk "$1/hari" sewa yang lama); kartu menulis "Slot disewakan"; editor admin tanpa kolom harga |
 
 ---
 
@@ -1331,8 +1338,8 @@ Rencana bila dilepas (dicatat agar tidak lupa, belum dibangun):
 Perintah pemilik (tabel log di atas, 28 dan 29 Okt): situs muslim **ulyah.com** dijual, ditulis di **paling depan
 beranda** dan lewat **menu khusus di header (bukan footer)**, harga **US$250.000 bisa nego**, **penawaran minimum
 US$50.000**, harga di posisi paling jelas, penjelasan lengkap isi situs, dan tautan **YouTube live Mekkah 24 jam** diatur
-dari **portal admin ulyah.com**. Sejak 27 Okt situs mitra (1fr.fr, tilawa.de, xad.es, dawa.im) dijual terpisah lewat
-xaa.es (US$30.000 per situs); penjualan ini hanya ulyah.com.
+dari **portal admin ulyah.com**. Sejak 29 Okt situs mitra (1fr.fr, tilawa.de, xad.es, dawa.im) juga dijual dengan cara
+yang sama dan dari portal yang sama (§17.3).
 
 ### 17.1 Yang dibangun
 
@@ -1350,5 +1357,114 @@ xaa.es (US$30.000 per situs); penjualan ini hanya ulyah.com.
 | Butir | Status |
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
+| Kode, tes, PR #380, merge | ✅ 29 Okt (CI hijau, `16bb0710`) |
+| Deploy, cek live | 🔄 |
+
+### 17.3 Situs mitra juga dijual, semua lewat ulyah.com (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „1fr.fr dawa.im tilawa.de termasuk xad.es itu jg jual semua, sama kaya ulyah.com pembayaran ngikutin
+ulyah.com, semua terkoneksi ke ulyah.com".
+
+| Bagian | Isi |
+|---|---|
+| Setiap situs | Pita penjualan di paling atas beranda, menu emas di header, halaman `/acquisition` lengkap dengan harga di posisi paling jelas, formulir penawaran, live Makkah, FAQ — **dalam bahasa situs itu** (1fr.fr Prancis, tilawa.de Jerman, dawa.im Spanyol, xad.es Inggris) |
+| Harga bawaan | Pemilik 29 Okt: „Harga sama $250k" — **setiap situs US$250.000, bisa nego, penawaran minimum US$50.000**, sama dengan ulyah.com (harga lama US$30.000 dari 27 Okt diganti). Semua bisa diubah per situs di Admin |
+| Pembayaran dan kontak | Mengikuti ulyah.com: WhatsApp dan e-mail pemilik dari pengaturan ulyah.com, langkah pembelian dan cara bayar yang sama; semua tawaran masuk ke Admin → Situs dijual di ulyah.com dengan nama situsnya |
+| Admin ulyah.com → Situs dijual | Satu tabel untuk lima situs: tampil/sembunyi, harga, minimum, bisa nego per situs; tawaran bisa disaring per situs |
+| Saling terhubung | Setiap halaman penjualan menampilkan situs lain yang juga dijual, dengan harganya dan tautannya |
+| Demo portal admin | Halaman penjualan setiap situs menampilkan cara masuk portal admin situs itu: alamat `/admin`, username dan password demo (hanya-lihat, §18) |
+| Penyimpanan | Hanya R2: `k/site-sale.json` (ulyah.com) dan `k/site-sale/<situs>.json` (situs mitra), tawaran di `c/sale-offers/` dengan kolom `site` |
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 29 Okt |
 | Kode, tes, PR, deploy, cek live | 🔄 |
 
+## 18. Portal admin setiap situs: mandiri, demo hanya-lihat, mudah untuk promosi (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „Aktifin admin panel mereka masing2, agar mandiri, kasih cara masuk admin panel nya dengan username dan
+password demo, mereka hanya bisa melihat2... Kembangkan dulu portal adminya untuk semuanya, agar pembeli melihat nya
+nyaman, dan betul2 mudah di gunakan untuk promosi haji umroh, youtube anak, dan promo youtube".
+
+### 18.1 Temuan
+
+- Login admin di domain situs mitra (1fr.fr/admin dan lainnya) **tidak bisa bertahan**: cookie sesi admin dipasang
+  `SameSite=Strict` di `api.ulyah.com`, jadi browser tidak pernah mengirimnya dari 1fr.fr, tilawa.de, dawa.im atau xad.es.
+- Akun demo hanya ada untuk 1fr.fr dan tilawa.de (di D1, password tidak tercatat), dan akun demo bisa **membaca semua**
+  menu admin — termasuk donasi, klien, log audit dan kunci AI. Tidak aman untuk dibagikan ke calon pembeli.
+- Live YouTube dan kanal YouTube anak adalah **satu daftar bersama** untuk semua situs (D1): admin situs mitra tidak bisa
+  mengatur promosinya sendiri.
+
+### 18.2 Yang dibangun
+
+| Bagian | Isi |
+|---|---|
+| Alamat API admin sendiri | `api.1fr.fr`, `api.tilawa.de`, `api.dawa.im`, `api.xad.es` dipasang ke Worker API yang sama; panggilan `/admin/*` dari setiap situs memakai alamat situsnya sendiri, jadi cookie sesi berlaku dan login bertahan |
+| Login demo setiap situs | `demo@<domain>` dengan password acak yang dibuat sekali dan disimpan di **R2** (`k/admin-demo/<situs>.json`); pemilik bisa membuat password baru atau mematikan demo dari Admin ulyah.com; tampil di halaman penjualan situs itu |
+| Demo hanya-lihat dan aman | Akun demo hanya bisa **membuka** menu promosi dan isi situs (Haji & Umroh, YouTube anak, promo YouTube, halaman situs); data pribadi, keuangan, kunci dan log selalu ditolak di server |
+| Tampilan admin baru | Kepala portal bermerek situs (logo, nama, domain), menu dikelompokkan, beranda **Promosi** dengan tiga kartu besar — 🕋 Haji & Umroh, 🧒 YouTube Anak, 📺 Promo YouTube — beserta jumlah isi dan langkah singkat; teks portal dalam bahasa situs |
+| Promosi mandiri per situs | Slot promo YouTube dan kanal YouTube anak setiap situs disimpan di **R2** (`k/promo/<situs>/youtube.json`, `k/promo/<situs>/kids.json`); halaman /live dan halaman anak di situs itu memakai daftarnya sendiri. Paket Haji & Umroh sudah per situs |
+
+### 18.3 Status
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 29 Okt |
+| Kode dan tes | ✅ 29 Okt — `scripts/check-admin-portal.ts` (CI) 4/4; uji browser lokal ulyah.com 30/30 dan 1fr.fr 15/15 (pemilik, admin situs, demo; desktop dan HP; tanpa error) |
+| PR, deploy, alamat API admin tiap situs, cek live | 🔄 |
+
+### 18.5 Haji & Umroh tanpa harga (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „Jgn d kasih harga dulu haji umroh, kosongin harganya atau kasih keterangan i sewakan slot nya".
+
+- Halaman Haji & Umroh di kelima situs tidak menampilkan harga apa pun. Harga paket memang tidak pernah tampil, tetapi
+  label kartu dan ajakan sewa masih menulis harga sewa ("Disewakan · $1/hari", "hanya $1 per hari"). Kini kartu menulis
+  **"Slot disewakan"** (dalam bahasa situs) dan ajakan sewa mengundang biro perjalanan menghubungi untuk ketentuannya.
+- Deskripsi halaman dan meta (9 bahasa) tidak lagi menjanjikan "harga transparan".
+- Editor admin tidak punya kolom harga; menyimpan sebuah paket mengosongkan harganya.
+
+### 18.4 Dua jalur kendali, terhubung ke ulyah.com (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „Untuk saat ini make 2 jalur, bisa dari ulyah.com maupun bisa mandiri, klo nanti ada yg beli baru di
+putus satu per satu, agar lebih mudah d kontrol koneksikan dulu ke ulyah.com".
+
+- **Jalur 1 — dari ulyah.com:** pemilik masuk ke ulyah.com/admin, memilih situs (ulyah.com, 1fr.fr, tilawa.de, dawa.im,
+  xad.es) di setiap halaman promosi, lalu mengubah paket Haji & Umroh, promo YouTube dan YouTube anak situs itu.
+- **Jalur 2 — mandiri:** admin situs itu sendiri masuk ke `<domain>/admin` dan hanya mengatur situsnya.
+- Keduanya menulis ke data yang sama (API dan R2 ulyah.com), jadi perubahan dari jalur mana pun langsung tampil.
+- **Saat sebuah situs terjual**, situs itu diputus sendiri: data promosinya disalin ke akun pembeli, akun admin dan demo
+  situs itu dimatikan di sini, dan alamat API admin-nya dilepas — situs lain tidak tersentuh.
+
+## 19. Audit terjemahan dan isi semua situs, nol bug (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „Cek jg translate dan seluruh isi nya, apakah masih ada yg tidak konsisten, error, bug dll atau masih ada
+yg tidak d terjemahkan... Kerjakan semuanya setelah bikin penjualan,,, bikin yg profesional elegan indah termasuk di
+ulyah.com, jgn ada css yg error, dari A-Z wajib zero bug error dan miss".
+
+Urutan: setelah §18 (portal admin) dan §17.3 (penjualan situs mitra) tayang. Cakupan: ulyah.com, 1fr.fr, tilawa.de,
+dawa.im, xad.es — setiap halaman di menu dan sitemap, desktop dan HP: teks yang masih bahasa lain, istilah yang tidak
+konsisten antarhalaman, kesalahan JavaScript, permintaan gagal, CSS yang rusak (tumpang tindih, meluber, kontras),
+lalu diperbaiki dan diuji ulang sampai bersih.
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 29 Okt |
+| Audit, perbaikan, tes, PR, deploy, cek live | ⏳ setelah §18 dan §17.3 |
+
+## 20. Pengucapan Arab asli untuk tajwid anak dan game anak (pemilik, 29 Okt 2026)
+
+Perintah pemilik: „Untuk kitab tajwid anak, game anak, gunakan pwngucapanya menggunakan lidah orang Arab, agar faseh dan
+makhroj nya tepat, tinggal pilih pembacanya \"laki perempuan dewasa atau anak2\"".
+
+- Semua suara Arab di bagian anak (tajwid anak, huruf hijaiyah, Iqro, game anak) diucapkan oleh **penutur Arab asli** —
+  fasih, makhraj tepat — bukan suara mesin berlogat lain.
+- Pengunjung memilih pembacanya: **laki-laki dewasa, perempuan dewasa, atau anak-anak**; pilihan diingat di perangkat.
+- Sumber suara harus benar-benar penutur Arab (rekaman qari/guru, atau suara sintetis Arab asli yang diperiksa
+  makhrajnya); tidak ada klaim yang tidak benar tentang siapa pembacanya.
+- Langkah pertama saat dikerjakan: daftar semua tempat suara Arab di bagian anak, cek sumber suaranya sekarang, lalu
+  pilih sumber untuk tiga pilihan pembaca.
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 29 Okt |
+| Inventaris suara, pilihan pembaca, tes, PR, deploy | ⏳ setelah §18, §17.3 dan §19 |

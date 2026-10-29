@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { fillLabels } from "@/lib/fill-labels";
+import { TENANT } from "@/lib/tenant";
 
 interface VideoRow {
   id: number;
@@ -52,7 +53,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
 
   useEffect(() => {
     api
-      .get<{ videos: VideoRow[]; channels?: ChannelRow[] }>("/content/video-anak")
+      .get<{ videos: VideoRow[]; channels?: ChannelRow[] }>(`/content/video-anak?tenant=${TENANT.id}`)
       .then((r) => {
         setVideos(r.videos ?? []);
         setChannels(r.channels ?? []);

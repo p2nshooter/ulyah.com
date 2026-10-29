@@ -65,6 +65,25 @@ export async function saleTerms(): Promise<SaleTerms> {
   }
 }
 
+/** The read-only demo login of a site's admin portal, for prospective buyers (docs/ADSENSE-BLUEPRINT.md §18). */
+export interface SaleDemo { url: string; email: string; password: string }
+
+export function toSaleDemo(raw: unknown): SaleDemo | null {
+  const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  if (r.enabled !== true || typeof r.url !== "string" || typeof r.email !== "string" || typeof r.password !== "string") return null;
+  return { url: r.url, email: r.email, password: r.password };
+}
+
+/** The demo login for this site, refreshed every five minutes; none when switched off or unreachable. */
+export async function saleDemo(): Promise<SaleDemo | null> {
+  if (!IS_SALE_SITE) return null;
+  try {
+    return toSaleDemo(await getCached<unknown>(`/sale/demo?site=${TENANT.id}`, 300));
+  } catch {
+    return null;
+  }
+}
+
 /** "US$250.000" in Indonesian grouping, "US$250,000" in English. */
 export function usd(n: number, locale = "id"): string {
   return `US$${Math.round(n).toLocaleString(locale === "id" ? "id-ID" : "en-US")}`;

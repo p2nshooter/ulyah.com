@@ -1551,6 +1551,37 @@ jobs:
         working-directory: apps/worker-api
         run: npx wrangler deploy
 
+      # Each site's admin portal needs an API host of its OWN site (docs/ADSENSE-BLUEPRINT.md
+      # §18): the admin session cookie is SameSite=Strict, so a browser on 1fr.fr never
+      # sends it to api.ulyah.com and the login there could not hold. Same Worker, four
+      # more hostnames; the web builds below point their /admin calls at them
+      # (NEXT_PUBLIC_ADMIN_API_URL). Not fatal: a zone that is missing or an old DNS
+      # record in the way is reported, and api.ulyah.com is untouched either way.
+      - name: Attach the sites' admin API hosts (api.1fr.fr, api.tilawa.de, api.dawa.im, api.xad.es)
+        continue-on-error: true
+        run: |
+          set -u
+          CF="https://api.cloudflare.com/client/v4"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          for zone in 1fr.fr tilawa.de dawa.im xad.es; do
+            ZONE_ID=$(curl -s -H "$AUTH" "$CF/zones?name=$zone" | jq -r '.result[0].id // empty')
+            if [ -z "$ZONE_ID" ]; then
+              echo "::warning::$zone zone not found — api.$zone not attached; that site's admin portal waits for it."
+              continue
+            fi
+            resp=$(curl -s -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+              -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"api.$zone\",\"service\":\"ulyah-api\",\"environment\":\"production\"}" \
+              "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains")
+            echo "api.$zone -> ulyah-api: success=$(echo "$resp" | jq -r '.success') errors=$(echo "$resp" | jq -c '.errors')"
+          done
+          # A new hostname needs a moment for its certificate; report, never fail.
+          for zone in 1fr.fr tilawa.de dawa.im xad.es; do
+            for i in 1 2 3 4 5 6; do
+              if curl -sf --max-time 10 "https://api.$zone/health" > /dev/null; then echo "api.$zone is live ✓"; break; fi
+              [ "$i" = 6 ] && echo "::warning::api.$zone does not answer yet — the $zone admin portal cannot sign in until it does." || sleep 15
+            done
+          done
+
       # R2 under the 10 GB free tier (owner, 12 Oct 2026: "turunkan R2-nya
       # hingga di bawah 10 GB" — it stood at 121.63 GB). Each file in
       # .github/r2-lifecycle is the complete rule set of the bucket it is named
@@ -1710,6 +1741,7 @@ jobs:
         run: npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_ADMIN_API_URL: https://api.1fr.fr
           NEXT_PUBLIC_TENANT: "1fr"
 
       - name: Deploy 1fr.fr web (onefaith-web worker)
@@ -1745,6 +1777,7 @@ jobs:
         run: npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_ADMIN_API_URL: https://api.tilawa.de
           NEXT_PUBLIC_TENANT: "tilawa"
 
       - name: Deploy tilawa.de web (tilawa-web worker)
@@ -1780,6 +1813,7 @@ jobs:
         run: npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_ADMIN_API_URL: https://api.xad.es
           NEXT_PUBLIC_TENANT: "xad"
 
       - name: Deploy xad.es web (xad-web worker)
@@ -1819,6 +1853,7 @@ jobs:
         run: npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_API_URL: https://api.ulyah.com
+          NEXT_PUBLIC_ADMIN_API_URL: https://api.dawa.im
           NEXT_PUBLIC_TENANT: "dawaim"
 
       - name: Deploy dawa.im web (dawaim-web worker)

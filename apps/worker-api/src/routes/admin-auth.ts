@@ -7,6 +7,8 @@ import { checkRateLimit, resetRateLimit } from "../lib/rate-limit.js";
 import { logAdminAction } from "../lib/audit.js";
 import { getCookie } from "hono/cookie";
 import { getSession } from "../lib/session.js";
+import { checkDemoLogin, demoSessionId } from "../lib/admin-demo.js";
+import { SITES, siteOfTenant } from "../lib/sites.js";
 
 export const adminAuthRoute = new Hono<{ Bindings: Env }>();
 
@@ -69,6 +71,21 @@ adminAuthRoute.post("/login", async (c) => {
   const email = body.email?.trim();
   const password = body.password ?? "";
   if (!email || !password) return c.json({ error: "email and password required" }, 400);
+
+  // Each site's read-only demo login lives in R2 (lib/admin-demo.ts), not in D1. A demo
+  // session can only read the promotion pages (lib/auth-middleware.ts); no second factor.
+  const demoSite = await checkDemoLogin(c.env.MEDIA_R2, email, password).catch(() => null);
+  if (demoSite) {
+    const token = await createSession(c.env, {
+      subject: "admin",
+      id: demoSessionId(demoSite),
+      email: email.toLowerCase(),
+      role: "demo",
+      tenant: demoSite === "ulyah" ? null : demoSite,
+    });
+    setCookie(c, sessionCookieName("admin"), token, { httpOnly: true, secure: true, sameSite: "Strict", path: "/", maxAge: 60 * 60 * 8 });
+    return c.json({ ok: true });
+  }
 
   await ensureAdminBootstrapped(c.env);
 
@@ -236,12 +253,16 @@ adminAuthRoute.get("/me", async (c) => {
   const token = getCookie(c, sessionCookieName("admin"));
   const session = await getSession(c.env, token);
   if (!session || session.subject !== "admin") return c.json({ authenticated: false }, 401);
+  const site = siteOfTenant(session.tenant);
   return c.json({
     authenticated: true,
     email: session.email,
     role: session.role ?? "admin",
     tenant: session.tenant ?? null,
     readOnly: session.role === "demo",
+    site,
+    siteName: SITES[site].name,
+    domain: SITES[site].domain,
   });
 });
 

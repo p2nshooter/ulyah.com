@@ -5,7 +5,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { routePath } from "@/lib/paths";
-import { IS_SALE_SITE, saleTerms, usd } from "@/lib/site-sale";
+import { IS_SALE_SITE, saleDemo, saleTerms, usd } from "@/lib/site-sale";
 import { libraryIndex } from "@/lib/kitab-data";
 import { IQRO_COUNT } from "@/lib/iqro";
 import { jsonLdProps } from "@/lib/structured-data";
@@ -194,7 +194,7 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
   const { locale: raw } = await params;
   const locale = isValidLocale(raw) ? raw : DEFAULT_LOCALE;
   if (IS_SALE_SITE) {
-    const terms = await saleTerms();
+    const [terms, demo] = await Promise.all([saleTerms(), saleDemo()]);
     if (!terms.visible) notFound();
     let kitabTotal = 0;
     let kitabCats = 0;
@@ -218,7 +218,7 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
     return (
       <>
         <script {...jsonLdProps(ld)} />
-        <UlyahSale terms={terms} locale={locale} stats={{ kitabTotal, kitabCats, iqroLevels: IQRO_COUNT }} />
+        <UlyahSale terms={terms} locale={locale} stats={{ kitabTotal, kitabCats, iqroLevels: IQRO_COUNT }} demo={demo} />
       </>
     );
   }

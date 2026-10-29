@@ -1,5 +1,17 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 
+/**
+ * The admin portal of each site talks to an API host of its OWN site (api.1fr.fr,
+ * api.tilawa.de, …), all served by the same Worker: the admin session cookie is
+ * SameSite=Strict, so a browser only sends it to a host of the same site — from
+ * 1fr.fr it never reached api.ulyah.com, and the login there could not hold
+ * (docs/ADSENSE-BLUEPRINT.md §18). ulyah.com keeps api.ulyah.com.
+ */
+const ADMIN_API_BASE = process.env.NEXT_PUBLIC_ADMIN_API_URL || API_BASE;
+/** Every route that needs the admin session cookie (worker-api requireAdmin). */
+const ADMIN_PATH = /^\/(admin|grant)(\/|$)|^\/ai\/(orchestra|contentbot|generate)(\/|$)/;
+const baseFor = (path: string) => (ADMIN_PATH.test(path) ? ADMIN_API_BASE : API_BASE);
+
 /** Error carrying the API's machine-readable `code` (e.g. "email_not_found")
  * so callers can branch on it — e.g. show a "Daftar" CTA — not just a string. */
 export class ApiError extends Error {
@@ -14,7 +26,7 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(`${baseFor(path)}${path}`, {
     ...init,
     credentials: "include",
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
@@ -74,7 +86,7 @@ export const api = {
   del: <T>(path: string) => request<T>(path, { method: "DELETE" }),
   // multipart upload — browser sets the boundary Content-Type itself
   upload: async <T>(path: string, form: FormData): Promise<T> => {
-    const res = await fetch(`${API_BASE}${path}`, { method: "POST", body: form, credentials: "include" });
+    const res = await fetch(`${baseFor(path)}${path}`, { method: "POST", body: form, credentials: "include" });
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       const { error, detail } = body as { error?: string; detail?: string };
