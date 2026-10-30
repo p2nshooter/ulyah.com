@@ -24,7 +24,7 @@ const EN: ImsakiyahLabels = {
   maghribLabel: "Maghrib (iftar)",
   countingDown: "Ramadan hasn't started yet — showing the upcoming month.",
   disclaimer:
-    "Imsak here is shown as 10 minutes before Fajr, a common precautionary convention (ihtiyat) in many printed imsakiyah calendars — some communities instead treat Fajr itself as the imsak boundary. Times are computed the same way as the Jadwal Sholat widget (adhan.js, your detected location) and can differ by a minute or two from your local mosque's own schedule — follow your local mosque/authority when they differ.",
+    "Imsak here is shown as 10 minutes before Fajr, a common precautionary convention (ihtiyat) in many printed imsakiyah calendars — some communities instead treat Fajr itself as the imsak boundary. Times are computed the same way as the Prayer Times widget (adhan.js, your detected location) and can differ by a minute or two from your local mosque's own schedule — follow your local mosque/authority when they differ.",
 };
 
 const ID: ImsakiyahLabels = {
