@@ -27,6 +27,7 @@
  */
 
 import { AQC_SURAH_KBPS, aqcBestUrl } from "@ulyah/shared/murottal-cdn";
+import { DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "https://api.ulyah.com";
 
@@ -50,8 +51,8 @@ export interface QoriDef {
   r2Folder?: string;
 }
 
-// Country filter tabs (matches the reference implementation). "all" first.
-export const COUNTRIES: { code: string; label: string; flag: string }[] = [
+// Written in Indonesian; COUNTRIES below gives them in the site's language.
+const COUNTRIES_ID: { code: string; label: string; flag: string }[] = [
   { code: "all", label: "Semua", flag: "🌍" },
   { code: "sa", label: "Arab Saudi", flag: "🇸🇦" },
   { code: "kw", label: "Kuwait", flag: "🇰🇼" },
@@ -66,7 +67,7 @@ export const COUNTRIES: { code: string; label: string; flag: string }[] = [
 
 const pad3 = (n: number) => String(n).padStart(3, "0");
 
-export const RECITERS: QoriDef[] = [
+const RECITERS_ID: QoriDef[] = [
   // Arab Saudi — alquran.cloud
   { key: "ar.abdurrahmaansudais", name: "Abdurrahman As-Sudais", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "aqc", aqcEdition: "ar.abdurrahmaansudais", r2Folder: "sudais" },
   { key: "ar.mahermuaiqly", name: "Maher Al-Muaiqly", flag: "🇸🇦", country: "Arab Saudi", cc: "sa", note: "Imam Masjidil Haram, Makkah", featured: true, cdn: "aqc", aqcEdition: "ar.mahermuaiqly", r2Folder: "muaiqly" },
@@ -129,6 +130,69 @@ export const RECITERS: QoriDef[] = [
     surahFn: (n) => `https://download.quranicaudio.com/quran/muammar_za/${pad3(n)}.mp3`,
   },
 ];
+
+/**
+ * The lists above are written in Indonesian, and every site of the ecosystem showed them so:
+ * "Mesir", "Semua", "Imam Masjidil Haram", "Suara anak — ikuti bacaan" in the reciter pickers
+ * of 1fr.fr, tilawa.de, dawa.im and xad.es (docs/ADSENSE-BLUEPRINT.md §19). A build serves one
+ * language, so the lists are given in it here, once, for every picker that reads them.
+ */
+const QORI_I18N: Record<string, { countries: Record<string, string>; notes: Record<string, string>; names: Record<string, string> }> = {
+  // The lists above are already in Indonesian: nothing to replace on ulyah.com.
+  id: { countries: {}, notes: {}, names: {} },
+  en: {
+    countries: { all: "All", sa: "Saudi Arabia", kw: "Kuwait", eg: "Egypt", ly: "Libya", qa: "Qatar", ae: "United Arab Emirates", ye: "Yemen", dz: "Algeria", id: "Indonesia" },
+    notes: {
+      "Imam Masjidil Haram, Makkah": "Imam of the Grand Mosque, Makkah",
+      "Imam Masjid Nabawi, Madinah": "Imam of the Prophet's Mosque, Madinah",
+      "Murattal Hafalan": "Murattal for memorising",
+      "Suara anak — ikuti bacaan": "Children's voices — repeat after him",
+      "Tilawah Mujawwad — per surah": "Mujawwad recitation — by surah",
+    },
+    names: { "Al-Minshawi & Anak-anak": "Al-Minshawi & Children" },
+  },
+  fr: {
+    countries: { all: "Tous", sa: "Arabie saoudite", kw: "Koweït", eg: "Égypte", ly: "Libye", qa: "Qatar", ae: "Émirats arabes unis", ye: "Yémen", dz: "Algérie", id: "Indonésie" },
+    notes: {
+      "Imam Masjidil Haram, Makkah": "Imam de la Grande Mosquée de La Mecque",
+      "Imam Masjid Nabawi, Madinah": "Imam de la Mosquée du Prophète, Médine",
+      "Murattal Hafalan": "Murattal pour la mémorisation",
+      "Suara anak — ikuti bacaan": "Voix d'enfants — répétez après lui",
+      "Tilawah Mujawwad — per surah": "Récitation mujawwad — par sourate",
+    },
+    names: { "Al-Minshawi & Anak-anak": "Al-Minshawi et les enfants" },
+  },
+  de: {
+    countries: { all: "Alle", sa: "Saudi-Arabien", kw: "Kuwait", eg: "Ägypten", ly: "Libyen", qa: "Katar", ae: "Vereinigte Arabische Emirate", ye: "Jemen", dz: "Algerien", id: "Indonesien" },
+    notes: {
+      "Imam Masjidil Haram, Makkah": "Imam der Heiligen Moschee, Mekka",
+      "Imam Masjid Nabawi, Madinah": "Imam der Prophetenmoschee, Medina",
+      "Murattal Hafalan": "Murattal zum Auswendiglernen",
+      "Suara anak — ikuti bacaan": "Kinderstimmen — sprich ihm nach",
+      "Tilawah Mujawwad — per surah": "Mujawwad-Rezitation — pro Sure",
+    },
+    names: { "Al-Minshawi & Anak-anak": "Al-Minshawi & Kinder" },
+  },
+  es: {
+    countries: { all: "Todos", sa: "Arabia Saudí", kw: "Kuwait", eg: "Egipto", ly: "Libia", qa: "Catar", ae: "Emiratos Árabes Unidos", ye: "Yemen", dz: "Argelia", id: "Indonesia" },
+    notes: {
+      "Imam Masjidil Haram, Makkah": "Imán de la Gran Mezquita de La Meca",
+      "Imam Masjid Nabawi, Madinah": "Imán de la Mezquita del Profeta, Medina",
+      "Murattal Hafalan": "Murattal para memorizar",
+      "Suara anak — ikuti bacaan": "Voces de niños — repite tras él",
+      "Tilawah Mujawwad — per surah": "Recitación mujawwad — por sura",
+    },
+    names: { "Al-Minshawi & Anak-anak": "Al-Minshawi y los niños" },
+  },
+};
+const QORI_T = QORI_I18N[DEFAULT_LOCALE];
+
+// Country filter tabs (matches the reference implementation). "all" first.
+export const COUNTRIES: { code: string; label: string; flag: string }[] = COUNTRIES_ID.map((c) => ({ ...c, label: QORI_T?.countries[c.code] ?? c.label }));
+
+export const RECITERS: QoriDef[] = RECITERS_ID.map((r) =>
+  QORI_T ? { ...r, name: QORI_T.names[r.name] ?? r.name, country: QORI_T.countries[r.cc] ?? r.country, note: QORI_T.notes[r.note] ?? r.note } : r
+);
 
 export const DEFAULT_QORI_KEY = "ar.alafasy";
 
