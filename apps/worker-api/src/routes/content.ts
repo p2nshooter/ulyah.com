@@ -7,6 +7,7 @@ import { coverSvg } from "@ulyah/shared/cover-art";
 import { readStoryBody } from "../lib/story-body.js";
 import { seriesTitle } from "../lib/series-title.js";
 import { translateText, translateCachedOnly, localizeBatch, localizeBatchProtected } from "../lib/mt.js";
+import { pesIndex, pesKitab } from "../lib/pes-i18n-r2.js";
 import { listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { extractSanadChain } from "../lib/sanad.js";
@@ -1004,15 +1005,20 @@ contentRoute.get("/pesantren/categories", async (c) => {
      FROM pesantren_category c ORDER BY c.sort_order`
   ).all();
 
-  // Category names come pre-translated from D1 (stored under the reserved
-  // slug '_cat' by scripts/translate-pesantren.ts) — no runtime MT.
+  // Category names come pre-translated (scripts/translate-pesantren.ts) — no runtime MT. From R2
+  // (lib/pes-i18n-r2.ts); D1 only while the move settles and R2 has nothing.
   const requestedLang = c.req.query("lang") ?? "id";
   const lang = isValidLocale(requestedLang) ? requestedLang : "id";
   if (lang !== "id" && lang !== "ar" && results.length > 0) {
     try {
-      const { results: tr } = await c.env.DB.prepare("SELECT k, v FROM pes_i18n WHERE slug = '_cat' AND lang = ?")
-        .bind(lang)
-        .all<{ k: string; v: string }>();
+      const idx = await pesIndex(c.env, lang);
+      const tr = idx
+        ? Object.entries(idx.categories).map(([k, v]) => ({ k, v }))
+        : (
+            await c.env.DB.prepare("SELECT k, v FROM pes_i18n WHERE slug = '_cat' AND lang = ?")
+              .bind(lang)
+              .all<{ k: string; v: string }>()
+          ).results;
       const map = new Map(tr.map((r) => [r.k, r.v]));
       for (const row of results as Record<string, unknown>[]) {
         const t = map.get(String(row.slug));
@@ -1035,11 +1041,19 @@ contentRoute.get("/pesantren/kitab", async (c) => {
      FROM pesantren_kitab k ORDER BY k.sort_order`
   ).all();
 
-  // Localize list titles/descriptions from the pre-translated D1 strings
-  // (scripts/translate-pesantren.ts) — one extra query, no runtime MT.
+  // Localize list titles/descriptions from the pre-translated strings
+  // (scripts/translate-pesantren.ts) — the R2 index, no runtime MT.
   const requestedLang = c.req.query("lang") ?? "id";
   const lang = isValidLocale(requestedLang) ? requestedLang : "id";
-  if (lang !== "id" && lang !== "ar" && results.length > 0) {
+  const idx = lang !== "id" && lang !== "ar" && results.length > 0 ? await pesIndex(c.env, lang) : null;
+  if (idx) {
+    for (const row of results as Record<string, unknown>[]) {
+      const t = idx.kitab[String(row.slug)];
+      if (t?.title_id) row.title_id = t.title_id;
+      if (t?.description_id) row.description_id = t.description_id;
+    }
+  } else if (lang !== "id" && lang !== "ar" && results.length > 0) {
+    // D1, only while the move settles and R2 has nothing.
     try {
       const { results: tr } = await c.env.DB.prepare(
         // Walk the ~32 kitab and seek each one's two rows by primary key
@@ -1128,22 +1142,25 @@ contentRoute.get("/pesantren/kitab/:slug", async (c) => {
   const requestedLang = c.req.query("lang") ?? "id";
   const wantLang = isValidLocale(requestedLang) ? requestedLang : "id";
   if (wantLang !== "id" && wantLang !== "ar") {
-    // Primary source: pre-translated strings in D1, written by the
-    // translate-content GitHub Actions job (scripts/translate-pesantren.ts).
-    // One query, free-plan safe — the in-Worker background translation could
+    // Primary source: pre-translated strings in R2 (lib/pes-i18n-r2.ts), written
+    // by the translate-content GitHub Actions job (scripts/translate-pesantren.ts).
+    // One read, free-plan safe — the in-Worker background translation could
     // never finish under the free plan's subrequest/KV-write caps, which is
     // why sibling sites kept serving Indonesian.
-    let tr: Record<string, string> | null = null;
-    try {
-      const { results } = await c.env.DB.prepare("SELECT k, v FROM pes_i18n WHERE slug = ? AND lang = ?")
-        .bind(slug, wantLang)
-        .all<{ k: string; v: string }>();
-      if (results && results.length > 0) {
-        tr = {};
-        for (const r of results) tr[r.k] = r.v;
+    let tr: Record<string, string> | null = (await pesKitab(c.env, slug, wantLang))?.strings ?? null;
+    if (!tr) {
+      // D1, only while the move settles and R2 has nothing.
+      try {
+        const { results } = await c.env.DB.prepare("SELECT k, v FROM pes_i18n WHERE slug = ? AND lang = ?")
+          .bind(slug, wantLang)
+          .all<{ k: string; v: string }>();
+        if (results && results.length > 0) {
+          tr = {};
+          for (const r of results) tr[r.k] = r.v;
+        }
+      } catch {
+        /* table may not exist yet on a fresh DB — fall through to KV */
       }
-    } catch {
-      /* table may not exist yet on a fresh DB — fall through to KV */
     }
 
     const blobKey = `pes-i18n:v1:${slug}:${wantLang}`;
