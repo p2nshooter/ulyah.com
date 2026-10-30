@@ -65,6 +65,10 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
   };
   const inGroup = useMemo(() => categories.filter((c) => c.grp === group), [categories, group]);
   const [activeSlug, setActiveSlug] = useState(inGroup[0]?.slug ?? "");
+  // Read after mounting, like every other reader: the server has no speechSynthesis, so asking
+  // during render put the play-all button in the browser's HTML only (React error #418).
+  const [canSpeak, setCanSpeak] = useState(false);
+  useEffect(() => setCanSpeak(speechAvailable()), []);
   const current = useMemo(
     () => inGroup.find((c) => c.slug === activeSlug) ?? inGroup[0],
     [inGroup, activeSlug]
@@ -196,7 +200,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
                     ))}
                   </div>
                   {current.items.length > 0 &&
-                    speechAvailable() &&
+                    canSpeak &&
                     (seqIdx === null ? (
                       <button
                         onClick={() => setSeqIdx(0)}

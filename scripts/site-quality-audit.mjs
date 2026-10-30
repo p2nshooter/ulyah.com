@@ -90,9 +90,13 @@ async function audit(ctx, url, lang, phone) {
     if (r.status() >= 400 && !NOISE.test(u) && /ulyah\.com|1fr\.fr|tilawa\.de|dawa\.im|xad\.es/.test(u)) failed.push(`${r.status()} ${u.slice(0, 160)}`);
   });
   let status;
+  let detail = "";
   try {
     const res = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45_000 });
     status = res ? res.status() : "no-response";
+    // A 5xx page names its cause in its own text (Cloudflare: "Error 1102 Worker exceeded
+    // resource limits", "Error 1027" …), which a bare status does not.
+    if (res && res.status() >= 500) detail = (await res.text().catch(() => "")).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
     await page.waitForTimeout(3500);
   } catch (e) {
     status = `ERR ${String(e.message).slice(0, 80)}`;
@@ -117,6 +121,7 @@ async function audit(ctx, url, lang, phone) {
     url,
     phone,
     status,
+    detail,
     errors: [...new Set(errors)],
     failed: [...new Set(failed)],
     overflow: measures.overflow > 1 ? measures.overflow : 0,
@@ -143,7 +148,11 @@ for (const domain of domains) {
     if (top.includes(url)) results.push(await audit(phone, url, lang, true));
     const r = results.at(-1);
     const bad = String(r.status) !== "200" || r.errors.length || r.failed.length || r.overflow;
-    if (bad) console.log(`✗ ${r.status} ${r.phone ? "[phone] " : ""}${new URL(url).pathname}${r.overflow ? `  overflow ${r.overflow}px ${r.wide.join(" ")}` : ""}`);
+    if (bad) {
+      // The reason on the same line: a flagged page with a 200 is otherwise a riddle.
+      const why = [r.detail && `page: ${r.detail}`, r.errors[0] && `js: ${r.errors[0].slice(0, 120)}`, r.failed[0] && `req: ${r.failed[0]}`].filter(Boolean).join(" | ");
+      console.log(`✗ ${r.status} ${r.phone ? "[phone] " : ""}${new URL(url).pathname}${r.overflow ? `  overflow ${r.overflow}px ${r.wide.join(" ")}` : ""}${why ? `  — ${why}` : ""}`);
+    }
   }
   await desktop.close();
   await phone.close();
@@ -156,10 +165,10 @@ for (const domain of domains) {
   const words = results.flatMap((r) => r.language.map((l) => ({ ...l, url: r.url })));
   summary += `| ${domain} | ${new Set(results.map((r) => r.url)).size} | ${bad.length} | ${errs.length} | ${fails.length} | ${over.length} | ${words.length} |\n`;
 
-  for (const r of bad.slice(0, 20)) console.log(`   status ${r.status} ${r.url}`);
-  for (const r of errs.slice(0, 20)) console.log(`   js ${new URL(r.url).pathname}: ${r.errors.slice(0, 2).join(" | ")}`);
-  for (const r of fails.slice(0, 20)) console.log(`   req ${new URL(r.url).pathname}: ${r.failed.slice(0, 3).join(" | ")}`);
-  for (const r of over.slice(0, 20)) console.log(`   overflow ${r.overflow}px ${new URL(r.url).pathname}: ${r.wide.join(", ")}`);
+  for (const r of bad.slice(0, 60)) console.log(`   status ${r.status} ${r.url}`);
+  for (const r of errs.slice(0, 60)) console.log(`   js ${new URL(r.url).pathname}: ${r.errors.slice(0, 2).join(" | ")}`);
+  for (const r of fails.slice(0, 60)) console.log(`   req ${new URL(r.url).pathname}: ${r.failed.slice(0, 3).join(" | ")}`);
+  for (const r of over.slice(0, 60)) console.log(`   overflow ${r.overflow}px ${new URL(r.url).pathname}: ${r.wide.join(", ")}`);
   const byWord = new Map();
   for (const w of words) byWord.set(`${w.kind}:${w.word.toLowerCase()}`, [...(byWord.get(`${w.kind}:${w.word.toLowerCase()}`) ?? []), w]);
   for (const [k, list] of [...byWord.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 25)) {

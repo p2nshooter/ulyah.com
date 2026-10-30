@@ -8,6 +8,7 @@ import type { Env } from "../env.js";
 import { isBotUA } from "../lib/bot.js";
 import { checkRateLimitLocal } from "../lib/rate-limit.js";
 import { globalAyahNumber } from "../lib/murottal-sources.js";
+import { translateText } from "../lib/mt.js";
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
 
@@ -283,6 +284,8 @@ quranRoute.get("/random", async (c) => {
 // that sits on every site's home page. MIN/MAX of the primary key and a
 // `WHERE id >= ?` seek read three rows. The day number is spread over the id
 // range with a multiplicative hash, so consecutive days land far apart.
+type HaditsRow = Record<string, unknown> & { text_id: string | null; text_en: string | null };
+
 quranRoute.get("/hadits-of-day", async (c) => {
   const requested = c.req.query("lang") ?? DEFAULT_LOCALE;
   const range = await c.env.DB.prepare("SELECT MIN(id) AS lo, MAX(id) AS hi FROM hadits").first<{
@@ -293,9 +296,25 @@ quranRoute.get("/hadits-of-day", async (c) => {
 
   const span = range.hi - range.lo + 1;
   const pick = range.lo + (Math.imul(dayOfYearSeed(), 2654435761) >>> 0) % span;
-  const hadits =
-    (await c.env.DB.prepare("SELECT * FROM hadits WHERE id >= ? ORDER BY id LIMIT 1").bind(pick).first()) ??
-    (await c.env.DB.prepare("SELECT * FROM hadits WHERE id >= ? ORDER BY id LIMIT 1").bind(range.lo).first());
+  const row =
+    (await c.env.DB.prepare("SELECT * FROM hadits WHERE id >= ? ORDER BY id LIMIT 1").bind(pick).first<HaditsRow>()) ??
+    (await c.env.DB.prepare("SELECT * FROM hadits WHERE id >= ? ORDER BY id LIMIT 1").bind(range.lo).first<HaditsRow>());
+
+  // In the reader's language, the way /content/hadits/:slug does it: `text_id` carries the
+  // translation, made from the curated English or Indonesian — never from the Arabic. It used
+  // to be the Indonesian on every site, so 1fr.fr, tilawa.de, dawa.im and xad.es showed
+  // "Telah menceritakan kepada kami …" (docs/ADSENSE-BLUEPRINT.md §19). The answer is
+  // edge-cached (/quran/*), so the translation is not stored (persist: false).
+  let hadits = row;
+  if (row && requested !== "id") {
+    if (requested === "en" && row.text_en) hadits = { ...row, text_id: row.text_en };
+    else {
+      const from = row.text_en ? "en" : "id";
+      const source = row.text_en ?? row.text_id;
+      const translated = source ? await translateText(c.env, source, requested, from, { persist: false }) : null;
+      hadits = { ...row, text_id: translated ?? row.text_en ?? row.text_id };
+    }
+  }
 
   return c.json({ hadits, lang: requested });
 });
