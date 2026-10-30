@@ -44,6 +44,9 @@ analyticsRoute.post("/pageview", async (c) => {
   const country = c.req.header("cf-ipcountry")?.toUpperCase() ?? null;
   // Classified here, at write time, and STORED — so the admin can always show
   // the human/robot split instead of presenting a filtered number on faith.
+  // The user agent itself is not kept: nothing reads it back, and at 141 bytes
+  // it was two thirds of every row in a D1 with two MB left (owner, 30 Oct
+  // 2026: "Semua database wajib ke R2, pastikan hemat D1").
   const ua = (c.req.header("user-agent") ?? "").slice(0, 200);
   const bot = isBotUA(ua) ? 1 : 0;
 
@@ -59,7 +62,7 @@ analyticsRoute.post("/pageview", async (c) => {
       String(locale ?? "").slice(0, 5) || null,
       tenantFromReq(c),
       deviceParam(device),
-      ua || null,
+      null,
       bot,
       refererHost(c.req.header("referer"))
     )

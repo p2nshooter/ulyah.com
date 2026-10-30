@@ -1,5 +1,6 @@
 import type { Env } from "./../env.js";
 import { safeKvGet, safeKvPut } from "./kv-safe.js";
+import { keepBodyInR2 } from "./story-body.js";
 
 /**
  * Deterministic, AI-free content compiler.
@@ -206,7 +207,7 @@ export async function runDeterministicCompile(env: Env, langs: string[]): Promis
       .bind(start.surah)
       .first<{ id: number }>();
 
-    await env.DB.prepare(
+    const inserted = await env.DB.prepare(
       `INSERT INTO stories
          (title, slug, lang, category_id, body, ai_generated, qc_status, source_format, status,
           series_key, episode_number, related_ayah_id, published_at)
@@ -214,6 +215,7 @@ export async function runDeterministicCompile(env: Env, langs: string[]): Promis
     )
       .bind(title, `tadabbur-sesi-${episodeNumber}`, lang, categoryId, body, episodeNumber, firstAyah?.id ?? null)
       .run();
+    await keepBodyInR2(env, inserted.meta.last_row_id, body);
 
     return 1;
   }
@@ -310,7 +312,7 @@ export async function runHadithCompile(env: Env, langs: string[]): Promise<numbe
         ? `Kajian Hadits Shahih — Sesi ${episodeNumber} (${usable.length} Hadits)`
         : `Authentic Hadith Session ${episodeNumber} (${usable.length} Hadith)`;
 
-    await env.DB.prepare(
+    const inserted = await env.DB.prepare(
       `INSERT INTO stories
          (title, slug, lang, category_id, body, ai_generated, qc_status, source_format, status,
           series_key, episode_number, published_at)
@@ -318,6 +320,7 @@ export async function runHadithCompile(env: Env, langs: string[]): Promise<numbe
     )
       .bind(title, `hadits-sesi-${episodeNumber}`, lang, categoryId, body, episodeNumber)
       .run();
+    await keepBodyInR2(env, inserted.meta.last_row_id, body);
 
     await safeKvPut(env, cursorKey, String(usable[usable.length - 1]!.id));
     return 1;

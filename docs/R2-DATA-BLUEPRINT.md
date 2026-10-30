@@ -88,5 +88,6 @@ Diurutkan ulang 30 Okt menurut ukuran dan tulis yang diukur (§2.1) — „hemat
 | Pengukuran ulang + urutan „hemat D1" (§2.1, §5) | ✅ 30 Okt |
 | 1. Terjemahan → R2 (`pes_i18n`, `mt_cache`) | 🔄 30 Okt |
 | 1a. `pes_i18n` → `pes-i18n/<bahasa>/<kitab>.json` + `_index.json` | 🔄 PR — pekerjaan terjemahan menyalin isi D1 sekali (kunci sama, setiap objek dibaca ulang dan dicocokkan, total = jumlah baris D1), lalu hanya menulis R2, dengan bahasa Inggris; Worker membaca R2 dulu, D1 hanya cadangan hanya-baca 7 hari setelah tayang, lalu `pes_i18n` + `pes_i18n_meta` dihapus |
-| 1b. `mt_cache` → R2 | ⏳ berikutnya |
+| 1b. `mt_cache` → R2 | ⏳ — diukur 30 Okt: baris tidak bertambah (upsert menulis ulang kunci yang ada), jadi ini soal kuota tulis, bukan ruang; dikerjakan setelah 2 |
+| 0. Darurat ruang D1 (30 Okt, 498 MB, ±4,7 MB/hari) | 🔄 — isi 1.146 kisah dipindah ke R2 dengan pemindah yang sudah ada (`db-maintenance.yml` move-bodies: PUT, baca ulang, cocokkan byte demi byte, baru kolom dikosongkan); kisah baru (±100/hari, 23 KB) langsung ke R2 saat ditulis (`keepBodyInR2`); `analytics_pageviews` tidak lagi menyimpan user agent (141 dari ±220 byte per baris, tidak pernah dibaca; `is_bot` tetap dicatat) |
 | 2–5 | ⏳ berurutan setelah tahap 1 |

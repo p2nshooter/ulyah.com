@@ -3,6 +3,7 @@ import type { Env } from "./../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
 import { runDeterministicCompile, runHadithCompile } from "./compile.js";
 import { safeKvGet } from "./kv-safe.js";
+import { keepBodyInR2 } from "./story-body.js";
 
 interface ScalingSettings {
   autoThrottleEnabled: boolean;
@@ -279,12 +280,13 @@ async function executeQueuedJobs(
       const status = draft.factCheckVerdict === "pass" && draft.confidence >= 0.6 ? "published" : "draft";
       const publishedAt = status === "published" ? new Date().toISOString() : null;
 
-      await env.DB.prepare(
+      const inserted = await env.DB.prepare(
         `INSERT INTO stories (title, slug, category_id, body, ai_generated, qc_status, source_format, status, confidence_score, related_ayah_id, published_at)
          VALUES (?, ?, ?, ?, 1, 'draft_audio', 'ai_original', ?, ?, ?, ?)`
       )
         .bind(draft.title, uniqueSlug(draft.slug, job.id), categoryId, draft.body, status, draft.confidence, job.target_id, publishedAt)
         .run();
+      await keepBodyInR2(env, inserted.meta.last_row_id, draft.body);
 
       await env.DB.prepare(
         "UPDATE generation_jobs SET status = 'pending_review', output_ref = ?, completed_at = datetime('now'), key_id = ? WHERE id = ?"
