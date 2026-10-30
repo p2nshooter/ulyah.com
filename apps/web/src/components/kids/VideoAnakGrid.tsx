@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { fillLabels } from "@/lib/fill-labels";
 import { TENANT } from "@/lib/tenant";
+import { videoTitle, channelCountry, INDONESIAN_AUDIO } from "@/lib/video-anak-i18n";
 
 interface VideoRow {
   id: number;
@@ -66,8 +67,9 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
   const bySeries = (["doa-kisah", "syamil-dodo", "biografi-rasul"] as const).map((s) => ({
     key: s,
     ...SERIES_META[s],
-    items: videos.filter((v) => v.series === s),
+    items: videos.filter((v) => v.series === s).map((v) => ({ ...v, title: videoTitle(locale, v.series, v.video_order, v.title) })),
   }));
+  const spokenIn = INDONESIAN_AUDIO[locale];
 
   return (
     <div className="space-y-10">
@@ -76,7 +78,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
           full film library. Click-to-play, like the video cards. */}
       {channels.length > 0 && (
         <section>
-          <h2 className="flex items-center gap-2 font-heading text-xl">
+          <h2 className="flex flex-wrap items-center gap-2 font-heading text-xl">
             <span aria-hidden>🌍</span> {kl.worldwide}
             <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{channels.length}</span>
           </h2>
@@ -86,7 +88,7 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
           <div className="reveal-stagger mt-4 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
             {channels.map((ch) => (
               <div key={ch.id} className="card-premium overflow-hidden p-2.5">
-                <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-accent">🌍 {ch.country}</p>
+                <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-accent">🌍 {channelCountry(locale, ch.country)}</p>
                 {playingChannel === ch.id ? (
                   <iframe
                     // Uploads-playlist embeds are refused by the privacy player
@@ -120,9 +122,10 @@ export function VideoAnakGrid({ locale }: { locale: string }) {
         (s) =>
           s.items.length > 0 && (
             <section key={s.key}>
-              <h2 className="flex items-center gap-2 font-heading text-xl">
+              <h2 className="flex flex-wrap items-center gap-2 font-heading text-xl">
                 <span aria-hidden>{s.icon}</span> {kl.series[s.key]}
                 <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-xs text-accent">{s.items.length} {kl.video}</span>
+                {spokenIn && <span className="text-xs font-normal text-text-secondary">{spokenIn}</span>}
               </h2>
               <div className="reveal-stagger mt-4 grid gap-4 sm:grid-cols-2 desktop:grid-cols-3">
                 {s.items.map((v) => (
