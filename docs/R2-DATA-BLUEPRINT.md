@@ -87,4 +87,6 @@ Diurutkan ulang 30 Okt menurut ukuran dan tulis yang diukur (§2.1) — „hemat
 | Aturan dicatat (`CLAUDE.md`, blueprint ini) | ✅ 20 Okt |
 | Pengukuran ulang + urutan „hemat D1" (§2.1, §5) | ✅ 30 Okt |
 | 1. Terjemahan → R2 (`pes_i18n`, `mt_cache`) | 🔄 30 Okt |
+| 1a. `pes_i18n` → `pes-i18n/<bahasa>/<kitab>.json` + `_index.json` | 🔄 PR — pekerjaan terjemahan menyalin isi D1 sekali (kunci sama, setiap objek dibaca ulang dan dicocokkan, total = jumlah baris D1), lalu hanya menulis R2, dengan bahasa Inggris; Worker membaca R2 dulu, D1 hanya cadangan hanya-baca 7 hari setelah tayang, lalu `pes_i18n` + `pes_i18n_meta` dihapus |
+| 1b. `mt_cache` → R2 | ⏳ berikutnya |
 | 2–5 | ⏳ berurutan setelah tahap 1 |
