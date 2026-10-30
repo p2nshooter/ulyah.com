@@ -1,7 +1,7 @@
 /**
  * Pre-translates every kitab pesantren into the sibling sites' languages and
- * stores the result in D1 (`pes_i18n`), so the Worker serves native-language
- * kitab with ONE database read — no runtime machine translation at all.
+ * stores the result in R2, so the Worker serves native-language kitab with ONE
+ * read — no runtime machine translation at all.
  *
  * Why here and not in the Worker: the Workers free plan allows only 50
  * subrequests per request and 1,000 KV writes per day. Translating a whole
@@ -10,13 +10,22 @@
  * showing Indonesian. A GitHub Actions runner has no such limits and can
  * retry for minutes until every string is translated.
  *
- * Idempotent: a (kitab, lang) whose source hash matches pes_i18n_meta is
- * skipped, so scheduled runs only pick up new/changed kitab.
+ * R2, not D1 (owner, 30 Oct 2026: "Semua database wajib ke R2, pastikan hemat D1";
+ * docs/R2-DATA-BLUEPRINT.md §5, step 1). This job is the only writer of
+ *   pes-i18n/<lang>/<kitab>.json   { slug, lang, srcHash, complete, updatedAt, strings }
+ *   pes-i18n/<lang>/_index.json    { lang, updatedAt, migratedFromD1, categories, kitab }
+ * (read by apps/worker-api/src/lib/pes-i18n-r2.ts). The first run for a language
+ * copies what D1's pes_i18n holds, with the same keys, and checks every object by
+ * reading it back; after that nothing here writes to D1. The kitab text itself is
+ * still read from D1 until its own move (step 3).
  *
- * Usage: npx tsx scripts/translate-pesantren.ts --langs=fr,de,es [--force]
+ * Idempotent: a (kitab, lang) whose source hash matches the index is skipped,
+ * so scheduled runs only pick up new/changed kitab.
+ *
+ * Usage: npx tsx scripts/translate-pesantren.ts [--langs=en,fr,de,es] [--force]
  */
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { maskProtected } from "./mt-key.mjs";
@@ -25,6 +34,8 @@ const WORKER_CWD = join(import.meta.dirname, "..", "apps", "worker-api");
 const GTX_BASE = "https://translate.googleapis.com/translate_a/single";
 const MYMEMORY_BASE = "https://api.mymemory.translated.net/get";
 const SEP = "\n⁂\n";
+const BUCKET = "ulyah-media";
+const PREFIX = "pes-i18n";
 
 function parseArgs() {
   const args = Object.fromEntries(
@@ -34,7 +45,12 @@ function parseArgs() {
     })
   );
   return {
-    langs: ((args.langs as string) || "fr,de,es").split(",").map((s) => s.trim()).filter(Boolean),
+    // The four sibling sites. English (xad.es) was missing from the old default, so three kitab
+    // were never translated into it (docs/ADSENSE-BLUEPRINT.md §19.3).
+    langs: ((args.langs as string) || "en,fr,de,es")
+      .split(",")
+      .map((s) => s.trim())
+      .filter((l) => /^[a-z]{2}$/.test(l)),
     force: args.force === "true",
   };
 }
@@ -68,16 +84,94 @@ function d1Json<T>(sql: string): T[] {
   }
 }
 
-/** Execute a (possibly large) SQL script via --file to dodge argv limits. */
-function d1File(sql: string, tmp: string): void {
-  const p = join(tmp, `stmt-${Date.now()}-${Math.random().toString(36).slice(2)}.sql`);
-  writeFileSync(p, sql);
-  wrangler(["d1", "execute", "ulyah-db", "--remote", `--file=${p}`]);
-  rmSync(p, { force: true });
+/** One attempt, no retries: a missing object is an answer, not an error to wait out. */
+function r2GetJson<T>(key: string, tmp: string): T | null {
+  const local = join(tmp, `get-${key.replace(/[^a-z0-9.-]/gi, "_")}`);
+  try {
+    execFileSync("npx", ["wrangler", "r2", "object", "get", `${BUCKET}/${key}`, `--file=${local}`, "--remote"], {
+      cwd: WORKER_CWD,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    return JSON.parse(readFileSync(local, "utf8")) as T;
+  } catch {
+    return null;
+  } finally {
+    rmSync(local, { force: true });
+  }
 }
 
-function sq(s: string): string {
-  return `'${s.replace(/'/g, "''")}'`;
+/** Write, then read back: an object that did not arrive whole fails the run instead of leaving a gap. */
+function r2PutJson(key: string, value: unknown, tmp: string): void {
+  const body = JSON.stringify(value);
+  const local = join(tmp, `put-${key.replace(/[^a-z0-9.-]/gi, "_")}`);
+  writeFileSync(local, body, "utf8");
+  wrangler(["r2", "object", "put", `${BUCKET}/${key}`, `--file=${local}`, "--content-type=application/json", "--remote"], true);
+  rmSync(local, { force: true });
+  const back = r2GetJson<unknown>(key, tmp);
+  if (JSON.stringify(back) !== body) throw new Error(`R2 read-back does not match what was written: ${key}`);
+}
+
+interface KitabObject {
+  slug: string;
+  lang: string;
+  srcHash: string | null;
+  complete: boolean;
+  updatedAt: string;
+  strings: Record<string, string>;
+}
+interface LangIndex {
+  lang: string;
+  updatedAt: string;
+  migratedFromD1?: string;
+  categories: Record<string, string>;
+  kitab: Record<string, { title_id?: string; description_id?: string; srcHash: string | null; complete: boolean }>;
+}
+
+/**
+ * The once-only move of what D1 holds for one language (docs/R2-DATA-BLUEPRINT.md §5): same keys,
+ * every object read back and compared, and the total checked against the D1 row count. Any
+ * difference stops the run before the index records the language as moved.
+ */
+function migrateFromD1(lang: string, index: LangIndex, tmp: string): void {
+  const rows = d1Json<{ slug: string; k: string; v: string }>(
+    `SELECT slug, k, v FROM pes_i18n WHERE lang = '${lang}' ORDER BY slug, k;`
+  );
+  const meta = new Map(
+    d1Json<{ slug: string; src_hash: string }>(`SELECT slug, src_hash FROM pes_i18n_meta WHERE lang = '${lang}';`).map((m) => [
+      m.slug,
+      m.src_hash,
+    ])
+  );
+  const bySlug = new Map<string, Record<string, string>>();
+  for (const r of rows) {
+    const m = bySlug.get(r.slug) ?? {};
+    m[r.k] = r.v;
+    bySlug.set(r.slug, m);
+  }
+  let moved = 0;
+  const now = new Date().toISOString();
+  for (const [slug, strings] of bySlug) {
+    if (slug === "_cat") {
+      Object.assign(index.categories, strings);
+      moved += Object.keys(strings).length;
+      continue;
+    }
+    const srcHash = meta.get(slug) ?? null;
+    const obj: KitabObject = { slug, lang, srcHash, complete: srcHash !== null, updatedAt: now, strings };
+    r2PutJson(`${PREFIX}/${lang}/${slug}.json`, obj, tmp);
+    index.kitab[slug] = {
+      title_id: strings["k:title_id"],
+      description_id: strings["k:description_id"],
+      srcHash,
+      complete: srcHash !== null,
+    };
+    moved += Object.keys(strings).length;
+  }
+  if (moved !== rows.length) throw new Error(`${lang}: ${rows.length} rows in D1 but ${moved} moved to R2`);
+  index.migratedFromD1 = now;
+  r2PutJson(`${PREFIX}/${lang}/_index.json`, { ...index, updatedAt: now }, tmp);
+  const kitabMoved = [...bySlug.keys()].filter((k) => k !== "_cat").length;
+  console.log(`Moved ${lang} from D1: ${kitabMoved} kitab, ${rows.length} string(s), every one read back and matched.`);
 }
 
 // Same FNV-1a hash the Worker uses — stable fingerprint for skip logic.
@@ -236,10 +330,6 @@ async function main() {
   const matns = d1Json<MatnRow>(
     "SELECT m.id, b.kitab_slug AS kitab_slug, m.title_id, m.translation_id, m.explanation_id FROM pesantren_matn m JOIN pesantren_bab b ON b.id = m.bab_id ORDER BY b.kitab_slug, b.bab_order, m.matn_order;"
   );
-  const meta = d1Json<{ slug: string; lang: string; src_hash: string }>(
-    "SELECT slug, lang, src_hash FROM pes_i18n_meta;"
-  );
-  const metaMap = new Map(meta.map((m) => [`${m.slug}:${m.lang}`, m.src_hash]));
   console.log(`${kitabs.length} kitab, ${babs.length} bab, ${matns.length} matn.`);
 
   const tmp = mkdtempSync(join(tmpdir(), "ulyah-pes-i18n-"));
@@ -247,44 +337,44 @@ async function main() {
   let skipped = 0;
   let failedJobs = 0;
 
-  // Category names (short, few) — stored under the reserved slug '_cat' so
-  // the categories endpoint can localize with one query.
   const cats = d1Json<{ slug: string; name_id: string | null }>("SELECT slug, name_id FROM pesantren_category;");
+
   for (const lang of langs) {
-    const catRows: string[] = [];
+    const indexKey = `${PREFIX}/${lang}/_index.json`;
+    const index: LangIndex = r2GetJson<LangIndex>(indexKey, tmp) ?? { lang, updatedAt: "", categories: {}, kitab: {} };
+    if (!index.migratedFromD1) migrateFromD1(lang, index, tmp);
+
+    // Category names (short, few) live in the index, so the categories route reads one object.
+    let catsAdded = 0;
     for (const cat of cats) {
-      if (!cat.name_id?.trim()) continue;
+      if (!cat.name_id?.trim() || (!force && index.categories[cat.slug])) continue;
       const t = await translateProtected(cat.name_id, lang);
-      if (t) catRows.push(`('_cat', ${sq(lang)}, ${sq(cat.slug)}, ${sq(t)})`);
+      if (t) {
+        index.categories[cat.slug] = t;
+        catsAdded++;
+      }
       await sleep(300);
     }
-    if (catRows.length > 0) {
-      d1File(
-        `INSERT INTO pes_i18n (slug, lang, k, v) VALUES ${catRows.join(",")} ON CONFLICT(slug, lang, k) DO UPDATE SET v = excluded.v;`,
-        tmp
-      );
-      console.log(`Categories → ${lang}: ${catRows.length} stored`);
-    }
-  }
+    if (catsAdded) console.log(`Categories → ${lang}: ${catsAdded} translated`);
 
-  for (const kitab of kitabs) {
-    // Entry list mirrors what the Worker's reader consumes.
-    const entries: [string, string][] = [];
-    if (kitab.title_id?.trim()) entries.push(["k:title_id", kitab.title_id]);
-    if (kitab.description_id?.trim()) entries.push(["k:description_id", kitab.description_id]);
-    for (const b of babs.filter((b) => b.kitab_slug === kitab.slug)) {
-      if (b.name_id?.trim()) entries.push([`b:${b.id}`, b.name_id]);
-    }
-    for (const m of matns.filter((m) => m.kitab_slug === kitab.slug)) {
-      if (m.title_id?.trim()) entries.push([`mt:${m.id}`, m.title_id]);
-      if (m.translation_id?.trim()) entries.push([`tr:${m.id}`, m.translation_id]);
-      if (m.explanation_id?.trim()) entries.push([`ex:${m.id}`, m.explanation_id]);
-    }
-    if (entries.length === 0) continue;
-    const srcHash = hashKey(entries.map(([k, v]) => `${k}=${v}`).join(""));
+    for (const kitab of kitabs) {
+      // Entry list mirrors what the Worker's reader consumes.
+      const entries: [string, string][] = [];
+      if (kitab.title_id?.trim()) entries.push(["k:title_id", kitab.title_id]);
+      if (kitab.description_id?.trim()) entries.push(["k:description_id", kitab.description_id]);
+      for (const b of babs.filter((b) => b.kitab_slug === kitab.slug)) {
+        if (b.name_id?.trim()) entries.push([`b:${b.id}`, b.name_id]);
+      }
+      for (const m of matns.filter((m) => m.kitab_slug === kitab.slug)) {
+        if (m.title_id?.trim()) entries.push([`mt:${m.id}`, m.title_id]);
+        if (m.translation_id?.trim()) entries.push([`tr:${m.id}`, m.translation_id]);
+        if (m.explanation_id?.trim()) entries.push([`ex:${m.id}`, m.explanation_id]);
+      }
+      if (entries.length === 0) continue;
+      const srcHash = hashKey(entries.map(([k, v]) => `${k}=${v}`).join(""));
 
-    for (const lang of langs) {
-      if (!force && metaMap.get(`${kitab.slug}:${lang}`) === srcHash) {
+      const known = index.kitab[kitab.slug];
+      if (!force && known?.complete && known.srcHash === srcHash) {
         skipped++;
         continue;
       }
@@ -332,23 +422,34 @@ async function main() {
         continue;
       }
 
-      // Upsert rows in chunks; only stamp meta when the whole kitab made it,
-      // so partial runs are retried next time.
-      const rows = keys.map((k) => `(${sq(kitab.slug)}, ${sq(lang)}, ${sq(k)}, ${sq(out[k]!)})`);
-      for (let i = 0; i < rows.length; i += 80) {
-        const stmt = `INSERT INTO pes_i18n (slug, lang, k, v) VALUES ${rows.slice(i, i + 80).join(",")} ON CONFLICT(slug, lang, k) DO UPDATE SET v = excluded.v;`;
-        d1File(stmt, tmp);
+      // A string that failed this time keeps its earlier translation instead of falling back to
+      // Indonesian; strings of matn that no longer exist are dropped. The hash is recorded only
+      // when the whole kitab made it, so a partial run is retried next time.
+      const objKey = `${PREFIX}/${lang}/${kitab.slug}.json`;
+      const prev = keys.length < entries.length ? r2GetJson<KitabObject>(objKey, tmp) : null;
+      const strings: Record<string, string> = {};
+      for (const [k] of entries) {
+        const v = out[k] ?? prev?.strings?.[k];
+        if (v) strings[k] = v;
       }
       const complete = keys.length === entries.length && ok;
-      if (complete) {
-        d1File(
-          `INSERT INTO pes_i18n_meta (slug, lang, src_hash, updated_at) VALUES (${sq(kitab.slug)}, ${sq(lang)}, ${sq(srcHash)}, datetime('now')) ON CONFLICT(slug, lang) DO UPDATE SET src_hash = excluded.src_hash, updated_at = excluded.updated_at;`,
-          tmp
-        );
-      }
+      r2PutJson(
+        objKey,
+        { slug: kitab.slug, lang, srcHash: complete ? srcHash : null, complete, updatedAt: new Date().toISOString(), strings } satisfies KitabObject,
+        tmp
+      );
+      index.kitab[kitab.slug] = {
+        title_id: strings["k:title_id"],
+        description_id: strings["k:description_id"],
+        srcHash: complete ? srcHash : null,
+        complete,
+      };
       console.log(`  ✓ ${keys.length}/${entries.length} strings stored${complete ? "" : " (partial — will retry next run)"}`);
       jobs++;
+      // Kept current as it goes, so a run cut short does not lose the kitab it finished.
+      r2PutJson(indexKey, { ...index, updatedAt: new Date().toISOString() }, tmp);
     }
+    r2PutJson(indexKey, { ...index, updatedAt: new Date().toISOString() }, tmp);
   }
 
   rmSync(tmp, { recursive: true, force: true });
