@@ -10,6 +10,8 @@ xaa, `docs/R2-DATA-BLUEPRINT.md`): satu pustaka „R2 Store" yang sama dan atura
 
 > „Database semuanya ke R2 ya, jgn ada yg ke d1... Manfaatin R2, penuhin disana" — 20 Okt 2026
 
+> „Semua database wajib ke R2, pastikan hemat D1" — 30 Okt 2026
+
 Aturan tetap (juga di `CLAUDE.md`): **semua penyimpanan ke R2, tidak pernah ke D1** — tidak ada database, tabel,
 migrasi atau query D1 baru. Isi `ulyah-db` dipindah bertahap sampai binding D1 bisa dilepas.
 
@@ -21,6 +23,23 @@ migrasi atau query D1 baru. Isi `ulyah-db` dipindah bertahap sampai binding D1 b
 | Masalah | Akun memakai Workers Free: kuota D1 harian (5 juta baca, 100 ribu tulis) dibagi semua database di akun; `ulyah-db` pemakai terbesar, dan D1 berhenti menerima tulisan di 500 MB (lihat README „Storage discipline") |
 | R2 | Sudah dipakai untuk media dan cache halaman (`MEDIA_R2`, aturan siklus hidup di `.github/r2-lifecycle/`) |
 | KV | `CACHE_KV` — cache saja; boleh tetap untuk data sementara ber-TTL |
+
+### 2.1 Diukur lagi 30 Okt 2026
+
+`ulyah-db` **498 MB dari batas 500 MB** (dan masih bertambah: +32 KB dalam beberapa menit). Saat penuh, D1 menolak
+semua tulisan — termasuk yang bukan terjemahan. Perkiraan baris (`MAX(rowid)`, satu baca per tabel, supaya
+pengukuran sendiri tidak menghabiskan kuota baca):
+
+| Tabel | Baris | Sifat |
+|---|---|---|
+| `mt_cache` (cache terjemahan mesin) | ±1,9 juta | **penulis terbesar**: Worker menulis setiap terjemahan baru; baris terakhir di seluruh D1 ditulis di sini |
+| `key_validation_log` | ±147 rb | log, terus bertambah |
+| `quran_morphology` | ±130 rb | referensi, hanya-baca |
+| `hadits` | ±100 rb | referensi, hanya-baca |
+| `analytics_pageviews` | ±96 rb | event, terus bertambah |
+| `translation` (terjemahan Al-Qur'an) | ±69 rb | referensi, hanya-baca |
+| `live_presence`, `scaling_metrics`, `generation_jobs` | 15 rb, 12 rb, 7 rb | event/log |
+| `pes_i18n` (terjemahan kitab pesantren) | ±12 rb | terjemahan; bahasa Inggris tidak lengkap |
 
 ## 3. Desain
 
@@ -47,15 +66,25 @@ murah dan lebih cepat daripada D1.
 
 ## 5. Urutan pindah
 
-1. Pustaka R2 Store (sama dengan xaa.es, dengan tes konkurensi) masuk ke `packages/`.
-2. **Tulisan baru dulu:** statistik, presence dan event iklan langsung ke R2 (mengurangi tulis D1 terbanyak).
-3. Konten referensi hanya-baca → pecahan JSON di R2 (terbesar dalam MB; mengurangi baca D1 terbanyak).
-4. Admin, donasi, kunci AI → koleksi R2 dengan migrasi sekali (ID sama, setiap baris diperiksa).
-5. 7 hari D1 hanya-baca sebagai cadangan, ekspor terakhir ke bucket backup, lalu binding D1 dilepas.
+Diurutkan ulang 30 Okt menurut ukuran dan tulis yang diukur (§2.1) — „hemat D1" dulu:
+
+1. **Terjemahan → R2, tanpa tulis D1.**
+   - `pes_i18n`: satu objek per kitab × bahasa (`pes-i18n/<kitab>/<bahasa>.json`); isi D1 disalin sekali dengan
+     kunci yang sama dan dicek per objek; pekerjaan terjemahan menulis ke R2 saja (dan menyertakan bahasa Inggris).
+   - `mt_cache`: Worker berhenti menulis ke D1; terjemahan baru disimpan di R2. Pekerjaan pemanasan menulis langsung ke
+     pecahan R2 dan menghangatkan kunci yang benar-benar dibaca halaman (hadits dari teks yang dikurasi).
+2. **Event dan log → R2:** `analytics_pageviews`, `live_presence`, `scaling_metrics`, `key_validation_log`, event iklan —
+   satu objek per kejadian + rollup harian (tidak ada kunci panas).
+3. **Konten referensi hanya-baca → pecahan JSON di R2:** hadits, morfologi, terjemahan Al-Qur'an, kitab, kisah.
+4. **Admin, donasi, kunci AI** → koleksi R2 dengan migrasi sekali (ID sama, setiap baris diperiksa).
+5. Setiap modul: D1 hanya-baca 7 hari sebagai cadangan, lalu tabelnya dikosongkan/dihapus; setelah modul terakhir,
+   ekspor terakhir ke bucket backup dan binding D1 dilepas.
 
 ## 6. Status
 
 | Butir | Status |
 |---|---|
 | Aturan dicatat (`CLAUDE.md`, blueprint ini) | ✅ 20 Okt |
-| Tahap 1–5 | ⏳ (setelah xaa.es dan axto.io) |
+| Pengukuran ulang + urutan „hemat D1" (§2.1, §5) | ✅ 30 Okt |
+| 1. Terjemahan → R2 (`pes_i18n`, `mt_cache`) | 🔄 30 Okt |
+| 2–5 | ⏳ berurutan setelah tahap 1 |

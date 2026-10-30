@@ -626,11 +626,12 @@ di akun AdSense (di luar jangkauan Claude).
 | 29 Okt | "1fr.fr dawa.im tilawa.de termasuk xad.es itu jg jual semua, sama kaya ulyah.com pembayaran ngikutin ulyah.com, semua terkoneksi ke ulyah.com" | 🔄 §17.3 — keempat situs mitra dijual dengan cara yang sama seperti ulyah.com, semuanya dikendalikan dari Admin → Situs dijual di ulyah.com |
 | 29 Okt | "Aktifin admin panel mereka masing2, agar mandiri, kasih cara masuk admin panel nya dengan username dan password demo, mereka hanya bisa melihat2... Kembangkan dulu portal adminya untuk semuanya, agar pembeli melihat nya nyaman, dan betul2 mudah di gunakan untuk promosi haji umroh, youtube anak, dan promo youtube" | 🔄 §18 — dikerjakan lebih dulu (PR 1), lalu penjualan situs mitra §17.3 (PR 2) |
 | 29 Okt | "Harga sama $250k" | ✅ dicatat — situs mitra masing-masing US$250.000 (min. US$50.000), sama dengan ulyah.com (§17.3) |
-| 29 Okt | "Cek jg translate dan seluruh isi nya, apakah masih ada yg tidak konsisten, error, bug dll atau masih ada yg tidak d terjemahkan... Kerjakan semuanya setelah bikin penjualan,,, bikin yg profesional elegan indah termasuk di ulyah.com, jgn ada css yg error, dari A-Z wajib zero bug error dan miss" | ⏳ §19 — setelah portal admin (§18) dan penjualan situs mitra (§17.3): audit terjemahan dan isi kelima situs (teks yang belum diterjemahkan, tidak konsisten, error, CSS rusak) dan perbaikannya |
+| 29 Okt | "Cek jg translate dan seluruh isi nya, apakah masih ada yg tidak konsisten, error, bug dll atau masih ada yg tidak d terjemahkan... Kerjakan semuanya setelah bikin penjualan,,, bikin yg profesional elegan indah termasuk di ulyah.com, jgn ada css yg error, dari A-Z wajib zero bug error dan miss" | 🔄 §19 (putaran 1 live, putaran 2 PR) — setelah portal admin (§18) dan penjualan situs mitra (§17.3): audit terjemahan dan isi kelima situs (teks yang belum diterjemahkan, tidak konsisten, error, CSS rusak) dan perbaikannya |
 | 29 Okt | "Untuk saat ini make 2 jalur, bisa dari ulyah.com maupun bisa mandiri, klo nanti ada yg beli baru di putus satu per satu, agar lebih mudah d kontrol koneksikan dulu ke ulyah.com" | 🔄 §18.4 — dua jalur sekaligus: Admin ulyah.com (pemilik memilih situs) dan admin mandiri setiap situs; semua tetap terhubung ke ulyah.com; diputus satu per satu saat terjual |
 | 29 Okt | "Untuk kitab tajwid anak, game anak, gunakan pwngucapanya menggunakan lidah orang Arab, agar faseh dan makhroj nya tepat, tinggal pilih pembacanya \"laki perempuan dewasa atau anak2\"" | ⏳ §20 — dicatat; dikerjakan setelah §18, §17.3 dan §19 |
 | 29 Okt | "Jgn d kasih harga dulu haji umroh, kosongin harganya atau kasih keterangan i sewakan slot nya" | ✅ §18.5 — tidak ada harga di halaman Haji & Umroh (termasuk "$1/hari" sewa yang lama); kartu menulis "Slot disewakan"; editor admin tanpa kolom harga |
 | 29 Okt | "Translate di masing2 situs di bikinin, biar saling berbagi link untuk translate nya" (dengan tangkapan layar menu bahasa ulyah.com) | ✅ §19.1 — menu bahasa di kelima situs, setiap bahasa membuka halaman yang sama di situs bahasanya |
+| 30 Okt | "Semua database wajib ke R2, pastikan hemat D1" | 🔄 `docs/R2-DATA-BLUEPRINT.md` §1, §5 — D1 sudah 498 dari 500 MB; urutan pindah menurut ukuran dan jumlah tulis yang diukur 30 Okt, mulai dari cache terjemahan mesin (penulis terbesar) dan terjemahan kitab pesantren |
 
 ---
 
@@ -1506,8 +1507,40 @@ Diuji ulang di build produksi lokal (OpenNext, ulyah.com dan 1fr.fr), desktop da
 | Dicatat di blueprint | ✅ 29 Okt |
 | Alat audit | ✅ 29 Okt |
 | Menu bahasa di kelima situs (§19.1) | ✅ live 29 Okt (PR #383; admin-live-check: kelima situs ALL OK) |
-| Perbaikan putaran 1 (§19.2) | 🔄 PR |
+| Perbaikan putaran 1 (§19.2) | ✅ live 30 Okt (PR #384; audit ulang: tidak ada lagi 404/500, dawa.im dan xad.es tanpa permintaan gagal) |
+| Perbaikan putaran 2 (§19.3) | 🔄 PR |
 | Audit penuh, perbaikan berikutnya, cek ulang sampai bersih | 🔄 |
+
+### 19.3 Putaran 2 (30 Okt 2026)
+
+Audit ulang di situs live setelah putaran 1 (`site-quality-audit.yml`, 91 halaman per situs, desktop dan HP):
+
+1. **Daftar qari dalam bahasa Indonesia di semua situs mitra**: negara ("Mesir", "Semua", "Emirat Arab"), keterangan
+   ("Imam Masjidil Haram", "Suara anak — ikuti bacaan") dan nama "Al-Minshawi & Anak-anak". Kini setiap build memakai
+   bahasanya (`lib/qori-cdn.ts`): mis. 1fr.fr "Égypte", "Imam de la Grande Mosquée de La Mecque", "Al-Minshawi et les
+   enfants"; ulyah.com tetap bahasa Indonesia. Diperiksa untuk kelima situs: tidak ada sisa kata Indonesia.
+2. **Judul 45 video anak dalam bahasa Indonesia** ("Berkelahi Dengan Setan", "Do'a Untuk Orang Tua") dan negara kanal
+   ("Dunia Arab"). Judul kini diterjemahkan (EN/FR/DE/ES, `lib/video-anak-i18n.ts`, dicek terhadap 45 judul seed), dan
+   karena videonya berbahasa Indonesia, situs mitra menulis jujur "🇮🇩 En indonésien" di setiap seri.
+3. **Hadits hari ini dalam bahasa Indonesia** di halaman harian situs mitra ("Telah menceritakan kepada kami …"). Kini
+   diterjemahkan seperti halaman koleksi hadits (dari teks Inggris/Indonesia yang dikurasi, tidak pernah dari Arab), dan
+   hasilnya **tidak ditulis ke D1** (jawaban sudah di-cache di tepi).
+4. **Error React #418 di halaman amalan harian** (kelima situs, HP): tombol "putar semua" hanya ada di HTML browser,
+   bukan di HTML server. Diperbaiki; diuji di browser tanpa error.
+5. **"Jadwal Sholat widget"** di catatan imsakiyah bahasa Inggris, Prancis, Jerman, Spanyol → nama widget dalam bahasa
+   masing-masing.
+6. Alat audit kini menulis alasan setiap halaman yang ditandai, dan teks halaman 5xx (kode error Cloudflare).
+
+Temuan yang belum selesai:
+- **503 di sebagian halaman dalam** ulyah.com, 1fr.fr, tilawa.de pada audit pertama setelah deploy (dawa.im dan xad.es,
+  diaudit belakangan, bersih). Audit berikut mencatat teks halaman 503 untuk memastikan penyebabnya.
+- **Kitab pesantren bahasa Inggris (xad.es)**: tiga kitab belum diterjemahkan sama sekali (pengantar-balaghah,
+  pengantar-faraidh, pengantar-mantiq — 61 kalimat), karena pekerjaan terjemahan kitab tidak pernah menyertakan bahasa
+  Inggris. FR/DE/ES lengkap. Diperbaiki bersama pindahnya terjemahan kitab ke R2 (`docs/R2-DATA-BLUEPRINT.md` §5).
+- **Pengantar Riyadhus Shalihin** (hadits pertama, sangat panjang) masih bahasa Indonesia di situs mitra: terlalu panjang
+  untuk diterjemahkan di Worker, dan pekerjaan pemanasan terjemahan menghangatkan kunci yang tidak dibaca halaman hadits
+  (dari Arab, bukan dari teks yang dikurasi). Diperbaiki bersama pindahnya cache terjemahan ke R2.
+- **Deskripsi buku perpustakaan** di dawa.im (mis. kategori adab-balaghah) masih bahasa Indonesia.
 
 ## 20. Pengucapan Arab asli untuk tajwid anak dan game anak (pemilik, 29 Okt 2026)
 
