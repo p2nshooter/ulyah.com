@@ -53,3 +53,30 @@ export async function readStoryBody(
 export function storyBodyKey(id: number): string {
   return `stories/body/${id}.md`;
 }
+
+/**
+ * Keep a story's body in R2 from the moment it is written, not only once the nightly mover gets
+ * to it (owner, 30 Oct 2026: "Semua database wajib ke R2, pastikan hemat D1"). The compile and
+ * generation jobs add about a hundred stories a day, 23 KB of text each — the fastest-growing
+ * thing in a D1 that has two MB left.
+ *
+ * Same order as scripts/move-story-bodies-to-r2.ts, and for the same reason: PUT, read back and
+ * compare, and only then clear the column. Anything short of a match leaves the body in D1, where
+ * the reader still finds it and the mover retries it, so a failure here never costs a story.
+ */
+export async function keepBodyInR2(env: Env, id: number | undefined, body: string): Promise<boolean> {
+  if (!env.MEDIA_R2 || !id || !body) return false;
+  const key = storyBodyKey(id);
+  try {
+    await env.MEDIA_R2.put(key, body, { httpMetadata: { contentType: "text/markdown; charset=utf-8" } });
+    const back = await env.MEDIA_R2.get(key);
+    if (!back || (await back.text()) !== body) return false;
+    const res = await env.DB.prepare("UPDATE stories SET body = '', body_r2_key = ? WHERE id = ? AND body_r2_key IS NULL")
+      .bind(key, id)
+      .run();
+    return (res.meta.changes ?? 0) > 0;
+  } catch (e) {
+    console.error(`story ${id}: body stays in D1 for the mover`, e);
+    return false;
+  }
+}
