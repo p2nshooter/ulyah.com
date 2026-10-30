@@ -299,7 +299,10 @@ export async function translateText(
   env: Env,
   text: string,
   targetLang: string,
-  sourceLang: string = "ar"
+  sourceLang: string = "ar",
+  /** false: keep a new translation in the isolate memo only — for a caller whose answer is
+   * edge-cached anyway, so it adds no write to D1 (CLAUDE.md: storage is R2, never D1). */
+  opts: { persist?: boolean } = {}
 ): Promise<string | null> {
   const trimmed = text.trim();
   if (!trimmed || !mtAllowed(targetLang, sourceLang)) return null;
@@ -338,7 +341,7 @@ export async function translateText(
       return null;
     }
     memSet(kvKey, result);
-    await mtDbPut(env, kvKey, result);
+    if (opts.persist !== false) await mtDbPut(env, kvKey, result);
     return result;
   } catch {
     return null;
