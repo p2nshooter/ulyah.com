@@ -77,14 +77,13 @@ console.log("\n=== each site declares the account the owner gave it ===");
 // owner moved to its own account on 2026-10-11. dawa.es is detached and not the
 // owner's any more: it keeps its original account, untouched (§10).
 const EXPECTED: Record<string, string> = {
-  // 26 Oct 2026 (owner): ulyah.com, 1fr.fr and tilawa.de → ca-pub-8991272269211824
-  // (with axto.io and xaa.es).
-  ulyah: "ca-pub-8991272269211824",
-  "1fr": "ca-pub-8991272269211824",
-  tilawa: "ca-pub-8991272269211824",
+  // 31 Oct 2026 (owner): each to its own account (before: ca-pub-8991272269211824).
+  ulyah: "ca-pub-5092800160376210",
+  "1fr": "ca-pub-4548005919629272",
+  tilawa: "ca-pub-5944786950535069",
   xad: "ca-pub-5517446616694631",
-  // dawa.im, the owner's Spanish member (26 Oct 2026): Auto ads only.
-  dawaim: "ca-pub-8991272269211824",
+  // dawa.im, the owner's Spanish member: Auto ads only.
+  dawaim: "ca-pub-9354298681597606",
 };
 for (const [tenant, pub] of Object.entries(EXPECTED)) {
   const key = tenant === "1fr" ? '"1fr"' : tenant;

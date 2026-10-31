@@ -95,6 +95,17 @@ Object.assign(EXPECTED, {
   "xdaily.xyz": "5693981744147503",
   "dawa.im": "8991272269211824",
 });
+// 31 Oct 2026 (owner): four ecosystem sites to their own accounts; rough.lat and saved.lat
+// share one; xaa.es moves. (dai.lat, jai.lat and pab.lat were asked, then called off — unchanged.)
+Object.assign(EXPECTED, {
+  "ulyah.com": "5092800160376210",
+  "dawa.im": "9354298681597606",
+  "1fr.fr": "4548005919629272",
+  "tilawa.de": "5944786950535069",
+  "rough.lat": "9246828178432700",
+  "saved.lat": "9246828178432700",
+  "xaa.es": "6284085719914185",
+});
 const verdicts = [];
 
 const browser = await chromium.launch();

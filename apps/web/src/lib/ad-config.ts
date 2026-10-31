@@ -47,18 +47,18 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
-  // 26 Oct 2026 (owner): ulyah.com, 1fr.fr and tilawa.de move to one account,
-  // together with axto.io and xaa.es ("Untuk 5 domain ini kode adsense nya
-  // ulyah.com 1fr.fr Tilawa.de axto.io xaa.es google.com, pub-8991272269211824,
-  // DIRECT, f08c47fec0942fa0"). Before: ulyah 6908951782430508 (14 Oct),
-  // 1fr 5928074389292014 and tilawa 7345352440829958 (20 Oct).
-  ulyah: "ca-pub-8991272269211824",
-  "1fr": "ca-pub-8991272269211824",
-  tilawa: "ca-pub-8991272269211824",
+  // 31 Oct 2026 (owner): each of the four sites to its own account. ulyah.com
+  // "google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0"; dawa.im
+  // "pub-9354298681597606"; "1fr.fr jd ini … pub-4548005919629272"; "Tilawa.de …
+  // pub-5944786950535069". Before, all four were on ca-pub-8991272269211824
+  // (26 Oct, with axto.io and xaa.es).
+  ulyah: "ca-pub-5092800160376210",
+  "1fr": "ca-pub-4548005919629272",
+  tilawa: "ca-pub-5944786950535069",
   dawa: ORIGINAL_ACCOUNT,
-  // dawa.im, the owner's Spanish member (26 Oct 2026, same message): Auto ads
-  // only — SHOWS_AD_UNITS below stays false for it.
-  dawaim: "ca-pub-8991272269211824",
+  // dawa.im, the owner's Spanish member: Auto ads only — SHOWS_AD_UNITS below
+  // stays false for it.
+  dawaim: "ca-pub-9354298681597606",
   xad: "ca-pub-5517446616694631",
 };
 
