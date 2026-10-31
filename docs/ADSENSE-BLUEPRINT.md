@@ -634,9 +634,10 @@ di akun AdSense (di luar jangkauan Claude).
 | 30 Okt | "Semua database wajib ke R2, pastikan hemat D1" | 🔄 `docs/R2-DATA-BLUEPRINT.md` §1, §5 — D1 sudah 498 dari 500 MB; urutan pindah menurut ukuran dan jumlah tulis yang diukur 30 Okt, mulai dari cache terjemahan mesin (penulis terbesar) dan terjemahan kitab pesantren |
 | 31 Okt | "Tolong ubah kode adsense situs2 ini. Buatin jg cuplikan dan tag meta nya... google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0" (tangkapan layar: 1fr.fr, ulyah.com, dawa.im, tilawa.de) | ✅ ulyah.com → ca-pub-5092800160376210 (tiga situs lain diganti lagi oleh pesan berikutnya) — `docs/ADSENSE-CODES.md` no. 14 |
 | 31 Okt | "Tolong ini juga … dahulukan rubah kode adsense baru lanjut: dai.lat pub-9653574958783349, jai.lat pub-2271696914011881, pab.lat pub-3121033501099075, rough.lat Saved.lat pub-9246828178432700" | ⚠️ dai.lat, jai.lat, pab.lat **dibatalkan** pemilik ("rubah kode adsense ini di batalkan ya … Yg ini aja yg di lanjut Saved.lat") — kodenya tetap |
-| 31 Okt | "ini ganti dengan kode ini google.com, pub-9354298681597606" (tangkapan layar: 1fr.fr, dawa.im) | ✅ dawa.im → ca-pub-9354298681597606 (1fr.fr diganti lagi oleh pesan berikutnya) |
-| 31 Okt | "ini ganti kode adsense nya jd ini rough.lat Saved.lat pub-9246828178432700 · 1fr.fr pub-4548005919629272 · Tilawa.de pub-5944786950535069 · xaa.es pub-6284085719914185" | ✅ rough.lat + saved.lat → ca-pub-9246828178432700, 1fr.fr → ca-pub-4548005919629272, tilawa.de → ca-pub-5944786950535069 (dua kode yang sebelumnya dipakai saved.lat dan rough.lat), xaa.es → ca-pub-6284085719914185 (repo xaa) |
+| 31 Okt | "ini ganti dengan kode ini google.com, pub-9354298681597606" (tangkapan layar: 1fr.fr, dawa.im) | ✅ dawa.im → ca-pub-9354298681597606 (1fr.fr diganti lagi oleh pesan berikutnya). dawa.im belum pernah ada di daftar domain `site-audit.yml`; sekarang ikut diaudit live |
+| 31 Okt | "ini ganti kode adsense nya jd ini rough.lat Saved.lat pub-9246828178432700 · 1fr.fr pub-4548005919629272 · Tilawa.de pub-5944786950535069 · xaa.es pub-6284085719914185" | ✅ rough.lat + saved.lat → ca-pub-9246828178432700, 1fr.fr → ca-pub-4548005919629272, tilawa.de → ca-pub-5944786950535069 (dua kode yang sebelumnya dipakai saved.lat dan rough.lat), xaa.es → ca-pub-6284085719914185 (repo xaa). Live 31 Okt 23.43 UTC (`site-audit.yml` run 41253314315): ulyah.com, 1fr.fr, tilawa.de, rough.lat, saved.lat, xaa.es **OK** dengan kode baru; 38 domain OK |
 | 31 Okt | "Jika sudah cek ulang axto.io affiliate, white label, reseller belum ada yg muncul, trus harga jual di ubah aja, langsung minimal penawaran $500k... Xaa.es jg sama, investor di Hiden dulu, lanjut bikin SaaS template sampai selesai baru cek situs muslim lg klo dah 100% siap produksi" | 🔄 urutan kerja: kode AdSense dulu, lalu axto.io (program mitra tampil, harga minimal penawaran US$500k, README/About konsisten — guardian-ai `docs/REQUESTS.md`), xaa.es (minimal penawaran US$500k, investor disembunyikan, template SaaS sampai selesai — xaa `docs/BLUEPRINT.md`), baru kembali ke situs muslim (§19, §20) |
+| 31 Okt | "Kita focus ke suksesan adsense dulu ya termasuk article, pastiin seluruh website punya 60 article" | 🔄 §21: setiap situs minimal 60 artikel (≥1.500 kata, tulisan tangan); inventaris ±513 artikel kurang; mulai rough.lat dan saved.lat |
 
 ---
 
@@ -1564,3 +1565,47 @@ makhroj nya tepat, tinggal pilih pembacanya \"laki perempuan dewasa atau anak2\"
 |---|---|
 | Dicatat di blueprint | ✅ 29 Okt |
 | Inventaris suara, pilihan pembaca, tes, PR, deploy | ⏳ setelah §18, §17.3 dan §19 |
+
+## 21. Setiap situs punya 60 artikel (pemilik, 31 Okt 2026)
+
+Perintah pemilik: „Kita focus ke suksesan adsense dulu ya termasuk article, pastiin seluruh website punya 60 article".
+
+- Fokus kerja sekarang adalah AdSense diterima. Ini termasuk artikel: **setiap situs minimal 60 artikel**. Target lama
+  (40 artikel, Fase 6–7) naik ke 60.
+- Aturan artikel tetap sama (§1 no. 4 dan no. 13, Fase 7):
+  - ditulis tangan, tanpa agen;
+  - orisinal, akurat, dan sesuai niche serta bahasa situs;
+  - **≥1.500 kata** per artikel;
+  - tanpa angka, harga, kutipan, atau studi karangan;
+  - tanpa saran medis atau keuangan yang menjanjikan hasil;
+  - tidak ada judul atau topik kembar dengan artikel lain di situs yang sama;
+  - tautan internal ke artikel terkait dan ke kategorinya.
+- Gerbang `sites/_engine/check.mjs` naik dari 40 ke 60 artikel setelah semua situs `sites/` lulus. Situs berikutnya juga
+  memakai batas 60.
+- Urutan kerja:
+  1. situs yang sedang ditinjau AdSense (rough.lat, saved.lat);
+  2. situs `sites/` lain, mulai dari yang artikelnya paling sedikit;
+  3. axto.io, axto.us, profity.in.
+- Setiap gelombang dikerjakan sampai live: PR, CI hijau, merge, deploy, lalu cek live.
+
+### 21.1 Inventaris 31 Okt 2026 (dihitung dari repo)
+
+| Situs | Artikel | Kurang | Catatan |
+|---|---|---|---|
+| 17 situs `sites/`: byodd.de, crone.skin, dai.lat, dawo.es, pab.lat, qarf.de, qkb.es, qulen.de, rough.es, rough.lat, rubiy.de, saved.lat, xko.es, zevok.de, zolun.de, zufiq.de, zuvik.de | 40 | 20 per situs (340) | rata-rata 1.580–1.900 kata |
+| 9 situs `sites/`: byoxy.de, byoy.de, nexvilo.de, odaily.xyz, qurm.de, velnixo.de, xdaily.xyz, zavik.de, zoevian.de | 45 | 15 per situs (135) | |
+| axto.io (repo guardian-ai, blog) | 38 | 22 | `dashboard/lib/blog-posts*.ts` |
+| axto.us (repo axto.us) | 45 | 15 | `sites/axto.us/content/articles` |
+| profity.in | 59 | 1 | dwibahasa hi+en |
+| oldco.in 67 · lie.skin 77 · xaa.es 85 · jai.lat 87 · axto.dev 120 | ≥60 | 0 | |
+| ulyah.com, 1fr.fr, tilawa.de, xad.es, dawa.im | ribuan halaman | 0 | 1.191 kisah, 4.967 entri katalog kitab, tokoh, hadits, Al-Qur'an |
+
+Total yang harus ditulis: **±513 artikel** baru, masing-masing ≥1.500 kata (±800.000 kata).
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint + inventaris | ✅ 31 Okt |
+| rough.lat +20, saved.lat +20 | 🔄 |
+| 24 situs `sites/` lain | ⏳ |
+| axto.io +22, axto.us +15, profity.in +1 | ⏳ |
+| `check.mjs` MIN_ARTICLES 40 → 60 | ⏳ setelah semua situs `sites/` lulus |
