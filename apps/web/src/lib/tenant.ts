@@ -57,7 +57,7 @@ const ULYAH: TenantConfig = {
   logoLockup: null,
   wordmark: "/brand/wordmark-ar.png",
   wordmarkGold: "/brand/wordmark-ar-gold.png",
-  acquisitionEmail: "salam@ulyah.com",
+  acquisitionEmail: "hello@axto.io",
   // ulyah.com itself is for sale (owner, 28–29 Oct 2026; docs/ADSENSE-BLUEPRINT.md §17):
   // the home-page band, the header menu and /acquisition, shown or hidden from
   // Admin → Situs dijual (lib/site-sale.ts).
@@ -76,7 +76,7 @@ const ONEFAITH: TenantConfig = {
   logoLockup: null,
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@ulyah.com",
+  acquisitionEmail: "hello@axto.io",
   // Owner (Update Global Seluruh Portal §2): the AdSense loader script must be
   // present on every page of EVERY site — ads are enabled on all tenants.
   features: { ads: true, donationForward: true, forSale: true },
@@ -94,10 +94,11 @@ const TILAWA: TenantConfig = {
   logoLockup: null,
   wordmark: null,
   wordmarkGold: null,
-  // All acquisition offers go to the OWNER's inbox (owner: "semua email
-  // penawaran ke salam@ulyah.com") — the sibling domain's own mailbox is an
-  // asset the BUYER receives, not the negotiation channel.
-  acquisitionEmail: "salam@ulyah.com",
+  // All acquisition offers go to the OWNER's inbox — since 1 Nov 2026 hello@axto.io
+  // ("Seluruh penawaran di seluruh situs ke hello@axto.io atau kasih link whatsapp
+  // ke +6285691234561"). The sibling domain's own mailbox is an asset the BUYER
+  // receives, not the negotiation channel.
+  acquisitionEmail: "hello@axto.io",
   features: { ads: true, donationForward: true, forSale: true },
 };
 
@@ -113,7 +114,7 @@ const DAWA: TenantConfig = {
   logoLockup: null,
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@ulyah.com",
+  acquisitionEmail: "hello@axto.io",
   features: { ads: true, donationForward: true, forSale: true },
 };
 
@@ -133,7 +134,7 @@ const DAWAIM: TenantConfig = {
   logoLockup: "/brand/dawaim/logo.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@ulyah.com",
+  acquisitionEmail: "hello@axto.io",
   // Auto ads only (no manual units), donation forward; for sale like ulyah.com since 29 Oct 2026
   // (docs/ADSENSE-BLUEPRINT.md §17.3), terms from the ulyah.com admin.
   features: { ads: true, donationForward: true, forSale: true },
@@ -155,7 +156,7 @@ const XAD: TenantConfig = {
   logoLockup: "/brand/xad/logo.png",
   wordmark: null,
   wordmarkGold: null,
-  acquisitionEmail: "salam@ulyah.com",
+  acquisitionEmail: "hello@axto.io",
   // Core English member of the ecosystem — ads on, donation forward; for sale like ulyah.com
   // since 29 Oct 2026 (docs/ADSENSE-BLUEPRINT.md §17.3), terms from the ulyah.com admin.
   features: { ads: true, donationForward: true, forSale: true },

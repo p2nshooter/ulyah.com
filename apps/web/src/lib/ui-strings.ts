@@ -110,8 +110,8 @@ const T: Record<string, Strings> = {
     en: "Show your Hajj & Umrah services on this page to real, sincere visitors. Slots are available to rent — contact us for the terms. It would be an honour for us to welcome you.",
   },
   hajjRent: {
-    id: "Sewa halaman ini — salam@ulyah.com",
-    en: "Rent this page — salam@ulyah.com",
+    id: "Sewa halaman ini — hello@axto.io",
+    en: "Rent this page — hello@axto.io",
   },
   // crypto donation
   cryptoThanks: {

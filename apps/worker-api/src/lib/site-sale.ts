@@ -44,7 +44,8 @@ export const SALE_DEFAULTS: SaleSettings = {
   negotiable: true,
   // The owner's number, already published on the /live page for "stream via ulyah".
   whatsapp: "+6285691234561",
-  email: "salam@ulyah.com",
+  // Every offer on every site goes to the AXTO inbox (owner, 1 Nov 2026 — REQUESTS 139 in guardian-ai).
+  email: "hello@axto.io",
   makkahLiveUrl: "",
   updatedAt: "",
   updatedBy: "",
@@ -94,6 +95,8 @@ const money = (v: unknown) => {
   const digits = String(v ?? "").replace(/[^\d]/g, "");
   return digits ? Number(digits) : NaN;
 };
+/** The ulyah.com inbox offers went to before 1 Nov 2026; a saved copy now reads as hello@axto.io. */
+export const LEGACY_OFFER_EMAILS = ["salam@ulyah.com"];
 export const isEmail = (v: string) => /^[^@\s]{1,64}@[^@\s]{1,190}\.[a-z]{2,}$/i.test(v);
 const phone = (v: unknown) => clean(v, 24).replace(/[^\d+]/g, "");
 
@@ -112,7 +115,8 @@ export function sanitizeSettings(input: Partial<Record<keyof SaleSettings, unkno
     minOfferUsd,
     negotiable: typeof input.negotiable === "boolean" ? input.negotiable : base.negotiable,
     whatsapp: input.whatsapp === undefined ? base.whatsapp : phone(input.whatsapp),
-    email: input.email === undefined ? base.email : isEmail(email) ? email : base.email,
+    email: LEGACY_OFFER_EMAILS.includes(email) ? SALE_DEFAULTS.email
+      : input.email === undefined ? base.email : isEmail(email) ? email : base.email,
     makkahLiveUrl: input.makkahLiveUrl === undefined ? base.makkahLiveUrl : !live || isYoutubeUrl(live) ? live : base.makkahLiveUrl,
     updatedAt: base.updatedAt,
     updatedBy: base.updatedBy,
