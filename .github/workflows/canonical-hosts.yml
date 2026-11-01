@@ -92,6 +92,47 @@ jobs:
             echo "::warning title=Cloudflare token permissions::Some zones could not be changed. Give the CLOUDFLARE_API_TOKEN 'Zone → Zone Settings → Edit' and 'Zone → Single Redirect → Edit' (or 'Dynamic Redirect'), or set Always Use HTTPS and a www → apex redirect rule by hand in each zone."
           fi
 
+      # Owner, 1 Nov 2026: "jgn ada satupun yg memblokir google dan SEO". Cloudflare's managed
+      # robots.txt puts its own groups in front of every site's robots.txt, with "Disallow: /" for
+      # AI crawlers, Google-Extended among them. Switched off in every owner zone, so each site
+      # serves only its own robots.txt (Allow: / for everyone, portals and admin excepted).
+      - name: Cloudflare managed robots.txt off (never block Google)
+        run: |
+          set -uo pipefail
+          api() { curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+          domains="$EXTRA $(for f in sites/*/site.json; do jq -r '.domain' "$f"; done)"
+          echo "### Cloudflare managed robots.txt" >> "$GITHUB_STEP_SUMMARY"
+          failed=0
+          for d in $domains; do
+            [ "$d" = "dawa.es" ] && continue
+            zone=$(api "https://api.cloudflare.com/client/v4/zones?name=$d" | jq -r '.result[0].id // empty')
+            [ -z "$zone" ] && continue
+            cur=$(api "https://api.cloudflare.com/client/v4/zones/$zone/bot_management")
+            managed=$(jq -r '.result.is_robots_txt_managed // false' <<<"$cur")
+            if [ "$(jq -r '.success' <<<"$cur")" != "true" ]; then
+              state="could not read ($(jq -c '[.errors[]?.message]' <<<"$cur"))"; failed=1
+            elif [ "$managed" != "true" ]; then
+              state="off"
+            else
+              r=$(api -X PUT "https://api.cloudflare.com/client/v4/zones/$zone/bot_management" -d '{"is_robots_txt_managed":false}')
+              if [ "$(jq -r '.success' <<<"$r")" != "true" ]; then
+                # Some plans want the whole configuration back: resend the current one with the flag off.
+                body=$(jq -c '.result | with_entries(select(.key | IN("enable_js","fight_mode","ai_bots_protection","crawler_protection","auto_update_model","suppress_session_score","optimize_wordpress","sbfm_definitely_automated","sbfm_likely_automated","sbfm_static_resource_protection","sbfm_verified_bots"))) + {is_robots_txt_managed:false}' <<<"$cur")
+                r=$(api -X PUT "https://api.cloudflare.com/client/v4/zones/$zone/bot_management" -d "$body")
+              fi
+              if [ "$(jq -r '.success' <<<"$r")" = "true" ] && [ "$(jq -r '.result.is_robots_txt_managed' <<<"$r")" = "false" ]; then
+                state="switched off"
+              else
+                state="FAILED $(jq -c '[.errors[]?.message]' <<<"$r")"; failed=1
+              fi
+            fi
+            echo "- $d: managed robots.txt $state" >> "$GITHUB_STEP_SUMMARY"
+            echo "$d: managed robots.txt $state"
+          done
+          if [ "$failed" = 1 ]; then
+            echo "::warning title=Managed robots.txt::Some zones could not be read or changed. Give the CLOUDFLARE_API_TOKEN 'Zone → Bot Management → Edit', or switch off 'Manage your robots.txt' (Security / AI Crawl Control) by hand in those zones."
+          fi
+
       - name: What Googlebot sees (robots.txt, redirects, canonical)
         run: |
           # A report, not a gate: a host that is down, a page without a
@@ -107,7 +148,7 @@ jobs:
               res=$(curl -s -o /tmp/b -m 20 -A "$UA" -w '%{http_code} %{redirect_url}' "$u" || true)
               line="$line · \`$u\` → $res"
             done
-            blocked=$(curl -s -m 20 -A "$UA" "https://$d/robots.txt" | tr -d '\r' | awk '{l=tolower($0)} l ~ /^user-agent:/{ua=tolower($2)} l ~ /^disallow:/{ if ((ua=="*"||ua~/googlebot/) && $2!="") print ua": "$0 }' | head -5 | tr '\n' ';')
+            blocked=$(curl -s -m 20 -A "$UA" "https://$d/robots.txt" | tr -d '\r' | awk '{l=tolower($0)} l ~ /^user-agent:/{ua=tolower($2)} l ~ /^disallow:/{ if ((ua=="*"||ua~/google|bingbot/) && $2=="/") print ua": "$0 }' | head -5 | tr '\n' ';')
             [ -n "$blocked" ] && line="$line · ⚠️ blocks Google: $blocked"
             canon=$(curl -s -m 20 -A "$UA" "https://$d/" | grep -oiE '<link[^>]*rel="?canonical"?[^>]*>' | head -1)
             [ -z "$canon" ] && canon="(no canonical tag found)"
