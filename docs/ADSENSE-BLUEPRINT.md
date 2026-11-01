@@ -638,6 +638,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 31 Okt | "ini ganti kode adsense nya jd ini rough.lat Saved.lat pub-9246828178432700 · 1fr.fr pub-4548005919629272 · Tilawa.de pub-5944786950535069 · xaa.es pub-6284085719914185" | ✅ rough.lat + saved.lat → ca-pub-9246828178432700, 1fr.fr → ca-pub-4548005919629272, tilawa.de → ca-pub-5944786950535069 (dua kode yang sebelumnya dipakai saved.lat dan rough.lat), xaa.es → ca-pub-6284085719914185 (repo xaa). Live 31 Okt 23.43 UTC (`site-audit.yml` run 41253314315): ulyah.com, 1fr.fr, tilawa.de, rough.lat, saved.lat, xaa.es **OK** dengan kode baru; 38 domain OK |
 | 31 Okt | "Jika sudah cek ulang axto.io affiliate, white label, reseller belum ada yg muncul, trus harga jual di ubah aja, langsung minimal penawaran $500k... Xaa.es jg sama, investor di Hiden dulu, lanjut bikin SaaS template sampai selesai baru cek situs muslim lg klo dah 100% siap produksi" | 🔄 urutan kerja: kode AdSense dulu, lalu axto.io (program mitra tampil, harga minimal penawaran US$500k, README/About konsisten — guardian-ai `docs/REQUESTS.md`), xaa.es (minimal penawaran US$500k, investor disembunyikan, template SaaS sampai selesai — xaa `docs/BLUEPRINT.md`), baru kembali ke situs muslim (§19, §20) |
 | 31 Okt | "Kita focus ke suksesan adsense dulu ya termasuk article, pastiin seluruh website punya 60 article" | 🔄 §21: setiap situs minimal 60 artikel (≥1.500 kata, tulisan tangan); inventaris ±513 artikel kurang; mulai rough.lat dan saved.lat |
+| 1 Nov | "Untuk harga jual axto.io & xaa.es start penawaran di $500k, jgn di tulis harga $10jt, penawaran mulai $500k. Portal affiliate, reseller dan whitelabel nya belum ada semua, pastiin biar live dulu semua baru lanjut bikin artikel,,, penulisan artikel di web terakhir selesain dulu setelah selesai artikel lanjut axto dan xaa sampe selesai 100% jgn sampe ada yg ketinggalan" · "Kerjakan dengan teliti jgn ada kesalah, error apalagi bikin aplikasi smapah, ika sudah selesi lanjut artikel" | 🔄 urutan: (1) odaily.xyz selesai ✅; (2) axto.io (guardian-ai) dan xaa.es (xaa): penawaran mulai US$500.000 tanpa angka US$10 jt, portal affiliate/reseller/white label live, README `YOUR_ORG` dan kepanjangan AXTO konsisten, investor disembunyikan di xaa.es — dicatat di guardian-ai `docs/REQUESTS.md` dan xaa `docs/BLUEPRINT.md`; (3) baru lanjut artikel 22 situs lain (§21) |
 
 ---
 
@@ -1608,6 +1609,7 @@ Total yang harus ditulis: **±513 artikel** baru, masing-masing ≥1.500 kata (�
 | rough.lat +20 (60 artikel, rata-rata 1.626 kata, semua ≥1.500, `check.mjs` ALL OK, kemiripan lintas situs ≤2,6 %) | ✅ PR 31 Okt |
 | saved.lat +20 (60 artikel, rata-rata 1.614 kata, semua ≥1.500, ALL OK, kemiripan lintas situs ≤0,7 %) | ✅ PR 1 Nov |
 | crone.skin +20 (60 artikel, rata-rata 1.603 kata, semua ≥1.500, ALL OK, kemiripan ≤0,9 %) | ✅ PR 1 Nov |
-| 23 situs `sites/` lain | 🔄 |
+| odaily.xyz +15 (60 artikel, rata-rata 1.651 kata, semua ≥1.500, ALL OK, kemiripan ≤1,6 %) | ✅ PR 1 Nov |
+| 22 situs `sites/` lain | ⏸ setelah axto.io dan xaa.es selesai 100 % (perintah pemilik 1 Nov, lihat log) |
 | axto.io +22, axto.us +15, profity.in +1 | ⏳ |
 | `check.mjs` MIN_ARTICLES 40 → 60 | ⏳ setelah semua situs `sites/` lulus |
