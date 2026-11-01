@@ -108,6 +108,40 @@ Object.assign(EXPECTED, {
 });
 const verdicts = [];
 
+// Owner, 1 Nov 2026: "jgn ada satupun yg memblokir google dan SEO". Which crawlers a robots.txt
+// shuts out of the whole site, read group by group (consecutive User-agent lines share the rules
+// that follow). "*", any Google crawler or token (Googlebot, Mediapartners-Google, AdsBot-Google,
+// Google-Extended…) and Bingbot must never get "Disallow: /". Cloudflare's managed robots.txt
+// prepends such groups for AI crawlers, Google-Extended among them, so it counts too.
+const SEARCH_AGENT = /^\*$|google|bingbot/i;
+function robotsBlocks(body) {
+  const blocked = new Set();
+  let agents = [];
+  let rules = false;
+  let disallowAll = false;
+  let allowAll = false;
+  const close = () => {
+    if (disallowAll && !allowAll) for (const a of agents) if (SEARCH_AGENT.test(a)) blocked.add(a);
+  };
+  for (const raw of String(body).split(/\r?\n/)) {
+    const line = raw.replace(/#.*/, "").trim();
+    const m = line.match(/^([A-Za-z-]+)\s*:\s*(.*)$/);
+    if (!m) continue;
+    const key = m[1].toLowerCase();
+    const val = m[2].trim();
+    if (key === "user-agent") {
+      if (rules) { close(); agents = []; rules = false; disallowAll = false; allowAll = false; }
+      agents.push(val);
+    } else if (key === "disallow" || key === "allow") {
+      rules = true;
+      if (val === "/" && key === "disallow") disallowAll = true;
+      if (val === "/" && key === "allow") allowAll = true;
+    }
+  }
+  close();
+  return [...blocked];
+}
+
 const browser = await chromium.launch();
 for (const domain of domains) {
   const out = { domain };
@@ -154,6 +188,7 @@ for (const domain of domains) {
       const r = await ctx.request.get(`https://${domain}${path}`, { timeout: 20000 });
       const body = await r.text();
       if (path === "/ads.txt") out.adsTxtLines = body.split("\n").map((l) => l.trim());
+      if (path === "/robots.txt" && r.status() === 200) out.robotsBlocks = robotsBlocks(body);
       if (path === "/sitemap.xml") out.sitemap = `${r.status()} · ${(body.match(/<loc>/g) || []).length} urls`;
       else out[path.slice(1)] = `${r.status()} · ${body.trim().split("\n").slice(0, 3).join(" | ").slice(0, 200)}`;
     } catch (e) {
@@ -170,6 +205,7 @@ for (const domain of domains) {
     if (!(out.rawLoader || []).includes(`ca-pub-${pub}`)) wrong.push("loader missing from server HTML");
     if ((out.adsterraRequests || []).length || out.htmlAdsterra) wrong.push("adsterra");
     if (out.manualUnits) wrong.push(`${out.manualUnits} manual ad unit(s) — Auto ads only`);
+    if ((out.robotsBlocks || []).length) wrong.push(`robots.txt blocks ${out.robotsBlocks.join(", ")} from the whole site`);
     out.verdict = out.error ? `UNREACHABLE (${out.error.slice(0, 60)})` : wrong.length ? `WRONG: ${wrong.join(" · ")}` : `OK ca-pub-${pub}`;
     verdicts.push(`${domain.padEnd(12)} ${out.verdict}`);
   }
@@ -178,5 +214,5 @@ for (const domain of domains) {
   await ctx.close();
 }
 await browser.close();
-console.log("\n===== AdSense verdict (meta + loader in server HTML and in the browser + ads.txt + no manual unit + no Adsterra)");
+console.log("\n===== AdSense verdict (meta + loader in server HTML and in the browser + ads.txt + no manual unit + no Adsterra + robots.txt never shuts out Google, Bing or *)");
 for (const v of verdicts) console.log(v);
