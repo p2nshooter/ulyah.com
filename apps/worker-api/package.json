@@ -13,11 +13,11 @@
     "@ulyah/ai-engine": "workspace:*",
     "@ulyah/key-pool": "workspace:*",
     "@ulyah/shared": "workspace:*",
-    "hono": "^4.13.13"
+    "hono": "^4.13.14"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261008.1",
+    "@cloudflare/workers-types": "^5.20261029.1",
     "typescript": "^5.7.3",
-    "wrangler": "^4.149.0"
+    "wrangler": "^4.156.0"
   }
 }

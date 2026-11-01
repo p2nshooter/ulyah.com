@@ -22,17 +22,17 @@
     "qrcode": "^1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "zustand": "^5.0.15"
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
-    "@opennextjs/cloudflare": "^1.20.13",
+    "@opennextjs/cloudflare": "^1.20.14",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "postcss": "^8.5.29",
+    "postcss": "^8.5.32",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.7.3",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.156.0"
   }
 }
