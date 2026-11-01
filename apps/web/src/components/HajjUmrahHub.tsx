@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
 import { TENANT } from "@/lib/tenant";
 import { fillLabels } from "@/lib/fill-labels";
+import { SALE_DEFAULTS, waLink } from "@/lib/site-sale";
 
 interface HajjPackage {
   id: number;
@@ -45,63 +46,63 @@ const LABELS: Record<string, Labels> = {
     from: "Slot disewakan", contact: "Hubungi kami", empty: "Belum ada paket yang tersedia saat ini.",
     rentTitle: "Ruang terhormat untuk mitra travel Haji & Umroh",
     rentBody: "Tampilkan layanan Haji & Umroh Anda di halaman ini kepada pengunjung yang nyata dan bersungguh-sungguh. Slot ini tersedia untuk disewa — hubungi kami untuk ketentuannya. Sebuah kehormatan bagi kami untuk menyambut Anda.",
-    rentCta: "Sewa halaman ini — salam@ulyah.com",
+    rentCta: "Sewa halaman ini — hello@axto.io",
   },
   en: {
     all: "All", hajj: "Hajj", umrah: "Umrah", duration: "Duration", departure: "Departure",
     from: "Slot for rent", contact: "Contact us", empty: "No packages are available right now.",
     rentTitle: "A distinguished space for Hajj & Umrah partners",
     rentBody: "Present your Hajj & Umrah services on this page to real, devoted visitors. Slots are available to rent — contact us for the terms. It would be our honour to welcome you.",
-    rentCta: "Rent this page — salam@ulyah.com",
+    rentCta: "Rent this page — hello@axto.io",
   },
   zh: {
     all: "全部", hajj: "朝觐", umrah: "副朝", duration: "行程天数", departure: "出发",
     from: "广告位招租", contact: "联系我们", empty: "目前暂无套餐。",
     rentTitle: "为朝觐与副朝合作伙伴预留的尊贵位置",
     rentBody: "在此页面向真实、虔诚的访客展示您的朝觐与副朝服务。广告位现可租用——请联系我们了解详情。我们很荣幸欢迎您。",
-    rentCta: "租用此页面 — salam@ulyah.com",
+    rentCta: "租用此页面 — hello@axto.io",
   },
   ru: {
     all: "Все", hajj: "Хадж", umrah: "Умра", duration: "Длительность", departure: "Вылет",
     from: "Место сдаётся в аренду", contact: "Связаться", empty: "Сейчас нет доступных пакетов.",
     rentTitle: "Достойное место для партнёров по хаджу и умре",
     rentBody: "Представьте свои услуги хаджа и умры на этой странице реальным, искренним посетителям. Места доступны для аренды — свяжитесь с нами, чтобы узнать условия. Для нас будет честью приветствовать вас.",
-    rentCta: "Арендовать эту страницу — salam@ulyah.com",
+    rentCta: "Арендовать эту страницу — hello@axto.io",
   },
   ja: {
     all: "すべて", hajj: "ハッジ", umrah: "ウムラ", duration: "日程", departure: "出発",
     from: "広告枠 貸出中", contact: "お問い合わせ", empty: "現在利用可能なパッケージはありません。",
     rentTitle: "ハッジ・ウムラ提携先のための特別なスペース",
     rentBody: "このページで、実際の熱心な訪問者にあなたのハッジ・ウムラのサービスを紹介しましょう。広告枠をお貸しします。条件はお問い合わせください。皆様をお迎えできることを光栄に思います。",
-    rentCta: "このページを借りる — salam@ulyah.com",
+    rentCta: "このページを借りる — hello@axto.io",
   },
   ar: {
     all: "الكل", hajj: "الحج", umrah: "العمرة", duration: "المدة", departure: "المغادرة",
     from: "مساحة متاحة للإيجار", contact: "تواصل معنا", empty: "لا توجد باقات متاحة حالياً.",
     rentTitle: "مساحة مميّزة لشركاء الحج والعمرة",
     rentBody: "اعرض خدمات الحج والعمرة على هذه الصفحة أمام زوّار حقيقيين ومهتمّين. المساحات متاحة للإيجار — تواصلوا معنا لمعرفة الشروط. يشرّفنا أن نرحّب بكم.",
-    rentCta: "استأجر هذه الصفحة — salam@ulyah.com",
+    rentCta: "استأجر هذه الصفحة — hello@axto.io",
   },
   fr: {
     all: "Tout", hajj: "Hajj", umrah: "Omra", duration: "Durée", departure: "Départ",
     from: "Emplacement à louer", contact: "Contactez-nous", empty: "Aucun forfait n'est disponible pour le moment.",
     rentTitle: "Un espace distingué pour les partenaires du Hajj et de l'Omra",
     rentBody: "Présentez vos services de Hajj et d'Omra sur cette page, devant un public réel et dévoué. Des emplacements sont à louer — contactez-nous pour les conditions. Ce serait un honneur de vous accueillir.",
-    rentCta: "Louer cette page — salam@ulyah.com",
+    rentCta: "Louer cette page — hello@axto.io",
   },
   de: {
     all: "Alle", hajj: "Hadsch", umrah: "Umrah", duration: "Dauer", departure: "Abflug",
     from: "Platz zu vermieten", contact: "Kontaktieren Sie uns", empty: "Derzeit sind keine Pakete verfügbar.",
     rentTitle: "Ein erlesener Platz für Hadsch- und Umrah-Partner",
     rentBody: "Präsentieren Sie Ihre Hadsch- und Umrah-Angebote auf dieser Seite vor einem echten, andächtigen Publikum. Plätze sind zu vermieten — fragen Sie uns nach den Konditionen. Es wäre uns eine Ehre, Sie willkommen zu heißen.",
-    rentCta: "Diese Seite mieten — salam@ulyah.com",
+    rentCta: "Diese Seite mieten — hello@axto.io",
   },
   es: {
     all: "Todo", hajj: "Hach", umrah: "Umra", duration: "Duración", departure: "Salida",
     from: "Espacio en alquiler", contact: "Contáctanos", empty: "No hay paquetes disponibles por ahora.",
     rentTitle: "Un espacio distinguido para socios de Hach y Umra",
     rentBody: "Presente sus servicios de Hach y Umra en esta página ante visitantes reales y devotos. Hay espacios en alquiler: contáctenos para conocer las condiciones. Sería un honor darle la bienvenida.",
-    rentCta: "Alquilar esta página — salam@ulyah.com",
+    rentCta: "Alquilar esta página — hello@axto.io",
   },
 };
 
@@ -144,10 +145,18 @@ export function HajjUmrahHub({ locale }: { locale: string }) {
       <h2 className="mt-2 font-heading text-xl sm:text-2xl">{t.rentTitle}</h2>
       <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-text-secondary">{t.rentBody}</p>
       <a
-        href="mailto:salam@ulyah.com"
+        href="mailto:hello@axto.io"
         className="mt-5 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
       >
         ✉️ {t.rentCta}
+      </a>
+      <a
+        href={waLink(SALE_DEFAULTS.whatsapp, t.rentTitle)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 ml-2 inline-flex items-center gap-2 rounded-full border border-accent/50 px-5 py-2.5 text-sm font-semibold text-accent transition hover:bg-accent/10"
+      >
+        WhatsApp
       </a>
     </div>
   );

@@ -30,7 +30,8 @@ export const SALE_DEFAULTS: SaleTerms = {
   minOfferUsd: 50_000,
   negotiable: true,
   whatsapp: "+6285691234561",
-  email: "salam@ulyah.com",
+  // Every offer on every site goes to the AXTO inbox (owner, 1 Nov 2026 — REQUESTS 139 in guardian-ai).
+  email: "hello@axto.io",
   makkahLiveUrl: "",
 };
 
@@ -49,7 +50,7 @@ export function toSaleTerms(raw: unknown): SaleTerms {
     minOfferUsd: num(r.minOfferUsd, SALE_DEFAULTS.minOfferUsd),
     negotiable: typeof r.negotiable === "boolean" ? r.negotiable : SALE_DEFAULTS.negotiable,
     whatsapp: str(r.whatsapp, SALE_DEFAULTS.whatsapp),
-    email: str(r.email, SALE_DEFAULTS.email),
+    email: offerEmail(str(r.email, SALE_DEFAULTS.email)),
     makkahLiveUrl: str(r.makkahLiveUrl, SALE_DEFAULTS.makkahLiveUrl),
   };
 }
@@ -137,6 +138,12 @@ export function usdShort(n: number): string {
   if (n >= 1_000_000) return `US$${(n / 1_000_000).toLocaleString("id-ID", { maximumFractionDigits: 1 })}M`;
   if (n >= 1_000) return `US$${Math.round(n / 1_000)}K`;
   return `US$${n}`;
+}
+
+/** The address offers go to: the old ulyah.com inbox saved before 1 Nov 2026 reads as hello@axto.io. */
+export const LEGACY_OFFER_EMAILS = ["salam@ulyah.com"];
+export function offerEmail(v: string): string {
+  return LEGACY_OFFER_EMAILS.includes(v.trim().toLowerCase()) ? SALE_DEFAULTS.email : v;
 }
 
 /** A wa.me link with a prefilled first message. */

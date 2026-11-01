@@ -5,7 +5,7 @@ import Link from "next/link";
 import { isValidLocale, DEFAULT_LOCALE } from "@ulyah/shared/i18n";
 import { TENANT } from "@/lib/tenant";
 import { routePath } from "@/lib/paths";
-import { IS_SALE_SITE, saleContext, saleDemo, saleNetwork, saleTerms } from "@/lib/site-sale";
+import { IS_SALE_SITE, SALE_DEFAULTS, saleContext, saleDemo, saleNetwork, saleTerms, waLink } from "@/lib/site-sale";
 import { saleCopy } from "@/lib/sale-copy";
 import { libraryIndex } from "@/lib/kitab-data";
 import { IQRO_COUNT } from "@/lib/iqro";
@@ -277,6 +277,15 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
           className="mt-4 inline-block rounded-full bg-accent px-8 py-3 font-heading text-lg font-semibold text-primary shadow-(--ul-shadow-gold) transition hover:scale-105"
         >
           {TENANT.acquisitionEmail}
+        </a>
+        <br />
+        <a
+          href={waLink(SALE_DEFAULTS.whatsapp, `${TENANT.siteName} — ${(c as { contactTitle?: string }).contactTitle ?? "offer"}`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-block rounded-full border border-accent/60 px-6 py-2 text-sm font-semibold text-accent transition hover:bg-accent/10"
+        >
+          WhatsApp {SALE_DEFAULTS.whatsapp}
         </a>
         <p className="mt-6 text-xs text-(--panel-fg)/60">{c.donateNote}</p>
         <Link href={routePath(locale, `/donasi`)} className="mt-2 inline-block rounded-full border border-accent/50 px-6 py-2 text-sm text-accent transition hover:bg-accent/10">
