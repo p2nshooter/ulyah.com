@@ -108,21 +108,17 @@ Object.assign(EXPECTED, {
 });
 const verdicts = [];
 
-// Owner, 1 Nov 2026: "jgn ada satupun yg memblokir google dan SEO". Which crawlers a robots.txt
-// shuts out of the whole site, read group by group (consecutive User-agent lines share the rules
-// that follow). "*", any Google crawler or token (Googlebot, Mediapartners-Google, AdsBot-Google,
-// Google-Extended…) and Bingbot must never get "Disallow: /". Cloudflare's managed robots.txt
-// prepends such groups for AI crawlers, Google-Extended among them, so it counts too.
+// Owner, 1 Nov 2026: "jgn ada satupun yg memblokir google dan SEO". Which crawlers a robots.txt shuts
+// out of the whole site, read the way Google reads it: every group that names the same crawler is merged,
+// and when "Allow: /" and "Disallow: /" tie, the least restrictive rule wins (Google's robots.txt
+// specification). "*", any Google crawler or token (Googlebot, Mediapartners-Google, AdsBot-Google,
+// Google-Extended, GoogleOther…) and Bingbot must never end up shut out. Cloudflare's managed robots.txt
+// prepends "Disallow: /" groups for AI crawlers, so it counts too — unless the site's own groups re-open them.
 const SEARCH_AGENT = /^\*$|google|bingbot/i;
 function robotsBlocks(body) {
-  const blocked = new Set();
+  const merged = new Map(); // crawler (lower case) → { name, disallowAll, allowAll }
   let agents = [];
-  let rules = false;
-  let disallowAll = false;
-  let allowAll = false;
-  const close = () => {
-    if (disallowAll && !allowAll) for (const a of agents) if (SEARCH_AGENT.test(a)) blocked.add(a);
-  };
+  let inRules = false;
   for (const raw of String(body).split(/\r?\n/)) {
     const line = raw.replace(/#.*/, "").trim();
     const m = line.match(/^([A-Za-z-]+)\s*:\s*(.*)$/);
@@ -130,16 +126,19 @@ function robotsBlocks(body) {
     const key = m[1].toLowerCase();
     const val = m[2].trim();
     if (key === "user-agent") {
-      if (rules) { close(); agents = []; rules = false; disallowAll = false; allowAll = false; }
+      if (inRules) { agents = []; inRules = false; }
       agents.push(val);
+      if (!merged.has(val.toLowerCase())) merged.set(val.toLowerCase(), { name: val, disallowAll: false, allowAll: false });
     } else if (key === "disallow" || key === "allow") {
-      rules = true;
-      if (val === "/" && key === "disallow") disallowAll = true;
-      if (val === "/" && key === "allow") allowAll = true;
+      inRules = true;
+      for (const a of agents) {
+        const g = merged.get(a.toLowerCase());
+        if (val === "/" && key === "disallow") g.disallowAll = true;
+        if (val === "/" && key === "allow") g.allowAll = true;
+      }
     }
   }
-  close();
-  return [...blocked];
+  return [...merged.values()].filter((g) => g.disallowAll && !g.allowAll && SEARCH_AGENT.test(g.name)).map((g) => g.name);
 }
 
 const browser = await chromium.launch();

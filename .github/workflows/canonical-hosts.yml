@@ -141,6 +141,33 @@ jobs:
           UA="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
           domains="$EXTRA $(for f in sites/*/site.json; do jq -r '.domain' "$f"; done)"
           echo "### robots.txt and host variants (Googlebot)" >> "$GITHUB_STEP_SUMMARY"
+          # Read robots.txt the way Google does (the same rules as scripts/site-audit.mjs): every group that
+          # names a crawler is merged, and "Allow: /" beats "Disallow: /" on a tie. Prints the crawlers among
+          # "*", Google's and Bingbot that are still shut out of the whole site.
+          cat > /tmp/robots_blocks.py <<'PY'
+          import re, sys
+          merged, agents, in_rules = {}, [], False
+          for raw in sys.stdin.read().splitlines():
+              line = re.sub(r"#.*", "", raw).strip()
+              m = re.match(r"^([A-Za-z-]+)\s*:\s*(.*)$", line)
+              if not m:
+                  continue
+              key, val = m.group(1).lower(), m.group(2).strip()
+              if key == "user-agent":
+                  if in_rules:
+                      agents, in_rules = [], False
+                  agents.append(val)
+                  merged.setdefault(val.lower(), [val, False, False])
+              elif key in ("allow", "disallow"):
+                  in_rules = True
+                  for a in agents:
+                      g = merged[a.lower()]
+                      if val == "/" and key == "disallow":
+                          g[1] = True
+                      if val == "/" and key == "allow":
+                          g[2] = True
+          print(" ".join(g[0] for g in merged.values() if g[1] and not g[2] and re.search(r"^\*$|google|bingbot", g[0], re.I)))
+          PY
           for d in $domains; do
             [ "$d" = "dawa.es" ] && continue
             line="**$d**"
@@ -148,7 +175,7 @@ jobs:
               res=$(curl -s -o /tmp/b -m 20 -A "$UA" -w '%{http_code} %{redirect_url}' "$u" || true)
               line="$line · \`$u\` → $res"
             done
-            blocked=$(curl -s -m 20 -A "$UA" "https://$d/robots.txt" | tr -d '\r' | awk '{l=tolower($0)} l ~ /^user-agent:/{ua=tolower($2)} l ~ /^disallow:/{ if ((ua=="*"||ua~/google|bingbot/) && $2=="/") print ua": "$0 }' | head -5 | tr '\n' ';')
+            blocked=$(curl -s -m 20 -A "$UA" "https://$d/robots.txt" | tr -d '\r' | python3 /tmp/robots_blocks.py)
             [ -n "$blocked" ] && line="$line · ⚠️ blocks Google: $blocked"
             canon=$(curl -s -m 20 -A "$UA" "https://$d/" | grep -oiE '<link[^>]*rel="?canonical"?[^>]*>' | head -1)
             [ -z "$canon" ] && canon="(no canonical tag found)"
