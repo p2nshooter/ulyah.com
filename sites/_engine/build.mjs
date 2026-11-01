@@ -322,7 +322,14 @@ export async function build(domain, { quiet = false } = {}) {
       `Contact: mailto:${site.email}\nExpires: ${expires}\nPreferred-Languages: ${[...new Set([site.lang, "en"])].join(", ")}\nCanonical: ${base}/.well-known/security.txt\n`
     );
   }
-  writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`);
+  // Owner, 1 Nov 2026: "Pastikan web artikel yg lain jg mematikan robot yg menghalangi crawler google". Should
+  // Cloudflare ever prepend "Disallow: /" for Google's own crawlers again, Google merges every group that names the
+  // same crawler and follows the least restrictive rule on a tie (Google's robots.txt specification): this second
+  // group keeps Google-Extended, GoogleOther and Google-CloudVertexBot allowed.
+  writeFileSync(
+    join(out, "robots.txt"),
+    `User-agent: *\nAllow: /\n\nUser-agent: Google-Extended\nUser-agent: GoogleOther\nUser-agent: Google-CloudVertexBot\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`
+  );
   const today = new Date().toISOString().slice(0, 10);
   const urls = [
     { loc: "/", lastmod: articles[0]?.updated || today },
