@@ -1607,6 +1607,7 @@ Total yang harus ditulis: **±513 artikel** baru, masing-masing ≥1.500 kata (�
 | Dicatat di blueprint + inventaris | ✅ 31 Okt |
 | rough.lat +20 (60 artikel, rata-rata 1.626 kata, semua ≥1.500, `check.mjs` ALL OK, kemiripan lintas situs ≤2,6 %) | ✅ PR 31 Okt |
 | saved.lat +20 (60 artikel, rata-rata 1.614 kata, semua ≥1.500, ALL OK, kemiripan lintas situs ≤0,7 %) | ✅ PR 1 Nov |
-| 24 situs `sites/` lain | ⏳ |
+| crone.skin +20 (60 artikel, rata-rata 1.603 kata, semua ≥1.500, ALL OK, kemiripan ≤0,9 %) | ✅ PR 1 Nov |
+| 23 situs `sites/` lain | 🔄 |
 | axto.io +22, axto.us +15, profity.in +1 | ⏳ |
 | `check.mjs` MIN_ARTICLES 40 → 60 | ⏳ setelah semua situs `sites/` lulus |
