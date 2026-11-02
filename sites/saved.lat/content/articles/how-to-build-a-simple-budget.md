@@ -3,6 +3,12 @@ title: "How to Build a Simple Household Budget That You Will Actually Keep"
 description: A step-by-step method for building a realistic household budget — working out income, listing every cost, choosing a budgeting style and reviewing it every month.
 category: budget-basics
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Consumer Financial Protection Bureau: Creating a cash flow budget (PDF) | https://files.consumerfinance.gov/f/documents/cfpb_creating-cash-flow-budget_tool_2021-08.pdf
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
 ---
 A budget has a reputation for being restrictive, complicated and joyless. In reality, a good budget is simply a plan for your money: it shows where your income goes, makes sure the essentials are covered, and lets you spend on the things you care about without worrying. People who budget often find they feel more relaxed about money, not less, because they know the bills are covered.
 

@@ -3,6 +3,11 @@ title: "When to Buy: A Seasonal Guide to Sales and Better Prices"
 description: The times of year when clothes, electronics, furniture, appliances, travel and garden goods tend to be cheaper, and how to tell a genuine sale price from a fake one.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Prices for many products follow a rhythm through the year. Retailers clear old stock before new ranges arrive, discount seasonal goods once the season ends, and run big promotional events at predictable times. If you can plan purchases around these cycles, you can often pay noticeably less for the same item — without hunting for coupons or compromising on quality.
 

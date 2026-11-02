@@ -3,6 +3,11 @@ title: "Breaking the Impulse Buying Habit: Practical Strategies That Work"
 description: Why impulse purchases happen, the retail and online tricks that encourage them, and practical habits such as waiting periods, lists and budgets that help you spend on purpose.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Most people have bought something they did not plan to buy — a snack at the checkout, a gadget seen in an advert, a "limited-time" deal that seemed too good to miss. An occasional unplanned purchase is not a problem. But frequent impulse buys can quietly drain a budget, fill a home with clutter, and leave less money for the things that really matter.
 

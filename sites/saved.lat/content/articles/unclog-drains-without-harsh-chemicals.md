@@ -3,6 +3,12 @@ title: "Unblocking Drains Without Harsh Chemicals: Plungers, Traps and Preventio
 description: How to clear slow and blocked sinks, showers, baths and toilets with boiling water, a plunger, a drain snake and a clean trap, plus habits that stop blockages forming.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Poison Control (poison.org): What is in drain cleaner? | https://www.poison.org/articles/whats-in-drain-cleaner
+  - Poison Control (poison.org): Cleaning products | https://www.poison.org/poison-prevention-by-substances/cleaning-products
+  - U.S. EPA WaterSense: Home maintenance | https://www.epa.gov/watersense/home-maintenance
 ---
 A slow or blocked drain is one of those problems that always seems to happen at the worst moment: the sink fills with dirty water just before guests arrive, or the shower turns into a paddling pool on a busy morning. The temptation is to pour in a bottle of strong chemical drain cleaner, or to call a plumber straight away. Yet most household blockages are close to the plughole and can be cleared with simple tools, a little patience and no harsh chemicals at all.
 

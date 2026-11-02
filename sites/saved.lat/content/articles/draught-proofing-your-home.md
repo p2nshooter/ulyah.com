@@ -3,6 +3,12 @@ title: "Draught-Proofing Your Home: Doors, Windows and the Gaps You Can't See"
 description: How to find draughts, which materials to use for doors, windows, floors, letterboxes and chimneys, and the ventilation you must never block.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Energy Saving Trust: Draught proofing | https://energysavingtrust.org.uk/advice/draught-proofing/
+  - Energy Saving Trust: Eight quick DIY jobs to save energy | https://energysavingtrust.org.uk/energy-efficient-diy-projects/
+  - U.S. Department of Energy: Do-it-yourself home energy assessments | https://www.energy.gov/energysaver/do-it-yourself-home-energy-assessments
 ---
 A draught is warm air you have paid to heat slipping out of the house, replaced by cold air you now have to heat again. In many older homes, gaps around doors, windows, floorboards and fittings add up to the equivalent of a permanently open window. Sealing them is one of the cheapest home improvements there is: most materials cost little, the work rarely needs special skills, and the result is a warmer home that needs less heating.
 

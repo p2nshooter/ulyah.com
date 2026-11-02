@@ -3,6 +3,11 @@ title: "Unit Pricing: The Supermarket Label That Tells You the Real Price"
 description: How to read the price per kilogram, litre or item on shelf labels, spot when bigger packs cost more, and use unit prices to cut your grocery bill.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - NIST: Unit pricing guide (Special Publication 1181) | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/1181e2025/NIST.SP.1181e2025.html
+  - NIST: Uniform unit pricing, tools for consumers to fight shrinkflation | https://www.nist.gov/programs-projects/uniform-unit-pricing-tools-consumers-fight-shrinkflation
 ---
 The big number on a supermarket shelf label is the price of the pack. It is not the price of the food. Two packets of rice can carry very different sticker prices and turn out to cost almost exactly the same per kilogram — or a smaller, apparently more expensive pack can be cheaper per kilogram than a "family size" bag next to it. The figure that tells you which is genuinely better value is the **unit price**, usually printed in smaller type on the same label.
 

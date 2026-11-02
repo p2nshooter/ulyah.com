@@ -3,6 +3,11 @@ title: "Buying Refurbished Phones, Laptops and Tablets: Grades, Batteries, Warra
 description: "How refurbished electronics differ from used ones, what condition grades mean, how to check the battery, screen and accounts, which sellers and warranties to trust, and the red flags to avoid."
 category: smart-shopping
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
+  - Federal Trade Commission: Shopping and donating | https://consumer.ftc.gov/shopping-donating
 ---
 A new phone, laptop or tablet is one of the biggest purchases many households make, and the price keeps rising. Refurbished devices offer a way to get a good machine for considerably less, often with a warranty, and they keep perfectly usable electronics out of landfill. But the word "refurbished" covers everything from a device that was opened and returned unused to one that has had a hard life and a quick clean. Knowing what to look for makes the difference between a bargain and a headache.
 

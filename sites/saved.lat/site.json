@@ -16,6 +16,7 @@
   "author": "The SAVED editorial team",
   "fonts": "https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Karla:wght@400;500;600;700&display=swap",
   "paths": { "article": "/guides/", "category": "/topics/" },
+  "sources": "required",
   "categories": [
     { "slug": "kitchen-and-groceries", "name": "Kitchen & Groceries", "icon": "basket", "description": "Meal planning, pantry staples, batch cooking and food storage: eating well while spending less and wasting almost nothing." },
     { "slug": "home-and-energy", "name": "Home & Energy", "icon": "lamp", "description": "Heating, cooling, lighting, water and laundry: the everyday habits and small upgrades that bring household bills down." },
@@ -26,6 +27,7 @@
   ],
   "promo": { "slug": "smart-tools", "label": "✦ Smart tools" },
   "menu": [
+    { "label": "Tools", "href": "/tools/" },
     { "label": "About", "href": "/about/" },
     { "label": "Contact", "href": "/contact/" }
   ],

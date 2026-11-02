@@ -3,6 +3,11 @@ title: "Cost Per Use: The Simple Formula for Deciding What Is Really Worth Buyin
 description: How to calculate cost per use and total cost of ownership, when paying more for quality saves money, and when the cheapest option really is the smartest choice.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
 ---
 The price tag tells you what something costs today. It does not tell you what it will cost you over the months and years you own it. A cheap pair of shoes that falls apart after a season can cost more than a pricier pair that lasts five years. A bargain printer with expensive ink can cost far more than a slightly dearer model with cheap cartridges. And an exercise bike used twice is an expensive coat rack.
 

@@ -150,12 +150,22 @@ const card = (ctx, a, extra = "") => `<article class="ledger-card ${extra}">
   </a>
 </article>`;
 
+/** The tools (pages with `tool:`), as a band on the home page. */
+function toolsBand(ctx) {
+  const tools = ctx.pages.filter((p) => p.tool);
+  if (!tools.length) return "";
+  return `<section class="granary-tools" aria-labelledby="granary-tools-t">
+  <div class="granary-heading"><p class="granary-heading__kicker">Tools</p><h2 id="granary-tools-t">Do the sums for your own household</h2><p class="granary-tools__lead">Four calculators that run in your browser, with no sign-up and nothing sent anywhere.</p></div>
+  <ul class="granary-tools__grid">${tools.map((p) => `<li><a class="granary-tools__card" href="${p.url}"><span class="granary-tools__name">${ctx.esc(p.title.split(":")[0])}</span><span class="granary-tools__text">${ctx.esc(p.description)}</span></a></li>`).join("")}</ul>
+</section>`;
+}
+
 export function home(ctx) {
   const { site, articles, categories, esc } = ctx;
   const [first, second, third, ...rest] = articles;
   const featured = first
     ? `<div class="granary-hero__picks">${card(ctx, first, "ledger-card--big")}${second || third ? `<div class="granary-hero__pair">${[second, third].filter(Boolean).map((a) => card(ctx, a)).join("")}</div>` : ""}</div>`
-    : `<div class="granary-hero__picks"><p class="granary-hero__soon">The first guides are being written by hand. Come back soon.</p></div>`;
+    : `<div class="granary-hero__picks"><p class="granary-hero__soon">The first guides are on their way. Come back soon.</p></div>`;
   const body = `
 <section class="granary-hero">
   <div class="granary-hero__in">
@@ -182,6 +192,8 @@ export function home(ctx) {
     </a></li>`).join("\n    ")}
   </ul>
 </section>
+
+${toolsBand(ctx)}
 
 ${rest.length ? `<section class="granary-latest" aria-labelledby="latest-t">
   <header class="granary-heading"><p class="granary-heading__kicker">Fresh from the storeroom</p><h2 id="latest-t">Latest guides</h2></header>

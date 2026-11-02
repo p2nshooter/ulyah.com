@@ -3,6 +3,12 @@ title: "A Simple Household Paperwork System: What to Keep, for How Long and Wher
 description: How to organise bills, receipts, warranties, contracts and personal documents on paper or digitally, how long to keep different records, and how to dispose of them safely.
 category: budget-basics
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
+  - Federal Trade Commission: Free credit reports | https://consumer.ftc.gov/articles/free-credit-reports
 ---
 Bills, bank statements, payslips, insurance documents, warranties, receipts, tax records, medical letters, school letters, council tax notices — household paperwork never stops arriving, whether on paper or by email. When it is not organised, it costs money: late payment charges, missed renewal deadlines, warranty claims you cannot make because the receipt is lost, and hours spent searching for a document when you urgently need it.
 

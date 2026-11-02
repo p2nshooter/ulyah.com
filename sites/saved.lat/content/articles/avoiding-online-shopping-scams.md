@@ -3,6 +3,12 @@ title: "Avoiding Online Shopping Scams: Fake Shops, Phishing and Payment Traps"
 description: How to recognise fake online shops, phishing messages, marketplace fraud and delivery scams, which payment methods protect you, and what to do if you have been scammed.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
+  - Federal Trade Commission: Gift card scams | https://consumer.ftc.gov/gift-card-scams
+  - Federal Trade Commission: Shopping and donating | https://consumer.ftc.gov/shopping-donating
 ---
 Shopping online is convenient and often cheaper than buying in store, but it has also become one of the most common targets for fraud. Fake shops advertise designer goods at impossible prices, phishing messages pretend to be from well-known retailers or delivery companies, and marketplace sellers take payment for items that never existed. Scams are increasingly polished and can fool careful, experienced shoppers.
 

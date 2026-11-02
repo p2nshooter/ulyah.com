@@ -3,6 +3,11 @@ title: "Buying Second-Hand Safely: Bargains Without the Risks"
 description: Where to find good second-hand goods, what to check before you pay, which items to buy used and which to buy new, and how to avoid scams on online marketplaces.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Consumer Product Safety Commission: Resale and thrift stores | https://www.cpsc.gov/Business--Manufacturing/Business-Education/ResaleThrift-Stores-Information-Center
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
 ---
 Buying second-hand is one of the most reliable ways to cut household spending. Furniture, books, tools, children's clothes, sports equipment, kitchenware and many electronics can be bought for a fraction of their new price, often in excellent condition. It also keeps usable goods in circulation instead of in landfill.
 

@@ -3,6 +3,12 @@ title: "Credit Reports and Credit Scores Explained: What Lenders See and How to 
 description: "What a credit report contains, how credit scores are used, the habits that affect them, how to check your report and fix mistakes, and how to spot identity fraud and credit repair scams."
 category: budget-basics
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Free credit reports | https://consumer.ftc.gov/articles/free-credit-reports
+  - Federal Trade Commission: Fixing your credit FAQs | https://consumer.ftc.gov/articles/fixing-your-credit-faqs
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
 ---
 Whenever you apply for a loan, a credit card, a mobile phone contract or sometimes even a rental property, the company you apply to may look at your credit history. For many people, this process is a mystery. They know that a "good credit score" matters but are not sure what it is, who calculates it or how to improve it. Myths spread easily, and some companies take advantage of that confusion to sell expensive services that promise quick fixes.
 

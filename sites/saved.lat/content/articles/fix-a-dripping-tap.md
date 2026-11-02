@@ -3,6 +3,12 @@ title: "How to Fix a Dripping Tap: Washers, Cartridges and Mixer Taps"
 description: Identify your tap type, isolate the water safely, and replace a worn washer, ceramic cartridge or O-ring to stop a drip — plus when to call a plumber.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA WaterSense: Fix a Leak Week | https://www.epa.gov/watersense/fix-leak-week
+  - U.S. EPA WaterSense: Home maintenance | https://www.epa.gov/watersense/home-maintenance
+  - U.S. Department of Energy: Home water efficiency (PDF) | https://www.energy.gov/sites/default/files/2021-08/ES-Home%20Water%20Efficiency_080421.pdf
 ---
 A dripping tap is one of the most common household annoyances, and one of the most wasteful. A drip that seems harmless continues every minute of every day, wasting water — and if it is the hot tap, wasting the energy used to heat that water as well. Many drips are caused by a small worn part that costs very little to replace, and with basic tools and some care, most people can fix a dripping tap themselves in under an hour.
 

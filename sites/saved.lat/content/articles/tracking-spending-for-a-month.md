@@ -3,6 +3,11 @@ title: "Track Your Spending for a Month: The Simple Exercise That Changes Everyt
 description: How to record every purchase for thirty days, sort spending into useful categories, spot patterns and leaks, and turn what you learn into a realistic budget.
 category: budget-basics
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: Creating a cash flow budget (PDF) | https://files.consumerfinance.gov/f/documents/cfpb_creating-cash-flow-budget_tool_2021-08.pdf
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Ask most people how much they spend each month on food, transport or entertainment, and the answer is usually a guess — and usually too low. Small purchases, card payments that feel invisible and irregular costs all blur together. Without an accurate picture, it is hard to build a realistic budget or know where to cut back.
 

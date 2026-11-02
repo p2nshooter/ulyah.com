@@ -3,6 +3,11 @@ title: "The Subscription Audit: Find and Cut the Payments You Forgot About"
 description: A step-by-step method for finding every recurring payment, deciding which subscriptions are worth keeping, cancelling the rest and avoiding free-trial traps.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Shopping and donating | https://consumer.ftc.gov/shopping-donating
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
 ---
 Subscriptions are designed to be easy to start and easy to forget. A streaming service here, a music app there, cloud storage, a fitness app, a news site, a meal-kit box, a software licence, a gaming pass, a premium version of a free app — each one looks small on its own. Added together, and multiplied by twelve months, they can amount to a surprisingly large share of a household budget.
 

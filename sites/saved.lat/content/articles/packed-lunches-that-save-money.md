@@ -3,6 +3,11 @@ title: "Packed Lunches That Save Money: A Simple System for Work and School"
 description: "How to make packed lunches a habit that saves money: the basic formula, prepping in batches, keeping food safe and fresh, kit worth having and ideas that do not get boring."
 category: kitchen-and-groceries
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - USDA Food Safety and Inspection Service: Keeping bag lunches safe | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/keeping-bag-lunches-safe
+  - U.S. EPA: Preventing wasted food at home | https://www.epa.gov/recycle/preventing-wasted-food-home
 ---
 Buying lunch every day is one of those costs that hides in plain sight. A sandwich here, a coffee and a snack there, a meal deal on the way back to the office: each purchase feels small, but over a working week, a month or a school year, they add up to a surprisingly large sum. Packed lunches are one of the most reliable ways to bring that number down, and they often mean eating better too. The trouble is that many people start with enthusiasm on a Monday and give up by Thursday, because preparing a lunch every morning feels like one more chore.
 

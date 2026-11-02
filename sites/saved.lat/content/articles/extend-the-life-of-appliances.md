@@ -4,6 +4,11 @@ seoTitle: "Extend the Life of Appliances: Simple Maintenance"
 description: Easy, regular maintenance that helps fridges, freezers, washing machines, dishwashers, ovens and vacuum cleaners run efficiently and last for years longer.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Department of Energy: Energy Saver guide – tips on saving money and energy at home (PDF) | https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
+  - U.S. Department of Energy: Estimating appliance and home electronic energy use | https://www.energy.gov/energysaver/estimating-appliance-and-home-electronic-energy-use
 ---
 Household appliances are some of the most expensive things most families buy, and when one breaks down unexpectedly, the cost of a replacement — plus delivery, installation and disposal of the old one — can upset a carefully planned budget. The good news is that many breakdowns are caused by problems that simple, regular care can prevent: blocked filters, clogged seals, dust-covered coils and overloading.
 

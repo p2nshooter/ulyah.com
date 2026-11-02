@@ -4,6 +4,12 @@ seoTitle: "Cheap Protein Sources: Beans, Lentils, Eggs and Meat"
 description: The most economical protein foods, how to cook dried pulses in batches, how to stretch meat further, and simple meals that keep everyone full for less.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - FoodSafety.gov: Cold food storage chart | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts
+  - USDA Food Safety and Inspection Service: Steps to keep food safe | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/steps-keep-food-safe
+  - U.S. EPA: Preventing wasted food at home | https://www.epa.gov/recycle/preventing-wasted-food-home
 ---
 Protein is usually the most expensive part of any meal. Meat and fish can take up a large share of a grocery budget, which is why households trying to spend less often feel they must choose between eating well and saving money. They do not. Some of the most nutritious protein foods in the world are also among the cheapest, and even meat-eaters can make their money go much further with a few simple techniques.
 

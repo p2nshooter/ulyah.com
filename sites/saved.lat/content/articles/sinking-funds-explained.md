@@ -3,6 +3,11 @@ title: "Sinking Funds Explained: Save Ahead for the Bills You Know Are Coming"
 description: What sinking funds are, how they differ from an emergency fund, how to calculate monthly amounts for annual and irregular costs, and simple ways to organise them.
 category: budget-basics
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
 ---
 Many of the expenses that knock a budget off course are not really emergencies at all. The car insurance renews every year. Birthdays and festivals come round on the same dates. Children need new school shoes each autumn. The boiler needs servicing, the car needs tyres eventually, and glasses or dental treatment are needed from time to time. Because these costs do not arrive every month, they are easy to forget — until they appear all at once and land on a credit card.
 

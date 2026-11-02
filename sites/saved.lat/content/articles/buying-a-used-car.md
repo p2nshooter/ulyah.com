@@ -3,6 +3,12 @@ title: "Buying a Used Car: Budget, History Checks, Inspection, Test Drive and Pa
 description: "A step-by-step checklist for buying a second-hand car: true running costs, dealer or private seller, history checks, inspection, test drive, negotiation and paying safely."
 category: smart-shopping
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Used cars | https://consumer.ftc.gov/features/feature-0040-used-cars
+  - Federal Trade Commission: What to know when buying a used car online | https://consumer.ftc.gov/consumer-alerts/2024/07/what-know-when-buying-used-car-online
+  - Federal Trade Commission: Auto warranties and auto service contracts | https://consumer.ftc.gov/articles/auto-warranties-and-auto-service-contracts
 ---
 For many households, a car is the second-largest purchase after a home. Buying a used one can save a great deal compared with buying new, because cars tend to lose a large part of their value in their first years. But a used car can also hide expensive problems, an unclear history or outright fraud. The difference between a good buy and a costly mistake usually comes down to doing the checks in the right order and not being rushed.
 

@@ -3,6 +3,11 @@ title: "Patching and Painting Walls Yourself: Holes, Cracks, Preparation and a N
 description: "How to fill nail holes, small cracks and dents, prepare walls properly, choose and buy the right amount of paint and get a clean, professional-looking finish without expensive mistakes."
 category: repair-and-reuse
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA: Lead-safe renovations for DIYers | https://www.epa.gov/lead/lead-safe-renovations-diyers
+  - U.S. EPA: Reduce the risk of lead exposure at home | https://www.epa.gov/lead/reduce-risk-lead-exposure-home
 ---
 Freshly painted walls change how a room feels more than almost any other job, and they are one of the most affordable improvements a household can make itself. A professional decorator brings skill and speed, but filling a few holes and repainting a bedroom are well within reach of most people with a free weekend and a little patience. The difference between a finish that looks professional and one that looks patchy usually comes down to preparation, not talent.
 

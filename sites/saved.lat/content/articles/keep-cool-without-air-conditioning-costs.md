@@ -3,6 +3,11 @@ title: Keeping Cool in Summer Without a Huge Electricity Bill
 description: How to keep heat out of your home, use fans and air conditioning efficiently, cool bedrooms at night and stay comfortable through a heatwave for less.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Department of Energy: Saving energy at home, summer edition | https://www.energy.gov/articles/top-11-things-you-didnt-know-about-saving-energy-home-summer-edition
+  - U.S. Department of Energy: Energy Saver guide – tips on saving money and energy at home (PDF) | https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
 ---
 Summers are getting hotter in many parts of the world, and with the heat comes a new household expense: cooling. Air conditioners can draw a lot of electricity, and even fans add up when they run for hours every day. Yet much of the work of keeping a home cool can be done for free, by stopping heat getting in and letting it out at the right times. Used thoughtfully alongside those habits, fans and air conditioning can keep a household comfortable without a shocking bill.
 

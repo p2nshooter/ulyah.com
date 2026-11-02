@@ -3,6 +3,12 @@ title: "Cutting Back-to-School Costs: Uniforms, Shoes, Stationery and Tech"
 description: How to plan and reduce back-to-school spending — uniforms, shoes, bags, stationery, devices, lunches and trips — with second-hand options, support schemes and timing tips.
 category: family-and-leisure
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - USDA Food Safety and Inspection Service: Keeping bag lunches safe | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/keeping-bag-lunches-safe
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
 ---
 The start of a new school year is exciting for children and expensive for parents. Uniforms, school shoes, coats, sports kit, bags, stationery, lunch boxes, calculators, laptops or tablets, and contributions to trips and activities can all fall due at once, often after an expensive summer holiday. For families with several children, the total can be daunting.
 

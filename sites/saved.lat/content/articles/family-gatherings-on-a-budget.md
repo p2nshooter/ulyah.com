@@ -3,6 +3,12 @@ title: "Hosting Family Gatherings on a Budget: Holiday Meals, Reunions and Get-T
 description: "How to host big family meals without overspending: a budget, shared dishes, menu and shopping plans, drinks, decorations, leftovers and a relaxed atmosphere."
 category: family-and-leisure
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - USDA Food Safety and Inspection Service: Leftovers and food safety | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety
+  - USDA Food Safety and Inspection Service: Steps to keep food safe | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/steps-keep-food-safe
+  - U.S. EPA: Preventing wasted food at home | https://www.epa.gov/recycle/preventing-wasted-food-home
 ---
 Big family gatherings are some of the moments people remember most: a holiday meal around a crowded table, a reunion with cousins who live far away, a long lunch for a grandparent's birthday. They are also some of the most expensive occasions in the household calendar, and the cost often falls on whoever offers to host. Food, drinks, extra chairs, decorations and the pressure to make everything perfect can turn a happy occasion into a stressful bill.
 

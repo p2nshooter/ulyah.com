@@ -3,6 +3,11 @@ title: "Talking About Money at Home: Calm Conversations With Partners, Children 
 description: "How to talk about money without arguments: preparing for the conversation, shared goals, splitting costs fairly, regular money check-ins, teaching children about money and handling difficult news."
 category: budget-basics
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
 ---
 Money is one of the most common sources of tension in households, and one of the least discussed. Many couples never sit down to talk about it until there is a problem. Parents often avoid the subject with children, either to protect them or because they were never taught themselves. Adult siblings can find it awkward to discuss shared costs for an elderly parent. Yet almost every household money problem becomes easier to solve once people talk about it openly and calmly.
 

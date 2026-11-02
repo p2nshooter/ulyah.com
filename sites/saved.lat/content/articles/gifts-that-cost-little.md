@@ -3,6 +3,11 @@ title: "Thoughtful Gifts That Cost Little: Ideas for Birthdays, Holidays and Tha
 description: Meaningful gift ideas that cost little or nothing — handmade presents, experiences, food gifts, time and skills — plus ways to agree on gift budgets with family and friends.
 category: family-and-leisure
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Gift card scams | https://consumer.ftc.gov/gift-card-scams
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Gift-giving can put real pressure on a household budget. Birthdays, weddings, festivals, teachers' end-of-year presents, new babies and thank-you gifts come round throughout the year, and the expectation to spend can grow every time. Yet the gifts people treasure most are often not the most expensive; they are the ones that show thought, effort and an understanding of what the recipient enjoys.
 

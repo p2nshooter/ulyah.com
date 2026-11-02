@@ -3,6 +3,12 @@ title: "Budgeting on an Irregular Income: A Calm System for Freelancers, Shift W
 description: "How to budget when income changes month to month: find your baseline, pay yourself a steady salary from a holding account, build a buffer, save for tax and plan for lean months."
 category: budget-basics
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Consumer Financial Protection Bureau: Creating a cash flow budget (PDF) | https://files.consumerfinance.gov/f/documents/cfpb_creating-cash-flow-budget_tool_2021-08.pdf
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
 ---
 Most budgeting advice assumes that the same amount of money arrives on the same day every month. For millions of people, that is not how life works. Freelancers, self-employed workers, people on zero-hour or shift contracts, seasonal workers, commission-based sales staff and many gig workers have incomes that rise and fall, sometimes sharply. A good month can feel like a windfall and a bad month like a crisis. Standard budgets break down because they are built on a number that does not exist.
 

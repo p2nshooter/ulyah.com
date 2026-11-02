@@ -3,6 +3,12 @@ title: "Staying Warm for Less: Practical Ways to Lower Heating Costs"
 description: Thermostat settings, heating controls, radiators, curtains, rugs and warm habits that cut winter heating bills without leaving the household cold.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Energy Saving Trust: The most economical ways to use your central heating | https://energysavingtrust.org.uk/take-control-your-heating-home/
+  - Energy Saving Trust: Draught proofing | https://energysavingtrust.org.uk/advice/draught-proofing/
+  - Energy Saving Trust: Five things to prepare your home for winter | https://energysavingtrust.org.uk/five-things-you-should-do-to-prepare-your-home-for-winter/
 ---
 For many households, heating is the single largest energy cost of the year. When winter bills arrive, the temptation is either to switch the heating off and shiver, or to accept the cost and hope for a mild season. Neither is necessary. Most homes can be kept comfortable for noticeably less money by heating them more intelligently, keeping the warmth inside for longer, and adjusting a few daily habits.
 

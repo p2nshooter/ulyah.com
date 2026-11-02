@@ -3,6 +3,11 @@ title: "Warranties, Guarantees and Returns: Know Your Rights Before You Pay Extr
 description: The difference between legal rights, manufacturer warranties and extended warranties, how returns and refunds usually work, and how to claim when something breaks.
 category: smart-shopping
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Auto warranties and auto service contracts | https://consumer.ftc.gov/articles/auto-warranties-and-auto-service-contracts
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
 ---
 When you buy a new appliance, phone or piece of furniture, you are often offered an extended warranty or insurance at the checkout. At the same moment, the product probably already comes with a manufacturer's warranty — and, in many countries, you have legal rights that protect you if goods are faulty. Understanding the difference between these layers of protection helps you avoid paying for cover you do not need, and makes it much easier to get a repair, replacement or refund when something goes wrong.
 
