@@ -100,6 +100,8 @@ const EXCLUDE = [
   [/^\.github\/workflows\/deploy-partner-sites\.yml$/, "deploy profity.in/oldco.in — situs lain"],
   [/^docs\/dawa-standalone\//, "sumber panduan ini; disalin ke akar backup, bukan ke proyek"],
   [/^scripts\/export-dawa-standalone\.mjs$/, "generator backup ini sendiri"],
+  [/^detektor-artikel\//, "AI Content Analyzer (xscan.es) — situs lain, bukan bagian dari dawa.es"],
+  [/^\.github\/workflows\/(deploy-detektor-artikel|detektor-artikel-ci)\.yml$/, "deploy & CI xscan.es"],
 ];
 
 function gitFiles() {

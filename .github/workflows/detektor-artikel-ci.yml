@@ -1,0 +1,45 @@
+name: AI Content Analyzer CI
+
+# Uji untuk folder `detektor-artikel/` (xscan.es): tipe, unit (mesin, harga, dompet, afiliasi, kripto) dan
+# ujung-ke-ujung di Chromium sungguhan terhadap `wrangler dev` + server Anthropic tiruan.
+
+on:
+  pull_request:
+    paths:
+      - 'detektor-artikel/**'
+      - '.github/workflows/detektor-artikel-ci.yml'
+      - '.github/workflows/deploy-detektor-artikel.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'detektor-artikel/**'
+
+concurrency:
+  group: detektor-artikel-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: detektor-artikel
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Install Playwright Chromium
+        run: npm install --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
+      - name: End-to-end
+        run: bash test/run-e2e.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: detektor-artikel-e2e
+          path: detektor-artikel/e2e-out
+          retention-days: 7
