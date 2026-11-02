@@ -3,6 +3,11 @@ title: "Tipos de engaste: garras, bisel, carril, pavé, tensión y cómo elegir 
 description: "Cómo sujetan la piedra los engastes de garras, bisel, carril, pavé, grano, tensión, invisible y al ras, sus ventajas e inconvenientes, cuál conviene a cada gema y estilo de vida y cómo revisarlos."
 category: joyeria-y-diseno
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: How to protect your diamond engagement ring | https://4cs.gia.edu/en-us/blog/how-to-protect-your-diamond-engagement-ring/
+  - GIA 4Cs: More than the Mohs scale, gem durability | https://4cs.gia.edu/en-us/blog/more-than-mohs-scale-gem-durability/
 ---
 El engaste es la parte de la joya que sujeta la piedra. Parece un detalle técnico, pero decide muchas cosas a la vez: cuánta luz entra en la gema, cuánto se ve, cuánto la protege de los golpes, qué aspecto tiene la pieza y cuánto mantenimiento necesitará. Un mismo diamante puede parecer más grande y brillante en unas garras finas o más moderno y protegido en un bisel; una esmeralda delicada puede sobrevivir años de uso con un engaste adecuado o astillarse en pocos meses con uno inapropiado.
 

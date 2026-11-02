@@ -3,6 +3,12 @@ title: "Oro responsable y trazabilidad: minería artesanal, mercurio, certificac
 description: "Por qué importa el origen del oro y de las gemas: minería artesanal, mercurio, minería ilegal en la Amazonía, certificaciones como Fairmined, oro reciclado, trazabilidad y lavado verde."
 category: lujo-y-estilo-de-vida
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - OCDE: Due diligence guidance for responsible supply chains of minerals (PDF) | https://legalinstruments.oecd.org/public/doc/268/268.en.pdf
+  - OCDE: Responsible supply chains in artisanal and small-scale gold mining, FAQ (PDF) | https://www.oecd.org/investment/FAQ_Sourcing-Gold-from-ASM-Miners.pdf
+  - Responsible Jewellery Council: Code of Practices 2024 (PDF) | https://www.responsiblejewellery.com/wp-content/uploads/RJC-2024-COP-Standard.pdf
 ---
 Un anillo de oro parece un objeto sencillo, pero su historia puede ser muy larga y no siempre limpia. El metal pudo salir de una gran mina industrial con controles ambientales estrictos, de una cooperativa artesanal que trabaja con estándares de comercio justo o de una explotación ilegal en plena Amazonía que contamina los ríos con mercurio y destruye la selva. A simple vista, los tres anillos serían idénticos. Lo mismo ocurre con muchas gemas.
 

@@ -2,7 +2,7 @@
 title: Nosotros
 description: ROUGH.LAT es una revista editorial sobre gemas, piedras preciosas, joyería y artesanía pensada para América Latina. Quién la hace y cómo trabaja.
 order: 1
-updated: 2026-10-10
+updated: 2026-11-02
 ---
 América Latina es una de las grandes regiones gemológicas del mundo. De Colombia salen algunas de las esmeraldas más apreciadas; Brasil es famoso por sus turmalinas, topacios y aguamarinas; México por sus ópalos de fuego; Chile por el lapislázuli; Perú por su tradición platera. Sin embargo, buena parte de la información sobre gemas que se lee en español llega traducida de mercados lejanos, con otras referencias y otros precios.
 
@@ -14,7 +14,7 @@ América Latina es una de las grandes regiones gemológicas del mundo. De Colomb
 
 ## Quién edita la revista
 
-ROUGH.LAT es un proyecto de **p2nshooter**, editor independiente de revistas temáticas. Los artículos los escribe y revisa la redacción de ROUGH.LAT, que firma de manera colectiva. No atribuimos los textos a expertos inventados ni presentamos experiencias que no hemos vivido.
+ROUGH.LAT es un proyecto de **p2nshooter**, editor independiente de revistas temáticas. Los artículos los prepara la redacción de ROUGH.LAT, que firma de manera colectiva, con ayuda de herramientas de inteligencia artificial, y los revisa antes de publicarlos contra fuentes de referencia que citamos al final de cada guía. Las herramientas de la redacción (talla de anillo, quilates, ley de los metales y cuidado de las gemas) están en [Herramientas](/herramientas/), y cada publicación y revisión aparece con su fecha en [Novedades](/novedades/). No atribuimos los textos a expertos inventados ni presentamos experiencias que no hemos vivido.
 
 ## Cinco salas temáticas
 

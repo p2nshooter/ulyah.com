@@ -3,6 +3,11 @@ title: "Gemas de Minas Gerais: pegmatitas, aguamarina y topacio imperial"
 description: "Por qué Minas Gerais es uno de los grandes territorios gemológicos del mundo: pegmatitas, aguamarinas y la familia del berilo, el topacio imperial de Ouro Preto, el topacio azul y cómo comprar."
 category: gemas-en-bruto
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
+  - GIA: Gem Encyclopedia | https://www.gia.edu/gem-encyclopedia
 ---
 El nombre lo dice todo: Minas Gerais, "minas generales". Este estado del sudeste de Brasil vivió en el siglo dieciocho una fiebre del oro que levantó ciudades barrocas como Ouro Preto, y poco después una fiebre de los diamantes en torno a Diamantina. Pero su riqueza no terminó ahí. Bajo sus colinas se esconden miles de pegmatitas, rocas de cristales gigantes que han dado al mundo aguamarinas, topacios, turmalinas, morganitas y otras gemas en cantidades y tamaños que pocas regiones pueden igualar.
 

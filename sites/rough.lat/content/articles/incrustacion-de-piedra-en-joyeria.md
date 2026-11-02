@@ -3,6 +3,11 @@ title: "Incrustación de piedra en joyería: mosaico, canal, intarsia y piedra d
 description: "Mosaico, incrustación en canal, intarsia y piedra dura: cómo se incrustan piedras en joyería, qué materiales se usan, cómo reconocer piedra con resina y cómo cuidarlas."
 category: arte-tallado-y-artesania
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: More than the Mohs scale, gem durability | https://4cs.gia.edu/en-us/blog/more-than-mohs-scale-gem-durability/
+  - GIA: Gem Encyclopedia | https://www.gia.edu/gem-encyclopedia
 ---
 Algunas de las joyas más llamativas de la región no llevan una gran piedra facetada en el centro, sino decenas de pequeñas piezas de piedra encajadas como un rompecabezas: turquesa junto a coral, lapislázuli junto a nácar, malaquita junto a ónix. Es el arte de la **incrustación**, una de las técnicas más antiguas de la orfebrería y de la talla de piedra, que exige precisión milimétrica, paciencia y un buen ojo para el color.
 

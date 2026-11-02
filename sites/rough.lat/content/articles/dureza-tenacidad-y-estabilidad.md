@@ -3,6 +3,11 @@ title: "Dureza, tenacidad y estabilidad: qué gemas resisten el uso diario y cu�
 description: "La escala de Mohs, por qué la dureza no es lo mismo que la resistencia a los golpes, la exfoliación, la estabilidad ante luz, calor y químicos, y una tabla para elegir la gema adecuada para cada joya."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: More than the Mohs scale, gem durability | https://4cs.gia.edu/en-us/blog/more-than-mohs-scale-gem-durability/
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
 ---
 "El diamante es lo más duro que existe" es una frase que casi todo el mundo ha oído. Y es cierta, pero incompleta: un diamante puede astillarse con un golpe seco contra el borde de una mesa, mientras que una pieza de jade, mucho menos dura, resiste impactos que romperían a muchas otras gemas. Una esmeralda puede agrietarse en un cambio brusco de temperatura, un ópalo puede cuartearse si se seca demasiado y una perla puede perder su brillo por culpa de un perfume.
 

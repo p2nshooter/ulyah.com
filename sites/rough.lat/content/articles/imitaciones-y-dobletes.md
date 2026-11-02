@@ -3,6 +3,11 @@ title: "Imitaciones, dobletes y tripletes: cómo reconocer una gema que no es lo
 description: "Vidrio, plásticos, circonita y otras imitaciones, dobletes y tripletes, nombres comerciales engañosos, los límites de los probadores de diamantes y qué hacer si sospechas de una pieza."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
+  - Federal Trade Commission: In the loupe, advertising diamonds, gemstones and pearls | https://www.ftc.gov/business-guidance/resources/loupe-advertising-diamond-gemstones-pearls
 ---
 Desde que existen las joyas, existen las imitaciones. En el siglo dieciocho, un joyero de París se hizo famoso fabricando vidrios tan brillantes que su apellido, Strass, quedó como sinónimo de piedra de imitación. Hoy, el repertorio es mucho más amplio: vidrios de todos los colores, plásticos, circonita cúbica, gemas sintéticas usadas para imitar otras especies y piedras compuestas, formadas por varias capas pegadas, que pueden engañar incluso a compradores con cierta experiencia.
 

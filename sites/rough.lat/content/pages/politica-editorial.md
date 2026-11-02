@@ -2,15 +2,15 @@
 title: Política editorial
 description: Cómo elige, escribe, verifica y corrige ROUGH.LAT sus artículos sobre gemas, joyería y artesanía, y qué no hacemos nunca.
 order: 8
-updated: 2026-10-10
+updated: 2026-11-02
 ---
 Esta política explica cómo trabajamos para que sepas qué esperar de cada artículo de ROUGH.LAT.
 
 ## Principios
 
 - **Utilidad.** Cada artículo responde a una pregunta concreta de un lector real: cómo reconocer, comparar, cuidar o comprar con criterio.
-- **Originalidad.** Escribimos cada texto desde cero en español. No traducimos ni reescribimos artículos de otros medios.
-- **Precisión.** Contrastamos los datos gemológicos con fuentes de referencia: laboratorios y escuelas de gemología reconocidas, publicaciones científicas y organismos oficiales.
+- **Originalidad.** Escribimos cada texto desde cero en español. No traducimos ni reescribimos artículos de otros medios. Para investigar y redactar usamos también herramientas de inteligencia artificial; las reglas de esta página valen para cada frase, sin importar cómo se escribió.
+- **Precisión.** Contrastamos los datos gemológicos con fuentes de referencia: laboratorios y escuelas de gemología reconocidas, publicaciones científicas y organismos oficiales. Las citamos al final de cada guía, con la fecha de la última revisión.
 - **Contexto regional.** Cuando un dato depende del país —un yacimiento, una norma, una costumbre—, lo indicamos.
 - **Honestidad.** Separamos hechos, opiniones y estimaciones. Si algo no está claro o las fuentes discrepan, lo decimos.
 

@@ -3,6 +3,12 @@ title: "Piedras de nacimiento: la lista mes a mes, su origen, sus alternativas y
 description: "La lista moderna de piedras de nacimiento mes a mes, de dónde viene la tradición, cuáles se encuentran en América Latina, qué alternativas resisten mejor el uso diario y cómo comprarlas con criterio."
 category: lujo-y-estilo-de-vida
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA: May birthstone, emerald | https://www.gia.edu/birthstones/may-birthstones
+  - GIA: July birthstone, ruby | https://www.gia.edu/birthstones/july-birthstones
+  - GIA: December birthstones | https://www.gia.edu/birthstones/december-birthstones
 ---
 Regalar a alguien la piedra de su mes de nacimiento es una de las formas más personales de elegir una joya. Un anillo con un granate para alguien nacido en enero, un colgante con una esmeralda para mayo o unos aretes con zafiros para septiembre convierten la pieza en algo propio, ligado a la persona. La tradición es popular en todo el mundo y también en América Latina, donde además se encuentran muchas de estas gemas.
 

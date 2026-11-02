@@ -3,6 +3,11 @@ title: "Cómo guardar tus joyas y viajar con ellas: joyeros, humedad, seguridad 
 description: "Guía práctica para guardar las joyas en casa sin que se rayen, se enreden o se oxiden, protegerlas de robos y llevarlas de viaje con seguridad: equipaje de mano, estuches, cajas fuertes y documentos."
 category: lujo-y-estilo-de-vida
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: How to protect your diamond engagement ring | https://4cs.gia.edu/en-us/blog/how-to-protect-your-diamond-engagement-ring/
+  - GIA 4Cs: Insurance and appraisal | https://4cs.gia.edu/en-us/insurance-and-appraisal/
 ---
 La mayoría de los daños que sufren las joyas no ocurren mientras se llevan puestas, sino cuando están guardadas. Collares que se enredan en el fondo de un cajón, perlas que pierden brillo en una bolsa de plástico, anillos que se rayan unos contra otros, plata que se ennegrece en el baño. Y cuando viajamos, el riesgo cambia: pérdidas en el aeropuerto, olvidos en la habitación del hotel, robos en lugares concurridos. Con unas pocas costumbres sencillas se evitan casi todos estos problemas.
 

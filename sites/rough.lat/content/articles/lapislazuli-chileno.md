@@ -3,6 +3,11 @@ title: "Lapislázuli chileno: la piedra azul de los Andes, de la mina a la joya"
 description: "Qué es el lapislázuli, por qué Chile tiene uno de sus pocos grandes yacimientos, cómo se compara con el afgano, cómo se valora, qué tratamientos e imitaciones existen y cómo cuidarlo."
 category: gemas-en-bruto
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
+  - GIA: Gem Encyclopedia | https://www.gia.edu/gem-encyclopedia
 ---
 El azul intenso del lapislázuli ha fascinado a la humanidad durante milenios. Los antiguos egipcios lo incrustaron en joyas y máscaras funerarias, los pintores del Renacimiento lo molieron para obtener el pigmento ultramar, más caro que el oro, y en los Andes se ha trabajado en adornos desde hace siglos. Hoy, cuando alguien pasea por las tiendas del barrio Bellavista en Santiago, lo encuentra convertido en anillos, colgantes, figuras talladas y objetos decorativos, y es fácil olvidar que se trata de una de las piedras ornamentales más escasas del planeta.
 

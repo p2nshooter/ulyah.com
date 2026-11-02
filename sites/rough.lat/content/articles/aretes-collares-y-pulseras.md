@@ -3,6 +3,11 @@ title: "Aretes, collares y pulseras: tipos, cierres, largos, cadenas y cómo ele
 description: "Guía práctica para elegir aretes, collares, cadenas y pulseras: estilos, cierres seguros, largos según el escote, tipos de eslabón, macizo o hueco, baños y cuidados para que no se rompan."
 category: joyeria-y-diseno
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Mayo Clinic: Alergia al níquel, síntomas y causas | https://www.mayoclinic.org/es/diseases-conditions/nickel-allergy/symptoms-causes/syc-20351529
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
 ---
 Los anillos se llevan buena parte de la atención en la joyería, pero las piezas que más usamos a diario suelen ser otras: unos aretes que no nos quitamos, una cadena fina con un colgante, una pulsera que acompaña al reloj. Son joyas más sencillas en apariencia y, sin embargo, las que más se pierden, se rompen o se enredan. Casi siempre la causa es la misma: un cierre poco adecuado, una cadena demasiado fina para el colgante o un largo mal elegido.
 

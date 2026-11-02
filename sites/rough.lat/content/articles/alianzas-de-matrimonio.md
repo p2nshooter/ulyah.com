@@ -3,6 +3,11 @@ title: "Alianzas de matrimonio: perfiles, anchos, metales, acabados, grabados y 
 description: "Cómo elegir las argollas o alianzas de boda: perfil plano, media caña o confort, ancho, metal, acabado, grabado, alianzas con piedras y cómo hacerlas encajar con el anillo de compromiso."
 category: joyeria-y-diseno
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
+  - ISO 8653:2016, Jewellery, ring-sizes: definition, measurement and designation | https://www.iso.org/standard/65408.html
 ---
 La alianza de matrimonio es, para muchas personas, la joya que más años se lleva puesta. Se usa todos los días, en el trabajo, en casa, en vacaciones, durante décadas. Por eso, más que una cuestión de moda, elegirla es una decisión práctica: tiene que ser cómoda, resistir el uso, combinar con el anillo de compromiso si lo hay y gustar dentro de veinte años tanto como el día de la boda.
 

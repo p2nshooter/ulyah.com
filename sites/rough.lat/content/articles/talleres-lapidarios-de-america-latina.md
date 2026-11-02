@@ -3,6 +3,11 @@ title: "Talleres lapidarios de América Latina: dónde se tallan las gemas y pie
 description: "Los grandes oficios lapidarios de la región: gemas de color en Minas Gerais, ágatas de Soledade, esmeraldas en Bogotá, ópalo en Querétaro, larimar y ámbar dominicanos, jade guatemalteco y más."
 category: arte-tallado-y-artesania
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA Gems & Gemology: The Colombian emerald industry (PDF) | https://www.gia.edu/dam/jcr:3f79f370-e40a-4523-aa84-59af836c59c3/GG-FA17-Lucas-Colombian-Emerald.pdf
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
 ---
 Las gemas de América Latina no solo se extraen: también se cortan, se pulen, se tallan y se engastan en miles de talleres repartidos por la región. Algunos son grandes empresas que exportan a todo el mundo; muchos más son talleres familiares donde el oficio se aprende mirando trabajar a los mayores. En ellos, un cristal opaco se convierte en una gema brillante, un bloque de ágata en láminas translúcidas y un trozo de jade en una figura que remite a culturas milenarias.
 

@@ -3,6 +3,12 @@ title: "Esmeraldas colombianas: de la mina a la mesa del comerciante"
 description: "Las minas de Muzo, Chivor y Coscuez, la formación única de la esmeralda colombiana, sus inclusiones, las trapiche, cómo se juzga la calidad, el aceite, la talla y cómo comprar con prudencia."
 category: gemas-en-bruto
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA: May birthstone, emerald | https://www.gia.edu/birthstones/may-birthstones
+  - GIA Gems & Gemology: The Colombian emerald industry (PDF) | https://www.gia.edu/dam/jcr:3f79f370-e40a-4523-aa84-59af836c59c3/GG-FA17-Lucas-Colombian-Emerald.pdf
+  - GIA Gems & Gemology: Colombian trapiche emeralds | https://www.gia.edu/gems-gemology/fall-2015-colombian-trapiche-emeralds-recent-advances-understanding-formation
 ---
 Pocas piedras están tan ligadas a un país como la esmeralda a Colombia. Desde hace siglos, las montañas de Boyacá y Cundinamarca producen algunas de las esmeraldas más apreciadas del mundo, de un verde intenso y luminoso que los comerciantes reconocen a primera vista. Viajaron en galeones a Sevilla, adornaron joyas de emperadores mogoles en la India y coronas europeas, y hoy siguen llegando cada día a las calles del centro de Bogotá, donde se negocian sobre papeles blancos con una lupa en la mano.
 

@@ -3,6 +3,11 @@ title: "Informes de laboratorio gemológico: qué dicen, cómo leerlos y cómo v
 description: "Qué contiene un informe gemológico, tipos de informe, laboratorios reconocidos, cómo verificarlo, señales de informes dudosos, cómo leer tratamientos y origen y en qué se diferencia de una tasación."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Understanding carat weight on GIA reports | https://4cs.gia.edu/en-us/blog/gia-diamond-grading-reports-understanding-carat-weight/
+  - GIA 4Cs: Ten tips for buying jewelry | https://4cs.gia.edu/en-us/blog/ten-tips-buying-jewelry/
 ---
 Cuando una gema cuesta lo suficiente como para que equivocarse duela, un informe de laboratorio deja de ser un trámite y se convierte en la pieza central de la compra. Es el documento que confirma qué es la piedra, si es natural o sintética, si ha recibido tratamientos y, en algunos casos, de qué región del mundo podría proceder. Para los diamantes, además, recoge la clasificación de color, pureza y talla que determina buena parte de su precio.
 

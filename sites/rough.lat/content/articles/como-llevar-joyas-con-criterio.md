@@ -3,6 +3,11 @@ title: "Cómo llevar joyas con criterio: proporción, combinaciones, ocasiones y
 description: "Ideas para lucir joyas con estilo propio: pocas piezas bien elegidas, proporción, mezclar metales, superponer capas, escotes, joyas según la ocasión, piezas con significado y discreción."
 category: lujo-y-estilo-de-vida
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: More than the Mohs scale, gem durability | https://4cs.gia.edu/en-us/blog/more-than-mohs-scale-gem-durability/
+  - GIA 4Cs: How to protect your diamond engagement ring | https://4cs.gia.edu/en-us/blog/how-to-protect-your-diamond-engagement-ring/
 ---
 Llevar joyas con elegancia no tiene que ver con cuántas se tienen ni con cuánto costaron. Una persona con tres piezas bien elegidas puede lucir más que otra con un joyero lleno, y un anillo heredado sencillo puede decir más que una joya de moda. El criterio está en saber qué piezas van con cada momento, cómo combinarlas entre sí y con la ropa, y qué historia se quiere contar con ellas.
 

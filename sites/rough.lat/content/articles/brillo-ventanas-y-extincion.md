@@ -3,6 +3,11 @@ title: "Brillo, ventanas y extinción: cómo la talla controla la luz dentro de 
 description: "Qué le pasa a la luz dentro de una gema, el índice de refracción y el ángulo crítico, brillo, fuego y centelleo, por qué aparecen ventanas y zonas oscuras, el efecto pajarita y cómo evaluarla."
 category: arte-tallado-y-artesania
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Understanding the 4Cs of diamond quality | https://4cs.gia.edu/en-us/4cs-of-diamond-quality/
+  - GIA: Natural diamonds buyer's guide | https://www.gia.edu/diamond/buyers-guide
 ---
 Dos gemas del mismo color, el mismo peso y la misma pureza pueden verse completamente distintas. Una parece encendida desde dentro, llena de destellos; la otra se ve apagada, con una zona central lavada por la que se transparenta el fondo o con manchas oscuras que no se van al moverla. La diferencia casi siempre está en la talla, es decir, en cómo las facetas conducen la luz dentro de la piedra.
 

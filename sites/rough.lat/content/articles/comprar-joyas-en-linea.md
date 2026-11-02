@@ -3,6 +3,12 @@ title: "Comprar joyas y gemas en línea: cómo evaluar al vendedor, las fotos, l
 description: "Cómo comprar joyas y piedras por internet sin sorpresas: vendedor serio, descripciones, fotos, informes verificables, pagos con protección, envío asegurado y devoluciones."
 category: lujo-y-estilo-de-vida
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
+  - GIA 4Cs: Ten tips for buying jewelry | https://4cs.gia.edu/en-us/blog/ten-tips-buying-jewelry/
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
 ---
 Comprar joyas por internet ya es algo cotidiano. Hay joyerías con tienda en línea, talleres que venden por redes sociales, plataformas de comercio electrónico, subastas digitales y vendedores de gemas en bruto que envían a cualquier país. Las ventajas son evidentes: más variedad, precios comparables y acceso a piezas que no existen en la tienda del barrio. Pero también hay riesgos: fotos que no muestran la realidad, descripciones engañosas, certificados falsos, envíos que no llegan y devoluciones imposibles.
 

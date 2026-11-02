@@ -3,6 +3,11 @@ title: "Cómo medir la talla de anillo: diámetro, sistemas de tallas, factores 
 description: "Cómo medir la talla de un anillo: diámetro y circunferencia, equivalencias entre sistemas, medidores, el método del hilo, temperatura, nudillos, bandas anchas y cuándo se puede ajustar."
 category: joyeria-y-diseno
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - ISO 8653:2016, Jewellery, ring-sizes: definition, measurement and designation | https://www.iso.org/standard/65408.html
+  - GIA 4Cs: Ten tips for buying jewelry | https://4cs.gia.edu/en-us/blog/ten-tips-buying-jewelry/
 ---
 Un anillo precioso que se cae del dedo al lavarse las manos, o que no pasa del nudillo, es una pequeña tragedia doméstica. Acertar con la talla parece sencillo, pero no lo es: los dedos cambian de tamaño a lo largo del día y con la temperatura, los nudillos pueden ser más anchos que la base del dedo, una banda ancha aprieta más que una fina y, para complicarlo todo, cada país usa su propio sistema de numeración.
 
@@ -33,7 +38,7 @@ Con cualquiera de las dos, un joyero puede encontrar la talla equivalente en su 
 | 16,5 mm | 51,9 mm | 6 | 52 |
 | 17,3 mm | 54,4 mm | 7 | 54 |
 | 18,1 mm | 57,0 mm | 8 | 57 |
-| 19,0 mm | 59,5 mm | 9 | 59 a 60 |
+| 18,9 mm | 59,5 mm | 9 | 59 a 60 |
 | 19,8 mm | 62,1 mm | 10 | 62 |
 | 20,6 mm | 64,6 mm | 11 | 65 |
 | 21,4 mm | 67,2 mm | 12 | 67 |

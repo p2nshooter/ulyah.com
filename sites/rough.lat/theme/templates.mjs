@@ -159,6 +159,16 @@ const enPreparacion = () => `<section class="granada-preparacion" aria-labelledb
   <p>Estamos escribiendo, verificando y editando las primeras guías de ROUGH.LAT. Publicamos cada artículo solo cuando está completo y revisado, con sus fuentes. Mientras tanto, conoce <a href="/sobre-nosotros/">nuestro proyecto</a> y nuestra <a href="/politica-editorial/">política editorial</a>.</p>
 </section>`;
 
+/** Las herramientas (páginas con `tool:`), como franja en la portada. */
+function franjaHerramientas(ctx) {
+  const tools = ctx.pages.filter((p) => p.tool);
+  if (!tools.length) return "";
+  return `<section class="granada-herramientas" aria-labelledby="herr-t" data-revelar>
+  <header class="granada-herramientas__cabecera"><p class="granada-herramientas__antetitulo">Herramientas</p><h2 id="herr-t">Mide, convierte y cuida</h2><p>Cuatro herramientas que funcionan en tu navegador, sin registro y sin enviar nada.</p></header>
+  <ul class="granada-herramientas__rejilla">${tools.map((p) => `<li><a class="granada-herramientas__tarjeta" href="${p.url}"><span class="granada-herramientas__nombre">${ctx.esc(p.title.split(":")[0])}</span><span class="granada-herramientas__texto">${ctx.esc(p.description)}</span></a></li>`).join("")}</ul>
+</section>`;
+}
+
 export function home(ctx) {
   const { site, articles, categories, esc } = ctx;
   const [first, ...rest] = articles;
@@ -194,6 +204,8 @@ export function home(ctx) {
     </a></li>`).join("\n    ")}
   </ul>
 </section>
+
+${franjaHerramientas(ctx)}
 
 ${articles.length ? `<section class="granada-novedades" aria-labelledby="nov-t">
   ${sectionHead("nov-t", "Novedades", "Lo último publicado")}

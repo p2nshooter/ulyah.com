@@ -3,6 +3,11 @@ title: "Tallas de autor y modernas: facetas cóncavas, tallas escultóricas, for
 description: "Qué es una talla de autor: facetas cóncavas, tallas escultóricas y grabados, tablero de ajedrez, retrato y rosa, formas libres, intarsia, tecnología y cómo juzgarlas, engastarlas y valorarlas."
 category: arte-tallado-y-artesania
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Understanding the 4Cs of diamond quality | https://4cs.gia.edu/en-us/4cs-of-diamond-quality/
+  - GIA: Gem Encyclopedia | https://www.gia.edu/gem-encyclopedia
 ---
 Durante siglos, la talla de gemas buscó sobre todo una cosa: devolver la mayor cantidad de luz posible con formas cada vez más precisas. En las últimas décadas, sin embargo, una corriente de talladores empezó a tratar la gema como una pequeña escultura: facetas curvas, ranuras talladas en el reverso, formas libres que siguen el contorno del cristal, combinaciones de varias piedras encajadas como un mosaico. Son las llamadas tallas de autor o tallas de fantasía.
 

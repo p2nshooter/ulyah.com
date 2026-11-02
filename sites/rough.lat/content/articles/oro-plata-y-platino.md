@@ -3,6 +3,11 @@ title: "Oro, plata y platino: leyes, colores, marcas y cómo elegir el metal de 
 description: "Qué significan los quilates del oro, los colores y el rodio, la plata 925 y 950 frente a la alpaca, el platino y el paladio, baños y laminados, cómo leer las marcas y qué metal elegir."
 category: joyeria-y-diseno
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
+  - Mayo Clinic: Alergia al níquel, síntomas y causas | https://www.mayoclinic.org/es/diseases-conditions/nickel-allergy/symptoms-causes/syc-20351529
 ---
 Cuando se habla de una joya, la conversación suele girar en torno a la piedra: su color, su brillo, su tamaño. Pero el metal es la mitad de la pieza. Sostiene la gema, define el color del conjunto, determina cuánto resiste el uso diario y, en muchas joyas sin piedras, es todo lo que hay. Elegir mal el metal puede significar un anillo que se deforma, una cadena que oscurece la piel, una alergia molesta o pagar precio de oro por un simple baño.
 

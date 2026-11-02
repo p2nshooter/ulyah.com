@@ -3,6 +3,12 @@ title: "Perlas naturales y cultivadas: tipos, historia americana, factores de va
 description: "Cómo se forma una perla, natural o cultivada, la historia perlera de Cubagua, Panamá y el golfo de California, los tipos de perlas, cómo se valoran, tratamientos, imitaciones y cuidados."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA: How should I care for my pearls? | https://www.gia.edu/FAQ/gia-faq-about-gemstones-how-to-care-for-pearls
+  - GIA Gems & Gemology: Guide to phenomenal gems | https://www.gia.edu/gems-gemology-summary-guide-to-phenomenal-gems
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
 ---
 Las perlas son las únicas gemas que nacen dentro de un ser vivo y salen del agua listas para lucir, sin necesidad de talla. Durante siglos fueron el lujo supremo: más escasas que los diamantes, reservadas a reyes y nobles, buscadas por buceadores que arriesgaban la vida en el fondo del mar. América Latina ocupa un lugar central en esa historia, porque de sus costas salieron algunas de las perlas más famosas del mundo.
 
