@@ -2,7 +2,7 @@
 title: "Schlaf und Lernen: Wie Luis merkte, dass die Nacht vor der Klausur zum Lernen gehört"
 description: "Luis lernt bis tief in die Nacht und weiß morgens nichts mehr. Warum Schlaf beim Lernen hilft, wie viel Jugendliche brauchen und wie du vor Prüfungen besser schläfst."
 category: konzentration-und-motivation
-date: 2026-09-15
+date: 2026-10-11
 ---
 Es war kurz nach zwei Uhr nachts, als Luis das Biologiebuch zuklappte. Die Augen brannten, der Nacken war steif, und auf dem Schreibtisch standen zwei leere Dosen Energydrink. Morgen um acht war die Bio-Klausur über Genetik. Luis hatte das Gefühl, alles in seinen Kopf gepresst zu haben, was hineinpasste. Er legte sich ins Bett, doch der Schlaf kam nicht. Sein Herz klopfte, die Gedanken rasten. Um vier schaute er auf die Uhr. Um halb sieben klingelte der Wecker.
 

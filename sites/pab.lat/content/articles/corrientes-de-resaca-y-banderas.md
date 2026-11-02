@@ -2,7 +2,7 @@
 title: "Corrientes de resaca y banderas de playa: cómo bañarse con seguridad en el mar"
 description: "Cómo reconocer una corriente de resaca, qué hacer si te arrastra, qué significan las banderas de playa, cuidado con las olas de orilla, rayas y medusas, y cómo vigilar a los niños en el agua."
 category: playas-y-costas
-date: 2026-07-27
+date: 2026-10-11
 ---
 Las playas de América Latina están entre las más bellas del mundo, del Caribe turquesa a las grandes olas del Pacífico. Pero el mar no es una piscina. Cada año se producen ahogamientos en playas turísticas, y muchos de ellos tienen la misma causa: una **corriente de resaca** que arrastra mar adentro a bañistas que no la reconocieron o que intentaron nadar contra ella hasta agotarse.
 

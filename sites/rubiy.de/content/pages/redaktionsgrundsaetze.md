@@ -2,13 +2,13 @@
 title: Redaktionsgrundsätze
 description: Wie RUBIY arbeitet: woher unsere Rezepte stammen, wie wir mit Lebensmittelsicherheit umgehen, wie wir Fehler korrigieren und warum Werbung keinen Einfluss hat.
 order: 15
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 Ein Rezept ist ein Versprechen: Wer es nachkocht, vertraut darauf, dass Mengen, Zeiten und Temperaturen stimmen. Beim Einkochen, Fermentieren und Sammeln von Wildpflanzen geht es außerdem um Gesundheit. Deshalb halten wir uns an diese Grundsätze.
 
-## Selbst geschrieben, nicht zusammengesetzt
+## Eigens geschrieben, nicht zusammengesetzt
 
-Jeder Beitrag auf RUBIY wird von unserer Küchenredaktion selbst geschrieben. Wir erzeugen keine Texte automatisch und kopieren keine Rezepte aus anderen Quellen. Klassiker wie Rotkohl, Zwiebelkuchen oder Frankfurter Grüne Soße gibt es in tausend Familienvarianten; wir beschreiben unsere Variante und sagen dazu, wo andere es anders machen.
+Jeder Beitrag auf RUBIY wird eigens für diese Website geschrieben. Wir kopieren keine Rezepte aus anderen Quellen. Beim Recherchieren und Formulieren nutzen wir auch KI-Werkzeuge; die Regeln auf dieser Seite gelten für jeden Satz, egal wie er entstanden ist. Klassiker wie Rotkohl, Zwiebelkuchen oder Frankfurter Grüne Soße gibt es in tausend Familienvarianten; wir beschreiben eine Variante und sagen dazu, wo andere es anders machen.
 
 ## Rezepte, die funktionieren
 

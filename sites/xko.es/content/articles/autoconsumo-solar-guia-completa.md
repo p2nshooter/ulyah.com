@@ -2,7 +2,7 @@
 title: Autoconsumo solar en casa: guía completa para decidir si te compensa
 description: Cómo funciona una instalación fotovoltaica de autoconsumo en una vivienda en España, qué modalidades existen, cuánto cuesta, cuánto produce, cuándo se amortiza y qué preguntas hacer antes de firmar.
 category: autoconsumo-solar
-date: 2026-09-19
+date: 2026-10-04
 ---
 España es uno de los países europeos con más horas de sol, y en los últimos años el autoconsumo fotovoltaico ha pasado de ser una rareza a ocupar miles de tejados de viviendas unifamiliares, naves y comunidades de vecinos. Los paneles son más baratos y eficientes que hace una década, la normativa es más sencilla desde 2019 y el precio de la electricidad ha hecho que muchas familias se pregunten si les compensa producir su propia energía.
 

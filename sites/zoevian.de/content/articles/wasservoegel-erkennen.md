@@ -2,7 +2,7 @@
 title: "Wasservögel erkennen: Enten, Gänse, Schwäne, Taucher, Rallen, Reiher und Möwen am Teich"
 description: "Die häufigsten Wasservögel an Teichen, Seen und Flüssen bestimmen: Stockente, Reiherente, Blässhuhn, Teichhuhn, Haubentaucher, Graureiher, Kormoran, Eisvogel, Möwen und Gänse."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Ein Spaziergang am Stadtteich, am Baggersee oder an einem Fluss ist eine der einfachsten Möglichkeiten, viele Vögel aus der Nähe zu sehen. Wasservögel sind meist groß, auffällig und weniger scheu als Singvögel im Gebüsch. Trotzdem fällt die Bestimmung oft schwer: Ist das schwarze Huhn mit dem weißen Fleck ein Blässhuhn oder ein Teichhuhn? Ist die schwarz-weiße Ente eine Reiherente oder eine Schellente? Und warum sieht die Stockente im Sommer plötzlich so anders aus?

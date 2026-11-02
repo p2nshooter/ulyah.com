@@ -2,7 +2,7 @@
 title: "Smarte Steckdosen und smartes Licht: Stromfresser finden, Standby stoppen, Licht automatisieren"
 description: "Was smarte Zwischenstecker und Lampen im Alltag bringen: Verbrauch messen, Standby abschalten, Zeitpläne und Szenen, die richtige Lampe wählen und Sicherheit bei hoher Last."
 category: smart-home
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Smarte Steckdosen und smarte Lampen sind für viele Menschen der erste Schritt ins Smart Home, und das aus gutem Grund. Sie sind günstig, in wenigen Minuten eingerichtet und bringen sofort einen spürbaren Nutzen: Du siehst, wie viel Strom der alte Kühlschrank wirklich verbraucht, der Fernseher hängt nachts nicht mehr im Standby, und das Licht im Flur geht abends von selbst gedimmt an. Diese Anleitung zeigt dir, was diese kleinen Helfer können, wie du sie sinnvoll einsetzt und worauf du beim Kauf und bei der Sicherheit achten musst.

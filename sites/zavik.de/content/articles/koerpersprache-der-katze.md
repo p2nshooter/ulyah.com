@@ -2,7 +2,7 @@
 title: "Körpersprache der Katze: Schwanz, Ohren, Augen und Haltung verstehen"
 description: Was Schwanz, Ohren, Pupillen, Schnurrhaare und Haltung verraten, warum der Bauch keine Einladung ist und wie du das langsame Blinzeln deiner Katze erwiderst.
 category: verhalten
-date: 2026-08-22
+date: 2026-10-05
 ---
 Katzen gelten oft als rätselhaft, unnahbar oder launisch. Dabei kommunizieren sie ständig und sehr genau, nur eben anders als Menschen und anders als Hunde. Wer ihre Sprache lernt, versteht plötzlich, warum die Katze nach dem Streicheln zuschlägt, warum sie sich vor dem Besuch versteckt oder warum sie morgens mit steil erhobenem Schwanz in die Küche kommt.
 

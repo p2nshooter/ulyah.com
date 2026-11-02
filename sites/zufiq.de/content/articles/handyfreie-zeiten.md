@@ -2,7 +2,7 @@
 title: "Handyfreie Zeiten: Feste Inseln ohne Bildschirm im Alltag schaffen"
 description: "Handyfreie Zeiten einführen, ohne auf Erreichbarkeit zu verzichten: die besten Momente dafür, praktische Regeln für Familie und Partnerschaft und was gegen den Griff zum Handy hilft."
 category: digitale-ruhe
-date: 2026-09-08
+date: 2026-10-11
 ---
 Das Smartphone ist ein großartiges Werkzeug. Es bringt Karten, Fahrpläne, Fotos, Nachrichten, Musik und die Menschen, die wir lieben, in die Hosentasche. Gleichzeitig hat es die Eigenschaft, sich in jede freie Minute zu schieben: an der Ampel, beim Frühstück, beim Warten auf das Nudelwasser, im Bett, mitten im Gespräch. Viele Menschen merken erst, wie oft sie zum Handy greifen, wenn sie einmal versuchen, es nicht zu tun.
 

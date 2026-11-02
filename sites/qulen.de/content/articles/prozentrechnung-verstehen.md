@@ -2,7 +2,7 @@
 title: "Prozentrechnung verstehen: Wie Finja Grundwert, Prozentsatz und Prozentwert endlich auseinanderhielt"
 description: "Finja verwechselt in Prozentaufgaben ständig, was gesucht ist. Wie du Grundwert, Prozentwert und Prozentsatz erkennst und Rabatte, Steigerungen und Zinsen sicher löst."
 category: mathe-und-lernluecken
-date: 2026-10-09
+date: 2026-10-11
 ---
 „Eine Jacke kostet 80 Euro. Im Schlussverkauf wird sie um 25 Prozent reduziert. Wie viel kostet sie jetzt?“ Finja rechnete: 80 mal 25 durch 100 gleich 20. Sie schrieb hin: „Die Jacke kostet jetzt 20 Euro.“ Ihre Freundin Merle schaute ihr über die Schulter und lachte. „Ein Viertel weniger, und dann kostet sie nur noch ein Viertel? Das wäre mal ein Schnäppchen.“ Finja wurde rot. Sie hatte den Rabatt ausgerechnet, nicht den neuen Preis. Schon wieder. Es war wie verhext. Bei jeder Prozentaufgabe wusste sie nicht genau, was sie eigentlich ausrechnen sollte.
 

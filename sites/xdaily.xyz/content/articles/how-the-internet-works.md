@@ -2,7 +2,7 @@
 title: "How the Internet Works: Packets, IP Addresses, Routers, DNS and the Cables Under the Sea"
 description: "What happens when you open a web page: how data is split into packets, how IP addresses and routers find the way, what DNS and HTTPS do, and the undersea cables and data centers behind it all."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Every time you send a message, watch a video or open a web page, data travels across the world in a fraction of a second. A photo you share may pass through dozens of computers, cross oceans on cables lying on the seafloor and arrive on a friend's phone on another continent before you have put your own phone down. The internet seems like a cloud floating in the air, but it is actually a vast physical network of cables, radio links, routers and data centers, held together by a set of shared rules called protocols. This explainer follows your data on its journey and explains the key ideas that make the internet work.

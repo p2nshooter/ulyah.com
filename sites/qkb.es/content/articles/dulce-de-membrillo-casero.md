@@ -2,7 +2,7 @@
 title: Dulce de membrillo casero: cocción, punto, moldeado y la pareja perfecta con el queso
 description: Carne de membrillo casera: preparar la fruta, proporción de azúcar, cocción hasta el color rojizo, punto, moldeado, conservación e ideas con queso.
 category: conservas
-date: 2026-10-12
+date: 2026-10-04
 ---
 El membrillo es una de esas frutas que casi nadie come cruda. Es dura, ácida, áspera y algo astringente, pero tiene un aroma perfumado que llena la cocina en otoño. Cocinada con azúcar durante el tiempo suficiente, se transforma en la **carne o dulce de membrillo**: una pasta firme, de color rojizo y brillo de joya, que se corta en lonchas y acompaña al queso en uno de los maridajes más clásicos de la cocina española.
 

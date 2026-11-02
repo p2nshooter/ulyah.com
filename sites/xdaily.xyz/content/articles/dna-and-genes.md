@@ -2,7 +2,7 @@
 title: "DNA and Genes Explained: The Code of Life, How It Is Copied and How Traits Are Inherited"
 description: "What DNA is made of, how its four letters store instructions, how genes become proteins, how DNA is copied and inherited, what mutations do and how genetic technologies are changing medicine."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Inside almost every cell of your body is a molecule about 6 feet (2 meters) long, folded into a space far smaller than the head of a pin. It contains the instructions for building and running a human being: how your cells grow, what color your eyes are, how your body fights infection and much more. This molecule is **DNA**, and the instructions it carries are organized into **genes**. Understanding DNA has transformed biology and medicine, from tracing human ancestry to diagnosing diseases and developing new treatments. This explainer describes what DNA is, how it works and how traits are passed from parents to children.

@@ -2,7 +2,7 @@
 title: "Mama im Homeoffice"
 description: Yasemin arbeitet von zu Hause, und Elias versteht nicht, warum Mama da ist und trotzdem keine Zeit hat. Über Homeoffice mit Kindern, eine Ampel an der Tür und eine Viertelstunde für alle.
 category: zusammenleben-zuhause
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Mama, guck mal! Ich hab einen Drachen gebaut!“
 

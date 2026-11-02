@@ -2,7 +2,7 @@
 title: "Joyas a medida: cómo encargar una pieza única, del boceto a la entrega"
 description: "Cómo funciona el encargo de una joya a medida: preparación, boceto, diseño digital y modelo, fundición o trabajo a mano, piedras, reutilizar oro familiar, presupuesto, plazos y cómo elegir taller."
 category: joyeria-y-diseno
-date: 2026-10-11
+date: 2026-10-12
 ---
 Una joya a medida es mucho más que un capricho. Permite convertir una idea, un recuerdo o una piedra especial en una pieza que no existe en ningún escaparate: el anillo de compromiso que combina la esmeralda de una abuela con un diseño actual, el colgante que recoge un símbolo familiar, la alianza que encaja perfectamente con otro anillo o la pieza que reutiliza el oro de joyas que ya nadie usa.
 

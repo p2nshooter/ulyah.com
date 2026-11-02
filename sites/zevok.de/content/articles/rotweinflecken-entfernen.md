@@ -2,7 +2,13 @@
 title: "Rotwein-, Kaffee- und Teeflecken entfernen: Gerbstoffflecken richtig behandeln"
 description: "Rotwein, Kaffee, Tee oder Beeren auf Kleidung und Tischdecke: sofort richtig handeln, Weißes und Buntes passend behandeln und auch eingetrocknete Flecken lösen."
 category: flecken-entfernen
-date: 2026-07-05
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Behandlung von Obstflecken auf Kleidungsstücken | https://forum-waschen.de/tipps-zur-behandlung-von-obstflecken-auf-kleidungsstuecken/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
 ---
 Das Glas Rotwein beim Abendessen mit Freunden, der Kaffee, der in der Bahn über den Becherrand schwappt, der Tee auf der Tischdecke beim Sonntagsfrühstück, die Heidelbeeren auf dem T-Shirt des Kindes: Diese Flecken gehören zu einer Familie. Sie enthalten pflanzliche Gerb- und Farbstoffe, und sie haben eine gemeinsame Eigenschaft. Frisch gehen sie oft erstaunlich gut heraus, eingetrocknet oder durch Hitze fixiert werden sie zur Geduldsprobe.
 

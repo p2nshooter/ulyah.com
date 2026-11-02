@@ -2,7 +2,7 @@
 title: "Efeutute pflegen: hängend oder kletternd, mit langen grünen Ranken"
 description: Wie die Efeutute (Epipremnum) richtig steht, gegossen und gedüngt wird, wie du sie buschiger bekommst, als Ampel oder am Moosstab ziehst, vermehrst und typische Probleme löst.
 category: zimmerpflanzen
-date: 2026-09-29
+date: 2026-10-04
 ---
 Die Efeutute, botanisch Epipremnum aureum, ist eine der genügsamsten und dankbarsten Zimmerpflanzen. Ihre herzförmigen, oft gelb oder weiß gemusterten Blätter hängen in langen Ranken von Regalen und Schränken oder klettern an einem Moosstab empor. Sie verzeiht Fehler, wächst schnell und lässt sich ganz leicht vermehren. Ideal für Einsteiger, aber auch für alle, die grüne Vorhänge in der Wohnung lieben.
 

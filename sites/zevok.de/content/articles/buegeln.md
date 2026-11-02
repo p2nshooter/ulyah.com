@@ -2,7 +2,13 @@
 title: "Bügeln leicht gemacht: Temperaturen, Reihenfolge beim Hemd und wie du weniger bügeln musst"
 description: "Bügelsymbole verstehen, mit niedriger Temperatur beginnen, ein Hemd in sechs Schritten glätten, dunkle Stoffe ohne Glanzstellen bügeln und die Bügelsohle kalkfrei halten."
 category: waesche-und-pflege
-date: 2026-08-19
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
+  - GINETEX Germany: Pflegekennzeichnung | https://ginetex.de/pflegekennzeichnung/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
 ---
 Bügeln gehört für viele zu den unbeliebtesten Aufgaben im Haushalt. Es dauert lange, man verbrennt sich die Finger, und am Ende hat das Hemd trotzdem neue Knitterfalten am Ärmel. Dabei lässt sich viel Zeit sparen, wenn man die richtige Reihenfolge kennt, mit der passenden Temperatur arbeitet und die Wäsche schon beim Trocknen so behandelt, dass manches gar nicht mehr gebügelt werden muss.
 

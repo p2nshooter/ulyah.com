@@ -2,7 +2,7 @@
 title: "Gruppenreferat fair aufteilen: Wie Ahmets Gruppe aus vier Einzelteilen ein gemeinsames Referat machte"
 description: "Ahmets Gruppe teilt das Referat in vier Teile und merkt zu spät, dass nichts zusammenpasst. Wie ihr Aufgaben fair verteilt, einen roten Faden findet, Konflikte löst und gemeinsam sicher präsentiert."
 category: referate-und-praesentieren
-date: 2026-10-03
+date: 2026-10-11
 ---
 Zwei Tage vor dem Referat trafen sich die vier zum ersten Mal, um ihre Teile zusammenzufügen. Ahmet hatte die Einleitung über den Klimawandel vorbereitet, Lena die Ursachen, Jonas die Folgen und Elif die Lösungen. Jeder hatte seine eigenen Folien gemacht. Als sie sie hintereinander auf Lenas Laptop durchklickten, wurde es still. Vier verschiedene Designs, vier verschiedene Schriftgrößen. Lena und Jonas hatten beide die schmelzenden Gletscher erklärt. Elifs Teil dauerte fünfzehn Minuten, Jonas' Teil drei. Und niemand hatte einen Schluss. „Das ist ein Desaster“, sagte Jonas. Niemand widersprach.
 

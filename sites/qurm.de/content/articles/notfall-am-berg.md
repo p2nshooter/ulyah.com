@@ -2,7 +2,7 @@
 title: "Notfall am Berg: Notruf absetzen, Erste Hilfe leisten, Rettung erwarten"
 description: Was du bei einem Unfall beim Wandern der Reihe nach tust: Absichern, 112 anrufen, Standort durchgeben, Verletzte versorgen und den Hubschrauber einweisen.
 category: sicherheit-und-wetter
-date: 2026-07-06
+date: 2026-10-06
 ---
 Ein verstauchter Knöchel auf dem Abstieg, ein Sturz auf nassen Wurzeln, ein Kreislaufzusammenbruch in der Mittagshitze: Notfälle beim Wandern kommen meist ohne Vorwarnung, und oft sind die Begleitpersonen in diesem Moment allein mit der Situation. Wer dann weiß, was in welcher Reihenfolge zu tun ist, bleibt ruhiger und hilft wirksamer.
 

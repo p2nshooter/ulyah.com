@@ -2,7 +2,7 @@
 title: "Umzug in eine neue Stadt"
 description: Hannes ist zehn, als seine Familie aus der Eifel nach Frankfurt zieht und er seinen besten Freund zurücklässt. Über Abschied, Wut, einsame erste Wochen und das langsame Ankommen.
 category: zusammenleben-zuhause
-date: 2026-10-12
+date: 2026-10-05
 ---
 Hannes erfuhr es an einem Sonntag im März, beim Mittagessen. Seine Mutter Martina legte die Gabel hin, sah seinen Vater an, dann ihn und seine kleine Schwester Pia, und sagte: „Wir müssen euch etwas erzählen. Wir ziehen im Sommer nach Frankfurt.“
 

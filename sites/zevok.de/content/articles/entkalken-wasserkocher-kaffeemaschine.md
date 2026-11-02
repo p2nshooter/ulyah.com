@@ -2,7 +2,13 @@
 title: "Wasserkocher und Kaffeemaschine entkalken: Mittel, Anleitung und Häufigkeit"
 description: "Wasserkocher, Filterkaffeemaschine und Vollautomat richtig entkalken: welches Mittel wofür passt, wie oft es nötig ist und wie du Kalk von vornherein bremst."
 category: kueche-reinigen
-date: 2026-09-06
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Wasserhärte bestimmen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wasser/wasserhaerte-bestimmen-habe-ich-weiches-oder-hartes-wasser-5532
+  - Wasch- und Reinigungsmittelgesetz, § 9 Härtebereiche | https://www.gesetze-im-internet.de/wrmg/__9.html
 ---
 Weiße Flocken im Tee, ein Wasserkocher, der immer länger braucht, und eine Kaffeemaschine, die gurgelt, tropft und lauwarmen Kaffee liefert: Fast immer steckt Kalk dahinter. In vielen Regionen Deutschlands ist das Leitungswasser hart, und jedes Mal, wenn es erhitzt wird, bleibt ein Teil der gelösten Mineralien als feste Schicht zurück. Diese Schicht wächst unauffällig, bis sie Heizelemente, Leitungen und Ventile so stark belegt, dass Geräte langsamer, lauter und weniger sparsam arbeiten.
 

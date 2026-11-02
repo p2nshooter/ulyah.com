@@ -2,7 +2,7 @@
 title: "Teezubehör: Kanne, Sieb, Wasserkocher und Thermometer, was du wirklich brauchst"
 description: "Ein ehrlicher Überblick über Teezubehör: Teekannen aus Porzellan, Glas, Gusseisen und Ton, Siebe und Filter, Wasserkocher mit Temperaturwahl, Waage, Teewärmer, Reinigung und eine Grundausstattung."
 category: tee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Für eine gute Tasse Tee brauchst du nicht viel: Wasser, Tee und ein Gefäß. Wer aber öfter verschiedene Tees trinkt, merkt schnell, dass das richtige Zubehör vieles leichter macht. Ein Sieb, in dem die Blätter Platz zum Entfalten haben, ein Wasserkocher, der auf 80 Grad abschaltet, eine kleine Waage für die richtige Menge. Gleichzeitig verkauft der Handel unzählige Teesiebe, Teeeier, Kannen und Spielereien, von denen viele mehr schaden als nützen. Dieser Ratgeber zeigt, welches Zubehör sich wirklich lohnt, worauf du beim Material achtest und wie du alles pflegst.
 

@@ -2,7 +2,7 @@
 title: "Grünkohl kochen wie im Norden: mit Pinkel, Kassler oder ganz ohne Fleisch"
 description: Wann Grünkohl am besten schmeckt, was es mit dem Frost auf sich hat, wie du ihn putzt und norddeutsch schmorst, dazu eine vegetarische Variante und Ideen für Reste.
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Grünkohl ist das Wintergemüse des Nordens. In Bremen, Oldenburg, Ostfriesland und weiten Teilen Niedersachsens gehört er zum Winter wie der Schnee, den es dort selten gibt. Vereine, Kollegen und Freundeskreise ziehen auf Kohlfahrt, wandern mit einem Bollerwagen durch die Kälte und kehren anschließend in ein Gasthaus ein, wo es Grünkohl mit Pinkel, Kassler und Bratkartoffeln gibt. Am Ende wird ein Kohlkönig gekrönt, meist derjenige, der am meisten gegessen hat.
 

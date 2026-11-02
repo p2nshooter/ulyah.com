@@ -2,7 +2,7 @@
 title: "Die vergessene Sporttasche"
 description: Zum dritten Mal in diesem Monat hat Jonte seine Sporttasche vergessen, und wieder fährt Papa sie hinterher. Über Vergesslichkeit, Verantwortung und die Frage, wann Eltern retten sollten.
 category: schule-und-kita
-date: 2026-10-12
+date: 2026-10-05
 ---
 Das Handy vibrierte um 9:47 Uhr, mitten in der Teambesprechung. Paul sah auf das Display: „Grundschule Kiel-Wik“. Er wusste, was kommen würde, bevor er abnahm.
 

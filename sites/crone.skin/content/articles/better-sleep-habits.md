@@ -2,7 +2,7 @@
 title: "Better Sleep After Fifty: Gentle Habits for More Restful Nights"
 description: How sleep often changes in midlife and later, practical habits for the bedroom, evenings and daytime, coping with night waking and hot flushes, and when to talk to a doctor.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 Few things affect how we feel as much as sleep. After a good night, the day seems brighter, the mind is clearer and patience comes more easily. After a poor one, everything feels harder. Many women find that sleep changes in their fifties and beyond: falling asleep takes longer, waking in the night becomes common, early-morning waking creeps in, or hot flushes and night sweats interrupt rest.
 

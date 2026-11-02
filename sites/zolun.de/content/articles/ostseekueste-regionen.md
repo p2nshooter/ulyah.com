@@ -2,7 +2,7 @@
 title: "Die Ostseeküste im Überblick: von der Flensburger Förde bis Usedom"
 description: "Förden, Lübecker Bucht, Mecklenburgs Seebäder, Fischland-Darß-Zingst und Vorpommern: Wie sich die Regionen der deutschen Ostseeküste unterscheiden und welcher Ort zu deinem Urlaub passt."
 category: nordsee-und-ostsee
-date: 2026-07-27
+date: 2026-10-11
 ---
 Die deutsche Ostseeküste ist länger und vielfältiger, als viele denken. Sie beginnt an der dänischen Grenze mit tief ins Land geschnittenen Förden, führt vorbei an der belebten Lübecker Bucht, an weißen Bäderarchitekturen in Mecklenburg, an stillen Bodden und windzerzausten Wäldern auf dem Darß und endet an der polnischen Grenze auf Usedom. Dazwischen liegen Hansestädte mit Backsteingotik, Steilküsten mit Kreidefelsen und unzählige Sandstrände. Dieser Ratgeber stellt dir die Regionen vor, damit du den Abschnitt findest, der zu deinem Urlaub passt.
 

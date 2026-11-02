@@ -2,7 +2,7 @@
 title: "Tee aufgießen: Ziehzeiten und Temperaturen für jede Sorte"
 description: Von Gyokuro bis Pfefferminze: die richtigen Temperaturen, Ziehzeiten und Mengen für jede Teesorte, warum sie so wichtig sind und wie du ohne Thermometer klarkommst.
 category: tee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Kaum etwas entscheidet so sehr darüber, ob ein Tee gelingt, wie Temperatur und Ziehzeit. Ein und derselbe Sencha kann süß und frisch oder bitter und kratzig schmecken, je nachdem, ob du ihn mit 70 °C eine Minute oder mit sprudelnd kochendem Wasser fünf Minuten ziehen lässt. Bei Kräutertee ist es umgekehrt: Hier sorgt kochendes Wasser nicht nur für Geschmack, sondern auch für Sicherheit. In diesem Ratgeber findest du die Richtwerte für alle wichtigen Teesorten und erfährst, warum sie so unterschiedlich ausfallen.
 

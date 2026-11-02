@@ -2,7 +2,7 @@
 title: "Botas de cuero: construcción Goodyear o Blake, tipos de piel, modelos y cómo elegir unas que duren décadas"
 description: "Cómo elegir botas de cuero de calidad: construcción Goodyear, Blake o pegada, tipos de piel, modelos clásicos de la Chelsea a la campera, ajuste, suelas y la tradición zapatera española."
 category: estilo-masculino
-date: 2026-10-11
+date: 2026-10-12
 ---
 Unas buenas botas de cuero pueden acompañarte veinte años. Se adaptan a la forma del pie, ganan carácter con cada arruga y, cuando la suela se gasta, un zapatero puede sustituirla y dejarlas listas para otra década. Unas botas mal hechas, en cambio, se despegan, se deforman y acaban en la basura en un par de inviernos. Por fuera, a veces, cuesta distinguirlas. La diferencia está en cómo están construidas y en el cuero con el que se fabricaron.
 

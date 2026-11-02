@@ -2,7 +2,7 @@
 title: "Quitten verarbeiten: Quittengelee und Quittenbrot aus einem Topf"
 description: "Quitten richtig vorbereiten, Saft für Quittengelee gewinnen und aus dem Fruchtmark Quittenbrot machen: Sorten, Gelierprobe, Trocknen und Aufbewahren."
 category: herbst
-date: 2026-10-12
+date: 2026-10-06
 ---
 Quitten sind die Diva unter den Herbstfrüchten. Roh sind sie steinhart, pelzig und so herb, dass niemand freiwillig hineinbeißt. Gekocht verwandeln sie sich: Das Fruchtfleisch färbt sich rosig bis bernsteinfarben, und ein Duft nach Honig, Rose und Zitrus zieht durch die Wohnung. Weil Quitten außerdem sehr viel Pektin enthalten, gelieren sie fast von allein. Aus einem Korb Quitten entstehen deshalb zwei Klassiker auf einmal: klares Quittengelee aus dem Saft und Quittenbrot aus dem übrig gebliebenen Mark. Beides ist eine schöne Tradition für den Vorrat und als Geschenk in der Adventszeit.
 

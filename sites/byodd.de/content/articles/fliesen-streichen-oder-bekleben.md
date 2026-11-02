@@ -2,7 +2,7 @@
 title: "Alte Fliesen streichen oder bekleben: Bad und Küche ohne Stemmarbeiten auffrischen"
 description: Wann Fliesenlack, Fliesenfolie, Fliesenaufkleber oder Wandpaneele sinnvoll sind, wie du Fliesen richtig vorbereitest und streichst, was im Spritzwasserbereich gilt und was Mieter beachten müssen.
 category: bad-und-kueche
-date: 2026-10-12
+date: 2026-10-04
 ---
 Braune Blümchenfliesen aus den Siebzigern, mintgrüne Badfliesen aus den Neunzigern oder ein Küchenspiegel, der nicht mehr zum neuen Stil passt: Alte Fliesen herauszuschlagen ist laut, staubig, teuer und in Mietwohnungen meist ausgeschlossen. Zum Glück gibt es Alternativen, mit denen man Fliesen optisch erneuern kann, ohne sie zu entfernen: Fliesenlack, Fliesenfolie, Fliesenaufkleber und Wandpaneele.
 

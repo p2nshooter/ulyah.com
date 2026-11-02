@@ -2,7 +2,7 @@
 title: Utensilios básicos del obrador casero: qué comprar primero y qué puede esperar
 description: Material para quesos, fermentados, pan, bollería y conservas: lo imprescindible, lo útil y lo que puede esperar, con alternativas caseras.
 category: tecnica
-date: 2026-10-12
+date: 2026-10-04
 ---
 Cuando alguien empieza a hacer pan, queso o fermentados en casa, es fácil dejarse llevar por las tiendas especializadas y llenar los armarios de utensilios que luego apenas se usan. La realidad es que la mayoría de las recetas de QKB se pueden hacer con material sencillo, buena parte del cual ya tienes en la cocina. Algunas herramientas, en cambio, marcan una diferencia enorme y conviene comprarlas desde el principio.
 

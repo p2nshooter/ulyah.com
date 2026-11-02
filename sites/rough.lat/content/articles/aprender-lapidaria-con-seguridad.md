@@ -2,7 +2,7 @@
 title: "Aprender lapidaria con seguridad: del primer cabujón al facetado, sin poner en riesgo la salud"
 description: "Cómo empezar en la lapidaria: equipo básico, el riesgo del polvo de sílice, minerales tóxicos, máquinas, agua y electricidad, protección personal, un primer cabujón paso a paso y dónde aprender."
 category: arte-tallado-y-artesania
-date: 2026-10-11
+date: 2026-10-12
 ---
 Convertir un trozo de ágata en un cabujón brillante o un fragmento de cuarzo en una gema facetada es una experiencia que engancha. La lapidaria combina paciencia, precisión, conocimiento de los materiales y una enorme satisfacción al ver aparecer el brillo después de horas de trabajo. Cada vez más personas en América Latina se acercan a este oficio como afición, a través de clubes, talleres compartidos o cursos.
 

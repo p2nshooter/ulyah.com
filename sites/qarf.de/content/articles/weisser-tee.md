@@ -2,7 +2,7 @@
 title: "Weißer Tee: Silver Needle, Bai Mu Dan, Shou Mei und wie du den zartesten Tee zubereitest"
 description: "Weißer Tee erklärt: kaum verarbeitet, nur gewelkt und getrocknet. Die Sorten von Silver Needle bis Shou Mei, Herkunft aus Fujian, gepresster und gealterter weißer Tee, Zubereitung und Lagerung."
 category: teesorten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Weißer Tee ist der am wenigsten bearbeitete aller Tees. Die Blätter und Knospen werden gepflückt, gewelkt und getrocknet, mehr nicht. Kein Rollen, kein Erhitzen zum Stoppen der Oxidation, keine Röstung. Was so schlicht klingt, verlangt viel Erfahrung, denn Wetter, Temperatur und Luftfeuchtigkeit bestimmen, wie sich das Blatt beim langsamen Welken verändert. Das Ergebnis ist ein heller, zarter Tee mit Noten von Heu, Honig, Melone und Blüten, der sanft und süß schmeckt und kaum bitter wird. Der Name kommt übrigens nicht von der Farbe des Aufgusses, sondern von den feinen, silbrig-weißen Härchen auf den jungen Knospen.
 

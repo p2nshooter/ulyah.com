@@ -2,7 +2,7 @@
 title: "Abfluss verstopft: Was tun? Hausmittel, Pümpel, Siphon und Spirale"
 description: Wie du verstopfte Abflüsse in Waschbecken, Dusche, Badewanne und Küche ohne aggressive Chemie befreist, den Siphon reinigst, eine Rohrreinigungsspirale benutzt und Verstopfungen vorbeugst.
 category: bad-und-kueche
-date: 2026-09-08
+date: 2026-10-04
 ---
 Das Wasser im Waschbecken läuft immer langsamer ab, in der Dusche steht es knöcheltief, aus dem Küchenabfluss steigt ein unangenehmer Geruch: Verstopfte Abflüsse gehören zu den häufigsten Ärgernissen im Haushalt. In den meisten Fällen lässt sich das Problem in wenigen Minuten und ohne Rohrreinigungsdienst lösen, wenn man die richtige Reihenfolge einhält.
 

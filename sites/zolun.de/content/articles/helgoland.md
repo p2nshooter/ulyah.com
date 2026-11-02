@@ -2,7 +2,7 @@
 title: "Helgoland besuchen: Tagesausflug oder Übernachtung, Anreise, Lange Anna und Kegelrobben auf der Düne"
 description: "Helgoland verständlich erklärt: Schiff oder Flugzeug, Seekrankheit, Hauptinsel und Düne, Lummenfelsen, Robben mit Abstand, zollfreies Einkaufen und warum sich eine Nacht auf der Insel lohnt."
 category: inseln
-date: 2026-08-14
+date: 2026-10-11
 ---
 Helgoland ist die einzige deutsche Hochseeinsel. Sie liegt weit draußen in der Deutschen Bucht, so weit, dass man vom Festland aus nichts von ihr sieht. Wer hierher fährt, erlebt eine kleine Seereise, rote Felsen mitten im Meer, Seevögel in Tausenden, Robben am Strand und eine Insel ohne Autos. Gleichzeitig ist Helgoland ein Ziel, das gut geplant sein will: Die Überfahrt dauert, das Wetter entscheidet mit, und wer nur ein paar Stunden bleibt, sieht vor allem den Hafen. Dieser Ratgeber hilft dir, die passende Art des Besuchs zu finden.
 

@@ -2,7 +2,7 @@
 title: Entrenar en casa sin material: una rutina completa de cuerpo entero
 description: Una rutina de fuerza y acondicionamiento con el peso del cuerpo, con tres niveles de dificultad, pensada para hacerse en el salón en treinta minutos sin ningún material.
 category: fuerza-y-movilidad
-date: 2026-10-12
+date: 2026-10-04
 ---
 No tener tiempo para ir al gimnasio, no querer pagar una cuota o simplemente preferir la comodidad de casa son motivos muy habituales para no hacer ejercicio de fuerza. La buena noticia es que el propio peso del cuerpo es una herramienta suficiente para entrenar de forma completa, sobre todo cuando se está empezando o se busca mantener la forma.
 

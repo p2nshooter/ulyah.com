@@ -2,7 +2,7 @@
 title: "Grabado de gemas: camafeos, entalles y sellos, de la Antigüedad a los talleres de hoy"
 description: "Qué son la glíptica, el entalle y el camafeo, con qué piedras se graban, cómo trabaja el grabador, cómo distinguir una pieza tallada a mano de un moldeado o de una talla mecánica, y cómo cuidarlas."
 category: arte-tallado-y-artesania
-date: 2026-10-31
+date: 2026-11-01
 ---
 Mucho antes de que existiera la talla facetada, las gemas ya eran obras de arte. Los grabadores de la Antigüedad tallaban figuras diminutas en piedras duras para usarlas como sellos, amuletos o adornos, y algunas de esas piezas, de apenas unos centímetros, se cuentan hoy entre los tesoros de los grandes museos. Este arte se llama **glíptica**, y sigue vivo en talleres que graban camafeos, anillos de sello y retratos en piedra con técnicas que mezclan herramientas antiguas y modernas.
 

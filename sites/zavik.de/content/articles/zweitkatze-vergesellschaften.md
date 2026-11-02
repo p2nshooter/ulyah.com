@@ -2,7 +2,7 @@
 title: "Zweitkatze vergesellschaften: Schritt für Schritt zum Katzenfrieden"
 description: Getrennte Räume, Duftaustausch, Füttern an der Tür und kurze Begegnungen: wie du eine zweite Katze behutsam an deine erste gewöhnst und Fehler vermeidest, die lange nachwirken.
 category: einzug-und-eingewoehnung
-date: 2026-09-25
+date: 2026-10-05
 ---
 Zwei Katzen, die zusammen spielen, sich gegenseitig putzen und eng aneinandergekuschelt schlafen: Das ist das Bild, das viele vor Augen haben, wenn sie über eine Zweitkatze nachdenken. Es kann so kommen. Aber es kommt nicht von allein. Katzen sind Revier-Tiere, und eine fremde Katze ist für sie zunächst ein Eindringling. Ob aus zwei Katzen ein Paar wird, hängt sehr davon ab, wie die ersten Wochen verlaufen.
 

@@ -2,7 +2,7 @@
 title: "Bergwege blau, rot, schwarz: Schwierigkeit verstehen, Trittsicherheit und Schwindelfreiheit"
 description: "Was die Farben blau, rot und schwarz auf Bergwegweisern bedeuten, wie die SAC-Wanderskala T1 bis T6 funktioniert, was Trittsicherheit und Schwindelfreiheit heißen und wie du dich ehrlich einschätzt."
 category: sicherheit-und-wetter
-date: 2026-08-28
+date: 2026-10-06
 ---
 „Trittsicherheit und Schwindelfreiheit erforderlich“: Dieser Satz steht in vielen Tourenbeschreibungen, und jeder versteht etwas anderes darunter. Für die einen ist ein schmaler Pfad mit ein paar Steinen schon eine Herausforderung, andere halten eine ausgesetzte Passage mit Drahtseil für einen Spaziergang. Damit Wanderer die Schwierigkeit eines Weges vorab einschätzen können, gibt es in den Alpen einheitliche Kategorien. Wer sie versteht und sich selbst ehrlich einschätzt, vermeidet die häufigste Ursache für Bergunfälle: die falsche Tour für die eigenen Fähigkeiten.
 

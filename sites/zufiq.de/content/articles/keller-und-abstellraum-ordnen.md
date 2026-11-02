@@ -2,7 +2,7 @@
 title: "Keller und Abstellraum ordnen: Vom Rumpelraum zum Lager mit System"
 description: "Keller und Abstellraum ordnen in vier Etappen: ausräumen, sortieren, in Zonen einteilen und mit Regalen, Kisten und einer Bestandsliste dauerhaft übersichtlich halten."
 category: ausmisten-und-minimalismus
-date: 2026-08-30
+date: 2026-10-11
 ---
 Der Keller ist oft der ehrlichste Raum einer Wohnung. Hier landet alles, worüber man nicht entscheiden möchte: der Karton vom letzten Umzug, der nie ausgepackt wurde, das Kinderfahrrad, die Bohrmaschine des Vormieters, drei halbleere Farbeimer, Weihnachtsdeko, Campingausrüstung, alte Elektrogeräte, „falls die neuen kaputtgehen“. Mit jedem Jahr wird die Tür schwerer zu öffnen, im wörtlichen und im übertragenen Sinn.
 

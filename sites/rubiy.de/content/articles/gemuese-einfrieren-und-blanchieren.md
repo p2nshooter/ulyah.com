@@ -2,7 +2,7 @@
 title: "Gemüse und Obst einfrieren: blanchieren, verpacken und Gefrierbrand vermeiden"
 description: Warum Gemüse vor dem Einfrieren blanchiert wird, wie lange welche Sorte ins kochende Wasser muss, was sich nicht zum Einfrieren eignet und wie lange Vorräte bei minus 18 Grad halten.
 category: vorrat-und-konservieren
-date: 2026-10-12
+date: 2026-10-06
 ---
 Einfrieren ist die einfachste Art, Vorräte aus der Saison anzulegen. Es braucht keine besonderen Geräte außer einem Gefrierschrank, es erhält Farbe, Geschmack und Nährstoffe besser als die meisten anderen Methoden, und es ist sicherer als das Einkochen von säurearmem Gemüse. Ob Erbsen im Juni, Bohnen im August oder Grünkohl im Dezember: Was im Überfluss da ist, kann für die mageren Monate aufbewahrt werden.
 

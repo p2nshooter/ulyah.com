@@ -2,7 +2,7 @@
 title: Croissants caseros de mantequilla: laminado paso a paso, temperaturas y formado
 description: Croissants en casa paso a paso: masa base, bloque de mantequilla, laminado con vuelta doble y sencilla, formado, fermentación por debajo de 27 °C y horneado.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 El croissant es una de las piezas más exigentes de la bollería y, a la vez, una de las más gratificantes de hacer en casa. Su secreto está en el **laminado**: una masa fermentada con levadura y una lámina de mantequilla que se doblan y estiran varias veces hasta formar decenas de capas finísimas. En el horno, el agua de la masa y de la mantequilla se convierte en vapor, separa las capas y crea esa estructura de panal tan característica.
 

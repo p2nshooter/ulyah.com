@@ -2,7 +2,7 @@
 title: "E-Mail-Postfach aufräumen: Vom überquellenden Posteingang zu einem ruhigen System"
 description: "E-Mail-Postfach aufräumen: Altbestand ins Archiv, Newsletter abbestellen, drei schlanke Ordner, Filter und feste Mailzeiten, dazu Phishing-Mails in Grundzügen erkennen."
 category: digitale-ruhe
-date: 2026-07-28
+date: 2026-10-11
 ---
 Neben dem Briefsymbol auf deinem Handy steht eine vierstellige Zahl. Irgendwo in diesem Berg liegt die Terminbestätigung vom Bürgeramt, die Rechnung, die du noch bezahlen musst, und die Nachricht einer Freundin, auf die du seit drei Wochen antworten willst. Darüber und darunter: Newsletter, Versandbestätigungen, Hinweise von Netzwerken, die du kaum noch benutzt, und Werbung von Shops, bei denen du einmal etwas bestellt hast. Jedes Mal, wenn du das Postfach öffnest, schließt du es mit einem leichten Druck im Magen wieder.
 

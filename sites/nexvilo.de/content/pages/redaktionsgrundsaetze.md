@@ -1,8 +1,8 @@
 ---
 title: Redaktionsgrundsätze
-description: Wie NEXVILO arbeitet – unabhängig von Herstellern und Händlern, mit ausprobierten Schritten, nachvollziehbaren Quellen, ehrlichen Grenzen und regelmäßiger Prüfung.
+description: Wie NEXVILO arbeitet – unabhängig von Herstellern und Händlern, mit Schritten nach Herstellerangaben, nachvollziehbaren Quellen und ehrlichen Grenzen.
 order: 15
-updated: 2026-10-26
+updated: 2026-11-02
 ---
 Wer Technik erklärt, trägt Verantwortung: Ein falscher Schritt kann Fotos löschen oder ein Konto ungeschützt lassen. Diese Grundsätze gelten für jede Anleitung auf NEXVILO.
 
@@ -10,9 +10,9 @@ Wer Technik erklärt, trägt Verantwortung: Ein falscher Schritt kann Fotos lös
 
 Wir verkaufen keine Geräte, keine Software, keine Mobilfunkverträge und keine Sicherheitsprogramme, und wir nehmen kein Geld und keine Testgeräte für Empfehlungen. Wenn wir Smartphones, Laptops oder Passwortmanager vergleichen, nennen wir Kriterien statt Bestenlisten, damit du selbst entscheiden kannst. Die Anzeigen auf der Seite liefert Google AdSense aus; sie haben keinen Einfluss auf unsere Texte.
 
-## Ausprobiert statt abgeschrieben
+## Nachvollziehbar statt abgeschrieben
 
-Was wir beschreiben, gehen wir Schritt für Schritt selbst durch, auf aktuellen und auf älteren Geräten. Wenn sich Wege auf Android und iPhone oder zwischen Windows 10 und Windows 11 unterscheiden, sagen wir das. Wo wir etwas nicht selbst prüfen konnten, etwa weil eine Funktion nur in bestimmten Ländern verfügbar ist, kennzeichnen wir es.
+Unsere Anleitungen folgen den offiziellen Hilfeseiten und Dokumentationen der Hersteller. Beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge; jede Schrittfolge gleichen wir mit diesen Herstellerangaben ab. Wenn sich Wege auf Android und iPhone oder zwischen Windows 10 und Windows 11 unterscheiden, sagen wir das. Menüs ändern sich mit Updates: Sieht ein Schritt bei dir anders aus, gilt die aktuelle Hilfe des Herstellers, und wir freuen uns über einen Hinweis.
 
 ## Nachvollziehbare Quellen
 

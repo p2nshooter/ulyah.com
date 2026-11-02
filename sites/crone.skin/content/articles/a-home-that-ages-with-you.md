@@ -2,7 +2,7 @@
 title: "A Home That Ages With You: Stylish Changes for Comfort, Safety and Independence"
 description: Practical, good-looking adaptations room by room — lighting, flooring, bathrooms, kitchens, stairs and technology — that make a home safer and easier to live in for years to come.
 category: home-and-garden
-date: 2026-10-19
+date: 2026-10-20
 ---
 Most of us want to stay in our own homes for as long as possible, surrounded by familiar things, neighbours and memories. Yet homes are often designed for younger bodies: steep stairs, slippery bathrooms, high cupboards, dim corners and low sofas that are hard to get out of. Small difficulties that are easy to ignore at fifty can become real obstacles at seventy or eighty.
 

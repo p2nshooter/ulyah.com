@@ -2,7 +2,7 @@
 title: "Zimmerpflanzen richtig gießen: wann, wie viel und mit welchem Wasser"
 description: Der vollständige Leitfaden zum Gießen von Zimmerpflanzen: Fingerprobe, Gießmethoden, Wasserqualität, Staunässe vermeiden, Gießen im Winter und Anzeichen für zu viel oder zu wenig Wasser.
 category: pflege-grundlagen
-date: 2026-09-23
+date: 2026-10-04
 ---
 Falsches Gießen ist die häufigste Ursache, warum Zimmerpflanzen eingehen. Und zwar viel öfter durch zu viel als durch zu wenig Wasser. Das Problem ist, dass sich beide Fehler ähnlich zeigen können: Hängende Blätter, gelbe Blätter und braune Spitzen können sowohl auf Durst als auch auf ertrunkene Wurzeln hinweisen. Wer versteht, was im Topf passiert, gießt sicherer.
 

@@ -2,7 +2,7 @@
 title: "Welcher Apfel wofür? Apfelsorten für Kuchen, Mus und Obstschale und ein gedeckter Apfelkuchen"
 description: Boskoop, Elstar, Braeburn, Topaz und Co. im Vergleich, wie du Äpfel richtig lagerst und wie ein klassischer gedeckter Apfelkuchen mit Zuckerguss gelingt.
 category: herbst
-date: 2026-10-12
+date: 2026-10-06
 ---
 Der Apfel ist das Lieblingsobst der Deutschen, und das nicht ohne Grund. Er wächst fast überall im Land, ist von August bis in den Frühling hinein aus heimischer Ernte zu haben und passt zu süßen wie herzhaften Gerichten. In alten Streuobstwiesen stehen noch Hunderte Sorten, von denen viele nur regional bekannt sind. Im Supermarkt findest du meist ein knappes Dutzend.
 

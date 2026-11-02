@@ -2,7 +2,7 @@
 title: "Extraktion verstehen: warum Kaffee sauer oder bitter schmeckt und wie du ihn ins Gleichgewicht bringst"
 description: "Was beim Brühen im Kaffee passiert: Extraktion und Stärke, Unter- und Überextraktion schmecken, die sechs Stellschrauben Mahlgrad, Zeit, Temperatur, Verhältnis, Bewegung und Wasser, mit Fehlerkompass."
 category: muehlen-und-wasser
-date: 2026-08-24
+date: 2026-10-06
 ---
 Warum schmeckt derselbe Kaffee einmal süß und rund und am nächsten Tag sauer oder bitter? Die Antwort steckt in einem Wort, das Baristas ständig verwenden: Extraktion. Gemeint ist der Vorgang, bei dem Wasser lösliche Stoffe aus dem gemahlenen Kaffee herauslöst. Nicht alle Stoffe lösen sich gleich schnell, und nicht alle schmecken gut. Wer versteht, in welcher Reihenfolge Säuren, Süße und Bitterstoffe in die Tasse gelangen, kann fast jeden Kaffee gezielt verbessern, egal ob am Handfilter, an der Siebträgermaschine oder in der French Press. Dieser Ratgeber erklärt das Prinzip ohne Formeln und zeigt, an welchen Stellschrauben du drehen kannst.
 

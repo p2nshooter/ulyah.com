@@ -2,7 +2,7 @@
 title: "Medikamente eingeben: Tabletten, Tropfen und Spot-ons ohne Kampf"
 description: Tabletten, Flüssigkeiten, Augen- und Ohrentropfen und Spot-ons: Schritt-für-Schritt-Anleitungen und Tipps für Katzen, die sich gegen Medikamente wehren.
 category: pflege-und-alltag
-date: 2026-07-17
+date: 2026-10-05
 ---
 Früher oder später muss fast jede Katze einmal Medikamente nehmen: eine Wurmkur, ein Antibiotikum nach einer Bisswunde, Schmerzmittel nach einer Operation oder dauerhaft ein Medikament gegen eine chronische Erkrankung. Und fast jede Katzenhalterin, jeder Katzenhalter kennt die Szene: Die Tablette ist im Maul, die Katze schluckt scheinbar, und eine Minute später liegt sie unversehrt auf dem Teppich.
 

@@ -2,7 +2,7 @@
 title: "Campana extractora y gas en la cocina: ventilación, medidas y seguridad que no se negocia"
 description: "Campana de extracción o de recirculación, caudal, altura, ductos, aire de reposición y seguridad con gas licuado o natural: fugas, monóxido de carbono, mangueras, cilindros y calentadores."
 category: cocinas-y-banos
-date: 2026-09-29
+date: 2026-10-11
 ---
 En la cocina se genera mucho más que olor a comida. Cada vez que se fríe, se hierve o se hornea, el aire se carga de vapor de agua, partículas de grasa y, si la estufa es a gas, gases de combustión. Sin una buena ventilación, la grasa se pega en muebles y techos, la humedad favorece el moho y los olores se reparten por toda la casa. Y cuando hay gas de por medio, la ventilación deja de ser un asunto de comodidad para convertirse en un asunto de seguridad.
 

@@ -2,7 +2,7 @@
 title: El cuajo explicado: qué es, tipos y cómo usarlo para hacer queso en casa
 description: Qué es el cuajo, cómo actúa sobre la leche, las diferencias entre cuajo animal, microbiano, vegetal y de cardo, cómo dosificarlo, conservarlo y qué alternativas ácidas existen.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 Sin cuajo no habría la mayoría de los quesos que conocemos. Esa pequeña cantidad de líquido, a veces apenas unas gotas por litro de leche, es la responsable de transformar un alimento líquido en una cuajada firme que puede cortarse, moldearse y, con el tiempo, convertirse en un manchego, un idiazábal o un humilde queso fresco.
 

@@ -2,7 +2,7 @@
 title: Verduras fermentadas en salmuera: la guía básica para fermentar cualquier hortaliza
 description: Principios y recetas para fermentar zanahorias, coliflor, pepinillos, rabanitos y pimientos en salmuera: qué porcentaje de sal usar, cómo mantenerlas sumergidas, tiempos, aromáticos y seguridad.
 category: kefir-y-fermentados
-date: 2026-10-12
+date: 2026-10-04
 ---
 Si el chucrut es la fermentación de la col cortada y salada en seco, la fermentación en salmuera es su prima versátil: verduras enteras o en trozos, cubiertas por agua con sal, que fermentan durante unos días o semanas hasta volverse ácidas y crujientes. Con este método se pueden fermentar zanahorias, coliflor, pepinos, rabanitos, pimientos, cebolletas, nabos, espárragos y muchas otras hortalizas.
 

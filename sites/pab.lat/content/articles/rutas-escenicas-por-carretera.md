@@ -2,7 +2,7 @@
 title: "Rutas escénicas por carretera en América Latina: de la Carretera Austral a la Ruta 40"
 description: "Las carreteras más bellas de la región, de la Carretera Austral y la Ruta 40 al Colca, la Avenida de los Volcanes, Baja California y la costa de Brasil, con consejos para recorrerlas."
 category: rutas-por-carretera
-date: 2026-09-21
+date: 2026-10-11
 ---
 Hay viajes en los que el destino es el camino. En América Latina, algunas carreteras atraviesan paisajes tan extraordinarios que recorrerlas se convierte en el motivo principal del viaje: rutas que bordean fiordos y glaciares en la Patagonia chilena, que suben a más de cuatro mil metros entre cerros de colores en el norte argentino, que serpentean por la costa atlántica entre selva y mar o que cruzan el desierto de Baja California entre cactus gigantes y bahías turquesas.
 

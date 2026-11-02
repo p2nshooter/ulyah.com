@@ -2,7 +2,7 @@
 title: "Wandern ohne Auto: Streckenwanderungen mit Bus und Bahn planen"
 description: "So planst du Wanderungen mit Bus und Bahn: Streckentouren, Fahrplan und letzte Verbindung, Deutschlandticket, Gästekarten, Rufbusse und ein Plan B für Ausfälle."
 category: planung-und-navigation
-date: 2026-09-09
+date: 2026-10-06
 ---
 Wer mit dem Auto zum Wandern fährt, ist an den Parkplatz gebunden und muss am Ende immer dorthin zurück. Mit Bus und Bahn öffnet sich eine ganz andere Art des Wanderns: die Streckenwanderung. Du startest an einem Bahnhof, läufst über einen Höhenzug, durch ein Tal oder einen ganzen Abschnitt eines Fernwanderwegs und steigst am Ende an einem anderen Bahnhof wieder ein. Dazu kommen entspannte Rückfahrten ohne Müdigkeit am Steuer, keine Suche nach Parkplätzen an überfüllten Wanderparkplätzen und ein kleinerer ökologischer Fußabdruck. In Deutschland ist das in vielen Regionen gut möglich, braucht aber etwas Planung.
 

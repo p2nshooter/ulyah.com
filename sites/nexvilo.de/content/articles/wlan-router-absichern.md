@@ -2,7 +2,7 @@
 title: "WLAN und Router absichern: Die zehn wichtigsten Einstellungen für dein Heimnetz"
 description: "So schützt du dein Heimnetz: Router-Passwort ändern, WPA3 aktivieren, Gäste-WLAN einrichten, Updates einschalten, WPS und Fernzugriff prüfen und sehen, welche Geräte verbunden sind."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Der Router ist die Haustür deines digitalen Zuhauses. Über ihn laufen alle Verbindungen ins Internet: vom Smartphone, vom Laptop, vom Fernseher, von der Spielekonsole und von smarten Geräten wie Glühbirnen, Kameras oder dem Saugroboter. Wenn der Router unsicher eingestellt ist, können Fremde dein Internet mitbenutzen, deinen Datenverkehr beobachten oder Geräte in deinem Netz angreifen. Die meisten Router sind heute ab Werk deutlich besser geschützt als früher, aber ein paar Einstellungen solltest du trotzdem prüfen. Diese Anleitung zeigt dir die zehn wichtigsten, mit Beispielen für die in Deutschland verbreiteten Geräte wie die FRITZ!Box, die Speedport-Router der Telekom und die Router der Kabelanbieter.

@@ -2,7 +2,7 @@
 title: "Pilzkrankheiten im Garten vorbeugen: Mehltau, Grauschimmel, Schorf und Co."
 description: "Wie du Pilzkrankheiten an Gemüse und Obst ohne Spritzmittel vorbeugst: die häufigsten Erreger erkennen, Standort, Abstand, Gießtechnik, Sortenwahl und Gartenhygiene."
 category: naturgarten-und-nuetzlinge
-date: 2026-07-01
+date: 2026-10-06
 ---
 Weißer Belag auf Zucchiniblättern, graue Pelze auf Erdbeeren, schwarze Flecken auf Äpfeln: Pilzkrankheiten gehören zum Gartenalltag. Im Bio-Garten gibt es dagegen kein Wundermittel aus der Flasche, und das ist auch gut so. Denn die meisten Pilzkrankheiten lassen sich mit einfachen Maßnahmen so weit zurückdrängen, dass sie die Ernte kaum beeinträchtigen. Der Schlüssel liegt im Verständnis: Wer weiß, wann und wie ein Erreger angreift, kann ihm die Bedingungen nehmen, die er braucht.
 

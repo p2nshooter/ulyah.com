@@ -2,7 +2,7 @@
 title: "La costa del Pacífico sudamericano: de la selva del Chocó a los desiertos de Perú y Chile"
 description: "Cómo es la costa pacífica de Colombia, Ecuador, Perú y Chile: la corriente de Humboldt, El Niño, épocas para cada zona, surf, fauna marina, playas para bañarse con seguridad y sabores costeros."
 category: playas-y-costas
-date: 2026-09-11
+date: 2026-10-11
 ---
 Quien imagina las playas sudamericanas suele pensar en el Caribe o en la costa brasileña. Pero el Pacífico, que baña Colombia, Ecuador, Perú y Chile a lo largo de miles de kilómetros, ofrece una variedad de paisajes difícil de igualar: selvas lluviosas que caen sobre el mar en el Chocó, pueblos de pescadores en la costa ecuatoriana, playas soleadas todo el año en el norte del Perú, acantilados frente a Lima, desiertos que terminan en el océano en el norte de Chile y bahías frías y verdes más al sur.
 

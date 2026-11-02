@@ -2,7 +2,7 @@
 title: "Erste Hilfe bei Katzen: Notfallset, Vitalwerte und was im Ernstfall zu tun ist"
 description: "Was in die Notfallapotheke für Katzen gehört, wie du Puls, Atmung und Temperatur prüfst und wie du bei Wunden, Hitze, Vergiftung, Sturz oder Krampfanfall richtig reagierst."
 category: pflege-und-alltag
-date: 2026-10-11
+date: 2026-10-14
 ---
 Ein Sturz vom Balkon, eine blutende Pfote, ein angeknabberter Lilienstrauß oder ein Krampfanfall mitten in der Nacht: Notfälle kommen bei Katzen meist ohne Vorwarnung. In diesen Momenten entscheiden oft die ersten Minuten darüber, wie gut eine Katze die Situation übersteht. Wer vorbereitet ist, ein paar Handgriffe kennt und weiß, wann es sofort in die Tierklinik gehen muss, handelt ruhiger und wirksamer.
 

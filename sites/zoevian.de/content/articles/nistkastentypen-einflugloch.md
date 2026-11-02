@@ -2,7 +2,7 @@
 title: "Nistkastentypen im Überblick: Höhle, Halbhöhle, Spezialkästen und die richtige Lochgröße"
 description: "Welcher Nistkasten für welchen Vogel? Höhlenkasten, Halbhöhle, Koloniehaus, Mauersegler-, Schwalben-, Star- und Eulenkasten mit Lochgrößen, Innenmaßen und Aufhängung."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Nistkasten ist nicht gleich Nistkasten. Eine Blaumeise braucht etwas anderes als ein Hausrotschwanz, und ein Mauersegler wird mit einem Meisenkasten nichts anfangen können. Wer gezielt bestimmten Vögeln helfen möchte, sollte deshalb wissen, welche Kastentypen es gibt, welche Lochgrößen und Innenmaße welche Arten bevorzugen und wo die Kästen hängen sollten.

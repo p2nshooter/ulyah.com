@@ -2,7 +2,7 @@
 title: "Avistamiento de ballenas y tortugas en América Latina: dónde, cuándo y cómo hacerlo con respeto"
 description: "Ballenas jorobadas, grises, francas y azules, tiburones ballena y desoves de tortugas marinas: lugares y temporadas aproximadas, cómo elegir una excursión responsable y normas para no molestar."
 category: playas-y-costas
-date: 2026-10-05
+date: 2026-10-11
 ---
 Ver salir del agua el lomo de una ballena jorobada, oír el soplido de una ballena franca a pocos metros de la costa o contemplar en silencio cómo una tortuga marina cava su nido en la arena a la luz de la luna son de esas experiencias que cambian la forma de mirar el océano. América Latina tiene algunos de los mejores lugares del mundo para vivirlas, en el Pacífico, el Caribe y el Atlántico.
 

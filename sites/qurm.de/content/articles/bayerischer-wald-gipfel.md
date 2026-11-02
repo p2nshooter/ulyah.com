@@ -2,7 +2,7 @@
 title: "Bayerischer Wald: Arber, Rachel, Lusen und Falkenstein zu Fuß"
 description: "Die bekanntesten Gipfel im Bayerischen Wald: Großer Arber, Großer Rachel mit Rachelsee, Lusen über die Himmelsleiter und Falkenstein, mit Anspruch und Nationalparkregeln."
 category: berge-und-tagestouren
-date: 2026-08-04
+date: 2026-10-06
 ---
 Der Bayerische Wald ist das größte zusammenhängende Waldgebiet Mitteleuropas, gemeinsam mit dem Böhmerwald auf der tschechischen Seite. Seine Gipfel erreichen knapp 1.500 Meter, und doch fühlen sich viele Touren hier wilder an als in manchem Alpental. Im Nationalpark Bayerischer Wald, dem ersten deutschen Nationalpark, gegründet 1970, darf sich der Wald seit Jahrzehnten frei entwickeln. Abgestorbene Fichten, junge Buchen und Ebereschen, Hochmoore und Granitblöcke prägen das Bild. Wer die bekannten Gipfel besteigt, erlebt diese Entwicklung aus nächster Nähe und wird mit weiten Blicken bis zu den Alpen belohnt, wenn die Luft klar ist.
 

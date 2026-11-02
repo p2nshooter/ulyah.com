@@ -2,7 +2,7 @@
 title: Labneh: el queso de yogur más fácil del mundo
 description: Cómo transformar yogur natural en labneh, un queso cremoso para untar, solo con sal y tiempo de escurrido; variantes en bolitas con aceite, usos, conservación y consejos.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 Si quieres hacer tu primer queso casero sin termómetro, sin cuajo y sin ningún riesgo de que salga mal, el labneh es la elección perfecta. Se trata de yogur escurrido hasta perder buena parte de su suero, con un poco de sal. El resultado es una crema espesa, ácida y suave, a medio camino entre el queso crema y el yogur griego.
 

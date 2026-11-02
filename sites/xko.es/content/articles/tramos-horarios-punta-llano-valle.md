@@ -2,7 +2,7 @@
 title: Tramos horarios de la luz: punta, llano y valle explicados con ejemplos
 description: Qué horas son punta, llano y valle en la tarifa doméstica 2.0TD, cómo afectan a la potencia y a la energía, y qué consumos conviene desplazar para pagar menos sin perder comodidad.
 category: potencia-y-tarifas
-date: 2026-09-15
+date: 2026-10-04
 ---
 Desde junio de 2021, las facturas domésticas de electricidad en España se rigen por la tarifa de acceso 2.0TD, que divide el día en tramos con precios distintos. Aunque tengas una oferta de precio fijo, los peajes que paga tu comercializadora siguen esa estructura, y en el mercado regulado o en las ofertas con discriminación horaria la diferencia de precio entre horas es muy visible en la factura.
 

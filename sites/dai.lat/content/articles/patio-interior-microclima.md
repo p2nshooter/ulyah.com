@@ -2,7 +2,7 @@
 title: "Patio interior: cómo crear un microclima fresco, luminoso y habitable"
 description: "Proporción, sombra, agua, plantas, pisos y desagüe: cómo convertir un patio interior en un espacio que enfría y ventila la casa sin volverse caluroso, húmedo ni un criadero de mosquitos."
 category: patios-y-exteriores
-date: 2026-08-02
+date: 2026-10-11
 ---
 El patio es una de las grandes herencias de la arquitectura latinoamericana. Las casonas coloniales de Oaxaca, Cartagena, Lima o Antigua Guatemala se organizan alrededor de un espacio abierto con galerías, plantas y a veces una fuente. Las casas chorizo de Buenos Aires ordenan sus habitaciones a lo largo de un patio lateral. Y en muchas viviendas actuales, un pequeño patio o un pozo de luz es lo único que permite que entren aire y claridad a las habitaciones del fondo.
 

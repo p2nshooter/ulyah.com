@@ -2,7 +2,7 @@
 title: "Der große Bruder hat keine Lust mehr"
 description: Jonas ist zwölf und soll ständig auf seine kleinen Schwestern aufpassen, bis er explodiert. Über ältere Geschwister, die zu viel tragen, und Eltern, die sie wieder Kind sein lassen.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Ich bin nicht euer Babysitter!“
 

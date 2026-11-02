@@ -2,7 +2,7 @@
 title: "Humedad en paredes: cómo distinguir capilaridad, filtración y condensación y qué hacer"
 description: "Manchas, salitre, pintura que se infla y moho: cómo identificar si la humedad sube del suelo, entra desde afuera o se condensa dentro, con pruebas sencillas y soluciones para cada caso."
 category: confort-y-sostenibilidad
-date: 2026-08-28
+date: 2026-10-11
 ---
 Una mancha oscura en la esquina del dormitorio, pintura que se infla y se descascara en la parte baja de un muro, polvo blanco que aparece una y otra vez sobre el revoque, olor a encierro en el closet. La humedad en las paredes es uno de los problemas más frecuentes en las viviendas de América Latina, desde las casas antiguas de Lima o Buenos Aires hasta los departamentos nuevos de Bogotá o Santiago.
 

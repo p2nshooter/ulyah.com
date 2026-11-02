@@ -2,7 +2,7 @@
 title: Aerotermia en casa: cómo funciona, cuánto cuesta y cuándo compensa
 description: Qué es la aerotermia, cómo produce calefacción, agua caliente y refrigeración, qué significan COP y SCOP, cuánto cuesta frente a gas y gasóleo, qué emisores necesita y cuándo es una buena inversión.
 category: climatizacion
-date: 2026-09-11
+date: 2026-10-04
 ---
 La aerotermia se ha convertido en una de las palabras de moda en el mundo de la climatización. Se presenta como la alternativa a las calderas de gas y gasóleo, se exige en buena parte de la obra nueva y aparece en muchas ayudas a la rehabilitación energética. Pero ¿qué es exactamente, cuánto cuesta, cuánto ahorra y en qué viviendas tiene sentido?
 

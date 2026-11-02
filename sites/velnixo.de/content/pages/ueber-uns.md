@@ -2,7 +2,7 @@
 title: Über uns
 description: Wer hinter VELNIXO steht, für wen wir schreiben und warum ein Fahrradratgeber gründlich, ehrlich und unabhängig sein muss.
 order: 1
-updated: 2026-10-26
+updated: 2026-11-02
 ---
 VELNIXO ist ein Ratgeber für alle, die in Deutschland Fahrrad fahren: zur Arbeit und zur Schule, zum Einkaufen, am Wochenende ins Grüne oder mit Gepäck über mehrere Tage. Der Name steht für das, worum es hier geht: **Velo**, also das Fahrrad, die **Natur**, durch die es uns trägt, die **Infrastruktur** aus Radwegen, Abstellanlagen und Bahnverbindungen, die **X-Strecken** abseits der gewohnten Route und ein bisschen **Ordnung** im Keller, damit das Rad auch morgen noch zuverlässig fährt.
 
@@ -21,7 +21,7 @@ Für Menschen, die ihr Rad besser verstehen möchten, ohne Mechaniker zu werden.
 
 ## Wie wir arbeiten
 
-Jeder Beitrag wird von Hand geschrieben, geprüft und regelmäßig aktualisiert. Wir nehmen kein Geld für Empfehlungen und nennen Kriterien statt Marken. Bei sicherheitsrelevanten Arbeiten sagen wir offen, wann eine Fachwerkstatt der bessere Weg ist. Die Einzelheiten stehen in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
+Jeder Beitrag wird eigens für VELNIXO erarbeitet, geprüft und bei Bedarf aktualisiert; beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge. Wir nehmen kein Geld für Empfehlungen und nennen Kriterien statt Marken. Bei sicherheitsrelevanten Arbeiten sagen wir offen, wann eine Fachwerkstatt der bessere Weg ist. Die Einzelheiten stehen in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
 
 ## Wie sich VELNIXO finanziert
 

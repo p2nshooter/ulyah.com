@@ -2,7 +2,7 @@
 title: "Wandern mit Baby: Trage, Kraxe und die richtige Tour für die ersten Ausflüge"
 description: Ab wann welche Trage passt, wie du dein Baby vor Sonne, Kälte und Wind schützt, welche Touren sich eignen und was in den Wickelrucksack gehört.
 category: kinder-und-hund
-date: 2026-07-14
+date: 2026-10-06
 ---
 Mit einem Baby wandern zu gehen, klingt für viele frischgebackene Eltern zunächst nach einem Widerspruch. Dabei sind Babys oft wunderbar entspannte Wanderbegleiter: Sie schlafen in der Trage, lassen sich vom Schaukeln beruhigen und schauen mit großen Augen in die Baumkronen. Mit der richtigen Ausrüstung und realistischen Erwartungen kannst du schon in den ersten Monaten mit deinem Kind hinaus in die Natur.
 

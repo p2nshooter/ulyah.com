@@ -2,7 +2,7 @@
 title: "Museos imprescindibles de América Latina y cómo visitarlos sin agotarte"
 description: "Grandes museos de arqueología, arte y memoria en México, Colombia, Perú, Chile, Argentina o Brasil, y cómo planificar la visita: días de cierre, entradas, guías, fotos, niños y fatiga."
 category: ciudades-y-cultura
-date: 2026-09-19
+date: 2026-10-11
 ---
 Antes de subir a una pirámide, recorrer un centro colonial o viajar a una comunidad andina, pocas cosas ayudan tanto como pasar unas horas en un buen museo. Los museos de América Latina guardan algunas de las colecciones más extraordinarias del mundo: piezas de oro de culturas prehispánicas, esculturas mexicas de varias toneladas, textiles andinos de miles de años, pintura del virreinato, murales que cambiaron la historia del arte y obras contemporáneas que dialogan con todo ese pasado.
 

@@ -2,7 +2,7 @@
 title: "Aufbereitung von Kaffee: gewaschen, natural, honey und was sie im Geschmack bewirken"
 description: "Wie aus der Kaffeekirsche die Rohbohne wird: nasse, trockene und Honey-Aufbereitung, Wet Hulling aus Indonesien und neue Fermentationen, mit ihrem Einfluss auf Säure, Süße, Körper und Fruchtigkeit."
 category: bohnen-und-roestung
-date: 2026-07-16
+date: 2026-10-06
 ---
 Auf vielen Kaffeepackungen von kleinen Röstereien steht neben Land und Region ein Wort, das zunächst rätselhaft wirkt: „gewaschen“, „natural“ oder „honey“. Diese Angabe beschreibt die Aufbereitung, also den Weg von der reifen Kaffeekirsche am Strauch bis zur grünen Rohbohne, die verschifft und geröstet wird. Die Aufbereitung prägt den Geschmack fast so stark wie die Herkunft. Dieselbe Varietät von derselben Farm kann gewaschen klar und zitronig schmecken und als Natural nach Blaubeeren und Rotwein. Wer die Unterschiede kennt, findet leichter die Kaffees, die ihm schmecken.
 

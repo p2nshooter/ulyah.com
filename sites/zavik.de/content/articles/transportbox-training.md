@@ -2,7 +2,7 @@
 title: "Transportbox-Training: So wird der Tierarztbesuch stressfrei"
 description: Wie du die Transportbox zu einem vertrauten Ort machst, deine Katze ohne Kampf hineinbekommst und Autofahrt und Tierarztbesuch entspannter gestaltest.
 category: pflege-und-alltag
-date: 2026-07-21
+date: 2026-10-05
 ---
 Es ist Impftermin. Die Transportbox wird aus dem Keller geholt, und noch bevor sie im Flur steht, ist die Katze unter dem Bett verschwunden. Was folgt, ist für alle Beteiligten unschön: Verfolgungsjagden durch die Wohnung, eine Katze, die sich mit allen vier Pfoten gegen den Boxeingang stemmt, Kratzer an den Armen und ein Tier, das schon völlig aufgelöst in der Praxis ankommt.
 

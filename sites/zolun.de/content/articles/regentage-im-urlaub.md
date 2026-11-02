@@ -2,7 +2,7 @@
 title: "Regentage im Urlaub: 30 Ideen für drinnen und draußen – von Therme bis Tropfsteinhöhle"
 description: "Was tun, wenn es im Urlaub regnet? 30 Ideen von Therme und Mitmachmuseum über Tropfsteinhöhle und Bergwerk bis zur Regenwanderung, mit Plänen für Familien."
 category: reiseplanung
-date: 2026-09-28
+date: 2026-10-11
 ---
 Regen gehört zum Urlaub in Deutschland dazu, an der Küste wie in den Bergen. Ein verregneter Tag muss aber kein verlorener Tag sein. Mit ein paar Ideen in der Hinterhand wird daraus oft einer der schönsten Urlaubstage: ein Nachmittag in der Therme, eine Führung durch ein Bergwerk, ein Spaziergang im Nieselregen mit anschließendem Kakao oder ein Spieletag in der Ferienwohnung. Dieser Ratgeber sammelt Ideen für drinnen und draußen und zeigt, wie du mit dem Wetter planst statt gegen es.
 

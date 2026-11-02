@@ -2,7 +2,7 @@
 title: "Casa para clima frío de altura: sol, masa térmica, hermeticidad y calefacción segura"
 description: "Cómo hacer más cálida una casa en Bogotá, Quito, La Paz, Cusco, Toluca o el altiplano: captar sol, aprovechar la masa térmica, aislar techo y ventanas, evitar condensación y calentar con seguridad."
 category: arquitectura-y-casas
-date: 2026-09-23
+date: 2026-10-11
 ---
 En las ciudades de altura de América Latina el frío tiene un carácter particular. En Bogotá, Quito, Cusco, La Paz, Toluca o Puno el sol del mediodía puede quemar la piel, pero en cuanto se oculta la temperatura cae en picada y las mañanas son heladas. Muchas casas no tienen calefacción, los muros y pisos están fríos durante meses y las familias se abrigan dentro de casa con varias capas de ropa. A eso se suma la humedad que se condensa en vidrios y esquinas, y el moho que aparece en closets y dormitorios.
 

@@ -2,7 +2,7 @@
 title: "El pulido de gemas: abrasivos, discos, polvos y por qué cada piedra pide un pulido distinto"
 description: "Cómo se logra el pulido espejo en cabujones y facetas: secuencia de abrasivos, discos y polvos, errores comunes y el método para cuarzo, corindón, jade, ópalo y piedras blandas."
 category: arte-tallado-y-artesania
-date: 2026-10-31
+date: 2026-11-01
 ---
 En una gema tallada, el pulido es lo último que se hace y lo primero que se ve. Una piedra de buen color con un pulido mediocre parece apagada, sucia o barata. La misma piedra, con un pulido impecable, refleja la luz como un espejo y deja ver su interior con nitidez. Para el aficionado que empieza en la lapidaria, el pulido suele ser también la etapa más frustrante: rayas que no desaparecen, superficies con "piel de naranja", facetas que se redondean. La buena noticia es que casi todos estos problemas tienen causa conocida y solución.
 

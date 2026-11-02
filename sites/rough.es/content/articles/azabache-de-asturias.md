@@ -2,7 +2,7 @@
 title: "Azabache de Asturias: la piedra negra de los peregrinos, cómo reconocerla y cuidarla"
 description: "Qué es el azabache, por qué el de Asturias es famoso, su vínculo con el Camino de Santiago y la higa contra el mal de ojo, cómo distinguirlo de imitaciones y cómo cuidar una pieza."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Negro, ligero y cálido al tacto, el azabache es una de las gemas más singulares que existen: no es un mineral, sino madera fósil transformada a lo largo de millones de años. En España tiene una historia muy particular. Durante siglos, los artesanos de Santiago de Compostela lo tallaron para los peregrinos en forma de conchas, figuras del apóstol y amuletos, y una de las fachadas de la catedral lleva todavía el nombre de los azabacheros. Buena parte de ese material procedía de la costa asturiana, donde la extracción y el trabajo del azabache se han mantenido como un oficio de tradición familiar.
 

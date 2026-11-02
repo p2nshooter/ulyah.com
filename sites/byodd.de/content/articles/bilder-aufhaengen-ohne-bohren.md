@@ -2,7 +2,7 @@
 title: "Bilder aufhängen ohne Bohren: Klebestreifen, Bilderleisten, Nägel und mehr"
 description: Welche Methoden es gibt, Bilder und Spiegel ohne Bohrmaschine aufzuhängen, wie viel Gewicht sie tragen, auf welchen Wänden sie halten und wie du Rückstände beim Abnehmen vermeidest.
 category: deko-und-wohnen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Nicht jeder hat eine Bohrmaschine, nicht jeder Vermieter sieht viele Löcher gern, und in manchen Wohnungen sind die Wände so hart, dass jedes Bild zum Kraftakt wird. Zum Glück gibt es viele Möglichkeiten, Bilder, Poster und sogar leichte Spiegel ohne Bohren aufzuhängen. Jede Methode hat ihre Grenzen, und nicht jede hält auf jeder Wand.
 

@@ -2,7 +2,7 @@
 title: "Nein sagen lernen: Freundlich Grenzen setzen, ohne Schuldgefühle und ohne Streit"
 description: "Nein sagen lernen im Alltag: Warum es so schwerfällt, wie du freundlich und klar ablehnst, passende Formulierungen für Job, Familie und Freunde und wie du mit Schuldgefühlen umgehst."
 category: zeit-energie-und-schlaf
-date: 2026-09-20
+date: 2026-10-11
 ---
 Die Kollegin fragt, ob du noch schnell die Präsentation übernehmen kannst. Der Nachbar möchte am Samstag Hilfe beim Umzug. Im Elternchat wird jemand gesucht, der den Kuchen für das Sommerfest backt. Und bevor du richtig nachgedacht hast, hörst du dich schon sagen: „Klar, mach ich.“ Später sitzt du abends am Küchentisch, der eigene Plan ist längst über den Haufen geworfen, und du fragst dich, warum du schon wieder zugesagt hast.
 

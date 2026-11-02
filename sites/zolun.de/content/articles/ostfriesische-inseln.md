@@ -2,7 +2,7 @@
 title: "Die Ostfriesischen Inseln im Vergleich: Borkum, Juist, Norderney, Baltrum, Langeoog, Spiekeroog und Wangerooge"
 description: "Sieben bewohnte Inseln, sieben Charaktere: So findest du heraus, welche Ostfriesische Insel zu deiner Familie, deinem Ruhebedürfnis oder deinem aktiven Urlaub passt."
 category: inseln
-date: 2026-06-21
+date: 2026-10-11
 ---
 Vor der Küste Ostfrieslands liegt eine Kette aus sieben bewohnten Inseln, aufgereiht wie Perlen zwischen Ems und Jade. Von Weitem sehen sie sich ähnlich: Dünen, ein langer Sandstrand zum offenen Meer, ein Inseldorf und auf der Rückseite das Watt. Wer dort ankommt, merkt aber schnell, dass jede Insel ihren eigenen Charakter hat. Auf der einen fahren Autos durch eine kleine Stadt mit Kurhaus und Promenade, auf der anderen hörst du abends nur Wind und Möwen. Prospekte helfen bei der Wahl wenig, weil jede Insel sich als die schönste beschreibt. Dieser Vergleich ordnet die sieben Inseln nach dem, was im Urlaub wirklich zählt: Größe, Trubel oder Stille, Anreise und die Frage, wer sich wo wohlfühlt.
 

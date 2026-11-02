@@ -2,7 +2,7 @@
 title: "Subastas de joyas en España: cómo pujar, cuánto cuesta realmente un lote y cómo vender en subasta"
 description: "Cómo funcionan las subastas de joyas: catálogo, estimación, precio de salida, comisión del comprador, IVA, informes de estado, pujas en sala y en línea, exportación y cómo vender una pieza."
 category: compra-y-valoracion
-date: 2026-10-11
+date: 2026-10-12
 ---
 Las subastas son uno de los lugares más interesantes para comprar joyas: piezas antiguas que ya no se fabrican, joyas firmadas por grandes casas, piedras importantes con informes de laboratorio y, de vez en cuando, verdaderas oportunidades. También son un buen canal para vender piezas con valor más allá del metal. Pero tienen sus propias reglas, un vocabulario particular y costes que no siempre se ven en la cifra del martillo. Quien puja sin conocerlos puede acabar pagando bastante más de lo que pensaba, o comprando una pieza con defectos que no podrá devolver.
 

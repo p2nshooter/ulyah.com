@@ -2,7 +2,7 @@
 title: "Richtig fragen: So bekommst du von der KI bessere Antworten (mit Vorlagen)"
 description: "Wie du Fragen an ChatGPT, Gemini oder Copilot so formulierst, dass die Antworten passen: Kontext, Rolle, Ziel, Format, Beispiele und Nachfragen, mit Vorlagen für typische Alltagsaufgaben."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Zwei Menschen stellen einem KI-Assistenten scheinbar dieselbe Frage. Die eine bekommt eine allgemeine, nichtssagende Antwort, die andere einen passgenauen Text, den sie fast unverändert verwenden kann. Der Unterschied liegt selten an der KI, sondern an der Art, wie gefragt wurde. Die Eingabe an eine KI nennt man **Prompt**, und gute Prompts sind keine Geheimwissenschaft. Mit ein paar einfachen Regeln bekommst du deutlich bessere Ergebnisse. Diese Anleitung erklärt die Grundlagen, zeigt typische Fehler und gibt dir Vorlagen für Alltagsaufgaben, die du sofort ausprobieren kannst.

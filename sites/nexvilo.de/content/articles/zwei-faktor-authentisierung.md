@@ -2,7 +2,7 @@
 title: "Zwei-Faktor-Authentisierung einfach erklärt: Der zweite Schlüssel für deine Konten"
 description: "Was Zwei-Faktor-Authentisierung ist, welche Methoden es gibt (SMS, App, Sicherheitsschlüssel, Passkey), wie du sie bei E-Mail, Google, Apple und Co. einschaltest und Wiederherstellungscodes sicherst."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Stell dir vor, jemand hat dein Passwort herausgefunden, durch ein Datenleck, eine gefälschte Website oder einfach durch Raten. Ohne weiteren Schutz kann er sich jetzt in dein Konto einloggen, deine E-Mails lesen, in deinem Namen bestellen oder Geld überweisen. Mit **Zwei-Faktor-Authentisierung** (oft 2FA genannt) reicht das Passwort allein nicht. Der Angreifer bräuchte zusätzlich etwas, das nur du hast, meistens dein Smartphone. Diese Anleitung erklärt, wie das funktioniert, welche Methoden es gibt, welche am sichersten ist und wie du sie einrichtest, ohne dich im Ernstfall selbst auszusperren.

@@ -2,7 +2,7 @@
 title: Levaduras: fresca, seca, química y masa madre, diferencias, equivalencias y cuándo usar cada una
 description: Levadura fresca, seca, química, bicarbonato y masa madre: en qué se diferencian, tabla de equivalencias, temperaturas y qué usar en cada receta.
 category: tecnica
-date: 2026-10-12
+date: 2026-10-04
 ---
 En España, la palabra "levadura" se usa para cosas muy distintas, y esa confusión es responsable de muchos fracasos en la cocina. Quien pone levadura química en un pan obtiene una torta densa; quien pone levadura de panadería en un bizcocho, un bizcocho con sabor a pan que no sube como debería. Esta guía aclara las diferencias, explica cómo funciona cada tipo y ofrece equivalencias para que puedas adaptar cualquier receta.
 

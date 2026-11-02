@@ -2,7 +2,7 @@
 title: "Datenschutz am Handy: Die wichtigsten Einstellungen für Android und iPhone"
 description: "Welche Apps sehen deinen Standort, deine Fotos und dein Mikrofon? So prüfst du App-Berechtigungen, stoppst Tracking und Werbe-IDs und schützt deine Daten auf Android und iPhone."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Dein Smartphone weiß mehr über dich als die meisten Menschen in deinem Leben: wo du wohnst und arbeitest, mit wem du schreibst, welche Fotos du machst, wann du schläfst und wofür du dich interessierst. Viele Apps möchten an diese Informationen heran, oft aus guten Gründen, manchmal aber auch nur, um Werbung zu verkaufen. Die gute Nachricht: Android und iOS geben dir inzwischen sehr genaue Werkzeuge, um zu steuern, wer was sieht. Diese Anleitung zeigt dir, welche Einstellungen den größten Unterschied machen und wie du sie in einer halben Stunde erledigst.

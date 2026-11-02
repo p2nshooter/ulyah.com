@@ -2,7 +2,7 @@
 title: "Meal Prep for Beginners: A Two-Hour Sunday Routine for Easier, Healthier Weekdays"
 description: "Choose a meal prep style, plan a realistic menu, follow a step-by-step two-hour session, pick the right containers and store prepped food safely so lunches and dinners are mostly ready."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Meal prep has become popular for good reason. Spending a couple of hours preparing food in advance can make weekday breakfasts, lunches and dinners much easier, healthier and cheaper. Instead of grabbing takeout or snacks, you open the fridge and find ready-to-eat meals or components that come together in minutes. But for beginners, meal prep can look overwhelming: rows of identical containers, complicated schedules and fear of eating the same chicken and broccoli all week. It does not have to be like that. This guide explains different styles of meal prep, how to plan a realistic menu and how to organize a two-hour session that sets you up for the week.

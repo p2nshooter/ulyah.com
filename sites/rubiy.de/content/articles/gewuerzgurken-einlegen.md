@@ -2,7 +2,7 @@
 title: "Gewürzgurken einlegen: knackig, sicher und mit dem richtigen Essigsud"
 description: "Gewürzgurken selbst einlegen: welche Gurken sich eignen, wie stark der Essigsud sein muss, warum Gurken weich werden und wie lange sie im Wasserbad bleiben."
 category: vorrat-und-konservieren
-date: 2026-10-12
+date: 2026-10-06
 ---
 Selbst eingelegte Gewürzgurken sind knackiger, würziger und weniger süß als die meisten Gläser aus dem Supermarkt. Die Saison dafür ist kurz: Kleine Einlegegurken gibt es von Juli bis in den September, am meisten im August. Wer dann ein paar Kilo kauft und an einem Nachmittag einlegt, hat bis zum nächsten Sommer Vorrat für Brotzeit, Kartoffelsalat und Rouladen.
 

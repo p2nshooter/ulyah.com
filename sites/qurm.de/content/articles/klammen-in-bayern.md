@@ -2,7 +2,7 @@
 title: "Klammen in Bayern: Partnachklamm, Höllentalklamm, Breitachklamm und mehr"
 description: Tosendes Wasser, enge Felswände und Steige im Fels: die bekanntesten Klammen der bayerischen Alpen mit Tipps zu Öffnungszeiten, Andrang, Kleidung und Sicherheit.
 category: berge-und-tagestouren
-date: 2026-07-11
+date: 2026-10-06
 ---
 Eine Klamm ist eine enge, tief eingeschnittene Schlucht, die ein Gebirgsbach über Jahrtausende in den Fels gegraben hat. Die Wände stehen so dicht beieinander, dass man den Himmel nur noch als schmalen Streifen sieht, das Wasser donnert unter dir durch Becken und über Stufen, und überall tropft, sprüht und rauscht es. In den bayerischen Alpen gibt es eine ganze Reihe solcher Klammen, die durch Steige, Galerien, Tunnel und Brücken erschlossen sind. Für viele Familien und Wandernde gehören sie zu den eindrucksvollsten Ausflugszielen überhaupt.
 

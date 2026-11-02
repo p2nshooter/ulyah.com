@@ -2,7 +2,7 @@
 title: "Nistkästen für Gartenvögel: richtig bauen, aufhängen und reinigen"
 description: "Welche Vögel Nistkästen nutzen, welche Einfluglöcher zu welcher Art passen, wo und wann du Kästen aufhängst, wie du sie vor Katzen schützt und wann du sie reinigst."
 category: naturgarten-und-nuetzlinge
-date: 2026-10-13
+date: 2026-10-14
 ---
 Höhlenbrütende Vögel wie Meisen, Spatzen oder Kleiber finden in vielen Gärten keine natürlichen Bruthöhlen mehr. Alte Bäume mit Spechthöhlen und ausgefaulten Astlöchern sind selten geworden, und moderne Häuser bieten kaum Nischen. Ein gut gebauter und richtig aufgehängter Nistkasten kann diese Lücke schließen und bringt gleichzeitig ein Stück Natur direkt vor das Fenster.
 

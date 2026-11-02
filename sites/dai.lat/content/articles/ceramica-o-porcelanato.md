@@ -2,7 +2,7 @@
 title: "¿Cerámica o porcelanato? Diferencias, clasificaciones y cómo elegir para cada ambiente"
 description: "Absorción de agua, resistencia al desgaste PEI, piezas rectificadas, grandes formatos, adhesivos y juntas: cómo elegir entre cerámica y porcelanato y cómo comprar e instalar sin sorpresas."
 category: materiales-y-acabados
-date: 2026-09-21
+date: 2026-10-11
 ---
 En la tienda, una cerámica y un porcelanato pueden verse casi iguales. Ambos imitan madera, piedra, cemento o mármol; ambos vienen en colores y formatos parecidos. Pero por dentro son materiales distintos, con comportamientos distintos frente al agua, el desgaste, las heladas y los golpes. Elegir uno u otro sin conocer la diferencia puede llevar a gastar de más en un muro que no lo necesita o a colocar en una cocina de mucho tránsito una pieza que se rayará en pocos años.
 

@@ -2,7 +2,7 @@
 title: Über uns
 description: Wer hinter ZAVIK steht, warum wir einen Katzen-Ratgeber schreiben, wie unsere Texte entstehen und was der Name bedeutet.
 order: 1
-updated: 2026-10-04
+updated: 2026-11-02
 ---
 ZAVIK steht für **Za**rte **Vi**erbeiner, **k**luge Katzenpflege. Wir schreiben für alle, die mit einer Katze zusammenleben oder es bald tun wollen: für die Familie, die zum ersten Mal ein Tier aus dem Tierheim holt, für die Studentin mit ihrem Wohnungskater, für den Rentner, dessen alte Katze plötzlich mehr trinkt als früher.
 
@@ -25,7 +25,7 @@ ZAVIK ist in sechs Themen gegliedert, die wir die „sechs Stufen“ nennen, wei
 
 ## Wie unsere Texte entstehen
 
-Jeder Ratgeber wird von unserer Redaktion selbst geschrieben, nicht automatisch erzeugt und nicht aus anderen Websites zusammenkopiert. Wir stützen uns auf veterinärmedizinische Fachliteratur, auf Empfehlungen tiermedizinischer Fachgesellschaften und Leitlinien zur Impfung und Parasitenbekämpfung sowie auf die Erfahrung aus dem Zusammenleben mit Katzen. Wo die Fachwelt uneins ist, sagen wir das. Wie wir genau arbeiten, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
+Jeder Ratgeber wird eigens für ZAVIK erarbeitet und nicht aus anderen Websites zusammenkopiert. Beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge. Inhaltlich stützen wir uns auf veterinärmedizinische Fachliteratur, auf Empfehlungen tiermedizinischer Fachgesellschaften und auf Leitlinien zur Impfung und Parasitenbekämpfung. Bei allem, was die Gesundheit deines Tieres betrifft, ersetzt kein Text den Besuch in der Tierarztpraxis. Wo die Fachwelt uneins ist, sagen wir das. Wie wir genau arbeiten, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
 
 ## Was wir nicht tun
 

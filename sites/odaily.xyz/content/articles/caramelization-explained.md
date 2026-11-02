@@ -2,7 +2,7 @@
 title: "Caramelization Explained: How Sugar Turns Golden, Why Onions Take So Long and How to Make Caramel Safely"
 description: "What happens when sugar caramelizes, the temperatures for different sugars, how caramelized onions really work, dry versus wet caramel, preventing crystallization and burns, and fixing caramel sauce."
 category: kitchen-science
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Few transformations in the kitchen are as magical as caramelization. Plain white sugar, heated in a pan, slowly melts, turns pale gold, then amber, then deep mahogany, and fills the kitchen with a rich, buttery, slightly bitter aroma. The same process gives caramelized onions their sweetness, roasted carrots their candy-like edges and crème brûlée its glassy top. Caramelization is simple to describe but full of subtle chemistry, and understanding it helps you make better caramel sauces, sweeter onions and more flavorful roasted vegetables, while avoiding burnt sugar and painful burns.

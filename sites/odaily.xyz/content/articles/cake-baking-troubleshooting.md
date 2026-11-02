@@ -2,7 +2,7 @@
 title: "Why Cakes Sink, Crack or Turn Dry: A Practical Guide to Baking Reliable Cakes at Home"
 description: "The causes behind sunken middles, domes and cracks, dense or dry crumbs and stuck cakes, with the creaming method explained, pan preparation, doneness tests and how to fix or rescue a cake."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 A homemade cake is one of the most generous things you can make for someone. But cakes can also be frustrating. One collapses in the middle as it cools, another rises into a cracked dome, a third comes out dense or dry, and sometimes the whole thing refuses to leave the pan. Each of these problems has a cause, and most of them can be traced to a handful of factors: how ingredients are measured and mixed, the temperature of the ingredients and the oven, the pan and the baking time. This guide explains how a basic butter cake works, how to prevent the most common problems and what to do when something goes wrong.

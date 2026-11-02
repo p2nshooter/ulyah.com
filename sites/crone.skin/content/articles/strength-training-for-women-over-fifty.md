@@ -2,7 +2,7 @@
 title: "Strength Training for Women Over Fifty: A Beginner's Guide to Getting Stronger"
 description: Why muscle strength matters more with age, how often to train, simple bodyweight and band exercises to start with, good form, progression and how to stay safe.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 When many women think about exercise, they think of walking, swimming or classes. Strength training — sometimes called resistance training or weight training — is often overlooked, or associated with gyms full of heavy weights and young men. Yet for women over fifty, building and maintaining strength is one of the most valuable things you can do for everyday life. Strong muscles help you carry shopping, climb stairs, get up from the floor, lift grandchildren, garden, travel and stay independent.
 

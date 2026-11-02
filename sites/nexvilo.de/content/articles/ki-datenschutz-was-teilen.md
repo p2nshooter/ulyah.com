@@ -2,7 +2,7 @@
 title: "Datenschutz bei KI: Was du ChatGPT und Co. erzählen solltest und was besser nicht"
 description: "Was mit deinen Eingaben bei KI-Assistenten passiert, welche Daten tabu sind, wie du Training und Verlauf abschaltest, Dokumente vorher schwärzt und KI auch lokal auf dem eigenen Gerät nutzt."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 KI-Assistenten sind erstaunlich gute Zuhörer. Man erzählt ihnen von der Streitigkeit mit dem Vermieter, lädt den Arztbrief hoch, fügt die Gehaltsabrechnung ein oder bittet um Hilfe bei einer heiklen E-Mail an die Chefin. Was dabei leicht vergessen wird: Alles, was du eintippst oder hochlädst, landet zunächst auf den Servern eines Unternehmens. Dort kann es gespeichert, ausgewertet und je nach Einstellung sogar zum Training künftiger Modelle verwendet werden. Diese Anleitung erklärt, was mit deinen Eingaben passiert, welche Daten du nie teilen solltest, wie du die Einstellungen datenschutzfreundlich wählst und wie du KI trotzdem für sensible Aufgaben nutzen kannst.

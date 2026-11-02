@@ -2,7 +2,7 @@
 title: "Joyas y alergias a los metales: el níquel, los metales más tolerados, los dedos verdes y cómo elegir piezas para piel sensible"
 description: "Por qué algunas joyas irritan la piel, el papel del níquel, los metales mejor tolerados, qué significa hipoalergénico, los dedos verdes y qué saber sobre las perforaciones."
 category: lujo-y-estilo-de-vida
-date: 2026-10-31
+date: 2026-11-01
 ---
 Pocas cosas desaniman tanto como estrenar unos aretes preciosos y, al día siguiente, tener el lóbulo rojo, hinchado y con picor. O descubrir una marca verdosa en el dedo después de un fin de semana con un anillo nuevo. Las reacciones de la piel a las joyas son muy frecuentes, y casi siempre tienen una explicación sencilla. Conocerla ayuda a elegir mejor, a evitar molestias y a saber cuándo conviene consultar a un médico.
 

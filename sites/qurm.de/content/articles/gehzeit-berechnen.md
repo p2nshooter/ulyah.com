@@ -2,7 +2,7 @@
 title: "Gehzeit berechnen: So planst du realistisch mit Kilometern und Höhenmetern"
 description: Die Faustformel nach DIN 33466, Leistungskilometer und Zuschläge für Pausen, Kinder und Gelände: so schätzt du die Dauer einer Wanderung zuverlässig ab.
 category: planung-und-navigation
-date: 2026-06-09
+date: 2026-10-06
 ---
 „Wie lange brauchen wir dafür?“ ist die wichtigste Frage vor jeder Wanderung. Von der Antwort hängt ab, wann du losgehst, ob du die letzte Bahn erreichst, ob die Hütte noch Abendessen ausgibt und ob du vor dem Nachmittagsgewitter vom Gipfel herunter bist. Wer nur auf die Kilometer schaut, verschätzt sich fast immer, denn Höhenmeter kosten deutlich mehr Zeit als flache Strecke.
 

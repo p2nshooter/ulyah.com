@@ -2,7 +2,7 @@
 title: "Flaky Pie Crust and Pastry: Cold Butter, Gentle Hands and Blind Baking Without Fear"
 description: "How flaky pastry works, a reliable all-butter pie crust, rolling and fitting dough without shrinking, blind baking with weights, preventing soggy bottoms and making crust ahead or in the freezer."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 A homemade pie crust has a reputation for being difficult. Stories of crusts that crack, shrink, turn tough or end with a soggy bottom make many home bakers reach for store-bought dough. Yet a good pie crust needs only four or five ingredients and a few simple principles. The secret is not special equipment or magic hands but understanding what makes pastry flaky and tender: keep the fat cold, use just enough water and handle the dough as little as possible. This guide explains how pastry works, gives you a reliable all-butter crust and shows you how to roll, shape and bake it with confidence.

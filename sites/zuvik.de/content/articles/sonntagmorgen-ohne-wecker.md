@@ -2,7 +2,7 @@
 title: "Sonntagmorgen ohne Wecker"
 description: Unter der Woche hetzt Familie Albrecht von Termin zu Termin. Dann erfinden die Kinder einen Sonntag ohne Plan. Über freie Zeit, Pfannkuchen im Schlafanzug und Rituale ohne Programm.
 category: morgens-und-abends
-date: 2026-10-12
+date: 2026-10-05
 ---
 Der Kalender der Familie Albrecht hing an der Kühlschranktür, und er war bunt. Rot für Lukas: Fußball dienstags und donnerstags, Klavier mittwochs. Grün für Hanna: Schwimmen montags, Ballett freitags, und am Samstagvormittag die Theater-AG. Blau für Mama Christine, die als Steuerberaterin auch samstags oft Mandanten traf. Gelb für Papa Markus, der zweimal die Woche Fußballtrainer der E-Jugend war, also auch von Lukas' Mannschaft. Am Wochenende kamen Geburtstage dazu, Besuche bei den Großeltern in Fulda, Turniere, Aufführungen.
 

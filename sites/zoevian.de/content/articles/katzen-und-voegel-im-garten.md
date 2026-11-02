@@ -2,7 +2,7 @@
 title: "Katzen und Vögel im Garten: Wie Vogelfreunde und Katzenhalter gut zusammenleben"
 description: "Warum Katzen für Gartenvögel ein Problem sind, was Katzenhalter tun können, wie du Futterstellen und Nistkästen sicherst und welche Abwehrmaßnahmen wirklich helfen."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Kaum ein Thema sorgt unter Gartennachbarn für so viel Streit wie Katzen und Vögel. Für die einen ist die eigene Katze ein Familienmitglied, das selbstverständlich draußen herumstreift. Für die anderen ist sie der Grund, warum die Amselbrut in der Hecke jedes Jahr verschwindet. Beide Seiten haben ihre Gründe, und die gute Nachricht ist: Es gibt viele Möglichkeiten, das Risiko für Vögel deutlich zu senken, ohne dass Katzen oder ihre Halter darunter leiden.

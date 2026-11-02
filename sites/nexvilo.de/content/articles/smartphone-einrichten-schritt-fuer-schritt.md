@@ -2,7 +2,7 @@
 title: "Neues Smartphone einrichten: Die ersten Schritte, Datenumzug und sinnvolle Einstellungen"
 description: "Neues Handy, was nun? Schritt für Schritt vom Auspacken über den Datenumzug bis zu Sperre, Backup, Updates und den Einstellungen, die du am ersten Tag erledigen solltest."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Ein neues Smartphone auszupacken ist ein schöner Moment, bis die Einrichtung beginnt. Plötzlich fragt das Gerät nach Konten, Passwörtern, Datenschutz-Einstellungen und ob du Daten vom alten Gerät übernehmen willst. Wer hier hastig durchklickt, ärgert sich später über fehlende Fotos, verlorene Chats oder Dutzende Benachrichtigungen. Mit dieser Anleitung richtest du dein neues Smartphone in Ruhe ein, egal ob Android oder iPhone, und erledigst dabei gleich die Einstellungen, die dir im Alltag am meisten helfen.

@@ -134,12 +134,24 @@ export function parseFrontmatter(src) {
   const m = /^---\n([\s\S]*?)\n---\n?([\s\S]*)$/.exec(String(src).replace(/\r\n?/g, "\n"));
   if (!m) return { data: {}, body: String(src) };
   const data = {};
+  const unquote = (v) => (/^".*"$/.test(v) || /^'.*'$/.test(v) ? v.slice(1, -1) : v);
+  let list = null; // a key with no value on its line, followed by "- item" lines, is a list
   for (const line of m[1].split("\n")) {
+    const item = /^\s*-\s+(.*)$/.exec(line);
+    if (item && list) {
+      data[list].push(unquote(item[1].trim()));
+      continue;
+    }
     const kv = /^([A-Za-z_][\w-]*):\s*(.*)$/.exec(line);
     if (!kv) continue;
-    let v = kv[2].trim();
-    if (/^".*"$/.test(v) || /^'.*'$/.test(v)) v = v.slice(1, -1);
-    data[kv[1]] = v;
+    const v = kv[2].trim();
+    if (v === "") {
+      list = kv[1];
+      data[list] = [];
+      continue;
+    }
+    list = null;
+    data[kv[1]] = unquote(v);
   }
   return { data, body: m[2] };
 }

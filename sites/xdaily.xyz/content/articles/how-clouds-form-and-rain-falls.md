@@ -2,7 +2,7 @@
 title: "How Clouds Form and Why Rain Falls: Cloud Types, Raindrops, Snow, Hail and Thunderstorms"
 description: "Why rising air makes clouds, how to name the main cloud types, how tiny droplets grow into raindrops and snowflakes, what makes hail and lightning, and what clouds say about coming weather."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Clouds are the most visible part of the weather, constantly changing shape, color and height. They can be thin wisps high in the sky, fluffy white heaps on a summer afternoon or towering dark giants that bring thunder and hail. Yet a cloud is simply a collection of tiny water droplets or ice crystals floating in the air. How do they form, why do they look so different, and why do some produce rain while others drift by harmlessly? This explainer looks at the physics of clouds and precipitation, and what clouds can tell you about the weather to come.

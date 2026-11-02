@@ -2,7 +2,7 @@
 title: "How Touchscreens Work: Capacitive and Resistive Screens, Multi-Touch and Why Gloves Do Not Work"
 description: "How a phone senses your finger through glass, capacitive versus resistive screens, how multi-touch and pinch-to-zoom work, why gloves and water confuse screens and what comes next."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Touchscreens have become so natural that small children try to swipe magazine pages and television screens. With a tap, a swipe or a pinch, we control phones, tablets, laptops, car dashboards, ticket machines and kitchen appliances. Yet the surface we touch is just a sheet of glass. How does a phone know exactly where your finger is, distinguish a tap from a swipe and follow two fingers at once to zoom into a photo? The answer lies in a clever use of electricity, and in particular in the fact that your body conducts it. This explainer describes how touchscreens work.

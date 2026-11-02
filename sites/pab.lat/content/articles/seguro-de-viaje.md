@@ -2,7 +2,7 @@
 title: "Seguro de viaje para América Latina: qué cubre, qué revisar y cómo usarlo en una emergencia"
 description: "Diferencias entre seguro y asistencia al viajero, coberturas médicas, cancelación y equipaje, exclusiones por deportes, altura o enfermedades previas, tarjetas de crédito y qué hacer al enfermar."
 category: planificacion-y-presupuesto
-date: 2026-08-10
+date: 2026-10-11
 ---
 Nadie planea enfermarse en un viaje, torcerse un tobillo en un sendero o perder la maleta en una escala. Pero ocurre, y cuando ocurre lejos de casa, sin conocer el sistema de salud del país y sin hablar quizá el idioma, un buen seguro marca la diferencia entre un mal rato y una catástrofe económica. Una noche de internación o un traslado médico de emergencia pueden costar mucho más que todo el viaje.
 

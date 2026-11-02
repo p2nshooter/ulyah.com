@@ -2,7 +2,7 @@
 title: "Orfebrería precolombina: técnicas, culturas, significados y dónde verla hoy"
 description: "La metalurgia antigua de América, de los Andes a Mesoamérica: tumbaga, dorado por oxidación, cera perdida, platino de La Tolita, obras emblemáticas, museos y por qué no comprar piezas arqueológicas."
 category: joyeria-y-diseno
-date: 2026-10-11
+date: 2026-10-12
 ---
 Mucho antes de que los barcos europeos llegaran a sus costas, los pueblos de América ya trabajaban el oro, la plata y el cobre con una maestría asombrosa. Pectorales que brillaban como el sol, narigueras que transformaban el rostro de un gobernante, diminutas figuras de ranas, aves y jaguares fundidas con un detalle que hoy cuesta imitar, aleaciones capaces de cambiar de color en la superficie y hasta objetos de platino, un metal que en Europa no se sabría trabajar hasta siglos después.
 

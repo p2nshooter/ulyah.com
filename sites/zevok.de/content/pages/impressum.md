@@ -2,7 +2,7 @@
 title: Impressum
 description: Anbieterkennzeichnung und rechtliche Angaben für zevok.de gemäß § 5 DDG und § 18 MStV, mit Kontakt, Verantwortlichkeit und Hinweisen zur Haftung.
 order: 10
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 ## Angaben gemäß § 5 DDG
 
@@ -30,7 +30,7 @@ Die Inhalte dieser Website werden mit Sorgfalt erstellt und regelmäßig überpr
 
 ## Haftung für Links
 
-ZEVOK verlinkt in seinen Texten nur auf eigene Seiten. Sollten wir künftig auf externe Angebote verweisen, etwa auf Verbraucherinformationen öffentlicher Stellen, haben wir auf deren Inhalte keinen Einfluss und übernehmen dafür keine Gewähr. Für die Inhalte verlinkter Seiten ist stets der jeweilige Anbieter verantwortlich. Dasselbe gilt für die Websites, auf die eine Werbeanzeige führt. Bei Bekanntwerden von Rechtsverletzungen entfernen wir entsprechende Links umgehend.
+ZEVOK nennt unter seinen Ratgebern und Werkzeugen die Quellen, auf die sich die Angaben stützen, vor allem Verbraucherinformationen öffentlicher Stellen und von Fachverbänden. Auf die Inhalte dieser externen Seiten haben wir keinen Einfluss und übernehmen dafür keine Gewähr; wir prüfen sie, wenn wir einen Link setzen und wenn wir den Ratgeber überarbeiten. Für die Inhalte verlinkter Seiten ist stets der jeweilige Anbieter verantwortlich. Dasselbe gilt für die Websites, auf die eine Werbeanzeige führt. Bei Bekanntwerden von Rechtsverletzungen entfernen wir entsprechende Links umgehend.
 
 ## Hinweise auf Rechtsverletzungen
 

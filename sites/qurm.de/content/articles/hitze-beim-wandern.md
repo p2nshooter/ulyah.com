@@ -2,7 +2,7 @@
 title: "Wandern bei Hitze: Touren planen, Hitzeerschöpfung und Hitzschlag erkennen"
 description: "So wanderst du sicher im Hochsommer: früh starten, schattige Touren wählen, richtig trinken, Kleidung und Sonnenschutz, Warnzeichen von Hitzeerschöpfung und Hitzschlag und was im Notfall zu tun ist."
 category: sicherheit-und-wetter
-date: 2026-08-22
+date: 2026-10-06
 ---
 Hitzesommer sind in Deutschland häufiger geworden. Tage mit mehr als 30 Grad, an denen schon morgens die Luft steht, gehören inzwischen zu jedem Sommer. Für Wanderer bedeutet das: Eine Tour, die im Mai angenehm war, kann im Juli an einem Südhang zur ernsthaften Belastung werden. Der Körper kühlt sich vor allem durch Schwitzen. Wenn er mehr Wärme erzeugt, als er loswerden kann, steigt die Körpertemperatur, und die Leistung sinkt. Im schlimmsten Fall entsteht ein Hitzschlag, ein lebensbedrohlicher Notfall. Mit kluger Planung kannst du aber auch im Hochsommer schöne Touren machen.
 

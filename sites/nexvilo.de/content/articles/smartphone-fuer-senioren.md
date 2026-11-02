@@ -2,7 +2,7 @@
 title: "Smartphone für Seniorinnen und Senioren: Das richtige Gerät, einfache Einstellungen und geduldige Hilfe"
 description: "Welches Smartphone für ältere Menschen passt, wie du Schrift, Bedienung und Notruf einrichtest, welche Apps im Alltag helfen, wie du vor Betrug schützt und wie Angehörige gut unterstützen."
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Mit den Enkeln per Video telefonieren, Fotos von der Familie sehen, den Busfahrplan nachschlagen, die Apotheke anrufen oder im Notfall schnell Hilfe holen: Ein Smartphone kann das Leben im Alter leichter und reicher machen. Gleichzeitig wirkt es auf viele ältere Menschen kompliziert. Die Schrift ist klein, die Symbole sind rätselhaft, und ständig erscheinen Meldungen, die man nicht versteht. Die gute Nachricht: Moderne Smartphones lassen sich so einrichten, dass sie einfach, übersichtlich und sicher sind. Diese Anleitung hilft beim Kauf, bei den wichtigsten Einstellungen und zeigt Angehörigen, wie sie gut unterstützen können.

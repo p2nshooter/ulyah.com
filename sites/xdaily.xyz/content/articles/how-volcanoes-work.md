@@ -2,7 +2,7 @@
 title: "How Volcanoes Work: Magma, Eruptions, Volcano Types and How Scientists Watch for Warning Signs"
 description: "Where magma comes from, why some eruptions are gentle and others explosive, shield, cone and composite volcanoes, hazards like pyroclastic flows, the Ring of Fire and how eruptions are monitored."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Volcanoes are some of the most powerful and fascinating features on Earth. They can create new land, as in Hawaii and Iceland, build towering mountains and enrich soils for farming. They can also destroy cities, change the climate for years and send ash clouds around the world. More than a billion people live within range of an active volcano. Understanding how volcanoes work, where they form and why they erupt in different ways helps scientists protect communities and reveals how our planet is constantly reshaping itself. This explainer describes volcanoes from the deep source of magma to the eruption at the surface.

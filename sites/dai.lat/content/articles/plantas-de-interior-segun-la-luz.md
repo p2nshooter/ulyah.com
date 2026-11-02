@@ -2,7 +2,7 @@
 title: "Plantas de interior según la luz: cuál elegir para cada rincón y cómo mantenerlas sanas"
 description: "Cómo medir la luz real de tu casa, qué plantas soportan poca luz y cuáles necesitan sol, cómo regar sin ahogarlas, qué plantas son tóxicas para mascotas y qué hay de cierto sobre purificar el aire."
 category: interiores-y-decoracion
-date: 2026-09-27
+date: 2026-10-11
 ---
 Muchas de las plantas de interior más populares del mundo son originarias de América Latina. La costilla de Adán crece silvestre en los bosques del sur de México y Centroamérica; los anturios, los filodendros, las bromelias, las peperomias y las calateas vienen de los bosques tropicales del continente, y los cactus son americanos. Sin embargo, en casa muchas de ellas sufren: se ponen amarillas, se estiran buscando luz o se pudren por exceso de riego.
 

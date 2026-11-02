@@ -2,7 +2,7 @@
 title: Cuánto consume cada electrodoméstico: tabla de potencias y costes en casa
 description: Tabla práctica con la potencia y el consumo anual de los electrodomésticos más comunes en un hogar español, cómo calcular el coste de cualquier aparato y cuáles conviene vigilar primero.
 category: electrodomesticos-e-iluminacion
-date: 2026-08-29
+date: 2026-10-04
 ---
 Saber cuánto consume cada aparato de casa es el primer paso para reducir la factura de la luz con criterio. Sin datos, es fácil obsesionarse con apagar el cargador del móvil mientras el termo eléctrico o un frigorífico antiguo consumen cientos de kilovatios hora al año sin que nadie lo note.
 

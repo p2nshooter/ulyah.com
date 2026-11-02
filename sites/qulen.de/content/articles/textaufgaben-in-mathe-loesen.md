@@ -2,7 +2,7 @@
 title: "Textaufgaben in Mathe lösen: Wie Sara lernte, aus Sätzen Rechnungen zu machen"
 description: "Sara kann rechnen, doch sobald eine Aufgabe als Text kommt, steht sie vor einem Rätsel. Mit welchen fünf Schritten du Textaufgaben knackst, Skizzen nutzt und dein Ergebnis prüfst."
 category: mathe-und-lernluecken
-date: 2026-08-04
+date: 2026-10-11
 ---
 „Ein Schwimmbad wird mit zwei Pumpen gefüllt. Die erste Pumpe allein bräuchte sechs Stunden, die zweite allein vier Stunden …“ Sara las nicht weiter. Sie las den Anfang noch einmal, dann noch einmal. Die Wörter ergaben einzeln Sinn, aber zusammen bildeten sie eine Wand. Auf der Seite davor standen zwanzig Gleichungen, die sie alle richtig gelöst hatte. Aber hier gab es keine Gleichung. Nur Wörter. Sara klappte das Buch zu und sagte laut zu niemandem: „Warum können die das nicht einfach normal hinschreiben?“
 

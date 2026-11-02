@@ -2,7 +2,7 @@
 title: "Closet y guardado sin humedad: ropa ordenada, sin moho, sin polillas y sin olor a encierro"
 description: "Cómo organizar el closet por zonas y medidas, ventilarlo, proteger la ropa del moho y las polillas, cuidar el cuero y guardar la ropa de temporada en climas húmedos o fríos."
 category: interiores-y-decoracion
-date: 2026-09-05
+date: 2026-10-11
 ---
 Abrir el closet y encontrar puntos blancos en una chaqueta de cuero, manchas en una camisa guardada o ese olor a encierro que se pega a toda la ropa es más común de lo que parece. En climas húmedos como los de la costa del Caribe, Guayaquil o la Amazonía, y en ciudades con inviernos húmedos como Lima, Bogotá o el sur de Chile, el closet es uno de los lugares donde primero aparece el moho. Y en cualquier clima, las polillas pueden arruinar en silencio un suéter de lana o una manta de alpaca.
 

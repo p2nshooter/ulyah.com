@@ -2,7 +2,7 @@
 title: "Seguridad en grandes ciudades de América Latina: hábitos sencillos para viajar tranquilo"
 description: "Cómo moverte con seguridad por las grandes ciudades latinoamericanas: alojamiento, taxis y transporte, el teléfono, estafas de distracción, cajeros, la noche, sismos y qué hacer si te roban."
 category: ciudades-y-cultura
-date: 2026-09-07
+date: 2026-10-11
 ---
 Ciudad de México, Bogotá, Lima, Santiago, Buenos Aires, São Paulo o Río de Janeiro son algunas de las ciudades más vibrantes del mundo: museos extraordinarios, barrios llenos de vida, cocina de primer nivel y una oferta cultural que no se acaba en un viaje. Millones de visitantes las recorren cada año sin ningún problema. Pero también son metrópolis enormes, con desigualdades marcadas y delitos que, en su mayoría, afectan a quien se distrae: el robo de un teléfono, un bolso arrancado en una esquina o una estafa bien ensayada.
 

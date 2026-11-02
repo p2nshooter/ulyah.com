@@ -2,7 +2,7 @@
 title: "Baking Soda vs. Baking Powder: How Chemical Leaveners Work and When to Use Each"
 description: "The chemistry behind baking soda and baking powder, why some recipes use both, how to test freshness, safe substitutions, what too much does to flavor, and how yeast and air compare as leaveners."
 category: kitchen-science
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Baking soda and baking powder sit side by side in most pantries, look almost identical and both make baked goods rise. Yet they are not interchangeable, and confusing them can lead to flat pancakes, bitter muffins or cakes with a strange metallic taste. Understanding how these two chemical leaveners work explains why some recipes call for one, some for the other and many for both. It also helps you make smart substitutions, keep your leaveners fresh and fix common baking problems. This guide explains the chemistry in plain language.

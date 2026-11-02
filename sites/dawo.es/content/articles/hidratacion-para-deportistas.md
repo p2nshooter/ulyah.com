@@ -2,7 +2,7 @@
 title: Hidratación para deportistas aficionados: agua, sales y bebidas deportivas
 description: Cuánto beber antes, durante y después del ejercicio, cuándo hacen falta sales minerales, qué aportan las bebidas deportivas y cómo detectar la deshidratación y el exceso de agua.
 category: descanso-y-nutricion
-date: 2026-10-12
+date: 2026-10-04
 ---
 Beber agua parece lo más sencillo del mundo. Sin embargo, la hidratación en el deporte ha generado tantos mensajes contradictorios como la alimentación: que hay que beber antes de tener sed, que hay que beber dos litros al día, que las bebidas isotónicas son imprescindibles, que el agua sola no hidrata bien. La realidad, para el deportista aficionado, es más sencilla y más flexible.
 

@@ -2,7 +2,7 @@
 title: "How Telescopes Work: Refractors, Reflectors, Radio Dishes and Space Telescopes Explained"
 description: "Why aperture matters more than magnification, how lenses and mirrors gather light, what refractors, reflectors and radio telescopes do, why some fly in space and how to choose a first telescope."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 For most of human history, the sky could only be studied with the naked eye. Then, in the early seventeenth century, a simple tube with two lenses changed everything. When Galileo Galilei pointed his small telescope at the sky in 1609 and 1610, he saw mountains on the Moon, four moons orbiting Jupiter and countless stars in the Milky Way. Since then, telescopes have grown from handheld tubes to giant mirrors on mountaintops, radio dishes the size of valleys and observatories floating in space. They have revealed galaxies billions of light-years away and the faint afterglow of the Big Bang. This explainer describes how telescopes work and why there are so many different kinds.

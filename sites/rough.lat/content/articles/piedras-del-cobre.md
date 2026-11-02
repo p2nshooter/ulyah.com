@@ -2,7 +2,7 @@
 title: "Las piedras del cobre: turquesa, crisocola, malaquita, azurita y atacamita en la tierra minera de América"
 description: "Por qué los yacimientos de cobre de Chile, Perú y México producen piedras azules y verdes, cómo reconocer cada una, qué tratamientos e imitaciones abundan y cómo cuidarlas."
 category: gemas-en-bruto
-date: 2026-10-31
+date: 2026-11-01
 ---
 América Latina es tierra de cobre. Chile, Perú y México están entre los grandes productores del mundo, y las montañas y desiertos donde se extrae ese metal esconden también una familia de piedras de colores intensos: azules de cielo, verdes de bosque, turquesas de mar. Son las piedras del cobre, minerales que nacen cuando el agua y el aire alteran lentamente las rocas ricas en este metal. Algunas se usan en joyería desde hace siglos, otras son sobre todo piezas de colección y casi todas tienen algo en común: son más delicadas de lo que su color sugiere.
 

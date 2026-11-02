@@ -2,7 +2,7 @@
 title: "Pinturas para interior y exterior: tipos, preparación de superficies y cómo calcular cuánta comprar"
 description: "Vinílica, acrílica, esmalte, elastomérica, cal o antimoho: qué pintura usar en muros, madera, metal y fachadas, cómo preparar la superficie, cuánta comprar y cómo evitar que se descascare."
 category: materiales-y-acabados
-date: 2026-10-01
+date: 2026-10-11
 ---
 Pintar es la reforma más económica y más agradecida de una casa. Con unos galones de pintura y un fin de semana se puede cambiar por completo una habitación o renovar una fachada. Pero también es una de las tareas donde más se repiten los errores: pintura que se descascara a los pocos meses, manchas de humedad que reaparecen, esmaltes que no secan, fachadas que pierden el color con el primer verano.
 

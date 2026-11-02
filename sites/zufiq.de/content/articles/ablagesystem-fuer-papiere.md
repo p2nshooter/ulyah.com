@@ -2,7 +2,7 @@
 title: "Ablagesystem für Papiere: Ordner, Kategorien und eine Routine für die Post"
 description: "Ablagesystem für Papiere: Mit Eingangskorb, acht klaren Kategorien, getrennter Dauer- und Jahresablage und einer wöchentlichen Post-Routine findest du jedes Dokument in Minuten."
 category: ordnung-und-papierkram
-date: 2026-07-16
+date: 2026-10-11
 ---
 Die Hausverwaltung möchte eine Kopie des Mietvertrags, die Krankenkasse fragt nach einer Bescheinigung, und für die Steuererklärung fehlt noch die Rechnung vom Handwerker. Du weißt, dass alles irgendwo ist. Vielleicht im Stapel auf dem Schreibtisch, vielleicht in der Schublade im Flur oder im Karton, den du beim letzten Umzug „vorläufig“ gepackt hast. Eine halbe Stunde später hast du zwei von drei Papieren gefunden und schlechte Laune.
 

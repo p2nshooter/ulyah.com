@@ -2,7 +2,7 @@
 title: "Rosenkohl ohne Bitterkeit: putzen, richtig garen und im Ofen rösten"
 description: "Rosenkohl von Oktober bis Februar: frische Röschen erkennen, putzen, kochen ohne Kohlgeruch, im Ofen rösten, in der Pfanne braten und mit Speck oder Senf-Honig verfeinern."
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Kaum ein Gemüse hat so viele Gegner wie Rosenkohl. Wer als Kind graue, matschige Röschen mit Schwefelgeruch essen musste, macht oft ein Leben lang einen Bogen um ihn. Dabei liegt das Problem fast immer an der Zubereitung. Richtig gegart ist Rosenkohl leuchtend grün, nussig und leicht süßlich, und im Ofen geröstet bekommt er karamellisierte Ränder, die selbst Skeptiker überzeugen. Von Oktober bis in den Februar ist er eines der wenigen frischen Gemüse, die in Deutschland noch auf dem Feld stehen, und Frost macht ihn sogar besser.
 

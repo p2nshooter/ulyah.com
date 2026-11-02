@@ -2,7 +2,7 @@
 title: "Platos regionales de América Latina por país: qué probar y cómo pedirlo"
 description: "Los platos más representativos de cada país, de México al Caribe, los Andes, el Cono Sur y Brasil, con ingredientes nativos, platos de fiesta, vocabulario y cómo comer como local."
 category: sabores-del-viaje
-date: 2026-09-29
+date: 2026-10-11
 ---
 Pocas regiones del mundo tienen una cocina tan diversa como América Latina. En un mismo viaje puedes desayunar una arepa en Bogotá, almorzar un ceviche en Lima, merendar una salteña en La Paz y cenar un asado en Buenos Aires, y cada uno de esos platos cuenta una historia diferente: la de los pueblos originarios que domesticaron el maíz y la papa, la de los conquistadores y los inmigrantes que llegaron después, la de las personas africanas esclavizadas que trajeron técnicas e ingredientes, y la de cada región que adaptó todo eso a su clima y a sus productos.
 

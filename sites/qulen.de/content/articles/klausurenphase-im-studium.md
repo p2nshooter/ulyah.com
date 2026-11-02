@@ -2,7 +2,7 @@
 title: "Klausurenphase im Studium: Wie Paula fünf Prüfungen in drei Wochen auf ihren Kalender verteilte"
 description: "Paula hat im zweiten Semester fünf Klausuren in drei Wochen und keinen Plan. Wie du Prüfungen priorisierst, einen Rückwärtsplan baust, alte Klausuren nutzt und die Phase ohne Erschöpfung überstehst."
 category: pruefungen-und-pruefungsangst
-date: 2026-08-28
+date: 2026-10-11
 ---
 Paula saß in der Mensa vor ihrem Kalender und fühlte sich, als würde sie gleich ertrinken. Fünf Klausuren. Mikroökonomie, Statistik, Rechnungswesen, Wirtschaftsrecht und Englisch für Wirtschaftswissenschaftler. Alle innerhalb von drei Wochen, die erste in genau einem Monat. Im ersten Semester hatte sie es irgendwie geschafft, indem sie in den letzten zwei Wochen Tag und Nacht gelernt hatte. Aber damals waren es nur drei Klausuren gewesen, und sie hatte in Statistik nur knapp bestanden. Jetzt waren es fünf, und Statistik II galt als das schwierigste Fach im ganzen Bachelor.
 

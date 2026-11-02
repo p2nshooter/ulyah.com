@@ -2,7 +2,7 @@
 title: "Why We Sleep: Sleep Stages, the Body Clock and What the Brain Does All Night"
 description: "What happens in light, deep and REM sleep, how the circadian clock and sleep pressure decide when we feel tired, why sleep matters for memory and health, and what science says about dreams."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 We spend roughly a third of our lives asleep. For a long time, sleep seemed like a simple pause, a period when the body and brain switch off to rest. Modern science shows something very different. During sleep, the brain cycles through distinct stages, consolidates memories, clears waste products, regulates hormones and prepares the body for the next day. Going without enough sleep affects mood, attention, decision making and long-term health. This explainer describes what happens during sleep, how the body decides when to sleep and why sleep is so important. It explains how the body works and is not medical advice; persistent sleep problems are worth discussing with a doctor.

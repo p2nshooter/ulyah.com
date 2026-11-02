@@ -2,7 +2,7 @@
 title: "How the Heart Works: Four Chambers, Valves, the Electrical Beat and the Journey of Blood"
 description: "How the heart pumps blood through two circuits, what its four chambers and valves do, how its built-in electrical system sets the rhythm, what blood pressure numbers mean and how the heart adapts."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Place your hand on your chest and you can feel it: a steady rhythm that began before you were born and continues every moment of your life. The heart is a muscle about the size of a fist, yet it beats roughly 100,000 times a day and pumps about 2,000 gallons (7,500 liters) of blood through a network of vessels long enough to circle Earth more than twice. It delivers oxygen and nutrients to every cell and carries away waste. This explainer describes how the heart is built, how it keeps its rhythm and how blood travels through the body. It is an explanation of how the body works, not medical advice; if you have concerns about your heart, talk to a doctor.

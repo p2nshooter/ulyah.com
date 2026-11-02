@@ -2,7 +2,7 @@
 title: "Ventilación cruzada: cómo ubicar ventanas y puertas para que el aire atraviese la casa"
 description: "Entradas y salidas de aire, tipos de ventana, alturas, montantes, profundidad de las habitaciones y trucos para departamentos: cómo diseñar y usar la ventilación cruzada en climas cálidos."
 category: arquitectura-y-casas
-date: 2026-08-06
+date: 2026-10-11
 ---
 Hay habitaciones con ventanas grandes donde el aire no se mueve, y casas modestas donde siempre corre una brisa agradable. La diferencia no suele ser el tamaño de las ventanas, sino su **ubicación**. El aire necesita un camino: un lugar por donde entrar y otro por donde salir. Cuando ese camino existe y atraviesa las habitaciones, hablamos de ventilación cruzada.
 

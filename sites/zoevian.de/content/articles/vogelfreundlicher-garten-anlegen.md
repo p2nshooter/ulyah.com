@@ -2,7 +2,7 @@
 title: "Vogelfreundlichen Garten anlegen: Pflanzen, Strukturen, Wasser und ein Pflegekalender"
 description: "Schritt für Schritt zum vogelfreundlichen Garten: heimische Gehölze, Wildblumen, Totholz, Wasser, Nistplätze, Verzicht auf Gift und ein Jahreskalender für die naturnahe Pflege."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Futterhaus und Nistkasten sind ein guter Anfang. Den größten Unterschied für Vögel macht aber der Garten selbst. Ein Garten, in dem heimische Sträucher wachsen, Insekten summen, Laub liegen bleibt und Wasser bereitsteht, bietet Vögeln alles, was sie zum Leben brauchen: Nahrung das ganze Jahr, Verstecke, Nistplätze und Material für den Nestbau. Und das Schöne ist: Ein solcher Garten macht oft weniger Arbeit als ein ordentlicher Rasen mit Kirschlorbeerhecke.

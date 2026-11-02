@@ -2,7 +2,7 @@
 title: "Editing Your Beauty Shelf: Keep What Works, Clear What Doesn't"
 description: How to sort through makeup, skincare and hair products, recognise when items have expired, build a small kit that suits you now and shop more thoughtfully in future.
 category: beauty-after-fifty
-date: 2026-10-19
+date: 2026-10-20
 ---
 Most of us have a bathroom cabinet, a dressing table drawer or a bag stuffed with beauty products: half-used foundations in shades that never quite matched, lipsticks bought for a wedding a decade ago, serums that promised miracles, free samples, gift sets and hair products for a style you no longer wear. It is easy to accumulate far more than we use, and the clutter makes getting ready slower and more confusing.
 

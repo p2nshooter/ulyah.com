@@ -2,7 +2,7 @@
 title: "Gebraucht kaufen: Worauf du bei Secondhand achtest und wann es sich lohnt"
 description: "Gebraucht kaufen ohne Fehlkauf: was sich lohnt, was du besser neu kaufst, wo du Secondhand findest, wie du den Zustand prüfst und Betrug bei Kleinanzeigen erkennst."
 category: bewusster-konsum
-date: 2026-08-06
+date: 2026-10-11
 ---
 Der Esstisch aus massivem Holz steht seit Jahren in einer anderen Wohnung, hat ein paar Kratzer und kostet nur einen Bruchteil von dem, was ein neuer verlangen würde. Die Winterjacke im Secondhandladen sieht aus, als wäre sie kaum getragen. Und das Smartphone vom Händler für generalüberholte Geräte läuft wie neu. Gebraucht kaufen kann klug, günstig und schonend für Ressourcen sein. Trotzdem zögern viele: Was, wenn das Teil kaputt ist? Was, wenn der Verkäufer gar nicht existiert?
 

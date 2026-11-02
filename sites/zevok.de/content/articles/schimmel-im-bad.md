@@ -2,7 +2,14 @@
 title: "Schimmel im Bad vorbeugen und entfernen: Ursachen, Lüften und sicheres Vorgehen"
 description: "Warum Schimmel im Bad entsteht, wie du richtig lüftest und kleine Flecken sicher entfernst, wann Silikon raus muss und wann ein Fachbetrieb gefragt ist."
 category: bad-und-wc
-date: 2026-09-24
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Häufige Fragen bei Schimmelbefall | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/haeufige-fragen-bei-schimmelbefall
+  - Umweltbundesamt: Worauf muss ich bei der Entfernung von Schimmel achten? | https://www.umweltbundesamt.de/service/uba-fragen/schutzmassnahmen-worauf-muss-ich-bei-der-entfernung
+  - Umweltbundesamt: Wie lüfte ich richtig? | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/wie-luefte-ich-richtig-tipps-tricks-zur
+  - Verbraucherzentrale: Schimmel an der Wand entfernen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/schimmel-an-der-wand-entfernen-das-koennen-sie-tun-6794
 ---
 Schwarze Punkte in der Duschecke, ein dunkler Rand an der Silikonfuge, graue Flecken an der Decke über der Badewanne: Schimmel im Bad ist eines der häufigsten Probleme in Wohnungen. Kein Wunder, denn in kaum einem Raum entsteht so viel Feuchtigkeit auf so kleiner Fläche. Nach einer heißen Dusche ist die Luft im Bad mit Wasserdampf gesättigt, der sich an kühlen Wänden, Fliesen und Fenstern niederschlägt. Bleibt diese Feuchtigkeit regelmäßig zu lange, findet Schimmel ideale Bedingungen.
 

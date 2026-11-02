@@ -2,7 +2,7 @@
 title: "Hausaufgaben selbst organisieren: Wie Matilda nach dem Schulwechsel den Überblick behielt"
 description: "Neue Schule, viele Fächer, vergessene Aufgaben: Wie Matilda mit Schulplaner, fester Hausaufgabenzeit, geordneten Mappen und einem Freitagscheck den Überblick zurückgewann."
 category: lernplan-und-hausaufgaben
-date: 2026-07-02
+date: 2026-10-11
 ---
 „Matilda, deine Hausaufgabe?“ Frau Kramer stand neben dem Tisch und wartete. Matilda blätterte im Englischheft, dann im Block, dann noch einmal im Englischheft. Die Seite war leer. Sie war so sicher gewesen, dass die Übung erst bis Donnerstag fällig war. Frau Kramer machte ein kleines Zeichen in ihr Notizbuch, nicht böse, eher so, wie man einen Regentag notiert. Es war das dritte Zeichen in diesem Monat, und Matilda spürte, wie ihr Gesicht heiß wurde.
 

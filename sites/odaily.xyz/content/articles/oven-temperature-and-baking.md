@@ -2,7 +2,7 @@
 title: "Know Your Oven: Temperature Accuracy, Hot Spots, Rack Positions and Convection for Better Baking"
 description: "Why ovens run hot or cold, how to test with an oven thermometer, find hot spots, choose rack positions, adjust for dark, glass and metal pans, and when convection helps or hurts your baking."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 You follow a cake recipe exactly. The batter looks perfect, you bake it for the time given, and yet it comes out pale and underbaked in the middle, or dark and dry at the edges. Before blaming the recipe or your skills, look at the oven. Home ovens are often less accurate than their dials suggest. Many run hotter or cooler than the setting, have hot spots, and heat differently depending on the rack position and the pan you use. Understanding your oven is one of the simplest ways to improve your baking. This guide explains how to test your oven, find its quirks and adjust for them.

@@ -2,7 +2,7 @@
 title: "Easy Weeknight Soups: A Master Method for Hearty, Brothy and Creamy Soups in Under an Hour"
 description: "Build any soup from aromatics, liquid, body and finish; season broth, thicken without cream, time pasta and greens, freeze soups safely and try five weeknight soups made mostly from the pantry."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Soup has a reputation for being something that simmers all afternoon on a Sunday. In reality, many of the most comforting soups come together in less than an hour, often in a single pot, using vegetables from the fridge and staples from the pantry. Soup is also one of the most forgiving dishes in the kitchen. It welcomes leftovers, adapts to whatever is in season and often tastes even better the next day. Once you understand the basic structure behind almost every soup, you no longer need a recipe. You can open the fridge, see what is there and turn it into dinner. This guide explains that structure and gives you five weeknight soups to start with.

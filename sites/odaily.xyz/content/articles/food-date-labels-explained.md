@@ -2,7 +2,7 @@
 title: "Food Date Labels Explained: Best By, Use By and Sell By, and How to Tell if Food Is Still Good"
 description: "What best-by, use-by, sell-by and freeze-by dates really mean, which foods need strict attention, how to judge quality with your senses, what infant formula rules say and how dates relate to waste."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 You open the fridge and find a carton of yogurt that passed its date yesterday, a package of cheese dated last week and a jar of salsa with no idea when it was opened. Do you throw them away? Many people do, and a large share of household food waste comes from confusion about date labels. At the same time, some foods really do become unsafe after a certain point. Understanding what the dates on packages mean, and what they do not mean, helps you keep your family safe while wasting less food and money. This guide explains the common labels, how to judge food quality and which foods deserve the most caution.

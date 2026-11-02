@@ -2,7 +2,7 @@
 title: "Garmethoden im Überblick: kochen, dämpfen, dünsten, schmoren und rösten"
 description: "Welche Garmethode passt zu welchem Gemüse? Blanchieren, Dämpfen, Dünsten, Schmoren, Braten und Rösten im Ofen erklärt, mit Temperaturen, typischen Fehlern und Tipps für mehr Geschmack."
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Dasselbe Gemüse kann fade oder großartig schmecken, je nachdem, wie es gegart wird. Eine Möhre, die 20 Minuten in viel Wasser kocht, schmeckt nach wenig. Dieselbe Möhre, im Ofen mit etwas Öl geröstet, wird süß und karamellig. Wer die wichtigsten Garmethoden versteht, kann saisonales Gemüse ohne Rezept gut zubereiten und Fehler vermeiden, die Farbe, Biss und Vitamine kosten. Dieser Überblick erklärt, was bei jeder Methode passiert und wofür sie sich eignet.
 

@@ -2,7 +2,7 @@
 title: "A Tour of the Solar System: The Sun, Eight Planets, Dwarf Planets, Moons, Asteroids and Comets"
 description: "A guided tour from the Sun outward: rocky planets, gas and ice giants, why Pluto became a dwarf planet, the asteroid and Kuiper belts, comets, the Oort Cloud and how the solar system formed."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Our solar system is home. It contains one star, eight planets, hundreds of moons, millions of asteroids, countless comets and a vast region of icy objects stretching far beyond the most distant planet. Each world is unique: a scorching planet where lead would melt, a red desert with the tallest volcano known, giant planets with storms larger than Earth, and icy moons that may hide oceans beneath their surfaces. This explainer takes you on a tour of the solar system, from the Sun to its far frontier, and explains how it all formed.

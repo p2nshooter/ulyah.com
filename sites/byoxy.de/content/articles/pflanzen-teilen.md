@@ -2,7 +2,7 @@
 title: "Zimmerpflanzen teilen: die schnellste Vermehrung für buschige Pflanzen"
 description: Welche Zimmerpflanzen sich teilen lassen, der beste Zeitpunkt, Werkzeug, Schritt-für-Schritt-Anleitung für Bogenhanf, Calathea, Farn, Grünlilie und Friedenslilie, Nachpflege und typische Fehler.
 category: vermehren
-date: 2026-09-07
+date: 2026-10-04
 ---
 Manche Zimmerpflanzen wachsen nicht aus einem einzelnen Stamm, sondern aus vielen Trieben, die direkt aus der Erde kommen. Mit der Zeit füllen sie den Topf vollständig aus. Bei diesen Pflanzen ist das Teilen die schnellste und einfachste Methode der Vermehrung: Aus einer großen Pflanze werden in wenigen Minuten zwei, drei oder mehr fertige Pflanzen mit eigenen Wurzeln. Gleichzeitig verjüngt das Teilen die Pflanze und gibt ihr neuen Platz.
 

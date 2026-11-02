@@ -2,7 +2,7 @@
 title: "Equipaje para climas variados: cómo armar una sola mochila para playa, selva, altura y ciudad"
 description: "Cómo hacer el equipaje para un viaje por América Latina con varios climas: mochila o maleta, sistema de capas, telas, calzado, lluvia, enchufes, botiquín, lavar en el camino y límites de equipaje."
 category: planificacion-y-presupuesto
-date: 2026-09-15
+date: 2026-10-11
 ---
 Un viaje por América Latina puede incluir en pocas semanas una playa caribeña a treinta grados, una ciudad andina donde amanece cerca de cero, una selva húmeda donde llueve cada tarde y una capital donde quieres cenar en un buen restaurante. Llevar ropa para cada situación por separado es imposible sin cargar una maleta enorme, y una maleta enorme es justo lo que menos quieres al subir escaleras en un pueblo colonial, cargar el equipaje en un bus nocturno o embarcar en una avioneta con límite de peso.
 

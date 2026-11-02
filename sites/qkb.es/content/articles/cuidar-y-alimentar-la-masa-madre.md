@@ -2,7 +2,7 @@
 title: Cómo cuidar y alimentar la masa madre: proporciones, nevera, viajes y rescates
 description: Todo para mantener tu masa madre sana durante años: proporciones de alimentación, cuándo usarla, cómo guardarla en la nevera, cómo secarla para viajes, cómo reactivarla y cómo cambiar su sabor.
 category: masa-madre-y-pan
-date: 2026-10-12
+date: 2026-10-04
 ---
 Crear una masa madre es la parte emocionante; mantenerla viva durante años es la parte que de verdad marca la diferencia. Una masa madre bien cuidada es predecible: sabes cuánto tarda en subir, cómo huele en su mejor momento y cómo se comportará en el pan. Una masa madre descuidada, en cambio, es lenta, muy ácida y caprichosa.
 

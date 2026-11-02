@@ -2,7 +2,7 @@
 title: "Wackelnden Stuhl reparieren: Verbindungen neu verleimen und festigen"
 description: Wie du herausfindest, warum ein Holzstuhl wackelt, Zapfen- und Dübelverbindungen löst, reinigst und neu verleimst, Schraubverbindungen festigst und ungleich lange Stuhlbeine ausgleichst.
 category: reparaturen-im-haushalt
-date: 2026-10-12
+date: 2026-10-04
 ---
 Ein Stuhl, der bei jeder Bewegung knarzt und nachgibt, ist nicht nur unbequem, sondern kann auch gefährlich werden, wenn eine Verbindung plötzlich nachgibt. Die meisten Holzstühle wackeln, weil sich mit der Zeit der Leim in den Verbindungen gelöst hat. Das Holz arbeitet durch wechselnde Luftfeuchtigkeit, und die ständige Belastung beim Sitzen und Kippeln lockert die Verbindungen. Die gute Nachricht: Ein wackeliger Stuhl lässt sich in den meisten Fällen dauerhaft reparieren, wenn man es richtig macht.
 

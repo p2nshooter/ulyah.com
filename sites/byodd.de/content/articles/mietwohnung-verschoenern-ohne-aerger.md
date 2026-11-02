@@ -2,7 +2,7 @@
 title: "Mietwohnung verschönern ohne Ärger: Was erlaubt ist und was beim Auszug zählt"
 description: Was Mieter ohne Zustimmung verändern dürfen, wofür sie fragen sollten, rückbaubare Ideen für Wände, Böden, Küche und Bad und wie der Auszug ohne Streit gelingt.
 category: deko-und-wohnen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Eine Mietwohnung soll sich wie ein Zuhause anfühlen. Gleichzeitig gehört sie dem Vermieter, und beim Auszug kann es Streit geben, wenn Veränderungen nicht rückgängig gemacht werden oder Schäden entstanden sind. Die gute Nachricht: Vieles ist erlaubt, und für fast jeden Wunsch gibt es eine Lösung, die sich spurlos zurückbauen lässt.
 

@@ -2,7 +2,7 @@
 title: La temperatura en el obrador casero: el termómetro, las cifras clave y cómo controlar el calor
 description: Termómetros, calibración, temperaturas clave de quesos, fermentados, pan y conservas, la zona de peligro y cómo calcular el agua de una masa.
 category: tecnica
-date: 2026-10-12
+date: 2026-10-04
 ---
 Si hubiera que elegir un solo factor que explica por qué una receta sale bien un día y mal al siguiente, ese factor sería la temperatura. El yogur cuaja o no cuaja según unos pocos grados; la masa madre sube en cuatro horas o en doce; el queso fresco queda tierno o gomoso; una mermelada gelifica o queda líquida; el aceite de fritura sella una torrija o la empapa. En el obrador casero, la temperatura es el ingrediente invisible.
 

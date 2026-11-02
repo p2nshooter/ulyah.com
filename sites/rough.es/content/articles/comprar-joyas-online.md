@@ -2,7 +2,7 @@
 title: "Comprar joyas en línea con seguridad: cómo verificar la tienda, qué derechos tienes y qué hacer al recibirlas"
 description: "Cómo comprar joyas por internet sin sustos: verificar al vendedor, señales de tienda falsa, qué debe decir la ficha, tallas, pagos seguros, desistimiento, compras fuera de la UE y recepción."
 category: compra-y-valoracion
-date: 2026-10-11
+date: 2026-10-12
 ---
 Comprar joyas por internet se ha vuelto habitual: permite comparar cientos de piezas en una tarde, acceder a talleres y diseñadores de cualquier lugar y, a menudo, encontrar precios más ajustados que en una tienda física. Pero las joyas tienen algo que las hace especialmente delicadas para la compra a distancia: su valor depende de detalles que una fotografía no siempre muestra, como la ley real del metal, el tamaño exacto de una piedra o si esta es natural, sintética o tratada. Y el comercio electrónico de joyas es también uno de los terrenos favoritos de las tiendas fraudulentas.
 

@@ -2,7 +2,7 @@
 title: "Schranktür und Schublade einstellen: Topfscharniere, Auszüge und Fronten richten"
 description: Wie du schiefe Schranktüren über die drei Stellschrauben von Topfscharnieren ausrichtest, ausgerissene Scharniere reparierst, klemmende Schubladen gängig machst und Schubladenfronten gerade setzt.
 category: reparaturen-im-haushalt
-date: 2026-10-12
+date: 2026-10-04
 ---
 Küchenschränke, Kleiderschränke und Badmöbel haben eines gemeinsam: Nach einiger Zeit hängen Türen schief, die Fugen zwischen den Fronten werden ungleichmäßig, eine Tür schließt nicht mehr richtig oder eine Schublade klemmt. Das liegt selten an einem Defekt, sondern daran, dass sich die Möbel gesetzt haben, Schrauben locker sind oder die Beschläge nachgestellt werden müssen. Moderne Scharniere und Auszüge sind dafür gemacht, mit einem Schraubendreher eingestellt zu werden.
 

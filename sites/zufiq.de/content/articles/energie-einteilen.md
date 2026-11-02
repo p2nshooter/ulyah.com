@@ -2,7 +2,7 @@
 title: "Energie einteilen: Mit deinen Kräften haushalten statt dich durch den Tag zu retten"
 description: "Energie einteilen statt nur Zeit planen: Tageskurve beobachten, Energieräuber erkennen, schwere Aufgaben in Hochphasen legen und Erholung bewusst einplanen."
 category: zeit-energie-und-schlaf
-date: 2026-07-19
+date: 2026-10-11
 ---
 Es ist kurz nach drei am Nachmittag. Auf deiner Liste stehen noch vier Punkte, keiner davon besonders schwer. Trotzdem fühlt sich jeder an wie ein Berg. Du liest dieselbe E-Mail zum dritten Mal, holst dir einen Kaffee, kommst zurück und weißt nicht mehr, was du eigentlich tun wolltest. Abends fällst du aufs Sofa und fragst dich, warum du so erschöpft bist, obwohl du doch gar nicht so viel geschafft hast.
 

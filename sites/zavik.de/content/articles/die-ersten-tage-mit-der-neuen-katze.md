@@ -2,7 +2,7 @@
 title: "Die ersten Tage mit der neuen Katze: So gelingt die Eingewöhnung"
 description: Startzimmer, Verstecke, Geduld und der richtige Abstand: wie du deiner neuen Katze die ersten Tage und Wochen erleichterst und woran du erkennst, dass sie ankommt.
 category: einzug-und-eingewoehnung
-date: 2026-09-29
+date: 2026-10-05
 ---
 Für dich ist es ein freudiger Tag: Die Katze, auf die du dich wochenlang gefreut hast, zieht endlich ein. Für die Katze ist es einer der aufregendsten Tage ihres Lebens. Sie wird in eine Box gesetzt, in ein Auto getragen, durchgeschaukelt und an einem Ort ausgesetzt, der fremd riecht, fremd klingt und in dem sie niemanden kennt. Katzen sind Revier-Tiere. Ein neues Revier bedeutet für sie zunächst vor allem Unsicherheit.
 

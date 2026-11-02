@@ -2,7 +2,7 @@
 title: Sobreentrenamiento: señales de que necesitas parar y cómo recuperarte
 description: Diferencias entre fatiga normal, sobrecarga y síndrome de sobreentrenamiento, las señales de alarma que conviene vigilar, sus causas habituales en el deportista aficionado y cómo recuperarse.
 category: descanso-y-nutricion
-date: 2026-10-12
+date: 2026-10-04
 ---
 Cuando alguien se aficiona al deporte, es fácil caer en una lógica tentadora: si entrenar me sienta bien, entrenar más me sentará mejor. Así, las tres sesiones semanales se convierten en cinco, después en seis, se añade un partido, una clase colectiva y una tirada larga el domingo. Durante unas semanas todo va bien. Hasta que deja de ir bien: el cansancio no desaparece, los entrenamientos que antes eran fáciles se vuelven duros, el sueño empeora y las ganas de entrenar se esfuman.
 

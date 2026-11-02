@@ -2,7 +2,7 @@
 title: "Zugspitze zu Fuß: Reintal, Höllental und was du vorher wissen musst"
 description: Die Normalwege auf Deutschlands höchsten Berg im Vergleich: Länge, Schwierigkeit, Übernachtung, Ausrüstung und warum die Zugspitze kein Wanderberg für Einsteiger ist.
 category: berge-und-tagestouren
-date: 2026-06-26
+date: 2026-10-06
 ---
 Einmal auf dem höchsten Berg Deutschlands stehen: Für viele ist die Zugspitze mit ihren 2.962 Metern ein Lebensziel. Oben angekommen, ist die Überraschung oft groß, denn der Gipfel ist alles andere als einsam. Zwei Seilbahnen und eine Zahnradbahn bringen täglich viele Menschen hinauf, auf der Gipfelplattform gibt es Restaurants, Aussichtsterrassen und eine Hütte. Wer zu Fuß aufsteigt, teilt den Gipfel mit Menschen in Turnschuhen und Sommerkleidern.
 

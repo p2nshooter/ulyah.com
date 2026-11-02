@@ -2,7 +2,7 @@
 title: "Gemas sintéticas y de laboratorio: cómo se fabrican, cómo se reconocen y cuándo tienen sentido"
 description: "Qué es una gema sintética y en qué se diferencia de una imitación, cómo se fabrican rubíes, esmeraldas y diamantes de laboratorio, cómo se reconocen, qué nombres usar y su valor de reventa."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Un rubí creado en un laboratorio tiene la misma composición química, la misma estructura cristalina y la misma dureza que un rubí natural. A simple vista, ni un joyero experimentado puede distinguirlos con seguridad. Lo mismo ocurre con las esmeraldas, los zafiros, las alejandrinas o los diamantes de laboratorio, que en los últimos años han ganado un lugar importante en las joyerías de todo el mundo, también en América Latina.
 

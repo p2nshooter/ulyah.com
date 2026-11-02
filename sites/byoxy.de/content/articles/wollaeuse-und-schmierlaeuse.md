@@ -2,7 +2,7 @@
 title: "Wollläuse und Schmierläuse bekämpfen: weiße Watte an Zimmerpflanzen"
 description: Woran du Wollläuse und Schmierläuse erkennst, warum sie so hartnäckig sind und wie du sie loswirst: Abtupfen mit Alkohol, Öl- und Seifenpräparate, Wurzelläuse, Nützlinge und Vorbeugung.
 category: schaedlinge-und-probleme
-date: 2026-09-14
+date: 2026-10-04
 ---
 Weiße, wattige Flöckchen in den Blattachseln, klebrige Blätter und eine Pflanze, die trotz guter Pflege kümmert: Das sind typische Anzeichen für Wollläuse, auch Schmierläuse genannt. Diese Schildlausverwandten gehören zu den hartnäckigsten Schädlingen an Zimmerpflanzen, weil sie sich gut verstecken und durch ihre Wachsschicht geschützt sind. Mit Ausdauer und den richtigen Methoden lassen sie sich trotzdem dauerhaft entfernen.
 

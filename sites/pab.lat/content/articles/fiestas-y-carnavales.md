@@ -2,7 +2,7 @@
 title: "Fiestas y carnavales de América Latina: cuándo son, cómo planificarlos y cómo vivirlos con respeto"
 description: "Carnavales de Río, Barranquilla y Oruro, la Candelaria, el Inti Raymi, Día de Muertos, Guelaguetza y Semana Santa: fechas aproximadas, reservas, multitudes, seguridad y respeto por lo sagrado."
 category: ciudades-y-cultura
-date: 2026-08-14
+date: 2026-10-11
 ---
 Pocas experiencias de viaje igualan la de vivir una gran fiesta latinoamericana: miles de bailarines con trajes deslumbrantes, bandas que tocan durante días, calles cubiertas de flores o de aserrín de colores, altares llenos de velas y comida para los muertos. Las fiestas son el momento en que una ciudad muestra lo que es: su historia, su fe, su mezcla de culturas indígenas, africanas y europeas, y su manera de celebrar.
 

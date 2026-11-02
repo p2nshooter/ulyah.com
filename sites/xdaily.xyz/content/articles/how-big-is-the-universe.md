@@ -2,7 +2,7 @@
 title: "How Big Is the Universe? Light-Years, the Observable Universe and How Astronomers Measure Cosmic Distances"
 description: "From the Moon to the edge of the observable universe: what a light-year is, why the observable universe is 93 billion light-years wide, how distances are measured and what lies beyond."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 The universe is so large that ordinary numbers lose their meaning. A trip to the Moon would take a few days in a spacecraft. A trip to the nearest star would take tens of thousands of years with today's technology. And the nearest star is just next door compared with the galaxies scattered across the observable universe. How do astronomers measure such enormous distances, and how big is the universe really? This explainer takes you on a journey outward, step by step, from our own neighborhood to the edge of what we can see.

@@ -2,7 +2,7 @@
 title: "Urlaubsbudget ehrlich planen: alle Kosten im Blick, mit Beispielrechnung und Spartipps"
 description: "Urlaubskosten realistisch planen: Anreise, Unterkunft, Essen, Ausflüge und versteckte Nebenkosten, mit Beispielrechnung für eine Familienwoche und Spartipps."
 category: reiseplanung
-date: 2026-09-22
+date: 2026-10-11
 ---
 Viele Urlaube werden teurer als geplant. Nicht weil etwas Unerwartetes passiert, sondern weil viele kleine Posten bei der Planung fehlen: die Endreinigung der Ferienwohnung, die Kurabgabe, der Strandkorb, das Parkhaus in der Stadt, das Eis am Nachmittag. Wer sein Budget ehrlich plant, reist entspannter, weil am Ende des Urlaubs keine böse Überraschung auf dem Konto wartet. Dieser Ratgeber zeigt dir, welche Kosten anfallen, wie du sie schätzt und wo du sparen kannst, ohne auf Erholung zu verzichten.
 

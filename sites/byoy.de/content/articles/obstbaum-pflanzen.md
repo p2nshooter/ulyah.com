@@ -2,7 +2,7 @@
 title: "Obstbaum pflanzen: Zeitpunkt, Unterlage, Befruchtersorte und Schritt-für-Schritt-Anleitung"
 description: "Einen Obstbaum richtig pflanzen: Zeitpunkt, wurzelnackt oder Container, Baumform und Unterlage, Befruchtersorten, Pfahl, Wühlmausschutz, Pflanzschnitt und die ersten Jahre."
 category: obst-und-beeren
-date: 2026-08-26
+date: 2026-10-06
 ---
 Wer einen Obstbaum pflanzt, plant für Jahrzehnte. Ein Apfelbaum kann bei guter Pflege fünfzig Jahre und länger tragen, ein Hochstamm auf einer Streuobstwiese oft noch mehr. Umso wichtiger sind die Entscheidungen am Anfang: die passende Sorte, die richtige Baumform für den verfügbaren Platz, ein guter Standort und eine sorgfältige Pflanzung. Fehler lassen sich später kaum korrigieren, während ein gut gesetzter Baum schon nach wenigen Jahren die ersten Früchte trägt und mit jedem Jahr kräftiger wird.
 

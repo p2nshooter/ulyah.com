@@ -2,7 +2,7 @@
 title: "Vogelbeobachtung für Einsteiger: Ausrüstung, Orte, Verhalten und die ersten hundert Arten"
 description: "Der Einstieg in die Vogelbeobachtung: welche Ausrüstung du brauchst, wo und wann du am meisten siehst, wie du dich unauffällig bewegst, Regeln zum Schutz der Vögel und Notizen."
 category: beobachten-und-fotografieren
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Vogelbeobachtung ist eines der zugänglichsten Hobbys überhaupt. Du brauchst keinen Verein, keine teure Ausrüstung und keine weite Anreise. Vögel gibt es überall: im Garten, im Stadtpark, auf dem Friedhof, am Baggersee und am Bahndamm. Trotzdem fühlen sich viele Anfänger unsicher. Wo fange ich an? Was muss ich kaufen? Wie komme ich nah genug heran, ohne die Vögel zu stören?

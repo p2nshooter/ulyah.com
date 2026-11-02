@@ -2,7 +2,7 @@
 title: "Wandern mit Schulkindern: Wie weit, wie hoch und wie es Spaß macht"
 description: "Wandern mit Kindern von 6 bis 12 Jahren: realistische Strecken und Höhenmeter, Touren mit Zielen, Motivation ohne Bestechung, Ausrüstung und Sicherheitsregeln am Berg."
 category: kinder-und-hund
-date: 2026-09-12
+date: 2026-10-06
 ---
 Mit dem Schulalter beginnt eine besondere Phase beim Wandern mit Kindern. Sie werden nicht mehr getragen und laufen nicht mehr nur von Pfütze zu Pfütze, sie schaffen echte Strecken, erste Gipfel und vielleicht schon eine Hüttennacht. Gleichzeitig haben sie eigene Ideen davon, was ein guter Tag ist, und „Wandern“ klingt für viele erst einmal langweilig. Mit realistischen Touren, spannenden Zielen und ein bisschen Beteiligung an der Planung kann daraus aber eine Leidenschaft werden, die ein Leben lang hält. Dieser Ratgeber hilft dir, die richtige Tour zu wählen und unterwegs alle bei Laune zu halten.
 

@@ -2,7 +2,7 @@
 title: "Kartoffelsorten und Kochtypen: festkochend, vorwiegend festkochend oder mehlig?"
 description: "Welche Kartoffel für Salat, Bratkartoffeln, Püree oder Klöße? Die drei Kochtypen erklärt, dazu Frühkartoffeln, richtige Lagerung, grüne Stellen und Garzeiten."
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Ein Kartoffelsalat, der zu Brei zerfällt, oder Klöße, die beim Kochen nicht zusammenhalten: Meistens liegt es nicht am Rezept, sondern an der falschen Kartoffel. In Deutschland sind mehr als 200 Kartoffelsorten zugelassen, und sie unterscheiden sich deutlich darin, wie sie sich beim Kochen verhalten. Zum Glück muss man keine Sortennamen auswendig lernen. Auf jeder Packung steht der Kochtyp, und der verrät fast alles, was du in der Küche wissen musst.
 

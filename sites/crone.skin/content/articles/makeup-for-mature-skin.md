@@ -2,7 +2,7 @@
 title: "Makeup for Mature Skin: Lighter, Brighter and Far Less Fuss"
 description: How to adapt your makeup after fifty — skin preparation, lighter bases, cream textures, brows, eyes, lips and blusher — so your face looks fresh, lifted and unmistakably yours.
 category: beauty-after-fifty
-date: 2026-10-19
+date: 2026-10-20
 ---
 At some point in your forties or fifties, the makeup that served you faithfully for years begins to behave differently. Foundation settles into lines it never used to find. Powder looks dusty by lunchtime. Eyeliner that once looked crisp suddenly seems harsh, and the lipstick that was your signature starts to feather at the edges. None of this means you should stop wearing makeup — only that the rules have changed, and most of the changes are in your favour. Mature skin generally looks its best with less product, softer textures and a little more thought about where light falls.
 

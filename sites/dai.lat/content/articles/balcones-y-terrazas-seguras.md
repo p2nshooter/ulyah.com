@@ -2,7 +2,7 @@
 title: "Balcones y terrazas seguras: barandas, peso, desagües y cómo disfrutarlos sin riesgos"
 description: "Altura y diseño de barandas, peso que soporta un balcón, señales de deterioro, desagües, macetas y objetos que pueden caer, parrillas, cerramientos y cómo cuidar a niños y mascotas."
 category: patios-y-exteriores
-date: 2026-10-05
+date: 2026-10-11
 ---
 En las ciudades, el balcón o la terraza es a menudo el único espacio exterior de la vivienda. Allí se toma el café de la mañana, se cultivan plantas, se tiende ropa, se reúne la familia o se mira la ciudad al atardecer. Por eso conviene cuidarlo como cualquier habitación de la casa, y con una diferencia importante: es un espacio en altura, expuesto al clima, que sostiene peso en voladizo y desde el que pueden caer personas u objetos.
 

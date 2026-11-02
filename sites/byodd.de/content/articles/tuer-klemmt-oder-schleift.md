@@ -2,7 +2,7 @@
 title: "Tür klemmt oder schleift: Bänder einstellen, Schloss justieren, Tür kürzen"
 description: Warum Zimmertüren schleifen, klemmen oder nicht ins Schloss fallen, wie du Türbänder nachstellst, das Schließblech anpasst, quietschende Bänder schmierst und eine Tür für einen neuen Boden kürzt.
 category: reparaturen-im-haushalt
-date: 2026-10-12
+date: 2026-10-04
 ---
 Die Tür schleift über den neuen Teppich, schließt nur mit Schwung, springt wieder auf oder quietscht bei jeder Bewegung: Probleme mit Zimmertüren sind alltäglich und fast immer selbst zu beheben. Häufige Ursachen sind abgesackte Türbänder, ein verschobenes Schließblech, ein neuer, höherer Bodenbelag oder Feuchtigkeit, die Holztüren aufquellen lässt.
 

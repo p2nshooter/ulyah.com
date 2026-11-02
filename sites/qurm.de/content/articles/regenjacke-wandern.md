@@ -2,7 +2,7 @@
 title: "Regenjacke fürs Wandern: Wassersäule, Atmungsaktivität, Schnitt und richtige Pflege"
 description: "Worauf es bei einer Wander-Regenjacke ankommt: Wassersäule und RET-Wert verstehen, 2- oder 3-Lagen-Laminat, Kapuze und Belüftung, Regenhose, Poncho, Rucksackschutz und Imprägnierung ohne Fluorchemie."
 category: ausruestung
-date: 2026-08-19
+date: 2026-10-06
 ---
 In Deutschland ist es fast eine Gewissheit: Irgendwann auf einer Wanderung regnet es. Im Mittelgebirge kommt ein Schauer oft ohne Vorwarnung, in den Bergen kann ein Wetterumschwung aus einem Sommertag in einer Stunde einen nassen, kalten Nachmittag machen. Eine gute Regenjacke ist deshalb neben den Schuhen das wichtigste Kleidungsstück für draußen. Sie soll Regen und Wind abhalten, gleichzeitig Schweiß nach außen lassen, leicht sein und klein in den Rucksack passen. Keine Jacke kann alles perfekt. Wer die Fachbegriffe versteht, findet aber die Jacke, die zu den eigenen Touren passt, und hält sie mit der richtigen Pflege viele Jahre funktionsfähig.
 

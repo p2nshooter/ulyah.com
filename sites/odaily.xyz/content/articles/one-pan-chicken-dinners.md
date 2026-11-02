@@ -2,7 +2,7 @@
 title: "One-Pan Chicken Dinners: A Simple Method for Juicy Chicken and a Pan Sauce in Thirty Minutes"
 description: "How to choose and prepare chicken for fast skillet dinners, get a golden sear, cook it safely to 165 °F, build a pan sauce from the browned bits, and five weeknight variations to rotate."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Chicken is the backbone of weeknight cooking in many homes. It is affordable, widely available and goes with almost any flavor, from lemon and herbs to soy and ginger or tomatoes and olives. But chicken also has a reputation for being dry, bland or tricky to cook safely. The solution is a simple, flexible method: sear the chicken in a hot skillet until golden, let it finish cooking gently, then use the same pan to make a quick sauce from the flavorful browned bits left behind. Once you learn this technique, you can make dozens of different dinners with one pan and about thirty minutes, and only one pan to wash afterward.

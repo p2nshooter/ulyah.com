@@ -2,7 +2,7 @@
 title: Etiqueta energética de los electrodomésticos: cómo leerla y elegir bien
 description: Qué significa la escala de la A a la G, qué cambió en 2021, qué datos aparecen en cada tipo de etiqueta, cómo usar el código QR y la base EPREL y cómo calcular el ahorro real de una clase superior.
 category: electrodomesticos-e-iluminacion
-date: 2026-08-30
+date: 2026-10-04
 ---
 Cualquier frigorífico, lavadora, televisor o bombilla que se vende en la Unión Europea lleva una **etiqueta energética**. Es una herramienta pensada para comparar el consumo de los aparatos de forma sencilla, pero muchos compradores solo miran la letra y se pierden la información más útil: el consumo anual en kWh, que permite calcular cuánto te costará cada aparato a lo largo de su vida.
 

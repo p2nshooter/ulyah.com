@@ -2,7 +2,13 @@
 title: "Putzplan erstellen: Was täglich, wöchentlich und monatlich zu tun ist"
 description: "Putzplan erstellen: welche Aufgaben täglich, wöchentlich, monatlich und jährlich anfallen, Varianten für Single, Familie und WG, realistischer Zeitbedarf und Plan anpassen."
 category: putzen-mit-system
-date: 2026-06-18
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Frühjahrsputz | https://www.umweltbundesamt.de/themen/chemikalien/wasch-reinigungsmittel/umweltbewusst-waschen-reinigen/fruehjahrsputz
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Umweltbundesamt: Hygienetipps für den Alltag | https://www.umweltbundesamt.de/themen/hygienetipps-fuer-den-alltag
 ---
 Samstagvormittag, draußen scheint die Sonne, und du stehst seit Stunden mit dem Eimer in der Wohnung, weil Bad, Küche und Böden gleichzeitig fällig sind. Oder es läuft umgekehrt: Du putzt ständig ein bisschen, weißt aber nie, wann der Kühlschrank zuletzt dran war. Beides hat dieselbe Ursache: Es fehlt ein Überblick, was wann zu tun ist.
 

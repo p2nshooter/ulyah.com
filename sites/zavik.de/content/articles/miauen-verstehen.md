@@ -2,7 +2,7 @@
 title: "Miauen, Gurren, Keckern: Die Lautsprache der Katze verstehen"
 description: Erwachsene Katzen miauen vor allem für Menschen. Was Miauen, Gurren, Keckern, Fauchen und Knurren bedeuten und wann veränderte Laute auf Krankheit hinweisen.
 category: verhalten
-date: 2026-08-10
+date: 2026-10-05
 ---
 Katzen verständigen sich untereinander vor allem über Körpersprache und Gerüche. Laute nutzen sie unter erwachsenen Artgenossen eher sparsam: Knurren, Fauchen und Kreischen bei Konflikten, Rufen während der Paarungszeit, Gurren zwischen Mutter und Jungen. Das klassische „Miau“ dagegen hört man unter erwachsenen Katzen erstaunlich selten.
 

@@ -2,7 +2,7 @@
 title: "Bodenart bestimmen: Fingerprobe, Schlämmprobe und pH-Wert für den Gemüsegarten"
 description: "Sand, Schluff, Lehm oder Ton? So bestimmst du die Bodenart mit Fingerprobe und Schlämmglas, deutest Zeigerpflanzen, misst den pH-Wert und verbesserst jeden Boden mit Kompost, Gründüngung und Mulch."
 category: kompost-und-boden
-date: 2026-07-27
+date: 2026-10-06
 ---
 Der Boden ist das Fundament jedes Gartens. Ob Möhren lang und gerade werden, ob Salat nach jedem Regen fault oder ob Tomaten im Juli welken, hängt oft weniger am Saatgut als an der Erde. Wer seinen Boden kennt, gießt, düngt und lockert gezielter und verschwendet kein Geld für Produkte, die nicht nötig sind. Dafür brauchst du kein Labor: Mit den Händen, einem Schraubglas und ein wenig Beobachtung findest du heraus, womit du es zu tun hast. Dieser Ratgeber zeigt die einfachen Tests und was du aus den Ergebnissen machst.
 

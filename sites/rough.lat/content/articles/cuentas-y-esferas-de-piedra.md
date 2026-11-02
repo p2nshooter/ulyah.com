@@ -2,7 +2,7 @@
 title: "Cuentas y esferas de piedra: cómo se fabrican, se perforan, se enhebran y se reconocen las de calidad"
 description: "Cómo se fabrican, perforan, pulen y enhebran las cuentas y esferas de piedra, las tradiciones americanas y cómo detectar tintes, piedra reconstituida e imitaciones."
 category: arte-tallado-y-artesania
-date: 2026-10-31
+date: 2026-11-01
 ---
 Las cuentas son probablemente la forma más antigua de joyería. Mucho antes de los anillos y los engastes, los seres humanos perforaban conchas, dientes, semillas y piedras para colgarlas del cuello o de la muñeca. En América, los pueblos andinos apreciaban las cuentas de concha *Spondylus*, traídas desde las costas cálidas del Pacífico, y los mayas y los olmecas tallaban cuentas de jade que acompañaban a sus gobernantes. Hoy, las cuentas de piedra siguen llenando talleres, ferias y tiendas, y las esferas pulidas se han convertido en objetos de colección y decoración.
 

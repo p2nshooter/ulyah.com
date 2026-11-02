@@ -2,7 +2,7 @@
 title: "Feste Plätze und Beschriftungen: Das Prinzip, mit dem Ordnung von allein hält"
 description: "Feste Plätze und Beschriftungen: So gibst du jedem Ding nach Nutzung und Griffhöhe ein Zuhause, damit die Ordnung nicht drei Tage nach dem Aufräumen wieder kippt."
 category: ordnung-und-papierkram
-date: 2026-06-21
+date: 2026-10-11
 ---
 Am Samstag hast du aufgeräumt, am Mittwoch liegt die Post wieder auf dem Küchentisch, die Schere ist verschwunden und der Stuhl im Schlafzimmer trägt einen Berg Kleidung. Das liegt selten an fehlender Disziplin. Meist fehlt etwas anderes: ein fester Platz für jedes Ding. Aufräumen bedeutet, Dinge wegzuräumen. Ordnung bedeutet, dass jedes Ding weiß, wohin es gehört. Ohne dieses Zuhause beginnt das Durcheinander nach jedem Aufräumen von vorn.
 

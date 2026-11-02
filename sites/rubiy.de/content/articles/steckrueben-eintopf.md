@@ -2,7 +2,7 @@
 title: "Steckrübeneintopf und Steckrübenstampf: ein unterschätztes Wintergemüse neu entdecken"
 description: Woher die Steckrübe ihren schlechten Ruf hat, wie du sie schälst und lagerst, mit Rezepten für norddeutschen Steckrübeneintopf, Stampf und Ofenpommes.
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Die Steckrübe hat es nicht leicht. Bei vielen Älteren weckt sie Erinnerungen an Hunger und Not, bei Jüngeren gar keine, weil sie nie eine gegessen haben. Dabei ist sie ein ausgezeichnetes Wintergemüse: mild, leicht süßlich, ein wenig an Kohlrabi und Möhre erinnernd, preiswert und monatelang lagerfähig. In Norddeutschland, wo sie auch Wruke, Kohlrübe oder Butterrübe heißt, hat sie nie ganz ihren Platz in der Küche verloren. Ein dampfender Steckrübeneintopf mit Kartoffeln und Kassler gehört dort zu den Gerichten, auf die man sich freut, wenn es draußen nass und grau wird.
 

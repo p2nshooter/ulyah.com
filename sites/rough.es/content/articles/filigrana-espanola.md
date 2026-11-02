@@ -2,7 +2,7 @@
 title: "Filigrana española: de la platería de Córdoba al botón charro de Salamanca"
 description: "Qué es la filigrana, cómo se trabaja el hilo de plata y oro, las tradiciones de Córdoba y Salamanca con el botón charro, cómo distinguir una pieza hecha a mano y cómo cuidarla."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 Pocas técnicas de joyería exigen tanta paciencia como la filigrana. Con hilos de plata u oro más finos que un cabello, retorcidos, aplanados y doblados uno a uno, el orfebre construye encajes metálicos que parecen imposibles: rosetas, espirales, flores y estrellas llenas de aire y de luz. En España, la filigrana tiene raíces antiguas y dos capitales indiscutibles: Córdoba, heredera de una larga tradición platera, y Salamanca, cuyo botón charro se ha convertido en símbolo de la ciudad y en una de las joyas tradicionales más reconocibles del país.
 

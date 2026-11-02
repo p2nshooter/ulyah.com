@@ -2,7 +2,7 @@
 title: "Beautiful Hands and Nails After Fifty: A Gentle Care Routine"
 description: How to care for hands and nails that are drier, thinner or more brittle with age — moisturising, sun protection, at-home manicures, flattering polish colours and when to seek advice.
 category: beauty-after-fifty
-date: 2026-10-19
+date: 2026-10-20
 ---
 Our hands work hard for us every day. They cook, garden, type, carry shopping, hold grandchildren and gesture as we talk. They are also exposed to the elements more than almost any other part of the body: sun, wind, cold, hot water and cleaning products. It is no surprise that hands often show the years more than the face, with dryness, thinner skin, prominent veins, sun spots and nails that split or ridge.
 

@@ -2,7 +2,7 @@
 title: "Knife Skills for Beginners: How to Hold, Cut and Care for a Kitchen Knife Safely"
 description: "Learn the grip, the claw, the basic cuts and how to sharpen and store a chef's knife, so chopping becomes faster, safer and far less tiring in an everyday home kitchen."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 If there is one skill that changes how cooking feels, it is using a knife well. Recipes that once seemed like an hour of chopping suddenly take fifteen minutes. Onions stop sliding across the board, tomatoes stop collapsing into mush, and the small cuts on your fingertips become rare. Good knife skills are not about speed or showing off like a television chef. They are about control: holding the knife so it does the work, guiding food so your fingers stay out of the way, and keeping the blade sharp enough that it cuts instead of crushing. This guide walks through everything a beginner needs, from choosing a first knife to the five cuts you will use almost every night.

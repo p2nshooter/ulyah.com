@@ -2,7 +2,7 @@
 title: "Fruchtfolge planen: Pflanzenfamilien, Anbaupausen und die Vierfelderwirtschaft im Hausgarten"
 description: "Warum Gemüse jedes Jahr den Platz wechseln sollte: Pflanzenfamilien, nötige Anbaupausen und ein einfacher Vierfelderplan, mit dem du auch im kleinen Garten rotierst."
 category: mischkultur-und-fruchtfolge
-date: 2026-08-14
+date: 2026-10-06
 ---
 Wer Tomaten Jahr für Jahr an dieselbe Stelle pflanzt, Kohl immer ins gleiche Eck setzt oder Erbsen ständig im selben Beet zieht, erlebt es oft nach wenigen Jahren: Die Pflanzen kümmern, Krankheiten nehmen zu, und die Ernte wird kleiner, obwohl gedüngt und gegossen wurde. Der Grund ist einfach. Pflanzen derselben Familie holen sich dieselben Nährstoffe aus dem Boden und haben dieselben Schädlinge und Krankheitserreger, die sich im Boden anreichern. Die Fruchtfolge ist die älteste Antwort der Landwirtschaft darauf: Kulturen wechseln jedes Jahr den Platz, sodass der Boden Zeit hat, sich zu erholen. Im Hausgarten ist das mit etwas Planung einfach umzusetzen.
 

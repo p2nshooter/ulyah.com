@@ -2,7 +2,7 @@
 title: "KI in der Schule: Wie Schülerinnen und Schüler mit ChatGPT lernen statt abschreiben"
 description: "Wie KI beim Lernen hilft, was Schulen erlauben, warum Abschreiben schadet, mit welchen Prompts KI zum Nachhilfelehrer wird und was Eltern über Alter, Datenschutz und Regeln wissen sollten."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Für viele Jugendliche ist ein KI-Assistent längst so selbstverständlich wie das Smartphone. Hausaufgaben, Referate, Vokabeln, Mathe: Die Versuchung ist groß, die KI einfach machen zu lassen. Lehrkräfte und Eltern sind verunsichert, manche Schulen verbieten KI, andere fördern sie gezielt. Dabei kann künstliche Intelligenz ein hervorragender Lernbegleiter sein, wenn man sie richtig nutzt: geduldig, rund um die Uhr erreichbar und bereit, dieselbe Sache zehnmal anders zu erklären. Diese Anleitung richtet sich an Schülerinnen und Schüler ebenso wie an Eltern. Sie zeigt, wie KI beim Lernen hilft, wo die Grenzen liegen und welche Regeln wichtig sind.

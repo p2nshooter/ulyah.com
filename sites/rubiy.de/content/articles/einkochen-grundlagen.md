@@ -2,7 +2,7 @@
 title: "Einkochen für Einsteiger: Gläser, Temperaturen und sichere Regeln"
 description: Wie Einkochen funktioniert, welche Gläser du brauchst, wie lange Obst und Gemüse ins Wasserbad müssen und warum säurearmes Gemüse besondere Vorsicht verlangt.
 category: vorrat-und-konservieren
-date: 2026-10-12
+date: 2026-10-06
 ---
 Einkochen ist eine der ältesten Methoden, die Ernte haltbar zu machen, und in vielen Familien ein fester Termin im Spätsommer. Wenn Kirschen, Zwetschgen, Birnen und Bohnen gleichzeitig reif werden, stehen auf dem Herd große Töpfe, in denen Gläser im heißen Wasser klappern, und die Küche riecht nach Zimt und Nelken. Im Winter steht dann ein Regal voller Gläser bereit, die nur geöffnet werden müssen.
 

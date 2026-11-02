@@ -2,7 +2,7 @@
 title: "How GPS Works: Satellites, Atomic Clocks, Trilateration and Why Einstein Matters for Your Phone's Map"
 description: "How your phone finds its position from satellite signals, why it needs four satellites, how atomic clocks and relativity keep GPS accurate, what limits accuracy and how other systems help."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Open a map on your phone, and within seconds a blue dot shows exactly where you are, perhaps within a few meters. It seems almost magical, but behind that dot is a remarkable system of satellites orbiting about 12,550 miles (20,200 kilometers) above Earth, carrying some of the most precise clocks ever built. The Global Positioning System, or GPS, relies on timing so precise that it even needs to account for Einstein's theories of relativity. This explainer describes how GPS works, from the satellites in space to the receiver in your pocket.

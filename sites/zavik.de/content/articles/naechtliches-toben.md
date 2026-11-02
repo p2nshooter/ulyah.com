@@ -2,7 +2,7 @@
 title: "Nächtliches Toben und Wecken: So wird die Nacht wieder ruhig"
 description: Warum Katzen nachts toben und frühmorgens wecken, wie Jagdspiel und Abendmahlzeit helfen und wann nächtliches Rufen bei älteren Katzen ein Gesundheitsproblem ist.
 category: verhalten
-date: 2026-08-14
+date: 2026-10-05
 ---
 Es ist drei Uhr nachts. Durch den Flur donnert etwas, das unmöglich nur vier Kilogramm wiegen kann. Dann ein Sprung auf das Bett, ein Sprung herunter, das Klirren eines umgestoßenen Gegenstands im Wohnzimmer. Um fünf Uhr sitzt die Katze auf deiner Brust, tippt mit der Pfote an deine Nase oder miaut neben deinem Ohr, bis du aufstehst und den Napf füllst.
 

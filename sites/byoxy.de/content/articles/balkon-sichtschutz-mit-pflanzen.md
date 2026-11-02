@@ -2,7 +2,7 @@
 title: "Balkon-Sichtschutz mit Pflanzen: Kletterpflanzen, Gräser und Kübelgehölze"
 description: So schaffst du einen grünen Sichtschutz auf dem Balkon: einjährige und mehrjährige Kletterpflanzen, Bambus und Gräser, Kübelgehölze, Rankhilfen, Pflanzgefäße, Statik, Mietrecht und Pflege.
 category: balkon-und-terrasse
-date: 2026-08-31
+date: 2026-10-04
 ---
 Ein Balkon soll ein Rückzugsort sein. Doch oft sitzen die Nachbarn nur wenige Meter entfernt, die Straße ist einsehbar oder gegenüber liegt ein Bürogebäude. Statt Kunststoffmatten oder Stoffbahnen kann ein grüner Sichtschutz aus Pflanzen für Privatsphäre sorgen. Er sieht natürlich aus, filtert Wind und Staub, kühlt im Sommer und bietet Insekten und Vögeln Lebensraum.
 

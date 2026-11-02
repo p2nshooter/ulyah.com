@@ -2,7 +2,7 @@
 title: "Minimalismus ohne Dogma: Wie du dein eigenes Maß an „genug“ findest"
 description: "Minimalismus ohne starre Regeln: Mit Fragen pro Lebensbereich findest du dein eigenes Maß an genug, auch im Zusammenleben mit Partner, Familie oder WG."
 category: ausmisten-und-minimalismus
-date: 2026-06-15
+date: 2026-10-11
 ---
 Vielleicht kennst du die Bilder: eine fast leere, weiße Wohnung, ein Sofa, eine Pflanze, auf dem Regal drei sorgfältig ausgewählte Bücher. Dazu Herausforderungen, bei denen jemand mit nur hundert Gegenständen leben will, und Listen mit Dingen, die man angeblich alle nicht braucht. Das kann anziehend wirken, weil es Ruhe verspricht. Es kann aber auch abschrecken, denn dein Leben sieht anders aus. Du hast Hobbys, eine Werkzeugkiste, vielleicht Kinder oder einen Partner, der seine Plattensammlung liebt, und keine Lust, jeden Gegenstand zu zählen.
 

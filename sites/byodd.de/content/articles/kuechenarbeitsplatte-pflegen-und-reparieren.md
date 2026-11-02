@@ -2,7 +2,7 @@
 title: "Küchenarbeitsplatte pflegen und reparieren: Holz, Schichtstoff und Stein"
 description: Wie du Arbeitsplatten aus Massivholz, Schichtstoff und Stein richtig pflegst, Kratzer, Brandflecken und aufgequollene Kanten reparierst und die Fuge an der Wand dicht hältst.
 category: bad-und-kueche
-date: 2026-09-05
+date: 2026-10-04
 ---
 Die Arbeitsplatte ist die meistbeanspruchte Fläche in der Küche. Auf ihr wird geschnitten, geknetet, abgestellt, verschüttet und manchmal ein heißer Topf abgestellt, der dort nicht hingehört. Je nach Material reagiert sie unterschiedlich auf diese Belastungen, und auch die Pflege und die Reparatur von Schäden unterscheiden sich stark.
 

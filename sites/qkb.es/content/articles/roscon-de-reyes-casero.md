@@ -2,7 +2,7 @@
 title: Roscón de Reyes casero: receta con prefermento, agua de azahar y masa tierna durante días
 description: Roscón de Reyes casero con prefermento y agua de azahar: amasado, formado de la rosca, decoración, horneado, relleno de nata y sorpresas seguras.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 El roscón de Reyes es el dulce que cierra las fiestas de Navidad en España. Se come el 6 de enero, el día de la Epifanía, en desayunos y meriendas familiares, y esconde en su interior dos sorpresas: una figurita, que trae suerte a quien la encuentra, y un haba seca, que obliga a quien le toca a pagar el roscón del año siguiente. Su forma de corona recuerda a los Reyes Magos, y las frutas escarchadas de colores representan las piedras preciosas.
 

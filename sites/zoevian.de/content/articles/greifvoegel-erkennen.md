@@ -2,7 +2,7 @@
 title: "Greifvögel erkennen: Bussard, Turmfalke, Sperber, Habicht, Milane und Co. am Flugbild bestimmen"
 description: "Die häufigsten Greifvögel Deutschlands sicher bestimmen: Flugbild, Flügel- und Schwanzform, Verhalten und Rufe von Mäusebussard, Turmfalke, Sperber, Habicht, Rot- und Schwarzmilan."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Ein großer Vogel kreist über dem Feld, ein kleiner Falke steht scheinbar still in der Luft, ein grauer Blitz schießt durch den Garten und reißt eine Meise vom Futterhaus: Greifvögel faszinieren. Viele Menschen sagen bei jedem großen Vogel am Himmel „ein Adler“, dabei ist es meist ein Mäusebussard. Mit etwas Übung lassen sich die häufigsten Greifvögel aber gut unterscheiden, oft schon an der Silhouette.

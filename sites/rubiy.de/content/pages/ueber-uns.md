@@ -2,7 +2,7 @@
 title: Über uns
 description: Wer hinter RUBIY steht, warum wir über saisonales Kochen schreiben, wie unsere Rezepte entstehen und was der Name bedeutet.
 order: 1
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 RUBIY steht für **Rü**be, **B**irne und **J**ahreszeit, auch wenn wir am Ende ein Y daraus gemacht haben, weil es auf einem Etikett schöner aussieht. Wir schreiben für alle, die mit dem kochen möchten, was gerade wächst: für den Haushalt, der jede Woche eine Gemüsekiste bekommt und nicht weiß, wohin mit dem vierten Kopf Wirsing. Für die Hobbygärtnerin, deren Zucchini im August schneller wachsen, als sie sie ernten kann. Für alle, die auf dem Wochenmarkt vor einer Quitte stehen und sich fragen, was man damit eigentlich macht.
 
@@ -27,7 +27,7 @@ Dazu kommt unser [Saisonkalender](/saisonkalender/), der Monat für Monat zeigt,
 
 ## Wie unsere Rezepte entstehen
 
-Jeder Beitrag wird von unserer Küchenredaktion selbst geschrieben, nicht automatisch erzeugt und nicht aus anderen Websites zusammengesetzt. Die Rezepte stammen aus der eigenen Küche, aus der regionalen Kochtradition und aus dem, was Großeltern, Marktleute und Gärtnerinnen über Jahrzehnte erprobt haben. Bei Fragen der Lebensmittelsicherheit, etwa beim Einkochen, Fermentieren oder Sammeln von Wildpflanzen, stützen wir uns auf die Empfehlungen von Behörden und Fachstellen für Lebensmittelsicherheit und Verbraucherschutz. Wie wir genau arbeiten, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
+Jeder Beitrag wird eigens für RUBIY erarbeitet und nicht aus anderen Websites zusammengesetzt. Beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge. Die Rezepte folgen der regionalen Kochtradition und dem, was Generationen von Köchinnen und Köchen über Jahrzehnte erprobt haben; Mengen und Zeiten sind Richtwerte, die du an deinen Herd und deine Zutaten anpasst. Bei Fragen der Lebensmittelsicherheit, etwa beim Einkochen, Fermentieren oder Sammeln von Wildpflanzen, stützen wir uns auf die Empfehlungen von Behörden und Fachstellen für Lebensmittelsicherheit und Verbraucherschutz. Wie wir genau arbeiten, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
 
 ## Was wir nicht tun
 

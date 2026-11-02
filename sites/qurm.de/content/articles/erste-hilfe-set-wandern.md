@@ -2,7 +2,7 @@
 title: "Erste-Hilfe-Set fürs Wandern: Was hineingehört und wie du es im Ernstfall nutzt"
 description: "Die Packliste für ein Erste-Hilfe-Set auf Tages- und Mehrtagestouren: Blasenversorgung, Wundversorgung, Rettungsdecke, Pinzette, persönliche Medikamente, dazu Anwendungstipps und das alpine Notsignal."
 category: ausruestung
-date: 2026-08-13
+date: 2026-10-06
 ---
 Die meisten Verletzungen beim Wandern sind klein: eine Blase an der Ferse, ein aufgeschürftes Knie, ein Splitter, ein Zeckenstich. Manchmal ist es aber ernster, etwa ein umgeknickter Knöchel weit weg vom nächsten Weg oder ein Sturz, bei dem jemand liegen bleibt und auskühlt. Ein gut zusammengestelltes Erste-Hilfe-Set wiegt nur ein paar Hundert Gramm und macht in beiden Fällen den Unterschied. Fertige Sets aus dem Handel sind ein guter Anfang, enthalten aber oft Dinge, die du nicht brauchst, und es fehlt, was beim Wandern wirklich zählt. Hier erfährst du, was hineingehört, wie du es sinnvoll ergänzt und wie du die Sachen im Ernstfall einsetzt.
 

@@ -2,7 +2,7 @@
 title: "Vorkultur, Hauptkultur, Nachkultur: ein Beet dreimal im Jahr ernten"
 description: "Wie du Beete das ganze Jahr nutzt: schnelle Vorkulturen im Frühjahr, Hauptkulturen im Sommer und Nachkulturen bis in den Winter, mit Saatterminen und erprobten Abfolgen."
 category: mischkultur-und-fruchtfolge
-date: 2026-07-07
+date: 2026-10-06
 ---
 Ein Gemüsebeet, auf dem von Mai bis September Tomaten stehen und das danach brach liegt, wird nur zur Hälfte genutzt. Die Saison in Deutschland ist lang genug, um auf vielen Beeten zwei oder sogar drei Kulturen nacheinander zu ernten. Im März wächst schon Spinat, im Sommer folgen Bohnen oder Kohl, und im Herbst wartet Feldsalat auf den Winter. Wer diese Abfolge plant, erntet auf derselben Fläche deutlich mehr, und der Boden bleibt fast das ganze Jahr bedeckt und lebendig.
 

@@ -2,7 +2,7 @@
 title: "Fränkische Schweiz: Wandern zwischen Felsen, Burgen, Höhlen und Brauereien"
 description: "Felsentürme, Burgen, Schauhöhlen und Kirschblüte: die schönsten Wanderziele der Fränkischen Schweiz, Anreise mit Bahn und Bus, Jahreszeiten und Tipps für Familien."
 category: berge-und-tagestouren
-date: 2026-10-10
+date: 2026-10-14
 ---
 Zwischen Bamberg, Bayreuth und Nürnberg liegt eine Landschaft, die auf engem Raum erstaunlich viel bietet. Aus bewaldeten Hängen ragen helle Felstürme, in den Tälern schlängeln sich Flüsse wie Wiesent und Püttlach, auf den Felsspornen thronen Burgen, und unter der Erde verbergen sich Hunderte Höhlen. Dazu kommen Dörfer mit Fachwerk, Streuobstwiesen und eine Dichte an kleinen Brauereien, die in Europa ihresgleichen sucht. Die Fränkische Schweiz ist kein Hochgebirge, ihre Höhen liegen meist zwischen 400 und 600 Metern. Gerade deshalb ist sie ideal für Tagestouren mit Abwechslung, für Familien und für alle, die Wandern mit Kultur und Einkehr verbinden möchten.
 

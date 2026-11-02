@@ -2,7 +2,7 @@
 title: "Wandern mit Hund: Vorbereitung, Leinenregeln und Rücksicht unterwegs"
 description: Welche Touren zu deinem Hund passen, was in den Rucksack gehört, wo Leinenpflicht gilt und wie du Hitze, Weidetiere und wunde Pfoten in den Griff bekommst.
 category: kinder-und-hund
-date: 2026-06-29
+date: 2026-10-06
 ---
 Für viele Hunde gibt es nichts Schöneres als einen langen Tag draußen: neue Gerüche, Bäche zum Hineinspringen, Wurzeln und Steine unter den Pfoten und ihr Mensch den ganzen Tag dabei. Wandern mit Hund kann eine wunderbare gemeinsame Erfahrung sein. Damit sie es bleibt, braucht es ein wenig Planung, denn ein Hund hat andere Bedürfnisse und Grenzen als ein Mensch, und unterwegs begegnet ihr anderen Wandernden, Weidetieren und Wildtieren, auf die ihr Rücksicht nehmen müsst.
 

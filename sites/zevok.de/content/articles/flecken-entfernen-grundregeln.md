@@ -2,7 +2,14 @@
 title: "Flecken entfernen: Die Grundregeln für jede Fleckart und jedes Material"
 description: "Flecken richtig entfernen: abtupfen statt reiben, Fleckarten erkennen, kalt oder warm behandeln, Material vorher testen und wissen, wann die Textilreinigung besser ist."
 category: flecken-entfernen
-date: 2026-06-15
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Behandlung von Obstflecken auf Kleidungsstücken | https://forum-waschen.de/tipps-zur-behandlung-von-obstflecken-auf-kleidungsstuecken/
+  - Forum Waschen: Behandlung von Grasflecken auf Kleidungsstücken | https://forum-waschen.de/tipps-zur-behandlung-von-grasflecken-auf-kleidungsstuecken/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
 ---
 Ein Glas Rotwein kippt beim Geburtstagsessen um, die Tomatensoße tropft in der Kantine auf das helle Hemd, das Kind kommt mit Kakao auf dem Pulli aus der Kita. In solchen Momenten passiert fast immer dasselbe: Man greift zur Serviette und rubbelt kräftig, hält den Stoff unter heißes Wasser oder kippt das erstbeste Mittel aus dem Badschrank darauf. Genau diese erste Minute entscheidet oft darüber, ob ein Fleck später herausgeht oder für immer bleibt.
 

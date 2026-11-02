@@ -2,7 +2,7 @@
 title: "The Life Cycle of Stars: From Clouds of Gas to Red Giants, White Dwarfs, Supernovae and Neutron Stars"
 description: "How stars are born in nebulae, what powers them, why mass decides their fate, how the Sun will become a red giant and white dwarf, and how massive stars explode and forge the elements in our bodies."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 When you look up at the night sky, the stars seem eternal and unchanging. In reality, every star has a life story: it is born, it shines for millions or billions of years, and eventually it dies, sometimes quietly and sometimes in one of the most violent explosions in the universe. Stars are also the factories that create most of the elements around us. The carbon in our cells, the oxygen we breathe and the iron in our blood were made inside stars that lived and died before the Sun was born. This explainer follows the life of a star from its birth in a cloud of gas to its final fate.

@@ -2,7 +2,7 @@
 title: La dieta mediterránea y el deporte: una alianza natural
 description: Por qué el patrón alimentario mediterráneo encaja tan bien con la vida activa, qué alimentos lo forman, cómo adaptarlo a quien entrena y un menú semanal de ejemplo.
 category: descanso-y-nutricion
-date: 2026-10-12
+date: 2026-10-04
 ---
 Cuando se habla de alimentación saludable, la dieta mediterránea aparece una y otra vez como referencia. No es una moda reciente: se trata del patrón alimentario tradicional de los países ribereños del Mediterráneo, entre ellos España, y ha sido estudiado durante décadas por su relación con una menor incidencia de enfermedades cardiovasculares y con una mejor salud general. La Unesco la reconoció como Patrimonio Cultural Inmaterial de la Humanidad, no solo por los alimentos, sino por la forma de comer: compartir la mesa, cocinar en casa y aprovechar los productos de temporada.
 

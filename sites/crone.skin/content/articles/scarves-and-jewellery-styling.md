@@ -2,7 +2,7 @@
 title: "The Art of Accessories: Scarves, Jewellery and Bags That Finish an Outfit"
 description: How to use scarves, jewellery, bags, belts and glasses to add colour, personality and polish to simple outfits — with easy scarf knots and tips for building a small collection.
 category: style-and-wardrobe
-date: 2026-10-19
+date: 2026-10-20
 ---
 Accessories are the secret weapon of every well-dressed woman. A simple navy jumper and jeans can look ordinary — or, with a silk scarf, a pair of statement earrings and a good bag, they can look deliberate, elegant and entirely personal. Accessories add colour, texture and personality, and they allow a small wardrobe to create an endless variety of looks.
 

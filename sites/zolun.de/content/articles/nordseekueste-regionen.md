@@ -2,7 +2,7 @@
 title: "Die Nordseeküste im Überblick: Ostfriesland, Cuxhaven, Dithmarschen und Nordfriesland"
 description: "Von Greetsiel bis Dagebüll: Welche Regionen die deutsche Nordseeküste hat, wie sie sich unterscheiden, welche Orte zu Familien, Ruhesuchenden oder Aktiven passen und wie du sie erreichst."
 category: nordsee-und-ostsee
-date: 2026-07-24
+date: 2026-10-11
 ---
 Die deutsche Nordseeküste wirkt auf der Landkarte wie eine lange, gleichförmige Linie aus Deichen, Wiesen und Watt. Wer dort unterwegs ist, merkt schnell, wie verschieden die Regionen sind. In Ostfriesland stehen Windmühlen und Teestuben, in Cuxhaven ziehen riesige Containerschiffe auf der Elbe vorbei, in Dithmarschen dehnen sich Kohlfelder bis zum Horizont, und in Nordfriesland blickst du von Deichen auf Halligen, die wie kleine Schiffe im Meer liegen. Dieser Ratgeber stellt dir die Regionen vom Festland aus vor, damit du den Ort findest, der zu dir passt. Die Inseln vor der Küste haben eigene Ratgeber.
 

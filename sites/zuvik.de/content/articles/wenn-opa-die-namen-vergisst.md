@@ -2,7 +2,7 @@
 title: "Wenn Opa die Namen vergisst"
 description: Opa Günther nennt Nele bei Mamas Namen und findet den Weg zum Bäcker nicht mehr. Wie Eltern Kindern Demenz erklären können und wie Nähe bleibt, wenn Erinnerungen schwinden.
 category: grosseltern-und-generationen
-date: 2026-10-12
+date: 2026-10-05
 ---
 Das erste Mal fiel es Nele an ihrem achten Geburtstag auf. Opa Günther kam wie jedes Jahr mit einem Geschenk, das in Zeitungspapier eingewickelt war, weil er Geschenkpapier für Verschwendung hielt. Er umarmte sie und sagte: „Alles Gute, Susanne!“
 

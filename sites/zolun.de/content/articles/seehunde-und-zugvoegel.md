@@ -2,7 +2,7 @@
 title: "Seehunde, Kraniche und Zugvögel: Tiere beobachten an Nord- und Ostsee"
 description: "Wo du Seehunde und Kegelrobben siehst, wann Ringelgänse und Kraniche an der Küste rasten, wie Robbenfahrten und Vogelführungen ablaufen und was du tust, wenn du einen Heuler findest."
 category: nordsee-und-ostsee
-date: 2026-07-30
+date: 2026-10-11
 ---
 Ein dunkler Kopf taucht zwischen den Wellen auf, zwei große Augen schauen neugierig zum Strand, dann ist er wieder verschwunden. Wer an der Nordsee einen Seehund sieht, vergisst diesen Moment selten. Und wer im Oktober an der Boddenküste steht, wenn bei Sonnenuntergang tausende Kraniche trompetend zu ihren Schlafplätzen fliegen, erlebt eines der eindrucksvollsten Naturschauspiele Europas. Die deutsche Küste ist ein Paradies für Tierbeobachtung, wenn man weiß, wann und wo man hinschauen muss. Dieser Ratgeber zeigt dir die besten Gelegenheiten und erklärt, wie du Tiere beobachtest, ohne sie zu stören.
 

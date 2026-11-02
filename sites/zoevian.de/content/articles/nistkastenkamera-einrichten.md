@@ -2,7 +2,7 @@
 title: "Nistkastenkamera einrichten: Technik, Einbau, Strom, Nachtsicht und Regeln für ungestörte Brut"
 description: "So richtest du eine Nistkastenkamera ein, ohne die Vögel zu stören: Kameratypen, Infrarot, passender Kasten, Einbau vor der Brutzeit, Strom und WLAN, Datenschutz und was du sehen wirst."
 category: beobachten-und-fotografieren
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Einmal live zusehen, wie eine Blaumeise ihr Nest aus Moos baut, wie zehn winzige Eier im Nest liegen, wie nackte Küken mit aufgesperrten Schnäbeln betteln und wie sie drei Wochen später einer nach dem anderen ins Freie springen: Eine Nistkastenkamera macht das möglich, ohne dass du den Kasten jemals öffnen musst. Sie ist für viele Familien ein Highlight des Frühjahrs und ein wunderbarer Weg, Kindern Natur nahezubringen.

@@ -2,7 +2,7 @@
 title: "How to Cook Rice Perfectly: Ratios, Rinsing and Methods for Fluffy White, Brown and Jasmine Rice"
 description: "Reliable ways to cook long-grain, jasmine, basmati, brown and short-grain rice on the stove, in the oven or a rice cooker, with water ratios, resting times, fixes for mushy rice and safe storage."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Rice feeds more people around the world than almost any other food, and yet it is one of the dishes home cooks worry about most. It can turn out sticky when you wanted fluffy, crunchy in the middle, scorched at the bottom or soggy and bland. The good news is that perfect rice is not a matter of luck. It comes down to choosing the right method for the type of rice, measuring water carefully, controlling the heat and, most importantly, leaving the lid alone. Once you understand a few simple principles, you can make reliable, delicious rice every time, whether it is a bowl of jasmine rice for a stir-fry, basmati for a curry or brown rice for a grain bowl.

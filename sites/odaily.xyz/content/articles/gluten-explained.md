@@ -2,7 +2,7 @@
 title: "Gluten Explained: How It Forms, Why Bread Needs It, Why Cakes Avoid It and What It Means for Your Baking"
 description: "What gluten is, how flour protein, water and mixing build it, why kneading and resting matter, how to choose flour by protein content, gluten-free baking basics and what celiac disease means."
 category: kitchen-science
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Gluten has become one of the most talked-about words in food. Some people avoid it for medical reasons, others for personal preference, and bakers talk about developing it or keeping it in check. But what exactly is gluten, and why does it matter so much in the kitchen? Understanding gluten explains why bread dough is kneaded while muffin batter is barely stirred, why pie crusts turn tough when overworked, why different flours behave so differently and why baking without gluten requires special techniques. This guide explains the science of gluten in plain language and shows how to use that knowledge to improve your baking.

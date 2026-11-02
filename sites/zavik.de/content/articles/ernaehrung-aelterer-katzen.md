@@ -2,7 +2,7 @@
 title: "Ernährung älterer Katzen: Was sich ab zehn Jahren ändert"
 description: Senioren brauchen nicht weniger, sondern oft anderes Futter: mehr gut verdauliches Eiweiß, viel Flüssigkeit, angepasste Portionen und ein waches Auge für Gewichtsverlust, Zähne und Nieren.
 category: ernaehrung
-date: 2026-09-07
+date: 2026-10-05
 ---
 Katzen werden heute älter als je zuvor. Fünfzehn, achtzehn, manchmal über zwanzig Jahre sind keine Seltenheit mehr. Das verdanken sie besserer tierärztlicher Versorgung, sicherer Haltung und hochwertigerem Futter. Doch mit den Jahren verändert sich der Körper einer Katze, und mit ihm die Anforderungen an die Ernährung.
 

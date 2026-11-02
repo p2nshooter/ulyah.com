@@ -2,7 +2,7 @@
 title: "Die Eingewöhnung"
 description: Ida ist vierzehn Monate alt und soll in die Krippe, und ihre Mutter hat schon vor dem ersten Tag ein schlechtes Gewissen. Über Abschiede, Tränen und Vertrauen zu einem neuen Menschen.
 category: schule-und-kita
-date: 2026-10-12
+date: 2026-10-05
 ---
 Johanna hatte die Tasche schon am Abend vorher gepackt: Wechselwäsche, Windeln, Hausschuhe mit Gummisohle, ein Foto der Familie für die Garderobe und Schnuffi, das Kuscheltuch, das aussah wie ein platt getretener Hase. Sie hatte alles dreimal kontrolliert. Trotzdem lag sie in der Nacht vor dem ersten Krippentag bis halb drei wach.
 

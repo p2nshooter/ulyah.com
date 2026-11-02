@@ -2,7 +2,7 @@
 title: Guía de quesos españoles: de los frescos a los curados, región a región
 description: Un recorrido por los grandes quesos de España según su leche, su elaboración y su maduración, con claves para reconocerlos, conservarlos y servirlos en una tabla.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 España es uno de los países de Europa con mayor diversidad de quesos. La variedad de climas, de razas de ganado y de tradiciones pastoriles ha dado lugar a cientos de elaboraciones, muchas de ellas protegidas con denominación de origen. Conocerlos ayuda a disfrutarlos más, a elegir bien en el mercado y, para quien hace queso en casa, a entender de dónde vienen las técnicas que practica en su cocina.
 

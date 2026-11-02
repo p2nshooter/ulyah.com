@@ -2,7 +2,7 @@
 title: "Mecklenburgische Seenplatte: Müritz, Nationalpark, Kanu und Hausboot ohne Führerschein"
 description: "Urlaub im Land der tausend Seen: Waren und die Müritz, Müritz-Nationalpark, Kanutouren, Hausboot mit Charterbescheinigung, Radwege, Badestellen und die beste Reisezeit für Kraniche und Seeadler."
 category: seen-und-fluesse
-date: 2026-08-17
+date: 2026-10-11
 ---
 Zwischen Berlin und der Ostsee liegt eine Landschaft, in der Wasser fast überall ist. Große Seen mit weitem Horizont, kleine Waldseen mit Seerosen, Flüsse und Kanäle, die alles miteinander verbinden. Die Mecklenburgische Seenplatte ist eines der größten zusammenhängenden Seengebiete Mitteleuropas und ein Ziel für Menschen, die Natur, Ruhe und Bewegung suchen: im Kanu, auf dem Rad, auf dem Hausboot oder einfach auf einem Steg am Abend. Dieser Ratgeber zeigt dir, wie die Region aufgebaut ist und wie du deinen Urlaub dort planst.
 

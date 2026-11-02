@@ -2,7 +2,7 @@
 title: "Kühe auf der Weide: sicher vorbei mit Hund und Kindern, Mutterkühe und Herdenschutzhunde"
 description: "Warum Mutterkühe ihre Kälber verteidigen, wie du Weiden mit Hund und Kindern sicher durchquerst, Warnzeichen erkennst und dich bei Herdenschutzhunden verhältst."
 category: kinder-und-hund
-date: 2026-09-18
+date: 2026-10-06
 ---
 Kühe auf einer Almwiese gehören zum Bild, das viele vom Wandern in den Bergen im Kopf haben. Meist sind die Tiere friedlich, grasen, dösen und schauen Wanderern höchstens neugierig hinterher. Trotzdem kommt es jedes Jahr zu Zwischenfällen, bei denen Wanderer von Kühen bedrängt, umgestoßen oder verletzt werden. Fast immer spielen dabei zwei Dinge eine Rolle: Mutterkühe mit Kälbern und Hunde. Wer die Körpersprache der Tiere versteht und ein paar einfache Regeln beachtet, kommt fast immer problemlos an jeder Herde vorbei. Das gilt auch für Schafherden, die zunehmend von großen Herdenschutzhunden bewacht werden.
 

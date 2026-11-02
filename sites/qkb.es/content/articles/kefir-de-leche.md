@@ -2,7 +2,7 @@
 title: Kéfir de leche casero: cómo hacerlo, cuidar los nódulos y aprovecharlo cada día
 description: Guía completa del kéfir de leche: qué son los nódulos, cómo fermentar, colar y conservar, la proporción adecuada, el sabor según el tiempo, la segunda fermentación y cómo actuar si algo va mal.
 category: kefir-y-fermentados
-date: 2026-10-12
+date: 2026-10-04
 ---
 El kéfir de leche es una bebida fermentada originaria del Cáucaso, ligeramente ácida, cremosa y a veces con un leve cosquilleo efervescente. A diferencia del yogur, que se elabora con unas pocas cepas de bacterias, el kéfir se obtiene con unos **nódulos** que contienen una comunidad compleja de bacterias lácticas y levaduras que viven juntas en una matriz gelatinosa.
 

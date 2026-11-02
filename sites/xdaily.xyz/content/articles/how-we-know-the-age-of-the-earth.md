@@ -2,7 +2,7 @@
 title: "How We Know the Age of the Earth: Radiometric Dating, Rock Layers and 4.54 Billion Years"
 description: "How scientists measure deep time with radioactive decay, why uranium, potassium and carbon clocks suit different ages, how meteorites date the solar system and how Earth's age was found."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 How old is the Earth? For most of human history, there was no way to answer this question with any confidence. Estimates ranged from a few thousand years to eternity. Today, scientists can say with remarkable precision that Earth is about **4.54 billion years old**, give or take about 50 million years, an uncertainty of about 1 percent. This answer comes from a combination of geology, physics and astronomy, and especially from the discovery that certain atoms act as natural clocks. This explainer describes how scientists measure deep time and how they arrived at Earth's age.

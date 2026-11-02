@@ -2,7 +2,7 @@
 title: "Kaffee verkosten wie die Profis: Cupping zu Hause, Aromarad und Geschmack in Worte fassen"
 description: "Kaffee bewusst schmecken lernen: Cupping Schritt für Schritt, Duft, Säure, Süße, Körper und Abgang beurteilen, das Aromarad nutzen, Vergleichsverkostungen zu Hause und ein einfacher Notizbogen."
 category: genuss-und-wissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wer viel Kaffee trinkt, schmeckt irgendwann nur noch „Kaffee“. Dabei steckt in jeder Tasse eine erstaunliche Vielfalt: Noten von Beeren, Zitrus, Schokolade, Nüssen, Karamell, Blüten oder Gewürzen, eine Säure, die frisch oder weich sein kann, ein Körper von teeartig bis sirupartig und ein Nachgeschmack, der kurz verschwindet oder lange bleibt. Profis bei Röstereien und Importeuren verkosten Kaffee nach einem festen Ablauf, dem **Cupping**. Du brauchst dafür keine besondere Ausbildung. Mit ein paar Tassen, einem Löffel und etwas Aufmerksamkeit lernst du, Unterschiede zu schmecken und in Worte zu fassen. Das macht nicht nur Spaß, es hilft dir auch, Kaffees zu finden, die dir wirklich schmecken.
 

@@ -2,7 +2,7 @@
 title: "Wanderstöcke richtig nutzen: Länge einstellen, Schlaufen-Technik und Gehtechnik bergauf und bergab"
 description: "Wann Wanderstöcke helfen und wann sie stören: die richtige Länge, Teleskop- oder Faltstock, Schlaufe richtig greifen, Technik im Aufstieg, Abstieg und Quergang, typische Fehler und Pflege."
 category: ausruestung
-date: 2026-08-10
+date: 2026-10-06
 ---
 Vor zwanzig Jahren wurden Wanderer mit Stöcken auf deutschen Mittelgebirgswegen noch belächelt. Heute sieht man sie überall, im Allgäu ebenso wie im Pfälzerwald. Das hat gute Gründe: Richtig eingesetzt entlasten Stöcke Knie und Hüfte im Abstieg, geben Halt auf rutschigem Untergrund, helfen beim Überqueren von Bächen und bringen die Arme in die Arbeit ein, wenn es steil bergauf geht. Falsch eingesetzt sind sie aber nutzlos oder sogar hinderlich. Viele Menschen tragen ihre Stöcke zu kurz, greifen die Schlaufe falsch oder setzen sie dort ein, wo sie die Hände frei haben müssten. Dieser Ratgeber erklärt, wie du die passenden Stöcke findest, sie richtig einstellst und mit ihnen gehst.
 

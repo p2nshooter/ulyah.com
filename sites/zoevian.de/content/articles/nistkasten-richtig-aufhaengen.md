@@ -2,7 +2,7 @@
 title: "Nistkasten richtig aufhängen: Höhe, Himmelsrichtung, Abstand, Zeitpunkt und Schutz"
 description: "Wo und wie du einen Nistkasten aufhängst, damit er angenommen wird: die richtige Höhe, Ausrichtung nach Osten, Abstände, der beste Zeitpunkt und Schutz vor Katze und Marder."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Der schönste Nistkasten nützt nichts, wenn er am falschen Ort hängt. Ein Kasten in praller Mittagssonne wird im Mai zum Backofen, einer auf der Wetterseite zur Tropfsteinhöhle, und einer, an den eine Katze von einem Ast aus heranreicht, zur Falle. Wer ein paar einfache Regeln beachtet, erhöht die Chance deutlich, dass Vögel einziehen und ihre Jungen sicher großziehen.

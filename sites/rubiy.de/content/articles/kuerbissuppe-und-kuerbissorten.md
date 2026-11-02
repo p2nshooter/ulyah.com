@@ -2,7 +2,7 @@
 title: "Kürbis: Sorten im Überblick und eine samtige Kürbissuppe mit Ingwer"
 description: Hokkaido, Butternut, Muskat und Spaghettikürbis im Vergleich, wie du Kürbis sicher zerteilst, lagerst und zu Suppe, Ofengemüse und gerösteten Kernen verarbeitest.
 category: herbst
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wenn im September die ersten Kürbisse in orange, grün und beige an den Hofläden aufgereiht liegen, beginnt für viele die eigentliche Kochsaison. Kürbis ist vielseitig, preiswert und lässt sich monatelang lagern. Er passt in Suppen und Currys, auf Bleche mit Ofengemüse, in Risotto, Kuchen und sogar Brot. Trotzdem stehen viele vor dem großen, harten Ding und wissen nicht recht, wie sie anfangen sollen.
 

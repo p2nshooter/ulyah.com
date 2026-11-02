@@ -2,7 +2,7 @@
 title: "Online-Banking sicher nutzen: TAN-Verfahren, Betrugsmaschen erkennen und richtig reagieren"
 description: "Wie Online-Banking heute geschützt ist, welche TAN-Verfahren es gibt, wie du Phishing, falsche Bankmitarbeiter und gefälschte Apps erkennst und was du im Notfall sofort tun solltest."
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Überweisungen am Sofa erledigen, den Kontostand in der Mittagspause prüfen, eine Rechnung direkt per Foto bezahlen: Online-Banking ist für die meisten Menschen in Deutschland längst selbstverständlich. Die Verfahren der Banken sind heute deutlich sicherer als noch vor einigen Jahren. Trotzdem gelingt es Betrügern immer wieder, Geld von fremden Konten abzuziehen. Meist knacken sie dabei nicht die Technik der Bank, sondern bringen die Kundinnen und Kunden mit geschickten Tricks dazu, selbst Zugangsdaten preiszugeben oder Zahlungen freizugeben. Wer die wichtigsten Maschen kennt und ein paar Grundregeln beachtet, kann sein Konto sehr gut schützen. Diese Anleitung zeigt, wie Online-Banking heute funktioniert, worauf du achten solltest und was im Ernstfall zu tun ist.

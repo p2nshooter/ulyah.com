@@ -2,7 +2,7 @@
 title: "Krallen schneiden bei Katzen: Wann es nötig ist und wie es sicher gelingt"
 description: Viele Katzen brauchen keine Krallenpflege, Senioren und Wohnungskatzen oft schon. Woran du zu lange Krallen erkennst und wie du sie sicher und stressfrei kürzt.
 category: pflege-und-alltag
-date: 2026-07-25
+date: 2026-10-05
 ---
 Katzenkrallen sind erstaunliche Werkzeuge. Sie sind einziehbar, damit sie beim Laufen nicht abgenutzt werden, scharf genug zum Klettern und Festhalten der Beute und wachsen in Schichten nach, die sich beim Kratzen ablösen. Bei den meisten Katzen hält sich die Länge der Krallen durch Kratzen, Klettern und Laufen von selbst in Grenzen.
 

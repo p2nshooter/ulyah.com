@@ -2,7 +2,7 @@
 title: Correr con calor: hidratación, horarios y señales de alarma en el verano español
 description: Cómo adaptar los entrenamientos de carrera al calor del verano en España, cuánto beber, a qué hora salir, cómo aclimatarse y cuándo hay que parar.
 category: correr
-date: 2026-10-12
+date: 2026-10-04
 ---
 En buena parte de España, el verano trae temperaturas que superan con facilidad los treinta y cinco grados por la tarde y noches en las que el termómetro apenas baja de veinticinco. Para quien corre, esas semanas son un desafío: el mismo recorrido que en primavera se hacía con soltura se convierte en una prueba de resistencia, el pulso se dispara y las piernas parecen pesar el doble.
 

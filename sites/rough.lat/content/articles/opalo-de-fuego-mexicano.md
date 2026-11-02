@@ -2,7 +2,7 @@
 title: "Ópalo de fuego mexicano: variedades, formación, valoración y cuidados"
 description: "El ópalo de fuego de Querétaro y Jalisco: qué es el ópalo, variedades como el de agua, el contraluz y el de cantera, cómo se forma, el riesgo de cuarteamiento, cómo se valora y cómo cuidarlo."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Pocas gemas tienen un nombre tan bien puesto. El ópalo de fuego mexicano brilla con tonos amarillos, naranjas y rojos que recuerdan a una llama, y algunos ejemplares, además, encienden en su interior destellos verdes, azules o violetas cuando se mueven bajo la luz. Se extrae de rocas volcánicas en los estados de Querétaro, Jalisco y Nayarit, y en pueblos de la región se talla y se vende desde hace generaciones.
 

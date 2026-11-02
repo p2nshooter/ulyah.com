@@ -2,7 +2,7 @@
 title: Ejercicios de técnica individual para mejorar el control del balón
 description: Una rutina de ejercicios para trabajar el control, la conducción, el pase y el regate en solitario, con poco material y en poco espacio, para futbolistas aficionados de cualquier edad.
 category: futbol
-date: 2026-10-12
+date: 2026-10-04
 ---
 En el fútbol aficionado se entrena poco y se juega mucho. La mayoría de los jugadores adultos se limitan al partido semanal, y los que tienen entrenamiento con su equipo suelen dedicarlo a la preparación física o a aspectos tácticos. Lo que casi nadie trabaja después de la adolescencia es la técnica individual: el control, la conducción, el pase y el golpeo.
 

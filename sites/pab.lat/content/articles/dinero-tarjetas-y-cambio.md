@@ -2,7 +2,7 @@
 title: "Dinero en el viaje por América Latina: tarjetas, cajeros, efectivo, cambio y propinas"
 description: "Monedas de la región, tarjeta o efectivo, cómo evitar comisiones y la conversión dinámica, cambiar dinero con seguridad, cajeros, propinas y qué hacer si pierdes la tarjeta."
 category: planificacion-y-presupuesto
-date: 2026-08-22
+date: 2026-10-11
 ---
 Pagar un taxi en un pueblo de montaña, dejar propina en un restaurante de Buenos Aires, sacar efectivo en un cajero de Cartagena o comprar artesanías en un mercado de Oaxaca: el dinero acompaña cada momento del viaje, y manejarlo bien ahorra mucho más de lo que parece. Comisiones bancarias, tipos de cambio desfavorables, cajeros que cobran por cada retiro o la famosa conversión dinámica en el datáfono pueden sumar una cantidad importante al final del viaje.
 

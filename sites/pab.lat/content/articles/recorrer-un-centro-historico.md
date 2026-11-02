@@ -2,7 +2,7 @@
 title: "Cómo recorrer un centro histórico de América Latina sin prisas y con los ojos abiertos"
 description: "Cómo visitar un centro histórico colonial: por dónde empezar, a qué hora salir, cómo leer plazas, iglesias y balcones, guías y museos, calzado, altura, calor y respeto por sus vecinos."
 category: ciudades-y-cultura
-date: 2026-08-02
+date: 2026-10-11
 ---
 Muchas de las ciudades más visitadas de América Latina tienen en su corazón un centro histórico protegido como Patrimonio de la Humanidad: Quito, Cusco, Cartagena, Antigua Guatemala, Oaxaca, Puebla, Guanajuato, Salvador de Bahía, Ouro Preto, Colonia del Sacramento, Valparaíso, La Habana Vieja o la Ciudad Colonial de Santo Domingo, entre muchas otras. Son barrios donde cada calle tiene siglos de historia, pero también lugares donde vive y trabaja gente todos los días.
 

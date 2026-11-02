@@ -2,7 +2,7 @@
 title: "Platería y filigrana latinoamericana: Taxco, Catacaos, Mompox, Chordeleg, la platería mapuche y más"
 description: "La tradición platera de la región: Potosí y Taxco, la técnica de la filigrana, los talleres de Catacaos, Mompox, Chordeleg y Luque, la platería mapuche y criolla y cómo elegir y cuidar una pieza."
 category: joyeria-y-diseno
-date: 2026-10-11
+date: 2026-10-12
 ---
 La plata está en el origen de la historia moderna de América Latina. De las minas de Potosí, en la actual Bolivia, y de Zacatecas, Guanajuato o Taxco, en México, salieron durante siglos enormes cantidades de plata que transformaron la economía mundial. Junto a esa riqueza nació una tradición de orfebres y plateros que mezcló técnicas europeas, saberes indígenas y, con el tiempo, influencias africanas, y que hoy sigue viva en talleres de pueblos y ciudades de toda la región.
 

@@ -2,7 +2,7 @@
 title: Cambiar de compañía de luz paso a paso: qué necesitas y qué evitar
 description: Cómo cambiar de comercializadora eléctrica sin cortes ni sorpresas, qué datos necesitas, cuánto tarda, cómo comparar ofertas, qué revisar en el contrato y cómo protegerte de las ventas engañosas.
 category: factura-de-la-luz
-date: 2026-09-03
+date: 2026-10-04
 ---
 Cambiar de compañía de luz es gratis, no requiere obras ni cambiar el contador y no provoca cortes de suministro. Aun así, muchos hogares siguen años con la misma comercializadora y la misma oferta, a menudo pagando más de lo necesario porque un descuento terminó o porque el precio subió al renovarse. Otros cambian por una llamada comercial sin comparar y acaban con un contrato peor.
 

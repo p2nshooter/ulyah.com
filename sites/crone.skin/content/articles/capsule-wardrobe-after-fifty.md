@@ -2,7 +2,7 @@
 title: "Building a Capsule Wardrobe After Fifty: Fewer Clothes, More Outfits"
 description: How to build a small, versatile wardrobe that suits your body, colouring and life now — choosing a palette, key pieces, fabrics and fit, and adding personality with accessories.
 category: style-and-wardrobe
-date: 2026-10-19
+date: 2026-10-20
 ---
 Many women reach their fifties with wardrobes full of clothes and still feel they have nothing to wear. There are work suits for a job that has changed, sizes from different decades, impulse buys with the labels still attached, and garments that once felt right but no longer reflect who we are. Getting dressed becomes a daily negotiation rather than a pleasure.
 

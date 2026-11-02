@@ -2,7 +2,7 @@
 title: "Del bruto a la gema: cómo planifica un tallador la orientación, el color y el rendimiento"
 description: "Cómo se decide qué piedra sale de un cristal en bruto: inclusiones y fisuras, zonas de color, pleocroísmo, fenómenos ópticos, rendimiento, etapas de la talla, retallado y cómo encargar la talla."
 category: arte-tallado-y-artesania
-date: 2026-10-11
+date: 2026-10-12
 ---
 Frente a un cristal en bruto, el tallador tiene que tomar decisiones que no tienen vuelta atrás. Cada milímetro que elimina la rueda se pierde para siempre, y una mala orientación puede convertir un cristal de color precioso en una piedra apagada, o dejar una inclusión justo bajo la mesa, donde se verá toda la vida. Por eso los buenos talladores pasan a menudo más tiempo mirando la piedra que cortándola.
 

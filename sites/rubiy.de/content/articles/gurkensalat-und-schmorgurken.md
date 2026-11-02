@@ -2,7 +2,7 @@
 title: "Gurken im Sommer: Gurkensalat mit Dill und Schmorgurken in Senfsoße"
 description: Salatgurke, Schmorgurke und Einlegegurke im Vergleich, wie Gurkensalat nicht wässrig wird, warum bittere Gurken weg müssen und wie Schmorgurken in Senf-Dill-Soße gelingen.
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Gurken sind das Gemüse für heiße Tage. Sie bestehen zu rund 95 Prozent aus Wasser, schmecken kühl und frisch und lassen sich ohne Kochen in wenigen Minuten zu einem Salat verarbeiten. In Deutschland wachsen Salatgurken vor allem in Gewächshäusern und sind dadurch fast das ganze Jahr über zu haben. Ihre beste Zeit aus heimischem Anbau, auch aus dem Freiland, ist aber der Sommer von Juni bis September. Dann kommen auch die anderen Gurkentypen auf den Markt, die außerhalb dieser Monate kaum zu finden sind: dicke Schmorgurken und kleine, warzige Einlegegurken.
 

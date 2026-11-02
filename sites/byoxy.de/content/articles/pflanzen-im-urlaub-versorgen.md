@@ -2,7 +2,7 @@
 title: "Pflanzen im Urlaub versorgen: Methoden für ein Wochenende bis drei Wochen"
 description: So kommen Zimmer- und Balkonpflanzen gut durch deinen Urlaub: Vorbereitung, Docht-Bewässerung, Tonkegel, Wasserspeicher, Badewannen-Methode, Nachbarschaftshilfe und was für welche Dauer passt.
 category: pflege-grundlagen
-date: 2026-09-18
+date: 2026-10-04
 ---
 Die Koffer sind gepackt, aber die Pflanzen bleiben zu Hause. Für viele Pflanzenfreunde ist der Urlaub mit der Sorge verbunden, ob Monstera, Basilikum und Balkonkästen die Abwesenheit überstehen. Die gute Nachricht: Mit etwas Vorbereitung kommen die meisten Pflanzen eine Woche ohne Hilfe aus, und mit einfachen Bewässerungshilfen auch zwei bis drei Wochen.
 

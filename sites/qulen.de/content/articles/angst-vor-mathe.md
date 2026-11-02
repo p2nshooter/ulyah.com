@@ -2,7 +2,7 @@
 title: "Angst vor Mathe: Wie Pia lernte, dass ihr Kopf nicht leer ist, sondern voll"
 description: "Pia bekommt bei jeder Matheaufgabe Herzklopfen und einen leeren Kopf. Woher Matheangst kommt, wie du den Kreislauf aus Vermeiden und Versagen durchbrichst und wer dir helfen kann."
 category: mathe-und-lernluecken
-date: 2026-07-29
+date: 2026-10-11
 ---
 Als Frau Lindner die Blätter austeilte, spürte Pia es schon, bevor sie die erste Aufgabe gelesen hatte. Erst ein Ziehen im Bauch, dann wurden die Hände kalt, und als sie auf das Blatt sah, verschwammen die Zahlen. „Ein Fahrradhändler senkt den Preis um 15 Prozent …“ Pia las den Satz dreimal. Er ergab keinen Sinn. Neben ihr kritzelte Lotta schon die erste Rechnung hin. Pia hörte ihr eigenes Herz und dachte nur einen einzigen Gedanken, immer wieder: Ich kann das nicht. Ich konnte das noch nie.
 

@@ -2,7 +2,7 @@
 title: "Kastration bei Katzen: Wann, warum und was danach kommt"
 description: Warum Kastration Katzenleid verhindert, wann der richtige Zeitpunkt ist, wie Operation und Heilung ablaufen, was sich danach verändert und warum viele Gemeinden sie für Freigänger vorschreiben.
 category: gesundheit
-date: 2026-09-03
+date: 2026-10-05
 ---
 Eine einzige unkastrierte Kätzin kann im Laufe ihres Lebens Dutzende Kätzchen bekommen, und deren Nachkommen wiederum weitere. In Deutschland leben schätzungsweise Hunderttausende, nach manchen Schätzungen über eine Million herrenlose Katzen, viele davon krank, unterernährt und von Parasiten geplagt. Fast alle stammen ursprünglich von Hauskatzen ab, die nicht kastriert waren. Die Kastration ist deshalb eine der wichtigsten Maßnahmen im Tierschutz.
 

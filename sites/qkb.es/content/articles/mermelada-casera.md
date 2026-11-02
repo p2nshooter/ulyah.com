@@ -2,7 +2,7 @@
 title: Mermelada casera: proporciones de azúcar, punto de gelificación, tarros y conservación segura
 description: Mermelada casera sin pectina añadida: frutas con más y menos pectina, cantidad de azúcar, punto de gelificación, envasado y baño maría seguro.
 category: conservas
-date: 2026-10-12
+date: 2026-10-04
 ---
 La mermelada casera es una de las formas más antiguas y agradecidas de conservar la fruta de temporada. Con fresas maduras en primavera, albaricoques en verano o ciruelas a finales de agosto, una tarde de cocina se transforma en varios tarros que alegran los desayunos durante meses. Solo hacen falta fruta, azúcar, un poco de limón y algo de técnica.
 

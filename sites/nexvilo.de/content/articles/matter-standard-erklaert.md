@@ -2,7 +2,7 @@
 title: "Matter und Thread einfach erklärt: Der gemeinsame Standard fürs Smart Home"
 description: "Was Matter und Thread sind, warum Apple, Google, Amazon und Samsung mitmachen, welche Geräte es gibt, was du als Zentrale brauchst und wie du ein Matter-Gerät Schritt für Schritt einrichtest."
 category: smart-home
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Wer in den letzten Jahren smarte Geräte gekauft hat, kennt das Problem: Die Lampe funktioniert nur mit Alexa, das Thermostat nur mit Google, die Steckdose braucht eine eigene App, und der Bewegungsmelder spricht mit keinem davon. Jeder Hersteller hatte seine eigene Welt. Genau das soll **Matter** ändern. Der Standard wurde von den größten Technikunternehmen gemeinsam entwickelt und soll dafür sorgen, dass smarte Geräte unabhängig von der Marke zusammenarbeiten. Diese Anleitung erklärt, was hinter Matter und dem Funkstandard Thread steckt, was du für den Einstieg brauchst und worauf du beim Kauf achten solltest.

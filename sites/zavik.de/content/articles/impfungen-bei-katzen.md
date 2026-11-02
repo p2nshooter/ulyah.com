@@ -2,7 +2,7 @@
 title: "Impfungen bei Katzen: Welche sind nötig, und wann?"
 description: Katzenschnupfen, Katzenseuche, Tollwut und Leukose: welche Impfungen Wohnungskatzen und Freigänger brauchen, wie die Grundimmunisierung bei Kitten abläuft und wie oft aufgefrischt wird.
 category: gesundheit
-date: 2026-09-05
+date: 2026-10-05
 ---
 Impfungen gehören zu den wirksamsten Mitteln, um Katzen vor schweren Infektionskrankheiten zu schützen. Krankheiten wie die Katzenseuche, die früher ganze Würfe dahingerafft hat, sind dank Impfungen selten geworden. Gleichzeitig fragen sich viele Halterinnen und Halter, ob ihre Wohnungskatze überhaupt geimpft werden muss und wie oft eine Auffrischung wirklich nötig ist.
 

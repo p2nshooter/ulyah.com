@@ -2,7 +2,7 @@
 title: "Schimmel an der Wand: Ursachen finden, sicher entfernen, dauerhaft vorbeugen"
 description: Woran du Schimmel erkennst, wann du ihn selbst entfernen darfst und wann nicht, welche Mittel helfen, wie du richtig lüftest und heizt und was Mieter und Vermieter wissen sollten.
 category: waende-und-boeden
-date: 2026-10-12
+date: 2026-10-04
 ---
 Schwarze Punkte in der Zimmerecke, ein grauer Rand hinter dem Kleiderschrank, muffiger Geruch im Schlafzimmer: Schimmel in der Wohnung ist ein häufiges Problem, besonders in der kalten Jahreszeit. Er ist unschön, kann die Gesundheit belasten und kommt zurück, wenn man nur die Oberfläche behandelt. Wer Schimmel dauerhaft loswerden will, muss die Ursache finden.
 

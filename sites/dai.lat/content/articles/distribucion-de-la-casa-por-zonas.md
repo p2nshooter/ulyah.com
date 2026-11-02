@@ -2,7 +2,7 @@
 title: "Distribución de la casa por zonas: social, privada y de servicio bien conectadas"
 description: "Cómo ordenar una vivienda en zona social, privada y de servicio, cuánto espacio necesitan los ambientes, cómo evitar pasillos inútiles y cómo dejar la casa preparada para crecer."
 category: arquitectura-y-casas
-date: 2026-08-18
+date: 2026-10-11
 ---
 Hay casas grandes que se sienten incómodas y casas pequeñas que funcionan de maravilla. La diferencia suele estar en la distribución: en cómo se relacionan los ambientes entre sí, por dónde se entra, qué queda cerca de qué y cuántos metros se pierden en pasillos que no sirven para nada. Una buena distribución hace que la vida diaria fluya sin que nadie lo note. Una mala obliga a cruzar el dormitorio para llegar al baño, a recibir visitas junto a la ropa tendida o a escuchar la televisión desde la cama.
 

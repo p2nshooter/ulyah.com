@@ -2,7 +2,7 @@
 title: Compensación de excedentes del autoconsumo: cómo funciona y cómo elegir tarifa
 description: Qué es la compensación simplificada de excedentes solares, cómo se calcula en la factura, sus límites, qué son las baterías virtuales y cómo comparar ofertas de comercializadoras con autoconsumo.
 category: autoconsumo-solar
-date: 2026-09-21
+date: 2026-10-04
 ---
 Cuando una instalación solar produce más electricidad de la que consume la vivienda en ese momento, la energía sobrante se vierte a la red. Esa energía tiene valor, y la forma en que te la pagan determina en buena medida la rentabilidad de tus placas. En España, la mayoría de viviendas con autoconsumo están acogidas a la **compensación simplificada de excedentes**, un mecanismo que descuenta el valor de la energía vertida en la factura de la luz.
 

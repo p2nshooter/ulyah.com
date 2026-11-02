@@ -2,7 +2,7 @@
 title: "Wanderrucksack: Die richtige Größe, sauber einstellen und klug packen"
 description: Wie viele Liter du für Tagestour, Hüttentour und Fernwanderung brauchst, wie du Rückenlänge und Hüftgurt einstellst und wie schwere Dinge richtig verstaut werden.
 category: ausruestung
-date: 2026-07-04
+date: 2026-10-06
 ---
 Ein Rucksack, der gut sitzt, fällt dir nach einer Stunde gar nicht mehr auf. Ein Rucksack, der schlecht sitzt, erinnert dich mit jedem Schritt an sich: Er zieht an den Schultern, drückt im Kreuz, schaukelt bei jedem Tritt hin und her. Dabei liegen die Ursachen meist nicht am Modell, sondern an der falschen Größe, an einer nicht angepassten Rückenlänge oder an einer ungünstigen Packweise.
 

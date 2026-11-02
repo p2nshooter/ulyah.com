@@ -2,7 +2,7 @@
 title: "Erdbeeren pflanzen im Sommer: Termin, Abstand, Ableger und Pflege"
 description: "Warum Juli und August die beste Pflanzzeit für Erdbeeren sind, wie du das Beet vorbereitest, Ableger gewinnst, Sorten wählst und Grauschimmel ohne Spritzmittel vorbeugst."
 category: obst-und-beeren
-date: 2026-07-10
+date: 2026-10-06
 ---
 Wer im nächsten Juni eigene Erdbeeren ernten möchte, muss jetzt aktiv werden. Das überrascht viele, denn Erdbeerpflanzen werden im Frühjahr in jedem Gartencenter angeboten. Doch die meisten Sorten legen ihre Blüten für das kommende Jahr im Spätsommer und Herbst an. Pflanzen, die im Juli oder August gesetzt werden, haben genug Zeit, kräftig einzuwachsen und viele Blütenknospen zu bilden. Im Frühjahr gepflanzte Erdbeeren tragen im ersten Jahr meist nur wenig.
 

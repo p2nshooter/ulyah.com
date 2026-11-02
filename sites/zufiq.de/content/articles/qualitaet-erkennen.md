@@ -2,7 +2,7 @@
 title: "Qualität erkennen: Woran du langlebige Kleidung, Möbel und Geräte vor dem Kauf erkennst"
 description: "Qualität erkennen statt teuer bezahlen: Merkmale guter Kleidung, Schuhe, Möbel, Küchenhelfer und Elektrogeräte, verlässliche Siegel, Reparierbarkeit und ein ehrlicher Preisvergleich."
 category: bewusster-konsum
-date: 2026-09-14
+date: 2026-10-11
 ---
 „Wer billig kauft, kauft zweimal“, sagt ein altes Sprichwort. Es stimmt nicht immer: Ein teures Produkt ist nicht automatisch gut, und manches günstige Teil hält erstaunlich lange. Aber im Kern steckt eine Wahrheit, die jeder schon erlebt hat: die Jeans, die nach drei Wäschen aus der Form geht, der Stuhl, der nach einem Jahr wackelt, der Wasserkocher, der kurz nach Ablauf der Gewährleistung den Geist aufgibt. Wer Qualität erkennen kann, kauft seltener, ärgert sich weniger und hat am Ende mehr von seinem Geld.
 

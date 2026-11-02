@@ -2,7 +2,7 @@
 title: Recuperación activa: qué hacer el día después de un esfuerzo intenso
 description: Qué es la recuperación activa, por qué moverse suave ayuda más que el reposo total tras un partido o una carrera, qué actividades elegir y cómo combinarla con sueño, comida e hidratación.
 category: descanso-y-nutricion
-date: 2026-10-12
+date: 2026-10-04
 ---
 El día después de una tirada larga, un partido de fútbol intenso o una sesión dura de gimnasio, el cuerpo suele pedir sofá. Las piernas pesan, aparecen las agujetas y la idea de moverse parece absurda. Sin embargo, muchas personas descubren que, después de un paseo suave o un rato en bicicleta tranquila, se sienten mejor que si hubieran pasado el día sin moverse.
 

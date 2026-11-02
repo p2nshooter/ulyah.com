@@ -2,7 +2,7 @@
 title: "Mit der Fähre auf die Insel: Tickets, Gepäck, Auto und Alltag auf autofreien Inseln"
 description: "Wie Fähren zu den deutschen Inseln funktionieren, warum manche tideabhängig fahren, wohin mit Auto und Gepäck, wie du auf autofreien Inseln vorankommst und was Inselalltag bedeutet."
 category: inseln
-date: 2026-08-02
+date: 2026-10-11
 ---
 Die Fähre legt ab, das Festland wird kleiner, Möwen begleiten das Schiff, und irgendwann taucht am Horizont die Insel auf. Für viele beginnt der Urlaub genau in diesem Moment. Damit die Überfahrt entspannt bleibt, lohnt sich etwas Vorbereitung. Inselfähren funktionieren nicht wie ein Bus, der jede halbe Stunde fährt. Manche fahren nur zu bestimmten Zeiten, manche nehmen keine Autos mit, und auf vielen Inseln brauchst du ohnehin kein Auto. Dieser Ratgeber erklärt dir, wie die Fähren zu den deutschen Inseln funktionieren, wie du Gepäck und Fahrzeug organisierst und was dich im Inselalltag erwartet.
 

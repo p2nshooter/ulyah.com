@@ -2,7 +2,7 @@
 title: "Cook Once, Eat Twice: How to Turn One Big Cooking Session Into Two or Three Different Meals"
 description: "Plan leftovers on purpose with base recipes that change shape: roast chicken, a pot of beans, braised meat, grains and roasted vegetables, plus storage times and how to keep second meals exciting."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Many people avoid leftovers because they do not want to eat the same dinner two nights in a row. But there is a smarter way to use them. Instead of reheating exactly the same meal, you cook a larger amount of a versatile base on one day and transform it into something different later in the week. A roast chicken becomes tacos and then soup. A big pot of beans becomes chili, then burritos. Cooks call these "planned-overs," and they are one of the most effective ways to save time in the kitchen. This guide explains how to plan them, which bases work best and how to store them safely.

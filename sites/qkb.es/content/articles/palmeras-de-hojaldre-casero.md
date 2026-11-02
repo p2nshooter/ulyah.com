@@ -2,7 +2,7 @@
 title: Palmeras de hojaldre casero: hojaldre rápido, formado en corazón y caramelizado perfecto
 description: Cómo hacer palmeras de hojaldre desde cero con un hojaldre rápido de mantequilla: masa, pliegues, formado, corte, horneado con caramelizado por ambas caras y versión bañada en chocolate.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 Las palmeras son uno de los clásicos de las pastelerías españolas: dos espirales de hojaldre unidas en forma de corazón, crujientes, con capas que se deshacen y una superficie de azúcar caramelizado. Las hay pequeñas, para acompañar el café, y gigantes, del tamaño de una mano, a veces bañadas en chocolate. En Francia se conocen como *palmiers* y en otros países como "orejas de elefante".
 

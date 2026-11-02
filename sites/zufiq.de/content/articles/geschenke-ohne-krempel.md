@@ -2,7 +2,7 @@
 title: "Geschenke ohne Krempel: Ideen, die Freude machen statt Schränke zu füllen"
 description: "Geschenke ohne Krempel: Erlebnisse, Verbrauchbares, Zeit und Selbstgemachtes statt Staubfänger, dazu Wunschlisten, Kinder- und Firmengeschenke und der Umgang mit Geschenken, die du nicht brauchst."
 category: bewusster-konsum
-date: 2026-09-26
+date: 2026-10-11
 ---
 Der Geburtstag steht vor der Tür, Weihnachten rückt näher, die Hochzeit einer Freundin ist im nächsten Monat. Und mit jedem Anlass kommt dieselbe Frage: Was schenke ich nur? Oft endet die Suche mit etwas, das hübsch aussieht, irgendwie passt und am Ende doch in einer Schublade landet. Auf der anderen Seite stehst du selbst nach jedem Fest vor einem kleinen Stapel gut gemeinter Dinge, die du weder brauchst noch wirklich magst.
 

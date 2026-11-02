@@ -2,7 +2,7 @@
 title: "Gongfu Cha: Tee auf chinesische Art mit Gaiwan, kleiner Kanne und vielen kurzen Aufgüssen"
 description: "Gongfu Cha Schritt für Schritt: was die chinesische Teezubereitung ausmacht, Gaiwan oder Yixing-Kanne, Mengen, Wassertemperatur und Aufgusszeiten für Oolong, Pu-Erh, weißen und grünen Tee."
 category: tee-zubereiten
-date: 2026-09-17
+date: 2026-10-06
 ---
 Gongfu Cha bedeutet ungefähr „Tee mit Können“ oder „Tee mit Sorgfalt“. Gemeint ist eine Zubereitungsart, die in Südchina und Taiwan entstanden ist: viel Tee in einem kleinen Gefäß, wenig Wasser und viele kurze Aufgüsse, oft nur wenige Sekunden lang. Statt einer großen Kanne, die einmal zieht, erlebst du so einen Tee in vielen Etappen. Der erste Aufguss ist duftig und leicht, die mittleren sind voll und süß, die späten sanft und mineralisch. Gongfu Cha ist keine starre Zeremonie, sondern eine Methode, um guten Tee genau kennenzulernen. Du brauchst dafür wenig Ausrüstung und etwas Aufmerksamkeit.
 

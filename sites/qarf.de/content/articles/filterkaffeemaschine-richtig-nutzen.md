@@ -2,7 +2,7 @@
 title: "Filterkaffeemaschine richtig nutzen: Dosierung, Mahlgrad, Filtertüte und besserer Geschmack"
 description: "Mehr Geschmack aus der Filterkaffeemaschine: die richtige Kaffeemenge, passender Mahlgrad, Filterpapier vorbereiten, Wasser, Warmhalteplatte oder Thermoskanne, Reinigung und Entkalken."
 category: kaffee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Die Filterkaffeemaschine ist in deutschen Haushalten und Büros noch immer die häufigste Art, Kaffee zu kochen. Sie ist bequem, macht viele Tassen auf einmal und braucht kaum Aufmerksamkeit. Ihr Ruf ist trotzdem eher mittelmäßig: Der Kaffee schmeckt oft dünn, bitter oder abgestanden. Dabei kann eine ordentliche Maschine einen wirklich guten Kaffee kochen, wenn ein paar Dinge stimmen: genug Kaffee, ein passender Mahlgrad, frische Bohnen, sauberes Gerät und kein stundenlanges Warmhalten. Dieser Ratgeber zeigt, wie du aus deiner vorhandenen Maschine deutlich mehr herausholst.
 

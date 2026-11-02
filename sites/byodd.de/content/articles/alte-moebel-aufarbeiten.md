@@ -2,7 +2,7 @@
 title: "Alte Möbel aufarbeiten: Kommode, Schrank und Stuhl Schritt für Schritt"
 description: Wie du ein altes Möbelstück beurteilst, reinigst, repariert, abschleifst oder anschleifst, neu streichst oder ölst und mit neuen Griffen modernisierst, inklusive Kreidefarbe und Lackieren.
 category: holz-und-moebel
-date: 2026-09-15
+date: 2026-10-04
 ---
 Die Kommode vom Flohmarkt, der Schrank aus dem Haushalt der Großeltern, der Küchenstuhl aus dem Sperrmüll: Alte Möbel sind oft aus massivem Holz gebaut, solide verleimt und haben eine Geschichte. Mit etwas Arbeit werden sie zu Lieblingsstücken, die besser zur eigenen Wohnung passen als jedes neue Möbel aus der Spanplatte. Außerdem ist Aufarbeiten nachhaltig und günstig.
 

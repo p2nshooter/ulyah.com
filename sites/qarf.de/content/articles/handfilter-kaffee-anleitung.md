@@ -2,7 +2,7 @@
 title: "Handfilter: Kaffee von Hand aufbrühen, Schritt für Schritt"
 description: Mit Handfilter, Papier und Wasserkocher brühst du klaren, aromatischen Kaffee. Verhältnis, Mahlgrad, Temperatur, Blooming und Gießtechnik einfach erklärt.
 category: kaffee-zubereiten
-date: 2026-06-22
+date: 2026-10-06
 ---
 Der Handfilter ist die vielleicht unterschätzteste Kaffeemethode überhaupt. Ein Porzellan- oder Kunststoffkegel, ein Papierfilter und heißes Wasser, mehr braucht es nicht. Und doch kann ein sorgfältig gebrühter Filterkaffee so klar und vielschichtig schmecken, dass man die Herkunft der Bohne fast herausschmeckt. Die Methode hat in Deutschland Tradition: 1908 ließ Melitta Bentz in Dresden ihren Kaffeefilter mit Papiereinlage schützen. Heute gibt es viele Formen, vom klassischen Melitta-Trapez über den konischen V60 bis zum Flachbodenfilter. In diesem Ratgeber lernst du, wie du mit jedem davon eine gute Tasse brühst.
 

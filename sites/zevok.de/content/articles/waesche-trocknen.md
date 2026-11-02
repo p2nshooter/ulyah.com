@@ -2,7 +2,14 @@
 title: "Wäsche trocknen: Leine, Wäscheständer oder Trockner – ohne Schimmel, Knitter und Muff"
 description: "Wäsche schnell, faltenarm und ohne Geruch trocknen: richtig aufhängen, in der Wohnung ohne Schimmelrisiko lüften, Trocknersymbole verstehen und Wolle und Daunen schonen."
 category: waesche-und-pflege
-date: 2026-08-16
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Wäschetrockner – bei Kauf und Nutzung auf Energieeffizienz achten | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/elektrogeraete/waeschetrockner
+  - Umweltbundesamt: Wie lüfte ich richtig? | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/wie-luefte-ich-richtig-tipps-tricks-zur
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
 ---
 Die Wäsche ist sauber, doch dann bleibt sie zwei Tage auf dem Ständer im Schlafzimmer, riecht muffig, ist voller Falten oder ist im Trockner eine Nummer kleiner geworden. Beim Trocknen entscheidet sich, wie lange Kleidung schön bleibt und ob sie frisch riecht. Gleichzeitig ist es einer der größten Feuchtigkeitslieferanten in der Wohnung: Eine Maschinenladung Wäsche gibt beim Trocknen mehr als einen Liter Wasser an die Raumluft ab.
 

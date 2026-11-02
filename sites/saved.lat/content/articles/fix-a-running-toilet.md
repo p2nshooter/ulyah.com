@@ -2,7 +2,7 @@
 title: "How to Fix a Running Toilet: Find the Leak, Adjust the Float and Replace Worn Seals"
 description: "A constantly running or refilling toilet wastes a lot of water. How a cistern works, the dye test that finds silent leaks, and simple fixes for floats, fill valves and flush valves."
 category: repair-and-reuse
-date: 2026-10-31
+date: 2026-11-01
 ---
 A toilet that keeps running after a flush, refills by itself in the middle of the night or trickles a thin stream into the bowl can waste a surprising amount of water. On a metered water supply, that waste shows up on the bill; even without a meter, it wastes treated water and, in some homes, the energy used to pump it. The good news is that most running toilets are caused by a handful of simple problems inside the cistern, and many can be fixed in less than an hour with basic tools and an inexpensive spare part.
 

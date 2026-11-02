@@ -3,7 +3,7 @@ title: "Überwachungskamera und Video-Türklingel zu Hause: Was erlaubt ist und 
 seoTitle: "Überwachungskamera zu Hause: Was ist rechtlich erlaubt?"
 description: "Wo du Kameras am Haus, in der Wohnung und an der Tür aufhängen darfst, was für Nachbarn, Gäste, Mieter und Babysitter gilt und wie du Kamera, Cloud und Aufnahmen vor Fremden schützt."
 category: smart-home
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Eine Kamera an der Haustür zeigt, wer klingelt, auch wenn du nicht zu Hause bist. Eine Kamera im Wohnzimmer verrät, ob der Hund wieder auf dem Sofa liegt. Eine Kamera im Garten soll Einbrecher abschrecken. Smarte Kameras und Video-Türklingeln sind günstig geworden und in wenigen Minuten aufgestellt. Doch kaum ein Smart-Home-Thema ist rechtlich so heikel. Wer falsch filmt, verletzt die Rechte von Nachbarn, Passanten oder Mitbewohnern und riskiert Abmahnungen, Unterlassungsklagen oder Bußgelder. Hinzu kommt die Frage der IT-Sicherheit: Eine schlecht gesicherte Kamera kann zum Fenster in dein Zuhause werden. Diese Anleitung erklärt die wichtigsten Regeln und zeigt, wie du Kameras verantwortungsvoll einsetzt.

@@ -2,7 +2,7 @@
 title: "Holz ölen, wachsen oder lackieren? Oberflächen für Möbel, Tische und Böden"
 description: Unterschiede zwischen Öl, Hartwachsöl, Wachs, Lasur und Lack, welche Behandlung für welches Möbelstück passt, wie du sie Schritt für Schritt aufträgst und wie du Holzoberflächen pflegst.
 category: holz-und-moebel
-date: 2026-09-16
+date: 2026-10-04
 ---
 Rohes Holz ist schön, aber empfindlich: Es nimmt Flecken auf, vergraut, quillt bei Feuchtigkeit und bekommt schnell Kratzer. Eine Oberflächenbehandlung schützt das Holz und bestimmt gleichzeitig, wie es aussieht und sich anfühlt. Ein geölter Esstisch wirkt warm und natürlich, ein lackierter Kindertisch ist besonders robust, ein gewachstes Regal hat einen seidigen Glanz.
 

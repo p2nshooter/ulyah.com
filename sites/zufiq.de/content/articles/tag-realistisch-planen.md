@@ -2,7 +2,7 @@
 title: "Den Tag realistisch planen: Tagesplan mit Puffer statt endloser To-do-Liste"
 description: "Warum Tagespläne platzen und wie es besser geht: Dauern realistisch schätzen, freie Zeit sichtbar machen, 1-3-5-Methode oder Zeitblöcke nutzen und Puffer fest einplanen."
 category: zeit-energie-und-schlaf
-date: 2026-07-04
+date: 2026-10-11
 ---
 Morgens um acht sieht die Liste noch machbar aus: Bericht fertig schreiben, Zahnarzttermin, Paket zurückschicken, Geschenk für den Geburtstag am Wochenende besorgen, Rückruf bei der Versicherung, Wäsche aufhängen, Unterlagen für den Steuerberater zusammenstellen, abends kochen für Gäste. Um zwölf ist der Bericht halb fertig, das Wartezimmer war voll, und die Versicherung hat dich zweimal in die Warteschleife geschickt. Abends steht mehr als die Hälfte noch auf der Liste, und das Gefühl, versagt zu haben, gleich mit.
 

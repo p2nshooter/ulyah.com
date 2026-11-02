@@ -2,7 +2,7 @@
 title: "Die große Anziehschlacht"
 description: Ronja ist drei und will alles selbst machen, am liebsten im Sommerkleid bei Frost. Eine Geschichte über Autonomie, Machtkämpfe um Strumpfhosen und den Kleiderschrank mit nur zwei Möglichkeiten.
 category: morgens-und-abends
-date: 2026-10-12
+date: 2026-10-05
 ---
 Die Strumpfhose lag auf dem Boden. Ronja lag daneben, auf dem Rücken, die Arme ausgebreitet wie ein Seestern, und schrie. Ihre Mutter Julia Schneider kniete daneben, einen Stiefel in der Hand, und sah auf die Uhr. 7:42 Uhr. Um acht musste Ronja in der Kita sein, um halb neun begann Julias Videokonferenz.
 

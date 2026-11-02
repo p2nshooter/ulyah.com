@@ -2,7 +2,7 @@
 title: "Usedom-Urlaub planen: Kaiserbäder, Bernsteinbäder, Achterland und ein Abstecher nach Polen"
 description: "Usedom im Überblick: Ahlbeck, Heringsdorf und Bansin, die ruhigeren Bernsteinbäder, Peenemünde, das stille Achterland und Świnoujście. Dazu Standortwahl, Anreise über die Brücken und Reisezeit."
 category: inseln
-date: 2026-08-08
+date: 2026-10-11
 ---
 Usedom hat einen Ruf, der älter ist als die meisten Urlaubsorte an der Ostsee. Schon im 19. Jahrhundert fuhren Berliner Familien mit der Eisenbahn an diese Küste, und die weißen Villen der Kaiserbäder erzählen bis heute von dieser Zeit. Gleichzeitig ist die Insel viel mehr als Promenade und Seebrücke: Hinter dem langen Sandstrand liegen das Achterwasser, kleine Dörfer mit Reetdächern, Seen und Wälder, und im Osten beginnt nach wenigen Schritten Polen. Dieser Ratgeber sortiert die Insel und hilft dir, den Standort zu finden, der zu deinem Urlaub passt.
 

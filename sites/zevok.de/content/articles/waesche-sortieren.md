@@ -2,7 +2,13 @@
 title: "Wäsche richtig sortieren und die passende Temperatur wählen"
 description: "Schluss mit rosa Hemden, eingelaufenen Pullis und grauer Weißwäsche: Wäsche nach Farbe, Material und Schmutz sortieren, richtig vorbereiten und Temperatur und Programm wählen."
 category: waesche-und-pflege
-date: 2026-07-08
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Wäsche richtig waschen | https://forum-waschen.de/tipps/waschen/waesche-richtig-waschen/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
 ---
 Die neue rote Socke, die sich zwischen die weißen Hemden geschmuggelt hat. Der Lieblingspulli, der nach dem Waschen einem Kind passen würde. Die Handtücher, die einmal strahlend weiß waren und jetzt grau aussehen. Fast jedes Wäschemalheur hat seinen Ursprung schon vor dem Start der Maschine: beim Sortieren, beim Vorbereiten oder bei der Wahl von Temperatur und Programm.
 

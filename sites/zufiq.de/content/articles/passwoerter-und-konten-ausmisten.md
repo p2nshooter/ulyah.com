@@ -2,7 +2,7 @@
 title: "Passwörter und Konten ausmisten: Weniger Zugänge, mehr Sicherheit"
 description: "Passwörter und Konten ausmisten: alte Kundenkonten finden und löschen, einen Passwort-Manager einrichten, Zwei-Faktor-Anmeldung nutzen und den Überblick dauerhaft behalten."
 category: digitale-ruhe
-date: 2026-09-05
+date: 2026-10-11
 ---
 Wie viele Online-Konten hast du? Die meisten Menschen schätzen eine Zahl um die zwanzig. Wer einmal nachzählt, kommt oft auf hundert oder mehr: der Onlineshop, bei dem du vor acht Jahren einmal Druckerpatronen bestellt hast, das Forum für den alten Gartenschlauch, die Fitness-App aus dem Januarvorsatz, drei verschiedene Streamingdienste, der Account beim Möbelhaus, das Kundenkonto der Fluggesellschaft, das Gewinnspiel, die Bibliothek, der Elternbrief der Schule. Jedes dieser Konten ist eine kleine Tür zu deinen Daten, und viele dieser Türen stehen längst offen, ohne dass du daran denkst.
 

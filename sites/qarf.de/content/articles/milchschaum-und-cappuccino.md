@@ -2,7 +2,7 @@
 title: "Milchschaum und Cappuccino: Milch richtig schäumen mit Dampflanze, Aufschäumer oder French Press"
 description: "Feinporiger Milchschaum zu Hause: richtige Temperatur, welche Milch und welcher Pflanzendrink schäumt, Technik an der Dampflanze, Alternativen ohne Maschine, Cappuccino bis Flat White."
 category: kaffee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Ein guter Cappuccino lebt vom Milchschaum. Nicht vom steifen, grobblasigen Schaumberg, der wie Seifenschaum auf der Tasse steht, sondern von seidiger, glänzender Milch mit feinsten Bläschen, die sich mit dem Espresso verbindet und süß schmeckt, ganz ohne Zucker. Baristas nennen sie Mikroschaum. Die gute Nachricht: Du brauchst dafür nicht unbedingt eine teure Maschine. Mit etwas Übung gelingt feiner Schaum an der Dampflanze, mit einem elektrischen Aufschäumer, einer Stempelkanne oder sogar mit einem Schraubglas. Dieser Ratgeber erklärt, was beim Schäumen passiert, welche Milch sich eignet und wie du die klassischen Milchkaffees zubereitest.
 

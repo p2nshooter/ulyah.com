@@ -2,7 +2,7 @@
 title: "How Breathing Works: The Lungs, the Diaphragm and the Exchange of Oxygen and Carbon Dioxide"
 description: "How the diaphragm draws air in, the path from nose to alveoli, how oxygen enters the blood and carbon dioxide leaves, why carbon dioxide drives the urge to breathe, and breathing at altitude."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 You take about 20,000 breaths every day, usually without thinking about it at all. Breathing continues while you sleep, speeds up when you run and changes when you laugh, sing or speak. With each breath, your lungs bring in oxygen, which every cell needs to produce energy, and release carbon dioxide, a waste product. This exchange happens across a surface so large and delicate that, if spread out, it would cover a tennis court. This explainer describes how breathing works, from the muscles that move air to the microscopic sacs where gases are exchanged. It explains how the body works and is not medical advice.

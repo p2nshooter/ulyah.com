@@ -2,7 +2,7 @@
 title: Término de potencia y término de energía: qué son y cómo reducir cada uno
 description: La diferencia entre la parte fija y la parte variable de la factura de la luz, cómo se calculan con ejemplos, qué peso tiene cada una y qué medidas reducen una u otra.
 category: factura-de-la-luz
-date: 2026-10-02
+date: 2026-10-04
 ---
 Cuando alguien quiere bajar la factura de la luz, lo primero que suele hacer es apagar luces y desenchufar aparatos. Es una buena idea, pero solo actúa sobre una de las dos partes de la factura. La otra, la potencia contratada, se paga aunque la casa esté vacía, y muchas veces es la que más margen de ahorro tiene sin cambiar ningún hábito.
 

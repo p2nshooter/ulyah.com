@@ -2,7 +2,7 @@
 title: "Agua de lluvia, canaletas y drenaje: cómo alejar el agua de la casa antes de que haga daño"
 description: "Canaletas y bajadas bien dimensionadas, pendientes del terreno, rejillas de patio, drenes, muros de contención y válvulas antirretorno para que las lluvias fuertes no dañen muros, pisos ni cimientos."
 category: patios-y-exteriores
-date: 2026-10-07
+date: 2026-10-11
 ---
 En gran parte de América Latina no llueve poco a poco: llueve a cántaros. Un aguacero tropical o una tormenta de verano pueden descargar en una hora lo que en otros lugares cae en una semana. Si el agua del techo cae directamente junto a los muros, si el patio no tiene pendiente o si las canaletas están tapadas, el resultado aparece rápido: muros húmedos, pisos levantados, cimientos debilitados, patios inundados y, a veces, agua que entra por debajo de las puertas.
 

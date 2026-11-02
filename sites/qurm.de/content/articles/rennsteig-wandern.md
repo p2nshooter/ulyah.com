@@ -2,7 +2,7 @@
 title: "Rennsteig wandern: Verlauf, Etappen und Tipps für Deutschlands bekanntesten Höhenweg"
 description: Rund 170 Kilometer über die Kämme von Thüringer Wald, Schiefergebirge und Frankenwald: wie du den Rennsteig planst, einteilst und genießt.
 category: fernwanderwege
-date: 2026-06-01
+date: 2026-10-06
 ---
 Der Rennsteig ist für viele Menschen in Deutschland der Inbegriff einer Fernwanderung. Er verläuft fast durchgehend auf dem Kamm des Thüringer Waldes, des Thüringer Schiefergebirges und des Frankenwaldes, von Hörschel an der Werra bei Eisenach bis nach Blankenstein an der Saale. Unterwegs gibt es keine spektakulären Felswände und keine Gipfelkreuze im Hochgebirgsstil, dafür lange Waldpassagen, weite Ausblicke an Lichtungen, alte Grenzsteine und eine erstaunliche Ruhe, obwohl der Weg so bekannt ist.
 

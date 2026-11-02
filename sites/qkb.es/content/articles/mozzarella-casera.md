@@ -2,7 +2,7 @@
 title: Mozzarella casera en una hora: la técnica de la pasta hilada explicada
 description: Cómo hacer mozzarella en casa con leche pasteurizada, ácido cítrico y cuajo: temperaturas, acidez, el hilado con agua caliente, cómo saber si la cuajada está lista y qué hacer si no estira.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 La mozzarella es un queso fascinante. A diferencia de la mayoría, su cuajada se calienta y se estira hasta formar fibras largas y brillantes, una técnica que los italianos llaman *pasta filata*, pasta hilada. El resultado es ese queso elástico, jugoso y suave que se funde en la pizza y que, recién hecho, tiene un sabor lácteo y fresco imposible de igualar con el de supermercado.
 

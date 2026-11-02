@@ -2,7 +2,7 @@
 title: "Handy verloren oder gestohlen: Was du in der ersten Stunde tun solltest"
 description: "Smartphone weg? Die richtige Reihenfolge: orten, sperren, SIM-Karte und Bankkonten schützen, Passwörter ändern, Anzeige erstatten und Daten wiederherstellen. Mit Checkliste."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Der Griff in die Jackentasche, und da ist nichts. Ein verlorenes oder gestohlenes Smartphone löst bei den meisten Menschen sofort Panik aus, denn darauf befinden sich Fotos, Nachrichten, Bank-Apps, E-Mails und oft der Zugang zu fast allen Online-Konten. Gerade weil so viel auf dem Spiel steht, hilft es, in Ruhe und in der richtigen Reihenfolge vorzugehen. Diese Anleitung zeigt dir, was du in den ersten Minuten, in der ersten Stunde und in den Tagen danach tun solltest. Am besten liest du sie, bevor etwas passiert, und bereitest dich mit den Tipps am Ende vor.

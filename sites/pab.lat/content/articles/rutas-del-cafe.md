@@ -2,7 +2,7 @@
 title: "Rutas del café en América Latina: regiones, visitas a fincas y cómo entender lo que bebes"
 description: "Las regiones cafeteras de Colombia, Centroamérica, México, Brasil y los Andes, cuándo visitar una finca, cómo se procesa el café, cómo se toma en cada país y cómo comprar buen grano."
 category: sabores-del-viaje
-date: 2026-08-24
+date: 2026-10-11
 ---
 América Latina produce buena parte del café que se bebe en el mundo. Brasil es el mayor productor del planeta, Colombia tiene un paisaje cafetero reconocido como patrimonio de la humanidad y en las montañas de Centroamérica, México, Perú o Bolivia se cultivan cafés de altura muy apreciados. Para quien viaja, el café es mucho más que una bebida: es una forma de conocer paisajes de montaña, pueblos de colores, familias productoras y una cultura que marca el ritmo del día.
 

@@ -2,7 +2,7 @@
 title: "Angst und Stress bei Katzen: Anzeichen erkennen, Auslöser verringern, Silvester überstehen"
 description: "Woran du Stress bei Katzen erkennst, welche Auslöser häufig sind, wie du Silvester, Gewitter und Besuch entspannt meisterst und wann tierärztliche Hilfe nötig ist."
 category: verhalten
-date: 2026-10-12
+date: 2026-10-14
 ---
 Katzen gelten als unabhängig und gelassen, doch in Wahrheit sind sie sehr empfindsame Tiere. Ein neues Möbelstück, ein ungewohntes Geräusch, eine fremde Katze vor dem Fenster oder ein lauter Besuch können sie stärker aus der Ruhe bringen, als wir ahnen. Weil Katzen ursprünglich nicht nur Jäger, sondern auch Beute größerer Tiere waren, zeigen sie Angst und Unwohlsein oft nur leise. Viele Halterinnen und Halter bemerken den Stress ihrer Katze erst, wenn sie unsauber wird, sich ständig versteckt oder krank wird.
 

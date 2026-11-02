@@ -2,7 +2,7 @@
 title: "Leftovers Done Safely: Cooling, Storing and Reheating Food Without Risking Food Poisoning"
 description: "The two-hour rule, how to cool big batches fast, how long leftovers keep, which foods need extra care, how to reheat to 165 °F in the microwave, oven and stove, and when to throw food away."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Leftovers are one of the best things about home cooking. A big pot of soup can become lunch for days, last night's roast chicken can turn into tacos, and a well-stocked fridge of leftovers can save a hectic weeknight. But leftovers also carry a risk that many people underestimate. Foodborne illness often comes not from cooking itself but from what happens afterward: food left out too long, cooled too slowly, stored too long or reheated inadequately. Fortunately, a few simple habits keep leftovers both safe and delicious. This guide explains how bacteria grow, how to cool and store food properly, how long leftovers last and how to reheat them correctly.

@@ -2,7 +2,7 @@
 title: "Tomaten auf dem Balkon: Sorten, Kübel, Ausgeizen und eine reiche Ernte"
 description: So gelingen Tomaten auf dem Balkon: passende Sorten, Kübelgröße und Erde, Pflanzen, Stützen, Ausgeizen, Gießen und Düngen, Regenschutz gegen Braunfäule, Blütenendfäule und Ernte.
 category: kraeuter-und-gemuese
-date: 2026-08-26
+date: 2026-10-04
 ---
 Sonnengereifte Tomaten vom eigenen Balkon schmecken unvergleichlich besser als die aus dem Supermarkt. Und Tomaten gehören zu den Gemüsen, die sich am besten im Kübel ziehen lassen. Mit der richtigen Sorte, einem großen Gefäß, einem sonnigen, regengeschützten Platz und regelmäßiger Pflege ist eine reiche Ernte auch auf kleinem Raum möglich.
 

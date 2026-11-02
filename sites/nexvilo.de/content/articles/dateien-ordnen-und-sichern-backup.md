@@ -2,7 +2,7 @@
 title: "Dateien am PC ordnen und sichern: Ordnerstruktur, Dateinamen und ein Backup, das funktioniert"
 description: "Schluss mit dem Chaos im Download-Ordner: So legst du eine einfache Ordnerstruktur an, benennst Dateien sinnvoll und sicherst deinen Windows-PC mit Dateiversionsverlauf, Cloud und Festplatte."
 category: computer-und-windows
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Der Desktop ist voller Symbole, im Download-Ordner liegen 800 Dateien mit Namen wie „Scan_0047.pdf“ und „Dokument(3).docx“, und die Steuerunterlagen vom letzten Jahr sind irgendwo zwischen Urlaubsfotos und Bewerbungen. So geht es vielen. Ordnung auf dem Computer spart nicht nur Zeit beim Suchen, sie ist auch die Grundlage für ein gutes Backup: Was du nicht findest, sicherst du oft auch nicht. Diese Anleitung zeigt dir eine einfache Ordnerstruktur, die sich im Alltag bewährt, Regeln für Dateinamen und drei Wege, deine Dateien unter Windows zuverlässig zu sichern.

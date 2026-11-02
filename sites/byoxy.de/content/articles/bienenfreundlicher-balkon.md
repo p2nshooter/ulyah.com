@@ -2,7 +2,7 @@
 title: "Bienenfreundlicher Balkon: Pflanzen, Blühkalender und Nisthilfen"
 description: So wird dein Balkon zum Paradies für Wildbienen, Hummeln und Schmetterlinge: ungefüllte Blüten, ein Blühkalender von März bis Oktober, Kräuter, Wasserstellen, Nisthilfen und Verzicht auf Gift.
 category: balkon-und-terrasse
-date: 2026-09-02
+date: 2026-10-04
 ---
 Wildbienen, Hummeln, Schwebfliegen und Schmetterlinge finden in Städten immer weniger Nahrung. Gepflasterte Flächen, kurz gemähter Rasen und gefüllte Zierblumen bieten ihnen kaum Pollen und Nektar. Ein Balkon kann hier einen echten Unterschied machen: Schon wenige Kästen und Töpfe mit den richtigen Pflanzen werden zur Tankstelle für Insekten. Und für die Menschen auf dem Balkon ist das Summen und Flattern ein schönes Naturerlebnis mitten in der Stadt.
 

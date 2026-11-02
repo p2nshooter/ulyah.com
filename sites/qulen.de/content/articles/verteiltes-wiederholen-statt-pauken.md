@@ -2,7 +2,7 @@
 title: "Verteiltes Wiederholen und aktives Abrufen: Wie Hannah ihr Bio-Wissen über die Klausur hinaus behielt"
 description: "Hannah lernt vor jeder Bio-Klausur die Nacht durch und hat zwei Wochen später fast alles vergessen. Wie Abrufen, wachsende Abstände und gemischtes Üben ihr Wissen festigten."
 category: vokabeln-und-lernmethoden
-date: 2026-07-08
+date: 2026-10-11
 ---
 „Was passiert bei der Osmose?“ Frau Wendt lehnte am Pult und ließ den Blick durch den Biokurs wandern. Hannah senkte den Kopf ein kleines Stück. Sie wusste, dass sie das wusste. Vor genau vierzehn Tagen hatte sie in der Klausur eine ganze Seite darüber geschrieben, mit Skizze. Jetzt fielen ihr nur noch drei Wörter ein: Wasser, Membran, irgendwas mit Konzentration. Zum Glück meldete sich jemand anderes.
 

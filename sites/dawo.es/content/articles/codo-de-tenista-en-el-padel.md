@@ -2,7 +2,7 @@
 title: Codo de tenista en el pádel: por qué aparece y cómo prevenirlo
 description: Qué es la epicondilitis lateral, por qué es tan frecuente entre jugadores de pádel, qué factores de técnica y material influyen y qué ejercicios ayudan a prevenirla.
 category: padel-y-raqueta
-date: 2026-10-12
+date: 2026-10-04
 ---
 Pocas molestias son tan frecuentes entre los jugadores de pádel aficionados como el dolor en la parte externa del codo. Empieza como una ligera molestia al terminar el partido, después aparece al coger una bolsa o al girar el pomo de una puerta, y en los casos más persistentes llega a doler al estrechar la mano. Su nombre popular es "codo de tenista", aunque hoy probablemente lo sufren más jugadores de pádel que de tenis.
 

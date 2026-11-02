@@ -2,7 +2,7 @@
 title: "Kaffeemaschine und Wasserkocher entkalken: Zitronensäure, Essig, Häufigkeit und sichere Anleitung"
 description: "Wann und wie du Wasserkocher, Filtermaschine, Siebträger, Vollautomat und Espressokocher entkalkst: Mittel im Vergleich, warum Essig nicht für jede Maschine taugt, Anleitungen und Vorbeugung."
 category: muehlen-und-wasser
-date: 2026-08-21
+date: 2026-10-06
 ---
 Kalk ist der stille Feind jeder Kaffeemaschine und jedes Wasserkochers. In vielen Regionen Deutschlands ist das Leitungswasser hart, und bei jedem Erhitzen fällt ein Teil der gelösten Mineralien als weißer Belag aus. Er lagert sich am Heizelement, in Leitungen, Ventilen und Düsen ab. Die Folgen kommen schleichend: Das Wasser wird langsamer heiß, die Maschine wird lauter, der Kaffee schmeckt flach und lauwarm, der Strombedarf steigt, und im schlimmsten Fall verstopft eine Leitung oder ein Ventil. Regelmäßiges Entkalken verhindert das. Dieser Ratgeber erklärt, welche Mittel sich für welches Gerät eignen und wie du sicher vorgehst.
 

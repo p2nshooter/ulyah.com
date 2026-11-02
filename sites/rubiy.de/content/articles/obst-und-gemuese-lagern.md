@@ -2,7 +2,7 @@
 title: "Obst und Gemüse richtig lagern: Kühlschrank, Keller oder Küchentisch?"
 description: Welche Sorten in den Kühlschrank gehören und welche nicht, was Ethylen anrichtet, wie Kartoffeln, Zwiebeln und Möhren lange frisch bleiben, mit Tabelle zum Nachschlagen.
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wer saisonal einkauft, kauft oft in größeren Mengen: eine Kiste Äpfel vom Hof, einen Sack Kartoffeln, die Gemüsekiste mit Kohl, Möhren und Lauch. Damit nichts davon verdirbt, ist die richtige Lagerung entscheidend. Dabei gibt es keine einheitliche Regel. Manche Sorten lieben die Kälte, andere bekommen davon braune Flecken. Manche geben Reifegase ab, auf die andere empfindlich reagieren.
 

@@ -2,7 +2,7 @@
 title: "Türkischer Mokka: Kaffee im Cezve zubereiten, mit Schaum, Zucker und Kardamom"
 description: "Türkischen Kaffee selbst kochen: staubfeiner Mahlgrad, Cezve, Zucker vorab wählen, langsam erhitzen und den Schaum bewahren. Dazu Varianten aus dem Nahen Osten und vom Balkan, Servieren und Fehler."
 category: kaffee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Türkischer Kaffee ist eine der ältesten Arten, Kaffee zuzubereiten, und zugleich eine der einfachsten. Du brauchst nur ein kleines Kännchen mit langem Griff, sehr fein gemahlenen Kaffee, Wasser und auf Wunsch Zucker. Der Kaffee wird nicht gefiltert, sondern mit dem Wasser langsam erhitzt, bis sich ein dichter Schaum bildet. Serviert wird er in kleinen Tassen, oft mit einem Glas Wasser und etwas Süßem. Die türkische Kaffeekultur ist von der UNESCO als immaterielles Kulturerbe anerkannt. Und auch in Griechenland, auf dem Balkan, im Libanon und in vielen arabischen Ländern wird Kaffee auf ähnliche Weise gekocht, mit eigenen Namen und Feinheiten.
 

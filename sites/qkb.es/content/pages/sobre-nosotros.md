@@ -1,8 +1,8 @@
 ---
 title: Sobre QKB
-description: Qué es QKB, el obrador casero; quién escribe las recetas y guías, cómo las probamos y por qué ponemos la seguridad alimentaria por delante.
+description: Qué es QKB, el obrador casero; cómo se escriben y revisan las recetas y guías y por qué ponemos la seguridad alimentaria por delante.
 order: 1
-updated: 2026-10-04
+updated: 2026-11-02
 ---
 QKB es una revista digital dedicada al **obrador doméstico**: todo lo que se puede elaborar en una cocina de casa con paciencia, buenos ingredientes y un poco de técnica. Su nombre resume las tres pasiones que la inspiran: **Queso, Kéfir y Bollería**. A partir de ahí, el recetario se extiende a la masa madre, el pan, los fermentados de verdura y las conservas.
 
@@ -12,7 +12,7 @@ Para cualquier persona que quiera hacer en casa lo que normalmente compra: un qu
 
 ## Cómo trabajamos
 
-Las recetas y guías de QKB las escribe y revisa el equipo del obrador. Cada receta se basa en técnicas tradicionales de la cocina española y en principios contrastados de la ciencia de los alimentos: cómo actúan el cuajo, las levaduras y las bacterias, cómo influye la temperatura, por qué la sal o el azúcar conservan. Cuando damos cantidades y tiempos, son orientativos: cada cocina, cada horno y cada harina se comportan de forma algo distinta, y te enseñamos a leer las señales de la masa, la leche o el fermento.
+Las recetas y guías de QKB se elaboran con ayuda de herramientas de inteligencia artificial y se revisan antes de publicarse. Cada receta se basa en técnicas tradicionales de la cocina española y en principios contrastados de la ciencia de los alimentos: cómo actúan el cuajo, las levaduras y las bacterias, cómo influye la temperatura, por qué la sal o el azúcar conservan. Cuando damos cantidades y tiempos, son orientativos: cada cocina, cada horno y cada harina se comportan de forma algo distinta, y te enseñamos a leer las señales de la masa, la leche o el fermento.
 
 ## La seguridad alimentaria, primero
 

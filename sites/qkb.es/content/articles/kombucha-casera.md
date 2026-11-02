@@ -2,7 +2,7 @@
 title: Kombucha casera: cómo prepararla con seguridad, de la primera fermentación a la botella
 description: Guía para hacer kombucha en casa: qué es el SCOBY, proporciones de té y azúcar, acidez inicial, tiempos, segunda fermentación con fruta, señales de moho y quién debería evitarla.
 category: kefir-y-fermentados
-date: 2026-10-01
+date: 2026-10-04
 ---
 La kombucha es una bebida de té endulzado fermentado por una colonia de bacterias y levaduras. El resultado es un líquido ácido, ligeramente dulce y, si se embotella bien, con burbujas finas y persistentes. En los últimos años se ha vuelto muy popular en tiendas y cafeterías, pero su elaboración casera es antigua y sencilla, siempre que se respeten unas pocas reglas de higiene y acidez.
 

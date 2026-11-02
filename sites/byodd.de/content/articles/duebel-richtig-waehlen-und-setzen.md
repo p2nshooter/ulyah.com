@@ -2,7 +2,7 @@
 title: "Dübel richtig wählen und setzen: Welcher Dübel hält in welcher Wand?"
 description: Übersicht über Universaldübel, Spreizdübel, Hohlraumdübel, Porenbetondübel und Injektionsmörtel, mit der passenden Schraube, Bohrtiefe und Tipps für schwere Lasten.
 category: werkzeug-und-grundlagen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Der Dübel ist das unscheinbarste Bauteil jeder Wandbefestigung und gleichzeitig das wichtigste. Ein falscher Dübel in der falschen Wand lässt Regale abstürzen, Hängeschränke kippen oder Gardinenstangen langsam aus der Decke wandern. Mit ein wenig Grundwissen über Wandbaustoffe und Dübelarten hält dagegen fast alles, was du in der Wohnung befestigen willst.
 

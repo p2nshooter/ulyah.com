@@ -2,7 +2,7 @@
 title: "Going Grey With Style: How to Grow Out the Dye and Love Your Silver"
 description: A practical guide to the transition from dyed hair to natural grey — cutting, blending and toning options, caring for silver hair, and adjusting makeup and wardrobe colours.
 category: beauty-after-fifty
-date: 2026-10-19
+date: 2026-10-20
 ---
 For decades, the first grey hairs were treated as an emergency, and a lifetime of root touch-ups seemed inevitable. Today, more and more women are deciding to stop colouring and let their natural silver, pewter, salt-and-pepper or snowy white come through. Some make the change for practical reasons — the time, the cost, the salon appointments every four weeks. Others simply feel ready to see what their own hair looks like. Many are surprised to find that grey hair, cared for well, looks striking, modern and remarkably flattering.
 

@@ -2,7 +2,7 @@
 title: "Jungpflanzen selbst ziehen oder kaufen? Ein ehrlicher Vergleich für den Biogarten"
 description: "Wann sich eigene Anzucht lohnt und wann gekaufte Jungpflanzen besser sind: Kosten, Sortenwahl, Zeitaufwand, Licht und Platz, Qualitätsmerkmale beim Kauf und eine Übersicht nach Gemüseart."
 category: saatgut-und-jungpflanzen
-date: 2026-10-13
+date: 2026-10-14
 ---
 Jedes Frühjahr stehen Gartenfreunde vor derselben Frage: Lohnt es sich, Tomaten, Paprika, Kohl und Kräuter selbst auf der Fensterbank vorzuziehen, oder ist es einfacher, im Mai fertige Jungpflanzen zu kaufen? Die Antwort hängt von deinem Platz, deiner Zeit, deinen Ansprüchen an Sorten und auch vom Gemüse selbst ab.
 

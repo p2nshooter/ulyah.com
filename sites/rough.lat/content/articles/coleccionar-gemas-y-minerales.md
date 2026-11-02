@@ -2,7 +2,7 @@
 title: "Coleccionar gemas y minerales: qué buscar, cómo catalogar, conservar y recolectar con legalidad"
 description: "Cómo empezar una colección de minerales o gemas: tipos y tamaños, qué da valor a un ejemplar, reparaciones y falsificaciones, etiquetas, conservación, minerales delicados, legalidad y ética."
 category: lujo-y-estilo-de-vida
-date: 2026-10-11
+date: 2026-10-12
 ---
 Coleccionar minerales y gemas es asomarse a la historia de la Tierra desde el escritorio de casa. Una drusa de amatista de Uruguay, un cristal de aguamarina de Minas Gerais, una lámina de rodocrosita de Catamarca o una pequeña esmeralda colombiana sobre su matriz de calcita cuentan, cada uno, una historia geológica distinta. Para muchos coleccionistas, la afición empieza con una piedra comprada en un viaje y termina convertida en un conocimiento profundo de la mineralogía.
 

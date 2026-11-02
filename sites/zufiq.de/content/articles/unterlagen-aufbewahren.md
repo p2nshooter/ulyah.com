@@ -2,7 +2,7 @@
 title: "Unterlagen aufbewahren: Welche Papiere du wie lange behalten solltest"
 description: "Unterlagen aufbewahren ohne Papierberg: Was du für immer behältst, was nach einigen Jahren weg darf und wie eine einfache Fristenliste den Überblick sichert."
 category: ordnung-und-papierkram
-date: 2026-08-18
+date: 2026-10-11
 ---
 Kaum etwas verunsichert beim Aufräumen so sehr wie Papier. Bei einem alten Pullover weißt du, ob du ihn noch trägst. Bei einem Kontoauszug von 2017, einer Nebenkostenabrechnung oder dem Brief einer Versicherung bleibt dagegen die leise Frage: Was, wenn ich das noch einmal brauche? Aus dieser Unsicherheit wachsen Ordner, Kartons und Schubladen voller Papiere, die niemand mehr ansieht, die aber auch niemand wegzuwerfen wagt.
 

@@ -2,7 +2,7 @@
 title: "Rooibos und Honeybush: die koffeinfreien Tees aus Südafrika, Sorten und Zubereitung"
 description: "Rooibos und Honeybush aus Südafrika: Herkunft, roter und grüner Rooibos, Geschmack, Zubereitung mit kochendem Wasser, Latte, Eistee und Mischungen, Lagerung und häufige Fragen."
 category: teesorten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Rooibos hat in Deutschland viele Freunde gefunden: als warmer, süßlicher Abendtee ohne Koffein, als Basis für Vanille- und Orangenmischungen oder als kalter Durstlöscher im Sommer. Sein naher Verwandter Honeybush ist weniger bekannt, schmeckt aber ähnlich angenehm, mit einer noch deutlicheren Honignote. Beide stammen aus einer kleinen Region im Südwesten Südafrikas und wachsen nirgendwo sonst in nennenswerter Menge. Botanisch haben sie mit der Teepflanze nichts zu tun, sie gehören zu den Hülsenfrüchtlern. Dieser Ratgeber erklärt, woher Rooibos und Honeybush kommen, wie sie verarbeitet werden und wie du sie am besten zubereitest.
 

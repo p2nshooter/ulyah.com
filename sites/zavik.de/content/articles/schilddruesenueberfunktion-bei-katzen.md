@@ -2,7 +2,7 @@
 title: "Schilddrüsenüberfunktion bei Katzen: Anzeichen, Diagnose und Behandlung"
 description: "Heißhunger und trotzdem dünn: wie sich eine Schilddrüsenüberfunktion bei älteren Katzen zeigt, wie sie festgestellt wird und welche Behandlungen es gibt, von Tabletten bis Radiojod."
 category: gesundheit
-date: 2026-10-10
+date: 2026-10-14
 ---
 Die Katze ist vierzehn Jahre alt, frisst so viel wie nie zuvor, bettelt ständig um Futter und wird trotzdem immer dünner. Sie ist unruhig, ruft nachts, trinkt mehr als früher, und ihr Fell sieht struppig aus. Viele Halterinnen und Halter freuen sich zunächst über den guten Appetit ihrer alten Katze und denken an nichts Böses. Doch genau diese Kombination ist ein klassisches Bild der Schilddrüsenüberfunktion, der häufigsten Hormonerkrankung älterer Katzen.
 

@@ -2,7 +2,7 @@
 title: "Frankfurter Grüne Soße: die sieben Kräuter und das Rezept mit Pellkartoffeln"
 description: "Was in die Frankfurter Grüne Soße gehört: Borretsch, Kerbel, Kresse, Petersilie, Pimpinelle, Sauerampfer und Schnittlauch, dazu Mengen, Zubereitung und Varianten."
 category: fruehling
-date: 2026-10-12
+date: 2026-10-06
 ---
 In Frankfurt am Main ist sie mehr als eine Soße: Die „Grie Soß“ gehört zur Stadt wie der Apfelwein. Sobald im Frühjahr die ersten Kräuter aus den Gärtnereien im Stadtteil Oberrad kommen, liegen auf den Märkten in weißes Papier gewickelte Päckchen mit genau sieben Kräutern. Traditionell kommt die Soße am Gründonnerstag zum ersten Mal auf den Tisch, mit Pellkartoffeln und hart gekochten Eiern. Die Soße ist kalt, frisch, leicht säuerlich und schmeckt so grün, wie sie aussieht. Und sie ist ein wunderbares Beispiel dafür, wie gut regionale, saisonale Küche ohne großen Aufwand sein kann.
 

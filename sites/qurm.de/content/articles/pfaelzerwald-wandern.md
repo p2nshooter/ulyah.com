@@ -2,7 +2,7 @@
 title: "Pfälzerwald: Felsentouren, Burgen und Hüttenwandern zwischen Kalmit und Dahner Felsenland"
 description: "Wandern im Pfälzerwald: Buntsandsteinfelsen im Dahner Felsenland, Teufelstisch, Altschlossfelsen, Trifels und Kalmit, dazu die Hütten des Pfälzerwald-Vereins und Tipps für Planung und Jahreszeiten."
 category: berge-und-tagestouren
-date: 2026-08-07
+date: 2026-10-06
 ---
 Der Pfälzerwald ist eines der größten zusammenhängenden Waldgebiete Deutschlands und bildet gemeinsam mit den französischen Nordvogesen ein grenzüberschreitendes UNESCO-Biosphärenreservat. Seine Gipfel sind nicht hoch, die Kalmit als höchste Erhebung erreicht knapp 673 Meter. Trotzdem ist das Wandern hier alles andere als langweilig. Aus den Wäldern ragen rote Buntsandsteinfelsen in den bizarrsten Formen, auf Bergspornen thronen Burgen, und an fast jeder Ecke wartet eine Hütte des Pfälzerwald-Vereins mit Pfälzer Küche und Schorle. Das Hüttenwandern ist hier eine eigene Kultur, und es macht den Pfälzerwald zu einem der geselligsten Wandergebiete Deutschlands.
 

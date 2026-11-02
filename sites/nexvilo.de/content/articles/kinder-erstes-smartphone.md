@@ -2,7 +2,7 @@
 title: "Das erste Smartphone fürs Kind: Der richtige Zeitpunkt, sichere Einstellungen und Regeln, die halten"
 description: "Wann ein Kind bereit für ein eigenes Smartphone ist, welches Gerät und welcher Tarif passen, wie du die Kindersicherung einrichtest und welche Familienregeln wirklich funktionieren."
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Irgendwann kommt in fast jeder Familie die Frage auf den Tisch: „Alle in meiner Klasse haben schon ein Handy, warum ich nicht?“ Spätestens beim Wechsel auf die weiterführende Schule wird das eigene Smartphone für viele Kinder zum Thema. Eltern stehen dann zwischen zwei Sorgen. Einerseits möchten sie ihr Kind nicht ausgrenzen und wissen, dass Klassenchats, Busverbindungen und Absprachen mit Freunden heute oft über das Smartphone laufen. Andererseits haben sie Bedenken wegen Bildschirmzeit, ungeeigneter Inhalte, Kostenfallen und Kontakten mit Fremden. Diese Anleitung hilft, die Entscheidung in Ruhe zu treffen, das Gerät sinnvoll einzurichten und gemeinsam Regeln zu finden, mit denen alle leben können.

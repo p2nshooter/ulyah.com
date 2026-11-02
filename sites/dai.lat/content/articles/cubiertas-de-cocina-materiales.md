@@ -2,7 +2,7 @@
 title: "Cubiertas de cocina: granito, cuarzo, laminado, acero y otros materiales comparados"
 description: "Qué material elegir para la cubierta, mesón o mesada de la cocina según calor, manchas, rayones, mantenimiento y presupuesto, con espesores, bordes, tarjas y cuidados diarios."
 category: cocinas-y-banos
-date: 2026-08-22
+date: 2026-10-11
 ---
 La superficie de trabajo de la cocina recibe más castigo que cualquier otra de la casa. Sobre ella se pica, se amasa, se apoyan ollas calientes, se derrama aceite, jugo de limón, café y vino, y se limpia varias veces al día. En México se llama cubierta, en Colombia y Chile mesón, en Argentina y Uruguay mesada, y en otros lugares tablero o encimera. Con cualquier nombre, es una de las decisiones más visibles y más caras de una cocina.
 

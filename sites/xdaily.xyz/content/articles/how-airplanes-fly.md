@@ -2,7 +2,7 @@
 title: "How Airplanes Fly: Lift, Weight, Thrust and Drag, and Why the Popular Wing Explanation Is Incomplete"
 description: "The four forces of flight, how wings create lift by turning air downward, why angle of attack and speed matter, what stalls and turbulence are, how jet engines push and how pilots steer."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 A large passenger jet can weigh more than 400 tons at takeoff, yet it rises gracefully into the sky and cruises for thousands of miles. Every day, tens of thousands of flights carry millions of people around the world. How can something so heavy stay in the air? The answer involves four forces, the shape and angle of the wings, and the way air behaves as it flows around objects. Even though flight is routine, the explanation is often oversimplified, and some popular versions are actually misleading. This explainer describes how airplanes fly, with a clear look at how wings really create lift.

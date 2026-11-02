@@ -2,7 +2,7 @@
 title: "Siegel bei Kaffee und Tee: Bio, Fairtrade, Rainforest Alliance und Direct Trade verständlich erklärt"
 description: "Was die Siegel auf Kaffee und Tee bedeuten: EU-Bio, Verbandsbio, Fairtrade, Rainforest Alliance und Direct Trade im Vergleich, was sie garantieren, wo ihre Grenzen liegen und wie du bewusst einkaufst."
 category: genuss-und-wissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Kaffee und Tee wachsen fast ausschließlich in Ländern des globalen Südens, oft auf kleinen Farmen und Teegärten, deren Familien von schwankenden Weltmarktpreisen abhängen. Gleichzeitig hat der Anbau Folgen für Böden, Wasser und Wälder. Viele Menschen möchten deshalb beim Einkauf darauf achten, unter welchen Bedingungen ihr Kaffee und Tee entstanden sind. Hilfe versprechen Siegel. Doch auf den Packungen tummeln sich viele Logos, und nicht jedes bedeutet dasselbe. Manche betreffen den ökologischen Anbau, andere faire Preise und Arbeitsbedingungen, wieder andere sind reine Marketingbegriffe. Dieser Ratgeber erklärt die wichtigsten Siegel, was sie garantieren und wo ihre Grenzen liegen.
 

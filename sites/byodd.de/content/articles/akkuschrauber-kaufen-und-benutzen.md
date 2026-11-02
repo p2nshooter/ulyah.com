@@ -2,7 +2,7 @@
 title: "Akkuschrauber kaufen und richtig benutzen: Drehmoment, Bits, Akku"
 description: Worauf es beim Kauf eines Akkuschraubers ankommt, was Volt, Newtonmeter und Gänge bedeuten, wie du Drehmomentkupplung und Bits richtig nutzt und wie der Akku lange hält.
 category: werkzeug-und-grundlagen
-date: 2026-09-27
+date: 2026-10-04
 ---
 Der Akkuschrauber ist das Werkzeug, das in fast jedem Heimwerker-Projekt zum Einsatz kommt: Möbel montieren, Regale anschrauben, Scharniere einstellen, Löcher in Holz und Metall bohren, Schrauben lösen, die sich von Hand nicht bewegen. Wer ihn richtig auswählt und bedient, arbeitet schneller, sauberer und schont Schrauben, Material und Handgelenk. Wer daneben greift, ärgert sich über rutschende Bits, ausgefranste Schraubenköpfe und Akkus, die nach zwei Jahren schlappmachen.
 

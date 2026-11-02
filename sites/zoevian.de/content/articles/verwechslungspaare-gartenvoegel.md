@@ -2,7 +2,7 @@
 title: "Verwechslungspaare im Garten: Zehn Vogelarten, die leicht verwechselt werden"
 description: "Sumpf- oder Weidenmeise, Zilpzalp oder Fitis, Haus- oder Gartenrotschwanz, Spatz oder Heckenbraunelle: so unterscheidest du die zehn häufigsten Verwechslungspaare im Garten."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Manche Vogelarten sind so ähnlich, dass selbst erfahrene Beobachter zweimal hinschauen müssen. Bei einigen Paaren hilft ein einziges Merkmal, bei anderen nur die Stimme. Wer diese klassischen Verwechslungspaare kennt, bestimmt sicherer und erlebt beim Beobachten weniger Frust.

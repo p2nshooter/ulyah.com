@@ -2,7 +2,7 @@
 title: "Die Laterne, die schief hing"
 description: Frieda wünscht sich eine perfekte Fuchslaterne, doch Papa kann nicht basteln, und am Abend vor dem Umzug geht alles schief. Über Perfektionismus, Teilen und den Sinn von Sankt Martin.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 Der Zettel hing Anfang Oktober an der Pinnwand der Kita in Köln-Ehrenfeld, mit einem gemalten Pferd und einem Mann mit rotem Mantel. „Liebe Eltern, am Donnerstag, den 22. Oktober, laden wir zum Laternenbastelnachmittag ein. Bitte bringt gute Laune und eine Schere mit. Der Martinsumzug findet am 11. November um 17 Uhr statt.“
 

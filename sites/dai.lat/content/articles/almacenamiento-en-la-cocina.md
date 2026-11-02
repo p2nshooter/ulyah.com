@@ -2,7 +2,7 @@
 title: "Almacenamiento en la cocina: alacena, despensa y cajones ordenados sin plagas ni humedad"
 description: "Cómo organizar alacenas, cajones, despensa y refrigerador por zonas de uso, proteger granos y harinas de gorgojos y humedad, aprovechar esquinas y guardar los productos de limpieza con seguridad."
 category: cocinas-y-banos
-date: 2026-09-03
+date: 2026-10-11
 ---
 Una cocina puede tener muebles nuevos y cubiertas de piedra y aun así ser caótica: ollas que se caen al abrir la puerta, tapas que nunca aparecen, especias repetidas porque no se veía la que ya había, harina con gorgojos al fondo de la alacena. Casi siempre el problema no es la falta de espacio, sino la forma de guardar.
 

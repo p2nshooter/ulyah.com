@@ -2,7 +2,7 @@
 title: "Chewy or Crisp? How to Control Cookie Texture With Sugar, Butter, Flour and Oven Time"
 description: "How each ingredient changes a cookie, why dough spreads or stays tall, how to make cookies chewy, crisp or cakey on purpose, why chilling dough helps and how to bake, store and freeze cookies."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Everyone has an opinion about the perfect cookie. Some love them thick and soft in the middle, others thin and crisp, and some want golden edges with a chewy center. The fascinating thing is that small changes to the same basic recipe can produce all of these textures. The type of sugar, the temperature of the butter, the kind of flour, the number of eggs and the baking time all shape the final cookie. Once you understand how each ingredient works, you can adjust any recipe to make cookies exactly the way you like them, and fix problems like cookies that spread into one flat sheet or stay hard as rocks.

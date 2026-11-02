@@ -2,7 +2,7 @@
 title: "Noch fünf Minuten! Übergänge ohne Tränen"
 description: Vom Spielplatz nach Hause, vom Spiel zum Abendessen, vom Tablet ins Bett: Für die kleine Mira war jeder Wechsel ein Drama. Eine Geschichte über Übergänge, Sanduhren und den Trick mit dem letzten Mal.
 category: morgens-und-abends
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Mira, wir gehen jetzt!“
 

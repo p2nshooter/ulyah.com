@@ -2,7 +2,7 @@
 title: "Digitale Dateien ordnen: Ruhe auf Desktop, Downloads und Festplatte"
 description: "Digitale Dateien ordnen ohne Perfektionismus: aufgeräumter Desktop, ein Downloads-Ordner, der sich leert, eine flache Ordnerstruktur und eine Routine, die bleibt."
 category: digitale-ruhe
-date: 2026-09-02
+date: 2026-10-11
 ---
 Unordnung ist nicht nur eine Sache von Schubladen und Schränken. Auch auf dem Computer kann es eng werden: ein Desktop voller Symbole, ein Downloads-Ordner mit zweitausend Dateien, drei Versionen derselben Präsentation mit Namen wie „final“, „final2“ und „final_wirklich“, Fotos auf dem Handy, Dokumente in der Cloud, ein USB-Stick in der Schublade, auf dem irgendetwas Wichtiges sein könnte. Digitale Unordnung ist unsichtbar, aber sie kostet Zeit, Nerven und manchmal auch Daten.
 

@@ -2,7 +2,7 @@
 title: "How Vision Works: From Light Entering the Eye to the Picture Your Brain Builds"
 description: "How the cornea and lens focus light, how rods and cones turn photons into signals, how we see color, why there is a blind spot, how the brain assembles images and what nearsightedness really is."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Open your eyes and the world appears instantly: colors, shapes, depth, movement, faces and words, all seemingly effortless. Yet seeing is one of the most complex things the body does. Light must be focused onto a thin layer of tissue at the back of the eye, converted into electrical signals by millions of specialized cells and interpreted by large areas of the brain. What we experience as "seeing" is not a simple photograph of the world but a picture constructed by the brain. This explainer follows light on its journey through the eye and into the brain. It explains how the body works and is not medical advice.

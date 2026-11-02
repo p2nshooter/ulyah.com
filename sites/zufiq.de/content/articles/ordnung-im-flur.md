@@ -2,7 +2,7 @@
 title: "Ordnung im Flur: Garderobe, Schlüssel und Taschen mit festem Platz"
 description: "Ordnung im Flur, die morgens hält: Jacken und Schuhe begrenzen, feste Plätze für Schlüssel und Taschen, eine Post- und Mitnahme-Station und eine Fünf-Minuten-Routine."
 category: ordnung-und-papierkram
-date: 2026-08-15
+date: 2026-10-11
 ---
 Es ist zehn nach sieben, du musst los. Der Schlüssel liegt nicht in der Schale, sondern vermutlich in der Jacke von gestern, die unter zwei anderen Jacken am Haken hängt. Auf dem Boden stehen sechs Paar Schuhe, keines davon ist das, das du suchst. Auf der Kommode stapeln sich Briefe, Werbung, eine Rücksendung und eine Mütze aus dem letzten Winter. Und während du suchst, wird aus einem ruhigen Morgen ein hektischer.
 

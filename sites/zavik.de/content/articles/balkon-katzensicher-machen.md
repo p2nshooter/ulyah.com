@@ -2,7 +2,7 @@
 title: "Balkon katzensicher machen: Katzennetz, Befestigung und Gestaltung"
 description: Stürze vom Balkon sind häufig und oft schwer. Wie du mit einem Katzennetz ohne Bohren absicherst, was Mieter beachten sollten und was nach einem Sturz zu tun ist.
 category: wohnung-und-freigang
-date: 2026-08-06
+date: 2026-10-05
 ---
 Ein Balkon ist für eine Wohnungskatze ein Geschenk: frische Luft, Sonne, Vogelgezwitscher, Gerüche von draußen. Gleichzeitig ist er eine der größten Gefahren im Leben einer Stadtkatze. Tierkliniken in Großstädten behandeln jedes Jahr zahlreiche Katzen, die von Balkonen oder aus Fenstern gestürzt sind, besonders in den warmen Monaten. Die Verletzungen reichen von Prellungen über gebrochene Kiefer und Beine bis zu schweren Verletzungen der Lunge.
 

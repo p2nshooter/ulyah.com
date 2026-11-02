@@ -2,7 +2,7 @@
 title: "Zafiro: azules, colores de fantasía, tratamientos y claves para elegir bien"
 description: "El zafiro más allá del azul: qué lo colorea, qué son el padparadscha y los zafiros de fantasía, qué tratamientos son habituales, cómo detectar sintéticos e imitaciones y qué revisar al comprar."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Cuando alguien dice zafiro, casi todo el mundo piensa en una piedra azul. Y es lógico: el azul del zafiro es uno de los colores más reconocibles de la joyería, presente en coronas, anillos de compromiso célebres y piezas de alta joyería de todas las épocas. Pero el zafiro es mucho más que eso. Existen zafiros amarillos, rosas, naranjas, violetas, verdes e incoloros, zafiros que cambian de color con la luz y zafiros con una estrella de seis puntas. Todos son la misma especie mineral, el corindón, la misma que forma el rubí.
 

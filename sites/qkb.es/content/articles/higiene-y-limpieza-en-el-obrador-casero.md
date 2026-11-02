@@ -2,7 +2,7 @@
 title: Higiene en el obrador casero: limpiar, desinfectar y trabajar seguro con lácteos y fermentados
 description: Higiene práctica para quesos, fermentados, pan y conservas: limpiar y desinfectar, tarros y telas, contaminación cruzada, leche cruda y cuándo desechar.
 category: tecnica
-date: 2026-10-12
+date: 2026-10-04
 ---
 En el obrador casero trabajamos con microorganismos a propósito. Queremos que las bacterias lácticas fermenten la col, que las levaduras hagan subir el pan y que los cultivos del yogur cuajen la leche. Pero en el mismo espacio también pueden estar presentes otros microorganismos que no queremos: mohos, bacterias de putrefacción o, en casos raros, bacterias capaces de causar enfermedades. La higiene consiste en inclinar la balanza a favor de los primeros y en contra de los segundos.
 

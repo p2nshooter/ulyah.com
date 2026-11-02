@@ -2,7 +2,7 @@
 title: "Richtig mitschreiben im Unterricht: Wie Ole vom Abschreiben zur klugen Mitschrift kam"
 description: "Ole schreibt im Unterricht alles mit und versteht hinterher trotzdem wenig. Wie du Wichtiges erkennst, mit Abkürzungen und der Cornell-Methode arbeitest und deine Mitschrift nachbereitest."
 category: vokabeln-und-lernmethoden
-date: 2026-08-16
+date: 2026-10-11
 ---
 Oles Hand tat weh. Herr Neumann sprach schnell, und Ole versuchte, jedes Wort mitzuschreiben. „Die Photosynthese findet in den Chloroplasten statt, wobei Lichtenergie …“ Ole kritzelte, so schnell er konnte. Während er noch das Wort „Lichtenergie“ schrieb, war Herr Neumann schon zwei Sätze weiter. Ole ließ ein paar Wörter aus, setzte Pünktchen und hoffte, später zu verstehen, was gemeint war. Am Ende der Stunde hatte er vier vollgeschriebene Seiten. Und als er sie am Abend durchlas, verstand er kaum etwas davon.
 

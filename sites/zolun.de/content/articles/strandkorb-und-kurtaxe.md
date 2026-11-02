@@ -2,7 +2,7 @@
 title: "Strandkorb, Kurtaxe und Strandabschnitte: So funktioniert ein Strandtag an Nord- und Ostsee"
 description: "Was die Kurtaxe ist und wofür du sie zahlst, wie du einen Strandkorb mietest, welche Strandabschnitte es gibt und welche Regeln für Hunde, Sandburgen und Grillen gelten."
 category: nordsee-und-ostsee
-date: 2026-07-21
+date: 2026-10-11
 ---
 Du kommst an den Strand, die Sonne scheint, das Meer glitzert, und am Strandaufgang steht ein kleines Häuschen, an dem jemand nach deiner Kurkarte fragt. Weiter hinten stehen hunderte Strandkörbe in Reih und Glied, manche mit Schloss, manche offen. Ein Schild zeigt einen Hund, ein anderes ein durchgestrichenes Feuer. Für viele, die zum ersten Mal an die deutsche Küste fahren, wirkt das System aus Kurtaxe, Strandkorbvermietung und Strandabschnitten zunächst verwirrend. Dieser Ratgeber erklärt dir, wie ein Strandtag an Nord- und Ostsee funktioniert, was es kostet und welche Regeln gelten.
 

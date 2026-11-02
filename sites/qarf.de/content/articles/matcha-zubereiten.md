@@ -2,7 +2,7 @@
 title: "Matcha zubereiten: Usucha, Koicha und Matcha Latte mit Besen, Schale und richtiger Temperatur"
 description: "Matcha Schritt für Schritt: was Matcha ist, Qualitäten erkennen, Pulver sieben, Wassertemperatur, mit dem Bambusbesen schlagen, dünner und dicker Tee, Matcha Latte, Lagerung und typische Fehler."
 category: tee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Matcha ist anders als jeder andere Tee. Statt Blätter in Wasser ziehen zu lassen und wieder herauszunehmen, wird das ganze Blatt als feines Pulver in Wasser aufgeschlagen und mitgetrunken. Das Ergebnis ist leuchtend grün, mit einem samtigen Schaum, einem tiefen, süß-herben Geschmack und einer intensiven Umami-Note, die an frisches Gemüse und Meer erinnert. In Japan ist Matcha seit Jahrhunderten das Herzstück der Teezeremonie. Heute findet man ihn auch in Lattes, Desserts und Gebäck. Die Zubereitung ist einfach, wenn du ein paar Grundregeln kennst. Dieser Ratgeber zeigt, wie du einen guten Matcha schlägst und woran du gute Qualität erkennst.
 

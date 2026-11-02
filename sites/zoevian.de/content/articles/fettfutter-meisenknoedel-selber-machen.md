@@ -2,7 +2,7 @@
 title: "Meisenknödel und Fettfutter selber machen: Rezept, Formen, Lagerung und Fehler"
 description: "Fettfutter für Meisen, Spechte und Kleiber selbst herstellen: das richtige Fett, das Mischungsverhältnis, Futterglocke, Zapfen und Futterstamm, plus sichere Aufhängung ohne Netz."
 category: fuettern-und-traenken
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Selbst gemachtes Fettfutter ist eine der schönsten Arten, Vögel im Winter zu unterstützen. Es ist energiereich, du weißt genau, was drin ist, und es kommt ganz ohne die Plastiknetze aus, in denen sich Vögel verletzen können. Außerdem ist es ein wunderbares Projekt für einen grauen Novembernachmittag, auch mit Kindern.

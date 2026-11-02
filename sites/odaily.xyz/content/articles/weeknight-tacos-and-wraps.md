@@ -2,7 +2,7 @@
 title: "Weeknight Tacos and Wraps: Fillings, Tortillas and Toppings for a Build-Your-Own Dinner Everyone Likes"
 description: "How to warm tortillas so they do not crack, six fast fillings from seasoned beef to crispy chickpeas, quick salsas and pickles, homemade taco seasoning, and turning leftovers into wraps and bowls."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Taco night is a favorite in many households for good reason. It is fast, flexible and fun. Everyone builds their own plate, picky eaters can choose what they like, and leftovers easily become lunch the next day. With a few fillings, warm tortillas and a spread of toppings, you can serve a dinner that feels festive in about thirty minutes. The same components also make excellent wraps, burritos and bowls. This guide covers how to warm tortillas properly, six fillings that cook quickly, simple homemade salsas and toppings, and how to stretch a taco night into several meals.

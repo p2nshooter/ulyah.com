@@ -1,14 +1,14 @@
 ---
 title: Editorial policy
-description: How SAVED chooses topics, researches and writes every guide by hand, checks facts, corrects mistakes and keeps advertising separate from content.
+description: How SAVED chooses topics, researches and writes every guide with AI assistance, checks facts, corrects mistakes and keeps advertising separate.
 order: 7
-updated: 2026-10-19
+updated: 2026-11-02
 ---
 This page explains how SAVED guides are made, so that you can judge how much to rely on them.
 
-## Written by people
+## How guides are written
 
-Every guide on SAVED is written by a member of our editorial team. We do not publish automatically generated articles, spun content or text copied from other websites. Each guide is planned around a real question a household faces — "How do I lower my heating bill?", "Is this second-hand bike safe?" — and answers it as completely and plainly as we can.
+Every guide on SAVED is researched and drafted with the help of AI tools and checked before it appears. We do not publish spun content or text copied from other websites. Each guide is planned around a real question a household faces — "How do I lower my heating bill?", "Is this second-hand bike safe?" — and answers it as completely and plainly as we can.
 
 ## Research and sources
 
@@ -16,7 +16,7 @@ We base guides on reliable, checkable sources: government consumer, energy-effic
 
 ## Review
 
-Before publication, a second editor reads each guide for accuracy, clarity, safety warnings and balance. Guides that touch on money owed, legal rights or hazardous work receive extra attention so that the limits of general information are clear.
+Before publication, each guide is checked for accuracy, clarity, safety warnings and balance against the sources it relies on. Guides that touch on money owed, legal rights or hazardous work receive extra attention so that the limits of general information are clear.
 
 ## Updates and corrections
 

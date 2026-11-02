@@ -2,7 +2,7 @@
 title: Churros caseros con chocolate a la taza: masa, churrera, fritura segura y porras
 description: Cómo hacer churros en casa con harina, agua y sal: proporciones, por qué usar boquilla de estrella, temperatura del aceite, fritura sin riesgos, porras, y el chocolate a la taza espeso para mojar.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 Pocas cosas son tan españolas como un desayuno de churros con chocolate un domingo de invierno, o la última parada de una noche de fiesta en una churrería. Los churros son, en su versión más clásica, una masa sencillísima de harina, agua y sal, que se fríe en aceite muy caliente y se espolvorea, si se quiere, con azúcar. Su secreto no está en los ingredientes, sino en la técnica: la consistencia de la masa, la forma de la boquilla y la temperatura del aceite.
 

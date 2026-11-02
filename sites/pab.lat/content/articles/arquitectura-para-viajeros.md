@@ -2,7 +2,7 @@
 title: "Arquitectura para viajeros: cómo leer pirámides, iglesias barrocas y edificios modernos en América Latina"
 description: "Claves para entender la arquitectura de la región: técnicas prehispánicas, la ciudad en damero, el barroco mestizo, fortalezas, casas con patio, teatros, modernismo y casas tradicionales."
 category: ciudades-y-cultura
-date: 2026-10-01
+date: 2026-10-11
 ---
 Caminar por una ciudad latinoamericana es recorrer varios siglos de historia en pocas cuadras. En Cusco, los muros de piedra inca sostienen casas coloniales; en Ciudad de México, una catedral barroca se levanta junto a las ruinas del Templo Mayor mexica; en Buenos Aires, un teatro de inspiración europea convive con edificios modernistas; y en Brasilia, toda la ciudad es un manifiesto de la arquitectura del siglo veinte. Los edificios son documentos que cuentan quién mandaba, qué se creía, cómo se vivía y qué materiales había a mano.
 

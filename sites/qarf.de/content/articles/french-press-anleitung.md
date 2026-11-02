@@ -2,7 +2,7 @@
 title: "French Press: so gelingt Kaffee aus der Stempelkanne"
 description: Die French Press ist einfach und liefert vollmundigen Kaffee. Das richtige Verhältnis, grober Mahlgrad, vier Minuten Ziehzeit und der Trick gegen Kaffeesatz in der Tasse.
 category: kaffee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Die French Press, in Deutschland auch Stempelkanne, Kaffeepresse oder Pressstempelkanne genannt, ist eine der einfachsten Methoden, um richtig guten Kaffee zu machen. Du brauchst keinen Filter, keine Gießtechnik und keinen Strom, nur grob gemahlenen Kaffee, heißes Wasser und vier Minuten Geduld. Das Ergebnis ist ein vollmundiger, kräftiger Kaffee mit viel Körper, weil die Öle des Kaffees nicht von Papier zurückgehalten werden. In diesem Ratgeber lernst du das Grundrezept, eine verfeinerte Methode für weniger Satz in der Tasse und die häufigsten Fehler.
 

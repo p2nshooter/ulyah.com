@@ -2,7 +2,7 @@
 title: "Zehn Regentage im Oktober"
 description: Herbstferien in Hamburg, und es regnet jeden Tag. Am dritten Tag liegen bei Papa Henrik und den Kindern die Nerven blank. Über Langeweile, Matschhosen und das beste schlechte Wetter.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 Am Samstag, dem ersten Tag der Herbstferien, sah Henrik aus dem Küchenfenster der Altbauwohnung in Hamburg-Eimsbüttel und sagte: „Das zieht bestimmt bald ab.“ Draußen fiel ein feiner, grauer Regen, der die Dächer gegenüber verschwimmen ließ. Die Wetter-App zeigte für die nächsten zehn Tage zehn Wolken mit Tropfen.
 

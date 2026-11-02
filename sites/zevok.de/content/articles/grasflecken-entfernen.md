@@ -2,7 +2,13 @@
 title: "Gras-, Erd- und Schlammflecken entfernen: von Kinderhosen, Trikots, Turnschuhen und Teppich"
 description: "Grasflecken sind Kombiflecken aus Farbstoff und Eiweiß, Erde ist Pigment: So werden grüne Knie, schlammige Trikots und dreckige Sneaker wieder sauber, ohne zu verschmieren."
 category: flecken-entfernen
-date: 2026-08-04
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Behandlung von Grasflecken auf Kleidungsstücken | https://forum-waschen.de/tipps-zur-behandlung-von-grasflecken-auf-kleidungsstuecken/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
 ---
 Kinder, die vom Spielplatz kommen, Fußballer nach einem Regenspiel, Gärtnerinnen nach dem Rasenmähen, Hundebesitzer nach dem Spaziergang durch matschige Felder: Gras, Erde und Schlamm landen ständig auf Kleidung, Schuhen und Teppichen. Viele dieser Flecken gelten als hoffnungslos, besonders die grünen Knie an hellen Hosen. Dabei lassen sie sich meist gut entfernen, wenn man weiß, woraus sie bestehen, und die richtige Reihenfolge einhält.
 

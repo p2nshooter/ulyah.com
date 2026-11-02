@@ -2,7 +2,7 @@
 title: "Rote Grütze mit Vanillesoße und alles über Johannisbeeren und Stachelbeeren"
 description: Johannisbeeren und Stachelbeeren richtig ernten, abstreifen und lagern, dazu das norddeutsche Rezept für Rote Grütze mit selbst gekochter Vanillesoße.
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Johannisbeeren gehören zu den Sträuchern, die in fast jedem alten Bauerngarten stehen. Ihren Namen haben sie vom Johannistag am 24. Juni, um den herum die ersten Beeren reif werden. Die Saison reicht je nach Sorte bis in den August. Rote Johannisbeeren sind am weitesten verbreitet, daneben gibt es weiße, die milder und süßer schmecken, und schwarze, die ein ganz eigenes, herb-würziges Aroma haben und unter dem französischen Namen Cassis bekannt sind.
 

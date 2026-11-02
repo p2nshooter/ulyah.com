@@ -2,7 +2,7 @@
 title: "Vogelzählungen zum Mitmachen: Stunde der Gartenvögel, Wintervögel und Citizen Science"
 description: "So machst du bei Vogelzählungen mit: Stunde der Wintervögel im Januar, Stunde der Gartenvögel im Mai, Meldeplattformen und Monitoring, richtig zählen und was mit den Daten passiert."
 category: beobachten-und-fotografieren
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Wie geht es eigentlich den Spatzen in Deutschland? Werden Amseln weniger? Kommen die Mauersegler früher zurück? Solche Fragen lassen sich nur beantworten, wenn viele Menschen über viele Jahre beobachten und zählen. Fachleute allein können das nicht leisten. Deshalb sind Vogelfreundinnen und Vogelfreunde in ganz Deutschland eingeladen, mitzumachen, vom einmaligen Zählen im eigenen Garten bis zur regelmäßigen Erfassung fester Strecken.

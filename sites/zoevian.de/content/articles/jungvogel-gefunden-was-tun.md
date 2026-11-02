@@ -2,7 +2,7 @@
 title: "Jungvogel gefunden: Nestling oder Ästling, wann du helfen musst und wann nicht"
 description: "Ein junger Vogel sitzt am Boden? So erkennst du, ob es ein Ästling ist, der keine Hilfe braucht, oder ein Nestling in Not, und was du Schritt für Schritt tun solltest."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Jedes Frühjahr rufen bei Wildvogelstationen und Tierärzten unzählige Menschen an, weil sie einen jungen Vogel gefunden haben. Er sitzt auf dem Rasen, auf dem Gehweg oder im Gebüsch, kann nicht richtig fliegen und piepst. Der erste Impuls ist fast immer, ihn mitzunehmen und zu retten. In den meisten Fällen ist genau das aber falsch, denn der Vogel ist weder verlassen noch in Not. Er befindet sich in einer ganz normalen Phase seiner Entwicklung, und seine Eltern sind in der Nähe.

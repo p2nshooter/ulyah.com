@@ -2,7 +2,7 @@
 title: "Neue Geschwister über Nacht"
 description: Als Mama mit Thomas und seinen Kindern zusammenzieht, hat Sophie plötzlich zwei Stiefbrüder und keinen Platz mehr für sich. Über Patchworkfamilien und die Zeit, die Zusammenwachsen braucht.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 Sophie war zehn, als sich ihr Leben in einem einzigen Umzugswagen veränderte. Fünf Jahre lang hatte sie mit ihrer Mutter Anja in einer Dreizimmerwohnung in Hamburg-Barmbek gelebt, nur sie beide. Sie hatten ihre Rituale gehabt: Pizza am Freitag, Serienabend am Samstag, sonntags Frühstück im Bett. Ihren Vater sah Sophie jedes zweite Wochenende.
 

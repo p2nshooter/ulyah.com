@@ -2,7 +2,7 @@
 title: "Packed Lunches That Save Money: A Simple System for Work and School"
 description: "How to make packed lunches a habit that saves money: the basic formula, prepping in batches, keeping food safe and fresh, kit worth having and ideas that do not get boring."
 category: kitchen-and-groceries
-date: 2026-10-31
+date: 2026-11-01
 ---
 Buying lunch every day is one of those costs that hides in plain sight. A sandwich here, a coffee and a snack there, a meal deal on the way back to the office: each purchase feels small, but over a working week, a month or a school year, they add up to a surprisingly large sum. Packed lunches are one of the most reliable ways to bring that number down, and they often mean eating better too. The trouble is that many people start with enthusiasm on a Monday and give up by Thursday, because preparing a lunch every morning feels like one more chore.
 

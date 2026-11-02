@@ -2,7 +2,7 @@
 title: "How to Reduce Food Waste at Home: Practical Habits That Save Money and Use Up What You Buy"
 description: "Why so much food is wasted, how to plan and shop to waste less, store food so it lasts, use scraps and stems, cook use-it-up meals, understand date labels and compost what is left."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 It is a strange paradox of modern kitchens: we work hard to earn money, spend it on groceries, and then throw a large share of that food away. Wilted herbs, forgotten leftovers, half a bag of spinach, stale bread and overripe bananas end up in the trash every week in many households. In the United States, estimates suggest that around 30 to 40 percent of the food supply is wasted, and households are responsible for a significant portion of that. Wasting food means wasting money, as well as the water, energy and labor used to produce it. The good news is that small changes in how we plan, shop, store and cook can reduce waste dramatically. This guide gives you practical habits you can start today.

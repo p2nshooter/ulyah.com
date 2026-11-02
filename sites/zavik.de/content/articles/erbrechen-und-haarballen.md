@@ -2,7 +2,7 @@
 title: "Erbrechen und Haarballen: Wann es harmlos ist und wann nicht"
 description: Ein Haarballen ab und zu ist normal, regelmäßiges Erbrechen nicht. Wie du Ursachen unterscheidest, was gegen Haarballen hilft und wann du zur Tierärztin solltest.
 category: gesundheit
-date: 2026-08-24
+date: 2026-10-05
 ---
 Das typische Geräusch kennen alle Katzenhalterinnen und Katzenhalter: ein rhythmisches Würgen, oft mitten in der Nacht oder kurz nach dem Frühstück, und dann liegt etwas auf dem Teppich. Ein Haarballen, eine Pfütze aus unverdautem Futter oder etwas gelblicher Schaum. Viele Menschen halten gelegentliches Erbrechen bei Katzen für völlig normal. Ganz so einfach ist es nicht.
 

@@ -2,7 +2,7 @@
 title: "Living Alone and Loving It: Making a Solo Life Safe, Sociable and Truly Your Own"
 description: A warm, practical guide to living alone after fifty — routines, a home that suits you, safety, staying connected, handling loneliness, eating well and enjoying your independence.
 category: purpose-and-connection
-date: 2026-10-19
+date: 2026-10-20
 ---
 More women over fifty live alone than ever before. Some arrive there by choice — after children leave, after a divorce, or simply because they have discovered they prefer their own company. Others arrive through bereavement, separation or circumstance, and find themselves facing an empty house they never expected.
 

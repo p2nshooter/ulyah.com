@@ -2,7 +2,7 @@
 title: "Abendroutine entwickeln: So findest du abends zuverlässig zur Ruhe"
 description: "Eine Abendroutine hilft, den Tag abzuschließen und ruhiger einzuschlafen. So baust du sie Schritt für Schritt auf, passend zu Job, Familie und Energie."
 category: gewohnheiten-und-routinen
-date: 2026-10-04
+date: 2026-10-11
 ---
 Viele Abende enden nicht, sie hören einfach auf. Man scrollt noch ein wenig, räumt halb die Küche auf, denkt an die Mail, die morgen früh rausmuss, und liegt dann plötzlich im Bett, ohne innerlich angekommen zu sein. Eine Abendroutine setzt genau hier an. Sie ist kein strenges Programm mit zwölf Punkten, sondern eine kleine, verlässliche Abfolge von Handgriffen, die deinem Kopf und deinem Körper sagt: Der Tag ist vorbei, jetzt darf es leiser werden.
 

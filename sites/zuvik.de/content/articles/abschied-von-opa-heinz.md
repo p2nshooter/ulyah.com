@@ -2,7 +2,7 @@
 title: "Abschied von Opa Heinz"
 description: Als Opa Heinz stirbt, weiß Jakobs Mutter nicht, ob ihr Sohn mit zur Beerdigung soll. Eine einfühlsame Geschichte darüber, wie Kinder trauern und wie Familien gemeinsam Abschied nehmen.
 category: grosseltern-und-generationen
-date: 2026-10-12
+date: 2026-10-05
 ---
 Der Anruf kam an einem Dienstagabend im November. Jakob, sechs Jahre alt, lag schon im Bett, als das Telefon klingelte. Er hörte, wie seine Mutter Birgit leise sprach, dann gar nicht mehr. Dann hörte er sie weinen.
 

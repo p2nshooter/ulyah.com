@@ -2,7 +2,7 @@
 title: "Ausmisten anfangen: Ein Fahrplan Raum für Raum durch die ganze Wohnung"
 description: "Ausmisten anfangen ohne Überforderung: Reihenfolge von leicht nach schwer, drei Zeitmodelle mit 30-Tage-Plan, Checklisten pro Raum und wohin mit dem Aussortierten."
 category: ausmisten-und-minimalismus
-date: 2026-06-18
+date: 2026-10-11
 ---
 Du stehst im Flur, schaust in die Wohnung und weißt nicht, wo du anfangen sollst. Überall liegt etwas: Taschen, die nie ausgepackt wurden, Kabel ohne Gerät, Kartons vom letzten Umzug. Jeder Raum wirkt gleich dringend, und genau deshalb fängst du nirgends an. Dieses Gefühl ist völlig normal. Eine volle Wohnung ist über Jahre gewachsen, sie lässt sich nicht an einem Nachmittag leeren.
 

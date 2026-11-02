@@ -2,7 +2,7 @@
 title: "Spreewald-Urlaub: Kahnfahrt, Paddeln auf den Fließen, Gurkenradweg und die stillen Dörfer"
 description: "Der Spreewald im Überblick: Ober- und Unterspreewald, Lübbenau, Lehde, Burg und Lübben, Kahnfahrt oder Kanu, Radfahren auf dem Gurkenradweg, sorbische Kultur, Essen und die beste Reisezeit."
 category: seen-und-fluesse
-date: 2026-08-20
+date: 2026-10-11
 ---
 Eine Stunde südöstlich von Berlin verzweigt sich die Spree in ein Labyrinth aus Hunderten kleiner Wasserläufe. Zwischen ihnen liegen Wiesen, Erlenwälder, Gärten und Dörfer, deren Höfe man früher fast nur mit dem Boot erreichte. Der Spreewald ist eine einzigartige Landschaft, ein Biosphärenreservat der UNESCO und eines der beliebtesten Ausflugsziele im Osten Deutschlands. Wer ihn richtig erleben will, sollte mindestens einmal langsam über das Wasser gleiten, sei es im Kahn mit einem Fährmann oder selbst im Kanu. Dieser Ratgeber erklärt, wie der Spreewald aufgebaut ist und wie du deinen Besuch planst.
 

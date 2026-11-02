@@ -2,7 +2,7 @@
 title: "Pisos exteriores antiderrapantes: cómo elegir materiales seguros para patios, terrazas y piscinas"
 description: "Qué significan las clasificaciones antideslizantes, qué materiales funcionan en patios, terrazas, rampas y bordes de piscina, cómo evitar charcos y musgo y qué selladores no usar."
 category: patios-y-exteriores
-date: 2026-09-11
+date: 2026-10-11
 ---
 Un piso exterior hermoso puede convertirse en una pista de patinaje con la primera lluvia. Las caídas en patios, terrazas, escaleras exteriores y bordes de piscina son frecuentes y pueden ser graves, sobre todo para niños y personas mayores. Muchas veces la causa no es un descuido, sino una elección equivocada: una cerámica brillante pensada para interiores, una piedra pulida, un sellador que deja la superficie lisa o un patio sin pendiente donde el agua se queda.
 

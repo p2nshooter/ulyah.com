@@ -2,7 +2,7 @@
 title: "Lernen in der Ausbildung: Wie Tobias Betrieb, Berufsschule und Berichtsheft unter einen Hut brachte"
 description: "Tobias ist im ersten Lehrjahr, abends müde und hinkt in der Berufsschule hinterher. Wie du nach der Arbeit sinnvoll lernst, Praxis und Theorie verbindest, das Berichtsheft führst und Hilfe bekommst."
 category: lernplan-und-hausaufgaben
-date: 2026-09-09
+date: 2026-10-11
 ---
 Um halb fünf am Nachmittag kam Tobias nach Hause, zog die Arbeitsschuhe aus und ließ sich aufs Sofa fallen. Seit sieben Uhr früh war er mit seinem Gesellen auf einer Baustelle gewesen, hatte Rohre geschleppt, Heizkörper montiert und Leitungen verlegt. Seine Arme waren schwer, sein Kopf leer. Auf dem Couchtisch lag der Ordner der Berufsschule. Morgen war ein Test in Fachrechnen. Tobias schaute den Ordner an. Der Ordner schaute zurück. Tobias griff zur Fernbedienung.
 

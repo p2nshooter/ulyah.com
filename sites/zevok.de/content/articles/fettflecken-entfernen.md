@@ -2,7 +2,13 @@
 title: "Fettflecken entfernen: Öl, Butter, Soße, Sonnencreme und Kettenfett aus Kleidung und Polstern"
 description: "Fett löst sich nicht in Wasser, sondern mit Spülmittel, Gallseife und Wärme. So entfernst du frische und alte Fettflecken, Kragenränder, Sonnencreme und Fahrradöl aus Stoff, Polster und Teppich."
 category: flecken-entfernen
-date: 2026-08-01
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - Forum Waschen: Wäsche richtig waschen | https://forum-waschen.de/tipps/waschen/waesche-richtig-waschen/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
 ---
 Ein Spritzer Bratfett auf dem T-Shirt, ein Klecks Salatdressing auf der Hose, die Pizza, die auf dem Sofa gelandet ist, oder der schwarze Streifen vom Fahrradkettenöl am Hosenbein: Fettflecken gehören zu den häufigsten Flecken überhaupt. Sie sind tückisch, weil sie mit Wasser allein nicht verschwinden. Im Gegenteil, manche Fettflecken sind nach der Wäsche noch da, nur unsichtbar, und kommen Wochen später als gelblicher Rand wieder zum Vorschein.
 

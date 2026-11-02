@@ -2,7 +2,7 @@
 title: "Morgenroutine finden: ruhig in den Tag starten, ohne um fünf Uhr aufzustehen"
 description: "Eine Morgenroutine, die zu deinem Leben passt: Aufstehzeit, Bausteine, eine kurze und eine volle Version, Beispiele für Pendler, Eltern und Homeoffice sowie Hilfe bei typischen Stolpersteinen."
 category: gewohnheiten-und-routinen
-date: 2026-07-01
+date: 2026-10-11
 ---
 Über Morgenroutinen wird viel geschrieben, und vieles davon klingt anstrengend: um fünf Uhr aufstehen, eine Stunde meditieren, Sport, Tagebuch, kalte Dusche, grüner Saft. Für die meisten Menschen mit Arbeit, Kindern, Pendelweg oder einfach einem normalen Schlafbedürfnis ist das nicht machbar. Und es ist auch nicht nötig. Eine gute Morgenroutine ist nichts anderes als eine kleine, verlässliche Abfolge von Handgriffen, die dich vom Aufwachen in einen ruhigen Start trägt, statt dich in Hektik und Suchen stolpern zu lassen.
 

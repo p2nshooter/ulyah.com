@@ -2,7 +2,7 @@
 title: "How Solar Panels Work: Photons, Silicon and the Photovoltaic Effect Turning Sunlight Into Electricity"
 description: "How silicon solar cells turn light into current, what the p-n junction does, why panels are about 20 percent efficient, how inverters and batteries fit in and what clouds and heat change."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Every hour, the Sun delivers more energy to Earth's surface than humanity uses in an entire year. Capturing even a tiny fraction of that energy could power our homes, cities and industries. Solar panels do exactly that, quietly converting sunlight into electricity on rooftops, in deserts and even on spacecraft. Solar power has become one of the fastest-growing and cheapest sources of electricity in much of the world. But how does a thin slab of silicon turn light into electric current, with no moving parts and no fuel? This explainer describes the science of solar cells, from photons to the power socket.

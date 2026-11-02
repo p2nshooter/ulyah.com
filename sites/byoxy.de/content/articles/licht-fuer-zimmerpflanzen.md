@@ -2,7 +2,7 @@
 title: "Licht für Zimmerpflanzen: Standorte richtig einschätzen und Pflanzenlampen nutzen"
 description: Wie viel Licht Zimmerpflanzen brauchen, wie du Fensterrichtungen und Abstände einschätzt, Lichtmangel und Sonnenbrand erkennst und Pflanzenlampen sinnvoll einsetzt.
 category: pflege-grundlagen
-date: 2026-09-22
+date: 2026-10-04
 ---
 Licht ist für Pflanzen Nahrung. Mit Hilfe von Licht bilden sie in ihren Blättern Zucker, aus dem sie wachsen. Trotzdem wird Licht bei Zimmerpflanzen oft unterschätzt, denn unser Auge passt sich an und empfindet auch einen eher dunklen Raum als hell. Für eine Pflanze ist der Unterschied zwischen einem Platz direkt am Fenster und einem drei Meter entfernten Regal dagegen enorm.
 

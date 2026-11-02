@@ -2,7 +2,7 @@
 title: "Aragonito de Molina de Aragón: las maclas hexagonales que dieron nombre a un mineral"
 description: "El aragonito toma su nombre de Molina de Aragón. Qué es, cómo se forman sus maclas de aspecto hexagonal, cómo distinguirlo de la calcita y cómo elegir y conservar un buen ejemplar."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Muy pocos minerales llevan en su nombre el de un lugar de España, y uno de ellos se estudia en todas las facultades de geología del mundo: el aragonito. Debe su nombre a Molina de Aragón, una localidad que, pese a lo que sugiere, no está en Aragón sino en la provincia de Guadalajara. De sus campos de arcillas rojizas salieron, hace más de dos siglos, unos cristales de aspecto hexagonal que llamaron la atención de los mineralogistas europeos y que hoy siguen siendo una pieza imprescindible en cualquier colección de minerales españoles.
 

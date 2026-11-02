@@ -2,7 +2,7 @@
 title: "Joyería de época: cómo reconocer los estilos, del georgiano al art déco, y comprar piezas antiguas con criterio"
 description: "Guía de los grandes estilos de la joyería antigua y vintage: georgiano, victoriano e isabelino, modernista, eduardiano, art déco y retro, cómo fechar una pieza y qué revisar al comprarla."
 category: compra-y-valoracion
-date: 2026-10-11
+date: 2026-10-12
 ---
 Una joya antigua es un documento de su tiempo. La forma de tallar los diamantes, los metales disponibles, las técnicas de los talleres, la moda en el vestir e incluso los acontecimientos históricos dejaron huella en cada broche, anillo o pendiente. Por eso, quien aprende a leer esas huellas puede situar una pieza en su época con bastante precisión, distinguir un original de una reproducción y valorar mejor lo que compra, lo que hereda o lo que pretende vender.
 

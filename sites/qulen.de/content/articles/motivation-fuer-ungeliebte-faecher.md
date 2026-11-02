@@ -2,7 +2,7 @@
 title: "Motivation für ungeliebte Fächer: Wie Dennis mit Chemie Frieden schloss"
 description: "Dennis findet Chemie sinnlos und lernt nur unter Druck. Wie du einen persönlichen Bezug findest, mit kleinen Zielen und Belohnungen arbeitest und auch ohne Begeisterung verlässlich lernst."
 category: konzentration-und-motivation
-date: 2026-08-22
+date: 2026-10-11
 ---
 „Wofür brauche ich das überhaupt?“ Dennis hatte die Frage nicht laut stellen wollen, aber sie war ihm herausgerutscht. Frau Kühn stand vorne an der Tafel und erklärte die Elektronenkonfiguration von Natrium. Einige in der Klasse kicherten. Frau Kühn drehte sich um, sah ihn an und sagte ruhig: „Das ist eine gute Frage, Dennis. Ich beantworte sie dir gern nach der Stunde.“ Dennis wurde rot. Er hatte mit einer Strafarbeit gerechnet, nicht mit einem Gesprächsangebot.
 

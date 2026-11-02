@@ -2,7 +2,7 @@
 title: "Cruzar fronteras por tierra en América Latina: migración, aduana, vehículos y precauciones"
 description: "Cómo funciona un paso fronterizo terrestre, qué documentos llevar, tasas, horarios y cierres por nieve, controles sanitarios de alimentos, cruces con auto propio o alquilado y cómo evitar estafas."
 category: rutas-por-carretera
-date: 2026-08-28
+date: 2026-10-11
 ---
 Cruzar una frontera por tierra es una de las experiencias más características de un viaje largo por América Latina. Del lago Titicaca a la frontera entre Perú y Bolivia, del paso de alta montaña entre Mendoza y Santiago, de los puentes sobre el río Uruguay o de los pasos centroamericanos donde en pocas horas se cambia de país, de moneda y de acento. Es también un momento que puede generar nervios: filas, formularios, controles de equipaje y, a veces, personas que intentan aprovecharse de la confusión del viajero.
 

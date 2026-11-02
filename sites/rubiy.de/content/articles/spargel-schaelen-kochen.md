@@ -2,7 +2,7 @@
 title: "Spargel richtig schälen und kochen: weißer und grüner Spargel mit Sauce hollandaise"
 description: Woran du frischen Spargel erkennst, wie du ihn schälst, kochst, brätst und lagerst, und wie die Sauce hollandaise ohne Gerinnen gelingt.
 category: fruehling
-date: 2026-06-08
+date: 2026-10-06
 ---
 Kaum ein Gemüse wird in Deutschland so gefeiert wie der Spargel. Wenn im April die ersten Stangen aus den Dämmen kommen, stehen in vielen Städten Spargelbuden am Straßenrand, Gasthäuser drucken eigene Spargelkarten, und auf dem Wochenmarkt bilden sich Schlangen vor den Ständen der Spargelbauern. Die Saison ist kurz: Traditionell endet sie am 24. Juni, dem Johannistag. Danach braucht die Pflanze ihre Kraft, um neue Triebe zu bilden und Reserven für das nächste Jahr anzulegen.
 

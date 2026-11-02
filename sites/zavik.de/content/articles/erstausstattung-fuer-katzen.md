@@ -2,7 +2,7 @@
 title: "Erstausstattung für Katzen: Die Checkliste für den Einzug"
 description: Toilette, Streu, Näpfe, Kratzbaum, Transportbox und Schlafplätze: was deine Katze vom ersten Tag an braucht, worauf du beim Kauf achten solltest und was warten kann.
 category: einzug-und-eingewoehnung
-date: 2026-10-01
+date: 2026-10-05
 ---
 Bevor eine Katze einzieht, sollte die Wohnung bereit sein. Nicht, weil eine Katze anspruchsvoll wäre, sondern weil die ersten Tage ohnehin aufregend genug sind. Wer am Abholtag noch schnell eine Katzentoilette im Baumarkt kaufen muss, verpasst die Gelegenheit, die neue Mitbewohnerin in Ruhe ankommen zu lassen.
 

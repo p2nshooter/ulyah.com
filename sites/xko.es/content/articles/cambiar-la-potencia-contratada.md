@@ -2,7 +2,7 @@
 title: Cambiar la potencia contratada: pasos, costes y cuándo merece la pena
 description: Cómo bajar o subir la potencia de la luz en tu vivienda, qué cobra la distribuidora en cada caso, cuánto tarda, qué documentos piden y cómo evitar quedarte corto tras el cambio.
 category: potencia-y-tarifas
-date: 2026-09-18
+date: 2026-10-04
 ---
 Ajustar la potencia contratada es una de las formas más sencillas de reducir la factura de la luz de forma permanente. Si tienes más potencia de la que usas, bajarla supone un ahorro cada mes sin cambiar ningún hábito. Si, por el contrario, el contador salta con frecuencia porque has instalado una bomba de calor o un cargador para el coche, subirla puede ser necesario.
 

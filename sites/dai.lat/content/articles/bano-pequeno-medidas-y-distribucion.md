@@ -2,7 +2,7 @@
 title: "Baño pequeño: medidas mínimas, distribución y trucos para que se sienta amplio"
 description: "Cuánto espacio necesitan inodoro, lavabo y ducha, cómo distribuir un baño pequeño, qué puerta conviene, cómo ganar almacenamiento y qué reglas de seguridad no pueden faltar."
 category: cocinas-y-banos
-date: 2026-08-10
+date: 2026-10-11
 ---
 En muchas viviendas latinoamericanas el baño es la habitación más pequeña de la casa. En un departamento nuevo puede medir poco más de tres metros cuadrados, y en una casa antigua a veces es un espacio robado a un pasillo o a un patio. Aun así, es una de las habitaciones que más se usan y de las más caras de reformar: tiene agua, desagües, electricidad, humedad y acabados que deben durar muchos años.
 

@@ -1,8 +1,8 @@
 ---
 title: About SAVED
-description: Who writes SAVED, what the site covers, and why every guide is written by hand, checked and kept free of get-rich-quick promises.
+description: Who publishes SAVED, what the site covers, how every guide is written and checked, and why it stays free of get-rich-quick promises.
 order: 1
-updated: 2026-10-19
+updated: 2026-11-02
 ---
 **SAVED** stands for *Smart, Affordable Value for Everyday Decisions*. It is a practical guide to running a household for less money and with less waste: what to cook this week, how to bring the heating bill down, how to fix a dripping tap, when to buy second-hand, how a simple budget works and how to give children a full life without spending a fortune.
 
@@ -21,13 +21,13 @@ Most money advice online falls into two camps. One promises that a single trick 
 
 ## How we write
 
-Every guide on SAVED is written by a person, read through by a second person and checked against reliable public sources such as government consumer and energy agencies, manufacturers' instructions and recognised safety guidance. We describe methods and trade-offs rather than promising results, because every household, country and tariff is different. When a task carries real risk — gas, mains electricity, structural work, debt problems — we say so plainly and point you to a qualified professional.
+Every guide on SAVED answers one practical household question. Guides are researched and drafted with the help of AI tools and checked against reliable public sources such as government consumer and energy agencies, manufacturers' instructions and recognised safety guidance before they appear. We describe methods and trade-offs rather than promising results, because every household, country and tariff is different. When a task carries real risk — gas, mains electricity, structural work, debt problems — we say so plainly and point you to a qualified professional.
 
 We do not accept payment to recommend products, and we do not write sponsored reviews. Advertising on the site is shown by Google AdSense and is clearly separate from our editorial content. Read more in our [editorial policy](/editorial-policy/).
 
 ## Who we are
 
-SAVED is produced by a small editorial team with experience in household management, home repair, cooking and consumer information. We are not financial advisers, lawyers or engineers, and the site is not a substitute for personal advice from one. What we offer is clear, honest, general information that helps you ask better questions and make your own decisions.
+SAVED is an independent publication. We are not financial advisers, lawyers or engineers, and the site is not a substitute for personal advice from one. What we offer is clear, honest, general information that helps you ask better questions and make your own decisions.
 
 ## Get in touch
 

@@ -2,7 +2,7 @@
 title: "Freigang sicher beginnen: Vorbereitung, erster Ausflug und Katzenklappe"
 description: Kastration, Impfungen, Chip und Registrierung zuerst: wie du den ersten Freigang Schritt für Schritt gestaltest und welche Katzenklappe die richtige ist.
 category: wohnung-und-freigang
-date: 2026-07-29
+date: 2026-10-05
 ---
 Für viele Katzen ist der Freigang das größte Glück: Sonne auf dem Fell, Mäuse im Gras, Bäume zum Klettern, ein Revier voller Gerüche und Geschichten. Freigänger bewegen sich mehr, sind seltener gelangweilt und können ihr natürliches Verhalten ausleben. Gleichzeitig ist die Welt draußen nicht ungefährlich: Straßenverkehr, Revierkämpfe, Krankheiten, Parasiten, Gifte und manchmal auch Menschen, die Katzen nicht wohlgesonnen sind.
 

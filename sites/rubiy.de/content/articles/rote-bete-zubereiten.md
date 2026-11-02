@@ -2,7 +2,7 @@
 title: "Rote Bete zubereiten: kochen, im Ofen garen, roh essen und einlegen"
 description: Wie du Rote Bete kochst, im Ofen garst und roh verwendest, Flecken vermeidest und einen klassischen Rote-Bete-Salat mit Apfel und Meerrettich zubereitest.
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Rote Bete hat lange unter einem verstaubten Ruf gelitten. Viele kennen sie nur aus dem Glas, süßsauer eingelegt, als Beilage zu Labskaus oder Hering. Dabei ist die Knolle eines der vielseitigsten Wintergemüse überhaupt. Sie schmeckt erdig und süß, ihre Farbe ist spektakulär, und sie lässt sich kochen, rösten, roh raspeln, einlegen und sogar zu Kuchen verbacken.
 

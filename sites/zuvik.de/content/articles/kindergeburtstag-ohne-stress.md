@@ -2,7 +2,7 @@
 title: "Ein Kindergeburtstag ohne Stress"
 description: Mats wünscht sich eine Piratenparty, und seine Mutter plant eine Feier wie aus dem Bilderbuch, bis sie merkt, dass sie sich überfordert. Über Erwartungen, Gästelisten und echte Geburtstagsfreude.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Ich will alle einladen“, sagte Mats, „die ganze Klasse.“
 

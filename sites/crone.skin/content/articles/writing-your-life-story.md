@@ -2,7 +2,7 @@
 title: "Writing Your Life Story: A Gentle Guide to Memoir for Family and for Yourself"
 description: How to start writing your memoir or family history — choosing a form, prompts that unlock memories, writing honestly about hard times, adding photographs and sharing it with family.
 category: purpose-and-connection
-date: 2026-10-19
+date: 2026-10-20
 ---
 Every woman over fifty carries a library of stories. The kitchen you grew up in, the first job that frightened you, the friend who changed your life, the year everything went wrong and the slow way it came right again. Most of those stories are never written down. They are told in fragments over dinner, half-remembered by children and grandchildren, and gradually lost.
 

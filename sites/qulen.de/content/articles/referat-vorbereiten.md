@@ -2,7 +2,7 @@
 title: "Referat vorbereiten Schritt für Schritt: Pauls erstes Referat vom leeren Blatt bis zur Gliederung"
 description: "Paul soll sein erstes Referat über Burgen halten und starrt aufs leere Blatt. Wie du ein Thema eingrenzt, Quellen notierst, gliederst, die Zeit planst und ein Handout schreibst."
 category: referate-und-praesentieren
-date: 2026-06-29
+date: 2026-10-11
 ---
 Das Blatt lag seit einer halben Stunde vor Paul auf dem Schreibtisch. Oben stand in seiner schönsten Schrift: „Referat Geschichte: Burgen im Mittelalter“. Darunter war nichts. Paul hatte den Füller dreimal auf- und wieder zugeschraubt, das Lineal gerade gerückt und den Radiergummi in zwei Hälften geschnitten. Zehn Minuten sollte er sprechen, vor der ganzen 6c, in drei Wochen. Er wusste nicht einmal, womit der erste Satz anfangen sollte.
 

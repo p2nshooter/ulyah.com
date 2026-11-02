@@ -2,7 +2,7 @@
 title: "Swimming and Water Exercise: Gentle, Joint-Friendly Fitness at Any Age"
 description: The benefits of swimming, aqua aerobics and water walking after fifty, how to get started or return to the pool, simple exercises, kit, safety and caring for skin and hair afterwards.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 There is something uniquely restorative about water. The moment you slip into a pool or the sea, your body feels lighter, joints feel freer, and movement becomes easier. For many women over fifty, swimming and water-based exercise become a favourite way to stay active: kind to joints, refreshing, sociable and adaptable to every fitness level.
 

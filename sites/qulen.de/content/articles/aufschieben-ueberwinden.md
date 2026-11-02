@@ -2,7 +2,7 @@
 title: "Aufschieben überwinden: Wie Lasse beim Lernen endlich ins Anfangen kam"
 description: "Lasse hat zwei Wochen für seine Englisch-Klausur und fängt doch erst am Vorabend an. Wie er mit winzigen ersten Schritten, Wenn-dann-Plänen und festen Startzeiten ins Lernen kam."
 category: lernplan-und-hausaufgaben
-date: 2026-07-19
+date: 2026-10-11
 ---
 Am Sonntagnachmittag war Lasses Zimmer so ordentlich wie seit Monaten nicht. Die Bücher standen nach Farben sortiert im Regal, die Kabel unter dem Schreibtisch waren mit Klettband gebündelt, und in der Schublade lagen die Stifte nach Länge geordnet. Nur der Englischordner lag noch genau dort, wo er ihn am Freitag hingelegt hatte: zugeklappt auf der Fensterbank. Bis zur Klausur waren es zwölf Tage. „Morgen fange ich richtig an“, dachte Lasse. „Mit einem großen Block, wenn ich mehr Zeit habe.“
 

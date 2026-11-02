@@ -2,7 +2,7 @@
 title: Qué leche usar para hacer queso en casa: pasteurizada, UHT, cruda, de vaca, cabra u oveja
 description: Cómo elegir la leche para la quesería casera: por qué la UHT cuaja mal, por qué evitar la leche cruda en casa, diferencias entre vaca, cabra y oveja y el papel de la grasa y el calcio.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 Quien empieza a hacer queso en casa suele centrarse en el cuajo, las temperaturas y los moldes. Sin embargo, la decisión más importante se toma antes, en el pasillo del supermercado: **qué leche comprar**. La misma receta puede dar un queso perfecto o un fracaso total según la leche elegida.
 

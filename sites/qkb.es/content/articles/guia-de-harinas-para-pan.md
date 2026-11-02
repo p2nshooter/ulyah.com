@@ -2,7 +2,7 @@
 title: Guía de harinas para pan y bollería: fuerza, proteína, integral, centeno y espelta
 description: Cómo elegir harina: qué significa la fuerza o W, proteína y gluten, harina floja, panificable y de fuerza, integral, centeno, espelta y equivalencias.
 category: masa-madre-y-pan
-date: 2026-10-12
+date: 2026-10-04
 ---
 La harina es el ingrediente principal del pan y de casi toda la bollería, y también el que más dudas genera en el supermercado. Harina de trigo, panificable, de fuerza, de repostería, integral, de espelta, de centeno, 00, T65… Cada una se comporta de una manera distinta, y elegir mal puede convertir un brioche esponjoso en una masa pegajosa que no sube, o una magdalena tierna en una magdalena dura.
 

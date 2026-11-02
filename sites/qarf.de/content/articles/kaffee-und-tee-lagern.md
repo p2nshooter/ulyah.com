@@ -2,7 +2,7 @@
 title: "Kaffee und Tee richtig lagern: Dosen, Ort, Haltbarkeit und die vier Feinde Luft, Licht, Wärme, Feuchtigkeit"
 description: "So bleiben Kaffee und Tee lange aromatisch: die Feinde des Aromas, geeignete Dosen, der richtige Platz in der Küche, Haltbarkeit nach Sorte, Kühlschrank, Gefrierfach und häufige Fehler."
 category: genuss-und-wissen
-date: 2026-10-02
+date: 2026-10-06
 ---
 Guter Kaffee und guter Tee kosten Geld, und beide verlieren ihr Aroma schneller, als viele denken. Eine geöffnete Kaffeepackung, die mit einer Klammer verschlossen neben dem Herd steht, schmeckt nach zwei Wochen deutlich flacher. Grüner Tee in einer Glasdose auf dem sonnigen Fensterbrett wird in wenigen Wochen heuartig und matt. Dabei ist richtige Lagerung nicht kompliziert. Wer die vier Feinde des Aromas kennt und ein paar passende Behälter hat, genießt seine Bohnen und Blätter viel länger auf ihrem Höhepunkt. Dieser Ratgeber zeigt, wie es geht, mit Besonderheiten für Kaffee, für die verschiedenen Teesorten und für Kräuter.
 

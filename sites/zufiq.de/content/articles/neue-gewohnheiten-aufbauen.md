@@ -2,7 +2,7 @@
 title: "Neue Gewohnheiten aufbauen: klein anfangen, verankern und dranbleiben"
 description: "Wie neue Gewohnheiten wirklich halten: winzige Anfänge, feste Auslöser, Wenn-dann-Pläne, Umgebung gestalten, Rückfälle einplanen und Fortschritt sichtbar machen, mit Beispielen aus dem Alltag."
 category: gewohnheiten-und-routinen
-date: 2026-07-03
+date: 2026-10-11
 ---
 Jeder kennt das: Im Januar, nach dem Urlaub oder an einem Montag nimmt man sich etwas vor. Mehr bewegen, früher schlafen, jeden Tag lesen, weniger am Handy sein. Die ersten Tage laufen gut, dann kommt eine anstrengende Woche, ein Infekt oder ein Besuch, und der Vorsatz ist verschwunden. Das liegt selten an fehlender Willenskraft. Meist ist der Plan zu groß, zu vage oder hängt an nichts, was ohnehin im Alltag passiert. Gewohnheiten entstehen nicht durch Entschlossenheit, sondern durch Wiederholung in einem stabilen Rahmen.
 

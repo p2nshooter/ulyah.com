@@ -2,7 +2,7 @@
 title: "Katze pinkelt in die Wohnung: Ursachen finden, Unsauberkeit lösen"
 description: Unsauberkeit ist nie Rache. Wie du medizinische Ursachen, Toilettenprobleme, Stress und Markieren unterscheidest und deiner Katze den Weg zurück zur Toilette ebnest.
 category: verhalten
-date: 2026-08-16
+date: 2026-10-05
 ---
 Unsauberkeit gehört zu den häufigsten Gründen, warum Katzen im Tierheim abgegeben werden. Kaum etwas belastet das Zusammenleben so sehr wie eine Katze, die auf das Bett, das Sofa oder den Teppich uriniert. Viele Halterinnen und Halter sind verzweifelt, manche wütend, und nicht wenige glauben, dass ihre Katze sich rächen will, weil sie allein gelassen wurde oder weil ein neuer Partner eingezogen ist.
 

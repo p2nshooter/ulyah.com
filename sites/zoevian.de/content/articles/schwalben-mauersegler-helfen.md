@@ -2,7 +2,7 @@
 title: "Schwalben und Mauersegler am Haus: Unterschiede erkennen und Brutplätze schaffen"
 description: "Rauchschwalbe, Mehlschwalbe und Mauersegler sicher unterscheiden, warum ihnen Brutplätze fehlen, welche Nisthilfen helfen, was rechtlich gilt und wie Kotbrett und Lehmpfütze funktionieren."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 9
 ---
 Schwalben und Mauersegler gehören zum Sommer wie lange Abende und das Summen der Bienen. Sie jagen in rasantem Flug Insekten über Dächern, Wiesen und Teichen, und ihre Rufe begleiten uns von Mai bis August. Doch viele Menschen können die drei häufigsten Arten kaum auseinanderhalten, und noch weniger wissen, dass alle drei in vielen Regionen auf Hilfe angewiesen sind. Denn sie brüten an und in unseren Gebäuden, und genau dort verschwinden ihre Brutplätze.

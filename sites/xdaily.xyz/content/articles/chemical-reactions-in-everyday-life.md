@@ -2,7 +2,7 @@
 title: "Chemical Reactions in Everyday Life: Burning, Rusting, Baking, Digesting and Cleaning Explained"
 description: "What a chemical reaction is, how to spot one, why reactions need energy and catalysts, and the chemistry behind fire, rust, baking, digestion, photosynthesis, cleaning, acids and bases."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Chemistry is not something that only happens in laboratories with bubbling flasks. It happens all around us, every second. When you light a candle, toast bread, digest your breakfast, wash your hands with soap or watch an iron gate slowly turn rusty, chemical reactions are at work. Your body carries out thousands of reactions every moment to keep you alive. Understanding a few basic ideas about chemical reactions helps explain everyday events and the technology we rely on. This explainer describes what chemical reactions are and explores some of the most familiar examples.

@@ -2,7 +2,7 @@
 title: "Yoga and Pilates for Beginners Over Fifty: How to Start Safely and Enjoy It"
 description: The differences between yoga and Pilates, their benefits for strength, balance and calm, how to choose a class, adapting poses and exercises, and a short beginner sequence to try.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 Yoga and Pilates are often pictured as activities for the young and supremely flexible: impossible poses, perfect leggings and studios full of twenty-somethings. In reality, both are adaptable practices that suit people of every age, shape and ability. Many women discover them in their fifties, sixties and beyond, and find they become a cherished part of the week — a time to move, breathe, strengthen and unwind.
 

@@ -2,7 +2,7 @@
 title: Cuántas placas solares necesito: cómo dimensionar el autoconsumo de tu casa
 description: Método paso a paso para calcular la potencia fotovoltaica adecuada para tu vivienda a partir de tu consumo, tus horarios y tu tejado, con ejemplos y errores típicos de sobredimensionado.
 category: autoconsumo-solar
-date: 2026-09-20
+date: 2026-10-04
 ---
 "¿Cuántas placas necesito?" es la primera pregunta que se hace casi todo el mundo al plantearse el autoconsumo solar. La respuesta intuitiva es "las suficientes para cubrir todo mi consumo", pero no suele ser la más rentable. Como la mayor parte de la producción solar se concentra en las horas centrales del día y los excedentes se pagan mucho más baratos que la energía que compras, una instalación demasiado grande puede alargar años la amortización.
 

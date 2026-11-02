@@ -2,7 +2,7 @@
 title: "KI-Assistenten einfach erklärt: Was ChatGPT, Gemini, Copilot und Co. können und was nicht"
 description: "Wie Sprachmodelle funktionieren, wofür KI-Assistenten im Alltag taugen, wo ihre Grenzen liegen, was kostenlos ist, was ein Abo bringt und wie du sicher und sinnvoll damit startest."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Vor wenigen Jahren klang es noch nach Science-Fiction: Man tippt eine Frage in ein Textfeld, und ein Programm antwortet in ganzen Sätzen, schreibt einen Brief an die Hausverwaltung, erklärt die Nebenkostenabrechnung oder schlägt ein Rezept für die Reste im Kühlschrank vor. Heute nutzen Millionen Menschen in Deutschland solche **KI-Assistenten**, etwa ChatGPT, Google Gemini, Microsoft Copilot, Claude, Le Chat von Mistral oder Meta AI. Für andere wirkt das Ganze unheimlich oder überbewertet. Diese Anleitung erklärt ohne Fachchinesisch, wie diese Programme funktionieren, wofür sie im Alltag wirklich nützlich sind und wo du vorsichtig sein solltest.

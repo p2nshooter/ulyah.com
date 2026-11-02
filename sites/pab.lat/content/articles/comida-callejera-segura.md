@@ -2,7 +2,7 @@
 title: "Comida callejera en América Latina: cómo elegir puestos, qué probar y cómo cuidar el estómago"
 description: "Señales de un buen puesto callejero, platos típicos de cada país, agua y hielo, salsas y crudos, alergias, diarrea del viajero y cómo disfrutar la comida de la calle sin riesgos innecesarios."
 category: sabores-del-viaje
-date: 2026-08-12
+date: 2026-10-11
 ---
 Para conocer la cocina de un país latinoamericano no hace falta reservar mesa en un restaurante famoso. Basta con salir a la calle a la hora del almuerzo o al caer la tarde: tacos al pastor girando en el trompo, arepas en la plancha, empanadas recién fritas, anticuchos humeando en la parrilla, pupusas, choripanes, tamales, elotes, salteñas o jugos de frutas que nunca habías probado. La comida callejera es parte de la vida diaria, del trabajo de miles de familias y de la identidad de cada ciudad.
 

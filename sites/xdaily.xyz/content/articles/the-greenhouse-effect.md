@@ -2,7 +2,7 @@
 title: "The Greenhouse Effect Explained: How Gases Keep Earth Warm and Why Adding More Changes the Climate"
 description: "How sunlight and infrared heat set Earth's temperature, which gases trap heat and why, how we know the extra carbon dioxide comes from fossil fuels, and how feedbacks amplify warming."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Without the greenhouse effect, Earth would be a frozen world with an average temperature far below freezing. With it, our planet has stayed warm enough for liquid oceans and life for billions of years. The greenhouse effect is not a theory invented recently; its basic physics was discovered in the nineteenth century and has been measured in laboratories and in the atmosphere ever since. Yet it is also at the center of one of the most important challenges of our time, because human activities are adding greenhouse gases to the atmosphere and strengthening the effect. This explainer explains how the greenhouse effect works, which gases are involved and how scientists know that today's changes are caused by people.

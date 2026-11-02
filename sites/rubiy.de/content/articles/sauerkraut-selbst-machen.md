@@ -2,7 +2,7 @@
 title: "Sauerkraut selbst fermentieren: Salzmenge, Gärzeit und Kahmhefe erkennen"
 description: Wie du aus Weißkohl und Salz im Glas oder Gärtopf Sauerkraut fermentierst, welche Temperatur richtig ist und wie du Kahmhefe von Schimmel unterscheidest.
 category: vorrat-und-konservieren
-date: 2026-10-12
+date: 2026-10-06
 ---
 Sauerkraut ist eines der ältesten haltbaren Lebensmittel Mitteleuropas. Lange bevor es Kühlschränke und Konservendosen gab, standen in Kellern große Steinguttöpfe voller Kraut, das den ganzen Winter über Vitamine lieferte. Seefahrer nahmen es auf lange Reisen mit, weil es gegen Skorbut half. Heute erlebt das Fermentieren eine Renaissance, und selbst gemachtes Sauerkraut ist der beste Einstieg: Man braucht nur Kohl, Salz und ein paar Wochen Geduld.
 

@@ -2,7 +2,7 @@
 title: "Zecken beim Wandern: Schutz, richtiges Entfernen, FSME und Borreliose"
 description: Wo Zecken lauern, wie du dich schützt, wie du eine Zecke sicher entfernst und wann du wegen FSME oder Borreliose zum Arzt solltest.
 category: sicherheit-und-wetter
-date: 2026-06-21
+date: 2026-10-06
 ---
 Zecken gehören zu den Begleitern fast jeder Wanderung durch Wald und Wiesen in Deutschland. Die meisten Stiche bleiben folgenlos. Einige Zecken übertragen aber Krankheitserreger, vor allem Borrelien, die Lyme-Borreliose auslösen können, und in bestimmten Regionen das Virus der Frühsommer-Meningoenzephalitis, kurz FSME. Wer weiß, wie Zecken leben und wie man sich schützt, kann das Risiko deutlich senken, ohne sich die Freude am Draußensein verderben zu lassen.
 

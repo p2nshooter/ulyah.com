@@ -2,7 +2,7 @@
 title: "Windows-Updates verstehen: Welche es gibt, warum sie wichtig sind und was bei Problemen hilft"
 description: "Sicherheitsupdates, Funktionsupdates, optionale Updates und Treiber: So funktioniert Windows Update, wie du Neustarts planst und was du tust, wenn ein Update hängt oder Probleme macht."
 category: computer-und-windows
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 „Updates werden installiert. Schalten Sie den Computer nicht aus.“ Diese Meldung erscheint gern dann, wenn man es eilig hat. Kein Wunder, dass viele Menschen Windows-Updates als lästig empfinden und sie so lange wie möglich hinauszögern. Dabei gehören Updates zu den wichtigsten Schutzmaßnahmen für deinen Computer. Diese Anleitung erklärt, welche Arten von Updates es gibt, wie du sie so einrichtest, dass sie nicht stören, und was du tun kannst, wenn ein Update einmal hängt oder Probleme verursacht.

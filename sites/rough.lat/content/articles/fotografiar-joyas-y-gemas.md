@@ -2,7 +2,7 @@
 title: "Cómo fotografiar joyas y gemas: luz, fondo, enfoque, color fiel y fotos útiles para el seguro, la venta o la colección"
 description: "Guía práctica para hacer fotos honestas y bonitas de joyas, gemas y minerales con un teléfono o una cámara: luz difusa, fondos, enfoque, color, video, edición sin engaños y fotos de inventario."
 category: lujo-y-estilo-de-vida
-date: 2026-10-31
+date: 2026-11-01
 ---
 Fotografiar una joya parece sencillo hasta que se intenta. El metal refleja todo lo que tiene alrededor, incluido el teléfono y la persona que dispara; los diamantes se ven grises o con manchas negras; las gemas de color cambian de tono según la luz; y la pieza, tan pequeña, nunca queda enfocada entera. Sin embargo, una buena foto es útil por muchos motivos: para un inventario de seguro, para vender una pieza, para compartir una colección de minerales o simplemente para recordar una joya familiar.
 

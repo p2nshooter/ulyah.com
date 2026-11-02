@@ -2,7 +2,7 @@
 title: "Städtewochenende planen: 48 Stunden in einer neuen Stadt ohne Hetze"
 description: "Lage der Unterkunft, zwei feste Programmpunkte pro Tag, Zeitfenstertickets, ehrlich gerechnete City-Cards und Gepäck am Abreisetag: so wird dein Städtewochenende erholsam."
 category: staedtereisen
-date: 2026-06-29
+date: 2026-10-11
 ---
 Freitagabend Ankunft, Samstag drei Museen, zwei Stadtviertel und ein Turm, Sonntag noch schnell die Altstadt und dann mit schmerzenden Füßen in den vollen Zug. Viele kommen von einem Städtewochenende müder zurück, als sie losgefahren sind. Das liegt selten an der Stadt, sondern fast immer am Plan. Achtundvierzig Stunden sind kurz, und wer versucht, alles zu sehen, sieht am Ende wenig richtig. Dieser Ratgeber zeigt dir eine Methode, die in jeder Stadt funktioniert, ob in Leipzig, Bremen oder Freiburg: die richtige Lage der Unterkunft, ein Plan mit zwei festen Ankern pro Tag und viel Luft, ehrlich gerechnete Stadtpässe und ein Abreisetag, an dem du nicht mit Koffer durch die Fußgängerzone hetzt.
 

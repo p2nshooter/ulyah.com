@@ -2,7 +2,7 @@
 title: Persianas, toldos y protección solar: cómo mantener la casa fresca gastando menos
 description: Por qué la protección solar exterior es la forma más barata de reducir el calor en verano, qué soluciones existen según la orientación, cómo usarlas bien y cuánto ahorran en aire acondicionado.
 category: aislamiento-y-ventanas
-date: 2026-10-01
+date: 2026-10-04
 ---
 En gran parte de España, el verano se ha convertido en la estación que más pesa en la factura de la luz de muchos hogares. Las olas de calor son más frecuentes y largas, y cada vez más viviendas dependen del aire acondicionado durante semanas. Sin embargo, una parte importante del calor que entra en casa lo hace a través de las ventanas, en forma de radiación solar directa, y se puede frenar antes de que llegue al interior con soluciones sencillas y baratas.
 

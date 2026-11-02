@@ -2,7 +2,7 @@
 title: "Röstgrade erklärt: hell, mittel und dunkel im Vergleich"
 description: Was beim Rösten in der Bohne passiert, wie sich helle, mittlere und dunkle Röstungen in Geschmack, Säure und Zubereitung unterscheiden und welcher Röstgrad zu dir passt.
 category: bohnen-und-roestung
-date: 2026-10-12
+date: 2026-10-06
 ---
 Rohkaffee ist grün, riecht nach Heu und Erbsen und schmeckt, aufgebrüht, eher nach Gemüse als nach Kaffee. Erst das Rösten verwandelt die harte, blassgrüne Bohne in das duftende, braune Produkt, das wir kennen. Dabei entstehen aus wenigen Hundert Ausgangsstoffen weit über 800 Aromaverbindungen. Wie die Tasse am Ende schmeckt, entscheidet zu einem großen Teil der Röstgrad. In diesem Ratgeber erfährst du, was beim Rösten passiert, wie sich helle, mittlere und dunkle Röstungen unterscheiden und wie du den passenden Röstgrad für deine Zubereitung findest.
 

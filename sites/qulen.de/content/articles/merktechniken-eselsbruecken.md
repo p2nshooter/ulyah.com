@@ -2,7 +2,7 @@
 title: "Merktechniken und Eselsbrücken: Wie Valentina mit Bildern und einem Gedächtnispalast lernte"
 description: "Valentina vergisst Jahreszahlen, Fachbegriffe und Listen so schnell, wie sie sie gelernt hat. Wie Eselsbrücken, Bilder, Geschichten und der Gedächtnispalast funktionieren und wo ihre Grenzen liegen."
 category: vokabeln-und-lernmethoden
-date: 2026-08-10
+date: 2026-10-11
 ---
 Valentina starrte auf ihre Liste. Zwölf Bestandteile der Zelle, jeder mit seiner Funktion. Mitochondrien, Ribosomen, Golgi-Apparat, endoplasmatisches Retikulum. Sie hatte die Liste heute schon fünfmal gelesen. Sie schloss die Augen und versuchte, sie aufzusagen. Zellkern, Mitochondrien … und dann war Schluss. Der Rest war weg, als hätte jemand ihn aus ihrem Kopf radiert. Morgen war der Bio-Test. Valentina schob das Blatt weg und seufzte so laut, dass ihre Großmutter aus der Küche fragte, ob alles in Ordnung sei.
 

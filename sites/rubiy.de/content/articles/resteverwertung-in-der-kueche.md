@@ -2,7 +2,7 @@
 title: "Resteküche mit Plan: Brot, Gemüse und gekochte Reste sicher weiterverwenden"
 description: Wie du aus altem Brot, Gemüseabschnitten und gekochten Resten neue Gerichte machst, wie lange Reste halten, was beim Aufwärmen von Reis gilt und wie Gemüsebrühe aus Schalen entsteht.
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 In deutschen Haushalten landet jedes Jahr eine große Menge Lebensmittel im Müll, ein erheblicher Teil davon wäre noch genießbar gewesen. Vor allem Obst, Gemüse, Brot und gekochte Reste werden weggeworfen. Dabei war die Resteküche früher selbstverständlich: Aus altem Brot wurden Knödel und Arme Ritter, aus Kartoffeln vom Vortag Bratkartoffeln, aus Gemüseabschnitten Brühe.
 

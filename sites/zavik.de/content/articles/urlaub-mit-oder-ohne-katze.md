@@ -2,7 +2,7 @@
 title: "Urlaub und Katze: Katzensitter, Tierpension oder mitnehmen?"
 description: Katzensitter, Tierpension oder mitnehmen? Wie du einen zuverlässigen Sitter findest, eine gute Pension erkennst und was bei Reisen mit Katze ins Ausland gilt.
 category: pflege-und-alltag
-date: 2026-07-23
+date: 2026-10-05
 ---
 Die Koffer sind gepackt, die Vorfreude ist groß, und dann sitzt die Katze auf dem Koffer und sieht einen vorwurfsvoll an. Für viele Katzenhalterinnen und Katzenhalter ist die Urlaubsplanung mit einer Frage verbunden, die gut überlegt sein will: Wer kümmert sich um die Katze, während wir weg sind?
 

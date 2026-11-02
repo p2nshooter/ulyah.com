@@ -2,7 +2,7 @@
 title: "Zimmerpflanzen düngen: wann, womit und wie viel wirklich nötig ist"
 description: Alles zum Düngen von Zimmerpflanzen: was NPK bedeutet, Flüssigdünger, Langzeitdünger und organische Dünger, die richtige Dosierung, Düngepausen und Anzeichen für Mangel oder Überdüngung.
 category: pflege-grundlagen
-date: 2026-09-20
+date: 2026-10-04
 ---
 Zimmerpflanzen leben in einem begrenzten Erdvolumen. Die Nährstoffe, die beim Kauf oder Umtopfen in der Erde stecken, sind nach einigen Wochen bis Monaten verbraucht oder ausgewaschen. Ohne Nachschub werden neue Blätter kleiner und blasser, das Wachstum stockt. Gleichzeitig schadet zu viel Dünger mehr als zu wenig: Salze reichern sich an, Wurzeln verbrennen, Blattspitzen werden braun.
 

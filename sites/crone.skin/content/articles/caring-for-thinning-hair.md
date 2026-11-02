@@ -2,7 +2,7 @@
 title: "Caring for Thinning Hair After Fifty: Cuts, Products and Gentle Habits"
 description: Why hair often becomes finer after fifty, flattering cuts and colour tricks for more volume, gentle styling habits, and the signs that mean it is worth speaking to a doctor.
 category: beauty-after-fifty
-date: 2026-10-19
+date: 2026-10-20
 ---
 Many women notice that their hair changes in midlife. The ponytail feels thinner, the parting looks wider, more hair seems to collect in the brush, and styles that once held their shape now fall flat by lunchtime. It is one of the less talked-about changes of the fifties and beyond, and it can affect confidence more than people expect.
 

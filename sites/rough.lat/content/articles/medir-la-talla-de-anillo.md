@@ -2,7 +2,7 @@
 title: "Cómo medir la talla de anillo: diámetro, sistemas de tallas, factores que la cambian y ajustes"
 description: "Cómo medir la talla de un anillo: diámetro y circunferencia, equivalencias entre sistemas, medidores, el método del hilo, temperatura, nudillos, bandas anchas y cuándo se puede ajustar."
 category: joyeria-y-diseno
-date: 2026-10-11
+date: 2026-10-12
 ---
 Un anillo precioso que se cae del dedo al lavarse las manos, o que no pasa del nudillo, es una pequeña tragedia doméstica. Acertar con la talla parece sencillo, pero no lo es: los dedos cambian de tamaño a lo largo del día y con la temperatura, los nudillos pueden ser más anchos que la base del dedo, una banda ancha aprieta más que una fina y, para complicarlo todo, cada país usa su propio sistema de numeración.
 

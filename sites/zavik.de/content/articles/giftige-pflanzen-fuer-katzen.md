@@ -2,7 +2,7 @@
 title: "Giftige Pflanzen für Katzen: Die gefährlichsten Arten und sichere Alternativen"
 description: Lilien, Oleander, Dieffenbachie und Co.: welche Pflanzen Katzen schaden, woran du eine Vergiftung erkennst und welche Zimmer- und Balkonpflanzen unbedenklich sind.
 category: wohnung-und-freigang
-date: 2026-07-31
+date: 2026-10-05
 ---
 Viele Katzen knabbern gern an Pflanzen. Manche tun es aus Langeweile, manche aus Neugier, manche, weil sie Gras zum Herauswürgen von Haaren suchen und keines finden. In einer Wohnung mit Zimmerpflanzen, auf einem bepflanzten Balkon oder im Garten kann diese Gewohnheit gefährlich werden, denn zahlreiche beliebte Pflanzen enthalten Stoffe, die für Katzen giftig sind.
 

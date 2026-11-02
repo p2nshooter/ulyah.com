@@ -2,7 +2,13 @@
 title: "Zitronensäure im Haushalt: geruchsarm entkalken, richtig dosieren, sicher anwenden"
 description: "Zitronensäure als geruchsarmer Kalklöser: richtig dosieren, warum sie nicht heiß werden sollte, wo sie hilft, wo sie schadet und warum Zitronensaft kein Ersatz ist."
 category: hausmittel
-date: 2026-10-06
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Wasserhärte bestimmen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wasser/wasserhaerte-bestimmen-habe-ich-weiches-oder-hartes-wasser-5532
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Wer Kalk lösen will, aber den Geruch von Essig nicht mag, landet früher oder später bei Zitronensäure. Das weiße Pulver ist fast geruchlos, günstig und in Drogerien und Supermärkten leicht zu bekommen. Viele Kalkreiniger aus dem Handel enthalten Zitronensäure als Wirkstoff. Trotzdem ist sie kein Mittel, das man bedenkenlos überall einsetzen kann. Wie jede Säure greift sie empfindliche Materialien an, und bei falscher Anwendung kann sie sogar neue Ablagerungen verursachen.
 

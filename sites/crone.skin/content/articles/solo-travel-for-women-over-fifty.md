@@ -2,7 +2,7 @@
 title: "Solo Travel for Women Over Fifty: How to Plan, Stay Safe and Enjoy Every Moment"
 description: A practical guide to travelling alone after fifty — choosing first destinations, booking well, staying safe, eating alone with confidence, meeting people and handling the wobbles.
 category: travel-and-discovery
-date: 2026-10-19
+date: 2026-10-20
 ---
 There comes a moment for many women when they realise that if they wait for someone to travel with, they may never go at all. A friend cannot get the time off, a partner has no interest in art galleries, the children are busy, or there is simply no one left to ask. And so, a little nervously, they book a trip on their own — and discover one of the great freedoms of later life.
 

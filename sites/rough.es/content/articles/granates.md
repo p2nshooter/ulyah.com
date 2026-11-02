@@ -2,7 +2,7 @@
 title: "Granates: del almandino a la tsavorita, y los granates volcánicos de Níjar"
 description: "Guía de los granates: especies y variedades del rojo al verde, los granates del Hoyazo de Níjar, su papel en la joyería visigoda, imitaciones, y cómo elegirlos y cuidarlos."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Para mucha gente, el granate es una piedra roja oscura, algo anticuada, propia de los broches de las abuelas. Es una imagen muy injusta. Los granates forman una familia de minerales con una gama de colores asombrosa, del rojo vino al naranja mandarina, del verde esmeralda al rosa frambuesa, e incluyen algunas de las gemas más brillantes y raras que existen. Casi nunca se tratan, son resistentes y tienen una historia en la joyería que se remonta a miles de años, con un capítulo muy destacado en la península ibérica.
 

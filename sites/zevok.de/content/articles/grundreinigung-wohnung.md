@@ -2,7 +2,14 @@
 title: "Checkliste für die Grundreinigung: Raum für Raum gründlich sauber, vom Frühjahrsputz bis zum Auszug"
 description: "Die komplette Checkliste für die Grundreinigung der Wohnung: was in jedem Raum dazugehört, in welcher Reihenfolge du vorgehst, wie viel Zeit du einplanst und was besenrein beim Auszug bedeutet."
 category: putzen-mit-system
-date: 2026-07-23
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Frühjahrsputz | https://www.umweltbundesamt.de/themen/chemikalien/wasch-reinigungsmittel/umweltbewusst-waschen-reinigen/fruehjahrsputz
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Umweltbewusst reinigen – nachhaltig und hygienisch (PDF) | https://www.umweltbundesamt.de/system/files/medien/publikation/long/4162.pdf
 ---
 Der wöchentliche Putz hält die Wohnung im Alltag sauber. Doch manche Stellen bleiben dabei regelmäßig außen vor: die Oberseiten der Schränke, die Heizkörper von innen, die Ecken hinter dem Sofa, die Schubladen in der Küche, die Lüftung im Bad. Ein- bis zweimal im Jahr, beim Einzug oder Auszug und nach Renovierungen ist deshalb eine Grundreinigung fällig. Sie kostet Zeit, aber wer systematisch vorgeht, ist schneller fertig als gedacht und hat danach monatelang weniger Arbeit.
 

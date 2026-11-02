@@ -2,7 +2,7 @@
 title: "Marmelade und Konfitüre kochen: Gelierzucker, Gelierprobe und Haltbarkeit"
 description: Was 1:1, 2:1 und 3:1 beim Gelierzucker bedeuten, wie die Gelierprobe funktioniert, wie du Gläser richtig füllst und was bei Schimmel zu tun ist, mit Rezept für Himbeerkonfitüre.
 category: vorrat-und-konservieren
-date: 2026-10-12
+date: 2026-10-06
 ---
 Selbst gekochte Marmelade gehört zu den schönsten Arten, den Sommer ins Glas zu bringen. Im Juni duftet die Küche nach Erdbeeren, im Juli nach Himbeeren und Johannisbeeren, im August nach Aprikosen und Mirabellen, im Herbst nach Zwetschgen und Quitten. Ein Glas davon im Februar zu öffnen, ist ein kleines Fest.
 

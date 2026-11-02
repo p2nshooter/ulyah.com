@@ -2,7 +2,7 @@
 title: "Chai selbst machen: Masala Chai wie in Indien, mit Gewürzen, Milch und kräftigem Schwarztee"
 description: "Masala Chai Schritt für Schritt: der passende Schwarztee, welche Gewürze in welcher Menge, im Topf köcheln, Milch und Süße, Chai-Sirup und Gewürzmischung auf Vorrat, Varianten ohne Koffein und Fehler."
 category: tee-zubereiten
-date: 2026-09-23
+date: 2026-10-06
 ---
 In Indien ist Chai einfach das Wort für Tee, und Tee bedeutet dort fast immer: kräftiger Schwarztee, mit Milch, Zucker und oft mit Gewürzen im Topf gekocht. An Bahnhöfen, auf Märkten und in jeder Küche wird er zubereitet, jede Familie hat ihr eigenes Rezept. Was hierzulande als „Chai Latte“ aus Pulver oder Sirup verkauft wird, ist meist eine sehr süße Annäherung. Selbst gemachter Masala Chai schmeckt würziger, frischer und lässt sich genau nach deinem Geschmack abstimmen. Die Zubereitung dauert etwa zehn Minuten und braucht nur einen kleinen Topf. Dieser Ratgeber zeigt dir ein Grundrezept und wie du es variieren kannst.
 

@@ -2,7 +2,7 @@
 title: "Concreto aparente: cómo se logra un buen acabado, cómo se protege y cómo se limpia"
 description: "Qué es el concreto aparente, de qué depende un buen acabado, defectos frecuentes como fisuras, cangrejeras y manchas de óxido, cómo sellarlo, limpiarlo y cuándo llamar a un ingeniero."
 category: materiales-y-acabados
-date: 2026-08-12
+date: 2026-10-11
 ---
 El concreto aparente, también llamado concreto visto u hormigón visto, es el concreto que se deja a la vista, sin revoque ni pintura. Durante décadas fue la marca de la arquitectura moderna latinoamericana, sobre todo en Brasil, y hoy vuelve a aparecer en casas, departamentos, cafés y oficinas de toda la región. Gusta por su textura, su honestidad y la sensación de solidez que transmite.
 

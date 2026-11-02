@@ -2,7 +2,7 @@
 title: "Mulchen im Gemüsegarten: Material, Zeitpunkt und typische Fehler"
 description: "Mulchen schützt den Boden vor Austrocknung, füttert das Bodenleben und spart Gießwasser. Welches Material zu welchem Gemüse passt und wann du mulchst."
 category: kompost-und-boden
-date: 2026-06-17
+date: 2026-10-06
 ---
 In der Natur liegt Boden fast nie nackt. Im Wald bedeckt ihn Laub, auf der Wiese ein dichter Pflanzenteppich. Nur im Gemüsebeet hacken wir ihn oft blank und wundern uns, wenn er im Sommer verkrustet, austrocknet und nach jedem Gewitterregen verschlämmt. Mulchen ahmt die schützende Decke der Natur nach. Es ist eine der einfachsten und wirksamsten Methoden im biologischen Garten, und doch gibt es ein paar Fehler, die man besser kennt, bevor man die erste Schubkarre Rasenschnitt aufs Beet kippt.
 

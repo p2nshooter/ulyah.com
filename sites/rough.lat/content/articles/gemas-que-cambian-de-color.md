@@ -2,7 +2,7 @@
 title: "Gemas que cambian de color: alejandrita, zafiros, granates y otras piedras que se transforman con la luz"
 description: "Por qué algunas gemas cambian de color entre la luz del día y la luz cálida, qué piedras lo hacen, cómo se mide el cambio, cómo detectar imitaciones y cómo comprobarlo antes de comprar."
 category: piedras-preciosas
-date: 2026-10-31
+date: 2026-11-01
 ---
 Hay pocas experiencias tan sorprendentes en gemología como ver una piedra verde junto a una ventana y, minutos después, encontrarla roja bajo la luz de una lámpara. No es un truco ni un tratamiento: algunas gemas cambian de color de forma natural según la luz que las ilumina. La más famosa es la alejandrita, pero no es la única. Zafiros, granates, espinelas y otras piedras pueden mostrar el mismo fenómeno, con matices muy distintos.
 

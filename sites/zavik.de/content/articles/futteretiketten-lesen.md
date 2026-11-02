@@ -2,7 +2,7 @@
 title: "Katzenfutter-Etiketten lesen: So erkennst du gutes Futter"
 description: Alleinfuttermittel oder Ergänzungsfutter, Zusammensetzung, analytische Bestandteile und Trockensubstanz: wie du die Angaben auf Katzenfutter verstehst und Sorten fair vergleichst.
 category: ernaehrung
-date: 2026-09-09
+date: 2026-10-05
 ---
 Im Supermarkt, in der Drogerie und im Zoofachhandel stehen hunderte Sorten Katzenfutter. Auf den Verpackungen sind saftige Fleischstücke abgebildet, es ist von „feinsten Zutaten“, „Natur pur“ und „Premium“ die Rede. Doch was tatsächlich im Futter steckt, steht nicht auf der Vorderseite, sondern im Kleingedruckten auf der Rückseite. Wer diese Angaben lesen kann, trifft bessere Entscheidungen und lässt sich von Werbebegriffen weniger beeindrucken.
 

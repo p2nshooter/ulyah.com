@@ -2,7 +2,7 @@
 title: "Bildschirmzeit reduzieren: Handy-Einstellungen und Gewohnheiten, die wirklich helfen"
 description: "Bildschirmzeit reduzieren mit Plan: Nutzung ehrlich messen, Auslöser erkennen, Startbildschirm entrümpeln, App-Limits und Graustufen nutzen und vier Wochen dranbleiben."
 category: digitale-ruhe
-date: 2026-06-24
+date: 2026-10-11
 ---
 Es ist halb elf, eigentlich wolltest du nur kurz die Nachrichten lesen. Dann kam ein Video, danach noch eins, dazwischen eine Nachricht im Gruppenchat, und plötzlich ist eine Stunde weg. Am Ende des Tages zeigt das Handy eine Zahl, die dich erschreckt, und du kannst kaum sagen, wo die Zeit geblieben ist. Das ist kein persönliches Versagen. Viele Apps sind so gestaltet, dass es leichter ist, weiterzumachen, als aufzuhören.
 

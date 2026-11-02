@@ -2,7 +2,7 @@
 title: "Karte und Kompass: Orientierung ohne Akku Schritt für Schritt"
 description: Maßstab, Höhenlinien, Karte einnorden und Marschrichtung bestimmen: die Grundlagen der klassischen Orientierung, die dir auch dann hilft, wenn das Handy streikt.
 category: planung-und-navigation
-date: 2026-06-24
+date: 2026-10-06
 ---
 Heute navigieren die meisten Wandernden mit dem Handy, und das funktioniert erstaunlich gut. Trotzdem lohnt es sich, Karte und Kompass zu beherrschen. Akkus werden leer, Handys fallen in den Bach, und im tiefen Tal oder dichten Nebel ist das GPS-Signal manchmal ungenau. Vor allem aber hilft dir eine Papierkarte, den Überblick zu behalten: Du siehst auf einen Blick, wo Täler, Kämme, Hütten und Abstiegsmöglichkeiten liegen, und kannst deine Tour im Gelände besser einschätzen.
 

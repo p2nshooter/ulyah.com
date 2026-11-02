@@ -2,7 +2,7 @@
 title: "Lernzettel und Zusammenfassungen schreiben: Wie Nele aufhörte, das Geschichtsbuch abzuschreiben"
 description: "Neles Zusammenfassungen sind schön und fast so lang wie das Kapitel, doch in der Arbeit weiß sie wenig. Wie sie lernte, zu kürzen, eigene Worte zu finden und Lernzettel zum Abfragen zu nutzen."
 category: vokabeln-und-lernmethoden
-date: 2026-07-24
+date: 2026-10-11
 ---
 Neles Schreibtisch sah aus wie ein kleiner Schreibwarenladen. Pinselstifte in zwölf Farben, ein Lineal mit Wellenkante, Klebeband mit Sternchen. Vor ihr lagen sechs Seiten Zusammenfassung zum Geschichtskapitel „Deutschland nach 1945“, sorgfältig in Schönschrift, jede Überschrift in einem anderen Farbverlauf. Das Kapitel im Buch hatte acht Seiten. Sie hatte den ganzen Sonntagnachmittag dafür gebraucht. Ihre Mutter warf im Vorbeigehen einen Blick darauf. „Das sieht ja aus wie gedruckt“, sagte sie. Nele lächelte. Es fühlte sich an wie gelernt.
 

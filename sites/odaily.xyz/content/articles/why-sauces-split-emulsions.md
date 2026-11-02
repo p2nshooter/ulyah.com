@@ -2,7 +2,7 @@
 title: "Why Sauces Split: The Science of Emulsions in Vinaigrettes, Mayonnaise and Butter Sauces"
 description: "What an emulsion is, why oil and water separate, how mustard, egg yolk and starch hold sauces together, and step-by-step fixes for broken mayonnaise, hollandaise, pan sauces and dressings."
 category: kitchen-science
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 You whisk a vinaigrette, and minutes later the oil is floating on top of the vinegar. You make mayonnaise, and suddenly it turns from thick and creamy to a greasy, runny mess. You finish a pan sauce with butter, and it separates into a puddle of fat. These problems have a common cause: a broken emulsion. Many of the most delicious sauces in the kitchen, from vinaigrettes and mayonnaise to hollandaise, beurre blanc and creamy pasta sauces, are emulsions, mixtures of fat and water that normally refuse to stay together. Understanding why they form and why they break makes it much easier to make them reliably and to rescue them when they go wrong.

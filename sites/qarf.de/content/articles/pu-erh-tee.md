@@ -2,7 +2,7 @@
 title: "Pu-Erh-Tee: Sheng und Shou, gepresste Kuchen, Reifung und Zubereitung des Tees aus Yunnan"
 description: "Pu-Erh verständlich erklärt: Herkunft aus Yunnan, roher Sheng und gereifter Shou, wie die Nachfermentation funktioniert, Kuchen öffnen, waschen und aufgießen, Lagerung und worauf du beim Kauf achtest."
 category: teesorten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Pu-Erh ist ein Tee mit Geschichte und eigenem Charakter. Er stammt aus der Provinz Yunnan im Südwesten Chinas, wird häufig zu festen Kuchen gepresst und kann über Jahre und Jahrzehnte reifen, ähnlich wie Wein. Junger Pu-Erh schmeckt frisch, herb und fruchtig, gereifter weich, süß und erdig. Eine zweite Art, Shou Pu-Erh, wird durch ein beschleunigtes Verfahren dunkel und mild gemacht und schmeckt nach Waldboden, Kakao und Datteln. Für Einsteiger wirkt Pu-Erh oft geheimnisvoll, mit chinesischen Namen, Jahrgängen und Fabriken. Dieser Ratgeber erklärt die Grundlagen und zeigt, wie du ihn genießt.
 

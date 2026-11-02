@@ -2,7 +2,7 @@
 title: "How Microwave Ovens Work: Spinning Water Molecules, Hot Spots and Why Metal Sparks"
 description: "How a magnetron makes microwaves, why they heat water and fats, why food heats unevenly, why metal can spark, whether microwaved food is safe and nutritious, and tips for heating food evenly."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 The microwave oven is one of the most common appliances in the world. It reheats leftovers in a minute, softens butter, steams vegetables and makes popcorn. Yet many people are unsure how it actually works. Does it cook food from the inside out? Is it safe? Why do some parts of a plate stay cold while others become scorching hot, and why does metal spark? The answers come from the physics of electromagnetic waves and the behavior of water molecules. This explainer takes you inside the microwave oven.

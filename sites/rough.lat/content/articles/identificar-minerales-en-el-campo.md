@@ -2,7 +2,7 @@
 title: "Cómo identificar minerales en el campo: raya, brillo, dureza, exfoliación, densidad y pruebas seguras"
 description: "Un método paso a paso para reconocer minerales y posibles gemas en bruto fuera del laboratorio: qué llevar, qué observar, qué pruebas hacer sin dañar la pieza y qué errores evitar."
 category: gemas-en-bruto
-date: 2026-10-31
+date: 2026-11-01
 ---
 Quien sale a una cantera abandonada, a un río de montaña o a una feria de minerales con ganas de aprender acaba haciéndose siempre la misma pregunta: ¿qué es esto que tengo en la mano? El color engaña, el tamaño también, y los nombres que circulan en los puestos no siempre son fiables. La buena noticia es que, con unas pocas herramientas baratas y un método ordenado, se puede reconocer una gran parte de los minerales comunes y descartar muchas confusiones antes de llegar a un laboratorio.
 

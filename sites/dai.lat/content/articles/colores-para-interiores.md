@@ -2,7 +2,7 @@
 title: "Colores para interiores: cómo elegir la paleta de tu casa con la luz de América Latina"
 description: "Cómo elegir colores que funcionen con la luz intensa del trópico o la luz suave del sur, la regla 60-30-10, acabados mate o satinados y cómo probar la pintura antes de decidir."
 category: interiores-y-decoracion
-date: 2026-07-27
+date: 2026-10-11
 ---
 Elegir el color de una pared parece una decisión sencilla hasta que el tono que se veía perfecto en la tienda aparece en la sala como algo completamente distinto. El gris elegante se vuelve azulado, el blanco cálido parece amarillo y el verde suave termina oscuro y pesado. No es un error de la pintura: es la luz. El mismo color cambia según la orientación de la habitación, la hora del día, el tipo de foco y hasta los muebles que lo rodean.
 

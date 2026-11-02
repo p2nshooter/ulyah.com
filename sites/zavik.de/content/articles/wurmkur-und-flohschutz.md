@@ -2,7 +2,7 @@
 title: "Wurmkur und Flohschutz: Parasiten bei Katzen vorbeugen und behandeln"
 description: Spulwürmer, Bandwürmer, Flöhe und Zecken: wie oft Wohnungskatzen und Freigänger behandelt werden sollten und warum Hundemittel für Katzen lebensgefährlich sein können.
 category: gesundheit
-date: 2026-09-01
+date: 2026-10-05
 ---
 Parasiten sind kein Zeichen mangelnder Pflege. Selbst die gepflegteste Katze kann Würmer oder Flöhe bekommen, ein Freigänger sowieso, aber auch eine Wohnungskatze, wenn Flohlarven an Schuhen hereingetragen werden. Die meisten Parasiten lassen sich gut behandeln. Manche können aber auch auf Menschen übergehen, und bei jungen, alten oder kranken Katzen können sie ernsthafte Probleme verursachen.
 

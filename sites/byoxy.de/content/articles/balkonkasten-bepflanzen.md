@@ -2,7 +2,7 @@
 title: "Balkonkasten bepflanzen: Standort, Erde, Pflanzabstände und schöne Kombinationen"
 description: Wie du Balkonkästen richtig bepflanzt: Sonne, Halbschatten oder Schatten, Kastengröße, Drainage und Erde, Pflanzabstände, Gestaltung mit Leitpflanze, Füller und Hängepflanze, Pflege und Herbst.
 category: balkon-und-terrasse
-date: 2026-09-03
+date: 2026-10-04
 ---
 Ein üppig blühender Balkonkasten verwandelt selbst einen kleinen Balkon in einen grünen Rückzugsort. Gleichzeitig ist der Kasten ein anspruchsvoller Lebensraum: wenig Erde, viel Sonne oder viel Schatten, Wind, Hitze und manchmal tagelange Trockenheit. Wer den Standort richtig einschätzt, die passenden Pflanzen auswählt und beim Pflanzen einige Grundregeln beachtet, hat bis in den Herbst Freude an seinen Kästen.
 

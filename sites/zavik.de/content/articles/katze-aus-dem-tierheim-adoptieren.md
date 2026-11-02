@@ -2,7 +2,7 @@
 title: "Katze aus dem Tierheim adoptieren: So läuft die Vermittlung ab"
 description: Vom ersten Besuch bis zum Schutzvertrag: wie die Adoption einer Katze aus dem Tierheim abläuft, welche Fragen du stellen solltest und wie du die passende Katze findest.
 category: einzug-und-eingewoehnung
-date: 2026-10-03
+date: 2026-10-05
 ---
 In deutschen Tierheimen und bei Tierschutzvereinen warten jedes Jahr zehntausende Katzen auf ein neues Zuhause. Manche wurden abgegeben, weil ihre Menschen gestorben sind, umziehen mussten oder eine Allergie entwickelt haben. Andere wurden als Fundtiere gebracht, wieder andere sind in einer Kolonie verwilderter Katzen geboren. Wer eine Katze aus dem Tierschutz adoptiert, schenkt einem Tier eine zweite Chance und bekommt in den meisten Fällen eine Katze, die bereits geimpft, gechippt, kastriert und tierärztlich untersucht ist.
 

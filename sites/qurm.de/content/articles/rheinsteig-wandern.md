@@ -2,7 +2,7 @@
 title: "Rheinsteig wandern: Von Bonn nach Wiesbaden über Weinberge und Burgen"
 description: "Der Rheinsteig auf der rechten Rheinseite: Verlauf, Abschnitte vom Siebengebirge bis in den Rheingau, Anspruch, beste Jahreszeit, Anreise mit der Bahn und Tipps für Etappen."
 category: fernwanderwege
-date: 2026-07-17
+date: 2026-10-06
 ---
 Kaum ein Fernwanderweg in Deutschland bietet so viele Postkartenblicke wie der Rheinsteig. Auf rund 320 Kilometern führt er auf der rechten Rheinseite von Bonn bis nach Wiesbaden, durch das Siebengebirge, über steile Weinberge, vorbei an Burgen und durch das UNESCO-Welterbe Oberes Mittelrheintal mit der Loreley. Unten im Tal ziehen Schiffe vorbei, auf beiden Ufern rollen Züge, und oben auf den Höhen ist es oft erstaunlich still. Wer den Weg unterschätzt, merkt allerdings schnell: Der Rheinsteig ist kein gemütlicher Uferweg, sondern ein Höhenweg mit vielen steilen Auf- und Abstiegen.
 

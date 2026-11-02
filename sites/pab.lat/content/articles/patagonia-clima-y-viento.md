@@ -2,7 +2,7 @@
 title: "Patagonia: clima, viento y temporadas para planificar un viaje al fin del continente"
 description: "Cuándo ir a la Patagonia argentina y chilena, cómo es el viento y el clima cambiante, qué ropa llevar, cómo moverse entre distancias enormes y qué reglas seguir en sus parques y senderos."
 category: montanas-y-naturaleza
-date: 2026-08-20
+date: 2026-10-11
 ---
 La Patagonia es uno de esos lugares que parecen sacados de un sueño: glaciares que se desprenden con un estruendo, torres de granito que se encienden de rojo al amanecer, estepas inmensas recorridas por guanacos y ñandúes, lagos turquesas y bosques que en otoño se tiñen de rojo. Compartida por Argentina y Chile, abarca el extremo sur del continente hasta Tierra del Fuego.
 

@@ -2,7 +2,7 @@
 title: "Videoanruf nach Izmir"
 description: Yusufs Großeltern leben in der Türkei. Nähe entsteht über einen Bildschirm, mit gemischten Sprachen und einem Feigenbaum zwischen zwei Ländern. Eine Geschichte über Großeltern in der Ferne.
 category: grosseltern-und-generationen
-date: 2026-10-12
+date: 2026-10-05
 ---
 Jeden Sonntag um vier Uhr nachmittags klingelte das Tablet in der Wohnung der Familie Aydın in Stuttgart. Auf dem Bildschirm erschienen zwei Gesichter, ein wenig zu nah an der Kamera, mit einem Feigenbaum im Hintergrund: Babaanne und Dede, Yusufs Großeltern väterlicherseits, in ihrem Garten in Izmir.
 

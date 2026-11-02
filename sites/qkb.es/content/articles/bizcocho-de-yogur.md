@@ -2,7 +2,7 @@
 title: Bizcocho de yogur con la medida del vaso: la receta fácil de toda la vida y sus variantes
 description: El bizcocho de yogur de toda la vida con la medida del vaso: proporciones, mezcla, horno, por qué se hunde o queda seco, conservación y variantes.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 El bizcocho de yogur es, probablemente, la primera receta de repostería que aprendieron muchísimas personas en España. Su gran ventaja es que no necesita báscula: el propio vaso del yogur sirve como medida para el resto de ingredientes. Es esponjoso, aromático, se prepara en diez minutos y es la base perfecta para desayunos, meriendas y tartas de cumpleaños sencillas.
 

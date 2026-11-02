@@ -2,7 +2,7 @@
 title: "Silikonfugen erneuern: altes Silikon entfernen und neue Fuge sauber ziehen"
 description: Wie du verschimmelte oder rissige Silikonfugen an Dusche, Wanne, Waschbecken und Küche entfernst, den Untergrund vorbereitest, das richtige Silikon wählst und eine glatte, dichte Fuge ziehst.
 category: bad-und-kueche
-date: 2026-10-12
+date: 2026-10-04
 ---
 Silikonfugen sind die Dichtungen des Badezimmers. Sie verbinden Fliesen mit Badewanne, Duschtasse und Waschbecken und verhindern, dass Wasser hinter die Fliesen läuft. Mit der Zeit werden sie spröde, lösen sich an den Rändern oder bekommen schwarze Schimmelpunkte, die sich auch mit dem stärksten Reiniger nicht mehr entfernen lassen. Spätestens dann ist es Zeit, die Fuge zu erneuern.
 

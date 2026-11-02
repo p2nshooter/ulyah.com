@@ -2,7 +2,7 @@
 title: "Pfifferlinge und Steinpilze: putzen, braten und Rahmpilze mit Semmelknödeln"
 description: Wie du Pfifferlinge und Steinpilze putzt, lagerst und brätst, was beim Sammeln erlaubt ist, ob man Pilzgerichte aufwärmen darf, mit Rezept für Rahmpfifferlinge und Semmelknödel.
 category: herbst
-date: 2026-10-12
+date: 2026-10-06
 ---
 Pilze aus dem Wald sind für viele der Inbegriff des Herbstes. Schon ab Juli tauchen auf den Märkten die ersten Pfifferlinge auf, goldgelb und nach Aprikose duftend. Im August und September folgen Steinpilze, Maronenröhrlinge und Rotkappen. Eine Pfanne mit gebratenen Waldpilzen, etwas Butter, Zwiebeln und Petersilie gehört zu den einfachsten und zugleich feinsten Gerichten der Saison.
 

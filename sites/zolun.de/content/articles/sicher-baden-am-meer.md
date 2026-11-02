@@ -2,7 +2,7 @@
 title: "Sicher baden an Nord- und Ostsee: Flaggen, Strömungen, Quallen und Kinder im Blick"
 description: "Was die Flaggen am Strand bedeuten, wie du Strömungen an Buhnen und Prielen erkennst, warum Schwimmtiere bei ablandigem Wind gefährlich sind und was bei Quallen und Notfällen hilft."
 category: nordsee-und-ostsee
-date: 2026-07-02
+date: 2026-10-11
 ---
 Ein Sommertag am Meer, die Kinder rennen ins Wasser, die Sonne glitzert auf den Wellen. Die meisten Badetage an Nord- und Ostsee verlaufen genau so, wie man es sich wünscht. Das Meer ist aber kein Schwimmbad: Es gibt Strömungen, die man von außen kaum sieht, Wind, der eine Luftmatratze in Minuten hinaustreibt, und Wasser, das deutlich kälter ist als die Luft. Wer die Zeichen am Strand lesen kann, badet entspannter und reagiert im Ernstfall richtig. Dieser Ratgeber erklärt die Flaggen, die typischen Gefahren beider Küsten, den Umgang mit Quallen und was du tust, wenn jemand Hilfe braucht. Er ersetzt keinen Schwimmkurs und keinen Erste-Hilfe-Kurs, aber er hilft dir, die wichtigsten Situationen zu erkennen.
 

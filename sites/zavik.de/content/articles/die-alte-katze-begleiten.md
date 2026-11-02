@@ -2,7 +2,7 @@
 title: "Die alte Katze begleiten: Alltag, Arthrose, Demenz und Abschied"
 description: Wie du die Wohnung seniorengerecht machst, Arthroseschmerzen erkennst, mit nächtlichem Rufen umgehst und deiner alten Katze einen würdevollen Abschied ermöglichst.
 category: pflege-und-alltag
-date: 2026-07-19
+date: 2026-10-05
 ---
 Katzen werden heute älter als je zuvor. Fünfzehn, achtzehn, manchmal über zwanzig Jahre sind keine Seltenheit mehr. Wer eine Katze so lange begleitet, erlebt, wie aus dem wilden Kätzchen eine ruhige Gefährtin wird, die die Sonne auf der Fensterbank genießt, länger schläft und vielleicht etwas eigensinniger wird.
 

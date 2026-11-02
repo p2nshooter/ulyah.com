@@ -2,7 +2,7 @@
 title: "Iluminación de la casa: lúmenes, temperatura de color y luz por capas en cada ambiente"
 description: "Cómo iluminar cada ambiente con luz general, de trabajo y de acento, cuántos lúmenes necesitas, qué temperatura de color elegir y cómo evitar deslumbramientos y sombras molestas."
 category: interiores-y-decoracion
-date: 2026-08-08
+date: 2026-10-11
 ---
 En muchas casas la iluminación se resuelve con un foco en el centro del techo de cada habitación. Ilumina, sí, pero de forma plana: deja sombras justo donde se trabaja, deslumbra cuando miras hacia arriba y convierte una sala acogedora en algo parecido a una oficina por la noche. Con los mismos metros cuadrados y un poco de planificación, la luz puede hacer que un espacio se vea más amplio, más cálido y mucho más cómodo.
 

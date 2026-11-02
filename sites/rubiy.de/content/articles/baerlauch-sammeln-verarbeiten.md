@@ -2,7 +2,7 @@
 title: "Bärlauch sicher erkennen, sammeln und zu Pesto und Butter verarbeiten"
 description: Wie du Bärlauch von Maiglöckchen, Herbstzeitlose und Aronstab unterscheidest, was beim Sammeln erlaubt ist und wie du Pesto, Butter und Salz daraus machst.
 category: fruehling
-date: 2026-10-12
+date: 2026-10-06
 ---
 Im März und April, wenn in feuchten Laubwäldern und Auen die ersten grünen Teppiche aus dem Boden kommen, liegt ein feiner Knoblauchduft in der Luft. Bärlauch ist eines der ersten frischen Kräuter des Jahres und hat in den letzten Jahrzehnten eine erstaunliche Karriere gemacht: vom fast vergessenen Wildkraut zum Frühlingsstar auf Märkten und in Restaurants.
 

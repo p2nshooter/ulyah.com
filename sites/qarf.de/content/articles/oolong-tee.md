@@ -2,7 +2,7 @@
 title: "Oolong-Tee: halb oxidiert zwischen Grün und Schwarz, Sorten aus Taiwan und China, Zubereitung"
 description: "Oolong verständlich erklärt: Teiloxidation und Röstung, Tieguanyin, Da Hong Pao, Dancong, Oriental Beauty und Hochlandtees aus Taiwan, Zubereitung westlich und im Gongfu-Stil."
 category: teesorten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Oolong ist die vielleicht vielseitigste Teefamilie. Manche Oolongs schmecken frisch, blumig und cremig, fast wie ein grüner Tee mit Fliederduft. Andere sind tief geröstet und erinnern an Kakao, Holz, Honig und Steinobst. Zwischen diesen Polen liegt eine enorme Bandbreite, und ein guter Oolong lässt sich viele Male aufgießen, wobei sich das Aroma von Aufguss zu Aufguss verändert. In Deutschland ist Oolong weniger bekannt als grüner und schwarzer Tee, doch gerade für Neugierige lohnt sich der Einstieg. Dieser Ratgeber erklärt, was Oolong ausmacht, stellt die bekanntesten Sorten vor und zeigt, wie du ihn zubereitest.
 

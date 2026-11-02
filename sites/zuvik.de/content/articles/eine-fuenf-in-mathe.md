@@ -2,7 +2,7 @@
 title: "Eine Fünf in Mathe"
 description: Tim hat eine Fünf in Mathe und versteckt sie eine Woche lang im Rucksack, bis eine E-Mail alles auffliegen lässt. Über schlechte Noten, Angst vor den Eltern und die Schulzeit des Vaters.
 category: schule-und-kita
-date: 2026-10-12
+date: 2026-10-05
 ---
 Die Klassenarbeit lag gefaltet in der Seitentasche von Tims Rucksack, zwischen einer zerdrückten Brotdose und einem Tennisball. Auf der ersten Seite stand, mit rotem Kugelschreiber und eingekreist: „5“. Darunter: „Bitte von den Eltern unterschreiben lassen. B. Krämer.“
 

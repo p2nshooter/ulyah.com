@@ -2,7 +2,7 @@
 title: "Piedra natural en casa: granito, mármol, cantera, laja y otras piedras de la región"
 description: "Qué piedra elegir para pisos, cubiertas, muros y exteriores, cómo distinguir piedras calcáreas, qué acabados existen, cómo sellar, limpiar y quitar manchas sin dañar la superficie."
 category: materiales-y-acabados
-date: 2026-10-03
+date: 2026-10-11
 ---
 La piedra es uno de los materiales más nobles y duraderos de la arquitectura latinoamericana. La cantera rosa de Zacatecas, la cantera verde de Oaxaca, el tezontle rojo de los edificios coloniales de Ciudad de México, el sillar blanco de Arequipa o la piedra coralina de Cartagena y La Habana forman parte de la identidad de ciudades enteras. Hoy, en las casas, la piedra aparece en pisos, cubiertas de cocina, baños, fachadas, escaleras y patios.
 

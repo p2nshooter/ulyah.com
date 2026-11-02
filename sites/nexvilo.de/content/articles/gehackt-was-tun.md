@@ -2,7 +2,7 @@
 title: "Konto gehackt: Was du sofort tun musst, um E-Mail, Social Media und Geld zu retten"
 description: "Fremde Logins, verschickte Spam-Mails, geändertes Passwort? Die Notfall-Anleitung: Konto zurückholen, Passwörter ändern, Geräte abmelden, Kontakte warnen, Bank informieren und Anzeige erstatten."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Freunde fragen, warum du ihnen seltsame Links geschickt hast. In deinem Postfach liegen Bestätigungen für Bestellungen, die du nie aufgegeben hast. Oder du kannst dich plötzlich nicht mehr anmelden, weil jemand dein Passwort geändert hat. Ein gehacktes Konto ist ein Schock, und die erste Reaktion ist oft Hilflosigkeit. Dabei zählt jetzt jede Minute, denn wer dein Konto übernommen hat, versucht meist schnell, es weiter auszunutzen. Diese Anleitung führt dich Schritt für Schritt durch die wichtigsten Maßnahmen: zuerst die Notbremse, dann das Aufräumen und schließlich die Vorsorge, damit es nicht noch einmal passiert.

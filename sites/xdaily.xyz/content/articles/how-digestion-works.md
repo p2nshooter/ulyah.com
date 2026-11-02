@@ -2,7 +2,7 @@
 title: "How Digestion Works: The Journey of Food From Mouth to Intestines and What Each Organ Does"
 description: "How chewing, saliva, stomach acid and enzymes break food down, how the small intestine absorbs nutrients, what the liver, pancreas and gut bacteria do and how long the whole journey takes."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Every bite of food you eat begins a remarkable journey. Over the next day or two, it travels through a tube about 30 feet (9 meters) long, is mashed, mixed, soaked in acid, broken into tiny molecules by enzymes and absorbed into the bloodstream, while trillions of bacteria help process what is left. The digestive system turns a sandwich, an apple or a bowl of rice into the fuel and building blocks your body needs. This explainer follows food through the digestive system and describes what each organ does. It explains how the body works and is not medical advice.

@@ -2,7 +2,7 @@
 title: "Espresso mit dem Siebträger: Grundrezept, Dosis, Tampen, Brühzeit und Fehler erkennen"
 description: "Die Grundlagen für Espresso aus der Siebträgermaschine: Brührezept mit Dosis, Ausbeute und Zeit, Mahlgrad einstellen, verteilen und tampen, Vorheizen, Geschmack lesen und Maschine pflegen."
 category: kaffee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Ein guter Espresso ist eine kleine Kunst. In rund 25 bis 30 Sekunden presst die Maschine heißes Wasser mit hohem Druck durch einen festen Kuchen aus fein gemahlenem Kaffee. Heraus kommen wenige Milliliter, sirupartig, mit einer haselnussbraunen Crema, intensiv süß, mit Säure und angenehmer Bitterkeit im Gleichgewicht. Gerade weil so wenig Flüssigkeit so viel Geschmack trägt, verzeiht Espresso kaum Fehler. Ein Gramm mehr oder weniger, ein Klick an der Mühle oder ein schief angedrückter Kuchen verändern die Tasse spürbar. Dieser Ratgeber erklärt die Grundlagen, mit denen du an einer Siebträgermaschine zu Hause verlässlich gute Ergebnisse bekommst.
 

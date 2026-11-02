@@ -2,7 +2,13 @@
 title: "Effizient putzen: Die richtige Reihenfolge spart Zeit und doppelte Arbeit"
 description: "Von oben nach unten, von trocken zu nass, von sauber zu schmutzig: Mit der richtigen Reihenfolge, Einwirkzeiten und einem Farbsystem für Tücher putzt du die Wohnung schneller und gründlicher."
 category: putzen-mit-system
-date: 2026-07-20
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Umweltbundesamt: Frühjahrsputz | https://www.umweltbundesamt.de/themen/chemikalien/wasch-reinigungsmittel/umweltbewusst-waschen-reinigen/fruehjahrsputz
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
 ---
 Viele Menschen putzen nach Gefühl: hier ein bisschen wischen, dort Staub entfernen, zwischendurch die Küche, dann fällt einem das Bad ein. Am Ende hat man lange gebraucht, und trotzdem liegt auf dem frisch gewischten Boden schon wieder Staub vom Regal. Das liegt nicht an mangelndem Fleiß, sondern an der Reihenfolge. Wer ein paar einfache Grundregeln beachtet, putzt nicht nur schneller, sondern auch gründlicher, weil keine Arbeit doppelt gemacht werden muss.
 

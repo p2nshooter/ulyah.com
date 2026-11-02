@@ -2,7 +2,7 @@
 title: "Ladrillo y bloque: tipos, usos y qué revisar antes de construir un muro"
 description: "Ladrillo macizo, hueco y perforado, bloque de concreto y alternativas: para qué sirve cada uno, qué pasa con el calor y la humedad y por qué en zonas sísmicas el muro necesita confinamiento."
 category: materiales-y-acabados
-date: 2026-07-31
+date: 2026-10-11
 ---
 En buena parte de América Latina, construir una casa significa levantar muros de ladrillo o de bloque. Es el material que se ve en los barrios de Lima, en las ampliaciones de Ciudad de México, en las casas de Medellín y en los chalets de Buenos Aires. Precisamente porque es tan común, muchas veces se elige por costumbre o por precio, sin pensar en las diferencias entre un ladrillo y otro.
 

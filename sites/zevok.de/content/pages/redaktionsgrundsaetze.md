@@ -1,14 +1,18 @@
 ---
 title: Redaktionsgrundsätze
-description: Wie die ZEVOK-Redaktion arbeitet: Quellen, Sicherheit zuerst, ehrliche Bewertung von Hausmitteln, keine erfundenen Zahlen, Unabhängigkeit, Korrekturen und Aktualisierung.
+description: Wie ZEVOK arbeitet: wie Texte entstehen, welche Quellen wir nennen, Sicherheit zuerst, keine erfundenen Zahlen, Unabhängigkeit und Korrekturen.
 order: 15
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 Ein guter Haushalts-Ratgeber muss zwei Dinge können: Er muss funktionieren, wenn du mit dem Fleck vor dir stehst, und er darf weder dir noch deinem Material schaden. Diese Grundsätze leiten die Arbeit der ZEVOK-Redaktion bei jedem Text, vom Putzplan bis zur Anleitung für den Kalkrand an der Duschwand.
 
 ## Für Menschen geschrieben
 
-Jeder Ratgeber beginnt mit einer Frage, die im Alltag wirklich auftaucht: Warum riechen Handtücher nach dem Waschen muffig? Wie bekommt man Kerzenwachs aus der Tischdecke? Darf Essig an die Natursteinplatte? Wir schreiben die Antwort so, dass du sie Schritt für Schritt nachmachen kannst, und erklären dazu, warum ein Schritt nötig ist. Wer das Prinzip versteht, kann auch dann richtig handeln, wenn der eigene Fall ein wenig anders liegt. Jeder Ratgeber wird einzeln geplant, geschrieben und vor der Veröffentlichung geprüft.
+Jeder Ratgeber beginnt mit einer Frage, die im Alltag wirklich auftaucht: Warum riechen Handtücher nach dem Waschen muffig? Wie bekommt man Kerzenwachs aus der Tischdecke? Darf Essig an die Natursteinplatte? Wir schreiben die Antwort so, dass du sie Schritt für Schritt nachmachen kannst, und erklären dazu, warum ein Schritt nötig ist. Wer das Prinzip versteht, kann auch dann richtig handeln, wenn der eigene Fall ein wenig anders liegt. Jeder Ratgeber wird einzeln geplant und vor der Veröffentlichung geprüft.
+
+## Wie die Texte entstehen
+
+Beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge. Sie ersetzen nicht die Prüfung: Jede Angabe zu Mitteln, Temperaturen, Materialien und Sicherheit gleichen wir mit den Grundlagen ab, die im nächsten Abschnitt stehen, und mit den Quellen, die wir unter jedem Ratgeber nennen. Wo eine Quelle etwas anderes sagt als ein verbreiteter Tipp, folgen wir der Quelle und schreiben dazu, warum.
 
 ## Worauf wir uns stützen
 
@@ -19,6 +23,8 @@ Unsere Ratgeber beruhen auf nachvollziehbaren Grundlagen, nicht auf Hörensagen:
 - **Herstellerangaben:** Gebrauchsanweisungen von Reinigungsmitteln, Geräten, Bodenbelägen und Armaturen
 - **Verbraucherinformationen öffentlicher Stellen:** etwa zum sicheren Umgang mit Haushaltschemikalien, zur Vorbeugung von Vergiftungsunfällen und zum umweltbewussten Waschen und Reinigen
 - **Grundlagen der Reinigungschemie:** wie Säuren Kalk lösen, Laugen Fett angreifen, Tenside Schmutz vom Untergrund lösen und Enzyme Eiweiß und Stärke zerlegen
+
+Die wichtigsten Quellen eines Ratgebers stehen an seinem Ende unter „Quellen und weiterführende Informationen“, mit Link und dem Datum der letzten Prüfung. Wir verlinken dort vor allem öffentliche Stellen und Fachverbände: das Umweltbundesamt, das Bundesinstitut für Risikobewertung, die Verbraucherzentralen, GINETEX Germany für die Pflegekennzeichnung und Forum Waschen.
 
 Ein Gedanke zieht sich durch viele unserer Texte: das Zusammenspiel von Chemie, Mechanik, Temperatur und Zeit, in der Reinigungstechnik als Sinnerscher Kreis bekannt. Wer bei einem Faktor spart, etwa bei der Temperatur, gleicht das mit einem anderen aus, zum Beispiel mit längerer Einwirkzeit. So erklären wir, warum eine Methode wirkt, statt nur ein Rezept vorzugeben.
 
@@ -44,4 +50,4 @@ Wir sprechen dich direkt an, erklären Fachbegriffe beim ersten Auftreten und ve
 
 ## Korrekturen und Aktualisierung
 
-Wir überarbeiten Ratgeber, wenn sich Empfehlungen ändern, wenn uns ein Fehler gemeldet wird oder wenn wir selbst eine bessere Erklärung finden. Das Datum unter „Stand“ zeigt die letzte inhaltliche Überarbeitung. Berechtigte Hinweise auf Fehler korrigieren wir zügig. Schreib uns gern an [kontakt@zevok.de](mailto:kontakt@zevok.de), wenn dir etwas auffällt. Mehr über uns erfährst du auf der Seite [Über uns](/ueber-uns/).
+Wir überarbeiten Ratgeber, wenn sich Empfehlungen ändern, wenn uns ein Fehler gemeldet wird oder wenn wir selbst eine bessere Erklärung finden. Über jedem Ratgeber steht, wann er erschienen ist oder zuletzt überarbeitet wurde. Diese Daten sind echt: Wir datieren keinen Text zurück. Alle Veröffentlichungen und Überarbeitungen stehen gesammelt auf der Seite [Aktualisierungen](/aktualisierungen/). Berechtigte Hinweise auf Fehler korrigieren wir zügig. Schreib uns gern an [kontakt@zevok.de](mailto:kontakt@zevok.de), wenn dir etwas auffällt. Mehr über uns erfährst du auf der Seite [Über uns](/ueber-uns/).

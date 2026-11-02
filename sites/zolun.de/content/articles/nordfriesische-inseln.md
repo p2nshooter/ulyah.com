@@ -2,7 +2,7 @@
 title: "Sylt, Föhr, Amrum, Pellworm und die Halligen: Nordfriesische Inseln richtig einschätzen"
 description: "Sylt, Föhr, Amrum, Pellworm und die Halligen im Charaktervergleich: Damm oder Fähre, ruhige und lebhafte Orte, Kniepsand, Landunter und welche Insel zu dir passt."
 category: inseln
-date: 2026-07-10
+date: 2026-10-11
 ---
 Wer „Nordfriesische Inseln“ hört, denkt meist zuerst an Sylt: Reetdach, Champagner, Sportwagen auf dem Parkplatz. Dieses Bild ist nicht ganz falsch, aber es zeigt nur einen kleinen Ausschnitt. Selbst auf Sylt gibt es stille Dörfer am Watt, und gleich daneben liegen Inseln, die völlig anders ticken: das grüne, bäuerliche Föhr, das dünenreiche Amrum mit seinem riesigen Sandstrand, das ruhige Pellworm hinter seinem Deich und die Halligen, winzige Inseln ohne hohen Schutzdeich, auf denen die Häuser auf künstlichen Hügeln stehen. Dieser Ratgeber hilft dir, die Inseln nach ihrem Charakter einzuschätzen, damit dein Urlaub zu dem passt, was du dir wirklich wünschst.
 

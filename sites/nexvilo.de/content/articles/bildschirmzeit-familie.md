@@ -2,7 +2,7 @@
 title: "Bildschirmzeit in der Familie: Gesunde Regeln für Kinder und Erwachsene, ohne täglichen Streit"
 description: "Wie viel Bildschirmzeit ist in Ordnung, wie misst du sie, welche Regeln funktionieren für Kinder, Jugendliche und Eltern, und wie gelingt der Umstieg ohne Dauerstreit am Abendbrottisch?"
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 „Nur noch eine Folge.“ „Gleich, ich muss nur noch kurz antworten.“ Solche Sätze kennen fast alle Familien. Smartphones, Tablets, Spielekonsolen und Fernseher sind aus dem Alltag nicht mehr wegzudenken, und sie haben viele gute Seiten: Kinder lernen mit Erklärvideos, Großeltern sehen per Videoanruf ihre Enkel, Jugendliche halten Kontakt zu Freunden, Eltern organisieren Termine und Einkäufe. Gleichzeitig spüren viele, dass die Geräte zu viel Raum einnehmen. Gespräche werden kürzer, der Schlaf leidet, und um die Frage, wann das Tablet ausgeschaltet wird, entsteht regelmäßig Streit. Dieser Ratgeber zeigt, wie Familien ein gesundes Maß finden, das zu ihrem Alltag passt, und wie Regeln entstehen, an die sich alle halten können, auch die Erwachsenen.

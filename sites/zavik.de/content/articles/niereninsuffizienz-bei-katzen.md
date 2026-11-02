@@ -2,7 +2,7 @@
 title: "Chronische Nierenerkrankung bei Katzen: Früh erkennen, gut begleiten"
 description: Die chronische Nierenerkrankung ist bei älteren Katzen sehr häufig. Frühe Zeichen, Diagnose, Nierendiät, Flüssigkeit und Blutdruck verständlich erklärt.
 category: gesundheit
-date: 2026-08-26
+date: 2026-10-05
 ---
 Wenn Tierärztinnen und Tierärzte über ältere Katzen sprechen, fällt fast immer ein Begriff: chronische Nierenerkrankung, abgekürzt CNE. Sie gehört zu den häufigsten Erkrankungen bei Katzen ab etwa zehn Jahren, und mit jedem weiteren Lebensjahr steigt der Anteil der betroffenen Tiere. Die Erkrankung entwickelt sich langsam, über Monate und Jahre, und die ersten Zeichen sind so unauffällig, dass sie leicht übersehen werden.
 

@@ -2,7 +2,7 @@
 title: "How to Read a Recipe Like a Cook: Mise en Place, Recipe Terms and When to Trust Your Senses"
 description: "Read the whole recipe first, set up mise en place, decode terms like fold, sweat and reduce, understand measurements and timings, and know when to follow a recipe exactly and when to adapt."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 A recipe looks like a simple list: ingredients at the top, steps underneath. Yet two people can follow the same recipe and end up with completely different dishes. One produces a fragrant curry on time, the other burns the spices while searching for the coconut milk and serves dinner an hour late. The difference is rarely talent. It is how they read the recipe. Experienced cooks treat a recipe like a map: they look at the whole route before setting off, prepare what they need, understand the language and watch the landscape instead of only the directions. This guide shows you how to do the same, so every recipe you try has a much better chance of success.

@@ -2,7 +2,7 @@
 title: "Comprar gemas en bruto sin engaños: guía práctica para América Latina"
 description: "Dónde se compra material en bruto en la región, los engaños más comunes, herramientas para revisarlo, cómo mirar dentro de una piedra, rendimiento de talla, lotes, pagos, exportación y seguridad."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Comprar una gema en bruto tiene algo de aventura. Frente a un cristal sin tallar, el comprador intenta adivinar qué piedra saldrá de él: cuánto color tendrá, cuánta luz, cuántas inclusiones esconde y cuánto peso perderá en la rueda del lapidario. En América Latina hay mercados donde esa escena se repite cada día, de los comerciantes de esmeraldas del centro de Bogotá a las ferias de piedras de Minas Gerais o los talleres de ópalo de Querétaro.
 

@@ -2,7 +2,7 @@
 title: "Katze beißt beim Streicheln: Warum aus Kuscheln plötzlich ein Biss wird"
 description: Erst schnurrt sie, dann beißt sie. Was hinter streichelbedingter Aggression steckt, welche Warnzeichen du übersiehst und wo Katzen am liebsten gestreichelt werden.
 category: verhalten
-date: 2026-08-12
+date: 2026-10-05
 ---
 Die Katze liegt schnurrend auf deinem Schoß, du streichelst ihr über den Rücken, alles ist friedlich. Und dann, ohne erkennbaren Grund, dreht sie den Kopf, packt deine Hand mit den Zähnen, vielleicht auch mit den Krallen der Vorderpfoten, springt herunter und geht. Zurück bleiben ein verwirrter Mensch und manchmal ein paar Kratzer.
 

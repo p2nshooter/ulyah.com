@@ -2,7 +2,7 @@
 title: "Eistee selbst machen: Cold Brew Tee, Schockkühlung und Rezepte ohne zu viel Zucker"
 description: "Eistee aus echtem Tee: kalt aufgießen über Nacht oder heiß brühen und auf Eis abkühlen, die besten Sorten, Mengen, natürliche Süße, Rezepte mit Pfirsich, Zitrone und Minze, Hygiene."
 category: tee-zubereiten
-date: 2026-09-20
+date: 2026-10-06
 ---
 Gekaufter Eistee ist oft vor allem eines: süß. Viele Fertiggetränke enthalten viel Zucker und wenig Tee. Selbst gemachter Eistee schmeckt dagegen nach dem, was er ist: nach frischem schwarzen, grünen oder weißen Tee, nach Früchten und Kräutern, so süß oder ungesüßt, wie du ihn magst. Die Zubereitung ist einfach und günstig, und mit zwei Methoden bekommst du ganz unterschiedliche Ergebnisse. Ein über Nacht kalt angesetzter Tee wird weich, süßlich und kaum herb. Ein heiß gebrühter und schnell abgekühlter Tee bleibt kräftig und aromatisch. Dieser Ratgeber zeigt beide Wege, die passenden Teesorten und einige erprobte Kombinationen.
 

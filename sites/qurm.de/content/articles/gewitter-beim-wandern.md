@@ -2,7 +2,7 @@
 title: "Gewitter beim Wandern: Warnzeichen erkennen und richtig reagieren"
 description: Wie du Gewitter früh erkennst, warum der Nachmittag in den Bergen kritisch ist und was du tust, wenn dich Blitz und Donner unterwegs überraschen.
 category: sicherheit-und-wetter
-date: 2026-06-06
+date: 2026-10-06
 ---
 Ein Sommergewitter ist für Wandernde eine der größten Gefahren überhaupt, und zwar nicht nur in den Alpen. Auch im Mittelgebirge, auf freien Hochflächen, an Aussichtstürmen oder auf Felsplateaus wie in der Sächsischen Schweiz kann ein Gewitter lebensgefährlich werden. Die gute Nachricht: Die meisten gefährlichen Situationen lassen sich mit Planung vermeiden, und wenn es doch passiert, gibt es klare Verhaltensregeln.
 

@@ -2,7 +2,7 @@
 title: "Fahrrad im Urlaub: Radfernwege, Tagesetappen, Gepäck, Leihräder und Regeln in Deutschland"
 description: "Radurlaub in Deutschland planen: bekannte Fluss- und Küstenradwege, realistische Tagesetappen, Gepäck, E-Bike und Leihrad, Rad im Zug und die wichtigsten Regeln."
 category: reiseplanung
-date: 2026-09-25
+date: 2026-10-11
 ---
 Deutschland ist ein hervorragendes Land für Radurlaub. Gut ausgeschilderte Radfernwege folgen Flüssen und Küsten, ruhige Nebenstraßen verbinden kleine Orte, und fast überall gibt es Unterkünfte, die auf Radfahrer eingestellt sind. Ob du eine Woche entlang eines Flusses fährst oder vom Ferienort aus Tagestouren unternimmst: Mit dem Rad erlebst du eine Landschaft intensiver als im Auto und kommst trotzdem weiter als zu Fuß. Dieser Ratgeber hilft dir bei der Planung, von der Route über das Gepäck bis zu den Regeln im Straßenverkehr.
 

@@ -2,7 +2,7 @@
 title: "Packliste für den Urlaub in Deutschland: was wirklich mit muss – für Meer, Berge, Stadt und Familie"
 description: "Die ehrliche Packliste für Deutschland: Dokumente, Kleidung nach dem Zwiebelprinzip, Reiseapotheke, Technik und Extras für Strand, Berge, Stadt, Kinder und Hund."
 category: reiseplanung
-date: 2026-10-06
+date: 2026-10-11
 ---
 Die meisten Menschen packen zu viel ein und vergessen trotzdem etwas Wichtiges. Bei einer Reise innerhalb Deutschlands ist das zum Glück selten ein Drama, denn fast alles lässt sich unterwegs kaufen. Trotzdem spart eine durchdachte Packliste Zeit, Geld und Nerven: Du schleppst weniger, findest schneller, was du suchst, und stehst nicht am ersten Regentag ohne Jacke da. Dieser Ratgeber zeigt dir eine Grundliste für jede Reise und die Extras für Strand, Berge, Stadt, Familie und Hund.
 

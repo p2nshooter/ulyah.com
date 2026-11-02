@@ -2,7 +2,7 @@
 title: "Cortinas, textiles y alfombras: cómo elegirlos según el clima, la luz y el uso"
 description: "Qué cortina conviene en cada ventana, cómo colgarla, qué tamaño de alfombra elegir para sala, comedor y dormitorio, qué fibras soportan la humedad y cómo cuidar los textiles de la casa."
 category: interiores-y-decoracion
-date: 2026-09-01
+date: 2026-10-11
 ---
 Los textiles son la forma más rápida de cambiar una casa. Una cortina bien elegida filtra la luz y da privacidad, una alfombra define la sala y suaviza el eco, y unos cojines y una manta convierten un sofá impersonal en un lugar acogedor. También son los elementos que más sufren con el sol, la humedad, el polvo y el uso diario, y los que más errores de tamaño y de material acumulan.
 

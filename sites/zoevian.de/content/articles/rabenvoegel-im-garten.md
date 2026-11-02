@@ -2,7 +2,7 @@
 title: "Rabenvögel im Garten: Elster, Eichelhäher, Krähe und Dohle besser verstehen"
 description: "Elster, Eichelhäher, Rabenkrähe, Saatkrähe und Dohle erkennen, ihre Intelligenz verstehen und einordnen, ob sie Singvögeln wirklich schaden, plus Tipps fürs Miteinander."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Kaum eine Vogelfamilie wird so unterschiedlich gesehen wie die Rabenvögel. Für die einen sind Elstern und Krähen Nesträuber, die den Garten von Singvögeln leer fressen. Für die anderen gehören sie zu den klügsten Tieren überhaupt, die Werkzeuge benutzen, Futter verstecken und sich jahrelang an Gesichter erinnern. Beide Sichtweisen haben einen wahren Kern, aber die Wirklichkeit ist vielschichtiger.

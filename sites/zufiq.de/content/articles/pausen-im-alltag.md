@@ -2,7 +2,7 @@
 title: "Pausen im Alltag: Wie kurze Unterbrechungen den Tag leichter machen"
 description: "Pausen im Alltag, die wirklich erholen: Mikropausen, Bewegungs- und Mittagspause, Pausen im Homeoffice ohne Handy, feste Erinnerungen und weniger schlechtes Gewissen."
 category: zeit-energie-und-schlaf
-date: 2026-08-03
+date: 2026-10-11
 ---
 Um acht Uhr setzt du dich an den Schreibtisch, um halb eins isst du ein Brot neben der Tastatur, und gegen vier merkst du, dass dein Nacken hart ist, die Augen brennen und du seit einer Stunde an demselben Absatz feilst. Eine Pause? Die machst du, wenn du fertig bist. Nur bist du nie fertig, und am Abend fehlt dir die Kraft für alles, was dir eigentlich wichtig ist.
 

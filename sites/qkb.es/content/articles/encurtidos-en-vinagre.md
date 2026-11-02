@@ -2,7 +2,7 @@
 title: Encurtidos caseros en vinagre: pepinillos, cebolletas y guindillas con la acidez correcta
 description: Encurtidos en vinagre en casa: vinagre al 5 %, proporciones que no se reducen, encurtidos rápidos de nevera, conservas al baño maría y recetas españolas.
 category: conservas
-date: 2026-10-12
+date: 2026-10-04
 ---
 Los encurtidos son verduras conservadas en un medio ácido, normalmente vinagre. En España tienen una larga tradición: las banderillas y gildas de los bares, las aceitunas con pepinillos y cebolletas, las guindillas de Ibarra, los ajos encurtidos o las berenjenas de Almagro. Hechos en casa, permiten controlar la sal, el azúcar y los aromas, y aprovechar las verduras de temporada.
 

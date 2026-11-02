@@ -2,7 +2,7 @@
 title: "Gärtnern ohne Umgraben: Mulch, Kompostauflage und Sauzahn statt Spaten"
 description: "Warum das jährliche Umgraben dem Bodenleben schadet, wie das Gärtnern ohne Umgraben funktioniert, welche Werkzeuge helfen, wie du ein Beet umstellst und wann Graben trotzdem sinnvoll ist."
 category: kompost-und-boden
-date: 2026-08-11
+date: 2026-10-06
 ---
 Jahrzehntelang gehörte das Umgraben im Herbst zum festen Ritual im Garten. Schollen wurden gewendet, damit der Frost sie zerkleinert, und im Frühjahr lag ein scheinbar perfekt vorbereitetes Beet da. Heute wissen wir mehr über das, was im Boden passiert. Ein gesunder Boden ist in Schichten aufgebaut, in denen jeweils andere Lebewesen arbeiten. Regenwürmer, Pilzgeflechte und Mikroorganismen schaffen eine stabile Krümelstruktur, die Wasser speichert und Wurzeln Luft gibt. Wer jedes Jahr umgräbt, zerstört diese Struktur immer wieder. Gärtnern ohne Umgraben setzt dagegen auf Lockern, Bedecken und Füttern. Es spart Kraft, verringert Unkraut und macht den Boden mit jedem Jahr besser.
 

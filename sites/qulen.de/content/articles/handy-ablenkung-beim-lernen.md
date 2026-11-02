@@ -2,7 +2,7 @@
 title: "Ablenkung durchs Handy beim Lernen: Wie Ben wieder eine Stunde am Stück schaffte"
 description: "Ben greift beim Lernen alle paar Minuten zum Smartphone und behält am Ende nichts. Wie er Benachrichtigungen bündelte, im Chat Absprachen traf und wieder konzentriert lernte."
 category: konzentration-und-motivation
-date: 2026-06-21
+date: 2026-10-11
 ---
 Ben hatte von halb fünf bis halb acht am Schreibtisch gesessen. Drei Stunden Biologie, Thema Nervensystem, Test am nächsten Morgen. Als er das Buch zuklappte und sich fragte, was eine Synapse eigentlich genau macht, fiel ihm zuerst ein Video ein, in dem jemand einen Basketball rückwärts über die Schulter in einen Korb warf. Dann die Diskussion im Klassenchat, wer am Freitag den Grill mitbringt. Die Synapse kam erst an dritter Stelle, und auch nur ungefähr.
 

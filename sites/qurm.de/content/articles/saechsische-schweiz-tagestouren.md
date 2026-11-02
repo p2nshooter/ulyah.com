@@ -2,7 +2,7 @@
 title: "Sächsische Schweiz: Die schönsten Tagestouren zwischen Bastei und Schrammsteinen"
 description: Bastei, Schwedenlöcher, Lilienstein, Pfaffenstein, Schrammsteine und Kuhstall: Tagestouren im Elbsandsteingebirge mit Tipps zu Anreise, Andrang und Nationalparkregeln.
 category: berge-und-tagestouren
-date: 2026-06-11
+date: 2026-10-06
 ---
 Das Elbsandsteingebirge südöstlich von Dresden ist eines der ungewöhnlichsten Wandergebiete Deutschlands. Über Jahrmillionen hat das Wasser den Sandstein zu Tafelbergen, Felsnadeln, Schluchten und Riffen geformt. Zwischen den Felsen wachsen Kiefern und Buchen, in den engen Gründen ist es kühl und moosig, und von den Aussichtspunkten blickst du weit über das Elbtal. Ein Teil dieser Landschaft ist seit 1990 als Nationalpark Sächsische Schweiz geschützt.
 

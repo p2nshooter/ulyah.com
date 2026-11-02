@@ -2,7 +2,7 @@
 title: "Wanderschuhe kaufen: Kategorien, Passform und Einlaufen ohne Blasen"
 description: Halbschuh, Trekkingstiefel oder Bergschuh? Wie du die passende Kategorie wählst, beim Anprobieren Fehler vermeidest und neue Schuhe richtig einläufst.
 category: ausruestung
-date: 2026-06-04
+date: 2026-10-06
 ---
 Kein Ausrüstungsteil entscheidet so sehr über einen guten Wandertag wie die Schuhe. Ein zu enger Schuh macht aus einem schönen Abstieg eine Qual, ein zu weicher Schuh lässt dich auf Geröll umknicken, und ein nicht eingelaufener Stiefel beschert dir am zweiten Tag einer Fernwanderung Blasen, die dich den Rest der Woche begleiten. Gleichzeitig ist die Auswahl im Fachhandel riesig, und die Begriffe auf den Etiketten helfen oft wenig weiter.
 

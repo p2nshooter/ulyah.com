@@ -2,7 +2,13 @@
 title: "Wolle, Kaschmir und Seide waschen: von Hand oder in der Maschine, ohne Verfilzen und Einlaufen"
 description: "Warum Wolle verfilzt, wann Lüften reicht, wie Handwäsche und Wollprogramm gelingen, wie du Seide schonend wäschst, Pullover richtig trocknest und Kleidermotten vorbeugst."
 category: waesche-und-pflege
-date: 2026-08-22
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
+  - Forum Waschen: Wäsche richtig waschen | https://forum-waschen.de/tipps/waschen/waesche-richtig-waschen/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
 ---
 Ein Lieblingspullover, der nach einer Wäsche nur noch Kindergröße hat. Ein Seidenschal, der nach dem Waschen stumpf und fleckig ist. Eine Kaschmirjacke voller kleiner Knötchen. Naturfasern wie Wolle, Kaschmir und Seide gehören zu den schönsten und langlebigsten Materialien, die es gibt, aber sie verzeihen weniger Fehler als Baumwolle oder Polyester. Wer ihre Eigenheiten kennt, kann sie trotzdem einfach zu Hause pflegen und muss sie nur selten in die Reinigung bringen.
 

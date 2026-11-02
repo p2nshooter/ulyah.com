@@ -2,7 +2,7 @@
 title: Alimentos fermentados y salud: lo que dice la ciencia y lo que todavía no sabemos
 description: Qué dice la ciencia sobre los fermentados: diferencia entre fermentado y probiótico, beneficios demostrados, mitos frecuentes y quién debe tener precaución.
 category: kefir-y-fermentados
-date: 2026-10-12
+date: 2026-10-04
 ---
 Kéfir, yogur, kombucha, chucrut, kimchi o encurtidos fermentados: en los últimos años, los alimentos fermentados han pasado de ser una tradición doméstica a protagonizar estanterías enteras en los supermercados, a menudo acompañados de promesas de salud llamativas. Algunas de esas promesas tienen base científica, otras son exageraciones y muchas simplemente no se han estudiado.
 

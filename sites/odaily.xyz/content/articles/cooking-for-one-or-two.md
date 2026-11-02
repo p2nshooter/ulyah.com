@@ -2,7 +2,7 @@
 title: "Cooking for One or Two: How to Shop, Cook and Store Food Without Waste or Endless Leftovers"
 description: "How to scale recipes down, shop in small amounts, use the freezer as a pantry, cook flexible components, and enjoy satisfying meals for one or two without eating the same dish all week."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Most recipes are written for four to six people, and most grocery packages are sized for families. If you live alone or with one other person, this creates a familiar set of problems: a head of lettuce that wilts before you finish it, a pot of soup you eat for five days in a row, and the temptation to skip cooking altogether because it seems like too much effort for one plate. Yet cooking for one or two can be wonderfully freeing. You can eat exactly what you like, when you like, and experiment without worrying about anyone else's preferences. With a few smart strategies, you can cook satisfying meals, waste very little and avoid getting tired of leftovers.

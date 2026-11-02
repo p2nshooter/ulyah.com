@@ -2,7 +2,7 @@
 title: "Katze und Kinder: Regeln für ein gutes Miteinander"
 description: Wie Kinder und Katzen Freunde werden: altersgerechte Regeln, Rückzugsorte für die Katze, Hygiene, Schwangerschaft und Baby sowie die Frage, wie viel Verantwortung Kinder übernehmen können.
 category: einzug-und-eingewoehnung
-date: 2026-09-23
+date: 2026-10-05
 ---
 Viele Erwachsene erinnern sich an eine Katze aus ihrer Kindheit: eine, die beim Hausaufgabenmachen auf dem Heft lag, der man Geheimnisse anvertraute, die nachts am Fußende schlief. Katzen können für Kinder wunderbare Gefährten sein. Sie lehren Rücksicht, Geduld und das Gespür dafür, dass ein anderes Wesen eigene Bedürfnisse hat.
 

@@ -2,7 +2,7 @@
 title: "Behördengänge online erledigen: Online-Ausweis einrichten und digitale Verwaltung sicher nutzen"
 description: "Wie du die Online-Ausweisfunktion deines Personalausweises mit der AusweisApp einrichtest, welche Behördengänge schon digital gehen, wie sicher das Verfahren ist und was bei vergessener PIN hilft."
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Ein Termin im Bürgeramt, Wartemarken, Öffnungszeiten, die nicht zum Arbeitsalltag passen, und am Ende fehlt doch ein Formular: Behördengänge kosten viele Menschen Zeit und Nerven. Dabei lassen sich in Deutschland inzwischen viele Anliegen online erledigen, vom Antrag auf ein Führungszeugnis über die Steuererklärung bis zur Abfrage des Punktestands in Flensburg. Der Schlüssel dafür steckt bei den meisten schon im Portemonnaie: der Personalausweis mit seiner Online-Ausweisfunktion. Viele haben sie nie eingerichtet, weil sie nicht wissen, wie es geht oder ob es sicher ist. Diese Anleitung erklärt, was der Online-Ausweis kann, wie du ihn Schritt für Schritt einrichtest und worauf du achten solltest.

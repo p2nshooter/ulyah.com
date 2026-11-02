@@ -2,7 +2,7 @@
 title: "Brühe selbst kochen: Gemüsebrühe aus Resten, Knochenbrühe und Suppenwürze im Glas"
 description: "So kochst du eine klare, kräftige Gemüsebrühe aus Gemüseresten, eine Rinderbrühe aus gerösteten Knochen und eine Salz-Gemüse-Paste als Vorrat, mit Mengen, Zeiten und sicherer Lagerung."
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Eine gute Brühe ist das stille Fundament der Küche. Sie trägt Suppen, Eintöpfe, Risotto und Soßen, sie macht Bohnensalat rund und Kohlrabigemüse aromatisch. Gekaufte Brühwürfel sind bequem, schmecken aber oft vor allem nach Salz und Hefeextrakt. Selbst gekochte Brühe ist dagegen fast umsonst: Sie entsteht aus Schalen, Enden und Resten, die sonst im Biomüll landen würden, und aus ein paar Stunden Geduld. Hier erfährst du, wie du eine klare Gemüsebrühe ansetzt, wie eine kräftige Knochenbrühe gelingt und wie du mit einer Salz-Gemüse-Paste immer Brühe im Kühlschrank hast.
 

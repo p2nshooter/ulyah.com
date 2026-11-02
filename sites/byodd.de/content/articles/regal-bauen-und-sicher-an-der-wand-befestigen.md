@@ -2,7 +2,7 @@
 title: "Wandregal bauen und sicher befestigen: Planung, Material, Montage"
 description: Wie du ein Wandregal planst, Brettstärke und Spannweite richtig wählst, Träger und unsichtbare Halterungen montierst und Regale sowie Hochschränke gegen Umkippen sicherst.
 category: holz-und-moebel
-date: 2026-10-12
+date: 2026-10-04
 ---
 Ein Wandregal ist oft das erste eigene Möbelprojekt: Es schafft Platz für Bücher, Pflanzen oder Gewürze und gibt einer Wand Charakter. Gleichzeitig ist es ein Projekt, bei dem Fehler sichtbar werden: Bretter, die sich unter Büchern durchbiegen, Träger, die aus der Wand ziehen, oder ein Regal, das schief hängt.
 

@@ -2,7 +2,7 @@
 title: "Jardín con plantas nativas: menos agua, menos plagas y más vida en tu patio"
 description: "Cómo diseñar un jardín con plantas nativas de tu región: conocer el clima y el suelo, agrupar por riego, reducir el césped, usar acolchado y atraer colibríes y polinizadores sin invasoras."
 category: patios-y-exteriores
-date: 2026-08-26
+date: 2026-10-11
 ---
 Muchos jardines de América Latina están llenos de plantas que vienen de otros continentes. Céspedes que necesitan riego diario en climas secos, arbustos que sufren con el sol del trópico, especies que se enferman con la humedad o que, al contrario, se escapan del jardín y se vuelven invasoras. Mientras tanto, a pocos kilómetros crecen sin ayuda plantas nativas perfectamente adaptadas al clima, al suelo y a la fauna del lugar.
 

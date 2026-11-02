@@ -2,7 +2,7 @@
 title: "Fundición a la cera perdida: cómo se fabrica una joya desde el modelo de cera hasta el pulido"
 description: "Cómo funciona la microfusión en joyería: modelo en cera o impresión 3D, árbol, revestimiento, calcinación, colada y acabado, qué defectos aparecen y cómo reconocer una pieza bien fundida."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 Buena parte de los anillos, colgantes y pendientes que se venden hoy empezaron siendo una pieza de cera. Un joyero la talló a mano, o un ordenador la diseñó y una impresora la fabricó en resina; después, esa pieza se envolvió en un material refractario, se hizo desaparecer con calor y en el hueco que dejó se vertió metal fundido. Es la técnica de la cera perdida, una de las más antiguas de la metalurgia, que se usaba ya hace miles de años y que hoy, con equipos modernos, sigue siendo la base de la joyería en todo el mundo.
 

@@ -2,7 +2,7 @@
 title: "Ostfriesische Teekultur: Kluntje, Sahnewölkchen und drei Tassen, so wird Tee an der Küste getrunken"
 description: "Die ostfriesische Teezeremonie Schritt für Schritt: kräftige Assam-Mischung, Kluntje, Sahne mit dem Löffel, nicht umrühren, Teestövchen und Geschirr, Teezeiten und Gepflogenheiten als Gast."
 category: tee-zubereiten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wer in Ostfriesland zu Besuch ist, bekommt früher oder später eine Tasse Tee angeboten, und mit ihr ein kleines Ritual: Ein Stück Kandis knistert in der Tasse, wenn der heiße Tee darüberläuft, ein Löffel Sahne sinkt am Rand hinab und steigt als weiße Wolke wieder auf. Umgerührt wird nicht. Ostfriesland gehört zu den Regionen mit dem höchsten Teeverbrauch pro Kopf in der Welt, und die ostfriesische Teekultur steht seit 2016 im bundesweiten Verzeichnis des immateriellen Kulturerbes. Dieser Ratgeber erklärt, wie die Zeremonie abläuft, welcher Tee dazugehört und wie du sie zu Hause nachmachst.
 

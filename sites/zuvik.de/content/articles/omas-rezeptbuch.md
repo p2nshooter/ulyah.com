@@ -2,7 +2,7 @@
 title: "Omas Rezeptbuch mit den Fettflecken"
 description: In Omas altem Rezeptbuch stehen Kuchen, Suppen und Geschichten aus sechzig Jahren. Als Emil es findet, beginnt ein Sommer des gemeinsamen Backens über drei Generationen.
 category: grosseltern-und-generationen
-date: 2026-10-12
+date: 2026-10-05
 ---
 Das Buch lag ganz unten in einer Kiste, die Oma Hilde vom Dachboden geholt hatte. Sie zog in eine kleinere Wohnung, näher bei der Familie ihrer Tochter in Würzburg, und musste vieles aussortieren. Emil, neun Jahre alt, half ihr beim Ausräumen, oder eigentlich stöberte er hauptsächlich herum. Zwischen alten Zeitschriften, Fotoalben und einem Stapel vergilbter Briefe fand er ein dickes, abgegriffenes Heft mit einem blauen Stoffeinband.
 

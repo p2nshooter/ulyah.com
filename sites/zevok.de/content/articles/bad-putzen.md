@@ -2,7 +2,14 @@
 title: "Bad putzen: Die richtige Reihenfolge für ein gründlich sauberes Badezimmer"
 description: "Bad putzen in der richtigen Reihenfolge: vom Spiegel über Waschbecken und Dusche bis zum WC und Boden, mit passenden Mitteln, täglichen Handgriffen und Wochen- und Monatsliste."
 category: bad-und-wc
-date: 2026-06-26
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Wie lüfte ich richtig? | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/wie-luefte-ich-richtig-tipps-tricks-zur
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Das Bad ist der Raum, in dem man am meisten schrubbt und trotzdem oft das Gefühl hat, nie fertig zu werden. Kaum ist das Waschbecken sauber, tropft beim Spiegelputzen Glasreiniger hinein. Der Boden ist gewischt, und dann fallen beim Reinigen der Dusche Haare und Schaum darauf. Und wer mit demselben Lappen erst die Toilette und dann den Zahnputzbecher abwischt, verteilt Keime, statt sie zu entfernen.
 

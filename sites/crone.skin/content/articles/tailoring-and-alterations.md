@@ -2,7 +2,7 @@
 title: "Tailoring and Alterations: How Small Changes Make Clothes Look Made for You"
 description: Which alterations are worth doing, how to find and brief a good tailor, typical fixes for trousers, jackets, dresses and coats, and simple adjustments you can make at home.
 category: style-and-wardrobe
-date: 2026-10-19
+date: 2026-10-20
 ---
 Have you ever admired a woman whose clothes seem to fit perfectly, and assumed she must spend a fortune on them? Often the secret is not the price of the clothes but a good tailor. Off-the-peg clothing is made for a standard body that very few people actually have. Small adjustments — a shorter hem, a nipped-in waist, shortened sleeves — can make inexpensive clothes look expensive and transform garments you rarely wear into favourites.
 

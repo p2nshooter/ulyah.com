@@ -2,7 +2,7 @@
 title: "Kräutertee und Früchtetee: Sorten, sichere Zubereitung, eigene Mischungen und Kräuter aus dem Garten"
 description: "Kräuter- und Früchtetee richtig aufgießen: warum kochendes Wasser und zehn Minuten wichtig sind, beliebte Kräuter von Pfefferminze bis Kamille, Früchtetee und Hibiskus, eigene Mischungen und Trocknen."
 category: teesorten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Pfefferminze, Kamille, Fenchel, Hagebutte, Hibiskus: In deutschen Teeschränken stehen mehr Kräuter- und Früchtetees als echte Tees. Genau genommen sind sie gar keine Tees, denn sie stammen nicht von der Teepflanze. Fachleute sprechen deshalb von teeähnlichen Erzeugnissen oder Aufgüssen. Für den Alltag spielt das keine Rolle, wohl aber für die Zubereitung: Kräuter und Früchte brauchen anderes Wasser und andere Ziehzeiten als grüner oder schwarzer Tee. Dieser Ratgeber erklärt die beliebtesten Sorten, wie du sie sicher aufgießt und wie du eigene Mischungen zusammenstellst, auch mit Kräutern aus dem Garten oder vom Balkon.
 

@@ -2,7 +2,7 @@
 title: "Joyas heredadas y de segunda mano: identificar, valorar, restaurar, repartir, vender y comprar"
 description: "Qué hacer con joyas heredadas: identificar metales y piedras, tipos de valoración, restaurar o rediseñar, repartir entre herederos y vender bien, y cómo comprar joyas usadas con garantías."
 category: lujo-y-estilo-de-vida
-date: 2026-10-11
+date: 2026-10-12
 ---
 Una caja de joyas heredada puede contener un poco de todo: el anillo de compromiso de una abuela, unos aretes de oro de una tía, una medalla de bautizo, piezas de bisutería de otras décadas y, quizá, alguna joya de verdadero valor que nadie sabe identificar. Detrás de cada pieza hay recuerdos, pero también preguntas prácticas: ¿qué es exactamente?, ¿cuánto vale?, ¿conviene arreglarla, transformarla o venderla?, ¿cómo repartirla de forma justa?
 

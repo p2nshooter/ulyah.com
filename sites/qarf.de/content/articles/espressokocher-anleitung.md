@@ -2,7 +2,7 @@
 title: "Espressokocher richtig benutzen: Mahlgrad, Wassermenge, Hitze und Pflege der Bialetti-Kanne"
 description: "So gelingt Kaffee aus dem Espressokocher: Aufbau der Kanne, Mahlgrad, Füllen ohne Andrücken, sanfte Hitze, rechtzeitig vom Herd nehmen, Reinigung, Dichtungen und typische Fehler."
 category: kaffee-zubereiten
-date: 2026-07-28
+date: 2026-10-06
 ---
 Der Espressokocher gehört in Deutschland, Italien und vielen anderen Ländern zur Grundausstattung der Küche. Die achteckige Aluminiumkanne mit dem schwarzen Griff, oft nach dem bekanntesten Hersteller einfach „Bialetti“ genannt, kostet wenig, braucht keinen Strom und hält bei guter Pflege Jahrzehnte. Trotzdem schmeckt der Kaffee daraus oft bitter, verbrannt oder metallisch. Das liegt fast nie an der Kanne, sondern an ein paar Handgriffen: zu fein gemahlen, zu fest angedrückt, zu heiß gekocht, zu spät vom Herd genommen. Mit den richtigen Schritten bekommst du einen kräftigen, süßen und vollen Kaffee, der einem Espresso nahekommt.
 

@@ -2,7 +2,13 @@
 title: "Staub wischen und Staubsaugen richtig: weniger Staub, weniger Allergene, mehr Ruhe"
 description: "Woher Hausstaub kommt, warum ein feuchtes Mikrofasertuch besser ist als der Staubwedel, wie du Elektronik und Holz schonend abstaubst und Staub dauerhaft reduzierst."
 category: putzen-mit-system
-date: 2026-07-26
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Umweltbundesamt: Umweltbewusst reinigen – nachhaltig und hygienisch (PDF) | https://www.umweltbundesamt.de/system/files/medien/publikation/long/4162.pdf
+  - Umweltbundesamt: Hygienetipps für den Alltag | https://www.umweltbundesamt.de/themen/hygienetipps-fuer-den-alltag
 ---
 Kaum ist ein Regal abgestaubt, liegt schon wieder eine graue Schicht darauf. Staub ist ein ständiger Begleiter jeder Wohnung, und ganz loswerden lässt er sich nie. Aber wie viel davon herumfliegt, hängt stark davon ab, wie du putzt. Ein Staubwedel wirbelt Staub oft nur auf, damit er sich eine Stunde später an anderer Stelle wieder absetzt. Ein feuchtes Tuch und ein guter Staubsauger dagegen nehmen ihn wirklich auf.
 

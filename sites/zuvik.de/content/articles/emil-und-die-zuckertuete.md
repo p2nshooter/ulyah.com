@@ -2,7 +2,7 @@
 title: "Emil und die Zuckertüte"
 description: Emil kommt in die Schule, die Zuckertüte ist fast so groß wie er, und alle freuen sich – nur Emil nicht. Über Ängste vor dem ersten Schultag, einen Probelauf und das Recht auf Ruhe.
 category: schule-und-kita
-date: 2026-10-12
+date: 2026-10-05
 ---
 Die Zuckertüte stand seit einer Woche im Wohnzimmer, in einer Ecke hinter dem Sofa, eingewickelt in ein Bettlaken. Emil durfte sie nicht ansehen, so lautete die Abmachung. Aber er sah ihre Spitze unter dem Laken hervorlugen, blau mit silbernen Sternen, und er wusste, dass sie fast so groß war wie er selbst.
 

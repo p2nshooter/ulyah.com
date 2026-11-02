@@ -2,7 +2,7 @@
 title: "Digitale Fotos ordnen: Tausende Handybilder sortieren, löschen und sichern"
 description: "Digitale Fotos ordnen in Etappen: alle Speicherorte sammeln, Screenshots und Duplikate löschen, nach Jahr und Ereignis ablegen und deine Bilder mehrfach sichern."
 category: digitale-ruhe
-date: 2026-08-12
+date: 2026-10-11
 ---
 Das Handy meldet, dass der Speicher fast voll ist. In der Galerie liegen Tausende Bilder: der Sonnenuntergang vom letzten Sommer in zwanzig fast gleichen Varianten, Screenshots von Fahrplänen, Fotos von Preisschildern und Parkplätzen, Grußbilder aus dem Familienchat. Auf einem alten Handy in der Schublade warten weitere Fotos, auf der Speicherkarte der Kamera noch mehr, und irgendwo gibt es ein Cloud-Konto, dessen Passwort du nicht mehr genau weißt. Die schönsten Bilder deines Lebens sind irgendwo darin, nur findest du sie nicht.
 

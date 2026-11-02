@@ -2,7 +2,7 @@
 title: "Volunteering That Suits You: Finding a Role That Uses Your Skills and Lifts Your Spirit"
 description: How to choose a volunteering role that matches your skills, interests and time — from charity shops and befriending to trustee boards and skilled roles — and how to make it rewarding.
 category: purpose-and-connection
-date: 2026-10-19
+date: 2026-10-20
 ---
 Many women reach their fifties and sixties with a wealth of experience: careers, family life, community work, practical skills, professional expertise and hard-won wisdom. As working hours reduce or children become independent, there is often more time — and a desire to use it meaningfully. Volunteering offers a wonderful way to do that: helping others, supporting causes you care about, meeting people and learning new things.
 
