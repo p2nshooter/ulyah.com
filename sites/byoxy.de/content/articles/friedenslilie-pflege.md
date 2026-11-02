@@ -3,6 +3,11 @@ title: "Friedenslilie pflegen: Gießen, Licht und neue Blüten für das Einblatt
 description: So pflegst du die Friedenslilie (Spathiphyllum) richtig: Standort, Gießen, Luftfeuchtigkeit, Düngen, Umtopfen und Teilen, und was hilft, wenn sie hängt, braune Spitzen hat oder nicht blüht.
 category: zimmerpflanzen
 date: 2026-10-14
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - ASPCA: Peace lily (englisch) | https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/peace-lily
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
 ---
 Die Friedenslilie, auch Einblatt oder Spathiphyllum genannt, gehört zu den beliebtesten Zimmerpflanzen überhaupt. Sie hat glänzende, dunkelgrüne Blätter, verträgt auch Plätze, die etwas vom Fenster entfernt sind, und schmückt sich immer wieder mit eleganten weißen Blüten. Dazu kommt eine Eigenschaft, die gerade Einsteiger schätzen: Die Friedenslilie zeigt sehr deutlich, wann sie Wasser braucht, indem sie ihre Blätter hängen lässt, und richtet sich nach dem Gießen innerhalb weniger Stunden wieder auf.
 

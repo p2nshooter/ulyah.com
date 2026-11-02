@@ -3,6 +3,11 @@ title: "Calathea pflegen: Luftfeuchtigkeit, weiches Wasser und keine braunen Rä
 description: Wie du Calatheas und Korbmaranten richtig pflegst: Standort, kalkarmes Gießwasser, Luftfeuchtigkeit, Erde, Dünger und was gegen eingerollte Blätter und braune Blattränder hilft.
 category: zimmerpflanzen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - ASPCA: Calathea (englisch) | https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/calathea
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
 ---
 Calatheas, auch Korbmaranten genannt, gehören zu den schönsten Blattpflanzen für die Wohnung. Ihre Blätter sind gestreift, gefleckt oder gemustert, oft mit purpurroter Unterseite. Am Abend falten viele Arten ihre Blätter nach oben zusammen und öffnen sie morgens wieder, weshalb sie auch „Gebetspflanzen“ genannt werden. Gleichzeitig haben Calatheas den Ruf, empfindlich zu sein: Braune Blattränder und eingerollte Blätter sind häufige Klagen.
 

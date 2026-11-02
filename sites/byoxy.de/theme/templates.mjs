@@ -105,6 +105,16 @@ const garten = () => `<svg class="garten-terrassen" viewBox="0 0 360 280" aria-h
   <g fill="#d9b55a"><circle cx="140" cy="76" r="3"/><circle cx="240" cy="148" r="3"/></g>
 </svg>`;
 
+/** Die Helfer (Seiten mit `tool:`) als Beet auf der Startseite. */
+function helferBand(ctx) {
+  const tools = ctx.pages.filter((p) => p.tool);
+  if (!tools.length) return "";
+  return `<section class="garten-helfer" aria-labelledby="helfer-t">
+  <header class="garten-helfer__kopf"><p class="garten-helfer__zeile">Helfer</p><h2 id="helfer-t">Schnell nachschlagen und rechnen</h2><p>Vier Helfer, die direkt in deinem Browser arbeiten, ohne Konto und ohne dass etwas gesendet wird.</p></header>
+  <ul class="garten-helfer__liste">${tools.map((p) => `<li><a class="garten-helfer__karte" href="${p.url}"><span class="garten-helfer__name">${ctx.esc(p.title.split(":")[0])}</span><span class="garten-helfer__text">${ctx.esc(p.description)}</span></a></li>`).join("")}</ul>
+</section>`;
+}
+
 export function home(ctx) {
   const { site, articles, categories, esc } = ctx;
   const [first, second, third, ...rest] = articles;
@@ -132,6 +142,8 @@ export function home(ctx) {
     </a></li>`).join("\n    ")}
   </ul>
 </section>
+
+${helferBand(ctx)}
 
 <section class="garten-raster" aria-labelledby="neu-t">
   <header class="garten-ueber"><p class="garten-ueber__zeile">Frisch gegossen</p><h2 id="neu-t">Neue Ratgeber</h2></header>

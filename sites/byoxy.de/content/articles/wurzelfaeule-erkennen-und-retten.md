@@ -3,6 +3,11 @@ title: "Wurzelfäule erkennen und retten: Notfallplan für ertrunkene Zimmerpfla
 description: Woran du Wurzelfäule an Zimmerpflanzen erkennst, wie du gesunde und faule Wurzeln unterscheidest, die Pflanze Schritt für Schritt rettest, Stecklinge als Plan B nutzt und Fäulnis vorbeugst.
 category: schaedlinge-und-probleme
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: Leaf damage on houseplants (englisch) | https://www.rhs.org.uk/prevention-protection/leaf-damage-on-houseplants
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
 ---
 Wurzelfäule ist eine der häufigsten Todesursachen von Zimmerpflanzen und gleichzeitig eine der heimtückischsten. Sie beginnt unsichtbar unter der Erde. Wenn oberirdisch gelbe Blätter, schlaffe Triebe und weiche Stiele erscheinen, ist oft schon ein großer Teil der Wurzeln betroffen. Trotzdem lassen sich viele Pflanzen retten, wenn man schnell und entschlossen handelt.
 

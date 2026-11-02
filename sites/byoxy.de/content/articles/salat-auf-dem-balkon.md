@@ -3,6 +3,11 @@ title: "Salat auf dem Balkon: Pflücksalat, Kopfsalat und Asia-Salate im Kasten"
 description: So baust du Salat auf dem Balkon an: geeignete Sorten, Aussaat und Jungpflanzen, Kästen und Erde, Satzweise Aussaat, Gießen, Ernte Blatt für Blatt, Hitze und Schießen, Schnecken und Läuse.
 category: kraeuter-und-gemuese
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow salad leaves (englisch) | https://www.rhs.org.uk/vegetables/salad-leaves/grow-your-own
+  - Bayerische Gartenakademie: Balkongemüse – der Gemüsegarten auf kleinstem Raum | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/150326/index.php
 ---
 Salat gehört zu den einfachsten Gemüsen für den Balkon. Er wächst schnell, braucht wenig Platz, kommt mit Halbschatten zurecht und lässt sich von Frühjahr bis Herbst immer wieder ernten. Besonders Pflücksalate liefern über Wochen frische Blätter, ohne dass die ganze Pflanze geerntet werden muss. Schon ein einziger Balkonkasten kann einen Haushalt regelmäßig mit knackigem Grün versorgen.
 

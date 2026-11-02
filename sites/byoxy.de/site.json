@@ -4,7 +4,7 @@
   "name": "BYOXY",
   "expansion": "Bring Your OXYgen home",
   "tagline": "Zimmerpflanzen, Balkon und Kräuter: grünes Wohnen, verständlich erklärt",
-  "description": "BYOXY ist ein Ratgeber für grünes Wohnen: Zimmerpflanzen auswählen und pflegen, Gießen, Licht und Erde verstehen, Schädlinge erkennen, Pflanzen vermehren und Balkon und Kräutergarten anlegen, mit erprobten Anleitungen für Anfänger und Fortgeschrittene.",
+  "description": "BYOXY ist ein Ratgeber für grünes Wohnen: Zimmerpflanzen auswählen und pflegen, Gießen, Licht und Erde verstehen, Schädlinge erkennen, Pflanzen vermehren und Balkon und Kräutergarten anlegen, mit klaren Anleitungen und Quellen für Anfänger und Fortgeschrittene.",
   "lang": "de",
   "locale": "de-DE",
   "ogLocale": "de_DE",
@@ -16,6 +16,7 @@
   "author": "BYOXY Redaktion",
   "fonts": "https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
   "paths": { "article": "/ratgeber/", "category": "/gaerten/" },
+  "sources": "required",
   "categories": [
     { "slug": "zimmerpflanzen", "name": "Zimmerpflanzen", "icon": "monstera", "description": "Beliebte Zimmerpflanzen im Porträt: Standort, Pflege und typische Probleme von Monstera bis Bogenhanf." },
     { "slug": "pflege-grundlagen", "name": "Pflege-Grundlagen", "icon": "kanne", "description": "Gießen, Licht, Erde, Dünger und Umtopfen: das Handwerkszeug, mit dem Pflanzen gesund wachsen." },
@@ -26,6 +27,7 @@
   ],
   "promo": { "slug": "gruene-helfer-digital", "label": "✦ Grüne Helfer digital" },
   "menu": [
+    { "label": "Helfer", "href": "/helfer/" },
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Pflanzensicherheit", "href": "/pflanzensicherheit/" },
     { "label": "Kontakt", "href": "/kontakt/" }

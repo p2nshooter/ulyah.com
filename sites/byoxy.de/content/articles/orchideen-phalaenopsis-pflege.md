@@ -3,6 +3,11 @@ title: "Orchideen (Phalaenopsis) pflegen: Gießen, Tauchen und neue Blüten"
 description: So pflegst du Schmetterlingsorchideen richtig: heller Standort, Tauchen statt Gießen, das passende Substrat, Umtopfen, Rückschnitt der Rispe und wie du eine neue Blüte auslöst.
 category: zimmerpflanzen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - ASPCA: Toxic and non-toxic plant list – cats (englisch) | https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list
 ---
 Die Schmetterlingsorchidee, botanisch Phalaenopsis, ist die mit Abstand häufigste Orchidee auf deutschen Fensterbänken. Sie blüht monatelang, ist in vielen Farben erhältlich und gilt dennoch bei vielen als schwierig. Der Grund liegt meist darin, dass sie wie eine normale Topfpflanze behandelt wird. Phalaenopsis wachsen in der Natur aber nicht in Erde, sondern sitzen auf Baumrinde. Wer das versteht, versteht fast alle ihre Bedürfnisse.
 

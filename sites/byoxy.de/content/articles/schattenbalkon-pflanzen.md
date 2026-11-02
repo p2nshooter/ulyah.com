@@ -3,6 +3,11 @@ title: "Pflanzen für den Schattenbalkon: Blüten, Blattschmuck und Kräuter fü
 description: Die besten Pflanzen für schattige Nord- und Innenhofbalkone: Fuchsien, Begonien, Fleißiges Lieschen, Farne, Funkien, Purpurglöckchen, schattenverträgliche Kräuter, Gestaltungsideen und Pflege.
 category: balkon-und-terrasse
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - NABU: Balkon – Naturoase auf kleinem Raum | https://www.nabu.de/umwelt-und-ressourcen/oekologisch-leben/balkon-und-garten/grundlagen/balkon/26201.html
+  - Bayerische Gartenakademie: Kiste, Kübel und Sack – wenig Platz (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/180720-lwg-folder-mobil.pdf
 ---
 Viele Balkone liegen auf der Nordseite, in einem engen Innenhof oder unter einem tiefen Dachüberstand. Direkte Sonne gibt es hier kaum. Häufig wird daraus geschlossen, dass dort nichts Schönes wachsen kann. Das stimmt nicht. Es gibt zahlreiche Pflanzen, die Schatten nicht nur ertragen, sondern lieben. Und ein Schattenbalkon hat sogar Vorteile: Er heizt sich im Sommer kaum auf, die Pflanzen brauchen weniger Wasser, und Blattschmuckpflanzen leuchten in sattem Grün.
 

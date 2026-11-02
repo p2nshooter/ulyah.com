@@ -3,6 +3,11 @@ title: "Thripse an Zimmerpflanzen: silbrige Flecken erkennen und Thripse loswerd
 description: Woran du Thripse an Zimmerpflanzen erkennst, wie ihr Lebenszyklus funktioniert, welche Mittel und Nützlinge wirklich helfen und wie ein Behandlungsplan über mehrere Wochen aussieht.
 category: schaedlinge-und-probleme
 date: 2026-10-14
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: Indoor plants, sap-feeding insects (englisch) | https://www.rhs.org.uk/biodiversity/indoor-plants-sap-feeding-insects
+  - Royal Horticultural Society: Biological control in the garden (englisch) | https://www.rhs.org.uk/prevention-protection/biological-control-garden
 ---
 Silbrig glänzende Flecken auf den Blättern, winzige schwarze Pünktchen und neue Blätter, die verkrüppelt aus dem Herz kommen: Das sind typische Spuren von Thripsen. Diese Schädlinge sind so klein und flink, dass viele Pflanzenbesitzer sie lange übersehen und erst bemerken, wenn eine Pflanze schon deutlich gelitten hat. Gleichzeitig gehören Thripse zu den hartnäckigsten Schädlingen in der Wohnung, weil ihre Eier im Blattgewebe und ihre Puppen oft in der Erde vor vielen Mitteln geschützt sind.
 

@@ -3,6 +3,11 @@ title: "Aussaat auf der Fensterbank: Gemüse, Kräuter und Blumen selbst vorzieh
 description: So gelingt die Anzucht auf der Fensterbank: Zeitplan, Anzuchterde und Gefäße, Licht- und Dunkelkeimer, Temperatur, Gießen, Pikieren, Pflanzenlampen, Abhärten und typische Fehler.
 category: vermehren
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Balkongemüse – der Gemüsegarten auf kleinstem Raum | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/150326/index.php
+  - Umweltbundesamt: Mit torffreier Blumenerde klimafreundlich gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/torffreier-blumenerde-klimafreundlich-gaertnern
 ---
 Tomaten, Paprika, Chili, Basilikum oder Sommerblumen aus eigenem Saatgut zu ziehen, ist eines der schönsten Erlebnisse für Balkon- und Pflanzenfreunde. Aus einem winzigen Samenkorn wird innerhalb weniger Wochen eine kräftige Jungpflanze. Gleichzeitig hast du Zugang zu einer viel größeren Sortenvielfalt als im Gartencenter. Die Fensterbank ist dabei die Kinderstube. Wer einige Grundregeln beachtet, vermeidet die typischen Probleme wie lange, dünne Keimlinge oder Schimmel.
 

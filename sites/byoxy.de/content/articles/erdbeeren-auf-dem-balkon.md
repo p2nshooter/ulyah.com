@@ -3,6 +3,11 @@ title: "Erdbeeren auf dem Balkon: Sorten, Pflanzzeit, Pflege und eine lange Ernt
 description: So wachsen Erdbeeren in Topf, Kasten und Ampel: einmal- und mehrmals tragende Sorten, Monatserdbeeren, Pflanzzeit, Erde, Gießen, Düngen, Bestäubung, Ausläufer, Überwintern und Probleme.
 category: kraeuter-und-gemuese
 date: 2026-10-14
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Balkongemüse – der Gemüsegarten auf kleinstem Raum | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/150326/index.php
+  - Bayerische Gartenakademie: Kiste, Kübel und Sack – wenig Platz (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/180720-lwg-folder-mobil.pdf
 ---
 Frische, sonnenwarme Erdbeeren direkt vom Balkon gehören zu den schönsten Erlebnissen für Hobbygärtner, und für Kinder sind sie oft der Einstieg ins Gärtnern überhaupt. Erdbeeren sind erstaunlich gut für Töpfe, Kästen und Ampeln geeignet: Sie haben flache Wurzeln, bleiben kompakt und tragen mit der richtigen Sortenwahl von Frühsommer bis in den Herbst.
 

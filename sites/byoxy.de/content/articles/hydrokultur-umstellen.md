@@ -3,6 +3,11 @@ title: "Hydrokultur: Zimmerpflanzen ohne Erde halten und richtig umstellen"
 description: Wie Hydrokultur und Semi-Hydro funktionieren, welche Pflanzen sich eignen, wie du von Erde umstellst, richtig gießt und düngst, und welche Vor- und Nachteile das System im Alltag hat.
 category: pflege-grundlagen
 date: 2026-10-14
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - Royal Horticultural Society: Leaf damage on houseplants (englisch) | https://www.rhs.org.uk/prevention-protection/leaf-damage-on-houseplants
 ---
 Gießen nach Gefühl, Trauermücken in der Erde, Schimmel auf der Oberfläche: Viele Probleme mit Zimmerpflanzen haben mit Erde und Wasser zu tun. Die Hydrokultur löst einige davon auf elegante Weise. Die Pflanzen wachsen dabei nicht in Erde, sondern in einem mineralischen Substrat wie Blähton, und ein kleiner Wasserstandsanzeiger zeigt dir genau, wann sie Wasser brauchen.
 
