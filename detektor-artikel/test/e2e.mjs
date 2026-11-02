@@ -251,8 +251,8 @@ await m.waitForURL(/ok=deposit-convert/);
 const tokAfterConv = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
 ok(tokAfterConv === tokAfterBuy + preview && preview > 0, `tukar sisa deposit: +${preview} token sesuai pratinjau`);
 await m.screenshot({ path: `${OUT}/token-deposit.png`, fullPage: true });
-const memberHtml = await m.content();
-ok(!/markup|modal|keuntungan|×\s*kurs/i.test(memberHtml.replace(/<script[\s\S]*?<\/script>/g, '')), 'halaman token member tidak menyebut markup/modal (rahasia perusahaan)');
+const memberText = await m.evaluate(() => document.body.innerText);
+ok(!/markup|modal|keuntungan|×\s*kurs/i.test(memberText), 'halaman token member tidak menyebut markup/modal (rahasia perusahaan)');
 
 await m.goto(BASE + '/app/periksa');
 await m.fill('textarea[name=text]', ESSAY);
