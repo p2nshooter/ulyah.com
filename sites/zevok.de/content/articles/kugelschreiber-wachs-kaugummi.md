@@ -2,7 +2,13 @@
 title: "Kugelschreiber, Kerzenwachs und Kaugummi entfernen: Schritt für Schritt aus Stoff, Teppich und Polster"
 description: "Tinte mit Alkohol lösen, Wachs mit Kälte und Bügeleisen, Kaugummi im Gefrierfach: drei hartnäckige Fleckarten aus Kleidung, Teppich und Sofa entfernen, ohne Schaden."
 category: flecken-entfernen
-date: 2026-08-07
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Manche Flecken folgen keinem der üblichen Muster. Ein Kugelschreiber, der in der Hosentasche ausgelaufen ist, Kerzenwachs auf der guten Tischdecke nach dem Adventskaffee, ein Kaugummi, der am Sofa oder an der Kinderhose klebt: Hier helfen weder kaltes Wasser noch Spülmittel allein. Jede dieser Verschmutzungen braucht eine eigene Methode, und mit der falschen machst du es oft schlimmer, etwa wenn du Wachs nass wegwischst oder Kaugummi mit warmem Wasser verschmierst.
 

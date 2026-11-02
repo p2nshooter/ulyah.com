@@ -3,7 +3,7 @@ title: "Handyspeicher voll: So gibst du auf Android und iPhone sicher Platz frei
 seoTitle: "Handyspeicher voll? Speicher freigeben auf Android & iPhone"
 description: "Speicher voll auf dem Smartphone? So findest du die größten Platzfresser, räumst Fotos, Chats und App-Daten auf, ohne Wichtiges zu verlieren, und verhinderst, dass es wieder passiert."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 „Speicher fast voll“ – diese Meldung erscheint gern im ungünstigsten Moment: beim Fotografieren auf einem Geburtstag, beim Herunterladen eines Tickets oder wenn ein wichtiges Update ansteht. Ein volles Smartphone ist aber nicht nur lästig. Wenn weniger als etwa zehn Prozent des Speichers frei sind, werden viele Geräte spürbar langsamer, Updates scheitern und manche Apps stürzen ab. In dieser Anleitung findest du heraus, was den Platz belegt, wie du sicher aufräumst und wie du verhinderst, dass es in drei Monaten wieder so weit ist.

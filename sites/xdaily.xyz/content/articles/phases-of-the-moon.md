@@ -2,7 +2,7 @@
 title: "The Phases of the Moon Explained: Why It Waxes and Wanes, and Why We Always See the Same Face"
 description: "How sunlight and the Moon's orbit create new moon, crescents, quarters, gibbous and full moon, why it is not Earth's shadow, why one side always faces us, and how to tell the phase at a glance."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 The Moon is the most familiar object in the night sky, and also one of the most changeable. Over the course of about a month, it grows from a thin silver sliver into a brilliant full disk and then shrinks back again until it disappears. People have used these changes to measure time for thousands of years; the word "month" is related to "Moon." Yet many people are unsure what causes the phases. A common belief is that Earth's shadow covers part of the Moon. That is not correct. The real explanation involves sunlight, geometry and the Moon's journey around Earth. This explainer walks through the phases step by step.

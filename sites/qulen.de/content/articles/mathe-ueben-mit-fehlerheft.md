@@ -2,7 +2,7 @@
 title: "Mathe üben mit dem Fehlerheft: Wie Fynn aus seinen Fehlern ein Trainingsprogramm machte"
 description: "Fynn übt viel, macht aber immer wieder dieselben Fehler. Wie ein Fehlerheft funktioniert, warum du nicht zu früh in die Lösung schauen solltest und wie du Fehler in Punkte verwandelst."
 category: mathe-und-lernluecken
-date: 2026-08-07
+date: 2026-10-11
 ---
 Fynn war sich sicher, dass er alles richtig gemacht hatte. Vor der Arbeit über quadratische Gleichungen hatte er drei Abende lang geübt, jeweils eine Stunde, mit dem Lösungsheft neben sich. Er hatte über fünfzig Aufgaben gerechnet. Als die Arbeit zurückkam, stand eine Vier darunter. Und als er die Fehler durchsah, wurde ihm schlecht: Es waren fast genau dieselben Fehler, die er auch beim Üben gemacht hatte. Vorzeichen in der Mitternachtsformel. Ein vergessenes Plus-Minus. Eine falsch aufgelöste binomische Formel.
 

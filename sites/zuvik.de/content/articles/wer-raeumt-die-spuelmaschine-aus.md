@@ -2,7 +2,7 @@
 title: "Wer räumt die Spülmaschine aus?"
 description: Anke hat das Gefühl, im Haushalt alles allein zu machen. Dann legt sie eine Liste auf den Tisch, die alle verstummen lässt. Über unsichtbare Arbeit, faire Aufgabenteilung und missglückte Spaghetti.
 category: zusammenleben-zuhause
-date: 2026-10-12
+date: 2026-10-05
 ---
 Die Spülmaschine piepte dreimal. Das Programm war fertig. Anke hörte es aus dem Badezimmer, wo sie gerade die Handtücher wechselte, und sie wusste, dass niemand anderes in der Wohnung es gehört hatte. Oder dass alle es gehört und beschlossen hatten, dass es sie nichts anging.
 

@@ -2,7 +2,7 @@
 title: "Why We Have Seasons: Earth's Tilt, Sunlight Angles and the Myth About Distance From the Sun"
 description: "Why summer and winter happen, why distance from the Sun is not the reason, how the 23.4° tilt changes daylight and sunlight angle, what solstices and equinoxes are, and why seasons lag behind."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Every year, the world goes through a familiar rhythm. Days grow longer and warmer, trees fill with leaves, then the light shortens, temperatures fall and, in many places, snow arrives. Ask people why this happens and a surprising number will say that Earth is closer to the Sun in summer and farther away in winter. It sounds logical, but it is not the reason. In fact, Earth is closest to the Sun in early January, in the middle of winter for the Northern Hemisphere. The real cause of the seasons is something more elegant: the tilt of Earth's axis. This explainer shows how that tilt changes the length of the day and the angle of sunlight, and why that matters so much for temperature.

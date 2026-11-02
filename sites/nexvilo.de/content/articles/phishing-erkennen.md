@@ -2,7 +2,7 @@
 title: "Phishing erkennen: So entlarvst du gefälschte E-Mails, SMS und Webseiten"
 description: "Gefälschte Mails von Bank, Paketdienst oder Streamingdienst: Die zehn wichtigsten Warnzeichen für Phishing, wie du Links und Absender prüfst und was du tust, wenn du schon geklickt hast."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 „Ihr Konto wurde vorübergehend gesperrt“, „Ihr Paket konnte nicht zugestellt werden“, „Ihre Zahlung ist fehlgeschlagen“: Solche Nachrichten landen täglich millionenfach in Postfächern und auf Smartphones. Viele davon sind gefälscht. Hinter ihnen stecken Kriminelle, die an Passwörter, Bankdaten oder Geld kommen wollen. Diese Masche heißt **Phishing**, ein Kunstwort aus „Passwort“ und „fishing“, also das Angeln nach Zugangsdaten. Die gute Nachricht: Mit etwas Übung erkennst du die meisten Fälschungen in wenigen Sekunden. Diese Anleitung zeigt dir, worauf du achten musst.

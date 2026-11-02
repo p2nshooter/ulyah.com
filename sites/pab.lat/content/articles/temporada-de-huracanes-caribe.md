@@ -2,7 +2,7 @@
 title: "Viajar al Caribe en temporada de huracanes: cuándo es, qué zonas afecta y cómo planificar"
 description: "Fechas de la temporada de huracanes en el Atlántico y el Pacífico, meses de mayor riesgo, zonas más y menos expuestas, alertas oficiales, seguros y qué hacer si se acerca una tormenta."
 category: playas-y-costas
-date: 2026-08-06
+date: 2026-10-11
 ---
 El Caribe tiene fama de paraíso todo el año, y en buena medida lo es: aguas tibias, sol y playas de arena blanca. Pero entre junio y noviembre llega la temporada de huracanes del Atlántico, y muchos viajeros dudan: ¿vale la pena viajar en esos meses, con precios más bajos y menos turistas, o es demasiado arriesgado? ¿Qué pasa si se forma una tormenta justo durante las vacaciones?
 

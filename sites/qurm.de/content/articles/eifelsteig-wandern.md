@@ -2,7 +2,7 @@
 title: "Eifelsteig: 15 Etappen von Aachen nach Trier durch Venn, Nationalpark und Maare"
 description: "Der Eifelsteig im Überblick: Verlauf vom Hohen Venn über den Nationalpark Eifel und die Vulkaneifel bis Trier, Charakter der Etappen, Anspruch, Jahreszeiten und Planung."
 category: fernwanderwege
-date: 2026-07-20
+date: 2026-10-06
 ---
 Der Eifelsteig ist ein Fernwanderweg der leisen Töne. Er hat keine Hochgebirgsgipfel und keine berühmten Burgen am Fluss, dafür eine Landschaft, die sich alle zwei Tage komplett verwandelt. Auf etwa 313 Kilometern zieht er von Aachen-Kornelimünster bis nach Trier, vom Hochmoor des Hohen Venns über Talsperren und Buchenwälder des Nationalparks Eifel, vorbei an Kalkfelsen, Vulkankegeln und tiefblauen Maaren, bis er an der Porta Nigra in der ältesten Stadt Deutschlands endet. Wer gerne lange, abwechslungsreich und ohne Massenandrang wandert, findet hier einen der schönsten Wege des Landes.
 

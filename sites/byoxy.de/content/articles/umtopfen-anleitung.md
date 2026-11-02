@@ -2,7 +2,7 @@
 title: "Zimmerpflanzen umtopfen: Schritt-für-Schritt-Anleitung mit Topfwahl und Nachsorge"
 description: Wann und wie du Zimmerpflanzen richtig umtopfst: Anzeichen, beste Jahreszeit, Topfgröße, Werkzeug, Wurzelkontrolle, Schritt-für-Schritt-Anleitung und Pflege nach dem Umtopfen.
 category: pflege-grundlagen
-date: 2026-09-19
+date: 2026-10-04
 ---
 Umtopfen gehört zu den wichtigsten Pflegemaßnahmen für Zimmerpflanzen. Es gibt den Wurzeln neuen Raum, ersetzt verbrauchte Erde und ermöglicht einen Blick auf die Gesundheit der Wurzeln. Gleichzeitig ist es ein Eingriff, der Pflanzen Stress bereitet. Wer zu früh, zu oft oder in einen viel zu großen Topf umtopft, kann mehr schaden als nützen.
 

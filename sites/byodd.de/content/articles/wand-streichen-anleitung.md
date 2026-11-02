@@ -2,7 +2,7 @@
 title: "Wand streichen: Schritt-für-Schritt-Anleitung für ein streifenfreies Ergebnis"
 description: Wie du Wände und Decken richtig streichst, vom Abkleben und Grundieren über die Wahl von Farbe und Rolle bis zur Technik nass in nass, mit Mengenrechner und Lösungen für typische Probleme.
 category: waende-und-boeden
-date: 2026-10-12
+date: 2026-10-04
 ---
 Eine frisch gestrichene Wand verändert einen Raum mehr als fast jede andere Renovierung, und sie gehört zu den Arbeiten, die fast jeder selbst erledigen kann. Trotzdem sehen viele selbst gestrichene Wände bei Streiflicht fleckig aus, zeigen Ansätze, Rollenspuren oder durchscheinende alte Farbe. Das liegt selten am fehlenden Talent, sondern an kleinen Fehlern bei Vorbereitung, Material und Technik.
 

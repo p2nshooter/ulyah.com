@@ -2,7 +2,7 @@
 title: "Dressing for Your Shape Now: Fit, Proportion and Feeling Good in Your Clothes"
 description: How body shape often changes after fifty, and practical styling ideas for waist, tummy, arms, bust and legs — focusing on fit, proportion and comfort rather than hiding.
 category: style-and-wardrobe
-date: 2026-10-19
+date: 2026-10-20
 ---
 Most women's bodies change over the years. The waist may thicken, weight may settle around the tummy, the bust may change shape, arms may feel softer, and posture may shift slightly. Clothes that once fitted perfectly start to pull, gape or cling in new places. It is entirely normal — and yet it can leave us feeling that fashion has stopped catering for us.
 

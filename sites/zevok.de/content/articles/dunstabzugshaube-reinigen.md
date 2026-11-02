@@ -2,7 +2,13 @@
 title: "Dunstabzugshaube reinigen: Fettfilter, Aktivkohlefilter und Gehäuse ohne Schmierfilm"
 description: "Fettfilter in der Spülmaschine oder von Hand reinigen, Aktivkohlefilter rechtzeitig wechseln, Edelstahl und Glas streifenfrei pflegen und die Haube richtig nutzen."
 category: kueche-reinigen
-date: 2026-09-03
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Umweltbundesamt: Geschirrspüler im ECO-Programm | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/geschirrspueler-im-eco-programm-wasser-strom-sparen
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
 ---
 Die Dunstabzugshaube arbeitet bei jedem Kochen still mit und wird trotzdem oft vergessen. Dabei sammelt sie in kurzer Zeit eine erstaunliche Menge Fett. Wer die Filter zum ersten Mal nach Monaten herausnimmt, findet oft eine klebrige, braune Schicht, die nicht nur unappetitlich aussieht. Verstopfte Filter verringern die Saugleistung, lassen Gerüche in der Küche hängen und können im schlimmsten Fall sogar Feuer fangen, wenn eine Flamme vom Herd das Fett entzündet.
 

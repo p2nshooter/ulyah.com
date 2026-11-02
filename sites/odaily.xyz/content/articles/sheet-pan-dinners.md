@@ -2,7 +2,7 @@
 title: "Sheet-Pan Dinners: How to Roast a Whole Meal on One Tray Without Soggy Vegetables or Dry Meat"
 description: "Pair proteins and vegetables by cooking time, stage the tray so everything finishes together, pick the right pan and temperature, and rotate six sheet-pan dinners with sauces that keep them new."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 On a busy weeknight, there is something deeply appealing about putting an entire dinner on a single baking sheet, sliding it into the oven and walking away. Twenty-five minutes later, you have golden chicken, caramelized vegetables and crisp potatoes, with only one pan to wash. Sheet-pan dinners are flexible, need little hands-on time and are ideal for using up vegetables in the fridge. But they have one challenge: different foods cook at different speeds. If everything goes in at once, you may end up with burnt broccoli and raw potatoes, or perfect vegetables and dry chicken. The secret is planning the tray. This guide shows you how.

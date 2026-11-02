@@ -2,7 +2,7 @@
 title: "Die 15 häufigsten Fehler beim Vogelfüttern und wie du sie vermeidest"
 description: "Brot, Netze, schmutzige Futterhäuser, der falsche Platz und zu viel Futter: die häufigsten Fehler beim Füttern von Gartenvögeln und was du stattdessen tun solltest."
 category: fuettern-und-traenken
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Wer Vögel füttert, will ihnen helfen. Trotzdem passieren dabei immer wieder Fehler, die den Tieren eher schaden als nützen. Manche sind offensichtlich, wie Brot ins Futterhaus zu legen. Andere sind weniger bekannt, etwa ein Futterhaus in drei Metern Entfernung vom Wohnzimmerfenster oder die Plastiknetze um Meisenknödel. Die gute Nachricht: Alle diese Fehler lassen sich leicht vermeiden.

@@ -2,7 +2,7 @@
 title: "Heimische Sträucher für Vögel: 16 Vogelnährgehölze mit Blüte, Früchten und Standort"
 description: "Weißdorn, Holunder, Eberesche, Schlehe und mehr: die besten heimischen Sträucher für Vögel, wann sie blühen und fruchten, welche Vögel sie nutzen und wie du eine Vogelhecke pflanzt."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Wer Vögeln dauerhaft helfen möchte, pflanzt Sträucher. Ein einziger Weißdorn bietet im Frühjahr Blüten für Insekten, im Sommer Nistplätze in seinen dornigen Zweigen und im Herbst rote Früchte für Amseln, Drosseln und Seidenschwänze. Heimische Sträucher sind Futterquelle, Kinderstube und Schutzraum zugleich. Viele exotische Ziergehölze wie Kirschlorbeer oder Thuja sehen zwar immer grün aus, sind für unsere Vögel und Insekten aber weitgehend nutzlos.

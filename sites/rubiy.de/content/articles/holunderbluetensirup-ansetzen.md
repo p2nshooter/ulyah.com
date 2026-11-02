@@ -2,7 +2,7 @@
 title: "Holunderblütensirup ansetzen: Blüten sicher sammeln, Rezept und Hollerküchle"
 description: "Holunderblüten im Mai und Juni richtig erkennen und ernten, Holunderblütensirup mit Zitrone ansetzen und haltbar abfüllen, dazu ausgebackene Hollerküchle und Verwechslungsgefahren."
 category: fruehling
-date: 2026-10-12
+date: 2026-10-06
 ---
 Ende Mai, wenn die Tage lang werden, blühen an Waldrändern, Bahndämmen und in alten Gärten die Holundersträucher. Ihre tellergroßen, cremeweißen Dolden duften süß, ein wenig nach Muskat und Honig, und in vielen Familien ist das der Startschuss für ein Ritual: Blüten sammeln, mit Zucker und Zitrone ansetzen, ein paar Tage warten und dann Sirup abfüllen, der den Frühsommer bis in den Winter trägt. Mit kaltem Sprudelwasser ergibt er eine der besten Limonaden, die es gibt. Und wer die Dolden in Teig taucht und ausbackt, hat mit Hollerküchle ein Gericht, das es nur ein paar Wochen im Jahr gibt.
 

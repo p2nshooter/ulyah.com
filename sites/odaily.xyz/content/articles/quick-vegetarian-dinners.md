@@ -2,7 +2,7 @@
 title: "Quick Vegetarian Dinners: How to Build Filling Meatless Meals With Enough Protein in Thirty Minutes"
 description: "A simple formula for filling vegetarian dinners, the fastest proteins from eggs and beans to tofu and lentils, savory depth without meat, and eight thirty-minute dinners for the whole table."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 More and more families cook vegetarian meals a few nights a week, whether for health, budget, the environment or simply for variety. Yet many people worry that a meal without meat will leave everyone hungry an hour later, or that it will take a long time to prepare. Neither has to be true. A well-built vegetarian dinner can be filling, full of protein and ready in thirty minutes. The key is to understand what makes a meal satisfying: protein, fiber, healthy fats and plenty of flavor. This guide gives you a simple formula, a list of quick protein sources and eight weeknight dinners that even committed meat eaters will enjoy.

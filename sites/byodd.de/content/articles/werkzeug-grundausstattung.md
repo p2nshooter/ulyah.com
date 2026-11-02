@@ -2,7 +2,7 @@
 title: "Werkzeug-Grundausstattung: Was in jeden Heimwerker-Haushalt gehört"
 description: Welches Werkzeug Einsteiger wirklich brauchen, was es kostet, worauf man beim Kauf achtet und wie man die Ausstattung sinnvoll Schritt für Schritt erweitert.
 category: werkzeug-und-grundlagen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Wer zum ersten Mal ein Regal aufhängen, eine Lampe montieren oder eine Schranktür nachstellen will, steht schnell vor der Frage: Was brauche ich eigentlich? Baumärkte locken mit Werkzeugkoffern voller glänzender Teile, von denen viele nie benutzt werden, während genau das eine Werkzeug fehlt, das man gerade braucht. Eine durchdachte Grundausstattung spart Geld, Nerven und Wege in den Baumarkt.
 

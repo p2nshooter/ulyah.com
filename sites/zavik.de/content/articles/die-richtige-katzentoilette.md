@@ -2,7 +2,7 @@
 title: "Die richtige Katzentoilette: Größe, Streu, Standort und Pflege"
 description: Haube oder offen, Bentonit oder Pflanzenstreu, wie viele Toiletten und wo: ein ausführlicher Ratgeber zur Katzentoilette, damit deine Katze sie gern benutzt und du ihre Gesundheit im Blick behältst.
 category: wohnung-und-freigang
-date: 2026-08-04
+date: 2026-10-05
 ---
 Über kaum einen Gegenstand im Katzenhaushalt wird so wenig nachgedacht wie über die Katzentoilette. Man kauft eine im Zoofachhandel, füllt Streu hinein, stellt sie ins Bad und hofft, dass es klappt. Meistens klappt es auch. Aber wenn nicht, wird es schnell unangenehm, und Unsauberkeit gehört zu den häufigsten Gründen, warum Katzen ihr Zuhause verlieren.
 

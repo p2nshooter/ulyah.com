@@ -2,7 +2,7 @@
 title: "Sicher online einkaufen: Fake-Shops erkennen, richtig bezahlen und deine Rechte kennen"
 description: "Woran du Fake-Shops erkennst, welche Zahlungsarten dich schützen, wie Widerruf und Gewährleistung funktionieren und was du tust, wenn die Ware nicht kommt oder du betrogen wurdest."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Online einkaufen ist bequem: Rund um die Uhr, ohne Parkplatzsuche und mit riesiger Auswahl. Gleichzeitig ist der Online-Handel ein beliebtes Revier für Betrüger. Gefälschte Shops locken mit unglaublich günstigen Preisen, verschwinden nach der Bezahlung und liefern nie. Auf Kleinanzeigen-Plattformen und in sozialen Netzwerken sind ebenfalls viele Maschen unterwegs. Die gute Nachricht: Mit ein paar Prüfungen vor dem Kauf und der richtigen Zahlungsart bist du gut geschützt. Und wenn doch etwas schiefgeht, hast du in der EU starke Rechte. Diese Anleitung erklärt, worauf du achten solltest.

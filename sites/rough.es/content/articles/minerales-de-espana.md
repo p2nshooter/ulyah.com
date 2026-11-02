@@ -2,7 +2,7 @@
 title: "Minerales de España: los yacimientos clásicos que todo aficionado debería conocer"
 description: "Un recorrido por los minerales más célebres de España: pirita de Navajún, aragonito de Molina, fluorita asturiana, cinabrio de Almadén, blenda de Áliva, la geoda de Pulpí y más."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Pocos países de Europa reúnen en tan poco espacio una variedad mineral como la de España. Aquí nacieron nombres que hoy se usan en todo el mundo, como el aragonito, que debe el suyo a Molina de Aragón; aquí se encuentra el mayor yacimiento de mercurio que se ha explotado nunca, en Almadén; y de aquí salen algunos de los ejemplares que los coleccionistas de cualquier continente reconocen al primer vistazo, como los cubos de pirita de Navajún o la blenda transparente de los Picos de Europa.
 

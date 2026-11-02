@@ -2,7 +2,7 @@
 title: "Präsentationsfolien gestalten: Wie Kemal lernte, dass weniger Text auf der Folie mehr Wirkung hat"
 description: "Kemals Folien sind voller Text, und die Klasse liest, statt zuzuhören. Wie gute Präsentationsfolien aufgebaut sind und wie Bilder, Diagramme und Vortrag zusammenspielen."
 category: referate-und-praesentieren
-date: 2026-08-19
+date: 2026-10-11
 ---
 Kemal klickte auf die nächste Folie. Sie war, wie alle anderen auch, randvoll mit Text. Zwölf Stichpunkte, jeder fast ein ganzer Satz, in kleiner Schrift, damit alles draufpasste. Kemal las die Stichpunkte vor, einen nach dem anderen. Nach der dritten Folie bemerkte er, dass in der zweiten Reihe jemand gähnte. In der letzten Reihe tippte jemand unter dem Tisch auf dem Handy. Und Frau Wagner, die Lehrerin, hatte aufgehört, ihn anzusehen, und las stattdessen still mit. Kemal sprach schneller. Er wollte nur noch fertig werden.
 

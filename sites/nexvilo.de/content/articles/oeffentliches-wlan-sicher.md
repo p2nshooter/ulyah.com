@@ -2,7 +2,7 @@
 title: "Öffentliches WLAN sicher nutzen: Café, Hotel, Bahn und Flughafen ohne Risiko"
 description: "Wie gefährlich offene Hotspots wirklich sind, woran du gefälschte WLANs erkennst, wann ein VPN sinnvoll ist und welche Einstellungen Smartphone und Laptop unterwegs schützen."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Im Café kurz die Mails checken, im ICE die Präsentation hochladen, im Hotel abends einen Film streamen: Kostenlose WLAN-Hotspots sind praktisch und sparen mobiles Datenvolumen. Gleichzeitig hört man immer wieder Warnungen, öffentliche Netze seien gefährlich. Wie groß ist das Risiko heute wirklich? Und was kannst du tun, um dich zu schützen? Diese Anleitung erklärt nüchtern, was in einem öffentlichen WLAN passieren kann, was nicht mehr so leicht möglich ist wie früher und mit welchen Einstellungen du unterwegs sicher bist.

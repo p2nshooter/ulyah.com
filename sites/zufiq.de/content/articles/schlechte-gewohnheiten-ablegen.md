@@ -2,7 +2,7 @@
 title: "Schlechte Gewohnheiten ablegen: Auslöser erkennen, Hürden bauen und Ersatz finden"
 description: "Wie du ungeliebte Gewohnheiten loswirst: Auslöser und Belohnung verstehen, Hürden einbauen, ein Ersatzverhalten wählen, mit Rückfällen umgehen und wissen, wann fachliche Hilfe sinnvoll ist."
 category: gewohnheiten-und-routinen
-date: 2026-07-06
+date: 2026-10-11
 ---
 Das Handy liegt neben dem Teller und wird bei jeder Gesprächspause in die Hand genommen. Abends auf dem Sofa wandert die Hand wie von selbst in die Chipstüte. Die Folge wird „nur noch eine“ und dann noch eine geschaut, bis es nach Mitternacht ist. Fast jeder hat Gewohnheiten, die er eigentlich loswerden möchte. Und fast jeder hat schon erlebt, dass bloßes Vornehmen wenig bewirkt. Das ist kein Charakterfehler. Gewohnheiten sind gerade deshalb so stark, weil sie ohne bewusste Entscheidung ablaufen. Wer sie ändern will, muss verstehen, wie sie funktionieren, und dort ansetzen.
 

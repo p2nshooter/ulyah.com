@@ -2,7 +2,7 @@
 title: "The Scientific Method: How Science Asks Questions, Tests Ideas and Knows What It Knows"
 description: "How observation, hypotheses, experiments and peer review work, why controls and replication matter, what a theory really is, and how to judge a science headline you read in the news."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Science has given us vaccines, electricity, smartphones, space travel and an understanding of everything from the structure of DNA to the age of the universe. But science is not just a collection of facts. It is a way of thinking, a method for asking questions about the world and finding reliable answers. At its heart is a simple but powerful idea: test your ideas against evidence, and be willing to change your mind when the evidence demands it. This explainer describes how the scientific method works, why it is so effective and how you can use its principles to evaluate claims in everyday life.

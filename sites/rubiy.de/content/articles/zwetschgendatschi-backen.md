@@ -2,7 +2,7 @@
 title: "Zwetschgendatschi vom Blech: Hefeteig, dicht gesetzte Zwetschgen und ein saftiger Boden"
 description: "Zwetschgenkuchen wie in Bayern und Schwaben: Zwetschgen oder Pflaumen, der richtige Hefeteig, wie du die Früchte setzt, warum der Zucker später kommt und was gegen nassen Boden hilft."
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wenn im August die ersten Zwetschgen auf dem Markt liegen, beginnt in Bayern und Schwaben die Zeit des Datschi. So heißt der Zwetschgenkuchen vom Blech dort, und Augsburg nennt sich augenzwinkernd sogar „Datschiburg“. Das Prinzip ist denkbar einfach: ein dünner Hefeteig, darauf dicht an dicht halbierte Zwetschgen, nach dem Backen Zimt und Zucker, dazu ein Klecks Schlagsahne. Gerade weil das Rezept so schlicht ist, kommt es auf die Details an: auf die richtigen Früchte, auf die Art, wie du sie setzt, und auf ein paar Kniffe gegen einen durchweichten Boden.
 

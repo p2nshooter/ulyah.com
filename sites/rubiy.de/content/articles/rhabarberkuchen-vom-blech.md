@@ -2,7 +2,7 @@
 title: "Rhabarber: Streuselkuchen vom Blech, Kompott und was es mit der Oxalsäure auf sich hat"
 description: Wann Rhabarber Saison hat, ob du ihn schälen musst, warum die Blätter nicht essbar sind und wie ein saftiger Rhabarberkuchen mit Streuseln vom Blech gelingt.
 category: fruehling
-date: 2026-10-12
+date: 2026-10-06
 ---
 Rhabarber ist das erste Obst des Jahres, obwohl er botanisch ein Gemüse ist. Wenn im April die roten und grünen Stangen auf den Markt kommen, gibt es für viele kein Halten mehr: Endlich wieder etwas Frisches, Saures, nach dem langen Winter mit Äpfeln und eingemachtem Kompott. Ob als Kuchen, Kompott, Grütze oder Sirup, Rhabarber bringt eine unverwechselbare Säure in die Frühlingsküche.
 

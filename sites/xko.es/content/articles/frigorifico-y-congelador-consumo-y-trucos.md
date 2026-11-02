@@ -2,7 +2,7 @@
 title: Frigorífico y congelador: cuánto consumen y trucos para que gasten menos
 description: Cuánta electricidad gastan el frigorífico y el congelador, qué temperatura poner, dónde colocarlos, cómo comprobar las juntas, cuándo descongelar y cuándo compensa cambiar un aparato antiguo.
 category: electrodomesticos-e-iluminacion
-date: 2026-08-24
+date: 2026-10-04
 ---
 El frigorífico es el único gran electrodoméstico que funciona las 24 horas de los 365 días del año. Aunque su potencia es baja, ese funcionamiento continuo hace que, en muchos hogares sin calefacción eléctrica, sea uno de los mayores consumidores de electricidad, sobre todo si es antiguo o si se usa mal. Un congelador adicional en el garaje o el trastero puede sumar todavía más.
 

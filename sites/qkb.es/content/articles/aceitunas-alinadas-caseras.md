@@ -2,7 +2,7 @@
 title: Aceitunas aliñadas caseras: cómo quitar el amargor a la aceituna verde y aliñarla al estilo tradicional
 description: Cómo quitar el amargor a las aceitunas verdes con agua o salmuera, partirlas o machacarlas, aliñarlas al estilo tradicional y conservarlas con seguridad.
 category: conservas
-date: 2026-10-12
+date: 2026-10-04
 ---
 Quien ha probado alguna vez una aceituna recién cogida del árbol sabe que es incomestible: tiene un amargor intenso que no se parece en nada a las aceitunas que se toman con el aperitivo. Ese amargor se debe a un compuesto natural llamado **oleuropeína**, y transformar la aceituna en un bocado sabroso consiste precisamente en eliminarlo, un proceso que en muchos pueblos de España se llama "endulzar" las aceitunas.
 

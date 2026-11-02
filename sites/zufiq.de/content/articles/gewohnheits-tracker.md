@@ -2,7 +2,7 @@
 title: "Gewohnheits-Tracker: Fortschritt festhalten, ohne dich unter Druck zu setzen"
 description: "Gewohnheits-Tracker gelassen nutzen: Papier oder App, messbare Mindestversionen, drei Vorlagen zum Nachbauen und ein entspannter Umgang mit verpassten Tagen und Serien."
 category: gewohnheiten-und-routinen
-date: 2026-07-10
+date: 2026-10-11
 ---
 Am Monatsersten sieht alles vielversprechend aus. Du hast ein frisches Notizbuch, ein sauberes Raster mit 31 Kästchen und drei Gewohnheiten, die du endlich angehen willst. Die ersten zwei Wochen füllen sich mit Kreuzen. Dann kommt ein Abend mit Besuch, und in der Reihe klafft eine Lücke. Eine Woche später liegt das Notizbuch unter einem Stapel Zeitschriften, und das halb leere Raster fühlt sich an wie ein stiller Vorwurf.
 

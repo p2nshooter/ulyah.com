@@ -2,7 +2,7 @@
 title: "Drucker einrichten und Druckprobleme lösen: WLAN-Drucker, Treiber, Warteschlange und Papierstau"
 description: "Drucker druckt nicht? So richtest du einen WLAN-Drucker an Windows, Mac und Smartphone ein und behebst die häufigsten Fehler: offline, hängende Warteschlange, Streifen, Papierstau und Tinte."
 category: computer-und-windows
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Drucker haben einen besonderen Ruf: Sie funktionieren monatelang klaglos und verweigern dann ausgerechnet den Dienst, wenn das Bahnticket, die Steuererklärung oder die Hausaufgabe dringend aufs Papier muss. Die meisten Druckprobleme haben aber einfache Ursachen und lassen sich in wenigen Minuten lösen. Diese Anleitung zeigt dir, wie du einen neuen Drucker richtig einrichtest, wie du ihn mit Computer und Smartphone verbindest und was du bei den häufigsten Fehlern tun kannst.

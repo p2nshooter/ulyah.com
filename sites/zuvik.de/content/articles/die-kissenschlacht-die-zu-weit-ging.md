@@ -2,7 +2,7 @@
 title: "Die Kissenschlacht, die zu weit ging"
 description: Paul und Greta toben für ihr Leben gern, bis einer weint. Jedes Mal. Über wildes Spiel unter Geschwistern, ein Stoppwort, das alle respektieren, und warum Raufen erlaubt sein darf.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 Es begann wie immer mit Lachen. Paul, neun, warf ein Kissen nach seiner Schwester Greta, sechs. Greta kreischte vor Vergnügen und warf zurück. Bald flogen alle Kissen des Sofas durch das Wohnzimmer der Familie Weber in Freiburg, dann die Decke, dann die Kuscheltiere. Die beiden rollten über den Teppich, kitzelten sich, rangelten, lachten so laut, dass der Hund der Nachbarn bellte.
 

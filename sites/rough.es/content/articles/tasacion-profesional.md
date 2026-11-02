@@ -2,7 +2,7 @@
 title: "Tasación profesional de joyas en España: cuándo la necesitas, cómo se hace y cómo leer el informe"
 description: "Cuándo encargar una tasación de joyas, quién puede hacerla, qué ocurre durante la visita, qué documentos llevar, cómo se tasan relojes y piezas antiguas y cómo detectar valoraciones poco fiables."
 category: compra-y-valoracion
-date: 2026-10-11
+date: 2026-10-12
 ---
 Casi todo el mundo tiene alguna joya cuyo valor desconoce: un anillo heredado, un reloj que fue del padre, un collar regalado hace décadas o un lote de piezas antiguas en el fondo de un cajón. Mientras nadie necesite saber cuánto valen, la duda no importa. Pero llega un momento en que sí importa: al contratar un seguro, al repartir una herencia, en un divorcio, al pensar en vender o cuando una aseguradora pide justificar lo que se ha perdido. Entonces hace falta algo más que una opinión: una tasación profesional.
 

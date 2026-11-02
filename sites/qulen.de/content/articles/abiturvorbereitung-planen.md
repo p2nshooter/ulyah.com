@@ -2,7 +2,7 @@
 title: "Abiturvorbereitung planen: Wie Milan sein Abitur in drei Phasen vorbereitete"
 description: "Milan hat vier Prüfungsfächer und zwei Jahre Stoff vor sich. Wie du die Abiturvorbereitung in drei Phasen planst, Lücken findest, alte Prüfungen nutzt und durchhältst."
 category: pruefungen-und-pruefungsangst
-date: 2026-09-24
+date: 2026-10-11
 ---
 Der Abiturplan hing seit dem ersten Schultag des Halbjahres am Schwarzen Brett. Milan stand davor und las die Termine: Deutsch, Mathematik, Englisch, Geschichte, dazu eine mündliche Prüfung. In knapp vier Monaten sollte alles vorbei sein. Er dachte an die Ordner zu Hause, vollgestopft mit Arbeitsblättern aus zwei Jahren Oberstufe, und spürte, wie sich sein Magen zusammenzog. Wo sollte er da anfangen? Sein Freund Jakob klopfte ihm auf die Schulter. „Keine Panik. Ich fang eh erst im März an.“ Milan nickte, aber die Panik ging nicht weg.
 

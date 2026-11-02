@@ -2,7 +2,7 @@
 title: Pan básico con levadura: la barra y el pan de pueblo en casa, sin complicaciones
 description: Receta de pan blanco con levadura de panadería para principiantes: ingredientes, equivalencias entre levadura fresca y seca, amasado, fermentaciones, formado de barras o bolas y horneado con vapor.
 category: masa-madre-y-pan
-date: 2026-10-12
+date: 2026-10-04
 ---
 Antes de lanzarse con la masa madre, las altas hidrataciones o los prefermentos, conviene aprender a hacer un pan sencillo, con levadura de panadería, que salga bien a la primera. Es el pan que permite entender cómo se comporta la masa, cómo se ve una buena fermentación y cómo reacciona el horno de tu cocina. Con esta receta podrás hacer barras, bolas o panecillos en una mañana.
 

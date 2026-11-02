@@ -2,7 +2,7 @@
 title: "How to Cook Eggs Every Way: Boiled, Scrambled, Fried, Poached and Baked, With Timings That Work"
 description: "Exact timings for soft, jammy and hard-boiled eggs, creamy scrambled eggs, fried eggs from sunny-side up to over hard, foolproof poached eggs, omelets and baked eggs, plus storage and safety tips."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Eggs are the ultimate everyday ingredient. They are inexpensive, quick, full of protein and endlessly versatile. They can be breakfast, a fast dinner, the binding in a meatloaf or the base of a cake. Yet many people feel unsure about cooking them. Boiled eggs come out with gray-green rings around the yolk, scrambled eggs turn rubbery, fried eggs stick to the pan and poached eggs dissolve into wispy clouds. Eggs are sensitive to heat, and a minute too long changes everything. This guide gives you clear methods and timings for every classic way to cook eggs, so you can get exactly the result you want.

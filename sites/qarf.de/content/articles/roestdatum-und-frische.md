@@ -2,7 +2,7 @@
 title: "Röstdatum und Frische: wann Kaffee am besten schmeckt und woran du alten Kaffee erkennst"
 description: "Röstdatum oder Mindesthaltbarkeit, Entgasung und Aromaventil, das ideale Zeitfenster für Filter und Espresso, warum gemahlener Kaffee so schnell verliert und wie du frisch einkaufst und einfrierst."
 category: bohnen-und-roestung
-date: 2026-10-12
+date: 2026-10-06
 ---
 Kaffee ist ein Frischeprodukt, auch wenn er in der Packung monatelang haltbar aussieht. Nach dem Rösten beginnt eine Uhr zu ticken: Die Bohnen geben Gase ab, flüchtige Aromastoffe verfliegen, und Sauerstoff lässt die Öle altern. Ein Kaffee, der zwei Wochen nach der Röstung nach Schokolade, Kirsche und Karamell duftet, schmeckt nach drei Monaten flach, holzig und nach Pappe. Gleichzeitig ist ganz frisch gerösteter Kaffee auch nicht ideal. Dieser Ratgeber erklärt, was auf der Packung steht, wann Kaffee am besten schmeckt und wie du deine Bohnen möglichst lange frisch hältst.
 

@@ -2,7 +2,7 @@
 title: "Heat and Temperature: What They Are, How Heat Moves and Why Metal Feels Colder Than Wood"
 description: "The difference between heat and temperature, what happens to molecules as things warm, conduction, convection and radiation, the temperature scales, absolute zero and why some materials feel colder."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 On a cold morning, a metal railing feels icy while a wooden bench at the same temperature feels only cool. A spoon in hot soup grows warm all the way to the handle. The Sun heats your face from 93 million miles away, through the emptiness of space. Everyday experiences like these are explained by the physics of heat and temperature. The two words are often used as if they meant the same thing, but they describe different ideas. This explainer sets out what heat and temperature really are, how heat travels from one place to another and why our sense of hot and cold can be misleading.

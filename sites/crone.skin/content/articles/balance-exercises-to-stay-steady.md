@@ -2,7 +2,7 @@
 title: "Balance Exercises to Stay Steady on Your Feet: A Gentle Daily Routine"
 description: Why balance changes with age, simple balance exercises you can do at home with a chair, how to progress safely, and everyday habits that help reduce the risk of falls.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 Balance is something we take for granted until it starts to slip. Perhaps you have noticed that you hold the banister a little more firmly, feel wobbly putting on socks while standing, or have had a near-miss on an uneven pavement. Balance naturally changes over the years, but it is a skill — and like any skill, it can be practised and improved.
 

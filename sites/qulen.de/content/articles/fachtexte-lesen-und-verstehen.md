@@ -2,7 +2,7 @@
 title: "Fachtexte lesen und verstehen: Wie Ida mit einer Lesemethode schwierige Texte knackte"
 description: "Ida liest Fachtexte dreimal und versteht sie trotzdem nicht. Wie du mit Überblick und Fragen liest, sparsam markierst, Fachbegriffe klärst und in eigenen Worten zusammenfasst."
 category: vokabeln-und-lernmethoden
-date: 2026-09-21
+date: 2026-10-11
 ---
 Ida las den ersten Absatz zum dritten Mal. „Die Fotosyntheserate wird durch limitierende Faktoren wie Lichtintensität, Kohlenstoffdioxidkonzentration und Temperatur beeinflusst, wobei jeweils der im Minimum vorliegende Faktor die Rate bestimmt.“ Sie verstand jedes Wort einzeln. Aber am Ende des Satzes hatte sie den Anfang vergessen. Und am Ende des Absatzes wusste sie nicht mehr, was der erste Satz gesagt hatte. Vor ihr lagen noch sechs Seiten. Morgen sollte sie den Text in der Biologiestunde zusammenfassen.
 

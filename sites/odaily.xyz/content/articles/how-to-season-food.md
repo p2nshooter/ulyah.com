@@ -2,7 +2,7 @@
 title: "How to Season Food: Salt, Acid, Fat, Heat and Herbs for Dishes That Taste Finished"
 description: "Why food tastes flat and how to fix it: when and how much to salt, how acid brightens, what fat and heat do, how to use herbs and spices, and how to taste as you cook."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 You followed the recipe exactly, yet the soup tastes flat. The roasted vegetables are cooked perfectly but somehow dull. The sauce is fine, just not exciting. In most cases the problem is not the recipe or your technique. It is seasoning. Seasoning is the art of adjusting a dish so that its flavors come alive, and it is the single biggest difference between food that tastes homemade in the good sense and food that tastes like it is missing something. The good news is that seasoning is not a mysterious talent. It is a set of simple principles and one habit: tasting as you go. This guide explains how to use salt, acid, fat, heat, sweetness, herbs and spices so your everyday cooking tastes finished.

@@ -2,7 +2,7 @@
 title: "Kanarienvogel halten: Gesellschaft, Flugraum, Baden, Futter, Gesang und Mauser"
 description: "Kanarienvögel artgerecht halten: Herkunft und Rassen, warum sie Artgenossen und Flugraum brauchen, Voliere und Einrichtung, Futter mit Grün- und Keimfutter, Baden, Mauser und Gesundheit."
 category: ziervoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Kanarienvögel sind seit Jahrhunderten treue Begleiter des Menschen. Schon im 16. Jahrhundert wurden sie aus ihrer Heimat auf den Kanarischen Inseln nach Europa gebracht, und ihr Gesang hat Generationen von Menschen begeistert. Heute gibt es zahllose Farben und Formen, vom klassischen gelben Kanarienvogel bis zu roten, weißen und gehaubten Rassen. Doch auch wenn Kanarienvögel als „einfache“ Vögel gelten, haben sie klare Bedürfnisse, die in vielen Haushalten nicht erfüllt werden.

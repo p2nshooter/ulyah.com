@@ -2,7 +2,13 @@
 title: "Böden richtig wischen: Fliesen, Laminat, Parkett, Vinyl und Naturstein ohne Schlieren"
 description: "Welcher Boden wie gewischt wird: nebelfeucht für Laminat und Parkett, kein Essig auf Naturstein, richtige Dosierung gegen Schlieren, Flachwischer oder Eimer und die beste Reihenfolge."
 category: putzen-mit-system
-date: 2026-07-14
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Umweltbewusst reinigen – nachhaltig und hygienisch (PDF) | https://www.umweltbundesamt.de/system/files/medien/publikation/long/4162.pdf
 ---
 Ein frisch gewischter Boden, auf dem nach dem Trocknen graue Streifen und klebrige Stellen zu sehen sind. Ein Laminat, das an den Kanten aufquillt. Ein Marmorboden, der nach dem Putzen stumpfe Flecken hat. Beim Wischen geht erstaunlich viel schief, obwohl es so einfach aussieht. Der Grund ist fast immer derselbe: zu viel Wasser, zu viel Reiniger oder ein Mittel, das nicht zum Material passt.
 

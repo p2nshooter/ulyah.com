@@ -2,7 +2,7 @@
 title: "Direktsaat im Beet: Saatbett vorbereiten, richtig tief säen, feucht halten und vereinzeln"
 description: "Welche Gemüse direkt ins Beet gesät werden: Saatbett vorbereiten, Bodentemperatur und Saattiefe, Markiersaat mit Radieschen, Verkrustung vermeiden, vereinzeln und Saat schützen."
 category: saatgut-und-jungpflanzen
-date: 2026-09-28
+date: 2026-10-06
 ---
 Viele Gemüse wachsen am besten, wenn sie dort keimen, wo sie auch ihr ganzes Leben verbringen. Möhren, Pastinaken und Radieschen vertragen kein Umpflanzen, weil ihre Pfahlwurzel dabei beschädigt wird. Erbsen, Bohnen, Spinat und Feldsalat keimen im Beet so zuverlässig, dass sich das Vorziehen nicht lohnt. Direktsaat spart Töpfe, Erde und Platz auf der Fensterbank. Sie hat aber ihre Tücken: Samen trocknen aus, werden von Vögeln gefressen, keimen in kaltem Boden nicht oder liegen unter einer harten Kruste fest. Dieser Ratgeber zeigt, wie du das Saatbett vorbereitest, richtig säst und die Keimlinge sicher durch die ersten Wochen bringst.
 

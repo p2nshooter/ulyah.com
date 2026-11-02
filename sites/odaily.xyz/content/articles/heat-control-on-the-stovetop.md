@@ -2,7 +2,7 @@
 title: "Heat Control on the Stovetop: When to Use High, Medium and Low Heat and Why It Matters"
 description: "How to preheat a pan, read the sizzle, choose the right heat for searing, sautéing, simmering and sweating, pick the right pan and oil, and rescue food that is browning too fast or too slowly."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Many recipe failures come down to one thing: the wrong amount of heat. Chicken that stays pale and rubbery, garlic that turns bitter in seconds, onions that burn on the outside while staying raw inside, a sauce that scorches to the bottom of the pot. Recipes often say "cook over medium heat," but every stove is different, and medium on a powerful gas burner can be hotter than high on an old electric coil. Learning to control heat by looking, listening and smelling, rather than by the number on the dial, is one of the most valuable skills in home cooking. This guide explains what the different heat levels actually do, how to read a pan and how to fix things when they go wrong.

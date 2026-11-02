@@ -2,7 +2,7 @@
 title: "Packed Lunches That People Actually Eat: Formulas, Food Safety and Ideas for Work and School"
 description: "A simple lunchbox formula, how to keep food cold and safe until noon, packing tricks against soggy sandwiches, kid-friendly ideas, hot lunches in a thermos and ten no-recipe lunch combinations."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 A packed lunch is one of the easiest ways to save money and eat better during the week. Buying lunch every day adds up quickly, and options near work or school are often expensive, heavy or limited. A homemade lunch can be cheaper, healthier and more satisfying. Yet many packed lunches come home uneaten, or the sandwich turns soggy by noon, or the same boring meal leads to giving up after two weeks. The secret to lunches that actually get eaten is a combination of a simple formula, good packing techniques, proper food safety and enough variety to stay interesting. This guide covers all of it, for adults and children alike.

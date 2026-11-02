@@ -2,7 +2,7 @@
 title: Pan de molde casero, tierno y esponjoso: receta, formado y trucos para que no se seque
 description: Receta de pan de molde con leche y mantequilla: amasado hasta la membrana, formado, fermentación, horneado y trucos para que se mantenga tierno.
 category: masa-madre-y-pan
-date: 2026-10-12
+date: 2026-10-04
 ---
 El pan de molde casero no se parece demasiado al que se compra envasado. Es más tierno, más aromático y, sobre todo, no lleva conservantes ni una lista interminable de ingredientes. Es perfecto para tostadas, sándwiches, torrijas o simplemente con aceite de oliva, y se hace en una mañana con ingredientes que hay en cualquier despensa.
 

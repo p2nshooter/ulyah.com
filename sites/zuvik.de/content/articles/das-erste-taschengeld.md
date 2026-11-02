@@ -2,7 +2,7 @@
 title: "Das erste Taschengeld"
 description: Ronja bekommt zum ersten Mal Taschengeld. Die ersten zwei Euro sind nach zehn Minuten weg, dann sieht sie ein Spielzeugpferd. Eine Geschichte über Geld, Geduld und eine Spardose.
 category: zusammenleben-zuhause
-date: 2026-10-12
+date: 2026-10-05
 ---
 Es fing an der Kasse im Supermarkt an, wie so oft. Ronja, sieben Jahre alt, stand neben dem Einkaufswagen und hielt eine Packung Überraschungseier hoch. „Bitte, Mama. Nur eins.“
 

@@ -2,7 +2,7 @@
 title: "Heizkörper entlüften: Wann es nötig ist und wie es Schritt für Schritt geht"
 description: Woran du Luft im Heizkörper erkennst, wie du ihn mit dem Entlüftungsschlüssel entlüftest, den Anlagendruck prüfst und Wasser nachfüllst und was bei Fußbodenheizung und Mietwohnungen gilt.
 category: reparaturen-im-haushalt
-date: 2026-08-23
+date: 2026-10-04
 ---
 Der Heizkörper bleibt oben kalt, obwohl das Thermostat aufgedreht ist, es gluckert und rauscht in den Rohren, oder einzelne Räume werden nicht mehr richtig warm: Das sind typische Anzeichen für Luft im Heizsystem. Luft sammelt sich an den höchsten Stellen der Heizkörper und verhindert, dass warmes Wasser die ganze Fläche erreicht. Das kostet Wärme, Komfort und Energie.
 

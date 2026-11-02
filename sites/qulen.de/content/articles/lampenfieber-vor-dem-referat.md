@@ -2,7 +2,7 @@
 title: "Lampenfieber vor dem Referat: Wie Leyla mit zitternden Händen trotzdem sicher sprach"
 description: "Leyla kennt ihr Thema genau, doch vor der Klasse zittern Hände und Stimme. Woher Lampenfieber kommt, welche Übungen vorher helfen und was du tust, wenn es mitten im Vortrag zuschlägt."
 category: referate-und-praesentieren
-date: 2026-08-01
+date: 2026-10-11
 ---
 Leyla hatte ihr Referat über Bienen elfmal geübt. Vor dem Spiegel, vor ihrer kleinen Schwester, sogar vor der Katze, die nach der dritten Minute eingeschlafen war. Sie kannte jeden Satz. Doch als Frau Brandt sagte: „Leyla, du bist dran“, und sie aufstand, passierte etwas Merkwürdiges. Ihre Knie fühlten sich an wie Pudding. Die Stichwortkarten in ihrer Hand raschelten, weil die Finger zitterten. Und als sie den Mund öffnete, kam ihre Stimme so dünn heraus, dass jemand in der letzten Reihe „Lauter!“ rief.
 

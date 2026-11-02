@@ -2,7 +2,7 @@
 title: "Rotkehlchen im Garten: Revier, Wintergesang, Nistplätze und richtiges Futter"
 description: "Warum Rotkehlchen im Winter singen, dir beim Umgraben folgen und ihr Revier so energisch verteidigen, wo sie brüten und wie du ihnen mit Futter und Pflanzen hilfst."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Das Rotkehlchen ist einer der beliebtesten Vögel Deutschlands. Es sieht mit seinen großen dunklen Augen und der leuchtend orangen Brust freundlich aus, kommt Menschen bei der Gartenarbeit oft bis auf einen Meter nahe und singt sogar an grauen Wintertagen. Hinter dem sanften Aussehen steckt allerdings ein erstaunlich streitbarer Charakter: Rotkehlchen verteidigen ihr Revier mit großer Entschlossenheit, auch gegen ihr eigenes Spiegelbild.

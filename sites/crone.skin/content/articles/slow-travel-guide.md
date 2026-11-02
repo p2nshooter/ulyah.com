@@ -2,7 +2,7 @@
 title: "The Joy of Slow Travel: How to See Less, Experience More and Come Home Refreshed"
 description: What slow travel means and how to do it — choosing one base, renting for longer, living like a local, travelling overland, keeping a loose plan and budgeting for longer stays.
 category: travel-and-discovery
-date: 2026-10-19
+date: 2026-10-20
 ---
 Many of us have taken the kind of holiday that leaves us needing another holiday. Seven cities in ten days, early starts, packed itineraries, hours on coaches and a camera full of places we barely remember. We saw a great deal, but we experienced very little.
 

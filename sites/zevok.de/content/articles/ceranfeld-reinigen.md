@@ -2,7 +2,13 @@
 title: "Ceranfeld, Induktionskochfeld und Gasherd reinigen: Eingebranntes, Kalk und Zucker richtig entfernen"
 description: "Glaskeramik und Induktion ohne Kratzer reinigen: Glasschaber flach ansetzen, Zucker sofort entfernen, Kalk und Metallspuren lösen und den Gasherd mit Rosten und Brennern säubern."
 category: kueche-reinigen
-date: 2026-08-28
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Übergekochte Milch, Tomatensoße, die beim Rühren spritzt, eingebrannte Ränder um die Kochzone und milchige Schleier, die nach dem Abwischen bleiben: Das Kochfeld ist die Fläche in der Küche, die am schnellsten schmutzig wird. Gleichzeitig ist sie empfindlicher, als viele denken. Ein falscher Schwamm oder ein scharfes Mittel hinterlässt auf der glatten Glaskeramik Kratzer, die nie wieder verschwinden, und manche Verschmutzungen können die Oberfläche sogar dauerhaft beschädigen, wenn man sie zu lange liegen lässt.
 

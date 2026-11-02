@@ -2,7 +2,7 @@
 title: "Zwei Wochen bei Oma an der Nordsee"
 description: Bei Oma darf man länger aufbleiben und barfuß durchs Watt laufen. Zurück aus den Ferien, wollen Marie und Ben die Oma-Regeln behalten. Über verschiedene Regeln bei Eltern und Großeltern.
 category: grosseltern-und-generationen
-date: 2026-10-12
+date: 2026-10-05
 ---
 Die Sommerferien begannen für Marie, neun, und Ben, sechs, wie jedes Jahr mit einer Zugfahrt. Ihre Eltern brachten sie zum Bahnhof in Göttingen, setzten sie in den Zug Richtung Norden und gaben sie in Bremen in die Hände von Oma Inge, die sie mit ihrem alten Kombi abholte. Dann ging es weiter nach Dorum an der Nordsee, wo Oma in einem kleinen Haus hinter dem Deich wohnte.
 

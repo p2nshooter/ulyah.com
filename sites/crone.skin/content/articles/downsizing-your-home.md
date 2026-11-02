@@ -2,7 +2,7 @@
 title: "Downsizing Your Home: Questions to Ask, Choices to Weigh and How to Move Calmly"
 description: How to decide whether downsizing is right for you, the types of homes and locations to consider, practical and emotional preparation, and a step-by-step plan for the move itself.
 category: home-and-garden
-date: 2026-10-19
+date: 2026-10-20
 ---
 The family home that once rang with children's voices may now feel too big, too quiet or too much work. Bedrooms sit empty, the garden demands more time than you want to give, stairs feel steeper, and heating and maintenance bills keep rising. Many women in their fifties, sixties and seventies begin to wonder whether a smaller home might suit them better.
 

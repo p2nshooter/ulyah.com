@@ -2,7 +2,7 @@
 title: "Wasserhärte für Kaffee und Tee: das unterschätzte Hauptgetränk"
 description: Kaffee besteht zu über 98 Prozent aus Wasser. Wie Härte, Karbonat und Mineralien den Geschmack prägen, wie du deine Wasserwerte herausfindest und was Filter bringen.
 category: muehlen-und-wasser
-date: 2026-10-12
+date: 2026-10-06
 ---
 Eine Tasse Filterkaffee besteht zu über 98 Prozent aus Wasser, eine Tasse Tee sogar zu mehr als 99 Prozent. Trotzdem denken die meisten Menschen beim Kaffeekochen an Bohnen, Mühle und Maschine, aber kaum an das, was aus dem Hahn kommt. Dabei kann dieselbe Bohne mit zwei verschiedenen Wässern so unterschiedlich schmecken, als wären es zwei verschiedene Kaffees. In diesem Ratgeber erfährst du, was Wasserhärte eigentlich ist, warum sie Geschmack und Geräte beeinflusst, wie du die Werte deines Leitungswassers herausfindest und wann sich ein Filter lohnt.
 

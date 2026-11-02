@@ -2,7 +2,7 @@
 title: "Küche ausmisten: Utensilien, Geschirr und Geräte sinnvoll reduzieren"
 description: "Küche ausmisten mit System: Bestandsaufnahme nach Kategorien, ein Zwei-Wochen-Kochtest, Mengen als Denkhilfe, Erbstücke und Saisongeräte und neu einräumen nach Arbeitszonen."
 category: ausmisten-und-minimalismus
-date: 2026-07-25
+date: 2026-10-11
 ---
 Die Schublade neben dem Herd lässt sich nur noch mit Rütteln öffnen, weil sich der Schneebesen im Kartoffelstampfer verhakt hat. Im Schrank darüber stapeln sich Vorratsdosen, aber zu keiner scheint der Deckel zu passen, der gerade obenauf liegt. Drei Pfannenwender, zwei Knoblauchpressen und ein Waffeleisen, das einmal im Jahr hervorgeholt wird, teilen sich den Platz mit dem Geschirr, das du jeden Tag brauchst.
 

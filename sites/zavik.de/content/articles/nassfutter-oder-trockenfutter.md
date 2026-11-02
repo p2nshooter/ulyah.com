@@ -2,7 +2,7 @@
 title: "Nassfutter oder Trockenfutter? Was Katzen wirklich brauchen"
 description: Wasser, Eiweiß, Kalorien und Gewohnheit: die Vor- und Nachteile von Nass- und Trockenfutter im ehrlichen Vergleich, und warum die Mischung oft eine gute Lösung ist.
 category: ernaehrung
-date: 2026-09-19
+date: 2026-10-05
 ---
 Kaum eine Frage wird unter Katzenhalterinnen und Katzenhaltern so leidenschaftlich diskutiert wie diese: Nassfutter oder Trockenfutter? Die einen schwören auf Dosen und Schälchen, die anderen auf den Napf mit Kroketten, der den ganzen Tag gefüllt bleibt. Die Wahrheit liegt, wie so oft, nicht in einem Entweder-oder. Aber es gibt gute Gründe, warum viele Tierärztinnen und Tierärzte dazu raten, Nassfutter einen festen Platz im Speiseplan zu geben.
 

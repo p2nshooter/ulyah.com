@@ -2,7 +2,7 @@
 title: Qué comer antes, durante y después de entrenar
 description: Pautas prácticas de alimentación alrededor del ejercicio para deportistas aficionados: cuándo y qué comer antes de entrenar, cuándo hace falta comer durante y cómo recuperar después.
 category: descanso-y-nutricion
-date: 2026-10-12
+date: 2026-10-04
 ---
 La alimentación deportiva está llena de mitos, productos especiales y reglas estrictas que parecen sacadas del mundo profesional. Para el deportista aficionado que entrena tres o cuatro veces por semana, la realidad es mucho más sencilla: una alimentación variada y equilibrada cubre la mayoría de sus necesidades, y unos pocos ajustes alrededor del entrenamiento ayudan a rendir mejor y a recuperarse.
 

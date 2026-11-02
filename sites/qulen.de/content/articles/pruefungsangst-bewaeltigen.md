@@ -2,7 +2,7 @@
 title: "Prüfungsangst in den Griff bekommen: Yusufs Weg durch die Abschlussprüfungen"
 description: "Yusuf schläft vor den Abschlussprüfungen schlecht und ist sicher, alles zu vergessen. Wie er mit seiner Vertrauenslehrerin die Angst Woche für Woche kleiner machte."
 category: pruefungen-und-pruefungsangst
-date: 2026-06-18
+date: 2026-10-11
 ---
 Es war kurz nach drei Uhr nachts, und Yusuf lag wach. Im Kopf ging er die binomischen Formeln durch. Die erste kam sofort. Bei der zweiten stockte er, und in dieses kleine Loch rutschte alles andere hinterher: die Kommaregeln, die englischen Zeitformen, die Gedichtanalyse. „Ich vergesse alles“, dachte er. „Ich sitze da, und es ist alles weg.“ Bis zur ersten Abschlussprüfung waren es noch sechs Wochen.
 

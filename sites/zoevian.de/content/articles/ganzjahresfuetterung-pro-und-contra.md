@@ -2,7 +2,7 @@
 title: "Ganzjahresfütterung von Vögeln: Argumente dafür und dagegen und wie es richtig geht"
 description: "Sollte man Vögel auch im Frühjahr und Sommer füttern? Die Argumente beider Seiten, was Studien zeigen, welche Risiken es gibt und Regeln für eine sichere Sommerfütterung."
 category: fuettern-und-traenken
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Kaum eine Frage wird unter Vogelfreunden so leidenschaftlich diskutiert wie diese: Soll man Vögel nur im Winter füttern oder das ganze Jahr über? Lange galt in Deutschland die Regel, dass die Futterstelle im Frühjahr geschlossen wird, damit die Vögel ihre Jungen mit natürlicher Nahrung großziehen. Inzwischen empfehlen einige bekannte Ornithologen und mehrere Vogelschutzorganisationen im Ausland ausdrücklich, auch im Sommer zu füttern. Andere bleiben skeptisch.

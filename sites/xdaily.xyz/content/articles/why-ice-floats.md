@@ -2,7 +2,7 @@
 title: "Why Ice Floats: Hydrogen Bonds, Water's Strange Density and Why It Matters for Life on Earth"
 description: "Why most solids sink in their own liquid but ice floats, how hydrogen bonds build ice's open crystal, why water is densest at 4 °C, how floating ice protects lakes, and other quirks of water."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Drop an ice cube into a glass of water and it floats. It seems completely ordinary, something we see every day. Yet it is actually very unusual. For almost every other substance, the solid form is denser than the liquid, so a solid piece sinks in its own melt. Solid wax sinks in melted wax; solid iron sinks in molten iron. Water is one of the rare exceptions. This odd behavior has enormous consequences: it allows lakes to freeze from the top down, protects aquatic life in winter and helps shape Earth's climate. This explainer describes why ice floats and why water is such a remarkable substance.

@@ -2,7 +2,7 @@
 title: "Diamantes: guía esencial sobre color, pureza, talla, peso, tratamientos y diamantes de laboratorio"
 description: "Qué es un diamante, de dónde viene, cómo se clasifican color, pureza, talla y peso, la fluorescencia, los tratamientos, los diamantes de laboratorio e imitaciones y cómo elegir con presupuesto."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 El diamante es la gema más conocida del mundo y, al mismo tiempo, una de las más malentendidas. Muchos compradores saben que existen las famosas "cuatro C", pero no siempre entienden qué significan en la práctica, cuál de ellas importa más para la belleza de la piedra o por qué dos diamantes del mismo peso pueden tener precios muy diferentes. A eso se suma la llegada masiva de los diamantes de laboratorio, que ha cambiado el mercado en pocos años.
 

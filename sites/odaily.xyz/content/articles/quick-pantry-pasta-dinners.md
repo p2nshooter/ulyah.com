@@ -2,7 +2,7 @@
 title: "Quick Pantry Pasta Dinners: How to Cook Pasta Properly and Build a Sauce in the Time the Water Boils"
 description: "How much water and salt to use, how to time pasta to al dente, why starchy pasta water makes sauces silky, and six pantry pasta formulas you can cook any night with what is already in the cupboard."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Few dinners are as reliable as a bowl of pasta. With a box of dried pasta in the cupboard and a few staples like garlic, olive oil, canned tomatoes and cheese, you are never more than twenty minutes away from a satisfying meal. Yet the gap between ordinary and outstanding pasta is surprisingly wide. Overcooked noodles, watery sauce that slides off the pasta, bland flavor or a clump of cheese that refuses to melt: these are common problems with simple solutions. This guide explains how to cook pasta properly, how to bring pasta and sauce together like an Italian cook, and gives you six pantry formulas you can make any night of the week.

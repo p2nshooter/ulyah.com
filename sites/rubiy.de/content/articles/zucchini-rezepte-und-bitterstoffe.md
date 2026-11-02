@@ -3,7 +3,7 @@ title: "Zucchinischwemme: Puffer, gefüllte Zucchini und warum bittere Früchte 
 seoTitle: "Zucchini-Rezepte und Bitterstoffe · RUBIY"
 description: Was du mit vielen Zucchini anfängst, wie Puffer und gefüllte Zucchini gelingen, wie du große Früchte nutzt und warum du bittere Zucchini niemals essen solltest.
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wer im Garten Zucchini pflanzt, kennt das Phänomen. Im Juni freut man sich über die erste kleine Frucht, im Juli erntet man jeden zweiten Tag, und im August versteckt sich unter den großen Blättern plötzlich ein Exemplar, das so groß ist wie ein Unterarm. Nachbarn, Kollegen und Verwandte werden beschenkt, bis keiner mehr Zucchini sehen kann. Auch auf dem Markt sind Zucchini im Hochsommer günstig wie kaum ein anderes Gemüse.
 

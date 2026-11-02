@@ -2,7 +2,7 @@
 title: "The Big Bang: How the Universe Began, Expanded and Cooled, and How We Know"
 description: "What the Big Bang theory says and does not say, the first minutes, the cosmic microwave background, how galaxies formed, the evidence from redshift and light elements, and the open questions."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 About 13.8 billion years ago, everything in the observable universe, all the matter and energy that would become stars, planets, galaxies and ourselves, was packed into an incredibly hot, dense state. Since then, the universe has been expanding and cooling. This is the core idea of the **Big Bang theory**, the scientific explanation for the origin and evolution of the universe. Despite its name, the Big Bang was not an explosion in space like a bomb going off. It was the rapid expansion of space itself. This explainer describes what the Big Bang theory says, what happened in the early universe and the evidence that supports it.

@@ -2,7 +2,7 @@
 title: "How Sound Travels: Waves, Speed, Echoes, the Doppler Effect and Sonic Booms"
 description: "What a sound wave is, why sound travels faster in water and steel than in air, why there is no sound in space, how echoes and resonance work, why sirens change pitch and what causes a sonic boom."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Sound surrounds us all the time: voices, music, traffic, birdsong, the hum of a refrigerator. Yet sound itself is invisible. It is a traveling disturbance, a wave of pressure moving through air, water or solid materials. The physics of sound explains why you see lightning before you hear thunder, why a siren's pitch drops as it passes, why your voice echoes in a canyon and why there is no sound in space. This explainer describes how sound is created, how it travels and the fascinating effects that arise along the way.

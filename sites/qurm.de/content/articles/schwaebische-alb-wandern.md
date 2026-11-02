@@ -2,7 +2,7 @@
 title: "Schwäbische Alb: Wandern am Albtrauf, zu Höhlen, Burgen und Wacholderheiden"
 description: "Albtrauf, Wasserfälle, Höhlen mit Eiszeitkunst, Burgen und Wacholderheiden: die schönsten Wanderziele der Schwäbischen Alb, der Albsteig und Tipps zu Anreise und Jahreszeiten."
 category: berge-und-tagestouren
-date: 2026-10-11
+date: 2026-10-14
 ---
 Wer von Stuttgart nach Süden blickt, sieht am Horizont eine lange, bewaldete Mauer: den Albtrauf, den steilen Nordrand der Schwäbischen Alb. Dahinter liegt eine Hochfläche mit Wacholderheiden, Schafherden, Buchenwäldern und weiten Feldern, durchzogen von tiefen Tälern. Unter der Oberfläche verbirgt sich eine Welt aus Höhlen, in denen Menschen der Eiszeit einige der ältesten Kunstwerke der Menschheit geschaffen haben. Dazu kommen Burgen auf Felsspornen, Wasserfälle und Quelltöpfe in leuchtendem Blau.
 

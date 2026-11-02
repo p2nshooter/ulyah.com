@@ -2,7 +2,7 @@
 title: "Pirita de Navajún: los cubos perfectos de La Rioja y cómo reconocerlos, comprarlos y conservarlos"
 description: "Por qué la pirita de Navajún forma cubos tan perfectos, cómo distinguirla del oro y de la marcasita, qué revisar al comprar un ejemplar y cómo evitar que se deteriore con la humedad."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Quien ve por primera vez un cubo de pirita de Navajún suele hacer la misma pregunta: ¿quién lo ha tallado? Las caras planas, brillantes como un espejo de latón, y las aristas rectas parecen obra de una máquina. Y, sin embargo, nadie las ha tocado: esos cubos crecen así dentro de las margas grises de un pequeño pueblo de La Rioja, y desde allí han viajado a museos y colecciones de todo el mundo, donde son probablemente el mineral español más reconocible.
 

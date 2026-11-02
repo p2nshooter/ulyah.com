@@ -2,7 +2,7 @@
 title: "Visitar volcanes en América Latina: caminatas, ascensos, niveles de alerta y seguridad"
 description: "Volcanes para visitar en México, Centroamérica y los Andes, cómo consultar su actividad, gases, altitud y clima, caminatas guiadas y ascensos técnicos, Acatenango, aguas termales y qué llevar."
 category: montanas-y-naturaleza
-date: 2026-09-25
+date: 2026-10-11
 ---
 América Latina es tierra de volcanes. Desde el centro de México hasta el sur de Chile, cientos de conos, calderas y cráteres forman parte del paisaje, de la historia y de la vida cotidiana. Hay volcanes que se ven desde las capitales, como el Popocatépetl desde Ciudad de México o el Pichincha desde Quito, volcanes que pueden subirse en una mañana, otros que exigen técnica de alta montaña y algunos que, de noche, iluminan el cielo con sus explosiones.
 

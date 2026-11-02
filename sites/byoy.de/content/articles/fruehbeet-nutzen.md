@@ -2,7 +2,7 @@
 title: "Das Frühbeet nutzen: früher ernten, Jungpflanzen anziehen und bis in den Winter Salat haben"
 description: "Frühbeet, Mistbeet und Folientunnel: Bauarten, Standort, Aussaat von Februar bis Dezember, Lüften gegen Überhitzung, Frostschutz und ein Mistbeet mit natürlicher Wärme."
 category: saatgut-und-jungpflanzen
-date: 2026-10-01
+date: 2026-10-06
 ---
 Ein Frühbeet ist das kleine Gewächshaus des Gemüsegartens. Ein einfacher Kasten mit einem durchsichtigen Deckel fängt die Wärme der Frühlingssonne ein, schützt vor Wind, Regen und leichten Nachtfrösten und verlängert die Gartensaison an beiden Enden um mehrere Wochen. Schon im März wachsen darin Radieschen und Pflücksalat, während draußen noch Frost herrscht. Im Mai ziehst du Jungpflanzen für das Beet heran, und im Herbst und Winter liefert das Frühbeet frischen Feldsalat und Winterportulak. Wer gärtnert, ohne Platz für ein Gewächshaus zu haben, bekommt mit einem Frühbeet viel Ernte auf wenig Fläche.
 

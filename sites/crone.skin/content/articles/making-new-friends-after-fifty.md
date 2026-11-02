@@ -2,7 +2,7 @@
 title: "Making New Friends After Fifty: Where to Meet People and How to Let Friendships Grow"
 description: Why friendship matters so much in midlife and beyond, practical places to meet like-minded people, how to turn acquaintances into friends, and how to cope with shyness or loneliness.
 category: purpose-and-connection
-date: 2026-10-19
+date: 2026-10-20
 ---
 When we are young, friendships seem to happen almost by themselves. School, university, early jobs and the busy years of raising children put us in daily contact with people at a similar stage of life. Later, the structures that created those friendships often fall away. Children grow up and leave, colleagues scatter after retirement, friends move away to be near grandchildren, and some relationships end through divorce or bereavement. Many women find themselves in their fifties, sixties or seventies wishing they had more friends nearby — and unsure how to make them.
 

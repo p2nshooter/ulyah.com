@@ -2,7 +2,7 @@
 title: "Bokashi: Küchenabfälle fermentieren und den Gartenboden beleben"
 description: "Wie Bokashi funktioniert, was in den Eimer darf, wie du ansetzt, den Saft verwendest und das Ferment im Beet oder Kompost einarbeitest, und wo die Grenzen der Methode liegen."
 category: kompost-und-boden
-date: 2026-10-13
+date: 2026-10-14
 ---
 Bokashi ist eine Methode, Küchenabfälle in einem luftdicht verschlossenen Eimer zu fermentieren, statt sie wie im Kompost an der Luft verrotten zu lassen. Das Wort stammt aus dem Japanischen und bedeutet sinngemäß „fermentiertes organisches Material“. In Wohnungen, auf Balkonen und in kleinen Gärten ist Bokashi beliebt, weil der Eimer in der Küche stehen kann, kaum riecht und Abfälle schon nach wenigen Wochen für den Boden aufbereitet.
 

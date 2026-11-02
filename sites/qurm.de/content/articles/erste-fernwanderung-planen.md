@@ -2,7 +2,7 @@
 title: "Die erste Fernwanderung planen: Weg wählen, Etappen, Unterkünfte und Gepäck"
 description: "Schritt für Schritt zur ersten mehrtägigen Wanderung: passenden Fernwanderweg finden, Etappenlänge festlegen, Unterkünfte buchen, mit oder ohne Gepäcktransport, Training und Packliste."
 category: fernwanderwege
-date: 2026-07-26
+date: 2026-10-06
 ---
 Irgendwann reicht der Tagesausflug nicht mehr. Du möchtest morgens loslaufen, abends woanders ankommen und am nächsten Tag weitergehen, mehrere Tage hintereinander, bis ein ganzer Weg hinter dir liegt. Eine Fernwanderung verändert das Wandern: Der Alltag rückt weit weg, der Tag bekommt einen einfachen Rhythmus, und du erlebst eine Landschaft in ihrem ganzen Zusammenhang. Damit die erste Mehrtagestour ein schönes Erlebnis wird und nicht an Blasen, zu langen Etappen oder ausgebuchten Unterkünften scheitert, lohnt sich eine gründliche Planung. Dieser Ratgeber führt dich durch die wichtigsten Entscheidungen.
 

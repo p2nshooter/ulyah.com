@@ -2,7 +2,7 @@
 title: "Schwarztee-Sorten: Assam, Darjeeling, Ceylon, Keemun und die klassischen Mischungen"
 description: "Die wichtigsten schwarzen Tees und ihr Geschmack: Assam, Darjeeling, Ceylon, Kenia, Keemun und Lapsang Souchong, dazu Blattgrade, English Breakfast, Earl Grey und die richtige Zubereitung."
 category: teesorten
-date: 2026-10-12
+date: 2026-10-06
 ---
 Schwarzer Tee ist in Deutschland der Klassiker unter den Tees: zum Frühstück mit Milch, nachmittags mit Kandis, als Earl Grey mit Bergamotte oder als Ostfriesentee mit Sahne. Hinter dem einfachen Wort „Schwarztee“ verbirgt sich aber eine große Vielfalt. Ein malziger Assam schmeckt völlig anders als ein blumiger Darjeeling aus der ersten Pflückung, ein frischer Ceylon anders als ein rauchiger Lapsang Souchong. Herkunft, Pflanzenvarietät, Höhenlage, Erntezeit und Verarbeitung prägen jeden Tee. Dieser Ratgeber stellt die wichtigsten Sorten vor, erklärt die rätselhaften Buchstaben auf der Packung und hilft dir, den passenden Tee zu finden.
 

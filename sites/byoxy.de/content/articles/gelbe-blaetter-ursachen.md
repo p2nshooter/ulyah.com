@@ -2,7 +2,7 @@
 title: "Gelbe Blätter an Zimmerpflanzen: die häufigsten Ursachen und was hilft"
 description: Warum Zimmerpflanzen gelbe Blätter bekommen: Gießfehler, Lichtmangel, Nährstoffmangel, Schädlinge, Kälte und natürliche Alterung, mit Diagnose-Tabelle, Muster-Erkennung und Lösungen.
 category: schaedlinge-und-probleme
-date: 2026-09-12
+date: 2026-10-04
 ---
 Ein gelbes Blatt an einer Zimmerpflanze sorgt schnell für Unruhe. Manchmal ist es harmlos, weil die Pflanze ein altes Blatt abstößt. Manchmal ist es ein Warnsignal für Wurzelfäule, Nährstoffmangel oder Schädlinge. Der Schlüssel liegt darin, genau hinzusehen: Welche Blätter sind betroffen, wie sieht die Verfärbung aus, und wie fühlt sich die Erde an?
 

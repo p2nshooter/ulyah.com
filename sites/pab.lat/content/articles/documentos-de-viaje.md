@@ -2,7 +2,7 @@
 title: "Documentos para viajar por América Latina: pasaporte, cédula, visas, menores y copias"
 description: "Cuándo basta la cédula y cuándo hace falta pasaporte, cómo averiguar visas y requisitos de entrada, permisos para menores, licencia de conducir, vacunas y qué hacer si pierdes un documento."
 category: planificacion-y-presupuesto
-date: 2026-07-29
+date: 2026-10-11
 ---
 Un viaje puede arruinarse antes de empezar en el mostrador de una aerolínea: un pasaporte que vence en pocos meses, una autorización de viaje para un menor que faltaba, un certificado de vacuna que el país de destino exigía. Los requisitos de entrada cambian según la nacionalidad, el país de destino, el medio de transporte y hasta la edad de quien viaja, y cambian con el tiempo.
 

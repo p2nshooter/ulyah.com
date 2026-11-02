@@ -2,7 +2,7 @@
 title: "Smartphone kaufen: Worauf es wirklich ankommt und welche Angaben du ignorieren kannst"
 description: "Updates, Akku, Speicher, Kamera, Display und Preis: Diese Kaufberatung erklärt verständlich, welche Smartphone-Eigenschaften im Alltag zählen und wie du Fehlkäufe vermeidest."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Wer ein neues Smartphone sucht, steht vor einer Wand aus Zahlen: 200 Megapixel, 120 Hertz, 8 GB RAM, 5.000 mAh, Octa-Core. Händler und Hersteller überbieten sich mit Datenblättern, die im Alltag oft wenig aussagen. Gleichzeitig fehlt in der Werbung häufig genau die Angabe, die für dich am wichtigsten ist: wie lange das Gerät Updates bekommt. Diese Kaufberatung hilft dir, die wichtigen von den unwichtigen Eigenschaften zu trennen und ein Smartphone zu finden, das zu deinem Alltag passt, ohne für Funktionen zu bezahlen, die du nie nutzt.

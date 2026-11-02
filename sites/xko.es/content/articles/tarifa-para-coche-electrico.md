@@ -2,7 +2,7 @@
 title: Tarifa de luz para coche eléctrico: cargar en casa pagando lo mínimo
 description: Cuánto cuesta cargar un coche eléctrico en casa, qué potencia contratar en valle, qué tarifa conviene, cómo instalar un punto de recarga y cómo usar las placas solares.
 category: potencia-y-tarifas
-date: 2026-08-31
+date: 2026-10-04
 ---
 Cargar un coche eléctrico en casa es, con diferencia, la forma más barata de recorrer kilómetros con él. Pero el ahorro depende mucho de cómo se haga: a qué hora se carga, qué potencia está contratada, qué tarifa se tiene y si se aprovechan las placas solares. Un mismo coche puede costar menos de 2 € por cada 100 km cargando de noche con una buena tarifa, o el triple si se carga en hora punta o en cargadores rápidos públicos.
 

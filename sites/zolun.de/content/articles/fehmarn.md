@@ -2,7 +2,7 @@
 title: "Fehmarn-Urlaub planen: Sonneninsel, Wind, Strände und der kurze Weg nach Dänemark"
 description: "Fehmarn im Überblick: Burg und Südstrand, Naturstrände, Kitesurfen, Leuchttürme, Vogelreservat und Fährhafen Puttgarden. Mit Standortwahl, Anreise über die Sundbrücke und Tipps für windige Tage."
 category: inseln
-date: 2026-08-11
+date: 2026-10-11
 ---
 Fehmarn ist anders als die großen Badeinseln der Ostsee. Es gibt keine prächtigen Kaiserbäder und keine Kreidefelsen, dafür weite Felder, ein großes Stück Himmel, kleine Häfen und einen Wind, der fast immer weht. Genau das macht die Insel für viele Menschen so besonders: Familien mögen die flachen Strände, Surfer und Kiter die verlässliche Brise, Radfahrer die ebenen Wege und Ruhesuchende die Abende am Leuchtturm. Und weil die Insel über eine Brücke erreichbar ist, beginnt der Urlaub ohne Fährfahrplan. Dieser Ratgeber zeigt dir, wie Fehmarn aufgebaut ist und welcher Ort zu deinem Urlaub passt.
 

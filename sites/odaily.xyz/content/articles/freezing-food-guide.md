@@ -3,7 +3,7 @@ title: "The Home Freezer Guide: What Freezes Well, How to Prevent Freezer Burn a
 seoTitle: "Freezing Food Guide: What Freezes Well and How to Thaw"
 description: "Freezer temperature, packaging that prevents freezer burn, what freezes well and what does not, how to freeze in portions, storage times, three safe thawing methods and how to cook from frozen."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 The freezer is one of the best tools for saving time, money and food. It turns a large package of chicken into weeks of dinners, rescues ripe bananas and soft bread before they spoil, and keeps homemade soups and sauces ready for busy evenings. Yet many freezers are full of mysterious, frost-covered packages that no one dares to open. Used well, a freezer preserves food at its best quality and makes everyday cooking much easier. This guide explains how freezing works, what freezes well, how to package food to prevent freezer burn and how to thaw food safely.

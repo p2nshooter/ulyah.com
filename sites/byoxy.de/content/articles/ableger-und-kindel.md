@@ -2,7 +2,7 @@
 title: "Ableger und Kindel: Pflanzen vermehren, die ihren Nachwuchs selbst bilden"
 description: So vermehrst du Grünlilie, Aloe, Bromelie, Orchidee, Pilea und Co. über Ableger, Kindel und Absenker: wann abtrennen, wie bewurzeln, welches Substrat und wie die Jungpflanzen gut anwachsen.
 category: vermehren
-date: 2026-09-08
+date: 2026-10-04
 ---
 Manche Pflanzen nehmen dir die Arbeit der Vermehrung fast vollständig ab. Sie bilden an langen Ausläufern, am Fuß der Mutterpflanze oder sogar an ihren Blütenstielen kleine, fertige Jungpflanzen. Diese Ableger und Kindel haben oft schon eigene Wurzeln oder bilden sie sehr schnell. Für Einsteiger ist das die sicherste Art, neue Pflanzen zu gewinnen, und für alle, die gern Pflanzen verschenken, eine unerschöpfliche Quelle.
 

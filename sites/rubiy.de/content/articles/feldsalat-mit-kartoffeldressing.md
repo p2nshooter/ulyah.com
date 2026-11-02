@@ -2,7 +2,7 @@
 title: "Feldsalat richtig putzen und mit schwäbischem Kartoffeldressing anmachen"
 description: Feldsalat ist der wichtigste Wintersalat. So putzt du ihn ohne Sand, hältst ihn frisch und machst ihn mit warmem Kartoffeldressing oder Speck-Zwiebel-Vinaigrette an.
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wenn im Winter draußen fast nichts mehr wächst, gibt es ein Blattgemüse, das sich von Frost nicht beeindrucken lässt: den Feldsalat. Seine kleinen, dunkelgrünen Rosetten überstehen Temperaturen weit unter null und werden im Freiland von Oktober bis März geerntet. Damit ist er der wichtigste frische Salat der kalten Jahreszeit.
 

@@ -2,7 +2,7 @@
 title: Bono social eléctrico: quién puede pedirlo, descuentos y cómo solicitarlo
 description: Qué es el bono social de la luz, requisitos de renta y situaciones especiales, categorías de consumidor vulnerable, cómo se solicita paso a paso y errores frecuentes que retrasan la ayuda.
 category: potencia-y-tarifas
-date: 2026-09-17
+date: 2026-10-04
 ---
 El bono social eléctrico es un descuento en la factura de la luz destinado a hogares con rentas bajas o en situaciones de especial vulnerabilidad. Puede suponer un ahorro de cientos de euros al año y, en los casos más graves, protege contra el corte de suministro. Aun así, muchas familias que podrían beneficiarse no lo solicitan, bien porque no saben que cumplen los requisitos, bien porque el trámite les parece complicado.
 

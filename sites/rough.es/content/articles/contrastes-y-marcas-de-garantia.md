@@ -2,7 +2,7 @@
 title: "Contrastes y marcas de garantía: cómo leer los sellos del oro, la plata y el platino en España"
 description: "Qué significan los números y sellos de una joya, qué exige la normativa española sobre metales preciosos, cómo leer marcas antiguas, qué indican GP o vermeil y cómo comprobar la ley de una pieza."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 Si miras con una lupa el interior de un anillo de oro comprado en España, lo normal es encontrar varias marcas diminutas: un número como 750, un pequeño símbolo y unas letras o un dibujo. No son adornos. Son los contrastes, las marcas que identifican quién fabricó o importó la pieza y qué proporción de metal precioso contiene. Saber leerlas es una de las herramientas más útiles para comprar, vender o heredar joyas con criterio, porque convierten una afirmación del vendedor en un dato verificable.
 

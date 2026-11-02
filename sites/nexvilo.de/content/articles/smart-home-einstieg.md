@@ -2,7 +2,7 @@
 title: "Smart Home für Einsteiger: Womit du anfängst, was es kostet und welche Fehler du vermeidest"
 description: "Der ruhige Einstieg ins vernetzte Zuhause: sinnvolle erste Geräte, Funkstandards, App oder Zentrale, Datenschutz, Kosten und eine Schritt-für-Schritt-Planung, die zu Miete und Eigenheim passt."
 category: smart-home
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Das Licht geht an, wenn du nach Hause kommst, die Heizung wärmt das Bad, bevor du aufstehst, und eine Nachricht aufs Handy meldet, dass die Waschmaschine fertig ist. Ein Smart Home klingt nach Komfort und Energiesparen, aber auch nach teurer Technik, komplizierten Apps und der Sorge, dass ein Konzern im Wohnzimmer mithört. Die Wahrheit liegt dazwischen. Ein vernetztes Zuhause kann im Alltag wirklich helfen, wenn du es schrittweise und mit Plan aufbaust. Diese Anleitung zeigt dir, womit du sinnvoll beginnst, welche Technik dahintersteckt, was es kostet und welche typischen Fehler du vermeiden solltest.

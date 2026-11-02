@@ -2,7 +2,7 @@
 title: "Mahlgrad richtig einstellen: von Türkisch bis Cold Brew, mit Tabelle und Geschmackskompass"
 description: "Welcher Mahlgrad für welche Zubereitung: Espresso, Espressokocher, Handfilter, Filtermaschine, French Press und Cold Brew. Mit Vergleichen, Einstelltipps an der Mühle und Hilfe beim Nachjustieren."
 category: muehlen-und-wasser
-date: 2026-10-12
+date: 2026-10-06
 ---
 Der Mahlgrad ist die Stellschraube, an der die meisten Kaffeeprobleme hängen. Ein Kaffee, der sauer und dünn schmeckt, ist oft zu grob gemahlen. Einer, der bitter, trocken und kratzig ist, oft zu fein. Weil jede Zubereitungsart das Wasser unterschiedlich lange und auf andere Weise mit dem Kaffee in Kontakt bringt, braucht jede ihren eigenen Mahlgrad. Und weil jede Mühle anders skaliert ist, hilft eine Zahl auf dem Einstellrad allein wenig. Dieser Ratgeber zeigt, welcher Mahlgrad wohin gehört, wie du ihn an deiner Mühle findest und wie du mit dem Geschmack als Kompass nachjustierst.
 

@@ -2,7 +2,7 @@
 title: "Ampliar la casa con un segundo piso: estructura, permisos, escalera y errores que cuestan caro"
 description: "Antes de construir hacia arriba: evaluación estructural, permisos, varillas en espera, escalera, instalaciones, sistemas livianos y los errores más comunes de las ampliaciones en América Latina."
 category: arquitectura-y-casas
-date: 2026-08-30
+date: 2026-10-11
 ---
 En muchas ciudades latinoamericanas las casas crecen como crecen las familias. Primero se construye la planta baja, se vive en ella algunos años y, cuando llega el dinero o un hijo forma su propio hogar, se levanta un segundo piso. Las varillas de acero que asoman de las columnas en tantas azoteas, esperando la ampliación, son parte del paisaje urbano de la región.
 

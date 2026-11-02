@@ -2,7 +2,7 @@
 title: "Kaffeemühle reinigen: Hand- und Elektromühle zerlegen, Mahlwerk säubern, Öle entfernen"
 description: "So reinigst du deine Kaffeemühle: warum alte Öle den Geschmack verderben, wie oft du reinigen solltest, Anleitung für Hand- und Elektromühle, Reinigungsgranulat und was du vermeiden solltest."
 category: muehlen-und-wasser
-date: 2026-10-12
+date: 2026-10-06
 ---
 Die Kaffeemühle ist das am meisten vernachlässigte Gerät in vielen Kaffeeküchen. Die Maschine wird entkalkt, die Kanne gespült, aber die Mühle läuft jahrelang, ohne dass jemand hineinschaut. Dabei sammeln sich im Mahlwerk, in der Auswurföffnung und im Bohnenbehälter feiner Kaffeestaub und Öle, die mit der Zeit ranzig werden. Sie geben dem frisch gemahlenen Kaffee einen muffigen, bitteren oder ranzigen Beigeschmack und können sogar die Mahlqualität verschlechtern. Die Reinigung ist nicht schwierig und dauert meist nur eine Viertelstunde. Dieser Ratgeber zeigt, wie du vorgehst.
 

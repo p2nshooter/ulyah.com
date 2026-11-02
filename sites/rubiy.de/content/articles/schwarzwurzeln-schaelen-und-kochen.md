@@ -2,7 +2,7 @@
 title: "Schwarzwurzeln schälen ohne braune Finger: der Winterspargel in Rahmsoße und Suppe"
 description: "Schwarzwurzeln von Oktober bis März: frische Wurzeln erkennen, sauber schälen oder ungeschält kochen, Rahmschwarzwurzeln mit Schinken, gebackene Schwarzwurzeln und eine samtige Suppe."
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Schwarzwurzeln sehen wenig einladend aus: lange, dünne, erdige Stangen mit dunkler, fast schwarzer Rinde. Wer sie zum ersten Mal schält, hat danach klebrige, braun verfärbte Hände und fragt sich, ob sich die Mühe lohnt. Sie lohnt sich. Unter der Rinde steckt weißes, zartes Fruchtfleisch mit einem feinen, leicht nussigen Geschmack, der an Spargel und Artischocke erinnert. Nicht ohne Grund heißt die Schwarzwurzel „Winterspargel“ oder „Arme-Leute-Spargel“. Von Oktober bis März bringt sie Abwechslung in die Wintermonate, in denen sonst Kohl und Rüben dominieren.
 

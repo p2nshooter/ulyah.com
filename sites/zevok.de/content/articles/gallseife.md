@@ -2,7 +2,13 @@
 title: "Gallseife richtig anwenden: Flecken vorbehandeln, ohne Stoffe zu strapazieren"
 description: "Was Gallseife ist, bei welchen Flecken sie hilft, wie du sie Schritt für Schritt anwendest und wann Wolle, Seide, Leder oder empfindliche Farben besser etwas anderes brauchen."
 category: hausmittel
-date: 2026-09-30
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Behandlung von Grasflecken auf Kleidungsstücken | https://forum-waschen.de/tipps-zur-behandlung-von-grasflecken-auf-kleidungsstuecken/
+  - Forum Waschen: Alternative Putzmittel – natürlich waschen und putzen? | https://forum-waschen.de/alternative-putzmittel-natuerlich-waschen-und-putzen-geht-das/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
 ---
 Gallseife gehört zu den Hausmitteln, auf die viele Menschen schwören. Das unscheinbare Seifenstück liegt neben der Waschmaschine und kommt immer dann zum Einsatz, wenn ein Fleck nicht von allein in der Wäsche verschwindet: ein Fettspritzer auf dem Hemd, ein grauer Rand am Kragen, Grasflecken auf der Kinderhose. In vielen Fällen hilft Gallseife tatsächlich erstaunlich gut. Sie ist aber kein Mittel für jeden Fleck und jedes Material.
 

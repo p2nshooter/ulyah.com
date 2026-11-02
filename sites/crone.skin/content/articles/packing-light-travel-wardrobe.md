@@ -2,7 +2,7 @@
 title: "Packing Light: A Stylish Travel Capsule Wardrobe for Women Over Fifty"
 description: How to pack a small, stylish travel wardrobe — choosing a colour palette, the core pieces, shoes, fabrics that travel well, packing techniques, toiletries and washing on the go.
 category: travel-and-discovery
-date: 2026-10-19
+date: 2026-10-20
 ---
 There is a particular kind of freedom in travelling light. You glide through stations without hauling a heavy case up the steps. You lift your bag into the overhead rack without help. You never stand at the airport carousel wondering whether your luggage has gone to another continent. And getting dressed each morning is simple, because everything you have brought goes with everything else.
 

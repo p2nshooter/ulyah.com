@@ -2,7 +2,7 @@
 title: "Das Abendbrot, das keiner essen wollte"
 description: Ayşe kocht jeden Abend, und jeden Abend schieben zwei Kinder den Teller weg. Über wählerische Esser, Machtkämpfe am Tisch und den Abend, an dem die Kinder selbst kochen.
 category: morgens-und-abends
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Was ist das Grüne da drin?“
 

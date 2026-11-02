@@ -2,7 +2,7 @@
 title: "Cómo calcular un presupuesto de viaje realista por América Latina, paso a paso"
 description: "Un método para calcular cuánto cuesta tu viaje: estilo, gastos fijos, gasto diario, grandes excursiones, costos invisibles, imprevistos, temporadas, inflación y cómo ahorrar sin riesgos."
 category: planificacion-y-presupuesto
-date: 2026-09-27
+date: 2026-10-11
 ---
 "¿Cuánto cuesta viajar por América Latina?" es una de las preguntas más frecuentes de quien prepara un viaje, y también una de las más difíciles de responder. La región incluye destinos muy económicos y otros sorprendentemente caros, países con monedas estables y otros con inflación alta, temporadas en las que los precios se duplican y viajeros que gastan diez veces más que otros recorriendo el mismo lugar. Por eso, cualquier cifra general sirve de poco.
 

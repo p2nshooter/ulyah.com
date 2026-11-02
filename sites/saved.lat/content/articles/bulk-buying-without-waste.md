@@ -2,7 +2,7 @@
 title: "Bulk Buying Without the Waste: When Big Packs Really Save Money"
 description: "When buying in bulk genuinely lowers your food and household costs, when it quietly costs more, and how to store, share and rotate large packs so nothing is thrown away."
 category: kitchen-and-groceries
-date: 2026-10-31
+date: 2026-11-01
 ---
 Buying in bulk sounds like the obvious way to save money. The bigger the pack, the lower the price per kilogram, so a cupboard full of large bags and multipacks must be the thrifty choice. Often it is. But bulk buying also has a habit of going wrong in ways that are easy to miss: the giant bag of rice that attracts pantry moths, the box of snacks that disappears twice as fast because there is so much of it, the twelve-pack of yoghurts that reaches its date before anyone eats the last four. When that happens, the "saving" quietly turns into a loss.
 

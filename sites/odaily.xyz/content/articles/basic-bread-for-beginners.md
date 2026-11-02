@@ -2,7 +2,7 @@
 title: "Basic Bread for Beginners: A Simple Yeast Loaf, Step by Step, With the Why Behind Each Stage"
 description: "Bake your first loaf with four ingredients: how yeast, kneading and rising work, how to tell when dough is proofed, how to shape and bake it, check doneness at 190–210 °F and store bread."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Few things in the kitchen are as satisfying as pulling your own loaf of bread from the oven. The smell fills the house, the crust crackles as it cools, and the first slice with butter tastes better than almost anything you can buy. Many people think homemade bread is difficult or takes all day. In reality, a basic yeast bread needs only four ingredients and about twenty minutes of hands-on work. The rest is waiting while the yeast does its job. This guide takes you through a simple, reliable loaf step by step and explains what happens at each stage, so you understand not only what to do but why.

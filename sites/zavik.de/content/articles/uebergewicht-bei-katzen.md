@@ -2,7 +2,7 @@
 title: "Übergewicht bei Katzen erkennen und sicher abnehmen"
 description: Woran du erkennst, ob deine Katze zu dick ist, welche Krankheiten Übergewicht begünstigt und wie eine Diät gelingt, ohne die Leber zu gefährden: langsam, messbar und mit viel Bewegung.
 category: ernaehrung
-date: 2026-09-13
+date: 2026-10-05
 ---
 Eine runde Katze auf dem Sofa sieht gemütlich aus, und viele Menschen finden ein paar Pfunde zu viel bei ihrer Katze sogar niedlich. Tierärztinnen und Tierärzte sehen das anders: Übergewicht gehört zu den häufigsten Gesundheitsproblemen bei Hauskatzen, und es verkürzt das Leben. Schätzungen zufolge ist in vielen Industrieländern ein großer Teil der Hauskatzen übergewichtig, Wohnungskatzen und kastrierte Tiere besonders häufig.
 

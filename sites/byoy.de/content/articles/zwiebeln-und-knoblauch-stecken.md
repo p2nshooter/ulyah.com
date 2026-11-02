@@ -2,7 +2,7 @@
 title: "Zwiebeln und Knoblauch stecken: Termin, Abstand, Zwiebelfliege und Lagerung"
 description: "Steckzwiebeln, Säzwiebeln, Winterzwiebeln und Knoblauch im Bio-Garten: wann und wie tief stecken, Mischkultur mit Möhren gegen die Zwiebelfliege, Schossen vermeiden, ernten, trocknen und flechten."
 category: gemuesegarten
-date: 2026-07-24
+date: 2026-10-06
 ---
 Zwiebeln und Knoblauch gehören zu den dankbarsten Kulturen im Gemüsegarten. Sie brauchen wenig Platz, kaum Pflege, und am Ende des Sommers hängen goldene Zwiebelzöpfe und weiße Knoblauchknollen zum Trocknen unter dem Dachvorsprung. Selbst gezogene Knollen halten oft bis ins Frühjahr und schmecken aromatischer als Ware aus dem Handel. Wer ein paar Dinge über Steckzeit, Abstand und die typischen Schädlinge weiß, wird mit einer verlässlichen Ernte belohnt.
 

@@ -2,7 +2,7 @@
 title: "Kompost anlegen: Standort, richtige Mischung, Umsetzen und reifen Kompost erkennen"
 description: "So gelingt Gartenkompost: Platz und Behälter, was hinein darf und was nicht, grünes und braunes Material mischen, Feuchtigkeit, Umsetzen, Kressetest für reifen Kompost und richtige Mengen im Beet."
 category: kompost-und-boden
-date: 2026-08-02
+date: 2026-10-06
 ---
 Kompost ist das Herz des biologischen Gartens. Aus Rasenschnitt, Gemüseresten, Laub und Strauchschnitt entsteht in einigen Monaten dunkle, krümelige, nach Waldboden duftende Erde, die mehr kann als jeder gekaufte Dünger: Sie füttert das Bodenleben, verbessert die Struktur, speichert Wasser und liefert Nährstoffe langsam und gleichmäßig. Gleichzeitig verschwindet ein großer Teil der Gartenabfälle, ohne dass du zum Wertstoffhof fahren musst. Ein guter Kompost ist kein Zufall. Er braucht den richtigen Platz, eine ausgewogene Mischung und ein wenig Pflege.
 

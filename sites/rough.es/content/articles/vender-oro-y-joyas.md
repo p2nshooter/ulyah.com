@@ -2,7 +2,7 @@
 title: "Vender oro y joyas en España: cómo se calcula el precio, dónde vender y cómo evitar abusos"
 description: "Cómo vender oro y joyas con criterio: cómo se calcula lo que te pagan, qué pruebas se hacen, por qué piden el DNI, cuándo conviene un joyero o una subasta, qué pasa con Hacienda y qué errores evitar."
 category: compra-y-valoracion
-date: 2026-10-11
+date: 2026-10-12
 ---
 En casi todas las ciudades españolas hay escaparates con carteles de «compro oro» y precios por gramo que cambian cada día. Para muchas familias, vender joyas que ya no se usan es una forma legítima de obtener liquidez: cadenas rotas, pendientes desparejados, anillos que ya no sirven o herencias que nadie va a llevar. Pero vender bien exige saber qué se vende, cómo se calcula el precio y qué alternativas existen, porque la diferencia entre la primera oferta y la mejor puede ser considerable, y porque algunas piezas valen bastante más enteras que fundidas.
 

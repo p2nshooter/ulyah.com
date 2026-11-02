@@ -2,7 +2,14 @@
 title: "Küchenhygiene: Spültücher, Schneidebretter, Kühlschrank und rohes Fleisch ohne Keimrisiko"
 description: "Wo sich in der Küche Keime sammeln und was hilft: Spültücher oft wechseln, Bretter trennen, Geflügel nicht waschen, Kühlschrank richtig einstellen und Reste schnell kühlen."
 category: kueche-reinigen
-date: 2026-08-31
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bundesinstitut für Risikobewertung: Schutz vor Lebensmittelinfektionen im Privathaushalt (PDF) | https://www.bfr.bund.de/cm/350/verbrauchertipps_schutz_vor_lebensmittelinfektionen_im_privathaushalt.pdf
+  - Umweltbundesamt: Hygienetipps für den Alltag | https://www.umweltbundesamt.de/themen/hygienetipps-fuer-den-alltag
+  - Bundeszentrum für Ernährung: Lebensmittel richtig lagern | https://www.bzfe.de/kueche-und-alltag/kochen/lebensmittel-richtig-lagern
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
 ---
 Die Küche ist der Ort in der Wohnung, an dem Hygiene am meisten zählt. Hier treffen rohes Fleisch, Eier, Gemüse mit Erde, feuchte Tücher und warme Temperaturen aufeinander. Viele Lebensmittelinfektionen, die Menschen auf das Restaurant schieben, entstehen in Wahrheit zu Hause. Die gute Nachricht: Gegen die meisten Risiken helfen keine teuren Desinfektionsmittel, sondern ein paar einfache Gewohnheiten, die man schnell verinnerlicht.
 

@@ -2,7 +2,7 @@
 title: "Geigenfeige (Ficus lyrata) pflegen: Licht, Gießen und Blattabwurf"
 description: Wie die Geigenfeige richtig steht, gegossen und gedüngt wird, warum sie Blätter verliert, wie du sie verzweigst, umtopfst und braune Flecken an den großen Blättern vermeidest.
 category: zimmerpflanzen
-date: 2026-09-27
+date: 2026-10-04
 ---
 Die Geigenfeige, botanisch Ficus lyrata, ist mit ihren großen, geigenförmigen Blättern eine der eindrucksvollsten Zimmerpflanzen. Als Hochstamm oder buschige Pflanze bringt sie Struktur in jeden Raum. Gleichzeitig hat sie den Ruf, launisch zu sein: Sie wirft Blätter ab, bekommt braune Flecken und reagiert auf Umzüge beleidigt. Die gute Nachricht: Ihre Ansprüche sind klar und gut zu erfüllen, wenn man sie kennt.
 

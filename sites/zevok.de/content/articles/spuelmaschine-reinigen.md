@@ -2,7 +2,13 @@
 title: "Spülmaschine reinigen: Siebe, Sprüharme, Dichtungen und Gerüche"
 description: "Siebe, Sprüharme und Türdichtung der Spülmaschine reinigen, Salz und Klarspüler richtig nutzen, Gerüche und Beläge verstehen und so sauberes Geschirr sichern."
 category: kueche-reinigen
-date: 2026-09-09
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Geschirrspüler im ECO-Programm | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/geschirrspueler-im-eco-programm-wasser-strom-sparen
+  - Umweltbundesamt: Erfolgreich (Ab-)Waschen | https://www.umweltbundesamt.de/themen/erfolgreich-ab-waschen-minimaler-einsatz-maximales
+  - Verbraucherzentrale: Wasserhärte bestimmen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wasser/wasserhaerte-bestimmen-habe-ich-weiches-oder-hartes-wasser-5532
 ---
 Eine Spülmaschine reinigt jeden Tag Geschirr, und trotzdem denken viele, sie würde sich dabei selbst sauber halten. Das stimmt nur zum Teil. Speisereste landen in den Sieben, Fett setzt sich an Dichtungen und in Ecken ab, und bei hartem Wasser bildet sich Kalk. Die Folgen kennen die meisten: Gläser werden milchig, das Geschirr ist nicht mehr ganz sauber, und beim Öffnen der Tür riecht es muffig.
 

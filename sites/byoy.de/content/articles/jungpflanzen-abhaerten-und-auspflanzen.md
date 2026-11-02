@@ -2,7 +2,7 @@
 title: "Jungpflanzen abhärten und auspflanzen: vom Fensterbrett sicher ins Beet"
 description: "Vorgezogene Pflanzen sicher ins Beet bringen: zehn Tage Abhärteplan, Eisheilige und Bodentemperatur, gesunde Jungpflanzen erkennen, richtig pflanzen und in den ersten Tagen schützen."
 category: saatgut-und-jungpflanzen
-date: 2026-10-03
+date: 2026-10-06
 ---
 Wochenlang hast du Tomaten, Paprika, Kohl und Salat auf der Fensterbank gehegt. Sie sind kräftig und grün, und endlich ist es Mai. Doch wer die Pflanzen direkt vom warmen Wohnzimmer ins Beet setzt, erlebt oft eine Enttäuschung: Am nächsten Tag sind die Blätter weiß verbrannt, die Pflanzen hängen schlaff herunter, oder eine kalte Nacht hat sie geschädigt. Der Grund ist einfach: Pflanzen, die im Haus aufgewachsen sind, kennen weder direkte Sonne noch Wind noch kühle Nächte. Sie müssen sich daran gewöhnen. Dieser Schritt heißt Abhärten. Er dauert ein bis zwei Wochen und entscheidet darüber, wie gut deine Jungpflanzen im Beet starten.
 

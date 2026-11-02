@@ -2,7 +2,7 @@
 title: Conservas caseras al baño maría con seguridad: acidez, botulismo, tiempos y cierre al vacío
 description: Conservas caseras seguras: qué se puede tratar al baño maría y qué no, botulismo, tomate acidificado, tiempos, vacío y señales de conserva estropeada.
 category: conservas
-date: 2026-10-12
+date: 2026-10-04
 ---
 Las conservas caseras en tarros de cristal forman parte de la tradición de muchas familias españolas: tomate en verano, pimientos asados, mermeladas, melocotón en almíbar. Bien hechas, permiten disfrutar de los productos de temporada durante todo el año. Mal hechas, pueden ser peligrosas. La principal amenaza tiene nombre propio: el **botulismo**, una intoxicación poco frecuente pero muy grave.
 

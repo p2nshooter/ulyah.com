@@ -2,7 +2,7 @@
 title: "How to Roast Vegetables: Temperatures, Timings and Tricks for Golden, Crisp Results Every Time"
 description: "The oven temperature, cut size, oil and pan spacing that turn vegetables golden instead of soggy, a timing chart for common vegetables, how to roast mixed trays and ideas for seasoning and leftovers."
 category: kitchen-basics
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Roasting is the easiest way to make vegetables taste wonderful. A tray of carrots, broccoli or potatoes goes into a hot oven looking ordinary and comes out golden, caramelized and sweet, with crisp edges and tender centers. Even people who claim they do not like vegetables often change their minds about roasted Brussels sprouts or cauliflower. Roasting also requires very little work: chop, toss with oil and salt, spread on a pan and wait. Yet many home cooks end up with pale, soggy or unevenly cooked vegetables. The difference between a sad tray and a spectacular one comes down to a few key details. This guide explains them all.

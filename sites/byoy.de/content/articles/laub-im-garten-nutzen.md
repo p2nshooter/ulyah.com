@@ -2,7 +2,7 @@
 title: "Laub im Garten nutzen: als Mulch, für Laubkompost und als Winterquartier für Igel"
 description: "Herbstlaub ist kein Abfall: welche Blätter schnell verrotten, Beete und Sträucher mulchen, Laubkompost ansetzen, Igeln ein Winterquartier bauen und Laub vom Rasen holen."
 category: kompost-und-boden
-date: 2026-07-30
+date: 2026-10-06
 ---
 Jeden Herbst stehen Gärtnerinnen und Gärtner vor demselben Bild: Rasen, Wege und Beete versinken unter einer Decke aus braunen, gelben und roten Blättern. Viele rechen alles zusammen, füllen Säcke und bringen sie zum Wertstoffhof. Dabei ist Laub einer der wertvollsten Rohstoffe, die ein Garten kostenlos bekommt. Im Wald fällt jedes Jahr das Laub, verrottet und bildet den lockeren, humusreichen Waldboden, in dem alles wächst. Genau diesen Kreislauf kannst du im Garten nachahmen: Laub schützt den Boden im Winter, füttert Regenwürmer, wird zu feinstem Humus und bietet Igeln und Insekten einen Platz zum Überwintern.
 

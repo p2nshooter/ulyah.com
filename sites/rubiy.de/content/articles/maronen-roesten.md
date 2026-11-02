@@ -2,7 +2,7 @@
 title: "Maronen rösten: im Ofen, in der Pfanne und glasiert zum Rotkohl"
 description: "Maronen einkaufen, einschneiden, im Backofen oder in der Pfanne rösten und leicht schälen, dazu glasierte Maronen, Maronensuppe und der Unterschied zur Rosskastanie."
 category: herbst
-date: 2026-10-12
+date: 2026-10-06
 ---
 Wenn es draußen früh dunkel wird und der Duft von gerösteten Maronen über den Weihnachtsmarkt zieht, beginnt für viele die gemütlichste Zeit des Jahres. Dabei musst du Maronen gar nicht in der Tüte vom Stand kaufen: Im Backofen werden sie genauso gut, und als glasierte Beilage zu Rotkohl, Gans oder Wild gehören sie zu den schönsten Herbstzutaten überhaupt. Das Einzige, was beim ersten Mal Nerven kostet, ist das Schälen. Mit dem richtigen Schnitt und etwas Dampf geht es aber erstaunlich leicht.
 

@@ -2,7 +2,7 @@
 title: "Bayerische Seen: Chiemsee, Königssee, Tegernsee und Co. im Vergleich – mit Anreise ohne Auto"
 description: "Welcher See in Bayern passt zu dir? Chiemsee, Königssee, Tegernsee, Starnberger See, Walchensee, Eibsee und das Fränkische Seenland im Vergleich, mit Bahnanreise."
 category: seen-und-fluesse
-date: 2026-08-23
+date: 2026-10-11
 ---
 Bayern hat Seen für fast jeden Geschmack: große Wasserflächen mit Inseln und Schlössern, glasklare Bergseen zwischen steilen Felswänden, Badeseen vor den Toren Münchens und warme, flache Seen in Franken, an denen Kinder stundenlang im Wasser spielen. Gleichzeitig unterscheiden sie sich stark in Wassertemperatur, Trubel und Anreise. Dieser Ratgeber stellt die bekanntesten Seen vor, vergleicht sie ehrlich und zeigt, wie du viele davon ohne Auto erreichst.
 

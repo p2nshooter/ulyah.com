@@ -2,7 +2,7 @@
 title: Cómo mantener la motivación para hacer ejercicio todo el año
 description: Estrategias basadas en la psicología del hábito para no abandonar el ejercicio: objetivos realistas, rutinas, disfrute, compañía, cómo superar los parones y qué hacer cuando la motivación desaparece.
 category: ocio-activo
-date: 2026-10-12
+date: 2026-10-04
 ---
 Cada enero, los gimnasios se llenan y los parques se llenan de corredores nuevos. Cada marzo, buena parte de ellos ha desaparecido. No es falta de voluntad: es que la motivación es un recurso que sube y baja, y quien depende solo de ella para entrenar acaba abandonando cuando baja. Las personas que mantienen el ejercicio durante años no están más motivadas que las demás; han construido hábitos y entornos que les facilitan seguir incluso los días en que no les apetece.
 

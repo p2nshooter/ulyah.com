@@ -2,7 +2,7 @@
 title: "Kratzer, Dellen und Wasserflecken in Holz reparieren"
 description: Wie du oberflächliche Kratzer, tiefe Kerben, Dellen und weiße oder dunkle Wasserflecken in geölten, gewachsten und lackierten Holzmöbeln und Böden unauffällig ausbesserst.
 category: holz-und-moebel
-date: 2026-09-12
+date: 2026-10-04
 ---
 Holzmöbel leben mit ihren Besitzern: Ein Schlüsselbund hinterlässt einen Kratzer auf dem Esstisch, ein Spielzeugauto eine Delle im Parkett, ein vergessenes Glas einen weißen Ring auf der Kommode. Viele dieser Spuren lassen sich mit Hausmitteln und wenig Werkzeug so ausbessern, dass man sie kaum noch sieht. Entscheidend ist, die Art des Schadens und die Oberfläche des Holzes richtig einzuschätzen.
 

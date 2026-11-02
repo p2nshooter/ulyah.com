@@ -2,7 +2,7 @@
 title: "Harzer Hexenstieg: Von Osterode über den Brocken nach Thale"
 description: "Der Harzer Hexenstieg in fünf bis sechs Etappen: Verlauf über den Brocken und durch das Bodetal, Brocken- oder Südvariante, Höhenmeter, Wetter, Brockenbahn und Planungstipps."
 category: fernwanderwege
-date: 2026-07-23
+date: 2026-10-06
 ---
 Der Harzer Hexenstieg ist der Klassiker im Norden Deutschlands: rund 100 Kilometer quer durch den Harz, von Osterode im Westen bis nach Thale im Osten. Unterwegs liegen der Brocken, mit 1.141 Metern der höchste Berg Norddeutschlands, uralte Bergbaulandschaften mit Teichen und Gräben, die zum Welterbe gehören, der Nationalpark Harz mit seinen sich wandelnden Fichtenwäldern und zum Schluss das Bodetal, eine der eindrucksvollsten Felsschluchten nördlich der Alpen. Weil der Weg kurz genug für eine Urlaubswoche ist und gut mit Bahn und Bus erreichbar, ist er für viele die erste Fernwanderung.
 

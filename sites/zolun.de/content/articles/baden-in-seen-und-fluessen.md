@@ -2,7 +2,7 @@
 title: "Baden in Seen und Flüssen: gute Badestellen finden und Gefahren richtig einschätzen"
 description: "So badest du sicher in Seen und Flüssen: offizielle Badestellen und Wasserqualität prüfen, Blaualgen und Zerkarien erkennen, Strömung, Kälte und Baggerseen richtig einschätzen."
 category: seen-und-fluesse
-date: 2026-07-13
+date: 2026-10-11
 ---
 Ein See am späten Nachmittag, das Wasser weich und ohne Salz, am Ufer ein Steg und eine Wiese für das Handtuch: Für viele ist das der schönste Sommerurlaub. Seen und Flüsse wirken friedlicher als das Meer, und genau darin liegt ihre Tücke. Es gibt keine Wellen, die warnen, oft keine Rettungsschwimmer und keine Flaggen. Dafür gibt es Strömungen unter einer glatten Oberfläche, kaltes Wasser in der Tiefe, Kanten, an denen der Grund plötzlich wegbricht, und im Hochsommer manchmal Algen oder winzige Larven, die die Haut reizen. Dieser Ratgeber zeigt dir, wie du gute Badestellen findest, die Wasserqualität prüfst und Gefahren an Seen, Flüssen und Baggerseen richtig einschätzt, damit der Tag am Wasser so entspannt endet, wie er begonnen hat.
 

@@ -2,7 +2,7 @@
 title: "Obst, Pilze und Kräuter trocknen: Apfelringe, Dörrpflaumen und Tee aus dem Garten"
 description: "Wie du Äpfel, Zwetschgen, Pilze und Kräuter an der Luft, im Backofen oder im Dörrautomaten trocknest: Temperaturen, Zeiten, Restfeuchte und sichere Aufbewahrung."
 category: vorrat-und-konservieren
-date: 2026-10-12
+date: 2026-10-06
 ---
 Trocknen ist die älteste Art, Vorräte anzulegen, und vielleicht die einfachste. Es braucht keinen Zucker, kein Essig und keine Gläser mit Gummiringen, sondern nur Wärme, Luft und Geduld. Getrocknete Apfelringe sind ein Snack, der wochenlang hält, Dörrpflaumen machen Winterkuchen saftig, getrocknete Steinpilze geben jeder Soße Tiefe, und ein Bund Pfefferminze vom Sommer wird im Januar zu Tee. Weil den Lebensmitteln das Wasser entzogen wird, können Bakterien und Schimmelpilze nicht mehr wachsen. Damit das zuverlässig klappt, müssen sie aber wirklich trocken sein, und das ist der Punkt, an dem viele Anfänger zu früh aufhören.
 

@@ -2,7 +2,7 @@
 title: "Die Neue in der Klasse"
 description: Mira ist neu in der 5b, und bald macht im Klassenchat ein Sticker über sie die Runde. Clara schickt nur einen Smiley. Über Ausgrenzung, Mitlaufen und den Mut, sich anders zu entscheiden.
 category: schule-und-kita
-date: 2026-10-12
+date: 2026-10-05
 ---
 Mira kam an einem Montag im Oktober in die 5b, sechs Wochen nach Beginn des Schuljahres, als sich die Gruppen in der Klasse schon gefunden hatten. Frau Petersen, die Klassenlehrerin, stellte sie vor: „Das ist Mira. Sie ist mit ihrer Familie aus Regensburg nach Rostock gezogen. Bitte helft ihr, sich zurechtzufinden.“
 

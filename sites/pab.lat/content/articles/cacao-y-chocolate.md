@@ -2,7 +2,7 @@
 title: "Cacao y chocolate en América Latina: historia, fincas, bebidas tradicionales y cómo catar"
 description: "El origen amazónico del cacao, su papel en Mesoamérica, variedades, países productores, visitas a fincas, bebidas como el tejate o el chocolate santafereño, cata y compra de buen chocolate."
 category: sabores-del-viaje
-date: 2026-09-05
+date: 2026-10-11
 ---
 El chocolate que hoy se come en todo el mundo nació en América. Mucho antes de convertirse en tableta, bombón o postre, el cacao fue bebida ceremonial, ofrenda, medicina y hasta moneda. Sus semillas viajaron de la selva amazónica a Mesoamérica, de allí a Europa y luego al resto del planeta. Para quien recorre América Latina, seguir la pista del cacao es una forma deliciosa de conocer historia, paisajes tropicales y comunidades que lo cultivan desde hace generaciones.
 

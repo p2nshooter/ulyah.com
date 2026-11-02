@@ -2,7 +2,7 @@
 title: "Recolección responsable de minerales en España: dónde se puede, qué dice la ley y cómo hacerlo con seguridad"
 description: "Cómo buscar minerales en España con responsabilidad: propiedad, minas, espacios protegidos y fósiles, equipo básico, seguridad en el campo y cómo documentar lo que encuentras."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Encontrar un cristal con tus propias manos, en una escombrera olvidada o en un talud junto a un camino, es una de las experiencias más emocionantes de la afición a los minerales. Muchos coleccionistas recuerdan con precisión dónde y cuándo encontraron su primera pieza, y esa historia vale tanto como el propio ejemplar. Pero salir al campo con un martillo no es tan sencillo como parece: en España, el subsuelo, los espacios naturales, los fósiles y los yacimientos arqueológicos tienen normas propias, y la seguridad es una cuestión seria.
 

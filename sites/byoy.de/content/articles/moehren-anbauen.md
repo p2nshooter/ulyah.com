@@ -2,7 +2,7 @@
 title: "Möhren anbauen: Aussaat, Vereinzeln, Möhrenfliege und Lagerung"
 description: "So gelingen Möhren im Biogarten: Boden und Standort, Sortenwahl, Aussaat ohne Frust, Vereinzeln, Gießen, Schutz vor der Möhrenfliege, Ernte und Lagerung bis ins Frühjahr."
 category: gemuesegarten
-date: 2026-10-13
+date: 2026-10-14
 ---
 Möhren gehören zu den beliebtesten Gemüsen im Hausgarten, und frisch aus der Erde gezogen schmecken sie süßer und aromatischer als fast jede Möhre aus dem Supermarkt. Gleichzeitig gelten sie als etwas launisch: Die Samen keimen langsam, die Keimlinge sind winzig, und die Möhrenfliege kann eine ganze Ernte verderben. Wer die Ansprüche der Möhre kennt, hat aber kaum Probleme.
 

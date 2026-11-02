@@ -2,7 +2,7 @@
 title: "Esmeraldas colombianas: de la mina a la mesa del comerciante"
 description: "Las minas de Muzo, Chivor y Coscuez, la formación única de la esmeralda colombiana, sus inclusiones, las trapiche, cómo se juzga la calidad, el aceite, la talla y cómo comprar con prudencia."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Pocas piedras están tan ligadas a un país como la esmeralda a Colombia. Desde hace siglos, las montañas de Boyacá y Cundinamarca producen algunas de las esmeraldas más apreciadas del mundo, de un verde intenso y luminoso que los comerciantes reconocen a primera vista. Viajaron en galeones a Sevilla, adornaron joyas de emperadores mogoles en la India y coronas europeas, y hoy siguen llegando cada día a las calles del centro de Bogotá, donde se negocian sobre papeles blancos con una lupa en la mano.
 

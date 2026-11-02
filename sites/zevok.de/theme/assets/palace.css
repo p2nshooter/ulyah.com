@@ -753,3 +753,66 @@ main:focus { outline: none; }
   body { background: #fff; }
   .erz-haupt, .erz-sockel { background: #fff; color: #000; }
 }
+
+/* ── Werkzeuge (owner, 2 Nov 2026): the tools band on the home page and the tools themselves ── */
+.erz-werkzeuge { max-width: var(--erz-breite); margin: 0 auto; padding: clamp(2.5rem, 6vw, 4.5rem) var(--erz-rand); }
+.erz-werkzeuge__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.erz-werkzeuge__karte { display: flex; flex-direction: column; gap: 0.5rem; height: 100%; padding: 1.3rem 1.4rem; border-radius: 18px; text-decoration: none; color: var(--erz-tinte);
+  background: linear-gradient(170deg, #fffdf8, var(--erz-gischt)); border: 1px solid rgba(168, 110, 52, 0.28); box-shadow: 0 10px 26px rgba(15, 31, 54, 0.07);
+  transition: transform 0.35s var(--erz-weich), box-shadow 0.35s var(--erz-weich), border-color 0.35s; }
+.erz-werkzeuge__karte:hover, .erz-werkzeuge__karte:focus-visible { transform: translateY(-3px); border-color: var(--erz-bronze); box-shadow: 0 16px 34px rgba(15, 31, 54, 0.13); }
+.erz-werkzeuge__name { font-family: var(--erz-serif); font-size: 1.25rem; font-weight: 600; color: var(--erz-navy); }
+.erz-werkzeuge__text { font-size: 0.95rem; color: var(--erz-grau); line-height: 1.55; }
+
+.erz-wz { margin: 0 0 2.4rem; padding: clamp(1.1rem, 3vw, 1.8rem); border-radius: 20px; background: linear-gradient(175deg, #fffdf8, var(--erz-leinen)); border: 1px solid rgba(168, 110, 52, 0.3); box-shadow: 0 14px 34px rgba(15, 31, 54, 0.08); }
+.erz-wz-titel { margin: 0 0 0.3rem; font-family: var(--erz-serif); font-size: 1.45rem; font-weight: 600; color: var(--erz-navy); }
+.erz-wz-hilfe { margin: 0 0 1rem; color: var(--erz-grau); font-size: 0.97rem; }
+.erz-wz h3 { margin: 1.2rem 0 0.6rem; font-family: var(--erz-serif); font-size: 1.12rem; color: var(--erz-navy); }
+.erz-wz-teil + .erz-wz-teil { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px dashed rgba(168, 110, 52, 0.35); }
+.erz-wz-felder { display: grid; gap: 0.9rem 1rem; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-bottom: 1rem; }
+.erz-wz-felder label { display: flex; flex-direction: column; gap: 0.35rem; font-weight: 600; font-size: 0.92rem; color: var(--erz-navy-2); }
+.erz-wz-felder .erz-wz-breit { grid-column: 1 / -1; }
+.erz-wz-felder .erz-wz-haken { flex-direction: row; align-items: center; gap: 0.55rem; font-weight: 500; }
+.erz-wz select, .erz-wz input[type="text"] { font: inherit; font-weight: 500; padding: 0.62rem 0.75rem; border-radius: 12px; border: 1.5px solid rgba(34, 66, 107, 0.28); background: #fff; color: var(--erz-tinte); min-height: 44px; width: 100%; }
+.erz-wz select:focus-visible, .erz-wz input:focus-visible, .erz-wz button:focus-visible { outline: 3px solid var(--erz-aqua); outline-offset: 2px; }
+.erz-wz input[type="range"] { width: 100%; accent-color: var(--erz-bronze); min-height: 32px; }
+.erz-wz input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: var(--erz-aqua-tief); }
+.erz-wz-auswahl { border: 1px solid rgba(34, 66, 107, 0.2); border-radius: 14px; padding: 0.7rem 0.9rem 0.9rem; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; }
+.erz-wz-auswahl legend { font-weight: 700; font-size: 0.92rem; color: var(--erz-navy-2); padding: 0 0.3rem; }
+.erz-wz-auswahl label { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 36px; }
+.erz-wz-ergebnis { margin-top: 0.4rem; padding: 1rem 1.15rem; border-radius: 16px; background: #fff; border: 1px solid rgba(42, 167, 165, 0.35); }
+.erz-wz-ergebnis table { margin: 0.6rem 0; }
+.erz-wz-kopf { margin: 0 0 0.6rem; font-weight: 600; color: var(--erz-navy); }
+.erz-wz-leer { margin: 0; color: var(--erz-grau); font-style: italic; }
+.erz-wz-block h3 { margin-top: 0.9rem; }
+.erz-wz-block ol, .erz-wz-block ul { margin: 0.3rem 0 0.6rem; padding-left: 1.3rem; }
+.erz-wz-sofort { border-left: 4px solid var(--erz-aqua); padding-left: 0.8rem; }
+.erz-wz-nicht { border-left: 4px solid var(--erz-rot); padding-left: 0.8rem; }
+.erz-wz-notiz { margin: 0.7rem 0 0; padding: 0.6rem 0.8rem; border-radius: 12px; background: var(--erz-gischt); color: var(--erz-navy-2); font-size: 0.95rem; }
+ul.erz-wz-notiz { padding-left: 1.8rem; }
+.erz-wz-mehr { margin: 0.8rem 0 0; font-weight: 600; }
+.erz-wz dl { margin: 0; }
+.erz-wz dt { font-weight: 700; color: var(--erz-navy); margin-top: 0.6rem; }
+.erz-wz dd { margin: 0.15rem 0 0; }
+.erz-wz-symbole { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
+.erz-wz-symbol { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.6rem 0.4rem; min-height: 44px; border-radius: 14px; cursor: pointer; font: inherit; font-size: 0.82rem; line-height: 1.3; text-align: center;
+  color: var(--erz-navy); background: #fff; border: 1.5px solid rgba(34, 66, 107, 0.22); transition: border-color 0.25s, background 0.25s, transform 0.25s var(--erz-weich); }
+.erz-wz-symbol svg { width: 46px; height: 46px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; font-family: var(--erz-sans); font-weight: 700; }
+.erz-wz-symbol:hover { border-color: var(--erz-bronze); transform: translateY(-2px); }
+.erz-wz-symbol[aria-pressed="true"] { background: var(--erz-navy); color: var(--erz-glanz); border-color: var(--erz-navy); }
+.erz-wz-tage { display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 0.6rem 0; }
+.erz-wz-tag { padding: 0.2rem 0.9rem 0.6rem; border-radius: 14px; background: var(--erz-papier); border: 1px solid rgba(168, 110, 52, 0.25); }
+.erz-wz-liste { list-style: none; padding-left: 0 !important; }
+.erz-wz-liste li { display: flex; gap: 0.55rem; align-items: flex-start; margin: 0.3rem 0; }
+.erz-wz-kaestchen { flex: none; width: 1rem; height: 1rem; margin-top: 0.3rem; border: 1.5px solid var(--erz-bronze-dunkel); border-radius: 4px; }
+.erz-wz-knopf { margin-top: 1rem; font: inherit; font-weight: 700; padding: 0.7rem 1.4rem; min-height: 44px; border-radius: 999px; cursor: pointer; border: 0; color: #fff; background: linear-gradient(160deg, var(--erz-bronze), var(--erz-bronze-dunkel)); }
+.engine-quellen { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid rgba(168, 110, 52, 0.3); font-size: 0.95rem; }
+.engine-quellen h2 { font-size: 1.2rem; }
+.engine-quellen__host, .engine-quellen__stand { color: var(--erz-grau); }
+.engine-quellen__host { font-size: 0.88em; }
+@media (prefers-reduced-motion: reduce) { .erz-werkzeuge__karte, .erz-wz-symbol { transition: none; } .erz-werkzeuge__karte:hover, .erz-wz-symbol:hover { transform: none; } }
+@media print {
+  .erz-haupt, .erz-sockel, .erz-pfad, .erz-wz-felder, .erz-wz-auswahl, .erz-wz-hilfe, .erz-wz-knopf, .erz-merkstein { display: none !important; }
+  .erz-wz { box-shadow: none; border: 0; padding: 0; background: #fff; }
+  .erz-wz-tag { break-inside: avoid; }
+}

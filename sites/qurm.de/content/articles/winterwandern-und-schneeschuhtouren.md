@@ -2,7 +2,7 @@
 title: "Winterwandern und Schneeschuhtouren: sicher unterwegs bei Schnee und Kälte"
 description: "Geräumte Winterwege, Schneeschuhe oder Grödel? Ausrüstung, Technik, Lawinengrundwissen, kurze Tage, Kälte und Rücksicht auf Wildtiere beim Wandern im Winter."
 category: sicherheit-und-wetter
-date: 2026-10-09
+date: 2026-10-14
 ---
 Ein Wintertag im Mittelgebirge hat seinen eigenen Zauber. Die Wälder sind still, der Schnee knirscht unter den Schuhen, Raureif überzieht die Zweige, und von einem freien Gipfel reicht der Blick bei klarer Luft oft viel weiter als im Sommer. Viele Wege, die im Sommer voll sind, gehören im Winter fast dir allein. Gleichzeitig ist Wandern im Winter anspruchsvoller: Die Tage sind kurz, der Untergrund ist rutschig oder tief verschneit, Kälte und Wind setzen dem Körper zu, und in steilem Gelände kommt die Lawinengefahr hinzu.
 

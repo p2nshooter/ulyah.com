@@ -2,7 +2,7 @@
 title: "Bilderwand gestalten: Anordnung, Abstände und Aufhängen ohne Chaos"
 description: Wie du eine harmonische Bilderwand planst, Rahmen und Motive auswählst, mit Papierschablonen die Anordnung testest, Abstände festlegst und alle Bilder sauber und gerade aufhängst.
 category: deko-und-wohnen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Eine Bilderwand, auch Gallery Wall genannt, macht aus einer leeren Wand einen persönlichen Blickfang: Familienfotos, Kunstdrucke, Postkarten, kleine Spiegel und Erinnerungsstücke erzählen gemeinsam eine Geschichte. Gleichzeitig ist sie eines der Projekte, bei denen am meisten schiefgehen kann: Bilder hängen zu hoch, die Abstände sind ungleich, die Anordnung wirkt zufällig, und am Ende ist die Wand voller überflüssiger Löcher.
 

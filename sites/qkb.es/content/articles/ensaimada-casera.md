@@ -2,7 +2,7 @@
 title: Ensaimada casera al estilo de Mallorca: masa, manteca, estirado y la larga fermentación
 description: Cómo hacer ensaimadas en casa: masa de fuerza muy elástica, estirado fino con manteca, espiral, fermentación de toda una noche, horneado y rellenos.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 La ensaimada es la pieza más emblemática de la repostería de Mallorca: una espiral ligera, hojaldrada y tierna, cubierta de azúcar glas, que se deshace en la boca. Su nombre viene de *saïm*, la palabra mallorquina para la manteca de cerdo, el ingrediente que le da su textura única y su aroma inconfundible. La "Ensaimada de Mallorca" cuenta con Indicación Geográfica Protegida, que regula cómo se elabora en la isla.
 

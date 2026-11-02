@@ -2,7 +2,7 @@
 title: "Den richtigen Kratzbaum finden: Stabilität, Höhe, Material und Standort"
 description: Woran du einen guten Kratzbaum erkennst: Stabilität, die richtigen Maße für große Katzen, bewährte Materialien und der Standort, an dem er wirklich genutzt wird.
 category: wohnung-und-freigang
-date: 2026-08-02
+date: 2026-10-05
 ---
 Für eine Wohnungskatze ist der Kratzbaum oft das wichtigste Möbelstück der Wohnung. Er ist Kratzstelle und Kletterwand, Aussichtspunkt und Rückzugsort, Spielplatz und Schlafzimmer. Trotzdem stehen in vielen Haushalten Kratzbäume, die kaum benutzt werden: zu wackelig, zu klein, am falschen Ort oder mit Liegeflächen, auf denen eine ausgewachsene Katze keinen Platz findet.
 

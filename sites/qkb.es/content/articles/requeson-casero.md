@@ -2,7 +2,7 @@
 title: Requesón casero: cómo hacerlo con leche o aprovechando el suero del queso
 description: Dos formas de hacer requesón en casa: con leche entera y un ácido, o con el suero sobrante del queso fresco. Temperaturas, rendimiento, textura y usos en la cocina española.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 El requesón es uno de los quesos más antiguos y sencillos de la tradición española. Blanco, suave y granulado, aparece en desayunos, en postres como el famoso requesón con miel y en rellenos de pasteles y empanadillas. En muchas zonas rurales se elaboraba con el suero que sobraba de hacer queso, un ejemplo perfecto de cocina de aprovechamiento.
 

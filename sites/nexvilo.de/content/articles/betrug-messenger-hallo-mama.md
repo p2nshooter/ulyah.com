@@ -2,7 +2,7 @@
 title: "„Hallo Mama, das ist meine neue Nummer“: Messenger-Betrug erkennen und abwehren"
 description: "Wie die Enkeltrick-Masche per WhatsApp und SMS funktioniert, an welchen Sätzen du sie erkennst, wie du Familie und ältere Angehörige schützt und was zu tun ist, wenn Geld überwiesen wurde."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Die Nachricht kommt von einer unbekannten Nummer: „Hallo Mama, mein Handy ist kaputt, das ist meine neue Nummer. Kannst du die alte löschen?“ Ein paar Nachrichten später folgt die Bitte: Eine Rechnung müsse dringend bezahlt werden, das neue Handy könne noch keine Überweisungen, ob man kurz aushelfen könne. Was nach einer harmlosen Familiensituation klingt, ist eine der häufigsten Betrugsmaschen in Deutschland. Die Polizei warnt seit Jahren davor, und trotzdem verlieren jedes Jahr viele Menschen hohe Summen. Diese Anleitung erklärt, wie die Masche funktioniert, woran du sie sicher erkennst und wie du deine Familie schützt.

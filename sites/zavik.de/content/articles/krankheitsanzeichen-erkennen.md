@@ -2,7 +2,7 @@
 title: "Ist meine Katze krank? Leise Warnzeichen richtig deuten"
 description: Katzen verbergen Schmerzen meisterhaft. Welche leisen Veränderungen auf Krankheit hinweisen und wie du Atmung, Gewicht und Schleimhäute selbst prüfst.
 category: gesundheit
-date: 2026-08-28
+date: 2026-10-05
 ---
 „Sie hat sich nichts anmerken lassen.“ Diesen Satz hören Tierärztinnen und Tierärzte sehr oft, wenn eine Katze mit einer fortgeschrittenen Erkrankung in die Praxis kommt. Katzen sind darauf programmiert, Schwäche zu verbergen. In der Natur ist eine kranke Katze für Fressfeinde eine leichte Beute und für Rivalen ein leichter Gegner. Deshalb zeigen Katzen Schmerzen und Krankheit oft erst, wenn es nicht mehr anders geht.
 

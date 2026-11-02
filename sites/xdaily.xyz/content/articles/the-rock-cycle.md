@@ -2,7 +2,7 @@
 title: "The Rock Cycle: How Igneous, Sedimentary and Metamorphic Rocks Form and Transform Over Millions of Years"
 description: "How rocks are born from magma, built from sediments and reshaped by heat and pressure, how weathering, erosion and plate tectonics keep them moving, and how to read the story in everyday stones."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Rocks seem like the very definition of permanence. We say "solid as a rock" and build monuments of granite and marble to last forever. Yet on the timescale of Earth's history, rocks are constantly changing. Mountains rise and wear down to sand. Sand is buried and pressed into stone. Stone is heated, squeezed and folded into new forms, or melted and erupted from volcanoes. This endless recycling of Earth's materials is called the **rock cycle**. Understanding it reveals how landscapes form, where resources come from and how geologists read Earth's history in stone.

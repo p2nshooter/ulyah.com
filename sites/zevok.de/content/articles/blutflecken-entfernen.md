@@ -2,7 +2,13 @@
 title: "Blutflecken entfernen: frisch und eingetrocknet, aus Kleidung, Bettwäsche, Matratze und Teppich"
 description: "Blut ist ein Eiweißfleck und braucht kaltes Wasser. So entfernst du frische und alte Blutflecken aus Baumwolle, Wolle, Seide, Matratze und Polster, ohne den Fleck mit Wärme dauerhaft zu fixieren."
 category: flecken-entfernen
-date: 2026-07-29
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - Forum Waschen: Wäsche richtig waschen | https://forum-waschen.de/tipps/waschen/waesche-richtig-waschen/
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
 ---
 Ein Schnitt in den Finger beim Gemüseschneiden, ein aufgeschlagenes Knie, Nasenbluten in der Nacht oder die Periode, die früher kommt als erwartet: Blutflecken landen auf Kleidung, Bettwäsche und Matratzen öfter, als man denkt. Die gute Nachricht ist, dass frisches Blut sich meist vollständig entfernen lässt. Die schlechte: Ein einziger Fehler in der ersten Minute, nämlich heißes Wasser, kann den Fleck dauerhaft in die Faser einbrennen.
 

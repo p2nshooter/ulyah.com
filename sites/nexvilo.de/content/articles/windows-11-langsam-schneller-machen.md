@@ -2,7 +2,7 @@
 title: "Windows 11 langsam? So machst du deinen PC wieder schnell, ohne etwas kaputtzumachen"
 description: "Wenn Windows 11 lahmt: Autostart aufräumen, Speicher freigeben, Updates und Treiber prüfen, Schadsoftware ausschließen und erkennen, wann eine SSD oder mehr RAM wirklich hilft."
 category: computer-und-windows
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Der Rechner braucht morgens eine gefühlte Ewigkeit zum Starten, der Browser ruckelt, und jedes Programm öffnet sich mit Verzögerung. Ein langsamer PC kostet Nerven und Zeit, und oft scheint ein neues Gerät die einzige Lösung. Das ist aber selten so. In den meisten Fällen lässt sich Windows 11 mit Bordmitteln deutlich beschleunigen. Diese Anleitung geht die Ursachen der Reihe nach durch, von schnellen Handgriffen bis zu Aufrüstungen, die sich wirklich lohnen. Du brauchst dafür keine Zusatzprogramme, und keine der Maßnahmen gefährdet deine Daten.

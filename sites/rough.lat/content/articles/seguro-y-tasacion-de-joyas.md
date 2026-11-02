@@ -2,7 +2,7 @@
 title: "Seguro y tasación de joyas: cómo valorar, documentar y proteger tus piezas de valor"
 description: "Qué es una tasación y en qué se diferencia de un informe, tipos de valor, cómo elegir tasador, opciones de seguro, coberturas, infraseguro, cómo documentar las joyas y qué hacer ante un robo."
 category: lujo-y-estilo-de-vida
-date: 2026-10-11
+date: 2026-10-12
 ---
 Muchas personas descubren que sus joyas no estaban bien protegidas justo cuando las pierden. Un anillo de compromiso que se cae en la playa, un robo en casa o una maleta extraviada en un viaje pueden convertirse en una pérdida doble si no hay seguro, si la póliza tenía límites desconocidos o si no existe documentación para demostrar qué se tenía y cuánto valía.
 

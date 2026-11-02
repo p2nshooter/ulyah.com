@@ -2,7 +2,7 @@
 title: "Erdbeeren aus deutschem Anbau: Sorten, Lagerung und ein Erdbeerkuchen mit Biskuitboden"
 description: Wann Freilanderdbeeren Saison haben, wie du sie wäschst, ohne dass sie wässrig werden, wie lange sie halten und wie ein Erdbeerkuchen mit Biskuit, Vanillecreme und Guss gelingt.
 category: fruehling
-date: 2026-10-12
+date: 2026-10-06
 ---
 Die ersten Erdbeeren aus der Region sind für viele das eigentliche Zeichen, dass der Sommer kommt. Wenn im Mai die Verkaufshäuschen in Erdbeerform an den Straßenrändern aufgestellt werden und die Felder zum Selbstpflücken öffnen, beginnt eine kurze, intensive Saison. Freilanderdbeeren aus Deutschland gibt es meist von Ende Mai bis Juli. Aus Folientunneln und Gewächshäusern kommen die ersten Früchte schon im April, und sogenannte remontierende oder immertragende Sorten liefern kleinere Mengen bis in den Herbst.
 

@@ -2,7 +2,7 @@
 title: "Dokumente digitalisieren: Papiere scannen, benennen und sicher ablegen"
 description: "Dokumente digitalisieren ohne Datenchaos: welches Gerät reicht, wie du Dateien sinnvoll benennst, was im Original bleiben muss und wie Backups dich schützen."
 category: ordnung-und-papierkram
-date: 2026-08-24
+date: 2026-10-11
 ---
 Papier hat einen großen Vorteil: Man kann es anfassen. Es hat aber auch Nachteile. Es braucht Platz, es vergilbt, Thermopapier verblasst, und wenn du unterwegs schnell eine Rechnung oder einen Vertrag brauchst, liegt das Original natürlich zu Hause im Ordner. Dokumente zu digitalisieren löst viele dieser Probleme. Gleichzeitig kann es neue schaffen: Hunderte Dateien mit Namen wie „Scan_0047.pdf“, verstreut über Handy, Laptop und Cloud, sind kaum besser als ein Karton voller loser Blätter.
 

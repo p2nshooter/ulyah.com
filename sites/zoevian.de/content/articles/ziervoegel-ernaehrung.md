@@ -2,7 +2,7 @@
 title: "Ziervögel richtig ernähren: Körner, Frischfutter, Keimfutter, Kräuter und was giftig ist"
 description: "Gesundes Futter für Wellensittiche, Nymphensittiche und Kanarien: die passende Körnermischung, Gemüse, Kräuter und Obst, Keimfutter selbst ziehen, Mineralien, Futterumstellung und Giftliste."
 category: ziervoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Viele Ziervögel bekommen ihr Leben lang dasselbe: eine Schale mit Körnern, dazu manchmal eine Kolbenhirse. Doch Körner allein machen keinen Vogel gesund. In der Natur fressen Wellensittiche, Nymphensittiche und Kanarienvögel halbreife Samen, frische Gräser, Kräuter, Blätter, Knospen und gelegentlich Insekten. Eine einseitige Ernährung mit trockenen Körnern führt bei Ziervögeln häufig zu Übergewicht, Vitaminmangel, Leberschäden und Gefiederproblemen.

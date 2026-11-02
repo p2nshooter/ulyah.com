@@ -2,7 +2,7 @@
 title: "Sukkulenten vermehren über Blattstecklinge, Köpfe und Kindel"
 description: So vermehrst du Echeverien, Geldbaum, Sedum, Haworthien und Kakteen: Blätter sauber abdrehen, antrocknen lassen, auf trockenes Substrat legen, Köpfen vergeilter Rosetten und Pflege der Jungpflanzen.
 category: vermehren
-date: 2026-09-04
+date: 2026-10-04
 ---
 Sukkulenten gehören zu den Pflanzen, die sich am leichtesten vermehren lassen. Bei vielen Arten genügt ein einzelnes Blatt, um eine komplette neue Pflanze entstehen zu lassen. An der Basis eines abgefallenen Blattes bilden sich nach einigen Wochen winzige Wurzeln und eine Mini-Rosette. Wer einmal gesehen hat, wie aus einem Echeverien-Blatt eine neue Pflanze wächst, ist meist begeistert. Mit wenigen Grundregeln gelingt das fast immer.
 

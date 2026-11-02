@@ -2,7 +2,7 @@
 title: "Futterstelle sauber halten: Krankheiten bei Gartenvögeln erkennen und vorbeugen"
 description: "Trichomonaden, Salmonellen, Vogelpocken und Co.: welche Krankheiten an Futterstellen vorkommen, woran du kranke Vögel erkennst und wie du Futterhaus und Tränke richtig reinigst."
 category: fuettern-und-traenken
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Eine Futterstelle ist für Vögel ein Treffpunkt. Dutzende Meisen, Finken und Spatzen kommen jeden Tag vorbei, fressen vom selben Platz, trinken aus derselben Schale und hinterlassen dabei Kot und Speichel. Genau das macht Futterstellen zu einem Ort, an dem sich Krankheiten schnell verbreiten können. Die gute Nachricht: Mit einfacher, regelmäßiger Hygiene lässt sich dieses Risiko stark senken.

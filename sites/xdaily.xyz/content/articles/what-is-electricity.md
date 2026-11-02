@@ -2,7 +2,7 @@
 title: "What Is Electricity? Charge, Current, Voltage, Resistance and How Power Reaches Your Home"
 description: "Electric charge and static electricity, what current, voltage and resistance mean, Ohm's law, AC versus DC, how generators turn motion into power, how the grid delivers it and how to stay safe."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Flip a switch and a light turns on. Plug in a phone and it charges. Electricity powers almost everything in modern life, from refrigerators and computers to hospitals and trains. Yet electricity itself is invisible, and many people are unsure what it actually is. Is it a flow of something? Why do we talk about volts, amps and watts? Why does a balloon stick to the wall after you rub it on your hair? This explainer describes the basic ideas of electricity, from tiny charged particles to the power grid that delivers electricity to your home.

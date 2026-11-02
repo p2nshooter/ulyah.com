@@ -2,7 +2,7 @@
 title: PVPC o mercado libre: qué tarifa de luz te conviene según tu consumo
 description: Diferencias reales entre el precio regulado PVPC y las ofertas del mercado libre, cómo se forma cada precio, ventajas, riesgos y un método sencillo para comparar con tu propio consumo.
 category: potencia-y-tarifas
-date: 2026-09-16
+date: 2026-10-04
 ---
 En España, cualquier hogar con una potencia contratada de hasta 10 kW puede elegir entre dos grandes formas de pagar la electricidad: el **Precio Voluntario para el Pequeño Consumidor (PVPC)**, conocido como tarifa regulada, y las **ofertas del mercado libre**, en las que cada comercializadora fija sus propios precios y condiciones. La pregunta de cuál es mejor no tiene una respuesta universal: depende de tu consumo, de tu tolerancia a la variación de precios y de lo que valores la previsibilidad.
 

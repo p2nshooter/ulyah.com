@@ -2,7 +2,7 @@
 title: "Hausarbeit schreiben im Studium: Wie Jana ihre erste Hausarbeit vom Thema bis zur Abgabe plante"
 description: "Jana soll im ersten Semester fünfzehn Seiten schreiben. Wie du eine Forschungsfrage findest, Literatur suchst, gliederst, schreibst und deine Hausarbeit pünktlich abgibst."
 category: lernplan-und-hausaufgaben
-date: 2026-09-06
+date: 2026-10-11
 ---
 Fünfzehn Seiten. Jana las die Aufgabenstellung im Lernportal der Universität zum dritten Mal. „Hausarbeit im Proseminar Einführung in die Politikwissenschaft, Umfang 12 bis 15 Seiten, Abgabe sechs Wochen nach Vorlesungsende.“ Das Thema durfte sie selbst wählen, solange es zum Seminar passte. In der Schule hatte sie nie mehr als fünf Seiten am Stück geschrieben, und auch das nur für eine Facharbeit, bei der ihr Lehrer jeden Schritt vorgegeben hatte. Jetzt gab es niemanden, der ihr sagte, was sie wann tun sollte. Jana klappte den Laptop zu. Sechs Wochen nach Vorlesungsende. Das war ja noch ewig hin.
 

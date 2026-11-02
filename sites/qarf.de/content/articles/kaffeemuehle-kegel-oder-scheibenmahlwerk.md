@@ -2,7 +2,7 @@
 title: "Kaffeemühle kaufen: Kegelmahlwerk, Scheibenmahlwerk oder Schlagmesser?"
 description: Die Mühle ist wichtiger als die Kaffeemaschine. Wie Kegel- und Scheibenmahlwerke arbeiten, warum Schlagmessermühlen enttäuschen und worauf du beim Kauf achten solltest.
 category: muehlen-und-wasser
-date: 2026-10-12
+date: 2026-10-06
 ---
 Unter Kaffeeliebhabern gibt es einen Satz, der fast immer stimmt: Gib dein Geld zuerst für die Mühle aus, dann für die Maschine. Eine gute Mühle macht aus jeder Zubereitungsmethode mehr, eine schlechte Mühle ruiniert auch die teuerste Espressomaschine. Der Grund ist einfach: Wie gleichmäßig der Kaffee gemahlen ist, bestimmt, wie gleichmäßig das Wasser ihn auslaugt. In diesem Ratgeber erfährst du, wie die verschiedenen Mahlwerke funktionieren, welche Vor- und Nachteile sie haben und worauf du beim Kauf achten solltest.
 

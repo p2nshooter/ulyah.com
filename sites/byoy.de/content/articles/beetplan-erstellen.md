@@ -2,7 +2,7 @@
 title: "Beetplan erstellen: Gemüsegarten auf Papier planen, Mengen berechnen und Platz klug nutzen"
 description: "Den Gemüsegarten auf Papier planen: Wunschliste nach Familienbedarf, Pflanzmengen pro Person, Abstände, hohe Kulturen richtig platzieren, Folgesaaten, Mischkultur und Fruchtfolge."
 category: mischkultur-und-fruchtfolge
-date: 2026-08-20
+date: 2026-10-06
 ---
 Im Januar, wenn draußen nichts wächst, beginnt im Gemüsegarten eine der schönsten Arbeiten: die Planung. Mit Samenkatalogen, Karopapier und einer Tasse Tee entsteht der Plan für das ganze Jahr. Ein guter Beetplan verhindert, dass im Juli zwanzig Zucchini und kein einziger Salat im Garten stehen, dass Tomaten den Bohnen das Licht nehmen oder dass der Kohl auf dem Beet landet, auf dem er schon im Vorjahr stand. Er muss nicht perfekt sein. Er ist eine Landkarte, die du im Laufe des Jahres anpasst. Dieser Ratgeber führt dich in sechs Schritten zu deinem eigenen Plan.
 

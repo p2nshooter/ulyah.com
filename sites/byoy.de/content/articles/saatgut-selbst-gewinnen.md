@@ -2,7 +2,7 @@
 title: "Saatgut selbst gewinnen: von Bohnen und Tomaten bis Kürbis, Möhre und Kohl"
 description: "So erntest du eigenes Saatgut: welche Gemüse sich für den Anfang eignen, Selbst- und Fremdbestäuber, Abstände gegen Verkreuzung, Tomatensamen fermentieren, Samen trocknen, reinigen und beschriften."
 category: saatgut-und-jungpflanzen
-date: 2026-09-19
+date: 2026-10-06
 ---
 Eigenes Saatgut zu ernten, schließt einen Kreis: Aus der Bohne, die du im Mai gelegt hast, werden im Herbst die Bohnen für das nächste Jahr. Über die Jahre passen sich die Pflanzen an deinen Garten, deinen Boden und dein Klima an, du sparst Geld und hilfst, alte Sorten zu erhalten, die es im Handel kaum noch gibt. Manche Gemüse machen es dir leicht, bei anderen braucht es Wissen über Bestäubung, Abstände und zweijährige Kulturen. Dieser Ratgeber erklärt die Grundlagen und zeigt, womit du am besten anfängst.
 

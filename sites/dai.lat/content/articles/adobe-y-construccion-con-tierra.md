@@ -2,7 +2,7 @@
 title: "Adobe, tapial y bahareque: ventajas, riesgos sísmicos y cuidados de la construcción con tierra"
 description: "Cómo funcionan el adobe, el tapial, el bahareque o quincha y el bloque de tierra comprimida, por qué son frescos, qué los hace vulnerables a sismos y humedad y cómo cuidarlos."
 category: materiales-y-acabados
-date: 2026-08-24
+date: 2026-10-11
 ---
 La tierra es uno de los materiales de construcción más antiguos de América Latina. Chan Chan, en la costa norte de Perú, fue una gran ciudad de adobe. Paquimé, en el norte de México, levantó sus edificios con muros de tierra. Y todavía hoy millones de personas viven en casas de adobe, tapial o bahareque en los Andes, en el altiplano, en el norte de México, en Centroamérica y en zonas rurales de casi todos los países.
 

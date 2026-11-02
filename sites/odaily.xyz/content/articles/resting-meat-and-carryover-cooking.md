@@ -2,7 +2,7 @@
 title: "Resting Meat and Carryover Cooking: Why Food Keeps Cooking Off the Heat and How to Time It Right"
 description: "What carryover cooking is, how much temperature rises in steaks, roasts and poultry, why resting helps juices stay put, how long to rest each cut, and how to keep meat warm without overcooking it."
 category: kitchen-science
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 You cook a beautiful steak to exactly the right temperature, slice it immediately, and watch a pool of juice spread across the cutting board. Or you take a roast out of the oven at the perfect doneness, only to find it overcooked by the time it reaches the table. Both problems come from the same physics: food continues to cook after it leaves the heat, and its juices need time to settle. Understanding carryover cooking and resting will help you serve juicier meat, cooked exactly the way you like it. This guide explains the science and gives you practical guidelines for steaks, roasts, poultry and fish.

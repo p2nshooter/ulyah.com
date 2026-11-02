@@ -2,7 +2,7 @@
 title: "Ferien zum Aufholen nutzen: Wie Emil in den Sommerferien Englisch nachholte und trotzdem Ferien hatte"
 description: "Emil droht in Englisch eine Fünf und hat sechs Wochen Sommerferien vor sich. Wie du in den Ferien gezielt Lücken schließt, einen leichten Plan baust und die Erholung trotzdem nicht zu kurz kommt."
 category: lernplan-und-hausaufgaben
-date: 2026-09-03
+date: 2026-10-11
 ---
 Das Zeugnis lag auf dem Küchentisch, und niemand sagte etwas. Englisch: mangelhaft. Darunter der Satz, den Emil schon befürchtet hatte: „Die Versetzung ist gefährdet, wenn sich die Leistungen im Fach Englisch nicht verbessern.“ Emils Mutter las es zweimal. Dann seufzte sie und sagte: „Und jetzt? Sechs Wochen Ferien?“ Emil starrte auf das Blatt. Er hatte sich so auf die Ferien gefreut. Zwei Wochen Zeltlager mit den Pfadfindern, Freibad, Fahrradtouren. Jetzt sah es so aus, als würde er sechs Wochen lang am Schreibtisch sitzen.
 

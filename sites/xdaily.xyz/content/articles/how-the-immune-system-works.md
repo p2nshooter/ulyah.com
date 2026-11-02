@@ -2,7 +2,7 @@
 title: "How the Immune System Works: Barriers, White Blood Cells, Antibodies and Immune Memory"
 description: "How skin and mucus block germs, how innate immune cells react within hours, how B cells and T cells target specific invaders, how immune memory and vaccines work, and what fever and inflammation do."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Every day, your body encounters countless microorganisms: bacteria on your hands, viruses in the air, fungi on surfaces and parasites in some environments. Most are harmless, and many are even helpful, but some can cause disease. Your immune system is the body's defense network, a remarkable collection of barriers, cells and chemical signals that identifies threats, destroys them and remembers them for the future. It is so sophisticated that it can distinguish between millions of different invaders and the body's own cells. This explainer describes how the immune system works. It explains how the body works and is not medical advice.

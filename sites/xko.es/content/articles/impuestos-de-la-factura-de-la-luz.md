@@ -2,7 +2,7 @@
 title: Impuestos de la factura de la luz: IVA, impuesto eléctrico y alquiler del contador
 description: Qué impuestos y conceptos fijos aparecen en la factura eléctrica en España, cómo se calculan sobre la potencia y la energía, cuánto pesan y qué parte depende de ti.
 category: factura-de-la-luz
-date: 2026-09-12
+date: 2026-10-04
 ---
 Cuando se mira el total de una factura de la luz, es fácil olvidar que una parte importante no corresponde ni a la potencia ni a la energía consumida, sino a impuestos y conceptos regulados. En un hogar típico, estos conceptos suman más de una cuarta parte del importe final. Entender cómo se calculan ayuda a interpretar la factura, a comparar ofertas con honestidad y a no caer en anuncios que muestran precios "sin impuestos" como si fueran el coste real.
 

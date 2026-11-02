@@ -2,7 +2,7 @@
 title: "Kaffee-Anbauländer und ihr Geschmack: von Äthiopien über Kolumbien bis Sumatra"
 description: "Ein Überblick über die wichtigsten Kaffeeländer: der Kaffeegürtel, warum die Höhe zählt, typische Aromen aus Afrika, Mittel- und Südamerika und Asien, und wie du anhand der Herkunft Kaffees auswählst."
 category: bohnen-und-roestung
-date: 2026-07-22
+date: 2026-10-06
 ---
 Kaffee wächst in mehr als fünfzig Ländern, alle in einem breiten Band rund um den Äquator, dem sogenannten Kaffeegürtel. Und doch schmeckt ein Kaffee aus Kenia ganz anders als einer aus Brasilien, einer aus Äthiopien anders als einer aus Sumatra. Boden, Klima, Höhenlage, Pflanzensorten und die Art der Aufbereitung prägen jede Herkunft. Wer die typischen Profile kennt, findet sich im Angebot der Röstereien schneller zurecht und kann gezielt nach Kaffees suchen, die zum eigenen Geschmack passen. Dieser Überblick stellt die wichtigsten Anbauregionen vor.
 

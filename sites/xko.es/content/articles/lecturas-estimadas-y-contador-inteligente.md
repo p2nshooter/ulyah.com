@@ -2,7 +2,7 @@
 title: Contador inteligente y lecturas estimadas: cómo leer tu contador y evitar sustos
 description: Cómo funciona el contador digital de la luz, cómo leer sus pantallas, por qué a veces la factura usa lecturas estimadas, cómo acceder a tu consumo horario y qué hacer si el contador falla.
 category: factura-de-la-luz
-date: 2026-09-04
+date: 2026-10-04
 ---
 Prácticamente todos los hogares españoles tienen desde hace años un **contador digital con telegestión**, conocido popularmente como contador inteligente. Este equipo mide el consumo hora a hora y envía los datos a la distribuidora de forma remota, lo que debería haber acabado con las lecturas estimadas y las regularizaciones sorpresa. En la mayoría de casos así es, pero todavía hay situaciones en las que la factura se basa en estimaciones, y muchos consumidores no saben que pueden consultar su consumo detallado gratis.
 

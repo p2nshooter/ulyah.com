@@ -2,7 +2,7 @@
 title: "Esmaltes en joyería: alveolado, excavado, calado y cómo reconocer un esmalte de verdad"
 description: "Qué es el esmalte vítreo, cómo se aplica y se hornea, las técnicas clásicas del alveolado al calado, su historia en España y el modernismo, cómo distinguirlo de la resina y cómo cuidarlo."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 El esmalte es, literalmente, vidrio fundido sobre metal. Un polvo finísimo de vidrio coloreado se coloca sobre una pieza de oro, plata o cobre y se hornea hasta que se funde y se adhiere a ella, formando una superficie brillante, dura y de colores que no se apagan con los siglos. Con esa técnica se hicieron los relicarios románicos, las joyas del Renacimiento, las miniaturas pintadas de los retratos de corte, los huevos imperiales rusos y algunas de las piezas más bellas del modernismo, incluidas las que salieron de los talleres de Barcelona a comienzos del siglo XX.
 

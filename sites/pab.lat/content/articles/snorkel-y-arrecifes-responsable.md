@@ -2,7 +2,7 @@
 title: "Snorkel responsable en América Latina: arrecifes, equipo, técnica y cómo cuidar el coral"
 description: "Dónde hacer snorkel en el Caribe, el Pacífico y los ríos de Brasil, qué equipo usar, cómo flotar sin tocar el coral, protector solar, fauna marina, seguridad y cómo elegir un operador responsable."
 category: playas-y-costas
-date: 2026-08-30
+date: 2026-10-11
 ---
 Asomar la cara al agua por primera vez sobre un arrecife es una experiencia que pocos olvidan. De pronto aparece un mundo de corales con formas de cerebro, abanico o cuerno de ciervo, cardúmenes de peces de colores, una tortuga que sube a respirar o una raya que se desliza sobre la arena. América Latina tiene algunos de los mejores lugares del planeta para vivirlo, desde el gran arrecife del Caribe mexicano y centroamericano hasta las islas Galápagos, el archipiélago de San Andrés o los ríos cristalinos de Brasil.
 

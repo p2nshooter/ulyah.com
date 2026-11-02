@@ -2,7 +2,14 @@
 title: "Hausmittel-Mythen im Check: Was hilft wirklich und was ist Unsinn?"
 description: "Natron mit Essig, Salz auf Rotwein, Cola gegen Urinstein, Haarspray gegen Tinte: zwölf beliebte Haushaltstipps im Faktencheck, mit Erklärung und besserer Alternative."
 category: hausmittel
-date: 2026-10-02
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Alternative Putzmittel – natürlich waschen und putzen? | https://forum-waschen.de/alternative-putzmittel-natuerlich-waschen-und-putzen-geht-das/
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Wenn die Waschmaschine müffelt | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/wenn-die-waschmaschine-mueffelt-tipps-gegen-ueble-gerueche-109784
+  - Verbraucherzentrale: Obst und Gemüse mit Natron waschen – bringt das was? | https://www.verbraucherzentrale.de/wissen/lebensmittel/gesund-ernaehren/obst-und-gemuese-mit-natron-waschen-bringt-das-wirklich-was-109996
 ---
 Kaum ein Thema ist so voller Tipps wie der Haushalt. Sie stammen von Großeltern, aus Zeitschriften, aus Videos und Foren, und viele werden seit Jahrzehnten weitergegeben. Manche funktionieren tatsächlich, manche helfen nur ein wenig, und manche schaden mehr, als sie nützen. Das Problem: Wer einen Tipp ausprobiert, der nicht wirkt, verliert nicht nur Zeit. Ein Fleck kann sich festsetzen, eine Oberfläche Schaden nehmen, und manche Mischungen sind sogar gefährlich.
 

@@ -2,7 +2,7 @@
 title: "Facetado a máquina y diagramas: cómo se tallan las facetas de una gema con precisión"
 description: "Cómo funciona una máquina de facetar, qué indican los diagramas, por qué importan los ángulos y los puntos de encuentro, el proceso de pabellón a corona y los errores que apagan una gema."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 Una gema facetada es, en el fondo, un pequeño instrumento óptico. Cada faceta está cortada con un ángulo y una orientación calculados para que la luz que entra por la parte superior rebote en el interior y vuelva a salir hacia el ojo de quien la mira. Si los ángulos son correctos, la piedra brilla; si no lo son, la luz se escapa por el fondo y la gema se ve apagada, con una ventana transparente en el centro o zonas oscuras que ningún pulido puede arreglar.
 

@@ -2,7 +2,13 @@
 title: "Pflegesymbole verstehen: Was Waschbottich, Dreieck, Quadrat, Bügeleisen und Kreis bedeuten"
 description: "Pflegesymbole einfach erklärt: was Waschbottich, Dreieck, Quadrat, Bügeleisen und Kreis mit Punkten, Strichen und Kreuz bedeuten und was du tust, wenn das Etikett fehlt."
 category: waesche-und-pflege
-date: 2026-06-21
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - GINETEX Germany: Pflegesymbole | https://ginetex.de/pflegekennzeichnung/pflegesymbole/
+  - GINETEX Germany: Pflegekennzeichnung | https://ginetex.de/pflegekennzeichnung/
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
 ---
 Der neue Pullover ist aus der Tüte, die Waschmaschine läuft schon, und dann der Blick auf das kleine Etikett in der Seitennaht: ein Bottich mit Hand, ein durchgestrichenes Dreieck, ein Quadrat mit einem waagerechten Strich, ein Bügeleisen mit zwei Punkten und ein Kreis mit einem Buchstaben. Wer diese Zeichen nicht lesen kann, wäscht nach Gefühl, und genau dabei passieren die klassischen Unfälle: eingelaufene Wolle, ausgeblichene Farben, verzogene Shirts und Pullis, die nach dem Trockner zwei Größen kleiner sind.
 

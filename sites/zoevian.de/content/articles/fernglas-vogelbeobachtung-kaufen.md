@@ -2,7 +2,7 @@
 title: "Fernglas für die Vogelbeobachtung kaufen: 8×42 oder 10×42 und worauf es wirklich ankommt"
 description: "Das passende Fernglas für Vogelbeobachtung finden: Vergrößerung und Objektiv erklärt, Sehfeld, Naheinstellgrenze, Lichtstärke, Gewicht, Brillenträger, Preisklassen und Spektiv."
 category: beobachten-und-fotografieren
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Ein gutes Fernglas verändert die Vogelbeobachtung grundlegend. Plötzlich siehst du die feinen Strichel auf der Brust einer Singdrossel, den gelben Augenring der Amsel und die winzigen weißen Flügelbinden eines Buchfinken, der dreißig Meter entfernt im Baum sitzt. Viele Vogelarten lassen sich ohne Fernglas gar nicht sicher bestimmen. Doch die Auswahl ist groß, und die Zahlen auf den Gehäusen verwirren eher, als dass sie helfen.

@@ -2,7 +2,7 @@
 title: "Walking for Everyday Fitness: How to Make the Simplest Exercise Work for You"
 description: Why walking is such a valuable habit after fifty, how much to aim for, how to build up safely, good technique, shoes and kit, and ideas for keeping walks interesting all year.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 Walking is the most natural exercise there is. It needs no gym membership, no special skills and very little equipment. You can do it almost anywhere, at any pace, alone or with friends, and it fits easily into everyday life — to the shops, to visit a neighbour, around the park or along a coastal path. For many women in their fifties, sixties and beyond, a regular walking habit becomes the foundation of feeling well.
 

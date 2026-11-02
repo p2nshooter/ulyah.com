@@ -2,7 +2,7 @@
 title: Chapata casera con poolish: miga abierta, corteza fina y manejo de masas húmedas
 description: Receta de chapata italiana en casa con prefermento poolish y 75 % de hidratación: cómo preparar el poolish, manejar una masa muy húmeda con pliegues, dividir sin desgasificar y hornear con vapor.
 category: masa-madre-y-pan
-date: 2026-09-22
+date: 2026-10-04
 ---
 La chapata, o *ciabatta* en italiano, es un pan joven en la historia de la panadería: se popularizó en Italia en los años ochenta como respuesta a la baguette francesa. Su nombre significa "zapatilla", por su forma plana y alargada. Lo que la hace especial es su miga muy abierta, húmeda y brillante, con alvéolos grandes e irregulares, y una corteza fina y crujiente, perfecta para bocadillos y para mojar en aceite.
 

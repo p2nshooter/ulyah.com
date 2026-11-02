@@ -2,7 +2,7 @@
 title: "Wem gehört der rote Bagger?"
 description: Ein einziger roter Bagger und zwei Brüder, die ihn beide wollen. Eine Geschichte über Teilen, das nicht erzwungen wird, über Eieruhren am Sandkasten und über Spielzeug, das nicht geteilt werden muss.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 Der rote Bagger war nicht das teuerste Spielzeug im Kinderzimmer der Familie Neumann. Er war nicht einmal das neueste. Er hatte eine abgebrochene Schaufelspitze, einen Kratzer an der Seite und einen Aufkleber, den niemand mehr entziffern konnte. Aber er war, ohne jeden Zweifel, das begehrteste Objekt der Welt. Zumindest für Felix, fünf Jahre, und Anton, drei Jahre.
 

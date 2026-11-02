@@ -2,7 +2,7 @@
 title: "Nistkasten reinigen: Wann, wie oft und womit, ohne Untermieter zu stören"
 description: "Nistkästen richtig reinigen: der beste Zeitpunkt im Herbst, was du mit altem Nest und Parasiten machst, warum keine Chemie hineingehört und was bei Siebenschläfer und Hornissen gilt."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Ein Nistkasten, in dem Meisen gebrütet haben, sieht im Herbst meist nicht mehr einladend aus. Ein dicker Polster aus Moos, Haaren und Federn füllt den Boden, oft liegen Kotreste, unbefruchtete Eier oder sogar tote Jungvögel darin. In diesem Material überwintern außerdem Flöhe, Milben und andere Parasiten, die im nächsten Frühjahr die neue Brut befallen können. Deshalb sollte jeder Nistkasten einmal im Jahr gereinigt werden.

@@ -1,8 +1,8 @@
 ---
 title: Redaktionsgrundsätze
-description: Wie ZUFIQ arbeitet: selbst geschriebene Ratgeber, ehrliche Quellen, keine erfundenen Zahlen, klare Grenzen bei Gesundheit und Geld und Unabhängigkeit von Werbung.
+description: Wie ZUFIQ arbeitet: eigens geschriebene Ratgeber, ehrliche Quellen, keine erfundenen Zahlen, klare Grenzen bei Gesundheit und Geld und Unabhängigkeit von Werbung.
 order: 15
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 Wer einen Ratgeber über Gewohnheiten und Ordnung liest, sucht Orientierung, nicht noch mehr Druck. Damit du unseren Texten vertrauen kannst, halten wir uns an diese Grundsätze.
 

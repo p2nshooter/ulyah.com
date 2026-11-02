@@ -2,7 +2,7 @@
 title: "Bergwetter lesen: Wetterbericht richtig deuten und Wolken als Warnzeichen erkennen"
 description: "Was im Bergwetterbericht wirklich zählt, wie Nullgradgrenze, Wind und Gewitterneigung deine Tour beeinflussen, welche Wolken Gewitter, Fronten und Föhn ankündigen und wann du umkehren solltest."
 category: sicherheit-und-wetter
-date: 2026-08-25
+date: 2026-10-06
 ---
 Das Wetter ist in den Bergen der wichtigste Faktor für Sicherheit. Ein Gewitter am Grat, Nebel auf einer Hochfläche oder ein Kälteeinbruch im Sommer haben schon viele harmlose Wanderungen in gefährliche Situationen verwandelt. Gleichzeitig ist kaum etwas so gut vorhersehbar wie das Wetter der nächsten 24 Stunden, wenn man weiß, worauf man achten muss. Wer den Bergwetterbericht richtig liest und unterwegs den Himmel beobachtet, erkennt die meisten Gefahren rechtzeitig. Dieser Ratgeber erklärt die wichtigsten Begriffe, die typischen Wolkenbilder und einfache Entscheidungsregeln.
 

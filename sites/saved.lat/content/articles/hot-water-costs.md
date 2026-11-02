@@ -2,7 +2,7 @@
 title: "Cutting the Cost of Hot Water: Showers, Cylinders, Boilers and Everyday Habits"
 description: "Heating water is one of the biggest energy costs at home. Use less hot water without going cold, insulate tanks and pipes, set timers safely and pick the right shower head."
 category: home-and-energy
-date: 2026-10-31
+date: 2026-11-01
 ---
 Every hot shower, every sink of washing-up and every warm wash in the machine uses energy to heat water. In many homes, heating water is one of the largest items on the energy bill after space heating, and unlike heating it does not stop in summer. Yet most households never think about it, because hot water simply arrives when the tap is turned. Small changes in habits, a little insulation and the right settings on the water heater can bring that cost down noticeably without anyone having to put up with cold showers.
 

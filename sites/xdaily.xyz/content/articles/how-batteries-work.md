@@ -2,7 +2,7 @@
 title: "How Batteries Work: Electrodes, Electrolytes, Lithium-Ion Cells and Why Batteries Wear Out"
 description: "How a battery turns chemistry into electricity, what anodes, cathodes and electrolytes do, how lithium-ion cells charge, why capacity fades, what makes batteries catch fire and what comes next."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Batteries power our phones, laptops, watches, cars, toys and even the electric grid. They let us carry energy in our pockets and drive hundreds of miles without gasoline. Yet a battery seems mysterious: a sealed package that somehow produces electricity, slowly loses its strength and occasionally, in rare cases, catches fire. At its heart, a battery is a clever chemical device that controls a reaction so that electrons flow through a wire instead of directly between chemicals. This explainer describes how batteries work, why lithium-ion batteries dominate modern electronics and why batteries wear out over time.

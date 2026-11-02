@@ -2,7 +2,7 @@
 title: "Turmalina: la gema de todos los colores, de la rubelita a la Paraíba"
 description: "Qué es la turmalina, por qué tiene tantos colores, variedades como rubelita, indicolita, sandía y Paraíba, sus propiedades eléctricas, tratamientos, imitaciones y cómo elegirla y cuidarla."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Ninguna otra gema ofrece una paleta como la de la turmalina. Las hay rojas, rosas, verdes, azules, amarillas, pardas, negras e incoloras; las hay con dos o tres colores en el mismo cristal, como una rodaja de sandía, y las hay de un azul verdoso eléctrico que parece iluminado desde dentro. Esa variedad ha hecho que durante siglos se confundiera con otras piedras, del rubí a la esmeralda, y que todavía hoy sea una de las gemas favoritas de diseñadores y coleccionistas.
 

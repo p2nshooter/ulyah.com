@@ -2,7 +2,7 @@
 title: "Basilikum pflegen: so lebt der Supermarkt-Basilikum länger als eine Woche"
 description: Warum Supermarkt-Basilikum schnell eingeht und wie du es rettest: Töpfe teilen, Standort, Gießen von unten, richtig ernten, Blüten entfernen, Vermehrung, Sorten und Überwinterung.
 category: kraeuter-und-gemuese
-date: 2026-08-28
+date: 2026-10-04
 ---
 Basilikum ist das beliebteste Küchenkraut für Pasta, Tomaten, Pizza und Pesto. Viele kaufen es als Topfpflanze im Supermarkt, und viele erleben dasselbe: Nach wenigen Tagen hängen die Blätter, der Stängel wird schwarz, und die Pflanze ist hinüber. Das liegt nicht an mangelndem Talent, sondern daran, wie diese Pflanzen produziert werden. Mit wenigen Handgriffen lässt sich Basilikum über Monate halten und immer wieder ernten.
 

@@ -2,7 +2,7 @@
 title: "Handy-Backup und Fotos sichern: So gehen Erinnerungen nie mehr verloren"
 description: "Fotos, Chats und Kontakte vom Smartphone richtig sichern: Cloud, Computer und Festplatte im Vergleich, die 3-2-1-Regel einfach erklärt und wie du prüfst, ob dein Backup wirklich funktioniert."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Das Handy fällt ins Wasser, wird im Zug gestohlen oder startet eines Morgens einfach nicht mehr. Ärgerlich ist das immer, aber schlimm wird es erst, wenn mit dem Gerät auch die Fotos der Kinder, die Bilder von der Hochzeit oder die letzten Sprachnachrichten eines geliebten Menschen verschwinden. Ein Smartphone lässt sich ersetzen, Erinnerungen nicht. Die gute Nachricht: Ein zuverlässiges Backup einzurichten dauert nur einmal eine halbe Stunde und läuft danach von allein. Diese Anleitung zeigt dir, welche Möglichkeiten es gibt und wie du sie sinnvoll kombinierst.

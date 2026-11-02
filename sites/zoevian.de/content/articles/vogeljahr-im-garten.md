@@ -2,7 +2,7 @@
 title: "Das Vogeljahr im Garten: Was von Januar bis Dezember passiert und was du tun kannst"
 description: "Ein Monatskalender für Vogelfreunde: wann Zugvögel kommen und gehen, wann gebrütet wird, wann du Nistkästen reinigst, fütterst und Hecken schneiden darfst."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Ein Garten ist für Vögel kein fester Ort, sondern ein Kalender. Im Januar teilen sich Meisen, Spatzen und Wintergäste aus dem Norden die Futterstelle. Im April schallt der erste Gesang der Mönchsgrasmücke aus der Hecke, im Mai kreischen die Mauersegler über den Dächern, und im September sammeln sich die Schwalben auf den Leitungen. Wer weiß, wann was passiert, beobachtet aufmerksamer und hilft den Vögeln genau dann, wenn sie es brauchen.

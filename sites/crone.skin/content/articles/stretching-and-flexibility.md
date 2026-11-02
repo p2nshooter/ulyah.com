@@ -2,7 +2,7 @@
 title: "Stretching and Flexibility After Fifty: A Gentle Routine for Easier Movement"
 description: Why flexibility matters for everyday comfort, how to stretch safely, a simple full-body routine for mornings and evenings, and how stretching fits with strength and balance work.
 category: move-and-thrive
-date: 2026-10-19
+date: 2026-10-20
 ---
 Reaching to a high shelf, looking over your shoulder while reversing the car, tying shoelaces, getting in and out of the bath, fastening a necklace behind your neck: everyday life depends on flexibility. As the years go by, many women notice that these movements feel stiffer, especially first thing in the morning or after sitting for a long time. Muscles feel tighter, joints less supple, and movement less fluid.
 

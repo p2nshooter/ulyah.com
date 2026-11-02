@@ -2,7 +2,7 @@
 title: "Casa para clima cálido y húmedo: sombra, aire, lluvia y materiales que no guardan calor"
 description: "Cómo diseñar o adaptar una vivienda en el Caribe, el Golfo, la costa tropical del Pacífico o la Amazonía: aleros, techos altos, ventilación, casas elevadas, humedad, mosquitos y huracanes."
 category: arquitectura-y-casas
-date: 2026-09-15
+date: 2026-10-11
 ---
 En Cartagena, Veracruz, Mérida, Guayaquil, Panamá, Manaos o Santo Domingo, el calor no da tregua ni siquiera de noche. La temperatura cambia poco entre el día y la noche, la humedad es alta casi todo el año y la lluvia, cuando llega, cae con fuerza. En este clima, una casa pensada para otro lugar, con ventanas pequeñas, muros pesados al sol y techos bajos, se convierte en una caja caliente donde el aire acondicionado trabaja sin descanso.
 

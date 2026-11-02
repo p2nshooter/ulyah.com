@@ -2,7 +2,13 @@
 title: "Kalk in der Dusche entfernen: Glaswand, Armaturen und Duschkopf"
 description: "Kalk und Kalkseife von Duschwand, Armatur, Duschkopf und Fliesen lösen, ohne Fugen, Naturstein oder Beschichtungen zu schädigen, und Neubildung täglich bremsen."
 category: bad-und-wc
-date: 2026-09-12
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Wasserhärte bestimmen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wasser/wasserhaerte-bestimmen-habe-ich-weiches-oder-hartes-wasser-5532
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
 ---
 In kaum einem Raum zeigt sich hartes Wasser so deutlich wie in der Dusche. Nach wenigen Tagen ist die Glaswand von weißen Tropfenrändern übersät, die Armatur verliert ihren Glanz, und aus dem Duschkopf spritzt das Wasser plötzlich in alle Richtungen. Was dort haftet, ist meist eine Mischung aus Kalk und Seifenresten, die sogenannte **Kalkseife**. Sie wird mit jeder Dusche dicker und lässt sich immer schwerer entfernen.
 

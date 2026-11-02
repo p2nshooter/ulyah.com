@@ -2,7 +2,7 @@
 title: "Arabica und Robusta: die zwei Kaffeearten im Vergleich"
 description: Arabica gilt als fein, Robusta als kräftig. Was die beiden Kaffeearten wirklich unterscheidet, von Anbau und Koffein bis Geschmack, und wann eine Mischung sinnvoll ist.
 category: bohnen-und-roestung
-date: 2026-06-19
+date: 2026-10-06
 ---
 Auf fast jeder Kaffeepackung steht es: „100 % Arabica“. Der Satz klingt nach Qualitätsversprechen, und Robusta wirkt daneben wie der billige Verwandte. Ganz so einfach ist es nicht. Beide Arten haben ihre Stärken, beide gibt es in hervorragender und in mittelmäßiger Qualität, und für manche Zubereitungen ist eine Mischung sogar die bessere Wahl. In diesem Ratgeber erfährst du, woher die beiden Kaffeearten stammen, wie sie wachsen, warum sie so unterschiedlich schmecken und worauf du beim Kauf achten kannst.
 

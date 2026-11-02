@@ -2,7 +2,7 @@
 title: "Cuarzos de América Latina: citrino, ametrino boliviano, cuarzo ahumado, rosa, ágatas y calcedonias"
 description: "La familia del cuarzo explicada: variedades cristalinas y calcedonias, de dónde salen en la región, qué colores son naturales, cuáles se tratan y cómo comprar cada una sin confusiones."
 category: gemas-en-bruto
-date: 2026-10-31
+date: 2026-11-01
 ---
 El cuarzo es el mineral que casi todos hemos tenido en la mano sin saberlo. Está en la arena de la playa, en el granito de una encimera y en buena parte de las piedras que se venden en ferias, tiendas de minerales y joyerías. Precisamente por ser tan común, a menudo se subestima. Sin embargo, la familia del cuarzo reúne algunas de las gemas más bonitas y versátiles que existen, y América Latina, con Brasil, Uruguay, Bolivia, México y Argentina a la cabeza, es una de sus grandes despensas.
 

@@ -2,7 +2,7 @@
 title: "Zugvögel und Wintergäste: Wer im Herbst geht, wer kommt und wie Vögel ihren Weg finden"
 description: "Vogelzug verständlich erklärt: Langstrecken- und Kurzstreckenzieher, Teilzieher, Standvögel und Wintergäste, wie Vögel navigieren, was der Klimawandel ändert und wann man den Zug sieht."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Jedes Jahr im Herbst verlassen Milliarden Vögel Europa in Richtung Süden, und jedes Frühjahr kehren sie zurück. Die Mauersegler über unseren Dächern verbringen den Winter im südlichen Afrika, der Kuckuck fliegt bis in den Kongo, und manche Rotkehlchen in unserem Garten kommen im Winter aus Schweden. Der Vogelzug gehört zu den großen Wundern der Natur, und er findet direkt über unseren Köpfen statt.

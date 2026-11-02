@@ -2,7 +2,7 @@
 title: "Kohlmeise und Blaumeise: Unterschiede, Lebensweise, Brut und wie du beiden hilfst"
 description: "Kohlmeise oder Blaumeise? So unterscheidest du die beiden häufigsten Meisen, verstehst ihr Jahr vom Revierkampf bis zum Ausfliegen und hilfst ihnen im Garten."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Kaum ein Vogel ist am Futterhaus so präsent wie die Meisen. Sie kommen schnell, schnappen sich einen Kern und fliegen damit in den nächsten Busch, um ihn dort in aller Ruhe aufzuhacken. Die beiden häufigsten Arten, Kohlmeise und Blaumeise, leben in fast jedem Garten, Park und Wald Deutschlands. Sie sehen sich auf den ersten Blick ähnlich, unterscheiden sich aber in Größe, Färbung, Verhalten und Ansprüchen an den Nistplatz.

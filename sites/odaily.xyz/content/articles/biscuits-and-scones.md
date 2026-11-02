@@ -2,7 +2,7 @@
 title: "Tall, Flaky Biscuits and Tender Scones: The Cold-Butter Method, Folding and Baking Tips"
 description: "How American biscuits and British-style scones differ, why cold fat and minimal mixing matter, a basic buttermilk biscuit, folding for layers, cutting without twisting and how to freeze them unbaked."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 A warm biscuit split open with butter melting into its layers, or a tender scone with jam and cream, is one of the simplest pleasures of home baking. Both are quick breads, leavened with baking powder or baking soda rather than yeast, so they go from mixing bowl to table in about thirty minutes. Yet many home bakers end up with biscuits that are flat and dense or scones that are dry and crumbly. The secret to both lies in a few techniques shared with pie crust: keep the fat cold, mix the dough as little as possible and bake in a hot oven. This guide explains how biscuits and scones work and how to make them tall, flaky and tender every time.

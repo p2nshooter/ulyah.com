@@ -2,7 +2,7 @@
 title: "Abos prüfen und kündigen: Laufende Verträge und Abonnements gründlich durchgehen"
 description: "Abos prüfen und kündigen: So findest du alle laufenden Abonnements, rechnest die Kosten pro Monat und Jahr aus, bewertest jede Position und kündigst nachweisbar."
 category: bewusster-konsum
-date: 2026-07-22
+date: 2026-10-11
 ---
 Du scrollst durch deinen Kontoauszug und siehst lauter kleine Abbuchungen. Ein Streamingdienst, den du seit der letzten Serie nicht mehr geöffnet hast. Eine App, deren Namen du nicht sofort zuordnen kannst. Der Cloud-Speicher, der Musikdienst, die digitale Zeitung, das Fitnessstudio, in dem du zuletzt im Frühling warst. Jeder Betrag für sich wirkt harmlos. Zusammen ergeben sie eine Summe, die dich überrascht, wenn du sie einmal ausrechnest.
 

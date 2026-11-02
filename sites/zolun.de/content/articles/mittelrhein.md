@@ -2,7 +2,7 @@
 title: "Mittelrhein: Burgen, Loreley und Weinorte zwischen Rüdesheim und Koblenz"
 description: "Das Welterbe Mittelrheintal: Schifffahrt an der Loreley vorbei, Marksburg und Pfalzgrafenstein, Weinorte, Rheinsteig, Fähren statt Brücken und Tipps zur Unterkunft."
 category: seen-und-fluesse
-date: 2026-10-01
+date: 2026-10-11
 ---
 Kaum eine Flusslandschaft in Deutschland ist so berühmt wie das Mittelrheintal. Auf rund 65 Kilometern zwischen Bingen und Rüdesheim im Süden und Koblenz im Norden hat sich der Rhein tief in das Schiefergebirge gegraben. Steile Weinberge, Felsen, kleine Fachwerkstädtchen am Ufer und auf fast jeder Anhöhe eine Burg: Diese Kulisse hat Dichter, Maler und Reisende seit der Romantik begeistert und gehört heute zum UNESCO-Welterbe. Dieser Ratgeber hilft dir, das Tal zu verstehen und deine Reise zu planen, ob mit dem Schiff, dem Rad, zu Fuß oder mit der Bahn.
 

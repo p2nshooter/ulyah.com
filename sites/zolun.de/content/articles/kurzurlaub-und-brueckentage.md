@@ -2,7 +2,7 @@
 title: "Kurzurlaub und Brückentage clever planen: mehr freie Tage, weniger Stau"
 description: "Mehr freie Tage aus wenigen Urlaubstagen: welche Feiertage wo gelten, warum Himmelfahrt und Fronleichnam so beliebt sind, wie du Staus umgehst und welche Ziele sich lohnen."
 category: reiseplanung
-date: 2026-10-08
+date: 2026-10-11
 ---
 Nicht jeder Urlaub muss zwei Wochen dauern. Ein verlängertes Wochenende an der Ostsee, drei Tage in einer Stadt oder vier Tage Wandern im Mittelgebirge können erstaunlich erholsam sein, besonders wenn sie gut geplant sind. In Deutschland helfen dabei die Feiertage: Wer geschickt einen oder zwei Urlaubstage dazwischenlegt, bekommt aus wenigen Urlaubstagen viele freie Tage am Stück. Dieser Ratgeber erklärt, wie Brückentage funktionieren, welche Feiertage wo gelten und wie du einen Kurzurlaub planst, ohne die Hälfte der Zeit im Stau zu verbringen.
 

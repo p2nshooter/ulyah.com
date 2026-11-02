@@ -2,7 +2,7 @@
 title: La sal en el obrador: cuánta usar en panes, quesos y fermentados, y qué tipo elegir
 description: Qué hace la sal en el pan, los quesos y los fermentados, cuánta usar en cada caso, cómo calcularla y qué tipo de sal elegir para el obrador.
 category: tecnica
-date: 2026-10-12
+date: 2026-10-04
 ---
 La sal es el ingrediente más pequeño de la mayoría de recetas del obrador, y uno de los más importantes. En un pan supone apenas un 2 % del peso de la harina, pero si se olvida, el pan sale insípido, se extiende como una torta y fermenta a toda velocidad. En un queso, decide cuánto tiempo se conservará y cómo será su corteza. En un chucrut, es la diferencia entre una fermentación limpia y una col podrida.
 

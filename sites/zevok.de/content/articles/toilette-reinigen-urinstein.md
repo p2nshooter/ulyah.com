@@ -2,7 +2,14 @@
 title: "Toilette reinigen und Urinstein entfernen: gründlich, hygienisch und materialschonend"
 description: "Toilette gründlich putzen, Urinstein und Kalkränder mit Säure und Geduld lösen, Spülrand, Spülkasten und WC-Bürste pflegen und neue Ablagerungen verhindern."
 category: bad-und-wc
-date: 2026-09-18
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Abfälle nicht in Toilette und Waschbecken entsorgen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/abfall/abfaelle-nicht-in-toilette-und-waschbecken-entsorgen-25920
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Die Toilette gehört zu den Orten, die man am liebsten schnell erledigt. Ein Spritzer Reiniger, einmal mit der Bürste herum, spülen, fertig. Das reicht für den Alltag, aber nicht auf Dauer. Unter dem Spülrand bilden sich Beläge, an der Wasserlinie entsteht ein gelblich-brauner Ring, und irgendwann riecht es, obwohl regelmäßig geputzt wird. Der Grund ist fast immer **Urinstein**: eine harte, raue Ablagerung, an der Bakterien und Gerüche besonders gut haften.
 

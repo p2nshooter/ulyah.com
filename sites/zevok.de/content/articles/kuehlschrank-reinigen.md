@@ -2,7 +2,13 @@
 title: "Kühlschrank reinigen und Gefrierfach abtauen: Schritt für Schritt"
 description: "Kühlschrank gründlich reinigen, Gerüche loswerden und das Gefrierfach sicher abtauen: mit Spülmittel statt scharfer Mittel, freiem Tauwasserablauf und ohne Messer im Eis."
 category: kueche-reinigen
-date: 2026-07-10
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bundeszentrum für Ernährung: Was gehört wohin im Kühlschrank? | https://www.bzfe.de/presse/pressemeldungen-archiv-2024-und-frueher/was-gehoert-wohin-im-kuehlschrank
+  - Bundeszentrum für Ernährung: Lebensmittel richtig lagern | https://www.bzfe.de/kueche-und-alltag/kochen/lebensmittel-richtig-lagern
+  - Bundesinstitut für Risikobewertung: Schutz vor Lebensmittelinfektionen im Privathaushalt (PDF) | https://www.bfr.bund.de/cm/350/verbrauchertipps_schutz_vor_lebensmittelinfektionen_im_privathaushalt.pdf
 ---
 Ein umgekippter Joghurtbecher, der unter die Gemüseschublade gelaufen ist. Ein seltsamer Geruch, sobald man die Tür öffnet. Ein Gefrierfach, in dem die Eisschicht so dick ist, dass die Schublade nur noch mit Gewalt herausgeht. Der Kühlschrank ist das Gerät, das in der Küche am häufigsten geöffnet und am seltensten gründlich geputzt wird.
 

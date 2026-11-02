@@ -2,7 +2,14 @@
 title: "Essig im Haushalt: wo er hilft, wo er schadet und wie du ihn richtig dosierst"
 description: "Haushaltsessig und Essigessenz richtig verdünnen, Kalk an Glas und Armaturen lösen und wissen, wo Essig schadet: Naturstein, Aluminium, Dichtungen und geölte Flächen."
 category: hausmittel
-date: 2026-09-27
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Wenn die Waschmaschine müffelt | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/wenn-die-waschmaschine-mueffelt-tipps-gegen-ueble-gerueche-109784
+  - Forum Waschen: Alternative Putzmittel – natürlich waschen und putzen? | https://forum-waschen.de/alternative-putzmittel-natuerlich-waschen-und-putzen-geht-das/
+  - Verbraucherzentrale: Obst und Gemüse mit Natron waschen – bringt das was? | https://www.verbraucherzentrale.de/wissen/lebensmittel/gesund-ernaehren/obst-und-gemuese-mit-natron-waschen-bringt-das-wirklich-was-109996
 ---
 Essig gilt als Allzweckwaffe im Haushalt. Er ist günstig, steht ohnehin im Küchenschrank und soll gegen Kalk, Schlieren, Gerüche und sogar Bakterien helfen. Tatsächlich ist Essig ein wirksames Mittel, aber kein harmloses Wundermittel. Er ist eine Säure, und Säuren lösen nicht nur Kalk, sondern greifen auch Naturstein, manche Metalle und Gummi an. Wer Essig überall einsetzt, kann mehr Schaden anrichten als Nutzen bringen.
 

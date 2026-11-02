@@ -2,7 +2,7 @@
 title: "Leihen, teilen, tauschen: Weniger besitzen und trotzdem alles nutzen"
 description: "Leihen, teilen, tauschen statt kaufen: Bibliotheken der Dinge, Nachbarschaftsportale, Tauschbörsen und Sharing-Angebote, mit Tipps zu Versicherung, Verabredungen und Fairness."
 category: bewusster-konsum
-date: 2026-09-11
+date: 2026-10-11
 ---
 Eine Bohrmaschine wird im Laufe ihres Lebens nur wenige Minuten tatsächlich benutzt, so heißt es oft. Ob die genaue Zahl stimmt, ist schwer zu sagen, aber jeder kennt das Prinzip aus eigener Erfahrung: Die Leiter steht elf Monate im Keller, der Raclette-Grill kommt an Silvester auf den Tisch, das Zelt wartet auf den nächsten Sommer, und der Hochdruckreiniger putzt einmal im Jahr die Terrasse. Viele Dinge, die wir besitzen, brauchen wir nicht oft, wir brauchen nur gelegentlich ihre Funktion.
 

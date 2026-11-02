@@ -2,7 +2,7 @@
 title: "Familienrat am Freitag"
 description: Bei Familie Nguyen wird über alles gestritten, bis die Eltern einen Familienrat mit Holzlöffel als Redestab einführen. Über Mitbestimmung, echte Entscheidungen und Eis-Freitage.
 category: zusammenleben-zuhause
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Ich sitz vorne!“
 

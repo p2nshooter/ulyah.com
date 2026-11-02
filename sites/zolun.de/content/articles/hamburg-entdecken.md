@@ -2,7 +2,7 @@
 title: "Hamburg entdecken: Hafen, Speicherstadt, Elbphilharmonie und Alster in zwei bis drei Tagen"
 description: "Hamburg für Erstbesucher: Hafen mit der Fähre zum Nahverkehrstarif, Speicherstadt, Elbphilharmonie, Fischmarkt, Alster, Regenprogramm und ein Plan für zwei bis drei Tage."
 category: staedtereisen
-date: 2026-08-26
+date: 2026-10-11
 ---
 Hamburg ist eine Stadt, die man vom Wasser aus verstehen sollte. Der Hafen, die Elbe, die Kanäle der Speicherstadt und die Alster in der Mitte prägen nicht nur das Stadtbild, sondern auch den Alltag. Gleichzeitig ist Hamburg groß, und wer nur einen Tag hat, verliert schnell Zeit zwischen den Vierteln. Dieser Ratgeber zeigt dir die wichtigsten Orte, verrät, wie du günstig auf das Wasser kommst, und schlägt einen Plan für zwei bis drei Tage vor.
 

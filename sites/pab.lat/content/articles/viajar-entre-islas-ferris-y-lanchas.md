@@ -2,7 +2,7 @@
 title: "Viajar entre islas en América Latina: ferris, lanchas y barcos con seguridad"
 description: "Cómo moverte en ferris, catamaranes, lanchas y barcos fluviales por el Caribe, el Pacífico, los lagos y la Amazonía: elegir operador, chalecos, clima, mareo, dónde sentarte, equipaje y tasas."
 category: playas-y-costas
-date: 2026-09-23
+date: 2026-10-11
 ---
 Muchas de las experiencias más memorables de un viaje por América Latina empiezan en un muelle. Un ferry hacia Isla Mujeres o Cozumel, una lancha que salta sobre las olas camino de las islas del Rosario, un velero entre las islas de Guna Yala, un barco de varios días por los fiordos chilenos, una embarcación con hamacas por el Amazonas o un bote que cruza el lago Titicaca hasta las islas flotantes de los uros. El mar, los ríos y los lagos son caminos tan importantes como las carreteras.
 

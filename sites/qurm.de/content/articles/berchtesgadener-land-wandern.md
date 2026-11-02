@@ -2,7 +2,7 @@
 title: "Wandern im Berchtesgadener Land: Königssee, Jenner, Wimbachklamm und Watzmann"
 description: "Tagestouren im Nationalpark Berchtesgaden: vom Malerwinkel und Obersee bis zur Wimbachklamm, zum Jenner und zum Watzmannhaus, mit Schwierigkeit, Schiffsverbindung und Regeln im Nationalpark."
 category: berge-und-tagestouren
-date: 2026-08-01
+date: 2026-10-06
 ---
 Im äußersten Südosten Deutschlands liegt eine Berglandschaft, die selbst erfahrene Alpenwanderer staunen lässt. Der Königssee schmiegt sich wie ein Fjord zwischen fast senkrechte Felswände, darüber thront der Watzmann mit seiner berühmten Ostwand, und ringsum erheben sich Hochkalter, Steinernes Meer und Hoher Göll. Der Nationalpark Berchtesgaden ist der einzige Alpen-Nationalpark Deutschlands. Für Wanderer bietet er Touren für jeden Anspruch, von der ebenen Uferrunde bis zur anstrengenden Hüttenwanderung. Hier stellen wir die Klassiker vor und erklären, wie du sie gut planst.
 

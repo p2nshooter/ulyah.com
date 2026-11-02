@@ -2,7 +2,7 @@
 title: "Wohnungskatze artgerecht halten: So wird die Wohnung zum Revier"
 description: Wohnungskatzen können glücklich leben. Wie du Höhe, Verstecke, Ausblick, Jagdspiel und Futterbeschäftigung so einrichtest, dass deine Katze sich nicht langweilt.
 category: wohnung-und-freigang
-date: 2026-08-08
+date: 2026-10-05
 ---
 In Städten leben viele Katzen ausschließlich in der Wohnung. Manche, weil die Straße zu gefährlich ist, andere, weil sie aus Gesundheitsgründen nicht nach draußen sollten, wieder andere, weil sie es nie anders gekannt haben. Wohnungshaltung ist nicht automatisch schlechter als Freigang. Eine Wohnungskatze ist vor Unfällen, Revierkämpfen, Infektionskrankheiten und Vergiftungen geschützt und lebt im Durchschnitt länger.
 

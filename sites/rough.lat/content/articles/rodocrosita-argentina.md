@@ -2,7 +2,7 @@
 title: "Rodocrosita argentina: la Rosa del Inca de Catamarca, de la mina a la joya"
 description: "Qué es la rodocrosita, cómo se formaron las estalactitas de la mina Capillitas, por qué muestra bandas, cómo se valora, cómo distinguirla de la rodonita y las imitaciones y qué cuidados necesita."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 En las montañas de Catamarca, en el noroeste argentino, una antigua mina de cobre guarda uno de los tesoros minerales más reconocibles de América Latina: la rodocrosita con bandas rosas y blancas que, cortada en láminas, muestra anillos concéntricos como los de un árbol o como los pétalos de una flor abierta. Se la conoce comercialmente como Rosa del Inca, y su color, del rosa pálido al frambuesa intenso, la ha convertido en un símbolo de Argentina, que la considera su piedra nacional.
 

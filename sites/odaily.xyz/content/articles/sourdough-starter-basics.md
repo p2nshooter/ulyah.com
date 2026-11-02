@@ -2,7 +2,7 @@
 title: "Sourdough Starter Basics: How to Make, Feed and Keep a Starter Alive Without Stress"
 description: "What a sourdough starter is, a day-by-day plan to make one from flour and water, how to tell when it is ready, feeding ratios, storing it in the fridge, reviving a sluggish starter and using discard."
 category: baking
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Sourdough has become one of the most popular home baking projects of recent years, and for good reason. A loaf made with a homemade starter has a crackling crust, an open, chewy crumb and a complex, gently tangy flavor that commercial yeast cannot match. At the heart of every sourdough loaf is the starter: a simple mixture of flour and water that captures wild yeasts and bacteria and keeps them alive with regular feeding. Creating a starter can seem mysterious, and many beginners worry about doing it wrong or "killing" it. In reality, starters are remarkably resilient. This guide explains what a starter is, how to make one from scratch, how to care for it and how to fix common problems.

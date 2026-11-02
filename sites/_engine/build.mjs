@@ -24,6 +24,64 @@ import { countWords, esc, parseFrontmatter, renderMarkdown, slugify } from "./li
 const ENGINE = dirname(fileURLToPath(import.meta.url));
 const SITES = resolve(ENGINE, "..");
 
+// The few words the engine writes itself (the sources block under an article, the page of updates), per language.
+const WORDS = {
+  de: {
+    sources: "Quellen und weiterführende Informationen",
+    checked: "Zuletzt geprüft am",
+    updatesSlug: "aktualisierungen",
+    updatesTitle: "Aktualisierungen",
+    updatesDescription: (n) => `Was auf NAME neu erschienen ist und welche Ratgeber wir überarbeitet haben, mit Datum: ${n} Einträge, die neuesten zuerst.`,
+    updatesIntro: "Hier steht, wann jeder Ratgeber erschienen ist und wann wir ihn überarbeitet haben. Die Daten stammen direkt aus unseren Artikeln: Was hier steht, steht auch über dem jeweiligen Text.",
+    published: (n) => (n === 1 ? "Neu erschienen" : `${n} neue Ratgeber`),
+    updated: (n) => (n === 1 ? "Überarbeitet" : `${n} Ratgeber überarbeitet`),
+  },
+  es: {
+    sources: "Fuentes y más información",
+    checked: "Revisado por última vez el",
+    updatesSlug: "novedades",
+    updatesTitle: "Novedades",
+    updatesDescription: (n) => `Lo que se ha publicado en NAME y las guías que hemos revisado, con su fecha: ${n} entradas, las más recientes primero.`,
+    updatesIntro: "Aquí se indica cuándo se publicó cada guía y cuándo la revisamos. Las fechas salen directamente de los artículos: lo que figura aquí figura también al principio de cada texto.",
+    published: (n) => (n === 1 ? "Publicado" : `${n} guías nuevas`),
+    updated: (n) => (n === 1 ? "Revisado" : `${n} guías revisadas`),
+  },
+  en: {
+    sources: "Sources and further reading",
+    checked: "Last checked on",
+    updatesSlug: "whats-new",
+    updatesTitle: "What's new",
+    updatesDescription: (n) => `What has been published on NAME and which guides we have revised, with dates: ${n} entries, newest first.`,
+    updatesIntro: "This page shows when each guide was published and when we revised it. The dates come straight from the articles: what is listed here is also shown at the top of each piece.",
+    published: (n) => (n === 1 ? "Published" : `${n} new guides`),
+    updated: (n) => (n === 1 ? "Revised" : `${n} guides revised`),
+  },
+  fr: {
+    sources: "Sources et pour aller plus loin",
+    checked: "Vérifié pour la dernière fois le",
+    updatesSlug: "nouveautes",
+    updatesTitle: "Nouveautés",
+    updatesDescription: (n) => `Ce qui a été publié sur NAME et les guides que nous avons révisés, avec leur date : ${n} entrées, les plus récentes d'abord.`,
+    updatesIntro: "Cette page indique quand chaque guide a été publié et quand nous l'avons révisé. Les dates viennent directement des articles : ce qui figure ici figure aussi en tête de chaque texte.",
+    published: (n) => (n === 1 ? "Publié" : `${n} nouveaux guides`),
+    updated: (n) => (n === 1 ? "Révisé" : `${n} guides révisés`),
+  },
+};
+
+/** Today in UTC (YYYY-MM-DD). SITES_TODAY overrides it, so a test can build "tomorrow". */
+export const today = () => process.env.SITES_TODAY || new Date().toISOString().slice(0, 10);
+
+/** "Title | https://url" → { title, url, host }; anything else → null. */
+export function parseSource(line) {
+  const m = /^(.+?)\s*\|\s*(https:\/\/\S+)$/.exec(String(line).trim());
+  if (!m) return null;
+  try {
+    return { title: m[1], url: m[2], host: new URL(m[2]).hostname.replace(/^www\./, "") };
+  } catch {
+    return null;
+  }
+}
+
 export async function build(domain, { quiet = false } = {}) {
   const dir = join(SITES, domain);
   if (!existsSync(join(dir, "site.json"))) throw new Error(`No site.json in sites/${domain}`);
@@ -42,7 +100,13 @@ export async function build(domain, { quiet = false } = {}) {
   const categories = site.categories.map((c) => ({ ...c, url: `${paths.category}${c.slug}/`, articles: [] }));
   const catBySlug = new Map(categories.map((c) => [c.slug, c]));
 
+  const words = WORDS[site.lang] || WORDS.en;
+  const day = today();
   const articleDir = join(dir, "content", "articles");
+  // Owner, 2 Nov 2026 (docs/ADSENSE-BLUEPRINT.md §22): an article carries the day it really went online. One dated
+  // in the future is written but scheduled: it is not built, linked or listed until its day comes, and the daily
+  // run of deploy-sites.yml publishes it then — so a site grows a few guides a week instead of twenty at once.
+  const scheduled = [];
   const articles = (existsSync(articleDir) ? readdirSync(articleDir) : [])
     .filter((f) => f.endsWith(".md"))
     .map((file) => {
@@ -51,8 +115,27 @@ export async function build(domain, { quiet = false } = {}) {
       const cat = catBySlug.get(data.category);
       if (!cat) throw new Error(`${file}: unknown category "${data.category}"`);
       if (!data.title || !data.description || !data.date) throw new Error(`${file}: title, description and date are required`);
-      const { html, headings } = renderMarkdown(body);
-      const words = countWords(body);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || (data.updated && !/^\d{4}-\d{2}-\d{2}$/.test(data.updated))) throw new Error(`${file}: date and updated are YYYY-MM-DD`);
+      if (data.date > day) {
+        scheduled.push({ file, date: data.date, title: data.title });
+        return null;
+      }
+      // An update dated in the future is not shown before its day either.
+      if (data.updated && data.updated > day) delete data.updated;
+      let { html, headings } = renderMarkdown(body);
+      const sourceLines = Array.isArray(data.sources) ? data.sources : data.sources ? [data.sources] : [];
+      const sources = sourceLines.map(parseSource);
+      if (sources.some((x) => !x)) throw new Error(`${file}: every source is "Title | https://…"`);
+      if (sources.length) {
+        // Plain outbound links to where the facts come from. The heading joins the article's table of contents.
+        const id = "quellen-und-informationen";
+        headings = [...headings, { level: 2, text: words.sources, id }];
+        html +=
+          `\n<section class="engine-quellen" aria-labelledby="${id}">\n<h2 id="${id}">${esc(words.sources)}</h2>\n<ul>\n` +
+          sources.map((x) => `<li><a href="${esc(x.url)}" rel="noopener" target="_blank">${esc(x.title)}</a> <span class="engine-quellen__host">(${esc(x.host)})</span></li>`).join("\n") +
+          `\n</ul>\n<p class="engine-quellen__stand">${esc(words.checked)} <time datetime="${data.updated || data.date}">${fmtDate(data.updated || data.date)}</time>.</p>\n</section>`;
+      }
+      const wordCount = countWords(body);
       const a = {
         ...data,
         file,
@@ -61,8 +144,9 @@ export async function build(domain, { quiet = false } = {}) {
         cat,
         html,
         headings,
-        words,
-        minutes: Math.max(1, Math.round(words / 220)),
+        sources,
+        words: wordCount,
+        minutes: Math.max(1, Math.round(wordCount / 220)),
         dateLabel: fmtDate(data.date),
         updated: data.updated || data.date,
         updatedLabel: fmtDate(data.updated || data.date),
@@ -70,6 +154,7 @@ export async function build(domain, { quiet = false } = {}) {
       cat.articles.push(a);
       return a;
     })
+    .filter(Boolean)
     .sort((a, b) => (a.date === b.date ? (a.order ?? a.title).localeCompare(b.order ?? b.title) : a.date < b.date ? 1 : -1));
   for (const a of articles) {
     const same = a.cat.articles.filter((x) => x !== a);
@@ -97,10 +182,54 @@ export async function build(domain, { quiet = false } = {}) {
     .map((file) => {
       const { data, body } = parseFrontmatter(readFileSync(join(pageDir, file), "utf8"));
       const slug = data.slug || file.replace(/\.md$/, "");
-      const { html, headings } = renderMarkdown(body);
+      let { html } = renderMarkdown(body);
+      const { headings } = renderMarkdown(body);
+      // A tool page (`tool: <name>`): the Markdown is the complete static version — tables a reader and a crawler
+      // can use without JavaScript — and theme/assets/tools/<name>.js adds the interactive part above it.
+      if (data.tool) {
+        if (!/^[a-z0-9-]+$/.test(data.tool)) throw new Error(`${file}: tool is a lowercase name`);
+        if (!existsSync(join(dir, "theme", "assets", "tools", `${data.tool}.js`))) throw new Error(`${file}: theme/assets/tools/${data.tool}.js is missing`);
+        html = `<div class="engine-werkzeug" id="werkzeug" data-tool="${data.tool}" aria-live="polite"></div>\n${html}`;
+      }
       return { ...data, slug, url: `/${slug}/`, html, headings, words: countWords(body) };
     })
     .sort((a, b) => Number(a.order ?? 99) - Number(b.order ?? 99));
+
+  // The page of updates (owner, 2 Nov 2026, §22): when each guide went online and when it was revised, straight from
+  // the articles' own dates — the site's upkeep in plain view. Linked from the footer with the legal pages.
+  if (articles.length && !pages.some((p) => p.slug === words.updatesSlug)) {
+    const events = [];
+    for (const a of articles) {
+      events.push({ day: a.date, kind: "published", a });
+      if (a.updated && a.updated !== a.date) events.push({ day: a.updated, kind: "updated", a });
+    }
+    const byDay = new Map();
+    for (const e of events.sort((x, y) => (x.day === y.day ? x.a.title.localeCompare(y.a.title) : x.day < y.day ? 1 : -1))) {
+      const k = `${e.day}|${e.kind}`;
+      byDay.set(k, [...(byDay.get(k) || []), e]);
+    }
+    const md = [words.updatesIntro, ""];
+    for (const [k, list] of [...byDay].sort((x, y) => (x[0] < y[0] ? 1 : -1))) {
+      const [d, kind] = k.split("|");
+      md.push(`## ${fmtDate(d)}: ${words[kind](list.length)}`, "");
+      for (const e of list) md.push(`- [${e.a.title.replace(/[[\]]/g, "")}](${e.a.url})${kind === "updated" && e.a.change ? ` — ${e.a.change}` : ""}`);
+      md.push("");
+    }
+    const { html, headings } = renderMarkdown(md.join("\n"));
+    const lastDay = events.map((e) => e.day).sort().at(-1);
+    pages.push({
+      slug: words.updatesSlug,
+      url: `/${words.updatesSlug}/`,
+      title: words.updatesTitle,
+      description: words.updatesDescription(events.length).replace("NAME", site.name),
+      updated: lastDay,
+      html,
+      headings,
+      words: countWords(md.join("\n")),
+      generated: true,
+    });
+    site.legal = [...(site.legal || []).filter((l) => l.href !== `/${words.updatesSlug}/`), { label: words.updatesTitle, href: `/${words.updatesSlug}/` }];
+  }
 
   // ── Assets (fingerprinted so a new deploy is never served stale CSS) ───
   const assetSrc = join(dir, "theme", "assets");
@@ -260,7 +389,11 @@ export async function build(domain, { quiet = false } = {}) {
   emit("/", theme.home(ctx));
   for (const c of categories) emit(c.url, theme.category(ctx, c));
   for (const a of articles) emit(a.url, theme.article(ctx, a));
-  for (const p of pages) emit(p.url, theme.page(ctx, p));
+  for (const p of pages) {
+    let html = theme.page(ctx, p);
+    if (p.tool) html = html.replace("</body>", `<script src="${asset(`tools/${p.tool}.js`)}" defer></script>\n</body>`);
+    emit(p.url, html);
+  }
   writeFileSync(join(out, "404.html"), theme.notFound(ctx));
   const extras = theme.extraFiles?.(ctx) ?? [];
   for (const extra of extras) emit(extra.path, extra.content);
@@ -330,16 +463,16 @@ export async function build(domain, { quiet = false } = {}) {
     join(out, "robots.txt"),
     `User-agent: *\nAllow: /\n\nUser-agent: Google-Extended\nUser-agent: GoogleOther\nUser-agent: Google-CloudVertexBot\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`
   );
-  const today = new Date().toISOString().slice(0, 10);
+  const todayIso = day;
   const urls = [
-    { loc: "/", lastmod: articles[0]?.updated || today },
-    ...categories.map((c) => ({ loc: c.url, lastmod: c.articles[0]?.updated || today })),
+    { loc: "/", lastmod: articles[0]?.updated || todayIso },
+    ...categories.map((c) => ({ loc: c.url, lastmod: c.articles[0]?.updated || todayIso })),
     ...articles.map((a) => ({ loc: a.url, lastmod: a.updated })),
-    ...pages.map((p) => ({ loc: p.url, lastmod: p.updated || today })),
+    ...pages.map((p) => ({ loc: p.url, lastmod: p.updated || todayIso })),
     // Pages a theme adds itself (an index of every guide, for instance), unless they ask not to be indexed.
     ...extras
       .filter((e) => e.path.endsWith("/") && !/<meta name="robots" content="noindex/.test(String(e.content)))
-      .map((e) => ({ loc: e.path, lastmod: articles[0]?.updated || today })),
+      .map((e) => ({ loc: e.path, lastmod: articles[0]?.updated || todayIso })),
   ];
   writeFileSync(
     join(out, "sitemap.xml"),
@@ -392,7 +525,8 @@ export async function build(domain, { quiet = false } = {}) {
       `${domain}: ${articles.length} articles (${total.toLocaleString("en")} words, shortest ${Math.min(...articles.map((a) => a.words))}), ` +
         `${categories.length} categories, ${pages.length} pages → ${files.length + 1} HTML files in sites/${domain}/dist`
     );
-  return { site, articles, categories, pages, out };
+  if (!quiet && scheduled.length) console.log(`${domain}: ${scheduled.length} scheduled (next ${scheduled.map((x) => x.date).sort()[0]})`);
+  return { site, articles, categories, pages, out, scheduled, today: day };
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

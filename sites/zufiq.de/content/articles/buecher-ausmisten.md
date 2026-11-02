@@ -2,7 +2,7 @@
 title: "Bücher ausmisten: Ein Regal nur mit Büchern, die dir etwas bedeuten"
 description: "Bücher ausmisten ohne Reue: Kategorien, ehrliche Fragen für jedes Buch, eine Regel für den Stapel der Ungelesenen und gute Wege für Bücher, die gehen dürfen."
 category: ausmisten-und-minimalismus
-date: 2026-08-09
+date: 2026-10-11
 ---
 Das Regal ist längst in zwei Reihen gefüllt. Vorne stehen die Romane, dahinter verschwinden Sachbücher, die du irgendwann einmal lesen wolltest. Auf dem Boden wächst ein Stapel, auf dem Nachttisch ein zweiter. Kleidung, Küchenkram und alte Kabel hast du längst aussortiert, aber bei Büchern zögerst du. Ein Buch weggeben fühlt sich irgendwie falsch an, fast respektlos.
 

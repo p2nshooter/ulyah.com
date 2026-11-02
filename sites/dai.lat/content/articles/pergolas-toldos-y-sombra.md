@@ -2,7 +2,7 @@
 title: "Pérgolas, toldos y velas de sombra: cómo dar sombra a patios y terrazas"
 description: "Pérgolas de madera o metal, enredaderas, toldos, mallas de sombra, velas y techos ligeros: cómo elegir la sombra adecuada según el sol, el viento, la lluvia y el uso del espacio."
 category: patios-y-exteriores
-date: 2026-08-14
+date: 2026-10-11
 ---
 Un patio o una terraza sin sombra se usa poco. En los climas cálidos de América Latina, el sol del mediodía convierte cualquier espacio abierto en un lugar donde nadie quiere sentarse, y el piso caliente devuelve calor hacia la casa hasta la noche. Con sombra, en cambio, ese mismo espacio se vuelve una habitación más: para comer, trabajar, leer o reunirse.
 

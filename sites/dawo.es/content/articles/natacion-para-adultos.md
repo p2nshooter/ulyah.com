@@ -2,7 +2,7 @@
 title: Natación para adultos: aprender a nadar o volver al agua después de años
 description: Cómo empezar a nadar de adulto: superar el miedo al agua, aprender la respiración, los primeros estilos, el material básico, la etiqueta de la piscina y un plan de iniciación de seis semanas.
 category: ocio-activo
-date: 2026-10-12
+date: 2026-10-04
 ---
 La natación es uno de los ejercicios más completos que existen: trabaja todo el cuerpo, mejora la capacidad cardiovascular, apenas tiene impacto sobre las articulaciones y se puede practicar a cualquier edad. Sin embargo, muchos adultos nunca aprendieron a nadar bien, o lo hicieron de niños y no han vuelto a la piscina en décadas. Para ellos, entrar en una calle de natación rodeados de nadadores que van y vienen puede resultar intimidante.
 

@@ -2,7 +2,7 @@
 title: "Departamento pequeño: cómo ganar espacio sin obras y vivir con comodidad"
 description: "Ordenar antes de comprar, muebles multifunción, almacenamiento vertical, zonas sin muros, colores y espejos: ideas prácticas para que un departamento pequeño se sienta amplio y funcione bien."
 category: interiores-y-decoracion
-date: 2026-08-20
+date: 2026-10-11
 ---
 Los departamentos son cada vez más pequeños en las grandes ciudades de América Latina. En Ciudad de México, Bogotá, Lima, Santiago o São Paulo, muchas viviendas nuevas tienen entre 30 y 50 metros cuadrados, y en ellas hay que dormir, cocinar, trabajar, guardar la ropa de toda la temporada y, a veces, recibir a la familia. La sensación de que nada cabe y de que todo está siempre a la vista es muy común.
 

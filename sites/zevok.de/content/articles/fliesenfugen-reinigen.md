@@ -2,7 +2,13 @@
 title: "Fliesenfugen reinigen: graue Fugen wieder hell und Silikon richtig pflegen"
 description: "Graue Zementfugen mit Natronpaste, Fugenbürste und Dampf aufhellen, Silikon richtig pflegen, Schimmel erkennen und Fugen mit einfachen Gewohnheiten länger sauber halten."
 category: bad-und-wc
-date: 2026-09-15
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Häufige Fragen bei Schimmelbefall | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/haeufige-fragen-bei-schimmelbefall
 ---
 Fliesen selbst sind schnell abgewischt. Was ein Bad oder eine Küche alt und ungepflegt aussehen lässt, sind meist die Fugen. Aus hellem Grau wird über die Jahre ein fleckiges Dunkelgrau, in den Ecken der Dusche zeigen sich schwarze Punkte, und auf dem Küchenboden haben sich die Fugen zu dunklen Linien zwischen sauberen Fliesen verwandelt. Der Grund: Fugen sind rau und oft porös. Schmutz, Seifenreste, Fett und Feuchtigkeit setzen sich darin fest, wo ein Wischtuch kaum hinkommt.
 

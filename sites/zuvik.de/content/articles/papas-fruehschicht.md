@@ -2,7 +2,7 @@
 title: "Papas Frühschicht und das Butterbrot-Geheimnis"
 description: Wenn Papa Frühschicht im Krankenhaus hat, ist er weg, bevor die Kinder aufwachen. Über Schichtarbeit, kleine Zettel in der Brotdose und Nähe, auch wenn man sich kaum sieht.
 category: morgens-und-abends
-date: 2026-10-12
+date: 2026-10-05
 ---
 Stefan Wagner verließ das Haus um 5:10 Uhr. Er arbeitete als Pfleger auf der Intensivstation eines Krankenhauses in Bremen, und in den Wochen mit Frühschicht begann sein Dienst um sechs. Er zog sich im Dunkeln an, trank im Stehen einen Kaffee und schlich dann an den Kinderzimmern vorbei, in denen Noah und Frieda schliefen. Manchmal blieb er an der Tür stehen und hörte ihnen eine Weile beim Atmen zu.
 

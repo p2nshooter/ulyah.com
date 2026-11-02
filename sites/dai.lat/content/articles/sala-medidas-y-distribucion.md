@@ -2,7 +2,7 @@
 title: "La sala: medidas, distribución de muebles y circulación para un espacio cómodo"
 description: "Cómo distribuir la sala según su uso: distancias entre sofá y mesa de centro, pasos de circulación, altura y distancia del televisor, zonas de conversación y salas integradas al comedor."
 category: interiores-y-decoracion
-date: 2026-09-17
+date: 2026-10-11
 ---
 La sala es el corazón social de la casa. Allí se conversa, se ve televisión, se recibe a la familia en las fiestas, se lee, juegan los niños y, en muchos hogares, se trabaja con el computador sobre las rodillas. Por eso es también el ambiente donde más se notan los errores de distribución: un sofá que bloquea el paso, una mesa de centro tan lejos que nadie alcanza su taza, un televisor que obliga a torcer el cuello o un rincón vacío que nadie usa.
 

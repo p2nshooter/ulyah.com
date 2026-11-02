@@ -2,7 +2,7 @@
 title: "Apfelrotkohl selbst kochen: Rotkraut oder Blaukraut wie bei Oma"
 description: Warum Rotkohl mal rot und mal blau ist, wie du ihn hobelst, mit Äpfeln, Gewürzen und Säure schmorst, einfrierst und als Rohkost zubereitest, mit genauen Mengen für sechs Personen.
 category: herbst
-date: 2026-10-12
+date: 2026-10-06
 ---
 Kaum eine Beilage ist so eng mit dem deutschen Sonntagsbraten verbunden wie der Rotkohl. Zur Gans an Sankt Martin, zum Rinderbraten, zu Rouladen, zum Wild und an Weihnachten steht er auf dem Tisch, oft mit Klößen und dunkler Soße. In Norddeutschland heißt er Rotkohl, in Bayern und Teilen Schwabens Blaukraut, anderswo Rotkraut. Er wird von Spätsommer bis in den Winter frisch geerntet und hält sich als Lagerkohl bis ins Frühjahr.
 

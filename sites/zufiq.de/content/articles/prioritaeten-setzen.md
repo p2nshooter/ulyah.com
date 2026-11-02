@@ -2,7 +2,7 @@
 title: "Prioritäten setzen: Erkennen, was wichtig ist, und den Rest bewusst liegen lassen"
 description: "Prioritäten setzen, wenn die Liste nie endet: dringend und wichtig trennen, eigene Werte als Kompass nutzen, eine Hauptsache pro Tag wählen und eine Nicht-tun-Liste führen."
 category: zeit-energie-und-schlaf
-date: 2026-06-27
+date: 2026-10-11
 ---
 Es ist halb zehn am Abend, und eigentlich warst du den ganzen Tag beschäftigt. Du hast zwanzig E-Mails beantwortet, die Spülmaschine ausgeräumt, ein Paket zur Post gebracht, drei Nachrichten in der Elterngruppe gelesen und einer Kollegin bei ihrer Tabelle geholfen. Trotzdem bleibt ein schales Gefühl: Der Anruf bei der Krankenkasse, die Bewerbung, das Treffen mit der alten Freundin, die du seit Monaten sehen willst, all das ist wieder liegen geblieben. Viel getan, nichts Wichtiges geschafft.
 

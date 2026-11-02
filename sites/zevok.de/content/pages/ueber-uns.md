@@ -2,7 +2,7 @@
 title: Über uns
 description: Wer hinter ZEVOK steht, warum wir einen Haushalts-Ratgeber schreiben, wie unsere Anleitungen entstehen und was der Name bedeutet.
 order: 1
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 ZEVOK steht für **Z**uverlässig **e**rklärt, **v**on **O**fen bis **K**ragen. Wir schreiben für alle, die einen Haushalt führen und dabei weniger rätseln möchten: für die Studentin in der ersten eigenen Wohnung, die nicht weiß, warum ihre Handtücher hart werden, für die Familie, deren Sofa nach dem Kindergeburtstag Saftflecken trägt, und für alle, die schon einmal vor einem Pflegeetikett standen und sich gefragt haben, was der Bottich mit den zwei Strichen darunter eigentlich bedeutet.
 
@@ -23,11 +23,11 @@ ZEVOK ist in sechs Themen gegliedert, die wir die „sechs Becken“ nennen:
 5. **Bad & WC:** Kalk, Fugen, Urinstein, Abfluss und Schimmelvorsorge
 6. **Hausmittel:** Essig, Natron, Zitronensäure, Soda und Gallseife, richtig und sicher eingesetzt
 
-Dazu kommt unsere Seite [Sicherheit beim Putzen](/sicherheit-beim-putzen/), auf die wir in vielen Ratgebern verweisen.
+Dazu kommt unsere Seite [Sicherheit beim Putzen](/sicherheit-beim-putzen/), auf die wir in vielen Ratgebern verweisen, und vier [Werkzeuge](/werkzeuge/), die direkt in deinem Browser rechnen: der Fleckenfinder, der Wasserhärte- und Dosierrechner, der Pflegesymbole-Decoder und der Putzplan-Generator. Was wir neu veröffentlichen und was wir überarbeiten, steht mit Datum auf der Seite [Aktualisierungen](/aktualisierungen/).
 
 ## Wie unsere Anleitungen entstehen
 
-Jeder Ratgeber wird einzeln geplant, geschrieben und vor der Veröffentlichung geprüft. Wir veröffentlichen keine massenhaft erzeugten und keine aus anderen Websites zusammenkopierten Texte. Grundlage sind die Pflegekennzeichnung von Textilien, Hinweise von Herstellern zu Materialien und Geräten, Verbraucherinformationen öffentlicher Stellen sowie die Chemie, die hinter Säuren, Laugen und Tensiden steckt. Wo Fachleute unterschiedlicher Meinung sind oder ein beliebter Tipp nicht hält, was er verspricht, schreiben wir das dazu. Mehr dazu in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
+Jeder Ratgeber beantwortet eine konkrete Frage aus dem Haushalt und wird einzeln erarbeitet, nicht aus anderen Websites zusammenkopiert. Beim Schreiben nutzen wir auch KI-Werkzeuge. Was dabei entsteht, gleichen wir vor der Veröffentlichung mit der Pflegekennzeichnung von Textilien, mit Herstellerangaben und mit den Verbraucherinformationen öffentlicher Stellen ab, etwa des Umweltbundesamts, des Bundesinstituts für Risikobewertung und der Verbraucherzentralen. Diese Quellen nennen wir unter jedem Ratgeber, mit dem Datum, an dem wir sie zuletzt geprüft haben. Wo Fachleute unterschiedlicher Meinung sind oder ein beliebter Tipp nicht hält, was er verspricht, schreiben wir das dazu. Mehr dazu in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
 
 ## Was wir nicht tun
 

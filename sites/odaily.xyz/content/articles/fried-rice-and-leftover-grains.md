@@ -2,7 +2,7 @@
 title: "Fried Rice and Leftover Grains: Turn Yesterday's Rice Into a Fast, Crispy Dinner Tonight"
 description: "Why day-old rice fries best, how to store cooked rice safely, the order for eggs, aromatics and vegetables, how to season without sogginess, and ways to use quinoa, farro and other leftover grains."
 category: weeknight-cooking
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Fried rice was born as a way to use leftovers, and it remains one of the smartest weeknight dinners there is. A container of cold rice, a couple of eggs, a handful of vegetables and a splash of soy sauce become a complete meal in about fifteen minutes. It can be simple and comforting or loaded with shrimp, chicken, kimchi or pineapple. Done well, fried rice has separate, slightly chewy grains with toasty, crisp edges, every bite coated in flavor. Done badly, it is sticky, greasy and bland. The difference lies in the rice itself, the heat and the order in which you add ingredients. This guide covers all three and shows you how to apply the same idea to other leftover grains.

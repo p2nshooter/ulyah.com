@@ -2,7 +2,7 @@
 title: "Nistkasten selber bauen: Bauanleitung mit Maßen, Holz, Werkzeug und Lochgrößen"
 description: "Einen Meisennistkasten selber bauen: das richtige Holz, Maße zum Zuschneiden, Schritt-für-Schritt-Anleitung, Einflugloch je Vogelart, Reinigungsklappe und typische Baufehler."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Ein selbst gebauter Nistkasten ist eines der schönsten Projekte für Vogelfreunde. Er kostet wenig, ist an einem Nachmittag fertig und kann viele Jahre lang Meisen, Kleibern oder Sperlingen ein Zuhause bieten. Damit er wirklich angenommen wird und die Brut darin sicher ist, kommt es aber auf ein paar Details an: das richtige Holz, passende Innenmaße, ein Einflugloch in der richtigen Größe und eine Möglichkeit zum Reinigen.

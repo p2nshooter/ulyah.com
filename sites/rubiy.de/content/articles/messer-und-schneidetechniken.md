@@ -2,7 +2,7 @@
 title: "Messer und Schneidetechniken: Zwiebeln würfeln, Kräuter hacken, Klingen schärfen"
 description: Welche Küchenmesser du wirklich brauchst, wie Krallengriff und Wiegeschnitt funktionieren, wie du Zwiebeln, Möhren und Kräuter schneidest und wie du Messer schärfst und pflegst.
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Saisonal kochen heißt vor allem: Gemüse schneiden. Ein Korb vom Wochenmarkt bedeutet Zwiebeln, Möhren, Lauch, Kohl, Kürbis und Kräuter, die geputzt, geschält und zerkleinert werden wollen. Mit einem stumpfen Messer und ungeschickter Haltung wird das zur Qual, und die Gefahr, sich zu schneiden, steigt. Mit einem scharfen Messer und ein paar sicheren Techniken geht es dagegen schnell, entspannt und fast meditativ.
 

@@ -2,7 +2,7 @@
 title: "Westweg im Schwarzwald: Von Pforzheim nach Basel auf der roten Raute"
 description: Rund 285 Kilometer über Hornisgrinde, Feldberg und Belchen: Verlauf, Abschnitte, Varianten, Übernachtung und Tipps für den ältesten Fernwanderweg des Schwarzwalds.
 category: fernwanderwege
-date: 2026-07-01
+date: 2026-10-06
 ---
 Der Westweg ist der Klassiker unter den Fernwanderwegen im Schwarzwald und einer der ältesten in Deutschland. Der Schwarzwaldverein hat ihn um das Jahr 1900 angelegt, und seitdem führt er von Pforzheim im Norden bis nach Basel im Süden, immer entlang der höchsten Erhebungen des Mittelgebirges. Unterwegs erlebst du alles, was den Schwarzwald ausmacht: tiefe Tannenwälder, Hochmoore, Karseen, weite Grinden mit Heidekraut, Bauernhöfe mit tief heruntergezogenen Dächern und an klaren Tagen den Blick über die Rheinebene bis zu den Vogesen und den Alpen.
 

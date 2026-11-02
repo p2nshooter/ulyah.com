@@ -2,7 +2,7 @@
 title: "Sichere Passwörter und Passwortmanager: So schützt du alle Konten, ohne dir hundert Passwörter zu merken"
 description: "Wie ein starkes Passwort aussieht, warum du nie dasselbe zweimal nutzen solltest und wie ein Passwortmanager funktioniert. Mit Einrichtung, Vergleich der Arten und Passkeys erklärt."
 category: sicher-im-netz
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 E-Mail, Online-Banking, Krankenkasse, Paketdienst, Streaming, soziale Netzwerke, Online-Shops: Wer heute im Internet unterwegs ist, hat schnell fünfzig, hundert oder noch mehr Konten. Kein Mensch kann sich so viele unterschiedliche, starke Passwörter merken. Deshalb nutzen viele dasselbe Passwort überall oder kleine Abwandlungen davon. Genau das machen sich Kriminelle zunutze. Diese Anleitung erklärt, was ein sicheres Passwort ausmacht, warum ein Passwortmanager die beste Lösung für fast alle ist, wie du ihn einrichtest und was es mit den neuen Passkeys auf sich hat.

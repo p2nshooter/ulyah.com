@@ -2,7 +2,7 @@
 title: "Vögel fotografieren: Ausrüstung, Kameraeinstellungen, Bildgestaltung und Regeln zum Schutz"
 description: "Vögel fotografieren ohne zu stören: welche Kamera und welches Objektiv, Belichtungszeit, Blende, Autofokus, Licht und Hintergrund, Futterstellen, Tarnung und Ethik der Naturfotografie."
 category: beobachten-und-fotografieren
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Ein scharfes Foto einer Blaumeise mit leuchtendem Gefieder und einem Lichtpunkt im Auge, ein Eisvogel auf seinem Ansitzast, ein Schwarm Kraniche im Abendlicht: Vogelfotografie verbindet Naturbeobachtung mit Handwerk und Geduld. Sie ist anspruchsvoll, weil Vögel klein, schnell und scheu sind. Gleichzeitig trägt sie eine besondere Verantwortung, denn kein Foto ist es wert, einen Vogel in Stress zu versetzen oder eine Brut zu gefährden.

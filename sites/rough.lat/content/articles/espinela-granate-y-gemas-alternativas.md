@@ -2,7 +2,7 @@
 title: "Espinela, granate, circón y otras gemas alternativas: belleza y durabilidad más allá de las clásicas"
 description: "Qué gemas pueden sustituir al rubí, al zafiro o a la esmeralda sin renunciar al color ni a la resistencia: espinela, la familia del granate, circón, crisoberilo y otras, con sus ventajas y cuidados."
 category: piedras-preciosas
-date: 2026-10-31
+date: 2026-11-01
 ---
 Cuando alguien piensa en una gema de color, casi siempre aparecen tres nombres: rubí, zafiro y esmeralda. Son piedras magníficas, pero no son las únicas, y muchas veces no son la mejor opción para un presupuesto concreto, para un estilo de vida activo o para quien prefiere una piedra sin tratamientos. Existe un grupo de gemas menos famosas que ofrecen colores intensos, buena resistencia y, en muchos casos, una historia fascinante. Algunas fueron confundidas durante siglos con los rubíes de las coronas reales.
 

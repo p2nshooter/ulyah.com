@@ -2,7 +2,7 @@
 title: Entrenamiento de fuerza para principiantes: los cinco movimientos básicos
 description: Sentadilla, bisagra de cadera, empuje, tracción y carga: los cinco patrones de movimiento en los que se basa cualquier rutina de fuerza, cómo aprenderlos y cómo progresar con seguridad.
 category: fuerza-y-movilidad
-date: 2026-10-12
+date: 2026-10-04
 ---
 Durante mucho tiempo, el entrenamiento de fuerza se asoció a culturistas y a gimnasios llenos de espejos. Hoy sabemos que es una de las herramientas más valiosas para la salud de cualquier persona, sea cual sea su edad o su deporte. Las recomendaciones de la Organización Mundial de la Salud incluyen, además de la actividad aeróbica, al menos dos días por semana de actividades de fortalecimiento muscular que trabajen los grandes grupos musculares.
 

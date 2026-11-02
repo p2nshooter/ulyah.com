@@ -2,7 +2,7 @@
 title: "Aislamiento térmico del techo: cómo frenar el calor de la losa, la lámina o la teja"
 description: "Recubrimientos reflectantes, aislantes, barreras radiantes, dobles techos ventilados y techos verdes: cómo proteger el techo según su tipo y tu clima, con seguridad y sin humedad."
 category: confort-y-sostenibilidad
-date: 2026-08-16
+date: 2026-10-11
 ---
 Si en tu casa el dormitorio del último piso es el más caluroso, si el techo se siente tibio al tocarlo de noche o si en invierno el frío baja desde arriba, el problema probablemente está en la cubierta. El techo es la parte de la vivienda que más sol recibe, sobre todo en la franja tropical, donde el sol pasa casi vertical durante buena parte del año. Una losa de concreto o una lámina metálica sin protección puede alcanzar temperaturas muy superiores a las del aire y seguir irradiando calor hacia el interior durante horas.
 

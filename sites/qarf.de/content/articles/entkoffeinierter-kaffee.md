@@ -2,7 +2,7 @@
 title: "Entkoffeinierter Kaffee: wie Koffein entfernt wird, wie viel übrig bleibt und wie er gut schmeckt"
 description: "Entkoffeinierter Kaffee verständlich erklärt: CO2, Wasser, Ethylacetat und Dichlormethan im Vergleich, Restkoffein, Geschmack, Röstung und Zubereitung sowie für wen Decaf sinnvoll ist."
 category: genuss-und-wissen
-date: 2026-10-01
+date: 2026-10-06
 ---
 Entkoffeinierter Kaffee hatte lange einen schlechten Ruf: flach, papierig, eine Notlösung für alle, die keinen „richtigen“ Kaffee trinken dürfen. Das hat sich geändert. Spezialitätenröstereien bieten heute entkoffeinierte Kaffees aus guten Herkünften an, die nach Schokolade, Karamell und Frucht schmecken und im Blindtest oft kaum von ihren koffeinhaltigen Geschwistern zu unterscheiden sind. Wer abends noch einen Espresso genießen möchte, in der Schwangerschaft weniger Koffein aufnehmen will oder Koffein schlecht verträgt, findet heute echte Alternativen. Dieser Ratgeber erklärt, wie Kaffee entkoffeiniert wird, was die Verfahren unterscheidet und worauf du beim Kauf achtest.
 

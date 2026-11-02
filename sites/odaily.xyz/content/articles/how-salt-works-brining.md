@@ -2,7 +2,7 @@
 title: "How Salt Works in Cooking: Seasoning, Dry Brining and Wet Brining Explained Simply"
 description: "Why salt changes flavor, how it moves into meat, dry versus wet brining with ratios and times, salting vegetables and pasta water, and keeping sodium in check without losing flavor."
 category: kitchen-science
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Salt is the most important seasoning in the kitchen, yet it is often used without much thought. A pinch here, a sprinkle there. But salt does far more than make food taste salty. It changes how we perceive other flavors, alters the texture of meat and vegetables, controls fermentation in bread and helps preserve food. Understanding how salt works helps you season more confidently and explains techniques like brining, which can make a lean pork chop or a roast turkey juicier and more flavorful. This guide explains the science of salt in simple terms and shows how to use it to your advantage.

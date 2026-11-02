@@ -2,7 +2,7 @@
 title: "Conducir en América Latina: documentos, seguros, alquiler, rutas, peajes y controles"
 description: "Qué documentos y seguros necesitas para manejar en otro país, cómo alquilar un auto sin sorpresas, rutas de montaña y ripio, combustible, peajes, controles policiales y por qué evitar la noche."
 category: rutas-por-carretera
-date: 2026-08-16
+date: 2026-10-11
 ---
 Recorrer América Latina en auto es una de las formas más libres de viajar. Permite detenerse en un mirador inesperado de la Carretera Austral, desviarse hacia un pueblo de la sierra mexicana, recorrer la costa uruguaya a tu ritmo o cruzar la Puna argentina por caminos donde no pasa ningún bus. Pero conducir en otro país implica documentos, seguros, normas, costumbres de manejo y condiciones de las rutas que conviene conocer antes de girar la llave.
 

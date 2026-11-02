@@ -2,7 +2,7 @@
 title: "Viajar a la Amazonía: puertas de entrada, temporadas del río, salud y turismo responsable"
 description: "Cómo planificar un viaje a la selva amazónica: ciudades de acceso, aguas altas y bajas, lodges y cruceros, vacunas y mosquitos, qué llevar y cómo elegir operadores que respeten la fauna."
 category: montanas-y-naturaleza
-date: 2026-08-08
+date: 2026-10-11
 ---
 La Amazonía es la selva tropical más grande del planeta y se extiende por nueve países: Brasil, Perú, Colombia, Ecuador, Bolivia, Venezuela, Guyana, Surinam y la Guayana Francesa. Ríos inmensos, bosques que se inundan cada año, delfines rosados, guacamayos, monos y una enorme diversidad de pueblos indígenas hacen de ella uno de los destinos más fascinantes del mundo. También uno de los más delicados, para el viajero y para el propio ecosistema.
 

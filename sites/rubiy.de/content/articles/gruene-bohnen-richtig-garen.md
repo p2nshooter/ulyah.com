@@ -2,7 +2,7 @@
 title: "Grüne Bohnen richtig garen: warum roh tabu ist, Bohnensalat und Speckbohnen"
 description: "Grüne Bohnen putzen, sicher garen und würzen: Sorten von Prinzess- bis Wachsbohne, warum Phasin Kochen verlangt, Bohnensalat mit Bohnenkraut und Speckbohnen."
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Von Juli bis in den September kommen grüne Bohnen aus dem Freiland, und dann sind sie günstig, zart und voller Geschmack. Kaum ein Gemüse passt so gut zur deutschen Sommerküche: als lauwarmer Bohnensalat zu Frikadellen, als Speckbohnen zum Sonntagsbraten oder in Norddeutschland als „Birnen, Bohnen und Speck“. Eine Besonderheit unterscheidet Bohnen aber von fast allen anderen Gemüsen: Roh sind sie nicht nur unbekömmlich, sondern giftig. Wer das weiß und die Garzeit richtig wählt, hat ein unkompliziertes und sehr vielseitiges Sommergemüse.
 

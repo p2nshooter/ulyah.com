@@ -2,7 +2,7 @@
 title: "Bilder mit KI erstellen: So funktioniert es und was du rechtlich beachten musst"
 description: "Wie KI-Bildgeneratoren arbeiten, wie du gute Bilder beschreibst, wofür du sie nutzen darfst, wann Urheber-, Marken- und Persönlichkeitsrechte greifen und wie du KI-Bilder korrekt kennzeichnest."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 8
 ---
 Ein Einhorn auf einem Mähdrescher im Stil eines alten Ölgemäldes, ein Logo für den Kegelverein, ein Bild für die Einladung zum Sommerfest: Mit KI-Bildgeneratoren entsteht in Sekunden, wofür man früher eine Grafikerin oder stundenlange Arbeit mit Bildbearbeitung gebraucht hätte. Programme wie die Bildfunktionen von ChatGPT, Google Gemini, Microsoft Designer und Copilot, Adobe Firefly, Midjourney oder Stable Diffusion machen das für jeden möglich. Doch schnell tauchen Fragen auf: Darf ich das Bild auf meiner Website verwenden? Wem gehört es? Darf ich mich selbst oder andere Menschen darstellen lassen? Diese Anleitung erklärt, wie KI-Bilder entstehen, wie du bessere Ergebnisse bekommst und was du rechtlich beachten solltest.

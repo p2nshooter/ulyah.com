@@ -2,7 +2,7 @@
 title: "Den richtigen Lernplatz finden: Wie Aylin trotz geteiltem Zimmer konzentriert lernen konnte"
 description: "Aylin teilt ihr Zimmer mit zwei Geschwistern und lernt auf dem Bett. Wie sie mit Lernkiste, fester Ecke und der Stadtbibliothek einen Platz für konzentriertes Lernen fand."
 category: konzentration-und-motivation
-date: 2026-07-10
+date: 2026-10-11
 ---
 Aylin lag auf dem Bauch, das Biobuch auf der Bettdecke, ein Kissen unter den Ellbogen. Den Absatz über die Fotosynthese las sie zum vierten Mal. Auf dem Teppich bauten Can und Melis eine Murmelbahn, und jedes Mal, wenn eine Murmel durch die Röhre sauste, hob Aylin den Kopf. Nach einer Stunde wusste sie, dass Blätter grün sind, weil sie Chlorophyll enthalten. Das hatte sie vorher auch schon gewusst.
 

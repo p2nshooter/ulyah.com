@@ -2,7 +2,7 @@
 title: "How Hearing Works: Sound Waves, Tiny Bones, Hair Cells and How the Brain Recognizes Sound"
 description: "How the outer ear collects sound, how the eardrum and three tiny bones amplify it, how hair cells in the cochlea sort pitch, how the brain locates sounds and how to protect your hearing."
 category: the-human-body
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 A whisper from across the room, music in your headphones, the cry of a baby, the rustle of leaves: our ears can detect an astonishing range of sounds, from the faintest pressure changes to the roar of a jet engine. They can pick out a single voice in a crowded room and tell us where a sound is coming from in a fraction of a second. Hearing depends on a chain of delicate structures that turn vibrations in the air into electrical signals in the brain. This explainer follows sound through the ear and into the brain. It explains how the body works and is not medical advice.

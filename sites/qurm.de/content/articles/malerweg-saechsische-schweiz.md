@@ -3,7 +3,7 @@ title: "Malerweg: Acht Etappen durch das Elbsandsteingebirge"
 seoTitle: "Malerweg Sächsische Schweiz: Acht Etappen im Elbsandstein"
 description: Der Malerweg führt in acht Etappen auf rund 115 Kilometern durch die Sächsische Schweiz. Verlauf, Charakter der Etappen, Übernachtung und Planungstipps.
 category: fernwanderwege
-date: 2026-06-16
+date: 2026-10-06
 ---
 Der Malerweg gehört zu den bekanntesten Fernwanderwegen Deutschlands, und das hat gute Gründe. Auf rund 115 Kilometern führt er durch die Felsenwelt der Sächsischen Schweiz: über Tafelberge und durch enge Gründe, an Aussichtspunkten vorbei, die schon im 18. und 19. Jahrhundert Maler der Romantik angezogen haben. Daher stammt auch der Name. Künstler wie Adrian Ludwig Richter und Caspar David Friedrich waren in dieser Landschaft unterwegs, und einige ihrer Motive kannst du heute noch wiedererkennen.
 

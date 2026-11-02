@@ -2,7 +2,7 @@
 title: "Sitios arqueológicos de América Latina: cómo planificar la visita y recorrerlos con respeto"
 description: "Machu Picchu, Teotihuacan, Chichén Itzá, Tikal, Copán, Caral, Tiwanaku o Ciudad Perdida: entradas y cupos, guías, horarios, calor y altura, normas de visita y qué no hacer en un lugar milenario."
 category: ciudades-y-cultura
-date: 2026-08-26
+date: 2026-10-11
 ---
 Pocos lugares del mundo concentran tantas huellas de civilizaciones antiguas como América Latina. Las pirámides de Teotihuacan, las ciudades mayas de Tikal, Palenque o Copán, la ciudadela inca de Machu Picchu, la antiquísima Caral, la ciudad de barro de Chan Chan, Tiwanaku junto al lago Titicaca, la Ciudad Perdida en la Sierra Nevada de Santa Marta o los moáis de Rapa Nui son testimonios extraordinarios de pueblos que construyeron ciudades, observatorios y templos con conocimientos que todavía asombran.
 

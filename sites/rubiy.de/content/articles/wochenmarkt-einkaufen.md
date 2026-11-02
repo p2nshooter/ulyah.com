@@ -2,7 +2,7 @@
 title: "Einkaufen auf dem Wochenmarkt: Frische erkennen, Erzeuger finden, klug planen"
 description: Wie du auf dem Wochenmarkt Erzeuger von Händlern unterscheidest, Frische prüfst, Siegel richtig liest und deinen Einkauf so planst, dass nichts verdirbt.
 category: kuechenwissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Der Wochenmarkt ist der schönste Saisonkalender, den es gibt. Was dort in den Kisten liegt, zeigt dir ziemlich genau, was gerade wächst. Im Mai türmen sich Spargel und Rhabarber, im Juli leuchten Johannisbeeren und Kirschen, im Oktober stapeln sich Kürbisse, Kohlköpfe und Äpfel. Wer regelmäßig über den Markt geht, lernt die Jahreszeiten mit allen Sinnen kennen und kommt fast von allein zu einer saisonalen Küche.
 

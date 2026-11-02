@@ -23,6 +23,10 @@ on:
       - 'sites/**'
       - '.github/workflows/deploy-sites.yml'
   workflow_dispatch: {}
+  # Scheduled articles (owner, 2 Nov 2026, docs/ADSENSE-BLUEPRINT.md §22): an article dated in the future is written
+  # but not built until its day. Every morning this run deploys only the sites that publish an article that day.
+  schedule:
+    - cron: '23 4 * * *'
 
 concurrency:
   group: deploy-sites-${{ github.ref }}
@@ -42,15 +46,20 @@ jobs:
         # but every page is noindex and check.mjs enforces only the AdSense
         # gates until the flag is removed.
         run: |
+          today=$(date -u +%F)
           sites=$(for f in $(find sites -mindepth 2 -maxdepth 2 -name site.json | sort); do
+            d=$(dirname "$f")
+            # The daily run only publishes what is due today; every other run deploys every site.
+            if [ "${{ github.event_name }}" = "schedule" ] && ! grep -lqs "^date: *\"\?$today" "$d"/content/articles/*.md; then continue; fi
             if [ "$(jq -r '.draft // false' "$f")" = "true" ]; then echo "Draft (noindex): $f" >&2; fi
-            dirname "$f" | sed 's#^sites/##'
+            echo "$d" | sed 's#^sites/##'
           done | jq -R . | jq -sc .)
           echo "sites=$sites" >> "$GITHUB_OUTPUT"
           echo "Sites: $sites"
 
   site:
     needs: list
+    if: needs.list.outputs.sites != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

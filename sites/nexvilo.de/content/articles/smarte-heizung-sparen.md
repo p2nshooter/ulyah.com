@@ -2,7 +2,7 @@
 title: "Smarte Heizkörperthermostate: So sparst du Heizkosten, ohne zu frieren"
 description: "Wie smarte Thermostate funktionieren, wie viel sie realistisch sparen, welche Temperaturen sinnvoll sind, wie du sie in der Mietwohnung montierst und welche Fehler die Ersparnis zunichtemachen."
 category: smart-home
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Heizen ist in den meisten Haushalten der größte Energieverbraucher, weit vor Licht, Kühlschrank oder Fernseher. Gleichzeitig wird viel Wärme verschwendet: Die Heizung läuft im Büro, wenn alle unterwegs sind, das Schlafzimmer ist tagsüber warm, obwohl niemand darin ist, und beim Lüften heizt der Heizkörper munter gegen das offene Fenster an. Genau hier setzen **smarte Heizkörperthermostate** an. Sie heizen nach Zeitplan, erkennen offene Fenster und lassen sich vom Sofa oder von unterwegs steuern. Diese Anleitung erklärt, wie sie funktionieren, was sie realistisch bringen und wie du sie richtig einsetzt.

@@ -2,7 +2,7 @@
 title: Torrijas caseras de Semana Santa: pan, leche infusionada, fritura y versiones al horno
 description: Torrijas de Semana Santa: qué pan usar, leche infusionada, remojo, fritura a la temperatura justa y acabados con azúcar y canela, almíbar o miel.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 Las torrijas son el dulce de la Semana Santa española. Nacieron como una forma de aprovechar el pan duro, en tiempos en los que nada se tiraba, y se han convertido en un pequeño lujo de temporada: rebanadas de pan empapadas en leche aromatizada con canela y limón, pasadas por huevo, fritas en aceite de oliva y cubiertas de azúcar y canela o bañadas en almíbar o miel.
 

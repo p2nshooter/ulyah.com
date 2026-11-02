@@ -2,7 +2,7 @@
 title: "Easy Entertaining at Home: Relaxed Gatherings Without the Stress"
 description: How to host friends and family calmly — choosing the right kind of gathering, simple menus you can prepare ahead, setting a lovely table, sharing the work and enjoying your own party.
 category: home-and-garden
-date: 2026-10-19
+date: 2026-10-20
 ---
 Inviting people into your home is one of the warmest ways to keep friendships alive. A shared meal, an afternoon tea, a drinks evening or a casual lunch creates memories and connection that restaurant meals rarely match. Yet many women find that entertaining has become a source of stress rather than pleasure: elaborate menus, hours in the kitchen, a perfect house and the pressure to impress.
 

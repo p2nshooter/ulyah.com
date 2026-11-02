@@ -2,7 +2,7 @@
 title: Magdalenas caseras con copete: la receta tradicional española y el secreto del contraste térmico
 description: Cómo hacer magdalenas esponjosas con el copete alto: ingredientes, batido de huevos y azúcar, reposo de la masa en frío, llenado de las cápsulas, horneado con golpe de calor y conservación.
 category: bolleria
-date: 2026-10-12
+date: 2026-10-04
 ---
 Las magdalenas forman parte de la memoria de casi todas las cocinas españolas: el olor a limón en el horno de casa, el papel rizado que se despega con cuidado, el azúcar crujiente sobre el copete y el momento de mojarlas en leche o en café. Son sencillas, económicas y, bien hechas, mucho mejores que las industriales.
 

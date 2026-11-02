@@ -2,7 +2,7 @@
 title: "Vogelschlag an Glasscheiben verhindern: Was wirklich hilft und was nicht"
 description: "Warum Vögel gegen Fenster fliegen, welche Markierungen nachweislich wirken, warum Greifvogelaufkleber kaum helfen, Lösungen für Wintergarten und Balkon und Erste Hilfe."
 category: nistkaesten-und-lebensraum
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Ein dumpfer Schlag an der Scheibe, und auf der Terrasse liegt ein Vogel. Fast jeder, der große Fenster oder einen Wintergarten hat, kennt diese Situation. Vogelschlag an Glas gehört zu den häufigsten vom Menschen verursachten Todesursachen für Vögel. Schätzungen der staatlichen Vogelschutzwarten gehen allein für Deutschland von mehr als 100 Millionen toten Vögeln pro Jahr aus. Die gute Nachricht: Mit den richtigen Maßnahmen lässt sich das Risiko an den eigenen Fenstern stark verringern.

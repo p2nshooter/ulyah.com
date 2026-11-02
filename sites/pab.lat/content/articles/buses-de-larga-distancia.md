@@ -2,7 +2,7 @@
 title: "Buses de larga distancia en América Latina: clases, terminales, seguridad y cómo dormir a bordo"
 description: "Cómo elegir entre semicama, cama y otras clases, comprar pasajes, moverse por las terminales, cuidar el equipaje, viajar de noche con seguridad y llegar descansado en los buses de la región."
 category: rutas-por-carretera
-date: 2026-08-04
+date: 2026-10-11
 ---
 En gran parte de América Latina, el bus es la columna vertebral del viaje. Une capitales y pueblos remotos, cruza cordilleras y desiertos, recorre miles de kilómetros de costa y, a menudo, es la forma más económica y flexible de moverse. En Argentina, Chile o Perú hay buses de dos pisos con asientos que se convierten en cama; en México, autobuses de primera clase que conectan todo el país; en Centroamérica, desde cómodos servicios entre ciudades hasta los coloridos buses locales que paran en cada pueblo.
 

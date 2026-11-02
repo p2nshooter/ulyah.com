@@ -2,7 +2,7 @@
 title: "KI im Beruf sinnvoll nutzen: E-Mails, Protokolle, Recherche und was erlaubt ist"
 description: "Wie KI-Assistenten im Büro und im Handwerk Zeit sparen, welche Aufgaben sich eignen, wo Fehler drohen, welche Regeln Arbeitgeber, DSGVO und EU-KI-Verordnung setzen und wie du sauber startest."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Ob im Büro, in der Arztpraxis, im Handwerksbetrieb oder im Verein: Künstliche Intelligenz ist im Arbeitsalltag angekommen. Viele nutzen KI-Assistenten schon heimlich für E-Mails oder Zusammenfassungen, andere sind unsicher, ob sie das überhaupt dürfen. Richtig eingesetzt kann KI lästige Routinearbeit abnehmen und Zeit für die Aufgaben schaffen, bei denen Menschen unersetzlich sind. Falsch eingesetzt drohen peinliche Fehler, Datenschutzverstöße und Ärger mit dem Arbeitgeber. Diese Anleitung zeigt, wofür sich KI im Beruf eignet, wie du gute Ergebnisse bekommst und welche Regeln du kennen solltest.

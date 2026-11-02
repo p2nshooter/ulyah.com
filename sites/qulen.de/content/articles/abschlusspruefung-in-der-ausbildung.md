@@ -2,7 +2,7 @@
 title: "Abschlussprüfung in der Ausbildung: Wie Selin sich auf ihre Prüfung als Kauffrau vorbereitete"
 description: "Selin steht vor der Abschlussprüfung als Kauffrau für Büromanagement. Wie du schriftliche und mündliche Teile vorbereitest, alte Prüfungen nutzt und den Betrieb einbeziehst."
 category: pruefungen-und-pruefungsangst
-date: 2026-09-27
+date: 2026-10-11
 ---
 Die Einladung der Industrie- und Handelskammer lag auf Selins Schreibtisch im Büro. Prüfungstermine, Uhrzeiten, Raumangaben, die Liste der erlaubten Hilfsmittel. In zehn Wochen war es so weit: der zweite Teil ihrer Abschlussprüfung als Kauffrau für Büromanagement. Die schriftlichen Prüfungen machten ihr weniger Sorgen. Aber da stand auch: „Fachaufgabe in der Wahlqualifikation, fallbezogenes Fachgespräch.“ Ein Gespräch mit einem Prüfungsausschuss. Selin legte die Einladung umgedreht auf den Tisch und versuchte, sich auf die Rechnungen vor ihr zu konzentrieren.
 

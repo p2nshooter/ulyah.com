@@ -2,7 +2,13 @@
 title: "Waschmaschine reinigen: Einspülkammer, Dichtung, Flusensieb und Trommel gegen Gerüche"
 description: "Muffige Waschmaschine? So reinigst du Einspülkammer, Türdichtung, Flusensieb und Trommel, entkalkst sicher und beugst Biofilm und Schimmel mit einfachen Gewohnheiten vor."
 category: waesche-und-pflege
-date: 2026-08-25
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Wenn die Waschmaschine müffelt | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/wenn-die-waschmaschine-mueffelt-tipps-gegen-ueble-gerueche-109784
+  - Forum Waschen: Fragen und Antworten zum Wäschewaschen und Trocknen | https://forum-waschen.de/tipps/waschen/waeschewaschen-faq/
+  - Umweltbundesamt: Waschmaschine – bei Kauf und Nutzung auf Energieeffizienz achten | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/waschmaschine-bei-kauf-nutzung-auf-energieeffizienz
 ---
 Eine Maschine, die Wäsche sauber macht, soll selbst sauber sein, möchte man meinen. Doch genau dort, wo ständig Wasser, Waschmittel und Schmutz zusammenkommen, entstehen Beläge, die man nicht sieht: in der Einspülkammer, in den Falten der Türdichtung, im Flusensieb und an der Außenseite der Trommel. Die Folgen sind ein muffiger Geruch, graue Schlieren auf der Wäsche und im schlimmsten Fall Wasser, das nicht mehr richtig abläuft.
 

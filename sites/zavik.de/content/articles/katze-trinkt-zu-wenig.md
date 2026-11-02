@@ -2,7 +2,7 @@
 title: "Katze trinkt zu wenig: Ursachen, Risiken und 12 Tricks, die helfen"
 description: Warum viele Katzen wenig trinken, woran du Flüssigkeitsmangel erkennst, wie du deine Katze zum Trinken animierst und wann auch zu viel Trinken ein Warnzeichen ist.
 category: ernaehrung
-date: 2026-09-17
+date: 2026-10-05
 ---
 Viele Katzenhalterinnen und Katzenhalter machen sich Sorgen, weil sie ihre Katze kaum je am Wassernapf sehen. Oft ist diese Sorge unbegründet, denn Katzen nehmen einen großen Teil ihrer Flüssigkeit über das Futter auf. Trotzdem trinken viele Hauskatzen tatsächlich zu wenig, besonders wenn sie überwiegend Trockenfutter bekommen. Und das kann auf Dauer Folgen für Nieren und Harnwege haben.
 

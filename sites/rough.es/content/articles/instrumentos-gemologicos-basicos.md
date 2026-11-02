@@ -2,7 +2,7 @@
 title: "Instrumentos gemológicos básicos: qué comprueban la lupa, el refractómetro o el polariscopio"
 description: "Para qué sirven la lupa de 10 aumentos, el refractómetro, el polariscopio, el dicroscopio, el espectroscopio, la luz ultravioleta y la balanza, y qué solo puede comprobar un laboratorio."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Una piedra roja puede ser un rubí, una espinela, un granate, una turmalina, un rubí sintético o un trozo de vidrio. A simple vista, incluso un ojo entrenado puede dudar. Por eso la gemología se apoya en instrumentos: aparatos relativamente sencillos que miden cómo se comporta la luz al atravesar una piedra, cuánto pesa en relación con su volumen o qué se esconde en su interior. Con ellos, un gemólogo puede identificar la mayoría de las gemas en pocos minutos, sin dañarlas.
 

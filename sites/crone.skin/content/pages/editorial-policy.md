@@ -1,14 +1,14 @@
 ---
 title: Editorial policy
-description: How CRONE stories are researched, written by hand, reviewed and corrected, and how we keep advertising and products independent of our editors.
+description: How CRONE stories are researched, written with the help of AI tools, checked and corrected, and how we keep advertising and products independent of our content.
 order: 7
-updated: 2026-10-19
+updated: 2026-11-02
 ---
 Trust is earned slowly. This page sets out how we make CRONE so that you know what stands behind every story.
 
 ## Real writers, real experience
 
-Every CRONE story is written by one of our editors and read by a second before it appears. We do not publish machine-generated articles, rewritten copies of other people's work or thin pages made to catch search traffic. Most of our team are themselves over fifty; we write about what we have lived, tried and asked our friends about, and we check it against reliable sources.
+Every CRONE story starts from a real question that women in the second half of life ask. We research and draft it with the help of AI tools, and before it appears we check its facts, safety notes and advice against reliable sources such as public health services, consumer organisations and manufacturers' instructions. We do not publish rewritten copies of other people's work or thin pages made to catch search traffic, and we do not pretend to personal experience we do not have.
 
 ## Sources
 

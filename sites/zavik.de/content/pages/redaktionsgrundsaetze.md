@@ -2,13 +2,13 @@
 title: Redaktionsgrundsätze
 description: Wie ZAVIK arbeitet: woher unser Wissen stammt, wie wir mit Unsicherheit umgehen, wie wir Fehler korrigieren und warum Werbung unsere Texte nicht beeinflusst.
 order: 15
-updated: 2026-10-04
+updated: 2026-11-02
 ---
 Wer einen Ratgeber über Tiere liest, vertraut darauf, dass die Informationen stimmen. Fehler können einer Katze schaden. Deshalb halten wir uns an diese Grundsätze.
 
-## Selbst geschrieben, nicht zusammengesetzt
+## Eigens geschrieben, nicht zusammengesetzt
 
-Jeder Text auf ZAVIK wird von unserer Redaktion selbst recherchiert und geschrieben. Wir erzeugen keine Texte automatisch und übernehmen keine Inhalte aus anderen Websites. Wenn wir uns auf eine Quelle stützen, geben wir ihren Inhalt in eigenen Worten wieder.
+Jeder Text auf ZAVIK wird eigens für diese Website recherchiert und geschrieben. Wir übernehmen keine Inhalte aus anderen Websites. Beim Recherchieren und Formulieren nutzen wir auch KI-Werkzeuge; die Regeln auf dieser Seite gelten für jeden Satz, egal wie er entstanden ist. Wenn wir uns auf eine Quelle stützen, geben wir ihren Inhalt in eigenen Worten wieder.
 
 ## Woher unser Wissen stammt
 

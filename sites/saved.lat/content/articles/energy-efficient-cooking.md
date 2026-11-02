@@ -2,7 +2,7 @@
 title: "Energy-Efficient Cooking: Hob, Oven, Microwave, Slow Cooker and Air Fryer Compared"
 description: "How to cut the energy your cooking uses: what each appliance costs to run, when the oven is worth it, smart hob habits, and when a microwave, slow cooker or air fryer makes sense."
 category: kitchen-and-groceries
-date: 2026-10-31
+date: 2026-11-01
 ---
 Most advice about saving energy at home focuses on heating, lighting and laundry. Cooking gets less attention, yet in many households it accounts for a noticeable share of the electricity or gas bill, especially when the oven is used every day. The good news is that cooking efficiently rarely means eating differently. It usually means choosing the right appliance for the job, using it well and planning a little.
 

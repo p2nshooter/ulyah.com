@@ -2,7 +2,7 @@
 title: "Smart Grocery Shopping: Lists, Unit Prices and Store Habits That Cut the Bill Without Cutting Quality"
 description: "How to shop with a list, read unit prices, use sales and store brands, buy produce in season, choose frozen and canned wisely, avoid store traps and know when bulk buying really saves money."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Grocery prices have risen noticeably in recent years, and many households feel it every time they stand at the checkout. Yet two families can buy almost identical meals and spend very different amounts. The difference is rarely about clipping hundreds of coupons or driving to five stores. It comes down to a handful of habits: planning before shopping, comparing prices correctly, choosing the right form of each ingredient and recognizing how stores encourage us to spend more. This guide explains these habits so you can lower your grocery bill while still eating well.

@@ -2,7 +2,7 @@
 title: "Vögel bestimmen lernen: Gestalt, Gefieder, Verhalten und Stimme in fünf Schritten"
 description: "So lernst du, Vögel sicher zu bestimmen: Größenvergleich, Gestalt, Gefiedermerkmale, Verhalten, Lebensraum und Stimme, dazu Bestimmungsbuch, Apps, Notizen und typische Fehler."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Am Anfang sehen alle kleinen braunen Vögel gleich aus. Ein Spatz, eine Heckenbraunelle, ein Buchfinkenweibchen und eine Feldlerche verschwimmen zu einem unbestimmten „irgendwas Braunes“. Erfahrene Vogelbeobachter dagegen erkennen viele Arten in Sekundenbruchteilen, manchmal nur an der Art, wie ein Vogel landet oder ruft. Der Unterschied ist kein Talent, sondern Übung und eine gute Methode.

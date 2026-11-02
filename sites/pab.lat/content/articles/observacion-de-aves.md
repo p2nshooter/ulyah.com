@@ -2,7 +2,7 @@
 title: "Observación de aves en América Latina: destinos, temporadas, equipo y ética del observador"
 description: "La región con más aves del planeta: especies emblemáticas, destinos como Mindo, Manu, Monteverde o el Pantanal, cuándo ir, binoculares y aplicaciones, guías locales y cómo observar sin molestar."
 category: montanas-y-naturaleza
-date: 2026-10-07
+date: 2026-10-11
 ---
 Un colibrí que se detiene en el aire frente a una flor, un quetzal de cola larguísima posado en un árbol de aguacatillo, una bandada de guacamayos rojos que llega al amanecer a una pared de arcilla en la Amazonía, un cóndor que planea sin mover las alas sobre un cañón andino o miles de flamencos rosados en una laguna del altiplano. Para quien disfruta de la naturaleza, América Latina es el lugar del mundo con más aves, y observarlas se convierte en una forma maravillosa de viajar.
 

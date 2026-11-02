@@ -2,7 +2,7 @@
 title: "Blackout in der Prüfung: Was Elias half, als in der Physik-Klausur plötzlich alles weg war"
 description: "Mitten in der Physik-Klausur ist bei Elias plötzlich alles weg. Was bei einem Blackout passiert und wie dir ein geübter Notfallplan zurück in die Aufgaben hilft."
 category: pruefungen-und-pruefungsangst
-date: 2026-07-05
+date: 2026-10-11
 ---
 „Aufgabe 1: Ein Plattenkondensator mit kreisförmigen Platten …“ Elias las den Satz einmal, zweimal, dreimal. Jedes Wort für sich ergab Sinn, zusammen ergaben sie nichts. Er wusste, dass er so etwas konnte. Am Wochenende hatte er genau solche Aufgaben gerechnet. Jetzt war da, wo die Formeln sein sollten, nur eine glatte weiße Fläche. Sein Herz schlug bis in den Hals, und neben ihm kratzte Jonas' Stift schon über das Papier.
 

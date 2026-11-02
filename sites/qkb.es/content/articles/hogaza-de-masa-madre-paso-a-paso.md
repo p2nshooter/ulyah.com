@@ -2,7 +2,7 @@
 title: Hogaza de masa madre paso a paso: receta, horarios y técnica para una corteza crujiente
 description: Receta completa de hogaza de masa madre al 72 % de hidratación con olla de hierro: autólisis, pliegues, fermentación en bloque, formado, retardo en nevera, greñado, horneado y cómo leer el resultado.
 category: masa-madre-y-pan
-date: 2026-09-24
+date: 2026-10-04
 ---
 La hogaza de masa madre es el pan que muchas personas sueñan con hacer cuando empiezan a hornear en casa: corteza dorada y crujiente que canta al enfriarse, miga brillante y alveolada, sabor ligeramente ácido y una vida útil de varios días. Requiere tiempo, pero muy poco trabajo activo. La mayor parte del proceso consiste en esperar y observar.
 

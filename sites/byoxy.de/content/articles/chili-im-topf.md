@@ -2,7 +2,7 @@
 title: "Chili im Topf: Anzucht, Pflege, Ernte und Überwintern auf Balkon und Fensterbank"
 description: So ziehst du Chili und Paprika im Topf: Sorten und Schärfegrade, frühe Anzucht, Licht und Wärme, Topf und Erde, Gießen und Düngen, Bestäubung, Ernte, Schärfe beeinflussen und Überwinterung.
 category: kraeuter-und-gemuese
-date: 2026-08-23
+date: 2026-10-04
 ---
 Chilipflanzen sind ideale Topfpflanzen für Balkon und Fensterbank. Sie sind dekorativ mit ihren weißen Blüten und den bunten Früchten in Rot, Gelb, Orange, Violett oder Braun, und sie liefern eine Ernte, die von mild-fruchtig bis extrem scharf reicht. Gleichzeitig sind Chilis mehrjährig und können bei richtiger Pflege viele Jahre alt werden. Was sie brauchen, ist vor allem: viel Wärme, viel Licht und eine frühe Anzucht.
 

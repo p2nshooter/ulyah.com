@@ -2,7 +2,7 @@
 title: "Katze kratzt an Möbeln: Ursachen verstehen, Alternativen schaffen"
 description: Kratzen ist ein Grundbedürfnis, keine Unart. Warum Katzen kratzen, wie du Sofa und Tapete schützt, welche Kratzmöbel wirklich angenommen werden und warum Strafen nicht helfen.
 category: verhalten
-date: 2026-08-18
+date: 2026-10-05
 ---
 Das neue Sofa ist drei Wochen alt, und an der Seitenlehne hängen schon die ersten Fäden heraus. Die Tapete im Flur hat auf Katzenhöhe ein ausgefranstes Muster bekommen, und der Teppich vor der Schlafzimmertür sieht aus, als hätte jemand mit einem Rechen darauf gearbeitet. Viele Katzenhalterinnen und Katzenhalter kennen diese Spuren und fragen sich, ob ihre Katze das absichtlich tut.
 

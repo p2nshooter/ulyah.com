@@ -2,7 +2,7 @@
 title: "Wandern mit Kleinkindern: Wie Zwei- bis Fünfjährige gern mitlaufen"
 description: Realistische Strecken, die richtige Tour, Spiele für unterwegs, Proviant und Ausrüstung: so werden Wanderungen mit kleinen Kindern zu einem Erlebnis für alle.
 category: kinder-und-hund
-date: 2026-06-14
+date: 2026-10-06
 ---
 Mit einem Kleinkind zu wandern, ist etwas völlig anderes als eine Tour unter Erwachsenen. Das Ziel ist nicht der Gipfel, sondern der Weg dorthin, und zwar im wörtlichen Sinn: der Bach, in den man Steine werfen kann, der umgestürzte Baum, über den man balancieren muss, die Schnecke am Wegrand. Wer das akzeptiert, kann mit Zwei- bis Fünfjährigen wunderbare Tage draußen verbringen. Wer dagegen eine Strecke „schaffen“ will, erlebt meist Tränen, Trotz und einen frustrierenden Rückweg mit Kind auf den Schultern.
 

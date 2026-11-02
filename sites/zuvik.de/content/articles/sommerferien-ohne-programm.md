@@ -2,7 +2,7 @@
 title: "Sommerferien ohne Programm"
 description: Alle verreisen, nur Elif und Can bleiben diesen Sommer in Nürnberg, weil das Geld knapp ist. Eine Geschichte über Enttäuschung, Ferien zu Hause und die Freiheit eines Sommers ohne Plan.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Lea fliegt nach Mallorca“, sagte Elif am letzten Schultag vor den Sommerferien. „Jonas fährt nach Dänemark. Und Mia geht auf einen Reiterhof in Bayern, zwei ganze Wochen.“ Sie warf ihren Ranzen in die Ecke des Flurs. „Und wir machen gar nichts.“
 

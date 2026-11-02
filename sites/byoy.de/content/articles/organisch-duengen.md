@@ -2,7 +2,7 @@
 title: "Organisch düngen im Gemüsegarten: Kompost, Hornspäne, Mist und Brennnesseljauche"
 description: "Gemüse ohne Mineraldünger versorgen: Nährstoffe verstehen, Hornspäne, Schafwolle, Mist, Gesteinsmehl und Asche richtig dosieren, Brennnesseljauche ansetzen, Überdüngung vermeiden."
 category: kompost-und-boden
-date: 2026-08-08
+date: 2026-10-06
 ---
 Im Biogarten wird nicht die Pflanze gedüngt, sondern der Boden. Statt schnell löslicher Mineralsalze bekommt das Bodenleben organisches Material, das es nach und nach in pflanzenverfügbare Nährstoffe umwandelt. Das Ergebnis sind Pflanzen, die gleichmäßig wachsen, festes Gewebe bilden und weniger anfällig für Schädlinge sind. Organisch zu düngen bedeutet aber nicht, möglichst viel zu düngen. Viele Gartenböden sind sogar überversorgt. Dieser Ratgeber erklärt, welche Nährstoffe Gemüse braucht, welche organischen Dünger es gibt und wie du sie maßvoll einsetzt.
 

@@ -2,7 +2,7 @@
 title: "How to Plan a Week of Meals: A Simple System That Saves Time, Money and the Daily Dinner Question"
 description: "A step-by-step meal planning routine: check the calendar and fridge, use theme nights, plan leftovers on purpose, write a smart list and keep a backup dinner so the plan survives real life."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 "What's for dinner?" For many households, this question arrives every evening at the worst possible moment: everyone is tired, hungry and short on time. Without a plan, the answer is often an expensive takeout order, a third trip to the store this week or a meal assembled from whatever is left. Meal planning solves this problem. It does not have to mean rigid spreadsheets or cooking every meal on Sunday. At its simplest, it means deciding a few days in advance what you will eat, making sure you have the ingredients and leaving room for life to happen. This guide walks you through a practical weekly system that takes about thirty minutes and can save hours of stress and a good amount of money.

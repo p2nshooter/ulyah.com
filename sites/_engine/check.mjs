@@ -41,7 +41,7 @@ export async function check(domain) {
   };
   let manualSnippets = null;
   console.log(`\n=== ${domain} ===`);
-  const { site, articles, categories, pages, out } = await build(domain, { quiet: true });
+  const { site, articles, categories, pages, out, scheduled, today } = await build(domain, { quiet: true });
   // A draft ("draft": true in site.json) goes online early so AdSense can find
   // its snippet, meta tag and ads.txt, while its articles are still being
   // written: the AdSense gates below stay strict, the content gates only report.
@@ -73,6 +73,20 @@ export async function check(domain) {
   gate(dup.length === 0, "no two articles share a title", dup.map((d) => d.join(" = ")).join("; "));
   const badDesc = articles.filter((a) => a.description.length < 70 || a.description.length > 200);
   gate(badDesc.length === 0, "every description is 70–200 characters", badDesc.map((a) => `${a.file}: ${a.description.length}`).join(", "));
+  // Honest dates (owner, 2 Nov 2026, docs/ADSENSE-BLUEPRINT.md §22): an article shows the day it really went online,
+  // never a day before the site itself existed, and an update is never older than the article.
+  if (ok(/^\d{4}-\d{2}-\d{2}$/.test(site.since || ""), `site.json "since" holds the day the site went online (${site.since || "missing"})`)) {
+    const early = articles.filter((a) => a.date < site.since);
+    ok(early.length === 0, `no article is dated before the site went online (${site.since})`, early.map((a) => `${a.file}: ${a.date}`).slice(0, 8).join(", "));
+  }
+  const badUpdate = articles.filter((a) => a.updated < a.date);
+  ok(badUpdate.length === 0, "no article's update is older than the article", badUpdate.map((a) => `${a.file}: ${a.updated} < ${a.date}`).slice(0, 8).join(", "));
+  if (scheduled.length) console.log(`  note  ${scheduled.length} article(s) scheduled after ${today}: ${scheduled.map((x) => `${x.date} ${x.file}`).sort().slice(0, 6).join(", ")}`);
+  // Sources: required once a site has been given them all (site.json "sources": "required").
+  if (site.sources === "required") {
+    const unsourced = articles.filter((a) => a.sources.length < 2);
+    ok(unsourced.length === 0, "every article names 2+ sources", unsourced.map((a) => `${a.file}: ${a.sources.length}`).slice(0, 8).join(", "));
+  }
   const thinCats = categories.filter((c) => c.articles.length < 3);
   gate(thinCats.length === 0, "every category has 3+ articles", thinCats.map((c) => `${c.slug}: ${c.articles.length}`).join(", "));
 

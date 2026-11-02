@@ -2,7 +2,7 @@
 title: "Notfallordner anlegen: Alles Wichtige an einem Ort für den Ernstfall"
 description: "Notfallordner anlegen in einem Wochenende: Welche Dokumente, Vollmachten, Kontakte und Zugänge hineingehören und wie Angehörige ihn im Ernstfall schnell finden."
 category: ordnung-und-papierkram
-date: 2026-08-21
+date: 2026-10-11
 ---
 Niemand denkt gern an Unfälle, schwere Krankheiten oder den eigenen Tod. Und doch zeigt sich gerade in solchen Momenten, wie viel Ordnung wert ist. Wenn ein Mensch plötzlich ins Krankenhaus kommt, müssen Angehörige oft innerhalb weniger Stunden wissen: Gibt es eine Patientenverfügung? Wer darf Entscheidungen treffen? Bei welcher Krankenkasse ist die Person versichert? Welche Rechnungen laufen weiter, und wo liegen die Schlüssel?
 

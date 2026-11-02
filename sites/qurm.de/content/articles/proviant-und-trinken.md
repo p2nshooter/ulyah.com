@@ -2,7 +2,7 @@
 title: "Proviant und Trinken beim Wandern: Wie viel Wasser, welche Snacks, was hält in der Hitze?"
 description: "Wie viel du beim Wandern trinken solltest, Wasser aus Bächen und Brunnen, Elektrolyte, die besten Snacks für Energie, Brotzeit ohne Verderben, Hungerast erkennen und Proviant für Kinder."
 category: ausruestung
-date: 2026-08-16
+date: 2026-10-06
 ---
 Wer beim Wandern zu wenig trinkt oder isst, merkt es oft erst spät: Die Beine werden schwer, die Laune sinkt, der Kopf schmerzt, und plötzlich fühlt sich der letzte Anstieg doppelt so lang an. Mit dem richtigen Proviant bleibst du dagegen den ganzen Tag leistungsfähig, triffst bessere Entscheidungen und hast mehr Freude an der Tour. Dabei geht es nicht um teure Sportnahrung. Ein paar Grundregeln zu Wasser, Salz und Energie, dazu Lebensmittel, die einen Tag im Rucksack gut überstehen, genügen völlig.
 

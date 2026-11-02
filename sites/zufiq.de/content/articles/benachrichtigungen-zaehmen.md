@@ -2,7 +2,7 @@
 title: "Benachrichtigungen zähmen: Weniger Pings, Fokuszeiten und ein ruhigeres Handy"
 description: "Benachrichtigungen zähmen: Laute Apps erkennen, jede in die Stufen sofort, gesammelt oder nie sortieren, Fokusmodi mit Ausnahmen einrichten und Gruppenchats freundlich stumm schalten."
 category: digitale-ruhe
-date: 2026-07-13
+date: 2026-10-11
 ---
 Du sitzt an einer Aufgabe, die eigentlich nur eine halbe Stunde Ruhe bräuchte. Dann vibriert das Handy: eine Paketmeldung. Kurz danach blinkt am Rechner ein Banner, im Gruppenchat der Hausgemeinschaft geht es um den Grillabend, eine App erinnert dich an eine Serie, die du gar nicht schauen wolltest. Jede einzelne Meldung dauert nur Sekunden. Aber jedes Mal musst du dich danach neu sortieren, und am Ende des Tages hast du das Gefühl, nie wirklich bei einer Sache gewesen zu sein.
 

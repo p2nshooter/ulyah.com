@@ -2,7 +2,7 @@
 title: "Walking Holidays After Fifty: Choosing, Preparing For and Loving a Trip on Foot"
 description: How to plan a walking holiday that suits you — guided or self-guided, choosing routes and grades, training beforehand, kit and footwear, luggage transfers, pacing and walking safely.
 category: travel-and-discovery
-date: 2026-10-19
+date: 2026-10-20
 ---
 There is no better way to know a landscape than to walk through it. On foot you notice the wildflowers in the verges, the smell of the sea before you see it, the change in birdsong as woodland gives way to open hillside. You arrive in villages the way people always have, hungry and pleasantly tired, ready for a good meal and a comfortable bed. And at the end of a walking holiday you carry home not just photographs but the deep satisfaction of having covered the distance under your own steam.
 

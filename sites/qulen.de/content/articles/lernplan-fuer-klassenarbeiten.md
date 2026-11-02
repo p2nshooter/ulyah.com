@@ -2,7 +2,7 @@
 title: "Lernplan für Klassenarbeiten erstellen: Wie Greta eine Woche mit drei Arbeiten meisterte"
 description: "Drei Klassenarbeiten in fünf Tagen: Wie Greta lernte, rückwärts zu planen, und wie du Stoff portionierst, Puffertage einbaust und deinen Lernplan ehrlich anpasst."
 category: lernplan-und-hausaufgaben
-date: 2026-06-15
+date: 2026-10-11
 ---
 Greta entdeckte das Problem an einem Mittwoch in der großen Pause. Sie saß mit ihrer Freundin Lina auf der Mauer vor der Mensa, das Hausaufgabenheft auf den Knien, und wollte den Termin eintragen, den Frau Brandt gerade in Deutsch angekündigt hatte: Klassenarbeit am Freitag in zweieinhalb Wochen. Auf der Seite dieser Woche stand schon etwas. Montag: Englisch. Mittwoch: Mathe. Und jetzt also Freitag: Deutsch. Drei Arbeiten in fünf Tagen.
 

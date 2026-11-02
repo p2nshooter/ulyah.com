@@ -2,7 +2,7 @@
 title: "How to Store Fruit, Vegetables and Herbs So They Stay Fresh Longer"
 description: "Which produce belongs in the fridge, on the counter or in a cool cupboard, how ethylene speeds ripening, how to keep greens, berries and herbs fresh, and how to revive produce that wilts."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Fresh produce is one of the most rewarding parts of cooking and also one of the most frequently wasted. Strawberries turn moldy two days after purchase, cilantro becomes slimy, avocados go from rock hard to brown in what feels like an hour, and lettuce wilts in the drawer. Much of this waste comes from storing produce in the wrong place or the wrong way. Fruits and vegetables are still alive after harvest: they breathe, lose water and continue to ripen. Understanding their needs helps them last much longer. This guide explains where to store common fruits, vegetables and herbs, and how to keep them fresh and flavorful.

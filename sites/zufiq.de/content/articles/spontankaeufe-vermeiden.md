@@ -2,7 +2,7 @@
 title: "Spontankäufe vermeiden: Kaufimpulse durchschauen und in Ruhe entscheiden"
 description: "Warum Kaufimpulse so stark sind und wie du gegensteuerst: Auslöser erkennen, Wartezeit mit Wunschliste, Hürden beim Online-Shopping, Fragen vor dem Kauf und eine Kaufpause."
 category: bewusster-konsum
-date: 2026-06-29
+date: 2026-10-11
 ---
 Das Paket liegt seit drei Wochen ungeöffnet im Flur. Darin steckt eine Jacke, die im Onlineshop um Mitternacht unwiderstehlich aussah, reduziert und nur noch in deiner Größe da. Im Küchenschrank steht der Milchaufschäumer aus der Aktionsware beim Discounter, zweimal benutzt. Und im Kleiderschrank hängt ein Hemd mit Etikett, gekauft an einem frustrierenden Samstag in der Innenstadt. Jedes dieser Dinge fühlte sich im Moment des Kaufs richtig an. Ein paar Tage später ist davon wenig übrig, außer einem leisen Ärger.
 

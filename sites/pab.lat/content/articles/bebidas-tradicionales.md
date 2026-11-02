@@ -2,7 +2,7 @@
 title: "Bebidas tradicionales de América Latina: mate, chicha, aguas frescas, pulque, pisco y mucho más"
 description: "Las bebidas de la región: el ritual del mate y el tereré, chichas de maíz, aguas frescas y jugos, pulque y destilados de agave, pisco, cachaça, vinos, costumbres y cómo beber con seguridad."
 category: sabores-del-viaje
-date: 2026-09-17
+date: 2026-10-11
 ---
 Para conocer un país, a veces basta con aceptar lo que te ofrecen para beber. Un mate compartido en una plaza de Montevideo, una chicha morada fría con el almuerzo en Lima, un agua de jamaica en un mercado de Oaxaca, un café tinto a media mañana en Manizales o un tereré helado bajo el calor de Asunción cuentan tanto de la cultura local como un museo. Detrás de cada bebida hay ingredientes nativos, técnicas antiguas, rituales sociales y, a menudo, siglos de historia.
 

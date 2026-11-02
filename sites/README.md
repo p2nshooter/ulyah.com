@@ -78,6 +78,29 @@ Gerbang `check.mjs` menolak deploy kalau:
   atas 160 karakter atau dobel, canonical salah, H1 tidak tepat satu, JSON-LD rusak, sitemap tidak cocok dengan
   halaman, robots.txt tanpa baris Sitemap, ads.txt/404 hilang, atau tautan tersembunyi ke situs sendiri.
 
+Kolom lain di frontmatter artikel (pemilik, 2 Nov 2026, `docs/ADSENSE-BLUEPRINT.md` §22):
+
+```markdown
+date: 2026-11-04        # hari artikel BENAR-BENAR terbit; tanggal di masa depan = terjadwal
+updated: 2026-11-20     # (opsional) hari artikel diperbarui; tampil di atas artikel
+change: Quellen ergänzt # (opsional) apa yang diperbarui; tampil di halaman riwayat
+sources:                # (opsional; wajib bila site.json "sources": "required") minimal 2
+  - Umweltbundesamt: Schimmel | https://www.umweltbundesamt.de/...
+  - Verbraucherzentrale: Schimmel entfernen | https://www.verbraucherzentrale.de/...
+```
+
+- **Tanggal jujur.** `date:` tidak boleh dimundurkan. `check.mjs` menolak artikel bertanggal sebelum `"since"` di
+  `site.json` (hari situs terbit) dan `updated` yang lebih tua dari `date`.
+- **Jadwal terbit.** Artikel bertanggal di masa depan ditulis sekarang, tetapi baru dibangun, ditautkan dan masuk
+  sitemap pada harinya. `deploy-sites.yml` berjalan setiap pagi dan hanya men-deploy situs yang punya artikel
+  terjadwal hari itu. Artikel baru terbit 2–3 per minggu, bukan 20 sekaligus.
+- **Sumber.** `sources:` dirender engine sebagai bagian „Quellen / Fuentes / Sources" di akhir artikel, dengan
+  tanggal pemeriksaan terakhir.
+- **Riwayat.** Engine membuat halaman `/aktualisierungen/` (de), `/novedades/` (es), `/whats-new/` (en) atau
+  `/nouveautes/` (fr) dari `date`, `updated` dan `change`, dan menautkannya di footer.
+- **Alat.** Halaman dengan `tool: <nama>` memuat `theme/assets/tools/<nama>.js`. Markdown halaman itu adalah versi
+  statis lengkap (tabel yang bisa dibaca tanpa JavaScript); skripnya menambah bagian interaktif di atasnya.
+
 Judul dan description untuk Google dibuat otomatis oleh engine: judul panjang dipotong di jeda kalimat terakhir yang
 muat (kata kunci selalu di depan), ditambah nama situs bila masih muat; H1, og:title dan isi artikel tetap memakai
 judul lengkap. Bila potongannya kurang pas, isi `seoTitle:`.

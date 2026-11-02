@@ -2,7 +2,7 @@
 title: "How Refrigerators Work: Moving Heat Uphill With Refrigerants, Compressors and Evaporation"
 description: "Why a fridge moves heat instead of making cold, how evaporating refrigerant absorbs heat, the four parts of the cycle, why the back gets warm, how heat pumps use the same idea, and energy tips."
 category: how-things-work
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 A refrigerator seems simple: food goes in warm and comes out cold. But a fridge does not actually create cold. Instead, it moves heat from inside the cabinet to the air in your kitchen. It does this using a clever trick of physics, the fact that liquids absorb heat when they evaporate and release heat when they condense. The same principle powers freezers, air conditioners and heat pumps, which together keep food safe, homes comfortable and medicines stable around the world. This explainer describes how a refrigerator moves heat "uphill," from a cold place to a warm one.

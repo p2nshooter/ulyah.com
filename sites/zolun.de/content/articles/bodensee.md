@@ -2,7 +2,7 @@
 title: "Bodensee-Urlaub planen: Ufer, Inseln, Schiffe und drei Länder an einem See"
 description: "Lindau, Meersburg, Konstanz oder Untersee? So findest du am Bodensee den passenden Standort, verstehst Schiffe und Autofähre und planst Abstecher nach Österreich und in die Schweiz."
 category: seen-und-fluesse
-date: 2026-06-26
+date: 2026-10-11
 ---
 Wer zum ersten Mal einen Bodensee-Urlaub plant, staunt über die Auswahl: Dutzende Uferorte, drei Inseln, Schiffe in alle Richtungen und gleich drei Länder rund um einen einzigen See. Im Prospekt sieht alles gleich schön aus. Vor Ort merkst du aber schnell, dass sich ein Abend in der Altstadt von Konstanz ganz anders anfühlt als eine Woche in einem Dorf auf der Höri. Dieser Ratgeber sortiert den See für dich: welche Ufer welchen Charakter haben, was die Inseln Lindau, Mainau und Reichenau unterscheidet, wie Schiffe und Autofähre funktionieren und was du für Abstecher nach Österreich und in die Schweiz einpacken solltest.
 

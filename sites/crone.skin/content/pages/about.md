@@ -2,7 +2,7 @@
 title: About CRONE
 description: Why CRONE exists, who it is for, what we write about, and how we keep our stories honest, practical and free of anti-ageing panic.
 order: 1
-updated: 2026-10-19
+updated: 2026-11-02
 ---
 **CRONE** — *Character, Radiance, Openness, Nerve & Elegance* — is a magazine for women in the second half of life who have no intention of fading quietly into the background.
 
@@ -25,7 +25,7 @@ We are not doctors, and CRONE is not a medical publication. When a topic touches
 
 ## Who writes CRONE
 
-CRONE is written and edited by a small team of women, most of us well past fifty ourselves, with backgrounds in fashion, journalism, gardening, teaching and caring for family. Every story is written by hand and read by a second editor before it is published. Read more in our [editorial policy](/editorial-policy/).
+CRONE is an independent publication. Its stories are researched and drafted with the help of AI tools, then checked against reliable sources such as public health services, consumer organisations and manufacturers' guidance before they appear. We do not claim experiences we have not had, and where the evidence is thin we say so. Read more in our [editorial policy](/editorial-policy/).
 
 ## Say hello
 

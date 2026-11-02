@@ -2,7 +2,7 @@
 title: "What Is a Black Hole? Event Horizons, How They Form and How Astronomers See the Invisible"
 description: "What a black hole is, how massive stars collapse into one, what the event horizon and singularity mean, how supermassive black holes grow, how we detect and photograph them, and common myths."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Black holes are among the strangest objects in the universe. They are regions of space where gravity is so strong that nothing, not even light, can escape. For a long time, they existed only as a mathematical prediction of Einstein's theory of gravity, and many scientists doubted they were real. Today, we know that black holes exist throughout the cosmos, from objects a few times the mass of the Sun to giants billions of times heavier at the centers of galaxies. We have heard their collisions as ripples in space and time and even taken pictures of their shadows. This explainer covers what black holes are, how they form and how we study them.

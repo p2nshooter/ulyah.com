@@ -2,7 +2,7 @@
 title: Chucrut casero: col fermentada con solo sal, paso a paso y sin errores
 description: Cómo hacer chucrut en casa con col y sal al 2 %: proporciones exactas, cómo prensar, cuánto fermentar, la diferencia entre levadura de superficie y moho, variantes y conservación.
 category: kefir-y-fermentados
-date: 2026-09-30
+date: 2026-10-04
 ---
 El chucrut es col fermentada con sal. Nada más. No lleva vinagre, ni azúcar, ni cultivos comprados. Toda la transformación la hacen las bacterias lácticas que viven de forma natural en las hojas de la col, que convierten sus azúcares en ácido láctico. El resultado es una verdura ácida, crujiente y aromática, que se conserva durante meses y que acompaña de maravilla a carnes, legumbres, bocadillos y ensaladas.
 

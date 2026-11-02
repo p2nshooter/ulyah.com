@@ -2,7 +2,7 @@
 title: "Kohlrabi zubereiten: schälen, roh genießen, Rahmgemüse und Kohlrabi-Schnitzel"
 description: "Kohlrabi richtig auswählen, schälen und lagern, warum die Blätter in den Topf gehören, dazu klassisches Kohlrabigemüse in heller Soße, Rohkost und knusprige Kohlrabi-Schnitzel."
 category: fruehling
-date: 2026-10-12
+date: 2026-10-06
 ---
 Kohlrabi ist so deutsch, dass sogar Engländer und Amerikaner ihn mit seinem deutschen Namen nennen. Die knollige Verwandte von Kohl und Brokkoli wächst bei uns von Frühjahr bis Herbst, die ersten Knollen aus dem Freiland kommen im Mai. Gerade dann ist Kohlrabi zart, saftig und mild-süß, mit einem leichten Kohlaroma, das auch Kinder mögen. Er schmeckt roh als Snack, geraspelt im Salat oder klassisch in heller Rahmsoße zu Frikadellen und Salzkartoffeln. Wer dazu noch die Blätter mitverwendet, die viele achtlos wegwerfen, holt aus jeder Knolle deutlich mehr heraus.
 

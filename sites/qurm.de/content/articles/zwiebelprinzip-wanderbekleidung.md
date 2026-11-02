@@ -2,7 +2,7 @@
 title: "Das Zwiebelprinzip: Wanderkleidung, die bei jedem Wetter funktioniert"
 description: Basisschicht, Isolationsschicht, Wetterschutz: wie du Kleidung fürs Wandern sinnvoll kombinierst, welche Materialien sich eignen und warum Baumwolle draußen bleibt.
 category: ausruestung
-date: 2026-06-19
+date: 2026-10-06
 ---
 Beim Wandern wechselt das Klima ständig. Im Aufstieg schwitzt du in der Sonne, am windigen Gipfel frierst du nach fünf Minuten, im schattigen Tal wird es feucht und kühl. Eine einzige dicke Jacke kann damit nicht umgehen. Die Lösung ist seit Jahrzehnten bewährt: das Zwiebelprinzip. Du trägst mehrere dünne Schichten übereinander, die du je nach Anstrengung und Wetter an- oder ausziehst.
 

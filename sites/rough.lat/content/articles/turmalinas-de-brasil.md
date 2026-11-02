@@ -2,7 +2,7 @@
 title: "Turmalinas de Brasil: rubelita, indicolita, sandía, Paraíba y cómo elegir la gema de mil colores"
 description: "Qué es la turmalina, por qué tiene tantos colores, de dónde salen las de Brasil, cómo se orienta al tallarla, qué tratamientos recibe y cómo comprarla en bruto o tallada con criterio."
 category: gemas-en-bruto
-date: 2026-10-31
+date: 2026-11-01
 ---
 Si hubiera que elegir una sola gema para explicar la riqueza mineral de Brasil, la turmalina sería una candidata seria. Aparece en casi todos los colores imaginables, a veces varios en un mismo cristal, y los yacimientos de Minas Gerais, Bahía, Paraíba y Rio Grande do Norte llevan décadas alimentando a talleres y coleccionistas de todo el mundo. Para quien empieza a mirar gemas en bruto, la turmalina es también una gran maestra: enseña a leer un cristal, a entender por qué el color cambia según desde dónde se mire y a desconfiar de los nombres comerciales que prometen más de lo que demuestran.
 

@@ -2,7 +2,7 @@
 title: "Creating a Low-Maintenance Garden You Can Still Love"
 description: How to design a beautiful garden that needs less weeding, mowing and watering — with shrubs, perennials, mulches, raised beds, easier paths and kinder tools for knees and backs.
 category: home-and-garden
-date: 2026-10-19
+date: 2026-10-20
 ---
 A garden can be one of life's great pleasures: a place to sit with a cup of tea, watch the birds, pick flowers and potter in the fresh air. But gardens can also become a burden. As the years pass, mowing a large lawn, weeding endless borders, pruning overgrown hedges and watering in hot weather may feel more like obligations than joys. Bending, kneeling and lifting can become harder, and time may be better spent on other things.
 

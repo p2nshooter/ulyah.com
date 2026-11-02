@@ -2,7 +2,7 @@
 title: "Mindmap erstellen: Wie Lukas mit Mindmaps und Concept Maps den Überblick über Geschichte fand"
 description: "Lukas hat seitenweise Notizen zur Französischen Revolution, aber keinen Überblick. Wie du eine Mindmap anlegst, wann eine Concept Map besser passt und wie du beide zum Lernen nutzt."
 category: vokabeln-und-lernmethoden
-date: 2026-08-13
+date: 2026-10-11
 ---
 Lukas blätterte durch seinen Ordner. Vierzehn Seiten Notizen zur Französischen Revolution, sauber abgeschrieben, mit Überschriften und Datumsangaben. Generalstände, Ballhausschwur, Sturm auf die Bastille, Erklärung der Menschenrechte, Schreckensherrschaft, Napoleon. Er kannte jedes Ereignis einzeln. Aber als Herr Demir in der Stunde gefragt hatte, wie das alles zusammenhing, hatte Lukas keinen einzigen vernünftigen Satz herausgebracht. In zwei Wochen war die Klausur. Und in der Klausur, das wusste er, würde genau so eine Frage kommen.
 

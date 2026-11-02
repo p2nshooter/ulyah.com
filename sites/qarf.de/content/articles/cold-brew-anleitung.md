@@ -2,7 +2,7 @@
 title: "Cold Brew selbst machen: Verhältnis, Mahlgrad, Ziehzeit und sichere Aufbewahrung"
 description: "Cold Brew Schritt für Schritt: Konzentrat oder trinkfertig, Mengen und Mahlgrad, 12 bis 24 Stunden Ziehzeit im Kühlschrank, Filtern, Verdünnen, Haltbarkeit, Japanese Iced Coffee und Rezeptideen."
 category: kaffee-zubereiten
-date: 2026-07-25
+date: 2026-10-06
 ---
 An heißen Sommertagen ist Cold Brew die schönste Art, Kaffee zu trinken: kühl, weich, mit einer natürlichen Süße und kaum Bitterkeit. Anders als Eiskaffee wird Cold Brew nicht heiß gebrüht und dann abgekühlt, sondern der Kaffee zieht viele Stunden in kaltem Wasser. Dabei lösen sich weniger Säuren und Bitterstoffe, dafür viel Schokoladiges, Nussiges und Süßes. Die Zubereitung ist einfach und braucht kaum Ausrüstung, nur Zeit. Wer abends ansetzt, hat am nächsten Morgen ein Konzentrat, das mehrere Tage reicht.
 

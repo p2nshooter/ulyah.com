@@ -2,7 +2,7 @@
 title: "Giftige Lebensmittel für Katzen: Was nicht in den Napf gehört"
 description: Zwiebeln, Knoblauch, Schokolade, Trauben, rohes Schweinefleisch und Milch: welche Lebensmittel aus der Küche Katzen schaden, warum, und was du im Notfall tun solltest.
 category: ernaehrung
-date: 2026-09-11
+date: 2026-10-05
 ---
 Katzen sind beim Fressen in der Regel wählerischer als Hunde. Sie stürzen sich seltener auf alles, was vom Tisch fällt. Trotzdem kommt es immer wieder zu Vergiftungen durch Lebensmittel: weil eine neugierige Katze die Reste in der Pfanne ausleckt, weil sie vom Teller nascht oder weil Menschen ihr in guter Absicht etwas abgeben, das ihr schadet.
 

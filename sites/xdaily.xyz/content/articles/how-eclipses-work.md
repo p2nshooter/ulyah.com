@@ -2,7 +2,7 @@
 title: "How Eclipses Work: Solar and Lunar Eclipses, Totality, Blood Moons and How to Watch Safely"
 description: "Why solar and lunar eclipses happen, total, partial and annular eclipses, why the Moon turns red, why eclipses are rare, and how to watch a solar eclipse without harming your eyes."
 category: space
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 For a few minutes during a total solar eclipse, day turns into an eerie twilight. The temperature drops, birds fall silent, stars appear, and around the black disk of the Moon the Sun's pearly outer atmosphere, the corona, glows in the sky. People who have experienced totality often describe it as one of the most moving sights of their lives. Lunar eclipses are gentler but no less beautiful, as the full Moon slowly darkens and turns a deep copper red. Both are the result of a simple alignment of the Sun, Earth and Moon, yet they happen only occasionally. This explainer describes how eclipses work, why they are rare and how to watch them safely.

@@ -2,7 +2,7 @@
 title: "Haushaltsroutine entwickeln: Mit kleinen täglichen Schritten dauerhaft Ordnung halten"
 description: "Eine Haushaltsroutine, die zum Alltag passt: tägliche Zehn-Minuten-Aufgaben, ein Wochenplan nach Räumen, Aufgaben fair verteilen, Motivationstricks und ein Plan für stressige Wochen."
 category: gewohnheiten-und-routinen
-date: 2026-09-29
+date: 2026-10-11
 ---
 Der Haushalt ist nie fertig. Kaum ist die Küche sauber, steht wieder Geschirr in der Spüle. Kaum ist die Wäsche gefaltet, füllt sich der Wäschekorb von Neuem. Viele Menschen erleben den Haushalt deshalb als endlosen Kampf, bei dem man ständig hinterherläuft. Am Wochenende wird dann im großen Stil aufgeräumt und geputzt, und am Mittwoch sieht es schon wieder aus wie vorher.
 

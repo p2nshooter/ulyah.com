@@ -2,7 +2,7 @@
 title: "Petzen oder Hilfe holen?"
 description: Clara rennt mit jeder Kleinigkeit zu Mama, bis einmal etwas wirklich Gefährliches passiert. Eine Geschichte über den Unterschied zwischen Petzen und Hilfe holen.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Mama! Theo hat sich einen Keks genommen, obwohl du gesagt hast, erst nach dem Essen!“
 

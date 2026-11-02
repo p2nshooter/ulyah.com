@@ -2,7 +2,7 @@
 title: "Die nützlichsten Tastenkürzel für Windows 11: schneller arbeiten ohne Maus"
 description: "Kopieren, Fenster anordnen, Screenshot, Zwischenablage-Verlauf und Emojis: Die wichtigsten Windows-Tastenkombinationen für Alltag, Büro und Browser, verständlich erklärt und zum Üben sortiert."
 category: computer-und-windows
-date: 2026-10-26
+date: 2026-10-27
 order: 7
 ---
 Wer am Computer arbeitet, greift Tausende Male am Tag zur Maus: Menü öffnen, Befehl suchen, klicken, zurück zur Tastatur. Mit ein paar Tastenkürzeln geht vieles schneller, bequemer und schont dabei Handgelenk und Nerven. Du musst nicht alle auswendig lernen. Schon zehn gut gewählte Kombinationen verändern deinen Arbeitsalltag spürbar. Diese Übersicht stellt die nützlichsten Tastenkürzel für Windows 11 vor, sortiert nach Situationen, und gibt dir einen Plan, wie du sie dir wirklich merkst.

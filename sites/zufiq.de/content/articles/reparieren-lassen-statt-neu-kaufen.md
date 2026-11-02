@@ -2,7 +2,7 @@
 title: "Reparieren statt neu kaufen: Wann sich eine Reparatur lohnt und wo du Hilfe findest"
 description: "Reparieren statt wegwerfen: Wann sich die Reparatur von Kleidung, Schuhen, Möbeln und Elektrogeräten lohnt, was sie kostet, welche Rechte du hast und wo Repair-Cafés helfen."
 category: bewusster-konsum
-date: 2026-09-17
+date: 2026-10-11
 ---
 Der Reißverschluss der Lieblingsjacke klemmt, der Staubsauger saugt nur noch halbherzig, am Küchenstuhl hat sich ein Bein gelockert. Der erste Impuls ist oft: weg damit, ein neues muss her. Neu kaufen ist bequem, die Auswahl ist riesig und der Preis manchmal erstaunlich niedrig. Und doch bleibt ein ungutes Gefühl, wenn ein fast funktionierendes Ding im Müll landet, nur weil ein einziges kleines Teil nicht mehr will.
 

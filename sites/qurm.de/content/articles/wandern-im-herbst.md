@@ -2,7 +2,7 @@
 title: "Wandern im Herbst: Laub, Nebel, kurze Tage und Jagdzeit richtig einplanen"
 description: "Klare Fernsicht, bunte Wälder und leere Wege: wie du Herbsttouren mit kürzeren Tagen, nassem Laub, Nebel, Jagden und geschlossenen Hütten sicher und entspannt planst."
 category: planung-und-navigation
-date: 2026-10-13
+date: 2026-10-14
 ---
 Für viele Wandernde ist der Herbst die schönste Jahreszeit. Die Hitze des Sommers ist vorbei, die Luft ist klar, und an manchen Tagen reicht der Blick vom Gipfel bis zu Bergketten, die im Sommer im Dunst verschwinden. Buchen, Ahorn und Lärchen färben die Hänge in Gelb, Orange und Rot, auf den Wiesen liegt morgens Raureif, und die großen Ausflugsziele werden nach den Sommerferien ruhiger. Gleichzeitig verlangt der Herbst eine etwas andere Planung: Die Tage werden kürzer, nasses Laub macht Wege rutschig, Nebel kann die Orientierung erschweren, in vielen Wäldern finden Jagden statt, und Hütten und Gasthäuser schließen nach der Saison.
 

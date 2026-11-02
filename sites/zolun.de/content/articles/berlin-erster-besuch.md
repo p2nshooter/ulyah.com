@@ -2,7 +2,7 @@
 title: "Berlin zum ersten Mal: Museumsinsel, Mauerorte, Kieze und Nahverkehr verstehen"
 description: "Berlin zum ersten Mal: wie du die große Stadt liest, Museumsinsel und Mauerorte planst, die Reichstagskuppel anmeldest, die Tarifbereiche A, B und C verstehst und Potsdam einbaust."
 category: staedtereisen
-date: 2026-07-16
+date: 2026-10-11
 ---
 Berlin überfordert beim ersten Besuch fast jeden. Die Stadt ist riesig, sie hat nicht ein Zentrum, sondern mehrere, und zwischen zwei Sehenswürdigkeiten liegen oft mehr Kilometer, als der Stadtplan vermuten lässt. Wer versucht, an einem Wochenende Museumsinsel, Mauer, Reichstag, Kreuzberg und Charlottenburg abzuhaken, verbringt viel Zeit in der U-Bahn und wenig Zeit mit der Stadt. Die gute Nachricht: Mit ein bisschen Orientierung wird Berlin überschaubar. Dieser Ratgeber zeigt dir, wie die Stadt aufgebaut ist, wie du Museumsinsel und Mauerorte sinnvoll planst, warum du für die Reichstagskuppel eine Anmeldung brauchst, wie der Nahverkehr mit seinen Tarifbereichen funktioniert und wann sich ein Abstecher nach Potsdam lohnt.
 

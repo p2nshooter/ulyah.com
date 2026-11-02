@@ -641,6 +641,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 1 Nov | "Untuk harga jual axto.io & xaa.es start penawaran di $500k, jgn di tulis harga $10jt, penawaran mulai $500k. Portal affiliate, reseller dan whitelabel nya belum ada semua, pastiin biar live dulu semua baru lanjut bikin artikel,,, penulisan artikel di web terakhir selesain dulu setelah selesai artikel lanjut axto dan xaa sampe selesai 100% jgn sampe ada yg ketinggalan" · "Kerjakan dengan teliti jgn ada kesalah, error apalagi bikin aplikasi smapah, ika sudah selesi lanjut artikel" | 🔄 urutan: (1) odaily.xyz selesai ✅; (2) axto.io (guardian-ai) dan xaa.es (xaa): penawaran mulai US$500.000 tanpa angka US$10 jt, portal affiliate/reseller/white label live, README `YOUR_ORG` dan kepanjangan AXTO konsisten, investor disembunyikan di xaa.es — dicatat di guardian-ai `docs/REQUESTS.md` dan xaa `docs/BLUEPRINT.md`; (3) baru lanjut artikel 22 situs lain (§21) |
 | 1 Nov | "Goblok, jgn ada satupun yg memblokir google dan SEO" | 🔄 aturan tetap: tidak satu situs pun boleh memblokir Google atau mesin pencari. Ditemukan: robots.txt live ulyah.com, 1fr.fr, tilawa.de, axto.io dan axto.us diawali *managed robots.txt* Cloudflare (blok `Disallow: /` untuk crawler AI, termasuk `Google-Extended`); kode situs sendiri tidak memblokir apa pun. `canonical-hosts.yml` mematikan managed robots.txt di setiap zona pemilik; `scripts/site-audit.mjs` memberi vonis WRONG bila robots.txt menutup seluruh situs bagi `*`, crawler/token Google atau Bingbot |
 | 1 Nov | "Matika seluruh robot yg memblokir crawler google dari sisi Anda, terserah bagaimanapun cara nya … seluruh project ini untuk pengajuan adsense" · "Lu punya akses penuh CF, matiin dari sisi lu … walaupun tanpa masuk CF di beberapa repo" | 🔄 semua token Cloudflare di repo pemilik diuji: tidak satu pun punya izin *Bot Management* (dan token ulyah tidak bisa membaca aturan redirect), jadi managed robots.txt tidak bisa dimatikan lewat API. Jalan lewat kode: robots.txt situs sendiri kini memuat grup `User-Agent: Google-Extended / GoogleOther / Google-CloudVertexBot` dengan `Allow: /` (jalur privat tetap tertutup). Google menggabungkan semua grup untuk crawler yang sama dan memakai aturan paling longgar bila `Allow: /` dan `Disallow: /` seri (spesifikasi robots.txt Google), sehingga blok Cloudflare kalah. `site-audit.mjs` dan laporan `canonical-hosts.yml` membaca robots.txt dengan cara yang sama seperti Google. Sama di axto.io (guardian-ai) dan axto.us. Disusul "Ok udah gw ikutin panduan api token coba lg", "axto.io beda CF, tp bot management sudah di masukan" dan "Pastikan web artikel yg lain jg mematikan robot yg menghalangi crawler google": dengan izin baru, `is_robots_txt_managed` dimatikan di ulyah.com, 1fr.fr, tilawa.de, axto.us dan axto.io; isi blokir ternyata datang dari **Bot Preference Sync** (`bot_preference_sync_enabled: true`, `ai_training: disallow`), yang lalu dimatikan — robots.txt ulyah.com, 1fr.fr, tilawa.de dan axto.us langsung bersih. `canonical-hosts.yml` kini mematikan keduanya di setiap zona pemilik (semua situs `sites/` termasuk) setiap minggu, dan robots.txt setiap situs artikel (mesin `sites/_engine`, juga di repo axto.us) ikut memuat grup `Allow: /` untuk ketiga crawler Google itu. Pengaturan keamanan (AI bot/crawler protection) tidak diubah |
+| 2 Nov | "Kita stop dulu seluruh pekerjaan, skrg focus pada artikel2 untuk pengajuan adsense, web artikel yg lu buat di anggap tidak bermanfaat. Atau lihat di gambar ke 3, cari sulusinya kenapa statusnya perlu diperhatikan.... Perbaiki... Begitu juga situs yg lain" · "Kerjakan" (tangkapan layar AdSense zevok.de: status **Perlu diperhatikan**, alasan **Konten tanpa manfaat**) | 🔄 §22 — semua pekerjaan lain berhenti; diagnosis dari repo dan hasil build, perbaikan di engine untuk semua situs, lalu zevok.de lebih dulu |
 
 ---
 
@@ -1615,3 +1616,92 @@ Total yang harus ditulis: **±513 artikel** baru, masing-masing ≥1.500 kata (�
 | 22 situs `sites/` lain | ⏸ setelah axto.io dan xaa.es selesai 100 % (perintah pemilik 1 Nov, lihat log) |
 | axto.io +22, axto.us +15, profity.in +1 | ⏳ |
 | `check.mjs` MIN_ARTICLES 40 → 60 | ⏳ setelah semua situs `sites/` lulus |
+
+## 22. AdSense "Konten tanpa manfaat": zevok.de dan semua situs artikel (pemilik, 2 Nov 2026)
+
+Perintah pemilik: „Kita stop dulu seluruh pekerjaan, skrg focus pada artikel2 untuk pengajuan adsense, web artikel yg lu
+buat di anggap tidak bermanfaat. Atau lihat di gambar ke 3, cari sulusinya kenapa statusnya perlu diperhatikan....
+Perbaiki... Begitu juga situs yg lain", lalu „Kerjakan".
+
+AdSense menilai zevok.de **Perlu diperhatikan** dengan alasan **Konten tanpa manfaat** (*low value content*). Menurut
+pesan Google, situs harus:
+
+1. memberi informasi atau **alat** yang autentik dan bermutu;
+2. menunjukkan **kurasi dan perawatan struktur yang berkelanjutan**;
+3. menimbulkan dan menjaga **minat pengguna yang sungguhan**.
+
+Panjang artikel bukan ukurannya: zevok.de sudah 40 artikel dan rata-rata 1.590 kata.
+
+### 22.1 Diagnosis (diukur dari repo dan hasil build, 2 Nov 2026)
+
+| # | Temuan | Bukti | Kriteria Google |
+|---|---|---|---|
+| 1 | **Tanggal terbit dimundurkan.** zevok.de menampilkan 15 Jun–8 Okt 2026, padahal semua artikelnya baru terbit 6–11 Okt. Hal yang sama terjadi di 15 situs lain (byoy.de dan qurm.de mulai 1 Jun, ...). Google mencatat kapan halaman pertama kali dirayapi, jadi tanggal palsu terlihat menipu. | `git log` main (hari file masuk main dan hari situs keluar dari draft) dibanding `date:` artikel | 1, 2 |
+| 2 | **Semua artikel terbit dalam 1–3 hari dan tidak pernah diperbarui.** Tidak ada jejak perawatan. | `updated:` tidak ada di satu artikel pun | 2 |
+| 3 | **Tidak ada satu pun sumber luar.** Impressum zevok.de bahkan menulis „ZEVOK verlinkt in seinen Texten nur auf eigene Seiten". Kebenaran isi tidak bisa diperiksa pembaca. | 0 tautan eksternal di 40 artikel | 1 |
+| 4 | **Tidak ada alat.** Hanya teks. Google menyebut „informasi *atau alat*". | 0 halaman interaktif | 1, 3 |
+| 5 | **Klaim yang tidak benar.** „Wir veröffentlichen keine massenhaft erzeugten … Texte" di zevok.de, rubiy.de dan zavik.de, padahal 40 artikel terbit sekaligus. | `ueber-uns.md` | 1 |
+| 6 | **Minat pengguna masih kecil.** Situs berumur 3–4 minggu, kunjungan organik sedikit. Ini tidak bisa dibuat-buat; yang bisa dilakukan adalah memastikan semua halaman terindeks, lalu menunggu. | — | 3 |
+
+Hal yang perlu **keputusan pemilik** (tidak diubah tanpa izin, karena itu perintah pemilik sebelumnya):
+
+- Penerbit di Impressum hanya „p2nshooter" (keputusan 5 Okt). § 5 DDG meminta nama asli dan alamat yang bisa dikirimi
+  surat. Peninjau dan pembaca Jerman membaca ini sebagai situs anonim.
+- Pita „Spanien ist Fußball-Weltmeister 2026" (§5) muncul di setiap halaman situs kebersihan, berkebun dan lain-lain. Isinya
+  benar, tetapi keluar topik.
+- Menu promosi axto.io/xaa.es (§13.5) adalah item menu pertama di 21 situs.
+- 26 situs memakai pola yang sama dan diajukan dalam waktu berdekatan.
+
+### 22.2 Perbaikan
+
+**A. Engine `sites/_engine`, berlaku untuk semua situs sekarang dan nanti**
+
+| Butir | Isi |
+|---|---|
+| A1 Tanggal jujur | `date:` setiap artikel diganti ke hari artikel itu benar-benar terbit, yaitu yang lebih akhir dari hari file masuk main dan hari situs keluar dari draft. `site.json` mencatat `"since"` (hari situs terbit). `check.mjs` menolak artikel bertanggal sebelum `since`, dan `updated` sebelum `date`. |
+| A2 Jadwal terbit | Artikel bertanggal di masa depan tidak dibangun (tidak tampil, tidak masuk sitemap) sampai harinya. `deploy-sites.yml` berjalan setiap hari dan hanya men-deploy situs yang punya artikel terjadwal hari itu. Artikel baru (§21) terbit bertahap, 2–3 per minggu, bukan 20 sekaligus. |
+| A3 Sumber | Frontmatter `sources:` (judul + URL) dirender engine sebagai bagian „Quellen / Fuentes / Sources" di akhir artikel, tautan keluar biasa (`rel="noopener"`). |
+| A4 Alat | Halaman dengan `tool: <nama>` memuat `theme/assets/tools/<nama>.js`. Isi Markdown halaman itu adalah versi statis lengkap (tabel yang bisa dibaca crawler dan pembaca tanpa JavaScript); skripnya menambah bagian interaktif. |
+| A5 Riwayat perubahan | Halaman „Aktualisierungen / Novedades / What's new" dibuat engine dari `date` dan `updated`: apa yang terbit dan apa yang diperbarui, dengan tanggal asli. |
+| A6 Klaim jujur | Kalimat „keine massenhaft erzeugten Texte" dihapus. „Über uns" menjelaskan apa adanya cara artikel ditulis dan diperiksa. |
+
+**B. zevok.de (situs yang ditandai, dikerjakan lebih dulu)**
+
+- Empat alat:
+  - **Fleckenfinder**: fleck × bahan → langkah, larangan dan artikel yang cocok;
+  - **Wasserhärte- und Dosierrechner**: °dH ↔ mmol/l ↔ °fH, rentang weich/mittel/hart menurut WRMG, takaran dari tabel
+    kemasan dihitung untuk beban cucian sendiri;
+  - **Pflegesymbole-Decoder**: setiap simbol perawatan menurut GINETEX, dengan gambar dan artinya;
+  - **Putzplan-Generator**: rencana harian, mingguan dan bulanan menurut ruangan, jumlah penghuni dan hewan, siap dicetak.
+- Halaman induk `/werkzeuge/` dan item menu „Werkzeuge".
+- Setiap artikel diberi 2–4 sumber resmi (Umweltbundesamt, BfR, Verbraucherzentrale, GINETEX, Forum Waschen, Giftnotruf),
+  diperiksa ulang terhadap isinya, lalu `updated: 2026-11-02`.
+- Impressum: bagian „Haftung für Links" disesuaikan, karena kini ada tautan keluar.
+
+**C. Situs lain**
+
+Semua situs langsung mendapat A1, A5 dan A6. Alat (A4) dan sumber (A3) ditulis per situs, satu gelombang per PR, menurut
+urutan ini:
+
+1. situs yang sedang ditinjau atau ditolak AdSense;
+2. situs `.de` lain;
+3. situs `.es`, `.lat` dan `.xyz`.
+
+**D. Minat pengguna (bagian pemilik)**
+
+- Search Console setiap domain: kirim `sitemap.xml`, lalu periksa **Halaman → Diindeks**.
+- Klik **Minta peninjauan** di AdSense baru setelah:
+  - perbaikan ini live;
+  - sebagian besar halaman sudah terindeks;
+  - ada kunjungan organik.
+  
+  Biasanya itu 2–4 minggu. Peninjauan yang diminta terlalu cepat biasanya ditolak lagi dengan alasan yang sama.
+- Ajukan satu per satu, jangan 26 situs sekaligus.
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 2 Nov |
+| A1–A6 engine + tanggal jujur semua situs | ✅ PR 2 Nov — 1.010 tanggal artikel di 26 situs dibetulkan ke hari terbit sebenarnya (dihitung dari git main); `since` di setiap `site.json`; jadwal terbit harian; sumber; halaman alat; halaman riwayat; 26 situs `check.mjs` ALL OK |
+| A6 klaim jujur | ✅ PR 2 Nov — klaim palsu dihapus di zevok.de, rubiy.de, zavik.de, velnixo.de, nexvilo.de („selbst ausprobiert"), qkb.es („el equipo del obrador"), crone.skin („a small team of women … past fifty", „second editor") dan saved.lat („written by a person, read by a second person"); diganti keterangan jujur: dibuat dengan bantuan KI, diperiksa terhadap sumber |
+| zevok.de: 4 alat, sumber 40 artikel | ✅ PR 2 Nov — Fleckenfinder, Wasserhärte- und Dosierrechner, Pflegesymbole-Decoder, Putzplan-Generator (+ halaman `/werkzeuge/`, pita di beranda, menu); 2–4 sumber resmi per artikel (41 URL dari UBA, BfR, BVL, Verbraucherzentrale, GINETEX, Forum Waschen, WRMG, BAuA, BZfE); `"sources": "required"`; uji browser 44/44 desktop + ponsel |
+| Situs lain: alat + sumber | ⏳ per gelombang |

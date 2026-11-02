@@ -2,7 +2,7 @@
 title: "Zwillinge sind keine Doppelpackung"
 description: Ben und Tim tragen dieselben Pullover und heißen nur „die Jungs“ – bis Tim nicht mehr Fußball spielen will. Eine Geschichte darüber, wie Zwillinge eigene Wege finden dürfen.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 Bei Familie Schulze in Münster gab es alles doppelt. Zwei Hochstühle, zwei Kindersitze, zwei Fahrräder in derselben Farbe, zwei Paar Gummistiefel in Größe 31. Ben und Tim waren eineiige Zwillinge, acht Jahre alt, und wer sie nicht gut kannte, verwechselte sie ständig. Ihre Großmutter nannte sie „die Jungs“, ihre Lehrerin „die Schulzes“, und die Nachbarn sagten meistens einfach „die Zwillinge“.
 

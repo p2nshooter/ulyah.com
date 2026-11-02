@@ -2,7 +2,7 @@
 title: "Vogeltränke und Vogelbad: Der richtige Platz, sauberes Wasser und Hilfe bei Hitze und Frost"
 description: "So legst du eine Vogeltränke an, die Vögel wirklich nutzen: flache Schale, sicherer Platz, tägliche Reinigung, Hilfe bei Hitze, eisfrei im Winter und Schutz für Insekten."
 category: fuettern-und-traenken
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Futterhäuser gibt es in fast jedem Garten, eine Vogeltränke dagegen viel seltener. Dabei ist Wasser für Vögel mindestens so wichtig wie Futter. Vögel trinken jeden Tag, und sie baden regelmäßig, um ihr Gefieder sauber und funktionsfähig zu halten. In heißen Sommern trocknen Pfützen und Gräben aus, im Winter friert alles zu. Gerade dann wird eine flache Schale mit sauberem Wasser zu einem der wertvollsten Orte im Garten.

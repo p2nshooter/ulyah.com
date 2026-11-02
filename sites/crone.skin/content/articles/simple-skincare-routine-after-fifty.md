@@ -2,7 +2,7 @@
 title: "A Simple Skincare Routine After Fifty: Five Steps That Really Matter"
 description: A calm, realistic morning and evening skincare routine for women over fifty — gentle cleansing, moisture, daily sun protection and a few proven extras — without a shelf of products.
 category: beauty-after-fifty
-date: 2026-10-19
+date: 2026-10-20
 ---
 Walk into any beauty hall and you might believe that skin after fifty needs a twelve-step routine, a drawer full of serums and a small fortune. The truth is far simpler and far kinder. Healthy, comfortable, glowing skin in later life depends on a handful of basics done consistently: cleansing gently, keeping skin moisturised, protecting it from the sun, and adding one or two well-chosen extras if you enjoy them.
 

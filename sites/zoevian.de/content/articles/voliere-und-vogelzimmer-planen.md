@@ -2,7 +2,7 @@
 title: "Voliere und Vogelzimmer planen: Größe, Material, Einrichtung, Sicherheit und Außenvoliere"
 description: "So planst du eine Zimmervoliere, ein Vogelzimmer oder eine Außenvoliere für Wellensittiche, Nymphensittiche und Kanarien: Maße, Gitter, Boden, Äste, Licht, Hygiene und Schutz vor Gefahren."
 category: ziervoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Ein Käfig ist für Ziervögel bestenfalls ein Schlafplatz und eine Futterstation. Ein artgerechtes Leben führen Wellensittiche, Nymphensittiche und Kanarienvögel erst, wenn sie fliegen können, und zwar täglich und ausgiebig. Die beste Lösung dafür ist eine große **Zimmervoliere**, ein eigenes **Vogelzimmer** oder eine **Außenvoliere** mit Schutzraum. Eine solche Anlage zu planen, ist ein spannendes Projekt, bei dem es aber auf viele Details ankommt: die richtige Größe, sichere Materialien, eine durchdachte Einrichtung und eine einfache Reinigung.

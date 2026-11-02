@@ -2,7 +2,7 @@
 title: "Der Tag vor der Prüfung und der Prüfungsmorgen: Elifs Plan für die letzten 24 Stunden"
 description: "Am Tag vor der Deutsch-Abschlussprüfung will Elif alles noch einmal durchgehen, und die Panik wächst. Ihr ruhiger Plan für den Vortag, den Prüfungsmorgen und die ersten zehn Minuten."
 category: pruefungen-und-pruefungsangst
-date: 2026-07-22
+date: 2026-10-11
 ---
 Um drei Uhr nachmittags kippte Elif ihre Tasche auf den Tisch im Gruppenraum der Hausaufgabenbetreuung. Heraus rutschten zwei Ordner, die Lektüre mit unzähligen Klebezetteln, ein Stapel Arbeitsblätter zur Erörterung, ein Heft mit Gedichtanalysen und drei ausgedruckte Musterlösungen. „Das gehe ich heute alles noch einmal durch“, sagte sie. „Morgen ist Deutsch.“ Ihre Stimme klang fester, als sie sich fühlte. Beim Blick auf den Stapel zog sich ihr Magen zusammen.
 

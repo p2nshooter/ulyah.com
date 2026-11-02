@@ -2,7 +2,7 @@
 title: "Leitungen orten vor dem Bohren: Installationszonen, Ortungsgeräte, Notfall"
 description: Wo Strom- und Wasserleitungen in der Wand verlaufen dürfen, wie Ortungsgeräte funktionieren, welche Grenzen sie haben und was zu tun ist, wenn doch eine Leitung angebohrt wurde.
 category: werkzeug-und-grundlagen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Ein angebohrtes Stromkabel oder eine durchbohrte Wasserleitung gehört zu den unangenehmsten Erfahrungen beim Heimwerken. Im besten Fall springt die Sicherung heraus und du brauchst einen Elektriker. Im schlimmsten Fall bekommst du einen Stromschlag oder es läuft Wasser in die Wand, in die Decke und in die Wohnung unter dir. Die gute Nachricht: Mit dem Wissen um die Installationszonen, einem Ortungsgerät und etwas Sorgfalt lässt sich dieses Risiko stark verringern.
 

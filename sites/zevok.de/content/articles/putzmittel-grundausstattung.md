@@ -2,7 +2,14 @@
 title: "Putzmittel-Grundausstattung: Wenige Reiniger und gutes Werkzeug reichen"
 description: "Sauer gegen Kalk, alkalisch gegen Fett, neutral für den Alltag: welche Reiniger und welches Werkzeug du wirklich brauchst und wie du alles pflegst und sicher lagerst."
 category: putzen-mit-system
-date: 2026-07-02
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Umweltbundesamt: Umweltbewusst reinigen – nachhaltig und hygienisch (PDF) | https://www.umweltbundesamt.de/system/files/medien/publikation/long/4162.pdf
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Unter der Spüle stehen ein Badreiniger, ein Küchenspray, ein Fettlöser, ein Edelstahlpflegemittel, ein Glasreiniger, zwei angebrochene Kalkentferner und ein Duftreiniger, den jemand im Angebot mitgenommen hat. Trotzdem fehlt beim Putzen der Dusche der Abzieher, der Schwamm ist seit Wochen grau, und das einzige Mikrofasertuch hinterlässt Schlieren. So sieht es in vielen Haushalten aus: Es wird viel Mittel gekauft und wenig in gutes Werkzeug investiert.
 

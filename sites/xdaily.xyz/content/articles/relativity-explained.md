@@ -2,7 +2,7 @@
 title: "Einstein's Relativity Explained: Why Time Slows Down, Space Bends and E = mc²"
 description: "Special relativity's constant speed of light, time dilation and E = mc², general relativity's curved spacetime, gravitational waves and black holes, and the technology that relies on Einstein."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 In 1905, a 26-year-old patent clerk in Bern, Switzerland, published a paper that changed our understanding of space and time. Ten years later, he extended his ideas into a new theory of gravity. Albert Einstein's theories of relativity revealed that time can pass at different rates, that space and time are woven together, that mass and energy are equivalent and that gravity is the curvature of spacetime itself. These ideas sound strange, but they have been confirmed by more than a century of experiments and are built into technologies we use every day, from GPS to particle accelerators. This explainer introduces the key ideas of relativity in plain language.

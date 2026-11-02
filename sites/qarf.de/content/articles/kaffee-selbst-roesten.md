@@ -2,7 +2,7 @@
 title: "Kaffee selbst rösten: Rohkaffee, Röstphasen, erster Crack und Ruhezeit"
 description: "Kaffee zu Hause rösten in Pfanne, Backofen, Popcornmaschine oder Trommelröster: Rohkaffee kaufen, Röstphasen und erster Crack, Kühlen, Entgasen, Sicherheit und typische Fehler."
 category: bohnen-und-roestung
-date: 2026-07-13
+date: 2026-10-06
 ---
 Wer einmal frisch selbst gerösteten Kaffee getrunken hat, versteht, warum Röstereien so stolz auf ihr Handwerk sind. Beim Rösten verwandelt sich eine grüne, grasig riechende Bohne in wenigen Minuten in die braune, duftende Kaffeebohne, die wir kennen. Hunderte Aromastoffe entstehen dabei, und jede Sekunde, jedes Grad verändert den Geschmack. Zu Hause zu rösten ist kein Hexenwerk. Mit etwas Rohkaffee, einer Pfanne oder einem kleinen Röstgerät und Geduld kannst du dich an die eigene Röstung herantasten. Perfekte Ergebnisse wie aus einer Profirösterei sind am Anfang selten, aber jeder Versuch lehrt dich mehr über Kaffee als jedes Buch.
 

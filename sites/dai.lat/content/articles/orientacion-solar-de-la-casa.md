@@ -2,7 +2,7 @@
 title: "Orientación solar de la casa: cómo aprovechar el sol según dónde vives"
 description: "Hacia dónde mirar las ventanas, qué fachadas proteger y cómo cambia el recorrido del sol entre el trópico, el norte de México y el Cono Sur para tener una casa más fresca o más cálida."
 category: arquitectura-y-casas
-date: 2026-07-25
+date: 2026-10-11
 ---
 Dos casas idénticas, con los mismos materiales y el mismo tamaño, pueden sentirse completamente distintas por dentro. Una es fresca por la tarde y la otra parece un horno. Una recibe sol en las mañanas de invierno y la otra pasa el año en sombra húmeda. La diferencia muchas veces no está en lo que se construyó, sino en **hacia dónde mira** cada fachada y en cómo se protegieron sus ventanas.
 

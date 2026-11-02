@@ -2,7 +2,7 @@
 title: "Nymphensittiche halten: Partner, Platz, Nachtpanik, Futter und Pflege des kleinen Kakadus"
 description: "Nymphensittiche artgerecht halten: Herkunft und Wesen, Paarhaltung, Voliere und Freiflug, Nachtlicht gegen Nachtpanik, Puderdunen, Futter, Pfeifen und Gesundheit im Überblick."
 category: ziervoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Mit ihrer aufstellbaren Federhaube, den orangefarbenen Wangenflecken und ihrem freundlichen Wesen haben Nymphensittiche viele Fans. Sie sind etwas größer und ruhiger als Wellensittiche, lernen gern Melodien zu pfeifen und bauen oft eine enge Bindung zu ihren Menschen auf. Wer Nymphensittiche halten möchte, sollte allerdings wissen, dass sie viel Platz, Gesellschaft und Zeit brauchen und zwanzig Jahre alt werden können.

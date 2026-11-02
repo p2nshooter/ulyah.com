@@ -2,7 +2,7 @@
 title: "Quantum Physics Basics: Quanta, Wave-Particle Duality, Uncertainty and Entanglement Without the Math"
 description: "Why energy comes in packets, how light and electrons act as waves and particles, what the uncertainty principle and superposition mean, what entanglement is and how quantum physics powers technology."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 At the scale of atoms and subatomic particles, nature behaves in ways that seem to defy common sense. Particles can act like waves, energy comes in tiny packets, an electron can be in a combination of states at once, and two particles can remain mysteriously connected across great distances. These are not speculative ideas; they are the predictions of quantum mechanics, the most precisely tested theory in the history of science. Quantum physics explains why atoms are stable, how the Sun shines and how lasers, computer chips and MRI machines work. This explainer introduces the key ideas of quantum physics in plain language, without equations.

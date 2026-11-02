@@ -2,7 +2,7 @@
 title: "Obst für kleine Gärten: Säulenobst, Spalier, Spindel, Mehrsortenbaum und Beeren auf wenig Platz"
 description: "Auch im Reihenhausgarten wächst Obst: Säulenäpfel, Spalierobst an der Hauswand, schlanke Spindeln, Mehrsortenbäume ohne Befruchterproblem, Beerenstämmchen und Obst im Kübel mit Platzbedarf und Pflege."
 category: obst-und-beeren
-date: 2026-09-01
+date: 2026-10-06
 ---
 Viele Menschen glauben, für eigenes Obst brauche man eine große Wiese mit alten Hochstämmen. Dabei lassen sich Äpfel, Birnen, Kirschen und Beeren auch auf einer Terrasse, an einer Hauswand oder in einem schmalen Reihenhausgarten ziehen. Der Schlüssel liegt in der richtigen Baumform und Unterlage: Gezüchtete Säulenbäume, an Drähten gezogene Spaliere und schwach wachsende Spindeln brauchen kaum mehr Platz als ein Strauch und tragen oft schon im zweiten oder dritten Jahr. Dieser Ratgeber stellt die Möglichkeiten vor und hilft dir, die passende Lösung für deinen Garten zu finden.
 

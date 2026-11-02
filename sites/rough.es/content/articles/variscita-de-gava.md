@@ -2,7 +2,7 @@
 title: "Variscita de Gavà: la piedra verde de unas minas neolíticas excepcionales"
 description: "Qué es la variscita, por qué las minas neolíticas de Gavà son excepcionales, cómo se extraía y se convertía en cuentas, en qué se diferencia de la turquesa y cómo cuidar una pieza."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Hace unos seis mil años, en unas colinas del Baix Llobregat, a pocos kilómetros de donde hoy se extiende el área metropolitana de Barcelona, comunidades neolíticas excavaron pozos y galerías con herramientas de piedra para llegar a unas vetas de color verde. Aquel mineral, la variscita, se convertía después en cuentas y colgantes que circularon a cientos de kilómetros. Las minas de Gavà son hoy uno de los conjuntos mineros prehistóricos más importantes de Europa y un lugar donde la historia de las gemas y la historia de la humanidad se tocan.
 

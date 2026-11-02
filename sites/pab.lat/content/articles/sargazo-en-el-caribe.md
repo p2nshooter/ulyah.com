@@ -2,7 +2,7 @@
 title: "Sargazo en el Caribe: qué es, cuándo llega y cómo planificar tus vacaciones de playa"
 description: "Por qué llega el sargazo a las playas del Caribe, en qué meses suele haber más, qué zonas reciben menos, cómo consultar los mapas de monitoreo y qué hacer si tu playa amanece cubierta de algas."
 category: playas-y-costas
-date: 2026-08-18
+date: 2026-10-11
 ---
 Quien viaja al Caribe espera arena blanca y agua turquesa. Pero desde hace más de una década, muchas playas de la región reciben en ciertas temporadas enormes cantidades de sargazo: algas pardas que flotan en el mar, llegan a la orilla en franjas espesas y, al descomponerse, cambian el color del agua y desprenden un olor fuerte. El fenómeno afecta al Caribe mexicano, a varias islas de las Antillas, a la costa de Centroamérica y a otros lugares, y se ha convertido en un factor más a tener en cuenta al planificar unas vacaciones de playa.
 

@@ -2,7 +2,7 @@
 title: "Silvester mit Angst vor dem Knallen"
 description: Letztes Jahr hat sich Noah an Silvester schreiend unter dem Bett versteckt. Diesmal plant die Familie anders. Über Ängste, gute Vorbereitung und eine Mitternacht um sieben Uhr abends.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 Es begann schon am 28. Dezember. Irgendwo im Hinterhof des Mietshauses in Berlin-Neukölln explodierte ein Böller, laut wie ein Schuss, und das Echo hallte zwischen den Hauswänden hin und her. Noah, fünf Jahre alt, ließ seinen Löffel fallen, rannte aus der Küche und verschwand in seinem Zimmer. Als seine Mutter Svenja ihm folgte, fand sie ihn unter dem Bett, die Hände auf den Ohren, zusammengerollt wie ein Igel.
 

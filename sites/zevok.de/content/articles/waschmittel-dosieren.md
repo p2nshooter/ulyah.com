@@ -2,7 +2,14 @@
 title: "Waschmittel richtig dosieren: Wasserhärte, Verschmutzung und welches Mittel wofür"
 description: "Zu viel Waschmittel schadet Haut, Maschine und Umwelt, zu wenig macht Wäsche grau. So dosierst du nach Wasserhärte und Verschmutzung und wählst zwischen Voll-, Color-, Fein- und Wollwaschmittel."
 category: waesche-und-pflege
-date: 2026-08-13
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Klimabewusstes Wäschewaschen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/waesche-waschen-waschmittel
+  - Wasch- und Reinigungsmittelgesetz, § 9 Härtebereiche | https://www.gesetze-im-internet.de/wrmg/__9.html
+  - Verbraucherzentrale: Wasserhärte bestimmen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wasser/wasserhaerte-bestimmen-habe-ich-weiches-oder-hartes-wasser-5532
+  - Forum Waschen: Erläuterung zum Verschmutzungsgrad von Textilien (PDF) | https://forum-waschen.de/wp-content/uploads/2023/09/waschmitteldosierung-verschmutzung.pdf
 ---
 Viele Menschen kippen Waschmittel nach Gefühl in die Maschine, meist zu viel, nach dem Motto „viel hilft viel“. Andere sparen und wundern sich, warum weiße Handtücher grau werden und die Maschine muffig riecht. Beides ist ein Problem: Zu viel Waschmittel belastet Haut und Umwelt, hinterlässt Rückstände in der Wäsche und kostet Geld. Zu wenig wäscht nicht richtig sauber, lässt Kalk in der Maschine zurück und begünstigt Gerüche.
 

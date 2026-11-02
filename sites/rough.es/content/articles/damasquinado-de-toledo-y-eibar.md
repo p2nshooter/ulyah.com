@@ -2,7 +2,7 @@
 title: "Damasquinado de Toledo y Éibar: oro sobre acero, cómo se hace y cómo reconocer una pieza auténtica"
 description: "Qué es el damasquinado, cómo se incrusta el hilo de oro sobre acero pavonado, su historia en Toledo y en Éibar, por qué no es acero de Damasco, cómo distinguir imitaciones y cómo cuidarlo."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 En los escaparates del casco histórico de Toledo brillan cientos de piezas con el mismo contraste inconfundible: un fondo negro profundo sobre el que se dibujan arabescos, flores, pájaros y grecas de oro. Es el damasquinado, una técnica que incrusta hilos de oro y plata en una superficie de acero o hierro, y que en España tiene dos nombres propios: Toledo, con su larga tradición de espaderos y artesanos, y Éibar, la villa armera guipuzcoana donde la técnica vivió un renacimiento extraordinario en el siglo XIX.
 

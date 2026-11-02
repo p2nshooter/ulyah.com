@@ -2,7 +2,7 @@
 title: "Die Amsel im Garten: Gesang, Nest, Nahrung, Usutu-Virus und wie du hilfst"
 description: "Alles über die Amsel im Garten: Männchen, Weibchen und Jungvögel erkennen, Gesang, Brut und Nestbau, Nahrung im Jahreslauf, das Usutu-Virus und praktische Hilfe."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Die Amsel ist für viele Menschen der Inbegriff des Gartenvogels. Ihr Gesang gehört zum Frühlingsabend wie der Duft von Flieder, und wenn sie auf dem Rasen den Kopf schief legt, um nach Regenwürmern zu lauschen, schaut man unwillkürlich zu. Dabei war die Amsel vor knapp zweihundert Jahren noch ein scheuer Waldvogel. Erst im Laufe des 19. Jahrhunderts begann sie, in Parks und Gärten zu brüten, und heute ist sie in fast jeder Stadt Deutschlands zu Hause.

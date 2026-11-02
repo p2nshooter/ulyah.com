@@ -2,7 +2,7 @@
 title: "Himbeeren anbauen: Sommer- oder Herbsthimbeeren, Pflanzung, Drahtgerüst und der richtige Rutenschnitt"
 description: "Himbeeren im Biogarten: Sommer- oder Herbsthimbeeren, Standort ohne Staunässe, Pflanzabstand und Gerüst, Rutenschnitt, Ausläufer bändigen, Himbeerkäfer und Rutenkrankheit."
 category: obst-und-beeren
-date: 2026-09-07
+date: 2026-10-06
 ---
 Frisch gepflückte Himbeeren, noch warm von der Sonne, gehören zu den größten Freuden im Garten. Im Laden sind sie teuer, empfindlich und oft nach einem Tag matschig. Im eigenen Garten dagegen wachsen sie fast von selbst, sobald sie einmal angewachsen sind. Himbeeren sind Waldrandpflanzen: Sie lieben humusreichen, lockeren Boden, eine Mulchdecke und nicht zu viel Hitze. Wer den Unterschied zwischen Sommer- und Herbsthimbeeren kennt und die Ruten richtig schneidet, erntet von Juni bis in den Oktober hinein.
 

@@ -2,7 +2,7 @@
 title: "Drosseln unterscheiden: Amsel, Singdrossel, Misteldrossel, Wacholderdrossel und Rotdrossel"
 description: "Die heimischen Drosseln sicher erkennen: Größe, Brustflecken, Kopfmuster, Flugbild, Rufe und Gesang von Amsel, Sing-, Mistel-, Wacholder-, Rot- und Ringdrossel im Vergleich."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Drosseln gehören zu den bekanntesten Vögeln unserer Gärten und Wälder, und doch werden sie ständig verwechselt. Eine gefleckte Drossel auf dem Rasen kann eine Singdrossel sein, eine Misteldrossel oder eine junge Amsel. Im Winter tauchen dazu Wacholder- und Rotdrosseln aus dem Norden auf, oft in großen Trupps. Mit ein paar klaren Merkmalen lassen sich die Arten aber gut auseinanderhalten.

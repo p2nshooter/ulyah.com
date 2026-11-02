@@ -2,7 +2,7 @@
 title: "Wellensittiche artgerecht halten: Gesellschaft, Freiflug, Käfig, Licht, Futter und Beschäftigung"
 description: "Was Wellensittiche wirklich brauchen: mindestens zu zweit, täglicher Freiflug, großer Käfig oder Voliere, Naturäste, UV-Licht, abwechslungsreiches Futter, Beschäftigung und Vogeltierarzt."
 category: ziervoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Wellensittiche gehören zu den beliebtesten Heimtieren in Deutschland. Sie sind lebhaft, gesellig, neugierig und manchmal erstaunlich gesprächig. Gleichzeitig gehören sie zu den Tieren, die am häufigsten falsch gehalten werden: allein in einem zu kleinen Käfig, ohne Freiflug, mit einem Spiegel als Partnerersatz und nur mit Körnerfutter. Ein Wellensittich, der so lebt, ist kein glücklicher Vogel.

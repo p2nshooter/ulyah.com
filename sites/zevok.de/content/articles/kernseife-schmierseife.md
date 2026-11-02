@@ -2,7 +2,13 @@
 title: "Kernseife und Schmierseife: Unterschiede, Einsatz im Haushalt und Grenzen"
 description: "Kernseife und Schmierseife unterscheiden, Böden und Wäsche richtig damit pflegen, Kalkseife bei hartem Wasser verstehen und wissen, wann Seife nicht die beste Wahl ist."
 category: hausmittel
-date: 2026-10-08
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Alternative Putzmittel – natürlich waschen und putzen? | https://forum-waschen.de/alternative-putzmittel-natuerlich-waschen-und-putzen-geht-das/
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
 ---
 Seife ist eines der ältesten Reinigungsmittel überhaupt. Lange bevor es Flüssigwaschmittel, Badreiniger und Sprühflaschen gab, wurde mit Kernseife gewaschen und mit Schmierseife gewischt. Beide stehen heute wieder in vielen Haushalten, weil sie einfach, günstig und frei von unnötigen Zusätzen sind. Sie haben aber auch Eigenschaften, die man kennen sollte, denn Seife verhält sich anders als moderne Reiniger, vor allem bei hartem Wasser.
 

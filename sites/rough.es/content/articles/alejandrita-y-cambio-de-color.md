@@ -2,7 +2,7 @@
 title: "Alejandrita y gemas de cambio de color: cómo funciona el efecto y cómo no dejarse engañar"
 description: "Qué es la alejandrita, por qué pasa del verde al rojo según la luz, qué otras gemas cambian de color, cómo distinguirla de sintéticos e imitaciones y cómo comprobar el efecto antes de comprar."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Hay gemas que parecen dos piedras distintas según dónde las mires. A la luz del día, junto a una ventana, una alejandrita fina se ve verde o verde azulada; por la noche, bajo una lámpara cálida o a la luz de las velas, se vuelve roja o púrpura. Durante el siglo XIX se dijo de ella que era «una esmeralda de día y un rubí de noche», y esa doble personalidad la ha convertido en una de las gemas más fascinantes y, también, más imitadas que existen.
 

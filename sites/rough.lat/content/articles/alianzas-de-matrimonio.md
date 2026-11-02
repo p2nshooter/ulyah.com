@@ -2,7 +2,7 @@
 title: "Alianzas de matrimonio: perfiles, anchos, metales, acabados, grabados y cómo combinarlas con el anillo de compromiso"
 description: "Cómo elegir las argollas o alianzas de boda: perfil plano, media caña o confort, ancho, metal, acabado, grabado, alianzas con piedras y cómo hacerlas encajar con el anillo de compromiso."
 category: joyeria-y-diseno
-date: 2026-10-31
+date: 2026-11-01
 ---
 La alianza de matrimonio es, para muchas personas, la joya que más años se lleva puesta. Se usa todos los días, en el trabajo, en casa, en vacaciones, durante décadas. Por eso, más que una cuestión de moda, elegirla es una decisión práctica: tiene que ser cómoda, resistir el uso, combinar con el anillo de compromiso si lo hay y gustar dentro de veinte años tanto como el día de la boda.
 

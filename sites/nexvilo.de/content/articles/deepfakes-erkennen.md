@@ -2,7 +2,7 @@
 title: "Deepfakes erkennen: Gefälschte Videos, Fotos und Stimmen entlarven"
 description: "Wie Deepfakes entstehen, woran du manipulierte Bilder, Videos und KI-Stimmen erkennst, welche Betrugsmaschen es gibt und wie du mit Rückwärtssuche und Faktenchecks prüfst, was echt ist."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Ein bekannter Politiker sagt im Video Dinge, die er nie gesagt hat. Ein Prominenter wirbt angeblich für eine dubiose Geldanlage. Am Telefon klingt die Stimme genau wie die der eigenen Tochter, die dringend Geld braucht. All das sind **Deepfakes**: mit künstlicher Intelligenz erzeugte oder veränderte Bilder, Videos und Tonaufnahmen, die echt wirken sollen. Die Technik ist in den letzten Jahren so gut und so leicht zugänglich geworden, dass man Fälschungen mit bloßem Auge oft nicht mehr sicher erkennt. Trotzdem bist du nicht machtlos. Diese Anleitung zeigt dir, wie Deepfakes funktionieren, auf welche Hinweise du achten kannst und vor allem, mit welchen Gewohnheiten du dich zuverlässig schützt.

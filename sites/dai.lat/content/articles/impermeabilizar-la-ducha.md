@@ -2,7 +2,7 @@
 title: "Impermeabilizar la ducha: membrana, pendiente, desagüe y prueba de agua antes de enchapar"
 description: "Por qué la cerámica no impermeabiliza, cómo se arma una ducha estanca con pendiente, membrana, bandas y desagüe, cómo hacer la prueba de inundación y cómo detectar y prevenir filtraciones."
 category: cocinas-y-banos
-date: 2026-09-19
+date: 2026-10-11
 ---
 La ducha es la zona más castigada de la casa. Recibe agua varias veces al día, con jabón, calor y salpicaduras en todas direcciones. Cuando falla, el problema rara vez se ve en la ducha misma: aparece como una mancha en el techo del departamento de abajo, como pintura inflada en el pasillo, como un zócalo hinchado en el dormitorio vecino o como cerámicas que empiezan a sonar huecas. Para entonces, el agua lleva meses filtrándose.
 

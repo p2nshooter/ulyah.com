@@ -2,7 +2,13 @@
 title: "Fenster putzen ohne Streifen: Werkzeug, Technik und die richtige Reihenfolge"
 description: "Fenster streifenfrei putzen: warum Sonne und zu viel Reiniger Schlieren machen, welche Reihenfolge Zeit spart und wie Abzieher, Mikrofaser, Rahmen und Dichtungen richtig sauber werden."
 category: putzen-mit-system
-date: 2026-07-17
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Umweltbundesamt: Frühjahrsputz | https://www.umweltbundesamt.de/themen/chemikalien/wasch-reinigungsmittel/umweltbewusst-waschen-reinigen/fruehjahrsputz
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
 ---
 Kaum etwas ist so frustrierend wie ein frisch geputztes Fenster, auf dem nach dem Trocknen Streifen, Wischspuren und Flusen zu sehen sind, sobald die Sonne darauf fällt. Viele greifen dann zu stärkeren Reinigern, mehr Wasser oder anderen Tüchern und machen es damit oft noch schlimmer. Dabei hängt ein streifenfreies Ergebnis vor allem von drei Dingen ab: dem richtigen Zeitpunkt, wenig Reiniger und einer sauberen Technik.
 

@@ -2,7 +2,7 @@
 title: "Grüner Tee: Sorten aus Japan und China und wie sie schmecken"
 description: Sencha, Gyokuro, Bancha, Long Jing oder Gunpowder: Wie grüner Tee entsteht, warum japanische und chinesische Grüntees so verschieden schmecken und welche Sorte zu dir passt.
 category: teesorten
-date: 2026-06-28
+date: 2026-10-06
 ---
 Grüner Tee hat bei vielen einen zwiespältigen Ruf. Die einen lieben ihn für seine Frische, die anderen haben ihn einmal zu heiß aufgegossen, eine bittere, adstringierende Tasse bekommen und nie wieder probiert. Dabei ist grüner Tee eine der vielfältigsten Teekategorien überhaupt. Ein dampfgegarter japanischer Sencha schmeckt nach frisch gemähtem Gras und Meeresbrise, ein pfannengerösteter chinesischer Long Jing nach Esskastanie und gerösteten Bohnen. In diesem Ratgeber erfährst du, wie grüner Tee hergestellt wird, welche Sorten es gibt und woran du einen guten Grüntee erkennst.
 

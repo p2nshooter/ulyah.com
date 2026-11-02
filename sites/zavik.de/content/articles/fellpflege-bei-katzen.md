@@ -2,7 +2,7 @@
 title: "Fellpflege bei Katzen: Bürsten, Verfilzungen lösen, richtig baden"
 description: Wie oft und womit du Kurz- und Langhaarkatzen bürstest, wie du Verfilzungen schonend löst, wann ein Bad sinnvoll ist und was das Fell über die Gesundheit verrät.
 category: pflege-und-alltag
-date: 2026-07-27
+date: 2026-10-05
 ---
 Katzen sind berühmt für ihre Reinlichkeit. Sie verbringen einen großen Teil ihrer wachen Zeit mit Putzen, und ihre raue Zunge wirkt wie ein feiner Kamm. Trotzdem brauchen viele Katzen Unterstützung bei der Fellpflege: Langhaarkatzen, deren dichtes Fell schnell verfilzt, Katzen im Fellwechsel, ältere oder übergewichtige Katzen, die bestimmte Körperstellen nicht mehr erreichen, und kranke Tiere, die sich weniger putzen.
 

@@ -2,7 +2,7 @@
 title: "Mal de altura o soroche: cómo prevenirlo en Cusco, La Paz, Quito y el altiplano"
 description: "Qué es el mal de altura, a partir de qué altitud aparece, cómo aclimatarse con un itinerario inteligente, qué síntomas exigen bajar de inmediato y qué decir sobre la hoja de coca y los medicamentos."
 category: montanas-y-naturaleza
-date: 2026-07-25
+date: 2026-10-11
 ---
 Pocas experiencias de viaje impresionan tanto como llegar a los Andes: la plaza de Cusco al amanecer, el lago Titicaca bajo un cielo casi violeta, el salar de Uyuni hasta el horizonte. Pero muchos de esos lugares están a más de 3000 metros sobre el nivel del mar, y el cuerpo lo nota. Dolor de cabeza, cansancio, falta de aire al subir una escalera o noches de mal dormir son señales frecuentes en los primeros días. En los Andes se le llama **soroche**; en los libros de medicina, mal agudo de montaña.
 

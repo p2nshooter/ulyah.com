@@ -2,7 +2,7 @@
 title: "Balcony and Container Gardening: A Green Oasis in a Small Space"
 description: How to create a beautiful balcony, patio or windowsill garden — choosing containers and compost, plants for sun and shade, herbs and edibles, watering, safety and year-round colour.
 category: home-and-garden
-date: 2026-10-19
+date: 2026-10-20
 ---
 You do not need a large garden to enjoy growing things. A balcony, patio, courtyard, doorstep or even a sunny windowsill can become a lush green retreat filled with flowers, herbs and even a few vegetables. For women who have downsized to a flat, who no longer want the work of a full garden, or who simply love plants, container gardening offers all the pleasure of gardening on a manageable scale.
 

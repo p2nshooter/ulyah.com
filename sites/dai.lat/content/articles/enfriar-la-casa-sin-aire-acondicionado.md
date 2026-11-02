@@ -2,7 +2,7 @@
 title: "Cómo enfriar la casa sin aire acondicionado: estrategias que sí funcionan"
 description: "Sombra exterior, techo protegido, ventilación según el clima, ventiladores y menos calor interno: estrategias pasivas para bajar la temperatura de la casa en climas secos y húmedos."
 category: confort-y-sostenibilidad
-date: 2026-08-04
+date: 2026-10-11
 ---
 Cuando la casa se calienta, el primer impulso es pensar en un equipo de aire acondicionado. Es una solución eficaz, pero cara de instalar y de mantener encendida, y no siempre posible en un departamento alquilado o en una vivienda con instalación eléctrica limitada. Además, si la casa recibe mucho sol y está mal protegida, el aire acondicionado tendrá que trabajar mucho más para compensarlo.
 

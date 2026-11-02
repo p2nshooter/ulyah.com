@@ -2,7 +2,7 @@
 title: "Konzentration im Unterricht: Wie Clara lernte, nicht mehr mit den Gedanken abzuschweifen"
 description: "Clara sitzt im Unterricht, doch ihre Gedanken sind überall, nur nicht an der Tafel. Wie du Aufmerksamkeit trainierst, aktiv mitdenkst, den Platz klug wählst und mit Tagträumen und Müdigkeit umgehst."
 category: konzentration-und-motivation
-date: 2026-09-18
+date: 2026-10-11
 ---
 Frau Dietrich zeigte an die Tafel, wo eine lange Rechnung zur Satzgruppe des Pythagoras stand. „Clara, wie geht es hier weiter?“ Clara schreckte hoch. Sie hatte gerade aus dem Fenster geschaut, wo eine Krähe auf dem Schuldach herumhüpfte, und überlegt, ob Krähen sich eigentlich Gesichter merken können. Jetzt starrte sie auf die Tafel und hatte keine Ahnung, wovon die Rede war. „Äh … mal zwei?“, sagte sie. Ein paar Mitschüler kicherten. Frau Dietrich seufzte leise und nahm jemand anderen dran.
 

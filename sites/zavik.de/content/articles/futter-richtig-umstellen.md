@@ -2,7 +2,7 @@
 title: "Futter richtig umstellen: So klappt der Wechsel ohne Bauchweh"
 description: Warum Katzen bei neuem Futter skeptisch sind, wie du über sieben bis zehn Tage schrittweise umstellst, was bei wählerischen Katzen hilft und warum Hungern lassen gefährlich ist.
 category: ernaehrung
-date: 2026-09-15
+date: 2026-10-05
 ---
 Es gibt viele gute Gründe, das Futter einer Katze zu ändern: Die Tierärztin empfiehlt ein Diätfutter, die Katze ist zu dick, die Lieblingssorte wird nicht mehr hergestellt, oder du möchtest mehr Nassfutter füttern. Doch wer schon einmal versucht hat, einer Katze von heute auf morgen ein neues Futter vorzusetzen, kennt das Ergebnis: Sie schnuppert, dreht sich um und geht. Oder sie frisst, und am nächsten Tag liegt Durchfall in der Toilette.
 

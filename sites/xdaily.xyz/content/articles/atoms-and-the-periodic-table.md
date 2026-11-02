@@ -2,7 +2,7 @@
 title: "Atoms and the Periodic Table: What Everything Is Made Of and How the Elements Are Organized"
 description: "What atoms are made of, how protons define an element, what isotopes and electron shells are, how the periodic table's rows and columns predict behavior, and how the elements were found."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Everything you can see and touch, from the air you breathe to the screen you are reading, your own body and the distant stars, is made of atoms. These tiny building blocks are so small that a single grain of sand contains more atoms than there are grains of sand on all the world's beaches. Yet there are only a little over a hundred different kinds of atoms, called elements, and they combine in countless ways to make everything in the universe. The periodic table organizes these elements in a way that reveals deep patterns in their behavior. This explainer describes what atoms are made of and how to read the periodic table.

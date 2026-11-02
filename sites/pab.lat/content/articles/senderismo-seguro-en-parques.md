@@ -2,7 +2,7 @@
 title: "Senderismo seguro en parques nacionales de América Latina: planificación, equipo y buenas prácticas"
 description: "Cómo elegir y preparar una caminata en parques de América Latina: registro, clima, agua, ropa, tiempos, orientación, fauna, tormentas, qué hacer si te pierdes y cómo no dejar rastro."
 category: montanas-y-naturaleza
-date: 2026-09-01
+date: 2026-10-11
 ---
 Caminar por un parque nacional es una de las mejores formas de conocer América Latina. Un sendero puede llevarte a una laguna turquesa en la cordillera Blanca, a la base de las torres de granito de la Patagonia, a una cascada escondida en la selva de Costa Rica, a un páramo cubierto de niebla en los Andes ecuatorianos o a un mirador sobre el cañón de Chapada Diamantina. Son experiencias que no se compran con una entrada: se ganan paso a paso.
 

@@ -2,7 +2,7 @@
 title: "Kranken Ziervogel erkennen: Warnzeichen, Notfälle, Erste Hilfe und der Weg zum Vogeltierarzt"
 description: "Woran du erkennst, dass Wellensittich, Nymphensittich oder Kanarienvogel krank ist: Verhalten, Atmung, Kot, Gewicht und Gefieder, typische Notfälle wie Legenot, Erste Hilfe und Vorsorge."
 category: ziervoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Vögel sind Meister im Verbergen von Krankheiten. In der Natur sind sie Beutetiere, und ein Vogel, der Schwäche zeigt, wird schnell zur Beute oder vom Schwarm zurückgelassen. Diese Strategie haben auch Wellensittiche, Nymphensittiche und Kanarienvögel in der Wohnung beibehalten. Wenn ein Ziervogel deutliche Krankheitszeichen zeigt, ist er deshalb oft schon ernsthaft krank. Umso wichtiger ist es, frühe und feine Veränderungen zu erkennen und schnell zu handeln.

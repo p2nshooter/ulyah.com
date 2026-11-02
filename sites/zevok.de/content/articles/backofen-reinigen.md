@@ -2,7 +2,14 @@
 title: "Backofen reinigen: Eingebranntes, Backbleche, Roste und Glastür"
 description: "Backofen reinigen ohne Schaden: Emaille, Pyrolyse und Katalyse unterscheiden, Natron-Paste oder Backofenreiniger sicher nutzen und Glastür, Bleche und Roste sauber bekommen."
 category: kueche-reinigen
-date: 2026-06-23
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
+  - Bundesanstalt für Arbeitsschutz und Arbeitsmedizin: Gefahrenpiktogramme und Signalwörter | https://www.baua.de/DE/Themen/Chemikalien-Biostoffe/Gefahrstoffe/Einstufung-und-Kennzeichnung/Kennzeichnungselemente/Gefahrenpiktogramme-und-Signalwoerter
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
 ---
 Die Lasagne ist übergekocht, der Braten hat kräftig gespritzt, und beim nächsten Vorheizen riecht die ganze Küche verbrannt. Spätestens wenn es beim Aufheizen qualmt, ist klar: Der Backofen muss sauber werden. Viele greifen dann zur Stahlwolle oder zum stärksten Spray aus dem Supermarkt und merken erst hinterher, dass die Emaille Kratzer hat, die Türdichtung spröde geworden ist oder die raue Rückwand nach dem Putzen nicht mehr richtig funktioniert.
 

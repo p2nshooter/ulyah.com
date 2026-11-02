@@ -2,7 +2,7 @@
 title: "Zweimal Ostern"
 description: Lilly feiert Ostern in zwei Wohnungen und verschweigt, wie schön es beim anderen Elternteil war. Eine Geschichte über Trennungskinder, Loyalität und die Erlaubnis, beide Eltern zu lieben.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Weiß der Osterhase überhaupt, wo ich bin?“, fragte Lilly.
 

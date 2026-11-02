@@ -2,7 +2,7 @@
 title: "Katzenrassen im Überblick: Charakter, Pflege und Gesundheit beliebter Rassen"
 description: "Britisch Kurzhaar, Maine Coon, Perser, Siam, Ragdoll, Bengal und mehr: was die beliebten Rassen ausmacht, welche Gesundheitsthemen wichtig sind und woran du gute Zucht erkennst."
 category: einzug-und-eingewoehnung
-date: 2026-10-13
+date: 2026-10-14
 ---
 Die meisten Katzen in Deutschland sind Hauskatzen ohne Stammbaum, und viele von ihnen sind die besten Gefährten, die man sich wünschen kann. Daneben gibt es Dutzende anerkannte Katzenrassen, die sich in Größe, Fell, Temperament und manchmal auch in ihren gesundheitlichen Risiken deutlich unterscheiden. Wer sich für eine Rassekatze interessiert, sollte nicht nur auf das Aussehen achten, sondern vor allem darauf, ob Charakter und Bedürfnisse zum eigenen Leben passen.
 

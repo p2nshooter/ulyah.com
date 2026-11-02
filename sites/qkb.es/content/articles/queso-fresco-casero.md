@@ -2,7 +2,7 @@
 title: Cómo hacer queso fresco casero con cuajo, paso a paso
 description: La receta completa del queso fresco casero tipo Burgos con leche pasteurizada y cuajo: ingredientes, temperaturas, corte de la cuajada, moldeado, salado, conservación y solución de problemas.
 category: quesos-caseros
-date: 2026-10-12
+date: 2026-10-04
 ---
 El queso fresco es la mejor puerta de entrada al mundo de la quesería casera. No necesita cueva de maduración ni meses de espera: en una tarde se transforma un litro de leche en un queso tierno, blanco y suave, parecido al queso de Burgos que se encuentra en cualquier mercado español. Solo hacen falta leche, cuajo, un poco de sal, un termómetro y algo de paciencia.
 

@@ -2,7 +2,7 @@
 title: "Erinnerungsstücke ausmisten: Behutsam loslassen, ohne die Vergangenheit zu verlieren"
 description: "Erinnerungsstücke ausmisten fällt schwer. So gehst du behutsam vor: mit der richtigen Reihenfolge, einer Erinnerungskiste, guten Fragen und Ideen, Andenken zu bewahren."
 category: ausmisten-und-minimalismus
-date: 2026-08-27
+date: 2026-10-11
 ---
 Beim Ausmisten gibt es Dinge, die leicht gehen: der Pullover, der kratzt, das dritte Schneidebrett, die Kabel von Geräten, die längst entsorgt sind. Und es gibt Dinge, bei denen plötzlich die Hand innehält. Die Kinderzeichnungen. Die Briefe der Großmutter. Das Konzertticket vom ersten Date. Der Teddy, der dreißig Jahre im Keller lag. Erinnerungsstücke tragen Geschichten, Menschen und Gefühle in sich, und deshalb fühlt sich jede Entscheidung über sie schwerer an als über einen Gegenstand des Alltags.
 

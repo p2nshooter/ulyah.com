@@ -2,7 +2,7 @@
 title: "Earthquakes and Plate Tectonics: Why the Ground Shakes, How Quakes Are Measured and How We Prepare"
 description: "How moving tectonic plates build stress along faults, what happens during an earthquake, P and S waves, the magnitude scale, tsunamis, why prediction is not possible yet and how to stay safe."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 The ground beneath our feet seems solid and still, but it is not. Earth's outer shell is broken into giant pieces that move slowly, a few centimeters each year, about as fast as your fingernails grow. Over time, this slow movement builds up enormous stress in the rocks. When the rocks suddenly break and slip, the energy is released as seismic waves that shake the ground. That is an earthquake. Earthquakes can be gentle tremors felt only by instruments or devastating events that reshape coastlines and cities. This explainer describes plate tectonics, how earthquakes happen, how they are measured and how people can reduce their risks.

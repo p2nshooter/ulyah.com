@@ -1,5 +1,6 @@
 {
   "domain": "zevok.de",
+  "since": "2026-10-11",
   "name": "ZEVOK",
   "expansion": "Zuverlässig erklärt, von Ofen bis Kragen",
   "tagline": "Gründliche Anleitungen für Putzen, Flecken und Wäsche: verständlich, materialschonend und sicher",
@@ -15,6 +16,7 @@
   "author": "ZEVOK Redaktion",
   "fonts": "https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap",
   "paths": { "article": "/ratgeber/", "category": "/themen/" },
+  "sources": "required",
   "categories": [
     { "slug": "putzen-mit-system", "name": "Putzen mit System", "icon": "eimer", "description": "Putzpläne, die richtige Reihenfolge, gutes Werkzeug und Techniken für Böden, Fenster und Staub: so wird Putzen planbar, gründlich und spürbar schneller." },
     { "slug": "flecken-entfernen", "name": "Flecken entfernen", "icon": "tropfen", "description": "Rotwein, Fett, Blut, Gras oder Kugelschreiber: Flecken nach Fleckart und Material behandeln, auf Kleidung, Teppich und Polster, sicher Schritt für Schritt." },
@@ -25,6 +27,7 @@
   ],
   "promo": { "slug": "reinigungsbetriebe", "label": "✦ Sauber organisiert" },
   "menu": [
+    { "label": "Werkzeuge", "href": "/werkzeuge/" },
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Sicher putzen", "href": "/sicherheit-beim-putzen/" },
     { "label": "Kontakt", "href": "/kontakt/" }

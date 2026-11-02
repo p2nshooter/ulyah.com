@@ -2,7 +2,7 @@
 title: "Feeding a Family on a Budget: Strategies, Staples and Meals That Stretch Every Dollar"
 description: "How to set a realistic food budget, build meals on low-cost staples, stretch protein, cook from scratch without spending all day, cut waste and keep children happy with affordable family dinners."
 category: meal-prep-and-planning
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Feeding a family well is one of the biggest regular expenses in a household. Growing children seem to be hungry all the time, food prices change constantly, and busy schedules make convenience food tempting. Many parents feel caught between wanting to serve healthy, homemade meals and needing to stay within a tight budget. The encouraging news is that eating well and eating affordably are not opposites. Some of the cheapest foods in the store, such as beans, oats, eggs, rice, potatoes, cabbage and frozen vegetables, are also some of the most nutritious. With a few strategies and a repertoire of family-friendly meals, you can feed everyone well while spending less.

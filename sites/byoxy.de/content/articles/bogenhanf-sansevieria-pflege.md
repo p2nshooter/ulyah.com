@@ -2,7 +2,7 @@
 title: "Bogenhanf (Sansevieria) pflegen: die fast unverwüstliche Zimmerpflanze"
 description: Wie du Bogenhanf richtig gießt, welcher Standort passt, welche Erde er braucht, wann du umtopfen solltest, wie du ihn vermehrst und wie du Fäulnis vermeidest.
 category: zimmerpflanzen
-date: 2026-09-30
+date: 2026-10-04
 ---
 Der Bogenhanf, botanisch heute meist zu Dracaena gezählt, aber im Handel weiter als Sansevieria bekannt, gilt als die perfekte Pflanze für Einsteiger und für alle, die oft unterwegs sind. Er verträgt Trockenheit, wenig Licht und vergessene Gießtermine. Trotzdem gehen viele Bogenhanf-Pflanzen ein, und zwar fast immer aus demselben Grund: zu viel Wasser.
 

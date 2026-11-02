@@ -2,7 +2,7 @@
 title: "Haussperling: Warum Spatzen seltener werden und wie du ihnen konkret hilfst"
 description: "Spatzen gehören zum Haus, doch in vielen Städten fehlen sie. Lebensweise des Haussperlings, Gründe für den Rückgang und sechs wirksame Hilfen für Garten und Fassade."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Der Spatz ist so alltäglich, dass man ihn kaum noch wahrnimmt. Er tschilpt in der Hecke vor dem Café, badet im Staub neben dem Fahrradständer und holt sich Krümel vom Biergartentisch. Gleichzeitig ist er ein Vogel, um den sich Naturschützer seit Jahren sorgen: In vielen Großstädten Europas, etwa in London oder Hamburg, sind die Bestände seit den 1970er-Jahren stark zurückgegangen. In manchen Stadtvierteln, in denen früher Hunderte Spatzen lebten, hört man heute kaum noch einen.

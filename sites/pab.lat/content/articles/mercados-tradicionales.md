@@ -2,7 +2,7 @@
 title: "Mercados tradicionales de América Latina: cómo recorrerlos, qué probar y cómo comprar con respeto"
 description: "Cuándo ir, cómo moverse entre puestos, qué frutas y platos probar, cómo regatear sin ofender, cuidar tu salud y tus cosas y qué productos no comprar en los mercados de la región."
 category: sabores-del-viaje
-date: 2026-07-31
+date: 2026-10-11
 ---
 Si quieres conocer de verdad una ciudad latinoamericana, entra en su mercado. Allí se mezclan los olores del café recién molido, las pilas de frutas que no conocías, los puestos de hierbas medicinales, los comedores donde almuerzan los trabajadores y las conversaciones de toda la vida entre vendedores y clientes. Un mercado cuenta más sobre la cocina, la agricultura y la vida cotidiana de un lugar que muchos museos.
 

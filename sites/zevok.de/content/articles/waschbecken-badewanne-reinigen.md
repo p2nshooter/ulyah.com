@@ -2,7 +2,13 @@
 title: "Waschbecken und Badewanne reinigen: das passende Mittel für jedes Material"
 description: "Keramik, Emaille, Acryl und Mineralguss richtig reinigen, Überlauf und Abfluss sauber halten, Ränder und Verfärbungen lösen und Kratzer und Stumpfwerden vermeiden."
 category: bad-und-wc
-date: 2026-09-21
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Abfälle nicht in Toilette und Waschbecken entsorgen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/abfall/abfaelle-nicht-in-toilette-und-waschbecken-entsorgen-25920
 ---
 Waschbecken und Badewanne sehen auf den ersten Blick ähnlich aus, bestehen aber aus ganz unterschiedlichen Materialien. Ein klassisches Waschbecken aus Keramik verzeiht fast alles. Eine Acrylwanne bekommt dagegen schon von einem kratzigen Schwamm feine Spuren, und ein Waschtisch aus Mineralguss kann durch einen starken Kalkreiniger stumpf werden. Wer alles mit demselben Mittel und derselben Technik putzt, riskiert Schäden, die sich nicht mehr beheben lassen.
 

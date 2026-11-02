@@ -2,7 +2,7 @@
 title: "Videotelefonie leicht gemacht: Die richtige App, der erste Anruf und Tipps für Bild und Ton"
 description: "Welche App für Videoanrufe passt, wie der erste Anruf mit WhatsApp, FaceTime oder per Link gelingt, wie Bild und Ton besser werden und wie du Videotelefonie für ältere Angehörige einrichtest."
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 6
 ---
 Die Enkel winken aus der anderen Stadt, die Freundin zeigt ihren neuen Garten, das Team bespricht die Woche, und die Hausärztin nimmt sich Zeit für ein kurzes Gespräch, ohne dass jemand ins Wartezimmer muss: Videotelefonie bringt Menschen zusammen, die sonst nur telefonieren oder sich selten sehen würden. Was vor einigen Jahren noch kompliziert war, funktioniert heute mit fast jedem Smartphone, Tablet oder Laptop. Trotzdem gibt es immer wieder Hürden. Welche App soll man nehmen? Warum ruckelt das Bild? Warum hört der andere nur ein Rauschen? Diese Anleitung erklärt Schritt für Schritt, wie Videoanrufe gelingen, wie Bild und Ton besser werden und wie du auch älteren Angehörigen den Einstieg leicht machst.

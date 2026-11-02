@@ -2,7 +2,7 @@
 title: "Distribución de la cocina: medidas, zonas de trabajo y el triángulo que sí funciona"
 description: "Cocina lineal, en L, en U, paralela o con isla: medidas de circulación y cubierta, el triángulo entre refrigerador, fregadero y estufa y cómo planificar una cocina donde se cocina de verdad."
 category: cocinas-y-banos
-date: 2026-07-29
+date: 2026-10-11
 ---
 Hay cocinas preciosas que son incómodas para cocinar. Para llegar del refrigerador a la estufa hay que rodear una isla, no queda espacio para apoyar la olla caliente, la puerta del horno choca con la del lavavajillas y la licuadora vive en un rincón sin enchufe. En cambio, hay cocinas sencillas, con muebles comunes, donde todo está a mano y se cocina con gusto todos los días.
 

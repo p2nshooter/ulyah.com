@@ -2,7 +2,7 @@
 title: "Sommertomaten: richtig lagern, häuten und zu Tomatensauce verkochen"
 description: Warum Tomaten nicht in den Kühlschrank gehören, welche Sorte wofür taugt und wie du aus reifen Freilandtomaten eine Sauce kochst, die nach Sommer schmeckt.
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Eine Tomate, die in der Sonne gereift ist, hat mit der blassen, harten Frucht aus dem Winterregal wenig gemeinsam. Sie duftet schon am Stielansatz, ist saftig, süß und hat zugleich eine frische Säure. Aus deutschem Freilandanbau gibt es solche Tomaten etwa von Juli bis in den Oktober, aus beheizten oder unbeheizten Gewächshäusern auch schon früher. Der Höhepunkt liegt im August und September, wenn Gärten und Marktstände überquellen und Tomaten oft kistenweise günstig zu haben sind.
 

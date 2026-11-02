@@ -2,7 +2,7 @@
 title: "Salud del viajero en América Latina: vacunas, mosquitos, agua, altura y botiquín"
 description: "Qué vacunas considerar antes de viajar por América Latina, fiebre amarilla, dengue y mosquitos, agua y comida, altura, botiquín, medicamentos y cuándo consultar a un médico de viajes."
 category: planificacion-y-presupuesto
-date: 2026-09-03
+date: 2026-10-11
 ---
 La mayoría de los viajes por América Latina transcurren sin más problemas de salud que una quemadura de sol, un par de días de malestar estomacal o el cansancio de los primeros días en la altura. Pero la región es enorme y diversa: en un mismo itinerario puedes pasar de una ciudad a 2800 metros a una playa tropical, y de ahí a la selva amazónica, donde los riesgos son muy distintos. Prepararte con tiempo te permite disfrutar del viaje con tranquilidad y reaccionar bien si algo sale mal.
 

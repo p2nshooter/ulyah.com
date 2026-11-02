@@ -2,7 +2,7 @@
 title: "How to Store Food in the Fridge: Temperatures, Zones and Habits That Keep Food Fresh and Safe"
 description: "The right fridge temperature, which shelf suits raw meat, dairy, leftovers and produce, how crisper drawers work, what does not belong in the fridge and simple habits to keep it clean and organized."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 The refrigerator is the hardest-working appliance in most kitchens, yet few of us think much about how we use it. Groceries go wherever there is space, leftovers get pushed to the back, and the vegetable drawer becomes a place where good intentions go to wilt. But how and where food is stored in the fridge makes a big difference. The right temperature slows the growth of bacteria, the right shelf prevents raw meat from contaminating other food, and the right drawer keeps vegetables crisp for longer. This guide explains how your refrigerator works, where to store different foods and how to keep everything fresh, safe and easy to find.

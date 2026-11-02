@@ -2,7 +2,7 @@
 title: "Distancias y tiempos reales en América Latina: por qué los mapas engañan y cómo planificar"
 description: "Por qué los viajes por tierra tardan más de lo que dice el mapa: montañas, ripio, lluvias, tráfico, fronteras y bloqueos, trayectos de referencia, avión o bus puerta a puerta y cómo dejar margen."
 category: rutas-por-carretera
-date: 2026-10-03
+date: 2026-10-11
 ---
 Uno de los errores más comunes al planificar un viaje por América Latina es mirar el mapa y pensar que dos ciudades están "cerca". Sobre el papel, trescientos o cuatrocientos kilómetros parecen una mañana de viaje. En la realidad, ese mismo tramo puede incluir una cordillera, decenas de curvas, obras en la carretera, un control policial, una lluvia que provoca un derrumbe y la salida de una gran ciudad en hora punta. Resultado: el viaje dura el doble de lo previsto y el itinerario se desmorona.
 

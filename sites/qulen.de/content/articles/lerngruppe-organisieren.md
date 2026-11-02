@@ -2,7 +2,7 @@
 title: "Lerngruppe organisieren: Wie Noahs Lerngruppe vom Plauderkreis zum Erfolgsteam wurde"
 description: "Noahs Lerngruppe trifft sich jede Woche, doch gelernt wird kaum. Wie du eine Lerngruppe gründest, Regeln und Rollen festlegst, Treffen strukturierst und typische Konflikte löst."
 category: lernplan-und-hausaufgaben
-date: 2026-08-31
+date: 2026-10-11
 ---
 Es war Donnerstag, 16 Uhr, und die Lerngruppe traf sich wie jede Woche bei Noah zu Hause. Fünf Leute aus der zehnten Klasse, Chips auf dem Tisch, die Physikbücher aufgeschlagen. Nach zehn Minuten redeten alle über das Fußballspiel vom Wochenende. Nach zwanzig Minuten zeigte Emma ein Video auf ihrem Handy. Nach einer Stunde hatten sie eine einzige Aufgabe gerechnet, und die war falsch. Als die anderen gegangen waren, schaute Noah auf das Chaos auf dem Tisch und dachte: Das war jetzt die dritte Woche in Folge. Und in zwölf Tagen schreiben wir die Physikarbeit.
 

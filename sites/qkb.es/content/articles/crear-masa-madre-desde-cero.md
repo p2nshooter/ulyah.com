@@ -2,7 +2,7 @@
 title: Cómo crear masa madre desde cero en 7 a 14 días, explicado día a día
 description: Guía para crear tu propia masa madre de cultivo con solo harina y agua: qué harina usar, temperatura, calendario día a día, la falsa subida del tercer día y cómo saber que ya está lista para hornear.
 category: masa-madre-y-pan
-date: 2026-10-12
+date: 2026-10-04
 ---
 La masa madre es un cultivo de levaduras salvajes y bacterias lácticas que se alimenta de harina y agua. Con ella se ha hecho pan durante miles de años, mucho antes de que existiera la levadura comercial. Crearla en casa no requiere nada especial: harina, agua, un tarro, una báscula y unos diez días de constancia.
 

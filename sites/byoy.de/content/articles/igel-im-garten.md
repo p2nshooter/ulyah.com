@@ -2,7 +2,7 @@
 title: "Igel im Garten: Unterschlupf, Durchgänge, Gefahren vermeiden und richtig helfen"
 description: "So wird dein Garten igelfreundlich: Laub- und Reisighaufen, Igelhaus, Durchgänge im Zaun, Wasserstelle, Gefahren durch Mähroboter, Schächte und Gift, und wann ein Igel wirklich Hilfe braucht."
 category: naturgarten-und-nuetzlinge
-date: 2026-09-13
+date: 2026-10-06
 ---
 Wenn es in einer warmen Sommernacht im Beet raschelt, schmatzt und schnauft, ist oft ein Igel unterwegs. Igel gehören zu den liebsten Gartenbewohnern, und sie sind nützlich: Sie fressen Käfer, Larven, Raupen, Tausendfüßer und auch einige Schnecken. Doch vielen Igeln geht es nicht gut. Aufgeräumte Gärten ohne Verstecke, dichte Zäune, Straßen, Mähroboter und Insektenmangel machen ihnen das Leben schwer, und Fachleute beobachten in vielen Regionen einen Rückgang der Bestände. Mit wenig Aufwand kannst du deinen Garten zu einem sicheren Revier machen. Dieser Ratgeber zeigt, was Igel brauchen, welche Gefahren du vermeiden solltest und wann ein Igel tatsächlich Hilfe benötigt.
 

@@ -2,7 +2,7 @@
 title: Deporte en familia: actividades para moverse juntos a todas las edades
 description: Ideas de actividades físicas para hacer en familia con niños de distintas edades, cómo adaptarlas, cómo convertirlas en hábito y qué beneficios tiene que padres e hijos se muevan juntos.
 category: ocio-activo
-date: 2026-10-12
+date: 2026-10-04
 ---
 Entre el trabajo, el colegio, las extraescolares y las tareas de casa, encontrar tiempo para hacer deporte es difícil. Encontrar tiempo para hacerlo en familia puede parecer imposible. Sin embargo, moverse juntos es una de las mejores inversiones que puede hacer una familia: los niños adquieren hábitos saludables imitando a los adultos, los adultos suman actividad física sin restar tiempo a la familia y todos comparten momentos que se recuerdan.
 

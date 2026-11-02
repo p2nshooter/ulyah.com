@@ -2,7 +2,7 @@
 title: "Rubíes y zafiros: el corindón, sus colores, sus orígenes, sus tratamientos y cómo comprarlo bien"
 description: "Todo sobre el corindón: por qué el rubí y el zafiro son la misma gema, qué da cada color, qué tratamientos son habituales, cómo se detectan los sintéticos y qué pedir antes de comprar."
 category: piedras-preciosas
-date: 2026-10-31
+date: 2026-11-01
 ---
 El rubí y el zafiro parecen dos gemas distintas, con historias, leyendas y precios propios. En realidad son el mismo mineral: el **corindón**. Lo único que los separa es el color. Un corindón rojo es un rubí; un corindón de cualquier otro color es un zafiro. Esta familia reúne algunas de las gemas más duras, duraderas y apreciadas del mundo, ideales para joyas de uso diario, y también uno de los mercados con más tratamientos y sintéticos, por lo que conviene conocerla bien antes de comprar.
 

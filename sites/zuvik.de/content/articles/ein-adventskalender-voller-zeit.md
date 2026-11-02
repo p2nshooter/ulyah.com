@@ -2,7 +2,7 @@
 title: "Ein Adventskalender voller Zeit"
 description: Vierundzwanzig Türchen voller Plastikkram – bis Familie Berger ihren Kindern gemeinsame Zeit in den Kalender packt. Eine Geschichte über Vorfreude, Konsum und das, was Kinder im Advent brauchen.
 category: feste-und-jahreszeiten
-date: 2026-10-12
+date: 2026-10-05
 ---
 Am 2. Dezember lagen im Kinderzimmer von Ole und Paula Berger bereits drei Flummis, ein Radiergummi in Form eines Einhorns, ein Schlüsselanhänger mit Blinklicht und zwei Päckchen Glitzertattoos. Der Adventskalender, den Oma Gisela wie jedes Jahr aus Bremen geschickt hatte, war ein großer Karton mit vierundzwanzig Türchen, hinter denen jeweils eine Kleinigkeit steckte. Zusätzlich hatte jedes Kind einen Schokoladenkalender aus dem Supermarkt. Und Mama Christine hatte, wie in jedem Jahr, einen selbstgemachten Kalender aus vierundzwanzig Stoffsäckchen an eine Schnur über das Hochbett gehängt.
 

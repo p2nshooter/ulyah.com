@@ -2,7 +2,7 @@
 title: Ciclismo urbano: moverse en bicicleta por la ciudad con seguridad
 description: Cómo empezar a usar la bicicleta en la ciudad: elegir bici, normas básicas de circulación en España, cómo circular por la calzada y los carriles bici, seguridad, candados y llevar carga.
 category: ocio-activo
-date: 2026-10-12
+date: 2026-10-04
 ---
 En muchas ciudades españolas, la bicicleta ha pasado en pocos años de ser una rareza a una forma habitual de moverse. Los carriles bici se han multiplicado, los sistemas de bicicleta pública se han extendido y cada vez más personas descubren que pedalear al trabajo es una manera de hacer ejercicio sin buscar tiempo extra, ahorrar dinero y evitar atascos.
 

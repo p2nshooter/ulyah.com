@@ -2,7 +2,7 @@
 title: La técnica de carrera explicada: cadencia, pisada y postura para correr mejor
 description: Qué elementos de la técnica de carrera importan de verdad para un corredor aficionado, cómo mejorarlos poco a poco y qué mitos conviene olvidar.
 category: correr
-date: 2026-10-12
+date: 2026-10-04
 ---
 Correr es un gesto natural. Nadie nos enseñó a hacerlo de niños y, sin embargo, cuando un adulto empieza a correr de forma regular aparecen preguntas sobre la técnica: si hay que apoyar primero el talón o la punta, cómo mover los brazos, cuántos pasos dar por minuto o cómo respirar. Internet está lleno de respuestas contradictorias, y es fácil acabar obsesionado con detalles que apenas influyen.
 

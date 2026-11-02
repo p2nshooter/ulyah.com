@@ -2,7 +2,7 @@
 title: "Nacktschnecken im Gemüsegarten: wirksame Wege ohne Gift"
 description: "Was gegen Nacktschnecken wirklich hilft: Absammeln zur richtigen Zeit, Schneckenzaun, morgens gießen, Nützlinge fördern und Fehler wie Bierfallen vermeiden."
 category: naturgarten-und-nuetzlinge
-date: 2026-06-20
+date: 2026-10-06
 ---
 Wer in einem feuchten Frühsommer morgens durch den Garten geht, kennt das Bild: abgefressene Salatköpfe, kahle Bohnenkeimlinge, Schleimspuren über dem Beet. Nacktschnecken sind für viele Gemüsegärtner das größte Ärgernis überhaupt. Ganz loswerden wirst du sie nicht, und das ist auch nicht nötig. Mit einer Kombination aus Gewohnheiten, Barrieren und Nützlingen hältst du die Zahl so klein, dass dein Gemüse gut durchkommt.
 

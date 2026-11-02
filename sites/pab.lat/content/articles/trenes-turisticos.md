@@ -2,7 +2,7 @@
 title: "Trenes turísticos de América Latina: rutas de montaña, vapor y selva para viajar sin prisa"
 description: "Trenes a Machu Picchu, el Chepe por las Barrancas del Cobre, el Tren Maya, el Tren a las Nubes, vapores patagónicos y la Serra do Mar: cómo reservar, qué llevar, altura y qué esperar a bordo."
 category: rutas-por-carretera
-date: 2026-09-09
+date: 2026-10-11
 ---
 En buena parte de América Latina, el tren de pasajeros dejó de ser el medio de transporte principal hace décadas, reemplazado por buses y aviones. Pero en muchos países sobreviven, o han renacido, recorridos ferroviarios que son en sí mismos un destino: vías que trepan por la cordillera de los Andes, cruzan cañones más profundos que el del Colorado, bajan entre la selva atlántica hasta el mar o atraviesan la península de Yucatán. Viajar en ellos es una forma lenta y privilegiada de mirar el paisaje.
 

@@ -2,7 +2,7 @@
 title: "Why Is the Sky Blue? Scattering of Sunlight, Red Sunsets and Why the Sky Is Not Violet"
 description: "How sunlight contains all colors, why air scatters blue light more than red, why sunsets turn orange and red, why clouds are white, why the sky is not violet and how the sky looks on Mars."
 category: physics-and-chemistry
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 It is one of the first science questions many children ask: why is the sky blue? The answer is both simple and profound. It involves the nature of sunlight, the size of the molecules in the air and the way our eyes see color. The same physics explains why sunsets glow orange and red, why clouds are white, why distant mountains look bluish and why the sky on Mars has a very different color. This explainer walks through the science step by step.

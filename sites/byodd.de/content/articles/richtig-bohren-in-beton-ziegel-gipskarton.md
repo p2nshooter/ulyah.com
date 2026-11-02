@@ -2,7 +2,7 @@
 title: "Richtig bohren in Beton, Ziegel und Gipskarton: Bohrer, Technik, Fehler"
 description: Wie du den Wandbaustoff erkennst, den passenden Bohrer und die richtige Maschine wählst, saubere Löcher bohrst und typische Fehler wie ausgebrochene Bohrlöcher vermeidest.
 category: werkzeug-und-grundlagen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Ein Loch in die Wand zu bohren klingt einfach, und doch geht es oft schief: Der Bohrer rutscht ab, das Loch wird zu groß, der Dübel dreht durch oder man trifft auf etwas Hartes und kommt nicht weiter. Meist liegt das nicht am Geschick, sondern an der falschen Kombination aus Wandbaustoff, Bohrer und Maschine.
 

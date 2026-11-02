@@ -2,7 +2,7 @@
 title: "Wandfarbe auswählen: Farbwirkung, Licht, Muster und Farbqualität"
 description: Wie Farben auf Räume wirken, welche Rolle Himmelsrichtung und Licht spielen, wie du Farbmuster richtig testest, Farbkombinationen findest und eine gute Wandfarbe an Deckkraft und Nassabrieb erkennst.
 category: deko-und-wohnen
-date: 2026-10-12
+date: 2026-10-04
 ---
 Die Wandfarbe prägt die Stimmung eines Raums stärker als fast jedes Möbelstück. Dasselbe Wohnzimmer kann in warmem Sandton gemütlich, in kühlem Blaugrau elegant und in sattem Grün geborgen wirken. Gleichzeitig ist die Farbwahl eine der häufigsten Ursachen für Renovierungsfrust: Der Farbton, der auf der kleinen Farbkarte im Baumarkt perfekt aussah, wirkt an der Wand plötzlich zu grell, zu dunkel oder ganz anders als erwartet.
 

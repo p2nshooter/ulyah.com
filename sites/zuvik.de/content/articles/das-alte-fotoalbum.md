@@ -2,7 +2,7 @@
 title: "Das alte Fotoalbum"
 description: In Opa Werners altem Fotoalbum findet Jonas eine leere Ecke, über die nie jemand gesprochen hat. Eine Geschichte über Familiengeschichte, langes Schweigen und Erinnerungen, die man teilen kann.
 category: grosseltern-und-generationen
-date: 2026-08-25
+date: 2026-10-05
 ---
 „Etwas, das älter ist als eure Eltern“, hatte Frau Kühn gesagt und es an die Tafel geschrieben. „Bringt es mit und erzählt, was es mit eurer Familie zu tun hat.“
 

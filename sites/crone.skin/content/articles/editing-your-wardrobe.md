@@ -2,7 +2,7 @@
 title: "Editing Your Wardrobe: What to Keep, What to Let Go and Why It Feels So Good"
 description: A calm, step-by-step method for sorting your clothes — trying on, deciding, letting go of sentimental pieces, donating or selling well, and keeping the wardrobe tidy afterwards.
 category: style-and-wardrobe
-date: 2026-10-19
+date: 2026-10-20
 ---
 Opening a crowded wardrobe can feel overwhelming. Clothes are squeezed onto hangers, shelves overflow, and somewhere among them are the things you actually love — if only you could find them. Many of us keep clothes for years "just in case": in case we lose weight, in case a formal occasion arises, in case the style comes back. Meanwhile, we wear the same few pieces again and again.
 

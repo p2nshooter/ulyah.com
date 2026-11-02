@@ -2,7 +2,7 @@
 title: "Umzug mit Katze: Vorbereitung, Umzugstag und Eingewöhnung im neuen Zuhause"
 description: "Wie du deine Katze stressarm umziehst: Planung Wochen vorher, ein sicheres Katzenzimmer am Umzugstag, die Fahrt, die ersten Tage und Freigang nach dem Umzug."
 category: wohnung-und-freigang
-date: 2026-10-09
+date: 2026-10-14
 ---
 Für Menschen ist ein Umzug anstrengend, für Katzen ist er oft eine kleine Katastrophe. Ihr ganzes Revier, jeder Geruch, jeder Liegeplatz und jeder Weg, wird innerhalb weniger Tage in Kartons verpackt, fremde Menschen tragen Möbel hinaus, und am Ende landet die Katze in einer Umgebung, die nach nichts Vertrautem riecht. Kein Wunder, dass viele Katzen auf einen Umzug mit Verstecken, Appetitlosigkeit, Unsauberkeit oder lautem Rufen reagieren.
 

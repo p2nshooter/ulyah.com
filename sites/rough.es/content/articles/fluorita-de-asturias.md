@@ -2,7 +2,7 @@
 title: "Fluorita de Asturias: colores, minas clásicas y cómo cuidar uno de los minerales más bellos de España"
 description: "Por qué Asturias es tierra de fluorita: cubos morados y amarillos, zonados y fluorescencia, minas clásicas, usos industriales, cómo elegir un buen ejemplar y cómo protegerlo de golpes y luz."
 category: gemas-en-bruto
-date: 2026-10-11
+date: 2026-10-12
 ---
 Si hubiera que elegir un mineral para representar la riqueza mineral del norte de España, muchos coleccionistas elegirían la fluorita asturiana. Sus cubos transparentes, de un morado profundo o de un amarillo miel, a menudo posados sobre baritina blanca o calcita, se reconocen en las vitrinas de los grandes museos del mundo. Detrás de esa belleza hay una historia minera muy concreta: durante décadas, Asturias fue uno de los principales distritos productores de fluorita de Europa, y las minas que abastecían a la industria química y siderúrgica dejaron, de paso, algunos de los mejores ejemplares de la especie.
 

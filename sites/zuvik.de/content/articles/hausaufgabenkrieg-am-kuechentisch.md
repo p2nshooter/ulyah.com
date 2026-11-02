@@ -2,7 +2,7 @@
 title: "Hausaufgabenkrieg am Küchentisch"
 description: Jeden Nachmittag sitzt Leonie vor dem Matheheft, ihre Mutter daneben, und nach zehn Minuten fließen Tränen. Über Hausaufgaben, Fehler und die Frage, wie viel Eltern helfen sollten.
 category: schule-und-kita
-date: 2026-10-12
+date: 2026-10-05
 ---
 Um halb drei am Nachmittag lag im Haus der Familie Brinkmann in Bielefeld-Schildesche jedes Mal eine Spannung in der Luft, die man fast greifen konnte. Leonie, acht Jahre alt, dritte Klasse, saß am Küchentisch vor ihrem Matheheft. Ihre Mutter Katja saß neben ihr, mit einem Bleistift und einem Radiergummi in der Hand. Auf dem Herd köchelte die Suppe für das Abendessen. Leonies kleiner Bruder Finn baute im Wohnzimmer mit lautem Getöse einen Turm.
 

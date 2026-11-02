@@ -2,7 +2,7 @@
 title: "Wenn Oma es besser weiß"
 description: Oma Renate hat drei Kinder großgezogen und weiß genau, wie es geht. Glaubt sie. Über Konflikte zwischen Eltern und Großeltern, Ratschläge, die wehtun, und ein Gespräch, das Frieden bringt.
 category: grosseltern-und-generationen
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Das Kind ist doch viel zu dünn angezogen.“
 

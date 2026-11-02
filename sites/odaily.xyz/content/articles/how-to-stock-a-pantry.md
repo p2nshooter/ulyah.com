@@ -2,7 +2,7 @@
 title: "How to Stock a Pantry: The Staples That Make Dinner Possible Any Night, and How to Store Them"
 description: "A practical pantry list of grains, legumes, canned goods, oils, vinegars, spices and condiments, how to build it gradually on a budget, store it well, rotate stock and cook from it on busy nights."
 category: pantry-and-storage
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 A well-stocked pantry is a quiet superpower in the kitchen. When the fridge looks empty, the week has been long or plans suddenly change, a few good staples can still become a satisfying dinner: pasta with garlic and chili, a quick bean soup, fried rice, a lentil curry or a tray of roasted chickpeas. A thoughtful pantry also saves money, reduces last-minute shopping trips and makes it easier to cook from recipes without buying a dozen new ingredients each time. This guide explains what to keep in your pantry, how to build it gradually, how to store everything properly and how to turn it into meals.

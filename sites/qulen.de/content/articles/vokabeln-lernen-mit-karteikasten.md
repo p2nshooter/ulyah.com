@@ -2,7 +2,7 @@
 title: "Vokabeln lernen mit dem Karteikasten: Wie Frida ihre Französisch-Vokabeln endlich behielt"
 description: "Frida lernt Vokabeln am Abend vor dem Test und hat sie eine Woche später vergessen. So funktioniert der Karteikasten nach Leitner: gute Karten, fünf Fächer, zehn Minuten am Tag."
 category: vokabeln-und-lernmethoden
-date: 2026-06-23
+date: 2026-10-11
 ---
 „Der Strand“, stand auf dem Blatt. Frida starrte auf die zwei Wörter, als könnten sie ihr die Lösung von selbst verraten. Sie wusste, dass sie dieses Wort kannte. Sie hatte es gelernt, vor drei Wochen, für den Vokabeltest zu Unité 2, und im Test war es richtig gewesen. Jetzt war da nur ein leeres Gefühl. „La … la …“ Sie schrieb nichts hin.
 

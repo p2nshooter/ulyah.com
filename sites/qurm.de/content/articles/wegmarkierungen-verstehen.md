@@ -2,7 +2,7 @@
 title: "Wegmarkierungen verstehen: Rauten, Balken, Wegweiser und Qualitätssiegel"
 description: "Wanderzeichen in Deutschland lesen: Markierungen der Vereine, Fernweg-Logos, rot-weiß-rote Bergwege, Wegweiser mit Gehzeiten und Gütesiegel, und was tun ohne Markierung."
 category: planung-und-navigation
-date: 2026-08-31
+date: 2026-10-06
 ---
 Ein weißes Andreaskreuz auf einem Baum, eine rote Raute an einem Pfosten, ein gelber Wegweiser mit Gehzeiten, ein Logo mit stilisierter Burg: Wer in Deutschland wandert, begegnet einer verwirrenden Vielfalt an Zeichen. Das hat einen einfachen Grund. Die meisten Wege wurden von regionalen Wandervereinen angelegt und markiert, oft schon vor über hundert Jahren, und jeder Verein hat sein eigenes System entwickelt. Dazu kommen Logos für Fernwanderwege, Prädikatswege und Themenwege. Wer das Prinzip verstanden hat, findet sich trotzdem schnell zurecht. Dieser Ratgeber erklärt die wichtigsten Zeichen und gibt Regeln für unterwegs.
 

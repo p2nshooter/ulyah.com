@@ -2,7 +2,7 @@
 title: "Smartphone-Akku länger nutzen: Was wirklich hilft und welche Mythen du vergessen kannst"
 description: "Warum der Handy-Akku schwächer wird, welche Einstellungen am meisten Strom sparen, wie du richtig lädst und wann sich ein Akkutausch statt eines neuen Smartphones lohnt."
 category: smartphone
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Am Morgen 100 Prozent, am frühen Nachmittag schon die rote Warnung: Kaum etwas nervt im digitalen Alltag so zuverlässig wie ein Smartphone, das nicht durch den Tag kommt. Die gute Nachricht ist, dass du mit ein paar Einstellungen und neuen Gewohnheiten erstaunlich viel herausholen kannst, ohne auf die Funktionen zu verzichten, die dir wichtig sind. Die weniger gute: Viele Tipps, die seit Jahren kursieren, helfen kaum oder schaden sogar. In dieser Anleitung trennen wir das eine vom anderen.

@@ -2,7 +2,7 @@
 title: Estiramientos: cuándo sirven, cuándo no y cómo hacerlos bien
 description: Qué dice la evidencia sobre los estiramientos antes y después del deporte, su efecto en las lesiones y las agujetas, los tipos de estiramiento y una rutina útil para ganar flexibilidad.
 category: fuerza-y-movilidad
-date: 2026-10-12
+date: 2026-10-04
 ---
 Durante generaciones, estirar fue un ritual obligatorio antes de cualquier actividad física. En las clases de educación física, en los entrenamientos de fútbol y en las carreras populares, la escena se repetía: piernas apoyadas en una valla, cuerpos inclinados y segundos contados en voz alta. Se suponía que estirar evitaba lesiones, prevenía las agujetas y mejoraba el rendimiento.
 

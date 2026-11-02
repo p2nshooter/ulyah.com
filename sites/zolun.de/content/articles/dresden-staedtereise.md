@@ -2,7 +2,7 @@
 title: "Dresden als Städtereise: Altstadt, Neustadt, Elbe und Ausflüge in die Sächsische Schweiz"
 description: "Dresden für Erstbesucher: Frauenkirche, Zwinger, Grünes Gewölbe, die bunte Neustadt, Raddampfer auf der Elbe, Ausflüge zur Bastei und ein Plan für zwei bis drei Tage."
 category: staedtereisen
-date: 2026-10-04
+date: 2026-10-11
 ---
 Dresden ist eine Stadt der großen Gegensätze. Auf der einen Seite der Elbe steht eine barocke Altstadt, die nach der Zerstörung im Zweiten Weltkrieg in Jahrzehnten wieder aufgebaut wurde, mit Kuppeln, Türmen und Palästen, die abends im warmen Licht leuchten. Auf der anderen Seite liegt die Neustadt mit Hinterhöfen, Kneipen, Street-Art und einem der lebendigsten Szeneviertel im Osten Deutschlands. Dazwischen fließt die Elbe durch breite Wiesen, auf denen historische Raddampfer fahren. Und eine halbe Stunde entfernt beginnt mit der Sächsischen Schweiz eine der eindrucksvollsten Felslandschaften Europas. Dieser Ratgeber hilft dir, all das in zwei bis drei Tagen zu verbinden.
 

@@ -2,7 +2,7 @@
 title: "Sieben Minuten bis zum Bus: Wie Familie Brandt das Morgenchaos zähmte"
 description: Jeden Morgen Hektik, Tränen und eine vergessene Brotdose – bis Familie Brandt aus Kassel ihren Morgen auf ein Blatt Papier malt. Über Routinen, die Kinder selbst tragen können.
 category: morgens-und-abends
-date: 2026-10-12
+date: 2026-10-05
 ---
 Um 7:23 Uhr fährt der Bus. Das wusste in der Familie Brandt jeder, sogar der dreijährige Jonas, der noch gar nicht mit dem Bus fuhr. Trotzdem stand Sandra Brandt fast jeden Morgen um 7:16 Uhr im Flur, einen Schuh in der Hand, die Stimme schon zwei Töne zu hoch, und rief die Treppe hinauf: „Lea! Wo ist deine Jacke? Wir haben noch sieben Minuten!“
 

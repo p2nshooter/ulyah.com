@@ -2,7 +2,7 @@
 title: "Captación de agua de lluvia en casa: cuánto se puede juntar, cómo almacenarla y para qué usarla"
 description: "Cómo calcular cuánta lluvia recoge tu techo, qué componentes necesita un sistema de captación, cómo separar las primeras aguas, evitar mosquitos y usar el agua con seguridad."
 category: confort-y-sostenibilidad
-date: 2026-09-13
+date: 2026-10-11
 ---
 En muchas ciudades de América Latina el agua de la red no es tan segura como parece. Hay barrios con suministro por turnos, temporadas de sequía cada vez más largas y cortes inesperados. Al mismo tiempo, en la temporada de lluvias el agua cae en abundancia sobre los techos y se va directo al drenaje, a veces inundando calles. Captar parte de esa lluvia es una de las formas más sencillas de ganar autonomía y reducir el consumo de agua potable.
 

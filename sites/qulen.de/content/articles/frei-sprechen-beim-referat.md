@@ -2,7 +2,7 @@
 title: "Frei sprechen beim Referat: Wie Dominik vom Ablesen zu Stichwortkarten wechselte"
 description: "Dominik liest sein Erdkunde-Referat Wort für Wort vom Blatt ab, und keiner hört zu. Wie er mit Stichwortkarten, lautem Üben und bewussten Pausen frei sprechen lernte."
 category: referate-und-praesentieren
-date: 2026-07-16
+date: 2026-10-11
 ---
 Dominik hielt vier Seiten in der Hand, eng bedruckt, Schriftgröße elf. Er stand vorne neben dem Pult, die Blätter so dicht vor dem Gesicht, dass er die Klasse nur noch als bunten Rand wahrnahm. „Strukturwandel im Ruhrgebiet“, las er. „Im neunzehnten Jahrhundert entwickelte sich das Ruhrgebiet durch den Steinkohlebergbau und die Stahlindustrie zu einem der wichtigsten Industriegebiete Europas.“ Es folgte ein Satz, der über fünf Zeilen ging. Dann noch einer. Als er nach elf Minuten aufblickte, starrte Luis in der letzten Reihe aus dem Fenster, und zwei Mädchen in der Mitte tuschelten.
 

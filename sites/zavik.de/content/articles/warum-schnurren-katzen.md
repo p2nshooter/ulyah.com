@@ -2,7 +2,7 @@
 title: "Warum schnurren Katzen? Was hinter dem Brummen steckt"
 description: Schnurren bedeutet nicht immer Zufriedenheit. Wie Katzen schnurren, warum schon Kätzchen es können, was das Bettel-Schnurren ist und wann es ein Hilferuf sein kann.
 category: verhalten
-date: 2026-08-20
+date: 2026-10-05
 ---
 Es gibt kaum ein Geräusch, das so beruhigend wirkt wie das Schnurren einer Katze. Ein tiefes, gleichmäßiges Brummen, das man nicht nur hört, sondern auch spürt, wenn die Katze auf dem Schoß liegt. Für die meisten Menschen ist klar: Eine Katze, die schnurrt, ist zufrieden.
 

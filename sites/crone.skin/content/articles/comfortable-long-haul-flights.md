@@ -2,7 +2,7 @@
 title: "Comfortable Long-Haul Flights: How to Arrive Rested, Not Wrecked"
 description: Practical ways to make long flights more comfortable after fifty — choosing seats, what to wear and pack, moving, eating and drinking well, sleeping on board and easing jet lag.
 category: travel-and-discovery
-date: 2026-10-19
+date: 2026-10-20
 ---
 A long-haul flight can be the gateway to extraordinary places: a grandchild on the other side of the world, a long-dreamed-of safari, a winter escape to the sun. But ten or fifteen hours in a narrow seat, in dry air, crossing several time zones, can also leave you stiff, dehydrated and exhausted for days after arrival.
 

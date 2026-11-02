@@ -2,7 +2,7 @@
 title: "Madera en casa: especies, humedad, termitas y acabados para que dure décadas"
 description: "Cómo elegir madera para muebles, pisos, puertas y exteriores, por qué importa que esté seca, cómo prevenir termitas y pudrición y qué aceites, barnices o protectores usar en cada caso."
 category: materiales-y-acabados
-date: 2026-09-09
+date: 2026-10-11
 ---
 La madera da calidez a cualquier casa. Una mesa maciza, un piso de tablas, una puerta tallada o una pérgola en el patio cambian por completo un ambiente. En América Latina, además, hay una enorme tradición de carpintería y una gran diversidad de especies, desde los pinos y eucaliptos de plantación del Cono Sur hasta las maderas duras tropicales de Centroamérica, Colombia, Brasil o Paraguay.
 

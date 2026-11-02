@@ -2,7 +2,7 @@
 title: "Finken erkennen: Buchfink, Grünfink, Stieglitz, Gimpel, Kernbeißer und ihre Verwandten"
 description: "Die heimischen Finken sicher bestimmen: Merkmale, Stimmen und Lieblingsfutter von Buchfink, Bergfink, Grünfink, Stieglitz, Gimpel, Kernbeißer, Erlenzeisig, Girlitz und Hänfling."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Finken sind die Körnerspezialisten unter den Singvögeln. Mit ihrem kräftigen, kegelförmigen Schnabel knacken sie Samen, Kerne und Knospen, die anderen Vögeln verschlossen bleiben. Viele von ihnen gehören zu den buntesten Vögeln unserer Gärten: das rote Gesicht des Stieglitzes, die rosa Brust des Gimpels, das leuchtende Gelb des Girlitzes. Und weil Finken gern an Futterstellen kommen, kann man sie besonders gut beobachten.

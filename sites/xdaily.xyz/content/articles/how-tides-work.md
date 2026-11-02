@@ -2,7 +2,7 @@
 title: "How Tides Work: The Moon, the Sun and Why the Ocean Rises and Falls Twice a Day"
 description: "Why the Moon's gravity creates two tidal bulges, how the Sun adds spring and neap tides, why tide times shift daily, why some coasts have huge tides and others almost none, and how tides shape life."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Stand on a beach for a few hours and you will notice that the sea does not stay still. The water slowly creeps up the sand, covering rocks and filling pools, then slowly retreats, revealing seaweed, shells and wet sand. In most places, this happens twice a day. In some bays, the water rises by more than 40 feet (12 meters) between low and high tide; in other places, it changes by only a few inches. The cause of this daily rhythm lies far above the waves, in the gravitational pull of the Moon and the Sun. This explainer describes how tides work and why they differ so much from place to place.

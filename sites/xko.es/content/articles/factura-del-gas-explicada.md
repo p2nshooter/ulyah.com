@@ -2,7 +2,7 @@
 title: La factura del gas explicada: término fijo, consumo, TUR y cómo pagar menos
 description: Cómo leer la factura de gas natural en España, qué son el término fijo y el variable, cómo se convierten los metros cúbicos en kWh, cuándo conviene la tarifa TUR y qué medidas reducen el gasto.
 category: factura-de-la-luz
-date: 2026-09-02
+date: 2026-10-04
 ---
 En muchas viviendas españolas, el gas natural calienta el agua, alimenta la calefacción y, a veces, la cocina. Su factura se parece a la de la luz en algunos aspectos, como la existencia de una parte fija y otra variable, pero tiene particularidades propias: el consumo se mide en metros cúbicos y se factura en kilovatios hora, existe una tarifa regulada llamada TUR con varios escalones y las revisiones de la instalación tienen sus propias normas.
 

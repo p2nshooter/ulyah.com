@@ -2,7 +2,13 @@
 title: "Flecken auf Teppich, Sofa und Matratze entfernen: tupfen, wenig Wasser, gut trocknen"
 description: "Wein, Kaffee, Saft, Fett und Tierurin aus Teppich, Sofa und Matratze entfernen: richtig tupfen, wenig Wasser nehmen, Wasserränder vermeiden und Gerüche dauerhaft beseitigen."
 category: flecken-entfernen
-date: 2026-08-10
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Forum Waschen: Behandlung von Obstflecken auf Kleidungsstücken | https://forum-waschen.de/tipps-zur-behandlung-von-obstflecken-auf-kleidungsstuecken/
+  - Umweltbundesamt: Weniger ist mehr – umweltfreundlich reinigen | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/haushalt-wohnen/reinigung-im-haushalt
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Ein Glas Rotwein auf dem hellen Teppich, Kakao auf dem Sofa, ein Malheur des Hundes im Flur, ein Kind, das nachts krank wird: Flecken auf Teppichen, Polstermöbeln und Matratzen sind besonders ärgerlich, weil man diese Dinge nicht einfach in die Waschmaschine stecken kann. Viele Menschen greifen dann zu viel Wasser und kräftigem Schrubben. Das Ergebnis sind oft größere Flecken, helle Ränder, durchnässte Polster und Gerüche, die nicht mehr verschwinden.
 

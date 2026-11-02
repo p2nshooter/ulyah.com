@@ -2,7 +2,7 @@
 title: "Fliesenfugen erneuern und verfugen: alte Fugen entfernen, neu einschlämmen"
 description: Wann Fugen erneuert werden müssen, welcher Fugenmörtel passt, wie du alte Fugen auskratzt, neu verfugst, Silikonfugen von Mörtelfugen unterscheidest und Fugen sauber hältst.
 category: waende-und-boeden
-date: 2026-10-12
+date: 2026-10-04
 ---
 Fliesen halten oft Jahrzehnte, ihre Fugen nicht. Sie werden grau oder schwarz, bröckeln, saugen sich mit Feuchtigkeit voll oder bekommen Risse. Ein Bad mit dunklen, ausgewaschenen Fugen wirkt ungepflegt, auch wenn die Fliesen selbst noch einwandfrei sind. Die gute Nachricht: Fugen zu erneuern ist eine überschaubare Arbeit, die das Bad oder die Küche optisch fast wie neu aussehen lässt, ohne dass auch nur eine Fliese abgeschlagen werden muss.
 

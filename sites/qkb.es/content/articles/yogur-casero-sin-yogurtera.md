@@ -2,7 +2,7 @@
 title: Yogur casero sin yogurtera: método, temperaturas y trucos para que quede firme
 description: Cómo hacer yogur natural en casa sin yogurtera, con horno, termo o nevera portátil: qué leche usar, a qué temperatura incubar, cuánto tiempo, cómo hacerlo griego y cómo resolver los fallos.
 category: kefir-y-fermentados
-date: 2026-10-02
+date: 2026-10-04
 ---
 El yogur es probablemente el fermentado más fácil de hacer en casa y, a la vez, uno de los que más agradecen la precisión. No hace falta ninguna máquina: con una olla, un termómetro, unos tarros y un sitio templado, se obtiene un yogur natural cremoso, sin aditivos y por una fracción de lo que cuesta en el supermercado. La clave está en dos temperaturas y en un tiempo de incubación que tú controlas.
 

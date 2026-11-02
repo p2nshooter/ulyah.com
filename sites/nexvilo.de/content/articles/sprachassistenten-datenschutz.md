@@ -2,7 +2,7 @@
 title: "Alexa, Siri und Google Assistant: Sprachassistenten nutzen und die Privatsphäre schützen"
 description: "Was Sprachassistenten hören, speichern und auswerten, wie du Aufnahmen löschst, Mikrofon und Kauffunktion absicherst und welche Einstellungen für Familie, Kinder und Gäste wichtig sind."
 category: smart-home
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 „Alexa, wie wird das Wetter morgen?“, „Hey Siri, stell einen Timer auf zehn Minuten“, „Hey Google, mach das Licht im Wohnzimmer aus“: Sprachassistenten sind in vielen Haushalten selbstverständlich geworden. Sie stecken in smarten Lautsprechern, Smartphones, Fernsehern, Autos und Kopfhörern. Sie sind praktisch, gerade wenn die Hände voll sind oder jemand mit dem Bildschirm Schwierigkeiten hat. Gleichzeitig steht ein Gerät mit Mikrofon im Wohnzimmer, das auf ein Wort wartet. Was hört es wirklich? Was wird gespeichert? Und wie kannst du die Vorteile nutzen, ohne zu viel preiszugeben? Diese Anleitung erklärt es verständlich und zeigt die wichtigsten Einstellungen.

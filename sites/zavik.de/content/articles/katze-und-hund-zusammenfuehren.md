@@ -2,7 +2,7 @@
 title: "Katze und Hund zusammenführen: So werden aus Rivalen Mitbewohner"
 description: Hund und Katze können gute Freunde werden, wenn die erste Begegnung gut vorbereitet ist. Welche Paare gut passen, wie du Schritt für Schritt vorgehst und welche Warnzeichen du ernst nehmen musst.
 category: einzug-und-eingewoehnung
-date: 2026-09-21
+date: 2026-10-05
 ---
 „Wie Hund und Katze“ sagt man über zwei, die sich nicht vertragen. Dabei leben in vielen Haushalten Hunde und Katzen friedlich zusammen, manche schlafen sogar gemeinsam im Körbchen. Ob es klappt, hängt vor allem von drei Dingen ab: vom Charakter beider Tiere, von der Erziehung des Hundes und davon, wie behutsam die ersten Begegnungen gestaltet werden.
 

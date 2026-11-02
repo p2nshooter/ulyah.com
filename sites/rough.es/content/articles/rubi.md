@@ -2,7 +2,7 @@
 title: "Rubí: color, origen, tratamientos y cómo comprar uno sin llevarse sorpresas"
 description: "Qué es el rubí y de dónde procede su rojo, qué significa sangre de pichón, cómo influyen el calentamiento y el relleno con vidrio, cómo detectar sintéticos y qué pedir antes de comprar."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Durante siglos, la palabra rubí sirvió para nombrar casi cualquier piedra roja: espinelas, granates y hasta vidrios coloreados figuran como rubíes en inventarios reales y tesoros catedralicios. Hoy el término tiene un significado preciso, y detrás de él hay una de las gemas más codiciadas y, a la vez, más tratadas e imitadas del mercado. Un rubí de calidad puede valer una fortuna; una piedra roja vendida como rubí puede no valer casi nada, y a simple vista la diferencia no siempre es evidente.
 

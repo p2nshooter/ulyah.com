@@ -2,7 +2,7 @@
 title: "München als Städtereise: Altstadt, Englischer Garten, Museen und Biergärten in zwei bis drei Tagen"
 description: "München für Erstbesucher: Altstadt, Englischer Garten mit Eisbachwelle, Museen, Nymphenburg, Biergartenregeln, Essen, Nahverkehr und Ausflüge an die Seen."
 category: staedtereisen
-date: 2026-08-29
+date: 2026-10-11
 ---
 München ist eine Großstadt, die sich oft wie eine Kleinstadt anfühlt. Die Altstadt ist kompakt, die Isar fließt mitten durch die Stadt, und in wenigen Minuten bist du vom Marienplatz im größten Park der Stadt oder in einem schattigen Biergarten. Dazu kommen Museen von Weltrang, prächtige Schlösser und bei klarem Wetter die Alpen am Horizont. Dieser Ratgeber hilft dir, die Stadt in zwei bis drei Tagen zu entdecken, ohne von Sehenswürdigkeit zu Sehenswürdigkeit zu hetzen.
 

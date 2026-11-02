@@ -2,7 +2,14 @@
 title: "Natron, Soda und Backpulver: Unterschiede, Anwendung und Grenzen"
 description: "Natron, Soda und Backpulver unterscheiden: was jedes Pulver beim Putzen kann, wie du es dosierst, welche Materialien es angreift und warum Ätznatron etwas ganz anderes ist."
 category: hausmittel
-date: 2026-10-04
+date: 2026-10-11
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Forum Waschen: Alternative Putzmittel – natürlich waschen und putzen? | https://forum-waschen.de/alternative-putzmittel-natuerlich-waschen-und-putzen-geht-das/
+  - Verbraucherzentrale: Obst und Gemüse mit Natron waschen – bringt das was? | https://www.verbraucherzentrale.de/wissen/lebensmittel/gesund-ernaehren/obst-und-gemuese-mit-natron-waschen-bringt-das-wirklich-was-109996
+  - Verbraucherzentrale: Putzmittel und Chemikalien im Haushalt – Gefahrenzeichen und UFI-Codes | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/produkte/putzmittel-und-chemikalien-im-haushalt-gefahrenzeichen-und-uficodes-7527
 ---
 Weißes Pulver, ähnliche Namen, ähnliche Packungen: Natron, Soda und Backpulver werden ständig verwechselt. In vielen Putztipps tauchen sie als austauschbar auf, als könne man je nach Vorrat einfach zum einen oder anderen greifen. Tatsächlich unterscheiden sie sich deutlich. Natron ist ein mildes Hausmittel, Soda ein kräftiger Fettlöser, der Haut und Augen reizen kann, und Backpulver ist zum Backen da und beim Putzen meist nur ein teurer Ersatz für Natron.
 

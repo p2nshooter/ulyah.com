@@ -2,7 +2,7 @@
 title: "Damp, Condensation and Mould: Cheap Ways to Keep Your Home Dry and Healthy"
 description: "Why condensation forms, how to tell it apart from rising and penetrating damp, everyday habits that keep moisture down, when a dehumidifier is worth it and how to deal with mould safely."
 category: home-and-energy
-date: 2026-10-31
+date: 2026-11-01
 ---
 Water streaming down the windows on a cold morning, black spots creeping across a bathroom ceiling, a musty smell in a bedroom cupboard: damp is one of the most common problems in homes, and one of the most frustrating. It damages paint, plaster, furniture and clothes, it makes rooms feel colder and harder to heat, and mould can affect the health of the people living there. The good news is that much of the damp in homes comes from condensation, which can usually be reduced with simple, low-cost habits.
 

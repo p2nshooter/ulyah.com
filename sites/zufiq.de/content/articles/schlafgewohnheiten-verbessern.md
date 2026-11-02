@@ -2,7 +2,7 @@
 title: "Schlafgewohnheiten verbessern: Besser einschlafen und erholter aufwachen im Alltag"
 description: "Schlafgewohnheiten verbessern ohne Wundermittel: feste Zeiten, das richtige Schlafzimmer, Licht, Koffein, Bildschirme und Abendrituale, dazu ein Vier-Wochen-Plan und Warnzeichen für den Arztbesuch."
 category: zeit-energie-und-schlaf
-date: 2026-09-23
+date: 2026-10-11
 ---
 Du liegst im Bett, bist eigentlich müde, und trotzdem kreisen die Gedanken. Oder du schläfst schnell ein, wachst aber nachts mehrmals auf und quälst dich am Morgen mühsam aus den Federn. Schlechter Schlaf zieht sich durch den ganzen Tag: Die Konzentration lässt nach, die Laune ist dünnhäutiger, und der Griff zur dritten Tasse Kaffee wird zur Gewohnheit.
 

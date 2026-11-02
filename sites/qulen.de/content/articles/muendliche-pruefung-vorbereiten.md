@@ -2,7 +2,7 @@
 title: "Mündliche Prüfung vorbereiten: Wie Hamid lernte, laut zu denken statt stumm zu stocken"
 description: "Hamid weiß in Erdkunde viel, doch im Gespräch fehlen ihm die Worte. Wie du dich auf eine mündliche Prüfung vorbereitest, laut denken übst, die Vorbereitungszeit nutzt und mit Nachfragen umgehst."
 category: pruefungen-und-pruefungsangst
-date: 2026-08-25
+date: 2026-10-11
 ---
 „Erklären Sie, warum der Monsun für die Landwirtschaft in Südasien so wichtig ist.“ Hamid kannte die Antwort. Er hatte sie auf seinen Lernzetteln, in seinen Mitschriften, in seinem Kopf. Aber als Herr Fischer ihn bei der Übungsprüfung ansah und auf eine Antwort wartete, kam nichts. Hamid öffnete den Mund, schloss ihn wieder. Dann sagte er: „Ähm, wegen dem Regen.“ Und dann war es still. Herr Fischer wartete freundlich. Hamid spürte, wie ihm das Blut in den Kopf stieg. Er wusste so viel mehr. Warum kam es nicht heraus?
 

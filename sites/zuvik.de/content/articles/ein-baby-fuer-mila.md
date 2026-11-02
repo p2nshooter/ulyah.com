@@ -2,7 +2,7 @@
 title: "Ein Baby für Mila? Lieber nicht!"
 description: Mila hat sich ein Geschwisterchen gewünscht. Dann ist es da, schreit nachts und bekommt die ganze Aufmerksamkeit. Eine Geschichte über Eifersucht, Rückschritte und das Ritual der großen Schwester.
 category: geschwister
-date: 2026-10-12
+date: 2026-10-05
 ---
 Monatelang hatte Mila sich auf das Baby gefreut. Sie hatte ihrer Mutter Nadine die Hand auf den runden Bauch gelegt und gespürt, wie es trat. Sie hatte Namen vorgeschlagen, „Einhorn“ und „Pommes“ und, nach langem Überlegen, „Paula“. Sie hatte ein Bild für das Babyzimmer gemalt und ihrem Teddy erklärt, dass er bald nicht mehr der Jüngste in der Familie sei.
 

@@ -2,7 +2,7 @@
 title: "Perlas naturales y cultivadas: tipos, historia americana, factores de valor y cuidados"
 description: "Cómo se forma una perla, natural o cultivada, la historia perlera de Cubagua, Panamá y el golfo de California, los tipos de perlas, cómo se valoran, tratamientos, imitaciones y cuidados."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 Las perlas son las únicas gemas que nacen dentro de un ser vivo y salen del agua listas para lucir, sin necesidad de talla. Durante siglos fueron el lujo supremo: más escasas que los diamantes, reservadas a reyes y nobles, buscadas por buceadores que arriesgaban la vida en el fondo del mar. América Latina ocupa un lugar central en esa historia, porque de sus costas salieron algunas de las perlas más famosas del mundo.
 

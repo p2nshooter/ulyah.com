@@ -2,7 +2,7 @@
 title: "Aislamiento acústico en casa: cómo reducir el ruido de la calle, de los vecinos y el eco"
 description: "Diferencia entre aislar y absorber, por qué ventanas, puertas y rendijas dejan pasar el ruido, cómo mejorar muros y techos, reducir el eco y dormir mejor en una ciudad ruidosa."
 category: confort-y-sostenibilidad
-date: 2026-10-09
+date: 2026-10-11
 ---
 El tráfico que no se detiene, la música del vecino un viernes por la noche, los pasos del piso de arriba, los perros, las obras, los parlantes de la calle. En las ciudades latinoamericanas el ruido es parte del paisaje, y muchas viviendas, sobre todo los departamentos, están construidas con muros delgados, puertas huecas y ventanas que no cierran bien. El resultado es cansancio, mal dormir y discusiones con los vecinos.
 

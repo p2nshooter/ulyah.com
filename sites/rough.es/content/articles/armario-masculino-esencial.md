@@ -2,7 +2,7 @@
 title: "Armario masculino esencial: las prendas básicas, cómo deben sentar y cómo construirlo poco a poco"
 description: "Cómo construir un armario masculino versátil y duradero: prendas básicas, colores que combinan, cómo debe sentar cada pieza, tejidos según la estación, señales de calidad y orden de compra."
 category: estilo-masculino
-date: 2026-10-11
+date: 2026-10-12
 ---
 Muchos hombres tienen el armario lleno y, aun así, sienten que no tienen nada que ponerse. Suele pasar por la misma razón: prendas compradas por impulso, en rebajas o siguiendo modas que duran una temporada, que no combinan entre sí ni sientan del todo bien. La alternativa no es gastar más, sino comprar con un plan: un número reducido de prendas de buena calidad, en colores que combinen entre sí y con un corte que favorezca. Con eso se viste bien para el trabajo, para el fin de semana y para casi cualquier ocasión.
 

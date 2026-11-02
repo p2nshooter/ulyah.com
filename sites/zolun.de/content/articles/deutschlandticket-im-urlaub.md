@@ -2,7 +2,7 @@
 title: "Mit dem Deutschlandticket in den Urlaub: was es abdeckt und wo die Grenzen liegen"
 description: "Welche Züge, Busse und Bahnen das Deutschlandticket im Urlaub abdeckt, wo Fernzug, Inselfähre und Fahrrad extra kosten und wie du lange Regionalzugfahrten entspannt planst."
 category: anreise-und-unterkunft
-date: 2026-06-18
+date: 2026-10-11
 ---
 Die Idee ist verlockend: ein Ticket für Busse und Bahnen im ganzen Land, und schon geht es an die Ostsee, an den Bodensee oder in den Spreewald. Viele haben das Deutschlandticket ohnehin für den Weg zur Arbeit oder zur Uni in der Tasche und fragen sich, ob es auch für den Urlaub reicht. Die Antwort: oft ja, aber nicht überall. Wer die Grenzen kennt, erlebt eine günstige und entspannte Anreise. Wer sie nicht kennt, steht am Fähranleger und muss doch noch eine Fahrkarte kaufen, oder er sitzt im ICE und erklärt dem Zugbegleiter, warum er dachte, das Ticket gelte auch hier. Dieser Ratgeber erklärt die Grundregeln, zeigt, wie du lange Fahrten mit Regionalzügen realistisch planst, und sagt dir, welche Sonderfälle du vor der Reise prüfen solltest.
 

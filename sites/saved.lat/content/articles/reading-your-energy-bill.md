@@ -2,7 +2,7 @@
 title: "How to Read Your Energy Bill: Units, Standing Charges, Tariffs and Spotting Mistakes"
 description: "A plain-English guide to your electricity or gas bill: kWh and standing charges, actual versus estimated readings, tariff types, spotting errors and using the bill to cut costs."
 category: home-and-energy
-date: 2026-10-31
+date: 2026-11-01
 ---
 Energy bills are some of the most important documents a household receives, and some of the least read. Many people glance at the total, check that it is roughly what they expected and file it away. Yet the bill contains everything you need to understand your energy use, compare tariffs, spot mistakes and plan savings. Once you know where to look, it takes only a few minutes.
 

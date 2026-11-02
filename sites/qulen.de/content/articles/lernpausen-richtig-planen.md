@@ -2,7 +2,7 @@
 title: "Lernpausen richtig planen: Wie Marie in der Bibliothek mit Lernblöcken mehr schaffte"
 description: "Marie sitzt acht Stunden in der Unibibliothek, macht kaum Pausen und schafft trotzdem wenig. Wie feste Lernblöcke, erholsame Pausen und ein passender Tagesrhythmus ihr halfen."
 category: konzentration-und-motivation
-date: 2026-07-27
+date: 2026-10-11
 ---
 Um Viertel nach acht hatte Marie ihren Lieblingsplatz im Lesesaal ergattert, zweite Reihe, mit Blick auf die Bäume im Innenhof. Sie stellte ihren Laptop auf, stapelte drei Bücher daneben und legte ihre Klausurnotizen bereit. Um halb fünf packte sie wieder ein. Achteinhalb Stunden. Auf dem Bildschirm stand der Anfang ihrer Hausarbeit, zwei Seiten, und im Browser waren dreiundzwanzig Tabs offen. Den Absatz über die Hilfen zur Erziehung im Lehrbuch hatte sie im Lauf des Nachmittags viermal gelesen. Behalten hatte sie ihn nicht.
 

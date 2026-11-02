@@ -2,7 +2,7 @@
 title: "Spechte in Deutschland: Bunt-, Mittel-, Klein-, Grün-, Grau- und Schwarzspecht erkennen"
 description: "Alle heimischen Spechte im Porträt: Erkennungsmerkmale, Trommeln und Rufe, Lebensraum und Nahrung, plus Tipps gegen Spechtlöcher an der Fassade und für Spechte im Garten."
 category: vogelarten-erkennen
-date: 2026-10-26
+date: 2026-10-27
 order: 5
 ---
 Ein lautes Trommeln hallt durch den Wald, oder ein schwarz-weißer Vogel hängt plötzlich am Meisenknödel und hämmert darauf ein: Spechte sind faszinierende Vögel. Sie klettern senkrecht an Baumstämmen, meißeln Höhlen ins Holz und spielen eine Schlüsselrolle im Wald, denn ihre verlassenen Höhlen werden von vielen anderen Tieren genutzt.

@@ -2,7 +2,7 @@
 title: "Techos y cubiertas: losa, teja, lámina o panel, cómo elegir y cómo evitar goteras"
 description: "Comparación de losas planas, techos de teja, lámina metálica, fibrocemento y paneles aislados: pendientes, impermeabilización, anclajes, ventilación, mantenimiento y seguridad."
 category: arquitectura-y-casas
-date: 2026-09-25
+date: 2026-10-11
 ---
 El techo es la parte de la casa que más trabaja y la que menos miramos. Soporta el sol del mediodía, los aguaceros tropicales, el granizo, el viento y, en algunas regiones, los huracanes o la nieve. Cuando funciona, nadie piensa en él. Cuando falla, aparecen goteras, manchas, moho, cielos rasos caídos y habitaciones imposibles de habitar por el calor o el frío.
 

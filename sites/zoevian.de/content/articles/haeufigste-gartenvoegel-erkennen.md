@@ -2,7 +2,7 @@
 title: "Die häufigsten Gartenvögel in Deutschland erkennen: 20 Arten mit Merkmalen"
 description: "Spatz, Amsel, Meisen, Rotkehlchen und Co.: die 20 häufigsten Gartenvögel in Deutschland, ihre sicheren Merkmale, Stimmen und typischen Verwechslungen."
 category: gartenvoegel
-date: 2026-10-26
+date: 2026-10-27
 order: 1
 ---
 Wer zum ersten Mal bewusst in den eigenen Garten schaut, ist oft überrascht, wie viele verschiedene Vögel dort unterwegs sind. Am Futterhaus drängeln sich Meisen und Spatzen, auf dem Rasen sucht eine Amsel nach Würmern, in der Hecke singt ein Rotkehlchen, und hoch über dem Dach kreisen im Sommer die Mauersegler. Die gute Nachricht: Die meisten Vögel, die du im Garten siehst, gehören zu einer überschaubaren Gruppe von etwa zwanzig Arten. Wer diese sicher erkennt, hat schon einen großen Teil der Vogelwelt vor der eigenen Tür verstanden.

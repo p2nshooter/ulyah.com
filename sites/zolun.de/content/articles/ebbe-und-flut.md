@@ -2,7 +2,7 @@
 title: "Ebbe und Flut verstehen: Gezeiten, Tidenkalender und Wattwandern an der Nordsee"
 description: "Warum das Meer an der Nordsee zweimal am Tag kommt und geht, wie du einen Tidenkalender liest, was Springtide bedeutet und wie du sicher ins Watt gehst. Plus: warum die Ostsee anders ist."
 category: nordsee-und-ostsee
-date: 2026-07-18
+date: 2026-10-11
 ---
 Am Abend hast du dein Handtuch noch am Wasser ausgebreitet, am nächsten Morgen liegt der Strand plötzlich hunderte Meter breiter vor dir, und die Boote im Hafen sitzen schief im Schlick. Wer zum ersten Mal an der Nordsee Urlaub macht, erlebt die Gezeiten als kleines Wunder. Sie bestimmen, wann du baden kannst, wann ein Ausflug ins Watt möglich ist und wann die Fähre zur Insel fährt. Dieser Ratgeber erklärt dir, wie Ebbe und Flut entstehen, wie du einen Tidenkalender liest und worauf du achten musst, damit das Watt ein Erlebnis bleibt und keine Gefahr wird.
 

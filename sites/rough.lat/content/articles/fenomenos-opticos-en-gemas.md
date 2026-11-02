@@ -2,7 +2,7 @@
 title: "Fenómenos ópticos en gemas: estrellas, ojos de gato, piedra de luna, juego de color, labradorescencia y más"
 description: "Qué causa la estrella de un zafiro, la banda de un ojo de gato, el brillo azul de la piedra de luna o los destellos del ópalo, cómo se tallan estas gemas y cómo reconocer sus imitaciones."
 category: piedras-preciosas
-date: 2026-10-31
+date: 2026-11-01
 ---
 Algunas gemas no se valoran solo por su color o su transparencia, sino por algo que parece moverse dentro de ellas: una estrella que se desliza sobre la superficie, una banda de luz que se abre y se cierra como el ojo de un gato, un resplandor azulado que flota bajo la piel de la piedra o un mosaico de colores que cambia a cada giro. Son los **fenómenos ópticos**, efectos producidos por la estructura interna del mineral, por inclusiones diminutas o por capas microscópicas que interfieren con la luz.
 

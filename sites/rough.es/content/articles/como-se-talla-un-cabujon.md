@@ -2,7 +2,7 @@
 title: "Cómo se talla un cabujón: del bloque de piedra a la cúpula pulida, paso a paso"
 description: "El proceso completo para tallar un cabujón: elegir y orientar el material, cortar, perfilar, montar en el dop, formar la cúpula, lijar y pulir, con errores habituales y precauciones de seguridad."
 category: talla-y-joyeria
-date: 2026-10-11
+date: 2026-10-12
 ---
 El cabujón es la forma de talla más antigua y, para muchos, la más honesta: una cúpula lisa y pulida que muestra la piedra tal como es, sin facetas que multipliquen la luz. Durante siglos fue la talla habitual de las gemas en Europa, y todavía hoy es la mejor opción para ágatas, jaspes, turquesas, ópalos, piedras de luna y todas las gemas con estrella u ojo de gato. También es, casi siempre, la puerta de entrada a la lapidaria: con un equipo modesto y paciencia, cualquiera puede aprender a convertir un trozo de piedra en una pieza lista para engastar.
 

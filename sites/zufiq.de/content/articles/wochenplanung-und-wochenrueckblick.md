@@ -2,7 +2,7 @@
 title: "Wochenplanung und Wochenrückblick: 30 Minuten am Sonntag für eine ruhigere Woche"
 description: "So planst du deine Woche in einer halben Stunde: zurückschauen, Termine sammeln, Schwerpunkte setzen, Puffer einplanen und Aufgaben verteilen. Mit Vorlage, Beispiel und Tipps für volle Familienwochen."
 category: gewohnheiten-und-routinen
-date: 2026-07-08
+date: 2026-10-11
 ---
 Manche Wochen fühlen sich an, als würden sie einfach über einen hinwegrollen. Montagmorgen beginnt mit einer überraschenden Besprechung, Mittwoch fällt auf, dass der Geburtstag der Schwester am Donnerstag ist, und Freitagabend liegt die Steuererklärung, die eigentlich diese Woche fertig werden sollte, noch immer unberührt auf dem Schreibtisch. Eine kurze Wochenplanung schafft hier Abhilfe. Sie dauert etwa eine halbe Stunde, und sie verändert vor allem eines: Du gehst nicht mehr blind in die Woche, sondern mit einem Überblick.
 

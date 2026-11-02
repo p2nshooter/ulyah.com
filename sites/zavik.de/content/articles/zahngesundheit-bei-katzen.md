@@ -2,7 +2,7 @@
 title: "Zahngesundheit bei Katzen: Zahnstein, Zahnfleischentzündung und FORL"
 description: Die meisten erwachsenen Katzen haben Zahnprobleme, die man ihnen nicht ansieht. Woran du Zahnschmerzen erkennst, wie du vorbeugst und warum Zahnbehandlungen bei Katzen in Narkose stattfinden.
 category: gesundheit
-date: 2026-08-30
+date: 2026-10-05
 ---
 Wenn Katzen Zahnschmerzen haben, fressen sie trotzdem. Das ist der Grund, warum Zahnerkrankungen bei Katzen so oft übersehen werden. Eine Katze mit einem entzündeten Zahnfleisch oder einem aufgelösten Zahn wird nicht jammern und nicht den Napf verweigern. Sie wird vielleicht etwas langsamer fressen, nur noch auf einer Seite kauen oder die Kroketten im Ganzen schlucken. Und ihre Menschen merken es nicht.
 

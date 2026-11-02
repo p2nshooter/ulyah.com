@@ -2,7 +2,7 @@
 title: "Kleine Altstädte in Deutschland: Fachwerk, Stadtmauern und Welterbe abseits der Großstädte"
 description: "Die schönsten kleinen Altstädte: Rothenburg, Bamberg, Quedlinburg, Görlitz, Stralsund und mehr, mit Tipps gegen Busgruppen, zum Parken und zum Übernachten."
 category: staedtereisen
-date: 2026-09-01
+date: 2026-10-11
 ---
 Nicht jede Städtereise muss nach Berlin, Hamburg oder München führen. Einige der schönsten Orte Deutschlands sind kleine Städte, deren Altstadt man an einem Nachmittag durchwandert hat und doch tagelang bleiben möchte: Fachwerkhäuser, die sich über Kopfsteinpflaster neigen, Stadtmauern mit Türmen, Marktplätze mit Brunnen und Kirchen, die viel größer wirken, als die Stadt es vermuten ließe. Dieser Ratgeber stellt eine Auswahl vor, sortiert nach Regionen, und erklärt, wie du die Orte ohne Gedränge erlebst.
 

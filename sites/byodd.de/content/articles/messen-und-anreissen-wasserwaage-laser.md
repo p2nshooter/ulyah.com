@@ -2,7 +2,7 @@
 title: "Messen und Anreißen: Zollstock, Wasserwaage und Kreuzlinienlaser richtig nutzen"
 description: Wie du genau misst, Bohrlöcher und Linien sauber anzeichnest, eine Wasserwaage prüfst und abliest, einen Kreuzlinienlaser einsetzt und typische Messfehler vermeidest.
 category: werkzeug-und-grundlagen
-date: 2026-10-12
+date: 2026-10-04
 ---
 „Zweimal messen, einmal schneiden“ ist die älteste Handwerkerregel, und sie gilt bis heute. Ein Regal, das um einen Zentimeter schief hängt, ein Bilderrahmen, der nicht in der Flucht der anderen sitzt, ein Laminatbrett, das zwei Millimeter zu kurz ist: Fast alle sichtbaren Fehler beim Heimwerken entstehen nicht beim Bohren oder Sägen, sondern beim Messen und Anzeichnen.
 

@@ -2,7 +2,7 @@
 title: "Garantías, devoluciones y reclamaciones al comprar joyas en España: lo que dice la ley y cómo reclamar"
 description: "Qué cubre la garantía legal de tres años, qué es una falta de conformidad, cuándo hay derecho de desistimiento, qué pasa con las políticas de cambio de las tiendas y cómo reclamar paso a paso."
 category: compra-y-valoracion
-date: 2026-10-11
+date: 2026-10-12
 ---
 Un cierre que se rompe a las pocas semanas, una piedra que se cae del engaste, un baño que desaparece en un mes, un anillo que resulta no ser de la ley indicada o una joya comprada por internet que no se parece a la de las fotos. Son problemas frecuentes, y muchas personas no saben si tienen derecho a algo, a quién reclamar ni cómo hacerlo. La legislación española de consumo ofrece una protección bastante sólida, pero conviene conocer sus reglas, porque no todo lo que se suele dar por supuesto es cierto: por ejemplo, no existe un derecho general a devolver una joya comprada en una tienda física solo porque ya no te guste.
 

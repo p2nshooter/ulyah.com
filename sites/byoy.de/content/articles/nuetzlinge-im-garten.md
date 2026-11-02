@@ -2,7 +2,7 @@
 title: "Nützlinge im Garten erkennen und fördern: die stille Arbeitsgemeinschaft"
 description: "Marienkäfer, Florfliegen, Schwebfliegen, Schlupfwespen, Ohrwürmer und Laufkäfer: woran du Nützlinge erkennst und wie du ihnen im Bio-Garten Futter und Quartier gibst."
 category: naturgarten-und-nuetzlinge
-date: 2026-06-23
+date: 2026-10-06
 ---
 Im biologischen Garten arbeitet eine ganze Mannschaft für dich, die du kaum bemerkst. Larven von Marienkäfern und Florfliegen räumen Blattlauskolonien ab, winzige Schlupfwespen legen ihre Eier in Schädlinge, Laufkäfer jagen nachts Schneckeneier. Diese Tiere ersetzen jedes Spritzmittel, aber nur, wenn sie im Garten Nahrung, Verstecke und Winterquartiere finden. Hier erfährst du, welche Nützlinge besonders wichtig sind, woran du sie erkennst und wie du sie dauerhaft ansiedelst.
 

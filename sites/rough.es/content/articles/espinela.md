@@ -2,7 +2,7 @@
 title: "Espinela: la gema que se hizo pasar por rubí durante siglos"
 description: "Qué es la espinela, por qué se confundió con el rubí en coronas y tesoros, la historia del rubí del Príncipe Negro y Pedro I de Castilla, sus colores, orígenes y qué revisar al comprarla."
 category: piedras-preciosas
-date: 2026-10-11
+date: 2026-10-12
 ---
 En la corona imperial británica, justo en el frente, brilla una gran piedra roja conocida desde hace siglos como el rubí del Príncipe Negro. No es un rubí: es una espinela. Y su historia pasa por la Castilla del siglo XIV, por las manos de Pedro I y por una batalla librada en tierras riojanas. La anécdota resume bien el destino de esta gema durante siglos: admirada, engastada en las joyas más importantes de Europa y Asia, pero casi siempre con un nombre que no era el suyo.
 

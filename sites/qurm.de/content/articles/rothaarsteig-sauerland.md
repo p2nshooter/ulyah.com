@@ -2,7 +2,7 @@
 title: "Rothaarsteig: der Weg der Sinne von Brilon nach Dillenburg durch Sauerland und Siegerland"
 description: "Der Rothaarsteig im Überblick: Verlauf von Brilon über Kahlen Asten und Rhein-Weser-Turm nach Dillenburg, Etappen, Charakter, Waldwandel, Anreise und Tipps."
 category: fernwanderwege
-date: 2026-10-12
+date: 2026-10-14
 ---
 Der Rothaarsteig führt über den Kamm des Rothaargebirges, eines der waldreichsten Mittelgebirge Deutschlands. Auf rund 150 Kilometern verbindet er Brilon im Hochsauerland mit Dillenburg in Hessen und quert dabei das Sauerland, das Wittgensteiner Land und das Siegerland. Seit seiner Eröffnung im Jahr 2001 trägt er den Beinamen „Weg der Sinne“: Unterwegs laden Aussichtspunkte, Waldsofas, Türme und Kunstwerke dazu ein, die Landschaft bewusst wahrzunehmen. Der Weg ist gut markiert, technisch einfach und gut mit der Bahn erreichbar, was ihn zu einer idealen ersten Fernwanderung macht.
 

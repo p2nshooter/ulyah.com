@@ -2,7 +2,7 @@
 title: "Das erste Smartphone"
 description: Noor kommt in die fünfte Klasse und bekommt ihr erstes Handy – mit Vertrag. Dann lässt sie ein Kettenbrief nachts nicht schlafen. Über Smartphone-Regeln, Absprachen und Vertrauen.
 category: zusammenleben-zuhause
-date: 2026-10-12
+date: 2026-10-05
 ---
 „Alle haben eins“, sagte Noor. „Wirklich alle. Außer mir und Leander, und Leander zählt nicht, weil seine Eltern gegen alles sind.“
 

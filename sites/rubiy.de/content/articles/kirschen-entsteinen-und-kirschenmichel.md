@@ -2,7 +2,7 @@
 title: "Kirschen: Süß- und Sauerkirschen, schnell entsteinen und ein Kirschenmichel"
 description: "Kirschensaison in Deutschland: Herz- und Knorpelkirschen, Schattenmorellen, Kirschen lagern und ohne Spezialgerät entsteinen, dazu ein Kirschenmichel aus altem Brot."
 category: sommer
-date: 2026-10-12
+date: 2026-10-06
 ---
 Die Kirschsaison ist kurz und intensiv. Von Anfang Juni bis Ende Juli hängen die Bäume im Alten Land bei Hamburg, in Franken, am Kaiserstuhl und rund um den Bodensee voller Früchte, und an den Straßenrändern stehen Stände mit frisch gepflückten Kirschen. Wer die Saison nutzen will, sollte die Unterschiede zwischen den Sorten kennen, wissen, wie man Kirschen frisch hält, und einen Trick zum Entsteinen beherrschen, denn das ist bei Kuchen, Kompott und Marmelade die eigentliche Arbeit. Als Belohnung gibt es am Ende einen Kirschenmichel, einen saftigen Auflauf aus altem Brot, Milch und Kirschen, den Generationen von Kindern geliebt haben.
 

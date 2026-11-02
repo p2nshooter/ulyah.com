@@ -2,7 +2,7 @@
 title: "Koffein in Kaffee und Tee: wie viel steckt in welcher Tasse?"
 description: Wie viel Koffein Espresso, Filterkaffee, Schwarztee und Matcha enthalten, welche Mengen die EFSA für unbedenklich hält und wie lange Koffein im Körper wirkt.
 category: genuss-und-wissen
-date: 2026-10-12
+date: 2026-10-06
 ---
 Koffein ist der Grund, warum viele Menschen morgens überhaupt zu Kaffee oder Tee greifen. Gleichzeitig kursieren um keinen anderen Inhaltsstoff so viele Halbwahrheiten: Espresso habe am meisten Koffein, Teein wirke anders als Koffein, grüner Tee sei praktisch koffeinfrei. In diesem Ratgeber findest du die tatsächlichen Mengen, die Einschätzungen der Europäischen Behörde für Lebensmittelsicherheit (EFSA) und die Faktoren, die bestimmen, wie viel Koffein in deiner Tasse landet.
 

@@ -2,7 +2,7 @@
 title: "Pastinaken und Petersilienwurzeln: unterscheiden, im Ofen rösten und als Püree"
 description: "Pastinake oder Petersilienwurzel? So unterscheidest du die hellen Wintermöhren, lagerst sie richtig und bereitest sie zu: geröstet mit Honig, als Püree, in Suppe und Eintopf."
 category: winter
-date: 2026-10-12
+date: 2026-10-06
 ---
 Lange waren sie fast vergessen, heute liegen sie wieder auf jedem Wochenmarkt: Pastinaken und Petersilienwurzeln. Beide sehen aus wie blasse, cremeweiße Möhren, und beide sind in der kalten Jahreszeit ein Gewinn für die Küche. Bevor die Kartoffel im 18. Jahrhundert in Mitteleuropa heimisch wurde, war die Pastinake ein wichtiges Grundnahrungsmittel. Heute schätzen wir sie für ihre feine Süße und ihren nussig-würzigen Geschmack. Die Petersilienwurzel ist kräftiger und würziger. Wer die beiden auseinanderhalten kann, setzt sie gezielt ein: die Pastinake für Süße und Cremigkeit, die Petersilienwurzel für Würze in Suppen und Brühen.
 

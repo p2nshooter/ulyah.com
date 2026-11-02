@@ -2,7 +2,7 @@
 title: "Mündliche Mitarbeit verbessern: Wie Sofia sich traute, sich im Unterricht zu melden"
 description: "Sofia kennt oft die Antwort, meldet sich aber nie. Wie du dich Schritt für Schritt traust, Beiträge vorbereitest, Fragen als Mitarbeit nutzt und mit Fehlern umgehst."
 category: referate-und-praesentieren
-date: 2026-09-30
+date: 2026-10-11
 ---
 Herr Arslan stellte die Frage in den Raum: „Warum hat Romeo Tybalt getötet, obwohl er sich vorher mit ihm versöhnen wollte?“ Sofia wusste es. Sie hatte die Szene am Vorabend gelesen und darüber nachgedacht. Ihre Hand zuckte. Aber dann dachte sie: Was, wenn ich etwas Falsches sage? Was, wenn alle mich anschauen? Was, wenn meine Stimme komisch klingt? Ihre Hand blieb auf dem Tisch. Maximilian meldete sich und sagte fast genau das, was Sofia gedacht hatte. Herr Arslan lobte ihn. Sofia schaute auf ihr Heft und ärgerte sich.
 

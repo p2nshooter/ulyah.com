@@ -2,7 +2,7 @@
 title: "Überschlag und Kopfrechnen: Wie Lea lernte, Ergebnisse vorher zu schätzen und Fehler sofort zu sehen"
 description: "Lea vertraut dem Taschenrechner blind und übersieht falsche Ergebnisse. Wie du mit Überschlagsrechnung Fehler erkennst, Kopfrechnen trainierst und Größen einschätzt."
 category: mathe-und-lernluecken
-date: 2026-10-06
+date: 2026-10-11
 ---
 Lea tippte die Zahlen in den Taschenrechner: 48,5 mal 19,8. Auf dem Display erschien 9603. Sie schrieb das Ergebnis in ihr Heft, unterstrich es doppelt und ging zur nächsten Aufgabe. Erst als Herr Becker die Hausaufgaben verglich, fiel es auf. „Lea, wie viel ist ungefähr 50 mal 20?“ Lea überlegte kurz. „Tausend.“ „Und dein Ergebnis?“ Lea schaute in ihr Heft. 9603. Fast zehnmal so viel. Sie hatte beim Eintippen das Komma vergessen und 485 statt 48,5 eingegeben. Und es war ihr nicht aufgefallen.
 

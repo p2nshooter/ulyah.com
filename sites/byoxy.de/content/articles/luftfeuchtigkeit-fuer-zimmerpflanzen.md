@@ -2,7 +2,7 @@
 title: "Luftfeuchtigkeit für Zimmerpflanzen: messen, erhöhen und typische Mythen"
 description: Warum tropische Zimmerpflanzen Luftfeuchtigkeit brauchen, wie du sie misst und wirksam erhöhst, was Besprühen wirklich bringt und wie du Schimmel und Kondenswasser vermeidest.
 category: pflege-grundlagen
-date: 2026-09-17
+date: 2026-10-04
 ---
 Viele beliebte Zimmerpflanzen stammen aus tropischen Regenwäldern, wo die Luftfeuchtigkeit oft bei 70 bis 90 Prozent liegt. In beheizten Wohnungen sinkt sie im Winter dagegen häufig auf 30 Prozent oder weniger. Für manche Pflanzen ist das kein Problem, andere reagieren mit braunen Blatträndern, eingerollten Blättern oder Spinnmilbenbefall.
 

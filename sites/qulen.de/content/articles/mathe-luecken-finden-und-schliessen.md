@@ -2,7 +2,7 @@
 title: "Mathe-Lücken finden und schließen: Wie Jannik den Anfang seiner Probleme aufspürte"
 description: "Jannik scheitert an Gleichungen, doch die Ursache liegt Jahre zurück. Wie du Themenketten rückwärts verfolgst, eine Lückenliste anlegst und gezielt nachholst."
 category: mathe-und-lernluecken
-date: 2026-06-26
+date: 2026-10-11
 ---
 Jannik rechnete die Aufgabe zum dritten Mal. 4(x − 2) − 3 = 2x + 5. Klammer auflösen, sortieren, durch zwei teilen: x = 5. Unten auf dem Arbeitsblatt stand die Lösung zur Kontrolle, kopfüber gedruckt: x = 8. Er radierte, bis das Papier fast durchsichtig war, dann schob er das Heft so heftig weg, dass das Geodreieck vom Schreibtisch rutschte. „Ich check Gleichungen einfach nicht“, schrieb er an Malik. Die Antwort kam nach zehn Sekunden: „Willkommen im Club.“
 

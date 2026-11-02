@@ -2,7 +2,7 @@
 title: "Ventilación y moho en el baño: extractores, ductos y hábitos para un baño seco"
 description: "Por qué el baño se llena de moho, cómo elegir e instalar un extractor, qué hacer en baños sin ventana, cómo limpiar juntas y techos con seguridad y qué hábitos lo mantienen seco."
 category: cocinas-y-banos
-date: 2026-09-07
+date: 2026-10-11
 ---
 El espejo que sigue empañado media hora después de la ducha, la pintura del techo que se descascara, los puntos negros en las juntas de silicona y ese olor a humedad que no se va: son las señales de un baño que no logra secarse. En muchas viviendas de la región el baño es pequeño, a veces no tiene ventana y se usa varias veces al día. Cada ducha caliente libera una gran cantidad de vapor que, si no sale, termina condensándose en paredes, techo y muebles.
 

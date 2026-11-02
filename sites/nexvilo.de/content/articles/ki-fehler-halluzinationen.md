@@ -2,7 +2,7 @@
 title: "Wenn die KI sich irrt: Halluzinationen erkennen und Antworten richtig prüfen"
 description: "Warum KI-Assistenten Fakten, Quellen und Zahlen erfinden, bei welchen Fragen das besonders oft passiert und wie du mit fünf einfachen Prüfschritten falsche Antworten entlarvst."
 category: ki-im-alltag
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 Eine Bekannte fragt einen KI-Assistenten nach den Öffnungszeiten des Bürgeramts und steht am nächsten Morgen vor verschlossener Tür. Ein Student lässt sich Literatur für seine Hausarbeit empfehlen und stellt fest, dass zwei der fünf genannten Bücher gar nicht existieren. Ein Mann lässt sich eine Frist aus dem Mietrecht erklären und erfährt erst beim Anwalt, dass die Angabe falsch war. Solche Fehler passieren, weil Sprachmodelle nicht wissen, was wahr ist, sondern berechnen, was wahrscheinlich klingt. Diese Anleitung erklärt, warum KI-Assistenten Dinge erfinden, wann das besonders häufig geschieht und wie du ihre Antworten schnell und zuverlässig prüfst.

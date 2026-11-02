@@ -2,7 +2,7 @@
 title: "Finding Your Best Colours: A Simple Guide to Colours That Light Up Your Face"
 description: How undertone, depth and contrast affect which colours flatter you, how to test colours at home in a mirror, and how changing hair and skin may shift your best shades.
 category: style-and-wardrobe
-date: 2026-10-19
+date: 2026-10-20
 ---
 Have you ever put on a top and immediately looked tired, washed out or slightly grey — and then changed into another in a different colour and suddenly looked rested and bright? The difference is often not the style or the fit but the colour. Colours worn near the face reflect onto the skin, and the right shades can make the complexion glow, soften lines and brighten the eyes, while the wrong ones can emphasise shadows and redness.
 

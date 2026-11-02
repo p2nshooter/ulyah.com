@@ -2,7 +2,7 @@
 title: "The Water Cycle Explained: Evaporation, Clouds, Rain, Rivers and Groundwater on an Endless Journey"
 description: "How water moves between oceans, air, land and living things, the energy behind evaporation and condensation, where Earth's water is stored, how long it stays there and how the cycle is changing."
 category: planet-earth
-date: 2026-10-26
+date: 2026-10-27
 order: 3
 ---
 The water in your glass may have once fallen as rain on a distant mountain, flowed down a river, rested for centuries deep underground or drifted as vapor high above the ocean. It may even have been part of a glacier during the last ice age. Earth's water is constantly moving, changing between liquid, vapor and ice, in a vast system called the **water cycle** or hydrologic cycle. Powered by the Sun and pulled by gravity, the water cycle shapes weather, carves landscapes and sustains every living thing. This explainer follows water on its journey and explains the science behind each step.

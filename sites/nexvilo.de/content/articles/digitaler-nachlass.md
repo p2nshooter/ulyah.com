@@ -2,7 +2,7 @@
 title: "Digitaler Nachlass: So regelst du Konten, Passwörter und Daten für den Ernstfall"
 description: "Was mit E-Mail, sozialen Netzwerken, Cloud-Fotos und Abos nach dem Tod passiert, was in Deutschland rechtlich gilt und wie du mit Übersicht, Vollmacht und Nachlasskontakten vorsorgst."
 category: digitales-leben
-date: 2026-10-26
+date: 2026-10-27
 order: 4
 ---
 Über das eigene Testament, die Bestattung oder eine Patientenverfügung denken viele Menschen irgendwann nach. Was aber mit den E-Mails, den Fotos in der Cloud, dem Konto im sozialen Netzwerk, den laufenden Streaming-Abos oder dem Guthaben beim Bezahldienst passiert, haben die wenigsten geregelt. Dabei hinterlassen wir heute fast alle ein umfangreiches digitales Erbe. Für Angehörige kann es sehr belastend sein, in einer ohnehin schweren Zeit herauszufinden, welche Konten es gibt, wie sie an wichtige Unterlagen kommen und wie sie Verträge kündigen. Mit etwas Vorsorge lässt sich das deutlich erleichtern. Diese Anleitung erklärt, was zum digitalen Nachlass gehört, was in Deutschland rechtlich gilt und wie du Schritt für Schritt vorsorgst.

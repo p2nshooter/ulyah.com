@@ -2,7 +2,7 @@
 title: "El desierto de Atacama y otros desiertos de América Latina: cómo visitarlos con seguridad"
 description: "Atacama, el salar de Uyuni, Huacachina y Nazca, Ischigualasto, los desiertos de México y los Lençóis: calor y frío extremos, sol, altitud, conducción, cielos estrellados y cómo cuidar el desierto."
 category: montanas-y-naturaleza
-date: 2026-09-13
+date: 2026-10-11
 ---
 Pocos paisajes impresionan tanto como un desierto. En América Latina hay algunos de los más extraordinarios del planeta: el Atacama, en el norte de Chile, uno de los lugares más áridos de la Tierra; el salar de Uyuni, en Bolivia, una llanura blanca que parece no tener fin; las dunas de Ica y las líneas de Nazca en Perú; los valles de rocas esculpidas de Ischigualasto y Talampaya en Argentina; o los desiertos del norte de México, con sus cactus gigantes y sus volcanes extintos.
 

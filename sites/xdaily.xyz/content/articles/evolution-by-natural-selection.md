@@ -2,7 +2,7 @@
 title: "Evolution by Natural Selection: How Species Change Over Time and the Evidence Behind It"
 description: "What Darwin and Wallace proposed, how variation, inheritance and selection shape living things, the evidence from fossils, DNA and anatomy, how new species form and common misunderstandings."
 category: big-ideas
-date: 2026-10-26
+date: 2026-10-27
 order: 2
 ---
 Life on Earth is astonishingly diverse: bacteria in boiling hot springs, whales that dive thousands of feet, orchids that mimic insects, and humans who build cities and write books. How did this variety arise? The theory of evolution by natural selection, proposed by Charles Darwin and Alfred Russel Wallace in the nineteenth century, offers the explanation that biologists consider the foundation of modern biology. It describes how populations of living things change over many generations and how new species arise. This explainer describes what evolution is, how natural selection works and the evidence that supports it.

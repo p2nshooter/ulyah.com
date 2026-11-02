@@ -266,6 +266,19 @@ const regeln = (cls = "") => `<ul class="erz-regeln ${cls}">
     ${REGELN.map((r) => `<li class="erz-regel">${icon(r.icon, "erz-regel__icon")}<p><strong>${r.titel}</strong> ${r.text}</p></li>`).join("\n    ")}
   </ul>`;
 
+/** The tools (pages with `tool:`), as a band on the home page: what each one does, in its own words. */
+function werkzeuge(ctx) {
+  const tools = ctx.pages.filter((p) => p.tool);
+  if (!tools.length) return "";
+  return `<section class="erz-werkzeuge" aria-labelledby="erz-werkzeuge-t">
+  <header class="erz-ueber"><p class="erz-ueber__zeile">Werkzeuge</p><h2 id="erz-werkzeuge-t">Nachschlagen, rechnen, planen</h2><p class="erz-ueber__text">Vier Helfer für den Moment, in dem du vor dem Fleck, der Packung oder dem Etikett stehst. Sie arbeiten direkt in deinem Browser, ohne Konto, und senden nichts.</p></header>
+  <ul class="erz-werkzeuge__liste">${tools
+    .map((p) => `<li><a class="erz-werkzeuge__karte" href="${p.url}"><span class="erz-werkzeuge__name">${ctx.esc(p.title.split(":")[0])}</span><span class="erz-werkzeuge__text">${ctx.esc(p.description)}</span></a></li>`)
+    .join("")}</ul>
+  <p class="erz-rand__mehr"><a class="erz-taste erz-taste--rand" href="/werkzeuge/">Alle Werkzeuge</a></p>
+</section>`;
+}
+
 export function home(ctx) {
   const { site, articles, categories, esc, base } = ctx;
   const neu = articles.slice(0, 9);
@@ -300,6 +313,8 @@ export function home(ctx) {
       .join("\n    ")}
   </ol>
 </section>
+
+${werkzeuge(ctx)}
 
 <section class="erz-rand" aria-labelledby="erz-rand-t">
   <div class="erz-rand__innen">

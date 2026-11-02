@@ -2,7 +2,7 @@
 title: "Wander-Apps und GPX-Tracks: Digital navigieren, ohne sich zu verlaufen"
 description: Offlinekarten, GPX-Dateien, Akku sparen und die Grenzen der Technik: wie du Navigations-Apps sinnvoll für Tagestouren und Fernwanderungen nutzt.
 category: planung-und-navigation
-date: 2026-07-09
+date: 2026-10-06
 ---
 Für die meisten Wandernden ist das Smartphone heute das wichtigste Navigationswerkzeug. Eine gute Wander-App zeigt dir topografische Karten, deinen Standort auf wenige Meter genau, Höhenprofile und Gehzeiten. Du kannst Touren planen, GPX-Dateien von Wegbetreibern laden und deinen Weg aufzeichnen. Das ist ein enormer Fortschritt gegenüber früheren Zeiten, als man mit gefalteten Papierkarten an Kreuzungen rätselte.
 

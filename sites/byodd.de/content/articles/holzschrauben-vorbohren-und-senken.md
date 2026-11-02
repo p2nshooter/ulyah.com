@@ -2,7 +2,7 @@
 title: "Holzschrauben richtig verwenden: vorbohren, senken, Länge und Kopfform"
 description: Welche Holzschraube wofür, wann und wie du vorbohrst, wie Senken funktioniert, welche Schraubenlänge passt und wie du ausgerissene Schraubenlöcher reparierst.
 category: holz-und-moebel
-date: 2026-09-13
+date: 2026-10-04
 ---
 Schrauben scheinen die einfachste Verbindung im Holzbau zu sein: ansetzen, eindrehen, fertig. In der Praxis spalten Bretter an der Kante, Schraubenköpfe stehen über oder versinken zu tief, Schrauben reißen in Spanplatten aus oder halten nicht, weil sie zu kurz sind. Mit etwas Grundwissen über Schraubenarten, Vorbohren und Senken gelingen Holzverbindungen sauber und dauerhaft.
 
