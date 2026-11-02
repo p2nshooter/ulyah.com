@@ -3,6 +3,11 @@ title: "Weinreben im Garten: Sorten, Erziehung, Schnitt und eine gesunde Trauben
 description: "So wachsen Tafeltrauben im Hausgarten: pilzwiderstandsfähige Sorten, Standort, Pflanzung, Erziehung am Spalier, Winter- und Sommerschnitt, Mehltau, Wespen, Ernte und Verwertung."
 category: obst-und-beeren
 date: 2026-10-14
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Infoschriften | https://www.lwg.bayern.de/gartenakademie-infoschriften
 ---
 Eine Weinrebe an der Hauswand, über der Pergola oder am Gartenzaun ist ein schöner Anblick und liefert im Spätsommer süße Trauben direkt vom Stock. Viele Gärtner trauen sich an Weinreben nicht heran, weil sie den Schnitt für eine Wissenschaft halten und Pilzkrankheiten fürchten. Mit der richtigen Sorte und ein paar Grundregeln gelingt der Anbau von Tafeltrauben im Hausgarten aber auch Einsteigern.
 

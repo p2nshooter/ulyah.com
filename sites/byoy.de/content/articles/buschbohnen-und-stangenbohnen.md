@@ -3,6 +3,11 @@ title: "Buschbohnen und Stangenbohnen anbauen: Aussaat, Rankhilfe und Ernte"
 description: "Bohnen im Bio-Garten: wann der Boden warm genug ist, wie tief du säst, welche Rankhilfe Stangenbohnen brauchen, welche Sorten sich bewähren und warum Bohnen gekocht werden müssen."
 category: gemuesegarten
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Infoschrift Mischkulturen im Gemüsegarten | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/247859/index.php
 ---
 Bohnen sind ideale Einsteigerpflanzen: Die großen Samen lassen sich leicht säen, die Keimlinge sind kräftig, und die Pflanzen brauchen kaum Dünger, weil sie sich ihren Stickstoff selbst aus der Luft holen. Buschbohnen tragen schon zwei Monate nach der Aussaat, Stangenbohnen liefern auf kleiner Grundfläche über viele Wochen frische Hülsen. Ein paar Dinge solltest du trotzdem wissen, damit die Saat nicht im kalten Boden fault und die Ernte nicht holzig wird.
 

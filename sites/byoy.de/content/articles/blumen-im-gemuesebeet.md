@@ -3,6 +3,11 @@ title: "Blumen im Gemüsebeet: Ringelblume, Tagetes, Kapuzinerkresse und Borrets
 description: "Welche Blumen im Gemüsegarten Nützlinge anlocken, Schädlinge ablenken und den Boden verbessern, was an den Wirkungen dran ist, wo sie hingehören und welche Blüten du essen kannst."
 category: mischkultur-und-fruchtfolge
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Naturgarten – Bayern blüht (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/brosch%C3%BCre_bayern_blueht-naturgarten.pdf
+  - NABU: Tipps für wirksame Wildbienen-Nisthilfen | https://www.nabu.de/tiere-und-pflanzen/insekten-und-spinnen/hautfluegler/bienen/13704.html
 ---
 In alten Bauerngärten wuchsen Gemüse und Blumen immer gemeinsam: Ringelblumen zwischen dem Kohl, Kapuzinerkresse am Zaun, Borretsch am Beetrand. Das sah nicht nur schön aus. Die Blüten locken Bienen und Hummeln an, die Bohnen, Gurken und Zucchini bestäuben. Sie ernähren Schwebfliegen und Schlupfwespen, deren Larven Blattläuse und Raupen fressen. Manche Blumen lenken Schädlinge vom Gemüse ab, andere verbessern den Boden. Ein Gemüsebeet mit Blumen ist deshalb ein lebendiges, vielfältiges System, in dem weniger Probleme entstehen als in einer reinen Gemüsefläche. Dieser Ratgeber stellt die besten Begleitblumen vor und erklärt ehrlich, was sie leisten können.
 

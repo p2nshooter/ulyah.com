@@ -3,6 +3,11 @@ title: "Aussaatkalender für Gemüse: was du wann vorziehst, direkt säst und pf
 description: "Aussaatkalender für den Biogarten: Monat für Monat Vorziehen, Direktsaat und Pflanzung von Februar bis Oktober, mit Folgesaaten und dem phänologischen Kalender als Naturuhr."
 category: saatgut-und-jungpflanzen
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bundeszentrum für Ernährung: Der Saisonkalender | https://www.bzfe.de/nachhaltiger-konsum/orientierung-beim-einkauf/der-saisonkalender/
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
 ---
 Der richtige Zeitpunkt ist beim Säen die halbe Miete. Zu früh gesäte Bohnen faulen im kalten Boden, zu spät gesäter Feldsalat wird vor dem Winter nicht mehr groß, und Tomaten, die erst im April vorgezogen werden, reifen kaum vor dem ersten Herbstregen. Ein Aussaatkalender gibt dir Orientierung für das ganze Gartenjahr. Er ist kein starres Regelwerk: Je nach Region, Höhenlage und Wetter verschieben sich die Termine um zwei bis drei Wochen. Wer zusätzlich auf die Natur achtet, etwa auf die Blüte von Forsythie, Apfel und Holunder, trifft den richtigen Moment noch besser.
 

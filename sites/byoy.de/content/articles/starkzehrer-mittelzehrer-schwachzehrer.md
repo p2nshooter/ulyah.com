@@ -3,6 +3,11 @@ title: "Starkzehrer, Mittelzehrer, Schwachzehrer: Gemüse nach Nährstoffbedarf 
 description: "Welches Gemüse viel, mittel oder wenig Nährstoffe braucht, wie du jede Gruppe düngst, warum Hülsenfrüchtler den Boden verbessern und wie die Einteilung bei Fruchtfolge und Mischkultur hilft."
 category: mischkultur-und-fruchtfolge
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Kräuter- und Gemüse-Hochbeet (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/hochbeet_folder.pdf
 ---
 In Gartenbüchern und auf Samentüten begegnen dir immer wieder drei Begriffe: Starkzehrer, Mittelzehrer und Schwachzehrer. Sie beschreiben, wie viele Nährstoffe, vor allem Stickstoff, ein Gemüse für ein gutes Wachstum braucht. Die Einteilung ist ein einfaches, aber sehr praktisches Werkzeug. Sie hilft dir, jedem Gemüse die passende Menge Kompost und Dünger zu geben, Beete sinnvoll zu planen und den Boden über die Jahre ausgeglichen zu nutzen. Wer sie kennt, düngt weniger und gezielter und vermeidet sowohl hungernde Kohlköpfe als auch überdüngten Salat.
 

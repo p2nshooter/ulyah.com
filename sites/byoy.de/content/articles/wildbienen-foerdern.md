@@ -3,6 +3,11 @@ title: "Wildbienen im Garten fördern: Nistplätze, Futterpflanzen und Fehler be
 description: "Wildbienen bestäuben Obst und Gemüse. So hilfst du ihnen mit heimischen Blühpflanzen, offenen Bodenstellen, richtig gebauten Nisthilfen und markhaltigen Stängeln."
 category: naturgarten-und-nuetzlinge
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - NABU: Tipps für wirksame Wildbienen-Nisthilfen | https://www.nabu.de/tiere-und-pflanzen/insekten-und-spinnen/hautfluegler/bienen/13704.html
+  - Bayerische Gartenakademie: Naturgarten – Bayern blüht (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/brosch%C3%BCre_bayern_blueht-naturgarten.pdf
 ---
 Wenn im April die Apfelbäume blühen, summt es in den Kronen. Ein großer Teil dieser Arbeit wird nicht von Honigbienen erledigt, sondern von Wildbienen: Mauerbienen, Sandbienen, Hummeln und vielen weiteren Arten. In Deutschland leben rund 560 Wildbienenarten, und etwa die Hälfte davon gilt als gefährdet. Ein Nutzgarten kann für sie ein wertvoller Lebensraum sein, und sie danken es mit besseren Ernten bei Obst, Beeren und vielen Gemüsearten. Doch gute Absichten gehen oft daneben: Viele gekaufte Insektenhotels sind wertlos oder sogar schädlich. Hier erfährst du, worauf es wirklich ankommt.
 

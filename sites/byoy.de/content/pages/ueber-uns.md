@@ -2,7 +2,7 @@
 title: Über uns
 description: Wer hinter BYOY steht, warum wir über biologisches Gärtnern ohne Gift schreiben und wie unsere Anleitungen für den Gemüse- und Obstgarten entstehen.
 order: 1
-updated: 2026-10-05
+updated: 2026-11-02
 ---
 BYOY steht für „Biologisch, ohne Gift: Garten mit Herz". Hinter dem Namen steckt eine einfache Überzeugung: Ein Garten, der Gemüse, Obst und Beeren liefert, braucht keine chemisch-synthetischen Spritzmittel und keinen Kunstdünger aus dem Sack. Er braucht einen lebendigen Boden, kluge Planung, passende Sorten und Menschen, die hinschauen.
 
@@ -23,7 +23,7 @@ Was du bei uns nicht findest: Ratgeber zu Zimmerpflanzen, Balkonblumen oder Krä
 
 ## Wie wir arbeiten
 
-Jede Anleitung wird einzeln geschrieben, nicht aus Bausteinen zusammengesetzt. Wir stützen uns auf anerkanntes Gartenwissen, auf Empfehlungen von Fachstellen wie Landwirtschaftskammern, Gartenakademien und Fachverbänden des ökologischen Landbaus und auf die eigene Praxis im Beet. Zeitangaben richten wir am mitteleuropäischen Klima aus und sagen dazu, wenn es zwischen Oberrhein, Küste und Mittelgebirge große Unterschiede gibt.
+Jede Anleitung wird einzeln geschrieben, nicht aus Bausteinen zusammengesetzt. Beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge. Inhaltlich stützen wir uns auf anerkanntes Gartenwissen und auf Empfehlungen von Fachstellen wie der Bayerischen Gartenakademie, dem Umweltbundesamt, dem Julius Kühn-Institut und dem NABU; die wichtigsten Quellen nennen wir unter jedem Ratgeber. Vier Planer für Mischkultur, Fruchtfolge, Aussaat und Beetgröße findest du unter [Planer](/planer/). Zeitangaben richten wir am mitteleuropäischen Klima aus und sagen dazu, wenn es zwischen Oberrhein, Küste und Mittelgebirge große Unterschiede gibt.
 
 Wir empfehlen keine chemisch-synthetischen Pflanzenschutzmittel. Wenn ein Problem ohne Gift nicht vollständig zu lösen ist, sagen wir das ehrlich, statt Wundermittel zu versprechen. Wie wir Themen auswählen, prüfen und korrigieren, steht in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/).
 

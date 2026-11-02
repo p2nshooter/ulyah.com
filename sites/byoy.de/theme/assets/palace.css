@@ -319,3 +319,47 @@ h1, h2, h3, h4 { font-family: var(--titel); font-weight: 500; line-height: 1.18;
   .hamon-bild__spirale { stroke-dashoffset: 0; }
   .hamon-erscheint { opacity: 1; transform: none; }
 }
+
+/* ── Planer (Inhaber, 2. Nov. 2026): Terrasse auf der Startseite und die Planer selbst ── */
+.hamon-planer { max-width: 1180px; margin: 0 auto; padding: 56px 20px; }
+.hamon-planer__kopf { text-align: center; max-width: 720px; margin: 0 auto 26px; }
+.hamon-planer__kopf h2 { margin: 4px 0 8px; }
+.hamon-planer__kopf p { color: var(--tinte-2); margin: 0; }
+.hamon-planer__zeile { text-transform: uppercase; letter-spacing: .14em; font-size: 13px; font-weight: 700; color: var(--traube) !important; }
+.hamon-planer__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.hamon-planer__karte { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 22px; border-radius: 18px; text-decoration: none; color: var(--tinte);
+  background: linear-gradient(170deg, #fffdf6, var(--kreide-2)); border: 1px solid var(--rand); box-shadow: var(--schatten); transition: transform .3s ease, border-color .3s ease; }
+.hamon-planer__karte:hover, .hamon-planer__karte:focus-visible { transform: translateY(-3px); border-color: var(--stroh); color: var(--tinte); }
+.hamon-planer__name { font-family: var(--titel); font-size: 21px; color: var(--rebe-2); }
+.hamon-planer__text { font-size: 16px; color: var(--tinte-2); line-height: 1.55; }
+
+.hamon-wz { margin: 0 0 36px; padding: clamp(18px, 3vw, 28px); border-radius: 20px; background: linear-gradient(175deg, #fffdf6, var(--kreide-2)); border: 1px solid var(--rand); box-shadow: var(--schatten); }
+.hamon-wz-titel { margin: 0 0 4px; font-family: var(--titel); font-size: 25px; color: var(--rebe-2); }
+.hamon-wz-hilfe { margin: 0 0 14px; color: var(--tinte-2); font-size: 16px; }
+.hamon-wz-felder { display: grid; gap: 14px 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 14px; }
+.hamon-wz-felder label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px; color: var(--rebe-2); }
+.hamon-wz input[type="text"], .hamon-wz select { font: inherit; font-size: 16px; font-weight: 500; padding: 10px 12px; min-height: 44px; width: 100%; border-radius: 12px; border: 1.5px solid var(--rand); background: #fff; color: var(--tinte); }
+.hamon-wz input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: var(--laub); }
+.hamon-wz select:focus-visible, .hamon-wz input:focus-visible { outline: 3px solid var(--stroh); outline-offset: 2px; }
+.hamon-wz-auswahl { border: 1px solid var(--rand); border-radius: 14px; padding: 10px 14px 14px; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.hamon-wz-auswahl legend { font-weight: 700; font-size: 15px; color: var(--rebe-2); padding: 0 4px; }
+.hamon-wz-auswahl label { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; }
+.hamon-wz-ergebnis { margin-top: 8px; padding: 16px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--rand); }
+.hamon-wz-ergebnis table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; }
+.hamon-wz-ergebnis th, .hamon-wz-ergebnis td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--kreide-2); vertical-align: top; }
+.hamon-wz-ergebnis tbody th { color: var(--rebe-2); }
+.hamon-wz-nein td { color: var(--terra-2); }
+.hamon-wz-kopf { margin: 0 0 8px; font-weight: 600; color: var(--rebe-2); }
+.hamon-wz-leer { margin: 0; color: var(--tinte-2); font-style: italic; }
+.hamon-wz-notiz { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--kreide); color: var(--rebe-2); font-size: 15px; }
+.hamon-wz-scroll { overflow-x: auto; margin-bottom: 12px; }
+.hamon-wz-kalender { border-collapse: collapse; font-size: 13px; min-width: 660px; width: 100%; background: #fff; }
+.hamon-wz-kalender th, .hamon-wz-kalender td { padding: 6px 3px; border: 1px solid var(--kreide-2); text-align: center; }
+.hamon-wz-kalender tbody th { text-align: left; white-space: nowrap; color: var(--rebe-2); padding-right: 8px; }
+.hamon-wz-vor { background: var(--terra-hell); color: #fff; }
+.hamon-wz-saat { background: var(--laub); color: #fff; }
+.hamon-wz-pflanz { background: var(--laub-hell); color: var(--rebe-2); }
+.hamon-wz-jetzt { outline: 2px solid var(--traube); }
+.engine-quellen { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rand); font-size: 16px; }
+.engine-quellen__host, .engine-quellen__stand { color: var(--tinte-2); }
+@media (prefers-reduced-motion: reduce) { .hamon-planer__karte { transition: none; } .hamon-planer__karte:hover { transform: none; } }

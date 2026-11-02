@@ -3,6 +3,11 @@ title: "Keimprobe machen und Saatgut richtig lagern: wie lange Samen halten und 
 description: "Wie lange Gemüsesamen keimfähig bleiben, wie du mit einer einfachen Keimprobe auf Küchenpapier die Keimrate prüfst, die Saatmenge anpasst und Samen kühl, trocken und dunkel aufbewahrst."
 category: saatgut-und-jungpflanzen
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Infoschriften | https://www.lwg.bayern.de/gartenakademie-infoschriften
 ---
 Fast jeder Gärtner hat sie: eine Schachtel voller angebrochener Samentüten aus den letzten Jahren. Möhren von vor drei Jahren, Bohnen vom Saatguttausch, Tomatensamen aus der eigenen Ernte. Sind sie noch gut? Lohnt es sich, sie zu säen, oder bleibt die Reihe im Frühjahr leer? Die Antwort liefert eine Keimprobe, die nur ein paar Tage dauert und fast nichts kostet. Und wer seine Samen richtig lagert, kann viele Sorten deutlich länger nutzen, als auf der Tüte steht. Dieser Ratgeber zeigt, wie lange verschiedene Samen halten, wie die Keimprobe funktioniert und wie du deinen Saatgutvorrat ordnest.
 
