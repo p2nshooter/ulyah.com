@@ -3,6 +3,10 @@ title: "Laminat verlegen: Anleitung vom Untergrund bis zur Sockelleiste"
 description: Wie du Laminat Schritt für Schritt verlegst, welche Trittschalldämmung und Dampfbremse nötig sind, wie du die erste Reihe ausrichtest, Dehnungsfugen planst, Türzargen kürzt und Heizungsrohre umgehst.
 category: waende-und-boeden
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Ratgeber Gesund und umweltfreundlich renovieren (PDF) | https://www.umweltbundesamt.de/system/files/medien/479/publikationen/uba_rg_gesund_und_umweltfreundlich_renovieren_bf.pdf
 ---
 Laminat ist einer der beliebtesten Bodenbeläge für Selbermacher: Er ist vergleichsweise günstig, robust, in vielen Holz- und Steinoptiken erhältlich und dank Klicksystem ohne Kleber zu verlegen. Ein Wohnzimmer lässt sich an einem Wochenende neu gestalten. Damit der Boden später nicht knarrt, sich wölbt oder Fugen bekommt, kommt es aber auf die Vorbereitung und einige Grundregeln an.
 

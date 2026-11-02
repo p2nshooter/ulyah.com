@@ -3,6 +3,12 @@ title: "Richtig bohren in Beton, Ziegel und Gipskarton: Bohrer, Technik, Fehler"
 description: Wie du den Wandbaustoff erkennst, den passenden Bohrer und die richtige Maschine wählst, saubere Löcher bohrst und typische Fehler wie ausgebrochene Bohrlöcher vermeidest.
 category: werkzeug-und-grundlagen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Deutsches Institut für Bautechnik: Hinweise für die Montage von Dübelverankerungen (PDF) | https://www.dibt.de/fileadmin/dibt-website/Dokumente/Referat/I2/Duebel_Hinweise_Montage.pdf
+  - Deutsches Institut für Bautechnik: Kunststoffdübel | https://www.dibt.de/de/bauprodukte/informationsportal-bauprodukte-und-bauarten/produktgruppen/bauprodukte-detail/bauprodukt/kunststoffduebel
+  - VDE und Berufsgenossenschaft: Gemeinsame Erklärung zum sicheren Umgang mit Elektrizität (PDF) | https://www.vde.com/resource/blob/857600/8b6ecc69c8d83b358396124a2cbdc7e7/vde-gemeinsame-erklaerung-zum-sicheren-umgang-mit-elektrizitaet-data.pdf
 ---
 Ein Loch in die Wand zu bohren klingt einfach, und doch geht es oft schief: Der Bohrer rutscht ab, das Loch wird zu groß, der Dübel dreht durch oder man trifft auf etwas Hartes und kommt nicht weiter. Meist liegt das nicht am Geschick, sondern an der falschen Kombination aus Wandbaustoff, Bohrer und Maschine.
 

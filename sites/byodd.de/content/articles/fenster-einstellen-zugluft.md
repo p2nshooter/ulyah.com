@@ -3,6 +3,11 @@ title: "Fenster einstellen gegen Zugluft: Beschläge, Dichtungen und Sommer-Wint
 description: Wie du bei Dreh-Kipp-Fenstern den Anpressdruck einstellst, Dichtungen prüfst und erneuerst, Beschläge pflegst und ein hängendes Fenster gegen Zugluft nachstellst.
 category: reparaturen-im-haushalt
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Einfache Dämmmaßnahmen | https://www.verbraucherzentrale.de/20-prozent-weniger-heizenergie-nr7-einfache-daemmmassnahmen-82616
+  - co2online: Wärmedämmung für Mieter – 5 einfache Tipps | https://www.co2online.de/modernisieren-und-bauen/daemmung/waermedaemmung-fuer-mieter/
 ---
 Kalter Luftzug am Fenster, beschlagene Ecken, ein Pfeifen bei Wind oder ein Fensterflügel, der sich nur mit Kraft schließen lässt: Viele dieser Probleme haben mit schlecht eingestellten Beschlägen oder alten Dichtungen zu tun, nicht mit einem defekten Fenster. Moderne Dreh-Kipp-Fenster lassen sich mit einem Inbusschlüssel in wenigen Minuten nachstellen. Das spart Heizkosten und erhöht den Wohnkomfort.
 

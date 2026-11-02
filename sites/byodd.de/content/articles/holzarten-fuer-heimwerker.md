@@ -3,6 +3,11 @@ title: "Holzarten für Heimwerker: Kiefer, Fichte, Buche, Eiche, Multiplex und C
 description: Welche Massivhölzer und Holzwerkstoffe sich für Regale, Möbel, Arbeitsplatten und Außenprojekte eignen, wie sie sich verarbeiten lassen, was sie kosten und worauf du beim Kauf achtest.
 category: holz-und-moebel
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - DGUV Information 209-044: Holzstaub (PDF) | https://publikationen.dguv.de/widgets/pdf/download/article/496
+  - Blauer Engel: Lacke und Lasuren | https://www.blauer-engel.de/de/produktwelt/lacke-und-lasuren
 ---
 Wer im Baumarkt vor dem Holzregal steht, hat die Qual der Wahl: Kiefer, Fichte, Buche, Eiche, Leimholz, Spanplatte, MDF, Multiplex, OSB. Jedes Material hat seine Stärken, Schwächen und seinen Preis. Die richtige Wahl entscheidet darüber, ob ein Regal sich durchbiegt, ob eine Tischplatte Flecken bekommt oder ob ein Gartenmöbel nach zwei Wintern verrottet.
 

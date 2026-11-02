@@ -3,6 +3,13 @@ title: "Schimmel an der Wand: Ursachen finden, sicher entfernen, dauerhaft vorbe
 description: Woran du Schimmel erkennst, wann du ihn selbst entfernen darfst und wann nicht, welche Mittel helfen, wie du richtig lüftest und heizt und was Mieter und Vermieter wissen sollten.
 category: waende-und-boeden
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Häufige Fragen bei Schimmelbefall | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/haeufige-fragen-bei-schimmelbefall
+  - Umweltbundesamt: Worauf muss ich bei der Entfernung von Schimmel achten? | https://www.umweltbundesamt.de/service/uba-fragen/schutzmassnahmen-worauf-muss-ich-bei-der-entfernung
+  - Umweltbundesamt: Wie lüfte ich richtig? | https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/wie-luefte-ich-richtig-tipps-tricks-zur
+  - Verbraucherzentrale: Schimmel an der Wand entfernen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/schimmel-an-der-wand-entfernen-das-koennen-sie-tun-6794
 ---
 Schwarze Punkte in der Zimmerecke, ein grauer Rand hinter dem Kleiderschrank, muffiger Geruch im Schlafzimmer: Schimmel in der Wohnung ist ein häufiges Problem, besonders in der kalten Jahreszeit. Er ist unschön, kann die Gesundheit belasten und kommt zurück, wenn man nur die Oberfläche behandelt. Wer Schimmel dauerhaft loswerden will, muss die Ursache finden.
 

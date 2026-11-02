@@ -3,6 +3,11 @@ title: "WC-Spülkasten läuft ständig nach: Ursachen finden und selbst reparier
 description: Warum Wasser dauerhaft in die Toilette läuft, wie du Aufputz- und Unterputzspülkästen öffnest, Füllventil, Ablaufventil und Dichtungen prüfst, entkalkst oder tauschst und so Wasserkosten sparst.
 category: bad-und-kueche
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - U.S. EPA WaterSense: Fix a Leak Week (englisch) | https://www.epa.gov/watersense/fix-leak-week
+  - U.S. EPA WaterSense: Home maintenance (englisch) | https://www.epa.gov/watersense/home-maintenance
 ---
 Ein leises Rinnen in der Toilettenschüssel, ein Spülkasten, der sich nach dem Spülen nicht beruhigt, oder ein Zischen, das alle paar Minuten wiederkommt: Ein ständig nachlaufender Spülkasten ist nicht nur lästig, sondern teuer. Schon ein dünnes Rinnsal kann im Jahr mehrere Kubikmeter Wasser verschwenden und die Wasserrechnung spürbar erhöhen. Meist ist die Ursache ein verkalktes oder verschlissenes Bauteil, das du mit wenig Aufwand selbst reinigen oder tauschen kannst.
 

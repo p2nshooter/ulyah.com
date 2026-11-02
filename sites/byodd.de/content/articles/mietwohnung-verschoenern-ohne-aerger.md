@@ -3,6 +3,11 @@ title: "Mietwohnung verschönern ohne Ärger: Was erlaubt ist und was beim Auszu
 description: Was Mieter ohne Zustimmung verändern dürfen, wofür sie fragen sollten, rückbaubare Ideen für Wände, Böden, Küche und Bad und wie der Auszug ohne Streit gelingt.
 category: deko-und-wohnen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Deutscher Mieterbund: Unwirksame Schönheitsreparaturklausel | https://mieterbund.de/aktuelles/meldungen/bgh/unverstaendlich-unwirksame-schoenheitsreparaturklausel-verursacht-mehrkosten-fuer-mieter/
+  - Deutscher Mieterbund: Weihnachtsdekoration – was Mieter dürfen | https://mieterbund.de/aktuelles/meldungen/weihnachtsdekoration/
 ---
 Eine Mietwohnung soll sich wie ein Zuhause anfühlen. Gleichzeitig gehört sie dem Vermieter, und beim Auszug kann es Streit geben, wenn Veränderungen nicht rückgängig gemacht werden oder Schäden entstanden sind. Die gute Nachricht: Vieles ist erlaubt, und für fast jeden Wunsch gibt es eine Lösung, die sich spurlos zurückbauen lässt.
 

@@ -3,6 +3,11 @@ title: "Duschkopf und Perlator entkalken oder wechseln: so geht es richtig"
 description: Wie du Kalk aus Duschkopf, Perlator und Strahlreglern entfernst, welche Mittel für Chrom und Kunststoff geeignet sind, wie du Teile austauschst und mit wassersparenden Modellen Energie sparst.
 category: bad-und-kueche
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Verbraucherzentrale: Umweltfreundliche Putzmittel – vier Mittel reichen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/umweltfreundliche-putzmittel-vier-mittel-reichen-fuer-den-hausputz-12742
+  - Verbraucherzentrale: Wasserhärte bestimmen | https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wasser/wasserhaerte-bestimmen-habe-ich-weiches-oder-hartes-wasser-5532
 ---
 Wenn der Duschstrahl in alle Richtungen spritzt oder nur noch dünn tröpfelt und der Wasserhahn zur Seite sprüht, ist meistens Kalk die Ursache. In vielen Regionen Deutschlands ist das Leitungswasser hart, und Kalk setzt sich in den feinen Öffnungen von Duschköpfen und Perlatoren ab. Das ist ärgerlich, aber schnell behoben. Bei der Gelegenheit kann man auf sparsame Modelle umsteigen und so Wasser und Energie für warmes Wasser sparen.
 

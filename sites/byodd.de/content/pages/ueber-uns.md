@@ -2,7 +2,7 @@
 title: Über BYODD
 description: Wer hinter BYODD steht, wofür der Name steht, wie unsere Heimwerker-Anleitungen entstehen und was wir bewusst nicht tun.
 order: 1
-updated: 2026-10-04
+updated: 2026-11-02
 ---
 BYODD steht für **Bring Your Own DIY & Deko**. Der Name beschreibt, was wir wollen: Menschen, die in einer Mietwohnung, einer Eigentumswohnung oder einem Haus selbst Hand anlegen möchten, sollen dafür keine Profi-Werkstatt brauchen. Sie bringen ihre Neugier und ein Grundwerkzeug mit, wir liefern die Anleitung, die Erfahrung und die Warnhinweise.
 
@@ -20,6 +20,8 @@ BYODD ist ein unabhängiges deutschsprachiges Ratgeber-Magazin für Heimwerken, 
 ## Wie wir arbeiten
 
 Jede Anleitung beschreibt Material, Werkzeug, Zeitbedarf und die Arbeitsschritte in der Reihenfolge, in der sie in der Praxis anfallen. Wir nennen typische Fehler und sagen klar, wann eine Arbeit in die Hände eines Fachbetriebs gehört, etwa bei Elektroinstallationen, Gasgeräten oder tragenden Wänden. Mehr dazu in unseren [Redaktionsgrundsätzen](/redaktionsgrundsaetze/) und den [Sicherheitshinweisen](/sicherheitshinweise/).
+
+Beim Recherchieren und Schreiben nutzen wir auch KI-Werkzeuge. Jede Anleitung gleichen wir vor der Veröffentlichung mit Herstellerangaben und mit Informationen öffentlicher Stellen ab; wo es dazu verlässliche Quellen gibt, nennen wir sie unter der Anleitung. Vier Rechner für Farbe, Tapete, Bodenbelag und Dübel findest du unter [Rechner](/werkzeuge/), und was neu erschienen oder überarbeitet ist, steht mit Datum unter [Aktualisierungen](/aktualisierungen/).
 
 ## Was wir nicht tun
 
