@@ -10,6 +10,7 @@ import type { Lang, LabelKey } from '../lib/i18n.ts';
 import { REASON_KEYS } from '../lib/i18n.ts';
 import { preprocess, type Prepped } from './preprocess.ts';
 import { stylometry, traces, type StyleResult, type TraceResult, type TraceItem } from './stylometry.ts';
+import { PURGE_DAYS } from '../data/policy.ts';
 import { minhash, jaccardEstimate, regenOverlap, regenProbability } from './similarity.ts';
 import {
   composition, confidence, decideLabel, docProbability, fuseAll, gate1Passes, paragraphStats, tier2Targets, tier3Targets,
@@ -601,7 +602,8 @@ async function stageRubric2(ctx: CallCtx, env: Env, store: Store, settings: Engi
 }
 
 export function retentionDays(settings: EngineSettings, userDays?: number): number {
-  return typeof userDays === 'number' ? userDays : settings.retentionDays;
+  // Tidak pernah melebihi pembersihan otomatis 90 hari.
+  return Math.min(PURGE_DAYS, typeof userDays === 'number' ? userDays : settings.retentionDays);
 }
 
 async function finalize(env: Env, store: Store, settings: EngineSettings, docIn: CheckDoc): Promise<Partial<CheckDoc>> {

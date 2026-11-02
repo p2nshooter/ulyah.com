@@ -1,13 +1,16 @@
 /**
  * Tugas terjadwal (Cron Triggers):
  *  - tiap menit: lanjutkan pemeriksaan yang ditinggal (tab ditutup) + selesaikan token sesi lomba;
- *  - 02.00 WIB: backup harian ke bucket privat (35 hari) dan hapus teks yang masa simpannya habis.
+ *  - 02.00 WIB: hapus teks yang masa simpannya habis, pembersihan otomatis 90 hari (hasil kerja & unggahan member),
+ *    lalu backup harian ke bucket privat (35 hari).
  */
 import type { Env } from './env.ts';
 import { Store } from './lib/store.ts';
 import { advance, checkKey, reportKey, textKey, settleCheck, type CheckDoc, type ReportSummary } from './engine/cascade.ts';
 import { settleBatch } from './routes/checks.ts';
 import { wibDate } from './data/settings.ts';
+import { runPurge } from './data/purge.ts';
+import { repairDepositOps } from './data/deposit.ts';
 
 export async function sweep(env: Env, maxSteps = 4): Promise<number> {
   const store = new Store(env.DATA);
@@ -36,6 +39,8 @@ export async function sweep(env: Env, maxSteps = 4): Promise<number> {
   // Sesi lomba yang belum diselesaikan (tab ditutup): selesaikan token begitu semua naskah tuntas.
   const { items: open } = await store.list('i/open-batches/', { limit: 50 });
   for (const b of open) await settleBatch(env, store, b.id);
+  // Pembelian token dari deposit yang terputus di tengah: selesaikan ke depan (idempoten).
+  await repairDepositOps(store);
   return steps;
 }
 
@@ -105,6 +110,7 @@ export async function scheduled(event: ScheduledController, env: Env): Promise<v
     return;
   }
   await retention(env);
+  await runPurge(env);
   await runBackup(env);
 }
 

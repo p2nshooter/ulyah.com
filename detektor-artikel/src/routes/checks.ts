@@ -2,6 +2,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../env.ts';
 import { Store, invTs } from '../lib/store.ts';
+import { schedulePurge } from '../data/purge.ts';
 import { newId, seal } from '../lib/crypto.ts';
 import { tr, type Lang } from '../lib/i18n.ts';
 import { countWords } from '../engine/preprocess.ts';
@@ -118,6 +119,8 @@ export async function createCheck(
     await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now });
     if (charge) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
     if (!opts.bench) await store.createOnce(`i/user-checks/${user.id}/${invTs(now)}~${id}`, {}, { title: input.title, at: now, batch: opts.batchId ?? null });
+    // Hasil kerja & naskah member dibersihkan otomatis 90 hari setelah dibuat (laporan ikut terhapus).
+    if (!opts.bench) await schedulePurge(store, 'c', id, now);
   } catch (err) {
     // Dokumen gagal dibuat setelah token dipesan: kembalikan pesanan (idempoten), jangan sampai saldo hilang.
     if (res && 'tokens' in res) await refund(store, user.id, res.tokens, `Batal membuat ${id}`, `abort:${id}`);

@@ -20,7 +20,8 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # Pinned like site-audit.yml/live-probe.yml: on ubuntu-latest (26.04) `playwright install --with-deps` fails.
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     defaults:
       run:

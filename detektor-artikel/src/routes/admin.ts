@@ -2,19 +2,20 @@
 import { Hono } from 'hono';
 import { html, raw, jsonScript, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtUsd, LABELS, MODE_INFO, type Lang, type LabelKey } from '../lib/i18n.ts';
-import { page, pageHead, guide, flash, stat, empty, labelPill, tip } from '../pages/ui.ts';
+import { page, pageHead, guide, flash, stat, labelPill, tip } from '../pages/ui.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { isAdmin, getUser, updateUser, findByEmail, type User } from '../data/users.ts';
 import { getEngine, getBilling, spendToday, KEY_DOC, wibDate, DEFAULT_ENGINE, DEFAULT_BILLING, MARKUP_MIN, MARKUP_MAX, type EngineSettings, type KeyRecord, type BillingSettings, type Effort } from '../data/settings.ts';
 import { estimateTokens, hardBoundUsd, predictByMode, packagePrice, tokenPriceIdr, tokenCostIdr, minRevenueMultiple } from '../engine/pricing.ts';
 import { registerAdminAffiliate } from './affiliate.ts';
-import { getAffiliateSettings, payCommission } from '../data/affiliate.ts';
+import { getAffiliateSettings } from '../data/affiliate.ts';
 import { seal, newId, hashPassword } from '../lib/crypto.ts';
 import { clientFor } from '../engine/claude.ts';
 import { audit, type AuditEntry } from '../data/audit.ts';
 import { balanceOf, credit, ledger } from '../data/wallet.ts';
 import { createCheck } from './checks.ts';
-import type { Order } from './app.ts';
+import { registerAdminPayments } from './payments.ts';
+import { depositBalance, adminAdjust } from '../data/deposit.ts';
 import { reportKey, checkKey, type ReportSummary, type CheckDoc } from '../engine/cascade.ts';
 import { invTs } from '../lib/store.ts';
 import { runBackup } from '../cron.ts';
@@ -53,13 +54,13 @@ admin.get('/admin', async (c) => {
   const { items: users } = await store.list('i/users/', { limit: 1000 });
   const { items: reps } = await store.list<{ title: string; label: LabelKey; ai: number; at: number }>('i/reports/', { limit: 8 });
   const { items: active } = await store.list('i/active/', { limit: 100 });
-  const { items: orders } = await store.list<{ plan: string; email: string; at: number }>('i/orders/', { limit: 20 });
+  const { items: review } = await store.list('i/order-review/', { limit: 200 });
   const { items: losses } = await store.list('i/loss/', { limit: 50 });
   const steps = [
     { done: true, text: tr(L, 'Akun pemilik + 2FA', 'Owner account + 2FA'), href: '/admin' },
     { done: Boolean(key?.primary), text: tr(L, '<b>Tempel kunci API Claude</b> — satu-satunya isian wajib', '<b>Paste the Claude API key</b> — the only required input'), href: '/admin/kunci-api' },
     { done: Boolean(tested), text: tr(L, '<b>Uji mesin</b> dengan naskah contoh', '<b>Test the engine</b> with a sample text'), href: '/admin/mesin' },
-    { done: Boolean(billingDoc?.manualText), text: tr(L, '<b>Atur harga token & markup</b> (50–500×) dan instruksi pembayaran', '<b>Set the token price & markup</b> (50–500×) and payment instructions'), href: '/admin/harga' },
+    { done: Boolean(billingDoc?.manualText), text: tr(L, '<b>Atur markup</b> (10–500×) — semua harga ikut berubah', '<b>Set the markup</b> (10–500×) — every price follows'), href: '/admin/harga' },
   ];
   const body = html`
   ${pageHead(tr(L, 'Dasbor admin', 'Admin dashboard'), tr(L, 'Semua berjalan sendiri — di sini Anda memantau dan mengatur.', 'Everything runs by itself — here you monitor and adjust.'))}
@@ -69,8 +70,9 @@ admin.get('/admin', async (c) => {
     ${stat(tr(L, 'Biaya Claude hari ini', 'Claude cost today'), fmtUsd(spent), tr(L, `plafon ${fmtUsd(eng.dailyCapUsd)}`, `cap ${fmtUsd(eng.dailyCapUsd)}`))}
     ${stat(tr(L, 'Member', 'Members'), fmtNum(L, users.length))}
     ${stat(tr(L, 'Pemeriksaan berjalan', 'Running checks'), fmtNum(L, active.length))}
-    ${stat(tr(L, 'Pesanan terbaru', 'Recent orders'), fmtNum(L, orders.length), tr(L, 'lihat Pesanan', 'see Orders'))}
+    ${stat(tr(L, 'Bukti transfer menunggu', 'Proofs awaiting review'), fmtNum(L, review.length), tr(L, 'Pesanan → Perlu diperiksa', 'Orders → To review'))}
   </div>
+  ${review.length ? html`<a class="flash err reveal" href="/admin/pesanan?s=review">🧾 ${tr(L, `${review.length} bukti transfer menunggu verifikasi — buka antrean`, `${review.length} transfer proofs await verification — open the queue`)} →</a>` : ''}
   ${losses.length ? html`<div class="flash err reveal">⚠ ${tr(L, `${losses.length} pemeriksaan tercatat sebagai peringatan rugi — periksa harga di menu Harga & token.`, `${losses.length} checks logged as loss alerts — review pricing under Pricing & tokens.`)}</div>` : html`<div class="flash ok reveal">✓ ${tr(L, 'Tidak ada pemeriksaan yang merugi.', 'No loss-making checks.')}</div>`}
   <div class="spend-meter reveal"><div class="row-between"><small>${tr(L, 'Pemakaian plafon harian', 'Daily cap usage')}</small><small>${Math.min(100, Math.round((spent / Math.max(0.01, eng.dailyCapUsd)) * 100))}%</small></div><div class="progress ${spent / eng.dailyCapUsd > 0.8 ? 'warn' : ''}"><i style="--w:${Math.min(100, (spent / Math.max(0.01, eng.dailyCapUsd)) * 100)}%"></i></div></div>
   <section class="card reveal"><div class="row-between"><h3>${tr(L, 'Laporan terbaru', 'Latest reports')}</h3><a href="/admin/laporan">${tr(L, 'Semua', 'All')} →</a></div>
@@ -166,7 +168,7 @@ admin.get('/admin/mesin', async (c) => {
     <section class="card reveal"><h3>${tr(L, 'Biaya, kurs & privasi', 'Cost, rate & privacy')}</h3>
       <div class="grid g4">
         ${num('dailyCapUsd', e.dailyCapUsd, '1', tr(L, 'Di atas plafon, pemeriksaan baru ditolak sampai besok.', 'Above the cap, new checks are refused until tomorrow.'))}
-        ${num('retentionDays', e.retentionDays, '1')}${num('fx', e.fx, '100', tr(L, 'Kurs Rp per US$ untuk menghitung token dari biaya API.', 'Rp per US$ rate used to turn API cost into tokens.'))}
+        ${num('retentionDays', e.retentionDays, '1')}${num('fx', e.fx, '100', tr(L, 'Kurs Rp per US$ untuk menghitung harga Rupiah (token, paket, per halaman) dan modal.', 'Rp per US$ rate used for Rupiah prices (token, packages, per page) and cost.'))}
         <label class="check"><input type="checkbox" name="regen" ${e.regen ? 'checked' : ''}> <span>${tr(L, 'Uji regenerasi (S3)', 'Regeneration test (S3)')}</span></label>
         <label class="check"><input type="checkbox" name="rubricVerify" ${e.rubricVerify ? 'checked' : ''}> <span>${tr(L, 'Verifikasi rubrik oleh Sonnet bila ragu', 'Sonnet rubric verification when unsure')}</span></label>
       </div></section>
@@ -199,7 +201,7 @@ admin.post('/admin/mesin', async (c) => {
         },
         maxOpusSentences: Math.round(n('maxOpusSentences', cur.maxOpusSentences, 0, 500)),
         dailyCapUsd: n('dailyCapUsd', cur.dailyCapUsd, 0, 100_000),
-        retentionDays: Math.round(n('retentionDays', cur.retentionDays, 0, 3650)),
+        retentionDays: Math.round(n('retentionDays', cur.retentionDays, 0, 90)),
         fx: n('fx', cur.fx, 1, 1e6),
         regen: Boolean(f.regen),
         rubricVerify: Boolean(f.rubricVerify),
@@ -389,15 +391,17 @@ admin.get('/admin/anggota/:id', async (c) => {
   const u = await getUser(store, c.req.param('id'));
   if (!u) return c.notFound();
   const bal = await balanceOf(store, u.id);
+  const dep = await depositBalance(store, u.id);
   const led = await ledger(store, u.id, 15);
   const { items: reps } = await store.list<{ title: string; label: LabelKey; ai: number; at: number }>(`i/user-reports/${u.id}/`, { limit: 10 });
   const isOwner = me(c).role === 'owner';
   const body = html`
   ${pageHead(u.name, `${u.email} · ${u.role}${u.suspended ? ' · ' + tr(L, 'DITANGGUHKAN', 'SUSPENDED') : ''}`)}
-  ${flash(L, c.req.query('ok') ? tr(L, 'Tersimpan.', 'Saved.') : null, null)}
-  <div class="grid g3">${stat(tr(L, 'Saldo token', 'Token balance'), fmtNum(L, bal))}${stat('2FA', u.totp ? '✓' : '—')}${stat(tr(L, 'Masuk terakhir', 'Last login'), u.lastLoginAt ? fmtDate(L, u.lastLoginAt) : '—')}</div>
+  ${flash(L, c.req.query('ok') ? tr(L, 'Tersimpan.', 'Saved.') : null, c.req.query('err') === 'deposit' ? tr(L, 'Saldo deposit tidak cukup untuk dikurangi sebanyak itu.', 'Not enough deposit balance to remove that much.') : null)}
+  <div class="grid g4">${stat(tr(L, 'Saldo token', 'Token balance'), fmtNum(L, bal))}${stat(tr(L, 'Saldo deposit', 'Deposit balance'), `Rp ${fmtNum(L, dep)}`)}${stat('2FA', u.totp ? '✓' : '—')}${stat(tr(L, 'Masuk terakhir', 'Last login'), u.lastLoginAt ? fmtDate(L, u.lastLoginAt) : '—')}</div>
   <div class="grid g2">
     <form method="post" action="/admin/anggota/${u.id}/kuota" class="card form reveal"><h3>${tr(L, 'Tambah / kurangi token', 'Add / remove tokens')}</h3><input type="hidden" name="idem" value="${newId('adj')}"><label class="field"><span>${tr(L, 'Token (negatif untuk mengurangi)', 'Tokens (negative to remove)')}</span><input type="number" name="tokens" required step="1"></label><label class="field"><span>${tr(L, 'Alasan', 'Reason')}</span><input name="note" required maxlength="200"></label><button class="btn btn-primary" type="submit">${tr(L, 'Terapkan', 'Apply')}</button></form>
+    <form method="post" action="/admin/anggota/${u.id}/deposit" class="card form reveal"><h3>${tr(L, 'Koreksi saldo deposit (Rp)', 'Adjust deposit balance (Rp)')}</h3><input type="hidden" name="idem" value="${newId('dadj')}"><label class="field"><span>${tr(L, 'Rupiah (negatif untuk mengurangi)', 'Rupiah (negative to remove)')}</span><input type="number" name="idr" required step="1"></label><label class="field"><span>${tr(L, 'Catatan (wajib)', 'Note (required)')}</span><input name="note" maxlength="200" required></label><button class="btn btn-ghost" type="submit">${tr(L, 'Simpan koreksi', 'Save adjustment')}</button></form>
     <form method="post" action="/admin/anggota/${u.id}/aksi" class="card form reveal"><h3>${tr(L, 'Tindakan akun', 'Account actions')}</h3>
       ${isOwner && u.role !== 'owner' ? html`<label class="field"><span>${tr(L, 'Peran', 'Role')}</span><select name="role"><option value="">—</option><option value="member">member</option><option value="admin">admin</option></select></label>` : ''}
       <label class="field"><span>${tr(L, 'Sandi sementara (opsional)', 'Temporary password (optional)')}</span><input name="temp" minlength="8" autocomplete="off"></label>
@@ -416,6 +420,20 @@ admin.post('/admin/anggota/:id/kuota', async (c) => {
   if (Number.isFinite(tokens) && tokens !== 0) {
     await credit(store, id, tokens, 'admin', String(f.note ?? '').slice(0, 200), String(f.idem || newId('adj')), me(c).id);
     await audit(store, me(c).id, 'tokens.adjust', { uid: id, tokens, note: f.note });
+  }
+  return c.redirect(`/admin/anggota/${id}?ok=1`);
+});
+
+admin.post('/admin/anggota/:id/deposit', async (c) => {
+  const store = c.get('store');
+  const id = c.req.param('id');
+  const f = (await c.req.parseBody()) as Record<string, string>;
+  const idr = Math.round(Number(f.idr));
+  const note = String(f.note ?? '').trim().slice(0, 200);
+  if (Number.isFinite(idr) && idr !== 0 && note && (await getUser(store, id))) {
+    const r = await adminAdjust(store, id, idr, `Admin: ${note}`, String(f.idem || newId('dadj')));
+    await audit(store, me(c).id, 'deposit.adjust', { uid: id, idr, note, result: r });
+    if (r === 'insufficient') return c.redirect(`/admin/anggota/${id}?err=deposit`);
   }
   return c.redirect(`/admin/anggota/${id}?ok=1`);
 });
@@ -538,57 +556,6 @@ admin.post('/admin/harga', async (c) => {
   return c.redirect('/admin/harga?ok=1');
 });
 
-/* ── pesanan ────────────────────────────────────────────────────────── */
-
-/** Tuntaskan pesanan lunas: token masuk + komisi afiliasi — keduanya idempoten per nomor pesanan. */
-async function completeOrder(store: Ctx['var']['store'], o: Order, by: string): Promise<void> {
-  await credit(store, o.uid, o.tokens, 'purchase', `Pesanan ${o.id} (${o.pkg})`, `order:${o.id}`, by);
-  const buyer = await getUser(store, o.uid);
-  const aff = await getAffiliateSettings(store);
-  if (buyer?.ref && aff.enabled) await payCommission(store, buyer.ref, o.id, o.email, o.priceIdr, aff.ratePct);
-}
-
-admin.get('/admin/pesanan', async (c) => {
-  const L = portalLang(c);
-  const store = c.get('store');
-  const { items } = await store.list('i/orders/', { limit: 50 });
-  const orders: Order[] = [];
-  for (const it of items) {
-    const o = await store.get<Order>(`c/orders/${it.id}.json`);
-    if (o) orders.push(o);
-  }
-  const body = html`
-  ${pageHead(tr(L, 'Pesanan token', 'Token orders'), tr(L, 'Tandai lunas setelah dana diterima → token masuk & komisi afiliasi dihitung, tepat sekali.', 'Mark paid once funds arrive → tokens are added & affiliate commission computed, exactly once.'))}
-  ${flash(L, c.req.query('ok') ? tr(L, 'Tersimpan.', 'Saved.') : null, null)}
-  <section class="card reveal">
-  ${orders.length ? html`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>No.</th><th>E-mail</th><th>${tr(L, 'Paket', 'Package')}</th><th class="n">Rp</th><th>Status</th><th></th></tr></thead><tbody>${orders.map((o) => html`<tr><td><a href="/app/pesanan/${o.id}">${o.id}</a><br><small class="muted">${fmtDate(L, o.createdAt)}</small></td><td>${o.email}</td><td>${o.pkg} · ${fmtNum(L, o.tokens)} token</td><td class="n">${fmtNum(L, o.priceIdr)}</td><td><span class="pill ${o.status === 'credited' ? 'p-hum' : o.status === 'cancelled' ? 'p-unk' : 'p-mix'}">${o.status}</span></td><td>${o.status === 'credited' ? html`<form method="post" action="/admin/pesanan/${o.id}"><button class="btn btn-ghost btn-sm" name="act" value="repair" title="${tr(L, 'Aman diklik berulang: tidak pernah menambah ganda', 'Safe to click repeatedly: never adds twice')}">↻ ${tr(L, 'Pastikan token & komisi', 'Ensure tokens & commission')}</button></form>` : ''}${o.status === 'pending' ? html`<form method="post" action="/admin/pesanan/${o.id}" class="btn-row"><button class="btn btn-primary btn-sm" name="act" value="credit" data-confirm="${tr(L, 'Dana sudah diterima? Token akan masuk.', 'Funds received? Tokens will be added.')}">${tr(L, 'Lunas → token masuk', 'Paid → add tokens')}</button><button class="btn btn-ghost btn-sm" name="act" value="cancel">${tr(L, 'Batal', 'Cancel')}</button></form>` : ''}</td></tr>`)}</tbody></table></div>` : empty('🧾', tr(L, 'Belum ada pesanan', 'No orders yet'), tr(L, 'Pesanan member muncul di sini.', 'Member orders appear here.'))}</section>`;
-  return c.html(shell(c, tr(L, 'Pesanan', 'Orders'), body, 'orders'));
-});
-
-admin.post('/admin/pesanan/:id', async (c) => {
-  const store = c.get('store');
-  const id = c.req.param('id');
-  const act = String((await c.req.parseBody()).act ?? '');
-  let creditIt: Order | null = null;
-  await store.cas<Order>(`c/orders/${id}.json`, (o) => {
-    creditIt = null;
-    if (!o || o.status !== 'pending') return null;
-    if (act === 'cancel') return { ...o, status: 'cancelled', by: me(c).id };
-    if (act === 'credit') {
-      const next: Order = { ...o, status: 'credited', creditedAt: Date.now(), by: me(c).id };
-      creditIt = next;
-      return next;
-    }
-    return null;
-  });
-  // Bila tombol diklik ulang atau koneksi sempat putus: pesanan yang sudah "credited" tetap dituntaskan
-  // (kredit token & komisi idempoten per nomor pesanan), tidak pernah ganda.
-  const o = (creditIt as Order | null) ?? (act === 'credit' || act === 'repair' ? await store.get<Order>(`c/orders/${id}.json`) : null);
-  if (o && o.status === 'credited') await completeOrder(store, o, me(c).id);
-  await audit(store, me(c).id, `order.${act}`, { id });
-  return c.redirect('/admin/pesanan?ok=1');
-});
-
 /* ── laporan, biaya, audit ──────────────────────────────────────────── */
 
 admin.get('/admin/laporan', async (c) => {
@@ -676,5 +643,6 @@ admin.post('/admin/cadangan', async (c) => {
 });
 
 registerAdminAffiliate(admin);
+registerAdminPayments(admin);
 
 export { LABELS, checkKey, DEFAULT_BILLING, type CheckDoc, type Lang };

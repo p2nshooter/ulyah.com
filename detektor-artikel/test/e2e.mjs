@@ -4,6 +4,30 @@ import { createRequire } from 'node:module';
 const { chromium } = createRequire(import.meta.url)('playwright');
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import zlib from 'node:zlib';
+
+/** .docx sungguhan (ZIP, isi dikompres deflate) untuk menguji ekstraksi teks di peramban. */
+function makeDocx(paragraphs) {
+  const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const body = paragraphs.map((p) => `<w:p><w:r><w:t xml:space="preserve">${esc(p).replace(/\t/g, '</w:t><w:tab/><w:t>')}</w:t></w:r></w:p>`).join('');
+  const files = {
+    '[Content_Types].xml': '<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>',
+    'word/document.xml': `<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="${W}"><w:body>${body}</w:body></w:document>`,
+  };
+  const locals = [], centrals = [];
+  let off = 0;
+  for (const [name, text] of Object.entries(files)) {
+    const raw = Buffer.from(text), comp = zlib.deflateRawSync(raw), nm = Buffer.from(name), crc = zlib.crc32(raw);
+    const lh = Buffer.alloc(30); lh.writeUInt32LE(0x04034b50, 0); lh.writeUInt16LE(20, 4); lh.writeUInt16LE(8, 8); lh.writeUInt32LE(crc, 14); lh.writeUInt32LE(comp.length, 18); lh.writeUInt32LE(raw.length, 22); lh.writeUInt16LE(nm.length, 26);
+    const ch = Buffer.alloc(46); ch.writeUInt32LE(0x02014b50, 0); ch.writeUInt16LE(20, 4); ch.writeUInt16LE(20, 6); ch.writeUInt16LE(8, 10); ch.writeUInt32LE(crc, 16); ch.writeUInt32LE(comp.length, 20); ch.writeUInt32LE(raw.length, 24); ch.writeUInt16LE(nm.length, 28); ch.writeUInt32LE(off, 42);
+    locals.push(lh, nm, comp); centrals.push(ch, nm);
+    off += 30 + nm.length + comp.length;
+  }
+  const cd = Buffer.concat(centrals), end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(2, 8); end.writeUInt16LE(2, 10); end.writeUInt32LE(cd.length, 12); end.writeUInt32LE(off, 16);
+  return Buffer.concat([...locals, cd, end]);
+}
 
 const BASE = process.env.BASE || 'http://127.0.0.1:8787';
 const OUT = process.env.OUT || 'e2e-out';
@@ -121,6 +145,10 @@ await m.waitForURL(/\/app\?welcome=1/);
 ok(true, 'member terdaftar');
 const ESSAY = fs.readFileSync(new URL('./fixtures/esai.txt', import.meta.url), 'utf8');
 await m.goto(BASE + '/app/periksa');
+await m.setInputFiles('#fileInput', { name: 'esai.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', buffer: makeDocx(['Judul: Literasi & Kita', 'Paragraf satu\tdengan tab <aman>.', 'Paragraf dua.']) });
+await m.waitForFunction(() => document.querySelector('textarea[name=text]').value.includes('Paragraf dua'));
+const fromDocx = await m.inputValue('textarea[name=text]');
+ok(fromDocx === 'Judul: Literasi & Kita\n\nParagraf satu\tdengan tab <aman>.\n\nParagraf dua.', 'unggah .docx: teks, tab, paragraf, dan karakter khusus terbaca utuh');
 await m.fill('textarea[name=text]', ESSAY);
 await m.waitForTimeout(800);
 ok(Number((await m.textContent('#estRes')).replace(/\D/g, '')) > 0, 'perkiraan token dari server tampil');
@@ -129,21 +157,102 @@ await m.click('.check-form button[type=submit]');
 await m.waitForLoadState();
 ok((await m.locator('.flash.err').count()) === 1, 'tanpa token: pemeriksaan ditolak sebelum AI dipanggil');
 await m.screenshot({ path: `${OUT}/check-form.png`, fullPage: true });
+// Bukti transfer kecil (PNG 1×1 dan PDF minimal) — jenis dicek server dari isi berkas.
+const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64');
+const PDF = Buffer.from('%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF\n');
+async function uploadProof(page, file, amount) {
+  await page.setInputFiles('#unggah input[name=file]', file);
+  await page.fill('#unggah input[name=sender]', 'Guru Uji');
+  await page.fill('#unggah input[name=via]', 'BCA m-banking');
+  await page.fill('#unggah input[name=paidOn]', '2026-11-02');
+  await page.fill('#unggah input[name=amount]', String(amount));
+  await page.click('#unggah button[type=submit]');
+  await page.waitForURL(/ok=proof/);
+}
+async function adminDecide(id, act, reason) {
+  await p.goto(BASE + `/admin/pesanan/${id}`);
+  if (act === 'approve') { p.once('dialog', (d) => d.accept()); await p.click(`form[action="/admin/pesanan/${id}"] >> input[value=approve] >> xpath=.. >> button`); }
+  else { await p.fill('input[name=reason]', reason); await p.click(`form[action="/admin/pesanan/${id}"] >> input[value=reject] >> xpath=.. >> button`); }
+  await p.waitForURL(/\?ok=1/);
+}
+
+// 3a. Paket Lembaga dibayar transfer Rupiah: invoice → bukti → admin setujui → token masuk tepat sekali.
 await m.goto(BASE + '/app/token');
-await m.click('form[action="/app/token/pesan"] >> nth=3 >> button');
+ok((await m.locator('.notice-cash').count()) >= 1, 'pemberitahuan: saldo tidak bisa diuangkan');
+await m.click('.plans .plan >> nth=3 >> button[value=IDR]');
 await m.waitForURL(/\/app\/pesanan\//);
 const orderId = m.url().split('/').pop();
-const orderIdr = Number((await m.textContent('.invoice .kv dd b')).replace(/\D/g, ''));
+const orderIdr = Number((await m.textContent('.invoice .inv-total')).replace(/\D/g, ''));
 ok(orderIdr > 0, `harga pesanan dibekukan di invoice (Rp ${orderIdr})`);
+ok((await m.textContent('.paybox')).includes('2090571484') && (await m.textContent('.paybox')).includes('YUSRON EFENDI'), 'invoice IDR: rekening BNI dari ulyah.com');
+ok(/XS-\d{8}-[0-9A-Z]{6}/.test(await m.textContent('.inv-no')), 'nomor invoice tampil');
+await m.screenshot({ path: `${OUT}/invoice-idr.png`, fullPage: true });
+await uploadProof(m, { name: 'bukti.png', mimeType: 'image/png', buffer: PNG }, orderIdr);
+ok((await m.locator('.proofs li').count()) === 1, 'bukti transfer terunggah dan tampil');
+await p.goto(BASE + '/admin');
+ok(/1/.test(await p.textContent('a.flash.err')), 'admin: antrean bukti transfer muncul di dasbor');
 await p.goto(BASE + '/admin/pesanan');
-p.once('dialog', (d) => d.accept());
-await p.click(`form[action="/admin/pesanan/${orderId}"] button[value=credit]`);
-await p.waitForURL(/pesanan\?ok=1/);
+ok((await p.locator(`a[href="/admin/pesanan/${orderId}"]`).count()) >= 1, 'admin: pesanan ada di tab Perlu diperiksa');
+await p.goto(BASE + `/admin/pesanan/${orderId}`);
+ok((await p.locator('.proofs img').count()) === 1, 'admin: pratinjau bukti transfer');
+const proofResp = await p.evaluate(async (id) => { const r = await fetch(`/admin/pesanan/${id}/bukti/0`); return { s: r.status, t: r.headers.get('content-type') }; }, orderId);
+ok(proofResp.s === 200 && proofResp.t === 'image/png', 'admin: berkas bukti dilayani (image/png)');
+await adminDecide(orderId, 'approve');
+// Klik ulang "setujui" (mis. tab lama): tidak pernah menambah token dua kali.
+await p.evaluate(async (id) => { const fd = new FormData(); fd.set('act', 'approve'); await fetch(`/admin/pesanan/${id}`, { method: 'POST', body: fd }); }, orderId);
 await m.goto(BASE + '/app/token');
-ok((await m.getAttribute('.stat-hero .stat-v', 'data-count')) === '12000', 'token masuk tepat 12.000 setelah lunas');
+ok((await m.getAttribute('.stat-hero .stat-v', 'data-count')) === '12000', 'token masuk tepat 12.000 setelah disetujui (klik ulang tidak menambah)');
+await m.goto(BASE + `/app/pesanan/${orderId}`);
+ok((await m.locator('.invoice .stamp').count()) === 1, 'invoice member: cap LUNAS');
 await p.goto(BASE + '/app/afiliasi');
 const commission = Math.floor(orderIdr * 15 / 100).toLocaleString('id-ID');
 ok((await p.textContent('.grid.g4')).includes(commission), `komisi afiliasi 15% (Rp ${commission}) tercatat`);
+// Orang lain tidak bisa membuka invoice / bukti member ini.
+ok((await p.goto(BASE + `/app/pesanan/${orderId}/bukti/0`)).status() === 404, 'bukti member tidak bisa dibuka akun lain lewat portal member');
+
+// 3b. Bayar USD dari luar negeri: panduan SWIFT + alternatif kiriman uang, lalu batal.
+await m.goto(BASE + '/app/token');
+await m.click('.plans .plan >> nth=0 >> button[value=USD]');
+await m.waitForURL(/\/app\/pesanan\//);
+const usdText = await m.textContent('main');
+ok(/BNINIDJA/.test(usdText) && /2090571495/.test(usdText) && /OUR/.test(usdText) && /Wise/.test(usdText), 'invoice USD: SWIFT, rekening USD, biaya OUR, alternatif kiriman uang');
+await m.screenshot({ path: `${OUT}/invoice-usd.png`, fullPage: true });
+m.once('dialog', (d) => d.accept());
+await m.click('form[action$="/batal"] button');
+await m.waitForURL(/ok=cancel/);
+ok(true, 'member membatalkan pesanan USD');
+
+// 3c. Deposit Rupiah: invoice → bukti ditolak → unggah ulang → disetujui → beli paket & tukar token dari saldo.
+await m.goto(BASE + '/app/token#deposit');
+await m.fill('#depAmt', '1000000');
+await m.click('form[action="/app/deposit/isi"] button[type=submit]');
+await m.waitForURL(/\/app\/pesanan\//);
+const depId = m.url().split('/').pop();
+ok(/Deposit|deposit/.test(await m.textContent('.invoice')), 'invoice deposit');
+await uploadProof(m, { name: 'bukti.pdf', mimeType: 'application/pdf', buffer: PDF }, 1000000);
+await adminDecide(depId, 'reject', 'Dana belum masuk');
+await m.goto(BASE + `/app/pesanan/${depId}`);
+ok(/Dana belum masuk/.test(await m.textContent('main')), 'member melihat alasan penolakan');
+await uploadProof(m, { name: 'bukti2.png', mimeType: 'image/png', buffer: PNG }, 1000000);
+await adminDecide(depId, 'approve');
+await m.goto(BASE + '/app/token');
+ok(/1\.000\.000/.test(await m.textContent('.stat-hero >> nth=1')), 'saldo deposit Rp 1.000.000 setelah disetujui');
+const tokBefore = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
+m.once('dialog', (d) => d.accept());
+await m.click('.plans .plan >> nth=0 >> form[action="/app/deposit/beli"] button');
+await m.waitForURL(/ok=deposit-buy/);
+const tokAfterBuy = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
+ok(tokAfterBuy === tokBefore + 300, `beli Starter dari deposit: +300 token (${tokBefore} → ${tokAfterBuy})`);
+const depLeft = Number((await m.textContent('.stat-hero >> nth=1 >> .stat-v')).replace(/\D/g, ''));
+ok(depLeft > 0 && depLeft < 1000000, `deposit berkurang sesuai harga paket (sisa Rp ${depLeft})`);
+const preview = Number((await m.textContent('[data-convert-out]')).replace(/\D/g, ''));
+await m.click('form[action="/app/deposit/tukar"] button[type=submit]');
+await m.waitForURL(/ok=deposit-convert/);
+const tokAfterConv = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
+ok(tokAfterConv === tokAfterBuy + preview && preview > 0, `tukar sisa deposit: +${preview} token sesuai pratinjau`);
+await m.screenshot({ path: `${OUT}/token-deposit.png`, fullPage: true });
+const memberHtml = await m.content();
+ok(!/markup|modal|keuntungan|×\s*kurs/i.test(memberHtml.replace(/<script[\s\S]*?<\/script>/g, '')), 'halaman token member tidak menyebut markup/modal (rahasia perusahaan)');
 
 await m.goto(BASE + '/app/periksa');
 await m.fill('textarea[name=text]', ESSAY);
@@ -161,7 +270,7 @@ const js = JSON.parse((await inPage(`/app/laporan/${rid}/unduh.json`)).text);
 ok(js.signature.startsWith('hmac-sha256:') && js.data.report.id === rid, 'unduh JSON bertanda tangan');
 await m.goto(BASE + '/app/token');
 const after = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
-ok(after < 12000 && after > 0, `token dipotong sesuai biaya nyata (sisa ${after})`);
+ok(after < tokAfterConv && after > 0, `token dipotong sesuai biaya nyata (sisa ${after})`);
 await m.goto(BASE + '/app/laporan?q=literasi');
 ok((await m.locator('tbody tr').count()) >= 1, 'riwayat kerja: pencarian');
 const csv = await inPage('/app/laporan/ekspor.csv');
@@ -200,6 +309,9 @@ await m.waitForFunction(() => document.querySelectorAll('.recap tbody tr').lengt
 ok(true, 'rekap sesi lomba lengkap');
 await m.screenshot({ path: `${OUT}/recap.png`, fullPage: true });
 
+await m.goto(BASE + '/app/laporan');
+ok((await m.locator('.notice-purge').count()) >= 1, 'pemberitahuan pembersihan otomatis 90 hari di riwayat kerja');
+
 // 5. Ponsel
 const mob = await ctx({ viewport: { width: 390, height: 844 }, isMobile: true });
 const mp = await mob.newPage();
@@ -213,6 +325,7 @@ ok(calls.some((x) => x.model === 'claude-haiku-5-5' && x.effort === 'high'), 'Ha
 ok(calls.every((x) => !/sonnet|opus/.test(x.model) || (x.fallbacks === 'default' && /server-side-fallback/.test(x.betas || ''))), 'Sonnet/Opus memakai server-side fallback');
 ok(calls.filter((x) => x.model === 'claude-sonnet-5-5').length >= 3, 'mode Sonnet benar-benar memanggil Sonnet');
 await browser.close();
-const real = errors.filter((e) => !/status of 402/.test(e));
+// 402 (saldo kurang) dan 404 bukti milik akun lain memang disengaja di atas.
+const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e));
 if (real.length) { console.error('Galat konsol:\n' + real.join('\n')); process.exit(1); }
 console.log('SEMUA LULUS');

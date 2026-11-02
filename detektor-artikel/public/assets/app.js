@@ -62,14 +62,15 @@
     if (conf && !conf.hasAttribute('data-review') && !window.confirm(conf.getAttribute('data-confirm'))) { ev.preventDefault(); return; }
     var gx = t.closest('[data-guide-close]');
     if (gx) { var g = gx.closest('[data-guide]'); if (g) { g.classList.add('gone'); store.set('guide:' + g.getAttribute('data-guide'), '1'); } }
+    // Baris tabel yang bisa diklik meneruskan klik ke tautan di dalam barisnya sendiri (tanpa membaca URL dari atribut).
     var row = t.closest('tr[data-href]');
-    if (row && !t.closest('a, button, form')) window.location.href = row.getAttribute('data-href');
+    if (row && !t.closest('a, button, form, input, select, textarea')) { var link = row.querySelector('a[href]'); if (link) link.click(); }
     var rv = t.closest('[data-review]');
     if (rv) {
       ev.preventDefault();
       if (!window.confirm(rv.getAttribute('data-confirm'))) return;
       rv.setAttribute('aria-busy', 'true');
-      api('/api/reports/' + rv.getAttribute('data-review') + '/review', {}).then(function (d) { location.href = '/app/proses/' + d.id; }).catch(function (e) { rv.removeAttribute('aria-busy'); toast(e.message, true); });
+      api('/api/reports/' + encodeURIComponent(rv.getAttribute('data-review')) + '/review', {}).then(function (d) { location.href = '/app/proses/' + encodeURIComponent(d.id); }).catch(function (e) { rv.removeAttribute('aria-busy'); toast(e.message, true); });
     }
   });
   $$('[data-guide]').forEach(function (g) { if (store.get('guide:' + g.getAttribute('data-guide'))) g.classList.add('gone'); });
@@ -97,6 +98,27 @@
   $$('[data-range-out]').forEach(function (r) { var o = document.getElementById(r.getAttribute('data-range-out')); r.addEventListener('input', function () { if (o) o.textContent = r.value + '×'; }); });
 
   /* ── ekstraksi teks berkas (.txt, .md, .docx) di peramban ── */
+  /** Teks dari word/document.xml lewat pengurai XML peramban (bukan regex): paragraf, tab, ganti baris. */
+  function docxXmlText(xml) {
+    var W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+    var doc = new DOMParser().parseFromString(xml, 'application/xml');
+    if (doc.getElementsByTagName('parsererror').length) throw new Error('docx');
+    var paras = doc.getElementsByTagNameNS(W, 'p'), out = [];
+    var ownerP = function (el) { var x = el.parentNode; while (x && !(x.namespaceURI === W && x.localName === 'p')) x = x.parentNode; return x; };
+    for (var i = 0; i < paras.length; i++) {
+      var p = paras[i], text = '', els = p.getElementsByTagNameNS(W, '*');
+      for (var j = 0; j < els.length; j++) {
+        var el = els[j];
+        if (ownerP(el) !== p) continue; // paragraf bersarang (kotak teks) diambil sendiri
+        if (el.localName === 't') text += el.textContent;
+        else if (el.localName === 'tab') text += '\t';
+        else if (el.localName === 'br' || el.localName === 'cr') text += '\n';
+      }
+      out.push(text);
+    }
+    return out.join('\n\n').replace(/\n{3,}/g, '\n\n').trim();
+  }
+
   async function inflateRaw(bytes) {
     var ds = new DecompressionStream('deflate-raw');
     var out = new Response(new Blob([bytes]).stream().pipeThrough(ds));
@@ -116,8 +138,7 @@
         var lnl = dv.getUint16(local + 26, true), lex = dv.getUint16(local + 28, true);
         var data = u8.subarray(local + 30 + lnl + lex, local + 30 + lnl + lex + csize);
         var xml = new TextDecoder().decode(method === 0 ? data : await inflateRaw(data));
-        return xml.replace(/<w:tab\/>/g, '\t').replace(/<w:br[^>]*\/>/g, '\n').replace(/<\/w:p>/g, '\n\n').replace(/<[^>]+>/g, '')
-          .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&').replace(/\n{3,}/g, '\n\n').trim();
+        return docxXmlText(xml);
       }
       off += 46 + nameLen + extra + comment;
     }
@@ -216,7 +237,7 @@
       paintStages(proc, st, i18n);
       if (st.error && st.stage !== 'failed') { var m = $('[data-msg]', proc); if (m) m.textContent = i18n.retry; }
     }).then(function (st) {
-      if (st.stage === 'done' && st.reportId) { proc.classList.add('done'); setTimeout(function () { location.href = '/app/laporan/' + st.reportId; }, reduce ? 0 : 700); }
+      if (st.stage === 'done' && st.reportId) { proc.classList.add('done'); setTimeout(function () { location.href = '/app/laporan/' + encodeURIComponent(st.reportId); }, reduce ? 0 : 700); }
       else if (st.stage === 'failed') { errBox.hidden = false; errBox.textContent = '⚠ ' + i18n.failed + ': ' + (st.error ? st.error.msg : '') + ' ' + i18n.refunded; }
     }).catch(function (e) { errBox.hidden = false; errBox.textContent = '⚠ ' + e.message; });
   }
@@ -235,8 +256,11 @@
       queue.forEach(function (e, i) {
         total += e.words;
         var tr = document.createElement('tr');
-        tr.innerHTML = '<td><input value="" data-k="author"></td><td><input value="" data-k="title"></td><td class="n">' + fmt(e.words) + '</td><td><button class="btn btn-ghost btn-sm" type="button">' + bi18n.remove + '</button></td>';
-        tr.querySelector('[data-k=author]').value = e.author; tr.querySelector('[data-k=title]').value = e.title;
+        var cell = function (child, cls) { var td = document.createElement('td'); if (cls) td.className = cls; td.appendChild(child); tr.appendChild(td); return child; };
+        var inA = document.createElement('input'); inA.setAttribute('data-k', 'author'); inA.value = e.author; cell(inA);
+        var inT = document.createElement('input'); inT.setAttribute('data-k', 'title'); inT.value = e.title; cell(inT);
+        cell(document.createTextNode(fmt(e.words)), 'n');
+        var rm = document.createElement('button'); rm.type = 'button'; rm.className = 'btn btn-ghost btn-sm'; rm.textContent = bi18n.remove; cell(rm);
         tr.querySelectorAll('input').forEach(function (inp) { inp.addEventListener('input', function () { e[inp.getAttribute('data-k')] = inp.value; }); });
         tr.querySelector('button').addEventListener('click', function () { queue.splice(i, 1); renderQueue(); });
         qBody.appendChild(tr);
@@ -293,7 +317,47 @@
       async function worker() { while (idx < n) { var i = idx++; try { var r = await api('/api/admin/bench/' + set + '/' + i + '?run=' + run, {}); if (r.id) await drive(r.id); } catch (e) { /* lanjut */ } done++; bar.style.setProperty('--w', (done / n) * 100 + '%'); txt.textContent = bt.running + ' ' + done + ' ' + bt.of + ' ' + n; } }
       await Promise.all([worker(), worker(), worker()]);
       txt.textContent = bt.done;
-      location.href = '/admin/benchmark?set=' + set + '&run=' + run;
+      location.href = '/admin/benchmark?set=' + encodeURIComponent(set) + '&run=' + encodeURIComponent(run);
     });
+  }
+  /* ── chip isi cepat (nominal deposit) ─────────────────────── */
+  document.addEventListener('click', function (ev) {
+    var chip = ev.target.closest('[data-set]');
+    if (chip) { var inp = $(chip.getAttribute('data-set')); if (inp) { inp.value = chip.getAttribute('data-value'); inp.dispatchEvent(new Event('input', { bubbles: true })); } }
+  });
+
+  /* ── pratinjau tukar deposit → token ─────────────────────── */
+  $$('[data-convert]').forEach(function (f) {
+    var tp = Number(f.getAttribute('data-tp')) || 1, inp = $('[data-convert-in]', f), out = $('[data-convert-out]', f);
+    if (!inp || !out) return;
+    var upd = function () { out.textContent = fmt(Math.floor((Number(inp.value) || 0) / tp)); };
+    inp.addEventListener('input', upd); upd();
+  });
+
+  /* ── Admin → Harga: pratinjau langsung (rumus sama dengan server: engine/pricing.ts) ── */
+  var pf = $('[data-pricing]');
+  if (pf) {
+    var fx = Number(pf.getAttribute('data-fx')) || 16500, aff = Number(pf.getAttribute('data-aff')) || 0;
+    var mk = $('#markupNum', pf), range = $('[data-sync]', pf), unitIn = $('[data-unit-input]', pf);
+    var nice = function (x) { if (x >= 100000) return Math.round(x / 1000) * 1000; if (x >= 10000) return Math.round(x / 500) * 500; return Math.max(100, Math.round(x / 100) * 100); };
+    var rp = function (x) { return 'Rp ' + fmt(Math.round(x)); };
+    var recalc = function () {
+      var m = Math.min(500, Math.max(10, Number(mk.value) || 10)), unit = Number(unitIn && unitIn.value) || Number(pf.getAttribute('data-unit')) || 0.001;
+      var tPrice = unit * fx * m, tCost = unit * fx;
+      $$('[data-out="tokenPrice"]', pf).forEach(function (el) { el.textContent = rp(tPrice); });
+      $$('[data-pkg-row]', pf).forEach(function (row) {
+        var tok = Number($('[data-tokens]', row).value) || 0, disc = Math.min(50, Math.max(0, Number($('[data-disc]', row).value) || 0)) / 100;
+        var price = nice(tok * tPrice * (1 - disc)), cost = Math.round(tok * tCost), cut = Math.floor(price * aff / 100);
+        var set = function (k, v) { var el = $('[data-out="' + k + '"]', row); if (el) el.textContent = v; };
+        set('price', rp(price)); set('cost', rp(cost)); set('profit', rp(price - cost)); set('profitAff', rp(price - cost - cut));
+      });
+      $$('[data-page-row]', pf).forEach(function (row) {
+        var lo = Number(row.getAttribute('data-lo')), hi = Number(row.getAttribute('data-hi'));
+        var el = $('[data-out="pagePrice"]', row); if (el) el.textContent = rp(lo * tPrice) + '–' + fmt(Math.round(hi * tPrice));
+      });
+    };
+    if (range) range.addEventListener('input', function () { mk.value = range.value; recalc(); });
+    mk.addEventListener('input', function () { if (range) range.value = mk.value; recalc(); });
+    pf.addEventListener('input', function (ev) { if (ev.target.hasAttribute('data-live')) recalc(); });
   }
 })();

@@ -3,6 +3,7 @@ import { html, raw, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, LABELS, type Lang, type LabelKey } from '../lib/i18n.ts';
 import type { User } from '../data/users.ts';
 import { isAdmin } from '../data/users.ts';
+import { PURGE_DAYS } from '../data/policy.ts';
 
 export const BRAND = 'AI Content Analyzer';
 const FONT = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
@@ -108,7 +109,8 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/benchmark', '◈', tr(L, 'Benchmark akurasi', 'Accuracy benchmark'), 'bench'],
           ['/admin/anggota', '👥', tr(L, 'Anggota', 'Members'), 'members'],
           ['/admin/harga', '％', tr(L, 'Harga & token', 'Pricing & tokens'), 'pricing'],
-          ['/admin/pesanan', '🧾', tr(L, 'Pesanan', 'Orders'), 'orders'],
+          ['/admin/pesanan', '🧾', tr(L, 'Pesanan & bukti TF', 'Orders & proofs'), 'orders'],
+          ['/admin/pembayaran', '🏦', tr(L, 'Rekening pembayaran', 'Payment accounts'), 'payments'],
           ['/admin/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
           ['/admin/laporan', '▤', tr(L, 'Laporan', 'Reports'), 'reports'],
           ['/admin/biaya', '＄', tr(L, 'Biaya API', 'API cost'), 'cost'],
@@ -119,7 +121,8 @@ function sideNav(o: PageOpts): Raw {
           ['/app/periksa', '＋', tr(L, 'Periksa baru', 'New check'), 'check'],
           ['/app/laporan', '▤', tr(L, 'Laporan', 'Reports'), 'reports'],
           ['/app/sesi', '🏆', tr(L, 'Sesi lomba / kelas', 'Contest / class sessions'), 'batches'],
-          ['/app/token', '◔', tr(L, 'Token', 'Tokens'), 'credits'],
+          ['/app/token', '◔', tr(L, 'Token & deposit', 'Tokens & deposit'), 'credits'],
+          ['/app/pesanan', '🧾', tr(L, 'Invoice', 'Invoices'), 'invoices'],
           ['/app/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
           ['/app/pengaturan', '⚙', tr(L, 'Pengaturan', 'Settings'), 'settings'],
         ];
@@ -202,6 +205,12 @@ export function stat(label: string, value: string, hint?: string): Raw {
 
 export function words(L: Lang, n: number): string {
   return `${fmtNum(L, n)} ${tr(L, 'kata', 'words')}`;
+}
+
+/** Pemberitahuan pembersihan otomatis (pemilik, 2 Nov 2026). */
+export function purgeNotice(L: Lang, compact = false): Raw {
+  const t = tr(L, `Semua hasil kerja (laporan, naskah, sesi lomba/kelas) dan berkas yang Anda unggah dihapus otomatis ${PURGE_DAYS} hari setelah dibuat. Unduh atau cetak laporan yang ingin disimpan. Catatan transaksi (invoice, saldo) tetap disimpan.`, `All your work (reports, texts, contest/class sessions) and the files you upload are deleted automatically ${PURGE_DAYS} days after they are created. Download or print the reports you want to keep. Transaction records (invoices, balances) are kept.`);
+  return compact ? html`<p class="muted small notice-purge noprint">🗓 ${t}</p>` : html`<div class="notice-purge noprint" role="note">🗓 <b>${tr(L, `Dibersihkan otomatis setiap ${PURGE_DAYS} hari.`, `Cleaned automatically after ${PURGE_DAYS} days.`)}</b> ${t}</div>`;
 }
 
 export function csrfField(token: string): Raw {

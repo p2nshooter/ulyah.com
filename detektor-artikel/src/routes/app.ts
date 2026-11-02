@@ -2,7 +2,8 @@
 import { Hono } from 'hono';
 import { html, raw, jsonScript, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtScore, GENRES, LEVELS, LABELS, MODE_INFO, type Lang, type LabelKey } from '../lib/i18n.ts';
-import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip } from '../pages/ui.ts';
+import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice } from '../pages/ui.ts';
+import { PURGE_DAYS } from '../data/policy.ts';
 import { reportPages, usagePanel, rateTable, modePagesTable } from '../pages/report.ts';
 import { rateCard, predictByMode, packagePrice, tokenPriceIdr } from '../engine/pricing.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
@@ -18,6 +19,10 @@ import { updateUser, isAdmin } from '../data/users.ts';
 import { jaccardEstimate } from '../engine/similarity.ts';
 import { audit } from '../data/audit.ts';
 import { registerMemberAffiliate } from './affiliate.ts';
+import { registerMemberPayments, noCashNotice, statusPill, payFlash } from './payments.ts';
+import { getPayment, orderKey, invoiceNo, currencyOf, amountOf, fmtMoney, type Order } from '../data/orders.ts';
+import { depositBalance, depositLedger } from '../data/deposit.ts';
+import { schedulePurge } from '../data/purge.ts';
 
 export const app = new Hono<HonoEnv>();
 
@@ -90,6 +95,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}):
   const L = portalLang(c);
   const body = html`
   ${pageHead(tr(L, 'Periksa naskah baru', 'Check a new text'), tr(L, 'Tiga langkah: masukkan teks, isi keterangan, pilih cara menilai.', 'Three steps: add the text, describe it, choose how to grade.'))}
+  ${purgeNotice(L, true)}
   ${guide(L, 'check', tr(L, 'Tips agar hasil paling akurat', 'Tips for the most accurate result'), [
     tr(L, 'Masukkan <b>teks utuh</b> (≥ 300 kata ideal). Di bawah 150 kata tidak ada label.', 'Use the <b>whole text</b> (≥ 300 words is ideal). Under 150 words there is no label.'),
     tr(L, 'Pilih <b>jenjang penulis</b> — tulisan pelajar yang sederhana tidak dianggap AI.', 'Pick the <b>writer level</b> — simple student writing is not treated as AI.'),
@@ -229,6 +235,7 @@ app.get('/app/laporan', async (c) => {
   const qs = (p: number) => `?q=${encodeURIComponent(qv)}&label=${encodeURIComponent(lv)}&p=${p}`;
   const body = html`
   ${pageHead(tr(L, 'Riwayat kerja', 'Work history'), tr(L, 'Semua laporan Anda tersimpan di sini — buka, cetak, unduh, beri catatan.', 'All your reports are kept here — open, print, download, add notes.'), html`<a class="btn btn-ghost" href="/app/laporan/ekspor.csv${qs(1)}">⬇ CSV</a><a class="btn btn-primary" href="/app/periksa">＋ ${tr(L, 'Periksa baru', 'New check')}</a>`)}
+  ${purgeNotice(L)}
   <form class="card filters reveal" method="get">
     <label class="field grow"><span>${tr(L, 'Cari judul / penulis', 'Search title / author')}</span><input name="q" value="${qv}" placeholder="${tr(L, 'mis. literasi', 'e.g. literacy')}"></label>
     <label class="field"><span>Label</span><select name="label"><option value="">${tr(L, 'Semua', 'All')}</option>${(Object.keys(LABELS) as LabelKey[]).map((k) => html`<option value="${k}" ${lv === k ? 'selected' : ''}>${L === 'en' ? LABELS[k].en : LABELS[k].id}</option>`)}</select></label>
@@ -273,6 +280,7 @@ app.get('/app/laporan/:id', async (c) => {
   const note = await c.get('store').get<{ text: string; at: number }>(`c/report-notes/${s.id}.json`);
   const body = html`
   ${pageHead(s.title, `${fmtDate(L, s.createdAt)} · ${fmtNum(L, s.analyzedWords)} ${tr(L, 'kata dianalisis', 'words analysed')} · ${s.tokens} token`, html`<button class="btn btn-primary" type="button" data-print>🖨 ${tr(L, 'Cetak / simpan PDF', 'Print / save PDF')}</button>`)}
+  <p class="muted small noprint">🗓 ${tr(L, `Laporan ini dihapus otomatis pada ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} hari). Unduh atau cetak bila ingin menyimpannya.`, `This report is deleted automatically on ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} days). Download or print it to keep it.`)}</p>
   <div class="download-bar noprint reveal">
     <span class="muted">${tr(L, 'Unduh & simpan:', 'Download & keep:')}</span>
     <a class="chip-btn" href="/app/laporan/${s.id}/unduh.html" download>⬇ HTML ${tip(tr(L, 'Satu berkas mandiri yang indah, bisa dibuka tanpa internet.', 'One beautiful self-contained file that opens offline.'))}</a>
@@ -344,6 +352,7 @@ app.get('/app/sesi', async (c) => {
   const { items } = await c.get('store').list<{ name: string; category: string; at: number }>(`i/user-batches/${user.id}/`, { limit: 50 });
   const body = html`
   ${pageHead(tr(L, 'Sesi lomba / kelas', 'Contest / class sessions'), tr(L, 'Periksa banyak naskah dengan satu rubrik, lalu cetak rekapnya.', 'Check many texts with one rubric, then print the recap.'))}
+  ${purgeNotice(L, true)}
   ${guide(L, 'batch', tr(L, 'Alur sesi lomba', 'How a contest session works'), [
     tr(L, 'Buat sesi: nama lomba, kategori, rubrik (bawaan: form lomba menulis esai).', 'Create a session: contest name, category, rubric (default: essay-competition form).'),
     tr(L, 'Unggah semua naskah (.docx/.txt). Nama berkas <code>01_Nama_Judul.docx</code> otomatis jadi nama & judul.', 'Upload every entry (.docx/.txt). A file name like <code>01_Name_Title.docx</code> becomes name & title.'),
@@ -382,6 +391,7 @@ app.post('/app/sesi', async (c) => {
   const store = c.get('store');
   await store.put(batchKey(id), b);
   await store.createOnce(`i/user-batches/${user.id}/${invTs(b.createdAt)}~${id}`, {}, { name: b.name, category: b.category, at: b.createdAt });
+  await schedulePurge(store, 'b', id, b.createdAt);
   return c.redirect(`/app/sesi/${id}`);
 });
 
@@ -516,99 +526,79 @@ app.get('/app/sesi/:id/rekap.csv', async (c) => {
 
 /* ── token & pesanan ───────────────────────────────────────────────── */
 
-export interface Order {
-  id: string;
-  uid: string;
-  email: string;
-  pkg: string;
-  tokens: number;
-  priceIdr: number;
-  priceUsd: number;
-  status: 'pending' | 'credited' | 'cancelled';
-  createdAt: number;
-  creditedAt?: number;
-  by?: string;
-}
-
 app.get('/app/token', async (c) => {
   const L = portalLang(c);
   const user = c.get('user')!;
   const store = c.get('store');
-  const eng = await getEngine(store);
-  const billing = await getBilling(store);
-  const measured = await measuredCostPer1k(store);
-  const bal = await balanceOf(store, user.id);
-  const led = await ledger(store, user.id, 25);
-  const { items: orders } = await store.list<{ pkg: string; status: string; at: number }>(`i/user-orders/${user.id}/`, { limit: 10 });
+  const [eng, billing, measured, bal, led, pay, dep, depLed] = await Promise.all([
+    getEngine(store), getBilling(store), measuredCostPer1k(store), balanceOf(store, user.id), ledger(store, user.id, 25),
+    getPayment(store), depositBalance(store, user.id), depositLedger(store, user.id, 15),
+  ]);
+  const { items: oi } = await store.list(`i/user-orders/${user.id}/`, { limit: 6 });
+  const orders: Order[] = [];
+  for (const it of oi) {
+    const o = await store.get<Order>(orderKey(it.id));
+    if (o) orders.push(o);
+  }
   const pick = c.req.query('paket');
+  // Harga 1 token saat menukar saldo deposit (ikut markup perusahaan — markup sendiri tidak pernah ditampilkan).
+  const tp = Math.max(1, Math.ceil(tokenPriceIdr(billing, eng)));
+  const ok = c.req.query('ok');
   const body = html`
-  ${pageHead(tr(L, 'Token', 'Tokens'), tr(L, 'Token berkurang sesuai pemakaian AI di setiap pemeriksaan. Gagal = tidak dipotong.', 'Tokens decrease according to AI usage in each check. Failed = not deducted.'))}
+  ${pageHead(tr(L, 'Token & saldo', 'Tokens & balance'), tr(L, 'Beli paket token lewat transfer (Rupiah atau USD), atau isi saldo deposit Rupiah lalu beli/tukar token kapan saja.', 'Buy token packages by bank transfer (Rupiah or USD), or top up a Rupiah deposit and buy/convert tokens any time.'), html`<a class="btn btn-ghost" href="/app/pesanan">🧾 ${tr(L, 'Invoice saya', 'My invoices')}</a>`)}
+  ${payFlash(L, ok === 'deposit-buy' ? tr(L, 'Paket dibeli dari saldo deposit — token sudah masuk.', 'Package bought from the deposit — tokens added.') : ok === 'deposit-convert' ? tr(L, 'Saldo deposit ditukar — token sudah masuk.', 'Deposit converted — tokens added.') : null, c.req.query('err') ?? null)}
   <div class="grid g2">
     <div class="stat stat-hero reveal"><span class="stat-k">${tr(L, 'Saldo token', 'Token balance')}</span><b class="stat-v" data-count="${bal}">${fmtNum(L, bal)}</b>${await pagesLine(L, bal, billing, eng, store)}</div>
-    <div class="card reveal"><h3>${tr(L, 'Bagaimana token dihitung', 'How tokens are counted')}</h3><ol class="steps-mini">
-      <li>${raw(tr(L, 'Sebelum AI bekerja, sejumlah token <b>disisihkan</b> dari saldo.', 'Before the AI starts, some tokens are <b>set aside</b> from your balance.'))}</li>
-      <li>${raw(tr(L, 'AI memakai <b>token masuk</b> saat membaca naskah dan <b>token keluar</b> saat menulis jawaban; keduanya tercatat per langkah di laporan.', 'The AI uses <b>input tokens</b> when reading the text and <b>output tokens</b> when writing its answer; both are listed per step in the report.'))}</li>
-      <li>${raw(tr(L, 'Yang <b>dipotong</b> hanya pemakaian nyata; sisanya <b>kembali</b> otomatis. Pemeriksaan gagal tidak dipotong.', 'Only real usage is <b>deducted</b>; the rest <b>returns</b> automatically. Failed checks are not deducted.'))}</li></ol></div>
+    <div class="stat stat-hero reveal"><span class="stat-k">${tr(L, 'Saldo deposit (Rupiah)', 'Deposit balance (Rupiah)')}</span><b class="stat-v">Rp ${fmtNum(L, dep)}</b><p class="predict">${tr(L, `≈ ${fmtNum(L, Math.floor(dep / tp))} token bila ditukar sekarang (1 token = Rp ${fmtNum(L, tp)})`, `≈ ${fmtNum(L, Math.floor(dep / tp))} tokens if converted now (1 token = Rp ${fmtNum(L, tp)})`)}</p></div>
   </div>
-  <section class="card reveal"><h3>${tr(L, 'Prediksi halaman untuk saldo Anda', 'Page estimate for your balance')}</h3>${modePagesTable(L, predictByMode(bal, billing, eng), billing.wordsPerPage)}</section>
-  <section class="card reveal"><h3>${tr(L, 'Tarif terbuka per model AI', 'Public rates per AI model')}</h3><p class="muted">${tr(L, 'Setiap laporan menampilkan token masuk & keluar tiap panggilan AI, sehingga tagihan bisa Anda hitung ulang sendiri dengan tarif ini.', 'Every report lists the input & output tokens of each AI call, so you can recompute the charge yourself with these rates.')}</p>${rateTable(L, rateCard(billing, eng))}</section>
-  <h2 class="reveal">${tr(L, 'Paket token', 'Token packages')}</h2>
+  ${noCashNotice(L)}
+  <h2 class="reveal" id="paket">${tr(L, 'Paket token', 'Token packages')}</h2>
   <div class="grid g4 plans">${billing.packages.map((p) => {
     const pr = predictPages(p.tokens, billing, eng, measured);
     const pp = packagePrice(p, billing, eng);
-    return html`<form method="post" action="/app/token/pesan" class="plan reveal ${pick === p.key ? 'featured' : ''}"><h3>${bi(L, p.name)}</h3><p class="price">${L === 'en' ? `US$${fmtNum(L, pp.usd)}` : `Rp ${fmtNum(L, pp.idr)}`}</p>${p.discountPct > 0 ? html`<p class="pill p-hum">${tr(L, `hemat ${p.discountPct}%`, `save ${p.discountPct}%`)}</p>` : ''}<p><b>${fmtNum(L, p.tokens)}</b> token</p><p class="predict-sm">≈ ${fmtNum(L, pr.pages.low)}–${fmtNum(L, pr.pages.high)} ${tr(L, 'halaman*', 'pages*')}</p><p class="muted">${bi(L, p.note)}</p><input type="hidden" name="paket" value="${p.key}"><button class="btn ${pick === p.key ? 'btn-primary' : 'btn-ghost'}" type="submit">${tr(L, 'Pesan', 'Order')}</button></form>`;
+    const op = newId('dop');
+    return html`<div class="plan reveal ${pick === p.key ? 'featured' : ''}"><h3>${bi(L, p.name)}</h3>
+      <p class="price">Rp ${fmtNum(L, pp.idr)}</p>${pay.usdEnabled ? html`<p class="price-alt">US$${fmtNum(L, pp.usd, Number.isInteger(pp.usd) ? 0 : 2)}</p>` : ''}
+      ${p.discountPct > 0 ? html`<p class="pill p-hum">${tr(L, `hemat ${p.discountPct}%`, `save ${p.discountPct}%`)}</p>` : ''}
+      <p><b>${fmtNum(L, p.tokens)}</b> token</p><p class="predict-sm">≈ ${fmtNum(L, pr.pages.low)}–${fmtNum(L, pr.pages.high)} ${tr(L, 'halaman*', 'pages*')}</p><p class="muted">${bi(L, p.note)}</p>
+      <form method="post" action="/app/token/pesan" class="plan-buy"><input type="hidden" name="paket" value="${p.key}">
+        ${pay.idrEnabled ? html`<button class="btn ${pick === p.key ? 'btn-primary' : 'btn-ghost'} btn-sm" type="submit" name="cur" value="IDR">${tr(L, 'Transfer Rupiah', 'Pay in Rupiah')}</button>` : ''}
+        ${pay.usdEnabled ? html`<button class="btn btn-ghost btn-sm" type="submit" name="cur" value="USD">${tr(L, 'Bayar USD (luar negeri)', 'Pay in USD (abroad)')}</button>` : ''}
+      </form>
+      <form method="post" action="/app/deposit/beli"><input type="hidden" name="paket" value="${p.key}"><input type="hidden" name="op" value="${op}"><button class="btn btn-primary btn-sm" type="submit" ${dep < pp.idr ? 'disabled' : ''} data-confirm="${tr(L, `Beli paket ini dengan saldo deposit Rp ${fmtNum(L, pp.idr)}?`, `Buy this package with Rp ${fmtNum(L, pp.idr)} of deposit?`)}">💰 ${tr(L, 'Beli dari saldo deposit', 'Buy with deposit')}</button></form>
+    </div>`;
   })}</div>
   <p class="muted small reveal">* ${tr(L, `Perkiraan, bukan janji: ±${billing.wordsPerPage} kata per halaman; pemakaian nyata tergantung model AI yang terpakai (Haiku saja, atau naik ke Sonnet/Opus), panjang naskah, dan rubrik.`, `An estimate, not a promise: ±${billing.wordsPerPage} words per page; real usage depends on the AI models used (Haiku only, or escalation to Sonnet/Opus), text length and rubric.`)}</p>
-  ${orders.length ? html`<section class="card reveal"><h3>${tr(L, 'Pesanan', 'Orders')}</h3><ul class="clean">${orders.map((o) => html`<li><a href="/app/pesanan/${o.id}">${o.id}</a> · ${o.meta.pkg} · <span class="pill ${o.meta.status === 'credited' ? 'p-hum' : o.meta.status === 'cancelled' ? 'p-unk' : 'p-mix'}">${o.meta.status === 'credited' ? tr(L, 'lunas', 'paid') : o.meta.status === 'cancelled' ? tr(L, 'batal', 'cancelled') : tr(L, 'menunggu', 'pending')}</span> <small class="muted">${fmtDate(L, o.meta.at)}</small></li>`)}</ul></section>` : ''}
+  <section class="card reveal" id="deposit"><h3>💰 ${tr(L, 'Saldo deposit Rupiah', 'Rupiah deposit')}</h3>
+    <p class="muted">${tr(L, 'Isi saldo sekali, pakai berkali-kali: beli paket token dari saldo, atau tukar sebagian saldo menjadi token kapan saja. Sisa deposit tidak bisa diuangkan, tetapi selalu bisa dipakai untuk membeli atau ditukar menjadi token.', 'Top up once, use many times: buy token packages from the balance, or convert part of it into tokens any time. The remaining deposit cannot be cashed out, but it can always be used to buy or convert into tokens.')}</p>
+    <div class="grid g2">
+      ${pay.idrEnabled ? html`<form method="post" action="/app/deposit/isi" class="form"><h4>1 · ${tr(L, 'Isi saldo (transfer)', 'Top up (bank transfer)')}</h4>
+        <label class="field"><span>${tr(L, 'Nominal (Rp)', 'Amount (Rp)')}</span><input type="number" name="idr" min="${pay.minDepositIdr}" max="${pay.maxDepositIdr}" step="1000" required value="${Math.max(pay.minDepositIdr, 100_000)}" id="depAmt"></label>
+        <div class="chips">${[50_000, 100_000, 250_000, 500_000, 1_000_000].filter((v) => v >= pay.minDepositIdr && v <= pay.maxDepositIdr).map((v) => html`<button type="button" class="chip" data-set="#depAmt" data-value="${v}">Rp ${fmtNum(L, v)}</button>`)}</div>
+        <small class="muted">${tr(L, `Minimum Rp ${fmtNum(L, pay.minDepositIdr)}. Setelah memesan Anda mendapat invoice, rekening tujuan, dan formulir unggah bukti transfer.`, `Minimum Rp ${fmtNum(L, pay.minDepositIdr)}. After ordering you get an invoice, the destination account and a proof upload form.`)}</small>
+        <button class="btn btn-primary" type="submit">${tr(L, 'Buat invoice deposit', 'Create deposit invoice')}</button></form>` : ''}
+      <form method="post" action="/app/deposit/tukar" class="form" data-convert data-tp="${tp}"><h4>2 · ${tr(L, 'Tukar saldo menjadi token', 'Convert balance into tokens')}</h4>
+        <input type="hidden" name="op" value="${newId('dop')}">
+        <label class="field"><span>${tr(L, 'Nominal yang ditukar (Rp)', 'Amount to convert (Rp)')}</span><input type="number" name="idr" min="${tp}" max="${dep}" step="1" required value="${dep}" data-convert-in></label>
+        <p class="predict">= <b data-convert-out>${fmtNum(L, Math.floor(dep / tp))}</b> token · <small class="muted">1 token = Rp ${fmtNum(L, tp)}</small></p>
+        <button class="btn btn-ghost" type="submit" ${dep < tp ? 'disabled' : ''}>${tr(L, 'Tukar sekarang', 'Convert now')}</button></form>
+    </div>
+    ${depLed.length ? html`<details class="more"><summary>${tr(L, 'Riwayat deposit', 'Deposit history')}</summary><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Waktu', 'Time')}</th><th>${tr(L, 'Jenis', 'Kind')}</th><th class="n">Rp</th><th>${tr(L, 'Catatan', 'Note')}</th></tr></thead><tbody>${depLed.map((e) => html`<tr><td><small>${fmtDate(L, e.at)}</small></td><td>${({ topup: tr(L, 'isi saldo', 'top-up'), buy: tr(L, 'beli paket', 'package'), convert: tr(L, 'tukar token', 'to tokens'), admin: 'admin', refund: tr(L, 'kembali', 'refund') } as Record<string, string>)[e.kind] ?? e.kind}</td><td class="n ${e.idr < 0 ? 'neg' : 'pos'}">${e.idr > 0 ? '+' : ''}${fmtNum(L, e.idr)}</td><td><small>${e.note}</small></td></tr>`)}</tbody></table></div></details>` : ''}
+  </section>
+  ${orders.length ? html`<section class="card reveal"><div class="row-between"><h3>${tr(L, 'Invoice terbaru', 'Latest invoices')}</h3><a href="/app/pesanan">${tr(L, 'Semua', 'All')} →</a></div><ul class="clean">${orders.map((o) => html`<li><a href="/app/pesanan/${o.id}"><b>${invoiceNo(o)}</b></a> · ${fmtMoney(L, currencyOf(o), amountOf(o))} · ${statusPill(L, o.status)} <small class="muted">${fmtDate(L, o.createdAt)}</small></li>`)}</ul></section>` : ''}
+  <div class="grid g2">
+    <section class="card reveal"><h3>${tr(L, 'Bagaimana token dihitung', 'How tokens are counted')}</h3><ol class="steps-mini">
+      <li>${raw(tr(L, 'Sebelum AI bekerja, sejumlah token <b>disisihkan</b> dari saldo.', 'Before the AI starts, some tokens are <b>set aside</b> from your balance.'))}</li>
+      <li>${raw(tr(L, 'AI memakai <b>token masuk</b> saat membaca naskah dan <b>token keluar</b> saat menulis jawaban; keduanya tercatat per langkah di laporan.', 'The AI uses <b>input tokens</b> when reading the text and <b>output tokens</b> when writing its answer; both are listed per step in the report.'))}</li>
+      <li>${raw(tr(L, 'Yang <b>dipotong</b> hanya pemakaian nyata; sisanya <b>kembali</b> otomatis. Pemeriksaan gagal tidak dipotong.', 'Only real usage is <b>deducted</b>; the rest <b>returns</b> automatically. Failed checks are not deducted.'))}</li></ol></section>
+    <section class="card reveal"><h3>${tr(L, 'Prediksi halaman untuk saldo Anda', 'Page estimate for your balance')}</h3>${modePagesTable(L, predictByMode(bal, billing, eng), billing.wordsPerPage)}</section>
+  </div>
+  <section class="card reveal"><h3>${tr(L, 'Tarif terbuka per model AI', 'Public rates per AI model')}</h3><p class="muted">${tr(L, 'Setiap laporan menampilkan token masuk & keluar tiap panggilan AI, sehingga tagihan bisa Anda hitung ulang sendiri dengan tarif ini.', 'Every report lists the input & output tokens of each AI call, so you can recompute the charge yourself with these rates.')}</p>${rateTable(L, rateCard(billing, eng))}</section>
   <section class="card reveal"><h3>${tr(L, 'Buku besar token', 'Token ledger')}</h3>${led.length ? html`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Waktu', 'Time')}</th><th>${tr(L, 'Jenis', 'Kind')}</th><th class="n">Token</th><th>${tr(L, 'Catatan', 'Note')}</th></tr></thead><tbody>${led.map((e) => html`<tr><td><small>${fmtDate(L, e.at)}</small></td><td>${({ reserve: tr(L, 'pesan', 'reserve'), refund: tr(L, 'kembali', 'refund'), purchase: tr(L, 'beli', 'purchase'), admin: 'admin', welcome: tr(L, 'sambutan', 'welcome') } as Record<string, string>)[e.kind] ?? e.kind}</td><td class="n ${e.tokens < 0 ? 'neg' : 'pos'}">${e.tokens > 0 ? '+' : ''}${fmtNum(L, e.tokens)}</td><td><small>${e.note}</small></td></tr>`)}</tbody></table></div>` : html`<p class="muted">${tr(L, 'Belum ada transaksi.', 'No transactions yet.')}</p>`}</section>`;
   return c.html(shell(c, tr(L, 'Token', 'Tokens'), body, 'credits'));
 });
 
 app.get('/app/kuota', (c) => c.redirect('/app/token'));
-
-app.post('/app/token/pesan', async (c) => {
-  const user = c.get('user')!;
-  const store = c.get('store');
-  const [billing, eng] = await Promise.all([getBilling(store), getEngine(store)]);
-  const f = await c.req.parseBody();
-  const p = billing.packages.find((x) => x.key === f.paket);
-  if (!p) return c.redirect('/app/token');
-  const { items: open } = await store.list<{ status: string }>(`i/user-orders/${user.id}/`, { limit: 20 });
-  let pendingN = 0;
-  for (const it of open) {
-    const o = await store.get<Order>(`c/orders/${it.id}.json`);
-    if (o?.status === 'pending') pendingN += 1;
-  }
-  if (pendingN >= 3) return c.redirect('/app/token?err=pending');
-  const now = Date.now();
-  // Harga & jumlah token diambil dari setelan server, bukan dari formulir — klien tidak bisa mengubahnya.
-  // Harga dihitung dari markup yang berlaku saat ini lalu dibekukan di pesanan: perubahan markup sesudahnya tidak mengubah tagihan ini.
-  const pp = packagePrice(p, billing, eng);
-  const o: Order = { id: newId('ord'), uid: user.id, email: user.email, pkg: p.key, tokens: p.tokens, priceIdr: pp.idr, priceUsd: pp.usd, status: 'pending', createdAt: now };
-  await store.put(`c/orders/${o.id}.json`, o);
-  await store.createOnce(`i/user-orders/${user.id}/${invTs(now)}~${o.id}`, {}, { pkg: p.key, status: 'pending', at: now });
-  await store.createOnce(`i/orders/${invTs(now)}~${o.id}`, {}, { pkg: p.key, email: user.email, idr: pp.idr, at: now });
-  return c.redirect(`/app/pesanan/${o.id}`);
-});
-
-app.get('/app/pesanan/:id', async (c) => {
-  const L = portalLang(c);
-  const user = c.get('user')!;
-  const store = c.get('store');
-  const o = await store.get<Order>(`c/orders/${c.req.param('id')}.json`);
-  if (!o || (o.uid !== user.id && !isAdmin(user))) return c.notFound();
-  const billing = await getBilling(store);
-  const body = html`
-  ${pageHead(`${tr(L, 'Pesanan', 'Order')} ${o.id}`, `${o.pkg} · ${fmtNum(L, o.tokens)} token`, html`<button class="btn btn-ghost" type="button" data-print>🖨 Invoice</button>`)}
-  <article class="paper invoice">
-    <div class="row-between"><h2>INVOICE</h2><span class="pill ${o.status === 'credited' ? 'p-hum' : o.status === 'cancelled' ? 'p-unk' : 'p-mix'}">${o.status === 'credited' ? tr(L, 'LUNAS · token masuk', 'PAID · tokens added') : o.status === 'cancelled' ? tr(L, 'Dibatalkan', 'Cancelled') : tr(L, 'Menunggu pembayaran', 'Awaiting payment')}</span></div>
-    <dl class="kv"><dt>No.</dt><dd>${o.id}</dd><dt>${tr(L, 'Tanggal', 'Date')}</dt><dd>${fmtDate(L, o.createdAt)}</dd><dt>${tr(L, 'Pembeli', 'Buyer')}</dt><dd>${o.email}</dd><dt>${tr(L, 'Paket', 'Package')}</dt><dd>${o.pkg} — ${fmtNum(L, o.tokens)} token</dd><dt>${tr(L, 'Jumlah', 'Amount')}</dt><dd><b>Rp ${fmtNum(L, o.priceIdr)}</b> (≈ US$${o.priceUsd})</dd>${o.creditedAt ? html`<dt>${tr(L, 'Lunas', 'Paid')}</dt><dd>${fmtDate(L, o.creditedAt)}</dd>` : ''}</dl>
-    ${o.status === 'pending'
-      ? html`<div class="callout-info"><h4>${tr(L, 'Cara membayar', 'How to pay')}</h4>${billing.manualText ? html`<p class="pre">${billing.manualText}</p>` : html`<p>${tr(L, 'Hubungi hello@axto.io atau WhatsApp dengan menyebut nomor pesanan ini untuk menerima instruksi pembayaran.', 'Contact hello@axto.io or WhatsApp quoting this order number to receive payment instructions.')}</p>`}<p class="muted">${tr(L, 'Token masuk ke dompet setelah admin mengonfirmasi pembayaran — tepat sekali, tercatat di buku besar.', 'Tokens arrive in your wallet once the admin confirms the payment — exactly once, recorded in the ledger.')}</p></div>`
-      : ''}
-  </article>`;
-  return c.html(shell(c, o.id, body, 'credits'));
-});
 
 /* ── pengaturan ─────────────────────────────────────────────────────── */
 
@@ -621,12 +611,13 @@ app.get('/app/pengaturan', async (c) => {
   const err = c.req.query('err');
   const body = html`
   ${pageHead(tr(L, 'Pengaturan', 'Settings'))}
+  ${purgeNotice(L)}
   ${flash(L, ok ? tr(L, 'Tersimpan.', 'Saved.') : null, err === 'pass' ? tr(L, 'Sandi lama salah.', 'Wrong current password.') : null)}
   <div class="grid g2">
     <form method="post" action="/app/pengaturan" class="card form reveal"><h3>${tr(L, 'Profil & privasi', 'Profile & privacy')}</h3>
       <label class="field"><span>${tr(L, 'Nama', 'Name')}</span><input name="name" value="${user.name}" maxlength="80" required></label>
       <label class="field"><span>${tr(L, 'Bahasa portal', 'Portal language')}</span><select name="lang"><option value="id" ${user.lang === 'id' ? 'selected' : ''}>Bahasa Indonesia</option><option value="en" ${user.lang === 'en' ? 'selected' : ''}>English</option></select></label>
-      <label class="field"><span>${tr(L, 'Masa simpan teks', 'Text retention')} ${tip(tr(L, 'Setelah masa ini teks naskah dihapus; angka laporan & kode verifikasi tetap.', 'After this the text is deleted; report numbers & the verification code stay.'))}</span><select name="retention">${[0, 7, 30, 90, 365].map((d) => html`<option value="${d}" ${ret === d ? 'selected' : ''}>${d === 0 ? tr(L, 'Hapus segera setelah laporan jadi', 'Delete as soon as the report is ready') : `${d} ${tr(L, 'hari', 'days')}`}</option>`)}</select></label>
+      <label class="field"><span>${tr(L, 'Masa simpan teks', 'Text retention')} ${tip(tr(L, `Setelah masa ini teks naskah dihapus lebih awal. Laporan lengkap tetap dihapus otomatis setelah ${PURGE_DAYS} hari.`, `After this the text is deleted early. The full report is still deleted automatically after ${PURGE_DAYS} days.`))}</span><select name="retention">${[0, 7, 30, 90].map((d) => html`<option value="${d}" ${ret === d ? 'selected' : ''}>${d === 0 ? tr(L, 'Hapus segera setelah laporan jadi', 'Delete as soon as the report is ready') : `${d} ${tr(L, 'hari', 'days')}`}</option>`)}</select></label>
       <button class="btn btn-primary" type="submit">${tr(L, 'Simpan', 'Save')}</button></form>
     <form method="post" action="/app/pengaturan/sandi" class="card form reveal"><h3>${tr(L, 'Ganti sandi', 'Change password')}</h3>
       <label class="field"><span>${tr(L, 'Sandi lama', 'Current password')}</span><input type="password" name="old" required autocomplete="current-password"></label>
@@ -643,7 +634,7 @@ app.post('/app/pengaturan', async (c) => {
   const user = c.get('user')!;
   const f = (await c.req.parseBody()) as Record<string, string>;
   const ret = Number(f.retention);
-  await updateUser(c.get('store'), user.id, (u) => ({ ...u, name: String(f.name ?? u.name).slice(0, 80) || u.name, lang: f.lang === 'en' ? 'en' : 'id', retentionDays: [0, 7, 30, 90, 365].includes(ret) ? ret : u.retentionDays }));
+  await updateUser(c.get('store'), user.id, (u) => ({ ...u, name: String(f.name ?? u.name).slice(0, 80) || u.name, lang: f.lang === 'en' ? 'en' : 'id', retentionDays: [0, 7, 30, 90].includes(ret) ? ret : u.retentionDays }));
   return c.redirect('/app/pengaturan?ok=1');
 });
 
@@ -663,5 +654,6 @@ app.post('/app/pengaturan/sandi', async (c) => {
 });
 
 registerMemberAffiliate(app);
+registerMemberPayments(app);
 
 export { textKey };
