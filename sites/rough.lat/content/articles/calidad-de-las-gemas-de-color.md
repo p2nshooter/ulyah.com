@@ -3,6 +3,11 @@ title: "Cómo se juzga la calidad de una gema de color: matiz, tono, saturación
 description: "Cómo valorar rubíes, zafiros, esmeraldas y otras gemas de color: el color en tres dimensiones, la luz, los tipos de pureza, la talla, el peso, el origen, los tratamientos y cómo mirar una piedra."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA: Ruby buyer's guide | https://www.gia.edu/ruby/buyers-guide
+  - GIA: Gem Encyclopedia | https://www.gia.edu/gem-encyclopedia
 ---
 Para los diamantes existe un sistema de clasificación muy difundido, con letras para el color y siglas para la pureza. Para las gemas de color, como rubíes, zafiros, esmeraldas, turmalinas o aguamarinas, no hay una escala única que todo el mundo use de la misma manera. Cada laboratorio, cada comerciante y cada mercado tienen sus propias referencias, y eso desconcierta a muchos compradores.
 

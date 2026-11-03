@@ -3,6 +3,12 @@ title: "Blumenerde und Substrat: die richtige Mischung für jede Zimmerpflanze"
 description: Was gute Blumenerde ausmacht, welche Zuschlagstoffe wie Perlite, Bims, Rinde oder Kokos sinnvoll sind, torffreie Erde, eigene Mischungen und welche Erde zu welcher Pflanze passt.
 category: pflege-grundlagen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Mit torffreier Blumenerde klimafreundlich gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/torffreier-blumenerde-klimafreundlich-gaertnern
+  - Umweltbundesamt: Kein Torf in den Topf | https://www.umweltbundesamt.de/themen/kein-torf-in-den-topf
+  - Umweltbundesamt: Nachhaltig gärtnern mit Kompost und Komposterde | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/nachhaltig-gaertnern-kompost-komposterde
 ---
 Die Erde im Topf ist für eine Zimmerpflanze Lebensraum, Wasserspeicher, Nährstoffquelle und Halt zugleich. In der Natur wachsen Wurzeln in einem riesigen, lebendigen Boden. Im Topf haben sie nur wenige Liter Substrat zur Verfügung, das jahrelang funktionieren muss. Deshalb lohnt es sich, bei der Erde genauer hinzuschauen. Viele Probleme mit Staunässe, Fäulnis und Trauermücken beginnen mit einer ungeeigneten oder verbrauchten Erde.
 

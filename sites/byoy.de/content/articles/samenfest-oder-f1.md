@@ -3,6 +3,11 @@ title: "Samenfest oder F1-Hybride? Saatgut verstehen und die richtige Sorte für
 description: "Samenfeste Sorten und F1-Hybriden im Vergleich: wie Hybriden entstehen, Vor- und Nachteile für den Hausgarten, Bio-Saatgut, alte Sorten und die beste Wahl je Gemüse."
 category: saatgut-und-jungpflanzen
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Infoschriften | https://www.lwg.bayern.de/gartenakademie-infoschriften
 ---
 Wer im Frühjahr vor dem Saatgutregal steht oder einen Samenkatalog durchblättert, stößt auf Begriffe, die zunächst verwirren: „F1“, „samenfest“, „Bio-Saatgut“, „alte Sorte“, „ökologisch gezüchtet“. Hinter diesen Bezeichnungen verbergen sich unterschiedliche Arten der Züchtung mit echten Folgen für deinen Garten. Sie bestimmen, ob du eigenes Saatgut ernten kannst, wie einheitlich und ertragreich die Pflanzen wachsen und wie gut sie sich an deinen Standort anpassen. Dieser Ratgeber erklärt die Unterschiede verständlich und hilft dir, für jedes Gemüse die passende Wahl zu treffen.
 

@@ -246,6 +246,16 @@ const weinberg = () => {
 </svg>`;
 };
 
+/** Die Planer (Seiten mit `tool:`) als Terrasse auf der Startseite. */
+function planerBand(ctx) {
+  const tools = ctx.pages.filter((p) => p.tool);
+  if (!tools.length) return "";
+  return `<section class="hamon-planer" aria-labelledby="planer-t">
+  <header class="hamon-planer__kopf"><p class="hamon-planer__zeile">Planer</p><h2 id="planer-t">Den Garten am Küchentisch planen</h2><p>Vier Planer, die direkt in deinem Browser arbeiten, ohne Konto und ohne dass etwas gesendet wird.</p></header>
+  <ul class="hamon-planer__liste">${tools.map((p) => `<li><a class="hamon-planer__karte" href="${p.url}"><span class="hamon-planer__name">${ctx.esc(p.title.split(":")[0])}</span><span class="hamon-planer__text">${ctx.esc(p.description)}</span></a></li>`).join("")}</ul>
+</section>`;
+}
+
 export function home(ctx) {
   const { site, articles, categories, esc } = ctx;
   const body = `
@@ -275,6 +285,8 @@ export function home(ctx) {
     </a></li>`).join("\n    ")}
   </ol>
 </section>
+
+${planerBand(ctx)}
 
 <section class="hamon-ernte" aria-labelledby="neu-t">
   <header class="hamon-ueber"><p class="hamon-ueber__zeile">Frisch geerntet</p><h2 id="neu-t">Neue Anleitungen</h2></header>

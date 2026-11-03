@@ -3,6 +3,11 @@ title: "Joyas y alergias a los metales: el níquel, los metales más tolerados, 
 description: "Por qué algunas joyas irritan la piel, el papel del níquel, los metales mejor tolerados, qué significa hipoalergénico, los dedos verdes y qué saber sobre las perforaciones."
 category: lujo-y-estilo-de-vida
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Mayo Clinic: Alergia al níquel, síntomas y causas | https://www.mayoclinic.org/es/diseases-conditions/nickel-allergy/symptoms-causes/syc-20351529
+  - Mayo Clinic: Alergia al níquel, diagnóstico y tratamiento | https://www.mayoclinic.org/es/diseases-conditions/nickel-allergy/diagnosis-treatment/drc-20351534
 ---
 Pocas cosas desaniman tanto como estrenar unos aretes preciosos y, al día siguiente, tener el lóbulo rojo, hinchado y con picor. O descubrir una marca verdosa en el dedo después de un fin de semana con un anillo nuevo. Las reacciones de la piel a las joyas son muy frecuentes, y casi siempre tienen una explicación sencilla. Conocerla ayuda a elegir mejor, a evitar molestias y a saber cuándo conviene consultar a un médico.
 

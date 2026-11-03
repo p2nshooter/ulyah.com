@@ -3,6 +3,11 @@ title: "Balkon-Bewässerung: von der Gießkanne bis zur automatischen Tropfanlag
 description: So bewässerst du Balkonpflanzen effizient: Wasserbedarf einschätzen, richtig gießen, Wasserspeicherkästen, Tonkegel, Tropfbewässerung mit Timer, Regenwasser, Mulch und Bewässerung im Urlaub.
 category: balkon-und-terrasse
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Balkongemüse – der Gemüsegarten auf kleinstem Raum | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/150326/index.php
+  - Bayerische Gartenakademie: Kiste, Kübel und Sack – wenig Platz (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/180720-lwg-folder-mobil.pdf
 ---
 Auf dem Balkon haben Pflanzen nur wenig Erde zur Verfügung, und Sonne, Wind und Hitze trocknen die Kästen schnell aus. An heißen Sommertagen kann ein sonniger Balkonkasten innerhalb weniger Stunden staubtrocken sein. Gleichzeitig führen zu häufiges Gießen und fehlende Abzugslöcher zu Staunässe und Wurzelfäule. Die richtige Bewässerung ist daher einer der wichtigsten Faktoren für einen gesunden, blühenden Balkon.
 

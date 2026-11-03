@@ -21,7 +21,7 @@ Most money advice online falls into two camps. One promises that a single trick 
 
 ## How we write
 
-Every guide on SAVED answers one practical household question. Guides are researched and drafted with the help of AI tools and checked against reliable public sources such as government consumer and energy agencies, manufacturers' instructions and recognised safety guidance before they appear. We describe methods and trade-offs rather than promising results, because every household, country and tariff is different. When a task carries real risk — gas, mains electricity, structural work, debt problems — we say so plainly and point you to a qualified professional.
+Every guide on SAVED answers one practical household question, and lists the sources it relies on at the end. Four free calculators live on the [Tools](/tools/) page, and every new guide and update is listed with its date on [What's new](/whats-new/). Guides are researched and drafted with the help of AI tools and checked against reliable public sources such as government consumer and energy agencies, manufacturers' instructions and recognised safety guidance before they appear. We describe methods and trade-offs rather than promising results, because every household, country and tariff is different. When a task carries real risk — gas, mains electricity, structural work, debt problems — we say so plainly and point you to a qualified professional.
 
 We do not accept payment to recommend products, and we do not write sponsored reviews. Advertising on the site is shown by Google AdSense and is clearly separate from our editorial content. Read more in our [editorial policy](/editorial-policy/).
 

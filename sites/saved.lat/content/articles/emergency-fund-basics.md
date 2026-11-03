@@ -3,6 +3,12 @@ title: "Emergency Fund Basics: How Much to Save, Where to Keep It and How to Sta
 description: What an emergency fund is for, how to work out a target that suits your household, where to keep the money, and practical ways to build it from a small starting amount.
 category: budget-basics
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
+  - Consumer Financial Protection Bureau: Unexpected job loss | https://www.consumerfinance.gov/consumer-tools/unexpected-job-loss/
 ---
 Life has a way of producing expenses nobody planned for: a car that will not start, a washing machine that floods the kitchen, a sudden drop in income, an urgent trip to see a relative, or a vet bill for a much-loved pet. Without savings to fall back on, these moments often end up on credit cards, overdrafts or high-cost loans — turning a single bad week into months of repayments.
 

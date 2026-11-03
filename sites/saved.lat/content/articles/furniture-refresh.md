@@ -3,6 +3,11 @@ title: "Refreshing Old Furniture: Cleaning, Repairs, Paint and New Hardware"
 description: How to give tired or second-hand furniture a new life — assessing condition, deep cleaning, fixing wobbles and scratches, painting, re-oiling wood and swapping hardware.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA: Lead-safe renovations for DIYers | https://www.epa.gov/lead/lead-safe-renovations-diyers
+  - U.S. EPA: Reduce the risk of lead exposure at home | https://www.epa.gov/lead/reduce-risk-lead-exposure-home
 ---
 Good furniture is expensive to buy new, yet charity shops, online marketplaces, garage sales and family attics are full of solid pieces that only need some attention. A scratched table, a wobbly chair or a dated chest of drawers can often be transformed with cleaning, simple repairs and a careful finish. Refreshing furniture saves money, keeps usable pieces out of landfill and gives you something that suits your home exactly.
 

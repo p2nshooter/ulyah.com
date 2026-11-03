@@ -3,6 +3,11 @@ title: "Blattläuse natürlich bekämpfen: an Zimmer-, Balkon- und Kräuterpflan
 description: Blattläuse erkennen und ohne Gift bekämpfen: Abstreifen, Wasserstrahl, Schmierseifenlösung, Nützlinge wie Marienkäfer und Florfliegen, Mischkultur und Vorbeugung an Kräutern und Balkon.
 category: schaedlinge-und-probleme
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: Aphids (englisch) | https://www.rhs.org.uk/advice/profile?pid=181
+  - Umweltbundesamt: Mit Nützlingen gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/nuetzlingen-gaertnern
 ---
 Blattläuse sind die wohl bekanntesten Pflanzenschädlinge. Im Frühjahr sitzen sie in dichten Kolonien an den zarten Triebspitzen von Rosen, Kräutern, Balkonblumen und Gemüse, und auch Zimmerpflanzen bleiben nicht verschont. Die gute Nachricht: Blattläuse sind vergleichsweise leicht zu bekämpfen, und das ganz ohne chemische Mittel. Gerade bei Kräutern und Gemüse, die gegessen werden, ist das besonders wichtig.
 

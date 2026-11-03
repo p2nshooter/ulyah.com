@@ -258,3 +258,41 @@ img, svg { max-width: 100%; }
   .jar__fill { transform: translateY(10px); }
   .js .ledger-card, .js .granary-room { opacity: 1; transform: none; }
 }
+
+/* ── Tools (owner, 2 Nov 2026): the home-page band and the calculators themselves ── */
+.granary-tools { max-width: 1180px; margin: 0 auto; padding: 56px 20px; }
+.granary-tools__lead { color: var(--muted); margin: 6px 0 0; }
+.granary-tools__grid { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.granary-tools__card { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 22px; border-radius: var(--radius); text-decoration: none; color: var(--ink);
+  background: linear-gradient(170deg, #fffaf0, var(--parchment-2)); border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform .3s ease, border-color .3s ease; }
+.granary-tools__card:hover, .granary-tools__card:focus-visible { transform: translateY(-3px); border-color: var(--wheat-deep); color: var(--ink); }
+.granary-tools__name { font: 600 21px/1.3 var(--serif); color: var(--cedar-2); }
+.granary-tools__text { font-size: 16px; color: var(--muted); line-height: 1.55; }
+
+.granary-wz { margin: 0 0 36px; padding: clamp(18px, 3vw, 28px); border-radius: var(--radius); background: linear-gradient(175deg, #fffaf0, var(--parchment-2)); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.granary-wz-title { margin: 0 0 4px; font: 600 24px/1.3 var(--serif); color: var(--cedar-2); }
+.granary-wz-help { margin: 0 0 16px; color: var(--muted); font-size: 16px; }
+.granary-wz h3 { margin: 18px 0 10px; font: 600 19px/1.3 var(--serif); color: var(--cedar-2); }
+.granary-wz-part { margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--line); }
+.granary-wz-fields { display: grid; gap: 14px 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 14px; }
+.granary-wz-fields label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px; color: var(--cedar-2); }
+.granary-wz-fields .granary-wz-wide { grid-column: 1 / -1; }
+.granary-wz input[type="text"], .granary-wz select { font: inherit; font-size: 16px; font-weight: 500; padding: 10px 12px; min-height: 44px; width: 100%; border-radius: 12px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); }
+.granary-wz input.granary-wz-short { max-width: 120px; }
+.granary-wz-rows { display: grid; gap: 10px; margin-bottom: 12px; }
+.granary-wz-row { display: grid; gap: 8px; grid-template-columns: 1.4fr 1fr 1fr 0.9fr; }
+.granary-wz-row--3 { grid-template-columns: 1.6fr 1fr 0.9fr; }
+@media (max-width: 560px) { .granary-wz-row, .granary-wz-row--3 { grid-template-columns: 1fr 1fr; } .granary-wz-row > :first-child, .granary-wz-row--3 > :first-child { grid-column: 1 / -1; } }
+.granary-wz-button { font: inherit; font-weight: 700; padding: 10px 20px; min-height: 44px; border-radius: 999px; cursor: pointer; border: 0; color: #fff; background: linear-gradient(160deg, var(--clay), var(--beam)); }
+.granary-wz-button--light { background: transparent; color: var(--cedar-2); border: 1.5px solid var(--wheat-deep); margin-bottom: 12px; }
+.granary-wz-result { margin-top: 8px; padding: 16px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--olive-soft); }
+.granary-wz-result table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; display: block; overflow-x: auto; }
+.granary-wz-result th, .granary-wz-result td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.granary-wz-best td { background: var(--olive-soft); font-weight: 700; }
+.granary-wz-head { margin: 0 0 8px; font-weight: 600; color: var(--cedar-2); }
+.granary-wz-empty { margin: 0; color: var(--muted); font-style: italic; }
+.granary-wz-notes { margin: 10px 0 0; padding: 10px 12px 10px 30px; border-radius: 12px; background: var(--parchment); color: var(--cedar-2); font-size: 15px; }
+p.granary-wz-notes { padding-left: 12px; }
+.engine-quellen { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 16px; }
+.engine-quellen__host, .engine-quellen__stand { color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .granary-tools__card { transition: none; } .granary-tools__card:hover { transform: none; } }

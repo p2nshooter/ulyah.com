@@ -109,6 +109,16 @@ const halle = () => `<svg class="zeder-halle" viewBox="0 0 360 260" aria-hidden=
   <rect x="0" y="220" width="360" height="12" fill="#6b3f22"/>
 </svg>`;
 
+/** Die Rechner (Seiten mit `tool:`) als Band auf der Startseite. */
+function rechnerBand(ctx) {
+  const tools = ctx.pages.filter((p) => p.tool);
+  if (!tools.length) return "";
+  return `<section class="zeder-rechner" aria-labelledby="rechner-t">
+  <header class="zeder-rechner__kopf"><p class="zeder-rechner__zeile">Rechner</p><h2 id="rechner-t">Vorher rechnen, einmal einkaufen</h2><p>Vier Helfer, die direkt in deinem Browser arbeiten, ohne Konto und ohne dass etwas gesendet wird.</p></header>
+  <ul class="zeder-rechner__liste">${tools.map((p) => `<li><a class="zeder-rechner__karte" href="${p.url}"><span class="zeder-rechner__name">${ctx.esc(p.title.split(":")[0])}</span><span class="zeder-rechner__text">${ctx.esc(p.description)}</span></a></li>`).join("")}</ul>
+</section>`;
+}
+
 export function home(ctx) {
   const { site, articles, categories, esc } = ctx;
   const [first, second, third, ...rest] = articles;
@@ -136,6 +146,8 @@ export function home(ctx) {
     </a></li>`).join("\n    ")}
   </ul>
 </section>
+
+${rechnerBand(ctx)}
 
 <section class="zeder-raster" aria-labelledby="neu-t">
   <header class="zeder-ueber"><p class="zeder-ueber__zeile">Frisch geprüft</p><h2 id="neu-t">Neue Anleitungen</h2></header>

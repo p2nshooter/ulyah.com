@@ -3,6 +3,11 @@ title: "Mischkultur: gute und schlechte Nachbarn im Gemüsebeet"
 description: "Welche Gemüse sich im Beet gut vertragen und welche nicht: Mischkultur-Tabelle, die Gründe dahinter, was belegt ist und was Gartentradition, plus Beispiele für Beete."
 category: mischkultur-und-fruchtfolge
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Infoschrift Mischkulturen im Gemüsegarten | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/247859/index.php
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
 ---
 Ein Beet, in dem nur eine Gemüseart in Reih und Glied steht, ist für Schädlinge ein gedeckter Tisch. Wer dagegen verschiedene Kulturen geschickt kombiniert, nutzt Platz, Licht und Nährstoffe besser aus, verwirrt Schadinsekten und verringert das Risiko, dass eine Krankheit das ganze Beet erfasst. Das ist der Grundgedanke der Mischkultur. Hier findest du die bewährten Kombinationen, eine übersichtliche Tabelle und eine ehrliche Einordnung, welche Regeln auf Erfahrung beruhen und welche gut begründet sind.
 

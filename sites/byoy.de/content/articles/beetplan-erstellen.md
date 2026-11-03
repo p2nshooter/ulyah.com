@@ -3,6 +3,11 @@ title: "Beetplan erstellen: Gemüsegarten auf Papier planen, Mengen berechnen un
 description: "Den Gemüsegarten auf Papier planen: Wunschliste nach Familienbedarf, Pflanzmengen pro Person, Abstände, hohe Kulturen richtig platzieren, Folgesaaten, Mischkultur und Fruchtfolge."
 category: mischkultur-und-fruchtfolge
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Infoschrift Mischkulturen im Gemüsegarten | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/247859/index.php
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
 ---
 Im Januar, wenn draußen nichts wächst, beginnt im Gemüsegarten eine der schönsten Arbeiten: die Planung. Mit Samenkatalogen, Karopapier und einer Tasse Tee entsteht der Plan für das ganze Jahr. Ein guter Beetplan verhindert, dass im Juli zwanzig Zucchini und kein einziger Salat im Garten stehen, dass Tomaten den Bohnen das Licht nehmen oder dass der Kohl auf dem Beet landet, auf dem er schon im Vorjahr stand. Er muss nicht perfekt sein. Er ist eine Landkarte, die du im Laufe des Jahres anpasst. Dieser Ratgeber führt dich in sechs Schritten zu deinem eigenen Plan.
 

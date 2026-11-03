@@ -3,6 +3,11 @@ title: "Zucchini und Kürbis anbauen: Platz, Pflege, Ernte und Lagerung"
 description: "Zucchini und Kürbis im Bio-Garten: wann du säst und pflanzt, wie viel Platz sie brauchen, was gegen Mehltau hilft und wie Kürbisse bis zum Frühjahr lagern."
 category: gemuesegarten
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Kräuter- und Gemüse-Hochbeet (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/hochbeet_folder.pdf
 ---
 Kürbisgewächse gehören zu den dankbarsten Kulturen im Gemüsegarten. Zwei Zucchinipflanzen versorgen eine Familie den ganzen Sommer, und eine Handvoll Hokkaido-Kürbisse liefert Suppen bis weit in den Winter. Dafür verlangen sie Wärme, viel Platz und einen nährstoffreichen Boden. Wer diese Ansprüche erfüllt und ein paar typische Fehler kennt, wird mit Erträgen belohnt, die kaum eine andere Kultur erreicht.
 

@@ -3,6 +3,11 @@ title: "The Basic Home Toolkit: Twelve Tools That Pay for Themselves"
 description: The twelve hand tools every household should own, what each one is for, how to choose decent quality without overspending, and the safety gear to keep alongside them.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA: Lead-safe renovations for DIYers | https://www.epa.gov/lead/lead-safe-renovations-diyers
+  - U.S. EPA WaterSense: Home maintenance | https://www.epa.gov/watersense/home-maintenance
 ---
 Every home produces a steady stream of small jobs: a wobbly chair, a loose cupboard hinge, a picture to hang, a flat-pack bookcase, a dripping tap, a sticking door. Without tools, each job becomes a choice between living with the problem, paying someone, or buying a replacement. With a modest toolkit, most of them take ten minutes and cost almost nothing.
 

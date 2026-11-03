@@ -3,6 +3,11 @@ title: "Balkonkasten bepflanzen: Standort, Erde, Pflanzabstände und schöne Kom
 description: Wie du Balkonkästen richtig bepflanzt: Sonne, Halbschatten oder Schatten, Kastengröße, Drainage und Erde, Pflanzabstände, Gestaltung mit Leitpflanze, Füller und Hängepflanze, Pflege und Herbst.
 category: balkon-und-terrasse
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - NABU: Balkon – Naturoase auf kleinem Raum | https://www.nabu.de/umwelt-und-ressourcen/oekologisch-leben/balkon-und-garten/grundlagen/balkon/26201.html
+  - Umweltbundesamt: Mit torffreier Blumenerde klimafreundlich gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/torffreier-blumenerde-klimafreundlich-gaertnern
 ---
 Ein üppig blühender Balkonkasten verwandelt selbst einen kleinen Balkon in einen grünen Rückzugsort. Gleichzeitig ist der Kasten ein anspruchsvoller Lebensraum: wenig Erde, viel Sonne oder viel Schatten, Wind, Hitze und manchmal tagelange Trockenheit. Wer den Standort richtig einschätzt, die passenden Pflanzen auswählt und beim Pflanzen einige Grundregeln beachtet, hat bis in den Herbst Freude an seinen Kästen.
 

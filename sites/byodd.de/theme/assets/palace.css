@@ -230,3 +230,37 @@ h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.2; colo
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .zeder-steigt { opacity: 1; transform: none; }
 }
+
+/* ── Rechner (Inhaber, 2. Nov. 2026): Band auf der Startseite und die Rechner selbst ── */
+.zeder-rechner { max-width: 1180px; margin: 0 auto; padding: 56px 20px; }
+.zeder-rechner__kopf { text-align: center; max-width: 720px; margin: 0 auto 26px; }
+.zeder-rechner__kopf h2 { font-family: var(--titel); color: var(--zeder-2); margin: 4px 0 8px; }
+.zeder-rechner__kopf p { color: var(--tinte-2); margin: 0; }
+.zeder-rechner__zeile { text-transform: uppercase; letter-spacing: .14em; font-size: 13px; font-weight: 700; color: var(--smaragd) !important; }
+.zeder-rechner__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.zeder-rechner__karte { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 22px; border-radius: 16px; text-decoration: none; color: var(--tinte);
+  background: linear-gradient(170deg, #fffdf8, var(--marmor-2)); border: 1px solid var(--rand); box-shadow: var(--schatten); transition: transform .3s ease, border-color .3s ease; }
+.zeder-rechner__karte:hover, .zeder-rechner__karte:focus-visible { transform: translateY(-3px); border-color: var(--gold); color: var(--tinte); }
+.zeder-rechner__name { font-family: var(--titel); font-size: 20px; color: var(--zeder-2); }
+.zeder-rechner__text { font-size: 16px; color: var(--tinte-2); line-height: 1.55; }
+
+.zeder-wz { margin: 0 0 36px; padding: clamp(18px, 3vw, 28px); border-radius: 18px; background: linear-gradient(175deg, #fffdf8, var(--marmor-2)); border: 1px solid var(--rand); box-shadow: var(--schatten); }
+.zeder-wz-titel { margin: 0 0 4px; font-family: var(--titel); font-size: 24px; color: var(--zeder-2); }
+.zeder-wz-hilfe { margin: 0 0 14px; color: var(--tinte-2); font-size: 16px; }
+.zeder-wz-felder { display: grid; gap: 14px 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 14px; }
+.zeder-wz-felder label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px; color: var(--zeder-2); }
+.zeder-wz-felder .zeder-wz-breit { grid-column: 1 / -1; }
+.zeder-wz-felder .zeder-wz-haken { flex-direction: row; align-items: center; gap: 10px; font-weight: 500; }
+.zeder-wz input[type="text"], .zeder-wz select { font: inherit; font-size: 16px; font-weight: 500; padding: 10px 12px; min-height: 44px; width: 100%; border-radius: 12px; border: 1.5px solid var(--marmor-ader); background: #fff; color: var(--tinte); }
+.zeder-wz input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: var(--smaragd); }
+.zeder-wz select:focus-visible, .zeder-wz input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.zeder-wz-ergebnis { margin-top: 8px; padding: 16px 18px; border-radius: 14px; background: #fff; border: 1px solid rgba(15, 107, 82, .25); }
+.zeder-wz-ergebnis table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; }
+.zeder-wz-ergebnis th, .zeder-wz-ergebnis td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--marmor-ader); vertical-align: top; }
+.zeder-wz-ergebnis tbody th { color: var(--zeder-2); width: 34%; }
+.zeder-wz-kopf { margin: 0 0 8px; font-weight: 600; color: var(--zeder-2); }
+.zeder-wz-leer { margin: 0; color: var(--tinte-2); font-style: italic; }
+.zeder-wz-notizen { margin: 10px 0 0; padding: 10px 12px 10px 30px; border-radius: 12px; background: var(--marmor); color: var(--zeder-2); font-size: 15px; }
+.engine-quellen { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rand); font-size: 16px; }
+.engine-quellen__host, .engine-quellen__stand { color: var(--tinte-2); }
+@media (prefers-reduced-motion: reduce) { .zeder-rechner__karte { transition: none; } .zeder-rechner__karte:hover { transform: none; } }

@@ -3,6 +3,10 @@ title: "Vinylboden: Klickvinyl oder Klebevinyl? Unterschiede, Verlegung, Pflege"
 description: Was Vinyl- und Designböden auszeichnet, worin sich Klick- und Klebevinyl, Rigid-Vinyl und Vinyl mit HDF-Träger unterscheiden, wie du sie verlegst und wo sie sinnvoll sind.
 category: waende-und-boeden
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Ratgeber Gesund und umweltfreundlich renovieren (PDF) | https://www.umweltbundesamt.de/system/files/medien/479/publikationen/uba_rg_gesund_und_umweltfreundlich_renovieren_bf.pdf
 ---
 Vinylböden, oft auch Designböden genannt, haben sich in wenigen Jahren von einer Nischenlösung zu einem der meistverkauften Bodenbeläge entwickelt. Sie sind fußwarm, leise beim Gehen, pflegeleicht und je nach Ausführung sogar für Bad und Küche geeignet. Gleichzeitig ist das Angebot verwirrend: Klickvinyl, Klebevinyl, Rigid-Vinyl, Vinyl mit Kork oder HDF-Kern, Nutzschichten in Zehntelmillimetern.
 

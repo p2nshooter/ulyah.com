@@ -3,6 +3,11 @@ title: How to Meal Plan a Week of Dinners Without Getting Bored
 description: A practical, flexible system for planning seven dinners, writing one shopping list and cutting food spending without eating the same meal every night.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA: Preventing wasted food at home | https://www.epa.gov/recycle/preventing-wasted-food-home
+  - USDA Food Safety and Inspection Service: Leftovers and food safety | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety
 ---
 Meal planning has a reputation problem. To some people it sounds like a rigid spreadsheet of identical chicken-and-rice boxes; to others it sounds like a weekend chore that collapses by Wednesday. Done well, it is neither. A good meal plan is simply a decision made once, calmly, instead of seven times when you are tired and hungry at six in the evening. That single change is where most of the savings come from: fewer takeaways, fewer "quick" trips to the shop that end with a full basket, and far less food thrown away at the end of the week.
 

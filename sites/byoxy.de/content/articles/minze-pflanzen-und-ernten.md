@@ -3,6 +3,11 @@ title: "Minze pflanzen und ernten: Sorten, Topfkultur, Rückschnitt und Vermehru
 description: Minze auf Balkon und Fensterbank: beliebte Sorten, Standort, Topf statt Beet, Gießen, richtig ernten, Rückschnitt, Vermehrung, Überwintern und Trocknen.
 category: kraeuter-und-gemuese
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Balkongemüse – der Gemüsegarten auf kleinstem Raum | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/150326/index.php
+  - NABU: Balkon – Naturoase auf kleinem Raum | https://www.nabu.de/umwelt-und-ressourcen/oekologisch-leben/balkon-und-garten/grundlagen/balkon/26201.html
 ---
 Minze ist eines der dankbarsten Kräuter überhaupt. Sie wächst schnell, verträgt auch Halbschatten, kommt jedes Jahr wieder und liefert Blätter für Tee, Limonade, Salate, Desserts und Cocktails. Gleichzeitig ist sie für ihren Wuchsdrang berüchtigt: Im Beet überwuchert sie schnell alles in der Nachbarschaft. Im Topf lässt sie sich dagegen gut im Zaum halten und ist ideal für Balkon und Fensterbank.
 

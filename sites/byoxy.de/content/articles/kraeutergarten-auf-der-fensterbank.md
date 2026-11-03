@@ -3,6 +3,11 @@ title: "Kräutergarten auf der Fensterbank: die besten Kräuter, Standort und Pf
 description: So legst du einen Kräutergarten auf der Fensterbank an: geeignete Kräuter nach Licht, Kombinationen nach Bedürfnissen, Gefäße und Erde, Gießen, Ernten, Kräuter im Winter und Pflanzenlampen.
 category: kraeuter-und-gemuese
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: Grow microgreens (englisch) | https://www.rhs.org.uk/education-learning/children-young-people/family-activities/grow-it/microgreens
+  - Royal Horticultural Society: How to grow basil (englisch) | https://www.rhs.org.uk/herbs/basil/grow-your-own
 ---
 Frische Kräuter direkt aus der Küche zu ernten, ist ein kleiner Luxus, der wenig Platz braucht. Eine sonnige Fensterbank genügt für Basilikum, Schnittlauch, Petersilie, Thymian und vieles mehr. Gleichzeitig ist die Fensterbank ein anspruchsvoller Standort: Das Licht ist schwächer als draußen, die Luft im Winter trocken, und die Gefäße sind klein. Wer die richtigen Kräuter wählt und sie nach ihren Bedürfnissen gruppiert, hat das ganze Jahr über frische Würze.
 

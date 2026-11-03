@@ -3,6 +3,11 @@ title: "Möbel aufbauen ohne Frust: Tipps für Bausatzmöbel und Schränke"
 description: Wie du Bausatzmöbel schneller und stabiler aufbaust, die Anleitung clever liest, Werkzeug und Arbeitsplatz vorbereitest, Rückwände und Schubladen richtig montierst und hohe Möbel sicherst.
 category: holz-und-moebel
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Deutsches Institut für Bautechnik: Kunststoffdübel | https://www.dibt.de/de/bauprodukte/informationsportal-bauprodukte-und-bauarten/produktgruppen/bauprodukte-detail/bauprodukt/kunststoffduebel
+  - Deutsches Institut für Bautechnik: Hinweise für die Montage von Dübelverankerungen (PDF) | https://www.dibt.de/fileadmin/dibt-website/Dokumente/Referat/I2/Duebel_Hinweise_Montage.pdf
 ---
 Möbel aus dem Karton sind praktisch und günstig, aber ihr Aufbau ist für viele eine Geduldsprobe: fehlende Teile, unverständliche Zeichnungen, ein Schrank, der nach dem Aufrichten schief steht, und am Ende drei übrig gebliebene Schrauben. Dabei lässt sich der Aufbau mit ein paar Kniffen deutlich entspannter, schneller und vor allem stabiler gestalten.
 

@@ -230,3 +230,45 @@ h1, h2, h3 { font-family: var(--titel); font-weight: 400; line-height: 1.18; col
   .ranke-blumenkasten__beet i { transform: none; }
   .ranke-blumenkasten__beet b { opacity: 1; }
 }
+
+/* ── Helfer (Inhaber, 2. Nov. 2026): Beet auf der Startseite und die Helfer selbst ── */
+.garten-helfer { max-width: 1180px; margin: 0 auto; padding: 56px 20px; }
+.garten-helfer__kopf { text-align: center; max-width: 720px; margin: 0 auto 26px; }
+.garten-helfer__kopf h2 { font-family: var(--titel); color: var(--jade-2); margin: 4px 0 8px; }
+.garten-helfer__kopf p { color: var(--tinte-2); margin: 0; }
+.garten-helfer__zeile { text-transform: uppercase; letter-spacing: .14em; font-size: 13px; font-weight: 700; color: var(--moos) !important; }
+.garten-helfer__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.garten-helfer__karte { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 22px; border-radius: 18px; text-decoration: none; color: var(--tinte);
+  background: linear-gradient(170deg, #fbfdf8, var(--tau)); border: 1px solid var(--rand); box-shadow: var(--schatten); transition: transform .3s ease, border-color .3s ease; }
+.garten-helfer__karte:hover, .garten-helfer__karte:focus-visible { transform: translateY(-3px); border-color: var(--gold); color: var(--tinte); }
+.garten-helfer__name { font-family: var(--titel); font-size: 20px; color: var(--jade-2); }
+.garten-helfer__text { font-size: 16px; color: var(--tinte-2); line-height: 1.55; }
+
+.garten-wz { margin: 0 0 36px; padding: clamp(18px, 3vw, 28px); border-radius: 20px; background: linear-gradient(175deg, #fbfdf8, var(--papier-2)); border: 1px solid var(--rand); box-shadow: var(--schatten); }
+.garten-wz-titel { margin: 0 0 4px; font-family: var(--titel); font-size: 24px; color: var(--jade-2); }
+.garten-wz-hilfe { margin: 0 0 14px; color: var(--tinte-2); font-size: 16px; }
+.garten-wz-felder { display: grid; gap: 14px 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 14px; }
+.garten-wz-felder label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 15px; color: var(--jade-2); }
+.garten-wz-felder .garten-wz-haken { flex-direction: row; align-items: center; gap: 10px; font-weight: 500; }
+.garten-wz input[type="text"], .garten-wz select { font: inherit; font-size: 16px; font-weight: 500; padding: 10px 12px; min-height: 44px; width: 100%; border-radius: 12px; border: 1.5px solid var(--rand); background: #fff; color: var(--tinte); }
+.garten-wz input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: var(--moos); }
+.garten-wz select:focus-visible, .garten-wz input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.garten-wz-ergebnis { margin-top: 8px; padding: 16px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--rand); }
+.garten-wz-ergebnis table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; }
+.garten-wz-ergebnis th, .garten-wz-ergebnis td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--papier-2); vertical-align: top; }
+.garten-wz-ergebnis tbody th { color: var(--jade-2); width: 34%; }
+.garten-wz-kopf { margin: 0 0 8px; font-weight: 600; color: var(--jade-2); }
+.garten-wz-leer { margin: 0; color: var(--tinte-2); font-style: italic; }
+.garten-wz-mehr { margin: 8px 0 0; font-weight: 600; }
+.garten-wz-notiz { margin: 10px 0 0; padding: 10px 12px 10px 30px; border-radius: 12px; background: var(--tau); color: var(--jade-2); font-size: 15px; }
+p.garten-wz-notiz { padding-left: 12px; }
+.garten-wz-scroll { overflow-x: auto; margin-bottom: 12px; }
+.garten-wz-kalender { border-collapse: collapse; font-size: 14px; min-width: 640px; width: 100%; background: #fff; }
+.garten-wz-kalender th, .garten-wz-kalender td { padding: 6px 4px; border: 1px solid var(--papier-2); text-align: center; }
+.garten-wz-kalender tbody th { text-align: left; white-space: nowrap; color: var(--jade-2); padding-right: 8px; }
+.garten-wz-drin { background: var(--moos); color: #fff; }
+.garten-wz-raus { background: var(--tau); color: var(--jade-2); }
+.garten-wz-jetzt { outline: 2px solid var(--gold); }
+.engine-quellen { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--rand); font-size: 16px; }
+.engine-quellen__host, .engine-quellen__stand { color: var(--tinte-2); }
+@media (prefers-reduced-motion: reduce) { .garten-helfer__karte { transition: none; } .garten-helfer__karte:hover { transform: none; } }

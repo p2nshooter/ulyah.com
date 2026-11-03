@@ -3,6 +3,11 @@ title: "Baby on a Budget: What You Really Need in the First Year and What Can Wa
 description: "How to prepare for a new baby without overspending: the true essentials, what is safe to buy second-hand and what is not, nappies and feeding costs, clothes, gifts, and planning the family budget."
 category: family-and-leisure
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Consumer Product Safety Commission: Resale and thrift stores | https://www.cpsc.gov/Business--Manufacturing/Business-Education/ResaleThrift-Stores-Information-Center
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Preparing for a new baby is exciting, and also a little overwhelming. Shops, apps and social media present long lists of products that every new parent supposedly needs, from special gadgets to entire nurseries in matching colours. Many of these items are used for a few weeks, or not at all. At the same time, a new baby often arrives at a moment when household income may drop for a while because of parental leave. Spending wisely in the first year makes a real difference.
 

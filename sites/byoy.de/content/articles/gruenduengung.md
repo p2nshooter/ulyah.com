@@ -3,6 +3,11 @@ title: "Gründüngung im Gemüsegarten: Phacelia, Klee, Senf und Roggen richtig 
 description: "Warum Gründüngung den Boden verbessert, welche Pflanzen wann passen, Aussaatmengen, winterharte und abfrierende Arten, die Kohlhernie-Falle bei Senf und wie du Gründüngung im Frühjahr einarbeitest."
 category: kompost-und-boden
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Umweltbundesamt: Pflanzenschutz im Gemüsegarten | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/pflanzenschutz-im-gemuesegarten
 ---
 Ein Beet, das nach der Ernte nackt über den Winter liegt, verliert. Regen schwemmt Nährstoffe aus, die Oberfläche verschlämmt, und im Frühjahr wächst als Erstes Unkraut. Die Natur kennt keinen offenen Boden: Kaum ist eine Fläche frei, wächst etwas darauf. Gründüngung macht sich dieses Prinzip zunutze. Du säst gezielt Pflanzen aus, die den Boden bedecken, mit ihren Wurzeln lockern, Nährstoffe festhalten und später als Mulch oder Humus in den Boden zurückkehren. Sie ist eine der einfachsten und günstigsten Methoden, einen Gartenboden über die Jahre fruchtbarer zu machen.
 

@@ -3,6 +3,11 @@ title: "Basic Bike Maintenance: Keep Your Bicycle Safe, Smooth and Cheap to Run"
 description: A beginner's routine for bicycle care — the pre-ride check, tyre pressure, fixing a puncture, cleaning and oiling the chain, brake checks and when to visit a bike shop.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - NHTSA: Bike ABC quick check | https://www.nhtsa.gov/document/bike-abc-quick-check
+  - NHTSA: Bicycle safety | https://www.nhtsa.gov/road-safety/bicycle-safety
 ---
 A bicycle is one of the cheapest ways to get around: no fuel, no parking charges, and exercise built into the journey. But a bike that is neglected soon becomes slow, noisy and unsafe, and the repair bill for worn-out chains, cassettes and brake parts can come as a surprise. Most of that wear is preventable with a few minutes of care each week and some simple skills anyone can learn.
 

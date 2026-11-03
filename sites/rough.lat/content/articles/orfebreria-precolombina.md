@@ -3,6 +3,11 @@ title: "Orfebrería precolombina: técnicas, culturas, significados y dónde ver
 description: "La metalurgia antigua de América, de los Andes a Mesoamérica: tumbaga, dorado por oxidación, cera perdida, platino de La Tolita, obras emblemáticas, museos y por qué no comprar piezas arqueológicas."
 category: joyeria-y-diseno
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Banco de la República, Museo del Oro: Exposición permanente | https://www.banrepcultural.org/exposiciones/exposicion-permanente-del-museo-del-oro
+  - Boletín Museo del Oro: Cronología de la metalurgia colombiana | https://publicaciones.banrepcultural.org/index.php/bmo/article/view/6894
 ---
 Mucho antes de que los barcos europeos llegaran a sus costas, los pueblos de América ya trabajaban el oro, la plata y el cobre con una maestría asombrosa. Pectorales que brillaban como el sol, narigueras que transformaban el rostro de un gobernante, diminutas figuras de ranas, aves y jaguares fundidas con un detalle que hoy cuesta imitar, aleaciones capaces de cambiar de color en la superficie y hasta objetos de platino, un metal que en Europa no se sabría trabajar hasta siglos después.
 

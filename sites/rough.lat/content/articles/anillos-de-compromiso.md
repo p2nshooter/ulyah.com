@@ -3,6 +3,12 @@ title: "Anillos de compromiso: estilos, piedras, metales, presupuesto y cómo co
 description: "Cómo elegir un anillo de compromiso: costumbres, estilos, diamante o gema de color, metal y engaste, la talla sin arruinar la sorpresa, presupuesto sin mitos, documentos, argollas y cuidados."
 category: joyeria-y-diseno
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Understanding the 4Cs of diamond quality | https://4cs.gia.edu/en-us/4cs-of-diamond-quality/
+  - GIA: Natural diamonds buyer's guide | https://www.gia.edu/diamond/buyers-guide
+  - GIA 4Cs: How to protect your diamond engagement ring | https://4cs.gia.edu/en-us/blog/how-to-protect-your-diamond-engagement-ring/
 ---
 Pocas joyas cargan tanto significado como un anillo de compromiso. Es una pieza que se elige, a menudo, en secreto, con nervios y con la intención de que dure toda la vida, y por eso suele rodearse de dudas: qué piedra elegir, cuánto gastar, cómo acertar con la talla sin arruinar la sorpresa, qué metal resistirá mejor o cómo combinarlo después con la argolla de matrimonio.
 

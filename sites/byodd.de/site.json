@@ -26,6 +26,7 @@
   ],
   "promo": { "slug": "digitale-werkbank", "label": "✦ Digitale Werkbank" },
   "menu": [
+    { "label": "Rechner", "href": "/werkzeuge/" },
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Sicherheit", "href": "/sicherheitshinweise/" },
     { "label": "Kontakt", "href": "/kontakt/" }

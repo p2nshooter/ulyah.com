@@ -3,6 +3,12 @@ title: The Pantry Staples That Quietly Save You Money
 description: Which dry, tinned and frozen basics give the most meals for the least money, how much to keep, and how to rotate them so nothing goes stale.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - FoodSafety.gov: Cold food storage chart | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts
+  - U.S. EPA: Preventing wasted food at home | https://www.epa.gov/recycle/preventing-wasted-food-home
+  - NIST: Unit pricing guide (Special Publication 1181) | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/1181e2025/NIST.SP.1181e2025.html
 ---
 A well-stocked pantry is one of the least glamorous and most effective money-saving tools a household can have. When the cupboard holds the right basics, a tired evening ends with a decent home-cooked meal instead of a delivery order, a fridge full of odds and ends turns into dinner, and you are never forced to buy a single ingredient at a high price because you have run out of it.
 

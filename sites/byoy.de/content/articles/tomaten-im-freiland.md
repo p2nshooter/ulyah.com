@@ -3,6 +3,11 @@ title: "Tomaten im Freiland: pflanzen, ausgeizen und vor Braunfäule schützen"
 description: "Wie Tomaten im Gartenbeet gesund bleiben: Pflanztermin nach den Eisheiligen, Abstand, Regendach gegen Kraut- und Braunfäule, Ausgeizen, Düngen und Ernte."
 category: gemuesegarten
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Tomaten im Kübel | https://www.lwg.bayern.de/gartenakademie/gartendokumente/wochentipps/376373/index.php
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
 ---
 Tomaten sind das Lieblingsgemüse der Deutschen, und kaum etwas schmeckt so gut wie eine sonnenwarme Frucht direkt vom Strauch. Im Freiland haben sie aber einen ernsten Gegner: die Kraut- und Braunfäule. In nassen Sommern kann sie innerhalb von zwei Wochen einen ganzen Bestand vernichten. Die gute Nachricht: Mit dem richtigen Standort, einem einfachen Regendach und passenden Sorten bekommst du auch ohne Spritzmittel zuverlässig reife Tomaten bis in den Oktober.
 

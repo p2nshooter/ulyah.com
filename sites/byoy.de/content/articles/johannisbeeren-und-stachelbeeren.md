@@ -3,6 +3,11 @@ title: "Johannisbeeren und Stachelbeeren: pflanzen, richtig schneiden, Mehltau v
 description: "Johannisbeeren, Stachelbeeren und Jostabeeren: Standort, Pflanztiefe, Mulch, der richtige Schnitt je nach Art, Stachelbeermehltau, Blattwespen und Vermehrung über Steckholz."
 category: obst-und-beeren
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Infoschriften | https://www.lwg.bayern.de/gartenakademie-infoschriften
 ---
 Johannisbeeren und Stachelbeeren gehören zu den zuverlässigsten Obststräuchern im Garten. Sie sind winterhart, kommen mit Halbschatten zurecht, tragen schon im zweiten Jahr nach der Pflanzung und liefern viele Jahre lang Beeren für Gelee, Saft, Rote Grütze und Kuchen. In alten Bauerngärten fehlten sie nie. Damit sie nicht zu einem undurchdringlichen Dickicht aus alten, kaum tragenden Ruten werden, brauchen sie einen regelmäßigen Schnitt, und der unterscheidet sich je nach Art. Dieser Ratgeber erklärt Pflanzung, Pflege und Schnitt Schritt für Schritt.
 

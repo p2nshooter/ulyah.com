@@ -3,6 +3,13 @@ title: "Mantenimiento y limpieza de joyas: cómo cuidar cada gema y cada metal p
 description: "Hábitos diarios, limpieza en casa según la gema y el metal, cuándo usar o evitar ultrasonidos y vapor, cómo guardar y viajar con joyas, la revisión profesional anual y las señales de alerta."
 category: joyeria-y-diseno
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Ultrasonic cleaners for gems | https://4cs.gia.edu/en-us/blog/gems-ultrasonic-cleaners/
+  - GIA: Emerald care and cleaning guide | https://www.gia.edu/emerald-care-cleaning
+  - GIA: Sapphire care and cleaning guide | https://www.gia.edu/sapphire-care-cleaning
+  - GIA: How should I care for my pearls? | https://www.gia.edu/FAQ/gia-faq-about-gemstones-how-to-care-for-pearls
 ---
 Una joya bien cuidada puede durar varias generaciones y llegar a los nietos casi tan brillante como el día en que se compró. Una joya descuidada, en cambio, pierde brillo en pocas semanas, se raya, se enreda o, en el peor de los casos, pierde una piedra que no se volverá a encontrar. La diferencia rara vez está en grandes cuidados: casi siempre está en pequeños hábitos diarios y en una revisión a tiempo.
 

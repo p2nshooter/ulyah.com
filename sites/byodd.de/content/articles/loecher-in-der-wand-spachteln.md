@@ -3,6 +3,11 @@ title: "Löcher in der Wand spachteln: Dübellöcher, Risse und große Ausbrüch
 description: Welche Spachtelmasse für welches Loch, wie du Dübellöcher, Haarrisse und größere Ausbrüche in Putz und Gipskarton unsichtbar verschließt, schleifst und für den Anstrich vorbereitest.
 category: waende-und-boeden
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Deutscher Mieterbund: Unwirksame Schönheitsreparaturklausel | https://mieterbund.de/aktuelles/meldungen/bgh/unverstaendlich-unwirksame-schoenheitsreparaturklausel-verursacht-mehrkosten-fuer-mieter/
+  - Umweltbundesamt: Ratgeber Gesund und umweltfreundlich renovieren (PDF) | https://www.umweltbundesamt.de/system/files/medien/479/publikationen/uba_rg_gesund_und_umweltfreundlich_renovieren_bf.pdf
 ---
 Dübellöcher nach dem Auszug, ein Riss über der Tür, eine Delle vom Stuhl, der jahrelang gegen die Wand gerückt wurde, oder ein faustgroßes Loch in der Gipskartonwand: Löcher und Schäden in Wänden gehören zu den häufigsten Reparaturen im Haushalt. Mit der richtigen Spachtelmasse und etwas Geduld lassen sich fast alle Schäden so beheben, dass man sie nach dem Streichen nicht mehr sieht.
 

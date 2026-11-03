@@ -3,6 +3,11 @@ title: "Obstbaumschnitt: Winter- und Sommerschnitt, Erziehung, Pflege und Verjü
 description: "Obstbäume richtig schneiden: Winter- oder Sommerschnitt, Erziehung junger Bäume, Fruchtholz bei Apfel und Birne, Kirsche und Zwetschge, Werkzeug, Astring und typische Fehler."
 category: obst-und-beeren
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Bayerische Gartenakademie: Infoschriften | https://www.lwg.bayern.de/gartenakademie-infoschriften
 ---
 Ein ungeschnittener Obstbaum trägt auch Früchte, aber meist viele kleine, oft nur jedes zweite Jahr, und seine Krone wird mit der Zeit dicht, dunkel und anfällig für Pilzkrankheiten. Ein gut geschnittener Baum dagegen hat eine lichte Krone, in der Sonne und Wind jedes Blatt erreichen, trägt regelmäßig große, aromatische Früchte und bleibt über Jahrzehnte gesund und stabil. Viele Gartenbesitzer scheuen den Schnitt, weil sie Fehler fürchten. Dabei folgt der Obstbaumschnitt einigen klaren Grundsätzen, die sich schnell lernen lassen. Wer sie kennt und lieber regelmäßig maßvoll als selten radikal schneidet, macht wenig falsch.
 

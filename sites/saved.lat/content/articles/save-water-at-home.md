@@ -3,6 +3,12 @@ title: Saving Water at Home Without Feeling Deprived
 description: Where household water goes, how to find leaks, cheap fittings that cut use, and kitchen, bathroom, laundry and garden habits that lower water and energy bills.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA WaterSense: Fix a Leak Week | https://www.epa.gov/watersense/fix-leak-week
+  - U.S. EPA WaterSense: Home maintenance | https://www.epa.gov/watersense/home-maintenance
+  - U.S. Department of Energy: Home water efficiency (PDF) | https://www.energy.gov/sites/default/files/2021-08/ES-Home%20Water%20Efficiency_080421.pdf
 ---
 Water feels cheap until you add it up. In homes with a water meter, every litre is charged, and heating water is one of the larger energy costs in many households. Even where water is billed at a flat rate, hot water still costs money to heat. Saving water therefore tends to save twice: once on the water bill and again on the energy bill.
 

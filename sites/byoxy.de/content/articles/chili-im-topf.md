@@ -3,6 +3,11 @@ title: "Chili im Topf: Anzucht, Pflege, Ernte und Überwintern auf Balkon und Fe
 description: So ziehst du Chili und Paprika im Topf: Sorten und Schärfegrade, frühe Anzucht, Licht und Wärme, Topf und Erde, Gießen und Düngen, Bestäubung, Ernte, Schärfe beeinflussen und Überwinterung.
 category: kraeuter-und-gemuese
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Balkongemüse – der Gemüsegarten auf kleinstem Raum | https://www.lwg.bayern.de/gartenakademie/gartendokumente/infoschriften/150326/index.php
+  - Bayerische Gartenakademie: Kiste, Kübel und Sack – wenig Platz (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/180720-lwg-folder-mobil.pdf
 ---
 Chilipflanzen sind ideale Topfpflanzen für Balkon und Fensterbank. Sie sind dekorativ mit ihren weißen Blüten und den bunten Früchten in Rot, Gelb, Orange, Violett oder Braun, und sie liefern eine Ernte, die von mild-fruchtig bis extrem scharf reicht. Gleichzeitig sind Chilis mehrjährig und können bei richtiger Pflege viele Jahre alt werden. Was sie brauchen, ist vor allem: viel Wärme, viel Licht und eine frühe Anzucht.
 

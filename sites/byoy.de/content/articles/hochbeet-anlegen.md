@@ -3,6 +3,11 @@ title: "Hochbeet anlegen: Standort, Material, richtige Schichtung und Bepflanzun
 description: "Ein Hochbeet bauen und befüllen: ideale Maße, Holz oder Metall, Wühlmausgitter und Folie, die klassischen Schichten von Ästen bis Erde, Bepflanzung nach Jahren, Gießen und Nachfüllen."
 category: gemuesegarten
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Kräuter- und Gemüse-Hochbeet (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/hochbeet_folder.pdf
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
 ---
 Ein Hochbeet ist für viele Gärtnerinnen und Gärtner der Einstieg ins eigene Gemüse. Es schont den Rücken, weil du im Stehen säst, pflanzt und erntest. Es erwärmt sich im Frühjahr schneller als der Gartenboden, sodass Salat und Radieschen früher wachsen. Schnecken haben es schwerer, Wühlmäuse kommen mit einem Gitter gar nicht hinein, und auch auf schlechtem Boden, auf Lehm oder sogar auf gepflasterten Flächen ist Gemüseanbau möglich. Damit ein Hochbeet viele Jahre gute Ernten bringt, kommt es auf den Standort, das Material und vor allem auf die Füllung an.
 

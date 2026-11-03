@@ -3,6 +3,11 @@ title: "Tropfender Wasserhahn: Ursachen finden und selbst reparieren"
 description: Wie du bei Zweigriffarmaturen Dichtung oder Ventiloberteil und bei Einhebelmischern die Kartusche tauschst, den Perlator prüfst und Wasserschäden vermeidest.
 category: reparaturen-im-haushalt
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - U.S. EPA WaterSense: Fix a Leak Week (englisch) | https://www.epa.gov/watersense/fix-leak-week
+  - U.S. EPA WaterSense: Home maintenance (englisch) | https://www.epa.gov/watersense/home-maintenance
 ---
 Ein tropfender Wasserhahn ist mehr als ein nerviges Geräusch in der Nacht. Ein Tropfen pro Sekunde summiert sich auf viele Liter am Tag und mehrere tausend Liter im Jahr, bei warmem Wasser kommen Energiekosten hinzu. Meist ist die Reparatur einfach: Bei älteren Armaturen mit zwei Griffen ist es eine verschlissene Dichtung oder ein Ventiloberteil, bei Einhebelmischern die Kartusche.
 

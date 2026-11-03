@@ -3,6 +3,11 @@ title: "Cómo se fabrica una joya: del boceto al modelado, la cera perdida, el t
 description: "El recorrido completo de una joya en el taller: diseño a mano y en 3D, fundición a la cera perdida, forja, soldadura, engastado, pulido y baños, y qué preguntar para reconocer una pieza bien hecha."
 category: joyeria-y-diseno
 date: 2026-11-01
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
+  - GIA 4Cs: Ten tips for buying jewelry | https://4cs.gia.edu/en-us/blog/ten-tips-buying-jewelry/
 ---
 Detrás de un anillo sencillo hay más pasos de los que imaginamos. El metal se funde, se moldea, se lima, se suelda, se engasta y se pule, y cada etapa deja huellas que un ojo entrenado sabe leer. Entender cómo se fabrica una joya ayuda a valorar mejor el trabajo artesanal, a hablar con un joyero cuando se encarga una pieza y a reconocer, con una lupa y algo de práctica, si una joya está bien hecha o si esconde atajos que acortarán su vida.
 

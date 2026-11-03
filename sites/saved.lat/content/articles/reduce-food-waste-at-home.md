@@ -3,6 +3,12 @@ title: "Cutting Food Waste at Home: Storage, Leftovers and the 'Use First' Shelf
 description: Where household food waste really comes from, how to store fruit, vegetables and leftovers so they last, and simple routines that keep good food out of the bin.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA: Preventing wasted food at home | https://www.epa.gov/recycle/preventing-wasted-food-home
+  - FoodSafety.gov: Cold food storage chart | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts
+  - USDA Food Safety and Inspection Service: Leftovers and food safety | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety
 ---
 Every time edible food goes in the bin, the money spent on it goes with it — along with the energy used to grow, transport, store and cook it. Waste-reduction organisations in many countries have found that households are responsible for a large share of all food that is wasted, and that much of what we throw away could have been eaten. The encouraging part is that most household waste comes from a handful of predictable habits, and each of them has a simple fix.
 

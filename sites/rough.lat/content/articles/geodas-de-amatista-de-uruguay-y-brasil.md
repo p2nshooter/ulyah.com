@@ -3,6 +3,11 @@ title: "Geodas de amatista de Uruguay y Brasil: cómo nacieron, cómo elegirlas 
 description: "Las grandes geodas de Artigas y Rio Grande do Sul: su origen en antiguas coladas de lava, diferencias entre Uruguay y Brasil, la amatista como gema, el citrino calentado, cómo comprar y exhibir."
 category: gemas-en-bruto
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
+  - GIA: Gem Encyclopedia | https://www.gia.edu/gem-encyclopedia
 ---
 Abrir una geoda es como asomarse a una catedral en miniatura. Por fuera parece una piedra gris y rugosa; por dentro, cientos de cristales violetas brillan como si alguien los hubiera ordenado a mano. Algunas de las geodas de amatista más espectaculares del mundo proceden de un territorio compartido por el norte de Uruguay y el sur de Brasil, donde hace más de cien millones de años se derramaron enormes coladas de lava. Hoy, esas geodas decoran casas, hoteles y museos de todo el planeta, y algunas son tan grandes que una persona cabe dentro.
 

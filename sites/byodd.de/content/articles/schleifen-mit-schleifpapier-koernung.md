@@ -3,6 +3,11 @@ title: "Schleifen mit Schleifpapier: Körnung, Technik und Maschinen erklärt"
 description: Welche Körnung für welchen Arbeitsschritt, wann von Hand und wann mit Exzenter- oder Schwingschleifer geschliffen wird, wie man Staub vermeidet und Holz, Lack und Spachtel sauber vorbereitet.
 category: werkzeug-und-grundlagen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - DGUV Information 209-044: Holzstaub (PDF) | https://publikationen.dguv.de/widgets/pdf/download/article/496
+  - BAuA: TRGS 553 Holzstaub (PDF) | https://www.baua.de/DE/Angebote/Rechtstexte-und-Technische-Regeln/Regelwerk/TRGS/pdf/TRGS-553.pdf?__blob=publicationFile
 ---
 Schleifen ist die Arbeit, die niemand gern macht und die über das Ergebnis fast aller Oberflächenprojekte entscheidet. Ein Lack auf schlecht geschliffenem Holz zeigt jede Riefe, eine Spachtelstelle ohne sauberen Übergang zeichnet sich unter der Farbe ab, und ein Möbelstück, das ohne Zwischenschliff gestrichen wurde, fühlt sich rau an. Wer dagegen die richtige Körnung in der richtigen Reihenfolge nutzt, kommt schneller zu glatten Flächen und spart Material.
 

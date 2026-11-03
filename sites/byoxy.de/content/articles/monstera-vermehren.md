@@ -3,6 +3,11 @@ title: "Monstera vermehren: Stecklinge mit Knoten, Luftwurzeln und Abmoosen"
 description: So vermehrst du die Monstera erfolgreich: Knoten und Luftwurzeln finden, richtig schneiden, im Wasser, in Erde, Sphagnum oder Perlite bewurzeln, Abmoosen an der Pflanze und Pflege der Jungpflanzen.
 category: vermehren
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - ASPCA: These houseplants can cause trouble for your pets (englisch) | https://www.aspca.org/news/these-houseplants-can-cause-trouble-your-pets
 ---
 Die Monstera ist nicht nur eine der beliebtesten Zimmerpflanzen, sie lässt sich auch erstaunlich einfach vermehren. Wer ihre Anatomie versteht, kann aus einer großen Monstera mehrere neue Pflanzen ziehen und gleichzeitig die Mutterpflanze in Form bringen. Entscheidend ist ein einziges Detail, das viele übersehen: der Knoten. Ohne Knoten bleibt jeder Steckling ein Blatt in der Vase, das nie zu einer neuen Pflanze wird.
 

@@ -3,6 +3,11 @@ title: "Olivenbaum im Kübel: Standort, Gießen, Schnitt und sicher durch den Wi
 description: So gedeiht ein Olivenbaum im Kübel auf Balkon und Terrasse: Sonne, Erde, Gießen, Düngen, Schnitt, Blüte und Früchte, Winterquartier oder Winterschutz und die häufigsten Probleme.
 category: balkon-und-terrasse
 date: 2026-10-14
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Kiste, Kübel und Sack – wenig Platz (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/180720-lwg-folder-mobil.pdf
+  - Umweltbundesamt: Mit torffreier Blumenerde klimafreundlich gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/torffreier-blumenerde-klimafreundlich-gaertnern
 ---
 Ein Olivenbaum bringt ein Stück Mittelmeer auf Balkon und Terrasse. Mit seinen silbrig-grünen Blättern, dem knorrigen Stamm und seiner Ruhe wirkt er elegant, und viele Menschen verbinden ihn mit Urlaub und Sonne. Olivenbäume sind langlebig und wachsen langsam, und ein gut gepflegter Baum kann über viele Jahre im Kübel gedeihen.
 

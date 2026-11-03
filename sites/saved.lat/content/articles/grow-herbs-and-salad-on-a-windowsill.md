@@ -3,6 +3,12 @@ title: Growing Herbs and Salad Leaves on a Windowsill or Balcony
 description: A beginner's guide to growing basil, parsley, chives, mint and cut-and-come-again salad indoors or on a balcony, so fresh greens cost pennies instead of pounds.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Royal Horticultural Society: Grow microgreens | https://www.rhs.org.uk/education-learning/children-young-people/family-activities/grow-it/microgreens
+  - Royal Horticultural Society: How to grow salad leaves | https://www.rhs.org.uk/vegetables/salad-leaves/grow-your-own
+  - Royal Horticultural Society: How to grow basil | https://www.rhs.org.uk/herbs/basil/grow-your-own
 ---
 A small bunch of fresh herbs from the supermarket often costs as much as a bag of potatoes, and half of it tends to wilt before it is used. Growing a few herbs and salad leaves at home fixes both problems. A pot of parsley on a windowsill gives you a few sprigs whenever you need them, for months, and a tray of salad leaves can be cut again and again.
 

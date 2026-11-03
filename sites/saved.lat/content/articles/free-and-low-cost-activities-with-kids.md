@@ -3,6 +3,11 @@ title: "Free and Low-Cost Activities With Kids: A Year of Ideas That Cost Little
 description: Dozens of free and cheap things to do with children at home, outdoors and in the community, organised by season and age, with tips for planning days out on a budget.
 category: family-and-leisure
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
 ---
 Keeping children entertained can be expensive. Soft play centres, cinema trips, theme parks, holiday clubs and organised activities add up quickly, especially during school holidays. Yet some of the experiences children remember most fondly cost very little: building a den, a picnic in the park, a trip to the library, baking together or a muddy walk in the woods.
 

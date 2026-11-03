@@ -3,6 +3,11 @@ title: "Kleine Räume größer wirken lassen: Farbe, Licht, Möbel und Stauraum"
 description: Praktische Tricks, mit denen kleine Zimmer, Studios und Flure größer, heller und aufgeräumter wirken: von Wandfarbe und Spiegeln über Möbelwahl und Stauraum bis zu Vorhängen und Licht.
 category: deko-und-wohnen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Häufige Fragen zum Thema Licht | https://www.umweltbundesamt.de/themen/klima-energie/energiesparen/licht/haeufige-fragen-thema-licht
+  - Umweltbundesamt: Innenwandfarben | https://www.umweltbundesamt.de/innenwandfarben
 ---
 Ein 12-Quadratmeter-Schlafzimmer, ein schmaler Flur, ein Ein-Zimmer-Apartment, in dem Wohnen, Arbeiten und Schlafen zusammenkommen: Kleine Räume sind in vielen Städten die Regel. Ihre Fläche kann man nicht vergrößern, ihre Wirkung aber schon. Mit Farbe, Licht, der richtigen Möbelwahl und cleverem Stauraum wirken kleine Räume offener, heller und ruhiger.
 

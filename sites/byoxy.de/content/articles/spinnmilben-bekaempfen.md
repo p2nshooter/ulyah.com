@@ -3,6 +3,11 @@ title: "Spinnmilben bekämpfen: erkennen, abduschen, Raubmilben und Vorbeugung"
 description: Wie du Spinnmilben an Zimmerpflanzen erkennst und wirksam bekämpfst: Taschentuchtest, Abduschen, Isolieren, Folienmethode, Kaliseife, Rapsöl, Raubmilben und mehr Luftfeuchtigkeit.
 category: schaedlinge-und-probleme
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: Glasshouse red spider mite (englisch) | https://www.rhs.org.uk/biodiversity/glasshouse-red-spider-mite
+  - Royal Horticultural Society: Biological control in the garden (englisch) | https://www.rhs.org.uk/prevention-protection/biological-control-garden
 ---
 Spinnmilben gehören zu den hartnäckigsten Schädlingen an Zimmerpflanzen. Sie sind so klein, dass man sie mit bloßem Auge kaum sieht, vermehren sich bei warmer, trockener Heizungsluft explosionsartig und hinterlassen gesprenkelte, matte Blätter und feine Gespinste. Wer früh handelt und konsequent bleibt, bekommt sie jedoch gut in den Griff.
 

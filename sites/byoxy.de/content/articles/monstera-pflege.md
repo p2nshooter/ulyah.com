@@ -3,6 +3,11 @@ title: "Monstera pflegen: Standort, Gießen, Umtopfen und Löcher in den Blätte
 description: Alles zur Monstera deliciosa: der richtige Standort, Gießen ohne Staunässe, Erde, Dünger, Moosstab, Umtopfen, warum Blätter keine Löcher bekommen und wie du typische Probleme löst.
 category: zimmerpflanzen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - ASPCA: These houseplants can cause trouble for your pets (englisch) | https://www.aspca.org/news/these-houseplants-can-cause-trouble-your-pets
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
 ---
 Die Monstera, auch Fensterblatt genannt, ist eine der beliebtesten Zimmerpflanzen überhaupt. Ihre großen, tief geschlitzten Blätter bringen sofort ein Gefühl von Dschungel in die Wohnung, und sie gilt als robust und verzeihend. Trotzdem hat sie klare Vorlieben: Wer sie zu dunkel stellt, zu viel gießt oder nie umtopft, bekommt eine Pflanze mit kleinen, ungeschlitzten Blättern, langen Trieben und gelben Flecken.
 

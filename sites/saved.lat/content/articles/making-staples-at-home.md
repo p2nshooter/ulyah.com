@@ -3,6 +3,11 @@ title: "Making Staples at Home: Which Homemade Basics Really Save Money"
 description: "Bread, yoghurt, stock, sauces, granola, hummus and dressings: which everyday staples are cheaper to make yourself, which are not, and how to fit them into a busy week safely."
 category: kitchen-and-groceries
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - USDA Food Safety and Inspection Service: Steps to keep food safe | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/steps-keep-food-safe
+  - FoodSafety.gov: Cold food storage chart | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts
 ---
 There is a popular idea that making everything from scratch is always cheaper. Sometimes it is dramatically cheaper. Sometimes it costs about the same as the shop-bought version once you count the ingredients, the energy and the time. And occasionally, homemade is more expensive, especially when it involves specialist ingredients or a long time in the oven. The trick is knowing which staples are worth making yourself and which are better bought.
 

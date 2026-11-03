@@ -3,6 +3,11 @@ title: "Low-Cost Hobbies for Adults: Rewarding Pastimes That Do Not Drain the Bu
 description: "How to enjoy hobbies without overspending: pastimes that cost little to start, using libraries and community groups, borrowing and buying second-hand, avoiding gear spirals and setting a hobby budget."
 category: family-and-leisure
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
 ---
 Hobbies make life richer. They give us something to look forward to, a way to relax, new skills and often new friends. But hobbies can also become surprisingly expensive. It is easy to buy all the equipment before discovering whether you enjoy something, to keep upgrading gear in search of better results, or to pay for memberships and classes that are hardly used. On a tight budget, people sometimes give up hobbies altogether, which is a loss for wellbeing.
 

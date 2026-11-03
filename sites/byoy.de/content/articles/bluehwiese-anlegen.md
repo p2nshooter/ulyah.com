@@ -3,6 +3,11 @@ title: "Blühwiese anlegen: Regiosaatgut, magerer Boden, Aussaat und die richtig
 description: "So wird aus Rasen eine Blumenwiese: Blühstreifen oder mehrjährige Wiese, heimisches Regiosaatgut, Boden abmagern, Aussaat als Lichtkeimer, Schröpfschnitt und richtige Mahd."
 category: naturgarten-und-nuetzlinge
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Naturgarten – Bayern blüht (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/brosch%C3%BCre_bayern_blueht-naturgarten.pdf
+  - NABU: Tipps für wirksame Wildbienen-Nisthilfen | https://www.nabu.de/tiere-und-pflanzen/insekten-und-spinnen/hautfluegler/bienen/13704.html
 ---
 Eine Blumenwiese ist eines der schönsten Elemente eines naturnahen Gartens. Von Mai bis September blühen Margeriten, Wiesensalbei, Flockenblumen, Glockenblumen und Hornklee, und zwischen den Halmen summt und brummt es von Wildbienen, Hummeln, Schmetterlingen und Käfern. Gleichzeitig ist eine Wiese weniger Arbeit als ein Rasen: Statt jede Woche mähst du sie nur ein- bis zweimal im Jahr. Allerdings entsteht eine echte Wiese nicht mit einer bunten Samentüte über Nacht. Sie braucht den richtigen Boden, heimisches Saatgut und etwas Geduld. Dieser Ratgeber zeigt, wie es gelingt.
 

@@ -3,6 +3,12 @@ title: "Budget Travel Planning: How to Take a Great Trip for Less"
 description: Practical ways to cut the cost of holidays — timing, flexible dates, transport, accommodation, food, activities, money abroad and insurance — without missing out on the experience.
 category: family-and-leisure
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Avoid scams when you travel | https://consumer.ftc.gov/avoid-scams-when-you-travel
+  - Federal Communications Commission: Telecommunications travel tips | https://www.fcc.gov/consumers/guides/telecommunications-travel-tips-know-you-go
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Travel is one of the things people most want to spend money on, and one of the easiest places to overspend. Flights, accommodation, meals out, attractions, transport, travel money fees and souvenirs all add up, and the costs often grow during the trip itself. Yet with some planning, flexibility and a few habits, it is possible to take memorable trips for considerably less.
 

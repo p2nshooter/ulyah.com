@@ -3,6 +3,11 @@ title: "Saving Money on Pet Care Without Cutting Corners"
 description: How to reduce the cost of owning a dog, cat or small pet — food, preventive care, insurance, grooming, toys and holidays — while keeping your animal healthy and happy.
 category: family-and-leisure
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - American Veterinary Medical Association: Loving your pet, managing the costs | https://avma.org/resources-tools/pet-owners/petcare/money-tips-caring-pet-owners
+  - U.S. Food and Drug Administration: Need pet meds? Be website A.W.A.R.E. | https://www.fda.gov/animal-veterinary/animal-health-literacy/need-pet-meds-protect-yourself-and-your-pet-be-website-aware
 ---
 Pets bring companionship, fun and comfort, but they also bring costs that are easy to underestimate: food, vet visits, vaccinations, parasite treatments, insurance, grooming, toys, bedding, and care when you go away. An unexpected illness or injury can lead to a very large bill. Over an animal's lifetime, the total can be substantial.
 

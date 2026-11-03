@@ -3,6 +3,11 @@ title: "Mending Clothes: Buttons, Hems, Seams and Holes Made Simple"
 description: A beginner's guide to mending clothes by hand — the small kit you need, five essential stitches, and step-by-step fixes for buttons, hems, seams, holes and zips.
 category: repair-and-reuse
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. EPA: Textiles, material-specific data | https://www.epa.gov/facts-and-figures-about-materials-waste-and-recycling/textiles-material-specific-data
+  - GINETEX: Textile care symbols | https://www.ginetex.net/gb/labelling/care-symbols.asp
 ---
 A missing button, a fallen hem or a small hole in a favourite jumper is often enough to push a garment to the back of the wardrobe — and eventually into the bin. Yet most of these problems take ten or fifteen minutes to fix with a needle and thread, and no sewing machine is required. Learning a handful of basic mending skills is one of the most practical ways to save money on clothes, and it keeps the pieces you love in use for years longer.
 

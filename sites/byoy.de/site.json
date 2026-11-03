@@ -16,6 +16,7 @@
   "author": "BYOY Redaktion",
   "fonts": "https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap",
   "paths": { "article": "/gartenwissen/", "category": "/themen/" },
+  "sources": "required",
   "categories": [
     { "slug": "gemuesegarten", "name": "Gemüsegarten", "icon": "moehre", "description": "Beet und Hochbeet anlegen, Kartoffeln, Tomaten, Zucchini, Bohnen, Zwiebeln und Knoblauch: Gemüse im Freiland biologisch anbauen." },
     { "slug": "kompost-und-boden", "name": "Kompost & Boden", "icon": "kompost", "description": "Kompost anlegen und richtig nutzen, Bodenart erkennen, mulchen, Gründüngung und organisch düngen: die Grundlage jedes Bio-Gartens." },
@@ -26,6 +27,7 @@
   ],
   "promo": { "slug": "hofladen-und-ki", "label": "✦ Vom Beet ins Netz" },
   "menu": [
+    { "label": "Planer", "href": "/planer/" },
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Gartenkalender", "href": "/gartenkalender/" },
     { "label": "Kontakt", "href": "/kontakt/" }

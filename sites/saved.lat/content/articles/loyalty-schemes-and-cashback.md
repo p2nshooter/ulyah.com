@@ -3,6 +3,11 @@ title: "Loyalty Cards, Cashback and Price Trackers: Using Them Without Spending 
 description: "How loyalty schemes, cashback sites, vouchers and price trackers really work, what you give in exchange, when they save money and when they quietly push you to spend more."
 category: smart-shopping
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Trade Commission: Online shopping | https://consumer.ftc.gov/articles/online-shopping
+  - Consumer Financial Protection Bureau: 25 tips to improve your financial well-being | https://www.consumerfinance.gov/archive/blog/get-money-smart-25-tips-improve-your-financial-well-being/
 ---
 Almost every shop, supermarket, café and app now offers some kind of reward: points on a loyalty card, a percentage back through a cashback site, a voucher for your next visit, an alert when the price of something you want drops. Used well, these tools can take a real slice off household spending. Used carelessly, they do the opposite: they encourage extra purchases, tie you to one shop even when another is cheaper and collect a great deal of information about your habits.
 

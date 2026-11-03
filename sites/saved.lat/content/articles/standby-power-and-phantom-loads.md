@@ -3,6 +3,11 @@ title: "Standby Power: Finding the Devices That Use Electricity While 'Off'"
 description: What standby and phantom loads are, how to measure them with a plug-in meter, which devices are worth switching off at the wall, and which should stay on.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Department of Energy: Estimating appliance and home electronic energy use | https://www.energy.gov/energysaver/estimating-appliance-and-home-electronic-energy-use
+  - U.S. Department of Energy: Energy Saver guide – tips on saving money and energy at home (PDF) | https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
 ---
 Walk around most homes at night and you will see small lights glowing everywhere: on the television, the games console, the microwave clock, the router, phone chargers and speakers. Each light is a sign that the device is drawing some electricity even though nobody is using it. This is called **standby power**, and the broader category of electricity used by devices that are switched "off" but still plugged in is often called a **phantom load** or **vampire load**.
 

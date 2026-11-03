@@ -3,6 +3,11 @@ title: "Vorhangstange und Gardinenschiene montieren: Höhe, Breite, Befestigung"
 description: Wie du Vorhangstangen und Gardinenschienen an Wand oder Decke montierst, wie hoch und breit sie sein sollten, welche Dübel halten, wie du Klemmträger nutzt und Vorhänge richtig auswählst.
 category: deko-und-wohnen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Deutsches Institut für Bautechnik: Kunststoffdübel | https://www.dibt.de/de/bauprodukte/informationsportal-bauprodukte-und-bauarten/produktgruppen/bauprodukte-detail/bauprodukt/kunststoffduebel
+  - DGUV Arbeit & Gesundheit: Der sichere Umgang mit Leitern | https://aug.dguv.de/arbeitssicherheit/sicherer-umgang-mit-leitern/
 ---
 Vorhänge verändern einen Raum stark: Sie dämpfen Licht und Schall, schützen vor Blicken und können ein Fenster größer oder kleiner wirken lassen. Wie gut das gelingt, hängt aber nicht nur vom Stoff ab, sondern auch davon, wo und wie die Stange oder Schiene montiert ist. Eine zu tief und zu kurz montierte Stange lässt jeden Raum gedrungen wirken; eine schlecht befestigte reißt beim ersten kräftigen Zuziehen aus der Wand.
 

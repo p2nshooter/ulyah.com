@@ -3,6 +3,11 @@ title: "Heidelbeeren im Garten: saurer Boden, Moorbeet ohne Torf, Pflanzung im K
 description: "Kulturheidelbeeren brauchen sauren Boden um pH 4,5: torffreies Heidelbeerbeet anlegen oder im Kübel ziehen, mit Regenwasser gießen, richtig düngen, schneiden und lange ernten."
 category: obst-und-beeren
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Umweltbundesamt: Mit torffreier Blumenerde klimafreundlich gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/torffreier-blumenerde-klimafreundlich-gaertnern
 ---
 Heidelbeeren sind gesund, köstlich und im Laden ziemlich teuer. Im eigenen Garten tragen Kulturheidelbeeren, die aus Nordamerika stammen und deutlich größere Beeren bilden als unsere heimische Waldheidelbeere, oft Kilos pro Strauch. Trotzdem scheitern viele Gärtner an ihnen: Die Blätter werden gelb, die Sträucher kümmern und tragen kaum. Der Grund ist fast immer der Boden. Heidelbeeren sind Moor- und Heidepflanzen und brauchen einen sehr sauren, lockeren, humusreichen Boden, den es in normalen Gärten selten gibt. Wer ihnen diesen Boden bietet, im Beet oder im Kübel, hat jahrzehntelang Freude an ihnen.
 

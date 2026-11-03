@@ -3,6 +3,12 @@ title: "Comprar gemas en bruto sin engaños: guía práctica para América Latin
 description: "Dónde se compra material en bruto en la región, los engaños más comunes, herramientas para revisarlo, cómo mirar dentro de una piedra, rendimiento de talla, lotes, pagos, exportación y seguridad."
 category: gemas-en-bruto
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
+  - GIA 4Cs: Ten tips for buying jewelry | https://4cs.gia.edu/en-us/blog/ten-tips-buying-jewelry/
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
 ---
 Comprar una gema en bruto tiene algo de aventura. Frente a un cristal sin tallar, el comprador intenta adivinar qué piedra saldrá de él: cuánto color tendrá, cuánta luz, cuántas inclusiones esconde y cuánto peso perderá en la rueda del lapidario. En América Latina hay mercados donde esa escena se repite cada día, de los comerciantes de esmeraldas del centro de Bogotá a las ferias de piedras de Minas Gerais o los talleres de ópalo de Querétaro.
 

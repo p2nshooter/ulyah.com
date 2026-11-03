@@ -3,6 +3,12 @@ title: "Diamantes: guía esencial sobre color, pureza, talla, peso, tratamientos
 description: "Qué es un diamante, de dónde viene, cómo se clasifican color, pureza, talla y peso, la fluorescencia, los tratamientos, los diamantes de laboratorio e imitaciones y cómo elegir con presupuesto."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Understanding the 4Cs of diamond quality | https://4cs.gia.edu/en-us/4cs-of-diamond-quality/
+  - GIA 4Cs: Diamond carat weight, questions and answers | https://4cs.gia.edu/en-us/blog/diamond-carat-weight-4cs-qa/
+  - Kimberley Process: Preguntas frecuentes | https://www.kimberleyprocess.com/faq
 ---
 El diamante es la gema más conocida del mundo y, al mismo tiempo, una de las más malentendidas. Muchos compradores saben que existen las famosas "cuatro C", pero no siempre entienden qué significan en la práctica, cuál de ellas importa más para la belleza de la piedra o por qué dos diamantes del mismo peso pueden tener precios muy diferentes. A eso se suma la llegada masiva de los diamantes de laboratorio, que ha cambiado el mercado en pocos años.
 

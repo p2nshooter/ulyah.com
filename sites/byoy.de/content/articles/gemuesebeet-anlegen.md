@@ -3,6 +3,11 @@ title: "Gemüsebeet neu anlegen: aus Rasen ein Beet machen, Boden vorbereiten, W
 description: "Schritt für Schritt zum ersten Gemüsebeet: sonnigen Platz wählen, Rasen abtragen oder mit Pappe abdecken, Boden lockern statt umgraben, Beetbreite, Wege und leichte Kulturen."
 category: gemuesegarten
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Umweltbundesamt: Pflanzenschutz im Gemüsegarten | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/pflanzenschutz-im-gemuesegarten
 ---
 Der Wunsch nach eigenem Gemüse beginnt oft mit einem Stück Rasen hinter dem Haus. Daraus ein fruchtbares Beet zu machen, ist kein Hexenwerk, braucht aber etwas Planung. Ein gut angelegtes Gemüsebeet ist leicht zu bearbeiten, verzeiht Anfängerfehler und wird von Jahr zu Jahr besser, weil der Boden mit jeder Kompostgabe lebendiger wird. Ein schlecht geplantes Beet dagegen ist zu breit, liegt im Schatten oder ist voller Quecke. Dieser Ratgeber zeigt dir, wie du vom ersten Spatenstich bis zur ersten Ernte vorgehst, ganz im Sinne des biologischen Gärtnerns: mit Kompost, schonender Bodenbearbeitung und ohne chemische Mittel.
 

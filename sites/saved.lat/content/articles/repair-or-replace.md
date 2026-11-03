@@ -3,6 +3,11 @@ title: "Repair or Replace? A Clear Way to Decide for Appliances, Electronics, Fu
 description: "How to decide whether to fix something or buy new: age and condition, repair costs, safety, energy use, parts and warranties, plus repair cafés, quotes and what to do with the old item."
 category: repair-and-reuse
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Department of Energy: Estimating appliance and home electronic energy use | https://www.energy.gov/energysaver/estimating-appliance-and-home-electronic-energy-use
+  - U.S. Department of Energy: Energy Saver guide – tips on saving money and energy at home (PDF) | https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
 ---
 When the washing machine starts making a grinding noise, the laptop battery barely lasts an hour or a favourite pair of shoes splits at the sole, the same question arises: is it worth repairing, or is it time to buy a new one? Many people replace things by default, because a new item feels simpler and the repair process is unfamiliar. Others hold on to broken things for years, intending to fix them one day. Neither approach saves money reliably. What helps is a clear, quick way to weigh up the options.
 

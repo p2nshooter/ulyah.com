@@ -3,6 +3,11 @@ title: "Kartoffeln anbauen: vorkeimen, legen, häufeln und gesund ernten"
 description: "Kartoffeln im Bio-Garten: Pflanzgut wählen, vorkeimen, Legetermin und Abstand, häufeln, Kraut- und Knollenfäule und Kartoffelkäfer ohne Gift begegnen, ernten und lagern."
 category: gemuesegarten
 date: 2026-10-06
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Leitfaden zum Gärtnern im Biogarten (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/biogarten_b3_bf.pdf
+  - Umweltbundesamt: Pflanzenschutz im Gemüsegarten | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/pflanzenschutz-im-gemuesegarten
 ---
 Kaum ein Gemüse bringt so viel Ertrag auf so wenig Fläche wie die Kartoffel, und kaum eine Ernte macht so viel Freude: Wer im Spätsommer mit der Grabgabel unter eine Staude fährt und die gelben, roten oder blauen Knollen aus der Erde hebt, fühlt sich wie bei einer Schatzsuche. Selbst angebaute Kartoffeln schmecken anders als gekaufte, besonders wenn du Sorten wählst, die es im Laden selten gibt. Der Anbau ist einfach, verlangt aber etwas Planung: das richtige Pflanzgut, Geduld beim Legetermin, regelmäßiges Häufeln und einen wachsamen Blick auf Kraut- und Knollenfäule.
 

@@ -3,6 +3,12 @@ title: "Batch Cooking and Freezing: A Beginner's System That Actually Sticks"
 description: How to cook several meals in one session, freeze them safely, label and rotate portions, and build a freezer stock that replaces expensive ready meals.
 category: kitchen-and-groceries
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - USDA Food Safety and Inspection Service: Freezing and food safety | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/freezing-and-food-safety
+  - FoodSafety.gov: Cold food storage chart | https://www.foodsafety.gov/food-safety-charts/cold-food-storage-charts
+  - USDA Food Safety and Inspection Service: Leftovers and food safety | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/leftovers-and-food-safety
 ---
 Batch cooking is the practice of making several meals' worth of food in one session and storing the extra portions for later. It is one of the most reliable ways to spend less on food, because it tackles the moment when good intentions usually fail: the evening when you are too tired to cook and a takeaway seems like the only option. With a stocked freezer, the alternative is a home-cooked meal that only needs reheating.
 

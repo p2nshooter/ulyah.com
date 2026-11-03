@@ -3,6 +3,12 @@ title: "Wandregal bauen und sicher befestigen: Planung, Material, Montage"
 description: Wie du ein Wandregal planst, Brettstärke und Spannweite richtig wählst, Träger und unsichtbare Halterungen montierst und Regale sowie Hochschränke gegen Umkippen sicherst.
 category: holz-und-moebel
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Deutsches Institut für Bautechnik: Kunststoffdübel | https://www.dibt.de/de/bauprodukte/informationsportal-bauprodukte-und-bauarten/produktgruppen/bauprodukte-detail/bauprodukt/kunststoffduebel
+  - Deutsches Institut für Bautechnik: Hinweise für die Montage von Dübelverankerungen (PDF) | https://www.dibt.de/fileadmin/dibt-website/Dokumente/Referat/I2/Duebel_Hinweise_Montage.pdf
+  - VDE und Berufsgenossenschaft: Gemeinsame Erklärung zum sicheren Umgang mit Elektrizität (PDF) | https://www.vde.com/resource/blob/857600/8b6ecc69c8d83b358396124a2cbdc7e7/vde-gemeinsame-erklaerung-zum-sicheren-umgang-mit-elektrizitaet-data.pdf
 ---
 Ein Wandregal ist oft das erste eigene Möbelprojekt: Es schafft Platz für Bücher, Pflanzen oder Gewürze und gibt einer Wand Charakter. Gleichzeitig ist es ein Projekt, bei dem Fehler sichtbar werden: Bretter, die sich unter Büchern durchbiegen, Träger, die aus der Wand ziehen, oder ein Regal, das schief hängt.
 

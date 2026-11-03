@@ -3,6 +3,11 @@ title: "Licht in der Wohnung planen: Grundlicht, Zonenlicht und Akzente"
 description: Wie du mit drei Lichtebenen eine gemütliche und praktische Beleuchtung planst, welche Lichtfarbe und Helligkeit in welchen Raum gehören und wie Mieter ohne Elektroarbeiten mehr Licht schaffen.
 category: deko-und-wohnen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Lampen und Leuchten | https://www.umweltbundesamt.de/themen/klima-energie/energiesparen/energieverbrauchskennzeichnung/lampen-leuchten
+  - Umweltbundesamt: Häufige Fragen zum Thema Licht | https://www.umweltbundesamt.de/themen/klima-energie/energiesparen/licht/haeufige-fragen-thema-licht
 ---
 Eine einzige Deckenlampe in der Raummitte ist in vielen Wohnungen die Standardbeleuchtung, und sie ist meist der Grund, warum sich ein Raum abends ungemütlich, flach oder zu dunkel anfühlt. Gutes Licht entsteht aus mehreren Lichtquellen, die unterschiedliche Aufgaben erfüllen. Mit etwas Planung lässt sich fast jede Wohnung deutlich wohnlicher und praktischer beleuchten, und vieles davon geht ganz ohne Elektroarbeiten.
 

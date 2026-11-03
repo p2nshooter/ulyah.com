@@ -3,6 +3,12 @@ title: "Invertir en gemas: mitos y realidades antes de poner tu dinero en piedra
 description: "Por qué las gemas son una inversión difícil: poca liquidez, diferencia entre compra y venta, costos ocultos, el mercado del diamante, señales de fraude y cómo vender con expectativas realistas."
 category: lujo-y-estilo-de-vida
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Federal Trade Commission: Money-making opportunities and investments | https://consumer.ftc.gov/jobs-and-making-money/money-making-opportunities-and-investments
+  - Federal Trade Commission: In the loupe, advertising diamonds, gemstones and pearls | https://www.ftc.gov/business-guidance/resources/loupe-advertising-diamond-gemstones-pearls
+  - GIA 4Cs: How to sell your gemstones and jewelry | https://4cs.gia.edu/en-us/blog/sell-gemstones-jewelry/
 ---
 "Los diamantes son para siempre", "las gemas nunca pierden valor", "una esmeralda es un refugio seguro". Frases como estas circulan desde hace décadas y llevan a muchas personas a pensar que comprar piedras preciosas es una forma segura de proteger o multiplicar su dinero. La realidad es bastante más compleja, y quienes compran gemas pensando en una inversión se llevan, a menudo, una sorpresa desagradable cuando intentan venderlas.
 

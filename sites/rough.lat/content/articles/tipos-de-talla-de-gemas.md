@@ -3,6 +3,11 @@ title: "Tipos de talla de gemas: brillante, escalonada, mixta, cabujón y cómo 
 description: "La diferencia entre forma y talla, la anatomía de una gema tallada, las familias brillante, escalonada y mixta, formas comunes, tallas antiguas, cabujón, briolette y qué talla conviene a cada gema."
 category: arte-tallado-y-artesania
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA 4Cs: Understanding the 4Cs of diamond quality | https://4cs.gia.edu/en-us/4cs-of-diamond-quality/
+  - GIA: Natural diamonds buyer's guide | https://www.gia.edu/diamond/buyers-guide
 ---
 Una misma gema puede verse radicalmente distinta según cómo se talle. Un diamante redondo con decenas de facetas centellea como un pequeño fuego artificial; una esmeralda rectangular con facetas escalonadas muestra su color como una ventana a un jardín verde; un zafiro estrella tallado en cúpula revela una estrella de seis brazos que ninguna faceta mostraría. La talla no solo da forma a la piedra: decide qué parte de su belleza se ve.
 

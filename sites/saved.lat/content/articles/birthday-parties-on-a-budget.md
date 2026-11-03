@@ -3,6 +3,11 @@ title: "Birthday Parties on a Budget: Memorable Celebrations Without the Big Bil
 description: How to plan a children's or adults' birthday party for less — setting a budget, choosing a venue, food, decorations, games, cakes and party bags — without losing the fun.
 category: family-and-leisure
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - USDA Food Safety and Inspection Service: Steps to keep food safe | https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/steps-keep-food-safe
+  - Consumer Financial Protection Bureau: How to create a budget and stick with it | https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/
 ---
 Birthday parties can easily become one of the biggest one-off expenses in a family's year. Venue hire, entertainers, catering, themed decorations, a professional cake and party bags for a whole class can add up to a startling amount — often for a party that lasts only two hours. Many parents feel pressure to match the parties their children attend, even when money is tight.
 

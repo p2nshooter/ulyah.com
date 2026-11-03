@@ -3,6 +3,11 @@ title: "Glücksfeder (Zamioculcas) pflegen: robust, glänzend und genügsam"
 description: So pflegst du die Glücksfeder richtig: Standort, seltenes Gießen, passende Erde, Umtopfen, Vermehrung über Blätter und Knollen sowie die Lösung typischer Probleme.
 category: zimmerpflanzen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - ASPCA: These houseplants can cause trouble for your pets (englisch) | https://www.aspca.org/news/these-houseplants-can-cause-trouble-your-pets
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
 ---
 Die Glücksfeder, botanisch Zamioculcas zamiifolia, ist mit ihren glänzenden, dunkelgrünen Fiederblättern eine der robustesten Zimmerpflanzen überhaupt. Sie kommt mit wenig Licht aus, übersteht wochenlange Trockenheit und wächst langsam, aber stetig. In Büros, Fluren und Wohnungen, in denen andere Pflanzen aufgeben, ist sie oft die letzte, die noch grün ist. Trotzdem sterben viele Glücksfedern, und zwar fast immer an zu viel Fürsorge in Form von Wasser.
 

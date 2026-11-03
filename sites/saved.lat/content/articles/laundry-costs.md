@@ -3,6 +3,11 @@ title: "Doing Laundry for Less: Temperatures, Loads, Drying and Detergent"
 description: How washing temperature, load size, programmes, detergent dosing and drying choices affect the cost of laundry, and simple habits that make clothes last longer.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Department of Energy: Energy Saver guide – tips on saving money and energy at home (PDF) | https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
+  - U.S. Department of Energy: Estimating appliance and home electronic energy use | https://www.energy.gov/energysaver/estimating-appliance-and-home-electronic-energy-use
 ---
 Laundry is one of those household jobs that never ends, and its cost hides in several places at once: the electricity or gas used to heat water, the electricity for the machine and any tumble dryer, the water itself, the detergent and conditioner, and the gradual wear on clothes. Small changes to each of these add up, and many of them also make clothes last longer — which may be the biggest saving of all.
 

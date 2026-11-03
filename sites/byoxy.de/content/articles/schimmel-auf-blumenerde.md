@@ -3,6 +3,11 @@ title: "Schimmel auf Blumenerde: Ursachen, Kalk unterscheiden und richtig handel
 description: Weißer Belag auf der Blumenerde: So unterscheidest du Schimmel von Kalk- und Düngersalzen, erkennst Ursachen, entfernst den Belag, wann Umtopfen nötig ist und wie du vorbeugst.
 category: schaedlinge-und-probleme
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - Umweltbundesamt: Mit torffreier Blumenerde klimafreundlich gärtnern | https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/torffreier-blumenerde-klimafreundlich-gaertnern
 ---
 Ein weißer, flaumiger Belag auf der Blumenerde ist für viele ein Schreckmoment. Ist es gefährlich? Muss die Pflanze weg? In den meisten Fällen lautet die Antwort: Nein. Oberflächlicher Schimmel auf Blumenerde ist häufig und meist harmlos für die Pflanze, aber er ist ein klares Zeichen, dass im Topf etwas nicht stimmt. Und nicht jeder weiße Belag ist Schimmel: Oft handelt es sich um Kalk- oder Düngersalze.
 

@@ -3,6 +3,12 @@ title: "Understanding Interest on Debt: APR, Compounding and the True Cost of Bo
 description: A plain-English explanation of interest rates, APR, compound interest and minimum payments, with examples showing how borrowing costs build up and how to reduce them.
 category: budget-basics
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Consumer Financial Protection Bureau: What is a credit card interest rate? What does APR mean? | https://www.consumerfinance.gov/ask-cfpb/what-is-a-credit-card-interest-rate-what-does-apr-mean-en-44/
+  - Consumer Financial Protection Bureau: How is the interest I owe calculated? | https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/
+  - Consumer Financial Protection Bureau: Your Money, Your Goals toolkit | https://www.consumerfinance.gov/consumer-tools/educator-tool/your-money-your-goals/toolkit/
 ---
 Interest is the price of borrowing money. Every time you use a credit card, take out a loan, use an overdraft, buy something on finance or take on a mortgage, interest decides how much more you will pay back than you borrowed. Yet the way interest works — percentages, APRs, compounding and minimum payments — is often confusing, and that confusion can make borrowing far more expensive than it first appears.
 

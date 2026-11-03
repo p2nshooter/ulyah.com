@@ -3,6 +3,11 @@ title: "Choosing a Mobile Phone Plan: How Much Data You Need, SIM-Only Deals and
 description: "How to pick a phone plan that fits how you use your phone: measuring data, SIM-only versus handset deals, prepay and family plans, roaming, price rises and switching."
 category: smart-shopping
 date: 2026-11-01
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - Federal Communications Commission: Bill shock | https://www.fcc.gov/general/bill-shock
+  - Federal Communications Commission: Understanding your telephone bill | https://www.fcc.gov/consumers/guides/understanding-your-telephone-bill
 ---
 For many households, mobile phone plans are one of those monthly payments that quietly grow over time. A contract taken out years ago keeps rolling, the phone was paid off long ago but the bill stayed the same, and nobody has checked whether the data allowance matches how the family actually uses their phones. Because phone plans are complicated, with bundles, extras and different contract lengths, it is easy to pay for far more than you need.
 

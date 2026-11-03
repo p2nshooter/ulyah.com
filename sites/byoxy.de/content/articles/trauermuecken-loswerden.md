@@ -3,6 +3,11 @@ title: "Trauermücken loswerden: Ursachen, Gelbtafeln, Nematoden und Vorbeugung"
 description: So wirst du Trauermücken in der Blumenerde dauerhaft los: Lebenszyklus verstehen, Erde abtrocknen lassen, Gelbtafeln, Nematoden, Sandschicht, Hausmittel im Check und Vorbeugung.
 category: schaedlinge-und-probleme
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - Royal Horticultural Society: Biological control in the garden (englisch) | https://www.rhs.org.uk/prevention-protection/biological-control-garden
 ---
 Kleine schwarze Mücken, die beim Gießen aus der Blumenerde aufsteigen und um die Pflanzen schwirren: Trauermücken sind der häufigste Plagegeist bei Zimmerpflanzen. Die erwachsenen Tiere sind harmlos, aber lästig. Problematisch sind ihre Larven, die in der Erde leben und bei starkem Befall feine Wurzeln und Keimlinge anfressen können. Die gute Nachricht: Mit dem richtigen Vorgehen bist du sie in wenigen Wochen los.
 

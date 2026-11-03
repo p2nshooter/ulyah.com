@@ -3,6 +3,11 @@ title: "Kakteen und Sukkulenten pflegen: Sonne, Trockenheit und die richtige Win
 description: So pflegst du Kakteen, Echeverien, Aloe und andere Sukkulenten: sonniger Standort, durchlässige Erde, Gießen nach der Durchtränken-und-Trocknen-Methode, Winterruhe und Blüte.
 category: zimmerpflanzen
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - ASPCA: Toxic and non-toxic plant list – cats (englisch) | https://www.aspca.org/pet-care/animal-poison-control/cats-plant-list
 ---
 Kakteen und Sukkulenten gelten als die Pflanzen für Menschen, die keinen grünen Daumen haben. Tatsächlich verzeihen sie vergessene Gießtermine wie kaum eine andere Pflanzengruppe. Trotzdem gehen viele von ihnen in Wohnungen ein, meist aus zwei Gründen: zu wenig Licht und zu viel Wasser zur falschen Zeit. Wer die natürlichen Lebensbedingungen dieser Pflanzen versteht, kann sie jahrzehntelang halten und sogar regelmäßig zur Blüte bringen.
 

@@ -3,6 +3,11 @@ title: "Tapezieren lernen: Raufaser und Vliestapete Schritt für Schritt"
 description: Unterschiede zwischen Papier-, Raufaser- und Vliestapeten, Material, Untergrundvorbereitung, das Kleben der ersten Bahn, Ecken, Steckdosen und Heizkörper sowie das Entfernen alter Tapeten.
 category: waende-und-boeden
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Umweltbundesamt: Ratgeber Gesund und umweltfreundlich renovieren (PDF) | https://www.umweltbundesamt.de/system/files/medien/479/publikationen/uba_rg_gesund_und_umweltfreundlich_renovieren_bf.pdf
+  - Deutscher Mieterbund: Unwirksame Schönheitsreparaturklausel | https://mieterbund.de/aktuelles/meldungen/bgh/unverstaendlich-unwirksame-schoenheitsreparaturklausel-verursacht-mehrkosten-fuer-mieter/
 ---
 Tapezieren gilt als Königsdisziplin des Renovierens. Dabei ist es mit modernen Vliestapeten und etwas Planung gut zu schaffen, auch für Einsteiger. Schwierig wird es meist an denselben Stellen: Die erste Bahn hängt schief, die Ecken wellen sich, an Steckdosen entstehen Risse, und die Nähte klaffen nach dem Trocknen auf.
 

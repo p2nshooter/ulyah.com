@@ -3,6 +3,11 @@ title: "Kübelpflanzen überwintern: hell, dunkel, kühl oder draußen mit Schut
 description: So überwinterst du Oleander, Zitrus, Olive, Geranien, Fuchsien, Engelstrompete und Co. richtig: Frosthärte, Winterquartiere, Temperatur, Licht, Gießen, Schädlinge und das Ausräumen im Frühjahr.
 category: balkon-und-terrasse
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Bayerische Gartenakademie: Gartentipps | https://www.lwg.bayern.de/gartenakademie-gartentipps
+  - Bayerische Gartenakademie: Kiste, Kübel und Sack – wenig Platz (PDF) | https://www.lwg.bayern.de/mam/cms06/gartenakademie/dateien/180720-lwg-folder-mobil.pdf
 ---
 Oleander, Zitronenbäumchen, Olive, Geranien und Fuchsien verwandeln Balkon und Terrasse im Sommer in einen mediterranen Garten. Doch wenn im Herbst die Nächte kalt werden, stellt sich die Frage: Wohin mit den Pflanzen? Viele Kübelpflanzen stammen aus wärmeren Regionen und vertragen keinen oder nur wenig Frost. Mit dem richtigen Winterquartier und angepasster Pflege überstehen sie den Winter jedoch gut und starten im Frühjahr kräftig in die neue Saison.
 

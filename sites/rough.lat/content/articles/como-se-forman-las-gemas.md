@@ -3,6 +3,11 @@ title: "Cómo se forman las gemas: magma, pegmatitas, agua caliente y millones d
 description: "Los ambientes geológicos donde nacen las gemas, del magma profundo a las pegmatitas, las vetas hidrotermales y los aluviones, con ejemplos de América Latina, el origen del color y las inclusiones."
 category: gemas-en-bruto
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones (PDF) | https://pubs.usgs.gov/gip/7000029/report.pdf
 ---
 Antes de brillar en un anillo, una esmeralda pasó millones de años encerrada en una veta de roca negra en los Andes colombianos. Una aguamarina creció lentamente en una bolsa de líquidos calientes dentro de un granito de Minas Gerais. Un diamante se formó a más de ciento cincuenta kilómetros de profundidad y subió a la superficie en una erupción volcánica violenta. Cada gema es el resultado de una combinación rarísima de elementos químicos, temperatura, presión, espacio y tiempo.
 

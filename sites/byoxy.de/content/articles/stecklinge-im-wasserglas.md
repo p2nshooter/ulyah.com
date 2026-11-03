@@ -3,6 +3,11 @@ title: "Stecklinge im Wasserglas bewurzeln: Schritt für Schritt zu neuen Pflanz
 description: So bewurzelst du Stecklinge im Wasserglas: geeignete Pflanzen, richtig schneiden, Knoten finden, Wasser wechseln, Licht und Wärme, Umsetzen in Erde und typische Fehler mit Lösungen.
 category: vermehren
 date: 2026-10-04
+updated: 2026-11-02
+change: Quellen ergänzt und Angaben anhand der Quellen geprüft
+sources:
+  - Royal Horticultural Society: How to grow houseplants (englisch) | https://www.rhs.org.uk/plants/types/houseplants/growing-guide
+  - ASPCA: These houseplants can cause trouble for your pets (englisch) | https://www.aspca.org/news/these-houseplants-can-cause-trouble-your-pets
 ---
 Einen Trieb abschneiden, in ein Glas Wasser stellen und zusehen, wie nach einigen Wochen weiße Wurzeln wachsen: Die Vermehrung im Wasserglas ist die einfachste und anschaulichste Art, aus einer Pflanze viele zu machen. Sie funktioniert mit vielen beliebten Zimmerpflanzen, kostet nichts und macht Spaß, besonders auch mit Kindern. Wer einige Grundregeln beachtet, hat fast immer Erfolg.
 

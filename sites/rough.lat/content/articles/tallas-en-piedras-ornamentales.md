@@ -3,6 +3,11 @@ title: "Tallas en piedras ornamentales: Huamanga, tecali, piedra jabón, obsidia
 description: "Tradiciones de talla en piedra de la región: piedra de Huamanga, tecali poblano, piedra jabón, obsidiana y combarbalita, cómo se tallan, cómo distinguirlas de la resina y cómo cuidarlas."
 category: arte-tallado-y-artesania
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - Servicio Geológico de los Estados Unidos (USGS): Natural gemstones, mineral gemstones | https://pubs.usgs.gov/gip/gemstones/mineral.html
+  - OSHA: Crystalline silica | https://www.osha.gov/silica-crystalline
 ---
 No todas las piedras que fascinan a los artesanos son gemas transparentes. En América Latina existe una riquísima tradición de tallas en piedras ornamentales: materiales más blandos, opacos o translúcidos que se convierten en figuras, retablos, vasijas, ventanas, máscaras o pequeñas esculturas. Algunas tradiciones vienen de tiempos prehispánicos; otras nacieron en la época colonial; y muchas siguen vivas en talleres familiares de pueblos y ciudades.
 

@@ -3,6 +3,11 @@ title: "La talla de esmeraldas: un oficio de precisión entre fisuras, color y a
 description: "Por qué tallar esmeraldas es tan delicado, el estudio del cristal, la orientación del color, la talla esmeralda y otras formas, el trabajo en el taller, el relleno posterior y cómo juzgar la talla."
 category: arte-tallado-y-artesania
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA: Emerald care and cleaning guide | https://www.gia.edu/emerald-care-cleaning
+  - GIA Gems & Gemology: The Colombian emerald industry (PDF) | https://www.gia.edu/dam/jcr:3f79f370-e40a-4523-aa84-59af836c59c3/GG-FA17-Lucas-Colombian-Emerald.pdf
 ---
 De todas las gemas preciosas, la esmeralda es quizá la que más respeto inspira en un taller de talla. Su color puede ser extraordinario, pero casi siempre viene acompañado de inclusiones y fisuras que la hacen frágil. Un golpe de más, un calentamiento descuidado o una presión excesiva sobre una fisura pueden partir en dos un cristal valioso. Por eso los talladores de esmeraldas trabajan con una mezcla de paciencia, prudencia y experiencia que se transmite, a menudo, de generación en generación.
 

@@ -3,6 +3,11 @@ title: "Switching to LED Lighting: Lumens, Colour Temperature and Real Savings"
 description: How to choose LED bulbs by lumens instead of watts, pick the right colour temperature and fitting, work out the savings, and dispose of old bulbs safely.
 category: home-and-energy
 date: 2026-10-19
+updated: 2026-11-02
+change: Sources added and the guide checked against them
+sources:
+  - U.S. Department of Energy: Consumer guide to energy-efficient lighting (PDF) | https://www.energy.gov/sites/default/files/2021-08/ES-EE%20Lighting_080921.pdf
+  - U.S. Department of Energy: Energy Saver guide – tips on saving money and energy at home (PDF) | https://www.energy.gov/sites/default/files/2022-08/energy-saver-guide-2022.pdf
 ---
 Lighting is one of the easiest places in the home to save energy permanently. LED bulbs use a fraction of the electricity of old incandescent and halogen bulbs for the same amount of light, and they last many times longer. If your home still has older bulbs, replacing them — starting with the lights you use most — is a straightforward improvement that pays for itself.
 

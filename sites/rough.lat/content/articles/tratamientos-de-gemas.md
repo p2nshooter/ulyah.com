@@ -3,6 +3,12 @@ title: "Tratamientos de gemas: calentamiento, rellenos, difusión, irradiación,
 description: "Qué tratamientos reciben las gemas: calentamiento, aceites y resinas, vidrio de plomo, difusión, irradiación, tintes y recubrimientos, cómo afectan al valor y al cuidado y qué detecta un laboratorio."
 category: piedras-preciosas
 date: 2026-10-12
+updated: 2026-11-02
+change: Fuentes añadidas y guía revisada con ellas
+sources:
+  - GIA: Ruby care and cleaning guide | https://www.gia.edu/ruby-care-cleaning
+  - Federal Trade Commission: In the loupe, advertising diamonds, gemstones and pearls | https://www.ftc.gov/business-guidance/resources/loupe-advertising-diamond-gemstones-pearls
+  - Federal Trade Commission: Guides for the jewelry, precious metals and pewter industries (16 CFR 23) | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-23
 ---
 La mayoría de las gemas de color que se venden hoy en el mundo han recibido algún tratamiento. No es un secreto ni, en sí mismo, un engaño: el calentamiento de rubíes y zafiros se practica desde hace siglos, y el aceite en las esmeraldas tiene una larga tradición. El problema aparece cuando el tratamiento no se declara, cuando es inestable y el comprador no lo sabe, o cuando una piedra muy tratada se vende al precio de una natural sin tratar.
 
