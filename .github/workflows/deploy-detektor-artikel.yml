@@ -1,0 +1,147 @@
+name: Deploy AI Content Analyzer (xscan.es)
+
+# Worker `detektor-artikel` (folder `detektor-artikel/`): situs publik xscan.es, portal member, portal admin,
+# API dan cron dalam satu Worker. Aturan tetap pemilik: SEMUA data di R2 (detektor-data, cadangan di
+# detektor-backups) — tidak pernah D1. KV hanya untuk penghitung batas laju.
+#
+# - Bucket R2 dan namespace KV dibuat sendiri bila belum ada.
+# - xscan.es (+ www) dipasang sebagai custom domain hanya bila zonanya sudah aktif di akun Cloudflare ini;
+#   sebelum itu situs tetap online di https://detektor-artikel.axto.workers.dev. Begitu domain terpasang,
+#   CANONICAL_HOST=xscan.es dan workers.dev/www dialihkan 301 ke xscan.es.
+# - MASTER_KEY (enkripsi kunci API & tahap) dan SESSION_SECRET dibuat acak SEKALI bila belum ada, dan tidak
+#   pernah diganti oleh deploy berikutnya (mengganti MASTER_KEY membuat data terenkripsi tak terbaca).
+# - Akun pemilik dibuat saat login pertama dari hash PBKDF2 di kode (src/routes/auth.ts); sandinya tidak
+#   pernah ada di repositori atau di sini.
+# - Jadwal harian ikut menjalankan deploy agar xscan.es langsung terpasang begitu zonanya aktif.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'detektor-artikel/**'
+      - '.github/workflows/deploy-detektor-artikel.yml'
+  schedule:
+    - cron: '41 4 * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-detektor-artikel
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  DOMAIN: xscan.es
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: detektor-artikel
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Verify Cloudflare secrets are present
+        run: |
+          set -eu
+          missing=""
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name:-}" ]; then missing="$missing $name"; fi
+          done
+          if [ -n "$missing" ]; then echo "::error::Secret GitHub yang belum diisi:$missing"; exit 1; fi
+
+      # npm, bukan pnpm: proyek ini di luar pnpm workspace ulyah.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check & unit tests
+        run: |
+          npm run typecheck
+          npm test
+
+      - name: Self-provision R2 buckets & KV if missing
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          JSON="Content-Type: application/json"
+          show_err() { echo "$1" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' 2>/dev/null || true; }
+          for b in detektor-data detektor-backups; do
+            have=$(curl -s -H "$AUTH" "$CF/r2/buckets/$b" | jq -r '.success' 2>/dev/null || echo false)
+            if [ "$have" = "true" ]; then echo "R2 $b: ada"; continue; fi
+            resp=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d "{\"name\":\"$b\"}" "$CF/r2/buckets")
+            if [ "$(echo "$resp" | jq -r '.success')" = "true" ]; then echo "R2 $b: dibuat"; else
+              show_err "$resp"; echo "::error::Tidak bisa membuat bucket R2 $b (token perlu 'Account > Workers R2 Storage : Edit')"; exit 1; fi
+          done
+          KV_RESP=$(curl -s -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100")
+          KV_ID=$(echo "$KV_RESP" | jq -r '.result[]? | select(.title=="detektor-rl") | .id' | head -n1)
+          if [ -z "$KV_ID" ]; then
+            KV_CREATE=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"title":"detektor-rl"}' "$CF/storage/kv/namespaces")
+            KV_ID=$(echo "$KV_CREATE" | jq -r '.result.id // empty')
+            [ -z "$KV_ID" ] && { show_err "$KV_CREATE"; echo "::error::Tidak bisa membuat KV detektor-rl"; exit 1; }
+          fi
+          echo "KV id: $KV_ID"
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" wrangler.jsonc
+
+      - name: Attach xscan.es when its zone is active
+        run: |
+          set -eu
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_RESP=$(curl -s -H "$AUTH" "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&account.id=${CLOUDFLARE_ACCOUNT_ID}")
+          ZONE_ID=$(echo "$ZONE_RESP" | jq -r '.result[0]?.id // empty')
+          ZONE_STATUS=$(echo "$ZONE_RESP" | jq -r '.result[0]?.status // empty')
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::Zona ${DOMAIN} belum ada di akun Cloudflare ini. Tambahkan domainnya (Websites > Add a site) lalu arahkan nameserver; sementara situs tetap online di workers.dev."
+            exit 0
+          fi
+          if [ "$ZONE_STATUS" != "active" ]; then
+            echo "::warning::Zona ${DOMAIN} berstatus '${ZONE_STATUS}', belum 'active'. Selesaikan pemindahan nameserver; deploy harian akan memasangnya otomatis."
+            exit 0
+          fi
+          printf '%s\n' '"routes": [{ "pattern": "'"${DOMAIN}"'", "custom_domain": true }, { "pattern": "www.'"${DOMAIN}"'", "custom_domain": true }],' > /tmp/routes.txt
+          sed -i "/__CUSTOM_DOMAIN_ROUTES__/r /tmp/routes.txt" wrangler.jsonc
+          sed -i "/__CUSTOM_DOMAIN_ROUTES__/d" wrangler.jsonc
+          sed -i "s/\"CANONICAL_HOST\": \"\"/\"CANONICAL_HOST\": \"${DOMAIN}\"/" wrangler.jsonc
+          echo "PUBLIC_URL=https://${DOMAIN}" >> "$GITHUB_ENV"
+          echo "Zona ${DOMAIN} aktif — dipasang sebagai custom domain + alamat kanonik."
+
+      - name: Deploy Worker
+        run: npx wrangler deploy | tee deploy.log
+
+      - name: Create MASTER_KEY & SESSION_SECRET once (never rotated by deploys)
+        run: |
+          set -eu
+          have=$(npx wrangler secret list --format json 2>/dev/null | jq -r '.[].name' || true)
+          for name in MASTER_KEY SESSION_SECRET; do
+            if echo "$have" | grep -qx "$name"; then echo "$name: sudah ada (tidak diubah)"; continue; fi
+            openssl rand -base64 48 | tr -d '\n' | npx wrangler secret put "$name" >/dev/null
+            echo "$name: dibuat"
+          done
+
+      - name: Smoke test
+        run: |
+          set -eu
+          WORKERS_URL="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1 || true)"
+          URL="${PUBLIC_URL:-$WORKERS_URL}"
+          [ -n "$URL" ] || { echo "::error::URL tidak ditemukan di log deploy"; exit 1; }
+          for i in $(seq 1 20); do curl -sf "$URL/api/health" >/dev/null && break; sleep 3; done
+          curl -sf "$URL/api/health"
+          ads=$(curl -sf "$URL/ads.txt")
+          echo "ads.txt: $ads"
+          [ "$ads" = "google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0" ] || { echo "::error::ads.txt salah"; exit 1; }
+          home=$(curl -sfL "$URL/")
+          echo "$home" | grep -q 'name="google-adsense-account" content="ca-pub-9354298681597606"' || { echo "::error::tag meta AdSense hilang"; exit 1; }
+          echo "$home" | grep -q 'adsbygoogle.js?client=ca-pub-9354298681597606' || { echo "::error::loader AdSense hilang"; exit 1; }
+          if curl -sf "$URL/robots.txt" | grep -qx 'Disallow: /'; then echo "::error::robots.txt menutup situs"; exit 1; fi
+          {
+            echo "## AI Content Analyzer online"
+            echo ""
+            echo "- Situs publik: $URL"
+            [ -n "$WORKERS_URL" ] && [ "$WORKERS_URL" != "$URL" ] && echo "- Alamat cadangan: $WORKERS_URL"
+            echo "- AdSense: meta + loader + ads.txt ca-pub-9354298681597606 ✅"
+          } >> "$GITHUB_STEP_SUMMARY"

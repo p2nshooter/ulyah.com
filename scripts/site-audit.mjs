@@ -106,6 +106,10 @@ Object.assign(EXPECTED, {
   "saved.lat": "9246828178432700",
   "xaa.es": "6284085719914185",
 });
+// 2 Nov 2026 (owner): new site xscan.es (AI Content Analyzer, folder detektor-artikel/) on the dawa.im account.
+Object.assign(EXPECTED, {
+  "xscan.es": "9354298681597606",
+});
 const verdicts = [];
 
 // Owner, 1 Nov 2026: "jgn ada satupun yg memblokir google dan SEO". Which crawlers a robots.txt shuts

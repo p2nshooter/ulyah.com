@@ -1,11 +1,11 @@
 =====================================================================
- KODE ADSENSE SEMUA DOMAIN — data per 31 Oktober 2026
+ KODE ADSENSE SEMUA DOMAIN — data per 2 November 2026
 =====================================================================
 
- Jumlah domain milik pemilik : 39
+ Jumlah domain milik pemilik : 40
  Jumlah kode (akun) AdSense  : 37
-   - dipakai lebih dari 1 domain : 2 kode (4 domain)
-   - dipakai 1 domain saja       : 35 kode
+   - dipakai lebih dari 1 domain : 3 kode (6 domain)
+   - dipakai 1 domain saja       : 34 kode
 
  Semua angka di bawah sudah dicocokkan dengan kode yang benar-benar
  terpasang di repositori (ads.txt, tag meta dan loader) — kode terakhir
@@ -35,63 +35,64 @@
     meta    : <meta name="google-adsense-account" content="ca-pub-9246828178432700">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9246828178432700" crossorigin="anonymous"></script>
 
+[3] ca-pub-9354298681597606   (2 domain)
+      • dawa.im       (repo ulyah.com · apps/web (tenant dawaim))
+      • xscan.es      (repo ulyah.com · detektor-artikel)
+    ads.txt : google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0
+    meta    : <meta name="google-adsense-account" content="ca-pub-9354298681597606">
+    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9354298681597606" crossorigin="anonymous"></script>
+
 ---------------------------------------------------------------------
  B. KODE YANG HANYA DIPAKAI SATU DOMAIN
 ---------------------------------------------------------------------
 
-[3] ca-pub-4548005919629272   (1 domain)
+[4] ca-pub-4548005919629272   (1 domain)
       • 1fr.fr        (repo ulyah.com · apps/web (tenant 1fr))
     ads.txt : google.com, pub-4548005919629272, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-4548005919629272">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4548005919629272" crossorigin="anonymous"></script>
 
-[4] ca-pub-6381187608934514   (1 domain)
+[5] ca-pub-6381187608934514   (1 domain)
       • axto.dev      (repo axtodev)
     ads.txt : google.com, pub-6381187608934514, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6381187608934514">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381187608934514" crossorigin="anonymous"></script>
 
-[5] ca-pub-8991272269211824   (1 domain)
+[6] ca-pub-8991272269211824   (1 domain)
       • axto.io       (repo guardian-ai)
     ads.txt : google.com, pub-8991272269211824, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-8991272269211824">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8991272269211824" crossorigin="anonymous"></script>
 
-[6] ca-pub-2228462932360966   (1 domain)
+[7] ca-pub-2228462932360966   (1 domain)
       • byodd.de      (repo ulyah.com · sites/byodd.de)
     ads.txt : google.com, pub-2228462932360966, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-2228462932360966">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228462932360966" crossorigin="anonymous"></script>
 
-[7] ca-pub-6146217038829045   (1 domain)
+[8] ca-pub-6146217038829045   (1 domain)
       • byoxy.de      (repo ulyah.com · sites/byoxy.de)
     ads.txt : google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-6146217038829045">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045" crossorigin="anonymous"></script>
 
-[8] ca-pub-1768325549147657   (1 domain)
+[9] ca-pub-1768325549147657   (1 domain)
       • byoy.de       (repo ulyah.com · sites/byoy.de)
     ads.txt : google.com, pub-1768325549147657, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-1768325549147657">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1768325549147657" crossorigin="anonymous"></script>
 
-[9] ca-pub-9653574958783349   (1 domain)
+[10] ca-pub-9653574958783349   (1 domain)
       • crone.skin    (repo ulyah.com · sites/crone.skin)
     ads.txt : google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-9653574958783349">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9653574958783349" crossorigin="anonymous"></script>
 
-[10] ca-pub-8469557036744946   (1 domain)
+[11] ca-pub-8469557036744946   (1 domain)
       • dai.lat       (repo ulyah.com · sites/dai.lat)
     ads.txt : google.com, pub-8469557036744946, DIRECT, f08c47fec0942fa0
     meta    : <meta name="google-adsense-account" content="ca-pub-8469557036744946">
     loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8469557036744946" crossorigin="anonymous"></script>
-
-[11] ca-pub-9354298681597606   (1 domain)
-      • dawa.im       (repo ulyah.com · apps/web (tenant dawaim))
-    ads.txt : google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0
-    meta    : <meta name="google-adsense-account" content="ca-pub-9354298681597606">
-    loader  : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9354298681597606" crossorigin="anonymous"></script>
 
 [12] ca-pub-7349356139063654   (1 domain)
       • dawo.es       (repo ulyah.com · sites/dawo.es)
@@ -278,6 +279,8 @@
     sebelumnya 8991272269211824); rough.lat dan saved.lat → ca-pub-9246828178432700
     (sebelumnya 5944786950535069 dan 4548005919629272). Perubahan dai.lat, jai.lat
     dan pab.lat sempat diminta lalu dibatalkan pemilik — kodenya tetap.
+  • 2 Nov 2026 (pemilik): situs baru xscan.es (AI Content Analyzer, folder
+    detektor-artikel/) → ca-pub-9354298681597606, akun yang sama dengan dawa.im.
   • oldco.in kembali ke ca-pub-6293576511807510 (perintah pemilik 20 Okt 2026;
     sebelumnya 2493615451319531, kode lama axto.dev). axto.dev sekarang
     ca-pub-6381187608934514.

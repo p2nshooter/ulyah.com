@@ -82,6 +82,12 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >    5944786950535069 dan saved.lat 4548005919629272 — dua kode yang kini dipakai tilawa.de dan 1fr.fr). Perubahan dai.lat
 >    (9653574958783349), jai.lat (2271696914011881) dan pab.lat (3121033501099075) yang sempat diminta **dibatalkan**
 >    pemilik („rubah kode adsense ini di batalkan ya"): kodenya tetap.
+> 15. **2 Nov 2026:** „Masukin kode adsense dan bikinin cuplikan dan tag meta nya jg beserta ads.txt google.com,
+>    pub-9354298681597606, DIRECT, f08c47fec0942fa0" → situs baru **xscan.es → ca-pub-9354298681597606** (akun yang sama
+>    dengan dawa.im). xscan.es adalah AI Content Analyzer, Worker `detektor-artikel` (folder `detektor-artikel/`):
+>    tag meta, loader dan `/ads.txt` dari satu konstanta `ADSENSE_PUB` di `detektor-artikel/src/pages/ui.ts`. Loader hanya
+>    di halaman publik yang bisa diindeks (bukan portal member/admin, login, 404). Selama zona xscan.es belum aktif di
+>    Cloudflare, situsnya hidup di https://detektor-artikel.axto.workers.dev dengan kode yang sama.
 > byodd.de, qulen.de dan zolun.de tetap dengan akun sendiri (6 Okt). Tabel di bawah adalah
 > keadaan terbaru; `scripts/site-audit.mjs` memeriksa domain live dengan angka yang sama.
 
@@ -127,6 +133,7 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 | odaily.xyz | ca-pub-9221781326457936 | ulyah.com · sites/odaily.xyz (site.json + ADSENSE.txt) — situs baru 26 Okt |
 | xdaily.xyz | ca-pub-5693981744147503 | ulyah.com · sites/xdaily.xyz (site.json + ADSENSE.txt) — situs baru 26 Okt |
 | dawa.im | ca-pub-9354298681597606 | ulyah.com · apps/web tenant `dawaim` (`apps/web/src/lib/ad-config.ts`, Auto ads saja) — diubah pemilik 31 Okt (sebelumnya 8991272269211824) |
+| xscan.es | ca-pub-9354298681597606 | ulyah.com · detektor-artikel (`src/pages/ui.ts` ADSENSE_PUB → tag meta, loader, route `/ads.txt`) — situs baru 2 Nov |
 
 ## ulyah.com
 
@@ -1028,6 +1035,31 @@ Cuplikan adsense
 ```
 
 Cuplikan ads.txt (https://dawa.im/ads.txt)
+
+```
+google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0
+```
+
+Tag meta
+
+```html
+<meta name="google-adsense-account" content="ca-pub-9354298681597606">
+```
+
+## xscan.es
+
+Kode dari pemilik, 2 Nov 2026 (situs baru: AI Content Analyzer, Worker `detektor-artikel`). Akun yang sama dengan dawa.im.
+Tag meta ada di setiap halaman; loader di halaman publik yang bisa diindeks; `/ads.txt` dilayani Worker dari konstanta yang
+sama (`detektor-artikel/src/pages/ui.ts`). Auto ads saja, tanpa unit manual.
+
+Cuplikan adsense
+
+```html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9354298681597606"
+     crossorigin="anonymous"></script>
+```
+
+Cuplikan ads.txt (https://xscan.es/ads.txt)
 
 ```
 google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0
