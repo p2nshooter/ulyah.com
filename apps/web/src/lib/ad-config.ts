@@ -47,14 +47,17 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
+  // 7 Nov 2026 (owner): every owner site stacks sixteen accounts (STACK below). The account here is the PRIMARY one —
+  // the only loader on the page. xad.es keeps its existing account as primary ("kode adsense yg sudah ada biarkan
+  // saja, jgn di hapus, tambahin dengan kode adsense baru"); the others follow the new list (adsense-stack.json).
   // 31 Oct 2026 (owner): each of the four sites to its own account. ulyah.com
   // "google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0"; dawa.im
   // "pub-9354298681597606"; "1fr.fr jd ini … pub-4548005919629272"; "Tilawa.de …
   // pub-5944786950535069". Before, all four were on ca-pub-8991272269211824
   // (26 Oct, with axto.io and xaa.es).
   ulyah: "ca-pub-5092800160376210",
-  "1fr": "ca-pub-4548005919629272",
-  tilawa: "ca-pub-5944786950535069",
+  "1fr": "ca-pub-5928074389292014",
+  tilawa: "ca-pub-6560360898389273",
   dawa: ORIGINAL_ACCOUNT,
   // dawa.im, the owner's Spanish member: Auto ads only — SHOWS_AD_UNITS below
   // stays false for it.
@@ -68,6 +71,40 @@ const AD_CLIENT_BY_TENANT: Record<string, string> = {
  * read this one constant, so they can never name different accounts.
  */
 export const AD_CLIENT_ID = AD_CLIENT_BY_TENANT[TENANT.id] ?? ORIGINAL_ACCOUNT;
+
+/**
+ * The sixteen stacked accounts (owner, 7 Nov 2026: "kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak saling
+ * bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website memakai beberapa kode adsense dari akun yg
+ * berbeda"). Same list, same order as adsense-stack.json at the root of the repository; scripts/check-ads.ts fails when
+ * the two differ.
+ */
+export const STACK = [
+  "ca-pub-9915280882234592",
+  "ca-pub-9354298681597606",
+  "ca-pub-6560360898389273",
+  "ca-pub-5928074389292014",
+  "ca-pub-1480130604232181",
+  "ca-pub-5092800160376210",
+  "ca-pub-7250589269548267",
+  "ca-pub-6381187608934514",
+  "ca-pub-4304267428455702",
+  "ca-pub-6293576511807510",
+  "ca-pub-9221781326457936",
+  "ca-pub-4906992051458194",
+  "ca-pub-9433622530024776",
+  "ca-pub-6146217038829045",
+  "ca-pub-2493615451319531",
+  "ca-pub-5693981744147503",
+] as const;
+
+/**
+ * Every account THIS build authorises: the primary first, then the stack. Each gets its own google-adsense-account meta
+ * tag (layout) and its own /ads.txt line, so each account can verify the site. There is still exactly one loader — the
+ * primary's — because Google ignores a second AdSense head tag on the same page ("Only one AdSense head tag supported
+ * per page"). dawa.es is not the owner's: it keeps its one original account.
+ */
+export const AD_ACCOUNTS: readonly string[] =
+  TENANT.id === "dawa" ? [AD_CLIENT_ID] : [...new Set([AD_CLIENT_ID, ...STACK])];
 
 /**
  * Whether this build renders manual ad units at all: dawa.es, and nothing

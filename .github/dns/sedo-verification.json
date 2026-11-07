@@ -1,5 +1,5 @@
 {
-  "_comment": "Sedo ownership verification (TXT on the zone apex, host '@'), so the owner can list these domains for sale on sedo.com. The value is the owner's Sedo verification ID, public by design (anyone can read it in DNS). Source: owner's message of 11 Oct 2026 with the Sedo guide ('TXT, Response = verification ID, Host blank or @') and screenshots of the Sedo domain list; only the domains shown there are listed. dawa.es is not the owner's and must never be added. Applied by .github/workflows/dns-records.yml. 26 Oct 2026 (owner, with the Sedo 'Your personal ID' screenshot): odaily.xyz, zoevian.de, xdaily.xyz, nexvilo.de, velnixo.de, crone.skin and saved.lat added.",
+  "_comment": "Sedo ownership verification (TXT on the zone apex, host '@'), so the owner can list these domains for sale on sedo.com. The value is the owner's Sedo verification ID, public by design (anyone can read it in DNS). Source: owner's message of 11 Oct 2026 with the Sedo guide ('TXT, Response = verification ID, Host blank or @') and screenshots of the Sedo domain list; only the domains shown there are listed. dawa.es is not the owner's and must never be added. Applied by .github/workflows/dns-records.yml. 26 Oct 2026 (owner, with the Sedo 'Your personal ID' screenshot): odaily.xyz, zoevian.de, xdaily.xyz, nexvilo.de, velnixo.de, crone.skin and saved.lat added. 7 Nov 2026 (owner: 'Ini untuk self verification sedo.com Domain Jenius.es xscan.es ascan.es personal ID: 8750bf0e1361e14b0df9824b3c487b017e2a1ed6'): jenius.es, xscan.es and ascan.es added.",
   "txt": "8750bf0e1361e14b0df9824b3c487b017e2a1ed6",
   "domains": [
     "rough.es",
@@ -31,6 +31,9 @@
     "nexvilo.de",
     "velnixo.de",
     "crone.skin",
-    "saved.lat"
+    "saved.lat",
+    "jenius.es",
+    "xscan.es",
+    "ascan.es"
   ]
 }

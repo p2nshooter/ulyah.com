@@ -62,8 +62,12 @@ check(
   "the layout must load pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT_ID}"
 );
 check(
-  "the google-adsense-account meta tag is in the layout, from that constant",
-  /<meta name="google-adsense-account" content=\{AD_CLIENT_ID\} \/>/.test(layout)
+  "a google-adsense-account meta tag per authorised account is in the layout (AD_ACCOUNTS)",
+  /AD_ACCOUNTS\.map\(\(account\) => \(\s*<meta key=\{account\} name="google-adsense-account" content=\{account\} \/>/.test(layout)
+);
+check(
+  "exactly one loader script in the layout (Google ignores a second AdSense head tag)",
+  (layout.match(/adsbygoogle\.js\?client=/g) || []).length === 1
 );
 check(
   "the layout hard-codes no publisher id",
@@ -78,9 +82,10 @@ console.log("\n=== each site declares the account the owner gave it ===");
 // owner's any more: it keeps its original account, untouched (§10).
 const EXPECTED: Record<string, string> = {
   // 31 Oct 2026 (owner): each to its own account (before: ca-pub-8991272269211824).
+  // 7 Nov 2026 (owner): primary accounts of the stacked list (adsense-stack.json); xad.es keeps its own.
   ulyah: "ca-pub-5092800160376210",
-  "1fr": "ca-pub-4548005919629272",
-  tilawa: "ca-pub-5944786950535069",
+  "1fr": "ca-pub-5928074389292014",
+  tilawa: "ca-pub-6560360898389273",
   xad: "ca-pub-5517446616694631",
   // dawa.im, the owner's Spanish member: Auto ads only.
   dawaim: "ca-pub-9354298681597606",
@@ -90,10 +95,43 @@ for (const [tenant, pub] of Object.entries(EXPECTED)) {
   check(`${tenant} declares ${pub}`, new RegExp(`${key}:\\s*"${pub}"`).test(adConfig));
 }
 check("dawa stays on its own original account", /dawa:\s*ORIGINAL_ACCOUNT/.test(adConfig));
+
+console.log("\n=== the sixteen stacked accounts (owner, 7 Nov 2026) are the same everywhere ===");
+// adsense-stack.json at the root is the one list; apps/web and detektor-artikel (xscan.es) carry copies.
+const stackFile = JSON.parse(read("adsense-stack.json")) as { stack: string[]; primary: Record<string, string>; keep: string[] };
+const listIn = (src: string, name: string) => {
+  const m = new RegExp(`${name}\\s*=\\s*\\[([\\s\\S]*?)\\]`).exec(src);
+  return m ? [...m[1].matchAll(/ca-pub-\d{16}/g)].map((x) => x[0]) : [];
+};
 check(
-  "ads.txt is built per site from the same constant",
+  "apps/web STACK equals adsense-stack.json, same order",
+  JSON.stringify(listIn(adConfig, "export const STACK")) === JSON.stringify(stackFile.stack),
+  JSON.stringify(listIn(adConfig, "export const STACK"))
+);
+const DOMAIN_OF: Record<string, string> = { ulyah: "ulyah.com", "1fr": "1fr.fr", tilawa: "tilawa.de", xad: "xad.es", dawaim: "dawa.im" };
+for (const [tenant, domain] of Object.entries(DOMAIN_OF)) {
+  check(`${domain}: apps/web primary is the stack's primary`, stackFile.primary[domain] === EXPECTED[tenant], `${EXPECTED[tenant]} ≠ ${stackFile.primary[domain]}`);
+}
+const ui = read("detektor-artikel/src/pages/ui.ts");
+check(
+  "xscan.es (detektor-artikel) STACK equals adsense-stack.json, same order",
+  JSON.stringify(listIn(ui, "export const ADSENSE_STACK")) === JSON.stringify(stackFile.stack),
+  JSON.stringify(listIn(ui, "export const ADSENSE_STACK"))
+);
+check(
+  "xscan.es primary is the stack's primary",
+  ui.includes(`ADSENSE_PUB = '${stackFile.primary["xscan.es"].replace(/^ca-pub-/, "")}'`)
+);
+for (const d of stackFile.keep) {
+  check(`${d} (keeps its existing code) has a primary outside or inside the stack`, Boolean(stackFile.primary[d]));
+}
+for (const [d, p] of Object.entries(stackFile.primary)) {
+  if (!stackFile.keep.includes(d)) check(`${d}: primary is one of the sixteen`, stackFile.stack.includes(p), p);
+}
+check(
+  "ads.txt is built per site from the same constant (AD_ACCOUNTS, one line per account)",
   !existsSync(join(ROOT, "apps/web/public/ads.txt")) &&
-    /AD_CLIENT_ID/.test(read("apps/web/src/app/ads.txt/route.ts")),
+    /AD_ACCOUNTS/.test(read("apps/web/src/app/ads.txt/route.ts")),
   "a static public/ads.txt is shared by every tenant build and would name one account on every site"
 );
 

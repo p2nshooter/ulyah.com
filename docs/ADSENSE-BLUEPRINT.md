@@ -5,7 +5,7 @@ baru dicatat di sini dulu**, lalu statusnya diperbarui setelah diuji.
 Kontrol pusatnya ada di repo `ulyah.com`; situs yang punya repo sendiri tetap
 dicatat di sini.
 
-Terakhir diperbarui: 6 Oktober 2026 (Fase 7: 27 situs mewah menyeluruh, setiap artikel ≥1.500 kata, setiap situs ≥40 artikel; merge & deploy dikerjakan sendiri).
+Terakhir diperbarui: 7 November 2026 (§23 16 akun AdSense ditumpuk di setiap domain; §24–§28 perintah pemilik 7 Nov).
 
 Arti tanda: ✅ selesai dan lulus uji · 🟡 selesai, butuh tindakan manual atau
 belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ ditunda
@@ -20,7 +20,9 @@ belum diuji penuh · 🔄 sedang dikerjakan · ❌ belum dikerjakan · ⏸️ di
    **Pengecualian (keputusan pemilik 4 Okt):** jai.lat tetap **Inggris** dengan
    72 artikel tulisan tangannya, ditambah desk **"En español"** berisi 10 artikel
    Spanyol (`lang="es"` per halaman).
-2. **AdSense saja.** Tidak ada Adsterra, popunder, social bar, atau jaringan
+2. **AdSense saja.** *(Diperbarui 7 Nov 2026, §23: setiap domain kini menumpuk 16 akun — satu tag meta dan satu
+   baris ads.txt per akun, satu loader. Kalimat „satu akun yang sama“ di bawah adalah riwayat 4 Okt.)* Tidak ada
+   Adsterra, popunder, social bar, atau jaringan
    iklan lain di situs mana pun. Setiap situs memuat persis tiga hal dari
    **satu akun yang sama, `ca-pub-5693981744147503`** (sejak 4 Okt 2026,
    "jadi 1 akun saja"): script `adsbygoogle.js?client=…` di `<head>`, meta
@@ -643,6 +645,13 @@ di akun AdSense (di luar jangkauan Claude).
 | 1 Nov | "Matika seluruh robot yg memblokir crawler google dari sisi Anda, terserah bagaimanapun cara nya … seluruh project ini untuk pengajuan adsense" · "Lu punya akses penuh CF, matiin dari sisi lu … walaupun tanpa masuk CF di beberapa repo" | 🔄 semua token Cloudflare di repo pemilik diuji: tidak satu pun punya izin *Bot Management* (dan token ulyah tidak bisa membaca aturan redirect), jadi managed robots.txt tidak bisa dimatikan lewat API. Jalan lewat kode: robots.txt situs sendiri kini memuat grup `User-Agent: Google-Extended / GoogleOther / Google-CloudVertexBot` dengan `Allow: /` (jalur privat tetap tertutup). Google menggabungkan semua grup untuk crawler yang sama dan memakai aturan paling longgar bila `Allow: /` dan `Disallow: /` seri (spesifikasi robots.txt Google), sehingga blok Cloudflare kalah. `site-audit.mjs` dan laporan `canonical-hosts.yml` membaca robots.txt dengan cara yang sama seperti Google. Sama di axto.io (guardian-ai) dan axto.us. Disusul "Ok udah gw ikutin panduan api token coba lg", "axto.io beda CF, tp bot management sudah di masukan" dan "Pastikan web artikel yg lain jg mematikan robot yg menghalangi crawler google": dengan izin baru, `is_robots_txt_managed` dimatikan di ulyah.com, 1fr.fr, tilawa.de, axto.us dan axto.io; isi blokir ternyata datang dari **Bot Preference Sync** (`bot_preference_sync_enabled: true`, `ai_training: disallow`), yang lalu dimatikan — robots.txt ulyah.com, 1fr.fr, tilawa.de dan axto.us langsung bersih. `canonical-hosts.yml` kini mematikan keduanya di setiap zona pemilik (semua situs `sites/` termasuk) setiap minggu, dan robots.txt setiap situs artikel (mesin `sites/_engine`, juga di repo axto.us) ikut memuat grup `Allow: /` untuk ketiga crawler Google itu. Pengaturan keamanan (AI bot/crawler protection) tidak diubah |
 | 2 Nov | "Kita stop dulu seluruh pekerjaan, skrg focus pada artikel2 untuk pengajuan adsense, web artikel yg lu buat di anggap tidak bermanfaat. Atau lihat di gambar ke 3, cari sulusinya kenapa statusnya perlu diperhatikan.... Perbaiki... Begitu juga situs yg lain" · "Kerjakan" (tangkapan layar AdSense zevok.de: status **Perlu diperhatikan**, alasan **Konten tanpa manfaat**) | 🔄 §22 — semua pekerjaan lain berhenti; diagnosis dari repo dan hasil build, perbaikan di engine untuk semua situs, lalu zevok.de lebih dulu |
 | 2 Nov | "Masukin kode adsense dan bikinin cuplikan dan tag meta nya jg beserta ads.txt google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0" (situs baru xscan.es — AI Content Analyzer) · "Matikan seluruh robot yg menghambat crawler google … Masukan kode search ini di dns xscan.es" | 🔄 xscan.es → ca-pub-9354298681597606 (akun dawa.im): tag meta, loader dan `/ads.txt` dari satu konstanta di `detektor-artikel/src/pages/ui.ts`; robots.txt tanpa `Disallow: /` dengan grup `Allow: /` untuk semua crawler Google; tanpa `X-Robots-Tag`; TXT `google-site-verification` di `.github/dns/google-site-verification.json`; xscan.es masuk `site-audit.yml` dan `canonical-hosts.yml`. Live di workers.dev setelah merge, xscan.es begitu zonanya aktif |
+| 7 Nov | „Tolong kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website memakai beberapa kode adsense dari akun yg berbeda buatkan cuplikan adsense, ads.txt dan tag metanya“ (16 akun) · „Untuk kode adsense domain ini, kode adsense yg sudah ada biarkan saja, jgn di hapus, tambahin dengan kode adsense baru“ (axto.us, rubiy.de, xad.es, zolun.de, dawo.es, zuvik.de, crone.skin, lie.skin, qkb.es, rough.lat, saved.lat) · „Domain yg lain kode adsensenya boleh di hapus ikuti dengan perintah terbaru“ · „selalu dahulukan kode adsense dan pastikan ke mendekati sukses untuk penganjuan adsense, karena masih banyak website yg di anggap low value“ | 🔄 §23 |
+| 7 Nov | „Ini untuk self verification sedo.com Domain Jenius.es xscan.es ascan.es personal ID: 8750bf0e1361e14b0df9824b3c487b017e2a1ed6“ | 🔄 §23.4 — ketiga domain masuk `.github/dns/sedo-verification.json`; TXT dipasang `dns-records.yml` begitu zonanya ada di Cloudflare |
+| 7 Nov | „Untuk website pastikan seluruh website artikel punya 70 artikel, dan pastikan website artikel punya translate bahasa Inggris, jgn menggunakan auto translate yg menyebabkan penolakan google adsense, Termasuk domain2 baru yg belum punya website, termasuk website axto.io, xaa.es dan xscan.es, kecuali website muslim, biarkan saja apa adanya kecuali backlink.. Pastikan seluruh rancangan ini tidak menyalahi aturan google adsense“ · „Perkuat niche SEO nya. Pastikan masing2 website jika sharing link / backlink tidak melanggar aturan, saling sharing link dengan judul / focus konten masing2 setiap website dan klo di klik ngelink ke website tersebut.. Dan jgn ada satupun yg memblokir crawler google“ | ⏳ §24 — setelah §23 live |
+| 7 Nov | „Untuk xscan.es pelajari 2 file itu, kembangkan dulu dengan project yg sudah ada dan catat sebagai blueprint, kombinasikan dengan project yg ada jadikan blue print sempurna terlebih dahulu termasuk artikel yg di butuhkan untuk pengajuan adsense. Kerjakan xscan.es dari blueprint jika pengerjaan pendaftaran adsense selesai di kerjakan“ (file Master_xscan dan Xscan) | ⏳ §25 — `detektor-artikel/docs/MASTER-BLUEPRINT.md` |
+| 7 Nov | „Untuk situs jenius.es buatkan website ini (tangkapan layar: Digital Literacy & Reading AI, AI Teacher Assistant, Smart Classroom), ambil e-book dari sumber terbuka manapun yg mengizinkan bukunya di serap … voice nya suara yg relevan, seperti pembaca nya anak2, anak perempuan kecil, suara guru yg bijak baik perempuan dan laki dll, pokoknya kembangin dulu dalam bentuk blueprint, jika memang memerlukan input api key sediakan di portal super admin … berikan rekomendasi AI apa yg d gunakan … gunakan yg paling murah tp tetep optimal … Bikin blueprintnya dulu setelah selesai mengerjakan kode adsense“ | ⏳ §26 — `docs/JENIUS-BLUEPRINT.md` |
+| 7 Nov | „Tolong di cek juga, chache apa yg situs islami yg menjadikan R2 lebih dr 10Gb...jika di bersihkan tidak berpengaruh sama sekali, bersihkan saja, agar R2 di bawah 5gb“ | ⏳ §27 |
+| 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
 
 ---
 
@@ -1711,3 +1720,94 @@ urutan ini:
 | byodd.de: 4 alat + sumber | ✅ PR 2 Nov — Farbrechner (+ kombinasi Gebinde), Tapetenrechner (Rapport, Ansatz, Raufaser), Bodenbelag-Rechner (Verschnitt, Pakete, Dämmung, Sockelleisten), Dübel- und Bohrer-Finder (6 jenis dinding × 3 beban) + `/werkzeuge/`, pita beranda, menu „Rechner"; sumber resmi di 34 dari 40 panduan (UBA, Blauer Engel, Verbraucherzentrale, co2online, Mieterbund, DIBt, DGUV, BAuA, VDE) — 6 panduan perbaikan kecil sengaja tanpa sumber karena tidak ada sumber resmi yang relevan (tidak dipaksa); „Über uns" menyebut bantuan KI; uji browser 26/26 |
 | byoxy.de: 4 alat + sumber 45 artikel | ✅ PR 2 Nov — Pflanzen-Steckbrief (9 tanaman dari tabel artikel; racun untuk hewan menurut ASPCA; filter „ungiftig“), Aussaatkalender (8 tanaman, bulan berjalan disorot), Erd- und Topfrechner (kerucut terpancung, kotak, karung, ukuran pot berikutnya), Dünger-Dosierrechner + `/helfer/`, pita beranda, menu „Helfer“; 2–3 sumber per panduan (UBA, NABU, Bayerische Gartenakademie, RHS, ASPCA); `"sources": "required"`; deskripsi „erprobten Anleitungen“ → „klaren Anleitungen und Quellen“; „Über uns“ menyebut bantuan KI; uji browser 26/26 |
 | byoy.de: 4 alat + sumber 45 artikel | ✅ PR 2 Nov — Mischkultur-Nachbarn (13 sayur + cek pasangan; catatan jujur Bayerische Gartenakademie bahwa daftar semacam ini lemah buktinya), Nährstoff- und Fruchtfolge-Helfer (Zehrer, kompos per bedengan, famili, jeda tanam, rotasi empat bedengan), Gemüse-Aussaatkalender (12 sayur), Beetplaner (jumlah tanaman dan luas per rumah tangga) — semua dari tabel artikel; `/planer/`, pita beranda, menu „Planer“; 2 sumber per panduan (Bayerische Gartenakademie, UBA, NABU, JKI, BZfE); `"sources": "required"`; klaim „eigene Praxis im Beet“ di „Über uns“ dihapus, diganti keterangan bantuan KI; uji browser 26/26 |
+
+## 23. 16 akun AdSense ditumpuk di setiap domain (pemilik, 7 Nov 2026)
+
+Perintah pemilik (lihat log §9, 7 Nov): enam belas akun AdSense dipakai bersama di setiap situs dalam file „Kumpulan
+Website“, ditumpuk dengan rapi, tanpa saling bentrok dan tanpa melanggar kebijakan AdSense. Sebelas domain menyimpan
+kodenya yang lama dan mendapat tambahan 16 akun; domain lain kodenya yang lama dihapus.
+
+### 23.1 Cara menumpuk yang rapi dan tidak bentrok
+
+| Bagian | Isi di setiap domain | Alasan |
+|---|---|---|
+| `ads.txt` | satu baris per akun: akun utama dulu, lalu ke-16 akun | ads.txt memang boleh berisi banyak penjual; setiap akun bisa memverifikasi situs lewat ads.txt |
+| Tag meta `google-adsense-account` | satu tag per akun, di `<head>` HTML server setiap halaman | setiap akun bisa memverifikasi situs lewat tag meta, tanpa menunggu yang lain |
+| Loader `adsbygoogle.js?client=…` | **tepat satu** per halaman: akun utama domain itu | Google hanya memakai satu tag kepala AdSense per halaman dan mengabaikan yang kedua („Only one AdSense head tag supported per page“). 16 loader hanya menambah error konsol, bukan iklan |
+| Unit iklan | tidak ada — Auto ads saja (§1 no. 3) | tidak berubah |
+
+**Akun utama** setiap domain:
+- domain dalam daftar keep → kodenya yang lama;
+- domain yang kodenya sudah salah satu dari 16 → kode itu (tinjauan yang sedang berjalan tidak terputus);
+- 16 domain lain → masing-masing satu dari 16 akun, berurutan menurut daftar pemilik: axto.io 9915…, xaa.es 9354…,
+  tilawa.de 6560…, 1fr.fr 5928…, byodd.de 1480…, byoy.de 5092…, nexvilo.de 7250…, qulen.de 6381…, qurm.de 4304…,
+  velnixo.de 6293…, zavik.de 9221…, rough.es 4906…, ascan.es 9433…, jenius.es 6146…, dai.lat 2493…, jai.lat 5693….
+
+Pemilik bisa memindahkan akun utama kapan saja dengan mengubah satu baris di `adsense-stack.json` (dan salinannya di
+repo mitra); tag meta dan ads.txt tidak berubah.
+
+**Catatan kebijakan (dibaca pemilik).** Program AdSense mengizinkan satu akun per orang. Banyak akun di satu situs
+diperbolehkan bila akun-akun itu milik orang atau badan yang berbeda (seperti situs bagi hasil). Jika beberapa dari 16
+akun dimiliki orang yang sama, Google dapat menutup akun-akun tambahan; itu di luar kode situs.
+
+### 23.2 Satu sumber, diperiksa otomatis
+
+- `adsense-stack.json` (akar repo ulyah.com): 16 akun, akun utama per domain, daftar keep.
+- `sites/_engine/adsense.mjs`: engine 26 situs statis membuat semua tag meta, satu loader dan ads.txt dari file itu;
+  `sites/<domain>/ADSENSE.txt` berisi cuplikan untuk pemilik; `check.mjs` menolak deploy bila ada halaman tanpa salah
+  satu tag meta, dengan lebih atau kurang dari satu loader, atau ads.txt yang berbeda satu baris saja.
+- `apps/web/src/lib/ad-config.ts` (ulyah.com, 1fr.fr, tilawa.de, xad.es, dawa.im) dan `detektor-artikel/src/pages/ui.ts`
+  (xscan.es) membawa salinan daftar yang sama; `scripts/check-ads.ts` gagal bila salinan berbeda dengan file induk.
+- Repo mitra (axto.us, axtodev, guardian-ai, xaa, Jai, Lie, oldco.in, profity.in) membawa salinannya sendiri.
+- `scripts/site-audit.mjs` (`site-audit.yml`) memeriksa situs live: setiap akun punya tag meta di HTML server dan
+  baris ads.txt, tepat satu loader, akun utama benar.
+- `docs/ADSENSE-SEMUA-DOMAIN.txt` dibuat dari file induk (`node scripts/adsense-summary.mjs`).
+
+### 23.3 Supaya pengajuan mendekati sukses (bukan „konten tanpa manfaat“)
+
+Kode hanya membuka pintu verifikasi; penilaian „low value“ (§22) ditentukan isi. Urutan setelah kode live:
+1. §22 untuk semua situs artikel (tanggal jujur, sumber, alat, riwayat perubahan) — sudah di engine.
+2. §24: 70 artikel per situs, versi Inggris yang ditulis (bukan terjemahan mesin), niche SEO yang tegas, tautan antar-
+   situs yang relevan.
+3. Ajukan satu per satu, setelah halaman terindeks dan ada kunjungan organik (§22.2 D).
+
+### 23.4 Verifikasi Sedo: jenius.es, xscan.es, ascan.es
+
+TXT `8750bf0e1361e14b0df9824b3c487b017e2a1ed6` di apex (cara yang sama dengan 30 domain lain sejak 11 Okt), lewat
+`.github/dns/sedo-verification.json` dan `dns-records.yml`. Domain yang zonanya belum ada di Cloudflare dilaporkan dan
+dipasang otomatis oleh run harian begitu zonanya muncul.
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 7 Nov |
+| `adsense-stack.json`, engine, apps/web, xscan.es, audit, ringkasan | ✅ PR 7 Nov — 26 situs `check.mjs` ALL OK; `check-ads.ts` ALL OK; e2e xscan.es SEMUA LULUS |
+| Repo mitra (axto.us, axto.dev, axto.io, xaa.es, jai.lat, lie.skin, oldco.in, profity.in) | 🔄 |
+| Merge, deploy, `site-audit.yml` OK di setiap domain | 🔄 |
+| ascan.es, jenius.es | ⏳ kode siap di `adsense-stack.json`; dipasang saat situsnya dibuat |
+| Sedo TXT tiga domain | 🔄 |
+
+## 24. 70 artikel + versi Inggris tulisan tangan, niche SEO, tautan antar-situs (pemilik, 7 Nov 2026)
+
+Perintah pemilik: lihat log §9 (7 Nov). Ringkasnya:
+- setiap situs artikel (termasuk domain baru tanpa situs, axto.io, xaa.es, xscan.es) punya **70 artikel**;
+- setiap situs artikel punya **versi bahasa Inggris** yang ditulis, **bukan** terjemahan otomatis;
+- situs muslim (ulyah.com, tilawa.de, 1fr.fr, xad.es, dawa.im) **tidak diubah** kecuali tautan antar-situs;
+- niche SEO diperkuat; tautan antar-situs memakai judul/fokus situs tujuan dan menuju situs itu, tanpa melanggar
+  kebijakan; tidak satu pun situs memblokir crawler Google (sudah dijaga `site-audit.mjs` dan `canonical-hosts.yml`).
+
+Rancangan dan inventaris ditulis setelah §23 live. | ⏳
+
+## 25. xscan.es — blueprint induk (pemilik, 7 Nov 2026)
+
+`detektor-artikel/docs/MASTER-BLUEPRINT.md`: menggabungkan file „Master_xscan“ dan „Xscan“ dari pemilik dengan aplikasi
+yang sudah berjalan, ditambah artikel untuk pengajuan AdSense. Dibangun dari blueprint setelah pekerjaan AdSense selesai. | ⏳
+
+## 26. jenius.es — blueprint (pemilik, 7 Nov 2026)
+
+`docs/JENIUS-BLUEPRINT.md`: perpustakaan digital anak dengan buku berlisensi terbuka dan suara pembaca, asisten guru AI,
+kelas pintar; kunci API di portal super admin; pemilihan model AI termurah yang tetap optimal. Blueprint dulu, setelah
+kode AdSense. | ⏳
+
+## 27. R2 situs islami > 10 GB → di bawah 5 GB (pemilik, 7 Nov 2026)
+
+Cari cache yang membesar, hapus yang tidak berpengaruh pada situs. | ⏳

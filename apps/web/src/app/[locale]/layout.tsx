@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SERVED_LOCALES, getLocale, isValidLocale, DEFAULT_LOCALE, LOCALE_SITE } from "@ulyah/shared/i18n";
 import { getDictionary } from "@/dictionaries";
-import { AD_CLIENT_ID } from "@/lib/ad-config";
+import { AD_ACCOUNTS, AD_CLIENT_ID } from "@/lib/ad-config";
 import { TENANT, tenantTagline } from "@/lib/tenant";
 import { jsonLdHtml } from "@/lib/structured-data";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -335,8 +335,12 @@ export default async function LocaleLayout({
             alone also keeps its manual units (PageAds + AdSlot below, owner
             12 Oct: "Adslot manual jika itu milik adsense biarkan, dan biarkan
             otomatis"). The async loader never blocks rendering; the id is the
-            one constant /ads.txt and the units read. */}
-        <meta name="google-adsense-account" content={AD_CLIENT_ID} />
+            one constant /ads.txt and the units read. Since 7 Nov 2026 every
+            stacked account has its own meta tag (AD_ACCOUNTS); the loader stays
+            one, the primary account. */}
+        {AD_ACCOUNTS.map((account) => (
+          <meta key={account} name="google-adsense-account" content={account} />
+        ))}
         <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT_ID}`}

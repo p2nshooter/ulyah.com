@@ -20,6 +20,7 @@ import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, write
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { countWords, esc, parseFrontmatter, renderMarkdown, slugify } from "./lib/markdown.mjs";
+import { adsenseFor, adsTxt, loaderTag, metaTag } from "./adsense.mjs";
 
 const ENGINE = dirname(fileURLToPath(import.meta.url));
 const SITES = resolve(ENGINE, "..");
@@ -251,7 +252,9 @@ export async function build(domain, { quiet = false } = {}) {
   // ── What every page's <head> and tail carry ────────────────────────────
   // A site may be built before its AdSense account exists ("persiapan"): then
   // it carries no AdSense tag and no ads.txt until site.json gets the id.
-  const pub = site.adsense ? site.adsense.replace(/^ca-/, "") : "";
+  // Since 7 Nov 2026 a site can authorise several accounts (adsense.mjs, adsense-stack.json): one meta tag and one
+  // ads.txt line per account, one loader (the primary account).
+  const ad = adsenseFor(site.domain, site.adsense || "");
   // The favicon is cached hard by browsers; its content hash in the URL makes
   // a new icon show up on the next visit instead of weeks later.
   const favFile = join(publicDir, "favicon.svg");
@@ -340,10 +343,10 @@ export async function build(domain, { quiet = false } = {}) {
       `<meta property="og:image" content="${image || ogImage}">`,
       !image && has("og.png") ? `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(site.name)}">` : "",
       `<meta name="twitter:card" content="summary_large_image">`,
-      // Google AdSense — the account this site applies with (site.json). The
-      // meta tag, the loader and /ads.txt are all built from that one value.
-      site.adsense ? `<meta name="google-adsense-account" content="${esc(site.adsense)}">` : "",
-      site.adsense ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(site.adsense)}" crossorigin="anonymous"></script>` : "",
+      // Google AdSense — every account the site authorises gets its meta tag (adsense-stack.json); one loader, the
+      // primary account (site.json "adsense"). /ads.txt lists the same accounts.
+      ad ? ad.accounts.map((a) => metaTag(esc(a))).join("\n") : "",
+      ad ? loaderTag(esc(ad.primary)) : "",
       site.fonts ? `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${esc(site.fonts)}">` : "",
       `<link rel="stylesheet" href="${asset("palace.css")}">`,
       site.promo ? promoStyle(`/${site.promo.slug}/`) : "",
@@ -399,7 +402,7 @@ export async function build(domain, { quiet = false } = {}) {
   for (const extra of extras) emit(extra.path, extra.content);
 
   // ── Machine files ─────────────────────────────────────────────────────
-  if (pub) writeFileSync(join(out, "ads.txt"), `google.com, ${pub}, DIRECT, f08c47fec0942fa0\n`);
+  if (ad) writeFileSync(join(out, "ads.txt"), adsTxt(ad.accounts));
   // The web app manifest: the icons Android, Chrome and search show for the site. A plain
   // "browser" display — these are reading sites, not apps.
   writeFileSync(

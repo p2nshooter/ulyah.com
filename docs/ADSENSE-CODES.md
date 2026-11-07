@@ -10,6 +10,20 @@ Situs di `sites/` juga punya salinan di `sites/<domain>/ADSENSE.txt`.
 karakter saja dari file itu. Situs lain diperiksa di browser oleh
 `.github/workflows/site-audit.yml`.
 
+> **7 Nov 2026 — BERLAKU SEKARANG: 16 AKUN DITUMPUK DI SETIAP DOMAIN.** Pemilik: „Tolong kode2 adsense ini di
+> tumpuk aja di dusun yg rapih agar tidak saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website
+> memakai beberapa kode adsense dari akun yg berbeda buatkan cuplikan adsense, ads.txt dan tag metanya“, „Untuk kode
+> adsense domain ini, kode adsense yg sudah ada biarkan saja, jgn di hapus, tambahin dengan kode adsense baru“ (axto.us,
+> rubiy.de, xad.es, zolun.de, dawo.es, zuvik.de, crone.skin, lie.skin, qkb.es, rough.lat, saved.lat) dan „Domain yg lain
+> kode adsensenya boleh di hapus ikuti dengan perintah terbaru“.
+>
+> - **Sumber tunggal:** `adsense-stack.json` di akar repo ini (16 akun, akun utama per domain, daftar keep).
+> - **Daftar lengkap per domain** (loader, semua tag meta, semua baris ads.txt): `docs/ADSENSE-SEMUA-DOMAIN.txt`,
+>   dibuat ulang dengan `node scripts/adsense-summary.mjs`.
+> - **Cara menumpuk:** satu baris ads.txt dan satu tag meta per akun; **satu loader** per halaman (akun utama), karena
+>   Google mengabaikan tag kepala AdSense kedua di halaman yang sama. Auto ads saja.
+> - Bagian-bagian di bawah ini adalah **riwayat** sebelum 7 Nov 2026.
+
 > **4 Okt 2026, SATU AKUN UNTUK SEMUA.** Pemilik: "sy mau focus jadi 1 akun
 > saja… Ubah seluruh website ini kode AdSense, ads.txt & tag meta nya" dan
 > "xad.es & xaa.es … samain … yg jgn di sentuh adalah dawa.es karena bukan

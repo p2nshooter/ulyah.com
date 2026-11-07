@@ -1,0 +1,94 @@
+{
+  "_comment": [
+    "AdSense stack — the ONE list of publisher accounts per domain (owner, 7 Nov 2026: 'kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website memakai beberapa kode adsense dari akun yg berbeda').",
+    "How a domain uses it (docs/ADSENSE-BLUEPRINT.md §23): every account in accounts(domain) gets its own google-adsense-account meta tag and its own ads.txt line, so each account can verify the site by meta tag or by ads.txt. Exactly ONE loader script per page, the domain's primary account: Google ignores a second AdSense head tag on the same page ('Only one AdSense head tag supported per page'), so stacking loaders would only add console errors.",
+    "accounts(domain) = [primary[domain], ...stack] without duplicates, in that order.",
+    "keep: the owner's list of domains whose existing code stays ('kode adsense yg sudah ada biarkan saja, jgn di hapus, tambahin dengan kode adsense baru'); their primary is that existing code. Every other domain's old code is removed ('Domain yg lain kode adsensenya boleh di hapus ikuti dengan perintah terbaru') and its primary is one of the 16 stacked accounts.",
+    "Copies: apps/web/src/lib/ad-config.ts and detektor-artikel/src/pages/ui.ts hold the same values (scripts/check-ads.ts compares them with this file); the partner repositories (axto.us, axtodev, guardian-ai, xaa, Jai, Lie, oldco.in, profity.in) carry their own copy; scripts/site-audit.mjs checks every live domain against this file.",
+    "Publisher ids are public by nature (every ads.txt shows them). dawa.es is not the owner's and is never listed. zufiq.de is not in the owner's list of 7 Nov 2026 and keeps its single account."
+  ],
+  "since": "2026-11-07",
+  "stack": [
+    "ca-pub-9915280882234592",
+    "ca-pub-9354298681597606",
+    "ca-pub-6560360898389273",
+    "ca-pub-5928074389292014",
+    "ca-pub-1480130604232181",
+    "ca-pub-5092800160376210",
+    "ca-pub-7250589269548267",
+    "ca-pub-6381187608934514",
+    "ca-pub-4304267428455702",
+    "ca-pub-6293576511807510",
+    "ca-pub-9221781326457936",
+    "ca-pub-4906992051458194",
+    "ca-pub-9433622530024776",
+    "ca-pub-6146217038829045",
+    "ca-pub-2493615451319531",
+    "ca-pub-5693981744147503"
+  ],
+  "keep": [
+    "axto.us",
+    "rubiy.de",
+    "xad.es",
+    "zolun.de",
+    "dawo.es",
+    "zuvik.de",
+    "crone.skin",
+    "lie.skin",
+    "qkb.es",
+    "rough.lat",
+    "saved.lat"
+  ],
+  "primary": {
+    "axto.io": "ca-pub-9915280882234592",
+    "xaa.es": "ca-pub-9354298681597606",
+    "xscan.es": "ca-pub-9354298681597606",
+
+    "ulyah.com": "ca-pub-5092800160376210",
+    "tilawa.de": "ca-pub-6560360898389273",
+    "1fr.fr": "ca-pub-5928074389292014",
+    "xad.es": "ca-pub-5517446616694631",
+    "dawa.im": "ca-pub-9354298681597606",
+
+    "byodd.de": "ca-pub-1480130604232181",
+    "byoxy.de": "ca-pub-6146217038829045",
+    "byoy.de": "ca-pub-5092800160376210",
+    "nexvilo.de": "ca-pub-7250589269548267",
+    "qarf.de": "ca-pub-4304267428455702",
+    "qulen.de": "ca-pub-6381187608934514",
+    "qurm.de": "ca-pub-4304267428455702",
+    "rubiy.de": "ca-pub-2990015102981265",
+    "velnixo.de": "ca-pub-6293576511807510",
+    "zavik.de": "ca-pub-9221781326457936",
+    "zevok.de": "ca-pub-6560360898389273",
+    "zoevian.de": "ca-pub-5928074389292014",
+    "zolun.de": "ca-pub-6016479123891586",
+    "zuvik.de": "ca-pub-4613976964728693",
+
+    "axto.dev": "ca-pub-6381187608934514",
+
+    "dawo.es": "ca-pub-7349356139063654",
+    "qkb.es": "ca-pub-3121033501099075",
+    "rough.es": "ca-pub-4906992051458194",
+    "xko.es": "ca-pub-4906992051458194",
+    "ascan.es": "ca-pub-9433622530024776",
+    "jenius.es": "ca-pub-6146217038829045",
+
+    "oldco.in": "ca-pub-6293576511807510",
+    "profity.in": "ca-pub-2493615451319531",
+
+    "dai.lat": "ca-pub-2493615451319531",
+    "jai.lat": "ca-pub-5693981744147503",
+    "pab.lat": "ca-pub-7250589269548267",
+    "rough.lat": "ca-pub-9246828178432700",
+    "saved.lat": "ca-pub-9246828178432700",
+
+    "crone.skin": "ca-pub-9653574958783349",
+    "lie.skin": "ca-pub-2271696914011881",
+
+    "axto.us": "ca-pub-2990015102981265",
+
+    "odaily.xyz": "ca-pub-9221781326457936",
+    "xdaily.xyz": "ca-pub-5693981744147503"
+  }
+}

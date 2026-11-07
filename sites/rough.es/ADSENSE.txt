@@ -1,14 +1,41 @@
-AdSense rough.es — kode dari Google, ditulis manual (jangan diubah tanpa kode baru dari Google).
-Pemilik, 20 Okt 2026 (sebelumnya ca-pub-6908951782430508 sejak 14 Okt, dan ca-pub-5693981744147503 sejak 10 Okt).
-Engine memasang ketiganya otomatis dari "adsense" di site.json; check.mjs menolak deploy kalau hasil build tidak sama
-persis dengan file ini.
+AdSense rough.es — 16 akun (adsense-stack.json, docs/ADSENSE-BLUEPRINT.md §23)
 
-Cuplikan adsense (di <head> setiap halaman)
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4504974645924459"
+Cuplikan adsense (di <head> setiap halaman — satu loader saja, akun utama)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4906992051458194"
      crossorigin="anonymous"></script>
 
 Cuplikan ads.txt (https://rough.es/ads.txt)
-google.com, pub-4504974645924459, DIRECT, f08c47fec0942fa0
+google.com, pub-4906992051458194, DIRECT, f08c47fec0942fa0
+google.com, pub-9915280882234592, DIRECT, f08c47fec0942fa0
+google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0
+google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0
+google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0
+google.com, pub-1480130604232181, DIRECT, f08c47fec0942fa0
+google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0
+google.com, pub-7250589269548267, DIRECT, f08c47fec0942fa0
+google.com, pub-6381187608934514, DIRECT, f08c47fec0942fa0
+google.com, pub-4304267428455702, DIRECT, f08c47fec0942fa0
+google.com, pub-6293576511807510, DIRECT, f08c47fec0942fa0
+google.com, pub-9221781326457936, DIRECT, f08c47fec0942fa0
+google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0
+google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
+google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
+google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
 
-Tag meta (di <head> setiap halaman)
-<meta name="google-adsense-account" content="ca-pub-4504974645924459">
+Tag meta (di <head> setiap halaman — satu per akun)
+<meta name="google-adsense-account" content="ca-pub-4906992051458194">
+<meta name="google-adsense-account" content="ca-pub-9915280882234592">
+<meta name="google-adsense-account" content="ca-pub-9354298681597606">
+<meta name="google-adsense-account" content="ca-pub-6560360898389273">
+<meta name="google-adsense-account" content="ca-pub-5928074389292014">
+<meta name="google-adsense-account" content="ca-pub-1480130604232181">
+<meta name="google-adsense-account" content="ca-pub-5092800160376210">
+<meta name="google-adsense-account" content="ca-pub-7250589269548267">
+<meta name="google-adsense-account" content="ca-pub-6381187608934514">
+<meta name="google-adsense-account" content="ca-pub-4304267428455702">
+<meta name="google-adsense-account" content="ca-pub-6293576511807510">
+<meta name="google-adsense-account" content="ca-pub-9221781326457936">
+<meta name="google-adsense-account" content="ca-pub-9433622530024776">
+<meta name="google-adsense-account" content="ca-pub-6146217038829045">
+<meta name="google-adsense-account" content="ca-pub-2493615451319531">
+<meta name="google-adsense-account" content="ca-pub-5693981744147503">
