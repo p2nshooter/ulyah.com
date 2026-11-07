@@ -851,5 +851,62 @@ Hitung halaman normal (kata, karakter, token, teks tersembunyi) · reset minggua
 anggaran harian habis (antrean, berbayar tetap jalan) · akun ketiga dari jaringan yang sama (tanpa kuota) · Haiku saja
 di mode gratis (mock Anthropic memastikan tidak ada panggilan Sonnet/Opus) · loader hanya di halaman yang diizinkan.
 
+### 20.9 Prediksi biaya kuota gratis (pemilik, 7 Nov 2026)
+
+Pemilik: „buatkan prediksi habis berapa rupiah/berapa token untuk gratis member 10 halaman, dan logika jika 100 member
+menggunakan setiap minggu“.
+
+Dihitung dengan fungsi harga aplikasi sendiri (`src/engine/pricing.ts`, nilai bawaan `src/data/settings.ts`): kurs
+**Rp16.500 per US$**, **1 token internal = US$0,001 biaya API**, markup bawaan **20×** (harga jual 1 token = Rp330), harga
+Claude Haiku 5.5 **US$0,10 masukan / US$0,50 keluaran / US$0,01 baca-cache per 1 juta token**.
+
+**Satu halaman normal, Cek Gratis (Haiku, satu lintasan):**
+
+| Kasus | Token AI masukan | Token AI keluaran | Biaya | Rupiah | Token internal |
+|---|---|---|---|---|---|
+| Khas (±500 kata, prompt sistem dari cache) | 1.000 + 1.200 dari cache | 600 | US$0,00041 | ±Rp7 | 1 |
+| Terburuk (halaman Legal penuh, tanpa cache, keluaran maksimum) | 2.800 | 900 | US$0,00073 | ±Rp12 | 1 |
+
+Sebagai pembanding, mode „Haiku“ yang sudah ada di aplikasi (analisis per kalimat, dua lintasan) memakai rata-rata
+5 token untuk 700 kata. Cek Gratis satu lintasan 7–12× lebih murah; karena itu kuota gratis memakai desain ini, bukan
+mode Haiku penuh.
+
+**Satu member, kuota penuh 10 halaman per minggu:**
+
+| | Khas | Terburuk |
+|---|---|---|
+| Biaya API per minggu | US$0,0041 → **Rp68** | US$0,0073 → **Rp120** |
+| Token internal | 5 token | 8 token |
+| Nilai jual setara (markup 20×, Rp330 per token) | ±Rp1.650 | ±Rp2.640 |
+
+Nilai jual setara ditampilkan kepada member („kuota gratis Anda minggu ini senilai ±Rp2.640“), supaya ajakan berbayar
+terasa wajar.
+
+**Logika 100 member (dan skala lebih besar), semua menghabiskan 10 halaman setiap minggu:**
+
+| Member aktif per minggu | Biaya per minggu (khas – terburuk) | Biaya per bulan (×52/12, terburuk) |
+|---|---|---|
+| 100 | Rp6.798 – **Rp12.045** | ±**Rp52.195** |
+| 1.000 | Rp67.980 – Rp120.450 | ±Rp521.950 |
+| 10.000 | Rp679.800 – Rp1.204.500 | ±Rp5.219.500 |
+
+Kenyataannya lebih kecil: tidak semua member memakai seluruh kuota, naskah yang sama dalam 7 hari tidak dihitung lagi,
+dan prompt sistem dibaca dari cache.
+
+**Kapan biaya gratis tertutup (titik impas):**
+
+- **Dari penjualan:** paket terkecil Starter 300 token = Rp99.000 dengan modal API maksimum Rp4.950 (laba kotor ±Rp94.050
+  sebelum biaya gateway). Satu pembelian Starter per bulan menutup biaya gratis **±180 member aktif** dalam kasus terburuk
+  (Rp94.050 ÷ Rp521,95 per member per bulan). Jadi cukup ±0,6 % member gratis yang membeli Starter sekali sebulan.
+- **Dari iklan:** biaya terburuk Rp120 per member per minggu. Tayangan halaman ber-iklan yang dibutuhkan per member per
+  minggu = `120 ÷ (RPM ÷ 1.000)`. RPM sebenarnya baru diketahui dari laporan AdSense; sebagai **contoh hitungan saja**:
+  RPM Rp5.000 → 24 tayangan; RPM Rp15.000 → 8 tayangan; RPM Rp30.000 → 4 tayangan per minggu.
+- **Anggaran gratis harian** bawaan US$5 = 6.849 halaman terburuk per hari = kuota mingguan ±4.800 member. Untuk 100
+  member kebutuhan nyatanya hanya ±US$0,10 per hari; admin bisa menurunkan anggaran ke angka yang dipilih, dan dasbor
+  Admin → Biaya menampilkan biaya gratis nyata per hari dan per minggu dari `ai_usage`, berdampingan dengan prediksi ini.
+
+Semua angka berubah otomatis bila admin mengubah harga model, kurs, satuan token, markup (5–500×), atau ukuran halaman
+normal: tabel ini dibuat dari rumus yang sama dan tampil di Admin → Kuota gratis sebagai „Prediksi biaya“.
+
 Fase: masuk **X1** (sebelum ascan.es A0 tayang), untuk kedua merek.
 
