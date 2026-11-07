@@ -1822,4 +1822,23 @@ kode AdSense.
 
 ## 27. R2 situs islami > 10 GB → di bawah 5 GB (pemilik, 7 Nov 2026)
 
-Cari cache yang membesar, hapus yang tidak berpengaruh pada situs. | ⏳
+Diukur dari pemeliharaan malam 7 Nov 2026 06.13 UTC (`wrangler r2 bucket info`):
+
+| Bucket | Isi | Ukuran | Bisa dibersihkan tanpa efek? |
+|---|---|---|---|
+| `ulyah-next-cache` | cache halaman OpenNext ulyah.com, 1fr.fr, tilawa.de, xad.es, dawa.im — kunci `inc-<situs>/<buildId>/…`; setiap deploy memulai set baru yang diisi ulang oleh crawler | **6,28 GB** (33.526 objek) | ya: entri yang hilang dirender ulang saat dikunjungi; halaman yang dipakai ditulis ulang saat revalidasi |
+| `ulyah-media` | kitab, PDF, audio anak, unggahan | 264 MB | tidak — data asli |
+| `axto-us-opennext-cache` | cache OpenNext lama axto.us (sekarang situs statis, #26) | diukur `r2-report.yml` | ya: tidak dibaca siapa pun |
+| `ulyah-build`, `axto-build`, `axto-assets`, `axto-dev-*`, `xaa-*`, `detektor-*` | — | diukur `r2-report.yml` | diputuskan dari angka; data asli tidak disentuh |
+
+Perbaikan:
+- aturan *lifecycle* `ulyah-next-cache` 2 hari → **1 hari** (minimum R2);
+- `axto-us-opennext-cache` dikosongkan oleh aturan *lifecycle* 1 hari (`.github/r2-lifecycle/axto-us-opennext-cache.json`);
+- `.github/workflows/r2-report.yml`: laporan setiap bucket di akun (ukuran, objek, aturan, prefix terbesar), mingguan dan
+  setiap aturan berubah.
+
+| Butir | Status |
+|---|---|
+| Ukur | ✅ 7 Nov (dua bucket); semua bucket 🔄 `r2-report.yml` |
+| Aturan baru terpasang (deploy setelah merge) | 🔄 |
+| Total R2 < 5 GB | ⏳ dicek ulang 1–2 hari setelah aturan berlaku (R2 menghapus secara asinkron) |
