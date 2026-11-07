@@ -1822,23 +1822,27 @@ kode AdSense.
 
 ## 27. R2 situs islami > 10 GB → di bawah 5 GB (pemilik, 7 Nov 2026)
 
-Diukur dari pemeliharaan malam 7 Nov 2026 06.13 UTC (`wrangler r2 bucket info`):
+Diukur 7 Nov 2026 (pemeliharaan malam 06.13 UTC, lalu `r2-report.yml` 23.50 UTC untuk **setiap** bucket di akun):
 
 | Bucket | Isi | Ukuran | Bisa dibersihkan tanpa efek? |
 |---|---|---|---|
-| `ulyah-next-cache` | cache halaman OpenNext ulyah.com, 1fr.fr, tilawa.de, xad.es, dawa.im — kunci `inc-<situs>/<buildId>/…`; setiap deploy memulai set baru yang diisi ulang oleh crawler | **6,28 GB** (33.526 objek) | ya: entri yang hilang dirender ulang saat dikunjungi; halaman yang dipakai ditulis ulang saat revalidasi |
-| `ulyah-media` | kitab, PDF, audio anak, unggahan | 264 MB | tidak — data asli |
-| `axto-us-opennext-cache` | cache OpenNext lama axto.us (sekarang situs statis, #26) | diukur `r2-report.yml` | ya: tidak dibaca siapa pun |
-| `ulyah-build`, `axto-build`, `axto-assets`, `axto-dev-*`, `xaa-*`, `detektor-*` | — | diukur `r2-report.yml` | diputuskan dari angka; data asli tidak disentuh |
+| `ulyah-next-cache` | cache halaman OpenNext situs islami — kunci `inc-<situs>/<buildId>/…`; setiap deploy memulai set baru yang diisi ulang crawler (contoh: `inc-1fr/<build>/` 3.019 objek = 663 MB, `inc-dawaim/<build>/` 1.917 objek = 242 MB) | 6,28 GB pagi → **5,27 GB** malam (28.621 objek, ±220 KB per halaman) | **ya**: entri yang hilang dirender ulang saat dikunjungi; halaman yang dipakai ditulis ulang saat revalidasi |
+| `ulyah-media` | isi cerita (`stories/body/` 177 MB), terjemahan kitab pesantren, e-book kisah, media situs | 265 MB | tidak — data asli |
+| `axto-us-opennext-cache`, `ulyah-build`, `axto-build`, `axto-assets`, `axto-dev-assets`, `axto-dev-ebooks`, `xaa-uploads` | — | 0 B | tidak ada isi |
+| `detektor-data`, `detektor-backups`, `xaa-data`, `xaa-backups` | data dan cadangan xscan.es dan xaa.es | < 0,1 MB | tidak — data asli |
+| **Total** | | **5,54 GB** | |
+
+Jadi „cache“ yang membuat R2 besar adalah satu-satunya: cache halaman OpenNext. Angka >10 GB yang dilihat pemilik adalah
+saat cache dua hari terisi penuh setelah beberapa deploy berturut-turut (setiap deploy = set baru).
 
 Perbaikan:
 - aturan *lifecycle* `ulyah-next-cache` 2 hari → **1 hari** (minimum R2);
-- `axto-us-opennext-cache` dikosongkan oleh aturan *lifecycle* 1 hari (`.github/r2-lifecycle/axto-us-opennext-cache.json`);
+- `axto-us-opennext-cache` (sudah kosong, tidak dipakai lagi sejak axto.us statis) dijaga tetap kosong oleh aturan 1 hari;
 - `.github/workflows/r2-report.yml`: laporan setiap bucket di akun (ukuran, objek, aturan, prefix terbesar), mingguan dan
   setiap aturan berubah.
 
 | Butir | Status |
 |---|---|
-| Ukur | ✅ 7 Nov (dua bucket); semua bucket 🔄 `r2-report.yml` |
+| Ukur semua bucket | ✅ 7 Nov — total 5,54 GB, 95 % cache halaman |
 | Aturan baru terpasang (deploy setelah merge) | 🔄 |
 | Total R2 < 5 GB | ⏳ dicek ulang 1–2 hari setelah aturan berlaku (R2 menghapus secara asinkron) |
