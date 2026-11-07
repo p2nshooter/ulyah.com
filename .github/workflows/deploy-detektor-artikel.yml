@@ -133,9 +133,16 @@ jobs:
           curl -sf "$URL/api/health"
           ads=$(curl -sf "$URL/ads.txt")
           echo "ads.txt: $ads"
-          [ "$ads" = "google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0" ] || { echo "::error::ads.txt salah"; exit 1; }
+          # 7 Nov 2026: 16 akun ditumpuk (adsense-stack.json di akar repo) — satu baris ads.txt dan satu tag meta per akun,
+          # akun utama lebih dulu; satu loader (akun utama). docs/ADSENSE-BLUEPRINT.md §23.
+          STACK="$GITHUB_WORKSPACE/adsense-stack.json"
+          want=$(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const a=[...new Set([s.primary["xscan.es"],...s.stack])];process.stdout.write(a.map(c=>"google.com, "+c.replace(/^ca-/,"")+", DIRECT, f08c47fec0942fa0").join("\n"))' "$STACK")
+          [ "$ads" = "$want" ] || { echo "::error::ads.txt salah (harus $(echo "$want" | wc -l) baris dari adsense-stack.json)"; exit 1; }
           home=$(curl -sfL "$URL/")
-          echo "$home" | grep -q 'name="google-adsense-account" content="ca-pub-9354298681597606"' || { echo "::error::tag meta AdSense hilang"; exit 1; }
+          for c in $(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));console.log([...new Set([s.primary["xscan.es"],...s.stack])].join(" "))' "$STACK"); do
+            echo "$home" | grep -q "name=\"google-adsense-account\" content=\"$c\"" || { echo "::error::tag meta AdSense $c hilang"; exit 1; }
+          done
+          [ "$(echo "$home" | grep -o 'adsbygoogle.js?client=' | wc -l)" = "1" ] || { echo "::error::harus tepat satu loader AdSense"; exit 1; }
           echo "$home" | grep -q 'adsbygoogle.js?client=ca-pub-9354298681597606' || { echo "::error::loader AdSense hilang"; exit 1; }
           if curl -sf "$URL/robots.txt" | grep -qx 'Disallow: /'; then echo "::error::robots.txt menutup situs"; exit 1; fi
           {
@@ -143,5 +150,5 @@ jobs:
             echo ""
             echo "- Situs publik: $URL"
             [ -n "$WORKERS_URL" ] && [ "$WORKERS_URL" != "$URL" ] && echo "- Alamat cadangan: $WORKERS_URL"
-            echo "- AdSense: meta + loader + ads.txt ca-pub-9354298681597606 ✅"
+            echo "- AdSense: loader ca-pub-9354298681597606 + tag meta dan ads.txt untuk 16 akun ✅"
           } >> "$GITHUB_STEP_SUMMARY"
