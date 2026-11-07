@@ -1,0 +1,75 @@
+name: R2 storage report (every bucket)
+
+# Read-only. Owner, 7 Nov 2026: „chache apa yg situs islami yg menjadikan R2 lebih dr 10Gb...jika di bersihkan tidak
+# berpengaruh sama sekali, bersihkan saja, agar R2 di bawah 5gb“. The nightly D1 maintenance only reads two buckets;
+# this reads every bucket in the account: size, object count, lifecycle rules, and — where the account's API allows
+# listing — the largest top-level prefixes of each bucket over 200 MB. Deleting is done by the lifecycle rules in
+# .github/r2-lifecycle/ (installed by deploy.yml), never by this workflow.
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '37 7 * * 1'
+  push:
+    branches: [main, claude/adsense-xscan-prep-4k7ewe]
+    paths:
+      - '.github/workflows/r2-report.yml'
+      - '.github/r2-lifecycle/**'
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Every bucket, its size and its rules
+        run: |
+          set -u
+          npm i -g wrangler@4.156.0 >/dev/null 2>&1
+          CF="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID"
+          AUTH="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          buckets=$(curl -s -H "$AUTH" "$CF/r2/buckets?per_page=100" | jq -r '.result.buckets[]?.name')
+          echo "### R2 buckets" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Bucket | Size | Objects | Lifecycle rules |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          total=0
+          for b in $buckets; do
+            info=$(wrangler r2 bucket info "$b" 2>/dev/null || true)
+            size=$(echo "$info" | sed -n 's/^bucket_size:[[:space:]]*//p' | head -1)
+            count=$(echo "$info" | sed -n 's/^object_count:[[:space:]]*//p' | head -1)
+            rules=$(wrangler r2 bucket lifecycle list "$b" 2>/dev/null | sed -n 's/^name:[[:space:]]*//p' | paste -sd, - || true)
+            bytes=$(node -e 'const s=(process.argv[1]||"0 B").trim();const m=/^([\d.,]+)\s*(B|kB|KB|MB|GB|TB)$/.exec(s);if(!m){console.log(0);process.exit()}const n=parseFloat(m[1].replace(/,/g,""));const f={B:1,kB:1e3,KB:1e3,MB:1e6,GB:1e9,TB:1e12}[m[2]];console.log(Math.round(n*f))' "${size:-0 B}")
+            total=$((total + bytes))
+            echo "$b  size=${size:-?}  objects=${count:-?}  rules=${rules:-none}"
+            echo "| $b | ${size:-?} | ${count:-?} | ${rules:-none} |" >> "$GITHUB_STEP_SUMMARY"
+            if [ "${bytes:-0}" -gt 200000000 ]; then
+              # Top-level prefixes of the first 5,000 keys, when the account API lists objects.
+              cursor=""; : > /tmp/keys.txt
+              for page in 1 2 3 4 5; do
+                url="$CF/r2/buckets/$b/objects?per_page=1000${cursor:+&cursor=$cursor}"
+                resp=$(curl -s -H "$AUTH" "$url")
+                echo "$resp" | jq -r '.result[]? | "\(.key)\t\(.size)"' >> /tmp/keys.txt 2>/dev/null || break
+                cursor=$(echo "$resp" | jq -r '.result_info.cursor // empty' 2>/dev/null)
+                [ -n "$cursor" ] || break
+              done
+              if [ -s /tmp/keys.txt ]; then
+                echo "  top prefixes in the first $(wc -l < /tmp/keys.txt) keys of $b:"
+                awk -F'\t' '{split($1,p,"/"); k=(p[2]==""?p[1]:p[1]"/"p[2]"/"); s[k]+=$2; c[k]++} END {for (k in s) printf "%14d  %7d  %s\n", s[k], c[k], k}' /tmp/keys.txt | sort -rn | head -15
+              else
+                echo "  (object listing not available with this token)"
+              fi
+            fi
+          done
+          gb=$(node -e "console.log((${total}/1e9).toFixed(2))")
+          echo "TOTAL ${gb} GB (target < 5 GB, free tier 10 GB)"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Total: ${gb} GB** (target < 5 GB; free tier 10 GB)" >> "$GITHUB_STEP_SUMMARY"

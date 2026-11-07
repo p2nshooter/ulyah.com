@@ -16,7 +16,18 @@ active rules, so the effect is visible in its log.
 | ulyah-media | `audio/story/` | 1 day | Text-to-speech audiobooks (eSpeak/Piper, ~26 MB each) generated daily for thousands of machine-compiled sessions — ~91 GB. Derived data: regenerable from the text, and the reader already narrates every article in the visitor's browser (`StoryReader`, Web Speech), in every language, for 0 bytes. |
 | ulyah-media | `audio/qori/`, `audio/qori2/` | 1 day | Murottal copies. Recitation is played from the reciters' own CDNs (`apps/web/src/lib/qori-cdn.ts`); `/audio/qori2/…` only redirects there. |
 | ulyah-media | (all) | 1 day | Incomplete multipart uploads only — never a finished object. |
-| ulyah-next-cache | (all) | 2 days | OpenNext's rendered-page cache. Keys are `inc-<site>/<buildId>/…`, and every deploy starts a new buildId, so entries of old builds were never read again and never deleted (509 deploys). A page still in use is re-written on each revalidation and never reaches 2 days; a cold one is simply rendered again. |
+| ulyah-next-cache | (all) | 1 day (was 2 days until 7 Nov 2026) | OpenNext's rendered-page cache. Keys are `inc-<site>/<buildId>/…`, and every deploy starts a new buildId, so entries of old builds were never read again and never deleted (509 deploys). A page still in use is re-written on each revalidation and never reaches 2 days; a cold one is simply rendered again. |
+
+| axto-us-opennext-cache | (all) | 1 day | The old OpenNext page cache of axto.us. axto.us has been a static site (Workers Static Assets, `sites/_engine` in the axto.us repository) since its rebuild (#26), so nothing reads or writes this bucket any more; the rule empties it and keeps it empty. |
+
+**7 Nov 2026 (owner):** „Tolong di cek juga, chache apa yg situs islami yg menjadikan R2 lebih dr 10Gb...jika di
+bersihkan tidak berpengaruh sama sekali, bersihkan saja, agar R2 di bawah 5gb“. Measured that morning by the nightly
+maintenance: ulyah-next-cache 6.28 GB (33,526 objects) — rendered pages of the last two days of builds, each deploy
+starting a fresh `inc-<site>/<buildId>/` set that crawlers fill again — and ulyah-media 264 MB. The page cache is the
+part that can go without any effect: a deleted entry is rendered again on the next visit, and a page that is visited is
+re-written on revalidation, so it never ages out while it is in use. The rule therefore drops to 1 day, the shortest R2
+allows, and the orphaned axto.us cache is emptied. `.github/workflows/r2-report.yml` reports every bucket of the account
+(size, objects, rules, top prefixes) so the remaining buckets (ulyah-build, axto-build, …) are decided from numbers.
 
 Everything else in ulyah-media — kitab files, story PDFs, kids' audio recorded
 in the admin, uploaded media, story bodies and translations spilled from D1 —
