@@ -84,7 +84,7 @@ test('kemiripan & overlap regenerasi', () => {
   assert.ok(regenOverlap(a, a) > 0.9);
 });
 
-test('token: satuan tetap, harga ikut markup 10–500×', () => {
+test('token: satuan tetap, harga ikut markup 5–500×', () => {
   const b20 = { ...DEFAULT_BILLING, markup: 20 };
   const b200 = { ...DEFAULT_BILLING, markup: 200 };
   const e20 = estimateTokens(1000, 'auto', true, b20, DEFAULT_ENGINE);
@@ -200,7 +200,7 @@ test('afiliasi: komisi 15% tepat sekali per pesanan', async () => {
 
 test('pengaman tidak-rugi: pesanan ≥ biaya terburuk pada markup minimum, diskon & komisi terbesar', async () => {
   const { hardBoundUsd } = await import('../src/engine/pricing.ts');
-  for (const markup of [10, 20, 500]) {
+  for (const markup of [5, 10, 20, 500]) {
     const b = { ...DEFAULT_BILLING, markup, packages: DEFAULT_BILLING.packages.map((p) => ({ ...p, discountPct: 50 })) };
     assert.equal(minRevenueMultiple(b), markup * 0.5);
     for (const mode of ['auto', 'haiku', 'sonnet', 'opus', 'forensic'] as const) {
