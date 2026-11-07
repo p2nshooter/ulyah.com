@@ -40,6 +40,7 @@ Tanda status: ✅ sudah ada dan teruji · 🟡 ada sebagian · ❌ belum ada · 
 17. Tahapan pembangunan dan definisi selesai
 18. Keputusan pemilik yang dibutuhkan
 19. ascan.es — bisnis kembar dengan wajah, kata, dan CSS yang berbeda 100 %
+20. Kuota gratis 10 halaman per minggu, anti-curang, dan iklan di area member
 
 ---
 
@@ -57,7 +58,7 @@ Tanda status: ✅ sudah ada dan teruji · 🟡 ada sebagian · ❌ belum ada · 
 | 8 | **Kredit diberikan hanya setelah pembayaran terverifikasi** (webhook bertanda tangan atau persetujuan admin atas bukti transfer), tidak dari halaman redirect. | Master_xscan Bagian 16 |
 | 9 | **Kunci API tidak pernah ke browser**, tidak ada di kode, log, atau prompt; tersimpan terenkripsi, diisi lewat portal admin. | Master_xscan §52 |
 | 10 | **Rahasia perusahaan** (markup, modal, margin) tidak tampil ke member. | blueprint 2 Nov §Q |
-| 11 | **AdSense hanya di halaman publik yang bisa diindeks** (beranda, artikel, panduan, rubrik publik). Tidak pernah di portal member/admin, laporan, halaman cetak, atau halaman bayar. Auto ads saja; satu loader; 16 akun ditumpuk (`adsense-stack.json`). | `docs/ADSENSE-BLUEPRINT.md` §1, §23 |
+| 11 | **AdSense di halaman yang berisi konten:** halaman publik (beranda, artikel, panduan, rubrik, alat) dan — sejak 7 Nov 2026 (§20.6) — halaman konten di area member gratis (ruang belajar, beranda member gratis, laporan gratis beserta panduannya). **Tidak pernah** di layar unggah, layar menunggu proses, pembayaran/isi saldo, masuk/daftar, pengaturan, error, versi cetak, admin, dan halaman member berbayar (bebas iklan). Auto ads saja; satu loader; 16 akun ditumpuk (`adsense-stack.json`). | `docs/ADSENSE-BLUEPRINT.md` §1, §23; §20 |
 | 12 | **Artikel ditulis, bukan diterjemahkan mesin.** Versi Inggris setiap artikel ditulis sendiri (bukan auto-translate). Tidak ada fakta, angka, kutipan, atau studi karangan. | pemilik 7 Nov 2026 |
 | 13 | **Tidak ada satu pun aturan yang memblokir crawler Google.** | pemilik 1 Nov 2026 |
 | 14 | **Tanpa agent untuk menulis atau memperbaiki.** | `docs/ADSENSE-BLUEPRINT.md` §1 no. 13 |
@@ -328,6 +329,11 @@ berlaku dicatat di setiap transaksi.
 
 `Biaya API (USD) = token_in/1e6 × harga_in + token_out/1e6 × harga_out + cache + biaya lain` → IDR (kurs USD/IDR diatur
 admin) → kredit → `+ biaya layanan` (persen, diatur admin, **rahasia** — member hanya melihat harga per mesin).
+
+**Markup harga token: 5–500×** (harga = modal × markup; pemilik, 7 Nov 2026: „Dr 5-500 saja“, sebelumnya 10–500×).
+Dibatasi di server; slider dan pilihan cepat 5×, 10×, 20×, 50×, 100×, 200×, 500× di Admin → Harga & token. Penjaga
+„tidak rugi“ (uji `engine.test.ts`) memastikan pada 5× dengan diskon paket 50 % dan komisi afiliasi terbesar, token yang
+direservasi tetap menutup biaya API terburuk.
 
 ### 9.3 Struktur dompet member
 
@@ -704,4 +710,146 @@ pública. Daftar lengkap ditulis saat fase A0.
 | A2 | Desain + animasi + laporan premium ascan (§19.3–19.4) dan penyegaran xscan |
 | A3 | Artikel ES/EN bertahap + alat gratis versi ascan |
 | A4 | Fase X1–X7 berlaku untuk kedua merek (satu mesin) |
+
+---
+
+## 20. Kuota gratis 10 halaman per minggu, anti-curang, dan iklan di area member
+
+Perintah pemilik, 7 Nov 2026 (berlaku untuk xscan.es dan ascan.es):
+
+> „Ascan.es dan xsca.es bikin gratis 10 halaman / minggu, reset setiap minggu, dan berikan jika sisa kuota halaman
+> melebihi kuota dan saran kan untuk isi saldo, untuk gratis gunakan teknologi yg paling murah, haiku yg paling murah to
+> tetep optimal, dan sarankan untuk berbayar jika ingin mendapatkan hasil yg lebih memuaskan, kembangin dulu logika ini
+> agar lebih ketat dan member yg kuota halaman sisa sedikit namun upload banyak, atau di rata2 perkata di setiap halaman,
+> agar client tidak upload halaman super panjang, maximal kertas legal, coba kembangkan dulu agar perusahaan tidak rugi,
+> client tidak curang. Dan client bisa berlama2 di dalam, agar iklan dari adsense nanti nya bisa sisipkan di situ“
+
+### 20.1 Satu „halaman“ diukur dari teks, bukan dari berkas
+
+Jumlah halaman berkas (PDF/DOCX) **tidak dipercaya**: satu halaman bisa diperkecil hurufnya atau dipanjangkan. Yang
+dihitung adalah **halaman normal** dari teks yang benar-benar dikirim ke model:
+
+> 1 halaman normal = kertas **Legal** (8,5 × 14 inci), satu spasi, huruf 12 pt = **maks. 700 kata, atau 4.800 karakter
+> (termasuk spasi), atau 1.600 token masukan — mana pun yang tercapai lebih dulu.**
+
+`halaman = max(⌈kata/700⌉, ⌈karakter/4.800⌉, ⌈token/1.600⌉)`, minimal 1 per pemeriksaan.
+
+- Tiga ukuran sekaligus menutup celah: kata yang sangat panjang (karakter), teks tanpa spasi atau penuh simbol
+  (karakter dan token), bahasa yang boros token (token).
+- Teks dinormalkan dulu: spasi/baris kosong berlebih dipadatkan; teks tersembunyi DOCX (vanish, putih di atas putih,
+  huruf < 4 pt) **tidak dianalisis dan tidak dihitung**, dan laporan menyebutnya („teks tersembunyi diabaikan“).
+- Semua angka (700 / 4.800 / 1.600, minimal 1) diatur di Admin → Kuota gratis.
+
+### 20.2 Kuota gratis
+
+| Aturan | Nilai bawaan (diatur admin) |
+|---|---|
+| Kuota | **10 halaman normal per minggu** per akun terverifikasi |
+| Reset | setiap **Senin 00.00** waktu lokal situs (xscan.es: WIB, Asia/Jakarta; ascan.es: Europe/Madrid); tidak menumpuk ke minggu berikutnya, tidak bisa ditukar menjadi saldo, tidak bisa dipindahkan |
+| Maks. per pemeriksaan | 5 halaman (dokumen panjang tidak bisa menghabiskan kuota dalam satu kali tanpa sadar) |
+| Minimal per pemeriksaan | 1 halaman (memecah naskah menjadi potongan kecil tidak menghemat kuota) |
+| Naskah sama dalam 7 hari | hasil lama ditampilkan, **0 halaman** (jujur kepada member, dan tidak membayar AI dua kali) |
+| Batas laju | 5 pemeriksaan gratis per jam per akun; 20 per hari per jaringan |
+
+**Bila naskah lebih panjang dari sisa kuota** (mis. naskah 14 halaman normal, sisa 3), sistem **tidak memotong diam-diam**.
+Layar pratinjau menulis: butuh 14 halaman, sisa kuota 3, reset Senin 00.00 (tanggal), lalu tiga pilihan:
+1. **Periksa 3 halaman pertama gratis** — laporan diberi tanda jelas „Sebagian: halaman 1–3 dari 14“;
+2. **Isi saldo dan periksa semuanya** — perkiraan biaya per mesin (§8), kekurangan saldo, tombol Isi saldo (§9.4);
+3. **Tunggu reset** — tanggal dan jam reset.
+
+Bila sisa kuota ≤ 2 halaman, beranda member menampilkan pengingat yang sopan dengan saran isi saldo.
+
+**Notifikasi naskah > 10 halaman** (pemilik, 7 Nov 2026: „Berikan notif jika halaman yg di upload melebihi 10 halaman,
+jika menggunakan kuota gratis“): begitu teks selesai diekstrak — sebelum apa pun dikirim ke AI — naskah yang lebih dari
+**10 halaman normal** (seluruh kuota gratis seminggu) memunculkan pemberitahuan di layar pratinjau dan di daftar unggahan
+massal per berkas: jumlah halaman normalnya, bahwa kuota gratis mingguan hanya 10 halaman (maks. 5 per pemeriksaan),
+lalu tiga pilihan §20.2 dengan biaya Cek Lengkap untuk seluruh naskah dan tombol Isi saldo. Pemberitahuan yang sama
+dikirim ke kotak notifikasi member, supaya tetap terlihat bila tab ditutup.
+
+### 20.3 Mesin untuk pemeriksaan gratis: Haiku saja, satu lintasan
+
+„Cek Gratis“ memakai **Claude Haiku 5.5** (`claude-haiku-5-5`, model termurah — US$0,10 / US$0,50 per 1 juta token),
+**tanpa eskalasi** ke Sonnet/Opus. Pemilik, 7 Nov 2026: „Pastikan hanya menggunakan haiku yg paling murah yg menghampiri
+gratis di kuota gratis member“ — dikunci di kode, bukan hanya di setelan:
+
+- router mode gratis hanya menerima model Haiku yang aktif dengan harga termurah di daftar admin; Sonnet, Opus dan Fable
+  tidak pernah menjadi kandidat, juga tidak sebagai fallback;
+- bila Haiku sedang tidak tersedia, pemeriksaan gratis menunggu di antrean (pesan jujur) — tidak dialihkan ke model mahal;
+- admin tidak bisa memilih model lain untuk mode gratis (validasi server); setiap panggilan gratis dicatat dengan modelnya
+  dan uji e2e memeriksa tidak ada panggilan non-Haiku.
+
+Isi Cek Gratis:
+
+- satu lintasan per halaman normal, keluaran terstruktur: label AI/campuran/manusia **per paragraf**, persen keseluruhan,
+  tiga kalimat yang paling „AI“, lima kesalahan bahasa teratas, tiga saran;
+- prompt sistem di-*cache* (prompt caching); `max_tokens` keluaran dibatasi 900 per halaman; effort `low`;
+- bila keyakinan rendah, laporan mengatakannya dan menyarankan Cek Lengkap (berbayar).
+
+Perkiraan biaya maksimum dari harga daftar (biaya nyata dicatat per panggilan di `ai_usage`):
+`masukan ≤ 2.800 token × US$0,10/1 jt + keluaran ≤ 900 token × US$0,50/1 jt ≈ US$0,0007 per halaman` →
+**± US$0,007 per member per minggu** bila kuota habis dipakai.
+
+**Cek Lengkap (berbayar)** — yang disarankan di setiap hasil gratis: kaskade Haiku → Sonnet → Opus (§8), analisis **per
+kalimat**, rubrik dan laporan kategori A–J, kemiripan antar-naskah, QR verifikasi, ekspor DOCX/XLSX, **tanpa iklan**.
+Hasil gratis menampilkan perbandingan singkat keduanya — tanpa membesar-besarkan akurasi.
+
+### 20.4 Perusahaan tidak rugi
+
+| Penjaga | Cara kerja |
+|---|---|
+| Anggaran gratis harian perusahaan | Admin menetapkan batas biaya AI untuk semua pemeriksaan gratis per hari (bawaan US$5 ≈ 7.000 halaman). Bila tercapai, pemeriksaan gratis baru masuk antrean hari berikutnya dengan pesan jujur; pemeriksaan berbayar tidak terpengaruh |
+| Reservasi kuota | halaman gratis direservasi secara atomik (CAS pada `free/{uid}/{minggu}`) sebelum API dipanggil; dikembalikan bila proses gagal |
+| Tidak ada eskalasi gratis | Haiku saja; tidak ada lintasan kedua |
+| Batas keluaran | `max_tokens` dan jumlah bagian laporan dibatasi |
+| Laporan | biaya gratis per hari, per situs, dan per sumber pendaftaran tampil di Admin → Biaya, berdampingan dengan pendapatan iklan yang dimasukkan admin, supaya terlihat apakah kuota gratis masih untung |
+
+### 20.5 Member tidak curang
+
+| Celah | Penutup |
+|---|---|
+| Banyak akun untuk banyak kuota | e-mail wajib diverifikasi; domain e-mail sekali pakai ditolak; Turnstile saat daftar dan setiap pemeriksaan gratis; maks. 2 akun baru per jaringan + perangkat (hash bergaram dari IP /24 dan user-agent, disimpan 30 hari) yang menerima kuota gratis per minggu — akun berikutnya bisa dipakai, tetapi tanpa kuota gratis |
+| Halaman super panjang | halaman normal §20.1 |
+| Memecah dokumen | minimal 1 halaman per pemeriksaan |
+| Teks tersembunyi / trik format | teks dinormalkan; teks tersembunyi dibuang dan dilaporkan |
+| Membuka banyak pemeriksaan bersamaan | reservasi atomik: dua permintaan bersamaan tidak memakai sisa kuota yang sama |
+| Menyalahgunakan hasil gratis sebagai sertifikat | laporan gratis bertanda air „Cek Gratis“, tanpa tanda tangan JSON, QR menyebut statusnya |
+
+### 20.6 Member betah di dalam, dan iklan yang patuh kebijakan
+
+Agar member mau berlama-lama, area member gratis diberi **konten yang benar-benar berguna** — dan di halaman berisi
+konten itulah loader AdSense dipasang (Auto ads):
+
+| Halaman | Isi | Iklan |
+|---|---|---|
+| Beranda member gratis | sisa kuota, riwayat, „tips minggu ini“, artikel yang relevan dengan hasil terakhir | ya |
+| **Ruang Belajar** (xscan) / **Sala de estudio** (ascan) | artikel §16/§19.7, panduan menulis, latihan kalimat efektif, alat gratis §16.3 | ya |
+| Laporan Cek Gratis | hasil + „Cara membaca laporan ini“ + saran perbaikan per temuan + artikel terkait | ya |
+| Layar unggah / formulir pemeriksaan baru | — | **tidak** |
+| Layar menunggu proses | progres + tautan „baca sambil menunggu“ ke Ruang Belajar | **tidak** (Google melarang iklan di layar tanpa konten penerbit) |
+| Isi saldo, pembayaran, invoice, masuk/daftar/2FA, pengaturan, error, cetak/PDF, admin | — | **tidak** |
+| Semua halaman member berbayar | — | **tidak** (bebas iklan = salah satu alasan berbayar) |
+
+Kepatuhan AdSense untuk iklan di balik login:
+- atur **akses crawler** di AdSense (Pengaturan → Akses & otorisasi → Akses crawler) dengan akun khusus agar iklan
+  relevan dengan isi halaman;
+- iklan diberi label („Iklan“ / „Publicidad“), tidak menempel pada tombol, tidak ada ajakan mengeklik iklan, tidak ada
+  waktu tunggu buatan atau progres palsu untuk menahan member;
+- Auto ads saja; loader hanya dirender di halaman bertanda „boleh iklan“ di kode (daftar putih), diuji e2e: halaman yang
+  dilarang tidak memuat loader.
+
+### 20.7 Admin
+
+Admin → Kuota gratis: halaman per minggu, ukuran halaman normal (kata/karakter/token), maks./min. per pemeriksaan, hari
+dan jam reset + zona waktu, batas laju, akun per jaringan, anggaran gratis harian, daftar domain e-mail sekali pakai,
+saklar Cek Gratis per situs. Setiap perubahan masuk audit log. Laporan: pemakaian kuota per minggu, biaya gratis, konversi
+gratis → berbayar.
+
+### 20.8 Uji (wajib lulus sebelum tayang)
+
+Hitung halaman normal (kata, karakter, token, teks tersembunyi) · reset mingguan di batas zona waktu · naskah > sisa kuota
+(tiga pilihan, laporan sebagian bertanda) · dua pemeriksaan bersamaan dengan sisa 1 halaman (hanya satu lolos) ·
+anggaran harian habis (antrean, berbayar tetap jalan) · akun ketiga dari jaringan yang sama (tanpa kuota) · Haiku saja
+di mode gratis (mock Anthropic memastikan tidak ada panggilan Sonnet/Opus) · loader hanya di halaman yang diizinkan.
+
+Fase: masuk **X1** (sebelum ascan.es A0 tayang), untuk kedua merek.
 

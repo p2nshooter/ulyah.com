@@ -74,7 +74,7 @@ export interface TokenPackage {
 export interface BillingSettings {
   /** Modal per token: 1 token = satuan kerja AI senilai US$ ini (bawaan 0,001). */
   tokenUnitUsd: number;
-  /** Keuntungan: harga = modal × markup, 10–500× (pemilik, 2 Nov 2026). */
+  /** Keuntungan: harga = modal × markup, 5–500× (pemilik, 7 Nov 2026: „Dr 5-500 saja“; sebelumnya 10–500×, 2 Nov 2026). */
   markup: number;
   /** Kata per halaman untuk prediksi halaman (A4, 12 pt, spasi 1,5). */
   wordsPerPage: number;
@@ -88,7 +88,7 @@ export interface BillingSettings {
   updatedBy?: string;
 }
 
-export const MARKUP_MIN = 10;
+export const MARKUP_MIN = 5;
 export const MARKUP_MAX = 500;
 
 export const DEFAULT_BILLING: BillingSettings = {

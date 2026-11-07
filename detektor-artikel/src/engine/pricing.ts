@@ -3,7 +3,7 @@
  *
  * 1 TOKEN = satuan kerja AI yang tetap (bawaan: senilai US$0,001 biaya API = "modal" per token).
  *   - Pemakaian token sebuah pemeriksaan = biaya API nyata ÷ satuan token → TIDAK tergantung markup.
- *   - Harga 1 token (Rp) = satuan token × kurs × markup (10–500×, diatur admin).
+ *   - Harga 1 token (Rp) = satuan token × kurs × markup (5–500×, diatur admin).
  *   - Harga paket = token × harga token × (1 − diskon paket).
  * Akibatnya: begitu admin menyimpan markup baru, SEMUA harga promosi (paket, harga per halaman) ikut
  * berubah, sedangkan token yang sudah dibeli klien tetap bernilai kerja yang sama.

@@ -111,6 +111,7 @@ await p.waitForURL(/kunci-api\?ok=/);
 ok((await p.locator('.flash.ok').count()) === 1, 'kunci API diuji (models.list) & disimpan terenkripsi');
 
 await p.goto(BASE + '/admin/harga');
+ok((await p.locator('input[name=markup]').getAttribute('min')) === '5' && (await p.locator('input[name=markup]').getAttribute('max')) === '500', 'markup 5–500× (pemilik, 7 Nov 2026)');
 await p.locator('input[name=markup]').fill('100');
 await p.click('form[action="/admin/harga"] button[type=submit]');
 await p.waitForURL(/harga\?ok=1/);

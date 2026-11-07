@@ -60,7 +60,7 @@ admin.get('/admin', async (c) => {
     { done: true, text: tr(L, 'Akun pemilik + 2FA', 'Owner account + 2FA'), href: '/admin' },
     { done: Boolean(key?.primary), text: tr(L, '<b>Tempel kunci API Claude</b> — satu-satunya isian wajib', '<b>Paste the Claude API key</b> — the only required input'), href: '/admin/kunci-api' },
     { done: Boolean(tested), text: tr(L, '<b>Uji mesin</b> dengan naskah contoh', '<b>Test the engine</b> with a sample text'), href: '/admin/mesin' },
-    { done: Boolean(billingDoc?.manualText), text: tr(L, '<b>Atur markup</b> (10–500×) — semua harga ikut berubah', '<b>Set the markup</b> (10–500×) — every price follows'), href: '/admin/harga' },
+    { done: Boolean(billingDoc?.manualText), text: tr(L, '<b>Atur markup</b> (5–500×) — semua harga ikut berubah', '<b>Set the markup</b> (5–500×) — every price follows'), href: '/admin/harga' },
   ];
   const body = html`
   ${pageHead(tr(L, 'Dasbor admin', 'Admin dashboard'), tr(L, 'Semua berjalan sendiri — di sini Anda memantau dan mengatur.', 'Everything runs by itself — here you monitor and adjust.'))}
@@ -484,9 +484,9 @@ admin.get('/admin/harga', async (c) => {
   <form method="post" action="/admin/harga" class="form" data-pricing data-unit="${b.tokenUnitUsd}" data-fx="${eng.fx}" data-aff="${aff.enabled ? aff.ratePct : 0}" data-lang="${L}">
     <section class="card reveal"><h3>${tr(L, 'Keuntungan (markup)', 'Profit (markup)')}</h3>
       <div class="grid g2">
-        <div class="field"><span>${tr(L, 'Markup (×) — harga = modal × markup', 'Markup (×) — price = cost × markup')} ${tip(tr(L, 'Minimal 10×, maksimal 500×. Bisa digeser, diketik manual, atau pilih cepat.', 'Minimum 10×, maximum 500×. Slide, type it, or pick a preset.'))}</span>
+        <div class="field"><span>${tr(L, 'Markup (×) — harga = modal × markup', 'Markup (×) — price = cost × markup')} ${tip(tr(L, 'Minimal 5×, maksimal 500×. Bisa digeser, diketik manual, atau pilih cepat.', 'Minimum 5×, maximum 500×. Slide, type it, or pick a preset.'))}</span>
           <div class="markup-ctl"><input type="range" min="${MARKUP_MIN}" max="${MARKUP_MAX}" step="1" value="${b.markup}" data-sync="markupNum" aria-label="markup"><input type="number" id="markupNum" name="markup" min="${MARKUP_MIN}" max="${MARKUP_MAX}" step="1" value="${b.markup}" required data-live><b>×</b></div>
-          <div class="preset-row">${[10, 20, 50, 100, 200, 500].map((x) => html`<button type="button" class="chip-btn" data-preset="${x}" data-target="markupNum">${x}×</button>`)}</div></div>
+          <div class="preset-row">${[5, 10, 20, 50, 100, 200, 500].map((x) => html`<button type="button" class="chip-btn" data-preset="${x}" data-target="markupNum">${x}×</button>`)}</div></div>
         <div class="grid g2">
           ${stat(tr(L, 'Modal 1 token', 'Cost of 1 token'), `Rp ${fmtNum(L, tc, 1)}`, `US$${b.tokenUnitUsd} ${tr(L, 'biaya AI', 'AI cost')}`)}
           <div class="stat"><span class="stat-k">${tr(L, 'Harga jual 1 token', 'Sale price of 1 token')}</span><b class="stat-v" data-out="tokenPrice">Rp ${fmtNum(L, tp, 0)}</b><small class="muted">${tr(L, 'sebelum diskon paket', 'before package discount')}</small></div>
@@ -536,7 +536,7 @@ admin.post('/admin/harga', async (c) => {
   };
   const next: BillingSettings = {
     ...cur,
-    markup: Math.round(num('markup', cur.markup, MARKUP_MIN, MARKUP_MAX)), // dibatasi 10–500× di server
+    markup: Math.round(num('markup', cur.markup, MARKUP_MIN, MARKUP_MAX)), // dibatasi 5–500× di server (pemilik, 7 Nov 2026)
     tokenUnitUsd: num('tokenUnitUsd', cur.tokenUnitUsd, 0.0001, 1),
     wordsPerPage: Math.round(num('wordsPerPage', cur.wordsPerPage, 100, 1000)),
     welcomeTokens: Math.round(num('welcomeTokens', cur.welcomeTokens, 0, 1e6)),
