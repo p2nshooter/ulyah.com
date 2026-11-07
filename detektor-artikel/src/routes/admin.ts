@@ -6,7 +6,7 @@ import { page, pageHead, guide, flash, stat, labelPill, tip } from '../pages/ui.
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { isAdmin, getUser, updateUser, findByEmail, type User } from '../data/users.ts';
 import { getEngine, getBilling, spendToday, KEY_DOC, wibDate, DEFAULT_ENGINE, DEFAULT_BILLING, MARKUP_MIN, MARKUP_MAX, type EngineSettings, type KeyRecord, type BillingSettings, type Effort } from '../data/settings.ts';
-import { estimateTokens, hardBoundUsd, predictByMode, packagePrice, tokenPriceIdr, tokenCostIdr, minRevenueMultiple } from '../engine/pricing.ts';
+import { estimateTokens, hardBoundUsd, predictByMode, packagePrice, tokenPriceIdr, tokenCostIdr, minRevenueMultiple, freeQuotaForecast, FREE_QUOTA } from '../engine/pricing.ts';
 import { registerAdminAffiliate } from './affiliate.ts';
 import { getAffiliateSettings } from '../data/affiliate.ts';
 import { seal, newId, hashPassword } from '../lib/crypto.ts';
@@ -603,8 +603,37 @@ admin.get('/admin/biaya', async (c) => {
     a.cost += u.cost;
     agg.set(key, a);
   }
+  // Prediksi biaya kuota gratis per minggu (pemilik, 7 Nov 2026: „Masukan di portal admin agar tau perkiraan di habiskan
+  // kuota gratis perminggu“) — rumus yang sama dengan docs/MASTER-BLUEPRINT.md §20.9, dari harga model, kurs, satuan
+  // token, markup dan paket yang sedang berlaku.
+  const membersQ = Number(c.req.query('anggota'));
+  const members = Number.isFinite(membersQ) && membersQ >= 1 ? Math.min(1_000_000, Math.round(membersQ)) : 100;
+  const fc = freeQuotaForecast(eng, await getBilling(store), members);
+  const idr = (n: number) => `Rp ${fmtNum(L, n)}`;
+  const nm = fmtNum(L, members);
+  const rows = [
+    { k: 'typical', label: tr(L, 'Khas', 'Typical'), note: tr(L, '±500 kata, prompt dari cache', '±500 words, cached prompt'), x: fc.typical },
+    { k: 'worst', label: tr(L, 'Terburuk', 'Worst'), note: tr(L, 'halaman penuh, tanpa cache', 'full page, no cache'), x: fc.worst },
+  ];
+  const explain = tr(
+    L,
+    `Cek Gratis: ${FREE_QUOTA.pagesPerWeek} halaman normal per member per minggu (halaman Legal: maks. ${FREE_QUOTA.wordsPerPage} kata / ${fmtNum(L, FREE_QUOTA.charsPerPage)} karakter / ${fmtNum(L, FREE_QUOTA.tokensPerPage)} token), satu lintasan model ${fc.model}. Dihitung seolah semua member menghabiskan seluruh kuotanya. Kuota gratis tayang di fase X1; sampai itu ini prediksi, sesudahnya biaya nyata tampil di tabel di bawah.`,
+    `Free Check: ${FREE_QUOTA.pagesPerWeek} normal pages per member per week (Legal page: at most ${FREE_QUOTA.wordsPerPage} words / ${fmtNum(L, FREE_QUOTA.charsPerPage)} characters / ${fmtNum(L, FREE_QUOTA.tokensPerPage)} tokens), one pass of ${fc.model}. Assumes every member uses the whole quota. The free quota goes live in phase X1; until then this is a forecast, afterwards the real cost shows in the table below.`,
+  );
+  const retail = tr(L, `Nilai jual setara kuota gratis per member per minggu (markup yang berlaku): ±${idr(fc.worst.perMemberWeekRetailIdr)}.`, `Retail value of one member's weekly free quota (current markup): ±${idr(fc.worst.perMemberWeekRetailIdr)}.`);
+  const be = fc.breakEven
+    ? tr(L, `Satu paket ${fc.breakEven.pkg} (${idr(fc.breakEven.priceIdr)}, modal ${idr(fc.breakEven.costIdr)}) menutup biaya gratis ±${fmtNum(L, fc.breakEven.membersCoveredPerMonth)} member aktif selama sebulan (kasus terburuk).`, `One ${fc.breakEven.pkg} package (${idr(fc.breakEven.priceIdr)}, cost ${idr(fc.breakEven.costIdr)}) covers the free cost of ±${fmtNum(L, fc.breakEven.membersCoveredPerMonth)} active members for a month (worst case).`)
+    : '';
+  const budget = tr(L, `Anggaran gratis harian US$${fc.budget.usdPerDay} = ${fmtNum(L, fc.budget.worstPagesPerDay)} halaman terburuk per hari = kuota mingguan ±${fmtNum(L, fc.budget.memberQuotasPerWeek)} member. Untuk ${nm} member dibutuhkan ±${fmtUsd(fc.budget.neededUsdPerDay)} per hari.`, `Daily free budget US$${fc.budget.usdPerDay} = ${fmtNum(L, fc.budget.worstPagesPerDay)} worst-case pages a day = the weekly quota of ±${fmtNum(L, fc.budget.memberQuotasPerWeek)} members. ${nm} members need ±${fmtUsd(fc.budget.neededUsdPerDay)} a day.`);
+  const freeCard = html`<section class="card reveal" id="kuota-gratis"><h3>${tr(L, 'Prediksi biaya kuota gratis per minggu', 'Forecast: weekly cost of the free quota')}</h3>
+    <p class="muted">${explain}</p>
+    <form class="row-form" method="get"><input type="hidden" name="d" value="${date}"><label class="field"><span>${tr(L, 'Member aktif per minggu', 'Active members per week')}</span><input type="number" name="anggota" min="1" max="1000000" step="1" value="${members}"></label><button class="btn btn-primary" type="submit">${tr(L, 'Hitung', 'Calculate')}</button></form>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th></th><th class="n">${tr(L, 'Per halaman', 'Per page')}</th><th class="n">${tr(L, 'Per member / minggu', 'Per member / week')}</th><th class="n">${tr(L, 'Token internal', 'Internal tokens')}</th><th class="n">${tr(L, `${nm} member / minggu`, `${nm} members / week`)}</th><th class="n">${tr(L, `${nm} member / bulan`, `${nm} members / month`)}</th></tr></thead>
+    <tbody>${rows.map((r) => html`<tr><td style="min-width:150px"><b>${r.label}</b><br><small class="muted">${r.note}</small></td><td class="n">${fmtUsd(r.x.perPageUsd)}</td><td class="n">${idr(r.x.perMemberWeekIdr)}</td><td class="n">${fmtNum(L, r.x.perMemberWeekTokens)}</td><td class="n" data-forecast="${r.k}-week">${idr(r.x.membersWeekIdr)}</td><td class="n">${idr(r.x.membersMonthIdr)}</td></tr>`)}</tbody></table></div>
+    <ul class="muted"><li>${retail}</li>${be ? html`<li>${be}</li>` : ''}<li>${budget}</li></ul></section>`;
   const body = html`
   ${pageHead(tr(L, 'Biaya API Claude', 'Claude API cost'), tr(L, 'Dari token nyata setiap panggilan (usage).', 'From the real tokens of every call (usage).'))}
+  ${freeCard}
   <form class="card row-form reveal" method="get"><label class="field"><span>${tr(L, 'Tanggal (WIB)', 'Date (WIB)')}</span><input type="date" name="d" value="${date}"></label><button class="btn btn-primary" type="submit">${tr(L, 'Tampilkan', 'Show')}</button></form>
   <div class="grid g3">${stat(tr(L, 'Total biaya', 'Total cost'), fmtUsd(total), `≈ Rp ${fmtNum(L, total * eng.fx)}`)}${stat(tr(L, 'Panggilan', 'Calls'), fmtNum(L, calls))}${stat(tr(L, 'Rata-rata per panggilan', 'Average per call'), fmtUsd(calls ? total / calls : 0))}</div>
   <div class="card reveal"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Tahap · model', 'Stage · model')}</th><th class="n">${tr(L, 'Panggilan', 'Calls')}</th><th class="n">${tr(L, 'Token masuk', 'Input tok.')}</th><th class="n">${tr(L, 'Token keluar', 'Output tok.')}</th><th class="n">Cache</th><th class="n">US$</th></tr></thead>

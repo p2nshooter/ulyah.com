@@ -222,3 +222,99 @@ export function predictPages(balance: number, b: BillingSettings, eng: EngineSet
   const tHigh = Math.max(tLow, Math.round((highCost / b.tokenUnitUsd) * 10) / 10);
   return { perPage: { low: tLow, high: tHigh }, pages: { low: Math.floor(balance / tHigh), high: Math.floor(balance / tLow) }, basis };
 }
+
+/* ── kuota gratis: prediksi biaya (pemilik, 7 Nov 2026; docs/MASTER-BLUEPRINT.md §20) ───────────────────────── */
+
+/**
+ * Ukuran kuota gratis. Satu halaman normal = kertas Legal (maks. 700 kata / 4.800 karakter / 1.600 token masukan);
+ * Cek Gratis = Haiku satu lintasan, keluaran dibatasi. Nilai ini dipakai untuk PREDIKSI di admin; kuota gratisnya sendiri
+ * dibangun di fase X1 dengan nilai yang sama.
+ */
+export const FREE_QUOTA = {
+  pagesPerWeek: 10,
+  wordsPerPage: 700,
+  charsPerPage: 4800,
+  tokensPerPage: 1600,
+  /** Prompt sistem Cek Gratis (dibaca dari cache setelah panggilan pertama). */
+  systemTokens: 1200,
+  /** Keluaran maksimum per halaman. */
+  maxOutPerPage: 900,
+  /** Halaman khas: ±500 kata. */
+  typicalInPerPage: 1000,
+  typicalOutPerPage: 600,
+  /** Anggaran biaya AI harian perusahaan untuk semua Cek Gratis (US$). */
+  dailyBudgetUsd: 5,
+} as const;
+
+/** Model Cek Gratis: Haiku termurah yang ada di daftar harga (pemilik: „hanya menggunakan haiku yg paling murah“). */
+export function freeModel(eng: EngineSettings): string {
+  const haikus = Object.keys(eng.prices).filter((m) => /haiku/i.test(m));
+  const cost = (m: string) => eng.prices[m].in + eng.prices[m].out;
+  return haikus.sort((a, b) => cost(a) - cost(b))[0] ?? 'claude-haiku-5-5';
+}
+
+export interface FreeCase {
+  perPageUsd: number;
+  perMemberWeekUsd: number;
+  perMemberWeekIdr: number;
+  perMemberWeekTokens: number;
+  /** Harga jual setara token itu pada markup yang berlaku (untuk ditunjukkan ke member). */
+  perMemberWeekRetailIdr: number;
+  membersWeekIdr: number;
+  membersMonthIdr: number;
+}
+
+export interface FreeForecast {
+  model: string;
+  members: number;
+  typical: FreeCase;
+  worst: FreeCase;
+  /** Paket termurah dan berapa member aktif gratis yang ditutup labanya sebulan (kasus terburuk). */
+  breakEven: { pkg: string; priceIdr: number; costIdr: number; membersCoveredPerMonth: number } | null;
+  /** Halaman dan kuota member yang muat dalam anggaran harian. */
+  budget: { usdPerDay: number; worstPagesPerDay: number; memberQuotasPerWeek: number; neededUsdPerDay: number };
+}
+
+/** Prediksi biaya kuota gratis per minggu untuk `members` member aktif yang menghabiskan seluruh kuotanya. */
+export function freeQuotaForecast(eng: EngineSettings, b: BillingSettings, members: number): FreeForecast {
+  const model = freeModel(eng);
+  const p = price(eng, model);
+  const q = FREE_QUOTA;
+  const usd = (input: number, cached: number, output: number) => (input * p.in + cached * (p.cacheRead ?? p.in) + output * p.out) / 1e6;
+  const one = (perPage: number): FreeCase => {
+    const week = perPage * q.pagesPerWeek;
+    const tokens = tokensFor(week, b);
+    return {
+      perPageUsd: perPage,
+      perMemberWeekUsd: week,
+      perMemberWeekIdr: Math.round(week * eng.fx),
+      perMemberWeekTokens: tokens,
+      perMemberWeekRetailIdr: Math.round(tokens * tokenPriceIdr(b, eng)),
+      membersWeekIdr: Math.round(week * members * eng.fx),
+      membersMonthIdr: Math.round(((week * members * 52) / 12) * eng.fx),
+    };
+  };
+  const typical = one(usd(q.typicalInPerPage, q.systemTokens, q.typicalOutPerPage));
+  const worst = one(usd(q.systemTokens + q.tokensPerPage, 0, q.maxOutPerPage));
+  const cheapest = [...b.packages].sort((x, y) => x.tokens - y.tokens)[0];
+  let breakEven: FreeForecast['breakEven'] = null;
+  if (cheapest) {
+    const pp = packagePrice(cheapest, b, eng);
+    const perMemberMonth = (worst.perMemberWeekUsd * 52 * eng.fx) / 12;
+    breakEven = { pkg: cheapest.name.id, priceIdr: pp.idr, costIdr: pp.costIdr, membersCoveredPerMonth: Math.floor((pp.idr - pp.costIdr) / perMemberMonth) };
+  }
+  const worstPagesPerDay = Math.floor(q.dailyBudgetUsd / worst.perPageUsd);
+  return {
+    model,
+    members,
+    typical,
+    worst,
+    breakEven,
+    budget: {
+      usdPerDay: q.dailyBudgetUsd,
+      worstPagesPerDay,
+      memberQuotasPerWeek: Math.floor((worstPagesPerDay * 7) / q.pagesPerWeek),
+      neededUsdPerDay: (worst.perMemberWeekUsd * members) / 7,
+    },
+  };
+}

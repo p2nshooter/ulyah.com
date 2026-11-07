@@ -214,3 +214,22 @@ test('pengaman tidak-rugi: pesanan ≥ biaya terburuk pada markup minimum, disko
     }
   }
 });
+
+test('kuota gratis: prediksi biaya 10 halaman per minggu dan 100 member (MASTER-BLUEPRINT §20.9)', async () => {
+  const { freeQuotaForecast, freeModel } = await import('../src/engine/pricing.ts');
+  assert.equal(freeModel(DEFAULT_ENGINE), 'claude-haiku-5-5', 'Cek Gratis memakai Haiku termurah');
+  const f = freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100);
+  // Haiku 5.5: US$0,10 masuk / US$0,50 keluar / US$0,01 cache per 1 juta token; kurs Rp16.500; 1 token = US$0,001.
+  assert.ok(Math.abs(f.worst.perPageUsd - 0.00073) < 1e-9, `terburuk per halaman ${f.worst.perPageUsd}`);
+  assert.ok(Math.abs(f.typical.perPageUsd - 0.000412) < 1e-9, `khas per halaman ${f.typical.perPageUsd}`);
+  assert.equal(f.worst.perMemberWeekIdr, 120);
+  assert.equal(f.typical.perMemberWeekIdr, 68);
+  assert.equal(f.worst.perMemberWeekTokens, 8);
+  assert.equal(f.typical.perMemberWeekTokens, 5);
+  assert.equal(f.worst.membersWeekIdr, 12045);
+  assert.equal(f.typical.membersWeekIdr, 6798);
+  assert.equal(f.worst.membersMonthIdr, 52195);
+  assert.equal(f.breakEven?.membersCoveredPerMonth, 180, 'satu paket Starter menutup ±180 member aktif sebulan');
+  assert.equal(f.budget.worstPagesPerDay, 6849);
+  assert.equal(freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 1000).worst.membersWeekIdr, 120450, 'linear terhadap jumlah member');
+});

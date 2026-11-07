@@ -119,6 +119,14 @@ ok((await p.inputValue('input[name=markup]')) === '100', 'markup 100× tersimpan
 await p.goto(BASE + '/admin/harga');
 await p.screenshot({ path: `${OUT}/admin-harga.png`, fullPage: true });
 
+// Prediksi biaya kuota gratis per minggu di admin (pemilik, 7 Nov 2026; MASTER-BLUEPRINT §20.9).
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('#kuota-gratis').count()) === 1, 'admin: kartu prediksi biaya kuota gratis per minggu tampil');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'prediksi 100 member/minggu (terburuk) = Rp 12.045');
+await p.goto(BASE + '/admin/biaya?anggota=1000');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp120.450', 'prediksi 1.000 member/minggu (terburuk) = Rp 120.450');
+await p.screenshot({ path: `${OUT}/admin-biaya-gratis.png`, fullPage: true });
+
 // Uji mesin (pemilik tidak dipotong token)
 await p.goto(BASE + '/admin/mesin');
 await p.click('form[action="/admin/mesin/uji"] button');
