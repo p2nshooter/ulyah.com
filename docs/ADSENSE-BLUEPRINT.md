@@ -651,6 +651,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 7 Nov | „Untuk xscan.es pelajari 2 file itu, kembangkan dulu dengan project yg sudah ada dan catat sebagai blueprint, kombinasikan dengan project yg ada jadikan blue print sempurna terlebih dahulu termasuk artikel yg di butuhkan untuk pengajuan adsense. Kerjakan xscan.es dari blueprint jika pengerjaan pendaftaran adsense selesai di kerjakan“ (file Master_xscan dan Xscan) | ⏳ §25 — `detektor-artikel/docs/MASTER-BLUEPRINT.md` |
 | 7 Nov | „Untuk situs jenius.es buatkan website ini (tangkapan layar: Digital Literacy & Reading AI, AI Teacher Assistant, Smart Classroom), ambil e-book dari sumber terbuka manapun yg mengizinkan bukunya di serap … voice nya suara yg relevan, seperti pembaca nya anak2, anak perempuan kecil, suara guru yg bijak baik perempuan dan laki dll, pokoknya kembangin dulu dalam bentuk blueprint, jika memang memerlukan input api key sediakan di portal super admin … berikan rekomendasi AI apa yg d gunakan … gunakan yg paling murah tp tetep optimal … Bikin blueprintnya dulu setelah selesai mengerjakan kode adsense“ | ⏳ §26 — `docs/JENIUS-BLUEPRINT.md` |
 | 7 Nov | „Tolong di cek juga, chache apa yg situs islami yg menjadikan R2 lebih dr 10Gb...jika di bersihkan tidak berpengaruh sama sekali, bersihkan saja, agar R2 di bawah 5gb“ | ⏳ §27 |
+| 7 Nov | „untuk ascan.es bikin bisnis yg sama dengan xscan.es tp dengan kata2 yg berbeda, bentuk berbeda, pokoknya beda kalimatnya 100%. Pastikan ke dua report nya super premium, jgn sampe duplikate, pembayaran sama, logo berbeda, pokoknya bikin lebih full animasi ke duanya dan tetep dynamic page dari admin, warna berbeda, pokoknya bikin jgn sampe css dan kata2nya ada kemiripan“ | 📝 §25 — `detektor-artikel/docs/MASTER-BLUEPRINT.md` §19: satu mesin dan pembayaran yang sama, lapisan merek terpisah (kata, CSS, logo, warna, laporan, animasi), halaman dinamis dari admin, penjaga kemiripan di CI; ascan.es Spanyol + Inggris |
 | 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
 
 ---
@@ -1800,13 +1801,24 @@ Rancangan dan inventaris ditulis setelah §23 live. | ⏳
 ## 25. xscan.es — blueprint induk (pemilik, 7 Nov 2026)
 
 `detektor-artikel/docs/MASTER-BLUEPRINT.md`: menggabungkan file „Master_xscan“ dan „Xscan“ dari pemilik dengan aplikasi
-yang sudah berjalan, ditambah artikel untuk pengajuan AdSense. Dibangun dari blueprint setelah pekerjaan AdSense selesai. | ⏳
+yang sudah berjalan, ditambah artikel untuk pengajuan AdSense. Dibangun dari blueprint setelah pekerjaan AdSense selesai.
+
+| Butir | Status |
+|---|---|
+| Blueprint induk (inventaris kode, peta kebutuhan, kategori A–I + laporan lomba J, modul analisis, masukan URL/sitemap/dokumen, Smart Router dengan harga terverifikasi — urutan harga Haiku → Sonnet → Opus → Fable, dompet & reservasi, menu, 8 peran, kompetisi, pemetaan „tabel“ ke R2, keamanan, uji, 70 judul artikel ID+EN, fase X0–X7, keputusan pemilik) | ✅ 7 Nov |
+| ascan.es sebagai bisnis kembar berwajah lain (§19 blueprint induk) | ✅ dicatat 7 Nov |
+| Pembangunan fase X0 / A0 | ⏳ setelah §23 live di semua domain |
 
 ## 26. jenius.es — blueprint (pemilik, 7 Nov 2026)
 
 `docs/JENIUS-BLUEPRINT.md`: perpustakaan digital anak dengan buku berlisensi terbuka dan suara pembaca, asisten guru AI,
 kelas pintar; kunci API di portal super admin; pemilihan model AI termurah yang tetap optimal. Blueprint dulu, setelah
-kode AdSense. | ⏳
+kode AdSense.
+
+| Butir | Status |
+|---|---|
+| Blueprint (fitur dari tangkapan layar, 8 sumber buku terbuka dengan aturan lisensi — NC ditolak karena situs beriklan, pipeline impor + persetujuan, 3 jalur suara: browser / Kokoro-Piper open-source / cloud berbayar, read-along, anggaran R2, model: Haiku untuk anak, Sonnet untuk guru, Opus atas permintaan, Fable tidak dipakai, privasi anak, iklan hanya di halaman dewasa, 7 kluster artikel ES/EN, fase J0–J7) | ✅ 7 Nov |
+| Keputusan pemilik (§15 blueprint jenius) dan pembangunan | ⏳ |
 
 ## 27. R2 situs islami > 10 GB → di bawah 5 GB (pemilik, 7 Nov 2026)
 
