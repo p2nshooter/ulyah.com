@@ -17,7 +17,34 @@ export const TAGLINE = 'Detect · Analyze · Verify';
  */
 export const ADSENSE_PUB = '9354298681597606';
 export const ADSENSE_CLIENT = `ca-pub-${ADSENSE_PUB}`;
-export const ADS_TXT = `google.com, pub-${ADSENSE_PUB}, DIRECT, f08c47fec0942fa0\n`;
+
+/**
+ * Enam belas akun yang ditumpuk (pemilik, 7 Nov 2026: „kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak
+ * saling bentrok dan tidak melanggar kebijakan adsense"). Daftar dan urutannya sama dengan adsense-stack.json di akar
+ * repo (diperiksa scripts/check-ads.ts). Setiap akun mendapat tag meta dan baris ads.txt sendiri; loader tetap SATU,
+ * akun utama di atas, karena Google mengabaikan tag kepala AdSense kedua di halaman yang sama.
+ */
+export const ADSENSE_STACK = [
+  'ca-pub-9915280882234592',
+  'ca-pub-9354298681597606',
+  'ca-pub-6560360898389273',
+  'ca-pub-5928074389292014',
+  'ca-pub-1480130604232181',
+  'ca-pub-5092800160376210',
+  'ca-pub-7250589269548267',
+  'ca-pub-6381187608934514',
+  'ca-pub-4304267428455702',
+  'ca-pub-6293576511807510',
+  'ca-pub-9221781326457936',
+  'ca-pub-4906992051458194',
+  'ca-pub-9433622530024776',
+  'ca-pub-6146217038829045',
+  'ca-pub-2493615451319531',
+  'ca-pub-5693981744147503',
+];
+export const ADSENSE_ACCOUNTS: readonly string[] = [...new Set([ADSENSE_CLIENT, ...ADSENSE_STACK])];
+export const ADS_TXT = `${ADSENSE_ACCOUNTS.map((a) => `google.com, ${a.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0`).join('\n')}\n`;
+const ADSENSE_METAS = ADSENSE_ACCOUNTS.map((a) => `<meta name="google-adsense-account" content="${a}">`).join('\n');
 
 export interface PageOpts {
   L: Lang;
@@ -45,7 +72,7 @@ ${o.desc ? html`<meta name="description" content="${o.desc}">` : ''}
 ${o.noindex || o.area !== 'public' ? html`<meta name="robots" content="noindex, nofollow">` : ''}
 ${o.canonical ? html`<link rel="canonical" href="${o.canonical}">` : ''}
 ${o.alt && o.path ? html`<link rel="alternate" hreflang="${o.L === 'id' ? 'en' : 'id'}" href="${o.alt}"><link rel="alternate" hreflang="${o.L}" href="${o.path}">` : ''}
-<meta name="google-adsense-account" content="${ADSENSE_CLIENT}">
+${raw(ADSENSE_METAS)}
 <meta name="theme-color" content="#0a1238">
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="/assets/favicon-64.png" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><meta property="og:image" content="/assets/logo-full-1200.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

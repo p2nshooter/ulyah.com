@@ -18,6 +18,7 @@ on:
     paths:
       - '.github/workflows/site-audit.yml'
       - 'scripts/site-audit.mjs'
+      - 'adsense-stack.json'
 
 jobs:
   audit:
@@ -38,7 +39,7 @@ jobs:
           npx playwright install --with-deps chromium >/dev/null
       - name: Open every site
         run: |
-          cp scripts/site-audit.mjs /tmp/audit/
+          cp scripts/site-audit.mjs adsense-stack.json /tmp/audit/
           cd /tmp/audit
           node site-audit.mjs \
             ulyah.com 1fr.fr dawa.im axto.io xaa.es axto.us axto.dev jai.lat lie.skin \

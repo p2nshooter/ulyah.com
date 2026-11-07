@@ -6,6 +6,7 @@
 //
 //   node scripts/site-audit.mjs jai.lat lie.skin …
 import { chromium } from "playwright";
+import { existsSync, readFileSync } from "node:fs";
 
 const ADSTERRA = /adsterra|highperformanceformat|effectivegatecpm|effectivecpmnetwork|profitableratecpm|toppersonalcpm/i;
 const domains = process.argv.slice(2);
@@ -110,6 +111,16 @@ Object.assign(EXPECTED, {
 Object.assign(EXPECTED, {
   "xscan.es": "9354298681597606",
 });
+// 7 Nov 2026 (owner): sixteen accounts stacked on every listed site ("kode2 adsense ini di tumpuk aja di dusun yg rapih
+// agar tidak saling bentrok dan tidak melanggar kebijakan adsense"). adsense-stack.json is the one list: the primary
+// account (the only loader) replaces EXPECTED, and every account must have its meta tag in the server HTML and its line in
+// ads.txt (docs/ADSENSE-BLUEPRINT.md §23).
+// The workflow copies this script and the stack file into one folder; in the repository the file is one level up.
+const STACK = JSON.parse(
+  readFileSync(existsSync(new URL("./adsense-stack.json", import.meta.url)) ? new URL("./adsense-stack.json", import.meta.url) : new URL("../adsense-stack.json", import.meta.url), "utf8"),
+);
+for (const [d, client] of Object.entries(STACK.primary)) EXPECTED[d] = client.replace(/^ca-pub-/, "");
+const accountsOf = (d) => (STACK.primary[d] ? [...new Set([STACK.primary[d], ...STACK.stack])].map((c) => c.replace(/^ca-pub-/, "")) : [EXPECTED[d]]);
 const verdicts = [];
 
 // Owner, 1 Nov 2026: "jgn ada satupun yg memblokir google dan SEO". Which crawlers a robots.txt shuts
@@ -161,6 +172,7 @@ for (const domain of domains) {
     out.title = await page.title();
     out.lang = await page.evaluate(() => document.documentElement.lang);
     out.adsenseMeta = await page.evaluate(() => document.querySelector('meta[name="google-adsense-account"]')?.content ?? null);
+    out.adsenseMetas = await page.evaluate(() => [...document.querySelectorAll('meta[name="google-adsense-account"]')].map((m) => m.content));
     out.adsenseLoader = await page.evaluate(() => [...document.scripts].map((s) => s.src).filter((s) => s.includes("adsbygoogle")).map((s) => new URL(s).searchParams.get("client")));
     out.h1 = await page.evaluate(() => [...document.querySelectorAll("h1")].map((h) => h.textContent.trim().slice(0, 90)).slice(0, 2));
     out.menu = await page.evaluate(() => [...document.querySelectorAll("header a, nav a")].map((a) => a.textContent.trim().replace(/\s+/g, " ")).filter(Boolean).slice(0, 24));
@@ -179,6 +191,7 @@ for (const domain of domains) {
     const r = await ctx.request.get(`https://${domain}/`, { timeout: 20000 });
     const raw = await r.text();
     out.rawMeta = (raw.match(/<meta[^>]+name="google-adsense-account"[^>]*>/) || [null])[0];
+    out.rawMetas = [...raw.matchAll(/<meta[^>]+name="google-adsense-account"[^>]*content="(ca-pub-\d+)"/g)].map((m) => m[1]);
     out.rawLoader = [...raw.matchAll(/<script[^>]+adsbygoogle\.js\?client=(ca-pub-\d+)/g)].map((m) => m[1]);
     // Manual units in the SERVER html. Auto ads inserts its own <ins> in the
     // browser after approval, so only the raw html can tell a hand-placed slot.
@@ -201,15 +214,20 @@ for (const domain of domains) {
   const pub = EXPECTED[domain];
   if (pub) {
     const wrong = [];
-    if (out.adsenseMeta !== `ca-pub-${pub}`) wrong.push(`meta=${out.adsenseMeta}`);
+    const all = accountsOf(domain);
+    const metaMiss = all.filter((p) => !(out.adsenseMetas || []).includes(`ca-pub-${p}`));
+    const rawMetaMiss = all.filter((p) => !(out.rawMetas || []).includes(`ca-pub-${p}`));
+    const adsMiss = all.filter((p) => !(out.adsTxtLines || []).includes(`google.com, pub-${p}, DIRECT, f08c47fec0942fa0`));
+    if (metaMiss.length) wrong.push(`meta missing ${metaMiss.length}/${all.length} (${metaMiss.slice(0, 3).join(",")}…)`);
     if (!(out.adsenseLoader || []).includes(`ca-pub-${pub}`)) wrong.push(`loader=${JSON.stringify(out.adsenseLoader)}`);
-    if (!(out.adsTxtLines || []).includes(`google.com, pub-${pub}, DIRECT, f08c47fec0942fa0`)) wrong.push("ads.txt");
-    if (!String(out.rawMeta || "").includes(`ca-pub-${pub}`)) wrong.push("meta missing from server HTML");
+    if ((out.rawLoader || []).length > 1) wrong.push(`${out.rawLoader.length} loaders — one per page`);
+    if (adsMiss.length) wrong.push(`ads.txt missing ${adsMiss.length}/${all.length}`);
+    if (rawMetaMiss.length) wrong.push(`meta missing from server HTML ${rawMetaMiss.length}/${all.length}`);
     if (!(out.rawLoader || []).includes(`ca-pub-${pub}`)) wrong.push("loader missing from server HTML");
     if ((out.adsterraRequests || []).length || out.htmlAdsterra) wrong.push("adsterra");
     if (out.manualUnits) wrong.push(`${out.manualUnits} manual ad unit(s) — Auto ads only`);
     if ((out.robotsBlocks || []).length) wrong.push(`robots.txt blocks ${out.robotsBlocks.join(", ")} from the whole site`);
-    out.verdict = out.error ? `UNREACHABLE (${out.error.slice(0, 60)})` : wrong.length ? `WRONG: ${wrong.join(" · ")}` : `OK ca-pub-${pub}`;
+    out.verdict = out.error ? `UNREACHABLE (${out.error.slice(0, 60)})` : wrong.length ? `WRONG: ${wrong.join(" · ")}` : `OK ca-pub-${pub} + ${all.length - 1} stacked`;
     verdicts.push(`${domain.padEnd(12)} ${out.verdict}`);
   }
   console.log(`\n===== ${domain}`);

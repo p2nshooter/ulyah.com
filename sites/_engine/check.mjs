@@ -11,6 +11,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { build } from "./build.mjs";
 import { auditSite } from "./seo.mjs";
+import { adsenseFor, adsTxt, adsTxtLine, loaderTag, metaTag } from "./adsense.mjs";
 
 const SITES = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MIN_ARTICLES = 40;
@@ -135,29 +136,35 @@ export async function check(domain) {
     ok(copies.length === 0, "ecosystem page is worded differently from every other site's", copies.join(", "));
   }
 
-  // AdSense — a site prepared before its account exists has none yet.
+  // AdSense — a site prepared before its account exists has none yet. Since 7 Nov 2026 a site may authorise several
+  // accounts (adsense-stack.json, docs/ADSENSE-BLUEPRINT.md §23): one meta tag and one ads.txt line per account, and
+  // exactly one loader, the primary account in site.json.
+  const ad = adsenseFor(domain, site.adsense || "");
   if (site.adsense) {
-    const pub = site.adsense.replace(/^ca-/, "");
     ok(/^ca-pub-\d{16}$/.test(site.adsense), `AdSense account looks real (${site.adsense})`);
-    ok(readFileSync(join(out, "ads.txt"), "utf8").trim() === `google.com, ${pub}, DIRECT, f08c47fec0942fa0`, "ads.txt authorises exactly that account");
-    // The three snippets as Google hands them over, kept by hand in
-    // sites/<domain>/ADSENSE.txt. The build must match them word for word.
+    ok(ad.accounts.every((a) => /^ca-pub-\d{16}$/.test(a)), `every stacked account looks real (${ad.accounts.length})`);
+    ok(ad.primary === site.adsense, "site.json \"adsense\" is the primary account of adsense-stack.json", `${site.adsense} ≠ ${ad.primary}`);
+    ok(readFileSync(join(out, "ads.txt"), "utf8") === adsTxt(ad.accounts), `ads.txt authorises exactly the ${ad.accounts.length} account(s), one line each`);
+    // The three snippets, kept in sites/<domain>/ADSENSE.txt for the owner to paste into AdSense. The build must
+    // match them word for word.
     const manualFile = join(SITES, domain, "ADSENSE.txt");
-    if (ok(existsSync(manualFile), "ADSENSE.txt holds the three snippets from Google")) {
+    if (ok(existsSync(manualFile), "ADSENSE.txt holds the three snippets")) {
       const manual = readFileSync(manualFile, "utf8");
+      const loaders = [...manual.matchAll(/<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]+"\s+crossorigin="anonymous"><\/script>/g)].map((m) => m[0].replace(/\s+/g, " "));
       manualSnippets = {
-        meta: (manual.match(/<meta name="google-adsense-account" content="[^"]+">/) || [""])[0],
-        loader: (manual.match(/<script async src="https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=[^"]+"\s+crossorigin="anonymous"><\/script>/) || [""])[0].replace(/\s+/g, " "),
-        adsTxt: (manual.match(/^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/m) || [""])[0],
+        metas: [...manual.matchAll(/<meta name="google-adsense-account" content="[^"]+">/g)].map((m) => m[0]),
+        loader: loaders[0] || "",
+        loaders: loaders.length,
+        adsTxt: [...manual.matchAll(/^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/gm)].map((m) => m[0]),
       };
       ok(
-        manualSnippets.meta === `<meta name="google-adsense-account" content="${site.adsense}">` &&
-          manualSnippets.loader.includes(`client=${site.adsense}"`) &&
-          manualSnippets.adsTxt === `google.com, ${pub}, DIRECT, f08c47fec0942fa0`,
-        "ADSENSE.txt (meta tag, loader, ads.txt line) matches site.json",
+        JSON.stringify(manualSnippets.metas) === JSON.stringify(ad.accounts.map(metaTag)) &&
+          manualSnippets.loaders === 1 &&
+          manualSnippets.loader === loaderTag(ad.primary) &&
+          JSON.stringify(manualSnippets.adsTxt) === JSON.stringify(ad.accounts.map(adsTxtLine)),
+        "ADSENSE.txt (one loader, a meta tag and an ads.txt line per account) matches adsense-stack.json",
         JSON.stringify(manualSnippets),
       );
-      ok(readFileSync(join(out, "ads.txt"), "utf8").trim() === manualSnippets.adsTxt, "built ads.txt is the line from ADSENSE.txt");
     }
   } else {
     console.log("  note  no AdSense account yet — add \"adsense\" to site.json when it exists");
@@ -181,8 +188,9 @@ export async function check(domain) {
   for (const file of html) {
     const s = readFileSync(file, "utf8");
     const rel = file.slice(out.length);
-    if (site.adsense && (!s.includes(`<meta name="google-adsense-account" content="${site.adsense}">`) || !s.includes(`adsbygoogle.js?client=${site.adsense}`))) missingTag.push(rel);
-    else if (manualSnippets && (!s.includes(manualSnippets.meta) || !s.includes(manualSnippets.loader))) missingTag.push(rel);
+    if (site.adsense && (!ad.accounts.every((a) => s.includes(metaTag(a))) || !s.includes(loaderTag(ad.primary)))) missingTag.push(rel);
+    // One loader per page: Google ignores a second AdSense head tag ("Only one AdSense head tag supported per page").
+    else if (site.adsense && (s.match(/adsbygoogle\.js\?client=/g) || []).length !== 1) missingTag.push(`${rel} (loaders: ${(s.match(/adsbygoogle\.js\?client=/g) || []).length})`);
     if (BANNED.test(s)) banned.push(rel);
     // Auto ads only (owner, 4 Oct 2026: "cukup cuplikan AdSense, ads.txt & tag
     // meta"): a page carries the loader and the meta tag, never a manual unit.
@@ -197,7 +205,7 @@ export async function check(domain) {
       if (!exists) brokenLinks.add(`${target} (in ${rel})`);
     }
   }
-  if (site.adsense) ok(missingTag.length === 0, `all ${html.length} pages carry the AdSense meta tag and loader`, missingTag.slice(0, 5).join(", "));
+  if (site.adsense) ok(missingTag.length === 0, `all ${html.length} pages carry every AdSense meta tag and exactly one loader`, missingTag.slice(0, 5).join(", "));
   ok(banned.length === 0, "no other ad network and no placeholder text anywhere", banned.slice(0, 5).join(", "));
   ok(manualUnits.length === 0, "no manual ad unit anywhere — AdSense loader + meta + ads.txt only (Auto ads)", manualUnits.slice(0, 5).join(", "));
   ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
