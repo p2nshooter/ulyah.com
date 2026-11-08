@@ -1098,3 +1098,31 @@ antarmuka.
 - **ascan.es**: panduan ditulis ulang dengan kalimat sendiri di lapisan merek ascan (§19), bukan salinan.
 - Uji e2e: 21 bagian, angka dari Admin, HowTo, suara ID dibacakan berurutan dari awal sampai akhir (mesin suara tiruan),
   satu bagian EN, sitemap, panduan admin hanya untuk admin dan noindex.
+
+---
+
+## 24. Fable 5.1 untuk member, keperluan laporan, dan „alat bantu, bukan pemutus“ (pemilik, 8 Nov 2026) — ✅ dibangun
+
+> „Fable 5 udah d pasang belum, termasuk info nya … sangat mahal sekali … token cepat habis, tp make bahasa yg lebih
+> elegan, dan kasih tombol anda yakin menggunakan fable 5 … penggunaan aplikasi ini pasti dari seluruh budak profesional,
+> guru, panitia, organisasi, media dll bukan hanya untuk lomba, dan apakah sudah d bedakan report hasil nya, baik umum
+> maupun untuk perlombaan, berikan notif bahwa xscan hanya membantu analisa dan tidak memutuskan hasil di portal member“
+> · „Tp jgn di catat di laporan member kalimat seperti itu, cukup di portal member“
+
+- **Claude Fable 5.1** (`claude-fable-5-1`, US$10/US$50 per 1 juta token, cache US$0,25; dicek dari referensi Claude API
+  8 Nov 2026): mode mesin `fable` untuk Cek Lengkap. Kartu premium dengan kalimat elegan dan perbandingan biaya yang
+  dihitung dari harga Admin (± kali Opus / kali Haiku). Memilihnya membuka jendela **„Anda yakin ingin memakai Claude
+  Fable 5.1?“** — „Ya, saya yakin“ atau „Tidak, kembali ke AUTO“ (Esc = tidak). Server menolak Fable tanpa konfirmasi
+  (`fable_ok=1` / `fableConfirm: true`). Satu model penuh seperti Sonnet/Opus, fallback sisi server aktif, tidak ditawarkan
+  di sesi massal. Admin → Kendali biaya: „member boleh memilih Fable“ (bawaan nyala) terpisah dari „router boleh memakai
+  Fable“ (bawaan mati), supaya router tidak pernah diam-diam beralih ke mesin termahal.
+- **Keperluan laporan** (`src/lib/purpose.ts`): Umum · Pendidikan · Lomba · Media & redaksi · Organisasi. Laporan berbeda
+  judul dokumen (mis. „Lembar Penilaian Naskah Lomba“, „Laporan Telaah Tugas Peserta Didik“), sebutan penulis (Peserta,
+  Peserta didik, Penyusun, …), baris Keperluan, dan kolom tanda tangan (Juri + Ketua panitia, Guru pengampu, Editor +
+  Pemimpin redaksi, …). Sesi massal punya keperluan sendiri (bawaan Lomba). Cache hasil memperhitungkan keperluan.
+- **„Membantu, tidak memutuskan“** hanya di portal member (dasbor, formulir periksa, halaman laporan di portal) sebagai
+  pemberitahuan di luar dokumen laporan; tidak pernah di laporan, halaman cetak, HTML/JSON unduhan. Kalimat sejenis di
+  bagian metodologi laporan dihapus; metodologi tinggal menjelaskan cara memeriksa.
+- Panduan member/admin (§23) ikut diperbarui. Uji e2e: laporan lomba, pemberitahuan hanya di portal, cetak tanpa
+  pemberitahuan, jendela Fable (tidak/ya), penolakan server tanpa konfirmasi, panggilan `claude-fable-5-1` dengan fallback.
+- Masih berlaku: templat laporan A–I per kategori penulis dan laporan kompetisi lengkap (J) adalah fase X3/X5.

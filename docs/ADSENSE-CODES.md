@@ -28,6 +28,9 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >   (hanya dipakai bila akun ini dijadikan akun utama sebuah domain), tag meta
 >   `<meta name="google-adsense-account" content="ca-pub-8212039662308316">`, baris ads.txt
 >   `google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0`.
+> - **8 Nov 2026 (lanjutan):** akun ke-18 s.d. ke-21 — pub-4504974645924459, pub-6284085719914185, pub-7345352440829958,
+>   pub-5254913739159445 — di semua domain (tag meta + baris ads.txt, loader tidak berubah). 1ft.fr bukan domain pemilik
+>   (dihapus pemilik di AdSense). `docs/ADSENSE-BLUEPRINT.md` §23.6.
 > - Bagian-bagian di bawah ini adalah **riwayat** sebelum 7 Nov 2026.
 
 > **4 Okt 2026, SATU AKUN UNTUK SEMUA.** Pemilik: "sy mau focus jadi 1 akun

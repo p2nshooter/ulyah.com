@@ -4,21 +4,32 @@ import { tr, fmtNum, LABELS, type Lang, type LabelKey } from '../lib/i18n.ts';
 import type { User } from '../data/users.ts';
 import { isAdmin } from '../data/users.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
+import { B, isAscan } from '../brand.ts';
 
-export const BRAND = 'AI Content Analyzer';
-const FONT = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+/** Nama, logo, warna dan akun AdSense datang dari lapisan merek (src/brand.ts) — xscan.es atau ascan.es. */
+export const BRAND = B.name;
+const FONT = B.font;
 
-export const LOGO = raw('<img class="logo-mark" src="/assets/logo-badge-96.webp" srcset="/assets/logo-badge-96.webp 1x, /assets/logo-badge-192.webp 2x" width="40" height="40" alt="">');
-export const TAGLINE = 'Detect · Analyze · Verify';
-export const BRAND_HOST = 'xscan.es';
+export const LOGO = raw(`<img class="logo-mark" src="${B.badge.src1x}" srcset="${B.badge.src1x} 1x, ${B.badge.src2x} 2x" width="40" height="40" alt="">`);
+export const TAGLINE = B.tagline;
+export const BRAND_HOST = B.host;
 /** Tanda air laporan Cek Gratis: logo domain yang dipudarkan (berkas dari pemilik, 8 Nov 2026). */
-export const WATERMARK = { full: '/assets/watermark.webp', tile: '/assets/watermark-tile.webp', badge: '/assets/logo-badge-96.webp' } as const;
+export const WATERMARK = B.watermark;
+
+/** Blok merek di kepala halaman: ascan.es memakai logo lebar dari pemilik; xscan.es lencana + nama + slogan. */
+export function brandMark(extra: Raw | string = ''): Raw {
+  if (B.wideLogo) {
+    const w = B.wideLogo;
+    return html`<img class="logo-wide" src="${w.src1x}" srcset="${w.src1x} 1x, ${w.src2x} 2x" width="${w.w}" height="${w.h}" alt="${B.host} — ${B.tagline}">${extra}`;
+  }
+  return html`${LOGO}<span class="brand-txt">${BRAND}${extra}<small class="brand-tag">${TAGLINE}</small></span>`;
+}
 
 /**
  * Google AdSense xscan.es (pemilik, 2 Nov 2026: „google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0").
  * Satu konstanta untuk tag meta, loader dan /ads.txt — lihat docs/ADSENSE-CODES.md di akar repo.
  */
-export const ADSENSE_PUB = '9354298681597606';
+export const ADSENSE_PUB = B.adsensePub;
 export const ADSENSE_CLIENT = `ca-pub-${ADSENSE_PUB}`;
 
 /**
@@ -45,6 +56,10 @@ export const ADSENSE_STACK = [
   'ca-pub-2493615451319531',
   'ca-pub-5693981744147503',
   'ca-pub-8212039662308316',
+  'ca-pub-4504974645924459', // 8 Nov 2026 (pemilik): akun tumpukan ke-18
+  'ca-pub-6284085719914185', // 8 Nov 2026 (pemilik): akun tumpukan ke-19
+  'ca-pub-7345352440829958', // 8 Nov 2026 (pemilik): akun tumpukan ke-20
+  'ca-pub-5254913739159445', // 8 Nov 2026 (pemilik): akun tumpukan ke-21
 ];
 export const ADSENSE_ACCOUNTS: readonly string[] = [...new Set([ADSENSE_CLIENT, ...ADSENSE_STACK])];
 export const ADS_TXT = `${ADSENSE_ACCOUNTS.map((a) => `google.com, ${a.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0`).join('\n')}\n`;
@@ -83,11 +98,11 @@ ${o.noindex || o.area !== 'public' ? html`<meta name="robots" content="noindex, 
 ${o.canonical ? html`<link rel="canonical" href="${o.canonical}">` : ''}
 ${o.alt && o.path ? html`<link rel="alternate" hreflang="${o.L === 'id' ? 'en' : 'id'}" href="${o.alt}"><link rel="alternate" hreflang="${o.L}" href="${o.path}">` : ''}
 ${raw(ADSENSE_METAS)}
-<meta name="theme-color" content="#0a1238">
-<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="/assets/favicon-64.png" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><meta property="og:image" content="/assets/logo-full-1200.webp">
+<meta name="theme-color" content="${B.themeColor}">
+<link rel="icon" href="${B.favicon32}" sizes="32x32" type="image/png"><link rel="icon" href="${B.favicon64}" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="${B.appleTouch}"><meta property="og:image" content="${B.ogImage}"><meta property="og:site_name" content="${B.host}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONT}">
-<link rel="stylesheet" href="/assets/app.css?v=1">
+<link rel="stylesheet" href="/assets/app.css?v=1">${isAscan ? html`<link rel="stylesheet" href="${B.css}">` : ''}
 ${o.jsonld ? raw(`<script type="application/ld+json">${JSON.stringify(o.jsonld).replace(/</g, '\\u003c')}</script>`) : ''}
 <script src="/assets/app.js?v=1" defer></script>
 ${(o.area === 'public' && !o.noindex) || (o.area === 'app' && o.ads) ? raw(`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>`) : ''}
@@ -106,7 +121,7 @@ function publicNav(o: PageOpts): Raw {
   ];
   return html`<header class="topbar" data-elevate>
   <div class="wrap topbar-in">
-    <a class="brand" href="${L === 'en' ? '/en' : '/'}">${LOGO}<span class="brand-txt">${BRAND}<small class="brand-tag">${TAGLINE}</small></span></a>
+    <a class="brand" href="${L === 'en' ? '/en' : '/'}">${brandMark()}</a>
     <nav class="mainnav" aria-label="${tr(L, 'Menu utama', 'Main menu')}">
       ${links.map(([href, label, key]) => html`<a href="${href}" class="${o.active === key ? 'on' : ''}">${label}</a>`)}
     </nav>
@@ -125,7 +140,7 @@ function publicFooter(L: Lang): Raw {
   const p = (id: string, en: string) => (L === 'en' ? en : id);
   return html`<footer class="footer">
   <div class="wrap footer-grid">
-    <div><a class="brand" href="${p('/', '/en')}">${LOGO}<span class="brand-txt">${BRAND}<small class="brand-tag">${TAGLINE}</small></span></a>
+    <div><a class="brand" href="${p('/', '/en')}">${brandMark()}</a>
       <p class="muted">${tr(L, 'Deteksi tulisan AI dan penilaian artikel untuk Bahasa Indonesia & English. Hasil adalah bukti pendukung, bukan vonis.', 'AI-writing detection and article grading for Indonesian & English. Results are supporting evidence, not a verdict.')}</p></div>
     <div><h4>${tr(L, 'Produk', 'Product')}</h4><a href="${p('/cara-kerja', '/en/how-it-works')}">${tr(L, 'Cara kerja', 'How it works')}</a><a href="${p('/akurasi', '/en/accuracy')}">${tr(L, 'Akurasi', 'Accuracy')}</a><a href="${p('/harga', '/en/pricing')}">${tr(L, 'Harga', 'Pricing')}</a><a href="${p('/contoh-laporan', '/en/sample-report')}">${tr(L, 'Contoh laporan', 'Sample report')}</a><a href="${p('/panduan', '/en/guide')}">${tr(L, 'Panduan pemakaian', 'User guide')}</a></div>
     <div><h4>${tr(L, 'Kebijakan', 'Policies')}</h4><a href="${p('/kebijakan-privasi', '/en/privacy')}">${tr(L, 'Privasi', 'Privacy')}</a><a href="${p('/syarat', '/en/terms')}">${tr(L, 'Syarat', 'Terms')}</a><a href="${p('/penggunaan-etis', '/en/ethical-use')}">${tr(L, 'Penggunaan etis', 'Ethical use')}</a><a href="/verifikasi${L === 'en' ? '?lang=en' : ''}">${tr(L, 'Verifikasi laporan', 'Verify a report')}</a></div>
@@ -169,7 +184,7 @@ function sideNav(o: PageOpts): Raw {
           [L === 'en' ? '/en/guide' : '/panduan', '📘', tr(L, 'Panduan', 'Guide'), 'guide'],
         ];
   return html`<aside class="side" id="side">
-  <a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${LOGO}<span class="brand-txt">${BRAND}${o.area === 'admin' ? html` <em class="tag-admin">Admin</em>` : ''}<small class="brand-tag">${TAGLINE}</small></span></a>
+  <a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${brandMark(o.area === 'admin' ? html` <em class="tag-admin">Admin</em>` : '')}</a>
   <nav aria-label="${tr(L, 'Navigasi portal', 'Portal navigation')}">
     ${items.map(([href, ic, label, key]) => html`<a href="${href}" class="${o.active === key ? 'on' : ''}"><i aria-hidden="true">${ic}</i><span>${label}</span></a>`)}
   </nav>
@@ -190,9 +205,9 @@ export function page(o: PageOpts): string {
   } else if (o.area === 'print') {
     bodyHtml = html`<main id="main" class="page-print">${o.body}</main>`;
   } else {
-    bodyHtml = html`<div class="shell">${sideNav(o)}<div class="shell-main"><header class="mobilebar"><button class="icon-btn" type="button" data-toggle="side" aria-label="Menu">☰</button><a class="brand" href="/app">${LOGO}<span class="brand-txt">${BRAND}<small class="brand-tag">${TAGLINE}</small></span></a></header><main id="main" class="page-app">${o.body}</main></div></div>`;
+    bodyHtml = html`<div class="shell">${sideNav(o)}<div class="shell-main"><header class="mobilebar"><button class="icon-btn" type="button" data-toggle="side" aria-label="Menu">☰</button><a class="brand" href="/app">${brandMark()}</a></header><main id="main" class="page-app">${o.body}</main></div></div>`;
   }
-  return `<!doctype html><html lang="${L}">${head(o)}<body class="area-${o.area}"><a class="skip" href="#main">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>${bodyHtml}<div class="toasts" aria-live="polite"></div></body></html>`;
+  return `<!doctype html><html lang="${L}">${head(o)}<body class="area-${o.area} brand-${B.id}"><a class="skip" href="#main">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>${bodyHtml}<div class="toasts" aria-live="polite"></div></body></html>`;
 }
 
 /* ── komponen ─────────────────────────────────────────────────────────── */
@@ -257,4 +272,13 @@ export function purgeNotice(L: Lang, compact = false): Raw {
 
 export function csrfField(token: string): Raw {
   return html`<input type="hidden" name="_csrf" value="${token}">`;
+}
+
+/**
+ * Pemberitahuan portal member (pemilik, 8 Nov 2026: „berikan notif bahwa xscan hanya membantu analisa dan tidak
+ * memutuskan hasil di portal member“ — dan „jgn di catat di laporan member … cukup di portal member“). Hanya di layar
+ * portal; tidak pernah di laporan, halaman cetak, atau berkas unduhan.
+ */
+export function assistNotice(L: Lang): Raw {
+  return html`<div class="assist-note noprint reveal" role="note" data-assist-note><b>ⓘ ${tr(L, `${B.host} membantu Anda menganalisis — tidak memutuskan.`, `${B.host} helps you analyse — it does not decide.`)}</b> ${tr(L, 'Keputusan akhir, seperti nilai, peringkat, sanksi, atau kelayakan terbit, tetap di tangan Anda sebagai guru, juri, panitia, editor, atau pimpinan.', 'The final call — a grade, a ranking, a sanction or whether to publish — stays with you as the teacher, judge, organiser, editor or manager.')}</div>`;
 }

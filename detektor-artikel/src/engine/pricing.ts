@@ -14,8 +14,10 @@
 import type { BillingSettings, EngineSettings, FreeSettings, Price } from '../data/settings.ts';
 
 /** Mesin pemeriksaan: AUTO = bertingkat termurah dulu (sistem memilih), satu model, atau forensik (ketiganya). */
-export type Mode = 'auto' | 'haiku' | 'sonnet' | 'opus' | 'forensic';
-export const MODES: Mode[] = ['auto', 'haiku', 'sonnet', 'opus', 'forensic'];
+export type Mode = 'auto' | 'haiku' | 'sonnet' | 'opus' | 'fable' | 'forensic';
+export const MODES: Mode[] = ['auto', 'haiku', 'sonnet', 'opus', 'fable', 'forensic'];
+/** Claude Fable 5.1 — mesin premium pilihan member (pemilik, 8 Nov 2026). US$10 / US$50 per 1 juta token. */
+export const FABLE_MODEL = 'claude-fable-5-1';
 export const isMode = (x: unknown): x is Mode => typeof x === 'string' && (MODES as string[]).includes(x);
 
 const TOK_PER_WORD = 1.7; // Bahasa Indonesia (English ± 1,35) — dipakai yang lebih besar agar aman
@@ -51,9 +53,9 @@ export function estimateCostUsd(words: number, mode: Mode, rubric: boolean, eng:
     return { min: tier1 + sonnet(1) + opus(1) + rub(s), typical: f, max: f * 1.3 };
   }
   if (mode === 'haiku') return { min: tier1 * 0.7, typical: tier1, max: tier1 * 1.6 };
-  if (mode === 'sonnet' || mode === 'opus') {
+  if (mode === 'sonnet' || mode === 'opus' || mode === 'fable') {
     // Pemeriksa per kalimat, per paragraf, dan rubrik berjalan di model terpilih; uji tebak lanjutan tetap Haiku.
-    const p = mode === 'sonnet' ? s : o;
+    const p = mode === 'sonnet' ? s : mode === 'opus' ? o : price(eng, FABLE_MODEL);
     const one = usd(p, (SYS + T) * 2 + (rubric ? 4500 + T : 0), 2.9 * T + 600 + 2 * T + (rubric ? 2500 + 1.6 * T : 0)) + usd(h, 1800 + 0.6 * T, 1200);
     return { min: one * 0.7, typical: one, max: one * 1.6 };
   }
@@ -73,8 +75,8 @@ export function hardBoundUsd(words: number, mode: Mode, rubric: boolean, eng: En
   const s = price(eng, eng.models.t2);
   const o = price(eng, eng.models.t3);
   const inT = SYS + T + 600;
-  if (mode === 'haiku' || mode === 'sonnet' || mode === 'opus') {
-    const p = mode === 'haiku' ? h : mode === 'sonnet' ? s : o;
+  if (mode === 'haiku' || mode === 'sonnet' || mode === 'opus' || mode === 'fable') {
+    const p = mode === 'haiku' ? h : mode === 'sonnet' ? s : mode === 'opus' ? o : price(eng, FABLE_MODEL);
     return chunks * usd(p, inT, 16000) + usd(p, inT, 12000) + usd(h, inT, 4000) + (rubric ? usd(p, inT + 1500, 16000) : 0);
   }
   let total = chunks * usd(h, inT, 16000) + usd(h, inT, 12000) + usd(h, inT, 4000) + (rubric ? usd(h, inT + 1500, 16000) : 0);

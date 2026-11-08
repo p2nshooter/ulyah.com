@@ -645,7 +645,8 @@ admin.get('/admin/kendali', async (c) => {
       <label class="field"><span>${tr(L, 'Cara memilih', 'How to choose')}</span><select name="router"><option value="auto" ${k.router === 'auto' ? 'selected' : ''}>${tr(L, 'Otomatis — termurah yang mampu (disarankan)', 'Automatic — cheapest capable (recommended)')}</option><option value="manual" ${k.router === 'manual' ? 'selected' : ''}>${tr(L, 'Manual — pilihan Admin → Mesin', 'Manual — Admin → Engine choice')}</option></select></label>
       <fieldset class="field"><legend>${tr(L, 'Model aktif', 'Active models')}</legend>
         ${Object.keys(CAPABILITY).map((m) => html`<label class="check"><input type="checkbox" name="on_${m}" value="1" ${m === 'claude-haiku-5-5' ? 'checked disabled' : k.disabledModels.includes(m) ? '' : 'checked'}> <span><code>${m}</code> · ${usd(m)} ${m === FABLE ? html`<small class="muted">(${tr(L, 'lebih mahal dari Opus; retensi 30 hari; tidak untuk naskah rahasia', 'pricier than Opus; 30-day retention; never for confidential texts')})</small>` : ''}</span></label>`)}
-        <label class="check"><input type="checkbox" name="fableEnabled" value="1" ${k.fableEnabled ? 'checked' : ''}> <span>${tr(L, 'Izinkan Fable 5.1 sebagai tingkat banding', 'Allow Fable 5.1 as the appeal tier')}</span></label>
+        <label class="check"><input type="checkbox" name="fableEnabled" value="1" ${k.fableEnabled ? 'checked' : ''}> <span>${tr(L, 'Member boleh memilih Claude Fable 5.1 (selalu dengan jendela konfirmasi „Anda yakin?“)', 'Members may choose Claude Fable 5.1 (always with an “Are you sure?” confirmation)')}</span></label>
+        <label class="check"><input type="checkbox" name="fableInRouter" value="1" ${k.fableInRouter ? 'checked' : ''}> <span>${tr(L, 'Router boleh memakai Fable 5.1 bila Sonnet/Opus dimatikan (biaya tertinggi)', 'The router may use Fable 5.1 when Sonnet/Opus are off (highest cost)')}</span></label>
       </fieldset>
     </div>
     <h3>${tr(L, 'Batas belanja', 'Spending limits')}</h3>
@@ -673,6 +674,7 @@ admin.post('/admin/kendali', async (c) => {
     router: f.router === 'manual' ? 'manual' : 'auto',
     disabledModels: Object.keys(CAPABILITY).filter((m) => m !== 'claude-haiku-5-5' && f[`on_${m}`] !== '1'),
     fableEnabled: f.fableEnabled === '1',
+    fableInRouter: f.fableInRouter === '1',
     maxTokensPerCheck: Number(f.maxTokensPerCheck),
     memberDailyTokens: Number(f.memberDailyTokens),
   });

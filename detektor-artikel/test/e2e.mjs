@@ -119,13 +119,13 @@ for (const path of ['/', '/en', '/cara-kerja', '/en/how-it-works', '/harga', '/e
   ok(!r.headers()['x-robots-tag'], 'tidak ada X-Robots-Tag yang menghambat Google');
   // 7 Nov 2026: 16 akun ditumpuk (adsense-stack.json) — satu tag meta per akun, akun utama lebih dulu; satu loader.
   const metas = await p.locator('meta[name="google-adsense-account"]').evaluateAll((els) => els.map((e) => e.getAttribute('content')));
-  ok(metas.length === 17 && metas[0] === 'ca-pub-9354298681597606' && new Set(metas).size === 17 && metas.includes('ca-pub-8212039662308316'), 'AdSense: tag meta per akun (17)');
+  ok(metas.length === 21 && metas[0] === 'ca-pub-9354298681597606' && new Set(metas).size === 21 && metas.includes('ca-pub-8212039662308316'), 'AdSense: tag meta per akun (21)');
   ok((await p.locator('script[src*="adsbygoogle.js?client="]').count()) === 1, 'AdSense: tepat satu loader');
   ok((await p.locator('script[src*="adsbygoogle.js?client=ca-pub-9354298681597606"]').count()) === 1, 'AdSense: loader akun utama');
   ok((await p.locator('meta[name=robots]').count()) === 0, 'beranda bisa diindeks');
   const ads = await (await p.request.get(BASE + '/ads.txt')).text();
   const adsLines = ads.trim().split('\n');
-  ok(adsLines.length === 17 && adsLines[0] === 'google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0' && adsLines.every((l) => /^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/.test(l)), 'ads.txt: satu baris per akun (17)');
+  ok(adsLines.length === 21 && adsLines[0] === 'google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0' && adsLines.every((l) => /^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/.test(l)), 'ads.txt: satu baris per akun (21)');
   const robots = await (await p.request.get(BASE + '/robots.txt')).text();
   ok(/User-agent: Googlebot\nAllow: \//.test(robots) && /User-agent: Mediapartners-Google\nAllow: \//.test(robots) && !/Disallow: \/\n/.test(robots) && /Sitemap: /.test(robots), 'robots.txt membuka semua crawler Google');
   ok((await p.request.get(BASE + '/blueprint')).status() === 404, 'blueprint internal tidak publik');
@@ -278,8 +278,13 @@ ok(/\/r\/[A-Z0-9]+$/.test(refLink), 'tautan afiliasi tersedia');
   await g.waitForURL((u) => new URL(u).pathname === '/en/guide');
   await g.evaluate(() => { window.__spoken = []; });
   const one = await g.locator('#g-deposit [data-gtitle], #g-deposit [data-gstep]').count();
-  await g.click('#g-deposit [data-gplay]');
-  await g.waitForFunction(() => /Finished/.test(document.querySelector('[data-gnow]').textContent));
+  ok((await g.locator('html').getAttribute('lang')) === 'en', 'panduan EN terbuka dalam bahasa Inggris');
+  // Bagian deposit jauh di bawah dan masih beranimasi muncul saat digulir; tombolnya dipicu langsung agar tidak meleset.
+  await g.$eval('#g-deposit [data-gplay]', (b) => b.click());
+  await g.waitForFunction((n) => window.__spoken.length >= n, one, { timeout: 15000 }).catch(async (err) => {
+    console.error('DIAG suara EN:', g.url(), JSON.stringify(await g.evaluate(() => ({ lang: document.documentElement.lang, now: document.querySelector('[data-gnow]')?.textContent, spoken: window.__spoken.length, sec: !!document.querySelector('#g-deposit') }))));
+    throw err;
+  });
   const en = await g.evaluate(() => window.__spoken);
   ok(en.length === one && en.every((x) => x.lang === 'en-US') && /deposit/i.test(en[0].text), 'suara EN: satu bagian (deposit) dibacakan dalam bahasa Inggris');
   const sm = await (await fetch(BASE + '/sitemap.xml')).text();
@@ -540,10 +545,48 @@ await m.waitForFunction(() => /token/.test(document.querySelector('[data-mode-es
 ok(true, 'perkiraan token per mesin (Haiku/Sonnet/Opus/AUTO) tampil di formulir');
 await m.check('input[name=mode][value=sonnet]');
 await m.fill('input[name=title]', 'Esai mode Sonnet');
+await m.selectOption('select[name=purpose]', 'lomba');
 await m.check('input[name=agree]');
 await m.click('.check-form button[type=submit]');
 await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
 ok(/Claude Sonnet/.test(await m.textContent('.pmeta')), 'laporan menyebut mesin Claude Sonnet');
+// Keperluan laporan (pemilik, 8 Nov 2026): laporan lomba berbeda dari laporan umum.
+ok(/Lembar Penilaian Naskah Lomba/.test(await m.textContent('.report .phead')) && /Peserta/.test(await m.textContent('.pmeta')) && /Lomba/.test(await m.textContent('.pmeta')), 'laporan lomba: judul, sebutan peserta, dan keperluan');
+ok(/Juri/.test(await m.textContent('.report .sign')) && /Ketua panitia/.test(await m.textContent('.report .sign')), 'laporan lomba: kolom tanda tangan juri dan ketua panitia');
+ok((await m.locator('[data-assist-note]').count()) === 1 && (await m.locator('.report [data-assist-note]').count()) === 0, 'pemberitahuan „membantu, tidak memutuskan“ ada di portal, di luar laporan');
+ok(!/tidak memutuskan|dasar hukuman/.test(await m.textContent('.report')), 'laporan member tidak memuat kalimat „tidak memutuskan“');
+const sonnetRid = m.url().split('/').pop().split('?')[0];
+await m.goto(`${BASE}/app/laporan/${sonnetRid}/cetak`);
+ok((await m.locator('[data-assist-note]').count()) === 0 && !/tidak memutuskan/.test(await m.textContent('body')), 'halaman cetak tanpa pemberitahuan portal');
+await m.goto(BASE + '/app');
+ok((await m.locator('[data-assist-note]').count()) === 1, 'dasbor: pemberitahuan alat bantu tampil');
+
+// Claude Fable 5.1 (pemilik, 8 Nov 2026): pilihan premium, kalimat elegan, jendela „Anda yakin?“.
+await m.goto(BASE + '/app/periksa');
+ok((await m.locator('.mode-card.premium input[value=fable]').count()) === 1 && /lebih cepat/.test(await m.textContent('.mode-card.premium')), 'Fable 5.1 tersedia dengan keterangan biaya yang elegan');
+await m.fill('textarea[name=text]', ESSAY.replace(/Literasi/g, 'Literasi media'));
+await m.check('input[name=mode][value=fable]');
+await m.waitForSelector('[data-fable-dialog][open]');
+ok(/Anda yakin ingin memakai Claude Fable 5\.1\?/.test(await m.textContent('[data-fable-dialog]')), 'memilih Fable membuka jendela „Anda yakin?“');
+await m.click('[data-fable-no]');
+ok(await m.isChecked('input[name=mode][value=auto]') && (await m.inputValue('[data-fable-ok]')) === '0', '„Tidak“ mengembalikan pilihan ke AUTO');
+// Tanpa konfirmasi (JS dilewati) server tetap menolak.
+await m.check('input[name=mode][value=fable]');
+await m.click('[data-fable-no]');
+await m.evaluate(() => { const f = document.querySelector('.check-form'); f.querySelector('input[name=mode][value=fable]').checked = true; f.querySelector('input[name=agree]').checked = true; HTMLFormElement.prototype.submit.call(f); });
+await m.waitForLoadState();
+ok(/konfirmasi/.test(await m.textContent('.flash.err')), 'server menolak Fable tanpa konfirmasi');
+await m.fill('textarea[name=text]', ESSAY.replace(/Literasi/g, 'Literasi media'));
+await m.check('input[name=mode][value=auto]');
+await m.check('input[name=mode][value=fable]');
+await m.waitForSelector('[data-fable-dialog][open]');
+await m.click('[data-fable-yes]');
+ok((await m.inputValue('[data-fable-ok]')) === '1', '„Ya, saya yakin“ mengonfirmasi Fable');
+await m.fill('input[name=title]', 'Esai mode Fable');
+await m.check('input[name=agree]');
+await m.click('.check-form button[type=submit]');
+await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+ok(/Fable 5\.1/.test(await m.textContent('.pmeta')) && /Laporan Analisis Tulisan/.test(await m.textContent('.report .phead')), 'laporan Fable 5.1 (keperluan umum)');
 await m.goto(BASE + '/app');
 ok((await m.locator('.mode-pages tbody tr').count()) === 4, 'dasbor: prediksi halaman per mesin');
 
@@ -580,8 +623,9 @@ const calls = await (await fetch('http://127.0.0.1:8788/__calls')).json();
 ok(calls.some((x) => x.model === 'claude-haiku-5-5' && x.effort === 'high'), 'Haiku dipanggil dengan effort high (Mode Ultra)');
 ok(calls.every((x) => !/sonnet|opus/.test(x.model) || (x.fallbacks === 'default' && /server-side-fallback/.test(x.betas || ''))), 'Sonnet/Opus memakai server-side fallback');
 ok(calls.filter((x) => x.model === 'claude-sonnet-5-5').length >= 3, 'mode Sonnet benar-benar memanggil Sonnet');
+ok(calls.some((x) => x.model === 'claude-fable-5-1' && x.fallbacks === 'default'), 'mode Fable memanggil claude-fable-5-1 dengan fallback sisi server');
 await browser.close();
 // 402 (saldo kurang), 404 bukti milik akun lain, 409 pilihan kuota gratis, 403 JSON Cek Gratis dan 422 URL internal memang disengaja di atas.
-const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e) && !/\/app\/periksa :: .*status of 503/.test(e) && !/\/app\/sesi\/ses_\w+ :: .*status of 422/.test(e));
+const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e) && !/\/app\/periksa :: .*status of 503/.test(e) && !/\/app\/sesi\/ses_\w+ :: .*status of 422/.test(e) && !/\/app\/periksa :: .*status of 400/.test(e));
 if (real.length) { console.error('Galat konsol:\n' + real.join('\n')); process.exit(1); }
 console.log('SEMUA LULUS');

@@ -21,9 +21,10 @@ import {
 } from './claude.ts';
 import { getEngine, getBilling, addSpend, addFreeSpend, type EngineSettings } from '../data/settings.ts';
 import { releaseFreePages } from '../data/free.ts';
+import type { Purpose } from '../lib/purpose.ts';
 import { getControls } from '../data/controls.ts';
 import { applyRouter } from './router.ts';
-import { rateCard, lineTokens, tokenCostIdr, minRevenueMultiple, freeModel, type Rate, type Mode } from './pricing.ts';
+import { rateCard, lineTokens, tokenCostIdr, minRevenueMultiple, freeModel, FABLE_MODEL, type Rate, type Mode } from './pricing.ts';
 import { audit } from '../data/audit.ts';
 import { aspectValue, categoryOf, getRubric, languageBand, ruleErrors, type LangError, type Rubric } from './rubrics.ts';
 import { refund, type Reservation } from '../data/wallet.ts';
@@ -52,6 +53,8 @@ export interface CheckDoc {
   reportLang: Lang;
   rubricId: string | null;
   mode: Mode;
+  /** Keperluan laporan (pemilik, 8 Nov 2026): umum, pendidikan, lomba, media, organisasi. */
+  purpose?: Purpose;
   stage: Stage;
   attempts: number;
   lease: number;
@@ -105,6 +108,7 @@ export interface ReportSummary {
   lang: string;
   reportLang: Lang;
   mode: Mode;
+  purpose?: Purpose;
   words: number;
   analyzedWords: number;
   excludedWords: number;
@@ -264,6 +268,7 @@ async function stagePrep(env: Env, store: Store, doc: CheckDoc): Promise<Partial
 export function judgeModel(settings: EngineSettings, mode: Mode): { model: string; effort: EngineSettings['effort']['t1']; weight: number } {
   if (mode === 'sonnet') return { model: settings.models.t2, effort: settings.effort.t2, weight: 1.6 };
   if (mode === 'opus') return { model: settings.models.t3, effort: settings.effort.t3, weight: 2.2 };
+  if (mode === 'fable') return { model: FABLE_MODEL, effort: settings.effort.t3, weight: 2.4 };
   return { model: settings.models.t1, effort: settings.effort.t1, weight: 1 };
 }
 
@@ -498,7 +503,7 @@ async function stageT1(ctx: CallCtx, env: Env, store: Store, settings: EngineSet
   const t = settings.thresholds;
   let targets: number[];
   // Mesin satu model (Haiku/Sonnet/Opus): tidak ada eskalasi — klien memilih modelnya sendiri.
-  const single = doc.mode === 'haiku' || doc.mode === 'sonnet' || doc.mode === 'opus';
+  const single = doc.mode === 'haiku' || doc.mode === 'sonnet' || doc.mode === 'opus' || doc.mode === 'fable';
   if (single && !refused) targets = [];
   else if (forensic || refused) targets = body(pp).map((s) => s.i);
   else if (gate1Passes(pp, sig, t)) targets = [];
@@ -719,6 +724,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     lang: pp.lang,
     reportLang: doc.reportLang,
     mode: doc.mode,
+    purpose: doc.purpose ?? 'umum',
     words: pp.words,
     analyzedWords: pp.analyzedWords,
     excludedWords: pp.excludedWords,
@@ -736,7 +742,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
       opus: all.t3?.doc ?? null,
       traces: prep.traces.items,
     },
-    path: { t2Pct, t3Pct, tiers: [doc.mode === 'sonnet' ? 'sonnet' : doc.mode === 'opus' ? 'opus' : 'haiku', ...(all.t2 ? ['sonnet'] : []), ...(all.t3 ? ['opus'] : [])] },
+    path: { t2Pct, t3Pct, tiers: [doc.mode === 'sonnet' ? 'sonnet' : doc.mode === 'opus' ? 'opus' : doc.mode === 'fable' ? 'fable' : 'haiku', ...(all.t2 ? ['sonnet'] : []), ...(all.t3 ? ['opus'] : [])] },
     paragraphs: pars,
     flags: {
       injection: Boolean(all.t1?.a.injection || all.t1?.b.injection),

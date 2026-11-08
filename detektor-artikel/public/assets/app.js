@@ -265,6 +265,20 @@
     ta.addEventListener('input', estimate);
     form.addEventListener('change', estimate);
     estimate();
+    /* Fable 5.1: jendela konfirmasi sebelum dipakai (pemilik, 8 Nov 2026). Esc / Tidak → kembali ke AUTO. */
+    var fdlg = form.querySelector('[data-fable-dialog]'), fok = form.querySelector('[data-fable-ok]');
+    if (fdlg && fok) {
+      var openF = function () { if (typeof fdlg.showModal === 'function') { if (!fdlg.open) fdlg.showModal(); } else fdlg.setAttribute('open', ''); };
+      var closeF = function () { if (typeof fdlg.close === 'function') fdlg.close(); else fdlg.removeAttribute('open'); };
+      var backAuto = function () { fok.value = '0'; var a = form.querySelector('input[name=mode][value=auto]'); if (a) a.checked = true; closeF(); estimate(); };
+      form.addEventListener('change', function (ev) { if (ev.target.name === 'mode') { if (ev.target.value === 'fable' && fok.value !== '1') openF(); if (ev.target.value !== 'fable') fok.value = '0'; } });
+      fdlg.querySelector('[data-fable-yes]').addEventListener('click', function () { fok.value = '1'; closeF(); estimate(); });
+      fdlg.querySelector('[data-fable-no]').addEventListener('click', backAuto);
+      fdlg.addEventListener('cancel', function (ev) { ev.preventDefault(); backAuto(); });
+      form.addEventListener('submit', function (ev) { var m = form.querySelector('input[name=mode]:checked'); if (m && m.value === 'fable' && fok.value !== '1') { ev.preventDefault(); openF(); } });
+    }
+    var purSel = form.querySelector('[data-purpose]'), purHint = form.querySelector('[data-purpose-hint]');
+    if (purSel && purHint) purSel.addEventListener('change', function () { purHint.textContent = purSel.options[purSel.selectedIndex].getAttribute('data-hint') || ''; });
     var urlBtn = form.querySelector('[data-url-fetch]'), urlIn = form.querySelector('[data-url-input]');
     if (urlBtn && urlIn) {
       var fetchUrl = function () {

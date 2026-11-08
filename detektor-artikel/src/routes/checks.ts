@@ -17,6 +17,7 @@ import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { limit, count } from '../lib/ratelimit.ts';
 import { fetchArticle, collectSitemap, InputUrlError } from '../lib/extract.ts';
+import { isPurpose, type Purpose } from '../lib/purpose.ts';
 import { getControls, addMemberDay, SpendLimitError } from '../data/controls.ts';
 import { applyRouter } from '../engine/router.ts';
 import { wibDate } from '../data/settings.ts';
@@ -32,6 +33,9 @@ export interface NewCheck {
   reportLang: Lang;
   rubricId: string | null;
   mode: Mode;
+  purpose?: Purpose;
+  /** Member sudah menekan „Ya, saya yakin“ di jendela konfirmasi Fable. */
+  fableOk?: boolean;
 }
 
 export class CheckInputError extends Error {
@@ -88,6 +92,8 @@ export function sanitizeInput(raw: Record<string, unknown>, L: Lang): NewCheck {
     reportLang: raw.reportLang === 'en' ? 'en' : raw.reportLang === 'id' ? 'id' : L,
     rubricId: getRubric(rubricId) ? rubricId : null,
     mode: isMode(raw.mode) ? raw.mode : 'auto',
+    purpose: isPurpose(raw.purpose) ? raw.purpose : 'umum',
+    fableOk: raw.fable_ok === '1' || raw.fableConfirm === true,
   };
 }
 
@@ -147,6 +153,11 @@ export async function createCheck(
   if (!opts.bench && !opts.batchId && !opts.prepaid && !opts.free && !opts.noCache) {
     const hit = await cachedCheck(store, user.id, input, Boolean(free));
     if (hit) return hit;
+  }
+  // Fable 5.1 (pemilik, 8 Nov 2026): hanya bila diizinkan admin, dan hanya setelah member menekan „Ya, saya yakin“.
+  if (input.mode === 'fable') {
+    if (!controls.fableEnabled || controls.disabledModels.includes('claude-fable-5-1')) throw new CheckInputError(403, tr(L, 'Claude Fable 5.1 sedang tidak tersedia. Silakan pilih mesin lain.', 'Claude Fable 5.1 is not available right now. Please choose another engine.'));
+    if (!input.fableOk && !opts.bench) throw new CheckInputError(400, tr(L, 'Mohon konfirmasi dulu bahwa Anda memang ingin memakai Claude Fable 5.1.', 'Please confirm first that you really want to use Claude Fable 5.1.'));
   }
   const routedEng = applyRouter(await getEngine(store), controls);
   if (routedEng.blocked.length) throw new CheckInputError(503, tr(L, 'Tidak ada mesin AI aktif yang mampu untuk pemeriksaan ini. Hubungi admin.', 'No active AI engine can run this check. Contact the admin.'));
@@ -227,6 +238,7 @@ export async function createCheck(
     reportLang: input.reportLang,
     rubricId: input.rubricId,
     mode: input.mode,
+    purpose: input.purpose ?? 'umum',
     free,
     stage: 'prep',
     attempts: 0,
@@ -356,7 +368,7 @@ async function cachedCheck(store: Store, uid: string, input: NewCheck, free: boo
     const rep = await store.get<ReportSummary>(reportKey(it.id));
     if (!rep || rep.uid !== uid || Date.now() - rep.createdAt > RESULT_CACHE_DAYS * 86_400_000) continue;
     if (rep.mode !== input.mode || (rep.rubric?.id ?? null) !== (input.rubricId ?? null) || rep.reportLang !== input.reportLang) continue;
-    if (Boolean(rep.free) !== free || rep.genre !== input.genre || rep.level !== input.level) continue;
+    if (Boolean(rep.free) !== free || rep.genre !== input.genre || rep.level !== input.level || (rep.purpose ?? 'umum') !== (input.purpose ?? 'umum')) continue;
     const doc = await store.get<CheckDoc>(checkKey(rep.checkId));
     if (doc && doc.stage === 'done' && doc.reportId === rep.id) return doc;
   }
@@ -436,6 +448,8 @@ export interface Batch {
   name: string;
   category: string;
   rubricId: string | null;
+  /** Sesi lomba (bawaan) atau kelas. */
+  purpose?: Purpose;
   policy: 'flag' | 'exclude';
   reportLang: Lang;
   createdAt: number;
@@ -492,7 +506,7 @@ checks.post('/api/batches/:id/run', async (c) => {
   let seq = batch.items;
   try {
     for (const e of entries) {
-      const doc = await createCheck(c.env, store, user, sanitizeInput({ ...e, rubric: batch.rubricId, reportLang: batch.reportLang, genre: 'essay', mode }, L), L, { batchId: batch.id, prepaid: true });
+      const doc = await createCheck(c.env, store, user, sanitizeInput({ ...e, rubric: batch.rubricId, reportLang: batch.reportLang, genre: 'essay', mode, purpose: batch.purpose ?? 'lomba' }, L), L, { batchId: batch.id, prepaid: true });
       seq += 1;
       await store.createOnce(`i/batch-items/${batch.id}/${String(seq).padStart(5, '0')}~${doc.id}`, {}, { title: doc.title, author: doc.author });
       ids.push(doc.id);

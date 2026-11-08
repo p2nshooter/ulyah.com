@@ -27,7 +27,7 @@ export const blended = (eng: EngineSettings, model: string) => {
 
 export function usable(model: string, c: Controls, confidential = false): boolean {
   if (c.disabledModels.includes(model)) return false;
-  if (model === FABLE && (!c.fableEnabled || confidential)) return false;
+  if (model === FABLE && (!c.fableInRouter || confidential)) return false;
   return true;
 }
 
