@@ -14,12 +14,16 @@ import { B } from '../brand.ts';
 import { completeOrder } from './payments.ts';
 import {
   getPaypal, paypalReady, sealCreds, createPaypalOrder, capturePaypalOrder, verifyWebhook, registerWebhook, accessToken,
-  isPaypalMode, PAYPAL_DOC, PaypalError, type PaypalDoc, type PaypalMode, seedPublicKey } from '../data/paypal.ts';
+  isPaypalMode, PAYPAL_DOC, PaypalError, type PaypalDoc, type PaypalMode, seedPublicKey, checkPaypal, getPaypalOrder } from '../data/paypal.ts';
+import { limit } from '../lib/ratelimit.ts';
 import type { Store } from '../lib/store.ts';
 import type { Env } from '../env.ts';
 
 const originOf = (c: Ctx) => (c.env.CANONICAL_HOST ? `https://${c.env.CANONICAL_HOST}` : new URL(c.req.url).origin);
 const ppIndex = (paypalOrderId: string) => `i/paypal/${paypalOrderId}`;
+/** Order PayPal kita yang belum lunas — diperiksa sendiri oleh cron (pengganti webhook PayPal). */
+export const openKey = (orderId: string) => `i/paypal-open/${orderId}`;
+const hookUrlOf = (env: Env, fallbackOrigin: string) => `${env.CANONICAL_HOST ? `https://${env.CANONICAL_HOST}` : fallbackOrigin}/api/paypal/webhook`;
 
 /** Lunasi pesanan setelah PayPal mengonfirmasi pembayaran — jalur yang sama dengan persetujuan admin, idempoten. */
 export async function settlePaypal(store: Store, orderId: string, cap: { captureId: string; amount: string; currency: string; status: string; payerEmail?: string }, by: string): Promise<'credited' | 'mismatch' | 'not_found' | 'pending'> {
@@ -43,6 +47,7 @@ export async function settlePaypal(store: Store, orderId: string, cap: { capture
   });
   const o = await store.get<Order>(orderKey(orderId));
   if (o?.status !== 'credited') return 'pending';
+  await store.del(openKey(orderId));
   await completeOrder(store, o, by);
   await store.del(reviewKey(orderId));
   await audit(store, by, 'paypal.paid', { orderId, captureId: cap.captureId, amount: cap.amount });
@@ -68,7 +73,65 @@ export async function startPaypal(c: Ctx, o: Order): Promise<string> {
   });
   await store.cas<Order>(orderKey(o.id), (x) => (x ? { ...x, method: 'paypal', paypal: { ...x.paypal, orderId: created.id, mode: d.mode, status: 'CREATED', at: Date.now() } } : null));
   await store.put(ppIndex(created.id), { orderId: o.id, mode: d.mode });
+  // Pemeriksaan otomatis (pemilik, 8 Nov 2026: „webhook di buat dari sisi anda, jadi ga perlu webhook dr paypal“).
+  await store.put(openKey(o.id), {}, { at: Date.now(), next: Date.now() + 20_000 });
   return created.approveUrl;
+}
+
+/**
+ * „Webhook dari sisi kita“: cron memeriksa sendiri order PayPal yang belum lunas (member menutup jendela sebelum kembali,
+ * atau webhook PayPal tidak terpasang). Disetujui → capture → token masuk; sudah COMPLETED → dilunasi; > 72 jam → dilepas.
+ * ID PayPal selalu yang tersimpan di pesanan kita. Jadwal mundur: tiap menit (10 menit pertama), tiap 3 menit (1 jam),
+ * lalu tiap 20 menit.
+ */
+export async function reconcilePaypal(env: Env, store: Store, now = Date.now()): Promise<number> {
+  const { items } = await store.list<{ at?: number; next?: number }>('i/paypal-open/', { limit: 25 });
+  if (!items.length) return 0;
+  const d = await getPaypal(env, store);
+  let credited = 0;
+  for (const it of items) {
+    const at = Number(it.meta.at) || now;
+    if ((Number(it.meta.next) || 0) > now) continue;
+    const o = await store.get<Order>(orderKey(it.id));
+    const ppId = o?.paypal?.orderId;
+    if (!o || !ppId || !OPEN.includes(o.status)) {
+      await store.del(openKey(it.id));
+      continue;
+    }
+    if (now - at > 72 * 3600_000) {
+      await store.del(openKey(it.id));
+      await audit(store, 'paypal:auto', 'paypal.expired', { orderId: o.id });
+      continue;
+    }
+    const age = now - at;
+    const later = async (ms: number) => store.put(openKey(o.id), {}, { at, next: now + ms });
+    const dm = { ...d, mode: o.paypal?.mode ?? d.mode };
+    if (!dm[dm.mode]) {
+      await later(20 * 60_000);
+      continue;
+    }
+    try {
+      let st = await getPaypalOrder(env, dm, ppId);
+      if (st.status === 'APPROVED') st = await capturePaypalOrder(env, dm, ppId, o.id);
+      if (st.status === 'COMPLETED') {
+        if (st.customId && st.customId !== o.id) {
+          await audit(store, 'paypal:auto', 'paypal.mismatch', { orderId: o.id, customId: st.customId });
+          await store.del(openKey(o.id));
+          continue;
+        }
+        if ((await settlePaypal(store, o.id, st, 'paypal:auto')) === 'credited') credited += 1;
+        else await later(5 * 60_000);
+      } else if (st.status === 'VOIDED' || st.status === 'DECLINED') {
+        await store.del(openKey(o.id));
+      } else {
+        await later(age < 10 * 60_000 ? 60_000 : age < 3600_000 ? 3 * 60_000 : 20 * 60_000);
+      }
+    } catch (err) {
+      if (err instanceof PaypalError && (err.code === 'RESOURCE_NOT_FOUND' || err.status === 404)) await store.del(openKey(o.id));
+      else await later(5 * 60_000);
+    }
+  }
+  return credited;
 }
 
 export function registerMemberPaypal(app: Hono<HonoEnv>): void {
@@ -120,6 +183,14 @@ export function registerPaypalWebhook(app: Hono<HonoEnv>): void {
   app.get('/api/paypal/seed-key', async (c) => {
     if (!c.env.MASTER_KEY) return c.json({ error: 'unavailable' }, 503);
     return c.json(await seedPublicKey(c.env, c.get('store')), 200, { 'cache-control': 'no-store', 'x-robots-tag': 'noindex' });
+  });
+  // Uji koneksi PayPal tanpa sesi (dipakai paypal-seed.yml setelah menanam kredensial). Paling sering sekali per menit;
+  // hanya mengembalikan berhasil/gagal + pesan PayPal — tidak pernah kredensial.
+  app.post('/api/paypal/check', async (c) => {
+    if (!c.env.MASTER_KEY) return c.json({ error: 'unavailable' }, 503);
+    if (!(await limit(c.env, 'paypal-check', 1, 60))) return c.json({ error: 'rate' }, 429);
+    const d = await checkPaypal(c.env, c.get('store'), hookUrlOf(c.env, new URL(c.req.url).origin));
+    return c.json({ enabled: d.enabled, mode: d.mode, ready: paypalReady(d), sandbox: d.tests?.sandbox ?? null, live: d.tests?.live ?? null, pendingActivate: d.pendingActivate ?? null }, 200, { 'cache-control': 'no-store' });
   });
   app.post('/api/paypal/webhook', async (c) => {
     const store = c.get('store');
@@ -212,6 +283,7 @@ export function registerAdminPaypal(admin: Hono<HonoEnv>, shell: (c: Ctx, title:
       <section class="card reveal" data-paypal-mode="${m}">
         <h3>${m === 'sandbox' ? 'Sandbox' : 'Live'}</h3>
         ${maskRow(L, d, m)}
+        ${d.tests?.[m] ? html`<p class="${d.tests[m]!.ok ? 'pos' : 'neg'} small" data-paypal-test="${m}">${d.tests[m]!.ok ? '✓' : '✗'} ${d.tests[m]!.msg} <span class="muted">(${new Date(d.tests[m]!.at).toISOString().slice(0, 16).replace('T', ' ')} UTC)</span></p>` : ''}
         <form method="post" action="/admin/paypal" class="form">
           <input type="hidden" name="act" value="save"><input type="hidden" name="m" value="${m}">
           <label class="field"><span>Client ID</span><input name="clientId" autocomplete="off" spellcheck="false" maxlength="200" placeholder="${d[m] ? `•••• ${d[m]!.idLast4}` : 'A…'}" required></label>
@@ -229,7 +301,11 @@ export function registerAdminPaypal(admin: Hono<HonoEnv>, shell: (c: Ctx, title:
           <button class="btn btn-ghost btn-sm" type="submit">${tr(L, 'Simpan', 'Save')}</button>
         </form>
       </section>`)}</div>
-    <section class="card reveal"><h3>${tr(L, 'Alamat webhook', 'Webhook URL')}</h3><p><code>${hook}</code></p>
+    <section class="card reveal" data-paypal-auto><h3>${tr(L, 'Konfirmasi pembayaran otomatis', 'Automatic payment confirmation')}</h3>
+      <p>${tr(L, 'Webhook PayPal <b>tidak wajib</b>. xscan.es memeriksa sendiri setiap order PayPal yang belum lunas (tiap menit pada 10 menit pertama, lalu makin jarang hingga 72 jam): begitu pembeli menyetujui, server melakukan capture dan token langsung masuk — walau pembeli menutup jendela sebelum kembali.', 'A PayPal webhook is <b>not required</b>. xscan.es checks every unpaid PayPal order itself (every minute for the first 10 minutes, then less often up to 72 hours): as soon as the buyer approves, the server captures and the tokens arrive — even if the buyer closes the window before returning.')}</p>
+      <form method="post" action="/admin/paypal"><input type="hidden" name="act" value="check"><button class="btn btn-primary btn-sm" type="submit">🔄 ${tr(L, 'Periksa koneksi & daftarkan webhook otomatis', 'Check connection & register webhook automatically')}</button></form>
+    </section>
+    <section class="card reveal"><h3>${tr(L, 'Alamat webhook (opsional)', 'Webhook URL (optional)')}</h3><p><code>${hook}</code></p>
       <p class="muted small">${tr(L, 'Peristiwa: PAYMENT.CAPTURE.COMPLETED, PAYMENT.CAPTURE.DENIED, PAYMENT.CAPTURE.REFUNDED, PAYMENT.CAPTURE.REVERSED, CHECKOUT.ORDER.APPROVED. Tanda tangan setiap peristiwa diverifikasi PayPal sebelum diproses.', 'Events: PAYMENT.CAPTURE.COMPLETED, PAYMENT.CAPTURE.DENIED, PAYMENT.CAPTURE.REFUNDED, PAYMENT.CAPTURE.REVERSED, CHECKOUT.ORDER.APPROVED. Every event’s signature is verified with PayPal before processing.')}</p></section>`;
     return c.html(shell(c as Ctx, 'PayPal', body, 'paypal'));
   });
@@ -270,6 +346,12 @@ export function registerAdminPaypal(admin: Hono<HonoEnv>, shell: (c: Ctx, title:
       await save({ ...d, webhook: { ...d.webhook, [m]: id || undefined } });
       await audit(store, me.id, 'paypal.webhook_id', { mode: m });
       return back(tr(L, 'Webhook ID tersimpan.', 'Webhook ID saved.'));
+    }
+    if (act === 'check') {
+      const r = await checkPaypal(c.env as Env, store, `${originOf(c as Ctx)}/api/paypal/webhook`);
+      await audit(store, me.id, 'paypal.checked', { sandbox: r.tests?.sandbox?.ok ?? null, live: r.tests?.live?.ok ?? null });
+      const bad = (['sandbox', 'live'] as PaypalMode[]).filter((x) => r.tests?.[x] && !r.tests[x]!.ok);
+      return bad.length ? back(null, `${bad.join(', ')}: ${bad.map((x) => r.tests![x]!.msg).join(' | ')}`.slice(0, 300)) : back(tr(L, 'Koneksi PayPal diperiksa — lihat hasil per mode.', 'PayPal connection checked — see the result per mode.'));
     }
     if (act === 'test' || act === 'webhook') {
       try {

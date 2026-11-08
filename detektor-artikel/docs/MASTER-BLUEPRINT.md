@@ -1294,6 +1294,16 @@ di menu dan di kepala portal member maupun admin.
   `paypal-seed.yml`), tidak pernah di repositori.
 - IP luar Indonesia: bahasa Inggris, harga USD, PayPal disarankan di urutan pertama; transfer bank tetap tersedia.
 
+- **Webhook PayPal tidak wajib** (pemilik, 8 Nov 2026: „tolong webhook di buat dari sisi anda, jadi ga perlu webhook dr
+  paypal“): setiap order PayPal yang belum lunas masuk daftar `i/paypal-open/` dan diperiksa sendiri oleh cron menit
+  (20 detik setelah dibuat, tiap menit selama 10 menit, tiap 3 menit sampai 1 jam, lalu tiap 20 menit sampai 72 jam):
+  disetujui → capture → token masuk; sudah lunas → dilunasi; dibatalkan/kedaluwarsa → dilepas. ID PayPal yang dipakai selalu
+  yang tersimpan di pesanan kita. Webhook tetap didaftarkan otomatis bila bisa (cadangan, tanda tangan diverifikasi).
+- **Kredensial lewat pemilik** („input di live PayPal … pastikan masuk ke R2 dan di encrypt termasuk sandbox nya“): seed v2
+  terenkripsi memuat sandbox + live sekaligus; `replace` menimpa isi lama atas perintah pemilik; `activate` mengaktifkan mode
+  itu hanya setelah uji koneksinya berhasil. `POST /api/paypal/check` (sekali per menit) menguji setiap mode, mendaftarkan
+  webhook, dan mencatat hasilnya (berhasil/gagal + pesan PayPal, tanpa rahasia) yang tampil di Admin → PayPal.
+
 ### 28.5 Member luar negeri & perusahaan
 - Profil penagihan (Pengaturan): nama perusahaan, NPWP/VAT/Tax ID, alamat, negara, e-mail penagihan, nomor PO — tampil di
   invoice („Bill to“). Invoice USD menyebut kurs yang dipakai.

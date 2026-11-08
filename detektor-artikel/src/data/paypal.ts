@@ -37,6 +37,10 @@ export interface PaypalDoc {
   seeded?: boolean;
   /** Sidik nilai `PAYPAL_SEED` yang sudah diproses (agar seed yang sama tidak ditanam ulang setelah admin menghapus). */
   seedId?: string;
+  /** Hasil uji koneksi terakhir per mode (tanpa rahasia: berhasil/gagal + pesan PayPal). */
+  tests?: Partial<Record<PaypalMode, { ok: boolean; at: number; msg: string }>>;
+  /** Mode yang diaktifkan begitu uji koneksinya berhasil (dari seed pemilik). */
+  pendingActivate?: PaypalMode;
   updatedAt?: number;
   updatedBy?: string;
 }
@@ -127,22 +131,43 @@ export async function getPaypal(env: Env, store: Store): Promise<PaypalDoc> {
   }
   const seedId = await seedFingerprint(env.PAYPAL_SEED);
   if (doc?.seedId === seedId) return doc;
-  let seed: { mode: PaypalMode; creds: PaypalCreds } | null = null;
+  // Seed v1: {mode, clientId, secret}. Seed v2 (pemilik, 8 Nov 2026: „input di live PayPal … termasuk sandbox nya“):
+  // {sandbox:{clientId,secret}, live:{clientId,secret}, activate?, replace?} — beberapa mode sekaligus; `replace` menimpa
+  // isi lama atas perintah pemilik; `activate` dipakai setelah uji koneksi mode itu berhasil (checkPaypal).
+  let entries: { mode: PaypalMode; creds: PaypalCreds }[] = [];
+  let replace = false;
+  let activate: PaypalMode | undefined;
   try {
-    const s = JSON.parse(await openSeed(env, store, env.PAYPAL_SEED)) as { mode?: string; clientId?: string; secret?: string };
-    if (s.clientId && s.secret) {
-      const mode: PaypalMode = isPaypalMode(s.mode) ? s.mode : 'sandbox';
-      seed = { mode, creds: await sealCreds(env, s.clientId.trim(), s.secret.trim(), 'seed') };
+    type Pair = { clientId?: string; secret?: string };
+    const s = JSON.parse(await openSeed(env, store, env.PAYPAL_SEED)) as Pair & { mode?: string; sandbox?: Pair; live?: Pair; activate?: string; replace?: boolean };
+    const pairs: [PaypalMode, Pair | undefined][] = [['sandbox', s.sandbox], ['live', s.live]];
+    if (s.clientId && s.secret) pairs.push([isPaypalMode(s.mode) ? s.mode : 'sandbox', { clientId: s.clientId, secret: s.secret }]);
+    for (const [mode, p] of pairs) {
+      if (p?.clientId && p.secret && !entries.some((e) => e.mode === mode)) entries.push({ mode, creds: await sealCreds(env, p.clientId.trim(), p.secret.trim(), 'seed') });
     }
+    replace = s.replace === true;
+    activate = isPaypalMode(s.activate) ? s.activate : undefined;
   } catch {
-    seed = null; // seed rusak / kunci berbeda: abaikan, admin mengisi manual
+    entries = []; // seed rusak / kunci berbeda: abaikan, admin mengisi manual
   }
   const apply = (cur: PaypalDoc | null): PaypalDoc => {
     const base: PaypalDoc = cur ?? { enabled: false, mode: 'sandbox' };
     if (base.seedId === seedId) return base;
-    if (!seed || base[seed.mode]) return { ...base, seedId }; // tidak pernah menimpa isi admin
+    const todo = entries.filter((e) => replace || !base[e.mode]); // tanpa `replace`, isi admin tidak pernah ditimpa
+    if (!todo.length) return { ...base, seedId };
     const fresh = !cur || (!base.sandbox && !base.live);
-    return { ...base, [seed.mode]: seed.creds, mode: fresh ? seed.mode : base.mode, enabled: fresh ? true : base.enabled, seeded: true, seedId, updatedAt: Date.now(), updatedBy: 'seed' };
+    const next: PaypalDoc = { ...base, seeded: true, seedId, updatedAt: Date.now(), updatedBy: 'seed' };
+    for (const e of todo) {
+      next[e.mode] = e.creds;
+      // Kredensial baru → hasil uji & webhook lama untuk mode itu tidak berlaku lagi.
+      if (next.tests?.[e.mode]) next.tests = { ...next.tests, [e.mode]: undefined };
+    }
+    if (fresh) {
+      next.mode = todo[0]!.mode;
+      next.enabled = true;
+    }
+    if (activate && todo.some((e) => e.mode === activate)) next.pendingActivate = activate;
+    return next;
   };
   if (!doc) {
     const next = apply(null);
@@ -274,6 +299,12 @@ function captureOf(j: {
   };
 }
 
+/** Status order PayPal (tanpa mengubahnya) — dipakai pemeriksaan otomatis order yang masih terbuka. */
+export async function getPaypalOrder(env: Env, d: PaypalDoc, paypalOrderId: string): Promise<CaptureResult> {
+  if (!/^[A-Z0-9-]{6,40}$/i.test(paypalOrderId)) throw new PaypalError('bad_id', 'ID pesanan PayPal tidak sah.');
+  return captureOf(await call(env, d, `/v2/checkout/orders/${encodeURIComponent(paypalOrderId)}`));
+}
+
 /** Capture pesanan yang sudah disetujui; bila sudah pernah di-capture, ambil statusnya (aman diulang). */
 export async function capturePaypalOrder(env: Env, d: PaypalDoc, paypalOrderId: string, ourOrderId: string): Promise<CaptureResult> {
   if (!/^[A-Z0-9-]{6,40}$/i.test(paypalOrderId)) throw new PaypalError('bad_id', 'ID pesanan PayPal tidak sah.');
@@ -321,4 +352,43 @@ export async function registerWebhook(env: Env, d: PaypalDoc, url: string): Prom
     if (!hit) throw err;
     return hit.id;
   }
+}
+
+/**
+ * Uji koneksi setiap mode yang berisi kredensial, daftarkan webhook otomatis bila belum ada (cadangan — pembayaran tetap
+ * dikonfirmasi oleh pemeriksaan otomatis order terbuka, jadi webhook tidak wajib), lalu aktifkan mode `pendingActivate`
+ * bila ujinya berhasil. Hasil (tanpa rahasia) disimpan di dokumen PayPal.
+ */
+export async function checkPaypal(env: Env, store: Store, hookUrl: string): Promise<PaypalDoc> {
+  const d = await getPaypal(env, store);
+  const now = Date.now();
+  const tests: NonNullable<PaypalDoc['tests']> = {};
+  const webhook: NonNullable<PaypalDoc['webhook']> = { ...d.webhook };
+  for (const m of ['sandbox', 'live'] as PaypalMode[]) {
+    if (!d[m]) continue;
+    const dm = { ...d, mode: m };
+    try {
+      await accessToken(env, dm);
+      let msg = 'Kredensial diterima PayPal.';
+      if (!webhook[m]) {
+        try {
+          webhook[m] = await registerWebhook(env, dm, hookUrl);
+          msg += ' Webhook terdaftar otomatis.';
+        } catch (err) {
+          msg += ` Webhook belum terdaftar (${err instanceof Error ? err.message.slice(0, 120) : 'galat'}) — tidak wajib.`;
+        }
+      }
+      tests[m] = { ok: true, at: now, msg };
+    } catch (err) {
+      tests[m] = { ok: false, at: now, msg: err instanceof Error ? err.message.slice(0, 200) : 'PayPal error' };
+    }
+  }
+  let out: PaypalDoc = d;
+  await store.cas<PaypalDoc>(PAYPAL_DOC, (cur) => {
+    const base = cur ?? d;
+    const act = base.pendingActivate && tests[base.pendingActivate]?.ok ? base.pendingActivate : undefined;
+    out = { ...base, tests, webhook, ...(act ? { mode: act, enabled: true, pendingActivate: undefined } : {}), updatedAt: now };
+    return out;
+  }, 'PayPal check');
+  return out;
 }
