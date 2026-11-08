@@ -87,6 +87,24 @@ jobs:
           rm -f "$RUNNER_TEMP/seed.txt"
           echo "PAYPAL_SEED: dipasang (terenkripsi)."
 
+      - name: Test the credentials and register the webhook automatically
+        if: steps.key.outputs.mode == 'seed'
+        run: |
+          set -eu
+          # Hanya berhasil/gagal + pesan PayPal yang dicetak — tidak pernah kredensial.
+          for host in https://xscan.es https://detektor-artikel.axto.workers.dev; do
+            for i in $(seq 1 8); do
+              sleep 8
+              out=$(curl -s -X POST "$host/api/paypal/check" || true)
+              if printf '%s' "$out" | jq -e '.mode' >/dev/null 2>&1; then
+                echo "$host → $(printf '%s' "$out" | jq -c '{enabled, mode, ready, pendingActivate, sandbox: (.sandbox | if . then {ok, msg} else null end), live: (.live | if . then {ok, msg} else null end)}')"
+                { echo "## Uji koneksi PayPal ($host)"; echo '```json'; printf '%s' "$out" | jq '{enabled, mode, ready, pendingActivate, sandbox: (.sandbox | if . then {ok, msg} else null end), live: (.live | if . then {ok, msg} else null end)}'; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+                exit 0
+              fi
+            done
+          done
+          echo "::warning::Uji koneksi PayPal belum bisa dipanggil — periksa Admin → PayPal."
+
       - name: Check PayPal status on the live site
         if: steps.key.outputs.mode == 'seed'
         run: |

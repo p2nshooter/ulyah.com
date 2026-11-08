@@ -957,6 +957,32 @@ ok((await m.locator('.notice-purge').count()) >= 1, 'pemberitahuan pembersihan o
   await m.goto(BASE + '/app/token');
   ok(Number(await m.getAttribute('.stat-hero .stat-v', 'data-count')) === balPP + starterTok, `PayPal: ${starterTok} token masuk otomatis`);
 
+  // Tanpa webhook PayPal (pemilik, 8 Nov 2026: „webhook di buat dari sisi anda“): pembeli menyetujui lalu menutup jendela
+  // sebelum kembali → cron xscan memeriksa sendiri order yang belum lunas → capture → token masuk.
+  // (Member kedua: akun guru sudah punya 3 pesanan terbuka dari langkah sebelumnya — batasnya memang 3.)
+  await m2.goto(BASE + '/app/token');
+  const balW = Number(await m2.getAttribute('.stat-hero .stat-v', 'data-count'));
+  // Jalan pulang dari PayPal diputus: seolah pembeli menutup jendela setelah menyetujui.
+  let approvedBack = '';
+  await m2.route('**/app/token/pesan', async (route) => {
+    const resp = await route.fetch({ maxRedirects: 0 });
+    approvedBack = resp.headers().location || '';
+    await route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>PayPal</title><p>Jendela ditutup.</p>' });
+  });
+  await press(m2.locator('[data-plan="starter"] button[value=PAYPAL]'));
+  for (let i = 0; i < 40 && !approvedBack; i += 1) await new Promise((r) => setTimeout(r, 250));
+  await m2.unroute('**/app/token/pesan');
+  ok(/token=PPORDER/.test(approvedBack), 'PayPal: order dibuat & disetujui, pembeli tidak kembali ke situs');
+  await new Promise((r) => setTimeout(r, 21_000));
+  ok((await fetch(BASE + '/__scheduled?cron=*+*+*+*+*')).ok, 'cron menit berjalan');
+  await m2.goto(BASE + '/app/token');
+  ok(Number(await m2.getAttribute('.stat-hero .stat-v', 'data-count')) === balW + starterTok, `tanpa webhook PayPal: cron memeriksa sendiri, capture, ${starterTok} token masuk`);
+  await p.goto(BASE + '/admin/paypal');
+  ok((await p.locator('[data-paypal-auto]').count()) === 1 && /tidak wajib/.test(await p.textContent('[data-paypal-auto]')), 'Admin → PayPal: webhook opsional, konfirmasi otomatis dijelaskan');
+  await p.click('[data-paypal-auto] button');
+  await p.waitForURL(/admin\/paypal\?/);
+  ok(/Kredensial diterima PayPal/.test(await p.textContent('[data-paypal-test="sandbox"]')), 'Admin → PayPal: uji koneksi per mode tercatat (tanpa rahasia)');
+
   // Webhook: tanda tangan salah ditolak, benar diterima (diproses sekali).
   const hook = async (sig, id) => (await fetch(BASE + '/api/paypal/webhook', { method: 'POST', headers: { 'content-type': 'application/json', 'paypal-transmission-sig': sig, 'paypal-auth-algo': 'SHA256withRSA', 'paypal-cert-url': 'https://api.sandbox.paypal.com/cert', 'paypal-transmission-id': id, 'paypal-transmission-time': new Date().toISOString() }, body: JSON.stringify({ id, event_type: 'PAYMENT.CAPTURE.COMPLETED', resource: { id: 'CAPX', custom_id: 'ord_nonexistent', amount: { value: '1.00', currency_code: 'USD' } } }) })).status;
   ok((await hook('forged', 'WH-EVT-1')) === 400, 'webhook bertanda tangan palsu ditolak');

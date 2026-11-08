@@ -11,6 +11,7 @@ import { settleBatch } from './routes/checks.ts';
 import { wibDate } from './data/settings.ts';
 import { runPurge, archiveCheck } from './data/purge.ts';
 import { refreshFx } from './data/fx.ts';
+import { reconcilePaypal } from './routes/paypal.ts';
 import { repairDepositOps } from './data/deposit.ts';
 
 /** Pemeriksaan yang belum selesai 2 jam setelah putarannya dimulai dihentikan oleh sweep (§30: kerja yang selesai ditagih, bisa dilanjutkan). */
@@ -114,6 +115,8 @@ export async function retention(env: Env): Promise<number> {
 export async function scheduled(event: ScheduledController, env: Env): Promise<void> {
   if (event.cron === '* * * * *') {
     await sweep(env);
+    // „Webhook dari sisi kita“: order PayPal yang belum lunas diperiksa sendiri (tidak bergantung webhook PayPal).
+    await reconcilePaypal(env, new Store(env.DATA)).catch((err) => console.error('reconcilePaypal', err));
     return;
   }
   await retention(env);

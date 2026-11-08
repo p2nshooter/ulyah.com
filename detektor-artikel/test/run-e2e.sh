@@ -24,7 +24,7 @@ rm -rf .wrangler/state
 # Setiap server di grup prosesnya sendiri (setsid) supaya workerd ikut berhenti saat uji selesai.
 setsid node test/mock-anthropic.mjs 8788 > "$LOG_DIR/mock.log" 2>&1 &
 MOCK=$!
-setsid npx wrangler dev --port 8787 --ip 127.0.0.1 > "$LOG_DIR/dev.log" 2>&1 &
+setsid npx wrangler dev --port 8787 --ip 127.0.0.1 --test-scheduled > "$LOG_DIR/dev.log" 2>&1 &
 DEV=$!
 cleanup() { kill -- -"$MOCK" -"$DEV" 2>/dev/null || true; }
 trap cleanup EXIT
