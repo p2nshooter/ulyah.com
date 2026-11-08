@@ -2,7 +2,10 @@
 import { Hono } from 'hono';
 import { html, raw, jsonScript, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtScore, GENRES, LEVELS, LABELS, MODE_INFO, type Lang, type LabelKey } from '../lib/i18n.ts';
-import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice, BRAND_HOST } from '../pages/ui.ts';
+import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice, BRAND_HOST, assistNotice } from '../pages/ui.ts';
+import { PURPOSES, PURPOSE_INFO, pt, isPurpose } from '../lib/purpose.ts';
+import { getControls } from '../data/controls.ts';
+import { FABLE_MODEL } from '../engine/pricing.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
 import { reportPages, usagePanel, rateTable, modePagesTable } from '../pages/report.ts';
 import { rateCard, predictByMode, packagePrice, tokenPriceIdr } from '../engine/pricing.ts';
@@ -94,6 +97,7 @@ app.get('/app', async (c) => {
   const body = html`
   ${pageHead(tr(L, `Halo, ${user.name}`, `Hi, ${user.name}`), tr(L, 'Apa yang ingin diperiksa hari ini?', 'What would you like to check today?'), html`<a class="btn btn-ghost" href="/app/token">◔ ${tr(L, 'Beli token', 'Buy tokens')}</a><a class="btn btn-primary" href="/app/periksa">＋ ${tr(L, 'Periksa baru', 'New check')}</a>`)}
   ${q(c, 'welcome') ? html`<div class="flash ok reveal">🎉 ${tr(L, 'Akun siap. Beli token untuk mulai memeriksa naskah.', 'Your account is ready. Buy tokens to start checking texts.')}</div>` : ''}
+  ${assistNotice(L)}
   <div class="grid g3">
     <div class="stat stat-hero reveal"><span class="stat-k">${tr(L, 'Saldo token', 'Token balance')}</span><b class="stat-v" data-count="${bal}">${fmtNum(L, bal)}</b>${await pagesLine(L, bal, billing, eng, store)}</div>
     ${stat(tr(L, 'Laporan tersimpan', 'Saved reports'), String(items.length >= 6 ? '6+' : items.length), tr(L, 'riwayat kerja Anda', 'your work history'))}
@@ -122,6 +126,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
   const per = fv?.f.period === 'month' ? tr(L, 'bulan', 'month') : tr(L, 'minggu', 'week');
   const body = html`
   ${pageHead(tr(L, 'Periksa naskah baru', 'Check a new text'), tr(L, 'Tiga langkah: masukkan teks, isi keterangan, pilih cara menilai.', 'Three steps: add the text, describe it, choose how to grade.'))}
+  ${assistNotice(L)}
   ${purgeNotice(L, true)}
   ${guide(L, 'check', tr(L, 'Tips agar hasil paling akurat', 'Tips for the most accurate result'), [
     tr(L, 'Masukkan <b>teks utuh</b> (≥ 300 kata ideal). Di bawah 150 kata tidak ada label.', 'Use the <b>whole text</b> (≥ 300 words is ideal). Under 150 words there is no label.'),
@@ -155,13 +160,24 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
       <div class="grid g2">
         <label class="field"><span>${tr(L, 'Rubrik penilaian', 'Grading rubric')}</span><select name="rubric" data-rubric><option value="">${tr(L, 'Tanpa rubrik — deteksi AI saja', 'No rubric — AI detection only')}</option>${RUBRICS.map((r) => html`<option value="${r.id}" ${(v.rubric ?? 'lomba-esai') === r.id ? 'selected' : ''}>${bi(L, r.name)}</option>`)}</select></label>
         <label class="field"><span>${tr(L, 'Bahasa laporan', 'Report language')}</span><select name="reportLang"><option value="id" ${L === 'id' ? 'selected' : ''}>Bahasa Indonesia</option><option value="en" ${L === 'en' ? 'selected' : ''}>English</option></select></label>
+        <label class="field"><span>${tr(L, 'Keperluan laporan', 'What the report is for')} ${tip(tr(L, 'Judul, sebutan penulis, dan kolom tanda tangan laporan menyesuaikan keperluan.', 'The report’s title, how the writer is named and the signature boxes follow its purpose.'))}</span><select name="purpose" data-purpose>${PURPOSES.map((p) => html`<option value="${p}" data-hint="${pt(L, PURPOSE_INFO[p].hint)}" ${(isPurpose(v.purpose) ? v.purpose : 'umum') === p ? 'selected' : ''}>${pt(L, PURPOSE_INFO[p].name)}</option>`)}</select><small class="muted" data-purpose-hint>${pt(L, PURPOSE_INFO[isPurpose(v.purpose) ? v.purpose : 'umum'].hint)}</small></label>
       </div>
       ${freeOn && fv ? html`<fieldset class="modes free-mode"><legend>${tr(L, 'Cek Gratis', 'Free Check')}</legend>
         <label class="mode-card ${fv.remaining > 0 ? '' : 'off'}"><input type="radio" name="mode" value="free" ${v.mode === 'free' ? 'checked' : ''} ${fv.remaining > 0 ? '' : 'disabled'} data-free-remaining="${fv.remaining}"><span><b>${tr(L, `Gratis — sisa ${fv.remaining} dari ${fv.f.pages} halaman per ${per}`, `Free — ${fv.remaining} of ${fv.f.pages} pages left this ${per}`)}</b><small>${tr(L, `Mesin hemat (Claude Haiku), penilaian per paragraf, tanpa rubrik. Maks. ${fv.f.maxPerCheck} halaman per pemeriksaan (1 halaman = maks. ${fv.f.wordsPerPage} kata). Kuota baru: ${fmtDate(L, fv.resetAt)}. Laporannya memuat iklan dan tanda air logo ${BRAND_HOST}.`, `Economy engine (Claude Haiku), judged per paragraph, no rubric. At most ${fv.f.maxPerCheck} pages per check (1 page = at most ${fv.f.wordsPerPage} words). New quota: ${fmtDate(L, fv.resetAt)}. The report carries ads and a ${BRAND_HOST} logo watermark.`)}</small><em class="mode-est">${tr(L, 'Untuk hasil per kalimat, rubrik dan laporan lengkap: pilih Cek Lengkap di bawah.', 'For per-sentence results, rubrics and the full report: choose a Full Check below.')}</em></span></label>
       </fieldset>` : ''}
       <fieldset class="modes"><legend>${tr(L, 'Mesin AI', 'AI engine')} ${tip(tr(L, 'AUTO memilih sendiri: Haiku dulu, lalu Sonnet/Opus hanya untuk kalimat yang ragu. Atau pilih satu model.', 'AUTO chooses for you: Haiku first, then Sonnet/Opus only for doubtful sentences. Or pick one model.'))}</legend>
-        ${(['auto', 'haiku', 'sonnet', 'opus', 'forensic'] as const).map((m) => html`<label class="mode-card ${m === 'auto' ? 'rec' : ''}"><input type="radio" name="mode" value="${m}" ${(v.mode ?? 'auto') === m ? 'checked' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small><em class="mode-est" data-mode-est="${m}">—</em></span></label>`)}
+        ${(['auto', 'haiku', 'sonnet', 'opus', ...(v.__fable === '1' ? (['fable'] as const) : []), 'forensic'] as const).map((m) => html`<label class="mode-card ${m === 'auto' ? 'rec' : ''} ${m === 'fable' ? 'premium' : ''}"><input type="radio" name="mode" value="${m}" ${(v.mode ?? 'auto') === m ? 'checked' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small>${m === 'fable' && v.__fableX ? html`<small class="premium-cost">${tr(L, `Biaya per token AI ± ${v.__fableX}`, `Cost per AI token ± ${v.__fableX}`)}</small>` : ''}<em class="mode-est" data-mode-est="${m}">—</em></span></label>`)}
       </fieldset>
+      ${v.__fable === '1' ? html`<input type="hidden" name="fable_ok" value="${v.fable_ok === '1' ? '1' : '0'}" data-fable-ok>
+      <dialog class="fable-dialog" data-fable-dialog aria-labelledby="fableTitle">
+        <div class="fable-dialog-in">
+          <span class="fable-gem" aria-hidden="true">✦</span>
+          <h3 id="fableTitle">${tr(L, 'Anda yakin ingin memakai Claude Fable 5.1?', 'Are you sure you want to use Claude Fable 5.1?')}</h3>
+          <p>${tr(L, 'Claude Fable 5.1 adalah mesin paling istimewa yang kami sediakan — telaahnya paling mendalam dan cermat. Keistimewaan itu datang dengan biaya yang jauh lebih tinggi daripada mesin lain', 'Claude Fable 5.1 is the most exceptional engine we offer — its review is the deepest and most careful. That excellence comes at a far higher cost than the other engines')}${v.__fableX ? ` (± ${v.__fableX})` : ''}${tr(L, ', sehingga saldo token Anda akan berkurang jauh lebih cepat.', ', so your token balance will go down much faster.')}</p>
+          <p>${tr(L, 'Kami menyarankannya hanya untuk naskah yang benar-benar menentukan. Untuk pemeriksaan sehari-hari, AUTO sudah memberi hasil yang sangat baik dengan biaya jauh lebih ringan.', 'We suggest it only for texts that truly matter. For everyday checks, AUTO already gives excellent results at a much lighter cost.')}</p>
+          <div class="btn-row"><button type="button" class="btn btn-primary" data-fable-yes>✦ ${tr(L, 'Ya, saya yakin memakai Fable', 'Yes, I am sure — use Fable')}</button><button type="button" class="btn btn-ghost" data-fable-no>${tr(L, 'Tidak, kembali ke AUTO', 'No, back to AUTO')}</button></div>
+        </div>
+      </dialog>` : ''}
       <label class="check"><input type="checkbox" name="agree" required ${v.agree ? 'checked' : ''}> <span>${tr(L, 'Saya berhak memeriksa naskah ini (milik sendiri, sebagai guru/juri/editor, atau dengan izin penulis).', 'I am entitled to check this text (my own, as a teacher/judge/editor, or with the author’s consent).')}</span></label>
       <button class="btn btn-primary btn-lg" type="submit" data-busy="${tr(L, 'Menyiapkan…', 'Preparing…')}">${tr(L, 'Periksa sekarang', 'Check now')} →</button>
     </div></section>
@@ -169,14 +185,27 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
   return shell(c, tr(L, 'Periksa baru', 'New check'), body, 'check');
 }
 
-app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)) }, await freeView(c))));
+/** Fable 5.1 ditawarkan bila diizinkan admin; perbandingan biayanya dihitung dari harga di Admin → Mesin. */
+async function fableVars(c: Ctx): Promise<Record<string, string>> {
+  const store = c.get('store');
+  const k = await getControls(store);
+  if (!k.fableEnabled || k.disabledModels.includes(FABLE_MODEL)) return { __fable: '0' };
+  const eng = await getEngine(store);
+  const L = portalLang(c);
+  const blend = (m: string) => (eng.prices[m] ? 3 * eng.prices[m]!.in + eng.prices[m]!.out : 0);
+  const f = blend(FABLE_MODEL), o = blend(eng.models.t3), h = blend(eng.models.t1);
+  const x = (n: number) => (n >= 10 ? String(Math.round(n)) : n.toLocaleString(L === 'en' ? 'en-US' : 'id-ID', { maximumFractionDigits: 1 }));
+  return { __fable: '1', __fableX: o && h ? tr(L, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`) : '' };
+}
+
+app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)), ...(await fableVars(c)) }, await freeView(c))));
 
 app.post('/app/periksa', async (c) => {
   const L = portalLang(c);
   const f = (await c.req.parseBody()) as Record<string, string>;
   // „Periksa semuanya dengan Cek Lengkap“ dari kotak pilihan kuota gratis → AUTO berbayar.
   if (f.switch === 'paid' && f.mode === 'free') f.mode = 'auto';
-  const withBal = { ...f, __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)) };
+  const withBal = { ...f, __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)), ...(await fableVars(c)) };
   const fv = await freeView(c);
   if (!f.agree) return c.html(checkForm(c, tr(L, 'Centang pernyataan bahwa Anda berhak memeriksa naskah ini.', 'Tick the statement that you are entitled to check this text.'), withBal, fv), 400);
   try {
@@ -329,6 +358,7 @@ app.get('/app/laporan/:id', async (c) => {
     <a class="chip-btn" href="/app/laporan/${s.id}/cetak" target="_blank">🖨 ${tr(L, 'Halaman cetak', 'Print page')}</a>
     <a class="chip-btn" href="/v/${s.verifyCode}" target="_blank">▣ ${tr(L, 'Verifikasi', 'Verify')} ${s.verifyCode}</a>
   </div>
+  ${assistNotice(L)}
   ${s.free ? html`<section class="card free-report reveal" data-free-report>
     <p class="free-badge">${tr(L, 'Cek Gratis', 'Free Check')}</p>
     ${s.free.partialOf ? html`<p class="warn">${tr(L, `Sebagian: hanya ${s.free.pages} halaman pertama dari ${s.free.partialOf} halaman yang diperiksa. Persen dan kesimpulan berlaku untuk bagian itu saja.`, `Partial: only the first ${s.free.pages} of ${s.free.partialOf} pages were checked. The percentages and the conclusion apply to that part only.`)}</p>` : ''}
@@ -419,6 +449,7 @@ app.get('/app/sesi', async (c) => {
     <label class="field"><span>${tr(L, 'Rubrik', 'Rubric')}</span><select name="rubric">${RUBRICS.map((r) => html`<option value="${r.id}">${bi(L, r.name)}</option>`)}</select></label>
     <label class="field"><span>${tr(L, 'Kebijakan AI di peringkat', 'AI policy in ranking')}</span><select name="policy"><option value="exclude">${tr(L, 'Keluarkan bila “Kemungkinan besar AI” (panitia memutuskan)', 'Drop when “Likely AI” (committee decides)')}</option><option value="flag">${tr(L, 'Tandai saja', 'Flag only')}</option></select></label>
     <label class="field"><span>${tr(L, 'Bahasa laporan', 'Report language')}</span><select name="reportLang"><option value="id">Bahasa Indonesia</option><option value="en" ${L === 'en' ? 'selected' : ''}>English</option></select></label>
+    <label class="field"><span>${tr(L, 'Keperluan sesi', 'What the session is for')}</span><select name="purpose">${PURPOSES.map((p) => html`<option value="${p}" ${p === 'lomba' ? 'selected' : ''}>${pt(L, PURPOSE_INFO[p].name)}</option>`)}</select></label>
     <div class="form-end"><button class="btn btn-primary" type="submit">${tr(L, 'Buat sesi', 'Create session')}</button></div>
   </form>
   ${items.length ? html`<div class="grid g3">${items.map((b) => html`<a class="card session-card reveal" href="/app/sesi/${b.id}"><span class="feature-ic">🏆</span><b>${b.meta.name}</b><small class="muted">${b.meta.category || '—'} · ${fmtDate(L, b.meta.at, false)}</small></a>`)}</div>` : ''}`;
@@ -436,6 +467,7 @@ app.post('/app/sesi', async (c) => {
     name: String(f.name ?? '').slice(0, 120) || tr(L, 'Sesi tanpa nama', 'Untitled session'),
     category: String(f.category ?? '').slice(0, 80),
     rubricId: getRubric(f.rubric) ? f.rubric! : 'lomba-esai',
+    purpose: isPurpose(f.purpose) ? f.purpose : 'lomba',
     policy: f.policy === 'flag' ? 'flag' : 'exclude',
     reportLang: f.reportLang === 'en' ? 'en' : 'id',
     createdAt: Date.now(),

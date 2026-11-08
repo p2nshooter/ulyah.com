@@ -19,5 +19,22 @@
   // KV hanya untuk penghitung batas laju (bukan data tahan lama).
   "kv_namespaces": [{ "binding": "RL", "id": "__KV_NAMESPACE_ID__" }],
   "triggers": { "crons": ["* * * * *", "0 19 * * *"] },
-  "vars": { "CANONICAL_HOST": "" }
+  "vars": { "CANONICAL_HOST": "" },
+  // ascan.es — mesin yang sama, wajah lain (docs/MASTER-BLUEPRINT.md §19.6). Merek dipilih saat build lewat `define`.
+  // Data terpisah total (bucket R2 sendiri) supaya setiap situs bisa berdiri dan dijual sendiri. Tetap R2, tidak pernah D1.
+  "env": {
+    "ascan": {
+      "name": "ascan-es",
+      "define": { "__BRAND__": "\"ascan\"" },
+      "workers_dev": true,
+      // __ASCAN_CUSTOM_DOMAIN_ROUTES__
+      "r2_buckets": [
+        { "binding": "DATA", "bucket_name": "ascan-data" },
+        { "binding": "BACKUPS", "bucket_name": "ascan-backups" }
+      ],
+      "kv_namespaces": [{ "binding": "RL", "id": "__ASCAN_KV_NAMESPACE_ID__" }],
+      "triggers": { "crons": ["* * * * *", "0 19 * * *"] },
+      "vars": { "CANONICAL_HOST": "" }
+    }
+  }
 }

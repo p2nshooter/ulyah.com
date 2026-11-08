@@ -118,10 +118,16 @@ check(
   JSON.stringify(listIn(ui, "export const ADSENSE_STACK")) === JSON.stringify(stackFile.stack),
   JSON.stringify(listIn(ui, "export const ADSENSE_STACK"))
 );
-check(
-  "xscan.es primary is the stack's primary",
-  ui.includes(`ADSENSE_PUB = '${stackFile.primary["xscan.es"].replace(/^ca-pub-/, "")}'`)
-);
+const brandTs = read("detektor-artikel/src/brand.ts");
+check("xscan.es / ascan.es take their AdSense primary from the brand layer", ui.includes("ADSENSE_PUB = B.adsensePub"));
+for (const [brand, domain] of [["xscan", "xscan.es"], ["ascan", "ascan.es"]] as const) {
+  const block = brandTs.slice(brandTs.indexOf(`  ${brand}: {`), brandTs.indexOf("},", brandTs.indexOf(`  ${brand}: {`) + 1) + 400);
+  check(
+    `${domain} primary in src/brand.ts is the stack's primary`,
+    block.includes(`adsensePub: '${stackFile.primary[domain].replace(/^ca-pub-/, "")}'`),
+    block.slice(0, 200)
+  );
+}
 for (const d of stackFile.keep) {
   check(`${d} (keeps its existing code) has a primary outside or inside the stack`, Boolean(stackFile.primary[d]));
 }

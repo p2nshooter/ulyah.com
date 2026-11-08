@@ -13,7 +13,10 @@ export interface Controls {
   /** auto = termurah yang mampu per tingkat (bawaan, sesuai file pemilik); manual = pilihan Admin → Mesin. */
   router: 'auto' | 'manual';
   disabledModels: string[];
+  /** Member boleh memilih Claude Fable 5.1 (dengan konfirmasi „Anda yakin?“). */
   fableEnabled: boolean;
+  /** Router boleh memakai Fable sebagai pengganti bila Sonnet/Opus dimatikan (bawaan mati — biayanya tertinggi). */
+  fableInRouter: boolean;
   /** Maks. token yang boleh dipesan satu pemeriksaan (0 = tanpa batas). */
   maxTokensPerCheck: number;
   /** Maks. token yang boleh dipesan satu member per hari WIB (0 = tanpa batas). Admin tidak dibatasi. */
@@ -27,7 +30,9 @@ export const DEFAULT_CONTROLS: Controls = {
   stopNote: '',
   router: 'auto',
   disabledModels: [],
-  fableEnabled: false,
+  // Pemilik, 8 Nov 2026: „Fable 5 udah d pasang belum“ — tersedia bawaan, admin bisa mematikannya.
+  fableEnabled: true,
+  fableInRouter: false,
   maxTokensPerCheck: 0,
   memberDailyTokens: 0,
 };
@@ -47,7 +52,8 @@ export function normalizeControls(s: Partial<Controls> | null | undefined): Cont
     // Hanya model yang dikenal router; Haiku tidak bisa dimatikan sendirian (Cek Gratis dan tingkat 1 butuh satu model
     // tingkat 1) — untuk menghentikan semuanya pakai tombol darurat.
     disabledModels: [...new Set((Array.isArray(b.disabledModels) ? b.disabledModels : []).filter((m) => m in CAPABILITY && m !== 'claude-haiku-5-5'))],
-    fableEnabled: b.fableEnabled === true,
+    fableEnabled: b.fableEnabled !== false,
+    fableInRouter: b.fableInRouter === true,
     maxTokensPerCheck: int(b.maxTokensPerCheck, 10_000_000),
     memberDailyTokens: int(b.memberDailyTokens, 100_000_000),
     updatedAt: b.updatedAt,

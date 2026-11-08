@@ -20,10 +20,11 @@ test('router: bawaan = Haiku → Sonnet → Opus (termurah yang mampu per tingka
 });
 
 test('router: Fable 5.1 lebih mahal dari Opus → tidak pernah dipilih untuk tingkat 3, mati bawaan', () => {
-  assert.equal(cheapestCapable(eng(), ctl({ fableEnabled: true }), 3), 'claude-opus-5-5');
-  assert.equal(cheapestCapable(eng(), ctl(), 4), null, 'tingkat banding mati bila Fable tidak dinyalakan');
-  assert.equal(cheapestCapable(eng(), ctl({ fableEnabled: true }), 4), 'claude-fable-5-1');
-  assert.equal(cheapestCapable(eng(), ctl({ fableEnabled: true }), 4, true), null, 'naskah rahasia tidak dikirim ke Fable (retensi 30 hari)');
+  assert.equal(cheapestCapable(eng(), ctl({ fableInRouter: true }), 3), 'claude-opus-5-5');
+  assert.equal(cheapestCapable(eng(), ctl(), 4), null, 'router tidak memakai Fable kecuali admin mengizinkannya');
+  assert.equal(ctl().fableEnabled, true, 'member boleh memilih Fable bawaan (pemilik, 8 Nov 2026)');
+  assert.equal(cheapestCapable(eng(), ctl({ fableInRouter: true }), 4), 'claude-fable-5-1');
+  assert.equal(cheapestCapable(eng(), ctl({ fableInRouter: true }), 4, true), null, 'naskah rahasia tidak dikirim ke Fable (retensi 30 hari)');
 });
 
 test('router: model yang dimatikan diganti termurah yang mampu, bukan yang lebih lemah', () => {
@@ -32,7 +33,7 @@ test('router: model yang dimatikan diganti termurah yang mampu, bukan yang lebih
   assert.equal(r.notes.find((n) => n.tier === 't2')?.reason, 'disabled');
   const none = applyRouter(eng(), ctl({ disabledModels: ['claude-sonnet-5-5', 'claude-opus-5-5'] }));
   assert.deepEqual(none.blocked, ['t2', 't3'], 'tanpa model mampu → ditolak, tidak turun ke Haiku');
-  const fable = applyRouter(eng(), ctl({ disabledModels: ['claude-sonnet-5-5', 'claude-opus-5-5'], fableEnabled: true }));
+  const fable = applyRouter(eng(), ctl({ disabledModels: ['claude-sonnet-5-5', 'claude-opus-5-5'], fableInRouter: true }));
   assert.deepEqual([fable.eng.models.t2, fable.eng.models.t3], ['claude-fable-5-1', 'claude-fable-5-1']);
 });
 

@@ -6,13 +6,14 @@ import type { ReportDetail, ReportSummary } from '../engine/cascade.ts';
 import { getRubric, bi, CATEGORY } from '../engine/rubrics.ts';
 import { compBar, ring, labelPill, BRAND, TAGLINE, WATERMARK } from './ui.ts';
 import { LOGO_DATA_URI } from './logo-data.ts';
+import { PURPOSE_INFO, pt } from '../lib/purpose.ts';
 import type { Rate, ModePages } from '../engine/pricing.ts';
 
 const reason = (L: Lang, code: string) => (REASONS[code] ? (L === 'en' ? REASONS[code]!.en : REASONS[code]!.id) : code);
 const pct = (p: number | null) => (p === null ? '—' : `${Math.round(p * 100)}%`);
 const confName = (L: Lang, lvl: string) =>
   lvl === 'high' ? tr(L, 'Tinggi', 'High') : lvl === 'medium' ? tr(L, 'Sedang', 'Medium') : tr(L, 'Rendah', 'Low');
-const tierName: Record<string, string> = { haiku: 'Haiku', sonnet: 'Sonnet', opus: 'Opus' };
+const tierName: Record<string, string> = { haiku: 'Haiku', sonnet: 'Sonnet', opus: 'Opus', fable: 'Fable 5.1' };
 const ERR_TYPE: Record<string, { id: string; en: string }> = {
   spelling: { id: 'Ejaan', en: 'Spelling' },
   punctuation: { id: 'Tanda baca', en: 'Punctuation' },
@@ -51,8 +52,10 @@ export function reportPages(v: ReportView): Raw {
   const genre = GENRES.find((g) => g.key === s.genre);
   const level = LEVELS.find((g) => g.key === s.level);
   const tone = verdictTone(s.label);
+  const pur = PURPOSE_INFO[s.purpose ?? 'umum'];
+  const sign = html`<div class="sign"><div>${pt(L, pur.sign[0])}</div><div>${pt(L, pur.sign[1])}</div></div>`;
   const header = html`<div class="phead">
-    <div class="pbrand">${v.letterhead ? html`<span class="lh">${v.letterhead}</span>` : ''}<img class="plogo" src="${LOGO_DATA_URI}" width="58" height="58" alt=""><div><b>${BRAND}</b><small>${tr(L, 'Laporan Deteksi AI & Penilaian Tulisan', 'AI Detection & Writing Assessment Report')} · ${TAGLINE}</small></div></div>
+    <div class="pbrand">${v.letterhead ? html`<span class="lh">${v.letterhead}</span>` : ''}<img class="plogo" src="${LOGO_DATA_URI}" width="58" height="58" alt=""><div><b>${BRAND}</b><small>${pt(L, pur.docTitle)} · ${TAGLINE}</small></div></div>
     <a class="pqr" href="${v.verifyUrl}" title="${tr(L, 'Pindai untuk verifikasi', 'Scan to verify')}">${raw(qrSvg(v.verifyUrl))}<small>${s.verifyCode}</small></a>
   </div>${s.free ? html`<div class="free-mark" aria-label="${tr(L, 'Cek Gratis', 'Free Check')}"><img src="${WATERMARK.badge}" width="18" height="18" alt="">${tr(L, 'CEK GRATIS · Haiku, per paragraf', 'FREE CHECK · Haiku, per paragraph')}${s.free.partialOf ? ` · ${tr(L, `sebagian: ${s.free.pages} dari ${s.free.partialOf} halaman`, `partial: ${s.free.pages} of ${s.free.partialOf} pages`)}` : ''}</div>` : ''}`;
   const foot = (n: number, of: number) => html`<div class="pfoot"><span>${s.id} · ${tr(L, 'sidik teks', 'text fingerprint')} ${s.hash.slice(0, 8)}…${s.hash.slice(-4)}</span><span>${tr(L, 'Verifikasi', 'Verify')}: ${v.verifyUrl.replace(/^https?:\/\//, '')}</span><span>${tr(L, `Hal. ${n}/${of}`, `Page ${n}/${of}`)}</span></div>`;
@@ -70,7 +73,7 @@ export function reportPages(v: ReportView): Raw {
   ${header}
   <dl class="pmeta">
     <dt>${tr(L, 'No. laporan', 'Report no.')}</dt><dd>${s.id}</dd><dt>${tr(L, 'Tanggal', 'Date')}</dt><dd>${fmtDate(L, s.createdAt)}</dd>
-    <dt>${tr(L, 'Penulis / peserta', 'Author / entrant')}</dt><dd>${s.author || '—'}</dd><dt>${tr(L, 'Jenis', 'Genre')}</dt><dd>${genre ? (L === 'en' ? genre.en : genre.id) : s.genre} · ${level ? (L === 'en' ? level.en : level.id) : ''}</dd>
+    <dt>${pt(L, pur.writer)}</dt><dd>${s.author || '—'}</dd><dt>${tr(L, 'Keperluan', 'Purpose')}</dt><dd>${pt(L, pur.name)}</dd><dt>${tr(L, 'Jenis', 'Genre')}</dt><dd>${genre ? (L === 'en' ? genre.en : genre.id) : s.genre} · ${level ? (L === 'en' ? level.en : level.id) : ''}</dd>
     <dt>${tr(L, 'Judul', 'Title')}</dt><dd class="wide">${s.title || '—'}</dd><dt>${tr(L, 'Bahasa', 'Language')}</dt><dd>${s.lang === 'id' ? 'Indonesia' : s.lang === 'en' ? 'English' : tr(L, 'Campuran', 'Mixed')}</dd>
     <dt>${tr(L, 'Jumlah kata', 'Word count')}</dt><dd>${fmtNum(L, s.words)} (${fmtNum(L, s.excludedWords)} ${tr(L, 'dikecualikan', 'excluded')})</dd><dt>${tr(L, 'Rubrik', 'Rubric')}</dt><dd>${rubric ? bi(L, rubric.name) : tr(L, 'Tanpa rubrik', 'No rubric')}</dd>
     ${v.checker ? html`<dt>${tr(L, 'Pemeriksa', 'Checked by')}</dt><dd>${v.checker}</dd>` : ''}<dt>${tr(L, 'Mesin', 'Engine')}</dt><dd>${MODE_INFO[s.mode] ? (L === 'en' ? MODE_INFO[s.mode]!.en : MODE_INFO[s.mode]!.id) : s.mode}</dd>
@@ -81,7 +84,7 @@ export function reportPages(v: ReportView): Raw {
     ${s.rubric ? html`<figure class="ring tone-brand score"><div class="score-v"><b>${fmtScore(L, s.rubric.total)}</b><small>/100</small></div><span>${tr(L, 'Nilai rubrik', 'Rubric score')} · ${bi(L, CATEGORY[s.rubric.category as keyof typeof CATEGORY])}</span></figure>` : ''}
   </div>
   ${compBar(s.comp, true)}
-  <p class="pfacts">${tr(L, 'Peluang naskah ditulis AI', 'Chance the text is AI-written')} <b>${Math.round(s.docP * 100)}%</b> · ${tr(L, 'Keyakinan', 'Confidence')} <b>${confName(L, s.conf.level)} (± ${s.conf.pm}%)</b> · ${tr(L, 'Jalur model', 'Model path')} <b>${s.mode === 'sonnet' ? 'Sonnet 100%' : s.mode === 'opus' ? 'Opus 100%' : `Haiku 100%${s.path.tiers.includes('sonnet') ? ` → Sonnet ${s.path.t2Pct}%` : ''}${s.path.tiers.includes('opus') ? ` → Opus ${s.path.t3Pct}%` : ''}`}</b> · ${tr(L, 'Rincian pemeriksa', 'Checkers')}: ${tr(L, 'gaya tulisan', 'writing style')} ${pct(s.signals.stylo)}, ${tr(L, 'uji tebak lanjutan', 'guess-the-next-line test')} ${pct(s.signals.regen)}, ${tr(L, 'AI per kalimat', 'AI per sentence')} ${pct(s.signals.haikuA)} / ${tr(L, 'per paragraf', 'per paragraph')} ${pct(s.signals.haikuB)}${s.signals.sonnet !== null ? `, Sonnet ${pct(s.signals.sonnet)}` : ''}${s.signals.opus !== null ? `, Opus ${pct(s.signals.opus)}` : ''} · ${tr(L, 'Jejak salin-tempel', 'Paste traces')} ${s.signals.traces.length} · ${tr(L, 'Parafrase mesin', 'Machine paraphrase')} ${s.flags.paraphrasePct}%${s.similarity ? ` · ${tr(L, 'Kemiripan antarpeserta tertinggi', 'Highest cross-entry similarity')} ${s.similarity.max}%${s.similarity.withTitle ? ` (${s.similarity.withTitle})` : ''}` : ''} · ${tr(L, 'Upaya manipulasi', 'Manipulation attempt')}: <b>${s.flags.injection ? tr(L, 'ADA', 'YES') : tr(L, 'tidak ada', 'none')}</b></p>
+  <p class="pfacts">${tr(L, 'Peluang naskah ditulis AI', 'Chance the text is AI-written')} <b>${Math.round(s.docP * 100)}%</b> · ${tr(L, 'Keyakinan', 'Confidence')} <b>${confName(L, s.conf.level)} (± ${s.conf.pm}%)</b> · ${tr(L, 'Jalur model', 'Model path')} <b>${s.mode === 'sonnet' ? 'Sonnet 100%' : s.mode === 'opus' ? 'Opus 100%' : s.mode === 'fable' ? 'Fable 5.1 100%' : `Haiku 100%${s.path.tiers.includes('sonnet') ? ` → Sonnet ${s.path.t2Pct}%` : ''}${s.path.tiers.includes('opus') ? ` → Opus ${s.path.t3Pct}%` : ''}`}</b> · ${tr(L, 'Rincian pemeriksa', 'Checkers')}: ${tr(L, 'gaya tulisan', 'writing style')} ${pct(s.signals.stylo)}, ${tr(L, 'uji tebak lanjutan', 'guess-the-next-line test')} ${pct(s.signals.regen)}, ${tr(L, 'AI per kalimat', 'AI per sentence')} ${pct(s.signals.haikuA)} / ${tr(L, 'per paragraf', 'per paragraph')} ${pct(s.signals.haikuB)}${s.signals.sonnet !== null ? `, Sonnet ${pct(s.signals.sonnet)}` : ''}${s.signals.opus !== null ? `, Opus ${pct(s.signals.opus)}` : ''} · ${tr(L, 'Jejak salin-tempel', 'Paste traces')} ${s.signals.traces.length} · ${tr(L, 'Parafrase mesin', 'Machine paraphrase')} ${s.flags.paraphrasePct}%${s.similarity ? ` · ${tr(L, 'Kemiripan antarpeserta tertinggi', 'Highest cross-entry similarity')} ${s.similarity.max}%${s.similarity.withTitle ? ` (${s.similarity.withTitle})` : ''}` : ''} · ${tr(L, 'Upaya manipulasi', 'Manipulation attempt')}: <b>${s.flags.injection ? tr(L, 'ADA', 'YES') : tr(L, 'tidak ada', 'none')}</b></p>
   <h5>${tr(L, 'Rincian per paragraf', 'Per-paragraph detail')}</h5>
   <table class="ptable">
     <thead><tr><th>${tr(L, 'Par.', 'Par.')}</th><th class="r">${tr(L, 'Kata', 'Words')}</th><th class="r">${tr(L, 'Peluang AI', 'AI prob.')}</th><th>Label</th><th>${tr(L, 'Alasan utama', 'Main reasons')}</th></tr></thead>
@@ -89,6 +92,7 @@ export function reportPages(v: ReportView): Raw {
   </table>
   ${excerpt ? html`<h5>${tr(L, `Kutipan teks bertanda (P${excerptPar!.i + 1})`, `Marked text excerpt (P${excerptPar!.i + 1})`)}</h5><div class="excerpt">${excerpt}</div>` : s.purged ? html`<p class="muted">${tr(L, 'Teks naskah sudah dihapus sesuai masa simpan; angka tetap tersimpan.', 'The text was deleted per its retention period; the numbers remain.')}</p>` : ''}
   ${d?.styleNote ? html`<h5>${tr(L, 'Catatan gaya', 'Style note')}</h5><p class="pnote">${d.styleNote}</p>` : ''}
+  ${pages === 1 ? sign : ''}
   ${foot(1, pages)}
 </article>`;
 
@@ -116,8 +120,8 @@ export function reportPages(v: ReportView): Raw {
   <h5>${tr(L, 'Kesalahan bahasa', 'Language errors')} — ${fmtNum(L, s.rubric.langErrors)} (${fmtScore(L, s.rubric.per1k)} ${tr(L, 'per 1.000 kata', 'per 1,000 words')})</h5>
   ${d.rubric.errors.length ? html`<table class="ptable"><thead><tr><th>#</th><th>${tr(L, 'Tertulis', 'Written')}</th><th>${tr(L, 'Seharusnya', 'Should be')}</th><th>${tr(L, 'Jenis', 'Type')}</th></tr></thead><tbody>${d.rubric.errors.slice(0, 25).map((e, k) => html`<tr><td>${k + 1}</td><td>${e.wrong}</td><td>${e.right}</td><td>${ERR_TYPE[e.type] ? (L === 'en' ? ERR_TYPE[e.type]!.en : ERR_TYPE[e.type]!.id) : e.type}</td></tr>`)}</tbody></table>${d.rubric.errors.length > 25 ? html`<p class="muted">+ ${d.rubric.errors.length - 25} ${tr(L, 'lainnya di lampiran', 'more in the appendix')}</p>` : ''}` : html`<p class="muted">${tr(L, 'Tidak ditemukan kesalahan.', 'No errors found.')}</p>`}` : ''}
   <h5>${tr(L, 'Metodologi & batasan', 'Methodology & limits')}</h5>
-  <p class="pnote">${tr(L, 'Naskah diperiksa dengan lima cara: pola gaya tulisan, sisa salin-tempel dari chatbot, uji apakah AI bisa menebak kalimat berikutnya, pemeriksaan AI bertingkat (Claude Haiku → Sonnet → Opus), dan kemiripan dengan naskah lain. Persentase adalah perkiraan, bukan kepastian — jangan dijadikan satu-satunya dasar hukuman; beri penulis kesempatan menjelaskan.', 'The text is checked in five ways: writing-style patterns, chatbot paste traces, a test of whether AI can guess the next sentence, tiered AI checks (Claude Haiku → Sonnet → Opus), and similarity with other texts. Percentages are estimates, not certainty — never the only basis for a penalty; give the writer a chance to explain.')} ${tr(L, 'Versi pemeriksa', 'Checker version')} ${s.engine.version}.</p>
-  <div class="sign"><div>${tr(L, 'Pemeriksa / Juri', 'Checker / Judge')}</div><div>${tr(L, 'Mengetahui', 'Acknowledged')}</div></div>
+  <p class="pnote">${tr(L, 'Naskah diperiksa dengan lima cara: pola gaya tulisan, sisa salin-tempel dari chatbot, uji apakah AI bisa menebak kalimat berikutnya, pemeriksaan AI bertingkat (Claude Haiku → Sonnet → Opus), dan kemiripan dengan naskah lain. Persentase adalah perkiraan statistik.', 'The text is checked in five ways: writing-style patterns, chatbot paste traces, a test of whether AI can guess the next sentence, tiered AI checks (Claude Haiku → Sonnet → Opus), and similarity with other texts. Percentages are statistical estimates.')} ${tr(L, 'Versi pemeriksa', 'Checker version')} ${s.engine.version}.</p>
+  ${sign}
   ${foot(2, 2)}
 </article>`;
   }
