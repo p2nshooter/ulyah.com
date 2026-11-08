@@ -506,8 +506,12 @@ ok((await p.goto(BASE + `/app/pesanan/${orderId}/bukti/0`)).status() === 404, 'b
 
 // 3b. Bayar USD dari luar negeri: panduan SWIFT + alternatif kiriman uang, lalu batal.
 await m.goto(BASE + '/app/token');
-await m.click('.plans .plan >> nth=0 >> button[value=USD]');
-await m.waitForURL(/\/app\/pesanan\//);
+try {
+  await Promise.all([m.waitForURL(/\/app\/pesanan\//), m.locator('.plans .plan').first().locator('button[value=USD]').click()]);
+} catch (e) {
+  console.log('DIAG URL:', m.url(), '| tombol USD:', await m.locator('.plans .plan').first().locator('button[value=USD]').count(), '| flash:', (await m.locator('.flash').allTextContents()).join(' / ').slice(0, 300));
+  throw e;
+}
 const usdText = await m.textContent('main');
 ok(/BNINIDJA/.test(usdText) && /2090571495/.test(usdText) && /OUR/.test(usdText) && /Wise/.test(usdText), 'invoice USD: SWIFT, rekening USD, biaya OUR, alternatif kiriman uang');
 await m.screenshot({ path: `${OUT}/invoice-usd.png`, fullPage: true });
@@ -818,8 +822,9 @@ ok((await m.locator('.notice-purge').count()) >= 1, 'pemberitahuan pembersihan o
   const SECRET = /claude|haiku|sonnet|opus|fable|anthropic/i;
   for (const [page_, path] of [[m, '/'], [m, '/harga'], [m, '/en/pricing'], [m, '/cara-kerja'], [m, '/panduan'], [m, '/kebijakan-privasi'], [m, '/contoh-laporan'], [m, '/en/sample-report'], [m, '/app/periksa'], [m, '/app/token'], [m, `/app/laporan/${rid}`], [m, `/app/laporan/${rid}/cetak`]]) {
     await page_.goto(BASE + path);
-    const html = await page_.content();
-    ok(!SECRET.test(html.replace(/<script[\s\S]*?<\/script>/g, '')), `rahasia perusahaan: tidak ada nama model/penyedia di ${path}`);
+    // HTML halaman tanpa elemen <script> (dibuang lewat DOM, bukan regex).
+    const html = await page_.evaluate(() => { const d = document.documentElement.cloneNode(true); d.querySelectorAll('script').forEach((x) => x.remove()); return d.outerHTML; });
+    ok(!SECRET.test(html), `rahasia perusahaan: tidak ada nama model/penyedia di ${path}`);
   }
   const jsx = await m.evaluate(async (u) => (await fetch(u)).text(), `/app/laporan/${rid}/unduh.json`);
   for (const mm of jsx.matchAll(new RegExp(SECRET.source, 'gi'))) console.log('BOCOR JSON:', jsx.slice(Math.max(0, mm.index - 120), mm.index + 40));

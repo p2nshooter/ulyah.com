@@ -96,9 +96,12 @@ export function registerMemberPaypal(app: Hono<HonoEnv>): void {
     if (!o || o.uid !== user.id) return c.redirect('/app/pesanan');
     if (o.status === 'credited') return c.redirect(`/app/pesanan/${o.id}?ok=paid`);
     if (!o.paypal?.orderId || o.paypal.orderId !== token) return c.redirect(`/app/pesanan/${o.id}?err=paypal`);
+    // ID PayPal yang dipakai untuk capture selalu yang tersimpan di pesanan kita (dari jawaban PayPal saat dibuat),
+    // bukan nilai dari alamat kembali — parameter `token` hanya dicocokkan.
+    const ppOrderId = o.paypal.orderId;
     try {
       const d = await getPaypal(c.env, store);
-      const cap = await capturePaypalOrder(c.env, { ...d, mode: o.paypal.mode ?? d.mode }, token, o.id);
+      const cap = await capturePaypalOrder(c.env, { ...d, mode: o.paypal.mode ?? d.mode }, ppOrderId, o.id);
       if (cap.customId && cap.customId !== o.id) return c.redirect(`/app/pesanan/${o.id}?err=paypal`);
       const r = await settlePaypal(store, o.id, cap, `paypal:${user.id}`);
       return c.redirect(`/app/pesanan/${o.id}?${r === 'credited' ? 'ok=paid' : r === 'pending' ? 'ok=paypal-pending' : 'err=paypal'}`);
@@ -145,12 +148,17 @@ export function registerPaypalWebhook(app: Hono<HonoEnv>): void {
     const orderId = String(res.custom_id ?? idx?.orderId ?? '');
     if (!orderId) return c.text('ok');
     if (event.event_type === 'CHECKOUT.ORDER.APPROVED' && ppOrderId) {
-      // Member menyetujui tetapi menutup jendela sebelum kembali: capture dari server.
-      try {
-        const cap = await capturePaypalOrder(c.env, { ...d, mode: idx?.mode ?? d.mode }, ppOrderId, orderId);
-        await settlePaypal(store, orderId, cap, 'paypal:webhook');
-      } catch {
-        /* dicoba lagi lewat PAYMENT.CAPTURE.COMPLETED */
+      // Member menyetujui tetapi menutup jendela sebelum kembali: capture dari server — hanya untuk pesanan kita yang memang
+      // terhubung ke order PayPal ini, dan selalu memakai ID yang tersimpan di pesanan (bukan nilai dari isi webhook).
+      const o = await store.get<Order>(orderKey(orderId));
+      const stored = o?.paypal?.orderId;
+      if (o && stored && stored === ppOrderId) {
+        try {
+          const cap = await capturePaypalOrder(c.env, { ...d, mode: o.paypal?.mode ?? idx?.mode ?? d.mode }, stored, o.id);
+          await settlePaypal(store, o.id, cap, 'paypal:webhook');
+        } catch {
+          /* dicoba lagi lewat PAYMENT.CAPTURE.COMPLETED */
+        }
       }
     } else if (event.event_type === 'PAYMENT.CAPTURE.COMPLETED') {
       const amount = res.amount as { value?: string; currency_code?: string } | undefined;
