@@ -24,6 +24,7 @@ import { rateCard, lineTokens, tokenCostIdr, minRevenueMultiple, type Rate, type
 import { audit } from '../data/audit.ts';
 import { aspectValue, categoryOf, getRubric, languageBand, ruleErrors, type LangError, type Rubric } from './rubrics.ts';
 import { refund, type Reservation } from '../data/wallet.ts';
+import { bump } from '../lib/ratelimit.ts';
 import { getUser } from '../data/users.ts';
 
 export type Stage = 'prep' | 't1' | 't2' | 't3' | 'fuse' | 'rubric2' | 'done' | 'failed';
@@ -750,6 +751,12 @@ export async function settleCheck(env: Env, store: Store, doc: CheckDoc): Promis
   }
   if (await store.createOnce(`u/spend/${doc.id}`, { at: Date.now() })) {
     await addSpend(store, doc.cost, doc.stage === 'done' ? doc.analyzedWords ?? 0 : 0);
+    // Gagal setelah biaya AI terpakai: tidak ditagih ke member, tetapi dihitung — lebih dari 3 dalam 24 jam membuat
+    // pemeriksaan baru member itu dijeda (checks.ts), dan admin melihatnya di audit log.
+    if (doc.stage === 'failed' && doc.cost > 0 && !doc.bench) {
+      const n = await bump(env, `costly-fail:${doc.uid}`, 86_400);
+      if (n >= 3) await audit(store, 'system', 'costly_failures', { uid: doc.uid, checkId: doc.id, count: n, code: doc.error?.code, cost: doc.cost });
+    }
     if (doc.stage === 'done' && doc.reserve && 'tokens' in doc.reserve) {
       const billing = await getBilling(store);
       const settings = await getEngine(store);

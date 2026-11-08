@@ -14,3 +14,29 @@ export async function limit(env: Env, key: string, max: number, windowSec: numbe
     return true;
   }
 }
+
+/**
+ * Penghitung kejadian dalam jendela waktu (pemilik, 7 Nov 2026: „jgn sampe ada kebocoran biaya baik dari engine maupun
+ * dari kecurangan member“). `bump` menambah satu dan mengembalikan jumlah baru; `count` hanya membaca. KV saja (penghitung
+ * singkat, kedaluwarsa sendiri), tidak pernah data tahan lama.
+ */
+export async function bump(env: Env, key: string, windowSec: number): Promise<number> {
+  if (!env.RL) return 0;
+  const k = `ct:${key}:${Math.floor(Date.now() / (windowSec * 1000))}`;
+  try {
+    const next = Number((await env.RL.get(k)) ?? '0') + 1;
+    await env.RL.put(k, String(next), { expirationTtl: Math.max(60, windowSec + 60) });
+    return next;
+  } catch {
+    return 0;
+  }
+}
+
+export async function count(env: Env, key: string, windowSec: number): Promise<number> {
+  if (!env.RL) return 0;
+  try {
+    return Number((await env.RL.get(`ct:${key}:${Math.floor(Date.now() / (windowSec * 1000))}`)) ?? '0');
+  } catch {
+    return 0;
+  }
+}
