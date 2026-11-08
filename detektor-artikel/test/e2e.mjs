@@ -817,6 +817,49 @@ ok((await m.locator('.notice-purge').count()) >= 1, 'pemberitahuan pembersihan o
   ok(/diatur admin|set by admin/.test(await p.textContent('[data-member-tier]')) === false, 'paket guru kembali mengikuti pembelian');
 }
 
+// ── §30: terhenti → kerja yang selesai ditagih, pekerjaan tersimpan, „Lanjutkan“ → laporan (pemilik, 8 Nov 2026:
+//    „Limit habis tetep terpotong, gagal tetep terpotong tp pekerjaan bisa d lanjutkan jika deposit lagi atau membeli token lagi“) ──
+{
+  const balance = async () => { await m.goto(BASE + '/app/token'); return Number(await m.getAttribute('.stat-hero .stat-v', 'data-count')); };
+  const setStop = async (on) => {
+    await p.goto(BASE + '/admin/kendali');
+    await p.selectOption('#controls-form select[name=emergencyStop]', on ? '1' : '0');
+    await p.click('#controls-form button[type=submit]');
+    await p.waitForURL(/kendali\?ok=1/);
+  };
+  const bal0 = await balance();
+  const text = ESSAY.trim().split(/\n\s*\n/).map((x) => `Lanjutan ${x}`).join('\n\n');
+  const made = await m.evaluate(async (t) => (await fetch('/api/checks', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text: t, title: 'Uji lanjutkan', agree: true, mode: 'smart', purpose: 'umum' }) })).json(), text);
+  ok(Boolean(made.id), 'pemeriksaan dibuat tanpa dijalankan halaman proses');
+  const adv = () => m.evaluate(async (id) => (await fetch(`/api/checks/${id}/advance`, { method: 'POST' })).json(), made.id);
+  let st = await adv();
+  for (let i = 0; i < 5 && st.stage !== 't2'; i += 1) st = await adv();
+  ok(st.stage === 't2', `tahap pertama selesai, Smart Auto naik ke Advanced (${st.stage})`);
+  await setStop(true);
+  st = await adv();
+  ok(st.stage === 'failed' && st.resumable === true && st.resumeReason === 'failed' && st.charged > 0, `terhenti: kerja yang sudah selesai ditagih ${st.charged} token, pekerjaan bisa dilanjutkan`);
+  const charged1 = st.charged;
+  const bal1 = await balance();
+  ok(bal1 === bal0 - charged1, `saldo hanya berkurang sebesar kerja yang selesai (${bal0} → ${bal1})`);
+  await m.goto(BASE + `/app/proses/${made.id}`);
+  await m.waitForSelector('[data-resume]:not([hidden])');
+  ok(/tersimpan/.test(await m.textContent('[data-resume]')) && /token/.test(await m.textContent('[data-err]')), 'halaman proses: kotak „Lanjutkan“ + pesan tagihan yang jujur');
+  await m.click('[data-resume-btn]');
+  await m.waitForURL(/err=stopped/);
+  ok((await m.locator('[data-resume-err]').count()) === 1, 'tombol darurat masih menyala: Lanjutkan ditolak dengan pesan jelas, saldo utuh');
+  ok((await balance()) === bal1, 'penolakan Lanjutkan tidak memotong saldo');
+  await setStop(false);
+  await m.goto(BASE + `/app/proses/${made.id}`);
+  await m.waitForSelector('[data-resume]:not([hidden])');
+  await m.click('[data-resume-btn]');
+  await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+  ok((await m.locator('[data-billed-before]').count()) === 1, 'laporan: kerja sebelum terhenti tercatat, tahap yang dibayar tidak diulang');
+  const rpt = m.url().split('/').pop().split('?')[0];
+  const json = await m.evaluate(async (u) => (await fetch(u)).json(), `/app/laporan/${rpt}/unduh.json`);
+  const bal2 = await balance();
+  ok(bal2 === bal0 - json.data.report.tokens && json.data.report.usage.billedBefore === charged1, `total tagihan tepat: ${json.data.report.tokens} token (${charged1} sebelum terhenti + sisanya), saldo ${bal0} → ${bal2}`);
+}
+
 // ── 28. Nama mesin rahasia, menu HP, paket Enterprise, PayPal, kurs harian, deposit tanpa batas, profil penagihan ──
 {
   const SECRET = /claude|haiku|sonnet|opus|fable|anthropic/i;

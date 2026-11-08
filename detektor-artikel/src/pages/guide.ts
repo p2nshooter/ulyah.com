@@ -105,7 +105,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       steps: [
         [`Token adalah saldo untuk Cek Lengkap. Saat ini 1 token = ${rp(v.tokenIdr, 0)}.`, `Tokens are the balance for a Full Check. Right now 1 token = ${rp(v.tokenIdr, 1)}.`],
         ['Sebelum memeriksa, sistem memesan dulu sejumlah token sebagai batas atas. Setelah selesai, yang dipotong hanya pemakaian nyata dan sisanya otomatis kembali ke saldo.', 'Before a check starts, the system reserves some tokens as an upper limit. When it finishes, only the real usage is charged and the rest returns to your balance automatically.'],
-        ['Kalau pemeriksaan gagal, seluruh token yang dipesan kembali utuh.', 'If a check fails, every reserved token comes back in full.'],
+        ['Kalau pemeriksaan terhenti (gangguan, batas waktu, atau token habis), kerja AI yang sudah selesai tetap ditagih dan sisa pesanan kembali. Pekerjaannya tersimpan: klik Lanjutkan setelah menambah token — tahap yang sudah dibayar tidak diulang.', 'If a check stops (an outage, the time limit, or tokens running out), AI work that already finished is charged and the rest of the reservation returns. The work is saved: click Resume after adding tokens — paid stages are not repeated.'],
         ['Token tidak bisa diuangkan atau dipindahkan ke akun lain. Token hanya untuk memeriksa naskah di situs ini.', 'Tokens cannot be cashed out or moved to another account. They are only for checking texts on this site.'],
       ],
     },
@@ -189,7 +189,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
         ['Centang pernyataan bahwa Anda berhak memeriksa naskah ini, lalu tekan tombol Periksa.', 'Tick the statement that you are entitled to check this text, then press Check.'],
         ['Layar proses menampilkan setiap tahap pemeriksaan. Biasanya selesai dalam satu sampai beberapa menit.', 'The progress screen shows every stage. It usually takes one to a few minutes.'],
         ['Tab boleh ditutup. Pemeriksaan tetap berjalan di server dan hasilnya ada di menu Laporan.', 'You may close the tab. The check keeps running on the server and the result appears under Reports.'],
-        ['Kalau terjadi gangguan, sistem mencoba lagi. Kalau tetap gagal, token atau kuota yang dipesan kembali utuh.', 'If something goes wrong, the system retries. If it still fails, the reserved tokens or quota come back in full.'],
+        ['Kalau terjadi gangguan, sistem mencoba lagi otomatis. Kalau tetap terhenti, kerja yang sudah selesai tersimpan dan bisa dilanjutkan; Cek Gratis yang gagal mengembalikan kuota halamannya.', 'If something goes wrong, the system retries automatically. If it still stops, finished work is saved and can be resumed; a failed Free Check returns its page quota.'],
       ],
     },
     {

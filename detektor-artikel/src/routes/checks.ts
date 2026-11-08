@@ -3,10 +3,10 @@ import { Hono } from 'hono';
 import type { Env } from '../env.ts';
 import { Store, invTs } from '../lib/store.ts';
 import { schedulePurge } from '../data/purge.ts';
-import { newId, seal } from '../lib/crypto.ts';
+import { newId, seal, unseal, type Sealed } from '../lib/crypto.ts';
 import { tr, GENRES, LEVELS, type Lang } from '../lib/i18n.ts';
 import { countWords } from '../engine/preprocess.ts';
-import { advance, checkKey, textKey, type CheckDoc, type ReportSummary, reportKey } from '../engine/cascade.ts';
+import { advance, checkKey, textKey, consumedTokens, type CheckDoc, type ReportSummary, type TextDoc, reportKey } from '../engine/cascade.ts';
 import { getEngine, getBilling, spendToday, getFree, freeSpendToday, type FreeSettings } from '../data/settings.ts';
 import { normalPages, firstPages, freeStatus, reserveFreePages, releaseFreePages, FreeQuotaError, isDisposable, networkAllows, networkOf, periodOf } from '../data/free.ts';
 import { sha256Hex } from '../lib/crypto.ts';
@@ -106,7 +106,7 @@ export async function createCheck(
   user: User,
   inputIn: NewCheck,
   L: Lang,
-  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean; noCache?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
+  opts: { batchId?: string; prepaid?: boolean; waiting?: boolean; bench?: CheckDoc['bench']; free?: boolean; noCache?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
 ): Promise<CheckDoc> {
   if (!env.MASTER_KEY) throw new CheckInputError(500, 'MASTER_KEY belum dipasang.');
   const controls = await getControls(store);
@@ -223,16 +223,22 @@ export async function createCheck(
     }
   }
   let res: CheckDoc['reserve'];
+  let partial = false;
   if (opts.prepaid) res = { batch: true };
   else if (!charge) res = { none: true };
   else {
     try {
       res = await reserve(store, user.id, est.reserve, `Pesan ${id} (${words} kata)`, id);
     } catch (err) {
-      if (err instanceof InsufficientError) {
-        throw new CheckInputError(402, tr(L, `Token tidak cukup: dipesan ${est.reserve} token (pemakaian biasanya ${est.min}–${est.typical} token, sisanya kembali), saldo ${err.available}. Beli token di menu Token.`, `Not enough tokens: ${est.reserve} tokens are reserved (usage is usually ${est.min}–${est.typical}, the rest returns), balance ${err.available}. Buy tokens under Tokens.`));
+      if (!(err instanceof InsufficientError)) throw err;
+      // §30 (pemilik, 8 Nov 2026: „Limit habis tetep terpotong … pekerjaan bisa d lanjutkan jika deposit lagi“): saldo kurang
+      // tetapi cukup untuk mulai → seluruh saldo dipesan; pekerjaan dijeda saat pesanan habis dan dilanjutkan setelah isi token.
+      const minStart = Math.max(1, est.min);
+      if (err.available < minStart) {
+        throw new CheckInputError(402, tr(L, `Token tidak cukup untuk memulai: perlu minimal ${minStart} token (pemakaian biasanya ${est.min}–${est.typical} token), saldo ${err.available}. Beli token atau isi deposit di menu Token.`, `Not enough tokens to start: at least ${minStart} tokens are needed (usage is usually ${est.min}–${est.typical}), balance ${err.available}. Buy tokens or top up under Tokens.`));
       }
-      throw err;
+      res = await reserve(store, user.id, err.available, `Pesan ${id} (${words} kata, sebagian — dijeda bila habis)`, `${id}:p`);
+      partial = true;
     }
   }
   const now = Date.now();
@@ -260,12 +266,17 @@ export async function createCheck(
     reserved: res && 'tokens' in res ? res.tokens : 0,
     reserve: res,
     cost: 0,
+    ...(partial ? { partial: true } : {}),
+    // §30: naskah sesi yang belum tertutup token — tersimpan, menunggu member menambah token lalu „Lanjutkan sesi“.
+    ...(opts.waiting
+      ? { stage: 'failed' as const, batchCharged: 0, resume: { stage: 'prep' as const, reason: 'tokens' as const, at: now }, error: { code: 'no_tokens', msg: 'Menunggu token.' } }
+      : {}),
   };
   try {
     await store.put(textKey(id), await seal(env.MASTER_KEY, { raw: input.text }));
     await store.put(checkKey(id), doc);
-    await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now, worst: worstUsd, free: Boolean(free) });
-    if (charge || opts.freeQuota) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
+    if (!opts.waiting) await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now, worst: worstUsd, free: Boolean(free) });
+    if ((charge || opts.freeQuota) && !opts.waiting) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
     if (!opts.bench) await store.createOnce(`i/user-checks/${user.id}/${invTs(now)}~${id}`, {}, { title: input.title, at: now, batch: opts.batchId ?? null });
     // Naskah member dibersihkan otomatis 90 hari setelah dibuat; riwayat & angka laporan tidak pernah dihapus (§27).
     if (!opts.bench) await schedulePurge(store, 'c', id, now);
@@ -307,7 +318,10 @@ const MEMBER_ERR: Record<string, [string, string]> = {
   retry: ['Layanan sedang sibuk; sistem mencoba lagi otomatis.', 'The service is busy; the system retries automatically.'],
   refusal: ['Sebagian naskah tidak bisa dinilai otomatis.', 'Part of the text could not be assessed automatically.'],
   truncated: ['Naskah terlalu rumit untuk diselesaikan sekali jalan.', 'The text was too complex to finish in one go.'],
-  timeout: ['Pemeriksaan melewati batas waktu.', 'The check ran past its time limit.'],
+  timeout: ['Pemeriksaan melewati batas waktu 2 jam dan dijeda; pekerjaan yang sudah selesai tersimpan.', 'The check ran past its 2-hour limit and was paused; finished work is saved.'],
+  no_tokens: ['Token pesanan habis — pekerjaan dijeda dan tersimpan.', 'The reserved tokens ran out — the work is paused and saved.'],
+  stopped: ['Layanan dihentikan sementara oleh admin — pekerjaan tersimpan.', 'The service was paused by the admin — the work is saved.'],
+  no_model: ['Mesin yang diperlukan sedang nonaktif — pekerjaan tersimpan.', 'The engine needed is switched off — the work is saved.'],
 };
 export function memberError(err: CheckDoc['error'] | undefined, L: Lang = 'id'): { code: string; msg: string } | null {
   if (!err) return null;
@@ -317,8 +331,103 @@ export function memberError(err: CheckDoc['error'] | undefined, L: Lang = 'id'):
 
 export function statusOf(doc: CheckDoc | null, L: Lang = 'id') {
   if (!doc) return null;
-  return { id: doc.id, stage: doc.stage, t2n: doc.t2n ?? null, t3n: doc.t3n ?? null, skipped: doc.skipped ?? [], reportId: doc.reportId ?? null, error: memberError(doc.error, L), words: doc.analyzedWords ?? null, lang: doc.lang ?? null, reserved: doc.reserved, charged: doc.charged ?? null, retryAt: doc.lease > Date.now() ? doc.lease : null };
+  return { id: doc.id, stage: doc.stage, t2n: doc.t2n ?? null, t3n: doc.t3n ?? null, skipped: doc.skipped ?? [], reportId: doc.reportId ?? null, error: memberError(doc.error, L), words: doc.analyzedWords ?? null, lang: doc.lang ?? null, reserved: doc.reserved, charged: doc.charged ?? null, retryAt: doc.lease > Date.now() ? doc.lease : null, resumable: Boolean(doc.resume), resumeReason: doc.resume?.reason ?? null, billed: doc.billed ?? 0 };
 }
+
+/* ── §30: lanjutkan pemeriksaan yang terhenti ─────────────────────────── */
+
+export class ResumeError extends Error {
+  constructor(public status: 402 | 404 | 409 | 410 | 429 | 503, message: string, public code: string) {
+    super(message);
+  }
+}
+
+/**
+ * Lanjutkan pemeriksaan yang terhenti (gagal / token habis / dijeda): pesan token untuk sisa pekerjaan lalu teruskan dari
+ * tahap yang terhenti. Tahap yang sudah selesai tersimpan dan tidak ditagih ulang; bila saldo masih kurang, seluruh saldo
+ * dipesan dan pekerjaan dijeda lagi saat habis (MASTER-BLUEPRINT §30).
+ */
+export async function resumeCheck(env: Env, store: Store, user: User, id: string, L: Lang): Promise<CheckDoc> {
+  const doc = await store.get<CheckDoc>(checkKey(id));
+  if (!doc || doc.uid !== user.id) throw new ResumeError(404, tr(L, 'Pemeriksaan tidak ditemukan.', 'Check not found.'), 'not_found');
+  if (doc.stage !== 'failed' || !doc.resume) throw new ResumeError(409, tr(L, 'Pemeriksaan ini tidak bisa dilanjutkan.', 'This check cannot be resumed.'), 'not_resumable');
+  const sealed = await store.get<Sealed>(textKey(doc.id));
+  if (!sealed) throw new ResumeError(410, tr(L, 'Naskahnya sudah terhapus otomatis — unggah ulang untuk memeriksanya lagi.', 'The text was deleted automatically — upload it again to check it.'), 'gone');
+  const controls = await getControls(store);
+  if (controls.emergencyStop) throw new ResumeError(503, tr(L, 'Pemeriksaan sedang dihentikan sementara oleh admin. Coba lagi nanti — pekerjaan Anda tetap tersimpan.', 'Checks are paused by the admin for now. Try again later — your work stays saved.'), 'stopped');
+  const routed = applyRouter(await getEngine(store), controls);
+  if (routed.blocked.length) throw new ResumeError(503, tr(L, 'Mesin yang diperlukan sedang nonaktif. Coba lagi nanti — pekerjaan Anda tetap tersimpan.', 'The engine needed is switched off. Try again later — your work stays saved.'), 'no_model');
+  const eng = routed.eng;
+  const billing = await getBilling(store);
+  const words = doc.words ?? countWords((await unseal<TextDoc>(env.MASTER_KEY!, sealed)).raw);
+  const est = estimateTokens(words, doc.mode, Boolean(doc.rubricId), billing, eng);
+  const billed = doc.billed ?? 0;
+  const owed = Math.max(0, Math.ceil((await consumedTokens(store, doc.id, billing, eng)) - 1e-9) - billed);
+  const need = Math.max(1, est.reserve - billed, owed + 1);
+  const admin = isAdmin(user);
+  const tier = tierOf(user);
+  if (!admin) {
+    const maxRun = billing.maxConcurrent * (isVvip(tier) ? 3 : 1);
+    const { items: running } = await store.list(`i/user-active/${user.id}/`, { limit: maxRun + 1 });
+    if (running.length >= maxRun) throw new ResumeError(429, tr(L, `Maksimal ${maxRun} pemeriksaan berjalan bersamaan. Tunggu yang sedang berjalan selesai.`, `At most ${maxRun} checks may run at once. Wait for the running ones to finish.`), 'busy');
+    if (controls.memberDailyTokens > 0 && !isVvip(tier)) {
+      try {
+        await addMemberDay(store, user.id, wibDate(), need, controls.memberDailyTokens);
+      } catch (err) {
+        if (err instanceof SpendLimitError) throw new ResumeError(429, tr(L, `Batas harian ${err.limit} token per member tercapai. Lanjutkan besok — pekerjaan Anda tetap tersimpan.`, `The daily limit of ${err.limit} tokens per member is reached. Resume tomorrow — your work stays saved.`), 'daily');
+        throw err;
+      }
+    }
+  }
+  const round = (doc.round ?? 0) + 1;
+  let res: CheckDoc['reserve'] = { none: true };
+  let partial = false;
+  if (!admin) {
+    try {
+      res = await reserve(store, user.id, need, `Lanjutkan ${doc.id} (putaran ${round})`, `${doc.id}:r${round}`);
+    } catch (err) {
+      if (!(err instanceof InsufficientError)) throw err;
+      if (err.available <= owed) {
+        throw new ResumeError(402, tr(L, `Saldo token Anda ${err.available}; perlu sekitar ${need} token untuk menyelesaikan pekerjaan ini (minimal ${owed + 1} untuk melanjutkan). Isi deposit atau beli token, lalu klik Lanjutkan lagi — pekerjaan Anda tetap tersimpan.`, `Your token balance is ${err.available}; about ${need} tokens are needed to finish this work (at least ${owed + 1} to resume). Top up or buy tokens, then click Resume again — your work stays saved.`), 'no_tokens');
+      }
+      res = await reserve(store, user.id, err.available, `Lanjutkan ${doc.id} (putaran ${round}, sebagian)`, `${doc.id}:r${round}:p`);
+      partial = true;
+    }
+  }
+  const now = Date.now();
+  let ok = false;
+  const after = await store.cas<CheckDoc>(checkKey(doc.id), (cur) => {
+    ok = false;
+    if (!cur || cur.stage !== 'failed' || !cur.resume || (cur.round ?? 0) !== round - 1) return null;
+    ok = true;
+    return {
+      ...cur, stage: cur.resume.stage, resume: undefined, error: undefined, attempts: 0, lease: 0,
+      reserved: res && 'tokens' in res ? res.tokens : 0, reserve: res, partial: partial || undefined,
+      round, costPrev: cur.cost, charged: undefined, roundAt: now, updatedAt: now,
+    };
+  });
+  if (!ok || !after) {
+    if (res && 'tokens' in res) await refund(store, user.id, res.tokens, `Batal melanjutkan ${doc.id}`, `abort:${doc.id}:r${round}`);
+    throw new ResumeError(409, tr(L, 'Pemeriksaan ini sudah dilanjutkan.', 'This check has already been resumed.'), 'already');
+  }
+  await store.createOnce(`i/active/${doc.id}`, {}, { uid: doc.uid, at: now, worst: hardBoundUsd(words, doc.mode, Boolean(doc.rubricId), eng), free: false });
+  if (!admin) await store.createOnce(`i/user-active/${doc.uid}/${doc.id}`, {}, { at: now });
+  return after;
+}
+
+checks.post('/api/checks/:id/resume', async (c) => {
+  const user = c.get('user');
+  const L = portalLang(c);
+  if (!user) return c.json({ error: 'login' }, 401);
+  if (!(await limit(c.env, `resume:${user.id}`, 60, 3600))) return c.json({ error: tr(L, 'Terlalu banyak percobaan per jam.', 'Too many attempts per hour.') }, 429);
+  try {
+    const doc = await resumeCheck(c.env, c.get('store'), user, c.req.param('id'), L);
+    return c.json(statusOf(doc, L));
+  } catch (err) {
+    if (err instanceof ResumeError) return c.json({ error: err.message, code: err.code }, err.status);
+    throw err;
+  }
+});
 
 async function ownCheck(c: Ctx, store: Store, id: string): Promise<CheckDoc | null> {
   const user = c.get('user');
@@ -513,29 +622,44 @@ checks.post('/api/batches/:id/run', async (c) => {
     }
   }
   let reserved: Reservation | null = null;
+  let fit = entries.length;
+  let reservedTotal = total;
   if (!isAdmin(user)) {
+    const runId = `${batch.id}:${newId('run')}`;
     try {
-      reserved = await reserve(store, user.id, total, `Pesan sesi ${batch.id} (${entries.length} naskah)`, `${batch.id}:${newId('run')}`);
+      reserved = await reserve(store, user.id, total, `Pesan sesi ${batch.id} (${entries.length} naskah)`, runId);
     } catch (err) {
-      if (err instanceof InsufficientError) return c.json({ error: tr(L, `Token tidak cukup: sesi ini memesan ${total} token (sisanya dikembalikan setelah selesai), saldo ${err.available}.`, `Not enough tokens: this session reserves ${total} tokens (the rest returns afterwards), balance ${err.available}.`) }, 402);
-      throw err;
+      if (!(err instanceof InsufficientError)) throw err;
+      // §30: naskah dimulai berurutan selama saldo mencukupi; sisanya tersimpan „menunggu token“ dan berjalan setelah member
+      // menambah token lalu menekan „Lanjutkan sesi“.
+      let acc = 0;
+      fit = 0;
+      for (const t of each) {
+        if (acc + t > err.available) break;
+        acc += t;
+        fit += 1;
+      }
+      if (fit === 0) return c.json({ error: tr(L, `Token tidak cukup untuk memulai: naskah pertama memesan ${each[0]} token, saldo ${err.available}. Beli token atau isi deposit di menu Token.`, `Not enough tokens to start: the first entry reserves ${each[0]} tokens, balance ${err.available}. Buy tokens or top up under Tokens.`) }, 402);
+      reservedTotal = acc;
+      reserved = await reserve(store, user.id, acc, `Pesan sesi ${batch.id} (${fit} dari ${entries.length} naskah; sisanya menunggu token)`, `${runId}:p`);
     }
   }
   const ids: string[] = [];
   let seq = batch.items;
   try {
-    for (const e of entries) {
-      const doc = await createCheck(c.env, store, user, sanitizeInput({ ...e, rubric: batch.rubricId, reportLang: batch.reportLang, genre: 'essay', mode, purpose: batch.purpose ?? 'lomba' }, L), L, { batchId: batch.id, prepaid: true });
+    for (const [k, e] of entries.entries()) {
+      const waiting = k >= fit;
+      const doc = await createCheck(c.env, store, user, sanitizeInput({ ...e, rubric: batch.rubricId, reportLang: batch.reportLang, genre: 'essay', mode, purpose: batch.purpose ?? 'lomba' }, L), L, { batchId: batch.id, prepaid: true, waiting });
       seq += 1;
       await store.createOnce(`i/batch-items/${batch.id}/${String(seq).padStart(5, '0')}~${doc.id}`, {}, { title: doc.title, author: doc.author });
-      ids.push(doc.id);
+      if (!waiting) ids.push(doc.id);
     }
   } finally {
-    await store.cas<Batch>(batchKey(batch.id), (cur) => (cur ? { ...cur, items: seq, settled: false, reservedTokens: (cur.reservedTokens ?? 0) + (reserved ? total : 0) } : null));
+    await store.cas<Batch>(batchKey(batch.id), (cur) => (cur ? { ...cur, items: seq, settled: false, reservedTokens: (cur.reservedTokens ?? 0) + (reserved ? reservedTotal : 0) } : null));
     // Cron menuntaskan sesi yang terbuka walau tab ditutup sebelum selesai.
     if (reserved) await store.put(`i/open-batches/${batch.id}`, { at: Date.now() });
   }
-  return c.json({ ids, reserved: reserved ? total : 0 });
+  return c.json({ ids, reserved: reserved ? reservedTotal : 0, waiting: entries.length - fit });
 });
 
 /**
@@ -551,8 +675,9 @@ export async function settleBatch(env: Env, store: Store, batchId: string): Prom
   for (const it of items) {
     const doc = await store.get<CheckDoc>(checkKey(it.id));
     if (!doc) continue;
-    if (doc.stage !== 'done' && doc.stage !== 'failed') return null; // belum semua selesai
-    if (doc.stage === 'done') charged += doc.tokens ?? 0;
+    // Naskah yang dilanjutkan dengan pesanan sendiri (§30) tidak menahan penyelesaian sesi: bagian sesinya sudah tetap.
+    if (doc.stage !== 'done' && doc.stage !== 'failed' && doc.batchCharged === undefined) return null; // belum semua selesai
+    charged += doc.batchCharged ?? (doc.stage === 'done' ? doc.tokens ?? 0 : 0);
   }
   charged = Math.min(charged, batch.reservedTokens);
   const already = batch.refundedTokens ?? 0;

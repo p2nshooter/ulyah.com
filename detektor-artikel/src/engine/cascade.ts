@@ -87,7 +87,26 @@ export interface CheckDoc {
   reuse?: { own: number; other: number; savedUsd: number; pct: number };
   /** Kunci hasil tersimpan pemeriksaan ini (mesin + daftar „pernah mengunggah“ member). */
   rx?: { ek: string; list: string };
+  /** §30: putaran ke-n (0 = pertama); setiap „Lanjutkan“ membuka putaran baru dengan pesanan baru. */
+  round?: number;
+  /** §30: token yang sudah dipotong di putaran-putaran sebelumnya (tidak pernah ditagih ulang). */
+  billed?: number;
+  /** §30: biaya AI (US$) yang sudah dicatat sebelum putaran ini. */
+  costPrev?: number;
+  /** §30: terhenti dan bisa dilanjutkan — tahap tempat berhenti dan sebabnya. */
+  resume?: { stage: Stage; reason: 'failed' | 'tokens'; at: number };
+  /** §30: pesanan lebih kecil dari perkiraan karena saldo kurang — dijeda sebelum tahap AI bila pesanan habis. */
+  partial?: boolean;
+  /** §30: awal putaran terakhir (batas waktu 2 jam dihitung dari sini). */
+  roundAt?: number;
+  /** §30: bagian pesanan sesi massal yang dipakai naskah ini (ditetapkan sekali; dipakai settleBatch). */
+  batchCharged?: number;
 }
+
+/** §30: galat masukan tidak bisa dilanjutkan (naskah yang sama akan gagal lagi); selain itu pekerjaan tersimpan & bisa dilanjutkan. */
+export const NOT_RESUMABLE = new Set(['empty', 'lang_unsupported', 'bad_request']);
+/** Tahap yang memanggil AI (penjaga pesanan sebagian berjalan sebelum tahap ini). */
+const AI_STAGES = new Set<Stage>(['t1', 't2', 't3', 'rubric2']);
 
 export const checkKey = (id: string) => `c/checks/${id}.json`;
 const subKey = (id: string, name: string) => `c/checks/${id}/${name}.json`;
@@ -149,6 +168,8 @@ export interface ReportSummary {
     reserved: number;
     charged: number;
     refunded: number;
+    /** §30: token yang sudah dipotong di putaran sebelumnya (pemeriksaan yang dilanjutkan). */
+    billedBefore?: number;
   };
   /** Berapa kali teks yang sama persis pernah diperiksa akun ini sebelumnya (anti "memancing" hasil). */
   samePrior: number;
@@ -850,7 +871,10 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
   const exact = Math.round(lines.reduce((a, l) => a + l.tokens, 0) * 100) / 100;
   const priced = Math.max(freshCount ? 1 : 0, Math.ceil(exact - 1e-9));
   // Tidak pernah melebihi pesanan; pesanan sudah ≥ batas biaya mutlak sehingga perusahaan tetap untung.
-  const tokens = doc.reserved > 0 ? Math.min(doc.reserved, priced) : priced;
+  // §30: putaran sebelumnya sudah dibayar (`billed`); putaran ini hanya menagih sisanya.
+  const billedBefore = doc.billed ?? 0;
+  const dueNow = Math.max(0, priced - billedBefore);
+  const tokens = doc.reserved > 0 ? Math.min(doc.reserved, dueNow) : dueNow;
   // Cek Gratis: halaman yang pernah diperiksa member ini sendiri dihitung `reusePct` % (sisa kuota kembali).
   let freePages = doc.free?.pages;
   if (doc.free && plan && plan.words.own > 0 && plan.words.total > 0) {
@@ -909,8 +933,8 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     engine: { version: '1.0', calibration: 'awal-1', prompt: 'v1' },
     cost: Math.round(doc.cost * 1e6) / 1e6,
     // Cek Gratis memakai kuota halaman, bukan token: member tidak pernah melihat atau membayar token untuknya.
-    tokens: doc.free ? 0 : tokens,
-    usage: { lines, rates, exact, reserved: doc.reserved, charged: doc.reserve && 'tokens' in doc.reserve ? tokens : 0, refunded: doc.reserve && 'tokens' in doc.reserve ? Math.max(0, doc.reserved - tokens) : 0 },
+    tokens: doc.free ? 0 : billedBefore + tokens,
+    usage: { lines, rates, exact, reserved: doc.reserved, charged: (doc.reserve && 'tokens' in doc.reserve ? tokens : 0) + billedBefore, refunded: doc.reserve && 'tokens' in doc.reserve ? Math.max(0, doc.reserved - tokens) : 0, ...(billedBefore ? { billedBefore } : {}) },
     samePrior: prior.filter((x) => x.id !== reportId).length,
     reuseOwn: plan && plan.words.own > 0 ? { words: plan.words.own, pct: billing.reusePct } : undefined,
     org: (await getUser(store, doc.uid))?.billing?.company || undefined,
@@ -957,47 +981,55 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
       console.error('reuse save', err); // laporan tetap selesai; hanya kesempatan menghemat yang hilang
     }
   }
-  const charged = doc.reserve && 'tokens' in doc.reserve ? final.tokens : 0;
+  const charged = doc.reserve && 'tokens' in doc.reserve ? Math.max(0, final.tokens - billedBefore) : 0;
   return {
     stage: 'done', reportId: final.id, tokens: final.tokens, charged, cost: doc.cost, analyzedWords: pp.analyzedWords, rx,
+    ...(doc.reserve && 'batch' in doc.reserve && doc.batchCharged === undefined ? { batchCharged: final.tokens } : {}),
     free: doc.free ? { ...doc.free, pages: freePages ?? doc.free.pages } : undefined,
     reuse: plan ? { own: plan.words.own, other: plan.words.other, savedUsd: Math.round(reused.savedUsd * 1e6) / 1e6, pct: billing.reusePct } : undefined,
   };
 }
 
 /**
- * Penyelesaian uang satu pemeriksaan — idempoten (kunci per pemeriksaan), dipanggil oleh /advance
+ * Penyelesaian uang satu putaran pemeriksaan — idempoten (kunci per pemeriksaan per putaran), dipanggil oleh /advance
  * dan diulang oleh cron sampai berhasil:
- *  - selesai: kembalikan (pesanan − yang ditagih);
- *  - gagal: kembalikan seluruh pesanan (pemeriksaan gagal tidak ditagih).
- * Setelah itu catat biaya harian sekali dan periksa penjaga rugi.
+ *  - selesai: kembalikan (pesanan − yang ditagih putaran ini);
+ *  - terhenti (§30, pemilik 8 Nov 2026: „gagal tetep terpotong“): kerja AI yang sudah selesai ditagih (`charged`, tidak
+ *    pernah melebihi pesanan), sisanya kembali; pekerjaan tersimpan dan bisa dilanjutkan.
+ * Setelah itu catat biaya harian putaran ini sekali dan periksa penjaga rugi.
  */
 export async function settleCheck(env: Env, store: Store, doc: CheckDoc): Promise<void> {
   if (doc.stage !== 'done' && doc.stage !== 'failed') return;
+  const done = doc.stage === 'done';
+  const sfx = doc.round ? `:r${doc.round}` : '';
+  const used = Math.max(0, Math.min(doc.reserved, doc.charged ?? (done ? doc.tokens ?? 0 : 0)));
   if (doc.reserve && 'tokens' in doc.reserve) {
-    const back = doc.stage === 'done' ? Math.max(0, doc.reserved - (doc.charged ?? doc.tokens ?? 0)) : doc.reserved;
-    await refund(store, doc.uid, back, doc.stage === 'done' ? `Sisa pesanan ${doc.id} (ditagih ${doc.charged ?? 0} token)` : `Pemeriksaan gagal ${doc.id} — tidak ditagih`, `settle:${doc.id}`);
+    await refund(
+      store, doc.uid, Math.max(0, doc.reserved - used),
+      done ? `Sisa pesanan ${doc.id} (ditagih ${used} token)` : `Pemeriksaan terhenti ${doc.id} — ditagih ${used} token untuk kerja yang sudah selesai`,
+      `settle:${doc.id}${sfx}`,
+    );
   }
   // Cek Gratis yang gagal: halaman kuotanya kembali (idempoten).
   if (doc.free && doc.stage === 'failed') await releaseFreePages(store, doc.uid, doc.free.periodKey, doc.id);
-  if (await store.createOnce(`u/spend/${doc.id}`, { at: Date.now() })) {
-    const done = doc.stage === 'done';
-    await addSpend(store, doc.cost, done ? doc.analyzedWords ?? 0 : 0, done ? doc.reuse?.savedUsd ?? 0 : 0, done && doc.reuse ? doc.reuse.own + doc.reuse.other : 0);
-    // Rekap member, tidak pernah dihapus (MASTER-BLUEPRINT §27): token terpakai, biaya AI, penghematan.
+  if (await store.createOnce(`u/spend/${doc.id}${sfx}`, { at: Date.now() })) {
+    const roundCost = Math.max(0, doc.cost - (doc.costPrev ?? 0));
+    await addSpend(store, roundCost, done ? doc.analyzedWords ?? 0 : 0, done ? doc.reuse?.savedUsd ?? 0 : 0, done && doc.reuse ? doc.reuse.own + doc.reuse.other : 0);
+    // Rekap member, tidak pernah dihapus (MASTER-BLUEPRINT §27): token terpakai (termasuk kerja yang terhenti), biaya AI.
     if (!doc.bench) {
-      await addStats(store, doc.uid, `chk:${doc.id}`, {
+      await addStats(store, doc.uid, `chk:${doc.id}${sfx}`, {
         checks: done ? 1 : 0,
         freeChecks: done && doc.free ? 1 : 0,
-        tokensUsed: done && doc.reserve && 'tokens' in doc.reserve ? doc.charged ?? 0 : 0,
-        costUsd: doc.cost,
-        freeCostUsd: doc.free ? doc.cost : 0,
+        tokensUsed: doc.reserve && 'tokens' in doc.reserve ? used : 0,
+        costUsd: roundCost,
+        freeCostUsd: doc.free ? roundCost : 0,
         savedUsd: done ? doc.reuse?.savedUsd ?? 0 : 0,
       });
     }
-    if (doc.free) await addFreeSpend(store, doc.cost);
-    // Gagal setelah biaya AI terpakai: tidak ditagih ke member, tetapi dihitung — lebih dari 3 dalam 24 jam membuat
-    // pemeriksaan baru member itu dijeda (checks.ts), dan admin melihatnya di audit log.
-    if (doc.stage === 'failed' && doc.cost > 0 && !doc.bench) {
+    if (doc.free) await addFreeSpend(store, roundCost);
+    // Gagal yang biayanya ditanggung platform (Cek Gratis / tanpa tagihan): lebih dari 3 dalam 24 jam membuat pemeriksaan
+    // baru member itu dijeda (checks.ts), dan admin melihatnya di audit log.
+    if (doc.stage === 'failed' && roundCost > 0 && !doc.bench && used === 0 && !doc.batchCharged) {
       const n = await bump(env, `costly-fail:${doc.uid}`, 86_400);
       if (n >= 3) await audit(store, 'system', 'costly_failures', { uid: doc.uid, checkId: doc.id, count: n, code: doc.error?.code, cost: doc.cost });
     }
@@ -1007,12 +1039,69 @@ export async function settleCheck(env: Env, store: Store, doc: CheckDoc): Promis
       // Pendapatan minimum (diskon paket terbesar) dibandingkan biaya API nyata.
       const revenueIdr = (doc.charged ?? 0) * tokenCostIdr(billing, settings) * minRevenueMultiple(billing);
       if (revenueIdr < doc.cost * settings.fx) {
-        await store.createOnce(`i/loss/${doc.id}`, {}, { at: Date.now(), costIdr: Math.round(doc.cost * settings.fx), revenueIdr: Math.round(revenueIdr) });
+        await store.createOnce(`i/loss/${doc.id}${sfx}`, {}, { at: Date.now(), costIdr: Math.round(doc.cost * settings.fx), revenueIdr: Math.round(revenueIdr) });
         await audit(store, 'system', 'loss_alert', { checkId: doc.id, cost: doc.cost, tokens: doc.charged });
       }
     }
   }
   await store.del([`i/active/${doc.id}`, `i/user-active/${doc.uid}/${doc.id}`]);
+}
+
+/* ── §30: tagihan kerja yang sudah selesai & lanjutkan ───────────────────── */
+
+/** Token platform untuk semua panggilan AI pemeriksaan ini sejauh ini (log per panggilan, tarif publik). */
+export async function consumedTokens(store: Store, checkId: string, billing: Awaited<ReturnType<typeof getBilling>>, settings: EngineSettings): Promise<number> {
+  const rates = rateCard(billing, settings);
+  let sum = 0;
+  for await (const k of store.keys(`l/cu/${checkId}/`)) {
+    const u = await store.get<{ model: string; in: number; out: number; cacheRead: number; cost: number }>(k.key);
+    if (!u) continue;
+    const rate = rates[u.model.replace(/-\d{8}$/, '')];
+    sum += rate ? lineTokens(rate, u.in, u.out, u.cacheRead) : Math.round((u.cost / billing.tokenUnitUsd) * 100) / 100;
+  }
+  return Math.round(sum * 100) / 100;
+}
+
+/** Token yang ditagih saat pemeriksaan terhenti: pemakaian nyata yang belum dibayar, ≤ pesanan putaran ini. */
+export async function dueOnStop(store: Store, doc: CheckDoc, settings: EngineSettings): Promise<number> {
+  if (doc.free || doc.bench) return 0;
+  const tokensRes = Boolean(doc.reserve && 'tokens' in doc.reserve);
+  const batch = Boolean(doc.reserve && 'batch' in doc.reserve);
+  if (!tokensRes && !batch) return 0; // admin / tanpa pesanan
+  try {
+    const consumed = await consumedTokens(store, doc.id, await getBilling(store), settings);
+    const due = Math.max(0, Math.ceil(consumed - 1e-9) - (doc.billed ?? 0));
+    return tokensRes ? Math.min(due, doc.reserved) : due;
+  } catch (err) {
+    console.error('dueOnStop', err);
+    return 0;
+  }
+}
+
+/** Bidang yang ditulis saat pemeriksaan terhenti (dipakai /advance dan sapuan cron). */
+export function stopPatch(cur: CheckDoc, due: number, resume: CheckDoc['resume']): Partial<CheckDoc> {
+  return {
+    charged: due,
+    billed: (cur.billed ?? 0) + due,
+    resume,
+    ...(cur.reserve && 'batch' in cur.reserve && cur.batchCharged === undefined ? { batchCharged: due } : {}),
+  };
+}
+
+/** Hentikan pemeriksaan dari luar /advance (sapuan batas waktu cron): tagih kerja yang selesai, simpan untuk dilanjutkan. */
+export async function haltCheck(env: Env, store: Store, id: string, code: string, msg: string): Promise<CheckDoc | null> {
+  const doc = await store.get<CheckDoc>(checkKey(id));
+  if (!doc || doc.stage === 'done' || doc.stage === 'failed') return null;
+  const settings = applyRouter(await getEngine(store), await getControls(store)).eng;
+  const due = await dueOnStop(store, doc, settings);
+  const resumable = !doc.free && !doc.bench;
+  const after = await store.cas<CheckDoc>(checkKey(id), (cur) =>
+    cur && cur.stage !== 'done' && cur.stage !== 'failed' && cur.lease <= Date.now()
+      ? { ...cur, stage: 'failed', lease: 0, error: { code, msg }, updatedAt: Date.now(), ...stopPatch(cur, due, resumable ? { stage: cur.stage, reason: 'failed', at: Date.now() } : undefined) }
+      : null,
+  );
+  if (after && after.stage === 'failed') await settleCheck(env, store, after);
+  return after;
 }
 
 /* ── pengendali ───────────────────────────────────────────────────────── */
@@ -1036,9 +1125,14 @@ export async function advance(env: Env, checkId: string): Promise<CheckDoc | nul
   const settings = routed.eng;
   const ctx: CallCtx = { env, store, settings, checkId, uid: doc.uid, cost: 0 };
   try {
-    // Tombol darurat: tidak ada panggilan AI baru; pemeriksaan berhenti dan seluruh pesanannya kembali (settleCheck).
-    if (controls.emergencyStop && doc.stage !== 'fuse') throw new StageError('stopped', 'Layanan AI dihentikan sementara oleh admin. Token Anda dikembalikan utuh.');
-    if (routed.blocked.length && doc.stage !== 'fuse' && doc.stage !== 'prep') throw new StageError('no_model', 'Tidak ada mesin AI aktif yang mampu untuk tahap ini. Token Anda dikembalikan utuh.');
+    // Tombol darurat: tidak ada panggilan AI baru; pemeriksaan berhenti, kerja yang sudah selesai tersimpan (§30).
+    if (controls.emergencyStop && doc.stage !== 'fuse') throw new StageError('stopped', 'Layanan AI dihentikan sementara oleh admin. Pekerjaan Anda tersimpan — lanjutkan setelah layanan aktif kembali.');
+    if (routed.blocked.length && doc.stage !== 'fuse' && doc.stage !== 'prep') throw new StageError('no_model', 'Tidak ada mesin AI aktif yang mampu untuk tahap ini. Pekerjaan Anda tersimpan — lanjutkan nanti.');
+    // §30: pesanan sebagian (saldo kurang) — sebelum tahap AI berikutnya, jeda bila pesanan putaran ini sudah terpakai.
+    if (doc.partial && doc.reserve && 'tokens' in doc.reserve && AI_STAGES.has(doc.stage)) {
+      const used = (await consumedTokens(store, doc.id, await getBilling(store), settings)) - (doc.billed ?? 0);
+      if (used >= doc.reserved) throw new StageError('no_tokens', 'Token pesanan habis — pekerjaan dijeda dan tersimpan. Isi deposit atau beli token, lalu klik Lanjutkan.');
+    }
     let patch: Partial<CheckDoc>;
     switch (doc.stage) {
       case 'prep':
@@ -1070,6 +1164,10 @@ export async function advance(env: Env, checkId: string): Promise<CheckDoc | nul
   } catch (err) {
     const se = err instanceof StageError ? err : new StageError('retry', err instanceof Error ? err.message : String(err));
     const fatal = !se.retryable || doc.attempts >= 4;
+    // §30 (pemilik, 8 Nov 2026: „gagal tetep terpotong tp pekerjaan bisa d lanjutkan“): kerja AI yang sudah selesai ditagih,
+    // tidak pernah melebihi pesanan putaran ini; tahap yang sudah selesai tersimpan untuk dilanjutkan.
+    const due = fatal ? await dueOnStop(store, doc, settings) : 0;
+    const resumable = fatal && !doc.free && !doc.bench && !NOT_RESUMABLE.has(se.code);
     const after = await store.cas<CheckDoc>(checkKey(checkId), (cur) =>
       cur
         ? {
@@ -1080,10 +1178,10 @@ export async function advance(env: Env, checkId: string): Promise<CheckDoc | nul
             error: { code: se.code, msg: se.message },
             cost: cur.cost + ctx.cost,
             updatedAt: Date.now(),
+            ...(fatal ? stopPatch(cur, due, resumable ? { stage: cur.stage, reason: se.code === 'no_tokens' ? 'tokens' : 'failed', at: Date.now() } : undefined) : {}),
           }
         : null,
     );
-    // Gagal = tidak ditagih: seluruh pesanan kembali (biaya API yang terlanjur ditanggung platform).
     if (fatal && after) await settleCheck(env, store, after);
     return after;
   }
