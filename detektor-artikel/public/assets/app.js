@@ -471,4 +471,69 @@
     mk.addEventListener('input', function () { if (range) range.value = mk.value; recalc(); });
     pf.addEventListener('input', function (ev) { if (ev.target.hasAttribute('data-live')) recalc(); });
   }
+  /* ── panduan bersuara (Web Speech API, ID/EN mengikuti halaman) ──
+   * Dibacakan per langkah (potongan pendek: tidak terpotong di Chrome), langkah yang sedang dibaca disorot dan
+   * digulir ke tengah. „Dengarkan semua“ berlanjut otomatis ke bagian berikutnya sampai selesai. */
+  var guide = $('[data-voice-guide]');
+  if (guide) {
+    var synth = window.speechSynthesis;
+    var gBar = $('[data-gbar]', guide), gNow = $('[data-gnow]', guide);
+    var gAll = $('[data-gall]', guide), gPause = $('[data-gpause]', guide), gStop = $('[data-gstop]', guide), gRate = $('[data-grate]', guide);
+    var secs = $$('[data-gsec]', guide);
+    var gLang = guide.getAttribute('data-lang') === 'en' ? 'en-US' : 'id-ID';
+    if (!synth || typeof window.SpeechSynthesisUtterance === 'undefined') {
+      gBar.hidden = true; $$('[data-gplay]', guide).forEach(function (b) { b.hidden = true; });
+      $('[data-gnovoice]', guide).hidden = false;
+    } else {
+      var run = 0, gPaused = false;
+      var pickVoice = function () {
+        var want = gLang.slice(0, 2), vs = synth.getVoices().filter(function (v) { return (v.lang || '').replace('_', '-').toLowerCase().indexOf(want) === 0; });
+        return vs.filter(function (v) { return /natural|neural|online|google|microsoft|siri|premium/i.test(v.name); })[0] || vs[0] || null;
+      };
+      var noLangHint = function () { var h = $('[data-gnolang]', guide); if (h && synth.getVoices().length && !pickVoice()) h.hidden = false; };
+      if (synth.addEventListener) synth.addEventListener('voiceschanged', noLangHint);
+      var clearMarks = function () { $$('.speaking', guide).forEach(function (e) { e.classList.remove('speaking'); }); $$('.sec-speaking', guide).forEach(function (e) { e.classList.remove('sec-speaking'); }); };
+      var setBusy = function (on) { gPause.disabled = !on; gStop.disabled = !on; gAll.disabled = on; guide.classList.toggle('is-speaking', on); };
+      var stopAll = function () { run++; gPaused = false; synth.cancel(); clearMarks(); setBusy(false); gNow.textContent = ''; gPause.textContent = '⏸ ' + T('Jeda', 'Pause'); };
+      var speakText = function (text, myRun) {
+        return new Promise(function (resolve) {
+          if (myRun !== run) return resolve(false);
+          var u = new SpeechSynthesisUtterance(text);
+          u.lang = gLang; var v = pickVoice(); if (v) u.voice = v;
+          u.rate = Number(gRate.value) || 1;
+          var done = false; var fin = function () { if (!done) { done = true; resolve(myRun === run); } };
+          u.onend = fin; u.onerror = fin;
+          synth.speak(u);
+        });
+      };
+      var playSections = async function (from, all) {
+        stopAll(); var myRun = run; setBusy(true); noLangHint();
+        for (var i = from; i < secs.length; i++) {
+          var sec = secs[i], title = $('[data-gtitle]', sec);
+          sec.classList.add('sec-speaking');
+          gNow.textContent = T('Membacakan: ', 'Reading: ') + title.textContent.trim();
+          var parts = [title].concat($$('[data-gstep]', sec));
+          for (var k = 0; k < parts.length; k++) {
+            var el = parts[k];
+            el.classList.add('speaking');
+            if (k > 0 || i > from) el.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+            var ok = await speakText(el.textContent.replace(/\s+/g, ' ').trim(), myRun);
+            el.classList.remove('speaking');
+            if (!ok) return;
+          }
+          sec.classList.remove('sec-speaking');
+          if (!all) break;
+        }
+        if (myRun === run) { setBusy(false); gNow.textContent = T('Selesai dibacakan.', 'Finished.'); }
+      };
+      gAll.addEventListener('click', function () { playSections(0, true); });
+      $$('[data-gplay]', guide).forEach(function (b) { b.addEventListener('click', function () { playSections(secs.indexOf(b.closest('[data-gsec]')), false); }); });
+      gStop.addEventListener('click', stopAll);
+      gPause.addEventListener('click', function () {
+        if (gPaused) { synth.resume(); gPaused = false; gPause.textContent = '⏸ ' + T('Jeda', 'Pause'); }
+        else { synth.pause(); gPaused = true; gPause.textContent = '▶ ' + T('Lanjut', 'Resume'); }
+      });
+      window.addEventListener('pagehide', function () { synth.cancel(); });
+    }
+  }
 })();

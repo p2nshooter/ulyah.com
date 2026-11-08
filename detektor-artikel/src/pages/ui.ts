@@ -102,6 +102,7 @@ function publicNav(o: PageOpts): Raw {
     [p('/akurasi', '/en/accuracy'), tr(L, 'Akurasi', 'Accuracy'), 'acc'],
     [p('/harga', '/en/pricing'), tr(L, 'Harga', 'Pricing'), 'price'],
     [p('/contoh-laporan', '/en/sample-report'), tr(L, 'Contoh laporan', 'Sample report'), 'sample'],
+    [p('/panduan', '/en/guide'), tr(L, 'Panduan', 'Guide'), 'guide'],
   ];
   return html`<header class="topbar" data-elevate>
   <div class="wrap topbar-in">
@@ -126,7 +127,7 @@ function publicFooter(L: Lang): Raw {
   <div class="wrap footer-grid">
     <div><a class="brand" href="${p('/', '/en')}">${LOGO}<span class="brand-txt">${BRAND}<small class="brand-tag">${TAGLINE}</small></span></a>
       <p class="muted">${tr(L, 'Deteksi tulisan AI dan penilaian artikel untuk Bahasa Indonesia & English. Hasil adalah bukti pendukung, bukan vonis.', 'AI-writing detection and article grading for Indonesian & English. Results are supporting evidence, not a verdict.')}</p></div>
-    <div><h4>${tr(L, 'Produk', 'Product')}</h4><a href="${p('/cara-kerja', '/en/how-it-works')}">${tr(L, 'Cara kerja', 'How it works')}</a><a href="${p('/akurasi', '/en/accuracy')}">${tr(L, 'Akurasi', 'Accuracy')}</a><a href="${p('/harga', '/en/pricing')}">${tr(L, 'Harga', 'Pricing')}</a><a href="${p('/contoh-laporan', '/en/sample-report')}">${tr(L, 'Contoh laporan', 'Sample report')}</a></div>
+    <div><h4>${tr(L, 'Produk', 'Product')}</h4><a href="${p('/cara-kerja', '/en/how-it-works')}">${tr(L, 'Cara kerja', 'How it works')}</a><a href="${p('/akurasi', '/en/accuracy')}">${tr(L, 'Akurasi', 'Accuracy')}</a><a href="${p('/harga', '/en/pricing')}">${tr(L, 'Harga', 'Pricing')}</a><a href="${p('/contoh-laporan', '/en/sample-report')}">${tr(L, 'Contoh laporan', 'Sample report')}</a><a href="${p('/panduan', '/en/guide')}">${tr(L, 'Panduan pemakaian', 'User guide')}</a></div>
     <div><h4>${tr(L, 'Kebijakan', 'Policies')}</h4><a href="${p('/kebijakan-privasi', '/en/privacy')}">${tr(L, 'Privasi', 'Privacy')}</a><a href="${p('/syarat', '/en/terms')}">${tr(L, 'Syarat', 'Terms')}</a><a href="${p('/penggunaan-etis', '/en/ethical-use')}">${tr(L, 'Penggunaan etis', 'Ethical use')}</a><a href="/verifikasi${L === 'en' ? '?lang=en' : ''}">${tr(L, 'Verifikasi laporan', 'Verify a report')}</a></div>
     <div><h4>${tr(L, 'Kontak', 'Contact')}</h4><a href="mailto:hello@axto.io">hello@axto.io</a><a href="https://wa.me/6285691234561" rel="noopener">WhatsApp</a></div>
   </div>
@@ -154,6 +155,7 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/laporan', '▤', tr(L, 'Laporan', 'Reports'), 'reports'],
           ['/admin/biaya', '＄', tr(L, 'Biaya API', 'API cost'), 'cost'],
           ['/admin/audit', '⌁', tr(L, 'Audit & cadangan', 'Audit & backups'), 'audit'],
+          ['/admin/panduan', '📘', tr(L, 'Panduan admin', 'Admin guide'), 'guide'],
         ]
       : [
           ['/app', '◎', tr(L, 'Dasbor', 'Dashboard'), 'dash'],
@@ -164,6 +166,7 @@ function sideNav(o: PageOpts): Raw {
           ['/app/pesanan', '🧾', tr(L, 'Invoice', 'Invoices'), 'invoices'],
           ['/app/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
           ['/app/pengaturan', '⚙', tr(L, 'Pengaturan', 'Settings'), 'settings'],
+          [L === 'en' ? '/en/guide' : '/panduan', '📘', tr(L, 'Panduan', 'Guide'), 'guide'],
         ];
   return html`<aside class="side" id="side">
   <a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${LOGO}<span class="brand-txt">${BRAND}${o.area === 'admin' ? html` <em class="tag-admin">Admin</em>` : ''}<small class="brand-tag">${TAGLINE}</small></span></a>
