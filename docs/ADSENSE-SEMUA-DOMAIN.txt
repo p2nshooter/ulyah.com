@@ -1,26 +1,26 @@
 =====================================================================
- KODE ADSENSE SEMUA DOMAIN — ditumpuk, data per 2026-11-07
+ KODE ADSENSE SEMUA DOMAIN — ditumpuk, data per 2026-11-08
 =====================================================================
 
- Domain dalam daftar pemilik : 41
- Akun yang ditumpuk         : 16 (di setiap domain)
- Domain yang kodenya lama tetap dipakai (keep) : 11
+ Domain dalam daftar pemilik : 42
+ Akun yang ditumpuk         : 17 (di setiap domain)
+ Domain yang kodenya lama tetap dipakai (keep) : 12
 
  Perintah pemilik, 7 Nov 2026: „kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak
  saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website memakai beberapa kode
  adsense dari akun yg berbeda“.
 
  Cara menumpuk (rapi, tidak bentrok):
-   • ads.txt   : SATU BARIS PER AKUN (akun utama dulu, lalu 16 akun). Boleh banyak baris.
+   • ads.txt   : SATU BARIS PER AKUN (akun utama dulu, lalu 17 akun). Boleh banyak baris.
    • tag meta  : SATU TAG PER AKUN di <head> setiap halaman, jadi setiap akun bisa
                  memverifikasi situs dengan tag meta atau dengan ads.txt.
    • loader    : HANYA SATU per halaman, yaitu akun utama domain itu. Google mengabaikan
                  tag kepala AdSense kedua di halaman yang sama („Only one AdSense head tag
-                 supported per page“), jadi 16 loader hanya menambah error, bukan iklan.
+                 supported per page“), jadi banyak loader hanya menambah error, bukan iklan.
    • Auto ads saja, tanpa slot manual. Sumber tunggal: adsense-stack.json di repo ulyah.com.
 
 ---------------------------------------------------------------------
- A. 16 AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik)
+ A. 17 AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik; ke-17 ditambah 8 Nov 2026)
 ---------------------------------------------------------------------
 
   1. ca-pub-9915280882234592
@@ -39,8 +39,9 @@
  14. ca-pub-6146217038829045
  15. ca-pub-2493615451319531
  16. ca-pub-5693981744147503
+ 17. ca-pub-8212039662308316
 
- Baris ads.txt ke-16 akun (sama di setiap domain):
+ Baris ads.txt ke-17 akun (sama di setiap domain):
    google.com, pub-9915280882234592, DIRECT, f08c47fec0942fa0
    google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0
    google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0
@@ -57,8 +58,9 @@
    google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
    google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
    google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+   google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0
 
- Tag meta ke-16 akun (sama di setiap domain):
+ Tag meta ke-17 akun (sama di setiap domain):
    <meta name="google-adsense-account" content="ca-pub-9915280882234592">
    <meta name="google-adsense-account" content="ca-pub-9354298681597606">
    <meta name="google-adsense-account" content="ca-pub-6560360898389273">
@@ -75,262 +77,268 @@
    <meta name="google-adsense-account" content="ca-pub-6146217038829045">
    <meta name="google-adsense-account" content="ca-pub-2493615451319531">
    <meta name="google-adsense-account" content="ca-pub-5693981744147503">
+   <meta name="google-adsense-account" content="ca-pub-8212039662308316">
 
 ---------------------------------------------------------------------
  B. PER DOMAIN: akun utama (satu-satunya loader) + akun tambahan
 ---------------------------------------------------------------------
 
-[axto.io]   16 akun   (guardian-ai · dashboard/lib/site.ts + public/ads.txt)
-    akun utama : ca-pub-9915280882234592   ← salah satu dari 16
+[axto.io]   17 akun   (guardian-ai · dashboard/lib/site.ts + public/ads.txt)
+    akun utama : ca-pub-9915280882234592   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9915280882234592" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[xaa.es]   16 akun   (xaa · src/lib/site.ts + public/ads.txt)
-    akun utama : ca-pub-9354298681597606   ← salah satu dari 16
+[xaa.es]   17 akun   (xaa · src/lib/site.ts + public/ads.txt)
+    akun utama : ca-pub-9354298681597606   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9354298681597606" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[xscan.es]   16 akun   (ulyah.com · detektor-artikel/src/pages/ui.ts)
-    akun utama : ca-pub-9354298681597606   ← salah satu dari 16
+[xscan.es]   17 akun   (ulyah.com · detektor-artikel/src/pages/ui.ts)
+    akun utama : ca-pub-9354298681597606   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9354298681597606" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[ulyah.com]   16 akun   (ulyah.com · apps/web (tenant ulyah) · src/lib/ad-config.ts)
-    akun utama : ca-pub-5092800160376210   ← salah satu dari 16
+[ulyah.com]   17 akun   (ulyah.com · apps/web (tenant ulyah) · src/lib/ad-config.ts)
+    akun utama : ca-pub-5092800160376210   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5092800160376210" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[tilawa.de]   16 akun   (ulyah.com · apps/web (tenant tilawa) · src/lib/ad-config.ts)
-    akun utama : ca-pub-6560360898389273   ← salah satu dari 16
+[tilawa.de]   17 akun   (ulyah.com · apps/web (tenant tilawa) · src/lib/ad-config.ts)
+    akun utama : ca-pub-6560360898389273   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6560360898389273" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[1fr.fr]   16 akun   (ulyah.com · apps/web (tenant 1fr) · src/lib/ad-config.ts)
-    akun utama : ca-pub-5928074389292014   ← salah satu dari 16
+[1fr.fr]   17 akun   (ulyah.com · apps/web (tenant 1fr) · src/lib/ad-config.ts)
+    akun utama : ca-pub-5928074389292014   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[xad.es]   17 akun   (ulyah.com · apps/web (tenant xad) · src/lib/ad-config.ts)
+[xad.es]   18 akun   (ulyah.com · apps/web (tenant xad) · src/lib/ad-config.ts)
     akun utama : ca-pub-5517446616694631   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5517446616694631" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-5517446616694631, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-5517446616694631">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-5517446616694631, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-5517446616694631">   + 17 tag di bagian A
 
-[dawa.im]   16 akun   (ulyah.com · apps/web (tenant dawaim) · src/lib/ad-config.ts)
-    akun utama : ca-pub-9354298681597606   ← salah satu dari 16
+[dawa.im]   17 akun   (ulyah.com · apps/web (tenant dawaim) · src/lib/ad-config.ts)
+    akun utama : ca-pub-9354298681597606   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9354298681597606" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[byodd.de]   16 akun   (ulyah.com · sites/byodd.de (engine))
-    akun utama : ca-pub-1480130604232181   ← salah satu dari 16
+[byodd.de]   17 akun   (ulyah.com · sites/byodd.de (engine))
+    akun utama : ca-pub-1480130604232181   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1480130604232181" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[byoxy.de]   16 akun   (ulyah.com · sites/byoxy.de (engine))
-    akun utama : ca-pub-6146217038829045   ← salah satu dari 16
+[byoxy.de]   17 akun   (ulyah.com · sites/byoxy.de (engine))
+    akun utama : ca-pub-6146217038829045   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[byoy.de]   16 akun   (ulyah.com · sites/byoy.de (engine))
-    akun utama : ca-pub-5092800160376210   ← salah satu dari 16
+[byoy.de]   17 akun   (ulyah.com · sites/byoy.de (engine))
+    akun utama : ca-pub-5092800160376210   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5092800160376210" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[nexvilo.de]   16 akun   (ulyah.com · sites/nexvilo.de (engine))
-    akun utama : ca-pub-7250589269548267   ← salah satu dari 16
+[nexvilo.de]   17 akun   (ulyah.com · sites/nexvilo.de (engine))
+    akun utama : ca-pub-7250589269548267   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250589269548267" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[qarf.de]   16 akun   (ulyah.com · sites/qarf.de (engine))
-    akun utama : ca-pub-4304267428455702   ← salah satu dari 16
+[qarf.de]   17 akun   (ulyah.com · sites/qarf.de (engine))
+    akun utama : ca-pub-4304267428455702   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4304267428455702" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[qulen.de]   16 akun   (ulyah.com · sites/qulen.de (engine))
-    akun utama : ca-pub-6381187608934514   ← salah satu dari 16
+[qulen.de]   17 akun   (ulyah.com · sites/qulen.de (engine))
+    akun utama : ca-pub-6381187608934514   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381187608934514" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[qurm.de]   16 akun   (ulyah.com · sites/qurm.de (engine))
-    akun utama : ca-pub-4304267428455702   ← salah satu dari 16
+[qurm.de]   17 akun   (ulyah.com · sites/qurm.de (engine))
+    akun utama : ca-pub-4304267428455702   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4304267428455702" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[rubiy.de]   17 akun   (ulyah.com · sites/rubiy.de (engine))
+[rubiy.de]   18 akun   (ulyah.com · sites/rubiy.de (engine))
     akun utama : ca-pub-2990015102981265   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2990015102981265" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-2990015102981265, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-2990015102981265">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-2990015102981265, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-2990015102981265">   + 17 tag di bagian A
 
-[velnixo.de]   16 akun   (ulyah.com · sites/velnixo.de (engine))
-    akun utama : ca-pub-6293576511807510   ← salah satu dari 16
+[velnixo.de]   17 akun   (ulyah.com · sites/velnixo.de (engine))
+    akun utama : ca-pub-6293576511807510   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6293576511807510" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[zavik.de]   16 akun   (ulyah.com · sites/zavik.de (engine))
-    akun utama : ca-pub-9221781326457936   ← salah satu dari 16
+[zavik.de]   17 akun   (ulyah.com · sites/zavik.de (engine))
+    akun utama : ca-pub-9221781326457936   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9221781326457936" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[zevok.de]   16 akun   (ulyah.com · sites/zevok.de (engine))
-    akun utama : ca-pub-6560360898389273   ← salah satu dari 16
+[zevok.de]   17 akun   (ulyah.com · sites/zevok.de (engine))
+    akun utama : ca-pub-6560360898389273   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6560360898389273" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[zoevian.de]   16 akun   (ulyah.com · sites/zoevian.de (engine))
-    akun utama : ca-pub-5928074389292014   ← salah satu dari 16
+[zoevian.de]   17 akun   (ulyah.com · sites/zoevian.de (engine))
+    akun utama : ca-pub-5928074389292014   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[zolun.de]   17 akun   (ulyah.com · sites/zolun.de (engine))
+[zolun.de]   18 akun   (ulyah.com · sites/zolun.de (engine))
     akun utama : ca-pub-6016479123891586   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6016479123891586" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-6016479123891586, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-6016479123891586">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-6016479123891586, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-6016479123891586">   + 17 tag di bagian A
 
-[zuvik.de]   17 akun   (ulyah.com · sites/zuvik.de (engine))
+[zuvik.de]   18 akun   (ulyah.com · sites/zuvik.de (engine))
     akun utama : ca-pub-4613976964728693   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613976964728693" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-4613976964728693, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-4613976964728693">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-4613976964728693, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-4613976964728693">   + 17 tag di bagian A
 
-[axto.dev]   16 akun   (axtodev · src/lib/site.ts + public/ads.txt)
-    akun utama : ca-pub-6381187608934514   ← salah satu dari 16
+[axto.dev]   17 akun   (axtodev · src/lib/site.ts + public/ads.txt)
+    akun utama : ca-pub-6381187608934514   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381187608934514" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[dawo.es]   17 akun   (ulyah.com · sites/dawo.es (engine))
+[dawo.es]   18 akun   (ulyah.com · sites/dawo.es (engine))
     akun utama : ca-pub-7349356139063654   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7349356139063654" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-7349356139063654, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-7349356139063654">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-7349356139063654, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-7349356139063654">   + 17 tag di bagian A
 
-[qkb.es]   17 akun   (ulyah.com · sites/qkb.es (engine))
+[qkb.es]   18 akun   (ulyah.com · sites/qkb.es (engine))
     akun utama : ca-pub-3121033501099075   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3121033501099075" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-3121033501099075, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-3121033501099075">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-3121033501099075, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-3121033501099075">   + 17 tag di bagian A
 
-[rough.es]   16 akun   (ulyah.com · sites/rough.es (engine))
-    akun utama : ca-pub-4906992051458194   ← salah satu dari 16
+[rough.es]   17 akun   (ulyah.com · sites/rough.es (engine))
+    akun utama : ca-pub-4906992051458194   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4906992051458194" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[xko.es]   16 akun   (ulyah.com · sites/xko.es (engine))
-    akun utama : ca-pub-4906992051458194   ← salah satu dari 16
+[xko.es]   17 akun   (ulyah.com · sites/xko.es (engine))
+    akun utama : ca-pub-4906992051458194   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4906992051458194" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[ascan.es]   16 akun   (belum ada situs — kode siap, dipasang saat situsnya dibuat)
-    akun utama : ca-pub-9433622530024776   ← salah satu dari 16
+[ascan.es]   17 akun   (belum ada situs — kode siap, dipasang saat situsnya dibuat)
+    akun utama : ca-pub-9433622530024776   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9433622530024776" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[jenius.es]   16 akun   (belum ada situs — kode siap, dipasang saat situsnya dibuat (blueprint §25))
-    akun utama : ca-pub-6146217038829045   ← salah satu dari 16
+[jenius.es]   17 akun   (belum ada situs — kode siap, dipasang saat situsnya dibuat (blueprint §26))
+    akun utama : ca-pub-6146217038829045   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[oldco.in]   16 akun   (oldco.in · src/lib/adsense.ts + public/ads.txt)
-    akun utama : ca-pub-6293576511807510   ← salah satu dari 16
+[oldco.in]   17 akun   (oldco.in · src/lib/adsense.ts + public/ads.txt)
+    akun utama : ca-pub-6293576511807510   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6293576511807510" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[profity.in]   16 akun   (profity.in · src/lib/adsense.ts + public/ads.txt)
-    akun utama : ca-pub-2493615451319531   ← salah satu dari 16
+[profity.in]   17 akun   (profity.in · src/lib/adsense.ts + public/ads.txt)
+    akun utama : ca-pub-2493615451319531   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[dai.lat]   16 akun   (ulyah.com · sites/dai.lat (engine))
-    akun utama : ca-pub-2493615451319531   ← salah satu dari 16
+[dai.lat]   17 akun   (ulyah.com · sites/dai.lat (engine))
+    akun utama : ca-pub-2493615451319531   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2493615451319531" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[jai.lat]   16 akun   (Jai · src/lib/site.ts + public/ads.txt)
-    akun utama : ca-pub-5693981744147503   ← salah satu dari 16
+[jai.lat]   17 akun   (Jai · src/lib/site.ts + public/ads.txt)
+    akun utama : ca-pub-5693981744147503   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[pab.lat]   16 akun   (ulyah.com · sites/pab.lat (engine))
-    akun utama : ca-pub-7250589269548267   ← salah satu dari 16
+[pab.lat]   17 akun   (ulyah.com · sites/pab.lat (engine))
+    akun utama : ca-pub-7250589269548267   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7250589269548267" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[rough.lat]   17 akun   (ulyah.com · sites/rough.lat (engine))
+[rough.lat]   18 akun   (ulyah.com · sites/rough.lat (engine))
     akun utama : ca-pub-9246828178432700   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9246828178432700" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-9246828178432700, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-9246828178432700">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-9246828178432700, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-9246828178432700">   + 17 tag di bagian A
 
-[saved.lat]   17 akun   (ulyah.com · sites/saved.lat (engine))
+[saved.lat]   18 akun   (ulyah.com · sites/saved.lat (engine))
     akun utama : ca-pub-9246828178432700   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9246828178432700" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-9246828178432700, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-9246828178432700">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-9246828178432700, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-9246828178432700">   + 17 tag di bagian A
 
-[crone.skin]   17 akun   (ulyah.com · sites/crone.skin (engine))
+[crone.skin]   18 akun   (ulyah.com · sites/crone.skin (engine))
     akun utama : ca-pub-9653574958783349   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9653574958783349" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-9653574958783349">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-9653574958783349, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-9653574958783349">   + 17 tag di bagian A
 
-[lie.skin]   17 akun   (Lie · src/lib/site.ts + public/ads.txt)
+[lie.skin]   18 akun   (Lie · src/lib/site.ts + public/ads.txt)
     akun utama : ca-pub-2271696914011881   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2271696914011881" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-2271696914011881, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-2271696914011881">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-2271696914011881, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-2271696914011881">   + 17 tag di bagian A
 
-[axto.us]   17 akun   (axto.us · sites/axto.us (engine))
+[axto.us]   18 akun   (axto.us · sites/axto.us (engine))
     akun utama : ca-pub-2990015102981265   ← kode lama, TETAP (daftar keep pemilik)
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2990015102981265" crossorigin="anonymous"></script>
-    ads.txt    : google.com, pub-2990015102981265, DIRECT, f08c47fec0942fa0   + 16 baris di bagian A
-    meta       : <meta name="google-adsense-account" content="ca-pub-2990015102981265">   + 16 tag di bagian A
+    ads.txt    : google.com, pub-2990015102981265, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-2990015102981265">   + 17 tag di bagian A
 
-[odaily.xyz]   16 akun   (ulyah.com · sites/odaily.xyz (engine))
-    akun utama : ca-pub-9221781326457936   ← salah satu dari 16
+[odaily.xyz]   17 akun   (ulyah.com · sites/odaily.xyz (engine))
+    akun utama : ca-pub-9221781326457936   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9221781326457936" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
 
-[xdaily.xyz]   16 akun   (ulyah.com · sites/xdaily.xyz (engine))
-    akun utama : ca-pub-5693981744147503   ← salah satu dari 16
+[xdaily.xyz]   17 akun   (ulyah.com · sites/xdaily.xyz (engine))
+    akun utama : ca-pub-5693981744147503   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5693981744147503" crossorigin="anonymous"></script>
-    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)
-    meta       : 16 tag di bagian A (akun utama lebih dulu)
+    ads.txt    : 17 baris di bagian A (akun utama di baris pertama)
+    meta       : 17 tag di bagian A (akun utama lebih dulu)
+
+[zufiq.de]   18 akun   (ulyah.com · sites/zufiq.de (engine))
+    akun utama : ca-pub-9338499658056112   ← kode lama, TETAP (daftar keep pemilik)
+    loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9338499658056112" crossorigin="anonymous"></script>
+    ads.txt    : google.com, pub-9338499658056112, DIRECT, f08c47fec0942fa0   + 17 baris di bagian A
+    meta       : <meta name="google-adsense-account" content="ca-pub-9338499658056112">   + 17 tag di bagian A
 
 ---------------------------------------------------------------------
  C. TIDAK IKUT DITUMPUK
 ---------------------------------------------------------------------
 
-  zufiq.de     ca-pub-9338499658056112   (tidak ada di daftar pemilik 7 Nov 2026 — satu akun, tidak diubah)
   dawa.es      ca-pub-6371903555702163   (sudah milik orang lain — tidak diubah)
 
 ---------------------------------------------------------------------
@@ -340,10 +348,10 @@
     kode adsensenya boleh di hapus ikuti dengan perintah terbaru“): axto.io 8991272269211824,
     xaa.es 6284085719914185, tilawa.de 5944786950535069, 1fr.fr 4548005919629272,
     byodd.de 2228462932360966, byoy.de 1768325549147657, nexvilo.de 6908951782430508,
-    qulen.de 7516944260248026, qurm.de 8212039662308316, velnixo.de 7345352440829958,
+    qulen.de 7516944260248026, qurm.de 8212039662308316 (kembali 8 Nov 2026 sebagai akun tumpukan ke-17), velnixo.de 7345352440829958,
     zavik.de 5254913739159445, rough.es 4504974645924459, dai.lat 8469557036744946,
     jai.lat 6019445914743449.
   • Riwayat kode sebelum 7 Nov 2026: docs/ADSENSE-CODES.md.
   • Kebijakan AdSense: satu orang hanya boleh punya SATU akun AdSense. Banyak akun di satu situs
     diperbolehkan bila akun-akun itu milik orang/badan yang berbeda (mis. situs bagi hasil).
-    Jika ke-16 akun milik satu orang yang sama, Google dapat menutup akun-akun tambahan.
+    Jika akun-akun tumpukan milik satu orang yang sama, Google dapat menutup akun-akun tambahan.

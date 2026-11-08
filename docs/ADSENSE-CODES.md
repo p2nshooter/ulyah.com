@@ -22,6 +22,12 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >   dibuat ulang dengan `node scripts/adsense-summary.mjs`.
 > - **Cara menumpuk:** satu baris ads.txt dan satu tag meta per akun; **satu loader** per halaman (akun utama), karena
 >   Google mengabaikan tag kepala AdSense kedua di halaman yang sama. Auto ads saja.
+> - **8 Nov 2026:** „skrg tambahin 1 kode adsense lg ke semuanya situsnya … google.com, pub-8212039662308316, DIRECT,
+>   f08c47fec0942fa0“ → akun ke-17 di semua domain; zufiq.de masuk tumpukan dengan kodenya sendiri sebagai loader.
+>   Cuplikan akun ke-17: loader `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8212039662308316" crossorigin="anonymous"></script>`
+>   (hanya dipakai bila akun ini dijadikan akun utama sebuah domain), tag meta
+>   `<meta name="google-adsense-account" content="ca-pub-8212039662308316">`, baris ads.txt
+>   `google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0`.
 > - Bagian-bagian di bawah ini adalah **riwayat** sebelum 7 Nov 2026.
 
 > **4 Okt 2026, SATU AKUN UNTUK SEMUA.** Pemilik: "sy mau focus jadi 1 akun

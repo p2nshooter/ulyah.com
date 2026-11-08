@@ -1,4 +1,4 @@
-AdSense zoevian.de — 16 akun (adsense-stack.json, docs/ADSENSE-BLUEPRINT.md §23)
+AdSense zoevian.de — 17 akun (adsense-stack.json, docs/ADSENSE-BLUEPRINT.md §23)
 
 Cuplikan adsense (di <head> setiap halaman — satu loader saja, akun utama)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014"
@@ -21,6 +21,7 @@ google.com, pub-9433622530024776, DIRECT, f08c47fec0942fa0
 google.com, pub-6146217038829045, DIRECT, f08c47fec0942fa0
 google.com, pub-2493615451319531, DIRECT, f08c47fec0942fa0
 google.com, pub-5693981744147503, DIRECT, f08c47fec0942fa0
+google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman — satu per akun)
 <meta name="google-adsense-account" content="ca-pub-5928074389292014">
@@ -39,3 +40,4 @@ Tag meta (di <head> setiap halaman — satu per akun)
 <meta name="google-adsense-account" content="ca-pub-6146217038829045">
 <meta name="google-adsense-account" content="ca-pub-2493615451319531">
 <meta name="google-adsense-account" content="ca-pub-5693981744147503">
+<meta name="google-adsense-account" content="ca-pub-8212039662308316">

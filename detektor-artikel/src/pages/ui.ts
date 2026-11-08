@@ -19,7 +19,7 @@ export const ADSENSE_PUB = '9354298681597606';
 export const ADSENSE_CLIENT = `ca-pub-${ADSENSE_PUB}`;
 
 /**
- * Enam belas akun yang ditumpuk (pemilik, 7 Nov 2026: „kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak
+ * Akun yang ditumpuk (pemilik: 16 akun 7 Nov 2026, akun ke-17 pub-8212039662308316 8 Nov 2026; „kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak
  * saling bentrok dan tidak melanggar kebijakan adsense"). Daftar dan urutannya sama dengan adsense-stack.json di akar
  * repo (diperiksa scripts/check-ads.ts). Setiap akun mendapat tag meta dan baris ads.txt sendiri; loader tetap SATU,
  * akun utama di atas, karena Google mengabaikan tag kepala AdSense kedua di halaman yang sama.
@@ -41,6 +41,7 @@ export const ADSENSE_STACK = [
   'ca-pub-6146217038829045',
   'ca-pub-2493615451319531',
   'ca-pub-5693981744147503',
+  'ca-pub-8212039662308316',
 ];
 export const ADSENSE_ACCOUNTS: readonly string[] = [...new Set([ADSENSE_CLIENT, ...ADSENSE_STACK])];
 export const ADS_TXT = `${ADSENSE_ACCOUNTS.map((a) => `google.com, ${a.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0`).join('\n')}\n`;

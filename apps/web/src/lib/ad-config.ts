@@ -47,7 +47,7 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
-  // 7 Nov 2026 (owner): every owner site stacks sixteen accounts (STACK below). The account here is the PRIMARY one —
+  // 7 Nov 2026 (owner): every owner site stacks the accounts in STACK below (16 on 7 Nov, 17 since 8 Nov 2026). The account here is the PRIMARY one —
   // the only loader on the page. xad.es keeps its existing account as primary ("kode adsense yg sudah ada biarkan
   // saja, jgn di hapus, tambahin dengan kode adsense baru"); the others follow the new list (adsense-stack.json).
   // 31 Oct 2026 (owner): each of the four sites to its own account. ulyah.com
@@ -73,7 +73,7 @@ const AD_CLIENT_BY_TENANT: Record<string, string> = {
 export const AD_CLIENT_ID = AD_CLIENT_BY_TENANT[TENANT.id] ?? ORIGINAL_ACCOUNT;
 
 /**
- * The sixteen stacked accounts (owner, 7 Nov 2026: "kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak saling
+ * The stacked accounts (owner, 7 Nov 2026 — sixteen; 8 Nov 2026 — a 17th, pub-8212039662308316: "kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak saling
  * bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website memakai beberapa kode adsense dari akun yg
  * berbeda"). Same list, same order as adsense-stack.json at the root of the repository; scripts/check-ads.ts fails when
  * the two differ.
@@ -95,6 +95,7 @@ export const STACK = [
   "ca-pub-6146217038829045",
   "ca-pub-2493615451319531",
   "ca-pub-5693981744147503",
+  "ca-pub-8212039662308316",
 ] as const;
 
 /**
