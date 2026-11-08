@@ -52,6 +52,10 @@ const BASE = process.env.BASE || 'http://127.0.0.1:8787';
 const OUT = process.env.OUT || 'e2e-out';
 fs.mkdirSync(OUT, { recursive: true });
 const errors = [];
+// Tombol di kartu paket: kartu `.reveal` bergerak mengikuti scroll (animation-timeline: view()), sehingga klik berbasis
+// koordinat dari Playwright kadang meleset saat kartu baru masuk layar. Tombolnya ditekan langsung (HTMLElement.click()):
+// formulir, data-confirm, dan rute yang sama tetap teruji.
+const press = (loc) => loc.evaluate((b) => b.click());
 const ok = (cond, msg) => { if (!cond) throw new Error('GAGAL: ' + msg); console.log('✓', msg); };
 
 function totp(secretB32) {
@@ -467,7 +471,7 @@ async function adminDecide(id, act, reason) {
 // 3a. Paket Lembaga dibayar transfer Rupiah: invoice → bukti → admin setujui → token masuk tepat sekali.
 await m.goto(BASE + '/app/token');
 ok((await m.locator('.notice-cash').count()) >= 1, 'pemberitahuan: saldo tidak bisa diuangkan');
-await m.click('.plans .plan >> nth=3 >> button[value=IDR]');
+await press(m.locator('.plans .plan').nth(3).locator('button[value=IDR]'));
 await m.waitForURL(/\/app\/pesanan\//);
 const orderId = m.url().split('/').pop();
 const orderIdr = Number((await m.textContent('.invoice .inv-total')).replace(/\D/g, ''));
@@ -506,12 +510,8 @@ ok((await p.goto(BASE + `/app/pesanan/${orderId}/bukti/0`)).status() === 404, 'b
 
 // 3b. Bayar USD dari luar negeri: panduan SWIFT + alternatif kiriman uang, lalu batal.
 await m.goto(BASE + '/app/token');
-try {
-  await Promise.all([m.waitForURL(/\/app\/pesanan\//), m.locator('.plans .plan').first().locator('button[value=USD]').click()]);
-} catch (e) {
-  console.log('DIAG URL:', m.url(), '| tombol USD:', await m.locator('.plans .plan').first().locator('button[value=USD]').count(), '| flash:', (await m.locator('.flash').allTextContents()).join(' / ').slice(0, 300));
-  throw e;
-}
+await press(m.locator('.plans .plan').first().locator('button[value=USD]'));
+await m.waitForURL(/\/app\/pesanan\//);
 const usdText = await m.textContent('main');
 ok(/BNINIDJA/.test(usdText) && /2090571495/.test(usdText) && /OUR/.test(usdText) && /Wise/.test(usdText), 'invoice USD: SWIFT, rekening USD, biaya OUR, alternatif kiriman uang');
 await m.screenshot({ path: `${OUT}/invoice-usd.png`, fullPage: true });
@@ -537,7 +537,7 @@ await m.goto(BASE + '/app/token');
 ok(/1\.000\.000/.test(await m.textContent('.stat-hero >> nth=1')), 'saldo deposit Rp 1.000.000 setelah disetujui');
 const tokBefore = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
 m.once('dialog', (d) => d.accept());
-await m.click('.plans .plan >> nth=0 >> form[action="/app/deposit/beli"] button');
+await press(m.locator('.plans .plan').first().locator('form[action="/app/deposit/beli"] button'));
 await m.waitForURL(/ok=deposit-buy/);
 const tokAfterBuy = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
 ok(tokAfterBuy === tokBefore + 300, `beli Starter dari deposit: +300 token (${tokBefore} → ${tokAfterBuy})`);
@@ -906,7 +906,7 @@ ok((await m.locator('.notice-purge').count()) >= 1, 'pemberitahuan pembersihan o
   await m.goto(BASE + '/app/token');
   const balPP = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
   const starterTok = Number((await m.textContent('[data-plan="starter"] [data-plan-tokens]')).replace(/\D/g, ''));
-  await m.click('[data-plan="starter"] button[value=PAYPAL]');
+  await press(m.locator('[data-plan="starter"] button[value=PAYPAL]'));
   await m.waitForURL(/\/app\/pesanan\/ord_\w+\?ok=paid/, { timeout: 30000 });
   ok((await m.locator('[data-paid]').count()) === 1 && (await m.locator('.stamp').count()) === 1, 'PayPal: kembali dari PayPal → capture → invoice LUNAS tanpa unggah bukti');
   ok(/PT Literasi Nusantara/.test(await m.textContent('[data-bill-to]')) && /PO-7788/.test(await m.textContent('[data-bill-to]')), 'invoice memuat profil penagihan perusahaan');
