@@ -6,6 +6,7 @@
  *
  * Pakai (kredensial dari variabel lingkungan, bukan argumen, agar tidak tercatat di riwayat shell):
  *   PAYPAL_MODE=sandbox PAYPAL_CLIENT_ID=… PAYPAL_SECRET=… node scripts/seal-paypal-seed.mjs https://xscan.es
+ * Tanpa akses ke situs: jalankan alur kerja Seed PayPal tanpa masukan, salin JSON kunci publiknya ke PAYPAL_SEED_PUBKEY.
  * Keluaran: satu baris `ecies1.…` untuk masukan `sealed` alur kerja Seed PayPal.
  */
 const base = (process.argv[2] || 'https://xscan.es').replace(/\/$/, '');
@@ -16,12 +17,18 @@ if (!clientId || !secret) {
   console.error('Isi PAYPAL_CLIENT_ID dan PAYPAL_SECRET di variabel lingkungan.');
   process.exit(1);
 }
-const res = await fetch(`${base}/api/paypal/seed-key`);
-if (!res.ok) {
-  console.error(`Kunci publik tidak bisa diambil dari ${base} (HTTP ${res.status}).`);
-  process.exit(1);
+// Kunci publik: dari variabel PAYPAL_SEED_PUBKEY (JSON yang dicetak alur kerja tanpa masukan) atau diambil dari situs.
+let pubJwk;
+if (process.env.PAYPAL_SEED_PUBKEY) {
+  pubJwk = JSON.parse(process.env.PAYPAL_SEED_PUBKEY);
+} else {
+  const res = await fetch(`${base}/api/paypal/seed-key`);
+  if (!res.ok) {
+    console.error(`Kunci publik tidak bisa diambil dari ${base} (HTTP ${res.status}).`);
+    process.exit(1);
+  }
+  pubJwk = await res.json();
 }
-const pubJwk = await res.json();
 const { subtle } = globalThis.crypto;
 const ECDH = { name: 'ECDH', namedCurve: 'P-256' };
 const b64url = (b) => Buffer.from(b).toString('base64url');

@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
     inputs:
       sealed:
-        description: 'Seed terenkripsi (ecies1.…) — BUKAN client ID/secret asli'
-        required: true
+        description: 'Seed terenkripsi (ecies1.…) — BUKAN client ID/secret asli. Kosongkan untuk hanya menampilkan kunci publik Worker.'
+        required: false
         type: string
 
 concurrency:
@@ -39,7 +39,25 @@ jobs:
         with:
           node-version: 22
 
+      - name: Print the Worker's public seed key (when no seed is given)
+        id: key
+        run: |
+          set -eu
+          SEED=$(jq -r '.inputs.sealed // empty' "$GITHUB_EVENT_PATH")
+          if [ -n "$SEED" ]; then echo "mode=seed" >> "$GITHUB_OUTPUT"; exit 0; fi
+          echo "mode=key" >> "$GITHUB_OUTPUT"
+          for host in https://xscan.es https://detektor-artikel.axto.workers.dev; do
+            key=$(curl -sf "$host/api/paypal/seed-key" || true)
+            if printf '%s' "$key" | jq -e '.kty == "EC" and .crv == "P-256"' >/dev/null 2>&1; then
+              echo "SEED_PUBLIC_KEY=$key"
+              { echo "## Kunci publik seed PayPal ($host)"; echo '```json'; echo "$key"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+          done
+          echo "::error::Kunci publik tidak bisa diambil dari situs live."; exit 1
+
       - name: Validate the sealed seed (never plaintext)
+        if: steps.key.outputs.mode == 'seed'
         run: |
           set -eu
           SEED=$(jq -r '.inputs.sealed // empty' "$GITHUB_EVENT_PATH")
@@ -50,9 +68,11 @@ jobs:
           printf '%s' "$SEED" > "$RUNNER_TEMP/seed.txt"
 
       - name: Install dependencies
+        if: steps.key.outputs.mode == 'seed'
         run: npm ci
 
       - name: Resolve KV namespace id for wrangler config
+        if: steps.key.outputs.mode == 'seed'
         run: |
           set -eu
           KV_ID=$(curl -s -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces?per_page=100" | jq -r '.result[]? | select(.title=="detektor-rl") | .id' | head -n1)
@@ -60,6 +80,7 @@ jobs:
           sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" wrangler.jsonc
 
       - name: Put PAYPAL_SEED secret
+        if: steps.key.outputs.mode == 'seed'
         run: |
           set -eu
           npx wrangler secret put PAYPAL_SEED < "$RUNNER_TEMP/seed.txt" >/dev/null
@@ -67,6 +88,7 @@ jobs:
           echo "PAYPAL_SEED: dipasang (terenkripsi)."
 
       - name: Check PayPal status on the live site
+        if: steps.key.outputs.mode == 'seed'
         run: |
           set -eu
           for host in https://xscan.es https://detektor-artikel.axto.workers.dev; do
