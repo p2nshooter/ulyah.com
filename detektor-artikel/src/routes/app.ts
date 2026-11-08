@@ -12,7 +12,7 @@ import { getEngine, getBilling, measuredCostPer1k, getFree, type BillingSettings
 import { freeStatus } from '../data/free.ts';
 import { balanceOf, ledger } from '../data/wallet.ts';
 import { predictPages } from '../engine/pricing.ts';
-import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, type Batch, type FreeChoice } from './checks.ts';
+import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, RESULT_CACHE_DAYS, type Batch, type FreeChoice } from './checks.ts';
 import { checkKey, reportKey, textKey, type CheckDoc, type ReportDetail, type ReportSummary } from '../engine/cascade.ts';
 import { newId, unseal, verifyPassword, hashPassword, hmac } from '../lib/crypto.ts';
 import { invTs } from '../lib/store.ts';
@@ -133,7 +133,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
     ${choice ? freeChoiceBox(L, choice) : ''}
     <section class="card step reveal"><div class="step-n">1</div><div class="step-body">
       <h3>${tr(L, 'Teks naskah', 'The text')}</h3>
-      <div class="dropzone" data-drop><input type="file" accept=".txt,.md,.docx" data-file hidden id="fileInput"><label for="fileInput" class="drop-label"><span class="drop-ic">⬆</span><b>${tr(L, 'Unggah .docx / .txt', 'Upload .docx / .txt')}</b><small class="muted">${tr(L, 'atau seret berkas ke sini — teks diambil di peramban, berkasnya tidak dikirim', 'or drag a file here — text is extracted in your browser, the file is not sent')}</small></label></div>
+      <div class="dropzone" data-drop><input type="file" accept=".txt,.md,.docx,.pdf,.rtf,.html,.htm" data-file hidden id="fileInput"><label for="fileInput" class="drop-label"><span class="drop-ic">⬆</span><b>${tr(L, 'Unggah .docx / .pdf / .rtf / .html / .txt', 'Upload .docx / .pdf / .rtf / .html / .txt')}</b><small class="muted">${tr(L, 'atau seret berkas ke sini — teks diambil di peramban, berkasnya tidak dikirim', 'or drag a file here — text is extracted in your browser, the file is not sent')}</small></label></div>
       <div class="url-row" data-url-box><label class="field"><span>${tr(L, 'Atau ambil dari URL artikel', 'Or fetch from an article URL')}</span><input type="url" inputmode="url" maxlength="2000" placeholder="https://…" data-url-input autocomplete="off"></label><button class="btn btn-ghost" type="button" data-url-fetch>🔗 ${tr(L, 'Ambil', 'Fetch')}</button></div>
       <p class="muted small url-note">${tr(L, 'Hanya halaman publik; robots.txt situs dihormati. Mengambil teks tidak memotong token.', 'Public pages only; the site’s robots.txt is respected. Fetching the text costs no tokens.')}</p>
       <label class="field"><span>${tr(L, 'Atau tempel teks', 'Or paste the text')}</span><textarea name="text" rows="12" required data-wordcount="wc" data-estimate placeholder="${tr(L, 'Tempel naskah di sini…', 'Paste the text here…')}">${v.text ?? ''}</textarea></label>
@@ -182,6 +182,8 @@ app.post('/app/periksa', async (c) => {
   try {
     const freeQuota = f.mode === 'free' ? { partial: f.partial === '1', netHash: await netHashOf(c) } : undefined;
     const doc = await createCheck(c.env, c.get('store'), c.get('user')!, sanitizeInput(f, L), L, { freeQuota });
+    // Hasil dari cache (naskah + pengaturan sama dalam 7 hari): langsung ke laporan lama, tanpa biaya.
+    if (doc.stage === 'done' && doc.reportId) return c.redirect(`/app/laporan/${doc.reportId}?cache=1`);
     return c.redirect(`/app/proses/${doc.id}`);
   } catch (err) {
     if (err instanceof FreeChoiceError) return c.html(checkForm(c, null, withBal, fv, err.choice), 409);
@@ -333,6 +335,7 @@ app.get('/app/laporan/:id', async (c) => {
     <p>${tr(L, 'Hasil ini dari mesin hemat (Claude Haiku) yang menilai per paragraf. Untuk hasil yang lebih memuaskan — penilaian per kalimat yang diperiksa ulang Sonnet dan Opus bila ragu, rubrik, kemiripan antar-naskah, dan laporan tanpa iklan — pakai Cek Lengkap.', 'This result comes from the economy engine (Claude Haiku), judged per paragraph. For a more thorough result — per-sentence judgements re-checked by Sonnet and Opus when in doubt, rubrics, cross-text similarity and an ad-free report — use the Full Check.')}</p>
     <div class="btn-row"><a class="btn btn-primary" href="/app/periksa">${tr(L, 'Cek Lengkap', 'Full Check')}</a><a class="btn btn-ghost" href="/app/token">${tr(L, 'Isi saldo', 'Top up')}</a></div>
   </section>` : ''}
+  ${c.req.query('cache') ? html`<div class="flash ok reveal" data-cache-hit>✓ ${tr(L, `Naskah dan pengaturan yang sama sudah diperiksa dalam ${RESULT_CACHE_DAYS} hari terakhir — hasil ini dipakai lagi tanpa memotong token atau kuota. Untuk menilai ulang secara penuh, pakai „Ajukan tinjauan“.`, `The same text with the same settings was checked in the last ${RESULT_CACHE_DAYS} days — this result is reused without spending tokens or quota. For a full re-assessment, use “Request review”.`)}</div>` : ''}
   ${s.samePrior > 0 ? html`<div class="flash info reveal">ⓘ ${tr(L, `Teks yang sama persis sudah ${s.samePrior}× diperiksa akun ini sebelumnya. Semua hasil tetap tersimpan di riwayat.`, `The exact same text was checked ${s.samePrior}× before by this account. Every result stays in the history.`)}</div>` : ''}
   ${s.revoked ? html`<div class="flash err reveal">⚠ ${tr(L, 'Laporan ini dicabut admin.', 'This report was revoked by the admin.')}</div>` : ''}
   ${guide(L, 'report', tr(L, 'Cara membaca laporan ini', 'How to read this report'), [
@@ -522,7 +525,9 @@ app.get('/app/sesi/:id', async (c) => {
   ${pageHead(batch.name, `${batch.category || '—'} · ${rubric ? bi(L, rubric.name) : ''} · ${fmtNum(L, batch.items)} ${tr(L, 'naskah', 'entries')}`, html`<a class="btn btn-ghost" href="/app/sesi/${batch.id}/rekap" target="_blank">🖨 ${tr(L, 'Cetak rekap', 'Print recap')}</a><a class="btn btn-ghost" href="/app/sesi/${batch.id}/rekap.csv">⬇ CSV</a>`)}
   <section class="card reveal" data-batch="${batch.id}" data-lang="${L}">
     <h3>${tr(L, 'Tambah naskah', 'Add entries')}</h3>
-    <div class="dropzone" data-drop data-multi><input type="file" accept=".txt,.md,.docx" multiple data-files hidden id="filesInput"><label for="filesInput" class="drop-label"><span class="drop-ic">⬆</span><b>${tr(L, 'Pilih atau seret banyak berkas .docx / .txt', 'Choose or drag many .docx / .txt files')}</b><small class="muted">${tr(L, 'Contoh nama berkas: 01_Nadia Putri_Literasi Digital.docx', 'Example file name: 01_Nadia Putri_Digital Literacy.docx')}</small></label></div>
+    <div class="dropzone" data-drop data-multi><input type="file" accept=".txt,.md,.docx,.pdf,.rtf,.html,.htm" multiple data-files hidden id="filesInput"><label for="filesInput" class="drop-label"><span class="drop-ic">⬆</span><b>${tr(L, 'Pilih atau seret banyak berkas .docx / .pdf / .rtf / .html / .txt', 'Choose or drag many .docx / .pdf / .rtf / .html / .txt files')}</b><small class="muted">${tr(L, 'Contoh nama berkas: 01_Nadia Putri_Literasi Digital.docx', 'Example file name: 01_Nadia Putri_Digital Literacy.docx')}</small></label></div>
+    <div class="url-row sitemap-row"><label class="field"><span>${tr(L, 'Atau impor dari sitemap situs (maks. 50 artikel sekali impor)', 'Or import from a site’s sitemap (up to 50 articles per import)')}</span><input type="url" inputmode="url" maxlength="2000" placeholder="https://contoh.id/sitemap.xml" data-sitemap-url autocomplete="off"></label><button class="btn btn-ghost" type="button" data-sitemap-run>🗺 ${tr(L, 'Impor', 'Import')}</button></div>
+    <div class="muted small sm-log" data-sitemap-log hidden aria-live="polite"></div>
     <div class="queue" data-queue hidden><table class="tbl"><thead><tr><th>${tr(L, 'Peserta', 'Entrant')}</th><th>${tr(L, 'Judul', 'Title')}</th><th class="n">${tr(L, 'Kata', 'Words')}</th><th></th></tr></thead><tbody data-queue-body></tbody></table>
       <div class="row-between"><small class="muted"><b data-queue-total>0</b> ${tr(L, 'kata', 'words')} · ${tr(L, 'token dipesan saat dijalankan, sisanya kembali', 'tokens are reserved on run, the rest returns')}</small>
       <select data-batch-mode aria-label="${tr(L, 'Mesin AI', 'AI engine')}">${(['auto', 'haiku', 'sonnet', 'opus'] as const).map((m) => html`<option value="${m}">${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</option>`)}</select>
@@ -542,6 +547,10 @@ app.get('/app/sesi/:id', async (c) => {
     done: tr(L, 'Selesai! Memuat rekap…', 'Done! Loading the recap…'),
     remove: tr(L, 'Hapus', 'Remove'),
     agree: tr(L, 'Centang pernyataan hak memeriksa dulu.', 'Tick the entitlement statement first.'),
+    smLoading: tr(L, 'Membaca sitemap…', 'Reading the sitemap…'),
+    smFound: tr(L, '{n} artikel ditemukan', '{n} articles found'),
+    smSkipped: tr(L, '{n} dilewati (batas/alamat tidak diizinkan)', '{n} skipped (limit/disallowed address)'),
+    smProgress: tr(L, 'Diambil {ok} · gagal {bad} · dari {n}', 'Fetched {ok} · failed {bad} · of {n}'),
   })}`;
   return c.html(shell(c, batch.name, body, 'batches'));
 });

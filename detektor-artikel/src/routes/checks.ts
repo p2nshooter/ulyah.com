@@ -5,7 +5,7 @@ import { Store, invTs } from '../lib/store.ts';
 import { schedulePurge } from '../data/purge.ts';
 import { newId, seal } from '../lib/crypto.ts';
 import { tr, GENRES, LEVELS, type Lang } from '../lib/i18n.ts';
-import { countWords } from '../engine/preprocess.ts';
+import { countWords, preprocess } from '../engine/preprocess.ts';
 import { advance, checkKey, textKey, type CheckDoc, type ReportSummary, reportKey } from '../engine/cascade.ts';
 import { getEngine, getBilling, spendToday, getFree, freeSpendToday, type FreeSettings } from '../data/settings.ts';
 import { normalPages, firstPages, freeStatus, reserveFreePages, releaseFreePages, FreeQuotaError, isDisposable, networkAllows, networkOf, periodOf } from '../data/free.ts';
@@ -16,7 +16,7 @@ import { isAdmin, type User } from '../data/users.ts';
 import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { limit, count } from '../lib/ratelimit.ts';
-import { fetchArticle, InputUrlError } from '../lib/extract.ts';
+import { fetchArticle, collectSitemap, InputUrlError } from '../lib/extract.ts';
 import { getControls, addMemberDay, SpendLimitError } from '../data/controls.ts';
 import { applyRouter } from '../engine/router.ts';
 import { wibDate } from '../data/settings.ts';
@@ -98,7 +98,7 @@ export async function createCheck(
   user: User,
   inputIn: NewCheck,
   L: Lang,
-  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
+  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean; noCache?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
 ): Promise<CheckDoc> {
   if (!env.MASTER_KEY) throw new CheckInputError(500, 'MASTER_KEY belum dipasang.');
   const controls = await getControls(store);
@@ -142,6 +142,12 @@ export async function createCheck(
   if (words < 30) throw new CheckInputError(400, tr(L, 'Teks terlalu pendek (minimal 30 kata).', 'Text too short (minimum 30 words).'));
   const maxWords = isAdmin(user) ? 60_000 : 20_000;
   if (words > maxWords) throw new CheckInputError(400, tr(L, `Teks terlalu panjang (maks. ${maxWords} kata per pemeriksaan).`, `Text too long (max ${maxWords} words per check).`));
+  // Cache hasil (MASTER-BLUEPRINT §8.4, §20.2): naskah + pengaturan yang sama dari akun yang sama dalam 7 hari → laporan
+  // lama dipakai lagi, tanpa token dan tanpa halaman kuota (tidak membayar AI dua kali untuk jawaban yang sama).
+  if (!opts.bench && !opts.batchId && !opts.prepaid && !opts.free && !opts.noCache) {
+    const hit = await cachedCheck(store, user.id, input, Boolean(free));
+    if (hit) return hit;
+  }
   const routedEng = applyRouter(await getEngine(store), controls);
   if (routedEng.blocked.length) throw new CheckInputError(503, tr(L, 'Tidak ada mesin AI aktif yang mampu untuk pemeriksaan ini. Hubungi admin.', 'No active AI engine can run this check. Contact the admin.'));
   const eng = routedEng.eng;
@@ -330,11 +336,45 @@ checks.post('/api/extract', async (c) => {
   const user = c.get('user');
   const L = portalLang(c);
   if (!user) return c.json({ error: 'login' }, 401);
-  if (!(await limit(c.env, `extract:${user.id}`, 30, 3600))) return c.json({ error: tr(L, 'Terlalu banyak pengambilan URL per jam.', 'Too many URL fetches per hour.') }, 429);
+  if (!(await limit(c.env, `extract:${user.id}`, 150, 3600))) return c.json({ error: tr(L, 'Terlalu banyak pengambilan URL per jam.', 'Too many URL fetches per hour.') }, 429);
   const body = (await c.req.json().catch(() => ({}))) as { url?: unknown };
   try {
     const a = await fetchArticle(String(body.url ?? '').slice(0, 2000));
     return c.json({ url: a.url, title: a.title.slice(0, 200), author: a.author.slice(0, 120), published: a.published.slice(0, 40), lang: a.lang.slice(0, 12), words: a.words, text: a.text.slice(0, 200_000) });
+  } catch (err) {
+    if (err instanceof InputUrlError) return c.json({ error: L === 'en' ? URL_ERR_EN[err.code] : err.message, code: err.code }, 422);
+    throw err;
+  }
+});
+
+export const RESULT_CACHE_DAYS = 7;
+
+async function cachedCheck(store: Store, uid: string, input: NewCheck, free: boolean): Promise<CheckDoc | null> {
+  const hash = await sha256Hex(preprocess(input.text).normalized);
+  const { items } = await store.list(`i/hash/${uid}/${hash.slice(0, 32)}/`, { limit: 50 });
+  for (const it of items.reverse()) {
+    const rep = await store.get<ReportSummary>(reportKey(it.id));
+    if (!rep || rep.uid !== uid || Date.now() - rep.createdAt > RESULT_CACHE_DAYS * 86_400_000) continue;
+    if (rep.mode !== input.mode || (rep.rubric?.id ?? null) !== (input.rubricId ?? null) || rep.reportLang !== input.reportLang) continue;
+    if (Boolean(rep.free) !== free || rep.genre !== input.genre || rep.level !== input.level) continue;
+    const doc = await store.get<CheckDoc>(checkKey(rep.checkId));
+    if (doc && doc.stage === 'done' && doc.reportId === rep.id) return doc;
+  }
+  return null;
+}
+
+/** Daftar URL artikel dari sitemap (bertingkat maks. 3) untuk sesi massal. Tanpa AI, tanpa token. */
+export const SITEMAP_MAX_PER_IMPORT = 50;
+checks.post('/api/sitemap', async (c) => {
+  const user = c.get('user');
+  const L = portalLang(c);
+  if (!user) return c.json({ error: 'login' }, 401);
+  if (!(await limit(c.env, `sitemap:${user.id}`, 10, 3600))) return c.json({ error: tr(L, 'Terlalu banyak impor sitemap per jam.', 'Too many sitemap imports per hour.') }, 429);
+  const body = (await c.req.json().catch(() => ({}))) as { url?: unknown };
+  try {
+    const r = await collectSitemap(String(body.url ?? '').slice(0, 2000), SITEMAP_MAX_PER_IMPORT);
+    if (!r.urls.length) return c.json({ error: tr(L, 'Sitemap tidak berisi URL artikel yang boleh diambil.', 'The sitemap holds no article URL that may be fetched.') }, 422);
+    return c.json(r);
   } catch (err) {
     if (err instanceof InputUrlError) return c.json({ error: L === 'en' ? URL_ERR_EN[err.code] : err.message, code: err.code }, 422);
     throw err;
@@ -378,7 +418,7 @@ checks.post('/api/reports/:id/review', async (c) => {
   const { raw } = await unseal<{ raw: string }>(c.env.MASTER_KEY, textSealed);
   let doc: CheckDoc;
   try {
-    doc = await createCheck(c.env, store, user, { text: raw, title: `${orig.title} (${tr(L, 'tinjauan', 'review')})`, author: orig.author, genre: orig.genre, level: orig.level, reportLang: orig.reportLang, rubricId: orig.rubricId, mode: 'forensic' }, L);
+    doc = await createCheck(c.env, store, user, { text: raw, title: `${orig.title} (${tr(L, 'tinjauan', 'review')})`, author: orig.author, genre: orig.genre, level: orig.level, reportLang: orig.reportLang, rubricId: orig.rubricId, mode: 'forensic' }, L, { noCache: true });
   } catch (err) {
     await store.del(`u/review/${rep.id}`);
     if (err instanceof CheckInputError) return c.json({ error: err.message }, err.status as 400);
